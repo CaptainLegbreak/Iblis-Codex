@@ -51,7 +51,6 @@ D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
 
 int __stdcall DATATBLS_GetMonsterChainInfo(int nMonsterId, int* pMaxChainId, int* pChainId); // 0x006510C0
 
-struct Unit { int type, classId; };
 
 struct Coord { int x,y; };
 
@@ -456,12 +455,12 @@ int __stdcall MONSTERS_IsPrimeEvil(D2UnitStrc* pMonster)
 }
 
 // 0x0063EE10
-void __stdcall MONSTERS_GetChainDirectionDelta(Unit* unit,int* x,int* y)
+void __stdcall MONSTERS_GetChainDirectionDelta(D2UnitStrc* unit,int* x,int* y)
 {
-    const int type=unit?unit->type:6;
+    const int type=unit?unit->dwUnitType:6;
     CHECK(type==1,0x2bc);
     int index;
-    const int classId=unit?unit->classId:-1;
+    const int classId=unit?unit->dwClassId:-1;
     DATATBLS_GetMonsterChainInfo(classId,0,&index);
     CHECK(index<4,0x2c8);
     CHECK(index>=0,0x2c9);

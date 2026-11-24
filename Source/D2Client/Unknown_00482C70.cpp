@@ -569,7 +569,7 @@ int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem); // 0x00629900
 
 unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
 
-typedef void (__fastcall *UnitCallback)(Unit*);
+typedef void (__fastcall *UnitCallback)(D2UnitStrc*);
 
 extern U32 gSelectionState; // 0x007BCC50
 
@@ -583,7 +583,7 @@ extern U8 gPaletteD;
 
 void __fastcall CUNIT_ForEachObject(UnitCallback callback); // 0x004649D0
 
-void __fastcall sub_00489DA0(Unit* unit); // 0x00489DA0
+void __fastcall sub_00489DA0(D2UnitStrc* unit); // 0x00489DA0
 
 U32 __stdcall PaletteColor(U32 red, U32 green, U32 blue);
 

@@ -7298,7 +7298,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00421470.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00421470.cpp",
    "rank": 1,
    "functions": [
     {
@@ -7702,7 +7702,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00421BD0.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00421BD0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -7730,7 +7730,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00421CB0.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00421CB0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -7914,79 +7914,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004225C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004225C0",
-     "length": 325
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00422D00.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00422D00",
-     "length": 361
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00422FC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00422FC0",
-     "length": 309
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00423100.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00423100.cpp",
    "rank": 1,
    "functions": [
     {
@@ -8010,7 +7938,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00423600.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00423600.cpp",
    "rank": 1,
    "functions": [
     {
@@ -8044,7 +7972,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00423DC0.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00423DC0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -8068,7 +7996,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00424180.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00424180.cpp",
    "rank": 1,
    "functions": [
     {
@@ -8092,7 +8020,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004242C0.cpp",
+   "file": "Source/Storm/SOURCE/SBig_004242C0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -8116,9 +8044,13 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00424700.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00424700.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x00422D00",
+     "length": 361
+    },
     {
      "va": "0x00424700",
      "length": 1014
@@ -8140,7 +8072,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00424B00.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00424B00.cpp",
    "rank": 1,
    "functions": [
     {
@@ -8164,7 +8096,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00424FB0.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00424FB0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -8188,7 +8120,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00425150.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00425150.cpp",
    "rank": 1,
    "functions": [
     {
@@ -8212,9 +8144,17 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00425350.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00425350.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x004225C0",
+     "length": 325
+    },
+    {
+     "va": "0x00422FC0",
+     "length": 309
+    },
     {
      "va": "0x00425350",
      "length": 616
@@ -57791,7 +57731,13 @@
      "va": "0x005EFA90",
      "length": 227,
      "name": "AITHINK_Fn137_PutridDefiler"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Unknown_005EFB80.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x005EFB80",
      "length": 362,
@@ -63798,9 +63744,18 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00604DB0",
+     "length": 30,
+     "name": "?sub_00604DB0@@YGNUScalar@@0@Z"
+    },
+    {
      "va": "0x00604DD0",
      "length": 30,
      "name": "PaletteMinComponent"
+    },
+    {
+     "va": "0x00604DF0",
+     "length": 483
     },
     {
      "va": "0x00604FE0",
@@ -63808,14 +63763,39 @@
      "name": "PaletteHueToRgb"
     },
     {
+     "va": "0x00605080",
+     "length": 358,
+     "name": "?sub_00605080_HslToRgb@@YAXPBUD2HslStrc@@PAUD2PalRgbaStrc@@@Z"
+    },
+    {
      "va": "0x006051F0",
      "length": 19,
      "name": "DestroyD2Palette"
     },
     {
+     "va": "0x00605210",
+     "length": 110,
+     "name": "?GetClosestColor@@YGEPBEIHHH@Z"
+    },
+    {
+     "va": "0x00605280",
+     "length": 110,
+     "name": "?GetFurthestColor@@YGEPAEIHHH@Z"
+    },
+    {
+     "va": "0x006052F0",
+     "length": 39,
+     "name": "?sub_006052F0_InitSquareTable@@YAXXZ"
+    },
+    {
      "va": "0x00605320",
      "length": 32,
      "name": "PaletteSetTransparency"
+    },
+    {
+     "va": "0x00605340",
+     "length": 417,
+     "name": "?sub_00605340_LoadPcxPalette@@YIHPBD@Z"
     },
     {
      "va": "0x006056C0",
@@ -63854,6 +63834,11 @@
      "va": "0x00605A90",
      "length": 16,
      "name": "UpdateD2TransparencyTable"
+    },
+    {
+     "va": "0x00605DE0",
+     "length": 119,
+     "name": "?sub_00605DE0_BuildDarkenTables@@YGXPAE@Z"
     },
     {
      "va": "0x00606A10",
@@ -64126,71 +64111,6 @@
      "length": 114,
      "name": "CelDataHashRemove"
     }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_00604DB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00604DB0",
-     "length": 30,
-     "name": "?sub_00604DB0@@YGNUScalar@@0@Z"
-    },
-    {
-     "va": "0x00605080",
-     "length": 358,
-     "name": "?sub_00605080_HslToRgb@@YAXPBUD2HslStrc@@PAUD2PalRgbaStrc@@@Z"
-    },
-    {
-     "va": "0x00605210",
-     "length": 110,
-     "name": "?GetClosestColor@@YGEPBEIHHH@Z"
-    },
-    {
-     "va": "0x00605280",
-     "length": 110,
-     "name": "?GetFurthestColor@@YGEPAEIHHH@Z"
-    },
-    {
-     "va": "0x006052F0",
-     "length": 39,
-     "name": "?sub_006052F0_InitSquareTable@@YAXXZ"
-    },
-    {
-     "va": "0x00605340",
-     "length": 417,
-     "name": "?sub_00605340_LoadPcxPalette@@YIHPBD@Z"
-    },
-    {
-     "va": "0x00605DE0",
-     "length": 119,
-     "name": "?sub_00605DE0_BuildDarkenTables@@YGXPAE@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_00604DF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00604DF0",
-     "length": 483
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

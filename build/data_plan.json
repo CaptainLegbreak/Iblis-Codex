@@ -202,12 +202,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_00424700.cpp": {
+  "Source/Storm/SOURCE/SBig_00424700.cpp": {
    "bytes": 8,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00424700.inc",
+   "include": "gen/data/Source/Storm/SOURCE/SBig_00424700.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3223,8 +3223,8 @@
    "state": "included"
   },
   "Source/D2Game/Ai/AiThink4.cpp": {
-   "bytes": 880,
-   "definitions": 17,
+   "bytes": 520,
+   "definitions": 11,
    "externs": [
     "extern \"C\" void __cdecl sub_005E6F00(); // 0x005E6F00",
     "extern \"C\" void __cdecl sub_005E6FC0(); // 0x005E6FC0"
@@ -4099,7 +4099,7 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_0047C420.cpp": {
-   "bytes": 12,
+   "bytes": 14,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
@@ -5109,6 +5109,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/DrlgWarp.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/Unknown_005EFB80.cpp": {
+   "bytes": 300,
+   "definitions": 5,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Unknown_005EFB80.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -9388,7 +9397,7 @@
    "cname": "gData_006CFF68",
    "declared": true,
    "decorated": "?gabSBigRandSeed_006CFF68@@3QBEB",
-   "file": "Source/Storm/Unknown_00424700.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00424700.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006CFF68[8]; // 0x006CFF68",
    "head": "extern \"C\" const unsigned char gData_006CFF68[8] = ",
@@ -47496,10 +47505,10 @@
    "declared": true,
    "decorated": "_gszBattleNetPrefix",
    "file": "Source/D2Client/Unknown_0047C420.cpp",
-   "fill": 12,
+   "fill": 14,
    "form": "declared",
-   "fwd": "extern \"C\" const char gData_006D72B0[12]; // 0x006D72B0",
-   "head": "extern \"C\" const char gData_006D72B0[12] = ",
+   "fwd": "extern \"C\" const char gData_006D72B0[14]; // 0x006D72B0",
+   "head": "extern \"C\" const char gData_006D72B0[14] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -47508,13 +47517,13 @@
      "size": 1
     },
     "k": "arr",
-    "n": 12,
-    "size": 12
+    "n": 14,
+    "size": 14
    },
    "name": "gszBattleNetPrefix",
    "pointers": [],
    "region": "rdata",
-   "size": 12,
+   "size": 14,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x006D72B0\n#pragma comment(linker, \"/alternatename:_gszBattleNetPrefix=_gData_006D72B0\")",
@@ -104685,148 +104694,10 @@
   },
   {
    "alias": false,
-   "cname": "gData_00741D90",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/Ai/AiThink4.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00741D90_t gData_00741D90; // 0x00741D90",
-   "head": "extern \"C\" struct d2data_00741D90_t gData_00741D90 = ",
-   "name": "gData_00741D90",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00741D90_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00741D90",
-   "va": "0x00741D90"
-  },
-  {
-   "alias": false,
    "cname": "gData_00741DCC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Ai/AiThink4.cpp",
+   "file": "Source/D2Game/Unknown_005EFB80.cpp",
    "form": "bytes",
    "name": "gData_00741DCC",
    "pointers": [
@@ -104964,7 +104835,7 @@
    "cname": "gData_00741E08",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Ai/AiThink4.cpp",
+   "file": "Source/D2Game/Unknown_005EFB80.cpp",
    "form": "bytes",
    "name": "gData_00741E08",
    "pointers": [
@@ -105102,7 +104973,7 @@
    "cname": "gData_00741E44",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Ai/AiThink4.cpp",
+   "file": "Source/D2Game/Unknown_005EFB80.cpp",
    "form": "bytes",
    "name": "gData_00741E44",
    "pointers": [
@@ -105240,7 +105111,7 @@
    "cname": "gData_00741E80",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Ai/AiThink4.cpp",
+   "file": "Source/D2Game/Unknown_005EFB80.cpp",
    "form": "bytes",
    "name": "gData_00741E80",
    "pointers": [
@@ -105378,7 +105249,7 @@
    "cname": "gData_00741EBC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Ai/AiThink4.cpp",
+   "file": "Source/D2Game/Unknown_005EFB80.cpp",
    "form": "bytes",
    "name": "gData_00741EBC",
    "pointers": [
