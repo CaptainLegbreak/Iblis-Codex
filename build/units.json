@@ -27269,17 +27269,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004BA760.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BABE0",
-     "length": 9,
-     "name": "??0UIWidget@@QAE@XZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Sound/SoundInst.cpp",
    "rank": 1,
    "functions": [
@@ -27533,6 +27522,11 @@
     "/GS-"
    ],
    "functions": [
+    {
+     "va": "0x004BABE0",
+     "length": 9,
+     "name": "??0UIWidget@@QAE@XZ"
+    },
     {
      "va": "0x004BABF0",
      "length": 11,
