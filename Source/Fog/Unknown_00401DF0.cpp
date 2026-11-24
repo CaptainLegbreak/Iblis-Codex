@@ -29,7 +29,7 @@ extern bool gbSymInitialized;                                                   
 
 extern D2CriticalSectionStrc gtSymbolLock;                                                         // 0x0098A6F0
 
-static bool __stdcall sub_00401DF0_GetModuleFromAddr(unsigned long dwAddress, unsigned long* pdwBase, char* szModule);
+static bool __stdcall sub_00401DF0_GetModuleFromAddr(unsigned long dwAddress, char* szModule, unsigned long* pdwBase);
 
 extern "C" __declspec(dllimport) unsigned long __stdcall VirtualQuery(const void* pAddress, D2MemoryBasicInfoStrc* pBuffer, unsigned long nLength); // 0x006CC244
 
@@ -134,22 +134,6 @@ extern unsigned long gdwMainThreadId_00992B1C;                                  
 
 extern "C" const char gszNewline[];                                                                // 0x006FFCB0
 
-extern const char gszArgsFormat[]; // 0x006FFC14
-
-extern const char gszUnresolvedFormat[]; // 0x006FFC24
-
-extern const char gszAddressFormat[]; // 0x006FFC3C
-
-extern const char gszEmpty[]; // 0x006FFC44
-
-extern const char gszPaddingFormat[]; // 0x006FFC48
-
-extern const char gszSymbolFormat[]; // 0x006FFC4C
-
-extern const char gszStringFormat[]; // 0x006FFC58
-
-extern const char gszSourceFormat[]; // 0x006FFC5C
-
 void __fastcall sub_00402D60_FormatStackFrame(const D2StackFrameStrc* frame,const D2SymbolInfoStrc* symbol,char* output); // 0x00402D60
 
 // 0x00401A60
@@ -162,7 +146,7 @@ void __cdecl sub_00401A60_UnlockSymbols()
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
 // 0x00401DF0
-static bool __stdcall sub_00401DF0_GetModuleFromAddr(unsigned long dwAddress, unsigned long* pdwBase, char* szModule)
+static bool __stdcall sub_00401DF0_GetModuleFromAddr(unsigned long dwAddress, char* szModule, unsigned long* pdwBase)
 {
     szModule[0] = 0;
     *pdwBase = 0;
@@ -189,6 +173,7 @@ static bool __stdcall sub_00401DF0_GetModuleFromAddr(unsigned long dwAddress, un
 }
 
 
+// 0x00401480
 static unsigned char __stdcall ERRORMANAGER_GetStackRange(void** ppBase, unsigned long* pEnd, const void* pAddress)
 {
     D2MemoryBasicInfoStrc tInfo;
@@ -228,6 +213,7 @@ static unsigned char __stdcall ERRORMANAGER_GetStackRange(void** ppBase, unsigne
     return 0;
 }
 
+// 0x00401540
 static unsigned char __stdcall ERRORMANAGER_GetThreadStack(unsigned long* pStackSize, unsigned long dwThreadId, unsigned long* pStackTop, unsigned long* pStackPointer)
 {
     D2ThreadContextStrc tContext;
@@ -331,6 +317,7 @@ static inline const char* CRASH_GetFileName(const char* szPath)
     return pLast ? pLast + 1 : szPath;
 }
 
+// 0x00405250
 static bool __stdcall sub_00405250_DescribeAddress(unsigned long dwAddress, D2SymbolInfoStrc* pInfo)
 {
     char szName[0x100];
@@ -342,7 +329,7 @@ static bool __stdcall sub_00405250_DescribeAddress(unsigned long dwAddress, D2Sy
     pInfo->szName[0] = 0;
     pInfo->szModule[0] = 0;
     dwBase = 0;
-    if (sub_00401DF0_GetModuleFromAddr(dwAddress, &dwBase, szName))
+    if (sub_00401DF0_GetModuleFromAddr(dwAddress, szName, &dwBase))
         strncpy_s(pInfo->szModule, 0x40, CRASH_GetFileName(szName), (unsigned int)-1);
     else
         pInfo->szModule[0] = 0;
@@ -353,28 +340,30 @@ static bool __stdcall sub_00405250_DescribeAddress(unsigned long dwAddress, D2Sy
     return true;
 }
 
+// 0x00402D60
 static void __fastcall sub_00402D60_FormatStackFrame(const D2StackFrameStrc* frame,const D2SymbolInfoStrc* symbol,char* output)
 {
  char args[80];
  output[0]=0;
  args[0]=0;
  if(frame->bHasArgs)
-  _snprintf_s(args,80,(unsigned int)-1,gszArgsFormat,frame->apArgs[0],frame->apArgs[1],frame->apArgs[2],frame->apArgs[3]);
+  _snprintf_s(args,80,(unsigned int)-1," (%p,%p,%p,%p)",frame->apArgs[0],frame->apArgs[1],frame->apArgs[2],frame->apArgs[3]);
  if(!symbol->szName[0]) {
-  _snprintf_s(output,1024,(unsigned int)-1,gszUnresolvedFormat,frame->dwPc,symbol->szModule,args);
+  _snprintf_s(output,1024,(unsigned int)-1,"DBG-ADDR<%p>(\"%s\")%s",frame->dwPc,symbol->szModule,args);
   return;
  }
- int length=_snprintf_s(output,1024,(unsigned int)-1,gszAddressFormat,frame->dwPc,symbol->szModule);
+ int length=_snprintf_s(output,1024,(unsigned int)-1,"%p %s",frame->dwPc,symbol->szModule);
  int padding=21-length;
  if(padding>0)
-  length+=_snprintf_s(output+length,1024-length,(unsigned int)-1,gszPaddingFormat,padding,gszEmpty);
+  length+=_snprintf_s(output+length,1024-length,(unsigned int)-1,"%*s",padding," ");
  if(symbol->szName[0] || symbol->nOffset>0)
-  length+=_snprintf_s(output+length,1024-length,(unsigned int)-1,gszSymbolFormat,symbol->szName,(unsigned __int64)symbol->nOffset);
- length+=_snprintf_s(output+length,1024-length,(unsigned int)-1,gszStringFormat,args);
+  length+=_snprintf_s(output+length,1024-length,(unsigned int)-1," %s+%llu",symbol->szName,(unsigned __int64)symbol->nOffset);
+ length+=_snprintf_s(output+length,1024-length,(unsigned int)-1,"%s",args);
  if(symbol->szSource[0] || symbol->nLine>0)
-  _snprintf_s(output+length,1024-length,(unsigned int)-1,gszSourceFormat,symbol->szSource,symbol->nLine);
+  _snprintf_s(output+length,1024-length,(unsigned int)-1," (%s,%u)",symbol->szSource,symbol->nLine);
 }
 
+// 0x00403100
 void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, unsigned int nFrames, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader)
 {
     char szName[0x80];
