@@ -70494,6 +70494,11 @@
      "length": 412
     },
     {
+     "va": "0x0063E6B0",
+     "length": 205,
+     "name": "?D2Common_11050@@YGHPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x0063E780",
      "length": 17,
      "name": "D2Common_11052"
@@ -70516,18 +70521,28 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0063E6B0.cpp",
+   "file": "Source/D2Common/Unknown_006647C0.cpp",
    "rank": 0,
    "functions": [
     {
-     "va": "0x0063E6B0",
-     "length": 205,
-     "name": "?D2Common_11050@@YGHPAUD2UnitStrc@@H@Z"
+     "va": "0x006647C0",
+     "length": 59,
+     "name": "D2COMMON_11068_GetCompInfo"
+    },
+    {
+     "va": "0x00664800",
+     "length": 83,
+     "name": "?sub_00664800_GetCompChoiceCount@@YIHHI@Z"
     },
     {
      "va": "0x00664860",
      "length": 208,
      "name": "?D2Common_11069@@YGIPAUD2UnitStrc@@II@Z"
+    },
+    {
+     "va": "0x00664930",
+     "length": 125,
+     "name": "D2Common_11070"
     }
    ]
   },
@@ -74712,21 +74727,6 @@
      "va": "0x00664780",
      "length": 54,
      "name": "DATATBLS_GetDirFromOverlayTxt"
-    },
-    {
-     "va": "0x006647C0",
-     "length": 59,
-     "name": "D2COMMON_11068_GetCompInfo"
-    },
-    {
-     "va": "0x00664800",
-     "length": 83,
-     "name": "?sub_00664800_GetCompChoiceCount@@YIHHI@Z"
-    },
-    {
-     "va": "0x00664930",
-     "length": 125,
-     "name": "D2Common_11070"
     }
    ]
   },

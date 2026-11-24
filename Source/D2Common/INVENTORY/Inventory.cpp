@@ -3867,6 +3867,83 @@ void __stdcall INVENTORY_GetSecondWieldingWeapon(D2UnitStrc* pPlayer, D2Inventor
     }
 }
 
+enum
+{
+    ANIMSEQ_EVENT_MELEE_ATTACK = 1,
+    ANIMSEQ_EVENT_MISSILE_ATTACK = 2,
+};
+
+extern int gnMonStatsMissileOffsets[];                                                             // 0x006EA938
+void __stdcall UNITS_GetFrameMetrics(D2UnitStrc* pUnit, int* pFrame, int* pFrameCount);                    // 0x00621870
+int __stdcall UNITS_GetEventFrameInfo(D2UnitStrc* pUnit, int nFrame);                                       // 0x00621920
+
+inline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecordFromUnit(D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        const int nClassId = pUnit->dwClassId;
+        if (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount)
+        {
+            return &sgptDataTables->pMonStatsTxt[nClassId];
+        }
+    }
+    return 0;
+}
+
+// 0x0063E6B0
+int __stdcall D2Common_11050(D2UnitStrc* pUnit, int a2)
+{
+    if (a2)
+    {
+        if (!pUnit->nActionFrame)
+        {
+            return -1;
+        }
+
+        int nFrame;
+        int nFrameCount;
+        UNITS_GetFrameMetrics(pUnit, &nFrame, &nFrameCount);
+
+        int nStart = nFrame - pUnit->wAnimSpeed;
+        nFrame >>= 8;
+        nStart >>= 8;
+
+        if (nStart >= nFrame)
+        {
+            return -1;
+        }
+
+        int nCounter = nStart;
+        while (nCounter <= nFrame)
+        {
+            if (UNITS_GetEventFrameInfo(pUnit, nCounter) == ANIMSEQ_EVENT_MISSILE_ATTACK || UNITS_GetEventFrameInfo(pUnit, nCounter) == ANIMSEQ_EVENT_MELEE_ATTACK)
+            {
+                break;
+            }
+
+            ++nCounter;
+        }
+
+        if (nCounter > nFrame)
+        {
+            return -1;
+        }
+
+        if (nCounter <= nStart)
+        {
+            return -1;
+        }
+    }
+
+    const int nOffset = gnMonStatsMissileOffsets[UNITS_GetAnimModeInline(pUnit)];
+    if (!nOffset)
+    {
+        return -1;
+    }
+
+    return *(short*)((char*)MONSTERS_GetMonStatsTxtRecordFromUnit(pUnit) + nOffset);
+}
+
 // 0x0063E780
 unsigned char __stdcall D2Common_11052(unsigned char nIndex)
 {
