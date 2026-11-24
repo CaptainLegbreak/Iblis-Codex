@@ -4,6 +4,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/suni 30f43254 519->518 Storm/Unknown_006C7000.cpp (Storm's Unicode module, 17 functions) is renamed Storm/SOURCE/SUNI.CPP, as approved; its data include follows. VERIFIED 8c45fafc on base 53ae59fd (j84; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
+
 - lane3/ssig-window 4f8a5cd2 519->519 sub_0041D410_GetWindow (returns the signature stream's window size; between SSignatureVerifyStream_Begin and 0x41D420, inside SSignature.cpp's run, reads SSignature.cpp's stream record) moves from SFILE.CPP, its one caller, to SSignature.cpp. VERIFIED 7c7e5f21 on base 20f3e0fd (j82; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
 
 - lane3/system-strays c1bd9dce 519->519 sub_004107B0_AtomicStore64 (between system.cpp's 0x4107A0 and 0x4107D0; only callers SYSTEM_InitTimeBase and FOG_GetSyncTime) moves from Fog/Unknown_00410790 to system.cpp, written __declspec(naked) like its neighbour Read64Locked (with a plain __asm body visible, both callers change). VERIFIED 31c9d75f on base 20f3e0fd (j82; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
