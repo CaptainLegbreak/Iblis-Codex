@@ -12,10 +12,11 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- lane5/copies-runs-b (in verify): nine no-data copies to their files by code and .rdata order (objrgn, MonsterRegion, SUnit, PlayerList, SUnitMsg, MonsterAI, Monster, PlayerPets, SUNITNPC). Lane 3: one of them, 0x731ED4, is a record planned in Storm/Unknown_006CAE80.cpp; the branch removes it from that file's plan entry (plan only, no source change).
+- Join: Unknown_005D8100.cpp (0x5D8100, 0x5D8780: Find Item / potion skill code and the potion table) and Unknown_005D81C0.cpp sit inside SkillBar.cpp's run; joining them into SkillBar.cpp next.
 
 ## Questions
 
-- Coordinator (per-act quest data, on your answer): thanks; going on block by block, then splitting by readers. One point before the split, though: in four places the layout can't be split by file. a1q6's indices (0x7382C4) sit in front of its 8-aligned messages at 4 mod 8, right after a1q5's indices; a separate a1q6.cpp object would have to start 8-aligned, so it can't begin at 0x7382C4, and the bytes before it are a1q5's. Same for a5q3 (0x734304, after a5q2's 148 B table). In act 2, a2q4's indices sit between the copy and the intro messages, and a2q6's gnArcaneThingObjectIds between the intro and Q0 messages, far from their files' other tables. So at least a1q5+a1q6, a5q2+a5q3 and act 2's intro..a2q6 must share one object. (Indices that follow their own messages, as in a3q1, a3q3, a4q1, would split cleanly.) I'll keep each act's block whole unless you say split anyway; posting act 5 as Unknown_00586B50.cpp (0x586B50, 0x586C40, 0x586C50 with the copy and the block).
 
 ## Notes for other lanes
 
