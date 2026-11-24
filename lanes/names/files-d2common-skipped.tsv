@@ -1,5 +1,5 @@
 placeholder	reason
-D2Common/Unknown_006115F0.cpp	object map: best D2Common/DATATBLS/DataTbls.cpp (score 5; # called only from it; next to it); runner-up D2Common/Logging/ProfCore.cpp 4
+D2Common/Unknown_006115F0.cpp	object map: best D2Common/Chat/Ignorelist.cpp (score 2; next to it); runner-up D2Common/Logging/ProfCore.cpp 2
 D2Common/Unknown_0064FAA0.cpp	object map: best D2Common/COMPOSIT/Composit.cpp (score 2; next to it); runner-up D2Common/Unknown_0064FAD0.cpp 2 | 1 of 1 function names carry PATHMISC_
 D2Common/Unknown_0064FAD0.cpp	object map: best D2Common/COLLISN/Collisn.cpp (score 24; calls #, used only by the two x8); runner-up D2Common/PATH/Path.cpp 18 | 11 of 29 function names carry PATH_ (file D2Common/PATH/Path.cpp exists) | D2MOO (names only, weak) has 11 of its functions in D2Common/src/Path/Step.cpp
 D2Common/Unknown_0066AE70.cpp	object map: best D2Common/DRLG/DrlgWarp.cpp (score 5, clear lead; # called only from it; next to it); runner-up D2Common/DRLG/DrlgRoom.cpp 2
