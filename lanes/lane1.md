@@ -4,26 +4,34 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/join-soundenv-2 6747a8dd4 581->581 GFXUTIL_ApplySoundEnviron (0x4DF6C0), gnSoundEnvironId (0x0072ADE4) and the 60-byte table at 0x0072ADE8 into the sound unit, renamed Unknown_004DF770 -> Unknown_004DF6C0; 0x4DFAA0 calls it out of line and stays equal (lane 4's check); VERIFIED f72731d7c0e4f7d1fe31177b0c5cf85f2dd6d53c
-  - based on main #293; replaces lane1/join-soundenv (stale base, stacked on npcspeech-r2).
-  - touches lane 4's ENGINE/GfxUtil.cpp (approved: the function, its two globals, and the declarations only it used).
+- lane1/one-screenheight-r 3514d976a 0->0 gnScreenHeight (0x711470): D2Client.h declares it as gnScreenHeight, the suffixed uses take that name, and 47 private declarations go from units that include D2Client.h; VERIFIED e772c83f971be867452c7ca456185e5956de0ae0
+  - based on main #302 (main reached #304 while it verified). Touches lane 4's files (many D2Client units); merge alone, as asked.
+  - kept: UI/inv_004886C0.cpp keeps one private declaration under the old name gnScreenHeight_00711470. 0x488B00 builds equal only with a second declaration of 0x711470 in scope; the count matters, not the name. Swapping the operands of `gnScreenHeight + gnPanelOffsetY - 0x6D` does not help, and moving a declaration ahead of D2Client.h does not either.
+  - kept (they do not include D2Client.h): UI/inv_00491D20.cpp, UI/text_0049C9C0.cpp, Unknown_00494EB0.cpp, Unknown_004AA9C0.cpp, Unknown_004ABC30.cpp.
+  - not touched: UI/inv.cpp `gScreenHeight` (in an unmarked copy of 0x494EB0), Storm/Unknown_006CAA30.cpp (lane 3, own `gnScreenHeight_00711470`).
+- lane1/hdr-4df6c0-2 6ec053a92 0->0 D2Client.h: 0x4DF6C0 is declared as GFXUTIL_ApplySoundEnviron instead of the unused sub_004DF6C0; VERIFIED a57139fe6f3b53f305c2618a526ee1e86125452e
+  - based on main #299. Replaces lane1/hdr-drop-4df6c0.
+  - Dropping the line outright breaks 0x488B00 (UI/inv_004886C0.cpp) the same way as above, so the line is corrected in place. one-screenheight-r does not depend on it.
 
-## Withdrawn
+## In progress
 
-- lane1/join-npcspeech-r2: not needed, the same change is on main since #292 (33e016ea2).
-- lane1/place-launch-pair: withdrawn. The board gives 0x436E90 / 0x436EA0 to lane 6, and #293 reworked Unknown_004370B0.cpp, so my branch no longer applies.
+- Borrowed 0x4A4AD0 (StandIns/D2Client_004A4AD0.cpp), in UI/text.cpp between 0x4A4AA0 and 0x4A4FA0:
+  - the stand-in body, with TEXT_IsOnlyPressed(n) and TEXT_IsOnKeyConfigButton, builds 1,162 B against the original's 1,232 B; the call order and the stack slots match, registers do not;
+  - making gnKeyConfigFirstVisible `static` (as the stand-in has it) brings it to 1,242 B and the join/reload blocks of the original appear (the original keeps the first visible line in ebx across calls, which only a static allows). With that, 0x4A4500 (TEXT_ScrollKeyConfigList) stops matching;
+  - an unmarked copy of the stand-in sat in text.cpp at ~6198; it goes when this lands;
+  - next: the source shape of 0x4A4500 that still matches with the static.
+  - Asked the user for the lane-7 notes (iblis-lane7 package).
 
 ## Questions
 
 ## Notes for other lanes
 
-- Lane 6: for 0x436EA0, gdwGlobal_007799D8 is defined in D2Launch/Src/MainMenus.cpp (line ~1380), not in Unknown_004370B0. MainMenus.cpp's 0x436EB0 and 0x436F20 also sit inside Unknown_004370B0's run, so the two may be one file.
-- Lane 2: a type-count effect. Some functions change register choice with the number of struct definitions in the translation unit, not their names. 0x4CA560 in UnitSnd.cpp matches with +2..+4 dummy structs on top of main, fails with +1 or +5..+8, and the enum-size finding was probably the same effect. Item.cpp: deleting three unused forward declarations breaks 0x4C3760.
+- All lanes: the struct-count effect also covers plain declarations. In inv_004886C0.cpp, 0x488B00 changes with one fewer or one more `extern int` in scope (D2Client.h lines included). GetHitSounds (0x4CA560) now matches only with +4..+6 dummy structs, not +2..+4 as on #283. Header edits that add or remove declarations can flip such functions in units that never use them.
 
 ## Left in place (and why)
 
-- Unknown_004CA560 (GetHitSounds): held (board). Matches in UnitSnd.cpp only at certain struct-definition counts; retry when UnitSnd.cpp's headers settle.
-- ITEM_QueryCacheAddress (0x4DF630, Item.cpp): sits before the sound unit but reads network-address data; waiting for better evidence.
-- Unknown_004D1300 (0x4D1300, 0x4D3630, 0x4D6130, 0x4D66E0): inside Missile.cpp's run, but they only build equal without Missile.cpp's callee bodies in the same unit, so not Missile.cpp code.
-- Placeholders in 0x4C0000-0x4DFFFF whose evidence points at lane 4 files (Skills.cpp, SkillsBar, GfxUtil, useitem): Unknown_004C0440 (0x4C0550), _004C51D0, _004C7C80, _004C9320, _004C97C0, _004D9FC0, _004DA770.
-- Unknown_004DEDB0 (tile lights), _004DF4B0 / _004DF1C0 leftovers (cell drawing, Warden, RC4, skills): no file evidence yet.
+- Unknown_004CA560 (GetHitSounds): still MISMATCH in UnitSnd.cpp on #304; it moves with the declaration count (window now +4..+6), so not landed.
+- Unknown_004C0440 (0x4C0550), Unknown_004C7C80, Unknown_004C97C0 (handed back by lane 4): not started. The evidence points at useitem.cpp and Skills.cpp, where lane 4 saw register changes.
+- ITEM_QueryCacheAddress (0x4DF630, Item.cpp): waiting for better evidence.
+- Unknown_004D1300: only builds equal without Missile.cpp's callee bodies in the same unit, so it is not Missile.cpp code.
+- Unknown_004DEDB0 (tile lights), _004DF4B0 / _004DF1C0 leftovers: no file evidence yet.
