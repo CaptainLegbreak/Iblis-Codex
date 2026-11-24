@@ -9,7 +9,7 @@ The user asked the laneless chat to take board upkeep off the coordinator: every
 duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
 call stays the coordinator's. This section is replaced at each check.
 
-- **2026-11-24 10:38 PT**, main #357:
+- **2026-11-24 10:25 PT**, main #357:
   - **Waiting:** `laneless/objmap-joins-3` (19 placeholder joins, verified on #357). It replaces joins-2,
     which conflicted with #357.
   - Every lane has posted within the last 30 minutes.
@@ -24,7 +24,7 @@ call stays the coordinator's. This section is replaced at each check.
 
 ## Status
 
-- 2026-11-24 10:38 PT: **Ready: `laneless/objmap-joins-3` 44c44aa1b**, on main #357 (ff65a331a). It
+- 2026-11-24 10:25 PT: **Ready: `laneless/objmap-joins-3` 44c44aa1b**, on main #357 (ff65a331a). It
   replaces objmap-joins-2 and -1, whose joins are replayed here on the new main (joins-2 conflicted with #357). 19 placeholders -> 0. Each commit
   puts one placeholder file into the file the object map names as its clear owner, and every function of the
   joined unit builds equal. Full build: 0 not all equal; Game.exe identical (VERIFIED tree
