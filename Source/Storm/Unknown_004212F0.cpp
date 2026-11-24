@@ -30,15 +30,15 @@ struct BigBuffer
 
     unsigned int Count() const
     {
-        return m_array.f_4 - m_start;
+        return m_array.m_count - m_start;
     }
     int IsUsed(unsigned int nIndex) const
     {
-        return nIndex + m_start < m_array.f_4;
+        return nIndex + m_start < m_array.m_count;
     }
     unsigned int operator[](unsigned int nIndex) const
     {
-        return IsUsed(nIndex) ? m_array.f_8[m_start + nIndex] : 0;
+        return IsUsed(nIndex) ? m_array.m_data[m_start + nIndex] : 0;
     }
     void sub_00422140_Trim();
 };
@@ -138,7 +138,7 @@ void BigBuffer::sub_00422140_Trim()
     {
         if (*m_array.sub_00420FE0_Top())
             break;
-        m_array.SetCount(m_array.f_4 - 1);
+        m_array.SetCount(m_array.m_count - 1);
     }
 }
 
@@ -167,15 +167,15 @@ unsigned int D2StormArrayBStrc::sub_004218B0_Add(unsigned int nCount, const unsi
 void BigBuffer::GrowToFit(int nIndex)
 {
     unsigned int nPosition = m_start + nIndex;
-    if (nPosition >= m_array.f_4)
+    if (nPosition >= m_array.m_count)
     {
         unsigned int nNewCount = nPosition + 1;
-        if (nNewCount > m_array.f_0)
+        if (nNewCount > m_array.m_alloc)
         {
-            unsigned int nChunk = m_array.f_C ? m_array.f_C : m_array.sub_004210A0_CalcChunkSize(nNewCount);
+            unsigned int nChunk = m_array.m_chunk ? m_array.m_chunk : m_array.sub_004210A0_CalcChunkSize(nNewCount);
             m_array.sub_004216E0_ReallocData(D2StormArrayAStrc::RoundUp(nNewCount, nChunk));
         }
-        SMemZero(&m_array.f_8[m_array.f_4], (nPosition - m_array.f_4 + 1) * sizeof(unsigned int));
-        m_array.f_4 = nNewCount;
+        SMemZero(&m_array.m_data[m_array.m_count], (nPosition - m_array.m_count + 1) * sizeof(unsigned int));
+        m_array.m_count = nNewCount;
     }
 }

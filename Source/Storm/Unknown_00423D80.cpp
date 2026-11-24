@@ -61,10 +61,10 @@ void BigStack::sub_00423D80_Release(BigBuffer* pResult, BigBuffer* pWork)
     if (pResult != pWork)
     {
         D2StormArrayViewStrc tView;
-        tView.pData = pWork->f_8;
-        tView.nCount = pWork->f_4;
+        tView.pData = pWork->m_data;
+        tView.nCount = pWork->m_count;
         pResult->sub_004215C0_Set(tView.nCount, tView.pData);
-        pResult->f_C = pWork->f_C;
+        pResult->m_chunk = pWork->m_chunk;
         pResult->m_start = pWork->m_start;
         nUsed--;
     }

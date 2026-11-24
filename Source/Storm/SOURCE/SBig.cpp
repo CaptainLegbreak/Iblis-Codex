@@ -365,7 +365,7 @@ static void SetOne(BigBuffer& a)
 {
     a.SetCount(1);
     a.GrowToFit(0);
-    a.m_array.f_8[a.m_start] = 1;
+    a.m_array.m_data[a.m_start] = 1;
 }
 
 // 0x00422CC0
@@ -705,11 +705,11 @@ static void __stdcall Pow(BigBuffer* pResult, BigBuffer* pBase, unsigned int nEx
     if (pWork != pBase)
     {
         D2StormArrayViewStrc tView;
-        tView.pData = pBase->m_array.f_8;
-        tView.nCount = pBase->m_array.f_4;
+        tView.pData = pBase->m_array.m_data;
+        tView.nCount = pBase->m_array.m_count;
         pWork->m_array.sub_004215C0_Set(tView.nCount, tView.pData);
     }
-    pWork->m_array.f_C = pBase->m_array.f_C;
+    pWork->m_array.m_chunk = pBase->m_array.m_chunk;
     pWork->m_start = pBase->m_start;
     while (nBit > 1)
     {

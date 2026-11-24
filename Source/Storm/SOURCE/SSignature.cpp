@@ -252,7 +252,7 @@ struct BigBuffer
     void sub_004220D0_SetCount(unsigned int nCount);
     int InRange(unsigned int nIndex)
     {
-        return m_start + nIndex < m_array.f_4;
+        return m_start + nIndex < m_array.m_count;
     }
     int sub_00420DB0_InRange(unsigned int nIndex);
 };
@@ -599,7 +599,7 @@ void __fastcall HuffmanDecompress(void* pOutput, unsigned int* pOutputSize, void
 // 0x00420DB0
 int BigBuffer::sub_00420DB0_InRange(unsigned int nIndex)
 {
-    return m_start + nIndex < m_array.f_4;
+    return m_start + nIndex < m_array.m_count;
 }
 
 // 0x00420DD0
@@ -638,7 +638,7 @@ unsigned int D2StormArrayAStrc::sub_004210A0_CalcChunkSize(unsigned int nCount)
             nResult &= nResult - 1;
         return nResult < 1 ? 1 : nResult;
     }
-    f_C = 0x40;
+    m_chunk = 0x40;
     return 0x40;
 }
 
@@ -700,19 +700,19 @@ unsigned int __stdcall sub_00421280_RoundUp(unsigned int nValue, unsigned int nA
 // 0x004212D0
 int BigBuffer::sub_004212D0_Get(unsigned int nIndex)
 {
-    return InRange(nIndex) ? m_array.f_8[m_start + nIndex] : 0;
+    return InRange(nIndex) ? m_array.m_data[m_start + nIndex] : 0;
 }
 
 // 0x004213B0
 unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue)
 {
-    unsigned int nCount = pQueue->m_array.f_4;
+    unsigned int nCount = pQueue->m_array.m_count;
     unsigned int nStart = pQueue->m_start;
     unsigned int nWords = nCount - nStart;
     for (unsigned int i = nWords; i != 0; )
     {
         i--;
-        if (nStart + i < nCount && pQueue->m_array.f_8[nStart + i])
+        if (nStart + i < nCount && pQueue->m_array.m_data[nStart + i])
         {
             unsigned int nMask = 0x80000000;
             for (unsigned int nBit = 32; nBit != 0; )
