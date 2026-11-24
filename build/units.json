@@ -3968,6 +3968,11 @@
      "name": "?0D2Storm415140Strc"
     },
     {
+     "va": "0x00415160",
+     "length": 34,
+     "name": "?sub_00415160_Copy@D2StormQuadStrc@@QAEAAU1@ABU1@@Z"
+    },
+    {
      "va": "0x00415190",
      "length": 22,
      "name": "?sub_00415190_HasField14C@@YIHPAUD2SFileRecordViewStrc@@@Z"
@@ -5534,17 +5539,6 @@
      "va": "0x004133D0",
      "length": 180,
      "name": "?SMemReAlloc@@YGPAXPAXIPBDHI@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00415160.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00415160",
-     "length": 34,
-     "name": "?sub_00415160_Copy@D2StormQuadStrc@@QAEAAU1@ABU1@@Z"
     }
    ]
   },

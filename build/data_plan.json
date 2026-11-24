@@ -254,15 +254,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_00415160.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00415160.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/Storm/SOURCE/SFILE_004177E0.CPP": {
    "bytes": 24,
    "definitions": 1,
@@ -5187,6 +5178,15 @@
    "include": "gen/data/Source/D2Game/MONSTER/MonsterChoose.inc",
    "lang": "cpp",
    "state": "included"
+  },
+  "Source/Storm/SOURCE/SREG.CPP": {
+   "bytes": 4,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/Storm/SOURCE/SREG.inc",
+   "lang": "cpp",
+   "state": "included"
   }
  },
  "definitions": [
@@ -8585,7 +8585,7 @@
    "cname": "gData_006CEF68",
    "declared": true,
    "decorated": "_gszFmtUnsigned_006CEF68",
-   "file": "Source/Storm/Unknown_00415160.cpp",
+   "file": "Source/Storm/SOURCE/SREG.CPP",
    "fill": 4,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006CEF68[4]; // 0x006CEF68",

@@ -327,6 +327,7 @@ struct D2StormQuadStrc
     int n04;
     int n08;
     int n0C;
+    D2StormQuadStrc& sub_00415160_Copy(const D2StormQuadStrc& source);
 };
 
 struct D2StormFileSubStrc
@@ -929,6 +930,16 @@ int __stdcall SFileSetIoErrorMode(int nValueA, int nValueB)
 void __stdcall SFileSetLocale(unsigned short nValue)
 {
     gwValue_0077905C = nValue;
+}
+
+// 0x00415160
+D2StormQuadStrc& D2StormQuadStrc::sub_00415160_Copy(const D2StormQuadStrc& source)
+{
+    n00 = source.n00;
+    n04 = source.n04;
+    n08 = source.n08;
+    n0C = source.n0C;
+    return *this;
 }
 
 // 0x00415190
