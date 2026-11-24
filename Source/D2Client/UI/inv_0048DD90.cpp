@@ -938,7 +938,6 @@ static void __stdcall INV_AppendAttackSpeed(Unicode* pText, D2UnitStrc* pItem)
     sub_00526700(pText, pColorEnd);
 }
 
-// build: context INV_AppendItemFormulaText
 static void __stdcall INV_AppendItemFormulaText(D2UnitStrc* pItem, D2ItemsTxt* pRecord, Unicode* pBuffer)
 {
     if (!pItem || !pRecord || !pRecord->nDescType)
@@ -1021,7 +1020,6 @@ static void INV_AppendBookCharges(Unicode* pText)
     sub_00526700(pText, pColorEnd);
 }
 
-// build: context INV_AppendSocketedGemLetters
 static void __stdcall INV_AppendSocketedGemLetters(Unicode* pText, D2UnitStrc* pItem)
 {
     D2InventoryStrc* pInventory = pItem->pInventory;
@@ -1090,7 +1088,6 @@ static int INV_IsOverWeaponSwapTab(int nX, int nY)
     return 0;
 }
 
-// build: context INV_AppendShopPriceText
 static void __stdcall INV_AppendShopPriceText(const Unicode* pSource, Unicode* pText)
 {
     unsigned int wszName[0x20];

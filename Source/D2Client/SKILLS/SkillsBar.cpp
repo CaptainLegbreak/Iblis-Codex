@@ -415,7 +415,6 @@ static void __stdcall SKILLSBAR_EndLeapPath(D2UnitStrc* pUnit, int nX, int nY)
         PATH_SetUnitDeadCollision(pUnit, 0);
 }
 
-// build: context MONSTATS_GetRecordInline
 static inline D2MonStatsTxt* MONSTATS_GetRecordInline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -423,7 +422,6 @@ static inline D2MonStatsTxt* MONSTATS_GetRecordInline(int nMonsterId)
     return 0;
 }
 
-// build: context MONSTATS_GetBaseIdInline
 static inline int MONSTATS_GetBaseIdInline(int nClassId)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = MONSTATS_GetRecordInline(nClassId);
@@ -432,7 +430,6 @@ static inline int MONSTATS_GetBaseIdInline(int nClassId)
     return pMonStatsTxtRecord->nBaseId;
 }
 
-// build: context MONSTERS_GetBaseIdInline
 static inline int MONSTERS_GetBaseIdInline(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)

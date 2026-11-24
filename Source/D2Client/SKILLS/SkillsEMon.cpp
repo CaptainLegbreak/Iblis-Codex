@@ -44,7 +44,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                             
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitFindCallback pCallback, void* pArg, int nSize); // 0x00641CB0
 
-// build: context SKILLS_GetSkillsTxtRecordInline
 static D2SkillsTxt* SKILLS_GetSkillsTxtRecordInline(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -54,7 +53,6 @@ static D2SkillsTxt* SKILLS_GetSkillsTxtRecordInline(int nSkillId)
     return 0;
 }
 
-// build: context UNITS_GetXPositionInline
 static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
     if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
@@ -64,7 +62,6 @@ static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-// build: context UNITS_GetYPositionInline
 static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 {
     if (pUnit->dwUnitType == UNIT_OBJECT || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
@@ -74,7 +71,6 @@ static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-// build: context MISSILE_SetPathDirectionInline
 static void MISSILE_SetPathDirectionInline(D2UnitStrc* pMissile, unsigned char nDirection)
 {
     D2DynamicPathStrc* pPath = pMissile->pDynamicPath;

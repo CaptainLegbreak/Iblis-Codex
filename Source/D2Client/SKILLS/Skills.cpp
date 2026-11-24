@@ -2637,7 +2637,6 @@ static inline D2SkillDescTxt* SKILLCLT_GetSkillDescTxtRecord(int nSkillDesc)
     return 0;
 }
 
-// build: context sub_004C7990_GetSkillDescFromSkillId
 static inline D2SkillDescTxt* sub_004C7990_GetSkillDescFromSkillId(int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLCLT_GetSkillsTxtRecord(nSkillId);

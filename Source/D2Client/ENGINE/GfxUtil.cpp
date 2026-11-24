@@ -2479,9 +2479,6 @@ int __stdcall GFXUTIL_GetMotionAZ(D2UnitStrc* pUnit)
     return 0;
 }
 
-// build: context ?UNITS_GetClassIdInline@@YAHPAUD2UnitStrc@@@Z
-// build: context ?STATES_IsUnitShapeShiftedInline@@YAHPAUD2UnitStrc@@@Z
-// build: context ?GFXUTIL_ResolveUnitCelContext@@YGHPAUD2UnitStrc@@PAUD2CelContextStrc@@HPAH@Z
 
 // 0x004DA170
 int __stdcall GFXUTIL_GetMotionRawAX(D2UnitStrc* pUnit)

@@ -221,7 +221,6 @@ static int __stdcall sub_004F0590_CreateCltMissileRequest(int nMissile, int nSki
     return 1;
 }
 
-// build: context sub_004F0650_CltSkillMissileFan
 int __fastcall sub_004F0650_CltSkillMissileFan(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordInline(nSkillId);

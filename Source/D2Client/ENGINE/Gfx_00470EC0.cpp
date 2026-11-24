@@ -55,7 +55,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, int bOverlay, D2UnitStrc* pUnit, int nX, int nY);
 static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, int bOverlay, D2UnitStrc* pUnit, int nX, int nY); // 0x00470EC0
 
-// build: context sub_00471EC0
 int __fastcall sub_00471EC0(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay)
 {
     const int bPerspective = D2GFX_CheckPerspective();

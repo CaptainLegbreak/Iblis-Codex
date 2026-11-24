@@ -56,7 +56,6 @@ static void sub_004A6260_UpdateKeyState(int nCommand)
     }
 }
 
-// build: context TEXT_WheelCaptureMsg
 void __stdcall TEXT_WheelCaptureMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (GAME_IsExitPending())

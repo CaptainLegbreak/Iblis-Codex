@@ -55,7 +55,6 @@ extern void* gapQuestIconCels[];                                                
 extern unsigned char gabQuestFlagsA[];                                                             // 0x007BF356
 extern unsigned char gabQuestFlagsB[];                                                             // 0x007BF380
 
-// build: context TEXT_BuildQuestText
 static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg)
 {
     pMsg->wTitle = 0xE8C;

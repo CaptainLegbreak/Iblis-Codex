@@ -40,7 +40,6 @@ struct D2UModCallbacksStrc
 
 extern D2UModCallbacksStrc gaUModCallbacks[]; // 0x00724E28
 
-// build: context sub_0044BE50
 static int sub_0044BE50(D2UnitStrc* pUnit)
 {
     int nType = 6;
@@ -49,7 +48,6 @@ static int sub_0044BE50(D2UnitStrc* pUnit)
     return nType;
 }
 
-// build: context MONSTERS_CheckMonTypeFlag
 static int MONSTERS_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
     D2MonsterDataStrc* pMonsterData = sub_0044BE50(pUnit) == 1 ? pUnit->pMonsterData : 0;
@@ -60,7 +58,6 @@ static int MONSTERS_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
     return 0;
 }
 
-// build: context MONSTERUNIQUE_GetUMods
 static unsigned char* MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit)
 {
     D2MonsterDataStrc* pMonsterData = sub_0044BE50(pUnit) == 1 ? pUnit->pMonsterData : 0;

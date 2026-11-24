@@ -1718,7 +1718,6 @@ void __stdcall sub_L04_EmitUse(const Unicode* pText);
 
 
 
-// build: context sub_J06_IntersectsAnyHoverRect
 static __forceinline int sub_J06_IntersectsAnyHoverRect(const D2RectStrc* pRect, int nCount)
 {
     for (int i = 0; i < nCount; ++i)
@@ -1768,7 +1767,6 @@ static inline int sub_F02_IntersectsAnyHoverRect(const D2RectStrc* pRect, int nC
 
 
 
-// build: context TEXT_ReadLine
 static __forceinline const unsigned short* TEXT_ReadLine(Unicode* pLine, const unsigned short* pText)
 {
     int i = 0;
@@ -1791,7 +1789,6 @@ static __forceinline const unsigned short* TEXT_ReadLine(Unicode* pLine, const u
 
 
 
-// build: context sub_0049D5A0_UpdateTextBox
 // calling-convention shim (not game code)
 static int __cdecl sub_0049D5A0_UpdateTextBox(T00479230* pTextBox)
 {
@@ -1807,10 +1804,8 @@ static int __cdecl sub_0049D5A0_UpdateTextBox(T00479230* pTextBox)
 
 
 
-// build: context sub_004A0770_Shim
 // calling-convention shim (not game code)
 
-// build: context sub_00623C60
 static inline int sub_00623C60(D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -1887,7 +1882,6 @@ static int __stdcall TEXT_GetQuestTabAtPoint(int nY, int nX)
 }
 
 
-// build: context sub_004A3E40_ClickSlot_Inline
 static __forceinline void sub_004A3E40_ClickSlot_Inline(int nIndex)
 {
     for (int i = 0; i < gnQuestCount; ++i)

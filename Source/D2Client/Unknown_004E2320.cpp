@@ -1616,7 +1616,6 @@ static void __stdcall SKILLDESC_DrawDamageRange(int nColor, int nY, int nMin, in
     TEXT_DrawCenteredText(gnPanelOffsetX + nLeft, gnScreenHeight + gnPanelOffsetY + nY - 480, gnPanelOffsetX + nRight, wszText, nColor);
 }
 
-// build: context SKILLDESC_DrawWeaponAndSkillDamage
 void __fastcall SKILLDESC_DrawWeaponAndSkillDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
 {
     if (!pSkill)

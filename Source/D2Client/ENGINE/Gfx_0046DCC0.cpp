@@ -269,7 +269,6 @@ AdvanceToNextNode:
     FOG_Free(pNode, gszGfxFile, 0x1E1, 0);
 }
 
-// build: context sub_0046E040_Shim
 // calling-convention shim (not game code)
 void __stdcall sub_0046E040_Shim(D2UnitStrc* pUnit, D2StateNodeStrc* pOverlay)
 {
