@@ -4,9 +4,10 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-## In progress
+- lane1/layout-init-2 1b00e59f4 -1 placeholder (Storm/Unknown_006CAA30.cpp) QuestLog's layout initializer 0x6CAC30 (lane 4's handover; the placeholder's only function) writes the gnScreenWidth/gnScreenHeight-dependent members of QuestLog's gaButtonLayouts[4] (0x7241C0-0x72420F, D2ClientQuestLog.h's D2ButtonLayoutStrc); the image keeps the constant ones (x 40/75 in elements 0 and 2). It is one aggregate with partly dynamic initializers, now defined in QuestLog.cpp with its ??__E initializer (as gnKeyConfigThumbY is in the key-config object); it matches as written. The 20-byte (text_0049A950.cpp) and 12-byte (Storm) plan pieces of the array go, and the build stops copying 0x7241D4 (16 B) and 0x7241F0 (32 B). Borrowed data 1,114 -> 1,066 B; VERIFIED af1695d548b18875208cb7f0203eca5c0d5a539c
+  - based on main #351. Lane 3: this removes Storm/Unknown_006CAA30.cpp, your file, as your board note invited.
 
-- **Claimed: QuestLog's layout initializer 0x6CAC30** (lane 4's handover; filed in lane 3's Storm/Unknown_006CAA30.cpp, its only function). The block it writes is QuestLog's gaButtonLayouts[4] (0x7241C0-0x72420F, D2ClientQuestLog.h's {nTextX, nRight, nTop, nBottom, nTextY}): elements 0 and 2 keep constant x 40/75 in the image, 1 and 3 get gnScreenWidth/2+40/+75, rows gnScreenHeight-140/-105/-143 and -195/-160/-198. So it is one aggregate with a dynamic initializer in QuestLog.cpp, like gnKeyConfigThumbY's. That ends the two copied runs 0x7241D4 (16 B) and 0x7241F0 (32 B). Branch lane1/layout-init.
+## In progress
 
 - **Claimed (analysis first, no branch yet): the SkillsMon/SkillDesc object map, code 0x4E1D30-0x4F2004.** Filed today across SkillsMon.cpp, SkillDesc.cpp, six SkillDesc_*.cpp pieces, SkillsEMon.cpp and a dozen placeholders, all interleaved. Path strings in .rdata: .\SKILLS\SkillsMon.cpp (0x6DBB4C), .\UI\SkillDesc.cpp (0x6DBF24), .\SKILLS\SkillsEMon.cpp (0x6DBF90). SkillDesc.cpp's plan holds 4 language copies and SkillDesc_004E1FF0.cpp's 3 (lane 4's note), so this is about 7 objects plus SkillsMon and SkillsEMon. I'll post the object map before moving anything. Waiting on lane4/spellsel-data before the spellsel strays (it touches spellsel.cpp).
 
