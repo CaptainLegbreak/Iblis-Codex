@@ -3927,12 +3927,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_0067D7B0.cpp": {
-   "bytes": 32,
-   "definitions": 1,
+  "Source/D2Common/DRLG/OutRoom.cpp": {
+   "bytes": 92,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_0067D7B0.inc",
+   "include": "gen/data/Source/D2Common/DRLG/OutRoom.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -4765,15 +4765,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Launch/Unknown_0042E590.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/DRLG/OutRoom.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/DRLG/OutRoom.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -143665,7 +143656,7 @@
    "cname": "gData_006F1F7C",
    "declared": true,
    "decorated": "?gOutdoorOrthOffsets@@3QBUD2CoordStrc@@B",
-   "file": "Source/D2Common/Unknown_0067D7B0.cpp",
+   "file": "Source/D2Common/DRLG/OutRoom.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2CoordStrc gData_006F1F7C[4]; // 0x006F1F7C",
    "head": "extern \"C\" const D2CoordStrc gData_006F1F7C[4] = ",
