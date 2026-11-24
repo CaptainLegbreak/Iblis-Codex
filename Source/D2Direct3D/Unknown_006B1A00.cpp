@@ -41,6 +41,53 @@ public:
 
 }
 
+struct GUID
+{
+    unsigned long Data1;
+    unsigned short Data2;
+    unsigned short Data3;
+    unsigned char Data4[8];
+};
+
+// atliface.h
+extern "C" const GUID LIBID_ATLLib;
+extern "C" const GUID CLSID_Registrar;
+extern "C" const GUID IID_IRegistrar;
+extern "C" const GUID IID_IAxWinHostWindow;
+extern "C" const GUID IID_IAxWinAmbientDispatch;
+extern "C" const GUID IID_IInternalConnection;
+extern "C" const GUID IID_IDocHostUIHandlerDispatch;
+extern "C" const GUID IID_IAxWinHostWindowLic;
+extern "C" const GUID IID_IAxWinAmbientDispatchEx;
+
+namespace ATL
+{
+
+// statreg.h
+class CRegParser
+{
+public:
+    static const char* const szStringVal;
+    static const char* const multiszStringVal;
+    static const char* const szDwordVal;
+    static const char* const szBinaryVal;
+    static const char* const szValToken;
+    static const char* const szForceRemove;
+    static const char* const szNoRemove;
+    static const char* const szDelete;
+    static const int MAX_VALUE;
+    static const int MAX_TYPE;
+    static const char* const rgszNeverDelete[12];
+    static const int cbNeverDelete;
+};
+
+}
+
+// The .rdata in front of these, 0x6FADC4-0x6FAF0B, is atlbase.h's AtlLimits<T>::_Min/_Max for int, unsigned int,
+// long, unsigned long, __int64 and unsigned __int64, then atlcomcli.h's CVarTypeInfo<T>::VT and ::pmField for each
+// variant type ATL maps (each VARTYPE is stored in a 4-byte slot). They are template statics, so they are defined in the
+// data include under their addresses.
+
 struct D2PixelFormat006B1B60Strc
 {
     unsigned long dwSize;

@@ -1338,11 +1338,3 @@ const Unicode* __fastcall sub_00463810_GetMonsterName(D2UnitStrc* pUnit)
         return pUnit->pMonsterData->wszMonName;
     return 0;
 }
-
-// 0x00463E10
-D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return 0;
-    return pUnit->pGfxData;
-}

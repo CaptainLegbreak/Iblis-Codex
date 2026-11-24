@@ -1,36 +1,23 @@
+#include "D2Structs.h"
+#include "D2DrlgPresets.h"
+
 #include "D2Common.h"
+
 #include "D2Path.h"
+
 #include "D2PathFind.h"
 
+extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
+extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 
-    int PATH_IdaStar_ComputePathWithRooms(struct D2PathInfoStrc* pPathInfo);
-};
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
-struct D2PathInfoStrc
-{
-    D2PathPointStrc tStartCoord;
-    D2PathPointStrc tTargetCoord;
-    void* pStartRoom;
-    char unk0x0C[0x08];
-    unsigned char field_14;
-    char unk0x15[0x07];
-    unsigned char nMinimumFScoreToEvaluate;
-    char unk0x1D[0x03];
-    int nPathType;
-    char unk0x24[0x04];
-    int nCollisionPattern;
-    int nCollisionMask;
-    D2DynamicPathStrc* pDynamicPath;
-};
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                               // 0x00681EF0
 
+#pragma intrinsic(memset)
 
 struct D2PathIDAStarContextStrc
 {
@@ -46,17 +33,66 @@ struct D2PathIDAStarContextStrc
     D2SeedStrc* pSeed;
 };
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
-extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
-#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                               // 0x00681EF0
-extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                         // 0x006829C0
-int __stdcall COLLISION_CheckAnyCollisionWithPattern(void* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064D910
-int __stdcall sub_6FDAB770(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2);                              // 0x00678D10
-extern const D2CoordStrc aCoordOffsets[8];                                                                  // 0x006F1958
+typedef char chkIdaCount_M125[(int)&((D2PathIDAStarContextStrc*)0)->nNodesCount == 0x6274 ? 1 : -1];
+
+// 0x0067A550
+int __stdcall sub_0067A550_PathHeuristic(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
+{
+    int nDiffX = tPoint2.X - tPoint1.X;
+    if (nDiffX < 0)
+    {
+        nDiffX = -nDiffX;
+    }
+
+    int nDiffY = tPoint2.Y - tPoint1.Y;
+    if (nDiffY < 0)
+    {
+        nDiffY = -nDiffY;
+    }
+
+    const int nMin = nDiffX < nDiffY ? nDiffX : nDiffY;
+    const int nMax = nDiffX > nDiffY ? nDiffX : nDiffY;
+    return nMin + 2 * nMax;
+}
+
+// 0x0067A590
+static D2PathIDAStarNodeStrc* PATH_IDAStar_GetNewNode(D2PathIDAStarContextStrc* pContext)
+{
+    if (pContext->nNodesCount == 900)
+    {
+        return 0;
+    }
+    D2PathIDAStarNodeStrc* pNewNode = &pContext->aNodesStorage[pContext->nNodesCount++];
+    memset(pNewNode, 0, sizeof(*pNewNode));
+    return pNewNode;
+}
+
+struct D2PathBoundsContextStrc
+{
+    char unk0x0000[0x6278];
+    D2PathPointStrc tMin;
+    D2PathPointStrc tMax;
+};
+
+// 0x0067A5D0
+static const int* __stdcall sub_0067A5D0_GetNeighborsSequence(int nBase, int nDirection)
+{
+// build: symbol ?gnIdaStarNeighborSequences@* 0x006F17D8
+    return gnIdaStarNeighborSequences[(nDirection - nBase) & 7];
+}
+
+// build: context sub_M125_Emit_0067A5D0
+// emits the static 0x0067A5D0 (not game code)
+const int* __stdcall sub_M125_Emit_0067A5D0(int nUnused1, int nUnused2, int nBase, int nDirection)
+{
+    return sub_0067A5D0_GetNeighborsSequence(nBase, nDirection);
+}
+
+// 0x0067A5F0
+int __fastcall PATH_IsPointInBounds(D2PathBoundsContextStrc* pContext, int nUnused, D2PathPointStrc tPoint)
+{
+    return tPoint.X >= pContext->tMin.X && tPoint.X <= pContext->tMax.X && tPoint.Y >= pContext->tMin.Y && tPoint.Y <= pContext->tMax.Y;
+}
 
 static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
@@ -65,25 +101,7 @@ static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-static inline int PATH_AStar_Heuristic_Inline(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
-{
-    int nDiffX = tPoint1.X - tPoint2.X;
-    if (nDiffX < 0)
-    {
-        nDiffX = -nDiffX;
-    }
-    int nDiffY = tPoint1.Y - tPoint2.Y;
-    if (nDiffY < 0)
-    {
-        nDiffY = -nDiffY;
-    }
-    if (nDiffX < nDiffY)
-    {
-        return nDiffX + 2 * nDiffY;
-    }
-    return nDiffY + 2 * nDiffX;
-}
-
+// 0x0067A630
 static void PATH_IDAStar_GetNextNeighborIndex(D2PathIDAStarNodeStrc* pNode, D2PathIDAStarContextStrc* pContext)
 {
     if (pContext->bRandomDirection)
@@ -98,6 +116,7 @@ static void PATH_IDAStar_GetNextNeighborIndex(D2PathIDAStarNodeStrc* pNode, D2Pa
     }
 }
 
+// 0x0067A690
 static D2PathIDAStarNodeStrc* __stdcall sub_6FDC0840(D2PathIDAStarContextStrc* pContext, D2PathIDAStarNodeStrc* pNode)
 {
     if (pNode->nEvaluationsCount < 4)
@@ -122,6 +141,27 @@ static D2PathIDAStarNodeStrc* __stdcall sub_6FDC0840(D2PathIDAStarContextStrc* p
     return pNode;
 }
 
+#define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
+
+int __stdcall COLLISION_CheckAnyCollisionWithPattern(void* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064D910
+
+int __stdcall sub_6FDAB770(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2);                              // 0x00678D10
+
+extern const D2CoordStrc aCoordOffsets[8];                                                                  // 0x006F1958
+
+static inline int PATH_AStar_Heuristic_Inline(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
+{
+    const int nRawX = tPoint1.X - tPoint2.X;
+    int nDiffX = nRawX < 0 ? -nRawX : nRawX;
+    const int nRawY = tPoint1.Y - tPoint2.Y;
+    int nDiffY = nRawY < 0 ? -nRawY : nRawY;
+    const int nMin = D2_MIN(nDiffX, nDiffY);
+    int nMax = nDiffY;
+    if (nDiffX > nDiffY)
+        nMax = nDiffX;
+    return nMin + 2 * nMax;
+}
+
 static inline D2PathIDAStarNodeStrc* PATH_IDAStar_GetNewNode_Inline(D2PathIDAStarContextStrc* pContext)
 {
     if (pContext->nNodesCount == 900)
@@ -140,12 +180,13 @@ static inline int PATH_IDAStar_IsOutOfBounds_Inline(const D2PathIDAStarContextSt
 
 static D2PathIDAStarNodeStrc* __stdcall PATH_IDAStar_VisitNodes(int nFScoreCutoff, D2PathInfoStrc* pPathInfo, D2PathIDAStarContextStrc* pContext); // 0x0067A740
 
-// build: context PATH_IDAStar_VisitNodes
+// 0x0067A740
 static D2PathIDAStarNodeStrc* __stdcall PATH_IDAStar_VisitNodes(int nFScoreCutoff, D2PathInfoStrc* pPathInfo, D2PathIDAStarContextStrc* pContext)
 {
-    const D2PathPointStrc tTargetCoord = pPathInfo->tTargetCoord;
     D2PathIDAStarNodeStrc* pCurrentNode = pContext->pCurrentNode;
-    int nIterations = 0;
+    int nIterations;
+    const D2PathPointStrc tTargetCoord = pPathInfo->tTargetCoord;
+    nIterations = 0;
     while (pCurrentNode->tCoord.X != tTargetCoord.X || pCurrentNode->tCoord.Y != tTargetCoord.Y)
     {
         if (++nIterations > 10000)
@@ -195,8 +236,9 @@ static D2PathIDAStarNodeStrc* __stdcall PATH_IDAStar_VisitNodes(int nFScoreCutof
                     pCurrentNode->nBestDistanceFromStart = nNewDistanceFromStart;
                     pCurrentNode->nFScore = nNewNodeFScore;
                     pCurrentNode->nEvaluationsCount = 0;
+                    const int nDirection = sub_6FDAB770(tNeighborCoords, tTargetCoord);
 // build: symbol ?gnIdaStarNeighborSequences@* 0x006F17D8
-                    pCurrentNode->pNeighborsSequence = gnIdaStarNeighborSequences[(sub_6FDAB770(tNeighborCoords, tTargetCoord) - pCurrentNode->pParent->nNextNeighborIndex) & 7];
+                    pCurrentNode->pNeighborsSequence = gnIdaStarNeighborSequences[(nDirection - pCurrentNode->pParent->nNextNeighborIndex) & 7];
                     if (pContext->bRandomDirection)
                     {
                         const unsigned int nRand = SEED_RollRandomNumber_Inline(pContext->pSeed);
@@ -226,54 +268,55 @@ static D2PathIDAStarNodeStrc* __stdcall PATH_IDAStar_VisitNodes(int nFScoreCutof
     return pCurrentNode;
 }
 
-static int PATH_IDAStar_FlushNodeToDynamicPath(D2PathIDAStarNodeStrc* pNode, D2PathInfoStrc* pPathInfo); // 0x0067A9F0
+// The room box IDA* searches; its search is a member so the box travels in ECX.
+struct D2PathRoomsAABBStrc : D2DrlgCoordsStrc
+{
+    int PATH_IdaStar_ComputePathWithRooms(D2PathInfoStrc* pPathInfo);
+};
 
-// build: context PATH_IDAStar_FlushNodeToDynamicPath
-static int PATH_IDAStar_FlushNodeToDynamicPath(D2PathIDAStarNodeStrc* pNode, D2PathInfoStrc* pPathInfo)
+#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                         // 0x006829C0
+
+void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
+
+// 0x0067A9F0
+static int PATH_IDAStar_FlushNodeToDynamicPath(D2PathInfoStrc* pPathInfo, D2PathIDAStarNodeStrc* pNode)
 {
     D2PathPointStrc* pPathPoints = pPathInfo->pDynamicPath->PathPoints;
+    D2PathPointStrc aTempPathPoints[78];
     int nbPoints = 0;
     int nPrevDeltaX = -2;
     int nPrevDeltaY = -2;
-    if (pNode)
-    {
-        D2PathPointStrc aTempPathPoints[78];
-        D2PathPointStrc* pOut = &aTempPathPoints[77];
-        do
-        {
-            if (nbPoints >= 78)
-            {
-                break;
-            }
-            D2PathIDAStarNodeStrc* pParent = pNode->pParent;
-            if (pParent)
-            {
-                const int nDeltaX = pNode->tCoord.X - pNode->pParent->tCoord.X;
-                const int nDeltaY = pNode->tCoord.Y - pNode->pParent->tCoord.Y;
-                if (nDeltaX != nPrevDeltaX || nDeltaY != nPrevDeltaY)
-                {
-                    *pOut = pNode->tCoord;
-                    ++nbPoints;
-                    --pOut;
-                    nPrevDeltaX = nDeltaX;
-                    nPrevDeltaY = nDeltaY;
-                }
-            }
-            pNode = pParent;
-        }
-        while (pNode);
 
-        if (nbPoints > 1 && nbPoints < 78)
+    while (pNode && nbPoints < 78)
+    {
+        if (pNode->pParent)
         {
-            memcpy(pPathPoints, &aTempPathPoints[78 - nbPoints], sizeof(D2PathPointStrc) * nbPoints);
-            return nbPoints;
+            const int nDeltaX = pNode->tCoord.X - pNode->pParent->tCoord.X;
+            const int nDeltaY = pNode->tCoord.Y - pNode->pParent->tCoord.Y;
+            if (nDeltaX != nPrevDeltaX || nDeltaY != nPrevDeltaY)
+            {
+                aTempPathPoints[77 - nbPoints] = pNode->tCoord;
+                ++nbPoints;
+                nPrevDeltaX = nDeltaX;
+                nPrevDeltaY = nDeltaY;
+            }
         }
+        pNode = pNode->pParent;
     }
-    return 0;
+
+    if (nbPoints <= 1 || nbPoints >= 78)
+    {
+        return 0;
+    }
+
+    memcpy(pPathPoints, &aTempPathPoints[78 - nbPoints], sizeof(D2PathPointStrc) * nbPoints);
+    return nbPoints;
 }
 
 // 0x0067AAA0
-int D2DrlgCoordsStrc::PATH_IdaStar_ComputePathWithRooms(D2PathInfoStrc* pPathInfo)
+int D2PathRoomsAABBStrc::PATH_IdaStar_ComputePathWithRooms(D2PathInfoStrc* pPathInfo)
 {
     D2_ASSERT(nSubtileWidth * nSubtileHeight <= 50000, 369);
     D2PathIDAStarContextStrc tContext;
@@ -354,7 +397,7 @@ int D2DrlgCoordsStrc::PATH_IdaStar_ComputePathWithRooms(D2PathInfoStrc* pPathInf
     int nPathPoints = 0;
     if (pValidPathNode)
     {
-        nPathPoints = PATH_IDAStar_FlushNodeToDynamicPath(pValidPathNode, pPathInfo);
+        nPathPoints = PATH_IDAStar_FlushNodeToDynamicPath(pPathInfo, pValidPathNode);
         if (nPathPoints >= 78)
         {
             nPathPoints = 0;
@@ -362,3 +405,71 @@ int D2DrlgCoordsStrc::PATH_IdaStar_ComputePathWithRooms(D2PathInfoStrc* pPathInf
     }
     return nPathPoints;
 }
+
+// 0x0067AD00
+int __fastcall PATH_IdaStar_6FDA7970(D2PathInfoStrc* pPathInfo)
+{
+    pPathInfo->field_14 *= 2;
+    D2PathRoomsAABBStrc tPathRoomsAABB;
+    DUNGEON_GetRoomCoordinates(pPathInfo->pStartRoom, &tPathRoomsAABB);
+    D2DrlgCoordsStrc tStartRoomCoords = tPathRoomsAABB;
+
+    int nAABBHeight = 0;
+    int nAABBWidth = 0;
+
+    if (pPathInfo->pTargetRoom && pPathInfo->pStartRoom != pPathInfo->pTargetRoom)
+    {
+        D2DrlgCoordsStrc tTargetRoomCoords;
+        DUNGEON_GetRoomCoordinates(pPathInfo->pTargetRoom, &tTargetRoomCoords);
+        if (tTargetRoomCoords.nSubtileX < tStartRoomCoords.nSubtileX)
+        {
+            tPathRoomsAABB.nSubtileX = tTargetRoomCoords.nSubtileX;
+            nAABBWidth = tStartRoomCoords.nSubtileX + tStartRoomCoords.nSubtileWidth - tTargetRoomCoords.nSubtileX;
+        }
+        else
+        {
+            tPathRoomsAABB.nSubtileX = tStartRoomCoords.nSubtileX;
+            nAABBWidth = tTargetRoomCoords.nSubtileX + tTargetRoomCoords.nSubtileWidth - tStartRoomCoords.nSubtileX;
+        }
+        tPathRoomsAABB.nSubtileWidth = nAABBWidth;
+        if (tTargetRoomCoords.nSubtileY < tStartRoomCoords.nSubtileY)
+        {
+            tPathRoomsAABB.nSubtileY = tTargetRoomCoords.nSubtileY;
+            nAABBHeight = tStartRoomCoords.nSubtileY + tStartRoomCoords.nSubtileHeight - tTargetRoomCoords.nSubtileY;
+        }
+        else
+        {
+            tPathRoomsAABB.nSubtileY = tStartRoomCoords.nSubtileY;
+            nAABBHeight = tTargetRoomCoords.nSubtileY + tTargetRoomCoords.nSubtileHeight - tStartRoomCoords.nSubtileY;
+        }
+        tPathRoomsAABB.nSubtileHeight = nAABBHeight;
+        if (nAABBWidth != tStartRoomCoords.nSubtileWidth)
+        {
+            goto height;
+        }
+        goto widen;
+    }
+    else
+    {
+        nAABBHeight = tPathRoomsAABB.nSubtileHeight;
+        nAABBWidth = tPathRoomsAABB.nSubtileWidth;
+widen:
+        tPathRoomsAABB.nSubtileX -= 10;
+        tPathRoomsAABB.nSubtileWidth = nAABBWidth + 20;
+    }
+height:
+    if (nAABBHeight == tStartRoomCoords.nSubtileHeight)
+    {
+        nAABBHeight += 20;
+        tPathRoomsAABB.nSubtileY -= 10;
+        tPathRoomsAABB.nSubtileHeight = nAABBHeight;
+    }
+    return tPathRoomsAABB.PATH_IdaStar_ComputePathWithRooms(pPathInfo);
+}
+
+D2PathIDAStarNodeStrc* __stdcall sub_M125_Emit_0067A590(int nUnused1, int nUnused2, int nUnused3, D2PathIDAStarContextStrc* pContext)
+{
+    return PATH_IDAStar_GetNewNode(pContext);
+}
+
+#include "gen/data/Source/D2Common/Unknown_0067A550.inc"

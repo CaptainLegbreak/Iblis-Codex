@@ -876,3 +876,5 @@ extern "C" void __cdecl INV_ClearSkillPointsHighlight()
 {
     gbSkillPointsHighlight = 0;
 }
+
+#include "gen/data/Source/D2Client/UI/spellsel.inc"

@@ -108,13 +108,6 @@ struct D2ProcessEntryStrc;
 
 void __cdecl sub_00402980_StartDbgHelpWorker(); // 0x00402980
 
-struct D2ThreadNameInfoStrc
-{
-    unsigned long dwType;
-    const char* szName;
-    unsigned long dwThreadID;
-    unsigned long dwFlags;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -124,22 +117,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 
 
-struct D2ModeIfaceStrc
-{
-    int (__fastcall* pfnRun)(int nArg);
-};
 
-struct D2ModeEntryStrc
-{
-    D2ModeIfaceStrc* (__fastcall* pfnCreate)(void* pContext);
-    void (__cdecl* pfnRelease)();
-};
 
-struct D2ServiceTableEntryStrc
-{
-    char* szServiceName;
-    void (__stdcall* pfnServiceProc)(unsigned long dwArgc, char** argv);
-};
 
 struct D2GuidStrc
 {
@@ -149,24 +128,7 @@ struct D2GuidStrc
     unsigned char Data4[8];
 };
 
-struct D2SidAuthorityStrc
-{
-    unsigned char Value[6];
-};
 
-struct D2ProcessEntryStrc
-{
-    unsigned long dwSize;
-    unsigned long cntUsage;
-    unsigned long th32ProcessID;
-    unsigned long th32DefaultHeapID;
-    unsigned long th32ModuleID;
-    unsigned long cntThreads;
-    unsigned long th32ParentProcessID;
-    long pcPriClassBase;
-    unsigned long dwFlags;
-    char szExeFile[260];
-};
 
 typedef long (__stdcall* D2KnownFolderPathFn)(const D2GuidStrc* pFolderId, unsigned long dwFlags, void* hToken, wchar_t** pwszPath);
 
@@ -500,16 +462,6 @@ struct D2StackFrameStrc;
 
 struct D2ExceptionPointersStrc { void* pRecord; D2ThreadContextStrc* pContext; };
 
-struct D2CrashInputStrc
-{
-    const char* szSummary;
-    const char* szDetail;
-    D2StackFrameStrc* pFrames;
-    int nFrames;
-    int nSkip;
-    unsigned long dwThreadId;
-    D2ExceptionPointersStrc* pException;
-};
 
 void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, unsigned int nFrames, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader); // 0x00403100
 

@@ -3577,47 +3577,6 @@ void __cdecl SKILLS_ResetLevelSpeech()
     memset(gaLevelVisited, 0, 0x1000);
 }
 
-// 0x004CD0A0
-void __fastcall SKILLS_InitMissileUnit(D2UnitStrc* pMissile, int nArg, int nTargetX, int nTargetY, int nUnused)
-{
-    if (!pMissile)
-    {
-        return;
-    }
-
-    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile->dwClassId);
-    if (!pMissilesTxtRecord)
-    {
-        return;
-    }
-
-    MISSILE_AllocMissileData(pMissile);
-    UNITS_ChangeAnimMode(pMissile, pMissilesTxtRecord->nCollideType);
-    sub_00649D00(0, nArg, nTargetX, nTargetY, pMissile, 1);
-
-    D2DynamicPathStrc* pDynamicPath = pMissile->pDynamicPath;
-    if (pMissilesTxtRecord->nCollision)
-    {
-        PATH_SetFootprintCollisionMask(pDynamicPath, 0x40);
-    }
-    else
-    {
-        PATH_SetFootprintCollisionMask(pDynamicPath, 0);
-    }
-    PATH_SetMoveTestCollisionMask(pDynamicPath, gaCltMissileModes[pMissilesTxtRecord->nCollideType].nCollisionMask);
-
-    if (pMissilesTxtRecord->nMissileFlags[0] & gnBitMasks_006CE268[4])
-    {
-        pMissile->dwFlags |= 4;
-    }
-    else
-    {
-        pMissile->dwFlags &= ~4;
-    }
-
-    pMissile->dwFlags = (pMissile->dwFlags & ~0xA) | 0x20;
-}
-
 // 0x004D16C0
 void __fastcall SKILLS_SpawnOffsetMissile(int nUnitId, int nUnused, D2UnitStrc* pMissile, D2UnitStrc* pOwner)
 {

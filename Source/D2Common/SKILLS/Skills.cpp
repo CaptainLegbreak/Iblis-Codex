@@ -2900,26 +2900,6 @@ void __fastcall PATH_GetScaledDirectionVector(int nVelocity, D2CoordStrc* pDirec
     D2_ASSERT(D2_MAX(D2_ABS(pDirectionVector->nX), D2_ABS(pDirectionVector->nY)) < 0x200000, 817);
 }
 
-// 0x0067A550
-int __stdcall sub_0067A550_PathHeuristic(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
-{
-    int nDiffX = tPoint2.X - tPoint1.X;
-    if (nDiffX < 0)
-    {
-        nDiffX = -nDiffX;
-    }
-
-    int nDiffY = tPoint2.Y - tPoint1.Y;
-    if (nDiffY < 0)
-    {
-        nDiffY = -nDiffY;
-    }
-
-    const int nMin = nDiffX < nDiffY ? nDiffX : nDiffY;
-    const int nMax = nDiffX > nDiffY ? nDiffX : nDiffY;
-    return nMin + 2 * nMax;
-}
-
 // build: symbol ?gaPathDeltaTable@* 0x006F1E28
 
 // 0x00646460

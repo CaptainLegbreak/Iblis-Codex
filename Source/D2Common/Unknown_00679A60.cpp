@@ -820,17 +820,7 @@ int __fastcall sub_0067A4A0_TestPathPoints(D2PathInfoStrc* pPathInfo)
     return 1;
 }
 
-// 0x0067A5D0
-static const int* __stdcall sub_0067A5D0_GetNeighborsSequence(int nBase, int nDirection)
-{
 // build: symbol ?gnIdaStarNeighborSequences@* 0x006F17D8
-    return gnIdaStarNeighborSequences[(nDirection - nBase) & 7];
-}
-
-const int* __stdcall sub_M125_Emit_0067A5D0(int nUnused1, int nUnused2, int nBase, int nDirection)
-{
-    return sub_0067A5D0_GetNeighborsSequence(nBase, nDirection);
-}
 
 #include "gen/data/Source/D2Common/Unknown_00679A60.inc"
 
