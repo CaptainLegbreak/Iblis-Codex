@@ -15,13 +15,13 @@ extern int gnGlideSpriteScale; // 0x00880B64
 extern int gnProjectOriginY; // 0x00880B68
 
 // 0x0050DC80
-void __cdecl GLIDE_AllocPerspectiveTable()
+void __cdecl GLPERSPECTIVE_AllocPerspectiveTable()
 {
     gpnPerspectiveTable = (int*)FOG_Alloc(0x8000, ".\\Src\\glPerspective.cpp", 0x38, 0);
 }
 
 // 0x0050DCA0
-void __cdecl GLIDE_FreePerspectiveTable()
+void __cdecl GLPERSPECTIVE_FreePerspectiveTable()
 {
     if (gpnPerspectiveTable)
     {
@@ -31,7 +31,7 @@ void __cdecl GLIDE_FreePerspectiveTable()
 }
 
 // 0x0050DCD0
-void __cdecl GLIDE_FillPerspectiveTable()
+void __cdecl GLPERSPECTIVE_FillPerspectiveTable()
 {
     int* pTable = gpnPerspectiveTable;
     for (int i = 0; i < 0x2000; ++i)
@@ -47,14 +47,14 @@ int gnProjectOriginX; // 0x00880B60
 int gnProjectOriginY; // 0x00880B68
 
 // 0x0050DD50
-void __fastcall GLIDE_SetProjectOrigin(int nX, int nY)
+void __fastcall GLPERSPECTIVE_SetProjectOrigin(int nX, int nY)
 {
     gnProjectOriginX = nX;
     gnProjectOriginY = nY;
 }
 
 // 0x0050DD60
-void __fastcall GLIDE_PerspectiveTransform(int nX, int nY, int nZ, int* pScreenX, int* pScreenY)
+void __fastcall GLPERSPECTIVE_PerspectiveTransform(int nX, int nY, int nZ, int* pScreenX, int* pScreenY)
 {
     const int nA = ((nX - gnProjectOriginX) * 24) >> 16;
     const int nB = ((nY - gnProjectOriginY) * 24) >> 16;
@@ -68,7 +68,7 @@ void __fastcall GLIDE_PerspectiveTransform(int nX, int nY, int nZ, int* pScreenX
 static int* gpnPerspectiveTable;                                                                   // 0x00880B6C
 
 // 0x0050DE10
-void __fastcall GLIDE_ProjectToScreenScaled(int nX, int nY, int nZ, int* pScreenX, int* pScreenY, int bLarge)
+void __fastcall GLPERSPECTIVE_ProjectToScreenScaled(int nX, int nY, int nZ, int* pScreenX, int* pScreenY, int bLarge)
 {
     const int* pTable = gpnPerspectiveTable;
     const int nA = ((nX - gnProjectOriginX) * 24) >> 16;

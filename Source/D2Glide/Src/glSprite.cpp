@@ -13,25 +13,25 @@ int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); //
 
 void* __stdcall CelGetHardwareData(D2CelStrc* pCel); // 0x00601B10
 
-void __fastcall GLIDE_SetTextureCombineMode(int nTmu); // 0x00509460
+void __fastcall GLCORE_SetTextureCombineMode(int nTmu); // 0x00509460
 
-void __fastcall GLIDE_SetColorCombineMode(int nState); // 0x005094B0
+void __fastcall GLCORE_SetColorCombineMode(int nState); // 0x005094B0
 
-void __fastcall GLIDE_SetAlphaBlendMode(int nMode); // 0x00509500
+void __fastcall GLCORE_SetAlphaBlendMode(int nMode); // 0x00509500
 
-void __fastcall GLIDE_SetTextureFilterMode(int nMode); // 0x005095D0
+void __fastcall GLCORE_SetTextureFilterMode(int nMode); // 0x005095D0
 
 int __cdecl sub_0050BF40_GlideGetBlendedShadows(); // 0x0050BF40
 
-void __fastcall GLIDE_SetVertexColor(D2GlideSpriteVertexStrc* pVertex, unsigned int dwColor); // 0x0050DC30
+void __fastcall GLVERTEX_SetVertexColor(D2GlideSpriteVertexStrc* pVertex, unsigned int dwColor); // 0x0050DC30
 
-int __cdecl GLIDE_IsPerspective(); // 0x0050DD30
+int __cdecl GLVERTEX_IsPerspective(); // 0x0050DD30
 
-void __fastcall GLIDE_PerspectiveTransform(int nX, int nY, int nZ, int* pScreenX, int* pScreenY); // 0x0050DD60
+void __fastcall GLPERSPECTIVE_PerspectiveTransform(int nX, int nY, int nZ, int* pScreenX, int* pScreenY); // 0x0050DD60
 
-void __fastcall GLIDE_TexCacheTouch(D2GlideTexCacheStrc* pCache, int nId); // 0x0050EBE0
+void __fastcall GLTEXTURECACHE_TexCacheTouch(D2GlideTexCacheStrc* pCache, int nId); // 0x0050EBE0
 
-int __fastcall GLIDE_TexCacheAdd(D2GlideTexCacheStrc* pList); // 0x0050ED10
+int __fastcall GLTEXTURECACHE_TexCacheAdd(D2GlideTexCacheStrc* pList); // 0x0050ED10
 
 void (__stdcall* gpfnGrTexDownloadMipMap)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo);        // 0x0087EAB8
 
@@ -59,7 +59,7 @@ void* gpGlideBuffer_0087F0C8; // 0x0087F0C8
 
 void* gpGlideSpriteBufferB; // 0x0087F0CC
 
-static int GLIDE_InitTexInfo(D2CelContextStrc* pContext, D2GlideTexInfoStrc* pInfo); // 0x0050A260
+static int GLSPRITE_InitTexInfo(D2CelContextStrc* pContext, D2GlideTexInfoStrc* pInfo); // 0x0050A260
 
 typedef void (__stdcall* gpfGlideTexDownloadMipMap_0087EAB8_t)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo);
 
@@ -71,13 +71,13 @@ typedef void (__stdcall* gpfGlideAlphaFunction_0087EAB4_t)(int nFunction);
 
 typedef void (__stdcall* gpfGlideConstantColor_0087EFA0_t)(unsigned int dwColor);
 
-static void __stdcall GLIDE_DrawSpriteQuad(int nX, int nY, unsigned int dwColor, int bTinted, D2GlideTexInfoStrc* pInfo, int nPaletteIndex); // 0x0050A9A0
+static void __stdcall GLSPRITE_DrawSpriteQuad(int nX, int nY, unsigned int dwColor, int bTinted, D2GlideTexInfoStrc* pInfo, int nPaletteIndex); // 0x0050A9A0
 
-static void GLIDE_SetSpriteBlendMode(int nMode); // 0x0050ABF0
+static void GLSPRITE_SetSpriteBlendMode(int nMode); // 0x0050ABF0
 
-static int __stdcall GLIDE_ClipSprite(D2GlideTexInfoStrc* pInfo, int nY, const D2BoundsStrc* pBounds, int nX, D2ClipStrc* pClip); // 0x0050B390
+static int __stdcall GLSPRITE_ClipSprite(D2GlideTexInfoStrc* pInfo, int nY, const D2BoundsStrc* pBounds, int nX, D2ClipStrc* pClip); // 0x0050B390
 
-static int __stdcall GLIDE_UploadTexInfo(int nPalette, int nColor, int nType, D2GlideTexInfoStrc* pInfo); // 0x0050A450
+static int __stdcall GLSPRITE_UploadTexInfo(int nPalette, int nColor, int nType, D2GlideTexInfoStrc* pInfo); // 0x0050A450
 
 typedef void (__stdcall* PFNGLIDEDRAWVERTEXARRAY)(int nMode, int nCount, void* pVertices, int nStride);
 
@@ -97,17 +97,17 @@ extern void (__stdcall* gpfnGrGlideState_0087EAB4)(int nState);                 
 
 extern D2GlideSpriteVertexStrc gGlideVertices_0087EFF8[4];                                                        // 0x0087EFF8
 
-static int GLIDE_InitTexInfo(D2CelContextStrc* pData, D2GlideTexInfoStrc* pInfo); // 0x0050A260
+static int GLSPRITE_InitTexInfo(D2CelContextStrc* pData, D2GlideTexInfoStrc* pInfo); // 0x0050A260
 
-static void GLIDE_SetupTexInfoSize(D2GlideTexInfoStrc* pInfo);             // 0x0050A2D0
+static void GLSPRITE_SetupTexInfoSize(D2GlideTexInfoStrc* pInfo);             // 0x0050A2D0
 
 static int __declspec(noinline) __stdcall sub_0050A450_UploadSprite(D2GlideTexInfoStrc* pInfo, unsigned char* pPalette, int nArg2, int nArg3); // 0x0050A450
 
-static int __stdcall GLIDE_ClipSprite(D2GlideTexInfoStrc* pInfo, int nY, const D2BoundsStrc* pBounds, int nX, D2ClipStrc* pClip); // 0x0050B390
+static int __stdcall GLSPRITE_ClipSprite(D2GlideTexInfoStrc* pInfo, int nY, const D2BoundsStrc* pBounds, int nX, D2ClipStrc* pClip); // 0x0050B390
 
 typedef void (__fastcall* PixelDataFreeCallback)(void* pData);
 
-int __cdecl GLIDE_GetFloorTilesFlag();                                                                                  // 0x00509650
+int __cdecl GLCORE_GetFloorTilesFlag();                                                                                  // 0x00509650
 
 void __fastcall sub_0050A110_GlideFreeCelData(void* pData);                                                 // 0x0050A110
 
@@ -132,7 +132,7 @@ int gnGlideSmackTexAddrB;                                                       
 extern int gnGlideSmackTmu;                                                                        // 0x00880BF4
 
 // 0x0050A0C0
-void __cdecl GLIDE_FreeSpriteBuffers()
+void __cdecl GLSPRITE_FreeSpriteBuffers()
 {
     if (gpGlideBuffer_0087F0C8)
     {
@@ -147,7 +147,7 @@ void __cdecl GLIDE_FreeSpriteBuffers()
 }
 
 // 0x0050A1E0
-static inline int GLIDE_RoundTexSize(int nSize)
+static inline int GLSPRITE_RoundTexSize(int nSize)
 {
     if (nSize > 128)
         return 256;
@@ -161,7 +161,7 @@ static inline int GLIDE_RoundTexSize(int nSize)
 }
 
 // 0x0050A220
-static inline int GLIDE_GetTexSizeExponent(int nSize)
+static inline int GLSPRITE_GetTexSizeExponent(int nSize)
 {
     if (nSize == 256)
         return 8;
@@ -179,7 +179,7 @@ void (__stdcall* gpfnGrDitherMode)(int nFunction); // 0x0087EAB4
 void (__stdcall* gpfnGrConstantColorValue)(unsigned int dwColor); // 0x0087EFA0
 
 // 0x0050A260
-static int GLIDE_InitTexInfo(D2CelContextStrc* pContext, D2GlideTexInfoStrc* pInfo)
+static int GLSPRITE_InitTexInfo(D2CelContextStrc* pContext, D2GlideTexInfoStrc* pInfo)
 {
     if (!sub_006001F0(pContext, 0, 1))
         return 0;
@@ -195,7 +195,7 @@ static int GLIDE_InitTexInfo(D2CelContextStrc* pContext, D2GlideTexInfoStrc* pIn
 }
 
 // 0x0050A2D0
-static void GLIDE_SetupTexInfoSize(D2GlideTexInfoStrc* pInfo)
+static void GLSPRITE_SetupTexInfoSize(D2GlideTexInfoStrc* pInfo)
 {
     int nTexWidth;
     if (pInfo->nWidth > 0x80)
@@ -268,7 +268,7 @@ static void GLIDE_SetupTexInfoSize(D2GlideTexInfoStrc* pInfo)
         pInfo->nAspect = gaGlideAspectLodWide[i];
     }
 
-    if (!GLIDE_IsPerspective())
+    if (!GLVERTEX_IsPerspective())
     {
         pInfo->fS0 = 0.0f;
         pInfo->fS1 = (float)pInfo->nWidth / pInfo->nTexWidth;
@@ -285,10 +285,10 @@ static void GLIDE_SetupTexInfoSize(D2GlideTexInfoStrc* pInfo)
     pInfo->nTexSize = pInfo->nTexHeight * pInfo->nTexWidth;
 }
 
-static void GLIDE_SetSpriteBlendMode(int nMode); // 0x0050ABF0
+static void GLSPRITE_SetSpriteBlendMode(int nMode); // 0x0050ABF0
 
 // 0x0050A450
-static int __stdcall GLIDE_UploadTexInfo(int nPalette, int nColor, int nType, D2GlideTexInfoStrc* pInfo)
+static int __stdcall GLSPRITE_UploadTexInfo(int nPalette, int nColor, int nType, D2GlideTexInfoStrc* pInfo)
 {
     D2CelStrc* pCell = pInfo->pContext->pCel;
     D2_ASSERT(pCell, 0x12D);
@@ -325,13 +325,13 @@ static int __stdcall GLIDE_UploadTexInfo(int nPalette, int nColor, int nType, D2
     int nAddress;
     if (pSlots[nType].nId && (pCache->pEntries[pSlots[nType].nId - 1].nPalette == nPalette || nRequested == 4))
     {
-        GLIDE_TexCacheTouch(&gaGlideTexCaches[nCache], pSlot->nId);
+        GLTEXTURECACHE_TexCacheTouch(&gaGlideTexCaches[nCache], pSlot->nId);
         nAddress = pCache->pEntries[pSlot->nId - 1].nAddress;
     }
     else
     {
         if (!pSlot->nId)
-            pSlot->nId = GLIDE_TexCacheAdd(pCache);
+            pSlot->nId = GLTEXTURECACHE_TexCacheAdd(pCache);
 
         pCache->pEntries[pSlot->nId - 1].pOwner = pSlots;
         pCache->pEntries[pSlot->nId - 1].nOwnerIndex = nType;
@@ -396,12 +396,12 @@ static int __stdcall GLIDE_UploadTexInfo(int nPalette, int nColor, int nType, D2
     }
 
     gpfnGrTexSource(gbGlideMultiTmu, nAddress, 3, &tTexInfo);
-    GLIDE_SetTextureCombineMode(gbGlideMultiTmu);
+    GLCORE_SetTextureCombineMode(gbGlideMultiTmu);
     return 1;
 }
 
 // 0x0050A7B0
-static void __stdcall GLIDE_DrawIsoQuad(int nX, int nY, D2GlideTexInfoStrc* pInfo)
+static void __stdcall GLSPRITE_DrawIsoQuad(int nX, int nY, D2GlideTexInfoStrc* pInfo)
 {
     const int nDimIndex = pInfo->nAspect + 3;
     int nTexW = gaGlideAspectTexDims[nDimIndex].nWidth;
@@ -411,7 +411,7 @@ static void __stdcall GLIDE_DrawIsoQuad(int nX, int nY, D2GlideTexInfoStrc* pInf
     const float fT0 = pInfo->fT0 * nTexH;
     const float fT1 = pInfo->fT1 * nTexH;
 
-    const int bPerspective = GLIDE_IsPerspective();
+    const int bPerspective = GLVERTEX_IsPerspective();
     int nWidth;
     int nHeight;
     if (!bPerspective)
@@ -474,14 +474,14 @@ static void __stdcall GLIDE_DrawIsoQuad(int nX, int nY, D2GlideTexInfoStrc* pInf
 }
 
 // 0x0050A9A0
-static void __stdcall GLIDE_DrawSpriteQuad(int nX, int nY, unsigned int dwColor, int bTinted, D2GlideTexInfoStrc* pInfo, int nPaletteIndex)
+static void __stdcall GLSPRITE_DrawSpriteQuad(int nX, int nY, unsigned int dwColor, int bTinted, D2GlideTexInfoStrc* pInfo, int nPaletteIndex)
 {
-    GLIDE_SetColorCombineMode(1);
-    GLIDE_SetTextureFilterMode(1);
+    GLCORE_SetColorCombineMode(1);
+    GLCORE_SetTextureFilterMode(1);
 
     if (!nPaletteIndex && !bTinted)
     {
-        GLIDE_SetVertexColor(gatGlideSpriteVertices, dwColor);
+        GLVERTEX_SetVertexColor(gatGlideSpriteVertices, dwColor);
     }
     else
     {
@@ -500,7 +500,7 @@ static void __stdcall GLIDE_DrawSpriteQuad(int nX, int nY, unsigned int dwColor,
     const float fT0 = pInfo->fT0 * nTexH;
     const float fT1 = pInfo->fT1 * nTexH;
 
-    const int bPerspective = GLIDE_IsPerspective();
+    const int bPerspective = GLVERTEX_IsPerspective();
     int nWidth;
     int nHeight;
     if (!bPerspective)
@@ -559,45 +559,45 @@ void __fastcall sub_leg345d_Emit_0050A9A0(D2GlideTexInfoStrc* pInfo, int nX, int
 {
     D2GlideTexInfoStrc tInfo = *pInfo;
     if (nMode == 1)
-        GLIDE_DrawSpriteQuad(nX, nY, dwColor, 0, &tInfo, nPaletteIndex);
+        GLSPRITE_DrawSpriteQuad(nX, nY, dwColor, 0, &tInfo, nPaletteIndex);
     else if (nMode == 2)
-        GLIDE_DrawSpriteQuad(nX - 1, nY + 1, -1, 1, &tInfo, 0);
+        GLSPRITE_DrawSpriteQuad(nX - 1, nY + 1, -1, 1, &tInfo, 0);
     else
-        GLIDE_DrawSpriteQuad(nX, nY, dwColor, 0, &tInfo, 0);
+        GLSPRITE_DrawSpriteQuad(nX, nY, dwColor, 0, &tInfo, 0);
 }
 
-static void GLIDE_SetupTexInfoSize(D2GlideTexInfoStrc* pInfo); // 0x0050A2D0
+static void GLSPRITE_SetupTexInfoSize(D2GlideTexInfoStrc* pInfo); // 0x0050A2D0
 
-static int __stdcall GLIDE_UploadTexInfo(int nPalette, int nColor, D2GlideTexInfoStrc* pInfo, int nType); // 0x0050A450
+static int __stdcall GLSPRITE_UploadTexInfo(int nPalette, int nColor, D2GlideTexInfoStrc* pInfo, int nType); // 0x0050A450
 
-static void __stdcall GLIDE_DrawIsoQuad(int nX, int nY, D2GlideTexInfoStrc* pInfo); // 0x0050A7B0
+static void __stdcall GLSPRITE_DrawIsoQuad(int nX, int nY, D2GlideTexInfoStrc* pInfo); // 0x0050A7B0
 
-static void __stdcall GLIDE_DrawSpriteQuad(int nX, int nY, unsigned int dwColor, int bTinted, D2GlideTexInfoStrc* pInfo, int nPaletteIndex); // 0x0050A9A0
+static void __stdcall GLSPRITE_DrawSpriteQuad(int nX, int nY, unsigned int dwColor, int bTinted, D2GlideTexInfoStrc* pInfo, int nPaletteIndex); // 0x0050A9A0
 
 // 0x0050ABF0
-static void GLIDE_SetSpriteBlendMode(int nMode)
+static void GLSPRITE_SetSpriteBlendMode(int nMode)
 {
     switch (nMode)
     {
     case 5:
     case 7:
-        GLIDE_SetAlphaBlendMode(1);
+        GLCORE_SetAlphaBlendMode(1);
         break;
 
     case 3:
-        GLIDE_SetAlphaBlendMode(2);
+        GLCORE_SetAlphaBlendMode(2);
         gpfnGrConstantColorValue(0xFF);
         gpfnGrDitherMode(0);
         break;
 
     case 4:
-        GLIDE_SetAlphaBlendMode(3);
+        GLCORE_SetAlphaBlendMode(3);
         gpfnGrConstantColorValue(0xFF);
         gpfnGrDitherMode(0);
         break;
 
     default:
-        GLIDE_SetAlphaBlendMode(4);
+        GLCORE_SetAlphaBlendMode(4);
         gpfnGrDitherMode(0);
         if (nMode == 0)
             gpfnGrConstantColorValue(0x40);
@@ -610,7 +610,7 @@ static void GLIDE_SetSpriteBlendMode(int nMode)
 }
 
 // 0x0050AC90
-static inline int GLIDE_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc* pRect)
+static inline int GLSPRITE_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc* pRect)
 {
     nX += pRect->nOffsetX;
 // build: symbol ?gnRenderHeight@* 0x007C913C
@@ -629,18 +629,18 @@ static int __stdcall sub_0050A450_UploadSprite(D2GlideTexInfoStrc* pInfo, unsign
 }
 
 // 0x0050ACC0
-int __fastcall GLIDE_CelFlatSpriteDraw(D2CelContextStrc* pData, int nX, int nY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)
+int __fastcall GLSPRITE_CelFlatSpriteDraw(D2CelContextStrc* pData, int nX, int nY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)
 {
 	D2GlideTexInfoStrc tInfo;
 	int nScreenX;
 	int nScreenY;
 
-	if (!GLIDE_InitTexInfo(pData, &tInfo))
+	if (!GLSPRITE_InitTexInfo(pData, &tInfo))
 	{
 		return 0;
 	}
 
-	GLIDE_SetupTexInfoSize(&tInfo);
+	GLSPRITE_SetupTexInfoSize(&tInfo);
 
 	const int nScaleS = gatGlideAspectScale[tInfo.nAspect].nScaleS;
 	const int nScaleT = gatGlideAspectScale[tInfo.nAspect].nScaleT;
@@ -651,7 +651,7 @@ int __fastcall GLIDE_CelFlatSpriteDraw(D2CelContextStrc* pData, int nX, int nY, 
 
 	int nWidth;
 	int nHeight;
-	if (!GLIDE_IsPerspective())
+	if (!GLVERTEX_IsPerspective())
 	{
 		nWidth = tInfo.nWidth << 11;
 		nHeight = tInfo.nHeight << 12;
@@ -667,28 +667,28 @@ int __fastcall GLIDE_CelFlatSpriteDraw(D2CelContextStrc* pData, int nX, int nY, 
 	nX += nOffsetY + nOffsetX;
 	nY += nOffsetY - nOffsetX;
 
-	GLIDE_PerspectiveTransform(nX - nHeight, nY - nHeight, 0, &nScreenX, &nScreenY);
+	GLPERSPECTIVE_PerspectiveTransform(nX - nHeight, nY - nHeight, 0, &nScreenX, &nScreenY);
 	gGlideVertices_0087EFF8[0].x = (float)nScreenX;
 	gGlideVertices_0087EFF8[0].y = (float)nScreenY;
 	gGlideVertices_0087EFF8[0].oow = 1.0f;
 	gGlideVertices_0087EFF8[0].sow = fS0;
 	gGlideVertices_0087EFF8[0].tow = fT0;
 
-	GLIDE_PerspectiveTransform(nX, nY, 0, &nScreenX, &nScreenY);
+	GLPERSPECTIVE_PerspectiveTransform(nX, nY, 0, &nScreenX, &nScreenY);
 	gGlideVertices_0087EFF8[1].x = (float)nScreenX;
 	gGlideVertices_0087EFF8[1].y = (float)nScreenY;
 	gGlideVertices_0087EFF8[1].oow = 1.0f;
 	gGlideVertices_0087EFF8[1].sow = fS0;
 	gGlideVertices_0087EFF8[1].tow = fT1;
 
-	GLIDE_PerspectiveTransform(nX + nWidth, nY - nWidth, 0, &nScreenX, &nScreenY);
+	GLPERSPECTIVE_PerspectiveTransform(nX + nWidth, nY - nWidth, 0, &nScreenX, &nScreenY);
 	gGlideVertices_0087EFF8[2].x = (float)nScreenX;
 	gGlideVertices_0087EFF8[2].y = (float)nScreenY;
 	gGlideVertices_0087EFF8[2].oow = 1.0f;
 	gGlideVertices_0087EFF8[2].sow = fS1;
 	gGlideVertices_0087EFF8[2].tow = fT1;
 
-	GLIDE_PerspectiveTransform(nX + nWidth - nHeight, nY - nHeight - nWidth, 0, &nScreenX, &nScreenY);
+	GLPERSPECTIVE_PerspectiveTransform(nX + nWidth - nHeight, nY - nHeight - nWidth, 0, &nScreenX, &nScreenY);
 	gGlideVertices_0087EFF8[3].x = (float)nScreenX;
 	gGlideVertices_0087EFF8[3].y = (float)nScreenY;
 	gGlideVertices_0087EFF8[3].oow = 1.0f;
@@ -725,10 +725,10 @@ int __fastcall GLIDE_CelFlatSpriteDraw(D2CelContextStrc* pData, int nX, int nY, 
 			return 1;
 		}
 
-		GLIDE_SetSpriteBlendMode(eDrawMode);
-		GLIDE_SetColorCombineMode(1);
-		GLIDE_SetTextureFilterMode(1);
-		GLIDE_SetVertexColor(gGlideVertices_0087EFF8, dwGamma);
+		GLSPRITE_SetSpriteBlendMode(eDrawMode);
+		GLCORE_SetColorCombineMode(1);
+		GLCORE_SetTextureFilterMode(1);
+		GLVERTEX_SetVertexColor(gGlideVertices_0087EFF8, dwGamma);
 		gGlideVertices_0087EFF8[1].dwColor = gGlideVertices_0087EFF8[0].dwColor;
 		gGlideVertices_0087EFF8[2].dwColor = gGlideVertices_0087EFF8[0].dwColor;
 		gGlideVertices_0087EFF8[3].dwColor = gGlideVertices_0087EFF8[0].dwColor;
@@ -741,10 +741,10 @@ int __fastcall GLIDE_CelFlatSpriteDraw(D2CelContextStrc* pData, int nX, int nY, 
 }
 
 // 0x0050B0D0
-int __fastcall GLIDE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, unsigned int dwColor, int nMode, int nPalette)
+int __fastcall GLSPRITE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, unsigned int dwColor, int nMode, int nPalette)
 {
     D2GlideTexInfoStrc tInfo;
-    if (!GLIDE_InitTexInfo(pContext, &tInfo))
+    if (!GLSPRITE_InitTexInfo(pContext, &tInfo))
         return 0;
 
     const int nLeft = nX + tInfo.nOffsetX;
@@ -758,27 +758,27 @@ int __fastcall GLIDE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, unsigne
     if (nBottom - tInfo.nHeight >= gnRenderHeight)
         return 0;
 
-    GLIDE_SetupTexInfoSize(&tInfo);
+    GLSPRITE_SetupTexInfoSize(&tInfo);
     if (nMode == 7)
     {
-        if (!GLIDE_UploadTexInfo(nPalette, 0, 2, &tInfo))
+        if (!GLSPRITE_UploadTexInfo(nPalette, 0, 2, &tInfo))
             return 1;
     }
-    else if (!GLIDE_UploadTexInfo(nPalette, 0, 1, &tInfo))
+    else if (!GLSPRITE_UploadTexInfo(nPalette, 0, 1, &tInfo))
     {
         return 1;
     }
 
-    GLIDE_SetSpriteBlendMode(nMode);
-    GLIDE_DrawSpriteQuad(nX, nY, dwColor, 0, &tInfo, 0);
+    GLSPRITE_SetSpriteBlendMode(nMode);
+    GLSPRITE_DrawSpriteQuad(nX, nY, dwColor, 0, &tInfo, 0);
     return 1;
 }
 
 // 0x0050B190
-int __fastcall GLIDE_CelDrawColor(D2CelContextStrc* pContext, int nX, int nY, unsigned int dwColor, int nMode, int nPaletteIndex)
+int __fastcall GLSPRITE_CelDrawColor(D2CelContextStrc* pContext, int nX, int nY, unsigned int dwColor, int nMode, int nPaletteIndex)
 {
     D2GlideTexInfoStrc tInfo;
-    if (!GLIDE_InitTexInfo(pContext, &tInfo))
+    if (!GLSPRITE_InitTexInfo(pContext, &tInfo))
         return 0;
 
     const int nLeft = nX + tInfo.nOffsetX;
@@ -792,30 +792,30 @@ int __fastcall GLIDE_CelDrawColor(D2CelContextStrc* pContext, int nX, int nY, un
     if (nBottom - tInfo.nHeight >= gnRenderHeight)
         return 0;
 
-    GLIDE_SetupTexInfoSize(&tInfo);
-    if (GLIDE_UploadTexInfo(0, 0, 1, &tInfo))
+    GLSPRITE_SetupTexInfoSize(&tInfo);
+    if (GLSPRITE_UploadTexInfo(0, 0, 1, &tInfo))
     {
-        GLIDE_SetSpriteBlendMode(nMode);
-        GLIDE_DrawSpriteQuad(nX, nY, dwColor, 0, &tInfo, nPaletteIndex);
+        GLSPRITE_SetSpriteBlendMode(nMode);
+        GLSPRITE_DrawSpriteQuad(nX, nY, dwColor, 0, &tInfo, nPaletteIndex);
     }
     return 1;
 }
 
 // 0x0050B230
-void __fastcall GLIDE_CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nMode)
+void __fastcall GLSPRITE_CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nMode)
 {
-    GLIDE_SetSpriteBlendMode(nMode);
+    GLSPRITE_SetSpriteBlendMode(nMode);
 
     D2GlideTexInfoStrc tInfo;
-    if (!GLIDE_InitTexInfo(pContext, &tInfo))
+    if (!GLSPRITE_InitTexInfo(pContext, &tInfo))
         return;
 
-    GLIDE_SetupTexInfoSize(&tInfo);
-    if (!GLIDE_UploadTexInfo(0, 0, 1, &tInfo))
+    GLSPRITE_SetupTexInfoSize(&tInfo);
+    if (!GLSPRITE_UploadTexInfo(0, 0, 1, &tInfo))
         return;
 
     const float fScale = 1.0f / tInfo.nTexHeight;
-    if (!GLIDE_IsPerspective())
+    if (!GLVERTEX_IsPerspective())
     {
         if (nSkip)
         {
@@ -845,11 +845,11 @@ void __fastcall GLIDE_CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, unsi
         tInfo.nTexHeight = nRows;
     }
 
-    GLIDE_DrawSpriteQuad(nX, nY, -1, 0, &tInfo, 0);
+    GLSPRITE_DrawSpriteQuad(nX, nY, -1, 0, &tInfo, 0);
 }
 
 // 0x0050B390
-static int __stdcall GLIDE_ClipSprite(D2GlideTexInfoStrc* pInfo, int nY, const D2BoundsStrc* pBounds, int nX, D2ClipStrc* pClip)
+static int __stdcall GLSPRITE_ClipSprite(D2GlideTexInfoStrc* pInfo, int nY, const D2BoundsStrc* pBounds, int nX, D2ClipStrc* pClip)
 {
     nX += pInfo->nOffsetX;
     int nWidth = pInfo->nWidth;
@@ -908,7 +908,7 @@ static int __stdcall GLIDE_ClipSprite(D2GlideTexInfoStrc* pInfo, int nY, const D
 int __fastcall Harness_ClipSprite(D2GlideTexInfoStrc* pInfo, int nX, int nY, const D2BoundsStrc* pBounds)
 {
     D2ClipStrc tClip;
-    if (GLIDE_ClipSprite(pInfo, nY, pBounds, nX, &tClip))
+    if (GLSPRITE_ClipSprite(pInfo, nY, pBounds, nX, &tClip))
     {
         return 0;
     }
@@ -916,23 +916,23 @@ int __fastcall Harness_ClipSprite(D2GlideTexInfoStrc* pInfo, int nX, int nY, con
 }
 
 // 0x0050B500
-void __fastcall GLIDE_CelDrawClipped(D2CelContextStrc* pContext, int nX, int nY, const D2BoundsStrc* pBounds, int nMode)
+void __fastcall GLSPRITE_CelDrawClipped(D2CelContextStrc* pContext, int nX, int nY, const D2BoundsStrc* pBounds, int nMode)
 {
-    GLIDE_SetSpriteBlendMode(nMode);
+    GLSPRITE_SetSpriteBlendMode(nMode);
     D2GlideTexInfoStrc tInfo;
-    if (!GLIDE_InitTexInfo(pContext, &tInfo))
+    if (!GLSPRITE_InitTexInfo(pContext, &tInfo))
         return;
-    GLIDE_SetupTexInfoSize(&tInfo);
-    if (!GLIDE_UploadTexInfo(0, 0, 1, &tInfo))
+    GLSPRITE_SetupTexInfoSize(&tInfo);
+    if (!GLSPRITE_UploadTexInfo(0, 0, 1, &tInfo))
         return;
 
     D2ClipStrc tClip;
-    if (GLIDE_ClipSprite(&tInfo, nY, pBounds, nX, &tClip))
+    if (GLSPRITE_ClipSprite(&tInfo, nY, pBounds, nX, &tClip))
         return;
 
     const float fScaleT = 1.0f / tInfo.nTexHeight;
     const float fScaleS = 1.0f / tInfo.nTexWidth;
-    if (!GLIDE_IsPerspective())
+    if (!GLVERTEX_IsPerspective())
     {
         if (tClip.nTop)
         {
@@ -982,63 +982,63 @@ void __fastcall GLIDE_CelDrawClipped(D2CelContextStrc* pContext, int nX, int nY,
         }
         tInfo.nTexWidth = tClip.nWidth;
     }
-    GLIDE_DrawSpriteQuad(nX, nY, -1, 0, &tInfo, 0);
+    GLSPRITE_DrawSpriteQuad(nX, nY, -1, 0, &tInfo, 0);
 }
 
 // 0x0050B690
-void __fastcall GLIDE_CelDrawShadow(D2CelContextStrc* pContext, int nX, int nY)
+void __fastcall GLSPRITE_CelDrawShadow(D2CelContextStrc* pContext, int nX, int nY)
 {
     D2GlideTexInfoStrc tInfo;
-    if (!GLIDE_InitTexInfo(pContext, &tInfo))
+    if (!GLSPRITE_InitTexInfo(pContext, &tInfo))
         return;
 
-    GLIDE_SetupTexInfoSize(&tInfo);
-    if (!GLIDE_UploadTexInfo(0, 0, 4, &tInfo))
+    GLSPRITE_SetupTexInfoSize(&tInfo);
+    if (!GLSPRITE_UploadTexInfo(0, 0, 4, &tInfo))
         return;
 
-    GLIDE_SetColorCombineMode(1);
+    GLCORE_SetColorCombineMode(1);
     if (sub_0050BF40_GlideGetBlendedShadows())
     {
-        GLIDE_SetAlphaBlendMode(4);
+        GLCORE_SetAlphaBlendMode(4);
         gpfnGrConstantColorValue(0xC0);
     }
     else
     {
-        GLIDE_SetAlphaBlendMode(1);
+        GLCORE_SetAlphaBlendMode(1);
     }
-    GLIDE_SetTextureFilterMode(1);
-    GLIDE_DrawIsoQuad(nX, nY, &tInfo);
+    GLCORE_SetTextureFilterMode(1);
+    GLSPRITE_DrawIsoQuad(nX, nY, &tInfo);
 }
 
 // 0x0050B720
-void __fastcall GLIDE_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, int nColor)
+void __fastcall GLSPRITE_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, int nColor)
 {
-    GLIDE_SetAlphaBlendMode(4);
+    GLCORE_SetAlphaBlendMode(4);
     gpfnGrDitherMode(0);
     gpfnGrConstantColorValue(0x40);
 
     D2GlideTexInfoStrc tInfo;
-    if (!GLIDE_InitTexInfo(pContext, &tInfo))
+    if (!GLSPRITE_InitTexInfo(pContext, &tInfo))
         return;
 
     tInfo.nWidth += 2;
     tInfo.nHeight += 2;
-    GLIDE_SetupTexInfoSize(&tInfo);
-    if (!GLIDE_UploadTexInfo(0, nColor, 3, &tInfo))
+    GLSPRITE_SetupTexInfoSize(&tInfo);
+    if (!GLSPRITE_UploadTexInfo(0, nColor, 3, &tInfo))
         return;
 
-    GLIDE_DrawSpriteQuad(nX - 1, nY + 1, -1, 1, &tInfo, 0);
+    GLSPRITE_DrawSpriteQuad(nX - 1, nY + 1, -1, 1, &tInfo, 0);
 }
 
-int __fastcall GLIDE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, unsigned int dwColor, int nMode, int nPalette); // 0x0050B0D0
+int __fastcall GLSPRITE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, unsigned int dwColor, int nMode, int nPalette); // 0x0050B0D0
 
-int __fastcall GLIDE_CelDrawColor(D2CelContextStrc* pContext, int nX, int nY, unsigned int dwColor, int nMode, int nPaletteIndex); // 0x0050B190
+int __fastcall GLSPRITE_CelDrawColor(D2CelContextStrc* pContext, int nX, int nY, unsigned int dwColor, int nMode, int nPaletteIndex); // 0x0050B190
 
-void __fastcall GLIDE_CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nMode); // 0x0050B230
+void __fastcall GLSPRITE_CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nMode); // 0x0050B230
 
-void __fastcall GLIDE_CelDrawShadow(D2CelContextStrc* pContext, int nX, int nY); // 0x0050B690
+void __fastcall GLSPRITE_CelDrawShadow(D2CelContextStrc* pContext, int nX, int nY); // 0x0050B690
 
-void __fastcall GLIDE_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, int nColor); // 0x0050B720
+void __fastcall GLSPRITE_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, int nColor); // 0x0050B720
 
 void __cdecl sub_004095D0_Nop()
 {
@@ -1057,12 +1057,12 @@ void __cdecl sub_004BF9C0_Nop()
 }
 
 // 0x0050B7A0
-void __cdecl GLIDE_DebugFillBackBuffer()
+void __cdecl GLSPRITE_DebugFillBackBuffer()
 {
 }
 
 // 0x0050B7B0
-void __cdecl GLIDE_InitSprites()
+void __cdecl GLSPRITE_InitSprites()
 {
     D2_ASSERT(!gpGlideSpriteBufferA, 0x4A);
     D2_ASSERT(!gpGlideSpriteBufferB_0087F0CC, 0x4B);
@@ -1071,13 +1071,13 @@ void __cdecl GLIDE_InitSprites()
     CelSetHardwareFreeCallback(sub_0050A110_GlideFreeCelData);
     gbGlideSpriteFlag = 0;
     gbGlideMultiTmu = gnGlideTmuCount > 1;
-    if (gnGlideTmuCount > 1 && !GLIDE_GetFloorTilesFlag())
+    if (gnGlideTmuCount > 1 && !GLCORE_GetFloorTilesFlag())
         gbGlideSpriteFlag = 1;
 }
 
 
 // 0x0050DFE0
-int __fastcall GLIDE_SetSmackTexAddresses(int nBase, int nAlign)
+int __fastcall GLSPRITE_SetSmackTexAddresses(int nBase, int nAlign)
 {
     int nSize = 0x8000;
     const int nMask = nAlign - 1;
@@ -1093,7 +1093,7 @@ int __fastcall GLIDE_SetSmackTexAddresses(int nBase, int nAlign)
 }
 
 // 0x0050E330
-void __cdecl GLIDE_UploadSmackTextures()
+void __cdecl GLSPRITE_UploadSmackTextures()
 {
     gpfnGrTexDownloadMipMap(gnGlideSmackTmu, gnGlideSmackTexAddrA, 3, &gtGlideSmackTexInfoA);
     gpfnGrTexDownloadMipMap(gnGlideSmackTmu, gnGlideSmackTexAddrB, 3, &gtGlideSmackTexInfoB);
@@ -1101,9 +1101,9 @@ void __cdecl GLIDE_UploadSmackTextures()
 
 int __fastcall sub_M120_Emit_0050A1E0(D2GlideRectViewStrc* pRect, int nA, int nB)
 {
-    int n = GLIDE_RoundTexSize(nA);
-    n += GLIDE_GetTexSizeExponent(nB);
-    n += GLIDE_IsOutsideScreen(nA, nB, pRect);
+    int n = GLSPRITE_RoundTexSize(nA);
+    n += GLSPRITE_GetTexSizeExponent(nB);
+    n += GLSPRITE_IsOutsideScreen(nA, nB, pRect);
     return n;
 }
 

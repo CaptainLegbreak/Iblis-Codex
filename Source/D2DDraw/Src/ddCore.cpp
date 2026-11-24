@@ -59,15 +59,15 @@ extern "C" __declspec(dllimport) int __stdcall BinkDoFrame(D2BinkStrc* pBink); /
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-unsigned int __fastcall GLIDE_GetPaletteColor(int nPaletteIndex); // 0x005093F0
+unsigned int __fastcall GLCORE_GetPaletteColor(int nPaletteIndex); // 0x005093F0
 
-void __fastcall GLIDE_SetColorCombineMode(int nState); // 0x005094B0
+void __fastcall GLCORE_SetColorCombineMode(int nState); // 0x005094B0
 
-void __fastcall GLIDE_SetAlphaBlendMode(int nMode); // 0x00509500
+void __fastcall GLCORE_SetAlphaBlendMode(int nMode); // 0x00509500
 
 void __cdecl sub_0050BE20_GlideDebugRefresh(); // 0x0050BE20
 
-void __fastcall GLIDE_SetAmbientColor(int nRed, int nGreen, int nBlue); // 0x0050DBC0
+void __fastcall GLVERTEX_SetAmbientColor(int nRed, int nGreen, int nBlue); // 0x0050DBC0
 
 void __cdecl DDRAW_ReleaseSurfaces(); // 0x00511A80
 
@@ -308,7 +308,7 @@ char gszDDrawDeviceName[256]; // 0x00881154
 
 D2FogSystemInfoStrc* __cdecl FOG_GetSystemInfo(); // 0x00407360
 
-void __fastcall GLIDE_SetPalette(const tagPALETTEENTRY* pPalette); // 0x00509300
+void __fastcall GLCORE_SetPalette(const tagPALETTEENTRY* pPalette); // 0x00509300
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
