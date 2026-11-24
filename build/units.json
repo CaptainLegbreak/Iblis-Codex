@@ -7948,79 +7948,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004225C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004225C0",
-     "length": 325
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00422D00.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00422D00",
-     "length": 361
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00422FC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00422FC0",
-     "length": 309
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00423100.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00423100.cpp",
    "rank": 1,
    "functions": [
     {
@@ -8044,7 +7972,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00423600.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00423600.cpp",
    "rank": 1,
    "functions": [
     {
@@ -8078,7 +8006,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00423DC0.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00423DC0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -8102,7 +8030,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00424180.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00424180.cpp",
    "rank": 1,
    "functions": [
     {
@@ -8126,7 +8054,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_004242C0.cpp",
+   "file": "Source/Storm/SOURCE/SBig_004242C0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -8150,9 +8078,13 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00424700.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00424700.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x00422D00",
+     "length": 361
+    },
     {
      "va": "0x00424700",
      "length": 1014
@@ -8174,7 +8106,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00424B00.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00424B00.cpp",
    "rank": 1,
    "functions": [
     {
@@ -8198,7 +8130,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00424FB0.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00424FB0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -8222,7 +8154,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00425150.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00425150.cpp",
    "rank": 1,
    "functions": [
     {
@@ -8246,9 +8178,17 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00425350.cpp",
+   "file": "Source/Storm/SOURCE/SBig_00425350.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x004225C0",
+     "length": 325
+    },
+    {
+     "va": "0x00422FC0",
+     "length": 309
+    },
     {
      "va": "0x00425350",
      "length": 616
