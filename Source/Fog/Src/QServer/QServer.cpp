@@ -12,10 +12,6 @@ struct D2PacketBufferStrc;
 
 struct D2CriticalSectionStrc;
 
-struct D2ServerNode006BE3C0Strc;
-
-struct D2Server006BE3C0Strc;
-
 struct Obj006BE450;
 
 struct D2Worker006BE4A0Strc;
@@ -25,10 +21,6 @@ struct D2Object006BE4E0Strc;
 struct D2ReferenceStrc;
 
 struct D2RecordTableStrc;
-
-struct D2NetPacketStrc;
-
-struct D2NetQueueStrc;
 
 struct D2HashNodeStrc;
 
@@ -67,23 +59,6 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-
-struct D2ServerNode006BE3C0Strc
-{
-    unsigned char unk_000[0x5BC];
-    D2ServerNode006BE3C0Strc* pNext;
-};
-
-struct D2Server006BE3C0Strc
-{
-    unsigned char unk_000[0x854];
-    D2CriticalSectionStrc tLock;
-    unsigned char unk_86C[4];
-    D2ServerNode006BE3C0Strc** ppHeads;
-    D2ServerNode006BE3C0Strc** ppTails;
-    unsigned char unk_878[4];
-    int nSlots;
-};
 
 struct Obj006BE450 { unsigned char bUnknown00[0x880]; unsigned int dwValue880; };
 
@@ -132,25 +107,6 @@ struct D2RecordTableStrc {
     D2CriticalSectionStrc lock;
     unsigned char unknown86c[0x18];
     int threshold;
-};
-
-struct D2NetPacketStrc
-{
-    unsigned char data[0x5B4];
-    int nSize;
-    int unk_5B8;
-    D2NetPacketStrc* pNext;
-};
-
-struct D2NetQueueStrc
-{
-    unsigned char unk_000[0x854];
-    D2CriticalSectionStrc lock;
-    unsigned char unk_86C[0x4];
-    D2NetPacketStrc** ppHeads;
-    D2NetPacketStrc** ppTails;
-    D2NetPacketStrc* pFree;
-    int nQueues;
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -389,22 +345,6 @@ extern "C" void __fastcall __security_check_cookie(unsigned int cookie); // 0x00
 
 static void QSERVER_StartServer(QServer* pServer, int nValue); // 0x006BF520
 
-struct D2QEntry006BF580Strc
-{
-    unsigned char unk_000[0x5BC];
-    D2QEntry006BF580Strc* pNext;
-};
-
-struct D2QServer006BF580Strc
-{
-    unsigned char unk_000[0x854];
-    D2CriticalSectionStrc pLock;
-    unsigned char unk_86C[0x04];
-    D2QEntry006BF580Strc** ppBuckets;
-    unsigned char unk_874[0x08];
-    int nBuckets;
-};
-
 const char* __stdcall sub_006B013E_FormatAddress(unsigned int nAddress); // 0x006B013E
 
 void __stdcall QSERVER_BanClient(int nClient, const char* szFile, int nLine); // 0x006C0770
@@ -642,18 +582,18 @@ void __stdcall FOG_SetServerConfig(D2QServerConfigStrc* pConfig)
 }
 
 // 0x006BE3C0
-int __stdcall QSERVER_FreeAllSlots(D2Server006BE3C0Strc* pServer)
+int __stdcall QSERVER_FreeAllSlots(D2QueueServerStrc* pServer)
 {
-    for (int i = 0; i < pServer->nSlots; ++i)
+    for (int i = 0; i < pServer->nQueueCount; ++i)
     {
         EnterCriticalSection(&pServer->tLock);
-        D2ServerNode006BE3C0Strc* pNode = pServer->ppHeads[i];
-        pServer->ppHeads[i] = 0;
-        pServer->ppTails[i] = 0;
+        D2MessageStrc* pNode = pServer->ppMsgHeads[i];
+        pServer->ppMsgHeads[i] = 0;
+        pServer->ppMsgTails[i] = 0;
         LeaveCriticalSection(&pServer->tLock);
         while (pNode)
         {
-            D2ServerNode006BE3C0Strc* pFree = pNode;
+            D2MessageStrc* pFree = pNode;
             pNode = pNode->pNext;
             FOG_Free(pFree, ".\\Src\\QServer\\QServer.cpp", 0x1B9, 0);
         }
@@ -965,13 +905,13 @@ int __stdcall QSERVER_CountQueuedMessages(D2QueueServerStrc* pServer, int nBucke
 }
 
 // 0x006BEAD0
-int __stdcall FOG_10156(D2NetQueueStrc* pQueue, int nIndex, void* pDst, unsigned int nMax)
+int __stdcall FOG_10156(D2QueueServerStrc* pQueue, int nIndex, void* pDst, unsigned int nMax)
 {
     if (!pQueue)
     {
         return -1;
     }
-    if (nIndex >= pQueue->nQueues)
+    if (nIndex >= pQueue->nQueueCount)
     {
         return -1;
     }
@@ -980,29 +920,29 @@ int __stdcall FOG_10156(D2NetQueueStrc* pQueue, int nIndex, void* pDst, unsigned
         nMax = 0x5B4;
     }
 
-    EnterCriticalSection(&pQueue->lock);
-    D2NetPacketStrc* pPacket = pQueue->ppHeads[nIndex];
+    EnterCriticalSection(&pQueue->tLock);
+    D2MessageStrc* pPacket = pQueue->ppMsgHeads[nIndex];
     if (!pPacket)
     {
-        LeaveCriticalSection(&pQueue->lock);
+        LeaveCriticalSection(&pQueue->tLock);
         return -1;
     }
-    pQueue->ppHeads[nIndex] = pPacket->pNext;
-    if (pQueue->ppTails[nIndex] == pPacket)
+    pQueue->ppMsgHeads[nIndex] = pPacket->pNext;
+    if (pQueue->ppMsgTails[nIndex] == pPacket)
     {
-        pQueue->ppTails[nIndex] = 0;
+        pQueue->ppMsgTails[nIndex] = 0;
     }
-    LeaveCriticalSection(&pQueue->lock);
+    LeaveCriticalSection(&pQueue->tLock);
 
     const int nCopy = (pPacket->nSize + 4 > (int)nMax) ? nMax : pPacket->nSize + 4;
     memcpy(pDst, pPacket, nCopy);
     int nResult = pPacket->nSize;
-    memset(pPacket, 0, sizeof(D2NetPacketStrc));
+    memset(pPacket, 0, sizeof(D2MessageStrc));
 
-    EnterCriticalSection(&pQueue->lock);
-    pPacket->pNext = pQueue->pFree;
-    pQueue->pFree = pPacket;
-    LeaveCriticalSection(&pQueue->lock);
+    EnterCriticalSection(&pQueue->tLock);
+    pPacket->pNext = pQueue->pFreeMessages;
+    pQueue->pFreeMessages = pPacket;
+    LeaveCriticalSection(&pQueue->tLock);
     return nResult;
 }
 
@@ -1472,22 +1412,22 @@ void __fastcall sub_Emit_006BF520(QServer* pServer, int nValue)
 }
 
 // 0x006BF580
-int __stdcall QSERVER_CountEntries(D2QServer006BF580Strc* pServer)
+int __stdcall QSERVER_CountEntries(D2QueueServerStrc* pServer)
 {
     int nCount = 0;
     if (!pServer)
     {
         return 0;
     }
-    EnterCriticalSection(&pServer->pLock);
-    for (int i = 0; i < pServer->nBuckets; ++i)
+    EnterCriticalSection(&pServer->tLock);
+    for (int i = 0; i < pServer->nQueueCount; ++i)
     {
-        for (D2QEntry006BF580Strc* pEntry = pServer->ppBuckets[i]; pEntry; pEntry = pEntry->pNext)
+        for (D2MessageStrc* pEntry = pServer->ppMsgHeads[i]; pEntry; pEntry = pEntry->pNext)
         {
             ++nCount;
         }
     }
-    LeaveCriticalSection(&pServer->pLock);
+    LeaveCriticalSection(&pServer->tLock);
     return nCount;
 }
 
