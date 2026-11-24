@@ -7,7 +7,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 00:00 PT: four branches posted. D2Common's language-table rows are all placed. Next: small borrowed blocks (0x6F1E18, 0x6F2370, 0x6F26A8, 0x6F28D0, the LvlTbls text tail 0x6E867A), then the D2Common placeholders.
+- 2026-11-24 00:00 PT: four branches posted. All the language copies in the FieldTbls-to-D2Common-end stretch are now placed. Next: the other D2Common multi-copy files in language-objects.md (MonsterTbls 5, Waypoint 5, Units 4, Composit 4, Unknown_006634F0 4, Ignorelist 3, Unknown_00665810 3, and the 2-copy rows), then the small borrowed blocks.
 
 ## Ready
 - lane8/lang-drlg 2bcc778e (stacked on lang-path, on #331), VERIFIED 5d4b871d. FieldTbls.cpp's last eight language-table copies go to the objects after AnimTbls in code order: 0x749804 Unknown_0066AB70, 0x749840 DrlgRoom, 0x74987C DrlgLogic, 0x7498B8 DrlgAnim, 0x7498F4 RoomTile, 0x749930 Maze, 0x74996C Unknown_00674040, 0x7499A8 Outdoors. Evidence: the file-name strings in .rdata, in this order. Each placeholder's .rdata sits between its neighbours' strings. RoomTile/TileSub assert lines continue (0x2B1 -> 0x2B6), and Maze's first assert line is 0x1C. 0x66D7E0-0x66D812 read DrlgAnim's .rdata, so they are DrlgAnim's tail. FieldTbls.cpp now keeps only its own data.
