@@ -2,6 +2,8 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
+Status (Tue Nov 24 10:44:38 PST 2026): on #358; mcp-startthread-2 ready; starting the object-map joins (report-356.md), CelCmp.cpp <- Unknown_00604070 + Unknown_00603F40 first.
+
 ## Ready
 
 - lane6/mcp-startthread-2 79d65947 0 placeholders. CHATDLG_StartThread (0x0044A130) moves from ChatDlg.cpp to D2MCPClient/Src/McpConnect.cpp: it follows MCPCONNECT_ConnectThread, starts it, and uses the MCP connect object's .bss (ghThread 0x007992A4, gtThreadRecord 0x00798FB8). The thread proc is cdecl in the original (plain `ret`), so the CreateThread argument is cast. ChatDlg.cpp's unused ghThread definition and three declarations go. Not stacked (the old lane6/mcp-startthread was stacked on mcp-copies and is not posted). VERIFIED 8674aead (on #358; borrowed data 922 B, unchanged).
