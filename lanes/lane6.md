@@ -4,13 +4,14 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/d2comp-a e55b3b5d 563->562 D2Comp.cpp, D2WinSmack, D2WinList, D2WinScrollbar and D2WinPopup take back the pieces inside their runs (D2Comp_00503340.cpp goes whole into D2Comp.cpp); gData_0072EFD4 (seven back-to-back language copies, D2Comp.cpp) splits into seven 60-B definitions for the seven data-less objects after D2Comp in link order: Smack, List, AccountList, ProgressBar, Scrollbar, Popup, Unknown_00508970. Not stacked; touches only D2Win. VERIFIED 113b39b6 (on #328). Borrowed data unchanged (2,382 B).
-- (lane6/d2win-b, stacked on d2comp-a, is verifying.)
+- lane6/sound-b 5e74595f 563->560 D2Sound regrouped by its objects (language copies + bss order + the D2SoundFast/D2SoundSmp asserts): Unknown_00513BC0.cpp (was Unknown_00514990) takes 0x00513BC0-0x00514990 from five files, with the channel tables as statics after its copy; the option block gathers in Unknown_00514B60.cpp (was Unknown_00514D60); gData_0072F834/0072F8FC/0072F9B4 split into the copies of the getters' file, the channel-table file, the option block, D2SoundFast, D2SoundSmp and D2SoundUtil. Not stacked. Outside the lane: a plan-only move of gData_0072F7F4 (the copy that starts Unknown_00513A20's data) out of D2DDraw ddCore.cpp's plan (lane 9, FYI). VERIFIED c0b95d4b (on #331); rebased onto #332 with no source conflicts (plan delta checked equal), re-verify running. Borrowed data 2,382 -> 2,378 B.
+- (lane6/d2win-b-2: verifying on #332. It replaces lane6/d2win-b: d2comp-a merged in #330, so it is rebased; it also carries the D2WinArchive copy.)
 
 ## Claimed
 
 - D2Sound regroup (lane6/sound-b, starting). The four language copies after the channel tables (gData_0072F8FC, 180 B, and gData_0072F9B4, both in D2SoundSmp.cpp) plus D2Sound's bss order give its objects in link order: A, the channel-table object (code 0x00514710-0x00514990, bss 0x00881794-0x008817A8, data: copy 0x0072F838 and the channel tables 0x0072F874-0x0072F8F8); the option block (0x00514B60-0x00514D90, bss 0x008817AC-0x008817C0, copy 0x0072F8FC); D2SoundFast.cpp (asserted at 0x00514E10 and 0x00515070, bss 0x008817C4-0x00881800, copy 0x0072F938); D2SoundSmp.cpp (asserted at 0x00515530 and 0x005160D0, bss 0x00881804-0x00881814, copy 0x0072F974 and gnSoundMasterVolume); D2SoundUtil.cpp (copy 0x0072F9B4). Functions filed against that order move to their object; the copies split to match.
-- D2Win (in progress). Two branches, stacked: lane6/d2comp-a (D2Comp, Smack, List, Scrollbar, Popup take their pieces; gData_0072EFD4's seven copies split over the seven data-less objects after D2Comp) and lane6/d2win-b on top of it (TextBox, EditBox, Image take their pieces; gData_0072DE94's six copies split over Image, Timer, Unknown_004FDA80, EditBox, AnimImage, Button). Next in D2Win: the WREGISTER run 0x00506C40-0x00506E5F and the rest of D2WinMain.cpp's strays.
+- D2Win (lane6/d2win-b-2, verifying): TextBox, EditBox, Image take their pieces; gData_0072DE94's six copies split over Image, Timer, Unknown_004FDA80, EditBox, AnimImage, Button; gData_0072DDD8 goes to D2WinArchive.
+- D2Launch/D2Multi object map (next, claimed). The copy at 0x0070CD18 starts one object holding 0x1E40 B of data now planned in ChatDlg.cpp, ComCallback.cpp, CharSel.cpp, Unknown_0043DD00, Unknown_00440FC0, Unknown_00441320 and Unknown_00444020, so ChatDlg.cpp's object spans their code. I'll map the objects from the copies, the bss and the asserts first, then move code and data in steps.
 
 ## Handover to lane 8 (D2Common)
 
@@ -40,6 +41,11 @@ Nothing of mine in flight. Open items:
 
 ## Left in place (and why)
 
+- D2WinFont_00501DF0.cpp (0x00501DF0, 0x00501FE0, 0x00502970): inside D2WinFont.cpp's run, but it builds equal only with a POD Unicode; in D2WinFont.cpp (D2Unicode.h) the frame grows by 4 B and registers change. Same case as MainMenus_00431AF0.
+- D2Win_10076 0x004FFE10 (in D2WinTextBox.cpp): inside EditBox's run, but it zeroes its buffer with an inline rep stosd, and D2WinEditBox.cpp has #pragma function(memset) (its other functions call memset).
+- D2SoundSmp_005153C0.cpp: inside D2SoundSmp's run; in D2SoundSmp.cpp its true body allocates registers differently, so D2SoundSmp.cpp keeps its context copy.
+- D2Lang 0x00526100-0x00527BE0: three data-less objects lie between the UTF-8 table's object and SRP.cpp's, but the casetable's object (copy 0x00730538) comes before the UTF-8 one in .data while its readers come after in code, so the code order there is not settled yet.
+- D2Net/D2Game edge: ganClientPacketSizes (Unknown_0052B920.cpp, 572 B) holds two copies after its 452 B; the two data-less objects sit in the interleaved D2Net/Game.cpp stubs 0x0052BDA0-0x0052BFE0, and nothing there says which.
 - D2CMP 0x0060AE80 and 0x0060B130-0x0060B1F0 (bit-buffer helpers, FastCmp.cpp's CodecSkipBits): between CelDataHash.cpp and the Codec run, no callers. CodecInitLock/CodecReleaseLock 0x0060CD30/0x0060CD50 (in GfxHash.cpp) and FindTileHash 0x0060CD70 (in FastCmp.cpp): between Codec.cpp and FindTiles.cpp, inferred names. Both sides weak.
 
 - PATHMISC_SetRoom 0x0064FAA0 (Unknown_0064FAA0.cpp): it is static (pPath in ESI), but nothing in the image calls it. It sits between Composit.cpp and the new Unknown_0064FAD0.cpp run.
