@@ -22,6 +22,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
+- lane4/copy-46c570: the data-less object 0x46C570-0x46C65F (GfxUtil.cpp's 0x46C570/0x46C600) gets its own file with the copy 0x712A28 from Unknown_0046ACE0.cpp.
 ## Questions
 
 ## Notes for other lanes
