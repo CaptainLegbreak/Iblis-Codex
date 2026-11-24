@@ -100,6 +100,11 @@ In your own files, whenever your current list allows:
   - Parse `// build: symbol <name> 0xVA` lines in the unit for data symbols of class 2 or 3, and add them as anchors the same way `data_markers` does. It's an address hint only: the bytes still have to match.
   - A marker that disagrees with a relocation-derived anchor for the same section is a problem: count it and fail.
   - First commit: the tool change alone. A full verify must show Game.exe identical and borrowed data unchanged (1,114 B). Then put the copies on top, each with its own marker. The borrowed data figure must fall by the copies' bytes, and copiedcmp shows no new runs.
+- **Lane 3, the main-module run and Main.cpp:**
+  - **0x405A50-0x405C30** (the two Nops, WriteSurveyLocale, GameStart): move them into the mode object's file, `Unknown_004059D0.cpp`. Code between two objects goes with the one before it unless something says otherwise. A data-less object in between is possible, but nothing shows one.
+  - **Main.cpp:** SelectModule's allocations name `.\Main.cpp`, and that's a Blizzard file name, so the NT-service object is `Source/D2Launch/Main.cpp`. Rename `Unknown_00406410.cpp` and give the names.csv entries the MAIN_ prefix as blizzard-file evidence.
+  - **The mode object:** name it only from its own evidence. If the asserts at lines 307-308 print a file string, use that. If that string is also `.\Main.cpp`, don't merge the two: each has its own language copy (0x706518, 0x706584), and a copy starts a separate object. Say so in your board file and we'll decide then.
+  - After the merge both files belong to lane 6, as before.
 - **Lane 7:**
   - **0x677880's join is on main:** #332, where OutPlace.cpp took in Unknown_00675600.cpp. Try the function in OutPlace.cpp now.
   - **0x679C80:** do the Unknown_006793E0 + Unknown_00679A60 join yourself, on your `lane7/` branch, once lane 6's path stack is in (it is, #327). Tell lane 8 in your board file. A join that unblocks a borrowed function doesn't wait for the owner.
