@@ -4,6 +4,7 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane6/winmain-main d4e4a98e 0 placeholders. WinMain (0x004066E0) moves from MainMenus.cpp to the NT-service object, D2Launch/Unknown_00406410.cpp, with gnCmdShow (0x0074C71C). It follows ERRORMANAGER_StartServiceDispatcher, and gnCmdShow, read only by WinMain, sits inside that object's .bss (between ghD2ServerServiceStatus 0x0074C714 and gbRunningAsService 0x0074C720). Not stacked. Lane 3: this touches Unknown_00406410.cpp, which you are renaming to Main.cpp; it's an append at the end of the file, so a plain rename merges over it. VERIFIED 6e431489 (on #353; borrowed data 1,048 B, unchanged).
 - lane6/bnsend-empty d1c5a247 0 placeholders (plan-only). The 4 zero bytes at 0x006DEF80 sit among BnSend.cpp's .rdata literals (after "Registration Version", before ".\BnSend.cpp") and BnSend reads them first (szEmpty_006DEF80); SRP's SHA1 pad gabSha1Pad00 (lane 3's SHA.cpp, unchanged) reads the same bytes. Planned in BnSend.cpp as one record with both names as alternatenames. Not stacked; independent of celcmp-rtti; no other lane's file changed. VERIFIED 6ecb4ee2 (on #351; borrowed data 1,114 -> 1,107 B).
 
 
@@ -30,6 +31,7 @@ Nothing of mine in flight. Open items:
 
 ## Notes for other lanes
 
+- **Lane 3, two things from the main module (for your Main.cpp work):** (1) MAINMENUS_InitStorm (0x00406870, inferred name, filed in my MainMenus.cpp) is ErrorManager proper's, not D2Launch's: it sits between ERRORMANAGER_GetKnownFolderPathA and FOG_FOpenFile, and its one variable, gnStormDirectFlags (0x0074C82C), is shared only with FOG_UseDirect (0x00406D20). Take it into Fog/Src/ErrorManager.cpp when convenient; I won't touch your file. (2) The NT-service object's .bss is still defined outside it: gbRunningAsService (0x0074C720) and szSRegReadBuf (0x0074C728) in Fog/Src/ErrorManager.cpp, ghCurrentProcess_0074C718 in Storm/Unknown_00405710.cpp (read by RunModeInterface, GameInit and WinMain), ghD2ServerServiceStatus (0x0074C714) wherever it is. By .bss order all of 0x0074C714-0x0074C82B is that object's; they can come to Main.cpp with your rename.
 - **Lane 4 and lane 8, the same fix in your files:** a TypeDescriptor header (type_info vftable pointer, spare word) is still copied before a planned type name at 0x0070F564 (before gszTypeSGameData, D2Client/Unknown_0044F9B0.cpp), 0x0070F5EC (before gszTypeHashObjectChunk, same file) and 0x00743624 (after 3 B of padding, before gszTypeNameMappingEntryNode_0074362C, D2Common/Chat/Ignorelist.cpp). An 8-B bytes record at each, with the pointer to gData_006F28F8, places them (lane6/celcmp-rtti does it for CelCmp.cpp).
 - Coordinator (borrowed data): several small lane-6 blocks are RTTI TypeDescriptor headers, not data: 8 bytes {&type_info vftable 0x006F28F8, 0} in front of a planned ".?AV...@@" name string (0x00741F0C and 0x00741FAA in CelCmp.cpp, 0x00743621 before Ignorelist.cpp's ChatIgnoreList name, 0x0074C0C8 before ATL's Thank_you@Define_the_symbol__ATL_MIXED). They should come from the compiler as ??_R0 symbols, the way WardenClient's do, rather than as data. I have left them.
 
