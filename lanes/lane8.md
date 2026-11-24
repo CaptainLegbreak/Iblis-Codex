@@ -7,9 +7,10 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 09:55 PT: place-h/j/k/l are in (#355, #356). place-m is rebased onto #356. Next: Unknown_00631430 and the rest of D2Common's placeholders.
+- 2026-11-24 10:20 PT: place-m and place-n posted. Next: the remaining D2Common placeholders, by evidence.
 
 ## Ready
+- lane8/place-n 5ebd3d58 (on #356), VERIFIED 56bab2bf. ItemTbls.cpp takes in Unknown_00631430 (0x631430/0x631490/0x631530, the calc callbacks ItemCalcLinker hands to CompileExpression) and 0x6314A0 (ITEMS_ResolveItemCalcKeyword, from Items.cpp, sitting between them). Joined, 0x633F40 swapped two locals' stack slots; renaming the locals fixed it. Units -1.
 - lane8/place-m 46cc1111 (on #356), VERIFIED 8b3c8e1f. OutPlace.cpp takes in Unknown_00675850, 00675DE0, 006768C0 and 006769A0 (all inside its run, no copies). Link-table entries for 0x676450/0x676650/0x6768C0/0x6769A0 now point at the source functions. 00675850's four .rdata records (0x6F0620, 0x6F06F0, 0x6F1088, 0x6F112C) sit among OutPlace's tables and move with it. 0x6769A0 builds equal without /Ob1. Lane 7: OutPlace.cpp grows ~450 lines between 0x675DE0 and 0x676AE0; your 0x677880 edit is elsewhere in the file. Units -4.
 
 ## Questions
