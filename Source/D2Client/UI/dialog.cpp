@@ -171,7 +171,6 @@ extern "C" void __stdcall DIALOG_SelectNextAltMsg(Message* message);
 
 static void __stdcall DIALOG_LButtonDownMsg(SMSGHANDLER_PARAMS* pMsg);
 
-MSGHANDLERFN gpfnEmit_004B73E0 = DIALOG_LButtonDownMsg;
 
 extern "C" void __stdcall DIALOG_WheelMsg(Message* message);
 
