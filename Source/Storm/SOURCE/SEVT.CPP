@@ -507,3 +507,78 @@ int __stdcall SEvtDispatch(unsigned int nType, unsigned int nSubType, unsigned i
 
     return bResult;
 }
+
+// Link holders of the run whose types are not known yet: each constructor zeroes, each destructor unlinks.
+struct sub_00426960
+{
+    D2StormLinkStrc f_0;
+    ~sub_00426960();
+};
+
+struct sub_00426A80
+{
+    D2StormLinkStrc f_0;
+    ~sub_00426A80();
+};
+
+struct sub_00426CA0
+{
+    D2StormLinkStrc f_0;
+    sub_00426CA0();
+};
+
+struct sub_00426CB0
+{
+    D2StormLinkStrc f_0;
+    ~sub_00426CB0();
+};
+
+struct sub_00426D70
+{
+    D2StormLinkStrc f_0;
+    sub_00426D70();
+};
+
+struct sub_00426D80
+{
+    D2StormLinkStrc f_0;
+    ~sub_00426D80();
+};
+
+// 0x00426960
+sub_00426960::~sub_00426960()
+{
+    f_0.Unlink();
+}
+
+// 0x00426A80
+sub_00426A80::~sub_00426A80()
+{
+    f_0.Unlink();
+}
+
+// 0x00426CA0
+sub_00426CA0::sub_00426CA0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00426CB0
+sub_00426CB0::~sub_00426CB0()
+{
+    f_0.Unlink();
+}
+
+// 0x00426D70
+sub_00426D70::sub_00426D70()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00426D80
+sub_00426D80::~sub_00426D80()
+{
+    f_0.Unlink();
+}
