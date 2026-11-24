@@ -1,31 +1,5 @@
 #include "D2Client.h"
-
-struct D2StateNodeStrc
-{
-    int dwType;
-    int unk0x04;
-    int nCurrent;
-    int nNextOverlay;
-    int nNextState;
-    int nSpeed;
-    int nFrame;
-    int nFrames;
-    char unk0x20[0x08];
-    unsigned int dwDelay;
-    unsigned int dwStamp;
-    unsigned int f_30;
-    char unk0x34[0x04];
-    int nStateId;
-    int bSelected;
-    char unk0x40[0x64];
-    D2StateNodeStrc* pNext;
-};
-
-struct D2StateOwnerStrc
-{
-    char unk0x00[0x2C];
-    D2StateNodeStrc* pFirst;
-};
+#include "D2ClientGfxState.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -158,7 +132,7 @@ void __fastcall sub_00470C30_UpdateStateOverlays(D2UnitStrc* pUnit)
         case 6:
             if (!pNode->nCurrent)
             {
-                if (GetTickCount() - pNode->f_30 < pNode->dwDelay)
+                if (GetTickCount() - pNode->dwDelayStart < pNode->dwDelay)
                 {
                     continue;
                 }
@@ -251,7 +225,7 @@ void __fastcall sub_00470C30_UpdateStateOverlays(D2UnitStrc* pUnit)
         case 6:
             pNode->nFrame -= pNode->nFrames;
             pNode->nCurrent = 0;
-            pNode->f_30 = GetTickCount();
+            pNode->dwDelayStart = GetTickCount();
             break;
 
         case 7:
