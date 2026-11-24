@@ -9393,11 +9393,6 @@
      "name": "?CHARSEL_CancelGameCreate@@YAHXZ"
     },
     {
-     "va": "0x00443F80",
-     "length": 160,
-     "name": "?CHARSEL_SubmitProfile@@YGHH@Z"
-    },
-    {
      "va": "0x00446890",
      "length": 88,
      "name": "?CHARSEL_SendChatLine@@YGHH@Z"
@@ -10813,11 +10808,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x004453B0",
-     "length": 379,
-     "name": "?COMCALLBACK_BuildCreateGamePanel@@YAXXZ"
-    },
-    {
      "va": "0x00445FF0",
      "length": 1934,
      "name": "?COMCALLBACK_BuildCreateScreen@@YAXXZ"
@@ -10923,6 +10913,11 @@
      "va": "0x00447560",
      "length": 395,
      "name": "COMCALLBACK_SplitName"
+    },
+    {
+     "va": "0x00447700",
+     "length": 37,
+     "name": "CHATDLG_OnChannelDoesNotExist"
     },
     {
      "va": "0x00447740",
@@ -11920,6 +11915,11 @@
      "name": "?CHARSEL_GetConnectStatus@@YAHXZ"
     },
     {
+     "va": "0x0043DC50",
+     "length": 135,
+     "name": "?CHATDLG_CreateChatCellFile@@YAXPAUD2LaunchCharInfoStrc@@@Z"
+    },
+    {
      "va": "0x0043DCE0",
      "length": 28,
      "name": "?sub_0043DCE0_FreeChatCellFile@@YAXXZ"
@@ -12032,6 +12032,10 @@
      "va": "0x0043E780",
      "length": 217,
      "name": "?CHATDLG_NotifyCommand@@YAHPBD0@Z"
+    },
+    {
+     "va": "0x0043E860",
+     "length": 155
     },
     {
      "va": "0x0043E900",
@@ -12193,6 +12197,11 @@
      "name": "?CHATDLG_OnToggleButton@@YGHH@Z"
     },
     {
+     "va": "0x0043F720",
+     "length": 13,
+     "name": "?CHATDLG_OnProfileClose@@YGHH@Z"
+    },
+    {
      "va": "0x0043F730",
      "length": 196,
      "name": "?COMCALLBACK_UpdateNameListText@@YAXXZ"
@@ -12302,6 +12311,10 @@
      "name": "?CHATDLG_OnResetCallback@@YGHH@Z"
     },
     {
+     "va": "0x004403F0",
+     "length": 766
+    },
+    {
      "va": "0x004406F0",
      "length": 437,
      "name": "?CHATDLG_CreateClassScreen@@YAXXZ"
@@ -12395,9 +12408,19 @@
      "name": "?sub_004414C0_UpdateEnable@@YAXXZ"
     },
     {
+     "va": "0x00441500",
+     "length": 1409,
+     "name": "?JoinOrCreateGame@@YGHH@Z"
+    },
+    {
      "va": "0x00441A90",
      "length": 223,
      "name": "?CHATDLG_ConnectRealm@@YAHXZ"
+    },
+    {
+     "va": "0x00441B70",
+     "length": 1489,
+     "name": "?CHATDLG_RunChat@@YIHPAUD2LaunchCharInfoStrc@@@Z"
     },
     {
      "va": "0x00442150",
@@ -12427,6 +12450,11 @@
      "va": "0x004428B0",
      "length": 18,
      "name": "?CHATDLG_SendChat@@YGHH@Z"
+    },
+    {
+     "va": "0x004428D0",
+     "length": 207,
+     "name": "?CHATDLG_SendChatText@@YIHPADH@Z"
     },
     {
      "va": "0x004429A0",
@@ -12637,6 +12665,11 @@
      "name": "?sub_00443F70_OnRefresh@@YGHH@Z"
     },
     {
+     "va": "0x00443F80",
+     "length": 160,
+     "name": "?CHARSEL_SubmitProfile@@YGHH@Z"
+    },
+    {
      "va": "0x00444020",
      "length": 3579
     },
@@ -12668,6 +12701,11 @@
      "va": "0x00445300",
      "length": 165,
      "name": "COMCALLBACK_LoadLevelRestriction"
+    },
+    {
+     "va": "0x004453B0",
+     "length": 379,
+     "name": "?COMCALLBACK_BuildCreateGamePanel@@YAXXZ"
     },
     {
      "va": "0x00445530",
@@ -12729,64 +12767,6 @@
      "length": 63,
      "name": "CHATDLG_StartThread"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ChatDlg_00441B70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043DC50",
-     "length": 135,
-     "name": "?CHATDLG_CreateChatCellFile@@YAXPAUD2LaunchCharInfoStrc@@@Z"
-    },
-    {
-     "va": "0x0043E860",
-     "length": 155
-    },
-    {
-     "va": "0x0043F720",
-     "length": 13,
-     "name": "?CHATDLG_OnProfileClose@@YGHH@Z"
-    },
-    {
-     "va": "0x004403F0",
-     "length": 766
-    },
-    {
-     "va": "0x00441500",
-     "length": 1409,
-     "name": "?JoinOrCreateGame@@YGHH@Z"
-    },
-    {
-     "va": "0x00441B70",
-     "length": 1489,
-     "name": "?CHATDLG_RunChat@@YIHPAUD2LaunchCharInfoStrc@@@Z"
-    },
-    {
-     "va": "0x004428D0",
-     "length": 207,
-     "name": "?CHATDLG_SendChatText@@YIHPADH@Z"
-    },
-    {
-     "va": "0x00447700",
-     "length": 37,
-     "name": "CHATDLG_OnChannelDoesNotExist"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
