@@ -389,23 +389,6 @@ void BigBuffer::sub_00422080_TrimToStart()
     m_array.SetCountReserve(m_start);
 }
 
-// 0x00422710
-static int IsOdd(BigBuffer* pQueue)
-{
-    pQueue->sub_00422140_Trim();
-    if (pQueue->Count() >= 1 && ((*pQueue)[0] & 1))
-    {
-        return 1;
-    }
-    return 0;
-}
-
-// 0x004238F0
-int __stdcall SBigIsOdd(D2StormBigStrc* pBig)
-{
-    return IsOdd(&pBig->tQueue);
-}
-
 inline unsigned int D2StormArrayBStrc::sub_00421160_CalcChunkSize(unsigned int nCount)
 {
     if (nCount < 0x100)
