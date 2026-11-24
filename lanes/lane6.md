@@ -4,12 +4,11 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- (verifying) The path cluster regroup rebased onto #325, as a stack of three:
-  - lane6/path-b-2 (replaces path-b; IDA* -> Unknown_0067A550.cpp)
-  - lane6/path-c-2 (A* -> Unknown_0067ADC0.cpp, tail -> Unknown_0067B9C0.cpp)
-  - lane6/path-d-2 (ray trace -> Unknown_00679380.cpp)
-  - Each is built equal. The path-c tree verified on #324 (294dce3a). Ready lines follow once path-b-2 and path-d-2 verify on #325.
-  - After the stack the cluster reads as clean runs: Unknown_00675600 | PathUtil.cpp | Unknown_00679380 | Unknown_0067A550 | Unknown_0067ADC0 | Unknown_0067B9C0 | PathWF.cpp. Placeholders 510->506 on #324's count.
+- lane6/path-d-2 c3256417 497->493 the D2Common path cluster regroup, as a stack of three commits. Taking path-d-2 takes them all. VERIFIED 9d898fc4 (on #325). lane6/path-b-2 54d23651 (first commit alone) is VERIFIED 7f3c726f, if you want it separately. Replaces path-b.
+  - path-b-2: IDA* 0x0067A550-0x0067ADBF -> Unknown_0067A550.cpp (from seven files: the call chain from 0x0067AD00 down, plus the const tables 0x006F17D8/0x006F18D8).
+  - path-c-2: A* 0x0067ADC0-0x0067B9B1 -> Unknown_0067ADC0.cpp; tail 0x0067B9C0-0x0067C1C8 -> Unknown_0067B9C0.cpp. The A* driver 0x0067B850 calls five A* statics. The tail's 0x0067BDF0 calls two statics and shares 0x006F1E28 with 0x0067BBC0. The tail's tables 0x006F1D98/0x006F1E28 move into its record, out of Unknown_00679A60 and Skills.cpp.
+  - path-d-2: ray trace 0x00679380-0x0067A549 -> Unknown_00679380.cpp, including Skills.cpp's 0x00679380 and 0x0067A390.
+  - The cluster now reads as clean runs: Unknown_00675600 | PathUtil.cpp | Unknown_00679380 | Unknown_0067A550 | Unknown_0067ADC0 | Unknown_0067B9C0 | PathWF.cpp. 14 strays drop out. Everything stays in lane 6. Borrowed data 3,359 B (main 3,363).
 
 ## Claimed
 
