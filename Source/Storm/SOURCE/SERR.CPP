@@ -203,7 +203,7 @@ template HANDLER* TSList<HANDLER>::DeleteNode(HANDLER*);
 // A link-holding piece of the run that matches no stpl.h member.
 struct sub_0041C500
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
 
     ~sub_0041C500();
 };
@@ -211,7 +211,7 @@ struct sub_0041C500
 // 0x0041C500
 sub_0041C500::~sub_0041C500()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 // 0x0041C0D0

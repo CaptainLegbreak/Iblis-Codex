@@ -117,7 +117,7 @@ struct D2StormNodeListAStrc
 
 struct HUFFNODE
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     unsigned int nValue;
     unsigned int nWeight;
     HUFFNODE* pParent;
@@ -1097,14 +1097,14 @@ D2SCompListStrc::D2SCompListStrc()
 // 0x0041EE80
 HUFFNODE::HUFFNODE()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    tLink.m_prevlink = 0;
+    tLink.m_next = 0;
 }
 
 // 0x0041EE90
 HUFFNODE::~HUFFNODE()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 // List and bit-reader pieces of the run that no caller reaches, on placeholder types.
