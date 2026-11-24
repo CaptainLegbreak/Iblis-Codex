@@ -1850,21 +1850,6 @@ int __cdecl sub_0047EC40_IsSet()
     return gdwGlobal_007BC974 != 0;
 }
 
-// 0x0047F8C0
-void D2RC4Strc::ApplyKeystream(unsigned char* pData, unsigned int nSize)
-{
-    for (unsigned int n = 0; n < nSize; ++n)
-    {
-        ++i;
-        j += S[i];
-        unsigned char* pA = &S[i];
-        unsigned char* pB = &S[j];
-        unsigned char t = *pA;
-        *pA = *pB;
-        *pB = t;
-        pData[n] ^= S[(unsigned char)(S[j] + S[i])];
-    }
-}
 
 
 
