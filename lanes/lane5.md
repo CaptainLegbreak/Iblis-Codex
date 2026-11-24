@@ -4,6 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/monsterchoose 1161446b 542->540 MonsterChoose.cpp takes in the three MONSTERCHOOSE_ functions after it (0x5BDE80/0x5BDFF0/0x5BE020) and their data, including the borrowed 0x7415F4 block (component codes + self pointer tables, 348 B, as gData_007415F4) and the unread language list at 0x741750 (60 B); borrowed data 15,283 B on this branch (-408 B); VERIFIED 7a06ba5fdb344019c625b5fb03463583d28c0b90. Based on main #301, not stacked, D2Game only.
 - lane5/small-strays af53db9a 0 placeholders; PlrSave2.cpp takes 0x569EC0 from Objects.cpp (adopts its unmarked copy), a5q2.cpp takes 0x587F60 from a5q1.cpp (its QUESTS_SendLogUpdateEx prototype lacked the // 0x00545920 marker, which is why it failed before); VERIFIED 2e6d3ea629aaa5608194d1654f622d960a27046d. Based on main #301, not stacked, D2Game only.
 - lane5/intro-q0 4c6049d0 545->543; a2q0.cpp and a3q0.cpp take in their acts' intro-quest clusters, which open each q0 file's run (from a1q4, a2q1, a2q3, a4q3, MissMode.cpp and two placeholders); VERIFIED d0c4ee8dc981a8aff29e31a334ac0f8d55ce18c6. Based on main #299, not stacked, D2Game only.
 - lane5/game-defaults 37ddf94b 0 placeholders; Game.cpp takes in 0x52BFB0/0x52BFC0 from D2Net.cpp (inside Game.cpp's run; lane 6 file) and defines the borrowed zero blocks 0x6E0498 (184 B), 0x6E0550 (24 B), 0x6E0568 (272 B) as const char arrays; borrowed data 15,211 B on this branch; VERIFIED db10a6a4d4e916035cbbe1b1002f4b483b683bda. Based on main #298, not stacked; touches D2Net.cpp (removes the two functions only).
@@ -13,8 +14,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Notes for other lanes
 
-- Coordinator: borrowed data 0x007415F4 (408 B of 4-char codes, 'lit ', 'des ', 'hvy '...): I find no instruction in any function that refers into 0x7415F4-0x74178C, so no reader to place it by; it sits between gpDiamondMonsterFormation (Unknown_005BDE80.cpp) and gnPSpellTableCount (SkillItem.cpp). Where did you see Unknown_005BDE80.cpp read it?
-- Lane 6: 0x0052BFE0 GAME_GetGamesCount in D2Net.cpp sits in Game.cpp's run, but Game.cpp already has an identical GAME_GetGamesCount at 0x0052DB30; I left it with you until one of them gets a different name.
+- Lane 2 / all: the 15-entry language-name list ('English' ... 'Unknown', '14') appears unread at the end of several D2Game files' data (AiThink.cpp twice, a3q7.cpp, MonsterChoose.cpp). It looks like a static array defined in a header those files include; if lane 2 knows the header, the copies could become one header definition.
 - Lane 2: D2Act2Quest4Strc holds 0x12-0x13 as `unsigned short unk0x12`, but 0x0059F580 (ACT2Q4_GetAndUpdatePalaceNpcState) reads and sets the byte at +0x13 on its own. Splitting it into `unsigned char unk0x12; unsigned char unk0x13;` (or a name, if you have one) would let me place it in a2q4.cpp.
 - Lane 1/4: `tools/namesync.py` on main renames `sub_004CECC0` to `SKILLS_DispatchSubMissileSpawn` in `Source/D2Client/UNIT/Missile.cpp`; lane 5 reverts that each time and leaves it to the D2Client owner.
 - Lane 2: the private stand-in `D2AiBaalTargetArgsStrc` is gone (it was a `D2AiCmdStrc`; nX/nY = nCmdParam[1]/[2]); no shared header change was needed.
