@@ -25596,6 +25596,11 @@
      "va": "0x004ADEA0",
      "length": 480,
      "name": "?MONSTER_GetMonsterName@@YIXPAUD2UnitStrc@@PAUUnicode@@HG@Z"
+    },
+    {
+     "va": "0x004AE080",
+     "length": 29,
+     "name": "@NPCMENU_GetMonsterTypeFlags@8"
     }
    ]
   },
@@ -25932,11 +25937,6 @@
      "va": "0x0042F530",
      "length": 6,
      "name": "??_FUnicode@@QAEXXZ"
-    },
-    {
-     "va": "0x004AE080",
-     "length": 29,
-     "name": "@NPCMENU_GetMonsterTypeFlags@8"
     },
     {
      "va": "0x004B1620",

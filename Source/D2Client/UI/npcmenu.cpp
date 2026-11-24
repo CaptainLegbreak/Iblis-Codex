@@ -990,18 +990,6 @@ __forceinline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
 
 void __fastcall NPCMENU_StateRequests(D2UnitStrc* pUnit); // 0x004ADCE0
 
-// 0x004AE080
-extern "C" int __fastcall NPCMENU_GetMonsterTypeFlags(UnitView* unit, unsigned short mask)
-{
-    if (unit && unit->type == 1)
-    {
-        PayloadView* data = unit->payload;
-        if (data)
-            return data->flags28 & mask;
-    }
-    return 0;
-}
-
 // 0x004B1620
 D2UnitStrc* __cdecl NPCMENU_GetInteractNpc()
 {
