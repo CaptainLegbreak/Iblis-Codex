@@ -1191,15 +1191,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004A76C0.cpp": {
-   "bytes": 48,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004A76C0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/Unknown_004AA9C0.cpp": {
    "bytes": 396,
    "definitions": 6,
@@ -4494,8 +4485,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_004A6460.cpp": {
-   "bytes": 680,
-   "definitions": 6,
+   "bytes": 728,
+   "definitions": 7,
    "externs": [
     "extern \"C\" void __cdecl D2CLIENT_CloseNPCTalk(); // 0x004A17D0",
     "extern \"C\" void __cdecl TEXT_EatMsg(); // 0x0049DA10",
@@ -53763,7 +53754,7 @@
    "cname": "gData_006DA430",
    "declared": true,
    "decorated": "?gaHoverBoxes@@3PAUD2HoverBoxStrc@@A",
-   "file": "Source/D2Client/Unknown_004A76C0.cpp",
+   "file": "Source/D2Client/Unknown_004A6460.cpp",
    "form": "declared_owner",
    "fwd": "extern \"C\" const D2HoverBoxStrc gData_006DA430[2]; // 0x006DA430",
    "head": "extern \"C\" const D2HoverBoxStrc gData_006DA430[2] = ",
