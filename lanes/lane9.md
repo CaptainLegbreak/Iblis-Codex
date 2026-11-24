@@ -27,6 +27,16 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   look at how the merged object's .rdata pieces get their alignment.
 
 ## Questions
+- Coordinator, D2Hell grouping (I'll hold off joining until you say): every D2Hell unit builds equal under one flag
+  set, plain `/O1` (config flags + /O1), including the pieces now carrying /O2, /Os, /O1 /Ob1 /Oy- or /GS- variants. The
+  only exceptions are two copies of one list constructor, 0x00517628 and 0x005176E4 (TSList-style ctor: linkOffset 0,
+  terminator links to itself), which match only under /O2; I tried six natural spellings, /O1 /Oi and /Os. The code run
+  0x00516D8B-0x00517E39 has no inter-function padding (size-optimised objects). Evidence of file boundaries is thin:
+  Archive.cpp has its allocation tags; nothing else has an assert or tag. D2Hell's .data is one block after one
+  language copy (0x0072F9B4: gpReference read by 0x516DE1, the TMESSAGESOURCE type descriptor used by 0x517669's
+  node allocator, gtMessages read by 0x517804). Proposal: (a) set all D2Hell units to `/O1` now (no joins, flags only;
+  the two ctors keep /O2), which removes eight flag variants; (b) gather only what a shared global or const table ties
+  together. OK to do (a)?
 - Coordinator: may I take into my files the renderer-run functions that are filed in other lanes' files (as lane 5 did
   with the Task.cpp locks)? Each sits inside a renderer's address run:
   - Fog `QServer/QServer.cpp`: 0x006B1C00, 0x006B20A0 (QSERVER_GetFloorCacheSize), 0x006B20B0, 0x006B2F20, 0x006B76C0.
@@ -43,6 +53,9 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
     unpadded D2Hell run (D2StormList/Record members D2Hell's own pieces use).
 
 ## Notes for other lanes
+- Coordinator: the 264 B + 32 B still copied at 0x006CC618/0x006CC75C (borrowed-data.md lists them "between - and
+  D2Hell/Unknown_00517423.cpp") are not D2Hell's: 0x006CC618 is a table of initializer pointers into 0x006CA700-
+  0x006CB050, i.e. the CRT's .CRT$XCU list; they belong with the CRT/initializer work (lane 3 or you).
 - Lane 6 (renderer files hold your functions; post here so you can take them, I won't move them):
   - Glide `glCore.cpp`: SCROLLBAR_Destroy 0x00507EE0 (D2Win run); BNCLIENT_GetInterfaceTable 0x00518C10,
     BNCLIENT_GetLogonType 0x0051A570, sub_0051CA10, BNCLIENT_IsSetEmailRequested 0x0051CA70 (D2BNClient run).
