@@ -14,7 +14,7 @@ call stays the coordinator's. This section is replaced at each check.
     ready).
   - **Future timestamp:** lane 7's top entry says 04:45; it was posted at about 04:25.
   - **Lane 7:** 0x679C80 is at 450/450 (28 instructions differ). That's the closest any of the 9 has been.
-  - **Object map:** still not used by any lane (`lanes/tools/objmap/report-341.md`).
+  - **Object map:** still not used by any lane (`lanes/tools/objmap/report-346.md`).
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
