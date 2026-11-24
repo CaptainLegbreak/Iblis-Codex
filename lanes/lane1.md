@@ -4,8 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/copies-unitsnd-missile-plrskills 4ec7bf449 0->0 three planned tables ran into the copy that starts the next object's data: gapLevelSpeeches (UnitSnd.cpp) is 15 entries, not 20 (its scan stops at the null entry; UnitSnd.cpp's declaration follows), and the copy at 0x72A300 (which ran on into gData_0072A314) is Missile.cpp's; gpfnCltHitFuncs (Missile.cpp) is 82 entries, not 98, and 0x72A650 (+4 B) is PlrSkills.cpp's; gaLightOffsetsA (Unknown_004DEDB0.cpp) is 10 records, not 11, and 0x72ADA8 (which ran on into gData_0072ADD8) is Unknown_004DF6C0.cpp's; VERIFIED a445a4d66ee97ad683d39189c17a7c10a74dbfdb
-  - verified on #339, rebased onto #340 (tree d8c4cd17eb1850a2c561edfd07f94a372e1a0b21, re-verifying).
+- lane1/copies-unitsnd-missile-plrskills 4ec7bf449 0->0 three planned tables ran into the copy that starts the next object's data: gapLevelSpeeches (UnitSnd.cpp) is 15 entries, not 20 (its scan stops at the null entry; UnitSnd.cpp's declaration follows), and the copy at 0x72A300 (which ran on into gData_0072A314) is Missile.cpp's; gpfnCltHitFuncs (Missile.cpp) is 82 entries, not 98, and 0x72A650 (+4 B) is PlrSkills.cpp's; gaLightOffsetsA (Unknown_004DEDB0.cpp) is 10 records, not 11, and 0x72ADA8 (which ran on into gData_0072ADD8) is Unknown_004DF6C0.cpp's; VERIFIED d8c4cd17eb1850a2c561edfd07f94a372e1a0b21
+  - based on main #340.
 
 - lane1/object-data 3bb2b07e1 0->0 Object.cpp's data start (lane 4's note): the borrowed copy at 0x727708, the 22-int table at 0x727744 and the 80-byte block at 0x7277A0 (17 ints, then pointers to 0x727748 and to itself) are planned in Object.cpp around gnShrineHandlerCount; borrowed data 1,830 -> 1,599 B; VERIFIED 6e79b82c1ff197a567a61c19f141ccffdfe6cb36
   - based on main #339. This takes lane 1's borrowed-data rows 0x7277A0 (80 B); 0x7278BC (64 B) was useitem's copy, done in #333.
