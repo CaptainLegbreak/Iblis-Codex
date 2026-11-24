@@ -4,6 +4,8 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane4/session-object 9307c438 +1 placeholder (Unknown_0044BA20.cpp): the bss runs WINMAIN.CPP's to 0x7A044C, then 0x7A0458-0x7A0630, then Game.cpp's from 0x7A0658. The functions that use the middle block, 0x44BA20-0x44BDCF, are one object of their own: resolution set-up, subsystem start/shutdown, the connect-failed flag, run client, and session start/stop/wait and system packet pumping. Unknown_0044BA20.cpp takes five functions from WINMAIN.CPP and five from Game.cpp, with the bss they define. Its data is the copy at 0x70EE90 alone; that record moves once winmain-object (which cuts the record holding it) is in. VERIFIED 0b594facb878 on #332; rebased onto #339 (precheck equal). Both this and winmain-object edit WINMAIN.CPP, in different places. Not stacked; nothing outside lane 4.
+
 - lane4/context-sweep 7cb8458b no placeholder change: each of the 127 `// build: context` lines in lane 4's files (46 files; lane 1's two placeholders at 0x4DF1C0/0x4DF6C0 left alone) was tried alone and its unit still builds equal without it, so all go; the copies themselves stay. VERIFIED 5b86859e22ab on #332; rebased onto #339 cleanly (all 46 units build equal). Not stacked; nothing outside lane 4.
 
 - lane4/record-object-2 017e3371 +0 placeholders (Unknown_00451290.cpp grows to the lng object): two objects sit between Game.cpp's template code and SCmd.cpp's, each with its own borrowed copy. (1) 0x451260-0x4513FF, the lng module (register the lng argument, free/load the lng module, load a string with its "Stupid Lng.cpp error." fallback; bss 0x7A0708-0x7A0710; copy 0x70F728): Unknown_00451290.cpp takes 0x451260 from Record.cpp, COMCALLBACK_LoadLngString from ComCallback.cpp and GAME_LoadLngModule from Game.cpp. The error string suggests the original was Lng.cpp; I kept a placeholder since no path names its directory. (2) 0x451400-0x4519CF, Record.cpp: its functions read its bss (0x7A0818-0x7A2788) and gpMsgRecordChunk, which follows its copy at 0x70F764. Record.cpp takes COMCALLBACK_RecordMessage (ComCallback.cpp), five record/playback queries from ui.cpp, three from Game.cpp and CUNIT_ReplayRecords (CUnit.cpp). VERIFIED 19e209068362 on #332; rebased onto #337 (precheck equal). lane4/record-object (071fa3fa) is the same commit on the old base; use -2. Touches ComCallback.cpp (D2Multi, lane 6's file; its two functions sit in lane 4's range) and CUnit.cpp (lane 1's).
@@ -16,7 +18,7 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- Verifying, to post when each passes: lane4/editbox-split (now with the header include for all three copies), lane4/lang-include (10 units take their copy from D2LanguageNames.h; in 11 more the header copy did not place, because their data has no other anchor or does not follow the copy without a gap, so they keep their records), lane4/session-object (Unknown_0044BA20.cpp, 0x44BA20-0x44BDCF between WINMAIN.CPP and Game.cpp).
+- Verifying, to post when each passes: lane4/editbox-split (now with the header include for all three copies), lane4/lang-include (10 units take their copy from D2LanguageNames.h; in 11 more the header copy did not place, because their data has no other anchor or does not follow the copy without a gap, so they keep their records).
 
 ## Questions
 
