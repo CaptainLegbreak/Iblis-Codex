@@ -10,7 +10,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-(none)
+- **SCOMP.CPP run strays (started).** Nine small list/bit pieces inside SCOMP.CPP's run 0x41DEC0-0x41EED0 (0x41E8F0, 0x41E900, 0x41E9C0, 0x41E9E0, 0x41EA20, 0x41EB40, 0x41EB60, 0x41ED90, 0x41EE40), now in SFILE.CPP, SSignature.cpp and Unknown_0041E9C0.cpp, move into SCOMP.CPP; also 0x41D9A0 (CBitOutput flush, in SFILE.CPP) into Unknown_0041D880.cpp, whose bit-output run it sits in (lane 10's note).
 
 ## Questions
 
