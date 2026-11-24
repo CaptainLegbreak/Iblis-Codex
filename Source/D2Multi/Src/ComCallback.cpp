@@ -1,10 +1,17 @@
 #include "D2Multi.h"
+
 #include "D2FogTypes.h"
+
 #include "D2Structs.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Drlg.h"
+
 #include "D2LevelTxt.h"
+
 #include "D2Win32Types.h"
+
 #include "D2Win32System.h"
 
 #include "D2MultiTypes.h"
@@ -668,40 +675,9 @@ static __forceinline int FilterNoSeparator(D2WinControlStrc* pControl)
 
 void __cdecl COMCALLBACK_LoadLevelRestriction(); // 0x00445300
 
-// 0x004453B0
-void __cdecl COMCALLBACK_BuildCreateGamePanel()
-{
-    char szNumber[4];
-    char szLevel[100];
-
-    gpPanelBackground = CONTROL_Create(&gtBlankBckgImageInit);
-    gpPanelTitle = CONTROL_Create(&gtPanelTitleInit);
-    D2Win_10044(gpPanelTitle, D2LANG_GetStringFromTblIndex(0x141E));
-    gpPanelText = CONTROL_Create(&gtPanelTextInit);
-    D2Win_10044(gpPanelText, D2LANG_GetStringFromTblIndex(0x2B0F));
 // build: symbol ?gszSpace@* 0x006FFC44
-    sub_004FCFF0_SetTextA(gpPanelText, gszSpace, 0);
-
-    Unicode wszText[0xC8];
-    Unicode wszLevel[0x64];
-
-    sprintf(szLevel, "%d ", GAME_GetMcpCharLevel());
-    sub_00526320_ToUnicode(wszLevel, szLevel, 0x32);
-    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x2B12));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9A));
-    Unicode wszNumber[3];
 // build: symbol ?gszFormatD@* 0x006D57BC
-    wsprintfA(szNumber, gszFormatD, 0);
-    sub_00526F20_ToUnicode(wszNumber, szNumber, 2);
-    sub_00526700(wszText, wszNumber);
-    sub_00526700(wszText, wszLevel);
-    D2Win_10044(gpPanelText, wszText);
-
-    gpPanelCancelButton = CONTROL_Create(&gtPanelCancelButtonInit);
-    sub_004FA450_SetActive(gpPanelCancelButton);
-    gpCreateButton = CONTROL_Create(&gtResetBuildPanelTimerInit);
-    CHATDLG_SetMainControlState(0);
-}
+void __cdecl COMCALLBACK_BuildCreateGamePanel(); // 0x004453B0
 
 void __fastcall COMCALLBACK_ShowProfileDialog(const char* szText, int nA, int nB); // 0x00445A80
 
@@ -1031,6 +1007,7 @@ int __stdcall COMCALLBACK_OpenCreateScreen(int nArg)
 }
 
 Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940
+
 void __fastcall CHATDLG_CopyNamePrefix(const char* szName, char* szOut);                               // 0x00446840
 
 // 0x00446810
@@ -1672,6 +1649,18 @@ void __fastcall COMCALLBACK_SplitName(const char* szName, char* szTitle, char* s
         }
     }
     SStrCopy(szOut, szName, 0x7FFFFFFF);
+}
+
+D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
+void __cdecl CHATDLG_RefreshChatScreen(); // 0x0043FBD0
+__declspec(noinline) void __cdecl CHATDLG_RefreshChatScreen(); // 0x0043FBD0
+
+// 0x00447700
+int __fastcall CHATDLG_OnChannelDoesNotExist(int nA, int nB, const char* szText, int nLength)
+{
+    gpLaunchFuncs->pfn0x1C(nLength, 1, 0);
+    CHATDLG_RefreshChatScreen();
+    return 1;
 }
 
 // 0x00447740
@@ -2802,8 +2791,5 @@ void* __fastcall sub_M109_Emit_00449320(const char* szName, const unsigned char*
 {
     return COMCALLBACK_AddEntry(szName, pStat, 7);
 }
-
-
-
 
 #include "gen/data/Source/D2Multi/Src/ComCallback.inc"
