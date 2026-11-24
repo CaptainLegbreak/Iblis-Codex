@@ -449,7 +449,7 @@ public:
 
 struct CHuffman : THuffmannTree
 {
-    D2StormHuffLinkSlotStrc f_3474[0x80];
+    D2StormHuffLinkSlotStrc aQuickLinks[0x80];
 
     CHuffman();
 };
@@ -2587,7 +2587,7 @@ void __cdecl StartCdThread()
 CHuffman::CHuffman()
 {
     for (int i = 0; i < 0x80; ++i)
-        f_3474[i].nData[0] = 0;
+        aQuickLinks[i].nData[0] = 0;
 }
 
 // build: symbol ??1?$TSLinkedNode@UAUDIOSTREAM@@@@QAE@XZ 0x00418BE0
