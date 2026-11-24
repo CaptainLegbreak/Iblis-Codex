@@ -32,6 +32,14 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   helper 0x50C690 marked inline. **Coordinator:** a per-unit option; the module as a whole doesn't build under /Ob1
   (glDebugFont, glSmack, glTextureCache, glSubtileCache break). The same uninlined getter call is what keeps 0x6C8A50 out
   of the D2Gdi run and 0x6B7530 out of 0x6B7250's object; Tried there: it doesn't carry over. In D2Gdi under /Ob1, 0x6C9290 still differs with 0x6C8A50 in the file, so the getter's case there is something else.
+- lane9/ddcore-strays cb8b3c79, on main eb850b12 (#369), precheck 0 not all equal; full verify VERIFIED, borrowed data 844 B
+  (main's). Placeholders -2, two of files-d2ddraw/d2gdi.tsv's medium rows: ddCore.cpp takes Unknown_00510130's 17
+  functions (between two runs of ddCore, five data items only ddCore also uses; they are entries of ddCore's function
+  table, whose plan no longer lists them as outside functions; 43 equal), and gdiCore.cpp takes Unknown_006C7EF0's two
+  (between two runs of gdiCore, on gdiCore's palette 0x989C40, which now has one name and type there; 46 equal).
+  Unknown_005125E0.cpp's row doesn't hold: in ddCore its wall-tile drawer 0x512F90 inlines the blended-shadow getter,
+  which the original calls. Unknown_0050F910 (D2Glide) I leave on its own: its planned data is the tile TexInfo
+  0x72F6A8, the twin of glTextureCache's floor TexInfo 0x72F6BC, so it reads as glTextureCache's tile counterpart.
 - Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
