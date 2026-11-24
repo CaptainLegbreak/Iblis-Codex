@@ -82,7 +82,7 @@ extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
-void __fastcall sub_00449890_CdKeyChecksum(char* szKey, unsigned int* pChecksum); // 0x00449890
+void __fastcall GAME_CalcCdKeyChecksum(char* szKey, unsigned int* pChecksum); // 0x00449890
 
 int __stdcall SCmdRegisterArgList(const D2CmdArgStrc* pArgList, unsigned int nCount); // 0x006C4E50
 

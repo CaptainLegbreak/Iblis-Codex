@@ -839,9 +839,9 @@ extern "C" void __cdecl GAME_UnregisterMouseHandlers(); // 0x0044DCE0
 
 extern "C" void __cdecl GAME_RegisterMouseHandlers(); // 0x0044DD20
 
-void __cdecl sub_00466FE0(); // 0x00466FE0
+void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
-void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
+void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
 void __cdecl CMDTBL_SaveHotkeys(); // 0x00469D20
 
@@ -887,7 +887,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLay
 
 unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 
-int __cdecl sub_00466DC0(); // 0x00466DC0
+int __cdecl SELECT_GetHoverMonClassId(); // 0x00466DC0
 
 int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
 
@@ -947,7 +947,7 @@ extern int global_00724728; // 0x00724728
 
 enum { REPEAT_MASK = 0x40000000, UI_VARIABLE = 11 };
 
-void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
+void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 int __cdecl sub_00468730(); // 0x00468730
 
@@ -1446,7 +1446,7 @@ void __stdcall TEXT_LoadQuestPage(int nPage, int bReset); // 0x004A3220
 
 static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg); // 0x004A1950
 
-void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
+void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 

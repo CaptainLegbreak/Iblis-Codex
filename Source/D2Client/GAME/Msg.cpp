@@ -272,7 +272,7 @@ void __fastcall MSG_UploadSaveFile(int bAnimate)
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 // 0x00478350
-static void __stdcall sub_00478350_SendToServer(const unsigned char* pPacket, int nSize)
+static void __stdcall MSG_SendToServer(const unsigned char* pPacket, int nSize)
 {
     D2_ASSERT(nSize < 0x200, 0x272);
     const unsigned int dwTick = GetTickCount();
@@ -320,26 +320,26 @@ void __fastcall MSG_SendHeaderOnly(char nValue)
 {
     D2PacketSize1Strc tPacket;
     tPacket.nHeader = nValue;
-    sub_00478350_SendToServer((unsigned char*)&tPacket, 1);
+    MSG_SendToServer((unsigned char*)&tPacket, 1);
 }
 
 // 0x004785B0
-void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg)
+void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg)
 {
     D2PacketSize3Strc tPacket;
     tPacket.nHeader = nCmd;
     tPacket.w1 = nArg;
-    sub_00478350_SendToServer((unsigned char*)&tPacket, 3);
+    MSG_SendToServer((unsigned char*)&tPacket, 3);
 }
 
 // 0x004785D0
-void __fastcall sub_004785D0_SendShortShort(char nHeader, short nArg1, short nArg2)
+void __fastcall MSG_SendTwoWords(char nHeader, short nArg1, short nArg2)
 {
     D2PacketShorts5Strc tPacket;
     tPacket.nHeader = nHeader;
     tPacket.w1 = nArg1;
     tPacket.w3 = nArg2;
-    sub_00478350_SendToServer((unsigned char*)&tPacket, 5);
+    MSG_SendToServer((unsigned char*)&tPacket, 5);
 }
 
 // 0x00478600
@@ -350,11 +350,11 @@ void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, 
     tPacket.w1 = nArg1;
     tPacket.w3 = nArg2;
     tPacket.w5 = nArg3;
-    sub_00478350_SendToServer((unsigned char*)&tPacket, 7);
+    MSG_SendToServer((unsigned char*)&tPacket, 7);
 }
 
 // 0x00478640
-void __fastcall sub_00478640_SendShorts4(unsigned char nHeader, unsigned short w1, unsigned short w3, unsigned short w5, unsigned short w7)
+void __fastcall MSG_SendFourWords(unsigned char nHeader, unsigned short w1, unsigned short w3, unsigned short w5, unsigned short w7)
 {
     D2PacketShorts9Strc tPacket;
     tPacket.nHeader = nHeader;
@@ -362,16 +362,16 @@ void __fastcall sub_00478640_SendShorts4(unsigned char nHeader, unsigned short w
     tPacket.w3 = w3;
     tPacket.w5 = w5;
     tPacket.w7 = w7;
-    sub_00478350_SendToServer((unsigned char*)&tPacket, 9);
+    MSG_SendToServer((unsigned char*)&tPacket, 9);
 }
 
 // 0x00478680
-void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg)
+void __fastcall MSG_SendDword(char nHeader, int nArg)
 {
     D2PacketDword5Strc tPacket;
     tPacket.nHeader = nHeader;
     tPacket.d1 = nArg;
-    sub_00478350_SendToServer((unsigned char*)&tPacket, 5);
+    MSG_SendToServer((unsigned char*)&tPacket, 5);
 }
 
 // 0x004786A0
@@ -381,7 +381,7 @@ void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsign
     tPacket.nHeader = nHeader;
     tPacket.d1 = d1;
     tPacket.d5 = d5;
-    sub_00478350_SendToServer((unsigned char*)&tPacket, 9);
+    MSG_SendToServer((unsigned char*)&tPacket, 9);
 }
 
 // 0x004786D0
@@ -392,11 +392,11 @@ void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1,
     tPacket.d1 = d1;
     tPacket.d5 = d5;
     tPacket.d9 = d9;
-    sub_00478350_SendToServer((unsigned char*)&tPacket, 0xD);
+    MSG_SendToServer((unsigned char*)&tPacket, 0xD);
 }
 
 // 0x00478700
-void __fastcall sub_00478700_SendCommand(char nCommand, int nUnitId, int nArg1, int nArg2, int nArg3)
+void __fastcall MSG_SendFourDwords(char nCommand, int nUnitId, int nArg1, int nArg2, int nArg3)
 {
     D2PacketDwords17Strc tPacket;
     tPacket.nHeader = nCommand;
@@ -404,11 +404,11 @@ void __fastcall sub_00478700_SendCommand(char nCommand, int nUnitId, int nArg1, 
     tPacket.d5 = nArg1;
     tPacket.d9 = nArg2;
     tPacket.d13 = nArg3;
-    sub_00478350_SendToServer((unsigned char*)&tPacket, 0x11);
+    MSG_SendToServer((unsigned char*)&tPacket, 0x11);
 }
 
 // 0x00478740
-void __fastcall sub_00478740_SendPvpCommand(int nCommand, int nUnitId, int bSet)
+void __fastcall MSG_SendPvpCommand(int nCommand, int nUnitId, int bSet)
 {
     D2PacketPvp7Strc tPacket;
     memset(&tPacket, 0, sizeof(tPacket));
@@ -417,24 +417,24 @@ void __fastcall sub_00478740_SendPvpCommand(int nCommand, int nUnitId, int bSet)
     tPacket.d3 = nUnitId;
     if (bSet)
         tPacket.bFlag = 1;
-    sub_00478350_SendToServer((unsigned char*)&tPacket, 7);
+    MSG_SendToServer((unsigned char*)&tPacket, 7);
 }
 
 // 0x00478780
-void __fastcall sub_00478780_SendPartyCommand(unsigned char nCommand, int nUnitId)
+void __fastcall MSG_SendPartyCommand(unsigned char nCommand, int nUnitId)
 {
     D2PacketParty6Strc tPacket;
     memset(&tPacket, 0, sizeof(tPacket));
     tPacket.nHeader = 0x5E;
     tPacket.b1 = nCommand;
     tPacket.d2 = nUnitId;
-    sub_00478350_SendToServer((unsigned char*)&tPacket, 6);
+    MSG_SendToServer((unsigned char*)&tPacket, 6);
 }
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
 // 0x004787B0
-void __fastcall sub_004787B0_SendStrings(const unsigned char* pData)
+void __fastcall MSG_SendStrings(const unsigned char* pData)
 {
     unsigned char aBuffer[0x204];
     aBuffer[0] = pData[0];
@@ -452,12 +452,12 @@ void __fastcall sub_004787B0_SendStrings(const unsigned char* pData)
         *pEnd++ = 0;
     }
     *pEnd = 0;
-    sub_00478350_SendToServer(aBuffer, pEnd - aBuffer + 1);
+    MSG_SendToServer(aBuffer, pEnd - aBuffer + 1);
 }
 
 
 // 0x00478830
-void __fastcall sub_00478830_SendPacket66(const void* pData, unsigned int nLength)
+void __fastcall MSG_SendWardenPacket(const void* pData, unsigned int nLength)
 {
     if (nLength <= 0x1FD)
     {
@@ -467,7 +467,7 @@ void __fastcall sub_00478830_SendPacket66(const void* pData, unsigned int nLengt
         aBuffer[0] = 0x66;
         *(unsigned short*)&aBuffer[1] = (unsigned short)nLength;
         memcpy(&aBuffer[3], pData, nLength);
-        sub_00478350_SendToServer(aBuffer, nSize);
+        MSG_SendToServer(aBuffer, nSize);
         return;
     }
     D2_ASSERT(nLength <= 0x1FD, 0x452);

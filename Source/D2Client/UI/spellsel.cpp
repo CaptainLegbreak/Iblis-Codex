@@ -157,7 +157,7 @@ void __cdecl sub_004A8C00_FreeSkillIcons()
     }
 }
 
-void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
+void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 int __stdcall SKILLS_GetClassIdFromSkillId(int nSkillId); // 0x00645040
 
@@ -175,7 +175,7 @@ void* __fastcall sub_004A8C80_GetSkillValue(D2SkillsTxt* pSkillsTxt)
     {
         if (!gaSkillIconCels[nClass].pCelFile)
         {
-            gaSkillIconCels[nClass].pCelFile = sub_004520C0_LoadUiCelFile(gaSkillIconCels[nClass].szPath);
+            gaSkillIconCels[nClass].pCelFile = GAME_LoadUiCelFile(gaSkillIconCels[nClass].szPath);
         }
         return gaSkillIconCels[nClass].pCelFile;
     }

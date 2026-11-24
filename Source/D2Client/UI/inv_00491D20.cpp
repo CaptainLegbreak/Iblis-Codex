@@ -27,9 +27,9 @@ D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 D2UnitStrc* __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 int __cdecl sub_00468830(); // 0x00468830
-void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
+void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
-void __fastcall sub_00478700_SendCommand(char nCommand, int nArg0, int nArg1, int nArg2, int nArg3); // 0x00478700
+void __fastcall MSG_SendFourDwords(char nCommand, int nArg0, int nArg1, int nArg2, int nArg3); // 0x00478700
 int __cdecl INV_CheckTradeClickDelay(); // 0x00486D10
 void __cdecl sub_004A9DF0_UpdateSkillIcons(); // 0x004A9DF0
 int __fastcall NPCMENU_GetInteractNpcId(int* pUnitId); // 0x004B3230
@@ -243,7 +243,7 @@ static int __stdcall INV_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStrc* pInven
             {
                 if (pUnit == sub_00463DD0_GetPlayerUnit() && nPage != 1 && nPage != 2 && INV_CheckTradeClickDelay())
                 {
-                    sub_00478680_SendPacket5(0x4C, pHit->dwUnitId);
+                    MSG_SendDword(0x4C, pHit->dwUnitId);
                     ITEM_SetUninterruptableState(pHit);
                 }
                 else
@@ -274,7 +274,7 @@ static int __stdcall INV_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStrc* pInven
                                 if (ITEMS_IsNotQuestItem(pHit))
                                 {
                                     const int nCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pHit, GAME_GetDifficulty(), MONSTER_GetQuestFlags(), !pNpc ? -1 : pNpc->dwClassId, 1);
-                                    sub_00478700_SendCommand(0x33, !pNpc ? -1 : pNpc->dwUnitId, !pHit ? -1 : pHit->dwUnitId, !pHit ? -1 : pHit->dwAnimMode, nCost);
+                                    MSG_SendFourDwords(0x33, !pNpc ? -1 : pNpc->dwUnitId, !pHit ? -1 : pHit->dwUnitId, !pHit ? -1 : pHit->dwAnimMode, nCost);
                                 }
                                 else
                                 {
@@ -285,12 +285,12 @@ static int __stdcall INV_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStrc* pInven
                     }
                     else if ((nFlags & 4) && ITEMS_CheckIfBeltable(pHit) && !ITEMS_GetInvPage(pHit))
                     {
-                        sub_00478680_SendPacket5(0x63, pHit->dwUnitId);
+                        MSG_SendDword(0x63, pHit->dwUnitId);
                         sub_004B9A00(0xEB, 0, 0, 0, 0);
                     }
                     else
                     {
-                        sub_00478680_SendPacket5(0x19, pHit->dwUnitId);
+                        MSG_SendDword(0x19, pHit->dwUnitId);
                         gbNpcTradeClicked = 1;
                     }
                     nResult = 1;
@@ -382,7 +382,7 @@ LBL_CUBE:
                 if (bPlace && INVENTORY_CanItemsBeExchanged(pInventory, pCursorItem, gnHoverCellX, gnHoverCellY, nRecord, &pOther, nPage, 0)
                     && !ITEM_IsItemActionBlocked(pCursorItem) && INV_CheckTradeClickDelay() && nPage != 2)
                 {
-                    sub_00478700_SendCommand(0x1F, (!pCursorItem ? -1 : pCursorItem->dwUnitId), !pOther ? -1 : pOther->dwUnitId, gnHoverCellX, gnHoverCellY);
+                    MSG_SendFourDwords(0x1F, (!pCursorItem ? -1 : pCursorItem->dwUnitId), !pOther ? -1 : pOther->dwUnitId, gnHoverCellX, gnHoverCellY);
                     ITEM_SetUninterruptableState(pCursorItem);
                     sub_004B9A00(ITEM_GetDropSound(pCursorItem), 0, 0, 0, 0);
                     nResult = 1;
@@ -411,7 +411,7 @@ LBL_DONE:
             if (INVENTORY_CanItemBePlaced(pInventory, pCursorItem, nCellX, nCellY, nRecord, &pExchange, &nExchangeCount, nPage)
                 && !ITEM_IsItemActionBlocked(pCursorItem) && INV_CheckTradeClickDelay())
             {
-                sub_00478700_SendCommand(0x18, (!pCursorItem ? -1 : pCursorItem->dwUnitId), nCellX, nCellY, nPage);
+                MSG_SendFourDwords(0x18, (!pCursorItem ? -1 : pCursorItem->dwUnitId), nCellX, nCellY, nPage);
                 ITEM_SetUninterruptableState(pCursorItem);
                 sub_004B9A00(ITEM_GetDropSound(pCursorItem), 0, 0, 0, 0);
                 nResult = 1;
@@ -636,7 +636,7 @@ AFTER_BODY:
         pMsg->bReturn=1;
         if(!result) {
             if(sub_00468830()==6) UI_CancelCursorItemUse();
-            else if(sub_00468830()==8) sub_00478680_SendPacket5(0x4C,-1);
+            else if(sub_00468830()==8) MSG_SendDword(0x4C,-1);
         }
         sub_00420290_BreakHandlerChain(pMsg);
         gbHoverInGrid=0;

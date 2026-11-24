@@ -192,7 +192,7 @@ void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int
 
 extern unsigned int gdwInvBitMasks[]; // 0x006CE2E8
 
-extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId); // 0x00452040
+extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId); // 0x00452040
 
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
 
@@ -1224,7 +1224,7 @@ void __stdcall STATLIST_ToggleState(D2UnitStrc* pUnit, int nState, int bSet)
 
             pStatListEx->StatFlags[(nState >> 5) + (sgptDataTables->nStatesTxtRecordCount + 31) / 32] |= gdwBitMasks[nState & 31];
 
-            D2StatesTxt* pStatesTxtRecord = sub_00452040_GetStatesTxtRecord(nState);
+            D2StatesTxt* pStatesTxtRecord = GAME_GetStatesTxtRecord(nState);
             if (pStatesTxtRecord)
             {
                 if (bSet)

@@ -1334,7 +1334,8 @@ inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId)
+// build: symbol @GAME_GetStatesTxtRecord@* 0x00452040
+extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId)
 {
     if (nStateId >= 0 && nStateId < sgptDataTables->nStatesTxtRecordCount)
     {

@@ -436,7 +436,7 @@ int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, uns
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
-void __cdecl sub_00466FF0(); // 0x00466FF0
+void __cdecl SELECT_UnlockHover(); // 0x00466FF0
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
@@ -458,7 +458,7 @@ int __stdcall WINDOW_IsFullScreen(); // 0x004F5A30
 
 void __cdecl UI_FreePlayerUI(); // 0x00453DE0
 
-void __cdecl sub_00467A00(); // 0x00467A00
+void __cdecl SELECT_ResetHoverClassIds(); // 0x00467A00
 
 extern unsigned char gnBetaScreenIndex; // 0x007A060D
 
@@ -1306,7 +1306,7 @@ void __fastcall CUNIT_SetPlayerUnit(D2UnitStrc* pUnit); // 0x00463D90
 
 void __cdecl CUNIT_FreeAllUnits();                                                                                // 0x004659C0
 
-void __cdecl sub_00466FE0();                                                                                // 0x00466FE0
+void __cdecl SELECT_ClearSelection();                                                                                // 0x00466FE0
 
 unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB);                                                     // 0x00469AA0
 
@@ -2018,7 +2018,7 @@ unsigned int __fastcall COMCALLBACK_NibbleToHex(unsigned int nValue)
 }
 
 // 0x00449890
-void __fastcall sub_00449890_CdKeyChecksum(char* szKey, unsigned int* pChecksum)
+void __fastcall GAME_CalcCdKeyChecksum(char* szKey, unsigned int* pChecksum)
 {
     unsigned int nBit = 1;
     *pChecksum = 0;
@@ -2346,7 +2346,7 @@ void __stdcall GAME_HandleLeftButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
     gnLeftClickState = 4;
     gbClickHandled = 0;
-    sub_00466FF0();
+    SELECT_UnlockHover();
     if (gbPositionalSound)
     {
         gbLeftButtonDown = 1;
@@ -2422,7 +2422,7 @@ void __cdecl GAME_ResetLeftClick()
     gbLeftButtonDown = 0;
     gbLeftClickRepeating = 0;
     gbClickHandled = 0;
-    sub_00466FF0();
+    SELECT_UnlockHover();
     if (gbPositionalSound)
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -2464,7 +2464,7 @@ void __stdcall GAME_HandleRightButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
     gnRightClickState = 4;
     gbClickHandled = 0;
-    sub_00466FF0();
+    SELECT_UnlockHover();
     if (!gbPositionalSound || sub_0045AE90() == 3)
     {
         return;
@@ -2521,7 +2521,7 @@ void __cdecl GAME_ResetRightClickState()
     gbRightButtonDown = 0;
     gbRightClickConsumed = 1;
     gbClickHandled = 0;
-    sub_00466FF0();
+    SELECT_UnlockHover();
 }
 
 // 0x0044C370
@@ -2531,7 +2531,7 @@ void __stdcall GAME_HandleRightButtonUp(SMSGHANDLER_PARAMS* pMsg)
     gbRightButtonDown = 0;
     gbRightClickConsumed = 1;
     gbClickHandled = 0;
-    sub_00466FF0();
+    SELECT_UnlockHover();
     if (gbPositionalSound)
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -3218,7 +3218,7 @@ void __cdecl GAME_ResetMouseState()
     gbRightButtonDown = 0;
     gbLeftClickRepeating = 0;
     gbRightClickConsumed = 0;
-    sub_00466FE0();
+    SELECT_ClearSelection();
 }
 
 // 0x0044DA70
@@ -3554,7 +3554,7 @@ void __stdcall GAME_HandleCloseMessage(SMSGHANDLER_PARAMS* pMsg)
     if (gbLeavingGame)
     {
         UI_FreePlayerUI();
-        sub_00467A00();
+        SELECT_ResetHoverClassIds();
         pMsg->bReturn = 0;
         return;
     }
@@ -4185,7 +4185,7 @@ unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
 // 0x00451FB0
-D2MonStats2Txt* __fastcall sub_00451FB0(int nId)
+D2MonStats2Txt* __fastcall GAME_GetMonStats2TxtRecord(int nId)
 {
     if (nId >= 0 && nId < sgptDataTables->nMonStats2TxtRecordCount)
     {
@@ -4209,19 +4209,19 @@ D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonster
 }
 
 // 0x00452020
-int __fastcall sub_00452020_GetOverlayTxtRecordCount()
+int __fastcall GAME_GetOverlayTxtRecordCount()
 {
     return sgptDataTables->nOverlayTxtRecordCount;
 }
 
 // 0x00452030
-int __fastcall sub_00452030_GetItemStatCostTxtRecordCount()
+int __fastcall GAME_GetItemStatCostTxtRecordCount()
 {
     return sgptDataTables->nItemStatCostTxtRecordCount;
 }
 
 // 0x00452040
-extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId)
+extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId)
 {
     if (nStateId >= 0 && nStateId < sgptDataTables->nStatesTxtRecordCount)
     {
@@ -4243,7 +4243,7 @@ int* __fastcall sub_00452070_ClearBlock(int* pData)
 }
 
 // 0x004520C0
-void* __fastcall sub_004520C0_LoadUiCelFile(const char* szFile)
+void* __fastcall GAME_LoadUiCelFile(const char* szFile)
 {
     char szPath[0x104];
 // build: symbol ?gszDataGlobal@* 0x006D4118

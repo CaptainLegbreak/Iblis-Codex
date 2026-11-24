@@ -154,7 +154,7 @@ int __cdecl GAME_IsExpansion();                                                 
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg);                                          // 0x00478680
+void __fastcall MSG_SendDword(char nHeader, int nArg);                                          // 0x00478680
 
 void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 
@@ -1878,7 +1878,7 @@ static int __stdcall INV_ClickGridItem(D2UnitStrc* pPlayer, D2InventoryStrc* pIn
         {
             if (!ITEM_IsItemActionBlocked(pItem))
             {
-                sub_00478680_SendPacket5(0x4C, pItem->dwUnitId);
+                MSG_SendDword(0x4C, pItem->dwUnitId);
                 ITEM_SetUninterruptableState(pItem);
                 return 1;
             }
@@ -1966,7 +1966,7 @@ void __stdcall INV_GridClickMsg(SMSGHANDLER_PARAMS* pMsg)
 
         if (sub_00468830() == 8)
         {
-            sub_00478680_SendPacket5(0x4C, -1);
+            MSG_SendDword(0x4C, -1);
             sub_00420290_BreakHandlerChain(pMsg);
             return;
         }
@@ -1987,7 +1987,7 @@ void __stdcall INV_GridClickMsg(SMSGHANDLER_PARAMS* pMsg)
 
         if (sub_00468830() == 8)
         {
-            sub_00478680_SendPacket5(0x4C, -1);
+            MSG_SendDword(0x4C, -1);
         }
     }
 }

@@ -518,7 +518,7 @@ int __fastcall sub_00464EC0(D2UnitStrc*,D2UnitStrc*); // 0x00464EC0
 int __fastcall sub_00464F70(D2UnitStrc*,D2UnitStrc*); // 0x00464F70
 int __fastcall sub_00465C60(D2UnitStrc*,D2UnitStrc*); // 0x00465C60
 int __fastcall sub_00466870(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x00466870
-int __fastcall sub_00467640_UnitFindTest(D2UnitStrc* pUnit, void* pArg); // 0x00467640
+int __fastcall SELECT_IsMonsterUnit(D2UnitStrc* pUnit, void* pArg); // 0x00467640
 int __fastcall sub_0046C140_CheckMonStats2ModeFlag(int nMonsterId, int nMode); // 0x0046C140
 int __fastcall sub_0046C570_FindRoomUnit(D2UnitStrc* pUnit, D2UnitStrc** ppFound, int* pDistance,
     int (__fastcall* pfnCheck)(D2UnitStrc* pUnit, D2UnitStrc* pOther, D2UnitStrc** ppFound, int* pDistance)); // 0x0046C570

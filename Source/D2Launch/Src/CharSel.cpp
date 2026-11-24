@@ -132,7 +132,7 @@ void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, un
 
 void __cdecl RECORD_WriteRecordFile(); // 0x00451620
 
-extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId); // 0x00452040
+extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId); // 0x00452040
 
 void __cdecl AUTOMAP_SaveAutomapLayer(); // 0x004584C0
 

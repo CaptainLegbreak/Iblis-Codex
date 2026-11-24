@@ -539,7 +539,7 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); 
 int __cdecl CUNIT_IsPlayerDeadOrMissing();                                                                                 // 0x00463DF0
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 int __cdecl sub_00468740();                                                                                 // 0x00468740
-void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
+void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
 void __cdecl TEXT_LoadQuestPanelCels();                                                                  // 0x004A23D0
 int __stdcall TEXT_OpenQuestPanel(int nArg);                                                             // 0x004A26B0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                   // 0x004B9A00
@@ -873,7 +873,7 @@ void __cdecl TEXT_SendQuestUpdates()
         {
             D2BitBufferStrc* pQuestInfo = MONSTER_GetQuestFlags();
             QUESTRECORD_SetQuestState(pQuestInfo, gaQuestEntries[i].nQuestId, 0xC);
-            sub_004785B0_SendPacket3(0x58, (unsigned short)gaQuestEntries[i].nQuestId);
+            MSG_SendWord(0x58, (unsigned short)gaQuestEntries[i].nQuestId);
         }
     }
 }
@@ -1432,7 +1432,7 @@ void __cdecl TEXT_DrawQuestPage()
                         nFrame = 0x18;
                         D2BitBufferStrc* pQuestInfo = MONSTER_GetQuestFlags();
                         QUESTRECORD_SetQuestState(pQuestInfo, pEntry->nQuestId, 0xC);
-                        sub_004785B0_SendPacket3(0x58, (unsigned short)pEntry->nQuestId);
+                        MSG_SendWord(0x58, (unsigned short)pEntry->nQuestId);
                     }
                     tDraw.pCellFile = gtQuestLog_007BF298.apCel[pEntry->nCelId];
                     tDraw.nFrame = nFrame;

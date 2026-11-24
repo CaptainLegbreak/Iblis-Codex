@@ -9701,7 +9701,7 @@
     {
      "va": "0x00449890",
      "length": 129,
-     "name": "?sub_00449890_CdKeyChecksum@@YIXPADPAI@Z"
+     "name": "?GAME_CalcCdKeyChecksum@@YIXPADPAI@Z"
     },
     {
      "va": "0x00449AC0",
@@ -10689,7 +10689,7 @@
     {
      "va": "0x00451FB0",
      "length": 36,
-     "name": "?sub_00451FB0@@YIPAUD2MonStats2Txt@@H@Z"
+     "name": "?GAME_GetMonStats2TxtRecord@@YIPAUD2MonStats2Txt@@H@Z"
     },
     {
      "va": "0x00451FE0",
@@ -10699,17 +10699,17 @@
     {
      "va": "0x00452020",
      "length": 12,
-     "name": "?sub_00452020_GetOverlayTxtRecordCount@@YIHXZ"
+     "name": "?GAME_GetOverlayTxtRecordCount@@YIHXZ"
     },
     {
      "va": "0x00452030",
      "length": 12,
-     "name": "?sub_00452030_GetItemStatCostTxtRecordCount@@YIHXZ"
+     "name": "?GAME_GetItemStatCostTxtRecordCount@@YIHXZ"
     },
     {
      "va": "0x00452040",
      "length": 37,
-     "name": "@sub_00452040_GetStatesTxtRecord@4"
+     "name": "@GAME_GetStatesTxtRecord@4"
     },
     {
      "va": "0x00452070",
@@ -10719,7 +10719,7 @@
     {
      "va": "0x004520C0",
      "length": 101,
-     "name": "?sub_004520C0_LoadUiCelFile@@YIPAXPBD@Z"
+     "name": "?GAME_LoadUiCelFile@@YIPAXPBD@Z"
     },
     {
      "va": "0x00452160",
@@ -13811,7 +13811,7 @@
     {
      "va": "0x004945F0",
      "length": 42,
-     "name": "?sub_00494EB0@@YAXXZ"
+     "name": "?VIEW_DrawHelpShade@@YAXXZ"
     },
     {
      "va": "0x00494680",
@@ -16378,7 +16378,7 @@
     {
      "va": "0x00451AB0",
      "length": 31,
-     "name": "?sub_00451AB0@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?SCMD_OnActivateApp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00451AD0",
@@ -16884,7 +16884,7 @@
     {
      "va": "0x0045E2D0",
      "length": 43,
-     "name": "sub_0045E2D0_Packet48"
+     "name": "SCMD_HandleRefreshItemsRecord"
     },
     {
      "va": "0x0045E300",
@@ -18172,7 +18172,7 @@
     {
      "va": "0x00478D90",
      "length": 173,
-     "name": "?sub_00478D90_GetPetRelation@@YIHH@Z"
+     "name": "?ROSTERPETS_GetPetRelation@@YIHH@Z"
     },
     {
      "va": "0x00478E40",
@@ -18909,7 +18909,7 @@
     {
      "va": "0x00466DC0",
      "length": 6,
-     "name": "?sub_00466DC0@@YAHXZ"
+     "name": "?SELECT_GetHoverMonClassId@@YAHXZ"
     },
     {
      "va": "0x00466DD0",
@@ -18923,12 +18923,12 @@
     {
      "va": "0x00466FE0",
      "length": 13,
-     "name": "?sub_00466FE0@@YAXXZ"
+     "name": "?SELECT_ClearSelection@@YAXXZ"
     },
     {
      "va": "0x00466FF0",
      "length": 11,
-     "name": "?sub_00466FF0@@YAXXZ"
+     "name": "?SELECT_UnlockHover@@YAXXZ"
     },
     {
      "va": "0x00467000",
@@ -18937,7 +18937,7 @@
     {
      "va": "0x004670A0",
      "length": 131,
-     "name": "?sub_004670A0_AdjustCursorPerspective@@YGXPAH0@Z"
+     "name": "?SELECT_AdjustCursorPerspective@@YGXPAH0@Z"
     },
     {
      "va": "0x00467130",
@@ -18946,17 +18946,17 @@
     {
      "va": "0x00467250",
      "length": 177,
-     "name": "?sub_00467250_CheckDoorSideA@@YGHPAUD2UnitStrc@@0@Z"
+     "name": "?SELECT_CheckDoorSideA@@YGHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x00467310",
      "length": 166,
-     "name": "?sub_00467310_CheckDoorSideB@@YGHPAUD2UnitStrc@@0@Z"
+     "name": "?SELECT_CheckDoorSideB@@YGHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x004673C0",
      "length": 51,
-     "name": "?sub_004673C0_GetDistanceSquared@@YAHPAUD2UnitStrc@@0@Z"
+     "name": "?SELECT_GetDistanceSquared@@YAHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x00467400",
@@ -18971,7 +18971,7 @@
     {
      "va": "0x00467470",
      "length": 31,
-     "name": "?sub_00467470_UnitFindTest@@YIHPAUD2UnitStrc@@PAX@Z"
+     "name": "?SELECT_IsMetalItemUnit@@YIHPAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x00467490",
@@ -18989,17 +18989,17 @@
     {
      "va": "0x004677B0",
      "length": 207,
-     "name": "?sub_004677B0_FindFreeTargetCoords@@YGPAUD2UnitStrc@@PAH0PAU1@@Z"
+     "name": "?SELECT_FindFreeTargetCoords@@YGPAUD2UnitStrc@@PAH0PAU1@@Z"
     },
     {
      "va": "0x00467880",
      "length": 377,
-     "name": "?sub_00467880_GetSkillTarget@@YIPAUD2UnitStrc@@PAUD2SkillStrc@@PAU1@PAH2EH@Z"
+     "name": "?SELECT_GetSkillTarget@@YIPAUD2UnitStrc@@PAUD2SkillStrc@@PAU1@PAH2EH@Z"
     },
     {
      "va": "0x00467A00",
      "length": 16,
-     "name": "?sub_00467A00@@YAXXZ"
+     "name": "?SELECT_ResetHoverClassIds@@YAXXZ"
     },
     {
      "va": "0x00467A10",
@@ -19008,7 +19008,7 @@
     {
      "va": "0x00467A70",
      "length": 77,
-     "name": "?sub_00467A70_RefreshHoverUnit@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?SELECT_RefreshHoverUnit@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00467AC0",
@@ -21539,7 +21539,7 @@
     {
      "va": "0x00478350",
      "length": 566,
-     "name": "?sub_00478350_SendToServer@@YGXPBEH@Z"
+     "name": "?MSG_SendToServer@@YGXPBEH@Z"
     },
     {
      "va": "0x00478590",
@@ -21549,12 +21549,12 @@
     {
      "va": "0x004785B0",
      "length": 31,
-     "name": "?sub_004785B0_SendPacket3@@YIXEG@Z"
+     "name": "?MSG_SendWord@@YIXEG@Z"
     },
     {
      "va": "0x004785D0",
      "length": 43,
-     "name": "?sub_004785D0_SendShortShort@@YIXDFF@Z"
+     "name": "?MSG_SendTwoWords@@YIXDFF@Z"
     },
     {
      "va": "0x00478600",
@@ -21564,12 +21564,12 @@
     {
      "va": "0x00478640",
      "length": 59,
-     "name": "?sub_00478640_SendShorts4@@YIXEGGGG@Z"
+     "name": "?MSG_SendFourWords@@YIXEGGGG@Z"
     },
     {
      "va": "0x00478680",
      "length": 32,
-     "name": "?sub_00478680_SendPacket5@@YIXDH@Z"
+     "name": "?MSG_SendDword@@YIXDH@Z"
     },
     {
      "va": "0x004786A0",
@@ -21584,27 +21584,27 @@
     {
      "va": "0x00478700",
      "length": 52,
-     "name": "?sub_00478700_SendCommand@@YIXDHHHH@Z"
+     "name": "?MSG_SendFourDwords@@YIXDHHHH@Z"
     },
     {
      "va": "0x00478740",
      "length": 59,
-     "name": "?sub_00478740_SendPvpCommand@@YIXHHH@Z"
+     "name": "?MSG_SendPvpCommand@@YIXHHH@Z"
     },
     {
      "va": "0x00478780",
      "length": 45,
-     "name": "?sub_00478780_SendPartyCommand@@YIXEH@Z"
+     "name": "?MSG_SendPartyCommand@@YIXEH@Z"
     },
     {
      "va": "0x004787B0",
      "length": 126,
-     "name": "?sub_004787B0_SendStrings@@YIXPBE@Z"
+     "name": "?MSG_SendStrings@@YIXPBE@Z"
     },
     {
      "va": "0x00478830",
      "length": 115,
-     "name": "?sub_00478830_SendPacket66@@YIXPBXI@Z"
+     "name": "?MSG_SendWardenPacket@@YIXPBXI@Z"
     }
    ],
    "flags": [
@@ -24631,7 +24631,7 @@
     {
      "va": "0x00494EB0",
      "length": 42,
-     "name": "?sub_00494EB0@@YAXXZ"
+     "name": "?VIEW_DrawHelpShade@@YAXXZ"
     }
    ]
   },

@@ -1519,7 +1519,7 @@ D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 short __fastcall CUNIT_GetPlayerPartyId(D2UnitStrc* pUnit); // 0x00465400
 
-int __fastcall sub_00478D90_GetPetRelation(int nUnitId); // 0x00478D90
+int __fastcall ROSTERPETS_GetPetRelation(int nUnitId); // 0x00478D90
 
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x00451F30
 
@@ -3585,7 +3585,7 @@ static int AUTOMAP_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pColor)
             return 1;
         }
 
-        switch (sub_00478D90_GetPetRelation(!pUnit ? -1 : pUnit->dwUnitId))
+        switch (ROSTERPETS_GetPetRelation(!pUnit ? -1 : pUnit->dwUnitId))
         {
         case 0:
         case 3:

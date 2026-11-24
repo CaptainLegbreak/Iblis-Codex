@@ -52,7 +52,7 @@ void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA
 void __stdcall ROSTERPETS_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg); // 0x00467F20
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0x006CC45C
-void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
+void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
 #pragma pack(push, 2)
@@ -128,7 +128,7 @@ int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 void* __cdecl GAME_GetBuySellButtonCells(); // 0x00454600
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
-int __cdecl sub_00466DC0(); // 0x00466DC0
+int __cdecl SELECT_GetHoverMonClassId(); // 0x00466DC0
 int __cdecl UI_GetHoverClassId(); // 0x00466DD0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
@@ -172,7 +172,7 @@ extern int gaHotkeySkills[16]; // 0x007C06C8
 extern int gaHotkeyOwners[16]; // 0x007C0768
 extern int gaHotkeyLeft[16]; // 0x007C07B8
 extern "C" int gbSkillPointsHighlight; // 0x007C0C3C
-void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
+void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 void __stdcall sub_004A9D70_ClearSkillHotkeys(D2SkillsTxt* pSkillsTxt, int nQuantity); // 0x004A9D70
 void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nX, int nArg3, int nArg4, int nArg5); // 0x004AA3A0
@@ -382,7 +382,7 @@ static void __stdcall sub_004A7AE0_DrawHoverToHit(int nX, int nY, int nLeftChanc
     AUTOMAP_DrawFramedBox(gaHoverBoxes[nIndex].nBoxX + gnPanelOffsetX, gaHoverBoxes[nIndex].nBoxY + gnPanelOffsetY + gnScreenHeight - 0x1E0, 0x9B, 0x1E, gnTextColor, 2);
     D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x103F), gaHoverBoxes[nIndex].nTitleX + gnPanelOffsetX, gaHoverBoxes[nIndex].nTitleY + gnPanelOffsetY + gnScreenHeight - 0x1E0, 0, 0);
 
-    D2MonStatsTxt* pMonStatsTxtRecord = sub_MonStatsTxtRecord(sub_00466DC0());
+    D2MonStatsTxt* pMonStatsTxtRecord = sub_MonStatsTxtRecord(SELECT_GetHoverMonClassId());
     D2_ASSERT(pMonStatsTxtRecord, 0xEC);
 
     Unicode* wszText = (Unicode*)anText;
@@ -434,8 +434,8 @@ static int __stdcall sub_004A8CF0_IsMouseInRect(int nX, int nWidth, int nY, int 
 // 0x004A8A30
 void __cdecl sub_004A8A30_InitSkillIcons()
 {
-    gpSkillIconCel = sub_004520C0_LoadUiCelFile("Spells\\Skillicon");
-    gaSkillIconCels[gnCharClass].pCelFile = sub_004520C0_LoadUiCelFile(gaSkillIconCels[gnCharClass].szPath);
+    gpSkillIconCel = GAME_LoadUiCelFile("Spells\\Skillicon");
+    gaSkillIconCels[gnCharClass].pCelFile = GAME_LoadUiCelFile(gaSkillIconCels[gnCharClass].szPath);
 
     int i;
     for (i = 0; i < 16; ++i)

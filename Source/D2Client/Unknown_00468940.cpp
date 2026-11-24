@@ -24,7 +24,7 @@ void __fastcall sub_004A8CE0_SetValue(int nValue); // 0x004A8CE0
 void __fastcall sub_004A9E60_AssignHotkey(int nHotkey); // 0x004A9E60
 void __fastcall sub_004AA030_SelectHotkey(int nSlot); // 0x004AA030
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
-void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
+void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -50,7 +50,7 @@ void __fastcall WARDENCLIENT_ToggleEscMenuUIState(int bSaveState, int nMenu); //
 void __fastcall sub_004AA740_CycleHotkey(int nDelta); // 0x004AA740
 void __cdecl INV_ResetEquipSounds(); // 0x0048A730
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
-void __cdecl sub_00466FE0(); // 0x00466FE0
+void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 // 0x00468940
 void __cdecl sub_00468940_SetUIVar2()
@@ -351,43 +351,43 @@ void __cdecl sub_00468EC0_Hotkey15()
 // 0x00468F80
 void __cdecl sub_00468F80_Phrase19()
 {
-    sub_004785B0_SendPacket3(0x3F, 0x19);
+    MSG_SendWord(0x3F, 0x19);
 }
 
 // 0x00468F90
 void __cdecl sub_00468F90_Phrase1A()
 {
-    sub_004785B0_SendPacket3(0x3F, 0x1A);
+    MSG_SendWord(0x3F, 0x1A);
 }
 
 // 0x00468FA0
 void __cdecl sub_00468FA0_Phrase1B()
 {
-    sub_004785B0_SendPacket3(0x3F, 0x1B);
+    MSG_SendWord(0x3F, 0x1B);
 }
 
 // 0x00468FB0
 void __cdecl sub_00468FB0_Phrase1C()
 {
-    sub_004785B0_SendPacket3(0x3F, 0x1C);
+    MSG_SendWord(0x3F, 0x1C);
 }
 
 // 0x00468FC0
 void __cdecl sub_00468FC0_Phrase1D()
 {
-    sub_004785B0_SendPacket3(0x3F, 0x1D);
+    MSG_SendWord(0x3F, 0x1D);
 }
 
 // 0x00468FD0
 void __cdecl sub_00468FD0_Phrase1E()
 {
-    sub_004785B0_SendPacket3(0x3F, 0x1E);
+    MSG_SendWord(0x3F, 0x1E);
 }
 
 // 0x00468FE0
 void __cdecl sub_00468FE0_Phrase1F()
 {
-    sub_004785B0_SendPacket3(0x3F, 0x1F);
+    MSG_SendWord(0x3F, 0x1F);
 }
 
 void (__cdecl* gpfnMButtonDownCommand)(); // 0x007A6B10
@@ -453,7 +453,7 @@ void __cdecl sub_00469330()
 // 0x00468FF0
 void __cdecl sub_00468FF0_Phrase20()
 {
-    sub_004785B0_SendPacket3(0x3F, 0x20);
+    MSG_SendWord(0x3F, 0x20);
 }
 
 // 0x00469000
@@ -499,7 +499,7 @@ void __cdecl sub_00469090_HotkeyUiVarOff()
 void __cdecl sub_00469210_HotkeyUiVarOn()
 {
     UI_SetUIVar(0xD, 1, 0);
-    sub_00466FE0();
+    SELECT_ClearSelection();
 }
 
 // 0x004690B0

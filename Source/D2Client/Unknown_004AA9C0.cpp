@@ -40,7 +40,7 @@ D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);          
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 void __stdcall ROSTERPETS_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg);                                           // 0x00467F20
 void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg);                                           // 0x00467FA0
-void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
+void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg);                                         // 0x00498DC0
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
@@ -110,7 +110,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern D2UiCelFileStrc gaPanelCels[7]; // 0x00724BF0
 
-void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
+void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 extern unsigned char gnCharClass; // 0x007A0522
 
@@ -132,7 +132,7 @@ void __cdecl sub_004AA920_LoadPanelCel()
 {
     char* szPath = gaPanelCels[gnCharClass].szPath;
     D2_ASSERT(szPath, 136);
-    gaPanelCels[gnCharClass].pCelFile = sub_004520C0_LoadUiCelFile(szPath);
+    gaPanelCels[gnCharClass].pCelFile = GAME_LoadUiCelFile(szPath);
 }
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
@@ -710,7 +710,7 @@ void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 
                                 if (nLevel <= sub_004AA8B0_GetSkillMaxLevel(pSkillsTxt->nSkillId) && !sub_004AA900_IsStateOrValue())
                                 {
-                                    sub_004785B0_SendPacket3(0x3B, nSkillId);
+                                    MSG_SendWord(0x3B, nSkillId);
                                     gbSkillPointsHighlight = 0;
                                 }
                             }

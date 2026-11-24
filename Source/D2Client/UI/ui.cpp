@@ -148,7 +148,7 @@ void __cdecl CHAT_InitChatIme(); // 0x0047B090
 
 void __cdecl sub_0047B4D0_Nop(); // 0x0047B4D0
 
-void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
+void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
 void __fastcall TEXT_ToggleKeyConfigPanel(int nArg); // 0x004A5200
 
@@ -528,7 +528,7 @@ void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 
 void __fastcall PLAYER_SetPanelSlide(int nMode); // 0x0045AEA0
 
-void __cdecl sub_00466FE0(); // 0x00466FE0
+void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 void __cdecl CHAT_CloseChatInput(); // 0x0047B2E0
 
@@ -595,7 +595,7 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 void __fastcall sub_00502280_SetPopUpText(const unsigned short* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
-D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
+D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 
 void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit); // 0x00454F30
 
@@ -645,7 +645,8 @@ void __cdecl TEXT_DrawWaypointPanel(); // 0x0049C9C0
 
 void __cdecl HIREABLES_LoadHelpCels(); // 0x00494320
 
-void __cdecl sub_00494EB0(); // 0x00494EB0
+// build: symbol ?VIEW_DrawHelpShade@* 0x004945F0
+void __cdecl VIEW_DrawHelpShade(); // 0x00494EB0
 
 void __cdecl PANEL_DrawControlPanel(); // 0x00499450
 
@@ -1485,7 +1486,7 @@ struct D2GridCellStrc
     unsigned char nValue[4];
 };
 
-extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId); // 0x00452040
+extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId); // 0x00452040
 
 void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay, int nX, int nY); // 0x0046E1B0
 
@@ -1538,7 +1539,7 @@ void __cdecl CHARSEL_DrawProgressiveStates()
             continue;
         if (!STATLIST_GetStatListFromUnitAndState(pUnit, nState))
             continue;
-        D2StatesTxt* pStatesTxtRecord = sub_00452040_GetStatesTxtRecord(nState);
+        D2StatesTxt* pStatesTxtRecord = GAME_GetStatesTxtRecord(nState);
         if (!pStatesTxtRecord)
             continue;
         if (!(pStatesTxtRecord->nStateFlags[0] & gdwBitMasks[4]))
@@ -2425,7 +2426,7 @@ static void __stdcall sub_004549F0_DrawCenteredText(const Unicode* wszText, int 
 // 0x00454A70
 void __cdecl sub_00454A70_DrawHoverText()
 {
-    D2UnitStrc* pUnit = sub_00467A10();
+    D2UnitStrc* pUnit = SELECT_GetSelectedUnit();
     if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
     {
         return;
@@ -2629,7 +2630,7 @@ void __cdecl sub_004554B0_DrawHoverName()
     {
         return;
     }
-    D2UnitStrc* pUnit = sub_00467A10();
+    D2UnitStrc* pUnit = SELECT_GetSelectedUnit();
     if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
     {
         return;
@@ -2690,7 +2691,7 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
         return;
     case 0x9:
         COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaEscMenuHandlers, 0x7);
-        sub_00467A70_RefreshHoverUnit(0);
+        SELECT_RefreshHoverUnit(0);
         return;
     case 0xB:
         TEXT_ToggleKeyConfigPanel(0x1);
@@ -2823,7 +2824,7 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
         return;
     case 0x9:
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaEscMenuHandlers, 0x7);
-        sub_00466FE0();
+        SELECT_ClearSelection();
         return;
     case 0xB:
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyConfigWheelHandlers, 0x1);
@@ -3488,7 +3489,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
         sub_0047E3D0_DrawOptions();
     if (gaUIVarStates[11])
         TEXT_DrawKeyConfigPanel();
-    UI_DrawUnitHover(sub_00467A10());
+    UI_DrawUnitHover(SELECT_GetSelectedUnit());
     if (gaUIVarStates[35])
         UI_DrawPetHover();
     if (!gaUIVarStates[1] && !gaUIVarStates[12] && !gaUIVarStates[14])
@@ -3532,7 +3533,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     if (gaUIVarStates[33])
     {
         HIREABLES_LoadHelpCels();
-        sub_00494EB0();
+        VIEW_DrawHelpShade();
     }
     PANEL_DrawControlPanel();
     if (gaUIVarStates[3])

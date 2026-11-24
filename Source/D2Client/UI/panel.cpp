@@ -104,7 +104,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
-void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
+void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
@@ -184,7 +184,7 @@ unsigned int __stdcall ITEMS_CheckIfBeltable(D2UnitStrc* pItem); // 0x0062BAD0
 
 int __fastcall ITEM_IsItemActionBlocked(D2UnitStrc* pItem); // 0x004C2240
 
-void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
+void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
 void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 
@@ -1248,7 +1248,7 @@ static void PANEL_DrawControlPanelFrame(int nOffset)
     {
         if (!gpCtrlPnl7Cel)
         {
-            gpCtrlPnl7Cel = sub_004520C0_LoadUiCelFile("Panel\\CtrlPnl7");
+            gpCtrlPnl7Cel = GAME_LoadUiCelFile("Panel\\CtrlPnl7");
         }
         if (gp800CtrlPnl7Cel)
         {
@@ -1282,7 +1282,7 @@ static void PANEL_DrawControlPanelFrame(int nOffset)
         }
         if (!gp800CtrlPnl7Cel)
         {
-            gp800CtrlPnl7Cel = sub_004520C0_LoadUiCelFile("Panel\\800CtrlPnl7");
+            gp800CtrlPnl7Cel = GAME_LoadUiCelFile("Panel\\800CtrlPnl7");
         }
         tContext.pCellFile = gp800CtrlPnl7Cel;
         tContext.nDirection = 0;
@@ -1308,7 +1308,7 @@ void __cdecl PANEL_DrawBorderFrameLeft()
     memset(&tContext, 0, sizeof(tContext));
     if (!gpBorderFrameCel)
     {
-        gpBorderFrameCel = sub_004520C0_LoadUiCelFile("Panel\\800BorderFrame");
+        gpBorderFrameCel = GAME_LoadUiCelFile("Panel\\800BorderFrame");
     }
     tContext.pCellFile = gpBorderFrameCel;
     tContext.nDirection = 0;
@@ -1329,7 +1329,7 @@ void __cdecl PANEL_DrawBorderFrameRight()
 {
     if (!gpBorderFrameCel)
     {
-        gpBorderFrameCel = sub_004520C0_LoadUiCelFile("Panel\\800BorderFrame");
+        gpBorderFrameCel = GAME_LoadUiCelFile("Panel\\800BorderFrame");
     }
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
@@ -1427,7 +1427,7 @@ static void __stdcall PANEL_ClickBeltBox(D2InventoryStrc* pInventory, int nX, in
 
     if (pBeltItem && !pCursorItem && !ITEM_IsItemActionBlocked(pBeltItem))
     {
-        sub_00478680_SendPacket5(0x24, pBeltItem->dwUnitId);
+        MSG_SendDword(0x24, pBeltItem->dwUnitId);
         ITEM_SetUninterruptableState(pBeltItem);
     }
 }
@@ -1919,7 +1919,7 @@ void __cdecl PANEL_DrawControlPanel()
 static __forceinline void CancelCursorMode()
 {
     if(sub_00468830()==6) UI_CancelCursorItemUse();
-    else if(sub_00468830()==8) sub_00478680_SendPacket5(0x4C,-1);
+    else if(sub_00468830()==8) MSG_SendDword(0x4C,-1);
 }
 
 // 0x004996A0
@@ -2091,7 +2091,7 @@ void __stdcall PANEL_BeltClickMsg(SMSGHANDLER_PARAMS* pMsg)
         }
         else if (sub_00468830() == 8)
         {
-            sub_00478680_SendPacket5(0x4C, -1);
+            MSG_SendDword(0x4C, -1);
         }
 
         const int nBox = PANEL_GetBeltBoxAt(nY, nX);
@@ -2140,11 +2140,11 @@ void __cdecl PANEL_SetBlackColour()
 // 0x0049C0A0
 void __cdecl PANEL_LoadPartyCels()
 {
-    gpPanelQuadCel = sub_004520C0_LoadUiCelFile("Menu\\party");
-    gpPartyButtonsCel = sub_004520C0_LoadUiCelFile("Menu\\partybuttons");
-    gpPartyBoxesCel = sub_004520C0_LoadUiCelFile("Menu\\partyboxes");
-    gpInvGoldBtnCel = sub_004520C0_LoadUiCelFile("Panel\\inv_goldbtn");
-    gpPartyBarCel = sub_004520C0_LoadUiCelFile("Menu\\partybar");
+    gpPanelQuadCel = GAME_LoadUiCelFile("Menu\\party");
+    gpPartyButtonsCel = GAME_LoadUiCelFile("Menu\\partybuttons");
+    gpPartyBoxesCel = GAME_LoadUiCelFile("Menu\\partyboxes");
+    gpInvGoldBtnCel = GAME_LoadUiCelFile("Panel\\inv_goldbtn");
+    gpPartyBarCel = GAME_LoadUiCelFile("Menu\\partybar");
 }
 
 // 0x0049C0F0

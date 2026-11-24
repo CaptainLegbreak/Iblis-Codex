@@ -68,7 +68,7 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 void __cdecl sub_00444E70_FillGameList(); // 0x00444E70
 void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
 void __cdecl RECORD_WriteRecordFile(); // 0x00451620
-extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId); // 0x00452040
+extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId); // 0x00452040
 void __cdecl AUTOMAP_SaveAutomapLayer(); // 0x004584C0
 void __cdecl AUTOMAP_ResetAutomapCells(); // 0x00458680
 void __cdecl AUTOMAP_LoadAutomapLayer(); // 0x00458750

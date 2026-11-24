@@ -180,9 +180,9 @@ D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 
 void __fastcall CUNIT_ForEachObject(UNITFN pfnCallback); // 0x004649D0
 
-void __cdecl sub_00466FE0(); // 0x00466FE0
+void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
-D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
+D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 
 void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 
@@ -269,7 +269,7 @@ void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, long* pLeft, long* p
 
 void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
 
-void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
+void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
@@ -570,7 +570,7 @@ void __fastcall CUNIT_PlayerFaceUnit(D2UnitStrc* pUnit);                        
 
 void __fastcall CUNIT_ForEachMonster(UNITFN pfnCallback);                                                           // 0x00464990
 
-void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
+void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
 
 void __cdecl NPCMENU_ResetHandlers();                                                                  // 0x004B2250
 
@@ -648,7 +648,7 @@ int __cdecl sub_00489870(); // 0x00489870
 
 void __cdecl sub_0048A630(); // 0x0048A630
 
-void __fastcall sub_00478700_SendCommand(char nCommand, int nUnitId, int nArg1, int nArg2, int nArg3); // 0x00478700
+void __fastcall MSG_SendFourDwords(char nCommand, int nUnitId, int nArg1, int nArg2, int nArg3); // 0x00478700
 
 int __fastcall ITEM_GetDropSound(D2UnitStrc* pItem); // 0x004C1D60
 
@@ -680,7 +680,7 @@ int __stdcall ITEMS_GetAllRepairCosts(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
-void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
+void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
 #pragma pack(push, 1)
 
@@ -1017,7 +1017,7 @@ void __fastcall VIEW_SpawnBrDeathControl(D2UnitStrc* pUnit);                    
 
 void __fastcall sub_0046B710_SpawnMissileAtObject173(D2UnitStrc* pUnit);                                                            // 0x0046B710
 
-void __fastcall sub_0046B850_SpawnMissileAtObject182(D2UnitStrc* pUnit);                                                            // 0x0046B850
+void __fastcall VIEW_SpawnMissileNearObject(D2UnitStrc* pUnit);                                                            // 0x0046B850
 
 void __fastcall VIEW_SpawnMephistoDeath(D2UnitStrc* pUnit);                                          // 0x0046B9A0
 
@@ -1097,7 +1097,7 @@ void __fastcall MONUNIQUE_HandleUnitClassEvent(D2UnitStrc* pUnit, int nUnused, i
     case 0x16E:
         if (pUnit->dwAnimMode == 0)
         {
-            sub_0046B850_SpawnMissileAtObject182(pUnit);
+            VIEW_SpawnMissileNearObject(pUnit);
         }
         break;
 
@@ -1827,7 +1827,7 @@ int __cdecl NPCMENU_ResurrectMercWait()
         gpNpcMainMenuDialog = 0;
     }
 
-    sub_00478680_SendPacket5(0x62, gnInteractNpcId);
+    MSG_SendDword(0x62, gnInteractNpcId);
 // build: symbol ?gnNpcMenuState@* 0x007C0C6B
     gnNpcMenuState = 10;
 
@@ -1934,7 +1934,7 @@ int __cdecl NPCMENU_IdentifyItemsWait()
     gnNpcTradeMode = 4;
 // build: symbol ?gbNpcActionPending@* 0x007C0D96
     gbNpcActionPending = 0;
-    sub_00478680_SendPacket5(0x34, gnInteractNpcId);
+    MSG_SendDword(0x34, gnInteractNpcId);
     return 1;
 }
 
@@ -2223,16 +2223,16 @@ void __stdcall NPCMENU_SendTradeRequest(int bAlternate, int nFlags)
             }
         }
 // build: symbol ?gnNpcTransactionCost@* 0x007C0D7F
-        sub_00478700_SendCommand(0x32, gnInteractNpcId, gnTradeItemUnitId, nMode, gnNpcTransactionCost);
+        MSG_SendFourDwords(0x32, gnInteractNpcId, gnTradeItemUnitId, nMode, gnNpcTransactionCost);
         gnGlobal_007C0D5B = ITEM_GetDropSound(pUnit);
     }
     else if (nCommand == 0x35)
     {
-        if (sub_00489870()) { sub_00478700_SendCommand(nCommand, gnInteractNpcId, gnTradeItemUnitId, (unsigned short)nMode, 0x80000000); }
-        else if (pUnit) { sub_00478700_SendCommand(0x35, gnInteractNpcId, gnTradeItemUnitId, (unsigned short)nMode, STATLIST_UnitGetStatValue(pUnit, STAT_DURABILITY, 0)); }
-        else { sub_00478700_SendCommand(0x35, gnInteractNpcId, gnTradeItemUnitId, (unsigned short)nMode, 0); }
+        if (sub_00489870()) { MSG_SendFourDwords(nCommand, gnInteractNpcId, gnTradeItemUnitId, (unsigned short)nMode, 0x80000000); }
+        else if (pUnit) { MSG_SendFourDwords(0x35, gnInteractNpcId, gnTradeItemUnitId, (unsigned short)nMode, STATLIST_UnitGetStatValue(pUnit, STAT_DURABILITY, 0)); }
+        else { MSG_SendFourDwords(0x35, gnInteractNpcId, gnTradeItemUnitId, (unsigned short)nMode, 0); }
     }
-    else { sub_00478700_SendCommand(nCommand, gnInteractNpcId, gnTradeItemUnitId, (unsigned short)nMode, gnNpcTransactionCost); }
+    else { MSG_SendFourDwords(nCommand, gnInteractNpcId, gnTradeItemUnitId, (unsigned short)nMode, gnNpcTransactionCost); }
 
     D2_ASSERT(!gpNpcWaitDialog, 0x11B6);
     D2CoordStrc tCoords;
@@ -2259,7 +2259,7 @@ void __cdecl NPCMENU_CloseWaitDialog()
     gnNpcMenuState = 3;
     INV_SelectFirstButton();
     sub_00488F10();
-    sub_00466FE0();
+    SELECT_ClearSelection();
 }
 
 // 0x004B2940
@@ -2339,11 +2339,11 @@ void __fastcall sub_004B2A60(int nUnitId)
 // 0x004B2A80
 void __fastcall NPCMENU_ResetHoverForItem(int nUnitId)
 {
-    D2UnitStrc* pSelected = sub_00467A10();
+    D2UnitStrc* pSelected = SELECT_GetSelectedUnit();
     if (pSelected && gbNpcInteracting && CUNIT_FindClientUnit(gnInteractNpcId, 1)
         && pSelected->dwUnitType == UNIT_ITEM && pSelected->dwUnitId == nUnitId)
     {
-        sub_00466FE0();
+        SELECT_ClearSelection();
         INV_ResetHover();
     }
 }
@@ -2495,7 +2495,7 @@ int __cdecl NPCMENU_MenuBack()
         sub_004B2650(0, 0);
         return 1;
     }
-    sub_00466FE0();
+    SELECT_ClearSelection();
     D2_ASSERT(gnNpcMenuState != 4, 0x14F9);
     return 1;
 }
@@ -2512,7 +2512,7 @@ int __cdecl NPCMENU_MenuClose()
     }
     INV_ResetNpcButtonsFromPending();
     gnNpcMenuState = 3;
-    sub_00466FE0();
+    SELECT_ClearSelection();
     return 1;
 }
 
@@ -2959,7 +2959,7 @@ int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pI
         gbTradeClickPending = 1;
 // build: symbol ?gnTradeItemUnitId@* 0x007C0DE5
         gnTradeItemUnitId = 0;
-        sub_00467A70_RefreshHoverUnit(0);
+        SELECT_RefreshHoverUnit(0);
         gnGlobal_007C0D4B = nX;
         gnGlobal_007C0D4F = nY;
     }
@@ -3039,7 +3039,7 @@ int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pI
         gnTradeItemUnitId = GetUnitIdOrNone(pItem);
 // build: symbol ?gnTradeItemClassId@* 0x007C0DE1
         gnTradeItemClassId = GetClassIdOrNone(pItem);
-        sub_00467A70_RefreshHoverUnit(0);
+        SELECT_RefreshHoverUnit(0);
         if (!((gnNpcTradeMode == 2 && bCheckTick) || (gnNpcTradeMode == 1 && bCheckTick)))
         {
             sub_004B9A00(1, 0, 0, 0, 0);
@@ -3721,7 +3721,7 @@ void __cdecl NPCMENU_BuildNpcMenu()
 // 0x004B4CF0
 int __cdecl NPCMENU_NpcMenuReturn()
 {
-    sub_00466FE0();
+    SELECT_ClearSelection();
     sub_004B9A00(1, 0, 0, 0, 0);
     DIALOG_DestroyDialog(gpNpcSubMenuDialog);
     gpNpcSubMenuDialog = 0;
@@ -4003,7 +4003,7 @@ void __cdecl NPCMENU_OnTransactionResult()
   }
   g007C0D96=0;
   if(g007C0D67) { DIALOG_DestroyDialog(g007C0D67);g007C0D67=0; }
-  sub_00466FE0(); g007C0DE0=0;g007C0DE1=0;g007C0DE5=0;g007C0C6B=3;
+  SELECT_ClearSelection(); g007C0DE0=0;g007C0DE1=0;g007C0DE5=0;g007C0C6B=3;
   INV_SelectFirstButton();sub_00488F10();return;
  }
  if(g007C0D67) {DIALOG_DestroyDialog(g007C0D67);g007C0D67=0;}
@@ -4585,7 +4585,7 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
     gnNpcSoundHandle = sub_004B9A00(nSound, sub_00463DD0_GetPlayerUnit(), 0, 1, 0);
     if (nType == 2)
     {
-        sub_004785B0_SendPacket3(0x4D, nNpcId);
+        MSG_SendWord(0x4D, nNpcId);
         gnNpcSoundActive = 1;
         return;
     }

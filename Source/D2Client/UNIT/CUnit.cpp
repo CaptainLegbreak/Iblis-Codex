@@ -384,7 +384,7 @@ int __fastcall GFX_GetGfxBasePalShift(D2GfxDataStrc* pGfxData); // 0x0046F1F0
 
 int __fastcall GFX_GetGfxPalShift(D2GfxDataStrc* pGfxData); // 0x0046F250
 
-D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
+D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
 
@@ -406,7 +406,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int bForce); // 0x00461250
 
-void __cdecl sub_00466FE0(); // 0x00466FE0
+void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
@@ -1401,12 +1401,12 @@ static int __stdcall CUNIT_CheckMonsterSkillSelect(D2UnitStrc* pUnit, D2UnitStrc
 // 0x00464370
 int __fastcall CUNIT_IsSelectedUnit(D2UnitStrc* pUnit)
 {
-    D2UnitStrc* pSelected = sub_00467A10();
+    D2UnitStrc* pSelected = SELECT_GetSelectedUnit();
     if (pSelected && pSelected->dwUnitType == UNIT_OBJECT && (DATATBLS_GetObjectsTxtRecord(pSelected->dwClassId)->nSubClass & 0x80))
     {
         return 0;
     }
-    return sub_00467A10() == pUnit;
+    return SELECT_GetSelectedUnit() == pUnit;
 }
 
 // 0x004643B0
@@ -2286,7 +2286,7 @@ void __fastcall CUNIT_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int bFl
     D2UnitStrc* pPlayer = gpPlayerUnit;
     if (pUnit == pPlayer)
     {
-        sub_00466FE0();
+        SELECT_ClearSelection();
     }
     D2ActiveRoomStrc* pRoom = sub_00465420_FindRoomAt(nX, nY);
     D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
