@@ -1,6 +1,7 @@
 #include "D2MCPClient.h"
 #include "D2Unicode.h"
 #include "D2McpPackets.h"
+#include "D2LaunchRequest.h"
 
 typedef void (__fastcall* D2McpCallbackFn)(unsigned short wRequestId, unsigned char* pData);
 
@@ -140,11 +141,6 @@ extern "C" unsigned int __cdecl strlen(const char* pString);
 extern unsigned short gwMcpRequestId; // 0x00798F8C
 
 
-struct D2LaunchRequestStrc
-{
-    int nData[5];
-    unsigned int dwFlags;
-};
 
 
 struct D2McpInfoStrc
