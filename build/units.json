@@ -24024,6 +24024,175 @@
      "name": "?TEXT_QuestLButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x004A6460",
+     "length": 31,
+     "name": "?TEXT_LoadLevelCels@@YAXXZ"
+    },
+    {
+     "va": "0x004A6480",
+     "length": 51,
+     "name": "?TEXT_FreeLevelCels@@YAXXZ"
+    },
+    {
+     "va": "0x004A64C0",
+     "length": 177,
+     "name": "?TEXT_UpdateLevelUpButtons@@YAXXZ"
+    },
+    {
+     "va": "0x004A65E0",
+     "length": 74,
+     "name": "?TEXT_IsMouseOnStatButton@@YAHXZ"
+    },
+    {
+     "va": "0x004A6630",
+     "length": 93
+    },
+    {
+     "va": "0x004A6690",
+     "length": 74,
+     "name": "?TEXT_IsMouseOnSkillButton@@YAHXZ"
+    },
+    {
+     "va": "0x004A66E0",
+     "length": 167
+    },
+    {
+     "va": "0x004A6790",
+     "length": 166
+    },
+    {
+     "va": "0x004A6840",
+     "length": 223,
+     "name": "?TEXT_StatButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004A6920",
+     "length": 222,
+     "name": "?TEXT_SkillButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004A6A00",
+     "length": 102,
+     "name": "?TEXT_IsStatButtonHidden@@YG_NH@Z"
+    },
+    {
+     "va": "0x004A6B30",
+     "length": 537,
+     "name": "?TEXT_DrawStatButton@@YAXXZ"
+    },
+    {
+     "va": "0x004A6D50",
+     "length": 73,
+     "name": "?TEXT_IsSkillButtonHidden@@YG_NH@Z"
+    },
+    {
+     "va": "0x004A6E60",
+     "length": 538,
+     "name": "?TEXT_DrawSkillButton@@YAXXZ"
+    },
+    {
+     "va": "0x004A70C0",
+     "length": 177
+    },
+    {
+     "va": "0x004A7180",
+     "length": 379,
+     "name": "?TEXT_DrawBlockChanceHover@@YAXHHH@Z"
+    },
+    {
+     "va": "0x004A7300",
+     "length": 50,
+     "name": "?TEXT_AddToHitFactor@@YAHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004A7340",
+     "length": 339
+    },
+    {
+     "va": "0x004A74A0",
+     "length": 443,
+     "name": "MONSTER_GetPlayerDefensePercent"
+    },
+    {
+     "va": "0x004A7660",
+     "length": 84,
+     "name": "?TEXT_SplitAtNewline@@YIHPAUUnicode@@PAPAU1@@Z"
+    },
+    {
+     "va": "0x004A7720",
+     "length": 411,
+     "name": "?sub_004A7720_OnLButtonDown@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004A78C0",
+     "length": 436,
+     "name": "?sub_004A78C0_OnLButtonUp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004A7A90",
+     "length": 11,
+     "name": "?TEXT_SetGoldDialogFlag@@YAXXZ"
+    },
+    {
+     "va": "0x004A7AD0",
+     "length": 1,
+     "name": "?sub_004A7AD0@@YAXXZ"
+    },
+    {
+     "va": "0x004B23E0",
+     "length": 192,
+     "name": "?TEXT_InitNpcMenu@@YAXXZ"
+    },
+    {
+     "va": "0x004B9010",
+     "length": 66,
+     "name": "?TEXT_SetNameFromPacket@@YIXPAUD2NamePacketStrc@@@Z"
+    },
+    {
+     "va": "0x004BF2F0",
+     "length": 306
+    },
+    {
+     "va": "0x004E48B0",
+     "length": 268,
+     "name": "?TEXT_AppendUndeadDamageBonus@@YIXPAUD2UnitStrc@@PAUUnicode@@H@Z"
+    },
+    {
+     "va": "0x004E6720",
+     "length": 163,
+     "name": "?TEXT_BuildItemPropTextB@@YIXPAUD2UnitStrc@@HHPAUUnicode@@HH@Z"
+    },
+    {
+     "va": "0x004ED3F0",
+     "length": 142,
+     "name": "?TEXT_DrawHintText@@YGXHH@Z"
+    },
+    {
+     "va": "0x006CACD0",
+     "length": 10
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_004A43E0.cpp",
+   "rank": 0,
+   "functions": [
+    {
      "va": "0x004A43E0",
      "length": 220
     },
@@ -24183,154 +24352,6 @@
      "va": "0x004A61A0",
      "length": 177,
      "name": "sub_004A61A0_KeyUpMsgHandler"
-    },
-    {
-     "va": "0x004A6460",
-     "length": 31,
-     "name": "?TEXT_LoadLevelCels@@YAXXZ"
-    },
-    {
-     "va": "0x004A6480",
-     "length": 51,
-     "name": "?TEXT_FreeLevelCels@@YAXXZ"
-    },
-    {
-     "va": "0x004A64C0",
-     "length": 177,
-     "name": "?TEXT_UpdateLevelUpButtons@@YAXXZ"
-    },
-    {
-     "va": "0x004A65E0",
-     "length": 74,
-     "name": "?TEXT_IsMouseOnStatButton@@YAHXZ"
-    },
-    {
-     "va": "0x004A6630",
-     "length": 93
-    },
-    {
-     "va": "0x004A6690",
-     "length": 74,
-     "name": "?TEXT_IsMouseOnSkillButton@@YAHXZ"
-    },
-    {
-     "va": "0x004A66E0",
-     "length": 167
-    },
-    {
-     "va": "0x004A6790",
-     "length": 166
-    },
-    {
-     "va": "0x004A6840",
-     "length": 223,
-     "name": "?TEXT_StatButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004A6920",
-     "length": 222,
-     "name": "?TEXT_SkillButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004A6A00",
-     "length": 102,
-     "name": "?TEXT_IsStatButtonHidden@@YG_NH@Z"
-    },
-    {
-     "va": "0x004A6B30",
-     "length": 537,
-     "name": "?TEXT_DrawStatButton@@YAXXZ"
-    },
-    {
-     "va": "0x004A6D50",
-     "length": 73,
-     "name": "?TEXT_IsSkillButtonHidden@@YG_NH@Z"
-    },
-    {
-     "va": "0x004A6E60",
-     "length": 538,
-     "name": "?TEXT_DrawSkillButton@@YAXXZ"
-    },
-    {
-     "va": "0x004A70C0",
-     "length": 177
-    },
-    {
-     "va": "0x004A7180",
-     "length": 379,
-     "name": "?TEXT_DrawBlockChanceHover@@YAXHHH@Z"
-    },
-    {
-     "va": "0x004A7300",
-     "length": 50,
-     "name": "?TEXT_AddToHitFactor@@YAHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004A7340",
-     "length": 339
-    },
-    {
-     "va": "0x004A74A0",
-     "length": 443,
-     "name": "MONSTER_GetPlayerDefensePercent"
-    },
-    {
-     "va": "0x004A7660",
-     "length": 84,
-     "name": "?TEXT_SplitAtNewline@@YIHPAUUnicode@@PAPAU1@@Z"
-    },
-    {
-     "va": "0x004A7720",
-     "length": 411,
-     "name": "?sub_004A7720_OnLButtonDown@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004A78C0",
-     "length": 436,
-     "name": "?sub_004A78C0_OnLButtonUp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004A7A90",
-     "length": 11,
-     "name": "?TEXT_SetGoldDialogFlag@@YAXXZ"
-    },
-    {
-     "va": "0x004A7AD0",
-     "length": 1,
-     "name": "?sub_004A7AD0@@YAXXZ"
-    },
-    {
-     "va": "0x004B23E0",
-     "length": 192,
-     "name": "?TEXT_InitNpcMenu@@YAXXZ"
-    },
-    {
-     "va": "0x004B9010",
-     "length": 66,
-     "name": "?TEXT_SetNameFromPacket@@YIXPAUD2NamePacketStrc@@@Z"
-    },
-    {
-     "va": "0x004BF2F0",
-     "length": 306
-    },
-    {
-     "va": "0x004E48B0",
-     "length": 268,
-     "name": "?TEXT_AppendUndeadDamageBonus@@YIXPAUD2UnitStrc@@PAUUnicode@@H@Z"
-    },
-    {
-     "va": "0x004E6720",
-     "length": 163,
-     "name": "?TEXT_BuildItemPropTextB@@YIXPAUD2UnitStrc@@HHPAUUnicode@@HH@Z"
-    },
-    {
-     "va": "0x004ED3F0",
-     "length": 142,
-     "name": "?TEXT_DrawHintText@@YGXHH@Z"
-    },
-    {
-     "va": "0x006CACD0",
-     "length": 10
     },
     {
      "va": "0x006CACE0",
