@@ -24004,6 +24004,11 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004A4110",
+     "length": 99,
+     "name": "TEXT_QuestButtonUpMsg"
+    },
+    {
      "va": "0x004A43E0",
      "length": 220
     },
@@ -25093,11 +25098,6 @@
      "va": "0x004A3410",
      "length": 221,
      "name": "?TEXT_ResetQuestPanel@@YAXXZ"
-    },
-    {
-     "va": "0x004A4110",
-     "length": 99,
-     "name": "TEXT_QuestButtonUpMsg"
     },
     {
      "va": "0x004A6310",
