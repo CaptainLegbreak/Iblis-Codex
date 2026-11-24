@@ -37,7 +37,6 @@ struct D2MonsterDataStrc;
 
 struct D2CurseStrc;
 
-
 struct D2UnitFindArgStrc;
 
 struct D2AuraCallbackStrc;
@@ -47,7 +46,6 @@ struct D2SrvDo47Strc;
 struct D2SrvDo51Strc;
 
 struct D2SrvDo142Strc;
-
 
 struct D2MonStats2Txt;
 
@@ -62,7 +60,6 @@ struct D2MonEquipTxt;
 struct D2MonsterItemCodeStrc;
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
-
 
 struct D2SrvDo51Strc
 {
@@ -569,6 +566,9 @@ D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* p
 int __stdcall STATLIST_GetSkillId(D2StatListStrc* pStatList); // 0x006260E0
 
 void __stdcall SKILLS_ApplyProgressiveElementalConversion(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage); // 0x005D3970
+
+// volatile only reproduces the original reloading the table pointer at each access in this loop
+#define VOLATILE_DATATABLES (*(D2DataTablesStrc* volatile*)&sgptDataTables)
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
@@ -1594,39 +1594,7 @@ int __fastcall SKILLS_SrvDo141_BaalCorpseExplode(D2GameStrc* pGame, D2UnitStrc* 
     return 1;
 }
 
-void __fastcall sub_005D3AC0(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
-{
-    if (!pDamage || !(pDamage->wResultFlags & 1))
-    {
-        return;
-    }
-
-    for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
-    {
-        if (STATES_CheckState(pUnit, SKILLS_GetProgressiveState(i)))
-        {
-            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, SKILLS_GetProgressiveState(i));
-            if (pStatList)
-            {
-                const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
-                if (nSkillId > 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-                {
-                    D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
-                    if (pSkillsTxtRecord)
-                    {
-                        switch (pSkillsTxtRecord->nPrgDamage)
-                        {
-                        case 1:
-                            SKILLS_ApplyProgressiveDamageBonus(pStatList, pDamage, pUnit);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
+void __fastcall sub_005D3AC0(D2UnitStrc* pUnit, D2DamageStrc* pDamage);
 // 0x005D3970
 static void __stdcall SKILLS_ApplyProgressiveElementalConversion(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage)
 {
@@ -1692,6 +1660,40 @@ static void __stdcall SKILLS_ApplyProgressiveElementalConversion(D2UnitStrc* pUn
     }
 }
 
+// 0x005D3AC0
+void __fastcall sub_005D3AC0(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
+{
+    if (!pDamage || !(pDamage->wResultFlags & 1))
+    {
+        return;
+    }
+
+    for (int i = 0; i < VOLATILE_DATATABLES->nProgressiveStates; ++i)
+    {
+        if (STATES_CheckState(pUnit, VOLATILE_DATATABLES->pProgressiveStates[i]))
+        {
+            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, VOLATILE_DATATABLES->pProgressiveStates[i]);
+            if (pStatList)
+            {
+                const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
+                if (nSkillId > 0 && nSkillId < VOLATILE_DATATABLES->nSkillsTxtRecordCount)
+                {
+                    D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
+                    if (pSkillsTxtRecord)
+                    {
+                        switch (pSkillsTxtRecord->nPrgDamage)
+                        {
+                        case 1:
+                            SKILLS_ApplyProgressiveDamageBonus(pStatList, pDamage, pUnit);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 // 0x005D3CB0
 int __fastcall SKILLS_AuraCallback_ApplyCopiedDamage(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit)
 {
@@ -1699,7 +1701,6 @@ int __fastcall SKILLS_AuraCallback_ApplyCopiedDamage(D2AuraCallbackStrc* pAuraCa
     SKILLS_ApplyDamageToTarget(pAuraCallback->pGame, pAuraCallback->pOwner, pUnit, &damage, 0);
     return 1;
 }
-
 
 // 0x005D3CF0
 int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc* pUnit, int nSkillId)
@@ -2945,7 +2946,6 @@ int __fastcall SKILLS_SrvDo046_DragonClaw(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
     return 1;
 }
-
 
 #define STATEMASK_REMHIT 6
 
