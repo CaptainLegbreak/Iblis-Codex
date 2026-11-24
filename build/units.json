@@ -78153,22 +78153,16 @@
      "length": 329
     },
     {
+     "va": "0x006BB870",
+     "length": 387
+    },
+    {
      "va": "0x006BBA00",
      "length": 398
     },
     {
      "va": "0x006BBB90",
      "length": 92
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006BB870.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BB870",
-     "length": 387
     }
    ]
   },
