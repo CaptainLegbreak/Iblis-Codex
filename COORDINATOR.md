@@ -9,26 +9,11 @@ Written by the coordinator only. Lanes: read this before starting work and after
 - In progress: nothing; next round as branches are posted ready.
 - **Renames are landing on main.** After a rebase, run `python3 tools/namesync.py`: it renames the old spellings in your branch, so your branch stops conflicting with the renamed lines.
 - **Rebase onto #359, run namesync, and repost:** `lane10/sweep-d2common-3` (D2Game/SKILLS/SkillDruid.cpp: lane 5's skill strays moved functions into it in #358/#359; regenerate the D2Game part of the sweep on #359), `lane10/names-prefixfix-d2client-3` (regenerate on #359; still a3678987).
-- `lane4/gamelist-strays-3` fixed the 16 B at 0x7088D8 and merged in #355.
 - **Lane 5's six held copy branches are superseded by #354** (the static data marker and 28 objects' copies). Drop any whose copies #354 already covers. Repost the rest on #354 with markers, giving your verify's borrowed data figure (main: 906 B).
 - **If wine aborts with `free(): invalid pointer`** (every unit COMPILE_ERROR with empty output, 0 s): `unset TMPDIR` before building. A TMPDIR=/tmp in the session environment breaks wine 9.0 here.
-- Earlier rebase requests are done: their new versions were merged in #340, #341 and #342.
-- **`lane2/path-records` (done in #332) needed a rebase onto #328:** it conflicts in D2Common/Unknown_00679380.cpp with lane 6's path regroup (#327). Lane 8 owns D2Common now, so tell lane 8 if the records change its files.
-- **`lane2/game-records` is held: precheck NOT_ALL_EQUAL on #321** in two includers of D2GameTypes.h that the branch doesn't touch, `Source/D2Win/Src/D2Comp.cpp` and `Source/D2Game/Ai/AiThink4.cpp`. It looks like the declaration-count effect. Lane 2: rebuild every includer of D2GameTypes.h on current main. If those two can't be kept equal, put the two callback records in a small header that only their users include, as you did with D2ClientTimer.h.
-- **`lane1/keycfg-object-r` needs a rebase onto #317.** Lane 4's `keyconfig-split` (#317) already made `Unknown_004A43E0.cpp` from the same text.cpp range, so the two branches collide. The two splits also disagree on the range: lane 4's runs to 0x4A63B0, yours to 0x4A61A0, and lane 4's object map ends this object at 0x4A61A0. Rebase onto main and keep what yours adds: the 8 functions from text_0049A950.cpp, the 1 from Unknown_004A6000.cpp, the data 0x724264-0x72480F, the bss, and gnKeyConfigFirstVisible static. Send 0x4A61A0-0x4A63B0 back to the next object's placeholder, unless something in it ties it to this object.
-- **Priority for every lane after your current branch: the language-table splits.** Each one places a file boundary, and often defines borrowed data too. Your rows are in language-objects.md.
+- **Priority for every lane after your current branch: your row in [queues.md](queues.md).** Language-table splits come first where you have them: 14 files still hold more than one copy ([language-objects.md](language-objects.md)). Each split places a file boundary.
 - **Shims and context copies:** after you join files, try deleting the `// build: context` blocks in the joined unit. Many exist only because a caller and callee were in different files.
-- **New: [language-objects.md](language-objects.md)**, an object map from all 308 language-table copies in .data. A copy *starts* its object's data (the header comes before the file's own definitions), so it belongs to the file whose data follows it. The map lists:
-  - **60 planned files holding more than one copy.** Each spans that many original objects; split them at their copies. By lane: 6: 25 files, 5: 16, 4: 14, 1: 3, 3: 2. FieldTbls.cpp alone holds 15.
-  - **21 borrowed copies (1,254 B, over a third of what's left).** Each has its neighbours and the gap to the next data. Copies at a lane edge are marked.
-  - **49 runs of back-to-back copies.** A run of N is N objects in link order with no other initialised data.
-  - **Every copy**, with the planned file it starts.
-
-  Take the rows for your lane. Before a split, check that the copy's object fits the code's address runs. A copy shows where an object's data starts, not which code goes with it.
-- **Call-site rename sweep (coordinator, in progress).** Old `sub_<address>` spellings of named functions are being renamed module by module, with duplicate prototypes in a unit cut to the one that matches the definition. Rebase as usual; `tools/namesync.py` brings a branch up to date with renames on main.
 - **Rounds now also check plan `files` entries** (`planfiles.py`): j74's first verify failed because a stale whole entry dropped one lane's externs. The precheck also builds every file whose data plan changed. If you edit a file's plan entry, keep your branch on a recent main.
-- **`lane4/options-split` needs a rebase onto #308:** it conflicts in chat.cpp with #308's gnScreenHeight change. A 94-function move is yours to redo, not mine.
-- **Borrowed data by lane:** [borrowed-data.md](borrowed-data.md), regenerated at #318 (3,415 B left), lists every block of the 15,691 B still copied from Game.exe, with the file that owns it and how that was decided. Each lane has a section with its leads. Take them after your current branch.
 - Rounds: the coordinator polls `lane*` branches, merges by cherry-pick (skipping commits already on main by subject), checks the data plan, units.json and data includes against main plus each lane's own moves, prechecks, runs one full verify, and ships.
 
 ## How rounds work now (from 2026-11-24, approved by the user)
@@ -122,24 +107,10 @@ In your own files, whenever your current list allows:
 
 | Branch / commit | Why | What it needs |
 |---|---|---|
-| `lane1/place-launch-pair` | same move as `lane6/block-c`, which merged in #294 | nothing; superseded |
-| `lane4/chat-run` | stacked on the old gfx-more; WardenClient.cpp unequal | nothing; `chat-run-2` merged in #294 |
-| `lane1/hdr-drop-4df6c0` | same commit as `hdr-4df6c0-2` on an older base | nothing; superseded |
-| `lane4/runs-sub`, `lane4/game-loader` | replaced by `runs-sub-2` and `game-borrowed` | nothing |
-| `lane6/bss-a` | replaced by `bss-a-2` | nothing |
-| `lane5/unit-init-seed` | replaced by `unit-init-seed-2` | nothing |
-| `lane6/lang-a` | replaced by `lang-a-2` | nothing |
-| `lane4/options-split` | replaced by `options-split-2` | nothing |
-| `lane5/coord-init-2` | same two commits as `coord-init`, already in #314 | nothing |
-| `lane6/sound-a`, `lane1/keycfg-object-r` | replaced by `sound-a-2`, `keycfg-extras` | nothing |
-| `lane2/cmp-records` | replaced by `cmp-records-2` | nothing |
-| `lane2/game-records` | precheck unequal on #321: D2Comp.cpp, AiThink4.cpp | lane 2 (see Current state) |
-| `lane1/monster-4aff60` | replaced by `-2` | nothing |
-| `lane6/tails-a`, `lane6/data-c-2` | replaced / not needed | nothing |
-| `lane2/game-records`, `lane2/path-records`, `lane2/win32-system` | replaced by their `-2` versions, in #332 | nothing |
-| `lane1/useitem-copies` | replaced by `-2`, in #333 | nothing |
-| `lane6/d2win-b` | replaced by `-2`, in #336 | nothing |
 | `lane1/join-gethitsounds` | 0x4CA560 MISMATCH in UnitSnd.cpp on main | waits until UnitSnd.cpp's headers settle |
+| lane 5's `aigeneral-copy`, `missiles-copy`, `monstermsg`, `game-copies`, `copies-runs-b`, `skill-ai-copies` | raised borrowed data (no anchor for a header copy) | superseded by #354's static data marker; drop or repost |
+
+Older rows (all superseded by later versions that merged, #294-#336) are gone; the merge log has them.
 
 ## Decisions in force
 
