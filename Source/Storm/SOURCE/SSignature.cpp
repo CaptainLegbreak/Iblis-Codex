@@ -104,13 +104,13 @@ struct D2StormNodeListStrc
 
 struct HANDLER
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     int nValue;
 };
 
 struct WNDREC
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     int nValue;
 };
 
@@ -161,7 +161,7 @@ struct D2StormHuffInputStrc
 
 struct HUFFNODE
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     unsigned int nValue;
     unsigned int nWeight;
     HUFFNODE* pParent;

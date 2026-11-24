@@ -37,17 +37,17 @@ static inline D2StormEventTypeStrc* FindEventType(unsigned int nType, unsigned i
 
 struct BREAKCMD
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     void* pData;
 
     BREAKCMD()
     {
-        f_0.m_prevlink = 0;
-        f_0.m_next = 0;
+        tLink.m_prevlink = 0;
+        tLink.m_next = 0;
     }
     ~BREAKCMD()
     {
-        f_0.Unlink();
+        tLink.Unlink();
     }
     static void operator delete(void* pMemory)
     {
@@ -606,7 +606,7 @@ int __stdcall SEvtBreakHandlerChain(void* pData)
 {
     EnterCriticalSection(&gtSEvtLock);
     BREAKCMD* pCmd = new (SMemAlloc(sizeof(BREAKCMD), gszTypeBreakCmd_007088D8, -2, 8)) BREAKCMD;
-    D2StormLinkStrc* pLink = pCmd ? &pCmd->f_0 : &gtSEvtBreakCmdList_007088E8.m_terminator;
+    D2StormLinkStrc* pLink = pCmd ? &pCmd->tLink : &gtSEvtBreakCmdList_007088E8.m_terminator;
     pLink->Unlink();
     D2StormLinkStrc* pTail = gtSEvtBreakCmdList_007088E8.m_terminator.m_prevlink;
     pLink->m_prevlink = pTail;
@@ -727,74 +727,74 @@ int __stdcall SEvtDispatch(unsigned int nType, unsigned int nSubType, unsigned i
 // Link holders of the run whose types are not known yet: each constructor zeroes, each destructor unlinks.
 struct sub_00426960
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_00426960();
 };
 
 struct sub_00426A80
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_00426A80();
 };
 
 struct sub_00426CA0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     sub_00426CA0();
 };
 
 struct sub_00426CB0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_00426CB0();
 };
 
 struct sub_00426D70
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     sub_00426D70();
 };
 
 struct sub_00426D80
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_00426D80();
 };
 
 // 0x00426960
 sub_00426960::~sub_00426960()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 // 0x00426A80
 sub_00426A80::~sub_00426A80()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 // 0x00426CA0
 sub_00426CA0::sub_00426CA0()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    tLink.m_prevlink = 0;
+    tLink.m_next = 0;
 }
 
 // 0x00426CB0
 sub_00426CB0::~sub_00426CB0()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 // 0x00426D70
 sub_00426D70::sub_00426D70()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    tLink.m_prevlink = 0;
+    tLink.m_next = 0;
 }
 
 // 0x00426D80
 sub_00426D80::~sub_00426D80()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
