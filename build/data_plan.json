@@ -2424,7 +2424,7 @@
    "state": "included"
   },
   "Source/D2Game/UNIT/sunitproxy.cpp": {
-   "bytes": 864,
+   "bytes": 804,
    "definitions": 10,
    "externs": [],
    "fn_types": {},
@@ -87250,144 +87250,6 @@
    "tail": "; // 0x0073110C"
   },
   {
-   "alias": false,
-   "cname": "gData_00731148",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/UNIT/sunitproxy.cpp",
-   "form": "bytes",
-   "name": "gData_00731148",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "va": "0x00731148",
-   "fwd": "extern \"C\" struct d2data_00731148_t gData_00731148; // 0x00731148",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00731148_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_00731148_t gData_00731148 = ",
-   "tail": "; // 0x00731148"
-  },
-  {
    "alias": true,
    "cname": "gData_00731AD8",
    "declared": true,
@@ -87484,20 +87346,39 @@
    "alias": true,
    "cname": "gData_00731184",
    "declared": true,
-   "decorated": "?gNpcConfig@@3UD2NpcConfigTableStrc@@A",
+   "decorated": "?gnNpcConfigCount@@3HA",
    "file": "Source/D2Game/UNIT/sunitproxy.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00731184_t gData_00731184; // 0x00731184",
    "head": "extern \"C\" struct d2data_00731184_t gData_00731184 = ",
-   "name": "gNpcConfig",
+   "name": "gnNpcConfigCount",
    "pointers": [],
    "region": "data",
-   "size": 348,
+   "size": 4,
    "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00731184_t\n{\n    unsigned char b0[348];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00731184\n#pragma comment(linker, \"/alternatename:?gNpcConfig@@3UD2NpcConfigTableStrc@@A=_gData_00731184\")",
-   "type": "D2NpcConfigTableStrc",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00731184_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00731184\n#pragma comment(linker, \"/alternatename:?gnNpcConfigCount@@3HA=_gData_00731184\")",
+   "type": "int",
    "va": "0x00731184"
+  },
+  {
+   "alias": true,
+   "cname": "gData_00731188",
+   "declared": true,
+   "decorated": "?gaNpcConfig@@3PAUD2NpcConfigStrc@@A",
+   "file": "Source/D2Game/UNIT/sunitproxy.cpp",
+   "form": "bytes",
+   "name": "gaNpcConfig",
+   "pointers": [],
+   "region": "data",
+   "size": 344,
+   "va": "0x00731188",
+   "fwd": "extern \"C\" struct d2data_00731188_t gData_00731188; // 0x00731188",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00731188_t\n{\n    unsigned char b0[344];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" struct d2data_00731188_t gData_00731188 = ",
+   "tail": "; // 0x00731188\n#pragma comment(linker, \"/alternatename:?gaNpcConfig@@3PAUD2NpcConfigStrc@@A=_gData_00731188\")",
+   "type": "D2NpcConfigStrc",
+   "stars": 0
   },
   {
    "alias": false,
