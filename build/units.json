@@ -11726,34 +11726,16 @@
      "name": "SKILLS_SetLobVelocity"
     },
     {
-     "va": "0x004C9060",
-     "length": 187,
-     "name": "SKILLS_RotateUnitDirection"
-    },
-    {
-     "va": "0x004C9420",
-     "length": 56,
-     "name": "?SKILLS_EndLoopSoundSkill@@YIXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004C9460",
-     "length": 43,
-     "name": "?SKILLS_GetFirstSkillParam@@YIHH@Z"
-    },
-    {
-     "va": "0x004C95E0",
-     "length": 236,
-     "name": "?MISSILE_SkillStartAtTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004C96D0",
-     "length": 228,
-     "name": "?sub_004C96D0@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004C97C0",
-     "length": 450
-    },
+     "va": "0x004D16C0",
+     "length": 352,
+     "name": "SKILLS_SpawnOffsetMissile"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_004C9D50.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x004C9D50",
      "length": 17,
@@ -11779,6 +11761,11 @@
      "name": "?sub_004CA030_TickEvent@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004CA060",
+     "length": 413,
+     "name": "?MISSILE_DoSkillWithTempTarget@@YIHPAUD2UnitStrc@@HH0HHG@Z"
+    },
+    {
      "va": "0x004CA200",
      "length": 44,
      "name": "SKILLS_TriggerSkillOnUnit"
@@ -11797,11 +11784,41 @@
      "va": "0x004CA280",
      "length": 52,
      "name": "?SKILLS_ResetLevelSpeech@@YAXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_004C9420.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004C9420",
+     "length": 56,
+     "name": "?SKILLS_EndLoopSoundSkill@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
-     "va": "0x004D16C0",
-     "length": 352,
-     "name": "SKILLS_SpawnOffsetMissile"
+     "va": "0x004C9460",
+     "length": 43,
+     "name": "?SKILLS_GetFirstSkillParam@@YIHH@Z"
+    },
+    {
+     "va": "0x004C9490",
+     "length": 322,
+     "name": "?sub_004C9490_MissileAroundUnit@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004C95E0",
+     "length": 236,
+     "name": "?MISSILE_SkillStartAtTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004C96D0",
+     "length": 228,
+     "name": "?sub_004C96D0@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004C97C0",
+     "length": 450
     }
    ]
   },
@@ -29542,6 +29559,11 @@
      "name": "?SKILLSBAR_SkillCltDoLeapAttack@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004C9060",
+     "length": 187,
+     "name": "SKILLS_RotateUnitDirection"
+    },
+    {
      "va": "0x004C9120",
      "length": 504
     },
@@ -29553,14 +29575,9 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004C9320.cpp",
+   "file": "Source/D2Client/Unknown_004E6E30.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004C9490",
-     "length": 322,
-     "name": "?sub_004C9490_MissileAroundUnit@@YIHPAUD2UnitStrc@@HH@Z"
-    },
     {
      "va": "0x004E6E30",
      "length": 77,
@@ -29572,11 +29589,6 @@
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004CA060",
-     "length": 413,
-     "name": "?MISSILE_DoSkillWithTempTarget@@YIHPAUD2UnitStrc@@HH0HHG@Z"
-    },
     {
      "va": "0x004CC790",
      "length": 37,

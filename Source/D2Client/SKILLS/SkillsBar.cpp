@@ -177,6 +177,24 @@ inline int UNITS_GetYInline(D2UnitStrc* pUnit)
     }
 }
 
+unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
+
+void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
+
+int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
+
+int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
+
+extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
+
+extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
+
+int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
+
+int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
+
+int __fastcall sub_00471EC0_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0
+
 // 0x004C8350
 static int __stdcall sub_004C8350_CanTargetRoom(int nSkillId, D2UnitStrc* pUnit, int nX, int nY)
 {
@@ -666,6 +684,38 @@ int __fastcall SKILLSBAR_SkillCltDoLeapAttack(D2UnitStrc* pUnit, int nSkillId, i
     SKILLS_SetFlags(pSkill, 0x1000);
     return nResult;
 }
+
+// 0x004C9060
+void __fastcall SKILLS_RotateUnitDirection(D2UnitStrc* pUnit, int nArg, int bForward)
+{
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+    if (!pPath)
+    {
+        return;
+    }
+
+    const int nDirection = PATH_GetDirection(pPath);
+    sub_006488A0_SetDirection(pPath, (bForward ? nDirection + 0x15 : nDirection + 0x2A) % 64);
+
+    int nX;
+    int nY;
+    if (sub_004F51D0_IsPerspective())
+    {
+        SCALE_ScalePerspectivePosition(UNITS_GetPrecisionX(pUnit), UNITS_GetPrecisionY(pUnit), 0x60, &nX, &nY, 0);
+        nX += PLAYER_GetScreenOffsetX();
+        nY += PLAYER_GetScreenOffsetY();
+    }
+    else
+    {
+        nX = UNITS_GetClientCoordX(pUnit);
+        nY = UNITS_GetClientCoordY(pUnit);
+    }
+
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    sub_00471EC0_DrawUnit(pUnit, nArg, nX, nY, nUnitType == 0, 0);
+    sub_006488A0_SetDirection(pPath, nDirection);
+}
+
 
 int __fastcall SKILLSBAR_SkillCltDoLeap(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004C8C60
 
