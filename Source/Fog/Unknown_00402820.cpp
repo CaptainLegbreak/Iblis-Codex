@@ -419,7 +419,6 @@ static D2CrashModuleListStrc* sub_00402FE0_InitModuleList(D2CrashModuleListStrc*
     return pList;
 }
 
-// build: context sub_M452_Emit_00402FE0
 void __fastcall sub_M452_Emit_00402FE0(int nArg, int nArg2)
 {
     D2CrashModuleListStrc tList;
@@ -787,7 +786,6 @@ static inline bool sub_00404780_IsNtHeaderValid(const D2ImageNtHeadersStrc* pNt)
     return true;
 }
 
-// build: context sub_004047D0_GetDebugDirectory
 static bool sub_004047D0_GetDebugDirectory(unsigned long* pSize, unsigned long* pRva, const D2ImageOptionalHeaderStrc* pHeader)
 {
     const int nKind = sub_00404730_GetImageKind(pHeader);

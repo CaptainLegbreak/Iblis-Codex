@@ -158,8 +158,6 @@ void __cdecl sub_00401A60_UnlockSymbols()
     LeaveCriticalSection(&gtSymbolLock);
 }
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
@@ -252,7 +250,6 @@ static inline bool sub_EnsureSymbolEngine()
     return true;
 }
 
-// build: context CRASH_GetFileName
 static inline const char* CRASH_GetFileName(const char* szPath)
 {
     const char* pLast = 0;
@@ -292,29 +289,19 @@ static void __fastcall sub_00402D60_FormatStackFrame(const D2StackFrameStrc* fra
 }
 
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
@@ -322,13 +309,9 @@ unsigned __int64 __stdcall sub_00402460_LoadModule(void* hFile, const char* szIm
     const char* szModuleName, unsigned __int64 qwBaseOfDll, unsigned long dwSizeOfDll); // 0x00402460
 
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
@@ -344,8 +327,6 @@ bool __stdcall sub_004025F0_StackWalk(void* hThread, void* pStackFrame, void* pC
     return false;
 }
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
@@ -385,8 +366,6 @@ void __cdecl sub_004026D0_WriteMiniDump()
     }
 }
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 

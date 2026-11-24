@@ -136,7 +136,6 @@ void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffe
 void FromStr(BigBuffer& a, const char* szString); // 0x004234B0
 void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue); // 0x00423540
 
-// build: context ToStr
 static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput, BigStack& tStack) // 0x00423600
 {
     BigBuffer& tBuffer = tStack.pRecords[tStack.nUsed++];

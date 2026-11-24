@@ -2198,7 +2198,6 @@ void __stdcall sub_K01_Emit_00407FC0(const char* szPrefix, const char* szText, i
     ERRORMANAGER_LogPrefixedText(szPrefix, szText, bFlag);
 }
 
-// build: context sub_00406BA0_GetModuleDirectoryAndSave
 
 
 // 0x004013C0

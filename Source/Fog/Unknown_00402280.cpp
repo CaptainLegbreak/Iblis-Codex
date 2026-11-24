@@ -19,8 +19,6 @@ void __cdecl sub_00401A60_UnlockSymbols()
     LeaveCriticalSection(&gtSymbolLock);
 }
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 

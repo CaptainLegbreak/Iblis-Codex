@@ -47,14 +47,6 @@ extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2Critical
 // build: symbol ?UnlinkAll@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEXXZ 0x0041C770
 // build: symbol ?UnlinkAll@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXXZ 0x00420750
 // build: symbol ?UnlinkAll@?$TSList@UBREAKCMD@@U?$TSGetLink@UBREAKCMD@@@@@@QAEXXZ 0x00426CF0
-// build: context ??_G?$TSList@UARCHIVEREC@@U?$TSGetLink@UARCHIVEREC@@@@@@QAEPAXI@Z
-// build: context ??_G?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAEPAXI@Z
-// build: context ??_G?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEPAXI@Z
-// build: context ??_G?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAEPAXI@Z
-// build: context ??_G?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEPAXI@Z
-// build: context ??_G?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAXI@Z
-// build: context ??_G?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAXI@Z
-// build: context ??_G?$TSList@UBREAKCMD@@U?$TSGetLink@UBREAKCMD@@@@@@QAEPAXI@Z
 extern TSList<ARCHIVEREC> gArchiveList_00708354; // 0x00708354
 
 extern TSList<REQUEST> gRequestList_00708360; // 0x00708360

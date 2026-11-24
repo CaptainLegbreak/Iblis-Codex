@@ -515,13 +515,11 @@ void sub_Emit_D2GameStrc(D2GameStrc* p)
     delete p;
 }
 
-// build: context sub_Emit_D2StormListAStrc
 void sub_Emit_D2StormListAStrc(D2StormListAStrc* p)
 {
     delete p;
 }
 
-// build: context sub_Emit_D2StormHashObjectChunkStrc
 void sub_Emit_D2StormHashObjectChunkStrc(D2StormHashObjectChunkStrc* p)
 {
     delete p;

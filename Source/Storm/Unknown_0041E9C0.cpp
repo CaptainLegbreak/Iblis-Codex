@@ -224,7 +224,6 @@ struct BigBuffer
         const unsigned int nPosition = m_start + nIndex;
         return nPosition < m_array.f_4 ? m_array.f_8[nPosition] : 0;
     }
-    // build: context BigBuffer::SetCountInline
     void SetCountInline(unsigned int nCount)
     {
         if (nCount > m_array.f_4 && nCount > m_array.f_0)
@@ -283,7 +282,6 @@ struct BigBuffer
             nValue += nAlign - nRemainder;
         return nValue;
     }
-    // build: context BigBuffer::InlineSetCount
     void InlineSetCount(unsigned int nCount)
     {
         if (nCount > m_array.f_4 && nCount > m_array.f_0)
@@ -794,7 +792,6 @@ void __stdcall sub_00423850(void* hBig, const void* pData, unsigned int nSize)
     FROM_BINARY((const unsigned char*)pData, nSize, (BigBuffer*)hBig);
 }
 
-// build: context SBigFromStream
 void __stdcall SBigFromStream(void* hBig, const void* pData, unsigned int nSize, unsigned int* pnUsed)
 {
     FROM_LENGTH_PREFIXED((BigBuffer*)hBig, pnUsed, nSize, (const unsigned char*)pData);

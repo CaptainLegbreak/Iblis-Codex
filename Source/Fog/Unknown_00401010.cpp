@@ -114,7 +114,6 @@ static inline bool sub_00401020_SetLogDirectory(const char* szPath)
     return StrLCopy(gszLogDirectory, szPath, 0x400) < 0x400 ? true : false;
 }
 
-// build: context sub_M123_Emit_00401020
 bool sub_M123_Emit_00401020(const char* szPath)
 {
     return sub_00401020_SetLogDirectory(szPath);

@@ -265,7 +265,6 @@ static void SetZero(BigBuffer& a)
     a.SetCount(0);
 }
 
-// build: context Shl
 static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift) // 0x00422D00
 {
     unsigned int nWords = nShift / 32;
@@ -304,7 +303,6 @@ static void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
     a.SetCount(i);
 }
 
-// build: context sub_00423100_Sub
 static void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned __int64 nBorrow = 0;
