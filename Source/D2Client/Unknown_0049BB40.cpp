@@ -267,6 +267,145 @@ static void sub_0049C760_SetWaypointAct(int nAct)
     gnWaypointAct = nAct;
 }
 
+struct Unicode;
+
+struct D2WaypointActRangeStrc;
+
+struct D2WaypointActRangeStrc
+{
+    char bInit;
+    char nFirstLevelId[4];
+    char nLastLevelId[4];
+    unsigned char nMinWaypoint;
+    unsigned char nMaxWaypoint;
+};
+
+int __stdcall WAYPOINTS_GetLevelIdFromWaypointNo(unsigned short wWaypointNo, int* pLevelId); // 0x00660D90
+
+int __stdcall WAYPOINTS_GetWaypointNoFromLevelId(int nLevelId, unsigned short* pWaypointNo); // 0x00660E00
+
+int __stdcall WAYPOINTS_IsActivated(D2WaypointDataStrc* pData, unsigned short wField); // 0x00660E50
+
+extern D2WaypointActRangeStrc gaWaypointActRanges[]; // 0x007224AC
+
+extern int gnWaypointCount; // 0x007BF08A
+
+extern int gnWaypointEnabledCount; // 0x007BF08E
+
+struct D2ClientServiceStrc
+{
+    char unk0x00[0xC8];
+    void (__fastcall* pfnFree)(void* pData, int nSize);
+    int (__fastcall* pfnFind)(char* szName, int* pArg, void** ppData, int* pSize);
+    void (__fastcall* pfnCall)(const char* szName, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
+};
+
+struct T0044CB60
+{
+    Unicode* pText;
+    T0044CB60* pNext;
+};
+
+struct D2ChatMessageStrc
+{
+    unsigned char unk0x00;
+    unsigned char nType;
+    unsigned char unk0x02[6];
+    unsigned char nColor;
+    unsigned char unk0x09[0x11];
+    D2ChatTextStrc tText;
+};
+
+class D2SquelchListStrc
+{
+public:
+    virtual int Squelch(const char* szName);
+    virtual int Unsquelch(const char* szName);
+    virtual int IsSquelched(const char* szName);
+    virtual int AddFilter(const char* szText);
+    virtual int RemoveFilter(const char* szText);
+    virtual int IsFiltered(const char* szText);
+    virtual void VirtSlot6();
+    virtual void VirtSlot7();
+    virtual int IsPersistent();
+    virtual void SetPersistent(int bPersistent);
+};
+
+// 0x0049C7F0
+void __cdecl WARDENCLIENT_BuildWaypointList()
+{
+    gnWaypointCount = 0;
+    gnWaypointEnabledCount = 0;
+    const int nCurrentLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()));
+
+    for (int i = 0; i < 9; ++i)
+    {
+        gaWaypointEntries[i].nLevelId = 0;
+        gaWaypointEntries[i].bEnabled = 0;
+    }
+
+// build: symbol ?gnWaypointAct@* 0x007BF086
+    if ((unsigned int)gnWaypointAct > 5)
+    {
+        gbSent = 0;
+        return;
+    }
+
+    if (!gaWaypointActRanges[gnWaypointAct].bInit)
+    {
+        gaWaypointActRanges[gnWaypointAct].bInit = 1;
+        for (int nLevelId = *(int*)gaWaypointActRanges[gnWaypointAct].nFirstLevelId;
+            nLevelId <= *(int*)gaWaypointActRanges[gnWaypointAct].nLastLevelId; ++nLevelId)
+        {
+            unsigned short wWaypoint;
+            if (WAYPOINTS_GetWaypointNoFromLevelId(nLevelId, &wWaypoint))
+            {
+                const unsigned char nIndex = (unsigned char)wWaypoint;
+                if (gaWaypointActRanges[gnWaypointAct].nMinWaypoint == 0xFF)
+                {
+                    gaWaypointActRanges[gnWaypointAct].nMinWaypoint = nIndex;
+                }
+
+                gaWaypointActRanges[gnWaypointAct].nMaxWaypoint = nIndex > gaWaypointActRanges[gnWaypointAct].nMaxWaypoint ? nIndex : gaWaypointActRanges[gnWaypointAct].nMaxWaypoint;
+            }
+        }
+    }
+
+    for (int i = gaWaypointActRanges[gnWaypointAct].nMinWaypoint; i <= gaWaypointActRanges[gnWaypointAct].nMaxWaypoint; ++i)
+    {
+        const unsigned short wWaypoint = (unsigned short)i;
+// build: symbol ?gpWaypointData@* 0x007BF081
+        if (WAYPOINTS_IsActivated(gpWaypointData, wWaypoint))
+        {
+            int nLevelId;
+            if (WAYPOINTS_GetLevelIdFromWaypointNo(wWaypoint, &nLevelId))
+            {
+                gaWaypointEntries[gnWaypointCount].nLevelId = nLevelId;
+                if (nCurrentLevelId == nLevelId)
+                {
+                    gaWaypointEntries[gnWaypointCount].bEnabled = 0;
+                }
+                else
+                {
+                    ++gnWaypointEnabledCount;
+                    gaWaypointEntries[gnWaypointCount].bEnabled = 1;
+                }
+                ++gnWaypointCount;
+            }
+        }
+        else
+        {
+            int nLevelId;
+            if (WAYPOINTS_GetLevelIdFromWaypointNo(wWaypoint, &nLevelId))
+            {
+                gaWaypointEntries[gnWaypointCount].nLevelId = nLevelId;
+                gaWaypointEntries[gnWaypointCount].bEnabled = 0;
+                ++gnWaypointCount;
+            }
+        }
+    }
+}
+
 // 0x0049C980
 void __cdecl sub_0049C980_UpdateWaypointAct()
 {

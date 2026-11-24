@@ -22555,11 +22555,6 @@
      "name": "WARDENCLIENT_DrawSkillInfo"
     },
     {
-     "va": "0x0049C7F0",
-     "length": 388,
-     "name": "WARDENCLIENT_BuildWaypointList"
-    },
-    {
      "va": "0x004A1320",
      "length": 481,
      "name": "WARDENCLIENT_OpenTextPanel"
@@ -25473,6 +25468,11 @@
      "va": "0x0049C760",
      "length": 140,
      "name": "?sub_0049C760_SetWaypointAct@@YAXH@Z"
+    },
+    {
+     "va": "0x0049C7F0",
+     "length": 388,
+     "name": "WARDENCLIENT_BuildWaypointList"
     },
     {
      "va": "0x0049C980",
