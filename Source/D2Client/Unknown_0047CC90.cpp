@@ -74,7 +74,7 @@ extern D2MsgHandlerEntryStrc gaChatInputHandlers[]; // 0x00712FA8
 
 struct HKL__;
 
-typedef T0046E1B0* HIMC;
+typedef HIMC__* HIMC;
 
 struct CANDIDATELIST
 {
@@ -117,7 +117,7 @@ void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStr
 
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int nCodePage, unsigned long dwFlags, const char* szSource, int nSource, wchar_t* wszDest, int nDest); // 0x006CC29C
 
-extern "C" long __stdcall ImmGetCompositionStringA(T0046E1B0* hImc, unsigned long dwIndex, void* pBuf, unsigned long dwBufLen); // 0x006B00C0
+extern "C" long __stdcall ImmGetCompositionStringA(HIMC__* hImc, unsigned long dwIndex, void* pBuf, unsigned long dwBufLen); // 0x006B00C0
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                   // 0x004B9A00
 

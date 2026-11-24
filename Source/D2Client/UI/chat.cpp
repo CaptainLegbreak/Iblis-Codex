@@ -285,7 +285,7 @@ Unicode gawszChatHistory[8][0x101]; // 0x007BB840
 
 struct HKL__;
 
-typedef T0046E1B0* HIMC;
+typedef HIMC__* HIMC;
 
 struct CANDIDATELIST
 {
@@ -418,7 +418,7 @@ int __cdecl CHAT_HasClassOverride()
 
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int nCodePage, unsigned long dwFlags, const char* szSource, int nSource, wchar_t* wszDest, int nDest); // 0x006CC29C
 
-extern "C" long __stdcall ImmGetCompositionStringA(T0046E1B0* hImc, unsigned long dwIndex, void* pBuf, unsigned long dwBufLen); // 0x006B00C0
+extern "C" long __stdcall ImmGetCompositionStringA(HIMC__* hImc, unsigned long dwIndex, void* pBuf, unsigned long dwBufLen); // 0x006B00C0
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                   // 0x004B9A00
 
@@ -431,7 +431,7 @@ void __stdcall sub_0047AA60_OnImeComposition(SMSGHANDLER_PARAMS* pMsg)
 {
     char szComp[200];
     memset(szComp, 0, sizeof(szComp));
-    T0046E1B0* hImc = ImmGetContext(WINDOW_GetWindow());
+    HIMC__* hImc = ImmGetContext(WINDOW_GetWindow());
     if (hImc)
     {
         Unicode wszText[32];
@@ -829,7 +829,7 @@ void __cdecl CHAT_CloseChatInput()
     if (gbChatInputOpen)
     {
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaChatInputHandlers, 7);
-        T0046E1B0* hImc = ImmGetContext(WINDOW_GetWindow());
+        HIMC__* hImc = ImmGetContext(WINDOW_GetWindow());
         if (hImc)
         {
             ImmSetOpenStatus(hImc, 0);
