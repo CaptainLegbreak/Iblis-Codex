@@ -1,4 +1,5 @@
 #include "D2Hell.h"
+#include "D2Win32System.h"
 
 struct D2StartupInfoAStrc
 {
@@ -22,13 +23,6 @@ struct D2StartupInfoAStrc
     void* hStdError;
 };
 
-struct D2ProcessInformationStrc
-{
-    void* hProcess;
-    void* hThread;
-    unsigned long dwProcessId;
-    unsigned long dwThreadId;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" __declspec(dllimport) int __stdcall CreateProcessA(const char* szApplicationName, char* szCommandLine, void* pProcessAttributes, void* pThreadAttributes, int bInheritHandles, unsigned long dwCreationFlags, void* pEnvironment, const char* szCurrentDirectory, D2StartupInfoAStrc* pStartupInfo, D2ProcessInformationStrc* pProcessInformation); // 0x006CC33C

@@ -1,5 +1,6 @@
 #include "Fog.h"
 #include "D2GameTypes.h"
+#include "D2Win32System.h"
 
 
 struct D2TimeStampStrc
@@ -66,17 +67,6 @@ long __cdecl FOG_GetSyncTime()
     return (nTick - tBase.nTick) / 1000 + tBase.nTime;
 }
 
-struct D2MemoryStatusStrc
-{
-    unsigned long dwLength;
-    unsigned long dwMemoryLoad;
-    unsigned long dwTotalPhys;
-    unsigned long dwAvailPhys;
-    unsigned long dwTotalPageFile;
-    unsigned long dwAvailPageFile;
-    unsigned long dwTotalVirtual;
-    unsigned long dwAvailVirtual;
-};
 
 struct D2OsVersionInfoStrc
 {

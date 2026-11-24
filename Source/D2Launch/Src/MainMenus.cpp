@@ -7,6 +7,7 @@
 #include "D2Unicode.h"
 
 #include "D2MultiTypes.h"
+#include "D2Win32System.h"
 
 void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...); // 0x00409020
 
@@ -53,17 +54,6 @@ struct D2LaunchPayloadStrc;
 typedef char* va_list;
 
 
-struct D2MemoryStatusStrc
-{
-    unsigned long dwLength;
-    unsigned long dwMemoryLoad;
-    unsigned long dwTotalPhys;
-    unsigned long dwAvailPhys;
-    unsigned long dwTotalPageFile;
-    unsigned long dwAvailPageFile;
-    unsigned long dwTotalVirtual;
-    unsigned long dwAvailVirtual;
-};
 
 struct D2MenuCallbackArgStrc
 {
