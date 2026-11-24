@@ -1140,6 +1140,23 @@ extern "C" void* __cdecl memset(void*, int, unsigned int);
 #pragma intrinsic(memset)
 
 // build: symbol ??_7Thank_you@Define_the_symbol__ATL_MIXED@@6B@ 0x006FAFFC
+struct D2FloorCacheStrc;
+struct D2SubtileCacheStrc;
+struct D2TextureCacheStrc;
+
+void __fastcall D3D_FloorCacheDestroy(D2FloorCacheStrc* pCache, int bFree); // 0x006BB3E0
+void __fastcall D3D_SubtileCacheDestroy(D2SubtileCacheStrc* pCache, int bFree); // 0x006BADC0
+void __fastcall sub_006BA830_FreeTextureCache(D2TextureCacheStrc* pCache, int bFree); // 0x006BA830
+
+extern D2FloorCacheStrc gtFloorCache; // 0x0096FC9C
+extern D2SubtileCacheStrc gSubtileCache_0096FC80; // 0x0096FC80
+extern D2TextureCacheStrc gTextureCache_00970EC8; // 0x00970EC8
+extern D2TextureCacheStrc gTextureCache_00970EE4; // 0x00970EE4
+extern D2TextureCacheStrc gTextureCache_00970F00; // 0x00970F00
+
+extern int gdwGlobal_00970E50; // 0x00970E50
+extern char gnFloorCacheSize[]; // 0x007C90C8
+
 // 0x006B1A00
 Define_the_symbol__ATL_MIXED::Thank_you::Thank_you()
 {
@@ -1244,6 +1261,22 @@ int __stdcall sub_006B1B60_EnumTextureFormat(D2PixelFormat006B1B60Strc* pFormat,
     }
     *pFlags |= gnFormatCap_006CE28C;
     return 1;
+}
+
+// 0x006B1BC0
+void __fastcall sub_006B1BC0_ClearCaches()
+{
+    D3D_FloorCacheDestroy(&gtFloorCache, 0);
+    D3D_SubtileCacheDestroy(&gSubtileCache_0096FC80, 0);
+    sub_006BA830_FreeTextureCache(&gTextureCache_00970EC8, 0);
+    sub_006BA830_FreeTextureCache(&gTextureCache_00970EE4, 0);
+    sub_006BA830_FreeTextureCache(&gTextureCache_00970F00, 0);
+}
+
+// 0x006B1C00
+int __cdecl sub_006B1C00()
+{
+    return gdwGlobal_00970E50;
 }
 
 // 0x006B1C10
@@ -1443,6 +1476,18 @@ void __fastcall D3D_SetTextureFilterMode(int nMode)
         break;
     }
     gnFilterMode = nMode;
+}
+
+// 0x006B20A0
+void* __cdecl QSERVER_GetFloorCacheSize()
+{
+    return gnFloorCacheSize;
+}
+
+// 0x006B20B0
+int __cdecl sub_006B20B0()
+{
+    return 0;
 }
 
 // 0x006B3320

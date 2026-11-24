@@ -78241,6 +78241,15 @@
      "name": "?sub_006B1B60_EnumTextureFormat@@YGHPAUD2PixelFormat006B1B60Strc@@PAK@Z"
     },
     {
+     "va": "0x006B1BC0",
+     "length": 60
+    },
+    {
+     "va": "0x006B1C00",
+     "length": 6,
+     "name": "sub_006B1C00"
+    },
+    {
      "va": "0x006B1C10",
      "length": 7,
      "name": "?sub_006B1C10_SetGlobal@@YIXH@Z"
@@ -78299,6 +78308,16 @@
      "va": "0x006B2030",
      "length": 106,
      "name": "?D3D_SetTextureFilterMode@@YIXH@Z"
+    },
+    {
+     "va": "0x006B20A0",
+     "length": 6,
+     "name": "QSERVER_GetFloorCacheSize"
+    },
+    {
+     "va": "0x006B20B0",
+     "length": 3,
+     "name": "sub_006B20B0"
     },
     {
      "va": "0x006B20C0",
@@ -78437,44 +78456,9 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_006B1BC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B1BC0",
-     "length": 60
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Src/QServer/QServer.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x006B1C00",
-     "length": 6,
-     "name": "sub_006B1C00"
-    },
-    {
-     "va": "0x006B20A0",
-     "length": 6,
-     "name": "QSERVER_GetFloorCacheSize"
-    },
-    {
-     "va": "0x006B20B0",
-     "length": 3,
-     "name": "sub_006B20B0"
-    },
-    {
-     "va": "0x006B2F20",
-     "length": 6,
-     "name": "sub_006B2F20"
-    },
-    {
-     "va": "0x006B76C0",
-     "length": 3,
-     "name": "sub_006B76C0"
-    },
     {
      "va": "0x006BE3C0",
      "length": 132
@@ -78815,6 +78799,11 @@
    "rank": 1,
    "functions": [
     {
+     "va": "0x006B2F20",
+     "length": 6,
+     "name": "sub_006B2F20"
+    },
+    {
      "va": "0x006B2F30",
      "length": 7
     }
@@ -78835,7 +78824,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_006B2F40.cpp",
+   "file": "Source/D2Direct3D/Unknown_006B2F40.cpp",
    "rank": 1,
    "functions": [
     {
@@ -79126,6 +79115,17 @@
     "/Ob2",
     "/Gd",
     "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Direct3D/Unknown_006B76C0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x006B76C0",
+     "length": 3,
+     "name": "sub_006B76C0"
+    }
    ]
   },
   {
