@@ -341,7 +341,7 @@ static int __stdcall STATLIST_FindFirstStatIndex(D2StatsArrayStrc* pStatsArray, 
 }
 
 // 0x00624C60
-static D2StatStrc* sub_00624C60_FindStat(D2StatsArrayStrc* pStatsArray, int nLayer_StatId)
+static D2StatStrc* STATLIST_FindStat(D2StatsArrayStrc* pStatsArray, int nLayer_StatId)
 {
     const int nIndex = sub_00624B90_FindStatIndex(pStatsArray, nLayer_StatId);
     if (nIndex < 0)
@@ -477,7 +477,7 @@ static void __stdcall STATLIST_InsertStatModOrFail(D2StatListExStrc* pStatListEx
 static int __stdcall STATLIST_GetBaseStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord)
 {
     D2StatListExStrc* pStatListEx = (D2StatListExStrc*)pStatList;
-    D2StatStrc* pStat = sub_00624C60_FindStat(&pStatList->Stats, nLayer_StatId);
+    D2StatStrc* pStat = STATLIST_FindStat(&pStatList->Stats, nLayer_StatId);
     if (!pStat)
     {
         return 0;
@@ -507,7 +507,7 @@ static __declspec(noinline) D2StatsArrayStrc* STATLIST_GetStatsArray(D2StatListE
 static int __stdcall STATLIST_GetTotalStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord)
 {
     D2StatListExStrc* pStatListEx = (D2StatListExStrc*)pStatList;
-    D2StatStrc* pStat = sub_00624C60_FindStat((pStatList->dwFlags & STATLIST_EXTENDED) ? &pStatListEx->FullStats : &pStatList->Stats, nLayer_StatId);
+    D2StatStrc* pStat = STATLIST_FindStat((pStatList->dwFlags & STATLIST_EXTENDED) ? &pStatListEx->FullStats : &pStatList->Stats, nLayer_StatId);
     if (!pStat)
     {
         return 0;
@@ -555,7 +555,7 @@ static inline void STATLIST_NotifyUnitOfStatValueChange(D2ItemStatCostTxt* pItem
 // 0x006250B0
 static int __stdcall STATLIST_AddFullStatValue(D2StatListExStrc* pStatListEx, int nLayer_StatId, int nValue, D2ItemStatCostTxt* pItemStatCostTxtRecord, D2UnitStrc* pUnit)
 {
-    D2StatStrc* pStat = sub_00624C60_FindStat(&pStatListEx->FullStats, nLayer_StatId);
+    D2StatStrc* pStat = STATLIST_FindStat(&pStatListEx->FullStats, nLayer_StatId);
     if (!pStat)
     {
         pStat = STATLIST_InsertStatOrFail(pStatListEx->pMemPool, &pStatListEx->FullStats, nLayer_StatId);
@@ -581,7 +581,7 @@ static int __stdcall STATLIST_AddFullStatValue(D2StatListExStrc* pStatListEx, in
 // 0x00625150
 static void __stdcall STATLIST_UpdateUnitStat(D2StatListExStrc* pStatListEx, int nLayer_StatId, int nNewValue, D2ItemStatCostTxt* pItemStatCostTxtRecord, D2UnitStrc* pUnit)
 {
-    D2StatStrc* pStat = sub_00624C60_FindStat(&pStatListEx->FullStats, nLayer_StatId);
+    D2StatStrc* pStat = STATLIST_FindStat(&pStatListEx->FullStats, nLayer_StatId);
     if (!pStat)
     {
         if (!nNewValue)
@@ -1072,7 +1072,7 @@ void __stdcall D2Common_10512(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nStatI
         return;
     }
 
-    D2StatStrc* pStat = sub_00624C60_FindStat(&pStatListEx->Stats, nLayer_StatId);
+    D2StatStrc* pStat = STATLIST_FindStat(&pStatListEx->Stats, nLayer_StatId);
     if (pStat)
     {
         pfCallback(pUnit1, nStatId, pStat->nValue, pUnit2);
@@ -1096,7 +1096,7 @@ void __stdcall D2Common_10513(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, StatListUn
     for (int i = 0; i < pStatListEx->ModStats.nStatCount; ++i)
     {
         const int nLayer_StatId = pStatListEx->ModStats.pStat[i];
-        D2StatStrc* pStat = sub_00624C60_FindStat(&pStatListEx->Stats, nLayer_StatId);
+        D2StatStrc* pStat = STATLIST_FindStat(&pStatListEx->Stats, nLayer_StatId);
         if (!pStat)
         {
             pfCallback(pUnit1, STAT_GETID(nLayer_StatId), 0, pUnit2);
@@ -2421,7 +2421,7 @@ void __stdcall STATLIST_AddStat(D2StatListStrc* pStatList, int nStatId, int nVal
     }
 
     const int nLayer_StatId = STAT_MAKE(nStatId, nLayer);
-    D2StatStrc* pStat = sub_00624C60_FindStat(&pStatList->Stats, nLayer_StatId);
+    D2StatStrc* pStat = STATLIST_FindStat(&pStatList->Stats, nLayer_StatId);
     if (!pStat)
     {
         pStat = STATLIST_InsertStatOrFail(pStatList->pMemPool, &pStatList->Stats, nLayer_StatId);
@@ -2449,7 +2449,7 @@ int __stdcall STATLIST_SetStatValue(D2StatListStrc* pStatList, int nStatId, int 
     }
 
     const int nLayer_StatId = STAT_MAKE(nStatId, nLayer);
-    D2StatStrc* pStat = sub_00624C60_FindStat(&pStatList->Stats, nLayer_StatId);
+    D2StatStrc* pStat = STATLIST_FindStat(&pStatList->Stats, nLayer_StatId);
     if (!pStat)
     {
         if (!nValue)
@@ -2500,7 +2500,7 @@ int __stdcall STATLIST_SetBaseStat(D2StatListStrc* pStatList, int nStatId, int n
     }
 
     const int nLayer_StatId = STAT_MAKE(nStatId, nLayer);
-    D2StatStrc* pStat = sub_00624C60_FindStat(&pStatList->Stats, nLayer_StatId);
+    D2StatStrc* pStat = STATLIST_FindStat(&pStatList->Stats, nLayer_StatId);
     if (!pStat)
     {
         if (!nValue)

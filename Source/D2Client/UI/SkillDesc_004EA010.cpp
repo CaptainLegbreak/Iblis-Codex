@@ -672,7 +672,8 @@ void __fastcall SKILLDESC_ThrowDamageCallback(D2UnitStrc* pUnit, int* pMin, int*
         switch (MISSILE_GetElemTypeFromMissileId(nMissile)) {
         case 5: {
             *pColor=2;
-            int nLength=sub_0064B2A0_GetMissileElementLength(0,pUnit,nMissile,1)/25;
+// build: symbol ?MISSILE_GetElementalLength@* 0x0064B2A0
+            int nLength=MISSILE_GetElementalLength(0,pUnit,nMissile,1)/25;
             if(nLength<=0)nLength=1;
             nMin/=nLength;
             nMax/=nLength;

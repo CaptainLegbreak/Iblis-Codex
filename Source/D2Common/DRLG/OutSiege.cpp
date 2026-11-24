@@ -118,7 +118,7 @@ int __fastcall sub_006741A0(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674
 
 int __fastcall DRLGOUTDOOR_006755C0(int nDirX, int nDirY, int nSize);
 
-int __fastcall DRLGOUTDOOR_00675600(int nDirX, int nDirY, int nNextDirX, int nNextDirY, int nSize);
+int __fastcall DRLGOUTDOORS_GetCornerPresetId(int nDirX, int nDirY, int nNextDirX, int nNextDirY, int nSize); // 0x00675600
 
 void __stdcall DRLGOUTSIEGE_PlaceCliffBorder(D2DrlgLevelStrc* pLevel); // 0x0067DCF0
 
@@ -296,7 +296,7 @@ int __fastcall DRLGOUTSIEGE_GetBorderLookupId(D2DrlgLevelStrc* pLevel)
 
 int __fastcall DRLGOUTDOORS_GetBorderLevelPrestId(int nA, int nB, int nC);                                             // 0x006755C0
 
-int __fastcall sub_00675600_LookupTable(int nA, int nB, int nC, int nD, int nE);                             // 0x00675600
+int __fastcall DRLGOUTDOORS_GetCornerPresetId(int nA, int nB, int nC, int nD, int nE);                             // 0x00675600
 
 // 0x0067DCF0
 void __stdcall DRLGOUTSIEGE_PlaceCliffBorder(D2DrlgLevelStrc* pLevel)
@@ -345,7 +345,7 @@ void __stdcall DRLGOUTSIEGE_PlaceCliffBorder(D2DrlgLevelStrc* pLevel)
             DRLGGRID_AlterGridFlag(&pInfo->pGrid[2], nMarkX + 2 * nAbsDirX, nMarkY + 2 * nAbsDirY, 0x400, 0);
         }
 
-        int nCornerPresetId = sub_00675600_LookupTable(2 * nDirX, 2 * nDirY, 2 * nNextDirX, 2 * nNextDirY, nSize);
+        int nCornerPresetId = DRLGOUTDOORS_GetCornerPresetId(2 * nDirX, 2 * nDirY, 2 * nNextDirX, 2 * nNextDirY, nSize);
         if (nCornerPresetId)
         {
             DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nNextX, nNextY, nCornerPresetId, -1, 0);

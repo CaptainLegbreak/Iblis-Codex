@@ -611,7 +611,7 @@ int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner,
 
 int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B1D0
 
-int __stdcall sub_0064B2A0_GetMissileElementLength(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B2A0
+int __stdcall MISSILE_GetElementalLength(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B2A0
 
 static D2SkillStrc* SKILLS_GetHighestLevelSkillFromSkillId(D2UnitStrc* pUnit, int nSkillId);
 
@@ -3012,7 +3012,7 @@ int __stdcall SKILLS_GetSpecialParamValue(D2UnitStrc* pUnit, int nParamId, int n
             nMissileId = pSkillDescTxtRecord->wDescMissile[nIndex];
             if (sub_0046ACE0(nMissileId))
             {
-                nResult = sub_0064B2A0_GetMissileElementLength(0, pUnit, nMissileId, nSkillLevel);
+                nResult = MISSILE_GetElementalLength(0, pUnit, nMissileId, nSkillLevel);
                 break;
             }
         }

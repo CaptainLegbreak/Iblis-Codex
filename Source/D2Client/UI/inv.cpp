@@ -656,7 +656,7 @@ int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner,
 
 int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B1D0
 
-int __stdcall sub_0064B2A0(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B2A0
+int __stdcall MISSILE_GetElementalLength(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B2A0
 
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
@@ -2938,7 +2938,7 @@ void __stdcall INV_BuildItemDamageText(D2UnitStrc* pItem, Unicode* pBuffer)
         case 5:
         {
             nColor = 2;
-            int nLength = sub_0064B2A0(0, pPlayer, nMin, 1) / 25;
+            int nLength = MISSILE_GetElementalLength(0, pPlayer, nMin, 1) / 25;
             if (nLength <= 0)
                 nLength = 1;
             nElemMin /= nLength;

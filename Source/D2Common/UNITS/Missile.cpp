@@ -258,7 +258,7 @@ extern "C" short __stdcall sub_00629860_GetStrengthFactor(Unit*); // 0x00629860
 
 extern "C" short __stdcall sub_006298A0_GetDexterityFactor(Unit*); // 0x006298A0
 
-extern "C" int __stdcall sub_0064B2A0_GetMissileElementLength(Unit*, Unit*, int, int); // 0x0064B2A0
+extern "C" int __stdcall MISSILE_GetElementalLength(Unit*, Unit*, int, int); // 0x0064B2A0
 
 extern "C" DataTables* gVar_00744304; // 0x00744304
 
@@ -1667,7 +1667,7 @@ static inline D2MissilesTxt* GetMissileRecord(int nMissileId)
 }
 
 // 0x0064B2A0
-int __stdcall sub_0064B2A0_GetMissileElementLength(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel)
+int __stdcall MISSILE_GetElementalLength(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel)
 {
     D2MissilesTxt* pRecord = GetMissileRecord(nMissileId);
     if (!pRecord)
@@ -1770,7 +1770,7 @@ int __stdcall MISSILE_GetSpecialParamValue(D2UnitStrc* pMissile, D2UnitStrc* pOw
     goto Done;
     case 20: nResult = MISSILE_GetMaxElemDamage(pMissile, pOwner, nMissileId, nLevel) >> 8;
     goto Done;
-    case 21: nResult = sub_0064B2A0_GetMissileElementLength(pMissile, pOwner, nMissileId, nLevel);
+    case 21: nResult = MISSILE_GetElementalLength(pMissile, pOwner, nMissileId, nLevel);
     goto Done;
     case 22: nResult = MISSILE_GetMinElemDamage(pMissile, pOwner, nMissileId, nLevel);
     goto Done;
@@ -1977,7 +1977,7 @@ extern "C" void __stdcall sub_0064B860_BuildDamage(Damage* damage, Unit* owner, 
         element = record->element;
         elementMin = sub_0064B100_GetMissileElementMin(missile, owner, missileId, level);
         elementMax = sub_0064B1D0_GetMissileElementMax(missile, owner, missileId, level);
-        elementLength = sub_0064B2A0_GetMissileElementLength(missile, owner, missileId, level);
+        elementLength = MISSILE_GetElementalLength(missile, owner, missileId, level);
         if (record->flags & gVar_006CE268)
         {
             elementMin += sub_0064ABA0_ElementBonus(elementMin, element, owner);

@@ -272,7 +272,7 @@ extern "C" short __stdcall sub_00629860_GetStrengthFactor(Unit*); // 0x00629860
 
 extern "C" short __stdcall sub_006298A0_GetDexterityFactor(Unit*); // 0x006298A0
 
-extern "C" int __stdcall sub_0064B2A0_GetMissileElementLength(Unit*, Unit*, int, int); // 0x0064B2A0
+extern "C" int __stdcall MISSILE_GetElementalLength(Unit*, Unit*, int, int); // 0x0064B2A0
 
 extern "C" DataTables* gVar_00744304; // 0x00744304
 
@@ -520,7 +520,7 @@ void __stdcall MISSILE_CalculateDamageData(Damage* pMissileDamageData, Unit* pOw
         element = pMissilesTxtRecord->element;
         elementMin = sub_0064B100_GetMissileElementMin(pMissile, pOwner, missileId, nLevel);
         elementMax = sub_0064B1D0_GetMissileElementMax(pMissile, pOwner, missileId, nLevel);
-        elementLength = sub_0064B2A0_GetMissileElementLength(pMissile, pOwner, missileId, nLevel);
+        elementLength = MISSILE_GetElementalLength(pMissile, pOwner, missileId, nLevel);
         if (pMissilesTxtRecord->flags & gVar_006CE268)
         {
             elementMin += sub_0064ABA0_ElementBonus(pOwner, element, elementMin);

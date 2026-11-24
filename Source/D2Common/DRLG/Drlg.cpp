@@ -454,7 +454,7 @@ static int SKILLS_IsPointNearRoom(D2ActiveRoomStrc* pRoom, int nX, int nY, int n
 }
 
 // 0x006419A0
-static int sub_006419A0_IsUnitAlive(D2UnitStrc* pUnit) {
+static int DRLG_IsUnitAlive(D2UnitStrc* pUnit) {
  if(!pUnit) return 0;
  switch(pUnit->dwUnitType) {
  case UNIT_PLAYER:
@@ -485,7 +485,7 @@ D2UnitStrc* __stdcall D2Common_10406(D2UnitStrc* pSource,D2UnitFindCallback pCal
  for(int i=0;i<nRooms;++i) {
   if(!SKILLS_IsPointNearRoom(ppRooms[i],nX,nY,2)) continue;
   for(D2UnitStrc* pUnit=ppRooms[i]->pUnitFirst;pUnit;pUnit=pUnit->ptRoomNext) {
-   if(!sub_006419A0_IsUnitAlive(pUnit)) continue;
+   if(!DRLG_IsUnitAlive(pUnit)) continue;
    int nUnitSize=UNITS_GetUnitSizeX(pUnit);
    if(nUnitSize>=3) nUnitSize=3;
    else if(nUnitSize<=0) continue;
@@ -586,7 +586,7 @@ D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc* pRoom,int nX,int nY,D2Uni
 }
 
 // 0x00641F20
-void __fastcall sub_00641F20_SetPlayerModeState(D2UnitStrc* pUnit, int nMode, int nArg1, int nArg2)
+void __fastcall UNITS_SetInteractData(D2UnitStrc* pUnit, int nMode, int nArg1, int nArg2)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == UNIT_PLAYER)
