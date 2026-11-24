@@ -2,13 +2,13 @@
 
 struct D2CriticalSectionStrc;
 struct D2BnStateStrc;
-struct T0041D340;
+struct FindSignatureTag;
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 
-struct T0041D340
+struct FindSignatureTag
 {
     unsigned int dwState[5];
 };

@@ -97,8 +97,8 @@ inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
     return nLow;
 }
 
-void __stdcall sub_004221F0_AddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c); // 0x004221F0
-int __stdcall sub_00422570_CompareUInt(BigBuffer& a, unsigned int b); // 0x00422570
+void __stdcall BigAddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c); // 0x004221F0
+int __stdcall BigCompareUInt(BigBuffer& a, unsigned int b); // 0x00422570
 
 // 0x004225C0
 static void __stdcall sub_004225C0_DivUInt(unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c, BigBuffer& a)
@@ -120,7 +120,7 @@ static void __stdcall sub_004225C0_DivUInt(unsigned int* pRemainder, const BigBu
 int IsOne(BigBuffer& a); // 0x00422750
 int IsZero(BigBuffer& a); // 0x00422780
 
-void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c); // 0x004227A0
+void __stdcall BigMulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c); // 0x004227A0
 void __stdcall Set2Exp(BigBuffer& a, unsigned int nExponent); // 0x00422B00
 
 void SetOne(BigBuffer& a); // 0x00422C60
@@ -148,7 +148,7 @@ static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput
         sub_004225C0_DivUInt(&nDigit, tBuffer, 10, tBuffer);
         unsigned char nChar = (unsigned char)(nDigit + '0');
         tOutput.Add(1, &nChar);
-    } while (sub_00422570_CompareUInt(tBuffer, 0));
+    } while (BigCompareUInt(tBuffer, 0));
     unsigned int nCount = tOutput.f_4;
     for (unsigned int i = 0; i < nCount / 2; i++)
     {
@@ -181,7 +181,7 @@ void __stdcall SBigFromUnsigned(D2StormBigStrc* pBig, unsigned int nValue)
 // 0x004238D0
 void __stdcall SBigInc(D2StormBigStrc* pResult, D2StormBigStrc* pA)
 {
-    sub_004221F0_AddUInt(pResult->tPrimary, pA->tPrimary, 1);
+    BigAddUInt(pResult->tPrimary, pA->tPrimary, 1);
 }
 
 // 0x00423910
@@ -260,7 +260,7 @@ void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigSt
 
 void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack); // 0x00424180
 
-void __stdcall sub_004245F0_MulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x004245F0
+void __stdcall BigMulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x004245F0
 // 0x00424E70
 void __stdcall SBigDiv(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
@@ -288,5 +288,5 @@ void __stdcall SBigMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
 // 0x00424F30
 void __stdcall SBigMulMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, D2StormBigStrc* pC)
 {
-    sub_004245F0_MulMod(pResult->tPrimary, pA->tPrimary, pB->tPrimary, pC->tPrimary, pResult->tStack);
+    BigMulMod(pResult->tPrimary, pA->tPrimary, pB->tPrimary, pC->tPrimary, pResult->tStack);
 }

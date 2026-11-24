@@ -209,7 +209,7 @@ struct D2StormBigStrc
     D2StormArrayBStrc tOutput;
 };
 
-unsigned int __stdcall sub_004213B0_FindLastSetBit(BigBuffer* pQueue);                              // 0x004213B0
+unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue);                              // 0x004213B0
 int __stdcall sub_004212F0_Compare(BigBuffer* pLeft, BigBuffer* pRight);                      // 0x004212F0
 
 inline unsigned int ExtractLowPart(unsigned __int64& nValue)
@@ -246,7 +246,7 @@ static void __stdcall sub_004225C0_DivUInt(unsigned int* pRemainder, const BigBu
 }
 
 // 0x004227A0
-static void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c)
+static void __stdcall BigMulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c)
 {
     unsigned __int64 nCarry = 0;
     unsigned int i = 0;
@@ -345,7 +345,7 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
     BigBuffer& tDiv = tStack.f_0[tStack.nUsed++];
     __assume(tStack.nUsed < 16);
     BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
-    unsigned int nShift = 31 - (sub_004213B0_FindLastSetBit(&d) & 31);
+    unsigned int nShift = 31 - (BigHighBitIndex(&d) & 31);
     Shl(tRem, c, nShift);
     Shl(tDiv, d, nShift);
     unsigned int nLastDigit = nDCount - 1;
@@ -369,7 +369,7 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
         }
         if (a.Ref(0))
         {
-            sub_004227A0_MulUInt(tProduct, tDiv, a.Ref(0));
+            BigMulUInt(tProduct, tDiv, a.Ref(0));
             sub_00423100_Sub(tRem, tRem, tProduct);
         }
         while (tRem.At(nDCount) || sub_004212F0_Compare(&tRem, &tDiv) >= 0)

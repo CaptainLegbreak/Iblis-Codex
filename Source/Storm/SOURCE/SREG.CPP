@@ -33,7 +33,7 @@ extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int
 
 extern "C" const char gszFmtUnsigned_006CEF68[]; // 0x006CEF68
 
-static int __stdcall sub_00414B00_SRegLoadEntry(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pType, unsigned char* pData, unsigned long nSize, unsigned long* pcbData);
+static int __stdcall LoadRegistryEntry(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pType, unsigned char* pData, unsigned long nSize, unsigned long* pcbData); // 0x00414B00
 
 int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned char* pData, unsigned long nSize, unsigned long* pcbData);
 
@@ -130,7 +130,7 @@ int __fastcall InternalDeleteEntry(unsigned int nFlags, const char* szKeyName, c
 }
 
 // 0x00414B00
-static int __stdcall sub_00414B00_SRegLoadEntry(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pType, unsigned char* pData, unsigned long nSize, unsigned long* pcbData)
+static int __stdcall LoadRegistryEntry(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pType, unsigned char* pData, unsigned long nSize, unsigned long* pcbData)
 {
     *pcbData = 0;
     char szKey[0x104];
@@ -233,7 +233,7 @@ int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsig
     unsigned long dwBytesRead;
     if (!pcbData)
         pcbData = &dwBytesRead;
-    return sub_00414B00_SRegLoadEntry(szKeyName, szValueName, nFlags, &dwType, pData, nSize, pcbData);
+    return LoadRegistryEntry(szKeyName, szValueName, nFlags, &dwType, pData, nSize, pcbData);
 }
 
 // 0x00414E50
@@ -250,7 +250,7 @@ int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, uns
 
     unsigned long nType;
     unsigned long cbData;
-    if (!sub_00414B00_SRegLoadEntry(szKeyName, szValueName, nFlags, &nType, (unsigned char*)szBuffer, nBufferSize, &cbData))
+    if (!LoadRegistryEntry(szKeyName, szValueName, nFlags, &nType, (unsigned char*)szBuffer, nBufferSize, &cbData))
     {
         return 0;
     }
@@ -288,7 +288,7 @@ int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsi
     unsigned long cbData;
     char szData[0x100];
     szData[0] = 0;
-    if (!sub_00414B00_SRegLoadEntry(szKeyName, szValueName, nFlags, &nType, (unsigned char*)szData, 0x100, &cbData))
+    if (!LoadRegistryEntry(szKeyName, szValueName, nFlags, &nType, (unsigned char*)szData, 0x100, &cbData))
     {
         return 0;
     }

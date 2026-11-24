@@ -142,15 +142,15 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
-void __fastcall sub_00411A80_ReleaseBlock(D2FogBlockStrc** ppLink); // 0x00411A80
+void __fastcall UnlinkAndFreeHeap(D2FogBlockStrc** ppLink); // 0x00411A80
 
-D2FogBlockStrc** __fastcall sub_00411F00_ProcessUsedBlock(D2FogBlockStrc** ppLink); // 0x00411F00
+D2FogBlockStrc** __fastcall FreeLeakedBlocks(D2FogBlockStrc** ppLink); // 0x00411F00
 
 void __stdcall SErrReportResourceLeak(const char* szName); // 0x0041D1E0
 
 void __fastcall SSignatureVerifyStream_Begin(D2StormHashBufferStrc** ppBuffer, unsigned int nSignSize, int nModulusSize); // 0x0041D3B0
 
-void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const char* pData, int nSize); // 0x0041D420
+void __fastcall HashBufferedData(D2StormHashBufferStrc* pBuffer, const char* pData, int nSize); // 0x0041D420
 
 int __fastcall SSignatureVerifyStream_Finish(D2StormHashBufferStrc* pBuffer, const void* pExponent, const void* pModulus); // 0x0041D6D0
 
@@ -247,9 +247,9 @@ int __fastcall deflateInit_(z_stream* strm, int level, const char* version, int 
 
 int __fastcall deflateEnd(z_stream* strm); // 0x004274A0
 
-void* __fastcall sub_0041E080_ZAlloc(void* pArena, unsigned int nItems, unsigned int nSize); // 0x0041E080
+void* __fastcall ZArenaAlloc(void* pArena, unsigned int nItems, unsigned int nSize); // 0x0041E080
 
-void __fastcall sub_0041E0D0_ZFree(void* pArena, void* pAddress); // 0x0041E0D0
+void __fastcall ZArenaFree(void* pArena, void* pAddress); // 0x0041E0D0
 
 int __fastcall inflateInit_(z_stream* strm, const char* version, int stream_size); // 0x00429A10
 
@@ -329,7 +329,7 @@ void __fastcall PkwareDecompress(char* pDst, unsigned int* pDstLen, char* pSrc, 
 }
 
 // 0x0041E080
-void* __fastcall sub_0041E080_ZAlloc(D2StormZArenaStrc* pArena, unsigned int nItems, unsigned int nSize)
+void* __fastcall ZArenaAlloc(D2StormZArenaStrc* pArena, unsigned int nItems, unsigned int nSize)
 {
     unsigned int nBytes = nItems * nSize;
     if (nBytes & 3)
@@ -344,7 +344,7 @@ void* __fastcall sub_0041E080_ZAlloc(D2StormZArenaStrc* pArena, unsigned int nIt
 }
 
 // 0x0041E0D0
-void __fastcall sub_0041E0D0_ZFree(void* pArena, void* pAddress)
+void __fastcall ZArenaFree(void* pArena, void* pAddress)
 {
     D2StormZArenaStrc* pZArena = (D2StormZArenaStrc*)pArena;
     if ((char*)pAddress < pZArena->f_8 || (char*)pAddress >= pZArena->f_8 + pZArena->nSize)
@@ -352,7 +352,7 @@ void __fastcall sub_0041E0D0_ZFree(void* pArena, void* pAddress)
 }
 
 // 0x0041E100
-static int __stdcall sub_0041E100_compress2(unsigned char* dest, unsigned long* destLen, const unsigned char* source, unsigned long sourceLen, int level)
+static int __stdcall CompressWithArena(unsigned char* dest, unsigned long* destLen, const unsigned char* source, unsigned long sourceLen, int level)
 {
     char aBuffer[0x493E0];
     D2StormZArenaStrc tArena;
@@ -365,8 +365,8 @@ static int __stdcall sub_0041E100_compress2(unsigned char* dest, unsigned long* 
     tArena.f_0 = aBuffer;
     tArena.nSize = sizeof(aBuffer);
     tArena.f_8 = aBuffer;
-    stream.zalloc = sub_0041E080_ZAlloc;
-    stream.zfree = sub_0041E0D0_ZFree;
+    stream.zalloc = ZArenaAlloc;
+    stream.zfree = ZArenaFree;
     stream.opaque = &tArena;
     err = deflateInit_(&stream, level, "1.1.3", sizeof(stream));
     if (err != 0)
@@ -401,7 +401,7 @@ void __fastcall ZlibCompress(unsigned char* pOut, unsigned long* pOutSize, const
         break;
     }
     unsigned long nDestLen = *pOutSize;
-    if (sub_0041E100_compress2(pOut, &nDestLen, pIn, nInSize, nZLevel) == 0)
+    if (CompressWithArena(pOut, &nDestLen, pIn, nInSize, nZLevel) == 0)
     {
         *pOutSize = nDestLen;
     }
@@ -409,7 +409,7 @@ void __fastcall ZlibCompress(unsigned char* pOut, unsigned long* pOutSize, const
 }
 
 // 0x0041E250
-static int __stdcall sub_0041E250_uncompress(unsigned char* dest, unsigned long* destLen, const unsigned char* source, unsigned long sourceLen)
+static int __stdcall UncompressWithArena(unsigned char* dest, unsigned long* destLen, const unsigned char* source, unsigned long sourceLen)
 {
     char aBuffer[0xB798];
     D2StormZArenaStrc tArena;
@@ -422,8 +422,8 @@ static int __stdcall sub_0041E250_uncompress(unsigned char* dest, unsigned long*
     tArena.f_0 = aBuffer;
     tArena.nSize = sizeof(aBuffer);
     tArena.f_8 = aBuffer;
-    stream.zalloc = sub_0041E080_ZAlloc;
-    stream.zfree = sub_0041E0D0_ZFree;
+    stream.zalloc = ZArenaAlloc;
+    stream.zfree = ZArenaFree;
     stream.opaque = &tArena;
     err = inflateInit_(&stream, "1.1.3", sizeof(stream));
     if (err != 0)
@@ -444,7 +444,7 @@ static int __stdcall sub_0041E250_uncompress(unsigned char* dest, unsigned long*
 // 0x0041E340
 int __fastcall ZlibDecompress(unsigned char* pOut, unsigned long* pOutSize, const unsigned char* pIn, unsigned long nInSize, int nUnused)
 {
-    return sub_0041E250_uncompress(pOut, pOutSize, pIn, nInSize);
+    return UncompressWithArena(pOut, pOutSize, pIn, nInSize);
 }
 
 static void sub_0041DA30_GetCompressionLevel(unsigned int nCmpLevel, unsigned char* pnLevel, int* pCmpType)
@@ -753,7 +753,7 @@ void __fastcall ImaAdpcmStereoDecompress(short* pOut, unsigned int* pOutSize, un
 }
 
 // 0x0041E420
-static int sub_0041E420_RangesOverlap(const char* pA, const char* pB, unsigned int nSize)
+static int DoRangesOverlap(const char* pA, const char* pB, unsigned int nSize)
 {
     if (pA + nSize > pB && pB + nSize > pA)
         return 1;
@@ -811,7 +811,7 @@ static void* s_AllocDecompressBuffer(unsigned int nSize, int* pbShared)
 }
 
 // 0x0041E510
-static void __stdcall sub_0041E510_FreeWorkBuffer(int bShared, void* pBuffer)
+static void __stdcall FreeWorkBuffer(int bShared, void* pBuffer)
 {
     if (!pBuffer)
     {
@@ -928,7 +928,7 @@ int __stdcall SCompCompress(unsigned char* pDest, unsigned int* pdwDestSize, uns
         }
     }
     *pdwDestSize = cbIn;
-    sub_0041E510_FreeWorkBuffer(bShared, pWork);
+    FreeWorkBuffer(bShared, pWork);
     return 1;
 }
 
@@ -988,7 +988,7 @@ int __stdcall SCompDecompress(void* pDest, unsigned int* pdwDestSize, unsigned c
     if (pIn != pDest)
         SMemCopy(pDest, pIn, cbIn);
     *pdwDestSize = cbIn;
-    sub_0041E510_FreeWorkBuffer(bShared, pWork);
+    FreeWorkBuffer(bShared, pWork);
     return 1;
 }
 
@@ -1005,7 +1005,7 @@ extern "C" int __cdecl SCompDestroy()
 
 int __stdcall sub_M107_Emit_0041E420(const char* pA, const char* pB, unsigned int nSize, int nCount)
 {
-    if (nCount >= 2 || sub_0041E420_RangesOverlap(pA, pB, nSize))
+    if (nCount >= 2 || DoRangesOverlap(pA, pB, nSize))
         return nCount + 1;
     return nCount;
 }

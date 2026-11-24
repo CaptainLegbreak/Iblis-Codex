@@ -34,7 +34,7 @@ struct D2StormBlockStrc
     unsigned int nCrc;                          // 0x18
     unsigned int unk0x1C[4];                    // 0x1C
 
-    void sub_004156A0_ExpandEntries(unsigned int nCount);                                                    // 0x004156A0
+    void ExpandBlockEntries(unsigned int nCount);                                                    // 0x004156A0
 };
 
 // An open archive (0x25C bytes).

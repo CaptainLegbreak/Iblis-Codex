@@ -75,7 +75,8 @@ inline unsigned int ExtractLowPart(unsigned __int64& nValue)
     return nLow;
 }
 
-static void __stdcall sub_00422440_And(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
+// build: symbol ?BigAnd@* 0x00422440
+static void __stdcall BigAnd(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned int i = 0;
     for (; b.IsUsed(i) || c.IsUsed(i); i++)
@@ -85,7 +86,8 @@ static void __stdcall sub_00422440_And(BigBuffer& a, const BigBuffer& b, const B
     a.SetCount(i);
 }
 
-static void __stdcall sub_004229D0_Or(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
+// build: symbol ?BigOr@* 0x004229D0
+static void __stdcall BigOr(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned int i = 0;
     for (; b.IsUsed(i) || c.IsUsed(i); i++)
@@ -95,7 +97,8 @@ static void __stdcall sub_004229D0_Or(BigBuffer& a, const BigBuffer& b, const Bi
     a.SetCount(i);
 }
 
-static void __stdcall sub_00423250_Xor(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
+// build: symbol ?BigXor@* 0x00423250
+static void __stdcall BigXor(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned int i = 0;
     for (; b.IsUsed(i) || c.IsUsed(i); i++)

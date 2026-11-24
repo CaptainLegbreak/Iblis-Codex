@@ -179,7 +179,7 @@ void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 extern D2CriticalSectionStrc gaSLogLocks_00779238[4]; // 0x00779238
 extern D2SLogStrc* gapSLogBuckets_00779298[4]; // 0x00779298
 static D2SLogStrc* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* hLog);
-static void sub_0041FCE0_UnlockLog(unsigned long nIndex);
+static void UnlockLog(unsigned long nIndex); // 0x0041FCE0
 
 // 0x0041EBC0
 unsigned int CHuffman::sub_0041EBC0_DecodeOne(D2StormHuffInputStrc* input)

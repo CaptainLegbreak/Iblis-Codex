@@ -81,16 +81,16 @@ struct D2StormBigStrc
     D2StormArrayBStrc tOutput;
 };
 
-unsigned int __stdcall sub_004213B0_FindLastSetBit(BigBuffer* pQueue);                              // 0x004213B0
+unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue);                              // 0x004213B0
 int __stdcall sub_004212F0_Compare(BigBuffer* pLeft, BigBuffer* pRight);                      // 0x004212F0
 int __stdcall sub_004242C0_BigOp(BigBuffer* pResult, BigBuffer* pA, BigBuffer* pB, BigStack* pStack); // 0x004242C0
 
-void __stdcall sub_004221F0_AddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c); // 0x004221F0
+void __stdcall BigAddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c); // 0x004221F0
 
 int IsOne(BigBuffer& a); // 0x00422750
 int IsZero(BigBuffer& a); // 0x00422780
 
-void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c); // 0x004227A0
+void __stdcall BigMulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c); // 0x004227A0
 void __stdcall Set2Exp(BigBuffer& a, unsigned int nExponent); // 0x00422B00
 
 void SetOne(BigBuffer& a); // 0x00422C60
@@ -148,7 +148,7 @@ void __stdcall SBigFromUnsigned(D2StormBigStrc* pBig, unsigned int nValue)
 // 0x004238D0
 void __stdcall SBigInc(D2StormBigStrc* pResult, D2StormBigStrc* pA)
 {
-    sub_004221F0_AddUInt(pResult->tPrimary, pA->tPrimary, 1);
+    BigAddUInt(pResult->tPrimary, pA->tPrimary, 1);
 }
 
 // 0x00423910
@@ -227,7 +227,7 @@ void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigSt
 
 void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack); // 0x00424180
 
-void __stdcall sub_004245F0_MulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x004245F0
+void __stdcall BigMulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x004245F0
 // 0x00424E70
 void __stdcall SBigDiv(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
@@ -255,5 +255,5 @@ void __stdcall SBigMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
 // 0x00424F30
 void __stdcall SBigMulMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, D2StormBigStrc* pC)
 {
-    sub_004245F0_MulMod(pResult->tPrimary, pA->tPrimary, pB->tPrimary, pC->tPrimary, pResult->tStack);
+    BigMulMod(pResult->tPrimary, pA->tPrimary, pB->tPrimary, pC->tPrimary, pResult->tStack);
 }

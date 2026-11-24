@@ -26,7 +26,7 @@ void __cdecl SLogInitialize(); // 0x00420040
 
 void __cdecl SMemInitialize(); // 0x00411CD0
 
-extern "C" void __cdecl sub_00414360_CallThenSetFlag(); // 0x00414360
+extern "C" void __cdecl SStrInitialize(); // 0x00414360
 
 struct D2StormInit0041C0C0Strc;
 
@@ -35,14 +35,14 @@ struct D2StormInit0041C0C0Strc
     D2StormInit0041C0C0Strc();
 };
 
-void __cdecl sub_0041BEE0_InitStorm(); // 0x0041BEE0
+void __cdecl StormInitialize(); // 0x0041BEE0
 
 // 0x0041BEE0
-void __cdecl sub_0041BEE0_InitStorm()
+void __cdecl StormInitialize()
 {
     SMemInitialize();
     SLogInitialize();
-    sub_00414360_CallThenSetFlag();
+    SStrInitialize();
 }
 
 // 0x0041BEF0
@@ -132,7 +132,7 @@ int __stdcall StormGetOption(unsigned int nOption, const void* pInput, unsigned 
 // Initializes Storm before main.
 struct D2StormStartupStrc
 {
-    D2StormStartupStrc() { sub_0041BEE0_InitStorm(); }
+    D2StormStartupStrc() { StormInitialize(); }
 };
 
 // build: symbol ??__EgtStormStartup@@YAXXZ 0x006CA890
@@ -141,5 +141,5 @@ static D2StormStartupStrc gtStormStartup;
 // 0x0041C0C0
 D2StormInit0041C0C0Strc::D2StormInit0041C0C0Strc()
 {
-    sub_0041BEE0_InitStorm();
+    StormInitialize();
 }

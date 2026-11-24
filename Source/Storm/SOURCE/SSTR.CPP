@@ -62,9 +62,9 @@ void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 
 void __cdecl SMemInitialize(); // 0x00411CD0
 
-void __cdecl sub_00411A20_InitPageSize(); // 0x00411A20
+void __cdecl InitPageSize(); // 0x00411A20
 
-void __fastcall sub_00411A80_ReleaseBlock(D2SMemHeapStrc** ppLink); // 0x00411A80
+void __fastcall UnlinkAndFreeHeap(D2SMemHeapStrc** ppLink); // 0x00411A80
 
 void __cdecl AUTOMAP_ReleaseFreeBlocks(); // 0x00412000
 
@@ -104,9 +104,9 @@ extern int gbHeapInitialized_007788D0; // 0x007788D0
 
 extern int gnFlag_00779098; // 0x00779098
 
-static void sub_00411AA0_FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock);
+static void FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock); // 0x00411AA0
 
-static int sub_00411910_CheckPtr(void* pMemory, int bReport, const char* szFile, int nLine);
+static int CheckPointer(void* pMemory, int bReport, const char* szFile, int nLine); // 0x00411910
 
 typedef void (__stdcall* SMEMDUMPCALLBACK)(void* pParam, const char* szText);
 
@@ -468,7 +468,7 @@ extern "C" int __cdecl _vsnprintf(char* szDest, size_t nCount, const char* szFor
 
 extern "C" int __cdecl vsprintf(char* szDest, const char* szFormat, va_list args);                          // 0x00682DA1
 
-static int sub_00413A00_VPrintf(char* szDest, size_t nSize, const char* szFormat, va_list args);
+static int InternalVPrintf(char* szDest, size_t nSize, const char* szFormat, va_list args); // 0x00413A00
 
 // 0x00413490
 const char* __stdcall SStrChr(const char* szString, char nChar)
@@ -485,7 +485,7 @@ const char* __stdcall SStrChr(const char* szString, char nChar)
 }
 
 // 0x00413510
-const char* __stdcall sub_00413510_SStrChrDir(const char* szString, char nChar, int bReverse)
+const char* __stdcall SStrChrDir(const char* szString, char nChar, int bReverse)
 {
     VALIDATEBEGIN;
     VALIDATE(szString);
@@ -641,7 +641,7 @@ extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const ch
     VALIDATE(szDest);
     VALIDATE(szFormat);
     VALIDATEEND;
-    return nValid ? sub_00413A00_VPrintf(szDest, nMaxCount, szFormat, (va_list)(&szFormat + 1)) : 0;
+    return nValid ? InternalVPrintf(szDest, nMaxCount, szFormat, (va_list)(&szFormat + 1)) : 0;
 }
 
 // 0x00413A80
@@ -651,12 +651,12 @@ extern "C" int __cdecl SStrVPrintf(char* szDest, unsigned int nMaxCount, const c
     VALIDATE(szDest);
     VALIDATE(szFormat);
     VALIDATEEND;
-    return nValid ? sub_00413A00_VPrintf(szDest, nMaxCount, szFormat, args) : 0;
+    return nValid ? InternalVPrintf(szDest, nMaxCount, szFormat, args) : 0;
 }
 
 extern "C" { int gnFlag_007788DC; }                                                                         // 0x007788DC
 
-extern "C" void __cdecl sub_00414360_CallThenSetFlag();                                                     // 0x00414360
+extern "C" void __cdecl SStrInitialize();                                                     // 0x00414360
 
 double gadDigitScale_007788E0[20][10];                                                                      // 0x007788E0
 
@@ -678,10 +678,10 @@ inline T StormPowInt(T x, int nExp)
 }
 
 // 0x004144B0
-extern "C" inline void __cdecl sub_004144B0_EnsureInit()
+extern "C" inline void __cdecl EnsureSStrInitialized()
 {
     if (!gnFlag_007788DC)
-        sub_00414360_CallThenSetFlag();
+        SStrInitialize();
 }
 
 // 0x004144C0
@@ -690,7 +690,7 @@ double __stdcall SStrToDouble(const char* szString)
     VALIDATEBEGIN;
     VALIDATE(szString);
     VALIDATEEND;
-    sub_004144B0_EnsureInit();
+    EnsureSStrInitialized();
     const int bNegative = *szString == '-';
     if (bNegative)
     {
@@ -758,7 +758,7 @@ float __stdcall SStrToFloat(const char* szString)
     VALIDATEBEGIN;
     VALIDATE(szString);
     VALIDATEEND;
-    sub_004144B0_EnsureInit();
+    EnsureSStrInitialized();
     const int bNegative = *szString == '-';
     if (bNegative)
     {
@@ -822,7 +822,8 @@ float __stdcall SStrToFloat(const char* szString)
     return (float)dResult;
 }
 
-static __declspec(noreturn) void sub_00411620_FatalError(unsigned int nError, const char* szFile, int nLine)
+// build: symbol ?FatalMemoryError@* 0x00411620
+static __declspec(noreturn) void FatalMemoryError(unsigned int nError, const char* szFile, int nLine)
 {
     SErrDisplayError(nError, szFile, nLine, 0, 0, 1);
     ExitProcess(1);
@@ -844,7 +845,7 @@ const char* __stdcall SStrChrR(const char* szString, char nChar)
 }
 
 // 0x00413A00
-static int sub_00413A00_VPrintf(char* szDest, size_t nSize, const char* szFormat, va_list args)
+static int InternalVPrintf(char* szDest, size_t nSize, const char* szFormat, va_list args)
 {
     if (nSize)
     {
@@ -868,7 +869,7 @@ extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const ch
 extern "C" int __cdecl SStrVPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, va_list args);
 
 // 0x00413B30
-int __stdcall sub_00413B30_ParseUnsignedDecimal(const char* szString)
+int __stdcall SStrToUnsigned(const char* szString)
 {
     VALIDATEBEGIN;
     VALIDATE(szString);
@@ -952,7 +953,7 @@ inline T PowIntT(T x, int nExp)
 }
 
 // 0x004142A0
-void __cdecl sub_004142A0_InitPowTable()
+void __cdecl InitPowTable()
 {
     for (int nExp = 0; nExp < 20; ++nExp)
     {
@@ -964,9 +965,9 @@ void __cdecl sub_004142A0_InitPowTable()
 }
 
 // 0x00414360
-extern "C" void __cdecl sub_00414360_CallThenSetFlag()
+extern "C" void __cdecl SStrInitialize()
 {
-    sub_004142A0_InitPowTable();
+    InitPowTable();
     gnFlag_007788DC = 1;
 }
 

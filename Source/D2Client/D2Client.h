@@ -648,7 +648,7 @@ int __stdcall UNITS_IsShrine(D2UnitStrc* pUnit); // 0x00621B00
 int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nCollisionMask); // 0x00622AA0
 int __stdcall WINDOW_GetState(); // 0x004F6070
 int __stdcall SFileCloseFile(void* pArg); // 0x004198D0
-int __stdcall sub_00420320_RegisterHandlers(void* pContext); // 0x00420320
+int __stdcall SMsgPopRegisterState(void* pContext); // 0x00420320
 int __stdcall sub_004334D0_CloseBox(int nArg); // 0x004334D0
 int __stdcall sub_004DA0B0_GetUnitGfxOffsetX(D2UnitStrc* pUnit); // 0x004DA0B0
 int __stdcall sub_004DA0F0_GetUnitGfxOffsetZ(D2UnitStrc* pUnit); // 0x004DA0F0

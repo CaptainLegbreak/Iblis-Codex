@@ -112,13 +112,13 @@ unsigned int __stdcall SMsgDoMessageLoop(SMSGIDLEPROC pfIdle, int bCleanUponQuit
 }
 
 // 0x00420310
-void* __cdecl sub_00420310()
+void* __cdecl SMsgGetDefaultWindow()
 {
     return gdwGlobal_007792F4;
 }
 
 // 0x00420320
-int __stdcall sub_00420320_RegisterHandlers(void* pContext)
+int __stdcall SMsgPopRegisterState(void* pContext)
 {
     sub_004269C0_RegisterHandler(0x534D5348, pContext);
     sub_004269C0_RegisterHandler(0x534D5349, pContext);
@@ -145,7 +145,7 @@ int __stdcall SMsgSetDefaultWindow(void* hWnd)
 }
 
 // 0x004208E0
-void __stdcall sub_004208E0_AddWndRec(void* hWnd)
+void __stdcall AddWindow(void* hWnd)
 {
     WNDREC* pNode = gWndRecList_00708860.NewNode(2, 0, 0);
     pNode->hWnd = hWnd;
@@ -188,7 +188,7 @@ static int __stdcall InternalRegister(unsigned int nType, HWND__* hWnd, unsigned
     VALIDATEEND;
     if (!FindWindow(hWnd))
     {
-        sub_004208E0_AddWndRec(hWnd);
+        AddWindow(hWnd);
     }
     return nValid ? SEvtRegisterHandler(nType, hWnd, nId, 0, pHandler) : 0;
 }
@@ -198,13 +198,13 @@ static int __stdcall InternalUnregister(unsigned int nType, HWND__* hWnd, unsign
 {
     if (!FindWindow(hWnd))
     {
-        sub_004208E0_AddWndRec(hWnd);
+        AddWindow(hWnd);
     }
     return SEvtUnregisterHandler(nType, hWnd, nId, pHandler);
 }
 
 // 0x00420AE0
-int sub_00420AE0_UnregisterAllWindows()
+int DeleteAllWindows()
 {
     while (WNDREC* pRec = gWndRecList_00708860.Head())
     {
@@ -325,7 +325,7 @@ int __stdcall SMsgUnregisterMessage(HWND__* hWnd, unsigned int nId, SMSGHANDLER 
 }
 
 // 0x00420CF0
-int __stdcall sub_00420CF0_WindowProc(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam)
+int __stdcall DispatcherWindowProc(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam)
 {
     int bUseResult = 0;
     int lResult = 0;
@@ -340,7 +340,7 @@ int __stdcall SMsgGetDispatcher(int a1)
     VALIDATEBEGIN;
     VALIDATE(!a1);
     VALIDATEEND;
-    return nValid ? (int)&sub_00420CF0_WindowProc : 0;
+    return nValid ? (int)&DispatcherWindowProc : 0;
 }
 
 // 0x00420D90

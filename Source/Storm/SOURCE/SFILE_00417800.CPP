@@ -35,7 +35,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
-void __cdecl sub_00415B90_InitCryptTable(); // 0x00415B90
+void __cdecl InitCryptTable(); // 0x00415B90
 extern D2CriticalSectionStrc gBasePathLock_00779068; // 0x00779068
 extern D2StormArchiveListStrc gArchiveList_00708354; // 0x00708354
 

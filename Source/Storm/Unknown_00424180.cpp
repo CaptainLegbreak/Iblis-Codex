@@ -147,7 +147,7 @@ struct D2StormBigStrc
     D2StormArrayBStrc tOutput;
 };
 
-unsigned int __stdcall sub_004213B0_FindLastSetBit(BigBuffer* pQueue);                              // 0x004213B0
+unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue);                              // 0x004213B0
 int __stdcall sub_004212F0_Compare(BigBuffer* pLeft, BigBuffer* pRight);                      // 0x004212F0
 int __stdcall sub_004242C0_BigOp(BigBuffer* pResult, BigBuffer* pA, BigBuffer* pB, BigStack* pStack); // 0x004242C0
 
@@ -172,8 +172,8 @@ inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
     return nLow;
 }
 
-void __stdcall sub_004221F0_AddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c); // 0x004221F0
-int __stdcall sub_00422570_CompareUInt(BigBuffer& a, unsigned int b); // 0x00422570
+void __stdcall BigAddUInt(BigBuffer& a, const BigBuffer& b, unsigned int c); // 0x004221F0
+int __stdcall BigCompareUInt(BigBuffer& a, unsigned int b); // 0x00422570
 
 void __stdcall sub_004225C0_DivUInt(BigBuffer& a, unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c); // 0x004225C0
 
@@ -186,7 +186,7 @@ static int IsZero(BigBuffer& a)
 }
 
 // 0x004227A0
-static void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c)
+static void __stdcall BigMulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c)
 {
     unsigned __int64 nCarry = 0;
     unsigned int i = 0;
@@ -243,7 +243,7 @@ static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput
         sub_004225C0_DivUInt(tBuffer, &nDigit, tBuffer, 10);
         unsigned char nChar = (unsigned char)(nDigit + '0');
         tOutput.Add(1, &nChar);
-    } while (sub_00422570_CompareUInt(tBuffer, 0));
+    } while (BigCompareUInt(tBuffer, 0));
     unsigned int nCount = tOutput.f_4;
     for (unsigned int i = 0; i < nCount / 2; i++)
     {
@@ -276,7 +276,7 @@ void __stdcall SBigFromUnsigned(D2StormBigStrc* pBig, unsigned int nValue)
 // 0x004238D0
 void __stdcall SBigInc(D2StormBigStrc* pResult, D2StormBigStrc* pA)
 {
-    sub_004221F0_AddUInt(pResult->tPrimary, pA->tPrimary, 1);
+    BigAddUInt(pResult->tPrimary, pA->tPrimary, 1);
 }
 
 // 0x00423910
@@ -373,7 +373,7 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
     BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
     BigBuffer& tDiv = tStack.f_0[tStack.nUsed++];
     BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
-    unsigned int nShift = 31 - (sub_004213B0_FindLastSetBit(&d) & 31);
+    unsigned int nShift = 31 - (BigHighBitIndex(&d) & 31);
     Shl(tRem, c, nShift);
     Shl(tDiv, d, nShift);
     unsigned int nTop = tDiv.Ref(nDCount - 1) + 1;
@@ -390,7 +390,7 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
             a.Ref(0) = (unsigned int)(MakeLarge(tRem.Ref(nDCount - 1), tRem.Ref(nDCount)) / nTop);
         if (a.Ref(0))
         {
-            sub_004227A0_MulUInt(tProduct, tDiv, a.Ref(0));
+            BigMulUInt(tProduct, tDiv, a.Ref(0));
             sub_00423100_Sub(tRem, tRem, tProduct);
         }
         while (tRem.At(nDCount) || sub_004212F0_Compare(&tRem, &tDiv) >= 0)
@@ -428,7 +428,7 @@ static void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tS
     tStack.nUsed -= 2;
 }
 
-void __stdcall sub_004245F0_MulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x004245F0
+void __stdcall BigMulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x004245F0
 // 0x00424E70
 void __stdcall SBigDiv(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
@@ -456,5 +456,5 @@ void __stdcall SBigMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
 // 0x00424F30
 void __stdcall SBigMulMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, D2StormBigStrc* pC)
 {
-    sub_004245F0_MulMod(pResult->tPrimary, pA->tPrimary, pB->tPrimary, pC->tPrimary, pResult->tStack);
+    BigMulMod(pResult->tPrimary, pA->tPrimary, pB->tPrimary, pC->tPrimary, pResult->tStack);
 }

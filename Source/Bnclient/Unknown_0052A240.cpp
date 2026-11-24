@@ -5,7 +5,7 @@ int __stdcall sub_004238B0(void* hBig, unsigned int nValue); // 0x004238B0
 int __stdcall sub_00423850(void* hBig, const void* pData, unsigned int nSize); // 0x00423850
 void __stdcall SBigToBinaryBuffer(void* hBig, void* pBuffer, unsigned int nSize, unsigned int* pRead); // 0x00423B30
 void __stdcall sub_00424E40(void* hBig); // 0x00424E40
-int __stdcall sub_00421530(void* hLeft, void* hRight); // 0x00421530
+int __stdcall SBigCompare(void* hLeft, void* hRight); // 0x00421530
 int __stdcall sub_00423A80(void* hResult, void* hLeft, void* hRight); // 0x00423A80
 int __stdcall sub_00423790(void* hResult, void* hLeft, void* hRight); // 0x00423790
 int __stdcall sub_00423AC0(void* hResult, void* hLeft, void* hRight); // 0x00423AC0
@@ -50,7 +50,7 @@ int __fastcall sub_0052A2F0_BigCompareUnsigned(void* hBig, unsigned int nValue)
     void* hValue;
     sub_00423950(&hValue);
     sub_004238B0(hValue, nValue);
-    const int nResult = sub_00421530(hBig, hValue);
+    const int nResult = SBigCompare(hBig, hValue);
     sub_00424E40(hValue);
     return nResult;
 }
@@ -171,7 +171,7 @@ void __fastcall sub_0052A5B0_BigOpUnsigned_425330(void* hResult, void* hArg1, un
 // 0x0052A2E0
 int __fastcall sub_0052A2E0_BigCompare(void* hLeft, void* hRight)
 {
-    return sub_00421530(hLeft, hRight);
+    return SBigCompare(hLeft, hRight);
 }
 
 // 0x0052A5F0

@@ -26,7 +26,7 @@ int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
 
 int __fastcall FOG_FGetFileSize(void*,unsigned int*);  // 0x00406930
 
-int __stdcall sub_00416230_GetFileName(void*,char*,unsigned int);
+int __stdcall CopyFileRecName(void*,char*,unsigned int); // 0x00416230
 
 #define FAIL_LINE 0x5F
 
@@ -82,7 +82,7 @@ unsigned int __fastcall ARCHIVE_GetFileSize(void* unused,void* file,unsigned int
  D2_ASSERT(file,NULL_LINE);
  unsigned int size=FOG_FGetFileSize(file,high);
  if(!size) {
-  sub_00416230_GetFileName(file,name,NAME_SIZE);
+  CopyFileRecName(file,name,NAME_SIZE);
   D2_ASSERT(0,FAIL_LINE);
  }
  return size;
@@ -99,7 +99,7 @@ int __fastcall ARCHIVE_SetFilePointer(void* unused, void* file, long nOffset, lo
         return nResult;
     }
 
-    sub_00416230_GetFileName(file, name, 0x104);
+    CopyFileRecName(file, name, 0x104);
     D2_ASSERT(0, 0x79);
 }
 
@@ -112,7 +112,7 @@ void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuf
     if (!FOG_FReadFile(hFile, pBuffer, dwBytesToRead, &dwBytes, 0, 0, 0))
     {
         char szArchivePath[0x104];
-        sub_00416230_GetFileName(hFile, szArchivePath, sizeof(szArchivePath));
+        CopyFileRecName(hFile, szArchivePath, sizeof(szArchivePath));
         D2_ASSERT(0, 0x8F);
     }
 

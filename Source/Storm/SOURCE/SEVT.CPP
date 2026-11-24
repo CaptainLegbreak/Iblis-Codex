@@ -33,7 +33,7 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 void __cdecl operator delete(void* pMemory);                                                                // 0x004053F0
 
-static inline D2StormEventTypeStrc* sub_00426270(unsigned int nType, unsigned int nSubType);
+static inline D2StormEventTypeStrc* FindEventType(unsigned int nType, unsigned int nSubType); // 0x00426270
 
 struct BREAKCMD
 {
@@ -107,7 +107,7 @@ void __stdcall CopyIdHashTable(_IDHASHTABLE* pDest, _IDHASHTABLE* pSource)
 }
 
 // 0x00426210
-static void __cdecl sub_00426210_DeleteHandlerTable(_IDHASHTABLE* pTable)
+static void __cdecl DeleteHandlerTable(_IDHASHTABLE* pTable)
 {
     for (unsigned int i = 0; i < pTable->nSize; i++)
     {
@@ -123,7 +123,7 @@ static void __cdecl sub_00426210_DeleteHandlerTable(_IDHASHTABLE* pTable)
 }
 
 // 0x00426270
-static inline D2StormEventTypeStrc* sub_00426270(unsigned int nType, unsigned int nSubType)
+static inline D2StormEventTypeStrc* FindEventType(unsigned int nType, unsigned int nSubType)
 {
     if (!gppSEvtTypes_00779300 || !gnSEvtTypeTableSize_00779304)
         return 0;
@@ -134,7 +134,7 @@ static inline D2StormEventTypeStrc* sub_00426270(unsigned int nType, unsigned in
     return pType;
 }
 
-#define DELETE_TABLE sub_00426210_DeleteHandlerTable
+#define DELETE_TABLE DeleteHandlerTable
 
 // 0x004262B0
 int __stdcall SEvtDestroy()
@@ -170,7 +170,7 @@ int __stdcall SEvtPushState(unsigned int nType, unsigned int nSubType)
 {
     int bResult = 0;
     EnterCriticalSection(&gtSEvtLock);
-    D2StormEventTypeStrc* pType = sub_00426270(nType, nSubType);
+    D2StormEventTypeStrc* pType = FindEventType(nType, nSubType);
     if (pType)
     {
         _IDHASHTABLE* pState = (_IDHASHTABLE*)SMemAlloc(sizeof(_IDHASHTABLE), gszSEvtCpp, 284, 0);
@@ -201,7 +201,7 @@ int __stdcall SEvtRegisterHandler(unsigned int nType, unsigned int nSubType, uns
     VALIDATEEND;
 
     EnterCriticalSection(&gtSEvtLock);
-    D2StormEventTypeStrc* pType = sub_00426270(nType, nSubType);
+    D2StormEventTypeStrc* pType = FindEventType(nType, nSubType);
     if (!pType)
     {
         if (gnSEvtTypeCount_00779308 >= gnSEvtTypeTableSize_00779304 / 2)
@@ -293,7 +293,7 @@ int __stdcall SEvtUnregisterHandler(unsigned int nType, unsigned int nSubType, u
 {
     int bResult = 0;
     EnterCriticalSection(&gtSEvtLock);
-    D2StormEventTypeStrc* pType = sub_00426270(nType, nSubType);
+    D2StormEventTypeStrc* pType = FindEventType(nType, nSubType);
     if (pType && pType->pHandlers->ppTable && pType->pHandlers->nSize)
     {
         const unsigned int nKey = nId;
@@ -322,7 +322,7 @@ int __stdcall SEvtUnregisterType(unsigned int nType, unsigned int nSubType)
 {
     int bResult = 0;
     EnterCriticalSection(&gtSEvtLock);
-    D2StormEventTypeStrc* pType = sub_00426270(nType, nSubType);
+    D2StormEventTypeStrc* pType = FindEventType(nType, nSubType);
     if (pType)
     {
         _IDHASHTABLE* pState;
@@ -358,7 +358,7 @@ int __stdcall SEvtPopState(unsigned int nType, unsigned int nSubType)
 {
     int bResult = 0;
     EnterCriticalSection(&gtSEvtLock);
-    D2StormEventTypeStrc* pType = sub_00426270(nType, nSubType);
+    D2StormEventTypeStrc* pType = FindEventType(nType, nSubType);
     if (pType)
     {
         _IDHASHTABLE* pState = pType->pHandlers;
@@ -453,7 +453,7 @@ int __stdcall SEvtDispatch(unsigned int nType, unsigned int nSubType, unsigned i
         if (!pHandler || gbSEvtModified_007792F8)
         {
             pHandler = 0;
-            D2StormEventTypeStrc* pType = sub_00426270(nType, nSubType);
+            D2StormEventTypeStrc* pType = FindEventType(nType, nSubType);
             if (pType && pType->pHandlers->ppTable && pType->pHandlers->nSize)
             {
                 for (pHandler = pType->pHandlers->ppTable[(pType->pHandlers->nSize - 1) & nId]; pHandler; pHandler = pHandler->pNext)

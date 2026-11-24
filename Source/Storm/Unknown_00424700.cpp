@@ -184,7 +184,7 @@ struct BigStack
     }
 };
 
-unsigned int __stdcall sub_004213B0_FindLastSetBit(BigBuffer* pQueue); // 0x004213B0
+unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue); // 0x004213B0
 int __stdcall sub_004212F0_Compare(BigBuffer* pLeft, BigBuffer* pRight); // 0x004212F0
 int __stdcall sub_004242C0_BigOp(BigBuffer* pResult, BigBuffer* pA, BigBuffer* pB, BigStack* pStack); // 0x004242C0
 extern const unsigned char gabSBigRandMul_006CFF60[8] = { 0x50, 0x46, 0x00, 0x00, 0x69, 0x90, 0x00, 0x00 }; // 0x006CFF60
@@ -211,13 +211,13 @@ inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
     return nLow;
 }
 
-static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00422300
+static void __stdcall BigAdd(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00422300
 static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift); // 0x00422D00
 static void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift); // 0x00422E70
 static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x00423DC0
 
 // 0x00422300
-static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
+static void __stdcall BigAdd(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned __int64 nCarry = 0;
     unsigned int i = 0;
@@ -232,7 +232,7 @@ static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const B
 void __stdcall sub_004225C0_DivUInt(unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c, BigBuffer& a); // 0x004225C0
 
 // 0x004227A0
-static void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c)
+static void __stdcall BigMulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c)
 {
     unsigned __int64 nCarry = 0;
     unsigned int i = 0;
@@ -311,7 +311,7 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
     BigBuffer& tDiv = tStack.f_0[tStack.nUsed++];
     __assume(tStack.nUsed < 16);
     BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
-    unsigned int nShift = 31 - (sub_004213B0_FindLastSetBit(&d) & 31);
+    unsigned int nShift = 31 - (BigHighBitIndex(&d) & 31);
     Shl(tRem, c, nShift);
     Shl(tDiv, d, nShift);
     unsigned int nLastDigit = nDCount - 1;
@@ -335,7 +335,7 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
         }
         if (a.Ref(0))
         {
-            sub_004227A0_MulUInt(tProduct, tDiv, a.Ref(0));
+            BigMulUInt(tProduct, tDiv, a.Ref(0));
             sub_00423100_Sub(tRem, tRem, tProduct);
         }
         while (tRem.At(nDCount) || sub_004212F0_Compare(&tRem, &tDiv) >= 0)
@@ -384,12 +384,12 @@ void __stdcall Rand(BigBuffer* pResult, BigBuffer* pModulus, BigBuffer* pSeed, B
     {
         sub_004242C0_BigOp(&s, &s, &tMul, pStack);
         Shr(tTemp, s, 16);
-        sub_00422300_Add(s, tTemp, s);
+        BigAdd(s, tTemp, s);
         s.SetCountInline(2);
         Shl(r, r, 32);
-        sub_00422300_Add(r, r, s);
+        BigAdd(r, r, s);
         Shr(tTemp, s, 32);
-        sub_00422300_Add(r, r, tTemp);
+        BigAdd(r, r, tTemp);
     }
     Div(tTemp, r, r, *pModulus, *pStack);
 

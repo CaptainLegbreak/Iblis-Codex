@@ -118,7 +118,8 @@ void __fastcall sub_00451EB0_UnregisterWindowHandlers(void* hWnd)
     {
         SCMD_UnregisterMsgHandler(hWnd, gaWindowMsgHandlers[i].nType, gaWindowMsgHandlers[i].nId, (SMSGHANDLER)gaWindowMsgHandlers[i].pfnHandler);
     }
-    sub_00420320_RegisterHandlers(hWnd);
+// build: symbol ?SMsgPopRegisterState@* 0x00420320
+    SMsgPopRegisterState(hWnd);
 }
 
 #include "gen/data/Source/D2Client/Unknown_00451E70.inc"

@@ -195,9 +195,9 @@ void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 
 void __cdecl SMemInitialize(); // 0x00411CD0
 
-void __cdecl sub_00411A20_InitPageSize(); // 0x00411A20
+void __cdecl InitPageSize(); // 0x00411A20
 
-void __fastcall sub_00411A80_ReleaseBlock(D2SMemHeapStrc** ppLink); // 0x00411A80
+void __fastcall UnlinkAndFreeHeap(D2SMemHeapStrc** ppLink); // 0x00411A80
 
 void __cdecl AUTOMAP_ReleaseFreeBlocks(); // 0x00412000
 
@@ -229,9 +229,9 @@ extern int gbHeapInitialized_007788D0; // 0x007788D0
 
 extern int gnFlag_00779098; // 0x00779098
 
-static void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError);
+static void __stdcall ReportHeapError(const char* szFile, int nLine, unsigned int nError); // 0x004117A0
 
-static void sub_00411AA0_FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock);
+static void FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock); // 0x00411AA0
 
 void* __stdcall SMemHeapAlloc(unsigned int hHeap, unsigned int dwFlags, unsigned int nSize);
 

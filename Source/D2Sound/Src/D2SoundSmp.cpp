@@ -62,7 +62,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 void __cdecl sub_00419F30(); // 0x00419F30
 
-int __stdcall sub_0041A990(void* hStream); // 0x0041A990
+int __stdcall SFileDdaEnd(void* hStream); // 0x0041A990
 
 D2DirectSoundStrc* __cdecl D2SOUND_GetDirectSound(); // 0x00513B50
 
@@ -957,7 +957,7 @@ void __fastcall D2SOUND_CloseSoundStream(D2SoundStrc* pSound)
     EnterCriticalSection(&gtSoundLock);
     if (pSound->hStream)
     {
-        sub_0041A990(pSound->hStream);
+        SFileDdaEnd(pSound->hStream);
         pSound->pBuffer->Stop();
         FOG_FCloseFile(pSound->hStream);
         pSound->hStream = 0;

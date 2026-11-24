@@ -72,7 +72,7 @@ extern "C" int gnSoundSerial;
 // build: symbol _gnSubsystemActive 0x007A0458
 extern "C" int gnSubsystemActive;
 
-void __cdecl sub_004142A0_InitPowTable(); // 0x004142A0
+void __cdecl InitPowTable(); // 0x004142A0
 
 extern "C" void __cdecl CMNSUBTILE_BuildGouraudCache(); // 0x004F7CC0
 
@@ -100,7 +100,7 @@ unsigned char* gpScreenBuffer; // 0x007D5448
 
 int gnLightingOff; // 0x007D2340
 
-extern "C" void __cdecl sub_00414360_CallThenSetFlag(); // 0x00414360
+extern "C" void __cdecl SStrInitialize(); // 0x00414360
 
 // 0x004F8DC0
 extern "C" void __cdecl sub_004F8DC0_InitLookupTable()
