@@ -62,7 +62,6 @@ struct D2WarpDelayStrc;
 
 struct D2WarpEventArgStrc;
 
-struct R0052E0F0;
 
 struct R00601DC0;
 
@@ -230,13 +229,6 @@ void __stdcall UNITS_BlockCollisionPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRo
 int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit); // 0x00621F20
 
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
-
-struct R0052E0F0
-{
-    void* pUnk0x00;
-    void* m_pFile;
-    bool sub_0052E0F0_IsOpen();
-};
 
 struct R00601DC0
 {
@@ -652,12 +644,6 @@ void __fastcall SKILLS_ScaleUpDirection(int* pX, int* pY)
         *pX <<= 1;
         *pY <<= 1;
     }
-}
-
-// 0x0052E0F0
-bool R0052E0F0::sub_0052E0F0_IsOpen()
-{
-    return m_pFile != 0;
 }
 
 inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
