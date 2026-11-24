@@ -14,6 +14,11 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - lane9/atl-d3dcore: ready (below). Next: D2Hell object map; renderer-run strays wait on the question below.
 
 ## Ready
+- lane9/join-d3dsprite 9c8c723f 4->2 units (d3dSprite group: Unknown_006B5C80.cpp and d3dSprite_006B5CF0.cpp go;
+  d3dSprite.cpp now owns 0x6B5C80 and 0x6B5CF0, which it already defined). Base main 89693ff5 (#333).
+  Precheck: no changed units (deletions only; d3dSprite.cpp and the remaining piece built: 0 not all equal).
+  Full verify: VERIFIED tree 0eb9d35e. Every d3dSprite unit builds equal with and without /GS-, so flags don't keep
+  the group apart; d3dSprite_006B5D40.cpp stays until its shims are reconciled with the main file's.
 - lane9/atl-d3dcore 7581b2b5 1->0 placeholders (D2Direct3D/Unknown_006B1A00.cpp joined into d3dCore.cpp). Base main c4ce2baa (#331).
   Precheck: 0 not all equal. Full verify on #331: VERIFIED tree 48d58fc0 (borrowed data 2,380 B on the branch; see the 2 B note below).
   The ATL object is the head of d3dCore.cpp, as lane 3 thought: d3dCore includes atlbase.h, so atldef.h's Thank_you,
