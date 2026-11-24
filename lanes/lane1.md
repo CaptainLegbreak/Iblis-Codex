@@ -4,11 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/object-strays 2d38a8344 0->0 Object.cpp takes 0x4BDF30 (Item.cpp) and 0x4BDFD0 (Unknown_004BDFD0.cpp), both inside its code run (0x4BC580-0x4BE01F) between 0x4BDEE0 and 0x4BDFE0. 0x4BDFD0 returns the object's owner name, pUnit->pObjectData->szOwner (D2ObjectDataStrc +0x28), which the placeholder spelled through two made-up records; written on the real ones, they go. Borrowed data 880 b, as main; VERIFIED e46c89f14ad27fb73b31f6703b01ef45a3dd97dd (based on main #362).
+- lane1/object-strays-2 4b05a5932 0->0 Object.cpp takes 0x4BDF30 (Item.cpp) and 0x4BDFD0 (Unknown_004BDFD0.cpp), both inside its code run (0x4BC580-0x4BE01F) between 0x4BDEE0 and 0x4BDFE0. 0x4BDFD0 returns the object's owner name, pUnit->pObjectData->szOwner (D2ObjectDataStrc +0x28), which the placeholder spelled through two made-up records; written on the real ones, they go. Borrowed data 880 b, as main; VERIFIED e46c89f14ad27fb73b31f6703b01ef45a3dd97dd (based on main #362).
   - Tried, not moved: 0x4BC500 (Unknown_004BC500.cpp, just before Object.cpp's run) turns Object.cpp's 0x4BD900 unequal there; Unknown_004BC1B0_004BE770.cpp's 0x4BE770/0x4BE7C0 turn 0x4BF430 unequal in Unknown_004BC1B0.cpp (that is why it was split off).
-
-- lane1/npcmenu-strays-2 ed85ff3c3 -1 placeholder (Unknown_004B6390.cpp) two commits on #362 (replaces npcmenu-strays; rebased, docs/index.html conflicts only). (1) npcmenu.cpp takes 0x4B6C70/0x4B6D10/0x4B6DA0 (Unknown_004B6390.cpp): in npcmenu's run, on its .bss (0x7C0C6B, 0x7C0C7D, 0x7C0D25-0x7C0D6B), gaNpcEntries and gaNpcMenuEntries, called by npcmenu's own code; gData_00726C56 (the menu entry pointing at 0x4B6C70 and NPCMENU_OpenTradeShop) comes along and loses its extern. (2) dialog.cpp takes its first two functions: 0x4B70F0 (Monster.cpp; returns dialog.cpp's gpDialogList 0x7C0E54) and 0x4B7100 (Unknown_004B5810.cpp; steps a dialog's selection, called by dialog.cpp's wheel/select handlers with register arguments). dialog.cpp already had 0x4B7100's body as an unmarked context copy, which is now the function; Unknown_004B5810.cpp drops its context copies of dialog.cpp's five handlers. Borrowed data 880 b, as main; VERIFIED e720e781f124237ea16395dbb7cca5bd2b56c52c
-  - Not npcmenu.cpp's as built, though they sit in its run on its .bss: 0x4B5BC0 (Unknown_004B5810.cpp: 0x4B18C0 changes with it there), 0x4B17A0/0x4B1D70 (Unknown_004A9BD0.cpp: 0x4B5C00/0x4B6D10 inline 0x4B1D70, the original calls it) and Monster.cpp's 0x4B17D0-0x4B1800/0x4B1D50/0x4B1DC0 (they don't build equal there). The calls the original keeps out of line suggest npcmenu.cpp's run is more than one unit; left for an object map.
 
 
 ## In progress
@@ -37,6 +34,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 - All lanes: the struct-count effect also covers plain declarations. In inv_004886C0.cpp, 0x488B00 changes with one fewer or one more `extern int` in scope (D2Client.h lines included). GetHitSounds (0x4CA560) now matches only with +4..+6 dummy structs, not +2..+4 as on #283. Header edits that add or remove declarations can flip such functions in units that never use them.
 
 ## Left in place (and why)
+
+- npcmenu.cpp's run, not npcmenu.cpp's as built, though they sit in its run on its .bss: 0x4B5BC0 (Unknown_004B5810.cpp: 0x4B18C0 changes with it there), 0x4B17A0/0x4B1D70 (Unknown_004A9BD0.cpp: 0x4B5C00/0x4B6D10 inline 0x4B1D70, the original calls it) and Monster.cpp's 0x4B17D0-0x4B1800/0x4B1D50/0x4B1DC0 (they don't build equal there). The calls the original keeps out of line suggest npcmenu.cpp's run is more than one unit; left for an object map.
 
 - SoundInst.cpp pieces: 0x4B95C0 (Unknown_004B93F0.cpp) on SoundInst's types builds, but in SoundInst.cpp it inlines 0x4B9590, which the original calls; 0x4B9B50 in SoundInst.cpp turns 0x4B9EF0 unequal. Both may be what they look like: code outside SoundInst.cpp's unit.
 
