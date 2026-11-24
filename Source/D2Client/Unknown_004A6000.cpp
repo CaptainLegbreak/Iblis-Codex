@@ -73,47 +73,7 @@ void __stdcall sub_004A63B0_WheelMsgHandler(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
-// 0x004A6A70
-void __cdecl sub_004A6A70_DrawLeftPanelButton()
-{
-    if (D2GFX_GetResolutionMode() != 2)
-    {
-        return;
-    }
 
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.nDirection = 0;
-    tContext.pCellFile = gpLevelCel;
-    tContext.nFrame = 2;
-    if (sub_004A65E0_IsInLeftButton() && !GAME_GetUIVarState(9))
-    {
-        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF92), gnScreenWidth / 2 - 0xB3, gnScreenHeight - 0x32, 0, 1);
-    }
-
-    sub_004F6480(&tContext, gnScreenWidth / 2 - 0xC2, gnScreenHeight - 8, -1, 5, 0);
-}
-
-// 0x004A6DA0
-void __cdecl sub_004A6DA0_DrawRightPanelButton()
-{
-    if (D2GFX_GetResolutionMode() != 2)
-    {
-        return;
-    }
-
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.nDirection = 0;
-    tContext.pCellFile = gpLevelCel;
-    tContext.nFrame = 2;
-    if (sub_004A6690_IsInRightButton() && !GAME_GetUIVarState(9))
-    {
-        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF93), gnScreenWidth / 2 + 0xB2, gnScreenHeight - 0x32, 0, 1);
-    }
-
-    sub_004F6480(&tContext, gnScreenWidth / 2 + 0xA3, gnScreenHeight - 8, -1, 5, 0);
-}
 
 // 0x004A8DF0
 void __fastcall sub_004A8DF0_DrawKeyLabel(int nKeyId, int nX, int nY, int nColor)

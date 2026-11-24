@@ -9495,11 +9495,6 @@ void __stdcall sub_004A17D0(SMSGHANDLER_PARAMS* pMsg)
     sub_004A1770(pMsg);
 }
 
-// 0x004A7A80
-extern "C" void __cdecl INV_ClearGoldDialogFlag()
-{
-    gnFlag_007C02EC = 0;
-}
 
 // 0x004AA0C0
 void __fastcall INV_SetHotkeySkillSlot(int nSlot, int nValueA, int nValueB, int nValueC)

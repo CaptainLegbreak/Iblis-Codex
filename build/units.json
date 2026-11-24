@@ -15081,11 +15081,6 @@
      "name": "sub_004A17D0"
     },
     {
-     "va": "0x004A7A80",
-     "length": 11,
-     "name": "_INV_ClearGoldDialogFlag"
-    },
-    {
      "va": "0x004AA0C0",
      "length": 34,
      "name": "INV_SetHotkeySkillSlot"
@@ -23987,6 +23982,60 @@
      "name": "?TEXT_QuestLButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x004B23E0",
+     "length": 192,
+     "name": "?TEXT_InitNpcMenu@@YAXXZ"
+    },
+    {
+     "va": "0x004B9010",
+     "length": 66,
+     "name": "?TEXT_SetNameFromPacket@@YIXPAUD2NamePacketStrc@@@Z"
+    },
+    {
+     "va": "0x004BF2F0",
+     "length": 306
+    },
+    {
+     "va": "0x004E48B0",
+     "length": 268,
+     "name": "?TEXT_AppendUndeadDamageBonus@@YIXPAUD2UnitStrc@@PAUUnicode@@H@Z"
+    },
+    {
+     "va": "0x004E6720",
+     "length": 163,
+     "name": "?TEXT_BuildItemPropTextB@@YIXPAUD2UnitStrc@@HHPAUUnicode@@HH@Z"
+    },
+    {
+     "va": "0x004ED3F0",
+     "length": 142,
+     "name": "?TEXT_DrawHintText@@YGXHH@Z"
+    },
+    {
+     "va": "0x006CACD0",
+     "length": 10
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_004A6460.cpp",
+   "rank": 0,
+   "functions": [
+    {
      "va": "0x004A6460",
      "length": 31,
      "name": "?TEXT_LoadLevelCels@@YAXXZ"
@@ -24000,6 +24049,11 @@
      "va": "0x004A64C0",
      "length": 177,
      "name": "?TEXT_UpdateLevelUpButtons@@YAXXZ"
+    },
+    {
+     "va": "0x004A6580",
+     "length": 85,
+     "name": "TEXT_IsInPanelButton"
     },
     {
      "va": "0x004A65E0",
@@ -24039,6 +24093,11 @@
      "name": "?TEXT_IsStatButtonHidden@@YG_NH@Z"
     },
     {
+     "va": "0x004A6A70",
+     "length": 178,
+     "name": "sub_004A6A70_DrawLeftPanelButton"
+    },
+    {
      "va": "0x004A6B30",
      "length": 537,
      "name": "?TEXT_DrawStatButton@@YAXXZ"
@@ -24049,9 +24108,19 @@
      "name": "?TEXT_IsSkillButtonHidden@@YG_NH@Z"
     },
     {
+     "va": "0x004A6DA0",
+     "length": 178,
+     "name": "sub_004A6DA0_DrawRightPanelButton"
+    },
+    {
      "va": "0x004A6E60",
      "length": 538,
      "name": "?TEXT_DrawSkillButton@@YAXXZ"
+    },
+    {
+     "va": "0x004A7080",
+     "length": 60,
+     "name": "TEXT_DrawCenteredText"
     },
     {
      "va": "0x004A70C0",
@@ -24082,6 +24151,11 @@
      "name": "?TEXT_SplitAtNewline@@YIHPAUUnicode@@PAPAU1@@Z"
     },
     {
+     "va": "0x004A76C0",
+     "length": 92,
+     "name": "?sub_004A76C0_ClaimLeftPanelClick@@YAHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x004A7720",
      "length": 411,
      "name": "?sub_004A7720_OnLButtonDown@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
@@ -24092,9 +24166,19 @@
      "name": "?sub_004A78C0_OnLButtonUp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x004A7A80",
+     "length": 11,
+     "name": "_INV_ClearGoldDialogFlag"
+    },
+    {
      "va": "0x004A7A90",
      "length": 11,
      "name": "?TEXT_SetGoldDialogFlag@@YAXXZ"
+    },
+    {
+     "va": "0x004A7AA0",
+     "length": 41,
+     "name": "?sub_004A7AA0_InitTextEntryLengths@@YAXXZ"
     },
     {
      "va": "0x004A7AD0",
@@ -24102,37 +24186,13 @@
      "name": "?sub_004A7AD0@@YAXXZ"
     },
     {
-     "va": "0x004B23E0",
-     "length": 192,
-     "name": "?TEXT_InitNpcMenu@@YAXXZ"
+     "va": "0x004A7D00",
+     "length": 3272
     },
     {
-     "va": "0x004B9010",
-     "length": 66,
-     "name": "?TEXT_SetNameFromPacket@@YIXPAUD2NamePacketStrc@@@Z"
-    },
-    {
-     "va": "0x004BF2F0",
-     "length": 306
-    },
-    {
-     "va": "0x004E48B0",
-     "length": 268,
-     "name": "?TEXT_AppendUndeadDamageBonus@@YIXPAUD2UnitStrc@@PAUUnicode@@H@Z"
-    },
-    {
-     "va": "0x004E6720",
-     "length": 163,
-     "name": "?TEXT_BuildItemPropTextB@@YIXPAUD2UnitStrc@@HHPAUUnicode@@HH@Z"
-    },
-    {
-     "va": "0x004ED3F0",
-     "length": 142,
-     "name": "?TEXT_DrawHintText@@YGXHH@Z"
-    },
-    {
-     "va": "0x006CACD0",
-     "length": 10
+     "va": "0x004A89D0",
+     "length": 69,
+     "name": "?sub_004A89D0_SkillDescRec@@YIPAUD2SkillDescTxt@@H@Z"
     }
    ],
    "flags": [
@@ -25272,16 +25332,6 @@
      "name": "TEXT_ButtonCaptureMsg"
     },
     {
-     "va": "0x004A6580",
-     "length": 85,
-     "name": "TEXT_IsInPanelButton"
-    },
-    {
-     "va": "0x004A7080",
-     "length": 60,
-     "name": "TEXT_DrawCenteredText"
-    },
-    {
      "va": "0x004A8D50",
      "length": 153,
      "name": "TEXT_UpdateSkillButtonHover"
@@ -25752,16 +25802,6 @@
      "name": "sub_004A63B0_WheelMsgHandler"
     },
     {
-     "va": "0x004A6A70",
-     "length": 178,
-     "name": "sub_004A6A70_DrawLeftPanelButton"
-    },
-    {
-     "va": "0x004A6DA0",
-     "length": 178,
-     "name": "sub_004A6DA0_DrawRightPanelButton"
-    },
-    {
      "va": "0x004A8DF0",
      "length": 210,
      "name": "sub_004A8DF0_DrawKeyLabel"
@@ -26131,25 +26171,6 @@
    "file": "Source/D2Client/Unknown_004A76C0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004A76C0",
-     "length": 92,
-     "name": "?sub_004A76C0_ClaimLeftPanelClick@@YAHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004A7AA0",
-     "length": 41,
-     "name": "?sub_004A7AA0_InitTextEntryLengths@@YAXXZ"
-    },
-    {
-     "va": "0x004A7D00",
-     "length": 3272
-    },
-    {
-     "va": "0x004A89D0",
-     "length": 69,
-     "name": "?sub_004A89D0_SkillDescRec@@YIPAUD2SkillDescTxt@@H@Z"
-    },
     {
      "va": "0x004A8A30",
      "length": 452,
