@@ -7,9 +7,10 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 10:20 PT: place-m and place-n posted. Next: the remaining D2Common placeholders, by evidence.
+- 2026-11-24 11:00 PT: place-m, place-n, place-o posted. Next: Unknown_00627BB0, 006115F0, 00665810, 00647FB0/00648020.
 
 ## Ready
+- lane8/place-o 6d600a9d (on #356), VERIFIED a9687348. Two commits: Unknown_0066A1A0 takes in Unknown_0066A260 (two empty hooks after the cube-main getters; they replace the unit's own unmarked stand-ins for 0x66A260/0x66A270), and Unknown_00668510 takes in the rank-1 Unknown_006685C0 (its functions sit between 00668510's; MakeCode keeps __declspec(noinline); builds equal without /GS-). Units -2.
 - lane8/place-n 5ebd3d58 (on #356), VERIFIED 56bab2bf. ItemTbls.cpp takes in Unknown_00631430 (0x631430/0x631490/0x631530, the calc callbacks ItemCalcLinker hands to CompileExpression) and 0x6314A0 (ITEMS_ResolveItemCalcKeyword, from Items.cpp, sitting between them). Joined, 0x633F40 swapped two locals' stack slots; renaming the locals fixed it. Units -1.
 - lane8/place-m 46cc1111 (on #356), VERIFIED 8b3c8e1f. OutPlace.cpp takes in Unknown_00675850, 00675DE0, 006768C0 and 006769A0 (all inside its run, no copies). Link-table entries for 0x676450/0x676650/0x6768C0/0x6769A0 now point at the source functions. 00675850's four .rdata records (0x6F0620, 0x6F06F0, 0x6F1088, 0x6F112C) sit among OutPlace's tables and move with it. 0x6769A0 builds equal without /Ob1. Lane 7: OutPlace.cpp grows ~450 lines between 0x675DE0 and 0x676AE0; your 0x677880 edit is elsewhere in the file. Units -4.
 
@@ -23,6 +24,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - Lane 2 (path-records): if your records change Unknown_00679380.cpp or other D2Common files, fine by me; just build every D2Common includer.
 
 ## Left in place (and why)
+- Unknown_00627250 (0x6275B0) into StatsEx.cpp: the original inlines STATLIST_UnitGetStatValue but calls STATLIST_GetTotalStat out of line. In StatsEx the call goes to the `int nLayer` prototype (not inlined); fixing the prototype or adding an inline copy inlines GetTotalStat too. Not moved.
 - Unknown_0066AB70 / 0066AC40 / 0066AE70 + DrlgWarp.cpp's 0x66AC30-0x66B7F0 (one object by its language copy 0x749804): DrlgWarp.cpp includes D2Structs.h, while the pieces include D2Drlg.h and define their own D2DrlgLevelStrc/D2DrlgRoomStrc, so merged they don't compile. Needs a header-set decision first.
 - Unknown_006808F0 / 00681000 / 00681240 / 00681490: four placeholders for three language copies. 00681240 joins one neighbour, and joined into 00681000 it builds equal, but nothing yet says which neighbour (0x681420 calls into all of them). Not posted.
 - Unknown_0066FAD0, Unknown_0066FF50, Unknown_00670170 (all /GS-) and TileSub.cpp: same RoomTile object, but merged they bring third and fourth reconstructions of sub_0066F380 (one with an extra nLayer argument, from FAD0's context) and two versions of the seed roll. Next pass.
