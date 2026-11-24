@@ -6,10 +6,6 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct QServer;
-
-struct D2PacketBufferStrc;
-
 struct D2CriticalSectionStrc;
 
 struct D2QServerConfigStrc;
@@ -61,60 +57,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
-typedef int (__fastcall* D2NET_ValidatePacketCallback)(D2PacketBufferStrc*, int, int*, int*, int*, int*, int, int, int);
-
-typedef int (__fastcall* D2NET_ClientCallback)(QServer*, int, const char*, int);
-
-typedef int (__fastcall* D2NET_PacketCallback)(int, int, int, int);
-
-typedef int (__fastcall* D2NET_ReadPacketCallback)(QServer*, D2PacketBufferStrc*, int);
-
-struct QServer
-{
-    int bUseNt;
-    int unk004;
-    int nClientCapacity;
-    int nValue00C;
-    int nValue010;
-    D2QClientStrc** ppClientSlots;
-    int nClientSlotCount;
-    D2CriticalSectionStrc* pLocks;
-    void** ppSlots020;
-    int nSlotCount024;
-    D2CriticalSectionStrc tLock028;
-    void** ppSlots040;
-    int nSlotCount044;
-    char unk048[0x804];
-    D2QServerNodeStrc* pChain84C;
-    D2QServerNodeStrc* pChain850;
-    D2CriticalSectionStrc tLock854;
-    int nState;
-    void** ppSlots870;
-    void** ppSlots874;
-    D2QClientStrc* pClients;
-    int nSlotCount87C;
-    int nValue880;
-    int bStarted884;
-    unsigned int nSocket888;
-    D2QServerNodeStrc* pChain88C;
-    int nValue890;
-    D2CriticalSectionStrc tLock894;
-    D2QServerNodeStrc** ppBuckets;
-    int nBuckets;
-    D2CriticalSectionStrc tLock8B4;
-    char unk8CC[0x2C4];
-    unsigned int aSockets[4];
-    char unkBA0[0x20];
-    D2NET_ValidatePacketCallback pfCallback1;
-    D2NET_ClientCallback pfCallback2;
-    D2NET_PacketCallback pfCallback3;
-    D2NET_ReadPacketCallback pfReadPacket;
-    int nValueBD0;
-    char unkBD4[0x44];
-    int nValueC18;
-    char unkC1C[0x30];
-};
-
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int nFlags); // 0x0040B380
@@ -132,8 +74,6 @@ extern "C" const char gszQServerTag[]; // 0x006FC47C
 extern "C" const char gszQServerAllocated[]; // 0x006FC548
 
 void __stdcall QSERVER_LogHackListSize(int nSize); // 0x006BE6C0
-
-int __fastcall sub_006C0420_ProcessClient(QServer* pServer, int nClientId, const char* szFile, int nLine); // 0x006C0420
 
 const char* __stdcall sub_006B013E_FormatIP(unsigned int nIP); // 0x006B013E
 
@@ -189,7 +129,7 @@ extern "C" unsigned int __security_cookie; // 0x00749DE0
 
 extern "C" void __fastcall __security_check_cookie(unsigned int cookie); // 0x00681A48
 
-static void QSERVER_StartServer(QServer* pServer, int nValue); // 0x006BF520
+static void QSERVER_StartServer(D2QueueServerStrc* pServer, int nValue); // 0x006BF520
 
 const char* __stdcall sub_006B013E_FormatAddress(unsigned int nAddress); // 0x006B013E
 
@@ -1112,7 +1052,7 @@ int __stdcall sub_Emit_006BF500(D2QueueServerStrc* pServer, unsigned int nKey, c
 }
 
 // 0x006BF520
-static void QSERVER_StartServer(QServer* pServer, int nValue)
+static void QSERVER_StartServer(D2QueueServerStrc* pServer, int nValue)
 {
     D2WSADataStrc tWsaData;
     if (WSAStartup(0x101, &tWsaData))
@@ -1120,17 +1060,17 @@ static void QSERVER_StartServer(QServer* pServer, int nValue)
         return;
     }
 
-    if (pServer->bUseNt)
+    if (pServer->bAltSend)
     {
-        sub_006C3360_Startup((D2QueueServerStrc*)pServer, nValue);
+        sub_006C3360_Startup(pServer, nValue);
     }
     else
     {
-        QSERVER98_StartServer((D2QueueServerStrc*)pServer, nValue);
+        QSERVER98_StartServer(pServer, nValue);
     }
 }
 
-void __fastcall sub_Emit_006BF520(QServer* pServer, int nValue)
+void __fastcall sub_Emit_006BF520(D2QueueServerStrc* pServer, int nValue)
 {
     QSERVER_StartServer(pServer, nValue);
     QSERVER_StartServer(pServer, nValue);
@@ -1223,73 +1163,73 @@ void __cdecl sub_006BF750_Nop()
 }
 
 // 0x006BF760
-QServer* __stdcall QSInit(int nState, int nSlots, int nPort, int bDisableNt, D2NET_ValidatePacketCallback pfCallback1, D2NET_ClientCallback pfCallback2, D2NET_PacketCallback pfCallback3, D2NET_ReadPacketCallback pfReadPacket)
+D2QueueServerStrc* __stdcall QSInit(int nState, int nSlots, int nPort, int bDisableNt, D2MessageCallback pfnProcess, D2NewClientFn pfnOnNewClient, D2QRemoveCallback pfnOnRemove, D2QServerHandler pfnHandler)
 {
     D2WSADataStrc tWsaData;
 // build: symbol ?gszQServerCppFile@* 0x006FC460
-    QServer* pServer = (QServer*)FOG_Alloc(sizeof(QServer), gszQServerCppFile, 148, 0);
-    memset(pServer, 0, sizeof(QServer));
-    pServer->nClientCapacity = gnLockCount;
-    pServer->nValue00C = gnQServerClientCapacity;
-    pServer->nValue010 = gnQServerSlotCount;
-    pServer->nValueC18 = gnGlobal_00989C28;
-    pServer->nClientSlotCount = gnLockCount;
-    pServer->ppClientSlots = (D2QClientStrc**)FOG_Alloc(gnLockCount * sizeof(D2QClientStrc*), gszQServerCppFile, 159, 0);
-    memset(pServer->ppClientSlots, 0, gnLockCount * sizeof(D2QClientStrc*));
+    D2QueueServerStrc* pServer = (D2QueueServerStrc*)FOG_Alloc(sizeof(D2QueueServerStrc), gszQServerCppFile, 148, 0);
+    memset(pServer, 0, sizeof(D2QueueServerStrc));
+    pServer->nBuckets = gnLockCount;
+    pServer->nMask = gnQServerClientCapacity;
+    pServer->nIpBuckets = gnQServerSlotCount;
+    pServer->bInitialized = gnGlobal_00989C28;
+    pServer->nBucketCount = gnLockCount;
+    pServer->ppClients = (D2QClientStrc**)FOG_Alloc(gnLockCount * sizeof(D2QClientStrc*), gszQServerCppFile, 159, 0);
+    memset(pServer->ppClients, 0, gnLockCount * sizeof(D2QClientStrc*));
     pServer->pLocks = (D2CriticalSectionStrc*)FOG_Alloc(gnLockCount * sizeof(D2CriticalSectionStrc), gszQServerCppFile, 162, 0);
     memset(pServer->pLocks, 0, gnLockCount * sizeof(D2CriticalSectionStrc));
     for (int i = 0; i < gnLockCount; ++i)
         InitializeCriticalSection(&pServer->pLocks[i]);
-    pServer->nSlotCount024 = gnLockCount;
-    pServer->ppSlots020 = (void**)FOG_Alloc(gnLockCount * sizeof(void*), gszQServerCppFile, 169, 0);
-    memset(pServer->ppSlots020, 0, gnLockCount * sizeof(void*));
-    InitializeCriticalSection(&pServer->tLock028);
-    pServer->nSlotCount044 = gnQServerSlotCount;
-    pServer->ppSlots040 = (void**)FOG_Alloc(gnQServerSlotCount * sizeof(void*), gszQServerCppFile, 175, 0);
-    memset(pServer->ppSlots040, 0, gnQServerSlotCount * sizeof(void*));
-    pServer->nBuckets = gnQServerBucketCount;
-    pServer->ppBuckets = (D2QServerNodeStrc**)FOG_Alloc(gnQServerBucketCount * sizeof(D2QServerNodeStrc*), gszQServerCppFile, 180, 0);
-    memset(pServer->ppBuckets, 0, gnQServerBucketCount * sizeof(D2QServerNodeStrc*));
+    pServer->nAddressBuckets = gnLockCount;
+    pServer->ppAddressBuckets = (D2QClientStrc**)FOG_Alloc(gnLockCount * sizeof(D2QClientStrc*), gszQServerCppFile, 169, 0);
+    memset(pServer->ppAddressBuckets, 0, gnLockCount * sizeof(D2QClientStrc*));
+    InitializeCriticalSection(&pServer->tAddressLock);
+    pServer->nIpCountBuckets = gnQServerSlotCount;
+    pServer->ppIpCounts = (D2QIpCountStrc**)FOG_Alloc(gnQServerSlotCount * sizeof(D2QIpCountStrc*), gszQServerCppFile, 175, 0);
+    memset(pServer->ppIpCounts, 0, gnQServerSlotCount * sizeof(D2QIpCountStrc*));
+    pServer->nRecordBuckets = gnQServerBucketCount;
+    pServer->ppRecords = (D2QServerNodeStrc**)FOG_Alloc(gnQServerBucketCount * sizeof(D2QServerNodeStrc*), gszQServerCppFile, 180, 0);
+    memset(pServer->ppRecords, 0, gnQServerBucketCount * sizeof(D2QServerNodeStrc*));
     sub_006BE300_Log(gszQServerTag, gszQServerAllocated, pServer);
-    pServer->nValue880 = 0;
-    pServer->pChain84C = 0;
-    pServer->pChain850 = 0;
-    pServer->pfCallback1 = pfCallback1;
-    pServer->pfCallback2 = pfCallback2;
-    pServer->pfCallback3 = pfCallback3;
-    pServer->pfReadPacket = pfReadPacket;
-    pServer->nSocket888 = -1;
-    pServer->nValue890 = 0;
-    pServer->nValueBD0 = 1;
-    InitializeCriticalSection(&pServer->tLock894);
-    InitializeCriticalSection(&pServer->tLock8B4);
-    pServer->aSockets[0] = -1;
-    pServer->aSockets[1] = -1;
-    pServer->aSockets[2] = -1;
-    pServer->aSockets[3] = -1;
-    pServer->ppSlots870 = (void**)FOG_Alloc(nSlots * sizeof(void*), gszQServerCppFile, 218, 0);
+    pServer->nClients = 0;
+    pServer->pHead = 0;
+    pServer->pTail = 0;
+    pServer->pfnProcess = pfnProcess;
+    pServer->pfnOnNewClient = pfnOnNewClient;
+    pServer->pfnOnRemove = pfnOnRemove;
+    pServer->pfnHandler = pfnHandler;
+    pServer->dwLastExpireTick = -1;
+    pServer->nRecordCount = 0;
+    pServer->bEnabled = 1;
+    InitializeCriticalSection(&pServer->tRecordLock);
+    InitializeCriticalSection(&pServer->tClientLock);
+    pServer->hListenSockets[0] = -1;
+    pServer->hListenSockets[1] = -1;
+    pServer->hListenSockets[2] = -1;
+    pServer->hListenSockets[3] = -1;
+    pServer->ppMsgHeads = (D2MessageStrc**)FOG_Alloc(nSlots * sizeof(D2MessageStrc*), gszQServerCppFile, 218, 0);
     for (int i = 0; i < nSlots; ++i)
-        pServer->ppSlots870[i] = 0;
-    pServer->ppSlots874 = (void**)FOG_Alloc(nSlots * sizeof(void*), gszQServerCppFile, 222, 0);
+        pServer->ppMsgHeads[i] = 0;
+    pServer->ppMsgTails = (D2MessageStrc**)FOG_Alloc(nSlots * sizeof(D2MessageStrc*), gszQServerCppFile, 222, 0);
     for (int i = 0; i < nSlots; ++i)
-        pServer->ppSlots874[i] = 0;
-    pServer->nSlotCount87C = nSlots;
-    pServer->pClients = 0;
-    pServer->pChain88C = 0;
-    InitializeCriticalSection(&pServer->tLock854);
+        pServer->ppMsgTails[i] = 0;
+    pServer->nQueueCount = nSlots;
+    pServer->pFreeClients = 0;
+    pServer->pFreeRecords = 0;
+    InitializeCriticalSection(&pServer->tLock);
     if (SYSTEM_IsPlatformNT() && !bDisableNt)
-        pServer->bUseNt = 1;
+        pServer->bAltSend = 1;
     else
-        pServer->bUseNt = 0;
+        pServer->bAltSend = 0;
     pServer->nState = nState;
     if (nState != 1 && nState != 2)
     {
         if (!WSAStartup(0x101, &tWsaData))
         {
-            if (pServer->bUseNt)
-                sub_006C3360_Startup((D2QueueServerStrc*)pServer, nPort);
+            if (pServer->bAltSend)
+                sub_006C3360_Startup(pServer, nPort);
             else
-                QSERVER98_StartServer((D2QueueServerStrc*)pServer, nPort);
+                QSERVER98_StartServer(pServer, nPort);
         }
     }
     return pServer;
@@ -1861,9 +1801,9 @@ void __stdcall QSERVER_HackListIP(D2QueueServerStrc* table, unsigned int ip, con
 }
 
 // 0x006C06B0
-int __stdcall FOG_10165(QServer* pServer, int nClientId, const char* szFile, int nLine)
+void __stdcall FOG_10165(D2QueueServerStrc* pServer, int nClientId, const char* szFile, int nLine)
 {
-    return sub_006C0420_ProcessClient(pServer, nClientId, szFile, nLine);
+    QSrvCloseRemoteConnection(pServer, nClientId, szFile, nLine);
 }
 
 // 0x006C06D0
