@@ -4,6 +4,9 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/object-data 3bb2b07e1 0->0 Object.cpp's data start (lane 4's note): the borrowed copy at 0x727708, the 22-int table at 0x727744 and the 80-byte block at 0x7277A0 (17 ints, then pointers to 0x727748 and to itself) are planned in Object.cpp around gnShrineHandlerCount; borrowed data 1,830 -> 1,599 B; VERIFIED 6e79b82c1ff197a567a61c19f141ccffdfe6cb36
+  - based on main #339. This takes lane 1's borrowed-data rows 0x7277A0 (80 B); 0x7278BC (64 B) was useitem's copy, done in #333.
+
 - lane1/skills-objects 32fd04d76 +2 placeholders (Unknown_004C9420.cpp, Unknown_004C9D50.cpp; Unknown_004C9320.cpp becomes Unknown_004E6E30.cpp) the four back-to-back copies 0x727DBC-0x727EAC are four data-less objects between Skills.cpp and UnitSnd.cpp: SkillsBar.cpp (on main), 0x4C9420-0x4C97C0 (new placeholder; SkillsPal's 0x4C9B40 calls the 43-byte 0x4C9460 out of line, so it is not SkillsPal code), SkillsPal.cpp, and 0x4C9D50-0x4CA280 (new placeholder; its .bss gdwNextTick 0x7C78B0 sits right before UnitSnd.cpp's gaLevelVisited 0x7C78B8). Each takes its copy; 0x4C9420's object takes the offset tables 0x4C9490 reads; Skills.cpp's 0x4C9060 (inside SkillsBar's run) joins SkillsBar.cpp; Skills.cpp keeps a context copy of 0x4C9D50, which 0x4C9060 inlines and nothing calls; VERIFIED b916f65a6436560a80b546124259bcd7fa2f1e3f
   - based on main #337. Left: Skills.cpp's 0x4C8670 (inside SkillsBar's run) needs gaLobBrackets' type in SkillsBar.cpp.
 
