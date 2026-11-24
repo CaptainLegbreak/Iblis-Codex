@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
+- lane4/run-strays 2dbcdf5ae no placeholder change: strays that sit inside another file's run and read only that file's bss go there. CmdTbl.cpp (bss 0x7A6F8C-0x7A6F96) takes the mouse wheel dispatch and the hotkey binding get/clear/has queries filed in CUnit.cpp (0x4693B0, 0x469AA0, 0x469D70, 0x469D90) and SCmd.cpp's sort compare and hotkey message handler (0x469450, 0x46A840); dLightMap.cpp takes SCmd.cpp's room light query and grid cell read (0x474550, 0x475AA0); View.cpp takes SCmd.cpp's timed effect start (0x476A80). Borrowed data 1,175 B on the verified tree. VERIFIED 520a2d19fedd on #345; rebased onto #349 (precheck equal). Not stacked; moves four functions out of lane 1's CUnit.cpp (they sit in lane 4's range).
+
 - lane4/waypoint-strays d94367c6 no placeholder change: text.cpp's 0x49C580-0x49C756 (load and free the waypoint panel cels, send and close the panel) sit in the waypoint object's run and are the readers of its bss at 0x7BF071-0x7BF085. They move to Unknown_0049BB40.cpp, which is built /GS- now (the cel loader's path buffer has no cookie; the unit's other functions are the same either way). Borrowed data 1,175 B on the verified tree. VERIFIED e2ebcf550db5 on #345; replayed on #349 (the same five moves; main's renames touched the unit), precheck equal. Not stacked.
 
 - lane4/hireables-object-3 202037cb -3 placeholders (Unknown_00493760.cpp, Unknown_00494EB0.cpp, Unknown_004945F0.cpp): Hireables.cpp takes its object, 0x492BC0-0x496CEF. Its bss 0x7BEEAC-0x7BEF2C and gdwHelpMenu (0x722310) are read by every function in the run and by no code outside; panel.cpp's bss (0x7BEF30) and run (0x496CF0) start right after. It takes the mercenary icon and help helpers filed in View.cpp (12), the help screen code filed in inv.cpp (8), WardenClient.cpp's 0x4936E0/0x496B10/0x496BE0, RosterPets.cpp's two help handlers, dLightMap.cpp's 0x494FB0, text.cpp's 0x4939B0, and the three placeholders whole (Unknown_00493760.cpp with its existing emit helpers). The help-button flag 0x7BEEFC is one static. The twins 0x4945F0/0x494EB0 both carried the name VIEW_DrawHelpShade; in one unit 0x494EB0 takes its names.csv name sub_00494EB0 and ui.cpp's call says so (lane 10, note). The four pet-icon placeholders stay (unequal in Hireables.cpp). Redone on #348 by replaying the moves (lane 10's renames touched every file it takes from); -1 and -2 are superseded.
@@ -31,7 +33,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
-- **Verifying (more):** `lane4/run-strays` (CmdTbl.cpp, dLightMap.cpp and View.cpp take the CUnit.cpp/SCmd.cpp strays in their runs that read only their bss).
+- **Verifying (more):** 
 - **Verifying (more):** `lane4/party-object-2` (Party.cpp takes most of 0x499DE0-0x49C46F; Unknown_0049AF60.cpp, Unknown_0049B030.cpp and 0x49BB40/0x49BB60 stay, they compile unequal there; the first version verified on #345 and is redone on #349 after the renames).
 - **Level-event object (claimed):** `lane4/level-events`: Unknown_0046ACE0.cpp takes 0x46ACE0-0x46C56F; its bss 0x7A742C-0x7A746C and data 0x7129CC-0x712A27 are read only there, including by the strays filed in RosterPets.cpp, SCmd.cpp and View.cpp. Verifying.
 - Joining 0x49C9C0 into the waypoint object compiled unequal (frame layout and the gnScreenHeight/gnOffsetY operand order), so text_0049C9C0.cpp stays.
