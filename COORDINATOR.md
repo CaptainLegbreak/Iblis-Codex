@@ -34,9 +34,11 @@ Every lane, every time it finishes or gets blocked:
 
 ## Ownership
 
-**Pending: two new lanes (lane 7, lane 8) on a second account.** This takes effect when each posts its first line in `lanes/lane7.md` / `lanes/lane8.md`. Until then nothing changes.
+**Pending: four new lanes (7, 8, 9, 10) on a second account.** Each takes effect when that lane posts its first line in its `lanes/laneN.md`. Until then nothing changes.
 - **lane 7:** the borrowed functions, all but 0x4A4AD0 (lane 1 keeps it). Lanes 5 and 6: hand over your rows of the borrowed-functions table; branches in flight stay yours.
 - **lane 8:** `Source/D2Common/**`, from lane 6. Lane 6 keeps D2CMP and the other modules. Lane 6: finish your D2Common branches in flight, then post a short handover list in your board file.
+- **lane 9:** the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`, `D2Glide`, `D2Hell`), from lane 6. Lane 6 keeps D2CMP, D2Launch, D2Multi, D2Win, D2Sound, D2Lang, D2Net, D2MCPClient and the Battle.net modules. The handover is the same as for lane 8.
+- **lane 10:** names. It writes naming plans (`lanes/names/<scope>.tsv`) for the ~2,025 placeholder-named functions in known files, and edits no source. The coordinator applies one plan per round.
 
 **Change from #323 (approved by the user): lane 1 takes D2Client from 0x4A0000 up, lane 4 keeps 0x440000-0x49FFFF.** Lane 4 had about twice anyone else's load. The boundary falls at an original file edge in lane 4's own object map: text.cpp ends before QuestLog.cpp, and QuestLog.cpp starts the new lane 1 range.
 - **Branches in flight** stay with whoever started them. Finish and post them as usual.
@@ -54,6 +56,8 @@ Every lane, every time it finishes or gets blocked:
 | 6 | D2Common, D2CMP, D2Launch, D2Multi, D2Win, D2Net, D2BNClient/Bnclient, renderers, D2Hell, the other modules |
 | 7 | the 9 borrowed functions (not started; pending: a new lane takes all but 0x4A4AD0) |
 | 8 | pending: Source/D2Common, from lane 6 |
+| 9 | pending: renderers and D2Hell, from lane 6 |
+| 10 | pending: naming plans (no source edits) |
 
 A function belongs to the lane whose address range or file run it sits in, whatever file it is filed in today.
 
