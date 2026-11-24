@@ -156,7 +156,7 @@ struct CHuffman
     D2StormNodeListStrc tItemList;
     unsigned int nItemsUsed;
     HUFFNODE* pItemsByValue[0x102];
-    D2StormHuffLinkSlotStrc f_3474[0x80];
+    D2StormHuffLinkSlotStrc aQuickLinks[0x80];
 
     CHuffman();                                                                                  // 0x0041F950
     ~CHuffman();                                                                                 // 0x0041F6A0
