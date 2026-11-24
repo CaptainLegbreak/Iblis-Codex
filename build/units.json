@@ -2603,11 +2603,6 @@
      "name": "AUTOMAP_SetUnitLightColor"
     },
     {
-     "va": "0x00461AC0",
-     "length": 119,
-     "name": "?AUTOMAP_IsInAuraRange@@YIHPAUD2SkillStrc@@PAUD2UnitStrc@@PAH2@Z"
-    },
-    {
      "va": "0x00462EE0",
      "length": 118,
      "name": "AUTOMAP_GetItemComponent"
@@ -2621,11 +2616,6 @@
      "va": "0x0046F0C0",
      "length": 170,
      "name": "?AUTOMAP_RemoveUnitOverlay@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x00480C10",
-     "length": 108,
-     "name": "?AUTOMAP_DispatchUnitCommand@@YIHHPAUD2UnitStrc@@PAUD2UnitTargetStrc@@H@Z"
     },
     {
      "va": "0x00498DC0",
@@ -11781,11 +11771,6 @@
      "name": "?SKILLS_ResetLevelSpeech@@YAXXZ"
     },
     {
-     "va": "0x004CD0A0",
-     "length": 203,
-     "name": "SKILLS_InitMissileUnit"
-    },
-    {
      "va": "0x004D16C0",
      "length": 352,
      "name": "SKILLS_SpawnOffsetMissile"
@@ -13764,11 +13749,6 @@
      "name": "VIEW_DrawPanelCels"
     },
     {
-     "va": "0x00460780",
-     "length": 68,
-     "name": "VIEW_SetPlayerMode"
-    },
-    {
      "va": "0x00466820",
      "length": 79,
      "name": "?VIEW_SpawnRoomPresets@@YIXPAUD2ActiveRoomStrc@@@Z"
@@ -13913,11 +13893,6 @@
      "va": "0x004804D0",
      "length": 12,
      "name": "?VIEW_GetPingScaled@@YAIXZ"
-    },
-    {
-     "va": "0x00480B40",
-     "length": 93,
-     "name": "VIEW_SendUnitActionPacket"
     },
     {
      "va": "0x004879D0",
@@ -14119,11 +14094,6 @@
      "va": "0x0047EC40",
      "length": 12,
      "name": "?sub_0047EC40_IsSet@@YAHXZ"
-    },
-    {
-     "va": "0x00480780",
-     "length": 57,
-     "name": "INV_SetPathTargetUnit"
     },
     {
      "va": "0x004824A0",
@@ -14997,11 +14967,6 @@
      "name": "sub_004A17D0"
     },
     {
-     "va": "0x004B1050",
-     "length": 58,
-     "name": "INV_GetMonsterOwnerGuid"
-    },
-    {
      "va": "0x004B92E0",
      "length": 63,
      "name": "INV_GetTableByte"
@@ -15147,9 +15112,17 @@
      "length": 219
     },
     {
+     "va": "0x004ACD50",
+     "length": 26
+    },
+    {
      "va": "0x004ACD70",
      "length": 62,
      "name": "MONUNIQUE_AssignTeleportSkill"
+    },
+    {
+     "va": "0x004ACDB0",
+     "length": 623
     },
     {
      "va": "0x004AD020",
@@ -16289,11 +16262,6 @@
      "name": "?UI_FreeCels@@YAXXZ"
     },
     {
-     "va": "0x00463D80",
-     "length": 7,
-     "name": "UI_FreeUnitModStats"
-    },
-    {
      "va": "0x00468030",
      "length": 6,
      "name": "UI_GetCursorFrame"
@@ -17267,11 +17235,6 @@
      "name": "SCMD_HandleMonsterModeChange"
     },
     {
-     "va": "0x00463EE0",
-     "length": 241,
-     "name": "SCMD_IsPointInTileRect"
-    },
-    {
      "va": "0x004689D0",
      "length": 95,
      "name": "SCMD_ShowHelpOnce"
@@ -17449,6 +17412,11 @@
      "name": "?PLAYER_SetInteractState@@YIXPAUD2ClientUnitViewStrc@@H@Z"
     },
     {
+     "va": "0x00460780",
+     "length": 68,
+     "name": "VIEW_SetPlayerMode"
+    },
+    {
      "va": "0x004607D0",
      "length": 26,
      "name": "?PLAYER_GetInteractMode@@YIHPAUD2ClientUnitViewStrc@@@Z"
@@ -17562,6 +17530,11 @@
      "va": "0x00461A70",
      "length": 70,
      "name": "?PLAYER_InteractWithUnitTarget@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00461AC0",
+     "length": 119,
+     "name": "?AUTOMAP_IsInAuraRange@@YIHPAUD2SkillStrc@@PAUD2UnitStrc@@PAH2@Z"
     },
     {
      "va": "0x00461B40",
@@ -18467,11 +18440,6 @@
      "va": "0x00463810",
      "length": 23,
      "name": "?sub_00463810_GetMonsterName@@YIPBUUnicode@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x00463E10",
-     "length": 11,
-     "name": "?sub_00463E10_GetGfxData@@YIPAUD2GfxDataStrc@@PAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -18659,6 +18627,11 @@
      "name": "?sub_00463D70_Empty@@YAXXZ"
     },
     {
+     "va": "0x00463D80",
+     "length": 7,
+     "name": "UI_FreeUnitModStats"
+    },
+    {
      "va": "0x00463D90",
      "length": 60
     },
@@ -18676,6 +18649,11 @@
      "va": "0x00463DF0",
      "length": 27,
      "name": "?CUNIT_IsPlayerDeadOrMissing@@YAHXZ"
+    },
+    {
+     "va": "0x00463E10",
+     "length": 11,
+     "name": "?sub_00463E10_GetGfxData@@YIPAUD2GfxDataStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00463E20",
@@ -18696,6 +18674,11 @@
      "va": "0x00463EB0",
      "length": 43,
      "name": "?CUNIT_GetPalShiftIndex@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00463EE0",
+     "length": 241,
+     "name": "SCMD_IsPointInTileRect"
     },
     {
      "va": "0x00463FE0",
@@ -20145,11 +20128,6 @@
      "va": "0x004AC810",
      "length": 43,
      "name": "GFXUTIL_ToggleMonTypeFlag"
-    },
-    {
-     "va": "0x004CDB40",
-     "length": 95,
-     "name": "GFXUTIL_SubmitMissileRequest"
     },
     {
      "va": "0x004DA110",
@@ -23216,6 +23194,11 @@
      "name": "?UNITMODE_SetPosition@@YIXPAUD2UnitStrc@@GGHHH@Z"
     },
     {
+     "va": "0x00480780",
+     "length": 57,
+     "name": "INV_SetPathTargetUnit"
+    },
+    {
      "va": "0x004807C0",
      "length": 67,
      "name": "@UNITMODE_UpdateUnitPath@4"
@@ -23229,9 +23212,19 @@
      "length": 516
     },
     {
+     "va": "0x00480B40",
+     "length": 93,
+     "name": "VIEW_SendUnitActionPacket"
+    },
+    {
      "va": "0x00480BA0",
      "length": 97,
      "name": "?UNITMODE_CanUseSkillNow@@YAHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00480C10",
+     "length": 108,
+     "name": "?AUTOMAP_DispatchUnitCommand@@YIHHPAUD2UnitStrc@@PAUD2UnitTargetStrc@@H@Z"
     },
     {
      "va": "0x00480C80",
@@ -25965,6 +25958,11 @@
      "name": "?MONSTER_GetLinkedPlayer@@YIPAUD2UnitStrc@@PAU1@@Z"
     },
     {
+     "va": "0x004B1050",
+     "length": 58,
+     "name": "INV_GetMonsterOwnerGuid"
+    },
+    {
      "va": "0x004B1090",
      "length": 346,
      "name": "MONSTER_InitHireling"
@@ -25973,6 +25971,11 @@
      "va": "0x004B11F0",
      "length": 77,
      "name": "?MONSTER_IsConvertible@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004B1240",
+     "length": 56,
+     "name": "?NPCMENU_SetMinionSpawnClass@@YIXPAUD2ClientPacket7Strc@@@Z"
     },
     {
      "va": "0x004B1280",
@@ -26576,34 +26579,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004ACC70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004ACD50",
-     "length": 26
-    },
-    {
-     "va": "0x004ACDB0",
-     "length": 623
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/npcmenu.cpp",
    "rank": 0,
    "functions": [
@@ -26685,11 +26660,6 @@
      "va": "0x004AE080",
      "length": 29,
      "name": "@NPCMENU_GetMonsterTypeFlags@8"
-    },
-    {
-     "va": "0x004B1240",
-     "length": 56,
-     "name": "?NPCMENU_SetMinionSpawnClass@@YIXPAUD2ClientPacket7Strc@@@Z"
     },
     {
      "va": "0x004B1620",
@@ -29197,16 +29167,6 @@
      "va": "0x004BDFF0",
      "length": 45,
      "name": "?OBJECT_UpdateObject@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004C1A70",
-     "length": 83,
-     "name": "?OBJECT_ReleaseItemUnit@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004C1AD0",
-     "length": 176,
-     "name": "?OBJECT_UpdateItemAnim@@YIXPAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -29300,6 +29260,16 @@
     {
      "va": "0x004C1910",
      "length": 340
+    },
+    {
+     "va": "0x004C1A70",
+     "length": 83,
+     "name": "?OBJECT_ReleaseItemUnit@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004C1AD0",
+     "length": 176,
+     "name": "?OBJECT_UpdateItemAnim@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004C1B80",
@@ -29881,6 +29851,11 @@
      "name": "?sub_004CD050_CltCanMissileDestroy@@YIHPAUD2UnitStrc@@PAX@Z"
     },
     {
+     "va": "0x004CD0A0",
+     "length": 203,
+     "name": "SKILLS_InitMissileUnit"
+    },
+    {
      "va": "0x004CD170",
      "length": 69,
      "name": "?MISSILE_FreeMissileUnit@@YIXPAUD2UnitStrc@@@Z"
@@ -29926,6 +29901,11 @@
     {
      "va": "0x004CD540",
      "length": 1529
+    },
+    {
+     "va": "0x004CDB40",
+     "length": 95,
+     "name": "GFXUTIL_SubmitMissileRequest"
     },
     {
      "va": "0x004CDBA0",

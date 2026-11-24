@@ -633,26 +633,6 @@ void __fastcall GFXUTIL_ToggleMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFla
     }
 }
 
-// 0x004CDB40
-int __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nArg0, int nArg1, int nArg2, int nArg3, int nArg4)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    D2RequestStrc tRequest;
-    memset(&tRequest, 0, sizeof(tRequest));
-    tRequest.nType = 1;
-    tRequest.pUnit = pUnit;
-    tRequest.nArg1 = nArg1;
-    tRequest.nArg2 = nArg2;
-    tRequest.nArg3 = nArg3;
-    tRequest.nArg4 = nArg4;
-    tRequest.nArg0 = nArg0;
-    return sub_004CD540_HandleRequest(&tRequest);
-}
-
 inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)

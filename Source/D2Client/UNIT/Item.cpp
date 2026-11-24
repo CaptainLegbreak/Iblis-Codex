@@ -745,6 +745,18 @@ inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
+void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit);                                                // 0x0046EC10
+
+void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg);                             // 0x00466CB0
+
+void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory);                                        // 0x0063AC40
+
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
+
+int __stdcall UNITROOM_IsUnitInRoom(D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit);                            // 0x0064C260
+
+void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);                                              // 0x0064C370
+
 // 0x004BDF30
 void __fastcall ITEM_ApplyTownPortalState(D2GSPacketSrv60* pPacket)
 {
@@ -1390,6 +1402,68 @@ void __fastcall ITEM_SetItemMode(D2UnitStrc* pItem, D2ActiveRoomStrc* pRoom, int
     if (ITEMS_CheckIfSocketable(pItem) && !pItem->pInventory)
         INVENTORY_AllocInventory(0, pItem);
 }
+
+// 0x004C1A70
+void __fastcall OBJECT_ReleaseItemUnit(D2UnitStrc* pUnit)
+{
+    GFX_FreeGfxData(pUnit);
+    if (ITEMS_CheckIfSocketable(pUnit))
+    {
+        CUNIT_RemoveInventoryUnits(pUnit, 0);
+        INVENTORY_FreeInventory(pUnit->pInventory);
+        pUnit->pInventory = 0;
+    }
+
+    if (gpGlobal_007A0634)
+    {
+        UNITS_FreeCollisionPath(pUnit);
+        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+        if (UNITROOM_IsUnitInRoom(pRoom, pUnit))
+        {
+            UNITROOM_RemoveUnitFromRoom(pUnit);
+        }
+    }
+}
+
+// 0x004C1AD0
+void __fastcall OBJECT_UpdateItemAnim(D2UnitStrc* pUnit)
+{
+    D2_ASSERT(pUnit, 0x348);
+    switch (pUnit->dwAnimMode)
+    {
+    case 5:
+        if (UNITS_IsAtEndOfFrameCycle(pUnit))
+        {
+            pUnit->dwAnimMode = 3;
+            break;
+        }
+
+        UNITS_UpdateFrame(pUnit);
+        return;
+
+    case 3:
+        pUnit->dwFlags |= 2;
+        if (sub_0046E100(pUnit, 0x46))
+        {
+            return;
+        }
+        break;
+
+    case 0:
+    case 1:
+    case 2:
+    case 4:
+    case 6:
+        pUnit->dwFlags &= ~2;
+        return;
+
+    default:
+        D2_ASSERT(0, 0x362);
+    }
+
+    GFX_AddUnitOverlay(pUnit, 0x46, 6, 8, 0, 0, 8, 0);
+}
+
 
 // 0x004C1B80
 void __fastcall ITEM_HandleItemCommand(int nEvent, D2UnitStrc* pUnit, int bSet, int nMode)

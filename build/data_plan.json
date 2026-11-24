@@ -1508,9 +1508,7 @@
    "bytes": 192,
    "definitions": 2,
    "externs": [
-    "extern \"C\" void __cdecl sub_004AC870_SetMonsterHoverName(); // 0x004AC870",
-    "extern \"C\" void __cdecl sub_004ACD50_ClearMonsterField18(); // 0x004ACD50",
-    "extern \"C\" void __cdecl sub_004ACDB0_UMod8_Resistant(); // 0x004ACDB0"
+    "extern \"C\" void __cdecl sub_004AC870_SetMonsterHoverName(); // 0x004AC870"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004AD020.inc",

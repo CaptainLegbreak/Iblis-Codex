@@ -586,6 +586,17 @@ static D2MonsterDataStrc* CLIENT_GetMonsterData(D2UnitStrc* pUnit)
     return 0;
 }
 
+#pragma pack(push, 1)
+
+struct D2ClientPacket7Strc
+{
+    unsigned char nHeader;
+    int dwUnitId;
+    unsigned short f_5;
+};
+
+#pragma pack(pop)
+
 // 0x004AC740
 unsigned char* __fastcall MONSTER_GetMonUmods(D2UnitStrc* pUnit)
 {
@@ -2872,6 +2883,21 @@ D2UnitStrc* __fastcall MONSTER_GetLinkedPlayer(D2UnitStrc* pUnit)
     return 0;
 }
 
+// 0x004B1050
+int __fastcall INV_GetMonsterOwnerGuid(D2UnitStrc* pUnit, char* pNotFound, int* pValue)
+{
+    *pNotFound = 1;
+    *pValue = -1;
+    if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && pUnit->pMonsterData->nOwnerGUID != -1)
+    {
+        *pValue = pUnit->pMonsterData->nOwnerGUID;
+        *pNotFound = 0;
+        return 1;
+    }
+    return 0;
+}
+
+
 // 0x004B1090
 void __fastcall MONSTER_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInfo)
 {
@@ -3043,6 +3069,22 @@ int __fastcall MONSTER_IsConvertible(D2UnitStrc* pUnit)
     }
     return 1;
 }
+
+// 0x004B1240
+void __fastcall NPCMENU_SetMinionSpawnClass(D2ClientPacket7Strc* pPacket)
+{
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitId, 1);
+    if (pUnit)
+    {
+        const unsigned short wClassId = pPacket->f_5;
+        const int nClassId = wClassId == 0xFFFF ? -1 : wClassId;
+        if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
+        {
+            pUnit->pMonsterData->nMinionSpawnClassId = nClassId;
+        }
+    }
+}
+
 
 static D2MonStatsTxt* MONSTATS_GetRecord(int nMonsterId)
 {

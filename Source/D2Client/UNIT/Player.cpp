@@ -578,6 +578,10 @@ inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecordInline(int nMonste
     return 0;
 }
 
+int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
+
+int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+
 // 0x00457490
 int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag)
 {
@@ -761,6 +765,19 @@ void __fastcall PLAYER_SetInteractState(D2ClientUnitViewStrc* pUnit, int nState)
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
         pUnit->pPlayerData->nState = nState;
 }
+
+// 0x00460780
+void __fastcall VIEW_SetPlayerMode(int nMode, D2ClientUnitViewStrc* pUnit, int nArg1, int nArg2)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
+    {
+        pUnit->pPlayerData->nState = 1;
+        pUnit->pPlayerData->nMode = nMode;
+        pUnit->pPlayerData->nArg1 = nArg1;
+        pUnit->pPlayerData->nArg2 = nArg2;
+    }
+}
+
 
 // 0x004607D0
 int __fastcall PLAYER_GetInteractMode(D2ClientUnitViewStrc* pUnit)
@@ -1541,6 +1558,26 @@ void __fastcall PLAYER_InteractWithUnitTarget(D2UnitStrc* pUnit)
     tCmd.nMode = 2;
     PLAYER_InteractWithTarget(&tCmd, !pUnit ? -1 : pUnit->dwUnitId);
 }
+
+// 0x00461AC0
+int __fastcall AUTOMAP_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance)
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (!pPlayer || !pSkill || !pTarget)
+    {
+        return 0;
+    }
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+    *pRange = SKILLS_EvaluateSkillFormula(pPlayer, pSkillsTxtRecord->dwAuraRangeCalc, pSkillsTxtRecord->nSkillId,
+        SKILLS_GetSkillLevel(pPlayer, pSkill, 1));
+    *pDistance = sub_006416D0_UnitEdgeDistance(pPlayer, pTarget);
+    return *pDistance <= *pRange;
+}
+
 
 // 0x00461B40
 static int PLAYER_ApproachForAura(D2PlayerCmdStrc* pCmd, int nArg1, int nArg2)

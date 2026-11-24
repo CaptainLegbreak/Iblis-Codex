@@ -857,18 +857,6 @@ void __stdcall VIEW_DrawPanelCels(int nFrame1, int nFrame2)
     sub_004F6480(&tContext, gnPanelOffsetX + 0x152, 0x13E - gnPanelOffsetY, -1, 5, 0);
 }
 
-// 0x00460780
-void __fastcall VIEW_SetPlayerMode(int nMode, D2ClientUnitViewStrc* pUnit, int nArg1, int nArg2)
-{
-    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
-    {
-        pUnit->pPlayerData->nState = 1;
-        pUnit->pPlayerData->nMode = nMode;
-        pUnit->pPlayerData->nArg1 = nArg1;
-        pUnit->pPlayerData->nArg2 = nArg2;
-    }
-}
-
 // 0x00466820
 void __fastcall VIEW_SpawnRoomPresets(D2ActiveRoomStrc* pRoom)
 {
@@ -1742,27 +1730,6 @@ void __cdecl VIEW_ToggleCacheStats()
         memset(pStats->unk0x60, 0, sizeof(pStats->unk0x60));
     }
     D2CMPResetTileCacheHits();
-}
-
-// 0x00480B40
-void __fastcall VIEW_SendUnitActionPacket(int nHeader, int nUnused, int nArg1, int nArg2, int nUnused2)
-{
-    if (nHeader == 0x13)
-    {
-        return;
-    }
-    switch (nHeader)
-    {
-    case 1: case 3:
-        sub_004785D0_SendShortShort(nHeader, nArg1, nArg2);
-        return;
-    case 2: case 4: case 6: case 7: case 9: case 10: case 13: case 14: case 16: case 17:
-        MSG_SendTwoDwords(nHeader, nArg1, nArg2);
-        return;
-    default:
-        sub_004785D0_SendShortShort(nHeader, nArg1, nArg2);
-        return;
-    }
 }
 
 // 0x004879D0

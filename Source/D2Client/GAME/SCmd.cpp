@@ -4754,31 +4754,6 @@ inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-// 0x00463EE0
-int __fastcall SCMD_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY)
-{
-    D2_ASSERT(pUnit->dwUnitType == UNIT_TILE, 1419);
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    D2TileRectStrc* pRect = sub_00619620(pRoom, pUnit);
-    if (!pRect)
-    {
-        return 0;
-    }
-
-    int nUnitX = UNITS_GetXPositionInline(pUnit);
-    int nUnitY = UNITS_GetYPositionInline(pUnit);
-    DUNGEON_GameSubtileToClientCoords(&nUnitX, &nUnitY);
-
-    const int nLeft = pRect->nX + nUnitX;
-    const int nTop = pRect->nY + nUnitY;
-    if (nX >= nLeft && nY >= nTop && nX <= nLeft + pRect->nWidth && nY <= nTop + pRect->nHeight)
-    {
-        return 1;
-    }
-    return 0;
-}
-
 // 0x0045F610
 static D2PacketBufferStrc* SCMD_GrowPacketBuffer(D2UnitStrc* pUnit)
 {

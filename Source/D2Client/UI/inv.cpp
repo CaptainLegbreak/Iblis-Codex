@@ -1848,19 +1848,6 @@ int __cdecl sub_0047EC40_IsSet()
 
 
 
-// 0x00480780
-int __fastcall INV_SetPathTargetUnit(D2UnitStrc* pUnit, int nUnitType, int nUnitId)
-{
-    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    D2UnitStrc* pTarget = CUNIT_FindClientUnit(nUnitId, nUnitType);
-    PATH_SetTargetUnit(pPath, pTarget);
-    if (!pTarget)
-    {
-        return 0;
-    }
-    return D2Common_10142(pPath, pUnit, 0);
-}
-
 // 0x004824A0
 int __stdcall INV_FreeCacheEntries(unsigned int nFree, int bTwoPasses, int bCheckAge)
 {
@@ -9169,20 +9156,6 @@ void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLef
 
 
 
-
-// 0x004B1050
-int __fastcall INV_GetMonsterOwnerGuid(D2UnitStrc* pUnit, char* pNotFound, int* pValue)
-{
-    *pNotFound = 1;
-    *pValue = -1;
-    if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && pUnit->pMonsterData->nOwnerGUID != -1)
-    {
-        *pValue = pUnit->pMonsterData->nOwnerGUID;
-        *pNotFound = 0;
-        return 1;
-    }
-    return 0;
-}
 
 // 0x004B92E0
 int __stdcall INV_GetTableByte(int nUnused, int nIndex)

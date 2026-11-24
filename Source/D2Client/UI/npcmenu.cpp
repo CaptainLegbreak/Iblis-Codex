@@ -1482,21 +1482,6 @@ extern "C" int __fastcall NPCMENU_GetMonsterTypeFlags(UnitView* unit, unsigned s
     return 0;
 }
 
-// 0x004B1240
-void __fastcall NPCMENU_SetMinionSpawnClass(D2ClientPacket7Strc* pPacket)
-{
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPacket->dwUnitId, 1);
-    if (pUnit)
-    {
-        const unsigned short wClassId = pPacket->f_5;
-        const int nClassId = wClassId == 0xFFFF ? -1 : wClassId;
-        if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
-        {
-            pUnit->pMonsterData->nMinionSpawnClassId = nClassId;
-        }
-    }
-}
-
 // 0x004B1620
 D2UnitStrc* __cdecl NPCMENU_GetInteractNpc()
 {

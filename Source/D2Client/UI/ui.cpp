@@ -3848,12 +3848,6 @@ void __cdecl UI_FreeCels()
     GAME_LoadLoadingPalette();
 }
 
-// 0x00463D80
-void __fastcall UI_FreeUnitModStats(void* pArg)
-{
-    sub_00625960(pArg);
-}
-
 
 
 // 0x00468030
