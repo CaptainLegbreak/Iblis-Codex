@@ -2,37 +2,7 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText_006CC837, sub_00408090(), line); exit(-1); }
 
-struct Server;
-
-struct LinkNode;
-
-struct LinkerView;
-
-struct PaletteColor;
-
-struct Unit;
-
-struct BinFile;
-
-struct ClientNode;
-
-struct PaletteTables;
-
 struct D2SNameNodeStrc;
-
-struct RoomFlags;
-
-struct PathFlags;
-
-struct CodeRow;
-
-struct CodeOutput;
-
-struct CodeLink;
-
-struct Vector;
-
-struct DirectionRecord;
 
 struct D2TxtLinkEntryStrc;
 
@@ -41,82 +11,6 @@ struct D2TxtLinkStrc;
 struct D2TxtLinkNodeStrc;
 
 struct D2BinFileStrc;
-
-typedef unsigned short U16;
-
-struct LinkNode
-{
-    char retained[0x24];
-    LinkNode* firstChild;
-    LinkNode* secondChild;
-};
-
-struct LinkerView
-{
-    char retained[0x8];
-    void* entries;
-    LinkNode* root;
-};
-
-typedef char check_node_first[OFFSET(LinkNode,firstChild)==0x24?1:-1];
-
-typedef char check_node_second[OFFSET(LinkNode,secondChild)==0x28?1:-1];
-
-typedef char check_node_size[sizeof(LinkNode)==0x2C?1:-1];
-
-typedef char check_entries[OFFSET(LinkerView,entries)==0x8?1:-1];
-
-typedef char check_root[OFFSET(LinkerView,root)==0xC?1:-1];
-
-typedef char check_linker_size[sizeof(LinkerView)==0x10?1:-1];
-
-extern "C" void __fastcall EXCEL_FreeLinkTree(LinkNode* node); // 0x006BD070
-
-extern "C" int __fastcall sub_0040B480_FreePool(void* pool,void* block,const char* file,int line,int unused);
-
-struct Unit
-{
-    int type;
-    int classId;
-    void* pool;
-    int f_C;
-};
-
-typedef char check_Unit_classId[OFFSET(Unit,classId)==4?1:-1];
-
-typedef char check_Unit_unitId[OFFSET(Unit,f_C)==0xC?1:-1];
-
-struct BinFile
-{
-    void* data;
-};
-
-struct ClientNode
-{
-    int clientId;
-    ClientNode* next;
-    U8 unknown8[0x18];
-    U32 gameGuid;
-};
-
-typedef char check_ClientNode_next[OFFSET(ClientNode,next)==4?1:-1];
-
-typedef char check_ClientNode_gameGuid[OFFSET(ClientNode,gameGuid)==0x20?1:-1];
-
-typedef char check_ClientNode_size[sizeof(ClientNode)==0x24?1:-1];
-
-extern "C" U8 __stdcall GetClosestColor(const U8* palette,U32 count,int c0,int c1,int c2);
-
-extern "C" int __fastcall sub_0063E860_UnitPredicate(Unit* unit);
-
-extern "C" int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int classId,int flag); // 0x00457490
-
-extern "C" int __fastcall sub_0040B3C0_Free(void* block,const char* file,int line,int flags);
-
-extern "C" ClientNode* __fastcall QSERVER_FindClient(Server* server,int clientId); // 0x006BE540
-
-// build: symbol _gaCollisionPatternsFromSize 0x006EB3DC
-extern "C" const int gaCollisionPatternsFromSize[4];
 
 extern "C" const char gszEmptyAssertText_006CC837; // 0x006CC837
 
@@ -127,109 +21,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-
-typedef signed char S8;
-
-typedef char check_pointer_width[sizeof(void*)==4?1:-1];
-
-struct RoomFlags
-{
-    char pad0[0x28];
-    U32 flags;
-};
-
-typedef char check_RoomFlags_flags[OFFSET(RoomFlags,flags)==0x28?1:-1];
-
-typedef char check_RoomFlags_size[sizeof(RoomFlags)==0x2C?1:-1];
-
-struct PathFlags
-{
-    char pad0[0x34];
-    U32 flags;
-};
-
-typedef char check_PathFlags_flags[OFFSET(PathFlags,flags)==0x34?1:-1];
-
-typedef char check_PathFlags_size[sizeof(PathFlags)==0x38?1:-1];
-
-struct CodeRow
-{
-    S8 c0;
-    S8 c1;
-    S8 c2;
-    S8 c3;
-    int row;
-};
-
-typedef char check_CodeRow_row[OFFSET(CodeRow,row)==4?1:-1];
-
-typedef char check_CodeRow_c0[OFFSET(CodeRow,c0)==0?1:-1];
-
-typedef char check_CodeRow_c1[OFFSET(CodeRow,c1)==1?1:-1];
-
-typedef char check_CodeRow_c2[OFFSET(CodeRow,c2)==2?1:-1];
-
-typedef char check_CodeRow_c3[OFFSET(CodeRow,c3)==3?1:-1];
-
-typedef char check_CodeRow_size[sizeof(CodeRow)==8?1:-1];
-
-struct CodeOutput
-{
-    S8 c0;
-    S8 c1;
-    S8 c2;
-    S8 c3;
-    S8 terminal;
-};
-
-typedef char check_CodeOutput_terminal[OFFSET(CodeOutput,terminal)==4?1:-1];
-
-typedef char check_CodeOutput_c0[OFFSET(CodeOutput,c0)==0?1:-1];
-
-typedef char check_CodeOutput_c1[OFFSET(CodeOutput,c1)==1?1:-1];
-
-typedef char check_CodeOutput_c2[OFFSET(CodeOutput,c2)==2?1:-1];
-
-typedef char check_CodeOutput_c3[OFFSET(CodeOutput,c3)==3?1:-1];
-
-typedef char check_CodeOutput_size[sizeof(CodeOutput)==5?1:-1];
-
-struct CodeLink
-{
-    int count;
-    char pad4[0x4];
-    CodeRow* entries;
-};
-
-typedef char check_CodeLink_entries[OFFSET(CodeLink,entries)==0x8?1:-1];
-
-typedef char check_CodeLink_size[sizeof(CodeLink)==0xC?1:-1];
-
-struct Vector
-{
-    int x;
-    int y;
-};
-
-typedef char check_Vector_y[OFFSET(Vector,y)==4?1:-1];
-
-typedef char check_Vector_size[sizeof(Vector)==8?1:-1];
-
-struct DirectionRecord
-{
-    int x;
-    int y;
-    int angle;
-};
-
-typedef char check_DirectionRecord_y[OFFSET(DirectionRecord,y)==4?1:-1];
-
-typedef char check_DirectionRecord_angle[OFFSET(DirectionRecord,angle)==8?1:-1];
-
-typedef char check_DirectionRecord_size[sizeof(DirectionRecord)==12?1:-1];
-
-// build: symbol ?gaTanToDirectionTable@* 0x006EB7E0
-extern DirectionRecord gaTanToDirectionTable[128];
 
 struct D2TxtLinkEntryStrc { union { char code[4]; unsigned int nCode; }; int index; };
 
@@ -320,22 +111,6 @@ typedef int (__fastcall* KeyCallback)(const char*);
 
 typedef void (__fastcall* FieldCallback)(const char*,void*,int,int,int,int);
 
-extern "C" void __fastcall sub_0061BAC0_portalFlag(RoomFlags* room, int reset)
-{
-    if (reset)
-        room->flags &= ~0x400000U;
-    else
-        room->flags |= 0x400000U;
-}
-
-extern "C" void __stdcall PATH_SetCurrentRoomInvalid(PathFlags* path, int invalid)
-{
-    if (invalid != 0)
-        path->flags |= 2U;
-    else
-        path->flags &= ~2U;
-}
-
 static void sub_006BCD50_MakeCode(const char* szText, char* szCode);
 
 // 0x006BCD50
@@ -382,10 +157,10 @@ unsigned int __stdcall sub_006BCD50_Shim(const char* szText)
 }
 
 // 0x006BCDA0
-extern "C" void __stdcall FOG_FreeBinFile(BinFile* file)
+extern "C" void __stdcall FOG_FreeBinFile(D2BinFileStrc* pBinFile)
 {
-    sub_0040B3C0_Free(file->data,".\\Src\\Excel\\Excel.cpp",154,0);
-    sub_0040B480_FreePool(0,file,".\\Src\\Excel\\Excel.cpp",155,0);
+    FOG_Free(pBinFile->pDataBuffer, ".\\Src\\Excel\\Excel.cpp", 154, 0);
+    FOG_FreePool(0, pBinFile, ".\\Src\\Excel\\Excel.cpp", 155, 0);
 }
 
 // 0x006BCDE0
@@ -878,22 +653,22 @@ void __fastcall EXCEL_FreeLinkTree(D2TxtLinkNodeStrc* pNode)
 }
 
 // 0x006BD0B0
-extern "C" void __stdcall FOG_FreeLinker(LinkerView* linker)
+extern "C" void __stdcall FOG_FreeLinker(D2TxtLinkStrc* pLinker)
 {
-    if (linker)
+    if (pLinker)
     {
-        LinkNode* root = linker->root;
-        if (root)
+        D2TxtLinkNodeStrc* pRoot = pLinker->pFirstNode;
+        if (pRoot)
         {
-            if (root->firstChild)
-                EXCEL_FreeLinkTree(root->firstChild);
-            if (root->secondChild)
-                EXCEL_FreeLinkTree(root->secondChild);
-            sub_0040B480_FreePool(0,root,".\\Src\\Excel\\Excel.cpp",0x346,0);
+            if (pRoot->pPrevious)
+                EXCEL_FreeLinkTree(pRoot->pPrevious);
+            if (pRoot->pNext)
+                EXCEL_FreeLinkTree(pRoot->pNext);
+            FOG_FreePool(0, pRoot, ".\\Src\\Excel\\Excel.cpp", 0x346, 0);
         }
-        if (linker->entries)
-            sub_0040B480_FreePool(0,linker->entries,".\\Src\\Excel\\Excel.cpp",0x35D,0);
-        sub_0040B480_FreePool(0,linker,".\\Src\\Excel\\Excel.cpp",0x360,0);
+        if (pLinker->entries)
+            FOG_FreePool(0, pLinker->entries, ".\\Src\\Excel\\Excel.cpp", 0x35D, 0);
+        FOG_FreePool(0, pLinker, ".\\Src\\Excel\\Excel.cpp", 0x360, 0);
     }
 }
 
