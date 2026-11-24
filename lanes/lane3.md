@@ -10,7 +10,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-(none)
+- **SEVT.CPP run join (started).** SEVT.CPP's run 0x426900-0x426E20 holds its break-command list code filed in Storm/Unknown_00426900.cpp, Unknown_00426910.cpp, Unknown_004228C0.cpp, Unknown_00421EA0.cpp, Unknown_0041E9C0.cpp and SFILE.CPP (20 functions). They move into SEVT.CPP.
 
 ## Questions
 
