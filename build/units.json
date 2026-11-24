@@ -73867,13 +73867,7 @@
      "va": "0x00664150",
      "length": 979,
      "name": "DATATBLS_LoadOverlayTxt"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00664530.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00664530",
      "length": 34,
