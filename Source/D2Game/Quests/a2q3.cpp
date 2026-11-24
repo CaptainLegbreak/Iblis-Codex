@@ -627,6 +627,8 @@ void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeader
 
 int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int dwGUID); // 0x005452C0
 
+#include "gen/data/Source/D2Game/Quests/a2q3.inc"
+
 static int gnAct2Q3NpcMessageIndices[] =                                                                            // 0x0073A620
 {
     -1, 0, 1, 2, 3, 0
@@ -1256,5 +1258,3 @@ void __fastcall ACT2Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
         }
     }
 }
-
-#include "gen/data/Source/D2Game/Quests/a2q3.inc"
