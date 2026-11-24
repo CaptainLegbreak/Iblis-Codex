@@ -37961,7 +37961,7 @@
    ]
   },
   {
-   "file": "Source/D2BNClient/Unknown_00518B60.cpp",
+   "file": "Source/D2BNClient/Unknown_00518B90.cpp",
    "rank": 0,
    "functions": [
     {
@@ -37969,17 +37969,6 @@
      "length": 25,
      "name": "?0D2BnLogStrc"
     },
-    {
-     "va": "0x00518BD0",
-     "length": 42,
-     "name": "?_GD2BnLogStrc"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/Unknown_00518B90.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x00518B80",
      "length": 9,
@@ -37994,6 +37983,11 @@
      "va": "0x00518BC0",
      "length": 7,
      "name": "?sub_00518BC0_Field00@@YIXPAX@Z"
+    },
+    {
+     "va": "0x00518BD0",
+     "length": 42,
+     "name": "?_GD2BnLogStrc"
     },
     {
      "va": "0x00518C20",
