@@ -1986,41 +1986,6 @@
      "name": "??0sub_00419060@@QAE@XZ"
     },
     {
-     "va": "0x0041C3D0",
-     "length": 50,
-     "name": "??1sub_0041C3D0@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C4F0",
-     "length": 16,
-     "name": "??0sub_0041C4F0@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C500",
-     "length": 50,
-     "name": "??1sub_0041C500@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C720",
-     "length": 16,
-     "name": "??0sub_0041C720@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C730",
-     "length": 50,
-     "name": "??1sub_0041C730@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C7F0",
-     "length": 16,
-     "name": "??0sub_0041C7F0@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C800",
-     "length": 50,
-     "name": "??1sub_0041C800@@QAE@XZ"
-    },
-    {
      "va": "0x00426960",
      "length": 50,
      "name": "??1sub_00426960@@QAE@XZ"
@@ -5861,12 +5826,12 @@
     {
      "va": "0x0041C370",
      "length": 16,
-     "name": "?sub_00601B60_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?Next@?$TSLink@UHANDLER@@@@QAEPAUHANDLER@@XZ"
     },
     {
      "va": "0x0041C380",
      "length": 4,
-     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?RawNext@?$TSLink@UHANDLER@@@@QAEPAUHANDLER@@XZ"
     },
     {
      "va": "0x0041C390",
@@ -5877,6 +5842,11 @@
      "va": "0x0041C3A0",
      "length": 36,
      "name": "?NextLink@?$TSLink@UHANDLER@@@@QAEPAU1@H@Z"
+    },
+    {
+     "va": "0x0041C3D0",
+     "length": 50,
+     "name": "?Unlink@?$TSLink@UHANDLER@@@@QAEXXZ"
     },
     {
      "va": "0x0041C410",
@@ -5895,7 +5865,17 @@
     {
      "va": "0x0041C4E0",
      "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?Head@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAUHANDLER@@XZ"
+    },
+    {
+     "va": "0x0041C4F0",
+     "length": 16,
+     "name": "??0?$TSLink@UHANDLER@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0041C500",
+     "length": 50,
+     "name": "??1sub_0041C500@@QAE@XZ"
     },
     {
      "va": "0x0041C540",
@@ -5920,7 +5900,7 @@
     {
      "va": "0x0041C650",
      "length": 50,
-     "name": "?sub_0041C650@D2StormLinkStrc@@QAEXXZ"
+     "name": "??1?$TSLink@UHANDLER@@@@QAE@XZ"
     },
     {
      "va": "0x0041C690",
@@ -5938,6 +5918,16 @@
      "name": "?RawNext@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAUHANDLER@@PBU2@@Z"
     },
     {
+     "va": "0x0041C720",
+     "length": 16,
+     "name": "??0?$TSLinkedNode@UHANDLER@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0041C730",
+     "length": 50,
+     "name": "??1?$TSLinkedNode@UHANDLER@@@@QAE@XZ"
+    },
+    {
      "va": "0x0041C770",
      "length": 61,
      "name": "?UnlinkAll@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEXXZ"
@@ -5946,6 +5936,16 @@
      "va": "0x0041C7B0",
      "length": 60,
      "name": "??1?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0041C7F0",
+     "length": 16,
+     "name": "??0HANDLER@@QAE@XZ"
+    },
+    {
+     "va": "0x0041C800",
+     "length": 50,
+     "name": "??1HANDLER@@QAE@XZ"
     },
     {
      "va": "0x0041C840",

@@ -115,14 +115,6 @@ struct sub_00418C20;
 
 struct sub_00418E10;
 
-struct sub_0041C3D0;
-
-struct sub_0041C500;
-
-struct sub_0041C730;
-
-struct sub_0041C800;
-
 struct sub_00426960;
 
 struct sub_00426A80;
@@ -184,12 +176,6 @@ struct sub_00418E50;
 struct sub_00418FF0;
 
 struct sub_00419060;
-
-struct sub_0041C4F0;
-
-struct sub_0041C720;
-
-struct sub_0041C7F0;
 
 struct sub_00426CA0;
 
@@ -672,30 +658,6 @@ struct sub_00418E10
     ~sub_00418E10();
 };
 
-struct sub_0041C3D0
-{
-    D2StormLinkStrc f_0;
-    ~sub_0041C3D0();
-};
-
-struct sub_0041C500
-{
-    D2StormLinkStrc f_0;
-    ~sub_0041C500();
-};
-
-struct sub_0041C730
-{
-    D2StormLinkStrc f_0;
-    ~sub_0041C730();
-};
-
-struct sub_0041C800
-{
-    D2StormLinkStrc f_0;
-    ~sub_0041C800();
-};
-
 struct sub_00426960
 {
     D2StormLinkStrc f_0;
@@ -880,24 +842,6 @@ struct sub_00419060
 {
     D2StormLinkStrc f_0;
     sub_00419060();
-};
-
-struct sub_0041C4F0
-{
-    D2StormLinkStrc f_0;
-    sub_0041C4F0();
-};
-
-struct sub_0041C720
-{
-    D2StormLinkStrc f_0;
-    sub_0041C720();
-};
-
-struct sub_0041C7F0
-{
-    D2StormLinkStrc f_0;
-    sub_0041C7F0();
 };
 
 struct sub_00426CA0
@@ -1744,51 +1688,6 @@ sub_00419060::sub_00419060()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
-}
-
-// 0x0041C3D0
-sub_0041C3D0::~sub_0041C3D0()
-{
-    f_0.Unlink();
-}
-
-// 0x0041C4F0
-sub_0041C4F0::sub_0041C4F0()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x0041C500
-sub_0041C500::~sub_0041C500()
-{
-    f_0.Unlink();
-}
-
-// 0x0041C720
-sub_0041C720::sub_0041C720()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x0041C730
-sub_0041C730::~sub_0041C730()
-{
-    f_0.Unlink();
-}
-
-// 0x0041C7F0
-sub_0041C7F0::sub_0041C7F0()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x0041C800
-sub_0041C800::~sub_0041C800()
-{
-    f_0.Unlink();
 }
 
 // 0x00426960
