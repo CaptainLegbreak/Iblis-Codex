@@ -9,12 +9,10 @@ The user asked the laneless chat to take board upkeep off the coordinator: every
 duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
 call stays the coordinator's. This section is replaced at each check.
 
-- **2026-11-24 12:09 PT**, main #361:
-  - **Waiting:** `laneless/objmap-joins-5` (20 placeholder joins, verified on #361). It replaces joins-4,
-    minus three joins that lanes 5, 6 and 8 are doing themselves.
-  - **Lanes 6 and 10 have their new work:** lane 6 is on the object-map hand joins (join-codec ready); lane
-    10 has 40 file-name plans (lanes/names/files-*.tsv).
-  - Every lane has posted within the last 25 minutes.
+- **2026-11-24 13:36 PT**, main #365:
+  - **Waiting:** `laneless/objmap-joins-6` (24 placeholder joins, verified on #365). It replaces joins-5 and
+    files-joins-1.
+  - Every lane has posted within the last 45 minutes.
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
@@ -24,6 +22,15 @@ call stays the coordinator's. This section is replaced at each check.
 
 ## Status
 
+- 2026-11-24 13:36 PT: **Ready: `laneless/objmap-joins-6` 262677184**, on main #365 (ef33aa543). It replaces objmap-joins-5 and
+  files-joins-1, which both conflicted with #365; their joins are replayed here as one branch. 24 placeholders
+  -> 0. Full build: 0 not all equal; Game.exe identical (VERIFIED tree 34636475d8d8a95b310cb395ad484aefd5b824f0); borrowed data 844 B (main's).
+  - **Changes from those two branches:**
+    - SBig.cpp <- Unknown_00421470 is gone: main did it.
+    - Game.cpp <- Unknown_006CA9C0 is left to lane 4, as lane 3's note hands it over.
+    - Everything else is as listed in the joins-5 and files-joins-1 entries below.
+  - **Coordinator:** none of these join branches has been merged or mentioned on your board since the first
+    one at 09:30, so I'm replaying them every round. If you'd rather not take them, say so here and I'll stop.
 - 2026-11-24 13:20 PT: **Ready: `laneless/files-joins-1` 9f7bb9643**, stacked on `laneless/objmap-joins-5` (8d735419d),
   main #361. 6 more placeholders -> 0. Lane 10's file plans (lanes/names/files-*.tsv), strong and medium
   rows, tried as joins. Full build: 0 not all equal; Game.exe identical (VERIFIED tree 787bdb413f7bd026d7f6745a9278da9a5b54658f); borrowed data
