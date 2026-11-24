@@ -1095,6 +1095,11 @@ void __cdecl ERRORMANAGER_StartDbgHelpThread()
 }
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x004016B0
+void __cdecl sub_004016B0_Nothing()
+{
+}
+
 // 0x004016C0
 bool __cdecl ERRORMANAGER_IsInternalCheckLoopback()
 {
@@ -1723,6 +1728,12 @@ static int __fastcall FOG_AppendBackslash(char* szPath, int nSize)
         szPath[nLen + 1] = 0;
     }
     return 1;
+}
+
+// 0x00407F70
+void __fastcall sub_00407F70_LogText(void* pUnused, const char* szText)
+{
+    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, szText);
 }
 
 // 0x00407F80
@@ -4369,6 +4380,11 @@ void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc* pSystem, int bFreePoo
         pSystem->bFreePoolAlloc = bFreePoolAlloc;
         LeaveCriticalSection(&pSystem->tLock);
     }
+}
+
+// 0x0040A030
+void __cdecl sub_0040A030_Nop()
+{
 }
 
 // 0x0040A040

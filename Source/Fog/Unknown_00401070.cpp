@@ -287,12 +287,6 @@ void __cdecl AUTOMAP_CaptureSystemInfo()
     gbSystemInfoCaptured = 1;
 }
 
-// 0x00407F70
-void __fastcall sub_00407F70_LogText(void* pUnused, const char* szText)
-{
-    LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, szText);
-}
-
 // 0x00407FA0
 void __cdecl sub_00407FA0_Empty()
 {

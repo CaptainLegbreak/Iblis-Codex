@@ -55,6 +55,11 @@
      "name": "?ERRORMANAGER_StartDbgHelpThread@@YAXXZ"
     },
     {
+     "va": "0x004016B0",
+     "length": 1,
+     "name": "?sub_004016B0_Nothing@@YAXXZ"
+    },
+    {
      "va": "0x004016C0",
      "length": 120,
      "name": "ERRORMANAGER_IsInternalCheckLoopback"
@@ -394,6 +399,11 @@
      "name": "?ERRORMANAGER_ExitHandler@@YAXXZ"
     },
     {
+     "va": "0x00407F70",
+     "length": 15,
+     "name": "?sub_00407F70_LogText@@YIXPAXPBD@Z"
+    },
+    {
      "va": "0x00407F80",
      "length": 1,
      "name": "?ERRORMANAGER_RegisterThread@@YIXIPAX@Z"
@@ -620,6 +630,11 @@
      "va": "0x00409FF0",
      "length": 49,
      "name": "FOG_SetMemoryPoolSystemMode"
+    },
+    {
+     "va": "0x0040A030",
+     "length": 1,
+     "name": "?sub_0040A030_Nop@@YAXXZ"
     },
     {
      "va": "0x0040A040",
@@ -853,11 +868,6 @@
      "name": "?sub_00401020_SetLogDirectory@@YA_NPBD@Z"
     },
     {
-     "va": "0x004016B0",
-     "length": 1,
-     "name": "?sub_004016B0_Nothing@@YAXXZ"
-    },
-    {
      "va": "0x00401A60",
      "length": 12,
      "name": "?sub_00401A60_UnlockSymbols@@YAXXZ"
@@ -977,11 +987,6 @@
      "va": "0x00407DE0",
      "length": 318,
      "name": "AUTOMAP_CaptureSystemInfo"
-    },
-    {
-     "va": "0x00407F70",
-     "length": 15,
-     "name": "?sub_00407F70_LogText@@YIXPAXPBD@Z"
     },
     {
      "va": "0x00407FA0",
@@ -3527,11 +3532,6 @@
    "file": "Source/Fog/Src/AsyncData.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0040A030",
-     "length": 1,
-     "name": "?sub_0040A030_Nop@@YAXXZ"
-    },
     {
      "va": "0x0040A390",
      "length": 176,
