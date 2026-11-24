@@ -11,6 +11,8 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 - The View-to-Roster run (lane4/view-chat-run): PalShift.cpp's strays, the render mode/cache stats object 0x477620-0x477C90 into Unknown_00477620.cpp, and the copies and data 0x712B50-0x712EC0 (verifying on #325).
 - SCmd.cpp's packet table and the 0x45B5F0 object's data, 0x711430-0x711D40 (lane4/scmd-data, verifying).
 
+- The automap object's head, 0x457420-0x457B00 (lane4/automap-join): the automap step, pivot, center/left/party save and point helpers now in Unknown_004574D0.cpp, ui.cpp, Object.cpp and two placeholders join automap.cpp, and its copy 0x711218 joins it from CharSel.cpp's record.
+
 ## Questions
 
 ## Notes for other lanes
