@@ -24,6 +24,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
+- lane4/small-gaps: the small borrowed data blocks in lane 4's range (0x70F814, 0x71293C, 0x713002, 0x714220, 0x722314, the seven zero x offsets at 0x7220B8-0x7220F8). Verifying.
 
 ## Questions
 
