@@ -1203,7 +1203,6 @@ void __cdecl GAME_DrawLevelLoadingScreen()
     D2Win_10134_DrawCellFile(gpLoadingCell, gnScreenWidth / 2, gnScreenHeight / 2 - 140, 1, 5, 1);
 }
 
-// build: context SEED_RollRandomNumberInline
 static inline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
@@ -1212,7 +1211,6 @@ static inline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-// build: context SEED_RollLimitedRandomNumberInline
 static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)

@@ -52,7 +52,6 @@ unsigned int __fastcall TEXT_CalcTextOffset(unsigned int nValue)
     return 0x70 - (nValue >> 10);
 }
 
-// build: context sub_0049D5A0_DrawClippedLine
 static __forceinline void sub_0049D5A0_DrawClippedLine(T0044CB60* pLine, int nY, int nColor, int nSkipLines, int nDrawLines)
 {
     if (gnTextDisplaySetting || gbTextPanelOpen)
@@ -308,7 +307,6 @@ static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextScrollStrc* pTextBox
     return 1;
 }
 
-// build: context sub_004A0770_Shim
 // calling-convention shim (not game code)
 int __stdcall sub_004A0770_Shim()
 {

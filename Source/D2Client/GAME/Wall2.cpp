@@ -873,7 +873,6 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2A
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
-// build: context sub_B08_FillCellsInline
 static void sub_B08_FillCellsInline(D2GridCellStrc* pCells)
 {
     for (int j = 0; j < 8; ++j)

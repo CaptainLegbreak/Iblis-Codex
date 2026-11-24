@@ -163,7 +163,6 @@ static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, i
     D2Win_10117_DrawText((Unicode*)aText, gaHoverBoxes[nIndex].nTextX + gnPanelOffsetX, gaHoverBoxes[nIndex].nTextY + gnPanelOffsetY + gnScreenHeight - 480, 0, 0);
 }
 
-// build: context sub_004A7AE0_Shim
 // calling-convention shim (not game code)
 void __stdcall sub_004A7AE0_Shim(int nX, int nY, int nValueA, int nValueB)
 {

@@ -46,7 +46,6 @@ struct D2HintKeyListStrc
 int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
 void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
 
-// build: context CLIENT_ArmHintInline
 static void __fastcall CLIENT_ArmHintInline(int nKey, int nGroup, int nOffset, unsigned int nCount)
 {
     if (!nKey)

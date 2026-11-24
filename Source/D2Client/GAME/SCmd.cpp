@@ -4281,13 +4281,11 @@ int __fastcall ERRORMANAGER_GetBitWidth(unsigned int nValue)
     return nValue;
 }
 
-// build: context Log2Ceil
 static inline int Log2Ceil(int nValue)
 {
     return nValue < 3 ? 1 : ERRORMANAGER_GetBitWidth(nValue - 1);
 }
 
-// build: context GetMonStats2TxtRecordFromMonsterId
 static inline D2MonStats2Txt* GetMonStats2TxtRecordFromMonsterId(int nMonsterId)
 {
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount) return 0;
@@ -4299,7 +4297,6 @@ static inline D2MonStats2Txt* GetMonStats2TxtRecordFromMonsterId(int nMonsterId)
     return 0;
 }
 
-// build: context GetItemStatCostTxtRecord
 static inline D2ItemStatCostTxt* GetItemStatCostTxtRecord(int nStatId)
 {
     if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)

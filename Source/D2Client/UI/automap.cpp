@@ -4535,7 +4535,6 @@ void __fastcall ITEM_GetAdjacentPosition(D2UnitStrc* pUnit, int* pX, int* pY)
     *pY = aOffsetY[nDirection] + nY;
 }
 
-// build: context ITEM_GetTargetPosition
 int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY)
 {
     int nY;

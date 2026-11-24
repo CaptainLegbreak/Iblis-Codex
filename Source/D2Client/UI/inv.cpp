@@ -3517,7 +3517,6 @@ static D2UnitStrc* INV_FindSetItem(D2InventoryStrc* pInventory, int nSetItemId)
     return 0;
 }
 
-// build: context sub_E05_Emit_004844A0
 void __stdcall sub_E05_Emit_004844A0(D2InventoryStrc* pInventory, Unicode* pText, int nSetItemId)
 {
     for (int i = 0; i < 11; ++i)
@@ -3530,7 +3529,6 @@ void __stdcall sub_E05_Emit_004844A0(D2InventoryStrc* pInventory, Unicode* pText
 }
 
 
-// build: context sub_E05_Emit_00489FB0
 int __cdecl sub_E05_Emit_00489FB0(int nX, int nY)
 {
     return sub_00489FB0_IsOverButtonC(nX, nY);
@@ -3546,7 +3544,6 @@ static int __stdcall INV_IsMouseInBox(int nLeft, int nBottom, int nWidth, int nH
     return 0;
 }
 
-// build: context INV_DrawBodyLocPlacement
 // 0x00486860
 static int INV_IsOverWeaponSwapTab(int nX, int nY)
 {
@@ -6087,7 +6084,6 @@ void __cdecl INV_DrawPanelLabels()
     D2Win_10127_SetFont(nOldFont);
 }
 
-// build: context sub_E05_Emit_Tooltip
 void __stdcall sub_E05_Emit_Tooltip(D2UnitStrc* pItem, D2ItemsTxt* pItemsTxt, int nValue, Unicode* pText)
 {
     INV_AppendEtherealSocketed(pItem, pText);

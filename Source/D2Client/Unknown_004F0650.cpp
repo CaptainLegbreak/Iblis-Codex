@@ -8,7 +8,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 void __stdcall shim_1(void* p1, void* p2);
 
-// build: context sub_004F0590_CreateCltMissileRequest
 static void __stdcall sub_004F0590_CreateCltMissileRequest(D2UnitStrc* pUnit, int nMissile, int nSkillId, int nSkillLevel, int a5)
 {
 
@@ -17,7 +16,6 @@ static void __stdcall sub_004F0590_CreateCltMissileRequest(D2UnitStrc* pUnit, in
     shim_1(&nSkillLevel, &a5);
 }
 
-// build: context sub_004F04F0_CreateMissileFan
 static void __stdcall sub_004F04F0_CreateMissileFan(D2UnitStrc* pUnit, int nCount, int nMissile, int nSkillId, int nSkillLevel)
 {
 

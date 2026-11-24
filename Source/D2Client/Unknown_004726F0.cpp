@@ -106,7 +106,6 @@ extern D2WeatherStrc* gpWeatherBubbles;                                         
 extern int gbPhaseBusy;                                                                            // 0x007A8A20
 extern int gnPhase;                                                                                // 0x007A8A24
 
-// build: context sub_00472C20_PlayerMoved
 
 void __fastcall sub_00472C20_PlayerMoved(int nArg)
 {

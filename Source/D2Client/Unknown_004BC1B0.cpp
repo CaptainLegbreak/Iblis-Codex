@@ -752,7 +752,6 @@ int ListBoxWrapper::sub_004BEDF0_ForwardGetEntryData(int nIndex)
     return pImpl->GetListEntryData(nIndex);
 }
 
-// build: context D2ListScrollStrc::DrawRows
 __forceinline int D2ListScrollStrc::DrawRows(D2CelContextStrc* pContext)
 {
     int i;

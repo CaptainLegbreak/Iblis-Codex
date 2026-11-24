@@ -343,7 +343,6 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
 }
 
 // build: symbol ?SKILLDESC_DrawDamageRange@* 0x004E96E0
-// build: context SKILLDESC_DrawDamageRange
 static void __stdcall SKILLDESC_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight)
 {
     if (nMin >= nMax)
@@ -583,9 +582,6 @@ int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage
     return 1;
 }
 
-// build: context ApplyRatio_Inline
-// build: context AddPoisonDamage_Inline
-// build: context AddPoisonDamageAndClamp_Inline
 // 0x004EA010
 void __fastcall SKILLDESC_DrawSkillWeaponLine(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
 {
@@ -841,7 +837,6 @@ void __fastcall SKILLDESC_DrawThrowAndElemDamage(D2UnitStrc* pUnit, D2SkillStrc*
     SKILLDESC_DrawTwoTexts(wszText1, wszText2, nLeft, nY, nRight, nColor, nElemColor);
 }
 
-// build: context ApplyPercent_2E0
 static __forceinline int ApplyPercent_2E0(int nValue, int nPercent)
 {
     if (nValue > 0x100000)
@@ -866,7 +861,6 @@ static __forceinline int ApplyPercent_2E0(int nValue, int nPercent)
 }
 
 
-// build: context ApplyPercent_150
 static inline int ApplyPercent_150(int nValue, int nPercent)
 {
     if (nValue > 0x100000)
@@ -960,7 +954,6 @@ static void __stdcall sub_004E6F00_ApplyLightningMastery(int* pMin, int* pMax, D
     }
 }
 
-// build: context sub_004E72D0_GetElemDamage
 
 static int __stdcall sub_004E73E0_FormatValue(Unicode* pDest, int bPlus, int nValue)
 {

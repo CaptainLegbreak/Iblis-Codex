@@ -78,7 +78,6 @@ void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc*,int,int); // 0x0046FA80
 D2GfxHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void*); // 0x004DB040
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc*,D2InventoryStrc*,int*,int,int); // 0x0064F380
 
-// build: context STATES_IsUnitShapeShiftedInl
 inline int STATES_IsUnitShapeShiftedInl(D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -89,13 +88,11 @@ inline int STATES_IsUnitShapeShiftedInl(D2UnitStrc* pUnit)
     return (pUnit->dwFlagEx >> 3) & 1;
 }
 
-// build: context DATATBLS_GetMonStatsTxtRecordInl
 inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInl(int nMonsterId)
 {
     return (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? &sgptDataTables->pMonStatsTxt[nMonsterId] : 0;
 }
 
-// build: context DATATBLS_GetMonStats2TxtRecordInl
 inline D2MonStats2Txt* DATATBLS_GetMonStats2TxtRecordInl(int nRecordId)
 {
     if (nRecordId >= 0 && nRecordId < sgptDataTables->nMonStats2TxtRecordCount)
@@ -126,7 +123,6 @@ int GFX_RemoveGfxNode(D2UnitStrc* pUnit, D2HashedFileEntryStrc* pEntry); // 0x00
 
 int __stdcall GFX_FindGfxNode(int nId, D2GfxListNodeStrc** ppNode, int* pValue, D2UnitStrc* pUnit, int nMode); // 0x0046E690
 
-// build: context GFX_LoadGfxNode
 static int __stdcall GFX_LoadGfxNode(int* pValue, int nIndex, D2UnitStrc* pUnit)
 {
     int nId = 0;

@@ -94,7 +94,6 @@ static inline void sub_00468B20_HandleHotkey(int nHotkey)
         sub_004AA030_SelectHotkey(nHotkey);
 }
 
-// build: context sub_M115_Emit_00468B20
 void __fastcall sub_M115_Emit_00468B20(int nHotkey)
 {
     sub_00468B20_HandleHotkey(nHotkey);

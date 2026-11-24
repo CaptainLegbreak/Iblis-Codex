@@ -1976,7 +1976,6 @@ static void __stdcall sub_0049D310_CopyTextLine(Unicode* pDest, int nMax, const 
     }
 }
 
-// build: context sub_L04_EmitCopyTextLine
 void __stdcall sub_L04_EmitCopyTextLine(const Unicode* pText)
 {
     const Unicode* p = pText;
@@ -2498,7 +2497,6 @@ void __fastcall sub_0049E5C0_PrintWrappedLine(const Unicode* wszText, char nColo
     sub_004B9A00(6, 0, 0, 0, 0);
 }
 
-// build: context sub_J06_IntersectsAnyHoverRect
 static __forceinline int sub_J06_IntersectsAnyHoverRect(const D2RectStrc* pRect, int nCount)
 {
     for (int i = 0; i < nCount; ++i)
@@ -3538,7 +3536,6 @@ void __fastcall TEXT_SetSpeechHoverText(D2UnitStrc* pUnit, int nStringId)
     }
 }
 
-// build: context TEXT_ReadLine
 static __forceinline const unsigned short* TEXT_ReadLine(Unicode* pLine, const unsigned short* pText)
 {
     int i = 0;
@@ -3886,7 +3883,6 @@ void __fastcall TEXT_DrawObjectHoverText(D2UnitStrc* pUnit)
     TEXT_ShowHoverText(wszBuffer, pUnit, pHoverText, &tPos);
 }
 
-// build: context sub_0049D5A0_UpdateTextBox
 // calling-convention shim (not game code)
 static int __cdecl sub_0049D5A0_UpdateTextBox(T00479230* pTextBox)
 {
@@ -4024,7 +4020,6 @@ void __fastcall TEXT_ShowTextBox(unsigned short nStringId)
 }
 
 
-// build: context sub_00623C60
 static inline int sub_00623C60(D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -4792,7 +4787,6 @@ void __stdcall TEXT_LoadQuestPage(int nPage, int bReset)
     }
 }
 
-// build: context sub_004A3E40_ClickSlot_Inline
 static __forceinline void sub_004A3E40_ClickSlot_Inline(int nIndex)
 {
     for (int i = 0; i < gnQuestCount; ++i)

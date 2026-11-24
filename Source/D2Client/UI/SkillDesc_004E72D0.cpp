@@ -55,7 +55,6 @@ int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner,
 
 
 
-// build: context SkillsTxtRecord_0D0
 static inline D2SkillsTxt* SkillsTxtRecord_0D0(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -232,7 +231,6 @@ int __stdcall SKILLDESC_AddElemDuration(Unicode* wszText, D2SkillsTxt* pSkillsTx
 
 int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nSkillId, int nSkillLevel); // 0x004EDCA0
 
-// build: context sub_004EDDD0_AddAttackInfo
 static int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillLevel)
 {
     if (GAME_IsExpansion())
@@ -252,7 +250,6 @@ static int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, 
     return 1;
 }
 
-// build: context AppendString
 static inline void AppendString(Unicode* wszText, unsigned short nString)
 {
     if (nString != 0x1506)
