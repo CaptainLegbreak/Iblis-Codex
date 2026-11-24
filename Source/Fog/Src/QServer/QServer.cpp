@@ -608,26 +608,7 @@ void __fastcall QSERVER_ReleaseClient(D2QueueServerStrc* pServer, D2QClientStrc*
 
 static void QSERVER_FreeRecords(D2QueueServerStrc* pServer); // 0x006BF0F0
 
-struct D2QSrvConnectionStrc
-{
-    unsigned char unk_00[0x0C];
-    int bClosing;
-    unsigned int hSocket;
-    unsigned char unk_14[0x18];
-    D2CriticalSectionStrc tLock;
-};
-
-struct D2QSrvServerStrc
-{
-    unsigned char unk_000[0x854];
-    D2CriticalSectionStrc tLock;
-};
-
 extern "C" int __stdcall WSAGetLastError();                                                                 // 0x006B0168
-
-D2QSrvConnectionStrc* __fastcall QSERVER_FindClient(D2QSrvServerStrc* pServer, int nKey);                   // 0x006BE540
-
-void __fastcall sub_006C0360_RemoveConnection(D2QSrvServerStrc* pServer, D2QSrvConnectionStrc* pConnection); // 0x006C0360
 
 struct D2QSrvAutoLock
 {
@@ -2174,11 +2155,11 @@ int __stdcall FOG_10157(D2QueueServerStrc* pServer, unsigned int nKey, char* pDa
 }
 
 // 0x006C0420
-void __fastcall QSrvCloseRemoteConnection(D2QSrvServerStrc* pServer, int nKey, const char* szFile, int nLine)
+void __fastcall QSrvCloseRemoteConnection(D2QueueServerStrc* pServer, int nKey, const char* szFile, int nLine)
 {
     D2QSrvAutoLock tLock(&pServer->tLock);
 
-    D2QSrvConnectionStrc* pConnection = QSERVER_FindClient(pServer, nKey);
+    D2QClientStrc* pConnection = QSERVER_FindClient(pServer, nKey);
     if (!pConnection)
         return;
 
@@ -2190,14 +2171,14 @@ void __fastcall QSrvCloseRemoteConnection(D2QSrvServerStrc* pServer, int nKey, c
     }
 
     pConnection->bClosing = 1;
-    int nResult = FOG_SOCKET_CloseSocket(pConnection->hSocket);
-    pConnection->hSocket = (unsigned int)-1;
+    int nResult = FOG_SOCKET_CloseSocket(pConnection->nSocket);
+    pConnection->nSocket = (unsigned int)-1;
     LeaveCriticalSection(&pConnection->tLock);
 
     if (nResult)
         LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, "[QSrvCloseRemoteConnection] *** closesocket() err = %d ***", WSAGetLastError());
 
-    sub_006C0360_RemoveConnection(pServer, pConnection);
+    QSERVER_ReleaseClient(pServer, pConnection);
     if (nResult == -1)
         WSAGetLastError();
 }
