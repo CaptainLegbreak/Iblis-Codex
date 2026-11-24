@@ -72706,21 +72706,6 @@
      "name": "D2Common_10155"
     },
     {
-     "va": "0x0064A7F0",
-     "length": 86,
-     "name": "MISSILE_GetHomeType"
-    },
-    {
-     "va": "0x0064B700",
-     "length": 11,
-     "name": "?MISSILE_GetMinimum@@YIHHHHH@Z"
-    },
-    {
-     "va": "0x0064B710",
-     "length": 11,
-     "name": "?MISSILE_GetMaximum@@YIHHHHH@Z"
-    },
-    {
      "va": "0x0064C350",
      "length": 22,
      "name": "UNITROOM_AddUnitToRoom"
@@ -73308,11 +73293,6 @@
      "name": "PATH_AddCollisionFootprintForOptionalUnit"
     },
     {
-     "va": "0x0064A730",
-     "length": 35,
-     "name": "_sub_0064A730_GetMissileTargetStatus@4"
-    },
-    {
      "va": "0x0066A280",
      "length": 1,
      "name": "?D2COMMON_10916_Return@@YIXXZ"
@@ -73458,6 +73438,11 @@
      "name": "MISSILE_SetTargetX"
     },
     {
+     "va": "0x0064A730",
+     "length": 35,
+     "name": "_sub_0064A730_GetMissileTargetStatus@4"
+    },
+    {
      "va": "0x0064A760",
      "length": 32,
      "name": "MISSILE_SetTargetY"
@@ -73471,6 +73456,11 @@
      "va": "0x0064A7B0",
      "length": 62,
      "name": "MISSILE_SetHomeType"
+    },
+    {
+     "va": "0x0064A7F0",
+     "length": 86,
+     "name": "MISSILE_GetHomeType"
     },
     {
      "va": "0x0064A850",
@@ -73534,6 +73524,16 @@
      "va": "0x0064B6E0",
      "length": 29,
      "name": "?MISSILE_GetCalcParamValue@@YIHHPAX@Z"
+    },
+    {
+     "va": "0x0064B700",
+     "length": 11,
+     "name": "?MISSILE_GetMinimum@@YIHHHHH@Z"
+    },
+    {
+     "va": "0x0064B710",
+     "length": 11,
+     "name": "?MISSILE_GetMaximum@@YIHHHHH@Z"
     },
     {
      "va": "0x0064B720",
