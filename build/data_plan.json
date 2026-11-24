@@ -1360,8 +1360,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/npcmenu.cpp": {
-   "bytes": 7889,
-   "definitions": 103,
+   "bytes": 7949,
+   "definitions": 104,
    "externs": [
     "extern \"C\" void __cdecl sub_004B6C70_OpenNpcMenu(); // 0x004B6C70",
     "extern \"C\" void __cdecl sub_004B6DA0_InitHandler(); // 0x004B6DA0"
