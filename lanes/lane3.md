@@ -6,8 +6,6 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 - lane3/fog-em-nops 00dd2f54 453->453 ErrorManager.cpp takes three uncalled functions that sit between its own: 0x4016B0 (empty; from Fog/Unknown_00401010.cpp), 0x407F70 (log forwarder; from Fog/Unknown_00401070.cpp), 0x40A030 (empty; from Fog/Src/AsyncData.cpp). VERIFIED 8d0fdbc8 on base 0b750228 (#341; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 1,175 B). Not stacked; independent of scomp-flush-2.
 
-- lane3/scomp-flush-2 4367e2d1 453->453 (lane3/scomp-flush was pushed before its rebase; this one replaces it) SCOMP.CPP takes the nine small functions inside its run 0x41DEC0-0x41EED0 that were filed elsewhere: 0x41E8F0 and 0x41EE40 from SFILE.CPP; 0x41E900, 0x41E9E0, 0x41EB40, 0x41EB60 and the huff-node list's LinkNode 0x41ED90 from SSignature.cpp (LinkNode joins D2StormNodeListAStrc, whose NewItem 0x41EED0 calls it; SSignature's AddSymbol reaches it through its symbol line); 0x41E9C0 and 0x41EA20 (a forwarder to SCompDecompress) from Unknown_0041E9C0.cpp. The CBitOutput flush 0x41D9A0 moves from SFILE.CPP to Unknown_0041D880.cpp, whose bit-output run it sits in (lane 10's note). VERIFIED b1d04670 on base c2f64d25 (#340; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 1,577 B), then rebased onto 0b750228 (#341; SFILE.CPP's conflict with sevt-join resolved) and prechecked. Not stacked. **Lane 10:** 0x41D9A0 is done with this.
-
 ## Claimed
 
 (none)
