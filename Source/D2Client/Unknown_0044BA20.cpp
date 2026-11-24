@@ -81,7 +81,7 @@ extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
-void __fastcall sub_00449890_CdKeyChecksum(char* szKey, unsigned int* pChecksum); // 0x00449890
+void __fastcall GAME_CalcCdKeyChecksum(char* szKey, unsigned int* pChecksum); // 0x00449890
 
 int __stdcall SCmdRegisterArgList(const D2CmdArgStrc* pArgList, unsigned int nCount); // 0x006C4E50
 
@@ -93,9 +93,9 @@ int __fastcall GAME_DispatchMcpPacket(const char* pPacket, unsigned int nSize); 
 
 int __fastcall GAME_RunInitHandlers(void* pArg); // 0x0044D9F0
 
-int __stdcall sub_0044B5C0_OnExtraArgument(const char* szArgument); // 0x0044B5C0
+int __stdcall WINMAIN_HandleExtraArgument(const char* szArgument); // 0x0044B5C0
 
-int __stdcall sub_0044B5D0_OnArgumentError(const char* szArgument); // 0x0044B5D0
+int __stdcall WINMAIN_HandleArgumentError(const char* szArgument); // 0x0044B5D0
 
 void __fastcall GAME_ShowLoadingMessage(int nError); // 0x0044E380
 
@@ -412,7 +412,7 @@ void __fastcall PLAYER_SetPanelSlide(int nMode); // 0x0045AEA0
 
 void __fastcall sub_00457440_Nop(int nResolution); // 0x00457440
 
-void __fastcall sub_004549B0(int nResolution); // 0x004549B0
+void __fastcall UI_ToggleListDialog(int nResolution); // 0x004549B0
 
 extern int gnSavedScreenWidth; // 0x00711474
 
