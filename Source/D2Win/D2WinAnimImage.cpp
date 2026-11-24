@@ -349,3 +349,5 @@ int __stdcall ANIMIMAGE_SetIsRunning(D2WinAnimImageStrc* ptAnim, int bIsRunning)
     ptAnim->bIsRunning = bIsRunning;
     return 1;
 }
+
+#include "gen/data/Source/D2Win/D2WinAnimImage.inc"

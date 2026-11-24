@@ -1,8 +1,13 @@
 #include "D2Win.h"
+
 #include "D2Win32Types.h"
+
 #include "D2StormTypes.h"
+
 #include "D2WinControls.h"
+
 #include "D2CelContext.h"
+
 #include "D2WinTypes.h"
 
 #pragma function(memset)
@@ -165,8 +170,6 @@ struct D2WinFontAndColorStrc
     int nColor;
 };
 
-
-
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl);                                             // 0x004F9210
 
 int __stdcall EDITBOX_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg);                                              // 0x004FE350
@@ -234,6 +237,15 @@ static int EDITBOX_HasSelection(D2WinEditBoxStrc* pEditBox)
     if (pEditBox->nSelectionStart != -1 && pEditBox->nSelectionStart != pEditBox->nSelectionEnd)
         return 1;
     return 0;
+}
+
+// 0x004FDCC0
+__declspec(noinline) void __fastcall EDITBOX_ClearSelection(D2WinEditBoxStrc* ptEditData)
+{
+    D2_ASSERT(ptEditData, 0x1A4);
+    D2_ASSERT(ptEditData->controlHeader.eType == D2WIN_EDITBOX, 0x1A6);
+    ptEditData->nSelectionStart = -1;
+    ptEditData->nSelectionEnd = 0;
 }
 
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
@@ -447,6 +459,23 @@ int __fastcall sub_A23_Emit_004FE9F0(D2WinEditBoxStrc* pEditBox, int nKey)
     if (nKey != 0x18 && nKey != 1)
         EDITBOX_DeleteSelection(pEditBox);
     return sub_00526800((Unicode*)pEditBox->wszText) + pEditBox->nCaretPosition;
+}
+
+tagPOINT gtMousePosition; // 0x007D55A4
+
+struct Point { int x, y; };
+
+// 0x004FE710
+int __stdcall EDITBOX_HandleMultiLineMouseDown(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinEditBoxStrc* pEditBox = (D2WinEditBoxStrc*)pMsg->hWnd;
+
+    D2_ASSERT(pEditBox, 0x7E5);
+    D2_ASSERT(pEditBox->controlHeader.eType == D2WIN_EDITBOX, 0x7E6);
+
+    const int nX = gtMousePosition.x - pEditBox->nTextInsetX - pEditBox->controlHeader.nImageX;
+    const int nY = gtMousePosition.y + pEditBox->controlHeader.nHeight - pEditBox->nTextInsetY - pEditBox->controlHeader.nImageY;
+    return EDITBOX_PlaceMultiLineCaret(pMsg, nX, nY);
 }
 
 // 0x004FF050
@@ -1424,7 +1453,6 @@ int __fastcall EDITBOX_SetText(D2WinEditBoxStrc* pEditBox, const Unicode* pText)
     return 1;
 }
 
-
 // 0x004FF620
 int __fastcall EDITBOX_DrawMultiLine(D2WinEditBoxStrc* pEditBox)
 {
@@ -1729,3 +1757,5 @@ int __stdcall D2Win_10079_IsLetter(int nUnused1, int nUnused2, const char* szCha
 {
     return *szChar >= 'a' && *szChar <= 'z' || *szChar >= 'A' && *szChar <= 'Z';
 }
+
+#include "gen/data/Source/D2Win/Src/D2WinEditBox.inc"
