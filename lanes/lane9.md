@@ -16,8 +16,7 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 ## Ready
 - lane9/join-d3d-7530 98bdfd62 placeholders 6->1 (D2Direct3D: Unknown_006B7630, _006B8950, _006B8DF0, _006B8E90,
   _006B87A0 join Unknown_006B7530.cpp; 13 functions). Base main ff0dd9c4 (#335). Precheck: 0 not all equal.
-  Full verify: VERIFIED tree 99488276 on #333 (8f1bf35b); rebased onto #335 with namesync (4 renames in the joined file,
-  unit rebuilt equal), re-verify of 98bdfd62 running.
+  Full verify on #335: VERIFIED tree fadd5258 (98bdfd62; rebased with namesync, 4 renames in the joined file).
   Evidence: the image's calls tie them by file statics. 0x6B7630 calls the static 0x6B7530; 0x6B8950 and 0x6B83A0 call
   the static 0x6B7FD0; 0x6B8DF0 and 0x6B8E90 call the statics 0x6B8950 and 0x6B87A0; 0x6B8E60 calls the static
   0x6B8DF0. With the bodies together the context copies, the glyph emitter and the ecx struct trick for 0x6B87A0 go
