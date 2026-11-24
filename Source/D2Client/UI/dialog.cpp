@@ -252,7 +252,7 @@ void __stdcall DIALOG_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
         return;
     for (D2DialogWidgetNodeStrc* pNode = pDialog->pWidgets; pNode; pNode = pNode->pNext)
     {
-        if (pNode->f_0 && pNode->f_0->OnMouseMove(pMsg) == 1)
+        if (pNode->pWidget && pNode->pWidget->OnMouseMove(pMsg) == 1)
         {
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
@@ -287,7 +287,7 @@ void __stdcall DIALOG_LButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         for (D2DialogWidgetNodeStrc* pNode = pDialog->pWidgets; pNode; pNode = pNode->pNext)
         {
-            if (pNode->f_0 && pNode->f_0->OnLButtonUp(pMsg) == 1)
+            if (pNode->pWidget && pNode->pWidget->OnLButtonUp(pMsg) == 1)
                 return;
         }
         return;
@@ -320,7 +320,7 @@ static void __stdcall DIALOG_LButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 
     for (D2DialogWidgetNodeStrc* pNode = pDialog->pWidgets; pNode; pNode = pNode->pNext)
     {
-        if (pNode->f_0 && pNode->f_0->OnLButtonDown(pMsg) == 1)
+        if (pNode->pWidget && pNode->pWidget->OnLButtonDown(pMsg) == 1)
             {
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
@@ -580,7 +580,7 @@ void __stdcall DIALOG_KeyDownMsg(SMSGHANDLER_PARAMS* pMsg)
     D2_ASSERT(pDialog, 0x2EE);
     for (D2DialogWidgetNodeStrc* pNode = pDialog->pWidgets; pNode; pNode = pNode->pNext)
     {
-        if (pNode->f_0 && pNode->f_0->MsgSlot06(pMsg))
+        if (pNode->pWidget && pNode->pWidget->MsgSlot06(pMsg))
             return;
     }
     if (DIALOG_IsChatKey(pDialog, pMsg->wParam))
@@ -652,7 +652,7 @@ void __fastcall DIALOG_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int
     D2DialogWidgetNodeStrc* pOld = pDialog->pWidgets;
     pDialog->pWidgets = (D2DialogWidgetNodeStrc*)FOG_Alloc(sizeof(D2DialogWidgetNodeStrc), ".\\UI\\dialog.cpp", 0x359, 0);
     pDialog->pWidgets->pNext = pOld;
-    pDialog->pWidgets->f_0 = (D2DialogWidget*)pWidget;
+    pDialog->pWidgets->pWidget = (D2DialogWidget*)pWidget;
 }
 
 // 0x004B7CD0
