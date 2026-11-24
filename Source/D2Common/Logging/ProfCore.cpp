@@ -9,7 +9,7 @@ typedef int (__cdecl* PROFHOOK0096BC24FN)();
 
 extern D2ProfileCounterStrc gaProfEntries[23]; // 0x00743800
 void __cdecl PROFCORE_WriteProfileCounters(); // 0x006116B0
-void __cdecl LOG_CloseLog(); // 0x00624B20
+void __cdecl LOGGING_CloseLog(); // 0x00624B20
 extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC; // 0x0096C7CC
 extern D2TxtLinkStrc* gpMissilesLinker_0096C798; // 0x0096C798
 extern D2TxtLinkStrc* gpSkillCalcLinker_0096BC6C; // 0x0096BC6C
@@ -26,7 +26,7 @@ extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(__int64
 // 0x00611600
 void __cdecl PROFCORE_CloseLog()
 {
-    LOG_CloseLog();
+    LOGGING_CloseLog();
 }
 
 // 0x00611620

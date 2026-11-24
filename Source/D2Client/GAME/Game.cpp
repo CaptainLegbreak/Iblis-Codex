@@ -521,7 +521,7 @@ void __fastcall sub_004776C0(int nGamma); // 0x004776C0
 
 void __cdecl D2GFX_EnableVSync(); // 0x004F5270
 
-void __fastcall LOG_SetLoggingEnabled(int nValue); // 0x00624B50
+void __fastcall LOGGING_SetLoggingEnabled(int nValue); // 0x00624B50
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
@@ -3054,7 +3054,7 @@ void __fastcall sub_0044D830_ApplyConfigNop(D2ConfigStrc* pConfig)
 void __fastcall GAME_ApplyConfigLog(D2ConfigStrc* pConfig)
 {
     if (pConfig->bLog)
-        LOG_SetLoggingEnabled(1);
+        LOGGING_SetLoggingEnabled(1);
 }
 
 // 0x0044D860

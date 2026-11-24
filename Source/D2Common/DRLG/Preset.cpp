@@ -1615,7 +1615,7 @@ struct D2Unk00667030Strc
 };
 
 // 0x00667030
-void __fastcall SKILLS_GetInnerPair(D2Unk00667030Strc* pRecord, int* pValue0, int* pValue1)
+void __fastcall DRLGPRESET_GetInnerPair(D2Unk00667030Strc* pRecord, int* pValue0, int* pValue1)
 {
     D2Unk00667030MidStrc* pMid = pRecord->pMid;
     if (pValue0)

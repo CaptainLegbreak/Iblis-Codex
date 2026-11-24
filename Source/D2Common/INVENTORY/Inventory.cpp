@@ -492,7 +492,7 @@ int __stdcall STATES_CheckStateMaskBlueOnUnit(D2UnitStrc* pUnit)
     return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_BLUE]);
 }
 
-static inline D2ItemExtraDataStrc* INVENTORY_GetExtraDataFromItem(D2UnitStrc* pItem)
+static inline D2ItemExtraDataStrc* ITEMS_GetExtraDataFromItem(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM && pItem->pItemData)
     {
@@ -509,7 +509,7 @@ static void __cdecl INVENTORY_UnlinkItem(D2InventoryPairStrc* pPair, D2UnitStrc*
     {
         return;
     }
-    D2ItemExtraDataStrc* pExtra = INVENTORY_GetExtraDataFromItem(pItem);
+    D2ItemExtraDataStrc* pExtra = ITEMS_GetExtraDataFromItem(pItem);
     if (!pExtra)
     {
         return;
@@ -523,7 +523,7 @@ static void __cdecl INVENTORY_UnlinkItem(D2InventoryPairStrc* pPair, D2UnitStrc*
     }
     else
     {
-        D2ItemExtraDataStrc* pPrevious = INVENTORY_GetExtraDataFromItem(pExtra->pPreviousItem);
+        D2ItemExtraDataStrc* pPrevious = ITEMS_GetExtraDataFromItem(pExtra->pPreviousItem);
         if (pPrevious)
         {
             pPrevious->pNextItem = pExtra->pNextItem;
@@ -538,7 +538,7 @@ static void __cdecl INVENTORY_UnlinkItem(D2InventoryPairStrc* pPair, D2UnitStrc*
     }
     else
     {
-        D2ItemExtraDataStrc* pNext = INVENTORY_GetExtraDataFromItem(pExtra->pNextItem);
+        D2ItemExtraDataStrc* pNext = ITEMS_GetExtraDataFromItem(pExtra->pNextItem);
         if (pNext)
         {
             pNext->pPreviousItem = pExtra->pPreviousItem;
@@ -618,7 +618,7 @@ static void __stdcall INVENTORY_UnlinkGridItem(D2InventoryGridStrc* pGrid, int b
     {
         return;
     }
-    D2ItemExtraDataStrc* pExtra = INVENTORY_GetExtraDataFromItem(pItem);
+    D2ItemExtraDataStrc* pExtra = ITEMS_GetExtraDataFromItem(pItem);
     if (!pExtra)
     {
         return;
@@ -632,7 +632,7 @@ static void __stdcall INVENTORY_UnlinkGridItem(D2InventoryGridStrc* pGrid, int b
     }
     else
     {
-        D2ItemExtraDataStrc* pPrevious = INVENTORY_GetExtraDataFromItem(pExtra->pPreviousGridItem);
+        D2ItemExtraDataStrc* pPrevious = ITEMS_GetExtraDataFromItem(pExtra->pPreviousGridItem);
         if (pPrevious)
         {
             pPrevious->pNextGridItem = pExtra->pNextGridItem;
@@ -647,7 +647,7 @@ static void __stdcall INVENTORY_UnlinkGridItem(D2InventoryGridStrc* pGrid, int b
     }
     else
     {
-        D2ItemExtraDataStrc* pNext = INVENTORY_GetExtraDataFromItem(pExtra->pNextGridItem);
+        D2ItemExtraDataStrc* pNext = ITEMS_GetExtraDataFromItem(pExtra->pNextGridItem);
         if (pNext)
         {
             pNext->pPreviousGridItem = pExtra->pPreviousGridItem;
@@ -699,7 +699,7 @@ int __fastcall sub_0063AAF0_RemoveItem(D2UnitStrc* pItem)
     const int nType = pItem ? pItem->dwUnitType : -1;
     if (nType == 4)
     {
-        D2ItemExtraDataStrc* pExtra = INVENTORY_GetExtraDataFromItem(pItem);
+        D2ItemExtraDataStrc* pExtra = ITEMS_GetExtraDataFromItem(pItem);
         if (!pExtra)
         {
             return 0;
@@ -754,7 +754,7 @@ int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem)
     const int nType = pItem ? pItem->dwUnitType : -1;
     if (nType == 4)
     {
-        D2ItemExtraDataStrc* pExtra = INVENTORY_GetExtraDataFromItem(pItem);
+        D2ItemExtraDataStrc* pExtra = ITEMS_GetExtraDataFromItem(pItem);
         if (!pExtra)
         {
             return 0;
