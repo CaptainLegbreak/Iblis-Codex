@@ -2,6 +2,7 @@
 // Storm SFILE: archive, file, block, stream and request records shared by the SFILE pieces.
 
 #include "D2StormLink.h"
+#include "stpl.h"
 #include "D2Win32Base.h"
 
 struct D2StormMpqHeaderStrc;
@@ -244,17 +245,9 @@ struct D2StormSoundBufferStrc
     virtual long __stdcall Unlock(void* pPtr1, unsigned long nBytes1, void* pPtr2, unsigned long nBytes2) = 0;
 };
 
-// The link of a list node: it unlinks itself when the node is destroyed.
-template <class T>
-struct TSLink : D2StormLinkStrc
-{
-    ~TSLink() { Unlink(); }
-};
-
 // A streamed sound (0x50 bytes).
-struct AUDIOSTREAM
+struct AUDIOSTREAM : TSLinkedNode<AUDIOSTREAM>
 {
-    TSLink<AUDIOSTREAM> tLink;                  // 0x00
     FILEREC* pFile;                  // 0x08
     unsigned int nextwrite;                     // 0x0C
     int unk0x10;                                // 0x10
@@ -279,37 +272,13 @@ struct AUDIOSTREAM
         int nRefCount;
     };
 
-    AUDIOSTREAM();
     ~AUDIOSTREAM();                                                                                   // 0x004199A0
     static void operator delete(void* pMemory);
 };
 
-// The list of playing streams.
-struct D2StormStreamListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    AUDIOSTREAM* Head()
-    {
-        AUDIOSTREAM* pHead = (AUDIOSTREAM*)m_terminator.Next();
-        return pHead;
-    }
-    D2StormLinkStrc* Link(AUDIOSTREAM* pNode)
-    {
-        return pNode ? &pNode->tLink : &m_terminator;
-    }
-    void UnlinkNode(AUDIOSTREAM* pNode)
-    {
-        Link(pNode)->Unlink();
-    }
-    AUDIOSTREAM* sub_00419700_NewNode(unsigned int nFlags, unsigned int nArg2, unsigned int nArg3);         // 0x00419700
-};
-
 // A pending read request (0x44 bytes).
-struct REQUEST
+struct REQUEST : TSLinkedNode<REQUEST>
 {
-    TSLink<REQUEST> tLink;                      // 0x00
     union
     {
         void* hEvent;                           // 0x08
@@ -331,52 +300,7 @@ struct REQUEST
     D2StormRequestCallbackStrc* pCallback;      // 0x40
 
     ~REQUEST();                                                                                  // 0x0041A020
-    REQUEST()
-    {
-        tLink.m_prevlink = 0;
-        tLink.m_next = 0;
-    }
     static void operator delete(void* pMemory);
-};
-
-// The list of pending read requests.
-struct D2StormRequestListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    REQUEST* Head()
-    {
-        REQUEST* pHead = (REQUEST*)m_terminator.Next();
-        return pHead;
-    }
-    D2StormLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
-    }
-    void LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode)
-    {
-        D2StormLinkStrc* pLink = Link(pNode);
-        pLink->Unlink();
-        D2StormLinkStrc* pExistingLink = Link(pExistingNode);
-        switch (nLinkType)
-        {
-        case 1:
-            pLink->m_prevlink = pExistingLink;
-            pLink->m_next = pExistingLink->m_next;
-            pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-            pExistingLink->m_next = pNode;
-            break;
-        default:
-            D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-            pLink->m_prevlink = pPrevLink;
-            pLink->m_next = pPrevLink->m_next;
-            pPrevLink->m_next = pNode;
-            pExistingLink->m_prevlink = pLink;
-            break;
-        }
-    }
-    inline REQUEST* NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
 };
 
 // The list of open archives.
@@ -469,9 +393,7 @@ struct D2StormFixedListStrc
     D2StormLinkStrc* sub_00417C50_Link(char* pNode);
     D2StormLinkStrc* sub_00417D60_Link(char* pNode);
     D2StormLinkStrc* sub_0041C560_Link(char* pNode);
-    void sub_00417A70_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
     void sub_00417B80_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
-    void sub_00417D80_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
     void sub_004184B0_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
     void sub_0041C580_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
     char* sub_00417B20_Next(char* pNode);
@@ -489,14 +411,10 @@ struct D2StormFixedListStrc
     char* sub_004186F0_RawNext(char* pNode);
     char* sub_0041C700_RawNext(char* pNode);
     char* sub_00418EC0_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-    char* sub_00419630_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-    char* sub_00419B90_DeleteNode(char* pNode);
-    char* sub_0041A2C0_DeleteNode(char* pNode);
     char* sub_0041C840_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
     char* sub_0041CA10_DeleteNode(char* pNode);
     char* sub_00418F20_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
     char* sub_00419690_DeleteNode(char* pNode);
-    char* sub_00419700_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
 };
 
 struct D2StormListBaseStrc
@@ -551,12 +469,6 @@ struct D2StormList00708354Strc : D2StormListBaseStrc
     ~D2StormList00708354Strc();
 };
 
-struct D2StormList00708360Strc : D2StormListBaseStrc
-{
-    void sub_00418940_UnlinkAll();
-    ~D2StormList00708360Strc();
-};
-
 struct D2StormList0070836CStrc : D2StormListBaseStrc
 {
     void sub_00418980_UnlinkAll();
@@ -567,10 +479,4 @@ struct D2StormList00708378Strc : D2StormListBaseStrc
 {
     void sub_004189C0_UnlinkAll();
     ~D2StormList00708378Strc();
-};
-
-struct D2StormList00708384Strc : D2StormListBaseStrc
-{
-    void sub_00418A00_UnlinkAll();
-    ~D2StormList00708384Strc();
 };

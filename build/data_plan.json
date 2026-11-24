@@ -3930,8 +3930,8 @@
    "state": "included"
   },
   "Source/Storm/Unknown_006C9A68.cpp": {
-   "bytes": 288,
-   "definitions": 8,
+   "bytes": 280,
+   "definitions": 6,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -145647,40 +145647,6 @@
    "file": "Source/Storm/Unknown_006C9A68.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern unsigned int gnListTerminator_00708364 = ",
-   "model": {
-    "k": "prim",
-    "kind": "u",
-    "name": "unsigned int",
-    "size": 4
-   },
-   "name": "gnListTerminator_00708364",
-   "pointers": [
-    [
-     0,
-     "0x00708364",
-     "owner",
-     "gnListTerminator_00708364",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00708364",
-   "type": "unsigned int",
-   "va": "0x00708364"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006C9A68.cpp",
-   "form": "declared",
-   "fwd": null,
    "head": "extern unsigned int gnListTerminator_00708370 = ",
    "model": {
     "k": "prim",
@@ -145740,40 +145706,6 @@
    "tail": "; // 0x0070837C",
    "type": "unsigned int",
    "va": "0x0070837C"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006C9A68.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern unsigned int gnListTerminator_00708388 = ",
-   "model": {
-    "k": "prim",
-    "kind": "u",
-    "name": "unsigned int",
-    "size": 4
-   },
-   "name": "gnListTerminator_00708388",
-   "pointers": [
-    [
-     0,
-     "0x00708388",
-     "owner",
-     "gnListTerminator_00708388",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00708388",
-   "type": "unsigned int",
-   "va": "0x00708388"
   },
   {
    "alias": false,
