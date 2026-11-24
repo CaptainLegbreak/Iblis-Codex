@@ -3348,7 +3348,7 @@
   },
   "Source/D2Game/SKILLS/SkillItem.cpp": {
    "bytes": 372,
-   "definitions": 5,
+   "definitions": 4,
    "externs": [
     "extern \"C\" void __cdecl SKILLITEM_pSpell08_ExperienceElixir(); // 0x005BF060",
     "extern \"C\" void __cdecl SKILLITEM_pSpell09_AntidoteThawingPotion(); // 0x005BEF90",
@@ -5283,6 +5283,21 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillBar.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/Unknown_005C0D00.cpp": {
+   "bytes": 32,
+   "definitions": 1,
+   "externs": [
+    "extern \"C\" void __cdecl SKILLITEM_pSpell08_ExperienceElixir(); // 0x005BF060",
+    "extern \"C\" void __cdecl SKILLITEM_pSpell09_AntidoteThawingPotion(); // 0x005BEF90",
+    "extern \"C\" void __cdecl sub_005BE3F0(); // 0x005BE3F0",
+    "extern \"C\" void __cdecl sub_005BE7B0(); // 0x005BE7B0",
+    "extern \"C\" void __cdecl sub_005BEAC0(); // 0x005BEAC0"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Unknown_005C0D00.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -106714,7 +106729,7 @@
    "cname": "gData_006E3014",
    "declared": true,
    "decorated": "?gnRareAffixCounts@@3QBHB",
-   "file": "Source/D2Game/SKILLS/SkillItem.cpp",
+   "file": "Source/D2Game/Unknown_005C0D00.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E3014[8]; // 0x006E3014",
