@@ -1774,15 +1774,6 @@ inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
     }
 }
 
-// 0x00451E10
-void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount)
-{
-    D2_ASSERT(hWnd, 0x166);
-    for (unsigned int i = 0; i < nCount; ++i)
-    {
-        SCMD_UnregisterMsgHandler(hWnd, pTable[i].nType, pTable[i].nId, (SMSGHANDLER)pTable[i].pfnHandler);
-    }
-}
 
 // 0x00452580
 int __fastcall AUTOMAP_GetHoverMonsterName(D2UnitStrc* pUnit, int nArg)
