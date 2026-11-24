@@ -13,6 +13,9 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## In progress
 
+- **Claimed: MonUnique.cpp object** (next, stacked on unit-strays). Now that D2Client from 0x4A0000 is mine: MonUnique.cpp takes 0x4AC730-0x4AC870 (accessors from Unknown_004A9BD0, Monster.cpp, Unknown_004AC780, GfxUtil.cpp, and the hover-name function Unknown_004AC870; 0x4AC870 inlines the accessors and its rdata gaHoverModes sits right before the MonUnique.cpp path string), and its data start: the copy at 0x724D3C (lane 4's note; gaSkillTabX shrinks to its 88 B). Then the umod state-callback object 0x4AD0C0-0x4ADD80 (filed in npcmenu.cpp) with Unknown_004ADD90.
+- **Verifying:** lane1/casetable-to-d2lang (rebased on #325) and lane1/unitmode-copy (0x721CDC copy planned in UnitMode.cpp).
+
 - **Claimed: casetable-to-d2lang** (verifying): gaCaseTable (0x730778, 576 B in Monster.cpp's plan) is D2Lang's lower-case table after gawToUpperTable; 512 B go to Unknown_00526610.cpp, the copy at 0x730978 to Unknown_00526100.cpp (lane 6's files, plan entries only).
 - **Done: UNIT run strays** (branch lane1/unit-strays). Single functions filed elsewhere that sit between two functions of one UNIT file, all with inferred or placeholder names, move into that file: 0x463D80/0x463E10/0x463EE0/0x466820 -> CUnit.cpp; 0x460780/0x461AC0 -> Player.cpp; 0x480780/0x480B40/0x480C10 -> UnitMode.cpp; 0x4ACD50/0x4ACDB0 -> MonUnique.cpp; 0x4B1050 (+0x4B1240, 0x4B1D70 if they build) -> Monster.cpp; 0x4C1A70/0x4C1AD0 -> Item.cpp; 0x4CD0A0/0x4CDB40 -> Missile.cpp. They come out of lane 4's ui.cpp, View.cpp, automap.cpp, inv.cpp, npcmenu.cpp, SCmd.cpp, Skills.cpp, GfxUtil.cpp and placeholders. Skipping Unknown_004D1300's four (not Missile.cpp code) and 0x4CA560.
 
