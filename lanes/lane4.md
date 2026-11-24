@@ -18,9 +18,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 14:53:23 PST 2026: join-party-b030 ready (with gamedata-table, join-cmdtbl-2). Also tried and parked: Player.cpp <- Unknown_00463390 (D2UnitTargetStrc views), UnitMode.cpp <- Unknown_004815A0 + Unknown_00481600 (they sit inside UnitMode.cpp's run; joined, 0x481600 differs in structure). Next: the remaining medium leads.
+- Tue Nov 24 15:07:22 PST 2026: join-player-2d00 ready; join-cmdtbl-3 (join-cmdtbl-2 plus Unknown_00467DF0's four belt hotkeys) verifying. Tried and parked: Unknown_00462CA0 into Player.cpp/CUnit.cpp (struct views; 0x462CA0-0x4637F0 mixes four placeholders with automap.cpp and SCmd.cpp strays, so I want its data before choosing).
 
 ## Ready
+
+- lane4/join-player-2d00 c7a4b2aec placeholders -1 (Unknown_00462D00.cpp): Player.cpp takes in 0x462D00 (map: clear lead, calls only functions Player.cpp uses), with its global gbPlayerCommandPending; join.py dropped 38 copies Player.cpp already has. Touches lane 1's Player.cpp (the function is in lane 4's range). Borrowed data 844 B (main 844). VERIFIED b0583422d7ee on #368. Not stacked.
 
 - lane4/join-party-b030 6299da2ce placeholders -1 (Unknown_0049B030.cpp): Party.cpp takes 0x49B030 (roster tooltip), a static helper of Party.cpp's 0x49B330, its only caller (the map's first pick, Roster.cpp, drops it as an uncalled static). Its planned data, the language-table copy 0x722414 and the four roster icon tables after it, start Party.cpp's object data (between panel.cpp's and the waypoint panel's, matching the code order), so Party.cpp gets its data include; its .data is in the original order. Borrowed data 844 B (main 844). VERIFIED e5f6a8c1e3cd on #368. Not stacked.
 
