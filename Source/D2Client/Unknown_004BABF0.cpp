@@ -51,6 +51,7 @@ public:
         }
     }
 
+    UIWidget();
     virtual ~UIWidget() = 0;
     virtual void Draw() = 0;
     virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg) = 0;
@@ -619,6 +620,14 @@ static inline int sub_004BC0A0_IsInSecond(D2ButtonPairStrc* pButtons, D2MouseMes
 
 
 struct D2CelFileStrc;
+
+// build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
+// build: symbol ??_7UIWidget@@6B@ 0x006DA6C0
+// 0x004BABE0
+UIWidget::UIWidget()
+{
+}
+
 
 #include "gen/data/Source/D2Client/Unknown_004BABF0.inc"
 
