@@ -24,7 +24,9 @@ struct D2StormArrayAStrc
         {
             if (bRound)
             {
-                unsigned int nChunk = f_C ? f_C : sub_004210A0_CalcChunkSize(nCount);
+                unsigned int nChunk = f_C;
+                if (!nChunk)
+                    nChunk = sub_004210A0_CalcChunkSize(nCount);
                 nCount = RoundUp(nCount, nChunk);
             }
             sub_004216E0_ReallocData(nCount);

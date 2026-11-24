@@ -332,12 +332,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_00425330.cpp": {
+  "Source/Storm/SOURCE/SBig.cpp": {
    "bytes": 688,
    "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00425330.inc",
+   "include": "gen/data/Source/Storm/SOURCE/SBig.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -9185,7 +9185,7 @@
    "cname": "gData_006CFF70",
    "declared": true,
    "decorated": "?gaSBigFermatBases@@3QBIB",
-   "file": "Source/Storm/Unknown_00425330.cpp",
+   "file": "Source/Storm/SOURCE/SBig.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned int gData_006CFF70[1]; // 0x006CFF70",
    "head": "extern \"C\" const unsigned int gData_006CFF70[1] = ",
@@ -9216,7 +9216,7 @@
    "cname": "gData_006CFF78",
    "declared": true,
    "decorated": "?gaSBigSmallPrimes@@3QBIB",
-   "file": "Source/Storm/Unknown_00425330.cpp",
+   "file": "Source/Storm/SOURCE/SBig.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned int gData_006CFF78[171]; // 0x006CFF78",
    "head": "extern \"C\" const unsigned int gData_006CFF78[171] = ",
