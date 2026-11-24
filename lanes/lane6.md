@@ -4,7 +4,7 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/mcp-copies 59945d21 0 placeholders (plan-only, plus McpConnect.cpp's new data include `gen/data/Source/D2MCPClient/Src/McpConnect.inc`). ComCallback.cpp's gapfnMsgHandlers (0x0070EC20) is 24 entries, not 56: COMCALLBACK_DispatchMessage bounds the index at 0x18, and the 128 B after it are two language-table copies. 0x0070EC80 goes to McpConnect.cpp (the MCP connect object, 0x00449890-0x0044A16F, has no other .data) and 0x0070ECC0 to D2MCPClient/Unknown_0044A170.cpp, whose packet tables follow it at 0x0070ED00. The other reading, a copy-only object holding CHATDLG_StartThread (0x0044A130) before the MCP client, gives the same bytes; I took the one that adds no file. Not stacked; nothing outside the lane. VERIFIED 2d6a1d76 (on #356; borrowed data 999 B, unchanged).
+- lane6/mcp-copies-2 038fb245 (replaces mcp-copies, which conflicted with #357 in data_plan.json; same change, redone on #357) 0 placeholders (plan-only, plus McpConnect.cpp's new data include `gen/data/Source/D2MCPClient/Src/McpConnect.inc`). ComCallback.cpp's gapfnMsgHandlers (0x0070EC20) is 24 entries, not 56: COMCALLBACK_DispatchMessage bounds the index at 0x18, and the 128 B after it are two language-table copies. 0x0070EC80 goes to McpConnect.cpp (the MCP connect object, 0x00449890-0x0044A16F, has no other .data) and 0x0070ECC0 to D2MCPClient/Unknown_0044A170.cpp, whose packet tables follow it at 0x0070ED00. The other reading, a copy-only object holding CHATDLG_StartThread (0x0044A130) before the MCP client, gives the same bytes; I took the one that adds no file. Not stacked; nothing outside the lane. VERIFIED 3486f522 (on #357; borrowed data 975 B, unchanged).
 
 
 ## Claimed
