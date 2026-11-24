@@ -2601,56 +2601,6 @@
      "name": "?sub_0045AC90_DrawAutomapUnits@@YAXXZ"
     },
     {
-     "va": "0x0045AE50",
-     "length": 7,
-     "name": "?sub_0045AE50_SetGlobal00711428@@YIXH@Z"
-    },
-    {
-     "va": "0x0045AE70",
-     "length": 7,
-     "name": "?sub_0045AE70_SetGlobal0071142C@@YIXH@Z"
-    },
-    {
-     "va": "0x0045AFE0",
-     "length": 13,
-     "name": "?AUTOMAP_SetAutomapOffsets@@YIXHH@Z"
-    },
-    {
-     "va": "0x0045AFF0",
-     "length": 151,
-     "name": "AUTOMAP_ScreenToMap"
-    },
-    {
-     "va": "0x0045B090",
-     "length": 1,
-     "name": "?sub_0045B090_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x0045B0A0",
-     "length": 1,
-     "name": "?sub_0045B0A0_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x0045B1E0",
-     "length": 510,
-     "name": "AUTOMAP_DrawUnitTileRect"
-    },
-    {
-     "va": "0x0045B3E0",
-     "length": 91,
-     "name": "AUTOMAP_DrawRoomTileRects"
-    },
-    {
-     "va": "0x0045B440",
-     "length": 166,
-     "name": "AUTOMAP_UpdateAutomapOrigin"
-    },
-    {
-     "va": "0x0045B4F0",
-     "length": 244,
-     "name": "AUTOMAP_DrawRoomCollision"
-    },
-    {
      "va": "0x0045D3E0",
      "length": 197,
      "name": "AUTOMAP_RefreshItemStats"
@@ -13822,11 +13772,6 @@
      "name": "sub_004508A0_LinkNode"
     },
     {
-     "va": "0x0045B0B0",
-     "length": 231,
-     "name": "?VIEW_DrawRoomUnitBoxes@@YIXPAUD2ActiveRoomStrc@@@Z"
-    },
-    {
      "va": "0x0045BB30",
      "length": 17,
      "name": "sub_0045BB30_Link"
@@ -16275,26 +16220,6 @@
      "name": "UI_GetAutomapMode"
     },
     {
-     "va": "0x0045AE60",
-     "length": 6,
-     "name": "sub_0045AE60"
-    },
-    {
-     "va": "0x0045AE80",
-     "length": 6,
-     "name": "sub_0045AE80"
-    },
-    {
-     "va": "0x0045AFA0",
-     "length": 6,
-     "name": "UI_GetAutomapOffsetX"
-    },
-    {
-     "va": "0x0045AFB0",
-     "length": 6,
-     "name": "UI_GetAutomapOffsetY"
-    },
-    {
      "va": "0x0045BA70",
      "length": 14,
      "name": "UI_ClearPair"
@@ -16410,9 +16335,119 @@
    ],
    "functions": [
     {
+     "va": "0x0045AD60",
+     "length": 142,
+     "name": "?PLAYER_DrawAutomap@@YAXXZ"
+    },
+    {
+     "va": "0x0045ADF0",
+     "length": 41,
+     "name": "?CLIENTS_GetUnitX@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0045AE20",
+     "length": 41,
+     "name": "?CLIENTS_GetUnitY@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0045AE50",
+     "length": 7,
+     "name": "?sub_0045AE50_SetGlobal00711428@@YIXH@Z"
+    },
+    {
+     "va": "0x0045AE60",
+     "length": 6,
+     "name": "sub_0045AE60"
+    },
+    {
+     "va": "0x0045AE70",
+     "length": 7,
+     "name": "?sub_0045AE70_SetGlobal0071142C@@YIXH@Z"
+    },
+    {
+     "va": "0x0045AE80",
+     "length": 6,
+     "name": "sub_0045AE80"
+    },
+    {
      "va": "0x0045AE90",
      "length": 6,
      "name": "sub_0045AE90"
+    },
+    {
+     "va": "0x0045AEA0",
+     "length": 252,
+     "name": "?PLAYER_SetPanelSlide@@YIXH@Z"
+    },
+    {
+     "va": "0x0045AFA0",
+     "length": 6,
+     "name": "UI_GetAutomapOffsetX"
+    },
+    {
+     "va": "0x0045AFB0",
+     "length": 6,
+     "name": "UI_GetAutomapOffsetY"
+    },
+    {
+     "va": "0x0045AFC0",
+     "length": 12,
+     "name": "_PLAYER_GetScreenOffsetX"
+    },
+    {
+     "va": "0x0045AFD0",
+     "length": 9,
+     "name": "_PLAYER_GetScreenOffsetY"
+    },
+    {
+     "va": "0x0045AFE0",
+     "length": 13,
+     "name": "?AUTOMAP_SetAutomapOffsets@@YIXHH@Z"
+    },
+    {
+     "va": "0x0045AFF0",
+     "length": 151,
+     "name": "AUTOMAP_ScreenToMap"
+    },
+    {
+     "va": "0x0045B090",
+     "length": 1,
+     "name": "?sub_0045B090_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x0045B0A0",
+     "length": 1,
+     "name": "?sub_0045B0A0_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x0045B0B0",
+     "length": 231,
+     "name": "?VIEW_DrawRoomUnitBoxes@@YIXPAUD2ActiveRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0045B1A0",
+     "length": 60,
+     "name": "?CUNIT_DrawAutomapDiamond@@YIXHHE@Z"
+    },
+    {
+     "va": "0x0045B1E0",
+     "length": 510,
+     "name": "AUTOMAP_DrawUnitTileRect"
+    },
+    {
+     "va": "0x0045B3E0",
+     "length": 91,
+     "name": "AUTOMAP_DrawRoomTileRects"
+    },
+    {
+     "va": "0x0045B440",
+     "length": 166,
+     "name": "AUTOMAP_UpdateAutomapOrigin"
+    },
+    {
+     "va": "0x0045B4F0",
+     "length": 244,
+     "name": "AUTOMAP_DrawRoomCollision"
     }
    ]
   },
@@ -17414,36 +17449,6 @@
    "file": "Source/D2Client/UNIT/Player.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0045AD60",
-     "length": 142,
-     "name": "?PLAYER_DrawAutomap@@YAXXZ"
-    },
-    {
-     "va": "0x0045ADF0",
-     "length": 41,
-     "name": "?CLIENTS_GetUnitX@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0045AE20",
-     "length": 41,
-     "name": "?CLIENTS_GetUnitY@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0045AEA0",
-     "length": 252,
-     "name": "?PLAYER_SetPanelSlide@@YIXH@Z"
-    },
-    {
-     "va": "0x0045AFC0",
-     "length": 12,
-     "name": "_PLAYER_GetScreenOffsetX"
-    },
-    {
-     "va": "0x0045AFD0",
-     "length": 9,
-     "name": "_PLAYER_GetScreenOffsetY"
-    },
     {
      "va": "0x0045BD00",
      "length": 61,
@@ -18500,11 +18505,6 @@
      "va": "0x004519C0",
      "length": 207,
      "name": "?CUNIT_ReplayRecords@@YAXXZ"
-    },
-    {
-     "va": "0x0045B1A0",
-     "length": 60,
-     "name": "?CUNIT_DrawAutomapDiamond@@YIXHHE@Z"
     },
     {
      "va": "0x004637F0",

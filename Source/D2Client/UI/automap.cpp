@@ -1033,9 +1033,7 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
-int gnAutomapOriginX; // 0x007A520C
 
-int gnAutomapOriginY; // 0x007A5208
 
 struct D2UnitOverlayStrc
 {
@@ -1422,7 +1420,6 @@ int gnRevealLastY; // 0x007A51F4
 
 void __stdcall AUTOMAP_RevealRoomCallback(D2ActiveRoomStrc* pRoom); // 0x00459150
 
-int gnAutomapPanelShiftX; // 0x007A5204
 
 int gbPopupMouseDown; // 0x007A5248
 
@@ -4127,167 +4124,17 @@ static void AUTOMAP_DrawAutomapPartyMember(D2StoredUnitRecordStrc* pEntry)
     }
 }
 
-// 0x0045AE50
-void __fastcall sub_0045AE50_SetGlobal00711428(int nValue)
-{
-    gdwGlobal_00711428 = nValue;
-}
-
-// 0x0045AE70
-void __fastcall sub_0045AE70_SetGlobal0071142C(int nValue)
-{
-    gdwGlobal_0071142C = nValue;
-}
-
-// 0x0045AFE0
-void __fastcall AUTOMAP_SetAutomapOffsets(int nX, int nY)
-{
-    gnAutomapOriginX = nX;
-    gnAutomapOriginY = nY;
-}
-
-// 0x0045AFF0
-void __fastcall AUTOMAP_ScreenToMap(int* pX, int* pY)
-{
-    int nX = *pX;
-    int nY = *pY;
-    if (sub_004F51D0_IsPerspective())
-    {
-        nY += nY / -40;
-        int nHalfWidth = gnScreenWidth / 2;
-        nX += (40 - nY / 4) * (nX - nHalfWidth) / nHalfWidth;
-    }
-    nY += gnAutomapOriginY;
-    nX += gnAutomapOriginX - gnPanelSlideOffsetX;
-    DUNGEON_ClientToGameSubtileCoords(&nX, &nY);
-    *pX = nX;
-    *pY = nY;
-}
-
-// 0x0045B090
-void __cdecl sub_0045B090_Nop()
-{
-}
-
-// 0x0045B0A0
-void __cdecl sub_0045B0A0_Nop()
-{
-}
 
 
-// 0x0045B1E0
-void __stdcall AUTOMAP_DrawUnitTileRect(D2UnitStrc* pUnit)
-{
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    D2TileRectStrc* pTileRect = sub_00619620(pRoom, pUnit);
-    if (!pTileRect)
-    {
-        return;
-    }
-    int nX = UNITS_GetXPositionInline(pUnit);
-    int nY = UNITS_GetYPositionInline(pUnit);
-    DUNGEON_GameSubtileToClientCoords(&nX, &nY);
-    int nLeft = pTileRect->nX - gnAutomapOriginX + nX;
-    int nTop = pTileRect->nY - gnAutomapOriginY + nY;
-    int nRight = pTileRect->nWidth + nLeft;
-    int nBottom = pTileRect->nHeight + nTop;
-    D2GFX_DrawLine(nLeft, nTop, nLeft, nBottom, 0xFF, 0xFF);
-    D2GFX_DrawLine(nLeft, nTop, nRight, nTop, 0xFF, 0xFF);
-    D2GFX_DrawLine(nLeft, nBottom, nRight, nBottom, 0xFF, 0xFF);
-    D2GFX_DrawLine(nRight, nTop, nRight, nBottom, 0xFF, 0xFF);
-    nX += 1;
-    tagRECT tRect;
-    tRect.left = nX - gnAutomapOriginX - 0x10;
-    tRect.right = nX - gnAutomapOriginX + 0x10;
-    tRect.top = nY - gnAutomapOriginY;
-    tRect.bottom = nY - gnAutomapOriginY + 0x10;
-    D2GFX_UtilDiamond(&tRect, 0xFF);
-    nX = UNITS_GetXPositionInline(pUnit);
-    nY = UNITS_GetYPositionInline(pUnit);
-    nX += pTileRect->nOffsetX;
-    nY += pTileRect->nOffsetY;
-    DUNGEON_GameSubtileToClientCoords(&nX, &nY);
-    nX += 1;
-    tRect.left = nX - gnAutomapOriginX - 0x10;
-    tRect.right = nX - gnAutomapOriginX + 0x10;
-    tRect.top = nY - gnAutomapOriginY;
-    tRect.bottom = nY - gnAutomapOriginY + 0x10;
-    D2GFX_UtilDiamond(&tRect, 0x2D);
-}
 
-// 0x0045B3E0
-void __cdecl AUTOMAP_DrawRoomTileRects()
-{
-    D2ActiveRoomStrc** ppRoomList;
-    unsigned int nNumRooms;
-    D2ActiveRoomStrc* pRoom = CUNIT_GetPlayerRoom();
-    if (pRoom)
-    {
-        DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
-        for (unsigned int i = 0; i < nNumRooms; ++i)
-        {
-            for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
-            {
-                if (pUnit->dwUnitType == UNIT_TILE)
-                {
-                    AUTOMAP_DrawUnitTileRect(pUnit);
-                }
-            }
-        }
-    }
-}
 
-// 0x0045B440
-void __cdecl AUTOMAP_UpdateAutomapOrigin()
-{
-    int nShiftX;
-    int nShiftY;
-    gnAutomapPanelShiftX = -0xA0;
-    if (gnPanelSlideMode == 2)
-    {
-        gnAutomapPanelShiftX = gnScreenWidth / 2 - 0xA0;
-    }
-    else if (gnPanelSlideMode == 3)
-    {
-        gnAutomapPanelShiftX = 0;
-    }
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    int nX = UNITS_GetClientCoordX(pPlayer);
-    int nY = UNITS_GetClientCoordY(pPlayer);
-    gnAutomapOriginX = nX - gnScreenWidth / 2;
-    gnAutomapOriginY = nY - gnScreenHeight / 2 + 0x10;
-    if (VIEW_GetViewShift(&nShiftX, &nShiftY))
-    {
-        gnAutomapOriginX += nShiftX;
-        gnAutomapOriginY += nShiftY;
-    }
-}
 
-// 0x0045B4F0
-void __stdcall AUTOMAP_DrawRoomCollision(D2ActiveRoomStrc* pRoom)
-{
-    D2DrlgCoordsStrc tCoords;
-    DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
-    for (int nY = tCoords.nSubtileY + 2; nY < tCoords.nSubtileY + tCoords.nSubtileHeight + 5; nY += 5)
-    {
-        for (int nX = tCoords.nSubtileX + 3; nX < tCoords.nSubtileX + tCoords.nSubtileWidth + 5; nX += 5)
-        {
-            int nCollision = sub_0061B130_GetCollision(pRoom, nX, nY);
-            int nScreenX = nX;
-            int nScreenY = nY;
-            DUNGEON_GameSubtileToClientCoords(&nScreenX, &nScreenY);
-            tagRECT tRect;
-            tRect.left = nScreenX - gnAutomapOriginX - 0x10;
-            tRect.right = nScreenX - gnAutomapOriginX + 0x10;
-            tRect.top = nScreenY - gnAutomapOriginY;
-            tRect.bottom = nScreenY - gnAutomapOriginY + 0x10;
-            D2GFX_UtilDiamond(&tRect, 0x46);
-            nScreenX = nScreenX - 7 - gnAutomapOriginX;
-            nScreenY = nScreenY - gnAutomapOriginY;
-            D2GFX_OutputString(nScreenX, nScreenY, gszFormatInt_006D57BC, nCollision);
-        }
-    }
-}
+
+
+void __stdcall AUTOMAP_DrawUnitTileRect(D2UnitStrc* pUnit); // 0x0045B1E0
+
+
+
 
 // 0x0045D3E0
 void __fastcall AUTOMAP_RefreshItemStats(D2UnitStrc* pUnit)
