@@ -886,15 +886,15 @@ void __fastcall D2CMPSpriteCacheCreate(D2SpriteCacheStrc* pCache, void* pMemPool
         pNode->nKey = 0;
     }
 
-    pCache->f_24 = pCache->pNodes;
+    pCache->pFreeHead = pCache->pNodes;
     pCache->nCount = 0;
     pCache->pHeadA = 0;
     pCache->pTailA = 0;
     pCache->pHeadB = 0;
     pCache->pTailB = 0;
-    pCache->f_28 = &pCache->pNodes[0x1400 - 1];
+    pCache->pFreeTail = &pCache->pNodes[0x1400 - 1];
     pCache->nHits = 0;
-    pCache->f_4C = 0;
+    pCache->nRequests = 0;
     InitializeCriticalSection(&pCache->tLock);
 }
 
@@ -935,16 +935,16 @@ static void __stdcall D2CMPSpriteCacheLinkTail(int bLocked, D2SpriteCacheStrc* p
 // 0x005FF0D0
 static inline void D2CMPSpriteCachePushFree(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode)
 {
-    if (!pCache->f_28)
+    if (!pCache->pFreeTail)
     {
-        pCache->f_24 = pNode;
-        pCache->f_28 = pNode;
+        pCache->pFreeHead = pNode;
+        pCache->pFreeTail = pNode;
     }
     else
     {
-        pCache->f_28->pNext = pNode;
-        pNode->pPrev = pCache->f_28;
-        pCache->f_28 = pNode;
+        pCache->pFreeTail->pNext = pNode;
+        pNode->pPrev = pCache->pFreeTail;
+        pCache->pFreeTail = pNode;
     }
 }
 
@@ -986,17 +986,17 @@ static D2SpriteCacheNodeStrc* __stdcall D2CMPSpriteCachePopHead(int bLocked, D2S
 // 0x005FF170
 static inline D2SpriteCacheNodeStrc* D2CMPSpriteCachePopFree(D2SpriteCacheStrc* pCache)
 {
-    D2SpriteCacheNodeStrc* pNode = pCache->f_24;
+    D2SpriteCacheNodeStrc* pNode = pCache->pFreeHead;
     if (!pNode)
         return 0;
     if (pNode->dwFlags & 2)
         return 0;
     D2SpriteCacheNodeStrc* pNext = pNode->pNext;
-    pCache->f_24 = pNext;
+    pCache->pFreeHead = pNext;
     if (pNext)
         pNext->pPrev = 0;
     else
-        pCache->f_28 = 0;
+        pCache->pFreeTail = 0;
     pNode->pNext = 0;
     pNode->pPrev = 0;
     return pNode;
@@ -1093,7 +1093,7 @@ static D2SpriteCacheNodeStrc* __stdcall D2CMPSpriteCacheTakeNode(unsigned int nS
     EnterCriticalSection(&pCache->tLock);
     if (pCache->nCount != 0x1400 && pCache->nTotalSize + nSize <= pCache->nMaxSize)
     {
-        pNode = pCache->f_24;
+        pNode = pCache->pFreeHead;
         if (!pNode)
         {
             pNode = 0;
@@ -1105,14 +1105,14 @@ static D2SpriteCacheNodeStrc* __stdcall D2CMPSpriteCacheTakeNode(unsigned int nS
         else
         {
             D2SpriteCacheNodeStrc* pNext = pNode->pNext;
-            pCache->f_24 = pNext;
+            pCache->pFreeHead = pNext;
             if (pNext)
             {
                 pNext->pPrev = 0;
             }
             else
             {
-                pCache->f_28 = 0;
+                pCache->pFreeTail = 0;
             }
             pNode->pNext = 0;
             pNode->pPrev = 0;
@@ -1184,18 +1184,18 @@ D2SpriteCacheNodeStrc* __fastcall D2CMPSpriteCacheEvict(D2SpriteCacheStrc* pCach
         FOG_FreePool(pCache->pMemPool, pNode->pData, gszSpriteCacheSourceFile, 0x9E8, 0);
         pNode->pData = 0;
     }
-    if (!pCache->f_28)
+    if (!pCache->pFreeTail)
     {
         pCache->nCount -= 1;
-        pCache->f_24 = pNode;
-        pCache->f_28 = pNode;
+        pCache->pFreeHead = pNode;
+        pCache->pFreeTail = pNode;
     }
     else
     {
-        pCache->f_28->pNext = pNode;
-        pNode->pPrev = pCache->f_28;
+        pCache->pFreeTail->pNext = pNode;
+        pNode->pPrev = pCache->pFreeTail;
         pCache->nCount -= 1;
-        pCache->f_28 = pNode;
+        pCache->pFreeTail = pNode;
     }
     return pNode;
 }
@@ -1207,7 +1207,7 @@ void __fastcall D2CMPSpriteCacheTouch(D2SpriteCacheStrc* pCache, D2SpriteCacheNo
     {
         return;
     }
-    pCache->f_4C += 1;
+    pCache->nRequests += 1;
     EnterCriticalSection(&pCache->tLock);
     D2_ASSERT(pNode, 0xA10);
     D2CMPSpriteCacheUnlink(pCache, pNode);
@@ -1676,7 +1676,7 @@ D2SpriteCacheNodeStrc* __fastcall D2CMPSpriteCacheAlloc(D2SpriteCacheStrc* pCach
     pNode->nSize = nSize;
     pNode->nKey = nKey;
     pCache->nHits += 1;
-    pCache->f_4C += 1;
+    pCache->nRequests += 1;
     return pNode;
 }
 

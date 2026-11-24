@@ -19,7 +19,7 @@ struct D2TextPanelStrc
     int unk0x180718[6];
     int nFirstLine;
     int unk0x180734[5];
-    unsigned short f_180748;
+    unsigned short nLineCount;
     unsigned short unk0x18074A[14];
     unsigned char nLineStep[4];
     unsigned char nLineGap[4];
