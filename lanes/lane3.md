@@ -10,6 +10,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- **lane3/smsg-members**: SMSG.CPP's 0x420470 and 0x4206A0 as TSList<WNDREC>::InitializeTerminator and its constructor (same caveat as logmsg-list-2: the bytes fit any list type). Full verify running.
 
 ## Questions
 
