@@ -22,7 +22,6 @@ struct D2Callbacks006C7CF0Strc;
 
 struct D2CriticalSectionStrc;
 
-struct D2RgbQuadStrc;
 
 struct D2RgbQuad006C7FA0Strc;
 
@@ -37,13 +36,12 @@ extern D2Callbacks006C7CF0Strc* gpCallbacks_007C914C; // 0x007C914C
 
 void __fastcall sub_006C9280_Apply(int enabled, unsigned char unusedRegister, int unusedA, int unusedB); // 0x006C9280
 
-struct D2RgbQuadStrc { unsigned char nBlue, nGreen, nRed, nReserved; };
 
 extern "C" __declspec(dllimport) void* __stdcall CreateCompatibleDC(void* hDC);
 
 extern "C" __declspec(dllimport) void* __stdcall SelectObject(void* hDC, void* hObject);
 
-extern "C" __declspec(dllimport) unsigned int __stdcall SetDIBColorTable(void* hDC, unsigned int nStart, unsigned int nCount, const D2RgbQuadStrc* pColors);
+extern "C" __declspec(dllimport) unsigned int __stdcall SetDIBColorTable(void* hDC, unsigned int nStart, unsigned int nCount, const D2RgbQuad006C7FA0Strc* pColors);
 
 extern "C" __declspec(dllimport) void* __stdcall SelectPalette(void* hDC, void* hPalette, int bForceBackground);
 
@@ -61,7 +59,6 @@ void* __stdcall WINDOW_GetWindow(); // 0x004F59A0
 
 extern int gnRenderHeight; // 0x007C913C
 
-extern D2RgbQuadStrc gaPalette_00989C40[256]; // 0x00989C40
 
 extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 
@@ -127,7 +124,6 @@ void __cdecl sub_006C80A0_Nop(); // 0x006C80A0
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-extern D2RgbQuadStrc gPaletteEntries_00989C40[256]; // 0x00989C40
 
 extern int gnValue_007C913C; // 0x007C913C
 
@@ -235,6 +231,62 @@ int __cdecl sub_006C8190(); // 0x006C8190
 int __cdecl sub_006C8240(); // 0x006C8240
 void __stdcall sub_006C88A0(int nUnused1, int nUnused2); // 0x006C88A0
 void __stdcall sub_006C8A40(int nUnused1, int nUnused2); // 0x006C8A40
+
+
+extern int gnWidth_007C9138; // 0x007C9138
+extern unsigned char* gpPixels_007C9154; // 0x007C9154
+
+
+// 0x006C7EF0
+int __fastcall sub_006C7EF0_ConvertPalette(unsigned char* buffer)
+{
+    unsigned char* row = gpPixels_007C9154;
+    for (int y = 0; y < gnHeight_007C913C; ++y) {
+        unsigned char* source = row;
+        unsigned char* destination = buffer;
+        for (int x = 0; x < gnWidth_007C9138; ++x) {
+            D2RgbQuad006C7FA0Strc* color = &gatGdiColors[*source];
+            *destination++ = color->rgbRed;
+            *destination++ = color->rgbGreen;
+            *destination = color->rgbBlue;
+            ++source;
+            ++destination;
+        }
+        row += gnWidth_007C9138;
+        buffer += 3 * gnWidth_007C9138;
+    }
+    return 1;
+}
+
+D2RgbQuad006C7FA0Strc gatGdiColors[256]; // 0x00989C40
+
+// 0x006C8110
+unsigned char __fastcall sub_006C8110_FindNearestColor(int nRed, int nBlue, int nGreen)
+{
+    unsigned char nIndex = 0;
+    int nBest = 10000;
+    for (int i = 1; i < 256; ++i)
+    {
+        int nDiff = gatGdiColors[i].rgbRed - nRed;
+        if (nDiff < 0)
+            nDiff = -nDiff;
+        const int nRedDiff = nDiff;
+        nDiff = gatGdiColors[i].rgbGreen - nGreen;
+        if (nDiff < 0)
+            nDiff = -nDiff;
+        const int nGreenDiff = nDiff;
+        nDiff = gatGdiColors[i].rgbBlue - nBlue;
+        if (nDiff < 0)
+            nDiff = -nDiff;
+        nDiff += nGreenDiff;
+        if (nDiff + nRedDiff < nBest)
+        {
+            nBest = nDiff + nRedDiff;
+            nIndex = (unsigned char)i;
+        }
+    }
+    return nIndex;
+}
 
 #include "gen/data/Source/D2Gdi/Src/gdiCore.inc"
 
@@ -414,7 +466,7 @@ int __cdecl GDICORE_BlitWindow()
     void* hDC = GetDC(ghRenderWindow);
     void* hMemoryDC = CreateCompatibleDC(hDC);
     SelectObject(hMemoryDC, ghObject_0098A164);
-    SetDIBColorTable(hMemoryDC, 0, 256, gaPalette_00989C40);
+    SetDIBColorTable(hMemoryDC, 0, 256, gatGdiColors);
     SelectPalette(hDC, ghPalette, 0);
     RealizePalette(hDC);
     tagRECT tRect;
@@ -495,12 +547,12 @@ int __cdecl sub_006C8190()
 }
 
 // 0x006C81A0
-void __fastcall GDICORE_GetPalette(void** phPalette, D2RgbQuadStrc** ppEntries)
+void __fastcall GDICORE_GetPalette(void** phPalette, D2RgbQuad006C7FA0Strc** ppEntries)
 {
     D2_ASSERT(phPalette, 546);
     D2_ASSERT(ppEntries, 547);
     *phPalette = ghPalette;
-    *ppEntries = gPaletteEntries_00989C40;
+    *ppEntries = gatGdiColors;
 }
 
 // 0x006C81E0
