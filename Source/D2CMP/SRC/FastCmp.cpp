@@ -79,14 +79,6 @@ struct D2CelDataHashStrc
     T00604AE0* pBuckets[0x200];
 };
 
-struct D2CmpSubTileBlockStrc
-{
-    char unk0x00[0x08];
-    short nValue08;
-    short nSize;
-    int unk0x0C;
-    unsigned char* pData;
-};
 
 struct D2CmpStringStrc
 {

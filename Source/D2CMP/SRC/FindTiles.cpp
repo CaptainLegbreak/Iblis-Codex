@@ -25,18 +25,7 @@ struct D2FindTileEntryStrc
     D2FindTileEntryStrc* pNext;
 };
 
-struct D2CmpFindTilesSubStrc
-{
-    int unk0x00;
-    D2CmpFindTilesSubStrc* pNext;
-};
 
-struct D2CmpFindTilesNodeStrc
-{
-    int unk0x00[3];
-    D2CmpFindTilesSubStrc* pSubs;
-    D2CmpFindTilesNodeStrc* pNext;
-};
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 

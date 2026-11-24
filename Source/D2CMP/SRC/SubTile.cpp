@@ -70,14 +70,6 @@ void __stdcall sub_M92_EmitSinkA(D2CmpSubTileRecordStrc* pRecord);
 
 void __stdcall sub_M92_EmitSinkB(unsigned char* pData, D2CmpSubTileRecordStrc* pRecord);
 
-struct D2CmpSubTileBlockStrc
-{
-    char unk0x00[0x08];
-    short nValue08;
-    short nSize;
-    int unk0x0C;
-    unsigned char* pData;
-};
 
 
 

@@ -361,6 +361,28 @@ struct D2CofDataStrc
     D2CofLayerStrc pLayers[1]; // 0x1C
 };
 
+struct D2CmpFindTilesSubStrc
+{
+    int unk0x00; // 0x00
+    D2CmpFindTilesSubStrc* pNext; // 0x04
+};
+
+struct D2CmpFindTilesNodeStrc
+{
+    int unk0x00[3]; // 0x00
+    D2CmpFindTilesSubStrc* pSubs; // 0x0C
+    D2CmpFindTilesNodeStrc* pNext; // 0x10
+};
+
+struct D2CmpSubTileBlockStrc
+{
+    char unk0x00[0x08]; // 0x00
+    short nValue08; // 0x08
+    short nSize; // 0x0A
+    int unk0x0C; // 0x0C
+    unsigned char* pData; // 0x10
+};
+
 D2_CHECK_SIZE(D2CmpColorStrc, 0x4);
 D2_CHECK_SIZE(D2CmpTileInfoStrc, 0x19);
 D2_CHECK_SIZE(D2CmpSubTileHeaderStrc, 0x10);
