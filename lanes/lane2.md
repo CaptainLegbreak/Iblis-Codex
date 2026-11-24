@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/storm-hash 84c2e562 562->562 One commit; merges cleanly with storm-array, storm-bitoutput, split-text-3 and small-records-g-4. Every record with m_linktoslot at 0x04 is a view of Storm's hash table entry (TSHashObject): hash value (masked to pick the slot), slot link, full-list link, key. Their f_0/f_C/f_14 are now Storm's names m_hashval/m_linktofull/m_key, in D2CMP.h, D2CmpStormHash.h, D2Client.h, Storm.h and the private copies in Unknown_00604070, both Game.cpp files, Unknown_0044F9B0/0044F9D0/00450950, Ignorelist and LogManager, with the member functions and callers that read them; VERIFIED 4c50534f1f7e5dd45a08213a7d7ef5f191c8a348
+  - On 900824d3 (#345). All 260 includers of the changed headers build equal.
+  - Outside lane 2: Storm, Fog and LogManager units (lane 3), D2CMP units (lane 6), D2Client units (lanes 1 and 4), D2Game/Game.cpp (lane 5), Ignorelist (lane 8), member names in D2CMP.h, D2Client.h, Storm.h.
+
 - lane2/storm-bitoutput 17c33fa5 562->562 One commit, independent of storm-array (they merge cleanly together). CBitOutput's 0x04 (D2StormBitOutput.h) is the count of output bytes still free: PutBits and Flush write only while it is non-zero and decrement it per byte, now nBytesLeft. D2ChatStormBaseArrayA/BStrc (D2CMP.h, D2Client.h, Storm.h and the private copies in Unknown_0044F9D0, Ignorelist, LogManager) are Storm's base array, capacity/count/elements; their f_0/f_4/f_8 are now m_alloc/m_count/m_data, as in D2StormArrayAStrc; VERIFIED 3a705a1213126b6ffd5f6abbca3100d98b055c1f
   - On 900824d3 (#345). All 257 includers of the changed headers build equal.
   - Outside lane 2: Storm units, LogManager (lane 3), D2CMP units (lane 6), Game, Game_0044D080, Unknown_0044F9B0/0044F9D0 (lanes 1 and 4), Ignorelist (lane 8), member names in D2CMP.h, D2Client.h, Storm.h.
