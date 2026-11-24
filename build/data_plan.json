@@ -1982,8 +1982,8 @@
    "state": "included"
   },
   "Source/D2BNClient/BnSend.cpp": {
-   "bytes": 436,
-   "definitions": 1,
+   "bytes": 440,
+   "definitions": 2,
    "externs": [
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleChatEvent(); // 0x00520660",
     "extern \"C\" void __cdecl sub_00520C40(); // 0x00520C40",
@@ -82482,6 +82482,37 @@
    "tail": "; // 0x006DEEC0\n#pragma comment(linker, \"/alternatename:?gszCorruptFile@@3QBDB=_gData_006DEEC0\")",
    "type": "char",
    "va": "0x006DEEC0"
+  },
+  {
+   "alias": true,
+   "cname": "gData_006DEF80",
+   "declared": true,
+   "decorated": "_szEmpty_006DEF80",
+   "file": "Source/D2BNClient/BnSend.cpp",
+   "fill": 4,
+   "form": "declared",
+   "fwd": "extern \"C\" const char gData_006DEF80[4]; // 0x006DEF80",
+   "head": "extern \"C\" const char gData_006DEF80[4] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 4,
+    "size": 4
+   },
+   "name": "szEmpty_006DEF80",
+   "pointers": [],
+   "region": "rdata",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006DEF80\n#pragma comment(linker, \"/alternatename:_szEmpty_006DEF80=_gData_006DEF80\")\n#pragma comment(linker, \"/alternatename:_gabSha1Pad00=_gData_006DEF80\")",
+   "type": "char",
+   "va": "0x006DEF80"
   },
   {
    "alias": false,
