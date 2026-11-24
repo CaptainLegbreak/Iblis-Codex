@@ -239,7 +239,7 @@ struct AUDIOSTREAM : TSLinkedNode<AUDIOSTREAM>
 {
     FILEREC* pFile;                  // 0x08
     unsigned int nextwrite;                     // 0x0C
-    int unk0x10;                                // 0x10
+    int nBytesPerSec;                           // 0x10
     int bRestart;                               // 0x14
     int fillstatus;                                 // 0x18
     unsigned int nCounter;                      // 0x1C
