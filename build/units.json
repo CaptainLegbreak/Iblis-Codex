@@ -60862,6 +60862,46 @@
      "name": "SKILLS_SrvDo149_NecromageMissile"
     },
     {
+     "va": "0x005D25B0",
+     "length": 317,
+     "name": "SKILLS_SrvDo136_DeathMaul"
+    },
+    {
+     "va": "0x005D2F80",
+     "length": 273,
+     "name": "SKILLS_FindUseableCorpse"
+    },
+    {
+     "va": "0x005D6410",
+     "length": 264,
+     "name": "SKILLS_RemoveStatesOnHit"
+    },
+    {
+     "va": "0x005D7C40",
+     "length": 147,
+     "name": "SKILLS_AuraCallback_AllocSkillCombat"
+    },
+    {
+     "va": "0x005D8290",
+     "length": 330,
+     "name": "SKILLS_ApplyWarcryStats"
+    },
+    {
+     "va": "0x005D83E0",
+     "length": 143,
+     "name": "?SKILLS_SrvDo068_BasicShout@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005E52D0",
+     "length": 1078
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Unknown_005D1080.cpp",
+   "rank": 0,
+   "functions": [
+    {
      "va": "0x005D1080",
      "length": 61,
      "name": "?SKILLS_GetThornsPercent@@YAHPAUD2UnitStrc@@0@Z"
@@ -60946,40 +60986,6 @@
      "va": "0x005D2090",
      "length": 161,
      "name": "SKILLS_SrvDo132_ImpFireMissile"
-    },
-    {
-     "va": "0x005D25B0",
-     "length": 317,
-     "name": "SKILLS_SrvDo136_DeathMaul"
-    },
-    {
-     "va": "0x005D2F80",
-     "length": 273,
-     "name": "SKILLS_FindUseableCorpse"
-    },
-    {
-     "va": "0x005D6410",
-     "length": 264,
-     "name": "SKILLS_RemoveStatesOnHit"
-    },
-    {
-     "va": "0x005D7C40",
-     "length": 147,
-     "name": "SKILLS_AuraCallback_AllocSkillCombat"
-    },
-    {
-     "va": "0x005D8290",
-     "length": 330,
-     "name": "SKILLS_ApplyWarcryStats"
-    },
-    {
-     "va": "0x005D83E0",
-     "length": 143,
-     "name": "?SKILLS_SrvDo068_BasicShout@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005E52D0",
-     "length": 1078
     }
    ]
   },

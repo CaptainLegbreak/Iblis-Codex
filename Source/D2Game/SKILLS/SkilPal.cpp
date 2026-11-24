@@ -1969,4 +1969,3 @@ int __fastcall SKILLS_SrvDo082_Redemption(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     return 1;
 }
 
-#include "gen/data/Source/D2Game/SKILLS/SkilPal.inc"

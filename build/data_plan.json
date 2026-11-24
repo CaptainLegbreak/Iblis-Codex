@@ -3207,8 +3207,8 @@
    "state": "included"
   },
   "Source/D2Game/SKILLS/SkillDruid.cpp": {
-   "bytes": 144,
-   "definitions": 7,
+   "bytes": 112,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillDruid_005C7F10.inc",
@@ -5134,12 +5134,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/SKILLS/SkilPal.cpp": {
-   "bytes": 60,
-   "definitions": 1,
+  "Source/D2Game/Unknown_005D1080.cpp": {
+   "bytes": 32,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Game/SKILLS/SkilPal.inc",
+   "include": "gen/data/Source/D2Game/Unknown_005D1080.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -102795,144 +102795,6 @@
    "va": "0x00741940"
   },
   {
-   "alias": false,
-   "cname": "gData_00741A94",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/SKILLS/SkilPal.cpp",
-   "form": "bytes",
-   "name": "gData_00741A94",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "va": "0x00741A94",
-   "fwd": "extern \"C\" struct d2data_00741A94_t gData_00741A94; // 0x00741A94",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00741A94_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_00741A94_t gData_00741A94 = ",
-   "tail": "; // 0x00741A94"
-  },
-  {
    "alias": true,
    "cname": "gData_006E304C",
    "declared": true,
@@ -103230,7 +103092,7 @@
    "cname": "gData_006E3254",
    "declared": true,
    "decorated": "?gnVolleyOffsetX@@3QBHB",
-   "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
+   "file": "Source/D2Game/Unknown_005D1080.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E3254[4]; // 0x006E3254",
    "head": "extern \"C\" const int gData_006E3254[4] = ",
@@ -103260,7 +103122,7 @@
    "cname": "gData_006E3264",
    "declared": true,
    "decorated": "?gnVolleyOffsetY@@3QBHB",
-   "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
+   "file": "Source/D2Game/Unknown_005D1080.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E3264[4]; // 0x006E3264",
    "head": "extern \"C\" const int gData_006E3264[4] = ",
