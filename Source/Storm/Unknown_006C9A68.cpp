@@ -6,9 +6,6 @@ char* __fastcall sub_006C9AFF(char* p, char c); // 0x006C9AFF
 extern "C" __declspec(dllimport) char* __stdcall CharNextA(const char*); // 0x006CC450
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(void* section); // 0x006CC210
 int __cdecl sub_00683824_RegisterExit(void (__cdecl* callback)()); // 0x00683824
-extern unsigned int gnListTerminator_00708358; // 0x00708358
-extern void* gpListHead_0070835C; // 0x0070835C
-void __cdecl sub_006CB0C0_DestroyList(); // 0x006CB0C0
 extern unsigned short gwszRealmNames[7 * 0x100]; // 0x00779DF0
 unsigned int __stdcall SStrHash(const char* text, unsigned int flags, unsigned int hashSeed); // 0x00413CE0
 extern const char* gpszDefaultCaption_0070EE50; // 0x0070EE50
@@ -87,13 +84,6 @@ char* __fastcall sub_006C9B45(char* s)
         return s;
     *r = 0;
     return s;
-}
-
-// 0x006CA7B0
-void __cdecl sub_006CA7B0_InitializeList()
-{
-    gpListHead_0070835C = (void*)~(unsigned int)&gnListTerminator_00708358;
-    atexit(sub_006CB0C0_DestroyList);
 }
 
 // 0x006CA940
