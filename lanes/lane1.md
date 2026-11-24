@@ -4,6 +4,10 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/keycfg-object-r 67b1e2b6c +1 placeholder: Unknown_004A43E0.cpp, the key-config object (0x4A43E0-0x4A61A0) out of text.cpp (33 functions), text_0049A950.cpp (8) and Unknown_004A6000.cpp (1), with its data (0x724264-0x72480F, 10 definitions) and the bss it alone uses (0x7C0274-0x7C02D8); gnKeyConfigFirstVisible / gnKeyConfigEntryCount are its statics, 0x4A4500 in plain form; built with text.cpp's options; all 42 functions equal; VERIFIED 3d9202ed7d71f320d8a5e3fc059224d9819298b0
+  - based on main #316. Touches lane 4's text.cpp (deletions only, plus two definitions turned into externs), text_0049A950.cpp and Unknown_004A6000.cpp: done on my branch as the board allowed.
+  - this is the unit 0x4A4AD0 belongs to; 0x4A4AD0 itself is still not equal there (below).
+
 - lane1/skills-placeholders 6ce2d18e7 -2 placeholders: Unknown_004C7C80 (0x4C7C80 -> SKILLS/Skills.cpp, 0x4C8350 -> SKILLS/SkillsBar.cpp, which already held its body unmarked) and Unknown_004C97C0 (0x4C97C0 -> Skills.cpp, a gpfnClientSkillDoFuncs entry; Skills.cpp's inline SEED_RollLimitedRandomNumber becomes ...Inline so the real 0x45C390 can be called); VERIFIED d31153616352fef0488b6729a8fb07539a3ebee7
   - based on main #311. Touches lane 4's Skills.cpp and SkillsBar.cpp (both are handed-back placeholders from the work list).
 
@@ -13,16 +17,13 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## In progress
 
-- Borrowed 0x4A4AD0 (StandIns/D2Client_004A4AD0.cpp), in UI/text.cpp between 0x4A4AA0 and 0x4A4FA0 (local WIP, not pushed):
-  - lane-7 notes received; they only fix the host (text.cpp, via the old text_0049D490.cpp) because the helpers use custom register conventions. That part holds.
-  - with `gnKeyConfigFirstVisible` static (as in the stand-in) and 0x4A4500 written back in the stand-in's plain form, 0x4A4500 matches again and 0x4A4AD0 gets the original's block structure: 1,210 of 1,232 B, same calls, same join/reload blocks, constants and slots in step.
-  - what is left is register choice: the original keeps nY in ebx for the first helper calls, the first visible line in ebx and the GetTickCount pointer in esi; ours keeps bInList in ebx, then the GetTickCount pointer in ebx and the first visible line in esi. Declaration order of the seven hit flags and the form of the first test do not change it.
-  - tried since: making any subset of gaPressed, gnDragThumbY, gnDragMouseY, gdwKeyConfigRepeatTick, gnThumbRange, gnKeyConfigThumbScale, gbKeyConfigPressRepeat static (all 128 combinations): no change. Moving 0x4A4780 (TEXT_IsAbovePanelLine) into text.cpp: slightly worse (1,202 B). The gap is one register choice early on: the original keeps nY in ebx after the first helper call and spills bInList; we keep bInList in ebx and reload nY.
-  - text.cpp's unmarked copy of the stand-in body (~line 6198) goes when this lands.
+- Borrowed 0x4A4AD0 (StandIns/D2Client_004A4AD0.cpp), in Unknown_004A43E0.cpp (keycfg-object-r):
+  - in the split unit with gnKeyConfigFirstVisible static and 0x7C02B4 under one name: 1,202 of 1,232 B. Same calls, constants, slots and block structure; the rest is register choice, decided right after the first helper call: the original keeps nY in ebx and spills bInList to [ebp-4], ours keeps bInList in ebx and reloads nY.
+  - no effect: declaration order of the seven flags, const/non-const, an inline "nothing hit" helper, nesting the first test, making any of the other key-config globals static (all 128 subsets, tried in text.cpp), +1..+8 extern or struct declarations (so not the declaration-count effect).
+  - the unmarked stand-in copy stays in the unit as the callers' context until it matches.
 
 ## Questions
 
-- 0x4A4AD0 lead: text_0049A950.cpp and text.cpp are interleaved across 0x491940-0x4A8D50 (61 text_0049A950 functions sit inside text.cpp's address range, including the key-config handlers 0x4A5A40-0x4A5F70 that use gnKeyConfigSelected / gpListEntries / gnKeyConfigColumn). Making the key-config state text.cpp statics means joining at least those, likely the whole of text_0049A950 into text.cpp. That is lane 4's file and a large join. Should lane 4 do it, or may I do it on a lane1/ branch? Until then I keep 0x4A4AD0 local (1,210 of 1,232 B).
 
 ## Notes for other lanes
 
