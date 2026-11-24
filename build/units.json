@@ -37846,7 +37846,7 @@
    ]
   },
   {
-   "file": "Source/D2Hell/Unknown_005173DF.cpp",
+   "file": "Source/D2Hell/Unknown_005173EF.cpp",
    "rank": 0,
    "functions": [
     {
@@ -37854,20 +37854,6 @@
      "length": 16,
      "name": "?sub_005173DF_TerminateCurrentProcess@@YAXXZ"
     },
-    {
-     "va": "0x005174AA",
-     "length": 10
-    },
-    {
-     "va": "0x005174B4",
-     "length": 4
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_005173EF.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x005173EF",
      "length": 28,
@@ -37881,6 +37867,14 @@
     {
      "va": "0x00517423",
      "length": 135
+    },
+    {
+     "va": "0x005174AA",
+     "length": 10
+    },
+    {
+     "va": "0x005174B4",
+     "length": 4
     },
     {
      "va": "0x005174B8",
