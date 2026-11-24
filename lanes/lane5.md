@@ -12,7 +12,6 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Questions
 
-- Claim (lane 5): joining the SkillItem.cpp run's placeholders into SkillItem.cpp (SkillItem_005C1560, Unknown_005C0F90 at 0x5C25C0, Unknown_005C2740, Items_005C2970, Items_005C2AD0, Unknown_005C2AF0), dropping their noinline/static helper copies in favour of SkillItem.cpp's own and letting the per-file inline budget decide, as the original would.
 
 ## Notes for other lanes
 
@@ -35,6 +34,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Left in place (and why)
 
+- SkillItem.cpp run placeholders (SkillItem_005C1560, Unknown_005C0F90, Unknown_005C2740, Items_005C2970, Items_005C2AD0, Unknown_005C2AF0): tried joining (claim released). Their static helpers (ITEMS_AddPotentialMagicAffix 0x5C0D00, sub_005C25C0_RollSetItemRecord, ...) are called out of line in the image but SkillItem.cpp's copies get inlined into the joined callers (0x5C1560 comes out 16 bytes longer); the placeholders reproduce it only with noinline. Needs the real inline-budget picture, not a forcing construct.
 - Language copies still planned (header include does not land yet): ItemMode.cpp 0x731FB0 (its D2Common strays hold far data, see note to lane 6); a5q2.cpp 0x732FB0 and a2q4.cpp 0x738D08 (their message tables sit far from their copy, in other files' planned data, so the object is split and the unmarked copy is lost); a1q6.cpp 0x7361A0 (its static gnAct1Q6NpcMessageIndices comes out before the extern gem tables, not after); AiThink.cpp 0x73C9DC (the compiler aligns gaAiTable to 8, the image has it at copy+60); MonsterChoose.cpp 0x741578 (needs the component-code header from lane 2); SUnitDmg.cpp, SkillNec.cpp, Skills.cpp, MonsterUnique.cpp, MonsterMode.cpp, sunitproxy.cpp, SUnitInactive.cpp, Items.cpp keep theirs planned too.
 - Borrowed 0x745580 (64 B: 0x11B + another language list) between D2Common Inventory.cpp and ItemMode.cpp data: the leading int is not 0 like the others, and the previous neighbour is lane 6's; left for now.
 - Act 1 and Act 5 intro clusters (Unknown_0058F870.cpp 0x58F870-0x58FB80 before a1q1.cpp; 0x586B50/0x586C40/0x586C50 before a5q1.cpp): the Act 2/3 intros open a2q0.cpp/a3q0.cpp, but there is no a1q0.cpp or a5q0.cpp and nothing names the file; left until evidence turns up.
