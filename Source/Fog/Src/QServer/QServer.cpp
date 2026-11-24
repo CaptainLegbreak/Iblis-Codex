@@ -213,38 +213,6 @@ static int gnGlobal_00989C28; // 0x00989C28
 
 int __stdcall FOG_10157(D2QueueServerStrc* pServer, unsigned int nKey, char* pData, int nSize); // 0x006C03A0
 
-struct sub_006BE510_Guard;
-
-struct sub_006BE510_Guard
-{
-    D2CriticalSectionStrc* pCriticalSection;
-
-    sub_006BE510_Guard* sub_006BE510_Enter(D2CriticalSectionStrc* pCs);
-};
-
- D2CriticalSectionStrc;
-
-struct D2HashNode006BE5B0Strc
-{
-	void* pPrev;
-	D2HashNode006BE5B0Strc* pNext;
-	int unk_08;
-	int unk_0C;
-	int nKey;
-};
-
-struct D2HashTable006BE5B0Strc
-{
-	int unk_00;
-	int unk_04;
-	unsigned int nBuckets;
-	int unk_0C;
-	int unk_10;
-	D2HashNode006BE5B0Strc** ppBuckets;
-	int unk_18;
-	D2CriticalSectionStrc* pLocks;
-};
-
 extern const char gszHackCategory_006FC4A8[]; // 0x006FC4A8
 
 extern const char gszHackListSize_006FC4B0[]; // 0x006FC4B0
@@ -317,6 +285,7 @@ struct D2QSrvAutoLock
 {
     D2CriticalSectionStrc* m_pLock;
 
+    // 0x006BE510
     D2QSrvAutoLock(D2CriticalSectionStrc* pLock)
     {
         m_pLock = pLock;
@@ -427,14 +396,6 @@ unsigned long __stdcall FOG_WaitForSingleObject(D2QueueServerStrc* pServer, unsi
     return WaitForSingleObject(pServer->hEvent, dwMilliseconds);
 }
 
-// 0x006BE510
-sub_006BE510_Guard* sub_006BE510_Guard::sub_006BE510_Enter(D2CriticalSectionStrc* pCs)
-{
-    pCriticalSection = pCs;
-    EnterCriticalSection(pCs);
-    return this;
-}
-
 // 0x006BE540
 D2QClientStrc* __fastcall QSERVER_FindClient(D2QueueServerStrc* pTable, unsigned int nKey)
 {
@@ -457,16 +418,16 @@ D2QClientStrc* __fastcall QSERVER_FindClient(D2QueueServerStrc* pTable, unsigned
 }
 
 // 0x006BE5B0
-D2HashNode006BE5B0Strc* __fastcall QSERVER_FindNodeInAnyBucket(D2HashTable006BE5B0Strc* pTable, int nKey)
+D2QClientStrc* __fastcall QSERVER_FindNodeInAnyBucket(D2QueueServerStrc* pTable, int nSocket)
 {
-	D2HashNode006BE5B0Strc * pResult;
-	D2HashNode006BE5B0Strc* pNode = 0;
+	D2QClientStrc* pResult;
+	D2QClientStrc* pNode = 0;
 	for (unsigned int i = 0; i < pTable->nBuckets; ++i)
 	{
 		EnterCriticalSection(&pTable->pLocks[i]);
-		for (pNode = pTable->ppBuckets[i]; pNode; pNode = pNode->pNext)
+		for (pNode = pTable->ppClients[i]; pNode; pNode = pNode->pNext)
 		{
-			if (pNode->nKey == nKey)
+			if (pNode->iSocket == nSocket)
 			{
 				LeaveCriticalSection(&pTable->pLocks[i]);
 				pResult = pNode;
