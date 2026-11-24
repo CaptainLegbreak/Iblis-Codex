@@ -850,4 +850,3 @@ void __fastcall ACT4Q4_InitQuestData(D2QuestDataStrc* pQuestData)
 
 struct D2UnitStrc;
 
-#include "gen/data/Source/D2Game/Quests/a4q3.inc"

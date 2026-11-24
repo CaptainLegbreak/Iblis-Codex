@@ -1172,4 +1172,3 @@ bool __fastcall ACT3Q2_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc*
     return true;
 }
 
-#include "gen/data/Source/D2Game/Quests/a3q2.inc"
