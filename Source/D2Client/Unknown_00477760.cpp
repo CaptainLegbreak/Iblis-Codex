@@ -57,51 +57,6 @@ extern "C" __declspec(dllimport) int __stdcall ReadProcessMemory(void* hProcess,
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 unsigned int __cdecl sub_0044CE70(); // 0x0044CE70
 
-// 0x00477760
-void __cdecl sub_00477760_DrawCacheStats()
-{
-    char szText[0x400];
-    int nTotal;
-    int nMisses;
-    int nUtilized;
-    unsigned int nSize;
-    sub_005FE010_GetTileCacheStats(&nSize, &nMisses, &nTotal, &nUtilized);
-    if (nTotal > 0)
-    {
-        const float fPercent = (float)(nMisses * 100.0 / nTotal);
-        sprintf(szText, "Tile Cache: (%.2fK) %3.2f%%, Misses: %d, %d percent utilized\n", (float)nSize * 0.0009765625, fPercent, nMisses, nUtilized);
-        D2GFX_OutputString(10, 0x30, szText);
-    }
-// build: symbol ?D2GFX_GetCacheResults@* 0x004F5290
-    D2CacheStatsStrc* pStats = D2GFX_GetCacheResults();
-    if (!pStats)
-        return;
-    if (pStats->nFloorSize)
-    {
-        sprintf(szText, "Floor Cache: (%.2fK) Misses: %d\n", (float)pStats->nFloorSize * 0.0009765625, pStats->nFloorMisses);
-        D2GFX_OutputString(10, 0x3C, szText);
-    }
-    if (pStats->nSubtileSize)
-    {
-        sprintf(szText, "Subtile Cache: (%.2fK) Misses: %d\n", (float)pStats->nSubtileSize * 0.0009765625, pStats->nSubtileMisses);
-        D2GFX_OutputString(10, 0x48, szText);
-    }
-    if (pStats->nSprite1Size)
-    {
-        sprintf(szText, "Sprite Cache 1: (%.2fK) Misses: %d, Accesses Per Frame: %d\n", (float)pStats->nSprite1Size * 0.0009765625, pStats->nSprite1Misses, pStats->nSprite1Accesses);
-        D2GFX_OutputString(10, 0x54, szText);
-    }
-    if (pStats->nSprite2Size)
-    {
-        sprintf(szText, "Sprite Cache 2: (%.2fK) Misses: %d, Accesses Per Frame: %d\n", (float)pStats->nSprite2Size * 0.0009765625, pStats->nSprite2Misses, pStats->nSprite2Accesses);
-        D2GFX_OutputString(10, 0x60, szText);
-    }
-    if (pStats->nSprite3Size)
-    {
-        sprintf(szText, "Sprite Cache 3: (%.2fK) Misses: %d, Accesses Per Frame: %d\n", (float)pStats->nSprite3Size * 0.0009765625, pStats->nSprite3Misses, pStats->nSprite3Accesses);
-        D2GFX_OutputString(10, 0x6C, szText);
-    }
-}
 
 // 0x00477CA0
 void __fastcall sub_00477CA0_SendPacket67(const char* szName)

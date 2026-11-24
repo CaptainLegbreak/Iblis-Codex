@@ -1,5 +1,6 @@
 #include "D2MonsterIds.h"
 #include "D2Client.h"
+#include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 
@@ -54,7 +55,7 @@ void __fastcall PALSHIFT_LoadPalShift(int nMonsterId); // 0x00477170
 
 extern D2PalShiftNodeStrc* gpPalShiftList; // 0x007B957C
 
-char gabGlobalPalShifts[7680]; // 0x007B9580
+unsigned char gabGlobalPalShifts[0x1E][0x100]; // 0x007B9580
 
 extern int gnGlobal_007B957C; // 0x007B957C
 
@@ -90,8 +91,7 @@ void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuf
 
 
 
-// build: context UNITS_GetMonStats2TxtRecordFromMonsterId
-static inline D2MonStats2Txt* UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId)
+static inline D2MonStats2Txt* UNITS_GetMonStats2TxtRecordFromMonsterId_Inl(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
@@ -170,10 +170,53 @@ void __cdecl PALSHIFT_FreePalShifts()
     }
 }
 
+struct D2TimedHintEntryStrc;
+
+
+struct D2CacheStatsStrc;
+
+struct D2TimedHintEntryStrc
+{
+    int unk0x00;
+    int nHintId;
+    int nKey;
+    char unk0x0C[0x24];
+    int nState;
+};
+
+
+struct D2CacheStatsStrc
+{
+    unsigned int nFloorSize;
+    int unk0x04;
+    int nFloorMisses;
+    unsigned int nSubtileSize;
+    int unk0x10;
+    int nSubtileMisses;
+    unsigned int nSpriteSize[3];
+    int unk0x24[3];
+    int nSpriteMisses[3];
+    int unk0x3C[3];
+    int nSpriteAccesses[3];
+    int unk0x54[3];
+    int unk0x60[3];
+};
+
+// 0x00477030
+D2PalShiftNodeStrc* __fastcall VIEW_FindPalShiftNode(int nId)
+{
+    for (D2PalShiftNodeStrc* pNode = gpPalShiftList; pNode; pNode = pNode->pNext)
+    {
+        if (pNode->nId == nId)
+            return pNode;
+    }
+    return 0;
+}
+
 // 0x00477060
 static void PALSHIFT_BuildBloodShift(int nMonsterId, D2PalShiftNodeStrc* pShift)
 {
-    D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(nMonsterId);
+    D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId_Inl(nMonsterId);
     if (!pMonStats2TxtRecord || pMonStats2TxtRecord->nLocalBlood != 2)
     {
         return;
@@ -284,3 +327,69 @@ void __cdecl PALSHIFT_InitPalShifts()
     PALSHIFT_LoadPalShift(MONSTER_FENRIS);
 }
 
+
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+int __fastcall CUNIT_GetPalShiftIndex(D2UnitStrc* pUnit); // 0x00463EB0
+
+int __cdecl GAME_GetColorFlag(); // 0x0044DC60
+
+D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
+
+// 0x00477530
+unsigned char* __fastcall CUNIT_GetPalShift(D2UnitStrc* pUnit)
+{
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType == UNIT_MONSTER)
+    {
+        D2PalShiftNodeStrc* pData = gpPalShiftEntries[pUnit->dwClassId].pShift;
+        if (!pData)
+            return 0;
+        int nMode = CUNIT_GetPalShiftIndex(pUnit);
+        switch (nMode)
+        {
+        case 0:
+        case 1:
+            switch (pUnit->dwClassId)
+            {
+            case 0x16B:
+            case 0x16C:
+                return pData->tBase.aRows[nMode];
+            }
+            return 0;
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+            break;
+        default:
+            if (gbGlobalPalShifts)
+            {
+                nMode -= 8;
+                D2_ASSERT(nMode >= 0 && nMode < 0x1E, 0x160);
+                return gabGlobalPalShifts[nMode];
+            }
+            break;
+        }
+        if (GAME_GetColorFlag())
+        {
+            D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId);
+            if (pMonStats2TxtRecord && pMonStats2TxtRecord->nLocalBlood == 2)
+                return pData->tBlood.aRows[nMode];
+        }
+        return pData->tBase.aRows[nMode];
+    }
+    return 0;
+}
+
+#include "gen/data/Source/D2Client/GAME/PalShift.inc"

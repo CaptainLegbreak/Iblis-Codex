@@ -13875,26 +13875,6 @@
      "length": 235
     },
     {
-     "va": "0x00477030",
-     "length": 33,
-     "name": "?VIEW_FindPalShiftNode@@YIPAUD2PalShiftNodeStrc@@H@Z"
-    },
-    {
-     "va": "0x00477750",
-     "length": 13,
-     "name": "?VIEW_IsAcceleratedRenderMode@@YAHXZ"
-    },
-    {
-     "va": "0x00477980",
-     "length": 600,
-     "name": "?sub_00477980@@YIXXZ"
-    },
-    {
-     "va": "0x00477C00",
-     "length": 96,
-     "name": "?VIEW_ToggleCacheStats@@YAXXZ"
-    },
-    {
      "va": "0x00479010",
      "length": 111,
      "name": "?VIEW_UpdatePetLife@@YIXHHG@Z"
@@ -14059,26 +14039,6 @@
      "va": "0x0045FDD0",
      "length": 12,
      "name": "?INV_IsPopupDismissed@@YAHXZ"
-    },
-    {
-     "va": "0x004776F0",
-     "length": 11,
-     "name": "_INV_SetRenderModeGlide"
-    },
-    {
-     "va": "0x00477700",
-     "length": 11,
-     "name": "_INV_SetRenderModeOpenGL"
-    },
-    {
-     "va": "0x00477710",
-     "length": 11,
-     "name": "_INV_SetRenderModeDirect3D"
-    },
-    {
-     "va": "0x00477720",
-     "length": 11,
-     "name": "_INV_SetRenderModeRave"
     },
     {
      "va": "0x00477EE0",
@@ -19090,31 +19050,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_0046C060.cpp",
-   "rank": 0,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x00477530",
-     "length": 232,
-     "name": "?CUNIT_GetPalShift@@YIPAEPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/GAME/Select.cpp",
    "rank": 0,
    "functions": [
@@ -21391,51 +21326,6 @@
      "name": "?DLIGHTMAP_BuildLerpTables@@YAXXZ"
     },
     {
-     "va": "0x00477680",
-     "length": 6,
-     "name": "DLIGHTMAP_GetLocalBloodPalette"
-    },
-    {
-     "va": "0x00477690",
-     "length": 5,
-     "name": "?sub_00477690_TogglePerspective@@YAHXZ"
-    },
-    {
-     "va": "0x004776A0",
-     "length": 5,
-     "name": "?sub_004776A0_ToggleBlendedShadows@@YAHXZ"
-    },
-    {
-     "va": "0x004776B0",
-     "length": 5,
-     "name": "?sub_004776B0_ToggleLowQuality@@YAHXZ"
-    },
-    {
-     "va": "0x004776C0",
-     "length": 7,
-     "name": "sub_004776C0"
-    },
-    {
-     "va": "0x00477730",
-     "length": 6,
-     "name": "DLIGHTMAP_GetRenderMode"
-    },
-    {
-     "va": "0x00477740",
-     "length": 6,
-     "name": "sub_00477740"
-    },
-    {
-     "va": "0x00477C60",
-     "length": 34,
-     "name": "?sub_00477C60_CheckCacheStats@@YAXXZ"
-    },
-    {
-     "va": "0x00477C90",
-     "length": 6,
-     "name": "sub_00477C90"
-    },
-    {
      "va": "0x00478150",
      "length": 6,
      "name": "sub_00478150"
@@ -21582,6 +21472,11 @@
      "name": "?PALSHIFT_FreePalShifts@@YAXXZ"
     },
     {
+     "va": "0x00477030",
+     "length": 33,
+     "name": "?VIEW_FindPalShiftNode@@YIPAUD2PalShiftNodeStrc@@H@Z"
+    },
+    {
      "va": "0x00477060",
      "length": 257
     },
@@ -21593,6 +21488,11 @@
      "va": "0x00477470",
      "length": 180,
      "name": "?PALSHIFT_InitPalShifts@@YAXXZ"
+    },
+    {
+     "va": "0x00477530",
+     "length": 232,
+     "name": "?CUNIT_GetPalShift@@YIPAEPAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -21603,13 +21503,32 @@
     {
      "va": "0x00477620",
      "length": 84
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00477690.cpp",
-   "rank": 0,
-   "functions": [
+    },
+    {
+     "va": "0x00477680",
+     "length": 6,
+     "name": "DLIGHTMAP_GetLocalBloodPalette"
+    },
+    {
+     "va": "0x00477690",
+     "length": 5,
+     "name": "?sub_00477690_TogglePerspective@@YAHXZ"
+    },
+    {
+     "va": "0x004776A0",
+     "length": 5,
+     "name": "?sub_004776A0_ToggleBlendedShadows@@YAHXZ"
+    },
+    {
+     "va": "0x004776B0",
+     "length": 5,
+     "name": "?sub_004776B0_ToggleLowQuality@@YAHXZ"
+    },
+    {
+     "va": "0x004776C0",
+     "length": 7,
+     "name": "sub_004776C0"
+    },
     {
      "va": "0x004776D0",
      "length": 13,
@@ -21621,26 +21540,95 @@
      "name": "?sub_004776E0_SetModeValuesOne@@YAXXZ"
     },
     {
+     "va": "0x004776F0",
+     "length": 11,
+     "name": "_INV_SetRenderModeGlide"
+    },
+    {
+     "va": "0x00477700",
+     "length": 11,
+     "name": "_INV_SetRenderModeOpenGL"
+    },
+    {
+     "va": "0x00477710",
+     "length": 11,
+     "name": "_INV_SetRenderModeDirect3D"
+    },
+    {
+     "va": "0x00477720",
+     "length": 11,
+     "name": "_INV_SetRenderModeRave"
+    },
+    {
+     "va": "0x00477730",
+     "length": 6,
+     "name": "DLIGHTMAP_GetRenderMode"
+    },
+    {
+     "va": "0x00477740",
+     "length": 6,
+     "name": "sub_00477740"
+    },
+    {
+     "va": "0x00477750",
+     "length": 13,
+     "name": "?VIEW_IsAcceleratedRenderMode@@YAHXZ"
+    },
+    {
+     "va": "0x00477760",
+     "length": 527,
+     "name": "?sub_00477760_DrawCacheStats@@YAXXZ"
+    },
+    {
      "va": "0x00477970",
      "length": 1,
      "name": "?sub_00477970_Empty@@YAXXZ"
     },
     {
+     "va": "0x00477980",
+     "length": 600,
+     "name": "?sub_00477980@@YIXXZ"
+    },
+    {
      "va": "0x00477BE0",
      "length": 17,
      "name": "?sub_00477BE0_ToggleFlag7BB3A8@@YAXXZ"
+    },
+    {
+     "va": "0x00477C00",
+     "length": 96,
+     "name": "?VIEW_ToggleCacheStats@@YAXXZ"
+    },
+    {
+     "va": "0x00477C60",
+     "length": 34,
+     "name": "?sub_00477C60_CheckCacheStats@@YAXXZ"
+    },
+    {
+     "va": "0x00477C90",
+     "length": 6,
+     "name": "sub_00477C90"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
    "file": "Source/D2Client/Unknown_00477760.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00477760",
-     "length": 527,
-     "name": "?sub_00477760_DrawCacheStats@@YAXXZ"
-    },
     {
      "va": "0x00477CA0",
      "length": 255,
