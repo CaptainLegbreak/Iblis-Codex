@@ -9349,6 +9349,46 @@
      "name": "?CHARSEL_OnName@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x0043C6A0",
+     "length": 12,
+     "name": "?sub_0043C6A0@@YIXH@Z"
+    },
+    {
+     "va": "0x0043F850",
+     "length": 18,
+     "name": "?CHARSEL_CancelGameCreate@@YAHXZ"
+    },
+    {
+     "va": "0x00443F80",
+     "length": 160,
+     "name": "?CHARSEL_SubmitProfile@@YGHH@Z"
+    },
+    {
+     "va": "0x00446890",
+     "length": 88,
+     "name": "?CHARSEL_SendChatLine@@YGHH@Z"
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Launch/Unknown_0043B7A0.cpp",
+   "rank": 0,
+   "functions": [
+    {
      "va": "0x0043B7A0",
      "length": 81,
      "name": "?CHARSEL_InitFuncTable@@YIHPAUD2LaunchRecordStrc@@@Z"
@@ -9404,6 +9444,11 @@
      "name": "?CHARSEL_DisconnectBattleNet@@YAXXZ"
     },
     {
+     "va": "0x0043B9F0",
+     "length": 1356,
+     "name": "?CHARSEL_HandleStatus@@YIHPAUD2StatusStrc@@@Z"
+    },
+    {
      "va": "0x0043BF40",
      "length": 24,
      "name": "?CHARSEL_ReportStatus@@YAXHH@Z"
@@ -9417,31 +9462,31 @@
      "va": "0x0043C180",
      "length": 872,
      "name": "?CHARSEL_Connect@@YIHPAUD2LaunchRecordStrc@@HH@Z"
-    },
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Launch/Unknown_0043C4F0.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x0043C4F0",
      "length": 57,
      "name": "?CHARSEL_CreateBaseScreen@@YAXXZ"
-    },
-    {
-     "va": "0x0043C6A0",
-     "length": 12,
-     "name": "?sub_0043C6A0@@YIXH@Z"
-    },
-    {
-     "va": "0x0043F850",
-     "length": 18,
-     "name": "?CHARSEL_CancelGameCreate@@YAHXZ"
-    },
-    {
-     "va": "0x00443F80",
-     "length": 160,
-     "name": "?CHARSEL_SubmitProfile@@YGHH@Z"
-    },
-    {
-     "va": "0x00446890",
-     "length": 88,
-     "name": "?CHARSEL_SendChatLine@@YGHH@Z"
     }
    ],
    "flags": [
@@ -9484,11 +9529,6 @@
      "va": "0x0043B6B0",
      "length": 229,
      "name": "?CHARSEL_JoinSelected@@YGHH@Z"
-    },
-    {
-     "va": "0x0043B9F0",
-     "length": 1356,
-     "name": "?CHARSEL_HandleStatus@@YIHPAUD2StatusStrc@@@Z"
     }
    ],
    "flags": [

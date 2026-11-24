@@ -276,8 +276,8 @@
    "state": "included"
   },
   "Source/D2Launch/Src/CharSel.cpp": {
-   "bytes": 328,
-   "definitions": 21,
+   "bytes": 204,
+   "definitions": 18,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Launch/Src/CharSel.inc",
@@ -5580,6 +5580,24 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Multi/Unknown_0043C8A0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Launch/Unknown_0043B7A0.cpp": {
+   "bytes": 64,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Launch/Unknown_0043B7A0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Launch/Unknown_0043C4F0.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Launch/Unknown_0043C4F0.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -11038,7 +11056,7 @@
    "cname": "gData_0070CC10",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/CharSel.cpp",
+   "file": "Source/D2Launch/Unknown_0043B7A0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070CC10_t gData_0070CC10; // 0x0070CC10",
    "head": "extern \"C\" struct d2data_0070CC10_t gData_0070CC10 = ",
@@ -18583,7 +18601,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/CharSel.cpp",
+   "file": "Source/D2Launch/Unknown_0043B7A0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnLogonRetries = ",
@@ -18608,7 +18626,7 @@
    "cname": "gData_0070CC50",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/CharSel.cpp",
+   "file": "Source/D2Launch/Unknown_0043C4F0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070CC50_t gData_0070CC50; // 0x0070CC50",
    "head": "extern \"C\" struct d2data_0070CC50_t gData_0070CC50 = ",
