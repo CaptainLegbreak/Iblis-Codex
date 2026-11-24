@@ -89,7 +89,7 @@ A match goes into its file in address order: record it in units.json and as `ver
 **Freeze lifted:** `config-record-3` is on main (#296). The record is `D2ConfigStrc`, the 0x7A0438 global is `gpClientConfig` in D2Client.h. Rebase before your next push.
 
 ### Lane 1
-- `hdr-4df6c0-2` is in #302, `one-screenheight-r` in #308. Keeping the one private declaration in inv_004886C0.cpp is right; the declaration-count finding is now in Lane 2's notes too.
+- On main: `hdr-4df6c0-2` #302, `one-screenheight-r` #308, `unitsnd-table` #311, `skills-placeholders` #315, `keycfg-extras` #319, `monster-4aff60-2` #322. Keeping the one private declaration in inv_004886C0.cpp is right; the declaration-count finding is now in Lane 2's notes too.
 - **0x4A4AD0:**
   - **Earlier notes.** I've re-sent the lane-7 package to the user. The earlier attempts' finding: 0x4A4AD0's callees take arguments in registers, so it must share their unit. Then that unit was text_0049D490.cpp; it is text.cpp now, so your choice of text.cpp is right. The earlier attempts built it standalone and never got close.
   - **On 0x4A4AD0 (1,202 of 1,232 B in the split unit):** the remaining difference is register choice right after the first helper call. Keep it as a stand-in. One untried lever is the order in which nY and bInList are first assigned and used before that call: the compiler gives ebx to whichever value it sees most uses of, weighted by loop depth.
@@ -108,7 +108,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ### Lane 2
 - `fog-records` is in #316. pMonPropTxt staying `void*`: agreed, because every typed form flips inv_0048DD90 and the table units.
-- `party-row`, `msg-record`, `save-header` and `lang-names` are in #310; `quest-timer` and `shared-copies` are in j76. D2LanguageNames.h is on main: lanes can now include it where a unit's original had a copy.
+- `party-row`, `msg-record`, `save-header` and `lang-names` are in #310; `quest-timer` and `shared-copies` in #313; `fog-records` #316; `game-timer`, `records-a` #318; `fog-records-b` #319; `cmp-records-2` #321. D2LanguageNames.h is on main: lanes can now include it where a unit's original had a copy.
 - Language-name table: yours to start (see Decisions). Lane 5 reports copies at the ends of AiThink.cpp (twice: so it spans two original units), a3q7.cpp and MonsterChoose.cpp.
 - `sets-txt` is in #306.
 - `com-interface` is in #301. The conflict with #299 (Unknown_0043A9D0.cpp folded into CharSel.cpp) was resolved by carrying the type rename into CharSel.cpp.
@@ -125,15 +125,15 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
   - This is yours by directory. It isn't Storm code, though: if the object's callers say which module it belongs to, file it there and tell that lane.
 
 ### Lane 4
-- `borrowed-b` and `initializers` are in #311; `warden-strays-2` and `init-more` are in j76.
-- `options-split-2` and `keyconfig-split` are in j80. Thanks for doing the key-config split.
+- `borrowed-b` and `initializers` are in #311; `warden-strays-2` and `init-more` in #313; `questlog` #316; `winmain-split` #319; `levelup-split`, `inv-split` #321; `levelevents` #322.
+- `options-split-2` and `keyconfig-split` are in #317. Thanks for doing the key-config split.
 - Fast-forwarding a new commit onto an already-posted branch (questlog) is fine, as long as the old commits stay and the ready line names the new head. The new-name rule is for rewritten history.
 - **WINMAIN.CPP split (your question): yes, both.** The language-table copies are the evidence, and they're strong.
   - Move 0x44B400-0x44B430 (InitInterface, ShutdownInterface, RunLauncher) to `Source/D2Client/Unknown_0044B400.cpp`.
   - Move the MCP packet run 0x44A170-0x44B3xx, with `gpfnConnectPacketHandlers` and its data, to `Source/D2MCPClient/Unknown_0044A170.cpp`. It follows `.\Src\McpConnect.cpp` and a data-less object, so it belongs to the D2MCPClient module. You know the code, so you do the move, on one branch. After it merges, the file is lane 6's; lane 6, take note.
 - **The text-area object map:** good work, and it's now the basis for lane 1's 0x4A4AD0 attempt. Please split the unnamed object 0x4A41xx-0x4A61A0 out of text.cpp into a placeholder (it's your file), and tell lane 1 when it's pushed.
 - From lane 3: 0x700140-0x7001C0 (listed as lane 3's in borrowed-data.md) is WardenClient's RTTI (object locator, class hierarchy, base class descriptors). It belongs with WardenClient.cpp's `??_R0` line; take it.
-- `place-c` is in #299, `runs-sub-2` in #304; `game-borrowed` is in #305; `warden-class` is in j70. Reading the vtable through its object locator is the right way to settle a class.
+- `place-c` is in #299, `runs-sub-2` in #304; `game-borrowed` is in #305; `warden-class` is in #307. Reading the vtable through its object locator is the right way to settle a class.
 - **UIWidget slots (your question): yes.** The vtable at 0x6DA6C0 is twelve `_purecall`s, so slots 1-11 are pure virtuals of the base, and ListBoxImplementation and ListBoxWrapper override them. Give each slot one name in all three classes, with its names.csv rows. Name a slot by what the two overrides have in common. Where one of the two current names is a `blizzard` name, keep that one. The char[260] and literal-string fixes in `game-borrowed`: good, push when verified.
 - From lane 3: most of `Storm/Unknown_006C9A68.cpp`, `Unknown_006CACE0.cpp`, `Unknown_006CAA30.cpp` and `Unknown_006CAE80.cpp` are D2Client dynamic initializers (text buffers, layout rects, hashes of "Header"/"Game Time", captions). They belong with the globals they set, in your files and lane 1's. Wait for crt-locks (j66), then take the ones whose globals you own.
 - Borrowed data: gszServerIP (WINMAIN.CPP) and gszMcpIP (Game_0044D080.cpp) are planned as char[16], and each is followed by 244 zero bytes copied from the image: 16 + 244 = 260. Check whether they are char[260]. More in borrowed-data.md.
@@ -142,14 +142,14 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - Leave `sub_00436E90_AlwaysOne` and `sub_00436EA0`: they moved to lane 6's `Unknown_004370B0.cpp` in #294.
 
 ### Lane 5
-- `a3q5-orb` is in #298, `a3q7-dogs` in #299, `a3q2-run` in #300; `intro-q0` and `game-defaults` are in #302; `small-strays` is in #304; `monsterchoose` is in #305; `prime-nova` is in j70.
+- `a3q5-orb` is in #298, `a3q7-dogs` in #299, `a3q2-run` in #300; `intro-q0` and `game-defaults` are in #302; `small-strays` is in #304; `monsterchoose` #305, `prime-nova` #307, `task-locks` #309, `unit-init-seed-2`/`coord-init` #314, `lang-owners` #318, `lang-split` #319, `lang-split-2` #321, `lang-pad` #322.
 - **0x731EB8 gnUnitInitSeed (your question):** same answer as the Task.cpp locks. Take the initializer 0x6CAF60 out of Storm/Unknown_006CAE80.cpp into the file that owns the global.
 - 0x745580 (0x11B plus a language list, between Inventory.cpp and ItemMode.cpp data): leaving it is right. Lane 6, it's at your edge.
 - **Task.cpp locks (your question): yes, from your lane.** Delete the four functions from Storm/Unknown_006CAE80.cpp, Storm/Unknown_006CAF90.cpp, Storm/Unknown_006CB4A0.cpp and Bnclient/Unknown_006CB420.cpp, and move their units.json entries. A function goes to the file that owns it, whatever placeholder it sits in today. Lanes 3 and 6: leave those four alone.
 - Language-name copies at the end of D2Game files: see the Decisions rule. Lane 2 has the header question.
 - **0x007415F4 (your question):** you're right, nothing reads it. My first map counted references up to 8 bytes before a block, so a reference to the end of gpDiamondMonsterFormation was credited to it. That slack is gone. The block holds 4-char codes plus a pointer table into them (0x7416A0-0x741734), and nothing references that table either. Place it by its neighbours, or leave it if neither side's content fits.
 - GAME_GetGamesCount twice (0x0052BFE0 in D2Net.cpp, 0x0052DB30 in Game.cpp): leaving it is right.
-- From lane 3 (after crt-locks merges in j66): the initializer and destructor 0x6CAF70/0x6CB490 for lock 0x88CAA8 belong in D2Game Task.cpp. The array of 32 locks at 0x88C7A8 (0x6CAF90/0x6CB4A0, built with the CRT array constructor) sits in D2Game's bss; find which file uses it and take it if it's yours.
+- From lane 3 (done in #309/#314): the initializer and destructor 0x6CAF70/0x6CB490 for lock 0x88CAA8 belong in D2Game Task.cpp. The array of 32 locks at 0x88C7A8 (0x6CAF90/0x6CB4A0, built with the CRT array constructor) sits in D2Game's bss; find which file uses it and take it if it's yours.
 - `a5q2-run` and `a4q3-a3q6` are in #294; `a1q6-npc` (#292) and `a1q4-run` (#293) before that.
 - 0x5B9A30 and 0x5947E0: listing them is right; no forcing constructs.
 
@@ -158,7 +158,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - **Language-table runs as an object count:** yes, go ahead. A run of back-to-back copies with no other data counts objects in link order, so match the copies to code files in order. Two cautions. First, a file that includes the header twice through different paths still gets one copy, because it's one static per translation unit; Ignorelist.cpp's two copies therefore mean two units. Second, objects that define no initialized data of their own still get a copy. A gData_ block holding N copies is N files' data: split it before you place anything.
 - D2MCPClient: lane 4 is moving the MCP packet run out of WINMAIN.CPP into `Source/D2MCPClient/Unknown_0044A170.cpp`. It becomes yours once merged.
 - `seg-a` is in #316. The const-table rule is now in Decisions. Leaving 0x00648020 and 0x0043B080 is right.
-- `cands-d` is in #299, `bss-a` in #302; `bss-a-2` and `path-a-2` are in j67. The path split by data reader is the right call.
+- `cands-d` is in #299, `bss-a` in #302; `bss-a-2` and `path-a-2` #304; `lang-a-2` #315; `seg-a` #316; `sound-a-2`, `glcore-a`, `pathmisc-a` #319; `codec-a` #321. The path split by data reader is the right call.
 - From lane 3: the dynamic initializers and atexit destructors of long-lived critical sections go into the file that owns the lock. `lane3/crt-locks` shows the pattern: a `CCritSect` type plus the `// build: symbol ??__E…`/`??__F…` lines. Yours: 0x6CAE80/0x6CB420 lock 0x881860 and 0x6CAED0/0x6CB470 lock 0x881F64 (BnDownload.cpp); 0x6CAEA0/0x6CB440 lock 0x881894 (CACHE.CPP); 0x6CB010/0x6CB4E0 lock 0x96D610 (Preset.cpp). Wait for crt-locks to merge (j66) and build on its type. CharSel.cpp taking sub_0043B830/0x43B840 from Game.cpp is fine: the run and the globals settle it.
 - Pathfinding cluster: answered in Decisions. DUNGEON_ 0x00643260-0x00643560, the D2DDraw renderer, and Items.cpp 0x006313E0: leaving them is right.
 - Borrowed data: you have the largest share, 7,361 B. 5,127 B of it is one block at 0x007420D1 between CelCmp.cpp and Unknown_006056D0.cpp: four small-int tables that no code addresses directly. See borrowed-data.md.
