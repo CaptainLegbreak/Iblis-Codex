@@ -4,6 +4,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/sfile-openpath 7aa1b28e 519->519 sub_00419180_OpenPathAsArchive (between 0x419150 and 0x4192F0 in SFILE.CPP's run; no callers) moves from the SFILE_00417800 piece to SFILE.CPP, equal as written. VERIFIED 475fed5b on base f7215edb (j87; 14,918/14,918; borrowed code 12,041 B / 9 functions). Not stacked; touches SFILE.CPP like sfile-unlinkall, in a different place. Part of the claimed SFILE job.
+
 - lane3/sfile-unlinkall 3cc69820 519->518 The five global lists' UnlinkAll members (0x418900-0x418A00, piece SFILE_00418900) join SFILE.CPP, whose five list destructors are their only callers; the piece is removed. They are written inline (they are TSList<T> members, so COMDATs): as ordinary same-unit functions the compiler knows they keep ecx and all five destructors change. VERIFIED 690d2792 on base f7215edb (j87; 14,918/14,918; borrowed code 12,041 B / 9 functions). Not stacked. Part of the claimed SFILE job.
 
 - lane3/lang-00404f40 6bc808c5 519->519 The borrowed language-table copy at 0x705000 becomes Storm/Unknown_00404F40.cpp's (it includes D2LanguageNames.h; the copy starts the data of the object that owns gaIniEntries_00705040). For that, the unit's record for the other copy, 0x706518, moves to ErrorManager.cpp in front of gaModeTable, whose object it starts. Borrowed data -64 B. VERIFIED f2fbba07 on base f7215edb (j87; 14,918/14,918; borrowed code 12,041 B / 9 functions). Not stacked.
