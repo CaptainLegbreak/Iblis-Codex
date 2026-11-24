@@ -24,6 +24,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
   - On b28fd264 (#339). All 20 changed units build equal.
   - Outside lane 2: SCmd, Gfx x3 (lanes 1 and 4), MainMenus (lane 6), SMSG, Unknown_00420220, Unknown_00404F40, the Fog units (lane 3), Drlg x3 (lane 8), the D2CMP units (lane 6).
 
+- lane2/small-records-g d2342bdb 562->562 Three commits, independent of small-records-f. T004013C0 was two records: the Win32 SYSTEM_INFO in Fog's Unknown_00401070/Unknown_0040E300 and Storm's SFILE/SMEM is now D2SystemInfoStrc (D2Win32SystemInfo.h), and Fog's captured system info at 0x0074D88C, which FOG_GetSystemInfo returns, is D2FogSystemInfoStrc (D2FogSystemInfo.h) with the field names Unknown_00401070 already uses for its four globals (bCaptured, nOsKind, fOsVersion, dwTotalPhys); its partial views in ddCore, Unknown_00510020, SpriteCache, Skills and two D2Direct3D units now include the header. Three more address names in shared headers: T00681490 is D2DrlgPathNodeStrc (D2DrlgRooms.h), T00473470 is D2WeatherParticleStrc (D2Client.h, D2ClientGame.h), T00481720 is Fog's AsyncData (a forward declaration in D2Client.h, D2ClientSound.h); VERIFIED c2cf07808b0333702160ffac5af58e801015421c
+  - On b28fd264 (#339). All 292 includers of the changed headers build equal.
+  - Outside lane 2: Fog and Storm units (lane 3), D2DDraw/D2Direct3D/D2CMP units and D2Direct3D.h (lane 6 and 9), Skills, Gfx and the weather units (lanes 1 and 4), Unknown_00681490 (lane 8), Storm.h and D2Client.h (one forward declaration or type name each).
+
 ## Working on
 
 Records that two or more units define privately with the same text, moved into the shared header that owns their area. One branch per area; each is checked against all includers of the header before it is posted:
