@@ -41,8 +41,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/automap.cpp": {
-   "bytes": 2928,
-   "definitions": 15,
+   "bytes": 2932,
+   "definitions": 16,
    "externs": [
     "extern \"C\" char gapWardenServices[]; // 0x006D8E68",
     "extern \"C\" void __cdecl SCMD_HandleTriggerSkillAtPosition(); // 0x0045DEC0",
@@ -1242,7 +1242,7 @@
    "state": "included"
   },
   "Source/D2Client/ENGINE/Gfx_0046DB90.cpp": {
-   "bytes": 252,
+   "bytes": 256,
    "definitions": 7,
    "externs": [],
    "fn_types": {},
@@ -5188,6 +5188,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/SOURCE/SREG.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/UI/inv_00491D20.cpp": {
+   "bytes": 4,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/UI/inv_00491D20.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -44780,20 +44789,55 @@
   },
   {
    "alias": false,
-   "cname": "gData_00712B04",
+   "cname": null,
    "declared": true,
-   "decorated": "?gaCofModeCodes@@3PAUD2CofModeEntryStrc@@A",
+   "decorated": null,
    "file": "Source/D2Client/ENGINE/Gfx_0046DB90.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00712B04_t gData_00712B04; // 0x00712B04",
-   "head": "extern \"C\" struct d2data_00712B04_t gData_00712B04 = ",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2CofModeEntryStrc gaCofModeCodes[1] = ",
    "name": "gaCofModeCodes",
    "pointers": [],
    "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00712B04_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00712B04\n#pragma comment(linker, \"/alternatename:?gaCofModeCodes@@3PAUD2CofModeEntryStrc@@A=_gData_00712B04\")",
-   "va": "0x00712B04"
+   "size": 8,
+   "struct": null,
+   "tail": "; // 0x00712B04",
+   "va": "0x00712B04",
+   "fill": 1,
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "dwCode",
+       0,
+       {
+        "k": "prim",
+        "kind": "u",
+        "name": "unsigned int",
+        "size": 4
+       }
+      ],
+      [
+       "nMode",
+       4,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ]
+     ],
+     "name": "D2CofModeEntryStrc",
+     "size": 8
+    },
+    "k": "arr",
+    "n": 1,
+    "size": 8
+   },
+   "stars": 0,
+   "type": "D2CofModeEntryStrc"
   },
   {
    "alias": false,
@@ -158787,6 +158831,56 @@
    "tail": "; // 0x0073D530",
    "type": "char",
    "va": "0x0073D530"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/UI/automap.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int gnAutomapScale = ",
+   "model": {
+    "k": "prim",
+    "kind": "s",
+    "name": "int",
+    "size": 4
+   },
+   "name": "gnAutomapScale",
+   "pointers": [],
+   "region": "data",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x00711254",
+   "type": "int",
+   "va": "0x00711254"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/UI/inv_00491D20.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int gnTabEnabled3 = ",
+   "model": {
+    "k": "prim",
+    "kind": "s",
+    "name": "int",
+    "size": 4
+   },
+   "name": "gnTabEnabled3",
+   "pointers": [],
+   "region": "data",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x00722154",
+   "type": "int",
+   "va": "0x00722154"
   }
  ]
 }
