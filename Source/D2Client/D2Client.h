@@ -1693,7 +1693,7 @@ struct D2HoverCoordStrc
 
 struct D2ItemPacket9CStrc
 {
-    unsigned char f_0;
+    unsigned char nHeader;
     unsigned char nAction;
     unsigned char nSize;
     unsigned char nCategory;
@@ -1703,7 +1703,7 @@ struct D2ItemPacket9CStrc
 
 struct D2ItemPacket9DStrc
 {
-    unsigned char f_0;
+    unsigned char nHeader;
     unsigned char nAction;
     unsigned char nSize;
     unsigned char nCategory;
@@ -2083,7 +2083,7 @@ struct D2WeatherSplashStrc
     int nY;
     int nType;
     int nFrame;
-    int f_14;
+    int nFrameDelay;
 };
 
 typedef void (__cdecl* D2WheelCallbackFn)();
