@@ -23404,11 +23404,6 @@
      "name": "?TEXT_GetCenteredStringX@@YIHGH@Z"
     },
     {
-     "va": "0x0049CF50",
-     "length": 56,
-     "name": "?sub_0049CF50_SendWaypointClose@@YAXXZ"
-    },
-    {
      "va": "0x0049D010",
      "length": 329
     },
@@ -24941,11 +24936,6 @@
      "name": "TEXT_IsMouseInRect"
     },
     {
-     "va": "0x0049CEC0",
-     "length": 131,
-     "name": "TEXT_WaypointKeyMsg"
-    },
-    {
      "va": "0x0049D440",
      "length": 76,
      "name": "TEXT_LoadTextSettings"
@@ -25216,6 +25206,16 @@
      "va": "0x0049C980",
      "length": 63,
      "name": "?sub_0049C980_UpdateWaypointAct@@YAXXZ"
+    },
+    {
+     "va": "0x0049CEC0",
+     "length": 131,
+     "name": "TEXT_WaypointKeyMsg"
+    },
+    {
+     "va": "0x0049CF50",
+     "length": 56,
+     "name": "?sub_0049CF50_SendWaypointClose@@YAXXZ"
     },
     {
      "va": "0x0049CF90",

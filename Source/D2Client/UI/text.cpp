@@ -1782,15 +1782,6 @@ extern "C" void __cdecl sub_0049C650_CloseArchives(); // 0x0049C650
 void __cdecl sub_0049C6C0_SendWaypointClose(); // 0x0049C6C0
 
 
-// 0x0049CF50
-void __cdecl sub_0049CF50_SendWaypointClose()
-{
-    if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
-    {
-        MSG_SendTwoDwords(0x49, gnWaypointId, 0);
-        gbSent = 1;
-    }
-}
 
 static int sub_0049C510_GetWaypointRowAtPoint(int nX, int nY)
 {
