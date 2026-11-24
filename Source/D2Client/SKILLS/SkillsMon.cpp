@@ -1201,6 +1201,145 @@ int __fastcall SKILLSMON_UseSkillParamsA(D2UnitStrc* pUnit, int nSkillId, int nS
     return SKILLDESC_CreateCorpseExplosionMissiles(pUnit, nSkillId, nSkillLevel, nParam1, nParam2, nParam3);
 }
 
+struct Unicode;
+
+struct D2MonStatsTxt;
+
+struct D2RequestStrc;
+
+struct D2RequestStrc
+{
+    int nType;
+    D2UnitStrc* pUnit;
+    int unk0x08[2];
+    int nArg0;
+    int nArg1;
+    int nArg2;
+    int unk0x1C[4];
+    int nArg3;
+    int nArg4;
+    int unk0x34[10];
+};
+
+D2UnitStrc* __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0x004CD540
+
+void __fastcall MISSILE_AddMissileEffect(D2UnitStrc* pMissile, int nMissile, int nArg1, int nArg2, int nArg3); // 0x004CEFE0
+
+struct D2ClientServiceStrc
+{
+    char unk0x00[0xC8];
+    void (__fastcall* pfnFree)(void* pData, int nSize);
+    int (__fastcall* pfnFind)(char* szName, int* pArg, void** ppData, int* pSize);
+    void (__fastcall* pfnCall)(const char* szName, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
+};
+
+struct T0044CB60
+{
+    Unicode* pText;
+    T0044CB60* pNext;
+};
+
+struct D2ChatMessageStrc
+{
+    unsigned char unk0x00;
+    unsigned char nType;
+    unsigned char unk0x02[6];
+    unsigned char nColor;
+    unsigned char unk0x09[0x11];
+    D2ChatTextStrc tText;
+};
+
+class D2SquelchListStrc
+{
+public:
+    virtual int Squelch(const char* szName);
+    virtual int Unsquelch(const char* szName);
+    virtual int IsSquelched(const char* szName);
+    virtual int AddFilter(const char* szText);
+    virtual int RemoveFilter(const char* szText);
+    virtual int IsFiltered(const char* szText);
+    virtual void VirtSlot6();
+    virtual void VirtSlot7();
+    virtual int IsPersistent();
+    virtual void SetPersistent(int bPersistent);
+};
+
+static D2MonStatsTxt* MONSTATS_GetTxtRecord(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+
+    return 0;
+}
+
+// 0x004F3CE0
+int __fastcall WARDENCLIENT_CreateSkillMissiles(D2UnitStrc* pUnit, int nSkillId, int nArg4, int nX, int nY, int nMonsterId)
+{
+    D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxt)
+    {
+        return 0;
+    }
+
+    const int nMissile = pSkillsTxt->wCltMissileA;
+    if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    if (!MONSTATS_GetTxtRecord(nMonsterId))
+    {
+        return 0;
+    }
+
+    if (!nX || !nY)
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    D2RequestStrc tRequest;
+    memset(&tRequest, 0, sizeof(tRequest));
+    tRequest.nType = 0x2001;
+    tRequest.pUnit = pUnit;
+    tRequest.nArg1 = nX;
+    tRequest.nArg2 = nY;
+    tRequest.nArg3 = nSkillId;
+    tRequest.nArg4 = nArg4;
+    tRequest.nArg0 = nMissile;
+    D2UnitStrc* pMissile = sub_004CD540_HandleRequest(&tRequest);
+
+    const int nMissileC = pSkillsTxt->wCltMissileC;
+    if (nMissileC > 0 && nMissileC < sgptDataTables->nMissilesTxtRecordCount)
+    {
+        tRequest.nArg4 = 2;
+        tRequest.nArg0 = nMissileC;
+        sub_004CD540_HandleRequest(&tRequest);
+    }
+
+    const int nMissileB = pSkillsTxt->wCltMissileB;
+    if (pMissile)
+    {
+        if (nMissileB > 0 && nMissileB < sgptDataTables->nMissilesTxtRecordCount)
+        {
+            MISSILE_AddMissileEffect(pMissile, nMissileB, 0, 2, 0);
+        }
+
+        if (!CUNIT_GetPathTargetUnit(pUnit) && pSkillsTxt->wTgtSound > 0)
+        {
+            sub_004B9A00(pSkillsTxt->wTgtSound, pMissile, 0, 0, 0);
+        }
+    }
+
+    return 1;
+}
+
 // 0x004F3E50
 int __fastcall SKILLSMON_UseSkillParamsB(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
