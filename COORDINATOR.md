@@ -4,7 +4,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #320 (round j83). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
+- `main`: #321 (round j84). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
 - Units 963, placeholder files 562.
 - In progress: nothing; next round as branches are posted ready.
 - **`lane1/keycfg-object-r` needs a rebase onto #317.** Lane 4's `keyconfig-split` (#317) already made `Unknown_004A43E0.cpp` from the same text.cpp range, so the two branches collide. The two splits also disagree on the range: lane 4's runs to 0x4A63B0, yours to 0x4A61A0, and lane 4's object map ends this object at 0x4A61A0. Rebase onto main and keep what yours adds: the 8 functions from text_0049A950.cpp, the 1 from Unknown_004A6000.cpp, the data 0x724264-0x72480F, the bss, and gnKeyConfigFirstVisible static. Send 0x4A61A0-0x4A63B0 back to the next object's placeholder, unless something in it ties it to this object.
@@ -50,6 +50,7 @@ A function belongs to the lane whose address range or file run it sits in, whate
 | `lane4/options-split` | replaced by `options-split-2` | nothing |
 | `lane5/coord-init-2` | same two commits as `coord-init`, already in #314 | nothing |
 | `lane6/sound-a`, `lane1/keycfg-object-r` | replaced by `sound-a-2`, `keycfg-extras` | nothing |
+| `lane2/cmp-records` | replaced by `cmp-records-2` | nothing |
 | `lane1/join-gethitsounds` | 0x4CA560 MISMATCH in UnitSnd.cpp on main | waits until UnitSnd.cpp's headers settle |
 
 ## Decisions in force
@@ -161,6 +162,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #321 j84: levelup-split, inv-split (lane 4), scomp-strays, sfile-destroy, sevt-deletenode (lane 3), lang-split-2 (lane 5), codec-a (lane 6), cmp-records-2 (lane 2).
 - #320 j83 (coordinator): 69 shims and context copies removed (shims 115 → 86, context markers 583 → 502). Each was tested alone, then all together.
 - #319 j82: sound-a-2, glcore-a, pathmisc-a (lane 6), fog-records-b (lane 2), lang-split (lane 5), sbig-copy, crypt (lane 3), winmain-split (lane 4), keycfg-extras (lane 1).
 - #318 j81: sbig-arrays (lane 3), lang-owners (lane 5), game-timer and records-a (lane 2).
