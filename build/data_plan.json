@@ -92282,12 +92282,12 @@
    "alias": true,
    "cname": "gData_00731AD8",
    "declared": true,
-   "decorated": "?gnBaseStatIdsToSend@@3QBHB",
+   "decorated": "?gnBaseStatIdsToSend@@3PAHA",
    "file": "Source/D2Game/PLAYER/PlrMsg.cpp",
    "fill": 6,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_00731AD8[6]; // 0x00731AD8",
-   "head": "extern \"C\" const int gData_00731AD8[6] = ",
+   "fwd": "extern \"C\" int gData_00731AD8[6]; // 0x00731AD8",
+   "head": "extern \"C\" int gData_00731AD8[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -92305,7 +92305,7 @@
    "size": 24,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x00731AD8\n#pragma comment(linker, \"/alternatename:?gnBaseStatIdsToSend@@3QBHB=_gData_00731AD8\")",
+   "tail": "; // 0x00731AD8\n#pragma comment(linker, \"/alternatename:?gnBaseStatIdsToSend@@3PAHA=_gData_00731AD8\")",
    "type": "int",
    "va": "0x00731AD8"
   },
@@ -103184,11 +103184,11 @@
    "alias": true,
    "cname": "gData_00732FEC",
    "declared": true,
-   "decorated": "?gdwAct5Q2RuneCodes@@3QBIB",
+   "decorated": "?gdwAct5Q2RuneCodes@@3PAIA",
    "file": "Source/D2Game/Quests/a5q2.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned int gData_00732FEC[3]; // 0x00732FEC",
-   "head": "extern \"C\" const unsigned int gData_00732FEC[3] = ",
+   "fwd": "extern \"C\" unsigned int gData_00732FEC[3]; // 0x00732FEC",
+   "head": "extern \"C\" unsigned int gData_00732FEC[3] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -103206,7 +103206,7 @@
    "size": 12,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x00732FEC\n#pragma comment(linker, \"/alternatename:?gdwAct5Q2RuneCodes@@3QBIB=_gData_00732FEC\")",
+   "tail": "; // 0x00732FEC\n#pragma comment(linker, \"/alternatename:?gdwAct5Q2RuneCodes@@3PAIA=_gData_00732FEC\")",
    "type": "unsigned int",
    "va": "0x00732FEC"
   },
@@ -103218,8 +103218,8 @@
    "file": "Source/D2Game/Quests/a5q2.cpp",
    "fill": 37,
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned int gData_00734270[37]; // 0x00734270",
-   "head": "extern \"C\" const unsigned int gData_00734270[37] = ",
+   "fwd": "extern \"C\" unsigned int gData_00734270[37]; // 0x00734270",
+   "head": "extern \"C\" unsigned int gData_00734270[37] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -103276,12 +103276,12 @@
    "alias": true,
    "cname": "gData_00734304",
    "declared": true,
-   "decorated": "?gnAct5Q3MessageIndices@@3QBIB",
+   "decorated": "?gnAct5Q3MessageIndices@@3PAIA",
    "file": "Source/D2Game/Quests/a5q3.cpp",
    "fill": 7,
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned int gData_00734304[7]; // 0x00734304",
-   "head": "extern \"C\" const unsigned int gData_00734304[7] = ",
+   "fwd": "extern \"C\" unsigned int gData_00734304[7]; // 0x00734304",
+   "head": "extern \"C\" unsigned int gData_00734304[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -103299,7 +103299,7 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x00734304\n#pragma comment(linker, \"/alternatename:?gnAct5Q3MessageIndices@@3QBIB=_gData_00734304\")",
+   "tail": "; // 0x00734304\n#pragma comment(linker, \"/alternatename:?gnAct5Q3MessageIndices@@3PAIA=_gData_00734304\")",
    "type": "unsigned int",
    "va": "0x00734304"
   },
@@ -104330,8 +104330,8 @@
    "file": "Source/D2Game/Quests/a1q2.cpp",
    "fill": 6,
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned int gData_00737180[6]; // 0x00737180",
-   "head": "extern \"C\" const unsigned int gData_00737180[6] = ",
+   "fwd": "extern \"C\" unsigned int gData_00737180[6]; // 0x00737180",
+   "head": "extern \"C\" unsigned int gData_00737180[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -104388,12 +104388,12 @@
    "alias": true,
    "cname": "gData_007357E4",
    "declared": true,
-   "decorated": "?gnA5Q5NpcActivateIndices@@3QBIB",
+   "decorated": "?gnA5Q5NpcActivateIndices@@3PAIA",
    "file": "Source/D2Game/Quests/a5q5.cpp",
    "fill": 7,
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned int gData_007357E4[7]; // 0x007357E4",
-   "head": "extern \"C\" const unsigned int gData_007357E4[7] = ",
+   "fwd": "extern \"C\" unsigned int gData_007357E4[7]; // 0x007357E4",
+   "head": "extern \"C\" unsigned int gData_007357E4[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -104411,7 +104411,7 @@
    "size": 28,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x007357E4\n#pragma comment(linker, \"/alternatename:?gnA5Q5NpcActivateIndices@@3QBIB=_gData_007357E4\")",
+   "tail": "; // 0x007357E4\n#pragma comment(linker, \"/alternatename:?gnA5Q5NpcActivateIndices@@3PAIA=_gData_007357E4\")",
    "type": "unsigned int",
    "va": "0x007357E4"
   },
@@ -104594,8 +104594,8 @@
    "file": "Source/D2Game/Quests/a1q1.cpp",
    "fill": 6,
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned int gData_00736CD0[6]; // 0x00736CD0",
-   "head": "extern \"C\" const unsigned int gData_00736CD0[6] = ",
+   "fwd": "extern \"C\" unsigned int gData_00736CD0[6]; // 0x00736CD0",
+   "head": "extern \"C\" unsigned int gData_00736CD0[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -104704,8 +104704,8 @@
    "file": "Source/D2Game/Quests/a1q3.cpp",
    "fill": 6,
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned int gData_00737630[6]; // 0x00737630",
-   "head": "extern \"C\" const unsigned int gData_00737630[6] = ",
+   "fwd": "extern \"C\" unsigned int gData_00737630[6]; // 0x00737630",
+   "head": "extern \"C\" unsigned int gData_00737630[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -104731,12 +104731,12 @@
    "alias": true,
    "cname": "gData_00737648",
    "declared": true,
-   "decorated": "?gnA1Q4MessageIndices@@3QBHB",
+   "decorated": "?gnA1Q4MessageIndices@@3PAHA",
    "file": "Source/D2Game/Quests/a1q4.cpp",
    "fill": 8,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_00737648[8]; // 0x00737648",
-   "head": "extern \"C\" const int gData_00737648[8] = ",
+   "fwd": "extern \"C\" int gData_00737648[8]; // 0x00737648",
+   "head": "extern \"C\" int gData_00737648[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -104754,7 +104754,7 @@
    "size": 32,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x00737648\n#pragma comment(linker, \"/alternatename:?gnA1Q4MessageIndices@@3QBHB=_gData_00737648\")",
+   "tail": "; // 0x00737648\n#pragma comment(linker, \"/alternatename:?gnA1Q4MessageIndices@@3PAHA=_gData_00737648\")",
    "type": "int",
    "va": "0x00737648"
   },
@@ -104889,8 +104889,8 @@
    "decorated": "_gdwA1Q6ChippedGemCodes",
    "file": "Source/D2Game/Quests/a1q6.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned int gData_007361DC[7]; // 0x007361DC",
-   "head": "extern \"C\" const unsigned int gData_007361DC[7] = ",
+   "fwd": "extern \"C\" unsigned int gData_007361DC[7]; // 0x007361DC",
+   "head": "extern \"C\" unsigned int gData_007361DC[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -104919,8 +104919,8 @@
    "decorated": "_gdwA1Q6NormalGemCodes",
    "file": "Source/D2Game/Quests/a1q6.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const unsigned int gData_00736444[7]; // 0x00736444",
-   "head": "extern \"C\" const unsigned int gData_00736444[7] = ",
+   "fwd": "extern \"C\" unsigned int gData_00736444[7]; // 0x00736444",
+   "head": "extern \"C\" unsigned int gData_00736444[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -105572,8 +105572,8 @@
    "file": "Source/D2Game/Quests/a2q4.cpp",
    "fill": 7,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_00738D44[7]; // 0x00738D44",
-   "head": "extern \"C\" const int gData_00738D44[7] = ",
+   "fwd": "extern \"C\" int gData_00738D44[7]; // 0x00738D44",
+   "head": "extern \"C\" int gData_00738D44[7] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -105603,8 +105603,8 @@
    "file": "Source/D2Game/Quests/a2q5.cpp",
    "fill": 4,
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_0073B278[4]; // 0x0073B278",
-   "head": "extern \"C\" const int gData_0073B278[4] = ",
+   "fwd": "extern \"C\" int gData_0073B278[4]; // 0x0073B278",
+   "head": "extern \"C\" int gData_0073B278[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -110133,11 +110133,11 @@
    "alias": true,
    "cname": "gData_0073CA18",
    "declared": true,
-   "decorated": "?gaAiTable@@3QBUD2AiTableStrc@@B",
+   "decorated": "?gaAiTable@@3PAUD2AiTableStrc@@A",
    "file": "Source/D2Game/Ai/AiThink.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2AiTableStrc gData_0073CA18[148]; // 0x0073CA18",
-   "head": "extern \"C\" const D2AiTableStrc gData_0073CA18[148] = ",
+   "fwd": "extern \"C\" D2AiTableStrc gData_0073CA18[148]; // 0x0073CA18",
+   "head": "extern \"C\" D2AiTableStrc gData_0073CA18[148] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -111621,7 +111621,7 @@
    "size": 2368,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x0073CA18\n#pragma comment(linker, \"/alternatename:?gaAiTable@@3QBUD2AiTableStrc@@B=_gData_0073CA18\")",
+   "tail": "; // 0x0073CA18\n#pragma comment(linker, \"/alternatename:?gaAiTable@@3PAUD2AiTableStrc@@A=_gData_0073CA18\")",
    "type": "D2AiTableStrc",
    "va": "0x0073CA18"
   },
@@ -117902,11 +117902,11 @@
    "alias": true,
    "cname": "gData_0073D358",
    "declared": true,
-   "decorated": "?gaSpecialAiStateTable@@3QBUD2AiTableStrc@@B",
+   "decorated": "?gaSpecialAiStateTable@@3PAUD2AiTableStrc@@A",
    "file": "Source/D2Game/Ai/AiThink.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const D2AiTableStrc gData_0073D358[18]; // 0x0073D358",
-   "head": "extern \"C\" const D2AiTableStrc gData_0073D358[18] = ",
+   "fwd": "extern \"C\" D2AiTableStrc gData_0073D358[18]; // 0x0073D358",
+   "head": "extern \"C\" D2AiTableStrc gData_0073D358[18] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -118134,7 +118134,7 @@
    "size": 288,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x0073D358\n#pragma comment(linker, \"/alternatename:?gaSpecialAiStateTable@@3QBUD2AiTableStrc@@B=_gData_0073D358\")",
+   "tail": "; // 0x0073D358\n#pragma comment(linker, \"/alternatename:?gaSpecialAiStateTable@@3PAUD2AiTableStrc@@A=_gData_0073D358\")",
    "type": "D2AiTableStrc",
    "va": "0x0073D358"
   },
