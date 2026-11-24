@@ -121,20 +121,20 @@ static int __fastcall sub_00511E80_ClipCel(D2CelStrc* pCel, int nY, int nX, D2DD
     return 1;
 }
 
-void __fastcall sub_M366_Emit_00512250(D2CelContextStrc* pContext, int nX, int nY, const D2DDrawClipRectStrc* pClip, int nDrawMode)
+// 0x00512250
+void __fastcall sub_00512250_DrawCel(D2CelContextStrc* pContext, int nX, int nY, const D2DDrawClipRectStrc* pClip, int nDrawMode)
 {
     D2DDrawCelClipStrc tOut;
     tOut.nLeft = 0;
     tOut.nRight = 0;
     tOut.f_8 = 0;
     tOut.nRows = 0;
-    if (!sub_006001F0(pContext, 0, 9))
+    if (!sub_006001F0(pContext, 0, 1))
         return;
     if (sub_00511E80_ClipCel(pContext->pCel, nY, nX, &tOut, pClip))
         return;
-    const int nCaps = DDRAW_GetDrawModePalette(nDrawMode, (int*)&pClip);
     CelDrawEx((D2CmpCelContextStrc*)pContext, nX, nY, tOut.nLeft, tOut.nRight, gpScreenBuffer_007C9154,
-        gnRenderHeight, gnRenderWidth, 0, nCaps, tOut.f_8, tOut.nRows, 0);
+        gnRenderHeight, gnRenderWidth, 0, DDRAW_GetDrawModePalette(nDrawMode, (int*)&pClip), tOut.f_8, tOut.nRows, 0);
 }
 
 // 0x00511FB0
