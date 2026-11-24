@@ -5,20 +5,33 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CriticalSectionStrc;
+
 struct D2BnStateStrc;
+
 struct D2BnMessageStrc;
+
 struct D2BnMessage00520440Strc;
 
 extern "C" size_t __cdecl strlen(const char* szString);
+
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
+
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
+
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
+
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
+
 extern "C" const char gszBnMessQueueFile[]; // 0x006DF78C
+
 extern void* gpBnStateArg; // 0x00882000
+
 extern D2CriticalSectionStrc gtMessageLock; // 0x00882004
+
 extern int gnBnState; // 0x0088201C
 
 struct D2BnMessage00520440Strc
@@ -26,6 +39,7 @@ struct D2BnMessage00520440Strc
     unsigned char unk_000[0x128];
     D2BnMessage00520440Strc* pNext128;
 };
+
 extern D2BnMessage00520440Strc* gpMessQueueHead_00882020; // 0x00882020
 
 char gszEmptyStateText[128]; // 0x00881F80
@@ -33,6 +47,30 @@ char gszEmptyStateText[128]; // 0x00881F80
 D2BnMessageStrc* gpMessageHead; // 0x00882020
 
 D2BnMessageStrc* gpMessageTail; // 0x00882024
+
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
+extern int ganSlotArrayB[94]; // 0x008822A8
+void* gpBnStateArg; // 0x00882000
+D2CriticalSectionStrc gtMessageLock; // 0x00882004
+int gnBnState; // 0x0088201C
+
+// 0x005201E0
+void __cdecl sub_005201E0_InitMessageQueue()
+{
+// build: symbol ?gpMessageHead@* 0x00882020
+    gpMessageHead = 0;
+// build: symbol ?gpMessageTail@* 0x00882024
+    gpMessageTail = 0;
+    gnBnState = 0;
+    InitializeCriticalSection(&gtMessageLock);
+}
+
+// 0x00520200
+void __cdecl sub_00520200_DeleteQueueLock()
+{
+    DeleteCriticalSection(&gtMessageLock);
+}
 
 // 0x00520210
 int __fastcall BNMESSQUEUE_QueueMessage(int nId, const void* pData, unsigned int nLength)
@@ -156,4 +194,23 @@ int __fastcall BNMESSQUEUE_TakeState(D2BnStateStrc* pState)
     gnBnState = 0;
     LeaveCriticalSection(&gtMessageLock);
     return 1;
+}
+
+// 0x005205F0
+int __fastcall sub_005205F0_GetState(D2BnStateStrc* pState)
+{
+    EnterCriticalSection(&gtMessageLock);
+    pState->nState = gnBnState;
+    pState->pArg = gpBnStateArg;
+    if (gnBnState == 0x1B)
+// build: symbol ?gszEmptyStateText@* 0x00881F80
+        pState->pArg = gszEmptyStateText;
+    LeaveCriticalSection(&gtMessageLock);
+    return 1;
+}
+
+// 0x00520C30
+void __fastcall sub_00520C30_SetSlot(unsigned char nIndex, int nValue)
+{
+    ganSlotArrayB[nIndex] = nValue;
 }
