@@ -29,7 +29,7 @@ public:
     sub_0041F4A0_ConstructHuffTree();                                                                                        // 0x0041F4A0
 
     int bIsCmp0;
-    unsigned int nUnk0x04;
+    unsigned int nMinValidValue;
     HUFFNODE aItems[0x203];
     D2StormNodeListStrc tFreeList;
     D2StormNodeListStrc tItemList;
@@ -40,6 +40,6 @@ public:
 // 0x0041F4A0
 sub_0041F4A0_ConstructHuffTree::sub_0041F4A0_ConstructHuffTree()
 {
-    nUnk0x04 = 1;
+    nMinValidValue = 1;
     nItemsUsed = 0;
 }

@@ -253,7 +253,7 @@ int __stdcall SFileOpenFile(const char* szFileName, void** phFile); // 0x0041998
 
 #pragma pack(push,1)
 
-struct T006C5B10 {
+struct D2PcxHeaderStrc {
  unsigned short id;
  unsigned char encoding,bits;
  unsigned short xmin,ymin,xmax,ymax,hres,vres;
@@ -914,7 +914,7 @@ static void __cdecl CompressPcxRow(unsigned char** ppDest, unsigned char** ppSou
 static int __fastcall EncodePcx256File(int width,int height,void* file,D2PaletteStrc* colors,unsigned char* pixels)
 {
  const int nWidth=width;
- T006C5B10 header;
+ D2PcxHeaderStrc header;
  SMemZero(&header,sizeof(header));
  header.xmax=(unsigned short)(nWidth-1);
  header.ymax=(unsigned short)(height-1);

@@ -125,7 +125,7 @@ struct CHuffman
     union
     {
         unsigned int generation;
-        unsigned int nUnk0x04;
+        unsigned int nMinValidValue;
     };
     HUFFNODE aItems[0x203];
     D2StormNodeListStrc tFreeList;
@@ -273,7 +273,7 @@ void CHuffman::BuildTree(unsigned char nCmpType)
         }
         pLow = (HUFFNODE*)pNext->tLink.Next();
     }
-    nUnk0x04 = 1;
+    nMinValidValue = 1;
 }
 
 #include "gen/data/Source/Storm/Unknown_0041EBC0.inc"
