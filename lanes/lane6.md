@@ -5,7 +5,6 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 ## Ready
 
 - lane6/charsel-fechar 8b71d7e9 0 placeholders (plan-only). The 9 B still copied just before gapszSkyPalette (CharSel.cpp) are 1 B of alignment and an unread 8-B pair at 0x006D3A00, the palette\fechar pal.dat/pal.pl2 names laid out like the sky pair after it; planned in CharSel.cpp beside it. Not stacked; independent of strtable-mpqs. VERIFIED fcd9736a (on #349; borrowed data 1,166 -> 1,157 B).
-- lane6/strtable-mpqs d3d80da3 0 placeholders (plan-only). The 31 B still copied between strtable.cpp's strings and SRP.cpp's data are 3 B of alignment and an unreferenced 7-pointer table at 0x006E0318 (the string.tbl/default.map/patchstring.tbl/expansionstring.tbl formats and the d2data/patch_d2/d2exp MPQ names), now planned in strtable.cpp as a const table of literals. Not stacked; only strtable.cpp's plan. VERIFIED 1824f12d (on #348; borrowed data 1,135 B, 31 B less than chatdlg-pieces-2's run); rebased onto #349 with no conflicts.
 
 ## Claimed
 
@@ -39,6 +38,7 @@ Nothing of mine in flight. Open items:
 
 ## Left in place (and why)
 
+- MainMenus.cpp 0x0070C204 (4 B, the start of gatControlTemplates[0x11A], written by 0x0042F540): a 4-B planned record there, like entry 0x11B's gData_0070C234, verifies but does not place; the bytes stay copied.
 - D2WinFont_00501DF0.cpp (0x00501DF0, 0x00501FE0, 0x00502970): inside D2WinFont.cpp's run, but it builds equal only with a POD Unicode; in D2WinFont.cpp (D2Unicode.h) the frame grows by 4 B and registers change. Same case as MainMenus_00431AF0.
 - D2Win_10076 0x004FFE10 (in D2WinTextBox.cpp): inside EditBox's run, but it zeroes its buffer with an inline rep stosd, and D2WinEditBox.cpp has #pragma function(memset) (its other functions call memset).
 - D2SoundSmp_005153C0.cpp: inside D2SoundSmp's run; in D2SoundSmp.cpp its true body allocates registers differently, so D2SoundSmp.cpp keeps its context copy.
