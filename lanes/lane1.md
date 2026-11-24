@@ -4,11 +4,12 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/object-strays-2 4b05a5932 0->0 Object.cpp takes 0x4BDF30 (Item.cpp) and 0x4BDFD0 (Unknown_004BDFD0.cpp), both inside its code run (0x4BC580-0x4BE01F) between 0x4BDEE0 and 0x4BDFE0. 0x4BDFD0 returns the object's owner name, pUnit->pObjectData->szOwner (D2ObjectDataStrc +0x28), which the placeholder spelled through two made-up records; written on the real ones, they go. Borrowed data 848 B, as main; VERIFIED 9051ac64fc0561b48bbb8abd19b84700cadb9c83 (based on main #363; replaces object-strays, docs/index.html conflict only).
-  - Tried, not moved: 0x4BC500 (Unknown_004BC500.cpp, just before Object.cpp's run) turns Object.cpp's 0x4BD900 unequal there; Unknown_004BC1B0_004BE770.cpp's 0x4BE770/0x4BE7C0 turn 0x4BF430 unequal in Unknown_004BC1B0.cpp (that is why it was split off).
+(object-strays-2 is on main #364.)
 
 
 ## In progress
+
+- **Strays in 0x4A0000-0x4F5000 (main #364):** trying each one- or two-function run that sits inside another file's run, by compile. So far dialog.cpp takes 0x4B76D0 (ROSTERPETS_HandleDialogEscape, called only by dialog.cpp). Not moved: 0x4A5980 (RosterPets.cpp, inside Unknown_004A43E0.cpp's run): there it inlines sub_004A4AD0_Press, the borrowed function, and stops matching.
 
 - **Claimed (analysis first, no branch yet): the SkillsMon/SkillDesc object map, code 0x4E1D30-0x4F2004.** Filed today across SkillsMon.cpp, SkillDesc.cpp, six SkillDesc_*.cpp pieces, SkillsEMon.cpp and a dozen placeholders, all interleaved. Path strings in .rdata: .\SKILLS\SkillsMon.cpp (0x6DBB4C), .\UI\SkillDesc.cpp (0x6DBF24), .\SKILLS\SkillsEMon.cpp (0x6DBF90). SkillDesc.cpp's plan holds 4 language copies and SkillDesc_004E1FF0.cpp's 3 (lane 4's note), so this is about 7 objects plus SkillsMon and SkillsEMon. I'll post the object map before moving anything. Waiting on lane4/spellsel-data before the spellsel strays (it touches spellsel.cpp).
 
