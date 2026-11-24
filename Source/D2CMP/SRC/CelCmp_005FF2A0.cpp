@@ -480,7 +480,7 @@ D2ChatStormLinkBStrc::D2ChatStormLinkBStrc()
 
 char* D2ChatStormNodeStrc::IGNORELIST_GetStringEntryKey()
 {
-    return f_14;
+    return m_key;
 }
 
 D2ChatStormBaseArrayAStrc::D2ChatStormBaseArrayAStrc()

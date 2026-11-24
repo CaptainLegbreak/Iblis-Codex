@@ -344,20 +344,20 @@ struct D2ChatStormListEStrc
 
 struct D2ChatStormNodeStrc
 {
-    unsigned int f_0;
+    unsigned int m_hashval;
     D2ChatStormLinkStrc m_linktoslot;
-    D2ChatStormLinkStrc f_C;
-    char* f_14;
+    D2ChatStormLinkStrc m_linktofull;
+    char* m_key;
 
     char* IGNORELIST_GetStringEntryKey();
 };
 
 struct D2CommonMappingEntryNodeBaseStrc
 {
-    unsigned int f_0;
+    unsigned int m_hashval;
     D2ChatStormLinkStrc m_linktoslot;
-    D2ChatStormLinkStrc f_C;
-    char* f_14;
+    D2ChatStormLinkStrc m_linktofull;
+    char* m_key;
 
     ~D2CommonMappingEntryNodeBaseStrc();
 };
@@ -424,10 +424,10 @@ struct D2CommonStormSlotListBStrc
 
 struct D2CommonStringEntryNodeStrc
 {
-    unsigned int f_0;
+    unsigned int m_hashval;
     D2ChatStormLinkStrc m_linktoslot;
-    D2ChatStormLinkStrc f_C;
-    char* f_14;
+    D2ChatStormLinkStrc m_linktofull;
+    char* m_key;
 
     ~D2CommonStringEntryNodeStrc();
     void IGNORELIST_DestroyStringEntryNode();

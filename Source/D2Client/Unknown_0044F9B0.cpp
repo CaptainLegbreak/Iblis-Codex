@@ -74,9 +74,9 @@ extern const char gszTypeHashObjectChunk[]; // 0x0070F5F4
 
 struct D2SGameDataStrc
 {
-    unsigned int f_0;
+    unsigned int m_hashval;
     D2StormLinkStrc m_linktoslot;
-    D2StormLinkStrc f_C;
+    D2StormLinkStrc m_linktofull;
     char unk0x14[0x1DE0];
 
     D2SGameDataStrc()
@@ -579,7 +579,7 @@ D2ChatStormLinkBStrc::D2ChatStormLinkBStrc()
 
 char* D2ChatStormNodeStrc::IGNORELIST_GetStringEntryKey()
 {
-    return f_14;
+    return m_key;
 }
 
 D2ChatStormBaseArrayAStrc::D2ChatStormBaseArrayAStrc()
@@ -713,7 +713,7 @@ void D2StormListAStrc::sub_0044FC60_DeleteAll()
     D2SGameDataStrc* pNode;
     while ((pNode = HeadNode()) != 0)
     {
-        pNode->f_C.Unlink();
+        pNode->m_linktofull.Unlink();
         pNode->m_linktoslot.Unlink();
 // build: symbol ?gszTypeSGameData@* 0x0070F56C
         SMemFree(pNode, gszTypeSGameData, -2, 0);
@@ -772,7 +772,7 @@ void D2StormChunkListStrc::sub_00450580_DeleteAll()
         for (unsigned int i = 0; i < pChunk->m_array.f_4; i++)
         {
             D2SGameDataStrc* pNode = &pChunk->m_array.f_8[i];
-            pNode->f_C.Unlink();
+            pNode->m_linktofull.Unlink();
             pNode->m_linktoslot.Unlink();
         }
         if (pChunk->m_array.f_8)
