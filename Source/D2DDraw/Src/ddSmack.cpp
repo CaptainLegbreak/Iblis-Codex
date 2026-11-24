@@ -8,7 +8,7 @@ extern "C" __declspec(dllimport) void __stdcall SmackDoFrame(D2SmackStrc* hSmack
 
 extern "C" __declspec(dllimport) void __stdcall SmackNextFrame(D2SmackStrc* hSmack);                       // 0x006CC600
 
-void __fastcall DDRAW_CloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
+void __fastcall DDSMACK_CloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
 
 unsigned char gabDDrawSmackRemap[256];                                                                  // 0x008815B0
 
@@ -18,7 +18,7 @@ int gbDDrawSmackRemapReady;                                                     
 
 extern unsigned char gabGamePalette_007C8CC8[];                                                             // 0x007C8CC8
 
-static void __stdcall DDRAW_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows); // 0x00513380
+static void __stdcall DDSMACK_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows); // 0x00513380
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
@@ -50,7 +50,7 @@ static inline void sub_00513380_RemapSpan(unsigned char* pDst, const unsigned ch
 }
 
 // 0x00513380
-static void __stdcall DDRAW_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows)
+static void __stdcall DDSMACK_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsigned int nRows)
 {
     if (!gpRemapSource_008816B0)
         return;
@@ -68,7 +68,7 @@ static void __stdcall DDRAW_RemapRows(int nWidth, D2SmackRecordStrc* pRect, unsi
 }
 
 // 0x00513330
-void __fastcall DDRAW_CloseSmacker(D2SmackRecordStrc* pRecord)
+void __fastcall DDSMACK_CloseSmacker(D2SmackRecordStrc* pRecord)
 {
     if (gpDDrawSmackBuffer)
     {
@@ -84,7 +84,7 @@ void __fastcall DDRAW_CloseSmacker(D2SmackRecordStrc* pRecord)
 }
 
 // 0x00513400
-void __fastcall DDRAW_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pRecord, unsigned char nType)
+void __fastcall DDSMACK_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pRecord, unsigned char nType)
 {
     pRecord->nType = nType;
     switch (nType)
@@ -142,14 +142,14 @@ void __fastcall DDRAW_DecodeSmacker(const char* szFile, D2SmackRecordStrc* pReco
         return;
     }
 
-    DDRAW_CloseSmacker(pRecord);
+    DDSMACK_CloseSmacker(pRecord);
 }
 
 unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 extern int gbSurfaceActive_007C9140;                                                                        // 0x007C9140
 
 // 0x005135F0
-void __fastcall DDRAW_PlaySmacker(D2SmackRecordStrc* pRecord)
+void __fastcall DDSMACK_PlaySmacker(D2SmackRecordStrc* pRecord)
 {
     switch (pRecord->nType)
     {
@@ -172,7 +172,7 @@ void __fastcall DDRAW_PlaySmacker(D2SmackRecordStrc* pRecord)
             }
             SmackDoFrame(hSmack);
             if (hSmack->nFrameNum == hSmack->nFrames)
-                DDRAW_CloseSmacker(pRecord);
+                DDSMACK_CloseSmacker(pRecord);
             else
                 SmackNextFrame(hSmack);
         }
@@ -181,12 +181,12 @@ void __fastcall DDRAW_PlaySmacker(D2SmackRecordStrc* pRecord)
             return;
         if (!gbDDrawSmackRemapReady)
             return;
-        DDRAW_RemapRows(hSmack->nWidth, pRecord, hSmack->nHeight);
+        DDSMACK_RemapRows(hSmack->nWidth, pRecord, hSmack->nHeight);
         return;
     }
     case 'p':
         if (!gbRenderPaused)
-            DDRAW_RemapRows(468, pRecord, 60);
+            DDSMACK_RemapRows(468, pRecord, 60);
         break;
     }
 }

@@ -202,7 +202,7 @@ void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (_
 void __fastcall sub_004FDD50_SetMaxLength(D2WinControlStrc* pControl, int nLength); // 0x004FDD50
 void __fastcall sub_004FDDD0_LinkTab(D2WinControlStrc* pControl, D2WinControlStrc* pNext); // 0x004FDDD0
 void __fastcall sub_004FFE10_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FFE10
-void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
+void __fastcall D2SOUNDSMP_SetMasterVolume(int nVolume); // 0x00515CE0
 void __fastcall sub_00515F50(int nArg); // 0x00515F50
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 void __stdcall D2Win_10030_CONTROL_ToggleFourthFlag(D2WinControlStrc* pControl, int bSet); // 0x004FA420

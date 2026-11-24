@@ -283,7 +283,7 @@ int __cdecl D2SOUND_GetOptionsMusicOption(); // 0x00514D80
 
 void __fastcall D2SOUND_10070(int nArg); // 0x00514D90
 
-int __cdecl D2SOUND_AreWaveSlotsInitialized(); // 0x00515060
+int __cdecl D2SOUNDFAST_AreWaveSlotsInitialized(); // 0x00515060
 
 D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName, void* hFile, void* pfShowMessage, int nPriority); // 0x00517332
 
@@ -1903,7 +1903,7 @@ void __fastcall D2Win_SaveScreenshotToFile(const char* szFile)
 // 0x004FA160
 void __stdcall D2Win_COMMANDS_ToggleMusic(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (!dword_6F8FE274 || !D2SOUND_AreWaveSlotsInitialized())
+    if (!dword_6F8FE274 || !D2SOUNDFAST_AreWaveSlotsInitialized())
     {
         return;
     }

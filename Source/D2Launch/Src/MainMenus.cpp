@@ -250,7 +250,7 @@ extern D2WinControlStrc* gpControl_007799D4; // 0x007799D4
 
 D2ConfigStrc* gpLaunchRecord; // 0x007795D4
 
-void __cdecl D2SOUND_FadeOutWaves(); // 0x00515020
+void __cdecl D2SOUNDFAST_FadeOutWaves(); // 0x00515020
 
 void __cdecl sub_0043B080();
 
@@ -369,7 +369,7 @@ int __stdcall CHARSEL_OnRealmChosen(SMSGHANDLER_PARAMS* pMsg); // 0x0043A950
 
 void __fastcall CHARSEL_UseName(char* szName); // 0x0043ADB0
 
-void __cdecl CHARSEL_DestroyPopupControls(); // 0x0043EA20
+void __cdecl CHATDLG_DestroyPopupControls(); // 0x0043EA20
 
 int __stdcall CHATDLG_SetUserDataFlag(int nArg); // 0x0043F580
 
@@ -1396,13 +1396,13 @@ int __stdcall D2Win_RunMessageLoop(void (__stdcall* pCallback)(unsigned long)); 
 
 void* __stdcall sub_004FAC80(int nArg);                                                                     // 0x004FAC80
 
-void __cdecl D2SOUND_InitWaveSlots();                                                                                // 0x00514DB0
+void __cdecl D2SOUNDFAST_InitWaveSlots();                                                                                // 0x00514DB0
 
-void __fastcall D2SOUND_PreloadWave(const char* szFile);                                                           // 0x00514E10
+void __fastcall D2SOUNDFAST_PreloadWave(const char* szFile);                                                           // 0x00514E10
 
-int __cdecl D2SOUND_IsAnyWavePlaying();                                                                // 0x00514FB0
+int __cdecl D2SOUNDFAST_IsAnyWavePlaying();                                                                // 0x00514FB0
 
-void __cdecl D2SOUND_FreeWaveSlots();                                                                                // 0x00515070
+void __cdecl D2SOUNDFAST_FreeWaveSlots();                                                                                // 0x00515070
 
 void __stdcall D2Win_10029(int a1); // 0x004FA410
 
@@ -2648,7 +2648,7 @@ int __cdecl MAINMENUS_HasSaveFiles()
 // 0x00430C30
 int __stdcall sub_00430C30_OnCancel(int nArg)
 {
-    D2SOUND_FadeOutWaves();
+    D2SOUNDFAST_FadeOutWaves();
     MAINMENUS_Reset();
     CHARSEL_InitCharSelectScreen();
     return 1;
@@ -3012,8 +3012,8 @@ int __stdcall MAINMENUS_ShowLevelScreen(int nUnused)
     sub_00515F50(0xB4);
 // build: symbol ?D2SOUND_StopChannel@* 0x00514930
     D2SOUND_StopChannel();
-// build: symbol ?D2SOUND_SetMasterVolume@* 0x00515CE0
-    D2SOUND_SetMasterVolume(0xFF);
+// build: symbol ?D2SOUNDSMP_SetMasterVolume@* 0x00515CE0
+    D2SOUNDSMP_SetMasterVolume(0xFF);
     CHARSEL_CreateBaseScreen();
     if (SRegLoadString("Diablo II", "Aux Battle.net", 0, szAddress, 0x64))
     {
@@ -3385,7 +3385,7 @@ void __cdecl sub_I03_Emit_00431E70(char nMode)
 // 0x00431F50
 int __stdcall sub_00431F50_OnCancel(int nArg)
 {
-    D2SOUND_FadeOutWaves();
+    D2SOUNDFAST_FadeOutWaves();
     MAINMENUS_Reset();
     sub_0043B080();
     return 1;
@@ -3416,7 +3416,7 @@ int __cdecl MAINMENUS_SaveExists()
 // 0x00432020
 int __stdcall sub_00432020_OnCancel(int nArg)
 {
-    D2SOUND_FadeOutWaves();
+    D2SOUNDFAST_FadeOutWaves();
     MAINMENUS_Reset();
     CHARSEL_InitCharSelectScreen();
     return 1;
@@ -3425,7 +3425,7 @@ int __stdcall sub_00432020_OnCancel(int nArg)
 // 0x00432040
 int __stdcall sub_00432040_OnCancel2(int nArg)
 {
-    D2SOUND_FadeOutWaves();
+    D2SOUNDFAST_FadeOutWaves();
     MAINMENUS_Reset();
     CHARSEL_InitCharSelectScreen();
     return 1;
@@ -5020,24 +5020,24 @@ int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
     gpLaunchRecord->szText0x245[0] = 0;
     if (gnLaunchMode != 2)
         gpLaunchRecord->szServerIP[0] = 0;
-    D2SOUND_InitWaveSlots();
-    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\button.wav");
-    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\amazon select.wav");
-    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\amazon deselect.wav");
-    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\barbarian select.wav");
-    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\barbarian deselect.wav");
-    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\paladin select.wav");
-    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\paladin deselect.wav");
-    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\necromancer select.wav");
-    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\necromancer deselect.wav");
-    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\sorceress select.wav");
-    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\sorceress deselect.wav");
+    D2SOUNDFAST_InitWaveSlots();
+    D2SOUNDFAST_PreloadWave("data\\global\\sfx\\cursor\\button.wav");
+    D2SOUNDFAST_PreloadWave("data\\global\\sfx\\cursor\\intro\\amazon select.wav");
+    D2SOUNDFAST_PreloadWave("data\\global\\sfx\\cursor\\intro\\amazon deselect.wav");
+    D2SOUNDFAST_PreloadWave("data\\global\\sfx\\cursor\\intro\\barbarian select.wav");
+    D2SOUNDFAST_PreloadWave("data\\global\\sfx\\cursor\\intro\\barbarian deselect.wav");
+    D2SOUNDFAST_PreloadWave("data\\global\\sfx\\cursor\\intro\\paladin select.wav");
+    D2SOUNDFAST_PreloadWave("data\\global\\sfx\\cursor\\intro\\paladin deselect.wav");
+    D2SOUNDFAST_PreloadWave("data\\global\\sfx\\cursor\\intro\\necromancer select.wav");
+    D2SOUNDFAST_PreloadWave("data\\global\\sfx\\cursor\\intro\\necromancer deselect.wav");
+    D2SOUNDFAST_PreloadWave("data\\global\\sfx\\cursor\\intro\\sorceress select.wav");
+    D2SOUNDFAST_PreloadWave("data\\global\\sfx\\cursor\\intro\\sorceress deselect.wav");
     if (FOG_IsExpansion())
     {
-        D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\druid select.wav");
-        D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\druid deselect.wav");
-        D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\assassin select.wav");
-        D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\intro\\assassin deselect.wav");
+        D2SOUNDFAST_PreloadWave("data\\global\\sfx\\cursor\\intro\\druid select.wav");
+        D2SOUNDFAST_PreloadWave("data\\global\\sfx\\cursor\\intro\\druid deselect.wav");
+        D2SOUNDFAST_PreloadWave("data\\global\\sfx\\cursor\\intro\\assassin select.wav");
+        D2SOUNDFAST_PreloadWave("data\\global\\sfx\\cursor\\intro\\assassin deselect.wav");
     }
     gpFuncTable_0077ABF0 = pRecord->pComInterface;
     const char nStartMode = gpLaunchRecord->nStartMode;
@@ -5114,9 +5114,9 @@ int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
     D2Win_SetQuitCallback(sub_004309B0_ClearState);
     D2Win_RunMessageLoop(MAINMENUS_IdleLoopCallback);
     sub_00515020();
-    while (D2SOUND_IsAnyWavePlaying())
+    while (D2SOUNDFAST_IsAnyWavePlaying())
         Sleep(0);
-    D2SOUND_FreeWaveSlots();
+    D2SOUNDFAST_FreeWaveSlots();
 // build: symbol ?MAINMENUS_Reset@* 0x0042F480
     MAINMENUS_Reset();
     MAINMENUS_FreeFrontEndCells();
@@ -5132,7 +5132,7 @@ int __stdcall MAINMENUS_OnSinglePlayer(int nArg)
     gnLaunchMode = 0;
     if (MAINMENUS_HasSaveFiles() == 1)
     {
-        D2SOUND_FadeOutWaves();
+        D2SOUNDFAST_FadeOutWaves();
         MAINMENUS_Reset();
         CHARSEL_InitCharSelectScreen();
         return 1;
@@ -5179,7 +5179,7 @@ int __stdcall MAINMENUS_OnTcpIpHost(int nArg)
         return 1;
     }
 
-    D2SOUND_FadeOutWaves();
+    D2SOUNDFAST_FadeOutWaves();
     MAINMENUS_Reset();
     CHARSEL_InitCharSelectScreen();
     return 1;

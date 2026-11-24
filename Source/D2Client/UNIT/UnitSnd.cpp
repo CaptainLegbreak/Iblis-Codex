@@ -235,7 +235,7 @@ extern struct D2TimedHintEntryStrc;
 
 extern struct D2TimedHintNodeStrc;
 
-void __fastcall D2SOUND_ListAddHead(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516950
+void __fastcall D2SOUNDUTIL_ListAddHead(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516950
 
 int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
@@ -505,16 +505,16 @@ int __fastcall UNITSND_GetModeSound(D2UnitStrc* pUnit, int nMode)
 void __fastcall UNITSND_AddUnitSfx(D2UnitStrc* pUnit, D2TimedHintEntryStrc* pEntry)
 {
     D2_ASSERT(pUnit, 0xC2C);
-    D2SOUND_ListAddHead((D2TimedHintNodeStrc**)&pUnit->pUnitSfxData, pEntry);
+    D2SOUNDUTIL_ListAddHead((D2TimedHintNodeStrc**)&pUnit->pUnitSfxData, pEntry);
 }
 
-void __fastcall D2SOUND_ListRemove(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516980
+void __fastcall D2SOUNDUTIL_ListRemove(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516980
 
 // 0x004CA8D0
 void __fastcall UNITSND_RemoveUnitHint(D2UnitStrc* pUnit, D2TimedHintEntryStrc* pEntry)
 {
     D2_ASSERT(pUnit, 0xC2C);
-    D2SOUND_ListRemove((D2TimedHintNodeStrc**)&pUnit->pUnitSfxData, pEntry);
+    D2SOUNDUTIL_ListRemove((D2TimedHintNodeStrc**)&pUnit->pUnitSfxData, pEntry);
 }
 
 

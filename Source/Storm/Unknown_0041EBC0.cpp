@@ -127,7 +127,7 @@ struct CHuffman
         unsigned int generation;
         unsigned int nUnk0x04;
     };
-    HUFFNODE f_8[0x203];
+    HUFFNODE aItems[0x203];
     D2StormNodeListStrc tFreeList;
     union
     {
@@ -153,7 +153,7 @@ struct CHuffman
     HUFFNODE* AllocateItem(unsigned int nLinkType)
     {
         HUFFNODE* pItem = (HUFFNODE*)tFreeList.m_terminator.Next();
-        if (!pItem) pItem = &f_8[nItemsUsed++];
+        if (!pItem) pItem = &aItems[nItemsUsed++];
         tItemList.LinkNode((char*)pItem, nLinkType, 0);
         pItem->pParent = 0;
         pItem->pChild = 0;

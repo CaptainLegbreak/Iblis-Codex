@@ -10832,17 +10832,17 @@
     {
      "va": "0x00446810",
      "length": 9,
-     "name": "CHATDLG_StrChr"
+     "name": "COMCALLBACK_StrChr"
     },
     {
      "va": "0x00446820",
      "length": 27,
-     "name": "?CHATDLG_SkipNamePrefix@@YIPBDPBD@Z"
+     "name": "?COMCALLBACK_SkipNamePrefix@@YIPBDPBD@Z"
     },
     {
      "va": "0x00446840",
      "length": 62,
-     "name": "?CHATDLG_CopyNamePrefix@@YIXPBDPAD@Z"
+     "name": "?COMCALLBACK_CopyNamePrefix@@YIXPBDPAD@Z"
     },
     {
      "va": "0x004468F0",
@@ -10867,7 +10867,7 @@
     {
      "va": "0x00446A90",
      "length": 152,
-     "name": "CHATDLG_RemoveTableString"
+     "name": "COMCALLBACK_RemoveTableString"
     },
     {
      "va": "0x00446B70",
@@ -11844,7 +11844,7 @@
     {
      "va": "0x0043D990",
      "length": 16,
-     "name": "?CHARSEL_ActivateChatEdit@@YAXXZ"
+     "name": "?CHATDLG_ActivateChatEdit@@YAXXZ"
     },
     {
      "va": "0x0043D9A0",
@@ -11894,7 +11894,7 @@
     {
      "va": "0x0043DB20",
      "length": 107,
-     "name": "?CHARSEL_DestroyDialogControls@@YAXXZ"
+     "name": "?CHATDLG_DestroyDialogControls@@YAXXZ"
     },
     {
      "va": "0x0043DB90",
@@ -11919,7 +11919,7 @@
     {
      "va": "0x0043DC30",
      "length": 30,
-     "name": "?CHARSEL_GetConnectStatus@@YAHXZ"
+     "name": "?CHATDLG_GetConnectStatus@@YAHXZ"
     },
     {
      "va": "0x0043DC50",
@@ -11943,7 +11943,7 @@
     {
      "va": "0x0043E130",
      "length": 65,
-     "name": "?CHARSEL_ResetChatControls@@YAXXZ"
+     "name": "?CHATDLG_ResetChatControls@@YAXXZ"
     },
     {
      "va": "0x0043E180",
@@ -12023,7 +12023,7 @@
     {
      "va": "0x0043E660",
      "length": 87,
-     "name": "?CHARSEL_UpdateOkEnabled@@YAXXZ"
+     "name": "?CHATDLG_UpdateOkEnabled@@YAXXZ"
     },
     {
      "va": "0x0043E6C0",
@@ -12057,7 +12057,7 @@
     {
      "va": "0x0043EA20",
      "length": 71,
-     "name": "?CHARSEL_DestroyPopupControls@@YAXXZ"
+     "name": "?CHATDLG_DestroyPopupControls@@YAXXZ"
     },
     {
      "va": "0x0043EA70",
@@ -12171,7 +12171,7 @@
     {
      "va": "0x0043F4D0",
      "length": 52,
-     "name": "?CHARSEL_ClearHistory@@YAXXZ"
+     "name": "?CHATDLG_ClearHistory@@YAXXZ"
     },
     {
      "va": "0x0043F510",
@@ -12181,7 +12181,7 @@
     {
      "va": "0x0043F560",
      "length": 25,
-     "name": "?CHARSEL_DisableControl@@YIXPAUD2WinControlStrc@@@Z"
+     "name": "?CHATDLG_DisableControl@@YIXPAUD2WinControlStrc@@@Z"
     },
     {
      "va": "0x0043F580",
@@ -12211,7 +12211,7 @@
     {
      "va": "0x0043F730",
      "length": 196,
-     "name": "?COMCALLBACK_UpdateNameListText@@YAXXZ"
+     "name": "?CHATDLG_UpdateNameListText@@YAXXZ"
     },
     {
      "va": "0x0043F800",
@@ -12231,7 +12231,7 @@
     {
      "va": "0x0043F8C0",
      "length": 109,
-     "name": "?CHARSEL_ResetLaunchState@@YAXXZ"
+     "name": "?CHATDLG_ResetLaunchState@@YAXXZ"
     },
     {
      "va": "0x0043F930",
@@ -12393,12 +12393,12 @@
     {
      "va": "0x00441240",
      "length": 85,
-     "name": "?CHARSEL_UseEditText@@YGHH@Z"
+     "name": "?CHATDLG_UseEditText@@YGHH@Z"
     },
     {
      "va": "0x004412A0",
      "length": 128,
-     "name": "?CHARSEL_UseRegistryChannel@@YGHH@Z"
+     "name": "?CHATDLG_UseRegistryChannel@@YGHH@Z"
     },
     {
      "va": "0x00441320",
@@ -12466,7 +12466,7 @@
     {
      "va": "0x004429A0",
      "length": 205,
-     "name": "?CHARSEL_OnChatLine@@YGHPBUUnicode@@@Z"
+     "name": "?CHATDLG_OnChatLine@@YGHPBUUnicode@@@Z"
     },
     {
      "va": "0x00442A70",
@@ -12501,7 +12501,7 @@
     {
      "va": "0x00442C20",
      "length": 422,
-     "name": "?CHARSEL_FillGameListControl@@YAXXZ"
+     "name": "?CHATDLG_FillGameListControl@@YAXXZ"
     },
     {
      "va": "0x00442DD0",
@@ -12540,32 +12540,32 @@
     {
      "va": "0x00443360",
      "length": 45,
-     "name": "?CHARSEL_GetMaxPlayers@@YAHXZ"
+     "name": "?CHATDLG_GetMaxPlayers@@YAHXZ"
     },
     {
      "va": "0x00443390",
      "length": 45,
-     "name": "?CHARSEL_GetLevelRange@@YAHXZ"
+     "name": "?CHATDLG_GetLevelRange@@YAHXZ"
     },
     {
      "va": "0x004433C0",
      "length": 95,
-     "name": "?CHARSEL_IncrementMaxPlayers@@YGHH@Z"
+     "name": "?CHATDLG_IncrementMaxPlayers@@YGHH@Z"
     },
     {
      "va": "0x00443420",
      "length": 95,
-     "name": "?CHARSEL_DecrementMaxPlayers@@YGHH@Z"
+     "name": "?CHATDLG_DecrementMaxPlayers@@YGHH@Z"
     },
     {
      "va": "0x00443480",
      "length": 95,
-     "name": "?CHARSEL_IncrementLevelRange@@YGHH@Z"
+     "name": "?CHATDLG_IncrementLevelRange@@YGHH@Z"
     },
     {
      "va": "0x004434E0",
      "length": 94,
-     "name": "?CHARSEL_DecrementLevelRange@@YGHH@Z"
+     "name": "?CHATDLG_DecrementLevelRange@@YGHH@Z"
     },
     {
      "va": "0x00443540",
@@ -12590,7 +12590,7 @@
     {
      "va": "0x004437E0",
      "length": 93,
-     "name": "?CHARSEL_UpdateJoinButtonState@@YAXXZ"
+     "name": "?CHATDLG_UpdateJoinButtonState@@YAXXZ"
     },
     {
      "va": "0x00443840",
@@ -12619,7 +12619,7 @@
     {
      "va": "0x004439F0",
      "length": 537,
-     "name": "?CHARSEL_JoinByName@@YGHH@Z"
+     "name": "?CHATDLG_JoinByName@@YGHH@Z"
     },
     {
      "va": "0x00443C10",
@@ -12644,7 +12644,7 @@
     {
      "va": "0x00443D10",
      "length": 49,
-     "name": "?COMCALLBACK_SetPendingName@@YGXHHPBD@Z"
+     "name": "?CHATDLG_SetPendingName@@YGXHHPBD@Z"
     },
     {
      "va": "0x00443D50",
@@ -12707,7 +12707,7 @@
     {
      "va": "0x00445300",
      "length": 165,
-     "name": "COMCALLBACK_LoadLevelRestriction"
+     "name": "CHATDLG_LoadLevelRestriction"
     },
     {
      "va": "0x004453B0",
@@ -12742,17 +12742,17 @@
     {
      "va": "0x00445A80",
      "length": 483,
-     "name": "?COMCALLBACK_ShowProfileDialog@@YIXPBDHH@Z"
+     "name": "?CHATDLG_ShowProfileDialog@@YIXPBDHH@Z"
     },
     {
      "va": "0x00445C70",
      "length": 381,
-     "name": "?COMCALLBACK_ShowUserInfoDialog@@YIXPBD0HH@Z"
+     "name": "?CHATDLG_ShowUserInfoDialog@@YIXPBD0HH@Z"
     },
     {
      "va": "0x00445DF0",
      "length": 502,
-     "name": "?COMCALLBACK_CreateJoinScreen@@YAXXZ"
+     "name": "?CHATDLG_CreateJoinScreen@@YAXXZ"
     },
     {
      "va": "0x00448BD0",
@@ -23246,11 +23246,6 @@
      "name": "?TEXT_GetCenteredStringX@@YIHGH@Z"
     },
     {
-     "va": "0x0049CF50",
-     "length": 56,
-     "name": "?sub_0049CF50_SendWaypointClose@@YAXXZ"
-    },
-    {
      "va": "0x0049D010",
      "length": 329
     },
@@ -23295,9 +23290,19 @@
      "name": "?TEXT_FreeTextBox@@YGXPAUD2TextBoxStrc@@@Z"
     },
     {
+     "va": "0x0049D440",
+     "length": 76,
+     "name": "TEXT_LoadTextSettings"
+    },
+    {
      "va": "0x0049D490",
      "length": 56,
      "name": "?TEXT_FreeTextNode@@YAXPAUD2TextNodeStrc@@@Z"
+    },
+    {
+     "va": "0x0049D4D0",
+     "length": 152,
+     "name": "TEXT_FreeTextList"
     },
     {
      "va": "0x0049D570",
@@ -23320,9 +23325,19 @@
      "name": "?TEXT_DrawTextBoxAt@@YAHPAUD2TextBoxStrc@@PAUD2RectStrc@@@Z"
     },
     {
+     "va": "0x0049DA10",
+     "length": 30,
+     "name": "TEXT_EatMsg"
+    },
+    {
      "va": "0x0049DA30",
      "length": 28,
      "name": "?TEXT_SetHoverUnit@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0049DA50",
+     "length": 8,
+     "name": "?TEXT_ClearHoverUnit@@YAXXZ"
     },
     {
      "va": "0x0049DA60",
@@ -23343,6 +23358,11 @@
      "va": "0x0049DB10",
      "length": 170,
      "name": "TEXT_CloneStringList"
+    },
+    {
+     "va": "0x0049DBC0",
+     "length": 113,
+     "name": "?TEXT_AddToHistory@@YIXPAUD2TextNodeStrc@@@Z"
     },
     {
      "va": "0x0049DC40",
@@ -23385,6 +23405,11 @@
      "length": 537
     },
     {
+     "va": "0x0049E7E0",
+     "length": 13,
+     "name": "?TEXT_SetTextCallback@@YIXP6IHPAXHH@Z0@Z"
+    },
+    {
      "va": "0x0049E7F0",
      "length": 1,
      "name": "?sub_0049E7F0_Nop@@YGXXZ"
@@ -23395,9 +23420,19 @@
      "name": "?sub_0049E800_Nop@@YGXXZ"
     },
     {
+     "va": "0x0049E810",
+     "length": 74,
+     "name": "TEXT_SetPanelRect"
+    },
+    {
      "va": "0x0049E860",
      "length": 53,
      "name": "?TEXT_ClearHint@@YAXXZ"
+    },
+    {
+     "va": "0x0049E8B0",
+     "length": 53,
+     "name": "?TEXT_GetTextUnit@@YAPAUD2UnitStrc@@XZ"
     },
     {
      "va": "0x0049E8F0",
@@ -23424,6 +23459,11 @@
      "name": "?TEXT_HandleChatPacket@@YIXPAUD2GSPacketSrv26@@@Z"
     },
     {
+     "va": "0x0049F910",
+     "length": 72,
+     "name": "?TEXT_GetTextString@@YIPBUUnicode@@G@Z"
+    },
+    {
      "va": "0x0049F960",
      "length": 165,
      "name": "?TEXT_ResetTextBox@@YAXXZ"
@@ -23443,9 +23483,19 @@
      "name": "?TEXT_FreeTextPanelCels@@YAXXZ"
     },
     {
+     "va": "0x0049FE60",
+     "length": 50,
+     "name": "TEXT_CloseTextPanelMsg"
+    },
+    {
      "va": "0x0049FEA0",
      "length": 92,
      "name": "?TEXT_PanelClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0049FF00",
+     "length": 1,
+     "name": "?sub_0049FF00@@YAXXZ"
     },
     {
      "va": "0x0049FF10",
@@ -23456,6 +23506,11 @@
      "va": "0x0049FF60",
      "length": 43,
      "name": "@TEXT_AcceptWordPacket@4"
+    },
+    {
+     "va": "0x0049FF90",
+     "length": 109,
+     "name": "?TEXT_OpenTextData@@YIXPAUD2UnitStrc@@PAUD2ClientTextDataStrc@@@Z"
     },
     {
      "va": "0x004A0030",
@@ -24935,36 +24990,6 @@
      "name": "TEXT_IsMouseInRect"
     },
     {
-     "va": "0x0049CEC0",
-     "length": 131,
-     "name": "TEXT_WaypointKeyMsg"
-    },
-    {
-     "va": "0x0049D440",
-     "length": 76,
-     "name": "TEXT_LoadTextSettings"
-    },
-    {
-     "va": "0x0049D4D0",
-     "length": 152,
-     "name": "TEXT_FreeTextList"
-    },
-    {
-     "va": "0x0049DA10",
-     "length": 30,
-     "name": "TEXT_EatMsg"
-    },
-    {
-     "va": "0x0049E810",
-     "length": 74,
-     "name": "TEXT_SetPanelRect"
-    },
-    {
-     "va": "0x0049FE60",
-     "length": 50,
-     "name": "TEXT_CloseTextPanelMsg"
-    },
-    {
      "va": "0x004A01A0",
      "length": 54,
      "name": "?TEXT_CloseMessageLogDialog@@YAXXZ"
@@ -25212,6 +25237,16 @@
      "name": "?sub_0049C980_UpdateWaypointAct@@YAXXZ"
     },
     {
+     "va": "0x0049CEC0",
+     "length": 131,
+     "name": "TEXT_WaypointKeyMsg"
+    },
+    {
+     "va": "0x0049CF50",
+     "length": 56,
+     "name": "?sub_0049CF50_SendWaypointClose@@YAXXZ"
+    },
+    {
      "va": "0x0049CF90",
      "length": 124,
      "name": "?sub_0049CF90@@YIXPAUD2PacketRecord21Strc@@@Z"
@@ -25290,49 +25325,14 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0049DA50",
-     "length": 8,
-     "name": "?TEXT_ClearHoverUnit@@YAXXZ"
-    },
-    {
-     "va": "0x0049DBC0",
-     "length": 113,
-     "name": "?TEXT_AddToHistory@@YIXPAUD2TextNodeStrc@@@Z"
-    },
-    {
      "va": "0x0049E340",
      "length": 71,
      "name": "?TEXT_FillListBox@@YAXXZ"
     },
     {
-     "va": "0x0049E7E0",
-     "length": 13,
-     "name": "?TEXT_SetTextCallback@@YIXP6IHPAXHH@Z0@Z"
-    },
-    {
-     "va": "0x0049E8B0",
-     "length": 53,
-     "name": "?TEXT_GetTextUnit@@YAPAUD2UnitStrc@@XZ"
-    },
-    {
      "va": "0x0049F8C0",
      "length": 49,
      "name": "?TEXT_ClearHoverText@@YIXPAUD2HoverClearPacketStrc@@@Z"
-    },
-    {
-     "va": "0x0049F910",
-     "length": 72,
-     "name": "?TEXT_GetTextString@@YIPBUUnicode@@G@Z"
-    },
-    {
-     "va": "0x0049FF00",
-     "length": 1,
-     "name": "?sub_0049FF00@@YAXXZ"
-    },
-    {
-     "va": "0x0049FF90",
-     "length": 109,
-     "name": "?TEXT_OpenTextData@@YIXPAUD2UnitStrc@@PAUD2ClientTextDataStrc@@@Z"
     },
     {
      "va": "0x004A0000",
@@ -25537,6 +25537,10 @@
      "va": "0x004A40D0",
      "length": 64,
      "name": "?TEXT_SetQuestRecord@@YIXPBUD2Record42Strc@@@Z"
+    },
+    {
+     "va": "0x006CAC30",
+     "length": 156
     }
    ],
    "flags": [
@@ -36285,7 +36289,7 @@
     {
      "va": "0x00510020",
      "length": 270,
-     "name": "?DDRAW_Detect@@YIHPAX@Z"
+     "name": "?DDCORE_Detect@@YIHPAX@Z"
     },
     {
      "va": "0x00510160",
@@ -36295,77 +36299,77 @@
     {
      "va": "0x00511210",
      "length": 696,
-     "name": "?DDRAW_OpenSurfaces@@YAHH@Z"
+     "name": "?DDCORE_OpenSurfaces@@YAHH@Z"
     },
     {
      "va": "0x005114D0",
      "length": 265,
-     "name": "DDRAW_SetDisplayMode"
+     "name": "DDCORE_SetDisplayMode"
     },
     {
      "va": "0x005115E0",
      "length": 120,
-     "name": "?DDRAW_CreateSurface@@YIHPAXH@Z"
+     "name": "?DDCORE_CreateSurface@@YIHPAXH@Z"
     },
     {
      "va": "0x00511720",
      "length": 205,
-     "name": "?DDRAW_StartDraw@@YIHHEEE@Z"
+     "name": "?DDCORE_StartDraw@@YIHHEEE@Z"
     },
     {
      "va": "0x005117F0",
      "length": 117,
-     "name": "?DDRAW_EndDraw@@YIHXZ"
+     "name": "?DDCORE_EndDraw@@YIHXZ"
     },
     {
      "va": "0x00511870",
      "length": 256,
-     "name": "DDRAW_Blit"
+     "name": "DDCORE_Blit"
     },
     {
      "va": "0x00511A80",
      "length": 132,
-     "name": "?DDRAW_ReleaseSurfaces@@YAXXZ"
+     "name": "?DDCORE_ReleaseSurfaces@@YAXXZ"
     },
     {
      "va": "0x00511B10",
      "length": 22,
-     "name": "?DDRAW_PlayCutscene@@YIHXZ"
+     "name": "?DDCORE_PlayCutscene@@YIHXZ"
     },
     {
      "va": "0x00511B30",
      "length": 48,
-     "name": "?DDRAW_CloseSurface@@YIHXZ"
+     "name": "?DDCORE_CloseSurface@@YIHXZ"
     },
     {
      "va": "0x00511B60",
      "length": 32,
-     "name": "?DDRAW_ChangeRes@@YIHPAXH@Z"
+     "name": "?DDCORE_ChangeRes@@YIHPAXH@Z"
     },
     {
      "va": "0x00511B80",
      "length": 157,
-     "name": "?DDRAW_Close@@YIHXZ"
+     "name": "?DDCORE_Close@@YIHXZ"
     },
     {
      "va": "0x00511C20",
      "length": 169,
-     "name": "DDRAW_PauseSurface"
+     "name": "DDCORE_PauseSurface"
     },
     {
      "va": "0x00511CD0",
      "length": 5,
-     "name": "?DDRAW_CloseAtExit@@YAXXZ"
+     "name": "?DDCORE_CloseAtExit@@YAXXZ"
     },
     {
      "va": "0x00511CE0",
      "length": 133,
-     "name": "?DDRAW_Init@@YIHPAUD2GfxSettingsStrc@@PAUD2TileDrawFunctionsStrc@@@Z"
+     "name": "?DDCORE_Init@@YIHPAUD2GfxSettingsStrc@@PAUD2TileDrawFunctionsStrc@@@Z"
     },
     {
      "va": "0x00511D70",
      "length": 120,
-     "name": "?DDRAW_GetDrawModePalette@@YIHHPAH@Z"
+     "name": "?DDCORE_GetDrawModePalette@@YIHHPAH@Z"
     },
     {
      "va": "0x005126F0",
@@ -36375,27 +36379,27 @@
     {
      "va": "0x00512700",
      "length": 9,
-     "name": "?DDRAW_GetBlendedShadows@@YAHXZ"
+     "name": "?DDCORE_GetBlendedShadows@@YAHXZ"
     },
     {
      "va": "0x005128B0",
      "length": 67,
-     "name": "DDRAW_DrawBoxAlpha"
+     "name": "DDCORE_DrawBoxAlpha"
     },
     {
      "va": "0x00512900",
      "length": 47,
-     "name": "DDRAW_SetPixel"
+     "name": "DDCORE_SetPixel"
     },
     {
      "va": "0x00512E80",
      "length": 66,
-     "name": "DDRAW_UtilPoint"
+     "name": "DDCORE_UtilPoint"
     },
     {
      "va": "0x005132C0",
      "length": 101,
-     "name": "DDRAW_FloorTileDraw"
+     "name": "DDCORE_FloorTileDraw"
     },
     {
      "va": "0x005136F0",
@@ -37195,22 +37199,22 @@
     {
      "va": "0x00512430",
      "length": 378,
-     "name": "DDRAW_CreateDebugFont"
+     "name": "DDDEBUGFONT_CreateDebugFont"
     },
     {
      "va": "0x005125B0",
      "length": 35,
-     "name": "?DDRAW_FreeDebugFont@@YAXXZ"
+     "name": "?DDDEBUGFONT_FreeDebugFont@@YAXXZ"
     },
     {
      "va": "0x005125E0",
      "length": 153,
-     "name": "?DDRAW_DebugDrawChar@@YGHHHD@Z"
+     "name": "?DDDEBUGFONT_DebugDrawChar@@YGHHHD@Z"
     },
     {
      "va": "0x00512680",
      "length": 99,
-     "name": "?DDRAW_DebugPrintf@@YIXHHPBDPAD@Z"
+     "name": "?DDDEBUGFONT_DebugPrintf@@YIXHHPBDPAD@Z"
     }
    ],
    "flags": [
@@ -37349,7 +37353,7 @@
     {
      "va": "0x00513330",
      "length": 67,
-     "name": "?DDRAW_CloseSmacker@@YIXPAUD2SmackRecordStrc@@@Z"
+     "name": "?DDSMACK_CloseSmacker@@YIXPAUD2SmackRecordStrc@@@Z"
     },
     {
      "va": "0x00513380",
@@ -37358,7 +37362,7 @@
     {
      "va": "0x00513400",
      "length": 491,
-     "name": "?DDRAW_DecodeSmacker@@YIXPBDPAUD2SmackRecordStrc@@E@Z"
+     "name": "?DDSMACK_DecodeSmacker@@YIXPBDPAUD2SmackRecordStrc@@E@Z"
     },
     {
      "va": "0x005135F0",
@@ -37448,7 +37452,7 @@
     {
      "va": "0x00515120",
      "length": 86,
-     "name": "?D2SOUND_StopSoundThread@@YAXXZ"
+     "name": "?D2SOUNDSMP_StopSoundThread@@YAXXZ"
     },
     {
      "va": "0x00515180",
@@ -37457,57 +37461,57 @@
     {
      "va": "0x00515300",
      "length": 177,
-     "name": "D2SOUND_ClearSoundBuffer"
+     "name": "D2SOUNDSMP_ClearSoundBuffer"
     },
     {
      "va": "0x00515530",
      "length": 146,
-     "name": "?D2SOUND_CreateSound@@YIPAUD2SoundStrc@@IH@Z"
+     "name": "?D2SOUNDSMP_CreateSound@@YIPAUD2SoundStrc@@IH@Z"
     },
     {
      "va": "0x005155D0",
      "length": 202,
-     "name": "D2SOUND_SetSoundData"
+     "name": "D2SOUNDSMP_SetSoundData"
     },
     {
      "va": "0x005156A0",
      "length": 104,
-     "name": "?D2SOUND_PlaySound@@YIHPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_PlaySound@@YIHPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00515710",
      "length": 45,
-     "name": "?D2SOUND_GetSoundPlayingFlag@@YIHPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_GetSoundPlayingFlag@@YIHPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00515740",
      "length": 112,
-     "name": "D2SOUND_IsSoundBufferPlaying"
+     "name": "D2SOUNDSMP_IsSoundBufferPlaying"
     },
     {
      "va": "0x005157B0",
      "length": 167,
-     "name": "D2SOUND_SetSoundVolume"
+     "name": "D2SOUNDSMP_SetSoundVolume"
     },
     {
      "va": "0x00515860",
      "length": 39,
-     "name": "?D2SOUND_GetSoundVolume@@YIHPAUD2SoundViewStrc@@@Z"
+     "name": "?D2SOUNDSMP_GetSoundVolume@@YIHPAUD2SoundViewStrc@@@Z"
     },
     {
      "va": "0x00515890",
      "length": 187,
-     "name": "?D2SOUND_SetSoundPan@@YIXPAUD2SoundStrc@@H@Z"
+     "name": "?D2SOUNDSMP_SetSoundPan@@YIXPAUD2SoundStrc@@H@Z"
     },
     {
      "va": "0x00515950",
      "length": 90,
-     "name": "D2SOUND_SetSoundPosition"
+     "name": "D2SOUNDSMP_SetSoundPosition"
     },
     {
      "va": "0x005159B0",
      "length": 119,
-     "name": "?D2SOUND_GetStreamPosition@@YIIPAUD2SoundSampleStrc@@@Z"
+     "name": "?D2SOUNDSMP_GetStreamPosition@@YIIPAUD2SoundSampleStrc@@@Z"
     },
     {
      "va": "0x00515A30",
@@ -37522,42 +37526,42 @@
     {
      "va": "0x00515A90",
      "length": 163,
-     "name": "D2SOUND_SetSoundAttenuation"
+     "name": "D2SOUNDSMP_SetSoundAttenuation"
     },
     {
      "va": "0x00515B40",
      "length": 229,
-     "name": "D2SOUND_SetSoundReverbMix"
+     "name": "D2SOUNDSMP_SetSoundReverbMix"
     },
     {
      "va": "0x00515C30",
      "length": 44,
-     "name": "?D2SOUND_IsSoundStreaming@@YIHPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_IsSoundStreaming@@YIHPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00515C60",
      "length": 114,
-     "name": "D2SOUND_StartSoundFade"
+     "name": "D2SOUNDSMP_StartSoundFade"
     },
     {
      "va": "0x00515CE0",
      "length": 127,
-     "name": "?D2SOUND_SetMasterVolume@@YIXH@Z"
+     "name": "?D2SOUNDSMP_SetMasterVolume@@YIXH@Z"
     },
     {
      "va": "0x00515D60",
      "length": 16,
-     "name": "?D2SOUND_GetMasterVolume@@YAHXZ"
+     "name": "?D2SOUNDSMP_GetMasterVolume@@YAHXZ"
     },
     {
      "va": "0x00515D70",
      "length": 194,
-     "name": "D2SOUND_StartSoundStream"
+     "name": "D2SOUNDSMP_StartSoundStream"
     },
     {
      "va": "0x00515E40",
      "length": 113,
-     "name": "?D2SOUND_CloseSoundStream@@YIXPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_CloseSoundStream@@YIXPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00515EC0",
@@ -37572,32 +37576,32 @@
     {
      "va": "0x00515EE0",
      "length": 98,
-     "name": "?D2SOUND_StopSound@@YIXPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_StopSound@@YIXPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00515F50",
      "length": 125,
-     "name": "?D2SOUND_FadeOutMasterVolume@@YIXH@Z"
+     "name": "?D2SOUNDSMP_FadeOutMasterVolume@@YIXH@Z"
     },
     {
      "va": "0x00515FD0",
      "length": 159,
-     "name": "?D2SOUND_RestoreLostBuffer@@YIHPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_RestoreLostBuffer@@YIHPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00516070",
      "length": 85,
-     "name": "?D2SOUND_ReleaseSoundBuffers@@YAXPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_ReleaseSoundBuffers@@YAXPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x005160D0",
      "length": 98,
-     "name": "?D2SOUND_DestroySound@@YIXPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_DestroySound@@YIXPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00516140",
      "length": 271,
-     "name": "?D2SOUND_ResetSound@@YIXPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_ResetSound@@YIXPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00516250",
@@ -37606,7 +37610,7 @@
     {
      "va": "0x00516510",
      "length": 95,
-     "name": "D2SOUND_StartSoundThread"
+     "name": "D2SOUNDSMP_StartSoundThread"
     },
     {
      "va": "0x00516570",
@@ -37631,22 +37635,22 @@
     {
      "va": "0x005165F0",
      "length": 118,
-     "name": "D2SOUND_ScaleToDecibels"
+     "name": "D2SOUNDSMP_ScaleToDecibels"
     },
     {
      "va": "0x00516670",
      "length": 93,
-     "name": "D2SOUND_DecibelsToScale"
+     "name": "D2SOUNDSMP_DecibelsToScale"
     },
     {
      "va": "0x005166D0",
      "length": 67,
-     "name": "?D2SOUND_FindRiffChunk@@YGPBEPBEPAII1@Z"
+     "name": "?D2SOUNDSMP_FindRiffChunk@@YGPBEPBEPAII1@Z"
     },
     {
      "va": "0x00516720",
      "length": 53,
-     "name": "?D2SOUND_InitWaveFormat@@YIXPAUD2WaveFormatStrc@@H@Z"
+     "name": "?D2SOUNDSMP_InitWaveFormat@@YIXPAUD2WaveFormatStrc@@H@Z"
     },
     {
      "va": "0x00516760",
@@ -37689,12 +37693,12 @@
     {
      "va": "0x00514DB0",
      "length": 90,
-     "name": "?D2SOUND_InitWaveSlots@@YAXXZ"
+     "name": "?D2SOUNDFAST_InitWaveSlots@@YAXXZ"
     },
     {
      "va": "0x00514E10",
      "length": 162,
-     "name": "D2SOUND_PreloadWave"
+     "name": "D2SOUNDFAST_PreloadWave"
     },
     {
      "va": "0x00514EC0",
@@ -37703,27 +37707,27 @@
     {
      "va": "0x00514FB0",
      "length": 49,
-     "name": "?D2SOUND_IsAnyWavePlaying@@YAHXZ"
+     "name": "?D2SOUNDFAST_IsAnyWavePlaying@@YAHXZ"
     },
     {
      "va": "0x00514FF0",
      "length": 36,
-     "name": "?D2SOUND_StopAllWaves@@YAXXZ"
+     "name": "?D2SOUNDFAST_StopAllWaves@@YAXXZ"
     },
     {
      "va": "0x00515020",
      "length": 54,
-     "name": "?D2SOUND_FadeOutWaves@@YAXXZ"
+     "name": "?D2SOUNDFAST_FadeOutWaves@@YAXXZ"
     },
     {
      "va": "0x00515060",
      "length": 6,
-     "name": "D2SOUND_AreWaveSlotsInitialized"
+     "name": "D2SOUNDFAST_AreWaveSlotsInitialized"
     },
     {
      "va": "0x00515070",
      "length": 160,
-     "name": "?D2SOUND_FreeWaveSlots@@YAXXZ"
+     "name": "?D2SOUNDFAST_FreeWaveSlots@@YAXXZ"
     }
    ]
   },
@@ -37919,7 +37923,7 @@
     {
      "va": "0x00516950",
      "length": 47,
-     "name": "?D2SOUND_ListAddHead@@YIXPAPAUD2SoundListNodeStrc@@PAX@Z"
+     "name": "?D2SOUNDUTIL_ListAddHead@@YIXPAPAUD2SoundListNodeStrc@@PAX@Z"
     },
     {
      "va": "0x00516980",
@@ -37928,17 +37932,17 @@
     {
      "va": "0x005169D0",
      "length": 24,
-     "name": "@D2SOUND_ListContains@8"
+     "name": "@D2SOUNDUTIL_ListContains@8"
     },
     {
      "va": "0x005169F0",
      "length": 17,
-     "name": "?D2SOUND_ListCount@@YIHPAUD2SoundListNodeStrc@@@Z"
+     "name": "?D2SOUNDUTIL_ListCount@@YIHPAUD2SoundListNodeStrc@@@Z"
     },
     {
      "va": "0x00516A10",
      "length": 87,
-     "name": "?D2SOUND_ListFree@@YIXPAPAUD2SoundNodeStrc@@@Z"
+     "name": "?D2SOUNDUTIL_ListFree@@YIXPAPAUD2SoundNodeStrc@@@Z"
     },
     {
      "va": "0x00516A70",
@@ -37947,22 +37951,22 @@
     {
      "va": "0x00516AC0",
      "length": 377,
-     "name": "?D2SOUND_ReadVxdVersionResource@@YIHPBDPAKPAX@Z"
+     "name": "?D2SOUNDUTIL_ReadVxdVersionResource@@YIHPBDPAKPAX@Z"
     },
     {
      "va": "0x00516C40",
      "length": 57,
-     "name": "?D2SOUND_GetVxdVersionInfoSize@@YIKPBD@Z"
+     "name": "?D2SOUNDUTIL_GetVxdVersionInfoSize@@YIKPBD@Z"
     },
     {
      "va": "0x00516C80",
      "length": 25,
-     "name": "?D2SOUND_GetVxdVersionInfo@@YIHPBDKPAX@Z"
+     "name": "?D2SOUNDUTIL_GetVxdVersionInfo@@YIHPBDKPAX@Z"
     },
     {
      "va": "0x00516CA0",
      "length": 235,
-     "name": "?D2SOUND_GetVxdFileVersion@@YIHPBDPAI11@Z"
+     "name": "?D2SOUNDUTIL_GetVxdFileVersion@@YIHPBDPAI11@Z"
     }
    ],
    "flags": [
@@ -78127,12 +78131,12 @@
     {
      "va": "0x006B1C30",
      "length": 47,
-     "name": "?D3D_FlipPrimary@@YAHXZ"
+     "name": "?D3DCORE_FlipPrimary@@YAHXZ"
     },
     {
      "va": "0x006B1C60",
      "length": 16,
-     "name": "?D3D_GetScreenSize@@YIXPAH0@Z"
+     "name": "?D3DCORE_GetScreenSize@@YIXPAH0@Z"
     },
     {
      "va": "0x006B1C70",
@@ -78141,12 +78145,12 @@
     {
      "va": "0x006B1D50",
      "length": 8,
-     "name": "?D3D_GetColor@@YIII@Z"
+     "name": "?D3DCORE_GetColor@@YIII@Z"
     },
     {
      "va": "0x006B1D60",
      "length": 29,
-     "name": "?D3D_SetPaletteView@@YIXPBUD2GfxPaletteViewStrc@@@Z"
+     "name": "?D3DCORE_SetPaletteView@@YIXPBUD2GfxPaletteViewStrc@@@Z"
     },
     {
      "va": "0x006B1D80",
@@ -78163,7 +78167,7 @@
     {
      "va": "0x006B1EA0",
      "length": 145,
-     "name": "?D3D_SetColorCombineMode@@YIXH@Z"
+     "name": "?D3DCORE_SetColorCombineMode@@YIXH@Z"
     },
     {
      "va": "0x006B1F40",
@@ -78172,7 +78176,7 @@
     {
      "va": "0x006B2030",
      "length": 106,
-     "name": "?D3D_SetTextureFilterMode@@YIXH@Z"
+     "name": "?D3DCORE_SetTextureFilterMode@@YIXH@Z"
     },
     {
      "va": "0x006B20A0",
@@ -78187,7 +78191,7 @@
     {
      "va": "0x006B20C0",
      "length": 20,
-     "name": "?D3D_SetOption@@YIHHH@Z"
+     "name": "?D3DCORE_SetOption@@YIHHH@Z"
     },
     {
      "va": "0x006B20E0",
@@ -78200,7 +78204,7 @@
     {
      "va": "0x006B3400",
      "length": 21,
-     "name": "?D3D_ReleaseWindow@@YAHXZ"
+     "name": "?D3DCORE_ReleaseWindow@@YAHXZ"
     },
     {
      "va": "0x006B3420",
@@ -78261,7 +78265,7 @@
     {
      "va": "0x006B5550",
      "length": 130,
-     "name": "?D3D_Close@@YAHXZ"
+     "name": "?D3DCORE_Close@@YAHXZ"
     },
     {
      "va": "0x006B55E0",
@@ -78270,22 +78274,22 @@
     {
      "va": "0x006B5630",
      "length": 142,
-     "name": "?D3D_PauseSurface@@YIXHHH@Z"
+     "name": "?D3DCORE_PauseSurface@@YIXHHH@Z"
     },
     {
      "va": "0x006B56C0",
      "length": 94,
-     "name": "?D3D_OpenSmackCutscene@@YIXHHH@Z"
+     "name": "?D3DCORE_OpenSmackCutscene@@YIXHHH@Z"
     },
     {
      "va": "0x006B5720",
      "length": 161,
-     "name": "?D3D_StartDraw@@YIHHHHH@Z"
+     "name": "?D3DCORE_StartDraw@@YIHHHHH@Z"
     },
     {
      "va": "0x006B57D0",
      "length": 82,
-     "name": "?D3D_EndDraw@@YAHXZ"
+     "name": "?D3DCORE_EndDraw@@YAHXZ"
     },
     {
      "va": "0x006B5830",
@@ -78805,7 +78809,7 @@
     {
      "va": "0x006B7100",
      "length": 1,
-     "name": "?D3D_DebugFillBackBuffer@@YAXXZ"
+     "name": "?D3DSPRITE_DebugFillBackBuffer@@YAXXZ"
     },
     {
      "va": "0x006B7110",
@@ -79040,32 +79044,32 @@
     {
      "va": "0x006B9A10",
      "length": 64,
-     "name": "?D3D_SmackInit@@YAXXZ"
+     "name": "?D3DSMACK_SmackInit@@YAXXZ"
     },
     {
      "va": "0x006B9A50",
      "length": 163,
-     "name": "?D3D_CreateSmackSurfaces@@YIPADPAD@Z"
+     "name": "?D3DSMACK_CreateSmackSurfaces@@YIPADPAD@Z"
     },
     {
      "va": "0x006B9B00",
      "length": 35,
-     "name": "_D3D_SmackFree"
+     "name": "_D3DSMACK_SmackFree"
     },
     {
      "va": "0x006B9B30",
      "length": 113,
-     "name": "?D3D_ReleaseSmackSurfaces@@YAXXZ"
+     "name": "?D3DSMACK_ReleaseSmackSurfaces@@YAXXZ"
     },
     {
      "va": "0x006B9BB0",
      "length": 30,
-     "name": "?D3D_CloseSmacker@@YIXPAUD2SmackRecordStrc@@@Z"
+     "name": "?D3DSMACK_CloseSmacker@@YIXPAUD2SmackRecordStrc@@@Z"
     },
     {
      "va": "0x006B9BD0",
      "length": 97,
-     "name": "?D3D_UploadSmackTextures@@YAXXZ"
+     "name": "?D3DSMACK_UploadSmackTextures@@YAXXZ"
     },
     {
      "va": "0x006B9C40",
@@ -79204,7 +79208,7 @@
     {
      "va": "0x006BAD70",
      "length": 77,
-     "name": "?D3D_SubtileCacheRelease@@YIXPAUD2List006BAD70Strc@@@Z"
+     "name": "?D3DSUBTILECACHE_SubtileCacheRelease@@YIXPAUD2List006BAD70Strc@@@Z"
     },
     {
      "va": "0x006BADC0",
@@ -79263,7 +79267,7 @@
     {
      "va": "0x006BB390",
      "length": 77,
-     "name": "?D3D_FloorCacheRelease@@YIXPAUD2List006BB390Strc@@@Z"
+     "name": "?D3DFLOORCACHE_FloorCacheRelease@@YIXPAUD2List006BB390Strc@@@Z"
     },
     {
      "va": "0x006BB3E0",
@@ -79276,12 +79280,12 @@
     {
      "va": "0x006BB5E0",
      "length": 88,
-     "name": "?D3D_CreateTileSurfaces@@YAXXZ"
+     "name": "?D3DFLOORCACHE_CreateTileSurfaces@@YAXXZ"
     },
     {
      "va": "0x006BB640",
      "length": 97,
-     "name": "?D3D_ReleaseTileSurfaces@@YAXXZ"
+     "name": "?D3DFLOORCACHE_ReleaseTileSurfaces@@YAXXZ"
     },
     {
      "va": "0x006BB6B0",
@@ -80882,30 +80886,6 @@
      "va": "0x006CA9C0",
      "length": 70
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006CAA30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CAC30",
-     "length": 156
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

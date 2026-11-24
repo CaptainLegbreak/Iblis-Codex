@@ -146,7 +146,7 @@ struct HUFFNODE
 struct CHuffman
 {
     int unk0x00[2];
-    HUFFNODE f_8[0x203];
+    HUFFNODE aItems[0x203];
     D2StormNodeListStrc tFreeList;
     D2StormNodeListStrc tItemList;
     unsigned int nItemsUsed;
@@ -509,7 +509,7 @@ void CHuffman::AddSymbol(unsigned int nValue)
     HUFFNODE* pFirst = (HUFFNODE*)tItemList.Head();
     HUFFNODE* pItem = (HUFFNODE*)tFreeList.Head();
     if (!pItem)
-        pItem = &f_8[nItemsUsed++];
+        pItem = &aItems[nItemsUsed++];
     tItemList.LinkNode((char*)pItem, 1, 0);
     pItem->pParent = 0;
     pItem->pChild = 0;
@@ -519,7 +519,7 @@ void CHuffman::AddSymbol(unsigned int nValue)
     pItemsByValue[pItem->nValue] = pItem;
     pItem = (HUFFNODE*)tFreeList.Head();
     if (!pItem)
-        pItem = &f_8[nItemsUsed++];
+        pItem = &aItems[nItemsUsed++];
     tItemList.LinkNode((char*)pItem, 1, 0);
     pItem->pParent = 0;
     pItem->pChild = 0;

@@ -59,7 +59,7 @@ int __fastcall SOUNDHDR_GetGroupStart(int nId); // 0x00481890
 D2SoundEnvironTxtStrc* __fastcall SOUNDHDR_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 float __fastcall sub_004B93A0_ClampFloat(float fValue, float fMin, float fMax); // 0x004B93A0
 float __stdcall GFXUTIL_VectorLengthSquared(float fX, float fY); // 0x004E4160
-void __fastcall D2SOUND_ListAddHead(D2SoundUnitNodeStrc** ppList, D2UnitStrc* pUnit); // 0x00516950
+void __fastcall D2SOUNDUTIL_ListAddHead(D2SoundUnitNodeStrc** ppList, D2UnitStrc* pUnit); // 0x00516950
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 
 

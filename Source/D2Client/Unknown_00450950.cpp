@@ -1,5 +1,6 @@
 #include "D2GameTypes.h"
 #include "D2StormAutoLink.h"
+#include "D2StormListArray.h"
 struct D2SGameDataStrc;
 struct D2StormLinkStrc;
 struct D2StormHashKeyNoneStrc;
@@ -130,13 +131,6 @@ struct D2StormChunkListStrc
     void sub_00450580_DeleteAll();                                                                          // 0x00450580
 };
 
-struct D2StormListArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    D2StormListAStrc* m_data;
-    unsigned int m_chunk;
-};
 
 struct D2StormHashTableStrc
 {

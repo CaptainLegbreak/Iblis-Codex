@@ -319,7 +319,7 @@ struct BigBuffer
 
 struct BigStack
 {
-    BigBuffer f_0[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 };
 
@@ -687,7 +687,7 @@ void __stdcall sub_00424B00_BigSquare(BigBuffer* pResult, BigBuffer* pA, BigStac
 {
     BigBuffer* pWork;
     if (pResult == pA)
-        pWork = &pStack->f_0[pStack->nUsed++];
+        pWork = &pStack->pRecords[pStack->nUsed++];
     else
         pWork = pResult;
 

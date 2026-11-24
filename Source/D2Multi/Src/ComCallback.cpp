@@ -108,7 +108,7 @@ int __fastcall CHATDLG_SetMainControlState(int bSet); // 0x0043DAD0
 
 int __fastcall CHATDLG_PrintText(Unicode* pText, int nColor); // 0x0043E610
 
-void __stdcall CHATDLG_RemoveTableString(Unicode* pText); // 0x00446A90
+void __stdcall COMCALLBACK_RemoveTableString(Unicode* pText); // 0x00446A90
 
 int __cdecl GAME_GetMcpCharLevel(); // 0x00449E20
 
@@ -172,7 +172,7 @@ void __cdecl CHATDLG_CreateProfileControls(); // 0x00443D50
 
 int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91C0
 
-const char* __fastcall CHATDLG_SkipNamePrefix(const char* szName); // 0x00446820
+const char* __fastcall COMCALLBACK_SkipNamePrefix(const char* szName); // 0x00446820
 
 unsigned int __stdcall D2Win_10155(D2CompositeUnitStrc* pCompositeUnit); // 0x00505330
 
@@ -542,13 +542,13 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(cons
 
 static int COMCALLBACK_GetUserRank(D2MultiChannelUserStrc* pUser); // 0x00446D30
 
-void __cdecl CHARSEL_ActivateChatEdit(); // 0x0043D990
+void __cdecl CHATDLG_ActivateChatEdit(); // 0x0043D990
 
 extern const unsigned char gabCdKeyMap[256]; // 0x006D59F0
 
 D2WinButtonStrc* gpLevelDiffCheck; // 0x00798C40
 
-void __cdecl COMCALLBACK_CreateJoinScreen();                                                               // 0x00445DF0
+void __cdecl CHATDLG_CreateJoinScreen();                                                               // 0x00445DF0
 
 void __cdecl COMCALLBACK_BuildCreateScreen();                                                              // 0x00445FF0
 
@@ -583,9 +583,9 @@ extern unsigned int gdwSelectionTick; // 0x00798F4C
 
 void __cdecl CHATDLG_DestroyProfileControls(); // 0x00443E10
 
-void __fastcall COMCALLBACK_ShowProfileDialog(const char*,int,int); // 0x00445A80
+void __fastcall CHATDLG_ShowProfileDialog(const char*,int,int); // 0x00445A80
 
-void __fastcall COMCALLBACK_ShowUserInfoDialog(const char*,const char*,int,int); // 0x00445C70
+void __fastcall CHATDLG_ShowUserInfoDialog(const char*,const char*,int,int); // 0x00445C70
 
 D2WinControlStrc* gapChatDlgControls; // 0x0077B058
 
@@ -673,20 +673,20 @@ static __forceinline int FilterNoSeparator(D2WinControlStrc* pControl)
 // build: symbol ?MAINMENUS_DestroyControls@* 0x0042F3F0
 // build: symbol ?MAINMENUS_JoinGame@* 0x00434A00
 
-void __cdecl COMCALLBACK_LoadLevelRestriction(); // 0x00445300
+void __cdecl CHATDLG_LoadLevelRestriction(); // 0x00445300
 
 // build: symbol ?gszSpace@* 0x006FFC44
 // build: symbol ?gszFormatD@* 0x006D57BC
 void __cdecl COMCALLBACK_BuildCreateGamePanel(); // 0x004453B0
 
-void __fastcall COMCALLBACK_ShowProfileDialog(const char* szText, int nA, int nB); // 0x00445A80
+void __fastcall CHATDLG_ShowProfileDialog(const char* szText, int nA, int nB); // 0x00445A80
 
-void __fastcall COMCALLBACK_ShowUserInfoDialog(const char* szUser, const char* szText, int nA, int nB); // 0x00445C70
+void __fastcall CHATDLG_ShowUserInfoDialog(const char* szUser, const char* szText, int nA, int nB); // 0x00445C70
 
 // build: symbol ?gpGameList@* 0x00798BC0
 // build: symbol ?CHARSEL_RequestGameList@* 0x00445020
 // build: symbol ?gnLastGameCount@* 0x00798CC8
-// build: symbol ?CHARSEL_UpdateJoinButtonState@* 0x004437E0
+// build: symbol ?CHATDLG_UpdateJoinButtonState@* 0x004437E0
 
 D2WinControlStrc* gpCreatePasswordLabel;                                                                       // 0x00798BF8
 
@@ -800,7 +800,7 @@ void __stdcall CONTROL_SetEscapeButton(void* a1); // 0x004FA450
 
 void __cdecl MAINMENUS_LoadMaxPlayers();                                                                                // 0x004431B0
 
-void __fastcall CHARSEL_DisableControl(D2WinControlStrc* pControl);                                           // 0x0043F560
+void __fastcall CHATDLG_DisableControl(D2WinControlStrc* pControl);                                           // 0x0043F560
 
 int __stdcall CHATDLG_OnLevelRestrictToggle(int nArg); // 0x00445550
 
@@ -819,8 +819,8 @@ int __stdcall sub_004456C0_OnEnter(int nArg);                                   
 // 0x00445FF0
 void __cdecl COMCALLBACK_BuildCreateScreen()
 {
-// build: symbol ?CHARSEL_GetConnectStatus@* 0x0043DC30
-    if (CHARSEL_GetConnectStatus() == -1)
+// build: symbol ?CHATDLG_GetConnectStatus@* 0x0043DC30
+    if (CHATDLG_GetConnectStatus() == -1)
     {
         CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x1413), 0);
         return;
@@ -902,7 +902,7 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
         sub_004FDDD0_LinkTab(gpCreateDesc, gpMaxPlayerControl);
         sub_004FDDD0_LinkTab(gpMaxPlayerControl, gpLevelDiffEdit);
         sub_004FDDD0_LinkTab(gpLevelDiffEdit, gpCreateName);
-        COMCALLBACK_LoadLevelRestriction();
+        CHATDLG_LoadLevelRestriction();
         MAINMENUS_LoadMaxPlayers();
     }
     else
@@ -951,7 +951,7 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
     else
     {
         sub_004FC9B0_SetText(gpHellLabel, D2LANG_GetStringFromTblIndex(0x2720), 5, 0, 0);
-        CHARSEL_DisableControl(gpHellRadio);
+        CHATDLG_DisableControl(gpHellRadio);
     }
     if ((!bExpansion && nLevel >= 4) || nLevel >= 5)
     {
@@ -967,7 +967,7 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
     else
     {
         sub_004FC9B0_SetText(gpNightmareLabel, D2LANG_GetStringFromTblIndex(0x2721), 5, 0, 0);
-        CHARSEL_DisableControl(gpNightmareRadio);
+        CHATDLG_DisableControl(gpNightmareRadio);
     }
     gpNormalLabel = CONTROL_Create(&gtNormalLabelInit);
     sub_004FC9B0_SetText(gpNormalLabel, D2LANG_GetStringFromTblIndex(0x2722), 4, 0, 0);
@@ -985,10 +985,10 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
 // 0x00446780
 int __stdcall COMCALLBACK_OpenJoinScreen(int nArg)
 {
-// build: symbol ?CHARSEL_ResetLaunchState@* 0x0043F8C0
-    CHARSEL_ResetLaunchState();
+// build: symbol ?CHATDLG_ResetLaunchState@* 0x0043F8C0
+    CHATDLG_ResetLaunchState();
     gnChatLaunchMode = 3;
-    COMCALLBACK_CreateJoinScreen();
+    CHATDLG_CreateJoinScreen();
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
@@ -998,7 +998,7 @@ int __stdcall COMCALLBACK_OpenJoinScreen(int nArg)
 // 0x004467D0
 int __stdcall COMCALLBACK_OpenCreateScreen(int nArg)
 {
-    CHARSEL_ResetLaunchState();
+    CHATDLG_ResetLaunchState();
     COMCALLBACK_BuildCreateScreen();
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
@@ -1008,16 +1008,16 @@ int __stdcall COMCALLBACK_OpenCreateScreen(int nArg)
 
 Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940
 
-void __fastcall CHATDLG_CopyNamePrefix(const char* szName, char* szOut);                               // 0x00446840
+void __fastcall COMCALLBACK_CopyNamePrefix(const char* szName, char* szOut);                               // 0x00446840
 
 // 0x00446810
-char* __cdecl CHATDLG_StrChr(const char* szString, int nChar)
+char* __cdecl COMCALLBACK_StrChr(const char* szString, int nChar)
 {
     return strchr(szString, nChar);
 }
 
 // 0x00446820
-const char* __fastcall CHATDLG_SkipNamePrefix(const char* szName)
+const char* __fastcall COMCALLBACK_SkipNamePrefix(const char* szName)
 {
     const char* pFound = SStrChr(szName, '*');
     if (pFound)
@@ -1030,7 +1030,7 @@ const char* __fastcall CHATDLG_SkipNamePrefix(const char* szName)
 }
 
 // 0x00446840
-void __fastcall CHATDLG_CopyNamePrefix(const char* szName, char* szOut)
+void __fastcall COMCALLBACK_CopyNamePrefix(const char* szName, char* szOut)
 {
     if (*szName != '*')
     {
@@ -1111,7 +1111,7 @@ int __stdcall COMCALLBACK_SendAwayCommand(int nUnused)
 }
 
 // 0x00446A90
-void __stdcall CHATDLG_RemoveTableString(Unicode* pText)
+void __stdcall COMCALLBACK_RemoveTableString(Unicode* pText)
 {
     D2_ASSERT(sub_00526800(pText) < 500, 0x300);
     const Unicode* pPattern = D2LANG_GetStringFromTblIndex(0xF9A);
@@ -1782,7 +1782,7 @@ int __cdecl COMCALLBACK_PumpMessages()
 int __stdcall COMCALLBACK_OnActivate(SMSGHANDLER_PARAMS* pMsg)
 {
     sub_00444020();
-    CHARSEL_ActivateChatEdit();
+    CHATDLG_ActivateChatEdit();
     return 1;
 }
 
@@ -1791,7 +1791,7 @@ static int __stdcall COMCALLBACK_AddChatLine(const char* szText, int nColor)
 {
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    CHATDLG_RemoveTableString(wszText);
+    COMCALLBACK_RemoveTableString(wszText);
     CHATDLG_PrintText(wszText, nColor);
     return 1;
 }
@@ -1803,8 +1803,8 @@ static void __stdcall COMCALLBACK_PrintChannelLine(const char* szText, int nPref
     Unicode wszText[0x240];
     Unicode::win2Unicode(wszName, szName, 0x240);
     Unicode::win2Unicode(wszText, szText, 0x240);
-    CHATDLG_RemoveTableString(wszName);
-    CHATDLG_RemoveTableString(wszText);
+    COMCALLBACK_RemoveTableString(wszName);
+    COMCALLBACK_RemoveTableString(wszText);
     COMCALLBACK_PrependNumberText(wszName, nPrefix);
     COMCALLBACK_AppendNumberText(wszName, nColor);
     sub_00526700(wszName, wszText);
@@ -2014,7 +2014,7 @@ int __stdcall COMCALLBACK_PrintNormalText(int nUnused, const char* szText)
 {
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    CHATDLG_RemoveTableString(wszText);
+    COMCALLBACK_RemoveTableString(wszText);
     CHATDLG_PrintText(wszText, 0);
     return 1;
 }
@@ -2137,7 +2137,7 @@ int __stdcall COMCALLBACK_PrintInfoText(int nUnused, const char* szText)
 {
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    CHATDLG_RemoveTableString(wszText);
+    COMCALLBACK_RemoveTableString(wszText);
     CHATDLG_PrintText(wszText, 3);
     return 1;
 }
@@ -2147,7 +2147,7 @@ int __stdcall COMCALLBACK_PrintErrorText(int nUnused, const char* szText)
 {
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    CHATDLG_RemoveTableString(wszText);
+    COMCALLBACK_RemoveTableString(wszText);
     CHATDLG_PrintText(wszText, 1);
     return 1;
 }
@@ -2159,7 +2159,7 @@ int __stdcall COMCALLBACK_OnChannelFull(int nUnused, const char* szText)
     sprintf(szBuffer, "The channel \"%s\" is full. If you are having problems using Battle.net commands, please click the Help button.", szText);
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szBuffer, 0x240);
-    CHATDLG_RemoveTableString(wszText);
+    COMCALLBACK_RemoveTableString(wszText);
     CHATDLG_PrintText(wszText, 1);
     return 1;
 }
@@ -2171,7 +2171,7 @@ int __stdcall COMCALLBACK_OnChannelRestricted(int nUnused, const char* szText)
     sprintf(szBuffer, "The channel \"%s\" is restricted. If you are having problems using Battle.net commands, please click the Help button.", szText);
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szBuffer, 0x240);
-    CHATDLG_RemoveTableString(wszText);
+    COMCALLBACK_RemoveTableString(wszText);
     CHATDLG_PrintText(wszText, 1);
     return 1;
 }
@@ -2183,7 +2183,7 @@ static void COMCALLBACK_PrintEmote(const char* szName, const char* szMessage)
     sprintf(szText, "*%s %s*", szName, szMessage);
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    CHATDLG_RemoveTableString(wszText);
+    COMCALLBACK_RemoveTableString(wszText);
     CHATDLG_PrintText(wszText, 5);
 }
 
@@ -2232,7 +2232,7 @@ static void __stdcall COMCALLBACK_PrintWhisper(const char* szSender, const char*
     }
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    CHATDLG_RemoveTableString(wszText);
+    COMCALLBACK_RemoveTableString(wszText);
     CHATDLG_PrintText(wszText, 2);
 }
 
@@ -2273,7 +2273,7 @@ static void COMCALLBACK_PrintWhisperSent(const char* szName, const char* szText)
     sprintf(szLine, "You whisper to %s: %s", szName, szText);
     Unicode wszLine[0x240];
     sub_00526E40_Utf8ToUnicode(wszLine, szLine, 0x240);
-    CHATDLG_RemoveTableString(wszLine);
+    COMCALLBACK_RemoveTableString(wszLine);
     CHATDLG_PrintText(wszLine, 2);
 }
 
@@ -2342,10 +2342,10 @@ found:
                     szCompare = szName;
                 if (!strcmp(szCompare, gpCharInfo->szAccount))
                 {
-                    COMCALLBACK_ShowProfileDialog(pUser->szText, pUser->bFlagA0, pUser->bFlagA8);
+                    CHATDLG_ShowProfileDialog(pUser->szText, pUser->bFlagA0, pUser->bFlagA8);
                     return 1;
                 }
-                COMCALLBACK_ShowUserInfoDialog(szName, pUser->szText, pUser->bFlagA0, pUser->bFlagA8);
+                CHATDLG_ShowUserInfoDialog(szName, pUser->szText, pUser->bFlagA0, pUser->bFlagA8);
                 return 1;
             }
         }
@@ -2730,7 +2730,7 @@ int __fastcall COMCALLBACK_OnJoinChannel(int nA, int nB, int nC, const char* szC
     sprintf(szText, "You have joined channel: %s", szChannel);
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
-    CHATDLG_RemoveTableString(wszText);
+    COMCALLBACK_RemoveTableString(wszText);
     CHATDLG_PrintText(wszText, 5);
     strcpy(gszChannelName, szChannel);
     strcpy(gpCharInfo->szRealm0x361, gszChannelName);

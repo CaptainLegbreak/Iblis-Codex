@@ -69,9 +69,9 @@ void __cdecl sub_0050BE20_GlideDebugRefresh(); // 0x0050BE20
 
 void __fastcall GLVERTEX_SetAmbientColor(int nRed, int nGreen, int nBlue); // 0x0050DBC0
 
-void __cdecl DDRAW_ReleaseSurfaces(); // 0x00511A80
+void __cdecl DDCORE_ReleaseSurfaces(); // 0x00511A80
 
-int __fastcall DDRAW_CreateSurface(void* hWnd, int nResolutionMode); // 0x005115E0
+int __fastcall DDCORE_CreateSurface(void* hWnd, int nResolutionMode); // 0x005115E0
 
 void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x00512710
 
@@ -127,7 +127,7 @@ extern D2BinkStrc* gpDDrawBink; // 0x008816C0
 
 extern int gbDDrawBinkDone; // 0x008816CC
 
-int __fastcall DDRAW_Close(); // 0x00511B80
+int __fastcall DDCORE_Close(); // 0x00511B80
 
 D2CriticalSectionStrc* gpRenderCriticalSection; // 0x007C9134
 
@@ -274,13 +274,13 @@ extern "C" long __stdcall DirectDrawCreate(void* pGuid, D2DirectDrawClass** ppDi
 
 extern "C" int __cdecl atexit(void (__cdecl* pfnExit)());                                                   // 0x00683824
 
-int __cdecl DDRAW_SetDisplayMode();                                                                  // 0x005114D0
+int __cdecl DDCORE_SetDisplayMode();                                                                  // 0x005114D0
 
-void __cdecl DDRAW_CloseAtExit();                                                               // 0x00511CD0
+void __cdecl DDCORE_CloseAtExit();                                                               // 0x00511CD0
 
-void __cdecl DDRAW_CreateDebugFont();                                                           // 0x00512430
+void __cdecl DDDEBUGFONT_CreateDebugFont();                                                           // 0x00512430
 
-void __cdecl DDRAW_FreeDebugFont();                                                             // 0x005125B0
+void __cdecl DDDEBUGFONT_FreeDebugFont();                                                             // 0x005125B0
 
 extern "C" const char gszDirectDrawCreateFailed[];                                                  // 0x006DE1B4
 
@@ -290,7 +290,7 @@ int gbDDrawInitialized;                                                         
 
 D2DDrawObjectClass* gpDDrawObject;                                                                 // 0x00881274
 
-int __fastcall DDRAW_Blit();                                                                     // 0x00511870
+int __fastcall DDCORE_Blit();                                                                     // 0x00511870
 
 void __fastcall sub_00512ED0_ClearScreen(int bPartial);                                                     // 0x00512ED0
 
@@ -333,7 +333,7 @@ int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, uns
 
 void __fastcall sub_00512D90_DDrawUtilFilledRect(tagRECT* pRect, unsigned char nColor);                     // 0x00512D90
 
-void __fastcall DDRAW_CloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
+void __fastcall DDSMACK_CloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
 
 // 0x0050BEF0
 void __fastcall GLIDE_DebugDraw(const unsigned int* pLight, const unsigned int* pPlayerLight, int nPosX, int nPosY)
@@ -369,7 +369,7 @@ void __cdecl GLIDE_DrawVideoFrame()
 }
 
 // 0x00510020
-int __fastcall DDRAW_Detect(void* hInstance)
+int __fastcall DDCORE_Detect(void* hInstance)
 {
     D2FogSystemInfoStrc* pSystemInfo = FOG_GetSystemInfo();
     D2_ASSERT(pSystemInfo, 0x6F);
@@ -422,7 +422,7 @@ void __fastcall sub_00510160_DDrawSetPalette(tagPALETTEENTRY* pPalette)
 }
 
 // 0x00511210
-static int DDRAW_OpenSurfaces(int nResolutionMode)
+static int DDCORE_OpenSurfaces(int nResolutionMode)
 {
     D2_ASSERT(!gbDDrawReady, 0x142);
     if (!nResolutionMode)
@@ -533,7 +533,7 @@ fail:
 }
 
 // 0x005114D0
-int __cdecl DDRAW_SetDisplayMode()
+int __cdecl DDCORE_SetDisplayMode()
 {
     D2_ASSERT(!gbDDrawReady, 0x26A);
 
@@ -582,7 +582,7 @@ fail:
 }
 
 // 0x005115E0
-int __fastcall DDRAW_CreateSurface(void* hWnd, int nResolutionMode)
+int __fastcall DDCORE_CreateSurface(void* hWnd, int nResolutionMode)
 {
     ghDDrawWindow_007C9140 = hWnd;
     long hResult = gpDirectDraw->SetCooperativeLevel(hWnd, 0x11);
@@ -598,11 +598,11 @@ int __fastcall DDRAW_CreateSurface(void* hWnd, int nResolutionMode)
         sub_005103B0("CreatePalette failed!", hResult);
         return 0;
     }
-    return DDRAW_OpenSurfaces(nResolutionMode);
+    return DDCORE_OpenSurfaces(nResolutionMode);
 }
 
 // 0x00511720
-int __fastcall DDRAW_StartDraw(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
+int __fastcall DDCORE_StartDraw(int bClear, unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
 {
     if (gbRenderPaused)
         return 0;
@@ -625,7 +625,7 @@ int __fastcall DDRAW_StartDraw(int bClear, unsigned char nRed, unsigned char nGr
 }
 
 // 0x005117F0
-int __fastcall DDRAW_EndDraw()
+int __fastcall DDCORE_EndDraw()
 {
     long hResult = gpDDrawOffscreenSurface->Unlock(0);
     if (hResult)
@@ -642,7 +642,7 @@ int __fastcall DDRAW_EndDraw()
 }
 
 // 0x00511870
-int __fastcall DDRAW_Blit()
+int __fastcall DDCORE_Blit()
 {
     if (gnDDrawBackBuffers)
     {
@@ -693,14 +693,14 @@ int __fastcall DDRAW_Blit()
 }
 
 // 0x00511A80
-void __cdecl DDRAW_ReleaseSurfaces()
+void __cdecl DDCORE_ReleaseSurfaces()
 {
     if (gbDDrawReady)
     {
         for (int i = 0; i < 3; ++i)
         {
             sub_00512ED0_ClearScreen(0);
-            DDRAW_Blit();
+            DDCORE_Blit();
         }
         if (gpDDrawOffscreenSurface)
         {
@@ -724,21 +724,21 @@ void __cdecl DDRAW_ReleaseSurfaces()
 }
 
 // 0x00511B10
-int __fastcall DDRAW_PlayCutscene()
+int __fastcall DDCORE_PlayCutscene()
 {
     if (gbRenderPaused)
     {
         return 0;
     }
 
-    DDRAW_ReleaseSurfaces();
-    return DDRAW_SetDisplayMode();
+    DDCORE_ReleaseSurfaces();
+    return DDCORE_SetDisplayMode();
 }
 
 // 0x00511B30
-int __fastcall DDRAW_CloseSurface()
+int __fastcall DDCORE_CloseSurface()
 {
-    DDRAW_ReleaseSurfaces();
+    DDCORE_ReleaseSurfaces();
     if (gpDDrawPalette)
     {
         gpDDrawPalette->Release();
@@ -749,22 +749,22 @@ int __fastcall DDRAW_CloseSurface()
 }
 
 // 0x00511B60
-int __fastcall DDRAW_ChangeRes(void* hWnd, int nResolutionMode)
+int __fastcall DDCORE_ChangeRes(void* hWnd, int nResolutionMode)
 {
     if (!gbRenderPaused)
     {
-        DDRAW_ReleaseSurfaces();
-        return DDRAW_OpenSurfaces(nResolutionMode);
+        DDCORE_ReleaseSurfaces();
+        return DDCORE_OpenSurfaces(nResolutionMode);
     }
     return 1;
 }
 
 // 0x00511B80
-int __fastcall DDRAW_Close()
+int __fastcall DDCORE_Close()
 {
     if (gbDDrawInitialized)
     {
-        DDRAW_ReleaseSurfaces();
+        DDCORE_ReleaseSurfaces();
         if (gpDDrawPalette)
         {
             gpDDrawPalette->Release();
@@ -787,21 +787,21 @@ int __fastcall DDRAW_Close()
             FOG_Free(gpRenderCriticalSection, ".\\Src\\ddCore.cpp", 293, 0);
             gpRenderCriticalSection = 0;
         }
-        DDRAW_FreeDebugFont();
+        DDDEBUGFONT_FreeDebugFont();
         gbDDrawInitialized = 0;
     }
     return 1;
 }
 
 // 0x00511C20
-void __fastcall DDRAW_PauseSurface(void* hWnd, int nResolutionMode, int nWindowState)
+void __fastcall DDCORE_PauseSurface(void* hWnd, int nResolutionMode, int nWindowState)
 {
     D2_ASSERT(gpRenderCriticalSection, 0x2F7);
     EnterCriticalSection(gpRenderCriticalSection);
     if (nWindowState)
     {
         gbRenderPaused = 1;
-        DDRAW_ReleaseSurfaces();
+        DDCORE_ReleaseSurfaces();
         if (gpDDrawPalette)
         {
             gpDDrawPalette->Release();
@@ -812,24 +812,24 @@ void __fastcall DDRAW_PauseSurface(void* hWnd, int nResolutionMode, int nWindowS
     else
     {
         gbRenderPaused = 0;
-        DDRAW_CreateSurface(hWnd, nResolutionMode);
+        DDCORE_CreateSurface(hWnd, nResolutionMode);
     }
     LeaveCriticalSection(gpRenderCriticalSection);
 }
 
 // 0x00511CD0
-void __cdecl DDRAW_CloseAtExit()
+void __cdecl DDCORE_CloseAtExit()
 {
-    DDRAW_Close();
+    DDCORE_Close();
 }
 
 // 0x00511CE0
-int __fastcall DDRAW_Init(D2GfxSettingsStrc* pSettings, D2TileDrawFunctionsStrc* pHelpers)
+int __fastcall DDCORE_Init(D2GfxSettingsStrc* pSettings, D2TileDrawFunctionsStrc* pHelpers)
 {
 // build: symbol ?gpGfxSettings@* 0x007C9148
     gpGfxSettings = pSettings;
     gpTileDrawFunctions_007C914C = pHelpers;
-    DDRAW_CreateDebugFont();
+    DDDEBUGFONT_CreateDebugFont();
     long hResult;
     if (gdwVideoFlags & gdwBitMasks[0])
     {
@@ -846,7 +846,7 @@ int __fastcall DDRAW_Init(D2GfxSettingsStrc* pSettings, D2TileDrawFunctionsStrc*
         return 0;
     }
 
-    atexit(DDRAW_CloseAtExit);
+    atexit(DDCORE_CloseAtExit);
     gbDDrawInitialized = 1;
     gpRenderCriticalSection = (D2CriticalSectionStrc*)FOG_Alloc(sizeof(D2CriticalSectionStrc), ".\\Src\\ddCore.cpp", 246, 0);
     InitializeCriticalSection(gpRenderCriticalSection);
@@ -854,7 +854,7 @@ int __fastcall DDRAW_Init(D2GfxSettingsStrc* pSettings, D2TileDrawFunctionsStrc*
 }
 
 // 0x00511D70
-int __fastcall DDRAW_GetDrawModePalette(int nIndex, int* pType)
+int __fastcall DDCORE_GetDrawModePalette(int nIndex, int* pType)
 {
     *pType = gaDDrawCapsTypes[nIndex];
     switch (nIndex)
@@ -881,13 +881,13 @@ void __stdcall DDRAW_DebugDraw(int nUnused1, int nUnused2)
 }
 
 // 0x00512700
-int __cdecl DDRAW_GetBlendedShadows()
+int __cdecl DDCORE_GetBlendedShadows()
 {
     return gpGfxSettings->bBlendedShadows;
 }
 
 // 0x005128B0
-void __fastcall DDRAW_DrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)
+void __fastcall DDCORE_DrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)
 {
     int nDrawMode;
     if (nAlpha >= 0xC0)
@@ -904,14 +904,14 @@ void __fastcall DDRAW_DrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEn
 }
 
 // 0x00512900
-void __fastcall DDRAW_SetPixel(int nX, int nY, unsigned char nColor)
+void __fastcall DDCORE_SetPixel(int nX, int nY, unsigned char nColor)
 {
     if (nX >= 0 && nX < gnRenderWidth && nY >= 0 && nY < gnRenderHeight)
         gpScreenBuffer_007C9154[gnRenderWidth * nY + nX] = nColor;
 }
 
 // 0x00512E80
-void __fastcall DDRAW_UtilPoint(tagPOINT* pPoint, unsigned char nSize, unsigned char nPaletteIndex)
+void __fastcall DDCORE_UtilPoint(tagPOINT* pPoint, unsigned char nSize, unsigned char nPaletteIndex)
 {
     if (nSize)
     {
@@ -923,7 +923,7 @@ void __fastcall DDRAW_UtilPoint(tagPOINT* pPoint, unsigned char nSize, unsigned 
 }
 
 // 0x005132C0
-int __fastcall DDRAW_FloorTileDraw(D2TileLibraryEntryStrc* pTile, D2GfxLightExStrc* pLight, int nPosX, int nPosY, int nWorldXpos, int nWorldYpos, unsigned char nAlpha, int nScreenPanels, void* pTileData)
+int __fastcall DDCORE_FloorTileDraw(D2TileLibraryEntryStrc* pTile, D2GfxLightExStrc* pLight, int nPosX, int nPosY, int nWorldXpos, int nWorldYpos, unsigned char nAlpha, int nScreenPanels, void* pTileData)
 {
     int nResult = D2CMPTileValidate(pTile, 1, 0);
     if (nResult)

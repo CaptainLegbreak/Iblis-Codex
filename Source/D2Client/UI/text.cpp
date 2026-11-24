@@ -242,7 +242,7 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
-void __stdcall TEXT_FreeTextList(void* pList); // 0x0049D4D0
+void __stdcall TEXT_FreeTextList(D2TextListStrc* pList); // 0x0049D4D0
 
 void __cdecl TEXT_FreeTextPanelCels(); // 0x0049FE10
 
@@ -527,11 +527,6 @@ unsigned char gnSelectedTab; // 0x007BCC04
 
 unsigned char gbOpenMercInvPending; // 0x007BEEE4
 
-struct D2ClientServiceStrc
-{
-    char unk0x00[0xD0];
-    int (__fastcall* pfnCall)(int nArg1, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
-};
 
 struct D2ClientStringListStrc
 {
@@ -710,8 +705,6 @@ struct D2AiControlStrc;
 
 struct D2AiTickParamStrc;
 
-struct D2HotkeyActionStrc;
-
 struct D2CharStatsTxt;
 
 struct D2MonStatsTxt;
@@ -857,14 +850,6 @@ void __fastcall CMDTBL_ResetKeyConfig(int nArg); // 0x00469A60
 
 extern "C" void __cdecl sub_00517ABB(void* pMemory); // 0x00517ABB
 
-struct D2HotkeyActionStrc
-{
-    char unk0x00[0x0A];
-    short nValue0A;
-    char unk0x0C[0x0C];
-    int nState18;
-    int nState1C;
-};
 
 extern "C" int __stdcall sub_00420290_HandleMsg(void* pMessage); // 0x00420290
 
@@ -1770,15 +1755,6 @@ extern "C" void __cdecl sub_0049C650_CloseArchives(); // 0x0049C650
 void __cdecl sub_0049C6C0_SendWaypointClose(); // 0x0049C6C0
 
 
-// 0x0049CF50
-void __cdecl sub_0049CF50_SendWaypointClose()
-{
-    if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
-    {
-        MSG_SendTwoDwords(0x49, gnWaypointId, 0);
-        gbSent = 1;
-    }
-}
 
 static int sub_0049C510_GetWaypointRowAtPoint(int nX, int nY)
 {
@@ -1942,6 +1918,26 @@ void __stdcall TEXT_FreeTextBox(T00479230* pTextBox)
     }
 }
 
+void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
+
+extern char gData_007BF1B0[]; // 0x007BF1B0
+
+// 0x0049D440
+void __cdecl TEXT_LoadTextSettings()
+{
+    memset(gData_007BF1B0, 0, 0x9F);
+    unsigned long nValue;
+    if (!SRegLoadValue("Diablo II", "Text Display Beta", 0, &nValue))
+    {
+// build: symbol ?gnTextDisplaySetting@* 0x007BF1F6
+        gnTextDisplaySetting = 1;
+    }
+    else
+    {
+        gnTextDisplaySetting = nValue;
+    }
+}
+
 // 0x0049D490
 static void TEXT_FreeTextNode(D2TextNodeStrc* pNode)
 {
@@ -1957,6 +1953,37 @@ void __fastcall sub_M111_Emit_0049D3B0(D2TextWidthStrc* pRecord, int* pDone)
 {
     TEXT_SetWidthFromWord(pRecord);
     *pDone = 1;
+}
+
+// 0x0049D4D0
+void __stdcall TEXT_FreeTextList(D2TextListStrc* pList)
+{
+    int nCount = 0;
+    D2TextNodeStrc* pNode = pList->pFirst;
+    if (pNode)
+    {
+        do
+        {
+            D2TextNodeStrc* pCurrent = pNode;
+            pNode = pNode->pNext;
+            for (int i = 0; i < 6; ++i)
+            {
+                if (pCurrent->pLines[i])
+                {
+                    FOG_Free(pCurrent->pLines[i], ".\\UI\\text.cpp", 1715, 0);
+                }
+            }
+
+            FOG_Free(pCurrent, ".\\UI\\text.cpp", 1718, 0);
+            ++nCount;
+        }
+        while (pNode);
+
+        pList->pFirst = pNode;
+    }
+
+    D2_ASSERT((unsigned short)nCount == pList->wCount, 1741);
+    pList->wCount = 0;
 }
 
 // 0x0049D570
@@ -2026,6 +2053,14 @@ static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
     return 1;
 }
 
+// 0x0049DA10
+void __stdcall TEXT_EatMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
 // 0x0049DA30
 void __fastcall TEXT_SetHoverUnit(D2UnitStrc* pUnit)
 {
@@ -2039,6 +2074,28 @@ void __fastcall TEXT_SetHoverUnit(D2UnitStrc* pUnit)
     {
         gbTextHoverSet = 0;
     }
+}
+
+struct D2TextIdEntryStrc;
+
+struct D2TextIdEntryStrc
+{
+    unsigned short wId;
+    unsigned short wStringId;
+};
+
+void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
+
+extern D2TextIdEntryStrc gaTextIds[]; // 0x00722678
+
+extern int gnTextIdCount; // 0x00722EB4
+
+int gnGlobal_007BF1E0; // 0x007BF1E0
+
+// 0x0049DA50
+void __cdecl TEXT_ClearHoverUnit()
+{
+    gbTextHoverSet = 0;
 }
 
 // 0x0049DA60
@@ -2300,6 +2357,7 @@ void __cdecl TEXT_DrawOverheadTextList()
     D2Win_10127_SetFont(nOldFont);
 }
 
+// 0x0049DBC0
 void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource)
 {
     D2TextNodeStrc* pClone = TEXT_CloneStringList(pSource);
@@ -2307,22 +2365,25 @@ void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource)
     if (gtTextHistory.wCount >= 0x80)
     {
         pNode = gtTextHistory.pFirst;
-        if (pNode)
+        if (!pNode)
         {
-            D2TextNodeStrc* pPrevious = 0;
-            while (pNode->pNext)
-            {
-                pPrevious = pNode;
-                pNode = pNode->pNext;
-            }
-            TEXT_FreeTextNode(pNode);
-            if (pPrevious)
-                pPrevious->pNext = 0;
-            if (gtTextHistory.wCount >= 1)
-                gtTextHistory.wCount--;
+            goto link;
         }
+
+        D2TextNodeStrc* pPrevious = 0;
+        while (pNode->pNext)
+        {
+            pPrevious = pNode;
+            pNode = pNode->pNext;
+        }
+        TEXT_FreeTextNode(pNode);
+        if (pPrevious)
+            pPrevious->pNext = 0;
+        if (gtTextHistory.wCount >= 1)
+            gtTextHistory.wCount--;
     }
     pNode = gtTextHistory.pFirst;
+link:
     pClone->pNext = pNode;
     gtTextHistory.wCount++;
     gtTextHistory.pFirst = pClone;
@@ -2725,6 +2786,13 @@ void __fastcall TEXT_PrintPartyText(const Unicode* wszText, char nColor)
     sub_004B9A00(6, 0, 0, 0, 0);
 }
 
+// 0x0049E7E0
+void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext)
+{
+    gpfnTextCallback = pfnCallback;
+    gpTextCallbackContext = pContext;
+}
+
 // 0x0049E7F0
 void __stdcall sub_0049E7F0_Nop()
 {
@@ -2733,6 +2801,19 @@ void __stdcall sub_0049E7F0_Nop()
 // 0x0049E800
 void __stdcall sub_0049E800_Nop()
 {
+}
+
+// 0x0049E810
+void __cdecl TEXT_SetPanelRect()
+{
+    D2RectStrc tRect;
+// build: symbol ?gnTextTop@* 0x007225FC
+    tRect.nTop = gnTextTop;
+    tRect.nBottom = (gnTextTop + 182 < gnScreenHeight - 53) ? gnTextTop + 182 : gnScreenHeight - 53;
+    tRect.nLeft = gnTextLeft - 10;
+    tRect.nRight = gnTextLeft + 335;
+    sub_00467430(&tRect);
+    SELECT_ClearSelection();
 }
 
 // 0x0049E860
@@ -2746,6 +2827,19 @@ void __cdecl TEXT_ClearHint()
         gnHintId = 0;
     }
     ghHintSound = 0;
+}
+
+// 0x0049E8B0
+D2UnitStrc* __cdecl TEXT_GetTextUnit()
+{
+// build: symbol ?gbTextFromObject@* 0x007BF20A
+    if (gbTextFromObject)
+// build: symbol ?gnTextNpcId@* 0x007BF202
+        return CUNIT_FindClientUnit(gnTextNpcId, 1);
+    if (gnTextActive)
+// build: symbol ?gnTextObjectId@* 0x007BF206
+        return CUNIT_FindClientUnit(gnTextObjectId, 2);
+    return 0;
 }
 
 // 0x0049E8F0
@@ -3138,6 +3232,29 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
     }
 }
 
+// 0x0049F910
+const Unicode* __fastcall TEXT_GetTextString(unsigned short nId)
+{
+    int nStart;
+    int nEnd;
+    if (gaTextIds[100].wId > nId)
+    {
+        nStart = 0;
+        nEnd = 100;
+    }
+    else
+    {
+        nStart = 100;
+        nEnd = gnTextIdCount;
+    }
+    for (int i = nStart; i < nEnd; ++i)
+    {
+        if (gaTextIds[i].wId == nId)
+            return D2LANG_GetStringFromTblIndex(gaTextIds[i].wStringId);
+    }
+    return D2LANG_GetStringFromTblIndex(0xE8C);
+}
+
 // 0x0049F960
 void __cdecl TEXT_ResetTextBox()
 {
@@ -3318,6 +3435,16 @@ void __cdecl TEXT_FreeTextPanelCels()
     }
 }
 
+// 0x0049FE60
+void __stdcall TEXT_CloseTextPanelMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+    UI_SetUIVar(16, 2, 0);
+    TEXT_FreeTextPanelCels();
+}
+
 // 0x0049FEA0
 void __stdcall TEXT_PanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -3332,6 +3459,11 @@ void __stdcall TEXT_PanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
         sub_00420290_BreakHandlerChain(pMsg);
         GAME_ResetMouseState();
     }
+}
+
+// 0x0049FF00
+void __cdecl sub_0049FF00()
+{
 }
 
 // 0x0049FF10
@@ -3368,6 +3500,25 @@ extern "C" void __fastcall TEXT_AcceptWordPacket(const PacketWords* packet)
     {
         memcpy(gawScrollSlots, packet->wSlots, sizeof(gawScrollSlots));
         gValue_007BF254 = 0;
+    }
+}
+
+// 0x0049FF90
+void __fastcall TEXT_OpenTextData(D2UnitStrc* pUnit, D2ClientTextDataStrc* pTextData)
+{
+    gpTextData = pTextData;
+    UI_SetUIVar(0x10, 2, 0);
+    GAME_ResetMouseState();
+    if (gpTextData->dwTag == 0x20646B62)
+    {
+        gbTextDataOpen = 1;
+        MSG_SendDword(0x3E, !pUnit ? -1 : pUnit->dwUnitId);
+        gnGlobal_007BF1E0 = 0;
+    }
+    else
+    {
+        gbTextDataOpen = 0;
+        gnGlobal_007BF1E0 = 1;
     }
 }
 

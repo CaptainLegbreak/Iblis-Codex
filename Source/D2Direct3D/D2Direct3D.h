@@ -30,7 +30,7 @@ extern void* gapGlyphTextures_009712D0[]; // 0x009712D0
 extern void* ghDDrawWindow_007C9140; // 0x007C9140
 extern void* gpArray_009897EC[2]; // 0x009897EC
 int __fastcall sub_006B58A0_CreateTexture(D2D3DObjStrc** ppTexture, D2D3DObjStrc** ppSurface, int nWidth, int nHeight); // 0x006B58A0
-unsigned int __fastcall D3D_GetColor(unsigned int index); // 0x006B1D50
+unsigned int __fastcall D3DCORE_GetColor(unsigned int index); // 0x006B1D50
 void __cdecl sub_006B3800_Flush(); // 0x006B3800
 void __fastcall sub_006B1EA0_SetMode(int); // 0x006B1EA0
 void __stdcall sub_006B9F00_PresentFrame(); // 0x006B9F00
@@ -41,7 +41,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 struct D2FogSystemInfoStrc;
 D2FogSystemInfoStrc* __cdecl FOG_GetSystemInfo(); // 0x00407360
 __declspec(noreturn) void __cdecl sub_006B1A30_ThrowAtlException(long error); // 0x006B1A30
-void __fastcall D3D_LogDDrawError(const char*,long); // 0x006B20E0
+void __fastcall D3DCORE_LogDDrawError(const char*,long); // 0x006B20E0
 extern "C" __declspec(dllimport) long __stdcall RegSetValueExA(void* hKey, const char* szValueName, unsigned long nReserved, unsigned long dwType, const unsigned char* pData, unsigned long cbData); // 0x006CC034
 extern "C" __declspec(dllimport) int __stdcall lstrlenA(const char* sz); // 0x006CC154
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(); // 0x006CC1B4

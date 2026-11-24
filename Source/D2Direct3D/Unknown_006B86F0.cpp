@@ -1,8 +1,8 @@
 #include "D2Direct3D.h"
 
 int __stdcall D2CMPTileValidate(void*, int, int); // 0x005FDEA0
-void __fastcall D3D_SetAlphaBlendMode(int); // 0x006B1F40
-void __fastcall D3D_SetTextureFilterMode(int); // 0x006B2030
+void __fastcall D3DCORE_SetAlphaBlendMode(int); // 0x006B1F40
+void __fastcall D3DCORE_SetTextureFilterMode(int); // 0x006B2030
 int __cdecl sub_006B77A0_GetBlendedShadows(); // 0x006B77A0
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 int __fastcall sub_006B83A0_DrawPerspective(void*, int, int, int, unsigned char, int); // 0x006B83A0
@@ -18,14 +18,14 @@ int __fastcall sub_006B86F0_DrawShadow(void* sprite, int x, int y, int mode, int
         sub_006B1EA0_SetMode(1);
         if (sub_006B77A0_GetBlendedShadows())
         {
-            D3D_SetAlphaBlendMode(4);
+            D3DCORE_SetAlphaBlendMode(4);
             alpha = 192;
         }
         else
         {
-            D3D_SetAlphaBlendMode(1);
+            D3DCORE_SetAlphaBlendMode(1);
         }
-        D3D_SetTextureFilterMode(1);
+        D3DCORE_SetTextureFilterMode(1);
         if (sub_006B9830_GetPerspective())
         {
             nResult = sub_006B83A0_DrawPerspective(sprite, x, y, mode, alpha, extra);

@@ -164,7 +164,7 @@ struct D2GSPacketSrv5E
 extern D2SoundNodeStrc* gpSoundList_007C5458; // 0x007C5458
 void __fastcall sub_0046B630_FireLevelEvent(int nIndex); // 0x0046B630
 void __fastcall UNITSND_RemoveUnitHint(D2UnitStrc* pUnit, int nHandle); // 0x004CA8D0
-void __fastcall D2SOUND_ListFree(D2SoundUnitNodeStrc** ppList); // 0x00516A10
+void __fastcall D2SOUNDUTIL_ListFree(D2SoundUnitNodeStrc** ppList); // 0x00516A10
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
 void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
@@ -261,7 +261,7 @@ struct D2TimedHintEntryStrc
 };
 
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
-int __fastcall D2SOUND_ListContains(void* pKeyList, int nKey); // 0x005169D0
+int __fastcall D2SOUNDUTIL_ListContains(void* pKeyList, int nKey); // 0x005169D0
 extern D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
 
 struct D2ValueNodeStrc

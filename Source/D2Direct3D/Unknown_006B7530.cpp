@@ -35,7 +35,7 @@ struct D2DrawDeviceStrc { D2DrawVtableStrc* vtable; };
 
 extern D2TLVertexStrc gaQuadVertices[4]; // 0x00971630
 extern D2DrawDeviceStrc* gpDrawDevice; // 0x00970E78
-void __fastcall D3D_BindTileTexture(D2TilePartStrc*); // 0x006BBA00
+void __fastcall D3DFLOORCACHE_BindTileTexture(D2TilePartStrc*); // 0x006BBA00
 void __fastcall sub_006B9730_SetQuadColor(D2TLVertexStrc*,unsigned char,int); // 0x006B9730
 
 struct D2PerspectiveTileStrc { short nX,nY; char unknown04[0x10]; };
@@ -47,10 +47,10 @@ extern D2TLVertexStrc gaPerspectiveVertices[15]; // 0x00971450
 extern unsigned short gaPerspectiveIndices[22]; // 0x0074C0D0
 void __fastcall sub_006B9860_Project(int nX,int nY,int nZ,int* pOutX,int* pOutY); // 0x006B9860
 void __fastcall sub_006B9730_SetColor(D2TLVertexStrc* pVertex,unsigned char nIndex,unsigned char nAlpha); // 0x006B9730
-void __fastcall D3D_BindTileTexture(D2PerspectiveTileStrc* pTile); // 0x006BBA00
+void __fastcall D3DFLOORCACHE_BindTileTexture(D2PerspectiveTileStrc* pTile); // 0x006BBA00
 int __stdcall D2CMPTileValidate(void*, int, int); // 0x005FDEA0
-void __fastcall D3D_SetAlphaBlendMode(int); // 0x006B1F40
-void __fastcall D3D_SetTextureFilterMode(int); // 0x006B2030
+void __fastcall D3DCORE_SetAlphaBlendMode(int); // 0x006B1F40
+void __fastcall D3DCORE_SetTextureFilterMode(int); // 0x006B2030
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 static int __stdcall sub_006B8950_Lit(int, D2TileStrc*, int, int, unsigned int*, unsigned char); // 0x006B8950
 static int __stdcall sub_006B87A0_DrawNoPerspective(D2TileStrc*, int, int, const unsigned int*, int, unsigned char); // 0x006B87A0
@@ -89,7 +89,7 @@ extern const char gCreateFailure[]; // 0x006FC2C4
 extern const char gLockFailure[]; // 0x006FC330
 extern const char gUnlockFailure[]; // 0x006FC310
 void __fastcall sub_006B39B0_ShowD3DError(const char*,long); // 0x006B39B0
-void __fastcall D3D_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
+void __fastcall D3DCORE_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
 
 struct D2GridPointStrc { unsigned char nScale,nRed,nGreen,nBlue; int nX,nY; };
 
@@ -101,8 +101,8 @@ extern unsigned short gaFlatIndices[4]; // 0x0074C3D0
 extern unsigned short gaGridIndices[65]; // 0x009716B0
 extern unsigned char gabMultiplyTable[256][256]; // 0x00971740
 int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile); // 0x006BB870
-void __fastcall D3D_SetColorCombineMode(int nState); // 0x006B1EA0
-void __fastcall D3D_LogDDrawError(const char* szWhere,int hResult); // 0x006B20E0
+void __fastcall D3DCORE_SetColorCombineMode(int nState); // 0x006B1EA0
+void __fastcall D3DCORE_LogDDrawError(const char* szWhere,int hResult); // 0x006B20E0
 extern int gnD3DOriginX; // 0x00981740
 extern int gnOriginY; // 0x00981744
 extern int gnPerspectiveScale; // 0x00989748
@@ -118,7 +118,7 @@ extern const char gszAssert_006CC837[]; // 0x006CC837
 __declspec(noreturn) void __cdecl sub_00681E09_Exit(int);
 void __cdecl sub_00681E09_Exit(int); // 0x00681E09
 void __fastcall sub_006B9780_SetColor(D2TLVertexStrc*,U32,U8); // 0x006B9780
-void __fastcall D3D_BindTileTexture(D2TileBlockStrc*); // 0x006BBA00
+void __fastcall D3DFLOORCACHE_BindTileTexture(D2TileBlockStrc*); // 0x006BBA00
 #define D3D_VERTEX_IN_RECT(v, r) ((v).fX >= (r).nLeft && (v).fX < (r).nRight && (v).fY >= (r).nTop && (v).fY < (r).nBottom)
 #define D2ASSERT(c,l) if(!(c)) { FOG_DisplayHalt(gszAssert_006CC837,sub_00408090(),l); sub_00681E09_Exit(-1); }
 extern D2TLVertexStrc gVertex0_00971630; // 0x00971630
@@ -169,9 +169,9 @@ static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar)
 typedef char* va_list;
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szOut, const char* szFormat, va_list args);
 
-void __fastcall D3D_SetColorCombineMode(int nState); // 0x006B1EA0
-void __fastcall D3D_SetAlphaBlendMode(int nMode); // 0x006B1F40
-void __fastcall D3D_SetTextureFilterMode(int nMode); // 0x006B2030
+void __fastcall D3DCORE_SetColorCombineMode(int nState); // 0x006B1EA0
+void __fastcall D3DCORE_SetAlphaBlendMode(int nMode); // 0x006B1F40
+void __fastcall D3DCORE_SetTextureFilterMode(int nMode); // 0x006B2030
 
 // 0x006B7630
 void __fastcall sub_006B7630_DrawTextV(int nX, int nY, const char* szFormat, va_list args)
@@ -179,9 +179,9 @@ void __fastcall sub_006B7630_DrawTextV(int nX, int nY, const char* szFormat, va_
     char szBuffer[0x200];
     const int nLength = wvsprintfA(szBuffer, szFormat, args);
     const int nStartX = nX;
-    D3D_SetColorCombineMode(1);
-    D3D_SetAlphaBlendMode(1);
-    D3D_SetTextureFilterMode(1);
+    D3DCORE_SetColorCombineMode(1);
+    D3DCORE_SetAlphaBlendMode(1);
+    D3DCORE_SetTextureFilterMode(1);
     for (int i = 0; i < nLength; ++i)
     {
         nX += sub_006B7530_DrawGlyph(nX, nY, szBuffer[i]);
@@ -278,7 +278,7 @@ int __fastcall sub_006B8220_DrawTileParts(D2TileContextStrc* pTile, int nX, int 
             int nTop = nBottom - 32;
             bDrawn = 1;
             int nRight = nLeft + 32;
-            D3D_BindTileTexture(&pTile->parts[i]);
+            D3DFLOORCACHE_BindTileTexture(&pTile->parts[i]);
             gaQuadVertices[0].fX = (float)nLeft;
             gaQuadVertices[0].fY = (float)nTop;
             gaQuadVertices[1].fX = (float)nLeft;
@@ -338,7 +338,7 @@ int __fastcall sub_006B83A0_DrawPerspective(D2PerspectiveSpriteStrc* pSprite,int
         if(IsVisible(rect,gaPerspectiveVertices[0]))
         {
 Draw:
-            D3D_BindTileTexture(&pSprite->pTiles[i]);
+            D3DFLOORCACHE_BindTileTexture(&pSprite->pTiles[i]);
             const float fOffset=(float)nOffset;
             D2TLVertexStrc* pVertex=gaPerspectiveVertices;
             int nStartY=nDrawY;
@@ -411,7 +411,7 @@ static int __stdcall sub_006B87A0_DrawNoPerspective(D2TileStrc* pTile, int nX, i
             int nTop = y - 32;
             int nRight = x + 32;
             nDrawn = 1;
-            D3D_BindTileTexture(&pTile->blocks[n]);
+            D3DFLOORCACHE_BindTileTexture(&pTile->blocks[n]);
             gVertex0_00971630.fX = (float)x;
             gVertex0_00971630.fY = (float)nTop;
             gtVertex1.fX = (float)x;
@@ -487,7 +487,7 @@ static int __stdcall sub_006B8950_Lit(int nScreenPanels, D2TileStrc* pTile, int 
             const int nMixG = (unsigned char)(((unsigned char)(aColors[2] >> 8) + (unsigned char)(aColors[0] >> 8)) >> 1);
             const int nMixB = (unsigned char)(((unsigned char)aColors[2] + (unsigned char)aColors[0]) >> 1);
             aColors[1] = (((((nMixA << 8) + nMixR) << 8) + nMixG) << 8) + nMixB;
-            D3D_BindTileTexture(&pTile->blocks[i]);
+            D3DFLOORCACHE_BindTileTexture(&pTile->blocks[i]);
 
             for (int nGridRow = 0; nGridRow < 5; ++nGridRow)
             {
@@ -527,14 +527,14 @@ static int __stdcall sub_006B8DF0_DrawTransparentWallTile(D2TileStrc* pTile, uns
 {
     if (D2CMPTileValidate(pTile, 1, 0))
     {
-        D3D_SetColorCombineMode(1);
+        D3DCORE_SetColorCombineMode(1);
         int nBlendMode = 1;
         if (nAlpha != 0xFF)
         {
             nBlendMode = 4;
         }
-        D3D_SetAlphaBlendMode(nBlendMode);
-        D3D_SetTextureFilterMode(1);
+        D3DCORE_SetAlphaBlendMode(nBlendMode);
+        D3DCORE_SetTextureFilterMode(1);
         if (sub_006B9830_GetPerspective())
         {
             return sub_006B8950_Lit(nScreenPanels, pTile, nPosX, nPosY, pLight, nAlpha);
@@ -557,9 +557,9 @@ int __fastcall sub_006B8E90_DrawWallTile(D2TileStrc* pTile, int nPosX, int nPosY
     int nResult = 0;
     if (D2CMPTileValidate(pTile, 1, 0))
     {
-        D3D_SetColorCombineMode(1);
-        D3D_SetAlphaBlendMode(1);
-        D3D_SetTextureFilterMode(1);
+        D3DCORE_SetColorCombineMode(1);
+        D3DCORE_SetAlphaBlendMode(1);
+        D3DCORE_SetTextureFilterMode(1);
         if (sub_006B9830_GetPerspective())
             nResult = sub_006B8950_Lit(nScreenPanels, pTile, nPosX, nPosY, pLight, 0xFF);
         else
@@ -591,7 +591,7 @@ void __cdecl sub_006B8F10()
     result = gGridBuffer->Lock(0x21, &data, 0);
     if (result)
     {
-        D3D_LogDDrawError(gLockFailure, result);
+        D3DCORE_LogDDrawError(gLockFailure, result);
         return;
     }
 
@@ -638,7 +638,7 @@ void __cdecl sub_006B8F10()
     result = gGridBuffer->Unlock();
     if (result)
     {
-        D3D_LogDDrawError(gUnlockFailure, result);
+        D3DCORE_LogDDrawError(gUnlockFailure, result);
         return;
     }
 
@@ -678,31 +678,31 @@ void __fastcall sub_006B9170_DrawGrid(D2TileLibraryEntryStrc* pTexture,D2GridPoi
 {
     if(!sub_006BB870_BindTileTexture(pTexture)) return;
     {
-    D3D_SetColorCombineMode(1);
+    D3DCORE_SetColorCombineMode(1);
     int nBlend=1;
     const unsigned char nAlpha = nAlphaInput;
     if(nAlpha!=255) nBlend=4;
-    D3D_SetAlphaBlendMode(nBlend);
-    if(nFilter) D3D_SetTextureFilterMode(2);
-    else D3D_SetTextureFilterMode(1); // 0x006B2030
+    D3DCORE_SetAlphaBlendMode(nBlend);
+    if(nFilter) D3DCORE_SetTextureFilterMode(2);
+    else D3DCORE_SetTextureFilterMode(1); // 0x006B2030
     {
     D2TLVertexStrc* pVertices;
     if(gpRendererSettings_007C9148->bFlat)
     {
         long nResult=gpGridBuffer_00971734->lpVtbl->Lock(gpGridBuffer_00971734,0x21,(void**)&pVertices,0);
-        if(nResult) { D3D_LogDDrawError(gLockFailure,nResult);return; }
+        if(nResult) { D3DCORE_LogDDrawError(gLockFailure,nResult);return; }
         WRITE_CORNER(0)
         WRITE_CORNER(5)
         WRITE_CORNER(35)
         WRITE_CORNER(30)
         nResult=gpGridBuffer_00971734->lpVtbl->Unlock(gpGridBuffer_00971734);
-        if(nResult) { D3D_LogDDrawError(gUnlockFailure,nResult);return; }
+        if(nResult) { D3DCORE_LogDDrawError(gUnlockFailure,nResult);return; }
         gpDevice_00970E78->lpVtbl->DrawIndexedPrimitiveVB(gpDevice_00970E78,6,gpGridBuffer_00971734,gaFlatIndices,4,0x1c);
     }
     else
     {
         long nResult=gpGridBuffer_00971734->lpVtbl->Lock(gpGridBuffer_00971734,0x21,(void**)&pVertices,0);
-        if(nResult) { D3D_LogDDrawError(gLockFailure,nResult);return; }
+        if(nResult) { D3DCORE_LogDDrawError(gLockFailure,nResult);return; }
         const D2GridPointStrc* pPoint=pPoints;
         for(int nPoint=0;nPoint<36;++nPoint)
         {
@@ -713,7 +713,7 @@ void __fastcall sub_006B9170_DrawGrid(D2TileLibraryEntryStrc* pTexture,D2GridPoi
             ++pPoint;
         }
         nResult=gpGridBuffer_00971734->lpVtbl->Unlock(gpGridBuffer_00971734);
-        if(nResult) { D3D_LogDDrawError(gUnlockFailure,nResult);return; }
+        if(nResult) { D3DCORE_LogDDrawError(gUnlockFailure,nResult);return; }
         gpDevice_00970E78->lpVtbl->DrawIndexedPrimitiveVB(gpDevice_00970E78,5,gpGridBuffer_00971734,gaGridIndices,65,0x1c);
     }
     }

@@ -8,6 +8,7 @@ void __stdcall SMemZero(void* pDest, unsigned int nSize);                       
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
 
 #include "D2StormArrayA.h"
+#include "D2StormArrayC.h"
 
 struct D2StormArrayBStrc
 {
@@ -63,16 +64,6 @@ struct D2StormArrayBStrc
     void sub_004211C0_ReallocData(unsigned int nAlloc);                                                     // 0x004211C0
 };
 
-struct D2StormArrayCStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    char* m_data;
-    unsigned int m_chunk;
-
-    void sub_00421A50_Set(unsigned int nCount, const char* pData);                                          // 0x00421A50
-    unsigned int sub_00421F60_Add(unsigned int nCount, const char* pData);                                  // 0x00421F60
-};
 
 struct BigBuffer
 {
@@ -136,7 +127,7 @@ struct BigBuffer
 
 struct BigStack
 {
-    BigBuffer f_0[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 };
 
@@ -234,7 +225,7 @@ void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue); // 0x00423540
 
 static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput, BigStack& tStack) // 0x00423600
 {
-    BigBuffer& tBuffer = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tBuffer = tStack.pRecords[tStack.nUsed++];
     tBuffer = tNumber;
     tOutput.m_count = 0;
     do
@@ -370,9 +361,9 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
         b.sub_004220D0_SetCount(1);
         return;
     }
-    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tDiv = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tDiv = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tProduct = tStack.pRecords[tStack.nUsed++];
     unsigned int nShift = 31 - (BigHighBitIndex(&d) & 31);
     Shl(tRem, c, nShift);
     Shl(tDiv, d, nShift);
@@ -407,8 +398,8 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
 // 0x00424180
 static void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack)
 {
-    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tNext = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tNext = tStack.pRecords[tStack.nUsed++];
     if (sub_004212F0_Compare(&b, &c) > 0)
     {
         a = b;
@@ -433,7 +424,7 @@ void __stdcall BigMulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d,
 void __stdcall SBigDiv(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     BigStack& tStack = pResult->tStack;
-    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
     Div(pResult->tPrimary, tRem, pA->tPrimary, pB->tPrimary, tStack);
     tStack.nUsed--;
 }
@@ -448,7 +439,7 @@ void __stdcall SBigGcd(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
 void __stdcall SBigMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     BigStack& tStack = pResult->tStack;
-    BigBuffer& tQuotient = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tQuotient = tStack.pRecords[tStack.nUsed++];
     Div(tQuotient, pResult->tPrimary, pA->tPrimary, pB->tPrimary, tStack);
     tStack.nUsed--;
 }

@@ -487,6 +487,45 @@ void __cdecl sub_0049C980_UpdateWaypointAct()
     WARDENCLIENT_BuildWaypointList();
 }
 
+
+
+// 0x0049CEC0
+void __stdcall TEXT_WaypointKeyMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (pMsg->uMessage == 0x102 && pMsg->wParam == 9)
+    {
+        return;
+    }
+
+    if (pMsg->uMessage == 0x104 && pMsg->wParam == 0x73)
+    {
+        return;
+    }
+
+    if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
+    {
+// build: symbol ?gnWaypointId@* 0x007BF07D
+        MSG_SendTwoDwords(0x49, gnWaypointId, 0);
+        gbSent = 1;
+    }
+
+    UI_SetUIVar(20, 1, 1);
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+
+// 0x0049CF50
+void __cdecl sub_0049CF50_SendWaypointClose()
+{
+    if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
+    {
+        MSG_SendTwoDwords(0x49, gnWaypointId, 0);
+        gbSent = 1;
+    }
+}
+
 // 0x0049CF90
 void __fastcall sub_0049CF90(D2PacketRecord21Strc* pPacket)
 {

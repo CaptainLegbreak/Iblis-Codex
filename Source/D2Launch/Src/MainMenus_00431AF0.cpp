@@ -82,7 +82,7 @@ extern "C" int __fastcall D2Win_10106(D2WinControlStrc*); // 0x00500310
 int __fastcall D2Win_10104(D2WinControlStrc*); // 0x00500340
 extern "C" void __fastcall BUTTON_SetIsPressed(D2WinControlStrc*, int); // 0x005009A0
 void __fastcall D2SOUND_10039(const char*); // 0x00514EC0
-void __cdecl D2SOUND_FadeOutWaves(); // 0x00515020
+void __cdecl D2SOUNDFAST_FadeOutWaves(); // 0x00515020
 
 int gdwGlobal_00779990; // 0x00779990
 
@@ -532,7 +532,7 @@ int __stdcall MAINMENUS_SelectCharacterClass(D2MenuCallbackArgStrc* pArg)
     gnTextSentinel = -1;
     if (nPreviousClass != -1)
     {
-        D2SOUND_FadeOutWaves();
+        D2SOUNDFAST_FadeOutWaves();
         switch (nPreviousClass)
         {
         case 0: D2SOUND_10039("data\\global\\sfx\\cursor\\intro\\amazon deselect.wav"); break;

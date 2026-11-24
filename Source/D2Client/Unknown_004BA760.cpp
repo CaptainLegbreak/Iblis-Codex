@@ -41,7 +41,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 void __fastcall UNITSND_RemoveUnitHint(D2UnitStrc* pOther, D2UnitStrc* pUnit); // 0x004CA8D0
-void __fastcall D2SOUND_ListRemove(D2HintTimerStrc* pTimer, D2UnitStrc* pOther); // 0x00516980
+void __fastcall D2SOUNDUTIL_ListRemove(D2HintTimerStrc* pTimer, D2UnitStrc* pOther); // 0x00516980
 extern D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
 
 class UIWidget
@@ -92,7 +92,7 @@ void __fastcall sub_004BA790_UpdateUnitHint(D2UnitStrc* pUnit, D2UnitStrc* pOthe
     if (!pNode)
         return;
     D2SoundsTxt* pSoundTxt = SOUNDHDR_GetSoundRecord(pEntry->nHintId);
-    D2SOUND_ListRemove(&pEntry->tTimer, pOther);
+    D2SOUNDUTIL_ListRemove(&pEntry->tTimer, pOther);
     const int bReady = !pSoundTxt->nLoop || (pEntry->nArg45 && !pEntry->nArg4D) ? 1 : 0;
     if (pEntry->tTimer.f_0)
         return;

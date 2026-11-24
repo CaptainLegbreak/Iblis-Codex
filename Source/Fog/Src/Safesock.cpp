@@ -475,10 +475,6 @@ struct FSafeSock;
 
 struct D2LogMsgListStrc;
 
-struct D2LogMsgNodeStrc;
-
-struct D2LogMessageStrc;
-
 class CCritSect;
 
 extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); // 0x00684BD5
@@ -520,17 +516,6 @@ extern "C" const char gszCpuSpeedFormat[]; // 0x006CE08C
 extern "C" const char gszCpuVersionFormat[]; // 0x006CE0A8
 
 extern "C" const char gszCpuVendorFormat[]; // 0x006CE0EC
-
-struct D2LogMsgNodeStrc
-{
-    D2LogMsgNodeStrc* pPrev;
-    D2LogMsgNodeStrc* pNext;
-};
-
-struct D2LogMessageStrc : D2LogMsgNodeStrc
-{
-    char unk0x08[0x1C];
-};
 
 class CCritSect
 {

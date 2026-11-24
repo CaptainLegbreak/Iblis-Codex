@@ -8,7 +8,7 @@ int __stdcall CelGetWidth(D2CelStrc* pCel);                                     
 int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
 int __stdcall CelGetOffsetX(D2CelStrc* pCel);                                                               // 0x00601920
 int __stdcall CelGetOffsetY(D2CelStrc* pCel);                                                               // 0x00601950
-int __fastcall DDRAW_GetDrawModePalette(int nIndex, int* pType);                                           // 0x00511D70
+int __fastcall DDCORE_GetDrawModePalette(int nIndex, int* pType);                                           // 0x00511D70
 extern D2PaletteTableStrc* gpGfxPaletteView;                                                               // 0x007C9150
 int gnDDrawClipLeft;                                                                                // 0x0088129C
 extern int gnDDrawClipRight;                                                                       // 0x008812A0
@@ -51,7 +51,7 @@ int __fastcall sub_005120A0_DrawImagePalette(void* pData, int nX, int nY, unsign
         unsigned char* pGammaTable = 0;
         unsigned char* pPaletteTable = 0;
         int nType;
-        const int nCaps = DDRAW_GetDrawModePalette(nDrawMode, &nType);
+        const int nCaps = DDCORE_GetDrawModePalette(nDrawMode, &nType);
         const int nGamma = (unsigned char)dwGamma;
         if (nGamma != 0xFF)
             pGammaTable = gpGfxPaletteView->pShadowLightGammaPalettes[nGamma >> 3];

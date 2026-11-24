@@ -144,11 +144,6 @@ extern T00479230* gpTextBox;                                                    
 
 extern D2ClientDialogStrc* gpListDialog;                                                           // 0x007BF1B0
 
-// 0x0049DA50
-void __cdecl TEXT_ClearHoverUnit()
-{
-    gbTextHoverSet = 0;
-}
 
 struct D2UnitStrc;
 
@@ -163,37 +158,6 @@ static void TEXT_FreeTextNode(D2TextNodeStrc* pNode)
     FOG_Free(pNode, ".\\UI\\text.cpp", 0x6B6, 0);
 }
 
-// 0x0049DBC0
-void __fastcall TEXT_AddToHistory(D2TextNodeStrc* pSource)
-{
-    D2TextNodeStrc* pClone = TEXT_CloneStringList(pSource);
-    D2TextNodeStrc* pNode;
-    if (gtTextHistory.wCount >= 0x80)
-    {
-        pNode = gtTextHistory.pFirst;
-        if (!pNode)
-        {
-            goto link;
-        }
-
-        D2TextNodeStrc* pPrevious = 0;
-        while (pNode->pNext)
-        {
-            pPrevious = pNode;
-            pNode = pNode->pNext;
-        }
-        TEXT_FreeTextNode(pNode);
-        if (pPrevious)
-            pPrevious->pNext = 0;
-        if (gtTextHistory.wCount >= 1)
-            gtTextHistory.wCount--;
-    }
-    pNode = gtTextHistory.pFirst;
-link:
-    pClone->pNext = pNode;
-    gtTextHistory.wCount++;
-    gtTextHistory.pFirst = pClone;
-}
 
 // 0x0049E340
 void __cdecl TEXT_FillListBox()
@@ -203,25 +167,7 @@ void __cdecl TEXT_FillListBox()
                                         pNode->pLines[4], pNode->pLines[5], 0, pNode->nColor, 0, 0xD);
 }
 
-// 0x0049E7E0
-void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext)
-{
-    gpfnTextCallback = pfnCallback;
-    gpTextCallbackContext = pContext;
-}
 
-// 0x0049E8B0
-D2UnitStrc* __cdecl TEXT_GetTextUnit()
-{
-// build: symbol ?gbTextFromObject@* 0x007BF20A
-    if (gbTextFromObject)
-// build: symbol ?gnTextNpcId@* 0x007BF202
-        return CUNIT_FindClientUnit(gnTextNpcId, 1);
-    if (gnTextActive)
-// build: symbol ?gnTextObjectId@* 0x007BF206
-        return CUNIT_FindClientUnit(gnTextObjectId, 2);
-    return 0;
-}
 
 // 0x0049F8C0
 void __fastcall TEXT_ClearHoverText(D2HoverClearPacketStrc* pPacket)
@@ -235,52 +181,8 @@ void __fastcall TEXT_ClearHoverText(D2HoverClearPacketStrc* pPacket)
     }
 }
 
-// 0x0049F910
-const Unicode* __fastcall TEXT_GetTextString(unsigned short nId)
-{
-    int nStart;
-    int nEnd;
-    if (gaTextIds[100].wId > nId)
-    {
-        nStart = 0;
-        nEnd = 100;
-    }
-    else
-    {
-        nStart = 100;
-        nEnd = gnTextIdCount;
-    }
-    for (int i = nStart; i < nEnd; ++i)
-    {
-        if (gaTextIds[i].wId == nId)
-            return D2LANG_GetStringFromTblIndex(gaTextIds[i].wStringId);
-    }
-    return D2LANG_GetStringFromTblIndex(0xE8C);
-}
 
-// 0x0049FF00
-void __cdecl sub_0049FF00()
-{
-}
 
-// 0x0049FF90
-void __fastcall TEXT_OpenTextData(D2UnitStrc* pUnit, D2ClientTextDataStrc* pTextData)
-{
-    gpTextData = pTextData;
-    UI_SetUIVar(0x10, 2, 0);
-    GAME_ResetMouseState();
-    if (gpTextData->dwTag == 0x20646B62)
-    {
-        gbTextDataOpen = 1;
-        MSG_SendDword(0x3E, !pUnit ? -1 : pUnit->dwUnitId);
-        gnGlobal_007BF1E0 = 0;
-    }
-    else
-    {
-        gbTextDataOpen = 0;
-        gnGlobal_007BF1E0 = 1;
-    }
-}
 
 // 0x004A0000
 int __cdecl TEXT_IsTextBoxOpen()

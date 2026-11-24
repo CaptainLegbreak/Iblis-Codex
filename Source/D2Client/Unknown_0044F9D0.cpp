@@ -1,4 +1,5 @@
 #include "D2StormLink.h"
+#include "D2StormListArray.h"
 struct D2StormSlotListStrc;
 struct D2StormEntry38Strc;
 struct D2SGameDataStrc;
@@ -498,13 +499,6 @@ struct D2StormSlotListArrayStrc
     ~D2StormSlotListArrayStrc();
 };
 
-struct D2StormListArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    D2StormListAStrc* m_data;
-    unsigned int m_chunk;
-};
 
 struct D2StormHashTableStrc
 {
