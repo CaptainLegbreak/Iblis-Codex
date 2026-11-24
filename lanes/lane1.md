@@ -4,12 +4,10 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/keycfg-object-r 67b1e2b6c +1 placeholder: Unknown_004A43E0.cpp, the key-config object (0x4A43E0-0x4A61A0) out of text.cpp (33 functions), text_0049A950.cpp (8) and Unknown_004A6000.cpp (1), with its data (0x724264-0x72480F, 10 definitions) and the bss it alone uses (0x7C0274-0x7C02D8); gnKeyConfigFirstVisible / gnKeyConfigEntryCount are its statics, 0x4A4500 in plain form; built with text.cpp's options; all 42 functions equal; VERIFIED 3d9202ed7d71f320d8a5e3fc059224d9819298b0
-  - based on main #316. Touches lane 4's text.cpp (deletions only, plus two definitions turned into externs), text_0049A950.cpp and Unknown_004A6000.cpp: done on my branch as the board allowed.
-  - this is the unit 0x4A4AD0 belongs to; 0x4A4AD0 itself is still not equal there (below).
+- lane1/keycfg-extras e6cde19d0 -0 the rest of the key-config object into #317's Unknown_004A43E0.cpp: 0x4A4780 and 0x4A5A40-0x4A5F70 (8, from text_0049A950.cpp), 0x4A6000 (from Unknown_004A6000.cpp), gnKeyConfigColumn / gbKeyConfigReady data and the one gnKeyConfigSelected definition; gnKeyConfigFirstVisible static with 0x4A4500 in plain form; list-entry ids read as ints; 0x7C02B4 one name; VERIFIED 496bd86f9d54fa8324bc98693e5f520fca522855
+  - based on main #317 (main is #318 now). Replaces lane1/keycfg-object-r (withdrawn; lane 4's keyconfig-split did the split). Touches lane 4's text_0049A950.cpp and Unknown_004A6000.cpp.
 
-- lane1/skills-placeholders 6ce2d18e7 -2 placeholders: Unknown_004C7C80 (0x4C7C80 -> SKILLS/Skills.cpp, 0x4C8350 -> SKILLS/SkillsBar.cpp, which already held its body unmarked) and Unknown_004C97C0 (0x4C97C0 -> Skills.cpp, a gpfnClientSkillDoFuncs entry; Skills.cpp's inline SEED_RollLimitedRandomNumber becomes ...Inline so the real 0x45C390 can be called); VERIFIED d31153616352fef0488b6729a8fb07539a3ebee7
-  - based on main #311. Touches lane 4's Skills.cpp and SkillsBar.cpp (both are handed-back placeholders from the work list).
+
 
 - lane1/unitsnd-table 5af46c365 0->0 UnitSnd.cpp: the 116 pieces at 0x00727F48-0x007295C8 become one D2UnitSndObjectStrc gaUnitSndObjects[121] (5,808 B); gapUnitSndObjects points at its elements, gaUnitSndObject3D is gaUnitSndObjects[21]; borrowed data should drop by 2,692 B (verify shows 9,924 B); VERIFIED fdb0012051a0a221d5c2df4ff6de6801b4344474
   - based on main #307 (main is #309 now).
@@ -17,10 +15,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## In progress
 
-- Borrowed 0x4A4AD0 (StandIns/D2Client_004A4AD0.cpp), in Unknown_004A43E0.cpp (keycfg-object-r):
-  - in the split unit with gnKeyConfigFirstVisible static and 0x7C02B4 under one name: 1,202 of 1,232 B. Same calls, constants, slots and block structure; the rest is register choice, decided right after the first helper call: the original keeps nY in ebx and spills bInList to [ebp-4], ours keeps bInList in ebx and reloads nY.
-  - no effect: declaration order of the seven flags, const/non-const, an inline "nothing hit" helper, nesting the first test, making any of the other key-config globals static (all 128 subsets, tried in text.cpp), +1..+8 extern or struct declarations (so not the declaration-count effect).
-  - the unmarked stand-in copy stays in the unit as the callers' context until it matches.
+- Borrowed 0x4A4AD0, in Unknown_004A43E0.cpp (keycfg-extras state, marked locally): still 1,202 of 1,232 B, the same register difference after the first helper call. Tried the board's lever as well: a local copy of nY before the first call, and calling TEXT_IsInKeyConfigList again in the list block instead of reusing bInList (the compiler merges it): no change. Kept as a stand-in.
 
 ## Questions
 
