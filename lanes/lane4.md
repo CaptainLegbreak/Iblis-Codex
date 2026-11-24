@@ -4,11 +4,13 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane4/automap-view 427d6c5a no placeholder change (Unknown_0045AE90.cpp grows from 1 to 23 functions): automap.cpp's data and bss end before this run's. Its functions read gaAutomapPairs and the automap flags up to 0x45AC90, while 0x45AD60-0x45B4F0 read their own globals 0x711428/0x71142C after a copy of their own (0x7113EC) and the bss 0x7A5204-0x7A5214. So the run is one more object: the automap draw entry, panel slide and screen offsets, automap offsets and screen-to-map transform, origin update and the room/unit box draws. It gathers from automap.cpp (11), Player.cpp (7), ui.cpp (4), View.cpp (1) and CUnit.cpp (1), with its copy, data and bss. VERIFIED 8b7f75f47156 on #326 (stacked on automap-join, which is in #330); rebased onto #332 (precheck equal). Touches Player.cpp and CUnit.cpp (lane 1's files; the functions sit in lane 4's range).
+
 - lane4/text-data 909d80f4 no placeholder change: the copy at 0x722470 starts the waypoint panel's data (Unknown_0049BB40.cpp); gaWaypointActRanges (planned in WardenClient.cpp, read by the panel's 0x49C7F0) follows it and joins it. gnTextTop (0x7225FC), also planned in WardenClient.cpp, is the first global after text.cpp's copy and is read by the text functions, so it joins text.cpp. VERIFIED f92c4dc02676 on #327; rebased onto #332 (plan replayed; the four owners build equal). Not stacked; nothing outside lane 4.
 
 ## Claimed
 
-- Verifying, to post when each passes: lane4/automap-view (stacked on automap-join), lane4/editbox-split and lane4/winmain-object (both stacked on copies-start-b), lane4/zero-gaps (opaque records take the zero runs after them; npcmenu.cpp's 112 B and more).
+- Verifying, to post when each passes: lane4/editbox-split and lane4/winmain-object (both stacked on copies-start-b), lane4/zero-gaps (opaque records take the zero runs after them; npcmenu.cpp's 112 B and more).
 
 - The object after automap.cpp, 0x45AD60-0x45B4F0 (lane4/automap-view, stacked on automap-join): its own copy 0x7113EC with 0x711428/0x71142C after it, its bss 0x7A5204-0x7A5214; the automap draw, offset and screen-to-map functions now in automap.cpp, Player.cpp, ui.cpp, View.cpp and CUnit.cpp gather into Unknown_0045AE90.cpp.
 
