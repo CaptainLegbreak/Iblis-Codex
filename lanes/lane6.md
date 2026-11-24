@@ -4,7 +4,6 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/charsel-fechar 8b71d7e9 0 placeholders (plan-only). The 9 B still copied just before gapszSkyPalette (CharSel.cpp) are 1 B of alignment and an unread 8-B pair at 0x006D3A00, the palette\fechar pal.dat/pal.pl2 names laid out like the sky pair after it; planned in CharSel.cpp beside it. Not stacked; independent of strtable-mpqs. VERIFIED fcd9736a (on #349; borrowed data 1,166 -> 1,157 B).
 
 ## Claimed
 
