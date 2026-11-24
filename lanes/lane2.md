@@ -4,6 +4,12 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- Note for #342's rebase list: `split-text`, `small-records-f-2` and `small-records-g-2` were already reposted on #341 as `split-text-2`, `small-records-f-3` and `small-records-g-3` (below). All three merge cleanly on #342 and on 7cb8a86b. g-3's first commit, D2Win32SystemInfo.h, is already in #342.
+
+- lane2/mcp-fields a35f5399 562->562 Three commits, field names in shared headers. D2McpPackets.h: every packet's 0x00 is the packet id (Unknown_0044A170 sets 1, 2, 3, 4, 5, 7, ... before each send), the word at 0x01 is the request id (set from wRequestId, compared with gwMcpRequestId), and packet 0x10's/incoming 0x04's int read into nAddress is nAddress. D2ClientDialogWidget.h: the node's first field is the widget the dialog forwards mouse messages to, pWidget. D2BnMessages.h: SID_CLIENTID's fourth word is dwRegistrationToken; SID_AUTH_INFO's second and third are dwServerToken and dwUdpValue; VERIFIED b1100e7c8681300f03f67b68f87059da2b1ddf9e
+  - Verified on 0b750228 (#341), rebased onto 7cb8a86b. Precheck of all 10 includers is equal there.
+  - Outside lane 2: Unknown_0044A170 (lane 6), dialog, Unknown_004B8100 (lanes 1 and 4), BnDownload_00520CB0 (lane 6).
+
 - lane2/sound-environ 48390c47 562->562 Three commits. T00481920 is the 0x58-byte SoundEnviron.txt record that sub_00481920_GetSoundEnvironTxtRecord returns from SoundHdr's table (SoundHdr typed it D2SoundEnvironTxtStrc with one field named). Nine D2Client units had partial views; together they are the txt columns in order (Song, Day/Night Ambience, Day/Night Event, Event Delay, Indoors, Material1/2, the 13 EAX values), so one record with those names replaces them, in D2SoundEnvironTxt.h. T0046E1B0 is the IME context handle, now HIMC__ as windows.h spells it (chat and Unknown_0047CC90 already typedef it as HIMC). T005C40D0 in D2Game.h, SkillDruid and SkillNec is D2StatListStrc (what STATLIST_AllocStatList returns); VERIFIED b14bf7a3ff16fb8b1a6946230456cfef1b267482
   - Verified on c2f64d25 (#340), rebased onto 0b750228 (#341) without conflicts. Precheck of all 328 includers of D2Client.h, D2Game.h and the new header is equal there.
   - Outside lane 2: SoundHdr, SoundInst, SkillDesc x2, Missile, UnitSnd, Unknown_004B8100/004B8410/004DCAA0/004DF6C0, Gfx, chat, Unknown_0047CC90 (lanes 1 and 4), SkillDruid, SkillNec (lane 5), one forward declaration each in D2Client.h and D2Game.h.
