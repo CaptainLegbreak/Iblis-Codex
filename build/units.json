@@ -62533,6 +62533,10 @@
      "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
     },
     {
+     "va": "0x006043B0",
+     "length": 138
+    },
+    {
      "va": "0x00604440",
      "length": 23,
      "name": "CelListArrayGrow"
@@ -62564,6 +62568,11 @@
     {
      "va": "0x00604640",
      "length": 157
+    },
+    {
+     "va": "0x006046E0",
+     "length": 27,
+     "name": "?Destroy@D2GameHashTableReuseStrc@@UAEXXZ"
     },
     {
      "va": "0x00604700",
@@ -63127,21 +63136,6 @@
      "va": "0x00603E70",
      "length": 96,
      "name": "??0D2GameHashTableReuseStrc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_006043B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006043B0",
-     "length": 138
-    },
-    {
-     "va": "0x006046E0",
-     "length": 27,
-     "name": "?Destroy@D2GameHashTableReuseStrc@@UAEXXZ"
     }
    ]
   },

@@ -11615,7 +11615,7 @@ address,name,source,alias
 0x006044F0,?InternalNew@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEPAUD2StormEntry38Strc@@PAUD2StormSlotListStrc@@II@Z,blizzard,InternalNew
 0x006045B0,CelListTableMonitorFullness,inferred,
 0x00604640,~TSHashTableReuse,blizzard,
-0x006046E0,?Destroy@D2GameHashTableReuseStrc@@UAEXXZ,placeholder,
+0x006046E0,Destroy,inferred,
 0x00604700,??_G?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEPAXI@Z,blizzard,
 0x00604730,TSExportTableSimple,placeholder,
 0x00604760,CelListTableNew,inferred,

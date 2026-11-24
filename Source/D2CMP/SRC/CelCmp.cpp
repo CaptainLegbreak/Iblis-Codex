@@ -1385,20 +1385,9 @@ struct D2Storm603F40Strc
     D2Storm603F40Strc();
 };
 
-struct D2StormEntryGrowArray604460Strc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    D2StormEntry38Strc* m_data;
-    unsigned int m_chunk;
-
-// build: symbol ?sub_006043B0_New@D2StormEntryGrowArray604460Strc@@QAEPAUD2StormEntry38Strc@@XZ 0x006043B0
-    D2StormEntry38Strc* sub_006043B0_New();
-};
-
 struct D2Storm604460Strc
 {
-    D2StormEntryGrowArray604460Strc tArray;
+    D2StormEntryArrayStrc tArray;
 
     D2StormEntry38Strc* sub_00604460_New();
 };
@@ -3411,7 +3400,7 @@ void D2StormSlotArrayStrc::CelSlotArrayClear()
     m_data = 0;
 }
 
-// 0x00603780
+// build: symbol ?Destroy@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEXXZ 0x00603780
 void D2GameHashTableStrc::Destroy()
 {
     CelListTableInternalClear(1);
@@ -3951,6 +3940,14 @@ D2StormEntryArrayStrc* D2StormEntryArrayStrc::sub_006043A0_Init()
     return this;
 }
 
+// 0x006043B0
+D2StormEntry38Strc* D2StormEntryArrayStrc::sub_006043B0_New()
+{
+    CelListArrayReserve(1, 1);
+    new (&m_data[m_count]) D2StormEntry38Strc;
+    return &m_data[m_count++];
+}
+
 // 0x00604440
 void D2StormEntryArrayStrc::CelListArrayGrow(unsigned int nCount)
 {
@@ -3971,6 +3968,14 @@ D2StormEntry38Strc* D2GameHashTableReuseStrc::InternalNew(D2StormSlotListStrc* p
 // 0x00604640
 D2GameHashTableReuseStrc::~TSHashTableReuse()
 {
+    m_chunkList.CelChunkListDeleteAll();
+    m_reuseList.CelReuseListDeleteAll();
+}
+
+// build: symbol ?Destroy@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEXXZ 0x006046E0
+void D2GameHashTableReuseStrc::Destroy()
+{
+    CelListTableInternalClear(0);
     m_chunkList.CelChunkListDeleteAll();
     m_reuseList.CelReuseListDeleteAll();
 }
