@@ -1,7 +1,6 @@
 #include "Fog.h"
 #include "D2QServer.h"
 
-struct D2QAddressArg;
 struct D2CriticalSectionStrc;
 struct D2SocketSetStrc;
 struct D2TimevalStrc;
@@ -9,12 +8,7 @@ struct D2SocketAddressStrc;
 
 D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc* pServer, unsigned int s, unsigned int nAddress); // 0x006BFB70
 
-struct D2QAddressArg
-{
-    unsigned int nAddress;
-};
-
-static void __stdcall QSERVER98_AddClient(D2QueueServerStrc* pServer, unsigned int s, D2QAddressArg tAddress); // 0x006C3440
+static void __stdcall QSERVER98_AddClient(D2QueueServerStrc* pServer, unsigned int s, D2InAddrStrc tAddress); // 0x006C3440
 
 #include "D2SysTypes.h"
 #include "D2NetTypes.h"
@@ -92,17 +86,17 @@ int __fastcall QSERVER98_Send(D2QueueServerStrc* pServer, D2QClientStrc* pClient
 }
 
 // 0x006C3440
-static void __stdcall QSERVER98_AddClient(D2QueueServerStrc* pServer, unsigned int s, D2QAddressArg tAddress)
+static void __stdcall QSERVER98_AddClient(D2QueueServerStrc* pServer, unsigned int s, D2InAddrStrc tAddress)
 {
-    D2QClientStrc* pClient = QSrvAddClient(pServer, s, tAddress.nAddress);
+    D2QClientStrc* pClient = QSrvAddClient(pServer, s, tAddress.s_addr);
     if (pServer->pfnOnAccept)
         pServer->pfnOnAccept(pServer, pClient->nId, ".\\Src\\QServer\\QServer98.cpp", 0x91);
 }
 
 void __fastcall sub_Emit_006C3440(D2QueueServerStrc* pServer, unsigned int s, unsigned int nAddress)
 {
-    D2QAddressArg tAddress;
-    tAddress.nAddress = nAddress;
+    D2InAddrStrc tAddress;
+    tAddress.s_addr = nAddress;
     QSERVER98_AddClient(pServer, s, tAddress);
     QSERVER98_AddClient(pServer, s + 1, tAddress);
 }
