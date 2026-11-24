@@ -645,9 +645,9 @@ int __stdcall D2Common_10095(D2ActiveRoomStrc*, int, int); // 0x0061B130
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
 
-int __stdcall sub_00648A20_GetTargetX(D2DynamicPathStrc*); // 0x00648A20
+int __stdcall PATH_GetFinalTargetX(D2DynamicPathStrc*); // 0x00648A20
 
-int __stdcall sub_00648A30_GetTargetY(D2DynamicPathStrc*); // 0x00648A30
+int __stdcall PATH_GetFinalTargetY(D2DynamicPathStrc*); // 0x00648A30
 
 __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {

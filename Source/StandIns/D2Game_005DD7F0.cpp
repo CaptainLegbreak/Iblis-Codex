@@ -347,8 +347,8 @@ D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame
 struct D2UnitLinkStrc { D2UnitStrc* pUnit; int unk04; D2UnitLinkStrc* pNext; };
 struct D2GameStrc { char unk00[0x6D]; unsigned char nDifficulty; char unk6E[0x108A]; D2UnitLinkStrc* pUnitNodes[10]; };
 struct D2AiControlStrc { int unk00[2]; union { unsigned short nFlags; struct { unsigned short unkFlags:3; unsigned short bHadTarget:1; }; }; };
-int __stdcall sub_0061AA40_TestRoom(D2ActiveRoomStrc* pRoom); // 0x0061AA40
-int __stdcall sub_0061AB00_IsTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
+int __stdcall DUNGEON_CheckLOSDraw(D2ActiveRoomStrc* pRoom); // 0x0061AA40
+int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 unsigned int __fastcall AIUTIL_GetDistanceToCoordinates_NoUnitSize(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC530
 extern "C" const char* __cdecl ASSERT_GetSourceFile(); // 0x00408090
 extern "C" void __cdecl ASSERT_Report(const char*, const char*, int); // 0x00408A60
@@ -369,7 +369,7 @@ D2UnitStrc* __fastcall AIUTIL_FindAiTarget(D2GameStrc* pGame, D2UnitStrc* pUnit,
         bCheckCollision = 1;
         pAiControl->nFlags &= ~0x40;
     }
-    else if (sub_0061AA40_TestRoom(pRoom))
+    else if (DUNGEON_CheckLOSDraw(pRoom))
         bCheckCollision = 0;
     else
     {
@@ -418,7 +418,7 @@ D2UnitStrc* __fastcall AIUTIL_FindAiTarget(D2GameStrc* pGame, D2UnitStrc* pUnit,
                         ASSERT_Report(gszPlayerAssertion, ASSERT_GetSourceFile(), 0x5F6);
                         exit(-1);
                     }
-                    if (nAct == pCurrent->nAct && UNITS_GetRoom(pCurrent) && !sub_0061AB00_IsTown(UNITS_GetRoom(pCurrent)))
+                    if (nAct == pCurrent->nAct && UNITS_GetRoom(pCurrent) && !DUNGEON_IsRoomInTown(UNITS_GetRoom(pCurrent)))
                     {
                         unsigned int nCurrentDistance = AIUTIL_GetDistanceToCoordinates_NoUnitSize(pCurrent, nX, nY);
                         if (nCurrentDistance < nMinDistance)

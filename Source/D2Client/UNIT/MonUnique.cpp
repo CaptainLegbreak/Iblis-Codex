@@ -116,15 +116,15 @@ wchar_t* __fastcall D2LANG_GetStringFromTblIndex(unsigned short wIndex);        
 
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                  // 0x00526320
 
-void __fastcall sub_0063E810_SetUnitName(D2UnitStrc* pUnit, const wchar_t* wszName);                        // 0x0063E810
+void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pUnit, const wchar_t* wszName);                        // 0x0063E810
 
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, int nSeed);                                             // 0x00650E40
 
-wchar_t* __fastcall sub_00653ED0_GetNamePrefix(D2UnitStrc* pUnit);                                          // 0x00653ED0
+wchar_t* __fastcall DATATBLS_RollRandomUniquePrefixString(D2UnitStrc* pUnit);                                          // 0x00653ED0
 
-wchar_t* __fastcall sub_00653F10_GetNameSuffix(D2UnitStrc* pUnit);                                          // 0x00653F10
+wchar_t* __fastcall DATATBLS_RollRandomUniqueSuffixString(D2UnitStrc* pUnit);                                          // 0x00653F10
 
-wchar_t* __fastcall sub_00653F50_GetNameAppellation(D2UnitStrc* pUnit);                                     // 0x00653F50
+wchar_t* __fastcall DATATBLS_RollRandomUniqueAppellationString(D2UnitStrc* pUnit);                                     // 0x00653F50
 
 D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId);                         // 0x006556E0
 
@@ -294,7 +294,7 @@ void __fastcall sub_004AC870_SetMonsterHoverName(D2UnitStrc* pUnit, int nMode, i
         {
             wNameStr = 0x1506;
         }
-        sub_0063E810_SetUnitName(pUnit, D2LANG_GetStringFromTblIndex(wNameStr));
+        MONSTERS_SetMonsterNameInMonsterData(pUnit, D2LANG_GetStringFromTblIndex(wNameStr));
         return;
     }
 
@@ -312,75 +312,75 @@ void __fastcall sub_004AC870_SetMonsterHoverName(D2UnitStrc* pUnit, int nMode, i
 
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nClassId);
         INV_FormatArgs(wszName, D2LANG_GetStringFromTblIndex(0x2B40), D2LANG_GetStringFromTblIndex(gaHoverModes[i].wStringId), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), 0);
-        sub_0063E810_SetUnitName(pUnit, wszName);
+        MONSTERS_SetMonsterNameInMonsterData(pUnit, wszName);
         return;
     }
 
     SEED_InitLowSeed(pSeed, nNameSeed);
     if (nMode == 12)
     {
-        sub_0063E810_SetUnitName(pUnit, D2LANG_GetStringFromTblIndex(0xC27));
+        MONSTERS_SetMonsterNameInMonsterData(pUnit, D2LANG_GetStringFromTblIndex(0xC27));
         return;
     }
 
     switch (nClassId)
     {
     case 0x9C:
-        sub_0063E810_SetUnitName(pUnit, D2LANG_GetStringFromTblIndex(0xBCD));
+        MONSTERS_SetMonsterNameInMonsterData(pUnit, D2LANG_GetStringFromTblIndex(0xBCD));
         return;
 
     case 0xD3:
-        sub_0063E810_SetUnitName(pUnit, D2LANG_GetStringFromTblIndex(0xBEE));
+        MONSTERS_SetMonsterNameInMonsterData(pUnit, D2LANG_GetStringFromTblIndex(0xBEE));
         return;
 
     case 0xF2:
-        sub_0063E810_SetUnitName(pUnit, D2LANG_GetStringFromTblIndex(0xBF6));
+        MONSTERS_SetMonsterNameInMonsterData(pUnit, D2LANG_GetStringFromTblIndex(0xBF6));
         return;
 
     case 0x100:
-        sub_0063E810_SetUnitName(pUnit, D2LANG_GetStringFromTblIndex(0x3F6));
+        MONSTERS_SetMonsterNameInMonsterData(pUnit, D2LANG_GetStringFromTblIndex(0x3F6));
         return;
 
     case 0xF3:
     case 0x14D:
-        sub_0063E810_SetUnitName(pUnit, D2LANG_GetStringFromTblIndex(0xBF4));
+        MONSTERS_SetMonsterNameInMonsterData(pUnit, D2LANG_GetStringFromTblIndex(0xBF4));
         return;
 
     case 0x220:
-        sub_0063E810_SetUnitName(pUnit, D2LANG_GetStringFromTblIndex(0xBF5));
+        MONSTERS_SetMonsterNameInMonsterData(pUnit, D2LANG_GetStringFromTblIndex(0xBF5));
         return;
 
     case 0x2C3:
-        sub_0063E810_SetUnitName(pUnit, D2LANG_GetStringFromTblIndex(0x2B92));
+        MONSTERS_SetMonsterNameInMonsterData(pUnit, D2LANG_GetStringFromTblIndex(0x2B92));
         return;
 
     case 0x2C4:
-        sub_0063E810_SetUnitName(pUnit, D2LANG_GetStringFromTblIndex(0xBEE));
+        MONSTERS_SetMonsterNameInMonsterData(pUnit, D2LANG_GetStringFromTblIndex(0xBEE));
         return;
 
     case 0x2C0:
-        sub_0063E810_SetUnitName(pUnit, D2LANG_GetStringFromTblIndex(0xBF6));
+        MONSTERS_SetMonsterNameInMonsterData(pUnit, D2LANG_GetStringFromTblIndex(0xBF6));
         return;
 
     case 0x2C2:
-        sub_0063E810_SetUnitName(pUnit, D2LANG_GetStringFromTblIndex(0x3F6));
+        MONSTERS_SetMonsterNameInMonsterData(pUnit, D2LANG_GetStringFromTblIndex(0x3F6));
         return;
 
     case 0x2C1:
-        sub_0063E810_SetUnitName(pUnit, D2LANG_GetStringFromTblIndex(0xBF4));
+        MONSTERS_SetMonsterNameInMonsterData(pUnit, D2LANG_GetStringFromTblIndex(0xBF4));
         return;
 
     case 0x2C5:
-        sub_0063E810_SetUnitName(pUnit, D2LANG_GetStringFromTblIndex(0xBF5));
+        MONSTERS_SetMonsterNameInMonsterData(pUnit, D2LANG_GetStringFromTblIndex(0xBF5));
         return;
 
     default:
-        INV_FormatArgs(wszName, D2LANG_GetStringFromTblIndex(0x6B9), sub_00653ED0_GetNamePrefix(pUnit), sub_00653F10_GetNameSuffix(pUnit), 0);
+        INV_FormatArgs(wszName, D2LANG_GetStringFromTblIndex(0x6B9), DATATBLS_RollRandomUniquePrefixString(pUnit), DATATBLS_RollRandomUniqueSuffixString(pUnit), 0);
         if (sub_0045C390_RollRandom(pSeed, 100) < 50)
         {
-            INV_FormatArgs(wszName, D2LANG_GetStringFromTblIndex(0x6BA), sub_00653ED0_GetNamePrefix(pUnit), sub_00653F10_GetNameSuffix(pUnit), sub_00653F50_GetNameAppellation(pUnit), 0);
+            INV_FormatArgs(wszName, D2LANG_GetStringFromTblIndex(0x6BA), DATATBLS_RollRandomUniquePrefixString(pUnit), DATATBLS_RollRandomUniqueSuffixString(pUnit), DATATBLS_RollRandomUniqueAppellationString(pUnit), 0);
         }
-        sub_0063E810_SetUnitName(pUnit, wszName);
+        MONSTERS_SetMonsterNameInMonsterData(pUnit, wszName);
         return;
     }
 }

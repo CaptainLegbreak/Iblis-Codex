@@ -75,8 +75,8 @@ struct D2ViewStrc
 };
 
 extern void* gpGlobal_007A0634;                                                                             // 0x007A0634
-unsigned char __stdcall sub_0061C0E0(void* pAct);                                                           // 0x0061C0E0
-void __stdcall sub_0061C0B0(void* pAct, unsigned char* pR, unsigned char* pG, unsigned char* pB);           // 0x0061C0B0
+unsigned char __stdcall ENVIRONMENT_GetIntensityFromAct(void* pAct);                                                           // 0x0061C0E0
+void __stdcall ENVIRONMENT_GetLightColorFromAct(void* pAct, unsigned char* pR, unsigned char* pG, unsigned char* pB);           // 0x0061C0B0
 void __fastcall SCMD_ReadGridCell(int nX, int nY, unsigned char* pB0, unsigned char* pB1, unsigned char* pB2, unsigned char* pB3); // 0x00475AA0
 int __cdecl DLIGHTMAP_GetRenderMode(); // 0x00477730
 int __stdcall D2GFX_CheckPerspective();                                                                     // 0x004F51D0
@@ -95,9 +95,9 @@ static void __stdcall sub_004DDEF0_BuildLargeGrid(int nX, int nY, int bFlat, D2G
 {
     if (bFlat)
     {
-        const unsigned char nB0 = sub_0061C0E0(gpGlobal_007A0634);
+        const unsigned char nB0 = ENVIRONMENT_GetIntensityFromAct(gpGlobal_007A0634);
         unsigned char nB1, nB2, nB3;
-        sub_0061C0B0(gpGlobal_007A0634, &nB1, &nB2, &nB3);
+        ENVIRONMENT_GetLightColorFromAct(gpGlobal_007A0634, &nB1, &nB2, &nB3);
         for (int j = 0; j < 8; ++j)
         {
             for (int i = 0; i < 8; ++i)

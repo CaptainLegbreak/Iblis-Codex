@@ -29,7 +29,7 @@ static void __stdcall DRLGVER_MarkVertex(D2DrlgVertexStrc* pVertex, int bInit);
 
 static void __fastcall DRLGVER_MakeVerticesRelative(D2DrlgCoordStrc* pCoords, D2DrlgVertexStrc* pFirst);
 
-void __fastcall sub_0067D050(void* pMemPool, D2DrlgVertexStrc** ppVertex, D2DrlgCoordStrc* pCoords, unsigned char nDirection, D2DrlgOrthStrc* pOrth);
+void __fastcall DRLGVER_CreateVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex, D2DrlgCoordStrc* pCoords, unsigned char nDirection, D2DrlgOrthStrc* pOrth); // 0x0067D050
 
 void __fastcall DRLGVER_ReverseVertexList(D2DrlgVertexStrc** ppVertex);
 

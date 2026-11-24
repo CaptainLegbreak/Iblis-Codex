@@ -101,7 +101,8 @@ void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeader
 
 int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int dwGUID); // 0x005452C0
 
-static inline int sub_00623C60(D2UnitStrc* pUnit)
+// build: symbol ?UNITS_GetWeaponClass@* 0x00623C60
+static inline int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {

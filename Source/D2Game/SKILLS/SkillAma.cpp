@@ -95,7 +95,7 @@ int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc*,int); // 0x005D3C
 
 D2UnitStrc* __fastcall sub_0059FA30(D2GameStrc*,D2MissileStrc*); // 0x0059FA30
 
-void __stdcall sub_0064A710(D2UnitStrc*,int); // 0x0064A710
+void __stdcall MISSILE_SetTargetX(D2UnitStrc*,int); // 0x0064A710
 
 enum { MISSILE_FLAGS = 0x20 };
 
@@ -1177,7 +1177,7 @@ int __fastcall SKILLS_SrvDo014_LightningStrike(D2GameStrc* game,D2UnitStrc* unit
     params.nTargetX=CLIENTS_GetUnitX(other);
     params.nTargetY=CLIENTS_GetUnitY(other);
     D2UnitStrc* missile=sub_0059FA30(game,&params);
-    if(missile) sub_0064A710(missile,duration);
+    if(missile) MISSILE_SetTargetX(missile,duration);
     return 1;
 }
 

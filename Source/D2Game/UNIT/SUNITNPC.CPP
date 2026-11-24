@@ -365,7 +365,7 @@ void __fastcall PLAYERPETS_RemovePet(D2GameStrc* game,D2UnitStrc* player,int id,
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* unit); // 0x00620BB0
 
-void __stdcall sub_0061A270_RemoveRoomUnit(D2ActiveRoomStrc* room,int type,int id); // 0x0061A270
+void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* room,int type,int id); // 0x0061A270
 
 int __fastcall PLAYERPETS_MarkPetAlive(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet); // 0x00574AB0
 
@@ -516,7 +516,7 @@ struct D2DifficultyLevelsTxt;
 
 void __fastcall FOG_FreeServerMemory(void*, void*, const char*, int, int); // 0x0040B480
 
-D2GambleDataTbl* __fastcall sub_00638CC0_GetGambleRecord(); // 0x00638CC0
+D2GambleDataTbl* __fastcall DATATBLS_GetGambleDataTables(); // 0x00638CC0
 
 struct D2DifficultyLevelsGambleStrc
 {
@@ -2369,7 +2369,7 @@ static inline int UnitY(D2UnitStrc* pUnit)
 // 0x00578790
 void __fastcall D2GAME_STORES_FillGamble_6FCCA9F0(D2GameStrc* pGame,D2UnitStrc* pNpc,D2UnitStrc* pPlayer,D2NpcRecordStrc* pNpcRecord)
 {
- D2GambleDataTbl* pGamble = sub_00638CC0_GetGambleRecord();
+ D2GambleDataTbl* pGamble = DATATBLS_GetGambleDataTables();
  if(!pGamble) return;
  D2DifficultyLevelsTxt* pDifficulty = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty);
  if(!pDifficulty) return;
@@ -3073,7 +3073,7 @@ static __forceinline void RemoveExistingPet(D2GameStrc* game,D2UnitStrc* player)
  if(old) {
   AIGENERAL_SetOwnerData(game,old,-1,1,0,0);
   PLAYERPETS_RemovePet(game,player,GetId(old),0);
-  sub_0061A270_RemoveRoomUnit(UNITS_GetRoom(old),1,GetId(old));
+  DUNGEON_AllocDrlgDelete(UNITS_GetRoom(old),1,GetId(old));
   SUNIT_RemoveUnit(game,old);
  }
 }

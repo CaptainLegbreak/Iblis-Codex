@@ -482,7 +482,7 @@ int __stdcall sub_006488C0_PathGetX(D2DynamicPathStrc* pPath); // 0x006488C0
 
 int __stdcall sub_00648900_PathGetY(D2DynamicPathStrc* pPath); // 0x00648900
 
-void __stdcall sub_00649030_SetPathFlag40(D2DynamicPathStrc* pPath, int bClear); // 0x00649030
+void __stdcall D2COMMON_10203_PATH_SetRotateFlag(D2DynamicPathStrc* pPath, int bClear); // 0x00649030
 
 struct D2MissileScanArgStrc
 {
@@ -684,7 +684,7 @@ void __stdcall MISSILE_AllocMissileData(D2UnitStrc* pMissile); // 0x0064A100
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
-void __stdcall sub_00649D00(int nArg1, int nArg2, int nArg3, int nArg4, D2UnitStrc* pUnit, int nArg6); // 0x00649D00
+void __stdcall PATH_AllocDynamicPath(int nArg1, int nArg2, int nArg3, int nArg4, D2UnitStrc* pUnit, int nArg6); // 0x00649D00
 
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nMask); // 0x00648C30
 
@@ -1348,7 +1348,7 @@ void __fastcall SKILLS_InitMissileUnit(D2UnitStrc* pMissile, int nArg, int nTarg
 
     MISSILE_AllocMissileData(pMissile);
     UNITS_ChangeAnimMode(pMissile, pMissilesTxtRecord->nCollideType);
-    sub_00649D00(0, nArg, nTargetX, nTargetY, pMissile, 1);
+    PATH_AllocDynamicPath(0, nArg, nTargetX, nTargetY, pMissile, 1);
 
     D2DynamicPathStrc* pDynamicPath = pMissile->pDynamicPath;
     if (pMissilesTxtRecord->nCollision)

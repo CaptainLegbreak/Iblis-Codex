@@ -1088,7 +1088,8 @@ static void __stdcall INV_AppendShopPriceText(const Unicode* pSource, Unicode* p
     }
 }
 
-static int sub_00623C60(D2UnitStrc* pUnit)
+// build: symbol ?UNITS_GetWeaponClass@* 0x00623C60
+static int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 {
     return !pUnit ? -1 : pUnit->dwClassId;
 }
@@ -1289,7 +1290,7 @@ void __stdcall INV_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
             {
                 sub_00526700(W(wszClassReq), D2LANG_GetStringFromTblIndex(nClass + 0x2AA5));
                 sub_00526700(W(wszClassReq), pColorEnd);
-                if (sub_00623C60(pPlayer) != nClass)
+                if (UNITS_GetWeaponClass(pPlayer) != nClass)
                 {
                     bRedClass = 1;
                 }

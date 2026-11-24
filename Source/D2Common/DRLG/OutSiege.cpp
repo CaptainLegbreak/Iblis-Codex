@@ -97,21 +97,21 @@ D2LvlPrestRecordStrc* __stdcall sub_0061F0B0(int nPresetId); // 0x0061F0B0
 
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6); // 0x006743C0
 
-int __fastcall sub_00674730(D2DrlgLevelStrc* pLevel, int nPresetId, int nArg, int a4, int a5);
+int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nPresetId, int nArg, int a4, int a5); // 0x00674730
 
-void __fastcall sub_00675770(D2DrlgLevelStrc* pLevel);
+void __fastcall DRLGOUTPLACE_SetOutGridLinkFlags(D2DrlgLevelStrc* pLevel); // 0x00675770
 
 void __fastcall sub_00670750(D2DrlgOutPlaceCtxStrc* pCtx); // 0x00670750
 
 unsigned int __fastcall DRLGOUTDOORS_TestGridCellNonLvlLink(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x006741E0
 
-int __fastcall DRLGOUTDOOR_00674120(D2DrlgLevelStrc* pLevel, int nX, int nY);
+int __fastcall DRLGOUTDOORS_GetPresetIndexFromGridCell(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674120
 
-int __fastcall sub_00674160(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674160
+int __fastcall DRLGOUTDOORS_AlterAdjacentPresetGridCells(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674160
 
-int __fastcall sub_006741A0(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x006741A0
+int __fastcall DRLGOUTDOORS_SetBlankGridCell(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x006741A0
 
-int __fastcall DRLGOUTDOOR_006755C0(int nDirX, int nDirY, int nSize);
+int __fastcall DRLGOUTDOORS_GetBorderLevelPrestId(int nDirX, int nDirY, int nSize); // 0x006755C0
 
 int __fastcall DRLGOUTDOORS_GetCornerPresetId(int nDirX, int nDirY, int nNextDirX, int nNextDirY, int nSize); // 0x00675600
 
@@ -468,8 +468,8 @@ static void DRLGOUTSIEGE_AddAct5SecondaryBorder(D2DrlgLevelStrc* pLevel)
     tCtx.pGrid04 = &pInfo->pGrid[0];
     tCtx.pGrid2C = &pInfo->pGrid[2];
     tCtx.pfnTest = DRLGOUTSIEGE_TestSecondaryBorderCell;
-    tCtx.pfn2C = sub_00674160;
-    tCtx.pfn30 = sub_006741A0;
+    tCtx.pfn2C = DRLGOUTDOORS_AlterAdjacentPresetGridCells;
+    tCtx.pfn30 = DRLGOUTDOORS_SetBlankGridCell;
     tCtx.pfnPlace = DRLGOUTDOORS_SpawnOutdoorLevelPresetEx;
     tCtx.pfnGetPreset = DRLGOUTSIEGE_GetSecondaryBorderPresetId;
     tCtx.n14 = -1;
@@ -615,7 +615,7 @@ void __fastcall sub_Emit_0067E240(D2DrlgLevelStrc* pLevel)
 
 static int DRLGACT5_ReplaceTransitionPreset(D2DrlgLevelStrc* pLevel, int nX, int nY)
 {
-    int nPresetId = DRLGOUTDOOR_00674120(pLevel, nX, nY);
+    int nPresetId = DRLGOUTDOORS_GetPresetIndexFromGridCell(pLevel, nX, nY);
     if (nPresetId < 0x393 || nPresetId > 0x39A)
     {
         return 0;

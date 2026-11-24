@@ -423,7 +423,7 @@ void __fastcall MONSTERMODE_TryDropTreasure(D2GameStrc*, D2ModeChangeStrc*, int)
 
 void __fastcall sub_00547E50_RemoveMonster(void*, D2UnitStrc*); // 0x00547E50
 
-void __stdcall sub_0061AFA0_RemoveRoomUnit(D2ActiveRoomStrc*, int); // 0x0061AFA0
+void __stdcall DUNGEON_SaveKilledUnitGUID(D2ActiveRoomStrc*, int); // 0x0061AFA0
 
 void __fastcall sub_0057C1E0_CalculateDamage(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, D2DamageStrc*); // 0x0057C1E0
 
@@ -1768,7 +1768,7 @@ int __fastcall MONSTERMODE_StartDeath(D2GameStrc* pGame, D2ModeChangeStrc* pMode
     int nUnitId;
     if (!pUnit) nUnitId = -1;
     else nUnitId = pUnit->dwUnitId;
-    sub_0061AFA0_RemoveRoomUnit(UNITS_GetRoom(pUnit), nUnitId);
+    DUNGEON_SaveKilledUnitGUID(UNITS_GetRoom(pUnit), nUnitId);
     D2MonStatsTxt* pMonStats = GetMonStatsTxtRecord(pUnit);
     if (!HasCorpseExplosion(pMonStats))
     {
