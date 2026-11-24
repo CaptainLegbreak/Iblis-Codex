@@ -1409,9 +1409,4 @@ int __fastcall OBJECTS_OperateFunction56_DiabloSeal(D2ObjOperateFnStrc* pOp, int
     return 0;
 }
 
-int gnAct4Q1NpcMessageIndices[] = // 0x0073DBA0
-{
-    -1, 0, 1, 2, 3, 4
-};
-
 #include "gen/data/Source/D2Game/Quests/a4q2.inc"
