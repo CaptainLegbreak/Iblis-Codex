@@ -317,12 +317,6 @@ static int sub_00421440_IsEven(const BigBuffer& a)
     return !a.Count() || !(a[0] & 1);
 }
 
-// 0x00421540
-int __stdcall SBigIsEven(D2StormBigStrc* pBig)
-{
-    return sub_00421440_IsEven(pBig->tPrimary);
-}
-
 // 0x00421570
 D2StormFixedUIntArrayStrc::~D2StormFixedUIntArrayStrc()
 {

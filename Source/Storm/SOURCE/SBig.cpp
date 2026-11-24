@@ -1044,4 +1044,16 @@ int __stdcall SBigIsOdd(D2StormBigStrc* pBig)
     return IsOdd(&pBig->tPrimary);
 }
 
+// 0x00421540
+int __stdcall SBigIsEven(D2StormBigStrc* pBig)
+{
+    return sub_00421440_IsEven(pBig->tPrimary);
+}
+
+// 0x004237D0
+void __stdcall SBigCopy(D2StormBigStrc* pDest, D2StormBigStrc* pSource)
+{
+    pDest->tPrimary = pSource->tPrimary;
+}
+
 #include "gen/data/Source/Storm/SOURCE/SBig.inc"

@@ -6288,11 +6288,6 @@
      "va": "0x004220D0",
      "length": 76,
      "name": "sub_004220D0_SetCount"
-    },
-    {
-     "va": "0x004237D0",
-     "length": 48,
-     "name": "SBigCopy"
     }
    ]
   },
@@ -6999,11 +6994,6 @@
      "name": "?sub_004212B0_Empty@@YAXXZ"
     },
     {
-     "va": "0x00421540",
-     "length": 15,
-     "name": "?SBigIsEven@@YGHPAUD2StormBigStrc@@@Z"
-    },
-    {
      "va": "0x00421570",
      "length": 23,
      "name": "??1D2StormFixedUIntArrayStrc@@QAE@XZ"
@@ -7271,6 +7261,11 @@
      "name": "?sub_00421530@@YGHPAX0@Z"
     },
     {
+     "va": "0x00421540",
+     "length": 15,
+     "name": "?SBigIsEven@@YGHPAUD2StormBigStrc@@@Z"
+    },
+    {
      "va": "0x00421550",
      "length": 18,
      "name": "?SBigToUnsigned@@YGXPAXPAI@Z"
@@ -7395,6 +7390,11 @@
      "va": "0x004237B0",
      "length": 25,
      "name": "?SBigAnd@@YGXPAUD2StormBigStrc@@00@Z"
+    },
+    {
+     "va": "0x004237D0",
+     "length": 48,
+     "name": "SBigCopy"
     },
     {
      "va": "0x00423800",

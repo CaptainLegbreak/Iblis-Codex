@@ -831,13 +831,4 @@ void BigBuffer::sub_004220D0_SetCount(unsigned int nCount)
     m_array.SetCount(m_start + nCount);
 }
 
-// 0x004237D0
-void __stdcall SBigCopy(BigBuffer* pDest, BigBuffer* pSource)
-{
-    if (pDest != pSource)
-        pDest->m_array.sub_004215C0_Set(pSource->m_array.f_4, pSource->m_array.f_8);
-    pDest->m_array.f_C = pSource->m_array.f_C;
-    pDest->m_start = pSource->m_start;
-}
-
 #include "gen/data/Source/Storm/SOURCE/SSignature.inc"
