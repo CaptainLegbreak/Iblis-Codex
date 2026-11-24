@@ -158,6 +158,44 @@ void __fastcall DRLGOUTPLACE_SetBlankBorderGridCells(D2DrlgLevelStrc* pLevel)
     }
 }
 
+#define LARGE_SHIFT 16
+#define SMALL_SHIFT 8
+
+// 0x00675DE0
+static void __fastcall sub_00675DE0_Place(D2DrlgCoordStrc* src,int mode,int side,D2DrlgCoordStrc* dst) {
+ switch(side) {
+ case 0:
+  dst->nPosX=src->nPosX;
+  dst->nPosY=src->nHeight+src->nPosY;
+  if(mode==1) dst->nPosX-=LARGE_SHIFT;
+  break;
+ case 1:
+  dst->nPosX=src->nPosX-dst->nWidth;
+  dst->nPosY=src->nPosY;
+  if(mode==1) dst->nPosY-=LARGE_SHIFT;
+  else if(mode==2) dst->nPosY+=SMALL_SHIFT;
+  break;
+ case 2:
+  dst->nPosX=src->nWidth-dst->nWidth+src->nPosX;
+  dst->nPosY=src->nPosY-dst->nHeight;
+  if(mode==1) dst->nPosX+=LARGE_SHIFT;
+  break;
+ case 3:
+  dst->nPosX=src->nWidth+src->nPosX;
+  dst->nPosY=src->nHeight-dst->nHeight+src->nPosY;
+  if(mode==1) dst->nPosY+=LARGE_SHIFT;
+  else if(mode==2) dst->nPosY-=SMALL_SHIFT;
+  else if(mode==3) dst->nPosY+=SMALL_SHIFT;
+  break;
+ }
+}
+
+void __fastcall EmitPlacement(D2DrlgCoordStrc* src,int mode,int side,D2DrlgCoordStrc* dst) {
+ sub_00675DE0_Place(src,mode,side,dst);
+}
+#undef LARGE_SHIFT
+#undef SMALL_SHIFT
+
 // 0x00675EB0
 static void __stdcall sub_00675EB0_PlaceCoord(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4)
 {
@@ -392,6 +430,394 @@ int __fastcall sub_6FD81330(D2DrlgLevelLinkDataStrc* pLevelLinkData)
     D2LevelDefBin* pLevelDefBinRecord = DATATBLS_GetLevelDefRecord(pLevelLinkData->nCurrentLevel);
     pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration].nPosX = pLevelDefBinRecord->dwOffsetX;
     pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration].nPosY = pLevelDefBinRecord->dwOffsetY;
+
+    return 1;
+}
+
+// 0x00676450
+int __fastcall sub_00676450_LinkStepDirectionSide(D2DrlgLevelLinkDataStrc* pData)
+{
+    if (pData->nRand[1][pData->nIteration] == -1)
+    {
+        pData->nRand[1][pData->nIteration] = SEED_RollRandomNumber(&pData->pSeed) & 3;
+        pData->nRand[0][pData->nIteration] = pData->nRand[1][pData->nIteration];
+        pData->nRand[3][pData->nIteration] = SEED_RollRandomNumber(&pData->pSeed) & 1;
+        pData->nRand[2][pData->nIteration] = pData->nRand[3][pData->nIteration];
+    }
+    else
+    {
+        const int nNext = (pData->nRand[0][pData->nIteration] + pData->nRand[2][pData->nIteration]) % 4;
+        const int nSide = (pData->nRand[2][pData->nIteration] + 1) % 2;
+        if (nNext == pData->nRand[1][pData->nIteration] && nSide == pData->nRand[3][pData->nIteration])
+        {
+            return 0;
+        }
+
+        pData->nRand[0][pData->nIteration] = nNext;
+        pData->nRand[2][pData->nIteration] = nSide;
+    }
+
+    const int nIndex = pData->nIteration;
+    D2DrlgCoordStrc* pLinkCoord = &pData->pLevelCoord[pData->pLink[nIndex].nLevelLink];
+    if (pData->nRand[2][nIndex] == 1)
+    {
+        switch (pData->nRand[0][nIndex])
+        {
+        case 0:
+            pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nPosX;
+            pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nHeight + pLinkCoord->nPosY;
+            break;
+        case 1:
+            pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nPosX - pData->pLevelCoord[nIndex].nWidth;
+            pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nPosY + 8;
+            break;
+        case 2:
+            pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nWidth - pData->pLevelCoord[nIndex].nWidth + pLinkCoord->nPosX;
+            pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nPosY - pData->pLevelCoord[nIndex].nHeight;
+            break;
+        case 3:
+            pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nWidth + pLinkCoord->nPosX;
+            pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nHeight - pData->pLevelCoord[nIndex].nHeight + pLinkCoord->nPosY - 8;
+            break;
+        }
+    }
+    else
+    {
+        switch (pData->nRand[0][nIndex])
+        {
+        case 0:
+            pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nWidth - pData->pLevelCoord[nIndex].nWidth + pLinkCoord->nPosX;
+            pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nHeight + pLinkCoord->nPosY;
+            break;
+        case 1:
+            pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nPosX - pData->pLevelCoord[nIndex].nWidth;
+            pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nHeight - pData->pLevelCoord[nIndex].nHeight + pLinkCoord->nPosY - 8;
+            break;
+        case 2:
+            pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nPosX;
+            pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nPosY - pData->pLevelCoord[nIndex].nHeight;
+            break;
+        case 3:
+            pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nWidth + pLinkCoord->nPosX;
+            pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nPosY + 8;
+            break;
+        }
+    }
+
+    return 1;
+}
+
+static inline void DRLGOUTPLACE_PlaceCoordSide1(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4)
+{
+    switch (nDirection)
+    {
+    case 0:
+        pCoord->nPosX = pLinkCoord->nPosX;
+        pCoord->nPosY = pLinkCoord->nHeight + pLinkCoord->nPosY;
+        if (a4 == 1)
+        {
+            pCoord->nPosX -= 16;
+        }
+        break;
+    case 1:
+        pCoord->nPosX = pLinkCoord->nPosX - pCoord->nWidth;
+        pCoord->nPosY = pLinkCoord->nPosY;
+        if (a4 == 1)
+        {
+            pCoord->nPosY -= 16;
+        }
+        break;
+    case 2:
+        pCoord->nPosX = pLinkCoord->nWidth - pCoord->nWidth + pLinkCoord->nPosX;
+        pCoord->nPosY = pLinkCoord->nPosY - pCoord->nHeight;
+        if (a4 == 1)
+        {
+            pCoord->nPosX += 16;
+        }
+        break;
+    case 3:
+        pCoord->nPosX = pLinkCoord->nWidth + pLinkCoord->nPosX;
+        pCoord->nPosY = pLinkCoord->nHeight - pCoord->nHeight + pLinkCoord->nPosY;
+        if (a4 == 1)
+        {
+            pCoord->nPosY += 16;
+        }
+        break;
+    }
+}
+
+static inline void DRLGOUTPLACE_PlaceCoordSide0(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4)
+{
+    switch (nDirection)
+    {
+    case 0:
+        pCoord->nPosX = pLinkCoord->nWidth - pCoord->nWidth + pLinkCoord->nPosX;
+        pCoord->nPosY = pLinkCoord->nHeight + pLinkCoord->nPosY;
+        if (a4 == 1)
+        {
+            pCoord->nPosX += 16;
+        }
+        break;
+    case 1:
+        pCoord->nPosX = pLinkCoord->nPosX - pCoord->nWidth;
+        pCoord->nPosY = pLinkCoord->nHeight - pCoord->nHeight + pLinkCoord->nPosY;
+        if (a4 == 1)
+        {
+            pCoord->nPosY += 16;
+        }
+        break;
+    case 2:
+        pCoord->nPosX = pLinkCoord->nPosX;
+        pCoord->nPosY = pLinkCoord->nPosY - pCoord->nHeight;
+        if (a4 == 1)
+        {
+            pCoord->nPosX -= 16;
+        }
+        break;
+    case 3:
+        pCoord->nPosX = pLinkCoord->nWidth + pLinkCoord->nPosX;
+        pCoord->nPosY = pLinkCoord->nPosY;
+        if (a4 == 1)
+        {
+            pCoord->nPosY -= 16;
+        }
+        break;
+    }
+}
+
+// 0x00676650
+int __fastcall sub_00676650_LinkStepDirectionSideSized(D2DrlgLevelLinkDataStrc* pData)
+{
+    if (pData->nRand[1][pData->nIteration] == -1)
+    {
+        pData->nRand[1][pData->nIteration] = SEED_RollRandomNumber(&pData->pSeed) & 3;
+        pData->nRand[0][pData->nIteration] = pData->nRand[1][pData->nIteration];
+        pData->nRand[3][pData->nIteration] = SEED_RollRandomNumber(&pData->pSeed) & 1;
+        pData->nRand[2][pData->nIteration] = pData->nRand[3][pData->nIteration];
+    }
+    else
+    {
+        const int nNext = (pData->nRand[0][pData->nIteration] + pData->nRand[2][pData->nIteration]) % 4;
+        const int nSide = (pData->nRand[2][pData->nIteration] + 1) % 2;
+        if (nNext == pData->nRand[1][pData->nIteration] && nSide == pData->nRand[3][pData->nIteration])
+        {
+            return 0;
+        }
+
+        pData->nRand[0][pData->nIteration] = nNext;
+        pData->nRand[2][pData->nIteration] = nSide;
+    }
+
+    pData->pLevelCoord[pData->nIteration].nWidth = (pData->nRand[0][pData->nIteration] % 2) ? 96 : 56;
+    pData->pLevelCoord[pData->nIteration].nHeight = (pData->nRand[0][pData->nIteration] % 2) ? 56 : 96;
+
+    const int nIndex = pData->nIteration;
+    D2DrlgCoordStrc* pLinkCoord = &pData->pLevelCoord[pData->pLink[nIndex].nLevelLink];
+    if (pData->nRand[2][nIndex] == 1)
+    {
+        DRLGOUTPLACE_PlaceCoordSide1(pLinkCoord, &pData->pLevelCoord[nIndex], pData->nRand[0][nIndex], 1);
+    }
+    else
+    {
+        DRLGOUTPLACE_PlaceCoordSide0(pLinkCoord, &pData->pLevelCoord[nIndex], pData->nRand[0][nIndex], 1);
+    }
+
+    return 1;
+}
+
+// 0x006768C0
+int __fastcall sub_006768C0_PlaceLevel(D2DrlgLevelLinkDataStrc* pData)
+{
+    pData->nRand[1][pData->nIteration] = 0;
+    pData->nRand[0][pData->nIteration] = pData->nRand[1][pData->nIteration];
+    const int nIndex = pData->nIteration;
+    const int nDirection = pData->nRand[0][nIndex];
+    D2DrlgCoordStrc* pLinkCoord = &pData->pLevelCoord[pData->pLink[nIndex].nLevelLink];
+    switch (nDirection)
+    {
+    case 0:
+        pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nPosX;
+        pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nHeight + pLinkCoord->nPosY;
+        break;
+    case 1:
+        pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nPosX - pData->pLevelCoord[nIndex].nWidth;
+        pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nPosY;
+        break;
+    case 2:
+        pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nWidth - pData->pLevelCoord[nIndex].nWidth + pLinkCoord->nPosX;
+        pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nPosY - pData->pLevelCoord[nIndex].nHeight;
+        break;
+    case 3:
+        pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nWidth + pLinkCoord->nPosX;
+        pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nHeight - pData->pLevelCoord[nIndex].nHeight + pLinkCoord->nPosY;
+        break;
+    }
+    return 1;
+}
+
+static inline void sub_6FD81430(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
+{
+	switch (a3)
+	{
+	case 0:
+		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX;
+		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY + pDrlgCoord1->nHeight;
+
+		if (a4 == 1)
+		{
+			pDrlgCoord2->nPosX -= 16;
+		}
+		break;
+
+	case 1:
+		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX - pDrlgCoord2->nWidth;
+		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY;
+
+		if (a4 == 1)
+		{
+			pDrlgCoord2->nPosY -= 16;
+		}
+		else if (a4 == 2)
+		{
+			pDrlgCoord2->nPosY += 8;
+		}
+		break;
+
+	case 2:
+		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX + pDrlgCoord1->nWidth - pDrlgCoord2->nWidth;
+		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY - pDrlgCoord2->nHeight;
+
+		if (a4 == 1)
+		{
+			pDrlgCoord2->nPosX += 16;
+		}
+		break;
+
+	case 3:
+		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX + pDrlgCoord1->nWidth;
+		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY + pDrlgCoord1->nHeight - pDrlgCoord2->nHeight;
+
+		switch (a4)
+		{
+		case 1:
+			pDrlgCoord2->nPosY += 16;
+			break;
+
+		case 2:
+			pDrlgCoord2->nPosY -= 8;
+			break;
+
+		case 3:
+			pDrlgCoord2->nPosY += 8;
+			break;
+		default:
+			break;
+		}
+		break;
+
+	default:
+		return;
+	}
+}
+
+static inline void sub_6FD81850(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
+{
+	switch (a3)
+	{
+	case 0:
+		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX + pDrlgCoord1->nWidth - pDrlgCoord2->nWidth;
+		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY + pDrlgCoord1->nHeight;
+
+		if (a4 == 1)
+		{
+			pDrlgCoord2->nPosX += 16;
+		}
+		break;
+
+	case 1:
+		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX - pDrlgCoord2->nWidth;
+		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY + pDrlgCoord1->nHeight - pDrlgCoord2->nHeight;
+
+		if (a4 == 1)
+		{
+			pDrlgCoord2->nPosY += 16;
+		}
+		else if (a4 == 2)
+		{
+			pDrlgCoord2->nPosY -= 8;
+		}
+		break;
+
+	case 2:
+		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX;
+		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY - pDrlgCoord2->nHeight;
+
+		if (a4 == 1)
+		{
+			pDrlgCoord2->nPosX -= 16;
+		}
+		break;
+
+	case 3:
+		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX + pDrlgCoord1->nWidth;
+		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY;
+
+		switch (a4)
+		{
+		case 1:
+			pDrlgCoord2->nPosY -= 16;
+			break;
+
+		case 2:
+			pDrlgCoord2->nPosY += 8;
+			break;
+
+		case 3:
+			pDrlgCoord2->nPosY -= 8;
+			break;
+		default:
+			break;
+		}
+		break;
+
+	default:
+		return;
+	}
+}
+
+// 0x006769A0
+int __fastcall sub_6FD81B30(D2DrlgLevelLinkDataStrc* pLevelLinkData)
+{
+    int nRand = 0;
+
+    if (pLevelLinkData->nRand[1][pLevelLinkData->nIteration] == -1)
+    {
+        pLevelLinkData->nRand[1][pLevelLinkData->nIteration] = (SEED_RollRandomNumber(&pLevelLinkData->pSeed) & 1) + 1;
+        pLevelLinkData->nRand[0][pLevelLinkData->nIteration] = pLevelLinkData->nRand[1][pLevelLinkData->nIteration];
+    }
+    else
+    {
+        nRand = pLevelLinkData->nRand[0][pLevelLinkData->nIteration] != 1 ? 1 : 2;
+
+        if (nRand == pLevelLinkData->nRand[1][pLevelLinkData->nIteration])
+        {
+            return 0;
+        }
+
+        pLevelLinkData->nRand[0][pLevelLinkData->nIteration] = nRand;
+    }
+
+    D2DrlgCoordStrc* pDrlgCoord1 = &pLevelLinkData->pLevelCoord[pLevelLinkData->pLink[pLevelLinkData->nIteration].nLevelLink];
+    D2DrlgCoordStrc* pDrlgCoord2 = &pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration];
+    const int nDirection = pLevelLinkData->nRand[0][pLevelLinkData->nIteration];
+    if (nDirection == 1)
+    {
+        sub_6FD81430(pDrlgCoord1, pDrlgCoord2, 1, 0);
+    }
+    else
+    {
+        sub_6FD81850(pDrlgCoord1, pDrlgCoord2, nDirection, 0);
+    }
 
     return 1;
 }

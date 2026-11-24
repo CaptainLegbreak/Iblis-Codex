@@ -3913,15 +3913,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_00675850.cpp": {
-   "bytes": 316,
-   "definitions": 4,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_00675850.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Common/Unknown_00679380.cpp": {
    "bytes": 636,
    "definitions": 7,
@@ -4698,17 +4689,13 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/OutPlace.cpp": {
-   "bytes": 2900,
-   "definitions": 14,
+   "bytes": 3216,
+   "definitions": 18,
    "externs": [
     "extern \"C\" void __cdecl sub_006760F0(); // 0x006760F0",
-    "extern \"C\" void __cdecl sub_00676450_LinkStepDirectionSide(); // 0x00676450",
-    "extern \"C\" void __cdecl sub_00676650_LinkStepDirectionSideSized(); // 0x00676650",
     "extern \"C\" void __cdecl DRLGOUTROOM_LinkLevelsByLevelCoords(); // 0x0067D830",
     "extern \"C\" void __cdecl DRLGOUTROOM_LinkLevelsByLevelDef(); // 0x0067D8E0",
     "extern \"C\" void __cdecl DRLGOUTROOM_LinkLevelsByOffsetCoords(); // 0x0067D980",
-    "extern \"C\" void __cdecl sub_006768C0_PlaceLevel(); // 0x006768C0",
-    "extern \"C\" void __cdecl sub_006769A0(); // 0x006769A0",
     "extern \"C\" void __cdecl sub_00676AE0(); // 0x00676AE0"
    ],
    "fn_types": {},
@@ -138388,7 +138375,7 @@
    "cname": "gData_006F0620",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_00675850.cpp",
+   "file": "Source/D2Common/DRLG/OutPlace.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006F0620_t gData_006F0620; // 0x006F0620",
    "head": "extern \"C\" const struct d2data_006F0620_t gData_006F0620 = ",
@@ -138405,7 +138392,7 @@
    "cname": "gData_006F06F0",
    "declared": true,
    "decorated": "?gaBarricadeCliffBorderIds@@3PAY01HA",
-   "file": "Source/D2Common/Unknown_00675850.cpp",
+   "file": "Source/D2Common/DRLG/OutPlace.cpp",
    "fill": 12,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006F06F0[12][2]; // 0x006F06F0",
@@ -138441,7 +138428,7 @@
    "cname": "gData_006F1088",
    "declared": true,
    "decorated": "?gaBorderIndicesByDelta@@3PAHA",
-   "file": "Source/D2Common/Unknown_00675850.cpp",
+   "file": "Source/D2Common/DRLG/OutPlace.cpp",
    "fill": 41,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006F1088[41]; // 0x006F1088",
@@ -138472,7 +138459,7 @@
    "cname": "gData_006F112C",
    "declared": true,
    "decorated": "?gaDesertBorderIds@@3PAY01HA",
-   "file": "Source/D2Common/Unknown_00675850.cpp",
+   "file": "Source/D2Common/DRLG/OutPlace.cpp",
    "fill": 5,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006F112C[5][2]; // 0x006F112C",
@@ -138832,8 +138819,8 @@
     [
      16,
      "0x006769A0",
-     "queue_function",
-     "sub_006769A0",
+     "source",
+     "sub_6FD81B30",
      0,
      "func"
     ],
