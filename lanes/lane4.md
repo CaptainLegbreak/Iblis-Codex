@@ -14,6 +14,8 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 - editbox.cpp is three objects (lane4/editbox-split): the button classes 0x4BABF0-0x4BB16F (data: copy 0x72756C, gaButtonStrings, the UIWidget/Button type descriptors), editbox.cpp proper 0x4BB170-0x4BBE0F (the `.\UI\editbox.cpp` user; copy 0x727608 and the EditBox descriptors, now borrowed) and the spinner classes 0x4BBE10-0x4BC4F9 (copy 0x727688 and the Spinner descriptors, borrowed). The button and spinner runs become placeholders.
 
+- WINMAIN.CPP's object, 0x44B440-0x44B8AF (lane4/winmain-object, stacked on copies-start-b): the `.\CORE\WINMAIN.CPP` users sit in it, and its launch data (copy 0x70EE10, gnClientLaunchState, gpszDefaultCaption, gaszLaunchModeNames, gbExitApplication) is read only by it and by WINMAIN's initializers. The Game.cpp, Game_0044B7B0.cpp and Game_0044E5A0.cpp functions inside it join WINMAIN.CPP; Game.cpp's data starts at the copy 0x70EED0. (copies-start-b sends 0x70EE10 to Game_0044E5A0.cpp; this corrects it.)
+
 ## Questions
 
 ## Notes for other lanes
