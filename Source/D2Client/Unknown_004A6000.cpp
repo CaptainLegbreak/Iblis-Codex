@@ -31,7 +31,6 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);  
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 
 extern int gnScreenWidth;                                                                               // 0x0071146C
-extern int gnScreenHeight;                                                                               // 0x00711470
 extern D2MsgHandlerEntryStrc gaKeyCaptureMButtonHandlers[];                                                      // 0x0072472C
 extern D2MsgHandlerEntryStrc gaKeyCaptureHandlers[];                                                      // 0x00724738
 extern D2MsgHandlerEntryStrc gaKeyCaptureXButtonHandlers[];                                                      // 0x00724780

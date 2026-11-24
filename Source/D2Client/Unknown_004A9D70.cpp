@@ -32,7 +32,6 @@ unsigned short __fastcall sub_004E6CE0_GetStringId(int nId, int nIndex); // 0x00
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 extern int gnPanelOffsetX; // 0x007A2858
-extern int gnScreenHeight; // 0x00711470
 extern int gnPanelOffsetY; // 0x007A285C
 extern unsigned char gnCharClass; // 0x007A0522
 extern int gnScreenWidth; // 0x0071146C

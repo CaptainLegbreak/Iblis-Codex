@@ -17,8 +17,6 @@ extern unsigned int gdwBitMasks[];
 extern "C" const char gszFormatD[];
 // build: symbol ?gnScreenWidth@* 0x0071146C
 extern int gnScreenWidth;
-// build: symbol ?gnScreenHeight@* 0x00711470
-extern int gnScreenHeight;
 // build: symbol ?gnPanelOffsetX@* 0x007A2858
 extern int gnPanelOffsetX;
 // build: symbol ?gnPanelOffsetY@* 0x007A285C

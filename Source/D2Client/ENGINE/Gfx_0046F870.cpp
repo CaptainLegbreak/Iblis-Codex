@@ -73,7 +73,6 @@ static int GFX_LoadGfxNodeSetByte(D2UnitStrc* pUnit, int nIndex); // 0x0046EA50
 struct D2GfxHeaderStrc { int unknown00[2],left,right,top,bottom; };
 
 extern int gnScreenWidth; // 0x0071146C
-extern int gnScreenHeight; // 0x00711470
 D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
 void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc*,int,int); // 0x0046FA80
 D2GfxHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void*); // 0x004DB040

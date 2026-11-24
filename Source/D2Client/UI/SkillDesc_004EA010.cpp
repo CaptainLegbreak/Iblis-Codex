@@ -34,8 +34,6 @@ extern "C" const char gszFmtRangeKK[]; // 0x006DBEAC
 
 extern "C" const char gszFmtRangeK[]; // 0x006DBEB8
 
-extern int gnScreenHeight; // 0x00711470
-
 extern int gnPanelOffsetX; // 0x007A2858
 
 extern int gnPanelOffsetY; // 0x007A285C

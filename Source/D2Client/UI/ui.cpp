@@ -489,8 +489,6 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);            
 
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
 
-extern int gnScreenHeight;                                                                               // 0x00711470
-
 extern D2ViewStrc* gpClientView;                                                                         // 0x007A0640
 
 extern int gaUIVarStates[];                                                                        // 0x007A27C0

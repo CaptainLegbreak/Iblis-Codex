@@ -40,7 +40,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern int gnPanelOffsetX; // 0x007A2858
 extern int gnPanelOffsetY; // 0x007A285C
-extern int gnScreenHeight; // 0x00711470
 extern unsigned char gnTextColor; // 0x007C02F8
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const D2HoverBoxStrc gaHoverBoxes[2]; // 0x006DA430

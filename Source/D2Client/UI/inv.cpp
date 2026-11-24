@@ -247,8 +247,6 @@ void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLev
 
 extern int gnScreenWidth; // 0x0071146C
 
-extern int gnScreenHeight; // 0x00711470
-
 extern int gnHoverTopX; // 0x00721E3C
 
 extern int gnHoverTopY; // 0x00721E40

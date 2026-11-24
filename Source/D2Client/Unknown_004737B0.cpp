@@ -35,7 +35,6 @@ unsigned char gabParticleColorsTwilight[12];                                    
 unsigned char gabParticleColorsDay[12];                                                                 // 0x007A8980
 unsigned char gabParticleColorsNight[12];                                                                 // 0x007A89A4
 extern int gnScreenWidth;                                                                               // 0x0071146C
-extern int gnScreenHeight;                                                                               // 0x00711470
 D2WeatherStrc* gpWeatherParticles;                                                                          // 0x007A8A04
 extern D2WeatherStrc* gpWeatherSplashes;                                                                   // 0x007A89FC
 extern D2WeatherStrc* gpWeatherBubbles;                                                                   // 0x007A8A00

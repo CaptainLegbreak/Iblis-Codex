@@ -9,7 +9,6 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const cha
 
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
 extern int gnScreenWidth;                                                                               // 0x0071146C
-extern int gnScreenHeight;                                                                               // 0x00711470
 extern int gnPanelOffsetX;                                                                               // 0x007A2858
 extern int gnPanelOffsetY;                                                                               // 0x007A285C
 extern int gnSkillPage;                                                                               // 0x00724BEC

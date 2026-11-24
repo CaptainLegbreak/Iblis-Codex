@@ -69,8 +69,6 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);  
 
 extern int gnScreenWidth;                                                                               // 0x0071146C
 
-extern int gnScreenHeight;                                                                               // 0x00711470
-
 extern D2PanelAnimEntryStrc gaPanelAnim[];                                                         // 0x00712020
 
 extern int gnPanelOffsetX;                                                                               // 0x007A2858

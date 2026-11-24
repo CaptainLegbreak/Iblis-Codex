@@ -52,8 +52,6 @@ int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int b
 
 extern int gnScreenWidth; // 0x0071146C
 
-extern int gnScreenHeight; // 0x00711470
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 

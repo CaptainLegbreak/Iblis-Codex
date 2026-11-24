@@ -38,8 +38,6 @@ extern D2PanelAnimEntryStrc gaPanelAnim[]; // 0x00712020
 
 extern int gnScreenWidth; // 0x0071146C
 
-extern int gnScreenHeight; // 0x00711470
-
 int gbCursorVisible;                                                                                      // 0x007A6B08
 
 static int gnCursorY;                                                                               // 0x007A6AAC

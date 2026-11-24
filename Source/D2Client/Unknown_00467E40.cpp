@@ -14,7 +14,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2CursorAnimStrc gaCursorAnim[CURSOR_ANIM_COUNT]; // 0x00712010
 extern int gbCursorVisible; // 0x007A6B08
 extern int gnScreenWidth; // 0x0071146C
-extern int gnScreenHeight; // 0x00711470
 extern "C" __declspec(dllimport) int __stdcall SetCursorPos(int nX, int nY); // 0x006CC4B4
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 

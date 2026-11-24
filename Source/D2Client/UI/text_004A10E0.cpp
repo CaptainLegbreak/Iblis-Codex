@@ -117,8 +117,8 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
     }
     D2RectStrc tRect;
     tRect.nTop = gnTextTop_007225FC;
-    tRect.nBottom = (gnTextTop_007225FC + 182 < gnScreenHeight_00711470 - 53)
-        ? gnTextTop_007225FC + 182 : gnScreenHeight_00711470 - 53;
+    tRect.nBottom = (gnTextTop_007225FC + 182 < gnScreenHeight - 53)
+        ? gnTextTop_007225FC + 182 : gnScreenHeight - 53;
     tRect.nLeft = gnTextLeft_007BF278 - 10;
     tRect.nRight = gnTextLeft_007BF278 + 335;
     sub_00467430_SetSelectionRect(&tRect);

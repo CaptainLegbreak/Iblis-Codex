@@ -391,7 +391,7 @@ extern int gnNpcEntryCount; // 0x0072554C
 extern int gnNpcIndexCount; // 0x00725A74
 extern int gnPhaseLevel; // 0x007A89E0
 extern int gnPressedButton_007C02B4; // 0x007C02B4
-extern int gnScreenHeight_00711470; // 0x00711470
+extern int gnScreenHeight; // 0x00711470
 extern int gnScreenWidth_0071146C; // 0x0071146C
 extern int gnSkillSelectProcs; // 0x00711F50
 extern int gnSlotState_007BC8F8[]; // 0x007BC8F8

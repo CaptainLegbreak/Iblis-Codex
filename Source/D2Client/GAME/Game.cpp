@@ -472,8 +472,6 @@ extern int gbPlaybackRequested; // 0x007A277C
 
 extern int gnScreenWidth; // 0x0071146C
 
-extern int gnScreenHeight; // 0x00711470
-
 int gdwFpsWindowStart;                                                                                     // 0x007A04B8
 
 int gbPositionalSound; // 0x007A061C
