@@ -747,7 +747,18 @@ static void* gpWorkBuffer_0077920C; // 0x0077920C
 
 static unsigned long gdwWorkBufferOwner_00779210; // 0x00779210
 
-static D2CriticalSectionStrc gtWorkBufferLock_00779214; // 0x00779214
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+
+// A critical section for the whole run: initialized before main, deleted at exit.
+struct CCritSect : D2CriticalSectionStrc
+{
+    CCritSect() { InitializeCriticalSection(this); }
+    ~CCritSect() { DeleteCriticalSection(this); }
+};
+
+// build: symbol ??__EgtWorkBufferLock_00779214@@YAXXZ 0x006CA8C0
+// build: symbol ??__FgtWorkBufferLock_00779214@@YAXXZ 0x006CB300
+static CCritSect gtWorkBufferLock_00779214; // 0x00779214
 
 // 0x0041E440
 static void* s_AllocDecompressBuffer(unsigned int nSize, int* pbShared)
