@@ -4,11 +4,11 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #354 (round j110). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 1,041 B (was 15,691 B at #297). Placeholder files 422; shims 73; context copies 218. Names: blizzard 475, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
+- `main`: #355 (round j111). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 1,041 B (was 15,691 B at #297). Placeholder files 419; shims 73; context copies 220. Names: blizzard 475, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
 - In progress: nothing; next round as branches are posted ready.
 - **Renames are landing on main.** After a rebase, run `python3 tools/namesync.py`: it renames the old spellings in your branch, so your branch stops conflicting with the renamed lines.
-- **Rebase onto #354, run namesync, and repost:** `lane9/renderer-tables`, `lane9/take-win-strays` (D2DDraw/Unknown_00510130.cpp), `lane3/qserver-head` (QServer.cpp), `lane10/names-prefixfix-d2client`, `lane10/sweep-d2common`, `lane10/names-d2client-ui`, `lane10/names-moved333`. Lane 10: these four still haven't moved; rebase or drop them.
-- **Held: `lane4/gamelist-strays-2` makes 16 B of data borrowed.** After the template members leave Storm/Unknown_00426910.cpp, the build copies 0x7088D8-0x7088E7 (`gszTypeNameBreakCmd_007088D8`, planned in that file) from Game.exe. Main built it. Keep the definition emitted, for instance by leaving whatever referenced it, or move the plan entry to the file that now owns the readers. Repost with your full verify's borrowed data figure (main: 1,041 B at #354).
+- **Rebase onto #355, run namesync, and repost:** `lane3/main-cpp-2` (D2Launch/Main.cpp and MainMenus.cpp: lane 6's winmain-main, in #355, moved WinMain into Unknown_00406410.cpp, so rename the file to Main.cpp with WinMain in it), `lane9/renderer-tables` and `lane9/take-win-strays` (both still conflict in D2DDraw/Unknown_00510130.cpp at tip 1f34e0e6: rebase onto origin/main itself, then build that file), `lane10/names-prefixfix-d2client`, `lane10/sweep-d2common`, `lane10/names-d2client-ui`, `lane10/names-moved333` (unchanged for 2-5 hours).
+- `lane4/gamelist-strays-3` fixed the 16 B at 0x7088D8 and merged in #355.
 - **Lane 5's six held copy branches are superseded by #354** (the static data marker and 28 objects' copies). Drop any whose copies #354 already covers. Repost the rest on #354 with markers, giving your verify's borrowed data figure (main: 1,041 B).
 - **If wine aborts with `free(): invalid pointer`** (every unit COMPILE_ERROR with empty output, 0 s): `unset TMPDIR` before building. A TMPDIR=/tmp in the session environment breaks wine 9.0 here.
 - Earlier rebase requests are done: their new versions were merged in #340, #341 and #342.
@@ -296,6 +296,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #355 j111: place-h (lane 8), winmain-main (lane 6), qserver-head-2 (lane 3), gamelist-strays-3 (lane 4), unicode-inits (lane 1), names-prefixfix-d2common/-d2net/-d2win/-fog (lane 10, 20 renames). Placeholders 422 -> 419, context copies 218 -> 220.
 - #354 j110: static-data-marker (lane 5: link_exe.py .data anchors + 28 copies), place-g (lane 8), bnsend-empty (lane 6), session-object-5, level-events, party-object-2 (lane 4), names2 (lane 3), missile-data (lane 2), names-prefixfix-d2game/-d2gdi/-d2launch (lane 10, 60 renames). Placeholders 427 -> 422, borrowed data 1,048 -> 1,041 B.
 - #353 j109: text-strays, waypoint-tail (lane 4), layout-init-2 (lane 1), celcmp-rtti (lane 6), excel-aliases, rtti-names, sbig-fields (lane 3), storm-bytearray (lane 2), names-prefixfix-d2ddraw/-d2direct3d/-d2multi/-d2sound (lane 10, 206 renames). Placeholders 428 -> 427, borrowed data 1,114 -> 1,048 B.
 - #352 j108: join-roomtile (lane 8), itemaffix-split-2, copy-owners (lane 5), waypoint-strays, run-strays (lane 4), excel-links, em-split (lane 3), client-fields (lane 2), names-prefixfix-d2glide (118 renames), sweep-d2client (93 spellings) (lane 10). Placeholders 428 (3 joined, 3 split out); borrowed data 1,114 B.
