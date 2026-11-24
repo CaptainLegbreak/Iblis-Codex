@@ -1946,15 +1946,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Hell/Unknown_00517423.cpp": {
-   "bytes": 124,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Hell/Unknown_00517423.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Hell/Unknown_00517669.cpp": {
    "bytes": 24,
    "definitions": 1,
@@ -5437,6 +5428,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/ENGINE/Cursor.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Hell/Unknown_005173EF.cpp": {
+   "bytes": 124,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Hell/Unknown_005173EF.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -81771,7 +81771,7 @@
    "cname": "gData_006CC848",
    "declared": true,
    "decorated": "?gpszModuleName@@3QBDB",
-   "file": "Source/D2Hell/Unknown_00517423.cpp",
+   "file": "Source/D2Hell/Unknown_005173EF.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const char* const gData_006CC848; // 0x006CC848",
    "head": "extern \"C\" const char* const gData_006CC848 = ",
@@ -81805,7 +81805,7 @@
    "cname": "gData_006DEBE8",
    "declared": true,
    "decorated": "?sgszAssertFormatString@@3QBDB",
-   "file": "Source/D2Hell/Unknown_00517423.cpp",
+   "file": "Source/D2Hell/Unknown_005173EF.cpp",
    "fill": 120,
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006DEBE8_t gData_006DEBE8; // 0x006DEBE8",
