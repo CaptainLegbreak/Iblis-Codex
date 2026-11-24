@@ -12,6 +12,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Questions
 
+- Claim (lane 5): joining the SkillItem.cpp run's placeholders into SkillItem.cpp (SkillItem_005C1560, Unknown_005C0F90 at 0x5C25C0, Unknown_005C2740, Items_005C2970, Items_005C2AD0, Unknown_005C2AF0), dropping their noinline/static helper copies in favour of SkillItem.cpp's own and letting the per-file inline budget decide, as the original would.
 
 ## Notes for other lanes
 
