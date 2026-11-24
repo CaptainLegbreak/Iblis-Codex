@@ -2,7 +2,7 @@
 unit and every includer of a touched header, drop the functions whose units fail, repeat until all equal. Leaves
 the result uncommitted in /home/claude/iblis-codex on branch names/sweep-<name>. Prints the excluded addresses."""
 import json, os, re, subprocess, sys
-R = os.environ.get('SWEEP_ROOT', '/home/claude/iblis-codex'); S = '/home/claude/scripts'; W = '/home/claude/tools-lane10'
+R = os.environ.get('SWEEP_ROOT', '/home/claude/iblis-codex'); S = '/home/claude/tools-lane10'; W = '/home/claude/tools-lane10'
 name, mods = sys.argv[1], sys.argv[2]
 def sh(*a, **k): return subprocess.run(list(a), cwd=R, capture_output=True, text=True, **k)
 sh('git', 'fetch', '-q', 'origin', 'main'); sh('git', 'checkout', '-q', '-B', 'names/sweep-' + name, 'origin/main')

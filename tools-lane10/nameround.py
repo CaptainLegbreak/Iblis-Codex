@@ -1,7 +1,7 @@
 """nameround.py <root> <plan.json> : apply a naming plan, build every touched unit and includer, drop the addresses
 whose units fail, repeat until equal. Leaves the result uncommitted. Prints the excluded addresses."""
 import json, os, re, subprocess, sys
-R, plan_f = sys.argv[1], sys.argv[2]; S = '/home/claude/scripts'
+R, plan_f = sys.argv[1], sys.argv[2]; S = '/home/claude/tools-lane10'
 def sh(*a, **k): return subprocess.run(list(a), cwd=R, capture_output=True, text=True, **k)
 plan = json.load(open(plan_f)); excl = set()
 env = {k: v for k, v in dict(os.environ, WINEDEBUG='-all').items() if k != 'TMPDIR'}
