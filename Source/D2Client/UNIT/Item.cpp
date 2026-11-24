@@ -209,8 +209,8 @@ struct D2FloorTileViewStrc
     int nOffsetX;
     int nOffsetY;
     void __thiscall sub_004DE410_DrawFloorTile(D2TileStrc* pTile, int nArg, int nScreenX, int nScreenY, int nX, int nY);
-    void __thiscall sub_004DE630_DrawTileAt(int nX, int nY);
-    void __thiscall sub_004DE6C0_DrawTileTriple(int nX, int nY, int nStepX, int nStepY);
+    void __thiscall DrawTileAt(int nX, int nY); // 0x004DE630
+    void __thiscall DrawTileTriple(int nX, int nY, int nStepX, int nStepY); // 0x004DE6C0
 };
 
 struct D2AddressInfoStrc

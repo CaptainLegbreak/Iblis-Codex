@@ -80,7 +80,7 @@ struct D2CmpStringStrc
 {
     const char* szText;
 
-    int sub_0060DD20_EqualsNoCase(const D2CmpStringStrc* pOther);
+    int EqualsNoCase(const D2CmpStringStrc* pOther); // 0x0060DD20
 };
 
 int __stdcall SFileSetBasePath(const char* szPath); // 0x004164B0
@@ -1908,7 +1908,7 @@ int __fastcall CmpScanRun(unsigned char nValue, const unsigned char* pData, cons
 }
 
 // 0x0060DD20
-int D2CmpStringStrc::sub_0060DD20_EqualsNoCase(const D2CmpStringStrc* pOther)
+int D2CmpStringStrc::EqualsNoCase(const D2CmpStringStrc* pOther)
 {
     return !SStrCmpI(szText, pOther->szText, 0x7FFFFFFF);
 }

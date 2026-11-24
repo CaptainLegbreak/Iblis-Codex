@@ -167,7 +167,7 @@ void CBitOutput::sub_0041D950_PutBits(unsigned int nValue, unsigned int nBits)
 }
 
 // 0x0041D9A0
-void CBitOutput::sub_0041D9A0_Flush()
+void CBitOutput::Flush()
 {
     while (nBitCount)
     {

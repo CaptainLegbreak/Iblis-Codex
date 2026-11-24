@@ -1071,11 +1071,11 @@ struct D2CmpStringStrc
 {
     const char* szText;
 
-    int sub_0060DD20_EqualsNoCase(const D2CmpStringStrc* pOther);
+    int EqualsNoCase(const D2CmpStringStrc* pOther); // 0x0060DD20
 };
 
 // 0x0060DD20
-int D2CmpStringStrc::sub_0060DD20_EqualsNoCase(const D2CmpStringStrc* pOther)
+int D2CmpStringStrc::EqualsNoCase(const D2CmpStringStrc* pOther)
 {
     return !SStrCmpI(szText, pOther->szText, 0x7FFFFFFF);
 }

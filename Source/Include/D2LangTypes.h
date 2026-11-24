@@ -57,7 +57,7 @@ struct D2LangCharSetStrc
 {
     char szChars[1]; // 0x00
 
-    bool sub_00527090_ContainsChar(const Unicode* pChar) const;
+    bool ContainsChar(const Unicode* pChar) const; // 0x00527090
 };
 
 D2_CHECK_SIZE(D2LangByteRangeStrc, 0x2);

@@ -253,8 +253,8 @@ struct BigStack
     BigBuffer pRecords[16];
     unsigned int nUsed;
 
-    BigBuffer* sub_00420DD0_Push(int* pCounter);
-    void sub_00420E00_Drop(unsigned int nCount);
+    BigBuffer* Push(int* pCounter); // 0x00420DD0
+    void Drop(unsigned int nCount); // 0x00420E00
 };
 
 struct D2StormBigStrc
@@ -593,7 +593,7 @@ int BigBuffer::sub_00420DB0_InRange(unsigned int nIndex)
 }
 
 // 0x00420DD0
-BigBuffer* BigStack::sub_00420DD0_Push(int* pCounter)
+BigBuffer* BigStack::Push(int* pCounter)
 {
     if (pCounter)
         ++*pCounter;
@@ -601,7 +601,7 @@ BigBuffer* BigStack::sub_00420DD0_Push(int* pCounter)
 }
 
 // 0x00420E00
-void BigStack::sub_00420E00_Drop(unsigned int nCount)
+void BigStack::Drop(unsigned int nCount)
 {
     nUsed -= nCount;
 }

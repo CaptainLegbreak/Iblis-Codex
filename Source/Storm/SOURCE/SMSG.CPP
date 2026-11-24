@@ -180,7 +180,7 @@ struct D2Strc00420D80
     int f_0;
     int f_4;
     int f_8;
-    void sub_00420D80_Clear();
+    void Clear(); // 0x00420D80
 };
 
 struct D2Strc00420DA0
@@ -190,7 +190,7 @@ struct D2Strc00420DA0
     int f_8;
     int nFieldC;
     int nStart;
-    int sub_00420DA0_GetSpan();
+    int GetSpan(); // 0x00420DA0
 };
 
 // 0x004203E0
@@ -248,7 +248,7 @@ D2SMsgListStrc::D2SMsgListStrc()
 }
 
 // 0x00420D80
-void D2Strc00420D80::sub_00420D80_Clear()
+void D2Strc00420D80::Clear()
 {
     f_0 = 0;
     f_4 = 0;
@@ -256,7 +256,7 @@ void D2Strc00420D80::sub_00420D80_Clear()
 }
 
 // 0x00420DA0
-int D2Strc00420DA0::sub_00420DA0_GetSpan()
+int D2Strc00420DA0::GetSpan()
 {
     return nEnd - nStart;
 }

@@ -5400,7 +5400,7 @@
     {
      "va": "0x0041EED0",
      "length": 77,
-     "name": "sub_0041EED0_NewItem"
+     "name": "NewItem"
     },
     {
      "va": "0x006CA8C0",
@@ -6243,12 +6243,12 @@
     {
      "va": "0x00420DD0",
      "length": 38,
-     "name": "sub_00420DD0_Push"
+     "name": "Push"
     },
     {
      "va": "0x00420E00",
      "length": 16,
-     "name": "sub_00420E00_Drop"
+     "name": "Drop"
     },
     {
      "va": "0x00420FD0",
@@ -6629,7 +6629,7 @@
     {
      "va": "0x00420D80",
      "length": 11,
-     "name": "?sub_00420D80_Clear@D2Strc00420D80@@QAEXXZ"
+     "name": "?Clear@D2Strc00420D80@@QAEXXZ"
     },
     {
      "va": "0x00420D90",
@@ -6639,7 +6639,7 @@
     {
      "va": "0x00420DA0",
      "length": 7,
-     "name": "?sub_00420DA0_GetSpan@D2Strc00420DA0@@QAEHXZ"
+     "name": "?GetSpan@D2Strc00420DA0@@QAEHXZ"
     }
    ]
   },
@@ -6685,7 +6685,7 @@
     {
      "va": "0x0041D9A0",
      "length": 57,
-     "name": "?sub_0041D9A0_Flush@CBitOutput@@QAEXXZ"
+     "name": "?Flush@CBitOutput@@QAEXXZ"
     },
     {
      "va": "0x0041D9E0",
@@ -9835,7 +9835,7 @@
     {
      "va": "0x0044BDF0",
      "length": 25,
-     "name": "sub_0044BDF0_Set"
+     "name": "Set"
     },
     {
      "va": "0x0044BE10",
@@ -10525,7 +10525,7 @@
     {
      "va": "0x0044DFB0",
      "length": 49,
-     "name": "?sub_0044DFB0_GetRemaining@D2TickTimerStrc@@QAEIXZ"
+     "name": "?GetRemaining@D2TickTimerStrc@@QAEIXZ"
     },
     {
      "va": "0x0044DFF0",
@@ -20253,12 +20253,12 @@
     {
      "va": "0x004DDE80",
      "length": 61,
-     "name": "sub_004DDE80_ExtendBounds"
+     "name": "ExtendBounds"
     },
     {
      "va": "0x004E0700",
      "length": 41,
-     "name": "sub_004E0700_GetEntry"
+     "name": "GetEntry"
     },
     {
      "va": "0x004E0A40",
@@ -25789,7 +25789,7 @@
     {
      "va": "0x004B15F0",
      "length": 46,
-     "name": "?sub_004B15F0@Unicode@@QBE?AU1@XZ"
+     "name": "?toLower@Unicode@@QBE?AU1@XZ"
     },
     {
      "va": "0x004B17D0",
@@ -31187,17 +31187,17 @@
     {
      "va": "0x004DE630",
      "length": 132,
-     "name": "sub_004DE630_DrawTileAt"
+     "name": "DrawTileAt"
     },
     {
      "va": "0x004DE6C0",
      "length": 110,
-     "name": "sub_004DE6C0_DrawTileTriple"
+     "name": "DrawTileTriple"
     },
     {
      "va": "0x004DE730",
      "length": 819,
-     "name": "?sub_004DE730_UpdateView@D2FloorTileViewStrc@@QAEXPAX@Z"
+     "name": "?UpdateView@D2FloorTileViewStrc@@QAEXPAX@Z"
     },
     {
      "va": "0x004DED10",
@@ -38651,7 +38651,7 @@
     {
      "va": "0x00518BA0",
      "length": 22,
-     "name": "sub_00518BA0_LogWrite"
+     "name": "Write"
     },
     {
      "va": "0x00518C30",
@@ -41257,7 +41257,7 @@
     {
      "va": "0x00527090",
      "length": 258,
-     "name": "sub_00527090_ContainsChar"
+     "name": "ContainsChar"
     }
    ]
   },
@@ -41683,7 +41683,7 @@
     {
      "va": "0x00528660",
      "length": 98,
-     "name": "?sub_00528660_MakeVerifier@D2BigPairStrc@@QAEXPBD0PAE1@Z"
+     "name": "?MakeVerifier@D2BigPairStrc@@QAEXPBD0PAE1@Z"
     },
     {
      "va": "0x005289F0",
@@ -65122,7 +65122,7 @@
     {
      "va": "0x0060DD20",
      "length": 33,
-     "name": "sub_0060DD20_EqualsNoCase"
+     "name": "EqualsNoCase"
     },
     {
      "va": "0x0060DD50",

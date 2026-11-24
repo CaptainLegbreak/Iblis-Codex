@@ -778,7 +778,7 @@ void __stdcall D2LANG_FormatInt(Unicode* pOut, int nValue, int nSize)
 }
 
 // 0x00527090
-bool D2LangCharSetStrc::sub_00527090_ContainsChar(const Unicode* pChar) const
+bool D2LangCharSetStrc::ContainsChar(const Unicode* pChar) const
 {
     Unicode wszChars[20] = {};
     int i;

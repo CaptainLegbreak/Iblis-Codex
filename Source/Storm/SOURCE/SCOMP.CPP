@@ -135,7 +135,7 @@ struct CHuffman
     D2StormNodeListAStrc tItemList;
     unsigned int nItemsUsed;
 
-    HUFFNODE* sub_0041EED0_NewItem(unsigned int nLinkType);
+    HUFFNODE* NewItem(unsigned int nLinkType); // 0x0041EED0
 };
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
@@ -1238,7 +1238,7 @@ void D2StormNodeListStrc::sub_0041EE40_UnlinkAll()
 }
 
 // 0x0041EED0
-HUFFNODE* CHuffman::sub_0041EED0_NewItem(unsigned int nLinkType)
+HUFFNODE* CHuffman::NewItem(unsigned int nLinkType)
 {
     HUFFNODE* pItem = (HUFFNODE*)tFreeList.Head();
     if (!pItem)
