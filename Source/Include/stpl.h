@@ -167,10 +167,7 @@ struct TSList
     {
         return Link(ptr)->Next();
     }
-    T* RawNext(const T* ptr)
-    {
-        return ptr ? TGetLink::Link(ptr, m_linkoffset)->m_next : m_terminator.m_next;
-    }
+    T* RawNext(const T* ptr);
     void UnlinkNode(T* ptr)
     {
         Link(ptr)->Unlink();
@@ -259,3 +256,9 @@ struct TSGrowableArray : TSFixedArray<T, TCD>
         return *this;
     }
 };
+
+template<class T, class TGetLink>
+T* TSList<T, TGetLink>::RawNext(const T* ptr)
+{
+    return ptr ? TGetLink::Link(ptr, m_linkoffset)->m_next : m_terminator.m_next;
+}

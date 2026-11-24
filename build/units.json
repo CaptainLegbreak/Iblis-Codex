@@ -8375,8 +8375,7 @@
     },
     {
      "va": "0x00426B00",
-     "length": 161,
-     "name": "?sub_00426B00_LinkNode@D2StormBreakCmdListStrc@@QAEXPADI0@Z"
+     "length": 161
     },
     {
      "va": "0x00426BB0",
@@ -8400,8 +8399,7 @@
     },
     {
      "va": "0x00426C80",
-     "length": 24,
-     "name": "?sub_00426C80_RawNext@D2StormBreakCmdListStrc@@QAEPADPAUD2StormLinkStrc@@@Z"
+     "length": 24
     },
     {
      "va": "0x00426CA0",
@@ -8415,13 +8413,11 @@
     },
     {
      "va": "0x00426CF0",
-     "length": 61,
-     "name": "?sub_00426CF0_UnlinkAll@D2SEvtTSListStrc@@QAEXXZ"
+     "length": 61
     },
     {
      "va": "0x00426D30",
-     "length": 60,
-     "name": "??1D2SEvtTSListStrc@@QAE@XZ"
+     "length": 60
     },
     {
      "va": "0x00426D70",
@@ -8435,8 +8431,7 @@
     },
     {
      "va": "0x00426DC0",
-     "length": 82,
-     "name": "?sub_00426DC0_NewNode@D2StormBreakCmdListStrc@@QAEPAUBREAKCMD@@III@Z"
+     "length": 82
     },
     {
      "va": "0x00426E20",
@@ -8450,12 +8445,15 @@
     },
     {
      "va": "0x00426F20",
-     "length": 106,
-     "name": "?sub_00426F20_DeleteNode@D2StormBreakCmdListStrc@@QAEPADPAD@Z"
+     "length": 106
     },
     {
      "va": "0x00426F90",
      "length": 453
+    },
+    {
+     "va": "0x006CA900",
+     "length": 24
     },
     {
      "va": "0x006CA920",
@@ -8464,6 +8462,10 @@
     {
      "va": "0x006CB370",
      "length": 12
+    },
+    {
+     "va": "0x006CB380",
+     "length": 81
     }
    ]
   },
@@ -80536,11 +80538,6 @@
      "name": "?sub_006CA7B0_InitializeList@@YAXXZ"
     },
     {
-     "va": "0x006CA900",
-     "length": 24,
-     "name": "?sub_006CA900_InitializeList@@YAXXZ"
-    },
-    {
      "va": "0x006CA940",
      "length": 17
     },
@@ -80648,11 +80645,6 @@
      "va": "0x006CB0C0",
      "length": 81,
      "name": "?sub_006CB0C0_DestroyList@@YAXXZ"
-    },
-    {
-     "va": "0x006CB380",
-     "length": 81,
-     "name": "?sub_006CB380_DestroyList@@YAXXZ"
     }
    ]
   },
