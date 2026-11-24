@@ -73364,81 +73364,6 @@
      "name": "MISSILE_FreeMissileData"
     },
     {
-     "va": "0x0064A2B0",
-     "length": 65
-    },
-    {
-     "va": "0x0064A330",
-     "length": 65
-    },
-    {
-     "va": "0x0064A470",
-     "length": 110
-    },
-    {
-     "va": "0x0064AF20",
-     "length": 198,
-     "name": "MISSILE_GetMinDamage"
-    },
-    {
-     "va": "0x0064AFF0",
-     "length": 198,
-     "name": "MISSILE_GetMaxDamage"
-    },
-    {
-     "va": "0x0064B0C0",
-     "length": 56,
-     "name": "MISSILE_GetElemTypeFromMissileId"
-    },
-    {
-     "va": "0x0064B100",
-     "length": 198,
-     "name": "MISSILE_GetMinElemDamage"
-    },
-    {
-     "va": "0x0064B1D0",
-     "length": 198,
-     "name": "MISSILE_GetMaxElemDamage"
-    },
-    {
-     "va": "0x0064B2A0",
-     "length": 158,
-     "name": "?sub_0064B2A0_GetMissileElementLength@@YGHPAUD2UnitStrc@@0HH@Z"
-    },
-    {
-     "va": "0x0064B340",
-     "length": 920
-    },
-    {
-     "va": "0x0064B6E0",
-     "length": 29,
-     "name": "?MISSILE_GetCalcParamValue@@YIHHPAX@Z"
-    },
-    {
-     "va": "0x0064B720",
-     "length": 49,
-     "name": "?MISSILE_GetRandomNumberInRange@@YIHHHHPAX@Z"
-    },
-    {
-     "va": "0x0064B760",
-     "length": 87,
-     "name": "MISSILE_GetSpecialParamValueForSkillMissile"
-    },
-    {
-     "va": "0x0064B7C0",
-     "length": 157
-    },
-    {
-     "va": "0x0064B860",
-     "length": 1780
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0064A190.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x0064A190",
      "length": 35,
      "name": "_sub_0064A190@4"
@@ -73469,9 +73394,17 @@
      "name": "_sub_0064A280@4"
     },
     {
+     "va": "0x0064A2B0",
+     "length": 65
+    },
+    {
      "va": "0x0064A300",
      "length": 36,
      "name": "_sub_0064A300@4"
+    },
+    {
+     "va": "0x0064A330",
+     "length": 65
     },
     {
      "va": "0x0064A380",
@@ -73487,6 +73420,10 @@
      "va": "0x0064A3E0",
      "length": 28,
      "name": "_sub_0064A3E0@4"
+    },
+    {
+     "va": "0x0064A470",
+     "length": 110
     },
     {
      "va": "0x0064A4E0",
@@ -73572,6 +73509,69 @@
      "va": "0x0064AC60",
      "length": 700,
      "name": "?MISSILE_SetDamageStats@@YGXPAUD2UnitStrc@@0PAUD2MissileDamageDataStrc@@H@Z"
+    },
+    {
+     "va": "0x0064AF20",
+     "length": 198,
+     "name": "MISSILE_GetMinDamage"
+    },
+    {
+     "va": "0x0064AFF0",
+     "length": 198,
+     "name": "MISSILE_GetMaxDamage"
+    },
+    {
+     "va": "0x0064B0C0",
+     "length": 56,
+     "name": "MISSILE_GetElemTypeFromMissileId"
+    },
+    {
+     "va": "0x0064B100",
+     "length": 198,
+     "name": "MISSILE_GetMinElemDamage"
+    },
+    {
+     "va": "0x0064B1D0",
+     "length": 198,
+     "name": "MISSILE_GetMaxElemDamage"
+    },
+    {
+     "va": "0x0064B2A0",
+     "length": 158,
+     "name": "?sub_0064B2A0_GetMissileElementLength@@YGHPAUD2UnitStrc@@0HH@Z"
+    },
+    {
+     "va": "0x0064B340",
+     "length": 920
+    },
+    {
+     "va": "0x0064B6E0",
+     "length": 29,
+     "name": "?MISSILE_GetCalcParamValue@@YIHHPAX@Z"
+    },
+    {
+     "va": "0x0064B720",
+     "length": 49,
+     "name": "?MISSILE_GetRandomNumberInRange@@YIHHHHPAX@Z"
+    },
+    {
+     "va": "0x0064B760",
+     "length": 87,
+     "name": "MISSILE_GetSpecialParamValueForSkillMissile"
+    },
+    {
+     "va": "0x0064B7C0",
+     "length": 157
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Common/UNITS/Missile_0064B860.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0064B860",
+     "length": 1780
     }
    ]
   },
