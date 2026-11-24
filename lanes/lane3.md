@@ -4,14 +4,15 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/homes-2 d94ecad0 390->388 Two placeholders to the files they belong in, borrowed data unchanged. (1) SMemCmp, SMemCopy, SMemFill, SMemMove and SMemZero (Unknown_0041D200.cpp, whose other contents were leftover SERR declarations) go into SMEM.CPP, which already declares and calls them. (2) 0x6BCD50, the four-character code padder (what Excel.cpp's PAD_CODE does inline), goes into Excel.cpp at the head of its run. VERIFIED 09c46370 on base 90638cd1 (#362); borrowed data 880 B (main then 880 B). Rebased onto 3bf574f2 (#363) with only docs/index.html conflicting; Excel.cpp also takes fog-shims' edits there without conflict, and SMEM.CPP and Excel.cpp build equal on #363; namesync had nothing to rename; prechecked. (lane3/homes, 17edae47, was pushed before the rebase; ignore it.) Not stacked.
+- lane3/stpl-members 0e1ddfab 383->383 The Storm containers lead: stpl.h defines TSList's UnlinkAll, DeleteNode and Clear once, next to RawNext, and SERR.CPP, SMSG.CPP, SCMD.CPP, SFILE.CPP and SEVT.CPP lose their five identical copies. Every stpl.h includer builds equal, SFileReadFileEx2 (0x41AAD0) included (this failed before archive-list; the type count is now right). VERIFIED 831a6be8 on base 3bf574f2 (#363); borrowed data 848 B (main 848 B); rebased onto 4f01d396 (#364) with no conflicts, namesync had nothing to rename, prechecked. Not stacked.
+
 
 - lane3/sbig-pieces-2 44870edd 390->374 (replaces lane3/sbig-pieces, rebased onto 3bf574f2, #363, with only docs/index.html conflicting; the SBig_ units build equal, namesync had nothing to rename, prechecked; was 397->381 on #362) Storm placeholders, borrowed data unchanged. SBig.cpp's sixteen /GS- pieces leave Storm/Unknown_*.cpp as Source/Storm/SOURCE/SBig_<address>.cpp, the `<File>_<address>.cpp` form for a file's functions that need another option (SBig.cpp builds with /GS, these without): Shl, Sub, ToStr, Div, Gcd, Rand, InvMod, PowMod and IsPrime (names.csv's own SBig names), DivUInt, SubFromBig, BigOp and BigSquare, and three helpers only SBig's functions call (0x421470, lowest set bit, for IsPrime; 0x421BD0 EncodeDataBytes with 0x423380, the byte reader, for ToStream/FromStream; 0x421CB0, the digit appender, for ToBinary/ToStream). Three join a piece that already carried their code: 0x4225C0 and 0x422FC0 into SBig_00425350.cpp, 0x422D00 into SBig_00424700.cpp. Every unit stays equal. VERIFIED 23fe0c31 on base ef7b4a19 (#361); borrowed data 898 B (main then 898 B); rebased onto 90638cd1 (#362) with only docs/index.html conflicting (file fields follow units.json); namesync had nothing to rename; prechecked. Not stacked.
 
 ## Claimed
 
-- **lane3/stpl-members**: TSList's UnlinkAll, DeleteNode and Clear defined once in stpl.h instead of in each of SERR/SMSG/SCMD/SFILE/SEVT (the Storm containers lead; every stpl.h includer builds equal, 0x41AAD0 included). Full verify running.
-
+- **lane3/storm-arrays-ctor**: 0x423D80 (BigStack release) becomes SBig_00423D80.cpp; 0x421020/0x421030 (filed as two copies of a Warden constructor) are TSBaseArray<unsigned int>/<unsigned char>'s constructors, placed from Unknown_00421110.cpp; stpl.h's TSBaseArray gets its constructor. 3 placeholders fewer. Full verify running.
+- **Next (standing work): decompiler field names in Storm/Fog/SRP**, about 120 `f_`/`unk0x` fields (SFILE.CPP, D2QServer.h, SMSG.CPP, SSignature.cpp, Fog.h, Storm.h first).
 ## Questions
 
 (none)
