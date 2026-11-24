@@ -606,17 +606,17 @@ void* gpMonTable_96C6C0; // 0x0096C6C0
 
 #define TC_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct T006510C0;
+struct D2UniqueNameTablesStrc;
 
 typedef unsigned int size_t;
 
-struct T006510C0
+struct D2UniqueNameTablesStrc
 {
     void* pTables[4];
     int nCounts[4];
 };
 
-extern T006510C0 gUniqueNameTables; // 0x0096D488
+extern D2UniqueNameTablesStrc gUniqueNameTables; // 0x0096D488
 
 void __fastcall DATATBLS_LoadMonLvlTxt(void* hArchive); // 0x00659500
 
