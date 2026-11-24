@@ -41,8 +41,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/automap.cpp": {
-   "bytes": 2872,
-   "definitions": 15,
+   "bytes": 2924,
+   "definitions": 14,
    "externs": [
     "extern \"C\" char gapWardenServices[]; // 0x006D8E68",
     "extern \"C\" void __cdecl SCMD_HandleTriggerSkillAtPosition(); // 0x0045DEC0",
@@ -418,7 +418,7 @@
    "state": "included"
   },
   "Source/D2Launch/Src/CharSel.cpp": {
-   "bytes": 388,
+   "bytes": 328,
    "definitions": 20,
    "externs": [],
    "fn_types": {},
@@ -1052,7 +1052,8 @@
     "extern \"C\" void __cdecl sub_00499500_Click(); // 0x00499500",
     "extern \"C\" void __cdecl PANEL_BeltMouseReleaseMsg(); // 0x004996A0",
     "extern \"C\" void __cdecl PANEL_BeltMouseMove(); // 0x00499BB0",
-    "extern \"C\" void __cdecl PANEL_BeltClickMsg(); // 0x00499D10"
+    "extern \"C\" void __cdecl PANEL_BeltClickMsg(); // 0x00499D10",
+    "extern \"C\" void __cdecl sub_00457510(); // 0x00457510"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/ui.inc",
@@ -11025,9 +11026,27 @@
      null,
      0,
      "string"
-    ],
+    ]
+   ],
+   "region": "data",
+   "size": 64,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_007111D8_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    unsigned char b15[4];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x007111D8",
+   "va": "0x007111D8"
+  },
+  {
+   "alias": false,
+   "cname": "gData_00711218",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/UI/automap.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_00711218_t gData_00711218; // 0x00711218",
+   "head": "extern \"C\" struct d2data_00711218_t gData_00711218 = ",
+   "name": "gData_00711218",
+   "pointers": [
     [
-     64,
+     0,
      "0x006CC81C",
      "literal",
      null,
@@ -11035,7 +11054,7 @@
      "string"
     ],
     [
-     68,
+     4,
      "0x006CC814",
      "literal",
      null,
@@ -11043,7 +11062,7 @@
      "string"
     ],
     [
-     72,
+     8,
      "0x006CC80C",
      "literal",
      null,
@@ -11051,7 +11070,7 @@
      "string"
     ],
     [
-     76,
+     12,
      "0x006CC804",
      "literal",
      null,
@@ -11059,7 +11078,7 @@
      "string"
     ],
     [
-     80,
+     16,
      "0x006CC7F8",
      "literal",
      null,
@@ -11067,7 +11086,7 @@
      "string"
     ],
     [
-     84,
+     20,
      "0x006CC7F0",
      "literal",
      null,
@@ -11075,7 +11094,7 @@
      "string"
     ],
     [
-     88,
+     24,
      "0x006CC7E4",
      "literal",
      null,
@@ -11083,7 +11102,7 @@
      "string"
     ],
     [
-     92,
+     28,
      "0x006CC7DC",
      "literal",
      null,
@@ -11091,7 +11110,7 @@
      "string"
     ],
     [
-     96,
+     32,
      "0x006CC7C8",
      "literal",
      null,
@@ -11099,7 +11118,7 @@
      "string"
     ],
     [
-     100,
+     36,
      "0x006CC7B4",
      "literal",
      null,
@@ -11107,7 +11126,7 @@
      "string"
     ],
     [
-     104,
+     40,
      "0x006CC7AC",
      "literal",
      null,
@@ -11115,7 +11134,7 @@
      "string"
     ],
     [
-     108,
+     44,
      "0x006CC7A4",
      "literal",
      null,
@@ -11123,7 +11142,7 @@
      "string"
     ],
     [
-     112,
+     48,
      "0x006CC788",
      "literal",
      null,
@@ -11131,7 +11150,7 @@
      "string"
     ],
     [
-     116,
+     52,
      "0x006CC780",
      "literal",
      null,
@@ -11139,7 +11158,7 @@
      "string"
     ],
     [
-     120,
+     56,
      "0x006CC77C",
      "literal",
      null,
@@ -11148,10 +11167,10 @@
     ]
    ],
    "region": "data",
-   "size": 124,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007111D8_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    unsigned char b15[4];\n    const void* p16;\n    const void* p17;\n    const void* p18;\n    const void* p19;\n    const void* p20;\n    const void* p21;\n    const void* p22;\n    const void* p23;\n    const void* p24;\n    const void* p25;\n    const void* p26;\n    const void* p27;\n    const void* p28;\n    const void* p29;\n    const void* p30;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007111D8",
-   "va": "0x007111D8"
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00711218_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00711218",
+   "va": "0x00711218"
   },
   {
    "alias": false,
@@ -39455,7 +39474,7 @@
     [
      56,
      "0x00457510",
-     "owner",
+     "names.json",
      "sub_00457510",
      0,
      "func"

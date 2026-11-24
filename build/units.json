@@ -2300,9 +2300,54 @@
      "name": "?sub_00457440_Nop@@YIXH@Z"
     },
     {
+     "va": "0x00457450",
+     "length": 9,
+     "name": "?OBJECT_GetAbsValue@@YIHH@Z"
+    },
+    {
+     "va": "0x00457460",
+     "length": 35,
+     "name": "@OBJECT_SetUnitFlag@12"
+    },
+    {
+     "va": "0x00457490",
+     "length": 57,
+     "name": "?MONSTERUNIQUE_CheckMonStatsFlag@@YIHHH@Z"
+    },
+    {
+     "va": "0x004574D0",
+     "length": 10,
+     "name": "?sub_004574D0_AutomapBaseYAddStep@@YGXH@Z"
+    },
+    {
+     "va": "0x004574E0",
+     "length": 10,
+     "name": "?sub_004574E0_AutomapBaseYSubStep@@YGXH@Z"
+    },
+    {
+     "va": "0x004574F0",
+     "length": 10,
+     "name": "?sub_004574F0_AutomapBaseXSubStep@@YGXH@Z"
+    },
+    {
+     "va": "0x00457500",
+     "length": 10,
+     "name": "?sub_00457500_AutomapBaseXAddStep@@YGXH@Z"
+    },
+    {
+     "va": "0x00457510",
+     "length": 3,
+     "name": "sub_00457510"
+    },
+    {
      "va": "0x00457520",
      "length": 285,
      "name": "?AUTOMAP_UpdateAutomapLayout@@YAXXZ"
+    },
+    {
+     "va": "0x00457640",
+     "length": 119,
+     "name": "?sub_00457640@@YIXH@Z"
     },
     {
      "va": "0x004576C0",
@@ -2313,6 +2358,69 @@
      "va": "0x004576F0",
      "length": 75,
      "name": "?AUTOMAP_SetAutomapFade@@YIHH@Z"
+    },
+    {
+     "va": "0x00457740",
+     "length": 6,
+     "name": "UI_GetAutomapCenters"
+    },
+    {
+     "va": "0x00457750",
+     "length": 31,
+     "name": "?OBJECT_SaveAutomapCenters@@YIHH@Z"
+    },
+    {
+     "va": "0x00457770",
+     "length": 6,
+     "name": "UI_GetAutomapLeft"
+    },
+    {
+     "va": "0x00457780",
+     "length": 43,
+     "name": "?OBJECT_SaveAutomapLeft@@YIHH@Z"
+    },
+    {
+     "va": "0x004577B0",
+     "length": 6,
+     "name": "UI_GetAutomapParty"
+    },
+    {
+     "va": "0x004577C0",
+     "length": 31,
+     "name": "?OBJECT_SaveAutomapParty@@YIHH@Z"
+    },
+    {
+     "va": "0x004577E0",
+     "length": 6,
+     "name": "UI_GetAutomapPartyNames"
+    },
+    {
+     "va": "0x004577F0",
+     "length": 31,
+     "name": "?OBJECT_SaveAutomapPartyNames@@YIHH@Z"
+    },
+    {
+     "va": "0x00457860",
+     "length": 65,
+     "name": "?sub_00457860_PivotNext@@YAXPAPAUD2AutomapCellStrc@@@Z"
+    },
+    {
+     "va": "0x004578B0",
+     "length": 65,
+     "name": "?sub_004578B0_PivotPrev@@YAXPAPAUD2AutomapCellStrc@@@Z"
+    },
+    {
+     "va": "0x00457900",
+     "length": 211
+    },
+    {
+     "va": "0x004579E0",
+     "length": 215
+    },
+    {
+     "va": "0x00457AC0",
+     "length": 60,
+     "name": "?OBJECT_CompareAutomapCells@@YIHPBUD2AutomapCellStrc@@0@Z"
     },
     {
      "va": "0x00457B00",
@@ -16116,46 +16224,6 @@
      "name": "?UI_DrawUIPanels@@YIXPAUD2ViewStrc@@@Z"
     },
     {
-     "va": "0x00457510",
-     "length": 3,
-     "name": "sub_00457510"
-    },
-    {
-     "va": "0x00457740",
-     "length": 6,
-     "name": "UI_GetAutomapCenters"
-    },
-    {
-     "va": "0x00457750",
-     "length": 31,
-     "name": "?OBJECT_SaveAutomapCenters@@YIHH@Z"
-    },
-    {
-     "va": "0x00457770",
-     "length": 6,
-     "name": "UI_GetAutomapLeft"
-    },
-    {
-     "va": "0x00457780",
-     "length": 43,
-     "name": "?OBJECT_SaveAutomapLeft@@YIHH@Z"
-    },
-    {
-     "va": "0x004577B0",
-     "length": 6,
-     "name": "UI_GetAutomapParty"
-    },
-    {
-     "va": "0x004577C0",
-     "length": 31,
-     "name": "?OBJECT_SaveAutomapParty@@YIHH@Z"
-    },
-    {
-     "va": "0x004577E0",
-     "length": 6,
-     "name": "UI_GetAutomapPartyNames"
-    },
-    {
      "va": "0x0045A710",
      "length": 6,
      "name": "UI_GetAutomapMode"
@@ -17301,11 +17369,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00457490",
-     "length": 57,
-     "name": "?MONSTERUNIQUE_CheckMonStatsFlag@@YIHHH@Z"
-    },
-    {
      "va": "0x0045AD60",
      "length": 142,
      "name": "?PLAYER_DrawAutomap@@YAXXZ"
@@ -17568,95 +17631,6 @@
      "length": 41,
      "name": "?PLAYER_GetBaseIdFromMonsterId@@YIHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004574D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004574D0",
-     "length": 10,
-     "name": "?sub_004574D0_AutomapBaseYAddStep@@YGXH@Z"
-    },
-    {
-     "va": "0x004574E0",
-     "length": 10,
-     "name": "?sub_004574E0_AutomapBaseYSubStep@@YGXH@Z"
-    },
-    {
-     "va": "0x004574F0",
-     "length": 10,
-     "name": "?sub_004574F0_AutomapBaseXSubStep@@YGXH@Z"
-    },
-    {
-     "va": "0x00457500",
-     "length": 10,
-     "name": "?sub_00457500_AutomapBaseXAddStep@@YGXH@Z"
-    },
-    {
-     "va": "0x00457640",
-     "length": 119,
-     "name": "?sub_00457640@@YIXH@Z"
-    },
-    {
-     "va": "0x00457860",
-     "length": 65,
-     "name": "?sub_00457860_PivotNext@@YAXPAPAUD2AutomapCellStrc@@@Z"
-    },
-    {
-     "va": "0x004578B0",
-     "length": 65,
-     "name": "?sub_004578B0_PivotPrev@@YAXPAPAUD2AutomapCellStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00457900.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00457900",
-     "length": 211
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004579E0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004579E0",
-     "length": 215
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -28839,21 +28813,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00457450",
-     "length": 9,
-     "name": "?OBJECT_GetAbsValue@@YIHH@Z"
-    },
-    {
-     "va": "0x00457460",
-     "length": 35,
-     "name": "@OBJECT_SetUnitFlag@12"
-    },
-    {
-     "va": "0x004577F0",
-     "length": 31,
-     "name": "?OBJECT_SaveAutomapPartyNames@@YIHH@Z"
-    },
-    {
      "va": "0x00457810",
      "length": 17,
      "name": "?OBJECT_SubtractAutomapOffset@@YAXPAH0@Z"
@@ -28862,11 +28821,6 @@
      "va": "0x00457830",
      "length": 44,
      "name": "?OBJECT_ScaleAutomapPoint@@YAXPAH0@Z"
-    },
-    {
-     "va": "0x00457AC0",
-     "length": 60,
-     "name": "?OBJECT_CompareAutomapCells@@YIHPBUD2AutomapCellStrc@@0@Z"
     },
     {
      "va": "0x004BC580",

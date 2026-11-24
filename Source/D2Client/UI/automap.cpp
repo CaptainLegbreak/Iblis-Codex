@@ -144,6 +144,806 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 
 
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
@@ -1043,6 +1843,101 @@ void __fastcall sub_00457440_Nop(int nUnused)
 {
 }
 
+struct Pad40_00457460;
+
+struct Obj00457460;
+
+struct Pad40_00457460 {
+    unsigned int dw00;
+    unsigned int dw04;
+    unsigned int dw08;
+    unsigned int f_C;
+    unsigned int dw10;
+    unsigned int dw14;
+    unsigned int dw18;
+    unsigned int dw1C;
+    unsigned int dw20;
+    unsigned int dw24;
+    unsigned int dw28;
+    unsigned int dw2C;
+    unsigned int dw30;
+    unsigned int dw34;
+    unsigned int dw38;
+    unsigned int dw3C;
+};
+
+struct Obj00457460 {
+    Pad40_00457460 tPad000;
+    Pad40_00457460 tPad040;
+    Pad40_00457460 tPad080;
+    unsigned int dwUnknownC0;
+    unsigned int dwFlagsC4;
+};
+
+void __fastcall OBJECT_SetUnitFlag(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x00457460
+
+// 0x00457460
+extern "C" __declspec(dllexport) void __fastcall OBJECT_SetUnitFlag(Obj00457460* pObj, unsigned int dwMask, int bSet) {
+    if (pObj) {
+        if (bSet) {
+            pObj->dwFlagsC4 |= dwMask;
+        } else {
+            pObj->dwFlagsC4 &= ~dwMask;
+        }
+    }
+}
+
+extern unsigned int gdwBitMasks[]; // 0x006CE268
+
+inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+    return 0;
+}
+
+// 0x00457490
+int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInline(nMonsterId);
+    if (!pMonStatsTxtRecord)
+    {
+        return 0;
+    }
+    return pMonStatsTxtRecord->nMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
+}
+
+// 0x004574D0
+void __stdcall sub_004574D0_AutomapBaseYAddStep(int nUnused)
+{
+    gnAutomapBaseY += 0x10;
+}
+
+// 0x004574E0
+void __stdcall sub_004574E0_AutomapBaseYSubStep(int nUnused)
+{
+    gnAutomapBaseY -= 0x10;
+}
+
+// 0x004574F0
+void __stdcall sub_004574F0_AutomapBaseXSubStep(int nUnused)
+{
+    gnAutomapBaseX -= 0x10;
+}
+
+// 0x00457500
+void __stdcall sub_00457500_AutomapBaseXAddStep(int nUnused)
+{
+    gnAutomapBaseX += 0x10;
+}
+
+// 0x00457510
+void __stdcall sub_00457510(int nUnused1)
+{
+}
+
 // 0x00457520
 void __cdecl AUTOMAP_UpdateAutomapLayout()
 {
@@ -1087,6 +1982,29 @@ void __cdecl AUTOMAP_UpdateAutomapLayout()
     }
 }
 
+// 0x00457640
+void __fastcall sub_00457640(int bForce)
+{
+// build: symbol ?gbAutomapCenter@* 0x007113E0
+    if (!gbAutomapCenter && !bForce)
+    {
+        return;
+    }
+
+    AUTOMAP_UpdateAutomapLayout();
+    switch (gnAutomapMode)
+    {
+    case 1:
+        gnAutomapBaseX = gnScreenWidth / 3 - gnMiniMapX - 0x10;
+        gnAutomapBaseY = gnScreenHeight / 3 - gnMiniMapY - 0x10;
+        break;
+    default:
+        gnAutomapBaseX = 0;
+        gnAutomapBaseY = 0;
+        break;
+    }
+}
+
 // 0x004576C0
 int __cdecl AUTOMAP_GetAutomapFade()
 {
@@ -1109,6 +2027,203 @@ int __fastcall AUTOMAP_SetAutomapFade(int nFade)
     gdwAutoMapFadeSaved = nFade;
     gdwAutoMapFade = nFade;
     return nFade;
+}
+
+struct D2UIVarRecordStrc
+{
+    int anCloseKind[0x26];
+};
+
+struct T0044CB60
+{
+    Unicode* pText;
+    T0044CB60* pNext;
+};
+
+// 0x00457740
+int __cdecl UI_GetAutomapCenters()
+{
+// build: symbol ?gbAutomapCenter@* 0x007113E0
+    return gbAutomapCenter;
+}
+
+// 0x00457750
+int __fastcall OBJECT_SaveAutomapCenters(int nValue)
+{
+    SRegSaveValue("Diablo II", "AutoMap Centers", 0, nValue);
+// build: symbol ?gbAutomapCenter@* 0x007113E0
+    gbAutomapCenter = nValue;
+    return nValue;
+}
+
+// 0x00457770
+int __cdecl UI_GetAutomapLeft()
+{
+    return gbAutomapLeft;
+}
+
+// 0x00457780
+int __fastcall OBJECT_SaveAutomapLeft(int nValue)
+{
+    SRegSaveValue("Diablo II", "AutoMap Left", 0, nValue);
+    gbAutomapLeftPrev = nValue;
+    gbAutomapLeftSaved = nValue;
+    gbAutomapLeft = nValue;
+    return nValue;
+}
+
+// 0x004577B0
+int __cdecl UI_GetAutomapParty()
+{
+// build: symbol ?gbAutomapParty@* 0x007113E4
+    return gbAutomapParty;
+}
+
+// 0x004577C0
+int __fastcall OBJECT_SaveAutomapParty(int nValue)
+{
+    SRegSaveValue("Diablo II", "AutoMap Party", 0, nValue);
+// build: symbol ?gbAutomapParty@* 0x007113E4
+    gbAutomapParty = nValue;
+    return nValue;
+}
+
+// 0x004577E0
+int __cdecl UI_GetAutomapPartyNames()
+{
+    return gbAutomapPartyNames;
+}
+
+// 0x004577F0
+int __fastcall OBJECT_SaveAutomapPartyNames(int nValue)
+{
+    SRegSaveValue("Diablo II", "AutoMap Party Names", 0, nValue);
+    gbAutomapPartyNames = nValue;
+    return nValue;
+}
+
+static void sub_00457860_PivotNext(D2AutomapCellStrc** ppNode);
+
+// 0x00457860
+static void sub_00457860_PivotNext(D2AutomapCellStrc** ppNode)
+{
+    D2AutomapCellStrc* pNode = *ppNode;
+    D2_ASSERT(pNode, 0x233);
+    D2AutomapCellStrc* pNext = pNode->pNext;
+    D2_ASSERT(pNext, 0x234);
+    pNode->pNext = pNext->pPrev;
+    pNext->pPrev = pNode;
+    *ppNode = pNext;
+}
+
+// 0x004578B0
+static void sub_004578B0_PivotPrev(D2AutomapCellStrc** ppNode)
+{
+    D2AutomapCellStrc* pNode = *ppNode;
+    D2_ASSERT(pNode, 0x244);
+    D2AutomapCellStrc* pPrev = pNode->pPrev;
+    D2_ASSERT(pPrev, 0x245);
+    pNode->pPrev = pPrev->pNext;
+    pPrev->pNext = pNode;
+    *ppNode = pPrev;
+}
+
+// 0x00457900
+void __stdcall sub_00457900_RotateLeftHeavy(D2AutomapCellStrc** ppRoot)
+{
+    D2AutomapCellStrc* pNode = *ppRoot;
+    D2AutomapCellStrc* pPrev = pNode->pPrev;
+    D2_ASSERT(pPrev->wWeight == -1 || pPrev->wWeight == 1, 0x259);
+    if (pPrev->wWeight == -1)
+    {
+        pNode->wWeight = 0;
+        pPrev->wWeight = 0;
+        sub_004578B0_PivotPrev(&pNode);
+    }
+    else
+    {
+        D2AutomapCellStrc* pPrevNext = pPrev->pNext;
+        switch (pPrevNext->wWeight)
+        {
+        case -1:
+            pNode->wWeight = 1;
+            pPrev->wWeight = 0;
+            break;
+        case 0:
+            pNode->wWeight = 0;
+            pPrev->wWeight = 0;
+            break;
+        case 1:
+            pNode->wWeight = 0;
+            pPrev->wWeight = -1;
+            break;
+        }
+        pPrevNext->wWeight = 0;
+        sub_00457860_PivotNext(&pNode->pPrev);
+        sub_004578B0_PivotPrev(&pNode);
+    }
+    *ppRoot = pNode;
+}
+
+// 0x004579E0
+void __stdcall sub_004579E0_RotateRightHeavy(D2AutomapCellStrc** ppRoot)
+{
+    D2AutomapCellStrc* pNode = *ppRoot;
+    D2AutomapCellStrc* pNext = pNode->pNext;
+    D2_ASSERT(pNext->wWeight == -1 || pNext->wWeight == 1, 0x294);
+    if (pNext->wWeight == 1)
+    {
+        pNode->wWeight = 0;
+        pNext->wWeight = 0;
+        sub_00457860_PivotNext(&pNode);
+    }
+    else
+    {
+        D2AutomapCellStrc* pNextPrev = pNext->pPrev;
+        switch (pNextPrev->wWeight)
+        {
+        case -1:
+            pNode->wWeight = 0;
+            pNext->wWeight = 1;
+            break;
+        case 0:
+            pNode->wWeight = 0;
+            pNext->wWeight = 0;
+            break;
+        case 1:
+            pNode->wWeight = -1;
+            pNext->wWeight = 0;
+            break;
+        }
+        pNextPrev->wWeight = 0;
+        sub_004578B0_PivotPrev(&pNode->pNext);
+        sub_00457860_PivotNext(&pNode);
+    }
+    *ppRoot = pNode;
+}
+
+// 0x00457AC0
+int __fastcall OBJECT_CompareAutomapCells(const D2AutomapCellStrc* pA, const D2AutomapCellStrc* pB)
+{
+    int nResult = pA->yPixel - pB->yPixel;
+    if (!nResult)
+    {
+        nResult = pA->xPixel - pB->xPixel;
+        if (!nResult)
+        {
+            const int nCellA = pA->nCellNo;
+            if (gaAutomapCellTable[nCellA] != -1)
+            {
+                const int nCellB = pB->nCellNo;
+                if (gaAutomapCellTable[nCellA] != gaAutomapCellTable[nCellB])
+                {
+                    nResult = nCellA - nCellB;
+                }
+            }
+        }
+    }
+
+    return nResult;
 }
 
 // 0x00457B00
@@ -2080,7 +3195,7 @@ next:
         AUTOMAP_InitAutomapLayer(nPrevLayerNo);
 }
 
-// build: symbol ?OBJECT_GetAbsValue@* 0x00457450
+// 0x00457450
 int __fastcall OBJECT_GetAbsValue(int nValue)
 {
     return nValue < 0 ? -nValue : nValue;
