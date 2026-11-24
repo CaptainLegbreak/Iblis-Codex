@@ -4,7 +4,7 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/chatdlg-cancel a177f412 0 placeholders. CHARSEL_CancelGameCreate (0x0043F850, from CharSel.cpp) goes into ChatDlg.cpp: it lies inside ChatDlg's object (0x0043CC00-0x0044677F), and both its callers (0x004438C0 in ChatDlg.cpp, 0x004456D0) call it, so it is `__declspec(noinline)`. Not stacked; independent of winmain-main. VERIFIED 9329660b (on #354; borrowed data 1,041 B, unchanged).
+- lane6/chatdlg-cancel-2 b6cf16d8 (replaces chatdlg-cancel, which conflicted with #355 in docs/index.html only) 0 placeholders. CHARSEL_CancelGameCreate (0x0043F850, from CharSel.cpp) goes into ChatDlg.cpp: it lies inside ChatDlg's object (0x0043CC00-0x0044677F), and both its callers (0x004438C0 in ChatDlg.cpp, 0x004456D0) call it, so it is `__declspec(noinline)`. Not stacked. VERIFIED 89730a5e (on #355; borrowed data 1,041 B, unchanged).
 
 
 ## Claimed
