@@ -24,3 +24,45 @@ struct D2TextBoxStrc
     unsigned short nField2A; // 0x2A
 };
 #pragma pack(pop)
+
+struct D2TextBoxPosStrc
+{
+    char unk0x00[0x04];
+    int nRows;
+    char unk0x08[0x08];
+    unsigned short wWidth;
+};
+
+struct D2TextFieldA4Strc
+{
+    char unk0x00[0xA4];
+    int nFieldA4;
+};
+
+struct D2TextPointStrc
+{
+    int nX;
+    int nY;
+};
+
+#pragma pack(push, 2)
+struct D2TextStateStrc
+{
+    char unk0x00[0x16];
+    int nState;
+};
+#pragma pack(pop)
+
+struct D2TextWidthStrc
+{
+    char unk0x00[0x0C];
+    int nWidth;
+    char unk0x10[0x04];
+    unsigned short wWidth;
+};
+
+struct D2ScrollPosStrc
+{
+    int nX;
+    int nY;
+};

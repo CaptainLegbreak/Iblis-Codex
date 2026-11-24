@@ -144,15 +144,6 @@ void __fastcall GAME_SetPlayCinematic(int nValue); // 0x0044D530
 
 void __fastcall sub_0046BFD0_StartTimer(int nDelay); // 0x0046BFD0
 
-struct D2QuestUiFlagsStrc
-{
-    char bLocked;
-    unsigned char unk0x01[0xA2];
-    unsigned char abFlags[41];
-    unsigned char unk0xCC;
-    unsigned char abFlagsB[41];
-};
-
 extern D2QuestUiFlagsStrc gtQuestUiFlags_007BF2B3; // 0x007BF2B3
 
 struct D2PacketRecord6Strc

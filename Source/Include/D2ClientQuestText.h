@@ -55,3 +55,12 @@ struct D2QuestLogStateStrc
     int n270;
 };
 #pragma pack(pop)
+
+struct D2QuestUiFlagsStrc
+{
+    char bLocked;
+    unsigned char unk0x01[0xA2];
+    unsigned char abFlags[41];
+    unsigned char unk0xCC;
+    unsigned char abFlagsB[41];
+};
