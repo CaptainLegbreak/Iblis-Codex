@@ -69320,11 +69320,6 @@
      "name": "ITEMS_SerializeItemToBitstream"
     },
     {
-     "va": "0x006314A0",
-     "length": 142,
-     "name": "ITEMS_ResolveItemCalcKeyword"
-    },
-    {
      "va": "0x00639D60",
      "length": 66,
      "name": "DATATBLS_GetRunesTxtRecord"
@@ -69577,7 +69572,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_00631430.cpp",
+   "file": "Source/D2Common/DATATBLS/ItemTbls.cpp",
    "rank": 0,
    "functions": [
     {
@@ -69591,16 +69586,15 @@
      "name": "sub_00631490"
     },
     {
+     "va": "0x006314A0",
+     "length": 142,
+     "name": "ITEMS_ResolveItemCalcKeyword"
+    },
+    {
      "va": "0x00631530",
      "length": 145,
      "name": "DATATBLS_ItemCalcLinker"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/ItemTbls.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x006315D0",
      "length": 8042

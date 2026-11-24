@@ -277,6 +277,11 @@ void* gpItemsCode; // 0x0096BCC8
 int gnItemsCodeSize; // 0x0096BCCC
 
 int gnItemsCodeSizeEx; // 0x0096BCD0
+int __fastcall DATATBLS_AppendMemoryBuffer(char** ppCodes, int* pSize, int* pSizeEx, void* pBuffer, int nBufferSize); // 0x006118B0
+int __stdcall DATATBLS_CompileExpression(const char* szFormulaString, char* pOutBuffer, int nOutBufferSize, int (__fastcall* pfnKeywordToNumber)(char*), int (__cdecl* pfnGetParameterCount)(), int (__fastcall* pfnLinkParse)(char*, int*, int, int)); // 0x006C1AE0
+int __fastcall DATATBLS_MapItemsTxtKeywordToNumber(char* szKey); // 0x00631430
+int __cdecl sub_00631490(); // 0x00631490
+int __fastcall ITEMS_ResolveItemCalcKeyword(char* szText, int* a2, int a3, int nKeywordNumber); // 0x006314A0
 
 int gnItemsTxtRecordCount; // 0x0096CA58
 
@@ -353,6 +358,99 @@ int gnPropertiesTxtRecordCount; // 0x0096BCDC
 void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 
 
+
+// 0x00631430
+int __fastcall DATATBLS_MapItemsTxtKeywordToNumber(char* szKey)
+{
+    if (!SStrCmpI(szKey, "min", 32))
+    {
+        return 0;
+    }
+    else if (!SStrCmpI(szKey, "max", 32))
+    {
+        return 1;
+    }
+    else if (!SStrCmpI(szKey, "rand", 32))
+    {
+        return 2;
+    }
+    else if (!SStrCmpI(szKey, "stat", 32))
+    {
+        return 3;
+    }
+    else
+    {
+        return -1;
+    }
+}
+
+// 0x00631490
+int __cdecl sub_00631490()
+{
+    return 2;
+}
+
+// 0x006314A0
+int __fastcall ITEMS_ResolveItemCalcKeyword(char* szText, int* a2, int a3, int nKeywordNumber)
+{
+    int nRow = 0;
+
+    if (a3 == 1 && nKeywordNumber == 3)
+    {
+        if (gpItemStatCostLinker)
+        {
+            nRow = FOG_GetRowFromTxt(gpItemStatCostLinker, szText, 0);
+            if (nRow >= 0)
+            {
+                *a2 = 1;
+                return nRow;
+            }
+        }
+
+        if (!SStrCmpI(szText, "base", 32))
+        {
+            *a2 = 0;
+            return 1;
+        }
+
+        if (!SStrCmpI(szText, "mod", 32))
+        {
+            *a2 = 0;
+            return 2;
+        }
+
+        SStrCmpI(szText, "accr", 32);
+        *a2 = 0;
+    }
+
+    return 0;
+}
+
+// 0x00631530
+void __fastcall DATATBLS_ItemCalcLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
+{
+    char szBuffer[0x400];
+
+    if (!pRecord)
+    {
+        return;
+    }
+
+    if (!pSrc)
+    {
+        *(int*)((char*)pRecord + nOffset) = -1;
+        return;
+    }
+
+    const int nBufferSize = DATATBLS_CompileExpression(pSrc, szBuffer, sizeof(szBuffer), DATATBLS_MapItemsTxtKeywordToNumber, sub_00631490, ITEMS_ResolveItemCalcKeyword);
+    if (nBufferSize <= 0)
+    {
+        *(int*)((char*)pRecord + nOffset) = -1;
+        return;
+    }
+
+    *(int*)((char*)pRecord + nOffset) = DATATBLS_AppendMemoryBuffer((char**)&gpItemsCode, &gnItemsCodeSize, &gnItemsCodeSizeEx, szBuffer, nBufferSize);
+}
 
 // 0x006315D0
 void __fastcall DATATBLS_LoadItemsTxt(void* hArchive)
@@ -784,17 +882,17 @@ void __fastcall DATATBLS_LoadRareSuffix_PrefixTxt(void* hArchive)
         { "end", 0, 0, 0, 0 },
     };
 
-    int nRareSuffixRecordCount;
-    int nRarePrefixRecordCount;
-    D2RareAffixTxt* pRareSuffix = (D2RareAffixTxt*)DATATBLS_CompileTxt(hArchive, "raresuffix", pTbl, &nRareSuffixRecordCount, sizeof(D2RareAffixTxt));
-    D2RareAffixTxt* pRarePrefix = (D2RareAffixTxt*)DATATBLS_CompileTxt(hArchive, "rareprefix", pTbl, &nRarePrefixRecordCount, sizeof(D2RareAffixTxt));
+    int nRareSuffixCount;
+    int nRarePrefixCount;
+    D2RareAffixTxt* pRareSuffix = (D2RareAffixTxt*)DATATBLS_CompileTxt(hArchive, "raresuffix", pTbl, &nRareSuffixCount, sizeof(D2RareAffixTxt));
+    D2RareAffixTxt* pRarePrefix = (D2RareAffixTxt*)DATATBLS_CompileTxt(hArchive, "rareprefix", pTbl, &nRarePrefixCount, sizeof(D2RareAffixTxt));
 
-    sgtDataTables.nRareAffixTxtRecordCount = nRareSuffixRecordCount + nRarePrefixRecordCount;
+    sgtDataTables.nRareAffixTxtRecordCount = nRareSuffixCount + nRarePrefixCount;
     sgtDataTables.pRareAffixTxt = (D2RareAffixTxt*)FOG_AllocPool(0, sizeof(D2RareAffixTxt) * sgtDataTables.nRareAffixTxtRecordCount, ".\\DATATBLS\\ItemTbls.cpp", 0x2F4, 0);
     sgtDataTables.pRareSuffixTxt = sgtDataTables.pRareAffixTxt;
-    memcpy(sgtDataTables.pRareSuffixTxt, pRareSuffix, sizeof(D2RareAffixTxt) * nRareSuffixRecordCount);
-    sgtDataTables.pRarePrefixTxt = &sgtDataTables.pRareSuffixTxt[nRareSuffixRecordCount];
-    memcpy(sgtDataTables.pRarePrefixTxt, pRarePrefix, sizeof(D2RareAffixTxt) * nRarePrefixRecordCount);
+    memcpy(sgtDataTables.pRareSuffixTxt, pRareSuffix, sizeof(D2RareAffixTxt) * nRareSuffixCount);
+    sgtDataTables.pRarePrefixTxt = &sgtDataTables.pRareSuffixTxt[nRareSuffixCount];
+    memcpy(sgtDataTables.pRarePrefixTxt, pRarePrefix, sizeof(D2RareAffixTxt) * nRarePrefixCount);
     DATATBLS_UnloadBin(pRareSuffix);
     DATATBLS_UnloadBin(pRarePrefix);
 
