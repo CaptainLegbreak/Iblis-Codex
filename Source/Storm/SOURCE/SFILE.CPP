@@ -2633,7 +2633,7 @@ FILEREC::~FILEREC()
     if (hFile != (void*)-1)
         CloseHandle(hFile);
     if (archive)
-        archive->nUnk0x11C = 0;
+        archive->pCachedFile = 0;
     if (pBuffer0x12C)
         SMemFree(pBuffer0x12C, ".\\SOURCE\\SFILE.CPP", 0x14B, 0);
     if (pBuffer0x138)
@@ -3089,7 +3089,7 @@ int __stdcall SFileDdaBeginEx(void* hFile, unsigned int nBufferSize, unsigned in
         AUDIOSTREAM* node = gDdaList_00708384.NewNode(2, 0, 0);
         node->pFile = pFile;
         node->soundbuffersize = nBufferSize;
-        node->unk0x10 = format.avgBytesPerSec;
+        node->nBytesPerSec = format.avgBytesPerSec;
         node->bRestart = (nFlags >> 18) & 1;
         node->waveheadersize = chunk[1];
         node->nSize = chunk[0];
