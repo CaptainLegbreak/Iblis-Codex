@@ -77597,7 +77597,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_00675600.cpp",
+   "file": "Source/D2Common/DRLG/OutPlace.cpp",
    "rank": 0,
    "functions": [
     {
@@ -77676,9 +77676,33 @@
      "name": "sub_00677180_SetAct1OutdoorFlags"
     },
     {
+     "va": "0x006772C0",
+     "length": 762
+    },
+    {
+     "va": "0x006775C0",
+     "length": 117,
+     "name": "?sub_006775C0_SetOverlapWarps@@YGXHHPAUD2DrlgStrc@@@Z"
+    },
+    {
      "va": "0x00677640",
      "length": 57,
      "name": "?sub_00677640_AddOrthToLevel@@YAXPAUD2DrlgLevelStrc@@H@Z"
+    },
+    {
+     "va": "0x00677680",
+     "length": 193,
+     "name": "?sub_00677680_AddLevelOrths@@YGXPAUD2DrlgStrc@@HH@Z"
+    },
+    {
+     "va": "0x00677750",
+     "length": 58,
+     "name": "?sub_00677750_CreateAct1LevelConnections@@YAXPAUD2DrlgStrc@@@Z"
+    },
+    {
+     "va": "0x00677790",
+     "length": 52,
+     "name": "?sub_00677790_CreateAct2LevelConnections@@YAXPAUD2DrlgStrc@@@Z"
     },
     {
      "va": "0x006777D0",
@@ -77695,76 +77719,22 @@
      "name": "sub_00678910"
     },
     {
-     "va": "0x00678B10",
-     "length": 43
+     "va": "0x006789B0",
+     "length": 102
     },
     {
-     "va": "0x00678B40",
-     "length": 55,
-     "name": "sub_00678B40_PathHeuristic"
+     "va": "0x00678A20",
+     "length": 71,
+     "name": "?sub_00678A20_CreateAct4LevelConnections@@YAXPAUD2DrlgStrc@@@Z"
     },
     {
-     "va": "0x00678B80",
-     "length": 133,
-     "name": "?sub_6FDAB610@@YIHHHHH@Z"
+     "va": "0x00678A70",
+     "length": 94,
+     "name": "?sub_00678A70_CreateAct5LevelConnections@@YAXPAUD2DrlgStrc@@@Z"
     },
     {
-     "va": "0x00678C10",
-     "length": 149,
-     "name": "sub_00678C10"
-    },
-    {
-     "va": "0x00678CB0",
-     "length": 28,
-     "name": "?sub_00678CB0_GetFirstDirectionXY@@YIHHHHH@Z"
-    },
-    {
-     "va": "0x00678CD0",
-     "length": 28,
-     "name": "sub_00678CD0_GetFirstDirection"
-    },
-    {
-     "va": "0x00678CF0",
-     "length": 30,
-     "name": "?sub_6FDAB750@@YIHHHHH@Z"
-    },
-    {
-     "va": "0x00678D10",
-     "length": 30,
-     "name": "?sub_6FDAB770@@YGHUD2PathPointStrc@@0@Z"
-    },
-    {
-     "va": "0x00678D30",
-     "length": 57,
-     "name": "?sub_00678D30_GetDirectionsXY@@YIXHHHHPAH@Z"
-    },
-    {
-     "va": "0x00678D70",
-     "length": 58,
-     "name": "PATH_GetDirections_6FDAB790"
-    },
-    {
-     "va": "0x00678DB0",
-     "length": 55,
-     "name": "?sub_00678DB0_GetDirectionTripletXY@@YIXHHHHPAH@Z"
-    },
-    {
-     "va": "0x00678DF0",
-     "length": 56,
-     "name": "sub_00678DF0"
-    },
-    {
-     "va": "0x00678E30",
-     "length": 196
-    },
-    {
-     "va": "0x00678F00",
-     "length": 97,
-     "name": "?sub_6FDAB810@@YIXPAH0@Z"
-    },
-    {
-     "va": "0x00678F70",
-     "length": 529
+     "va": "0x00678AD0",
+     "length": 64
     }
    ]
   },
@@ -77843,83 +77813,81 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_006775C0.cpp",
+   "file": "Source/D2Common/PATH/PathUtil.cpp",
    "rank": 0,
    "functions": [
     {
-     "va": "0x00677680",
-     "length": 193,
-     "name": "?sub_00677680_AddLevelOrths@@YGXPAUD2DrlgStrc@@HH@Z"
+     "va": "0x00678B10",
+     "length": 43
     },
     {
-     "va": "0x00677750",
+     "va": "0x00678B40",
+     "length": 55,
+     "name": "sub_00678B40_PathHeuristic"
+    },
+    {
+     "va": "0x00678B80",
+     "length": 133,
+     "name": "?sub_6FDAB610@@YIHHHHH@Z"
+    },
+    {
+     "va": "0x00678C10",
+     "length": 149,
+     "name": "sub_00678C10"
+    },
+    {
+     "va": "0x00678CB0",
+     "length": 28,
+     "name": "?sub_00678CB0_GetFirstDirectionXY@@YIHHHHH@Z"
+    },
+    {
+     "va": "0x00678CD0",
+     "length": 28,
+     "name": "sub_00678CD0_GetFirstDirection"
+    },
+    {
+     "va": "0x00678CF0",
+     "length": 30,
+     "name": "?sub_6FDAB750@@YIHHHHH@Z"
+    },
+    {
+     "va": "0x00678D10",
+     "length": 30,
+     "name": "?sub_6FDAB770@@YGHUD2PathPointStrc@@0@Z"
+    },
+    {
+     "va": "0x00678D30",
+     "length": 57,
+     "name": "?sub_00678D30_GetDirectionsXY@@YIXHHHHPAH@Z"
+    },
+    {
+     "va": "0x00678D70",
      "length": 58,
-     "name": "?sub_00677750_CreateAct1LevelConnections@@YAXPAUD2DrlgStrc@@@Z"
+     "name": "PATH_GetDirections_6FDAB790"
     },
     {
-     "va": "0x00677790",
-     "length": 52,
-     "name": "?sub_00677790_CreateAct2LevelConnections@@YAXPAUD2DrlgStrc@@@Z"
+     "va": "0x00678DB0",
+     "length": 55,
+     "name": "?sub_00678DB0_GetDirectionTripletXY@@YIXHHHHPAH@Z"
     },
     {
-     "va": "0x00678A20",
-     "length": 71,
-     "name": "?sub_00678A20_CreateAct4LevelConnections@@YAXPAUD2DrlgStrc@@@Z"
+     "va": "0x00678DF0",
+     "length": 56,
+     "name": "sub_00678DF0"
     },
     {
-     "va": "0x00678A70",
-     "length": 94,
-     "name": "?sub_00678A70_CreateAct5LevelConnections@@YAXPAUD2DrlgStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/OutPlace.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006772C0",
-     "length": 762
+     "va": "0x00678E30",
+     "length": 196
     },
     {
-     "va": "0x006775C0",
-     "length": 117,
-     "name": "?sub_006775C0_SetOverlapWarps@@YGXHHPAUD2DrlgStrc@@@Z"
+     "va": "0x00678F00",
+     "length": 97,
+     "name": "?sub_6FDAB810@@YIXPAH0@Z"
     },
     {
-     "va": "0x006789B0",
-     "length": 102
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00678AD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00678AD0",
-     "length": 64
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/PATH/PathUtil.cpp",
-   "rank": 1,
-   "functions": [
+     "va": "0x00678F70",
+     "length": 529
+    },
     {
      "va": "0x00679190",
      "length": 190
