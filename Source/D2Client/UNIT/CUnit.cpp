@@ -642,6 +642,17 @@ D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 static int __stdcall CUNIT_CheckSkillSelectProc(D2UnitStrc* pPlayer, D2UnitStrc* pTarget, int nSkillId); // 0x004642B0
 
+struct D2TileRectStrc
+{
+    int unk0x00;
+    int nX;
+    int nY;
+    int nWidth;
+    int nHeight;
+};
+
+void __stdcall sub_00625960(void* pArg); // 0x00625960
+
 // 0x004645B0
 static int __stdcall CUNIT_CanInterruptSequence(int nUnused, D2UnitStrc* pUnit); // 0x004645B0
 
@@ -1099,6 +1110,13 @@ void __cdecl sub_00463D70_Empty()
 {
 }
 
+// 0x00463D80
+void __fastcall UI_FreeUnitModStats(void* pArg)
+{
+    sub_00625960(pArg);
+}
+
+
 static inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -1171,6 +1189,15 @@ int __cdecl CUNIT_IsPlayerDeadOrMissing()
     return pPlayer->dwAnimMode == PLRMODE_DEAD;
 }
 
+// 0x00463E10
+D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+        return 0;
+    return pUnit->pGfxData;
+}
+
+
 // 0x00463E20
 void __fastcall CUNIT_SetBasePalShiftIndex(D2UnitStrc* pUnit, int nValue)
 {
@@ -1198,6 +1225,32 @@ int __fastcall CUNIT_GetPalShiftIndex(D2UnitStrc* pUnit)
     D2_ASSERT(pUnit, 0x57E);
     return GFX_GetGfxPalShift(pUnit->pGfxData);
 }
+
+// 0x00463EE0
+int __fastcall SCMD_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY)
+{
+    D2_ASSERT(pUnit->dwUnitType == UNIT_TILE, 1419);
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    D2TileRectStrc* pRect = sub_00619620(pRoom, pUnit);
+    if (!pRect)
+    {
+        return 0;
+    }
+
+    int nUnitX = UNITS_GetXPositionInline(pUnit);
+    int nUnitY = UNITS_GetYPositionInline(pUnit);
+    DUNGEON_GameSubtileToClientCoords(&nUnitX, &nUnitY);
+
+    const int nLeft = pRect->nX + nUnitX;
+    const int nTop = pRect->nY + nUnitY;
+    if (nX >= nLeft && nY >= nTop && nX <= nLeft + pRect->nWidth && nY <= nTop + pRect->nHeight)
+    {
+        return 1;
+    }
+    return 0;
+}
+
 
 inline int UNITS_InlineGetXPosition(D2UnitStrc* pUnit)
 {

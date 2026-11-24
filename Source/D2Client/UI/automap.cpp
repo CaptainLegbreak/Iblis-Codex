@@ -3389,25 +3389,6 @@ void __fastcall AUTOMAP_SetUnitLightColor(D2UnitStrc* pUnit, int nColor)
     SCMD_SetLightColorBytes(pLight, nRed, nGreen, nBlue);
 }
 
-// 0x00461AC0
-int __fastcall AUTOMAP_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance)
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (!pPlayer || !pSkill || !pTarget)
-    {
-        return 0;
-    }
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-    *pRange = SKILLS_EvaluateSkillFormula(pPlayer, pSkillsTxtRecord->dwAuraRangeCalc, pSkillsTxtRecord->nSkillId,
-        SKILLS_GetSkillLevel(pPlayer, pSkill, 1));
-    *pDistance = sub_006416D0_UnitEdgeDistance(pPlayer, pTarget);
-    return *pDistance <= *pRange;
-}
-
 // 0x00462EE0
 unsigned char __stdcall AUTOMAP_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
@@ -3471,26 +3452,6 @@ void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValu
         }
         pOverlay = pNext;
     }
-}
-
-// 0x00480C10
-int __fastcall AUTOMAP_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_PLAYER:
-        return PLAYER_ApplyUnitCommand(nCommand, pUnit, pTarget, nArg);
-    case UNIT_MONSTER:
-        MONSTER_HandleMonsterCommand(nCommand, pUnit, pTarget);
-        return 1;
-    case UNIT_OBJECT:
-        OBJECT_HandleObjectCommand(nCommand, pUnit, pTarget);
-        return 1;
-    case UNIT_ITEM:
-        ITEM_HandleItemCommand(nCommand, pUnit, pTarget->nParam1, pTarget->nParam2);
-        return 1;
-    }
-    return 1;
 }
 
 // 0x00498DC0

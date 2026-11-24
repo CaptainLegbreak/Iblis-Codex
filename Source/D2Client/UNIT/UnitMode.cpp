@@ -246,6 +246,16 @@ void __fastcall AUTOMAP_UpdatePathAndMove(D2UnitStrc* pUnit, D2ActiveRoomStrc* p
 
 int __stdcall D2Common_10230(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650C60
 
+int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown);                // 0x00649970
+
+int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00461250
+
+void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004AFF60
+
+void __fastcall OBJECT_HandleObjectCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004BD6D0
+
+void __fastcall ITEM_HandleItemCommand(int nCommand, D2UnitStrc* pUnit, int nParam1, int nParam2); // 0x004C1B80
+
 // 0x00480490
 void __fastcall UNITMODE_RecacheUnitPath(D2UnitStrc* pUnit)
 {
@@ -396,6 +406,20 @@ void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsig
         D2Common_10230(pUnit->pDynamicPath, pUnit, pNewRoom, nX, nY);
     }
 }
+
+// 0x00480780
+int __fastcall INV_SetPathTargetUnit(D2UnitStrc* pUnit, int nUnitType, int nUnitId)
+{
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+    D2UnitStrc* pTarget = CUNIT_FindClientUnit(nUnitId, nUnitType);
+    PATH_SetTargetUnit(pPath, pTarget);
+    if (!pTarget)
+    {
+        return 0;
+    }
+    return D2Common_10142(pPath, pUnit, 0);
+}
+
 
 // 0x004807C0
 extern "C" int __fastcall UNITMODE_UpdateUnitPath(D2UnitStrc* unit)
@@ -579,6 +603,28 @@ void __fastcall UNITMODE_InteractWithUnit(unsigned short nType, int nUnitId)
     MSG_SendTwoDwords(0x13, nType, nUnitId);
 }
 
+// 0x00480B40
+void __fastcall VIEW_SendUnitActionPacket(int nHeader, int nUnused, int nArg1, int nArg2, int nUnused2)
+{
+    if (nHeader == 0x13)
+    {
+        return;
+    }
+    switch (nHeader)
+    {
+    case 1: case 3:
+        sub_004785D0_SendShortShort(nHeader, nArg1, nArg2);
+        return;
+    case 2: case 4: case 6: case 7: case 9: case 10: case 13: case 14: case 16: case 17:
+        MSG_SendTwoDwords(nHeader, nArg1, nArg2);
+        return;
+    default:
+        sub_004785D0_SendShortShort(nHeader, nArg1, nArg2);
+        return;
+    }
+}
+
+
 static inline D2SkillsTxt* UMODE_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -670,6 +716,27 @@ static int UNITMODE_CanUseSkillNow(D2UnitStrc* pPlayer)
     }
     return 0;
 }
+
+// 0x00480C10
+int __fastcall AUTOMAP_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_PLAYER:
+        return PLAYER_ApplyUnitCommand(nCommand, pUnit, pTarget, nArg);
+    case UNIT_MONSTER:
+        MONSTER_HandleMonsterCommand(nCommand, pUnit, pTarget);
+        return 1;
+    case UNIT_OBJECT:
+        OBJECT_HandleObjectCommand(nCommand, pUnit, pTarget);
+        return 1;
+    case UNIT_ITEM:
+        ITEM_HandleItemCommand(nCommand, pUnit, pTarget->nParam1, pTarget->nParam2);
+        return 1;
+    }
+    return 1;
+}
+
 
 // 0x00480C80
 static int UNITMODE_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction)

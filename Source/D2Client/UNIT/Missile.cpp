@@ -679,6 +679,14 @@ inline int UNITS_CanBeAttackedInline(D2UnitStrc* pUnit)
     return bResult;
 }
 
+void __stdcall MISSILE_AllocMissileData(D2UnitStrc* pMissile); // 0x0064A100
+
+int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
+
+void __stdcall sub_00649D00(int nArg1, int nArg2, int nArg3, int nArg4, D2UnitStrc* pUnit, int nArg6); // 0x00649D00
+
+void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nMask); // 0x00648C30
+
 // 0x004CC800
 static int __stdcall sub_004CC800_CheckDistanceAndLineOfSight(int nMaxDistanceSq, int nX, int nY, D2ActiveRoomStrc* pRoom, int nOffsetX, int nOffsetY)
 {
@@ -1407,6 +1415,48 @@ int __fastcall sub_004CD050_CltCanMissileDestroy(D2UnitStrc* pUnit, void* pArgum
 
     return 1;
 }
+
+// 0x004CD0A0
+void __fastcall SKILLS_InitMissileUnit(D2UnitStrc* pMissile, int nArg, int nTargetX, int nTargetY, int nUnused)
+{
+    if (!pMissile)
+    {
+        return;
+    }
+
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile->dwClassId);
+    if (!pMissilesTxtRecord)
+    {
+        return;
+    }
+
+    MISSILE_AllocMissileData(pMissile);
+    UNITS_ChangeAnimMode(pMissile, pMissilesTxtRecord->nCollideType);
+    sub_00649D00(0, nArg, nTargetX, nTargetY, pMissile, 1);
+
+    D2DynamicPathStrc* pDynamicPath = pMissile->pDynamicPath;
+    if (pMissilesTxtRecord->nCollision)
+    {
+        PATH_SetFootprintCollisionMask(pDynamicPath, 0x40);
+    }
+    else
+    {
+        PATH_SetFootprintCollisionMask(pDynamicPath, 0);
+    }
+    PATH_SetMoveTestCollisionMask(pDynamicPath, gaCltMissileModes[pMissilesTxtRecord->nCollideType].nCollisionMask);
+
+    if (pMissilesTxtRecord->nMissileFlags[0] & gnBitMasks_006CE268[4])
+    {
+        pMissile->dwFlags |= 4;
+    }
+    else
+    {
+        pMissile->dwFlags &= ~4;
+    }
+
+    pMissile->dwFlags = (pMissile->dwFlags & ~0xA) | 0x20;
+}
+
 
 // 0x004CD380
 void __fastcall sub_004CD380_StatRemoveCallback_ToggleStateOff(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
@@ -6932,6 +6982,27 @@ D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams
 
     return pMissile;
 }
+
+// 0x004CDB40
+D2UnitStrc* __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2RequestStrc tRequest;
+    memset(&tRequest, 0, sizeof(tRequest));
+    tRequest.nType = 1;
+    tRequest.pUnit = pUnit;
+    tRequest.nArg1 = nX;
+    tRequest.nArg2 = nY;
+    tRequest.nArg3 = nA;
+    tRequest.nArg4 = nB;
+    tRequest.nArg0 = nRequest;
+    return sub_004CD540_HandleRequest(&tRequest);
+}
+
 
 // 0x004CE140
 void __fastcall MISSILE_SpawnRingAround(D2UnitStrc* pMissile, int nChance, int nCount, int nRange, int nMissile)
