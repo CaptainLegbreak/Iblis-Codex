@@ -1956,12 +1956,4 @@ int __stdcall STATLIST_GetUnitStatBonus(D2UnitStrc* pUnit, int nStatId, unsigned
     return nValue - STATLIST_GetBaseStatValue(pStatList, nStatId, nLayer);
 }
 
-// 0x00640E90
-D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId)
-{
-    D2_ASSERT(nObjectId < gnObjectsTxtRecordCount, 221);
-    D2_ASSERT(nObjectId >= 0, 222);
-    return &gpObjectsTxt[nObjectId];
-}
-
 #include "gen/data/Source/D2Common/DATATBLS/DataTbls.inc"

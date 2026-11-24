@@ -65985,11 +65985,6 @@
      "va": "0x00625560",
      "length": 61,
      "name": "STATLIST_GetUnitStatBonus"
-    },
-    {
-     "va": "0x00640E90",
-     "length": 72,
-     "name": "DATATBLS_GetObjectsTxtRecord"
     }
    ]
   },
@@ -70635,13 +70630,12 @@
      "va": "0x0063F690",
      "length": 6135,
      "name": "DATATBLS_LoadObjectsTxt"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/MonsterTbls.cpp",
-   "rank": 0,
-   "functions": [
+    },
+    {
+     "va": "0x00640E90",
+     "length": 72,
+     "name": "DATATBLS_GetObjectsTxtRecord"
+    },
     {
      "va": "0x00640EE0",
      "length": 24,
@@ -70651,12 +70645,13 @@
      "va": "0x00640F00",
      "length": 24,
      "name": "?DATATBLS_UnloadObjGroupTxt@@YIXXZ"
-    },
-    {
-     "va": "0x00641510",
-     "length": 24,
-     "name": "?DATATBLS_UnloadShrinesTxt@@YIXXZ"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Common/DATATBLS/MonsterTbls.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x00650EB0",
      "length": 75,
@@ -71085,6 +71080,24 @@
      "name": "DATATBLS_GetShrinesTxtRecord"
     },
     {
+     "va": "0x00641510",
+     "length": 24,
+     "name": "?DATATBLS_UnloadShrinesTxt@@YIXXZ"
+    },
+    {
+     "va": "0x00641530",
+     "length": 416,
+     "name": "?sub_00641530@@YGHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x006416D0",
+     "length": 280
+    },
+    {
+     "va": "0x006417F0",
+     "length": 158
+    },
+    {
      "va": "0x00641890",
      "length": 149,
      "name": "UNITS_IsInRange"
@@ -71308,6 +71321,11 @@
      "name": "DUNGEON_GameToClientCoords"
     },
     {
+     "va": "0x006432C0",
+     "length": 69,
+     "name": "DUNGEON_ClientToGameTileCoords"
+    },
+    {
      "va": "0x00643310",
      "length": 46,
      "name": "DUNGEON_GameTileToClientCoords"
@@ -71331,30 +71349,6 @@
      "va": "0x00675770",
      "length": 103,
      "name": "?DRLGOUTPLACE_SetOutGridLinkFlags@@YIXPAUD2DrlgLevelStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00641320.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00641530",
-     "length": 416,
-     "name": "?sub_00641530@@YGHPAUD2UnitStrc@@0@Z"
-    },
-    {
-     "va": "0x006416D0",
-     "length": 280
-    },
-    {
-     "va": "0x006417F0",
-     "length": 158
-    },
-    {
-     "va": "0x006432C0",
-     "length": 69,
-     "name": "DUNGEON_ClientToGameTileCoords"
     }
    ]
   },
