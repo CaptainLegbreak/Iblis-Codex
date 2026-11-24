@@ -6,6 +6,7 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 `Source/D2DDraw/**`, `Source/D2Gdi/**`, `Source/D2Glide/**`, `Source/D2Hell/**`, taking over from lane 6.
 
 ## Claimed
+- From queues.md: the DrawLine context copies. D2Gdi Unknown_006C8F70 + Unknown_006C9030 into Unknown_006C8DA0 (lane9/join-gdi-line); D2DDraw Unknown_00512C20 + Unknown_00512CE0 into Unknown_005125E0 (lane9/join-ddraw-line). Each pair calls its home file's static DrawLine.
 - Renderer functions filed in D2Win: Unknown_0050F910.cpp (Glide 0x50F910, 0x50FBD0, 0x50FDF0; DDraw 0x510130-0x5103B0,
   0x5137E0) and Unknown_00508970.cpp (0x508970 GlideLoadLibrary, 0x508F60 GlideCheckBoards). Lane 6: please don't edit
   these meanwhile. Then Storm SCMD.CPP's stubs in gdiCore's run and the Bnclient units in the D2Hell run.
