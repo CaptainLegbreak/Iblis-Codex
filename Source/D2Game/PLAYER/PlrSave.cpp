@@ -25,6 +25,7 @@
 #include "D2ItemModes.h"
 #include "D2SaveHeader.h"
 #include "D2LanguageNames.h"
+#include "D2GameCallbackArgs.h"
 
 #pragma function(memset)
 
@@ -440,11 +441,6 @@ struct D2PlrIntroSaveStrc
     unsigned char unk0x1C[NUM_DIFFICULTIES][8];
 };
 
-struct D2RosterIterateStrc
-{
-    int bFlag;
-    D2UnitStrc* pUnit;
-};
 
 void __fastcall PLAYER_CheckHostilityCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs); // 0x00535AF0
 
