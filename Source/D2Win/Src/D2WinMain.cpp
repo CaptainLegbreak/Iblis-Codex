@@ -303,13 +303,6 @@ struct D2WinImageClickRectStrc
     D2WinMsgHandler pCallback;
 };
 
-struct D2WinImage2Strc
-{
-    D2WinControlStrc controlHeader;
-    int nFrame;
-    int eDrawMode;
-    D2WinImageClickRectStrc* pClickRect;
-};
 
 struct D2HoverLineStrc
 {

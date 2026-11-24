@@ -6,6 +6,7 @@
 #include "D2CelContext.h"
 #include "D2MultiTypes.h"
 #include "D2MsgRecord.h"
+#include "D2ClientTimer.h"
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -408,14 +409,6 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
-struct D2LoadingTimerStrc
-{
-    unsigned long dwStart;
-    unsigned long dwLength;
-    D2LoadingTimerStrc() : dwStart(0), dwLength(0)
-    {
-    }
-};
 
 extern int gdwUnloadCompleteTick; // 0x007A0524
 
@@ -618,16 +611,6 @@ public:
 
 struct D2LaunchMsgStrc;
 
-struct D2LaunchMsgStrc
-{
-    int nType;
-    int nArg;
-    char* szName;
-    void* pExtra;
-    void* pData;
-    unsigned long nSize;
-    char szText[0x108];
-};
 
 struct D2MsgRecordStrc;
 

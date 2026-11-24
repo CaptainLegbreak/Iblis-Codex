@@ -118,29 +118,8 @@ struct D2ThreadNameInfoStrc
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2UnicodeStringStrc
-{
-    unsigned short Length;
-    unsigned short MaximumLength;
-    wchar_t* Buffer;
-};
 
-struct D2ListEntryStrc
-{
-    D2ListEntryStrc* Flink;
-    D2ListEntryStrc* Blink;
-};
 
-struct D2LdrEntryStrc
-{
-    D2ListEntryStrc InLoadOrderLinks;
-    D2ListEntryStrc InMemoryOrderLinks;
-    D2ListEntryStrc InInitializationOrderLinks;
-    D2ModuleStrc* DllBase;
-    void* EntryPoint;
-    unsigned long SizeOfImage;
-    D2UnicodeStringStrc FullDllName;
-};
 
 struct D2LdrDataStrc
 {

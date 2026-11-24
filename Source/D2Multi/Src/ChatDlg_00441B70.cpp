@@ -282,12 +282,6 @@ extern int gbChatSetup; // 0x0077BBF8
 struct D2LaunchRecord3Strc;
 struct D2LaunchThreadRecordStrc;
 struct D2LaunchNameNodeStrc;
-struct D2LaunchRecord3Strc
-{
-    int nValue0;
-    int nValue1;
-    int f_8;
-};
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfnStart)(void*), void* pParameter, unsigned long nFlags, unsigned long* pThreadId); // 0x006CC250
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940

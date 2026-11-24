@@ -103,20 +103,7 @@ typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
-struct D2WinImage2Strc
-{
-    D2WinControlStrc controlHeader;
-    int nFrame;
-    int eDrawMode;
-    D2WinImageClickRectStrc* pClickRect;
-};
 
-struct D2WinTimerStrc
-{
-    D2WinControlStrc controlHeader;
-    unsigned int nTimeout;
-    unsigned int dwTickCount;
-};
 
 struct D2WinCommandRegisterStrc
 {

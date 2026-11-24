@@ -24,6 +24,7 @@
 #include "D2PlayerModes.h"
 #include "D2ItemModes.h"
 #include "D2SaveHeader.h"
+#include "D2LanguageNames.h"
 
 #pragma function(memset)
 
