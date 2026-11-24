@@ -16,6 +16,7 @@
 #include "D2GameRecords.h"
 #include "D2ItemsWorld.h"
 #include "D2SaveHeader.h"
+#include "D2LanguageNames.h"
 
 struct D2ItemDataTbl
 {

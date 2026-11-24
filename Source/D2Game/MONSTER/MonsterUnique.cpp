@@ -18,6 +18,7 @@
 #include "D2TxtTables.h"
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
+#include "D2LanguageNames.h"
 
 #define UNITFLAG_TARGETABLE 0x00000002
 
