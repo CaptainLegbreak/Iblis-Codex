@@ -14583,11 +14583,6 @@
      "name": "sub_004A17D0"
     },
     {
-     "va": "0x004B92E0",
-     "length": 63,
-     "name": "INV_GetTableByte"
-    },
-    {
      "va": "0x006CABF0",
      "length": 17
     }
@@ -27156,6 +27151,21 @@
      "name": "?sub_004B91F0@@YAXXZ"
     },
     {
+     "va": "0x004BABC0",
+     "length": 26,
+     "name": "?sub_004BABC0_ToggleHints@@YAXXZ"
+    },
+    {
+     "va": "0x004BE060",
+     "length": 26,
+     "name": "?sub_004BE060@@YAXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_004B9200.cpp",
+   "functions": [
+    {
      "va": "0x004B9200",
      "length": 11,
      "name": "?sub_004B9200_ResetTable@@YAXXZ"
@@ -27174,6 +27184,11 @@
      "va": "0x004B92D0",
      "length": 8,
      "name": "?sub_004B92D0_IsTableReady@@YGHH@Z"
+    },
+    {
+     "va": "0x004B92E0",
+     "length": 63,
+     "name": "INV_GetTableByte"
     },
     {
      "va": "0x004B9320",
@@ -27199,18 +27214,9 @@
      "va": "0x004B93A0",
      "length": 66,
      "name": "sub_004B93A0_ClampFloat"
-    },
-    {
-     "va": "0x004BABC0",
-     "length": 26,
-     "name": "?sub_004BABC0_ToggleHints@@YAXXZ"
-    },
-    {
-     "va": "0x004BE060",
-     "length": 26,
-     "name": "?sub_004BE060@@YAXXZ"
     }
-   ]
+   ],
+   "rank": 0
   },
   {
    "file": "Source/D2Client/Unknown_004B8410.cpp",
