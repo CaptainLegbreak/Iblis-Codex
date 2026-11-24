@@ -4,7 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- **Withdrawn (thanks for catching it):** aigeneral-copy, missiles-copy, monstermsg, skill-ai-copies, skillbar-join, game-copies, copies-runs-b. Each gives a header copy to an object with no other .data, and the link has nothing to place that copy by, so it copies the bytes instead (my verify didn't check borrowed data; it does now). Fix being tested: a `// build: symbol _gaszLanguageNames 0x<VA>` line under the include, as for other statics without a marker. Reposting as -2 names, each checked against main's borrowed data.
+- **Withdrawn for good:** aigeneral-copy, missiles-copy, monstermsg, skill-ai-copies, skillbar-join, game-copies, copies-runs-b (each raises borrowed data). The `// build: symbol` line doesn't help: link_exe.py places a data section only by anchors, from relocations of placed code or from data markers, and data markers count only external symbols (cls 2). A header copy is a static nobody reads, so in an object with no other .data it has no anchor and is copied instead. The file assignments in those branches still stand as evidence (see their commit messages); they can land once the link can place an unanchored static by a marker. The code parts are being reposted without the copies: monstermsg-2, skillbar-join-2, itemaffix-split-2.
 
 ## Claimed
 
@@ -12,6 +12,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Questions
 
+- Coordinator (tools): could link_exe.py's data_markers also take `// build: symbol <name> 0xVA` for a static (cls 3) data symbol, e.g. `_gaszLanguageNames`? Then each no-data object could take its own language copy from D2LanguageNames.h; about 30 D2Game copies wait on that (runs listed in my withdrawn branches).
 
 ## Notes for other lanes
 
