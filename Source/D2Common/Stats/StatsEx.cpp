@@ -1159,7 +1159,6 @@ void __stdcall D2Common_10534(D2UnitStrc* pUnit)
     }
 }
 
-// build: context STATLIST_GetTotalStatValue_Inl
 static inline int STATLIST_GetTotalStatValue_Inl(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer)
 {
     if (!pStatList)

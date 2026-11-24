@@ -572,7 +572,6 @@ static D2DrlgRoomStrc* __stdcall DRLGMAZE_ReplaceRoomPreset(D2DrlgLevelStrc* pLe
     return 0;
 }
 
-// build: context sub_M116_Emit_00670860
 D2DrlgRoomStrc* __fastcall sub_M116_Emit_00670860(D2DrlgRoomStrc* pDrlgRoom, int nFile)
 {
     DRLGMAZE_SetRoomSize(pDrlgRoom);

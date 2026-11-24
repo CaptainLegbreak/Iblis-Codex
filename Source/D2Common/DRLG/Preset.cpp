@@ -800,7 +800,6 @@ void __fastcall DRLGPRESET_ParseDS1File(D2DrlgFileStrc* pDrlgFile, void* hArchiv
     }
 }
 
-// build: context SKILLDESC_ValidateMonsterId
 // calling-convention shim (not game code)
 int __fastcall SKILLDESC_ValidateMonsterId(int nMonsterId)
 {

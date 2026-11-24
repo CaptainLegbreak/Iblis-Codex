@@ -109,7 +109,6 @@ static void __stdcall DRLGTILESUB_DoSubstitutions(D2UnkOutdoorStrc2* pOutdoor, D
     }
 }
 
-// build: context sub_006707A0
 void __fastcall sub_006707A0(D2UnkOutdoorStrc2* pOutdoor)
 {
     if (pOutdoor->nSubWaypoint_Shrine != -1)

@@ -1565,7 +1565,6 @@ int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem)
     return 0;
 }
 
-// build: context sub_00623C60
 static inline int sub_00623C60(D2UnitStrc* pUnit)
 {
     if (pUnit)
@@ -1699,7 +1698,6 @@ unsigned int __stdcall ITEMS_CheckWeaponIfTwoHandedByItemId(int nItemId)
     return pItemsTxtRecord->n2Handed;
 }
 
-// build: context sub_00628830_Shim
 // calling-convention shim (not game code)
 int __fastcall sub_00628830_Shim(D2UnitStrc* item, D2UnitStrc* player)
 {

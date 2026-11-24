@@ -357,7 +357,6 @@ static inline void __fastcall sub_0067D7E0_SetOffsetCoords(D2DrlgCoordStrc* pCoo
     pCoords->nPosY = gOutdoorOrthOffsets[nIndex].nY + pLinkCoords->nPosY;
 }
 
-// build: context sub_M_Emit_0067D7E0
 // emits the static 0x0067D7E0 the way its lost caller did (not game code)
 int __fastcall sub_M_Emit_0067D7E0(D2DrlgLevelLinkDataStrc* pLevelLinkData)
 {

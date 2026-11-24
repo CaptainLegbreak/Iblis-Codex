@@ -213,7 +213,6 @@ static inline int DATATBLS_StringToCode(const char* szText)
     return nCode;
 }
 
-// build: context sub_00668A90_LookupItem
 static __forceinline int sub_00668A90_LookupItem(D2CubeInputItemStrc* pInput, char* szText)
 {
     int nLinkId;
@@ -264,7 +263,6 @@ static __forceinline int sub_00668A90_LookupItem(D2CubeInputItemStrc* pInput, ch
     return 1;
 }
 
-// build: context sub_00668A90_TryItemCode
 static inline int sub_00668A90_TryItemCode(D2CubeInputItemStrc* pInput, char* szText)
 {
     int nCode;
@@ -277,7 +275,6 @@ static inline int sub_00668A90_TryItemCode(D2CubeInputItemStrc* pInput, char* sz
     return 0;
 }
 
-// build: context sub_00668A90_ParseItemName
 static __forceinline int sub_00668A90_ParseItemName(D2CubeInputItemStrc* pInput, char* szText)
 {
     if (!_stricmp(szText, gszCowPortal))

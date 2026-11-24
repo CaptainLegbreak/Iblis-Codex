@@ -195,7 +195,6 @@ static D2DrlgPathNodeStrc* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch,
     }
 }
 
-// build: context sub_M_Emit_006814E0
 // emits the static 0x006814E0, which the original inlines into 0x00681630 and also keeps (not game code)
 D2DrlgPathNodeStrc* __stdcall sub_M_Emit_006814E0(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal)
 {
