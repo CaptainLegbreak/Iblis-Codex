@@ -1,0 +1,7 @@
+va	old_name	new_name	source	file	confidence	reason	prefix
+0x0072DA7C	gdwGlobal_0072DA7C	gfFixedAspectRatio	inferred	Source/D2Gfx/SRC/Window.cpp	high	returned by D2GFX_IsFixedAspectRatio, cleared by D2GFX_DisableFixedAspectRatio; used in D2GFX_IsFixedAspectRatio, D2GFX_DisableFixedAspectRatio; data_plan.json has gdwGlobal_0072DA7C: rename it there too	gf (int)
+0x007C8CB0	gdwGlobal_007C8CB0	gnDisplayType	inferred	Source/D2Gfx/SRC/Window.cpp	high	already named gnDisplayType at this address; used in sub_004F5140	gn (int)
+0x007C8CB4	gdwGlobal_007C8CB4	gbIsWindowed	inferred	Source/D2Gfx/SRC/Window.cpp	high	already named gbIsWindowed at this address; used in D2GFX_CheckWindowed	gb (int)
+0x007C8CBC	gdwGlobal_007C8CBC	ghWnd	inferred	Source/D2Gfx/SRC/Window.cpp	high	already named ghWnd at this address; used in WINDOW_GetWindow	gh (int)
+0x007C8CC4	gnResolutionMode_007C8CC4	gnViewMatrixAdjust	inferred	Source/D2Gfx/SRC/Window.cpp	high	already named gnViewMatrixAdjust at this address; used in WINDOW_SetPanelCoords	gn (int)
+0x007D5578	gpPaletteTables_007D5578	gpPaletteTables	inferred	Source/D2Gfx/SRC/Window.cpp	high	already named gpPaletteTables at this address; used in CMNSUBTILE_SetPaletteTables	gp (D2PaletteTableStrc*)

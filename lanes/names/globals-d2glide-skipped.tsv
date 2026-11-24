@@ -1,0 +1,3 @@
+va	old_name	file	reason
+0x0072F250	gdwGlobal_0072F250	Source/D2Glide/Src/glCore.cpp	tested and cleared once in GLIDE_OpenDevice; meaning unclear
+0x0087EFB8	gdwGlobal_0087EFB8	Source/D2Glide/Src/glTextureCache.cpp	device query field E, which GLIDE_FloorCacheInit checks; meaning unclear

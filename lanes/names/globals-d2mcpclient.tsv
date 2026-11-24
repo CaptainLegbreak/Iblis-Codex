@@ -1,0 +1,5 @@
+va	old_name	new_name	source	file	confidence	reason	prefix
+0x00798FB0	gnGlobal_00798FB0	gnMcpGameToken	inferred	Source/D2Client/CORE/WINMAIN.CPP	high	already named gnMcpGameToken at this address; used in WINMAIN_SendMcpCreateGame	gn (int)
+0x00798FB4	gpGlobal_00798FB4	gpMcpConnection	inferred	Source/D2Client/GAME/View.cpp	high	already named gpMcpConnection at this address; used in sub_0044A980_SendPacket0D, sub_0044A9B0_SendPacket0F, sub_0044A9E0_SendPacket10; (also spelled gnLaunchKey_00798FB4)	gp (void*)
+0x00799108	gdwGlobal_00799108	gabMcpReply	inferred	Source/D2Client/CORE/WINMAIN.CPP	high	already named gabMcpReply at this address; used in WINMAIN_HandleMcpGameList	gab (int)
+0x0079929C	gnValue_0079929C	gnConnectError	inferred	Source/D2MCPClient/Src/McpConnect.cpp	high	returned by GAME_GetConnectError; MCPCONNECT_WaitConnect and CHATDLG_SetMcpResult set it; used in GAME_GetConnectError, CHATDLG_SetMcpResult, MCPCONNECT_WaitConnect; (also spelled gdwGlobal_0079929C)	gn (int)

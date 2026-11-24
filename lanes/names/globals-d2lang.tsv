@@ -1,0 +1,2 @@
+va	old_name	new_name	source	file	confidence	reason	prefix
+0x007301D8	gwCrc16Table_007301D8	gawCrc16Table	inferred	Source/D2Lang/StrTable/strtable.cpp	high	already named gawCrc16Table at this address; used in CRC16_Update; data_plan.json has gwCrc16Table_007301D8: rename it there too	gaw (unsigned short [])

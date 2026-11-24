@@ -1,0 +1,5 @@
+va	old_name	new_name	source	file	confidence	reason	prefix
+0x00881860	gCriticalSection_00881860	gtBnLogLock	inferred	Source/Bnclient/Unknown_006CB420.cpp	high	already named gtBnLogLock at this address; declared only	gt (unsigned char [])
+0x00881894	gCriticalSection_00881894	gtCacheLock	inferred	Source/Bnclient/Unknown_006CB420.cpp	high	already named gtCacheLock at this address; declared only	gt (unsigned char [])
+0x00881F64	gCriticalSection_00881F64	gtDownloadLock	inferred	Source/Bnclient/Unknown_006CB420.cpp	high	already named gtDownloadLock at this address; declared only	gt (unsigned char [])
+0x0088273C	data_0088273C	gtBigPair	inferred	Source/Bnclient/Unknown_006CB420.cpp	high	already named gtBigPair at this address; used in sub_006CB480_DestroyBigPair	gt (D2BigPairStrc)

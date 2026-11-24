@@ -1,0 +1,7 @@
+va	old_name	new_name	source	file	confidence	reason	prefix
+0x007C9140	gbSurfaceActive_007C9140	ghRenderWindow	inferred	Source/D2DDraw/D2DDraw.h	high	already named ghRenderWindow at this address; used in GLIDE_DrawVideoFrame, DDRAW_PauseSurface, DDRAW_DrawVideoFrame; (also spelled ghDDrawWindow_007C9140, gn_007C9140, gnValue_007C9140, gnGlideState_007C9140)	gh (int)
+0x0088129C	gnClip_0088129C	gnDDrawClipLeft	inferred	Source/D2DDraw/Unknown_005121A0.cpp	high	already named gnDDrawClipLeft at this address; used in sub_005121A0_DrawClipped, sub_005122E0_DrawShadow; (also spelled gnClipLeft_0088129C)	gn (int)
+0x008812A0	gnClip_008812A0	gnDDrawClipRight	inferred	Source/D2DDraw/Unknown_005121A0.cpp	high	already named gnDDrawClipRight at this address; used in sub_005121A0_DrawClipped, sub_005122E0_DrawShadow; (also spelled gnClipRight_008812A0)	gn (int)
+0x008815B0	gaDDrawSmackRemap_008815B0	gabDDrawSmackRemap	inferred	Source/D2DDraw/Src/ddSmack.cpp	high	already named gabDDrawSmackRemap at this address; used in DDRAW_DecodeSmacker	gab (unsigned char [])
+0x008816B0	gpRemapSource_008816B0	gpDDrawSmackBuffer	inferred	Source/D2DDraw/Src/ddSmack.cpp	high	already named gpDDrawSmackBuffer at this address; used in DDRAW_RemapRows	gp (unsigned char*)
+0x008816B4	gbDDrawSmackRemapReady_008816B4	gbDDrawSmackRemapReady	inferred	Source/D2DDraw/Src/ddSmack.cpp	high	already named gbDDrawSmackRemapReady at this address; used in DDRAW_DecodeSmacker	gb (int)

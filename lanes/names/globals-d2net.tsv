@@ -1,0 +1,2 @@
+va	old_name	new_name	source	file	confidence	reason	prefix
+0x00882D08	gpServer_00882D08	gpServer	inferred	Source/D2Net/SRC/Server.cpp	high	already named gpServer at this address; used in SERVER_SendPacketToClient	gp (void*)

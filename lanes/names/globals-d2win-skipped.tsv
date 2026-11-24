@@ -1,0 +1,2 @@
+va	old_name	file	reason
+0x007D55E8	dword_6F8FE278	Source/D2Win/Src/D2WinMain.cpp	D2MOO has only dword_6F8FE278; cleared in D2Win_InitializeSpriteCache, meaning unclear

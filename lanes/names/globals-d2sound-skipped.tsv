@@ -1,0 +1,2 @@
+va	old_name	file	reason
+0x0072F830	gdwGlobal_0072F830	Source/D2Glide/Src/glCore.cpp	cleared in sub_00513A20_EnumCallback and returned by sub_00513BB0; meaning unclear

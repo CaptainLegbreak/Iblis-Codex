@@ -48,7 +48,7 @@ va	old_name	new_name	source	file	confidence	reason	prefix
 0x007992E8	gnValue_007992E8	gbMcpCharCreateReceived	inferred	Source/D2Client/Unknown_00449890.cpp	high	already named gbMcpCharCreateReceived at this address; used in CHATDLG_SetCharCreateReceived	gb (int)
 0x007992F0	gnValue_007992F0	gbMcpCharUpgradeReceived	inferred	Source/D2Client/Unknown_00449890.cpp	high	already named gbMcpCharUpgradeReceived at this address; used in CHATDLG_SetCharUpgradeReceived	gb (int)
 0x007992F4	gdwGlobal_007992F4	gpMcpPacket	inferred	Source/D2Client/GAME/Game.cpp	high	already named gpMcpPacket at this address; used in sub_00449E60	gp (int)
-0x007A0450	gpszCaption_007A0450	gpszCaption	inferred	Source/D2Client/CORE/WINMAIN.CPP	high	the name already says what it holds, without the address; declared only	gpsz (const char*)
+0x007A0450	gpszCaption_007A0450	gpszMainCaption	inferred	Source/D2Client/CORE/WINMAIN.CPP	medium	caption string next to gpszHelpCaption (0x7A0454); gpszCaption is the name another unit gives 0x6CC848; declared only	gpsz (const char*)
 0x007A0468	gtCriticalSection_007A0468	gtQServerLock	inferred	Source/D2Client/GAME/Game_0044E5A0.cpp	high	already named gtQServerLock at this address; used in GAME_RunGameFrame, GAME_RunGameSession; (also spelled gCriticalSection_007A0468)	gt (D2CriticalSectionStrc)
 0x007A0480	gaClientState_007A0480	gnClientState	inferred	Source/D2Client/GAME/Game.cpp	high	already named gnClientState at this address; used in GAME_ReleaseGameState, GAME_InitGameState	gn (char [])
 0x007A0488	gdwGlobal_007A0488	gpMemPool	inferred	Source/D2Client/GAME/Game.cpp	high	already named gpMemPool at this address; used in sub_0044DB20	gp (int)

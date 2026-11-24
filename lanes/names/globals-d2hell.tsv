@@ -1,0 +1,5 @@
+va	old_name	new_name	source	file	confidence	reason	prefix
+0x006CC848	gszCaption_006CC848	gpszCaption	inferred	Source/D2Hell/Unknown_00517874.cpp	high	already named gpszCaption at this address; used in sub_00517874_ShowError	gpsz (const char*)
+0x0072FA14	gFaultHandlerList_0072FA14	gFaultHandlerList	inferred	Source/D2Hell/Unknown_0051775A.cpp	high	already named gFaultHandlerList at this address; used in sub_0051775A_FreeFaultHandlerList, sub_005177B2_SetLoadStringFn	g (TMESSAGESOURCE)
+0x0074C5C8	gCharacterClass_0074C5C8	gCharacterClass	inferred	Source/D2Hell/D2Hell.h	high	the name already says what it holds, without the address; used in sub_006C9A76_ParseNumber, sub_006C9AC7_SkipSpaces, sub_006C9ADF_CopyWord; data_plan.json has gCharacterClass_0074C5C8: rename it there too	g (const unsigned char [])
+0x00881818	gMessageLock_00881818	gtErrorHandlerLock	inferred	Source/D2Hell/Unknown_00517804.cpp	high	already named gtErrorHandlerLock at this address; used in sub_00517804_GetMessage	gt (D2MessageLock)

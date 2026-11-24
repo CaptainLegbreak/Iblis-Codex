@@ -1,0 +1,7 @@
+va	old_name	new_name	source	file	confidence	reason	prefix
+0x006FC448	gszExcelSourceFile_006FC448	gszExcelSourceFile	inferred	Source/StandIns/Fog_006BD230.cpp	high	the name already says what it holds, without the address; used in sub_006BD230_InsertLinkKey	gsz (const char [])
+0x007C02B4	gnPressedButton_007C02B4	gnKeyConfigPressedButton	inferred	Source/D2Client/D2Client.h	high	already named gnKeyConfigPressedButton at this address; used in sub_004A4AD0_Press	gn (int)
+0x007C9788	gnTileClipLeft_007C9788	gnTileClipLeft	inferred	Source/StandIns/D2Win_004F8B80.cpp	high	its own descriptive spelling without the address (other units call it gnScreen_7C9788, which also carries the address); used in sub_004F8B80_DrawTileBlocks	gn (int)
+0x007C9798	gnTileClipRight_007C9798	gnTileClipRight	inferred	Source/StandIns/D2Win_004F8B80.cpp	high	its own descriptive spelling without the address (other units call it gnScreen_7C9798, which also carries the address); used in sub_004F8B80_DrawTileBlocks	gn (int)
+0x007D2330	gnTileClipTop_007D2330	gnTileClipTop	inferred	Source/StandIns/D2Win_004F8B80.cpp	high	its own descriptive spelling without the address (other units call it gnScreen_7D2330, which also carries the address); used in sub_004F8B80_DrawTileBlocks	gn (int)
+0x007D2338	gnTileClipBottom_007D2338	gnTileClipBottom	inferred	Source/StandIns/D2Win_004F8B80.cpp	high	its own descriptive spelling without the address (other units call it gnScreen_7D2338, which also carries the address); used in sub_004F8B80_DrawTileBlocks	gn (int)

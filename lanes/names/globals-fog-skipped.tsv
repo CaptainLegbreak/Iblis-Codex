@@ -1,0 +1,4 @@
+va	old_name	file	reason
+0x0074C830	gtLock_0074C830	Source/Fog/Src/ErrorManager.cpp	one of several slots whose descriptive part is only gtLock; which one each holds is unclear
+0x0074D848	gtLock_0074D848	Source/Fog/Src/ErrorManager.cpp	one of several slots whose descriptive part is only gtLock; which one each holds is unclear
+0x00989C28	gnGlobal_00989C28	Source/Fog/Src/Excel/Excel.cpp	config value 0x0C that FOG_SetServerConfig stores and QSInit copies; meaning unclear
