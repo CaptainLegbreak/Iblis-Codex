@@ -381,6 +381,18 @@ void __fastcall DRLGPRESET_GenerateLevel(D2DrlgLevelStrc* pLevel);
 
 void __fastcall DRLGPRESET_FreeDrlgMap(void* pMemPool, D2DrlgMapStrc* pDrlgMap);
 
+static inline int sub_IsSubstMethod(int nSubstMethod)
+{
+    switch (nSubstMethod)
+    {
+    case 1:
+    case 2:
+        return 1;
+    }
+    return 0;
+}
+
+// 0x00665810
 static void sub_00665810_CopyCodePadded(D2PresetCodeStrc* pDst, const char* pSrc)
 {
     if (!pSrc[0])
@@ -413,15 +425,65 @@ static void sub_00665810_CopyCodePadded(D2PresetCodeStrc* pDst, const char* pSrc
     pDst->c3 = 0x20;
 }
 
-static inline int sub_IsSubstMethod(int nSubstMethod)
+// 0x00665900
+static void sub_00665900_MapTileTypes(int* pTileTypes, int nCount)
 {
-    switch (nSubstMethod)
+    if (nCount > 0)
     {
-    case 1:
-    case 2:
-        return 1;
+        do
+        {
+            *pTileTypes = DRLGPRESET_MapTileType(*pTileTypes);
+            ++pTileTypes;
+        }
+        while (--nCount);
     }
-    return 0;
+}
+
+// 0x00665930
+void __cdecl sub_00665930_LockLevelFiles()
+{
+    EnterCriticalSection(&gLevelFilesCriticalSection);
+}
+
+// 0x00665940
+void __cdecl sub_00665940_UnlockLevelFiles()
+{
+    LeaveCriticalSection(&gLevelFilesCriticalSection);
+}
+
+void __fastcall sub_M107_Emit_00665810(D2PresetCodeStrc* pDst, const char* pSrc, int bCopy)
+{
+    if (bCopy)
+        sub_00665810_CopyCodePadded(pDst, pSrc);
+}
+
+void __fastcall sub_M107_Emit_00665900(int* pTileTypes, int nCount, int bMap)
+{
+    if (bMap)
+        sub_00665900_MapTileTypes(pTileTypes, nCount);
+}
+
+// 0x006658E0
+int __stdcall DRLGPRESET_GetObjectIndexFromObjPreset(unsigned char nAct, int nUnitId)
+{
+    return gnPresetObjectIndices[nAct][nUnitId];
+}
+
+// 0x00665860
+int __stdcall DRLGPRESET_CountPresetObjectsByAct(unsigned char nAct)
+{
+    int nCount = 0;
+    for (int i = 0; i < 150; ++i)
+    {
+        if (!DRLGPRESET_GetObjectIndexFromObjPreset(nAct, i))
+        {
+            break;
+        }
+
+        ++nCount;
+    }
+
+    return nCount;
 }
 
 // 0x00665950

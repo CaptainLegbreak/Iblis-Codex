@@ -3585,18 +3585,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_00665810.cpp": {
-   "bytes": 3000,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_00665810.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Common/DRLG/Preset.cpp": {
-   "bytes": 64,
-   "definitions": 2,
+   "bytes": 3064,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/Preset_00665950.inc",
@@ -129810,7 +129801,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_00665810.cpp",
+   "file": "Source/D2Common/DRLG/Preset.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnPresetObjectIndices[5][150] = ",
