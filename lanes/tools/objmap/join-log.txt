@@ -70,3 +70,65 @@ Source/D2Client/Unknown_00450950.cpp -> Source/D2Client/GAME/Game.cpp: FAILED ow
 Source/D2Gdi/Unknown_006C7C90.cpp -> Source/D2Gdi/Src/gdiCore.cpp: JOINED 1 functions, 0 copies dropped, 4 declarations kept
 Source/D2Gdi/Unknown_006C7CF0.cpp -> Source/D2Gdi/Src/gdiCore.cpp: JOINED 7 functions, 0 copies dropped, 2 declarations kept
 Source/Fog/Unknown_00402370.cpp -> Source/Fog/Src/ErrorManager.cpp: FAILED not equal: 0x0040B480:NO_MARKER (also tried the placeholder's flags)
+Source/D2Client/Unknown_004B6DD0.cpp -> Source/D2Client/UI/npcmenu.cpp: JOINED 1 functions, 9 copies dropped, 3 declarations kept
+Source/D2Game/Unknown_005D3BA0.cpp -> Source/D2Game/SKILLS/SkillAss.cpp: JOINED 1 functions, 3 copies dropped, 0 declarations kept
+Source/Storm/Unknown_00421470.cpp -> Source/Storm/SOURCE/SBig.cpp: JOINED 1 functions, 0 copies dropped, 0 declarations kept
+Source/D2Common/Unknown_0066AE70.cpp -> Source/D2Common/DRLG/DrlgWarp.cpp: JOINED 1 functions, 1 copies dropped, 1 declarations kept
+Source/D2Game/Unknown_005D3AC0.cpp -> Source/D2Game/SKILLS/SkillAss.cpp: JOINED 1 functions, 3 copies dropped, 2 declarations kept
+Source/D2Gdi/Unknown_006C7C90.cpp -> Source/D2Gdi/Src/gdiCore.cpp: JOINED 1 functions, 0 copies dropped, 4 declarations kept
+Source/D2Gdi/Unknown_006C7CF0.cpp -> Source/D2Gdi/Src/gdiCore.cpp: JOINED 7 functions, 0 copies dropped, 2 declarations kept
+Source/D2Client/Unknown_00462D00.cpp -> Source/D2Client/UNIT/Player.cpp: JOINED 1 functions, 38 copies dropped, 1 declarations kept
+Source/D2Multi/Unknown_00446B30.cpp -> Source/D2Multi/Src/ComCallback.cpp: JOINED 1 functions, 0 copies dropped, 0 declarations kept
+Source/D2CMP/Unknown_0060D280.cpp -> Source/D2CMP/SRC/FastCmp.cpp: JOINED 2 functions, 0 copies dropped, 0 declarations kept
+Source/D2Glide/Unknown_0050DB70.cpp -> Source/D2Glide/Src/glTextureCache.cpp: JOINED 3 functions, 0 copies dropped, 6 declarations kept
+Source/D2Lang/Unknown_005271A0.cpp -> Source/D2Lang/StrTable/strtable.cpp: JOINED 2 functions, 0 copies dropped, 18 declarations kept
+Source/D2Client/Unknown_004C51D0.cpp -> Source/D2Client/SKILLS/Skills.cpp: JOINED 2 functions, 0 copies dropped, 0 declarations kept
+Source/Fog/Unknown_00401070.cpp -> Source/Fog/Src/ErrorManager.cpp: FAILED owned functions without a body found: 0x00401090
+Source/D2Client/Unknown_0049AF60.cpp -> Source/D2Client/UI/Party.cpp: FAILED compile: C2664 'sub_0049BAD0_SetRosterButtonState' : cannot convert parameter 1 from 'D2PartyRowStrc *' to 'D2StoredUnitRecordStrc *'
+Source/D2Game/Unknown_0054EC90.cpp -> Source/D2Game/Unknown_0054DAC0.cpp: FAILED compile: C2664 'sub_0054EBC0_CanPopulateRoom' : cannot convert parameter 1 from 'D2GameStrc *' to 'D2ActiveRoomStrc *'; C2039 'index' : is not a member of 'D2RoomCoordListStrc'; C2039 'boxes' : is not a member of 'D2RoomCoordListStrc'
+Source/Fog/Unknown_00401DF0.cpp -> Source/Fog/Unknown_00401010.cpp: FAILED ltcg unit
+Source/D2Client/Unknown_00493B50.cpp -> Source/D2Client/Unknown_00493E10.cpp: FAILED compile: C2664 'sub_00493EB0_DrawPetCountIcon' : cannot convert parameter 4 from 'int' to 'int *'
+Source/D2Client/Unknown_0044FB50.cpp -> Source/D2Client/Unknown_0044F9B0.cpp: FAILED compile: C2084 function 'D2StormListAStrc::~D2StormListAStrc(void)' already has a body; C2600 'D2StormChunkListStrc::~D2StormChunkListStrc' : cannot define a compiler-generated special member function (must be declared in the class first); C3861 'UnlinkAll': identifier not found
+Source/D2Direct3D/Unknown_006B7980.cpp -> Source/D2Direct3D/Unknown_006B7250.cpp: FAILED compile: C2039 'DrawPrimitive' : is not a member of 'D2Device006B77B0Strc'; C2440 'return' : cannot convert from 'void' to 'int'
+Source/Storm/Unknown_0041DA60.cpp -> Source/Storm/SOURCE/SCOMP.CPP: FAILED compile: C2084 function 'int ImaAdpcmCompress(int,const short *,int,unsigned int,unsigned char,unsigned char *)' already has a body; C2440 '=' : cannot convert from 'int (__stdcall *)(int,const short *,int,unsigned int,unsigned char,unsigned char *)' to 'int'; C2440 '=' : cannot convert from 'int (__stdcall *)(int,const short *,int,unsigned int,unsigned char,unsigned char *)' to 'int'
+Source/D2Direct3D/Unknown_006B86F0.cpp -> Source/D2Direct3D/Unknown_006B7530.cpp: FAILED compile: C2664 'sub_006B83A0_DrawPerspective' : cannot convert parameter 1 from 'void *' to 'D2PerspectiveSpriteStrc *'
+Source/D2Game/Unknown_005EEDA0.cpp -> Source/D2Game/Ai/AiThink4.cpp: FAILED compile: C3861 'AIBAAL_GetTarget': identifier not found; C3861 'SKILLS_GetSkillsTxtRecord': identifier not found; C2365 'SKILLS_GetSkillsTxtRecord' : redefinition; previous definition was 'formerly unknown identifier'
+Source/Bnclient/Unknown_005241A0.cpp -> Source/Bnclient/Unknown_00520DC0.cpp: JOINED 7 functions, 0 copies dropped, 6 declarations kept
+Source/D2Client/Unknown_004737B0.cpp -> Source/D2Client/Unknown_00472DA0.cpp: FAILED compile: C3861 'sub_00473090_InitParticle': identifier not found; C3861 'sub_U01_RollSeedInline': identifier not found; C2365 'sub_U01_RollSeedInline' : redefinition; previous definition was 'formerly unknown identifier'
+Source/D2Hell/Unknown_005173DF.cpp -> Source/D2Hell/Unknown_005173EF.cpp: FAILED compile: C3861 'TerminateProcess': identifier not found; C3861 'GetCurrentProcess': identifier not found
+Source/D2Client/Unknown_00450040.cpp -> Source/D2Client/Unknown_0044F9B0.cpp: FAILED compile: C2143 syntax error : missing ';' before 'char'; C2059 syntax error : 'return'; C2238 unexpected token(s) preceding ';'
+Source/D2Client/Unknown_00475C30.cpp -> Source/D2Client/GAME/View.cpp: JOINED 2 functions, 0 copies dropped, 2 declarations kept
+Source/D2Game/Unknown_005B9A30.cpp -> Source/D2Game/Quests/a3q3.cpp: FAILED compile: C2144 syntax error : 'bool' should be preceded by ';'; C2440 'initializing' : cannot convert from 'void *' to 'D2QuestExStrc *'; C2440 '=' : cannot convert from 'int (__fastcall *)(D2QuestDataStrc *,void *)' to 'QUESTCALLBACK [15]'
+Source/D2Glide/Unknown_0050CD40.cpp -> Source/D2Glide/Unknown_0050BD30.cpp: JOINED 1 functions, 0 copies dropped, 3 declarations kept
+Source/D2Game/Unknown_005FD470.cpp -> Source/D2Game/SKILLS/SkillItem.cpp: FAILED not equal: 0x005FD470:MISMATCH (also tried the placeholder's flags)
+Source/D2Lang/Unknown_00526D00.cpp -> Source/D2Lang/Unknown_00525FB0.cpp: FAILED compile: C2039 'isLeftToRight' : is not a member of 'Unicode'; C2270 'isLeftToRight' : modifiers not allowed on nonmember functions; C2065 'wChar' : undeclared identifier
+Source/Fog/Unknown_00402380.cpp -> Source/Fog/Unknown_00401010.cpp: FAILED ltcg unit
+Source/Storm/Unknown_00420220.cpp -> Source/Storm/Unknown_0041E9C0.cpp: FAILED compile: C3861 'sub_00420E90_TakeLow32': identifier not found; C3861 'sub_00420F00_TakeLow32Ext': identifier not found; C2365 'sub_00420E90_TakeLow32' : redefinition; previous definition was 'formerly unknown identifier'
+Source/Bnclient/Unknown_00528030.cpp -> Source/Bnclient/Unknown_00527BE0.cpp: FAILED not equal: 0x00528760:MISMATCH
+Source/D2Client/Unknown_004DCAA0.cpp -> Source/D2Client/Sound/SoundInst.cpp: FAILED compile: C2664 'sub_004B9590' : cannot convert parameter 1 from 'void *' to 'int'; C2664 'SOUNDINST_GetPosition' : cannot convert parameter 1 from 'void *' to 'int'
+Source/Fog/Unknown_00405250.cpp -> Source/Fog/Unknown_00401DF0.cpp: FAILED ltcg unit
+Source/D2CMP/Unknown_0060B160.cpp -> Source/D2CMP/Unknown_0060AE80.cpp: FAILED compile: C3861 'sub_0060B160_Copy': identifier not found; C2365 'sub_0060B160_Copy' : redefinition; previous definition was 'formerly unknown identifier'
+Source/D2Client/Unknown_0044FD80.cpp -> Source/D2Client/Unknown_0044FB50.cpp: FAILED compile: C2146 syntax error : missing ';' before identifier 'D2StormListAStrc'; C2146 syntax error : missing ';' before identifier 'm_fulllist'; C4430 missing type specifier - int assumed. Note: C++ does not support default-int
+Source/D2Client/Unknown_0045B090.cpp -> Source/D2Client/Unknown_0045B5F0.cpp: FAILED compile: C2039 'sub_0045B9D0_Next' : is not a member of 'D2StormLinkStrc'; C2065 'm_next' : undeclared identifier; C2039 'sub_0045B9E0_RawNext' : is not a member of 'D2StormLinkStrc'
+Source/D2Client/Unknown_00493A00.cpp -> Source/D2Client/UI/Hireables.cpp: FAILED not equal: 0x00493A00:MULTI_FORM_REJECTED
+Source/D2Game/Unknown_005947E0.cpp -> Source/D2Game/Quests/a1q5.cpp: FAILED not equal: 0x005947E0:NO_SYMBOL
+Source/D2Game/Unknown_005985C0.cpp -> Source/D2Game/Quests/a2q0.cpp: FAILED compile: C2084 function 'bool ACT3Q7_StatusFilterCallback(D2QuestDataStrc *,D2UnitStrc *,D2BitBufferStrc *,D2BitBufferStrc *,unsigned char *)' already has a body; C2440 '=' : cannot convert from 'bool (__fastcall *)(D2QuestDataStrc *,D2UnitStrc *,D2BitBufferStrc *,D2BitBufferStrc *,unsigned char *)' to 'QUESTSTATUSFILTER'
+Source/D2Hell/Unknown_0051763C.cpp -> Source/D2Hell/Unknown_00517623.cpp: FAILED compile: C2039 'sub_0051763C_UnlinkAll' : is not a member of 'D2ListStrc'; C3865 '__thiscall' : can only be used on native member functions; C2065 'head' : undeclared identifier
+Source/D2Launch/Unknown_0042E5A0.cpp -> Source/D2Launch/Unknown_0042E5D0.cpp: FAILED compile: C2039 'isNewline' : is not a member of 'Unicode'; C2270 'isNewline' : modifiers not allowed on nonmember functions; C2065 'wChar' : undeclared identifier
+Source/Fog/Unknown_00402D60.cpp -> Source/Fog/Unknown_00402C60.cpp: FAILED ltcg unit
+Source/Fog/Unknown_006BE190.cpp -> Source/Fog/Src/Excel/Excel.cpp: JOINED 1 functions, 0 copies dropped, 1 declarations kept
+Source/D2Glide/Unknown_0050BF50.cpp -> Source/D2Glide/Unknown_0050BD30.cpp: FAILED compile: C3861 'D2_MIN': identifier not found; C3861 'D2_MAX': identifier not found; C3861 'D2_MIN': identifier not found
+Source/Fog/Unknown_00402280.cpp -> Source/Fog/Unknown_00401010.cpp: FAILED ltcg unit
+Source/D2Client/Unknown_004726F0.cpp -> Source/D2Client/Unknown_00472210.cpp: FAILED compile: C3861 'sub_00472590_SetSplash': identifier not found; C2065 'gbSnowWeather' : undeclared identifier; C3861 'CLIENT_RollRandomNumberForceInline': identifier not found
+Source/D2BNClient/Unknown_0051C7E0.cpp -> Source/D2BNClient/Unknown_0051C760.cpp: FAILED compile: C2079 'tState' uses undefined struct 'D2BnStateStrc'; C2664 'sub_005205F0_GetState' : cannot convert parameter 1 from 'int *' to 'D2BnStateStrc *'; C2228 left of '.nState' must have class/struct/union
+Source/D2CMP/Unknown_006009C0.cpp -> Source/D2CMP/Unknown_006008D0.cpp: FAILED compile: C3861 'FOG_DisplayHalt': identifier not found; C3861 'exit': identifier not found
+Source/D2Client/Unknown_004F0650.cpp -> Source/D2Client/Unknown_004EDA80.cpp: FAILED compile: C2664 'SKILLSEMON_CreateMissileRequest' : cannot convert parameter 1 from 'D2UnitStrc *' to 'int'; C2664 'SKILLSEMON_CreateMissileFan' : cannot convert parameter 1 from 'D2UnitStrc *' to 'int'
+Source/D2Direct3D/Unknown_006B7B30.cpp -> Source/D2Direct3D/Unknown_006B7250.cpp: FAILED compile: C2039 'vtable' : is not a member of 'D2Device006B77B0Strc'; C2227 left of '->DrawPrimitive' must point to class/struct/union/generic type; C2039 'vtable' : is not a member of 'D2Device006B77B0Strc'
+Source/D2Game/Unknown_005C8BF0.cpp -> Source/D2Game/Unknown_005C8CA0.cpp: JOINED 3 functions, 3 copies dropped, 27 declarations kept
+Source/D2Game/Unknown_005C8CA0.cpp -> Source/D2Game/Unknown_005C8BF0.cpp: FAILED unit missing
+Source/D2Hell/Unknown_005178E9.cpp -> Source/D2Hell/Unknown_005173EF.cpp: JOINED 1 functions, 0 copies dropped, 3 declarations kept
+Source/Fog/Unknown_00402530.cpp -> Source/Fog/Unknown_00401010.cpp: FAILED ltcg unit
+Source/Fog/Unknown_00404AB0.cpp -> Source/Fog/Unknown_004049A0.cpp: FAILED not equal: 0x00404AB0:MULTI_FORM_REJECTED (also tried the placeholder's flags)
+Source/D2BNClient/Unknown_00518B60.cpp -> Source/D2BNClient/Unknown_00518B90.cpp: FAILED owned functions without a body found: 0x00518BD0
+Source/D2Hell/Unknown_00517623.cpp -> Source/D2Hell/Unknown_0051763C.cpp: FAILED compile: C3861 'memset': identifier not found; C2600 'D2ListStrc::D2ListStrc' : cannot define a compiler-generated special member function (must be declared in the class first); C2065 'linkOffset' : undeclared identifier
+Source/D2Launch/Unknown_0042E5D0.cpp -> Source/D2Launch/Unknown_0042E5A0.cpp: FAILED compile: C2039 'toUpper' : is not a member of 'Unicode'; C2270 'toUpper' : modifiers not allowed on nonmember functions; C2065 'wChar' : undeclared identifier
