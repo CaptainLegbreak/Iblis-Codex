@@ -15,9 +15,7 @@ struct D2QWriteNodeStrc;
 
 struct D2QAcceptStatsStrc;
 
-struct D2QMsg006C23B0Strc;
 
-struct D2QConn006C23B0Strc;
 
 struct D2SockAddrInStrc;
 
@@ -88,20 +86,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-struct D2QMsg006C23B0Strc
-{
-    unsigned int nSize;
-    D2QMsg006C23B0Strc* pNext;
-    unsigned char pData[1];
-};
-
-struct D2QConn006C23B0Strc
-{
-    unsigned char unk_00[0x74];
-    D2QMsg006C23B0Strc* pMsgHead;
-};
-
-static void __stdcall sub_006C23B0_QueueMessage(D2QConn006C23B0Strc* pConn, const void* pData, unsigned int nSize);
+static void __stdcall sub_006C23B0_QueueMessage(D2QClientStrc* pConn, const void* pData, unsigned int nSize);
 
 struct D2QServerReqStrc
 {
@@ -117,26 +102,10 @@ extern const char gszQServerFile[]; // 0x006FC8A0
 
 static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, D2QueueServerStrc* pServer, D2SockAddrInStrc* pAddr);
 
-struct T006BFAD0
-{
-    int f_0;
-    unsigned char pad04[0xC];
-    unsigned int socket;
-    unsigned char pad14[0x18];
-    D2CriticalSectionStrc f_2C;
-    unsigned char pad44[0x18];
-    unsigned char overlapped5C[0x14];
-    unsigned int f_70;
-    T006C23B0* f_74;
-    unsigned char pad78[0x28];
-    unsigned int f_A0;
-};
-
 long __cdecl FOG_GetSyncTime(); // 0x00410A80
 
-long __fastcall QSERVER_AddReference(D2QueueServerStrc* pServer, T006BFAD0* pClient);                         // 0x006BE640
 
-static int sQSNTWriteFromQueue(D2QueueServerStrc* pServer, T006BFAD0* pClient);
+static int sQSNTWriteFromQueue(D2QueueServerStrc* pServer, D2QClientStrc* pClient);
 
 struct D2HashNode006BE540Strc;
 
@@ -281,18 +250,18 @@ unsigned int __fastcall sub_Emit_006C2420(D2QueueServerStrc* pServer, int nSlot)
 }
 
 // 0x006C23B0
-static void __stdcall sub_006C23B0_QueueMessage(D2QConn006C23B0Strc* pConn, const void* pData, unsigned int nSize)
+static void __stdcall sub_006C23B0_QueueMessage(D2QClientStrc* pConn, const void* pData, unsigned int nSize)
 {
-    D2QMsg006C23B0Strc* pMsg = (D2QMsg006C23B0Strc*)FOG_Alloc(nSize + 8, ".\\Src\\QServer\\QServerNT.cpp", 0x440, 0);
+    D2QWriteNodeStrc* pMsg = (D2QWriteNodeStrc*)FOG_Alloc(nSize + 8, ".\\Src\\QServer\\QServerNT.cpp", 0x440, 0);
     memcpy(pMsg->pData, pData, nSize);
     pMsg->nSize = nSize;
     pMsg->pNext = 0;
-    if (!pConn->pMsgHead)
+    if (!pConn->pWriteQueue)
     {
-        pConn->pMsgHead = pMsg;
+        pConn->pWriteQueue = pMsg;
         return;
     }
-    D2QMsg006C23B0Strc* pLast = pConn->pMsgHead;
+    D2QWriteNodeStrc* pLast = pConn->pWriteQueue;
     while (pLast->pNext)
     {
         pLast = pLast->pNext;
@@ -391,35 +360,35 @@ static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, D2QueueServe
 }
 
 // 0x006C2760
-static int sQSNTWriteFromQueue(D2QueueServerStrc* pServer, T006BFAD0* ptClient)
+static int sQSNTWriteFromQueue(D2QueueServerStrc* pServer, D2QClientStrc* ptClient)
 {
-    if (!ptClient->f_74)
+    if (!ptClient->pWriteQueue)
     {
         return 1;
     }
 
     QSERVER_AddReference(pServer, ptClient);
-    T006C23B0* pPacket = ptClient->f_74;
-    D2_ASSERT(ptClient->socket != -1, 0x518);
+    D2QWriteNodeStrc* pPacket = ptClient->pWriteQueue;
+    D2_ASSERT(ptClient->nSocket != -1, 0x518);
 
     unsigned long nWritten;
-    const int bWritten = WriteFile((void*)ptClient->socket, pPacket + 1, pPacket->nPacketSize, &nWritten, (D2QOverlappedStrc*)ptClient->overlapped5C);
+    const int bWritten = WriteFile(ptClient->hSocket, pPacket->pData, pPacket->nSize, &nWritten, &ptClient->tWrite);
     const unsigned long nError = GetLastError();
     if (!bWritten && nError != 0x3E5)
     {
-        sub_006C0360_RemoveClient(pServer, ptClient);
-        sub_006C0420_CloseRemote(pServer, ptClient->f_0, gszQServerNT_006FC8A0, 0x527);
+        sub_006C0360_Release(pServer, ptClient);
+        sub_006C0420_CloseRemote(pServer, ptClient->iId, gszQServerNT_006FC8A0, 0x527);
         return 0;
     }
 
     if (nError == 0x3E5)
     {
-        ptClient->f_70 |= 4;
+        ptClient->tWrite.nFlags |= 4;
     }
     return 1;
 }
 
-int __fastcall sub_006C2C70_SendLocal(D2QueueServerStrc * pQServer, T006BFAD0 * pQServerClient, char * pBytes, int nSize);
+int __fastcall sub_006C2C70_SendLocal(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pBytes, int nSize);
 
 // 0x006C2810
 static int sub_006C2810_PopWrite(D2QClientStrc* pClient)
@@ -658,7 +627,7 @@ int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, u
                         FOG_Free(pNode, gszQServerNTFile, 0x578, 0);
                     EnterCriticalSection(&pClient->tLock);
                     if (!pClient->bClosing)
-                        sQSNTWriteFromQueue(pServer, (T006BFAD0*)pClient);
+                        sQSNTWriteFromQueue(pServer, pClient);
                     LeaveCriticalSection(&pClient->tLock);
                     sub_006C0360_Release(pServer, pClient);
                 }
@@ -743,44 +712,48 @@ int __stdcall sub_006C3030_ReleaseSlot(D2QServerReqStrc* pReq)
 }
 
 // 0x006C2C70
-int __fastcall sub_006C2C70_SendLocal(D2QueueServerStrc * pQServer, T006BFAD0 * pQServerClient, char * pBytes, int nSize) {
-    int nWsaError;
-    D2CriticalSectionStrc* lpCriticalSection = &pQServerClient->f_2C;
-      EnterCriticalSection(lpCriticalSection);
-    unsigned int nHighResTime = FOG_GetSyncTime();
-    pQServerClient->f_A0 = nHighResTime;
-    if (pQServerClient->f_74) {
-      sub_006C23B0_QueueMessage((D2QConn006C23B0Strc*)pQServerClient, pBytes, nSize);
-    } else {
-      unsigned int nBytesSent;
-      if (pQServerClient->socket == -1) {
-        nWsaError = pQServerClient->f_0;
-          LeaveCriticalSection(lpCriticalSection);
-        sub_006C0420_CloseRemote(pQServer, nWsaError, gszQServerNT_006FC8A0, 0x220);
-        sub_006C0360_RemoveClient(pQServer, pQServerClient);
-        return 0;
-      }
-
-              nBytesSent = send(pQServerClient->socket, pBytes, nSize, 0);
-      if (nBytesSent == -1) {
-        nWsaError = WSAGetLastError();
-        if (nWsaError != 0x2733) {
-          nWsaError = pQServerClient->f_0;
-            LeaveCriticalSection(lpCriticalSection);
-          sub_006C0420_CloseRemote(pQServer, nWsaError, gszQServerNT_006FC8A0, 0x234);
-          return 0;
+int __fastcall sub_006C2C70_SendLocal(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pBytes, int nSize)
+{
+    int nError;
+    D2CriticalSectionStrc* pLock = &pClient->tLock;
+    EnterCriticalSection(pLock);
+    pClient->nTick3 = FOG_GetSyncTime();
+    if (pClient->pWriteQueue)
+    {
+        sub_006C23B0_QueueMessage(pClient, pBytes, nSize);
+    }
+    else
+    {
+        if (pClient->nSocket == -1)
+        {
+            nError = pClient->iId;
+            LeaveCriticalSection(pLock);
+            sub_006C0420_CloseRemote(pServer, nError, gszQServerNT_006FC8A0, 0x220);
+            sub_006C0360_Release(pServer, pClient);
+            return 0;
         }
 
-        nBytesSent = 0;
-      }
-      if (nBytesSent < (unsigned int)nSize) {
-        const unsigned int nRemaining = nSize - nBytesSent;
-        sub_006C23B0_QueueMessage((D2QConn006C23B0Strc*)pQServerClient, nBytesSent + pBytes, nRemaining);
-        sQSNTWriteFromQueue(pQServer, pQServerClient);
-      }
+        unsigned int nBytesSent = send(pClient->nSocket, pBytes, nSize, 0);
+        if (nBytesSent == -1)
+        {
+            nError = WSAGetLastError();
+            if (nError != 0x2733)
+            {
+                nError = pClient->iId;
+                LeaveCriticalSection(pLock);
+                sub_006C0420_CloseRemote(pServer, nError, gszQServerNT_006FC8A0, 0x234);
+                return 0;
+            }
+            nBytesSent = 0;
+        }
+        if (nBytesSent < (unsigned int)nSize)
+        {
+            sub_006C23B0_QueueMessage(pClient, pBytes + nBytesSent, nSize - nBytesSent);
+            sQSNTWriteFromQueue(pServer, pClient);
+        }
     }
 
-      LeaveCriticalSection(lpCriticalSection);
+    LeaveCriticalSection(pLock);
     return 1;
 }
 

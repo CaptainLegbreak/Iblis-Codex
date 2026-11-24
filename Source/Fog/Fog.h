@@ -10,7 +10,6 @@ struct D2SockAddrInStrc;
 struct D2SystemTimeStrc;
 struct D2ThreadContextStrc;
 struct D2QueueServerStrc;
-struct T006BFAD0;
 struct _iobuf;
 
 D2ModuleInfoStrc* __stdcall sub_0040B920_GetModuleListPsapi(void* hProcess); // 0x0040B920
@@ -89,7 +88,6 @@ void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* 
 bool __fastcall ERRORMANAGER_ShowErrorReport(const char* szSummary, const char* szUnused, const char** ppszFiles, int nFiles, unsigned int nLine, bool bFlag); // 0x00408660
 void __fastcall sub_00409810_FreeLarge(D2PoolSystemStrc* pSystem, void* pMemory, const char* szFile, int nLine); // 0x00409810
 void __fastcall sub_006C0360_Release(D2QueueServerStrc* pServer, D2QClientStrc* pClient); // 0x006C0360
-void __fastcall sub_006C0360_RemoveClient(D2QueueServerStrc*, T006BFAD0*); // 0x006C0360
 void __fastcall sub_006C0420_CloseRemote(D2QueueServerStrc*, int token, const char* file, int line); // 0x006C0420
 void __fastcall sub_006C0420_Disconnect(D2QueueServerStrc* pServer, unsigned int nId, const char* szFile, int nLine); // 0x006C0420
 void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc* pServer, D2QClientStrc* pClient); // 0x006C08A0
@@ -474,12 +472,6 @@ struct ReceiveConnection
 {
     U8 pad0[0x170];
     ReceiveQueue queue;
-};
-
-struct T006C23B0
-{
-    unsigned int nPacketSize;
-    T006C23B0* f_4;
 };
 
 typedef char check_PaletteColor_size[sizeof(PaletteColor)==4?1:-1];
