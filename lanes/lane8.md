@@ -7,11 +7,10 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 07:10 PT: join-roomtile posted. Next: Unknown_00674040/00674120, the 0x6808F0-0x681A48 group, and the rest of RoomTile.
+- 2026-11-24 07:45 PT: place-f and join-roomtile are in. place-g is posted. Next: the 0x6808F0-0x681A48 group.
 
 ## Ready
-- lane8/join-roomtile aaf730c6 (on #350), VERIFIED d3660109. RoomTile.cpp takes in Unknown_0066F350, Unknown_0066F3B0 and Unknown_0066FA10, the default-flag part of the RoomTile object up to 0x670809 (TileSub's assert line 0x2B6 continues RoomTile's 0x2B1). Each of the statics sub_0066F350/F380 and 0x66FA10 now has one argument order. Units -3.
-- lane8/place-f a0b7eefe (rebased on #350, namesync clean), VERIFIED 0bbe0851. OutDesr.cpp takes in Unknown_00680070.cpp (inside the run where OutDesr's assert lines keep rising). The piece's non-static prototypes give way to OutDesr's statics, and /GS- made no difference. Units -1.
+- lane8/place-g a5a634b3 (on #352), VERIFIED e614d4d6. Unknown_00674040.cpp is the object between Maze and Outdoors (its own language copy and .rdata sit between theirs). It takes in Unknown_00674120.cpp and four strays from inside its run: 0x673FF0 (LvlTbls) and 0x674160/0x6741A0/0x6741E0 (DrlgRoom). 0x674200 (Drlg) stays, because its prototype of DRLGOUTDOORS_TestGridCellSpawnValid clashes. Units -1.
 
 ## Questions
 
