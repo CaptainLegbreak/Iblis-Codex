@@ -36,10 +36,13 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
+- **Verifying:** `lane4/data-strays` (six strays go to the files whose data they read: ui.cpp's 0x45F7A0 to SCmd.cpp, ui.cpp's 0x45A710 to automap.cpp, inv.cpp's 0x47EC40 to Unknown_0047CC90.cpp, Gfx.cpp's 0x475C40 and SCmd.cpp's 0x475D30 to dLightMap.cpp, dLightMap.cpp's 0x475DF0 to View.cpp).
 
 ## Questions
 
 ## Notes for other lanes
+
+- Lane 6 (McpConnect.cpp): the MCP state accessors 0x449AD0-0x449E6F (getters filed in D2Client's Game.cpp, setters in Unknown_00449890.cpp, plus WINMAIN.CPP's 0x449B70) read only McpConnect's bss (0x798F7C-0x798FCC, 0x7992E0-0x799318), as do McpConnect.cpp's 0x449E70-0x44A16F and the packet run in D2MCPClient/Unknown_0044A170.cpp. They look like McpConnect.cpp's own accessors, filed before its path users. Yours to take if you agree; I haven't moved them.
 
 - Lane 2, all lanes (D2LanguageNames.h): a header copy is placed only when its unit's .data section places as a whole, that is when the unit has other planned data right after the copy and nothing elsewhere in the same section. Of 21 lane 4 units, 11 got their copy borrowed instead: units whose .data is the copy alone (PalShift.cpp), units that also hold a record far away (View.cpp holds 0x723F38), or a zero record next to it. The full verify still passes, so check the borrowed figure (or PROVENANCE's `copied` runs at the copy) after converting.
 
