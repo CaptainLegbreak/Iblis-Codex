@@ -2515,41 +2515,6 @@ int __stdcall EDITBOX_HandleMultiLineMouseDown(SMSGHANDLER_PARAMS* pMsg)
     return EDITBOX_PlaceMultiLineCaret(pMsg, nX, nY);
 }
 
-// 0x00503FA0
-void __stdcall D2COMP_AddHoverTextLine(const Unicode* wszText, D2HoverLineStrc* pLines, int* pCount, int* pMaxWidth, int* pTotalHeight)
-{
-    D2HoverLineStrc* pLine = &pLines[*pCount];
-    D2_ASSERT(*pCount < 7, 0x738);
-
-    sub_005267E0(pLine->wszText, wszText);
-    D2Win_10131_GetTextDimensions(pLine->wszText, &pLine->nWidth, &pLine->nHeight);
-    *pMaxWidth = *pMaxWidth > pLine->nWidth + 6 ? *pMaxWidth : pLine->nWidth + 6;
-    *pTotalHeight += pLine->nHeight;
-    ++*pCount;
-}
-
 int __fastcall SCROLLBAR_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* ptScrollbarData, int a3); // 0x00508030
-
-// 0x00508610
-int __stdcall POPUP_AddLine(D2WinPopUpLineStrc* pPopUpLine)
-{
-    D2WinPopUpStrc* pPopUp = gpPopUp;
-
-    D2_ASSERT(pPopUp->controlHeader.eType == D2WIN_POPUP, 0x74);
-
-    if (pPopUp->nLines >= 8)
-    {
-        return 0;
-    }
-
-    pPopUp->lines[pPopUp->nLines] = *pPopUpLine;
-    D2Win_10127_SetFont(1);
-
-    const int nTextWidth = D2Win_10121_GetTextWidth(pPopUpLine->wszText);
-    pPopUp->controlHeader.nWidth = pPopUp->controlHeader.nWidth > nTextWidth ? pPopUp->controlHeader.nWidth : nTextWidth;
-    ++pPopUp->nLines;
-    pPopUp->controlHeader.nHeight = 20 * pPopUp->nLines;
-    return 1;
-}
 
 #include "gen/data/Source/D2Win/Src/D2WinMain.inc"

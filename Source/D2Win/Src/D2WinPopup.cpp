@@ -1,10 +1,17 @@
 #include "D2Win.h"
+
 #include "D2SkillIds.h"
+
 #include "D2StatIds.h"
+
 #include "D2StormTypes.h"
+
 #include "D2CelContext.h"
+
 #include "D2CmpTypes.h"
+
 #include "D2WinControls.h"
+
 #include "D2ClientTypes.h"
 
 #include "D2WinTypes.h"
@@ -55,6 +62,32 @@ int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl); // 0x004F9210
 int __fastcall POPUP_Draw(D2WinControlStrc* pControl); // 0x005087A0
 
 extern "C" void* __cdecl memset(void* destination, int value, unsigned int size); // 0x00681EF0
+
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
+
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
+
+// 0x00508610
+int __stdcall POPUP_AddLine(D2WinPopUpLineStrc* pPopUpLine)
+{
+    D2WinPopUpStrc* pPopUp = gpPopUp;
+
+    D2_ASSERT(pPopUp->controlHeader.eType == D2WIN_POPUP, 0x74);
+
+    if (pPopUp->nLines >= 8)
+    {
+        return 0;
+    }
+
+    pPopUp->lines[pPopUp->nLines] = *pPopUpLine;
+    D2Win_10127_SetFont(1);
+
+    const int nTextWidth = D2Win_10121_GetTextWidth(pPopUpLine->wszText);
+    pPopUp->controlHeader.nWidth = pPopUp->controlHeader.nWidth > nTextWidth ? pPopUp->controlHeader.nWidth : nTextWidth;
+    ++pPopUp->nLines;
+    pPopUp->controlHeader.nHeight = 20 * pPopUp->nLines;
+    return 1;
+}
 
 // 0x00508710
 int __fastcall POPUP_UpdateHoveredLine(D2WinControlStrc* pControl)
@@ -123,8 +156,11 @@ int __stdcall POPUP_HandleMouseButtonInput(SMSGHANDLER_PARAMS* pMsg)
 }
 
 void __stdcall D2GFX_UtilRect(tagRECT* pRect, unsigned char nPaletteIndex); // 0x004F62A0
+
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, int eDrawMode); // 0x004F6300
+
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 // 0x005087A0
@@ -183,3 +219,5 @@ void __stdcall POPUP_Create()
     CONTROL_AppendToList(&pPopUp->controlHeader);
     gpPopUp = pPopUp;
 }
+
+#include "gen/data/Source/D2Win/Src/D2WinPopup.inc"

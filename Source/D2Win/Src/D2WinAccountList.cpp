@@ -268,3 +268,5 @@ D2WinAccountListStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, 
     CONTROL_AppendToList(&pAccountList->controlHeader);
     return pAccountList;
 }
+
+#include "gen/data/Source/D2Win/Src/D2WinAccountList.inc"

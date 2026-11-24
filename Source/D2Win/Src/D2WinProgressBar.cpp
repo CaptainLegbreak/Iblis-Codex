@@ -99,3 +99,5 @@ D2WinProgressBarStrc* __fastcall PROGRESSBAR_Create(int nX, int nY, int nWidth, 
     CONTROL_AppendToList(&pProgressBar->controlHeader);
     return pProgressBar;
 }
+
+#include "gen/data/Source/D2Win/Src/D2WinProgressBar.inc"

@@ -310,27 +310,6 @@ int __fastcall ANIMIMAGE_Draw(D2WinControlStrc* pControl)
     return 1;
 }
 
-// 0x00507EF0
-extern "C" int __fastcall sub_00507EF0_GetScrollBarField48(D2WinScrollBarStrc* ptScrollbarData)
-{
-    D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_TYPE_5, 0x4B);
-    return ptScrollbarData->nMaxSteps;
-}
-
-// 0x00507FA0
-extern "C" int __fastcall sub_00507FA0_GetScrollBarField4C(D2WinScrollBarStrc* ptScrollbarData)
-{
-    D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_TYPE_5, 0x74);
-    return ptScrollbarData->nCurrentStep;
-}
-
-// 0x005080C0
-extern "C" void __fastcall D2Win_10202(D2WinScrollBarStrc* ptScrollbarData, int nValue)
-{
-    D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_TYPE_5, 0xCA);
-    ptScrollbarData->nPageStep = nValue;
-}
-
 // 0x005003A0
 int __fastcall ANIMIMAGE_ShouldMouseInputBeHandled(D2WinControlStrc* pControl)
 {
