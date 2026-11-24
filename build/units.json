@@ -7317,30 +7317,6 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00421470.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00421470",
-     "length": 145
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob1",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Storm/SOURCE/SBig.cpp",
    "rank": 0,
    "functions": [
@@ -7348,6 +7324,10 @@
      "va": "0x00421440",
      "length": 41,
      "name": "?BigIsEven@@YAHABUBigBuffer@@@Z"
+    },
+    {
+     "va": "0x00421470",
+     "length": 145
     },
     {
      "va": "0x00421510",
