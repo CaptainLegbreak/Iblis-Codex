@@ -1077,4 +1077,3 @@ struct D2ActiveRoomStrc;
 
 struct D2ItemDropStrc;
 
-#include "gen/data/Source/D2Game/Quests/a5q4.inc"

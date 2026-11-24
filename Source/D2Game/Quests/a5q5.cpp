@@ -1502,4 +1502,3 @@ void __fastcall sub_Emit_0058C5C0(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
 }
 
-#include "gen/data/Source/D2Game/Quests/a5q5.inc"

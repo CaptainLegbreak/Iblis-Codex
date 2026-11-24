@@ -52304,11 +52304,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00586B50",
-     "length": 240,
-     "name": "?ACT5Intro_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
      "va": "0x00588D60",
      "length": 100,
      "name": "?ACT5Q2_FindPortal@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAU2@@Z"
@@ -52617,12 +52612,22 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00586C40.cpp",
+   "file": "Source/D2Game/Unknown_00586B50.cpp",
    "rank": 1,
    "functions": [
     {
+     "va": "0x00586B50",
+     "length": 240,
+     "name": "?ACT5Intro_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
      "va": "0x00586C40",
      "length": 15
+    },
+    {
+     "va": "0x00586C50",
+     "length": 39,
+     "name": "ACT5Intro_ActiveFilterCallback"
     }
    ]
   },
@@ -52630,11 +52635,6 @@
    "file": "Source/D2Game/Quests/a5q1.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00586C50",
-     "length": 39,
-     "name": "ACT5Intro_ActiveFilterCallback"
-    },
     {
      "va": "0x00586C80",
      "length": 96,

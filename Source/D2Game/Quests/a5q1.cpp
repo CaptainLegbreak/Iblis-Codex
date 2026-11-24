@@ -325,17 +325,6 @@ extern "C" unsigned int* __stdcall sub_0058F000(Unit0058F000* pUnit); // 0x0058F
 
 #define QFLAG_COMPLETEDNOW 14
 
-// 0x00586C50
-bool __fastcall ACT5Intro_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
-{
-    if (nNpcId == MONSTER_MALAH && !PLRINTRO_GetQuestIntroFlag(pPlayer, pQuest->pGame, MONSTER_MALAH))
-    {
-        return true;
-    }
-
-    return false;
-}
-
 // 0x00586C80
 int __fastcall ACT5Q1_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -1211,4 +1200,3 @@ void __fastcall ACT3Q0_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     }
 }
 
-#include "gen/data/Source/D2Game/Quests/a5q1.inc"
