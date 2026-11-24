@@ -42,7 +42,6 @@ struct D2SkillsTxt;
 
 struct D2UnitEventArgsStrc;
 
-struct D2HotspotStrc;
 
 struct D2PanelGfxStrc;
 
@@ -185,19 +184,6 @@ int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath)
 
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 
-struct D2HotspotStrc
-{
-    char unk0x00[0x10];
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-    char unk0x20[0x04];
-    char bFlag0x24;
-    char bFlag0x25;
-    char unk0x26[0x02];
-};
-
 struct D2PanelGfxStrc
 {
     int unk0x00[15];
@@ -256,8 +242,6 @@ struct D2AddressQueryStrc
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern "C" const char gszGfxUtilSourceFile[]; // 0x006DB974
-
-extern D2HotspotStrc gaUseItemHotspotRects[]; // 0x00727902
 
 extern int gnUseItemDialogState; // 0x007C5474
 
@@ -780,27 +764,6 @@ void __fastcall ITEM_ApplyTownPortalState(D2GSPacketSrv60* pPacket)
             nPortalFlags |= 1;
         }
         UNITS_SetObjectPortalFlags(pUnit, nPortalFlags);
-    }
-}
-
-// 0x004BFBC0
-void __fastcall ITEM_HitTestHotspots(int nX, int nY)
-{
-// build: symbol ?gnHotspotCount@* 0x007278FC
-    for (int i = 0; i < gnHotspotCount; i++)
-    {
-        gaUseItemHotspotRects[i].bFlag0x25 = 0;
-        gaUseItemHotspotRects[i].bFlag0x24 = 0;
-    }
-
-    for (int i = 0; i < gnHotspotCount; i++)
-    {
-        if (nX >= gaUseItemHotspotRects[i].nLeft && nX <= gaUseItemHotspotRects[i].nRight && nY >= gaUseItemHotspotRects[i].nTop && nY <= gaUseItemHotspotRects[i].nBottom)
-        {
-            sub_004B9A00(1, 0, 0, 0, 0);
-            gaUseItemHotspotRects[i].bFlag0x25 = 1;
-            gaUseItemHotspotRects[i].bFlag0x24 = 1;
-        }
     }
 }
 

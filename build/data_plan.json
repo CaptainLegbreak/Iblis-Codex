@@ -1326,20 +1326,11 @@
    "state": "included"
   },
   "Source/D2Client/UI/useitem.cpp": {
-   "bytes": 162,
+   "bytes": 240,
    "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/useitem_004BFA70.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/Unknown_004C0440.cpp": {
-   "bytes": 78,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004C0440.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -59968,19 +59959,154 @@
   },
   {
    "alias": false,
-   "cname": "gData_00727900",
-   "declared": false,
+   "cname": null,
+   "declared": true,
    "decorated": null,
    "file": "Source/D2Client/UI/useitem.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00727900_t gData_00727900; // 0x00727900",
-   "head": "extern \"C\" struct d2data_00727900_t gData_00727900 = ",
-   "name": "gData_00727900",
+   "fill": 2,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2HotspotStrc gaUseItemHotspots[2] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "textIndex",
+       0,
+       {
+        "k": "prim",
+        "kind": "u",
+        "name": "unsigned short",
+        "size": 2
+       }
+      ],
+      [
+       "tooltipX",
+       2,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "tooltipY",
+       6,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "x",
+       10,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "y",
+       14,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "left",
+       18,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "right",
+       22,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "top",
+       26,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "bottom",
+       30,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "frame",
+       34,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "hovered",
+       38,
+       {
+        "k": "prim",
+        "kind": "c",
+        "name": "char",
+        "size": 1
+       }
+      ],
+      [
+       "pressed",
+       39,
+       {
+        "k": "prim",
+        "kind": "c",
+        "name": "char",
+        "size": 1
+       }
+      ]
+     ],
+     "name": "D2HotspotStrc",
+     "size": 40
+    },
+    "k": "arr",
+    "n": 2,
+    "size": 80
+   },
+   "name": "gaUseItemHotspots",
    "pointers": [],
    "region": "data",
-   "size": 2,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00727900_t\n{\n    unsigned char b0[2];\n};\n#pragma pack(pop)",
+   "size": 80,
+   "stars": 0,
+   "struct": null,
    "tail": "; // 0x00727900",
+   "type": "D2HotspotStrc",
    "va": "0x00727900"
   },
   {
@@ -60689,160 +60815,6 @@
    "tail": "; // 0x00727950",
    "type": "D2MsgHandlerEntryStrc",
    "va": "0x00727950"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/Unknown_004C0440.cpp",
-   "fill": 1,
-   "form": "declared",
-   "fwd": null,
-   "head": "extern D2HotspotStrc gaUseItemHotspotRects[1] = ",
-   "model": {
-    "elem": {
-     "k": "struct",
-     "members": [
-      [
-       "unk0x00",
-       0,
-       {
-        "elem": {
-         "k": "prim",
-         "kind": "c",
-         "name": "char",
-         "size": 1
-        },
-        "k": "arr",
-        "n": 16,
-        "size": 16
-       }
-      ],
-      [
-       "nLeft",
-       16,
-       {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
-       }
-      ],
-      [
-       "nRight",
-       20,
-       {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
-       }
-      ],
-      [
-       "nTop",
-       24,
-       {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
-       }
-      ],
-      [
-       "nBottom",
-       28,
-       {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
-       }
-      ],
-      [
-       "unk0x20",
-       32,
-       {
-        "elem": {
-         "k": "prim",
-         "kind": "c",
-         "name": "char",
-         "size": 1
-        },
-        "k": "arr",
-        "n": 4,
-        "size": 4
-       }
-      ],
-      [
-       "bFlag0x24",
-       36,
-       {
-        "k": "prim",
-        "kind": "c",
-        "name": "char",
-        "size": 1
-       }
-      ],
-      [
-       "bFlag0x25",
-       37,
-       {
-        "k": "prim",
-        "kind": "c",
-        "name": "char",
-        "size": 1
-       }
-      ],
-      [
-       "unk0x26",
-       38,
-       {
-        "elem": {
-         "k": "prim",
-         "kind": "c",
-         "name": "char",
-         "size": 1
-        },
-        "k": "arr",
-        "n": 2,
-        "size": 2
-       }
-      ]
-     ],
-     "name": "D2HotspotStrc",
-     "size": 40
-    },
-    "k": "arr",
-    "n": 1,
-    "size": 40
-   },
-   "name": "gaUseItemHotspotRects",
-   "pointers": [],
-   "region": "data",
-   "size": 40,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00727902",
-   "type": "D2HotspotStrc",
-   "va": "0x00727902"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0072792A",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/Unknown_004C0440.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072792A_t gData_0072792A; // 0x0072792A",
-   "head": "extern \"C\" struct d2data_0072792A_t gData_0072792A = ",
-   "name": "gData_0072792A",
-   "pointers": [],
-   "region": "data",
-   "size": 38,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072792A_t\n{\n    unsigned char b0[38];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072792A",
-   "va": "0x0072792A"
   },
   {
    "alias": true,
