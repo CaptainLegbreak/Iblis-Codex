@@ -916,8 +916,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/inv.cpp": {
-   "bytes": 3760,
-   "definitions": 24,
+   "bytes": 3820,
+   "definitions": 25,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/inv.inc",
