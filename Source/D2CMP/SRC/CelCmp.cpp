@@ -17,6 +17,7 @@
 #include "D2LRUNode.h"
 #include "D2StormListArray.h"
 #include "D2FindTileEntry.h"
+#include "D2CmpDC6CacheEntry.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1863,11 +1864,6 @@ enum { DISABLED = 0 };
 
 void* __fastcall sub_0040A9E0(AsyncData* pAsync); // 0x0040A9E0
 
-struct D2CmpDC6CacheEntryStrc
-{
-    char unk0x00[0x20];
-    D2CmpDC6HeaderStrc tHeader;
-};
 
 static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader); // 0x005FEB80
 

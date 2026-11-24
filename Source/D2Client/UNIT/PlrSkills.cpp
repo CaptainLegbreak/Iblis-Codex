@@ -9,6 +9,7 @@
 #include "D2PlayerModes.h"
 #include "D2MonModes.h"
 #include "D2Path.h"
+#include "D2UnitEventArgs.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -155,16 +156,6 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x00648820
 
-struct D2UnitEventArgsStrc
-{
-    int nX;
-    int nY;
-    int nArg2;
-    int nArg3;
-    int nArg4;
-    int nArg5;
-    int nArg6;
-};
 
 int __fastcall sub_00480C10_DispatchUnitEvent(int nEvent, D2UnitStrc* pUnit, D2UnitEventArgsStrc* pArgs, int nArg); // 0x00480C10
 

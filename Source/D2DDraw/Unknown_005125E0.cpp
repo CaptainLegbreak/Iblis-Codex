@@ -5,6 +5,8 @@
 #include "D2GlideTypes.h"
 
 #include "D2DrlgMaps.h"
+#include "D2CoordPair.h"
+#include "D2TileLight.h"
 
 struct D2CoordPairStrc;
 
@@ -18,20 +20,11 @@ extern unsigned char* gpDDrawDebugFontGlyphs; // 0x008815AC
 
 extern int gaDDrawDebugFontCharWidths[96]; // 0x00881428
 
-struct D2CoordPairStrc
-{
-    int nX;
-    int nY;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 extern D2DDrawSurfaceStrc* gpDDrawOffscreenSurface; // 0x00881280
 
-struct D2TileLightStrc
-{
-    int nCorner[4];
-};
 
 int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
 
