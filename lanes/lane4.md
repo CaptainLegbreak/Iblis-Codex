@@ -4,6 +4,8 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane4/winmain-split 2eb5e7c0 +2 placeholders, as answered: WINMAIN.CPP's MCP packet run 0x44A170-0x44B3xx moves to Source/D2MCPClient/Unknown_0044A170.cpp (38 functions, plus its strays: View.cpp's MCP send helpers 0x44A980-0x44AAB0 and Game.cpp's MCP handlers/callback setters 0x44ACA0, 0x44B190, 0x44B1F0-0x44B230; gpfnMcpPacketHandlers and gpfnConnectPacketHandlers with it). It includes D2MCPClient.h plus the few D2Client.h declarations it uses, and needs /GS- (with the module default its buffers get cookies). 0x44B400-0x44B430 with gtClientInterface moves to Source/D2Client/Unknown_0044B400.cpp. VERIFIED 6ab8b5aa0029 on #317. Touches D2MCPClient (lane 6's after merge, as agreed). Not stacked.
+
 - lane4/keyconfig-split 2a784482 +1 placeholder (Unknown_004A43E0.cpp): the key configuration panel 0x4A43E0-0x4A63B0 leaves text.cpp (33 functions, as asked). Its data (gpListEntries, the key config entry and button tables, the key capture handler tables, 0x724264-0x724798) ends with its own language-table copy at 0x724798; its bss 0x7C0274-0x7C02CC is contiguous and includes gnKeyConfigThumbY, whose initializer (0x6CACE0) moves with it. The unmarked 0x4A4AD0 work (sub_004A4AD0_Press and its KEYCFG/F08 helpers) moves into the new file too. text_0049A950.cpp, Unknown_004A6000.cpp and Unknown_004A6260.cpp still hold a few functions of the same run. VERIFIED aaa7408bc9b4 on #314. Not stacked; nothing outside lane 4.
 
 - lane4/questlog a5161fe2 no placeholder change: QuestLog.cpp (one function so far, 0x4A34F0, the user of `.\UI\QuestLog.cpp`) takes 28 quest panel functions from text_0049A950.cpp, text.cpp and View.cpp (two commits; the second adds seven, among them View.cpp's quest value lookup/clear pair, whose record keeps pack(1)). Its object spans 0x4A18xx-0x4A41xx: its data (0x7237A4-0x724228) ends with its own language-table copy after text.cpp's, and its asserts (1274-1848) restart below text.cpp's. 22 functions of the range still differ when moved; left for later. VERIFIED bd0b60abff80 on #310. Not stacked; nothing outside lane 4.
@@ -20,7 +22,6 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Questions
 
-- WINMAIN.CPP is three or four object files by its data (the language-table copies mark object ends, see the note below). Its MCP packet run 0x44A170-0x44B3xx (send helpers, incoming handlers, `gpfnConnectPacketHandlers` 0x70ED68) has data ending at the copy at 0x70EDD0; 0x44B400-0x44B430 (InitInterface, ShutdownInterface, RunLauncher) ends at 0x70EE10; WINMAIN.CPP proper (the `.\CORE\WINMAIN.CPP` path is at 0x44B557, command line handling, LauncherRun) ends at 0x70EE90; Game.cpp follows (to 0x70F728). The MCP run comes right after `.\Src\McpConnect.cpp` (0x449E84) and an object with no data of its own (copy at 0x70ECC0), so it is probably a D2MCPClient file, not D2Client. May I move 0x44A170-0x44B3xx and 0x44B400-0x44B430 out of WINMAIN.CPP into two placeholders (Unknown_0044A170.cpp, Unknown_0044B400.cpp)? If the MCP one is lane 6's by module, say so and I'll leave it to them.
 
 
 ## Notes for other lanes
