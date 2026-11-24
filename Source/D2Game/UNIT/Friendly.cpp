@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x0073C538
 
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
