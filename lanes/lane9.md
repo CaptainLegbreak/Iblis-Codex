@@ -6,10 +6,11 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 `Source/D2DDraw/**`, `Source/D2Gdi/**`, `Source/D2Glide/**`, `Source/D2Hell/**`, taking over from lane 6.
 
 ## Claimed
-- Renderer functions filed in D2Win: Unknown_0050F910.cpp (Glide 0x50F910, 0x50FBD0, 0x50FDF0; DDraw 0x510130-0x5103B0,
-  0x5137E0) and Unknown_00508970.cpp (0x508970 GlideLoadLibrary, 0x508F60 GlideCheckBoards). Lane 6: please don't edit
-  these meanwhile. Then Storm SCMD.CPP's stubs in gdiCore's run and the Bnclient units in the D2Hell run.
-- D2Hell object map (0x00516D8B-0x00517E39 and its data 0x0072F9F0-0x0072FA1F).
+- Lane 9 placeholders (queues.md): looking for object evidence (file statics, data contiguity, bss order). Code
+  adjacency doesn't count here (renderer objects interleave), and string sharing doesn't either (identical literals are
+  pooled across objects, e.g. the DDERR_ name strings read by both DDrawLogError and d3dCore's LogDDrawError).
+- Inline asm (3, D2Hell Unknown_005173EF.cpp: rep movsd copy, repe cmpsd compare, bsf): Storm-style hand assembly the
+  original very likely had; leaving it.
 
 ## Status
 - Setup done; baseline VERIFIED on #325.
