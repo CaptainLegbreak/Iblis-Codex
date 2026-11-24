@@ -492,7 +492,6 @@ struct D2QuestLookupEntryStrc;
 
 struct D2QuestPanelValuesStrc;
 
-struct D2WardenClientM114Strc;
 
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
@@ -520,15 +519,7 @@ struct D2QuestPanelValuesStrc
 
 #pragma pack(pop)
 
-extern void* const gapWardenServices[7]; // 0x006D8E68
-
 extern D2QuestLookupEntryStrc gaQuestLookup_00723F38[0x29]; // 0x00723F38
-
-struct D2WardenClientM114Strc
-{
-    void* const* pServices;
-    D2WardenClientM114Strc();
-};
 
 int gbStarsInit; // 0x007B955C
 
@@ -1696,11 +1687,6 @@ void __stdcall VIEW_DrawCelFrame(int nFrame, int nX, int nY)
     tContext.pCellFile = gpGlobal_007BC964;
     tContext.nFrame = nFrame;
     sub_004F6480(&tContext, nX, nY, -1, 5, 0);
-}
-
-// 0x004801C0
-D2WardenClientM114Strc::D2WardenClientM114Strc() : pServices(gapWardenServices)
-{
 }
 
 // 0x00480400
