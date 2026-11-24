@@ -1308,6 +1308,12 @@ void __cdecl sub_00648380_Nop()
 {
 }
 
+// 0x00648390
+int __stdcall sub_00648390_AlwaysZero(int nUnused1, int nUnused2)
+{
+    return 0;
+}
+
 // 0x006483A0
 static BOOL PATH_IsTargetDestinationAllowed(D2PathInfoStrc* pPathInfo, D2UnitStrc* pUnit)
 {
@@ -1398,6 +1404,21 @@ int __stdcall PATH_GetCollisionPatternFromMonStats2Txt(int nMonsterId)
     return COLLISION_PATTERN_SMALL_UNIT_PRESENCE;
 }
 
+// 0x00648640
+void __stdcall D2COMMON_10193_PATH_AdjustDirection(D2DynamicPathStrc* pDynamicPath)
+{
+    if ((pDynamicPath->nDirection != pDynamicPath->nNewDirection) && !(pDynamicPath->dwFlags & PATH_UNKNOWN_FLAG_0x00040))
+    {
+        pDynamicPath->nDirection = (pDynamicPath->nDirection + pDynamicPath->nDiffDirection) & 63;
+
+        const unsigned char dirDiff = (pDynamicPath->nDirection - pDynamicPath->nNewDirection) & 63;
+        if ((dirDiff > 31 && pDynamicPath->nDiffDirection > 63) || (dirDiff < 31 && pDynamicPath->nDiffDirection < 63))
+        {
+            pDynamicPath->nDirection = pDynamicPath->nNewDirection;
+        }
+    }
+}
+
 // 0x006486F0
 int __stdcall PATH_GetMaxVelocity(D2DynamicPathStrc* pDynamicPath)
 {
@@ -1408,6 +1429,18 @@ int __stdcall PATH_GetMaxVelocity(D2DynamicPathStrc* pDynamicPath)
 int __stdcall PATH_GetAcceleration(D2DynamicPathStrc* pDynamicPath)
 {
     return pDynamicPath->dwAcceleration;
+}
+
+// 0x00648770
+int __stdcall D2COMMON_10209_PathCheckPathingFlag(D2DynamicPathStrc* pDynamicPath)
+{
+    return (pDynamicPath->dwFlags & PATH_UNKNOWN_FLAG_0x00020);
+}
+
+// 0x006487C0
+int __stdcall D2Common_10155(D2DynamicPathStrc* pDynamicPath)
+{
+    return pDynamicPath->dwCurrentPointIdx;
 }
 
 // 0x00649180

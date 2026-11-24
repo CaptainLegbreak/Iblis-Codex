@@ -181,6 +181,12 @@ void __stdcall UNITROOM_SortUnitListByTargetY(D2ActiveRoomStrc* pRoom)
     }
 }
 
+// 0x0064C350
+int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom)
+{
+    return UNITROOM_AddUnitToRoomEx(pUnit, pRoom, 1);
+}
+
 // 0x0064C450
 void __stdcall UNITROOM_UpdatePath(D2UnitStrc* pUnit)
 {

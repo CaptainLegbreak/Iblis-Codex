@@ -72666,31 +72666,6 @@
      "name": "SKILLS_InitSkillList"
     },
     {
-     "va": "0x00648390",
-     "length": 5,
-     "name": "?sub_00648390_AlwaysZero@@YGHHH@Z"
-    },
-    {
-     "va": "0x00648640",
-     "length": 66,
-     "name": "D2COMMON_10193_PATH_AdjustDirection"
-    },
-    {
-     "va": "0x00648770",
-     "length": 16,
-     "name": "D2COMMON_10209_PathCheckPathingFlag"
-    },
-    {
-     "va": "0x006487C0",
-     "length": 13,
-     "name": "D2Common_10155"
-    },
-    {
-     "va": "0x0064C350",
-     "length": 22,
-     "name": "UNITROOM_AddUnitToRoom"
-    },
-    {
      "va": "0x0064EFE0",
      "length": 63,
      "name": "SKILLS_FixThrowWeaponClassCode"
@@ -72714,11 +72689,6 @@
      "va": "0x0066B880",
      "length": 116,
      "name": "DRLG_CheckOverlappingWithOrthogonalMargin"
-    },
-    {
-     "va": "0x0066E140",
-     "length": 20,
-     "name": "SKILLS_GetModeSideChar"
     }
    ]
   },
@@ -72786,6 +72756,11 @@
      "name": "?sub_00648380_Nop@@YAXXZ"
     },
     {
+     "va": "0x00648390",
+     "length": 5,
+     "name": "?sub_00648390_AlwaysZero@@YGHHH@Z"
+    },
+    {
      "va": "0x006483A0",
      "length": 135,
      "name": "?PATH_IsTargetDestinationAllowed@@YAHPAUD2PathInfoStrc@@PAUD2UnitStrc@@@Z"
@@ -72831,6 +72806,11 @@
      "name": "?PATH_SetNewDirection@@YIXPAUD2DynamicPathStrc@@E@Z"
     },
     {
+     "va": "0x00648640",
+     "length": 66,
+     "name": "D2COMMON_10193_PATH_AdjustDirection"
+    },
+    {
      "va": "0x00648690",
      "length": 38,
      "name": "_PATH_SetVelocity@16"
@@ -72871,6 +72851,11 @@
      "name": "_PATH_SetPathingFlag@8"
     },
     {
+     "va": "0x00648770",
+     "length": 16,
+     "name": "D2COMMON_10209_PathCheckPathingFlag"
+    },
+    {
      "va": "0x00648780",
      "length": 13,
      "name": "_PATH_GetNumberOfPathPoints@4"
@@ -72879,6 +72864,11 @@
      "va": "0x00648790",
      "length": 36,
      "name": "_PATH_SetNumberOfPathPoints@8"
+    },
+    {
+     "va": "0x006487C0",
+     "length": 13,
+     "name": "D2Common_10155"
     },
     {
      "va": "0x006487D0",
@@ -73579,6 +73569,11 @@
      "va": "0x0064C2C0",
      "length": 137,
      "name": "?UNITROOM_AddUnitToRoomEx@@YGHPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@H@Z"
+    },
+    {
+     "va": "0x0064C350",
+     "length": 22,
+     "name": "UNITROOM_AddUnitToRoom"
     },
     {
      "va": "0x0064C370",
@@ -76478,6 +76473,11 @@
      "va": "0x0066E090",
      "length": 165,
      "name": "?DRLGROOMTILE_ShrinkRoofTilesToShadowCount@@YIXPAUD2DrlgRoomStrc@@@Z"
+    },
+    {
+     "va": "0x0066E140",
+     "length": 20,
+     "name": "SKILLS_GetModeSideChar"
     },
     {
      "va": "0x0066E160",
