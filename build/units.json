@@ -77625,12 +77625,26 @@
      "length": 464
     },
     {
+     "va": "0x006B7980",
+     "length": 429
+    },
+    {
      "va": "0x006B7C90",
      "length": 233
     },
     {
      "va": "0x006B7D80",
      "length": 328
+    },
+    {
+     "va": "0x006B7ED0",
+     "length": 76,
+     "name": "?sub_006B7ED0_CallRect@@YIHPAUD2RectStrc@@H@Z"
+    },
+    {
+     "va": "0x006B7F20",
+     "length": 80,
+     "name": "?sub_006B7F20_CallSquare@@YIXPAUD2Point006B7F20Strc@@EH@Z"
     },
     {
      "va": "0x006B7F70",
@@ -77716,6 +77730,10 @@
      "length": 841
     },
     {
+     "va": "0x006B86F0",
+     "length": 173
+    },
+    {
      "va": "0x006B87A0",
      "length": 428
     },
@@ -77761,42 +77779,12 @@
    ]
   },
   {
-   "file": "Source/D2Direct3D/Unknown_006B7980.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006B7980",
-     "length": 429
-    },
-    {
-     "va": "0x006B7ED0",
-     "length": 76,
-     "name": "?sub_006B7ED0_CallRect@@YIHPAUD2RectStrc@@H@Z"
-    },
-    {
-     "va": "0x006B7F20",
-     "length": 80,
-     "name": "?sub_006B7F20_CallSquare@@YIXPAUD2Point006B7F20Strc@@EH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Direct3D/Unknown_006B7B30.cpp",
    "rank": 1,
    "functions": [
     {
      "va": "0x006B7B30",
      "length": 346
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B86F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B86F0",
-     "length": 173
     }
    ]
   },
