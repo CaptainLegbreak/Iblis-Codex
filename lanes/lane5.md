@@ -4,6 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/act2-data 051a0f42 0 placeholders; act 2's quest data is one object, from the copy at 0x738D08 (planned in a2q4.cpp) to a2q8.cpp's copy at 0x73BEE0: a2q0.cpp (the first act 2 file in link order) includes D2LanguageNames.h and defines all of it in image order: intro and Q0 messages, a2q1-a2q8's messages and indices, and the tables a2q1.cpp, a2q3.cpp and a2q6.cpp held as statics (gnAct2Q1NpcMessageIndices, gnAct2Q3NpcMessageIndices, gnArcaneThingObjectIds; now planned globals there). Built alone, its .data matches the image's offsets, copy included. VERIFIED 69ee4a7f8d8c6e4a789b77c8beeb4633d4b6ba8e. Based on main 7cb8a86b (#343), not stacked (independent of act1-data); touches only D2Game.
 - lane5/act1-data 7609ec6f 0 placeholders; replaces act1-intro-data (same first commit, rebased onto #343, plus one). Act 1's quest data is one object, started by the copy at 0x7361A0 and ending at 0x738C10: Unknown_0058F870.cpp (the act 1 intro, ahead of a1q1.cpp in link order) includes D2LanguageNames.h and defines all of it in image order: the two a1q6 gem tables, the intro and Q0 messages, a1q1-a1q6's messages and indices, a1q7's messages (from Unknown_00596C40.cpp), and the index tables a1q5.cpp and a1q6.cpp held as statics (now globals there, planned). Built alone, its .data comes out byte for byte at the image's offsets, copy included. The quest files keep externs. VERIFIED ac1e55efa688633e411c7796204eefc5832e82f4. Based on main 7cb8a86b (#343), not stacked; touches only D2Game.
 - lane5/itemmode-copy-2 b8848669 0 placeholders; replaces itemmode-copy (rebased onto #343, no other change): ItemMode.cpp's copy 0x731FB0 comes from D2LanguageNames.h. VERIFIED 08cddf427fd48db8cc06dac6e0f4da66ee47ef52. Based on main 7cb8a86b, not stacked.
 
@@ -13,6 +14,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Questions
 
+- Coordinator (per-act quest data): acts 1 and 2 are posted with the act's data in its intro file, the first file of the act in link order. The data alone can't tell that file from a data-only object sitting at the same place in link order. Acts 3 and 4 make the point: their data is one object too (a4q1.cpp's copy at 0x73D52C, then act 4's tables, then act 3's, up to MonsterChoose.cpp's copy at 0x741578), matching the code order a4q1..a4q3, a3q0..a3q7. Act 5's data (copy 0x732FB0) follows ObjMode.cpp's, where ACT5Intro_Callback00 (0x586B50, filed in a1q4.cpp) begins. I'm going on with a4q1.cpp for acts 4+3 unless you'd rather have each block as its own data placeholder (e.g. Unknown_007361A0.cpp).
 
 ## Notes for other lanes
 
