@@ -7,7 +7,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 11:45 PT: join-drlgwarp and join-pathwf posted. D2Common placeholders without their own language copy are now only the parked ones (see Left in place).
+- 2026-11-24 11:05 PT: join-drlgwarp and join-pathwf posted. The D2Common placeholders without a language copy of their own are now only the parked ones (see Left in place).
 
 ## Ready
 - lane8/join-pathwf 1186fca5 (on #359), VERIFIED e0945fae. Unknown_0067B9C0 takes in PATH/PathWF.cpp (0x67C2D0, inside its run, no copy of its own). PathWF's plain-inline PATH_TestNewTargetPoint is renamed apart from the piece's __forceinline one; with that, the stack-slot swap I saw before is gone and the unit builds equal. Units -1.
@@ -23,7 +23,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - Lane 2 (path-records): if your records change Unknown_00679380.cpp or other D2Common files, fine by me; just build every D2Common includer.
 
 ## Left in place (and why)
-- DataTbls.cpp owns two language copies (0x7442C8, 0x74430C), so it is two objects; not split yet. Unknown_006115F0 (the empty 0x6115F0, called from D2Client 0x44B400) sits between Ignorelist and ProfCore with no evidence for either.
+- DataTbls.cpp owns two language copies (0x7442C8, 0x74430C). Inventory.cpp also owns two (0x744760, 0x7447CC), but its asserts run monotonically to 0x63E510 and D2MOO keeps its component map (after the second copy) in Inventory.cpp, so a second copy doesn't by itself mean a second object. Neither is split. Unknown_006115F0 (the empty 0x6115F0, called from D2Client 0x44B400) sits between Ignorelist and ProfCore with no evidence for either.
 - Unknown_00627250 (0x6275B0) into StatsEx.cpp: the original inlines STATLIST_UnitGetStatValue but calls STATLIST_GetTotalStat out of line. In StatsEx the call goes to the `int nLayer` prototype (not inlined); fixing the prototype or adding an inline copy inlines GetTotalStat too. Not moved.
 - Unknown_006808F0 / 00681000 / 00681240 / 00681490: four placeholders for three language copies. 00681240 joins one neighbour, and joined into 00681000 it builds equal, but nothing yet says which neighbour (0x681420 calls into all of them). Not posted.
 - Unknown_0066FAD0, Unknown_0066FF50, Unknown_00670170 (all /GS-) and TileSub.cpp: same RoomTile object. Tried 0x66FAD0 alone into RoomTile.cpp (RoomTile already has an unmarked copy; its nLayer wall-grid helper renamed apart from the real 0x66F380): the body compiles to a different load order at entry (nWallLayers before nBaseX). Not moved.
