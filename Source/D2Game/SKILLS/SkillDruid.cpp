@@ -3890,7 +3890,7 @@ D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* p
 }
 
 // 0x005D1E10
-static void __stdcall sub_005D1E10_Transform(Unit* owner, int level, int skill, Game* game, Unit* target)
+static void __stdcall SKILLS_ApplyShapeshift(Unit* owner, int level, int skill, Game* game, Unit* target)
 {
     SkillRecord* record = 0;
     if (skill >= 0 && skill < gVar_00744304->skillCount)
@@ -3974,7 +3974,7 @@ extern "C" int __fastcall SKILLS_SrvDo131_OverseerWhip(Game* game, Unit* owner, 
         }
         else
         {
-            sub_005D1E10_Transform(owner, level, skill, game, target);
+            SKILLS_ApplyShapeshift(owner, level, skill, game, target);
         }
         return 1;
     }

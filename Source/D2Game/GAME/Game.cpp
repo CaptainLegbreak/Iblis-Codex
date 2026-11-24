@@ -920,7 +920,7 @@ struct D2GameHashLinkStrc;
 
 struct D2GameHashListStrc;
 
-int __cdecl sub_005377B0_CountFlaggedClients(); // 0x005377B0
+int __cdecl CLIENTS_GetExpansionClientCount(); // 0x005377B0
 
 void __stdcall DUNGEON_UpdateAndFreeInactiveRooms(D2DrlgActStrc* pAct); // 0x0061AA20
 
@@ -3910,7 +3910,7 @@ int __fastcall GAME_GetGamesCount()
 // 0x0052DB80
 int __cdecl GAME_GetExpansionClientsCount()
 {
-    return sub_005377B0_CountFlaggedClients();
+    return CLIENTS_GetExpansionClientCount();
 }
 
 // 0x0052DB90
@@ -4066,7 +4066,7 @@ inline unsigned __int64 sub_I08_RollGameSeed(D2SeedStrc* pSeed)
 }
 
 // 0x0052C280
-static void sub_0052C280_InitGameSeed(D2GameStrc* pGame)
+static void GAME_InitGameSeed(D2GameStrc* pGame)
 {
     if (gnInitSeed == -1)
     {
@@ -4159,7 +4159,7 @@ int __stdcall SrvCreateNewEmptyGame(char* szGameName, const char* szPassword, co
 
     pGame->nDifficulty = (nFlags >> 12) & 7;
 
-    sub_0052C280_InitGameSeed(pGame);
+    GAME_InitGameSeed(pGame);
     EVENT_AllocEventQueue(pGame);
     ARENA_AllocArena(pGame, 0, nFlags, 0);
     CLIENTS_SetGameData((D2ClientStrc*)pGame);
@@ -4242,7 +4242,7 @@ void __fastcall sSrvSendGameInit(int nClientId, char* szGameName, unsigned char 
     pGame->wItemFormat = pGame->bExpansion != 0 ? 101 : 2;
     pGame->dwGameType = (nFlags & 0x200000) != 0;
 
-    sub_0052C280_InitGameSeed(pGame);
+    GAME_InitGameSeed(pGame);
     EVENT_AllocEventQueue(pGame);
     ARENA_AllocArena(pGame, nArena, nFlags, nArenaTemplate);
     CLIENTS_SetGameData((D2ClientStrc*)pGame);

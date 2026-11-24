@@ -160,7 +160,7 @@ void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pAr
 
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer);                                                     // 0x00554630
 
-bool __fastcall sub_0058AF00_GetQuestStatus(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x0058AF00
+bool __fastcall ACT5Q4_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x0058AF00
 
 void __fastcall ACT5Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);    // 0x0058B050
 
@@ -339,7 +339,7 @@ int __fastcall ACT5Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 }
 
 // 0x0058AF00
-bool __fastcall sub_0058AF00_GetQuestStatus(D2QuestDataStrc* quest, D2UnitStrc* unit, D2BitBufferStrc* globalFlags, D2BitBufferStrc* flags, unsigned char* status)
+bool __fastcall ACT5Q4_StatusFilterCallback(D2QuestDataStrc* quest, D2UnitStrc* unit, D2BitBufferStrc* globalFlags, D2BitBufferStrc* flags, unsigned char* status)
 {
     *status = 0;
     if (QUESTRECORD_GetQuestState(flags, 38, 0)) return true;
@@ -724,7 +724,7 @@ void __fastcall ACT5Q4_InitQuestData(D2QuestDataStrc* pQuestData)
     D2Act5Quest4Strc* pQuestDataEx = (D2Act5Quest4Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act5Quest4Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q4.cpp", LINE_INIT_ALLOC, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
     pQuestData->eFilter = QUESTSTATEFLAG_A5Q4;
-    pQuestData->pfStatusFilter = sub_0058AF00_GetQuestStatus;
+    pQuestData->pfStatusFilter = ACT5Q4_StatusFilterCallback;
     pQuestData->nInitNo = INITNO_A5Q4;
     pQuestData->pfActiveFilter = ACT5Q4_ActiveFilterCallback;
     pQuestData->pfSeqFilter = ACT5Q4_SeqCallback;

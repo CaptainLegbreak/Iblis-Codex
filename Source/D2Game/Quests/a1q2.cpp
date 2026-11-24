@@ -257,7 +257,7 @@ int __fastcall ACT1Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 }
 
 // 0x00590890
-int __fastcall sub_00590890_SyncQuest2(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnused)
+int __fastcall ACT1Q2_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnused)
 {
     D2BitBufferStrc* pQuestRecord = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
     if (QUESTRECORD_GetQuestState(pQuestRecord, 2, 0) == 1 || QUESTRECORD_GetQuestState(pQuestRecord, 2, 1) == 1)

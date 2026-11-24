@@ -1312,7 +1312,7 @@ int __fastcall AITACTICS_RunAwayFromTarget(D2GameStrc* pGame, D2UnitStrc* pUnit,
 unsigned char __stdcall PATH_GetNewDirection(D2DynamicPathStrc* pPath);                                    // 0x00648810
 
 // 0x005DF2A0
-int __fastcall sub_005DF2A0_WalkAway(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance)
+int __fastcall AITACTICS_WalkAway(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance)
 {
     int nX = CLIENTS_GetUnitXInline(pUnit);
     int nY = CLIENTS_GetUnitYInline(pUnit);

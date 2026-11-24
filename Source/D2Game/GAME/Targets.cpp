@@ -162,7 +162,7 @@ void __fastcall TARGETS_RemoveUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 // 0x005B1B70
-void __fastcall sub_005B1B70_FreeAllTargetNodes(D2GameStrc* pGame)
+void __fastcall TARGETS_FreeAllTargetNodes(D2GameStrc* pGame)
 {
     if (!pGame)
     {
@@ -182,7 +182,7 @@ void __fastcall sub_005B1B70_FreeAllTargetNodes(D2GameStrc* pGame)
 }
 
 // 0x005B1BC0
-D2TargetNodeStrc* __fastcall sub_005B1BC0_FindTargetNode(D2UnitStrc* pUnit, D2GameStrc* pGame)
+D2TargetNodeStrc* __fastcall TARGETS_FindTargetNode(D2UnitStrc* pUnit, D2GameStrc* pGame)
 {
     if (!pGame || !pUnit || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
     {
@@ -207,7 +207,7 @@ D2TargetNodeStrc* __fastcall sub_005B1BC0_FindTargetNode(D2UnitStrc* pUnit, D2Ga
 }
 
 // 0x005B1C00
-void __fastcall sub_005B1C00_ToggleTargetFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFlags, int bSet)
+void __fastcall TARGETS_ToggleTargetFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFlags, int bSet)
 {
     if (!pGame || !pUnit)
     {
@@ -217,11 +217,11 @@ void __fastcall sub_005B1C00_ToggleTargetFlags(D2GameStrc* pGame, D2UnitStrc* pU
     D2TargetNodeStrc* pTargetNode;
     if (pUnit->dwUnitType == UNIT_PLAYER)
     {
-        pTargetNode = sub_005B1BC0_FindTargetNode(pUnit, pGame);
+        pTargetNode = TARGETS_FindTargetNode(pUnit, pGame);
     }
     else if (pUnit->dwUnitType == UNIT_MONSTER)
     {
-        pTargetNode = sub_005B1BC0_FindTargetNode(pUnit, pGame);
+        pTargetNode = TARGETS_FindTargetNode(pUnit, pGame);
     }
     else
     {

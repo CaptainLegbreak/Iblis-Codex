@@ -147,7 +147,7 @@ void __fastcall sub_0059C3C0(Quest*,Arg*); // 0x0059C3C0
 
 void __fastcall sub_0059CB20(Quest*,Arg*); // 0x0059CB20
 
-void __fastcall sub_0059C6B0(Quest*,Arg*); // 0x0059C6B0
+void __fastcall ACT2Q6_RemovePlayerGUID(Quest*,Arg*); // 0x0059C6B0
 
 void __fastcall sub_0059C760(Quest*,Arg*); // 0x0059C760
 
@@ -515,7 +515,7 @@ void __fastcall ACT2Q6_InitQuestData(Quest* quest)
     quest->callbacks[3]=sub_0059D1C0;
     quest->callbacks[0]=sub_0059C3C0;
     quest->callbacks[11]=sub_0059CB20;
-    quest->callbacks[10]=sub_0059C6B0;
+    quest->callbacks[10]=ACT2Q6_RemovePlayerGUID;
     quest->callbacks[2]=sub_0059C760;
     quest->callbacks[13]=sub_0059D4F0;
     quest->callbacks[14]=sub_0059D4D0;
@@ -644,7 +644,7 @@ int __fastcall ACT2Q6_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 void __fastcall QUESTS_RemovePlayerGUID(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00545530
 
 // 0x0059C6B0
-void __fastcall sub_0059C6B0_RemovePlayerGUID(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+void __fastcall ACT2Q6_RemovePlayerGUID(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
     QUESTS_RemovePlayerGUID(pQuestData, pQuestArg);
 }

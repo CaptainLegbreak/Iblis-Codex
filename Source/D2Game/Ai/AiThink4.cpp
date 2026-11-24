@@ -982,7 +982,7 @@ void __fastcall ACT5Q3_OnDrehyaRescued(D2GameStrc* pGame, D2UnitStrc* pUnit); //
 
 int gnNpcWalkSequenceCounter; // 0x0088CADC
 
-int __fastcall sub_005DD280(D2UnitStrc* pUnit); // 0x005DD280
+int __fastcall AIUTIL_GetLifePercentage(D2UnitStrc* pUnit); // 0x005DD280
 
 int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned int nSteps, int a5); // 0x005DF7D0
 
@@ -1589,7 +1589,7 @@ enum D2C_P11AiConstants
     MONSTATSFLAGINDEX_INTERACT = 9,
 };
 
-int __fastcall sub_005FB650_GetTrapArrowVariant(D2GameStrc* pGame, D2UnitStrc* pUnit);                     // 0x005FB650
+int __fastcall AITHINK_GetTrapArrowVariant(D2GameStrc* pGame, D2UnitStrc* pUnit);                     // 0x005FB650
 
 int __fastcall sub_005541B0_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 
@@ -3318,7 +3318,7 @@ void __fastcall AITHINK_Fn122_Imp(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTick
 
     if (bCombat)
     {
-        if (pMonStatsTxt->nSkill[0] >= 0 && sub_005DD280(pUnit) < AI_PARAM(pGame, pRecords[0], 0))
+        if (pMonStatsTxt->nSkill[0] >= 0 && AIUTIL_GetLifePercentage(pUnit) < AI_PARAM(pGame, pRecords[0], 0))
         {
             AITACTICS_UseSkillInRange(pUnit, AI_PARAM(pGame, pRecords[0], 1), pMonStatsTxt->nSkill[0], (signed char)pMonStatsTxt->nSkillMode[0]);
             return;
@@ -6319,7 +6319,7 @@ void __fastcall AITHINK_Fn004_Bighead(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
         return;
     }
 
-    if (sub_005DD280(pUnit) >= AI_PARAM(pGame, pMonStatsTxt, 0))
+    if (AIUTIL_GetLifePercentage(pUnit) >= AI_PARAM(pGame, pMonStatsTxt, 0))
     {
         if (bCombat)
         {
@@ -6473,7 +6473,7 @@ void __fastcall AITHINK_Fn008_SandRaider(D2GameStrc* pGame,D2UnitStrc* pUnit,D2A
         }
         pAiControl->dwAiParam[1] = 1;
     }
-    if (pAiControl->dwAiParam[2] < 7 && sub_005DD280(pUnit) < AI_PARAM(pGame, pMonStatsTxt, 0))
+    if (pAiControl->dwAiParam[2] < 7 && AIUTIL_GetLifePercentage(pUnit) < AI_PARAM(pGame, pMonStatsTxt, 0))
     {
         D2SandRaiderAiCallbackArgStrc args;
         args.pTarget = 0;
@@ -8224,7 +8224,7 @@ inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 }
 
 // 0x005F7F10
-void __fastcall sub_005F7F10_SpawnRandomMinion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner)
+void __fastcall AITHINK_SpawnUberMephistoMinion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner)
 {
     const int nX = UNITS_GetUnitXPosition(pUnit);
     const int nY = UNITS_GetUnitYPosition(pUnit);
@@ -9015,7 +9015,7 @@ void __fastcall AITHINK_Fn078_TrapRightArrow(D2GameStrc* pGame, D2UnitStrc* pUni
     }
 
     pAiControl->dwAiParam[0] = AI_PARAM(pGame, pMonStatsTxt, 2) + pGame->dwGameFrame;
-    switch (sub_005FB650_GetTrapArrowVariant(pGame, pUnit))
+    switch (AITHINK_GetTrapArrowVariant(pGame, pUnit))
     {
     case 1:
         break;
@@ -9065,7 +9065,7 @@ void __fastcall AITHINK_Fn079_TrapLeftArrow(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
 
     pAiControl->dwAiParam[0] = AI_PARAM(pGame, pMonStatsTxt, 2) + pGame->dwGameFrame;
-    switch (sub_005FB650_GetTrapArrowVariant(pGame, pUnit))
+    switch (AITHINK_GetTrapArrowVariant(pGame, pUnit))
     {
     case 1:
         break;
@@ -10648,7 +10648,7 @@ void __fastcall AITHINK_Fn015_SandMaggot(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         return;
     }
 
-    if (sub_005DD280(pUnit) < 25 && pMonStatsTxt->nSkill[1] >= 0 && nDistance < 7 && pGame->dwGameFrame > pAiControl->dwAiParam[1]
+    if (AIUTIL_GetLifePercentage(pUnit) < 25 && pMonStatsTxt->nSkill[1] >= 0 && nDistance < 7 && pGame->dwGameFrame > pAiControl->dwAiParam[1]
         && AI_RollLimitedBelow(pSeed, 20))
     {
         AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[1], pMonStatsTxt->nSkill[1], pTarget, 0, 0);
@@ -14492,7 +14492,7 @@ void __fastcall AITHINK_Fn126_CatapultSpotter(D2GameStrc* pGame, D2UnitStrc* pUn
 }
 
 // 0x005EE260
-void __fastcall sub_005EE260_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick)
+void __fastcall AITHINK_Fn130_DeathMauler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick)
 {
     D2MonStatsTxt* pStats = pTick->pMonstatsTxt;
     D2UnitStrc* pTarget = pTick->pTarget;
@@ -16049,7 +16049,7 @@ void __fastcall AITHINK_Fn077_TrapMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 }
 
 // 0x005FB650
-int __fastcall sub_005FB650_GetTrapArrowVariant(D2GameStrc* pGame, D2UnitStrc* pUnit)
+int __fastcall AITHINK_GetTrapArrowVariant(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit));
     D2MonsterRegionStrc* pMonsterRegion = MONSTERREGION_GetMonsterRegionFromLevelId(pGame->pMonReg, nLevelId);

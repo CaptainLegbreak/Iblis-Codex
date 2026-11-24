@@ -573,7 +573,7 @@ int __fastcall OBJECTS_OperateFunction44_SewerStairs(D2ObjOperateFnStrc* pOp, in
 void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
 
 // 0x005B8500
-int __fastcall sub_005B8500_IsSewerStairsClosed(D2GameStrc* pGame)
+int __fastcall ACT3Q2_IsSewerStairsClosed(D2GameStrc* pGame)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A3Q2_KHALIMFLAIL);
     if (pQuestData && pQuestData->bNotIntro)
@@ -872,7 +872,7 @@ int __fastcall OBJECTS_OperateFunction59_KhalimChest(D2ObjOperateFnStrc* pOp, in
 }
 
 // 0x005B8B00
-void __fastcall sub_005B8B00_AddFlailsDropped(D2GameStrc* pGame, int nCount)
+void __fastcall ACT3Q2_AddFlailsDropped(D2GameStrc* pGame, int nCount)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A3Q2_KHALIMFLAIL);
     if (pQuestData)

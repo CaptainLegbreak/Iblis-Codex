@@ -950,7 +950,7 @@ void __fastcall OBJECTS_InitFunction52_NatalyaStart(D2ObjInitFnStrc* pOp)
 }
 
 // 0x005BCF60
-void __fastcall sub_005BCF60_ACT3Q6_UpdatePlayerStatus(D2GameStrc* pGame, bool bRestore)
+void __fastcall ACT3Q6_UpdatePlayerStatus(D2GameStrc* pGame, bool bRestore)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A3Q6_MEPHISTO);
     if (!pQuestData || !pQuestData->bNotIntro || pQuestData->fState >= 6)

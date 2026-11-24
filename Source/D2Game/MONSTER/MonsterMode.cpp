@@ -2430,7 +2430,7 @@ void __fastcall SKILLS_CreateBlazeMissile(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
 D2UnitStrc* __fastcall SKILLS_CreateSpiderLayMissile(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005CE4F0
 
-void __fastcall sub_6FC64CD0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A8520
+void __fastcall MONSTERMODE_EndKnockback(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A8520
 
 static inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordInline_Q05(int nMonsterId)
 {
@@ -2452,7 +2452,7 @@ static inline int MONSTERMODE_GetBaseIdInline_Q05(int nClassId)
 }
 
 // 0x005A8490
-int __fastcall sub_6FC64480(D2GameStrc* pGame, D2UnitStrc* pUnit)
+int __fastcall MONSTERMODE_UpdateWalk(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     if (STATES_CheckState(pUnit, STATE_BLAZE))
     {
@@ -2474,7 +2474,7 @@ int __fastcall sub_6FC64480(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 // 0x005A84F0
-int __fastcall sub_6FC64510(D2GameStrc* pGame, D2UnitStrc* pUnit)
+int __fastcall MONSTERMODE_UpdateRun(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     if (SUNIT_UpdateUnitPath(pGame, pUnit) == 2)
     {
@@ -2486,7 +2486,7 @@ int __fastcall sub_6FC64510(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 // 0x005A8520
-void __fastcall sub_6FC64CD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
+void __fastcall MONSTERMODE_EndKnockback(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     PATH_ResetToPreviousType(pUnit->pDynamicPath);
 
@@ -2536,13 +2536,13 @@ void __fastcall sub_6FC64CD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
 
 // 0x005A8630
-int __fastcall sub_6FC64E20(D2GameStrc* pGame, D2UnitStrc* pUnit)
+int __fastcall MONSTERMODE_UpdateKnockback(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     SUNIT_UpdateUnitPath(pGame, pUnit);
     UNITS_StopSequence(pUnit);
     if (UNITS_IsAtEndOfFrameCycle(pUnit))
     {
-        sub_6FC64CD0(pGame, pUnit);
+        MONSTERMODE_EndKnockback(pGame, pUnit);
         return 2;
     }
 

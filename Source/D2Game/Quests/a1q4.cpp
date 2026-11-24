@@ -1703,7 +1703,7 @@ bool __fastcall ACT1Q4_SeqCallback(D2QuestDataStrc* pQuestData)
 }
 
 // 0x00593E10
-void __fastcall sub_00593E10_SetQuestCompleteBefore(D2GameStrc* pGame)
+void __fastcall ACT1Q4_SetQuestCompleteBefore(D2GameStrc* pGame)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 4);
     if (pQuestData)
@@ -1778,7 +1778,7 @@ void __fastcall ACT1Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 }
 
 // 0x00593F60
-void __fastcall sub_00593F60_SetUnk52(D2GameStrc* pGame)
+void __fastcall ACT1Q4_SetCainInTownSpawnPending(D2GameStrc* pGame)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 4);
     if (pQuestData)
@@ -1788,7 +1788,7 @@ void __fastcall sub_00593F60_SetUnk52(D2GameStrc* pGame)
 }
 
 // 0x00593F80
-int __fastcall sub_00593F80_GetCainNotCreated(D2GameStrc* pGame)
+int __fastcall ACT1Q4_IsCainNotCreated(D2GameStrc* pGame)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 4);
     if (pQuestData)
