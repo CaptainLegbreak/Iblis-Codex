@@ -517,7 +517,7 @@ extern int gnGlobal_007BCA3C; // 0x007BCA3C
 
 extern int gnGlobal_007BCA40; // 0x007BCA40
 
-extern int gnInvMouseX; // 0x007BCA4C
+static int gnInvMouseX; // 0x007BCA4C
 
 extern int gnGlobal_007BCAA0; // 0x007BCAA0
 
@@ -527,7 +527,7 @@ extern int gnGlobal_007BCAA8; // 0x007BCAA8
 
 extern int gnGlobal_007BCAAC; // 0x007BCAAC
 
-extern int gnInvMouseY; // 0x007BCBD8
+static int gnInvMouseY; // 0x007BCBD8
 
 extern int gnGlobal_007BCBF0; // 0x007BCBF0
 
@@ -2039,6 +2039,42 @@ static int INV_IsOverTradeButtonRight(int nX, int nY)
     if (nX > gnPanelX_007A2858 + 0x113 && nX < gnPanelX_007A2858 + 0x133
         && nY > gnScreenHeight + gnPanelY_007A285C - 0x60 && nY < gnScreenHeight + gnPanelY_007A285C - 0x40)
     {
+        return 1;
+    }
+    return 0;
+}
+
+
+
+class D2SquelchListStrc
+{
+public:
+    virtual int Squelch(const char* szName);
+    virtual int Unsquelch(const char* szName);
+    virtual int IsSquelched(const char* szName);
+    virtual int AddFilter(const char* szText);
+    virtual int RemoveFilter(const char* szText);
+    virtual int IsFiltered(const char* szText);
+    virtual void VirtSlot6();
+    virtual void VirtSlot7();
+    virtual int IsPersistent();
+    virtual void SetPersistent(int bPersistent);
+};
+
+
+// 0x004922A0
+int __stdcall WARDENCLIENT_HandlePanelAreaClick(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    gnInvMouseX = nX;
+    gnInvMouseY = nY;
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+    if (nX >= gnGlobal_007BCAA0 && nX < gnGlobal_007BCAA4 && nY >= gnGlobal_007BCAA8 && nY <= gnGlobal_007BCAAC)
+    {
+        INV_HandlePanelClick(pMsg);
         return 1;
     }
     return 0;
