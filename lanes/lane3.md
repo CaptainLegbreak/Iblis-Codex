@@ -12,7 +12,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-(none)
+- **QServer.cpp takes 0x6BE2F0-0x6BE390 from Excel.cpp** (lane3/qserver-head, stacked on log-nop): the two log no-ops, FOG_SetServerConfig, FOG_StartServer and FOG_10186 sit between the gamma placeholder and QServer.cpp's run, work on the queue server, and share QServer.cpp's static settings at 0x74C3E0-0x74C3EC (which run into QServer's gaMaskTable at 0x74C3F0); QServer.cpp already carries a context copy of FOG_SetServerConfig.
 
 ## Questions
 
