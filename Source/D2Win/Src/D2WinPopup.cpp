@@ -19,6 +19,7 @@
 #include "D2Unicode.h"
 
 #include "D2Win32Types.h"
+#include "D2WinPopupLine.h"
 
 enum D2C_WinControlTypes
 {
@@ -31,11 +32,6 @@ typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
-struct D2WinPopUpLineStrc
-{
-    Unicode wszText[64];
-    void (__stdcall* pfHandleMouseInput)();
-};
 
 struct D2WinPopUpStrc
 {

@@ -17,6 +17,7 @@
 #include "D2GfxTypes.h"
 
 #include "D2MultiTypes.h"
+#include "D2WinPopupLine.h"
 
 typedef long (__stdcall* WNDPROC)(void* hWnd, unsigned int uMsg, unsigned int wParam, long lParam);
 
@@ -328,11 +329,6 @@ struct D2WinListDataStrc
     D2WinListDataStrc* pNext;
 };
 
-struct D2WinPopUpLineStrc
-{
-    Unicode wszText[64];
-    void (__stdcall* pfHandleMouseInput)();
-};
 
 struct D2WinPopUpStrc
 {
