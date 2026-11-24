@@ -13,6 +13,7 @@
 #include "D2CmpCache.h"
 
 #include "D2SpriteCache.h"
+#include "D2FogSystemInfo.h"
 
 #pragma intrinsic(strcpy)
 
@@ -61,7 +62,7 @@ struct D2SpriteEntryStrc;
 
 struct D2SpriteLoadRequestStrc;
 
-struct T004013C0;
+struct D2FogSystemInfoStrc;
 
 struct D2CelBlockStrc;
 
@@ -160,19 +161,13 @@ int __fastcall CodecDecodeDccData(void* hArg, void* pMemPool, int nArg, D2Sprite
 
 void __fastcall D2CMPSpriteCacheResize(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int nDelta, int nArg); // 0x005FF630
 
-struct T004013C0
-{
-    char unk0x00[0x0C];
-    unsigned int nTotalMemory;
-};
-
 extern D2CmpPoolStrc gCmpTilePool; // 0x0088DB20
 
 extern int gnCmpTilePoolBlocks; // 0x00741EF8
 
 void __cdecl CodecInitLock(); // 0x0060CD30
 
-T004013C0* __cdecl FOG_GetSystemInfo(); // 0x00407360
+D2FogSystemInfoStrc* __cdecl FOG_GetSystemInfo(); // 0x00407360
 
 void __fastcall CelDataHashInit(D2CmpBlockTableAStrc* pTable); // 0x0060AEE0
 
@@ -1255,9 +1250,9 @@ void __stdcall D2CMPSpriteCacheInit(void* pMemPool, unsigned int nMaxSize, int n
     CodecInitLock();
     if (!nCacheSize)
     {
-        T004013C0* pInfo = FOG_GetSystemInfo();
+        D2FogSystemInfoStrc* pInfo = FOG_GetSystemInfo();
         D2_ASSERT(pInfo, 0x10B);
-        nCacheSize = pInfo->nTotalMemory - 0xB00000;
+        nCacheSize = pInfo->dwTotalPhys - 0xB00000;
     }
     gbCmpSmallCelCache = nCacheSize < 0x4000000;
     CelDataHashInit(&gCmpBlockTableA);
