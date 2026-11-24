@@ -3488,18 +3488,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_00648020.cpp": {
-   "bytes": 164,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_00648020.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Common/PATH/Path.cpp": {
-   "bytes": 608,
-   "definitions": 7,
+   "bytes": 772,
+   "definitions": 9,
    "externs": [
     "extern \"C\" void __cdecl PATH_AStar_ComputePath(); // 0x0067B850",
     "extern \"C\" void __cdecl PATH_BackupTurn_Compute(); // 0x00679E60",
@@ -117660,7 +117651,7 @@
    "cname": "gData_006EB490",
    "declared": true,
    "decorated": "?gnOrthogonalStepTable@@3QAY08$$CBHA",
-   "file": "Source/D2Common/Unknown_00648020.cpp",
+   "file": "Source/D2Common/PATH/Path.cpp",
    "fill": 4,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006EB490[4][9]; // 0x006EB490",
@@ -117696,7 +117687,7 @@
    "cname": "gData_006EB520",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_00648020.cpp",
+   "file": "Source/D2Common/PATH/Path.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006EB520_t gData_006EB520; // 0x006EB520",
    "head": "extern \"C\" const struct d2data_006EB520_t gData_006EB520 = ",
