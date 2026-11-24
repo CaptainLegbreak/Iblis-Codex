@@ -4,27 +4,17 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/small-records-g-4 004c21a5 562->562 Replaces `lane2/small-records-g`, `-g-2` and `-g-3` (redone on #344: ddCore took in Unknown_00510020 and ErrorManager changed, so the record change was reapplied rather than merged; its first commit, D2Win32SystemInfo.h, is already in #342). Two commits. Fog's captured system info at 0x0074D88C, which FOG_GetSystemInfo returns, is D2FogSystemInfoStrc (D2FogSystemInfo.h) with the field names Unknown_00401070 uses for its four globals (bCaptured, nOsKind, fOsVersion, dwTotalPhys); the views in ErrorManager x2, Safesock, ddCore, SpriteCache, Skills and Unknown_006B3570 include the header. T00681490 is D2DrlgPathNodeStrc (D2DrlgRooms.h), T00473470 is D2WeatherParticleStrc (D2Client.h, D2ClientGame.h), T00481720 is Fog's AsyncData (forward declarations in D2Client.h, D2ClientSound.h); VERIFIED 2bdf8d6329d3e026b2cb286b91ed35e0d425cbe0
+  - Verified on d5c95493 (#344), rebased onto 900824d3 (#345) without conflicts. All 242 includers of the changed headers built equal on #344.
+  - Outside lane 2: Fog units (lane 3), ddCore, Unknown_006B3570, SpriteCache and D2Direct3D.h (lanes 6 and 9), Skills, Gfx and the weather units (lanes 1 and 4), Unknown_00681490 (lane 8), D2Client.h (forward declarations).
+
 - lane2/storm-array 12d00db2 562->562 D2StormArrayAStrc is Storm's growable array of 32-bit words behind the big-number buffer (TSGrowableArray<unsigned int>): capacity, count, element pointer and growth chunk. Its members f_0/f_4/f_8/f_C are now Storm's own names for these, m_alloc, m_count, m_data, m_chunk, in D2StormArrayA.h, D2StormBigBuffer.h and the 14 Storm units that use them (including Unknown_00423D80's derived BigBuffer); VERIFIED 222f7b3a36a3941a639d204d4123195aeb162b93
   - Verified on 7cb8a86b (#343), rebased onto d5c95493 (#344). Precheck of all 14 includers is equal there.
   - Outside lane 2: 14 Storm units (lane 3).
 
-- lane2/header-fields ab8798bf 562->562 One commit, field names in shared headers. D2SpriteCache.h: 0x24/0x28 are the free node list's head and tail (PushFree/PopFree, and the init sets them to the first and last node), now pFreeHead/pFreeTail; 0x4C counts every lookup next to nHits, now nRequests. D2FogTypes.h: the crash dump entry's 0x02/0x06 are the two header words Exceptions.cpp matches, now dwHeader0/dwHeader1 as that function names them. D2ClientTextPanel.h: 0x180748 is read as the line count, now nLineCount; VERIFIED a5fe2dee6bf93d68db0f2c9680ba2a3bbcb30fbd
-  - On 7cb8a86b (#343). All 36 includers build equal.
-  - Outside lane 2: SpriteCache (lane 6), Exceptions (lane 3), panel (lane 4).
-
-- lane2/mcp-fields a35f5399 562->562 Three commits, field names in shared headers. D2McpPackets.h: every packet's 0x00 is the packet id (Unknown_0044A170 sets 1, 2, 3, 4, 5, 7, ... before each send), the word at 0x01 is the request id (set from wRequestId, compared with gwMcpRequestId), and packet 0x10's/incoming 0x04's int read into nAddress is nAddress. D2ClientDialogWidget.h: the node's first field is the widget the dialog forwards mouse messages to, pWidget. D2BnMessages.h: SID_CLIENTID's fourth word is dwRegistrationToken; SID_AUTH_INFO's second and third are dwServerToken and dwUdpValue; VERIFIED b1100e7c8681300f03f67b68f87059da2b1ddf9e
-  - Verified on 0b750228 (#341), rebased onto 7cb8a86b. Precheck of all 10 includers is equal there.
-  - Outside lane 2: Unknown_0044A170 (lane 6), dialog, Unknown_004B8100 (lanes 1 and 4), BnDownload_00520CB0 (lane 6).
-
 - lane2/split-text-3 f135024a 562->562 Replaces `lane2/split-text` and `-2` (rebased onto #344; D2Client.h's conflict was the neighbouring forward declaration that sound-environ renamed; namesync has nothing to rename). T0044CB60 is D2Win's split-text line, the record D2Win_AllocateSplitText allocates and D2Win_10200 frees; D2WinFont already calls it D2SplittedTextStrc with wszLine/pNextLine. It now has that name and those fields everywhere, in D2WinSplitText.h, which replaces the identical private copies in the two D2WinFont units and 23 D2Client units (four of them new in #341: Record, Unknown_00451290, Unknown_004BABF0, Unknown_004BBE10). QuestLog and editbox_004BB620 type the text as unsigned short* and keep their own copy under the new name; VERIFIED 32221e357e8371c824392d92947ecce50fbd75b3
   - Verified on 0b750228 (#341), rebased onto d5c95493 (#344). Precheck of all 189 includers of D2Client.h and the new header is equal there.
   - Outside lane 2: 27 D2Client units (lanes 1 and 4), D2WinFont x2 (lane 6), one forward declaration in D2Client.h.
-
-- `lane2/small-records-g-4`: redone on #344 (ddCore took in Unknown_00510020, ErrorManager changed); verify running, posted here when it passes. It replaces the line below.
-
-- lane2/small-records-g-3 44e8d706 562->562 Replaces `lane2/small-records-g` and `-g-2` (rebased onto #341: Unknown_006B4C90.cpp joined Unknown_006B3570.cpp, which now holds the one D2Direct3D view; namesync has nothing to rename). Three commits. T004013C0 was two records: the Win32 SYSTEM_INFO in Fog's Unknown_00401070 and Storm's SFILE/SMEM is now D2SystemInfoStrc (D2Win32SystemInfo.h), and Fog's captured system info at 0x0074D88C, which FOG_GetSystemInfo returns, is D2FogSystemInfoStrc (D2FogSystemInfo.h) with the field names Unknown_00401070 already uses for its four globals (bCaptured, nOsKind, fOsVersion, dwTotalPhys); its partial views in ddCore, Unknown_00510020, SpriteCache, Skills and Unknown_006B3570 include the header. T00681490 is D2DrlgPathNodeStrc (D2DrlgRooms.h), T00473470 is D2WeatherParticleStrc (D2Client.h, D2ClientGame.h), T00481720 is Fog's AsyncData (forward declarations in D2Client.h, D2ClientSound.h); VERIFIED ce9e0de092168809d01abf27dae6ba7768bec4e7
-  - Verified on c2f64d25 (#340), rebased onto 0b750228 (#341). Precheck of all 288 includers of the changed headers is equal there.
-  - Outside lane 2: Fog and Storm units (lane 3), D2DDraw/D2Direct3D/D2CMP units and D2Direct3D.h (lanes 6 and 9), Skills, Gfx and the weather units (lanes 1 and 4), Unknown_00681490 (lane 8), Storm.h and D2Client.h (one forward declaration or type name each).
 
 ## Working on
 
