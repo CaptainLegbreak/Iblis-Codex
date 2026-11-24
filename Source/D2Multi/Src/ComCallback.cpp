@@ -2930,29 +2930,7 @@ void* __fastcall sub_M109_Emit_00449320(const char* szName, const unsigned char*
 }
 
 
-// 0x004512C0
-int __stdcall COMCALLBACK_LoadLngString(int nId, char* szBuffer, unsigned int nSize)
-{
-    D2_ASSERT(gbStringsLoaded_007A070C, 0x81);
-    if (!SErrGetErrorStr(nId, szBuffer, nSize))
-    {
-        SStrCopy(szBuffer, "Stupid Lng.cpp error.", nSize);
-        return 0;
-    }
-    return 1;
-}
 
-// 0x00451450
-void __stdcall COMCALLBACK_RecordMessage(unsigned int uMessage, unsigned int wParam, int lParam)
-{
-    if (gpMsgRecordChunk_0070F7A0->nCount >= 500)
-        RECORD_AddRecordChunk();
-    D2MsgRecordStrc* pRecord = &gpMsgRecordChunk_0070F7A0->tRecords[gpMsgRecordChunk_0070F7A0->nCount++];
-    pRecord->nTick = sub_0044DA90();
-    pRecord->uMessage = uMessage;
-    pRecord->wParam = wParam;
-    pRecord->lParam = lParam;
-}
 
 
 

@@ -362,7 +362,6 @@ extern int gnHoverTextState; // 0x007A2C78
 
 extern Unicode gwszHoverName[]; // 0x007A2F38
 
-int gbRecordHandlerInstalled; // 0x007A2780
 
 int gbLoadingScreenActive; // 0x007A2868
 
@@ -1029,43 +1028,15 @@ extern int gnCursorY_007A6AAC; // 0x007A6AAC
 
 extern int gnCursorX_007A6AB0; // 0x007A6AB0
 
-// 0x00451910
-int __cdecl UI_IsRecordingEnabled()
-{
-    return gbPlaybackRequested;
-}
 
 typedef void (__stdcall* D2RecordHandlerFn)(int nArg1, int nArg2, int nArg3);
 
 void __cdecl RECORD_WriteRecordFile(); // 0x00451620
 
-D2RecordHandlerFn gpfnPrevHandler; // 0x007A2764
 
-// 0x00451920
-void __stdcall CHARSEL_RecordHandler(int nArg1, int nArg2, int nArg3)
-{
-    RECORD_WriteRecordFile();
-    if (gpfnPrevHandler)
-        gpfnPrevHandler(nArg1, nArg2, nArg3);
-}
 
-// 0x00451960
-int __cdecl UI_IsRecordHandlerInstalled()
-{
-    return gbRecordHandlerInstalled;
-}
 
-// 0x00451980
-int __cdecl UI_IsPlaybackEnabled()
-{
-    return gnRecordPos;
-}
 
-// 0x00451990
-int __cdecl UI_IsReplayActive()
-{
-    return gbRecordPlaying;
-}
 
 // 0x004525F0
 int __fastcall UI_GetMonsterLifeFraction(D2UnitStrc* pUnit)

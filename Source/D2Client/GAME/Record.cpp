@@ -15,7 +15,6 @@ struct D2RecordHeaderStrc;
 
 int __stdcall SCmdRegisterArgument(unsigned int dwFlags, unsigned int dwId, const char* szName, void* pVariable, unsigned int nBytes, int bSet, void* pfnCallback, void* pParam); // 0x006C4580
 int __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
-extern char gszLngPath[0x104]; // 0x007A0710
 extern D2MsgRecordChunkStrc gtMsgRecordChunkFirst; // 0x007A0818
 
 
@@ -34,7 +33,7 @@ int __cdecl sub_0044DA90(); // 0x0044DA90
 int __stdcall DUNGEON_GetInitSeedFromAct(D2DrlgActStrc* pAct); // 0x0061AAC0
 extern D2DrlgActStrc* gpAct; // 0x007A0634
 void __stdcall COMCALLBACK_RecordMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451450
-extern int gbRecordHandlerInstalled; // 0x007A2780
+int gbRecordHandlerInstalled; // 0x007A2780
 
 struct D2RecordBlockStrc
 {
@@ -67,15 +66,9 @@ int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wP
 void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 int gbPlaybackRequested;                                                                                     // 0x007A277C
-extern int gnRecordPos;                                                                              // 0x007A2784
+int gnRecordPos; // 0x007A2784
 int gnRecordInitSeed;                                                                              // 0x007A2778
 
-// 0x00451260
-int __cdecl RECORD_RegisterLngArgument()
-{
-    SCmdRegisterArgument(0x20000, -1, "lng", gszLngPath, sizeof(gszLngPath), 0, 0, 0);
-    return 1;
-}
 
 
 // 0x00451400
@@ -88,6 +81,31 @@ void __cdecl RECORD_AddRecordChunk()
     pOld->pNext = pChunk;
     pChunk->pNext = 0;
     gpMsgRecordChunk_0070F7A0 = pChunk;
+}
+
+class D2SquelchListStrc
+{
+public:
+    virtual void Squelch(const char* szName);
+    virtual void Unsquelch(const char* szName);
+    virtual int IsSquelched(const char* szName);
+    virtual void VirtSlot3();
+    virtual void VirtSlot4();
+    virtual int IsFiltered(const char* szText);
+};
+
+struct D2ChatMessageStrc { D2WinControlStrc* pControl; unsigned int nMessage; };
+
+// 0x00451450
+void __stdcall COMCALLBACK_RecordMessage(unsigned int uMessage, unsigned int wParam, int lParam)
+{
+    if (gpMsgRecordChunk_0070F7A0->nCount >= 500)
+        RECORD_AddRecordChunk();
+    D2MsgRecordStrc* pRecord = &gpMsgRecordChunk_0070F7A0->tRecords[gpMsgRecordChunk_0070F7A0->nCount++];
+    pRecord->nTick = sub_0044DA90();
+    pRecord->uMessage = uMessage;
+    pRecord->wParam = wParam;
+    pRecord->lParam = lParam;
 }
 
 // 0x004514B0
@@ -228,3 +246,142 @@ void __cdecl WINMAIN_StartPlayback()
     }
 }
 
+
+struct Unicode;
+
+struct D2TileRectStrc
+{
+    int unk0x00;
+    int nX;
+    int nY;
+    unsigned int nWidth;
+    unsigned int nHeight;
+};
+
+struct D2UIVarRecordStrc
+{
+    int anCloseKind[0x26];
+};
+
+struct T0044CB60
+{
+    Unicode* pText;
+    T0044CB60* pNext;
+};
+
+struct D2GridCellStrc;
+
+struct D2GridCellStrc
+{
+    int nFlag;
+    unsigned char nValue[4];
+};
+
+// 0x00451910
+int __cdecl UI_IsRecordingEnabled()
+{
+    return gbPlaybackRequested;
+}
+
+typedef void (__stdcall* D2RecordHandlerFn)(int nArg1, int nArg2, int nArg3);
+
+D2RecordHandlerFn gpfnPrevHandler; // 0x007A2764
+
+// 0x00451920
+void __stdcall CHARSEL_RecordHandler(int nArg1, int nArg2, int nArg3)
+{
+    RECORD_WriteRecordFile();
+    if (gpfnPrevHandler)
+        gpfnPrevHandler(nArg1, nArg2, nArg3);
+}
+
+D2RecordHandlerFn __fastcall sub_005173D3_SetRecordHandler(D2RecordHandlerFn pfnHandler);                  // 0x005173D3
+
+struct D2MonLvlTxt;
+
+struct D2MonLvlTxt
+{
+    char unk0x00[0x78];
+};
+
+// 0x00451940
+void __cdecl GAME_InstallRecordHandler()
+{
+    gbRecordHandlerInstalled = 1;
+    gpfnPrevHandler = sub_005173D3_SetRecordHandler(CHARSEL_RecordHandler);
+}
+
+// 0x00451960
+int __cdecl UI_IsRecordHandlerInstalled()
+{
+    return gbRecordHandlerInstalled;
+}
+
+int gbRecordPlaying;                                                                                     // 0x007A2788
+
+// 0x00451970
+void __cdecl GAME_SetRecordPlaying()
+{
+    gbRecordPlaying = 1;
+}
+
+// 0x00451980
+int __cdecl UI_IsPlaybackEnabled()
+{
+    return gnRecordPos;
+}
+
+// 0x00451990
+int __cdecl UI_IsReplayActive()
+{
+    return gbRecordPlaying;
+}
+
+// 0x004519A0
+void __cdecl GAME_ToggleRecordPlayback()
+{
+    if (gnRecordPos)
+        gnRecordPos = 0;
+    else
+        gbPlaybackRequested = 1;
+}
+
+int gnReplayEndTick;                                                                               // 0x007A2774
+
+// 0x004519C0
+void __cdecl CUNIT_ReplayRecords()
+{
+    if (!gbRecordPlaying)
+        return;
+    if (!gpMsgRecordChunk_0070F7A0)
+        return;
+    const int nNow = sub_0044DA90();
+    if (nNow >= gnReplayEndTick)
+    {
+        gbRecordPlaying = 0;
+        return;
+    }
+    D2MsgRecordChunkStrc* pChunk = gpMsgRecordChunk_0070F7A0;
+    D2_ASSERT(pChunk->nIndex < 500, 0x189);
+    if (!pChunk->pNext && pChunk->nCount == pChunk->nIndex)
+        return;
+    D2MsgRecordStrc* pRecord = &pChunk->tRecords[pChunk->nIndex];
+    while (pRecord->nTick <= nNow)
+    {
+        RECORD_DispatchRecordedMessage(pRecord);
+        pChunk = gpMsgRecordChunk_0070F7A0;
+        pChunk->nIndex++;
+        if (!pChunk->pNext && pChunk->nCount == pChunk->nIndex)
+            return;
+        if (pChunk->nIndex >= 500)
+        {
+            pChunk = pChunk->pNext;
+            gpMsgRecordChunk_0070F7A0 = pChunk;
+        }
+        if (!pChunk)
+            return;
+        pRecord = &pChunk->tRecords[pChunk->nIndex];
+    }
+}
+
+#include "gen/data/Source/D2Client/GAME/Record.inc"
