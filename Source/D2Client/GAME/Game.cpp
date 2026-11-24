@@ -2151,101 +2151,16 @@ int __cdecl sub_00449E60()
 
 struct D2ActiveRoomStrc;
 
-// 0x0044ACA0
-int __fastcall GAME_HandleMcpGameInfo(D2McpPacket06Strc* pPacket, int nSize)
-{
-    const int nToken = *(int*)pPacket->aToken;
-    const int nValue = *(int*)pPacket->aValue;
-    if (*(unsigned short*)pPacket->aRequestId != gwMcpRequestId)
-        return 1;
-    gtMcpInfo.f_0 = gwMcpRequestId;
-    gtMcpInfo.nToken = nToken;
-    gtMcpInfo.nCount = pPacket->nCount;
-    gtMcpInfo.nValue = nValue;
-    gtMcpInfo.nByte0C = pPacket->nByte0B;
-    gtMcpInfo.nByte0D = pPacket->nByte0C;
-    gtMcpInfo.nByte0E = pPacket->nByte0D;
-    if (nToken == -1)
-    {
-// build: symbol ?CHATDLG_SetMcpResult@* 0x00449BF0
-        CHATDLG_SetMcpResult(0x32);
-        return 1;
-    }
-    if (nToken == -2)
-    {
-        CHATDLG_SetMcpResult(0x33);
-        return 1;
-    }
-    const char* pString = pPacket->szData;
-    const char* szName = pString;
-    pString += strlen(pString) + 1;
-    strcpy(gtMcpInfo.szName, szName);
-    for (int i = 0; i < pPacket->nCount; i++)
-    {
-        gtMcpInfo.aFirst[i] = pPacket->aFirst[i];
-        gtMcpInfo.aSecond[i] = pPacket->aSecond[i];
-        const char* szEntry = pString;
-        pString += strlen(pString) + 1;
-        strcpy(gtMcpInfo.aNames[i], szEntry);
-    }
-    return 1;
-}
 
-// 0x0044B190
-int __fastcall GAME_DispatchMcpPacket(const unsigned char* pPacket, unsigned int nSize)
-{
-    int nResult = 0;
-    if (nSize <= 0)
-        return nResult;
-    const unsigned char nCmd = pPacket[0];
-    if (nCmd >= 0x1A)
-        return 0;
-    D2McpPacketHandler pfnHandler = gpfnMcpPacketHandlers[nCmd];
-    if (pfnHandler)
-        nResult = pfnHandler(pPacket, nSize);
-    return nResult;
-}
 
-// 0x0044B1F0
-void __fastcall GAME_SetMcpCallbackA(D2McpCallbackFn pfnCallback)
-{
-    gpfnMcpPacket08Callback = pfnCallback;
-}
 
-// 0x0044B200
-void __fastcall GAME_SetMcpCallbackB(D2McpCallbackFn pfnCallback)
-{
-    gpfnMcpPacket09Callback = pfnCallback;
-}
 
 extern "C" { U32 gSlotFirst; } // 0x00799300
 
 extern "C" { U32 gSlotSecond; } // 0x00799304
 
-// 0x0044B210
-extern "C" void __fastcall sub_0044B210_StoreSlots(U32 first, U32 second)
-{
-    gSlotFirst = first;
-    gSlotSecond = second;
-}
 
-// 0x0044B220
-void __fastcall GAME_SetMcpChatCallback(void (__fastcall* pfnCallback)(void* pArg))
-{
-    gpfnMcpMotdCallback = pfnCallback;
-}
 
-// 0x0044B230
-void __stdcall GAME_StripColorCodes(Unicode* pString)
-{
-    D2_ASSERT(sub_00526800(pString) < 500, 0x342);
-    const Unicode* pPattern = D2LANG_GetStringFromTblIndex(0xF9A);
-    int nLength = sub_00526800(pPattern);
-    for (Unicode* pFound = sub_00526940_FindSubstring(pString, pPattern); pFound && pFound[nLength].wChar; pFound = sub_00526940_FindSubstring(pString, pPattern))
-    {
-        memmove(pFound, &pFound[nLength + 1], (sub_00526800(pFound) - nLength) * sizeof(Unicode));
-    }
-}
 
 // 0x0044B440
 void __fastcall GAME_PushStateValue(int nValue)
