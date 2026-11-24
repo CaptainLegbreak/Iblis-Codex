@@ -224,6 +224,11 @@ void __cdecl sub_006C7AF0_Nop(); // 0x006C7AF0
 
 #include "gen/data/Source/D2Gdi/Src/gdiCore.inc"
 
+struct D2RendererCallbacksStrc
+{
+    void (__fastcall* pfnCallback00)(int a, int b, int c, int d);
+};
+
 // 0x006C7A70
 int __fastcall GDICORE_Init(void* pArg1, void* pArg2)
 {
@@ -315,6 +320,13 @@ int __fastcall GDICORE_CreateSurface(int nValue, int nArg)
     return 1;
 }
 
+// 0x006C7C90
+void __cdecl sub_006C7C90_Release()
+{
+    DeleteObject(ghObject_0098A164);
+    gnValue_007C9154 = 0;
+    gpCallbacks_007C914C->pfnCallback00(0, 0, 0, 0);
+}
 
 // 0x006C7CF0
 int __cdecl GDICORE_CloseSurface()
@@ -564,7 +576,6 @@ static inline int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX,
 
     return 1;
 }
-
 
 // 0x006C84B0
 int __fastcall GDICORE_DrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, void* pPalette)
