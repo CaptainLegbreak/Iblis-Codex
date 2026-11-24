@@ -193,7 +193,19 @@ extern "C" const char gszBnDownloadFile[]; // 0x006DF338
 
 char gszAdList[1]; // 0x00881D60
 
-D2CriticalSectionStrc gtDownloadLock; // 0x00881F64
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
+
+// A critical section for the whole run: initialized before main, deleted at exit.
+struct CCritSect : D2CriticalSectionStrc
+{
+    CCritSect() { InitializeCriticalSection(this); }
+    ~CCritSect() { DeleteCriticalSection(this); }
+};
+
+// build: symbol ??__EgtDownloadLock@@YAXXZ 0x006CAED0
+// build: symbol ??__FgtDownloadLock@@YAXXZ 0x006CB470
+CCritSect gtDownloadLock; // 0x00881F64
 
 BNGatewayAccess gtBnGatewayAccess; // 0x00881838
 
@@ -387,7 +399,9 @@ int gnReplyReady; // 0x008823B0
 
 unsigned int gnReplyResult; // 0x00882420
 
-D2CriticalSectionStrc gtBnLogLock;                                                                  // 0x00881860
+// build: symbol ??__EgtBnLogLock@@YAXXZ 0x006CAE80
+// build: symbol ??__FgtBnLogLock@@YAXXZ 0x006CB420
+CCritSect gtBnLogLock;                                                                  // 0x00881860
 
 extern "C" void __cdecl D2CMPResetTileCacheHits(); // 0x005FE060
 

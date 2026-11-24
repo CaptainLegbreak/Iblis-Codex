@@ -144,7 +144,19 @@ void __fastcall DRLGLOGIC_AllocCoordLists(D2DrlgRoomStrc* pDrlgRoom);           
 
 D2LevelFileListStrc* gpLevelFilesList;                                                                            // 0x0096D60C
 
-D2CriticalSectionStrc gLevelFilesCriticalSection;                                                                              // 0x0096D610
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
+
+// A critical section for the whole run: initialized before main, deleted at exit.
+struct CCritSect : D2CriticalSectionStrc
+{
+    CCritSect() { InitializeCriticalSection(this); }
+    ~CCritSect() { DeleteCriticalSection(this); }
+};
+
+// build: symbol ??__EgLevelFilesCriticalSection@@YAXXZ 0x006CB010
+// build: symbol ??__FgLevelFilesCriticalSection@@YAXXZ 0x006CB4E0
+CCritSect gLevelFilesCriticalSection;                                                                              // 0x0096D610
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection);          // 0x006CC218
 

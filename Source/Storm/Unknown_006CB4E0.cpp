@@ -35,12 +35,6 @@ struct D2StormList0074C498Strc
 
 extern D2StormList0074C498Strc gList_0074C498; // 0x0074C498
 
-// 0x006CB4E0
-void __cdecl sub_006CB4E0_DestroyLock()
-{
-    DeleteCriticalSection(gCriticalSection_0096D610);
-}
-
 // 0x006CB4F0
 void __cdecl sub_006CB4F0_DestroyList()
 {

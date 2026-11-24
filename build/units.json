@@ -39879,9 +39879,25 @@
      "length": 43
     },
     {
+     "va": "0x006CAE80",
+     "length": 23
+    },
+    {
+     "va": "0x006CAED0",
+     "length": 23
+    },
+    {
+     "va": "0x006CB420",
+     "length": 12
+    },
+    {
      "va": "0x006CB430",
      "length": 12,
      "name": "?__FtLog_00881878"
+    },
+    {
+     "va": "0x006CB470",
+     "length": 12
     }
    ]
   },
@@ -40069,6 +40085,14 @@
     {
      "va": "0x00519DB0",
      "length": 1725
+    },
+    {
+     "va": "0x006CAEA0",
+     "length": 23
+    },
+    {
+     "va": "0x006CB440",
+     "length": 12
     }
    ]
   },
@@ -76277,6 +76301,14 @@
      "va": "0x006683D0",
      "length": 313,
      "name": "DRLGPRESET_FreeDrlgMap"
+    },
+    {
+     "va": "0x006CB010",
+     "length": 23
+    },
+    {
+     "va": "0x006CB4E0",
+     "length": 12
     }
    ]
   },
@@ -82631,21 +82663,9 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x006CAE80",
-     "length": 23
-    },
-    {
-     "va": "0x006CAEA0",
-     "length": 23
-    },
-    {
      "va": "0x006CAEC0",
      "length": 12,
      "name": "?sub_006CAEC0_RegisterCleanup@@YAXXZ"
-    },
-    {
-     "va": "0x006CAED0",
-     "length": 23
     },
     {
      "va": "0x006CAEF0",
@@ -82668,10 +82688,6 @@
     },
     {
      "va": "0x006CAF70",
-     "length": 23
-    },
-    {
-     "va": "0x006CB010",
      "length": 23
     },
     {
@@ -82819,20 +82835,8 @@
    "rank": 1,
    "functions": [
     {
-     "va": "0x006CB420",
-     "length": 12
-    },
-    {
-     "va": "0x006CB440",
-     "length": 12
-    },
-    {
      "va": "0x006CB450",
      "length": 25
-    },
-    {
-     "va": "0x006CB470",
-     "length": 12
     },
     {
      "va": "0x006CB480",
@@ -82882,10 +82886,6 @@
    "file": "Source/Storm/Unknown_006CB4E0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x006CB4E0",
-     "length": 12
-    },
     {
      "va": "0x006CB4F0",
      "length": 81,
