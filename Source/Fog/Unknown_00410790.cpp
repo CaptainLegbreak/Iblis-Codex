@@ -361,22 +361,6 @@ int __stdcall sub_M106_Emit_0051DD40(int n)
     return sub_0051DD40_MapKeyChar((unsigned char)tolower(n)) * 24 + sub_0051DD40_MapKeyChar((unsigned char)tolower(n + 1));
 }
 
-// 0x004107B0
-void __fastcall sub_004107B0_AtomicStore64(__int64* pDest, const __int64* pSrc)
-{
-    __asm
-    {
-        mov edi, ecx
-        mov ebx, [edx]
-        mov ecx, [edx + 4]
-        mov eax, [edi]
-        mov edx, [edi + 4]
-    retry:
-        lock cmpxchg8b qword ptr [edi]
-        jne retry
-    }
-}
-
 // 0x00410B10
 void __stdcall sub_00410B10(unsigned char* pBits, int nBit)
 {
