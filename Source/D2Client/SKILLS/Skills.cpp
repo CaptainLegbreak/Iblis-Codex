@@ -540,6 +540,12 @@ bool R00601DC0::sub_00601DC0_IsOpen()
     return m_pFile != 0;
 }
 
+int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                   // 0x0045C390
+
+int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                  // 0x0045C3E0
+
+void __stdcall PATH_SetDirection(D2DynamicPathStrc* pDynamicPath, int nDirection);                          // 0x006488A0
+
 // 0x00457300
 void __fastcall SKILLS_InitGfxCaches(void* pMemPool, int bCelPool)
 {
@@ -2439,7 +2445,7 @@ void __fastcall SKILLS_SetMissileDirection(D2UnitStrc* pMissile, int nDirection)
     sub_006488A0_SetDirection(pMissile->pDynamicPath, nDirection);
 }
 
-static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
     {
@@ -2489,8 +2495,8 @@ void __fastcall SKILLS_SpawnMissileRing(D2UnitStrc* pUnit, D2MissileStrc* pMissi
         }
 
         nDirection = (nDirection + 1) % 4;
-        pMissileParams->nX = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 2 * nRange) - nRange + nX;
-        pMissileParams->nY = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 2 * nRange) - nRange + nY;
+        pMissileParams->nX = SEED_RollLimitedRandomNumberInline(&pUnit->pSeed, 2 * nRange) - nRange + nX;
+        pMissileParams->nY = SEED_RollLimitedRandomNumberInline(&pUnit->pSeed, 2 * nRange) - nRange + nY;
         pMissileParams->nTargetX = pMissileParams->nX + nOffsetX;
         pMissileParams->nTargetY = pMissileParams->nY + nOffsetY;
         pMissileParams->pInitFunc = SKILLS_SetMissileDirection;
@@ -2571,8 +2577,8 @@ int __fastcall SKILLS_ScatterRequestsAroundTarget(D2UnitStrc* pMissile, int nMis
     SEED_InitLowSeed(pSeed, nTargetX);
     for (int i = 0; i < nCount; ++i)
     {
-        const int nX = SEED_RollLimitedRandomNumber(pSeed, 2 * nRange) - nRange + nTargetX;
-        const int nY = SEED_RollLimitedRandomNumber(pSeed, 2 * nRange) - nRange + nTargetY;
+        const int nX = SEED_RollLimitedRandomNumberInline(pSeed, 2 * nRange) - nRange + nTargetX;
+        const int nY = SEED_RollLimitedRandomNumberInline(pSeed, 2 * nRange) - nRange + nTargetY;
         if (sub_006492A0(CLIENTS_GetUnitXInline(pMissile), CLIENTS_GetUnitYInline(pMissile), nX, nY) >= 4)
         {
             MISSILE_SubmitOffsetRequest(pMissile, nMissile, 0, 0, nX, nY, nSkill, nSkillLevel, 0);
@@ -3295,6 +3301,73 @@ int __fastcall sub_004C96D0(D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
  MISSILE_SetTargetX(pMissile,!pTarget ? 6 : pTarget->dwUnitType);
  MISSILE_SetTargetY(pMissile,!pTarget ? -1 : pTarget->dwUnitId);
  return 1;
+}
+
+// 0x004C97C0
+int __fastcall sub_004C97C0_SpawnScatterMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom || DUNGEON_IsRoomInTown(pRoom))
+    {
+        return 0;
+    }
+
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    const int nMissileId = SKILLDESC_GetCltMissileId(pUnit, nSkillId);
+    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    const int nRadius = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
+    if (nRadius <= 0)
+    {
+        return 0;
+    }
+
+    const int nSpacing = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, 1);
+    if (nSpacing <= 0)
+    {
+        return 0;
+    }
+
+    const int nRadiusSq = nRadius * nRadius;
+    const int nRange = 2 * nRadius + 1;
+    const int nRoll = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 18);
+    const int nCount = nRadiusSq / (nSpacing * nSpacing) / (nRoll + 1);
+    const int nX = CLIENTS_GetUnitX(pUnit);
+    const int nY = CLIENTS_GetUnitY(pUnit);
+
+    D2MissileStrc tParams;
+    memset(&tParams, 0, sizeof(tParams));
+    tParams.dwFlags = 0x2001;
+    tParams.pOwner = pUnit;
+    tParams.nMissile = nMissileId;
+    tParams.nSkill = nSkillId;
+    tParams.nSkillLevel = nSkillLevel;
+
+    for (int i = 0; i < nCount; ++i)
+    {
+        const int nOffsetX = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, nRange) - nRadius;
+        const int nOffsetY = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, nRange) - nRadius;
+        if (nOffsetY * nOffsetY + nOffsetX * nOffsetX < nRadiusSq)
+        {
+            tParams.nX = nOffsetX + nX + 2;
+            tParams.nY = nOffsetY + nY + 2;
+            D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tParams);
+            if (pMissile)
+            {
+                PATH_SetDirection(pMissile->pDynamicPath, SEED_RollLimitedRandomNumber(&pUnit->pSeed, 0x40));
+            }
+        }
+    }
+
+    return 1;
 }
 
 unsigned int gdwNextTick; // 0x007C78B0
