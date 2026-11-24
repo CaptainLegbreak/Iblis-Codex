@@ -1795,12 +1795,6 @@ void __stdcall DUNGEON_GameToClientTileDrawPositionCoords(int nX, int nY, int* p
     *pY += 80;
 }
 
-// 0x0066D7F0
-int __fastcall DRLGPRESET_MapTileType(int nId)
-{
-    return gnTileTypeMappingTable[nId];
-}
-
 // 0x00674200
 int __fastcall DRLGOUTDOORS_TestGridCellSpawnValid(D2DrlgLevelStrc* pLevel, int nX, int nY)
 {

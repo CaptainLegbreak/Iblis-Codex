@@ -3,6 +3,7 @@
 #include "D2DrlgMaps.h"
 #include "D2DrlgPresets.h"
 #include "D2DrlgTiles.h"
+extern const int gnTileTypeMappingTable[]; // 0x006EEF20
 
 struct D2TileLibraryEntryStrc;
 
@@ -326,6 +327,12 @@ D2CommonStormZero6105F0Strc::D2CommonStormZero6105F0Strc() : n0x04(0), n0x08(0),
 int __fastcall sub_0066D7E0_MapTileType(int nId)
 {
     return gnTileTypeTable[nId];
+}
+
+// 0x0066D7F0
+int __fastcall DRLGPRESET_MapTileType(int nId)
+{
+    return gnTileTypeMappingTable[nId];
 }
 
 // 0x0066D800

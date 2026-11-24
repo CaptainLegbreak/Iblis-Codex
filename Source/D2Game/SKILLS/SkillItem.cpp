@@ -584,23 +584,6 @@ int __fastcall ITEMS_ApplyLegacyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pI
 
 int __fastcall ITEMS_ApplyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C2D40
 
-// 0x005D30A0
-D2MonEquipTxt* __fastcall SKILLITEM_GetMonEquipTxtRecord(int nMonsterId)
-{
-    D2MonStatsTxt* pMonStatsTxtRecord = (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? &sgptDataTables->pMonStatsTxt[nMonsterId] : 0;
-    if (!pMonStatsTxtRecord)
-    {
-        return 0;
-    }
-
-    if (pMonStatsTxtRecord->nMonEquipTxtRecordId < 0)
-    {
-        return 0;
-    }
-
-    return &sgptDataTables->pMonEquipTxt[pMonStatsTxtRecord->nMonEquipTxtRecordId];
-}
-
 static inline int GetItemType(D2UnitStrc* pItem)
 {
     int nType = 6;
@@ -2690,64 +2673,6 @@ int __fastcall SKILLITEM_CastSkillOnTarget(D2UnitStrc* pUnit, int nSkillId, int 
 }
 
 
-// 0x005CAF30
-int __fastcall SKILLS_SrvDo083_FireHit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
-    SUNITDMG_FreeAttackerDefenderCombatList(pGame, pUnit, pTarget);
-    return SKILLS_StartSkill(pGame, pUnit, nSkillId, nSkillLevel, 0);
-}
-
-// 0x005CBF30
-int __fastcall SKILLS_SrvSt50_QuickStrike(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    D2DamageStrc damage;
-    memset(&damage, 0x00, sizeof(damage));
-    SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, 128);
-    return 1;
-}
-
-// 0x005CD870
-int __fastcall SKILLS_SrvDo106_ArcaneTower(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    const int nMissileId = pSkillsTxtRecord->wSrvMissileA;
-    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
-    }
-
-    if (!SUNIT_GetTargetUnit(pGame, pUnit))
-    {
-        return 0;
-    }
-
-    SKILLS_CreateMissileRing(pGame, pUnit, pUnit, nMissileId, nSkillId, nSkillLevel, DATATBLS_GetMissileVelocityFromMissilesTxt(nMissileId, nSkillLevel));
-    return 1;
-}
-
 // 0x005CDD30
 int __fastcall SKILLS_GetMonFrenzySequenceFrame(D2UnitStrc* pUnit)
 {
@@ -2900,29 +2825,6 @@ inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     }
 }
 
-// 0x005C8FA0
-int __fastcall SKILLS_SrvSt11_Inferno_ArcticBlast(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    if (!STATES_CheckState(pUnit, STATE_INFERNO) && STATLIST_UnitGetStatValue(pUnit, STAT_MANA, 0) < pSkillsTxtRecord->wStartMana << 8)
-    {
-        return 0;
-    }
-
-    const int nMissileId = pSkillsTxtRecord->wSrvMissileA;
-    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    return SKILLS_StartInferno(pGame, pUnit, nSkillId, nSkillLevel, nMissileId);
-}
-
 static inline D2MonStatsTxt* GetMonStatsTxtRecord(int nId)
 {
     if (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -3001,43 +2903,6 @@ int __fastcall MONSTERSPAWN_CanSpawnAtSpawnerExit(int nMonsterId, D2ActiveRoomSt
     }
     }
     return 1;
-}
-
-// 0x005C91C0
-int __fastcall SKILLS_SrvSt13_ThunderStorm(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    if (!DATATBLS_GetSkillsTxtRecord(nSkillId))
-    {
-        return 0;
-    }
-
-    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    SKILLS_SetParam1(pSkill, -1);
-    SKILLS_SetParam2(pSkill, 1);
-    return 1;
-}
-
-// 0x005C9640
-int __fastcall SKILLS_SrvDo019_Inferno_ArcticBlast(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    const int nMissileId = pSkillsTxtRecord->wSrvMissileA;
-    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    return SKILLS_DoInferno(pGame, pUnit, nSkillId, nSkillLevel, nMissileId);
 }
 
 int __fastcall SKILLS_SrvDo027_Teleport(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005CA360

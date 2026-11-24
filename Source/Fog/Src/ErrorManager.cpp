@@ -400,6 +400,8 @@ extern const char* const gaszLanguageNames[];                                   
 
 extern "C" const char gszUnknownUpper[];                                                           // 0x006CCED8
 
+extern "C" const char gszUnknownTitle[];// 0x006CCBE8
+
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 
 bool __stdcall ERRORMANAGER_GetKnownFolderPathA(char* szPath, int nSize);                                   // 0x004067D0
@@ -1682,24 +1684,24 @@ bool crashy::Report::WriteInspectorHeader()
 
     unsigned long dwProcessId = GetCurrentProcessId();
     bool bFound = ERRORMANAGER_GetProcessImageName(dwProcessId, gszProcessPath, 0x800);
-    sub_00401380("<Process.Path> %s\n", bFound ? gszProcessPath : "Unknown");
+    sub_00401380("<Process.Path> %s\n", bFound ? gszProcessPath : gszUnknownTitle);
     const char* szSlash = strrchr(gszProcessPath, '\\');
     const char* szName = szSlash ? szSlash + 1 : 0;
-    sub_00401380("<Process.Name> %s\n", (szName && bFound) ? szName : "Unknown");
+    sub_00401380("<Process.Name> %s\n", (szName && bFound) ? szName : gszUnknownTitle);
 
     unsigned long dwParentId = ERRORMANAGER_FindParentProcessId(dwProcessId);
     bFound = ERRORMANAGER_GetProcessImageName(dwParentId, gszProcessPath, 0x800);
-    sub_00401380("<Process.ParentProcessPath> %s\n", bFound ? gszProcessPath : "Unknown");
+    sub_00401380("<Process.ParentProcessPath> %s\n", bFound ? gszProcessPath : gszUnknownTitle);
     szSlash = strrchr(gszProcessPath, '\\');
     szName = szSlash ? szSlash + 1 : 0;
-    sub_00401380("<Process.ParentProcessName> %s\n", (szName && bFound) ? szName : "Unknown");
+    sub_00401380("<Process.ParentProcessName> %s\n", (szName && bFound) ? szName : gszUnknownTitle);
 
     unsigned long dwGrandParentId = ERRORMANAGER_FindParentProcessId(dwParentId);
     bFound = ERRORMANAGER_GetProcessImageName(dwGrandParentId, gszProcessPath, 0x800);
-    sub_00401380("<Process.GrandParentProcessPath> %s\n", bFound ? gszProcessPath : "Unknown");
+    sub_00401380("<Process.GrandParentProcessPath> %s\n", bFound ? gszProcessPath : gszUnknownTitle);
     szSlash = strrchr(gszProcessPath, '\\');
     szName = szSlash ? szSlash + 1 : 0;
-    sub_00401380("<Process.GrandParentProcessName> %s\n", (szName && bFound) ? szName : "Unknown");
+    sub_00401380("<Process.GrandParentProcessName> %s\n", (szName && bFound) ? szName : gszUnknownTitle);
 
     sub_00401380("<Locale.Game> %s\n", gaszLanguageNames[sub_00525150()]);
     sub_00401380("<Locale.System> %s\n", gaszLanguageNames[STRTABLE_GetSystemLanguage()]);

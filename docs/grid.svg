@@ -1505,7 +1505,6 @@
 <rect x="372" y="532" width="5" height="5" fill="#39d353"/>
 <rect x="378" y="532" width="5" height="5" fill="#39d353"/>
 <rect x="384" y="532" width="5" height="5" fill="#39d353"/>
-<rect x="402" y="532" width="5" height="5" fill="#39d353"/>
 <rect x="420" y="532" width="5" height="5" fill="#39d353"/>
 <rect x="426" y="532" width="5" height="5" fill="#39d353"/>
 <rect x="438" y="532" width="5" height="5" fill="#39d353"/>
@@ -1627,7 +1626,6 @@
 <rect x="396" y="556" width="5" height="5" fill="#39d353"/>
 <rect x="594" y="556" width="5" height="5" fill="#39d353"/>
 <rect x="600" y="556" width="5" height="5" fill="#39d353"/>
-<rect x="606" y="556" width="5" height="5" fill="#39d353"/>
 <rect x="630" y="556" width="5" height="5" fill="#39d353"/>
 <rect x="648" y="556" width="5" height="5" fill="#39d353"/>
 <rect x="684" y="556" width="5" height="5" fill="#39d353"/>
@@ -1640,7 +1638,6 @@
 <rect x="726" y="556" width="5" height="5" fill="#39d353"/>
 <rect x="798" y="556" width="5" height="5" fill="#39d353"/>
 <rect x="804" y="556" width="5" height="5" fill="#39d353"/>
-<rect x="816" y="556" width="5" height="5" fill="#39d353"/>
 <rect x="822" y="556" width="5" height="5" fill="#39d353"/>
 <rect x="840" y="556" width="5" height="5" fill="#39d353"/>
 <rect x="846" y="556" width="5" height="5" fill="#39d353"/>
@@ -1648,7 +1645,6 @@
 <rect x="882" y="556" width="5" height="5" fill="#39d353"/>
 <rect x="906" y="556" width="5" height="5" fill="#39d353"/>
 <rect x="18" y="562" width="5" height="5" fill="#39d353"/>
-<rect x="24" y="562" width="5" height="5" fill="#39d353"/>
 <rect x="30" y="562" width="5" height="5" fill="#39d353"/>
 <rect x="102" y="562" width="5" height="5" fill="#39d353"/>
 <rect x="108" y="562" width="5" height="5" fill="#39d353"/>
@@ -1982,6 +1978,7 @@
 <rect x="384" y="616" width="5" height="5" fill="#39d353"/>
 <rect x="396" y="616" width="5" height="5" fill="#39d353"/>
 <rect x="492" y="616" width="5" height="5" fill="#39d353"/>
+<rect x="510" y="616" width="5" height="5" fill="#39d353"/>
 <rect x="516" y="616" width="5" height="5" fill="#39d353"/>
 <rect x="522" y="616" width="5" height="5" fill="#39d353"/>
 <rect x="528" y="616" width="5" height="5" fill="#39d353"/>
@@ -2003,7 +2000,6 @@
 <rect x="330" y="622" width="5" height="5" fill="#39d353"/>
 <rect x="336" y="622" width="5" height="5" fill="#39d353"/>
 <rect x="342" y="622" width="5" height="5" fill="#39d353"/>
-<rect x="354" y="622" width="5" height="5" fill="#39d353"/>
 <rect x="606" y="622" width="5" height="5" fill="#39d353"/>
 <rect x="714" y="622" width="5" height="5" fill="#39d353"/>
 <rect x="42" y="628" width="5" height="5" fill="#39d353"/>
@@ -2301,9 +2297,9 @@
 <rect x="696" y="658" width="5" height="5" fill="#6e7681"/>
 <rect x="294" y="664" width="5" height="5" fill="#39d353"/>
 <rect x="12" y="687" width="10" height="10" fill="#39d353"/>
-<text x="28" y="696" fill="#c9d1d9">byte-identical, no address fields · 2,110</text>
+<text x="28" y="696" fill="#c9d1d9">byte-identical, no address fields · 2,106</text>
 <rect x="12" y="705" width="10" height="10" fill="#1f8a3b"/>
-<text x="28" y="714" fill="#c9d1d9">byte-identical once linked at its original address · 12,766</text>
+<text x="28" y="714" fill="#c9d1d9">byte-identical once linked at its original address · 12,770</text>
 <rect x="12" y="723" width="10" height="10" fill="#a371f7"/>
 <text x="28" y="732" fill="#c9d1d9">byte-identical, but only with a construct that forces code generation · 42</text>
 <rect x="12" y="741" width="10" height="10" fill="#f85149"/>

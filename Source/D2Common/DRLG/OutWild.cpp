@@ -290,7 +290,6 @@ static void sub_00680070_MarkVertexDirections(D2DrlgLevelStrc* pLevel)
 
 static void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2DrlgLevelStrc* pLevel); // 0x006803D0
 
-// build: context DRLGOUTWILD_SpawnTownTransitionsAndCaves
 static void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2DrlgLevelStrc* pLevel)
 {
     if (pLevel->eLevelId == LEVEL_MOOMOOFARM)

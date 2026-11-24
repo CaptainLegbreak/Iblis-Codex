@@ -1,4 +1,5 @@
 #include "D2ItemTypes.h"
+#define STATEMASK_BLUE 18
 #include "D2CmpTileRecord.h"
 #include "D2GameTypes.h"
 #include "D2DrlgMaps.h"
@@ -1565,7 +1566,6 @@ int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem)
     return 0;
 }
 
-// build: context sub_00623C60
 static inline int sub_00623C60(D2UnitStrc* pUnit)
 {
     if (pUnit)
@@ -1699,7 +1699,6 @@ unsigned int __stdcall ITEMS_CheckWeaponIfTwoHandedByItemId(int nItemId)
     return pItemsTxtRecord->n2Handed;
 }
 
-// build: context sub_00628830_Shim
 // calling-convention shim (not game code)
 int __fastcall sub_00628830_Shim(D2UnitStrc* item, D2UnitStrc* player)
 {
@@ -7887,6 +7886,12 @@ unsigned int* __stdcall D2COMMON_10494_STATES_GetStatFlags(D2UnitStrc* pUnit)
     return D2COMMON_STATES_GetStatFlags_6FDB8A90(pUnit);
 }
 
+// 0x0063A110
+int __fastcall STATES_GetNumberOfStateFlags()
+{
+    return (sgptDataTables->nStatesTxtRecordCount + 31) / 32;
+}
+
 // 0x0063A130
 static int STATES_CheckStateMaskFlagsOnUnit(D2UnitStrc* pUnit, const unsigned int* pStateMask)
 {
@@ -8086,6 +8091,12 @@ int __stdcall STATES_CheckStateMaskStayDeathOnUnitByStateId(D2UnitStrc* pUnit, i
 int __fastcall STATES_CheckStateMaskRestrictOnUnit(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
     return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_RESTRICT]);
+}
+
+// 0x0063A530
+int __stdcall STATES_CheckStateMaskBlueOnUnit(D2UnitStrc* pUnit)
+{
+    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_BLUE]);
 }
 
 // 0x0063A550

@@ -448,7 +448,6 @@ static int __stdcall PATH_BresenhamLine(D2PathPointStrc tStartPoint, D2PathPoint
     return nbPoints;
 }
 
-// build: context sub_0067B9F0_Shim
 // calling-convention shim (not game code)
 int __fastcall sub_0067B9F0_Shim(const D2PathPointStrc* pStart, const D2PathPointStrc* pTarget, int nDist)
 {
@@ -505,7 +504,6 @@ static inline void sub_0067BD70_SwapPoints(D2PathPointStrc* pA, D2PathPointStrc*
     *pB = tPoint;
 }
 
-// build: context sub_M110_Emit_0067BD70
 // emits the static 0x0067BD70 (not game code)
 void __fastcall sub_M110_Emit_0067BD70(D2PathPointStrc* pPoints, int nCount)
 {

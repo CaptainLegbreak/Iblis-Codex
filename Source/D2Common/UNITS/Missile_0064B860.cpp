@@ -321,7 +321,6 @@ static inline D2MissilesTxt* GetMissileRecord(int nMissileId)
 int __stdcall D2Common_11033(int nLevel, int nParam, int nMax); // 0x00645B20
 extern void* gpfnMissileCalcFunctions[]; // 0x00745828
 extern int gnMissileCalcFunctionCount; // 0x00745848
-// build: context sub_0044BE50
 static int sub_0044BE50(D2UnitStrc* pUnit)
 {
     int nType = 6;
@@ -331,7 +330,6 @@ static int sub_0044BE50(D2UnitStrc* pUnit)
     }
     return nType;
 }
-// build: context MISSILE_GetLevel
 static unsigned int MISSILE_GetLevel(D2UnitStrc* pMissile)
 {
     D2MissileDataStrc* pMissileData = sub_0044BE50(pMissile) == 3 ? pMissile->pMissileData : 0;

@@ -1667,7 +1667,6 @@ int __stdcall MISSILE_GetElementalLength(D2UnitStrc* pMissile, D2UnitStrc* pOwne
     return pRecord->nElementLength + nBonus;
 }
 
-// build: context sub_0044BE50
 static int sub_0044BE50(D2UnitStrc* pUnit)
 {
     int nType = 6;
@@ -1678,7 +1677,6 @@ static int sub_0044BE50(D2UnitStrc* pUnit)
     return nType;
 }
 
-// build: context MISSILE_GetLevel
 static unsigned int MISSILE_GetLevel(D2UnitStrc* pMissile)
 {
     D2MissileDataStrc* pMissileData = sub_0044BE50(pMissile) == 3 ? pMissile->pMissileData : 0;

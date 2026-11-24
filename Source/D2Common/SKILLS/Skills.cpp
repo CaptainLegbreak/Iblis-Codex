@@ -2703,43 +2703,6 @@ inline int UNITS_GetYPositionInl(D2UnitStrc* pUnit)
     }
 }
 
-// 0x0066B880
-int __fastcall DRLG_CheckOverlappingWithOrthogonalMargin(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int nOrthogonalDistanceMax)
-{
-    int nSignedDistanceX = 0;
-    int nSignedDistanceY = 0;
-
-    if (pDrlgCoord1->nPosX <= pDrlgCoord2->nPosX)
-    {
-        nSignedDistanceX = pDrlgCoord2->nPosX - pDrlgCoord1->nWidth - pDrlgCoord1->nPosX;
-    }
-    if (pDrlgCoord1->nPosX > pDrlgCoord2->nPosX)
-    {
-        nSignedDistanceX = pDrlgCoord1->nPosX - pDrlgCoord2->nWidth - pDrlgCoord2->nPosX;
-    }
-
-    if (pDrlgCoord1->nPosY <= pDrlgCoord2->nPosY)
-    {
-        nSignedDistanceY = pDrlgCoord2->nPosY - pDrlgCoord1->nHeight - pDrlgCoord1->nPosY;
-    }
-    if (pDrlgCoord1->nPosY > pDrlgCoord2->nPosY)
-    {
-        nSignedDistanceY = pDrlgCoord1->nPosY - pDrlgCoord2->nHeight - pDrlgCoord2->nPosY;
-    }
-
-    if (!nOrthogonalDistanceMax)
-    {
-        return nSignedDistanceX <= 0 && nSignedDistanceY <= 0;
-    }
-
-    if (nSignedDistanceX == 0 && nSignedDistanceY <= nOrthogonalDistanceMax)
-    {
-        return 1;
-    }
-
-    return nSignedDistanceY == 0 && nSignedDistanceX <= nOrthogonalDistanceMax;
-}
-
 static inline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -3710,30 +3673,6 @@ static __forceinline void SKILLS_RemoveChargedSkill(D2UnitStrc* pUnit, D2SkillLi
 
         FOG_FreePool(pUnit->pMemoryPool, pSkill, ".\\SKILLS\\Skills.cpp", 1511, 0);
     }
-}
-
-// 0x0066B800
-int __fastcall DRLG_GetRectanglesManhattanDistanceAndCheckNotOverlapping(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int nMaxDistance, int* pDistanceX, int* pDistanceY)
-{
-    if (pDrlgCoord1->nPosX < pDrlgCoord2->nPosX)
-    {
-        *pDistanceX = pDrlgCoord2->nPosX - pDrlgCoord1->nWidth - pDrlgCoord1->nPosX;
-    }
-    else
-    {
-        *pDistanceX = pDrlgCoord1->nPosX - pDrlgCoord2->nWidth - pDrlgCoord2->nPosX;
-    }
-
-    if (pDrlgCoord1->nPosY < pDrlgCoord2->nPosY)
-    {
-        *pDistanceY = pDrlgCoord2->nPosY - pDrlgCoord1->nHeight - pDrlgCoord1->nPosY;
-    }
-    else
-    {
-        *pDistanceY = pDrlgCoord1->nPosY - pDrlgCoord2->nHeight - pDrlgCoord2->nPosY;
-    }
-
-    return *pDistanceX >= nMaxDistance || *pDistanceY >= nMaxDistance;
 }
 
 // 0x00647320

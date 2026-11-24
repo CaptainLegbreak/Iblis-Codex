@@ -192,6 +192,26 @@ static inline unsigned int sub_M401_RollUnitSeed(D2UnitStrc* pUnit)
     return (unsigned int)lSeed;
 }
 
+inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+    return 0;
+}
+
+// 0x005DA8F0
+int __fastcall SKILLS_SrvSt05_Jab(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (!DATATBLS_GetSkillsTxtRecord(nSkillId))
+    {
+        return 0;
+    }
+
+    return SUNIT_GetTargetUnit(pGame, pUnit) != 0;
+}
+
 // 0x005DAA40
 static void __stdcall SKILLS_DamageImpaleWeapon(D2GameStrc* pGame, int nChance, int nAmount, D2UnitStrc* pItem, D2UnitStrc* pUnit)
 {

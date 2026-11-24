@@ -137,7 +137,6 @@ static D2MonsterDataStrc* CLIENT_GetMonsterData(D2UnitStrc* pUnit)
     return 0;
 }
 
-// build: context sub_0044BE50
 static int sub_0044BE50(D2UnitStrc* pUnit)
 {
     int nType = 6;
@@ -146,7 +145,6 @@ static int sub_0044BE50(D2UnitStrc* pUnit)
     return nType;
 }
 
-// build: context MONSTERS_CheckMonTypeFlag
 static int MONSTERS_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
     D2MonsterDataStrc* pMonsterData = sub_0044BE50(pUnit) == 1 ? pUnit->pMonsterData : 0;

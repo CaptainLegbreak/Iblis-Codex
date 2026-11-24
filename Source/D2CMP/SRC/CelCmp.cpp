@@ -3935,7 +3935,6 @@ void sub_F43_EmitDeletes(D2StormSlotLinkStrc* pLink, D2StormSlotListStrc* pSlotL
     delete pChunk;
 }
 
-// build: context sub_F43_EmitTableVtables
 void sub_F43_EmitTableVtables(void* pTable, void* pReuse, void* pSimple, void* pSync)
 {
     new (pTable) D2GameHashTableStrc(1);

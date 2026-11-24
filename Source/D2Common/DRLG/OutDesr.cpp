@@ -940,7 +940,6 @@ static void __stdcall DRLGOUTWILD_SpawnCottage(int bExtraCottage, int nLvlPrestI
     }
 }
 
-// build: context DRLGOUTWILD_SpawnSpecialPresets
 static void DRLGOUTWILD_SpawnSpecialPresets(D2DrlgLevelStrc* pLevel)
 {
     switch (pLevel->eLevelId)

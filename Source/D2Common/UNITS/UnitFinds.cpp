@@ -402,7 +402,6 @@ int __stdcall UNITFINDS_TestUnit(D2UnitStrc* unit,D2UnitFindArgStrc* args)
  return 1;
 }
 
-// build: context sub_0065A710_Shim
 // calling-convention shim (not game code)
 int __stdcall sub_0065A710_Shim(UnitFindArgStrc* pArg, D2ActiveRoomStrc** ppRooms, int nRooms)
 {

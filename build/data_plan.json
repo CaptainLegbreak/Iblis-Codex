@@ -4,8 +4,8 @@
  "image_sha256": "631066c1649c4ea9ffe48bf97e24c00bca1f7a6759c21150f1a79982589adaaf",
  "files": {
   "Source/Fog/Src/ErrorManager.cpp": {
-   "bytes": 7072,
-   "definitions": 23,
+   "bytes": 7080,
+   "definitions": 24,
    "externs": [
     "extern \"C\" char gData_006CCB00[]; // 0x006CCB00",
     "extern \"C\" char gData_006CCB04[]; // 0x006CCB04",
@@ -98,8 +98,8 @@
    "state": "included"
   },
   "Source/Fog/Src/Exceptions.cpp": {
-   "bytes": 172,
-   "definitions": 4,
+   "bytes": 180,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Fog/Src/Exceptions_0040BCF0.inc",
@@ -946,8 +946,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_0046ACE0.cpp": {
-   "bytes": 152,
-   "definitions": 5,
+   "bytes": 92,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0046ACE0.inc",
@@ -1440,8 +1440,8 @@
    "state": "included"
   },
   "Source/D2Glide/Src/glCore.cpp": {
-   "bytes": 304,
-   "definitions": 5,
+   "bytes": 424,
+   "definitions": 7,
    "externs": [
     "extern \"C\" void __cdecl GLDEBUGFONT_DebugPrintf(); // 0x0050BC90",
     "extern \"C\" void __cdecl GLIDE_DebugDraw(); // 0x0050BEF0",
@@ -1462,7 +1462,6 @@
     "extern \"C\" void __cdecl GLSPRITE_CelDrawShadow(); // 0x0050B690",
     "extern \"C\" void __cdecl GLSPRITE_CelFlatSpriteDraw(); // 0x0050ACC0",
     "extern \"C\" void __cdecl GLSPRITE_DebugFillBackBuffer(); // 0x0050B7A0",
-    "extern \"C\" void __cdecl sub_00508F60_GlideCheckBoards(); // 0x00508F60",
     "extern \"C\" void __cdecl sub_0050C0F0_GlideDrawBoxAlpha(); // 0x0050C0F0",
     "extern \"C\" void __cdecl sub_0050C5E0_GlideUtilFilledRect(); // 0x0050C5E0",
     "extern \"C\" void __cdecl sub_0050C680_ClearBuffer(); // 0x0050C680",
@@ -3204,18 +3203,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/SKILLS/SkillDruid.cpp": {
-   "bytes": 112,
-   "definitions": 5,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/SKILLS/SkillDruid_005C7F10.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/SKILLS/SkillMonst.cpp": {
-   "bytes": 148,
-   "definitions": 3,
+   "bytes": 324,
+   "definitions": 9,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillMonst_005CCD10.inc",
@@ -4026,8 +4016,8 @@
    "static_definitions": 2
   },
   "Source/D2Game/SKILLS/SkillSor.cpp": {
-   "bytes": 64,
-   "definitions": 1,
+   "bytes": 112,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillSor.inc",
@@ -5030,18 +5020,7 @@
    "definitions": 3,
    "externs": [
     "extern \"C\" void __cdecl GDISMACK_PlaySmacker(); // 0x006C9900",
-    "extern \"C\" void __cdecl sub_006C7A60(); // 0x006C7A60",
-    "extern \"C\" void __cdecl sub_006C7CC0(); // 0x006C7CC0",
-    "extern \"C\" void __cdecl sub_006C7CD0(); // 0x006C7CD0",
-    "extern \"C\" void __cdecl sub_006C7CE0(); // 0x006C7CE0",
     "extern \"C\" void __cdecl sub_006C7EF0_ConvertPalette(); // 0x006C7EF0",
-    "extern \"C\" void __cdecl sub_006C8050(); // 0x006C8050",
-    "extern \"C\" void __cdecl sub_006C8060(); // 0x006C8060",
-    "extern \"C\" void __cdecl sub_006C80F0(); // 0x006C80F0",
-    "extern \"C\" void __cdecl sub_006C8100(); // 0x006C8100",
-    "extern \"C\" void __cdecl sub_006C8190(); // 0x006C8190",
-    "extern \"C\" void __cdecl sub_006C88A0(); // 0x006C88A0",
-    "extern \"C\" void __cdecl sub_006C8A40(); // 0x006C8A40",
     "extern \"C\" void __cdecl sub_006C8C80_GdiDrawLine(); // 0x006C8C80",
     "extern \"C\" void __cdecl sub_006C8F70_RectDiamond(); // 0x006C8F70",
     "extern \"C\" void __cdecl sub_006C9030_DrawRect(); // 0x006C9030",
@@ -5120,15 +5099,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Glide/Unknown_00508970.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Glide/Unknown_00508970.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2MCPClient/Src/McpConnect.cpp": {
    "bytes": 60,
    "definitions": 1,
@@ -5153,6 +5123,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004B9200.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/Unknown_0046C570.cpp": {
+   "bytes": 0,
+   "definitions": 0,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/Unknown_0046C570.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -102611,7 +102590,7 @@
    "cname": "gData_006E3138",
    "declared": true,
    "decorated": "?gnMaggotLayDirections@@3QBEB",
-   "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
+   "file": "Source/D2Game/SKILLS/SkillMonst.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E3138[8]; // 0x006E3138",
    "head": "extern \"C\" const unsigned char gData_006E3138[8] = ",
@@ -102641,7 +102620,7 @@
    "cname": "gData_006E3140",
    "declared": true,
    "decorated": "?gnAndrialSprayOffsets@@3QBEB",
-   "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
+   "file": "Source/D2Game/SKILLS/SkillMonst.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E3140[72]; // 0x006E3140",
    "head": "extern \"C\" const unsigned char gData_006E3140[72] = ",
@@ -102671,7 +102650,7 @@
    "cname": "gData_006E3188",
    "declared": true,
    "decorated": "?gnAndrialSprayDirections@@3QBEB",
-   "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
+   "file": "Source/D2Game/SKILLS/SkillMonst.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_006E3188[8]; // 0x006E3188",
    "head": "extern \"C\" const unsigned char gData_006E3188[8] = ",
@@ -102701,7 +102680,7 @@
    "cname": "gData_006E3120",
    "declared": true,
    "decorated": "?gnHydraOffsetY@@3QBHB",
-   "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
+   "file": "Source/D2Game/SKILLS/SkillSor.cpp",
    "fill": 3,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E3120[3]; // 0x006E3120",
@@ -102732,7 +102711,7 @@
    "cname": "gData_006E312C",
    "declared": true,
    "decorated": "?gnHydraOffsetX@@3QBHB",
-   "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
+   "file": "Source/D2Game/SKILLS/SkillSor.cpp",
    "fill": 3,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E312C[3]; // 0x006E312C",
@@ -146423,144 +146402,6 @@
   },
   {
    "alias": false,
-   "cname": "gData_00712A28",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/Unknown_0046ACE0.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00712A28_t gData_00712A28; // 0x00712A28",
-   "head": "extern \"C\" struct d2data_00712A28_t gData_00712A28 = ",
-   "name": "gData_00712A28",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00712A28_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00712A28",
-   "va": "0x00712A28"
-  },
-  {
-   "alias": false,
    "cname": "gData_00721DF8",
    "declared": false,
    "decorated": null,
@@ -148626,7 +148467,7 @@
    "cname": "gData_0072F13C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Glide/Unknown_00508970.cpp",
+   "file": "Source/D2Glide/Src/glCore.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072F13C_t gData_0072F13C; // 0x0072F13C",
    "head": "extern \"C\" struct d2data_0072F13C_t gData_0072F13C = ",
@@ -156850,6 +156691,68 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_007274EC_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x007274EC",
    "va": "0x007274EC"
+  },
+  {
+   "alias": true,
+   "cname": "gData_006CCBE8",
+   "declared": true,
+   "decorated": "_gszUnknownTitle",
+   "file": "Source/Fog/Src/ErrorManager.cpp",
+   "fill": 8,
+   "form": "declared",
+   "fwd": "extern \"C\" const char gData_006CCBE8[8]; // 0x006CCBE8",
+   "head": "extern \"C\" const char gData_006CCBE8[8] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 8,
+    "size": 8
+   },
+   "name": "gszUnknownTitle",
+   "pointers": [],
+   "region": "rdata",
+   "size": 8,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006CCBE8\n#pragma comment(linker, \"/alternatename:_gszUnknownTitle=_gData_006CCBE8\")",
+   "type": "char",
+   "va": "0x006CCBE8"
+  },
+  {
+   "alias": true,
+   "cname": "gData_006CD5FC",
+   "declared": true,
+   "decorated": "_gszUnknown",
+   "file": "Source/Fog/Src/Exceptions.cpp",
+   "fill": 8,
+   "form": "declared",
+   "fwd": "extern \"C\" const char gData_006CD5FC[8]; // 0x006CD5FC",
+   "head": "extern \"C\" const char gData_006CD5FC[8] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 8,
+    "size": 8
+   },
+   "name": "gszUnknown",
+   "pointers": [],
+   "region": "rdata",
+   "size": 8,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006CD5FC\n#pragma comment(linker, \"/alternatename:_gszUnknown=_gData_006CD5FC\")",
+   "type": "char",
+   "va": "0x006CD5FC"
   }
  ]
 }

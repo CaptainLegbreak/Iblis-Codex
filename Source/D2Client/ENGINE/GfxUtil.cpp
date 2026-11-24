@@ -523,55 +523,7 @@ D2TokRecord* __stdcall DATATBLS_GetMonModeTxtRecord(unsigned int nIndex, int bGe
 
 D2TokRecord* __stdcall DATATBLS_GetArmTypeTxtRecord(int nId);                                               // 0x0065B620
 
-// 0x0046C570
-int __fastcall GFXUTIL_ForEachUnitInAdjacentRooms(D2UnitStrc* pUnit, void* pArg1, void* pArg2, UNITCALLBACKFN pfnCallback)
-{
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom)
-    {
-        return 0;
-    }
 
-    D2ActiveRoomStrc** ppRoomList;
-    unsigned int nNumRooms;
-    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
-    for (unsigned int i = 0; i < nNumRooms; ++i)
-    {
-        for (D2UnitStrc* pOther = ppRoomList[i]->pUnitFirst; pOther; pOther = pOther->ptRoomNext)
-        {
-            int nResult = pfnCallback(pUnit, pOther, pArg1, pArg2);
-            if (nResult)
-            {
-                return nResult;
-            }
-        }
-    }
-
-    return 0;
-}
-
-// 0x0046C600
-int __fastcall GFXUTIL_FindNearestUnitCallback(D2UnitStrc* pUnit, D2UnitStrc* pOther, D2UnitStrc** ppNearest, int* pnDistance)
-{
-    if (pUnit != pOther && pOther)
-    {
-        if (pOther->dwUnitType == UNIT_PLAYER
-            || pOther->dwUnitType == UNIT_MONSTER && pOther->dwClassId != 149 && pOther->dwClassId != 556)
-        {
-            if (!CUNIT_IsDeadOrDying(pUnit))
-            {
-                int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pOther);
-                if (nDistance < *pnDistance)
-                {
-                    *ppNearest = pOther;
-                    *pnDistance = nDistance;
-                }
-            }
-        }
-    }
-
-    return 0;
-}
 
 // 0x0046E5A0
 D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode)

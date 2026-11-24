@@ -1249,7 +1249,6 @@ void __fastcall UNITMODE_DoUnitAction(int nAction, D2UnitStrc* pPlayer, int nArg
     UMODE_SetPendingAction(pPlayer, 0, 0, 0, 0);
 }
 
-// build: context sub_GetPlayerDataOrNull
 static inline D2PlayerDataStrc* sub_GetPlayerDataOrNull(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
@@ -1257,7 +1256,6 @@ static inline D2PlayerDataStrc* sub_GetPlayerDataOrNull(D2UnitStrc* pUnit)
     return 0;
 }
 
-// build: context sub_SetPlayerAction
 static inline void sub_SetPlayerAction(D2UnitStrc* pPlayer, int nState, int nAction, int nArg1, int nArg2)
 {
     if (sub_GetPlayerDataOrNull(pPlayer))
