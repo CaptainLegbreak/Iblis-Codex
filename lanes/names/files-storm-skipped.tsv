@@ -1,7 +1,5 @@
 placeholder	reason
 Storm/Unknown_004199A0.cpp	object map: best Storm/Unknown_004211C0.cpp (score 2; data # x2); runner-up Storm/Unknown_00421CB0.cpp 2
-Storm/Unknown_0041D200.cpp	object map: best Storm/SOURCE/SSignature.cpp (score 3; # called only from it); runner-up Storm/SOURCE/SERR.CPP 2
-Storm/Unknown_0041EBC0.cpp	object map: best Storm/SOURCE/SCOMP.CPP (score 10; sits between two runs of it; next to it); runner-up Storm/Unknown_0041E9C0.cpp 6
 Storm/Unknown_0041F4A0.cpp	object map: best Storm/Unknown_0041E9C0.cpp (score 2; next to it); runner-up Storm/SOURCE/SSignature.cpp 2
 Storm/Unknown_0041F6A0.cpp	object map: best Storm/SOURCE/SSignature.cpp (score 12; next to it x6); runner-up Storm/Unknown_0041E9C0.cpp 7
 Storm/Unknown_00421020.cpp	object map: best Storm/Unknown_0041F6A0.cpp (score 2; next to it); runner-up Storm/Unknown_00421030.cpp 2
@@ -10,19 +8,5 @@ Storm/Unknown_00421100.cpp	object map: best Storm/SOURCE/SSignature.cpp (score 2
 Storm/Unknown_004212C0.cpp	object map: best Storm/Unknown_0041F6A0.cpp (score 2; next to it); runner-up Storm/SOURCE/SSignature.cpp 2
 Storm/Unknown_004212F0.cpp	object map: best Storm/SOURCE/SSignature.cpp (score 10; sits between two runs of it; next to it); runner-up Storm/Unknown_00421EA0.cpp 10
 Storm/Unknown_00421CB0.cpp	object map: best Storm/Unknown_00421BD0.cpp (score 2; next to it); runner-up Storm/Unknown_004199A0.cpp 2
-Storm/Unknown_00422FC0.cpp	object map: best Storm/SOURCE/SBig.cpp (score 2; next to it); runner-up Storm/Unknown_00423100.cpp 2
-Storm/Unknown_00423100.cpp	object map: best Storm/Unknown_00422FC0.cpp (score 2; next to it); runner-up Storm/SOURCE/SBig.cpp 2
-Storm/Unknown_00423D80.cpp	object map: best Storm/SOURCE/SBig.cpp (score 2; next to it); runner-up Storm/Unknown_00423DC0.cpp 2
-Storm/Unknown_00423DC0.cpp	object map: best Storm/SOURCE/SSignature.cpp (score 6, clear lead; calls #, used only by the two x2); runner-up Storm/SOURCE/SBig.cpp 3
-Storm/Unknown_00424180.cpp	object map: best Storm/SOURCE/SBig.cpp (score 3; # called only from it); runner-up Storm/Unknown_00423DC0.cpp 2
-Storm/Unknown_004242C0.cpp	object map: best Storm/Unknown_00424180.cpp (score 2; next to it); runner-up Storm/SOURCE/SBig.cpp 2
-Storm/Unknown_00424700.cpp	object map: best Storm/SOURCE/SBig.cpp (score 5, clear lead; # called only from it; next to it); runner-up Storm/Unknown_00424B00.cpp 2
-Storm/Unknown_00424B00.cpp	object map: best Storm/Unknown_0041E9C0.cpp (score 3; calls #, used only by the two); runner-up Storm/Unknown_00424700.cpp 2
-Storm/Unknown_00424FB0.cpp	object map: best Storm/SOURCE/SBig.cpp (score 5, clear lead; # called only from it; next to it); runner-up Storm/Unknown_00425150.cpp 2
-Storm/Unknown_00425150.cpp	object map: best Storm/Unknown_00424FB0.cpp (score 2; next to it); runner-up Storm/SOURCE/SBig.cpp 2
-Storm/Unknown_00425720.cpp	object map: best Storm/SOURCE/SSignature.cpp (score 6, clear lead; # called only from it x2); runner-up Storm/SOURCE/SBig.cpp 2
 Storm/Unknown_00426900.cpp	object map: best Storm/zlib/adler32.c (score 2; next to it); runner-up Storm/zlib/trees.c 2 | language-table copy at 0x708930 starts its data, so it is an object of its own
-Storm/Unknown_0042DCA0.cpp	object map: best Storm/zlib/inflate.c (score 6, clear lead; # called only from it x2); runner-up Storm/zlib/zutil.c 2
-Storm/Unknown_006CA9C0.cpp	no path string, no assert lines, no language copy, no object-map lead, no name prefix, nothing in D2MOO
 Storm/Unknown_006CACE0.cpp	no path string, no assert lines, no language copy, no object-map lead, no name prefix, nothing in D2MOO
-Storm/Unknown_006CAFC0.cpp	no path string, no assert lines, no language copy, no object-map lead, no name prefix, nothing in D2MOO
