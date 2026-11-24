@@ -221,8 +221,8 @@
    "state": "included"
   },
   "Source/Storm/Unknown_00426900.cpp": {
-   "bytes": 4,
-   "definitions": 1,
+   "bytes": 20,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/Unknown_00426900.inc",
@@ -245,15 +245,6 @@
    "fn_types": {},
    "include": "gen/data/Source/Storm/zlib/crc32.inc",
    "lang": "c",
-   "state": "included"
-  },
-  "Source/Storm/Unknown_00426910.cpp": {
-   "bytes": 16,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00426910.inc",
-   "lang": "cpp",
    "state": "included"
   },
   "Source/Storm/zlib/zutil.c": {
@@ -9946,6 +9937,23 @@
   },
   {
    "alias": false,
+   "cname": "gData_007088D8",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/Storm/Unknown_00426900.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_007088D8_t gData_007088D8; // 0x007088D8",
+   "head": "extern \"C\" struct d2data_007088D8_t gData_007088D8 = ",
+   "name": "gData_007088D8",
+   "pointers": [],
+   "region": "data",
+   "size": 16,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_007088D8_t\n{\n    unsigned char b0[16];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x007088D8",
+   "va": "0x007088D8"
+  },
+  {
+   "alias": false,
    "cname": "gData_007088EC",
    "declared": true,
    "decorated": "?gtSEvtBreakCmdTerminator@@3USEvtLinkStrc@@A",
@@ -10212,37 +10220,6 @@
    "tail": "; // 0x0070896C\n#pragma comment(linker, \"/alternatename:?gaTable_0070896C@@3PADA=_gData_0070896C\")",
    "type": "char",
    "va": "0x0070896C"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_00426910.cpp",
-   "fill": 16,
-   "form": "declared_owner",
-   "fwd": null,
-   "head": "extern char gszTypeNameBreakCmd_007088D8[16] = ",
-   "model": {
-    "elem": {
-     "k": "prim",
-     "kind": "c",
-     "name": "char",
-     "size": 1
-    },
-    "k": "arr",
-    "n": 16,
-    "size": 16
-   },
-   "name": "gszTypeNameBreakCmd_007088D8",
-   "pointers": [],
-   "region": "data",
-   "size": 16,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x007088D8",
-   "type": "char",
-   "va": "0x007088D8"
   },
   {
    "alias": true,

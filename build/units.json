@@ -8460,24 +8460,6 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_00426910.cpp",
-   "rank": 0,
-   "functions": [],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd"
-   ]
-  },
-  {
    "file": "Source/Storm/zlib/deflate.c",
    "rank": 0,
    "functions": [
