@@ -6,6 +6,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 - Note for #342's rebase list: `split-text`, `small-records-f-2` and `small-records-g-2` were already reposted on #341 as `split-text-2`, `small-records-f-3` and `small-records-g-3` (below). All three merge cleanly on #342 and on 7cb8a86b. g-3's first commit, D2Win32SystemInfo.h, is already in #342.
 
+- lane2/header-fields ab8798bf 562->562 One commit, field names in shared headers. D2SpriteCache.h: 0x24/0x28 are the free node list's head and tail (PushFree/PopFree, and the init sets them to the first and last node), now pFreeHead/pFreeTail; 0x4C counts every lookup next to nHits, now nRequests. D2FogTypes.h: the crash dump entry's 0x02/0x06 are the two header words Exceptions.cpp matches, now dwHeader0/dwHeader1 as that function names them. D2ClientTextPanel.h: 0x180748 is read as the line count, now nLineCount; VERIFIED a5fe2dee6bf93d68db0f2c9680ba2a3bbcb30fbd
+  - On 7cb8a86b (#343). All 36 includers build equal.
+  - Outside lane 2: SpriteCache (lane 6), Exceptions (lane 3), panel (lane 4).
+
 - lane2/mcp-fields a35f5399 562->562 Three commits, field names in shared headers. D2McpPackets.h: every packet's 0x00 is the packet id (Unknown_0044A170 sets 1, 2, 3, 4, 5, 7, ... before each send), the word at 0x01 is the request id (set from wRequestId, compared with gwMcpRequestId), and packet 0x10's/incoming 0x04's int read into nAddress is nAddress. D2ClientDialogWidget.h: the node's first field is the widget the dialog forwards mouse messages to, pWidget. D2BnMessages.h: SID_CLIENTID's fourth word is dwRegistrationToken; SID_AUTH_INFO's second and third are dwServerToken and dwUdpValue; VERIFIED b1100e7c8681300f03f67b68f87059da2b1ddf9e
   - Verified on 0b750228 (#341), rebased onto 7cb8a86b. Precheck of all 10 includers is equal there.
   - Outside lane 2: Unknown_0044A170 (lane 6), dialog, Unknown_004B8100 (lanes 1 and 4), BnDownload_00520CB0 (lane 6).
