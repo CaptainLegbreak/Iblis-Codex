@@ -4,8 +4,8 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/skill-do-table d84db290 0 placeholders; replaces data-nonconst-2: its commit (fifteen D2Game .data tables lose a wrong const) rebased on #326, plus gpfnSkillSrvDoFunctions (0x7322B0): it sits in .data between Skills.cpp's tables, inside the data that starts at Skills.cpp's copy 0x732100, so its plan entry moves from SkillAss.cpp to Skills.cpp, both declarations drop const, the alias follows the new decoration, and the 152 function externs its pointers need move with it. D2Game.h changes, so 143 units rebuild, all equal; borrowed data 2,507 B on this branch (unchanged by it); VERIFIED b8fefdf19ed6a50292d3df98de27771286ecd560. Based on main #326; two commits, take both.
-- lane5/one-copy-2 4ce4e955 0 placeholders; the last D2Game blocks holding several language copies are cut one copy per record: sunitproxy.cpp's 0x7312E0/0x731388 (which cut the copy at 0x731358 in two) become seven 60 B copies; AiThink4.cpp's 0x741D90 six; a5q3.cpp's 0x736144 is 28 B + the copy 0x736160 with its padding. None has a known owner (each is followed by another copy), so they stay in place. Borrowed data unchanged; VERIFIED 316e16e86ad560a7fba0539846c68fb2ee312415. Based on main #325, not stacked, data plan only.
+- lane5/act4-tables d6351d7c 0 placeholders; ACT4Q2_Callback00_NpcActivate reads the index table at 0x73D56C, which sits in a4q1.cpp's data, and ACT4Q1_Callback00_NpcActivate reads 0x73DBA0, which sits right before a4q2.cpp's messages; statics can't be laid out that way, so each is a global defined in the other file (gnAct4Q2NpcMessageIndices in a4q1.cpp, gnAct4Q1NpcMessageIndices in a4q2.cpp, extern where read). The copy 0x73D530 is a4q1.cpp's (header include), and the zero word 0x73D52C before it is padding: dropped, now built (-4 B). Borrowed data 2,378 B on this branch; VERIFIED 9e0b48bf5fa15bef8d8cfb823f045abc99f1590e. Based on main #327, not stacked, D2Game only.
+- lane5/skill-do-table-2 1c9be6eb 0 placeholders; the second commit of skill-do-table (its first is in #327), rebased on #327: gpfnSkillSrvDoFunctions moves from SkillAss.cpp to Skills.cpp (its data position) and drops const; its 152 function externs move with it. VERIFIED ee4962c1690d29f58ddbf0ef69345f5bb356a23a. Not stacked.
 
 ## Questions
 
@@ -28,7 +28,6 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Left in place (and why)
 
-- Act 4 index tables 0x73D56C / 0x73DBA0: a4q2 code reads the lower one and a4q1 code the higher one, which a static per file in link order can't give; the copy 0x73D530 and padding 0x73D52C stay as planned until that is understood.
 - Language copies still planned (header include does not land yet): ItemMode.cpp 0x731FB0 (its D2Common strays hold far data, see note to lane 6), a1q6.cpp 0x7361A0, a2q4.cpp 0x738D08, AiThink.cpp 0x73C9DC, MonsterChoose.cpp 0x741578 (needs the component-code header from lane 2), a5q2.cpp 0x732FB0, Unknown_005B24E0.cpp 0x73D4B4; SUnitDmg.cpp, SkillNec.cpp, Skills.cpp, MonsterUnique.cpp, MonsterMode.cpp, sunitproxy.cpp, SUnitInactive.cpp, Items.cpp keep theirs planned too.
 - Borrowed 0x745580 (64 B: 0x11B + another language list) between D2Common Inventory.cpp and ItemMode.cpp data: the leading int is not 0 like the others, and the previous neighbour is lane 6's; left for now.
 - Act 1 and Act 5 intro clusters (Unknown_0058F870.cpp 0x58F870-0x58FB80 before a1q1.cpp; 0x586B50/0x586C40/0x586C50 before a5q1.cpp): the Act 2/3 intros open a2q0.cpp/a3q0.cpp, but there is no a1q0.cpp or a5q0.cpp and nothing names the file; left until evidence turns up.
