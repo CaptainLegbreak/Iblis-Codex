@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 14:16:28 PST 2026): join-0060ae80 ready; the rest of the object-map joins are still in the verify queue.
+Status (Tue Nov 24 14:24:23 PST 2026): join-0051c760 and join-0060ae80 ready (both verified on #366, merge cleanly on #367); nothing else in the queue. Next: one view of D2BnLogStrc so Unknown_00518B90 can take Unknown_00518B60.
 
 ## Ready
 
