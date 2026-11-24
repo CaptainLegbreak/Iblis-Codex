@@ -4,8 +4,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/sevt-strays 750042dc 560->560 SEvtBreakHandlerChain (0x426E80, Storm's SEvt name, inside SEVT.CPP's run) moves from Unknown_00426900 to SEVT.CPP, written in SEVT.CPP's own BREAKCMD and break-command list types; BREAKCMD gets the constructor that clears its link. VERIFIED da5f92c1 on base 29e8f760 (j73; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 6,376 B), then rebased onto bb0a0910 (j74) without conflicts and prechecked. Not stacked.
 - lane3/sstr-strays 03afb621 560->560 SStrHashHT (0x414150), SStrUpper (0x4141E0), SStrLower (0x414200) and bjhash (0x413F30, the lookup2 hash SStrHashHT calls) move from SFILE.CPP to SSTR.CPP: they have Storm's `blizzard` SStr names and sit inside SSTR.CPP's run (0x413DC0-0x4142A0). 0x414260 (StormPowInt<double> wrapper) stays in SFILE.CPP: defined in SSTR.CPP it changes register allocation in SSTR's two string-to-float functions, so it was not part of SSTR.CPP. VERIFIED aa63a12b on base ef2c6741 (j72; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 6,376 B), then rebased onto 29e8f760 (j73) without conflicts and prechecked. Not stacked.
-- lane3/text-data 0dc79067 560->560 two lane-3 borrowed-data leads from borrowed-data.md: 0x402D60 (stack-frame formatter) uses its eight format strings (0x6FFC14-0x6FFC5C, 79 B borrowed) as literals, and the SBig random multiplier at 0x6CFF60 is defined in Unknown_00424700, its only reader. Both are now built from source. VERIFIED 506f7eaa on base 983bd7b1 (j70; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 12,527 B), then rebased onto ef2c6741 (j72) without conflicts and prechecked. Not stacked.
 
 ## Questions
 
