@@ -4,15 +4,9 @@
  "image_sha256": "631066c1649c4ea9ffe48bf97e24c00bca1f7a6759c21150f1a79982589adaaf",
  "files": {
   "Source/Fog/Src/ErrorManager.cpp": {
-   "bytes": 7304,
-   "definitions": 29,
+   "bytes": 7072,
+   "definitions": 23,
    "externs": [
-    "extern \"C\" void __cdecl sub_0042E590_SetOwner(); // 0x0042E590",
-    "extern \"C\" void __cdecl sub_0042E5A0_Nop(); // 0x0042E5A0",
-    "extern \"C\" void __cdecl CHATDLG_GetModuleInterface(); // 0x0043CBE0",
-    "extern \"C\" void __cdecl sub_0043CBF0_Nop(); // 0x0043CBF0",
-    "extern \"C\" void __cdecl WINMAIN_InitInterface(); // 0x0044B400",
-    "extern \"C\" void __cdecl WINMAIN_ShutdownInterface(); // 0x0044B420",
     "extern \"C\" char gData_006CCB00[]; // 0x006CCB00",
     "extern \"C\" char gData_006CCB04[]; // 0x006CCB04",
     "extern \"C\" char gData_006CCB08[]; // 0x006CCB08",
@@ -59,11 +53,36 @@
    "state": "included"
   },
   "Source/Storm/Unknown_00405710.cpp": {
-   "bytes": 24,
-   "definitions": 1,
+   "bytes": 0,
+   "definitions": 0,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/Unknown_00405710.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Launch/Unknown_004059D0.cpp": {
+   "bytes": 108,
+   "definitions": 2,
+   "externs": [
+    "extern \"C\" void __cdecl sub_0042E590_SetOwner(); // 0x0042E590",
+    "extern \"C\" void __cdecl sub_0042E5A0_Nop(); // 0x0042E5A0",
+    "extern \"C\" void __cdecl CHATDLG_GetModuleInterface(); // 0x0043CBE0",
+    "extern \"C\" void __cdecl sub_0043CBF0_Nop(); // 0x0043CBF0",
+    "extern \"C\" void __cdecl WINMAIN_InitInterface(); // 0x0044B400",
+    "extern \"C\" void __cdecl WINMAIN_ShutdownInterface(); // 0x0044B420"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Launch/Unknown_004059D0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Launch/Unknown_00406410.cpp": {
+   "bytes": 148,
+   "definitions": 5,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Launch/Unknown_00406410.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -1439,38 +1458,9 @@
    "definitions": 5,
    "externs": [
     "extern \"C\" void __cdecl sub_00508F60_GlideCheckBoards(); // 0x00508F60",
-    "extern \"C\" void __cdecl GLIDE_ClearCaches(); // 0x00508F90",
-    "extern \"C\" void __cdecl GLIDE_CheckCutScene(); // 0x00508FD0",
-    "extern \"C\" void __cdecl GLIDE_StartDraw(); // 0x00508FE0",
-    "extern \"C\" void __cdecl GLIDE_SetGlobalScale(); // 0x005090A0",
-    "extern \"C\" void __cdecl GLIDE_SetGamma(); // 0x005090B0",
-    "extern \"C\" void __cdecl GLIDE_GammaCanBeControlled(); // 0x00509190",
-    "extern \"C\" void __cdecl GLIDE_EndDraw(); // 0x005091A0",
-    "extern \"C\" void __cdecl GLIDE_Blit(); // 0x005091E0",
     "extern \"C\" void __cdecl GLIDE_GetBackBuffer(); // 0x00509210",
-    "extern \"C\" void __cdecl GLIDE_GetDimensions(); // 0x005092F0",
-    "extern \"C\" void __cdecl GLIDE_SetPalette(); // 0x00509300",
-    "extern \"C\" void __cdecl GLIDE_SetPaletteTables(); // 0x00509400",
-    "extern \"C\" void __cdecl GLIDE_ActivateWindow(); // 0x00509420",
-    "extern \"C\" void __cdecl GLIDE_SetOption(); // 0x00509430",
-    "extern \"C\" void __cdecl GLIDE_GetCacheResults(); // 0x00509640",
-    "extern \"C\" void __cdecl GLIDE_CloseSurface(); // 0x00509AA0",
     "extern \"C\" void __cdecl GLIDE_OpenSmackCutscene(); // 0x00509B60",
-    "extern \"C\" void __cdecl GLIDE_Close(); // 0x00509E10",
-    "extern \"C\" void __cdecl GLIDE_CreateSurface(); // 0x00509E90",
-    "extern \"C\" void __cdecl GLIDE_PauseSurface(); // 0x00509EE0",
-    "extern \"C\" void __cdecl GLIDE_ChangeRes(); // 0x00509F70",
-    "extern \"C\" void __cdecl GLIDE_PlayCutscene(); // 0x00509FE0",
-    "extern \"C\" void __cdecl GLIDE_Init(); // 0x0050A010",
     "extern \"C\" void __cdecl sub_0050ACC0_GlideDrawSpritePerspective(); // 0x0050ACC0",
-    "extern \"C\" void __cdecl GLIDE_CelDraw(); // 0x0050B0D0",
-    "extern \"C\" void __cdecl GLIDE_CelDrawColor(); // 0x0050B190",
-    "extern \"C\" void __cdecl GLIDE_CelDrawEx(); // 0x0050B230",
-    "extern \"C\" void __cdecl GLIDE_CelDrawClipped(); // 0x0050B500",
-    "extern \"C\" void __cdecl GLIDE_CelDrawShadow(); // 0x0050B690",
-    "extern \"C\" void __cdecl GLIDE_CelDrawHilight(); // 0x0050B720",
-    "extern \"C\" void __cdecl GLIDE_DebugFillBackBuffer(); // 0x0050B7A0",
-    "extern \"C\" void __cdecl GLIDE_DebugPrintf(); // 0x0050BC90",
     "extern \"C\" void __cdecl GLIDE_DebugDraw(); // 0x0050BEF0",
     "extern \"C\" void __cdecl sub_0050BF50_GlideDrawBox(); // 0x0050BF50",
     "extern \"C\" void __cdecl sub_0050C0F0_GlideDrawBoxAlpha(); // 0x0050C0F0",
@@ -1484,14 +1474,8 @@
     "extern \"C\" void __cdecl sub_0050D490_GlideTileDrawTrans(); // 0x0050D490",
     "extern \"C\" void __cdecl sub_0050D4C0_GlideTileDrawLit(); // 0x0050D4C0",
     "extern \"C\" void __cdecl sub_0050D6A0(); // 0x0050D6A0",
-    "extern \"C\" void __cdecl GLIDE_SetAmbientColor(); // 0x0050DBC0",
-    "extern \"C\" void __cdecl GLIDE_SetProjectOrigin(); // 0x0050DD50",
-    "extern \"C\" void __cdecl GLIDE_PerspectiveTransform(); // 0x0050DD60",
     "extern \"C\" void __cdecl sub_0050DE10(); // 0x0050DE10",
     "extern \"C\" void __cdecl sub_0050DF00_ResetSpriteScale(); // 0x0050DF00",
-    "extern \"C\" void __cdecl GLIDE_CloseSmacker(); // 0x0050E040",
-    "extern \"C\" void __cdecl GLIDE_DecodeSmacker(); // 0x0050E5D0",
-    "extern \"C\" void __cdecl GLIDE_PlaySmacker(); // 0x0050E7F0",
     "extern \"C\" void __cdecl DDRAW_Detect(); // 0x00510020",
     "extern \"C\" void __cdecl sub_00510130_DDrawNop(); // 0x00510130",
     "extern \"C\" void __cdecl DDRAW_CheckCutScene(); // 0x00510140",
@@ -1653,7 +1637,42 @@
     "extern \"C\" void __cdecl D3D_DrawSpriteRows(); // 0x006B6C90",
     "extern \"C\" void __cdecl D3D_DrawSpriteClipped(); // 0x006B6EE0",
     "extern \"C\" void __cdecl D3D_DrawSpriteShadow(); // 0x006B7000",
-    "extern \"C\" void __cdecl GDI_PlaySmacker(); // 0x006C9900"
+    "extern \"C\" void __cdecl GDI_PlaySmacker(); // 0x006C9900",
+    "extern \"C\" void __cdecl GLCORE_ClearCaches(); // 0x00508F90",
+    "extern \"C\" void __cdecl GLCORE_CheckCutScene(); // 0x00508FD0",
+    "extern \"C\" void __cdecl GLCORE_StartDraw(); // 0x00508FE0",
+    "extern \"C\" void __cdecl GLCORE_SetGlobalScale(); // 0x005090A0",
+    "extern \"C\" void __cdecl GLCORE_SetGamma(); // 0x005090B0",
+    "extern \"C\" void __cdecl GLCORE_GammaCanBeControlled(); // 0x00509190",
+    "extern \"C\" void __cdecl GLCORE_EndDraw(); // 0x005091A0",
+    "extern \"C\" void __cdecl GLCORE_Blit(); // 0x005091E0",
+    "extern \"C\" void __cdecl GLCORE_GetDimensions(); // 0x005092F0",
+    "extern \"C\" void __cdecl GLCORE_SetPalette(); // 0x00509300",
+    "extern \"C\" void __cdecl GLCORE_SetPaletteTables(); // 0x00509400",
+    "extern \"C\" void __cdecl GLCORE_ActivateWindow(); // 0x00509420",
+    "extern \"C\" void __cdecl GLCORE_SetOption(); // 0x00509430",
+    "extern \"C\" void __cdecl GLCORE_GetCacheResults(); // 0x00509640",
+    "extern \"C\" void __cdecl GLCORE_CloseSurface(); // 0x00509AA0",
+    "extern \"C\" void __cdecl GLCORE_Close(); // 0x00509E10",
+    "extern \"C\" void __cdecl GLCORE_CreateSurface(); // 0x00509E90",
+    "extern \"C\" void __cdecl GLCORE_PauseSurface(); // 0x00509EE0",
+    "extern \"C\" void __cdecl GLCORE_ChangeRes(); // 0x00509F70",
+    "extern \"C\" void __cdecl GLCORE_PlayCutscene(); // 0x00509FE0",
+    "extern \"C\" void __cdecl GLCORE_Init(); // 0x0050A010",
+    "extern \"C\" void __cdecl GLSPRITE_CelDraw(); // 0x0050B0D0",
+    "extern \"C\" void __cdecl GLSPRITE_CelDrawColor(); // 0x0050B190",
+    "extern \"C\" void __cdecl GLSPRITE_CelDrawEx(); // 0x0050B230",
+    "extern \"C\" void __cdecl GLSPRITE_CelDrawClipped(); // 0x0050B500",
+    "extern \"C\" void __cdecl GLSPRITE_CelDrawShadow(); // 0x0050B690",
+    "extern \"C\" void __cdecl GLSPRITE_CelDrawHilight(); // 0x0050B720",
+    "extern \"C\" void __cdecl GLSPRITE_DebugFillBackBuffer(); // 0x0050B7A0",
+    "extern \"C\" void __cdecl GLDEBUGFONT_DebugPrintf(); // 0x0050BC90",
+    "extern \"C\" void __cdecl GLVERTEX_SetAmbientColor(); // 0x0050DBC0",
+    "extern \"C\" void __cdecl GLPERSPECTIVE_SetProjectOrigin(); // 0x0050DD50",
+    "extern \"C\" void __cdecl GLPERSPECTIVE_PerspectiveTransform(); // 0x0050DD60",
+    "extern \"C\" void __cdecl GLSMACK_CloseSmacker(); // 0x0050E040",
+    "extern \"C\" void __cdecl GLSMACK_DecodeSmacker(); // 0x0050E5D0",
+    "extern \"C\" void __cdecl GLSMACK_PlaySmacker(); // 0x0050E7F0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004F4EC0.inc",
@@ -2218,8 +2237,8 @@
    "state": "included"
   },
   "Source/D2Game/UNIT/sunitproxy.cpp": {
-   "bytes": 804,
-   "definitions": 10,
+   "bytes": 384,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/UNIT/sunitproxy.inc",
@@ -2227,8 +2246,8 @@
    "state": "included"
   },
   "Source/D2Game/GAME/Event.cpp": {
-   "bytes": 24,
-   "definitions": 1,
+   "bytes": 84,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/GAME/Event_00540CD0.inc",
@@ -2246,8 +2265,8 @@
    "static_definitions": 3
   },
   "Source/D2Game/Quests/QUESTS.CPP": {
-   "bytes": 1173,
-   "definitions": 11,
+   "bytes": 1053,
+   "definitions": 9,
    "externs": [
     "extern \"C\" void __cdecl ACT1Intro_InitQuestData(); // 0x0058FA20",
     "extern \"C\" void __cdecl ACT2Intro_InitQuestData(); // 0x005985D0",
@@ -2380,8 +2399,8 @@
    "state": "included"
   },
   "Source/D2Game/UNIT/SUnit.cpp": {
-   "bytes": 24,
-   "definitions": 1,
+   "bytes": 84,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/UNIT/SUnit.inc",
@@ -2389,8 +2408,8 @@
    "state": "included"
   },
   "Source/D2Game/ITEMS/Items.cpp": {
-   "bytes": 124,
-   "definitions": 6,
+   "bytes": 64,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/ITEMS/Items.inc",
@@ -2670,8 +2689,8 @@
    "state": "included"
   },
   "Source/D2Game/Unknown_00570420.cpp": {
-   "bytes": 88,
-   "definitions": 3,
+   "bytes": 24,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_00570420.inc",
@@ -2780,8 +2799,8 @@
    "state": "included"
   },
   "Source/D2Game/Quests/a5q3.cpp": {
-   "bytes": 676,
-   "definitions": 25,
+   "bytes": 612,
+   "definitions": 24,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a5q3.inc",
@@ -2798,8 +2817,8 @@
    "state": "included"
   },
   "Source/D2Game/INVENTORY/InvMode.cpp": {
-   "bytes": 188,
-   "definitions": 5,
+   "bytes": 124,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/INVENTORY/InvMode.inc",
@@ -2807,8 +2826,8 @@
    "state": "included"
   },
   "Source/D2Game/MONSTER/MonsterMsg.cpp": {
-   "bytes": 384,
-   "definitions": 1,
+   "bytes": 448,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MONSTER/MonsterMsg.inc",
@@ -3347,8 +3366,8 @@
    "state": "included"
   },
   "Source/D2Game/SKILLS/SkillItem.cpp": {
-   "bytes": 372,
-   "definitions": 5,
+   "bytes": 284,
+   "definitions": 2,
    "externs": [
     "extern \"C\" void __cdecl SKILLITEM_pSpell08_ExperienceElixir(); // 0x005BF060",
     "extern \"C\" void __cdecl SKILLITEM_pSpell09_AntidoteThawingPotion(); // 0x005BEF90",
@@ -4124,8 +4143,8 @@
    "state": "included"
   },
   "Source/Storm/Unknown_006CAE80.cpp": {
-   "bytes": 68,
-   "definitions": 3,
+   "bytes": 8,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/Unknown_006CAE80.inc",
@@ -4238,8 +4257,8 @@
    "state": "included"
   },
   "Source/D2Game/MONSTER/Monster.cpp": {
-   "bytes": 72,
-   "definitions": 2,
+   "bytes": 132,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MONSTER/Monster.inc",
@@ -4265,8 +4284,8 @@
    "state": "included"
   },
   "Source/D2Game/MISSILES/Missiles.cpp": {
-   "bytes": 24,
-   "definitions": 1,
+   "bytes": 84,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MISSILES/Missiles.inc",
@@ -4279,15 +4298,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a2q0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a2q8.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a2q8.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -4313,8 +4323,8 @@
    "state": "included"
   },
   "Source/D2Game/PLAYER/PlrIntro.cpp": {
-   "bytes": 524,
-   "definitions": 6,
+   "bytes": 284,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/PLAYER/PlrIntro.inc",
@@ -5285,6 +5295,244 @@
    "include": "gen/data/Source/D2Game/SKILLS/SkillBar.inc",
    "lang": "cpp",
    "state": "included"
+  },
+  "Source/D2Game/Unknown_005C0D00.cpp": {
+   "bytes": 32,
+   "definitions": 1,
+   "externs": [
+    "extern \"C\" void __cdecl SKILLITEM_pSpell08_ExperienceElixir(); // 0x005BF060",
+    "extern \"C\" void __cdecl SKILLITEM_pSpell09_AntidoteThawingPotion(); // 0x005BEF90",
+    "extern \"C\" void __cdecl sub_005BE3F0(); // 0x005BE3F0",
+    "extern \"C\" void __cdecl sub_005BE7B0(); // 0x005BE7B0",
+    "extern \"C\" void __cdecl sub_005BEAC0(); // 0x005BEAC0"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Unknown_005C0D00.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/Ai/AiGeneral.cpp": {
+   "bytes": 64,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Ai/AiGeneral.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/GAME/Clients.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/GAME/Clients.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/GAME/Level.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/GAME/Level.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/GAME/SCmd.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/GAME/SCmd.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/GAME/CCmd.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/GAME/CCmd.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/GAME/Arena.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/GAME/Arena.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/UNIT/Party.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/UNIT/Party.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/OBJECTS/objrgn.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [
+    "extern \"C\" void __cdecl ACT1Intro_InitQuestData(); // 0x0058FA20",
+    "extern \"C\" void __cdecl ACT2Intro_InitQuestData(); // 0x005985D0",
+    "extern \"C\" void __cdecl ACT3Intro_InitQuestData(); // 0x005B6E60",
+    "extern \"C\" void __cdecl sub_0058EA50_InitQuestCallbacks(); // 0x0058EA50",
+    "extern \"C\" void __cdecl ACT1Q0_InitQuestData(); // 0x0058FB80",
+    "extern \"C\" void __cdecl ACT1Q1_InitQuestData(); // 0x00590720",
+    "extern \"C\" void __cdecl ACT1Q2_InitQuestData(); // 0x00591210",
+    "extern \"C\" void __cdecl ACT1Q3_InitQuestData(); // 0x00591F70",
+    "extern \"C\" void __cdecl ACT1Q4_InitQuestData(); // 0x005971B0",
+    "extern \"C\" void __cdecl ACT1Q5_InitQuestData(); // 0x00595920",
+    "extern \"C\" void __cdecl ACT1Q6_InitQuestData(); // 0x00596990",
+    "extern \"C\" void __cdecl ACT2Q0_InitQuestData(); // 0x00598810",
+    "extern \"C\" void __cdecl ACT2Q1_InitQuestData(); // 0x00599340",
+    "extern \"C\" void __cdecl ACT2Q2_InitQuestData(); // 0x0059EB00",
+    "extern \"C\" void __cdecl ACT2Q3_InitQuestData(); // 0x0059EEA0",
+    "extern \"C\" void __cdecl ACT2Q4_InitQuestData(); // 0x0059F2A0",
+    "extern \"C\" void __cdecl ACT2Q5_InitQuestData(); // 0x0059C280",
+    "extern \"C\" void __cdecl ACT2Q7_InitQuestData(); // 0x0059E330",
+    "extern \"C\" void __cdecl ACT2Q8_InitQuestData(); // 0x0059E530",
+    "extern \"C\" void __cdecl ACT3Q0_InitQuestData(); // 0x005B7010",
+    "extern \"C\" void __cdecl ACT3Q1_InitQuestData(); // 0x005B7E90",
+    "extern \"C\" void __cdecl ACT3Q2_InitQuestData(); // 0x005BDA30",
+    "extern \"C\" void __cdecl ACT3Q3_InitQuestData(); // 0x005B9850",
+    "extern \"C\" void __cdecl ACT3Q4_InitQuestData(); // 0x005BAA70",
+    "extern \"C\" void __cdecl ACT3Q5_InitQuestData(); // 0x005BBEB0",
+    "extern \"C\" void __cdecl ACT3Q6_InitQuestData(); // 0x005BCDC0",
+    "extern \"C\" void __cdecl ACT3Q7_InitQuestData(); // 0x005BD300",
+    "extern \"C\" void __cdecl ACT4Q0_InitQuestData(); // 0x005B3780",
+    "extern \"C\" void __cdecl ACT4Q1_InitQuestData(); // 0x005B42B0",
+    "extern \"C\" void __cdecl ACT4Q2_InitQuestData(); // 0x005B54C0",
+    "extern \"C\" void __cdecl ACT4Q3_InitQuestData(); // 0x005B6610",
+    "extern \"C\" void __cdecl ACT4Q4_InitQuestData(); // 0x005B6A70",
+    "extern \"C\" void __cdecl ACT5Q1_InitQuestData(); // 0x005876E0",
+    "extern \"C\" void __cdecl ACT5Q2_InitQuestData(); // 0x00588510",
+    "extern \"C\" void __cdecl ACT5Q3_InitQuestData(); // 0x0058A410",
+    "extern \"C\" void __cdecl ACT5Q4_InitQuestData(); // 0x0058BB20",
+    "extern \"C\" void __cdecl ACT5Q5_InitQuestData(); // 0x0058CE30",
+    "extern \"C\" void __cdecl ACT5Q6_InitQuestData(); // 0x0058E500",
+    "extern \"C\" void __cdecl sub_00596C40_InitQuestCallbacks(); // 0x00596C40",
+    "extern \"C\" void __cdecl ACT2Q6_InitQuestData(); // 0x0059D5B0"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/OBJECTS/objrgn.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/MONSTER/MonsterRegion.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [
+    "extern \"C\" void __cdecl ACT1Intro_InitQuestData(); // 0x0058FA20",
+    "extern \"C\" void __cdecl ACT2Intro_InitQuestData(); // 0x005985D0",
+    "extern \"C\" void __cdecl ACT3Intro_InitQuestData(); // 0x005B6E60",
+    "extern \"C\" void __cdecl sub_0058EA50_InitQuestCallbacks(); // 0x0058EA50",
+    "extern \"C\" void __cdecl ACT1Q0_InitQuestData(); // 0x0058FB80",
+    "extern \"C\" void __cdecl ACT1Q1_InitQuestData(); // 0x00590720",
+    "extern \"C\" void __cdecl ACT1Q2_InitQuestData(); // 0x00591210",
+    "extern \"C\" void __cdecl ACT1Q3_InitQuestData(); // 0x00591F70",
+    "extern \"C\" void __cdecl ACT1Q4_InitQuestData(); // 0x005971B0",
+    "extern \"C\" void __cdecl ACT1Q5_InitQuestData(); // 0x00595920",
+    "extern \"C\" void __cdecl ACT1Q6_InitQuestData(); // 0x00596990",
+    "extern \"C\" void __cdecl ACT2Q0_InitQuestData(); // 0x00598810",
+    "extern \"C\" void __cdecl ACT2Q1_InitQuestData(); // 0x00599340",
+    "extern \"C\" void __cdecl ACT2Q2_InitQuestData(); // 0x0059EB00",
+    "extern \"C\" void __cdecl ACT2Q3_InitQuestData(); // 0x0059EEA0",
+    "extern \"C\" void __cdecl ACT2Q4_InitQuestData(); // 0x0059F2A0",
+    "extern \"C\" void __cdecl ACT2Q5_InitQuestData(); // 0x0059C280",
+    "extern \"C\" void __cdecl ACT2Q7_InitQuestData(); // 0x0059E330",
+    "extern \"C\" void __cdecl ACT2Q8_InitQuestData(); // 0x0059E530",
+    "extern \"C\" void __cdecl ACT3Q0_InitQuestData(); // 0x005B7010",
+    "extern \"C\" void __cdecl ACT3Q1_InitQuestData(); // 0x005B7E90",
+    "extern \"C\" void __cdecl ACT3Q2_InitQuestData(); // 0x005BDA30",
+    "extern \"C\" void __cdecl ACT3Q3_InitQuestData(); // 0x005B9850",
+    "extern \"C\" void __cdecl ACT3Q4_InitQuestData(); // 0x005BAA70",
+    "extern \"C\" void __cdecl ACT3Q5_InitQuestData(); // 0x005BBEB0",
+    "extern \"C\" void __cdecl ACT3Q6_InitQuestData(); // 0x005BCDC0",
+    "extern \"C\" void __cdecl ACT3Q7_InitQuestData(); // 0x005BD300",
+    "extern \"C\" void __cdecl ACT4Q0_InitQuestData(); // 0x005B3780",
+    "extern \"C\" void __cdecl ACT4Q1_InitQuestData(); // 0x005B42B0",
+    "extern \"C\" void __cdecl ACT4Q2_InitQuestData(); // 0x005B54C0",
+    "extern \"C\" void __cdecl ACT4Q3_InitQuestData(); // 0x005B6610",
+    "extern \"C\" void __cdecl ACT4Q4_InitQuestData(); // 0x005B6A70",
+    "extern \"C\" void __cdecl ACT5Q1_InitQuestData(); // 0x005876E0",
+    "extern \"C\" void __cdecl ACT5Q2_InitQuestData(); // 0x00588510",
+    "extern \"C\" void __cdecl ACT5Q3_InitQuestData(); // 0x0058A410",
+    "extern \"C\" void __cdecl ACT5Q4_InitQuestData(); // 0x0058BB20",
+    "extern \"C\" void __cdecl ACT5Q5_InitQuestData(); // 0x0058CE30",
+    "extern \"C\" void __cdecl ACT5Q6_InitQuestData(); // 0x0058E500",
+    "extern \"C\" void __cdecl sub_00596C40_InitQuestCallbacks(); // 0x00596C40",
+    "extern \"C\" void __cdecl ACT2Q6_InitQuestData(); // 0x0059D5B0"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/MONSTER/MonsterRegion.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/UNIT/PlayerList.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/UNIT/PlayerList.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/UNIT/SUnitMsg.cpp": {
+   "bytes": 64,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/UNIT/SUnitMsg.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/MONSTER/MonsterAI.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/MONSTER/MonsterAI.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/PLAYER/PlayerPets.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/PLAYER/PlayerPets.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/UNIT/SUNITNPC.CPP": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/UNIT/SUNITNPC.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/UNIT/SUnitEvent.cpp": {
+   "bytes": 120,
+   "definitions": 2,
+   "externs": [
+    "extern \"C\" void __cdecl SKILLITEM_pSpell08_ExperienceElixir(); // 0x005BF060",
+    "extern \"C\" void __cdecl SKILLITEM_pSpell09_AntidoteThawingPotion(); // 0x005BEF90",
+    "extern \"C\" void __cdecl sub_005BE3F0(); // 0x005BE3F0",
+    "extern \"C\" void __cdecl sub_005BE7B0(); // 0x005BE7B0",
+    "extern \"C\" void __cdecl sub_005BEAC0(); // 0x005BEAC0"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/UNIT/SUnitEvent.inc",
+   "lang": "cpp",
+   "state": "included"
   }
  },
  "definitions": [
@@ -5715,7 +5963,7 @@
    "cname": "gData_00706518",
    "declared": false,
    "decorated": null,
-   "file": "Source/Fog/Src/ErrorManager.cpp",
+   "file": "Source/D2Launch/Unknown_004059D0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00706518_t gData_00706518; // 0x00706518",
    "head": "extern \"C\" struct d2data_00706518_t gData_00706518 = ",
@@ -5853,11 +6101,11 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Fog/Src/ErrorManager.cpp",
-   "fill": 13,
+   "file": "Source/D2Launch/Unknown_004059D0.cpp",
+   "fill": 6,
    "form": "declared",
    "fwd": null,
-   "head": "extern D2ModeEntryStrc gaModeTable[13] = ",
+   "head": "extern D2ModeEntryStrc gaModeTable[6] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -5887,8 +6135,8 @@
      "size": 8
     },
     "k": "arr",
-    "n": 13,
-    "size": 104
+    "n": 6,
+    "size": 48
    },
    "name": "gaModeTable",
    "pointers": [
@@ -5955,122 +6203,10 @@
      "WINMAIN_ShutdownInterface",
      0,
      "func"
-    ],
-    [
-     48,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     60,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     64,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     68,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     72,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     76,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     80,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     84,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     88,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     92,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     96,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     100,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
     ]
    ],
    "region": "data",
-   "size": 104,
+   "size": 48,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x00706554",
@@ -6079,17 +6215,129 @@
   },
   {
    "alias": false,
-   "cname": "gData_007065BC",
+   "cname": "gData_00706584",
    "declared": false,
    "decorated": null,
-   "file": "Source/Fog/Src/ErrorManager.cpp",
+   "file": "Source/D2Launch/Unknown_00406410.cpp",
    "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007065BC_t gData_007065BC; // 0x007065BC",
-   "head": "extern \"C\" struct d2data_007065BC_t gData_007065BC = ",
-   "name": "gData_007065BC",
+   "fwd": "extern \"C\" struct d2data_00706584_t gData_00706584; // 0x00706584",
+   "head": "extern \"C\" struct d2data_00706584_t gData_00706584 = ",
+   "name": "gData_00706584",
    "pointers": [
     [
      0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
      "0x006CC77C",
      "literal",
      null,
@@ -6098,17 +6346,17 @@
     ]
    ],
    "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007065BC_t\n{\n    const void* p0;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007065BC",
-   "va": "0x007065BC"
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00706584_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00706584",
+   "va": "0x00706584"
   },
   {
    "alias": false,
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Fog/Src/ErrorManager.cpp",
+   "file": "Source/D2Launch/Unknown_00406410.cpp",
    "fill": 32,
    "form": "declared",
    "fwd": null,
@@ -6139,7 +6387,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Fog/Src/ErrorManager.cpp",
+   "file": "Source/D2Launch/Unknown_00406410.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gbD2ServerStopEvent = ",
@@ -6164,7 +6412,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Fog/Src/ErrorManager.cpp",
+   "file": "Source/D2Launch/Unknown_00406410.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2ServiceStatusStrc gD2ServerServiceStatus = ",
@@ -7322,7 +7570,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_00405710.cpp",
+   "file": "Source/D2Launch/Unknown_00406410.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern const char* gaszModuleTypes_007065C4[6] = ",
@@ -74075,7 +74323,7 @@
      4,
      "0x0050A010",
      "names.json",
-     "GLIDE_Init",
+     "GLCORE_Init",
      0,
      "func"
     ],
@@ -74083,7 +74331,7 @@
      8,
      "0x00509E10",
      "names.json",
-     "GLIDE_Close",
+     "GLCORE_Close",
      0,
      "func"
     ],
@@ -74091,7 +74339,7 @@
      12,
      "0x00509E90",
      "names.json",
-     "GLIDE_CreateSurface",
+     "GLCORE_CreateSurface",
      0,
      "func"
     ],
@@ -74099,7 +74347,7 @@
      16,
      "0x00509AA0",
      "source",
-     "GLIDE_CloseSurface",
+     "GLCORE_CloseSurface",
      0,
      "func"
     ],
@@ -74107,7 +74355,7 @@
      20,
      "0x00509EE0",
      "names.json",
-     "GLIDE_PauseSurface",
+     "GLCORE_PauseSurface",
      0,
      "func"
     ],
@@ -74115,7 +74363,7 @@
      24,
      "0x00508FE0",
      "names.json",
-     "GLIDE_StartDraw",
+     "GLCORE_StartDraw",
      0,
      "func"
     ],
@@ -74123,7 +74371,7 @@
      28,
      "0x005091A0",
      "names.json",
-     "GLIDE_EndDraw",
+     "GLCORE_EndDraw",
      0,
      "func"
     ],
@@ -74131,7 +74379,7 @@
      32,
      "0x005091E0",
      "names.json",
-     "GLIDE_Blit",
+     "GLCORE_Blit",
      0,
      "func"
     ],
@@ -74139,7 +74387,7 @@
      36,
      "0x00509F70",
      "names.json",
-     "GLIDE_ChangeRes",
+     "GLCORE_ChangeRes",
      0,
      "func"
     ],
@@ -74155,7 +74403,7 @@
      44,
      "0x00509420",
      "names.json",
-     "GLIDE_ActivateWindow",
+     "GLCORE_ActivateWindow",
      0,
      "func"
     ],
@@ -74163,7 +74411,7 @@
      48,
      "0x00509430",
      "names.json",
-     "GLIDE_SetOption",
+     "GLCORE_SetOption",
      0,
      "func"
     ],
@@ -74171,7 +74419,7 @@
      52,
      "0x00509FE0",
      "names.json",
-     "GLIDE_PlayCutscene",
+     "GLCORE_PlayCutscene",
      0,
      "func"
     ],
@@ -74187,7 +74435,7 @@
      60,
      "0x00508FD0",
      "names.json",
-     "GLIDE_CheckCutScene",
+     "GLCORE_CheckCutScene",
      0,
      "func"
     ],
@@ -74195,7 +74443,7 @@
      64,
      "0x0050E5D0",
      "names.json",
-     "GLIDE_DecodeSmacker",
+     "GLSMACK_DecodeSmacker",
      0,
      "func"
     ],
@@ -74203,7 +74451,7 @@
      68,
      "0x0050E7F0",
      "names.json",
-     "GLIDE_PlaySmacker",
+     "GLSMACK_PlaySmacker",
      0,
      "func"
     ],
@@ -74211,7 +74459,7 @@
      72,
      "0x0050E040",
      "names.json",
-     "GLIDE_CloseSmacker",
+     "GLSMACK_CloseSmacker",
      0,
      "func"
     ],
@@ -74219,7 +74467,7 @@
      76,
      "0x00509640",
      "names.json",
-     "GLIDE_GetCacheResults",
+     "GLCORE_GetCacheResults",
      0,
      "func"
     ],
@@ -74227,7 +74475,7 @@
      80,
      "0x005092F0",
      "names.json",
-     "GLIDE_GetDimensions",
+     "GLCORE_GetDimensions",
      0,
      "func"
     ],
@@ -74235,7 +74483,7 @@
      84,
      "0x005090A0",
      "names.json",
-     "GLIDE_SetGlobalScale",
+     "GLCORE_SetGlobalScale",
      0,
      "func"
     ],
@@ -74243,7 +74491,7 @@
      88,
      "0x005090B0",
      "names.json",
-     "GLIDE_SetGamma",
+     "GLCORE_SetGamma",
      0,
      "func"
     ],
@@ -74251,7 +74499,7 @@
      92,
      "0x00509190",
      "names.json",
-     "GLIDE_GammaCanBeControlled",
+     "GLCORE_GammaCanBeControlled",
      0,
      "func"
     ],
@@ -74259,7 +74507,7 @@
      96,
      "0x0050DD50",
      "names.json",
-     "GLIDE_SetProjectOrigin",
+     "GLPERSPECTIVE_SetProjectOrigin",
      0,
      "func"
     ],
@@ -74267,7 +74515,7 @@
      100,
      "0x0050DD60",
      "names.json",
-     "GLIDE_PerspectiveTransform",
+     "GLPERSPECTIVE_PerspectiveTransform",
      0,
      "func"
     ],
@@ -74291,7 +74539,7 @@
      112,
      "0x00509300",
      "names.json",
-     "GLIDE_SetPalette",
+     "GLCORE_SetPalette",
      0,
      "func"
     ],
@@ -74299,7 +74547,7 @@
      116,
      "0x00509400",
      "names.json",
-     "GLIDE_SetPaletteTables",
+     "GLCORE_SetPaletteTables",
      0,
      "func"
     ],
@@ -74307,7 +74555,7 @@
      120,
      "0x0050DBC0",
      "names.json",
-     "GLIDE_SetAmbientColor",
+     "GLVERTEX_SetAmbientColor",
      0,
      "func"
     ],
@@ -74331,7 +74579,7 @@
      132,
      "0x0050B0D0",
      "names.json",
-     "GLIDE_CelDraw",
+     "GLSPRITE_CelDraw",
      0,
      "func"
     ],
@@ -74339,7 +74587,7 @@
      136,
      "0x0050B190",
      "names.json",
-     "GLIDE_CelDrawColor",
+     "GLSPRITE_CelDrawColor",
      0,
      "func"
     ],
@@ -74347,7 +74595,7 @@
      140,
      "0x0050B230",
      "names.json",
-     "GLIDE_CelDrawEx",
+     "GLSPRITE_CelDrawEx",
      0,
      "func"
     ],
@@ -74355,7 +74603,7 @@
      144,
      "0x0050B690",
      "names.json",
-     "GLIDE_CelDrawShadow",
+     "GLSPRITE_CelDrawShadow",
      0,
      "func"
     ],
@@ -74363,7 +74611,7 @@
      148,
      "0x0050B720",
      "names.json",
-     "GLIDE_CelDrawHilight",
+     "GLSPRITE_CelDrawHilight",
      0,
      "func"
     ],
@@ -74371,7 +74619,7 @@
      152,
      "0x0050B500",
      "source",
-     "GLIDE_CelDrawClipped",
+     "GLSPRITE_CelDrawClipped",
      0,
      "func"
     ],
@@ -74467,7 +74715,7 @@
      200,
      "0x0050BC90",
      "names.json",
-     "GLIDE_DebugPrintf",
+     "GLDEBUGFONT_DebugPrintf",
      0,
      "func"
     ],
@@ -74483,7 +74731,7 @@
      208,
      "0x0050B7A0",
      "names.json",
-     "GLIDE_DebugFillBackBuffer",
+     "GLSPRITE_DebugFillBackBuffer",
      0,
      "func"
     ],
@@ -74491,7 +74739,7 @@
      212,
      "0x00508F90",
      "names.json",
-     "GLIDE_ClearCaches",
+     "GLCORE_ClearCaches",
      0,
      "func"
     ]
@@ -86486,7 +86734,7 @@
    "cname": "gData_007312E0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/UNIT/sunitproxy.cpp",
+   "file": "Source/D2Game/GAME/Clients.cpp",
    "form": "bytes",
    "name": "gData_007312E0",
    "pointers": [
@@ -86624,7 +86872,7 @@
    "cname": "gData_0073131C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/UNIT/sunitproxy.cpp",
+   "file": "Source/D2Game/GAME/Level.cpp",
    "form": "bytes",
    "name": "gData_0073131C",
    "pointers": [
@@ -86762,7 +87010,7 @@
    "cname": "gData_00731358",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/UNIT/sunitproxy.cpp",
+   "file": "Source/D2Game/GAME/SCmd.cpp",
    "form": "bytes",
    "name": "gData_00731358",
    "pointers": [
@@ -86900,7 +87148,7 @@
    "cname": "gData_00731394",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/UNIT/sunitproxy.cpp",
+   "file": "Source/D2Game/GAME/CCmd.cpp",
    "form": "bytes",
    "name": "gData_00731394",
    "pointers": [
@@ -87038,7 +87286,7 @@
    "cname": "gData_007313D0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/UNIT/sunitproxy.cpp",
+   "file": "Source/D2Game/GAME/Arena.cpp",
    "form": "bytes",
    "name": "gData_007313D0",
    "pointers": [
@@ -87176,7 +87424,7 @@
    "cname": "gData_0073140C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/UNIT/sunitproxy.cpp",
+   "file": "Source/D2Game/UNIT/Party.cpp",
    "form": "bytes",
    "name": "gData_0073140C",
    "pointers": [
@@ -87314,7 +87562,7 @@
    "cname": "gData_00731448",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/UNIT/sunitproxy.cpp",
+   "file": "Source/D2Game/GAME/Event.cpp",
    "form": "bytes",
    "name": "gData_00731448",
    "pointers": [
@@ -87892,7 +88140,7 @@
    "cname": "gData_0073192C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Quests/QUESTS.CPP",
+   "file": "Source/D2Game/OBJECTS/objrgn.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0073192C_t gData_0073192C; // 0x0073192C",
    "head": "extern \"C\" struct d2data_0073192C_t gData_0073192C = ",
@@ -88030,7 +88278,7 @@
    "cname": "gData_00731968",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Quests/QUESTS.CPP",
+   "file": "Source/D2Game/MONSTER/MonsterRegion.cpp",
    "form": "bytes",
    "name": "gData_00731968",
    "pointers": [
@@ -91235,7 +91483,7 @@
    "cname": "gData_00731F74",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/ITEMS/Items.cpp",
+   "file": "Source/D2Game/UNIT/PlayerList.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00731F74_t gData_00731F74; // 0x00731F74",
    "head": "extern \"C\" struct d2data_00731F74_t gData_00731F74 = ",
@@ -93277,7 +93525,7 @@
    "cname": "gData_007326B8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_00570420.cpp",
+   "file": "Source/D2Game/UNIT/SUnitMsg.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007326B8_t gData_007326B8; // 0x007326B8",
    "head": "extern \"C\" struct d2data_007326B8_t gData_007326B8 = ",
@@ -93492,7 +93740,7 @@
    "cname": "gData_00732850",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/PLAYER/PlrIntro.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterAI.cpp",
    "form": "bytes",
    "name": "gData_00732850",
    "pointers": [
@@ -93630,7 +93878,7 @@
    "cname": "gData_0073288C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/PLAYER/PlrIntro.cpp",
+   "file": "Source/D2Game/MONSTER/Monster.cpp",
    "form": "bytes",
    "name": "gData_0073288C",
    "pointers": [
@@ -93768,7 +94016,7 @@
    "cname": "gData_007328C8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/PLAYER/PlrIntro.cpp",
+   "file": "Source/D2Game/PLAYER/PlayerPets.cpp",
    "form": "bytes",
    "name": "gData_007328C8",
    "pointers": [
@@ -93906,7 +94154,7 @@
    "cname": "gData_00732904",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/PLAYER/PlrIntro.cpp",
+   "file": "Source/D2Game/UNIT/SUNITNPC.CPP",
    "form": "bytes",
    "name": "gData_00732904",
    "pointers": [
@@ -97635,7 +97883,7 @@
    "cname": "gData_00736160",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a5q3.cpp",
+   "file": "Source/D2Game/Ai/AiGeneral.cpp",
    "form": "bytes",
    "name": "gData_00736160",
    "pointers": [
@@ -98602,7 +98850,7 @@
    "cname": "gData_00738CC8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/INVENTORY/InvMode.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterMsg.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00738CC8_t gData_00738CC8; // 0x00738CC8",
    "head": "extern \"C\" struct d2data_00738CC8_t gData_00738CC8 = ",
@@ -99162,7 +99410,7 @@
    "cname": "gData_0073BEE0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a2q8.cpp",
+   "file": "Source/D2Game/MISSILES/Missiles.cpp",
    "form": "bytes",
    "name": "gData_0073BEE0",
    "pointers": [
@@ -106300,7 +106548,7 @@
    "cname": "gData_00741888",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/SKILLS/SkillItem.cpp",
+   "file": "Source/D2Game/UNIT/SUnitEvent.cpp",
    "form": "bytes",
    "name": "gData_00741888",
    "pointers": [
@@ -106438,7 +106686,7 @@
    "cname": "gData_007418C4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/SKILLS/SkillItem.cpp",
+   "file": "Source/D2Game/UNIT/SUnitEvent.cpp",
    "form": "bytes",
    "name": "gData_007418C4",
    "pointers": [
@@ -106714,7 +106962,7 @@
    "cname": "gData_006E3014",
    "declared": true,
    "decorated": "?gnRareAffixCounts@@3QBHB",
-   "file": "Source/D2Game/SKILLS/SkillItem.cpp",
+   "file": "Source/D2Game/Unknown_005C0D00.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006E3014[8]; // 0x006E3014",
@@ -149862,16 +150110,16 @@
    "alias": true,
    "cname": "gData_0074C3D8",
    "declared": true,
-   "decorated": "?gpszFallback@@3QAUD2TreeNode006BD330Strc@@A",
+   "decorated": "?gpszFallback@@3QAUD2TxtLinkNodeStrc@@A",
    "file": "Source/Fog/Src/Excel/Excel.cpp",
    "form": "declared_owner",
-   "fwd": "extern \"C\" D2TreeNode006BD330Strc* const gData_0074C3D8; // 0x0074C3D8",
-   "head": "extern \"C\" D2TreeNode006BD330Strc* const gData_0074C3D8 = ",
+   "fwd": "extern \"C\" D2TxtLinkNodeStrc* const gData_0074C3D8; // 0x0074C3D8",
+   "head": "extern \"C\" D2TxtLinkNodeStrc* const gData_0074C3D8 = ",
    "model": {
     "fn": false,
     "k": "ptr",
     "size": 4,
-    "spell": "D2TreeNode006BD330Strc* const"
+    "spell": "D2TxtLinkNodeStrc* const"
    },
    "name": "gpszFallback",
    "pointers": [
@@ -149888,8 +150136,8 @@
    "size": 4,
    "stars": 1,
    "struct": null,
-   "tail": "; // 0x0074C3D8\n#pragma comment(linker, \"/alternatename:?gpszFallback@@3QAUD2TreeNode006BD330Strc@@A=_gData_0074C3D8\")",
-   "type": "D2TreeNode006BD330Strc",
+   "tail": "; // 0x0074C3D8\n#pragma comment(linker, \"/alternatename:?gpszFallback@@3QAUD2TxtLinkNodeStrc@@A=_gData_0074C3D8\")",
+   "type": "D2TxtLinkNodeStrc",
    "va": "0x0074C3D8",
    "zero_tail": 4
   },
@@ -151244,7 +151492,7 @@
    "cname": "gData_00731ED4",
    "declared": false,
    "decorated": null,
-   "file": "Source/Storm/Unknown_006CAE80.cpp",
+   "file": "Source/D2Game/UNIT/SUnit.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00731ED4_t gData_00731ED4; // 0x00731ED4",
    "head": "extern \"C\" struct d2data_00731ED4_t gData_00731ED4 = ",

@@ -928,3 +928,5 @@ int __fastcall AIGENERAL_GetMinionSpawnClassId(D2UnitStrc* pUnit)
 {
     return AIGENERAL_GetAiControlFromUnitByType(pUnit)->nMinionSpawnClassId;
 }
+
+#include "gen/data/Source/D2Game/Ai/AiGeneral.inc"

@@ -7,14 +7,14 @@ extern int gdwGlobal_0087EFB8; // 0x0087EFB8
 
 extern D2GlideTileCacheStrc gtGlideTileCache; // 0x0087EB48
 extern D2GlideFloorCacheStrc gtGlideFloorCache; // 0x0087EB68
-void __fastcall GLIDE_TileCacheRelease(D2GlideTileCacheStrc* pCache, int nIndex); // 0x0050F1B0
-D2GlideFloorCacheEntryStrc* __fastcall GLIDE_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F570
-void __fastcall GLIDE_FloorCacheRemove(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F750
+void __fastcall GLSUBTILECACHE_TileCacheRelease(D2GlideTileCacheStrc* pCache, int nIndex); // 0x0050F1B0
+D2GlideFloorCacheEntryStrc* __fastcall GLSMACK_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F570
+void __fastcall GLSMACK_FloorCacheRemove(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F750
 
-void __fastcall GLIDE_FloorCacheEvict(D2GlideFloorCacheStrc* pCache); // 0x0050F6D0
+void __fastcall GLSMACK_FloorCacheEvict(D2GlideFloorCacheStrc* pCache); // 0x0050F6D0
 
 // 0x0050F320
-int __fastcall GLIDE_FloorCacheInit(D2GlideFloorCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nBlockSize)
+int __fastcall GLFLOORCACHE_FloorCacheInit(D2GlideFloorCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nBlockSize)
 {
     const int nCount = (nEnd - nStart) / nBlockSize;
     pCache->nBlockSize = nBlockSize;
@@ -73,7 +73,7 @@ int __fastcall GLIDE_FloorCacheInit(D2GlideFloorCacheStrc* pCache, unsigned int 
 }
 
 // 0x0050F4D0
-static __declspec(noinline) void GLIDE_FloorCacheAppendUsed(D2GlideFloorCacheStrc* pCache, D2GlideFloorCacheEntryStrc* pEntry)
+static __declspec(noinline) void GLFLOORCACHE_FloorCacheAppendUsed(D2GlideFloorCacheStrc* pCache, D2GlideFloorCacheEntryStrc* pEntry)
 {
     if (!pCache->pHead)
     {
@@ -104,7 +104,7 @@ static D2GlideTileCacheEntryStrc* sub_M117_TilePopHead(D2GlideTileCacheStrc* pCa
 }
 
 // 0x0050F150
-static void GLIDE_TileCacheEvict(D2GlideTileCacheStrc* pCache)
+static void GLFLOORCACHE_TileCacheEvict(D2GlideTileCacheStrc* pCache)
 {
     if (!pCache->nUsed)
         return;
@@ -132,8 +132,8 @@ static void GLIDE_TileCacheEvict(D2GlideTileCacheStrc* pCache)
     --pCache->nUsed;
 }
 
-// build: symbol ?GLIDE_FloorCacheAppendFree@* 0x0050F4F0
-static void GLIDE_FloorCacheAppendFree(D2GlideFloorCacheStrc* pCache, D2GlideFloorCacheEntryStrc* pEntry)
+// build: symbol ?GLSUBTILECACHE_FloorCacheAppendFree@* 0x0050F4F0
+static void GLSUBTILECACHE_FloorCacheAppendFree(D2GlideFloorCacheStrc* pCache, D2GlideFloorCacheEntryStrc* pEntry)
 {
     if (!pCache->pFreeHead)
     {
@@ -147,8 +147,8 @@ static void GLIDE_FloorCacheAppendFree(D2GlideFloorCacheStrc* pCache, D2GlideFlo
     pCache->pFreeTail = pEntry;
 }
 
-// build: symbol ?GLIDE_FloorCachePopFree@* 0x0050F540
-static D2GlideFloorCacheEntryStrc* GLIDE_FloorCachePopFree(D2GlideFloorCacheStrc* pCache)
+// build: symbol ?GLSUBTILECACHE_FloorCachePopFree@* 0x0050F540
+static D2GlideFloorCacheEntryStrc* GLSUBTILECACHE_FloorCachePopFree(D2GlideFloorCacheStrc* pCache)
 {
     D2GlideFloorCacheEntryStrc* pEntry = pCache->pFreeHead;
     if (!pEntry)
@@ -166,13 +166,13 @@ static D2GlideFloorCacheEntryStrc* GLIDE_FloorCachePopFree(D2GlideFloorCacheStrc
 // build: context sub_M117_Emit_0050F150
 D2GlideFloorCacheEntryStrc* __fastcall sub_M117_Emit_0050F150(D2GlideTileCacheStrc* pTileCache, D2GlideFloorCacheStrc* pCache, D2GlideFloorCacheEntryStrc* pEntry)
 {
-    GLIDE_TileCacheEvict(pTileCache);
-    GLIDE_FloorCacheAppendFree(pCache, pEntry);
-    return GLIDE_FloorCachePopFree(pCache);
+    GLFLOORCACHE_TileCacheEvict(pTileCache);
+    GLSUBTILECACHE_FloorCacheAppendFree(pCache, pEntry);
+    return GLSUBTILECACHE_FloorCachePopFree(pCache);
 }
 
 // 0x0050F5F0
-static int GLIDE_FloorCacheAlloc(D2GlideFloorCacheStrc* pCache)
+static int GLFLOORCACHE_FloorCacheAlloc(D2GlideFloorCacheStrc* pCache)
 {
     if (pCache->nUsed == pCache->nCount)
         return 0;
@@ -206,20 +206,20 @@ static int GLIDE_FloorCacheAlloc(D2GlideFloorCacheStrc* pCache)
 }
 
 // 0x0050F820
-short __fastcall GLIDE_FloorCacheAdd(D2GlideFloorCacheStrc* pCache)
+short __fastcall GLFLOORCACHE_FloorCacheAdd(D2GlideFloorCacheStrc* pCache)
 {
-    int nId = GLIDE_FloorCacheAlloc(pCache);
+    int nId = GLFLOORCACHE_FloorCacheAlloc(pCache);
     if (!nId)
     {
-        GLIDE_FloorCacheEvict(pCache);
-        nId = GLIDE_FloorCacheAlloc(pCache);
+        GLSMACK_FloorCacheEvict(pCache);
+        nId = GLFLOORCACHE_FloorCacheAlloc(pCache);
         D2_ASSERT(nId, 0x8B);
     }
     return nId;
 }
 
 // 0x0050F670
-void __fastcall GLIDE_FloorCacheTouch(D2GlideFloorCacheStrc* pCache, int nIndex)
+void __fastcall GLFLOORCACHE_FloorCacheTouch(D2GlideFloorCacheStrc* pCache, int nIndex)
 {
     if (pCache->nUsed <= 1)
     {
@@ -229,33 +229,33 @@ void __fastcall GLIDE_FloorCacheTouch(D2GlideFloorCacheStrc* pCache, int nIndex)
     D2_ASSERT(nIndex, 0xBC);
     D2_ASSERT(nIndex <= pCache->nCount, 0xBD);
     D2_ASSERT(nIndex >= 1, 0xBE);
-    GLIDE_FloorCacheAppendUsed(pCache, GLIDE_FloorCacheUnlink(pCache, nIndex - 1));
+    GLFLOORCACHE_FloorCacheAppendUsed(pCache, GLSMACK_FloorCacheUnlink(pCache, nIndex - 1));
 }
 
 // 0x0050FCB0
-void __fastcall GLIDE_ReleaseTileCache(D2TileLibraryEntryStrc* pTile)
+void __fastcall GLFLOORCACHE_ReleaseTileCache(D2TileLibraryEntryStrc* pTile)
 {
     if (pTile->nCacheIndex > 0)
     {
-        GLIDE_FloorCacheRemove(&gtGlideFloorCache, (short)(pTile->nCacheIndex - 1));
+        GLSMACK_FloorCacheRemove(&gtGlideFloorCache, (short)(pTile->nCacheIndex - 1));
     }
 
     for (int i = 0; i < pTile->nBlocks; ++i)
     {
         if (pTile->pBlocks[i].nCacheIndex > 0)
         {
-            GLIDE_TileCacheRelease(&gtGlideTileCache, (short)(pTile->pBlocks[i].nCacheIndex - 1));
+            GLSUBTILECACHE_TileCacheRelease(&gtGlideTileCache, (short)(pTile->pBlocks[i].nCacheIndex - 1));
         }
     }
 }
 
 // 0x0050F7C0
-void __fastcall GLIDE_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush)
+void __fastcall GLFLOORCACHE_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush)
 {
     if (bFlush)
     {
         while (pCache->nUsed)
-            GLIDE_FloorCacheEvict(pCache);
+            GLSMACK_FloorCacheEvict(pCache);
     }
     if (pCache->pEntries)
     {

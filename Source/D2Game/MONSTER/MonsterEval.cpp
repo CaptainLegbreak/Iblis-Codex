@@ -391,7 +391,7 @@ void __fastcall MONSTERMODE_AllocateTargetCombat(D2UnitStrc* pUnit, D2GameStrc* 
 void __fastcall SKILLS_FillMinionSkillDamage(D2UnitStrc* pUnit, int nUnused, D2MonSkillInfoStrc* pMonSkillInfo); // 0x0056E050
 int __fastcall MONSTEREVAL_GetDifficultyScaledBonus(D2GameStrc* pGame, int nCount); // 0x005A4F20
 void __stdcall STATLIST_RemoveAllStats(D2StatListStrc* pStatList); // 0x00627340
-int __fastcall sub_00451F60_GetClassId(D2UnitStrc* pUnit); // 0x00451F60
+int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 
 static inline int MONSTEREVAL_GetUnitType(D2UnitStrc* pUnit)
@@ -482,7 +482,7 @@ void __fastcall MONSTERMODE_UpdateModeAttackStats(D2UnitStrc* pUnit, int nMode)
             if (pRecord->nElPct[i][difficulty] > 0 && (pRecord->nElPct[i][difficulty] >= 100 || (int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < pRecord->nElPct[i][difficulty])) {
             D2MonStatsInitStrc init;
             memset(&init, 0, sizeof(init));
-            DATATBLS_CalculateMonsterStatsByLevel(sub_00451F60_GetClassId(pUnit), gameType, difficulty, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), 64 + i, &init);
+            DATATBLS_CalculateMonsterStatsByLevel(GAME_GetUnitClassId(pUnit), gameType, difficulty, STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0), 64 + i, &init);
             int minElement = init.nElMinD;
             int maxElement = init.nElMaxD;
             int duration = init.nElDur;

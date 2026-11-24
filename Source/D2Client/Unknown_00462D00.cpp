@@ -42,7 +42,7 @@ int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 void __fastcall AUTOMAP_ScreenToMap(int* pX, int* pY);                                                             // 0x0045AFF0
 void __fastcall GFX_ClearPendingAction(D2UnitStrc* pUnit);                                        // 0x0045C470
 int __stdcall PLAYER_IsPendingMode(int nArg1, int nArg2);                                             // 0x00461D60
-int __fastcall sub_00464600(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                            // 0x00464600
+int __fastcall CUNIT_CanUseSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                            // 0x00464600
 int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
 int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x00465C60
 void __cdecl SELECT_ClearSelection();                                                                                // 0x00466FE0
@@ -53,7 +53,7 @@ int __cdecl sub_00468830();                                                     
 int __fastcall sub_00474080_GetDistance(int nDX, int nDY);                                                  // 0x00474080
 void __fastcall MSG_SendDword(char nHeader, int nArg);                                           // 0x00478680
 void __fastcall MSG_SendFourDwords(char nCommand, int nUnitType, int nUnitId, int nX, int nY);         // 0x00478700
-int __cdecl sub_00454970();                                                                                 // 0x00454970
+int __cdecl INV_GetScreenHeightMinusPanel();                                                                                 // 0x00454970
 int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag);                                   // 0x00457490
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
@@ -377,7 +377,7 @@ static void __stdcall PLAYER_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit)
 // build: symbol ?PLAYER_SendCommand@* 0x00461700
 static void __stdcall PLAYER_SendCommand(int bTarget, D2PlayerCmdStrc* pCmd)
 {
-    if (sub_00468740() > sub_00454970())
+    if (sub_00468740() > INV_GetScreenHeightMinusPanel())
         return;
 
     if (bTarget == 1)
@@ -1105,7 +1105,7 @@ static int PLAYER_CmdLeftSkill(D2PlayerCmdStrc* pCmd)
         return 1;
 
     pCmd->pSkill = UNITS_GetLeftSkill(pCmd->pPlayer);
-    if (sub_00464600(pCmd->pPlayer, pCmd->pSkill))
+    if (CUNIT_CanUseSkill(pCmd->pPlayer, pCmd->pSkill))
     {
         pCmd->dwFlags |= 0x80;
         PLAYER_ExecuteCommand(pCmd);
@@ -1133,7 +1133,7 @@ static int PLAYER_CmdLeftSkillMove(D2PlayerCmdStrc* pCmd)
         return 1;
 
     pCmd->pSkill = UNITS_GetLeftSkill(pCmd->pPlayer);
-    if (!sub_00464600(pCmd->pPlayer, pCmd->pSkill))
+    if (!CUNIT_CanUseSkill(pCmd->pPlayer, pCmd->pSkill))
         return 1;
 
     D2UnitStrc* pPlayer = pCmd->pPlayer;
@@ -1198,7 +1198,7 @@ static int PLAYER_CmdRightSkill(D2PlayerCmdStrc* pCmd)
         return 1;
 
     pCmd->pSkill = UNITS_GetRightSkill(pCmd->pPlayer);
-    if (!sub_00464600(pCmd->pPlayer, pCmd->pSkill))
+    if (!CUNIT_CanUseSkill(pCmd->pPlayer, pCmd->pSkill))
         return 1;
 
     const int nSkillId = SKILLS_GetSkillIdFromSkill(pCmd->pSkill, ".\\UNIT\\Player.cpp", 0x9DD);
@@ -1221,7 +1221,7 @@ static int PLAYER_CmdRightSkillMove(D2PlayerCmdStrc* pCmd)
         return 1;
 
     pCmd->pSkill = UNITS_GetRightSkill(pCmd->pPlayer);
-    if (!sub_00464600(pCmd->pPlayer, pCmd->pSkill))
+    if (!CUNIT_CanUseSkill(pCmd->pPlayer, pCmd->pSkill))
         return 1;
 
     const int nSkillId = SKILLS_GetSkillIdFromSkill(pCmd->pSkill, ".\\UNIT\\Player.cpp", 0x9FD);

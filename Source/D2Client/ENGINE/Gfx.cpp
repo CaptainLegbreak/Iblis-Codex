@@ -140,7 +140,7 @@ D2GfxLightStrc* __fastcall DLIGHTMAP_MakeLightEntry(D2UnitStrc* pUnit, int nArg1
 
 void __fastcall sub_00474290(D2GfxLightStrc* pLight, int nRadius); // 0x00474290
 
-int __fastcall sub_004DBE20(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOverlay); // 0x004DBE20
+int __fastcall GFXUTIL_GetOverlayFrameCount(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOverlay); // 0x004DBE20
 
 int __stdcall UNITS_GetOverlayHeight(D2UnitStrc* pUnit); // 0x006223A0
 
@@ -2237,7 +2237,7 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nType, i
     memset(pNew, 0, sizeof(D2UnitOverlayStrc));
     pNew->nType = nType;
     pNew->nOverlay = nOverlay;
-    pNew->n1C = sub_004DBE20(pUnit, pNew);
+    pNew->n1C = GFXUTIL_GetOverlayFrameCount(pUnit, pNew);
     switch (nType)
     {
     case 2:

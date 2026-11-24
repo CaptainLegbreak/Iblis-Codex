@@ -976,3 +976,5 @@ void __fastcall MONSTERAI_CloseNpcInteractions(D2GameStrc* pGame, D2UnitStrc* pM
 
     pMonInteract->pInteractInfo = 0;
 }
+
+#include "gen/data/Source/D2Game/MONSTER/MonsterAI.inc"

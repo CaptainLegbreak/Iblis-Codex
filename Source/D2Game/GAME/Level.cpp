@@ -632,3 +632,5 @@ int __fastcall LEVEL_CountActRooms(D2GameStrc* pGame, unsigned char nAct)
     return nCount;
 }
 
+
+#include "gen/data/Source/D2Game/GAME/Level.inc"

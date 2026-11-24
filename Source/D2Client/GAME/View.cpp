@@ -24,13 +24,7 @@ struct D2ClientListNodeStrc;
 
 struct D2StaticPathStrc;
 
-struct D2ClientUnitPointStrc;
-
 struct D2MapAIStrc;
-
-struct D2ClientPacket11Strc;
-
-struct D2ClientPacket19Strc;
 
 struct D2ClientListLinkStrc;
 
@@ -41,8 +35,6 @@ struct D2ClientOffsetListBStrc;
 struct D2ClientNodeListStrc;
 
 struct D2PlayerDataStrc;
-
-struct D2ClientUnitViewStrc;
 
 struct D2ClientRecordStrc;
 
@@ -82,23 +74,7 @@ struct D2PresetUnitStrc;
 
 struct D2ViewStrc;
 
-struct D2CacheStatsStrc;
 
-struct D2ClientPacket11Strc
-{
-    unsigned char nHeader;
-    unsigned char nArg1;
-    unsigned short nArg2;
-};
-
-struct D2ClientPacket19Strc
-{
-    unsigned char nHeader;
-    unsigned char nValue0;
-    unsigned char nValue1;
-    unsigned char f_3;
-    unsigned char nValue3;
-};
 
 struct D2ClientListLinkStrc
 {
@@ -139,12 +115,6 @@ struct D2ClientNodeListStrc
     void sub_0045BBE0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting);
 };
 
-struct D2ClientUnitViewStrc
-{
-    int dwUnitType;
-    int unk0x04[4];
-    D2PlayerDataStrc* pPlayerData;
-};
 
 struct D2ClientRecordStrc
 {
@@ -268,13 +238,6 @@ enum D2C_W10Constants
     DRAW_MODE_5 = 5,
 };
 
-struct D2ClientUnitPointStrc
-{
-    int nX;
-    int nY;
-    char unk0x08[0x18];
-    D2ClientUnitPointStrc* pNext;
-};
 
 struct D2TimedHintEntryStrc
 {
@@ -357,22 +320,6 @@ struct D2PalShiftNodeStrc
     D2PalShiftNodeStrc* pNext;
 };
 
-struct D2CacheStatsStrc
-{
-    unsigned int nFloorSize;
-    int unk0x04;
-    int nFloorMisses;
-    unsigned int nSubtileSize;
-    int unk0x10;
-    int nSubtileMisses;
-    unsigned int nSpriteSize[3];
-    int unk0x24[3];
-    int nSpriteMisses[3];
-    int unk0x3C[3];
-    int nSpriteAccesses[3];
-    int unk0x54[3];
-    int unk0x60[3];
-};
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
@@ -489,8 +436,6 @@ int gbHelpButtonVisible; // 0x007BEF08
 
 struct D2QuestLookupEntryStrc;
 
-struct D2QuestPanelValuesStrc;
-
 
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
@@ -510,11 +455,6 @@ struct D2QuestLookupEntryStrc
 
 #pragma pack(push, 1)
 
-struct D2QuestPanelValuesStrc
-{
-    char unk0x00[0x7];
-    int nValues[0x96];
-};
 
 #pragma pack(pop)
 
@@ -957,6 +897,34 @@ void __cdecl VIEW_FreeLerpTables()
     gpLerpTable40 = 0;
     ghShakeSound = 0;
     sub_00475EB0_FreeCels();
+}
+
+
+
+
+
+class D2SquelchListStrc
+{
+public:
+    virtual void Squelch(const char* szName);
+    virtual void Unsquelch(const char* szName);
+    virtual int IsSquelched(const char* szName);
+    virtual void VirtSlot3();
+    virtual void VirtSlot4();
+    virtual int IsFiltered(const char* szText);
+};
+
+// 0x00476A80
+void __fastcall SCMD_StartTimedEffect(int nArg0, int nArg1, int nArg2, int nArg3)
+{
+    if (nArg2)
+    {
+        gdwViewEffectStartTick = GetTickCount();
+        gnViewEffectFadeIn = nArg1;
+        gnViewEffectHold = nArg2;
+        gnViewEffectFadeOut = nArg3;
+        gnViewEffectMagnitude = nArg0;
+    }
 }
 
 // 0x00476B10

@@ -3587,3 +3587,5 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
 
     return 0;
 }
+
+#include "gen/data/Source/D2Game/UNIT/SUNITNPC.inc"

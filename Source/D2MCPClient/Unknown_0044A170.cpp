@@ -100,9 +100,9 @@ int __fastcall GAME_DispatchMcpPacket(const char* pPacket, unsigned int nSize); 
 
 int __fastcall GAME_RunInitHandlers(void* pArg); // 0x0044D9F0
 
-int __stdcall sub_0044B5C0_OnExtraArgument(const char* szArgument); // 0x0044B5C0
+int __stdcall WINMAIN_HandleExtraArgument(const char* szArgument); // 0x0044B5C0
 
-int __stdcall sub_0044B5D0_OnArgumentError(const char* szArgument); // 0x0044B5D0
+int __stdcall WINMAIN_HandleArgumentError(const char* szArgument); // 0x0044B5D0
 
 void __fastcall GAME_ShowLoadingMessage(int nError); // 0x0044E380
 

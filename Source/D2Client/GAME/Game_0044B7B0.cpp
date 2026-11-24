@@ -38,7 +38,7 @@ void __fastcall sub_00457640(int nValue); // 0x00457640
 
 void __fastcall sub_00457440_Nop(int nResolution); // 0x00457440
 
-void __fastcall sub_004549B0(int nResolution); // 0x004549B0
+void __fastcall UI_ToggleListDialog(int nResolution); // 0x004549B0
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
@@ -173,7 +173,7 @@ int __cdecl GAME_GetConnectFailed();                                            
 
 void __stdcall GAME_DestroyWindowAndGfx(int nArg1, int nArg2, int nArg3);                                               // 0x0044C850
 
-void __fastcall sub_0044C990(void* pArg);                                                                   // 0x0044C990
+void __fastcall GAME_DrawGameView(void* pArg);                                                                   // 0x0044C990
 
 void __cdecl GAME_ReadColorFlag();                                                                  // 0x0044DBE0
 
@@ -223,7 +223,7 @@ void __fastcall VIEW_FreeView(D2ViewStrc* pView);                               
 
 void __fastcall VIEW_SetViewPos(D2ViewStrc* pView, int nX, int nY);                                 // 0x004760A0
 
-D2ViewStrc* __cdecl sub_00476B10();                                                                         // 0x00476B10
+D2ViewStrc* __cdecl VIEW_CreateView();                                                                         // 0x00476B10
 
 void __cdecl PALSHIFT_AllocPalShiftEntries();                                                                   // 0x00476EA0
 
@@ -399,19 +399,19 @@ struct UnitPrefix { U32 prefix0; U32 prefix4; U32 prefix8; U32 identifier; };
 
 typedef char check_UnitPrefix_identifier[OFFSET(UnitPrefix,identifier)==12?1:-1];
 
-extern "C" UnitPrefix* __cdecl sub_004680A0_GetSelected();
+extern "C" UnitPrefix* __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
-extern "C" void __fastcall sub_004786A0_SendPacket(U8 command,U32 first,U32 second);
+extern "C" void __fastcall MSG_SendTwoDwords(U8 command,U32 first,U32 second); // 0x004786A0
 
 extern "C" Auxiliary* __cdecl sub_004646A0_GetAuxiliary();
 
 extern "C" void __stdcall sub_0061C240_Configure(Context* context,Auxiliary* auxiliary,int mode,int angle,int flag);
 
-extern "C" void __cdecl sub_0049F960_Cleanup();
+extern "C" void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
 extern "C" void __stdcall sub_006612A0_Release(Allocation* allocation);
 
-extern "C" int __cdecl sub_0044DCC0_Mode();
+extern "C" int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 extern "C" Context* gContext; // 0x007A0634
 
@@ -676,7 +676,7 @@ void __cdecl GAME_InitGameState()
     CUNIT_SetPlayerUnit(0);
     GAME_ReadColorFlag();
     if (!gpClientView)
-        gpClientView = sub_00476B10();
+        gpClientView = VIEW_CreateView();
     sub_0047F1D0_LoadResolution();
     GAME_LoadLoadingScreen();
     sub_004565E0_Redraw(1);
@@ -689,7 +689,7 @@ void __cdecl GAME_InitGameState()
     gbLeavingGame = GAME_GetConnectFailed() != 0;
     gdwUnloadCompleteTick = GetTickCount();
     gdwGameStartTick = GetTickCount();
-    gpfnClientCallback = sub_0044C990;
+    gpfnClientCallback = GAME_DrawGameView;
     gnTickCounter = 0;
     gdwGlobal_007A0494 = 0;
     VIEW_SetViewPos(gpClientView, 0, 0);
@@ -790,9 +790,10 @@ void __cdecl GAME_UpdateGameState(); // 0x0044C790
 
 struct D2UnitStrc;
 
-extern "C" void __cdecl sub_004A1730_ClearAllocation()
+// build: symbol _CUNIT_ClearTextPanel 0x004A1730
+extern "C" void __cdecl CUNIT_ClearTextPanel()
 {
-    sub_0049F960_Cleanup();
+    TEXT_ResetTextBox();
     Allocation* allocation=gAllocation;
     gCleanupState=0;
     if(allocation) {
@@ -801,9 +802,10 @@ extern "C" void __cdecl sub_004A1730_ClearAllocation()
     }
 }
 
-extern "C" int __cdecl sub_00486B00_Coordinate()
+// build: symbol _INV_GetPanelY 0x00486B00
+extern "C" int __cdecl INV_GetPanelY()
 {
-    if(!sub_0044DCC0_Mode())
+    if(!GAME_IsExpansion())
         return gCoordinateOffset+gCoordinateBase-65;
     return gCoordinateOffset+gCoordinateBase-64;
 }

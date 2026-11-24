@@ -886,7 +886,8 @@ void __stdcall MISSILE_SetFlags(D2UnitStrc* pMissile, unsigned int dwFlags)
     }
 }
 
-extern "C" int __fastcall sub_00479180_FindRosterValue(unsigned int key)
+// build: symbol @ROSTER_GetPetType@* 0x00479180
+extern "C" int __fastcall ROSTER_GetPetType(unsigned int key)
 {
     B24Roster* node = gB24Roster;
     while (node)

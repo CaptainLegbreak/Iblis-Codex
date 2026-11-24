@@ -1955,3 +1955,5 @@ int __fastcall OBJRGN_GetTrapMonsterId(D2ObjOperateFnStrc* pOp)
 }
 
 
+
+#include "gen/data/Source/D2Game/OBJECTS/objrgn.inc"

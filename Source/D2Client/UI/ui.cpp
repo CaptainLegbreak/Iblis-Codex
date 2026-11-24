@@ -27,7 +27,7 @@ struct D2UiControlBStrc;
 
 struct D2UiControlCStrc;
 
-struct PairStrc_0045BA70;
+struct UI_ClearPair;
 
 struct D2RectStrc;
 
@@ -77,7 +77,7 @@ extern int gnAutomapOriginX; // 0x007A520C
 
 extern int gnAutomapOriginY; // 0x007A5208
 
-struct PairStrc_0045BA70
+struct UI_ClearPair
 {
     int nFirst;
     int nSecond;
@@ -152,7 +152,7 @@ void __cdecl TEXT_ResetNpcPanel(); // 0x00491940
 
 void __cdecl sub_004B8920(); // 0x004B8920
 
-void __cdecl sub_0048A680(); // 0x0048A680
+void __cdecl INV_ClearPanelPage(); // 0x0048A680
 
 void __cdecl INV_LoadStashPanelCels(); // 0x00489E50
 
@@ -260,9 +260,9 @@ extern int gnViewEffectMagnitude; // 0x007B9534
 
 extern D2RosterPetStrc* gpRosterPets; // 0x007BB5BC
 
-void __cdecl sub_00489880_OpenPanel(); // 0x00489880
+void __cdecl INV_ReturnToStashState(); // 0x00489880
 
-void __cdecl sub_004A7A80_OpenPanel0(); // 0x004A7A80
+void __cdecl INV_ClearGoldDialogFlag(); // 0x004A7A80
 
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
@@ -410,7 +410,7 @@ int __cdecl CHAT_IsNumberDisplayEnabled(); // 0x0047A980
 
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
-int __fastcall sub_00479B80_GetRecordValue(D2StoredUnitRecordStrc* pRecord); // 0x00479B80
+int __fastcall ROSTER_GetKillCount(D2StoredUnitRecordStrc* pRecord); // 0x00479B80
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
@@ -530,9 +530,9 @@ void __cdecl sub_0047B4E0(); // 0x0047B4E0
 
 void __cdecl INV_ResetHover(); // 0x00487990
 
-void __cdecl sub_00489EE0(); // 0x00489EE0
+void __cdecl INV_CloseStashPanel(); // 0x00489EE0
 
-void __cdecl sub_0048A500(); // 0x0048A500
+void __cdecl INV_ShutdownCubePanel(); // 0x0048A500
 
 void __cdecl sub_00494FC0(); // 0x00494FC0
 
@@ -797,11 +797,11 @@ void __cdecl sub_0047F130_SaveMiniPanel(); // 0x0047F130
 
 void __cdecl CUNIT_InitColorTable(); // 0x00483960
 
-void __cdecl sub_00486980(); // 0x00486980
+void __cdecl INV_FreeInvPanelCels(); // 0x00486980
 
-void __cdecl sub_004892F0(); // 0x004892F0
+void __cdecl INV_FreeNpcCels(); // 0x004892F0
 
-void __cdecl sub_0048A600(); // 0x0048A600
+void __cdecl INV_FreeHoradricCel(); // 0x0048A600
 
 void __cdecl HIREABLES_FreeHirelingIcons(); // 0x00492EC0
 
@@ -968,7 +968,7 @@ void __cdecl TEXT_SetGoldDialogFlag();                                          
 
 void __fastcall sub_004898A0(int nMode);                                                                    // 0x004898A0
 
-void* __fastcall sub_004B7CD0_CreatePanel(int nX, int nY, int (__cdecl* pfnCallback)(), int nArg4, int nArg5, int nArg6); // 0x004B7CD0
+void* __fastcall DIALOG_CreateDialogFromFile(int nX, int nY, int (__cdecl* pfnCallback)(), int nArg4, int nArg5, int nArg6); // 0x004B7CD0
 
 void __fastcall sub_004B8370(void* pPanel, int nValue);                                                     // 0x004B8370
 
@@ -976,7 +976,7 @@ D2SplittedTextStrc* __fastcall sub_00502970_SplitText(Unicode* pText, int* pLine
 
 void __fastcall sub_004B85F0_AddTextLine(void* pPanel, Unicode* pText, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x004B85F0
 
-void __fastcall sub_004B7C00_AddControl(void* pPanel, void* pControl, int nArg3, int nArg4);                // 0x004B7C00
+void __fastcall DIALOG_AddWidget(void* pPanel, void* pControl, int nArg3, int nArg4);                // 0x004B7C00
 
 extern "C" void __cdecl sub_004B90B0_SendState(); // 0x004B90B0
 
@@ -1773,7 +1773,7 @@ void __cdecl UI_DrawStoredUnitNumber()
         return;
     }
 
-    const int nValue = sub_00479B80_GetRecordValue(pRecord);
+    const int nValue = ROSTER_GetKillCount(pRecord);
     char szText[12];
     Unicode wszText[12];
     wsprintfA(szText, gszFormatD, nValue);
@@ -1791,7 +1791,7 @@ void __cdecl UI_LoadPlayerUI()
     sub_004B8720();
     INV_ResetHover();
     sub_00498E80_ClearPair();
-    sub_0048A600();
+    INV_FreeHoradricCel();
     sub_004A3050();
     TEXT_LoadPopupHireling();
     sub_00457640(1);
@@ -1906,12 +1906,12 @@ void __cdecl UI_CloseGoldDialog()
     {
         if (IsGoldPanelMode(gnGoldPanelMode_007A279C))
         {
-            sub_00489880_OpenPanel();
+            INV_ReturnToStashState();
         }
     }
     else
     {
-        sub_004A7A80_OpenPanel0();
+        INV_ClearGoldDialogFlag();
     }
 }
 
@@ -2085,7 +2085,7 @@ void __fastcall UI_OpenGoldPanel(int nMode)
     }
 
     gnGoldPanelMode_007A279C = nMode;
-    gpGoldPanel = sub_004B7CD0_CreatePanel(0xD7, 0x8C, UI_GoldPanelCloseCallback, 0, 0, 1);
+    gpGoldPanel = DIALOG_CreateDialogFromFile(0xD7, 0x8C, UI_GoldPanelCloseCallback, 0, 0, 1);
     sub_004B8370(gpGoldPanel, 1);
     D2Win_10127_SetFont(1);
 
@@ -2112,18 +2112,18 @@ void __fastcall UI_OpenGoldPanel(int nMode)
     }
 
     gpGoldControlA = new D2UiControlAStrc(0xDF, 0xDB, 0, UI_GoldSpinnerChanged);
-    sub_004B7C00_AddControl(gpGoldPanel, gpGoldControlA, 0, 0);
+    DIALOG_AddWidget(gpGoldPanel, gpGoldControlA, 0, 0);
     gpGoldControlB = new D2UiControlBStrc(0x102, 0xE4, 0x64, 1, nGold, 0xA, UI_GoldSpinnerDefaultCallback, 1);
-    sub_004B7C00_AddControl(gpGoldPanel, gpGoldControlB, 0, 0);
+    DIALOG_AddWidget(gpGoldPanel, gpGoldControlB, 0, 0);
     if (gpGoldControlB)
     {
         gpGoldControlB->SetActive(1);
     }
     gpGoldControlC = new D2UiControlCStrc(0xFA, 0x11F, 0, UI_ConfirmGoldDialog);
-    sub_004B7C00_AddControl(gpGoldPanel, gpGoldControlC, 0, 0);
+    DIALOG_AddWidget(gpGoldPanel, gpGoldControlC, 0, 0);
     gpGoldControlC->SetActive(1);
     gpGoldControlD = new D2UiControlCStrc(0x163, 0x11F, 1, UI_CancelGoldDialog);
-    sub_004B7C00_AddControl(gpGoldPanel, gpGoldControlD, 0, 0);
+    DIALOG_AddWidget(gpGoldPanel, gpGoldControlD, 0, 0);
 
     if (nMode == 2)
     {
@@ -2355,7 +2355,7 @@ void __cdecl sub_0047DD70_LoadOptionMenus(); // 0x0047DD70
 
 void __cdecl sub_0047F0C0_LoadMiniPanel(); // 0x0047F0C0
 
-void __cdecl sub_004868B0(); // 0x004868B0
+void __cdecl INV_LoadInvPanelCels(); // 0x004868B0
 
 void __cdecl INV_LoadShopPanelCels(); // 0x00489220
 
@@ -2705,7 +2705,7 @@ void __fastcall UI_SetPanelHandlers(int nPanel)
     case 0x17:
         sub_0046AA20(0, 0x1);
         sub_004B8920();
-        sub_0048A680();
+        INV_ClearPanelPage();
         UI_SetPanelHotkeys(&gtMpTradeHotkeys);
         COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaMpTradeHandlers, 0xD);
         return;
@@ -2855,14 +2855,14 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
     case 0x19:
         UI_CloseGoldDialog();
         PLAYER_SetPanelSlide(0);
-        sub_00489EE0();
+        INV_CloseStashPanel();
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaStashHandlers, 0x8);
         UI_StartUIVarDelay();
         sub_0046AA20(0x1, 0x1);
         return;
     case 0x1A:
         PLAYER_SetPanelSlide(0);
-        sub_0048A500();
+        INV_ShutdownCubePanel();
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaCubeHandlers, 0x7);
         UI_StartUIVarDelay();
         sub_0046AA20(0x1, 0x1);
@@ -3246,7 +3246,7 @@ void __cdecl sub_00456970_InitUI()
     gpGoldControlD = 0;
     gpGoldControlC = 0;
     gbGoldPanelFlag = 0;
-    sub_004868B0();
+    INV_LoadInvPanelCels();
     for (int i = 0; i < 0x26; i++)
         gaUIVarStates[i] = 0;
 
@@ -3410,10 +3410,10 @@ void __cdecl UI_ShutdownUI()
     sub_0049C700_CloseWaypointPanel();
     sub_004B91F0();
     UI_CloseGoldDialog();
-    sub_00486980();
+    INV_FreeInvPanelCels();
     USEITEM_FreeUseItemPanel();
     TEXT_FreeQuestPanel();
-    sub_004892F0();
+    INV_FreeNpcCels();
     DIALOG_FreeDialogs();
     sub_004BE060();
     if (gpPentspinCel)
@@ -3640,7 +3640,7 @@ int __cdecl UI_GetAutomapMode()
 
 
 // 0x0045BA70
-void __fastcall UI_ClearPair(PairStrc_0045BA70* pPair)
+void __fastcall UI_ClearPair(UI_ClearPair* pPair)
 {
     pPair->nFirst = 0;
     pPair->nSecond = 0;

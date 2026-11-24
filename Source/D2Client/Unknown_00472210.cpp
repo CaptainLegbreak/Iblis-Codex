@@ -212,11 +212,11 @@ void __fastcall sub_00472C80_StepSplashes(int nUnused)
             pSplash->nY -= gnViewDeltaY;
         }
 
-        pSplash->f_14 -= 1;
-        if (pSplash->f_14 <= 0)
+        pSplash->nFrameDelay -= 1;
+        if (pSplash->nFrameDelay <= 0)
         {
             pSplash->nFrame += 1;
-            pSplash->f_14 = 2;
+            pSplash->nFrameDelay = 2;
             if (pSplash->nFrame >= gaSplashFrames[pSplash->nType])
                 sub_006BCCD0_FreeDataArraySlot(gpWeatherSplashes, i << 16);
         }
@@ -239,11 +239,11 @@ void __fastcall sub_00472D10_StepBubbles(int nUnused)
             pSplash->nY -= gnViewDeltaY;
         }
 
-        pSplash->f_14 -= 1;
-        if (pSplash->f_14 <= 0)
+        pSplash->nFrameDelay -= 1;
+        if (pSplash->nFrameDelay <= 0)
         {
             pSplash->nFrame += 1;
-            pSplash->f_14 = 2;
+            pSplash->nFrameDelay = 2;
             if (pSplash->nFrame >= gaBubbleFrames[pSplash->nType])
                 sub_006BCCD0_FreeDataArraySlot(gpWeatherBubbles, i << 16);
         }

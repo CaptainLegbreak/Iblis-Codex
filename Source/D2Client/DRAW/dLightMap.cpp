@@ -278,6 +278,11 @@ static void __stdcall DLIGHTMAP_UpdateLight(int nLevel, D2R01LightStrc* pLight);
 
 void __cdecl DLIGHTMAP_RunLightPass(); // 0x00475800
 
+enum D2C_DLightMapConstants
+{
+    GRID_SIZE = 48,
+};
+
 // 0x004740D0
 static __declspec(noinline) unsigned int __stdcall DLIGHTMAP_ApproxDistance(int nB, int nA)
 {
@@ -510,6 +515,78 @@ static void __stdcall DLIGHTMAP_FillLightGrid(int nX0, int nY0, int nX1, unsigne
             ++pCell;
         }
     }
+}
+
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
+#define gnGlobal_007A7430 (gtTimedBox.nValue)
+
+#define gnGlobal_007A7434 (gtTimedBox.nColor[0])
+
+#define gnGlobal_007A7435 (gtTimedBox.nColor[1])
+
+#define gnGlobal_007A7436 (gtTimedBox.nColor[2])
+
+struct D2ClientTimedBoxStrc;
+
+
+
+int __stdcall ROSTERPETS_GetPulseColor(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0046BD50
+
+void __stdcall sub_0061C0B0(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
+
+int __stdcall sub_0061C0E0(void* pAct); // 0x0061C0E0
+
+extern int gbChaosLightEvent; // 0x007A7460
+
+extern D2ClientTimedBoxStrc gtTimedBox; // 0x007A742C
+
+extern D2DrlgActStrc* gpDrlgAct_007A0634; // 0x007A0634
+
+class D2SquelchListStrc
+{
+public:
+    virtual void Squelch(const char* szName);
+    virtual void Unsquelch(const char* szName);
+    virtual int IsSquelched(const char* szName);
+    virtual void VirtSlot3();
+    virtual void VirtSlot4();
+    virtual int IsFiltered(const char* szText);
+};
+
+int __fastcall SCMD_GetLevelLight(D2ActiveRoomStrc* pRoom, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0046BDD0
+
+// 0x00474550
+void __fastcall SCMD_GetRoomLight(D2ActiveRoomStrc* pRoom, int* pIntensity, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue, int bLevelLight)
+{
+    unsigned char nRed = 0;
+    unsigned char nGreen = 0;
+    unsigned char nBlue = 0;
+    int nIntensity;
+
+    if (bLevelLight)
+    {
+        nIntensity = SCMD_GetLevelLight(pRoom, &nRed, &nGreen, &nBlue);
+        if (nRed || nGreen || nBlue)
+        {
+            goto out;
+        }
+    }
+
+    unsigned char nRoomIntensity;
+    sub_00619D70(pRoom, &nRoomIntensity, &nRed, &nGreen, &nBlue);
+    nIntensity = nRoomIntensity;
+    if (!nRed && !nGreen && !nBlue)
+    {
+        sub_0061C0B0(gpDrlgAct_007A0634, &nRed, &nGreen, &nBlue);
+        nIntensity = sub_0061C0E0(gpDrlgAct_007A0634);
+    }
+
+out:
+    *pIntensity = nIntensity;
+    *pRed = nRed;
+    *pGreen = nGreen;
+    *pBlue = nBlue;
 }
 
 // 0x00474610
@@ -1222,13 +1299,6 @@ static void __stdcall DLIGHTMAP_UpdateLight(int nLevel, D2R01LightStrc* pLight)
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
-struct D2ChatMessageStrc
-{
-    char* szText;
-    int nColor;
-    int bClear;
-    D2ChatMessageStrc* pNext;
-};
 
 // 0x004756D0
 void __cdecl CHARSEL_ScanGridCollision()
@@ -1249,6 +1319,42 @@ void __cdecl CHARSEL_ScanGridCollision()
             if (COLLISION_CheckMask(pRoom, gnCellOriginX + nX, gnCellOriginY + nY, 0x22))
                 gtGridCells_007B0E68[nY * 0x30 + nX].nFlag = 1;
         }
+    }
+}
+
+// 0x00475AA0
+void __fastcall SCMD_ReadGridCell(int nX, int nY, unsigned char* pValue0, unsigned char* pValue1, unsigned char* pValue2, unsigned char* pValue3)
+{
+// build: symbol ?gnCellOriginX@* 0x007B0A54
+    int nCellX = (nX >> 3) - gnCellOriginX;
+// build: symbol ?gnCellOriginY@* 0x007B0A58
+    int nCellY = (nY >> 3) - gnCellOriginY;
+
+    if (nCellX < 0)
+    {
+        nCellX = 0;
+    }
+    else if (nCellX > GRID_SIZE - 1)
+    {
+        nCellX = GRID_SIZE - 1;
+    }
+
+    if (nCellY < 0)
+    {
+        nCellY = 0;
+    }
+    else if (nCellY > GRID_SIZE - 1)
+    {
+        nCellY = GRID_SIZE - 1;
+    }
+
+    D2GridCellStrc* pCell = &gtGridCells_007B0E68[nCellY * GRID_SIZE + nCellX];
+    *pValue0 = pCell->nValue0;
+    if (gnGlobal_00712B8C)
+    {
+        *pValue1 = pCell->nValue1;
+        *pValue2 = pCell->f_6;
+        *pValue3 = pCell->nValue3;
     }
 }
 

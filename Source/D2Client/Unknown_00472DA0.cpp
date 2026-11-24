@@ -116,7 +116,7 @@ void __fastcall sub_00472DA0_CreateSplash(int nX, int nY, int nFixX, int nFixY)
     pSplash->nType = (nLow & 1) + 2;
     D2_ASSERT(pSplash->nType >= 0 && pSplash->nType < 4, 0x2EA);
     pSplash->nFrame = 0;
-    pSplash->f_14 = 2;
+    pSplash->nFrameDelay = 2;
 }
 
 D2WeatherStrc* gpWeatherBubbles; // 0x007A8A00
@@ -153,7 +153,7 @@ void __fastcall sub_00472EC0_CreateBubble(int nX, int nY, int nFixX, int nFixY)
 
     pBubble->nType = 2;
     pBubble->nFrame = 0;
-    pBubble->f_14 = 2;
+    pBubble->nFrameDelay = 2;
 }
 
 // 0x00473470

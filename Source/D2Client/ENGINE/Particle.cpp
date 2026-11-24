@@ -184,7 +184,8 @@ extern "C" void __cdecl sub_0049C6A0_InitWaypoint()
     gB28WaypointFlag = 0;
 }
 
-extern "C" void __fastcall sub_004B2370_SubmitItem(U32 value)
+// build: symbol @NPCMENU_SendNpcAction@* 0x004B2370
+extern "C" void __fastcall NPCMENU_SendNpcAction(U32 value)
 {
     gB28SubmitFlag = 0;
     sub_004786D0_SendPacket(0x38, 0, gB28SubmitItem, value);

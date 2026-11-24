@@ -423,7 +423,7 @@ void __fastcall NPCMENU_EndNpcInteraction(int nValue); // 0x004B3C20
 
 void __cdecl NPCMENU_ShowTradeDialog(); // 0x004B2F50
 
-extern "C" D2UnitStrc* __fastcall sub_00463990_FindClientUnit(int nUnitId, int nUnitType); // 0x00463990
+extern "C" D2UnitStrc* __fastcall CUNIT_FindClientUnit(int nUnitId, int nUnitType); // 0x00463990
 
 void __fastcall NPCMENU_RemoveInventoryClientUnits(D2UnitStrc* pUnit); // 0x004B3790
 
@@ -638,15 +638,15 @@ struct D2StoredMsgPacketStrc;
 
 struct D2StoredMsgStrc;
 
-void __cdecl sub_00487C20(); // 0x00487C20
+void __cdecl INV_ResetNpcButtonsFromPending(); // 0x00487C20
 
-void __cdecl sub_00487C60(); // 0x00487C60
+void __cdecl INV_AdvancePendingNpcState(); // 0x00487C60
 
 int __cdecl VIEW_SetNpcMenuMode(); // 0x00487CA0
 
 int __cdecl sub_00489870(); // 0x00489870
 
-void __cdecl sub_0048A630(); // 0x0048A630
+void __cdecl INV_EnterNpcMenuState(); // 0x0048A630
 
 void __fastcall MSG_SendFourDwords(char nCommand, int nUnitId, int nArg1, int nArg2, int nArg3); // 0x00478700
 
@@ -2134,7 +2134,7 @@ void __stdcall NPCMENU_SendTradeRequest(int bAlternate, int nFlags)
 // build: symbol ?gbTradeClickPending@* 0x007C0DE0
     if (!gbTradeClickPending)
     {
-        sub_00487C20();
+        INV_ResetNpcButtonsFromPending();
         return;
     }
 
@@ -2155,7 +2155,7 @@ void __stdcall NPCMENU_SendTradeRequest(int bAlternate, int nFlags)
     default:
 // build: symbol ?gnNpcMenuState@* 0x007C0C6B
         gnNpcMenuState = 3;
-        sub_00487C20();
+        INV_ResetNpcButtonsFromPending();
         return;
     }
 
@@ -2167,7 +2167,7 @@ void __stdcall NPCMENU_SendTradeRequest(int bAlternate, int nFlags)
     {
         if (GetTickCount() - gdwTradeThrottleTick < 2000)
         {
-            sub_00487C20();
+            INV_ResetNpcButtonsFromPending();
             return;
         }
         gdwTradeThrottleTick = GetTickCount();
@@ -2188,7 +2188,7 @@ void __stdcall NPCMENU_SendTradeRequest(int bAlternate, int nFlags)
         else
         {
             gnNpcMenuState = 3;
-            sub_0048A630();
+            INV_EnterNpcMenuState();
             gdwGlobal_007C0DE9 = GetTickCount();
 // build: symbol ?gnTradeRequestFailCount@* 0x007C0DED
             ++gnTradeRequestFailCount;
@@ -2203,7 +2203,7 @@ void __stdcall NPCMENU_SendTradeRequest(int bAlternate, int nFlags)
     }
     else
     {
-        sub_00487C60();
+        INV_AdvancePendingNpcState();
     }
 
     gnNpcMenuState = 5;
@@ -2821,7 +2821,7 @@ void __cdecl NPCMENU_CloseTradeDialog()
     NPCMENU_ShowTradeDialog();
 }
 
-extern "C" int __fastcall sub_004AE130_GetPayloadValue(UnitView* unit)
+extern "C" int __fastcall MONSTER_GetOwnerGUID(UnitView* unit)
 {
     PayloadView* data = (unit && unit->type == 1) ? unit->payload : 0;
     if (!data)
@@ -2916,7 +2916,7 @@ void __fastcall NPCMENU_RemoveInventoryClientUnits(D2UnitStrc* pUnit)
 // 0x004B3830
 extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId)
 {
-    D2UnitStrc* pUnit = sub_00463990_FindClientUnit(nUnitId, 1);
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(nUnitId, 1);
     if (pUnit)
     {
         NPCMENU_RemoveInventoryClientUnits(pUnit);

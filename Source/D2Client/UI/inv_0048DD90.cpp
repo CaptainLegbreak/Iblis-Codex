@@ -325,7 +325,7 @@ int __stdcall INV_GetPanelY();                                                  
 
 void __stdcall INV_SelectItemPageTab(unsigned char nTab);                                          // 0x00487A10
 
-void __fastcall sub_00488100(int nArg);                                                                     // 0x00488100
+void __fastcall INV_DrawGold(int nArg);                                                                     // 0x00488100
 
 void __cdecl INV_DrawNpcShopPanel();                                                                                // 0x00488400
 
@@ -1607,7 +1607,7 @@ void __cdecl INV_DrawInventoryPanel()
             gnGlobal_007BCC0C = 0;
         }
         INV_DrawNpcShopPanel();
-        sub_00488100(2);
+        INV_DrawGold(2);
     }
 
     D2CelContextStrc tContext;
@@ -1736,7 +1736,7 @@ timer_done:
         const int nButtonX = !GAME_IsExpansion() ? gnPanelOffsetX + 0x113 : gnPanelOffsetX + 0x110;
         TEXTURE_CelDraw(&tContext, nButtonX, INV_GetPanelY(), -1, 5, 0);
 
-        sub_00488100(0);
+        INV_DrawGold(0);
         const int nCursorX = sub_00468730();
         const int nCursorY = sub_00468740();
         const int nLeft = !GAME_IsExpansion() ? gnPanelOffsetX + 0x113 : gnPanelOffsetX + 0x110;
@@ -2011,7 +2011,7 @@ timer_done:
     {
         INV_DrawButtonHoverText();
     }
-    sub_00488100(1);
+    INV_DrawGold(1);
 
     tContext.pCellFile = GAME_GetBuySellButtonCells();
     tContext.nFrame = (gbPanelButtonDown != 0) + 10;

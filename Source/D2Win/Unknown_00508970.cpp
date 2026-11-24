@@ -29,9 +29,9 @@ extern void (__stdcall* gpfnGrGlideInit)(); // 0x0087EB04
 extern void (__stdcall* gpfnGrGlideShutdown)(); // 0x0087EAB0
 
 int __cdecl sub_00508970_GlideLoadLibrary(); // 0x00508970
-void __fastcall GLIDE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush); // 0x0050ECB0
-void __fastcall GLIDE_TileCacheDestroy(D2GlideTileCacheStrc* pCache, int bFlush); // 0x0050F210
-void __fastcall GLIDE_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush); // 0x0050F7C0
+void __fastcall GLTEXTURECACHE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush); // 0x0050ECB0
+void __fastcall GLSUBTILECACHE_TileCacheDestroy(D2GlideTileCacheStrc* pCache, int bFlush); // 0x0050F210
+void __fastcall GLFLOORCACHE_FloorCacheDestroy(D2GlideFloorCacheStrc* pCache, int bFlush); // 0x0050F7C0
 extern D2GlideTileCacheStrc gtGlideTileCache; // 0x0087EB48
 extern D2GlideFloorCacheStrc gtGlideFloorCache; // 0x0087EB68
 extern D2GlideTexCacheStrc gaGlideTexCaches[4]; // 0x0087F048
