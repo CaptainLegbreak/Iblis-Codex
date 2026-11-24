@@ -5,12 +5,8 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 ## Ready
 
 - lane2/missile-data d9258055 562->562 Four commits, each a small header included only by the units that had identical private copies: D2MissileData.h (D2UnitStrc::pMissileData's 0x34-byte record; D2Common Skills, Missile, Missile_0064B860), D2Win32OsVersion.h (OSVERSIONINFOA; Fog system.cpp, Unknown_00401070), D2Win32StartupInfo.h (STARTUPINFOA; D2Hell Unknown_00516D8B, D2Multi ChatDlg), D2ExperienceTxt.h (experience.txt's row and table; Ignorelist, DataTbls). D2SavedItemStrc stays private: Clients and PlrSave differ; VERIFIED f58b63861d94a982756454b207a8a4ed1f948ce4
-  - Verified on 25eea120 (#352), pushed on 1a435442. All 9 changed units build equal.
+  - Verified on 25eea120 (#352), rebased onto 1a435442 (#353) without conflicts. Precheck of all 9 changed units is equal there.
   - Outside lane 2: Skills, Missile x2, Ignorelist, DataTbls (lane 8), system.cpp, Unknown_00401070 (lane 3), Unknown_00516D8B, ChatDlg (lane 6).
-
-- lane2/storm-bytearray 4d4eaf1d 562->562 Two commits, each a small header for units whose copies became identical once the Storm array members got Storm's names (#348): D2StormArrayC.h, the big-number code's growable byte array (SBig, Unknown_004225C0/00422D00/00423600/00424180), and D2StormListArray.h, a TSHashTable's m_slotlistarray (CelCmp, Unknown_0044F9D0/0044FD80/00450950/00450D90). Copies that differ keep their own; VERIFIED 3a6dd2fce0935340e1bb96ca43155c609c16b841
-  - Verified on 7c1cb42a (#351), pushed on 7c1cb42a. All 10 changed units build equal.
-  - Outside lane 2: five Storm units (lane 3), CelCmp (lane 6), four D2Client units (lanes 1 and 4).
 
 ## Working on
 
