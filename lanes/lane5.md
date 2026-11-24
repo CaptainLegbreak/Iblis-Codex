@@ -14,6 +14,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- **Split (lane 5): SkillItem.cpp's tail 0x5C0D00-0x5C2FF0 into its own placeholder, Unknown_005C0D00.cpp**, with the SkillItem-run placeholders (SkillItem_005C1560, Unknown_005C0F90, Unknown_005C2740, Items_005C2970, Items_005C2AD0, Unknown_005C2AF0) and Items.cpp's two strays there (0x5C0F90, 0x5C2540). Evidence: SUnitEvent.cpp's code (0x5C0A90-0x5C0C30) sits between SkillItem.cpp's skill code and this item-affix code; .rdata runs SkillItem path, SUnitEvent path, gnRareAffixCounts (read by the rare rolls), SkillNec path; and .data has two no-data copies between SkillItem.cpp's data and SkillNec.cpp's (0x741888 SUnitEvent.cpp, 0x7418C4 the affix object). This undoes the rare-rolls join of last night.
 
 ## Questions
 
