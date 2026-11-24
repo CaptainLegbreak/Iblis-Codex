@@ -33,7 +33,6 @@ void __fastcall QSERVER_AddReference(D2QueueServerStrc*,D2QClientStrc*); // 0x00
 D2QClientStrc* __fastcall QSERVER_FindNodeInAnyBucket(D2QueueServerStrc*,int); // 0x006BE5B0
 int __fastcall QSERVER_CheckRecordThreshold(D2QueueServerStrc*,unsigned int*); // 0x006BE9F0
 int __fastcall QSERVER_BanAddress(D2QueueServerStrc*,unsigned int*,const char*,int); // 0x006C0800
-int __fastcall sub_006BFFA0_CheckAddress(D2QueueServerStrc*,unsigned int*); // 0x006BFFA0
 void __fastcall QSERVER_HackListAddress(D2QueueServerStrc*,const char*,unsigned int,int); // 0x006BFEA0
 D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc*,int,unsigned int); // 0x006BFB70
 void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc*,D2QClientStrc*); // 0x006C08A0
@@ -215,7 +214,7 @@ void __cdecl QSERVER98_ServerThread(D2QueueServerStrc* server)
                         QSERVER_BanAddress(server,&buffers.address.address,gszSource,0x138);
                         FOG_SOCKET_CloseSocket(accepted);
                     }
-                    else if(!sub_006BFFA0_CheckAddress(server,&buffers.address.address)) {
+                    else if(!QSERVER_CheckReconnectFlood(server,(const int*)&buffers.address.address)) {
                         LOGMANAGER_LogWritePrefixedLine(gszHack,gszReconnect);
                         QSERVER_HackListAddress(server,gszSource,buffers.address.address,0x142);
                         FOG_SOCKET_CloseSocket(accepted);

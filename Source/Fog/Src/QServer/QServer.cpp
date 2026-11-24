@@ -40,7 +40,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-int __fastcall sub_006C30D0_Wait(D2QueueServerStrc* pServer, unsigned long dwMilliseconds); // 0x006C30D0
 
 extern "C" char* __stdcall inet_ntoa(D2InAddrStrc); // 0x006B013E
 
@@ -80,7 +79,6 @@ const char* __stdcall sub_006B013E_FormatIP(unsigned int nIP); // 0x006B013E
 
 void __fastcall QSERVER_HackListAddress(D2QueueServerStrc* table, const char* file, unsigned int address, int line); // 0x006BFEA0
 
-int __fastcall sub_006C2C70(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize); // 0x006C2C70
 
 int __fastcall QSERVER98_Send(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize); // 0x006C3410
 
@@ -106,9 +104,7 @@ int __fastcall FOG_SOCKET_CloseSocket(unsigned int s); // 0x0040D880
 
 extern "C" int __stdcall WSACleanup(void); // 0x006B0138
 
-void __stdcall sub_006BE3C0_Shutdown(D2QueueServerStrc* pServer); // 0x006BE3C0
 
-void __stdcall sub_006BFAD0_Notify(D2QueueServerStrc* pServer, int a2, int a3); // 0x006BFAD0
 
 void __fastcall sub_006C2110_StopServerThreads(D2QueueServerStrc* pServer); // 0x006C2110
 
@@ -623,7 +619,7 @@ static inline int sub_006BEBC0_WaitHandle(D2QueueServerStrc* pServer, unsigned l
 int __stdcall FOG_10177(D2QueueServerStrc* pServer, unsigned long dwMilliseconds)
 {
     if (pServer->bAltSend)
-        return sub_006C30D0_Wait(pServer, dwMilliseconds);
+        return sub_006C30D0_ServiceSlots(pServer, dwMilliseconds);
     return !sub_006BEBC0_WaitHandle(pServer, dwMilliseconds);
 }
 
@@ -1029,7 +1025,7 @@ void __stdcall FOG_SetHackListEnabled(D2QueueServerStrc* pServer, int bEnabled)
 static int __fastcall QSERVER_SendToClient(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize)
 {
     if (!pClient || pClient->bClosing) return 0;
-    if (pServer->bAltSend) return sub_006C2C70(pServer, pClient, pData, nSize);
+    if (pServer->bAltSend) return sub_006C2C70_SendLocal(pServer, pClient, pData, nSize);
     return QSERVER98_Send(pServer, pClient, pData, nSize);
 }
 
@@ -1281,7 +1277,7 @@ int __stdcall QSERVER_BroadcastToAllClients(D2QueueServerStrc* pServer, char* pD
             {
                 if (pServer->bAltSend)
                 {
-                    sub_006C2C70(pServer, pClient, pData, nSize);
+                    sub_006C2C70_SendLocal(pServer, pClient, pData, nSize);
                 }
                 else
                 {
@@ -1575,7 +1571,7 @@ static int QSERVER_SendToClientId(D2QueueServerStrc* pServer, unsigned int nKey,
     }
     if (pServer->bAltSend)
     {
-        return sub_006C2C70(pServer, pConnection, pData, nSize);
+        return sub_006C2C70_SendLocal(pServer, pConnection, pData, nSize);
     }
     return QSERVER98_Send(pServer, pConnection, pData, nSize);
 }
@@ -1613,13 +1609,13 @@ static void sub_006BF0F0_FreeBuckets(D2QueueServerStrc* pServer)
 }
 
 // 0x006C0170
-int __stdcall FOG_10152(D2QueueServerStrc* pServer, int a2, int a3)
+int __stdcall FOG_10152(D2QueueServerStrc* pServer, char* pData, int nSize)
 {
     if (!pServer)
         return 1;
 
-    if (a2)
-        sub_006BFAD0_Notify(pServer, a2, a3);
+    if (pData)
+        QSERVER_BroadcastToAllClients(pServer, pData, nSize);
 
     if (pServer->nState != 1 && pServer->nState != 2)
     {
@@ -1631,7 +1627,7 @@ int __stdcall FOG_10152(D2QueueServerStrc* pServer, int a2, int a3)
 
     sub_006BF320_FreeChain(pServer);
     sub_006BF0F0_FreeBuckets(pServer);
-    sub_006BE3C0_Shutdown(pServer);
+    QSERVER_FreeAllSlots(pServer);
 
     for (int i = 0; i < 4; ++i)
     {
@@ -1728,7 +1724,7 @@ int __stdcall FOG_10157(D2QueueServerStrc* pServer, unsigned int nKey, char* pDa
     }
     if (pServer->bAltSend)
     {
-        return sub_006C2C70(pServer, pConnection, pData, nSize);
+        return sub_006C2C70_SendLocal(pServer, pConnection, pData, nSize);
     }
     return QSERVER98_Send(pServer, pConnection, pData, nSize);
 }

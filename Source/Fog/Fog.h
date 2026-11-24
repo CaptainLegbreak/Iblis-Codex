@@ -70,7 +70,6 @@ extern unsigned long gadwLogWriteTick[20]; // 0x0075D2F0
 extern void* ghDbgHelpDoneEvent; // 0x0098A6BC
 extern void* ghDbgHelpWorkEvent; // 0x0098A6C0
 int __fastcall FOG_SOCKET_WSACleanup(); // 0x0040D8D0
-int __fastcall sub_006BFFA0_CheckReconnects(D2QueueServerStrc* pServer, unsigned int* pAddress); // 0x006BFFA0
 int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned int nBufferSize); // 0x00414E50
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
