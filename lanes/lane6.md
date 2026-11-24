@@ -2,10 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 13:12:52 PST 2026): join-bnmessqueue ready; the rest of the object-map joins are still in the verify queue.
+Status (Tue Nov 24 13:29:58 PST 2026): join-bnsend ready; the rest of the object-map joins are still in the verify queue.
 
 ## Ready
 
+- lane6/join-bnsend fc447297 397->396 placeholders. BnSend.cpp takes Unknown_0051DC70.cpp (the CD-key helpers 0x51DC70-0x51E340, between BnSend's runs) with gacCDKeyMap (.rdata 0x6DF238) in the plan. They move as they were, with the small wrappers that keep the uncalled static helpers emitted (they use the static-function register convention, so they are statics of this object). Not stacked; D2BNClient only. VERIFIED 31c69b68 (on #362, merges cleanly on #365; borrowed data 880 B, unchanged).
 - lane6/join-bnmessqueue 391310b7 397->396 placeholders. BnMessQueue.cpp takes Unknown_005201E0.cpp (queue init, lock delete and two more on its queue and gtMessageLock), with the queue's .bss definitions and the Initialize/DeleteCriticalSection declarations. Not stacked; D2BNClient only. VERIFIED da6a2341 (on #362, merges cleanly on #365; borrowed data 880 B, unchanged).
 - lane6/join-spritecache 1be6c04f 397->396 placeholders. SpriteCache.cpp takes Unknown_005FE210.cpp (0x5FEB80/0x5FEC50, the DC6 frame lookups, called only from it). SpriteCache already had both as unmarked copies in its own view (the cache entry as D2CmpSpriteEntryStrc, read from +0x20 as the DC6 header); those are the definitions now, and the placeholder's D2CmpDC6CacheEntryStrc view goes. Not stacked; D2CMP only. VERIFIED 03531848 (on #362, merges cleanly on #364; borrowed data 880 B, unchanged).
 - lane6/join-fastcmp d320bca5 397->395 placeholders. FastCmp.cpp takes Unknown_00604DB0.cpp and Unknown_00604DF0.cpp. 0x604DB0 is PaletteMaxComponent, the twin of PaletteMinComponent (names.csv: inferred); 0x604DF0 (palette to HSL) uses D2HslStrc and the two components and builds equal with FastCmp's default flags, so the placeholder's /GS- isn't needed; FastCmp's two unmarked HSL copies go. Not stacked; D2CMP only. VERIFIED 69c4eeda (on #362, merges cleanly on #363; borrowed data 880 B, unchanged).
