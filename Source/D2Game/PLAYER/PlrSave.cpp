@@ -26,6 +26,7 @@
 #include "D2SaveHeader.h"
 #include "D2LanguageNames.h"
 #include "D2GameCallbackArgs.h"
+#include "D2DrlgDelete.h"
 
 #pragma function(memset)
 
@@ -753,12 +754,6 @@ struct D2WaypointSaveSectionStrc
     D2WaypointSaveRecordStrc pRecords[3];
 };
 
-struct D2DrlgDeleteStrc
-{
-    int nUnitType;
-    int nUnitGUID;
-    D2DrlgDeleteStrc* pNext;
-};
 
 typedef void (__fastcall* STATLIST_CallbackFn)(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pOther, int nLayer_StatId, int nPreviousValue, int nNewValue);
 
