@@ -1055,6 +1055,41 @@ void __cdecl WARDENCLIENT_ActivatePendingModule()
     }
 }
 
+struct D2MsgRecordStrc
+{
+    int nTick;
+    unsigned int uMessage;
+    unsigned int wParam;
+    int lParam;
+};
+
+struct D2MsgRecordChunkStrc
+{
+    D2MsgRecordStrc tRecords[500];
+    int nCount;
+    int nIndex;
+    D2MsgRecordChunkStrc* pNext;
+};
+
+struct D2RareAffixTxt
+{
+    char unk0x00[0x0C];
+    unsigned short wStringId;
+    char unk0x0E[0x18];
+    char szName[0x20];
+};
+
+// 0x004802E0
+void __fastcall INV_ProcessWardenRequest(int nArg1, int nArg2)
+{
+    if (gpSlotHolder)
+    {
+        int nOut = 0;
+        gpSlotHolder->pObj->Slot2(nArg1, nArg2, &nOut);
+        WARDENCLIENT_ActivatePendingModule();
+    }
+}
+
 // 0x00480320
 void __fastcall WARDENCLIENT_TickModule(int nArg)
 {

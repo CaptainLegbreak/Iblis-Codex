@@ -1874,16 +1874,6 @@ int __stdcall INV_CallServiceWithTime(int nArg1, int nArg2, int nArg3)
     return gpService->pfnCall(nArg1, nArg2, nArg3, &tTime, -1, -1);
 }
 
-// 0x004802E0
-void __fastcall INV_ProcessWardenRequest(int nArg1, int nArg2)
-{
-    if (gpSlotHolder)
-    {
-        int nOut = 0;
-        gpSlotHolder->pObj->Slot2(nArg1, nArg2, &nOut);
-        WARDENCLIENT_ActivatePendingModule();
-    }
-}
 
 // 0x00480780
 int __fastcall INV_SetPathTargetUnit(D2UnitStrc* pUnit, int nUnitType, int nUnitId)
