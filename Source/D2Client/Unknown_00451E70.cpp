@@ -1,4 +1,6 @@
 #include "D2Client.h"
+#include "D2StormTypes.h"
+#include "D2Win32Message.h"
 #include "D2ClientTypes.h"
 #include "D2Txt.h"
 #include "D2LevelTxt.h"
@@ -100,6 +102,249 @@ typedef char check_pettype_size[(sizeof(D2PetTypeTxt) == 0xE0) ? 1 : -1];
 
 typedef char check_itemtypes_size[(sizeof(D2ItemTypesTxt) == 0xE4) ? 1 : -1];
 
+
+struct D2WinMsgStrc;
+
+extern "C" __declspec(dllimport) void __stdcall PostQuitMessage(int nExitCode); // 0x006CC4A4
+
+extern "C" __declspec(dllimport) int __stdcall DefWindowProcA(void* hWnd, unsigned int uMsg, int wParam, int lParam); // 0x006CC488
+
+extern "C" __declspec(dllimport) int __stdcall PeekMessageA(D2WinMsgStrc* pMsg, void* hWnd, unsigned int nMin, unsigned int nMax, unsigned int nRemove); // 0x006CC480
+
+extern "C" __declspec(dllimport) int __stdcall GetMessageA(D2WinMsgStrc* pMsg, void* hWnd, unsigned int nMin, unsigned int nMax); // 0x006CC484
+
+extern "C" __declspec(dllimport) int __stdcall TranslateAcceleratorA(void* hWnd, void* hAccTable, D2WinMsgStrc* pMsg); // 0x006CC4A8
+
+extern "C" __declspec(dllimport) int __stdcall TranslateMessage(const D2WinMsgStrc* pMsg); // 0x006CC47C
+
+extern "C" __declspec(dllimport) int __stdcall DispatchMessageA(const D2WinMsgStrc* pMsg); // 0x006CC478
+
+extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned int nMilliseconds); // 0x006CC258
+
+int __cdecl WINDOW_GetWindow(); // 0x004F59A0
+
+int __stdcall SMsgRegisterCommand(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420BF0
+
+int __stdcall SMsgRegisterKeyDown(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420C10
+
+int __stdcall SMsgRegisterKeyUp(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420C30
+
+int __stdcall SMsgRegisterMessage(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420C50
+
+int __stdcall SMsgUnregisterCommand(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420C70
+
+int __stdcall SMsgUnregisterKeyDown(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420C90
+
+int __stdcall SMsgUnregisterKeyUp(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420CB0
+
+int __stdcall SMsgUnregisterMessage(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420CD0
+
+extern void* ghAccelerators; // 0x007A0708
+
+struct D2UnitOverlayStrc;
+
+struct D2UnitOverlayStrc
+{
+    int nType;
+    int nId;
+    int nValue;
+    char unk0x0C[0x98];
+    D2UnitOverlayStrc* pNext;
+};
+
+struct D2GridCellStrc
+{
+    unsigned char unk0x00[4];
+    unsigned char nValue0;
+    unsigned char nValue1;
+    unsigned char f_6;
+    unsigned char nValue3;
+};
+
+struct D2ChatMessageStrc
+{
+    unsigned char nHeader;
+    unsigned char nType;
+    unsigned char f_2;
+    unsigned char nUnitType;
+    int nUnitId;
+    unsigned char nColor;
+    unsigned char nSubType;
+    char szName[0x10];
+    char szText[0x100];
+};
+
+enum { USE_RESULT = 0 };
+
+class D2SquelchListStrc
+{
+public:
+    virtual void Squelch(const char* szName);
+    virtual void Unsquelch(const char* szName);
+    virtual int IsSquelched(const char* szName);
+    virtual void VirtSlot3();
+    virtual void VirtSlot4();
+    virtual int IsFiltered(const char* szText);
+};
+
+int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam, int* pUseResult, int* pResult); // 0x00420B00
+
+int __cdecl UI_IsReplayActive(); // 0x00451990
+
+void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x004514B0
+
+// 0x00451A90
+void __stdcall SCMD_HandleQuitMessage(SMSGHANDLER_PARAMS* pMsg)
+{
+    PostQuitMessage(0);
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+}
+
+// 0x00451AB0
+void __stdcall SCMD_OnActivateApp(SMSGHANDLER_PARAMS* msg)
+{
+// build: symbol ?gbClientAppActive@* 0x0070F7E0
+    gbClientAppActive = msg->wParam != 0;
+    msg->bReturn = USE_RESULT;
+}
+
+// 0x00451AD0
+void __stdcall SCMD_HandleDefaultMessage(SMSGHANDLER_PARAMS* pMsg)
+{
+    pMsg->bReturn = 1;
+    pMsg->lResult = DefWindowProcA(pMsg->hWnd, pMsg->uMessage, pMsg->wParam, pMsg->lParam);
+}
+
+// 0x00451B00
+void __stdcall SCMD_HandleCloseMessage(SMSGHANDLER_PARAMS* pMsg)
+{
+    SendMessageA(pMsg->hWnd, 0x10, 0, 0);
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+}
+
+// 0x00451B30
+int __stdcall COMCALLBACK_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam)
+{
+    int bUseResult = 0;
+    int lResult = 0;
+    RECORD_RecordInputMessage(uMessage, wParam, lParam);
+    if (!UI_IsReplayActive() || uMessage == 0x10)
+    {
+        if (SMsgDispatchMessage(hWnd, uMessage, wParam, lParam, &bUseResult, &lResult) && bUseResult)
+            return lResult;
+    }
+    return DefWindowProcA(hWnd, uMessage, wParam, lParam);
+}
+
+// 0x00451BB0
+int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int))
+{
+    int nCount = 0;
+    int bContinue = 1;
+    int nResult;
+    D2WinMsgStrc msg;
+
+    while (bContinue)
+    {
+        if (PeekMessageA(&msg, 0, 0, 0, 0))
+        {
+            bContinue = GetMessageA(&msg, 0, 0, 0);
+            if (bContinue && ghAccelerators)
+            {
+                TranslateAcceleratorA((void*)WINDOW_GetWindow(), ghAccelerators, &msg);
+            }
+            TranslateMessage(&msg);
+            DispatchMessageA(&msg);
+        }
+        else
+        {
+            if (pfnIdle)
+            {
+                nResult = pfnIdle(nCount++);
+                if (nResult)
+                {
+                    break;
+                }
+            }
+
+// build: symbol ?gbClientAppActive@* 0x0070F7E0
+            if (!gbClientAppActive && gdwGlobal_007A0610 != 6 && gdwGlobal_007A0610 != 8)
+            {
+                Sleep(10);
+            }
+        }
+    }
+
+    return bContinue ? nResult : 1;
+}
+
+// 0x00451C70
+void __fastcall SCMD_RegisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler)
+{
+    D2_ASSERT(hWnd, 0x110);
+
+    switch (nType)
+    {
+    case 0:
+        D2_ASSERT(nId != 0x111, 0x114);
+        SMsgRegisterMessage(hWnd, nId, pfnHandler);
+        return;
+    case 1:
+        SMsgRegisterCommand(hWnd, nId, pfnHandler);
+        return;
+    case 2:
+        SMsgRegisterKeyUp(hWnd, nId, pfnHandler);
+        return;
+    case 3:
+        SMsgRegisterKeyDown(hWnd, nId, pfnHandler);
+        return;
+    }
+}
+
+// 0x00451D10
+void __fastcall SCMD_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler)
+{
+    D2_ASSERT(hWnd, 0x131);
+
+    switch (nType)
+    {
+    case 0:
+        D2_ASSERT(nId != 0x111, 0x135);
+        SMsgUnregisterMessage(hWnd, nId, pfnHandler);
+        return;
+    case 1:
+        SMsgUnregisterCommand(hWnd, nId, pfnHandler);
+        return;
+    case 2:
+        SMsgUnregisterKeyUp(hWnd, nId, pfnHandler);
+        return;
+    case 3:
+        SMsgUnregisterKeyDown(hWnd, nId, pfnHandler);
+        return;
+    }
+}
+
+// 0x00451DB0
+void __fastcall COMCALLBACK_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount)
+{
+    D2_ASSERT(hWnd, 0x153);
+    for (unsigned int i = 0; i < nCount; i++)
+    {
+        SCMD_RegisterMsgHandler(hWnd, pTable[i].nType, pTable[i].nId, (SMSGHANDLER)pTable[i].pfnHandler);
+    }
+}
+
+// 0x00451E10
+void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount)
+{
+    D2_ASSERT(hWnd, 0x166);
+    for (unsigned int i = 0; i < nCount; ++i)
+    {
+        SCMD_UnregisterMsgHandler(hWnd, pTable[i].nType, pTable[i].nId, (SMSGHANDLER)pTable[i].pfnHandler);
+    }
+}
 
 // 0x00451E70
 int __fastcall sub_00451E70_RegisterWindowHandlers(void* hWnd)

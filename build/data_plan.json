@@ -375,8 +375,8 @@
    "state": "included"
   },
   "Source/D2Multi/Src/ComCallback.cpp": {
-   "bytes": 476,
-   "definitions": 5,
+   "bytes": 416,
+   "definitions": 4,
    "externs": [
     "extern \"C\" char gData_0070CD94[]; // 0x0070CD94",
     "extern \"C\" char gpBnetCancelButtonBlankCelFileB[]; // 0x0077BD2C",
@@ -672,8 +672,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Game_0044D080.cpp": {
-   "bytes": 430,
-   "definitions": 16,
+   "bytes": 426,
+   "definitions": 15,
    "externs": [
     "extern \"C\" void __cdecl GAME_HandleLeftButtonDown(); // 0x0044BF40",
     "extern \"C\" void __cdecl GAME_HandleLeftButtonUp(); // 0x0044C0F0",
@@ -811,14 +811,9 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_00451E70.cpp": {
-   "bytes": 48,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl SCMD_HandleQuitMessage(); // 0x00451A90",
-    "extern \"C\" void __cdecl SCMD_HandleDefaultMessage(); // 0x00451AD0",
-    "extern \"C\" void __cdecl SCMD_HandleCloseMessage(); // 0x00451B00",
-    "extern \"C\" void __cdecl SCMD_OnActivateApp(); // 0x00451AB0"
-   ],
+   "bytes": 112,
+   "definitions": 3,
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_00451E70.inc",
    "lang": "cpp",
@@ -26789,144 +26784,6 @@
    "va": "0x0070F7A0"
   },
   {
-   "alias": false,
-   "cname": "gData_0070F7A4",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Multi/Src/ComCallback.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070F7A4_t gData_0070F7A4; // 0x0070F7A4",
-   "head": "extern \"C\" struct d2data_0070F7A4_t gData_0070F7A4 = ",
-   "name": "gData_0070F7A4",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070F7A4_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070F7A4",
-   "va": "0x0070F7A4"
-  },
-  {
    "alias": true,
    "cname": "gData_006D59F0",
    "declared": true,
@@ -30945,31 +30802,6 @@
    "tail": "; // 0x0070F2BC",
    "type": "int",
    "va": "0x0070F2BC"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044D080.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gbClientAppActive = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gbClientAppActive",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070F7E0",
-   "type": "int",
-   "va": "0x0070F7E0"
   },
   {
    "alias": true,
@@ -37279,6 +37111,169 @@
   },
   {
    "alias": false,
+   "cname": "gData_0070F7A4",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/Unknown_00451E70.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_0070F7A4_t gData_0070F7A4; // 0x0070F7A4",
+   "head": "extern \"C\" struct d2data_0070F7A4_t gData_0070F7A4 = ",
+   "name": "gData_0070F7A4",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0070F7A4_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x0070F7A4",
+   "va": "0x0070F7A4"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/Unknown_00451E70.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int gbClientAppActive = ",
+   "model": {
+    "k": "prim",
+    "kind": "s",
+    "name": "int",
+    "size": 4
+   },
+   "name": "gbClientAppActive",
+   "pointers": [],
+   "region": "data",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0070F7E0",
+   "type": "int",
+   "va": "0x0070F7E0"
+  },
+  {
+   "alias": false,
    "cname": null,
    "declared": true,
    "decorated": null,
@@ -37332,7 +37327,7 @@
     [
      8,
      "0x00451A90",
-     "names.json",
+     "owner",
      "SCMD_HandleQuitMessage",
      0,
      "func"
@@ -37340,7 +37335,7 @@
     [
      20,
      "0x00451AB0",
-     "names.json",
+     "owner",
      "SCMD_OnActivateApp",
      0,
      "func"
@@ -37348,7 +37343,7 @@
     [
      32,
      "0x00451AD0",
-     "names.json",
+     "owner",
      "SCMD_HandleDefaultMessage",
      0,
      "func"
@@ -37356,7 +37351,7 @@
     [
      44,
      "0x00451B00",
-     "names.json",
+     "owner",
      "SCMD_HandleCloseMessage",
      0,
      "func"
