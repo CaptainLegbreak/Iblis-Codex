@@ -21,6 +21,7 @@
 #include "D2GameTypes.h"
 #include "D2Txt.h"
 #include "D2GameRecords.h"
+#include "D2LanguageNames.h"
 
 struct D2MonStatsTxt;
 

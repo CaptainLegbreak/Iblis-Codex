@@ -11,6 +11,7 @@
 #include "D2GameStrc.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
+#include "D2LanguageNames.h"
 struct D2ActiveRoomStrc;
 struct D2RoomCoordListStrc;
 struct D2UnitStrc;
