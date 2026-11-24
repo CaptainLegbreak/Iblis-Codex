@@ -1,3 +1,4 @@
+#include "D2Unicode.h"
 #include "D2ObjectIds.h"
 #include "D2MissileIds.h"
 #include "D2LevelIds.h"
@@ -102,6 +103,325 @@ static inline D2MonStats2Txt* CLIENT_GetMonStats2TxtRecord(int nMonsterId)
         }
     }
     return 0;
+}
+
+struct D2UnitOverlayStrc;
+
+struct D2UnitOverlayStrc
+{
+    int nType;
+    int nId;
+    int nValue;
+    char unk0x0C[0x98];
+    D2UnitOverlayStrc* pNext;
+};
+
+struct D2TileRectStrc
+{
+    int unk0x00;
+    int nX;
+    int nY;
+    int nWidth;
+    int nHeight;
+};
+
+struct D2GridCellStrc
+{
+    unsigned char unk0x00[4];
+    unsigned char nValue0;
+    unsigned char nValue1;
+    unsigned char f_6;
+    unsigned char nValue3;
+};
+
+struct D2ChatMessageStrc
+{
+    unsigned char nHeader;
+    unsigned char nType;
+    unsigned char f_2;
+    unsigned char nUnitType;
+    int nUnitId;
+    unsigned char nColor;
+    unsigned char nSubType;
+    char szName[0x10];
+    char szText[0x100];
+};
+
+class D2SquelchListStrc
+{
+public:
+    virtual void Squelch(const char* szName);
+    virtual void Unsquelch(const char* szName);
+    virtual int IsSquelched(const char* szName);
+    virtual void VirtSlot3();
+    virtual void VirtSlot4();
+    virtual int IsFiltered(const char* szText);
+};
+
+struct D2TimedHintEntryStrc;
+
+
+struct D2CacheStatsStrc;
+
+struct D2TimedHintEntryStrc
+{
+    int unk0x00;
+    int nHintId;
+    int nKey;
+    char unk0x0C[0x24];
+    int nState;
+};
+
+
+struct D2CacheStatsStrc
+{
+    unsigned int nFloorSize;
+    int unk0x04;
+    int nFloorMisses;
+    unsigned int nSubtileSize;
+    int unk0x10;
+    int nSubtileMisses;
+    unsigned int nSpriteSize[3];
+    int unk0x24[3];
+    int nSpriteMisses[3];
+    int unk0x3C[3];
+    int nSpriteAccesses[3];
+    int unk0x54[3];
+    int unk0x60[3];
+};
+
+// 0x0046AE50
+void __fastcall VIEW_StartTimedBox(int nFadeIn, int nHold, int nFadeOut, int nLevelId, int bForce)
+{
+    if (gtTimedBox.bLocked && !bForce)
+    {
+        return;
+    }
+    memset(&gtTimedBox, 0, sizeof(gtTimedBox));
+    gtTimedBox.bActive = 1;
+    D2_ASSERT(nFadeIn, 0x67);
+    gtTimedBox.nFadeIn = nFadeIn;
+    gtTimedBox.nHold = nHold;
+    if (!nFadeOut)
+    {
+        nFadeOut = 0x19;
+    }
+    gtTimedBox.nFadeOut = nFadeOut;
+    gtTimedBox.nTotal = nFadeIn + nHold + nFadeOut;
+    gtTimedBox.nLevelId = nLevelId;
+}
+
+// 0x0046B4A0
+void __cdecl SCMD_TriggerNearbyMonsterEffect()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (!pPlayer)
+        return;
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    if (!pRoom)
+        return;
+    D2UnitStrc* pMonster = UNITFINDS_FindUnitInNeighboredRooms(pRoom, UNIT_MONSTER, 0x20E);
+    if (!pMonster)
+        return;
+
+    const int nX = CLIENTS_GetUnitX(pMonster);
+    const int nY = CLIENTS_GetUnitY(pMonster);
+    GFXUTIL_SubmitMissileRequest(pPlayer, 0x25E, nX, nY, 0, 1);
+    GFXUTIL_SubmitMissileRequest(pPlayer, 0x25B, nX, nY, 0, 1);
+    pMonster->dwFlagEx |= 0x40000;
+}
+
+struct Unicode;
+
+struct D2UIVarRecordStrc
+{
+    int anCloseKind[0x26];
+};
+
+struct T0044CB60
+{
+    Unicode* pText;
+    T0044CB60* pNext;
+};
+
+
+
+typedef void (__cdecl* LEVELEVENT_Fn)();
+
+extern LEVELEVENT_Fn gpfnLevelEvents[];                                                            // 0x007129D8
+
+unsigned int gdwLevelEventBits;                                                                    // 0x007A7458
+
+// 0x0046B630
+void __fastcall sub_0046B630_FireLevelEvent(int nIndex)
+{
+    D2_ASSERT(nIndex < 0x20, 0x1D9);
+    D2_ASSERT(nIndex < 0x14, 0x1DA);
+    gdwLevelEventBits |= 1 << nIndex;
+    if (gpfnLevelEvents[nIndex])
+    {
+        gpfnLevelEvents[nIndex]();
+    }
+}
+
+
+
+// 0x0046B680
+void __fastcall VIEW_SpawnBrDeathControl(D2UnitStrc* pUnit)
+{
+    D2MissileStrc tMissileParams;
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.nMissile = MISSILE_BRDEATHCONTROL;
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.pOrigin = pUnit;
+    tMissileParams.nSkillLevel = 1;
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
+    if (pMissile)
+        MISSILE_SetTargetX(pMissile, 0x32);
+
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.nMissile = MISSILE_BRDEATHSPIRITS1;
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.pOrigin = pUnit;
+    tMissileParams.nSkillLevel = 1;
+    MISSILE_CreateClientMissile(&tMissileParams);
+    tMissileParams.nMissile = MISSILE_BRDEATHSMOKES1;
+    MISSILE_CreateClientMissile(&tMissileParams);
+}
+
+
+
+// 0x0046B9A0
+void __fastcall VIEW_SpawnMephistoDeath(D2UnitStrc* pUnit)
+{
+    D2MissileStrc tMissileParams;
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.nMissile = MISSILE_MEPHISTODEATHCONTROL;
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.pOrigin = pUnit;
+    tMissileParams.nSkillLevel = 1;
+    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
+    if (pMissile)
+    {
+        MISSILE_SetTargetX(pMissile, 0x4B);
+        MISSILE_SetTargetY(pMissile, 0x4B);
+    }
+
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.nSkillLevel = 1;
+    tMissileParams.pOrigin = pUnit;
+    tMissileParams.nMissile = MISSILE_MEPHISTOHOLEDELAY;
+    MISSILE_CreateClientMissile(&tMissileParams);
+
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.nMissile = MISSILE_MEPHISTODONOTDRAW;
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.pOrigin = pUnit;
+    tMissileParams.nSkillLevel = 1;
+    MISSILE_CreateClientMissile(&tMissileParams);
+}
+
+
+
+// 0x0046BA50
+void __fastcall VIEW_SpawnAndarielDeath(D2UnitStrc* pUnit)
+{
+    D2MissileStrc tMissileParams;
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.nMissile = MISSILE_ANDYCONTROL0;
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.pOrigin = pUnit;
+    tMissileParams.nSkillLevel = 1;
+    MISSILE_CreateClientMissile(&tMissileParams);
+}
+
+
+
+// 0x0046BC10
+void __fastcall VIEW_SpawnIzualDeath(D2UnitStrc* pUnit)
+{
+    ITEM_ShowTimedHint((void*)0x1253, 0, 0xFA, 0, 0, 0, 0);
+    D2MissileStrc tMissileParams;
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.nMissile = MISSILE_IZUAL_CONTROL;
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.pOrigin = pUnit;
+    tMissileParams.nSkillLevel = 1;
+    MISSILE_CreateClientMissile(&tMissileParams);
+}
+
+// 0x0046BC70
+int __fastcall UI_SetTimerUnitId(D2UnitStrc* pUnit)
+{
+    const int nUnitId = !pUnit ? -1 : pUnit->dwUnitId;
+// build: symbol ?gnTimerUnitId@* 0x007129D4
+    gnTimerUnitId = nUnitId;
+    return nUnitId;
+}
+
+// 0x0046BFD0
+void __fastcall sub_0046BFD0_StartTimer(int nDelay)
+{
+    if (nDelay > 0 && gnTimerEnd == 0)
+    {
+        gnTimerEnd = sub_00410A80_GetTime() + nDelay;
+    }
+}
+
+void __fastcall sub_0046BF30_CheckThroneLevel(D2ActiveRoomStrc* pRoom); // 0x0046BF30
+
+// 0x0046BFF0
+void __fastcall sub_0046BFF0_UnitEventMissile271(D2UnitStrc* pUnit)
+{
+    D2UnitStrc* pMissile = UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(pUnit), 3, 0x271);
+    if (!pMissile)
+    {
+        return;
+    }
+
+    sub_004DA000(pUnit);
+    GFXUTIL_SetMotionVectorA(pUnit, 0, 0, 0x12C);
+    GFXUTIL_SetMotionVectorB(pUnit, 0, 0, -2, 1);
+    GFXUTIL_SetMotionVectorC(pUnit, 0, 0, 5, 0);
+    MISSILE_SetMotionFlagMask(pUnit, 0);
+    MISSILE_SetTargetY(pMissile, 1);
+    sub_0046BF30_CheckThroneLevel(CUNIT_GetPlayerRoom());
+}
+
+extern int gnScreenWidth; // 0x0071146C
+
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
+
+void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
+
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
+
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
+
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+
+// 0x0046C060
+void __cdecl CUNIT_DrawCountdown()
+{
+    unsigned short wszTextBuf[256];
+    Unicode* wszText = (Unicode*)wszTextBuf;
+    const int nNow = sub_00410A80_GetTime();
+    if (!gnTimerEnd || gnTimerEnd <= nNow)
+        return;
+// build: symbol ?gnTimerUnitId@* 0x007129D4
+    D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnTimerUnitId, 1);
+    if (pUnit && pUnit->dwAnimMode != 12 && gnTimerEnd - 0x46 > nNow)
+        return;
+    for (int i = 0; i < 256; ++i)
+        wszText[i].wChar = 0;
+    sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x13E9), gnTimerEnd - nNow);
+    const int nOldFont = D2Win_10127_SetFont(13);
+    const int nWidth = D2Win_10121_GetTextWidth(wszText);
+    D2Win_10117_DrawText(wszText, gnScreenWidth / 2 - nWidth / 2, 0x177, 9, 1);
+    D2Win_10127_SetFont(nOldFont);
 }
 
 // 0x0046C140
@@ -534,7 +854,6 @@ void __cdecl sub_0046B520_SetFlag7A7468()
     gbThroneEventPending = 1;
 }
 
-#include "gen/data/Source/D2Client/Unknown_0046ACE0.inc"
 struct D2UnitStrc;
 
 // 0x0046B1E0
@@ -659,3 +978,5 @@ void __fastcall sub_0046C460_PopulateRoom(D2ActiveRoomStrc* pRoom)
         }
     }
 }
+
+#include "gen/data/Source/D2Client/Unknown_0046ACE0.inc"
