@@ -26,7 +26,7 @@ int __cdecl sub_0042F6D0(); // 0x0042F6D0
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
+void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 
 void __cdecl CHARSEL_DisconnectBattleNet(); // 0x0043B9A0
 
@@ -52,7 +52,7 @@ extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
 
 int __cdecl GAME_GetStopMainLoop(); // 0x0042FA30
 
-void __cdecl COMCALLBACK_UpdateProgress(); // 0x0042F990
+void __cdecl MAINMENUS_UpdateProgress(); // 0x0042F990
 
 extern int gdwGlobal_0077AC04; // 0x0077AC04
 
@@ -98,7 +98,7 @@ extern "C" __declspec(dllimport) int __stdcall TerminateProcess(void* hProcess, 
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
-void __cdecl COMCALLBACK_ShowProgressScreen(); // 0x0042F890
+void __cdecl MAINMENUS_ShowProgressScreen(); // 0x0042F890
 
 void __cdecl sub_0042FA20(); // 0x0042FA20
 
@@ -163,7 +163,7 @@ int __stdcall CHARSEL_OnDownloadTick(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gpFuncTable_0077ABF0->pfnSlot4C() != 0x65 && !GAME_GetStopMainLoop())
     {
-        COMCALLBACK_UpdateProgress();
+        MAINMENUS_UpdateProgress();
         return 1;
     }
     D2Win_StopMessageLoop();
@@ -471,7 +471,7 @@ int __fastcall CHARSEL_HandleStatus(D2StatusStrc* pStatus)
         Unicode::strncpy(wszTitle, D2LANG_GetStringFromTblIndex(nTitle), 0x200);
 
     if (nMode == 0)
-        CHARSEL_ShowText(wszText, pfnDone);
+        MAINMENUS_ShowText(wszText, pfnDone);
     else if (nMode == 1)
         MAINMENUS_ShowTwoTexts(wszTitle, wszText, pfnDone);
     else
@@ -533,7 +533,7 @@ int __cdecl sub_0043BF60()
 
     if (gpFuncTable_0077ABF0->pfnSlot4C() != 0x66)
     {
-        COMCALLBACK_ShowProgressScreen();
+        MAINMENUS_ShowProgressScreen();
         sub_004FA590_RunLoop(CHARSEL_OnDownloadTick);
 
         if (!GAME_GetStopMainLoop() && gpFuncTable_0077ABF0->pfnSlot4C() == 0x65)
@@ -594,7 +594,7 @@ int __fastcall CHARSEL_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode)
 
     if (!gpFuncTable_0077ABF0->pfnSlot68())
     {
-        CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
+        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
         return 0;
     }
 

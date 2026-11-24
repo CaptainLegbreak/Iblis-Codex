@@ -2851,12 +2851,12 @@
     {
      "va": "0x0042F890",
      "length": 253,
-     "name": "?COMCALLBACK_ShowProgressScreen@@YAXXZ"
+     "name": "?MAINMENUS_ShowProgressScreen@@YAXXZ"
     },
     {
      "va": "0x0042F990",
      "length": 129,
-     "name": "?COMCALLBACK_UpdateProgress@@YAXXZ"
+     "name": "?MAINMENUS_UpdateProgress@@YAXXZ"
     },
     {
      "va": "0x0042FA20",
@@ -2891,7 +2891,7 @@
     {
      "va": "0x0042FDE0",
      "length": 123,
-     "name": "CHARSEL_IsRestrictedChar"
+     "name": "MAINMENUS_IsRestrictedChar"
     },
     {
      "va": "0x0042FE60",
@@ -2901,7 +2901,7 @@
     {
      "va": "0x0042FE70",
      "length": 123,
-     "name": "CHARSEL_FilterLoginChar"
+     "name": "MAINMENUS_FilterLoginChar"
     },
     {
      "va": "0x0042FEF0",
@@ -2956,7 +2956,7 @@
     {
      "va": "0x004303E0",
      "length": 31,
-     "name": "CHARSEL_IsLineBreak"
+     "name": "MAINMENUS_IsLineBreak"
     },
     {
      "va": "0x00430400",
@@ -2986,7 +2986,7 @@
     {
      "va": "0x00430590",
      "length": 108,
-     "name": "?COMCALLBACK_FilterNameChar@@YGHPAUD2WinControlStrc@@HPBD@Z"
+     "name": "?MAINMENUS_FilterNameChar@@YGHPAUD2WinControlStrc@@HPBD@Z"
     },
     {
      "va": "0x00430600",
@@ -3001,7 +3001,7 @@
     {
      "va": "0x004306C0",
      "length": 98,
-     "name": "?CHARSEL_UpdateLoginOk@@YAXXZ"
+     "name": "?MAINMENUS_UpdateLoginOk@@YAXXZ"
     },
     {
      "va": "0x00430730",
@@ -3026,12 +3026,12 @@
     {
      "va": "0x00430840",
      "length": 38,
-     "name": "CHARSEL_OnHoverSorceress"
+     "name": "MAINMENUS_OnHoverSorceress"
     },
     {
      "va": "0x00430870",
      "length": 35,
-     "name": "CHARSEL_OnHoverAmazon"
+     "name": "MAINMENUS_OnHoverAmazon"
     },
     {
      "va": "0x004308A0",
@@ -3046,17 +3046,17 @@
     {
      "va": "0x00430920",
      "length": 38,
-     "name": "CHARSEL_OnHoverNecromancer"
+     "name": "MAINMENUS_OnHoverNecromancer"
     },
     {
      "va": "0x00430950",
      "length": 38,
-     "name": "CHARSEL_OnHoverBarbarian"
+     "name": "MAINMENUS_OnHoverBarbarian"
     },
     {
      "va": "0x00430980",
      "length": 38,
-     "name": "CHARSEL_OnHoverPaladin"
+     "name": "MAINMENUS_OnHoverPaladin"
     },
     {
      "va": "0x004309B0",
@@ -3066,7 +3066,7 @@
     {
      "va": "0x004309C0",
      "length": 90,
-     "name": "CHARSEL_AddToSlots"
+     "name": "MAINMENUS_AddToSlots"
     },
     {
      "va": "0x00430A20",
@@ -3076,12 +3076,12 @@
     {
      "va": "0x00430B00",
      "length": 56,
-     "name": "CHARSEL_CompareNames"
+     "name": "MAINMENUS_CompareNames"
     },
     {
      "va": "0x00430B50",
      "length": 46,
-     "name": "?CHARSEL_GetSlotName@@YIPADH@Z"
+     "name": "?MAINMENUS_GetSlotName@@YIPADH@Z"
     },
     {
      "va": "0x00430B80",
@@ -3111,7 +3111,7 @@
     {
      "va": "0x00430C80",
      "length": 71,
-     "name": "?CHARSEL_FillCreditsList@@YAXXZ"
+     "name": "?MAINMENUS_FillCreditsList@@YAXXZ"
     },
     {
      "va": "0x00430CD0",
@@ -3120,7 +3120,7 @@
     {
      "va": "0x00430EF0",
      "length": 290,
-     "name": "?CHARSEL_SyncCreditsLists@@YAXXZ"
+     "name": "?MAINMENUS_SyncCreditsLists@@YAXXZ"
     },
     {
      "va": "0x00431020",
@@ -3154,7 +3154,7 @@
     {
      "va": "0x00431570",
      "length": 137,
-     "name": "?CHARSEL_CreateExpansionDiscPopup@@YIXH@Z"
+     "name": "?MAINMENUS_CreateExpansionDiscPopup@@YIXH@Z"
     },
     {
      "va": "0x00431600",
@@ -3367,7 +3367,7 @@
     {
      "va": "0x00433450",
      "length": 8,
-     "name": "?CHARSEL_ShowText@@YIXPBUUnicode@@P6AXXZ@Z"
+     "name": "?MAINMENUS_ShowText@@YIXPBUUnicode@@P6AXXZ@Z"
     },
     {
      "va": "0x004334D0",
@@ -3466,7 +3466,7 @@
     {
      "va": "0x00434700",
      "length": 90,
-     "name": "?CHARSEL_OnRealmSelected@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?MAINMENUS_OnRealmSelected@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00434760",
@@ -3481,12 +3481,12 @@
     {
      "va": "0x00434960",
      "length": 74,
-     "name": "?CHARSEL_DeleteCharacter@@YIHPAUD2LaunchCharEntryStrc@@PBD@Z"
+     "name": "?MAINMENUS_DeleteCharacter@@YIHPAUD2LaunchCharEntryStrc@@PBD@Z"
     },
     {
      "va": "0x004349B0",
      "length": 79,
-     "name": "?CHARSEL_UpgradeCharacter@@YIHPAUD2LaunchCharEntryStrc@@PBD@Z"
+     "name": "?MAINMENUS_UpgradeCharacter@@YIHPAUD2LaunchCharEntryStrc@@PBD@Z"
     },
     {
      "va": "0x00434A00",
@@ -3579,7 +3579,7 @@
     {
      "va": "0x00435E00",
      "length": 13,
-     "name": "?CHARSEL_Back@@YGHH@Z"
+     "name": "?MAINMENUS_Back@@YGHH@Z"
     },
     {
      "va": "0x00435E10",
@@ -9238,7 +9238,7 @@
     {
      "va": "0x00439840",
      "length": 687,
-     "name": "?COMCALLBACK_OnCharSelectOk@@YGHH@Z"
+     "name": "?CHARSEL_OnCharSelectOk@@YGHH@Z"
     },
     {
      "va": "0x00439AF0",

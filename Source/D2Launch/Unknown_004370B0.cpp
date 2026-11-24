@@ -50,7 +50,7 @@ void __cdecl CHARSEL_CreateBaseScreen(); // 0x0043C4F0
 
 int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
 
-void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
+void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 
 void __fastcall sub_0042E6B0(int nValue); // 0x0042E6B0
 
@@ -325,7 +325,7 @@ void __cdecl MAINMENUS_CreateEmailScreen()
 {
     if (!gpFuncTable_0077ABF0->pfnSlot68())
     {
-        CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
+        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
         return;
     }
     CHARSEL_CreateBaseScreen();
@@ -366,7 +366,7 @@ void __cdecl MAINMENUS_CreateInfoScreen()
 {
     if (!gpFuncTable_0077ABF0->pfnSlot68())
     {
-        CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
+        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
         return;
     }
     CHARSEL_CreateBaseScreen();
@@ -449,7 +449,7 @@ void __cdecl MAINMENUS_CreatePasswordScreen()
 {
     if (!gpFuncTable_0077ABF0->pfnSlot68())
     {
-        CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
+        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
         return;
     }
     CHARSEL_CreateBaseScreen();
@@ -634,7 +634,7 @@ int __stdcall sub_00437730_ChangePassword(int bOk)
                 MAINMENUS_ShowLoginScreen();
                 return 1;
             }
-            CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
+            MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
             return 0;
         }
         else
@@ -679,7 +679,7 @@ int __stdcall CHARSEL_SubmitPasswordReset(int nArg)
         return 1;
     }
 
-    CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
+    MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
     return 0;
 }
 

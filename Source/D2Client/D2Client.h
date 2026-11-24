@@ -117,7 +117,7 @@ D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId); // 0
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
 AsyncData* __fastcall sub_0040A620(void* hArchive, const char* szFileName, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, const char* szFile, int nLine); // 0x0040A620
 char* __fastcall FOG_inet_ntoa(int nAddress); // 0x0040E080
-char* __fastcall CHARSEL_GetSlotName(int nIndex); // 0x00430B50
+char* __fastcall MAINMENUS_GetSlotName(int nIndex); // 0x00430B50
 char* __stdcall SStrUpper(char* szString); // 0x004141E0
 const char* __fastcall sub_0047A1F0(int nIndex); // 0x0047A1F0
 const char* __fastcall sub_0047A210(D2UnitStrc* pUnit); // 0x0047A210

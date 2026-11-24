@@ -318,7 +318,7 @@
     "extern \"C\" void __cdecl sub_00437730_ChangePassword(); // 0x00437730",
     "extern \"C\" void __cdecl CHARSEL_SubmitPasswordReset(); // 0x004378D0",
     "extern \"C\" void __cdecl MAINMENUS_SelectCharacterClass(); // 0x00433BF0",
-    "extern \"C\" void __cdecl COMCALLBACK_OnCharSelectOk(); // 0x00439840",
+    "extern \"C\" void __cdecl CHARSEL_OnCharSelectOk(); // 0x00439840",
     "extern \"C\" void __cdecl CHARSEL_OnNormalDifficulty(); // 0x00439B80",
     "extern \"C\" void __cdecl CHARSEL_OnNightmareDifficulty(); // 0x00439BA0",
     "extern \"C\" void __cdecl CHARSEL_OnHellDifficulty(); // 0x00439BC0",
@@ -15275,7 +15275,7 @@
      2084,
      "0x00434700",
      "source",
-     "CHARSEL_OnRealmSelected",
+     "MAINMENUS_OnRealmSelected",
      0,
      "func"
     ],
@@ -15993,7 +15993,7 @@
      1364,
      "0x00435E00",
      "names.json",
-     "CHARSEL_Back",
+     "MAINMENUS_Back",
      0,
      "func"
     ],
@@ -16041,7 +16041,7 @@
      1508,
      "0x00439840",
      "names.json",
-     "COMCALLBACK_OnCharSelectOk",
+     "CHARSEL_OnCharSelectOk",
      0,
      "func"
     ],
@@ -16545,7 +16545,7 @@
      3236,
      "0x00439840",
      "names.json",
-     "COMCALLBACK_OnCharSelectOk",
+     "CHARSEL_OnCharSelectOk",
      0,
      "func"
     ],
@@ -16577,7 +16577,7 @@
      3332,
      "0x00435E00",
      "names.json",
-     "CHARSEL_Back",
+     "MAINMENUS_Back",
      0,
      "func"
     ],
@@ -16801,7 +16801,7 @@
      4108,
      "0x00430870",
      "names.json",
-     "CHARSEL_OnHoverAmazon",
+     "MAINMENUS_OnHoverAmazon",
      0,
      "func"
     ],
@@ -16825,7 +16825,7 @@
      4156,
      "0x00430920",
      "names.json",
-     "CHARSEL_OnHoverNecromancer",
+     "MAINMENUS_OnHoverNecromancer",
      0,
      "func"
     ],
@@ -16849,7 +16849,7 @@
      4204,
      "0x00430950",
      "names.json",
-     "CHARSEL_OnHoverBarbarian",
+     "MAINMENUS_OnHoverBarbarian",
      0,
      "func"
     ],
@@ -16873,7 +16873,7 @@
      4252,
      "0x00430840",
      "names.json",
-     "CHARSEL_OnHoverSorceress",
+     "MAINMENUS_OnHoverSorceress",
      0,
      "func"
     ],
@@ -16897,7 +16897,7 @@
      4300,
      "0x00430980",
      "names.json",
-     "CHARSEL_OnHoverPaladin",
+     "MAINMENUS_OnHoverPaladin",
      0,
      "func"
     ],
@@ -16921,7 +16921,7 @@
      4348,
      "0x00430920",
      "names.json",
-     "CHARSEL_OnHoverNecromancer",
+     "MAINMENUS_OnHoverNecromancer",
      0,
      "func"
     ],
@@ -16945,7 +16945,7 @@
      4396,
      "0x00430840",
      "names.json",
-     "CHARSEL_OnHoverSorceress",
+     "MAINMENUS_OnHoverSorceress",
      0,
      "func"
     ],
@@ -16969,7 +16969,7 @@
      4444,
      "0x00430980",
      "names.json",
-     "CHARSEL_OnHoverPaladin",
+     "MAINMENUS_OnHoverPaladin",
      0,
      "func"
     ],
@@ -16993,7 +16993,7 @@
      4492,
      "0x00430870",
      "names.json",
-     "CHARSEL_OnHoverAmazon",
+     "MAINMENUS_OnHoverAmazon",
      0,
      "func"
     ]

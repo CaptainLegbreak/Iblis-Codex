@@ -96,9 +96,9 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 
 
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
 
-void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
+void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 
-int __stdcall CHARSEL_Back(int nArg); // 0x00435E00
+int __stdcall MAINMENUS_Back(int nArg); // 0x00435E00
 
 void __fastcall CHARSEL_PickClass(int nClass, int bExpansion); // 0x00439780
 
