@@ -7,7 +7,6 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 - lane2/msg-record 73c40a00 562->562 D2MsgRecord.h: the input recorder's 16-byte message record and its 500-record chunk, shared, instead of nine private copies. Three of them called the record D2WinMsgStrc, which is the name for the Windows MSG layout elsewhere. The tick is signed (CUnit playback compares with jle), and 0x1F44 is nIndex; VERIFIED f8b6f14cc9371aebaaa7b0834bab26030a488d80
   - Verified on #306, rebased onto #307. #307 touches none of the 9 changed units; precheck is equal on #307.
   - Outside lane 2: Game, Game_0044B7B0, Game_0044D080, Record, SCmd, inv, text, CUnit (lanes 1 and 4), ComCallback (lane 6). Private-copy removal and field renames only.
-
 - lane2/lang-names e7b077c1 562->562 D2LanguageNames.h: the 15-entry language-name table, defined once as a static array of non-const string pointers so each includer keeps its own .data copy; nothing includes it yet; VERIFIED 8645efc339552b4f7d4a99ae75ba23ed6f57aca9
   - Verified on #305, rebased onto #306 (no Source overlap: the header is new and unincluded).
   - Tested locally on a3q7.cpp. I swapped its planned copy (0x00741578) in the generated .inc for `#include "D2LanguageNames.h"` at the same place: the full build stayed identical. So the static is emitted unread, its pointers land on the shared literals at 0x006CC77C-0x006CC81C, and the copy sits where the include sits in definition order.
@@ -17,7 +16,6 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Questions
 
-- The client's D2ClientNotifyStrc (D2ClientUi.h, used by GAME_GetClientNotify and its callers) is the same table, but I left it as a separate view. Any change to D2ClientUi.h flips gnScreenHeight/gnPanelOffsetY operand order in inv_0048BC10 and inv_0048DD90 (lane 4). Nothing natural I tried fixed it, about 60 combinations: where the include goes, how the gaps are written, where the declarations sit in D2Client.h, and using one name for 0x711470 in those units. Main's D2ClientUi.h keeps them equal. Should it stay a view until those units change for other reasons, or do you want the merge forced some other way?
 
 ## Notes for other lanes
 
