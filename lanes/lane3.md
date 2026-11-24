@@ -6,13 +6,13 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 - lane3/stpl-members 0e1ddfab 383->383 The Storm containers lead: stpl.h defines TSList's UnlinkAll, DeleteNode and Clear once, next to RawNext, and SERR.CPP, SMSG.CPP, SCMD.CPP, SFILE.CPP and SEVT.CPP lose their five identical copies. Every stpl.h includer builds equal, SFileReadFileEx2 (0x41AAD0) included (this failed before archive-list; the type count is now right). VERIFIED 831a6be8 on base 3bf574f2 (#363); borrowed data 848 B (main 848 B); rebased onto 4f01d396 (#364) with no conflicts, namesync had nothing to rename, prechecked. Not stacked.
 
-
 - lane3/sbig-pieces-2 44870edd 390->374 (replaces lane3/sbig-pieces, rebased onto 3bf574f2, #363, with only docs/index.html conflicting; the SBig_ units build equal, namesync had nothing to rename, prechecked; was 397->381 on #362) Storm placeholders, borrowed data unchanged. SBig.cpp's sixteen /GS- pieces leave Storm/Unknown_*.cpp as Source/Storm/SOURCE/SBig_<address>.cpp, the `<File>_<address>.cpp` form for a file's functions that need another option (SBig.cpp builds with /GS, these without): Shl, Sub, ToStr, Div, Gcd, Rand, InvMod, PowMod and IsPrime (names.csv's own SBig names), DivUInt, SubFromBig, BigOp and BigSquare, and three helpers only SBig's functions call (0x421470, lowest set bit, for IsPrime; 0x421BD0 EncodeDataBytes with 0x423380, the byte reader, for ToStream/FromStream; 0x421CB0, the digit appender, for ToBinary/ToStream). Three join a piece that already carried their code: 0x4225C0 and 0x422FC0 into SBig_00425350.cpp, 0x422D00 into SBig_00424700.cpp. Every unit stays equal. VERIFIED 23fe0c31 on base ef7b4a19 (#361); borrowed data 898 B (main then 898 B); rebased onto 90638cd1 (#362) with only docs/index.html conflicting (file fields follow units.json); namesync had nothing to rename; prechecked. Not stacked.
 
 ## Claimed
 
 - **lane3/storm-arrays-ctor**: 0x423D80 (BigStack release) becomes SBig_00423D80.cpp; 0x421020/0x421030 (filed as two copies of a Warden constructor) are TSBaseArray<unsigned int>/<unsigned char>'s constructors, placed from Unknown_00421110.cpp; stpl.h's TSBaseArray gets its constructor. 3 placeholders fewer. Full verify running.
 - **Next (standing work): decompiler field names in Storm/Fog/SRP**, about 120 `f_`/`unk0x` fields (SFILE.CPP, D2QServer.h, SMSG.CPP, SSignature.cpp, Fog.h, Storm.h first).
+
 ## Questions
 
 (none)
@@ -75,7 +75,6 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 - SEVT.CPP's break-command list as stpl.h's TSList<BREAKCMD> (tried after sevt-join-3): with BREAKCMD : TSLinkedNode<BREAKCMD> and the list's code mapped by `// build: symbol` lines like SMSG/SERR, every function matches (SEvtBreakHandlerChain becomes `NewNode(2, 0, 0)`) except SEvtDispatch (0x426F90). Two findings: the original calls the list's RawNext (0x426C80) out of line, so Storm's TSList::RawNext was not an in-class inline (moving it out of the class in stpl.h fixes that call and keeps SCMD/SERR/SMSG equal); and at the top of its first loop the original keeps the queue head's masked value (setle/sub/and, then test) where our build folds the test into a branch, whatever form of Head/Next or DeleteNode the loop uses. Parked, SEVT keeps its own list type.
 
 - 0x6BD230 (borrowed, Fog export 10215, the link-table key insert): tried inside Excel.cpp, between FOG_GetStringFromLinkIndex and EXCEL_FindLinkNode, on Excel.cpp's own D2TxtLinkStrc. Every variant tried (the stand-in's loop, a flag loop, a break loop, an inline search helper with an out-parameter, three ways of writing the tail) builds without the original's `push ecx`, the unused 4-byte slot at [ebp-4]; the rest of the body matches. Parked; the next things to try are a register-parameter static that the export wraps, and Excel.cpp's /Ob setting.
-
 
 - 0x40E850 (AUTOMAP_ReadTimeStampCounter, rdtsc): tried in ErrorManager.cpp as approved, and it doesn't fit there. ErrorManager.cpp builds /Ob2, so with the body in the unit the compiler inlines it into ERRORMANAGER_MeasureCpuMHz (0x40E870), wherever the definition sits; the original calls it. So in the original the reader wasn't visible to MeasureCpuMHz: either the CPU helpers 0x40E250-0x40EA00 are a separate object from the rest of ErrorManager.cpp, or the reader lived in another unit. It stays in automap.cpp (lane 4's) until that is settled; no forcing constructs.
 
