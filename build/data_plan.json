@@ -118,8 +118,8 @@
    "state": "included"
   },
   "Source/Fog/Src/LogManager.cpp": {
-   "bytes": 84,
-   "definitions": 6,
+   "bytes": 56,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Fog/Src/LogManager_0040F070.inc",
@@ -3323,7 +3323,8 @@
   "Source/D2Common/Stats/StatsEx.cpp": {
    "bytes": 96,
    "definitions": 3,
-   "externs": [],
+   "externs": [
+   ],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Stats/StatsEx.inc",
    "lang": "cpp",
@@ -8113,37 +8114,6 @@
    "tail": "; // 0x0070841C",
    "type": "long",
    "va": "0x0070841C"
-  },
-  {
-   "alias": true,
-   "cname": "gData_00708124",
-   "declared": true,
-   "decorated": "_gszLogMessageTypeName",
-   "file": "Source/Fog/Src/LogManager.cpp",
-   "fill": 28,
-   "form": "declared",
-   "fwd": "extern \"C\" const char gData_00708124[28]; // 0x00708124",
-   "head": "extern \"C\" const char gData_00708124[28] = ",
-   "model": {
-    "elem": {
-     "k": "prim",
-     "kind": "c",
-     "name": "char",
-     "size": 1
-    },
-    "k": "arr",
-    "n": 28,
-    "size": 28
-   },
-   "name": "gszLogMessageTypeName",
-   "pointers": [],
-   "region": "data",
-   "size": 28,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00708124\n#pragma comment(linker, \"/alternatename:_gszLogMessageTypeName=_gData_00708124\")",
-   "type": "char",
-   "va": "0x00708124"
   },
   {
    "alias": true,
