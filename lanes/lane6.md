@@ -4,11 +4,10 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- (lane6/charsel-tail-2: verifying on #343.)
+- lane6/charsel-tail-2 d3056982 +2 placeholders. The two objects between CharSel.cpp and Unknown_0043C8A0.cpp get files: Unknown_0043B7A0.cpp, the Battle.net connect object (CHARSEL_InitFuncTable..CHARSEL_Connect, 14 from CharSel.cpp, plus CHARSEL_HandleStatus 0x0043B9F0 from CharSel_004378D0.cpp; its bss 0x0077ABF4-0x0077AC0C is read only by them; built /GS-), with the copy 0x0070CC10 and gnLogonRetries; and Unknown_0043C4F0.cpp (CHARSEL_CreateBaseScreen, the only code left before 0x0043C540) with the copy 0x0070CC50. Not stacked; only lane 6 files. VERIFIED 62b12dd3 (on #343). Borrowed data 1,175 B.
 
 ## Claimed
 
-- D2Sound regroup (lane6/sound-b, starting). The four language copies after the channel tables (gData_0072F8FC, 180 B, and gData_0072F9B4, both in D2SoundSmp.cpp) plus D2Sound's bss order give its objects in link order: A, the channel-table object (code 0x00514710-0x00514990, bss 0x00881794-0x008817A8, data: copy 0x0072F838 and the channel tables 0x0072F874-0x0072F8F8); the option block (0x00514B60-0x00514D90, bss 0x008817AC-0x008817C0, copy 0x0072F8FC); D2SoundFast.cpp (asserted at 0x00514E10 and 0x00515070, bss 0x008817C4-0x00881800, copy 0x0072F938); D2SoundSmp.cpp (asserted at 0x00515530 and 0x005160D0, bss 0x00881804-0x00881814, copy 0x0072F974 and gnSoundMasterVolume); D2SoundUtil.cpp (copy 0x0072F9B4). Functions filed against that order move to their object; the copies split to match.
 - ChatDlg.cpp's object, what's left (next): ChatDlg_00441B70's seven, 0x004423B0, 0x00445020, 0x004450D0, 0x004456D0, 0x0043F850, 0x00443F80, 0x004453B0 and 0x00445FF0 each build unequal in ChatDlg.cpp (inline and register choices). Game.cpp's 0x0043DB10 and 0x0043F840 (lane 4's file) are inside the object: lane 4, they're yours to hand over when convenient.
 
 ## Handover to lane 8 (D2Common)
