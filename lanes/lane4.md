@@ -18,15 +18,9 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 15:25:51 PST 2026: three branches ready on #369 (join-belt-hotkeys, join-party-b030-2, join-player-2d00-3). Found the memory report object (four placeholders, see Questions); it needs the Storm list template before it can join. Tried and parked: Game.cpp <- Unknown_00451E70 (D2MonLvlTxt incomplete there; its 4-point lead is a tie with automap.cpp), SCmd.cpp <- Unknown_00452270 (its strings/handles don't fit SCmd.cpp's declarations; no data evidence).
+- Tue Nov 24 15:48:28 PST 2026: join-belt-hotkeys, join-party-b030-2 and join-player-2d00-3 merged in #370. winmsg-object (answers lane 6's 0x70F7A4 question) verifying.
 
 ## Ready
-
-- lane4/join-belt-hotkeys 7742c361d no placeholder change: CmdTbl.cpp takes Unknown_00467DF0.cpp's four belt hotkey commands 0x468F40-0x468F70 (they sit among the hotkey commands CmdTbl.cpp took in #369, and its action table points at them; pointers `owner`, plan externs dropped). The placeholder keeps 0x468B20: nothing calls it and it takes its argument in esi, so only its emitting context there reproduces it. Borrowed data 844 B (main 844). VERIFIED 49f0a1ef6096 on #368 (with join-cmdtbl-2 below it, merged in #369); rebased onto #369 (precheck equal). Not stacked now.
-
-- lane4/join-player-2d00-3 1d329676c placeholders -1 (Unknown_00462D00.cpp): Player.cpp takes in 0x462D00 (map: clear lead, calls only functions Player.cpp uses), with its global gbPlayerCommandPending; join.py dropped 38 copies Player.cpp already has. Touches lane 1's Player.cpp (the function is in lane 4's range). Borrowed data 844 B (main 844). VERIFIED f81adaba44b3 on #369 (full verify after the rebase; replaces lane4/join-player-2d00). Not stacked.
-
-- lane4/join-party-b030-2 7a3b3367f placeholders -1 (Unknown_0049B030.cpp): Party.cpp takes 0x49B030 (roster tooltip), a static helper of Party.cpp's 0x49B330, its only caller (the map's first pick, Roster.cpp, drops it as an uncalled static). Its planned data, the language-table copy 0x722414 and the four roster icon tables after it, start Party.cpp's object data (between panel.cpp's and the waypoint panel's, matching the code order), so Party.cpp gets its data include; its .data is in the original order. Borrowed data 844 B (main 844). VERIFIED e5f6a8c1e3cd on #368; rebased onto #369 (precheck equal; replaces lane4/join-party-b030). Not stacked.
 
 ## Claimed
 
