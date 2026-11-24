@@ -223,7 +223,6 @@ void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
 int __stdcall D2Common_11016(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00645460
 
-
 int gnFilterMsgState; // 0x007A526C
 
 extern void* gpDrlgAct_007A0634;                                                                            // 0x007A0634
@@ -566,6 +565,8 @@ void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg);                
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
+int gbPlayerCommandPending;                                                                                     // 0x007A5264
+
 inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecordInline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -581,13 +582,9 @@ int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOthe
 
 int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
 
-
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-
-
-
 
 // 0x0045BD00
 void D2StormExplicitListStrc::UnlinkAll()
@@ -619,8 +616,6 @@ D2ItemStatCostTxt* __fastcall PLAYER_GetItemStatCostTxtRecord(int nStatId)
     return 0;
 }
 
-
-
 // 0x00460760
 void __fastcall PLAYER_SetInteractState(D2ClientUnitViewStrc* pUnit, int nState)
 {
@@ -639,7 +634,6 @@ void __fastcall VIEW_SetPlayerMode(int nMode, D2ClientUnitViewStrc* pUnit, int n
         pUnit->pPlayerData->nArg2 = nArg2;
     }
 }
-
 
 // 0x004607D0
 int __fastcall PLAYER_GetInteractMode(D2ClientUnitViewStrc* pUnit)
@@ -1326,7 +1320,6 @@ void __fastcall sub_00461A70_InteractWithUnit(D2UnitStrc* pUnit)
     PLAYER_InteractWithTarget(&tCmd, !pUnit ? -1 : pUnit->dwUnitId);
 }
 
-
 // 0x00461840
 static int __stdcall PLAYER_WalkTo(int nMode, D2UnitStrc* pUnit, int nX, int nY)
 {
@@ -1423,7 +1416,6 @@ int __fastcall AUTOMAP_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, i
     *pDistance = sub_006416D0_UnitEdgeDistance(pPlayer, pTarget);
     return *pDistance <= *pRange;
 }
-
 
 // 0x00461B40
 static int PLAYER_ApproachForAura(D2PlayerCmdStrc* pCmd, int nArg1, int nArg2)
@@ -1852,7 +1844,6 @@ static int PLAYER_PrepareCommand(D2PlayerCmdStrc* pCmd)
     return 1;
 }
 
-
 inline int ClampTarget_GetX(D2UnitStrc* pUnit)
 {
     int nResult;
@@ -1955,7 +1946,6 @@ static int __stdcall PLAYER_ClampTarget(D2UnitStrc* pUnit, D2PlayerCmdStrc* pCmd
     gdwLastClampTick = dwTick;
     return 1;
 }
-
 
 // 0x00462560
 static int PLAYER_IsSkillFlagSet(D2SkillStrc* pSkill)
@@ -2354,6 +2344,19 @@ static int sub_00462CA0_UpdatePetCommandNoWalk(D2PlayerCmdStrc* pCmd)
     return 0;
 }
 
+int __fastcall sub_00462D00_PlayerCommand(int nCommand, int nX, int nY, unsigned char nKeyFlags);
+void sub_E06_Emit_Player1()
+{
+    PLAYER_SetModeAndSync(1, gpEmitUnit_E06, gnEmitArg_E06);
+    PLAYER_UpdateRoomPosition(gpEmitUnit_E06);
+    PLAYER_UpdateRoomState(gpEmitUnit_E06);
+    PLAYER_PlaceOnFreeCoords(gpEmitUnit_E06);
+    PLAYER_ResetPlayerState(gpEmitUnit_E06);
+    PLAYER_RefreshSkillRef(0, gpEmitUnit_E06, gpEmitRef_E06);
+    PLAYER_ReleaseUsedSkill(gnEmitArg_E06 == 1, gpEmitUnit_E06);
+}
+
+// 0x00462D00
 int __fastcall sub_00462D00_PlayerCommand(int nCommand, int nX, int nY, unsigned char nKeyFlags)
 {
     if (GAME_GetUIVarState(9))
@@ -2367,17 +2370,16 @@ int __fastcall sub_00462D00_PlayerCommand(int nCommand, int nX, int nY, unsigned
     D2PlayerCmdStrc tCmd = {};
     tCmd.dwFlags = 0;
     tCmd.pPlayer = sub_00463DD0_GetPlayerUnit();
-    D2UnitStrc* pSelected = SELECT_GetSelectedUnit();
-    tCmd.pTarget = pSelected;
+    tCmd.pTarget = SELECT_GetSelectedUnit();
     tCmd.nX = nX;
     tCmd.nY = nY;
-    if (pSelected)
+    if (tCmd.pTarget)
     {
-        switch (pSelected->dwUnitType)
+        switch (tCmd.pTarget->dwUnitType)
         {
         case UNIT_OBJECT:
         case UNIT_ITEM:
-            tCmd.nX = CLIENTS_GetUnitX(pSelected);
+            tCmd.nX = CLIENTS_GetUnitX(tCmd.pTarget);
             tCmd.nY = CLIENTS_GetUnitY(tCmd.pTarget);
             break;
         }
@@ -2420,17 +2422,6 @@ int __fastcall sub_00462D00_PlayerCommand(int nCommand, int nX, int nY, unsigned
         return sub_00462CA0_UpdatePetCommandNoWalk(&tCmd);
     }
     return 1;
-}
-
-void sub_E06_Emit_Player1()
-{
-    PLAYER_SetModeAndSync(1, gpEmitUnit_E06, gnEmitArg_E06);
-    PLAYER_UpdateRoomPosition(gpEmitUnit_E06);
-    PLAYER_UpdateRoomState(gpEmitUnit_E06);
-    PLAYER_PlaceOnFreeCoords(gpEmitUnit_E06);
-    PLAYER_ResetPlayerState(gpEmitUnit_E06);
-    PLAYER_RefreshSkillRef(0, gpEmitUnit_E06, gpEmitRef_E06);
-    PLAYER_ReleaseUsedSkill(gnEmitArg_E06 == 1, gpEmitUnit_E06);
 }
 
 // 0x00463830
