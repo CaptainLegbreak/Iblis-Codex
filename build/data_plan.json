@@ -4135,15 +4135,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Gdi/Unknown_006C8250.cpp": {
-   "bytes": 36,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Gdi/Unknown_006C8250.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Hell/SRC/CRC.cpp": {
    "bytes": 8336,
    "definitions": 1,
@@ -5324,6 +5315,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_00586B50.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Gdi/Src/gdiCore.cpp": {
+   "bytes": 36,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Gdi/Src/gdiCore.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -150957,7 +150957,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Gdi/Unknown_006C8250.cpp",
+   "file": "Source/D2Gdi/Src/gdiCore.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": null,
@@ -150988,7 +150988,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Gdi/Unknown_006C8250.cpp",
+   "file": "Source/D2Gdi/Src/gdiCore.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern unsigned long gdwGdiDebugTextColor = ",

@@ -80817,8 +80817,29 @@
      "length": 93
     },
     {
+     "va": "0x006C8250",
+     "length": 120,
+     "name": "?sub_006C8250_GetSetting@@YIHIPAH@Z"
+    },
+    {
+     "va": "0x006C82D0",
+     "length": 49
+    },
+    {
+     "va": "0x006C8310",
+     "length": 99
+    },
+    {
+     "va": "0x006C8380",
+     "length": 301
+    },
+    {
      "va": "0x006C84B0",
      "length": 232
+    },
+    {
+     "va": "0x006C85A0",
+     "length": 245
     },
     {
      "va": "0x006C86A0",
@@ -80831,6 +80852,33 @@
     {
      "va": "0x006C87E0",
      "length": 188
+    },
+    {
+     "va": "0x006C88B0",
+     "length": 92,
+     "name": "?sub_006C88B0_DrawAt@@YIHHH@Z"
+    },
+    {
+     "va": "0x006C8910",
+     "length": 28,
+     "name": "?sub_006C8910_ForwardDraw@@YIHPAXHHHHHH@Z"
+    },
+    {
+     "va": "0x006C8930",
+     "length": 46
+    },
+    {
+     "va": "0x006C8960",
+     "length": 13
+    },
+    {
+     "va": "0x006C8970",
+     "length": 199
+    },
+    {
+     "va": "0x006C8C00",
+     "length": 67,
+     "name": "?sub_006C8C00_DrawAlpha@@YIXHHHHHE@Z"
     }
    ],
    "flags": [
@@ -80916,63 +80964,15 @@
    ]
   },
   {
-   "file": "Source/D2Gdi/Unknown_006C8250.cpp",
-   "rank": 0,
+   "file": "Source/D2Gdi/Unknown_006C8A50.cpp",
    "functions": [
-    {
-     "va": "0x006C8250",
-     "length": 120,
-     "name": "?sub_006C8250_GetSetting@@YIHIPAH@Z"
-    },
-    {
-     "va": "0x006C82D0",
-     "length": 49
-    },
-    {
-     "va": "0x006C8310",
-     "length": 99
-    },
-    {
-     "va": "0x006C8380",
-     "length": 301
-    },
-    {
-     "va": "0x006C85A0",
-     "length": 245
-    },
-    {
-     "va": "0x006C88B0",
-     "length": 92,
-     "name": "?sub_006C88B0_DrawAt@@YIHHH@Z"
-    },
-    {
-     "va": "0x006C8910",
-     "length": 28,
-     "name": "?sub_006C8910_ForwardDraw@@YIHPAXHHHHHH@Z"
-    },
-    {
-     "va": "0x006C8930",
-     "length": 46
-    },
-    {
-     "va": "0x006C8960",
-     "length": 13
-    },
-    {
-     "va": "0x006C8970",
-     "length": 199
-    },
     {
      "va": "0x006C8A50",
      "length": 9,
      "name": "?sub_006C8A50_GetBlendedShadows@@YAHXZ"
-    },
-    {
-     "va": "0x006C8C00",
-     "length": 67,
-     "name": "?sub_006C8C00_DrawAlpha@@YIXHHHHHE@Z"
     }
-   ]
+   ],
+   "rank": 0
   },
   {
    "file": "Source/D2Gdi/Unknown_006C8A60.cpp",
