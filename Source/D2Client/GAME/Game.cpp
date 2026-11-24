@@ -486,7 +486,7 @@ int __cdecl sub_0045AE90(); // 0x0045AE90
 
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
-void __fastcall sub_00457640(int bForce); // 0x00457640
+void __fastcall AUTOMAP_ResetBaseOffset(int bForce); // 0x00457640
 
 D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
@@ -2595,7 +2595,7 @@ void __cdecl GAME_CloseAllPanels()
 {
     if (gbPositionalSound && !UI_CloseUIVars(0, 1))
     {
-        sub_00457640(0);
+        AUTOMAP_ResetBaseOffset(0);
         UI_CloseUIVars(1, 0);
     }
 }

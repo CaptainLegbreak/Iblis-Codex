@@ -754,7 +754,8 @@ int __stdcall GAME_DrawEndGameScreen(int nUnused)
             memset(&tContext, 0, sizeof(tContext));
             tContext.pCellFile = s_pEndGameCell;
             tContext.nDirection = 0;
-            sub_004FB0D0();
+// build: symbol ?D2Win_10179_UpdatePaletteFlash@* 0x004FB0D0
+            D2Win_10179_UpdatePaletteFlash();
             if (!gbExpansion)
             {
                 tContext.nFrame = 0;

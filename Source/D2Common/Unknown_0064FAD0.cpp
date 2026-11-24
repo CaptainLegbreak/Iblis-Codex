@@ -73,7 +73,7 @@ int __fastcall PATH_ComputeVelocityAndDirectionVectorsToNextPoint(D2DynamicPathS
 
 int __stdcall D2Common_10236(D2UnitStrc* pUnit, int a2); // 0x00650350
 
-void __fastcall sub_6FDAB810(int* a1, int* a2); // 0x00678F00
+void __fastcall PATH_NormalizeStep(int* a1, int* a2); // 0x00678F00
 
 void __fastcall PATHUTIL_GetTargetPathPoint(D2PathPointStrc* pOutPathPoint, D2DynamicPathStrc* pPath); // 0x00679250
 
@@ -489,7 +489,7 @@ static BOOL __stdcall sub_00650150_TraceSteps(D2CoordStrc tDelta, D2FP32_16* pOu
     unsigned int dwY = tDelta.nY;
     tStep.nX = dwX;
     tStep.nY = dwY;
-    sub_6FDAB810(&tStep.nX, &tStep.nY);
+    PATH_NormalizeStep(&tStep.nX, &tStep.nY);
 
     dwX = pPath->tGameCoords.dwPrecisionX;
     dwY = pPath->tGameCoords.dwPrecisionY;

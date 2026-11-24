@@ -13,7 +13,7 @@ int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 int __cdecl GAME_IsExitPending(); // 0x0044DA30
 int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
-void __fastcall sub_00457640(int bForce); // 0x00457640
+void __fastcall AUTOMAP_ResetBaseOffset(int bForce); // 0x00457640
 int __cdecl AUTOMAP_GetAutomapFade(); // 0x004576C0
 int __fastcall AUTOMAP_SetAutomapFade(int nFade); // 0x004576F0
 int __cdecl UI_GetAutomapParty(); // 0x004577B0
@@ -110,13 +110,13 @@ void __cdecl sub_00468A30_SetUIVar10()
 {
     UI_SetUIVar(0xA, 2, 0);
     if (!GAME_GetUIVarState(0xA))
-        sub_00457640(0);
+        AUTOMAP_ResetBaseOffset(0);
 }
 
 // 0x00468A60
 void __cdecl sub_00468A60_Force()
 {
-    sub_00457640(1);
+    AUTOMAP_ResetBaseOffset(1);
 }
 
 // 0x00468A70

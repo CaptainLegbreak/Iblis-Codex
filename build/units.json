@@ -2184,22 +2184,22 @@
     {
      "va": "0x004574D0",
      "length": 10,
-     "name": "?sub_004574D0_AutomapBaseYAddStep@@YGXH@Z"
+     "name": "?AUTOMAP_IncreaseBaseY@@YGXH@Z"
     },
     {
      "va": "0x004574E0",
      "length": 10,
-     "name": "?sub_004574E0_AutomapBaseYSubStep@@YGXH@Z"
+     "name": "?AUTOMAP_DecreaseBaseY@@YGXH@Z"
     },
     {
      "va": "0x004574F0",
      "length": 10,
-     "name": "?sub_004574F0_AutomapBaseXSubStep@@YGXH@Z"
+     "name": "?AUTOMAP_DecreaseBaseX@@YGXH@Z"
     },
     {
      "va": "0x00457500",
      "length": 10,
-     "name": "?sub_00457500_AutomapBaseXAddStep@@YGXH@Z"
+     "name": "?AUTOMAP_IncreaseBaseX@@YGXH@Z"
     },
     {
      "va": "0x00457510",
@@ -2214,7 +2214,7 @@
     {
      "va": "0x00457640",
      "length": 119,
-     "name": "?sub_00457640@@YIXH@Z"
+     "name": "?AUTOMAP_ResetBaseOffset@@YIXH@Z"
     },
     {
      "va": "0x004576C0",
@@ -2269,12 +2269,12 @@
     {
      "va": "0x00457860",
      "length": 65,
-     "name": "?sub_00457860_PivotNext@@YAXPAPAUD2AutomapCellStrc@@@Z"
+     "name": "?AUTOMAP_RotateCellLeft@@YAXPAPAUD2AutomapCellStrc@@@Z"
     },
     {
      "va": "0x004578B0",
      "length": 65,
-     "name": "?sub_004578B0_PivotPrev@@YAXPAPAUD2AutomapCellStrc@@@Z"
+     "name": "?AUTOMAP_RotateCellRight@@YAXPAPAUD2AutomapCellStrc@@@Z"
     },
     {
      "va": "0x00457900",
@@ -19761,7 +19761,7 @@
     {
      "va": "0x004DA770",
      "length": 32,
-     "name": "?sub_004DA770_GetMonComponentIndex@@YIEPAUD2UnitStrc@@E@Z"
+     "name": "?GFXUTIL_GetMonComponentIndex@@YIEPAUD2UnitStrc@@E@Z"
     },
     {
      "va": "0x004DA790",
@@ -34531,12 +34531,12 @@
     {
      "va": "0x004FB0D0",
      "length": 96,
-     "name": "?D2Win_10179@@YGXXZ"
+     "name": "?D2Win_10179_UpdatePaletteFlash@@YGXXZ"
     },
     {
      "va": "0x004FB130",
      "length": 79,
-     "name": "?D2Win_10176@@YIXH@Z"
+     "name": "?D2Win_10176_StartPaletteFlash@@YIXH@Z"
     },
     {
      "va": "0x004FB180",
@@ -76580,7 +76580,7 @@
     {
      "va": "0x006760F0",
      "length": 83,
-     "name": "?sub_6FD81330@@YIHPAUD2DrlgLevelLinkDataStrc@@@Z"
+     "name": "?DRLGOUTPLACE_PlaceAtLevelDefOffset@@YIHPAUD2DrlgLevelLinkDataStrc@@@Z"
     },
     {
      "va": "0x00676150",
@@ -76593,7 +76593,7 @@
     {
      "va": "0x00676AE0",
      "length": 288,
-     "name": "?sub_6FD81BF0@@YIHPAUD2DrlgLevelLinkDataStrc@@@Z"
+     "name": "?DRLGOUTPLACE_TryNextCenteredSide@@YIHPAUD2DrlgLevelLinkDataStrc@@@Z"
     },
     {
      "va": "0x00676C00",
@@ -76602,12 +76602,12 @@
     {
      "va": "0x00676DD0",
      "length": 222,
-     "name": "sub_00676DD0_LinkAct1Wilderness"
+     "name": "DRLGOUTPLACE_LinkAct1Wilderness"
     },
     {
      "va": "0x00676EB0",
      "length": 154,
-     "name": "sub_6FD82130"
+     "name": "DRLGOUTPLACE_LinkAct1Monastery"
     },
     {
      "va": "0x00676F50",
@@ -76637,7 +76637,7 @@
     {
      "va": "0x00677180",
      "length": 314,
-     "name": "sub_00677180_SetAct1OutdoorFlags"
+     "name": "DRLGOUTPLACE_SetAct1OutdoorFlags"
     },
     {
      "va": "0x006772C0",
@@ -76651,27 +76651,27 @@
     {
      "va": "0x00677640",
      "length": 57,
-     "name": "?sub_00677640_AddOrthToLevel@@YAXPAUD2DrlgLevelStrc@@H@Z"
+     "name": "?DRLGOUTPLACE_AddOrthToLevel@@YAXPAUD2DrlgLevelStrc@@H@Z"
     },
     {
      "va": "0x00677680",
      "length": 193,
-     "name": "?sub_00677680_AddLevelOrths@@YGXPAUD2DrlgStrc@@HH@Z"
+     "name": "?DRLGOUTPLACE_AddLevelOrths@@YGXPAUD2DrlgStrc@@HH@Z"
     },
     {
      "va": "0x00677750",
      "length": 58,
-     "name": "?sub_00677750_CreateAct1LevelConnections@@YAXPAUD2DrlgStrc@@@Z"
+     "name": "?DRLGOUTPLACE_CreateAct1LevelConnections@@YAXPAUD2DrlgStrc@@@Z"
     },
     {
      "va": "0x00677790",
      "length": 52,
-     "name": "?sub_00677790_CreateAct2LevelConnections@@YAXPAUD2DrlgStrc@@@Z"
+     "name": "?DRLGOUTPLACE_CreateAct2LevelConnections@@YAXPAUD2DrlgStrc@@@Z"
     },
     {
      "va": "0x006777D0",
      "length": 160,
-     "name": "?sub_006777D0_OffsetByDirection@@YGXPBUD2PosStrc@@HHHPAUD2OffsetPosStrc@@@Z"
+     "name": "?DRLGOUTPLACE_OffsetByDirection@@YGXPBUD2PosStrc@@HHHPAUD2OffsetPosStrc@@@Z"
     },
     {
      "va": "0x00677870",
@@ -76680,7 +76680,7 @@
     {
      "va": "0x00678910",
      "length": 146,
-     "name": "sub_00678910"
+     "name": "DRLGOUTPLACE_PlaceKurastLevels"
     },
     {
      "va": "0x006789B0",
@@ -76689,12 +76689,12 @@
     {
      "va": "0x00678A20",
      "length": 71,
-     "name": "?sub_00678A20_CreateAct4LevelConnections@@YAXPAUD2DrlgStrc@@@Z"
+     "name": "?DRLGOUTPLACE_CreateAct4LevelConnections@@YAXPAUD2DrlgStrc@@@Z"
     },
     {
      "va": "0x00678A70",
      "length": 94,
-     "name": "?sub_00678A70_CreateAct5LevelConnections@@YAXPAUD2DrlgStrc@@@Z"
+     "name": "?DRLGOUTPLACE_CreateAct5LevelConnections@@YAXPAUD2DrlgStrc@@@Z"
     },
     {
      "va": "0x00678AD0",
@@ -76787,42 +76787,42 @@
     {
      "va": "0x00678B40",
      "length": 55,
-     "name": "sub_00678B40_PathHeuristic"
+     "name": "PATH_EstimateDistance"
     },
     {
      "va": "0x00678B80",
      "length": 133,
-     "name": "?sub_6FDAB610@@YIHHHHH@Z"
+     "name": "?PATH_GetDirectionIndexXY@@YIHHHHH@Z"
     },
     {
      "va": "0x00678C10",
      "length": 149,
-     "name": "sub_00678C10"
+     "name": "PATH_GetDirectionIndex"
     },
     {
      "va": "0x00678CB0",
      "length": 28,
-     "name": "?sub_00678CB0_GetFirstDirectionXY@@YIHHHHH@Z"
+     "name": "?PATH_GetAltFirstDirectionXY@@YIHHHHH@Z"
     },
     {
      "va": "0x00678CD0",
      "length": 28,
-     "name": "sub_00678CD0_GetFirstDirection"
+     "name": "PATH_GetAltFirstDirection"
     },
     {
      "va": "0x00678CF0",
      "length": 30,
-     "name": "?sub_6FDAB750@@YIHHHHH@Z"
+     "name": "?PATH_GetFirstDirectionXY@@YIHHHHH@Z"
     },
     {
      "va": "0x00678D10",
      "length": 30,
-     "name": "?sub_6FDAB770@@YGHUD2PathPointStrc@@0@Z"
+     "name": "?PATH_GetFirstDirection@@YGHUD2PathPointStrc@@0@Z"
     },
     {
      "va": "0x00678D30",
      "length": 57,
-     "name": "?sub_00678D30_GetDirectionsXY@@YIXHHHHPAH@Z"
+     "name": "?PATH_GetDirectionTripletXY@@YIXHHHHPAH@Z"
     },
     {
      "va": "0x00678D70",
@@ -76832,12 +76832,12 @@
     {
      "va": "0x00678DB0",
      "length": 55,
-     "name": "?sub_00678DB0_GetDirectionTripletXY@@YIXHHHHPAH@Z"
+     "name": "?PATH_GetAltDirectionTripletXY@@YIXHHHHPAH@Z"
     },
     {
      "va": "0x00678DF0",
      "length": 56,
-     "name": "sub_00678DF0"
+     "name": "PATH_GetAltDirectionTriplet"
     },
     {
      "va": "0x00678E30",
@@ -76846,7 +76846,7 @@
     {
      "va": "0x00678F00",
      "length": 97,
-     "name": "?sub_6FDAB810@@YIXPAH0@Z"
+     "name": "?PATH_NormalizeStep@@YIXPAH0@Z"
     },
     {
      "va": "0x00678F70",
@@ -77944,7 +77944,7 @@
     {
      "va": "0x006B1B60",
      "length": 96,
-     "name": "?sub_006B1B60_EnumTextureFormat@@YGHPAUD2PixelFormat006B1B60Strc@@PAK@Z"
+     "name": "?D3D_EnumTextureFormatCallback@@YGHPAUD2PixelFormat006B1B60Strc@@PAK@Z"
     },
     {
      "va": "0x006B1BC0",
