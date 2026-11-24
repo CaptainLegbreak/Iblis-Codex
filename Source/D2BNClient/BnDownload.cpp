@@ -331,7 +331,6 @@ extern "C" const char gszAdListRegValue[];                                      
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
-// calling-convention shim (not game code)
 int __stdcall sub_004192F0_OpenArchiveFile(void*, const char*, unsigned int, void**); // 0x004192F0
 
 void* __stdcall sub_00413020_Alloc(unsigned int, const char*, int, unsigned int); // 0x00413020
