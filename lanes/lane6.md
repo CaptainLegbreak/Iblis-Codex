@@ -4,19 +4,18 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane6/lang-a-2 623ff998 535->535 language-table copies: split the multi-copy blocks after Preset.cpp, and place 17 copies with their objects; VERIFIED 4bc0d273
+  - **Replaces lane6/lang-a** (that one was on #309; this one is replayed on #311, and its data-plan change is identical).
+  - After FieldTbls.cpp: 25 back-to-back copies, broken by 36 B at 0x00749B10 (no readers) and by DrlgGrid.cpp's own gpfnDrlgGridFlagOperations (0x00749BAC). So DrlgGrid.cpp is the 16th object after FieldTbls.cpp. Pinned: FieldTbls.cpp 0x00749744, AnimTbls.cpp 0x007497C8 (next asserted file), DrlgGrid.cpp 0x00749B70, DrlgVer.cpp 0x00749BC4 (was borrowed). The other 14 copies and the 36 B are now one entry each, still in FieldTbls.cpp until their objects are pinned. AnimTbls.cpp, DrlgGrid.cpp and DrlgVer.cpp get their first data includes.
+  - Rule used for 13 more: a copy right before data the plan already gives to F, which only F reads, is F's (ChatDlg, ComCallback, D2WinMain, D2WinPalette, D2WinTextBox, D2Comp, DrlgActivate, Units, Inventory, Composit, MonsterTbls, ItemMods, Waypoint). Touches data entries of D2Client automap.cpp (0x0070CCD8 leaves it).
 - lane6/locks-a a53078d6 535->535 four long-lived locks become CCritSect objects in their files (BnDownload.cpp x2, CACHE.CPP, Preset.cpp), per lane 3's crt-locks pattern; VERIFIED a64fc1f1
   - Based on main #306 (no source file in common with #307-#308); not stacked. Takes eight init/destroy functions out of Storm/Unknown_006CAE80.cpp, Bnclient/Unknown_006CB420.cpp and Storm/Unknown_006CB4E0.cpp (Storm-dir placeholders, as the coordinator assigned).
-- lane6/data-b 690dbcf7 535->535 borrowed data: 23 definitions in 10 files, about 6,200 B on main #301; VERIFIED 087a3f2a (borrowed data 8,247 B on #304)
-  - On origin/main #304; not stacked. Data plan and two source lines only.
-  - 0x007420D8: five int[256] tables (four rising ramps, one falling) go to Unknown_006056D0.cpp. They end exactly at its gtColorBlock, and CelCmp.cpp's strings end at 0x007420D0 before a pad to 8 bytes. -5,120 B.
-  - 0x0070D3F0: twelve D2WinControlInitStrc records go to ChatDlg.cpp. Their pointers are CHATDLG_ callbacks and ChatDlg.cpp's own data. Two pointer targets that nothing defined (0x0077BD64, 0x0077BD74) become 16-byte bss buffers in ChatDlg.cpp. -576 B.
-  - 0x00743780: Ignorelist.cpp's two language-name tables. -120 B.
-  - Readers in one file: gadwDccSignBits (Codec.cpp), gaFontCharValidBits (D2WinFont.cpp), and RoomTile.cpp, Unknown_00444020.cpp, Unknown_00516DE1.cpp, BNNews.cpp, MainMenus.cpp, D2Comp.cpp blocks. -372 B.
 
 ## Questions
 
 ## Notes for other lanes
 
+- Lanes 3, 4 and 5: three named definitions swallow a language-table copy that belongs to the next file. gaTable_0070896C (Storm/Unknown_00426900.cpp) holds 0x00708970, MainMenus.cpp's copy. gEclipseEnvironmentCycle (Env.cpp, lane 6) holds 0x007444C8, LvlTbls.cpp's. gabDirection8To64 (D2Game ItemMode.cpp) holds 0x00745738, Skills.cpp's. Those definitions are probably sized too big.
 - Coordinator, an idea for borrowed data: the 15-entry language-name table (English ... "14") is a static array in a shared header, so .data holds one copy per object that includes it (Ignorelist.cpp has two). Runs of back-to-back copies with no other data, such as 0x00749690-0x00749DE0 (29 copies), are then a count of object files in link order. The plan gives FieldTbls.cpp a 996 B block of 16 copies (gData_007497C8) that can only be one file's. Matching copies to code files in order could place those runs and settle file boundaries in D2Common. I have not done it: it needs care where an object includes the header twice. Do you want it?
 - Coordinator: ignore `lane6/d2win-a-2` (fe7d1c5e) and `lane6/block-c-2` (dea7e500). They are rebases of `d2win-a` and `block-c`, pushed just before #294 merged the originals; #294 has the same content.
 - Lane 3: D2Gdi `Unknown_006C81A0`, `Unknown_006C84B0`, `Unknown_006C86A0`, `Unknown_006C8750` sit in the Storm SCMD run; D2Direct3D `Unknown_006B1C70` sits in the Fog QServer run; MainMenus 0x00409020 and 0x004107F0 are Fog code. Storm-region stubs: D2Win `Unknown_006B1BC0`, D2Hell `Unknown_006CAE5F`, D2CMP `Unknown_006CB4C0`. SRP 0x00528550, 0x00528890. Yours to place; lane 6 has not moved them.
