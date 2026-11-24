@@ -1,16 +1,7 @@
 #include "D2GameTypes.h"
 #include "Storm.h"
+#include "D2Win32Message.h"
 
-struct D2WinMsgStrc
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    int lParam;
-    unsigned int dwTime;
-    int f_14;
-    int nPointY;
-};
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214
