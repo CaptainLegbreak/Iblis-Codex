@@ -1124,6 +1124,17 @@ void __stdcall COMCALLBACK_RemoveTableString(Unicode* pText)
     }
 }
 
+// 0x00446B30
+int __fastcall sub_00446B30_ShowText(int nArg, const char* szText)
+{
+    Unicode wszText[0x240];
+    for (int i = 0; i < 0x240; i++)
+        wszText[i].wChar = 0;
+    Unicode::win2Unicode(wszText, szText, 0x240);
+    CHATDLG_ShowChannelText(wszText);
+    return 1;
+}
+
 // 0x00446B70
 static int COMCALLBACK_PlayAd(ComAdStrc* pAd)
 {

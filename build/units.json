@@ -10795,6 +10795,11 @@
      "name": "COMCALLBACK_RemoveTableString"
     },
     {
+     "va": "0x00446B30",
+     "length": 62,
+     "name": "?sub_00446B30_ShowText@@YIHHPBD@Z"
+    },
+    {
      "va": "0x00446B70",
      "length": 300
     },
@@ -12853,31 +12858,6 @@
      "length": 5,
      "name": "?SKILLS_Return0@@YGHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_00446B30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00446B30",
-     "length": 62,
-     "name": "?sub_00446B30_ShowText@@YIHHPBD@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
