@@ -1,14 +1,10 @@
 #include "D2DDraw.h"
-
 #include "D2GameTypes.h"
-
 #include "D2GfxTypes.h"
-
 #include "D2Win32Base.h"
-
 #include "D2DDrawTypes.h"
-
 #include "D2GlideTypes.h"
+#include "D2Win32Types.h"
 
 struct D2CriticalSectionStrc;
 
@@ -313,13 +309,38 @@ struct T004013C0
     unsigned int nTotalMemory;
 };
 
-extern int gbDDrawPlatformFlag; // 0x0088125C
+int gbDDrawPlatformFlag; // 0x0088125C
 
-extern char gszDDrawDeviceName[256]; // 0x00881154
+char gszDDrawDeviceName[256]; // 0x00881154
 
 T004013C0* __cdecl FOG_GetSystemInfo(); // 0x00407360
 
 void __fastcall GLIDE_SetPalette(const tagPALETTEENTRY* pPalette); // 0x00509300
+
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+struct T004013C0;
+
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
+void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dScale, int nArg, int nEntries, int nMask); // 0x006BE190
+
+unsigned long gdwVideoFlags; // 0x00881140
+
+tagPALETTEENTRY gaDDrawSavedPalette[256]; // 0x00880D40
+
+
+void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x0050BF50
+
+void __fastcall sub_0050C0F0_GlideDrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x0050C0F0
+
+extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
+
+int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
+
+void __fastcall sub_00512D90_DDrawUtilFilledRect(tagRECT* pRect, unsigned char nColor);                     // 0x00512D90
+
+void __fastcall DDRAW_CloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
 
 // 0x0050BEF0
 void __fastcall GLIDE_DebugDraw(const unsigned int* pLight, const unsigned int* pPlayerLight, int nPosX, int nPosY)
@@ -330,10 +351,6 @@ void __fastcall GLIDE_DebugDraw(const unsigned int* pLight, const unsigned int* 
     memcpy(*gppGlideDebugBuffer, pPlayerLight, 0x4800);
     sub_0050BE20_GlideDebugRefresh();
 }
-
-void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x0050BF50
-
-void __fastcall sub_0050C0F0_GlideDrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x0050C0F0
 
 // 0x0050FD10
 void __cdecl GLIDE_DrawVideoFrame()
@@ -357,10 +374,6 @@ void __cdecl GLIDE_DrawVideoFrame()
     }
     BinkNextFrame(gpGlideBink);
 }
-
-extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
-
-int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 
 // 0x00510020
 int __fastcall DDRAW_Detect(void* hInstance)
@@ -394,6 +407,25 @@ int __fastcall DDRAW_Detect(void* hInstance)
     strcpy(gszDDrawDeviceName, "Fallback DirectDraw Device");
     gdwVideoFlags = gdwBitMasks[0];
     return 1;
+}
+
+// 0x00510160
+void __fastcall sub_00510160_DDrawSetPalette(tagPALETTEENTRY* pPalette)
+{
+    memcpy(gaDDrawSavedPalette, pPalette, sizeof(gaDDrawSavedPalette));
+
+    unsigned char abGamma[256];
+// build: symbol ?gnDDrawGammaScale@* 0x0072F7C8
+// build: symbol ?gnDDrawGamma@* 0x0072F7CC
+    sub_006BE190_BuildGammaTable(gnDDrawGamma, abGamma, gnDDrawGammaScale, 1, 256, 0xFF);
+    for (int i = 0; i < 256; ++i)
+    {
+        gatGamePalette[i].peRed = abGamma[gaDDrawSavedPalette[i].peRed];
+        gatGamePalette[i].peGreen = abGamma[gaDDrawSavedPalette[i].peGreen];
+        gatGamePalette[i].peBlue = abGamma[gaDDrawSavedPalette[i].peBlue];
+    }
+
+    gbPaletteDirty = 1;
 }
 
 // 0x00511210
@@ -885,8 +917,6 @@ void __fastcall DDRAW_SetPixel(int nX, int nY, unsigned char nColor)
         gpScreenBuffer_007C9154[gnRenderWidth * nY + nX] = nColor;
 }
 
-void __fastcall sub_00512D90_DDrawUtilFilledRect(tagRECT* pRect, unsigned char nColor);                     // 0x00512D90
-
 // 0x00512E80
 void __fastcall DDRAW_UtilPoint(tagPOINT* pPoint, unsigned char nSize, unsigned char nPaletteIndex)
 {
@@ -919,8 +949,6 @@ int __fastcall DDRAW_FloorTileDraw(D2TileLibraryEntryStrc* pTile, D2GfxLightExSt
     }
     return nResult;
 }
-
-void __fastcall DDRAW_CloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
 
 // 0x005136F0
 void __cdecl DDRAW_DrawVideoFrame()
