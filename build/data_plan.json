@@ -3406,15 +3406,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005D8100.cpp": {
-   "bytes": 484,
-   "definitions": 7,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005D8100.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/Ai/AiUtil.cpp": {
    "bytes": 104,
    "definitions": 1,
@@ -5292,6 +5283,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Hell/Unknown_005173EF.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/SKILLS/SkillBar.cpp": {
+   "bytes": 484,
+   "definitions": 7,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/SKILLS/SkillBar.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -109138,7 +109138,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005D8100.cpp",
+   "file": "Source/D2Game/SKILLS/SkillBar.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnPotionTableMax = ",
@@ -109163,7 +109163,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005D8100.cpp",
+   "file": "Source/D2Game/SKILLS/SkillBar.cpp",
    "fill": 15,
    "form": "declared",
    "fwd": null,
@@ -109199,7 +109199,7 @@
    "cname": "gData_00741C0C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005D8100.cpp",
+   "file": "Source/D2Game/SKILLS/SkillBar.cpp",
    "form": "bytes",
    "name": "gData_00741C0C",
    "pointers": [
@@ -109337,7 +109337,7 @@
    "cname": "gData_00741C48",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005D8100.cpp",
+   "file": "Source/D2Game/SKILLS/SkillBar.cpp",
    "form": "bytes",
    "name": "gData_00741C48",
    "pointers": [
@@ -109475,7 +109475,7 @@
    "cname": "gData_00741C84",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005D8100.cpp",
+   "file": "Source/D2Game/SKILLS/SkillBar.cpp",
    "form": "bytes",
    "name": "gData_00741C84",
    "pointers": [
@@ -109613,7 +109613,7 @@
    "cname": "gData_00741CC0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005D8100.cpp",
+   "file": "Source/D2Game/SKILLS/SkillBar.cpp",
    "form": "bytes",
    "name": "gData_00741CC0",
    "pointers": [
@@ -109751,7 +109751,7 @@
    "cname": "gData_00741CFC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005D8100.cpp",
+   "file": "Source/D2Game/SKILLS/SkillBar.cpp",
    "form": "bytes",
    "name": "gData_00741CFC",
    "pointers": [
