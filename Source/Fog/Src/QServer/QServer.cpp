@@ -12,18 +12,6 @@ struct D2PacketBufferStrc;
 
 struct D2CriticalSectionStrc;
 
-struct D2RecordTableStrc;
-
-struct D2HashNodeStrc;
-
-struct D2HashTableStrc;
-
-struct D2SocketTableStrc;
-
-struct D2HashNode006BEF40Strc;
-
-struct D2HashTable006BEF40Strc;
-
 struct D2PairEntry006BF610Strc;
 
 struct D2PairTable006BF610Strc;
@@ -58,81 +46,17 @@ extern const char gszHackListSizeFormat[]; // 0x006FC4B0
 
 extern unsigned long gdwLastLogTick_00989C34; // 0x00989C34
 
-struct D2RecordTableStrc {
-    unsigned char unknown0[0x10];
-    unsigned int bucketCount;
-    unsigned char unknown14[0x2c];
-    D2QIpCountStrc** buckets;
-    unsigned char unknown44[0x810];
-    D2CriticalSectionStrc lock;
-    unsigned char unknown86c[0x18];
-    int threshold;
-};
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
 int __fastcall sub_006C30D0_Wait(D2QueueServerStrc* pServer, unsigned long dwMilliseconds); // 0x006C30D0
 
-struct D2HashNodeStrc
-{
-    unsigned int key;
-    D2HashNodeStrc* next;
-    unsigned int reserved08[2];
-    unsigned char unk_10[0x4];
-    unsigned int reserved14;
-    union
-    {
-        D2InAddrStrc address;
-        void* value;
-    };
-};
-
-struct D2HashTableStrc
-{
-    unsigned int reserved0[2];
-    unsigned int count;
-    unsigned int mask;
-    unsigned int reserved10;
-    D2HashNodeStrc** buckets;
-    unsigned int reserved18;
-    D2CriticalSectionStrc* locks;
-};
-
 extern "C" char* __stdcall inet_ntoa(D2InAddrStrc); // 0x006B013E
 
 unsigned int __stdcall SStrCopy(char*, const char*, unsigned int); // 0x004135D0
 
-struct D2SocketTableStrc
-{
-    unsigned int reserved00[3];
-    unsigned int mask;
-    unsigned int reserved10;
-    D2QClientStrc** buckets;
-    unsigned int reserved18;
-    D2CriticalSectionStrc* locks;
-};
-
 extern "C" int __stdcall getpeername(unsigned int, void*, int*); // 0x006B018C
-
-struct D2HashNode006BEF40Strc
-{
-    unsigned int nKey;
-    D2HashNode006BEF40Strc* pNext;
-    unsigned char unk_08[8];
-    int nValue;
-};
-
-struct D2HashTable006BEF40Strc
-{
-    unsigned char unk_00[0x0C];
-    unsigned int nMask;
-    unsigned char unk_10[4];
-    D2HashNode006BEF40Strc** ppBuckets;
-    unsigned char unk_18[4];
-    D2CriticalSectionStrc* pLocks;
-};
 
 char* __stdcall sub_006B013E_InetNtoa(unsigned long dwAddress); // 0x006B013E
 
@@ -779,22 +703,22 @@ int D2QueueServerStrc::RefreshRecord(unsigned int nKey)
 }
 
 // 0x006BE9F0
-int __fastcall QSERVER_CheckRecordThreshold(D2RecordTableStrc* table, const unsigned int* keyPointer)
+int __fastcall QSERVER_CheckRecordThreshold(D2QueueServerStrc* table, const unsigned int* keyPointer)
 {
-    if (table->threshold < 0) return 0;
+    if (table->nLimit < 0) return 0;
     unsigned int key = *keyPointer;
-    unsigned int index = key % table->bucketCount;
-    EnterCriticalSection(&table->lock);
-    D2QIpCountStrc* node = table->buckets[index];
+    unsigned int index = key % table->nIpBuckets;
+    EnterCriticalSection(&table->tLock);
+    D2QIpCountStrc* node = table->ppIpCounts[index];
     while (node) {
         if (node->nKey == key) {
             int value = node->nRefCount;
-            LeaveCriticalSection(&table->lock);
-            return value >= table->threshold;
+            LeaveCriticalSection(&table->tLock);
+            return value >= table->nLimit;
         }
         node = node->pNext;
     }
-    LeaveCriticalSection(&table->lock);
+    LeaveCriticalSection(&table->tLock);
     return 0;
 }
 
@@ -942,60 +866,55 @@ unsigned short __stdcall QSERVER_GetClientPeerPort(D2QueueServerStrc* pServer, u
     return nPort;
 }
 
-static inline int sub_006BED90_MatchKey(const D2HashNodeStrc* node, unsigned int key)
-{
-    return node->key == key;
-}
-
 // 0x006BED90
-void __stdcall FOG_10159(D2HashTableStrc* table, unsigned int key, char* output, unsigned int size)
+void __stdcall FOG_10159(D2QueueServerStrc* table, unsigned int key, char* output, unsigned int size)
 {
-    unsigned int index = table->mask & key;
-    EnterCriticalSection(&table->locks[index]);
-    D2HashNodeStrc* node = table->buckets[index];
+    unsigned int index = table->nMask & key;
+    EnterCriticalSection(&table->pLocks[index]);
+    D2QClientStrc* node = table->ppClients[index];
     while (node) {
-        if (sub_006BED90_MatchKey(node, key)) {
-            const char* text = inet_ntoa(node->address);
+        if (node->nId == key) {
+            const char* text = inet_ntoa(node->tAddress);
             SStrCopy(output, text, size);
-            LeaveCriticalSection(&table->locks[index]);
+            LeaveCriticalSection(&table->pLocks[index]);
             return;
         }
-        node = node->next;
+        node = node->pNext;
     }
-    LeaveCriticalSection(&table->locks[index]);
+    LeaveCriticalSection(&table->pLocks[index]);
     *output = 0;
 }
 
 // 0x006BEE20
-void* __stdcall FOG_10158(D2HashTableStrc* table, unsigned int key)
+unsigned int __stdcall FOG_10158(D2QueueServerStrc* table, unsigned int key)
 {
-    unsigned int index = key & table->mask;
-    EnterCriticalSection(&table->locks[index]);
-    D2HashNodeStrc* node = table->buckets[index];
+    unsigned int index = key & table->nMask;
+    EnterCriticalSection(&table->pLocks[index]);
+    D2QClientStrc* node = table->ppClients[index];
     while (node) {
-        if (node->key == key) {
-            void* value = node->value;
-            LeaveCriticalSection(&table->locks[index]);
+        if (node->nId == key) {
+            unsigned int value = node->nAddress;
+            LeaveCriticalSection(&table->pLocks[index]);
             return value;
         }
-        node = node->next;
+        node = node->pNext;
     }
-    LeaveCriticalSection(&table->locks[index]);
+    LeaveCriticalSection(&table->pLocks[index]);
     return 0;
 }
 
 // 0x006BEE90
-unsigned int __stdcall QSERVER_GetSocketPeerAddress(D2SocketTableStrc* table, void* key)
+unsigned int __stdcall QSERVER_GetSocketPeerAddress(D2QueueServerStrc* table, void* key)
 {
-    const unsigned int index = table->mask & (unsigned int)key;
-    EnterCriticalSection(&table->locks[index]);
-    D2QClientStrc* node = table->buckets[index];
+    const unsigned int index = table->nMask & (unsigned int)key;
+    EnterCriticalSection(&table->pLocks[index]);
+    D2QClientStrc* node = table->ppClients[index];
     while (node)
     {
         if (node->pKey == key)
         {
             const unsigned int socket = node->nSocket;
-            LeaveCriticalSection(&table->locks[index]);
+            LeaveCriticalSection(&table->pLocks[index]);
             char address[16];
             int length = sizeof(address);
             getpeername(socket, address, &length);
@@ -1003,20 +922,20 @@ unsigned int __stdcall QSERVER_GetSocketPeerAddress(D2SocketTableStrc* table, vo
         }
         node = node->pNext;
     }
-    LeaveCriticalSection(&table->locks[index]);
+    LeaveCriticalSection(&table->pLocks[index]);
     return 0;
 }
 
 // 0x006BEF40
-int __stdcall FOG_10161(D2HashTable006BEF40Strc* pTable, unsigned int nKey)
+int __stdcall FOG_10161(D2QueueServerStrc* pTable, unsigned int nKey)
 {
     const unsigned int nBucket = pTable->nMask & nKey;
     EnterCriticalSection(&pTable->pLocks[nBucket]);
-    for (D2HashNode006BEF40Strc* pNode = pTable->ppBuckets[nBucket]; pNode; pNode = pNode->pNext)
+    for (D2QClientStrc* pNode = pTable->ppClients[nBucket]; pNode; pNode = pNode->pNext)
     {
-        if (pNode->nKey == nKey)
+        if (pNode->nId == nKey)
         {
-            const int nValue = pNode->nValue;
+            const int nValue = pNode->iSocket;
             LeaveCriticalSection(&pTable->pLocks[nBucket]);
             return nValue;
         }
