@@ -102,12 +102,9 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-
 extern "C" int __stdcall Process32FirstW(void* hSnapshot, D2ProcessEntryWStrc* pEntry); // 0x006B1524
 
 extern "C" int __stdcall Process32NextW(void* hSnapshot, D2ProcessEntryWStrc* pEntry); // 0x006B1530
-
-
 
 extern "C" __declspec(dllimport) int __stdcall CreateProcessW(const wchar_t* wszApplicationName, wchar_t* wszCommandLine, void* pProcessAttributes, void* pThreadAttributes, int bInheritHandles, unsigned long dwCreationFlags, void* pEnvironment, const wchar_t* wszCurrentDirectory, D2StartupInfoWStrc* pStartupInfo, D2ProcessInformationStrc* pProcessInformation); // 0x006CC2C4
 
@@ -220,9 +217,6 @@ typedef char* va_list;
 #define va_start(ap, v) (ap = (va_list)&v + _INTSIZEOF(v))
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-
-
-
 
 struct FSafeSock
 {
@@ -556,7 +550,6 @@ unsigned long __stdcall sub_004101C0_LogThreadProc(void* pParam); // 0x004101C0
 
 extern D2SystemTimeStrc gLogStartTime_0075D288; // 0x0075D288
 
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(); // 0x006CC1B4
 
 int __fastcall EXCEPTIONS_GetAppPath(char* szPath, unsigned int nSize); // 0x0040C220
@@ -580,10 +573,6 @@ extern "C" void* __fastcall FOG_AllocPool(void* pool,int size,const char* file,i
 extern "C" void* gpSmackFrameBuffer; // 0x009897D0
 
 extern "C" const char gszExceptionsCppFile[]; // 0x006CD628
-
-
-
-
 
 typedef int (__stdcall* StackWalkFn)(unsigned long dwMachine, void* hProcess, void* hThread, D2ImageHlpStackFrameStrc* pFrame, void* pContext, void* pfnReadMemory, void* pfnFunctionTableAccess, void* pfnGetModuleBase, void* pfnTranslateAddress);
 
@@ -615,7 +604,6 @@ extern unsigned int gnStackWalkDepth; // 0x0075D018
 
 void __stdcall SMemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
 
-
 extern "C" unsigned int __cdecl fread(void* pBuffer, unsigned int nSize, unsigned int nCount, _iobuf* pFile); // 0x00684782
 
 int __stdcall SMemCmp(void* pLocation1, void* pLocation2, unsigned int nSize); // 0x0041D200
@@ -638,7 +626,6 @@ int gnLogQueueCount; // 0x0075E870
 
 struct D2ToolhelpModuleEntryStrc;
 
-
 typedef void* (__stdcall* CreateToolhelp32SnapshotFn)(unsigned long dwFlags, unsigned long dwProcessId);
 
 typedef int (__stdcall* Module32Fn)(void* hSnapshot, D2ToolhelpModuleEntryStrc* pEntry);
@@ -650,7 +637,6 @@ typedef unsigned long (__stdcall* GetModuleNameFn)(void* hProcess, void* hModule
 typedef int (__stdcall* GetModuleInformationFn)(void* hProcess, void* hModule, D2PsapiModuleInfoStrc* pInfo, unsigned long nSize);
 
 extern "C" const char gszExceptionsCpp_006CD628[]; // 0x006CD628
-
 
 extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void* lp, unsigned int ucb); // 0x006CC238
 
@@ -687,7 +673,6 @@ static char* EXCEPTIONS_ComposeSymbolPath(char* szPath); // 0x0040C290
 extern "C" void __fastcall EXCEPTIONS_FreeModuleList(D2ModuleInfoStrc* pList);                                  // 0x0040B660
 
 void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStrc* pContext, D2ModuleInfoStrc* pModules); // 0x0040BCF0
-
 
 char gszImageHlpSymSearchPath[4096]; // 0x0075BFB8
 
@@ -892,18 +877,6 @@ static int gbExpansionMpq; // 0x0074F0D8
 static int FOG_FileExists(const char* szFile)
 {
     return GetFileAttributesA(szFile) != (unsigned long)-1;
-}
-
-void __cdecl sub_0047B4D0_Nop()
-{
-}
-
-void __cdecl sub_004BF9C0_Nop()
-{
-}
-
-void __cdecl GLSPRITE_DebugFillBackBuffer()
-{
 }
 
 void* __fastcall ERRORMANAGER_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory, int nSize, const char* szFile, int nLine); // 0x0040A1F0
