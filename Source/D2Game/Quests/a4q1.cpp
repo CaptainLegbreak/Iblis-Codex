@@ -18,6 +18,7 @@
 #include "D2Win32Base.h"
 #include "D2Packets.h"
 #include "D2GameAux.h"
+#include "D2LanguageNames.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -988,10 +989,7 @@ void __fastcall ACT4Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
-static int gnAct4Q1NpcMessageIndices[] =                                                                            // 0x0073DBA0
-{
-    -1, 0, 1, 2, 3, 4
-};
+extern int gnAct4Q1NpcMessageIndices[]; // 0x0073DBA0
 
 // 0x005B3BB0
 void __fastcall ACT4Q1_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
@@ -1619,5 +1617,10 @@ void __fastcall ACT3Q0_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
         QUESTS_SetGlobalState(pQuestData->pGame, 16, 13);
     }
 }
+
+int gnAct4Q2NpcMessageIndices[] = // 0x0073D56C
+{
+    -1, 0, 1, -1, -1
+};
 
 #include "gen/data/Source/D2Game/Quests/a4q1.inc"
