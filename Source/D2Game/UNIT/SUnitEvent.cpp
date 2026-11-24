@@ -24,6 +24,7 @@
 #include "D2GameClient.h"
 #include "D2HotkeySkill.h"
 #include "D2GameAux.h"
+#include "D2LanguageNames.h"
 
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
