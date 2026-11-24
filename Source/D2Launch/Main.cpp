@@ -166,7 +166,7 @@ int __stdcall sub_K01_Emit_00406190(void* hModule, const char* szName, void** pp
 }
 
 // 0x004061C0
-int __cdecl ERRORMANAGER_DenyProcessAccess()
+int __cdecl MAIN_DenyProcessAccess()
 {
     D2SidAuthorityStrc tAuthority = { { 0, 0, 0, 0, 0, 1 } };
     void* hProcess = GetCurrentProcess();
@@ -318,7 +318,7 @@ void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** lpszArgv)
 }
 
 // 0x00406650
-int __cdecl ERRORMANAGER_StartServiceDispatcher()
+int __cdecl MAIN_StartServiceDispatcher()
 {
     if (!(GetVersion() & 0x80000000))
     {
@@ -351,15 +351,15 @@ extern "C" int __stdcall WinMain(void* hInstance, void* hPrevInstance, char* lpC
 {
     ghCurrentProcess_0074C718 = hInstance;
     gnCmdShow = nShowCmd;
-    if (!ERRORMANAGER_StartServiceDispatcher())
+    if (!MAIN_StartServiceDispatcher())
     {
         const char* argv[2];
         argv[0] = "d2server";
         argv[1] = lpCmdLine;
-        ERRORMANAGER_DenyProcessAccess();
+        MAIN_DenyProcessAccess();
         GameInit(2, argv);
     }
     return 0;
 }
 
-#include "gen/data/Source/D2Launch/Unknown_00406410.inc"
+#include "gen/data/Source/D2Launch/Main.inc"
