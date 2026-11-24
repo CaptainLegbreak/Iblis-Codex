@@ -4,8 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/wall2-copies e99299887 0->0 gData_0072A96C (Wall2.cpp, 124 B) is two copies and 4 zero bytes; the second copy (0x72A9A8) with the padding runs into gaLightOffsetsB, the tile-light object's first data (Unknown_004DEDB0.cpp, next in code order), and is planned there; Wall2.cpp keeps the first; VERIFIED f525e414d1ed7ce6272800c302b6d0f8c9d115ee
-  - verified on #341, rebased clean onto #342 (tree 6ab2354e6950fb8f84cc9e0f636871cf0772b0d4, re-verifying). Note: Wall2's gVar_0072A968 sits before its copy but Wall2's 0x4DD060 reads it, so it stays Wall2's (the compiler order quirk seen in Monster.cpp).
+- lane1/wall2-copies e99299887 0->0 gData_0072A96C (Wall2.cpp, 124 B) is two copies and 4 zero bytes; the second copy (0x72A9A8) with the padding runs into gaLightOffsetsB, the tile-light object's first data (Unknown_004DEDB0.cpp, next in code order), and is planned there; Wall2.cpp keeps the first; VERIFIED 6ab2354e6950fb8f84cc9e0f636871cf0772b0d4
+  - based on main #342. Note: Wall2's gVar_0072A968 sits before its copy but Wall2's 0x4DD060 reads it, so it stays Wall2's (the compiler order quirk seen in Monster.cpp).
 
 - lane1/keycfg-handover-2 a8abd0042 0->0 from lane 4's handover list: 0x4A4110 (TEXT_QuestButtonUpMsg, inferred) leaves text_0049A950.cpp for the key-config object's placeholder Unknown_004A43E0.cpp (kept under that name while the 0x4A4AD0 variant search uses the path); VERIFIED 078cd09d9add89f20b19d6f924886ee6a77ca3eb
   - based on main #341. Replaces lane1/keycfg-handover (same commit on #340, pushed by mistake mid-rebase).
