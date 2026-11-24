@@ -4,26 +4,14 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/ctx-trim-d2game-2 7d20f441 562->562 Replaces `lane2/ctx-trim-d2game`, redone on #362 (lane 5's skill-runs moved code into SkillDruid.cpp): all 105 `// build: context` lines in D2Game's 36 units go, each unit still all equal without them. Deletions only; VERIFIED 1389203f7ab9b91d238681afe29d3a5d243ecea3
+  - On 90638cd1. With #362's three trims, this takes 210 of the 219 context directives; the 9 left are lane 3's 8 kept Fog lines and D2Lang's comment line.
+
 - lane2/unit-names-b 9d7a00bd 562->562 Single-unit address names, batch 2 (see Notes for other lanes): SUnit's T00552FD0 view goes for D2AnimData.h's D2AnimDataRecordStrc; SUnitDmg's T0057E5A0 is D2PartyExperienceStrc; MonsterTbls' T006510C0 is D2UniqueNameTablesStrc. Names only; VERIFIED 70739b6cd0b77eacd525b35abaf7e8ed8f64e280
   - On 90638cd1. All 3 changed units build equal. Outside lane 2: SUnit, SUnitDmg (lane 5), MonsterTbls (lane 8).
 
 - lane2/unit-names-a afe929ea 562->562 Single-unit address names, batch 1 (see Notes for other lanes): LRUCache.cpp's T006090E0 view folds into its own D2LRUCacheStrc; GfxUtil's T004DA110 is D2KeyedNodeStrc; D2SoundUtil's T00516950 is D2SoundListNodeStrc; Cursor.cpp's T0044CB60 copy is D2SplittedTextStrc via D2WinSplitText.h. Names only; VERIFIED 155642104f1c15c2400811384d64d940276231dc
   - On ef7b4a19. All 4 changed units build equal. Outside lane 2: LRUCache (lane 6), GfxUtil, Cursor (lanes 1 and 4), D2SoundUtil (lane 6).
-
-- lane2/ctx-trim-d2client 4c903ecb 562->562 All 45 `// build: context` lines in D2Client's 11 units go; each unit stays all equal without them. Deletions only; VERIFIED c305c122656c617483e227ac662c7b9f0691bba8
-  - On ef7b4a19 (#361). D2Client now has no context directives. Outside lane 2: 11 D2Client units (lanes 1 and 4).
-
-- lane2/ctx-trim-d2common 294d3031 562->562 All 26 `// build: context` lines in D2Common's 19 units go; each unit stays all equal without them. Deletions only; VERIFIED 25ed1930259a5955f8c5de9eec7e9049a50b6378
-  - On ef7b4a19 (#361). Outside lane 2: 19 D2Common units (lane 8).
-
-- lane2/ctx-trim-rest c94fb248 562->562 The rest outside Storm/Fog/SRP in one branch: D2BNClient (10), D2CMP (7), D2Lang (3), D2Multi (3), D2Win, D2Glide, D2Gdi, D2DDraw, Bnclient (2 each), D2Hell (1). Every unit stays all equal without them; the shims they sat in front of stay. D2Lang's Unknown_00527A50 keeps its comment "build: context - inferred inline helper ...", which the checker doesn't read as a directive. Deletions only; VERIFIED 72a8a17b4f71762ada9e099900fbcae8e7dedc05
-  - Verified on 4be2ab3b (#360), rebased onto ef7b4a19 (#361) without conflicts; precheck of the 23 units is equal there. Outside lane 2: lanes 3, 6 and 9's units in those modules.
-
-- With ctx-trim-d2game, these take every context directive outside Storm, Fog and SRP: 105 + 45 + 26 + 34 = 210 of the 219.
-
-- lane2/ctx-trim-d2game eb5efed6 562->562 One commit: all 105 `// build: context` lines in D2Game's 36 units go. Each file was tested with its directives deleted and its unit rebuilt; all 36 stay all equal (every extra copy is now matched to its own definition, or no longer compiled). The copied functions stay; deletions only, two blank lines went with their directives; VERIFIED 940714ee3b5a7e10f4b3db9a8759e006a0aa7a9a
-  - Verified on bc489a89 (#359), rebased onto 4be2ab3b without conflicts; precheck of the 36 units is equal there. D2Game now has no context directives.
-  - Outside lane 2: 36 D2Game units (lane 5 and the others that own D2Game files). I couldn't write the note in lane 5's board file (my posting rule is lane2.md only), so this line is the notice.
 
 - lane2/exception-pointers faf6ef62 562->562 Three commits, records I had left private before. D2ExceptionPointers.h: Win32's EXCEPTION_POINTERS typed once, both pointers (Exceptions had the record as void*, Unknown_00402820 the context as void*), with Exceptions' field names. D2ClientQuestText.h: the quest text message and the quest log state that holds six of them (gtQuestLog_007BF298), identical in text, Unknown_004A43E0 and Unknown_004A6460; QuestLog types the text as unsigned short and keeps its pair. D2MultiCharSave.h: the .d2s header and 0x2000-byte file views, identical in ChatDlg and Unknown_0043C8A0 (merging with D2SaveHeaderStrc would still need a union for the old flags); VERIFIED 5f87d444cfc899399bdb0fb06be4261a1b6e45a4
   - Verified on ff65a331 (#357), rebased onto 9a070bac (#358): the three text units' conflicts with text-box were include lines only. Precheck of all 7 changed units is equal there.
