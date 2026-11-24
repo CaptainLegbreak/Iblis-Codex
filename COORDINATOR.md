@@ -4,7 +4,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #325 (round j87). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
+- `main`: #341 (round j97). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 1,175 B (was 15,691 B at #297). Placeholder files 453; shims 78; context copies 346. Names: blizzard 472, library 84, d2moo 5,234, inferred 5,574, placeholder 3,563.
 - Units 963, placeholder files 562.
 - In progress: nothing; next round as branches are posted ready.
 - **Renames are landing on main now (Fog #337, small modules next).** After a rebase, run `python3 tools/namesync.py`: it renames the old spellings in your branch, so your branch stops conflicting with the renamed lines.
