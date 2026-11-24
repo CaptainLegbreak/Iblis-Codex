@@ -1,27 +1,7 @@
 #include "D2Hell.h"
 #include "D2Win32System.h"
+#include "D2Win32StartupInfo.h"
 
-struct D2StartupInfoAStrc
-{
-    unsigned long cb;
-    char* lpReserved;
-    char* lpDesktop;
-    char* lpTitle;
-    unsigned long dwX;
-    unsigned long dwY;
-    unsigned long dwXSize;
-    unsigned long dwYSize;
-    unsigned long dwXCountChars;
-    unsigned long dwYCountChars;
-    unsigned long dwFillAttribute;
-    unsigned long dwFlags;
-    unsigned short wShowWindow;
-    unsigned short cbReserved2;
-    unsigned char* lpReserved2;
-    void* hStdInput;
-    void* hStdOutput;
-    void* hStdError;
-};
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
