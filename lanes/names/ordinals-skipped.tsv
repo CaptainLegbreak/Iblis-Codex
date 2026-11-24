@@ -1,0 +1,10 @@
+va	old_name	file	reason
+0x0052B5A0	D2NET_10018	Source/D2Net/SRC/Server.cpp	sets the server's FOG_10170 field; its purpose is unclear
+0x0052C3E0	D2Game_10056	Source/D2Game/GAME/Game.cpp	sets two globals whose purpose is unclear
+0x00645590	D2COMMON_11018	Source/D2Common/SKILLS/Skills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006455E0	D2COMMON_11019	Source/D2Common/SKILLS/Skills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00645630	D2Common_11020	Source/D2Common/SKILLS/Skills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00645680	D2COMMON_11021	Source/D2Common/SKILLS/Skills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006BE450	FOG_10180	Source/Fog/Src/QServer/QServer.cpp	returns field 0x880 of a queue object; its purpose is unclear; (also spelled Obj006BE450)
+0x006BF040	FOG_10170	Source/Fog/Src/QServer/QServer.cpp	sets field 0xBB8 of a queue object; its purpose is unclear
+0x006BF080	FOG_10171	Source/Fog/Src/QServer/QServer.cpp	sets field 0xBBC of a queue object; its purpose is unclear; (also spelled Obj006BF080)

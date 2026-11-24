@@ -38,10 +38,10 @@ va	old_name	new_name	source	file	confidence	reason
 0x004FAB00	sub_004FAB00_ShowInsertExpansionDisc	ARCHIVE_ShowInsertExpansionDiscMessage	d2moo	Source/D2Win/Src/D2WinArchive.cpp	high	D2MOO 1.14d 0x004FAB00; "Insert Expansion Disc" box
 0x004FAB30	sub_004FAB30_ShowInsertPlayDisc	ARCHIVE_ShowInsertPlayDiscMessage	d2moo	Source/D2Win/Src/D2WinArchive.cpp	high	D2MOO 1.14d 0x004FAB30; "Insert Play Disc" box
 0x004FAB60	sub_004FAB60_ShowInsertDisc	ARCHIVE_ShowInsertCinematicsDisc	d2moo	Source/D2Win/Src/D2WinArchive.cpp	high	D2MOO 1.14d 0x004FAB60; "Insert Cinematics Disc" box
-0x004FAC90	sub_004FAC90_CheckCharArchive	D2Win_10185	d2moo	Source/D2Win/Src/D2WinArchive.cpp	high	D2MOO 1.14d 0x004FAC90 (an ordinal-style name, as D2WinArchive.cpp already has); checks for d2char.mpq in the install path; (also spelled sub_004FAC90)
+0x004FAC90	sub_004FAC90_CheckCharArchive	D2Win_10185_CheckCharMpq	d2moo	Source/D2Win/Src/D2WinArchive.cpp	high	D2MOO 1.14d 0x004FAC90 gives the ordinal, the body the description; checks for d2char.mpq in the install path; (also spelled sub_004FAC90)
 0x004FB590	sub_004FB590	TEXTBOX_SetSmallGap	inferred	Source/D2Win/Src/D2WinTextBox.cpp	medium	sets the text boxes' small line gap flag
-0x00507EF0	sub_00507EF0_GetScrollBarField48	SCROLLBAR_GetMaxSteps	d2moo	Source/D2Win/D2WinAnimImage.cpp	high	D2MOO 1.14d 0x00507EF0 (in its D2WinScrollBar.cpp; filed in D2WinAnimImage.cpp here)
-0x00507FA0	sub_00507FA0_GetScrollBarField4C	SCROLLBAR_GetCurrentStep	d2moo	Source/D2Win/D2WinAnimImage.cpp	high	D2MOO 1.14d 0x00507FA0 (in its D2WinScrollBar.cpp; filed in D2WinAnimImage.cpp here)
+0x00507EF0	sub_00507EF0_GetScrollBarField48	SCROLLBAR_GetMaxSteps	d2moo	Source/D2Win/Src/D2WinScrollbar.cpp	high	D2MOO 1.14d 0x00507EF0 (in its D2WinScrollBar.cpp; filed in D2WinAnimImage.cpp here)
+0x00507FA0	sub_00507FA0_GetScrollBarField4C	SCROLLBAR_GetCurrentStep	d2moo	Source/D2Win/Src/D2WinScrollbar.cpp	high	D2MOO 1.14d 0x00507FA0 (in its D2WinScrollBar.cpp; filed in D2WinAnimImage.cpp here)
 0x0050BBA0	sub_0050BBA0_GlideDebugDrawChar	GLIDE_DebugDrawChar	inferred	Source/D2Glide/Src/glDebugFont.cpp	high	draws one debug-font character, returns its width
 0x0050BC90	sub_0050BC90_GlideDebugPrintf	GLIDE_DebugPrintf	inferred	Source/D2Glide/Src/glDebugFont.cpp	high	formats and draws a debug-font line; in data_plan.json
 0x0050DBC0	sub_0050DBC0_GlideSetAmbientColor	GLIDE_SetAmbientColor	inferred	Source/D2Glide/Src/glVertex.cpp	high	sets the ambient colour; in data_plan.json

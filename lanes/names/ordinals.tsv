@@ -1,0 +1,174 @@
+va	old_name	new_name	source	file	confidence	reason
+0x0040ADB0	FOG_10219	FOG_10219_BuildHuffmanCodes	inferred	Source/Fog/Src/ErrorManager.cpp	high	sorts the 256 code lengths and builds the canonical Huffman codes
+0x0040B0C0	FOG_10218	FOG_10218_InitHuffman	inferred	Source/Fog/Src/ErrorManager.cpp	high	clears the Huffman byte counters and totals, then builds the codes
+0x0040B130	FOG_10222	FOG_10222_AddHuffmanStats	inferred	Source/Fog/Src/ErrorManager.cpp	high	counts a buffer's bytes and adds its in/out/header sizes to the Huffman totals
+0x004AC730	sub_004AC730_MonsterDataOf	MONUNIQUE_GetMonsterData	inferred	Source/D2Client/UNIT/MonUnique.cpp	high	returns pMonsterData for a monster unit, else 0
+0x004AC760	sub_004AC760_GetMonsterDataWord14	MONUNIQUE_GetNameSeed	inferred	Source/D2Client/UNIT/MonUnique.cpp	high	returns the monster's wNameSeed; (also spelled sub_004AC760_GetNameSeed)
+0x004AC780	sub_004AC780	MONUNIQUE_SetNameSeed	inferred	Source/D2Client/UNIT/MonUnique.cpp	high	sets the monster's wNameSeed; (also spelled Unit004AC780, sub_004AC780_SetMonsterWord)
+0x004AC7A0	sub_004AC7A0	MONUNIQUE_SetSuperUniqueId	inferred	Source/D2Client/UNIT/MonUnique.cpp	high	sets the monster's superunique index; (also spelled sub_004AC7A0_SetSuperUniqueId)
+0x004AC7C0	sub_004AC7C0	MONUNIQUE_GetSuperUniqueId	inferred	Source/D2Client/UNIT/MonUnique.cpp	high	returns the monster's superunique index; (also spelled sub_004AC7C0_GetSuperUniqueId)
+0x004AC7E0	sub_004AC7E0	MONUNIQUE_CheckMonTypeFlag	inferred	Source/D2Client/UNIT/MonUnique.cpp	high	tests a bit of the monster's nTypeFlag (server twin MONSTERUNIQUE_CheckMonTypeFlag); (also spelled sub_004AC7E0_CheckMonTypeFlag)
+0x004AC840	sub_004AC840	MONUNIQUE_SetMonTypeFlagHigh	inferred	Source/D2Client/UNIT/MonUnique.cpp	medium	sets or clears bit 0x100 of the monster's nTypeFlag; the bit's meaning is not known; (also spelled sub_004AC840_SetTypeFlag100)
+0x004AC870	sub_004AC870_SetMonsterHoverName	MONUNIQUE_SetMonsterHoverName	inferred	Source/D2Client/UNIT/MonUnique.cpp	medium	builds the monster's name with its unique/champion modifiers for the hover box; in data_plan.json
+0x004F8FE0	D2Win_10015	D2Win_10015_InitGameUI	inferred	Source/D2Win/Src/D2WinMain.cpp	medium	loads fonts, pentspin cells, item palettes, the act-1 palette and registers the window commands
+0x004F9050	D2Win_10003	D2Win_10003_DeactivateWindow	inferred	Source/D2Win/Src/D2WinMain.cpp	medium	clears gdwGlobal_007D55B8 and calls the window teardown at 0x4F5D60; in // build: symbol
+0x004F9060	D2Win_10004	D2Win_10004_SetResolution	inferred	Source/D2Win/Src/D2WinMain.cpp	high	stores the resolution, ends the cutscene mode and rebuilds the sprite cache for mode 1
+0x004F90A0	D2Win_10005	D2Win_10005_ResizeWindow	inferred	Source/D2Win/Src/D2WinMain.cpp	high	saves the window rect, resizes the window to the resolution and rebuilds the sprite cache; (also spelled sub_004F90A0)
+0x004FA410	D2Win_10029	D2Win_10029_SetDrawCursor	inferred	Source/D2Win/Src/D2WinMain.cpp	high	sets gbDrawCursor
+0x004FA470	D2Win_10033	D2Win_10033_SetActiveControlList	inferred	Source/D2Win/Src/D2WinMain.cpp	high	sets the active control list and its companion value
+0x004FA550	D2Win_10016	D2Win_10016_ShutdownGameUI	inferred	Source/D2Win/Src/D2WinMain.cpp	medium	frees dead controls, pentspin cells and fonts, and unregisters the window commands (pair of 10015); (also spelled sub_004FA550)
+0x004FB480	D2Win_10177	D2Win_10177_LoadActPalette	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	loads palette\actN\pal.dat and pal.pl2 for an act; (also spelled sub_004FB480_SetActA)
+0x004FB500	D2Win_10028	D2Win_10028_LoadPalette	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	loads the given palette files (act 1 by default) and rebuilds the emblem colours; (also spelled sub_004FB500)
+0x004FB6A0	D2Win_10047	D2Win_10047_ClearTextBox	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	frees every textbox line and its columns and resets the counts; (also spelled sub_004FB6A0_ClearText)
+0x004FB740	D2Win_10062	D2Win_10062_SetLineGaps	inferred	Source/D2Win/Src/D2WinMain.cpp	high	sets the textbox's wrapped-line gap and line gap; (also spelled sub_004FB740, sub_004FB740_SetTextOffset)
+0x004FB870	D2Win_10197	D2Win_10197_InsertLine	inferred	Source/D2Win/Src/D2WinTextBox.cpp	medium	inserts a line at a given index of a textbox; (also spelled sub_004FB870_InsertRow)
+0x004FB950	D2Win_10054	D2Win_10054_GetTopLine	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	returns the textbox's first visible line index; (also spelled sub_004FB950_GetFirstVisible)
+0x004FB990	D2Win_10049	D2Win_10049_GetCurrentLine	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	returns the textbox's current (selected) line index; (also spelled sub_004FB990_GetSelection)
+0x004FBA30	D2Win_10053	D2Win_10053_SetTopLine	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	scrolls the textbox to a line and moves its scrollbar
+0x004FBAB0	D2Win_10055	D2Win_10055_GetVisibleLineCount	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	returns how many lines fit in the textbox's height
+0x004FBB30	D2Win_10048	D2Win_10048_GetSelectedText	inferred	Source/D2Win/Src/D2WinTextBox.cpp	medium	returns the text of the selected entry when selection is on; (also spelled sub_004FBB30_GetText)
+0x004FBB90	D2Win_10196	D2Win_10196_GetCellText	inferred	Source/D2Win/Src/D2WinMain.cpp	high	returns the text of a line's column
+0x004FBC20	D2Win_10056	D2Win_10056_SetColumnCount	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	sets the textbox's column count (and no-wrap when more than one); (also spelled sub_004FBC20)
+0x004FBC80	D2Win_10059	D2Win_10059_SetColumnOffset	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	sets a column's x offset; (also spelled sub_004FBC80)
+0x004FBCD0	D2Win_10060	D2Win_10060_SetColumnAlign	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	sets a column's alignment flags; (also spelled sub_004FBCD0)
+0x004FBD20	D2Win_10061	D2Win_10061_GetLastLineIndex	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	counts the lines before the last one; (also spelled sub_004FBD20_GetLastRow)
+0x004FBD70	D2Win_10187	D2Win_10187_SetTextBoxVisible	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	shows or hides the textbox and its scrollbar
+0x004FBDE0	D2Win_10188	D2Win_10188_SetLineColor	inferred	Source/D2Win/Src/D2WinMain.cpp	high	sets one line's colour, or every line's when the index is -1
+0x004FC5A0	D2Win_10190	D2Win_10190_GetScrollMaxSteps	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	returns the textbox scrollbar's step count (0x507EF0, D2MOO SCROLLBAR_GetMaxSteps)
+0x004FC5E0	D2Win_10191	D2Win_10191_SetScrollMaxSteps	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	sets the textbox scrollbar's step count
+0x004FC620	D2Win_10192	D2Win_10192_GetScrollStep	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	returns the textbox scrollbar's current step (0x507FA0, D2MOO SCROLLBAR_GetCurrentStep); (also spelled sub_004FC620_GetValue)
+0x004FC660	D2Win_10193	D2Win_10193_SetScrollStep	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	sets the textbox scrollbar's current step; (also spelled sub_004FC660_SetValue)
+0x004FC6A0	D2Win_10194	D2Win_10194_SetScrollTextBox	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	links the textbox scrollbar to another textbox
+0x004FC6E0	D2Win_10195	D2Win_10195_SetScrollCallback	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	sets the textbox scrollbar's callback
+0x004FC720	D2Win_10204	D2Win_10204_SetScrollPageStep	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	sets the textbox scrollbar's page step; (also spelled sub_004FC720)
+0x004FC9B0	D2Win_10051	D2Win_10051_AddTextEx	inferred	Source/D2Win/Src/D2WinTextBox.cpp	medium	trims leading space and adds text (wrapped, coloured, indented) to the textbox; (also spelled sub_004FC9B0_AppendText, sub_004FC9B0_SetText)
+0x004FCC40	D2Win_10198	D2Win_10198_AddLines	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	appends a text line N times with a colour and wrap flag; (also spelled sub_004FCC40_AddLine)
+0x004FCD40	D2Win_10057	D2Win_10057_SetCellTextA	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	converts ANSI text and sets a line's column text; (also spelled sub_004FCD40_SetCell)
+0x004FCD90	D2Win_10058	D2Win_10058_SetCellText	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	sets a line's column text (forwards to D2Win_10058_0); in // build: symbol
+0x004FCF80	D2Win_10045	D2Win_10045_AddTextA	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	converts ANSI text and adds it to the textbox in colour 4; (also spelled sub_004FCF80_SetTextA)
+0x004FCFF0	D2Win_10046	D2Win_10046_AddTextUtf8	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	converts UTF-8 text and adds it to the textbox in a colour; (also spelled sub_004FCFF0_SetTextA)
+0x004FD060	D2Win_10044	D2Win_10044_AddText	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	adds Unicode text to the textbox in colour 4; (also spelled sub_004FD060_SetText)
+0x004FDD00	D2Win_10082	D2Win_10082_SelectAllText	inferred	Source/D2Win/Src/D2WinEditBox.cpp	high	selects the edit box's whole text
+0x004FEAE0	D2Win_10074	D2Win_10074_HandleChar	inferred	Source/D2Win/Src/D2WinEditBox.cpp	high	edit box character input (tab filter, insert, limits)
+0x004FFE10	D2Win_10076	D2Win_10076_SetEditTextA	inferred	Source/D2Win/Src/D2WinTextBox.cpp	high	converts ANSI text and sets the edit box text; (also spelled sub_004FFE10_SetTextA)
+0x00500310	D2Win_10106	D2Win_10106_GetAnimType	inferred	Source/D2Win/D2WinAnimImage.cpp	high	returns the anim image's nAnimType
+0x00500340	D2Win_10104	D2Win_10104_StartAnim	inferred	Source/D2Win/D2WinAnimImage.cpp	medium	starts a type-3 anim image (switches it to type 4 at frame 0); 0 when already running
+0x005015F0	D2Win_10116	D2Win_10116_UnloadFonts	inferred	Source/D2Win/Src/D2WinFont.cpp	high	frees every cached font cell file and font info
+0x00501730	D2Win_10123	D2Win_10123_GetTextWidthSkipColors	inferred	Source/D2Win/Src/D2WinFont.cpp	high	text width of the first N chars, skipping colour codes
+0x005017D0	D2Win_10122	D2Win_10122_GetTextWidth	inferred	Source/D2Win/Src/D2WinFont.cpp	high	text width of the first N chars
+0x00501A40	D2Win_10125	D2Win_10125_GetFontHeight	inferred	Source/D2Win/Src/D2WinFont.cpp	high	returns the current font's line height
+0x005023B0	D2Win_10132	D2Win_10132_DrawTextWithBox	inferred	Source/D2Win/Src/D2WinFont.cpp	medium	measures the text and draws it on a box clamped to the screen; (also spelled sub_005023B0_GetTextDimensions)
+0x00502480	D2Win_10133	D2Win_10133_DrawLineWithBox	inferred	Source/D2Win/Src/D2WinFont.cpp	medium	draws a box behind one line of text clamped to the screen, then the text
+0x00502550	D2Win_10128	D2Win_10128_IsCharValid	inferred	Source/D2Win/Src/D2WinFont.cpp	high	tests the font's valid-character bit for a char (pipe is never valid)
+0x00502750	D2Win_10120	D2Win_10120_DrawFramedText	inferred	Source/D2Win/Src/D2WinFont.cpp	medium	draws text in a clamped frame with an optional partial fill bar
+0x005028A0	D2Win_10200	D2Win_10200_FreeTextLines	inferred	Source/D2Win/Src/D2WinFont.cpp	high	frees a linked list of text lines; in // build: symbol
+0x00503000	D2Win_10124	D2Win_10124_DrawPendingFramedText	inferred	Source/D2Win/Src/D2WinFont.cpp	medium	draws the stored framed text, shrinking the font until it fits
+0x00504270	D2Win_10154	D2Win_10154_SetCompositeNames	inferred	Source/D2Win/Src/D2Comp.cpp	high	sets account, character, guild and realm names, level and product code; (also spelled sub_00504270_SetCompositeText)
+0x005042F0	D2Win_10143	D2Win_10143_SetCompositeMode	inferred	Source/D2Win/Src/D2Comp.cpp	high	applies the COF for a mode to a composite unit; (also spelled sub_005042F0_SetAnimMode)
+0x00504D30	D2Win_10159	D2Win_10159_SetSquelchCelFiles	inferred	Source/D2Win/Src/D2Comp.cpp	high	stores the squelch and selected cel files and their frame counts; (also spelled sub_00504D30)
+0x00504F80	D2Win_10145	D2Win_10145_InitComposite	inferred	Source/D2Win/Src/D2Comp.cpp	medium	allocates the composite's gfx info and loads its components for a mode; (also spelled sub_00504F80_UpdateComposite)
+0x00505100	D2Win_10146	D2Win_10146_FreeAllComposites	inferred	Source/D2Win/Src/D2Comp.cpp	high	destroys and frees every composite unit in the list
+0x00505160	D2Win_10148	D2Win_10148_GetNextComposite	inferred	Source/D2Win/Src/D2Comp.cpp	high	returns the next composite unit
+0x005051A0	D2Win_10149	D2Win_10149_SetCompositeDirection	inferred	Source/D2Win/Src/D2Comp.cpp	high	sets the composite's direction, clamped; (also spelled sub_005051A0, sub_005051A0_SetAnimField)
+0x00505200	D2Win_10150	D2Win_10150_GetCompositeDirections	inferred	Source/D2Win/Src/D2Comp.cpp	high	returns the composite's direction count
+0x00505230	D2Win_10169	D2Win_10169_GetCompositeFrameCount	inferred	Source/D2Win/Src/D2Comp.cpp	high	returns the composite's frame count
+0x00505260	D2Win_10151	D2Win_10151_SetCompositeFrame	inferred	Source/D2Win/Src/D2Comp.cpp	high	sets the composite's frame, clamped; (also spelled sub_00505260, sub_00505260_SetAnimField)
+0x005052B0	D2Win_10152	D2Win_10152_SetCompositeX	inferred	Source/D2Win/Src/D2Comp.cpp	high	sets the composite's x; (also spelled sub_005052B0, sub_005052B0_SetAnimX)
+0x005052F0	D2Win_10153	D2Win_10153_SetCompositeY	inferred	Source/D2Win/Src/D2Comp.cpp	high	sets the composite's y; (also spelled sub_005052F0, sub_005052F0_SetAnimY)
+0x00505330	D2Win_10155	D2Win_10155_GetCompositeFlags	inferred	Source/D2Win/Src/D2Comp.cpp	high	returns the composite's flags; (also spelled sub_00505330_GetCompositeFlags)
+0x00505360	D2Win_10156	D2Win_10156_SetCompositeFlags	inferred	Source/D2Win/Src/D2Comp.cpp	high	sets the composite's flags; (also spelled sub_00505360_SetAnimFlags)
+0x005053A0	D2Win_10158	D2Win_10158_LoadCompositeEmblem	inferred	Source/D2Win/Src/D2Comp.cpp	medium	loads ui\emblems\iconNNc and its colours for a composite unit
+0x00505550	D2Win_10157	D2Win_10157_LoadItemPalettes	inferred	Source/D2Win/Src/D2Comp.cpp	high	loads the eight item palettes (grey … invgreybrown)
+0x005068A0	D2Win_10161	D2Win_10161_GetTitleForLevel	inferred	Source/D2Win/Src/D2Comp.cpp	high	picks the title rank for a level and mode and returns the player title
+0x00506A80	D2Win_10184	D2Win_10184_SetSmackKeepFile	inferred	Source/D2Win/Src/D2WinSmack.cpp	high	sets gbSmackKeepFile
+0x00506EC0	D2Win_10137	D2Win_10137_AddListItem	inferred	Source/D2Win/Src/D2WinList.cpp	high	adds a Unicode entry with a handler to a list control
+0x005070A0	D2Win_10141	D2Win_10141_GetListField	inferred	Source/D2Win/Src/D2WinList.cpp	medium	returns the list control's field_50
+0x005077F0	D2Win_10138	D2Win_10138_AddListItemA	inferred	Source/D2Win/Src/D2WinList.cpp	high	converts ANSI text and adds it to a list control
+0x005080C0	D2Win_10202	D2Win_10202_SetPageStep	inferred	Source/D2Win/Src/D2WinScrollbar.cpp	high	sets the scrollbar's page step
+0x005080F0	D2Win_10201	D2Win_10201_GetPageStep	inferred	Source/D2Win/Src/D2WinScrollbar.cpp	high	returns the scrollbar's page step
+0x005148F0	D2SOUND_10034	D2SOUND_10034_SetChannelValue	inferred	Source/D2Sound/Src/D2SoundFast.cpp	medium	stores the channel value, clearing the channel table when it turns on; in // build: symbol
+0x00514EC0	D2SOUND_10039	D2SOUND_10039_PlayPreloadedWave	inferred	Source/D2Sound/Src/D2SoundFast.cpp	high	plays a preloaded wave by name in a free slot of its type
+0x0052B570	D2NET_10016	D2NET_10016_CloseClient	inferred	Source/D2Net/SRC/Server.cpp	high	closes a client's connection on the queue server
+0x0052B6D0	D2NET_10022	D2NET_10022_WaitServer	inferred	Source/D2Net/SRC/Server.cpp	medium	waits on the queue server's event with a timeout
+0x00619C40	D2Common_10052	D2Common_10052_GetRoomClientRect	inferred	Source/D2Common/DUNGEON/Dungeon.cpp	high	computes a room's client draw rectangle from its tile corners; (also spelled sub_00619C40_Rectangle)
+0x0061A460	D2Common_10073	D2Common_10073_AreNearRoomsReady	inferred	Source/D2Common/DUNGEON/Dungeon.cpp	medium	true when every near room is loaded and has ROOMFLAG_1
+0x0061A4D0	D2Common_10074	D2Common_10074_GetRoomFlag2	inferred	Source/D2Common/DUNGEON/Dungeon.cpp	medium	returns the room's ROOMFLAG_2 bit
+0x0061A510	D2Common_10075	D2Common_10075_SetRoomFlag2	inferred	Source/D2Common/DUNGEON/Dungeon.cpp	medium	sets or clears the room's ROOMFLAG_2 bit
+0x0061A9F0	D2Common_10077	D2Common_10077_UpdateLevelActivity	inferred	Source/D2Common/DUNGEON/Dungeon.cpp	high	updates level activity when a unit moves between two rooms
+0x0061AB60	D2Common_10084	D2Common_10084_GetRoomFlag4	inferred	Source/D2Common/DUNGEON/Dungeon.cpp	medium	returns the room's ROOMFLAG_4 bit
+0x0061ABB0	D2Common_10087	D2Common_10087_IsRoomOutdoorMaze	inferred	Source/D2Common/DUNGEON/Dungeon.cpp	medium	checks the room's maze outdoor flag
+0x0061AD30	D2Common_10096	D2Common_10096_GetCoordListAt	inferred	Source/D2Common/DUNGEON/Dungeon.cpp	high	returns the room coord list at a subtile; (also spelled sub_0061AD30_GetCoordList)
+0x0061B130	D2Common_10095	D2Common_10095_GetCoordListIndex	inferred	Source/D2Common/DUNGEON/Dungeon.cpp	high	finds the room at a point and returns its coord list index; (also spelled sub_0061B130_GetCollision, sub_0061B130_GetCoordList)
+0x00623990	D2Common_10434	D2Common_10434_GetAttackWeapon	inferred	Source/D2Common/UNITS/Units.cpp	medium	returns the weapon the current skill attacks with, per its weapsel and dual wield; (also spelled sub_00623990_GetWeapon, sub_00623990_GetWeaponSlot)
+0x006248E0	LOG_11100	LOG_11100_WriteLog	inferred	Source/D2Common/Logging/Logging.cpp	high	writes a formatted line to the log file under the log lock; (also spelled sub_006248E0_Log)
+0x00625870	D2Common_10512	D2Common_10512_ForEachStatCallback	inferred	Source/D2Common/Stats/StatsEx.cpp	medium	runs a callback for one stat of an extended stat list
+0x006258D0	D2Common_10513	D2Common_10513_ForEachStatsCallback	inferred	Source/D2Common/Stats/StatsEx.cpp	medium	runs a callback over all stats of an extended stat list
+0x00625A00	D2Common_10534	D2Common_10534_SetStatListUnkFlag	inferred	Source/D2Common/Stats/StatsEx.cpp	medium	sets STATLIST_UNK_0x100 on the unit's extended stat list
+0x00626070	D2Common_11248	D2Common_11248_GetItemStatValue	inferred	Source/D2Common/Stats/StatsEx.cpp	high	returns a stat of the second unit (the first is unused)
+0x00627540	D2Common_10469	D2Common_10469_FreeTemporaryStatLists	inferred	Source/D2Common/Stats/StatsEx.cpp	medium	frees the unit's stat lists that are not permanent or stay-death
+0x006276C0	D2Common_10525	D2Common_10525_UpdateOpStats	inferred	Source/D2Common/Stats/StatsEx.cpp	medium	re-evaluates op 6/7 dependent stats of one unit from another's stats
+0x006277E0	D2Common_10474	D2Common_10474_ExpireStatList	inferred	Source/D2Common/Stats/StatsEx.cpp	high	expires a stat list (the unit argument is unused)
+0x00627860	D2Common_11274	D2Common_11274_EnableStatList	inferred	Source/D2Common/Stats/StatsEx.cpp	medium	clears the disabled flag of a unit's stat list and adds its stats to the target
+0x006279A0	D2Common_10574	D2Common_10574_SetStateDisabled	inferred	Source/D2Common/Stats/StatsEx.cpp	medium	sets or clears flag 0x2000 on a state's stat list and reposts it
+0x00627A40	D2Common_11275	D2Common_11275_DisableStatList	inferred	Source/D2Common/Stats/StatsEx.cpp	medium	sets the disabled flag of a unit's stat list and removes its stats from the target
+0x0063DE60	D2Common_10299	D2Common_10299_CheckBodyLocPlacement	inferred	Source/D2Common/INVENTORY/Inventory.cpp	high	checks whether an item can be placed in a body location
+0x0063E780	D2Common_11052	D2Common_11052_ConvertDirection64To16	inferred	Source/D2Game/ITEMS/ItemMode.cpp	high	looks up gabDirection64To16
+0x0063E7C0	D2Common_11054	D2Common_11054_ConvertDirection8To64	inferred	Source/D2Game/ITEMS/ItemMode.cpp	high	looks up gabDirection8To64
+0x0063EC70	D2Common_11063	D2Common_11063_GetLevelMonsterVariant	inferred	Source/D2Common/Monsters/MONSTERS.CPP	medium	returns the level's version of a monster class, or the highest chain member for its level
+0x006419F0	D2Common_10406	D2Common_10406_FindUnitAroundSource	inferred	Source/D2Common/DRLG/Drlg.cpp	medium	finds a unit near the source unit that passes a callback
+0x00641CB0	D2Common_10407	D2Common_10407_FindUnitAtPoint	inferred	Source/D2Common/DRLG/Drlg.cpp	medium	finds a unit near a point in adjacent rooms that passes a callback
+0x00643A00	D2Common_10958	D2Common_10958_SwapSkillListData	inferred	Source/D2Common/SKILLS/Skills.cpp	medium	stores a pointer in the skill list and returns the old one; (also spelled sub_00643A00_GetRelatedUnit)
+0x00643A30	D2Common_10959	D2Common_10959_GetSkillListData	inferred	Source/D2Common/SKILLS/Skills.cpp	medium	returns the pointer stored in the skill list
+0x00644380	D2Common_10969	D2Common_10969_GetSkillUnkFirst	inferred	Source/D2Common/SKILLS/Skills.cpp	medium	returns unk0x10[0] of a skill
+0x006443B0	D2Common_10970	D2Common_10970_SetSkillUnkFirst	inferred	Source/D2Common/SKILLS/Skills.cpp	medium	sets unk0x10[0] of a skill
+0x006443F0	D2Common_10971	D2Common_10971_GetSkillUnkSecond	inferred	Source/D2Common/SKILLS/Skills.cpp	medium	returns unk0x10[1] of a skill
+0x00644420	D2Common_10972	D2Common_10972_SetSkillUnkSecond	inferred	Source/D2Common/SKILLS/Skills.cpp	medium	sets unk0x10[1] of a skill
+0x00644460	D2Common_10973	D2Common_10973_ClearSkillFields	inferred	Source/D2Common/SKILLS/Skills.cpp	medium	clears both unk0x10 fields of a skill
+0x00645390	D2Common_11015	D2Common_11015_UpdateSkillSeed	inferred	Source/D2Common/SKILLS/Skills.cpp	medium	updates a skill's position-based seed and reseeds the unit
+0x00645460	D2Common_11016	D2Common_11016_GetSkillRange	inferred	Source/D2Common/SKILLS/Skills.cpp	medium	returns the skill's range type (bow/melee resolved for type 3)
+0x00645720	D2Common_11024	D2Common_11024_GetThrowBonus	inferred	Source/D2Common/SKILLS/Skills.cpp	medium	returns the best throw bonus stat (345-347) for a thrown item
+0x00645910	D2Common_11025	D2Common_11025_IsLineClear	inferred	Source/D2Common/SKILLS/Skills.cpp	high	true when a ray between two points hits no collision; (also spelled sub_00645910_TestLine)
+0x00645950	D2Common_11026	D2Common_11026_IsPathToUnitClear	inferred	Source/D2Common/SKILLS/Skills.cpp	high	true when the ray from a point to the unit hits no collision; (also spelled sub_00645950_CheckTargetPos)
+0x00645A70	D2Common_11028	D2Common_11028_GetLevelScale	inferred	Source/D2Common/SKILLS/Skills.cpp	medium	returns 20*(5L+5)/(L+8)
+0x00645B20	D2Common_11033	D2Common_11033_GetDiminishingValue	inferred	Source/D2Common/SKILLS/Skills.cpp	high	diminishing-returns formula between a base and a max
+0x00645B70	D2Common_11034	D2Common_11034_GetSkillFirstParamValue	inferred	Source/D2Common/SKILLS/Skills.cpp	medium	diminishing value from the skill's param 1 and 2
+0x00645BC0	D2Common_11035	D2Common_11035_GetSkillSecondParamValue	inferred	Source/D2Common/SKILLS/Skills.cpp	medium	diminishing value from the skill's param 3 and 4
+0x00646170	D2Common_11043	D2Common_11043_GetShapeshiftAttackRate	inferred	Source/D2Common/SKILLS/Skills.cpp	medium	returns the shapeshifted player's frame rate scaled by the weapon speed
+0x00647530	D2Common_10954	D2Common_10954_UpdateChargedSkill	inferred	Source/D2Common/SKILLS/Skills.cpp	high	forwards to SKILLS_UpdateChargedSkill
+0x00647AA0	D2Common_11030	D2Common_11030_SetSkillBonusLevel	inferred	Source/D2Common/SKILLS/Skills.cpp	high	adds the skill if needed and sets its level bonus; (also spelled sub_00647AA0_SetSkillBonusLevel)
+0x00647B20	D2Common_11031	D2Common_11031_AddSkillBonusLevel	inferred	Source/D2Common/SKILLS/Skills.cpp	high	adds the skill if needed and adds to its level bonus (not below zero)
+0x00647E00	D2Common_11032	D2Common_11032_GetPassiveMasteryValue	inferred	Source/D2Common/SKILLS/Skills.cpp	medium	evaluates the skill's passive calc for the mastery stat pair of a type
+0x006487C0	D2Common_10155	D2Common_10155_GetCurrentPointIndex	inferred	Source/D2Common/SKILLS/Skills.cpp	high	returns the path's current point index
+0x00648EF0	D2Common_10202	D2Common_10202_GetCollidedWithMask	inferred	Source/D2Common/PATH/Path.cpp	high	returns the path's collided-with mask
+0x006490C0	D2Common_10207	D2Common_10207_SetPathSpeed	inferred	Source/D2Common/PATH/Path.cpp	medium	sets the path's unk0x67 and speed
+0x00649210	D2Common_10213	D2Common_10213_UpdatePathTick	inferred	Source/D2Common/PATH/Path.cpp	medium	every second tick, repaths the unit and switches it to walk on success
+0x006492C0	D2Common_10237	D2Common_10237_HasPathPointsLeft	inferred	Source/D2Common/PATH/Path.cpp	high	true while the path has points left
+0x00649970	D2Common_10142	D2Common_10142_ComputePath	inferred	Source/D2Common/PATH/Path.cpp	medium	computes a new path from the unit to its target
+0x00649CA0	D2Common_10214	D2Common_10214_UpdateCollisionPattern	inferred	Source/D2Common/PATH/Path.cpp	high	recomputes the unit's collision pattern and footprint
+0x00649EF0	D2Common_10216	D2Common_10216_FaceTarget	inferred	Source/D2Common/PATH/Path.cpp	high	turns the path's direction toward a point
+0x00649F50	D2Common_10228	D2Common_10228_RemoveFootprint	inferred	Source/D2Common/PATH/Path.cpp	high	removes the unit's collision footprint
+0x0064E840	D2Common_10136	D2Common_10136_FindFreeSpot	inferred	Source/D2Common/COLLISN/Collisn.cpp	high	spirals out from a point for a spot with no collision
+0x0065C7D0	D2Common_10846	D2Common_10846_UnpackSkillBits	inferred	Source/D2Common/ITEMS/ItemMods.cpp	medium	splits packed mod data into 9/5/8/8-bit fields
+0x0065CB00	D2Common_10849	D2Common_10849_PackTwoFields	inferred	Source/D2Common/ITEMS/ItemMods.cpp	medium	packs two mod fields (a + b<<9)
+0x0065CB10	D2Common_10845	D2Common_10845_UnpackChargeBits	inferred	Source/D2Common/ITEMS/ItemMods.cpp	medium	splits packed mod data into 9/5/7-bit fields
+0x0065CB40	D2Common_10850	D2Common_10850_PackThreeFields	inferred	Source/D2Common/ITEMS/ItemMods.cpp	medium	packs three mod fields (a + (b+32c)<<9)
+0x0065CB60	D2Common_10848	D2Common_10848_UnpackClassTabLevel	inferred	Source/D2Common/ITEMS/ItemMods.cpp	high	splits packed data into class, skill tab and level
+0x0065CBD0	D2Common_10851	D2Common_10851_PackClassTabLevel	inferred	Source/D2Common/ITEMS/ItemMods.cpp	high	packs class, tab and level
+0x0066A580	D2Common_11097	D2Common_11097_GetFieldCell	inferred	Source/D2Common/DATATBLS/FieldTbls.cpp	high	returns a field cell at a point
+0x0066A5D0	D2Common_11098	D2Common_11098_StepField	inferred	Source/D2Common/DATATBLS/FieldTbls.cpp	high	steps a point along the field and tells whether it has not reached the end
+0x0066A670	D2Common_11099	D2Common_11099_CheckFieldCollision	inferred	Source/D2Common/DATATBLS/FieldTbls.cpp	high	true when any point along the field path collides
+0x006BD380	FOG_10255	FOG_10255_GetTableString	inferred	Source/Fog/Src/Excel/Excel.cpp	medium	returns a string from a string table, or the fallback
+0x006BD780	FOG_10207	FOG_10207_ReadBinRecords	inferred	Source/Fog/Src/Excel/Excel.cpp	medium	maps bin columns to fields and reads every record into the txt table
+0x006BE390	FOG_10186	FOG_10186_ReplaceSlot	inferred	Source/Fog/Src/Excel/Excel.cpp	medium	stores a non-zero value in a slot and returns the old one; (also spelled sub_006BE390)
+0x006BEAD0	FOG_10156	FOG_10156_PopPacket	inferred	Source/Fog/Src/QServer/QServer.cpp	high	pops the next packet of a queue into a buffer; (also spelled sub_006BEAD0)
+0x006BEBC0	FOG_10177	FOG_10177_WaitServer	inferred	Source/Fog/Src/QServer/QServer.cpp	medium	waits on the server's event with a timeout; (also spelled sub_006BEBC0_WaitHandle)
+0x006BED90	FOG_10159	FOG_10159_GetClientAddress	inferred	Source/Fog/Src/QServer/QServer.cpp	high	writes the client's IP address string for a key; (also spelled sub_006BED90, sub_006BED90_MatchKey)
+0x006BEE20	FOG_10158	FOG_10158_FindHashValue	inferred	Source/Fog/Src/QServer/QServer.cpp	medium	looks up a hash table value by key under its bucket lock; (also spelled sub_006BEE20)
+0x006BEF40	FOG_10161	FOG_10161_FindHashInt	inferred	Source/Fog/Src/QServer/QServer.cpp	medium	looks up a hash table int by key under its bucket lock; (also spelled sub_006BEF40)
+0x006BF0A0	FOG_10172	FOG_10172_SetClientContext	inferred	Source/Fog/Src/QServer/QServer.cpp	high	sets a client's context value
+0x006BF0C0	FOG_10173	FOG_10173_GetClientContext	inferred	Source/Fog/Src/QServer/QServer.cpp	high	returns a client's context value
+0x006BF370	FOG_10175	FOG_10175_QueueIncomingPacket	inferred	Source/Fog/Src/QServer/QServer.cpp	high	parses a buffer into a message and queues it on its channel
+0x006BF610	FOG_10187	FOG_10187_AddUniquePair	inferred	Source/Fog/Src/QServer/QServer.cpp	medium	adds a key/value pair to a 256-entry table unless the key is there; (also spelled sub_006BF610)
+0x006C0170	FOG_10152	FOG_10152_DestroyServer	inferred	Source/Fog/Src/QServer/QServer.cpp	high	stops the server, closes its sockets and frees all its tables; (also spelled sub_006C0170)
+0x006C03A0	FOG_10157	FOG_10157_SendToClient	inferred	Source/Fog/Src/QServer/QServer.cpp	high	sends data to a client (or the handler in states 1/2)
+0x006C06B0	FOG_10165	FOG_10165_CloseRemoteConnection	inferred	Source/Fog/Src/QServer/QServer.cpp	high	forwards to the close-remote-connection worker

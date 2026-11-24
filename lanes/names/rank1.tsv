@@ -61,11 +61,11 @@ va	old_name	new_name	source	file	confidence	reason
 0x004F0F30	sub_004F0F30_CltSkillMonMissile	SKILLSEMON_CltSkillMonMissile	inferred	Source/D2Client/SKILLS/SkillsEMon.cpp	medium	client skill callback for a monster's vine-attack missile
 0x004F4C20	sub_004F4C20_CltDoRepeatAttack	SKILLSAMA_CltDoRepeatAttack	inferred	Source/D2Client/SKILLS/SkillsAma.cpp	medium	client skill callback for a repeated attack; in data_plan.json
 0x004FB180	sub_004FB180_FindPaletteIndex	D2Win_10034_MixRGB	d2moo	Source/D2Win/Src/D2WinPalette.cpp	high	D2MOO 1.14d 0x004FB180 (ordinal-style name as D2WinPalette.cpp already uses); closest palette index to an RGB colour; (also spelled sub_004FB180_Palette)
-0x004FB1C0	sub_004FB1C0_CopyRowTable	D2Win_10178	d2moo	Source/D2Win/Src/D2WinPalette.cpp	high	D2MOO 1.14d 0x004FB1C0; copies the shadow/light gamma row table
+0x004FB1C0	sub_004FB1C0_CopyRowTable	D2Win_10178_CopyGammaTable	d2moo	Source/D2Win/Src/D2WinPalette.cpp	high	D2MOO 1.14d 0x004FB1C0 gives the ordinal, the body the description; copies the shadow/light gamma row table
 0x004FB1E0	sub_004FB1E0_LoadPaletteFiles	PALETTE_LoadPaletteFiles	d2moo	Source/D2Win/Src/D2WinPalette.cpp	high	D2MOO 1.14d 0x004FB1E0; loads a palette .dat and .pl2
 0x00501DF0	sub_00501DF0_DrawClippedFontText	D2Win_10119_DrawCroppedText	d2moo	Source/D2Win/Src/D2WinFont_00501DF0.cpp	high	D2MOO 1.14d 0x00501DF0; draws text lines clipped by skip/draw counts; (also spelled sub_00501DF0_IsColorCodePrefix)
 0x00501FE0	sub_00501FE0_DrawTickerText	FONT_DrawTickerText	d2moo	Source/D2Win/Src/D2WinFont_00501DF0.cpp	high	D2MOO 1.14d 0x00501FE0; draws scrolling ticker text
-0x00502970	sub_00502970_SplitText	D2Win_10199	d2moo	Source/D2Win/Src/D2WinFont_00501DF0.cpp	medium	D2MOO 1.14d 0x00502970 (declared there only); splits text into lines of a width
+0x00502970	sub_00502970_SplitText	D2Win_10199_SplitTextLines	d2moo	Source/D2Win/Src/D2WinFont_00501DF0.cpp	medium	D2MOO 1.14d 0x00502970 (declared there only) gives the ordinal, the body the description; splits text into lines of a width
 0x0052C170	sub_0052C170_ReserveGameId	GAME_ReserveGameId	inferred	Source/D2Game/GAME/Game_0052C170.cpp	medium	takes the next free game id under the game-list lock; (also spelled sub_0052C170_AllocGameId)
 0x00597D70	sub_00597D70_SendUsedSkill	MONSTERMSG_SendUsedSkill	inferred	Source/D2Game/MONSTER/MonsterMsg.cpp	high	sends a monster's used skill to a client; (also spelled sub_00597D70_EmitCaller)
 0x005BDB20	sub_005BDB20_RollComponentVariants	MONSTERCHOOSE_GenerateComponentVariants	d2moo	Source/D2Game/MONSTER/MonsterChoose.cpp	high	D2MOO 1.14d 0x005BDB20; rolls a preset's component variants; (also spelled sub_005BDB20_GenerateComponentVariants)
