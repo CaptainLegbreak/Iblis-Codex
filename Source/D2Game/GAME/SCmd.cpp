@@ -2453,7 +2453,6 @@ static inline int Log2Ceil(int nValue)
     return nValue < 3 ? 1 : ERRORMANAGER_GetBitWidth(nValue - 1);
 }
 
-// build: context sub_0044BE50
 static inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
     int nType = 6;
@@ -2464,7 +2463,6 @@ static inline int sub_0044BE50(D2UnitStrc* pUnit)
     return nType;
 }
 
-// build: context sub_00623C60
 static inline int sub_00623C60(D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -2474,7 +2472,6 @@ static inline int sub_00623C60(D2UnitStrc* pUnit)
     return pUnit->dwClassId;
 }
 
-// build: context sub_00451F50
 static inline int sub_00451F50(D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -2504,7 +2501,6 @@ static inline int UNITS_HasStoredOwnerInfo(D2UnitStrc* pUnit)
     return (pUnit->dwFlagEx >> 10) & 1;
 }
 
-// build: context CLIENTS_GetUnitX
 static inline int CLIENTS_GetUnitXByType(D2UnitStrc* pUnit)
 {
     switch (sub_0044BE50(pUnit))
@@ -2517,7 +2513,6 @@ static inline int CLIENTS_GetUnitXByType(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
-// build: context CLIENTS_GetUnitY
 static inline int CLIENTS_GetUnitYByType(D2UnitStrc* pUnit)
 {
     switch (sub_0044BE50(pUnit))

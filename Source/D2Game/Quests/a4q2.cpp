@@ -622,7 +622,6 @@ D2UnitStrc* __fastcall ACT4Q2_TrySpawnDiablo(D2GameStrc* pGame, D2ActiveRoomStrc
     return pDiablo;
 }
 
-// build: context sub_K13_Emit_005B4A30
 void __fastcall sub_K13_Emit_005B4A30(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     ACT4Q2_WarpPlayerToFortress(pGame, pPlayer);

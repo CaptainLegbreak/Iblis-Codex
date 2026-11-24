@@ -1073,7 +1073,6 @@ static inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* 
     return 0;
 }
 
-// build: context SKILLS_CreateSubMissilesInline
 static inline int SKILLS_CreateSubMissilesInline(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSubMissiles, int nMissileId, int nSkillId, int nSkillLevel, int a7)
 {
     if (a7)
@@ -3180,7 +3179,6 @@ D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* p
     return 0;
 }
 
-// build: context HIRELING_StepAside
 static __forceinline void HIRELING_StepAside(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, unsigned char nSteps)
 {
     D2DynamicPathStrc* pPath = pOwner->pDynamicPath;

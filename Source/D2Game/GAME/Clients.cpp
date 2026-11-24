@@ -3342,9 +3342,6 @@ void __fastcall PLRTRADE_StopAllPlayerInteractions(D2GameStrc*,D2UnitStrc*); // 
 
 void __fastcall LEVEL_RemoveClientFromAdjacentRooms(D2ActiveRoomStrc*,D2ClientStrc*); // 0x0053AB80
 
-// build: context CLIENTS_UnlinkId
-// build: context CLIENTS_UnlinkName
-
 static __forceinline void CLIENTS_UnlinkId(int nClientId,char* szName)
 {
  const int nIndex=nClientId & 0xFF;

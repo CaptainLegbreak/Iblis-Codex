@@ -70,7 +70,6 @@ int __stdcall D2Common_11063(D2ActiveRoomStrc* pRoom, int nMonsterId);          
 void __fastcall D2Common_10136(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, int a3, unsigned short nMask, D2ActiveRoomStrc** ppRoom); // 0x0064E840
 D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId);                          // 0x006556E0
 
-// build: context MonsterDataOf
 static inline D2MonsterDataStrc* MonsterDataOf(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
@@ -80,7 +79,6 @@ static inline D2MonsterDataStrc* MonsterDataOf(D2UnitStrc* pUnit)
     return 0;
 }
 
-// build: context UModsOf
 static inline unsigned char* UModsOf(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
@@ -91,7 +89,6 @@ static inline unsigned char* UModsOf(D2UnitStrc* pUnit)
 }
 
 
-// build: context SetMonTypeFlag
 static inline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
 {
     if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
@@ -115,7 +112,6 @@ static inline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int b
     }
 }
 
-// build: context CountUMods
 static inline int CountUMods(unsigned char* pUMods)
 {
     int nIndex = 0;
@@ -126,7 +122,6 @@ static inline int CountUMods(unsigned char* pUMods)
     return nIndex;
 }
 
-// build: context CountUModsTo
 static inline int CountUModsTo(unsigned char* pUMods)
 {
     for (int i = 0; i < 9; ++i)
@@ -139,7 +134,6 @@ static inline int CountUModsTo(unsigned char* pUMods)
     return 9;
 }
 
-// build: context TestMonTypeFlag
 static inline int TestMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && (pUnit->pMonsterData->nTypeFlag & nFlag))
@@ -149,7 +143,6 @@ static inline int TestMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
     return 0;
 }
 
-// build: context UModsOfData
 static inline unsigned char* UModsOfData(D2UnitStrc* pUnit)
 {
     D2MonsterDataStrc* pMonsterData = 0;
@@ -165,7 +158,6 @@ static inline unsigned char* UModsOfData(D2UnitStrc* pUnit)
     return pMonsterData->nMonUmod;
 }
 
-// build: context InitUMod
 static inline void InitUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
     UModInitFunc pfnInit = gpfnUModInitFunctions[nUMod];
@@ -175,7 +167,6 @@ static inline void InitUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
     }
 }
 
-// build: context MonStatsTxtRecord
 static inline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -186,7 +177,6 @@ static inline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
 }
 
 
-// build: context MonStatsTxtRecordOrNull
 static inline D2MonStatsTxt* MonStatsTxtRecordOrNull(int nMonsterId)
 {
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
@@ -196,7 +186,6 @@ static inline D2MonStatsTxt* MonStatsTxtRecordOrNull(int nMonsterId)
     return &sgptDataTables->pMonStatsTxt[nMonsterId];
 }
 
-// build: context TestMonStatsFlag
 static inline unsigned int TestMonStatsFlag(int nMonsterId, int nFlag)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = MonStatsTxtRecordOrNull(nMonsterId);
@@ -207,7 +196,6 @@ static inline unsigned int TestMonStatsFlag(int nMonsterId, int nFlag)
     return pMonStatsTxtRecord->nMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
 }
 
-// build: context MonUModTxtRecord
 static inline D2MonUModTxt* MonUModTxtRecord(int nUMod)
 {
     if (!(nUMod < sgptDataTables->nMonUModTxtRecordCount))
@@ -215,7 +203,6 @@ static inline D2MonUModTxt* MonUModTxtRecord(int nUMod)
     return &sgptDataTables->pMonUModTxt[nUMod];
 }
 
-// build: context SuperUniqueHcIdx
 static inline int SuperUniqueHcIdx(int nSuperUnique)
 {
     if (nSuperUnique >= 0 && nSuperUnique < sgptDataTables->nSuperUniquesTxtRecordCount)
@@ -225,7 +212,6 @@ static inline int SuperUniqueHcIdx(int nSuperUnique)
     return -1;
 }
 
-// build: context RollRandomInline
 static inline unsigned int RollRandomInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
@@ -234,7 +220,6 @@ static inline unsigned int RollRandomInline(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-// build: context RollLimitedInline
 static inline int RollLimitedInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
@@ -455,8 +440,6 @@ static int __stdcall MONSTERUNIQUE_RollNonChampionUMod(D2GameStrc* pGame, D2Unit
 
 static void __stdcall MONSTERUNIQUE_AssignRandomUMods(D2GameStrc* pGame, D2UnitStrc* pUnit, int bAllowChampion); // 0x005A0760
 
-// build: context MONSTERUNIQUE_AssignRandomUMods
-// build: context MONSTERUNIQUE_AssignRandomUMods
 static void __stdcall MONSTERUNIQUE_AssignRandomUMods(D2GameStrc* pGame, D2UnitStrc* pUnit, int bAllowChampion)
 {
     unsigned char bUModUsageTable[256];
@@ -741,7 +724,6 @@ D2UnitStrc* __fastcall MONSTERUNIQUE_SpawnUniqueGroup(D2GameStrc* pGame, D2Activ
     return pMonster;
 }
 
-// build: context SetBossIndex
 static inline void SetBossIndex(D2UnitStrc* pUnit, short nIndex)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
@@ -895,7 +877,6 @@ void __fastcall MONSTERUNIQUE_PromoteToChampion(D2GameStrc* pGame, D2UnitStrc* p
     }
 }
 
-// build: context PromoteGetUMods
 static inline unsigned char* PromoteGetUMods(D2UnitStrc* pUnit)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
@@ -907,7 +888,6 @@ static inline unsigned char* PromoteGetUMods(D2UnitStrc* pUnit)
     return 0;
 }
 
-// build: context PromoteSetTypeFlag
 static inline void PromoteSetTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
@@ -938,7 +918,6 @@ void __fastcall MONSTERUNIQUE_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUn
     MONSTER_ToggleSummonerFlag(pUnit, 1, 1);
 }
 
-// build: context AiControlOf
 static inline D2AiControlStrc* AiControlOf(D2UnitStrc* pUnit)
 {
     if (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)

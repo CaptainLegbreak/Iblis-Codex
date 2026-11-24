@@ -306,7 +306,6 @@ static void SUNITPROXY_InitializeItemCache(D2GameStrc* pGame, D2UnitProxyStrc* p
     memcpy(pUnitProxy->pPermCache, gaUnitProxyItemCache[nNpcInventoryId].pPermCache, gaUnitProxyItemCache[nNpcInventoryId].nPerms * sizeof(unsigned int));
 }
 
-// build: context SUNITPROXY_GetMonStatsTxtRecordInline
 static D2MonStatsTxt* SUNITPROXY_GetMonStatsTxtRecordInline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)

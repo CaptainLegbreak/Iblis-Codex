@@ -1189,7 +1189,6 @@ void __fastcall SKILLS_CurseStateCallback_ResetAlignment(D2UnitStrc* pUnit, int 
     sub_005B1A90(SUNIT_GetGameFromUnit(pUnit), pUnit);
 }
 
-// build: context sub_005C3300_Shim
 // calling-convention shim (not game code)
 int __fastcall sub_005C3300_Shim(D2UnitStrc* pUnit)
 {

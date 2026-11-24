@@ -1862,7 +1862,6 @@ static inline D2MonStatsTxt* SUNITDMG_GetMonStatsTxtRecordFromUnit(D2UnitStrc* p
     return 0;
 }
 
-// build: context sub_0057C420_GetConvertedUnitType
 static __forceinline int sub_0057C420_GetConvertedUnitType(D2UnitStrc* pAttacker)
 {
     const int nTypeValue = !pAttacker ? 6 : pAttacker->dwUnitType;
@@ -2540,7 +2539,6 @@ static void SUNITDMG_SetHitClassIfUnset(D2DamageStrc* pDamage)
     }
 }
 
-// build: context sub_0057BF10_Shim
 // calling-convention shim (not game code)
 int __fastcall sub_0057BF10_Shim(D2DamageContextStrc* pContext, D2ResistTableEntryStrc* pEntry, int nValue)
 {
