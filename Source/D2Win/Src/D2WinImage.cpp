@@ -1,4 +1,5 @@
 #include "D2SkillIds.h"
+#include "D2GameTypes.h"
 
 #include "D2GfxTypes.h"
 
@@ -103,8 +104,6 @@ typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
-
-
 struct D2WinCommandRegisterStrc
 {
     int nType;
@@ -173,7 +172,6 @@ struct D2WinImageClickRectStrc
     int nY;
     int nWidth;
     int nHeight;
-    int unk0x10;
     int (__stdcall* pCallback)(SMSGHANDLER_PARAMS* pMsg);
 };
 
@@ -403,7 +401,6 @@ static inline int IMAGE_IsInClickRect(const D2WinImageClickRectStrc* pClickRect,
     return 0;
 }
 
-
 static inline void SUNITDMG_ApplyDamageTargetAc(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
 {
     const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, STAT_ITEM_DAMAGETARGETAC, 0);
@@ -434,6 +431,46 @@ int __stdcall sub_M118_Emit_004FD5A0(const D2WinImageClickRectStrc* pClickRect, 
 void __stdcall sub_M118_Emit_0057B7A0(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
 {
     SUNITDMG_ApplyDamageTargetAc(pAttacker, pDefender);
+}
+
+tagPOINT gtMousePosition; // 0x007D55A4
+struct Point { int x, y; };
+
+// 0x004FD5D0
+int __stdcall IMAGE2_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinImage2Strc* pImage = (D2WinImage2Strc*)pMsg->hWnd;
+
+    D2_ASSERT(pImage->controlHeader.eType == D2WIN_IMAGE, 0x159);
+
+    if (!(pImage->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pImage->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
+    {
+        return 0;
+    }
+
+    const int nX = gtMousePosition.x - pImage->controlHeader.nImageX;
+    const int nY = gtMousePosition.y + pImage->controlHeader.nHeight - pImage->controlHeader.nImageY;
+
+    D2WinImageClickRectStrc* pClickRect = pImage->pClickRect;
+    if (pClickRect)
+    {
+        for (int i = 0; pClickRect[i].pCallback; ++i)
+        {
+            const int nRectX = pClickRect[i].nX;
+            const int nRectY = pClickRect[i].nY;
+            if (nX >= nRectX && nY >= nRectY - pClickRect[i].nHeight && nX < nRectX + pClickRect[i].nWidth && nY < nRectY)
+            {
+                return pClickRect[i].pCallback(pMsg);
+            }
+        }
+    }
+
+    if (((D2WinImage2Strc*)pMsg->hWnd)->controlHeader.field_34)
+    {
+        return ((D2WinImage2Strc*)pMsg->hWnd)->controlHeader.field_34(pMsg);
+    }
+
+    return 0;
 }
 
 // 0x00506DA0
