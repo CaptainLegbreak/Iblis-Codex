@@ -92,22 +92,14 @@ extern D2HotkeyStrc gaHotkeysSaved[NUM_HOTKEYS]; // 0x007A6B18
 
 struct D2KeyBindingStrc;
 
-struct D2HotkeyActionStrc;
-
 int __fastcall CMDTBL_IsValidKey(unsigned short nKey); // 0x00469AE0
 
-
-typedef void (__cdecl* D2HotkeyCallback)();
 
 #pragma pack(push, 1)
 
 struct D2KeyBindingStrc { int nAction; unsigned short nKey; char unk_06[4]; };
 
 #pragma pack(pop)
-
-struct D2HotkeyActionStrc { D2HotkeyCallback pfnCallback; int bAllowed; int f_8; };
-
-extern D2HotkeyActionStrc gaActions[]; // 0x0071269C
 
 extern int gnMode_007A7418; // 0x007A7418
 
@@ -1225,12 +1217,12 @@ void __stdcall CMDTBL_DispatchHotkey(SMSGHANDLER_PARAMS* pMsg)
         if (gaHotkeys[i].nKey != nKey)
             continue;
         int nAction = gaHotkeys[i].nAction;
-        if (nAction != 0xFFFF && nAction < 0x39 && nAction <= 0xDF && gaActions[nAction].pfnCallback)
+        if (nAction != 0xFFFF && nAction < 0x39 && nAction <= 0xDF && gaHotkeyCommands[nAction].pfnUnk0x04)
         {
-            if (gnMode_007A7418 == 2 && !gaActions[gaHotkeys[i].nAction].bAllowed)
+            if (gnMode_007A7418 == 2 && !gaHotkeyCommands[gaHotkeys[i].nAction].nModeFlag)
                 return;
-            D2_ASSERT(!IsBadCodePtr((FARPROC)gaActions[gaHotkeys[i].nAction].pfnCallback), 0x81C);
-            gaActions[gaHotkeys[i].nAction].pfnCallback();
+            D2_ASSERT(!IsBadCodePtr((FARPROC)gaHotkeyCommands[gaHotkeys[i].nAction].pfnUnk0x04), 0x81C);
+            gaHotkeyCommands[gaHotkeys[i].nAction].pfnUnk0x04();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
