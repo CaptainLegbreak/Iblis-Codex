@@ -1,6 +1,7 @@
 #include "D2CMP.h"
 #include "D2CmpTypes.h"
 #include "D2CmpTiles.h"
+#include "D2CelDataHash.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -88,7 +89,7 @@ struct D2CmpBlockTableAStrc;
 
 struct D2CmpBlockTableBStrc;
 
-struct T00604AE0;
+struct D2CelDataHashEntryStrc;
 
 struct D2CelDataHashStrc;
 
@@ -107,21 +108,6 @@ extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void* lpCr
 struct D2CmpBlockTableAStrc
 {
     unsigned char data[0x1000];
-};
-
-struct T00604AE0
-{
-    unsigned int nKey;
-    char szName[0x20];
-    int nValue;
-    T00604AE0* pPrev;
-    T00604AE0* pNext;
-};
-
-struct D2CelDataHashStrc
-{
-    int nCheck[0x200];
-    T00604AE0* pBuckets[0x200];
 };
 
 long gnTileLockRefCount; // 0x008F03E4
