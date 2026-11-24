@@ -24,8 +24,6 @@ struct D2SNameListStrc;
 
 struct D2SNameNodeStrc;
 
-struct D2Block006BD040Strc;
-
 struct RoomFlags;
 
 struct PathFlags;
@@ -47,10 +45,6 @@ struct DirectionRecord;
 struct D2TxtLinkEntryStrc;
 
 struct D2TxtLinkStrc;
-
-struct D2TreeNode006BD330Strc;
-
-struct D2StringTableStrc;
 
 struct D2TxtLinkNodeStrc;
 
@@ -137,14 +131,6 @@ extern "C" const char gszEmptyAssertText_006CC837; // 0x006CC837
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2Block006BD040Strc
-{
-    int n00;
-    int n04;
-    int n08;
-    int n0C;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
@@ -288,21 +274,9 @@ struct D2TxtLinkStrc
     D2TxtLinkNodeStrc* pFirstNode;
 };
 
-struct D2TreeNode006BD330Strc
-{
-    unsigned char unk_00[0x20];
-    int nId20;
-    D2TreeNode006BD330Strc* pLeft24;
-    D2TreeNode006BD330Strc* pRight28;
-};
+extern D2TxtLinkNodeStrc* const gpszFallback; // 0x0074C3D8
 
-extern D2TreeNode006BD330Strc* const gpszFallback; // 0x0074C3D8
-
-struct D2StringTableStrc { int count; int unk4; int unk8; void* data; };
-
-extern const char* gszFallback_0074C3D8; // 0x0074C3D8
-
-const char* __fastcall EXCEL_FindLinkNode(void*, int); // 0x006BD330
+D2TxtLinkNodeStrc* __fastcall EXCEL_FindLinkNode(D2TxtLinkNodeStrc* pNode, int nId); // 0x006BD330
 
 struct D2TxtLinkNodeStrc
 {
@@ -346,19 +320,6 @@ extern "C" const char* __cdecl sub_00408090();                                  
 
 #pragma intrinsic(memset)
 
-struct D2LinkTree006BD500Strc
-{
-    D2TxtLinkNodeStrc* pRoot;
-};
-
-struct D2BinLinker006BD500Strc
-{
-    int nCount;
-    unsigned char unk_04[0x04];
-    void* pLocked;
-    D2LinkTree006BD500Strc tTree;
-};
-
 #define SKIP_CELL() {while(*input) ++input; ++input;}
 
 #define READ_CODE() {*(unsigned*)small=0;int c=0;while(*input){if(c>=4){while(*input)++input;break;}small[c++]=*input++;}++input;}
@@ -381,7 +342,7 @@ int __stdcall EXCEL_MapColumns(unsigned short*,D2BinFileStrc*,D2BinFieldStrc*); 
 
 int __stdcall sub_006BD230_AddCode(void*,unsigned); // 0x006BD230
 
-void __stdcall FOG_10216_AddRecordToLinkingTable(void*,const char*); // 0x006BD500
+int __stdcall FOG_10216_AddRecordToLinkingTable(D2TxtLinkStrc* pLinker, const char* szCode); // 0x006BD500
 
 int __fastcall EXCEL_GetOrAddLinkIndex(void*,const char*); // 0x006BD5A0
 
@@ -645,7 +606,7 @@ void __stdcall FOG_10207(D2BinFileStrc* bin,D2BinFieldStrc* fields,char* output,
       case 14:D2_ASSERT(index<=65535,0x15a);*(unsigned short*)dst=*(unsigned short*)code;break;
      }break;
     }
-    case 16:{char* start=dst;char* end=dst+field->length-1;while(*input&&dst<end)*dst++=*input++;*dst=0;while(*input)++input;++input;FOG_10216_AddRecordToLinkingTable(*(void**)field->link,start);break;}
+    case 16:{char* start=dst;char* end=dst+field->length-1;while(*input&&dst<end)*dst++=*input++;*dst=0;while(*input)++input;++input;FOG_10216_AddRecordToLinkingTable(*(D2TxtLinkStrc**)field->link,start);break;}
     case 17:case 18:{char name[32];char* p=name;while(*input&&p<name+31)*p++=*input++;*p=0;while(*input)++input;++input;void* const tArg4 = *(void**)field->link;
     int index=EXCEL_GetOrAddLinkIndex(tArg4,name);char* rec=output+field->offset;if(field->type==17)*(unsigned short*)rec=(unsigned short)index;else *(int*)rec=index;break;}
     default:SKIP_CELL();break;
@@ -798,28 +759,28 @@ int __stdcall sub_006BCE20_Shim(unsigned short* pOut, D2SNameListStrc* pList, D2
 }
 
 // 0x006BD330
-D2TreeNode006BD330Strc* __fastcall EXCEL_FindLinkNode(D2TreeNode006BD330Strc* pNode, int nId)
+D2TxtLinkNodeStrc* __fastcall EXCEL_FindLinkNode(D2TxtLinkNodeStrc* pNode, int nId)
 {
     if (!pNode)
     {
         return gpszFallback;
     }
-    if (pNode->nId20 == nId)
+    if (pNode->nLinkIndex == nId)
     {
         return pNode;
     }
-    D2TreeNode006BD330Strc* pFound;
-    if (pNode->pLeft24)
+    D2TxtLinkNodeStrc* pFound;
+    if (pNode->pPrevious)
     {
-        pFound = EXCEL_FindLinkNode(pNode->pLeft24, nId);
+        pFound = EXCEL_FindLinkNode(pNode->pPrevious, nId);
         if (pFound != gpszFallback)
         {
             return pFound;
         }
     }
-    if (pNode->pRight28)
+    if (pNode->pNext)
     {
-        pFound = EXCEL_FindLinkNode(pNode->pRight28, nId);
+        pFound = EXCEL_FindLinkNode(pNode->pNext, nId);
         if (pFound != gpszFallback)
         {
             return pFound;
@@ -830,18 +791,18 @@ D2TreeNode006BD330Strc* __fastcall EXCEL_FindLinkNode(D2TreeNode006BD330Strc* pN
 
 
 // 0x006BD500
-int __stdcall FOG_10216_AddRecordToLinkingTable(D2BinLinker006BD500Strc* pLinker, const char* szCode)
+int __stdcall FOG_10216_AddRecordToLinkingTable(D2TxtLinkStrc* pLinker, const char* szCode)
 {
     D2_ASSERT(pLinker, 0x4B2);
-    D2_ASSERT(!pLinker->pLocked, 0x4B6);
+    D2_ASSERT(!pLinker->pTbl, 0x4B6);
 
     D2TxtLinkNodeStrc* pNode = (D2TxtLinkNodeStrc*)FOG_AllocPool(0, sizeof(D2TxtLinkNodeStrc), ".\\Src\\Excel\\Excel.cpp", 0x4B9, 0);
     memset(pNode, 0, sizeof(D2TxtLinkNodeStrc));
     SStrCopy(pNode->szText, szCode, 0x20);
     sub_004113C0(pNode->szText, 0x20);
-    pNode->nLinkIndex = pLinker->nCount;
-    EXCEL_InsertLinkNode((D2TxtLinkNodeStrc**)&pLinker->tTree, (D2TxtLinkNodeStrc*)pNode);
-    return pLinker->nCount++;
+    pNode->nLinkIndex = pLinker->count;
+    EXCEL_InsertLinkNode(&pLinker->pFirstNode, pNode);
+    return pLinker->count++;
 }
 
 // 0x006BD5A0
@@ -866,12 +827,14 @@ int __fastcall EXCEL_GetOrAddLinkIndex(D2TxtLinkStrc* pLinker, const char* szTex
 }
 
 // 0x006BD380
-const char* __stdcall FOG_10255(D2StringTableStrc* pTable, int index, int useFallback)
+const char* __stdcall FOG_10255(D2TxtLinkStrc* pLink, int nIndex, int bUseFallback)
 {
- if (!pTable || index < 0 || index >= pTable->count) return gszFallback_0074C3D8;
- const char* result = EXCEL_FindLinkNode(pTable->data, index);
- if ((!result || result == gszFallback_0074C3D8) && useFallback) return gszFallback_0074C3D8;
- return result;
+    if (!pLink || nIndex < 0 || nIndex >= pLink->count)
+        return gpszFallback->szText;
+    D2TxtLinkNodeStrc* pNode = EXCEL_FindLinkNode(pLink->pFirstNode, nIndex);
+    if ((!pNode || pNode == gpszFallback) && bUseFallback)
+        return gpszFallback->szText;
+    return pNode->szText;
 }
 
 // 0x006BD3C0
@@ -935,11 +898,11 @@ static void __cdecl EXCEL_InsertLinkNode(D2TxtLinkNodeStrc** ppLink, D2TxtLinkNo
 }
 
 // 0x006BD040
-D2Block006BD040Strc* __stdcall FOG_AllocLinker(const char* szFile, int nLine)
+D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine)
 {
-    D2Block006BD040Strc* pBlock = (D2Block006BD040Strc*)FOG_AllocPool(0, 0x10, szFile, nLine, 0);
-    memset(pBlock, 0, sizeof(D2Block006BD040Strc));
-    return pBlock;
+    D2TxtLinkStrc* pLink = (D2TxtLinkStrc*)FOG_AllocPool(0, sizeof(D2TxtLinkStrc), szFile, nLine, 0);
+    memset(pLink, 0, sizeof(D2TxtLinkStrc));
+    return pLink;
 }
 
 static int gnLockCount; // 0x0074C3E0
