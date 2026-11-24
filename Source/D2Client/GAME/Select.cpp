@@ -10,6 +10,7 @@
 #include "D2StateIds.h"
 #include "D2Drlg.h"
 #include "D2ClientTypes.h"
+#include "D2ClientUiRecords.h"
 struct D2ActiveRoomStrc;
 struct D2SkillStrc;
 struct D2UnitStrc;
@@ -533,10 +534,6 @@ struct D2TileRectStrc
     unsigned int nHeight;
 };
 
-struct D2UIVarRecordStrc
-{
-    int anCloseKind[0x26];
-};
 
 struct T0044CB60
 {

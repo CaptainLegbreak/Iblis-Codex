@@ -8,6 +8,7 @@
 #include "D2Records.h"
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
+#include "D2ClientUiRecords.h"
 struct D2SkillStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                              // 0x00681EF0
@@ -106,13 +107,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-#pragma pack(push, 2)
-struct D2UiCelFileStrc
-{
-    void* pCelFile;
-    char szPath[0x1E];
-};
-#pragma pack(pop)
 
 extern D2UiCelFileStrc gaPanelCels[7]; // 0x00724BF0
 

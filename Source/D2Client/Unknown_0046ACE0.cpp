@@ -11,6 +11,7 @@
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
 #include "D2LevelTxt.h"
+#include "D2ClientUiRecords.h"
 
 #define LEVEL_EFFECT_TICKS 30
 #define THRONE_MISSILE 0x27F
@@ -233,10 +234,6 @@ void __cdecl SCMD_TriggerNearbyMonsterEffect()
 
 struct Unicode;
 
-struct D2UIVarRecordStrc
-{
-    int anCloseKind[0x26];
-};
 
 struct T0044CB60
 {

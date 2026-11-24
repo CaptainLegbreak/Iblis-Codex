@@ -9,6 +9,7 @@
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
 #include "D2Txt.h"
+#include "D2ClientUiRecords.h"
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -171,14 +172,6 @@ static void TEXT_DrawBlockChanceHover(int nX, int nY, int nValue); // 0x004A7180
 static void __stdcall sub_004A7AE0_DrawHoverToHit(int nX, int nY, int nLeftChance, int nRightChance); // 0x004A7AE0
 
 
-#pragma pack(push, 2)
-struct D2UiCelFileStrc
-{
-    void* pCelFile;
-    char szPath[0x1E];
-};
-
-#pragma pack(pop)
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern D2UiCelFileStrc gaSkillIconCels[7]; // 0x00724AC0
