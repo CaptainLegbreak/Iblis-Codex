@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 11:06:58 PST 2026): object-map joins: CelCmp.cpp <- Unknown_00604070 + Unknown_00603F40 and Codec.cpp <- Unknown_0060B7B0 build equal, full verifies running on #359; five leads skipped on language-copy evidence (Left in place).
+Status (Tue Nov 24 11:23:33 PST 2026): six joins build equal on #360 (CelCmp, Codec, FastCmp x2, BnSend, SpriteCache, BnMessQueue); their full verifies are queued, posting each when it passes.
 
 ## Ready
 
@@ -11,7 +11,7 @@ Status (Tue Nov 24 11:06:58 PST 2026): object-map joins: CelCmp.cpp <- Unknown_0
 
 ## Claimed
 
-- **Object-map joins (report-356.md), one branch each:** CelCmp.cpp <- Unknown_00604070 + Unknown_00603F40 (lane6/join-celcmp), Codec.cpp <- Unknown_0060B7B0 (lane6/join-codec), then FastCmp.cpp <- Unknown_00604DB0 + Unknown_00604DF0, BnSend.cpp <- Unknown_0051DC70, SpriteCache.cpp <- Unknown_005FE210, BnMessQueue.cpp <- Unknown_005201E0, and the ChatDlg three last.
+- **Object-map joins (report-356.md), one branch each:** CelCmp.cpp <- Unknown_00604070 + Unknown_00603F40 (lane6/join-celcmp), Codec.cpp <- Unknown_0060B7B0 (lane6/join-codec), FastCmp.cpp <- Unknown_00604DB0 + Unknown_00604DF0 (lane6/join-fastcmp), BnSend.cpp <- Unknown_0051DC70 (lane6/join-bnsend), SpriteCache.cpp <- Unknown_005FE210 (lane6/join-spritecache), BnMessQueue.cpp <- Unknown_005201E0 (lane6/join-bnmessqueue); the ChatDlg three last.
 - **The MCP connect object (0x00449890-0x0044A16F):** one object by its .bss (0x00798F58-0x007992F4, read across the whole run) and its language copy (0x0070EC80, now swallowed by ComCallback.cpp's gapfnMsgHandlers, which the dispatcher bounds at 24 entries). Its code is split over D2Client/GAME/Game.cpp (the GAME_ getters, lane 4), D2Client/CORE/WINMAIN.CPP (0x00449920, 0x00449B70, lane 4), D2Client/Unknown_00449890.cpp, D2MCPClient/Src/McpConnect.cpp and ChatDlg.cpp (0x0044A130). The data is in (#358). Then the join into McpConnect.cpp; lane 4, I'll list the Game.cpp/WINMAIN.CPP pieces for you to hand over.
 
 - ChatDlg.cpp's object, what's left: 0x004423B0, 0x00445020, 0x004450D0, 0x004456D0 and 0x00445FF0 build unequal (0x0043F850 is in chatdlg-cancel; retried 0x004423B0, 0x00445020 and 0x004456D0 on #354: register allocation and scheduling differ, not inlining) in ChatDlg.cpp even with noinline on their callees. Game.cpp's 0x0043DB10 and 0x0043F840 (lane 4's file) are inside the object: lane 4, they're yours to hand over when convenient.
