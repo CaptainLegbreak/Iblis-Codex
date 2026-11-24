@@ -214,7 +214,7 @@ int __stdcall SUniConvertUTF16to8(char* pDest, unsigned int nDestSize, const uns
     return nResult;
 }
 
-#include "gen/data/Source/Storm/Unknown_006C7000.inc"
+#include "gen/data/Source/Storm/SOURCE/SUNI.inc"
 
 // 0x006C72F0
 int __stdcall SUniConvertUTF8to16Len(const char* source, int maxLength, int* consumed)
