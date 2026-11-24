@@ -18811,8 +18811,22 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00468940.cpp",
+   "file": "Source/D2Client/UI/CmdTbl.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x00468940",
@@ -19030,6 +19044,11 @@
      "name": "?sub_00469090_HotkeyUiVarOff@@YAXXZ"
     },
     {
+     "va": "0x004690A0",
+     "length": 5,
+     "name": "?CMDTBL_HotkeyClearScreen@@YAXXZ"
+    },
+    {
      "va": "0x004690B0",
      "length": 67,
      "name": "?sub_004690B0_HotkeyEscape@@YAXXZ"
@@ -19055,9 +19074,19 @@
      "name": "?sub_00469170_HotkeyPetUi@@YAXXZ"
     },
     {
+     "va": "0x004691B0",
+     "length": 5,
+     "name": "?CMDTBL_HotkeyClearMessages@@YAXXZ"
+    },
+    {
      "va": "0x004691C0",
      "length": 58,
      "name": "?sub_004691C0_HotkeyRunOff@@YAXXZ"
+    },
+    {
+     "va": "0x00469200",
+     "length": 7,
+     "name": "?CMDTBL_HotkeyStandStillRelease@@YAXXZ"
     },
     {
      "va": "0x00469210",
@@ -19088,41 +19117,6 @@
      "va": "0x00469330",
      "length": 58,
      "name": "?sub_00469330@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/CmdTbl.cpp",
-   "rank": 0,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x004690A0",
-     "length": 5,
-     "name": "?CMDTBL_HotkeyClearScreen@@YAXXZ"
-    },
-    {
-     "va": "0x004691B0",
-     "length": 5,
-     "name": "?CMDTBL_HotkeyClearMessages@@YAXXZ"
-    },
-    {
-     "va": "0x00469200",
-     "length": 7,
-     "name": "?CMDTBL_HotkeyStandStillRelease@@YAXXZ"
     },
     {
      "va": "0x00469370",
