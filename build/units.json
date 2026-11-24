@@ -62011,6 +62011,14 @@
      "name": "?SKILLS_SrvSt33_FindPotion_GrimWard@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005D8100",
+     "length": 188
+    },
+    {
+     "va": "0x005D81C0",
+     "length": 199
+    },
+    {
      "va": "0x005D8470",
      "length": 155,
      "name": "?SKILLS_SrvDo070_DoubleSwing@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -62029,6 +62037,10 @@
      "va": "0x005D8760",
      "length": 29,
      "name": "?SKILLS_SrvSt34_FindItem@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D8780",
+     "length": 290
     },
     {
      "va": "0x005D8B10",
@@ -62142,59 +62154,6 @@
      "length": 52,
      "name": "?SKILLS_SrvSt65_Throw_LeftHandThrow@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005D8100.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D8100",
-     "length": 188
-    },
-    {
-     "va": "0x005D8780",
-     "length": 290
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005D81C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D81C0",
-     "length": 199
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
