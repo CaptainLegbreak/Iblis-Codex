@@ -62,6 +62,14 @@ Every lane, every time it finishes or gets blocked:
 
 A function belongs to the lane whose address range or file run it sits in, whatever file it is filed in today.
 
+## Standing work for every lane (from the outside review, 2026-11-23)
+
+In your own files, whenever your current list allows:
+- **Decompiler-style names:** `f_<hex>` fields (about 3,900 in 226 files), `unk0x` fields (about 2,100), `T<address>` struct names (456 uses), `struct Unit` with padding macros, and the `Unit*`/`U32` style in about 28 files. Replace them with the shared headers' records and real field names, wherever the bytes allow it. Shared-header changes go to lane 2.
+- **Storm containers in one form:** Storm's own `TSHashTable<…>`, `TSList<…>` and `TSGrowableArray<…>` templates, as D2CMP has them. The plain `D2Storm…Strc` structs in D2Client and elsewhere move to the template form. Lane 3 owns the templates (`stpl.h`) and leads; each lane converts its own files.
+- **Shims (85) and context copies (491):** retry deleting them after each join. The coordinator reports both counts each round.
+- **Prototypes:** one prototype per function, the one in its defining file. The coordinator's rename sweep does this per module; don't add new private declarations with a different type.
+
 ## Held back
 
 | Branch / commit | Why | What it needs |
