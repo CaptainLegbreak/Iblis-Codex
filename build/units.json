@@ -28678,6 +28678,11 @@
      "length": 200
     },
     {
+     "va": "0x004BFBC0",
+     "length": 132,
+     "name": "ITEM_HitTestHotspots"
+    },
+    {
      "va": "0x004BFC50",
      "length": 343,
      "name": "?USEITEM_ClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
@@ -28983,11 +28988,6 @@
      "va": "0x004BDF30",
      "length": 146,
      "name": "ITEM_ApplyTownPortalState"
-    },
-    {
-     "va": "0x004BFBC0",
-     "length": 132,
-     "name": "ITEM_HitTestHotspots"
     },
     {
      "va": "0x004C0D20",

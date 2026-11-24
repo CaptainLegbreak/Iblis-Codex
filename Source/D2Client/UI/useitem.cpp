@@ -217,6 +217,28 @@ int __cdecl sub_004BFAF0_ShowConfirmation()
     return 0;
 }
 
+// 0x004BFBC0
+void __fastcall ITEM_HitTestHotspots(int nX, int nY)
+{
+// build: symbol ?gnHotspotCount@* 0x007278FC
+    for (int i = 0; i < gnHotspotCount; i++)
+    {
+        gaUseItemHotspots[i].pressed = 0;
+        gaUseItemHotspots[i].hovered = 0;
+    }
+
+    for (int i = 0; i < gnHotspotCount; i++)
+    {
+        if (nX >= gaUseItemHotspots[i].left && nX <= gaUseItemHotspots[i].right && nY >= gaUseItemHotspots[i].top && nY <= gaUseItemHotspots[i].bottom)
+        {
+            sub_004B9A00(1, 0, 0, 0, 0);
+            gaUseItemHotspots[i].pressed = 1;
+            gaUseItemHotspots[i].hovered = 1;
+        }
+    }
+}
+
+
 // 0x004C0100
 void __cdecl USEITEM_FreeUseItemPanel()
 {
