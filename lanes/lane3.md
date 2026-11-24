@@ -14,7 +14,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-(none)
+- **lane3/sfile-links**: SFILE.CPP's five Link stand-ins (0x417A10-0x417D60) as TSList<T>::Link for its five list types, by adjacency to each type's LinkNode. Full verify running.
 
 ## Questions
 
