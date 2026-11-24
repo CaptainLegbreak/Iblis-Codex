@@ -99,7 +99,7 @@ void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile);      
 
 int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3);                                   // 0x005FDEA0
 
-static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, int nScreenPanels, tagRECT* pRect, int* pOffset);
+static inline void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, int nScreenPanels, tagRECT* pRect, int* pOffset);
 
 
 void __cdecl sub_0050BE20_GlideDebugRefresh();
@@ -352,7 +352,7 @@ void __cdecl sub_0050C680_ClearBuffer()
 }
 
 // 0x0050C690
-static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, int nScreenPanels, tagRECT* pRect, int* pOffset)
+static inline void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, int nScreenPanels, tagRECT* pRect, int* pOffset)
 {
     D2_ASSERT(pRect, 0x54);
 
@@ -781,6 +781,337 @@ void __cdecl sub_0050D540_GlideInitD()
             *ppBottom = &gaGlideVertices_00880678[6 * nRow + nCol + 6];
         }
     }
+}
+
+
+extern D2GfxSettingsStrc* gpGfxSettings; // 0x007C9148
+
+// 0x0050BF40
+int __cdecl sub_0050BF40_GlideGetBlendedShadows()
+{
+    return gpGfxSettings->bBlendedShadows;
+}
+
+struct D2GfxLightExStrc;
+
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
+
+extern "C" __declspec(dllimport) void* __stdcall CreateBitmap(int nWidth, int nHeight, unsigned int nPlanes, unsigned int nBitCount, const void* lpBits); // 0x006CC090
+extern "C" __declspec(dllimport) void* __stdcall CreateDCA(const char* pszDriver, const char* pszDevice, const char* pszPort, const void* pdm); // 0x006CC0A4
+extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC214
+extern "C" __declspec(dllimport) void __stdcall BinkNextFrame(D2BinkStrc* pBink);                            // 0x006CC5BC
+extern "C" __declspec(dllimport) int __stdcall BinkCopyToBuffer(D2BinkStrc* pBink, void* pDest, int nDestPitch, unsigned int nDestHeight, unsigned int nDestX, unsigned int nDestY, unsigned int nFlags); // 0x006CC5C0
+extern "C" __declspec(dllimport) int __stdcall BinkDoFrame(D2BinkStrc* pBink);                               // 0x006CC5C4
+unsigned int __fastcall GLCORE_GetPaletteColor(int nPaletteIndex);                                   // 0x005093F0
+void __fastcall GLCORE_SetColorCombineMode(int nState);                                                      // 0x005094B0
+void __fastcall GLCORE_SetAlphaBlendMode(int nMode);                                                     // 0x00509500
+void __cdecl sub_0050BE20_GlideDebugRefresh();                                                               // 0x0050BE20
+void __fastcall GLVERTEX_SetAmbientColor(int nRed, int nGreen, int nBlue);                         // 0x0050DBC0
+void __cdecl DDCORE_ReleaseSurfaces();                                                           // 0x00511A80
+int __fastcall DDCORE_CreateSurface(void* hWnd, int nResolutionMode);                           // 0x005115E0
+void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x00512710
+extern "C" const char gszDisplay[];                                                                // 0x006DE1E8
+extern "C" const char gszDdDebugFontSourceFile[];                                                  // 0x006DE1D0
+extern unsigned long gdwDDrawDebugFontTextColor;                                                    // 0x0072F7F0
+extern int gnRenderWidth;                                                                          // 0x007C9138
+extern int gbRenderPaused;                                                                         // 0x007C9144
+extern unsigned char* gpScreenBuffer_007C9154;                                                              // 0x007C9154
+void (__stdcall* gpfnGrDrawVertexArrayContiguous)(int nMode, int nCount, void* pVertices, int nStride);        // 0x0087EAC4
+extern void (__stdcall* gpfnGrBufferClear)(unsigned int dwColor, unsigned int nAlpha, unsigned int nDepth); // 0x0087EB88
+void (__stdcall* gpfnGrChromakeyMode)(int bEnable);                                                       // 0x0087EB8C
+extern void (__stdcall* gpfnGrConstantColorValue)(unsigned int dwColor);                              // 0x0087EFA0
+extern int gnGlideColorCombineState;                                                                           // 0x0087EFD8
+extern int gnGlideAlphaCombineMode;                                                                           // 0x0087EFDC
+extern int gnGlideTexFilterMode;                                                                           // 0x0087EFE0
+extern int gbGlideDrawing;                                                                         // 0x0087EFE4
+extern int gnGlideDebugX;                                                                          // 0x008800D0
+extern int gnGlideDebugY;                                                                          // 0x008800D4
+extern unsigned int gnGlideBinkY;                                                                  // 0x00880C04
+extern unsigned int gnGlideBinkX;                                                                  // 0x00880C08
+extern D2BinkStrc* gpGlideBink;                                                                    // 0x00880C0C
+extern unsigned int gnGlideBinkFlags;                                                              // 0x00880C14
+extern int gbGlideBinkDone;                                                                        // 0x00880C18
+extern D2DDrawObjectStrc* gpDDrawObject_00881290;                                                           // 0x00881290
+extern int gaDDrawDebugFontGlyphOffsets[96];                                                       // 0x008812A8
+extern int gaDDrawDebugFontCharWidths[96];                                                         // 0x00881428
+extern unsigned long gdwDDrawDebugFontBkColor;                                                     // 0x008815A8
+extern unsigned char* gpDDrawDebugFontGlyphs;                                                      // 0x008815AC
+extern unsigned int gnDDrawBinkY;                                                                  // 0x008816B8
+extern unsigned int gnDDrawBinkX;                                                                  // 0x008816BC
+extern D2BinkStrc* gpDDrawBink;                                                                    // 0x008816C0
+extern unsigned int gnDDrawBinkFlags;                                                              // 0x008816C8
+extern int gbDDrawBinkDone;                                                                        // 0x008816CC
+
+// 0x0050BF50
+void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode)
+{
+    D2GlideSpriteVertexStrc vertices[4];
+    const int nX1 = D2_MIN(D2_MAX(nXStart, 0), gnRenderWidth);
+    nXEnd = D2_MIN(D2_MAX(nXEnd, 0), gnRenderWidth);
+    if (nX1 == nXEnd)
+        return;
+// build: symbol ?gnRenderHeight@* 0x007C913C
+    const int nY1 = D2_MIN(D2_MAX(nYStart, 0), gnRenderHeight);
+    nYEnd = D2_MIN(D2_MAX(nYEnd, 0), gnRenderHeight);
+    if (nYEnd == nY1)
+        return;
+    D2_ASSERT(nYEnd > nY1, 0x29);
+    GLCORE_SetColorCombineMode(2);
+    GLCORE_SetAlphaBlendMode(4);
+    gpfnGrChromakeyMode(0);
+    vertices[0].x = (float)nX1;
+    vertices[0].y = (float)nY1;
+    vertices[0].oow = 1.0f;
+    vertices[0].sow = 0.0f;
+    vertices[0].tow = 0.0f;
+    vertices[1].x = (float)nX1;
+    vertices[1].y = (float)nYEnd;
+    vertices[1].oow = 1.0f;
+    vertices[1].sow = 0.0f;
+    vertices[1].tow = 0.0f;
+    vertices[2].x = (float)nXEnd;
+    vertices[2].y = (float)nYEnd;
+    vertices[2].oow = 1.0f;
+    vertices[2].sow = 0.0f;
+    vertices[2].tow = 0.0f;
+    vertices[3].x = (float)nXEnd;
+    vertices[3].y = (float)nY1;
+    vertices[3].oow = 1.0f;
+    vertices[3].sow = 0.0f;
+    vertices[3].tow = 0.0f;
+    unsigned int dwRGBA = GLCORE_GetPaletteColor((unsigned char)dwColor) & 0xFFFFFF00;
+    switch (nDrawMode)
+    {
+    case 0:
+        dwRGBA += 0x40;
+        break;
+    case 1:
+        dwRGBA += 0x80;
+        break;
+    case 2:
+        dwRGBA += 0xC0;
+        break;
+    default:
+        dwRGBA += 0xFF;
+        break;
+    }
+    gpfnGrConstantColorValue(dwRGBA);
+    gpfnGrDrawVertexArrayContiguous(5, 4, vertices, sizeof(D2GlideSpriteVertexStrc));
+    gpfnGrChromakeyMode(1);
+}
+
+// 0x0050C0F0
+void __fastcall sub_0050C0F0_GlideDrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)
+{
+    D2GlideSpriteVertexStrc vertices[4];
+    const int nX1 = D2_MIN(D2_MAX(nXStart, 0), gnRenderWidth);
+    nXEnd = D2_MIN(D2_MAX(nXEnd, 0), gnRenderWidth);
+    if (nX1 == nXEnd)
+        return;
+    const int nY1 = D2_MIN(D2_MAX(nYStart, 0), gnRenderHeight);
+    nYEnd = D2_MIN(D2_MAX(nYEnd, 0), gnRenderHeight);
+    if (nYEnd == nY1)
+        return;
+    D2_ASSERT(nYEnd > nY1, 0x61);
+    GLCORE_SetColorCombineMode(2);
+    GLCORE_SetAlphaBlendMode(4);
+    gpfnGrChromakeyMode(0);
+    vertices[0].x = (float)nX1;
+    vertices[0].y = (float)nY1;
+    vertices[0].oow = 1.0f;
+    vertices[0].sow = 0.0f;
+    vertices[0].tow = 0.0f;
+    vertices[1].x = (float)nX1;
+    vertices[1].y = (float)nYEnd;
+    vertices[1].oow = 1.0f;
+    vertices[1].sow = 0.0f;
+    vertices[1].tow = 0.0f;
+    vertices[2].x = (float)nXEnd;
+    vertices[2].y = (float)nYEnd;
+    vertices[2].oow = 1.0f;
+    vertices[2].sow = 0.0f;
+    vertices[2].tow = 0.0f;
+    vertices[3].x = (float)nXEnd;
+    vertices[3].y = (float)nY1;
+    vertices[3].oow = 1.0f;
+    vertices[3].sow = 0.0f;
+    vertices[3].tow = 0.0f;
+    gpfnGrConstantColorValue(GLCORE_GetPaletteColor((unsigned char)dwColor) & 0xFFFFFF00 | nAlpha);
+    gpfnGrDrawVertexArrayContiguous(5, 4, vertices, sizeof(D2GlideSpriteVertexStrc));
+    gpfnGrChromakeyMode(1);
+}
+
+extern int gnRenderWidth; // 0x007C9138
+extern D2GlideSpriteVertexStrc gaGlideTileQuad[4]; // 0x00880600
+
+typedef void (__stdcall* GLIDEDRAWVERTEXARRAYCONTIGUOUS)(int nMode, int nCount, void* pVertices, int nStride);
+
+extern GLIDEDRAWVERTEXARRAYCONTIGUOUS gpfnGrDrawVertexArrayContiguous; // 0x0087EAC4
+void __fastcall GLVERTEX_SetVertexAmbientColor(D2GlideSpriteVertexStrc* pVertex, unsigned char nIntensity); // 0x0050DBE0
+
+struct D2TileVertexStrc
+{
+    unsigned char aColor[4];
+    int nX;
+    int nY;
+};
+
+typedef void (__stdcall* GlideConstantColorFn)(unsigned int dwColor);
+
+typedef void (__stdcall* GlideDrawVertexArrayFn)(int nMode, int nCount, void** ppVertices);
+
+int __fastcall GLTEXTURECACHE_BindFloorTexture(void* pTile); // 0x0050FAD0
+void __fastcall GLCORE_SetColorCombineMode(int nState); // 0x005094B0
+void __fastcall GLCORE_SetAlphaBlendMode(int nMode); // 0x00509500
+void __fastcall GLCORE_SetTextureFilterMode(int nMode); // 0x005095D0
+extern GlideConstantColorFn gpfnGrConstantColorValue; // 0x0087EFA0
+extern GlideDrawVertexArrayFn gpfnGrDrawVertexArray; // 0x0087EB18
+extern unsigned char* gpBlendTable; // 0x00880B5C
+extern D2GfxSettingsStrc* gpGfxSettings; // 0x007C9148
+extern D2GlideSpriteVertexStrc gatGlideTileVertices[36]; // 0x00880678
+extern void* gapGlideTileFan[4]; // 0x0072F670
+extern void* gapGlideTileStrips_00880A68[5][12]; // 0x00880A68
+
+// 0x0050C890
+int __fastcall sub_0050C890_GlideTileDrawShaded(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, unsigned char nShade, int nScreenPanels)
+{
+    tagRECT tRect;
+    tRect.left = 0;
+    tRect.top = 0;
+    tRect.right = gnRenderWidth;
+// build: symbol ?gnRenderHeight@* 0x007C913C
+    tRect.bottom = gnRenderHeight - 47;
+    tRect.left -= 32;
+    tRect.bottom += 32;
+
+    int bDrawn = 0;
+    if (nScreenPanels == 1)
+    {
+        tRect.right += -(gnRenderWidth / 2);
+    }
+    else if (nScreenPanels == 2)
+    {
+        tRect.left = gnRenderWidth / 2 - 32;
+    }
+
+    nPosY += 32;
+    for (int i = 0; i < pTile->nBlocks; ++i)
+    {
+        int nLeft = nPosX + pTile->pBlocks[i].nPosX;
+        int nBottom = pTile->pBlocks[i].nPosY + nPosY;
+        if (nLeft >= tRect.left && nLeft < tRect.right && nBottom >= tRect.top && nBottom < tRect.bottom)
+        {
+            int nTop = nBottom - 32;
+            bDrawn = 1;
+            int nRight = nLeft + 32;
+            sub_0050FBD0_GlideBindTileTexture(&pTile->pBlocks[i]);
+            gaGlideTileQuad[0].x = (float)nLeft;
+            gaGlideTileQuad[0].y = (float)nTop;
+            gaGlideTileQuad[1].x = (float)nLeft;
+            gaGlideTileQuad[1].y = (float)nBottom;
+            gaGlideTileQuad[2].x = (float)nRight;
+            gaGlideTileQuad[2].y = (float)nBottom;
+            gaGlideTileQuad[3].x = (float)nRight;
+            gaGlideTileQuad[3].y = (float)nTop;
+            GLVERTEX_SetVertexAmbientColor(gaGlideTileQuad, nShade);
+            gaGlideTileQuad[1].dwColor = gaGlideTileQuad[0].dwColor;
+            gaGlideTileQuad[2].dwColor = gaGlideTileQuad[0].dwColor;
+            gaGlideTileQuad[3].dwColor = gaGlideTileQuad[0].dwColor;
+            gpfnGrDrawVertexArrayContiguous(5, 4, gaGlideTileQuad, sizeof(D2GlideSpriteVertexStrc));
+        }
+    }
+
+    return bDrawn;
+}
+
+static __forceinline void GLIDE_SetTileVertex(const D2TileVertexStrc* pSource, D2GlideSpriteVertexStrc* pVertex)
+{
+    const unsigned char* pRow = &gpBlendTable[pSource->aColor[0] << 8];
+    pVertex->dwColor = (((-1 << 8 | pRow[pSource->aColor[1]]) << 8 | pRow[pSource->aColor[2]]) << 8) | pRow[pSource->aColor[3]];
+    pVertex->x = (float)pSource->nX;
+    pVertex->y = (float)pSource->nY;
+}
+
+// 0x0050D6A0
+void __fastcall sub_0050D6A0_GlideDrawFloorTile(void* pTile, const D2TileVertexStrc* pVertices, int a3, int a4, int a5, int a6, unsigned char nAlpha, int a8, int bDepth)
+{
+    if (!GLTEXTURECACHE_BindFloorTexture(pTile))
+        return;
+
+    GLCORE_SetColorCombineMode(1);
+    if (nAlpha == 0xFF)
+    {
+        GLCORE_SetAlphaBlendMode(1);
+    }
+    else
+    {
+        GLCORE_SetAlphaBlendMode(4);
+        gpfnGrConstantColorValue(nAlpha);
+    }
+    if (bDepth)
+        GLCORE_SetTextureFilterMode(2);
+    else
+        GLCORE_SetTextureFilterMode(1);
+
+    if (gpGfxSettings->bLowQuality)
+    {
+        GLIDE_SetTileVertex(&pVertices[0], &gatGlideTileVertices[0]);
+        GLIDE_SetTileVertex(&pVertices[5], &gatGlideTileVertices[5]);
+        GLIDE_SetTileVertex(&pVertices[35], &gatGlideTileVertices[35]);
+        GLIDE_SetTileVertex(&pVertices[30], &gatGlideTileVertices[30]);
+        gpfnGrDrawVertexArray(5, 4, gapGlideTileFan);
+        return;
+    }
+
+    const D2TileVertexStrc* pSrc = pVertices;
+    D2GlideSpriteVertexStrc* pDst = gatGlideTileVertices;
+    for (unsigned int i = 0; i < 36; i++, pSrc++, pDst++)
+        GLIDE_SetTileVertex(pSrc, pDst);
+
+    for (int i = 0; i < 5; i++)
+        gpfnGrDrawVertexArray(4, 12, gapGlideTileStrips_00880A68[i]);
+}
+
+struct D2TileLibraryEntryStrc;
+
+void __fastcall GLCORE_SetColorCombineMode(int nState);                                                      // 0x005094B0
+void __fastcall GLCORE_SetAlphaBlendMode(int nMode);                                                     // 0x00509500
+void __fastcall GLCORE_SetTextureFilterMode(int nMode);                                                       // 0x005095D0
+int __cdecl sub_0050BF40_GlideGetBlendedShadows();                                                                    // 0x0050BF40
+int __fastcall sub_0050C890_GlideTileDrawShaded(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, unsigned char nShade, int nScreenPanels); // 0x0050C890
+int __fastcall sub_0050CA00_GlideShadowTileDrawPerspective(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels); // 0x0050CA00
+int __cdecl GLVERTEX_IsPerspective();                                                               // 0x0050DD30
+extern void (__stdcall* gpfnGrConstantColorValue)(unsigned int dwColor);                              // 0x0087EFA0
+
+// 0x0050CD40
+int __fastcall sub_0050CD40_GlideShadowTileDraw(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels)
+{
+    int nResult = 0;
+    if (D2CMPTileValidate(pTile, 1, 0))
+    {
+        GLCORE_SetColorCombineMode(1);
+        if (sub_0050BF40_GlideGetBlendedShadows())
+        {
+            GLCORE_SetAlphaBlendMode(4);
+            gpfnGrConstantColorValue(0xC0);
+        }
+        else
+        {
+            GLCORE_SetAlphaBlendMode(1);
+        }
+
+        GLCORE_SetTextureFilterMode(1);
+        if (GLVERTEX_IsPerspective())
+        {
+            nResult = sub_0050CA00_GlideShadowTileDrawPerspective(pTile, nPosX, nPosY, eDrawMode, nScreenPanels);
+        }
+        else
+        {
+            nResult = sub_0050C890_GlideTileDrawShaded(pTile, nPosX, nPosY, eDrawMode, nScreenPanels);
+        }
+    }
+
+    return nResult;
 }
 
 #include "gen/data/Source/D2Glide/Unknown_0050BD30.inc"
