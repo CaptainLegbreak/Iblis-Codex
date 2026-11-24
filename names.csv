@@ -14743,7 +14743,7 @@ address,name,source,alias
 0x006C7960,SUniConvertWinToUTF16,blizzard,
 0x006C7980,SUniConvertMacToUTF16,blizzard,
 0x006C79A0,SUniConvertDosToUTF16,blizzard,
-0x006C79C0,sub_006C79C0_Decompress,placeholder,
+0x006C79C0,uncompress,placeholder,
 0x006C7A60,sub_006C7A60,placeholder,
 0x006C7A70,GDI_Init,inferred,
 0x006C7AB0,GDI_Close,inferred,
