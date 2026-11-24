@@ -67219,6 +67219,10 @@
      "name": "?DRLGACTIVATE_GetARoomInClientSight@@YIPAUD2ActiveRoomStrc@@PAUD2DrlgStrc@@@Z"
     },
     {
+     "va": "0x0061B870",
+     "length": 57
+    },
+    {
      "va": "0x0061B8B0",
      "length": 53,
      "name": "?DRLGACTIVATE_UpdateRoomsAllocationStats@@YAXPAUD2DrlgStrc@@@Z"
@@ -67272,46 +67276,6 @@
      "va": "0x0061BB60",
      "length": 25,
      "name": "?DRLGACTIVATE_ApplyArreatSummitLightColor@@YGXPAUD2ColorRecordStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0061B870.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0061B870",
-     "length": 57
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0061C390.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0061C390",
-     "length": 18,
-     "name": "?sub_0061C390@@YGHPAUAct@@@Z"
-    },
-    {
-     "va": "0x0061C530",
-     "length": 12,
-     "name": "?sub_0061C530_GetLvlPrestTxtRecordCount@@YAHXZ"
     }
    ]
   },
@@ -67404,6 +67368,11 @@
      "name": "ENVIRONMENT_GetStatistics"
     },
     {
+     "va": "0x0061C390",
+     "length": 18,
+     "name": "?sub_0061C390@@YGHPAUAct@@@Z"
+    },
+    {
      "va": "0x0061C3B0",
      "length": 156,
      "name": "?ENVIRONMENT_SetNextTimeRate@@YGXPAUD2DrlgActStrc@@PAUD2ActiveRoomStrc@@@Z"
@@ -67417,6 +67386,11 @@
      "va": "0x0061C4D0",
      "length": 92,
      "name": "?ENVIRONMENT_TaintedSunEnd@@YGXPAUD2DrlgActStrc@@@Z"
+    },
+    {
+     "va": "0x0061C530",
+     "length": 12,
+     "name": "?sub_0061C530_GetLvlPrestTxtRecordCount@@YAHXZ"
     }
    ]
   },
