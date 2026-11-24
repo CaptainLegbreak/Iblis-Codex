@@ -335,3 +335,4 @@ int __fastcall QSERVER_CheckReconnectFlood(D2QueueServerStrc* pServer, const int
 int __fastcall sub_006C2C70_SendLocal(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pBytes, int nSize); // 0x006C2C70
 int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, unsigned long nTimeout);        // 0x006C2D70
 int __fastcall sub_006C30D0_ServiceSlots(D2QueueServerStrc* pServer, int nTimeout);                          // 0x006C30D0
+void __cdecl sub_006BE300_Nop(const char* szTag, const char* szFormat, ...);                                // 0x006BE300

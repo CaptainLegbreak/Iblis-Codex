@@ -46,7 +46,6 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 
 void __cdecl sub_006BE2F0_Nop(const char* szText, const char* szFormat, ...); // 0x006BE2F0
 
-void __cdecl sub_006BE300_Log(const char* szTag, const char* szFormat, ...); // 0x006BE300
 
 D2QClientStrc* __fastcall QSERVER_FindClient(D2QueueServerStrc* pServer, unsigned int nKey); // 0x006BE540
 
@@ -112,7 +111,6 @@ static int sub_006C2810_PopWrite(D2QClientStrc* pClient);
 
 void __cdecl sub_006BE2F0_Nop(const char* unused1, const char* unused2, int unused3); // 0x006BE2F0
 
-void __cdecl sub_006BE300_Nop(const char* unused1, const char* unused2, int unused3); // 0x006BE300
 
 D2HashNode006BE540Strc* __fastcall QSERVER_FindClient(D2HashTable006BE540Strc* pTable, unsigned int nKey); // 0x006BE540
 
@@ -585,7 +583,7 @@ int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, u
             {
                 if (!nBytes)
                 {
-                    sub_006BE300_Log("QSRV", "[NTRdQ]          0 bytes on client %d refcount=%d %s", pClient->nId, pClient->nRefCount,
+                    sub_006BE300_Nop("QSRV", "[NTRdQ]          0 bytes on client %d refcount=%d %s", pClient->nId, pClient->nRefCount,
                                      bRead ? "READ" : (bWrite ? "WRITE" : "*UNKNOWN*"));
                     if (pClient->hSocket != (void*)-1)
                         QSrvCloseRemoteConnection(pServer, pClient->nId, gszQServerNTFile, 0x35D);
@@ -623,8 +621,8 @@ int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, u
                 }
                 else
                 {
-                    sub_006BE300_Log("QSRV", "WARNING: IO Completion on unknown overlapped structure.");
-                    sub_006BE300_Log("QSRV", "  IOCP = 0x%08X/0x%08X, ptClient = 0x%08X/0x%08X.",
+                    sub_006BE300_Nop("QSRV", "WARNING: IO Completion on unknown overlapped structure.");
+                    sub_006BE300_Nop("QSRV", "  IOCP = 0x%08X/0x%08X, ptClient = 0x%08X/0x%08X.",
                                      (char*)pOverlapped - 0x44, pOverlapped, pClient, &pClient->tRead);
                 }
             }
@@ -632,7 +630,7 @@ int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, u
             {
                 if (pOverlapped && pClient)
                 {
-                    sub_006BE300_Log("QSRV", "[NTRdQ]          I/O err %d on client %d refcount=%d", nError, pClient->nId, pClient->nRefCount);
+                    sub_006BE300_Nop("QSRV", "[NTRdQ]          I/O err %d on client %d refcount=%d", nError, pClient->nId, pClient->nRefCount);
                     QSrvCloseRemoteConnection(pServer, pClient->nId, gszQServerNTFile, 0x3BD);
                     QSERVER_ReleaseClient(pServer, pClient);
                 }
