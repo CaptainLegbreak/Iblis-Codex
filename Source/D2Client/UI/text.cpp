@@ -13,6 +13,7 @@
 #include "D2GameTypes.h"
 #include "D2LevelTxt.h"
 #include "D2StatIds.h"
+#include "D2MsgRecord.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -4193,21 +4194,7 @@ static inline int sub_004A1950_GetActNumber(const D2QuestTextsStrc* pTexts)
     return 0;
 }
 
-struct D2MsgRecordStrc
-{
-    int nTick;
-    unsigned int uMessage;
-    unsigned int wParam;
-    int lParam;
-};
 
-struct D2MsgRecordChunkStrc
-{
-    D2MsgRecordStrc tRecords[500];
-    int nCount;
-    int nIndex;
-    D2MsgRecordChunkStrc* pNext;
-};
 
 struct D2SetsTxt;
 

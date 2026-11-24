@@ -15,6 +15,7 @@
 #include "D2Path.h"
 #include "D2ClientMenus.h"
 #include "D2ClientTypes.h"
+#include "D2MsgRecord.h"
 
 struct D2ActiveRoomStrc;
 
@@ -2238,21 +2239,7 @@ struct D2MsgRecordStrc;
 
 struct D2MsgRecordChunkStrc;
 
-struct D2MsgRecordStrc
-{
-    unsigned int dwTick;
-    unsigned int uMessage;
-    unsigned int wParam;
-    int lParam;
-};
 
-struct D2MsgRecordChunkStrc
-{
-    D2MsgRecordStrc tRecords[500];
-    int nCount;
-    int nUnk0x1F44;
-    D2MsgRecordChunkStrc* pNext;
-};
 
 int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam, int* pUseResult, int* pResult); // 0x00420B00
 

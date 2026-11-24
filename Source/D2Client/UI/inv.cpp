@@ -21,6 +21,7 @@
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
 #include "D2SetsTxt.h"
+#include "D2MsgRecord.h"
 
 #include <D2UnitData.h>
 
@@ -2402,21 +2403,7 @@ void __cdecl INV_LoadUiRecords()
     }
 }
 
-struct D2MsgRecordStrc
-{
-    int nTick;
-    unsigned int uMessage;
-    unsigned int wParam;
-    int lParam;
-};
 
-struct D2MsgRecordChunkStrc
-{
-    D2MsgRecordStrc tRecords[500];
-    int nCount;
-    int nIndex;
-    D2MsgRecordChunkStrc* pNext;
-};
 
 // 0x00483960
 void __cdecl CUNIT_InitColorTable()
