@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2GameTypes.h"
 
 #include "D2CelContext.h"
 
@@ -509,6 +510,17 @@ int __fastcall D2Win_10047(D2WinTextBoxStrc* ptTextData)
     return 1;
 }
 
+// 0x004FB740
+int __fastcall D2Win_10062(D2WinTextBoxStrc* ptTextData, int a2, int a3)
+{
+    D2_ASSERT(ptTextData, 0xFA);
+    D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0xFB);
+
+    ptTextData->nWrappedLineGap = a2;
+    ptTextData->nLineGap = a3;
+    return 1;
+}
+
 // 0x004FB790
 int __fastcall D2Win_10058_0(D2WinTextBoxStrc* pTextBox, const Unicode* pText, int a3, int nColumn)
 {
@@ -672,6 +684,33 @@ void* __fastcall D2Win_10048(D2WinControl004FBB30Strc* pControl)
     return 0;
 }
 
+// 0x004FBB90
+Unicode* __fastcall D2Win_10196(D2WinTextBoxStrc* pTextBox, int nLineNum, int nColumnNum)
+{
+    D2_ASSERT(pTextBox, 0x2C2);
+    D2_ASSERT(pTextBox->controlHeader.eType == D2WIN_TEXTBOX, 0x2C3);
+    D2_ASSERT(nLineNum <= pTextBox->nNumLines, 0x2C4);
+    D2_ASSERT(nColumnNum < 5, 0x2C5);
+
+    D2WinTextBoxLineStrc* pLine = pTextBox->pFirstLine;
+    int i = 0;
+    while (i < nLineNum)
+    {
+        if (!pLine->pNext)
+        {
+            break;
+        }
+
+        pLine = pLine->pNext;
+        ++i;
+    }
+
+    D2_ASSERT(pLine, 0x2CF);
+    D2_ASSERT(i == nLineNum, 0x2D0);
+
+    return pLine->pColumns[nColumnNum];
+}
+
 // 0x004FBC20
 void __fastcall D2Win_10056(D2WinTextBoxStrc* pTextBox, int nNumColumns)
 {
@@ -743,6 +782,44 @@ void __fastcall D2Win_10187(D2WinControlStrc* pControl, int bSet)
 void __cdecl TEXTBOX_AssertUnsupported()
 {
     D2_ASSERT(0, 0x32E);
+}
+
+// 0x004FBDE0
+int __fastcall D2Win_10188(D2WinTextBoxStrc* pTextBox, int nLineNum, int a3)
+{
+    D2_ASSERT(pTextBox, 0x368);
+    D2_ASSERT(pTextBox->controlHeader.eType == D2WIN_TEXTBOX, 0x369);
+
+    if (nLineNum == -1)
+    {
+        for (D2WinTextBoxLineStrc* pLine = pTextBox->pFirstLine; pLine; pLine = pLine->pNext)
+        {
+            pLine->nColor = a3;
+        }
+
+        return 1;
+    }
+
+    D2_ASSERT(nLineNum <= pTextBox->nNumLines, 0x378);
+
+    D2WinTextBoxLineStrc* pLine = pTextBox->pFirstLine;
+    int i = 0;
+    while (i < nLineNum)
+    {
+        if (!pLine->pNext)
+        {
+            break;
+        }
+
+        pLine = pLine->pNext;
+        ++i;
+    }
+
+    D2_ASSERT(pLine, 0x382);
+    D2_ASSERT(i == nLineNum, 0x383);
+
+    pLine->nColor = a3;
+    return 1;
 }
 
 // 0x004FBE90
