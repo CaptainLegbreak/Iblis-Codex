@@ -3365,12 +3365,6 @@ int __cdecl MONSTER_GetGameQuestFlags()
 }
 
 
-// 0x004B70F0
-int __cdecl sub_004B70F0()
-{
-    return gdwGlobal_007C0E54;
-}
-
 
 
 // 0x004BF9B0
