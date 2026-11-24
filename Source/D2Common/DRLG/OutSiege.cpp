@@ -293,12 +293,6 @@ int __fastcall DRLGOUTSIEGE_GetBorderLookupId(D2DrlgLevelStrc* pLevel)
     return (pLevel->eLevelId == LEVEL_TUNDRAWASTELANDS) + 4;
 }
 
-// build: context EmitMarkLevel111Exit
-// calling-convention shim (not game code)
-void __stdcall EmitMarkLevel111Exit(D2DrlgLevelStrc* pLevel)
-{
-    DRLGOUTSIEGE_MarkBottomRightLvlLinkCells(pLevel);
-}
 
 int __fastcall DRLGOUTDOORS_GetBorderLevelPrestId(int nA, int nB, int nC);                                             // 0x006755C0
 

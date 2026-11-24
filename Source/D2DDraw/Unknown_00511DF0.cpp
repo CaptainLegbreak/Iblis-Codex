@@ -79,11 +79,6 @@ static int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY
     return 1;
 }
 
-// build: context sub_K08_EmitCelClip
-extern "C" int __stdcall sub_K08_EmitCelClip(D2CelStrc* pCel, int nX, int nY)
-{
-    return sub_00511E10_IsCelOffScreen(pCel, nX, nY, 0) + 9;
-}
 
 // 0x00511E80
 static int __fastcall sub_00511E80_ClipCel(D2CelStrc* pCel, int nY, int nX, D2DDrawCelClipStrc* pOut, const D2DDrawClipRectStrc* pClip)

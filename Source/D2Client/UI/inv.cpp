@@ -3926,11 +3926,6 @@ void __stdcall sub_E05_Emit_004844A0(D2InventoryStrc* pInventory, Unicode* pText
     INV_FindSetItem(pInventory, nSetItemId);
 }
 
-// build: context sub_E05_Emit_00486860
-int __cdecl sub_E05_Emit_00486860()
-{
-    return INV_IsOverWeaponSwapTab(sub_00468730(), sub_00468740());
-}
 
 // build: context sub_E05_Emit_00489FB0
 int __cdecl sub_E05_Emit_00489FB0(int nX, int nY)
@@ -4333,11 +4328,6 @@ void __stdcall INV_NpcPanelMouseMove(SMSGHANDLER_PARAMS* pMsg)
     }
 }
 
-// build: context sub_Z12_EmitIsMouseInBox
-void __fastcall sub_Z12_EmitIsMouseInBox(int nX, int nY)
-{
-    sub_Z12_EmitUse1(INV_IsMouseInBox(nX + 0x31, nY - 0x27, 0x23, 0x25));
-}
 
 // 0x00487000
 static void __stdcall INV_UpdateGridHover(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, D2UnitStrc* pCursorItem, unsigned int nX, unsigned int nY, int nPage, D2InventoryGridInfoStrc* pGrid)

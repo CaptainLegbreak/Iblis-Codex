@@ -580,12 +580,6 @@ void __fastcall EVENT_IterateEvents(D2GameStrc* pGame)
     EVENT_ExecuteItemEvents(1, pGame, pTimerQueue, pTimerQueue->pHead[EVENTROW_ITEM][pTimerQueue->nArrayIndex]);
 }
 
-// build: context sub_00540DF0_Shim
-// calling-convention shim (not game code)
-D2EventTimerStrc* __fastcall sub_00540DF0_Shim(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    return EVENT_AllocateUnitTimer(pGame, pUnit);
-}
 
 struct Data00541860;
 

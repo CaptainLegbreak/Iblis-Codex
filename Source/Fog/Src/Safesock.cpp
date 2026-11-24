@@ -1029,9 +1029,6 @@ char gszImageHlpSymSearchPath[4096]; // 0x0075BFB8
 
 int gbSymQuiet; // 0x0075CFB8
 
-// build: context sub_00406BA0_GetModuleDirectoryAndSave
-
-
 // build: symbol ?strrchr@@YAPADPADH@Z 0x00401A30
 char* __cdecl strrchr(char* szString, int nChar)
 {

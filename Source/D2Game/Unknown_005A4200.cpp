@@ -52,16 +52,6 @@ unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit)
     return pMonsterData->nMonUmod;
 }
 
-// build: context MONSTERUNIQUE_CheckMonTypeFlag
-int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
-{
-    D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
-    if (!pMonsterData)
-    {
-        return 0;
-    }
-    return (unsigned short)(pMonsterData->nTypeFlag & nFlag) != 0;
-}
 
 // 0x005A4270
 static void __stdcall sub_005A4270_ExecuteUModCallbacks(D2GameStrc* pGame, D2UnitStrc* pMissile, int nCallbackIndex, D2UnitStrc* pUnit)

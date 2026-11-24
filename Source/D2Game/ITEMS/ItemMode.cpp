@@ -1963,14 +1963,6 @@ static int __stdcall ITEMMODE_HasConflictingQuestOrUniqueItem(D2UnitStrc* pItem,
     return 0;
 }
 
-// build: context sub_E03_EmitItemDrop
-int __fastcall sub_E03_EmitItemDrop(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nId)
-{
-    D2ItemDropStrc itemDrop;
-    ITEMMODE_InitItemDropFromItem(nId, pGame, pItem, &itemDrop);
-    ITEMMODE_RemoveItemAndNotify(pGame, pUnit, pItem);
-    return sub_00558D90_SpawnItem(pGame, &itemDrop, 0) != 0;
-}
 
 int __fastcall sub_E03_EmitBookSkillA(D2UnitStrc* pItem)
 {

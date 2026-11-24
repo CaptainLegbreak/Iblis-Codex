@@ -1380,12 +1380,6 @@ static int __stdcall D2CMPSpriteLoadDc6Entry(D2CmpSpriteFileStrc* pFile, int nAr
     return pContext->pFrame != 0;
 }
 
-// build: context sub_005FFE90_Shim
-// calling-convention shim (not game code)
-int __stdcall sub_005FFE90_Shim(D2CmpSpriteFileStrc* pFile, int nArg2, int nArg3, const char* szName, D2CmpSpriteContextStrc* pContext)
-{
-    return D2CMPSpriteLoadDc6Entry(pFile, nArg2, nArg3, szName, pContext);
-}
 
 // 0x005FFFA0
 static int __stdcall D2CMPSpriteLoadDc6CacheEntry(D2CmpSpriteFileStrc* pFile, int nDirection, int nFrames, const char* szName, D2CmpSpriteContextStrc* pContext)

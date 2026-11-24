@@ -6213,39 +6213,6 @@ static inline int synh_GetUnitY(SynUnit* pUnit)
     }
 }
 
-// build: context DistanceWithSize
-static __forceinline int DistanceWithSize(int nX, int nY, SynUnit* pUnit)
-{
-    int nXDiff = synh_GetUnitX(pUnit) - nX;
-    int nYDiff = synh_GetUnitY(pUnit) - nY;
-    if (nXDiff < 0)
-    {
-        nXDiff = -nXDiff;
-    }
-    if (nYDiff < 0)
-    {
-        nYDiff = -nYDiff;
-    }
-
-    const int nSize = ((unsigned int)sub_00620510_UNITS_GetUnitSizeX(pUnit) >> 1) + 1;
-    nXDiff -= nSize;
-    nYDiff -= nSize;
-    if (nXDiff < 0)
-    {
-        nXDiff = 0;
-    }
-    if (nYDiff < 0)
-    {
-        nYDiff = 0;
-    }
-
-    if (nXDiff > nYDiff)
-    {
-        return (nYDiff + 2 * nXDiff) / 2;
-    }
-
-    return (nXDiff + 2 * nYDiff) / 2;
-}
 
 // build: context sub_005ADA80_Shim
 

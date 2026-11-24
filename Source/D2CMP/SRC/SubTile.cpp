@@ -204,15 +204,6 @@ void __fastcall SubTileConvert24To8(D2CmpSubTileRecordStrc* pDst, const D2CmpSub
     }
 }
 
-// build: context sub_0060DA80_Shim
-// calling-convention shim (not game code)
-void __stdcall sub_0060DA80_Shim(D2CmpTileBlockStrc* pDstBlock, const D2CmpTileBlockStrc* pSrcBlock, D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap)
-{
-    for (int i = 0; i < pSrcBlock->nSubs; ++i)
-    {
-        SubTileConvertFloor24To8(tColor, pfnMap, &pDstBlock->pSubs[i], &pSrcBlock->pSubs[i]);
-    }
-}
 
 // 0x0060D6F0
 static unsigned char* __stdcall SubTileConvertPixels24To8(unsigned char* pPixels, int nBytes, D2RgbKeyStrc tKey, D2PaletteFn pConvert)

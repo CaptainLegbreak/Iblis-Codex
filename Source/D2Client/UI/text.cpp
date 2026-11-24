@@ -4093,18 +4093,6 @@ void __fastcall TEXT_ShowTextBox(unsigned short nStringId)
     }
 }
 
-// build: context sub_004A0770_Shim
-// calling-convention shim (not game code)
-int __stdcall sub_004A0770_Shim()
-{
-    T00479230* pTextBox = gpTextBox;
-    if (pTextBox && (pTextBox->nScroll == 1 || pTextBox->nScroll == 0))
-    {
-        return TEXT_AdvanceTextBox(gbTextBoxDone, pTextBox);
-    }
-
-    return 0;
-}
 
 // build: context sub_00623C60
 static inline int sub_00623C60(D2UnitStrc* pUnit)

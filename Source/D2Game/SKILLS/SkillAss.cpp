@@ -1631,47 +1631,6 @@ int __fastcall SKILLS_AuraCallback_ApplyCopiedDamage(D2AuraCallbackStrc* pAuraCa
     return 1;
 }
 
-// build: context SKILLS_ApplyProgressiveLeechAndElementalDamage
-void __fastcall SKILLS_ApplyProgressiveLeechAndElementalDamage(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
-{
-    if (!pDamage || !(pDamage->wResultFlags & 1))
-    {
-        return;
-    }
-
-    for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
-    {
-        if (STATES_CheckState(pUnit, sgptDataTables->pProgressiveStates[i]))
-        {
-            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, sgptDataTables->pProgressiveStates[i]);
-            if (pStatList)
-            {
-                const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
-                D2SkillsTxt* pSkillsTxtRecord = nSkillId > 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount ? sub_0045C4B0_GetSkillsTxtRecord(nSkillId) : 0;
-                if (pSkillsTxtRecord)
-                {
-                    switch (pSkillsTxtRecord->nPrgDamage)
-                    {
-                    case 2:
-                        SKILLS_ApplyProgressiveLeech(pUnit, pStatList, pDamage);
-                        break;
-
-                    case 3:
-                        SKILLS_ApplyProgressiveElementalDamage(pUnit, pStatList, pDamage);
-                        break;
-
-                    case 4:
-                        sub_005D3970_ProgressiveElementalConversion(pUnit, pStatList, pDamage);
-                        break;
-
-                    default:
-                        break;
-                    }
-                }
-            }
-        }
-    }
-}
 
 // 0x005D3CF0
 int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc* pUnit, int nSkillId)

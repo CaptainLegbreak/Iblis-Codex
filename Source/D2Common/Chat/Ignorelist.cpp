@@ -2230,17 +2230,7 @@ void sub_F44_EmitStringEntryNode(D2CommonStringEntryNodeStrc* p)
     delete p;
 }
 
-// build: context sub_F44_EmitSlotListA
-void sub_F44_EmitSlotListA(D2CommonStormSlotListAStrc* p)
-{
-    delete p;
-}
 
-// build: context sub_F44_EmitSlotListB
-void sub_F44_EmitSlotListB(D2CommonStormSlotListBStrc* p)
-{
-    delete p;
-}
 
 // 0x0060FE50
 D2CommonStormZeroFE50Strc::D2CommonStormZeroFE50Strc() : n0x04(0), n0x08(0), n0x0C(0), n0x10(0), n0x14(0)

@@ -163,16 +163,6 @@ void __cdecl sub_00401A60_UnlockSymbols()
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
-// build: context sub_00401DF0_Shim
-// calling-convention shim (not game code)
-unsigned long __stdcall sub_00401DF0_Shim(unsigned long dwAddress, char* szOut)
-{
-    __declspec(align(8)) char szName[0x104];
-    unsigned long dwBase = 0;
-    if (sub_00401DF0_GetModuleFromAddr(dwAddress, &dwBase, szName))
-        strncpy_s(szOut, 0x40, szName, (unsigned int)-1);
-    return dwBase;
-}
 
 static unsigned char __stdcall ERRORMANAGER_GetStackRange(void** ppBase, unsigned long* pEnd, const void* pAddress)
 {
@@ -278,28 +268,6 @@ static inline const char* CRASH_GetFileName(const char* szPath)
     return pLast ? pLast + 1 : szPath;
 }
 
-// build: context sub_00405250_DescribeAddress
-static bool __stdcall sub_00405250_DescribeAddress(unsigned long dwAddress, D2SymbolInfoStrc* pInfo)
-{
-    char szName[0x100];
-    unsigned long dwBase;
-
-    pInfo->nOffset = 0;
-    pInfo->szSource[0] = 0;
-    pInfo->nLine = 0;
-    pInfo->szName[0] = 0;
-    pInfo->szModule[0] = 0;
-    dwBase = 0;
-    if (sub_00401DF0_GetModuleFromAddr(dwAddress, &dwBase, szName))
-        strncpy_s(pInfo->szModule, 0x40, CRASH_GetFileName(szName), (unsigned int)-1);
-    else
-        pInfo->szModule[0] = 0;
-
-    sub_00401F10_GetSymbolFromAddr(pInfo->szName, dwAddress, &pInfo->nOffset);
-    sub_004020D0_GetLineFromAddr(dwAddress, szName, &pInfo->nLine);
-    strncpy_s(pInfo->szSource, 0x100, CRASH_GetFileName(szName), (unsigned int)-1);
-    return true;
-}
 
 static void __fastcall sub_00402D60_FormatStackFrame(const D2StackFrameStrc* frame,const D2SymbolInfoStrc* symbol,char* output)
 {
@@ -323,76 +291,12 @@ static void __fastcall sub_00402D60_FormatStackFrame(const D2StackFrameStrc* fra
   _snprintf_s(output+length,1024-length,(unsigned int)-1,gszSourceFormat,symbol->szSource,symbol->nLine);
 }
 
-// build: context sub_00403100_PrintFrames
-void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, unsigned int nFrames, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader)
-{
-    char szName[0x80];
-    char szLine[0x400];
-    if (bHeader)
-    {
-        if (gdwMainThreadId_00992B1C == dwThreadId)
-        {
-            strncpy_s(szName, 0x80, "Main Thread", (unsigned int)-1);
-        }
-        else
-        {
-            szName[0] = 0;
-        }
-
-        unsigned long dwStackSize;
-        unsigned long dwStackTop;
-        unsigned long dwStackPointer;
-        unsigned char bStack = ERRORMANAGER_GetThreadStack(&dwStackSize, dwThreadId, &dwStackTop, &dwStackPointer);
-        int nLength = _snprintf_s(szLine, 0x400, (unsigned int)-1, "Thread 0x%08x", dwThreadId);
-        if (szName[0])
-        {
-            nLength += _snprintf_s(szLine + nLength, 0x400 - nLength, (unsigned int)-1, " \"%s\"", szName);
-        }
-        if (bStack)
-        {
-            nLength += _snprintf_s(szLine + nLength, 0x400 - nLength, (unsigned int)-1, " [Stack Base: 0x%p Used Space: %llu/%llu bytes]", dwStackTop, (unsigned __int64)(dwStackTop - dwStackPointer), (unsigned __int64)dwStackSize);
-        }
-        _snprintf_s(szLine + nLength, 0x400 - nLength, (unsigned int)-1, gszNewline);
-        pfnPrint(pContext, szLine);
-    }
-
-    for (unsigned int i = 0; i < nFrames; ++i)
-    {
-        D2SymbolInfoStrc tSymbol;
-        sub_00405250_DescribeAddress(pFrames[i].dwPc, &tSymbol);
-        if (!bSymbols)
-        {
-            tSymbol.szName[0] = 0;
-        }
-        sub_00402D60_FormatStackFrame(&pFrames[i], &tSymbol, szLine);
-        const unsigned int nLineLength = strlen(szLine);
-        if (nLineLength >= 0x3FF)
-        {
-            szLine[0x3FE] = '\n';
-            szLine[0x3FF] = 0;
-        }
-        else
-        {
-            szLine[nLineLength] = '\n';
-            szLine[nLineLength + 1] = 0;
-        }
-        pfnPrint(pContext, szLine);
-    }
-}
 
 // build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
-// build: context sub_004020D0_Shim
-// calling-convention shim (not game code)
-void __stdcall sub_004020D0_Shim(unsigned long dwAddress, char* szOut, unsigned long* pLineNumber)
-{
-    __declspec(align(8)) char szName[0x104];
-    sub_004020D0_GetLineFromAddr(dwAddress, szName, pLineNumber);
-    strncpy_s(szOut, 0x100, szName, (unsigned int)-1);
-}
 
 // build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
@@ -417,15 +321,6 @@ void __stdcall sub_004020D0_Shim(unsigned long dwAddress, char* szOut, unsigned 
 unsigned __int64 __stdcall sub_00402460_LoadModule(void* hFile, const char* szImageName,
     const char* szModuleName, unsigned __int64 qwBaseOfDll, unsigned long dwSizeOfDll); // 0x00402460
 
-// build: context sub_00402460_Shim
-// calling-convention shim (not game code)
-unsigned long __stdcall sub_00402460_Shim(void* hFile, const char* szImageName, const char* szModuleName,
-    unsigned __int64 qwBaseOfDll, unsigned long dwSizeOfDll)
-{
-    __declspec(align(8)) char szName[0x104];
-    strncpy_s(szName, 0x104, szModuleName, (unsigned int)-1);
-    return (unsigned long)sub_00402460_LoadModule(hFile, szImageName, szName, qwBaseOfDll, dwSizeOfDll);
-}
 
 // build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc

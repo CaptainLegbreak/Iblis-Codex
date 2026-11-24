@@ -253,13 +253,6 @@ void __fastcall PALSHIFT_LoadPalShift(int nMonsterId)
 }
 #pragma optimize("", on)
 
-// build: context sub_00477060_Shim
-// calling-convention shim (not game code)
-void __fastcall sub_00477060_Shim(D2PalShiftNodeStrc* pShift, int nMonsterId)
-{
-    PALSHIFT_BuildBloodShift(nMonsterId, pShift);
-    sub_00477060_EmitSink(pShift);
-}
 
 // 0x00477470
 void __cdecl PALSHIFT_InitPalShifts()

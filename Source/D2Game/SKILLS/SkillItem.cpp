@@ -3412,21 +3412,6 @@ int __fastcall SKILLITEM_CastSkillOnTarget(D2UnitStrc* pUnit, int nSkillId, int 
     return 1;
 }
 
-// build: context SKILLS_SrvSt14_Hydra
-int __fastcall SKILLS_SrvSt14_Hydra(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    int nX;
-    int nY;
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom || !D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY))
-    {
-        return 0;
-    }
-
-    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
-    return pRoom && !DUNGEON_IsRoomInTown(pRoom);
-}
 
 // 0x005CAF30
 int __fastcall SKILLS_SrvDo083_FireHit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)

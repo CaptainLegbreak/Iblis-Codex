@@ -729,14 +729,6 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStr
     }
 }
 
-// build: context GetMonStats2
-static inline D2MonStats2Txt* GetMonStats2(int nId)
-{
-    if(nId<0 || nId>=sgptDataTables->nMonStatsTxtRecordCount) return 0;
-    int nIndex=sgptDataTables->pMonStatsTxt[nId].wMonStatsEx;
-    if(nIndex<0 || nIndex>=sgptDataTables->nMonStats2TxtRecordCount) return 0;
-    return &sgptDataTables->pMonStats2Txt[nIndex];
-}
 
 // build: context SEED_RollRandomNumber
 static inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
@@ -747,11 +739,6 @@ static inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-// build: context ITEMS_RollRandomNumber
-static inline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
-{
-    return (unsigned int)SEED_RollRandomNumber(pSeed);
-}
 
 
 struct D2BitBufferStrc;

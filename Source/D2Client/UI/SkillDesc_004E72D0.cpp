@@ -53,39 +53,7 @@ unsigned char __stdcall MISSILE_GetElemTypeFromMissileId(int nMissileId);       
 int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B100
 int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B1D0
 
-// build: context ApplyPercent
-static inline int ApplyPercent(int nValue, int nPercent)
-{
-    if (nValue > 0x100000)
-    {
-        if (100 > (nValue >> 4))
-        {
-            return (int)(nValue * (__int64)nPercent / 100);
-        }
-        return nPercent * (nValue / 100);
-    }
 
-    if (nPercent > 0x10000)
-    {
-        if (100 > (nPercent >> 4))
-        {
-            return (int)(nValue * (__int64)nPercent / 100);
-        }
-        return nValue * (nPercent / 100);
-    }
-
-    return nPercent * nValue / 100;
-}
-
-// build: context MonStatsTxtRecord
-static inline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
-{
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return &sgptDataTables->pMonStatsTxt[nMonsterId];
-    }
-    return 0;
-}
 
 // build: context SkillsTxtRecord_0D0
 static inline D2SkillsTxt* SkillsTxtRecord_0D0(int nSkillId)
@@ -97,21 +65,6 @@ static inline D2SkillsTxt* SkillsTxtRecord_0D0(int nSkillId)
     return 0;
 }
 
-// build: context SkillParam_0D0
-static inline int SkillParam_0D0(int nSkillId, int nLevel)
-{
-    D2SkillsTxt* pSkillsTxt = SkillsTxtRecord_0D0(nSkillId);
-    if (!pSkillsTxt)
-    {
-        return 0;
-    }
-
-    if (nLevel <= 0)
-    {
-        return 0;
-    }
-    return pSkillsTxt->dwParam[0] + (nLevel - 1) * pSkillsTxt->dwParam[1];
-}
 
 static unsigned short SKILLDESC_GetETypeDamageStr(int nEType);
 // 0x004E6F60

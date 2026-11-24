@@ -721,8 +721,6 @@ void __fastcall SKILLDESC_ThrowDamageCallback(D2UnitStrc* pUnit, int* pMin, int*
     }
 }
 
-// build: context sub_004E72D0_GetElemDamage
-void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel);
 
 static void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel)
 {
@@ -867,29 +865,6 @@ static __forceinline int ApplyPercent_2E0(int nValue, int nPercent)
     return nPercent * nValue / 100;
 }
 
-// build: context ApplyPercent_CF0
-static inline int ApplyPercent_CF0(int nValue, int nPercent)
-{
-    if (nValue > 0x100000)
-    {
-        if (100 > (nValue >> 4))
-        {
-            return (int)(nValue * (__int64)nPercent / 100);
-        }
-        return nPercent * (nValue / 100);
-    }
-
-    if (nPercent > 0x10000)
-    {
-        if (100 > (nPercent >> 4))
-        {
-            return (int)(nValue * (__int64)nPercent / 100);
-        }
-        return nValue * (nPercent / 100);
-    }
-
-    return nPercent * nValue / 100;
-}
 
 // build: context ApplyPercent_150
 static inline int ApplyPercent_150(int nValue, int nPercent)

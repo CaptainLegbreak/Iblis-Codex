@@ -1002,15 +1002,6 @@ void __fastcall PLRMODE_StartID_WalkRunKnockback(D2GameStrc* ptGame, D2UnitStrc*
     }
 }
 
-// build: context sub_M10_Emit_0057F700
-// calling-convention shim (not game code)
-void __fastcall sub_M10_Emit_0057F700(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nBodyLoc)
-{
-    PLRMODE_FreeStaleCorpses(pGame, pUnit);
-    PLRMODE_DropItemsOnCorpseOverflow(pGame, pUnit);
-    PLRMODE_RemoveCursorItemForCorpse(pGame, pItem, pUnit);
-    PLRMODE_RemoveEquippedItemForCorpse(pGame, nBodyLoc, pItem, pUnit);
-}
 
 // 0x0057F540
 static void __stdcall PLRMODE_DropItemsOnCorpseOverflow(D2GameStrc* pGame, D2UnitStrc* pUnit)

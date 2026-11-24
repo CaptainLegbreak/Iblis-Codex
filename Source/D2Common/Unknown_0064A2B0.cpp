@@ -131,16 +131,5 @@ static int sub_0044BE50(D2UnitStrc* pUnit)
     return nType;
 }
 
-// build: context MISSILE_GetLevel
-static unsigned int MISSILE_GetLevel(D2UnitStrc* pMissile)
-{
-    D2MissileDataStrc* pMissileData = sub_0044BE50(pMissile) == 3 ? pMissile->pMissileData : 0;
-    if (!pMissileData)
-    {
-        return 0;
-    }
-
-    return pMissileData->nLevel;
-}
 
 #include "gen/data/Source/D2Common/Unknown_0064A2B0.inc"
