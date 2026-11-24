@@ -4,12 +4,11 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/task-locks 1290899c 534->532 Task.cpp's two lock globals become objects (Fog's out-of-line CCritSect array + an inline-ctor lock), so it emits the four initializers/destructors 0x6CAF70/0x6CAF90/0x6CB490/0x6CB4A0 itself; they leave Storm/Unknown_006CAE80.cpp, Storm/Unknown_006CAF90.cpp, Storm/Unknown_006CB4A0.cpp (both removed) and Bnclient/Unknown_006CB420.cpp as approved; Task.cpp now compiles /EHsc (the eh vector iterators need it; all its functions still equal); VERIFIED f969f40c2a7d79882c6d47011fb5d8534d4a6865. Based on main #305, not stacked; touches lane 3/6 placeholders as above.
 - lane5/prime-nova b8dd60e3 0 placeholders; defines borrowed data: 0x6E31E8 (SkillMonst.cpp: gnPrimePoisonNovaX/Y as whole const int[16] tables, replacing a split 4 B + 60 B), 0x7314CC and 0x73D52C (int + unread language list closing SUnitInactive.cpp's and Unknown_005B24E0.cpp's data); borrowed data 14,319 B on this branch (expected -132 B); VERIFIED 3bab3cd3ac7a70c4d0a49994046ce8bbacfe8cd7. Based on main #303, not stacked, D2Game only.
-- lane5/monsterchoose 1161446b 542->540 MonsterChoose.cpp takes in the three MONSTERCHOOSE_ functions after it (0x5BDE80/0x5BDFF0/0x5BE020) and their data, including the borrowed 0x7415F4 block (component codes + self pointer tables, 348 B, as gData_007415F4) and the unread language list at 0x741750 (60 B); borrowed data 15,283 B on this branch (-408 B); VERIFIED 7a06ba5fdb344019c625b5fb03463583d28c0b90. Based on main #301, not stacked, D2Game only.
 
 ## Questions
 
-- Task.cpp locks (from lane 3's note): Task.cpp is ready to define gtTaskQueuesCriticalSections[32] and gTaskSlotsCriticalSection as CCritSect objects, so the compiler emits 0x6CAF90/0x6CB4A0 and 0x6CAF70/0x6CB490. Taking them means deleting those four functions from Storm/Unknown_006CAE80.cpp, Storm/Unknown_006CAF90.cpp, Storm/Unknown_006CB4A0.cpp and Bnclient/Unknown_006CB420.cpp (lanes 3 and 6) and moving their units.json entries. Is that OK from here, or should lane 3/6 drop them first?
 
 ## Notes for other lanes
 
