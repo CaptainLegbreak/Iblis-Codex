@@ -46,7 +46,7 @@ struct D2OffsetTableRefStrc;
 
 struct D2RequestStrc;
 
-struct T004DA110;
+struct D2KeyedNodeStrc;
 
 struct D2CltUnitEventStrc;
 
@@ -163,12 +163,12 @@ int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOthe
 
 int __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0x004CD540
 
-struct T004DA110
+struct D2KeyedNodeStrc
 {
     int nValue;
     int nKeyA;
     int nKeyB;
-    T004DA110* pNext;
+    D2KeyedNodeStrc* pNext;
 };
 
 struct D2RosterInfoStrc
@@ -2741,13 +2741,13 @@ static void __stdcall GFXUTIL_SetMissileCelName(D2UnitStrc* pUnit, D2CelContextS
 }
 
 // 0x004DA920
-void __fastcall GFXUTIL_AddKeyedNode(T004DA110** ppList, int nValue, int nKeyA, int nKeyB, int* pnCount, int* pnBytes)
+void __fastcall GFXUTIL_AddKeyedNode(D2KeyedNodeStrc** ppList, int nValue, int nKeyA, int nKeyB, int* pnCount, int* pnBytes)
 {
-    T004DA110* pNode = (T004DA110*)FOG_Alloc(sizeof(T004DA110), ".\\ENGINE\\GfxUtil.cpp", 128, 0);
+    D2KeyedNodeStrc* pNode = (D2KeyedNodeStrc*)FOG_Alloc(sizeof(D2KeyedNodeStrc), ".\\ENGINE\\GfxUtil.cpp", 128, 0);
     D2_ASSERT(pNode, 129);
 
-    *pnBytes += sizeof(T004DA110);
-    memset(pNode, 0, sizeof(T004DA110));
+    *pnBytes += sizeof(D2KeyedNodeStrc);
+    memset(pNode, 0, sizeof(D2KeyedNodeStrc));
     pNode->nValue = nValue;
     pNode->nKeyA = nKeyA;
     pNode->nKeyB = nKeyB;
@@ -2757,9 +2757,9 @@ void __fastcall GFXUTIL_AddKeyedNode(T004DA110** ppList, int nValue, int nKeyA, 
 }
 
 // 0x004DA990
-T004DA110* __fastcall GFXUTIL_FindKeyedNode(T004DA110* pList, int nKeyA, int nKeyB)
+D2KeyedNodeStrc* __fastcall GFXUTIL_FindKeyedNode(D2KeyedNodeStrc* pList, int nKeyA, int nKeyB)
 {
-    for (T004DA110* pNode = pList; pNode; pNode = pNode->pNext)
+    for (D2KeyedNodeStrc* pNode = pList; pNode; pNode = pNode->pNext)
     {
         if (pNode->nKeyB == nKeyB && pNode->nKeyA == nKeyA)
         {
