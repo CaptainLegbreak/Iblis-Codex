@@ -4,9 +4,12 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/seg-a 49f5394a 531->528 three one-function placeholders gather by shared const tables (Unknown_006637F0 and Unknown_00663B40 into Unknown_006634F0, Unknown_006817D0 into Unknown_00681490); VERIFIED 81541d4d
-  - Stacked on lane6/lang-a-2, which #313-#315 already took; only its last commit is new.
-  - Evidence: a namespace-scope const table has internal linkage in C++, so two functions reading the same one were in one file, unless the table was extern. Strings and floating-point constants are pooled across files, so they are ignored. So are GUIDs (DirectX IIDs are selectany).
+- lane6/glcore-a 3e5c8958 518->518 twenty foreign getters leave D2Glide's glCore.cpp for the files whose runs they sit in (D2Gfx Window.cpp, D2WinMain.cpp, D2WinImage.cpp, D2WinProgressBar.cpp, D2Glide Unknown_0050BD30.cpp, D2DDraw Unknown_0050F910.cpp, D2BNClient Unknown_00518C00.cpp); VERIFIED 16fb3b44
+  - Stacked on lane6/sound-a-2. Everything stays in lane 6.
+  - Each target file holds both neighbours; the names are inferred or d2moo, so the run decides. Still in glCore.cpp, with reasons in the commit message: 0x00507EE0, 0x005123A0, 0x00518C10, 0x0051A570, 0x0051CA10, 0x0051CA70 (neighbours in two files) and ddCore's 0x00511660/0x00511970 (needs ddCore's private surface types unified).
+- lane6/sound-a-2 c6514959 518->518 fourteen D2SOUND_ functions leave glCore.cpp for D2Sound placeholders (getters 0x00513AE0-0x00513BB0 into Unknown_00513A20, option getters into Unknown_00514D60); VERIFIED 0bc3070c
+  - Replaces lane6/sound-a (same change on #317). Not stacked. Everything stays in lane 6.
+  - Evidence: the getters are called un-inlined across D2Sound, so they are a separate unit; they share 0x0072F830 with Unknown_00513A20. 0x00513BC0's const tables, shared with 0x00513C50, set the boundary.
 
 ## Questions
 
