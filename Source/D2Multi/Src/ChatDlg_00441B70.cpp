@@ -424,7 +424,7 @@ void __stdcall CHATDLG_EnableConnection(int bEnable);                           
 void __cdecl CHATDLG_FlushChatMessages();                                                                   // 0x0043E3A0
 void __fastcall CHATDLG_HandleGameListReply(D2LaunchReplyStrc* pReply);                                        // 0x00442B90
 void __cdecl CHATDLG_SendPendingText();                                                                           // 0x00442E00
-void __fastcall sub_00442EB0_HandleOther(D2LaunchReplyStrc* pReply);                                        // 0x00442EB0
+void __fastcall CHATDLG_ShowGameDetails(D2LaunchReplyStrc* pReply);                                        // 0x00442EB0
 void __cdecl CHATDLG_DestroyJoinControls();                                                                          // 0x00443130
 int __cdecl COMCALLBACK_PumpMessages();                                                                            // 0x00447A10
 void* __cdecl GAME_GetMcpGameServerIP();                                                                               // 0x00449BC0
@@ -1012,7 +1012,7 @@ int __stdcall CHATDLG_OnTick(int nUnused)
                     else
                     {
                         if (wId == gwOtherRequestId)
-                            sub_00442EB0_HandleOther(pReply);
+                            CHATDLG_ShowGameDetails(pReply);
                         CHATDLG_ClearReply();
                     }
                 }

@@ -638,7 +638,7 @@ void __fastcall CHATDLG_HandleGameListReply(D2LaunchReplyStrc* pReply);         
 
 void __cdecl CHATDLG_SendPendingText();                                                                           // 0x00442E00
 
-void __fastcall sub_00442EB0_HandleOther(D2LaunchReplyStrc* pReply);                                        // 0x00442EB0
+void __fastcall CHATDLG_ShowGameDetails(D2LaunchReplyStrc* pReply);                                        // 0x00442EB0
 
 void __cdecl CHATDLG_DestroyJoinControls();                                                                          // 0x00443130
 
@@ -787,7 +787,7 @@ void __stdcall sub_A09_Use(const char* szText);
 
 int __cdecl CHATDLG_DestroyGameListControls(); // 0x00444E20
 
-void __cdecl sub_00440FC0_CreateGatewayControls(); // 0x00440FC0
+void __cdecl CHATDLG_CreateGatewayControls(); // 0x00440FC0
 
 int __fastcall D2Win_10015(); // 0x004F8FE0
 
@@ -1256,7 +1256,7 @@ int __fastcall CHATDLG_UpdateSaveFlags(const char* szName)
 }
 
 // 0x0043CBE0
-D2ModuleInterfaceStrc* __fastcall sub_0043CBE0_Init(void* hInstance)
+D2ModuleInterfaceStrc* __fastcall CHATDLG_GetModuleInterface(void* hInstance)
 {
     gpInstance = hInstance;
     return &gtInterface;
@@ -1421,21 +1421,21 @@ int __stdcall CHATDLG_ScrollPageUp(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0043DA00
-int __stdcall sub_0043DA00_ScrollPageDown(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall CHATDLG_OnScrollPageDown(SMSGHANDLER_PARAMS* pMsg)
 {
     CHATDLG_UpdateScroll(10);
     return 1;
 }
 
 // 0x0043DA20
-int __stdcall sub_0043DA20_ScrollUp(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall CHATDLG_OnScrollUp(SMSGHANDLER_PARAMS* pMsg)
 {
     CHATDLG_UpdateScroll(-1);
     return 1;
 }
 
 // 0x0043DA30
-int __stdcall sub_0043DA30_ScrollForward(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall CHATDLG_OnScrollDown(SMSGHANDLER_PARAMS* pMsg)
 {
     CHATDLG_UpdateScroll(1);
     return 1;
@@ -1461,7 +1461,7 @@ static int __stdcall CHATDLG_ReadRegValueHKLM(const char* szSubKey, const char* 
 }
 
 // 0x0043DAD0
-int __fastcall sub_0043DAD0_SetMainState(int bSet)
+int __fastcall CHATDLG_SetMainControlState(int bSet)
 {
     sub_004F9740_SetControlState(gpControlMain_0077BC4C, bSet);
     return 1;
@@ -3090,7 +3090,7 @@ int __fastcall sub_00442180_Shim(char* szText)
 int __fastcall sub_004438E0_Lookup(const char* szName, const char* szPassword, D2LaunchGameRecStrc* pRecord); // 0x004438E0
 
 // 0x00440FC0
-void __cdecl sub_00440FC0_CreateGatewayControls()
+void __cdecl CHATDLG_CreateGatewayControls()
 {
     gpCreateJoinBckgImage = CONTROL_Create(&gtCreateJoinBckgImageInit);
 
@@ -3319,7 +3319,7 @@ int __stdcall CHATDLG_ReleaseAndCreate(int nArg)
     BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     CHARSEL_ResetLaunchState();
-    sub_00440FC0_CreateGatewayControls();
+    CHATDLG_CreateGatewayControls();
     return 1;
 }
 
@@ -3484,7 +3484,7 @@ void __cdecl CHATDLG_SendPendingText()
 }
 
 // 0x00442E30
-static void sub_00442E30_ShowGameInfo(int nIndex)
+static void CHATDLG_ShowGameInfo(int nIndex)
 {
     if (!gpGameText_00798BC4)
         return;
@@ -3542,14 +3542,14 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
         }
         else
         {
-            sub_00442E30_ShowGameInfo(nSelection);
+            CHATDLG_ShowGameInfo(nSelection);
         }
     }
     return 0;
 }
 
 // 0x00442EB0
-void __fastcall sub_00442EB0_ShowGameDetails(D2GameDetailsStrc* pDetails)
+void __fastcall CHATDLG_ShowGameDetails(D2GameDetailsStrc* pDetails)
 {
     char szLine[0x100];
 
@@ -3770,7 +3770,7 @@ void __cdecl CHATDLG_DestroyProfileControls()
 }
 
 // 0x00443EF0
-int __stdcall sub_00443EF0_OnSelect(int nArg)
+int __stdcall CHATDLG_OnLadderSelect(int nArg)
 {
     CHATDLG_DestroyProfileControls();
     if (gnPendingValueB)

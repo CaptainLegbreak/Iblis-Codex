@@ -48,7 +48,7 @@ D2LangByteRangeStrc* gpLeadByteRanges; // 0x00882B28
 unsigned short* gpCharMapIndex; // 0x00882B2C
 
 // 0x00527720
-void __cdecl sub_00527720_FreeCodePageTables()
+void __cdecl UNISYS_FreeCodePageTables()
 {
     if (gpLeadByteRanges)
     {

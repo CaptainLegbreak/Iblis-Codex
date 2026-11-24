@@ -60,7 +60,7 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize);// 0x006122F0
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
 void __stdcall DATATBLS_UnloadBin(void* pBinFile);                                                          // 0x006125C0
-unsigned short __stdcall sub_00524D30_FindString(const char* szKey, const wchar_t** ppText);                // 0x00524D30
+unsigned short __stdcall STRTABLE_FindString(const char* szKey, const wchar_t** ppText);                // 0x00524D30
 void __fastcall DATATBLS_ItemParamLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn);// 0x006336A0
 
 // 0x00633730
@@ -138,6 +138,6 @@ void __fastcall DATATBLS_LoadMagicSuffix_Prefix_AutomagicTxt(void* hArchive)
     const wchar_t* pUnicode = 0;
     for (int i = 0; i < sgtDataTables.pMagicAffixDataTables.nMagicAffixTxtRecordCount; ++i)
     {
-        sgtDataTables.pMagicAffixDataTables.pMagicAffixTxt[i].wTblIndex = sub_00524D30_FindString(sgtDataTables.pMagicAffixDataTables.pMagicAffixTxt[i].szName, &pUnicode);
+        sgtDataTables.pMagicAffixDataTables.pMagicAffixTxt[i].wTblIndex = STRTABLE_FindString(sgtDataTables.pMagicAffixDataTables.pMagicAffixTxt[i].szName, &pUnicode);
     }
 }

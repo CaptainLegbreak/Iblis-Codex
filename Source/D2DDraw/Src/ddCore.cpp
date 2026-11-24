@@ -70,7 +70,7 @@ void __fastcall GLIDE_SetAlphaBlendMode(int nMode); // 0x00509500
 
 void __cdecl sub_0050BE20_GlideDebugRefresh(); // 0x0050BE20
 
-void __fastcall sub_0050DBC0_GlideSetAmbientColor(int nRed, int nGreen, int nBlue); // 0x0050DBC0
+void __fastcall GLIDE_SetAmbientColor(int nRed, int nGreen, int nBlue); // 0x0050DBC0
 
 void __cdecl DDRAW_ReleaseSurfaces(); // 0x00511A80
 

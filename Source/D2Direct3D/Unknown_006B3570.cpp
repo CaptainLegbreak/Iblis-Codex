@@ -27,7 +27,7 @@ extern unsigned int gnCapabilities_0096F3A8; // 0x0096F3A8
 extern int gnGammaScale_0074C020; // 0x0074C020
 extern D2GammaControlStrc* gpGammaControl; // 0x00970E74
 void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dScale, int nStride, int nEntries, int nMask); // 0x006BE190
-void __fastcall sub_006B20E0_DDrawLogError(const char* szMessage, int nResult); // 0x006B20E0
+void __fastcall D3D_LogDDrawError(const char* szMessage, int nResult); // 0x006B20E0
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nBytes);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -120,7 +120,7 @@ void __cdecl sub_006B3800_Flush()
     int nResult = pSurface->f_0->Lock(pSurface, 0, &desc, 0x21, 0);
     if (nResult)
     {
-        sub_006B20E0_DDrawLogError("Failed to lock render surface for clear", nResult);
+        D3D_LogDDrawError("Failed to lock render surface for clear", nResult);
         return;
     }
     int nHeight = gnRenderHeight;
@@ -195,7 +195,7 @@ void __fastcall sub_006B39B0_ShowD3DError(const char* text,long result)
     case (long)0x88760306: name="D3DERR_VIEWPORTHASNODEVICE"; break;
     case (long)0x88760307: name="D3DERR_NOCURRENTVIEWPORT"; break;
     case 0: name="D3D_OK"; break;
-    default: sub_006B20E0(text,result); return;
+    default: D3D_LogDDrawError(text,result); return; // 0x006B20E0
     }
     LOGMANAGER_WriteLogLine("***** Direct3D error: %s - %s (0x%x)",text,name,result);
 }

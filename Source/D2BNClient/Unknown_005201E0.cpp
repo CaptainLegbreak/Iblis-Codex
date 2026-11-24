@@ -54,7 +54,7 @@ void __cdecl sub_00520200_DeleteQueueLock()
 }
 
 // 0x00520A80
-static inline int sub_00520A80_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize)
+static inline int BNDOWNLOAD_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize)
 {
     if (nSize < nPos + nCount)
     {
@@ -88,5 +88,5 @@ void __fastcall sub_00520C30_SetSlot(unsigned char nIndex, int nValue)
 
 int __fastcall sub_M119_Emit_00520A80(int nPos, int nCount, int nSize)
 {
-    return sub_00520A80_CheckStringBlock((const char*)nSize, nPos, nCount, nSize + 3);
+    return BNDOWNLOAD_CheckStringBlock((const char*)nSize, nPos, nCount, nSize + 3);
 }

@@ -2381,7 +2381,8 @@ void __fastcall CUNIT_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int bFl
         if (pRoom)
         {
             DUNGEON_UpdatePops(pRoom, nX, nY, pOldRoom != pRoom);
-            sub_004F5190_SetTownMode(!DATATBLS_GetNoPerFromLevelsTxt(DUNGEON_GetLevelIdFromRoom(pRoom)));
+// build: symbol ?D2GFX_SetTownMode@* 0x004F5190
+            D2GFX_SetTownMode(!DATATBLS_GetNoPerFromLevelsTxt(DUNGEON_GetLevelIdFromRoom(pRoom)));
             if (pOldRoom)
             {
                 D2LevelsTxt* pOldLevel = DATATBLS_GetLevelsTxtRecord(DUNGEON_GetLevelIdFromRoom(pOldRoom));

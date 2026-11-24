@@ -266,7 +266,7 @@ int __fastcall ARCHIVE_OpenFile(HD2ARCHIVE hArchive, const char* szFilePath, HSF
 
 void __fastcall ARCHIVE_CloseFile(HD2ARCHIVE hArchive, HSFILE hFile); // 0x00516E84
 
-short __stdcall sub_00524D30_FindString(const char* szReference, const Unicode** ppUnicode); // 0x00524D30
+short __stdcall STRTABLE_FindString(const char* szReference, const Unicode** ppUnicode); // 0x00524D30
 
 extern D2DataTablesStrc sgtDataTables; // 0x0096BC30
 
@@ -1874,7 +1874,7 @@ void __fastcall DATATBLS_LoadRunesTxt(HD2ARCHIVE hArchive)
         hArchive = NULL;
         do
         {
-            ((D2RunesTxt*)((char*)sgtDataTables.pRuneDataTables.pRunesTxt + (int)hArchive))->wStringId = sub_00524D30_FindString(((D2RunesTxt*)((char*)sgtDataTables.pRuneDataTables.pRunesTxt + (int)hArchive))->szName, &pUnicode);
+            ((D2RunesTxt*)((char*)sgtDataTables.pRuneDataTables.pRunesTxt + (int)hArchive))->wStringId = STRTABLE_FindString(((D2RunesTxt*)((char*)sgtDataTables.pRuneDataTables.pRunesTxt + (int)hArchive))->szName, &pUnicode);
             hArchive = (char*)hArchive + sizeof(D2RunesTxt);
             ++i;
         }

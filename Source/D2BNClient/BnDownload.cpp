@@ -15,7 +15,7 @@
 #include "D2BnCryptTypes.h"
 #include "D2BnMessages.h"
 
-static int sub_00520A80_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize);
+static int BNDOWNLOAD_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize); // 0x00520A80
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -614,17 +614,17 @@ void D2BnLogStrc::sub_00518BA0_LogWrite(const char* szText)
     SLogWrite(hLog, szText);
 }
 
-// build: symbol ?$S1@?1??sub_00518C30_GetLog@@YAAAUD2BnLogStrc@@XZ@4IA 0x0088187C
-// build: symbol ??__FtLog_00881878@?1??sub_00518C30_GetLog@@YAAAUD2BnLogStrc@@XZ@YAXXZ 0x006CB430
+// build: symbol ?$S1@?1??BNDOWNLOAD_GetLog@@YAAAUD2BnLogStrc@@XZ@4IA 0x0088187C
+// build: symbol ??__FtLog_00881878@?1??BNDOWNLOAD_GetLog@@YAAAUD2BnLogStrc@@XZ@YAXXZ 0x006CB430
 // 0x00518C30
-static D2BnLogStrc& sub_00518C30_GetLog()
+static D2BnLogStrc& BNDOWNLOAD_GetLog()
 {
     static D2BnLogStrc tLog_00881878; // 0x00881878
     return tLog_00881878;
 }
 
-// build: symbol ?$S1@?1??sub_00518C30_GetLog@@YAAAUD2BnLogStrc@@XZ@4IA 0x0088187C
-// build: symbol ??__FtLog_00881878@?1??sub_00518C30_GetLog@@YAAAUD2BnLogStrc@@XZ@YAXXZ 0x006CB430
+// build: symbol ?$S1@?1??BNDOWNLOAD_GetLog@@YAAAUD2BnLogStrc@@XZ@4IA 0x0088187C
+// build: symbol ??__FtLog_00881878@?1??BNDOWNLOAD_GetLog@@YAAAUD2BnLogStrc@@XZ@YAXXZ 0x006CB430
 // 0x00518C70
 int __cdecl BNDOWNLOAD_ConfigureLog(int nMode, int nValue)
 {
@@ -632,13 +632,13 @@ int __cdecl BNDOWNLOAD_ConfigureLog(int nMode, int nValue)
     EnterCriticalSection(&gtBnLogLock);
     if (nMode == 1)
     {
-        SLogClose(sub_00518C30_GetLog().hLog);
-        SLogCreate("BnetLog.txt", 0, &sub_00518C30_GetLog().hLog);
+        SLogClose(BNDOWNLOAD_GetLog().hLog);
+        SLogCreate("BnetLog.txt", 0, &BNDOWNLOAD_GetLog().hLog);
         nResult = 1;
     }
     else if (nMode == 2)
     {
-        sub_00420120_LogAdjust(sub_00518C30_GetLog().hLog, nValue);
+        sub_00420120_LogAdjust(BNDOWNLOAD_GetLog().hLog, nValue);
     }
     LeaveCriticalSection(&gtBnLogLock);
     return nResult;
@@ -651,7 +651,7 @@ void __cdecl BNDOWNLOAD_LogPrintf(const char* szFormat, ...)
     EnterCriticalSection(&gtBnLogLock);
     _vsnprintf(szBuffer, sizeof(szBuffer), szFormat, (char*)(&szFormat + 1));
     szBuffer[sizeof(szBuffer) - 1] = 0;
-    SLogWrite(sub_00518C30_GetLog().hLog, szBuffer);
+    SLogWrite(BNDOWNLOAD_GetLog().hLog, szBuffer);
     LeaveCriticalSection(&gtBnLogLock);
 }
 
@@ -1735,11 +1735,11 @@ void __fastcall sub_00520C30_SetSlot(unsigned char nIndex, int nValue); // 0x005
 
 int __fastcall sub_M119_Emit_00520A80(int nPos, int nCount, int nSize)
 {
-    return sub_00520A80_CheckStringBlock((const char*)nSize, nPos, nCount, nSize + 3);
+    return BNDOWNLOAD_CheckStringBlock((const char*)nSize, nPos, nCount, nSize + 3);
 }
 
 // 0x00520680
-void __fastcall sub_00520680_SHA1Init(FindSignatureTag* pContext)
+void __fastcall BNDOWNLOAD_InitSha1Context(FindSignatureTag* pContext)
 {
     pContext->dwState[0] = 0x67452301;
     pContext->dwState[1] = 0xEFCDAB89;
@@ -1823,7 +1823,7 @@ void __fastcall BNDOWNLOAD_HashBuffer(unsigned int* pOut, const void* pData, uns
 }
 
 // 0x00520A80
-static inline int sub_00520A80_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize)
+static inline int BNDOWNLOAD_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize)
 {
     if (nSize < nPos + nCount)
     {
@@ -1966,7 +1966,7 @@ struct D2BnReply00520DC0Strc
 };
 
 // 0x00520DC0
-int __fastcall sub_00520DC0_HandleStatus(D2BnReply00520DC0Strc* pReply)
+int __fastcall BNDOWNLOAD_HandleStatus(D2BnReply00520DC0Strc* pReply)
 {
     const int nStatus = pReply->nStatus;
     gnLastStatus_0072FFA8 = nStatus;
@@ -2903,7 +2903,7 @@ unsigned int gdwBnClientToken; // 0x00882530
 int __cdecl sub_00521DC0_SendAuthCheck(); // 0x00521DC0
 
 // 0x00523060
-void __fastcall sub_00523060_EncodeData(unsigned char* pData, unsigned int nSize, unsigned int nBufferSize, unsigned int nKey)
+void __fastcall BNDOWNLOAD_EncodeData(unsigned char* pData, unsigned int nSize, unsigned int nBufferSize, unsigned int nKey)
 {
     unsigned char abDigest[20];
     unsigned char aaBlocks[2][64];

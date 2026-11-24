@@ -615,7 +615,7 @@ void __fastcall sub_00514530_InitSound(int nArg1, int nArg2)
 }
 
 // 0x00514710
-__declspec(noinline) static D2SoundChannelEntryStrc* sub_00514710_GetChannelEntry(int nIndex)
+__declspec(noinline) static D2SoundChannelEntryStrc* D2SOUND_GetChannelEntry(int nIndex)
 {
     if (!gbChannelTableInit)
     {
@@ -723,7 +723,7 @@ int __cdecl D2SOUND_GetStreamChannelValue()
 }
 
 // 0x00514930
-void __cdecl sub_00514930_StopChannel()
+void __cdecl D2SOUND_StopChannel()
 {
     if (gpSoundChannel)
     {
@@ -764,7 +764,7 @@ int __cdecl sub_00514990_PickRandomChannel()
     {
         for (nIndex = 0; nIndex < gnChannelCountA; ++nIndex)
         {
-            pEntry = sub_00514710_GetChannelEntry(nIndex);
+            pEntry = D2SOUND_GetChannelEntry(nIndex);
             if (!pEntry->bBusy)
                 goto found;
         }
@@ -780,7 +780,7 @@ int __cdecl sub_00514990_PickRandomChannel()
     found:
         if (gbChannelFlag)
         {
-            pEntry = sub_00514710_GetChannelEntry(0);
+            pEntry = D2SOUND_GetChannelEntry(0);
             gbChannelFlag = 0;
         }
         else

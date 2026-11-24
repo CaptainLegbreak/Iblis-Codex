@@ -334,7 +334,8 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
     nPrevMode = D2GFX_CheckUnitPerspective();
     if (nPrevMode && D2GFX_CheckPerspective() && pUnit == sub_00463DD0_GetPlayerUnit() && !sub_0046D9F0_TestUnit(pUnit))
     {
-        sub_004F5190_SetTownMode(0);
+// build: symbol ?D2GFX_SetTownMode@* 0x004F5190
+        D2GFX_SetTownMode(0);
         bTownMode = 1;
     }
 
@@ -347,7 +348,7 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
         if (!SCALE_CheckPerspectivePosition(nPrecX, nPrecY))
         {
             if (bTownMode)
-                sub_004F5190_SetTownMode(nPrevMode);
+                D2GFX_SetTownMode(nPrevMode);
             return 0;
         }
 
@@ -394,7 +395,7 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
     if (!sub_004709A0_IsOnScreen(pUnit, nDrawX, nDrawY, 0, 1))
     {
         if (bTownMode)
-            sub_004F5190_SetTownMode(nPrevMode);
+            D2GFX_SetTownMode(nPrevMode);
         return 0;
     }
 
@@ -434,7 +435,7 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
     if (sub_004DBD30_CountVisibleLayers(pUnit, pHeader, pOrder, &nVisible, nDirection, nFrame) <= 0)
     {
         if (bTownMode)
-            sub_004F5190_SetTownMode(nPrevMode);
+            D2GFX_SetTownMode(nPrevMode);
         return 0;
     }
 
@@ -453,6 +454,6 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
     }
 
     if (bTownMode)
-        sub_004F5190_SetTownMode(nPrevMode);
+        D2GFX_SetTownMode(nPrevMode);
     return 1;
 }

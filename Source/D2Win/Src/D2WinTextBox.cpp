@@ -276,11 +276,11 @@ extern int gbPaletteFlash; // 0x0072DE50
 
 extern D2Palette256Strc gatShadowsLightGammaPalette[49]; // 0x0081EA68
 
-int __cdecl sub_004FAB00_ShowInsertExpansionDisc(); // 0x004FAB00
+int __cdecl ARCHIVE_ShowInsertExpansionDiscMessage(); // 0x004FAB00
 
-int __cdecl sub_004FAB30_ShowInsertPlayDisc(); // 0x004FAB30
+int __cdecl ARCHIVE_ShowInsertPlayDiscMessage(); // 0x004FAB30
 
-int __cdecl sub_004FAB60_ShowInsertDisc(); // 0x004FAB60
+int __cdecl ARCHIVE_ShowInsertCinematicsDisc(); // 0x004FAB60
 
 extern D2ArchiveHandleStrc* gpD2XMusicMPQ; // 0x007D5604
 
@@ -429,7 +429,7 @@ int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Fi
 }
 
 // 0x004FB590
-void __fastcall sub_004FB590(int nValue)
+void __fastcall TEXTBOX_SetSmallGap(int nValue)
 {
     gbTextBoxSmallGap = nValue;
 }

@@ -129,7 +129,7 @@ void __fastcall D2SOUND_SetSoundPosition(D2SoundStrc* pSound, float x, float y, 
 
 void __fastcall D2SOUND_SetSoundAttenuation(D2SoundStrc* pSound, float fAttenuation); // 0x00515A90
 
-void __fastcall sub_00516830_GetPositionalVolumePan(int* pVolume, int* pPan, float x, float y, float z); // 0x00516830
+void __fastcall D2SOUND_GetPositionalVolumePan(int* pVolume, int* pPan, float x, float y, float z); // 0x00516830
 
 extern int gnSfxVolume_00727564; // 0x00727564
 
@@ -556,7 +556,7 @@ void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot)
     {
         int nPanVolume;
         int nPan;
-        sub_00516830_GetPositionalVolumePan(&nPanVolume, &nPan, fX, fY, fZ);
+        D2SOUND_GetPositionalVolumePan(&nPanVolume, &nPan, fX, fY, fZ);
         D2SOUND_SetSoundPan(pSlot->pSound, nPan);
         nFinal = nPanVolume * nFinal / 255;
     }

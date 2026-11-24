@@ -44,7 +44,7 @@ extern void* gpBuffer_009897D4; // 0x009897D4
 
 extern void* gpBuffer_009897D8; // 0x009897D8
 
-void __fastcall sub_006B38A0_Copy(void* pTarget, void* pBuffer, int nSize); // 0x006B38A0
+void __fastcall D3D_CopySurface(void* pTarget, void* pBuffer, int nSize); // 0x006B38A0
 
 void __fastcall D3D_CloseSmacker(D2SmackRecordStrc* video); // 0x006B9BB0
 
@@ -64,7 +64,7 @@ extern "C" const char gszFailedToUnlockMemorySurface[]; // 0x006FC284
 
 extern "C" const char gszFailedToLockMemorySurface[]; // 0x006FC2A4
 
-void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
+void __fastcall D3D_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
 
 static void __stdcall sub_006B9EB0_CopyWithAlpha(const unsigned short* pSrc, unsigned char* pDst, int nPitch);
 
@@ -161,8 +161,8 @@ void __cdecl D3D_UploadSmackTextures()
 // build: symbol ?gnRenderFlag@* 0x006CE290
         if (gnRenderFlags_0096F3A8 & gnRenderFlag)
         {
-            sub_006B38A0_Copy(gpTarget_009897E4, gpBuffer_009897D4, 0x40);
-            sub_006B38A0_Copy(gpTarget, gpBuffer_009897D8, 0x40);
+            D3D_CopySurface(gpTarget_009897E4, gpBuffer_009897D4, 0x40);
+            D3D_CopySurface(gpTarget, gpBuffer_009897D8, 0x40);
         }
         else
         {
@@ -333,13 +333,13 @@ void __cdecl D3D_UploadSmackFrameBuffer()
     long hResult = gapSmackSurfaces->lpVtbl->Lock(gapSmackSurfaces, 0, &tDesc, 0x21, 0);
     if (hResult)
     {
-        sub_006B20E0_DDrawLogError(gszFailedToLockMemorySurface, hResult);
+        D3D_LogDDrawError(gszFailedToLockMemorySurface, hResult);
     }
     sub_006B9EB0_CopyWithAlpha((const unsigned short*)gpFrameBuffer_009897D0, (unsigned char*)tDesc.lpSurface, tDesc.lPitch);
     hResult = gapSmackSurfaces->lpVtbl->Unlock(gapSmackSurfaces, 0);
     if (hResult)
     {
-        sub_006B20E0_DDrawLogError(gszFailedToUnlockMemorySurface, hResult);
+        D3D_LogDDrawError(gszFailedToUnlockMemorySurface, hResult);
     }
 
     if (!gpMemSurfaceB)
@@ -351,13 +351,13 @@ void __cdecl D3D_UploadSmackFrameBuffer()
     hResult = gpMemSurfaceB->lpVtbl->Lock(gpMemSurfaceB, 0, &tDesc, 0x21, 0);
     if (hResult)
     {
-        sub_006B20E0_DDrawLogError(gszFailedToLockMemorySurface, hResult);
+        D3D_LogDDrawError(gszFailedToLockMemorySurface, hResult);
     }
     sub_006B9EB0_CopyWithAlpha((const unsigned short*)(gpFrameBuffer_009897D0 + 0x200), (unsigned char*)tDesc.lpSurface, tDesc.lPitch);
     hResult = gpMemSurfaceB->lpVtbl->Unlock(gpMemSurfaceB, 0);
     if (hResult)
     {
-        sub_006B20E0_DDrawLogError(gszFailedToUnlockMemorySurface, hResult);
+        D3D_LogDDrawError(gszFailedToUnlockMemorySurface, hResult);
     }
 }
 

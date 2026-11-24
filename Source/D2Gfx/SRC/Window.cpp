@@ -237,7 +237,7 @@ extern unsigned char* gpScreenBuffer; // 0x007D5448
 
 unsigned char** gpPaletteTables; // 0x007D5578
 
-void __fastcall sub_004F7580_DrawRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows); // 0x004F7580
+void __fastcall CMNSUBTILE_DrawRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows); // 0x004F7580
 
 static int gnInnerBlockTop; // 0x007C9780
 
@@ -271,7 +271,7 @@ static int gnRowClipTop; // 0x007D2334
 
 static int gnColClipRight; // 0x007D233C
 
-void __fastcall sub_004F7850_DrawLitRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nArg); // 0x004F7850
+void __fastcall CMNSUBTILE_DrawLitRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nArg); // 0x004F7850
 
 static int gnScreen_7C9788; // 0x007C9788
 
@@ -281,7 +281,7 @@ static int gnScreen_7D2330; // 0x007D2330
 
 static int gnScreen_7D2338; // 0x007D2338
 
-void __fastcall sub_004F7DA0_SetPanelCoords(int nWidth, int nHeight);
+void __fastcall WINDOW_SetPanelCoords(int nWidth, int nHeight); // 0x004F7DA0
 
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(D2LargeIntegerStrc* pFrequency); // 0x006CC254
 
@@ -403,7 +403,7 @@ int __cdecl D2GFX_IsFixedAspectRatio()
 }
 
 // 0x004F5190
-void __stdcall sub_004F5190_SetTownMode(int bTown)
+void __stdcall D2GFX_SetTownMode(int bTown)
 {
     if (gnDisplayType < 4)
         bTown = 0;
@@ -1608,14 +1608,14 @@ void __fastcall D2GFX_DrawLitSubtileRows(unsigned char* pSrc, unsigned char* pDs
 
 void __fastcall CMNSUBTILE_DrawIsoBlockFlat(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette); // 0x004F69B0
 
-void __fastcall sub_004F8050_DrawRleVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nLight); // 0x004F8050
+void __fastcall CMNSUBTILE_DrawRleVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nLight); // 0x004F8050
 
 unsigned char* gpScreenBuffer; // 0x007D5448
 
 int gnLightingOff; // 0x007D2340
 
 // 0x004F6F60
-void __fastcall sub_004F6F60_DrawRleRows(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows)
+void __fastcall CMNSUBTILE_DrawRleRows(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows)
 {
     unsigned char* p = pDst;
     while (nRows)
@@ -1673,7 +1673,7 @@ void __fastcall sub_004F6F60_DrawRleRows(unsigned char* pSrc, unsigned char* pDs
 }
 
 // 0x004F71A0
-void __fastcall sub_004F71A0_DrawLitRleRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nShift)
+void __fastcall CMNSUBTILE_DrawLitRleRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nShift)
 {
     unsigned char* pRow = pDst;
     unsigned char* pLight = gabLightCube[nLightX >> nShift][nLightY >> nShift];
@@ -1732,7 +1732,7 @@ void __fastcall sub_004F71A0_DrawLitRleRows(unsigned char* pSrc, unsigned char* 
 }
 
 // 0x004F7580
-void __fastcall sub_004F7580_DrawRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows)
+void __fastcall CMNSUBTILE_DrawRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows)
 {
     unsigned char* p = pDst;
     int i = 0;
@@ -1824,7 +1824,7 @@ void __fastcall sub_004F7580_DrawRleRowsClipped(int nX, int nY, unsigned char* p
 }
 
 // 0x004F7850
-void __fastcall sub_004F7850_DrawLitRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nShift)
+void __fastcall CMNSUBTILE_DrawLitRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nShift)
 {
     unsigned char* pRow = pDst;
     unsigned char* pLight = gabLightCube[nLightX >> nShift][nLightY >> nShift];
@@ -1953,7 +1953,7 @@ extern "C" void __cdecl CMNSUBTILE_BuildGouraudCache()
 }
 
 // 0x004F7DA0
-void __fastcall sub_004F7DA0_SetPanelCoords(int nWidth, int nHeight)
+void __fastcall WINDOW_SetPanelCoords(int nWidth, int nHeight)
 {
     int nLeft = 0;
     int nRight = nWidth;
@@ -2000,7 +2000,7 @@ void __cdecl CMNSUBTILE_BuildLineOffsets()
 }
 
 // 0x004F7EA0
-void __fastcall sub_004F7EA0_DrawVisTile(unsigned char* pSrc, int nX, int nY)
+void __fastcall CMNSUBTILE_DrawVisTile(unsigned char* pSrc, int nX, int nY)
 {
     if (nY < gnClipTop || nY >= gnClipBottom || nX < gnClipLeft || nX >= gnClipRight)
         return;
@@ -2079,7 +2079,7 @@ void __fastcall sub_004F7EA0_DrawVisTile(unsigned char* pSrc, int nX, int nY)
 }
 
 // 0x004F8050
-void __fastcall sub_004F8050_DrawRleVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nLight)
+void __fastcall CMNSUBTILE_DrawRleVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nLight)
 {
     if (nY < gnClipTop || nY >= gnClipBottom || nX < gnClipLeft || nX >= gnClipRight)
         return;
@@ -2088,24 +2088,24 @@ void __fastcall sub_004F8050_DrawRleVisTile(unsigned char* pSrc, int nX, int nY,
     unsigned char* pDst = gnRowOffsets_007C9828[nY] + gpScreenBuffer + nX;
     D2_ASSERT(gpScreenBuffer, 0x373);
     if (nY >= gnInnerTop && nY < gnInnerBottom && nX >= gnInnerLeft && nX < gnInnerRight)
-        sub_004F6F60_DrawRleRows(pSrc, pDst, pPalette, 0x20);
+        CMNSUBTILE_DrawRleRows(pSrc, pDst, pPalette, 0x20);
     else
-        sub_004F7580_DrawRleRowsClipped(nX, nY, pSrc, pDst, pPalette, 0x20);
+        CMNSUBTILE_DrawRleRowsClipped(nX, nY, pSrc, pDst, pPalette, 0x20);
 }
 
 // 0x004F8120
-void __fastcall sub_004F8120_TileDrawLit(unsigned char* pSrc, int nX, int nY, int* pLight)
+void __fastcall CMNSUBTILE_DrawLitVisTile(unsigned char* pSrc, int nX, int nY, int* pLight)
 {
     if (gnLightingOff)
     {
         const unsigned char nLight = *(unsigned char*)pLight;
         if ((nLight & 0xF8) == 0xF8)
         {
-            sub_004F7EA0_DrawVisTile(pSrc, nX, nY);
+            CMNSUBTILE_DrawVisTile(pSrc, nX, nY);
             return;
         }
 
-        sub_004F8050_DrawRleVisTile(pSrc, nX, nY, nLight);
+        CMNSUBTILE_DrawRleVisTile(pSrc, nX, nY, nLight);
         return;
     }
 
@@ -2128,11 +2128,11 @@ void __fastcall sub_004F8120_TileDrawLit(unsigned char* pSrc, int nX, int nY, in
         unsigned char* pDst = gnRowOffsets_007C9828[nY] + gpScreenBuffer + nX;
         if (nY >= gnInnerTop && nY < gnInnerBottom && nX >= gnInnerLeft && nX < gnInnerRight)
         {
-            sub_004F71A0_DrawLitRleRows(pSrc, pDst, nLightX, nLightXStep, nLightY, nLightYStep, 0x20, 8);
+            CMNSUBTILE_DrawLitRleRows(pSrc, pDst, nLightX, nLightXStep, nLightY, nLightYStep, 0x20, 8);
         }
         else
         {
-            sub_004F7850_DrawLitRleRowsClipped(nX, nY, pSrc, pDst, nLightX, nLightXStep, nLightY, nLightYStep, 0x20, 8);
+            CMNSUBTILE_DrawLitRleRowsClipped(nX, nY, pSrc, pDst, nLightX, nLightXStep, nLightY, nLightYStep, 0x20, 8);
         }
 
         return;
@@ -2140,15 +2140,15 @@ void __fastcall sub_004F8120_TileDrawLit(unsigned char* pSrc, int nX, int nY, in
 
     if ((nLightX >> 8) == 0x1F)
     {
-        sub_004F7EA0_DrawVisTile(pSrc, nX, nY);
+        CMNSUBTILE_DrawVisTile(pSrc, nX, nY);
         return;
     }
 
-    sub_004F8050_DrawRleVisTile(pSrc, nX, nY, *(unsigned char*)pLight);
+    CMNSUBTILE_DrawRleVisTile(pSrc, nX, nY, *(unsigned char*)pLight);
 }
 
 // 0x004F82D0
-void __fastcall sub_004F82D0_DrawBlendVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nAlpha)
+void __fastcall CMNSUBTILE_DrawBlendVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nAlpha)
 {
     unsigned char* pDst;
     unsigned char* p;
@@ -2256,7 +2256,7 @@ void __fastcall sub_004F82D0_DrawBlendVisTile(unsigned char* pSrc, int nX, int n
 }
 
 // 0x004F84F0
-void __fastcall sub_004F84F0_TileDrawLitBlend(unsigned char* pSrc, int nX, int nY, int* pLight, unsigned char nAlpha)
+void __fastcall CMNSUBTILE_DrawLitBlendVisTile(unsigned char* pSrc, int nX, int nY, int* pLight, unsigned char nAlpha)
 {
     unsigned char* pBlend;
     if (nAlpha >= 0xC0)
@@ -2382,35 +2382,35 @@ void __fastcall sub_004F84F0_TileDrawLitBlend(unsigned char* pSrc, int nX, int n
 }
 
 // 0x004F8810
-void __fastcall sub_004F8810_DrawBlock(D2TileLibraryBlockStrc* pBlock, unsigned char* pDst, unsigned char nLight)
+void __fastcall CMNSUBTILE_DrawBlock(D2TileLibraryBlockStrc* pBlock, unsigned char* pDst, unsigned char nLight)
 {
     unsigned char* pPalette = gatLightPalettes[nLight >> 3].unk0x00;
     if (pBlock->nFormat & 4)
-        sub_004F6F60_DrawRleRows(pBlock->pData, pDst, pPalette, 0xF);
+        CMNSUBTILE_DrawRleRows(pBlock->pData, pDst, pPalette, 0xF);
     else
         CMNSUBTILE_DrawIsoBlockFlat(pBlock->pData, pDst, pPalette);
 }
 
 // 0x004F8850
-void __fastcall sub_004F8850_DrawLitBlock(D2TileLibraryBlockStrc* pBlock, unsigned char* pDst, int* pLight)
+void __fastcall CMNSUBTILE_DrawLitBlock(D2TileLibraryBlockStrc* pBlock, unsigned char* pDst, int* pLight)
 {
     const int nLightX = pLight[0] << 4;
     const int nLightXStep = pLight[3] - pLight[0];
     const int nLightY = pLight[1] << 4;
     const int nLightYStep = pLight[2] - pLight[1];
     if (pBlock->nFormat & 4)
-        sub_004F71A0_DrawLitRleRows(pBlock->pData, pDst, nLightX, nLightXStep, nLightY, nLightYStep, 0xF, 7);
+        CMNSUBTILE_DrawLitRleRows(pBlock->pData, pDst, nLightX, nLightXStep, nLightY, nLightYStep, 0xF, 7);
     else
         D2GFX_DrawLitSubtileRows(pBlock->pData, pDst, nLightX, nLightXStep, nLightY, nLightYStep);
 }
 
 // 0x004F88B0
-void __fastcall sub_004F88B0_DrawBlockClipped(D2TileLibraryBlockStrc* pBlock, int nX, int nY, unsigned char* pDst, unsigned char nLight)
+void __fastcall CMNSUBTILE_DrawBlockClipped(D2TileLibraryBlockStrc* pBlock, int nX, int nY, unsigned char* pDst, unsigned char nLight)
 {
     unsigned char* pPalette = gatLightPalettes[nLight >> 3].unk0x00;
     if (pBlock->nFormat & 4)
     {
-        sub_004F7580_DrawRleRowsClipped(nX, nY, pBlock->pData, pDst, pPalette, 0xF);
+        CMNSUBTILE_DrawRleRowsClipped(nX, nY, pBlock->pData, pDst, pPalette, 0xF);
         return;
     }
 
@@ -2455,7 +2455,7 @@ static inline int ClipRowSpan(int* pnSkip, int nWidth, int nRight, int nLeft)
 }
 
 // 0x004F89F0
-void __fastcall sub_004F89F0_DrawLitBlockClipped(D2TileLibraryBlockStrc* pBlock, int nX, int nY, unsigned char* pDst, int* pLight)
+void __fastcall CMNSUBTILE_DrawLitBlockClipped(D2TileLibraryBlockStrc* pBlock, int nX, int nY, unsigned char* pDst, int* pLight)
 {
     int nLightX = pLight[0] << 4;
     const int nLightXStep = pLight[3] - pLight[0];
@@ -2463,7 +2463,7 @@ void __fastcall sub_004F89F0_DrawLitBlockClipped(D2TileLibraryBlockStrc* pBlock,
     const int nLightYStep = pLight[2] - pLight[1];
     if (pBlock->nFormat & 4)
     {
-        sub_004F7850_DrawLitRleRowsClipped(nX, nY, pBlock->pData, pDst, nLightX, nLightXStep, nLightY, nLightYStep, 15, 7);
+        CMNSUBTILE_DrawLitRleRowsClipped(nX, nY, pBlock->pData, pDst, nLightX, nLightXStep, nLightY, nLightYStep, 15, 7);
         return;
     }
 

@@ -50,9 +50,9 @@ void __stdcall CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, in
 
 void __fastcall D3D_BlitIndexedToHighColor(const unsigned char* pSource, unsigned short* pDest, int nWidth, int nHeight, int nPitch, int nUnused); // 0x006B1DC0
 
-void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
+void __fastcall D3D_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
 
-void __fastcall sub_006B38A0_Copy(void* pTarget, D2DDSurfaceStrc* pSurface, int nRows); // 0x006B38A0
+void __fastcall D3D_CopySurface(void* pTarget, D2DDSurfaceStrc* pSurface, int nRows); // 0x006B38A0
 
 void __fastcall sub_006B39B0_ShowD3DError(const char* szText, long nResult); // 0x006B39B0
 
@@ -357,7 +357,7 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, in
     hResult = pSurface->lpVtbl->Lock(pSurface, 0, &tDesc, 0x21, 0);
     if (hResult)
     {
-        sub_006B20E0_DDrawLogError(gszFailedToLockMemorySurface, hResult);
+        D3D_LogDDrawError(gszFailedToLockMemorySurface, hResult);
     }
     D2_ASSERT(tDesc.dwFlags & 8, 0x1C0);
     D3D_BlitIndexedToHighColor(pData, (unsigned short*)tDesc.lpSurface, ptInfo->nTexWidth, ptInfo->nTexHeight, tDesc.lPitch >> 1,
@@ -365,12 +365,12 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, in
     hResult = pSurface->lpVtbl->Unlock(pSurface, 0);
     if (hResult)
     {
-        sub_006B20E0_DDrawLogError(gszFailedToUnlockMemorySurface, hResult);
+        D3D_LogDDrawError(gszFailedToUnlockMemorySurface, hResult);
     }
 
     if (gnRenderFlags_0096F3A8 & gnRenderFlag)
     {
-        sub_006B38A0_Copy(pEntry->pTarget, pSurface, ptInfo->nTexHeight);
+        D3D_CopySurface(pEntry->pTarget, pSurface, ptInfo->nTexHeight);
     }
     else
     {

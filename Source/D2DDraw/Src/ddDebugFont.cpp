@@ -182,7 +182,7 @@ extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const ch
 int gaDDrawDebugFontCharWidths[96]; // 0x00881428
 
 // 0x005125E0
-static int __stdcall sub_005125E0_SoftDebugDrawChar(int nY, int nX, char ch)
+static int __stdcall DDRAW_DebugDrawChar(int nY, int nX, char ch)
 {
     if (nX > 640)
         return 0;
@@ -213,7 +213,7 @@ static int __stdcall sub_005125E0_SoftDebugDrawChar(int nY, int nX, char ch)
 }
 
 // 0x00512680
-void __fastcall sub_00512680_SoftDebugPrintf(int nX, int nY, const char* szFormat, char* args)
+void __fastcall DDRAW_DebugPrintf(int nX, int nY, const char* szFormat, char* args)
 {
     char szText[0x200];
     const int nLength = wvsprintfA(szText, szFormat, args);
@@ -221,7 +221,7 @@ void __fastcall sub_00512680_SoftDebugPrintf(int nX, int nY, const char* szForma
 
     for (int i = 0; i < nLength; ++i)
     {
-        nX += sub_005125E0_SoftDebugDrawChar(nY, nX, szText[i]);
+        nX += DDRAW_DebugDrawChar(nY, nX, szText[i]);
         if (szText[i] == '\n')
         {
             nX = nStartX;

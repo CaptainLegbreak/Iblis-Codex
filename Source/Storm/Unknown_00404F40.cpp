@@ -104,8 +104,8 @@ int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 int __stdcall D2Win_InitializeSpriteCache(int bWindowed, int nResolution); // 0x004F8F10
 int __stdcall D2Win_CloseSpriteCache(); // 0x004F9030
 int __stdcall D2Win_CreateWindow(void* hInstance, int nRenderMode, int bWindowed, int bCompress); // 0x004FA520
-int __cdecl sub_004FAB00_ShowInsertExpansionDisc(); // 0x004FAB00
-int __cdecl sub_004FAB30_ShowInsertPlayDisc(); // 0x004FAB30
+int __cdecl ARCHIVE_ShowInsertExpansionDiscMessage(); // 0x004FAB00
+int __cdecl ARCHIVE_ShowInsertPlayDiscMessage(); // 0x004FAB30
 int __cdecl ARCHIVE_LoadArchives(); // 0x004FAB90
 void __cdecl ARCHIVE_FreeArchives(); // 0x004FAE00
 int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (__cdecl* pfnExpansionDisc)(), int nUnused, D2ConfigStrc* pCfg); // 0x004FAEC0
@@ -626,7 +626,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
 
     if (gnMode_0074C704 != 2)
     {
-        if (!ARCHIVE_LoadArchives() || !ARCHIVE_LoadExpansionArchives(sub_004FAB30_ShowInsertPlayDisc, sub_004FAB00_ShowInsertExpansionDisc, 0, pCfg))
+        if (!ARCHIVE_LoadArchives() || !ARCHIVE_LoadExpansionArchives(ARCHIVE_ShowInsertPlayDiscMessage, ARCHIVE_ShowInsertExpansionDiscMessage, 0, pCfg))
         {
             ARCHIVE_FreeArchives();
             return 0;

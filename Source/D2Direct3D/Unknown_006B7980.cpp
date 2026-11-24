@@ -104,7 +104,8 @@ void __fastcall sub_006B7980_DrawRectangle(int left, int top, int right, int bot
     vertices[3].fRhw = 1.0f;
     vertices[3].fU = 0.0f;
     vertices[3].fV = 0.0f;
-    unsigned int diffuse = (sub_006B1D50_GetColor(color) & 0x00FFFFFF) | ((unsigned int)alpha << 24);
+// build: symbol ?D3D_GetColor@* 0x006B1D50
+    unsigned int diffuse = (D3D_GetColor(color) & 0x00FFFFFF) | ((unsigned int)alpha << 24);
     vertices[0].dwColor = diffuse;
     vertices[1].dwColor = diffuse;
     vertices[2].dwColor = diffuse;

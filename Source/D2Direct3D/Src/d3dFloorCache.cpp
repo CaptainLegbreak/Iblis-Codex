@@ -30,7 +30,7 @@ struct D2FloorEntryStrc { char unknown[8]; D2SurfaceStrc* surface; char tail[12]
 
 struct D2FloorSetStrc { int count; char unknown[20]; D2FloorEntryStrc* entries; };
 
-void __fastcall sub_006B20E0_DDrawLogError(const char*, int); // 0x006B20E0
+void __fastcall D3D_LogDDrawError(const char*, int); // 0x006B20E0
 
 D2FloorPoolEntryStrc* __fastcall D3D_FloorCacheUnlink(D2FloorPoolStrc* pList); // 0x006BB1F0
 
@@ -105,7 +105,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 void __fastcall D3D_BlitIndexedToHighColor(const unsigned char* pSource, unsigned short* pDest, int nWidth, int nHeight, int nPitch, int nUnused); // 0x006B1DC0
 
-void __fastcall sub_006B38A0_Copy(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, unsigned int nRows); // 0x006B38A0
+void __fastcall D3D_CopySurface(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, unsigned int nRows); // 0x006B38A0
 
 void __fastcall D3D_SubtileCacheTouch(D2CacheListStrc* pList, int nSlot); // 0x006BACB0
 
@@ -238,7 +238,7 @@ void __fastcall D3D_SetFloorCachePalette(D2FloorSetStrc* textures, void* palette
         D2FloorEntryStrc* entry=&textures->entries[i];
         if (entry->surface) {
             int result=entry->surface->vtable->SetPalette(entry->surface,palette);
-            if (result) { sub_006B20E0_DDrawLogError("SetPalette (floor surface)",result); return; }
+            if (result) { D3D_LogDDrawError("SetPalette (floor surface)",result); return; }
         }
     }
 }
@@ -621,7 +621,7 @@ void __fastcall D3D_BindTileTexture(D2CacheBindingStrc* pTile)
         long hResult = gpMemorySurface32->lpVtbl->Lock(gpMemorySurface32, 0, &tDesc, 0x21, 0);
         if (hResult)
         {
-            sub_006B20E0_DDrawLogError(gszFailedToLockMemorySurface_006FC2A4, hResult);
+            D3D_LogDDrawError(gszFailedToLockMemorySurface_006FC2A4, hResult);
         }
 
         D2_ASSERT(tDesc.dwFlags & 8, 0x20B);
@@ -631,12 +631,12 @@ void __fastcall D3D_BindTileTexture(D2CacheBindingStrc* pTile)
         hResult = gpMemorySurface32->lpVtbl->Unlock(gpMemorySurface32, 0);
         if (hResult)
         {
-            sub_006B20E0_DDrawLogError(gszFailedToUnlockMemorySurface_006FC284, hResult);
+            D3D_LogDDrawError(gszFailedToUnlockMemorySurface_006FC284, hResult);
         }
 
         if (gnRenderFlags_0096F3A8 & gnRenderFlag)
         {
-            sub_006B38A0_Copy(pNode->pSurface, gpMemorySurface32, 0x20);
+            D3D_CopySurface(pNode->pSurface, gpMemorySurface32, 0x20);
         }
         else
         {

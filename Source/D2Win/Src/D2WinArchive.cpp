@@ -76,19 +76,19 @@ D2ArchiveHandleStrc* gpD2PatchMPQ; // 0x007D5630
 D2ArchiveHandleStrc* gpD2ExpMPQ; // 0x007D5634
 
 // 0x004FAB00
-int __cdecl sub_004FAB00_ShowInsertExpansionDisc()
+int __cdecl ARCHIVE_ShowInsertExpansionDiscMessage()
 {
     return MessageBoxA((void*)WINDOW_GetWindow(), "Insert Expansion Disc", "Diablo II", 0x31) == 1;
 }
 
 // 0x004FAB30
-int __cdecl sub_004FAB30_ShowInsertPlayDisc()
+int __cdecl ARCHIVE_ShowInsertPlayDiscMessage()
 {
     return MessageBoxA((void*)WINDOW_GetWindow(), "Insert Play Disc", "Diablo II", 0x31) == 1;
 }
 
 // 0x004FAB60
-int __cdecl sub_004FAB60_ShowInsertDisc()
+int __cdecl ARCHIVE_ShowInsertCinematicsDisc()
 {
     return MessageBoxA((void*)WINDOW_GetWindow(), "Insert Cinematics Disc", "Diablo II", 0x31) == 1;
 }
@@ -126,7 +126,7 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 extern "C" const char gszD2CharMpq[]; // 0x006DC77C
 
 // 0x004FAC90
-int __cdecl sub_004FAC90_CheckCharArchive()
+int __cdecl D2Win_10185_CheckCharMpq()
 {
     char szPath[0x104];
     FOG_GetInstallPath(szPath, sizeof(szPath));

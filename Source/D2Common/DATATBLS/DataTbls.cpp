@@ -75,7 +75,7 @@ extern "C" int __cdecl fclose(_iobuf* pFile); // 0x00681FDC
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 
-unsigned short __stdcall sub_00524D30_FindString(const char* szKey, const wchar_t** ppText); // 0x00524D30
+unsigned short __stdcall STRTABLE_FindString(const char* szKey, const wchar_t** ppText); // 0x00524D30
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
@@ -663,7 +663,7 @@ int gnPettypeTxtRecordCount; // 0x0096C820
 unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference)
 {
     const wchar_t* pUnicode;
-    unsigned short nIndex = sub_00524D30_FindString(szReference, &pUnicode);
+    unsigned short nIndex = STRTABLE_FindString(szReference, &pUnicode);
     if (!nIndex)
         nIndex = 5382;
     return nIndex;

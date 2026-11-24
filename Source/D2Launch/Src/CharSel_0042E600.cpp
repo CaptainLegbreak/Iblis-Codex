@@ -153,7 +153,7 @@ int __stdcall CHARSEL_OnScroll(SMSGHANDLER_PARAMS* pMsg);                       
 int __cdecl CHARSEL_InitRealmScreen();                                                                 // 0x0043A2B0
 void __fastcall CHARSEL_UseName(char* szName);                                                         // 0x0043ADB0
 void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags);                     // 0x004F96F0
-void __fastcall sub_004FB590(int nFont);                                                                    // 0x004FB590
+void __fastcall TEXTBOX_SetSmallGap(int nFont);                                                                    // 0x004FB590
 int __fastcall D2Win_10191(D2WinTextBoxStrc* pTextBox, int nMaxSteps);                                      // 0x004FC5E0
 int __fastcall D2Win_10194(D2WinTextBoxStrc* pTextBox, D2WinTextBoxStrc* pLinkedTextBox);                   // 0x004FC6A0
 int __fastcall D2Win_10195(D2WinTextBoxStrc* pTextBox, void(__stdcall* pfScrollCallback)(SMSGHANDLER_PARAMS*)); // 0x004FC6E0

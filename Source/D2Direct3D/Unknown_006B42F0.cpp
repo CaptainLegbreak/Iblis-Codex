@@ -66,9 +66,9 @@ extern "C" char* __cdecl sub_00687330_Strncpy(char*,const char*,unsigned int); /
 extern "C" void __cdecl LOGMANAGER_WriteLogLine(const char*,...); // 0x00410610
 void __cdecl FOG_GetSystemInfo(); // 0x00407360
 extern "C" HRESULT __stdcall sub_006B1350_DirectDrawCreate(GUID*,IDirectDraw**,void*); // 0x006B1350
-void __fastcall sub_006B20E0_DDrawLogError(const char*,HRESULT) throw(); // 0x006B20E0
+void __fastcall D3D_LogDDrawError(const char*,HRESULT) throw(); // 0x006B20E0
 void __fastcall sub_006B39B0_ShowD3DError(const char* text,long result); // 0x006B39B0
-int __stdcall sub_006B3FD0(DDSURFACEDESC2*,void*); // 0x006B3FD0
+int __stdcall D3D_EnumerateDisplayMode(DDSURFACEDESC2*,void*); // 0x006B3FD0
 int __stdcall sub_006B1B60_EnumTextureFormat(void*,void*); // 0x006B1B60
 extern IDirectDraw4* gpDirectDraw4; // 0x00970E60
 extern IDirect3D3* gpDirect3D3; // 0x00970E64
@@ -158,9 +158,9 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
   if(!guid) display->flags|=gFlag_006CE268;
   else { display->flags&=gFlag_006CE2E8; display->guid=*guid; }
   HRESULT hr=sub_006B1350_DirectDrawCreate(guid,&dd,0);
-  if(hr) { sub_006B20E0_DDrawLogError(gszEnumDirectDrawCreateFailed,hr); goto Cleanup; }
+  if(hr) { D3D_LogDDrawError(gszEnumDirectDrawCreateFailed,hr); goto Cleanup; }
   hr=dd->vtbl->QueryInterface(dd,&gIIDDirectDraw4,(void**)&gpDirectDraw4);
-  if(hr) { sub_006B20E0_DDrawLogError(gszEnumGetDirectDraw4Failed,hr); goto Cleanup; }
+  if(hr) { D3D_LogDDrawError(gszEnumGetDirectDraw4Failed,hr); goto Cleanup; }
   dd->vtbl->Release(dd); dd=0;
 
   DDDEVICEIDENTIFIER aIdentifier[2];
@@ -173,11 +173,11 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
    LOGMANAGER_WriteLogLine(gszVendorDeviceIdFormat,display->vendor,display->device);
   }
   hr=gpDirectDraw4->vtbl->QueryInterface(gpDirectDraw4,&gIIDDirect3D3,(void**)&gpDirect3D3);
-  if(hr) { sub_006B20E0_DDrawLogError(gszGetD3DInterfaceFailed,hr); goto Cleanup; }
+  if(hr) { D3D_LogDDrawError(gszGetD3DInterfaceFailed,hr); goto Cleanup; }
   hr=gpDirectDraw4->vtbl->SetCooperativeLevel(gpDirectDraw4,ghEnumerationWindow,0x11);
-  if(hr) { sub_006B20E0_DDrawLogError(gszSetCooperativeLevelFailed,hr); goto Cleanup; }
-  hr=gpDirectDraw4->vtbl->EnumDisplayModes(gpDirectDraw4,0,0,display,sub_006B3FD0);
-  if(hr) { sub_006B20E0_DDrawLogError(gszEnumDisplayModesCall,hr); goto Cleanup; }
+  if(hr) { D3D_LogDDrawError(gszSetCooperativeLevelFailed,hr); goto Cleanup; }
+  hr=gpDirectDraw4->vtbl->EnumDisplayModes(gpDirectDraw4,0,0,display,D3D_EnumerateDisplayMode);
+  if(hr) { D3D_LogDDrawError(gszEnumDisplayModesCall,hr); goto Cleanup; }
   if(!display->modeCount) { LOGMANAGER_WriteLogLine(gszNoValidDisplayModes); goto Cleanup; }
   int hasUI=0,hasGame=0,has32=0,has24=0;
   int invalid=0;
@@ -194,16 +194,16 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
   if(invalid) goto Cleanup;
   D2DisplayModeStrc* mode=&display->modes[display->modeCount-1];
   hr=gpDirectDraw4->vtbl->SetDisplayMode(gpDirectDraw4,mode->width,mode->height,mode->bpp,mode->refresh,0);
-  if(hr) { sub_006B20E0_DDrawLogError(gszSetDisplayModeCall,hr); goto Cleanup; }
+  if(hr) { D3D_LogDDrawError(gszSetDisplayModeCall,hr); goto Cleanup; }
   DDSURFACEDESC2 surface={sizeof(surface)};
   surface.flags=0x21;surface.caps.caps=0x6218;surface.backCount=1;
   hr=gpDirectDraw4->vtbl->CreateSurface(gpDirectDraw4,&surface,&primary,0);
-  if(hr) { sub_006B20E0_DDrawLogError(gszCreatePrimarySurfaceFailed,hr); goto Cleanup; }
+  if(hr) { D3D_LogDDrawError(gszCreatePrimarySurfaceFailed,hr); goto Cleanup; }
   DDSCAPS2 attachCaps;memset(&attachCaps,0,sizeof(attachCaps));attachCaps.caps=4;
   hr=primary->vtbl->GetAttachedSurface(primary,&attachCaps,&back);
-  if(hr) { sub_006B20E0_DDrawLogError(gszGetBackbufferFailed,hr); goto Cleanup; }
+  if(hr) { D3D_LogDDrawError(gszGetBackbufferFailed,hr); goto Cleanup; }
   hr=gpDirectDraw4->vtbl->GetCaps(gpDirectDraw4,&caps,0);
-  if(hr) { sub_006B20E0_DDrawLogError(gszGetDD4CapsFailed,hr); goto Cleanup; }
+  if(hr) { D3D_LogDDrawError(gszGetDD4CapsFailed,hr); goto Cleanup; }
   if(!(caps.caps&1)) { LOGMANAGER_WriteLogLine(gszNo3DSupport); goto Cleanup; }
   if(caps.caps2&0x20000) display->flags|=gFlag_006CE278;
   else LOGMANAGER_WriteLogLine(gszNoGammaControl);
@@ -225,17 +225,17 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
   LOGMANAGER_WriteLogLine(gszVideoMemoryFormat,display->videoTotal/1048576.0f,display->videoFree/1048576.0f);
   DDSCAPS2 memoryCaps;memset(&memoryCaps,0,sizeof(memoryCaps));memoryCaps.caps=0x5000;
   hr=gpDirectDraw4->vtbl->GetAvailableVidMem(gpDirectDraw4,&memoryCaps,&display->textureTotal,&display->textureFree);
-  if(hr) { sub_006B20E0_DDrawLogError(gszTextureMemoryFailed,hr); goto Cleanup; }
+  if(hr) { D3D_LogDDrawError(gszTextureMemoryFailed,hr); goto Cleanup; }
   LOGMANAGER_WriteLogLine(gszTextureMemoryFormat,display->textureTotal/1048576.0f,display->textureFree/1048576.0f);
   memset(&memoryCaps,0,sizeof(memoryCaps));memoryCaps.caps=0x10005000;
   hr=gpDirectDraw4->vtbl->GetAvailableVidMem(gpDirectDraw4,&memoryCaps,&display->localTotal,&display->localFree);
-  if(hr) { sub_006B20E0_DDrawLogError(gszLocalMemoryFailed,hr); goto Cleanup; }
+  if(hr) { D3D_LogDDrawError(gszLocalMemoryFailed,hr); goto Cleanup; }
   LOGMANAGER_WriteLogLine(gszLocalMemoryFormat,display->localTotal/1048576.0f,display->localFree/1048576.0f);
   if((caps.caps2&0x200)&&(hardware.devCaps&0x1000)) {
    display->flags|=gdwBitMask1;
    memset(&memoryCaps,0,sizeof(memoryCaps));memoryCaps.caps=0x20005000;
    hr=gpDirectDraw4->vtbl->GetAvailableVidMem(gpDirectDraw4,&memoryCaps,&display->agpTotal,&display->agpFree);
-   if(hr) sub_006B20E0_DDrawLogError(gszAgpMemoryFailed,hr);
+   if(hr) D3D_LogDDrawError(gszAgpMemoryFailed,hr);
    else LOGMANAGER_WriteLogLine(gszAgpMemoryFormat,display->agpTotal/1048576.0f,display->agpFree/1048576.0f);
   } else LOGMANAGER_WriteLogLine(gszNoAgpTexturing);
   hr=device->vtbl->EnumTextureFormats(device,sub_006B1B60_EnumTextureFormat,display);

@@ -149,7 +149,7 @@ unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned 
 extern int gbSurfaceActive_007C9140;                                                                        // 0x007C9140
 
 // 0x005135F0
-void __fastcall sub_005135F0_DDrawPlaySmacker(D2SmackRecordStrc* pRecord)
+void __fastcall DDRAW_PlaySmacker(D2SmackRecordStrc* pRecord)
 {
     switch (pRecord->nType)
     {
