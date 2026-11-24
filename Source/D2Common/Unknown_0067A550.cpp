@@ -81,7 +81,6 @@ static const int* __stdcall sub_0067A5D0_GetNeighborsSequence(int nBase, int nDi
     return gnIdaStarNeighborSequences[(nDirection - nBase) & 7];
 }
 
-// build: context sub_M125_Emit_0067A5D0
 // emits the static 0x0067A5D0 (not game code)
 const int* __stdcall sub_M125_Emit_0067A5D0(int nUnused1, int nUnused2, int nBase, int nDirection)
 {

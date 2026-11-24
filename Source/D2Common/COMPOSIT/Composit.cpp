@@ -167,10 +167,8 @@ unsigned int __stdcall COMPOSIT_GetArmorTypeFromComponent(int eComponent, unsign
     }
 }
 
-// build: context DATATBLS_GetMonStatsTxtRecord
 inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int id) {if(id>=0 && id<sgptDataTables->nMonStatsTxtRecordCount)return &sgptDataTables->pMonStatsTxt[id];return 0;}
 
-// build: context COMPOSIT_FormatPathInto
 static __forceinline void COMPOSIT_FormatPathInto(char* path,unsigned int classCode,unsigned int modeCode,int* weapon,const char* prefix,int full,char* w,char* c,char* m) {
  w[0]=TOKEN_CHAR(((char*)weapon)[0]);
  w[1]=TOKEN_CHAR(((char*)weapon)[1]);

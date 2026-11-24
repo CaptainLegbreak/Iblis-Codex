@@ -637,7 +637,6 @@ int __fastcall DRLGROOM_GetLevelIdFromPopulatedRoom(D2DrlgRoomStrc* pDrlgRoom)
     return pDrlgRoom->ptDrlgLevel->eLevelId;
 }
 
-// build: context DRLG_ComputeManhattanDistance
 inline void DRLG_ComputeManhattanDistance(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int* pDistanceX, int* pDistanceY)
 {
     if (pDrlgCoord1->nPosX < pDrlgCoord2->nPosX)

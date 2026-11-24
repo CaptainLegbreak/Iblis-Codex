@@ -104,7 +104,6 @@ static void PATH_AStar_PushToVisitedCache(D2PathFoWallContextStrc* pContext, D2P
     pContext->aVisitedCache[nHash] = pNode;
 }
 
-// build: context sub_M_Emit_0067AEA0
 // emits the static 0x0067AEA0, which the original inlines at its callers and also keeps (not game code)
 void sub_M_Emit_0067AEA0(D2PathFoWallContextStrc* pContext, D2PathFoWallNodeStrc* pNode)
 {
