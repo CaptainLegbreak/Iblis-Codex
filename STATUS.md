@@ -42,16 +42,16 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 927 |
+| Compilation units | 920 |
 | … in a file with its original name, whole | 287 |
 | … pieces of an original file still split (in 36 files) | 114 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 526 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3017 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 519 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3045 |
 | Unnamed fields (`unk0x..`) in the shared headers | 668 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
-| Calling-convention shims | 113 |
-| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 577 |
-| `__declspec(noinline)` / `__forceinline` | 100 / 211 |
+| Calling-convention shims | 115 |
+| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 583 |
+| `__declspec(noinline)` / `__forceinline` | 101 / 213 |
 | Function names: blizzard / d2moo / inferred / placeholder | 460 / 5409 / 5292 / 3766 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3832 functions are compiled with `/GS-` and 834 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 100 times and `__declspec(dllexport)` 172 times to keep a body out of line or emitted.
+Not listed one by one: 3827 functions are compiled with `/GS-` and 883 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 101 times and `__declspec(dllexport)` 172 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
