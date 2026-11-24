@@ -1185,8 +1185,8 @@
    "state": "included"
   },
   "Source/D2Client/WARDEN/WardenClient.cpp": {
-   "bytes": 6651,
-   "definitions": 10,
+   "bytes": 6592,
+   "definitions": 8,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/WARDEN/WardenClient.inc",
@@ -1234,8 +1234,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/text.cpp": {
-   "bytes": 4416,
-   "definitions": 46,
+   "bytes": 4420,
+   "definitions": 47,
    "externs": [
     "extern \"C\" void __cdecl D2CLIENT_CloseNPCTalk(); // 0x004A17D0",
     "extern \"C\" void __cdecl TEXT_EatMsg(); // 0x0049DA10",
@@ -1290,8 +1290,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_0049B030.cpp": {
-   "bytes": 152,
-   "definitions": 6,
+   "bytes": 92,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0049B030.inc",
@@ -1299,8 +1299,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_0049BB40.cpp": {
-   "bytes": 264,
-   "definitions": 3,
+   "bytes": 379,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0049BB40.inc",
@@ -44743,7 +44743,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/WARDEN/WardenClient.cpp",
+   "file": "Source/D2Client/Unknown_0049BB40.cpp",
    "fill": 5,
    "form": "declared",
    "fwd": null,
@@ -44836,7 +44836,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/WARDEN/WardenClient.cpp",
+   "file": "Source/D2Client/UI/text.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern int gnTextTop = ",
@@ -51145,7 +51145,7 @@
    "cname": "gData_00722470",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0049B030.cpp",
+   "file": "Source/D2Client/Unknown_0049BB40.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00722470_t gData_00722470; // 0x00722470",
    "head": "extern \"C\" struct d2data_00722470_t gData_00722470 = ",
