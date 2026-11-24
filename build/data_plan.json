@@ -507,8 +507,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Game.cpp": {
-   "bytes": 360,
-   "definitions": 8,
+   "bytes": 256,
+   "definitions": 7,
    "externs": [
     "extern \"C\" void __cdecl GAME_DrawGameView(); // 0x0044C990",
     "extern \"C\" void __cdecl sub_0045FDE0_DrawLoadingScreen(); // 0x0045FDE0",
@@ -883,8 +883,8 @@
    "state": "included"
   },
   "Source/D2Client/CORE/WINMAIN.CPP": {
-   "bytes": 672,
-   "definitions": 7,
+   "bytes": 444,
+   "definitions": 5,
    "externs": [
     "extern \"C\" void __cdecl GAME_SaveDefaultCmdLine(); // 0x0044B5E0",
     "extern \"C\" void __cdecl RECORD_RegisterLngArgument(); // 0x00451260"
@@ -5249,6 +5249,31 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004A43E0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/Unknown_0044B400.cpp": {
+   "bytes": 64,
+   "definitions": 1,
+   "externs": [
+    "extern \"C\" void __cdecl GAME_SaveDefaultCmdLine(); // 0x0044B5E0",
+    "extern \"C\" void __cdecl RECORD_RegisterLngArgument(); // 0x00451260"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/Unknown_0044B400.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2MCPClient/Unknown_0044A170.cpp": {
+   "bytes": 268,
+   "definitions": 2,
+   "externs": [
+    "extern \"C\" void __cdecl GAME_SaveDefaultCmdLine(); // 0x0044B5E0",
+    "extern \"C\" void __cdecl RECORD_RegisterLngArgument(); // 0x00451260",
+    "extern \"C\" void __cdecl sub_0044AFC0(); // 0x0044AFC0"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2MCPClient/Unknown_0044A170.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -31573,7 +31598,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/CORE/WINMAIN.CPP",
+   "file": "Source/D2MCPClient/Unknown_0044A170.cpp",
    "fill": 41,
    "form": "declared",
    "fwd": null,
@@ -31733,7 +31758,7 @@
    "cname": "gData_0070EE0C",
    "declared": true,
    "decorated": "?gtClientInterface@@3UD2ClientInterfaceStrc@@A",
-   "file": "Source/D2Client/CORE/WINMAIN.CPP",
+   "file": "Source/D2Client/Unknown_0044B400.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070EE0C_t gData_0070EE0C; // 0x0070EE0C",
    "head": "extern \"C\" struct d2data_0070EE0C_t gData_0070EE0C = ",
@@ -31941,7 +31966,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game.cpp",
+   "file": "Source/D2MCPClient/Unknown_0044A170.cpp",
    "fill": 26,
    "form": "declared",
    "fwd": null,

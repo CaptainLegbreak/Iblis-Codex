@@ -667,72 +667,12 @@ static inline D2ClientListLinkStrc* ListNextLink(D2ClientListLinkStrc* pLink, in
     return (D2ClientListLinkStrc*)(nOffset + nLinkOffset);
 }
 
-// 0x0044A980
-void __cdecl sub_0044A980_SendPacket0D()
-{
-    unsigned char nHeader;
-// build: symbol ?CHATDLG_SetMcpResult@* 0x00449BF0
-    CHATDLG_SetMcpResult(0);
-    nHeader = 0x0D;
-    sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
-}
 
-// 0x0044A9B0
-void __cdecl sub_0044A9B0_SendPacket0F()
-{
-    unsigned char nHeader;
-    CHATDLG_SetMcpResult(0);
-    nHeader = 0x0F;
-    sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
-}
 
-// 0x0044A9E0
-void __cdecl sub_0044A9E0_SendPacket10()
-{
-    unsigned char nHeader;
-    CHATDLG_SetMcpResult(0);
-    nHeader = 0x10;
-    sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
-}
 
-// 0x0044AA10
-void __fastcall VIEW_SendMcpLadderRequest(unsigned char nArg1, unsigned short nArg2)
-{
-    D2ClientPacket11Strc tPacket;
-    CHATDLG_SetMcpResult(0);
-    tPacket.nHeader = 0x11;
-    tPacket.nArg1 = nArg1;
-    tPacket.nArg2 = nArg2;
-    sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, (unsigned char*)&tPacket, 4);
-}
 
-// 0x0044AA50
-void __cdecl VIEW_SendMcpMotdRequest()
-{
-    unsigned char nHeader;
-    CHATDLG_SetMcpResult(0);
-    nHeader = 0x12;
-    sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
-}
 
-// 0x0044AA80
-void __cdecl VIEW_SendMcpCancelGameCreate()
-{
-    unsigned char nHeader;
-    CHATDLG_SetMcpResult(0);
-    nHeader = 0x13;
-    sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
-}
 
-// 0x0044AAB0
-void __cdecl VIEW_SendMcpCharListRequest()
-{
-    D2ClientPacket19Strc tPacket;
-    CHATDLG_SetMcpResult(0);
-    tPacket.nHeader = 0x19;
-    *(int*)&tPacket.nValue0 = 8;
-    sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &tPacket.nHeader, 5);
-}
 
 // 0x004502A0
 void D2ClientOffsetListAStrc::sub_004502A0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting)
