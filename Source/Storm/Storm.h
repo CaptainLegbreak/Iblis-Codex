@@ -4,7 +4,8 @@
 struct D2BitmapInfoStrc;
 struct D2GfxBufferFuncsStrc;
 struct D2ModuleEntry32Strc;
-struct ARCHIVEREC;
+namespace Storm { namespace SFile { struct ARCHIVEREC; } }
+using Storm::SFile::ARCHIVEREC;
 struct D2SystemTimeStrc;
 struct D2ThreadContextStrc;
 struct D2SystemInfoStrc;

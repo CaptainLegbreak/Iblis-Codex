@@ -5,7 +5,8 @@
 
 struct D2BigPairStrc;
 struct D2CriticalSectionStrc;
-struct ARCHIVEREC;
+namespace Storm { namespace SFile { struct ARCHIVEREC; } }
+using Storm::SFile::ARCHIVEREC;
 struct REQUEST;
 struct FILEREC;
 struct EVENTREC;
@@ -39,7 +40,7 @@ void __cdecl sub_006CB550_DestroyList(); // 0x006CB550
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* lpCriticalSection); // 0x006CC1FC
 
-// build: symbol ?UnlinkAll@?$TSList@UARCHIVEREC@@U?$TSGetLink@UARCHIVEREC@@@@@@QAEXXZ 0x00418900
+// build: symbol ?UnlinkAll@?$TSList@UARCHIVEREC@SFile@Storm@@U?$TSGetLink@UARCHIVEREC@SFile@Storm@@@@@@QAEXXZ 0x00418900
 // build: symbol ?UnlinkAll@?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAEXXZ 0x00418940
 // build: symbol ?UnlinkAll@?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEXXZ 0x00418980
 // build: symbol ?UnlinkAll@?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAEXXZ 0x004189C0

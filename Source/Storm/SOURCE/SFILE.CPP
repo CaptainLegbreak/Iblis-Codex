@@ -2597,7 +2597,7 @@ void D2StormListBaseStrc::sub_00417D40_Initialize()
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
-// build: symbol ??1ARCHIVEREC@@QAE@XZ 0x00418A50
+// build: symbol ??1ARCHIVEREC@SFile@Storm@@QAE@XZ 0x00418A50
 // 0x00418490
 int D2StormList00418490Strc::sub_00418490_IsEmpty()
 {
@@ -2712,7 +2712,7 @@ void __fastcall RemoveArchiveRef(ARCHIVEREC* pArch)
 unsigned long gdwStormThreadId_00779040; // 0x00779040
 
 // 0x00418A50
-ARCHIVEREC::~ARCHIVEREC()
+Storm::SFile::ARCHIVEREC::~ARCHIVEREC()
 {
     if (!this || !bMapped)
     {
@@ -3929,7 +3929,7 @@ Done:
     return bResult;
 }
 
-// build: symbol ??_GARCHIVEREC@@QAEPAXI@Z 0x00418B20
+// build: symbol ??_GARCHIVEREC@SFile@Storm@@QAEPAXI@Z 0x00418B20
 // build: symbol ??_GFILEREC@@QAEPAXI@Z 0x00419150
 // build: symbol ??_GD2StormRecord419000Strc@@QAEPAXI@Z 0x00419000
 inline D2StormRecord419000Strc::~D2StormRecord419000Strc()
