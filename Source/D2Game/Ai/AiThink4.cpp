@@ -22,25 +22,17 @@
 #include "D2Txt.h"
 #include "D2GameRecords.h"
 #include "D2LanguageNames.h"
+#include "D2AiCallbackArgs.h"
 
 struct D2MonStatsTxt;
 
 struct D2LevelsTxt;
-
-struct D2PantherAiCallbackArgStrc;
 
 struct D2AiCallback11ArgStrc;
 
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-
-struct D2PantherAiCallbackArgStrc
-{
-    D2UnitStrc* pTarget;
-    int nDistance;
-    int unk0x08[8];
-};
 
 struct D2AiCallback11ArgStrc
 {
@@ -90,17 +82,7 @@ struct D2MapAIPathPositionStrc;
 
 struct D2AiCmdStrc;
 
-struct D2BaalToStairsAiCallbackArgStrc;
-
-struct D2SandRaiderAiCallbackArgStrc;
-
 union D2SeedStrc;
-
-struct D2Unk005EAD50CounterStrc;
-
-struct D2Unk005EAD50LimitsStrc;
-
-struct D2Unk005EAD50ArgStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -111,20 +93,6 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-
-struct D2BaalToStairsAiCallbackArgStrc
-{
-    int unk0x00;
-    int nMaxDistance;
-    int unk0x08[8];
-};
-
-struct D2SandRaiderAiCallbackArgStrc
-{
-    D2UnitStrc* pTarget;
-    int nDistance;
-    int unk0x08[8];
-};
 
 void __fastcall MONSTERMODE_SetVelocityParams(D2AiParamStrc* pAiParam, int a2, int nVel, unsigned char a4); // 0x005A6260
 
@@ -184,28 +152,6 @@ D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* p
 
 int __fastcall PLAYERPETS_GetPetTypeFromPetGUID(D2UnitStrc* pPlayer, int nPetGUID); // 0x00574A20
 
-struct D2Unk005EAD50CounterStrc
-{
-    char unk0x00[0x14];
-    int nFrame;
-    int nValue;
-    int nBase;
-};
-
-struct D2Unk005EAD50LimitsStrc
-{
-    char unk0x00[0x82];
-    short nMin;
-    short nMax;
-};
-
-struct D2Unk005EAD50ArgStrc
-{
-    D2Unk005EAD50CounterStrc* pCounter;
-    char unk0x04[0x18];
-    D2Unk005EAD50LimitsStrc* pLimits;
-};
-
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
 int __fastcall sub_005EABF0(D2GameStrc* pGame, D2UnitStrc* pTarget, D2UnitStrc* pUnit, int nSkillId, D2Unk005EAD50ArgStrc* pArg); // 0x005EABF0
@@ -218,21 +164,7 @@ int __stdcall SKILLS_GetShiftedManaCosts(int nSkillId, int nSkillLevel); // 0x00
 
 #define AI_GetParam(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 
-struct D2SiegeBeastTowerAiCallbackArgStrc;
-
-struct D2NihlathakOverseerAiCallbackArgStrc;
-
-struct D2MinionSpawnerAiCallbackArgStrc;
-
-struct D2ShadowMasterAiCallbackArgStrc;
-
 struct D2FallenShamanAiCallbackArgStrc;
-
-struct D2ZakarumPriestAiCallbackArgStrc;
-
-struct D2FetishShamanAiCallbackArgStrc;
-
-struct D2OblivionKnightAiCallbackArgStrc;
 
 struct D2ModeChangeStrc;
 
@@ -254,44 +186,6 @@ enum
     MONTYPEFLAG_CHAMPION = 0x04,
 };
 
-struct D2SiegeBeastTowerAiCallbackArgStrc
-{
-    int nMaxDistance;
-    int unk0x04;
-    int unk0x08[8];
-};
-
-struct D2NihlathakOverseerAiCallbackArgStrc
-{
-    int nMaxDistance;
-    int nDistantMaxDistance;
-    int nMaxLifePercentage;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pDistantTarget;
-    int nCounter;
-    int unk0x18[4];
-};
-
-struct D2MinionSpawnerAiCallbackArgStrc
-{
-    int nMinions;
-    int unk0x04[9];
-};
-
-struct D2ShadowMasterAiCallbackArgStrc
-{
-    D2UnitStrc* unk0x00;
-    D2UnitStrc* unk0x04;
-    int unk0x08;
-    int unk0x0C;
-    D2UnitStrc* unk0x10;
-    int unk0x14;
-    int unk0x18;
-    int unk0x1C;
-    int unk0x20;
-    D2UnitStrc* unk0x24;
-};
-
 struct D2FallenShamanAiCallbackArgStrc
 {
     D2UnitStrc* pTarget;
@@ -299,37 +193,6 @@ struct D2FallenShamanAiCallbackArgStrc
     int nDistance;
     int nMaxDistance;
     int unk0x10[6];
-};
-
-struct D2ZakarumPriestAiCallbackArgStrc
-{
-    D2UnitStrc* pTarget;
-    int nCounter;
-    int nMaxLifePercentage;
-    int nMaxDistance;
-    int unk0x10[6];
-};
-
-struct D2FetishShamanAiCallbackArgStrc
-{
-    D2UnitStrc* pClosestDeadTarget;
-    int nSquaredDistanceToClosestDeadTarget;
-    int nMaxSearchRangeSquared;
-    D2UnitStrc* pClosestAliveTarget;
-    int nSquaredDistanceToClosestAliveTarget;
-    int nAliveTargets;
-    int nHealCapability;
-    int unk0x1C[3];
-};
-
-struct D2OblivionKnightAiCallbackArgStrc
-{
-    D2UnitStrc* unk0x00;
-    D2UnitStrc* unk0x04;
-    int unk0x08;
-    int unk0x0C;
-    int unk0x10;
-    int unk0x14[5];
 };
 
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00552FD0
@@ -402,40 +265,6 @@ enum D2C_F42AiConstants
 
     STATE_BAALTOSTAIRS_INVIS = 0x92,
     MONSTATSFLAGINDEX_LUNDEAD = 11,
-};
-
-struct D2GreaterMummyAiCallbackArgStrc
-{
-    D2UnitStrc* pReviveTarget;
-    D2UnitStrc* pHealTarget;
-    int nHealReviveCounter;
-    int nCounter;
-    int nMaxDistance;
-    int bRadament;
-    int bNormal;
-    int unk0x1C[3];
-};
-
-struct D2VultureAiCallbackArgStrc
-{
-    D2UnitStrc* pTarget;
-    int nDistance;
-    int nLifePercentage;
-    int unk0x0C[7];
-};
-
-struct D2MephistoAiCallbackArgStrc
-{
-    D2UnitStrc* unk0x00;
-    int unk0x04;
-    int unk0x08;
-    D2UnitStrc* unk0x0C;
-    int unk0x10;
-    D2UnitStrc* unk0x14;
-    int unk0x18;
-    int nCounter;
-    int unk0x20;
-    int unk0x24;
 };
 
 extern const unsigned int gdwBitMasks[32];                                                                  // 0x006CE268
@@ -564,15 +393,6 @@ int __stdcall PATH_GetY(D2DynamicPathStrc*); // 0x00648900
 int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
 
 struct D2SkillListStrc;
-
-struct D2ShadowMasterSkillStrc
-{
-    D2UnitStrc* pTarget;
-    int nSkillId;
-    int nChance;
-    int nX;
-    int nY;
-};
 
 extern "C" const char szAiThink4File[];                                                                     // 0x006E3500
 
@@ -713,10 +533,6 @@ void __fastcall sub_0053DFF0(D2ClientStrc*,D2Packet8A*); // 0x0053DFF0
 
 struct Obj00648AD0;
 
-struct D2HighPriestAiCallbackArgStrc;
-
-struct D2PetMoveStrc;
-
 struct D2PlayerDataStrc;
 
 struct D2MonStats2Txt;
@@ -724,21 +540,6 @@ struct D2MonStats2Txt;
 struct D2PetInfoStrc;
 
 int __fastcall sub_005FD350_SpawnNearby(int nMonsterId, D2ActiveRoomStrc* pRoom, int nX, int nY, int a5); // 0x005FD350
-
-struct D2HighPriestAiCallbackArgStrc
-{
-    D2UnitStrc* pTarget;
-    int nLifePercentage;
-    int nMaxDistance;
-    int unk0x0C[7];
-};
-
-struct D2PetMoveStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTarget;
-    int nCounter;
-};
 
 int __fastcall AITACTICS_UseSequenceSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, D2UnitStrc* pTargetUnit, int nX, int nY); // 0x005DE000
 
@@ -1415,8 +1216,6 @@ enum D2C_M84QuillMotherAi
     QUILLMOTHER_AI_PARAM_MELEE_STALL_DURATION = 2,
     QUILLMOTHER_AI_PARAM_IDLE_STALL_DURATION = 3,
 };
-
-struct D2GreaterMummyAiCallbackArgStrc;
 
 extern const unsigned char gnGargoyleTrapDirectionMap[]; // 0x006E3540
 
@@ -9739,17 +9538,6 @@ void __stdcall sub_005EF310(int nUnused1)
 }
 
 struct D2SuperUniquesTxt;
-
-struct D2BaalThroneAiCallbackArgStrc;
-
-struct D2BaalThroneAiCallbackArgStrc
-{
-    D2UnitStrc* pTarget1;
-    int nDistance1;
-    D2UnitStrc* pTarget2;
-    int nDistance2;
-    int unk_10[6];
-};
 
 extern const int gnBaalThroneSuperUniqueIds[]; // 0x006E3528
 
