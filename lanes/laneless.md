@@ -9,12 +9,11 @@ The user asked the laneless chat to take board upkeep off the coordinator: every
 duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
 call stays the coordinator's. This section is replaced at each check.
 
-- **2026-11-24 10:25 PT**, main #357:
-  - **Waiting:** `laneless/objmap-joins-3` (19 placeholder joins, verified on #357). It replaces joins-2,
-    which conflicted with #357.
-  - Every lane has posted within the last 30 minutes.
-  - **Future timestamp:** lane 8's top entry says 10:20; it was posted before 10:09.
-  - **Object map:** `lanes/tools/objmap/report-356.md` (175 clear leads).
+- **2026-11-24 11:11 PT**, main #360:
+  - **objmap-joins-3** conflicts with #360. I'm replaying it with 4 more joins as `laneless/objmap-joins-4`,
+    posted once its full build passes.
+  - **Lane 6:** joins-4 includes BnMessQueue.cpp <- Unknown_005201E0 and Unknown_0051C760 <- Unknown_0051C7E0.
+    Skip those two from your object-map list.
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
