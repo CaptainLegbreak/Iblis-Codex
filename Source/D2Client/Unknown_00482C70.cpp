@@ -1,3 +1,4 @@
+#include "D2LanguageNames.h"
 #include "D2ClientUi.h"
 #include "D2Txt.h"
 #include "D2Unicode.h"

@@ -1,3 +1,4 @@
+#include "D2LanguageNames.h"
 #include "D2Client.h"
 #include "D2Unicode.h"
 #include "D2McpPackets.h"
