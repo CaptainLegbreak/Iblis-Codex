@@ -29,7 +29,19 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
-D2CriticalSectionStrc gtCacheLock;                                                                  // 0x00881894
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
+
+// A critical section for the whole run: initialized before main, deleted at exit.
+struct CCritSect : D2CriticalSectionStrc
+{
+    CCritSect() { InitializeCriticalSection(this); }
+    ~CCritSect() { DeleteCriticalSection(this); }
+};
+
+// build: symbol ??__EgtCacheLock@@YAXXZ 0x006CAEA0
+// build: symbol ??__FgtCacheLock@@YAXXZ 0x006CB440
+CCritSect gtCacheLock;                                                                  // 0x00881894
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 

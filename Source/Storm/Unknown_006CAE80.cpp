@@ -83,31 +83,10 @@ extern TSList<BREAKCMD> gList_007088E8; // 0x007088E8
 
 inline void* __cdecl operator new(unsigned int, void* location);
 
-// 0x006CAE80
-void __cdecl sub_006CAE80_InitializeLock()
-{
-    InitializeCriticalSection(gCriticalSection_00881860);
-    sub_00683824_RegisterExit(sub_006CB420_DestroyLock);
-}
-
-// 0x006CAEA0
-void __cdecl sub_006CAEA0_InitializeLock()
-{
-    InitializeCriticalSection(gCriticalSection_00881894);
-    sub_00683824_RegisterExit(sub_006CB440_DestroyLock);
-}
-
 // 0x006CAEC0
 void __cdecl sub_006CAEC0_RegisterCleanup()
 {
     sub_00683824_RegisterExit(sub_006CB450_StaticFiniNewsCache);
-}
-
-// 0x006CAED0
-void __cdecl sub_006CAED0_InitializeLock()
-{
-    InitializeCriticalSection(gCriticalSection_00881F64);
-    sub_00683824_RegisterExit(sub_006CB470_DestroyLock);
 }
 
 inline void* __cdecl operator new(unsigned int, void* location) { return location; }
@@ -140,13 +119,6 @@ void __cdecl sub_006CAF30_SnapshotCounters()
 void __cdecl sub_006CAF60_InitStartTick()
 {
     gnUnitInitSeed = GetTickCount();
-}
-
-// 0x006CB010
-void __cdecl sub_006CB010_InitializeLock()
-{
-    InitializeCriticalSection(gCriticalSection_0096D610);
-    sub_00683824_RegisterExit(sub_006CB4E0_DestroyLock);
 }
 
 // 0x006CB030
