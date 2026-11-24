@@ -18,9 +18,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 13:56:58 PST 2026: join-gfx-c660 ready; weather object (Unknown_00472210 + 00472DA0 + four single-function weather placeholders + Gfx.cpp's weather strays) verifying; Gfx.cpp <- Unknown_0046C7D0 parked (see Questions). Next: automap.cpp <- Unknown_0045AE90.
+- Tue Nov 24 14:10:24 PST 2026: join-weather ready; join-cmdtbl (CmdTbl.cpp <- Unknown_00468940) and gamedata-table (Storm/Unknown_006CA9C0) verifying. Parked: Gfx <- 0046C7D0, automap <- 0045AE90, Party <- 0049AF60, CmdTbl <- 00469420 (inlining or views, see Questions); five leads conflict with language-table copies (Questions).
 
 ## Ready
+
+- lane4/join-weather 634d5a45c placeholders -6 (Unknown_00472DA0, 004726F0, 00472890, 00473090, 004737B0 join Unknown_00472210.cpp, map: clear leads both ways): the weather object 0x472210-0x473F50 is one unit in address order, also taking Gfx.cpp's 0x4723F0, 0x472400, 0x472550, 0x473A70 from its run. Duplicate state definitions and context copies go; the splash/snow/lightning flags are statics (as the parts had them); the layer state's cel files are typed; the unit is /GS- (0x472890's placeholder was); the weather lines table and thunder flag move into its plan. Gfx.cpp keeps the inline 0x472530 one of its functions expands. Borrowed data 844 B (main 844). VERIFIED 130249c9a96d on #366. Not stacked; edits Gfx.cpp, as join-gfx-c660 does (different functions).
 
 - lane4/join-gfx-c660 395148d4b placeholders -1 (Unknown_0046C660.cpp): Gfx.cpp takes in Unknown_0046C660.cpp's six functions (map: clear lead; they sit between Gfx.cpp's runs and are called only from it), in address order, with D2PlayerModes.h/D2MonModes.h. Borrowed data 844 B (main 844). VERIFIED b2f9b52d21c5 on #366. Not stacked. lane4/join-weather also edits Gfx.cpp (different functions).
 
