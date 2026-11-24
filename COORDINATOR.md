@@ -64,6 +64,22 @@ A function belongs to the lane whose address range or file run it sits in, whate
 
 ## Per lane
 
+**Borrowed functions, now with each owning lane** (lane 7 never started; the user approved spreading them). These 9 functions are the last 12,041 B of code taken from the image. Each lane takes its own after its current branch. The earlier notes are in the iblis-lane7 package (ask the user for it). They are summed up here; the key finding is that a static callee with a register calling convention fixes which file the caller must be built in.
+
+| Function | Size | Lane | Where it must be built / state |
+|---|---:|---|---|
+| 0x4A4AD0 | 1,232 | 1 | Unknown_004A43E0.cpp; 1,202 B, register choice only |
+| 0x62B5B0 | 1,192 | 6 | D2Common ITEMS/Items.cpp (0x628830 takes nRequiredLevel in eax). Same length reached: the original keeps nRequiredLevel in esi; ours spills it |
+| 0x677880 | 4,232 | 6 | needs DRLG/OutPlace.cpp and Unknown_00675600.cpp joined first; its 296 B of borrowed data at 0x6F13F0 comes with it |
+| 0x679C80 | 450 | 6 | needs Unknown_006793E0 (/GS-) and Unknown_00679A60 joined; check whether `path-a-2`/`pathmisc-a` already did that |
+| 0x4F8B80 | 561 | 6 | D2Win, __fastcall, no file constraint; stand-in differs in register allocation |
+| 0x55A6D0 | 2,253 | 5 | D2Game ITEMS/Items.cpp |
+| 0x5DD7F0 | 1,084 | 5 | D2Game Ai/AiUtil.cpp |
+| 0x5EDC50 | 791 | 5 | D2Game AI, no file constraint |
+| 0x6BD230 | 246 | 3 | Fog export 10215. Every byte equal except one unused 4-byte frame slot; verified functions show such a slot only when they have register parameters |
+
+A match goes into its file in address order: record it in units.json and as `verified` in functions.json, delete its stand-in in Source/StandIns/, and post it as usual. No forcing constructs.
+
 **Freeze lifted:** `config-record-3` is on main (#296). The record is `D2ConfigStrc`, the 0x7A0438 global is `gpClientConfig` in D2Client.h. Rebase before your next push.
 
 ### Lane 1
