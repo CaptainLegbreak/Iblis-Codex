@@ -66465,11 +66465,6 @@
      "name": "D2Common_10095"
     },
     {
-     "va": "0x00627B70",
-     "length": 51,
-     "name": "?DUNGEON_ItemCalcGetRandomNumberInRange@@YIHHHHPAX@Z"
-    },
-    {
      "va": "0x00653ED0",
      "length": 52,
      "name": "?DATATBLS_RollRandomUniquePrefixString@@YIPBUUnicode@@PAUD2UnitStrc@@@Z"
@@ -68389,6 +68384,16 @@
      "name": "STATLIST_GetMaximum"
     },
     {
+     "va": "0x00627B70",
+     "length": 51,
+     "name": "?DUNGEON_ItemCalcGetRandomNumberInRange@@YIHHHHPAX@Z"
+    },
+    {
+     "va": "0x00627BB0",
+     "length": 98,
+     "name": "sub_00627BB0_ItemCalcGetStatValue"
+    },
+    {
      "va": "0x00627C20",
      "length": 101,
      "name": "ITEMMODS_EvaluateItemFormula"
@@ -68403,17 +68408,6 @@
      "va": "0x006275B0",
      "length": 264,
      "name": "?sub_006275B0@@YGXPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00627BB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00627BB0",
-     "length": 98,
-     "name": "sub_00627BB0_ItemCalcGetStatValue"
     }
    ]
   },
