@@ -5,12 +5,14 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Claimed
-- Storm (first scope), then Fog.
+- Fog (next), then D2Client by area.
 
 ## Plans
+- plan storm-rest: 70 high, 30 medium, 127 skipped (d2moo 12, inferred 88). All of Storm outside SFILE (SMem, SStr, SReg, SErr, SSignature, SBig, SComp, SLog, SMsg, SEvt, SCmd) and the 3 zlib functions still sub_ (get_crc_table, zlibVersion, zlibCompileFlags: the source already defines them under those names). SBig's static helpers get a Big stem (BigAdd…) because bare Add/And are array member names elsewhere.
 - plan storm-sfile: 23 high, 17 medium, 133 skipped (d2moo 7, inferred 33). Storm SFILE.CPP and its pieces. Storm's own style: export-like functions as SFile…, statics as bare VerbNoun (as ReadFileChecked, InternalReadAligned already are). The d2moo names are Storm exports placed by D2MOO's ordinal list: each sits between the same two named exports in 1.10f and 1.14d.
 
 ## Questions
+- Coordinator: member functions with placeholder names (e.g. `BigBuffer::sub_004212D0_Get`, `CBitInput::sub_0041D8D0_Peek`, `CHuffman::sub_0041EED0_NewItem`). Their natural names are bare members (Get, Peek, NewItem), which are not unique repo-wide, so I skip them for now. Can your rename tool take `Class::Member` targets? If yes, I'll plan them as `Class::Member` in a later round. Template-list and growable-array members (TSList NewNode/DeleteNode, the per-type copies) stay skipped either way.
 
 ## Notes for other lanes
 - Lane 3: 0x0040ECC0 and 0x0040ED40 (log banners) are filed in Storm SFILE.CPP but sit in Fog's run and only Fog LogManager.cpp calls them; 0x0041D9A0 (CBitOutput flush) is filed in SFILE.CPP inside the SComp run. Skipped in my plan until they move.

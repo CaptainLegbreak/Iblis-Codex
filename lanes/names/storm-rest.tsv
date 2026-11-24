@@ -1,0 +1,101 @@
+va	old_name	new_name	source	file	confidence	reason
+0x00411620	sub_00411620_FatalError	FatalMemoryError	inferred	Source/Storm/SOURCE/SMEM.CPP	medium	shows a Storm error for a heap failure (error 8, out of memory, at its callers) and exits the process
+0x00411640	sub_00411640_GetBlockHeader	GetBlockHeader	inferred	Source/Storm/SOURCE/SMEM.CPP	high	returns a block's header from its data pointer, following the indirect-header flag; (also spelled sub_M114_Emit_00411640)
+0x00411670	sub_00411670_GetCallerId	GetCallerId	inferred	Source/Storm/SOURCE/SMEM.CPP	medium	returns the heap id for a (file, line) caller, caching the last one; hashes the file name with SStrHash
+0x004116E0	sub_004116E0_GetBlockData	GetBlockData	inferred	Source/Storm/SOURCE/SMEM.CPP	high	returns a block's data pointer from its header, following the indirect-data flag
+0x00411710	sub_00411710_LockHeap	LockHeap	inferred	Source/Storm/SOURCE/SMEM.CPP	high	enters the lock of the heap a block belongs to and returns the heap
+0x00411740	sub_00411740_FindFreeBlock	FindHeapById	inferred	Source/Storm/SOURCE/SMEM.CPP	medium	looks up a heap by caller id in its hash bucket under the bucket lock; (also spelled sub_K01_Emit_00411740)
+0x004117A0	sub_004117A0_SetAndShowError	ReportHeapError	inferred	Source/Storm/SOURCE/SMEM.CPP	medium	sets Storm's last error and, if enabled, displays it with file and line
+0x004117D0	sub_004117D0_ReleaseHeapLock	ReleaseHeapLock	inferred	Source/Storm/SOURCE/SMEM.CPP	high	leaves the held heap lock, if any, and marks it released
+0x004117F0	sub_004117F0_CreateHeap	CreateHeap	inferred	Source/Storm/SOURCE/SMEM.CPP	high	reserves and commits a new heap with VirtualAlloc and writes its header
+0x00411910	sub_00411910_CheckPtr	CheckPointer	inferred	Source/Storm/SOURCE/SMEM.CPP	high	validates a block pointer (magic, flags), reporting the error when asked
+0x004119A0	sub_A21_FreeListIndex	GetFreeListIndex	inferred	Source/Storm/SOURCE/SMEM.CPP	high	maps a block size to its free-list bucket (size/32, at most 8)
+0x004119B0	sub_004119B0_CalcBlockSize	CalcBlockSize	inferred	Source/Storm/SOURCE/SMEM.CPP	high	computes a block's total size, padding, large flag and sentinel flag
+0x00411A20	sub_00411A20_InitPageSize	InitPageSize	inferred	Source/Storm/SOURCE/SMEM.CPP	high	sets the heap page size from GetSystemInfo, rounded to a power of two
+0x00411A50	sub_00411A50_InitBlock	InitBlock	inferred	Source/Storm/SOURCE/SMEM.CPP	high	writes a block header (size, padding, flags, signature) and its sentinel
+0x00411A80	sub_00411A80_ReleaseBlock	UnlinkAndFreeHeap	inferred	Source/Storm/SOURCE/SMEM.CPP	medium	takes a heap off its list and releases its memory with VirtualFree
+0x00411AA0	sub_00411AA0_FreeBlock	FreeBlock	inferred	Source/Storm/SOURCE/SMEM.CPP	high	frees a block (large blocks: their pages), updating heap counts and free lists
+0x00411B90	sub_00411B90_GetBlockSizes	GetBlockSizes	inferred	Source/Storm/SOURCE/SMEM.CPP	high	returns a block's data size and header size
+0x00411BD0	sub_00411BD0_CommitHeap	CommitHeap	inferred	Source/Storm/SOURCE/SMEM.CPP	high	commits more of a heap's reserved range, rounded to its page size
+0x00411C20	sub_00411C20_FreeBlockEx	FillAndFreeBlock	inferred	Source/Storm/SOURCE/SMEM.CPP	medium	fills the block with 0xDD when that debug flag is on, then frees it
+0x00411C70	sub_00411C70_SplitBlock	SplitBlock	inferred	Source/Storm/SOURCE/SMEM.CPP	high	splits the unused tail of a block into a free block or gives it back to the heap end
+0x00411D40	sub_00411D40_SetFlags	SMemSetDebugFlags	inferred	Source/Storm/SOURCE/SMEM.CPP	medium	sets the four heap debug flags (sentinel, report, large, fill) by mask; Storm export style, no D2MOO entry
+0x00411DA0	sub_00411DA0_GetHeap	EnsureHeapInitialized	inferred	Source/Storm/SOURCE/SMEM.CPP	medium	initialises the heaps if needed and returns whether they are initialised
+0x00411DC0	sub_00411DC0_RebuildFreeLists	RebuildFreeLists	inferred	Source/Storm/SOURCE/SMEM.CPP	high	walks a heap's blocks and rebuilds its free lists, merging neighbours
+0x00411F00	sub_00411F00_ProcessUsedBlock	FreeLeakedBlocks	inferred	Source/Storm/SOURCE/SMEM.CPP	medium	frees a heap's blocks still in use, reporting "memory never released", and releases the heap unless a block is kept
+0x00412080	sub_00412080_GrowBlock	GrowBlock	inferred	Source/Storm/SOURCE/SMEM.CPP	high	grows a block in place into the following free space if it fits
+0x004121D0	sub_004121D0_ShrinkBlock	ShrinkBlock	inferred	Source/Storm/SOURCE/SMEM.CPP	high	shrinks a block in place, splitting off the tail
+0x00412240	sub_00412240_DestroyHeaps	DestroyHeaps	inferred	Source/Storm/SOURCE/SMEM.CPP	high	frees every heap in every bucket and marks the heaps uninitialised
+0x00412BA0	sub_00412BA0_AllocBlock	AllocBlock	inferred	Source/Storm/SOURCE/SMEM.CPP	high	allocates a block from a heap's free lists or end, rebuilding the lists when fragmented
+0x00412E40	sub_00412E40_HeapAlloc	AllocFromHeap	inferred	Source/Storm/SOURCE/SMEM.CPP	high	allocates from a given heap (large or small), fatal on oversize; HeapAlloc would clash with Win32
+0x00412F30	sub_00412F30_ReAlloc	ReallocBlock	inferred	Source/Storm/SOURCE/SMEM.CPP	high	resizes a block in place (shrink/grow) or by alloc-copy-free
+0x00413510	sub_00413510_SStrChrDir	SStrChrDir	inferred	Source/Storm/SOURCE/SSTR.CPP	medium	validated SStrChr or SStrChrR depending on a direction flag; Storm export style, no D2MOO entry
+0x00413A00	sub_00413A00_VPrintf	InternalVPrintf	inferred	Source/Storm/SOURCE/SSTR.CPP	medium	_vsnprintf into a sized buffer, always terminated; shared by SStrPrintf and SStrVPrintf
+0x00413B30	sub_00413B30_ParseUnsignedDecimal	SStrToUnsigned	d2moo	Source/Storm/SOURCE/SSTR.CPP	high	D2MOO Storm.#576; parses an unsigned decimal; sits between SStrToInt and SStrTokenize
+0x004142A0	sub_004142A0_InitPowTable	InitPowTable	inferred	Source/Storm/SOURCE/SSTR.CPP	high	fills the table of powers of ten times digits used by string-to-number parsing
+0x00414360	sub_00414360_CallThenSetFlag	SStrInitialize	inferred	Source/Storm/SOURCE/SSTR.CPP	medium	initialises SStr's tables and sets the ready flag; StormStartup calls it beside SMemInitialize and SLogInitialize
+0x004144B0	sub_004144B0_EnsureInit	EnsureSStrInitialized	inferred	Source/Storm/SOURCE/SSTR.CPP	medium	calls SStrInitialize unless already done
+0x00414B00	sub_00414B00_SRegLoadEntry	LoadRegistryEntry	inferred	Source/Storm/SOURCE/SREG.CPP	high	opens a key under the base key (by flags) and reads a value's type and data
+0x0041BEE0	sub_0041BEE0_InitStorm	StormInitialize	inferred	Source/Storm/SOURCE/STORM.CPP	medium	initialises SMem, SLog and SStr at startup (called from the static startup object)
+0x0041C0E0	sub_0041C0E0_SetCallback	SetErrorReportCallback	inferred	Source/Storm/SOURCE/SERR.CPP	medium	stores the error report callback
+0x0041C0F0	sub_0041C0F0_AppendExeMsgSource	AddMessageSource	inferred	Source/Storm/SOURCE/SERR.CPP	high	appends a message source (facility, this module) to the list
+0x0041C140	sub_0041C140_AppendExeMsgSources	AddDefaultMessageSources	inferred	Source/Storm/SOURCE/SERR.CPP	high	adds Storm's three default message facilities
+0x0041C160	sub_0041C160_DebugBreak	BreakIntoDebugger	inferred	Source/Storm/SOURCE/SERR.CPP	high	__debugbreak (DebugBreak would clash with Win32)
+0x0041C170	sub_0041C170_GetMessageText	GetMessageText	inferred	Source/Storm/SOURCE/SERR.CPP	high	loads a Storm message string by index, falling back to a built-in text
+0x0041C1A0	sub_0041C1A0_LockErrorState	LockErrorState	inferred	Source/Storm/SOURCE/SERR.CPP	high	creates the error-state lock on first use and enters it
+0x0041C1E0	sub_0041C1E0_UnlockErrorState	UnlockErrorState	inferred	Source/Storm/SOURCE/SERR.CPP	high	leaves the error-state lock
+0x0041C1F0	sub_0041C1F0_FormatTypeName	FormatTypeName	inferred	Source/Storm/SOURCE/SERR.CPP	medium	turns a decorated ".?AU…@@" name into a plain type name for resource-leak reports
+0x0041C2A0	sub_0041C2A0	SErrGetLastError	d2moo	Source/Storm/SOURCE/SERR.CPP	high	D2MOO Storm.#463; returns Storm's last error; it and #563 sit just before SErrPrepareAppFatal in both builds
+0x0041C2B0	sub_0041C2B0	SErrIsDisplayingError	d2moo	Source/Storm/SOURCE/SERR.CPP	high	D2MOO Storm.#563; returns whether an error is being displayed
+0x0041C340	sub_0041C340_SetLastError	SErrSetLastError	d2moo	Source/Storm/SOURCE/SERR.CPP	high	D2MOO Storm.#465; Storm.h already declares SErrSetLastError at this same address (0x0041C340)
+0x0041C360	sub_0041C360_SetSuppress	SErrSuppressErrors	d2moo	Source/Storm/SOURCE/SERR.CPP	high	D2MOO Storm.#468; sets the suppress-errors flag
+0x0041D160	sub_0041D160_DisplayAppFatal	SErrDisplayAppFatal	d2moo	Source/Storm/SOURCE/SERR.CPP	high	D2MOO Storm.#561; formats and displays a fatal application error with the owner's file and line
+0x0041D340	sub_0041D340_FindSignatureTag	FindSignatureTag	inferred	Source/Storm/SOURCE/SSignature.cpp	high	tells whether a buffer ends with a 'NGIS' signature block of the given size; (also spelled T0041D340)
+0x0041D370	sub_0041D370_HashData	HashSignatureData	inferred	Source/Storm/SOURCE/SSignature.cpp	medium	SHA-1 of a data block into a digest
+0x0041D410	sub_0041D410_GetWindow	GetHashWindowSize	inferred	Source/Storm/SOURCE/SSignature.cpp	medium	returns a hash buffer's held-back window size; GetWindow would clash with Win32
+0x0041D420	sub_0041D420_HashBuffered	HashBufferedData	inferred	Source/Storm/SOURCE/SSignature.cpp	medium	hashes data while holding back the last window of bytes (for the trailing signature)
+0x0041E080	sub_0041E080_ZAlloc	ZArenaAlloc	inferred	Source/Storm/SOURCE/SCOMP.CPP	high	zlib alloc callback: takes from the stack arena or falls back to SMemAlloc
+0x0041E0D0	sub_0041E0D0_ZFree	ZArenaFree	inferred	Source/Storm/SOURCE/SCOMP.CPP	high	zlib free callback: frees only what did not come from the arena
+0x0041E100	sub_0041E100_compress2	CompressWithArena	inferred	Source/Storm/SOURCE/SCOMP.CPP	medium	compress2 with an on-stack arena for zlib's allocations; worker of ZlibCompress (blizzard, 0x0041E1F0)
+0x0041E250	sub_0041E250_uncompress	UncompressWithArena	inferred	Source/Storm/SOURCE/SCOMP.CPP	medium	uncompress with an on-stack arena for zlib's allocations; worker of ZlibDecompress (blizzard, 0x0041E340)
+0x0041E420	sub_0041E420_RangesOverlap	DoRangesOverlap	inferred	Source/Storm/SOURCE/SCOMP.CPP	medium	tells whether two equal-size memory ranges overlap; (also spelled sub_M107_Emit_0041E420)
+0x0041E510	sub_0041E510_FreeWorkBuffer	FreeWorkBuffer	inferred	Source/Storm/SOURCE/SCOMP.CPP	high	releases the shared compression work buffer or frees a private one
+0x0041FA40	sub_0041FA40_FlushLog	FlushLog	inferred	Source/Storm/SOURCE/SLOG.CPP	high	writes a log's buffered text to its file and flushes it
+0x0041FB40	sub_0041FB40_AppendIndent	AppendIndent	inferred	Source/Storm/SOURCE/SLOG.CPP	high	appends the log's indent as spaces
+0x0041FB80	sub_0041FB80_AppendNewline	AppendNewline	inferred	Source/Storm/SOURCE/SLOG.CPP	high	appends CR LF to the log buffer
+0x0041FBA0	sub_0041FBA0_AppendTimestamp	AppendTimestamp	inferred	Source/Storm/SOURCE/SLOG.CPP	high	appends the cached local time stamp (or its width of spaces) to the log buffer
+0x0041FC80	sub_0041FC80_UnlinkLog	FreeLog	inferred	Source/Storm/SOURCE/SLOG.CPP	medium	removes a log from its bucket, releases its memory and leaves the bucket lock
+0x0041FCE0	sub_0041FCE0_UnlockLog	UnlockLog	inferred	Source/Storm/SOURCE/SLOG.CPP	high	leaves a log bucket's lock
+0x00420290	sub_00420290_BreakHandlerChain	SMsgBreakHandlerChain	d2moo	Source/Storm/SOURCE/SMSG.CPP	high	D2MOO Storm.#511; forwards to SEvtBreakHandlerChain; (also spelled sub_00420290_HandleMsg, sub_00420290_QueueMessage)
+0x00420310	sub_00420310	SMsgGetDefaultWindow	d2moo	Source/Storm/SOURCE/SMSG.CPP	high	D2MOO Storm.#518; returns the window SMsgSetDefaultWindow stores; (also spelled sub_00420310_GetWindow)
+0x00420320	sub_00420320_RegisterHandlers	SMsgPopRegisterState	d2moo	Source/Storm/SOURCE/SMSG.CPP	high	D2MOO Storm.#418; pops the four SMsg event types' state, mirror of SMsgPushRegisterState (its callee is SEvtPopState, spelled sub_004269C0_RegisterHandler here)
+0x004208E0	sub_004208E0_AddWndRec	AddWindow	inferred	Source/Storm/SOURCE/SMSG.CPP	high	adds a window record; pairs with FindWindow and DeleteWindow (blizzard names)
+0x00420AE0	sub_00420AE0_UnregisterAllWindows	DeleteAllWindows	inferred	Source/Storm/SOURCE/SMSG.CPP	high	deletes every window record through DeleteWindow
+0x00420CF0	sub_00420CF0_WindowProc	DispatcherWindowProc	inferred	Source/Storm/SOURCE/SMSG.CPP	medium	window procedure SMsgGetDispatcher returns: SMsgDispatchMessage, else DefWindowProc
+0x004213B0	sub_004213B0_FindLastSetBit	BigHighBitIndex	inferred	Source/Storm/SOURCE/SSignature.cpp	medium	returns the index of a big number's highest set bit (callers use 31 - (index & 31) as the shift)
+0x00421440	sub_00421440_IsEven	BigIsEven	inferred	Source/Storm/SOURCE/SBig.cpp	high	tells whether a big number is even
+0x00421510	sub_00421510_ToUnsigned	BigToUnsigned	inferred	Source/Storm/SOURCE/SBig.cpp	medium	returns a big number's low digit (behind SBigToUnsigned)
+0x00421530	sub_00421530	SBigCompare	d2moo	Source/Storm/SOURCE/SBig.cpp	high	D2MOO Storm.#603 (int, two handles); compares the two numbers
+0x004221F0	sub_004221F0_AddUInt	BigAddUInt	inferred	Source/Storm/SOURCE/SBig.cpp	high	a = b + c for an unsigned int c
+0x00422300	sub_00422300_Add	BigAdd	inferred	Source/Storm/SOURCE/SBig.cpp	high	a = b + c
+0x00422440	sub_00422440_And	BigAnd	inferred	Source/Storm/SOURCE/SBig.cpp	high	a = b & c
+0x00422570	sub_00422570_CompareUInt	BigCompareUInt	inferred	Source/Storm/SOURCE/SBig.cpp	high	compares a big number with an unsigned int
+0x004227A0	sub_004227A0_MulUInt	BigMulUInt	inferred	Source/Storm/SOURCE/SBig.cpp	high	a = b * c for a 64-bit c
+0x004228C0	sub_004228C0_Not	BigNot	inferred	Source/Storm/SOURCE/SBig.cpp	high	a = ~b
+0x004229D0	sub_004229D0_Or	BigOr	inferred	Source/Storm/SOURCE/SBig.cpp	high	a = b
+0x00423250	sub_00423250_Xor	BigXor	inferred	Source/Storm/SOURCE/SBig.cpp	high	a = b ^ c
+0x004245F0	sub_004245F0_MulMod	BigMulMod	inferred	Source/Storm/SOURCE/SBig.cpp	high	a = b * c mod d using the scratch stack
+0x00426210	sub_00426210_DeleteHandlerTable	DeleteHandlerTable	inferred	Source/Storm/SOURCE/SEVT.CPP	high	frees every handler of an event type's hash table and the table
+0x00426270	sub_00426270	FindEventType	inferred	Source/Storm/SOURCE/SEVT.CPP	high	finds an event type record by type and subtype in the hash table
+0x0042D450	sub_0042D450	get_crc_table	inferred	Source/Storm/zlib/crc32.c	high	zlib 1.2.8 crc32.c get_crc_table; defined as get_crc_table in crc32.c already
+0x0042DC30	sub_0042DC30	zlibVersion	inferred	Source/Storm/zlib/zutil.c	high	zlib 1.2.8 zutil.c zlibVersion; defined as zlibVersion in zutil.c already
+0x0042DC40	sub_0042DC40	zlibCompileFlags	inferred	Source/Storm/zlib/zutil.c	high	zlib 1.2.8 zutil.c zlibCompileFlags; defined as zlibCompileFlags in zutil.c already
+0x006C3D20	sub_006C3D20_ParseInteger	ConvertInteger	inferred	Source/Storm/SOURCE/SCMD.CPP	high	converts an option's text to a signed or unsigned number and stores it; sibling of ConvertBool (blizzard)
+0x006C3DA0	sub_006C3DA0_SetName	ConvertString	inferred	Source/Storm/SOURCE/SCMD.CPP	high	stores an option's string value (and its target copy); sibling of ConvertBool (blizzard); (also spelled sub_006C3DA0_ParseString)
+0x006C3F50	sub_006C3F50_ReadCommandFile	ProcessFile	inferred	Source/Storm/SOURCE/SCMD.CPP	medium	reads a command file into memory and processes it as a command line
+0x006C42E0	sub_006C42E0_FindLongestPrefix	FindLongestPrefix	inferred	Source/Storm/SOURCE/SCMD.CPP	high	finds the registered option whose name is the longest matching prefix of a string
+0x006C4980	sub_006C4980_ApplyOptions	ConvertPendingOptions	inferred	Source/Storm/SOURCE/SCMD.CPP	medium	converts the value for every option matching the pending name and keeps the longest length
+0x006C4CA0	sub_006C4CA0_FindValue	SCmdIsArgumentSet	inferred	Source/Storm/SOURCE/SCMD.CPP	medium	returns whether the argument with an id was given on the command line; Storm export style, no D2MOO entry
+0x006C4D70	sub_006C4D70_FindValue	SCmdGetNum	d2moo	Source/Storm/SOURCE/SCMD.CPP	high	D2MOO Storm.#473; returns an argument's number value; SCmdGetBool (blizzard) is its value != 0, as in D2MOO
+0x006C4E50	sub_006C4E50_RegisterArgList	SCmdRegisterArgList	d2moo	Source/Storm/SOURCE/SCMD.CPP	high	D2MOO Storm.#476; registers each entry of an argument list through SCmdRegisterArgument
+0x006C4EC0	sub_006C4EC0_ParseCommandLine	ProcessCommandLine	inferred	Source/Storm/SOURCE/SCMD.CPP	medium	tokenizes a command line and feeds each token to ProcessToken (blizzard); SCmdProcess calls it
