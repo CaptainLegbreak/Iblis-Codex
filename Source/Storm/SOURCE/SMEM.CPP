@@ -501,7 +501,7 @@ static void __stdcall ShrinkBlock(D2SMemBlockStrc* pBlock, unsigned int nOldSize
 }
 
 // 0x00412650
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags)
+extern "C" int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags)
 {
     if (!gbHeapInitialized_007788D0)
     {
@@ -943,7 +943,7 @@ static void* __stdcall ReallocBlock(int* pLockIndex, D2SMemHeapStrc* pHeap, void
     return pResult;
 }
 
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int dwFlags); // 0x00413020
+extern "C" void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int dwFlags); // 0x00413020
 
 
 // 0x00413250
@@ -1001,7 +1001,7 @@ void* __stdcall SMemHeapReAlloc(unsigned int hHeap, unsigned int dwFlags, void* 
 }
 
 // 0x004133D0
-void* __stdcall SMemReAlloc(void* pMemory, unsigned int nSize, const char* szFile, int nLine, unsigned int dwFlags)
+extern "C" void* __stdcall SMemReAlloc(void* pMemory, unsigned int nSize, const char* szFile, int nLine, unsigned int dwFlags)
 {
     if (!gbHeapInitialized_007788D0)
     {
@@ -1288,7 +1288,7 @@ int __stdcall SMemFindNextHeap(unsigned int hPrev, unsigned int* phNext, SMEMHEA
 }
 
 // 0x00413020
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int dwFlags)
+extern "C" void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int dwFlags)
 {
     if (!gbHeapInitialized_007788D0)
     {
