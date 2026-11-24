@@ -16,9 +16,9 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 ## Ready
 All six on main b28fd264 (#339), rebased with namesync (and two names inside merged bodies that namesync can't see,
 fixed by hand: sub_00408A60 -> FOG_DisplayHalt in 7530's assert macro, sub_006B20E0 -> D3D_LogDDrawError in 3570's
-error table). Each branch's changed unit rebuilds equal on its #339 head. Precheck on #339 for each: 0 not all equal.
-A tree with all six cherry-picked onto #339 (in the order below) builds equal; its full verify is running, tree id to
-follow. The per-branch full verifies below are from the base noted.
+error table). Precheck (precheck.sh) on each #339 head: 0 not all equal.
+All six cherry-picked onto #339 in the order below: full verify VERIFIED tree 47403339 (borrowed code 12,041 B in 9
+functions, borrowed data 1,700 B). The per-branch full verifies below are from the base noted.
 
 - lane9/join-d3d-7530 15f3ea90 placeholders 6->1 (Unknown_006B7630, _006B8950, _006B8DF0, _006B8E90, _006B87A0 join
   Unknown_006B7530.cpp; 13 functions). Rebased onto #338+ and namesync'd, as you asked. Full verify: VERIFIED tree
