@@ -317,7 +317,6 @@ int __fastcall EXCEL_GetOrAddLinkIndex(D2TxtLinkStrc* pLinker, const char* szTex
 
 extern "C" int __stdcall FOG_GetLinkIndexByCode(D2TxtLinkStrc* pLink, unsigned int nCode, int bLogError); // 0x006BD130
 
-
 void __stdcall sub_00410B10(void*,int); // 0x00410B10
 
 void __stdcall sub_00410B50(void*,int); // 0x00410B50
@@ -325,6 +324,8 @@ void __stdcall sub_00410B50(void*,int); // 0x00410B50
 typedef int (__fastcall* KeyCallback)(const char*);
 
 typedef void (__fastcall* FieldCallback)(const char*,void*,int,int,int,int);
+
+extern "C" double __cdecl pow(double,double);
 
 extern "C" void __fastcall sub_0061BAC0_portalFlag(RoomFlags* room, int reset)
 {
@@ -711,7 +712,6 @@ D2TxtLinkNodeStrc* __fastcall EXCEL_FindLinkNode(D2TxtLinkNodeStrc* pNode, int n
     return gpszFallback;
 }
 
-
 // 0x006BD500
 int __stdcall FOG_10216_AddRecordToLinkingTable(D2TxtLinkStrc* pLinker, const char* szCode)
 {
@@ -825,6 +825,31 @@ D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine)
     D2TxtLinkStrc* pLink = (D2TxtLinkStrc*)FOG_AllocPool(0, sizeof(D2TxtLinkStrc), szFile, nLine, 0);
     memset(pLink, 0, sizeof(D2TxtLinkStrc));
     return pLink;
+}
+
+// 0x006BE190
+void __fastcall sub_006BE190_BuildGammaTable(int gamma,void* table,double scale,int entrySize,int entries,int mask)
+{
+ D2_ASSERT(entrySize==1 || entrySize==2 || entrySize==4,14);
+ D2_ASSERT(gamma>=0,15);
+ D2_ASSERT(scale>=0.0 && scale<=100.0,16);
+ unsigned char* bytes=(unsigned char*)table;
+ unsigned short* words=(unsigned short*)table;
+ unsigned int* dwords=(unsigned int*)table;
+ double remainder=100.0-scale;
+ double factor=gamma/100.0;
+ double power=100.0/gamma;
+ double last=entries-1.0;
+ double maximum=mask;
+ for(double i=0.0;i<=last;i+=1.0) {
+  double linear=(i*factor*maximum/last<maximum)?i*factor*maximum/last:maximum;
+  int value=(int)((pow(i/last,power)*maximum*remainder+linear*scale)/100.0);
+  switch(entrySize) {
+   case 1: *bytes++=(unsigned char)value; break;
+   case 2: *words++=(unsigned short)value; break;
+   case 4: *dwords++=value; break;
+  }
+ }
 }
 
 // 0x006BE2F0
