@@ -1189,95 +1189,12 @@ void __stdcall TEXT_QuestButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     pMsg->bReturn = 0;
 }
 
-// 0x004A4780
-int __stdcall TEXT_IsAbovePanelLine(int nY)
-{
-    int nHalf = (gnScreenWidth - 620) / 2;
-    return nY < nHalf + (gnScreenWidth - nHalf * 2 - 49) / 3 * 2 + 18;
-}
-
-// 0x004A5A40
-void __stdcall TEXT_PrevEntryMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (GAME_IsExitPending())
-    {
-        pMsg->bReturn = 0;
-        return;
-    }
-
-// build: symbol ?gpListEntries@* 0x00724264
-    D2ClientListEntryStrc* pEntries = gpListEntries;
-    int nOldIndex = gnKeyConfigSelected;
-    do
-    {
-        TEXT_MoveKeyConfigSelection(-1);
-    }
-    while (*(int*)pEntries[gnKeyConfigSelected].nId == 0x39);
-
-    if (nOldIndex != gnKeyConfigSelected)
-    {
-        sub_004B9A00(1, 0, 0, 0, 0);
-    }
-
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
-
 extern "C" int __cdecl sub_00489840_ModeInGroup()
 {
     int mode = gB27_007BCBF0;
     if (mode == 1 || mode == 2 || mode == 3)
         return 1;
     return 0;
-}
-
-// 0x004A5AB0
-void __stdcall TEXT_NextEntryMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (GAME_IsExitPending())
-    {
-        pMsg->bReturn = 0;
-        return;
-    }
-
-    D2ClientListEntryStrc* pEntries = gpListEntries;
-    int nOldIndex = gnKeyConfigSelected;
-    do
-    {
-        TEXT_MoveKeyConfigSelection(1);
-    }
-    while (*(int*)pEntries[gnKeyConfigSelected].nId == 0x39);
-
-    if (nOldIndex != gnKeyConfigSelected)
-    {
-        sub_004B9A00(1, 0, 0, 0, 0);
-    }
-
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
-
-// 0x004A5B30
-void __stdcall TEXT_SelectSecondaryColumnMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (GAME_IsExitPending())
-    {
-        pMsg->bReturn = 0;
-        return;
-    }
-
-// build: symbol ?gnKeyConfigColumn@* 0x007246D4
-    if (gnKeyConfigColumn == 0)
-    {
-        gnKeyConfigColumn = 1;
-        sub_004B9A00(1, 0, 0, 0, 0);
-    }
-
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 extern "C" void __cdecl sub_004B2250_InitializeControls()
@@ -1332,96 +1249,6 @@ extern "C" void __fastcall sub_00535780_SetPlayers(unsigned int count)
 {
     if (count <= 8)
         gB27_00883D70 = count;
-}
-
-// 0x004A5B90
-void __stdcall TEXT_SelectPrimaryColumnMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (GAME_IsExitPending())
-    {
-        pMsg->bReturn = 0;
-        return;
-    }
-
-    if (gnKeyConfigColumn == 1)
-    {
-        gnKeyConfigColumn = 0;
-        sub_004B9A00(1, 0, 0, 0, 0);
-    }
-
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
-
-// 0x004A5BF0
-void __stdcall TEXT_ClearEntryKeyMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (GAME_IsExitPending())
-    {
-        pMsg->bReturn = 0;
-        return;
-    }
-
-// build: symbol ?gbKeyConfigReady@* 0x00724728
-    if (gbKeyConfigReady)
-    {
-        if (!(pMsg->lParam & 0x40000000))
-        {
-            CUNIT_ClearHotkeyBinding(*(int*)gpListEntries[gnKeyConfigSelected].nId, gnKeyConfigColumn);
-            sub_004B9A00(2, 0, 0, 0, 0);
-        }
-    }
-    else
-    {
-        gbKeyConfigReady = 1;
-    }
-
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
-
-// 0x004A5D70
-void __stdcall TEXT_UnregisterKeyConfigHandlers(int bReset)
-{
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureHandlers, 6);
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureWheelHandlers, 1);
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureXButtonHandlers, 1);
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureMButtonHandlers, 1);
-    if (bReset)
-    {
-        UI_RegisterKeyConfigHandlers();
-        gbKeyCaptureActive = 0;
-    }
-}
-
-// 0x004A5F70
-void __stdcall TEXT_ApplyEntryMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (GAME_IsExitPending())
-    {
-        pMsg->bReturn = 0;
-        return;
-    }
-
-    if (gbKeyConfigReady)
-    {
-        if (!(pMsg->lParam & 0x40000000) && *(int*)gpListEntries[gnKeyConfigSelected].nId != 0x39)
-        {
-            sub_004A5D00();
-            sub_004B9A00(2, 0, 0, 0, 0);
-            gbKeyConfigReady = 0;
-        }
-    }
-    else
-    {
-        gbKeyConfigReady = 1;
-    }
-
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x004A6310
