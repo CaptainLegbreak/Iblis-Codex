@@ -9,7 +9,8 @@ struct D2StormHashEntryStrc;
 struct D2StormFileSubStrc;
 struct D2StormArchiveFileStrc;
 struct D2StormRequestCallbackStrc;
-struct ARCHIVEREC;
+namespace Storm { namespace SFile { struct ARCHIVEREC; } }
+using Storm::SFile::ARCHIVEREC;
 struct FILEREC;
 struct AUDIOSTREAM;
 
@@ -37,6 +38,10 @@ struct D2StormBlockStrc
     void ExpandBlockEntries(unsigned int nCount);                                                    // 0x004156A0
 };
 
+namespace Storm
+{
+namespace SFile
+{
 // An open archive (0x25C bytes).
 struct ARCHIVEREC
 {
@@ -126,6 +131,8 @@ struct ARCHIVEREC
             SMemFree(pMemory, "delete", -1, 0);
     }
 };
+}
+}
 
 // An open file (0x158 bytes).
 struct FILEREC
