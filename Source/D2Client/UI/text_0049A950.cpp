@@ -1319,27 +1319,6 @@ void __stdcall TEXT_ButtonCaptureMsg(SMSGHANDLER_PARAMS* pMsg)
 
 
 
-// 0x004A8D50
-void __fastcall TEXT_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY)
-{
-    int nMouseX = sub_00468730();
-    int nMouseY = sub_00468740();
-    if (nMouseX >= nX && nMouseX <= nX + 48 && nMouseY >= nY - 48 && nMouseY <= nY)
-    {
-        nState = nState == 1;
-    }
-    else
-    {
-        nState = 1;
-    }
-
-    nMouseX = sub_00468730();
-    nMouseY = sub_00468740();
-    if (nMouseX >= nX && nMouseX <= nX + 48 && nMouseY >= nY - 48 && nMouseY <= nY)
-    {
-        sub_004EF990_SetSkillPopUpText(sub_00463DD0_GetPlayerUnit(), *pId, nA, nB, nState, nX, nY);
-    }
-}
 
 
 
