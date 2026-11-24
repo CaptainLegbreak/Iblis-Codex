@@ -78,7 +78,7 @@ extern "C" __declspec(dllimport) void* __stdcall GetDC(void* hWnd); // 0x006CC44
 
 extern "C" __declspec(dllimport) int __stdcall ReleaseDC(void* hWnd, void* hDC); // 0x006CC448
 
-static void GDI_CreateBackBuffer(int nResolution); // 0x006C7B00
+static void GDICORE_CreateBackBuffer(int nResolution); // 0x006C7B00
 
 extern "C" __declspec(dllimport) void* __stdcall CreatePalette(const D2LogPalette006C7C10Strc* pLogPalette);
 
@@ -177,7 +177,7 @@ __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
 int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue); // 0x006C8250
 extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 int __stdcall CmpDoLensEffect(unsigned char* pPixel, int nStride); // 0x00608C00
-int __fastcall GDI_DrawImage(void* context, int second, int third, int fourth, int fifth, int last); // 0x006C84B0
+int __fastcall GDICORE_DrawImage(void* context, int second, int third, int fourth, int fifth, int last); // 0x006C84B0
 extern "C" __declspec(dllimport) void* __stdcall CreateFontA(int height, int width, int escapement, int orientation, int weight, unsigned long italic, unsigned long underline, unsigned long strikeout, unsigned long charset, unsigned long outPrecision, unsigned long clipPrecision, unsigned long quality, unsigned long pitchAndFamily, const char* face); // 0x006CC0E0
 extern const char gszCourier[]; // 0x006DD52C
 extern "C" __declspec(dllimport) int __stdcall DeleteObject(void* object); // 0x006CC0D4
@@ -203,7 +203,7 @@ void __fastcall sub_006C8A60_Draw(int nX1, int nY1, int nX2, int nY2, unsigned c
 #include "gen/data/Source/D2Gdi/Src/gdiCore.inc"
 
 // 0x006C7A70
-int __fastcall GDI_Init(void* pArg1, void* pArg2)
+int __fastcall GDICORE_Init(void* pArg1, void* pArg2)
 {
     gpArg1_007C9148 = pArg1;
     gpArg2_007C914C = pArg2;
@@ -213,7 +213,7 @@ int __fastcall GDI_Init(void* pArg1, void* pArg2)
 }
 
 // 0x006C7AB0
-int __cdecl GDI_Close()
+int __cdecl GDICORE_Close()
 {
     if (gpLock_007C9134)
     {
@@ -234,7 +234,7 @@ void __cdecl sub_006C7AF0_Nop()
 }
 
 // 0x006C7B00
-static void GDI_CreateBackBuffer(int nResolution)
+static void GDICORE_CreateBackBuffer(int nResolution)
 {
     D2_ASSERT(!gpSurfaceBits, 111);
 
@@ -278,10 +278,10 @@ static void GDI_CreateBackBuffer(int nResolution)
 }
 
 // 0x006C7C10
-int __fastcall GDI_CreateSurface(int nValue, int nArg)
+int __fastcall GDICORE_CreateSurface(int nValue, int nArg)
 {
     gnValue_007C9140 = nValue;
-    GDI_CreateBackBuffer(nArg);
+    GDICORE_CreateBackBuffer(nArg);
     memset(gaPalette_007C8CC8, 0, sizeof(gaPalette_007C8CC8));
     D2LogPalette006C7C10Strc tLogPalette;
     tLogPalette.palVersion = 0x300;
@@ -302,7 +302,7 @@ struct D2RgbQuad006C7FA0Strc
 };
 
 // 0x006C7CF0
-int __cdecl GDI_CloseSurface()
+int __cdecl GDICORE_CloseSurface()
 {
     sub_006C8960_DeleteGraphicObject();
     DeleteObject(ghBufferBitmap);
@@ -312,7 +312,7 @@ int __cdecl GDI_CloseSurface()
 }
 
 // 0x006C7D30
-void __stdcall GDI_PauseSurface(int nValue)
+void __stdcall GDICORE_PauseSurface(int nValue)
 {
     D2_ASSERT(gpLock_007C9134, 0xF9);
     EnterCriticalSection(gpLock_007C9134);
@@ -337,7 +337,7 @@ int __fastcall sub_006C7D80_LockAndSend(void* pObject, char nKey, int a, int b)
 }
 
 // 0x006C7DF0
-int __cdecl GDI_EndDraw()
+int __cdecl GDICORE_EndDraw()
 {
     D2_ASSERT(gpLock_007C9134, 0x11D);
     LeaveCriticalSection(gpLock_007C9134);
@@ -345,7 +345,7 @@ int __cdecl GDI_EndDraw()
 }
 
 // 0x006C7E30
-int __cdecl GDI_BlitWindow()
+int __cdecl GDICORE_BlitWindow()
 {
     void* hDC = GetDC(ghRenderWindow);
     void* hMemoryDC = CreateCompatibleDC(hDC);
@@ -365,14 +365,14 @@ int __cdecl GDI_BlitWindow()
 }
 
 // 0x006C7F90
-void __fastcall GDI_GetScreenSize(int* width, int* height)
+void __fastcall GDICORE_GetScreenSize(int* width, int* height)
 {
     *width = gnRenderWidth;
     *height = gnRenderHeight;
 }
 
 // 0x006C7FA0
-void __fastcall GDI_SetPalette(D2PaletteEntry006C7C10Strc* pEntries)
+void __fastcall GDICORE_SetPalette(D2PaletteEntry006C7C10Strc* pEntries)
 {
     for (int i = 0; i < 256; ++i)
     {
@@ -385,18 +385,18 @@ void __fastcall GDI_SetPalette(D2PaletteEntry006C7C10Strc* pEntries)
 }
 
 // 0x006C80B0
-int __fastcall GDI_ChangeRes(int nUnused, int nMode)
+int __fastcall GDICORE_ChangeRes(int nUnused, int nMode)
 {
     DeleteObject(ghBufferBitmap);
     gpSurfaceBits = 0;
     gpBufferFuncs_007C914C->pfnSetBuffer(0, 0, 0, 0);
-    GDI_CreateBackBuffer(nMode);
+    GDICORE_CreateBackBuffer(nMode);
     sub_006C82D0_Apply(nMode);
     return 1;
 }
 
 // 0x006C81A0
-void __fastcall GDI_GetPalette(void** phPalette, D2RgbQuadStrc** ppEntries)
+void __fastcall GDICORE_GetPalette(void** phPalette, D2RgbQuadStrc** ppEntries)
 {
     D2_ASSERT(phPalette, 546);
     D2_ASSERT(ppEntries, 547);
@@ -552,7 +552,7 @@ static inline int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX,
 
 
 // 0x006C84B0
-int __fastcall GDI_DrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, void* pPalette)
+int __fastcall GDICORE_DrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, void* pPalette)
 {
     D2CelContextStrc* pContext = (D2CelContextStrc*)pData;
     if (!sub_006001F0(pContext, 0, 1))
@@ -604,7 +604,7 @@ int __fastcall sub_006C85A0_DrawImage(void* pData, int nX, int nY, unsigned int 
 }
 
 // 0x006C86A0
-void __fastcall GDI_DrawImageRows(D2CelContextStrc* pContext, int nX, int nY, int nSkipTop, int nDrawHeight, int nDrawMode)
+void __fastcall GDICORE_DrawImageRows(D2CelContextStrc* pContext, int nX, int nY, int nSkipTop, int nDrawHeight, int nDrawMode)
 {
     if (!sub_006001F0(pContext, 0, 1))
         return;
@@ -618,7 +618,7 @@ void __fastcall GDI_DrawImageRows(D2CelContextStrc* pContext, int nX, int nY, in
 }
 
 // 0x006C87E0
-void __fastcall GDI_DrawShadow(void* pData, int nX, int nY)
+void __fastcall GDICORE_DrawShadow(void* pData, int nX, int nY)
 {
     D2CelContextStrc* pContext = (D2CelContextStrc*)pData;
     if (!sub_006001F0(pContext, 0, 1))
@@ -636,7 +636,7 @@ void __fastcall GDI_DrawShadow(void* pData, int nX, int nY)
 }
 
 // 0x006C8750
-void __fastcall GDI_DrawCelClipped(D2CelContextStrc* pContext, int nX, int nY, const D2ClipRectStrc* pClip, int nDrawMode)
+void __fastcall GDICORE_DrawCelClipped(D2CelContextStrc* pContext, int nX, int nY, const D2ClipRectStrc* pClip, int nDrawMode)
 {
     D2ClipResultStrc tClip = {};
     if (!sub_006001F0(pContext, 0, 1))
@@ -659,7 +659,7 @@ int __fastcall sub_006C88B0_DrawAt(int nX, int nY)
 // 0x006C8910
 int __fastcall sub_006C8910_ForwardDraw(void* context, int second, int third, int fourth, int fifth, int unused, int last)
 {
-    return GDI_DrawImage(context, second, third, fourth, fifth, last);
+    return GDICORE_DrawImage(context, second, third, fourth, fifth, last);
 }
 
 void* ghGdiDebugFont; // 0x0098A170

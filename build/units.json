@@ -80292,12 +80292,12 @@
     {
      "va": "0x006C7A70",
      "length": 49,
-     "name": "?GDI_Init@@YIHPAX0@Z"
+     "name": "?GDICORE_Init@@YIHPAX0@Z"
     },
     {
      "va": "0x006C7AB0",
      "length": 52,
-     "name": "?GDI_Close@@YAHXZ"
+     "name": "?GDICORE_Close@@YAHXZ"
     },
     {
      "va": "0x006C7AF0",
@@ -80315,12 +80315,12 @@
     {
      "va": "0x006C7CF0",
      "length": 50,
-     "name": "?GDI_CloseSurface@@YAHXZ"
+     "name": "?GDICORE_CloseSurface@@YAHXZ"
     },
     {
      "va": "0x006C7D30",
      "length": 75,
-     "name": "?GDI_PauseSurface@@YGXH@Z"
+     "name": "?GDICORE_PauseSurface@@YGXH@Z"
     },
     {
      "va": "0x006C7D80",
@@ -80330,7 +80330,7 @@
     {
      "va": "0x006C7DF0",
      "length": 53,
-     "name": "?GDI_EndDraw@@YAHXZ"
+     "name": "?GDICORE_EndDraw@@YAHXZ"
     },
     {
      "va": "0x006C7E30",
@@ -80339,12 +80339,12 @@
     {
      "va": "0x006C7F90",
      "length": 16,
-     "name": "?GDI_GetScreenSize@@YIXPAH0@Z"
+     "name": "?GDICORE_GetScreenSize@@YIXPAH0@Z"
     },
     {
      "va": "0x006C7FA0",
      "length": 84,
-     "name": "?GDI_SetPalette@@YIXPAUD2PaletteEntry006C7C10Strc@@@Z"
+     "name": "?GDICORE_SetPalette@@YIXPAUD2PaletteEntry006C7C10Strc@@@Z"
     },
     {
      "va": "0x006C80B0",
