@@ -33215,33 +33215,6 @@
    ]
   },
   {
-   "file": "Source/D2Glide/Unknown_0050BF50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0050BF50",
-     "length": 414,
-     "name": "sub_0050BF50_GlideDrawBox"
-    },
-    {
-     "va": "0x0050C0F0",
-     "length": 378,
-     "name": "sub_0050C0F0_GlideDrawBoxAlpha"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Unknown_0050CD40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0050CD40",
-     "length": 141,
-     "name": "sub_0050CD40_GlideShadowTileDraw"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Gfx/SRC/Window.cpp",
    "rank": 0,
    "functions": [
@@ -36129,31 +36102,6 @@
    ]
   },
   {
-   "file": "Source/D2Glide/Unknown_0050BF40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0050BF40",
-     "length": 9,
-     "name": "?sub_0050BF40_GlideGetBlendedShadows@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Unknown_0050C890.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0050C890",
-     "length": 355
-    },
-    {
-     "va": "0x0050D6A0",
-     "length": 1141
-    }
-   ]
-  },
-  {
    "file": "Source/D2Glide/Unknown_0050BD30.cpp",
    "rank": 0,
    "functions": [
@@ -36169,6 +36117,21 @@
     {
      "va": "0x0050BE20",
      "length": 204
+    },
+    {
+     "va": "0x0050BF40",
+     "length": 9,
+     "name": "?sub_0050BF40_GlideGetBlendedShadows@@YAHXZ"
+    },
+    {
+     "va": "0x0050BF50",
+     "length": 414,
+     "name": "sub_0050BF50_GlideDrawBox"
+    },
+    {
+     "va": "0x0050C0F0",
+     "length": 378,
+     "name": "sub_0050C0F0_GlideDrawBoxAlpha"
     },
     {
      "va": "0x0050C270",
@@ -36210,8 +36173,17 @@
      "name": "?sub_0050C760_GlideInitVertices@@YAXXZ"
     },
     {
+     "va": "0x0050C890",
+     "length": 355
+    },
+    {
      "va": "0x0050CA00",
      "length": 831
+    },
+    {
+     "va": "0x0050CD40",
+     "length": 141,
+     "name": "sub_0050CD40_GlideShadowTileDraw"
     },
     {
      "va": "0x0050CDD0",
@@ -36239,7 +36211,26 @@
     {
      "va": "0x0050D540",
      "length": 352
+    },
+    {
+     "va": "0x0050D6A0",
+     "length": 1141
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-",
+    "/Ob1"
    ]
   },
   {
