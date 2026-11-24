@@ -4,6 +4,7 @@
 #include "D2Win32Types.h"
 #include "D2Drlg.h"
 #include "D2WinSplitText.h"
+#include "D2ClientUiRecords.h"
 
 
 extern int gnPanelSlideMode; // 0x007A5210
@@ -114,11 +115,6 @@ struct D2TileRectStrc
     int nHeight;
     int nOffsetX;
     int nOffsetY;
-};
-
-struct D2UIVarRecordStrc
-{
-    int anCloseKind[0x26];
 };
 
 struct D2GridCellStrc;

@@ -7,6 +7,7 @@
 #include "D2Win32System.h"
 #include "D2CmdArg.h"
 #include "D2FogSystemInfo.h"
+#include "D2Win32SystemInfo.h"
 
 typedef unsigned int size_t;
 
@@ -3224,20 +3225,6 @@ unsigned int __fastcall ERRORMANAGER_GetCpuidEdx(unsigned int nFunction)
     }
     return nEdx;
 }
-
-struct D2SystemInfoStrc
-{
-    unsigned long dwOemId;
-    unsigned long dwPageSize;
-    void* lpMinimumApplicationAddress;
-    void* lpMaximumApplicationAddress;
-    unsigned long dwActiveProcessorMask;
-    unsigned long dwNumberOfProcessors;
-    unsigned long dwProcessorType;
-    unsigned long dwAllocationGranularity;
-    unsigned short wProcessorLevel;
-    unsigned short wProcessorRevision;
-};
 
 D2SystemInfoStrc gtSystemInfo; // 0x0074D8A0
 
