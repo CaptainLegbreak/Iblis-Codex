@@ -15,12 +15,11 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## In progress
 
-- Borrowed 0x4A4AD0 (StandIns/D2Client_004A4AD0.cpp), in UI/text.cpp between 0x4A4AA0 and 0x4A4FA0:
-  - the stand-in body, with TEXT_IsOnlyPressed(n) and TEXT_IsOnKeyConfigButton, builds 1,162 B against the original's 1,232 B; the call order and the stack slots match, registers do not;
-  - making gnKeyConfigFirstVisible `static` (as the stand-in has it) brings it to 1,242 B and the join/reload blocks of the original appear (the original keeps the first visible line in ebx across calls, which only a static allows). With that, 0x4A4500 (TEXT_ScrollKeyConfigList) stops matching;
-  - an unmarked copy of the stand-in sat in text.cpp at ~6198; it goes when this lands;
-  - next: the source shape of 0x4A4500 that still matches with the static.
-  - Asked the user for the lane-7 notes (iblis-lane7 package).
+- Borrowed 0x4A4AD0 (StandIns/D2Client_004A4AD0.cpp), in UI/text.cpp between 0x4A4AA0 and 0x4A4FA0 (local WIP, not pushed):
+  - lane-7 notes received; they only fix the host (text.cpp, via the old text_0049D490.cpp) because the helpers use custom register conventions. That part holds.
+  - with `gnKeyConfigFirstVisible` static (as in the stand-in) and 0x4A4500 written back in the stand-in's plain form, 0x4A4500 matches again and 0x4A4AD0 gets the original's block structure: 1,210 of 1,232 B, same calls, same join/reload blocks, constants and slots in step.
+  - what is left is register choice: the original keeps nY in ebx for the first helper calls, the first visible line in ebx and the GetTickCount pointer in esi; ours keeps bInList in ebx, then the GetTickCount pointer in ebx and the first visible line in esi. Declaration order of the seven hit flags and the form of the first test do not change it.
+  - text.cpp's unmarked copy of the stand-in body (~line 6198) goes when this lands.
 
 ## Questions
 
