@@ -4,14 +4,12 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/bss-a 00982e88 558->556 four placements by data block (glPerspective.cpp 0x0050DE10, ddSmack.cpp 0x005135F0, BnDownload.cpp 0x00518C30, Outdoors.cpp 0x00675600); VERIFIED aa7523d9
-  - Stacked on lane6/cands-d (merge that first); based on main #297.
-- lane6/cands-d 24b8d613 562->558 fifteen placements on main #297: address runs, the data seam, and the debug-font pairs; VERIFIED face79e0
-  - On origin/main (34ce356b); not stacked.
-  - Touches D2Client/GAME/Game.cpp (lane 4's file): sub_0043B830 and sub_0043B840, 6-byte getters inside CharSel.cpp's run that read CharSel.cpp's globals 0x0077AC04/08, move to CharSel.cpp.
-  - CharSel.cpp takes Unknown_0043A9D0.cpp. CharSel.cpp's bss runs without a break from 0x007799E8 to 0x0077AC0C, and the next file starts at 0x0077AC10, matching the second BNDOWNLOAD_GetTime copy at 0x0043C530. So CharSel.cpp runs to 0x0043C4F0.
-  - glDebugFont.cpp and ddDebugFont.cpp each take their debug draw-char and printf, and take /GS- (no stack cookie in the image; the existing functions build equal either way).
-  - Adjusted for #295-#297's D2ConfigStrc rename (sub_0043C180_Connect).
+- lane6/path-a-2 8484f0f0 544->544 pathfinding cluster: the Skills.cpp and Drlg.cpp strays move to their groups' placeholders, per the decision; VERIFIED 35ba9939
+  - Stacked on lane6/bss-a-2. Based on main #299; no source file in common with #300/#301 (only units.json and docs).
+  - The data block splits cleanly by reader, in code order: direction 0x006F1518-164A, ray trace 0x006F1698-179C, IDA* 0x006F17D8-195C, A* 0x006F1998-1B98, tail 0x006F1D98-1E28. IDA* calls the 30-byte 0x00678D10 without inlining it. So one placeholder per group: Unknown_00675600 (direction), Unknown_006793E0 (ray trace), Unknown_0067A590 (IDA*), Unknown_0067B740 (A*), Unknown_0067A000 (tail).
+  - Still to do: moves between placeholders, and Skills.cpp 0x00679380, 0x0067A390, 0x0067A550. Each placeholder has its own differing copy of D2PathFoWallContextStrc / D2PathPointStrc (pSortedListByFScore, nSubtileX), so these wait on shared path structs (lane 2).
+- lane6/bss-a-2 0e28f5b7 545->544 four placements by data block (glPerspective.cpp 0x0050DE10, ddSmack.cpp 0x005135F0, BnDownload.cpp 0x00518C30, Outdoors.cpp 0x00675600); VERIFIED b221581d
+  - **Replaces lane6/bss-a** (that one was stacked on cands-d, now merged). Based on main #299.
 
 ## Questions
 
