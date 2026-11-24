@@ -380,15 +380,6 @@ static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsign
 static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, BigBuffer* pBuf);
 static void __stdcall FromStream(BigBuffer* pBuf, unsigned int* pnUsed, unsigned int nSize, const unsigned char* pData); // 0x004234F0
 
-// 0x0041E9C0
-D2StormLinkStrc* __fastcall sub_0041E9C0_Identity(D2IdentityView* value) {return &value->link;}
-
-// 0x0041EA20
-int __stdcall sub_0041EA20_Forward(void* p1, unsigned int* p2, const void* p3, unsigned int n4)
-{
-    return SCompDecompress(p1, p2, p3, n4, 0);
-}
-
 // build: symbol ??0THuffmannTree@@QAE@XZ 0x0041F4A0
 // build: symbol ??1THuffmannTree@@QAE@XZ 0x0041F6A0
 // 0x0041F460

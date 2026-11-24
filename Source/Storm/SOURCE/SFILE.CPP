@@ -44,8 +44,6 @@ struct PairStrc_004169A0;
 
 struct PairStrc_0041C390;
 
-struct PairStrc_0041E8F0;
-
 struct PairStrc_00426920;
 
 struct D2IdentityView;
@@ -358,12 +356,6 @@ struct PairStrc_004169A0
 };
 
 struct PairStrc_0041C390
-{
-    int nFirst;
-    int nSecond;
-};
-
-struct PairStrc_0041E8F0
 {
     int nFirst;
     int nSecond;
@@ -2253,13 +2245,6 @@ void __fastcall sub_004169A0(PairStrc_004169A0* pPair)
     pPair->nSecond = 0;
 }
 
-// 0x0041E8F0
-void __fastcall sub_0041E8F0(PairStrc_0041E8F0* pPair)
-{
-    pPair->nFirst = 0;
-    pPair->nSecond = 0;
-}
-
 // 0x00426920
 void __fastcall sub_00426920(PairStrc_00426920* pPair)
 {
@@ -2805,28 +2790,6 @@ void __cdecl StartCdThread()
         ghStormThread_00779034 = CreateThread(0, 0, CdThreadProc, 0, 0, &gdwStormThreadId_00779040);
         SetThreadPriority(ghStormThread_00779034, 1);
     }
-}
-
-// 0x0041D9A0
-void CBitOutput::sub_0041D9A0_Flush()
-{
-    while (nBitCount)
-    {
-        if (f_4)
-        {
-            *pOutput++ = (unsigned char)nBitBuffer;
-            f_4--;
-        }
-        nBitBuffer >>= 8;
-        nBitCount -= nBitCount > 8 ? 8 : nBitCount;
-    }
-}
-
-// 0x0041EE40
-void D2StormNodeListStrc::sub_0041EE40_UnlinkAll()
-{
-    while (char* pNode = Head())
-        ((D2StormLinkStrc*)pNode)->Unlink();
 }
 
 // 0x0041F950

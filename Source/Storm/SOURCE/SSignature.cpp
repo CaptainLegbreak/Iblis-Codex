@@ -334,7 +334,6 @@ struct CBitInput
     }
     unsigned int sub_0041D8D0_Peek(unsigned int nBits, unsigned int nMask);
     void sub_0041D900_Skip(unsigned int nBits);
-    unsigned int sub_0041E9E0_Get(unsigned int nBits, unsigned int nMask);
 };
 
 struct D2StormNodeListAStrc
@@ -346,8 +345,6 @@ struct D2StormNodeListAStrc
     {
         return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
     }
-    D2StormLinkStrc* sub_0041EB40_Link(char* pNode);
-    void sub_0041EB60_UnlinkNode(char* pNode);
     void LinkNode(char* pNode, unsigned int nLinkType, char* pExisting);
 };
 
@@ -561,61 +558,7 @@ void CBitInput::sub_0041D900_Skip(unsigned int nBits)
     nBitCount -= nBits;
 }
 
-// 0x0041E900
-D2StormLinkStrc* D2StormLinkStrc::sub_0041E900_NextLink(int nLinkOffset)
-{
-    if ((int)m_next < 0)
-        return (D2StormLinkStrc*)~(unsigned int)m_next;
-    if (nLinkOffset < 0)
-        nLinkOffset = (char*)this - m_prevlink->m_next;
-    return (D2StormLinkStrc*)(m_next + nLinkOffset);
-}
-
-// 0x0041E9E0
-unsigned int CBitInput::sub_0041E9E0_Get(unsigned int nBits, unsigned int nMask)
-{
-    unsigned int nValue = Peek(nBits, nMask);
-    Skip(nBits);
-    return nValue;
-}
-
-// 0x0041EB40
-D2StormLinkStrc* D2StormNodeListAStrc::sub_0041EB40_Link(char* pNode)
-{
-    return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
-}
-
-// 0x0041EB60
-void D2StormNodeListAStrc::sub_0041EB60_UnlinkNode(char* pNode)
-{
-    Link(pNode)->Unlink();
-}
-
 // build: symbol ?LinkNode@D2StormNodeListAStrc@@QAEXPADI0@Z 0x0041ED90
-void D2StormNodeListAStrc::LinkNode(char* pNode, unsigned int nLinkType, char* pExisting)
-{
-    D2StormLinkStrc* pLink = Link(pNode);
-    pLink->Unlink();
-    D2StormLinkStrc* pExistingLink = Link(pExisting);
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->m_prevlink = pExistingLink;
-        pLink->m_next = pExistingLink->m_next;
-        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-        pExistingLink->m_next = pNode;
-        break;
-    default:
-        {
-            D2StormLinkStrc* pPrev = pExistingLink->m_prevlink;
-            pLink->m_prevlink = pPrev;
-            pLink->m_next = pPrev->m_next;
-            pPrev->m_next = pNode;
-            pExistingLink->m_prevlink = pLink;
-        }
-        break;
-    }
-}
 
 // 0x0041F510
 void CHuffman::AddSymbol(unsigned int nValue)
