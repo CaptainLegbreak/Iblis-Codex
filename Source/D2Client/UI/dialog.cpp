@@ -248,6 +248,8 @@ struct D2PanelCtrlStrc_004B8370
 
 int gdwGlobal_007C0E5C; // 0x007C0E5C
 
+extern int gdwGlobal_007C0E54; // 0x007C0E54
+
 // 0x004B7150
 static inline void DIALOG_HoverFirstEnabledLine(D2ClientDialogStrc* pDialog)
 {
@@ -522,6 +524,7 @@ extern "C" void __stdcall DIALOG_SelectPreviousMsg(Message* message)
     sub_004B7100_Select(state, -1);
 }
 
+// 0x004B7100
 static void __cdecl sub_004B7100_Select(SelectionState* state, int step)
 {
     if (state->activeCount > 1)
@@ -1126,6 +1129,10 @@ void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unic
         sub_004B82F0_Select(pDialog, nIndex);
 }
 
-
+// 0x004B70F0
+int __cdecl sub_004B70F0()
+{
+    return gdwGlobal_007C0E54;
+}
 
 #include "gen/data/Source/D2Client/UI/dialog.inc"
