@@ -9,6 +9,7 @@
 #include "D2ItemsWorld.h"
 #include "D2GameAux.h"
 #include "D2LevelTxt.h"
+#include "D2LanguageNames.h"
 
 #define PETTYPE_SINGLE 1
 

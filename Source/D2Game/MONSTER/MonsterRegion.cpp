@@ -19,6 +19,7 @@
 #include "D2ItemModes.h"
 #include "D2Packets.h"
 #include "D2QuestData.h"
+#include "D2LanguageNames.h"
 
 struct D2DifficultyLevelsTxt;
 

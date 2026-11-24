@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2LanguageNames.h"
 
 struct D2PlayerListStrc;
 

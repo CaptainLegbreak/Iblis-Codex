@@ -9,6 +9,7 @@
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
 #include "D2GameAux.h"
+#include "D2LanguageNames.h"
 
 #define STAT_DEXTERITY 2
 

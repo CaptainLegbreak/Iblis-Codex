@@ -18,6 +18,7 @@
 #include "D2ItemsWorld.h"
 #include "D2TxtTables.h"
 #include "D2Packets.h"
+#include "D2LanguageNames.h"
 
 struct D2ClientStrc;
 

@@ -14,6 +14,7 @@
 #include "D2GameRecords.h"
 #include "D2GameObjs.h"
 #include "D2Packets.h"
+#include "D2LanguageNames.h"
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 

@@ -7,6 +7,7 @@
 #include "D2Drlg.h"
 #include "D2UnitData.h"
 #include "D2LevelTxt.h"
+#include "D2LanguageNames.h"
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
