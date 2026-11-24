@@ -1754,18 +1754,6 @@ void __cdecl TEXT_ResetNpcPanel()
     }
 }
 
-// 0x004939B0
-void __cdecl TEXT_LoadPopupHireling()
-{
-    gnPetIconPopupState = 0;
-    UI_SetUIVar(0x23, 0, 0);
-    unsigned long dwValue = 0;
-    SRegLoadValue("Diablo II", "PopupHireling", 0, &dwValue);
-    if (!dwValue)
-    {
-        gbOpenMercInvPending = 1;
-    }
-}
 
 // 0x0049AAA0
 int __fastcall TEXT_GetCenteredStringX(unsigned short nStringIndex, int nCenterX)

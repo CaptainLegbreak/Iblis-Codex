@@ -3950,7 +3950,7 @@ address,name,source,alias
 0x00494320,HIREABLES_LoadHelpCels,inferred,
 0x004943B0,VIEW_DrawHelpFrameLowRes,inferred,
 0x004944F0,VIEW_DrawHelpFrameHighRes,inferred,
-0x004945F0,sub_00494EB0,placeholder,
+0x004945F0,sub_004945F0,placeholder,
 0x00494620,ROSTERPETS_DrawHelpColumn,inferred,
 0x00494680,VIEW_DrawHelpLinesLowRes,inferred,
 0x00494A00,VIEW_DrawHelpLinesHighRes,inferred,
