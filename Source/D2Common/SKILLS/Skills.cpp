@@ -2761,18 +2761,6 @@ int __stdcall D2Common_10155(D2DynamicPathStrc* pDynamicPath)
     return pDynamicPath->dwCurrentPointIdx;
 }
 
-// 0x0064B700
-int __fastcall MISSILE_GetMinimum(int nA, int nB, int nUnused1, int nUnused2)
-{
-    return nA < nB ? nA : nB;
-}
-
-// 0x0064B710
-int __fastcall MISSILE_GetMaximum(int nA, int nB, int nUnused1, int nUnused2)
-{
-    return nA > nB ? nA : nB;
-}
-
 // 0x00654E80
 D2TCExShortStrc* __stdcall DATATBLS_GetTreasureClassExRecordFromActAndDifficulty(int nDifficulty, int nAct, int nIndex)
 {
@@ -3812,30 +3800,6 @@ static __forceinline void SKILLS_RemoveChargedSkill(D2UnitStrc* pUnit, D2SkillLi
         }
 
         FOG_FreePool(pUnit->pMemoryPool, pSkill, ".\\SKILLS\\Skills.cpp", 1511, 0);
-    }
-}
-
-// 0x0064A7F0
-void __stdcall MISSILE_GetHomeType(D2UnitStrc* pMissile, int* nHomeType, int* nHomeGUID)
-{
-    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE)
-    {
-        D2MissileDataStrc* pMissileData = pMissile->pMissileData;
-        if (!pMissileData)
-        {
-            *nHomeType = 0;
-            *nHomeGUID = D2UnitInvalidGUID;
-        }
-        else
-        {
-            *nHomeType = pMissileData->nHomeType;
-            *nHomeGUID = pMissileData->dwHomeGUID;
-        }
-    }
-    else
-    {
-        *nHomeType = 0;
-        *nHomeGUID = D2UnitInvalidGUID;
     }
 }
 

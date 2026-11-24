@@ -1573,14 +1573,6 @@ void __stdcall PATH_AddCollisionFootprintForOptionalUnit(D2UnitStrc* pUnit)
     }
 }
 
-// 0x0064A730
-extern "C" int __stdcall sub_0064A730_GetMissileTargetStatus(B25MissileUnit* unit)
-{
-    if (unit && unit->type == 3 && unit->data)
-        return unit->data->targetStatus;
-    return 0;
-}
-
 // 0x006486C0
 int __stdcall PATH_GetVelocity(D2DynamicPathStrc* pDynamicPath)
 {

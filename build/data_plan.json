@@ -4012,10 +4012,7 @@
   "Source/D2Common/UNITS/Missile.cpp": {
    "bytes": 96,
    "definitions": 3,
-   "externs": [
-    "extern \"C\" void __cdecl MISSILE_GetMinimum(); // 0x0064B700",
-    "extern \"C\" void __cdecl MISSILE_GetMaximum(); // 0x0064B710"
-   ],
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/UNITS/Missile.inc",
    "lang": "cpp",

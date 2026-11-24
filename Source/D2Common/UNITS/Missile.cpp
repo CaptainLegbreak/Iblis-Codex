@@ -1165,6 +1165,51 @@ void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX)
     }
 }
 
+struct B25MissileData
+{
+    unsigned char pad0[0x28];
+    int targetStatus;
+};
+
+struct B25MissileUnit
+{
+    unsigned int type;
+    unsigned char pad4[0x10];
+    B25MissileData* data;
+};
+
+// 0x0064A730
+extern "C" int __stdcall sub_0064A730_GetMissileTargetStatus(B25MissileUnit* unit)
+{
+    if (unit && unit->type == 3 && unit->data)
+        return unit->data->targetStatus;
+    return 0;
+}
+
+// 0x0064A7F0
+void __stdcall MISSILE_GetHomeType(D2UnitStrc* pMissile, int* nHomeType, int* nHomeGUID)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE)
+    {
+        D2MissileDataStrc* pMissileData = pMissile->pMissileData;
+        if (!pMissileData)
+        {
+            *nHomeType = 0;
+            *nHomeGUID = D2UnitInvalidGUID;
+        }
+        else
+        {
+            *nHomeType = pMissileData->nHomeType;
+            *nHomeGUID = pMissileData->dwHomeGUID;
+        }
+    }
+    else
+    {
+        *nHomeType = 0;
+        *nHomeGUID = D2UnitInvalidGUID;
+    }
+}
+
 // 0x0064A760
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY)
 {
@@ -1787,6 +1832,18 @@ int __fastcall MISSILE_GetCalcParamValue(int nParamId, void* pUserData)
     }
 
     return MISSILE_GetSpecialParamValue(pMissileCalc->pMissile, pMissileCalc->pOwner, nParamId, pMissileCalc->nMissileId, pMissileCalc->nMissileLevel);
+}
+
+// 0x0064B700
+int __fastcall MISSILE_GetMinimum(int nA, int nB, int nUnused1, int nUnused2)
+{
+    return nA < nB ? nA : nB;
+}
+
+// 0x0064B710
+int __fastcall MISSILE_GetMaximum(int nA, int nB, int nUnused1, int nUnused2)
+{
+    return nA > nB ? nA : nB;
 }
 
 // 0x0064B720
