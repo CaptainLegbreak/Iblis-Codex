@@ -5,6 +5,7 @@
 #include "D2NetTypes.h"
 #include "D2Primitives.h"
 #include "D2StormLink.h"
+#include "D2Win32System.h"
 
 int __stdcall SFileCloseFile(void* pArg);    // 0x004198D0
 
@@ -112,13 +113,6 @@ extern "C" int __stdcall Process32FirstW(void* hSnapshot, D2ProcessEntryWStrc* p
 extern "C" int __stdcall Process32NextW(void* hSnapshot, D2ProcessEntryWStrc* pEntry); // 0x006B1530
 
 
-struct D2ProcessInformationStrc
-{
-    void* hProcess;
-    void* hThread;
-    unsigned long dwProcessId;
-    unsigned long dwThreadId;
-};
 
 extern "C" __declspec(dllimport) int __stdcall CreateProcessW(const wchar_t* wszApplicationName, wchar_t* wszCommandLine, void* pProcessAttributes, void* pThreadAttributes, int bInheritHandles, unsigned long dwCreationFlags, void* pEnvironment, const wchar_t* wszCurrentDirectory, D2StartupInfoWStrc* pStartupInfo, D2ProcessInformationStrc* pProcessInformation); // 0x006CC2C4
 
