@@ -88,7 +88,6 @@ extern const char gszQServerPrefix[]; // 0x006FC47C
 long __cdecl SYSTEM_GetSyncTime(); // 0x00410A80
 
 
-static int __stdcall sub_006BF180_ReferenceAddress(D2QueueServerStrc* server,const unsigned int* address); // 0x006BF180
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC1FC
 
@@ -865,13 +864,6 @@ static int __cdecl QSERVER_IncrementPerIpConnCount(D2QueueServerStrc* pServer, D
     return 1;
 }
 
-// build: context sub_006BF180_Shim
-// calling-convention shim (not game code)
-int __cdecl sub_006BF180_Shim(D2QueueServerStrc* pServer, D2InAddrStrc* pAddress)
-{
-    return QSERVER_IncrementPerIpConnCount(pServer, pAddress);
-}
-
 // 0x006BF1F0
 static int QSERVER_DecrementPerIpConnCount(D2QueueServerStrc* pTable, unsigned int* pKey)
 {
@@ -1314,7 +1306,7 @@ D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc* server,unsigned int s
  server->ppAddressBuckets[addressBucket]=client;
  LeaveCriticalSection(&server->tAddressLock);
  EnterCriticalSection(&server->tLock);
- sub_006BF180_ReferenceAddress(server,&address);
+ QSERVER_IncrementPerIpConnCount(server,(D2InAddrStrc*)&address);
  InterlockedIncrement(&client->nRefCount);
  ++server->nClients;
  LeaveCriticalSection(&server->tLock);
@@ -1657,27 +1649,6 @@ int __stdcall FOG_10152(D2QueueServerStrc* pServer, char* pData, int nSize)
     FOG_Free(pServer->pLocks, gszQServerCppFile, 0x19C, 0);
     FOG_Free(pServer, gszQServerCppFile, 0x19F, 0);
     return 1;
-}
-
-static
-int __stdcall sub_006BF180_ReferenceAddress(D2QueueServerStrc* server,const unsigned int* address)
-{
- unsigned int value=*address;
- unsigned int bucket=value%server->nIpBuckets;
- D2QIpCountStrc* entry=server->ppIpCounts[bucket];
- while(entry) {
-  if(entry->nAddress==value) {
-   ++entry->nCount;
-   return 1;
-  }
-  entry=entry->pNext;
- }
- entry=(D2QIpCountStrc*)FOG_Alloc(sizeof(D2QIpCountStrc),gszQServerSource,2329,0);
- entry->nAddress=value;
- entry->nCount=1;
- entry->pNext=server->ppIpCounts[bucket];
- server->ppIpCounts[bucket]=entry;
- return 1;
 }
 
 // 0x006C0360
