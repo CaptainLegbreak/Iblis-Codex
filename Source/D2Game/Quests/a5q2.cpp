@@ -70,7 +70,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
-extern const unsigned int gdwAct5Q2RuneCodes[3]; // 0x00732FEC
+extern unsigned int gdwAct5Q2RuneCodes[3]; // 0x00732FEC
 
 void __fastcall SCMD_SendPacket0x5D(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
 

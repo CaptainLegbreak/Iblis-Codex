@@ -281,6 +281,20 @@ struct D2LaunchMsgStrc
     char szText[0x108]; // 0x18
 };
 
+struct D2LaunchGameEntryStrc
+{
+    int nAddress; // 0x00
+    char unk0x04[0x10]; // 0x04
+    char szName[1]; // 0x14
+};
+
+struct D2LaunchGameListStrc
+{
+    int nCount; // 0x00
+    char unk0x04[0x0C]; // 0x04
+    D2LaunchGameEntryStrc tFirst; // 0x10
+};
+
 D2_CHECK_SIZE(D2MultiChannelUserStrc, 0xB4);
 D2_CHECK_SIZE(D2LaunchGameRecStrc, 0x3B);
 D2_CHECK_SIZE(D2LaunchFuncsStrc, 0xB0);

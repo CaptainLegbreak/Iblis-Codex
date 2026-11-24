@@ -4591,6 +4591,31 @@
      "name": "sub_00418710_sub_006C4290"
     },
     {
+     "va": "0x00418900",
+     "length": 61,
+     "name": "?sub_00418900_UnlinkAll@D2StormList00708354Strc@@QAEXXZ"
+    },
+    {
+     "va": "0x00418940",
+     "length": 61,
+     "name": "?sub_00418940_UnlinkAll@D2StormList00708360Strc@@QAEXXZ"
+    },
+    {
+     "va": "0x00418980",
+     "length": 61,
+     "name": "?sub_00418980_UnlinkAll@D2StormList0070836CStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x004189C0",
+     "length": 61,
+     "name": "?sub_004189C0_UnlinkAll@D2StormList00708378Strc@@QAEXXZ"
+    },
+    {
+     "va": "0x00418A00",
+     "length": 61,
+     "name": "?sub_00418A00_UnlinkAll@D2StormList00708384Strc@@QAEXXZ"
+    },
+    {
      "va": "0x00418A50",
      "length": 208,
      "name": "??1ARCHIVEREC@@QAE@XZ"
@@ -4942,37 +4967,6 @@
     "/Ob1",
     "/Gd",
     "/EHsc"
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_00418900.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00418900",
-     "length": 61,
-     "name": "?sub_00418900_UnlinkAll@D2StormList00708354Strc@@QAEXXZ"
-    },
-    {
-     "va": "0x00418940",
-     "length": 61,
-     "name": "?sub_00418940_UnlinkAll@D2StormList00708360Strc@@QAEXXZ"
-    },
-    {
-     "va": "0x00418980",
-     "length": 61,
-     "name": "?sub_00418980_UnlinkAll@D2StormList0070836CStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x004189C0",
-     "length": 61,
-     "name": "?sub_004189C0_UnlinkAll@D2StormList00708378Strc@@QAEXXZ"
-    },
-    {
-     "va": "0x00418A00",
-     "length": 61,
-     "name": "?sub_00418A00_UnlinkAll@D2StormList00708384Strc@@QAEXXZ"
-    }
    ]
   },
   {
@@ -13855,26 +13849,6 @@
      "length": 235
     },
     {
-     "va": "0x00477030",
-     "length": 33,
-     "name": "?VIEW_FindPalShiftNode@@YIPAUD2PalShiftNodeStrc@@H@Z"
-    },
-    {
-     "va": "0x00477750",
-     "length": 13,
-     "name": "?VIEW_IsAcceleratedRenderMode@@YAHXZ"
-    },
-    {
-     "va": "0x00477980",
-     "length": 600,
-     "name": "?sub_00477980@@YIXXZ"
-    },
-    {
-     "va": "0x00477C00",
-     "length": 96,
-     "name": "?VIEW_ToggleCacheStats@@YAXXZ"
-    },
-    {
      "va": "0x00479010",
      "length": 111,
      "name": "?VIEW_UpdatePetLife@@YIXHHG@Z"
@@ -14034,26 +14008,6 @@
      "va": "0x0045FDD0",
      "length": 12,
      "name": "?INV_IsPopupDismissed@@YAHXZ"
-    },
-    {
-     "va": "0x004776F0",
-     "length": 11,
-     "name": "_INV_SetRenderModeGlide"
-    },
-    {
-     "va": "0x00477700",
-     "length": 11,
-     "name": "_INV_SetRenderModeOpenGL"
-    },
-    {
-     "va": "0x00477710",
-     "length": 11,
-     "name": "_INV_SetRenderModeDirect3D"
-    },
-    {
-     "va": "0x00477720",
-     "length": 11,
-     "name": "_INV_SetRenderModeRave"
     },
     {
      "va": "0x00477EE0",
@@ -19073,31 +19027,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_0046C060.cpp",
-   "rank": 0,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x00477530",
-     "length": 232,
-     "name": "?CUNIT_GetPalShift@@YIPAEPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/GAME/Select.cpp",
    "rank": 0,
    "functions": [
@@ -21369,51 +21298,6 @@
      "name": "?DLIGHTMAP_BuildLerpTables@@YAXXZ"
     },
     {
-     "va": "0x00477680",
-     "length": 6,
-     "name": "DLIGHTMAP_GetLocalBloodPalette"
-    },
-    {
-     "va": "0x00477690",
-     "length": 5,
-     "name": "?sub_00477690_TogglePerspective@@YAHXZ"
-    },
-    {
-     "va": "0x004776A0",
-     "length": 5,
-     "name": "?sub_004776A0_ToggleBlendedShadows@@YAHXZ"
-    },
-    {
-     "va": "0x004776B0",
-     "length": 5,
-     "name": "?sub_004776B0_ToggleLowQuality@@YAHXZ"
-    },
-    {
-     "va": "0x004776C0",
-     "length": 7,
-     "name": "sub_004776C0"
-    },
-    {
-     "va": "0x00477730",
-     "length": 6,
-     "name": "DLIGHTMAP_GetRenderMode"
-    },
-    {
-     "va": "0x00477740",
-     "length": 6,
-     "name": "sub_00477740"
-    },
-    {
-     "va": "0x00477C60",
-     "length": 34,
-     "name": "?sub_00477C60_CheckCacheStats@@YAXXZ"
-    },
-    {
-     "va": "0x00477C90",
-     "length": 6,
-     "name": "sub_00477C90"
-    },
-    {
      "va": "0x00478150",
      "length": 6,
      "name": "sub_00478150"
@@ -21560,6 +21444,11 @@
      "name": "?PALSHIFT_FreePalShifts@@YAXXZ"
     },
     {
+     "va": "0x00477030",
+     "length": 33,
+     "name": "?VIEW_FindPalShiftNode@@YIPAUD2PalShiftNodeStrc@@H@Z"
+    },
+    {
      "va": "0x00477060",
      "length": 257
     },
@@ -21571,6 +21460,11 @@
      "va": "0x00477470",
      "length": 180,
      "name": "?PALSHIFT_InitPalShifts@@YAXXZ"
+    },
+    {
+     "va": "0x00477530",
+     "length": 232,
+     "name": "?CUNIT_GetPalShift@@YIPAEPAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -21581,13 +21475,32 @@
     {
      "va": "0x00477620",
      "length": 84
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00477690.cpp",
-   "rank": 0,
-   "functions": [
+    },
+    {
+     "va": "0x00477680",
+     "length": 6,
+     "name": "DLIGHTMAP_GetLocalBloodPalette"
+    },
+    {
+     "va": "0x00477690",
+     "length": 5,
+     "name": "?sub_00477690_TogglePerspective@@YAHXZ"
+    },
+    {
+     "va": "0x004776A0",
+     "length": 5,
+     "name": "?sub_004776A0_ToggleBlendedShadows@@YAHXZ"
+    },
+    {
+     "va": "0x004776B0",
+     "length": 5,
+     "name": "?sub_004776B0_ToggleLowQuality@@YAHXZ"
+    },
+    {
+     "va": "0x004776C0",
+     "length": 7,
+     "name": "sub_004776C0"
+    },
     {
      "va": "0x004776D0",
      "length": 13,
@@ -21599,26 +21512,95 @@
      "name": "?sub_004776E0_SetModeValuesOne@@YAXXZ"
     },
     {
+     "va": "0x004776F0",
+     "length": 11,
+     "name": "_INV_SetRenderModeGlide"
+    },
+    {
+     "va": "0x00477700",
+     "length": 11,
+     "name": "_INV_SetRenderModeOpenGL"
+    },
+    {
+     "va": "0x00477710",
+     "length": 11,
+     "name": "_INV_SetRenderModeDirect3D"
+    },
+    {
+     "va": "0x00477720",
+     "length": 11,
+     "name": "_INV_SetRenderModeRave"
+    },
+    {
+     "va": "0x00477730",
+     "length": 6,
+     "name": "DLIGHTMAP_GetRenderMode"
+    },
+    {
+     "va": "0x00477740",
+     "length": 6,
+     "name": "sub_00477740"
+    },
+    {
+     "va": "0x00477750",
+     "length": 13,
+     "name": "?VIEW_IsAcceleratedRenderMode@@YAHXZ"
+    },
+    {
+     "va": "0x00477760",
+     "length": 527,
+     "name": "?sub_00477760_DrawCacheStats@@YAXXZ"
+    },
+    {
      "va": "0x00477970",
      "length": 1,
      "name": "?sub_00477970_Empty@@YAXXZ"
     },
     {
+     "va": "0x00477980",
+     "length": 600,
+     "name": "?sub_00477980@@YIXXZ"
+    },
+    {
      "va": "0x00477BE0",
      "length": 17,
      "name": "?sub_00477BE0_ToggleFlag7BB3A8@@YAXXZ"
+    },
+    {
+     "va": "0x00477C00",
+     "length": 96,
+     "name": "?VIEW_ToggleCacheStats@@YAXXZ"
+    },
+    {
+     "va": "0x00477C60",
+     "length": 34,
+     "name": "?sub_00477C60_CheckCacheStats@@YAXXZ"
+    },
+    {
+     "va": "0x00477C90",
+     "length": 6,
+     "name": "sub_00477C90"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
    "file": "Source/D2Client/Unknown_00477760.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00477760",
-     "length": 527,
-     "name": "?sub_00477760_DrawCacheStats@@YAXXZ"
-    },
     {
      "va": "0x00477CA0",
      "length": 255,
@@ -73196,16 +73178,6 @@
      "va": "0x0066E140",
      "length": 20,
      "name": "SKILLS_GetModeSideChar"
-    },
-    {
-     "va": "0x00679380",
-     "length": 90,
-     "name": "PATH_GetTableHeuristic"
-    },
-    {
-     "va": "0x0067A390",
-     "length": 129,
-     "name": "PATH_GetScaledDirectionVector"
     }
    ]
   },
@@ -78008,9 +77980,14 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_006793E0.cpp",
+   "file": "Source/D2Common/Unknown_00679380.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x00679380",
+     "length": 90,
+     "name": "PATH_GetTableHeuristic"
+    },
     {
      "va": "0x006793E0",
      "length": 321
@@ -78024,57 +78001,13 @@
      "length": 827
     },
     {
-     "va": "0x00679B30",
-     "length": 329
-    },
-    {
-     "va": "0x0067A240",
-     "length": 326
-    },
-    {
-     "va": "0x0067AF40",
-     "length": 147
-    },
-    {
-     "va": "0x0067B690",
-     "length": 171
-    },
-    {
-     "va": "0x0067B9F0",
-     "length": 454
-    },
-    {
-     "va": "0x0067BBF0",
-     "length": 370
-    },
-    {
-     "va": "0x0067C1E0",
-     "length": 233
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00679A60.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00679A60",
      "length": 196,
      "name": "?PATH_CheckCollisionsToNextPosition@@YAHPAUD2DynamicPathStrc@@PAUD2PathPointStrc@@@Z"
+    },
+    {
+     "va": "0x00679B30",
+     "length": 329
     },
     {
      "va": "0x00679E50",
@@ -78110,6 +78043,15 @@
      "length": 244
     },
     {
+     "va": "0x0067A240",
+     "length": 326
+    },
+    {
+     "va": "0x0067A390",
+     "length": 129,
+     "name": "PATH_GetScaledDirectionVector"
+    },
+    {
      "va": "0x0067A420",
      "length": 128,
      "name": "?sub_0067A420_TraceSegment@@YGHPAUD2DynamicPathStrc@@UD2PathPointStrc@@1@Z"
@@ -78117,31 +78059,44 @@
     {
      "va": "0x0067A4A0",
      "length": 169
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Common/Unknown_0067B9C0.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x0067B9C0",
+     "length": 41,
+     "name": "PATH_GetSquaredDistanceBetweenPoints"
     },
     {
-     "va": "0x0067AEA0",
-     "length": 48,
-     "name": "?PATH_AStar_PushToVisitedCache@@YAXPAUD2PathFoWallContextStrc@@PAUD2PathFoWallNodeStrc@@@Z"
+     "va": "0x0067B9F0",
+     "length": 454
     },
     {
-     "va": "0x0067AED0",
-     "length": 102,
-     "name": "?PATH_AStar_MakeCandidate@@YAXPAUD2PathFoWallContextStrc@@PAUD2PathFoWallNodeStrc@@@Z"
+     "va": "0x0067BBC0",
+     "length": 47,
+     "name": "PATH_GetAdjacentPointDirection"
     },
     {
-     "va": "0x0067AFE0",
-     "length": 472,
-     "name": "?PATH_AStar_PropagateNewFScoreToChildren@@YAXPAUD2PathFoWallContextStrc@@PAUD2PathFoWallNodeStrc@@@Z"
-    },
-    {
-     "va": "0x0067B200",
-     "length": 568,
-     "name": "?PATH_AStar_EvaluateNeighbor@@YGHPAUD2PathFoWallContextStrc@@UD2PathPointStrc@@1PAUD2PathFoWallNodeStrc@@@Z"
-    },
-    {
-     "va": "0x0067B440",
-     "length": 589,
-     "name": "?PATH_AStar_ExploreChildren@@YGHPAUD2PathFoWallContextStrc@@UD2PathPointStrc@@PAUD2PathFoWallNodeStrc@@PAUD2PathInfoStrc@@@Z"
+     "va": "0x0067BBF0",
+     "length": 370
     },
     {
      "va": "0x0067BD70",
@@ -78152,30 +78107,14 @@
      "va": "0x0067BD80",
      "length": 108,
      "name": "?PATH_ReplaceSubpathPoints@@YGXPAUD2PathPointStrc@@PAHH1PAUD2PathMovStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0067A000.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0067B850",
-     "length": 353
-    },
-    {
-     "va": "0x0067B9C0",
-     "length": 41,
-     "name": "PATH_GetSquaredDistanceBetweenPoints"
-    },
-    {
-     "va": "0x0067BBC0",
-     "length": 47,
-     "name": "PATH_GetAdjacentPointDirection"
     },
     {
      "va": "0x0067BDF0",
      "length": 1008
+    },
+    {
+     "va": "0x0067C1E0",
+     "length": 233
     }
    ],
    "flags": [
@@ -78246,7 +78185,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0067B740.cpp",
+   "file": "Source/D2Common/Unknown_0067ADC0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -78265,13 +78204,50 @@
      "name": "PATH_AStar_FindPointInVisitedCache"
     },
     {
+     "va": "0x0067AEA0",
+     "length": 48,
+     "name": "?PATH_AStar_PushToVisitedCache@@YAXPAUD2PathFoWallContextStrc@@PAUD2PathFoWallNodeStrc@@@Z"
+    },
+    {
+     "va": "0x0067AED0",
+     "length": 102,
+     "name": "?PATH_AStar_MakeCandidate@@YAXPAUD2PathFoWallContextStrc@@PAUD2PathFoWallNodeStrc@@@Z"
+    },
+    {
+     "va": "0x0067AF40",
+     "length": 147
+    },
+    {
+     "va": "0x0067AFE0",
+     "length": 472,
+     "name": "?PATH_AStar_PropagateNewFScoreToChildren@@YAXPAUD2PathFoWallContextStrc@@PAUD2PathFoWallNodeStrc@@@Z"
+    },
+    {
      "va": "0x0067B1C0",
      "length": 59,
      "name": "?PATH_AStar_AllocNewNode@@YIPAUD2DrlgTableEntryStrc@@PAUD2DrlgEntryTableStrc@@@Z"
     },
     {
+     "va": "0x0067B200",
+     "length": 568,
+     "name": "?PATH_AStar_EvaluateNeighbor@@YGHPAUD2PathFoWallContextStrc@@UD2PathPointStrc@@1PAUD2PathFoWallNodeStrc@@@Z"
+    },
+    {
+     "va": "0x0067B440",
+     "length": 589,
+     "name": "?PATH_AStar_ExploreChildren@@YGHPAUD2PathFoWallContextStrc@@UD2PathPointStrc@@PAUD2PathFoWallNodeStrc@@PAUD2PathInfoStrc@@@Z"
+    },
+    {
+     "va": "0x0067B690",
+     "length": 171
+    },
+    {
      "va": "0x0067B740",
      "length": 263
+    },
+    {
+     "va": "0x0067B850",
+     "length": 353
     }
    ],
    "flags": [

@@ -241,9 +241,9 @@ D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, 
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
-extern "C" const unsigned int gdwA1Q6ChippedGemCodes[7]; // 0x007361DC
+extern "C" unsigned int gdwA1Q6ChippedGemCodes[7]; // 0x007361DC
 
-extern "C" const unsigned int gdwA1Q6NormalGemCodes[7]; // 0x00736444
+extern "C" unsigned int gdwA1Q6NormalGemCodes[7]; // 0x00736444
 
 D2SeedStrc* __fastcall QUESTS_GetGlobalSeed(D2GameStrc* pGame); // 0x005438B0
 

@@ -1681,7 +1681,7 @@ int __stdcall ITEMS_SerializeItemToBitstream(D2UnitStrc* pItem, unsigned char* p
 
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 
-extern const int gnBaseStatIdsToSend[]; // 0x00731AD8
+extern int gnBaseStatIdsToSend[]; // 0x00731AD8
 
 void __fastcall sub_M93_UseCount_00531750(int nCount);
 

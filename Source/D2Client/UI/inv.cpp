@@ -1701,29 +1701,9 @@ int __cdecl INV_IsPopupDismissed()
 
 extern "C" { int gnFlag_007C02EC; } // 0x007C02EC
 
-// 0x004776F0
-extern "C" void __cdecl INV_SetRenderModeGlide()
-{
-    gnLightmapRenderMode = 4;
-}
 
-// 0x00477700
-extern "C" void __cdecl INV_SetRenderModeOpenGL()
-{
-    gnLightmapRenderMode = 5;
-}
 
-// 0x00477710
-extern "C" void __cdecl INV_SetRenderModeDirect3D()
-{
-    gnLightmapRenderMode = 6;
-}
 
-// 0x00477720
-extern "C" void __cdecl INV_SetRenderModeRave()
-{
-    gnLightmapRenderMode = 7;
-}
 
 // 0x00477EE0
 void __cdecl INV_SendLeaveGame()

@@ -13,6 +13,7 @@
 #include "D2Primitives.h"
 
 #include "D2BnCryptTypes.h"
+#include "D2BnMessages.h"
 
 static int sub_00520A80_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize);
 
@@ -411,19 +412,7 @@ typedef unsigned int size_t;
 
 #pragma intrinsic(strlen)
 
-struct D2BnClientIdReplyStrc
-{
-    unsigned int dwRegistrationVersion;
-    unsigned int dwRegistrationAuthority;
-    unsigned int dwClientId;
-    unsigned int f_C;
-};
 
-struct D2BnStartVersioningStrc
-{
-    D2FileTimeStrc tFileTime;
-    char szFileName[4];
-};
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
@@ -527,14 +516,6 @@ int __fastcall BNDOWNLOAD_SendGetFileTime(const char* szText, int nCode); // 0x0
 
 int __fastcall BNNEWS_ParseNewsInfo(const void* pData); // 0x0051D860
 
-struct D2BnAuthInfoStrc
-{
-    unsigned int dwLogonType;
-    unsigned int f_4;
-    unsigned int f_8;
-    D2FileTimeStrc tFileTime;
-    char szFileName[4];
-};
 
 void __fastcall sub_0051A560_SetValue(int nValue); // 0x0051A560
 
@@ -2138,12 +2119,6 @@ int __fastcall BNDOWNLOAD_HandleGetFileTime(const void* pData, unsigned int nSiz
     return 1;
 }
 
-struct D2BnCheckAdReplyStrc
-{
-    unsigned int nAdId;
-    unsigned int nExtension;
-    unsigned char pData[1];
-};
 
 // 0x00521150
 int __fastcall BNDOWNLOAD_HandleCheckAd(const D2BnCheckAdReplyStrc* pPacket, unsigned int nSize)

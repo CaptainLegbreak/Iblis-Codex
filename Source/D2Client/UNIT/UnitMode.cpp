@@ -1472,3 +1472,5 @@ int __stdcall sub_004814A0_Shim(D2UnitStrc* pUnit, int nAction, D2UnitStrc* pPla
 {
     return UNITMODE_TryMonsterAction(pUnit, pPlayer, nAction, nArg1, nArg2);
 }
+
+#include "gen/data/Source/D2Client/UNIT/UnitMode.inc"
