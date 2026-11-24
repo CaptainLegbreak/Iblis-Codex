@@ -404,7 +404,7 @@ void __stdcall FOG_10207(D2BinFileStrc* bin,D2BinFieldStrc* fields,char* output,
    case 22:{char callbackText[256];char* p=callbackText;while(*input){if(p>=callbackText+256){while(*input)++input;break;}*p++=*input++;}++input;*p=0;if(field->link)*(unsigned short*)dst=(unsigned short)((KeyCallback)field->link)(callbackText);break;}
    case 23:case 24:case 25:{char callbackText[256];char* p=callbackText;while(*input){if(p>=callbackText+256){while(*input)++input;break;}*p++=*input++;}if(field->link)++input;else ++input;*p=0;if(field->link)((FieldCallback)field->link)(callbackText,output,offset,length,row,c);break;}
    // every field type is a listed case
-   default:FOG_ASSUME(0);
+   default:DEFAULT_UNREACHABLE;
    }
   }
   for(;c<total;++c){
@@ -435,7 +435,7 @@ void __stdcall FOG_10207(D2BinFileStrc* bin,D2BinFieldStrc* fields,char* output,
    case 23:case 24:case 25:if(field->link)((FieldCallback)field->link)(0,output,field->offset,field->length,row,c);break;
    case 26:break;
    // every field type is a listed case
-   default:FOG_ASSUME(0);
+   default:DEFAULT_UNREACHABLE;
    }
   }
   D2_ASSERT(*input=='\n',0x286);++input;
