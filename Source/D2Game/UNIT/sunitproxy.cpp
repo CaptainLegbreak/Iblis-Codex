@@ -12,6 +12,7 @@
 #include "D2ItemsWorld.h"
 #include "D2MonsterIds.h"
 #include "D2LanguageNames.h"
+#include "D2NpcEvent.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -79,14 +80,6 @@ struct D2NpcVendorChainStrc
     D2NpcVendorChainStrc* pNext;
 };
 
-struct D2NpcEventStrc
-{
-    D2UnitStrc* pUnit;
-    int field_4;
-    int field_8;
-    int field_C;
-    D2NpcEventStrc* pNext;
-};
 
 struct D2NpcTradeStrc
 {
@@ -293,7 +286,7 @@ void __fastcall SUNITPROXY_AllocNpcEvent(D2UnitStrc* pNpc, D2GameStrc* pGame, D2
         pNpcRecord->pEvent = pNpcEvent;
         pNpcEvent->field_C = 1;
         pNpcEvent->pUnit = pPlayer;
-        pNpcEvent->field_8 = a4;
+        pNpcEvent->nParam = a4;
     }
     else
     {
@@ -649,8 +642,8 @@ static void __stdcall SUNITPROXY_AddNpcEvent(D2UnitStrc* pUnit, int nParam, int 
     pNpcEvent->pNext = pNpcRecord->pEvent;
     pNpcEvent->pUnit = pUnit;
     pNpcEvent->field_C = 0;
-    pNpcEvent->field_8 = nParam;
-    pNpcEvent->field_4 = nAction;
+    pNpcEvent->nParam = nParam;
+    pNpcEvent->nAction = nAction;
     pNpcRecord->pEvent = pNpcEvent;
 }
 
@@ -727,8 +720,8 @@ void __fastcall SUNITPROXY_InitializeNpcEventChain(D2GameStrc* pGame, int nUnuse
             pEvent->pNext = pRecord->pEvent;
             pEvent->field_C = 0;
             pEvent->pUnit = pUnit;
-            pEvent->field_8 = 1;
-            pEvent->field_4 = 4;
+            pEvent->nParam = 1;
+            pEvent->nAction = 4;
             pRecord->pEvent = pEvent;
         }
         ++pRecord;
@@ -744,7 +737,7 @@ void __fastcall SUNITPROXY_ProcessNpcEvents(D2GameStrc* game,D2UnitStrc* npc)
  if(!record)return;
  D2NpcEventStrc* prev=0;
  for(D2NpcEventStrc* event=record->pEvent;event;event=event->pNext) {
-  if(event->field_8) { event->field_8=0;if(!event->field_C && event->field_4==4)++count; }
+  if(event->nParam) { event->nParam=0;if(!event->field_C && event->nAction==4)++count; }
  }
  if(count && npc->pInventory) {
   D2UnitStrc* iter=INVENTORY_GetFirstItem(npc->pInventory);
@@ -772,7 +765,7 @@ void __fastcall SUNITPROXY_ProcessNpcEvents(D2GameStrc* game,D2UnitStrc* npc)
    if(event==record->pEvent){record->pEvent=event->pNext;FOG_FreePool(game->pMemoryPool,event,".\\UNIT\\sunitproxy.cpp",0x3ea,0);event=record->pEvent;prev=0;}
    else{prev->pNext=event->pNext;FOG_FreePool(game->pMemoryPool,event,".\\UNIT\\sunitproxy.cpp",0x3f1,0);event=prev->pNext;}
   }else {
-   if(!SUNITNPC_RollTraderItems(game,npc,event->pUnit,event->field_4)){prev=event;event=event->pNext;continue;}
+   if(!SUNITNPC_RollTraderItems(game,npc,event->pUnit,event->nAction)){prev=event;event=event->pNext;continue;}
    if(event==record->pEvent){record->pEvent=event->pNext;FOG_FreePool(game->pMemoryPool,event,".\\UNIT\\sunitproxy.cpp",0x403,0);event=record->pEvent;prev=0;}
    else{prev->pNext=event->pNext;FOG_FreePool(game->pMemoryPool,event,".\\UNIT\\sunitproxy.cpp",0x40a,0);event=prev->pNext;}
   }

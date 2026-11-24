@@ -27,6 +27,7 @@
 #include "D2LanguageNames.h"
 #include "D2GameCallbackArgs.h"
 #include "D2DrlgDelete.h"
+#include "D2NpcEvent.h"
 
 #pragma function(memset)
 
@@ -1006,14 +1007,6 @@ struct D2NpcVendorChainStrc
     D2NpcVendorChainStrc* pNext;
 };
 
-struct D2NpcEventStrc
-{
-    D2UnitStrc* pUnit;
-    int field_4;
-    int field_8;
-    int field_C;
-    D2NpcEventStrc* pNext;
-};
 
 struct D2NpcControlStrc
 {
