@@ -112,6 +112,8 @@ In your own files, whenever your current list allows:
   1. **Stale markers:** some markers now sit above a plain prototype with no shim body (e.g. D2BNClient/BnDownload.cpp:334). Delete the marker line only.
   2. **Shims whose callers are all in the same unit:** delete the shim, call the real function directly with its real convention, and build. Keep the change only if the unit stays all equal.
   3. Leave a shim whose callers are in another unit, and list it in your file with the unit it needs to share. That's a join for the owner.
+- **Lane 8, loaders and getters with a copy each: keep them separate.** Two language copies mean two objects; the copy rule holds over code adjacency or a loader/getter pairing. 00664530, 0066A1A0 and 00674040 stay files of their own. They're named placeholders whose name evidence would be an assert path or source string of their own.
+- **Lane 4, 0x45FB80 (optional follow-up to popup-object):** an uncalled byte-identical duplicate of the skill tree's mouse-position test is typical of a header inline emitted out of line by an object that uses it. If the test is (or can be) one inline function in a shared header, the copy at 0x45FB80 belongs to the object it sits in, the popup object: mark it in Unknown_00460420.cpp and delete its placeholder.
 - **Lane 7:**
   - **0x677880's join is on main:** #332, where OutPlace.cpp took in Unknown_00675600.cpp. Try the function in OutPlace.cpp now.
   - **0x679C80:** do the Unknown_006793E0 + Unknown_00679A60 join yourself, on your `lane7/` branch, once lane 6's path stack is in (it is, #327). Tell lane 8 in your board file. A join that unblocks a borrowed function doesn't wait for the owner.
