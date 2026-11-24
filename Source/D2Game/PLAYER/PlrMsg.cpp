@@ -4146,6 +4146,18 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x5E_InviteToParty_6FC87720(D2GameStrc* 
     return 0;
 }
 
+// 0x0054C360
+int __stdcall D2GAME_PACKETCALLBACK_Rcv0x42_Ignored(int nUnused1, int nUnused2)
+{
+    return 0;
+}
+
+// 0x0054C370
+int __stdcall D2GAME_PACKETCALLBACK_Rcv0x43_Ignored(int nUnused1, int nUnused2)
+{
+    return 0;
+}
+
 // 0x0054C380
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x44_StaffInOrifice_6FC87780(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
