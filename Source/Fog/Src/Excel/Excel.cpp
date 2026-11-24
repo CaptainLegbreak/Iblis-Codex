@@ -18,8 +18,6 @@ struct ClientNode;
 
 struct PaletteTables;
 
-struct Obj006BCDE0;
-
 struct D2SNameEntryStrc;
 
 struct D2SNameListStrc;
@@ -133,12 +131,6 @@ extern "C" ClientNode* __fastcall QSERVER_FindClient(Server* server,int clientId
 
 // build: symbol _gaCollisionPatternsFromSize 0x006EB3DC
 extern "C" const int gaCollisionPatternsFromSize[4];
-
-struct Obj006BCDE0 {
-    unsigned int dwUnknown00;
-    unsigned int dwUnknown04;
-    unsigned int dwValue08;
-};
 
 extern "C" const char gszEmptyAssertText_006CC837; // 0x006CC837
 
@@ -442,8 +434,9 @@ extern "C" void __stdcall FOG_FreeBinFile(BinFile* file)
 }
 
 // 0x006BCDE0
-extern "C" __declspec(dllexport) unsigned int __stdcall FOG_GetRecordCountFromBinFile(Obj006BCDE0* pObj) {
-    return pObj->dwValue08;
+int __stdcall FOG_GetRecordCountFromBinFile(D2BinFileStrc* pBinFile)
+{
+    return pBinFile->nRecordCount;
 }
 
 // 0x006BCDF0

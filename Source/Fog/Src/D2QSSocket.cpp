@@ -91,13 +91,13 @@ static void D2QSSOCKET_CloseSocket(D2ThreadRecord006BC5A0Strc* pRecord); // 0x00
 static void __stdcall D2QSSOCKET_FreeSafeSock(D2ThreadRecord006BC5A0Strc* pRecord); // 0x006BC370
 
 // 0x006BBF20
-extern "C" __declspec(dllexport) int __stdcall FOG_Decode14BitsFromString(const unsigned char* pBuffer)
+int __stdcall FOG_Decode14BitsFromString(const unsigned char* pBuffer)
 {
     return ((pBuffer[1] & 0x7F) << 7) + (pBuffer[0] & 0x7F);
 }
 
 // 0x006BBF40
-extern "C" __declspec(dllexport) void __stdcall FOG_Encode14BitsToString(unsigned char* pBuffer, unsigned int nValue)
+void __stdcall FOG_Encode14BitsToString(unsigned char* pBuffer, unsigned int nValue)
 {
     pBuffer[0] = (unsigned char)(nValue | 0x80);
     pBuffer[1] = (unsigned char)((nValue >> 7) | 0x80);
@@ -420,7 +420,7 @@ unsigned long __stdcall D2QSSOCKET_WaitEvent(D2ThreadRecord006BC5A0Strc* pRecord
 }
 
 // 0x006BC810
-extern "C" __declspec(dllexport) FSafeSock* __stdcall D2QSSOCKET_GetSafeSock(D2ThreadRecord006BC5A0Strc* pRecord)
+FSafeSock* __stdcall D2QSSOCKET_GetSafeSock(D2ThreadRecord006BC5A0Strc* pRecord)
 {
     if (!pRecord)
         return 0;
