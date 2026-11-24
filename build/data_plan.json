@@ -895,8 +895,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Game_0044E5A0.cpp": {
-   "bytes": 282,
-   "definitions": 9,
+   "bytes": 390,
+   "definitions": 10,
    "externs": [
     "extern \"C\" void __cdecl WINMAIN_StartSession(); // 0x0044BC30",
     "extern \"C\" void __cdecl WINMAIN_StopSession(); // 0x0044BD90",
@@ -905,7 +905,10 @@
     "extern \"C\" void __cdecl GAME_SwallowMessage(); // 0x0044C5C0",
     "extern \"C\" void __cdecl GAME_HandleActivateApp(); // 0x0044C5E0",
     "extern \"C\" void __cdecl GAME_AdvanceBetaScreen(); // 0x0044D0A0",
-    "extern \"C\" void __cdecl GAME_AdvanceBetaScreenNoRepeat(); // 0x0044D0D0"
+    "extern \"C\" void __cdecl GAME_AdvanceBetaScreenNoRepeat(); // 0x0044D0D0",
+    "extern \"C\" void __cdecl GAME_HandleKeyDown(); // 0x0044D360",
+    "extern \"C\" void __cdecl GAME_HandleEndScreenButtonDown(); // 0x0044E460",
+    "extern \"C\" void __cdecl GAME_HandleEndScreenButtonUp(); // 0x0044E4F0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/GAME/Game_0044B8A0.inc",
