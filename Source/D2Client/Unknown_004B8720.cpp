@@ -137,12 +137,83 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
 
+int __cdecl sub_00468730(); // 0x00468730
+
+int __cdecl sub_00468740(); // 0x00468740
+
+int __cdecl UI_IsGoldPanelOpen(); // 0x004549C0
+
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign); // 0x00502280
+
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
+int __stdcall DUNGEON_IsTownLevelId(int nLevelId); // 0x0061AAF0
+
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
+void __cdecl INV_ResetNpcState(); // 0x00487B30
+
+void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog);
+
+extern int gnPanelOffsetX; // 0x007A2858
+
+extern int gnPanelOffsetY; // 0x007A285C
+
 // 0x004B8720
 void __cdecl sub_004B8720()
 {
     gnTradeState = 0;
     gbGlobal_007C0E74 = 0;
 }
+
+// 0x004B8730
+void __cdecl sub_004B8730_DrawDialogHover()
+{
+    int nX = sub_00468730();
+    int nY = sub_00468740();
+    if (gnTradeState > 2 && !UI_IsGoldPanelOpen())
+    {
+        if (nX >= gnPanelOffsetX + 0x111 && nX <= gnPanelOffsetX + 0x133 && nY >= 0xA8 - gnPanelOffsetY && nY <= 0xCA - gnPanelOffsetY)
+            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1023), gnPanelOffsetX + 0xEF, 0xA7 - gnPanelOffsetY, 0, 0);
+        if (nX >= gnPanelOffsetX + 0xDD && nX <= gnPanelOffsetX + 0xFF && nY >= 0x17F - gnPanelOffsetY && nY <= 0x1A1 - gnPanelOffsetY)
+            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1023), gnPanelOffsetX + 0xBB, 0x17E - gnPanelOffsetY, 0, 0);
+        if (nX >= gnPanelOffsetX + 0x111 && nX <= gnPanelOffsetX + 0x133 && nY >= 0x17F - gnPanelOffsetY && nY <= 0x1A1 - gnPanelOffsetY)
+            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1022), gnPanelOffsetX + 0x107, 0x17E - gnPanelOffsetY, 0, 0);
+    }
+
+    if (sub_00463DD0_GetPlayerUnit())
+    {
+        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(sub_00463DD0_GetPlayerUnit());
+        if (CUNIT_IsPlayerDeadOrMissing() || (pRoom && !DUNGEON_IsTownLevelId(DUNGEON_GetLevelIdFromRoom(pRoom))))
+        {
+            if (GAME_GetUIVarState(0x17))
+            {
+                sub_00478600_SendShorts(0x4F, 2, 0, 0);
+                UI_SetUIVar(0x17, 1, 0);
+                INV_ClearTradeFlag();
+                INV_ResetNpcState();
+                gnTradeState = 0;
+            }
+            return;
+        }
+    }
+
+    if (gnTradeState >= 3 && gnTradeState <= 6)
+        return;
+    if (!gnTradeState)
+        return;
+    if (gnTradeState == 1)
+    {
+        if (gpTradeWaitDialog)
+            sub_004B8100_DrawDialog(gpTradeWaitDialog);
+    }
+    else if (gnTradeState == 2)
+    {
+        if (gpTradeRequestDialog)
+            sub_004B8100_DrawDialog(gpTradeRequestDialog);
+    }
+}
+
 
 // 0x004B8920
 void __cdecl sub_004B8920()

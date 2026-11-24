@@ -21740,11 +21740,6 @@
      "va": "0x0047AA40",
      "length": 25,
      "name": "?isWhitespace@Unicode@@QBEHXZ"
-    },
-    {
-     "va": "0x004B8370",
-     "length": 39,
-     "name": "@ROSTER_SetCtrlState@8"
     }
    ]
   },
@@ -25699,11 +25694,6 @@
      "name": "sub_004B70F0"
     },
     {
-     "va": "0x004B85E0",
-     "length": 6,
-     "name": "sub_004B85E0"
-    },
-    {
      "va": "0x004BF9B0",
      "length": 3,
      "name": "sub_004BF9B0"
@@ -26878,30 +26868,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004B8100.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B8100",
-     "length": 488
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/dialog.cpp",
    "rank": 0,
    "flags": [
@@ -27031,22 +26997,30 @@
      "va": "0x004B8020",
      "length": 222,
      "name": "?DIALOG_DestroyDialog@@YIXPAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004B82F0.cpp",
-   "rank": 0,
-   "functions": [
+    },
+    {
+     "va": "0x004B8100",
+     "length": 488
+    },
     {
      "va": "0x004B82F0",
      "length": 114,
      "name": "?sub_004B82F0_Select@@YIXPAUD2ClientDialogStrc@@H@Z"
     },
     {
+     "va": "0x004B8370",
+     "length": 39,
+     "name": "@ROSTER_SetCtrlState@8"
+    },
+    {
      "va": "0x004B83A0",
      "length": 112,
      "name": "?sub_004B83A0_PlaceLine@@YAXPAUD2ClientDialogStrc@@H@Z"
+    },
+    {
+     "va": "0x004B8410",
+     "length": 358,
+     "name": "?sub_004B8410_LayoutDialog@@YIXPAUD2ClientDialogStrc@@@Z"
     },
     {
      "va": "0x004B8580",
@@ -27064,15 +27038,21 @@
      "name": "?sub_004B85B0_GetRect@@YIXPAUD2ClientDialogStrc@@PAUD2RectStrc@@@Z"
     },
     {
+     "va": "0x004B85E0",
+     "length": 6,
+     "name": "sub_004B85E0"
+    },
+    {
      "va": "0x004B85F0",
      "length": 304,
      "name": "?sub_004B85F0_AddTextLine@@YIXPAUD2ClientDialogStrc@@PBUUnicode@@HHHHP6AHXZH@Z"
-    },
-    {
-     "va": "0x004B8730",
-     "length": 496,
-     "name": "?sub_004B8730_DrawDialogHover@@YAXXZ"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_004B82F0.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x004BABC0",
      "length": 26,
@@ -27142,17 +27122,6 @@
    "rank": 0
   },
   {
-   "file": "Source/D2Client/Unknown_004B8410.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004B8410",
-     "length": 358,
-     "name": "?sub_004B8410_LayoutDialog@@YIXPAUD2ClientDialogStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004B8720.cpp",
    "rank": 0,
    "functions": [
@@ -27160,6 +27129,11 @@
      "va": "0x004B8720",
      "length": 13,
      "name": "?sub_004B8720@@YAXXZ"
+    },
+    {
+     "va": "0x004B8730",
+     "length": 496,
+     "name": "?sub_004B8730_DrawDialogHover@@YAXXZ"
     },
     {
      "va": "0x004B8920",
