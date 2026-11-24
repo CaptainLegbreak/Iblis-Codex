@@ -130,7 +130,7 @@ struct HUFFNODE
 struct CHuffman
 {
     int unk0x00[2];
-    HUFFNODE f_8[0x203];
+    HUFFNODE aItems[0x203];
     D2StormNodeListAStrc tFreeList;
     D2StormNodeListAStrc tItemList;
     unsigned int nItemsUsed;
@@ -226,9 +226,9 @@ struct D2SCompListStrc
 
 struct D2StormZArenaStrc
 {
-    char* f_0;
+    char* pNext;
     unsigned int nSize;
-    char* f_8;
+    char* pBase;
 };
 
 struct z_stream
@@ -340,10 +340,10 @@ void* __fastcall ZArenaAlloc(D2StormZArenaStrc* pArena, unsigned int nItems, uns
     unsigned int nBytes = nItems * nSize;
     if (nBytes & 3)
         nBytes += 4 - (nBytes & 3);
-    if (nBytes < (unsigned int)(pArena->f_8 + pArena->nSize - pArena->f_0))
+    if (nBytes < (unsigned int)(pArena->pBase + pArena->nSize - pArena->pNext))
     {
-        char* pResult = pArena->f_0;
-        pArena->f_0 += nBytes;
+        char* pResult = pArena->pNext;
+        pArena->pNext += nBytes;
         return pResult;
     }
     return SMemAlloc(nBytes, ".\\SOURCE\\SCOMP.CPP", 0x4C4, 0);
@@ -353,7 +353,7 @@ void* __fastcall ZArenaAlloc(D2StormZArenaStrc* pArena, unsigned int nItems, uns
 void __fastcall ZArenaFree(void* pArena, void* pAddress)
 {
     D2StormZArenaStrc* pZArena = (D2StormZArenaStrc*)pArena;
-    if ((char*)pAddress < pZArena->f_8 || (char*)pAddress >= pZArena->f_8 + pZArena->nSize)
+    if ((char*)pAddress < pZArena->pBase || (char*)pAddress >= pZArena->pBase + pZArena->nSize)
         SMemFree(pAddress, ".\\SOURCE\\SCOMP.CPP", 0x4CC, 0);
 }
 
@@ -368,9 +368,9 @@ static int __stdcall CompressWithArena(unsigned char* dest, unsigned long* destL
     stream.avail_in = sourceLen;
     stream.next_out = dest;
     stream.avail_out = *destLen;
-    tArena.f_0 = aBuffer;
+    tArena.pNext = aBuffer;
     tArena.nSize = sizeof(aBuffer);
-    tArena.f_8 = aBuffer;
+    tArena.pBase = aBuffer;
     stream.zalloc = ZArenaAlloc;
     stream.zfree = ZArenaFree;
     stream.opaque = &tArena;
@@ -425,9 +425,9 @@ static int __stdcall UncompressWithArena(unsigned char* dest, unsigned long* des
     stream.avail_in = sourceLen;
     stream.next_out = dest;
     stream.avail_out = *destLen;
-    tArena.f_0 = aBuffer;
+    tArena.pNext = aBuffer;
     tArena.nSize = sizeof(aBuffer);
-    tArena.f_8 = aBuffer;
+    tArena.pBase = aBuffer;
     stream.zalloc = ZArenaAlloc;
     stream.zfree = ZArenaFree;
     stream.opaque = &tArena;
@@ -1242,7 +1242,7 @@ HUFFNODE* CHuffman::NewItem(unsigned int nLinkType)
 {
     HUFFNODE* pItem = (HUFFNODE*)tFreeList.Head();
     if (!pItem)
-        pItem = &f_8[nItemsUsed++];
+        pItem = &aItems[nItemsUsed++];
     tItemList.LinkNode((char*)pItem, nLinkType, 0);
     pItem->pParent = 0;
     pItem->pChild = 0;
