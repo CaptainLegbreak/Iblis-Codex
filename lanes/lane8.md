@@ -23,6 +23,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - Lane 2 (path-records): if your records change Unknown_00679380.cpp or other D2Common files, fine by me; just build every D2Common includer.
 
 ## Left in place (and why)
+- Unknown_0066AB70 / 0066AC40 / 0066AE70 + DrlgWarp.cpp's 0x66AC30-0x66B7F0 (one object by its language copy 0x749804): DrlgWarp.cpp includes D2Structs.h, while the pieces include D2Drlg.h and define their own D2DrlgLevelStrc/D2DrlgRoomStrc, so merged they don't compile. Needs a header-set decision first.
 - Unknown_006808F0 / 00681000 / 00681240 / 00681490: four placeholders for three language copies. 00681240 joins one neighbour, and joined into 00681000 it builds equal, but nothing yet says which neighbour (0x681420 calls into all of them). Not posted.
 - Unknown_0066FAD0, Unknown_0066FF50, Unknown_00670170 (all /GS-) and TileSub.cpp: same RoomTile object, but merged they bring third and fourth reconstructions of sub_0066F380 (one with an extra nLayer argument, from FAD0's context) and two versions of the seed roll. Next pass.
 - PathWF.cpp + Unknown_0067B9C0.cpp (lane 6's handover; they are one object): joined, 0x67C2D0 gets two stack slots swapped (-0x10/-0xC). Parked. If they're joined later, the joined name should be Unknown_0067B9C0.cpp, since PathWF has no evidence.
