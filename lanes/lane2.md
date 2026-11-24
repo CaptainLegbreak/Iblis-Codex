@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/win32-system-2 dbdfa445 562->562 D2Win32System.h: the Win32 PROCESS_INFORMATION (five units) and MEMORYSTATUS (five units) records, which units in Fog, D2Multi, D2Hell, D2Launch and D2Client each defined privately. A small header that only those units include. Ignore `lane2/win32-system`: it missed Unknown_00477620 after #327 moved the memory-status code there; VERIFIED 2995b14acbe8bf4593c0586bafdbc7b178247b82
+  - Verified on #328, rebased onto the newest main (f5e0e3e9). Precheck is equal there.
+  - Outside lane 2: ErrorManager, ErrorManager_004082E0, Safesock, system.cpp, Unknown_00401070 (lane 3); ChatDlg, MainMenus, D2Hell Unknown_00516D8B (lane 6); Unknown_00477620 (lane 4). In ErrorManager the private copy started mid-line after a declaration; the declaration stays.
+
 - lane2/path-records 7090f593 562->562 D2PathFind.h: the wall-following move state (0x348: direction, points, current/target, 201 points) and the collision test argument. PathWF, Unknown_006793E0, Unknown_00679A60 and Unknown_0067A000 each had private copies with the same text; VERIFIED 87598fa5186031a313e0cd32393c8d26f9cf3312
   - On #326. All 9 includers of D2PathFind.h build equal.
   - Outside lane 2: the four pathfinding units (lane 6). Each loses a private struct and gains an include. If lane 6's pathfinding split moves these units first, I'll redo it on top.
@@ -37,7 +41,7 @@ Records that two or more units define privately with the same text, moved into t
 3. (done: d3d-records)
 4. (done: bn-messages)
 5. (done: path-records)
-6. Win32 process info and memory status (Fog, D2Multi, D2Hell, D2Launch, D2Client).
+6. (done: win32-system-2)
 7. D2WinPopUpLineStrc (five D2Win units).
 No borrowed-data block or language split is in lane 2's range: the coord block is runtime-library data.
 
