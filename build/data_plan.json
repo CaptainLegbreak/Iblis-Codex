@@ -87,7 +87,7 @@
    "state": "included"
   },
   "Source/Fog/Unknown_00410790.cpp": {
-   "bytes": 3389,
+   "bytes": 3381,
    "definitions": 10,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
@@ -7696,25 +7696,16 @@
    "declared": true,
    "decorated": "?gszLogPrefix@@3PADA",
    "file": "Source/Fog/Unknown_00410790.cpp",
-   "fill": 268,
+   "fill": 260,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708018_t gData_00708018; // 0x00708018",
    "head": "extern \"C\" struct d2data_00708018_t gData_00708018 = ",
    "name": "gszLogPrefix",
-   "pointers": [
-    [
-     260,
-     "0x006F28F8",
-     "address",
-     "gData_006F28F8",
-     0,
-     "data"
-    ]
-   ],
+   "pointers": [],
    "region": "data",
-   "size": 268,
+   "size": 260,
    "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00708018_t\n{\n    unsigned char b0[260];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00708018_t\n{\n    unsigned char b0[260];\n};\n#pragma pack(pop)",
    "tail": "; // 0x00708018\n#pragma comment(linker, \"/alternatename:?gszLogPrefix@@3PADA=_gData_00708018\")",
    "type": "char",
    "va": "0x00708018"
