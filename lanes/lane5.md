@@ -4,6 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/monstermsg-2 7d932866 no change in placeholder count (Unknown_00598220.cpp becomes Unknown_005985C0.cpp); replaces monstermsg without the language copy: MonsterMsg.cpp's run starts at 0x597C70, MONSTERMSG_SendSummonerInfo (0x597C70) and MONSTERMSG_SendLifeUpdate (0x597CF0), statics filed in InvMode.cpp, and their only caller MONSTERMSG_SendMonsterUpdates (0x598220) join it in address order; InvMode.cpp drops its unmarked copy of 0x598220 and the helpers only it used. VERIFIED 06856f119144e524161f9d42496abf01f48b2f4b, borrowed data 1,166 B (= main). Based on main 27bf69d9 (#349), not stacked.
 - **Withdrawn for good:** aigeneral-copy, missiles-copy, monstermsg, skill-ai-copies, skillbar-join, game-copies, copies-runs-b (each raises borrowed data). The `// build: symbol` line doesn't help: link_exe.py places a data section only by anchors, from relocations of placed code or from data markers, and data markers count only external symbols (cls 2). A header copy is a static nobody reads, so in an object with no other .data it has no anchor and is copied instead. The file assignments in those branches still stand as evidence (see their commit messages); they can land once the link can place an unanchored static by a marker. The code parts are being reposted without the copies: monstermsg-2, skillbar-join-2, itemaffix-split-2.
 
 ## Claimed
