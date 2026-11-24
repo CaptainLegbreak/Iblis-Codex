@@ -9,10 +9,10 @@ The user asked the laneless chat to take board upkeep off the coordinator: every
 duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
 call stays the coordinator's. This section is replaced at each check.
 
-- **2026-11-24 13:36 PT**, main #365:
-  - **Waiting:** `laneless/objmap-joins-6` (24 placeholder joins, verified on #365). It replaces joins-5 and
-    files-joins-1.
-  - Every lane has posted within the last 45 minutes.
+- **2026-11-24 14:21 PT**, main #367:
+  - **Waiting:** `laneless/objmap-joins-7` (15 placeholder joins, verified on #367). It replaces joins-6.
+  - **Lanes 4 and 8** were given new work by the user (lane 4: its object-map joins; lane 8: the two
+    parked borrowed functions in D2Common, 0x62B5B0 and 0x677880).
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
@@ -22,6 +22,12 @@ call stays the coordinator's. This section is replaced at each check.
 
 ## Status
 
+- 2026-11-24 14:21 PT: **Ready: `laneless/objmap-joins-7` 4e73ed04b**, on main #367 (7de5c518c). It replaces
+  objmap-joins-6, which conflicted with #367. 15 placeholders -> 0. Full build: 0 not all equal; Game.exe
+  identical (VERIFIED tree e98822ff622e5e02bb4b5b7e65121cddee55244c); borrowed data 844 B (main's).
+  - Since joins-6, nine of its joins landed on main through the owner lanes, and Unknown_005D3AC0 is now
+    lane 5's, so all ten are out. Two new clear leads from the object map on #367 came in.
+  - The joins: OverlayTbls.cpp <- Unknown_00664530.cpp; Unknown_0050BD30.cpp <- Unknown_0050C890.cpp; inv.cpp <- Unknown_00477760.cpp; Unknown_0051C760.cpp <- Unknown_0051C7E0.cpp; Unknown_005C8CA0.cpp <- Unknown_005C8BF0.cpp; Excel.cpp <- Unknown_006BE190.cpp; Unknown_0050BD30.cpp <- Unknown_0050CD40.cpp; View.cpp <- Unknown_00475C30.cpp; Unknown_00520DC0.cpp <- Unknown_005241A0.cpp; Skills.cpp <- Unknown_004C51D0.cpp; strtable.cpp <- Unknown_005271A0.cpp; FastCmp.cpp <- Unknown_0060D280.cpp; Player.cpp <- Unknown_00462D00.cpp; gdiCore.cpp <- Unknown_006C7CF0.cpp; npcmenu.cpp <- Unknown_004B6DD0.cpp.
 - 2026-11-24 13:52 PT: **The borrowed functions re-tested in main #366's files.** Today's joins, splits
   and context-copy cuts changed their surroundings a lot: AiThink4.cpp lost about 100 functions to
   Unknown_005EFB80.cpp, and lane 2 cut the context copies to 3. Nothing moved. Every near version builds to
