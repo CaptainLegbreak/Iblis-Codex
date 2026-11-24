@@ -780,7 +780,7 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Unknown_00406410.cpp",
+   "file": "Source/D2Launch/Main.cpp",
    "rank": 0,
    "functions": [
     {
@@ -806,7 +806,7 @@
     {
      "va": "0x004061C0",
      "length": 376,
-     "name": "ERRORMANAGER_DenyProcessAccess"
+     "name": "MAIN_DenyProcessAccess"
     },
     {
      "va": "0x00406340",
@@ -836,7 +836,7 @@
     {
      "va": "0x00406650",
      "length": 131,
-     "name": "ERRORMANAGER_StartServiceDispatcher"
+     "name": "MAIN_StartServiceDispatcher"
     }
    ]
   },
@@ -848,6 +848,26 @@
      "va": "0x004059D0",
      "length": 126,
      "name": "ERRORMANAGER_RunModeInterface"
+    },
+    {
+     "va": "0x00405A50",
+     "length": 1,
+     "name": "?sub_00405A50_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x00405A60",
+     "length": 1,
+     "name": "?sub_00405A60_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x00405A70",
+     "length": 437,
+     "name": "?sub_00405A70_WriteSurveyLocale@@YGXXZ"
+    },
+    {
+     "va": "0x00405C30",
+     "length": 698,
+     "name": "?GameStart@@YIHPAXPAUD2ConfigStrc@@H@Z"
     }
    ]
   },
@@ -2674,26 +2694,6 @@
      "va": "0x004059A0",
      "length": 44,
      "name": "?ParseCmdLine@@YIXPAUD2ConfigStrc@@PBD@Z"
-    },
-    {
-     "va": "0x00405A50",
-     "length": 1,
-     "name": "?sub_00405A50_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x00405A60",
-     "length": 1,
-     "name": "?sub_00405A60_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x00405A70",
-     "length": 437,
-     "name": "?sub_00405A70_WriteSurveyLocale@@YGXXZ"
-    },
-    {
-     "va": "0x00405C30",
-     "length": 698,
-     "name": "?GameStart@@YIHPAXPAUD2ConfigStrc@@H@Z"
     }
    ],
    "flags": [
