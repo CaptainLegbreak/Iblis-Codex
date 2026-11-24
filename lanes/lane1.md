@@ -4,18 +4,18 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/unitmode-copy 835add7c6 0->0 UnitMode.cpp plans its language-name copy at 0x721CDC (the first of the three borrowed copies after WardenClient.cpp's data; code order WardenClient, UnitMode, SoundHdr, Unknown_00482C70, and the third copy runs straight into Unknown_00482C70's gnAuxLevelEntries) and takes its data include; borrowed data 3,359 -> 3,298 B; VERIFIED c2f7944cccab96324cccd2acbc12e1829eb91d61
-  - based on main #325. 0x721D18 (with 4 zero bytes after it) would be SoundHdr.cpp's and 0x721D58 Unknown_00482C70.cpp's; I'll take them next unless lane 4 objects.
+- lane1/monunique-object 4631a3c4f 562->560 MonUnique.cpp becomes its object 0x4AC730-0x4AD0B5: the accessors and setters 0x4AC730-0x4AC840 (from Unknown_004A9BD0, Monster.cpp's GetMonUmods, GfxUtil.cpp's type-flag toggle, and Unknown_004AC780.cpp, which goes) and the hover-name builder 0x4AC870 (Unknown_004AC870.cpp, which goes; it inlines the accessors, its gaHoverModes rdata sits right before the MonUnique.cpp path string, and gpfnUModCallbacks points at it); MonUnique.cpp builds /GS- like 0x4AC870 did. Data: the copy at 0x724D3C that starts MonUnique's data is planned in it; gaSkillTabX shrinks to int[7][3] with the int after it as gData_00724D38 (lane 4's note); VERIFIED 03befb06891cdda8b53b14b7b4163f1c1d93aec5
+  - verified on #326, rebased onto #327 without touching the same files (tree e278896e0ba3a2be0c7778c30a9510272cb2d38f, re-verifying). Touches lane 4's Unknown_004A9BD0.cpp, Unknown_00499500.cpp's plan, GfxUtil.cpp.
+
+- lane1/skillsbar-copy 78fbb3e97 0->0 the four back-to-back copies at 0x727DBC (planned in Item.cpp) are four data-less objects between Skills.cpp and UnitSnd.cpp; the first, SkillsBar.cpp's, is planned there with its data include; the other three stay together as gData_00727DF8 until the objects between SkillsBar and UnitSnd are mapped; VERIFIED 8c2fc2722e72fa28833b8aac10b75a276e313953
+  - verified on #326, rebased onto #327 (tree 28b0d0e556f8ad864d86e37bd92e5180d75ae656, re-verifying).
 
 - lane1/casetable-to-d2lang-2 516210e1c 0->0 gaCaseTable (0x730778) leaves Monster.cpp's plan: it is D2Lang's lower-case table after gawToUpperTable, 512 B in Unknown_00526610.cpp; the language-name copy at 0x730978 (+4 zero bytes) that ended it is planned in Unknown_00526100.cpp before gaUtf8ConvertTable; VERIFIED 38c9ebe8d77a48e989a69ea60a2861c8ff7165eb
   - based on main #325. Replaces lane1/casetable-to-d2lang (that name holds the same commit on #323). Lane 6's files, plan entries only.
 
 ## In progress
 
-- **Verifying: lane1/skillsbar-copy** (on #326): gData_00727DBC (240 B in Item.cpp's plan) is four copies back to back between Skills.cpp's and UnitSnd.cpp's data; the first is SkillsBar.cpp's (first object after Skills.cpp in code). The other three stay planned together (gData_00727DF8) until the objects between SkillsBar and UnitSnd are mapped: functions 0x4C9420-0x4C97C0 (between SkillsBar's 0x4C9320 and SkillsPal's 0x4C9990) and 0x4C9D50-0x4CA280 (after SkillsPal) look like two more objects, which would make SkillsBar, X, SkillsPal, Y.
 - **Claimed next: the PlrSkills.cpp-to-Wall2.cpp object map** (code 0x4D9FC0-0x4DCE56, now mine). gpfnClientStateRemFuncs (600 B) is 120 B of table and 8 back-to-back copies: 8 data-less objects in link order (Particle, GfxUtil, CUnitEvent, PlayerList and placeholders are the candidates).
-
-- **Verifying: MonUnique.cpp object** (lane1/monunique-object, on #326). Now that D2Client from 0x4A0000 is mine: MonUnique.cpp takes 0x4AC730-0x4AC870 (accessors from Unknown_004A9BD0, Monster.cpp, Unknown_004AC780, GfxUtil.cpp, and the hover-name function Unknown_004AC870; 0x4AC870 inlines the accessors and its rdata gaHoverModes sits right before the MonUnique.cpp path string), and its data start: the copy at 0x724D3C (lane 4's note; gaSkillTabX shrinks to its 88 B). Then the umod state-callback object 0x4AD0C0-0x4ADD80 (filed in npcmenu.cpp) with Unknown_004ADD90.
 
 - Borrowed 0x4A4AD0, in Unknown_004A43E0.cpp (keycfg-extras state, marked locally): still 1,202 of 1,232 B, the same register difference after the first helper call. Tried the board's lever as well: a local copy of nY before the first call, and calling TEXT_IsInKeyConfigList again in the list block instead of reusing bInList (the compiler merges it): no change. Kept as a stand-in.
 
@@ -23,6 +23,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 
 ## Notes for other lanes
+
+- Lane 4 (or whoever maps it): the .rdata path strings after PlrSkills.cpp's are, in order, .\ENGINE\Particle.cpp (0x6DB95C), .\ENGINE\GfxUtil.cpp (0x6DB974), .\UNIT\CUnitEvent.cpp (0x6DB98C), .\UNIT\PlayerList.cpp (0x6DB9A4), .\GAME\Wall2.cpp (0x6DB9BC). That is link order for those objects, and with the 8 copies in gpfnClientStateRemFuncs (0x72A788-0x72A968) it says 8 data-less objects sit between PlrSkills.cpp and Wall2.cpp, four of them those four. I'm working this out now (my range since the ownership change).
 
 - Lane 4 (object map, 0x4AC730-0x4AE0A0): what I found while placing the Monster.cpp pieces. .rdata 0x6DA488 gaHoverModes (0x4AC870's) sits straight after spellsel.cpp's path string, then ".\UNIT\MonUnique.cpp", gaUModList, then Monster.cpp's gaMonCmdRecords (0x6DA4D8). .data: gpfnUModCallbacks (0x724D78, read by MonUnique's 0x4AD020) points at 0x4AC870, 0x4ACC70, 0x4ACD50, 0x4ACD70, 0x4ACDB0; gaUModCallbacks (0x724E28, read by 0x4ADD90) points at the state callbacks 0x4AD0C0-0x4ADD80 filed in npcmenu.cpp; gwUniqueModNameIds (0x725188, read by 0x4ADEA0) follows; Monster.cpp's .data starts at 0x725220. 0x4AD970 calls 0x4AC7E0 (not inlined), so the state callbacks are not in 0x4AC7E0's unit. I read MonUnique.cpp as 0x4AC870-0x4AD0B5; the callbacks 0x4AD0C0-0x4ADD80 and Unknown_004ADD90 may be one more object. I'll take Unknown_004ACC70's two functions (inside MonUnique.cpp's run) next; 0x4AC870 and the callbacks are yours.
 
