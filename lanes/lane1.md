@@ -4,6 +4,9 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/npcmenu-copy b87ee9fa6 0->0 gData_00725340 (Monster.cpp, 156 B) is 96 B of Monster.cpp's animation records and the language-name copy at 0x7253A0, which runs into gnHandlerCount (0x7253DC), npcmenu.cpp's first data; the copy is planned in npcmenu.cpp (mine since the ownership change); VERIFIED 972f338ca7d4b07c800314f43f6f98147c71103d
+  - verified on #332, rebased clean onto #333 (tree bd7b6ae990231ef9bee7d13bff6f286e1caca1a6, re-verifying).
+
 - lane1/listbox-copy f08e1065c 0->0 gapfnObjectClientFn (Object.cpp) is 19 entries, not 34; the 60 B after it are the language-name copy that starts the list-box object's data (Unknown_004BC1B0.cpp, next in code order; the ListBoxWrapper/ListBoxImplementation type descriptors follow the copy), planned there with its data include; VERIFIED 38a9dbb9f02514f471456c6dd475b9852cf99c95
   - based on main #332.
 
