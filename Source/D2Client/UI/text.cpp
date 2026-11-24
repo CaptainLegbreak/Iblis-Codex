@@ -18,6 +18,7 @@
 #include "D2ClientStatButton.h"
 #include "D2WinSplitText.h"
 #include "D2TextIdEntry.h"
+#include "D2ClientTextBox.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -43,7 +44,7 @@ struct D2GSPacketSrv26;
 
 struct D2CommonChatIgnoreListStrc;
 
-struct T00479230;
+struct D2TextBoxStrc;
 
 class D2ListBoxViewStrc;
 
@@ -210,26 +211,6 @@ extern int gnGameFrame; // 0x007BF20E
 
 static bool TEXT_IsLanguageCompatible(int nLangId);
 
-#pragma pack(push, 2)
-
-struct T00479230
-{
-    D2SplittedTextStrc* pFirst;
-    int nLines;
-    int nTextTop;
-    int nTextBottom;
-    unsigned short nWidth;
-    unsigned short nHeight;
-    unsigned short f_14;
-    int nScroll;
-    int nField1A;
-    int nField1E;
-    int nField22;
-    int nField26;
-    unsigned short nField2A;
-};
-
-#pragma pack(pop)
 
 class D2ListBoxViewStrc
 {
@@ -259,7 +240,7 @@ D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* pText, int*
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
-T00479230* __stdcall CHAT_GetUsedFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x00661200
+D2TextBoxStrc* __stdcall CHAT_GetUsedFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x00661200
 
 void __stdcall CHAT_SetUsedInHoverMsg(D2HoverTextStrc* pHoverMsg, int bUsed); // 0x00661210
 
@@ -545,9 +526,9 @@ unsigned long gnStartTick; // 0x007BF22C
 
 unsigned char gbTextHoverSet; // 0x007BF23A
 
-T00479230* gpTextBox; // 0x007BF0A4
+D2TextBoxStrc* gpTextBox; // 0x007BF0A4
 
-T00479230* gpMainTextBox; // 0x007BF1A8
+D2TextBoxStrc* gpMainTextBox; // 0x007BF1A8
 
 int gnTextBoxX; // 0x007BF1D0
 
@@ -621,7 +602,7 @@ extern "C" int __cdecl atoi(const char* szString); // 0x00681EBB
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
-void __fastcall TEXT_DrawTextList(T00479230* pTextBox, int nX, int nY); // 0x0049D8E0
+void __fastcall TEXT_DrawTextList(D2TextBoxStrc* pTextBox, int nX, int nY); // 0x0049D8E0
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
@@ -1158,13 +1139,13 @@ void __stdcall WAYPOINTS_FreeWaypointData(void* pMemPool, D2WaypointDataStrc* pD
 
 extern "C" void __cdecl TEXT_FreeWaypointCels(); // 0x0049C650
 
-static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect); // 0x0049D9A0
+static int TEXT_DrawTextBoxAt(D2TextBoxStrc* pTextBox, D2RectStrc* pRect); // 0x0049D9A0
 
 static void TEXT_FreeTextLines(D2SplittedTextStrc* pLine);
 
-void __stdcall TEXT_FreeTextBox(T00479230* pTextBox); // 0x0049D410
+void __stdcall TEXT_FreeTextBox(D2TextBoxStrc* pTextBox); // 0x0049D410
 
-static void TEXT_MeasureTextBox(T00479230* pBox);
+static void TEXT_MeasureTextBox(D2TextBoxStrc* pBox);
 
 struct D2ActiveRoomStrc;
 
@@ -1250,7 +1231,7 @@ void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTo
 
 void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
 
-static __declspec(noinline) int __cdecl sub_0049D5A0_UpdateTextBox(T00479230* pTextBox);
+static __declspec(noinline) int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc* pTextBox);
 
 void __cdecl TEXT_DrawMessageList(); // 0x0049DC40
 
@@ -1278,7 +1259,7 @@ extern void* gpTextCallbackContext; // 0x007BF25C
 
 extern int gnTextLeft; // 0x007BF278
 
-static int __stdcall TEXT_AdvanceTextBox(int bIgnore, T00479230* pTextBox); // 0x004A0770
+static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextBoxStrc* pTextBox); // 0x004A0770
 
 int gnTradePartnerUnitId; // 0x007C0E60
 
@@ -1889,7 +1870,7 @@ static inline void TEXT_SetWidthFromWord(D2TextWidthStrc* pRecord)
 }
 
 // 0x0049D3C0
-static void TEXT_MeasureTextBox(T00479230* pBox)
+static void TEXT_MeasureTextBox(D2TextBoxStrc* pBox)
 {
     int nMaxWidth = 0;
     pBox->nTextTop = 0;
@@ -1903,7 +1884,7 @@ static void TEXT_MeasureTextBox(T00479230* pBox)
 }
 
 // 0x0049D410
-void __stdcall TEXT_FreeTextBox(T00479230* pTextBox)
+void __stdcall TEXT_FreeTextBox(D2TextBoxStrc* pTextBox)
 {
     if (pTextBox)
     {
@@ -1995,7 +1976,7 @@ unsigned int __fastcall TEXT_CalcTextOffset(unsigned int nValue)
 }
 
 // 0x0049D8E0
-void __fastcall TEXT_DrawTextList(T00479230* pTextBox, int nX, int nY)
+void __fastcall TEXT_DrawTextList(D2TextBoxStrc* pTextBox, int nX, int nY)
 {
     int nLines = (unsigned int)pTextBox->nLines > 10 ? 10 : pTextBox->nLines;
 
@@ -2023,7 +2004,7 @@ void __fastcall TEXT_DrawTextList(T00479230* pTextBox, int nX, int nY)
 }
 
 // 0x0049D9A0
-static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect)
+static int TEXT_DrawTextBoxAt(D2TextBoxStrc* pTextBox, D2RectStrc* pRect)
 {
     if (!pTextBox->nScroll)
         pTextBox->nScroll = 1;
@@ -3083,7 +3064,7 @@ void __fastcall TEXT_HandleEventMessage(D2GSPacketSrv5A* pPacket)
 // 0x0049F3D0
 void __fastcall TEXT_FreeHoverText(D2HoverTextStrc* pHoverText)
 {
-    T00479230* pTextBox = CHAT_GetUsedFromHoverMsg(pHoverText);
+    D2TextBoxStrc* pTextBox = CHAT_GetUsedFromHoverMsg(pHoverText);
     if (pTextBox)
     {
         TEXT_FreeTextBox(pTextBox);
@@ -3671,9 +3652,9 @@ D2SplittedTextStrc* __stdcall TEXT_BuildTextLines(const unsigned short* wszText,
 }
 
 // 0x004A05E0
-T00479230* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode)
+D2TextBoxStrc* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode)
 {
-    T00479230* pTextBox = (T00479230*)FOG_Alloc(sizeof(T00479230), ".\\UI\\text.cpp", 0x65D, 0);
+    D2TextBoxStrc* pTextBox = (D2TextBoxStrc*)FOG_Alloc(sizeof(D2TextBoxStrc), ".\\UI\\text.cpp", 0x65D, 0);
     if (nMode == 3)
     {
         pTextBox->pFirst = sub_00502970_SplitText(wszText, &pTextBox->nLines, 0xB4);
@@ -3734,7 +3715,7 @@ void __cdecl TEXT_FreeTextResources()
 }
 
 // 0x004A0770
-static int __stdcall TEXT_AdvanceTextBox(int bIgnore, T00479230* pTextBox)
+static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextBoxStrc* pTextBox)
 {
     if (bIgnore)
     {
@@ -3798,7 +3779,7 @@ static void __stdcall TEXT_ShowHoverText(const Unicode* wszText, D2UnitStrc* pUn
     }
 
     const int nOldFont = D2Win_10127_SetFont(0x0D);
-    T00479230* pTextBox = (T00479230*)FOG_Alloc(sizeof(T00479230), ".\\UI\\text.cpp", 0x65D, 0);
+    D2TextBoxStrc* pTextBox = (D2TextBoxStrc*)FOG_Alloc(sizeof(D2TextBoxStrc), ".\\UI\\text.cpp", 0x65D, 0);
     pTextBox->pFirst = sub_00502970_SplitText(wszText, &pTextBox->nLines, 0xB4);
     TEXT_MeasureTextBox(pTextBox);
 
@@ -3935,7 +3916,7 @@ void __fastcall TEXT_DrawObjectHoverText(D2UnitStrc* pUnit)
 }
 
 // calling-convention shim (not game code)
-static int __cdecl sub_0049D5A0_UpdateTextBox(T00479230* pTextBox)
+static int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc* pTextBox)
 {
     int nA = WINDOW_GetWindow();
     int nB = WINDOW_GetWindow();
