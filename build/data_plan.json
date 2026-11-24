@@ -1663,7 +1663,7 @@
     "extern \"C\" void __cdecl sub_006C95D0_DrawShifted(); // 0x006C95D0",
     "extern \"C\" void __cdecl sub_006C9640_GdiCloseSmacker(); // 0x006C9640",
     "extern \"C\" void __cdecl sub_006C9710_GdiDecodeSmacker(); // 0x006C9710",
-    "extern \"C\" void __cdecl sub_006C9900_GdiPlaySmacker(); // 0x006C9900",
+    "extern \"C\" void __cdecl GDI_PlaySmacker(); // 0x006C9900",
     "extern \"C\" void __cdecl D3D_DrawSpriteRows(); // 0x006B6C90",
     "extern \"C\" void __cdecl D3D_DrawSpriteClipped(); // 0x006B6EE0",
     "extern \"C\" void __cdecl D3D_DrawSpriteShadow(); // 0x006B7000"
@@ -75541,7 +75541,7 @@
      68,
      "0x006C9900",
      "source",
-     "sub_006C9900_GdiPlaySmacker",
+     "GDI_PlaySmacker",
      0,
      "func"
     ],

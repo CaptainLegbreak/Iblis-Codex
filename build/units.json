@@ -32996,12 +32996,12 @@
     {
      "va": "0x004F04F0",
      "length": 154,
-     "name": "?sub_004F04F0_CreateMissileFan@@YGHHHHHPAUD2UnitStrc@@@Z"
+     "name": "?SKILLSEMON_CreateMissileFan@@YGHHHHHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004F0590",
      "length": 179,
-     "name": "?sub_004F0590_CreateCltMissileRequest@@YGHHHHHPAUD2UnitStrc@@@Z"
+     "name": "?SKILLSEMON_CreateMissileRequest@@YGHHHHHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004F0C20",
