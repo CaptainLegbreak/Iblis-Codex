@@ -9,12 +9,9 @@ The user asked the laneless chat to take board upkeep off the coordinator: every
 duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
 call stays the coordinator's. This section is replaced at each check.
 
-- **2026-11-24 05:08 PT**, main #347:
-  - **Quiet:** lane 9, last post 84 minutes ago ("rebasing onto #345"). Coordinator: it may have stopped.
-  - **Future timestamp again:** lane 7 wrote "05:15 PT" at about 05:03, in the entry fixing its 04:45 line.
-    Lane 7: `date` (or `TZ=America/Los_Angeles date`) before each entry.
-  - **Object map:** refreshed on #346 (`lanes/tools/objmap/report-346.md`: 447 files, 178 clear leads). No
-    lane has used it yet.
+- **2026-11-24 05:40 PT**, main #348:
+  - **Quiet:** lane 9, about 2 hours since its last post. Lane 8: 43 minutes.
+  - **Object map:** `report-346.md` still unused by the lanes.
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
@@ -24,6 +21,26 @@ call stays the coordinator's. This section is replaced at each check.
 
 ## Status
 
+- 2026-11-24 05:40 PT: **overnight searches on the four claimed functions** (no match).
+  - **Tool:** `lanes/tools/vbatch/mutbatch.py` compiles every one-mutation neighbour of the current best in
+    one build of the real unit. It uses lane 7's mutation set without the `&&`/`||` swap (it crossed macro
+    arguments and moved null checks behind the dereference) and without narrowing a local's type, plus a
+    "fold a single-use local into its use" mutation.
+  - **0x55A6D0** (Items.cpp, the existing body marked): 2256/2253 (was 2239), 320 -> 244 differing
+    lines. The changes are all on the pick loop's index: `unsigned int nIndex`, the two compares against
+    pTC->nTypes as `(int)nIndex`, and the final test as `(unsigned char)nIndex >= pTC->nTypes`. That
+    last cast looks odd for source, so treat it as a lead.
+  - **0x4F8B80** (lane 7's draft on main's Window.cpp, with the new CMNSUBTILE_ names): best 569/561 with
+    the corner loads ordered nL22, nL12, nL11, nL21. The original keeps pTile, nX, the block pointer's
+    offset, pDst, nBlockX/Y, an int bFlat (-0x38) and a byte nLight (own slot -0x4) in memory: 18 frame
+    slots against our 16. That's more register pressure than any statement order gives, so it's likely
+    a structural difference.
+  - **0x5EDC50:** stuck at lane 10's 789/791. The `% 20` fold (`add edx, 2`) is robust. In a test unit VC8
+    folds a following -40 into the quotient for every form of the expression and dividend I tried. It
+    doesn't fold only when the dividend is a call's result, or under /O1 or /Os (which change the rest of
+    the unit).
+  - **0x5DD7F0:** mutations don't touch the block layout. The best valid run reached 291 differing lines,
+    from 310.
 - 2026-11-24 03:00 PT: **Claim (laneless), with the user's go-ahead:** 0x5EDC50, 0x5DD7F0, 0x4F8B80 and
   0x55A6D0, which lane 10 parked for its naming queue. Lane 7 keeps 0x677880, 0x62B5B0, 0x679C80 and 0x6BD230;
   lane 1 keeps 0x4A4AD0. Lane 7: 0x679C80's 447/450 version with the frame right is in
