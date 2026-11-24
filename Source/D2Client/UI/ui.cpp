@@ -3675,70 +3675,19 @@ done:
     sub_0046C130_DrawCountdown();
 }
 
-// 0x00457510
-void __stdcall sub_00457510(int nUnused1)
-{
-}
 
-// 0x00457740
-int __cdecl UI_GetAutomapCenters()
-{
-// build: symbol ?gbAutomapCenter@* 0x007113E0
-    return gbAutomapCenter;
-}
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
-// 0x00457750
-int __fastcall OBJECT_SaveAutomapCenters(int nValue)
-{
-    SRegSaveValue("Diablo II", "AutoMap Centers", 0, nValue);
-// build: symbol ?gbAutomapCenter@* 0x007113E0
-    gbAutomapCenter = nValue;
-    return nValue;
-}
 
-// 0x00457770
-int __cdecl UI_GetAutomapLeft()
-{
-    return gbAutomapLeft;
-}
 
 extern int gbAutomapLeftPrev; // 0x007A51E4
 
 int gbAutomapLeftSaved; // 0x007A51E8
 
-// 0x00457780
-int __fastcall OBJECT_SaveAutomapLeft(int nValue)
-{
-    SRegSaveValue("Diablo II", "AutoMap Left", 0, nValue);
-    gbAutomapLeftPrev = nValue;
-    gbAutomapLeftSaved = nValue;
-    gbAutomapLeft = nValue;
-    return nValue;
-}
 
-// 0x004577B0
-int __cdecl UI_GetAutomapParty()
-{
-// build: symbol ?gbAutomapParty@* 0x007113E4
-    return gbAutomapParty;
-}
 
-// 0x004577C0
-int __fastcall OBJECT_SaveAutomapParty(int nValue)
-{
-    SRegSaveValue("Diablo II", "AutoMap Party", 0, nValue);
-// build: symbol ?gbAutomapParty@* 0x007113E4
-    gbAutomapParty = nValue;
-    return nValue;
-}
 
-// 0x004577E0
-int __cdecl UI_GetAutomapPartyNames()
-{
-    return gbAutomapPartyNames;
-}
 
 // 0x0045A710
 int __cdecl UI_GetAutomapMode()

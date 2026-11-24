@@ -582,16 +582,7 @@ int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc,
 
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
-// 0x00457490
-int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag)
-{
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInline(nMonsterId);
-    if (!pMonStatsTxtRecord)
-    {
-        return 0;
-    }
-    return pMonStatsTxtRecord->nMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
-}
+int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
 
 // 0x0045AD60
 void __cdecl PLAYER_DrawAutomap()
