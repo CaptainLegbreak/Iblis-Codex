@@ -5,6 +5,25 @@ Nothing here is ready to merge yet.
 
 ## Status
 
+- 2026-11-24 01:50 PT: still no match. New results, so nobody repeats them:
+  - **0x677880:** declaration order doesn't matter. 60 random orders of all 27 locals (hoisted C-style) compile
+    byte-identical to each other: same length as the original (4232), 308 differing lines. The differences are
+    register choices as well as stack slots (about 210 of the 290 changed lines aren't just a different
+    `[ebp - N]`), so it isn't a slot permutation that declarations could fix.
+  - **0x6BD230, the unused slot:** 43 verified functions have one (an unused `push ecx` slot, no `[ebp - N]`
+    use), for example 0x55BF30, 0x5531E0, 0x573040, 0x458DC0. In all of them it's the result of an inlined
+    null-checking test (`UNIT_HasFlag`, `p ? p->f : -1`, `CheckFlagEx`), kept as a value (`and eax, 1` /
+    `je`) rather than folded into a `test`. 0x6BD230 has no such value test, and none of these produced the
+    slot (about 90 more shapes):
+    - those helpers at each condition (both asserts, the grow test, the inner compare, the memmove test);
+    - ternaries on pLink;
+    - memcpy through address-taken locals;
+    - a local copy of nKey;
+    - asserts written as inline functions;
+    - search helpers that return -1 for "found";
+    - goto-free forms of the loop (they also break the registers: only the `goto found` form keeps them).
+    VC8 won't inline an accessor called in the outer loop's head (entries or count), and that's the only
+    place a slot appeared (from the real call's spill).
 - 2026-11-24 01:15 PT: still no match. Tried and ruled out, so nobody repeats them:
   - **0x679C80:** 5 random-restart greedy runs over 14 groups all end at the same 447/450 (one scratch-register
     tie: eax vs ecx for the first Y shift). Not moved by comparison forms, union layouts, a start-point pointer,
