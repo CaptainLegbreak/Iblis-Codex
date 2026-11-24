@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/save-header 1a3dce75 562->562 D2SaveHeader.h: the .d2s character save header (0x14F, packed) and its skill-key record, shared from PlrSave2's layout, instead of private copies in Clients, PlrSave, PlrSave2, Unknown_0056B180 and an unused one in Items.cpp. PlrSave reads the map seed (0xAB) as the packed int instead of through `*(int*)`; VERIFIED 6c66aca732b4a5da6a53250a8fbb77a5431d209a
+  - Verified on #307, rebased onto #308. #308 touches none of the 5 changed units; precheck is equal on #308.
+  - Outside lane 2: all five units are lane 5's. The client's Game_0044E5A0 (lane 4) keeps its 8-byte view, because it copies the header by value.
+
 - lane2/msg-record 73c40a00 562->562 D2MsgRecord.h: the input recorder's 16-byte message record and its 500-record chunk, shared, instead of nine private copies. Three of them called the record D2WinMsgStrc, which is the name for the Windows MSG layout elsewhere. The tick is signed (CUnit playback compares with jle), and 0x1F44 is nIndex; VERIFIED f8b6f14cc9371aebaaa7b0834bab26030a488d80
   - Verified on #306, rebased onto #307. #307 touches none of the 9 changed units; precheck is equal on #307.
   - Outside lane 2: Game, Game_0044B7B0, Game_0044D080, Record, SCmd, inv, text, CUnit (lanes 1 and 4), ComCallback (lane 6). Private-copy removal and field renames only.
