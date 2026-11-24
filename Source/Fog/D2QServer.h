@@ -187,6 +187,13 @@ struct D2MessageStrc
     D2MessageStrc* pNext;                                   // 0x5BC
 };
 
+// A masked-address entry: an address matches when (address & gaMaskTable[nMaskIndex]) == tAddress.
+struct D2QMaskEntryStrc
+{
+    D2InAddrStrc tAddress;                                  // 0x00
+    int nMaskIndex;                                         // 0x04
+};
+
 struct D2QueueServerStrc
 {
     int bAltSend;                                           // 0x000
@@ -209,7 +216,9 @@ struct D2QueueServerStrc
     int unk0x024;                                           // 0x024
     D2CriticalSectionStrc tAddressLock;                     // 0x028
     D2QIpCountStrc** ppIpCounts;                            // 0x040
-    int unk0x044[0x202];                                    // 0x044
+    int nIpCountBuckets;                                    // 0x044
+    D2QMaskEntryStrc aMasks[256];                           // 0x048
+    int nMasks;                                             // 0x848
     D2QServerNodeStrc* pHead;                               // 0x84C
     D2QServerNodeStrc* pTail;                               // 0x850
     D2CriticalSectionStrc tLock;                            // 0x854
@@ -317,6 +326,5 @@ struct D2QueueServerStrc
 
     void __thiscall ExpireEntries();                                                                 // 0x006BE700
     int __thiscall RefreshRecord(unsigned int nKey);                                                 // 0x006BE980
-    int __thiscall sub_006BF660_CheckClient(int nClientId);                                                 // 0x006BF660
-    int __thiscall sub_006BF660_CheckAddress(unsigned int nAddress);                                        // 0x006BF660
+    int __thiscall HasMaskedKey(unsigned int nKey);                                                  // 0x006BF660
 };
