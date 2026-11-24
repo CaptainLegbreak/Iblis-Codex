@@ -825,7 +825,7 @@ int __fastcall DRLGOUTDOORS_GetBorderLevelPrestId(int nA, int nB, int nC)
 }
 
 // 0x00675600
-int __fastcall sub_00675600_LookupTable(int nA, int nB, int nC, int nD, int nE)
+int __fastcall DRLGOUTDOORS_GetCornerPresetId(int nA, int nB, int nC, int nD, int nE)
 {
     if (nA < 0)
     {
@@ -1035,22 +1035,22 @@ void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel)
         {
             if (pNext->dwFlags & 2)
             {
-                nLevelPrestId = sub_00675600_LookupTable(nCurrentDiffX, nCurrentDiffY, nNextDiffX, nNextDiffY, nStyle);
+                nLevelPrestId = DRLGOUTDOORS_GetCornerPresetId(nCurrentDiffX, nCurrentDiffY, nNextDiffX, nNextDiffY, nStyle);
             }
             else
             {
-                nLevelPrestId = sub_00675600_LookupTable(nCurrentDiffX, nCurrentDiffY, 2 * nNextDiffX, 2 * nNextDiffY, nStyle);
+                nLevelPrestId = DRLGOUTDOORS_GetCornerPresetId(nCurrentDiffX, nCurrentDiffY, 2 * nNextDiffX, 2 * nNextDiffY, nStyle);
             }
         }
         else
         {
             if (pNext->dwFlags & 2)
             {
-                nLevelPrestId = sub_00675600_LookupTable(2 * nCurrentDiffX, 2 * nCurrentDiffY, nNextDiffX, nNextDiffY, nStyle);
+                nLevelPrestId = DRLGOUTDOORS_GetCornerPresetId(2 * nCurrentDiffX, 2 * nCurrentDiffY, nNextDiffX, nNextDiffY, nStyle);
             }
             else
             {
-                nLevelPrestId = sub_00675600_LookupTable(2 * nCurrentDiffX, 2 * nCurrentDiffY, 2 * nNextDiffX, 2 * nNextDiffY, nStyle);
+                nLevelPrestId = DRLGOUTDOORS_GetCornerPresetId(2 * nCurrentDiffX, 2 * nCurrentDiffY, 2 * nNextDiffX, 2 * nNextDiffY, nStyle);
             }
         }
 

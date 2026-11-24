@@ -326,7 +326,7 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E
 
 int __stdcall D2Common_10399(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);
 
-void __fastcall sub_00641F20_SetPlayerModeState(D2UnitStrc* pUnit, int nMode, int nArg1, int nArg2); // 0x00641F20
+void __fastcall UNITS_SetInteractData(D2UnitStrc* pUnit, int nMode, int nArg1, int nArg2); // 0x00641F20
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
@@ -1272,7 +1272,7 @@ void __fastcall PLRMSG_SendUnitBaseStats(D2UnitStrc* pUnit, D2ClientStrc* pClien
 static void __stdcall PLRMSG_RunToUnitAndInteract(int nInteractSkill, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID)
 {
     StartModeID(pGame, pPlayer, 0, 3, nUnitType, nUnitGUID, 0);
-    sub_00641F20_SetPlayerModeState(pPlayer, nInteractSkill, nUnitType, nUnitGUID);
+    UNITS_SetInteractData(pPlayer, nInteractSkill, nUnitType, nUnitGUID);
 }
 
 // 0x00548A80

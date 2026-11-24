@@ -68,7 +68,8 @@ static int sub_00624B90_FindStatIndex(D2StatsArrayStrc* pStatsArray, int nLayer_
     return -1;
 }
 
-static D2StatStrc* sub_00624C60_FindStat(D2StatsArrayStrc* pStatsArray, int nLayer_StatId)
+// build: symbol ?STATLIST_FindStat@* 0x00624C60
+static D2StatStrc* STATLIST_FindStat(D2StatsArrayStrc* pStatsArray, int nLayer_StatId)
 {
     const int nIndex = sub_00624B90_FindStatIndex(pStatsArray, nLayer_StatId);
     if (nIndex < 0)
@@ -82,7 +83,7 @@ static D2StatStrc* sub_00624C60_FindStat(D2StatsArrayStrc* pStatsArray, int nLay
 static int __stdcall STATLIST_GetTotalStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord)
 {
     D2StatListExStrc* pStatListEx = (D2StatListExStrc*)pStatList;
-    D2StatStrc* pStat = sub_00624C60_FindStat((pStatList->dwFlags & STATLIST_EXTENDED) ? &pStatListEx->FullStats : &pStatList->Stats, nLayer_StatId);
+    D2StatStrc* pStat = STATLIST_FindStat((pStatList->dwFlags & STATLIST_EXTENDED) ? &pStatListEx->FullStats : &pStatList->Stats, nLayer_StatId);
     if (!pStat)
     {
         return 0;

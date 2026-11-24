@@ -68337,7 +68337,7 @@
     {
      "va": "0x00624740",
      "length": 63,
-     "name": "sub_00624740_FormatLocalTime"
+     "name": "LOG_FormatLocalTime"
     },
     {
      "va": "0x00624780",
@@ -68404,7 +68404,7 @@
     {
      "va": "0x00624C60",
      "length": 20,
-     "name": "?sub_00624C60_FindStat@@YAPAUD2StatStrc@@PAUD2StatsArrayStrc@@H@Z"
+     "name": "?STATLIST_FindStat@@YAPAUD2StatStrc@@PAUD2StatsArrayStrc@@H@Z"
     },
     {
      "va": "0x00624C80",
@@ -71202,7 +71202,7 @@
     {
      "va": "0x00650EB0",
      "length": 75,
-     "name": "?sub_00650EB0_MakeCode@@YAXPBDPAD@Z"
+     "name": "?DATATBLS_MakeCode@@YAXPBDPAD@Z"
     },
     {
      "va": "0x00650F00",
@@ -71646,7 +71646,7 @@
     {
      "va": "0x00641F20",
      "length": 55,
-     "name": "sub_00641F20_SetPlayerModeState"
+     "name": "UNITS_SetInteractData"
     },
     {
      "va": "0x00641F60",
@@ -73492,7 +73492,7 @@
     {
      "va": "0x0064B2A0",
      "length": 158,
-     "name": "?sub_0064B2A0_GetMissileElementLength@@YGHPAUD2UnitStrc@@0HH@Z"
+     "name": "?MISSILE_GetElementalLength@@YGHPAUD2UnitStrc@@0HH@Z"
     },
     {
      "va": "0x0064B340",
@@ -77124,7 +77124,7 @@
     {
      "va": "0x00675600",
      "length": 103,
-     "name": "sub_00675600_LookupTable"
+     "name": "DRLGOUTDOORS_GetCornerPresetId"
     },
     {
      "va": "0x006757E0",
@@ -78269,7 +78269,7 @@
     {
      "va": "0x0067FC50",
      "length": 30,
-     "name": "sub_0067FC50"
+     "name": "DRLGOUTDESR_FindBridgeInLastColumn"
     },
     {
      "va": "0x0067FC70",
@@ -78284,7 +78284,7 @@
     {
      "va": "0x006801F0",
      "length": 16,
-     "name": "?sub_006801F0_GetCliffPresetId@@YIHPAUD2DrlgLevelStrc@@@Z"
+     "name": "?DRLGOUTDESR_GetCliffPresetId@@YIHPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x00680200",

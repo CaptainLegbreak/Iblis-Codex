@@ -8,7 +8,7 @@
 
 struct D2DrlgGridStrc;
 
-void __fastcall sub_0067C890(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, int nFlag); // 0x0067C890
+void __fastcall DRLGGRID_SetVertexGridFlags(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, int nFlag); // 0x0067C890
 
 void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel); // 0x00680D70
 
@@ -89,7 +89,7 @@ void __fastcall DRLGOUTDOORS_SpawnAct1DirtPaths(D2DrlgLevelStrc* pLevel)
     {
         if (sub_006817D0(pLevel, nPath))
         {
-            sub_0067C890(&pOutdoors->pGrid[2], pOutdoors->pRoads[nPath], 0x80);
+            DRLGGRID_SetVertexGridFlags(&pOutdoors->pGrid[2], pOutdoors->pRoads[nPath], 0x80);
             sub_00681240(pLevel, nPath);
         }
     }
