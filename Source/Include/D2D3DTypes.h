@@ -225,6 +225,14 @@ struct D2SubtilePoolStrc
     D2SubtilePoolEntryStrc* pEntries; // 0x18
 };
 
+struct D2DDrawDeviceStrc
+{
+    unsigned int dwFlags; // 0x00
+    unsigned char guid[0x10]; // 0x04
+    char unk0x014[0x08]; // 0x14
+    char szName[0x104]; // 0x1C
+};
+
 D2_CHECK_SIZE(D2TLVertexStrc, 0x20);
 D2_CHECK_SIZE(D2QuadRectStrc, 0x10);
 D2_CHECK_SIZE(D2SpriteInfoStrc, 0x30);

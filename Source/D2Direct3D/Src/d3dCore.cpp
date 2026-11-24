@@ -3,6 +3,7 @@
 #include "D2DDrawTypes.h"
 
 #include "D2Win32Types.h"
+#include "D2D3DTypes.h"
 
 #define DD_CHECK(expr,message) { error=(expr); if(error) { sub_006B20E0_DDrawLogError(message,error); goto Fail; } }
 
@@ -552,13 +553,6 @@ struct D2DDSurfaceDesc006B3420Strc;
 
 struct D2ComObject006B3420Strc;
 
-struct D2DDrawDeviceStrc
-{
-    unsigned int dwFlags;
-    unsigned char guid[0x10];
-    char unk0x014[0x08];
-    char szName[0x104];
-};
 
 extern "C" __declspec(dllimport) long __stdcall RegCreateKeyExA(void* hKey, const char* szSubKey, unsigned long nReserved, char* szClass, unsigned long nOptions, unsigned long samDesired, void* pSecurity, void** phkResult, unsigned long* pDisposition); // 0x006CC004
 
