@@ -175,7 +175,7 @@ D2MonsterDataStrc* __fastcall sub_004AC730_MonsterDataOf(D2UnitStrc* pUnit)
 }
 
 // 0x004AC740
-unsigned char* __fastcall MONSTER_GetMonUmods(D2UnitStrc* pUnit)
+unsigned char* __fastcall MONUNIQUE_GetMonUmods(D2UnitStrc* pUnit)
 {
     D2MonsterDataStrc* pMonsterData = CLIENT_GetMonsterData(pUnit);
     if (!pMonsterData)
@@ -227,7 +227,7 @@ int __fastcall sub_004AC7E0_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short n
 }
 
 // 0x004AC810
-void __fastcall GFXUTIL_ToggleMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
+void __fastcall MONUNIQUE_ToggleMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {

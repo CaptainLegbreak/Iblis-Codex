@@ -189,7 +189,7 @@ void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned cha
 
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
 
-void __cdecl UI_ClearGlobals();
+void __cdecl VIEW_ClearGlobals(); // 0x00476AF0
 
 int __fastcall MONSTERSPAWN_SpawnRandomMonsterForLevel(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x005B3570
 
@@ -3327,7 +3327,7 @@ int __fastcall MISSILE_CltHitClearGlobals(D2UnitStrc* pMissile, D2UnitStrc* pUni
 {
     if (!pUnit)
     {
-        UI_ClearGlobals();
+        VIEW_ClearGlobals();
         return 1;
     }
     return 0;

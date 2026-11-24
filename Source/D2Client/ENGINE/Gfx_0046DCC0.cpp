@@ -48,8 +48,8 @@ D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId
 void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
 int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit); // 0x004DA0B0
-int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit); // 0x004DA0D0
-int __stdcall ITEM_GetGfxClientZ(D2UnitStrc* pUnit); // 0x004DA0F0
+int __stdcall PARTICLE_GetGfxClientY(D2UnitStrc* pUnit); // 0x004DA0D0
+int __stdcall PARTICLE_GetGfxClientZ(D2UnitStrc* pUnit); // 0x004DA0F0
 int __stdcall GFXUTIL_GetMotionRawAZ(D2UnitStrc* pUnit); // 0x004DA1B0
 D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void* pGfx); // 0x004DB040
 int __fastcall GFXUTIL_GetCofLayerShadow(void* pGfx, int nLayer); // 0x004DB090
@@ -339,7 +339,7 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
     }
     else
     {
-        int nHalf = ITEM_GetGfxClientZ(pUnit) / 2;
+        int nHalf = PARTICLE_GetGfxClientZ(pUnit) / 2;
         nX = UNITS_GetClientCoordX(pUnit) + nHalf;
         nY = UNITS_GetClientCoordY(pUnit) + nHalf;
     }
@@ -348,7 +348,7 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
         nY -= 8;
 
     nX += PARTICLE_GetGfxOffsetX(pUnit);
-    nY += ITEM_GetGfxClientY(pUnit);
+    nY += PARTICLE_GetGfxClientY(pUnit);
 
     nDrawX = nX - PLAYER_GetScreenOffsetX() - 2;
     nDrawY = nY - PLAYER_GetScreenOffsetY();

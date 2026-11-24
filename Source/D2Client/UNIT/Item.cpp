@@ -631,7 +631,7 @@ void __fastcall sub_004B3C00(int nUnitId);                                      
 
 int __fastcall ITEM_PlaceBodyItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc);    // 0x004C1C50
 
-void __fastcall GAME_SetExitApplication(int nValue);                                                          // 0x0044B880
+void __fastcall WINMAIN_SetExitApplication(int nValue);                                                          // 0x0044B880
 
 void __fastcall GAME_SetCinematicExit(int nValue);                                                          // 0x0044C860
 
@@ -1367,7 +1367,7 @@ void __fastcall ITEM_SetItemMode(D2UnitStrc* pItem, D2ActiveRoomStrc* pRoom, int
 }
 
 // 0x004C1A70
-void __fastcall OBJECT_ReleaseItemUnit(D2UnitStrc* pUnit)
+void __fastcall ITEM_ReleaseItemUnit(D2UnitStrc* pUnit)
 {
     GFX_FreeGfxData(pUnit);
     if (ITEMS_CheckIfSocketable(pUnit))
@@ -1389,7 +1389,7 @@ void __fastcall OBJECT_ReleaseItemUnit(D2UnitStrc* pUnit)
 }
 
 // 0x004C1AD0
-void __fastcall OBJECT_UpdateItemAnim(D2UnitStrc* pUnit)
+void __fastcall ITEM_UpdateItemAnim(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0x348);
     switch (pUnit->dwAnimMode)
@@ -3822,7 +3822,7 @@ D2UnitStrc* __fastcall ITEM_HandleBodyGridSwap(D2GSPacketSrv9D* pPacket)
                 if (!INVENTORY_PlaceItemInBeltSlot(hInventory, pItem, CLIENTS_GetUnitX(pItem)))
                 {
                     sub_00477EE0();
-                    GAME_SetExitApplication(0);
+                    WINMAIN_SetExitApplication(0);
                     GAME_SetCinematicExit(1);
                     GAME_RequestExit();
                 }

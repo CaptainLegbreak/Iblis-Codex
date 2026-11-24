@@ -21,7 +21,7 @@ int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit);                         
 D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                                    // 0x0046ACE0
 int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0
 void __fastcall PLRSKILLS_CallSkillSeqDoForward(D2UnitStrc* pUnit, int nArg);                                 // 0x004D85B0
-void __fastcall MISSILE_CallSkillSeqDoBackward(D2UnitStrc* pUnit, int nArg);                                                  // 0x004D8650
+void __fastcall PLRSKILLS_CallSkillSeqDoBackward(D2UnitStrc* pUnit, int nArg);                                                  // 0x004D8650
 void __fastcall PLRSKILLS_SkillSeqDoForward(D2UnitStrc* pUnit, int nArg);                                      // 0x004D8520
 void __fastcall PLRSKILLS_SkillSeqDoBackward(D2UnitStrc* pUnit, int nArg);                                      // 0x004D85C0
 
@@ -135,7 +135,7 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
         PLRSKILLS_CallSkillSeqDoForward(pUnit, nColor);
         if (GFX_DrawUnit(pUnit, nColor, nX, nTempY, bFlag, 1) && pUnit)
             pUnit->dwFlags |= 0x10000000;
-        MISSILE_CallSkillSeqDoBackward(pUnit, nColor);
+        PLRSKILLS_CallSkillSeqDoBackward(pUnit, nColor);
         break;
     case 3:
     {

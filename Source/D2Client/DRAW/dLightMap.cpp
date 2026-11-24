@@ -244,7 +244,7 @@ void __fastcall DLIGHTMAP_ReleaseLight(void* pResource);                        
 
 void __stdcall DLIGHTMAP_UpdateLightGrid(int nArg);                                                                      // 0x00474610
 
-void __cdecl CHARSEL_ScanGridCollision();                                                              // 0x004756D0
+void __cdecl DLIGHTMAP_ScanGridCollision();                                                              // 0x004756D0
 
 int __cdecl DLIGHTMAP_GetIndicatorLevel();                                                               // 0x00475780
 
@@ -1301,7 +1301,7 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoo
 
 
 // 0x004756D0
-void __cdecl CHARSEL_ScanGridCollision()
+void __cdecl DLIGHTMAP_ScanGridCollision()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
@@ -1658,7 +1658,7 @@ void __cdecl DLIGHTMAP_RunLightPass()
     gnCellLimitX = gnCellOriginX + 0x30;
     gnCellLimitY = gnCellOriginY + 0x30;
     DLIGHTMAP_UpdateLightGrid(0);
-    CHARSEL_ScanGridCollision();
+    DLIGHTMAP_ScanGridCollision();
     const int nLevel = DLIGHTMAP_GetIndicatorLevel();
     gnLightCount = 0;
     D2R01LightStrc* pLight = gpLights;

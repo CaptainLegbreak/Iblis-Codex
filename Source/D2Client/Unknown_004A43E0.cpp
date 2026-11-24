@@ -161,7 +161,7 @@ int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 void __fastcall AUTOMAP_UnregisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
-void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 
 extern D2MsgHandlerEntryStrc gaTextMsgHandlers[]; // 0x00722600
@@ -704,11 +704,11 @@ int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
 unsigned char __cdecl INV_IsCinematicBusy(); // 0x00483350
 
-void __cdecl TEXT_UpdateQuestPage(); // 0x004A2300
+void __cdecl QUESTLOG_UpdateQuestPage(); // 0x004A2300
 
-void __cdecl TEXT_LoadQuestPanelCels(); // 0x004A23D0
+void __cdecl QUESTLOG_LoadQuestPanelCels(); // 0x004A23D0
 
-int __stdcall TEXT_OpenQuestPanel(int nArg); // 0x004A26B0
+int __stdcall QUESTLOG_OpenQuestPanel(int nArg); // 0x004A26B0
 
 int __cdecl sub_004A1760_Forward();
 
@@ -764,7 +764,7 @@ struct D2QuestTextBufferStrc
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
-void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
+void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
@@ -772,7 +772,7 @@ void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, 
 
 void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
 
-int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
+int __fastcall QUESTLOG_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
 
 extern D2QuestSlotRectStrc gaQuestSlots[]; // 0x00723EB0
 
@@ -895,7 +895,7 @@ int __fastcall TEXT_IsInPanelButton(int, int, int); // 0x004A6580
 
 int __cdecl TEXT_IsMouseOnStatButton(); // 0x004A65E0
 
-void __stdcall ROSTERPETS_HandleButtonDown(SMSGHANDLER_PARAMS*); // 0x00467F20
+void __stdcall CURSOR_HandleButtonDown(SMSGHANDLER_PARAMS*); // 0x00467F20
 
 int __cdecl NPCMENU_IsNpcTalkActive(); // 0x004B3470
 
@@ -907,7 +907,7 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00
 
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
-int __cdecl UI_GetHoverClassId(); // 0x00466DD0
+int __cdecl SELECT_GetHoverClassId(); // 0x00466DD0
 
 void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int dwColor, int eDrawMode, int nColor); // 0x005023B0
 
@@ -946,7 +946,7 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLaye
 
 extern "C" int gnFlag_007C02EC; // 0x007C02EC
 
-void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
+void __stdcall CURSOR_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 
 bool __stdcall TEXT_IsStatButtonHidden(int nArg); // 0x004A6A00
 
@@ -1077,11 +1077,11 @@ void __cdecl INV_StopCinematic(); // 0x00483300
 
 void __cdecl INV_ChainCinematic(); // 0x00483340
 
-void __fastcall TEXT_SelectQuestPage(int nCondition); // 0x004A2C30
+void __fastcall QUESTLOG_SelectQuestPage(int nCondition); // 0x004A2C30
 
-void __fastcall TEXT_ClearCainFlag(D2UnitStrc* pUnit); // 0x004A2C70
+void __fastcall QUESTLOG_ClearCainFlag(D2UnitStrc* pUnit); // 0x004A2C70
 
-void __fastcall TEXT_ClearNihlathakFlag(D2UnitStrc* pUnit); // 0x004A2C90
+void __fastcall QUESTLOG_ClearNihlathakFlag(D2UnitStrc* pUnit); // 0x004A2C90
 
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 
@@ -1497,7 +1497,7 @@ int __fastcall TEXT_TestQuestCondition(int nCondition);
 
 void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg);
 
-void __cdecl TEXT_DrawQuestPage(); // 0x004A34F0
+void __cdecl QUESTLOG_DrawQuestPage(); // 0x004A34F0
 
 void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg);
 
@@ -1963,7 +1963,7 @@ static void TEXT_OpenQuestDescription(int nSlot)
         return;
     }
     WARDENCLIENT_OpenTextPanel(wTextId, 1, 0);
-    TEXT_SetTextCallback(TEXT_CloseQuestText, 0);
+    TEXT_SetTextCallback(QUESTLOG_CloseQuestText, 0);
     gbQuestDescriptionOpen = 1;
 }
 
@@ -2776,10 +2776,10 @@ void __cdecl TEXT_RegisterKeyCaptureHandlers()
 {
     gbKeyCaptureActive = 1;
     sub_00455AE0_CloseUIVar(0xB);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureHandlers, 6);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureMButtonHandlers, 1);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureXButtonHandlers, 1);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureWheelHandlers, 1);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureHandlers, 6);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureMButtonHandlers, 1);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureXButtonHandlers, 1);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureWheelHandlers, 1);
 }
 
 // 0x004A5D70
@@ -3112,7 +3112,7 @@ void __stdcall TEXT_QuestButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     if (sub_004A2970(nX, nY) && gbGlobal_007BF2B0)
     {
         UI_SetUIVar(17, 1, 0);
-        TEXT_ToggleQuestLog(0);
+        QUESTLOG_ToggleQuestLog(0);
         gbGlobal_007BF2B0 = 0;
         pMsg->bReturn = 1;
         pMsg->lResult = 0;

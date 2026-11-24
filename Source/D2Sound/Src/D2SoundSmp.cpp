@@ -390,8 +390,8 @@ extern "C" void __fastcall ROSTER_SetCtrlState(D2PanelCtrlStrc_004B8370* pCtrl, 
     pCtrl->nState = nState;
 }
 
-// build: symbol @ROSTER_GetLinkFirst@* 0x004CA990
-extern "C" void* __fastcall ROSTER_GetLinkFirst(D2OwnerStrc_004CA990* pOwner)
+// build: symbol @UNITSND_GetLinkFirst@* 0x004CA990
+extern "C" void* __fastcall UNITSND_GetLinkFirst(D2OwnerStrc_004CA990* pOwner)
 {
     D2_ASSERT(pOwner, 3171);
     D2LinkStrc_004CA990* pLink = pOwner->pLink;

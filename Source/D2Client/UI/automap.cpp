@@ -1471,11 +1471,11 @@ void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFor
 
 const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 
-const char* __cdecl GAME_GetGameName(); // 0x0044B7C0
+const char* __cdecl WINMAIN_GetGameName(); // 0x0044B7C0
 
-const char* __cdecl GAME_GetGamePassword(); // 0x0044B820
+const char* __cdecl WINMAIN_GetGamePassword(); // 0x0044B820
 
-const char* __cdecl GAME_GetGameDescription(); // 0x0044B7F0
+const char* __cdecl WINMAIN_GetGameDescription(); // 0x0044B7F0
 
 unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 
@@ -1548,7 +1548,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-int __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nArg, int nX, int nY, int nArg3, int nArg4); // 0x004CDB40
+int __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nArg, int nX, int nY, int nArg3, int nArg4); // 0x004CDB40
 
 int gnAutomapTextY; // 0x007A51BC
 
@@ -1830,11 +1830,11 @@ void __fastcall sub_00457440_Nop(int nUnused)
 {
 }
 
-struct OBJECT_SetUnitFlag;
+struct AUTOMAP_SetUnitFlag;
 
 struct Obj00457460;
 
-struct OBJECT_SetUnitFlag {
+struct AUTOMAP_SetUnitFlag {
     unsigned int dw00;
     unsigned int dw04;
     unsigned int dw08;
@@ -1854,17 +1854,17 @@ struct OBJECT_SetUnitFlag {
 };
 
 struct Obj00457460 {
-    OBJECT_SetUnitFlag tPad000;
-    OBJECT_SetUnitFlag tPad040;
-    OBJECT_SetUnitFlag tPad080;
+    AUTOMAP_SetUnitFlag tPad000;
+    AUTOMAP_SetUnitFlag tPad040;
+    AUTOMAP_SetUnitFlag tPad080;
     unsigned int dwUnknownC0;
     unsigned int dwFlagsC4;
 };
 
-void __fastcall OBJECT_SetUnitFlag(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x00457460
+void __fastcall AUTOMAP_SetUnitFlag(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x00457460
 
 // 0x00457460
-extern "C" __declspec(dllexport) void __fastcall OBJECT_SetUnitFlag(Obj00457460* pObj, unsigned int dwMask, int bSet) {
+extern "C" __declspec(dllexport) void __fastcall AUTOMAP_SetUnitFlag(Obj00457460* pObj, unsigned int dwMask, int bSet) {
     if (pObj) {
         if (bSet) {
             pObj->dwFlagsC4 |= dwMask;
@@ -2018,14 +2018,14 @@ int __fastcall AUTOMAP_SetAutomapFade(int nFade)
 
 
 // 0x00457740
-int __cdecl UI_GetAutomapCenters()
+int __cdecl AUTOMAP_GetAutomapCenters()
 {
 // build: symbol ?gbAutomapCenter@* 0x007113E0
     return gbAutomapCenter;
 }
 
 // 0x00457750
-int __fastcall OBJECT_SaveAutomapCenters(int nValue)
+int __fastcall AUTOMAP_SaveAutomapCenters(int nValue)
 {
     SRegSaveValue("Diablo II", "AutoMap Centers", 0, nValue);
 // build: symbol ?gbAutomapCenter@* 0x007113E0
@@ -2034,13 +2034,13 @@ int __fastcall OBJECT_SaveAutomapCenters(int nValue)
 }
 
 // 0x00457770
-int __cdecl UI_GetAutomapLeft()
+int __cdecl AUTOMAP_GetAutomapLeft()
 {
     return gbAutomapLeft;
 }
 
 // 0x00457780
-int __fastcall OBJECT_SaveAutomapLeft(int nValue)
+int __fastcall AUTOMAP_SaveAutomapLeft(int nValue)
 {
     SRegSaveValue("Diablo II", "AutoMap Left", 0, nValue);
     gbAutomapLeftPrev = nValue;
@@ -2050,14 +2050,14 @@ int __fastcall OBJECT_SaveAutomapLeft(int nValue)
 }
 
 // 0x004577B0
-int __cdecl UI_GetAutomapParty()
+int __cdecl AUTOMAP_GetAutomapParty()
 {
 // build: symbol ?gbAutomapParty@* 0x007113E4
     return gbAutomapParty;
 }
 
 // 0x004577C0
-int __fastcall OBJECT_SaveAutomapParty(int nValue)
+int __fastcall AUTOMAP_SaveAutomapParty(int nValue)
 {
     SRegSaveValue("Diablo II", "AutoMap Party", 0, nValue);
 // build: symbol ?gbAutomapParty@* 0x007113E4
@@ -2066,13 +2066,13 @@ int __fastcall OBJECT_SaveAutomapParty(int nValue)
 }
 
 // 0x004577E0
-int __cdecl UI_GetAutomapPartyNames()
+int __cdecl AUTOMAP_GetAutomapPartyNames()
 {
     return gbAutomapPartyNames;
 }
 
 // 0x004577F0
-int __fastcall OBJECT_SaveAutomapPartyNames(int nValue)
+int __fastcall AUTOMAP_SaveAutomapPartyNames(int nValue)
 {
     SRegSaveValue("Diablo II", "AutoMap Party Names", 0, nValue);
     gbAutomapPartyNames = nValue;
@@ -2180,7 +2180,7 @@ void __stdcall sub_004579E0_RotateRightHeavy(D2AutomapCellStrc** ppRoot)
 }
 
 // 0x00457AC0
-int __fastcall OBJECT_CompareAutomapCells(const D2AutomapCellStrc* pA, const D2AutomapCellStrc* pB)
+int __fastcall AUTOMAP_CompareAutomapCells(const D2AutomapCellStrc* pA, const D2AutomapCellStrc* pB)
 {
     int nResult = pA->yPixel - pB->yPixel;
     if (!nResult)
@@ -2787,7 +2787,7 @@ void __cdecl AUTOMAP_LoadAutomapLayer()
 
 
 // 0x00458CD0
-void __stdcall CHARSEL_SetAutomapContext(D2AutomapLayerStrc* pContext)
+void __stdcall AUTOMAP_SetAutomapContext(D2AutomapLayerStrc* pContext)
 {
     AUTOMAP_SaveAutomapLayer();
     AUTOMAP_ResetAutomapCells();
@@ -3159,7 +3159,7 @@ next:
 }
 
 // 0x00457450
-int __fastcall OBJECT_GetAbsValue(int nValue)
+int __fastcall AUTOMAP_GetAbsValue(int nValue)
 {
     return nValue < 0 ? -nValue : nValue;
 }
@@ -3214,8 +3214,8 @@ void __fastcall AUTOMAP_DrawAutomapCells(D2AutomapCellStrc* pCell, D2AutomapDraw
                 const int nHalfWidth = gnAutomapWidth / 2;
                 if (nPosX >= nHalfWidth + nShift - 0x8C && nPosX <= nHalfWidth + nShift + 0x8C && nPosY >= nHalfHeight - 0x96 && nPosY <= nHalfHeight + 0x82)
                 {
-                    const int nDistX = OBJECT_GetAbsValue(nHalfWidth - nPosX + nShift);
-                    const int nDistY = OBJECT_GetAbsValue(nCenterY - nPosY);
+                    const int nDistX = AUTOMAP_GetAbsValue(nHalfWidth - nPosX + nShift);
+                    const int nDistY = AUTOMAP_GetAbsValue(nCenterY - nPosY);
                     const int nDist = (nDistX > nDistY ? nDistY + 2 * nDistX : nDistX + 2 * nDistY) / 2;
                     if (nDist < 0x96)
                     {
@@ -3621,8 +3621,8 @@ void __cdecl AUTOMAP_DrawGameInfoLines()
         wszName[i].wChar = 0;
     for (int i = 0; i < 50; ++i)
         wszLine[i].wChar = 0;
-    const char* szFirst = GAME_GetGameName();
-    const char* szSecond = GAME_GetGamePassword();
+    const char* szFirst = WINMAIN_GetGameName();
+    const char* szSecond = WINMAIN_GetGamePassword();
     if (!szFirst)
     {
         if (!szSecond)
@@ -3638,7 +3638,7 @@ void __cdecl AUTOMAP_DrawGameInfoLines()
         D2Win_10117_DrawText(wszLine, gnAutomapWidth - D2Win_10121_GetTextWidth(wszLine) - 0x10, gnAutomapTextY, 4, 0);
         gnAutomapTextY += 0x10;
     }
-    const char* szThird = GAME_GetGameDescription();
+    const char* szThird = WINMAIN_GetGameDescription();
     if (!szThird)
         return;
     sprintf(szText, gszStringFormat, szThird);
@@ -4570,7 +4570,7 @@ int __fastcall AUTOMAP_RequestAtNearTarget(D2UnitStrc* pUnit, int nArg, int nArg
         return 0;
     }
 
-    return GFXUTIL_SubmitMissileRequest(pUnit, nArg, nTargetX, nTargetY, nArg3, nArg4);
+    return MISSILE_SubmitMissileRequest(pUnit, nArg, nTargetX, nTargetY, nArg3, nArg4);
 }
 
 #include "gen/data/Source/D2Client/UI/automap.inc"

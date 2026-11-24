@@ -155,7 +155,7 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg
 void __fastcall sub_004B9B50_SetValue(int nKey, int nValue);                                            // 0x004B9B50
 int __fastcall SOUNDINST_HasActiveHint(int nKey); // 0x004B9BE0
 int __fastcall SOUNDINST_GetSoundIdByHandle(int nKey); // 0x004B9CA0
-int __fastcall MONSTER_IsNearPlayer(D2UnitStrc* pUnit);                                                // 0x004B9E10
+int __fastcall SOUNDINST_IsNearPlayer(D2UnitStrc* pUnit);                                                // 0x004B9E10
 int __fastcall SOUNDINST_HasUnitSound(D2UnitStrc* pUnit);                                                // 0x004B9E90
 void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 void __fastcall sub_004BA790_UpdateUnitHint(D2UnitStrc* pUnit, D2UnitStrc* pOther, int bForce); // 0x004BA790
@@ -168,7 +168,7 @@ int __fastcall sub_004E4180(int nFrame, int nOffset, int nStepLength);          
 int __fastcall UNITSND_GetModeSound(D2UnitStrc* pUnit, int nMode);                                     // 0x004CA810
 int __fastcall UNITSND_GetUnitFloorMaterial(D2UnitStrc* pUnit);                                        // 0x004CADB0
 unsigned int __fastcall UNITSND_GetAnimRate(D2UnitStrc* pUnit, unsigned int nDirection);               // 0x004CA500
-void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId);                               // 0x004CA900
+void* __fastcall UNITSND_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId);                               // 0x004CA900
 void __fastcall UNITSND_PurgeUnitHints(D2UnitStrc* pUnit);                                             // 0x004CAA10
 int __fastcall UNITS_GetHitClass(D2UnitStrc* pUnit);                                                             // 0x00623C20
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
