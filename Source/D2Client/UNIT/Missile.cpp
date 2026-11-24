@@ -720,7 +720,6 @@ int __stdcall MISSILE_GetCurrentFrame(D2UnitStrc*); // 0x0064A380
 
 D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc*,int,int); // 0x0065A620
 
-// build: context MISSILE_RollInRange
 static inline int MISSILE_RollInRange(D2SeedStrc* pSeed, int nMin, int nMax)
 {
     if (nMin < nMax)
@@ -1012,7 +1011,6 @@ static inline unsigned int SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-// build: context SEED_RollLimitedRandomNumberInline
 static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
 {
     return (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount) ? &sgptDataTables->pMissilesTxt[nMissileId] : 0;
@@ -5261,7 +5259,6 @@ int __fastcall MISSILE_CheckTargetInRange(D2UnitStrc* pUnit, int nSkillId, int n
     return 1;
 }
 
-// build: context MISSILE_GetApproxOffsetLengthInline
 inline int MISSILE_GetApproxOffsetLengthInline(int nX, int nY)
 {
     int nAbsX = nX < 0 ? -nX : nX;
@@ -7119,7 +7116,6 @@ void __fastcall MISSILE_SpawnPeriodicMissile(D2UnitStrc* pOwner, D2UnitStrc* pUn
     MISSILE_CreateClientMissile(&missile);
 }
 
-// build: context DATATBLS_GetMissilesTxtRecordInline
 static inline D2MissilesTxt* DATATBLS_GetMissilesTxtRecordInline(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)

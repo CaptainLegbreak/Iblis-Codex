@@ -1297,7 +1297,6 @@ static void __stdcall PLAYER_SendCommand(int bTarget, D2PlayerCmdStrc* pCmd)
     }
 }
 
-// build: context UNITS_GetXPosition
 static inline int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -1315,7 +1314,6 @@ static inline int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit)
     }
 }
 
-// build: context UNITS_GetYPosition
 static inline int __fastcall UNITS_GetYPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -1342,20 +1340,6 @@ void __fastcall sub_00461A70_InteractWithUnit(D2UnitStrc* pUnit)
     PLAYER_InteractWithTarget(&tCmd, !pUnit ? -1 : pUnit->dwUnitId);
 }
 
-// build: context ?PLAYER_GetUnitXInline@@YAHPAUD2UnitStrc@@@Z
-// build: context ?PLAYER_GetUnitYInline@@YAHPAUD2UnitStrc@@@Z
-// build: context ?PLAYER_CheckCommandSkill@@YAHPAUD2PlayerCmdStrc@@PAH@Z
-// build: context ?E06_GetUnitMonStatsTxt@@YAPAUD2MonStatsTxt@@PAUD2UnitStrc@@@Z
-// build: context ?PLAYER_InteractWithUnit@@YGXHHPAUD2PlayerCmdStrc@@@Z
-// build: context ?E06_GetPlayerMode@@YAHPAUD2UnitStrc@@@Z
-// build: context ?E06_GetPlayerModeArg1@@YAHPAUD2UnitStrc@@@Z
-// build: context ?E06_GetPlayerModeArg2@@YAHPAUD2UnitStrc@@@Z
-// build: context ?E06_ClearPlayerMode@@YAXPAUD2UnitStrc@@@Z
-// build: context ?PLAYER_PrepareCommand@@YAHPAUD2PlayerCmdStrc@@@Z
-// build: context ?PLAYER_ClampTarget@@YGHPAUD2UnitStrc@@PAUD2PlayerCmdStrc@@@Z
-// build: context ?PLAYER_ExecuteCommand@@YAXPAUD2PlayerCmdStrc@@@Z
-// build: context ?sub_00462D00_PlayerCommand@@YIHHHHE@Z
-// build: context ?sub_E06_Emit_Player1@@YAXXZ
 
 // 0x00461840
 static int __stdcall PLAYER_WalkTo(int nMode, D2UnitStrc* pUnit, int nX, int nY)
@@ -1883,7 +1867,6 @@ static int PLAYER_PrepareCommand(D2PlayerCmdStrc* pCmd)
 }
 
 
-// build: context ClampTarget_GetX
 inline int ClampTarget_GetX(D2UnitStrc* pUnit)
 {
     int nResult;
@@ -1901,7 +1884,6 @@ inline int ClampTarget_GetX(D2UnitStrc* pUnit)
     return nResult;
 }
 
-// build: context ClampTarget_GetY
 inline int ClampTarget_GetY(D2UnitStrc* pUnit)
 {
     int nResult;
@@ -2454,7 +2436,6 @@ int __fastcall sub_00462D00_PlayerCommand(int nCommand, int nX, int nY, unsigned
     return 1;
 }
 
-// build: context sub_E06_Emit_Player1
 void sub_E06_Emit_Player1()
 {
     PLAYER_SetModeAndSync(1, gpEmitUnit_E06, gnEmitArg_E06);

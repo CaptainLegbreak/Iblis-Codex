@@ -774,7 +774,6 @@ int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit)
     return -1;
 }
 
-// build: context UNITS_GetMonStats2TxtRecordFromMonsterId_Inl
 inline D2MonStats2Txt* UNITS_GetMonStats2TxtRecordFromMonsterId_Inl(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -865,7 +864,6 @@ D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit)
     return 0;
 }
 
-// build: context UNIT_HasFlag
 static inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (!pUnit)
@@ -873,7 +871,6 @@ static inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
     return (pUnit->dwFlags & nFlag) != 0;
 }
 
-// build: context UNIT_HasFlagEx
 inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit)
@@ -884,7 +881,6 @@ inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
     return 0;
 }
 
-// build: context CUNIT_GetUnitClassId
 static inline int CUNIT_GetUnitClassId(D2UnitStrc* pUnit)
 {
     int nClassId = -1;
@@ -1011,7 +1007,6 @@ static void __stdcall CUNIT_ForEachUnitInTable(D2UnitStrc** ppTable, UNITFN pfnC
     }
 }
 
-// build: context CLIENT_FindUnitInHashTable_Inl
 static inline D2UnitStrc* CLIENT_FindUnitInHashTable_Inl(int nUnitId, int nUnitType)
 {
     D2UnitStrc* pUnit = gapServerUnitTable[(nUnitType << 7) + (nUnitId & 0x7F)];

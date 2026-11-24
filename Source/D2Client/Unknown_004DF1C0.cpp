@@ -433,7 +433,6 @@ void D2RC4Strc::sub_004E09B0_Init(const unsigned char* pKey, unsigned int nKeySi
     } while (n < 0x100);
 }
 
-// build: context CLT_Abs
 static int CLT_Abs(int nValue)
 {
     return nValue < 0 ? -nValue : nValue;
