@@ -4116,20 +4116,7 @@
   "Source/D2Client/Unknown_004ADD90.cpp": {
    "bytes": 948,
    "definitions": 2,
-   "externs": [
-    "extern \"C\" void __cdecl NPCMENU_StateOverlayBurst(); // 0x004AD0C0",
-    "extern \"C\" void __cdecl NPCMENU_StateOverlayCross(); // 0x004AD1A0",
-    "extern \"C\" void __cdecl MONUNIQUE_HandleUnitClassEvent(); // 0x004AD2F0",
-    "extern \"C\" void __cdecl NPCMENU_StateStartEffect(); // 0x004AD510",
-    "extern \"C\" void __cdecl NPCMENU_StateDurielDeath(); // 0x004AD5F0",
-    "extern \"C\" void __cdecl NPCMENU_StateBurstOnFrame(); // 0x004AD890",
-    "extern \"C\" void __cdecl NPCMENU_StateBurst(); // 0x004AD8E0",
-    "extern \"C\" void __cdecl NPCMENU_StateBurstNeutral(); // 0x004AD920",
-    "extern \"C\" void __cdecl NPCMENU_StateMissileSplit(); // 0x004AD970",
-    "extern \"C\" void __cdecl NPCMENU_StateOverlayAtPath(); // 0x004ADB20",
-    "extern \"C\" void __cdecl NPCMENU_StateMonOverlay(); // 0x004ADBC0",
-    "extern \"C\" void __cdecl NPCMENU_StateRequestsCallback(); // 0x004ADD80"
-   ],
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004ADD90.inc",
    "lang": "cpp",
