@@ -4151,7 +4151,7 @@
    "state": "included"
   },
   "Source/D2Common/ENVIRONMENT/Env.cpp": {
-   "bytes": 288,
+   "bytes": 228,
    "definitions": 4,
    "externs": [],
    "fn_types": {},
@@ -4160,8 +4160,8 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/LvlTbls.cpp": {
-   "bytes": 908,
-   "definitions": 24,
+   "bytes": 968,
+   "definitions": 25,
    "externs": [
     "extern \"C\" char gData_0096C8C8[]; // 0x0096C8C8"
    ],
@@ -121810,132 +121810,11 @@
    "fwd": "extern \"C\" struct d2data_00744480_t gData_00744480; // 0x00744480",
    "head": "extern \"C\" struct d2data_00744480_t gData_00744480 = ",
    "name": "gEclipseEnvironmentCycle",
-   "pointers": [
-    [
-     72,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     76,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     80,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     84,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     88,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     92,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     96,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     100,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     104,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     108,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     112,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     116,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     120,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     124,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     128,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
+   "pointers": [],
    "region": "data",
-   "size": 132,
+   "size": 72,
    "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00744480_t\n{\n    unsigned char b0[72];\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    const void* p15;\n};\n#pragma pack(pop)",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00744480_t\n{\n    unsigned char b0[72];\n};\n#pragma pack(pop)",
    "tail": "; // 0x00744480\n#pragma comment(linker, \"/alternatename:?gEclipseEnvironmentCycle@@3PAUD2EnvironmentCycleStrc@@A=_gData_00744480\")",
    "type": "D2EnvironmentCycleStrc",
    "va": "0x00744480"
@@ -122658,6 +122537,144 @@
    "tail": "; // 0x006E89A4\n#pragma comment(linker, \"/alternatename:?gszField_Type@@3QBDB=_gData_006E89A4\")",
    "type": "char",
    "va": "0x006E89A4"
+  },
+  {
+   "alias": false,
+   "cname": "gData_007444C8",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/LvlTbls.cpp",
+   "form": "bytes",
+   "name": "gData_007444C8",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "va": "0x007444C8",
+   "fwd": "extern \"C\" struct d2data_007444C8_t gData_007444C8; // 0x007444C8",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_007444C8_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" struct d2data_007444C8_t gData_007444C8 = ",
+   "tail": "; // 0x007444C8"
   },
   {
    "alias": true,
