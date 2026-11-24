@@ -119,8 +119,6 @@ struct D2TimevalStrc;
 
 union D2QTickStrc;
 
-struct D2HackListStrc;
-
 static int sub_006C2810_PopWrite(D2QClientStrc* pClient);
 
 void __cdecl sub_006BE2F0_Nop(const char* unused1, const char* unused2, int unused3); // 0x006BE2F0
@@ -162,11 +160,6 @@ extern "C" __declspec(dllimport) int __stdcall SetThreadPriority(void* hThread, 
 extern "C" int __stdcall select(int nCount, D2FdSetStrc* pRead, D2FdSetStrc* pWrite, D2FdSetStrc* pExcept, const D2TimevalStrc* pTimeout); // 0x006B0186
 
 void __cdecl sub_006BF750_Nop(); // 0x006BF750
-
-struct D2HackListStrc
-{
-    void __thiscall ExpireEntries();                                                           // 0x006BE700
-};
 
 extern "C" int __cdecl abs(int n);
 
@@ -435,7 +428,7 @@ unsigned long __stdcall sub_006C2860_AcceptThread(D2QThreadArgStrc* pArg)
         }
         else
         {
-            ((D2HackListStrc*)pServer)->ExpireEntries();
+            pServer->ExpireEntries();
             if (!nSlot)
             {
                 sub_006BF750_Nop();

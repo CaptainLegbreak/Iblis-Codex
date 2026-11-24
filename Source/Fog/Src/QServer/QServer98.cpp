@@ -35,7 +35,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(voi
 extern "C" __declspec(dllimport) void* __stdcall CreateEventA(void* pAttributes, int bManualReset, int bInitialState, const char* szName);
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfStart)(void*), void* pParameter, unsigned long nFlags, unsigned long* pThreadId);
 extern unsigned int __security_cookie; // 0x00749DE0
-void __fastcall ExpireEntries(D2QueueServerStrc*); // 0x006BE700
 void __fastcall QSERVER_AddReference(D2QueueServerStrc*,D2QClientStrc*); // 0x006BE640
 void __fastcall sub_006C0360_ReleaseReference(D2QueueServerStrc*,D2QClientStrc*); // 0x006C0360
 D2QClientStrc* __fastcall QSERVER_FindNodeInAnyBucket(D2QueueServerStrc*,int); // 0x006BE5B0
@@ -120,7 +119,7 @@ void __cdecl QSERVER98_ServerThread(D2QueueServerStrc* server)
     for (;;)
     {
         int count = 0;
-        ExpireEntries(server);
+        server->ExpireEntries();
         EnterCriticalSection(&server->tLock);
         readSet.count = 0; errorSet.count = 0;
         D2QClientStrc* node = server->ppClients[bucket];
