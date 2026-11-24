@@ -16,20 +16,20 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-Both on main 25eea120 (#352), namesync run (plus main's GLCORE_/GLSUBTILECACHE_ renames by hand), precheck 0 not all equal on each head; borrowed data in each full verify: 1,114 B (main's figure).
+Both rebased onto main 9ec68ba8 (#354) as asked, namesync run (plus main's renames in the moved lines by hand), precheck 0 not all equal on each head; borrowed data in each full verify: 1,041 B, main's figure.
 
-- lane9/take-win-strays 1f34e0e6 (your #341 answer; placeholders 2->3, D2Win -2): D2Win/Unknown_00508970.cpp
+- lane9/take-win-strays 102200ca (your #341 answer; placeholders 2->3, D2Win -2): D2Win/Unknown_00508970.cpp
   (GlideLoadLibrary, GlideCheckBoards) moves to D2Glide. D2Win/Unknown_0050F910.cpp held both renderers: its Glide part
   (tile decoder 0x50F910/0x50FBD0, video player 0x50FDF0, .data 0x72F6A8) stays Unknown_0050F910.cpp under D2Glide;
   its DDraw part (0x510130-0x5103B0 with DDrawLogError, video player 0x5137E0, their bss) becomes
-  D2DDraw/Unknown_00510130.cpp. Each copies the few declarations it took from D2Win.h. Full verify on #352: VERIFIED
-  tree 2f0adacd, borrowed data 1,114 B.
-- lane9/renderer-tables 68c9ff42, STACKED on take-win-strays (placeholders -1: D2Client/Unknown_004F4EC0.cpp goes).
+  D2DDraw/Unknown_00510130.cpp. Each copies the few declarations it took from D2Win.h. Full verify on #354: VERIFIED
+  tree 8a871461, borrowed data 1,041 B.
+- lane9/renderer-tables 487e00a9, STACKED on take-win-strays (placeholders -1: D2Client/Unknown_004F4EC0.cpp goes).
   The four renderer function tables each end exactly where their renderer's core .data starts, so they join those
   files: 0x72F178 -> glCore.cpp (ends at 0x72F250), 0x72F6D0 -> ddCore.cpp (0x72F7A8), 0x74BF28 -> d3dCore.cpp
   (0x74C000), 0x74C4A8 -> gdiCore.cpp (0x74C5A0). The selector 0x4F4FF0 and its table gapGraphicsInterfaces 0x72DA80
   sit in Window.cpp's code and data, so they join Window.cpp (whose unmarked copy of the selector goes). Full verify on
-  #352: VERIFIED tree d5a7073d, borrowed data 1,114 B. (The selector keeps its string literal: with the named
+  #354: VERIFIED tree 9d5b008e, borrowed data 1,041 B. (The selector keeps its string literal: with the named
   string instead, the 33 B at 0x6DC457 became borrowed.) The moved tables' pointer names follow names.csv.
 
 In #350: drawquad-note, move-d3d-bink, take-renderer-strays (thanks). In #347: join-d3dcore-2, join-gdicore-8250, d2hell-o1. In #344: place-ddcore-10160. In #341: join-d3d-3570, join-d3dsprite-2. In #340: join-d3d-7530, join-ddraw-11df0, join-glide-bd30, join-glide-d410 (thanks). Earlier: place-gdismack #338,
