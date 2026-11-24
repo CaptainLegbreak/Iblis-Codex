@@ -4,8 +4,11 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/data-c 1ad5b177 516->515 borrowed data 3,415->3,363 B (-52). D2Gfx's 24-byte gGfxSettings (D2GfxSettingsStrc) becomes one definition in Window.cpp: today it is split six ways, three of them borrowed, gbInTown planned in D2Win and gdwGlobal_0072DA5C planned in glCore.cpp. sub_004F5190_SetTownMode, which sits inside Window.cpp's run and writes the record, joins Window.cpp. gaDDrawCapsTypes [7]->[8] and gszAutomapLevelNames/TileNames get their declared sizes (568->576 B, 156->160 B). The 24 B of path consts at 0x006EB7C8 are defined in Unknown_0064FAD0.cpp, with aliases; VERIFIED f50749db
-  - Based on #321. Not stacked. It also touches Source/StandIns/D2Win_004F8B80.cpp, the 0x004F8B80 stand-in: it now reads gGfxSettings.bLowQuality and no longer declares the int at 0x0072DA50. Everything else stays in lane 6.
+- (in progress) lane6/tails-a-2: tails-a rebased onto #323 and being verified. lane6/tails-a and lane6/data-c-2 are pushed but are not ready: data-c went in #323, so data-c-2 is not needed, and tails-a-2 replaces tails-a.
+
+## Claimed
+
+- Path cluster regroup, IDA* first. The data-reader split (#304) found the IDA* range 0x0067A550-0x0067ADBF, but its functions are still spread over Unknown_0067A590, _0067A630, _0067A740, _0067AAA0, _00679A60 (0x0067A5D0), _006793E0 (0x0067A9F0, 0x0067AD00) and Skills.cpp (0x0067A550). I am gathering them into one placeholder. The call chain 0x0067AD00 -> 0x0067AAA0 -> 0x0067A740 -> 0x0067A690 -> 0x0067A630 and the const tables 0x006F17D8/0x006F18D8 agree. The ray-trace (0x00679380-0x0067A549), A* (0x0067ADC0-0x0067B84F) and tail (0x0067B850-) ranges come after.
 
 ## Questions
 
