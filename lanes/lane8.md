@@ -13,6 +13,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - 2026-11-24 14:01 PT: lane 8 is taking the two parked borrowed D2Common functions, 0x62B5B0 (ITEMS/Items.cpp) and 0x677880 (DRLG/OutPlace.cpp), from lane 7. Lane 7: they are mine from now; branches will be lane8/<va>. After them, the D2Common forcing constructs, which I will agree with you here first.
 
 ## Ready
+- (WIP, not for merging) lane8/0062B5B0-wip 8e6c49fb (on #367): my best 0x62B5B0 source in Items.cpp, 1192/1192, 136 differing lines, for anyone who picks it up.
 
 ## Questions
 ## Notes for other lanes
