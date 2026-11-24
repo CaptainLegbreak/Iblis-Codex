@@ -24,6 +24,7 @@
 #include "D2MsgRecord.h"
 
 #include <D2UnitData.h>
+#include "D2MultiTypes.h"
 
 struct D2ClientInterfaceStrc;
 
@@ -194,7 +195,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
-
 
 void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
@@ -872,10 +872,6 @@ void __cdecl sub_004DF890(); // 0x004DF890
 
 void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int nTick); // 0x004E42E0
 
-
-
-
-
 static unsigned char INV_GetFlagIndex(unsigned char nFlags);
 
 D2InvRectStrc gtBankRect; // 0x007BCA68
@@ -1469,8 +1465,6 @@ extern "C" const char gszRes640x292[]; // 0x006D421C
 
 extern int gnAuxLevelEntries; // 0x00721D94
 
-
-
 extern int gnAutomapHeight; // 0x007A521C
 
 extern unsigned char gabGridColors_007BCAD8[]; // 0x007BCAD8
@@ -1627,7 +1621,6 @@ void __stdcall sub_0065C1F0_2(int nInventoryTxtId, int bHigherRes, D2InventoryGr
 
 void __stdcall sub_0065C270_2(int nInventoryTxtId, int bHigherRes, D2InvCompGridStrc* pInvCompGrid, int nComponent); // 0x0065C270
 
-
 void __stdcall INV_DrawRecipeScroll(); // 0x0048BC10
 
 static void __stdcall INV_AppendStackQuantity(D2UnitStrc* pItem, Unicode* pText);
@@ -1637,6 +1630,66 @@ static int __stdcall INV_ClickGridItem(D2UnitStrc* pPlayer, D2InventoryStrc* pIn
 static int sub_00483B40_IsInRect(int nX, int nY);
 
 static int sub_00483BF0_IsInRect(int nX, int nY);
+
+#define LOBYTE(w) ((unsigned char)(((unsigned long)(w)) & 0xFF))
+#define HIBYTE(w) ((unsigned char)((((unsigned long)(w)) >> 8) & 0xFF))
+struct D2ClientPacket67Strc;
+struct D2ConfigStrc;
+
+struct D2CacheStatsStrc
+{
+    unsigned int nFloorSize;
+    int unk0x04;
+    int nFloorMisses;
+    unsigned int nSubtileSize;
+    int unk0x10;
+    int nSubtileMisses;
+    unsigned int nSprite1Size;
+    unsigned int nSprite2Size;
+    unsigned int nSprite3Size;
+    int unk0x24[3];
+    int nSprite1Misses;
+    int nSprite2Misses;
+    int nSprite3Misses;
+    int unk0x3C[3];
+    int nSprite1Accesses;
+    int nSprite2Accesses;
+    int nSprite3Accesses;
+};
+
+struct D2ClientPacket67Strc
+{
+    unsigned char nHeader;
+    char szName[16];
+    unsigned char nGameType;
+    unsigned char nClass;
+    unsigned char nByte13;
+    unsigned char nByte14;
+    char szCharName[16];
+    unsigned char aWord[2];
+    unsigned char aFlags[4];
+    unsigned char nByte2B;
+    unsigned char nByte2C;
+    unsigned char f_2D;
+};
+
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
+extern unsigned char gnCharClass; // 0x007A0522
+extern "C" __declspec(dllimport) int __stdcall ReadProcessMemory(void* hProcess, const void* pBaseAddress, void* pBuffer, unsigned long nSize, unsigned long* pBytesRead); // 0x006CC350
+unsigned int __cdecl sub_0044CE70(); // 0x0044CE70
+
+unsigned int gdwEncodedName0; // 0x007A04E8
+
+unsigned int gdwEncodedName1; // 0x007A04EC
+
+unsigned int gdwEncodedOffset; // 0x007A04F0
+
+unsigned long gdwLastCheckTick; // 0x007BB3B0
+
+struct D2SendPacket6BStrc
+{
+    unsigned char nHeader;
+};
 
 // 0x0044BFF0
 int __cdecl INV_IsRightClickConsumed()
@@ -1686,9 +1739,122 @@ int __cdecl INV_IsPopupDismissed()
 
 extern "C" { int gnFlag_007C02EC; } // 0x007C02EC
 
+// 0x00477CA0
+void __fastcall sub_00477CA0_SendPacket67(const char* szName)
+{
+    D2ClientPacket67Strc tPacket;
+    tPacket.nHeader = 0x67;
+    SStrCopy(tPacket.szName, szName, 0x7FFFFFFF);
+    switch (gdwGlobal_007A0610)
+    {
+    case 0:
+        tPacket.nGameType = 3;
+        break;
+    case 6:
+        tPacket.nGameType = 1;
+        break;
+    case 8:
+        tPacket.nGameType = 2;
+        break;
+    default:
+        tPacket.nGameType = 0;
+        break;
+    }
+    if (CHAT_HasClassOverride())
+        tPacket.nClass = sub_0047AA20_GetClassOverride();
+    else
+        tPacket.nClass = gnCharClass;
+    tPacket.f_2D = STRTABLE_GetLanguage();
+    if (!gpClientConfig->dwFlags209)
+    {
+        gpClientConfig->dwFlags209 = 4;
+        gpClientConfig->dwFlags209 |= 0x100000;
+    }
+    memcpy(tPacket.aWord, gpClientConfig->aWord207, sizeof(tPacket.aWord));
+    memcpy(tPacket.aFlags, gpClientConfig->aState209, sizeof(tPacket.aFlags));
+    tPacket.nByte13 = gpClientConfig->unk0x20D;
+    tPacket.nByte2B = gpClientConfig->unk0x20E;
+    tPacket.nByte2C = gpClientConfig->unk0x20F;
+    tPacket.nByte14 = gpClientConfig->nByte210;
+    SStrCopy(tPacket.szCharName, gszClientCharName, 0x7FFFFFFF);
+// build: symbol ?CLIENT_Send@* 0x0052AE50
+    CLIENT_Send(sizeof(tPacket), 0, &tPacket);
+    gnSentBytes += sizeof(tPacket);
+    gnSentPackets += 1;
+}
 
+// 0x00477DA0
+void __cdecl sub_00477DA0()
+{
+    D2SendPacket6BStrc tPacket;
+    tPacket.nHeader = 0x6B;
+    CLIENT_Send(sizeof(D2SendPacket6BStrc), 0, &tPacket);
+    gnSentBytes += sizeof(D2SendPacket6BStrc);
+    gnSentPackets += 1;
+}
 
+// 0x00477DD0
+void __cdecl sub_00477DD0()
+{
+    int aPacket[4];
+    unsigned int aName[3];
+    unsigned short wLow;
+    unsigned short wHigh;
 
+    aName[0] = gdwEncodedName0 * 0x470E31C1;
+    aName[1] = gdwEncodedName1 * 0x470E31C1;
+    const unsigned int nOffset = gdwEncodedOffset * 0x470E31C1;
+    ((char*)aName)[8] = 0;
+
+    unsigned int nValue;
+    if ((char)aName[0])
+    {
+        nValue = 0xCCCCCCCC;
+        char* hModule = (char*)GetModuleHandleA((const char*)aName);
+        if (hModule)
+        {
+            char* pAddress = hModule + nOffset;
+            if (ReadProcessMemory(GetCurrentProcess(), pAddress, &wLow, 2, 0))
+            {
+                if (ReadProcessMemory(GetCurrentProcess(), pAddress + 0x20, &wHigh, 2, 0))
+                {
+                    // __assume: keeps the bytes collecting in nValue's own register, as the original does; no plain form found
+                    nValue = !hModule ? 0 : HIBYTE(wHigh);
+                    __assume(nValue != 0x80000000);
+                    nValue <<= 8;
+                    __assume(nValue != 0x80000000);
+                    nValue |= LOBYTE(wHigh);
+                    __assume(nValue != 0x80000000);
+                    nValue <<= 8;
+                    __assume(nValue != 0x80000000);
+                    nValue |= HIBYTE(wLow);
+                    __assume(nValue != 0x80000000);
+                    nValue <<= 8;
+                    __assume(nValue != 0xFFFFFFFF);
+                    nValue |= LOBYTE(wLow);
+                }
+            }
+        }
+    }
+    else
+    {
+        nValue = 0;
+    }
+
+    const unsigned long dwTick = GetTickCount();
+    if (dwTick - gdwLastCheckTick >= 5000)
+    {
+        gdwLastCheckTick = dwTick;
+        char* pPacket = (char*)aPacket;
+        pPacket[0] = 0x6D;
+        *(unsigned long*)(pPacket + 1) = GetTickCount();
+        *(unsigned int*)(pPacket + 5) = sub_0044CE70() >> 1;
+        *(unsigned int*)(pPacket + 9) = nValue * 0xB640DE41;
+        CLIENT_Send(13, 0, aPacket);
+        gnSentBytes += 13;
+        gnSentPackets += 1;
+    }
+}
 
 // 0x00477EE0
 void __cdecl INV_SendLeaveGame()
@@ -1760,25 +1926,6 @@ void __cdecl sub_00478010()
     gnSentBytes += 1;
     gnSentPackets += 1;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // 0x004834A0
 const Unicode* __fastcall INV_SkipBracketTag(const Unicode* pString)
@@ -1897,8 +2044,6 @@ void __cdecl INV_LoadUiRecords()
         }
     }
 }
-
-
 
 // 0x00483960
 void __cdecl CUNIT_InitColorTable()
@@ -3448,7 +3593,6 @@ void __stdcall sub_E05_Emit_004844A0(D2InventoryStrc* pInventory, Unicode* pText
     INV_FindSetItem(pInventory, nSetItemId);
 }
 
-
 int __cdecl sub_E05_Emit_00489FB0(int nX, int nY)
 {
     return sub_00489FB0_IsOverButtonC(nX, nY);
@@ -3847,7 +3991,6 @@ void __stdcall INV_NpcPanelMouseMove(SMSGHANDLER_PARAMS* pMsg)
         sub_00420290_BreakHandlerChain(pMsg);
     }
 }
-
 
 // 0x00487000
 static void __stdcall INV_UpdateGridHover(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, D2UnitStrc* pCursorItem, unsigned int nX, unsigned int nY, int nPage, D2InventoryGridInfoStrc* pGrid)
@@ -8501,8 +8644,6 @@ void __stdcall INV_WeaponSwapKeyMsg(SMSGHANDLER_PARAMS* pMsg)
     }
 }
 
-
-
 static int __fastcall GetCenteredXInline(unsigned short nString, int nX)
 {
     unsigned short wszTextBuf[100];
@@ -8548,12 +8689,6 @@ static int __fastcall GetCenteredX_Inl(unsigned short nString, int nX)
 void __cdecl sub_00495410_DrawHelpText(); // 0x00495410
 
 void __cdecl sub_00495DC0_DrawHelpText(); // 0x00495DC0
-
-
-
-
-
-
 
 // 0x00497C50
 void __stdcall INV_DrawWarningIcon(int nFrame)
@@ -8628,20 +8763,11 @@ void __stdcall sub_004A17D0(SMSGHANDLER_PARAMS* pMsg)
     sub_004A1770(pMsg);
 }
 
-
-
 extern D2SkillIconStateStrc gtHotkeySlots;                                                      // 0x007C0300
 
 extern int gbSkillSelectRight;                                                                               // 0x007C07FC
 
 void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLeft, int bNoSlots, int bNoDraw); // 0x004AA3A0
-
-
-
-
-
-
-
 
 int __cdecl sub_M133_Emit_00483C20(int nX, int nY)
 {

@@ -13632,6 +13632,20 @@
      "name": "?INV_IsPopupDismissed@@YAHXZ"
     },
     {
+     "va": "0x00477CA0",
+     "length": 255,
+     "name": "?sub_00477CA0_SendPacket67@@YIXPBD@Z"
+    },
+    {
+     "va": "0x00477DA0",
+     "length": 39,
+     "name": "sub_00477DA0"
+    },
+    {
+     "va": "0x00477DD0",
+     "length": 262
+    },
+    {
      "va": "0x00477EE0",
      "length": 130,
      "name": "INV_SendLeaveGame"
@@ -21037,40 +21051,6 @@
      "va": "0x00477C90",
      "length": 6,
      "name": "sub_00477C90"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00477760.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00477CA0",
-     "length": 255,
-     "name": "?sub_00477CA0_SendPacket67@@YIXPBD@Z"
-    },
-    {
-     "va": "0x00477DA0",
-     "length": 39,
-     "name": "sub_00477DA0"
-    },
-    {
-     "va": "0x00477DD0",
-     "length": 262
     }
    ],
    "flags": [
