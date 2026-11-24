@@ -6,6 +6,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 
 ## Ready
 
+- lane10/names-prefixfix-d2glide 2509033 prefixfix-d2glide plan: 118 renames applied, none dropped. VERIFIED c615edd1 on base 7c1cb42a, Game.exe matches.
 - lane10/names-prefixfix-d2client 27a2561 prefixfix-d2client plan: 156 renames applied, none dropped. VERIFIED 0e6a9661 on base 39eacd0f, Game.exe matches.
 - lane10/sweep-d2client 596e818 sweep-d2client sweep: 93 spellings renamed. 90 functions' old spellings renamed; 257 dropped because their units failed (see proto-report). VERIFIED 2a956f55 on base 27bf69d9, Game.exe matches.
 - lane10/sweep-d2game ac81384 sweep-d2game sweep: 80 spellings renamed. 76 functions' old spellings renamed; 157 dropped because their units failed. One gen include path that the sweep had renamed (Game_0052D720.static) is put back by hand. VERIFIED f5ea26d1 on base 8fe544f6, Game.exe matches.
