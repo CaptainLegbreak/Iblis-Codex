@@ -219,3 +219,4 @@ int __fastcall CHATDLG_UpdateSaveFlags(const char* szName)
     FOG_CloseFile(hFile);
     return nResult;
 }
+#include "gen/data/Source/D2Multi/Unknown_0043C8A0.inc"
