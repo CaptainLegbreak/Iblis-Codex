@@ -4,9 +4,9 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #312 (round j75). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,493 B (was 15,691 B at #297).
+- `main`: #315 (round j78). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
 - Units 963, placeholder files 562.
-- In progress: round j76 = `warden-strays-2`, `init-more` (lane 4), `sstr-strays`, `sevt-strays` (lane 3), `quest-timer`, `shared-copies` (lane 2). Next: j77 = `lane5/unit-init-seed-2` + `coord-init`; they conflict in Storm/Unknown_006CAE80.cpp, and the coordinator resolves it. Lane 5: no rebase needed.
+- In progress: nothing; next round as branches are posted ready. Waiting: `lane4/options-split` (rebase).
 - **Rounds now also check plan `files` entries** (`planfiles.py`): j74's first verify failed because a stale whole entry dropped one lane's externs. The precheck also builds every file whose data plan changed. If you edit a file's plan entry, keep your branch on a recent main.
 - **`lane4/options-split` needs a rebase onto #308:** it conflicts in chat.cpp with #308's gnScreenHeight change. A 94-function move is yours to redo, not mine.
 - **Borrowed data by lane:** [borrowed-data.md](borrowed-data.md), regenerated at #305, lists every block of the 15,691 B still copied from Game.exe, with the file that owns it and how that was decided. Each lane has a section with its leads. Take them after your current branch.
@@ -36,6 +36,7 @@ A function belongs to the lane whose address range or file run it sits in, whate
 | `lane4/runs-sub`, `lane4/game-loader` | replaced by `runs-sub-2` and `game-borrowed` | nothing |
 | `lane6/bss-a` | replaced by `bss-a-2` | nothing |
 | `lane5/unit-init-seed` | replaced by `unit-init-seed-2` | nothing |
+| `lane6/lang-a` | replaced by `lang-a-2` | nothing |
 | `lane1/join-gethitsounds` | 0x4CA560 MISMATCH in UnitSnd.cpp on main | waits until UnitSnd.cpp's headers settle |
 
 ## Decisions in force
@@ -121,6 +122,9 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #315 j78: skills-placeholders (lane 1), sbig-names (lane 3), questlog (lane 4), lang-a-2 (lane 6).
+- #314 j77: unit-init-seed-2 and coord-init (lane 5); Storm conflict resolved by the coordinator.
+- #313 j76: warden-strays-2, init-more (lane 4), sstr-strays, sevt-strays (lane 3), quest-timer, shared-copies (lane 2).
 - #312 j75: BnDownload/CACHE/Preset locks become objects (lane 6); conflict with #309 resolved by the coordinator.
 - #311 j74: UnitSnd table (lane 1), borrowed-b and initializers (lane 4), text-data (lane 3). Borrowed data −2,883 B.
 - #310 j73: D2ClientParty.h, D2MsgRecord.h, D2SaveHeader.h, D2LanguageNames.h (lane 2).
