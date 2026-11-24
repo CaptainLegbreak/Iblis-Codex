@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2LanguageNames.h"
 
 union D2SeedStrc;
 struct D2SkillsTxt;
