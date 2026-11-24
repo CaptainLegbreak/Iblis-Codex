@@ -552,31 +552,6 @@ int __stdcall TEXT_IsMouseInRect(int nX, int nY, int nWidth, int nHeight)
     return 0;
 }
 
-// 0x0049CEC0
-void __stdcall TEXT_WaypointKeyMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (pMsg->uMessage == 0x102 && pMsg->wParam == 9)
-    {
-        return;
-    }
-
-    if (pMsg->uMessage == 0x104 && pMsg->wParam == 0x73)
-    {
-        return;
-    }
-
-    if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
-    {
-// build: symbol ?gnWaypointId@* 0x007BF07D
-        MSG_SendTwoDwords(0x49, gnWaypointId, 0);
-        gbSent = 1;
-    }
-
-    UI_SetUIVar(20, 1, 1);
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
 
 
 
