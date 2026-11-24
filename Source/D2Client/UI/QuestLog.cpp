@@ -603,18 +603,22 @@ extern D2QuestLogStateStrc gtQuestLog_007BF298;                                 
 
 struct D2TextNodeStrc;
 
+#pragma pack(push, 2)
 struct D2ClientListEntryStrc
 {
     unsigned char nId[4];
     unsigned char unk0x04[6];
 };
+#pragma pack(pop)
 
+#pragma pack(push, 2)
 struct D2TextNodeStrc
 {
     void* pOwned[6];
     unsigned char unk0x18[10];
     unsigned char pNext[4];
 };
+#pragma pack(pop)
 
 // 0x004A18F0
 void __cdecl sub_004A3050()
@@ -863,12 +867,79 @@ void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext)
 
 int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
 
+struct D2QuestPanelEntryStrc;
+
+#pragma pack(push, 1)
+struct D2QuestPanelEntryStrc
+{
+    int nQuestId;
+    char unk0x004[0x25E - 0x004];
+    unsigned short wTextId;
+    unsigned char nSlot;
+    char unk0x261[0x263 - 0x261];
+    unsigned char bEnabled;
+    char unk0x264[0x265 - 0x264];
+    int bDone;
+    char unk0x269[0x26A - 0x269];
+};
+#pragma pack(pop)
+
+int gnQuestCount; // 0x007BF2A0
+
+extern D2QuestPanelEntryStrc gaQuestEntries[]; // 0x007BF3AA
+
+// 0x004A2760
+void __cdecl TEXT_SendQuestUpdates()
+{
+    for (int i = 0; i < gnQuestCount; ++i)
+    {
+        if (!gaQuestEntries[i].bDone)
+        {
+            D2BitBufferStrc* pQuestInfo = MONSTER_GetQuestFlags();
+            QUESTRECORD_SetQuestState(pQuestInfo, gaQuestEntries[i].nQuestId, 0xC);
+            sub_004785B0_SendPacket3(0x58, (unsigned short)gaQuestEntries[i].nQuestId);
+        }
+    }
+}
+
 // 0x004A27B0
 int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue)
 {
     gbQuestDescriptionOpen = 0;
     TEXT_SetTextCallback(0, pContext);
     return 0;
+}
+
+struct PacketShorts;
+
+#pragma pack(push, 1)
+struct PacketShorts
+{
+    char prefix[1];
+    unsigned short kind;
+    unsigned short a;
+    unsigned short b;
+    unsigned short c;
+};
+#pragma pack(pop)
+
+extern "C" unsigned int gValue_007BF2A4; // 0x007BF2A4
+
+extern "C" unsigned int gValue_007BF2AC; // 0x007BF2AC
+
+extern "C" { unsigned int gValue_007BF2A8; } // 0x007BF2A8
+
+// 0x004A28A0
+extern "C" void __fastcall TEXT_AcceptShortPacket(const PacketShorts* packet)
+{
+    switch (packet->kind)
+    {
+    case 1:
+        gValue_007BF2A4 = packet->a;
+        gValue_007BF2A8 = packet->b;
+        gValue_007BF2AC = packet->c;
+        break;
+    }
 }
 
 // 0x004A28D0
@@ -924,6 +995,27 @@ static int sub_E10_GetButtonLayoutCopy(int nMode)
     return nResolution == 2 ? 0 : 2;
 }
 
+// 0x004A2900
+static int TEXT_GetButtonLayout(int nMode)
+{
+    if (GAME_GetUIVarState(6) && !GAME_GetUIVarState(2))
+    {
+        const int nResolution = D2GFX_GetResolutionMode();
+        if (nMode == 2)
+            return nResolution == 2 ? 1 : 3;
+        return nResolution == 2 ? 0 : 2;
+    }
+
+    const int nResolution = D2GFX_GetResolutionMode();
+    if (nMode == 2)
+    {
+        if (nResolution == 2 || GAME_GetUIVarState(2))
+            return 1;
+        return 3;
+    }
+    return nResolution == 2 ? 0 : 2;
+}
+
 // 0x004A2970
 int __stdcall TEXT_IsMouseOnQuestButton(int nX, int nY)
 {
@@ -935,6 +1027,59 @@ int __stdcall TEXT_IsMouseOnQuestButton(int nX, int nY)
     if (nX > nLeft && nX < nRight && nY > nTop && nY < gaButtonLayouts[nIndex].nBottom + gnScreenHeight - 0x1E0)
         return 1;
     return 0;
+}
+
+D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
+
+int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
+
+extern void* gpLevelCel; // 0x007C02DC
+
+extern void* gpLevelSocketCel; // 0x007C02E0
+
+// 0x004A2A80
+void __cdecl TEXT_DrawQuestButton()
+{
+    if (CUNIT_IsPlayerDeadOrMissing())
+    {
+        UI_SetUIVar(0x11, 1, 0);
+        if (gtQuestLog == 1)
+        {
+            gbGlobal_007BF2B0 = 0;
+            gtQuestLog = 0;
+        }
+        return;
+    }
+
+    const int nMode = sub_0045AE90();
+    if (nMode == 3)
+        return;
+    if (GAME_GetUIVarState(0x0F))
+        return;
+
+    D2CelContextStrc tCel;
+    memset(&tCel, 0, sizeof(tCel));
+    tCel.nDirection = 0;
+    tCel.pCellFile = gpLevelSocketCel;
+    tCel.nFrame = 0;
+    const int nIndex = sub_E10_GetButtonLayoutCopy(nMode);
+    const int nCelWidth = CelGetWidth(CelGetHandle(&tCel));
+    const int nTextWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF58));
+    int nTextX = nCelWidth / 2 - nTextWidth / 2 + gaButtonLayouts[nIndex].nTextX + 1;
+    const int nTextY = gaButtonLayouts[nIndex].nTextY + gnScreenHeight - 0x1E0;
+    if (sub_0045AE90() == 2)
+        nTextX += (gnScreenWidth - 0x280) / 2;
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF58), nTextX, nTextY, 0, 0);
+
+    int nCelX = gaButtonLayouts[nIndex].nTextX;
+    const int nCelY = gaButtonLayouts[nIndex].nBottom + gnScreenHeight - 0x1E0;
+    if (sub_0045AE90() == 2)
+        nCelX += (gnScreenWidth - 0x280) / 2;
+    sub_004F6480(&tCel, nCelX, nCelY, -1, 5, 0);
+
+    tCel.pCellFile = gpLevelCel;
+    tCel.nFrame = gbGlobal_007BF2B0 && (unsigned char)TEXT_IsMouseOnQuestButton(sub_00468730(), sub_00468740());
+    sub_004F6480(&tCel, nCelX + 3, nCelY - 4, -1, 5, 0);
 }
 
 // 0x004A2C30
@@ -977,6 +1122,87 @@ extern "C" void __cdecl TEXT_ResetQuestButtonState()
 }
 
 char gbGlobal_007C025D; // 0x007C025D
+
+struct D2TimedHintEntryStrc;
+
+struct D2ViewStrc;
+
+struct D2CacheStatsStrc;
+
+struct D2TimedHintEntryStrc
+{
+    int unk0x00;
+    int nHintId;
+    int nKey;
+    char unk0x0C[0x24];
+    int nState;
+};
+
+struct D2ViewStrc
+{
+    unsigned int dwFlags;
+    tagRECT tRect;
+    unsigned char unk_14[0x10];
+    int nPosX;
+    int nPosY;
+    void* pLerpData;
+    void* pLerpTable;
+    void* pLerpRows;
+    unsigned int dwDrawFlags;
+};
+
+struct D2CacheStatsStrc
+{
+    unsigned int nFloorSize;
+    int unk0x04;
+    int nFloorMisses;
+    unsigned int nSubtileSize;
+    int unk0x10;
+    int nSubtileMisses;
+    unsigned int nSpriteSize[3];
+    int unk0x24[3];
+    int nSpriteMisses[3];
+    int unk0x3C[3];
+    int nSpriteAccesses[3];
+    int unk0x54[3];
+    int unk0x60[3];
+};
+
+
+struct D2QuestLookupEntryStrc;
+
+struct D2QuestPanelValuesStrc;
+
+struct D2QuestLookupEntryStrc
+{
+    int nKey;
+    int nValue;
+    int unk0x08;
+    int unk0x0C;
+};
+
+#pragma pack(push, 1)
+struct D2QuestPanelValuesStrc
+{
+    char unk0x00[0x7];
+    int nValues[0x96];
+};
+#pragma pack(pop)
+
+extern D2QuestLookupEntryStrc gaQuestLookup_00723F38[0x29]; // 0x00723F38
+
+// 0x004A3070
+int __fastcall VIEW_LookupQuestValue(int nUnused, int nKey)
+{
+    for (unsigned int i = 0; i < 0x29; ++i)
+    {
+        if (gaQuestLookup_00723F38[i].nKey == nKey)
+        {
+            return gaQuestLookup_00723F38[i].nValue;
+        }
+    }
+    return 0x2A;
+}
 
 // 0x004A30A0
 void __cdecl TEXT_LoadDurielCofsOnce()
@@ -1084,6 +1310,16 @@ void __fastcall TEXT_SpawnQuestUnits(int nX, int nY)
             gbGlobal_007C0260 = 1;
         }
     }
+}
+
+// 0x004A3200
+D2QuestPanelValuesStrc* __fastcall VIEW_ClearQuestPanelValues(D2QuestPanelValuesStrc* pValues)
+{
+    for (int i = 0; i < 0x96; ++i)
+    {
+        pValues->nValues[i] = 0;
+    }
+    return pValues;
 }
 
 // 0x004A34F0
@@ -1442,6 +1678,37 @@ void __fastcall TEXT_ToggleQuestLog(int nMode)
     TEXT_OpenQuestPanel(nMode);
     gdwQuestLogToggleTick = GetTickCount();
     sub_004A1760_Forward();
+}
+
+struct D2Record42Strc;
+
+#pragma pack(push, 2)
+struct D2Record42Strc
+{
+    int aData[10];
+    unsigned short wLast;
+};
+#pragma pack(pop)
+
+extern unsigned char gbFlag_007BF2B0; // 0x007BF2B0
+
+extern D2Record42Strc gtQuestRecord; // 0x007BF355
+
+extern int gnPage_007C0255; // 0x007C0255
+
+// 0x004A40D0
+void __fastcall TEXT_SetQuestRecord(const D2Record42Strc* pRecord)
+{
+    gtQuestRecord = *pRecord;
+    gbFlag_007BF2B0 = 0;
+    if (!sub_00483350())
+    {
+        if (gnState_007BF298 == 2)
+        {
+            TEXT_LoadQuestPanelCels();
+        }
+        sub_004A3220(gnPage_007C0255, 1);
+    }
 }
 
 #include "gen/data/Source/D2Client/UI/QuestLog.inc"

@@ -28,14 +28,6 @@ struct D2CvNb10Strc;
 struct D2CvRsdsStrc;
 struct D2ModuleStrc;
 
-struct D2DbgHelpRequestStrc
-{
-    void* hFile;
-    void* pExceptionPointers;
-    unsigned long dwThreadId;
-    const char* szComment;
-    bool bResult;
-};
 
 extern "C" __declspec(dllimport) int __stdcall IsDebuggerPresent(); // 0x006CC284
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218

@@ -4380,20 +4380,11 @@
    "state": "included"
   },
   "Source/D2Common/Unknown_006634F0.cpp": {
-   "bytes": 1346,
-   "definitions": 17,
+   "bytes": 1374,
+   "definitions": 18,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_006634F0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/Unknown_006637F0.cpp": {
-   "bytes": 28,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_006637F0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -144073,7 +144064,7 @@
    "cname": "gData_006EE424",
    "declared": true,
    "decorated": "?gnItemSetStates@@3QBHB",
-   "file": "Source/D2Common/Unknown_006637F0.cpp",
+   "file": "Source/D2Common/Unknown_006634F0.cpp",
    "fill": 7,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006EE424[7]; // 0x006EE424",

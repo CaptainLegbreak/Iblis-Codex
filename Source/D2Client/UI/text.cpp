@@ -4572,18 +4572,6 @@ void __cdecl TEXT_LoadQuestPanelCels(); // 0x004A23D0
 
 extern "C" { unsigned int gValue_007BF2A8; } // 0x007BF2A8
 
-// 0x004A28A0
-extern "C" void __fastcall TEXT_AcceptShortPacket(const PacketShorts* packet)
-{
-    switch (packet->kind)
-    {
-    case 1:
-        gValue_007BF2A4 = packet->a;
-        gValue_007BF2A8 = packet->b;
-        gValue_007BF2AC = packet->c;
-        break;
-    }
-}
 
 // build: symbol ?TEXT_FindQuestIndex@* 0x004A1910
 int TEXT_FindQuestIndex(int nKey)
@@ -5020,20 +5008,6 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 
 void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
 
-// 0x004A40D0
-void __fastcall TEXT_SetQuestRecord(const D2Record42Strc* pRecord)
-{
-    gtQuestRecord = *pRecord;
-    gbFlag_007BF2B0 = 0;
-    if (!sub_00483350())
-    {
-        if (gnState_007BF298 == 2)
-        {
-            TEXT_LoadQuestPanelCels();
-        }
-        sub_004A3220(gnPage_007C0255, 1);
-    }
-}
 
 // 0x004A4180
 int __fastcall TEXT_TestQuestCondition(int nCondition)

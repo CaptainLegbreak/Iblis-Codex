@@ -52,16 +52,6 @@ struct D2LaunchPayloadStrc;
 
 typedef char* va_list;
 
-struct D2ServiceStatusStrc
-{
-    unsigned long dwServiceType;
-    unsigned long dwCurrentState;
-    unsigned long dwControlsAccepted;
-    unsigned long dwWin32ExitCode;
-    unsigned long dwServiceExitCode;
-    unsigned long dwCheckPoint;
-    unsigned long dwWaitHint;
-};
 
 struct D2MemoryStatusStrc
 {

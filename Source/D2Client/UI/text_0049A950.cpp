@@ -1077,19 +1077,6 @@ static int __stdcall TEXT_GetQuestTabAtPoint(int nY, int nX)
     return -1;
 }
 
-// 0x004A2760
-void __cdecl TEXT_SendQuestUpdates()
-{
-    for (int i = 0; i < gnQuestCount; ++i)
-    {
-        if (!gaQuestEntries[i].bDone)
-        {
-            D2BitBufferStrc* pQuestInfo = MONSTER_GetQuestFlags();
-            QUESTRECORD_SetQuestState(pQuestInfo, gaQuestEntries[i].nQuestId, 0xC);
-            sub_004785B0_SendPacket3(0x58, (unsigned short)gaQuestEntries[i].nQuestId);
-        }
-    }
-}
 
 int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
 
@@ -1159,26 +1146,6 @@ static int sub_E10_GetButtonLayoutCopy(int nMode)
     return nResolution == 2 ? 0 : 2;
 }
 
-// 0x004A2900
-static int TEXT_GetButtonLayout(int nMode)
-{
-    if (GAME_GetUIVarState(6) && !GAME_GetUIVarState(2))
-    {
-        const int nResolution = D2GFX_GetResolutionMode();
-        if (nMode == 2)
-            return nResolution == 2 ? 1 : 3;
-        return nResolution == 2 ? 0 : 2;
-    }
-
-    const int nResolution = D2GFX_GetResolutionMode();
-    if (nMode == 2)
-    {
-        if (nResolution == 2 || GAME_GetUIVarState(2))
-            return 1;
-        return 3;
-    }
-    return nResolution == 2 ? 0 : 2;
-}
 
 // 0x004A2A20
 void __stdcall TEXT_QuestButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
@@ -1584,50 +1551,6 @@ void __fastcall TEXT_UpdateSkillButtonHover(short* pId, int nState, int nA, int 
     }
 }
 
-// 0x004A2A80
-void __cdecl TEXT_DrawQuestButton()
-{
-    if (CUNIT_IsPlayerDeadOrMissing())
-    {
-        UI_SetUIVar(0x11, 1, 0);
-        if (gtQuestLog == 1)
-        {
-            gbGlobal_007BF2B0 = 0;
-            gtQuestLog = 0;
-        }
-        return;
-    }
-
-    const int nMode = sub_0045AE90();
-    if (nMode == 3)
-        return;
-    if (GAME_GetUIVarState(0x0F))
-        return;
-
-    D2CelContextStrc tCel;
-    memset(&tCel, 0, sizeof(tCel));
-    tCel.nDirection = 0;
-    tCel.pCellFile = gpLevelSocketCel;
-    tCel.nFrame = 0;
-    const int nIndex = sub_E10_GetButtonLayoutCopy(nMode);
-    const int nCelWidth = CelGetWidth(CelGetHandle(&tCel));
-    const int nTextWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF58));
-    int nTextX = nCelWidth / 2 - nTextWidth / 2 + gaButtonLayouts[nIndex].nTextX + 1;
-    const int nTextY = gaButtonLayouts[nIndex].nTextY + gnScreenHeight - 0x1E0;
-    if (sub_0045AE90() == 2)
-        nTextX += (gnScreenWidth - 0x280) / 2;
-    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF58), nTextX, nTextY, 0, 0);
-
-    int nCelX = gaButtonLayouts[nIndex].nTextX;
-    const int nCelY = gaButtonLayouts[nIndex].nBottom + gnScreenHeight - 0x1E0;
-    if (sub_0045AE90() == 2)
-        nCelX += (gnScreenWidth - 0x280) / 2;
-    sub_004F6480(&tCel, nCelX, nCelY, -1, 5, 0);
-
-    tCel.pCellFile = gpLevelCel;
-    tCel.nFrame = gbGlobal_007BF2B0 && (unsigned char)TEXT_IsMouseOnQuestButton(sub_00468730(), sub_00468740());
-    sub_004F6480(&tCel, nCelX + 3, nCelY - 4, -1, 5, 0);
-}
 
 
 

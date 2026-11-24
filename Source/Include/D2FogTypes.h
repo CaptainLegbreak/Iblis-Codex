@@ -1,5 +1,6 @@
 #pragma once
-// Fog: the memory pool system, and the thread context and stack frame records of the crash handler.
+// Fog: the memory pool system, the thread context and stack frame records of the crash handler, its dump
+// request, and the service status it sets.
 
 #include "D2Check.h"
 #include "D2SysTypes.h"
@@ -125,6 +126,26 @@ struct D2StackFrameStrc
     }
 };
 
+struct D2ServiceStatusStrc
+{
+    unsigned long dwServiceType; // 0x00
+    unsigned long dwCurrentState; // 0x04
+    unsigned long dwControlsAccepted; // 0x08
+    unsigned long dwWin32ExitCode; // 0x0C
+    unsigned long dwServiceExitCode; // 0x10
+    unsigned long dwCheckPoint; // 0x14
+    unsigned long dwWaitHint; // 0x18
+};
+
+struct D2DbgHelpRequestStrc
+{
+    void* hFile; // 0x00
+    void* pExceptionPointers; // 0x04
+    unsigned long dwThreadId; // 0x08
+    const char* szComment; // 0x0C
+    bool bResult; // 0x10
+};
+
 D2_CHECK_SIZE(D2MemPoolBlockStrc, 0x18);
 D2_CHECK_SIZE(D2MemPoolRecStrc, 0x30);
 D2_CHECK_SIZE(D2PoolRecordStrc, 0x8);
@@ -133,3 +154,5 @@ D2_CHECK_SIZE(D2PoolDirectoryStrc, 0xBEA4);
 D2_CHECK_SIZE(D2FloatSaveStrc, 0x70);
 D2_CHECK_SIZE(D2ThreadContextStrc, 0x2CC);
 D2_CHECK_SIZE(D2StackFrameStrc, 0x24);
+D2_CHECK_SIZE(D2ServiceStatusStrc, 0x1C);
+D2_CHECK_SIZE(D2DbgHelpRequestStrc, 0x14);
