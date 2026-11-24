@@ -3403,8 +3403,7 @@
   "Source/D2Common/Stats/StatsEx.cpp": {
    "bytes": 96,
    "definitions": 3,
-   "externs": [
-   ],
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Stats/StatsEx.inc",
    "lang": "cpp",
