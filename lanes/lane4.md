@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
+- lane4/weather-object d9b6f278c no placeholder change: the weather code's bss 0x7A892C-0x7A8A24 is read by every function from 0x472320 to 0x473F50 and by none outside. Three of them, filed elsewhere, compile equal in the main weather placeholder Unknown_00472210.cpp and move there: 0x472BD0 (from Unknown_004A9BD0.cpp) and Gfx.cpp's 0x4732C0 and 0x473E50 (GFX_StepWeatherPhase). The rest stays split for now: in one unit several static helpers are inlined into callers the original calls out of line (0x473090, 0x4737B0), so the block may be more than one object. Borrowed data 1,048 B on the verified tree. VERIFIED d13488b7e340 on #354; rebased onto #355 (precheck equal). Not stacked.
+
 - lane4/data-strays a4e536bdb no placeholder change: six strays go to the files whose data they read, each sitting in that file's run: ui.cpp's 0x45F7A0 to SCmd.cpp (0x7114D0-0x7114D4), ui.cpp's 0x45A710 to automap.cpp (its bss 0x7A5150-0x7A51C4), inv.cpp's 0x47EC40 to Unknown_0047CC90.cpp (0x7BC8F8), Gfx.cpp's 0x475C40 and SCmd.cpp's 0x475D30 to dLightMap.cpp (0x7B5C10), and dLightMap.cpp's lerp table build 0x475DF0 to View.cpp (its bss 0x7B9530-0x7B9564). Borrowed data 1,048 B on the verified tree. VERIFIED 1fcf58ed69ed on #353; rebased onto #354 (ownership replayed; precheck equal). Not stacked.
 
 - lane4/gamelist-strays-3 64f86422b -1 placeholder (Storm/Unknown_00426910.cpp): the eight D2Client game-list template members filed in Storm placeholders go to the D2Client placeholders around them, written with those files' types (Unknown_0044F9B0.cpp: the two NewNode members and four scalar deleting destructors with their existing emit helpers; Unknown_00450D90.cpp: the array Reserve/ReserveExact). **The hold is fixed:** the BREAKCMD type name at 0x7088D8, which the emptied Storm/Unknown_00426910.cpp no longer placed, moves to Storm/Unknown_00426900.cpp (right before its gtSEvtBreakCmdTerminator, read by the SEvt code), and the empty placeholder goes. Borrowed data 1,114 B on the verified tree (main's figure at #351). VERIFIED e946351a70ec on #351; rebased onto #353 (precheck equal). -1/-2 superseded. Not stacked; touches lane 3's Storm files.
@@ -38,7 +40,6 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
-- **Verifying:** `lane4/weather-object` (Unknown_00472210.cpp takes three weather functions that read its bss: 0x472BD0 from Unknown_004A9BD0.cpp and Gfx.cpp's 0x4732C0/0x473E50. The rest of the block stays split: in one unit several static helpers are inlined into callers the original calls out of line, so it may be more than one object).
 
 ## Questions
 
