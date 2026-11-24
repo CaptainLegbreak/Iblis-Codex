@@ -142,7 +142,7 @@ void __fastcall sub_006C9710_GdiDecodeSmacker(const char* szFile, D2SmackRecordS
 }
 
 // 0x006C9900
-void __fastcall GDI_PlaySmacker(D2SmackRecordStrc* pRecord)
+void __fastcall GDISMACK_PlaySmacker(D2SmackRecordStrc* pRecord)
 {
     switch (pRecord->nType)
     {
