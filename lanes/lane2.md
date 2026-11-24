@@ -4,13 +4,6 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane2/unit-views-b 741cc536e 562->562 One commit, independent of unit-views-a (they merge cleanly): Wall2, inv, Unknown_00482C70, Inventory, PlrSave2, a2q1 and a2q6 use D2UnitStrc and its field names instead of a private `Unit` view or the bare `Unit` name, each kept only if its unit stays all equal; VERIFIED 6c5252123dc0f957e4588943bcb3d203c5677b51
-  - On 4f01d3966. All 7 units build equal. Outside lane 2: Wall2, inv, Unknown_00482C70 (lanes 1 and 4), Inventory (lane 8), PlrSave2, a2q1, a2q6 (lane 5).
-  - What is left of the Unit views (Missile x2, ItemMode, Objects, SkillAss, SkillBar, SkillNec, SUnitDmg, MonsterEval, Unknown_005CD910, Unknown_005D1080, plus D2Game.h's and D2Common.h's `Unit*` prototypes) types its fields with other decompiler-style records (MonsterData, StaticPath, an untyped inventory) and calls the header prototypes, so it needs those records retyped together; that is unit work for the owners rather than a rename, and I'm leaving it.
-
-- lane2/unit-views-a 26285c3eb 562->562 One commit: Units, MONSTERS, CelCmp, AiThink4, MissMode, SkillDruid and SkillMonst drop their private `struct Unit` views and use D2UnitStrc with its field names (dwUnitType, dwClassId, pMemoryPool, dwUnitId, dwAnimMode, ...). Each file was converted on its own and kept only if its unit stays all equal. The other views call functions that D2Game.h/D2Common.h declare with `Unit*`, so they move with those headers in a later branch; VERIFIED fcb60ed2ef5b8a6cdb42185efa3fc3206ce5721f
-  - On 3bf574f20. All 7 units build equal. Outside lane 2: Units, MONSTERS (lane 8), CelCmp (lane 6), AiThink4, MissMode, SkillDruid, SkillMonst (lane 5).
-
 ## Working on
 
 Records that two or more units define privately with the same text, moved into the shared header that owns their area. One branch per area; each is checked against all includers of the header before it is posted:
