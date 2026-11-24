@@ -73,14 +73,6 @@ extern D2CriticalSectionStrc gtSEvtLock; // 0x0077930C
 
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere);
 
-// 0x00426900
-char* __fastcall sub_00426900_Next(D2StormLinkStrc* pLink) {
- return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-// 0x004269B0
-extern "C" void* __fastcall sub_004269B0(void* value) { return value; }
-
 bool D2ChatStormLinkStrc::IGNORELIST_IsLinkLinked()
 {
     return m_next != 0;
@@ -162,12 +154,6 @@ void D2ChatStormListAStrc::IGNORELIST_InitStringListTerminator()
     InitializeTerminator();
 }
 
-// 0x00426A60
-char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
-{
-    return m_terminator.MaskNext();
-}
-
 void D2ChatStormListBStrc::IGNORELIST_InitMappingListTerminator()
 {
     InitializeTerminator();
@@ -227,21 +213,6 @@ void D2CommonStringEntryNodeStrc::IGNORELIST_DestroyStringEntryNode()
 void D2CommonStormHashTableAStrc::IGNORELIST_ClearStringTable()
 {
     IGNORELIST_InternalClearStringTable(0);
-}
-
-// 0x00426AC0
-void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
-{
-    m_linkoffset = 0;
-    InitializeTerminator();
-}
-
-// 0x00426C60
-D2ChatStormListCStrc::D2ChatStormListCStrc()
-{
-    m_linkoffset = 0;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) { return pWhere; }

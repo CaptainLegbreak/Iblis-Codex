@@ -2260,13 +2260,6 @@ void __fastcall sub_0041E8F0(PairStrc_0041E8F0* pPair)
     pPair->nSecond = 0;
 }
 
-// 0x00426920
-void __fastcall sub_00426920(PairStrc_00426920* pPair)
-{
-    pPair->nFirst = 0;
-    pPair->nSecond = 0;
-}
-
 // 0x004168A0
 D2StormLinkStrc* __fastcall sub_004168A0_Identity(D2IdentityView* value) {return &value->link;}
 
