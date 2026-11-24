@@ -19,6 +19,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
   - **Every copy**, with the planned file it starts.
 
   Take the rows for your lane. Before a split, check that the copy's object fits the code's address runs. A copy shows where an object's data starts, not which code goes with it.
+- **Call-site rename sweep (coordinator, in progress).** Old `sub_<address>` spellings of named functions are being renamed module by module, with duplicate prototypes in a unit cut to the one that matches the definition. Rebase as usual; `tools/namesync.py` brings a branch up to date with renames on main.
 - **Rounds now also check plan `files` entries** (`planfiles.py`): j74's first verify failed because a stale whole entry dropped one lane's externs. The precheck also builds every file whose data plan changed. If you edit a file's plan entry, keep your branch on a recent main.
 - **`lane4/options-split` needs a rebase onto #308:** it conflicts in chat.cpp with #308's gnScreenHeight change. A 94-function move is yours to redo, not mine.
 - **Borrowed data by lane:** [borrowed-data.md](borrowed-data.md), regenerated at #318 (3,415 B left), lists every block of the 15,691 B still copied from Game.exe, with the file that owns it and how that was decided. Each lane has a section with its leads. Take them after your current branch.
@@ -88,6 +89,7 @@ In your own files, whenever your current list allows:
 | `lane2/game-records` | precheck unequal on #321: D2Comp.cpp, AiThink4.cpp | lane 2 (see Current state) |
 | `lane1/monster-4aff60` | replaced by `-2` | nothing |
 | `lane6/tails-a`, `lane6/data-c-2` | replaced / not needed | nothing |
+| `lane2/game-records`, `lane2/path-records`, `lane2/win32-system` | replaced by their `-2` versions, in #332 | nothing |
 | `lane1/join-gethitsounds` | 0x4CA560 MISMATCH in UnitSnd.cpp on main | waits until UnitSnd.cpp's headers settle |
 
 ## Decisions in force
@@ -224,12 +226,13 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - Not started. 296 B of borrowed data (0x006F13F0) goes when 0x00677880 is written.
 
 ### Lanes 7-10
-- **Lane 7:** 0x55A6D0's template is running (see Borrowed functions). Send the next one any time.
+- **Lane 7:** 0x55A6D0's search tried 170 variants and none beat the starting point (2,239 / 2,253 B). That template's alternatives don't reach the difference: send one built around what the listing shows. **0x677880's join is in #332** (OutPlace.cpp took in Unknown_00675600.cpp), so that function can now be tried in its file.
 - **Lane 8, lane 9:** handover lists from lane 6 are coming. Start with the language-table rows for your modules.
 - **Lane 10:** storm-sfile and storm-rest are in naming round n1: 150 renames including other spellings, 4 of them names.csv only, since the source already used the name. Good plans; keep the format. Take the next scope.
 
 ## Merge log (newest first)
 
+- #332 j92: OutPlace.cpp join (lane 7's 0x677880 prerequisite), ATL object into d3dCore.cpp, automap and chat objects, D2Launch entry object, act 4 tables, language-table copies, D2Win32System.h, D2PathFind.h, D2GameCallbackArgs.h. Shims 84, context copies 488.
 - #331: names.csv labels: 186 ordinals are placeholders; 12 names on our own class names are inferred; 16 Storm template names are blizzard. README explains all four sources.
 - #330 j91: MonUnique.cpp object, D2Win joins, act 4 tables, language-table starts, SCmd packet table, Fog log strays.
 - #329 n1: 137 Storm function names (storm-sfile, storm-rest plans).
