@@ -365,8 +365,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Game.cpp": {
-   "bytes": 252,
-   "definitions": 6,
+   "bytes": 312,
+   "definitions": 7,
    "externs": [
     "extern \"C\" void __cdecl GAME_DrawGameView(); // 0x0044C990",
     "extern \"C\" void __cdecl sub_0045FDE0_DrawLoadingScreen(); // 0x0045FDE0",
@@ -663,11 +663,13 @@
    "state": "included"
   },
   "Source/D2Client/CORE/WINMAIN.CPP": {
-   "bytes": 444,
-   "definitions": 5,
+   "bytes": 788,
+   "definitions": 10,
    "externs": [
-    "extern \"C\" void __cdecl GAME_SaveDefaultCmdLine(); // 0x0044B5E0",
-    "extern \"C\" void __cdecl RECORD_RegisterLngArgument(); // 0x00451260"
+    "extern \"C\" void __cdecl RECORD_RegisterLngArgument(); // 0x00451260",
+    "extern \"C\" void __cdecl GAME_RunGameSession(); // 0x0044F360",
+    "extern \"C\" void __cdecl GAME_PushState(); // 0x0044D080",
+    "extern \"C\" void __cdecl GAME_ShutdownClient(); // 0x0044D550"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/CORE/WINMAIN.inc",
@@ -675,13 +677,11 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Game_0044E5A0.cpp": {
-   "bytes": 450,
-   "definitions": 11,
+   "bytes": 290,
+   "definitions": 6,
    "externs": [
     "extern \"C\" void __cdecl WINMAIN_StartSession(); // 0x0044BC30",
     "extern \"C\" void __cdecl WINMAIN_StopSession(); // 0x0044BD90",
-    "extern \"C\" void __cdecl GAME_PushState(); // 0x0044D080",
-    "extern \"C\" void __cdecl GAME_ShutdownClient(); // 0x0044D550",
     "extern \"C\" void __cdecl GAME_SwallowMessage(); // 0x0044C5C0",
     "extern \"C\" void __cdecl GAME_HandleActivateApp(); // 0x0044C5E0",
     "extern \"C\" void __cdecl GAME_AdvanceBetaScreen(); // 0x0044D0A0",
@@ -31860,7 +31860,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
+   "file": "Source/D2Client/CORE/WINMAIN.CPP",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnClientLaunchState = ",
@@ -31885,7 +31885,7 @@
    "cname": "gData_0070EE54",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
+   "file": "Source/D2Client/CORE/WINMAIN.CPP",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070EE54_t gData_0070EE54; // 0x0070EE54",
    "head": "extern \"C\" struct d2data_0070EE54_t gData_0070EE54 = ",
@@ -31894,7 +31894,7 @@
     [
      8,
      "0x0044F360",
-     "owner",
+     "names.json",
      "GAME_RunGameSession",
      0,
      "func"
@@ -31943,7 +31943,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
+   "file": "Source/D2Client/CORE/WINMAIN.CPP",
    "form": "declared",
    "fwd": null,
    "head": "extern int gbExitApplication = ",
@@ -32093,131 +32093,11 @@
      null,
      0,
      "string"
-    ],
-    [
-     64,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     68,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     72,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     76,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     80,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     84,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     88,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     92,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     96,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     100,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     104,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     108,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     112,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     116,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     120,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
     ]
    ],
    "region": "data",
-   "size": 124,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070EE90_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    unsigned char b15[4];\n    const void* p16;\n    const void* p17;\n    const void* p18;\n    const void* p19;\n    const void* p20;\n    const void* p21;\n    const void* p22;\n    const void* p23;\n    const void* p24;\n    const void* p25;\n    const void* p26;\n    const void* p27;\n    const void* p28;\n    const void* p29;\n    const void* p30;\n};\n#pragma pack(pop)",
+   "size": 64,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0070EE90_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    unsigned char b15[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070EE90",
    "va": "0x0070EE90"
   },
@@ -32796,6 +32676,144 @@
    "tail": "; // 0x0070F488",
    "type": "D2InitHandlerFn",
    "va": "0x0070F488"
+  },
+  {
+   "alias": false,
+   "cname": "gData_0070EED0",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/GAME/Game.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_0070EED0_t gData_0070EED0; // 0x0070EED0",
+   "head": "extern \"C\" struct d2data_0070EED0_t gData_0070EED0 = ",
+   "name": "gData_0070EED0",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0070EED0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x0070EED0",
+   "va": "0x0070EED0"
   },
   {
    "alias": false,
@@ -152731,7 +152749,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
+   "file": "Source/D2Client/CORE/WINMAIN.CPP",
    "form": "declared",
    "fwd": null,
    "head": "extern const char* gpszDefaultCaption_0070EE50 = ",
@@ -158887,7 +158905,7 @@
    "cname": "gData_0070EE10",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
+   "file": "Source/D2Client/CORE/WINMAIN.CPP",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070EE10_t gData_0070EE10; // 0x0070EE10",
    "head": "extern \"C\" struct d2data_0070EE10_t gData_0070EE10 = ",

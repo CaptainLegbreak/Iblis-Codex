@@ -572,11 +572,6 @@ int __cdecl GAME_PopStateValue(); // 0x0044B480
 
 void __cdecl GAME_RaiseGameWindow(); // 0x0044B780
 
-// 0x0044B7B0
-D2ClientNotifyStrc* __cdecl GAME_GetClientNotify()
-{
-    return (D2ClientNotifyStrc*)gpClientConfig->pComInterface;
-}
 
 const char* __cdecl GAME_GetGameName(); // 0x0044B7C0
 
@@ -590,12 +585,6 @@ void __cdecl GAME_SetCharDiedFlag(); // 0x0044B860
 
 void __cdecl GAME_SetLaunchStateOne(); // 0x0044B870
 
-// 0x0044B880
-void __fastcall GAME_SetExitApplication(int nValue)
-{
-// build: symbol ?gbExitApplication@* 0x0070EE8C
-    gbExitApplication = nValue;
-}
 
 void __fastcall GAME_SetResolution(int nResolution); // 0x0044BA20
 

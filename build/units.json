@@ -9760,66 +9760,6 @@
      "name": "sub_00449E60"
     },
     {
-     "va": "0x0044B440",
-     "length": 57,
-     "name": "?GAME_PushStateValue@@YIXH@Z"
-    },
-    {
-     "va": "0x0044B480",
-     "length": 89,
-     "name": "?GAME_PopStateValue@@YAHXZ"
-    },
-    {
-     "va": "0x0044B5E0",
-     "length": 31,
-     "name": "GAME_SaveDefaultCmdLine"
-    },
-    {
-     "va": "0x0044B780",
-     "length": 27,
-     "name": "?GAME_RaiseGameWindow@@YAXXZ"
-    },
-    {
-     "va": "0x0044B7A0",
-     "length": 6,
-     "name": "GAME_GetClientInfo"
-    },
-    {
-     "va": "0x0044B7C0",
-     "length": 38,
-     "name": "?GAME_GetGameName@@YAPBDXZ"
-    },
-    {
-     "va": "0x0044B7F0",
-     "length": 40,
-     "name": "?GAME_GetGameDescription@@YAPBDXZ"
-    },
-    {
-     "va": "0x0044B820",
-     "length": 38,
-     "name": "?GAME_GetGamePassword@@YAPBDXZ"
-    },
-    {
-     "va": "0x0044B850",
-     "length": 16,
-     "name": "?GAME_IsHardcore@@YAHXZ"
-    },
-    {
-     "va": "0x0044B860",
-     "length": 14,
-     "name": "?GAME_SetCharDiedFlag@@YAXXZ"
-    },
-    {
-     "va": "0x0044B870",
-     "length": 11,
-     "name": "?GAME_SetLaunchStateOne@@YAXXZ"
-    },
-    {
-     "va": "0x0044B890",
-     "length": 6,
-     "name": "GAME_GetExitApplication"
-    },
-    {
      "va": "0x0044BA20",
      "length": 167,
      "name": "?GAME_SetResolution@@YIXH@Z"
@@ -10797,16 +10737,6 @@
    "file": "Source/D2Client/GAME/Game_0044B7B0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0044B7B0",
-     "length": 12,
-     "name": "?GAME_GetClientNotify@@YAPAUD2ClientNotifyStrc@@XZ"
-    },
-    {
-     "va": "0x0044B880",
-     "length": 7,
-     "name": "?GAME_SetExitApplication@@YIXH@Z"
-    },
     {
      "va": "0x0044E200",
      "length": 372,
@@ -13125,6 +13055,16 @@
      "name": "?WINMAIN_PollMcpConnection@@YAHXZ"
     },
     {
+     "va": "0x0044B440",
+     "length": 57,
+     "name": "?GAME_PushStateValue@@YIXH@Z"
+    },
+    {
+     "va": "0x0044B480",
+     "length": 89,
+     "name": "?GAME_PopStateValue@@YAHXZ"
+    },
+    {
      "va": "0x0044B4E0",
      "length": 98,
      "name": "?WINMAIN_ShowCommandLineHelp@@YGHPBUD2CmdParamsStrc@@H@Z"
@@ -13155,6 +13095,11 @@
      "name": "?WINMAIN_HandleArgumentError@@YGHH@Z"
     },
     {
+     "va": "0x0044B5E0",
+     "length": 31,
+     "name": "GAME_SaveDefaultCmdLine"
+    },
+    {
      "va": "0x0044B600",
      "length": 166,
      "name": "?WINMAIN_SetLaunchMode@@YGHPBUD2CmdParamsStrc@@H@Z"
@@ -13163,6 +13108,66 @@
      "va": "0x0044B6B0",
      "length": 201,
      "name": "?WINMAIN_ProcessCommandLine@@YGHPAX@Z"
+    },
+    {
+     "va": "0x0044B780",
+     "length": 27,
+     "name": "?GAME_RaiseGameWindow@@YAXXZ"
+    },
+    {
+     "va": "0x0044B7A0",
+     "length": 6,
+     "name": "GAME_GetClientInfo"
+    },
+    {
+     "va": "0x0044B7B0",
+     "length": 12,
+     "name": "?GAME_GetClientNotify@@YAPAUD2ClientNotifyStrc@@XZ"
+    },
+    {
+     "va": "0x0044B7C0",
+     "length": 38,
+     "name": "?GAME_GetGameName@@YAPBDXZ"
+    },
+    {
+     "va": "0x0044B7F0",
+     "length": 40,
+     "name": "?GAME_GetGameDescription@@YAPBDXZ"
+    },
+    {
+     "va": "0x0044B820",
+     "length": 38,
+     "name": "?GAME_GetGamePassword@@YAPBDXZ"
+    },
+    {
+     "va": "0x0044B850",
+     "length": 16,
+     "name": "?GAME_IsHardcore@@YAHXZ"
+    },
+    {
+     "va": "0x0044B860",
+     "length": 14,
+     "name": "?GAME_SetCharDiedFlag@@YAXXZ"
+    },
+    {
+     "va": "0x0044B870",
+     "length": 11,
+     "name": "?GAME_SetLaunchStateOne@@YAXXZ"
+    },
+    {
+     "va": "0x0044B880",
+     "length": 7,
+     "name": "?GAME_SetExitApplication@@YIXH@Z"
+    },
+    {
+     "va": "0x0044B890",
+     "length": 6,
+     "name": "GAME_GetExitApplication"
+    },
+    {
+     "va": "0x0044B8A0",
+     "length": 370,
+     "name": "?GAME_LauncherRun@@YGHPAXPAUD2ClientCharRecordStrc@@@Z"
     },
     {
      "va": "0x0044BAD0",
@@ -15231,11 +15236,6 @@
    "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0044B8A0",
-     "length": 370,
-     "name": "?GAME_LauncherRun@@YGHPAXPAUD2ClientCharRecordStrc@@@Z"
-    },
     {
      "va": "0x0044BDD0",
      "length": 4,
