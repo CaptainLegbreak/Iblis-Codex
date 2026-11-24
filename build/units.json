@@ -17061,6 +17061,11 @@
      "name": "?PLAYER_CmdRightSkillMove@@YAHPAUD2PlayerCmdStrc@@@Z"
     },
     {
+     "va": "0x00462D00",
+     "length": 472,
+     "name": "?sub_00462D00_PlayerCommand@@YIHHHHE@Z"
+    },
+    {
      "va": "0x00463830",
      "length": 41,
      "name": "?PLAYER_GetBaseIdFromMonsterId@@YIHH@Z"
@@ -17892,17 +17897,6 @@
      "va": "0x00463810",
      "length": 23,
      "name": "?sub_00463810_GetMonsterName@@YIPBUUnicode@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00462D00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00462D00",
-     "length": 472,
-     "name": "?sub_00462D00_PlayerCommand@@YIHHHHE@Z"
     }
    ]
   },
