@@ -2140,28 +2140,7 @@ void __cdecl VIEW_ResetBeltHover()
     gpBeltItemB = 0;
 }
 
-// 0x004A3070
-int __fastcall VIEW_LookupQuestValue(int nUnused, int nKey)
-{
-    for (unsigned int i = 0; i < 0x29; ++i)
-    {
-        if (gaQuestLookup_00723F38[i].nKey == nKey)
-        {
-            return gaQuestLookup_00723F38[i].nValue;
-        }
-    }
-    return 0x2A;
-}
 
-// 0x004A3200
-D2QuestPanelValuesStrc* __fastcall VIEW_ClearQuestPanelValues(D2QuestPanelValuesStrc* pValues)
-{
-    for (int i = 0; i < 0x96; ++i)
-    {
-        pValues->nValues[i] = 0;
-    }
-    return pValues;
-}
 
 // 0x004B9640
 int __fastcall VIEW_CountHintsForOwner(int nOwnerId)
