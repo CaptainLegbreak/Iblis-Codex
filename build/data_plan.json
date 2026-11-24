@@ -1266,8 +1266,8 @@
    "state": "included"
   },
   "Source/D2Client/DRAW/dLightMap.cpp": {
-   "bytes": 252,
-   "definitions": 4,
+   "bytes": 192,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/DRAW/dLightMap.inc",
@@ -1332,13 +1332,9 @@
    "state": "included"
   },
   "Source/D2Client/UI/chat.cpp": {
-   "bytes": 204,
-   "definitions": 9,
+   "bytes": 264,
+   "definitions": 10,
    "externs": [
-    "extern \"C\" void __cdecl ROSTERPETS_HandleImeStartComposition(); // 0x0047ACA0",
-    "extern \"C\" void __cdecl INV_ResetImeCompositionMsg(); // 0x0047AD10",
-    "extern \"C\" void __cdecl INV_SetMsgHandled(); // 0x0047B070",
-    "extern \"C\" void __cdecl INV_CloseChatOnPanelClickMsg(); // 0x0047BC70",
     "extern \"C\" void __cdecl sub_0047CD80(); // 0x0047CD80",
     "extern \"C\" char gData_006D7280[]; // 0x006D7280",
     "extern \"C\" char gData_006D7284[]; // 0x006D7284"
@@ -44094,7 +44090,7 @@
    "cname": "gData_00712F08",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/DRAW/dLightMap.cpp",
+   "file": "Source/D2Client/UI/chat.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00712F08_t gData_00712F08; // 0x00712F08",
    "head": "extern \"C\" struct d2data_00712F08_t gData_00712F08 = ",

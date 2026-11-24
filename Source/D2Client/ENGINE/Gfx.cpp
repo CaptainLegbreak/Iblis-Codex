@@ -3240,24 +3240,6 @@ D2RosterUnitStrc* __stdcall GFX_SortRosterByName(D2RosterUnitStrc* pList)
     return pSorted;
 }
 
-// 0x0047BA80
-void __stdcall GFX_StepChatIndex(int nDelta)
-{
-    int nOld = gnChatHistoryCursor;
-    gnChatHistoryCursor += nDelta;
-    if (gnChatHistoryCursor >= 8)
-    {
-        gnChatHistoryCursor = 0;
-    }
-    else if (gnChatHistoryCursor < 0)
-    {
-        gnChatHistoryCursor = 7;
-    }
-    if (gwChatCount_007BB5E4 < 7 && 8 - gnChatHistoryCursor > gwChatCount_007BB5E4)
-    {
-        gnChatHistoryCursor = nOld;
-    }
-}
 
 // 0x00480420
 void __fastcall GFX_RefreshPathTarget(D2UnitStrc* pUnit)

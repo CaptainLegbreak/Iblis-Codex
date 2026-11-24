@@ -1792,32 +1792,8 @@ void __fastcall INV_FindNodeValues(int nId, int* pValueA, int* pValueB)
     *pValueB = 0;
 }
 
-// 0x0047AD10
-void __stdcall INV_ResetImeCompositionMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    gwGlobal_007BC850 = 0;
-    gwGlobal_007BB5F8 = 0;
-    gnChatDrawCount = -2;
-    if (gdwGlobal_007BB5DC == 6)
-        gnGlobal_007BB5E0 = 0;
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
-}
 
-// 0x0047B070
-void __stdcall INV_SetMsgHandled(SMSGHANDLER_PARAMS* pMsg)
-{
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-}
 
-// 0x0047BC70
-void __stdcall INV_CloseChatOnPanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (pMsg->nYpos > gnScreenHeight - 0x31)
-        UI_SetUIVar(5, 1, 0);
-}
 
 // 0x0047EC40
 int __cdecl sub_0047EC40_IsSet()
