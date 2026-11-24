@@ -913,6 +913,44 @@ int __fastcall SKILLS_SrvSt48_SwarmMove(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     return 1;
 }
 
+inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+// 0x005CBC80
+int __fastcall SKILLS_SrvDo090_SwarmMove(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    if (SKILLS_GetFlags(pSkill) & 2)
+    {
+        SKILLS_SetFlags(pSkill, 0);
+        UNITS_SetAnimationFrame(pUnit, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel));
+    }
+    else
+    {
+        UNITS_SetAnimationFrame(pUnit, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel));
+    }
+
+    return 1;
+}
+
 inline unsigned char UNITS_GetMonsterComponent(D2UnitStrc* pUnit, int nComponent)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
@@ -1108,6 +1146,22 @@ int __fastcall SKILLS_SrvSt51_Submerge(D2GameStrc* pGame, D2UnitStrc* pUnit, int
     return 1;
 }
 
+// 0x005CC1F0
+int __fastcall SKILLS_SrvDo094_Submerge(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    int nFrameNo;
+    int nFrameCount;
+
+    UNITS_GetShiftedFrameMetrics(pUnit, &nFrameNo, &nFrameCount);
+    pUnit->nActionFrame = 0;
+    if (nFrameNo <= 0)
+    {
+        pUnit->dwSeqSpeed = 0;
+    }
+
+    return 1;
+}
+
 // 0x005CC220
 int __fastcall SKILLS_SrvSt52_Emerge(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -1115,6 +1169,37 @@ int __fastcall SKILLS_SrvSt52_Emerge(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     {
         pUnit->dwFlags |= 0x0E;
     }
+    return 1;
+}
+
+// 0x005CC240
+int __fastcall SKILLS_SrvSt53_MonInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    int nDelay = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
+    if (nDelay < 1)
+    {
+        nDelay = 1;
+    }
+
+    SKILLS_SetParam1(pSkill, nDelay + pGame->dwGameFrame);
+
+    if (!STATES_CheckState(pUnit, STATE_INFERNO))
+    {
+        STATES_ToggleState(pUnit, STATE_INFERNO, 1);
+    }
+
     return 1;
 }
 
@@ -1491,6 +1576,40 @@ int __fastcall SKILLS_SrvDo097_Resurrect(D2GameStrc* pGame, D2UnitStrc* pUnit, i
         UNITS_SetOverlay(pTarget, pSkillsTxtRecord->wSrvOverlay, 0);
     }
 
+    return 1;
+}
+
+enum D2C_G4Constants
+{
+    UNITFLAGEX_TELEPORTED = 0x10000,
+};
+
+void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit);                                                     // 0x0064C040
+
+// 0x005CCC80
+int __fastcall SKILLS_SrvDo098_MonTeleport(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    const int nX = D2COMMON_10175_PathGetFirstPointX(pUnit->pDynamicPath);
+    const int nY = D2COMMON_10176_PathGetFirstPointY(pUnit->pDynamicPath);
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
+    if (!pRoom)
+    {
+        D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
+        if (pOwner)
+        {
+            pRoom = UNITS_GetRoom(pOwner);
+        }
+    }
+
+    if (!SUNIT_TeleportUnit(pGame, pUnit, pRoom, nX, nY, 0, 0))
+    {
+        return 0;
+    }
+
+    UNITROOM_RefreshUnit(pUnit);
+    pUnit->dwFlagEx |= UNITFLAGEX_TELEPORTED;
     return 1;
 }
 
