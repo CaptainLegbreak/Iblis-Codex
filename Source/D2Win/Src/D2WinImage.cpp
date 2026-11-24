@@ -27,6 +27,7 @@
 #include "D2Unicode.h"
 
 #include "D2ClientTypes.h"
+#include "D2WinPopupLine.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -129,11 +130,6 @@ struct D2WinListDataStrc
     D2WinListDataStrc* pNext;
 };
 
-struct D2WinPopUpLineStrc
-{
-    Unicode wszText[64];
-    void (__stdcall* pfHandleMouseInput)();
-};
 
 struct D2WinPopUpStrc
 {
