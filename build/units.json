@@ -56142,6 +56142,14 @@
      "name": "MONSTERUNIQUE_UMod37_Fanatic"
     },
     {
+     "va": "0x005A1230",
+     "length": 76
+    },
+    {
+     "va": "0x005A1280",
+     "length": 165
+    },
+    {
      "va": "0x005A1330",
      "length": 50,
      "name": "?MONSTERUNIQUE_UMod41_AlwaysRun@@YIXPAUD2UnitStrc@@HH@Z"
@@ -56815,54 +56823,6 @@
      "va": "0x005A8730",
      "length": 113
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A1230.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A1230",
-     "length": 76
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A1280.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A1280",
-     "length": 165
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
