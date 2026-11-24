@@ -2174,64 +2174,11 @@ extern "C" { U32 gSlotSecond; } // 0x00799304
 void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
 
 
-// 0x0044BA20
-void __fastcall GAME_SetResolution(int nResolution)
-{
-    if (nResolution == D2GFX_GetResolutionMode())
-        return;
-    switch (nResolution)
-    {
-    case 0:
-        gnScreenWidth = 640;
-        gnScreenHeight = 480;
-        gnBeltUiRecordRow = 0;
-        break;
-    case 2:
-        gnScreenWidth = 800;
-        gnScreenHeight = 600;
-        gnBeltUiRecordRow = 1;
-        break;
-    }
-    gnAutomapWidth = gnScreenWidth;
-    gnAutomapHeight_007A521C = gnScreenHeight - 40;
-    gnSavedScreenWidth = gnScreenWidth;
-    sub_004F90A0(nResolution);
-    PLAYER_SetPanelSlide(sub_0045AE90());
-    sub_00457640(1);
-    sub_00457440_Nop(nResolution);
-    UI_ToggleListDialog(nResolution);
-}
 
-// 0x0044BB70
-int __stdcall GAME_StartSubsystem()
-{
-// build: symbol ?gnSubsystemActive@* 0x007A0458
-    gnSubsystemActive = 1;
-    return GAME_Initialize();
-}
 
-// 0x0044BB80
-extern "C" int __cdecl GAME_ShutdownIfActive()
-{
-    if (gnSubsystemActive == 0)
-        return 0;
-    gnSubsystemActive = 0;
-    return GAME_Shutdown();
-}
 
-// 0x0044BBA0
-int __cdecl GAME_GetConnectFailed()
-{
-    return gbConnectFailed;
-}
+int __cdecl GAME_GetConnectFailed(); // 0x0044BBA0
 
-// 0x0044BC10
-int __fastcall GAME_RunClient(int nArg, const char* szAddress)
-{
-    CLIENT_Initialize(nArg, szAddress);
-    SCMD_RunMessageLoop(WINMAIN_WaitConnect);
-    return 1;
-}
 
 // 0x0044BDE0
 sub_0044BDE0::sub_0044BDE0()

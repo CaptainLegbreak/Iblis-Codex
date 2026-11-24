@@ -9810,31 +9810,6 @@
      "name": "sub_00449E60"
     },
     {
-     "va": "0x0044BA20",
-     "length": 167,
-     "name": "?GAME_SetResolution@@YIXH@Z"
-    },
-    {
-     "va": "0x0044BB70",
-     "length": 15,
-     "name": "?GAME_StartSubsystem@@YGHXZ"
-    },
-    {
-     "va": "0x0044BB80",
-     "length": 27,
-     "name": "_GAME_ShutdownIfActive"
-    },
-    {
-     "va": "0x0044BBA0",
-     "length": 6,
-     "name": "GAME_GetConnectFailed"
-    },
-    {
-     "va": "0x0044BC10",
-     "length": 23,
-     "name": "?GAME_RunClient@@YIHHPBD@Z"
-    },
-    {
      "va": "0x0044BDE0",
      "length": 16,
      "name": "??0sub_0044BDE0@@QAE@XZ"
@@ -13184,31 +13159,6 @@
      "va": "0x0044B8A0",
      "length": 370,
      "name": "?GAME_LauncherRun@@YGHPAXPAUD2ClientCharRecordStrc@@@Z"
-    },
-    {
-     "va": "0x0044BAD0",
-     "length": 148,
-     "name": "?WINMAIN_PollSystemPackets@@YGHH@Z"
-    },
-    {
-     "va": "0x0044BBB0",
-     "length": 86,
-     "name": "?WINMAIN_WaitConnect@@YGHH@Z"
-    },
-    {
-     "va": "0x0044BC30",
-     "length": 232,
-     "name": "?WINMAIN_StartSession@@YAHXZ"
-    },
-    {
-     "va": "0x0044BD20",
-     "length": 110,
-     "name": "?WINMAIN_PumpSystemPackets@@YGHH@Z"
-    },
-    {
-     "va": "0x0044BD90",
-     "length": 60,
-     "name": "?WINMAIN_StopSession@@YAHXZ"
     },
     {
      "va": "0x0044C6E0",
@@ -81182,6 +81132,76 @@
     "/Ob2",
     "/Gd",
     "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_0044BA20.cpp",
+   "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
+   "functions": [
+    {
+     "va": "0x0044BA20",
+     "length": 167,
+     "name": "?GAME_SetResolution@@YIXH@Z"
+    },
+    {
+     "va": "0x0044BAD0",
+     "length": 148,
+     "name": "?WINMAIN_PollSystemPackets@@YGHH@Z"
+    },
+    {
+     "va": "0x0044BB70",
+     "length": 15,
+     "name": "?GAME_StartSubsystem@@YGHXZ"
+    },
+    {
+     "va": "0x0044BB80",
+     "length": 27,
+     "name": "_GAME_ShutdownIfActive"
+    },
+    {
+     "va": "0x0044BBA0",
+     "length": 6,
+     "name": "GAME_GetConnectFailed"
+    },
+    {
+     "va": "0x0044BBB0",
+     "length": 86,
+     "name": "?WINMAIN_WaitConnect@@YGHH@Z"
+    },
+    {
+     "va": "0x0044BC10",
+     "length": 23,
+     "name": "?GAME_RunClient@@YIHHPBD@Z"
+    },
+    {
+     "va": "0x0044BC30",
+     "length": 232,
+     "name": "?WINMAIN_StartSession@@YAHXZ"
+    },
+    {
+     "va": "0x0044BD20",
+     "length": 110,
+     "name": "?WINMAIN_PumpSystemPackets@@YGHH@Z"
+    },
+    {
+     "va": "0x0044BD90",
+     "length": 60,
+     "name": "?WINMAIN_StopSession@@YAHXZ"
+    }
    ]
   }
  ]
