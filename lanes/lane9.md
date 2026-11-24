@@ -18,24 +18,19 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-Rebasing onto #345 (900824d3); full verifies running. SHAs and trees below are from #341 and will be replaced.
+All on main 8fe544f6 (#348), namesync run, precheck 0 not all equal on each head.
 
-- lane9/join-d3dcore-2 c841855c placeholders 2->0 (D2Direct3D/Unknown_006B3570.cpp and Unknown_006B42F0.cpp into
-  Src/d3dCore.cpp; 52 functions). Full verify on #341: VERIFIED tree a3a68a87. Both pieces' strings and 3570's 0x6FF488
-  table lie inside d3dCore's .rdata. The unit becomes /EHsc /GS- (42F0's try/catch needs it; d3dCore's own code is
-  equal there too). Piece-private types and three globals that the pieces declared with other types get distinct
-  names (gpIDirectDraw4_00970E60 and the like); 0x6B42F0's DirectDrawCreate call casts to d3dCore's prototype.
-- lane9/join-gdicore-8250 0b367bbf placeholders 1->1 (D2Gdi/Unknown_006C8250.cpp into Src/gdiCore.cpp, as you said;
-  30 functions, flags unchanged). Full verify on #341: VERIFIED tree eaf15dac. 0x6C8750 now calls the real static
-  0x6C8380 and draws through CelDrawEx like its neighbours; gdiCore's copies of 0x6C8250/0x6C8380 and the 0x6C8380
-  emitter go. **One exception:** 0x6C8A50 (GetBlendedShadows) stays out, now Unknown_006C8A50.cpp. With its body in
-  the same file, 0x6C87E0 (its caller) compiles differently from the image under every flag set I tried (the compiler
-  uses what it knows of the callee), so the two were not one file.
-- lane9/d2hell-o1 2d467bdb placeholders 3->1. Full verify on #341: VERIFIED tree 19624c6a. As you said: config.json gets
-  module_flags D2Hell = base + /O1 and the per-unit variants go (34 units equal); Unknown_00517623.cpp and
-  Unknown_005176D3.cpp keep the base /O2 set for their list ctors. Unknown_00517423.cpp and Unknown_00517874.cpp join
-  Unknown_005173EF.cpp (gpszModuleName; three names for it become one; 10 functions equal).
-In #344: place-ddcore-10160 (thanks). In #341: join-d3d-3570, join-d3dsprite-2 (thanks). In #340: join-d3d-7530, join-ddraw-11df0, join-glide-bd30, join-glide-d410 (thanks). Earlier: place-gdismack #338,
+- lane9/move-d3d-bink 9d8f653b (at the user's request): Storm/Unknown_006BBBF0.cpp, the renderer's Bink video player
+  (0x6BBBF0 draws a frame, 0x6BBCE0 plays a movie and is called from d3dCore.cpp's 0x6B56C0), moves to
+  Source/D2Direct3D/ and takes D2Direct3D.h. Full verify on #348: VERIFIED tree 339fd613.
+- lane9/take-renderer-strays cbf576af (your #341 answer): 0x6B1BC0 (from D2Win), 0x6B1C00, 0x6B20A0, 0x6B20B0 (from
+  QServer.cpp) join d3dCore.cpp; 0x6B2F20 (QServer) joins Unknown_006B2F30.cpp, which defines the 0x970E8C it returns;
+  0x6B2F40 (D2Client's Unknown_006B2F40.cpp) and the empty stub 0x6B76C0 (QServer) become D2Direct3D placeholders.
+  Placeholders: D2Win and D2Client each lose one, D2Direct3D gains two. Full verify on #348: VERIFIED tree ed4683e5.
+- lane9/drawquad-note b78592f2: the one-line comment at DrawQuad's closing brace, as you asked. Full verify on #348:
+  VERIFIED tree 033c708e.
+
+In #347: join-d3dcore-2, join-gdicore-8250, d2hell-o1 (thanks). In #344: place-ddcore-10160. In #341: join-d3d-3570, join-d3dsprite-2. In #340: join-d3d-7530, join-ddraw-11df0, join-glide-bd30, join-glide-d410 (thanks). Earlier: place-gdismack #338,
 join-d3dsprite #336, atl-d3dcore #332 (its 2 B note stands).
 
 ## Questions
