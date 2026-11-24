@@ -1,0 +1,13 @@
+Task: write a naming plan (not code changes) for GLOBAL VARIABLES whose names still carry their address, in part of the byte-exact Diablo II 1.14d reconstruction. Repo (READ ONLY, never edit, never run git commands that change it): /home/claude/iblis-codex — run `git -C /home/claude/iblis-codex fetch -q` and read from origin/main with `git show origin/main:<path>` / `git grep ... origin/main`. D2MOO read-only clone at /tmp/D2MOO (names only, never copy code). Output: lanes/names/globals-<scope>.tsv and lanes/names/globals-<scope>-skipped.tsv on the coord branch.
+
+Scope: every global (a variable at file scope, `extern` or defined, usually with a `// 0xADDR` comment) in your scope whose name ends in `_<8 hex digits>` (e.g. `gnGlobal_007A285C`, `gpItemTypesTxt_0087D82C`, `gaszErrorTypeNames_00706654`, `gData_00731018`), counted once per address. A global belongs to your scope if the file that DEFINES it, or (when only declared) most of the files that use it, are in your scope. Also check build/data_plan.json: its `definitions` carry names in `head` and `cname`/`decorated`; a renamed global must be renamed there too (flag it).
+
+Naming rules (project policy):
+1. Hungarian prefix by type, as the repo already uses: g + n (int/count), dw (unsigned long), b (byte/bool), w (short), f (flags), p (pointer), pp, a/at (array / array of records), sz/wsz (strings), psz, h (handle), pfn (function pointer), t (record value). Keep the existing prefix when it is right; fix it when the type says otherwise.
+2. Then a CamelCase noun that is true to how the global is used (read every use). Drop the address suffix. If D2MOO names the same global (D2MOO often has `//1.14d: 0xADDR` or a 1.10 address in comments, or `D2VAR`/`D2PTR` style definitions with addresses), use D2MOO's meaning in this Hungarian style and mark source `d2moo`; otherwise `inferred`.
+3. If the existing name already has a good descriptive part (`gpItemTypesTxt_0087D82C`), the new name is just that without the suffix (`gpItemTypesTxt`), unless that name is taken.
+4. Unique across the repo (`git grep -w <name> origin/main -- Source` empty, unless that occurrence is the same address) and within the plan; check other plans in lanes/names/globals-*.tsv on the coord branch for clashes too.
+5. Skip (skipped.tsv with why) globals whose purpose you cannot tell (e.g. a dword only ever cleared) and compiler/CRT data.
+6. In the reason column list every other spelling of the same address in the source as "(also spelled X, Y)" and flag data_plan.json entries.
+
+plan.tsv columns: va, old_name, new_name, source (d2moo|inferred), file, confidence (high|medium), reason. Report counts in your reply. Avoid broad pkill -f.
