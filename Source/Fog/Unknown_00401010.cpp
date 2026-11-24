@@ -120,11 +120,6 @@ bool sub_M123_Emit_00401020(const char* szPath)
     return sub_00401020_SetLogDirectory(szPath);
 }
 
-// 0x004016B0
-void __cdecl sub_004016B0_Nothing()
-{
-}
-
 // 0x00401A60
 void __cdecl sub_00401A60_UnlockSymbols()
 {

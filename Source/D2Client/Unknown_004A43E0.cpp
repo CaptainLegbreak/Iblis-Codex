@@ -1979,6 +1979,8 @@ void __cdecl UI_RegisterKeyConfigHandlers(); // 0x00454980
 
 void __fastcall CUNIT_ClearHotkeyBinding(int nId, int nB); // 0x00469D70
 
+bool __stdcall sub_004A2970(int nX, int nY); // 0x004A2970
+
 // 0x004A43E0
 void __cdecl TEXT_InitKeyConfigEntries()
 {
@@ -3106,6 +3108,27 @@ static int sub_004A76C0_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
 
 
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey);
+
+// 0x004A4110
+void __stdcall TEXT_QuestButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    int nX = pMsg->nXpos;
+    int nY = pMsg->nYpos;
+    if (sub_004A2970(nX, nY) && gbGlobal_007BF2B0)
+    {
+        UI_SetUIVar(17, 1, 0);
+        TEXT_ToggleQuestLog(0);
+        gbGlobal_007BF2B0 = 0;
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+        return;
+    }
+
+    gbGlobal_007BF2B0 = 0;
+    pMsg->bReturn = 0;
+}
+
 
 
 

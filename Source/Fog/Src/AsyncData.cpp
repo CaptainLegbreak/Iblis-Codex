@@ -71,11 +71,6 @@ void* __fastcall ERRORMANAGER_PoolAlloc(void* pPool, int nSize, const char* szFi
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-// 0x0040A030
-void __cdecl sub_0040A030_Nop()
-{
-}
-
 // 0x0040A850
 void __fastcall FOG_AsyncDataSetPriority(AsyncData* pAsyncData, int nPriority)
 {

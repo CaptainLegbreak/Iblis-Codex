@@ -18,11 +18,11 @@ Bytes of the built Game.exe by origin:
 | Origin | Bytes |
 |---|---:|
 | game code and data compiled from Source/ | 2,691,213 |
-| initialised data generated from your Game.exe (build/data_plan.json) | 373,064 |
+| initialised data generated from your Game.exe (build/data_plan.json) | 373,052 |
 | C runtime (libcmt.lib, placed by identity) | 239,696 |
 | import thunks and the import address table | 3,782 |
 | headers, import and export tables, relocations, checksum | 163,407 |
-| alignment padding | 122,126 |
+| alignment padding | 122,138 |
 | code taken from your Game.exe (unmatched functions) | 12,041 |
 | data no source defines yet, taken from your Game.exe | 1,175 |
 | resources (from your Game.exe) | 5,888 |
@@ -42,10 +42,10 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 841 |
+| Compilation units | 840 |
 | … in a file with its original name, whole | 293 |
 | … pieces of an original file still split (in 32 files) | 98 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 450 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 449 |
 | Record definitions private to a source file (`struct`/`union` in a .cpp) | 2908 |
 | Unnamed fields (`unk0x..`) in the shared headers | 687 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 4017 functions are compiled with `/GS-` and 952 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 99 times and `__declspec(dllexport)` 168 times to keep a body out of line or emitted.
+Not listed one by one: 4017 functions are compiled with `/GS-` and 953 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 99 times and `__declspec(dllexport)` 168 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -92,6 +92,7 @@ Not listed one by one: 4017 functions are compiled with `/GS-` and 952 with `/EH
 | 0x00401680 | ERRORMANAGER_GetMainThreadId | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00401690 | ERRORMANAGER_GetCurrentThreadId | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004016A0 | ERRORMANAGER_StartDbgHelpThread | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x004016B0 | sub_004016B0_Nothing | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004016C0 | ERRORMANAGER_IsInternalCheckLoopback | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00401740 | ERRORMANAGER_SetReportText | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00401A30 | ?strrchr@@YAPADPADH@Z | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
@@ -200,6 +201,7 @@ Not listed one by one: 4017 functions are compiled with `/GS-` and 952 with `/EH
 | 0x00407A20 | ERRORMANAGER_GetProcessImageName | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00407A80 | WriteInspectorHeader | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00407F20 | ERRORMANAGER_ExitHandler | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x00407F70 | sub_00407F70_LogText | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00407F80 | ERRORMANAGER_RegisterThread | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00407F90 | ERRORMANAGER_UnregisterThread | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00407FC0 | ERRORMANAGER_LogPrefixedText | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
@@ -251,6 +253,7 @@ Not listed one by one: 4017 functions are compiled with `/GS-` and 952 with `/EH
 | 0x00409C80 | FOG_DestroyMemoryPoolSystem | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00409DD0 | FOG_CreateNewPoolSystem | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00409FF0 | FOG_SetMemoryPoolSystemMode | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
+| 0x0040A030 | sub_0040A030_Nop | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x0040A040 | FOG_GetMemoryUsage | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x0040A070 | sub_0040A070 | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x0040A080 | ERRORMANAGER_PoolAlloc | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
@@ -700,7 +703,6 @@ Not listed one by one: 4017 functions are compiled with `/GS-` and 952 with `/EH
 | 0x006419F0 | D2Common_10406 | `D2Common/DRLG/Drlg.cpp` | volatile read or qualifier |
 | 0x00647280 | SKILLS_AssignSkill | `D2Common/SKILLS/Skills.cpp` | volatile read or qualifier |
 | 0x00649970 | D2Common_10142 | `D2Common/PATH/Path.cpp` | volatile read or qualifier |
-| 0x0064A400 | MISSILE_SetOwner | `D2Common/Unknown_0064A400.cpp` | compiler option /Ob1 |
 | 0x00651040 | sub_00651040_ComputeDepths | `D2Common/DATATBLS/MonsterTbls.cpp` | __assume |
 | 0x0065A710 | UNITFINDS_IsInRoomRange | `D2Common/UNITS/UnitFinds.cpp` | calling-convention shim |
 | 0x0065EA50 | ITEMMODS_AddPropertyToItemStatList | `D2Common/ITEMS/ItemMods.cpp` | volatile read or qualifier |
