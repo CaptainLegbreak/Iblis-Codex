@@ -4,10 +4,12 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #319 (round j82). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
+- `main`: #320 (round j83). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
 - Units 963, placeholder files 562.
 - In progress: nothing; next round as branches are posted ready.
 - **`lane1/keycfg-object-r` needs a rebase onto #317.** Lane 4's `keyconfig-split` (#317) already made `Unknown_004A43E0.cpp` from the same text.cpp range, so the two branches collide. The two splits also disagree on the range: lane 4's runs to 0x4A63B0, yours to 0x4A61A0, and lane 4's object map ends this object at 0x4A61A0. Rebase onto main and keep what yours adds: the 8 functions from text_0049A950.cpp, the 1 from Unknown_004A6000.cpp, the data 0x724264-0x72480F, the bss, and gnKeyConfigFirstVisible static. Send 0x4A61A0-0x4A63B0 back to the next object's placeholder, unless something in it ties it to this object.
+- **Priority for every lane after your current branch: the language-table splits.** Each one places a file boundary, and often defines borrowed data too. Your rows are in language-objects.md.
+- **Shims and context copies:** after you join files, try deleting the `// build: context` blocks in the joined unit. Many exist only because a caller and callee were in different files.
 - **New: [language-objects.md](language-objects.md)**, an object map from all 308 language-table copies in .data. A copy *starts* its object's data (the header comes before the file's own definitions), so it belongs to the file whose data follows it. The map lists:
   - **60 planned files holding more than one copy.** Each spans that many original objects; split them at their copies. By lane: 6: 25 files, 5: 16, 4: 14, 1: 3, 3: 2. FieldTbls.cpp alone holds 15.
   - **21 borrowed copies (1,254 B, over a third of what's left).** Each has its neighbours and the gap to the next data. Copies at a lane edge are marked.
@@ -159,6 +161,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #320 j83 (coordinator): 69 shims and context copies removed (shims 115 → 86, context markers 583 → 502). Each was tested alone, then all together.
 - #319 j82: sound-a-2, glcore-a, pathmisc-a (lane 6), fog-records-b (lane 2), lang-split (lane 5), sbig-copy, crypt (lane 3), winmain-split (lane 4), keycfg-extras (lane 1).
 - #318 j81: sbig-arrays (lane 3), lang-owners (lane 5), game-timer and records-a (lane 2).
 - #317 j80: options-split-2 and keyconfig-split (lane 4), sbig-exports (lane 3).
