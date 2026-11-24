@@ -10,7 +10,7 @@ struct D2BnClientIdReplyStrc
     unsigned int dwRegistrationVersion; // 0x00
     unsigned int dwRegistrationAuthority; // 0x04
     unsigned int dwClientId; // 0x08
-    unsigned int f_C; // 0x0C
+    unsigned int dwRegistrationToken; // 0x0C
 };
 
 struct D2BnStartVersioningStrc
@@ -22,8 +22,8 @@ struct D2BnStartVersioningStrc
 struct D2BnAuthInfoStrc
 {
     unsigned int dwLogonType; // 0x00
-    unsigned int f_4; // 0x04
-    unsigned int f_8; // 0x08
+    unsigned int dwServerToken; // 0x04
+    unsigned int dwUdpValue; // 0x08
     D2FileTimeStrc tFileTime; // 0x0C
     char szFileName[4]; // 0x14
 };
