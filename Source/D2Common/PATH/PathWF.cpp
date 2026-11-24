@@ -2,25 +2,13 @@
 #include "D2Structs.h"
 #include "D2DrlgPresets.h"
 #include "D2Path.h"
+#include "D2PathFind.h"
 
 
 
 
 
 
-struct D2PathMovStrc
-{
-    int nDirectionIndex;
-    int nPoints;
-    D2PathPointStrc tCurrentCoord;
-    D2PathPointStrc tTargetCoord;
-    int bReachedDeadEnd;
-    const int* pPrevDirection;
-    const int* pNextDirection;
-    int nLastSyncPointWithOtherPathIndex;
-    int bPathFinished;
-    D2PathPointStrc pPoints[201];
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

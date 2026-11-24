@@ -21,12 +21,6 @@ struct D2PathMovStrc;
 
 
 
-struct D2CollisionTestStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    unsigned int nCollisionPattern;
-    unsigned int nCollisionMask;
-};
 
 struct D2PathInfoStrc
 {
@@ -80,19 +74,6 @@ static D2PathFoWallNodeStrc* __stdcall PATH_AStar_PopBestScoreForVisit(D2PathFoW
 static int PATH_AStar_FlushNodeToDynamicPath(D2PathInfoStrc* pPathInfo, D2PathFoWallNodeStrc* pNode);
 static int __stdcall PATH_BresenhamLine(D2PathPointStrc tStartPoint, D2PathPointStrc tTargetPoint, int nDistMax, int* nMajorDirection, D2PathPointStrc* pOutPoints);
 
-struct D2PathMovStrc
-{
-    int nDirectionIndex;
-    int nPoints;
-    D2PathPointStrc tCurrentCoord;
-    D2PathPointStrc tTargetCoord;
-    int bReachedDeadEnd;
-    const int* pPrevDirection;
-    const int* pNextDirection;
-    int nLastSyncPointWithOtherPathIndex;
-    int bPathFinished;
-    D2PathPointStrc pPoints[201];
-};
 
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 extern const D2CoordStrc gnDirectionsToAdjacentCellOffsets[16]; // 0x006F1D98

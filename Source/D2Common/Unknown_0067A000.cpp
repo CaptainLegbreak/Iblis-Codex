@@ -30,12 +30,6 @@ struct D2PathFoWallContextStrc;
 
 struct D2PathMovStrc;
 
-struct D2CollisionTestStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    unsigned int nCollisionPattern;
-    unsigned int nCollisionMask;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -94,19 +88,6 @@ D2PathFoWallNodeStrc* __stdcall PATH_AStar_FindPointInVisitedCache(D2PathFoWallC
 
 D2PathFoWallNodeStrc* __fastcall PATH_AStar_AllocNewNode(D2PathFoWallContextStrc* pContext); // 0x0067B1C0
 
-struct D2PathMovStrc
-{
-    int nDirectionIndex;
-    int nPoints;
-    D2PathPointStrc tCurrentCoord;
-    D2PathPointStrc tTargetCoord;
-    int bReachedDeadEnd;
-    const int* pPrevDirection;
-    const int* pNextDirection;
-    int nLastSyncPointWithOtherPathIndex;
-    int bPathFinished;
-    D2PathPointStrc pPoints[201];
-};
 
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 
