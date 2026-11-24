@@ -374,8 +374,6 @@ struct D2LaunchThreadRecordStrc;
 
 struct D2LaunchNameNodeStrc;
 
-extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfnStart)(void*), void* pParameter, unsigned long nFlags, unsigned long* pThreadId); // 0x006CC250
-
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940
@@ -393,8 +391,6 @@ int __fastcall WINMAIN_SendMcpCharLogon(int nA); // 0x0044A380
 int __fastcall CHATDLG_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone); // 0x0043FB50
 
 void* __stdcall COMCALLBACK_AddChannelUser(const char* szText, int nLength, int nA); // 0x00449050
-
-unsigned long __stdcall MCPCONNECT_ConnectThread(void* pParameter); // 0x0044A070
 
 extern char gKey_0070CD54; // 0x0070CD54
 
@@ -420,8 +416,6 @@ extern int gnValue_00798F7C; // 0x00798F7C
 
 extern int gnValue_00798F84; // 0x00798F84
 
-extern D2LaunchThreadRecordStrc gtThreadRecord; // 0x00798FB8
-
 extern int gnValue_00799100; // 0x00799100
 
 extern int gnValue_00799104; // 0x00799104
@@ -431,8 +425,6 @@ extern int gnValue_00799298; // 0x00799298
 extern int gnValue_0079929C; // 0x0079929C
 
 extern int gnValue_007992A0; // 0x007992A0
-
-void* ghThread;                                                                                    // 0x007992A4
 
 extern int gnValue_007992A8; // 0x007992A8
 
@@ -6585,16 +6577,5 @@ void __fastcall CHATDLG_MixChar(char* pChar, int nBits, unsigned int* pPool)
 }
 
 int __stdcall CHATDLG_RequestCharLogon(int nA); // 0x00449E10
-
-// 0x0044A130
-void __stdcall CHATDLG_StartThread(D2LaunchThreadRecordStrc* pRecord)
-{
-    if (!ghThread)
-    {
-        gtThreadRecord = *pRecord;
-        unsigned long nThreadId;
-        ghThread = CreateThread(0, 0, MCPCONNECT_ConnectThread, 0, 0, &nThreadId);
-    }
-}
 
 #include "gen/data/Source/D2Multi/Src/ChatDlg.inc"

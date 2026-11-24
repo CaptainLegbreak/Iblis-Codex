@@ -75,6 +75,8 @@ extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(voi
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long nMilliseconds);                         // 0x006CC258
 
+extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfnStart)(void*), void* pParameter, unsigned long nFlags, unsigned long* pThreadId); // 0x006CC250
+
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 
 int __fastcall FOG_SOCKET_GetPeerName(FSafeSock* pSafeSock, void* pAddress, int* pnLength); // 0x0040DEE0
@@ -98,6 +100,8 @@ D2QSSOCKET_SetPacketFormat* __stdcall D2QSSOCKET_CreateRecord(const char* szName
 FSafeSock* __stdcall D2QSSOCKET_GetSafeSock(void* pConnection);                                          // 0x006BC810
 
 extern void* gpMcpConnection;                                                                         // 0x00798FB4
+
+extern void* ghThread;                                                                              // 0x007992A4
 
 D2LaunchThreadRecordStrc gtThreadRecord;                                                           // 0x00798FB8
 
@@ -178,6 +182,15 @@ int __cdecl MCPCONNECT_ConnectThread()
     return 0;
 }
 
-
+// 0x0044A130
+void __stdcall CHATDLG_StartThread(D2LaunchThreadRecordStrc* pRecord)
+{
+    if (!ghThread)
+    {
+        gtThreadRecord = *pRecord;
+        unsigned long nThreadId;
+        ghThread = CreateThread(0, 0, (unsigned long (__stdcall*)(void*))MCPCONNECT_ConnectThread, 0, 0, &nThreadId);
+    }
+}
 
 #include "gen/data/Source/D2MCPClient/Src/McpConnect.inc"

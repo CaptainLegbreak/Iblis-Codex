@@ -12712,11 +12712,6 @@
      "va": "0x004497F0",
      "length": 65,
      "name": "CHATDLG_MixChar"
-    },
-    {
-     "va": "0x0044A130",
-     "length": 63,
-     "name": "CHATDLG_StartThread"
     }
    ]
   },
@@ -12831,6 +12826,11 @@
      "va": "0x0044A070",
      "length": 190,
      "name": "MCPCONNECT_ConnectThread"
+    },
+    {
+     "va": "0x0044A130",
+     "length": 63,
+     "name": "CHATDLG_StartThread"
     }
    ]
   },
