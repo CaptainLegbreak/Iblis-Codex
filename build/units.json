@@ -2515,6 +2515,11 @@
      "name": "AUTOMAP_PopupButtonDownMsg"
     },
     {
+     "va": "0x00460190",
+     "length": 81,
+     "name": "?sub_00460190_DrawFrame@@YAXXZ"
+    },
+    {
      "va": "0x004601F0",
      "length": 227,
      "name": "AUTOMAP_PopupTwoButtonDownMsg"
@@ -5643,6 +5648,31 @@
      "va": "0x004133D0",
      "length": 180,
      "name": "?SMemReAlloc@@YGPAXPAXIPBDHI@Z"
+    },
+    {
+     "va": "0x0041D200",
+     "length": 148,
+     "name": "SMemCmp"
+    },
+    {
+     "va": "0x0041D2A0",
+     "length": 27,
+     "name": "SMemCopy"
+    },
+    {
+     "va": "0x0041D2C0",
+     "length": 28,
+     "name": "SMemFill"
+    },
+    {
+     "va": "0x0041D2E0",
+     "length": 27,
+     "name": "SMemMove"
+    },
+    {
+     "va": "0x0041D300",
+     "length": 25,
+     "name": "SMemZero"
     }
    ]
   },
@@ -6136,37 +6166,6 @@
     "/Ob1",
     "/Gd",
     "/EHsc"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_0041D200.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041D200",
-     "length": 148,
-     "name": "SMemCmp"
-    },
-    {
-     "va": "0x0041D2A0",
-     "length": 27,
-     "name": "SMemCopy"
-    },
-    {
-     "va": "0x0041D2C0",
-     "length": 28,
-     "name": "SMemFill"
-    },
-    {
-     "va": "0x0041D2E0",
-     "length": 27,
-     "name": "SMemMove"
-    },
-    {
-     "va": "0x0041D300",
-     "length": 25,
-     "name": "SMemZero"
-    }
    ]
   },
   {
@@ -17917,17 +17916,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00460190.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00460190",
-     "length": 81,
-     "name": "?sub_00460190_DrawFrame@@YAXXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_00460420.cpp",
    "rank": 0,
    "functions": [
@@ -20722,20 +20710,14 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00474080.cpp",
+   "file": "Source/D2Client/DRAW/dLightMap.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x00474080",
      "length": 67,
      "name": "?sub_00474080_GetDistance@@YIHHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/DRAW/dLightMap.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x004740D0",
      "length": 73,
@@ -28702,6 +28684,16 @@
      "name": "?OBJECT_RunClientFunction@@YIDPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004BDF30",
+     "length": 146,
+     "name": "ITEM_ApplyTownPortalState"
+    },
+    {
+     "va": "0x004BDFD0",
+     "length": 7,
+     "name": "@sub_004BDFD0@4"
+    },
+    {
      "va": "0x004BDFE0",
      "length": 16,
      "name": "?OBJECT_SetObjectOwnerName@@YIXPAUD2UnitStrc@@PBD@Z"
@@ -28717,11 +28709,6 @@
    "file": "Source/D2Client/UNIT/Item.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004BDF30",
-     "length": 146,
-     "name": "ITEM_ApplyTownPortalState"
-    },
     {
      "va": "0x004C0D20",
      "length": 410
@@ -29110,11 +29097,6 @@
    "file": "Source/D2Client/Unknown_004BDFD0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004BDFD0",
-     "length": 7,
-     "name": "@sub_004BDFD0@4"
-    },
     {
      "va": "0x004BF990",
      "length": 22,
@@ -63102,6 +63084,11 @@
      "name": "sub_00603F20_RoundUp"
     },
     {
+     "va": "0x00603F40",
+     "length": 13,
+     "name": "??0D2Warden47F930Strc@@QAE@XZ"
+    },
+    {
      "va": "0x00603F50",
      "length": 24,
      "name": "sub_00603F50_CopyLinkOffset"
@@ -63122,9 +63109,24 @@
      "name": "CelChunkListLinkNode"
     },
     {
+     "va": "0x00604070",
+     "length": 8,
+     "name": "?sub_00604070_Clear@D2GameHashTableStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00604080",
+     "length": 35,
+     "name": "?sub_00604080_ConstructEntry@@YIXPAUD2StormEntry604080Strc@@@Z"
+    },
+    {
      "va": "0x006040B0",
      "length": 79,
      "name": "?0D2StormEntry38Strc"
+    },
+    {
+     "va": "0x00604100",
+     "length": 72,
+     "name": "?sub_00604100_CopyConstructEntry@@YIXPAUD2StormEntry604080Strc@@PBU1@@Z"
     },
     {
      "va": "0x00604150",
@@ -63132,14 +63134,34 @@
      "name": "InternalDelete"
     },
     {
+     "va": "0x006041B0",
+     "length": 401,
+     "name": "?sub_006041B0_ReallocData@D2StormEntryArrayStrc@@QAEXI@Z"
+    },
+    {
      "va": "0x00604350",
      "length": 70,
      "name": "CelListArrayReserve"
     },
     {
+     "va": "0x006043A0",
+     "length": 16,
+     "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
+    },
+    {
      "va": "0x00604440",
      "length": 23,
      "name": "CelListArrayGrow"
+    },
+    {
+     "va": "0x00604460",
+     "length": 5,
+     "name": "?sub_00604460_New@D2Storm604460Strc@@QAEPAUD2StormEntry604080Strc@@XZ"
+    },
+    {
+     "va": "0x00604470",
+     "length": 22,
+     "name": "??0D2Storm604470Strc@@QAE@XZ"
     },
     {
      "va": "0x00604490",
@@ -63156,6 +63178,10 @@
      "length": 144
     },
     {
+     "va": "0x00604640",
+     "length": 157
+    },
+    {
      "va": "0x00604700",
      "length": 43,
      "name": "?_GD2GameHashTableReuseStrc"
@@ -63166,6 +63192,11 @@
      "name": "CelListTableNew"
     },
     {
+     "va": "0x00604800",
+     "length": 5,
+     "name": "??1D2GameExportTableSimpleViewStrc@@QAE@XZ"
+    },
+    {
      "va": "0x00604840",
      "length": 37,
      "name": "CelListTableNewHandle"
@@ -63174,6 +63205,11 @@
      "va": "0x00604870",
      "length": 43,
      "name": "?_GD2GameExportTableSimpleStrc"
+    },
+    {
+     "va": "0x006048A0",
+     "length": 21,
+     "name": "??1D2GameDataTableViewStrc@@QAE@XZ"
     },
     {
      "va": "0x006048C0",
@@ -63723,72 +63759,6 @@
      "va": "0x00603E70",
      "length": 96,
      "name": "??0D2GameHashTableReuseStrc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_00603F40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00603F40",
-     "length": 13,
-     "name": "??0D2Warden47F930Strc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_00604070.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00604070",
-     "length": 8,
-     "name": "?sub_00604070_Clear@D2GameHashTableStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00604080",
-     "length": 35,
-     "name": "?sub_00604080_ConstructEntry@@YIXPAUD2StormEntry604080Strc@@@Z"
-    },
-    {
-     "va": "0x00604100",
-     "length": 72,
-     "name": "?sub_00604100_CopyConstructEntry@@YIXPAUD2StormEntry604080Strc@@PBU1@@Z"
-    },
-    {
-     "va": "0x006041B0",
-     "length": 401,
-     "name": "?sub_006041B0_ReallocData@D2StormEntryArrayStrc@@QAEXI@Z"
-    },
-    {
-     "va": "0x006043A0",
-     "length": 16,
-     "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
-    },
-    {
-     "va": "0x00604460",
-     "length": 5,
-     "name": "?sub_00604460_New@D2Storm604460Strc@@QAEPAUD2StormEntry604080Strc@@XZ"
-    },
-    {
-     "va": "0x00604470",
-     "length": 22,
-     "name": "??0D2Storm604470Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x00604640",
-     "length": 157
-    },
-    {
-     "va": "0x00604800",
-     "length": 5,
-     "name": "??1D2GameExportTableSimpleViewStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x006048A0",
-     "length": 21,
-     "name": "??1D2GameDataTableViewStrc@@QAE@XZ"
     }
    ]
   },
@@ -64468,6 +64438,10 @@
      "name": "?CodecGetRunBits@@YAHPBE@Z"
     },
     {
+     "va": "0x0060B7B0",
+     "length": 483
+    },
+    {
      "va": "0x0060B9A0",
      "length": 999
     },
@@ -64499,16 +64473,6 @@
      "va": "0x0060B160",
      "length": 23,
      "name": "?sub_0060B160_Copy@@YGXPAUD2BitBufferInitStrc@@PBU1@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_0060B7B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060B7B0",
-     "length": 483
     }
    ]
   },
@@ -78689,6 +78653,10 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x006BCD50",
+     "length": 75
+    },
+    {
      "va": "0x006BCDA0",
      "length": 52,
      "name": "_FOG_FreeBinFile@4"
@@ -78937,16 +78905,6 @@
     {
      "va": "0x006BCCD0",
      "length": 121
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_006BCD50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006BCD50",
-     "length": 75
     }
    ]
   },

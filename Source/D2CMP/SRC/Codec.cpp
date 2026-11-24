@@ -618,30 +618,31 @@ static inline int DccReadSigned(int nCount, D2CmpBitCursorStrc* pCursor)
     return nValue;
 }
 
-static void __stdcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pCursor, D2CmpBitCursorStrc* pEqual, D2DccCellStrc* pCell, unsigned char** ppRun, D2DccCellStrc* pPrev)
+// 0x0060B7B0
+static void __stdcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pCursor, D2CmpBitCursorStrc* pEqual, D2DccCellStrc* pPrev, D2DccCellStrc* pCell, unsigned char** ppRun)
 {
-    unsigned char abBuffer[25];
     if (pEqual && pPrev->pColors && CodecReadBits(1, pEqual))
     {
         if (pCell->nWidth == pPrev->nWidth && pCell->nHeight == pPrev->nHeight)
         {
             if (pCell->pDst != pPrev->pDst)
             {
+                unsigned char abTemp[5][5];
                 unsigned char* pSrc = pPrev->pDst;
-                unsigned char* pBuf = abBuffer;
+                unsigned char* pTempIn = abTemp[0];
                 for (int y = 0; y < pCell->nHeight; ++y)
                 {
-                    memcpy(pBuf, pSrc, pCell->nWidth);
+                    memcpy(pTempIn, pSrc, pCell->nWidth);
+                    pTempIn += 5;
                     pSrc += pPrev->nPitch;
-                    pBuf += 5;
                 }
+
                 unsigned char* pDst = pCell->pDst;
-                pBuf = abBuffer;
-                for (int y = 0; y < pCell->nHeight; ++y)
+                const unsigned char* pTempOut = abTemp[0];
+                for (int y = 0; y < pCell->nHeight; ++y, pTempOut += 5)
                 {
-                    memcpy(pDst, pBuf, pCell->nWidth);
+                    memcpy(pDst, pTempOut, pCell->nWidth);
                     pDst += pCell->nPitch;
-                    pBuf += 5;
                 }
             }
         }
@@ -657,15 +658,15 @@ static void __stdcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pCursor, D2Cmp
         return;
     }
 
-    unsigned char* pDst = pCell->pDst;
+    unsigned char* pRow = pCell->pDst;
     const int nBits = CodecGetRunBits(pCell->pColors);
     if (!nBits)
     {
         const int nColor = **ppRun;
         for (int y = 0; y < pCell->nHeight; ++y)
         {
-            memset(pDst, nColor, pCell->nWidth);
-            pDst += pCell->nPitch;
+            memset(pRow, nColor, pCell->nWidth);
+            pRow += pCell->nPitch;
         }
     }
     else
@@ -674,9 +675,9 @@ static void __stdcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pCursor, D2Cmp
         {
             for (int x = 0; x < pCell->nWidth; ++x)
             {
-                pDst[x] = (*ppRun)[CodecReadBits(nBits, pCursor)];
+                pRow[x] = (*ppRun)[CodecReadBits(nBits, pCursor)];
             }
-            pDst += pCell->nPitch;
+            pRow += pCell->nPitch;
         }
     }
     *ppRun += 4;
@@ -864,7 +865,7 @@ int __fastcall CodecDecodeDccData(unsigned char* pData, void* pMemPool, int nSiz
                     tCell.nPitch = tIt.nCellsY;
                     tCell.nWidth = tIt.nStepX;
                     tCell.nHeight = tIt.nStepY;
-                    sub_0060B7B0_DecodeCell(&tCursor, pEqual, &tCell, &pRun, &gatDccCells[tIt.nCell]);
+                    sub_0060B7B0_DecodeCell(&tCursor, pEqual, &gatDccCells[tIt.nCell], &tCell, &pRun);
                     gatDccCells[tIt.nCell] = tCell;
 
                     bMore = CodecDccNextCell(&tDir, &tIt);

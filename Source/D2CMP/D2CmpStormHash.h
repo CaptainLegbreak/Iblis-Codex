@@ -96,14 +96,15 @@ public:
     int sub_006045B0(unsigned int nSlot);                                                                   // 0x006045B0
     void CelListTableInternalClear(int bWarn);                                                             // 0x00602800
     void CelListTableGrowListArray();                                                                      // 0x00603C80
+    void sub_00604070_Clear();                                                                              // 0x00604070
 };
 
 template <> class TSHashTableReuse<CELLIST, HASHKEY_NONE, 0> : public D2GameHashTableStrc
 {
 public:
-    D2StormListEStrc m_reuseList;                           // 0x28
+    D2StormSlotListStrc m_reuseList;                        // 0x28
     int unk0x34;                                            // 0x34
-    D2StormListEStrc m_chunkList;                           // 0x38
+    D2StormHashChunkListStrc m_chunkList;                   // 0x38
 
     virtual void InternalDelete(D2StormEntry38Strc* pNode);
     virtual D2StormEntry38Strc* InternalNew(D2StormSlotListStrc* pList, unsigned int nExtraBytes, unsigned int nFlags);
