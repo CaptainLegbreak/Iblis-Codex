@@ -6,6 +6,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 
 ## Ready
 
+- lane10/names-moved333 dbcdf5d moved333 plan: 50 renames applied; nameround dropped 0x00677870 (units not equal). VERIFIED 6540edd4 on base 88003a4d, Game.exe matches.
 - lane10/names-d2client-units 65aac4c d2client-units plan: 53 renames applied; nameround dropped 0x00463E10, 0x0046C770, 0x0046C960, 0x0046DB30, 0x004723F0, 0x00472400, 0x00472530, 0x00472550, 0x004732C0, 0x00473A70, 0x004C7C80, 0x004C80D0, 0x004C96D0, 0x004C9D50, 0x004DA350 (units not equal). VERIFIED e51d22d7 on base 900824d3, Game.exe matches.
 - lane10/names-d2client-ui 5e70a46 d2client-ui plan: 94 renames applied; nameround dropped 0x0047BAD0, 0x004B5640 (units not equal). VERIFIED 404cc958 on base 900824d3, Game.exe matches.
 - lane10/names-d2client-game 6b09b1d d2client-game plan: 45 renames applied; nameround dropped 0x00451F30, 0x00451F70, 0x00467430, 0x00478600, 0x004786D0, 0x004DCF70, 0x004DCFA0, 0x004DD060, 0x004DD180, 0x004DD350, 0x004DD460, 0x004DD550, 0x004DD600, 0x004DD6E0, 0x004DDB70, 0x004DDE40, 0x004DDEC0, 0x004DDEF0, 0x004DDFD0, 0x004DE190, 0x004DED10 (units not equal). VERIFIED 67f643d1 on base 900824d3, Game.exe matches.
