@@ -5,13 +5,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 ## Ready
 
 - lane1/spellsel-strays-2 fea0b0971 -2 placeholders (Unknown_004A76C0.cpp, Unknown_004A7AE0.cpp) from lane 4's handover: spellsel.cpp (code run 0x4A8A30-0x4AA8F0, .bss 0x7C0300-0x7C0833) takes 0x4A8A30 and 0x4A8CF0 (Unknown_004A76C0.cpp; nothing calls 0x4A8CF0, so its calling-convention shim comes along), 0x4A8ED0/0x4A9260/0x4A9300/0x4A9690/0x4A9870 with gaHotkeySkills/Owners/Left (Unknown_004A7AE0.cpp; rewritten on sgptDataTables, D2CelContextStrc, gaSkillIconCels and gpSkillIconCel instead of private overlays) and 0x4A8DF0 (Unknown_004A6000.cpp; its static buffer and guard 0x7C0810-0x7C0833 sit between spellsel's 0x7C07FC and the next object's 0x7C0838). 0x4A7AE0 is the levelup object's (its run; shares gnTextColor 0x7C02F8 with 0x4A7180; 0x4A7D00 calls it with register arguments): it replaces the context copy in Unknown_004A6460.cpp, with gaHoverBoxes (0x6DA430, .rdata between levelup's strings and spellsel's). Shims -2, context copies -1; VERIFIED 963c4d25bbe556e7298c6e78e088660c9ceceb7f
-  - based on main #346. Replaces lane1/spellsel-strays (same commit on #345, verified dc59585c, never posted).
-
-- lane1/useitem-hotspots-2 ff6dc6ddb 0->0 0x727900-0x72794F (three plan pieces: 2 B in useitem.cpp, gaUseItemHotspotRects at 0x727902 and 38 B in Unknown_004C0440.cpp) is useitem.cpp's gaUseItemHotspots, two 40-byte D2HotspotStrc as useitem.cpp's own pack(2) record reads them; Item.cpp's and Unknown_004C0440.cpp's record was the same one seen 2 bytes in. Now one declared definition in useitem.cpp; ITEM_HitTestHotspots (0x4BFBC0, inside useitem.cpp's run, uses only that array and gnHotspotCount) moves there from Item.cpp; the shifted record goes from both files, and Unknown_004C0440.cpp has no data left; VERIFIED 3015d17abae197017fb9b2b958bd96ff026265ee
-  - based on main #346. Replaces lane1/useitem-hotspots (same commit on #345). 0x4C0550 itself stays in Unknown_004C0440.cpp (still the static/stack-slot problem noted below).
-
-- lane1/lob-velocity-2 004fceba6 0->0 Skills.cpp's 0x4C8670 (SKILLS_SetLobVelocity, inside SkillsBar.cpp's code run) and gaLobBrackets (0x6DAE70, in .rdata between SkillsBar.cpp's table at 0x6DAE58 and the 0x4C9420 object's) join SkillsBar.cpp; its second argument is the skill (both callers pass pSkill; it reads SKILLS_GetParam1/2), so it is typed D2SkillStrc* and uses D2Client.h's names instead of two private sub_006444A0/D0 prototypes; VERIFIED adea82d8f5b78657cfa1f5d1e1cb1a6d9c89eb2b
-  - based on main #346. Replaces lane1/lob-velocity (same commit on #345). Closes the item left from skills-objects.
+  - based on main #346. Replaces lane1/spellsel-strays (same commit on #345, verified dc59585c, never posted). Rebase onto #348 requested: done locally (b10b93b6; conflicts were lane 10's renames in the two deleted files; precheck equal), re-verifying; will post as -3.
 
 
 ## In progress
