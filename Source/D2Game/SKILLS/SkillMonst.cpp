@@ -3144,17 +3144,4 @@ int __fastcall SKILLS_SrvDo111_FetishAura(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     return 1;
 }
 
-// 0x005CEC50
-void __fastcall SKILLS_CurseStateCallback_BasicAura(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
-{
-    STATES_ToggleState(pUnit, nState, 0);
-    if (STATES_CheckState(pUnit, STATE_NOMANAREGEN))
-    {
-        STATES_ToggleState(pUnit, 85, 0);
-    }
-
-    D2GAME_RefreshPassiveSkills_6FD14CC0(pUnit);
-    SKILLS_ClampVitalsAndUpdateAnimRate(pUnit);
-}
-
 #include "gen/data/Source/D2Game/SKILLS/SkillMonst.inc"

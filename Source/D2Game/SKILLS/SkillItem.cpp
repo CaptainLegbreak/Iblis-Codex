@@ -584,23 +584,6 @@ int __fastcall ITEMS_ApplyLegacyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pI
 
 int __fastcall ITEMS_ApplyLowQuality(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C2D40
 
-// 0x005D30A0
-D2MonEquipTxt* __fastcall SKILLITEM_GetMonEquipTxtRecord(int nMonsterId)
-{
-    D2MonStatsTxt* pMonStatsTxtRecord = (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? &sgptDataTables->pMonStatsTxt[nMonsterId] : 0;
-    if (!pMonStatsTxtRecord)
-    {
-        return 0;
-    }
-
-    if (pMonStatsTxtRecord->nMonEquipTxtRecordId < 0)
-    {
-        return 0;
-    }
-
-    return &sgptDataTables->pMonEquipTxt[pMonStatsTxtRecord->nMonEquipTxtRecordId];
-}
-
 static inline int GetItemType(D2UnitStrc* pItem)
 {
     int nType = 6;

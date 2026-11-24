@@ -43490,11 +43490,6 @@
      "va": "0x0053FF00",
      "length": 143,
      "name": "?PLRTRADE_AddGold@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005CEC90",
-     "length": 297,
-     "name": "PLRSAVE_ShortenPoisonAndCurses"
     }
    ]
   },
@@ -55979,16 +55974,6 @@
      "va": "0x005B0BC0",
      "length": 5,
      "name": "?MISSMODE_SrvDo01_BasicMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005D7E10",
-     "length": 134,
-     "name": "SKILLS_SrvDo054_BladeShield"
-    },
-    {
-     "va": "0x005DA8F0",
-     "length": 66,
-     "name": "SKILLS_SrvSt05_Jab"
     }
    ]
   },
@@ -60278,11 +60263,6 @@
      "name": "SKILLS_GetMonFrenzySequenceFrame"
     },
     {
-     "va": "0x005D30A0",
-     "length": 68,
-     "name": "?SKILLITEM_GetMonEquipTxtRecord@@YIPAUD2MonEquipTxt@@H@Z"
-    },
-    {
      "va": "0x005FD350",
      "length": 285
     },
@@ -60690,11 +60670,6 @@
      "va": "0x005C8AD0",
      "length": 239,
      "name": "?SKILLS_SrvDo121_Rabies@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005D2F80",
-     "length": 273,
-     "name": "SKILLS_FindUseableCorpse"
     },
     {
      "va": "0x005E52D0",
@@ -61261,11 +61236,6 @@
      "va": "0x005CE670",
      "length": 277,
      "name": "SKILLS_SrvDo111_FetishAura"
-    },
-    {
-     "va": "0x005CEC50",
-     "length": 52,
-     "name": "?SKILLS_CurseStateCallback_BasicAura@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     }
    ]
   },
@@ -61311,6 +61281,16 @@
      "va": "0x005CE9F0",
      "length": 600,
      "name": "?SKILLS_SrvDo150_Smite@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CEC50",
+     "length": 52,
+     "name": "?SKILLS_CurseStateCallback_BasicAura@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+    },
+    {
+     "va": "0x005CEC90",
+     "length": 297,
+     "name": "PLRSAVE_ShortenPoisonAndCurses"
     },
     {
      "va": "0x005CEDC0",
@@ -61504,6 +61484,16 @@
      "name": "SKILLS_SrvDo141_BaalCorpseExplode"
     },
     {
+     "va": "0x005D2F80",
+     "length": 273,
+     "name": "SKILLS_FindUseableCorpse"
+    },
+    {
+     "va": "0x005D30A0",
+     "length": 68,
+     "name": "?SKILLITEM_GetMonEquipTxtRecord@@YIPAUD2MonEquipTxt@@H@Z"
+    },
+    {
      "va": "0x005D30F0",
      "length": 75
     },
@@ -61553,6 +61543,10 @@
      "va": "0x005D3970",
      "length": 336,
      "name": "?SKILLS_ApplyProgressiveElementalConversion@@YGXPAUD2UnitStrc@@PAUD2StatListStrc@@PAUD2DamageStrc@@@Z"
+    },
+    {
+     "va": "0x005D3BA0",
+     "length": 258
     },
     {
      "va": "0x005D3CB0",
@@ -61788,6 +61782,11 @@
      "name": "SKILLS_SrvDo142_ApplyAreaCombat"
     },
     {
+     "va": "0x005D7E10",
+     "length": 134,
+     "name": "SKILLS_SrvDo054_BladeShield"
+    },
+    {
      "va": "0x005DA940",
      "length": 243,
      "name": "SKILLS_SrvSt06_PowerStrike_ChargedStrike"
@@ -61801,30 +61800,6 @@
     {
      "va": "0x005D3AC0",
      "length": 211
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005D3BA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D3BA0",
-     "length": 258
     }
    ],
    "flags": [
@@ -62026,6 +62001,11 @@
    "file": "Source/D2Game/SKILLS/SkillAma.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005DA8F0",
+     "length": 66,
+     "name": "SKILLS_SrvSt05_Jab"
+    },
     {
      "va": "0x005DAA40",
      "length": 256,
