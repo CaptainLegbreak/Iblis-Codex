@@ -80,7 +80,7 @@ struct CHuffman
 {
     int bIsCmp0;
     unsigned int nUnk0x04;
-    HUFFNODE f_8[0x203];
+    HUFFNODE aItems[0x203];
     D2StormNodeListStrc tFreeList;
     D2StormNodeListStrc tItemList;
     unsigned int nItemsUsed;

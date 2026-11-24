@@ -170,7 +170,7 @@ struct D2SMsgPairStrc
 
 struct sub_004204B0
 {
-    D2SMsgLinkStrc f_0;                                     // 0x00
+    D2SMsgLinkStrc tLink;                                   // 0x00
 
     ~sub_004204B0();
 };
@@ -222,7 +222,7 @@ D2SMsgLinkStrc* __fastcall sub_00420480_Identity(D2SMsgLinkStrc* pLink)
 // 0x004204B0
 sub_004204B0::~sub_004204B0()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 // 0x004204F0
