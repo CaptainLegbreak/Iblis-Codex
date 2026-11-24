@@ -6,6 +6,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 
 ## Ready
 
+- lane10/names-prefixfix-d2client-2 d5e26e7 replaces lane10/names-prefixfix-d2client (which conflicted with main): the same plan rebuilt from scratch on current main, 156 renames. VERIFIED 62364196 on base 9ec68ba8, Game.exe matches. lane10/names-prefixfix-d2client itself can be deleted.
 - lane10/names-members-slots e32be11 the shared vtable-slot members of members-all: Slot01 -> Draw, MsgSlot02 -> OnMouseWheel, MsgSlot03/04 -> OnLButtonDown/Up, MsgSlot06/09/10 -> OnKeyDown/OnKeyRight/OnKeyLeft, Slot11 -> GetValue. They are slots of one control interface, so every D2Client class that overrides them takes the same name (16 files, 48 names.csv rows, functions.json and units.json symbols in the D2Client range); Storm and D2CMP's unrelated Slot01 are untouched. Slots 05, 07, 08 stay as they are (no plan row). VERIFIED c7379355 on base 9ec68ba8, Game.exe matches.
 - lane10/names-prefixfix-fog cef7852 prefixfix-fog plan: 1 renames applied, none dropped. VERIFIED 6e5fd3bf on base 9ec68ba8, Game.exe matches.
 - lane10/names-prefixfix-d2win fad736e prefixfix-d2win plan: 1 renames applied, none dropped. VERIFIED 8fd282d7 on base 1a435442, Game.exe matches.
@@ -19,7 +20,6 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 - lane10/names-prefixfix-d2sound 6eb991b prefixfix-d2sound plan: 53 renames applied, none dropped. VERIFIED 2d74e68b on base 7c1cb42a, Game.exe matches.
 - lane10/names-prefixfix-d2direct3d 8068198 prefixfix-d2direct3d plan: 93 renames applied, none dropped. VERIFIED c8d8b1b4 on base 7c1cb42a, Game.exe matches.
 - lane10/names-prefixfix-d2glide 2509033 prefixfix-d2glide plan: 118 renames applied, none dropped. VERIFIED c615edd1 on base 7c1cb42a, Game.exe matches.
-- lane10/names-prefixfix-d2client 27a2561 prefixfix-d2client plan: 156 renames applied, none dropped. VERIFIED 0e6a9661 on base 39eacd0f, Game.exe matches.
 - lane10/sweep-d2client 596e818 sweep-d2client sweep: 93 spellings renamed. 90 functions' old spellings renamed; 257 dropped because their units failed (see proto-report). VERIFIED 2a956f55 on base 27bf69d9, Game.exe matches.
 - lane10/sweep-d2game ac81384 sweep-d2game sweep: 80 spellings renamed. 76 functions' old spellings renamed; 157 dropped because their units failed. One gen include path that the sweep had renamed (Game_0052D720.static) is put back by hand. VERIFIED f5ea26d1 on base 8fe544f6, Game.exe matches.
 - lane10/sweep-d2common 0b481e8 sweep-d2common sweep: 142 spellings renamed. 125 functions' old spellings renamed; 144 functions dropped because their units failed (mostly differing declarations, see proto-report). VERIFIED 43a1220f on base 6dfed99a, Game.exe matches.
