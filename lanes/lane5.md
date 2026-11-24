@@ -4,10 +4,12 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/aigeneral-copy da5be1fc 0 placeholders; the copy 0x736160 (planned 64 B in a5q3.cpp, with the padding before act 1's 8-aligned object) starts a no-data object between the act 5 and act 1 quest data; of the files there in code order (a5q1-a5q6, Unknown_0058E990.cpp, AiGeneral.cpp) only AiGeneral.cpp is not quest code, and the quest files carry no copy of their own, so it is AiGeneral.cpp's: it includes D2LanguageNames.h. VERIFIED 3fe301665507137cc18c280130df2409865932d3. Based on main 88003a4d (#346), not stacked.
 - lane5/act5-intro-2 b0bd4dd2 (replaces act5-intro: rebased onto #346, no other change) 451->451 placeholders (Unknown_00586C40.cpp becomes Unknown_00586B50.cpp); the act 5 intro object: ACT5Intro_Callback00_NpcActivate (0x586B50, from a1q4.cpp), the status filter 0x586C40 and ACT5Intro_ActiveFilterCallback (0x586C50, from a5q1.cpp), plus its data: the copy 0x732FB0 (was planned in ObjMode.cpp) from D2LanguageNames.h, a5q2's runes, the intro messages and a5q1-a5q6's messages and indices up to 0x735EFC, in image order; a5q3's reward tables stay in a5q3.cpp. Built alone its .data matches the image's offsets. VERIFIED c8cd66537ec8e7f8bf3f7c69e2c6bc522356ec18. Based on main 88003a4d (#346), not stacked; touches only D2Game.
 
 ## Claimed
 
+- lane5/monstermsg: MONSTERMSG_SendMonsterUpdates (0x598220, in Unknown_00598220.cpp) joins MonsterMsg.cpp, which also takes the copy 0x738CC8 (planned in InvMode.cpp).
 
 ## Questions
 
