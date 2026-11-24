@@ -6,6 +6,10 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 `Source/D2DDraw/**`, `Source/D2Gdi/**`, `Source/D2Glide/**`, `Source/D2Hell/**`, taking over from lane 6.
 
 ## Claimed
+- From the #341 answers, in this order: D2Gdi (Unknown_006C8250.cpp joins gdiCore.cpp); D2Hell (a) all units /O1, the
+  two list ctors keep /O2, and (b) the gpszModuleName join of Unknown_005173EF/00517423/00517874; then the renderer-run
+  functions in other lanes' files (QServer.cpp's five d3d getters, D2Win Unknown_006B1BC0.cpp, D2Client
+  Unknown_006B2F40.cpp).
 - d3dCore.cpp's head: after atl-d3dcore, the strays between the ATL code and d3dCore's own code (see Questions).
 - D2Hell object map (0x00516D8B-0x00517E39 and its data 0x0072F9B4-0x0072FA20).
 
@@ -31,41 +35,13 @@ In #340: join-d3d-7530, join-ddraw-11df0, join-glide-bd30, join-glide-d410 (than
 join-d3dsprite #336, atl-d3dcore #332 (its 2 B note stands).
 
 ## Questions
-- Coordinator, D2Gdi direction (I'll hold off): the file static 0x6C8380 (in Unknown_006C8250.cpp, 12 functions) is
-  called from 0x6C8750, which is filed in gdiCore.cpp. So 0x6C8750 and Unknown_006C8250 are one object. gdiCore.cpp's
-  only file evidence is the allocation tags in 0x6C7A70/0x6C7AB0, 0x6C8750 came into gdiCore from a placeholder, and
-  the two units interleave function by function over 0x6C7A70-0x6C8C43 (renderer code here doesn't follow file
-  order, as in Glide). Either Unknown_006C8250 joins gdiCore.cpp, or 0x6C8750 (and its neighbours 0x6C81A0, 0x6C84B0,
-  0x6C86A0) leave gdiCore for the placeholder. I lean to the first: one D2Gdi core object. Which do you want?
-- Coordinator, D2Hell grouping (I'll hold off joining until you say): every D2Hell unit builds equal under one flag
-  set, plain `/O1` (config flags + /O1), including the pieces now carrying /O2, /Os, /O1 /Ob1 /Oy- or /GS- variants. The
-  only exceptions are two copies of one list constructor, 0x00517628 and 0x005176E4 (TSList-style ctor: linkOffset 0,
-  terminator links to itself), which match only under /O2; I tried six natural spellings, /O1 /Oi and /Os. The code run
-  0x00516D8B-0x00517E39 has no inter-function padding (size-optimised objects). Evidence of file boundaries is thin:
-  Archive.cpp has its allocation tags; nothing else has an assert or tag. D2Hell's .data is one block after one
-  language copy (0x0072F9B4: gpReference read by 0x516DE1, the TMESSAGESOURCE type descriptor used by 0x517669's
-  node allocator, gtMessages read by 0x517804). Proposal: (a) set all D2Hell units to `/O1` now (no joins, flags only;
-  the two ctors keep /O2), which removes eight flag variants; (b) gather only what a shared global or const table ties
-  together. OK to do (a)?
-  Update: one such tie exists. The const pointer gpszModuleName (0x006CC848, planned in Unknown_00517423.cpp) is read
-  by 0x5173EF/0x51740B (Unknown_005173EF), 0x517423 (Unknown_00517423) and 0x517874 (Unknown_00517874), so those three
-  are one file by the const-table rule. With your OK I'd join them under /O1 (all three build equal there).
-- Coordinator: may I take into my files the renderer-run functions that are filed in other lanes' files (as lane 5 did
-  with the Task.cpp locks)? Each sits inside a renderer's address run:
-  - Fog `QServer/QServer.cpp`: 0x006B1C00, 0x006B20A0 (QSERVER_GetFloorCacheSize), 0x006B20B0, 0x006B2F20, 0x006B76C0.
-    QServer's own run is 0x006BE3C0 and up; these five are getters among d3dCore's functions and return d3d globals
-    (0x00970E50, the floor-cache size). They go to d3dCore.cpp and its neighbours.
-  - D2Win `Unknown_006B1BC0.cpp` (0x006B1BC0: frees the d3d floor, subtile and texture caches), between d3dCore's ATL
-    code and its own: to d3dCore.cpp.
-  - D2Client `Unknown_006B2F40.cpp` (0x006B2F40), inside the D2Direct3D run.
-  - D2Win `Unknown_0050F910.cpp`: Glide 0x0050F910, 0x0050FBD0, 0x0050FDF0 and DDraw 0x00510130-0x005103B0 (stubs and
-    DDrawLogError), 0x005137E0 (PlayBinkMovie), all between glBlocks.cpp and ddCore.cpp's code.
-  - D2Win `Unknown_00508970.cpp`: 0x00508970 GlideLoadLibrary, 0x00508F60 GlideCheckBoards, at the head of the Glide run.
-  - Storm `SCMD.CPP`: 12 three- and six-byte stubs 0x006C7CC0-0x006C8A40 inside gdiCore's run.
-  - Bnclient `Unknown_00517520.cpp`, `Unknown_0051752A.cpp`, `Unknown_005175E3.cpp` (0x00517520-0x00517619), inside the
-    unpadded D2Hell run (D2StormList/Record members D2Hell's own pieces use).
+(none open; thanks for the #341 answers.)
 
 ## Notes for other lanes
+- **Lanes 3, 6 and 4 (coordinator's #341 answer):** lane 9 takes these renderer-run functions into its files; please
+  don't edit them meanwhile. Lane 3: Fog `QServer/QServer.cpp` 0x006B1C00, 0x006B20A0, 0x006B20B0, 0x006B2F20,
+  0x006B76C0. Lane 6: D2Win `Unknown_006B1BC0.cpp` (0x006B1BC0). Lane 4: D2Client `Unknown_006B2F40.cpp`
+  (0x006B2F40). One branch, lane9/take-renderer-strays; I'll post it here.
 - Coordinator: the 264 B + 32 B still copied at 0x006CC618/0x006CC75C (borrowed-data.md lists them "between - and
   D2Hell/Unknown_00517423.cpp") are not D2Hell's: 0x006CC618 is a table of initializer pointers into 0x006CA700-
   0x006CB050, i.e. the CRT's .CRT$XCU list; they belong with the CRT/initializer work (lane 3 or you).
