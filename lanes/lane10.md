@@ -5,9 +5,10 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Claimed
-- D2Client UI/editbox.cpp (next), then D2Game, D2CMP, D2Common, the rest.
+- D2Game (next), then D2CMP, D2Common, the rest.
 
 ## Plans
+- plan d2client-editbox: 0 high, 0 medium, 96 skipped. editbox.cpp holds only virtual members of the Button/EditBox/Spinner control classes (vtable slots, wrappers, ctors/dtors) plus identical forwarders; all wait on the member-function question. Only the skipped list is posted (no plan file).
 - plan d2client-ui: 60 high, 26 medium, 96 skipped (d2moo 0, inferred 86). D2Client UI/ except editbox.cpp (ui, automap, CmdTbl, inv, chat, Hireables, panel, text, spellsel, npcmenu, useitem, SkillDesc). Point-in-rect tests on unnamed rectangles, numbered panel-mode tests and near-identical callback pairs are skipped.
 - plan d2client-units: 35 high, 30 medium, 82 skipped (d2moo 0, inferred 65). D2Client UNIT, ENGINE, SKILLS, DRAW, WARDEN, Sound, CORE (everything outside GAME/ and UI/). Client-AI routines, unexplained flag testers and D2Common-ordinal forwarders are skipped.
 - plan d2client-game: 38 high, 25 medium, 111 skipped (d2moo 0, inferred 63). D2Client GAME/ (Game, SCmd, View, Select, Msg, RosterPets, Roster, Wall2). Prefixes as the files use (GAME_, SCMD_Handle…, VIEW_, MSG_Send…, ROSTERPETS_, WALL2_); SELECT_ for Select.cpp. Many skips are list/array template members and empty stubs.
