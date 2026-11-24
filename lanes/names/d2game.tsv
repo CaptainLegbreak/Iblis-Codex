@@ -1,0 +1,92 @@
+va	old_name	new_name	source	file	confidence	reason
+0x0052C280	sub_0052C280_InitGameSeed	GAME_InitGameSeed	inferred	Source/D2Game/GAME/Game.cpp	high	initialises a game's seed from the performance counter or the fixed init seed
+0x00534800	sub_00534800_CreatePlayerIntros	PLAYER_CreatePlayerIntros	inferred	Source/D2Game/PLAYER/Player.cpp	high	creates the player's three intro records and clears the bought item id
+0x005377B0	sub_005377B0_CountFlaggedClients	CLIENTS_GetExpansionClientCount	d2moo	Source/D2Game/GAME/Clients.cpp	high	D2MOO 1.14d 0x005377B0; counts the clients with the expansion flag under the client-list lock
+0x0053A280	sub_0053A280_GetDeadTargetUnit	CLIENTS_GetDeadTargetUnit	inferred	Source/D2Game/GAME/Clients.cpp	high	returns the client's dead target unit if it is in the client's rooms
+0x0053A500	sub_0053A500_UpdateUnitForClient	LEVEL_UpdateUnitForClient	inferred	Source/D2Game/GAME/Level.cpp	high	sends a changed unit's update to a client
+0x0053A5D0	sub_0053A5D0_UpdateRoomUnitsForClient	LEVEL_UpdateRoomUnitsForClient	inferred	Source/D2Game/GAME/Level.cpp	high	sends a room's changed units to a client
+0x0053B090	sub_0053B090_CountActRooms	LEVEL_CountActRooms	inferred	Source/D2Game/GAME/Level.cpp	high	counts an act's active rooms
+0x0053B0E0	sub_0053B0E0_WriteVarLength	SCMD_WriteVariableValue	inferred	Source/D2Game/GAME/SCmd.cpp	high	writes a value as 8, 16 or 32 bits with prefix bits; (also spelled sub_0053B0E0_WriteVariableValue)
+0x0053B140	sub_0053B140_WriteVarLength16	SCMD_WriteVariableWord	inferred	Source/D2Game/GAME/SCmd.cpp	medium	writes a 16-bit value as 8 or 16 bits with a prefix bit
+0x0053B180	sub_0053B180_GetMonsterDataField3C	SCMD_GetMonsterOwnerGuidPtr	inferred	Source/D2Game/GAME/SCmd.cpp	medium	returns the address of a monster's owner GUID
+0x0053B1A0	sub_0053B1A0_SendToClient	SCMD_SendToClient	inferred	Source/D2Game/GAME/SCmd.cpp	high	sends a packet to a client id; (also spelled sub_M121_Emit_0053B1A0)
+0x00547390	sub_00547390	OBJRGN_IncreaseHealingShrineCount	d2moo	Source/D2Game/OBJECTS/objrgn.cpp	medium	D2MOO 1.14d 0x00547390; increments a count in an object-region entry; (also spelled Entry00547390, Obj00547390, sub_00547390_Increment)
+0x005475E0	sub_005475E0_SelectMonsters	MONSTERREGION_SelectMonsters	inferred	Source/D2Game/MONSTER/MonsterRegion.cpp	high	chooses the region's monster classes from the level's list
+0x00554100	sub_00554100	SUNIT_GetInteractInfo	d2moo	Source/D2Game/UNIT/SUnit.cpp	medium	D2MOO 1.14d 0x00554100; returns three interact fields of a unit (0x64, 0x68, 0x6C); (also spelled Obj00554100)
+0x00555C90	sub_00555C90_GetTableRow	SUNIT_GetItemTypesTxtRecord	inferred	Source/D2Game/UNIT/SUnit.cpp	high	returns the ItemTypes.txt record for an index; SUnit.cpp's copy of what D2MOO calls DATATBLS_GetItemTypesTxtRecord; (also spelled sub_00555C90_GetItemTypesTxtRecord)
+0x005645E0	sub_005645E0_TASK_ProcessGame	TASK_RunGameUpdate	inferred	Source/D2Game/GAME/Task_005645E0.cpp	medium	locks a game, updates it and records the sync time; TASK_ProcessGame (0x00564C70, d2moo) asserts the task type and calls it. D2MOO's 1.14d note puts TASK_ProcessGame here, but names.csv already has it at 0x00564C70; (also spelled sub_005645E0_IsEmptyGameExpired)
+0x00572330	sub_00572330_GetNpcIndex	PLRINTRO_GetNpcIndex	inferred	Source/D2Game/PLAYER/PlrIntro.cpp	high	maps an NPC class id to its intro index
+0x005734C0	sub_005734C0	MONSTER_SetAiState	d2moo	Source/D2Game/MONSTER/Monster.cpp	high	D2MOO 1.14d 0x005734C0; sets monster data field 0x54; (also spelled Unit005734C0)
+0x005734E0	sub_005734E0	MONSTER_GetAiState	d2moo	Source/D2Game/MONSTER/Monster.cpp	high	D2MOO 1.14d 0x005734E0; returns monster data field 0x54; (also spelled Unit005734E0)
+0x00573500	sub_00573500	MONSTER_SetLevelId	d2moo	Source/D2Game/MONSTER/Monster.cpp	high	D2MOO 1.14d 0x00573500; sets monster data field 0x58; (also spelled Unit00573500)
+0x00573520	sub_00573520	MONSTER_GetLevelId	d2moo	Source/D2Game/MONSTER/Monster.cpp	high	D2MOO 1.14d 0x00573520; returns monster data field 0x58; (also spelled Unit00573520, sub_00573520_GetLevelIdFromUnit)
+0x00573540	sub_00573540	MONSTER_CheckSummonerFlag	d2moo	Source/D2Game/MONSTER/Monster.cpp	high	D2MOO 1.14d 0x00573540; tests bits of monster data field 0x5C; (also spelled Unit00573540)
+0x00573570	sub_00573570	MONSTER_ToggleSummonerFlag	d2moo	Source/D2Game/MONSTER/Monster.cpp	high	D2MOO 1.14d 0x00573570; sets or clears bits of monster data field 0x5C; (also spelled Unit00573570)
+0x0057DCA0	sub_0057DCA0_GetWieldedTypeStatMax	SUNITDMG_GetWeaponBlock	d2moo	Source/D2Game/UNIT/SUnitDmg.cpp	high	D2MOO 1.14d 0x0057DCA0; best passive weapon-block stat for the wielded item types; (also spelled sub_0057DCA0_Emit)
+0x005811D0	sub_005811D0_CheckPlayerMode	PLRMODE_EventModeUpdate	d2moo	Source/D2Game/PLAYER/PlrModes.cpp	high	D2MOO 1.14d 0x005811D0; runs the mode's check function and ends the animation when it says so; in data_plan.json
+0x0058AF00	sub_0058AF00_GetQuestStatus	ACT5Q4_StatusFilterCallback	d2moo	Source/D2Game/Quests/a5q4.cpp	high	D2MOO 1.14d 0x0058AF00; quest-status filter for quest flag 38 (A5Q4)
+0x0058D940	sub_0058D940_Callback11_ScrollMessage	ACT5Q6_Callback11_ScrollMessage	d2moo	Source/D2Game/Quests/a5q6.cpp	high	D2MOO 1.14d 0x0058D940; scroll-message callback (message 20178)
+0x0058D9F0	sub_0058D9F0	ACT5Q6_Callback00_NpcActivate	d2moo	Source/D2Game/Quests/a5q6.cpp	high	D2MOO 1.14d 0x0058D9F0; the source already defines it under this name at this address
+0x0058EE80	sub_0058EE80	AIGENERAL_GetCurrentAiCommandFromUnit	d2moo	Source/D2Game/Ai/AiGeneral.cpp	high	D2MOO 1.14d 0x0058EE80; returns the AI control's current command; (also spelled Unit0058EE80)
+0x0058F000	sub_0058F000	AIGENERAL_GetMapAiFromUnit	d2moo	Source/D2Game/Ai/AiGeneral.cpp	high	D2MOO 1.14d 0x0058F000; returns the AI control's map-AI field address; (also spelled Unit0058F000)
+0x00590810	sub_00590810	ACT1Q1_CanClientFXBeTriggered	d2moo	Source/D2Game/Quests/a1q2.cpp	medium	D2MOO 1.14d 0x00590810, in its A1Q1.cpp; here it is the first function of a1q2.cpp, right after a1q1.cpp's last (0x00590720): see note for lane 5; (also spelled Obj00590810)
+0x00590890	sub_00590890_SyncQuest2	ACT1Q2_UnitIterate_UpdateQuestStateFlags	d2moo	Source/D2Game/Quests/a1q2.cpp	high	D2MOO 1.14d 0x00590890; per-player quest 2 state sync
+0x00591340	sub_00591340_UpdateQuestFlags	ACT1Q3_UnitIterate_UpdateQuestStateFlags	d2moo	Source/D2Game/Quests/a1q3.cpp	high	D2MOO 1.14d 0x00591340; per-player quest 3 state sync
+0x00593E10	sub_00593E10_SetQuestCompleteBefore	ACT1Q4_SetQuestCompleteBefore	inferred	Source/D2Game/Quests/a1q4.cpp	high	sets A1Q4's "quest completed before" flag
+0x00593F60	sub_00593F60_SetUnk52	ACT1Q4_SetCainInTownSpawnPending	inferred	Source/D2Game/Quests/a1q4.cpp	high	sets A1Q4's "spawn Cain in town" flag
+0x00593F80	sub_00593F80_GetCainNotCreated	ACT1Q4_IsCainNotCreated	inferred	Source/D2Game/Quests/a1q4.cpp	high	returns A1Q4's "Cain not created" flag
+0x00599510	sub_00599510	ACT2Q2_ShouldUpdateQuestStatus	d2moo	Source/D2Game/Quests/a2q2.cpp	high	D2MOO 1.14d 0x00599510; tells from the A2Q2 flags whether the status should update
+0x00599570	sub_00599570_ACT2Q2_CycleStatusIfDone	ACT2Q2_CycleStatusIfDone	inferred	Source/D2Game/Quests/a2q2.cpp	high	cycles the A2Q2 status for a player when ShouldUpdateQuestStatus says so
+0x0059C6B0	sub_0059C6B0_RemovePlayerGUID	ACT2Q6_RemovePlayerGUID	inferred	Source/D2Game/Quests/a2q6.cpp	medium	quest callback forwarding to QUESTS_RemovePlayerGUID; (also spelled sub_0059C6B0)
+0x0059F510	sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked	ACT2Q4_IsJerhynPalaceBlocked	inferred	Source/D2Game/Quests/a2q4.cpp	medium	returns 1 while the palace quest data is missing or not yet past its first states (the hint's name); D2MOO's 1.14d note gives it ACT2Q4_IsJerhynPalaceActivated, which names.csv already has at 0x0059F570
+0x0059F900	sub_0059F900_ApplyMissileDamage	MISSILES_ApplyMissileDamage	inferred	Source/D2Game/MISSILES/Missiles.cpp	high	computes and stores a missile's damage from its owner's stats
+0x0059F940	sub_0059F940_RollMissilePierce	MISSILES_RollMissilePierce	inferred	Source/D2Game/MISSILES/Missiles.cpp	high	applies the owner's pierce chance to a missile
+0x005A0030	sub_005A0030_GetMonLvlTxtRecordCount	MONSTERUNIQUE_GetMonLvlTxtRecordCount	inferred	Source/D2Game/MONSTER/MonsterUnique.cpp	high	returns the MonLvl.txt record count
+0x005A0060	sub_005A0060_GetMonUModTxtRecordCount	MONSTERUNIQUE_GetMonUModTxtRecordCount	inferred	Source/D2Game/MONSTER/MonsterUnique.cpp	high	returns the MonUMod.txt record count
+0x005A0070	sub_005A0070_MONSTERUNIQUE_CheckMonType	MONSTERUNIQUE_CheckMonTypeNest	d2moo	Source/D2Game/MONSTER/MonsterUnique.cpp	high	D2MOO 1.14d 0x005A0070; tests a monster's type against the MonType nest bits; (also spelled sub_005A0070)
+0x005A00F0	sub_005A00F0_GetMonUModConstant	MONSTERUNIQUE_GetMonUModConstant	inferred	Source/D2Game/MONSTER/MonsterUnique.cpp	high	returns a MonUMod.txt record's constant
+0x005A0120	sub_005A0120	MONSTERUNIQUE_GetUMods	d2moo	Source/D2Game/MONSTER/MonsterUnique.cpp	high	D2MOO 1.14d 0x005A0120; the source already defines it under this name at this address
+0x005A0180	sub_005A0180	MONSTERUNIQUE_CheckMonTypeFlag	d2moo	Source/D2Game/MONSTER/MonsterUnique.cpp	high	D2MOO 1.14d 0x005A0180; tests bits of monster data field 0x16; (also spelled Unit005A0180, sub_005A0180_CheckMonsterFlag, sub_005A0180_HasMask, sub_005A0180_TestMonType)
+0x005A01E0	sub_005A01E0	MONSTERUNIQUE_GetBossHcIdx	d2moo	Source/D2Game/MONSTER/MonsterUnique.cpp	high	D2MOO 1.14d 0x005A01E0; the source already defines it under this name at this address; (also spelled Unit005A01E0)
+0x005A0220	sub_005A0220_GetMonsterField18	MONSTERUNIQUE_GetDurielFlag	inferred	Source/D2Game/MONSTER/MonsterUnique.cpp	medium	returns a monster's Duriel flag; (also spelled sub_M117_Emit_005A0220)
+0x005A0240	sub_005A0240_SetMonsterField18	MONSTERUNIQUE_SetDurielFlag	inferred	Source/D2Game/MONSTER/MonsterUnique.cpp	medium	sets a monster's Duriel flag
+0x005A0260	sub_005A0260	MONSTERUNIQUE_GetUModCount	d2moo	Source/D2Game/MONSTER/MonsterUnique.cpp	high	D2MOO 1.14d 0x005A0260; the source already defines it under this name at this address
+0x005A0380	sub_005A0380_HasMonsterFlag	MONSTERUNIQUE_HasUMods	d2moo	Source/D2Game/MONSTER/MonsterUnique.cpp	high	D2MOO 1.14d 0x005A0380; tells whether a monster has any unique modifier
+0x005A0930	sub_005A0930_TransferUMods	MONSTERUNIQUE_TransferUMods	inferred	Source/D2Game/MONSTER/MonsterUnique.cpp	high	copies an owner's unique modifiers to a minion
+0x005A0D20	sub_005A0D20_AddLifePercent	MONSTERUNIQUE_AddLifePercent	inferred	Source/D2Game/MONSTER/MonsterUnique.cpp	high	raises a monster's max life by a percentage (overflow-safe)
+0x005A0E40	sub_005A0E40_IncreaseMonsterLevelAndExperience	MONSTERUNIQUE_UMod4_LevelBonus	d2moo	Source/D2Game/MONSTER/MonsterUnique.cpp	high	D2MOO 1.14d 0x005A0E40; +3 levels and 5x experience (the file's UModN names); in data_plan.json
+0x005A0E80	sub_005A0E80_ApplyMonsterPenalty	MONSTERUNIQUE_UMod16_Champion	d2moo	Source/D2Game/MONSTER/MonsterUnique.cpp	high	D2MOO 1.14d 0x005A0E80; champion modifier; in data_plan.json
+0x005A4230	sub_6FC6E730	MONSTERUNIQUE_UpdateAiAndScheduleUModEvent	d2moo	Source/D2Game/MONSTER/MonsterUnique.cpp	high	D2MOO 1.14d 0x005A4230; updates the AI callback and schedules the UMod event 75 frames on; in data_plan.json
+0x005A4370	sub_005A4370	MONSTERUNIQUE_EventExecuteUModCallbacks	d2moo	Source/D2Game/MONSTER/MonsterUnique.cpp	high	D2MOO 1.14d 0x005A4370; runs the type-2 UMod callbacks; in data_plan.json
+0x005A43A0	sub_6FC6E8A0	MONSTERUNIQUE_ExecuteUModDamagedCallbacks	d2moo	Source/D2Game/MONSTER/MonsterUnique.cpp	high	D2MOO 1.14d 0x005A43A0; runs the type-4 (damaged) UMod callbacks
+0x005A43B0	sub_005A43B0_OwnerMissileHook	MONSTERUNIQUE_ExecuteUModMissileCallbacks	d2moo	Source/D2Game/MONSTER/MonsterUnique.cpp	high	D2MOO 1.14d 0x005A43B0; runs the type-5 (missile) UMod callbacks
+0x005A46E0	sub_6FC6FDC0	MONSTERUNIQUE_RestoreMinion	d2moo	Source/D2Game/MONSTER/MonsterUnique.cpp	high	D2MOO 1.14d 0x005A46E0; respawns a minion with its old unit id
+0x005A8490	sub_6FC64480	MONSTERMODE_UpdateWalk	d2moo	Source/D2Game/MONSTER/MonsterMode.cpp	high	D2MOO 1.14d 0x005A8490; walk mode update (Blaze/Spider Lay trails, path step)
+0x005A84F0	sub_6FC64510	MONSTERMODE_UpdateRun	d2moo	Source/D2Game/MONSTER/MonsterMode.cpp	high	D2MOO 1.14d 0x005A84F0; run mode update
+0x005A8520	sub_6FC64CD0	MONSTERMODE_EndKnockback	d2moo	Source/D2Game/MONSTER/MonsterMode.cpp	high	D2MOO 1.14d 0x005A8520; ends a knockback
+0x005A8630	sub_6FC64E20	MONSTERMODE_UpdateKnockback	d2moo	Source/D2Game/MONSTER/MonsterMode.cpp	high	D2MOO 1.14d 0x005A8630; knockback mode update
+0x005B1B70	sub_005B1B70_FreeAllTargetNodes	TARGETS_FreeAllTargetNodes	inferred	Source/D2Game/GAME/Targets.cpp	high	frees every target node of a game
+0x005B1BC0	sub_005B1BC0_FindTargetNode	TARGETS_FindTargetNode	inferred	Source/D2Game/GAME/Targets.cpp	high	finds a unit's target node
+0x005B1C00	sub_005B1C00_ToggleTargetFlags	TARGETS_ToggleTargetFlags	inferred	Source/D2Game/GAME/Targets.cpp	high	sets or clears flags on a unit's target node
+0x005B6710	sub_005B6710_DropHellforgeReward	ACT4Q3_CreateReward	d2moo	Source/D2Game/Quests/a4q3.cpp	high	D2MOO 1.14d 0x005B6710; drops the Hellforge reward
+0x005B6C60	sub_005B6C60_UpdateQuest	ACT3Intro_Callback11_ScrollMessage	d2moo	Source/D2Game/Quests/a3q0.cpp	high	D2MOO 1.14d 0x005B6C60; act 3 intro scroll-message callback (a3q0.cpp already uses ACT3Intro_ names)
+0x005B7120	sub_005B7120_GetHratliEndCoords	ACT3Q1_GetHratliEndCoords	inferred	Source/D2Game/Quests/a3q1.cpp	medium	returns Hratli's end coordinates from the act 3 intro data
+0x005B7310	sub_005B7310	ACT3Q1_InitTomeObject	inferred	Source/D2Game/Quests/a3q1.cpp	medium	object init: sets the tome object's mode from the quest state
+0x005B8500	sub_005B8500_IsSewerStairsClosed	ACT3Q2_IsSewerStairsClosed	inferred	Source/D2Game/Quests/a3q2.cpp	high	tells whether the sewer stairs are closed
+0x005B8B00	sub_005B8B00_AddFlailsDropped	ACT3Q2_AddFlailsDropped	inferred	Source/D2Game/Quests/a3q2.cpp	high	adds to the dropped-flail count
+0x005B8C50	sub_005B8C50_QuestCallback	ACT3Q3_Callback02_NpcDeactivate	d2moo	Source/D2Game/Quests/a3q3.cpp	high	D2MOO 1.14d 0x005B8C50; NPC-deactivate callback (Hratli)
+0x005BAFD0	sub_005BAFD0	ACT3Q5_Callback00_NpcActivate	d2moo	Source/D2Game/Quests/a3q5.cpp	high	D2MOO 1.14d 0x005BAFD0; the source already defines it under this name at this address
+0x005BCF60	sub_005BCF60_ACT3Q6_UpdatePlayerStatus	ACT3Q6_UpdatePlayerStatus	inferred	Source/D2Game/Quests/a3q6.cpp	high	saves or restores the A3Q6 status (the hint already says ACT3Q6_UpdatePlayerStatus)
+0x005BD390	sub_005BD390	ACT3Q7_SpawnVileDogs	d2moo	Source/D2Game/Quests/a3q7.cpp	high	D2MOO 1.14d 0x005BD390; spawns the vile dogs once
+0x005CA3E0	sub_005CA3E0	SKILLS_SrvDo028_Meteor_Blizzard_Eruption_BaalTaunt_Catapult	d2moo	Source/D2Game/SKILLS/SkillSor.cpp	high	D2MOO 1.14d 0x005CA3E0 (the file's SrvDoNNN names); in data_plan.json
+0x005CA470	sub_005CA470_CreateThunderStormBolt	SKILLS_CreateThunderStormBolt	inferred	Source/D2Game/SKILLS/SkillSor.cpp	high	creates a Thunder Storm bolt at a target outside town
+0x005D1E10	sub_005D1E10_Transform	SKILLS_ApplyShapeshift	inferred	Source/D2Game/SKILLS/SkillDruid.cpp	medium	druid skill helper: selects the shapeshift form and applies it to the target
+0x005DB410	sub_005DB410_CreateMissileWall	SKILLS_SrvDo008_MultipleShot_Teeth_ShockWave	d2moo	Source/D2Game/SKILLS/SkillAma.cpp	high	D2MOO 1.14d 0x005DB410; in data_plan.json
+0x005DBA40	sub_005DBA40_CreateSkillMissile	SKILLS_SrvDo012_Strafe	d2moo	Source/D2Game/SKILLS/SkillAma.cpp	high	D2MOO 1.14d 0x005DBA40; in data_plan.json
+0x005DC000	sub_005DC000_SrvDoSummonPet	SKILLS_SrvDo015_Dopplezon	d2moo	Source/D2Game/SKILLS/SkillAma.cpp	high	D2MOO 1.14d 0x005DC000; in data_plan.json
+0x005DD280	sub_005DD280	AIUTIL_GetLifePercentage	inferred	Source/D2Game/Ai/AiUtil.cpp	medium	returns a unit's current life percentage
+0x005DE190	sub_005DE190_SetAiParam	AITACTICS_SetVelocity	d2moo	Source/D2Game/Ai/AiTatics.cpp	high	D2MOO 1.14d 0x005DE190; sets an AI velocity parameter (asserts the range)
+0x005DF2A0	sub_005DF2A0_WalkAway	AITACTICS_WalkAway	inferred	Source/D2Game/Ai/AiTatics.cpp	high	walks a monster away from a target
+0x005EE260	sub_005EE260_Think	AITHINK_Fn130_DeathMauler	d2moo	Source/D2Game/Ai/AiThink4.cpp	high	D2MOO 1.14d 0x005EE260 (the file's FnNNN names); in data_plan.json
+0x005F7F10	sub_005F7F10_SpawnRandomMinion	AITHINK_SpawnUberMephistoMinion	d2moo	Source/D2Game/Ai/AiThink4.cpp	high	D2MOO 1.14d 0x005F7F10; spawns one of monsters 725-730
+0x005FB650	sub_005FB650_GetTrapArrowVariant	AITHINK_GetTrapArrowVariant	inferred	Source/D2Game/Ai/AiThink4.cpp	high	returns (rolling once) the trap-arrow variant of the unit's level region

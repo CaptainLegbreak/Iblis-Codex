@@ -1,0 +1,88 @@
+va	old_name	file	reason
+0x00520650	sub_00520650	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x00520C40	sub_00520C40	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x005210E0	sub_005210E0	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0052B270	sub_0052B270	Source/D2Game/ITEMS/ItemMode.cpp	forwards to Fog ordinal 10180, whose meaning is unknown
+0x0052B6F0	sub_0052B6F0	Source/D2Game/ITEMS/ItemMode.cpp	forwards to Fog ordinal 10182, whose meaning is unknown
+0x0052BDC0	sub_0052BDC0	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0052BEC0	sub_0052BEC0	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0052BF30	sub_0052BF30	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0052BF40	sub_0052BF40_Stub	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0052BF50	sub_0052BF50	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0052BF60	sub_0052BF60	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0052BF70	sub_0052BF70	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0052BF80	sub_0052BF80_ZeroBlock8	Source/D2Game/GAME/Game.cpp	zeroes an 8-byte record: constructor body; in data_plan.json
+0x0052BF90	sub_0052BF90	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0052BFA0	sub_0052BFA0	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0052BFB0	sub_0052BFB0_Stub	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0052DAF0	sub_0052DAF0	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0052DC10	sub_0052DC10	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0052E070	sub_0052E070	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0052E080	sub_0052E080	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0052E090	sub_00646000_AlwaysZero	Source/D2Game/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0052E0F0	sub_0052E0F0_IsOpen	Source/D2Game/OBJECTS/Objects.cpp	record member (file is open); member names, see the member-function question; (also spelled R0052E0F0)
+0x0052E100	sub_00416800_LinkRawNext	Source/D2Game/GAME/Game.cpp	TSLink raw-next copy, defined in the source as DRLGPRESET_GetLinkRawNext; template member
+0x0052E5B0	sub_0052E5B0	Source/D2Game/GAME/Game.cpp	TSHashTable member instance (unlink and delete); template member
+0x0052E650	sub_0052E650_Ptr	Source/D2Game/GAME/Game.cpp	TSHashTable Ptr member instance (D2MOO's D2GameDataTable_Ptr is its template helper); template member
+0x0052E6B0	sub_0052E6B0	Source/D2Game/GAME/Game.cpp	TSHashTable member instance (find by hash); template member
+0x00530820	sub_00530820_New	Source/D2Game/GAME/Game.cpp	TSHashTable New member instance (D2MOO's D2GameDataTable_New); template member
+0x00532580	sub_00532580_Empty	Source/D2Game/PLAYER/PlrSave.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x005347B0	sub_005347B0_Stub5	Source/D2Game/DEBUG/Debug.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x005347C0	sub_005347C0_Stub6	Source/D2Game/DEBUG/Debug.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x005347D0	sub_005347D0_Stub9	Source/D2Game/DEBUG/Debug.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_005347D0_Report)
+0x005347E0	sub_005347E0_Stub5	Source/D2Game/DEBUG/Debug.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_005347E0_ReportAbsorb)
+0x005383B0	sub_005383B0	Source/D2Game/GAME/Clients.cpp	returns an unnamed client byte (0x1AD)
+0x005383E0	sub_005383E0	Source/D2Game/GAME/Clients.cpp	sets an unnamed client byte (0x1AD)
+0x005385D0	sub_005385D0	Source/D2Game/GAME/Clients.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x005385E0	sub_005385E0	Source/D2Game/GAME/Clients.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0053B210	sub_0057F070_PLRMODE_ModeCheck_Death	Source/D2Game/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0053BBC0	sub_0053BBC0	Source/D2Game/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0053BBD0	sub_0053BBD0	Source/D2Game/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0053BBE0	sub_0053BBE0	Source/D2Game/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0053BBF0	sub_0053BBF0	Source/D2Game/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0053BC00	sub_0053BC00	Source/D2Game/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0053C730	sub_0053C730	Source/D2Game/GAME/SCmd.cpp	empty function with three arguments
+0x0053C740	sub_0053C740	Source/D2Game/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0053FE00	sub_0053FE00_TestArenaFlag40	Source/D2Game/GAME/Arena.cpp	tests an arena flag (0x40) whose meaning is unknown
+0x0053FE40	sub_0053FE40_TestArenaFlag80	Source/D2Game/GAME/Arena.cpp	tests an arena flag (0x80) whose meaning is unknown
+0x0053FED0	sub_0053FED0_TestArenaFlag200	Source/D2Game/GAME/Arena.cpp	tests an arena flag (0x200) whose meaning is unknown
+0x0054FB30	sub_0054FB30_Nop	Source/D2Game/OBJECTS/Objects.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00558990	sub_00558990_Nop	Source/D2Game/ITEMS/Items.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0055D920	sub_0055D920_Nop	Source/D2Game/ITEMS/ItemMode.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0055D930	sub_0055D930	Source/D2Game/ITEMS/ItemMode.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0055E9A0	sub_0055E9A0	Source/D2Game/ITEMS/ItemMode.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0055F4F0	sub_0055F4F0	Source/D2Game/ITEMS/ItemMode.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x005641C0	sub_005641C0_Init	Source/D2Game/GAME/Task.cpp	list head initialiser: constructor body
+0x005641E0	sub_005641E0_Identity	Source/D2Game/GAME/Task.cpp	returns the link of a record (an inline conversion)
+0x00564870	sub_00564870_TASK_InitializeClock	Source/D2Game/GAME/Task.cpp	identical copy of TASK_InitializeClock (0x00564320): same QueryPerformanceFrequency body
+0x00564CA0	sub_00564CA0	Source/D2Game/ITEMS/ItemMode.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00564CB0	sub_00564CB0_Nop	Source/D2Game/PLAYER/PlrTrade.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00568DB0	sub_00568DB0	Source/D2Game/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00570680	sub_00570680	Source/D2Game/GAME/SCmd.cpp	returns 5; purpose unknown
+0x00570690	sub_00570690	Source/D2Game/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x005776E0	sub_005776E0	Source/D2Game/UNIT/SUNITNPC.CPP	forwards to an unnamed function
+0x0058A9D0	sub_0058A9D0_GetQuestFlagAF	Source/D2Game/Quests/a5q3.cpp	tests an unnamed quest field (0xAF)
+0x0058CFD0	sub_0058CFD0_Nop	Source/D2Game/Quests/a5q5.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0058CFD0)
+0x005946D0	sub_005946D0_SetA1Q4Unk0xB0	Source/D2Game/Quests/a1q4.cpp	sets an unnamed A1Q4 field (0xB0)
+0x00596BA0	sub_00596BA0_EmptyCallback	Source/D2Game/Quests/a1q6.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x005A0160	sub_005A0160	Source/D2Game/MONSTER/MonsterUnique.cpp	sets an unnamed monster data word (0x14)
+0x005A0200	sub_005A0200	Source/D2Game/MONSTER/MonsterUnique.cpp	sets an unnamed monster data word (0x26); (also spelled Unit005A0200)
+0x005A6220	sub_005A6220	Source/D2Game/MONSTER/MonsterMode.cpp	returns an unnamed field (0x10); (also spelled FieldStrc_005A6220)
+0x005B0CC0	sub_005B0CC0	Source/D2Game/Ai/AiThink.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x005B72A0	sub_005B72A0	Source/D2Game/Quests/a3q1.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x005B7FE0	sub_005B7FE0_Nop	Source/D2Game/Quests/a3q2.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_005B7FE0_EmptyCallback)
+0x005B8740	sub_005B8740	Source/D2Game/Quests/a3q2.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x005BDB10	sub_005BDB10_Return	Source/D2Game/Quests/a3q2.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x005C2FE0	sub_005C2FE0	Source/D2Game/SKILLS/SkillItem.cpp	returns 43; purpose unknown
+0x005DCF70	sub_005DCF70_FindTargetInAdjacentActiveRooms	Source/D2Game/Ai/AiUtil.cpp	D2MOO's 1.14d name for it, AIUTIL_FindTargetInAdjacentActiveRooms, is already defined for another function in AiUtil.cpp; the two need comparing before either is renamed
+0x005E5270	sub_005E5270	Source/D2Game/Ai/AiThink4.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x005EDC40	sub_005EDC40	Source/D2Game/Ai/AiThink4.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x005EE5C0	sub_005EE5C0	Source/D2Game/Ai/AiThink4.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x005EF310	sub_005EF310	Source/D2Game/Ai/AiThink4.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x005F2460	sub_005F2460_AiThink	Source/D2Game/Ai/AiThink4.cpp	monster AI think function; which AI it is is not known; in data_plan.json
+0x006CAF30	sub_006CAF30_SnapshotCounters	Source/D2Game/OBJECTS/Objects.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgaCoordInit@@YAXXZ]; named by its template; in // build: symbol
+0x006CAF60	sub_006CAF60_InitStartTick	Source/D2Game/UNIT/SUnit.cpp	compiler-generated dynamic initializer of gnUnitInitSeed_008846E8 (GetTickCount); in // build: symbol
+0x006CAF70	sub_006CAF70_InitializeLock	Source/D2Game/GAME/Task.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgTaskSlotsCriticalSection@@YAXXZ]; named by its template; in // build: symbol
+0x006CAF90	sub_006CAF90_InitializeArray	Source/D2Game/GAME/Task.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgtTaskQueuesCriticalSections@@YAXXZ]; named by its template; in // build: symbol
+0x006CB490	sub_006CB490_DestroyLock	Source/D2Game/GAME/Task.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__FgTaskSlotsCriticalSection@@YAXXZ]; named by its template; in // build: symbol
+0x006CB4A0	sub_006CB4A0_DestroyCriticalSections	Source/D2Game/GAME/Task.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__FgtTaskQueuesCriticalSections@@YAXXZ]; named by its template; in // build: symbol
