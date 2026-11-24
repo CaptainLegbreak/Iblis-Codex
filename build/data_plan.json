@@ -1335,7 +1335,7 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/Monster.cpp": {
-   "bytes": 832,
+   "bytes": 772,
    "definitions": 10,
    "externs": [],
    "fn_types": {},
@@ -1371,8 +1371,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/npcmenu.cpp": {
-   "bytes": 7791,
-   "definitions": 103,
+   "bytes": 7851,
+   "definitions": 104,
    "externs": [
     "extern \"C\" void __cdecl sub_004B6C70_OpenNpcMenu(); // 0x004B6C70",
     "extern \"C\" void __cdecl sub_004B6DA0_InitHandler(); // 0x004B6DA0"
@@ -57325,9 +57325,26 @@
    "fwd": "extern \"C\" struct d2data_00725340_t gData_00725340; // 0x00725340",
    "head": "extern \"C\" struct d2data_00725340_t gData_00725340 = ",
    "name": "gData_00725340",
+   "pointers": [],
+   "region": "data",
+   "size": 96,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00725340_t\n{\n    unsigned char b0[96];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00725340",
+   "va": "0x00725340"
+  },
+  {
+   "alias": false,
+   "cname": "gData_007253A0",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/UI/npcmenu.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_007253A0_t gData_007253A0; // 0x007253A0",
+   "head": "extern \"C\" struct d2data_007253A0_t gData_007253A0 = ",
+   "name": "gData_007253A0",
    "pointers": [
     [
-     96,
+     0,
      "0x006CC81C",
      "literal",
      null,
@@ -57335,7 +57352,7 @@
      "string"
     ],
     [
-     100,
+     4,
      "0x006CC814",
      "literal",
      null,
@@ -57343,7 +57360,7 @@
      "string"
     ],
     [
-     104,
+     8,
      "0x006CC80C",
      "literal",
      null,
@@ -57351,7 +57368,7 @@
      "string"
     ],
     [
-     108,
+     12,
      "0x006CC804",
      "literal",
      null,
@@ -57359,7 +57376,7 @@
      "string"
     ],
     [
-     112,
+     16,
      "0x006CC7F8",
      "literal",
      null,
@@ -57367,7 +57384,7 @@
      "string"
     ],
     [
-     116,
+     20,
      "0x006CC7F0",
      "literal",
      null,
@@ -57375,7 +57392,7 @@
      "string"
     ],
     [
-     120,
+     24,
      "0x006CC7E4",
      "literal",
      null,
@@ -57383,7 +57400,7 @@
      "string"
     ],
     [
-     124,
+     28,
      "0x006CC7DC",
      "literal",
      null,
@@ -57391,7 +57408,7 @@
      "string"
     ],
     [
-     128,
+     32,
      "0x006CC7C8",
      "literal",
      null,
@@ -57399,7 +57416,7 @@
      "string"
     ],
     [
-     132,
+     36,
      "0x006CC7B4",
      "literal",
      null,
@@ -57407,7 +57424,7 @@
      "string"
     ],
     [
-     136,
+     40,
      "0x006CC7AC",
      "literal",
      null,
@@ -57415,7 +57432,7 @@
      "string"
     ],
     [
-     140,
+     44,
      "0x006CC7A4",
      "literal",
      null,
@@ -57423,7 +57440,7 @@
      "string"
     ],
     [
-     144,
+     48,
      "0x006CC788",
      "literal",
      null,
@@ -57431,7 +57448,7 @@
      "string"
     ],
     [
-     148,
+     52,
      "0x006CC780",
      "literal",
      null,
@@ -57439,7 +57456,7 @@
      "string"
     ],
     [
-     152,
+     56,
      "0x006CC77C",
      "literal",
      null,
@@ -57448,10 +57465,10 @@
     ]
    ],
    "region": "data",
-   "size": 156,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00725340_t\n{\n    unsigned char b0[96];\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    const void* p15;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00725340",
-   "va": "0x00725340"
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_007253A0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x007253A0",
+   "va": "0x007253A0"
   },
   {
    "alias": true,
