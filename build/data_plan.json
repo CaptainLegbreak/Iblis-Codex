@@ -406,8 +406,8 @@
    "state": "included"
   },
   "Source/D2Multi/Src/ComCallback.cpp": {
-   "bytes": 708,
-   "definitions": 11,
+   "bytes": 704,
+   "definitions": 10,
    "externs": [
     "extern \"C\" char gData_0070CD94[]; // 0x0070CD94",
     "extern \"C\" char gpBnetCancelButtonBlankCelFileB[]; // 0x0077BD2C",
@@ -416,7 +416,7 @@
     "extern \"C\" char gData_0070CD84[]; // 0x0070CD84",
     "extern \"C\" char gpPlayerProfileBckgCelFileA[]; // 0x0077BD3C",
     "extern \"C\" char gpPlayerProfileBckgCelFileB[]; // 0x0077BD40",
-    "extern \"C\" void __cdecl sub_00443EF0_OnSelect(); // 0x00443EF0",
+    "extern \"C\" void __cdecl CHATDLG_OnLadderSelect(); // 0x00443EF0",
     "extern \"C\" void __cdecl sub_00443F70_OnRefresh(); // 0x00443F70",
     "extern \"C\" void __cdecl CHARSEL_SubmitProfile(); // 0x00443F80",
     "extern \"C\" void __cdecl CHATDLG_OnChannelDoesNotExist(); // 0x00447700",
