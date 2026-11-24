@@ -65754,6 +65754,20 @@
      "va": "0x0060B1F0",
      "length": 15,
      "name": "?sub_0060B1F0_GetBitPos@D2CmpBitCursorStrc@@QAEHXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2CMP/SRC/Codec.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0060B200",
+     "length": 128
+    },
+    {
+     "va": "0x0060B280",
+     "length": 47
     },
     {
      "va": "0x0060B2B0",
@@ -65771,6 +65785,14 @@
      "name": "?sub_0060B4B0_DccCountCells@@YAXPAUD2DccDirStrc@@@Z"
     },
     {
+     "va": "0x0060B530",
+     "length": 182
+    },
+    {
+     "va": "0x0060B5F0",
+     "length": 65
+    },
+    {
      "va": "0x0060B640",
      "length": 318,
      "name": "?sub_0060B640_BuildColorMaps@@YIXPAUD2CmpByteMapStrc@@PBI0@Z"
@@ -65781,6 +65803,10 @@
      "name": "?sub_0060B780_GetRunBits@@YAHPBE@Z"
     },
     {
+     "va": "0x0060B9A0",
+     "length": 999
+    },
+    {
      "va": "0x0060BD90",
      "length": 29,
      "name": "?sub_0060BD90_RemapRun@@YAXPAUD2CmpByteRunStrc@@PBE@Z"
@@ -65788,13 +65814,7 @@
     {
      "va": "0x0060BDB0",
      "length": 356
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/Codec.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0060BF20",
      "length": 206,
@@ -65814,83 +65834,7 @@
      "va": "0x0060B160",
      "length": 23,
      "name": "?sub_0060B160_Copy@@YGXPAUD2BitBufferInitStrc@@PBU1@@Z"
-    },
-    {
-     "va": "0x0060B5F0",
-     "length": 65
     }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_0060B200.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060B200",
-     "length": 128
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_0060B280.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060B280",
-     "length": 47
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_0060B530.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060B530",
-     "length": 182
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -65901,30 +65845,6 @@
      "va": "0x0060B7B0",
      "length": 483
     }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_0060B9A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060B9A0",
-     "length": 999
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
