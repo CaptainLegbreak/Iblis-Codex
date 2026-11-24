@@ -1,2 +1,2 @@
 placeholder	reason
-D2Launch/Unknown_0042E590.cpp	object map: best D2Launch/Src/CharSel.cpp (score 2; next to it)
+D2Launch/Unknown_0042E590.cpp	object map: best D2Launch/Src/CharSel.cpp (score 2; next to it) | language-table copy at 0x708930 starts its data, so it is an object of its own
