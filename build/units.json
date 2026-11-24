@@ -37403,6 +37403,10 @@
      "name": "?sub_00511FB0_DrawImage@@YIHPAXHHIH0@Z"
     },
     {
+     "va": "0x00512250",
+     "length": 133
+    },
+    {
      "va": "0x005123B0",
      "length": 92,
      "name": "?sub_005123B0_DDrawDebugFillBackBuffer@@YIXHH@Z"
@@ -37427,31 +37431,6 @@
      "va": "0x005121A0",
      "length": 171
     }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_00512250.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00512250",
-     "length": 133
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
