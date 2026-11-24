@@ -4,9 +4,14 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/act1-intro-data f25be0ea 0 placeholders; the language copy 0x7361A0 (planned in a1q6.cpp) starts the act 1 intro object's data: Unknown_0058F870.cpp now includes D2LanguageNames.h and defines gdwA1Q6ChippedGemCodes and gdwA1Q6NormalGemCodes, which sit between the copy, gpAct1IntroNpcMessages and gpAct1Q0NpcMessages; a1q6.cpp keeps its externs. VERIFIED b9a647161379da97e744ace41ed68984494f42fc. Based on main 0b750228, not stacked; touches only D2Game.
 - lane5/itemmode-copy 61e6c74e 0 placeholders; ItemMode.cpp's language copy 0x731FB0 (starts its data, right before gaQuestItemPairs) now comes from D2LanguageNames.h: it lands since #341 took D2Common_11052/11054 and the direction tables out of the file. The planned 60 B record goes. VERIFIED a3e6d8beb0e898179f8365c23f45ce9ac38dd14a. Based on main 0b750228, not stacked; touches only D2Game.
 - lane5/plrmodes-copy 09b4aa40 0 placeholders; SUnitDmg.cpp's last block (0x732BCC, 68 B) is its own 4-byte word, then PlrModes.cpp's language copy (0x732BD0, 8-aligned) and the compiler's padding up to PlrModes.cpp's 8-aligned gpfnModeChecks. Cut at the copy; PlrModes.cpp takes the copy from D2LanguageNames.h. VERIFIED 9aa6b7fe16288df83428d7c01fd1d318ed98ea12. Based on main 0b750228, not stacked.
 - lane5/missmode-join-2 6c994334 562->561 placeholders (one less on top of whatever else lands); MISSMODE_GetDamageValue (MissMode_005A8C70.cpp) joins MissMode.cpp: its placeholder carried a copy of MissMode.cpp's static MISSMODE_RollDamageValue with the last two parameters swapped (max, mastery vs mastery, max), so the moved function pushed its arguments in the other order. Calling MissMode.cpp's helper in its own parameter order, it builds equal; the placeholder goes. VERIFIED fcb9721822a6f0b0ffd3675cdf99b34bf15d6a9b. Based on main c2f64d25, not stacked.
+
+## Claimed
+
+- **Per-act quest data objects (lane 5, starting now).** Each act's message tables, index tables and assorted quest tables are one object in the image, started by one language copy and in quest order: inside it every 4-byte hole in front of an 8-aligned message table is filled by a later 28 B table (act 1: the chipped gems after the copy, a1q6's indices before its messages; act 2: a2q4's indices after the copy, a2q6's gnArcaneThingObjectIds before Q0's messages; act 5: a5q3's indices before its messages), which only happens inside one object, and a quest file's static (a1q5, a1q6, a2q6, a5q3 indices) cannot sit there unless it is that object's. The object sits in link order where each act's intro code is (Unknown_0058F870.cpp, a2q0.cpp, the act 5 intro cluster), and the quest files have no copies of their own. So I'm moving each act's tables into its intro file, with externs in the quest files, one act per branch.
 
 ## Questions
 
