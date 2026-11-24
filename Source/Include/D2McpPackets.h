@@ -145,3 +145,80 @@ struct D2McpPacket03Strc
     char szText[0x400];
 };
 #pragma pack(pop)
+
+#pragma pack(push, 1)
+struct D2McpPacketValueStrc
+{
+    unsigned char f_0;
+    int nValue;
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct D2McpIncoming03Strc
+{
+    unsigned char f_0;
+    unsigned short f_1;
+    int nValueB0;
+    int nCode;
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct D2McpIncoming04Strc
+{
+    unsigned char f_0;
+    unsigned short f_1;
+    int nValueB0;
+    int f_7;
+    int nValue88;
+    int nCode;
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct D2McpIncoming0AStrc
+{
+    unsigned char f_0;
+    unsigned short f_1;
+    int nCode;
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct D2McpIncoming08Strc
+{
+    unsigned char f_0;
+    unsigned short f_1;
+    unsigned char aData[1];
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct D2McpIncoming09Strc
+{
+    unsigned char f_0;
+    unsigned short f_1;
+    unsigned char nByte03;
+    unsigned char aData[1];
+};
+#pragma pack(pop)
+
+#pragma pack(push, 1)
+struct D2McpIncoming0EStrc
+{
+    unsigned char f_0;
+    char szText[1];
+};
+#pragma pack(pop)
+
+struct D2McpCreateGameStrc
+{
+    char szName[0x10];
+    char szPassword[0x10];
+    char szDescription[0x20];
+    int nValue40;
+    unsigned char nByte44;
+    unsigned char nByte45;
+    unsigned char nByte46;
+};

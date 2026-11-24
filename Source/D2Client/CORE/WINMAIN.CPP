@@ -270,16 +270,6 @@ struct D2McpCreateGameStrc;
 
 
 
-struct D2McpCreateGameStrc
-{
-    char szName[0x10];
-    char szPassword[0x10];
-    char szDescription[0x20];
-    int nValue40;
-    unsigned char nByte44;
-    unsigned char nByte45;
-    unsigned char nByte46;
-};
 
 extern int gnGlobal_00798FB0; // 0x00798FB0
 
@@ -392,71 +382,12 @@ extern unsigned char gabChunkBuffer[]; // 0x00799318
 
 
 
-#pragma pack(push, 1)
-struct D2McpPacketValueStrc
-{
-    unsigned char f_0;
-    int nValue;
-};
-#pragma pack(pop)
 
-#pragma pack(push, 1)
-struct D2McpIncoming03Strc
-{
-    unsigned char f_0;
-    unsigned short f_1;
-    int nValueB0;
-    int nCode;
-};
-#pragma pack(pop)
 
-#pragma pack(push, 1)
-struct D2McpIncoming04Strc
-{
-    unsigned char f_0;
-    unsigned short f_1;
-    int nValueB0;
-    int f_7;
-    int nValue88;
-    int nCode;
-};
-#pragma pack(pop)
 
-#pragma pack(push, 1)
-struct D2McpIncoming0AStrc
-{
-    unsigned char f_0;
-    unsigned short f_1;
-    int nCode;
-};
-#pragma pack(pop)
 
-#pragma pack(push, 1)
-struct D2McpIncoming08Strc
-{
-    unsigned char f_0;
-    unsigned short f_1;
-    unsigned char aData[1];
-};
-#pragma pack(pop)
 
-#pragma pack(push, 1)
-struct D2McpIncoming09Strc
-{
-    unsigned char f_0;
-    unsigned short f_1;
-    unsigned char nByte03;
-    unsigned char aData[1];
-};
-#pragma pack(pop)
 
-#pragma pack(push, 1)
-struct D2McpIncoming0EStrc
-{
-    unsigned char f_0;
-    char szText[1];
-};
-#pragma pack(pop)
 
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent);                                      // 0x006CC130
 
