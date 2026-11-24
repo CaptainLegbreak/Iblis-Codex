@@ -2514,4 +2514,3 @@ void __fastcall ACT1Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     }
 }
 
-#include "gen/data/Source/D2Game/Quests/a1q4.inc"
