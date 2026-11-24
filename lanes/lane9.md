@@ -21,7 +21,7 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   Evidence: the image's calls tie them by file statics. 0x6B7630 calls the static 0x6B7530; 0x6B8950 and 0x6B83A0 call
   the static 0x6B7FD0; 0x6B8DF0 and 0x6B8E90 call the statics 0x6B8950 and 0x6B87A0; 0x6B8E60 calls the static
   0x6B8DF0. With the bodies together the context copies, the glyph emitter and the ecx struct trick for 0x6B87A0 go
-  (context copies -4, shims -3 by my count). 0x6B7FD0's parameters are (nSide, pRect, pOffset, bFlag): its
+ . 0x6B7FD0's parameters are (nSide, pRect, pOffset, bFlag): its
   custom-convention callers evaluate pRect before nSide. gaGeometry (0x0074C100) moves to this unit's data.
   Two declaration-set sensitivities in 0x6B8950, both fixed naturally: its indexed draw goes through the file's own
   device record (as the piece had it), and the file's statics are prototyped once at the top.
