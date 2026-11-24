@@ -476,7 +476,8 @@ void __stdcall INV_StashClickMsg(SMSGHANDLER_PARAMS* pMsg);
 
 static void INV_AppendBookCharges(Unicode* pText);
 
-int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY)
+// build: symbol ?INV_IsInPlayerInvRect@* 0x00483AB0
+int __fastcall INV_IsInPlayerInvRect(int nX, int nY)
 {
     if (nX >= gtPlayerInvRect.nLeft && nX < gtPlayerInvRect.nRight && nY >= gtPlayerInvRect.nTop && nY <= gtPlayerInvRect.nBottom)
     {
@@ -530,7 +531,7 @@ static int sub_00483BF0_IsInGrid7BCB70(int nX, int nY)
 }
 
 
-static void __stdcall sub_00483C50_DrawCursorPlacement(D2InventoryStrc* pInventory, D2InventoryGridInfoStrc* pGrid, int nRecord, unsigned char nPage, D2UnitStrc* pCursorItem);
+static void __stdcall INV_DrawCursorPlacement(D2InventoryStrc* pInventory, D2InventoryGridInfoStrc* pGrid, int nRecord, unsigned char nPage, D2UnitStrc* pCursorItem); // 0x00483C50
 
 static void INV_DrawBodyLocPlacement(D2InventoryStrc* pInventory);
 
@@ -620,7 +621,7 @@ static void INV_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor)
     }
 }
 
-static void __stdcall sub_00483C50_DrawCursorPlacement(D2InventoryStrc* pInventory, D2InventoryGridInfoStrc* pGrid, int nRecord, unsigned char nPage, D2UnitStrc* pCursorItem)
+static void __stdcall INV_DrawCursorPlacement(D2InventoryStrc* pInventory, D2InventoryGridInfoStrc* pGrid, int nRecord, unsigned char nPage, D2UnitStrc* pCursorItem)
 {
     if (nPage == 0xFF)
     {

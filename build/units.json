@@ -2490,7 +2490,7 @@
     {
      "va": "0x0045AC90",
      "length": 205,
-     "name": "?sub_0045AC90_DrawAutomapUnits@@YAXXZ"
+     "name": "?AUTOMAP_DrawAutomapUnits@@YAXXZ"
     },
     {
      "va": "0x0045D3E0",
@@ -13690,7 +13690,7 @@
     {
      "va": "0x00477F70",
      "length": 145,
-     "name": "sub_00477F70_SendGameLogon"
+     "name": "INV_SendGameLogon"
     },
     {
      "va": "0x00478010",
@@ -13732,7 +13732,7 @@
     {
      "va": "0x00483AB0",
      "length": 41,
-     "name": "?sub_00483AB0_IsInInvRect@@YIHHH@Z"
+     "name": "?INV_IsInPlayerInvRect@@YIHHH@Z"
     },
     {
      "va": "0x00483AE0",
@@ -15792,7 +15792,7 @@
     {
      "va": "0x00454A70",
      "length": 95,
-     "name": "?sub_00454A70_DrawHoverText@@YAXXZ"
+     "name": "?UI_DrawHoverText@@YAXXZ"
     },
     {
      "va": "0x00454AD0",
@@ -15806,7 +15806,7 @@
     {
      "va": "0x004554B0",
      "length": 93,
-     "name": "?sub_004554B0_DrawHoverName@@YAXXZ"
+     "name": "?UI_DrawHoverName@@YAXXZ"
     },
     {
      "va": "0x00455720",
@@ -15841,7 +15841,7 @@
     {
      "va": "0x00456970",
      "length": 1040,
-     "name": "?sub_00456970_InitUI@@YAXXZ"
+     "name": "?UI_InitUI@@YAXXZ"
     },
     {
      "va": "0x00456D80",
@@ -19269,12 +19269,12 @@
     {
      "va": "0x00469650",
      "length": 296,
-     "name": "?sub_00469650_OpenKeyFile@@YAPAXKK@Z"
+     "name": "?CMDTBL_OpenKeyFile@@YAPAXKK@Z"
     },
     {
      "va": "0x00469780",
      "length": 328,
-     "name": "?sub_00469780_SaveKeyConfig@@YAXXZ"
+     "name": "?CMDTBL_SaveHotkeyFile@@YAXXZ"
     },
     {
      "va": "0x004698D0",
@@ -19356,7 +19356,7 @@
     {
      "va": "0x0046AAE0",
      "length": 400,
-     "name": "?sub_0046AAE0_LoadKeyConfig@@YAXXZ"
+     "name": "?CMDTBL_LoadHotkeyFile@@YAXXZ"
     },
     {
      "va": "0x0046AC70",
@@ -21939,7 +21939,7 @@
     {
      "va": "0x0047AA60",
      "length": 570,
-     "name": "?sub_0047AA60_OnImeComposition@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?CHAT_OnImeComposition@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x0047ACA0",
@@ -21983,12 +21983,12 @@
     {
      "va": "0x0047B3B0",
      "length": 151,
-     "name": "?sub_0047B3B0_CompareCommand@@YGHPBD0@Z"
+     "name": "?CHAT_CompareCommand@@YGHPBD0@Z"
     },
     {
      "va": "0x0047B450",
      "length": 119,
-     "name": "?sub_0047B450_DrawBlinkingCaret@@YAXHHH@Z"
+     "name": "?CHAT_DrawBlinkingCaret@@YAXHHH@Z"
     },
     {
      "va": "0x0047B4D0",
@@ -22003,17 +22003,17 @@
     {
      "va": "0x0047B4F0",
      "length": 202,
-     "name": "?sub_0047B4F0_DrawImeText@@YGXHH@Z"
+     "name": "?CHAT_DrawImeText@@YGXHH@Z"
     },
     {
      "va": "0x0047B5C0",
      "length": 342,
-     "name": "?sub_0047B5C0_DrawImeCandidates@@YAXXZ"
+     "name": "?CHAT_DrawImeCandidates@@YAXXZ"
     },
     {
      "va": "0x0047B720",
      "length": 672,
-     "name": "?sub_0047B720_DrawChatPanel@@YAXXZ"
+     "name": "?CHAT_DrawChatPanel@@YAXXZ"
     },
     {
      "va": "0x0047B9C0",
@@ -22023,7 +22023,7 @@
     {
      "va": "0x0047BA00",
      "length": 121,
-     "name": "?sub_0047BA00_PushChatHistory@@YAXPBUUnicode@@@Z"
+     "name": "?CHAT_PushChatHistory@@YAXPBUUnicode@@@Z"
     },
     {
      "va": "0x0047BA80",
@@ -22053,12 +22053,12 @@
     {
      "va": "0x0047BD30",
      "length": 34,
-     "name": "?sub_0047BD30_ResetChatHistory@@YAXXZ"
+     "name": "?CHAT_ResetChatHistory@@YAXXZ"
     },
     {
      "va": "0x0047BD60",
      "length": 23,
-     "name": "?sub_0047BD60_GetAccountPart@@YAPBDPBD@Z"
+     "name": "?CHAT_GetAccountPart@@YAPBDPBD@Z"
     },
     {
      "va": "0x0047BD80",
@@ -22076,22 +22076,22 @@
     {
      "va": "0x0047C100",
      "length": 229,
-     "name": "?sub_0047C100@@YAHPADPBD@Z"
+     "name": "?CHAT_HandleHelpCommand@@YAHPADPBD@Z"
     },
     {
      "va": "0x0047C1F0",
      "length": 510,
-     "name": "?sub_0047C1F0_HandleWhisperCommand@@YGHHPADPBD@Z"
+     "name": "?CHAT_HandleWhisperCommand@@YGHHPADPBD@Z"
     },
     {
      "va": "0x0047C3F0",
      "length": 40,
-     "name": "?sub_0047C3F0_CopyCommandArgs@@YGXPADPBDI@Z"
+     "name": "?CHAT_CopyCommandArgs@@YGXPADPBDI@Z"
     },
     {
      "va": "0x0047CA70",
      "length": 540,
-     "name": "?sub_0047CA70_OnChatChar@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?CHAT_OnChatChar@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BF9C0",
@@ -23148,7 +23148,7 @@
     {
      "va": "0x0049D310",
      "length": 87,
-     "name": "?sub_0049D310_CopyTextLine@@YGXPAUUnicode@@HPAPBU1@@Z"
+     "name": "?TEXT_CopyTextLine@@YGXPAUUnicode@@HPAPBU1@@Z"
     },
     {
      "va": "0x0049D370",
@@ -24196,7 +24196,7 @@
     {
      "va": "0x00494FC0",
      "length": 35,
-     "name": "?sub_00494FC0@@YAXXZ"
+     "name": "?HIREABLES_CloseHelpUi@@YAXXZ"
     },
     {
      "va": "0x00494FF0",
@@ -24206,7 +24206,7 @@
     {
      "va": "0x00495030",
      "length": 323,
-     "name": "?sub_00495030_DrawKeyHelp@@YAXXZ"
+     "name": "?HIREABLES_DrawKeyHelp@@YAXXZ"
     },
     {
      "va": "0x00495180",
@@ -24241,7 +24241,7 @@
     {
      "va": "0x004966C0",
      "length": 95,
-     "name": "?sub_004966C0_DrawHelpScreen@@YAXXZ"
+     "name": "?INV_DrawHelpScreen@@YAXXZ"
     },
     {
      "va": "0x00496720",
@@ -24251,7 +24251,7 @@
     {
      "va": "0x004967A0",
      "length": 52,
-     "name": "?sub_004967A0_KeyCloseHelp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?INV_OnKeyCloseHelp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004967E0",
@@ -24679,7 +24679,7 @@
     {
      "va": "0x00499DE0",
      "length": 37,
-     "name": "?sub_00499DE0_FindRoster@@YIPAUD2RosterUnitStrc@@H@Z"
+     "name": "?PANEL_FindPartyRow@@YIPAUD2RosterUnitStrc@@H@Z"
     },
     {
      "va": "0x00499E10",
@@ -24916,7 +24916,7 @@
     {
      "va": "0x004A2690",
      "length": 27,
-     "name": "?sub_004A2690_HitTestButtonB@@YAEHH@Z"
+     "name": "?TEXT_HitTestQuestCloseButton@@YAEHH@Z"
     },
     {
      "va": "0x004A26F0",
@@ -25054,12 +25054,12 @@
     {
      "va": "0x0049C650",
      "length": 76,
-     "name": "_sub_0049C650_CloseArchives"
+     "name": "_TEXT_FreeWaypointCels"
     },
     {
      "va": "0x0049C6A0",
      "length": 20,
-     "name": "?sub_0049C6A0@@YAXXZ"
+     "name": "?TEXT_InitWaypointData@@YAXXZ"
     },
     {
      "va": "0x0049C6C0",
@@ -25069,7 +25069,7 @@
     {
      "va": "0x0049C700",
      "length": 87,
-     "name": "?sub_0049C700_CloseWaypointPanel@@YAXXZ"
+     "name": "?TEXT_CloseWaypointPanel@@YAXXZ"
     },
     {
      "va": "0x0049C760",
@@ -25795,17 +25795,17 @@
     {
      "va": "0x004A8C00",
      "length": 116,
-     "name": "?sub_004A8C00_FreeSkillIcons@@YAXXZ"
+     "name": "?SPELLSEL_FreeSkillIcons@@YAXXZ"
     },
     {
      "va": "0x004A8C80",
      "length": 90,
-     "name": "?sub_004A8C80_GetSkillValue@@YIPAXPAUD2SkillsTxt@@@Z"
+     "name": "?SPELLSEL_GetSkillIconCel@@YIPAXPAUD2SkillsTxt@@@Z"
     },
     {
      "va": "0x004A8CE0",
      "length": 7,
-     "name": "?sub_004A8CE0_SetValue@@YIXH@Z"
+     "name": "?SPELLSEL_SetSkillSelectRight@@YIXH@Z"
     },
     {
      "va": "0x004A8CF0",
@@ -25815,7 +25815,7 @@
     {
      "va": "0x004A8D30",
      "length": 26,
-     "name": "?sub_004A8D30_GetSkillState@@YIHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+     "name": "?SPELLSEL_GetSkillState@@YIHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
     },
     {
      "va": "0x004A8D50",
@@ -25887,22 +25887,22 @@
     {
      "va": "0x004A9DF0",
      "length": 97,
-     "name": "?sub_004A9DF0_UpdateSkillIcons@@YAXXZ"
+     "name": "?SPELLSEL_UpdateSkillIcons@@YAXXZ"
     },
     {
      "va": "0x004A9E60",
      "length": 339,
-     "name": "sub_004A9E60_AssignHotkey"
+     "name": "SPELLSEL_AssignHotkey"
     },
     {
      "va": "0x004A9FC0",
      "length": 108,
-     "name": "?sub_004A9FC0_IsHotkeyUsable@@YAHH@Z"
+     "name": "?SPELLSEL_IsHotkeyUsable@@YAHH@Z"
     },
     {
      "va": "0x004AA030",
      "length": 131,
-     "name": "?sub_004AA030_SelectHotkey@@YIXH@Z"
+     "name": "?SPELLSEL_SelectHotkey@@YIXH@Z"
     },
     {
      "va": "0x004AA0C0",
@@ -25912,17 +25912,17 @@
     {
      "va": "0x004AA0F0",
      "length": 108,
-     "name": "?sub_004AA0F0_AssignFreeHotkey@@YAXHH@Z"
+     "name": "?SPELLSEL_AssignFreeHotkey@@YAXHH@Z"
     },
     {
      "va": "0x004AA160",
      "length": 133,
-     "name": "?sub_004AA160_FillHotkeys@@YAXXZ"
+     "name": "?SPELLSEL_FillHotkeys@@YAXXZ"
     },
     {
      "va": "0x004AA1F0",
      "length": 428,
-     "name": "?sub_004AA1F0_DrawSkillQuantity@@YIXPAFHHHH@Z"
+     "name": "?SPELLSEL_DrawSkillQuantity@@YIXPAFHHHH@Z"
     },
     {
      "va": "0x004AA3A0",
@@ -25936,7 +25936,7 @@
     {
      "va": "0x004AA6B0",
      "length": 46,
-     "name": "?sub_004AA6B0_BuildLeftRows@@YIXH@Z"
+     "name": "?SPELLSEL_BuildLeftRows@@YIXH@Z"
     },
     {
      "va": "0x004AA6E0",
@@ -25951,22 +25951,22 @@
     {
      "va": "0x004AA740",
      "length": 150,
-     "name": "?sub_004AA740_CycleHotkey@@YIXH@Z"
+     "name": "?SPELLSEL_CycleHotkey@@YIXH@Z"
     },
     {
      "va": "0x004AA7E0",
      "length": 193,
-     "name": "?sub_004AA7E0_ResetSkillIcons@@YAXXZ"
+     "name": "?SPELLSEL_ResetSkillIcons@@YAXXZ"
     },
     {
      "va": "0x004AA8B0",
      "length": 47,
-     "name": "?sub_004AA8B0_GetSkillMaxLevel@@YIHH@Z"
+     "name": "?SPELLSEL_GetSkillMaxLevel@@YIHH@Z"
     },
     {
      "va": "0x004AA8E0",
      "length": 11,
-     "name": "?sub_004AA8E0_ClearValue7C0C3C@@YAXXZ"
+     "name": "?SPELLSEL_ClearSkillPointsHighlight@@YAXXZ"
     },
     {
      "va": "0x004AA8F0",
@@ -26724,7 +26724,7 @@
     {
      "va": "0x004B5C00",
      "length": 31,
-     "name": "?sub_004B5C00_OpenConfirm@@YAHXZ"
+     "name": "?NPCMENU_StartConfirm@@YAHXZ"
     },
     {
      "va": "0x004B5C20",
@@ -26734,7 +26734,7 @@
     {
      "va": "0x004B6390",
      "length": 120,
-     "name": "?sub_004B6390_HandleNpcTransaction@@YIXPAUD2GSPacketSrv2A@@@Z"
+     "name": "?NPCMENU_HandleNpcTransaction@@YIXPAUD2GSPacketSrv2A@@@Z"
     },
     {
      "va": "0x004B6410",
@@ -26777,7 +26777,7 @@
     {
      "va": "0x004B69E0",
      "length": 68,
-     "name": "?sub_004B69E0_CloseTrade@@YAXXZ"
+     "name": "?NPCMENU_CloseTrade@@YAXXZ"
     },
     {
      "va": "0x004B6A30",
@@ -28491,12 +28491,12 @@
     {
      "va": "0x004C0450",
      "length": 144,
-     "name": "?sub_004C0450_ClickHotspots@@YAHHH@Z"
+     "name": "?USEITEM_ClickHotspots@@YAHHH@Z"
     },
     {
      "va": "0x004C04E0",
      "length": 100,
-     "name": "?sub_004C04E0_OnHotspotClick@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?USEITEM_OnHotspotClick@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004C0620",
@@ -32375,7 +32375,7 @@
     {
      "va": "0x004E6CE0",
      "length": 81,
-     "name": "?sub_004E6CE0_GetStringId@@YIGHH@Z"
+     "name": "?SKILLDESC_GetSkillDescStringId@@YIGHH@Z"
     },
     {
      "va": "0x004E6DE0",
@@ -32428,12 +32428,12 @@
     {
      "va": "0x004E75B0",
      "length": 92,
-     "name": "?sub_004E75B0_FormatValueOrRange@@YAHPA_WHHH@Z"
+     "name": "?SKILLDESC_FormatValueOrRange@@YAHPA_WHHH@Z"
     },
     {
      "va": "0x004E7610",
      "length": 64,
-     "name": "?sub_004E7610_FormatDecimalRange@@YGXPA_WHHHHH@Z"
+     "name": "?SKILLDESC_FormatDecimalRange@@YGXPA_WHHHHH@Z"
     },
     {
      "va": "0x004E7650",
@@ -32712,7 +32712,7 @@
     {
      "va": "0x004EDA80",
      "length": 171,
-     "name": "sub_004EDA80_CallSkillDescFunc"
+     "name": "SKILLDESC_CallSkillDescFunc"
     },
     {
      "va": "0x004F16F0",
@@ -32726,7 +32726,7 @@
     {
      "va": "0x004F2010",
      "length": 79,
-     "name": "?sub_004F2010_CheckTarget@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_CanTargetHostile@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F2160",
@@ -32740,17 +32740,17 @@
     {
      "va": "0x004F23E0",
      "length": 82,
-     "name": "?sub_004F23E0_AuraStateOff@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_IsAuraStateOff@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F2440",
      "length": 12,
-     "name": "?sub_004F2440_ClearState@@YIXPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_ToggleStateOff@@YIXPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F2870",
      "length": 33,
-     "name": "?sub_004F2870_TargetIsPlayerOrMonster@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLDESC_IsTargetPlayerOrMonster@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F28A0",
@@ -32776,7 +32776,7 @@
     {
      "va": "0x004F4EC0",
      "length": 121,
-     "name": "?sub_004F4EC0_GetSkillOverlay@@YIHPAUD2UnitStrc@@HHH@Z"
+     "name": "?SKILLDESC_GetSkillOverlay@@YIHPAUD2UnitStrc@@HHH@Z"
     }
    ],
    "flags": [

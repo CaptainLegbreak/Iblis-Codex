@@ -15,8 +15,8 @@ int __cdecl GAME_IsExitPending(); // 0x0044DA30
 int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
-void __fastcall sub_004A9E60_AssignHotkey(int nHotkey); // 0x004A9E60
-void __fastcall sub_004AA030_SelectHotkey(int nSlot); // 0x004AA030
+void __fastcall SPELLSEL_AssignHotkey(int nHotkey); // 0x004A9E60
+void __fastcall SPELLSEL_SelectHotkey(int nSlot); // 0x004AA030
 void __cdecl PANEL_BeltHotkeyFirst(); // 0x00498C50
 void __cdecl PANEL_BeltHotkeySecond(); // 0x00498C90
 void __cdecl PANEL_BeltHotkeyThird(); // 0x00498CD0
@@ -34,9 +34,9 @@ static inline void sub_00468B20_HandleHotkey(int nHotkey)
         return;
     D2_ASSERT(nHotkey >= 0 || nHotkey <= 15, 0xFC);
     if (GAME_GetUIVarState(3))
-        sub_004A9E60_AssignHotkey(nHotkey);
+        SPELLSEL_AssignHotkey(nHotkey);
     else
-        sub_004AA030_SelectHotkey(nHotkey);
+        SPELLSEL_SelectHotkey(nHotkey);
 }
 
 void __fastcall sub_M115_Emit_00468B20(int nHotkey)

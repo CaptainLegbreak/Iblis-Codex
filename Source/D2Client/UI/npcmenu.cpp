@@ -583,7 +583,7 @@ void __cdecl NPCMENU_OpenGreetingDialog();                                      
 
 int __cdecl sub_004B1D70_FindNpcEntry(); // 0x004B1D70
 
-void __stdcall sub_004B4FD0(D2UnitStrc* pUnit);
+void __stdcall NPCMENU_OpenNpcWindow(D2UnitStrc* pUnit); // 0x004B4FD0
 
 int __cdecl NPCMENU_InitHireHandler();                                                                     // 0x004B6410
 
@@ -711,7 +711,7 @@ void* gpBuySellCel; // 0x007C0DC8
 
 void* gpGoldBtnCel; // 0x007C0DCC
 
-int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nMode, int nX, int nY, int nArg, int bCheckTick, int bRepairAll); // 0x004B3870
+int __fastcall NPCMENU_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nMode, int nX, int nY, int nArg, int bCheckTick, int bRepairAll); // 0x004B3870
 
 static int NPCMENU_ItemNeedsRepair(D2UnitStrc* pItem);
 
@@ -2931,7 +2931,7 @@ extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId)
 }
 
 // 0x004B3870
-int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nMode, int nX, int nY, int nArg, int bCheckTick, int bRepairAll)
+int __fastcall NPCMENU_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nMode, int nX, int nY, int nArg, int bCheckTick, int bRepairAll)
 {
     D2UnitStrc* pNpc = GetInteractNpc_Inline();
     if (!pNpc)
@@ -3809,7 +3809,7 @@ void __cdecl NPCMENU_OpenGreetingDialog()
 }
 
 // 0x004B4FD0
-void __stdcall sub_004B4FD0_OpenNpcWindow(D2UnitStrc* pUnit)
+void __stdcall NPCMENU_OpenNpcWindow(D2UnitStrc* pUnit)
 {
     GAME_ResetMouseState();
     if (!pUnit)
@@ -4287,7 +4287,7 @@ void __stdcall NPCMENU_OpenConfirmDialog(int nStringIndex)
 }
 
 // 0x004B5C00
-int __cdecl sub_004B5C00_OpenConfirm()
+int __cdecl NPCMENU_StartConfirm()
 {
     gnNpcMenuState = 1;
     sub_004B1D70_FindNpcEntry();
@@ -4325,7 +4325,7 @@ struct D2GSPacketSrv2A
 extern D2GSPacketSrv2A gtPacket2A;                                                                  // 0x007C0D87
 
 // 0x004B6390
-void __fastcall sub_004B6390_HandleNpcTransaction(D2GSPacketSrv2A* pPacket)
+void __fastcall NPCMENU_HandleNpcTransaction(D2GSPacketSrv2A* pPacket)
 {
     gtPacket2A = *pPacket;
 // build: symbol ?gnNpcGoldSnapshot@* 0x007C0C73
@@ -4356,7 +4356,7 @@ int __cdecl NPCMENU_InitHireHandler()
 }
 
 // 0x004B6440
-static int __stdcall sub_004B6440_ToggleNpcHandler(int bAdd, int nIndex)
+static int __stdcall NPCMENU_ToggleNpcHandler(int bAdd, int nIndex)
 {
     if (!FOG_IsExpansion() || !GAME_IsExpansion())
     {
@@ -4462,7 +4462,7 @@ int __cdecl NPCMENU_InitTravelHarrogathHandler()
 }
 
 // 0x004B66B0
-static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen)
+static void __stdcall NPCMENU_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen)
 {
     GAME_ResetMouseState();
     if (!pUnit)
@@ -4521,23 +4521,23 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
         {
             NPCMENU_InitHireHandler();
         }
-        sub_004B6440_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0xB);
+        NPCMENU_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0xB);
         break;
 
     case 0xC6:
-        sub_004B6440_ToggleNpcHandler(gnHirelingName != 0xFFFF, 8);
+        NPCMENU_ToggleNpcHandler(gnHirelingName != 0xFFFF, 8);
         break;
 
     case 0xFC:
-        sub_004B6440_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0x18);
+        NPCMENU_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0x18);
         break;
 
     case 0x16F:
-        sub_004B6440_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0x15);
+        NPCMENU_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0x15);
         break;
 
     case 0x203:
-        sub_004B6440_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0x2B);
+        NPCMENU_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0x2B);
         break;
     }
 
@@ -4602,16 +4602,16 @@ void __fastcall NPCMENU_SetNpcMenuState(unsigned short wValue, int nValue)
     gnNpcMenuValue = nValue;
     if (wValue == 0xFFFF)
     {
-        sub_004B6440_ToggleNpcHandler(0, 0xB);
-        sub_004B6440_ToggleNpcHandler(0, 8);
-        sub_004B6440_ToggleNpcHandler(0, 0x18);
-        sub_004B6440_ToggleNpcHandler(0, 0x15);
-        sub_004B6440_ToggleNpcHandler(0, 0x2B);
+        NPCMENU_ToggleNpcHandler(0, 0xB);
+        NPCMENU_ToggleNpcHandler(0, 8);
+        NPCMENU_ToggleNpcHandler(0, 0x18);
+        NPCMENU_ToggleNpcHandler(0, 0x15);
+        NPCMENU_ToggleNpcHandler(0, 0x2B);
     }
 }
 
 // 0x004B69E0
-void __cdecl sub_004B69E0_CloseTrade()
+void __cdecl NPCMENU_CloseTrade()
 {
 // build: symbol ?gpNpcTradeObj@* 0x007C0D83
     if (gpNpcTradeObj)
@@ -4665,7 +4665,7 @@ int __fastcall NPCMENU_NpcTextCallback(void* pContext, int nArg, int nValue)
             gnNpcMenuState = 1;
             if (NPCMENU_GetInteractNpc())
             {
-                sub_004B66B0_OpenNpcInteract(NPCMENU_GetInteractNpc(), 1);
+                NPCMENU_OpenNpcInteract(NPCMENU_GetInteractNpc(), 1);
                 return 1;
             }
             sub_004B3DE0_CloseNpc();
@@ -4777,7 +4777,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
             UI_CloseUIVars(0, 0);
             gwNpcGreetingString = wString2;
             gwNpcMessageString = NPCMENU_GetFreeStringId(wString2);
-            sub_004B4FD0(pUnit);
+            NPCMENU_OpenNpcWindow(pUnit);
         }
         else
         {
@@ -4795,7 +4795,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
                 }
                 INV_ResetHover();
                 UI_CloseUIVars(0, 0);
-                sub_004B66B0_OpenNpcInteract(pUnit, 0);
+                NPCMENU_OpenNpcInteract(pUnit, 0);
             }
             else
             {

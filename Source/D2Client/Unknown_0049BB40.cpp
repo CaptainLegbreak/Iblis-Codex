@@ -239,7 +239,7 @@ D2WaypointDataStrc* __stdcall WAYPOINTS_AllocWaypointData(void* pMemPool); // 0x
 
 void __stdcall WAYPOINTS_FreeWaypointData(void* pMemPool, D2WaypointDataStrc* pData); // 0x00660FD0
 
-extern "C" void __cdecl sub_0049C650_CloseArchives(); // 0x0049C650
+extern "C" void __cdecl TEXT_FreeWaypointCels(); // 0x0049C650
 
 // 0x0049C580
 void __cdecl TEXT_LoadWaypointPanelCels()
@@ -272,7 +272,7 @@ void __cdecl TEXT_LoadWaypointPanelCels()
 }
 
 // 0x0049C650
-extern "C" void __cdecl sub_0049C650_CloseArchives()
+extern "C" void __cdecl TEXT_FreeWaypointCels()
 {
     if (gpWaypointBackgroundCel)
     {
@@ -292,7 +292,7 @@ extern "C" void __cdecl sub_0049C650_CloseArchives()
 }
 
 // 0x0049C6A0
-void __cdecl sub_0049C6A0()
+void __cdecl TEXT_InitWaypointData()
 {
 // build: symbol ?gpWaypointData@* 0x007BF081
     gpWaypointData = WAYPOINTS_AllocWaypointData(0);
@@ -311,13 +311,13 @@ void __cdecl sub_0049C6C0_SendWaypointClose()
 }
 
 // 0x0049C700
-void __cdecl sub_0049C700_CloseWaypointPanel()
+void __cdecl TEXT_CloseWaypointPanel()
 {
     sub_0049C6C0_SendWaypointClose();
     if (gpWaypointData)
         WAYPOINTS_FreeWaypointData(0, gpWaypointData);
     gpWaypointData = 0;
-    sub_0049C650_CloseArchives();
+    TEXT_FreeWaypointCels();
 }
 
 // 0x0049C760
@@ -542,7 +542,8 @@ void __fastcall sub_0049CF90(D2PacketRecord21Strc* pPacket)
     }
 }
 
-void __stdcall sub_0049D010_WaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
+// build: symbol ?TEXT_OnWaypointMouseUp@* 0x0049D010
+void __stdcall TEXT_OnWaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
 {
     int nX = (unsigned short)pMsg->lParam;
     int nY = (unsigned short)((unsigned int)pMsg->lParam >> 16);

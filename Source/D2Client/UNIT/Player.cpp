@@ -98,7 +98,7 @@ void __cdecl AUTOMAP_DrawLocalIpLine(); // 0x0045A120
 
 void __cdecl AUTOMAP_DrawDifficultyLine(); // 0x0045A190
 
-void __cdecl sub_0045AC90_DrawAutomapUnits(); // 0x0045AC90
+void __cdecl AUTOMAP_DrawAutomapUnits(); // 0x0045AC90
 
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 

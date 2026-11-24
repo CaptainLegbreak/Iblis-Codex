@@ -565,7 +565,7 @@ void __fastcall GAME_SetLadderFlag(int nValue); // 0x0044DC90
 
 void __fastcall CHAT_SetClientFlags(int nFlags); // 0x0047A9A0
 
-void __cdecl sub_00456970_InitUI(); // 0x00456970
+void __cdecl UI_InitUI(); // 0x00456970
 
 void __fastcall GAME_LoadAct(unsigned char nAct, unsigned int dwGameSeed, unsigned int dwObjectSeed, int nTownLevelId); // 0x0044E100
 
@@ -1831,7 +1831,7 @@ extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0
 
 void __fastcall sub_0049EB10(D2GSPacket5AStrc* pPacket); // 0x0049EB10
 
-void __fastcall sub_004B6390(D2PacketRecord15Strc* pPacket); // 0x004B6390
+void __fastcall NPCMENU_HandleNpcTransaction(D2PacketRecord15Strc* pPacket); // 0x004B6390
 
 void __fastcall ITEM_HandleUseStackableItem(D2PacketRecord8Strc* pPacket); // 0x004C4620
 
@@ -2581,7 +2581,7 @@ void __fastcall SCMD_HandleGameFlags(D2GSPacketSrv01* pPacket)
     GAME_SetExpansion(pPacket->nExpansion);
     GAME_SetLadderFlag(pPacket->nLadder);
     CHAT_SetClientFlags(dwArenaFlags);
-    sub_00456970_InitUI();
+    UI_InitUI();
 }
 
 // 0x0045C920
@@ -3657,7 +3657,7 @@ void __fastcall SCMD_HandleHoverText(const D2GSPacketSrv27Strc* pPacket)
 void __fastcall SCMD_HandleNpcTransaction(const D2PacketRecord15Strc* pPacket)
 {
     D2PacketRecord15Strc tPacket = *pPacket;
-    sub_004B6390(&tPacket);
+    NPCMENU_HandleNpcTransaction(&tPacket);
 }
 
 // 0x0045E110

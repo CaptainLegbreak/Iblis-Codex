@@ -197,7 +197,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 int __cdecl HIREABLES_GetHelpMenuSetting(); // 0x004942D0
 
-void __cdecl sub_00495030_DrawKeyHelp(); // 0x00495030
+void __cdecl HIREABLES_DrawKeyHelp(); // 0x00495030
 
 extern void* gpGlobal_00798FB4; // 0x00798FB4
 

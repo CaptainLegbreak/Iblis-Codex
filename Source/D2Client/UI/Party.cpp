@@ -174,7 +174,7 @@ extern int gbRosterMode; // 0x007BF038
 extern int gbRosterButtonDown; // 0x007BF030
 
 // 0x00499DE0
-D2PartyRowStrc* __fastcall sub_00499DE0_FindRoster(int nId) {
+D2PartyRowStrc* __fastcall PANEL_FindPartyRow(int nId) {
  D2PartyRowStrc* pFound=gpRosterUnits;
  while(pFound) {
   if(pFound->nId == nId) return pFound;
