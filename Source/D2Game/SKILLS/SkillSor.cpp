@@ -16,6 +16,8 @@
 #include "D2GameAux.h"
 #include "D2LevelTxt.h"
 #include "D2MonModes.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x007419E0
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
