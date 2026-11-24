@@ -74760,6 +74760,36 @@
      "name": "?ITEMMODS_GetPropertiesTxtRecordCount@@YAHXZ"
     },
     {
+     "va": "0x0065C5E0",
+     "length": 58,
+     "name": "?sub_0065C5E0_RollItemRange@@YAHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x0065C620",
+     "length": 58,
+     "name": "?sub_0065C620_RollItemRange@@YAHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x0065C660",
+     "length": 49,
+     "name": "?sub_0065C660_GetAffixProperty@@YAPBUD2PropertyStrc@@PBUD2MagicAffixTxt@@H@Z"
+    },
+    {
+     "va": "0x0065C6A0",
+     "length": 45,
+     "name": "?sub_0065C6A0_GetGradeProperty@@YAPBUD2PropertyStrc@@PBUD2GradeModsStrc@@H@Z"
+    },
+    {
+     "va": "0x0065C6D0",
+     "length": 88,
+     "name": "?sub_0065C6D0_GetGemProperty@@YAPBUD2PropertyStrc@@PBUD2GemsTxt@@HH@Z"
+    },
+    {
+     "va": "0x0065C730",
+     "length": 112,
+     "name": "?sub_0065C730_GetModsProperty@@YAPBUD2PropertyStrc@@HPBXHH@Z"
+    },
+    {
      "va": "0x0065C7A0",
      "length": 34,
      "name": "?D2Common_10844_ITEMMODS_First@@YGXHPAH0@Z"
@@ -75139,42 +75169,6 @@
      "va": "0x00660240",
      "length": 74,
      "name": "?ITEMMODS_AddCraftPropertyList@@YGXPAUD2UnitStrc@@PAUD2PropertyStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0065C5E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0065C5E0",
-     "length": 58,
-     "name": "?sub_0065C5E0_RollItemRange@@YAHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x0065C620",
-     "length": 58,
-     "name": "?sub_0065C620_RollItemRange@@YAHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x0065C660",
-     "length": 49,
-     "name": "?sub_0065C660_GetAffixProperty@@YAPBUD2PropertyStrc@@PBUD2MagicAffixTxt@@H@Z"
-    },
-    {
-     "va": "0x0065C6A0",
-     "length": 45,
-     "name": "?sub_0065C6A0_GetGradeProperty@@YAPBUD2PropertyStrc@@PBUD2GradeModsStrc@@H@Z"
-    },
-    {
-     "va": "0x0065C6D0",
-     "length": 88,
-     "name": "?sub_0065C6D0_GetGemProperty@@YAPBUD2PropertyStrc@@PBUD2GemsTxt@@HH@Z"
-    },
-    {
-     "va": "0x0065C730",
-     "length": 112,
-     "name": "?sub_0065C730_GetModsProperty@@YAPBUD2PropertyStrc@@HPBXHH@Z"
     }
    ]
   },
