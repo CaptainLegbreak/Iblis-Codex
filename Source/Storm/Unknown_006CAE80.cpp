@@ -44,13 +44,9 @@ extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2Critical
 // build: symbol ?UnlinkAll@?$TSList@UBREAKCMD@@U?$TSGetLink@UBREAKCMD@@@@@@QAEXXZ 0x00426CF0
 extern TSList<ARCHIVEREC> gArchiveList_00708354; // 0x00708354
 
-extern TSList<REQUEST> gRequestList_00708360; // 0x00708360
-
 extern TSList<FILEREC> gList_0070836C; // 0x0070836C
 
 extern TSList<EVENTREC> gList_00708378; // 0x00708378
-
-extern TSList<AUDIOSTREAM> gList_00708384; // 0x00708384
 
 extern TSList<BREAKCMD> gList_007088E8; // 0x007088E8
 
@@ -85,12 +81,6 @@ void __cdecl sub_006CB0C0_DestroyList()
     gArchiveList_00708354.~TSList();
 }
 
-// 0x006CB120
-void __cdecl sub_006CB120_DestroyList()
-{
-    gRequestList_00708360.~TSList();
-}
-
 // 0x006CB180
 void __cdecl sub_006CB180_DestroyList()
 {
@@ -101,12 +91,6 @@ void __cdecl sub_006CB180_DestroyList()
 void __cdecl sub_006CB1E0_DestroyList()
 {
     gList_00708378.~TSList();
-}
-
-// 0x006CB240
-void __cdecl sub_006CB240_DestroyList()
-{
-    gList_00708384.~TSList();
 }
 
 // 0x006CB380

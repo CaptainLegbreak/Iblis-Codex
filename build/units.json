@@ -4482,8 +4482,7 @@
     },
     {
      "va": "0x00417A70",
-     "length": 161,
-     "name": "sub_00417A70_LinkNode"
+     "length": 161
     },
     {
      "va": "0x00417B20",
@@ -4537,8 +4536,7 @@
     },
     {
      "va": "0x00417D80",
-     "length": 161,
-     "name": "sub_00417D80_LinkNode"
+     "length": 161
     },
     {
      "va": "0x00417E30",
@@ -4706,8 +4704,7 @@
     },
     {
      "va": "0x00418940",
-     "length": 61,
-     "name": "?sub_00418940_UnlinkAll@D2StormList00708360Strc@@QAEXXZ"
+     "length": 61
     },
     {
      "va": "0x00418980",
@@ -4721,8 +4718,7 @@
     },
     {
      "va": "0x00418A00",
-     "length": 61,
-     "name": "?sub_00418A00_UnlinkAll@D2StormList00708384Strc@@QAEXXZ"
+     "length": 61
     },
     {
      "va": "0x00418A40",
@@ -4756,13 +4752,11 @@
     },
     {
      "va": "0x00418BE0",
-     "length": 50,
-     "name": "??1?$TSLink@UAUDIOSTREAM@@@@QAE@XZ"
+     "length": 50
     },
     {
      "va": "0x00418C20",
-     "length": 50,
-     "name": "??1?$TSLink@UREQUEST@@@@QAE@XZ"
+     "length": 50
     },
     {
      "va": "0x00418C60",
@@ -4776,8 +4770,7 @@
     },
     {
      "va": "0x00418CC0",
-     "length": 60,
-     "name": "??1D2StormList00708360Strc@@QAE@XZ"
+     "length": 60
     },
     {
      "va": "0x00418D00",
@@ -4796,8 +4789,7 @@
     },
     {
      "va": "0x00418DA0",
-     "length": 60,
-     "name": "??1D2StormList00708384Strc@@QAE@XZ"
+     "length": 60
     },
     {
      "va": "0x00418DE0",
@@ -4884,8 +4876,7 @@
     },
     {
      "va": "0x00419630",
-     "length": 82,
-     "name": "sub_00419630_NewNode"
+     "length": 82
     },
     {
      "va": "0x00419690",
@@ -4894,8 +4885,7 @@
     },
     {
      "va": "0x00419700",
-     "length": 82,
-     "name": "sub_00419700_NewNode"
+     "length": 82
     },
     {
      "va": "0x00419760",
@@ -4933,8 +4923,7 @@
     },
     {
      "va": "0x00419B90",
-     "length": 64,
-     "name": "sub_00419B90_DeleteNode"
+     "length": 64
     },
     {
      "va": "0x00419BD0",
@@ -4966,8 +4955,7 @@
     },
     {
      "va": "0x0041A2C0",
-     "length": 64,
-     "name": "sub_0041A2C0_DeleteNode"
+     "length": 64
     },
     {
      "va": "0x0041A300",
@@ -5086,8 +5074,16 @@
      "name": "??0CHuffman@@QAE@XZ"
     },
     {
+     "va": "0x006CA7D0",
+     "length": 24
+    },
+    {
      "va": "0x006CA7F0",
      "length": 23
+    },
+    {
+     "va": "0x006CA850",
+     "length": 24
     },
     {
      "va": "0x006CA870",
@@ -5100,6 +5096,14 @@
     {
      "va": "0x006CB0B0",
      "length": 12
+    },
+    {
+     "va": "0x006CB120",
+     "length": 81
+    },
+    {
+     "va": "0x006CB240",
+     "length": 81
     }
    ],
    "flags": [
@@ -80636,11 +80640,6 @@
      "name": "?sub_006CA7B0_InitializeList@@YAXXZ"
     },
     {
-     "va": "0x006CA7D0",
-     "length": 24,
-     "name": "?sub_006CA7D0_InitializeList@@YAXXZ"
-    },
-    {
      "va": "0x006CA810",
      "length": 24,
      "name": "?sub_006CA810_InitializeList@@YAXXZ"
@@ -80649,11 +80648,6 @@
      "va": "0x006CA830",
      "length": 24,
      "name": "?sub_006CA830_InitializeList@@YAXXZ"
-    },
-    {
-     "va": "0x006CA850",
-     "length": 24,
-     "name": "?sub_006CA850_InitializeList@@YAXXZ"
     },
     {
      "va": "0x006CA900",
@@ -80775,11 +80769,6 @@
      "name": "?sub_006CB0C0_DestroyList@@YAXXZ"
     },
     {
-     "va": "0x006CB120",
-     "length": 81,
-     "name": "?sub_006CB120_DestroyList@@YAXXZ"
-    },
-    {
      "va": "0x006CB180",
      "length": 81,
      "name": "?sub_006CB180_DestroyList@@YAXXZ"
@@ -80788,11 +80777,6 @@
      "va": "0x006CB1E0",
      "length": 81,
      "name": "?sub_006CB1E0_DestroyList@@YAXXZ"
-    },
-    {
-     "va": "0x006CB240",
-     "length": 81,
-     "name": "?sub_006CB240_DestroyList@@YAXXZ"
     },
     {
      "va": "0x006CB380",

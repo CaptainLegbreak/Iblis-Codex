@@ -305,7 +305,39 @@ struct D2StormFileSubStrc
     unsigned char unk_2C[0x4];
 };
 
-extern D2StormStreamListStrc gDdaList_00708384; // 0x00708384
+template<class T, class TGetLink>
+void TSList<T, TGetLink>::UnlinkAll()
+{
+    while (T* ptr = Head())
+        UnlinkNode(ptr);
+}
+
+template<class T, class TGetLink>
+T* TSList<T, TGetLink>::DeleteNode(T* ptr)
+{
+    T* next = Next(ptr);
+    ptr->~T();
+    SMemFree(ptr, STORM_TYPENAME(T), -2, 0);
+    return next;
+}
+
+// build: symbol ??_R0?AUAUDIOSTREAM@@@8 0x00708400
+// build: symbol ?LinkNode@?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEXPAUAUDIOSTREAM@@I0@Z 0x00417D80
+// build: symbol ?UnlinkAll@?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEXXZ 0x00418A00
+// build: symbol ??1?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAE@XZ 0x00418DA0
+// build: symbol ?NewNode@?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEPAUAUDIOSTREAM@@III@Z 0x00419700
+// build: symbol ?DeleteNode@?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEPAUAUDIOSTREAM@@PAU2@@Z 0x00419B90
+// build: symbol ??_R0?AUREQUEST@@@8 0x007083E8
+// build: symbol ?LinkNode@?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAEXPAUREQUEST@@I0@Z 0x00417A70
+// build: symbol ?UnlinkAll@?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAEXXZ 0x00418940
+// build: symbol ??1?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAE@XZ 0x00418CC0
+// build: symbol ?NewNode@?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAEPAUREQUEST@@III@Z 0x00419630
+// build: symbol ?DeleteNode@?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAEPAUREQUEST@@PAU2@@Z 0x0041A2C0
+template TSList<REQUEST>::~TSList();
+template REQUEST* TSList<REQUEST>::DeleteNode(REQUEST*);
+template TSList<AUDIOSTREAM>::~TSList();
+template AUDIOSTREAM* TSList<AUDIOSTREAM>::DeleteNode(AUDIOSTREAM*);
+extern TSList<AUDIOSTREAM> gDdaList_00708384; // 0x00708384
 
 extern "C" __declspec(dllimport) int __stdcall GetFileTime(void* hFile, __int64* pCreation, __int64* pAccess, __int64* pWrite);
 
@@ -517,7 +549,7 @@ inline T StormPowInt(T x, int nExp)
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileSize(void* hFile, unsigned long* pdwFileSizeHigh); // 0x006CC2F0
 
-extern D2StormRequestListStrc gRequestList_00708360;                                                               // 0x00708360
+extern TSList<REQUEST> gRequestList_00708360; // 0x00708360
 
 static int gbStreamsPaused_00779044;                                                                        // 0x00779044
 
@@ -608,8 +640,6 @@ int __fastcall SSignatureVerifyStream_Finish(D2StormHashBufferStrc* pBuffer, con
 extern "C" const unsigned char gabSignatureModulus_006CEF78[0x100];                                         // 0x006CEF78
 
 extern "C" const unsigned char gabSignatureExponent_006CF078[4];                                            // 0x006CF078
-
-extern AUDIOSTREAM* gpDdaHead_0070838C;                                                               // 0x0070838C
 
 struct D2StormLinkStrc;
 
@@ -1096,11 +1126,12 @@ void __stdcall CheckRequests(ARCHIVEREC* pLastArchive, unsigned int nLastOffset,
     *pnDistance = 0x7FFFFFFF;
     unsigned int nBest = 0xFFFFFFFF;
     unsigned long nNow = GetTickCount();
-    for (REQUEST* p = gRequestList_00708360.Head(); (int)p > 0; p = (REQUEST*)p->tLink.m_next)
+    REQUEST* pHead = gRequestList_00708360.Head();
+    for (REQUEST* p = pHead; (int)p > 0; p = p->m_link.m_next)
     {
         if (p->nDestSize)
         {
-            if (p->tLink.Prev() && p->nDestSize == ((REQUEST*)p->tLink.Prev())->nDestSize)
+            if (p->m_link.Prev() && p->nDestSize == p->m_link.Prev()->nDestSize)
                 continue;
         }
 
@@ -1179,7 +1210,7 @@ unsigned long __stdcall CdThreadProc(void* pParam)
         nLastTime = nNow;
         pLastArchive = pRequest->pFile->archive;
         nLastOffset = pRequest->nFileOffset;
-        pRequest->tLink.Unlink();
+        pRequest->m_link.Unlink();
         LeaveCriticalSection(&gBasePathLock_00779068);
         unsigned char* pDest = gpCurrentRequest_0077902C->pDest;
         if (gpCurrentRequest_0077902C->pBuffer)
@@ -1541,7 +1572,7 @@ int __stdcall SFileDdaGetVolume(void* hFile, int* pnVolume, int* pnPan)
         return 0;
     }
     AUDIOSTREAM* pNode;
-    for (pNode = (AUDIOSTREAM*)gDdaList_00708384.m_terminator.Next(); pNode; pNode = (AUDIOSTREAM*)pNode->tLink.Next())
+    for (pNode = gDdaList_00708384.m_terminator.Next(); pNode; pNode = pNode->m_link.Next())
     {
         if (pNode->pFile == pRec)
             break;
@@ -1575,7 +1606,7 @@ int __stdcall SFileDdaSetVolume(void* hFile, int nVolume, int nPan)
         return 0;
     }
     AUDIOSTREAM* pNode;
-    for (pNode = (AUDIOSTREAM*)gDdaList_00708384.m_terminator.Next(); pNode; pNode = (AUDIOSTREAM*)pNode->tLink.Next())
+    for (pNode = gDdaList_00708384.m_terminator.Next(); pNode; pNode = pNode->m_link.Next())
     {
         if (pNode->pFile == pRec)
             break;
@@ -2018,30 +2049,6 @@ D2StormLinkStrc* D2StormFixedListStrc::sub_00417A50_Link(char* pNode)
     return Link(pNode);
 }
 
-// 0x00417A70
-void D2StormFixedListStrc::sub_00417A70_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode)
-{
-    D2StormLinkStrc* pLink = Link(pNode);
-    pLink->Unlink();
-    D2StormLinkStrc* pExistingLink = Link(pExistingNode);
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->m_prevlink = pExistingLink;
-        pLink->m_next = pExistingLink->m_next;
-        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-        pExistingLink->m_next = pNode;
-        break;
-    default:
-        D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-        pLink->m_prevlink = pPrevLink;
-        pLink->m_next = pPrevLink->m_next;
-        pPrevLink->m_next = pNode;
-        pExistingLink->m_prevlink = pLink;
-        break;
-    }
-}
-
 // 0x00417B20
 char* D2StormFixedListStrc::sub_00417B20_Next(char* pNode)
 {
@@ -2094,30 +2101,6 @@ char* D2StormFixedListStrc::sub_00417D20_Next(char* pNode)
 D2StormLinkStrc* D2StormFixedListStrc::sub_00417D60_Link(char* pNode)
 {
     return Link(pNode);
-}
-
-// 0x00417D80
-void D2StormFixedListStrc::sub_00417D80_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode)
-{
-    D2StormLinkStrc* pLink = Link(pNode);
-    pLink->Unlink();
-    D2StormLinkStrc* pExistingLink = Link(pExistingNode);
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->m_prevlink = pExistingLink;
-        pLink->m_next = pExistingLink->m_next;
-        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-        pExistingLink->m_next = pNode;
-        break;
-    default:
-        D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-        pLink->m_prevlink = pPrevLink;
-        pLink->m_next = pPrevLink->m_next;
-        pPrevLink->m_next = pNode;
-        pExistingLink->m_prevlink = pLink;
-        break;
-    }
 }
 
 // 0x00417E30
@@ -2617,13 +2600,6 @@ inline void D2StormList00708354Strc::sub_00418900_UnlinkAll()
         ((D2StormLinkStrc*)pNode)->Unlink();
 }
 
-// 0x00418940
-inline void D2StormList00708360Strc::sub_00418940_UnlinkAll()
-{
-    while (char* pNode = m_terminator.Next())
-        ((D2StormLinkStrc*)pNode)->Unlink();
-}
-
 // 0x00418980
 inline void D2StormList0070836CStrc::sub_00418980_UnlinkAll()
 {
@@ -2638,24 +2614,10 @@ inline void D2StormList00708378Strc::sub_004189C0_UnlinkAll()
         ((D2StormLinkStrc*)pNode)->Unlink();
 }
 
-// 0x00418A00
-inline void D2StormList00708384Strc::sub_00418A00_UnlinkAll()
-{
-    while (char* pNode = m_terminator.Next())
-        ((D2StormLinkStrc*)pNode)->Unlink();
-}
-
 // 0x00418C60
 D2StormList00708354Strc::~D2StormList00708354Strc()
 {
     sub_00418900_UnlinkAll();
-    m_terminator.Unlink();
-}
-
-// 0x00418CC0
-D2StormList00708360Strc::~D2StormList00708360Strc()
-{
-    sub_00418940_UnlinkAll();
     m_terminator.Unlink();
 }
 
@@ -2670,13 +2632,6 @@ D2StormList0070836CStrc::~D2StormList0070836CStrc()
 D2StormList00708378Strc::~D2StormList00708378Strc()
 {
     sub_004189C0_UnlinkAll();
-    m_terminator.Unlink();
-}
-
-// 0x00418DA0
-D2StormList00708384Strc::~D2StormList00708384Strc()
-{
-    sub_00418A00_UnlinkAll();
     m_terminator.Unlink();
 }
 
@@ -2780,7 +2735,7 @@ CHuffman::CHuffman()
         f_3474[i].nData[0] = 0;
 }
 
-// build: symbol ??1?$TSLink@UAUDIOSTREAM@@@@QAE@XZ 0x00418BE0
+// build: symbol ??1?$TSLinkedNode@UAUDIOSTREAM@@@@QAE@XZ 0x00418BE0
 // 0x004199A0
 AUDIOSTREAM::~AUDIOSTREAM()
 {
@@ -2791,7 +2746,7 @@ AUDIOSTREAM::~AUDIOSTREAM()
         pBuffer->Release();
 }
 
-// build: symbol ??1?$TSLink@UREQUEST@@@@QAE@XZ 0x00418C20
+// build: symbol ??1?$TSLinkedNode@UREQUEST@@@@QAE@XZ 0x00418C20
 // 0x0041A020
 REQUEST::~REQUEST()
 {
@@ -2834,25 +2789,6 @@ char* D2StormFixedListStrc::sub_00418EC0_NewNode(unsigned int nLinkType, unsigne
     return (char*)pRecord;
 }
 
-// 0x00419630
-char* D2StormFixedListStrc::sub_00419630_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(REQUEST) + nExtraBytes, gszTypeNameRequest_007083F0, -2, nFlags | 8);
-    REQUEST* pRecord = pMemory ? new (pMemory) REQUEST : 0;
-    if (nLinkType)
-        sub_00417A70_LinkNode((char*)pRecord, nLinkType, 0);
-    return (char*)pRecord;
-}
-
-// 0x00419B90
-char* D2StormFixedListStrc::sub_00419B90_DeleteNode(char* pNode)
-{
-    char* pNext = Link(pNode)->Next();
-    ((AUDIOSTREAM*)pNode)->~AUDIOSTREAM();
-    SMemFree(pNode, gszStormAudioStreamTypeName, -2, 0);
-    return pNext;
-}
-
 void __stdcall SErrReportResourceLeak(const char* szName); // 0x0041D1E0
 void __stdcall SErrReportNamedResourceLeak(const char* szName, const char* szDetail); // 0x0041D010
 int __cdecl SFileDdaDestroy(); // 0x00419F30
@@ -2885,7 +2821,7 @@ int __cdecl SFileDestroy()
     D2StormListStrc& tRequests = (D2StormListStrc&)gRequestList_00708360;
     while (tRequests.Head())
         delete (REQUEST*)tRequests.Head();
-    while (AUDIOSTREAM* pStream = (AUDIOSTREAM*)gDdaList_00708384.Head())
+    while (AUDIOSTREAM* pStream = gDdaList_00708384.Head())
     {
         SErrReportResourceLeak("AUDIOSTREAM");
         delete pStream;
@@ -2916,15 +2852,6 @@ int __cdecl SFileDestroy()
         gpStreamBuffer_00779050 = 0;
     }
     return 1;
-}
-
-// 0x0041A2C0
-char* D2StormFixedListStrc::sub_0041A2C0_DeleteNode(char* pNode)
-{
-    char* pNext = Link(pNode)->Next();
-    ((REQUEST*)pNode)->~REQUEST();
-    SMemFree(pNode, gszTypeNameRequest_007083F0, -2, 0);
-    return pNext;
 }
 
 // 0x0041AF60
@@ -3231,7 +3158,7 @@ int __stdcall SFileDdaBeginEx(void* hFile, unsigned int nBufferSize, unsigned in
         if (nVolume && nVolume != 0x7fffffff) pBuffer->SetVolume(nVolume);
         if (nPan && nPan != 0x7fffffff) pBuffer->SetPan(nPan);
         EnterCriticalSection(&gBasePathLock_00779068);
-        AUDIOSTREAM* node = gDdaList_00708384.sub_00419700_NewNode(2, 0, 0);
+        AUDIOSTREAM* node = gDdaList_00708384.NewNode(2, 0, 0);
         node->pFile = pFile;
         node->soundbuffersize = nBufferSize;
         node->unk0x10 = format.avgBytesPerSec;
@@ -3275,12 +3202,12 @@ int __cdecl SFileDdaDestroy()
     }
 
     EnterCriticalSection(&gBasePathLock_00779068);
-    AUDIOSTREAM* pStream = (AUDIOSTREAM*)gDdaList_00708384.m_terminator.m_next;
+    AUDIOSTREAM* pStream = gDdaList_00708384.m_terminator.m_next;
     if ((int)pStream > 0)
     {
         do
         {
-            AUDIOSTREAM* pNext = (AUDIOSTREAM*)pStream->tLink.Next();
+            AUDIOSTREAM* pNext = pStream->m_link.Next();
             gDdaList_00708384.UnlinkNode(pStream);
             if (!--pStream->nRefCount)
                 delete pStream;
@@ -3396,7 +3323,8 @@ static void MarkRequestPriority(int nValue, void* pBuffer)
     if (!pBuffer)
         return;
     EnterCriticalSection(&gBasePathLock_00779068);
-    for (REQUEST* p = gRequestList_00708360.Head(); (int)p > 0; p = (REQUEST*)p->tLink.m_next)
+    REQUEST* pHead = gRequestList_00708360.Head();
+    for (REQUEST* p = pHead; (int)p > 0; p = p->m_link.m_next)
     {
         if ((void*)p->nDestSize == pBuffer)
             p->nArg9 = nValue;
@@ -3422,7 +3350,8 @@ int __stdcall CancelRequest(void* pBuffer, void* pOther)
         return 0;
     EnterCriticalSection(&gBasePathLock_00779068);
     int bResult = 0;
-    REQUEST* pRequest = gRequestList_00708360.Head();
+    REQUEST* pHead = gRequestList_00708360.Head();
+    REQUEST* pRequest = pHead;
     while ((int)pRequest > 0)
     {
         if ((pBuffer && (void*)pRequest->nDestSize == pBuffer) || (pOther && pRequest->pBuffer == pOther))
@@ -3433,14 +3362,14 @@ int __stdcall CancelRequest(void* pBuffer, void* pOther)
                 EVENTREC* pEvent = gEventList_00708378.NewNode(2, 0, 0);
                 pEvent->hEvent = pRequest->hEvent;
             }
-            REQUEST* pNext = (REQUEST*)pRequest->tLink.Next();
+            REQUEST* pNext = pRequest->m_link.Next();
             pRequest->~REQUEST();
             SMemFree(pRequest, gszTypeNameRequest_007083F0, -2, 0);
             pRequest = pNext;
         }
         else
         {
-            pRequest = (REQUEST*)gRequestList_00708360.Link((char*)pRequest)->m_next;
+            pRequest = gRequestList_00708360.Link(pRequest)->m_next;
         }
     }
     LeaveCriticalSection(&gBasePathLock_00779068);
@@ -3488,18 +3417,18 @@ int __stdcall SFileDdaEnd(void* hFile)
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 0;
     }
-    AUDIOSTREAM* pStream = gpDdaHead_0070838C;
+    AUDIOSTREAM* pStream = gDdaList_00708384.m_terminator.m_next;
     if ((int)pStream > 0)
     {
         do
         {
-            AUDIOSTREAM* pNext = (AUDIOSTREAM*)pStream->tLink.Next();
+            AUDIOSTREAM* pNext = pStream->m_link.Next();
             if (pStream->pFile == pFile)
             {
                 if (gpCurrentRequest_0077902C && gpCurrentRequest_0077902C->pBuffer && gpCurrentRequest_0077902C->pBuffer == pStream->pBuffer)
                     gpCurrentRequest_0077902C->pBuffer = 0;
                 CancelRequest(0, pStream->pBuffer);
-                pStream->tLink.Unlink();
+                pStream->m_link.Unlink();
                 if (!--pStream->nRefCount)
                     delete pStream;
             }
@@ -3523,15 +3452,6 @@ void __stdcall SFilePrioritizeRequest(void* pBuffer, int nValue)
         if (nValue >= 1)
             SetEvent(ghStormEvent_00779054);
     }
-}
-
-inline REQUEST* D2StormRequestListStrc::NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(REQUEST) + nExtraBytes, gszTypeNameRequest_007083F0, -2, nFlags | 8);
-    REQUEST* pRecord = pMemory ? new (pMemory) REQUEST : 0;
-    if (nLinkType)
-        LinkNode((char*)pRecord, nLinkType, 0);
-    return pRecord;
 }
 
 // 0x00419790
@@ -3709,7 +3629,8 @@ void __cdecl PumpStreams()
 {
     if (gbStreamsPaused_00779044)
         return;
-    for (AUDIOSTREAM* pStream = gDdaList_00708384.Head(); (int)pStream > 0; pStream = (AUDIOSTREAM*)pStream->tLink.m_next)
+    AUDIOSTREAM* pHead = gDdaList_00708384.Head();
+    for (AUDIOSTREAM* pStream = pHead; (int)pStream > 0; pStream = pStream->m_link.m_next)
     {
         if (pStream->fillstatus == 3 || (pStream->fillstatus == 2 && pStream->pFile->nPosition >= pStream->waveheadersize + pStream->nSize))
         {
@@ -3953,22 +3874,6 @@ char* D2StormFixedListStrc::sub_00419690_DeleteNode(char* pNode)
     return pNext;
 }
 
-inline AUDIOSTREAM::AUDIOSTREAM()
-{
-    tLink.m_prevlink = 0;
-    tLink.m_next = 0;
-}
-
-// 0x00419700
-char* D2StormFixedListStrc::sub_00419700_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(AUDIOSTREAM) + nExtraBytes, gszStormAudioStreamTypeName, -2, nFlags | 8);
-    AUDIOSTREAM* pRecord = pMemory ? new (pMemory) AUDIOSTREAM : 0;
-    if (nLinkType)
-        sub_00417D80_LinkNode((char*)pRecord, nLinkType, 0);
-    return (char*)pRecord;
-}
-
 static void DecryptBlock(unsigned int nKey, unsigned int* pData, unsigned int nBytes); // 0x004152D0
 
 static int __stdcall ReadFileChecked(unsigned int* pnFilePos, void* pBuffer, unsigned int nSize, const char* szName, unsigned long* pnRead, unsigned int nOffset, void* hFile);
@@ -4187,7 +4092,7 @@ int __stdcall SFileDdaGetPos(void* hFile, unsigned int* pnPlayed, unsigned int* 
     if (GetFileRec(hFile, &pRec))
     {
         AUDIOSTREAM* pStream;
-        for (pStream = (AUDIOSTREAM*)gDdaList_00708384.m_terminator.Next(); pStream; pStream = (AUDIOSTREAM*)pStream->tLink.Next())
+        for (pStream = gDdaList_00708384.m_terminator.Next(); pStream; pStream = pStream->m_link.Next())
         {
             if (pStream->pFile == pRec)
                 break;
@@ -4365,11 +4270,6 @@ unsigned int __stdcall CalcFileCrc(const char* szFileName)
 int __stdcall SFileLoadFileEx(void* hMpq, const char* szFileName, void** ppBuffer, int* pnSize, int nExtraBytes, int nFlags, void* pOverlapped)
 {
     return SFileLoadFileEx2(hMpq, szFileName, ppBuffer, (unsigned int*)pnSize, nExtraBytes, nFlags, pOverlapped, 0);
-}
-
-static inline AUDIOSTREAM* DdaHead()
-{
-    return (int)gpDdaHead_0070838C > 0 ? gpDdaHead_0070838C : 0;
 }
 
 // 0x0041B050
@@ -5097,3 +4997,11 @@ sub_00419060::sub_00419060()
 }
 
 #include "gen/data/Source/Storm/SOURCE/SFILE.inc"
+
+// build: symbol ??__EgRequestList_00708360@@YAXXZ 0x006CA7D0
+// build: symbol ??__FgRequestList_00708360@@YAXXZ 0x006CB120
+TSList<REQUEST> gRequestList_00708360; // 0x00708360
+
+// build: symbol ??__EgDdaList_00708384@@YAXXZ 0x006CA850
+// build: symbol ??__FgDdaList_00708384@@YAXXZ 0x006CB240
+TSList<AUDIOSTREAM> gDdaList_00708384; // 0x00708384
