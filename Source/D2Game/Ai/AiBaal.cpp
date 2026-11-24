@@ -862,11 +862,6 @@ static inline int AIBAAL_GetUnitY_Inline(D2UnitStrc* pUnit)
     }
 }
 
-// calling-convention shim (not game code)
-int __stdcall sub_005FC630_Shim(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nMax, int nCount, D2AiCmdStrc* pAiCmd)
-{
-    return AIBAAL_RollRandomAiParam(pGame, pUnit, pAiControl, pTarget, nMax, nCount, pAiCmd);
-}
 
 
 // 0x005FC630
