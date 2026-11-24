@@ -27,7 +27,6 @@ struct D2McpPacket06Strc;
 
 struct D2McpInfoStrc;
 
-
 struct D2ClientNotifyStrc;
 
 struct Unicode;
@@ -284,7 +283,6 @@ extern int gdwMcpGameHash; // 0x00798F88
 
 extern int gdwGlobal_007992F4; // 0x007992F4
 
-
 extern int gbConnectFailed; // 0x007A0460
 
 struct PairStrc_0044BE20
@@ -386,8 +384,6 @@ struct D2McpInfoStrc
     unsigned short aSecond[16];
     char aNames[16][0x10];
 };
-
-
 
 int __stdcall GAME_GetPlayerUnitsCount(unsigned short nGameId); // 0x0052EFF0
 
@@ -502,7 +498,6 @@ int __stdcall sub_00420290_BreakHandlerChain(void* pMsg); // 0x00420290
 extern int gnGlobal_007A0608; // 0x007A0608
 
 void __fastcall ROSTER_SetPrimaryClientFlag(int bClear); // 0x0047A9B0
-
 
 extern char gszRealm_007A0500[]; // 0x007A0500
 
@@ -1100,7 +1095,6 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
-
 unsigned char gnClientDifficulty;                                                                        // 0x007A060C
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);
@@ -1203,7 +1197,6 @@ int gnPathFrame; // 0x007A04C4
 
 struct D2RangeStrc;
 
-
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 void __fastcall PLAYER_SetPanelSlide(int nMode); // 0x0045AEA0
@@ -1232,8 +1225,6 @@ extern int gnBeltUiRecordRow; // 0x007A5218
 
 extern int gnAutomapWidth; // 0x007A5220
 
-
-
 void __stdcall WINDOW_ShowAll(); // 0x004F5F60
 
 void __stdcall CLIENT_Initialize(int nArg, const char* szAddress); // 0x0052A750
@@ -1249,10 +1240,6 @@ extern D2McpCallbackFn gpfnMcpPacket09Callback; // 0x007992FC
 int gbLeftClickRepeating; // 0x007A066C
 
 struct D2PoolSystemStrc;
-
-
-
-
 
 typedef void (__fastcall* D2InitHandlerFn)(void* pArg);
 
@@ -1405,8 +1392,6 @@ int gtLoadingTimer;                                                             
 int gdwGlobal_007A0688;                                                                                     // 0x007A0688
 
 extern void* ghAccelerators;                                                                             // 0x007A0708
-
-
 
 extern D2RecordHandlerFn gpfnPrevHandler;                                                          // 0x007A2764
 
@@ -1627,6 +1612,10 @@ public:
     static void operator delete(void* pMemory);
 };
 
+extern D2StormExportTableSyncStrc gGameDataTable_007A0690;                                                  // 0x007A0690
+void __cdecl sub_006CB3E0_DestroyHashTable();                                                           // 0x006CB3E0
+extern "C" int __cdecl atexit(void (__cdecl* callback)());                                                  // 0x00683824
+
 inline void D2StormExportTableSimpleStrc::operator delete(void* pMemory)
 {
     if (pMemory)
@@ -1652,7 +1641,6 @@ int gbQServerRestart; // 0x007A064C
 int gnWheelDelta; // 0x007A06F8
 
 int gnClientState; // 0x007A0480
-
 
 void __cdecl sub_00451290(); // 0x00451290
 
@@ -2057,7 +2045,6 @@ void __fastcall GAME_CalcCdKeyChecksum(char* szKey, unsigned int* pChecksum)
     }
 }
 
-
 // 0x00449AC0
 int __cdecl GAME_GetWaitHandle()
 {
@@ -2168,37 +2155,13 @@ int __cdecl sub_00449E60()
 
 struct D2ActiveRoomStrc;
 
-
-
-
-
 extern "C" { U32 gSlotFirst; } // 0x00799300
 
 extern "C" { U32 gSlotSecond; } // 0x00799304
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
 
-
-
-
-
 int __cdecl GAME_GetConnectFailed(); // 0x0044BBA0
-
 
 // 0x0044BDE0
 sub_0044BDE0::sub_0044BDE0()
@@ -3940,7 +3903,6 @@ D2StormListAStrc::D2StormListAStrc(const D2StormListAStrc& source)
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
-
 // 0x0044F820
 D2SGameDataStrc::~D2SGameDataStrc()
 {
@@ -4021,10 +3983,6 @@ D2StormExportTableSyncStrc::TSExportTableSync()
     InitializeCriticalSection(&m_cs);
 }
 
-
-
-
-
 // build: symbol ?WARDENCLIENT_SwapBytes@* 0x0047F8B0
 void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
 {
@@ -4032,7 +3990,6 @@ void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
     *pA = *pB;
     *pB = nTemp;
 }
-
 
 // 0x00451F10
 int __cdecl GAME_PushRegisterState()
@@ -4223,12 +4180,10 @@ void* __fastcall GAME_LoadUiCelFile(const char* szFile)
     return ARCHIVE_LoadClientCellFile(szPath, 0);
 }
 
-
 // 0x00452160
 void __cdecl sub_00452160_Nop()
 {
 }
-
 
 // 0x00452170
 Unicode* __fastcall sub_00452170(Unicode* pText)
@@ -4309,7 +4264,11 @@ extern "C" int __cdecl INV_GetPanelY()
     return gCoordinateOffset+gCoordinateBase-64;
 }
 
-
-
-
 #include "gen/data/Source/D2Client/GAME/Game.inc"
+// 0x006CA9C0
+void __cdecl sub_006CA9C0_InitGameDataTable()
+{
+    new (&gGameDataTable_007A0690) D2StormExportTableSyncStrc;
+    atexit(sub_006CB3E0_DestroyHashTable);
+}
+
