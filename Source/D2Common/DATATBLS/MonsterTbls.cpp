@@ -20,7 +20,7 @@
 
 #include "D2AnimData.h"
 
-static void __declspec(noinline) sub_00650EB0_MakeCode(const char* szText, char* szCode);
+static void __declspec(noinline) DATATBLS_MakeCode(const char* szText, char* szCode);
 
 #pragma function(memset)
 
@@ -126,7 +126,7 @@ extern D2TxtLinkStrc* gTxtLink_0096C798; // 0x0096C798
 
 extern D2TxtLinkStrc* gTxtLink_0096BC4C; // 0x0096BC4C
 
-void __fastcall sub_00651150(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00651150
+void __fastcall DATATBLS_MonStatsSkillModeLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00651150
 
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0
 
@@ -138,9 +138,9 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-void __cdecl sub_00651040_ComputeDepths(); // 0x00651040
+void __cdecl DATATBLS_ComputeMonStatsDepths(); // 0x00651040
 
-void __stdcall sub_00650F00(int nRecordCount); // 0x00650F00
+void __stdcall DATATBLS_InitMonStatsAnimSpeeds(int nRecordCount); // 0x00650F00
 
 struct D2MonLvlTxt
 {
@@ -886,7 +886,7 @@ struct D2ChainRecordStrc
 };
 
 // 0x00650EB0
-static void sub_00650EB0_MakeCode(const char* szText, char* szCode)
+static void DATATBLS_MakeCode(const char* szText, char* szCode)
 {
     if (!szText[0])
     {
@@ -921,7 +921,7 @@ static void sub_00650EB0_MakeCode(const char* szText, char* szCode)
 }
 
 // 0x00650F00
-void __stdcall sub_00650F00(int nRecordCount)
+void __stdcall DATATBLS_InitMonStatsAnimSpeeds(int nRecordCount)
 {
     int i = 0;
     if (nRecordCount <= 0) return;
@@ -954,7 +954,7 @@ void __stdcall sub_00650F00(int nRecordCount)
 }
 
 // 0x00651040
-void __cdecl sub_00651040_ComputeDepths()
+void __cdecl DATATBLS_ComputeMonStatsDepths()
 {
     for (short i = 0; i < gnMonstatsTxtRecordCount; ++i)
     {
@@ -1020,7 +1020,7 @@ int __stdcall DATATBLS_GetMonsterChainInfo(int nMonsterId, int* pMaxChainId, int
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
 // 0x00651150
-void __fastcall sub_00651150(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
+void __fastcall DATATBLS_MonStatsSkillModeLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = (D2MonStatsTxt*)pRecord;
     if (!pMonStatsTxtRecord || (unsigned int)nOffset > 7)
@@ -1040,7 +1040,7 @@ void __fastcall sub_00651150(char* pSrc, void* pRecord, int nOffset, int nPositi
         int nText;
         unsigned int dwCode;
         strcpy((char*)&nText, pSrc);
-        sub_00650EB0_MakeCode((const char*)&nText, (char*)&dwCode);
+        DATATBLS_MakeCode((const char*)&nText, (char*)&dwCode);
         const char nMode = (char)FOG_GetLinkIndex(gpMonModeLinker, dwCode, 1);
         pMonStatsTxtRecord->nSkillMode[nOffset] = nMode;
         if (nMode >= 0 && nMode != 14)
@@ -1283,28 +1283,28 @@ void __fastcall DATATBLS_LoadMonStatsTxt(void* hArchive)
         { "ResPo(H)", 3, 0, 358, 0 },
         { "SendSkills", 8, 0, 364, 0 },
         { "Skill1", 20, 0, 368, &gTxtLink_0096C7CC },
-        { "Sk1mode", 23, 0, 0, (void*)sub_00651150 },
+        { "Sk1mode", 23, 0, 0, (void*)DATATBLS_MonStatsSkillModeLinker },
         { "Sk1lvl", 4, 0, 408, 0 },
         { "Skill2", 20, 0, 370, &gTxtLink_0096C7CC },
-        { "Sk2mode", 23, 0, 1, (void*)sub_00651150 },
+        { "Sk2mode", 23, 0, 1, (void*)DATATBLS_MonStatsSkillModeLinker },
         { "Sk2lvl", 4, 0, 409, 0 },
         { "Skill3", 20, 0, 372, &gTxtLink_0096C7CC },
-        { "Sk3mode", 23, 0, 2, (void*)sub_00651150 },
+        { "Sk3mode", 23, 0, 2, (void*)DATATBLS_MonStatsSkillModeLinker },
         { "Sk3lvl", 4, 0, 410, 0 },
         { "Skill4", 20, 0, 374, &gTxtLink_0096C7CC },
-        { "Sk4mode", 23, 0, 3, (void*)sub_00651150 },
+        { "Sk4mode", 23, 0, 3, (void*)DATATBLS_MonStatsSkillModeLinker },
         { "Sk4lvl", 4, 0, 411, 0 },
         { "Skill5", 20, 0, 376, &gTxtLink_0096C7CC },
-        { "Sk5mode", 23, 0, 4, (void*)sub_00651150 },
+        { "Sk5mode", 23, 0, 4, (void*)DATATBLS_MonStatsSkillModeLinker },
         { "Sk5lvl", 4, 0, 412, 0 },
         { "Skill6", 20, 0, 378, &gTxtLink_0096C7CC },
-        { "Sk6mode", 23, 0, 5, (void*)sub_00651150 },
+        { "Sk6mode", 23, 0, 5, (void*)DATATBLS_MonStatsSkillModeLinker },
         { "Sk6lvl", 4, 0, 413, 0 },
         { "Skill7", 20, 0, 380, &gTxtLink_0096C7CC },
-        { "Sk7mode", 23, 0, 6, (void*)sub_00651150 },
+        { "Sk7mode", 23, 0, 6, (void*)DATATBLS_MonStatsSkillModeLinker },
         { "Sk7lvl", 4, 0, 414, 0 },
         { "Skill8", 20, 0, 382, &gTxtLink_0096C7CC },
-        { "Sk8mode", 23, 0, 7, (void*)sub_00651150 },
+        { "Sk8mode", 23, 0, 7, (void*)DATATBLS_MonStatsSkillModeLinker },
         { "Sk8lvl", 4, 0, 415, 0 },
         { "DamageRegen", 2, 0, 416, 0 },
         { "SplEndDeath", 4, 0, 420, 0 },
@@ -1317,8 +1317,8 @@ void __fastcall DATATBLS_LoadMonStatsTxt(void* hArchive)
     gpMonStatsLinker = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 521);
     gpMonstatsTxt = (D2MonStatsTxt*)DATATBLS_CompileTxt(hArchive, "monstats", pTbl, &gnMonstatsTxtRecordCount, 424);
     TBL_ASSERT(gnMonstatsTxtRecordCount < 32767, 540);
-    sub_00651040_ComputeDepths();
-    sub_00650F00(gnMonstatsTxtRecordCount);
+    DATATBLS_ComputeMonStatsDepths();
+    DATATBLS_InitMonStatsAnimSpeeds(gnMonstatsTxtRecordCount);
 }
 
 inline D2MonLvlTxt* DATATBLS_GetMonLvlTxtRecord(int nLevel)
@@ -1805,7 +1805,7 @@ static int __stdcall DATATBLS_ParseTreasureClassItem(D2TCExRecordArgStrc tRecord
     if (strlen(szItem) <= 4)
     {
         unsigned int dwCode;
-        sub_00650EB0_MakeCode(szItem, (char*)&dwCode);
+        DATATBLS_MakeCode(szItem, (char*)&dwCode);
         int nItemId;
         D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemRecordFromItemCode(dwCode, &nItemId);
         if (pItemsTxtRecord)

@@ -259,10 +259,7 @@ bool __fastcall ACT1Q6_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQ
 
 void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
 
-static unsigned int gnAct1Q6NpcMessageIndices[] =                                                                   // 0x007382C4
-{
-    0xFFFFFFFF, 0, 1, 2, 3, 4, 0
-};
+extern unsigned int gnAct1Q6NpcMessageIndices[]; // 0x007382C4
 
 inline D2BitBufferStrc* QUESTS_GetPlayerQuestFlags_Inline(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
@@ -977,4 +974,3 @@ void __fastcall sub_00596BA0_EmptyCallback(D2QuestDataStrc* pQuestData, D2QuestA
 {
 }
 
-#include "gen/data/Source/D2Game/Quests/a1q6.inc"

@@ -831,12 +831,6 @@ void __stdcall QSERVER_LogHackListSize(int nSize)
     }
 }
 
-// calling-convention shim (not game code)
-void __stdcall shim_8(D2QClientStrc* pClient)
-{
-    sub_006BE650_DestroyClient(pClient);
-}
-
 // 0x006BE700
 void __thiscall D2HackListStrc::ExpireEntries()
 {
@@ -1568,12 +1562,6 @@ void __fastcall FOG_10187(D2PairTable006BF610Strc* pTable, int nValue, int nKey)
     }
 }
 
-// calling-convention shim (not game code)
-int __stdcall shim_10(D2QueueServerStrc* pTable, unsigned int* pKey)
-{
-    return QSERVER_DecrementPerIpConnCount(pTable, pKey);
-}
-
 // 0x006BF660
 int __thiscall D2MaskPairListStrc::HasMaskedKey(unsigned int nMask)
 {
@@ -2032,7 +2020,6 @@ static int QSERVER_SendToClientId(D2QueueServerStrc* pServer, unsigned int nKey,
     return QSERVER98_Send(pServer, pConnection, pData, nSize);
 }
 
-// build: context sub_006BF320_FreeChain
 static void sub_006BF320_FreeChain(D2QueueServerStrc* pServer)
 {
     EnterCriticalSection(&pServer->tLock);
@@ -2047,7 +2034,6 @@ static void sub_006BF320_FreeChain(D2QueueServerStrc* pServer)
     LeaveCriticalSection(&pServer->tLock);
 }
 
-// build: context sub_006BF0F0_FreeBuckets
 static void sub_006BF0F0_FreeBuckets(D2QueueServerStrc* pServer)
 {
     EnterCriticalSection(&pServer->tRecordLock);
@@ -2131,7 +2117,6 @@ int __stdcall FOG_10152(D2QueueServerStrc* pServer, int a2, int a3)
     return 1;
 }
 
-// build: context sub_006BF180_ReferenceAddress
 static
 int __stdcall sub_006BF180_ReferenceAddress(D2QueueServerStrc* server,const unsigned int* address)
 {

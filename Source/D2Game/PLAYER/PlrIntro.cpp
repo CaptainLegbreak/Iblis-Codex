@@ -24,7 +24,7 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
 // 0x00572330
-int __fastcall sub_00572330_GetNpcIndex(int nNpcId)
+int __fastcall PLRINTRO_GetNpcIndex(int nNpcId)
 {
     for (int i = 0; i < gnPlrIntroNpcIndexMapCount; ++i)
     {
@@ -41,33 +41,33 @@ int __fastcall sub_00572330_GetNpcIndex(int nNpcId)
 void __fastcall PLRINTRO_SetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId)
 {
     D2PlrIntroStrc* pPlayerIntro = UNITS_GetPlayerData(pUnit)->pPlayerIntro[pGame->nDifficulty];
-    sub_00410B10(pPlayerIntro->pQuestIntroFlags->pBuffer, sub_00572330_GetNpcIndex(nNpcId));
+    sub_00410B10(pPlayerIntro->pQuestIntroFlags->pBuffer, PLRINTRO_GetNpcIndex(nNpcId));
 }
 
 // 0x005723C0
 int __fastcall PLRINTRO_GetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId)
 {
     D2PlrIntroStrc* pPlayerIntro = UNITS_GetPlayerData(pUnit)->pPlayerIntro[pGame->nDifficulty];
-    return sub_00410B30(pPlayerIntro->pQuestIntroFlags->pBuffer, sub_00572330_GetNpcIndex(nNpcId));
+    return sub_00410B30(pPlayerIntro->pQuestIntroFlags->pBuffer, PLRINTRO_GetNpcIndex(nNpcId));
 }
 
 // 0x00572420
 void __fastcall PLRINTRO_SetNpcIntroFlag(D2PlrIntroStrc* pPlayerIntro, int nNpcId)
 {
-    sub_00410B10(pPlayerIntro->pNpcIntroFlags->pBuffer, sub_00572330_GetNpcIndex(nNpcId));
+    sub_00410B10(pPlayerIntro->pNpcIntroFlags->pBuffer, PLRINTRO_GetNpcIndex(nNpcId));
 }
 
 // 0x00572470
 int __fastcall PLRINTRO_GetNpcIntroFlag(D2PlrIntroStrc* pPlayerIntro, int nNpcId)
 {
-    return sub_00410B30(pPlayerIntro->pNpcIntroFlags->pBuffer, sub_00572330_GetNpcIndex(nNpcId));
+    return sub_00410B30(pPlayerIntro->pNpcIntroFlags->pBuffer, PLRINTRO_GetNpcIndex(nNpcId));
 }
 
 // 0x005724C0
 void __fastcall PLRINTRO_MaskNpcIntroFlag(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcId)
 {
     D2PlrIntroStrc* pPlayerIntro = UNITS_GetPlayerData(pPlayer)->pPlayerIntro[pGame->nDifficulty];
-    sub_00410B50(pPlayerIntro->pNpcIntroFlags->pBuffer, sub_00572330_GetNpcIndex(nNpcId));
+    sub_00410B50(pPlayerIntro->pNpcIntroFlags->pBuffer, PLRINTRO_GetNpcIndex(nNpcId));
 }
 
 struct Pair00572520 { unsigned int dwFirst; unsigned int dwSecond; };

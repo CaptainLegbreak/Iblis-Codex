@@ -158,8 +158,6 @@ void __cdecl sub_00401A60_UnlockSymbols()
     LeaveCriticalSection(&gtSymbolLock);
 }
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
@@ -318,7 +316,6 @@ static bool __stdcall sub_00401F10_GetSymbolFromAddr(char* szName, unsigned long
     return false;
 }
 
-// build: context CRASH_GetFileName
 static inline const char* CRASH_GetFileName(const char* szPath)
 {
     const char* pLast = 0;
@@ -334,7 +331,6 @@ static inline const char* CRASH_GetFileName(const char* szPath)
     return pLast ? pLast + 1 : szPath;
 }
 
-// build: context sub_00405250_DescribeAddress
 static bool __stdcall sub_00405250_DescribeAddress(unsigned long dwAddress, D2SymbolInfoStrc* pInfo)
 {
     char szName[0x100];
@@ -379,7 +375,6 @@ static void __fastcall sub_00402D60_FormatStackFrame(const D2StackFrameStrc* fra
   _snprintf_s(output+length,1024-length,(unsigned int)-1,gszSourceFormat,symbol->szSource,symbol->nLine);
 }
 
-// build: context sub_00403100_PrintFrames
 void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, unsigned int nFrames, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader)
 {
     char szName[0x80];
@@ -436,8 +431,6 @@ void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId, D2StackFrameS
     }
 }
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
@@ -469,8 +462,6 @@ static bool __stdcall sub_004020D0_GetLineFromAddr(unsigned long dwAddress, char
 }
 
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
@@ -485,18 +476,12 @@ bool __stdcall sub_004021D0_EnumerateModules(void* pfnCallback, void* pContext)
     return gpfnEnumerateLoadedModules64(ghProcess, pfnCallback, pContext) != 0;
 }
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
@@ -504,22 +489,14 @@ unsigned __int64 __stdcall sub_00402460_LoadModule(void* hFile, const char* szIm
     const char* szModuleName, unsigned __int64 qwBaseOfDll, unsigned long dwSizeOfDll); // 0x00402460
 
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc

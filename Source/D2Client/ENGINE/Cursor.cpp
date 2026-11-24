@@ -4,6 +4,8 @@
 #include "D2ClientTypes.h"
 #include "D2CelContext.h"
 #include "D2Constants.h"
+#include "D2StormTypes.h"
+#include "D2Win32Types.h"
 
 struct D2MsgHandlerEntryStrc;
 
@@ -50,13 +52,13 @@ static int gnCursorAnim;                                                        
 
 static int gnCursorAnimFrame;                                                                               // 0x007A6AE0
 
-extern int gdwLastMouseMoveTick; // 0x007A6AE8
+static int gdwLastMouseMoveTick; // 0x007A6AE8
 
 static int gnCursorState;                                                                               // 0x007A6AF0
 
 static void* gapCursorCels[NUM_CURSOR_CELLS];                                                      // 0x007A6AC0
 
-extern unsigned short gwGlobal_007A6AE4; // 0x007A6AE4
+static unsigned short gwGlobal_007A6AE4; // 0x007A6AE4
 
 #define NUM_CURSOR_MSG_HANDLERS 3
 
@@ -70,15 +72,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-int gnValue_007A6AAC;        // 0x007A6AAC
-
-int gnValue_007A6AB0;        // 0x007A6AB0
-
-int gnValue_007A6AB4;        // 0x007A6AB4
-
 D2CelFileStrc* gpCursorCel;        // 0x007A6AD8
-
-int gnFrame_007A6AE0;        // 0x007A6AE0
 
 struct D2UnitStrc;
 
@@ -109,9 +103,195 @@ static int gnCursorMaxY;                                                        
 
 static int gnCursorMaxX;                                                                               // 0x007A6AB8
 
-static D2UnitStrc* gpCursorItem_007A6ABC;                                                                   // 0x007A6ABC
+static D2UnitStrc* gpCursorItem;                                                                   // 0x007A6ABC
 
-extern int gpCursorItem; // 0x007A6ABC
+struct D2CursorAnimStrc;
+
+extern D2CursorAnimStrc gaCursorAnim[CURSOR_ANIM_COUNT]; // 0x00712010
+
+void __cdecl sub_004681C0_AdvanceCursorAnim(); // 0x004681C0
+
+void __cdecl sub_004682C0_StepCursorAnim(); // 0x004682C0
+
+static unsigned int gdwCursorAnimTick; // 0x007A6AEC
+
+// 0x00467DF0
+static inline int sub_00467DF0_GetCursorAnimField00(int nIndex)
+{
+// build: symbol ?gnCursorAnimCount@* 0x007120D4
+    D2_ASSERT(gnCursorAnimCount == CURSOR_ANIM_COUNT, 0x84);
+    D2_ASSERT(nIndex < CURSOR_ANIM_COUNT, 0x85);
+    return gaCursorAnim[nIndex].bAnimated;
+}
+
+int __stdcall sub_M121_Emit_00467DF0(int nIndex) { return sub_00467DF0_GetCursorAnimField00(nIndex); }
+
+// 0x00467E40
+static int sub_00467E40_IsCursorAnimated(int nIndex)
+{
+// build: symbol ?gnCursorAnimCount@* 0x007120D4
+    D2_ASSERT(gnCursorAnimCount == CURSOR_ANIM_COUNT, 0x8F);
+    D2_ASSERT(nIndex < CURSOR_ANIM_COUNT, 0x90);
+    return gaCursorAnim[nIndex].f_4;
+}
+
+// 0x00467E90
+static int sub_00467E90_GetCursorAnimLength(int nIndex)
+{
+    D2_ASSERT(gnCursorAnimCount == CURSOR_ANIM_COUNT, 0x9A);
+    D2_ASSERT(nIndex < CURSOR_ANIM_COUNT, 0x9B);
+    return gaCursorAnim[nIndex].nFrames << 8;
+}
+
+// 0x00467EE0
+static inline void sub_00467EE0_SetCursorAnim(int nIndex)
+{
+    gnCursorAnim = nIndex;
+    gnCursorAnimFrame = 0;
+}
+
+void __stdcall sub_M121_Emit_00467EE0(int nIndex) { sub_00467EE0_SetCursorAnim(nIndex); }
+
+// 0x00467EF0
+void __stdcall sub_00467EF0_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (pMsg->wParam == 2)
+    {
+        gbCursorVisible = 0;
+        sub_004F59F0(0);
+    }
+    else
+    {
+        gbCursorVisible = 0;
+    }
+    pMsg->bReturn = 0;
+    pMsg->lResult = 0;
+}
+
+// 0x00467F20
+void __stdcall ROSTERPETS_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg)
+{
+    gnCursorX = pMsg->nXpos;
+    gnCursorY = pMsg->nYpos;
+    gdwLastMouseMoveTick = GetTickCount();
+    if (gnCursorState != 5 && gaPanelAnim[gnCursorAnim].pData)
+    {
+        gnCursorState = 5;
+        gnCursorAnim = 4;
+        gnCursorAnimFrame = 0;
+    }
+    pMsg->bReturn = 0;
+}
+
+// 0x00467FA0
+void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg)
+{
+    gnCursorX = pMsg->nXpos;
+    gnCursorY = pMsg->nYpos;
+    gdwLastMouseMoveTick = GetTickCount();
+    if (gnCursorState == 5)
+    {
+        gnCursorAnim = 5;
+        gnCursorState = 1;
+        gnCursorAnimFrame = 0;
+    }
+    pMsg->bReturn = 0;
+}
+
+// 0x00468000
+void __fastcall sub_00468000_SetGlobal7A6B08(int nValue)
+{
+    gbCursorVisible = nValue;
+}
+
+// 0x00468010
+void __fastcall sub_00468010_SetState(int nValue, int nArg)
+{
+    gpCursorItem = (D2UnitStrc*)nValue;
+    gnCursorAnim = 6;
+    gdwGlobal_007A6AE0 = nArg;
+    gnCursorState = 6;
+}
+
+struct Unicode;
+
+struct D2TileRectStrc
+{
+    int unk0x00;
+    int nX;
+    int nY;
+    unsigned int nWidth;
+    unsigned int nHeight;
+};
+
+void __fastcall UI_SetCursorPosition(int nA, int nB);                                                               // 0x00468770
+
+struct T0044CB60
+{
+    Unicode* pText;
+    T0044CB60* pNext;
+};
+
+extern "C" void _ReadWriteBarrier(void);
+
+extern "C" __declspec(dllimport) __declspec(noalias) int __stdcall GetWindowRect(void* hWindow, tagRECT* pRect);
+
+extern "C" __declspec(dllimport) int __stdcall GetSystemMetrics(int nIndex);
+
+int __stdcall WINDOW_IsFullScreen(); // 0x004F5A30
+
+void* __cdecl sub_004F59A0_GetWindow(); // 0x004F59A0
+
+extern int gnCursorX_007A6AB0; // 0x007A6AB0
+
+struct D2GridCellStrc;
+
+struct D2GridCellStrc
+{
+    int nFlag;
+    unsigned char nValue[4];
+};
+
+struct D2ChatMessageStrc
+{
+    char* szText;
+    int nColor;
+    int bClear;
+    D2ChatMessageStrc* pNext;
+};
+
+// 0x00468030
+int __cdecl UI_GetCursorFrame()
+{
+    return gdwGlobal_007A6AE0;
+}
+
+// 0x00468040
+void __fastcall sub_00468040(int nArg, int nArg2)
+{
+    gpCursorItem = 0;
+    gnCursorAnim = 6;
+    gdwGlobal_007A6AE0 = nArg;
+    gnCursorState = nArg2 ? 8 : 7;
+}
+
+// 0x00468070
+void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem)
+{
+    gpCursorItem = pItem;
+    gnCursorAnim = 5;
+    if (!pItem)
+    {
+        gdwGlobal_007A6AE0 = 0;
+        gnCursorState = 1;
+    }
+    else
+    {
+        gdwGlobal_007A6AE0 = 0;
+        gnCursorState = 1;
+        gnCursorState = 4;
+    }
+}
 
 // 0x004680B0
 int __fastcall CURSOR_InitCursor(int nArg)
@@ -151,6 +331,106 @@ void __cdecl CURSOR_ShutdownCursor()
     }
 }
 
+extern "C" __declspec(dllimport) int __stdcall SetCursorPos(int nX, int nY);                               // 0x006CC4B4
+
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
+
+#define SEED_ROLL(pSeed, lSeed) \
+    unsigned __int64 lSeed = (unsigned __int64)(pSeed)->nHighSeed + (unsigned __int64)(pSeed)->nLowSeed * 0x6AC690C5; \
+    (pSeed)->nLowSeed = (unsigned int)lSeed; \
+    (pSeed)->nHighSeed = (unsigned int)(lSeed >> 32);
+
+static void __fastcall sub_00468750_SetMousePos(int nX, int nY)
+{
+    SetCursorPos(nX, nY);
+    gnCursorX = nX;
+    gnCursorY = nY;
+}
+
+// 0x004681C0
+void __cdecl sub_004681C0_AdvanceCursorAnim()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (!pPlayer)
+        return;
+    const int nIndex = gnCursorAnim;
+    if (gnCursorState == 1)
+    {
+        SEED_ROLL(&pPlayer->pSeed, lSeed);
+        if (((char)lSeed & 0x3F) < 0x10)
+            gnCursorAnimFrame += 0x20;
+    }
+    else
+    {
+        gnCursorAnimFrame += gaCursorAnim[nIndex].nStep;
+    }
+    if (gnCursorAnimFrame < sub_00467E90_GetCursorAnimLength(nIndex))
+        return;
+    if (sub_00467E40_IsCursorAnimated(gnCursorAnim))
+    {
+        gnCursorAnimFrame -= sub_00467E90_GetCursorAnimLength(gnCursorAnim);
+        return;
+    }
+    if (gnCursorState == 2)
+    {
+        gnCursorState = 4;
+        gnCursorAnim = 3;
+        gnCursorAnimFrame = 0;
+        return;
+    }
+    if (gnCursorState == 5)
+    {
+        gnCursorState = 1;
+        gnCursorAnim = 5;
+        gnCursorAnimFrame = 0;
+        return;
+    }
+    D2_ASSERT(false, 0x1E9);
+}
+
+// 0x004682C0
+void __cdecl sub_004682C0_StepCursorAnim()
+{
+    gnCursorAnimFrame -= 0x40;
+    if (gnCursorAnimFrame < 0)
+    {
+        if (sub_00467E40_IsCursorAnimated(gnCursorAnim))
+        {
+            gnCursorAnimFrame -= sub_00467E90_GetCursorAnimLength(gnCursorAnim);
+            return;
+        }
+        gnCursorState = 1;
+        gnCursorAnim = 5;
+        gnCursorAnimFrame = 0;
+    }
+}
+
+// 0x00468310
+void __cdecl sub_00468310_UpdateCursor()
+{
+    const unsigned int dwTick = GetTickCount();
+    D2_ASSERT(gnCursorAnimCount == CURSOR_ANIM_COUNT, 0x84);
+    D2_ASSERT(gnCursorAnim < CURSOR_ANIM_COUNT, 0x85);
+    if (gaCursorAnim[gnCursorAnim].bAnimated && dwTick > gdwCursorAnimTick + 0x10)
+    {
+        gdwCursorAnimTick = dwTick;
+        if (gnCursorState != 3)
+        {
+            sub_004681C0_AdvanceCursorAnim();
+        }
+        else
+        {
+            sub_004682C0_StepCursorAnim();
+        }
+    }
+    if (gnCursorState == 1 && gdwLastMouseMoveTick + 5000 < dwTick)
+    {
+        gnCursorState = 2;
+        gnCursorAnim = 2;
+        gnCursorAnimFrame = 0;
+    }
+}
+
 // 0x004683C0
 void __cdecl CURSOR_DrawDefaultCursor()
 {
@@ -187,9 +467,9 @@ void __cdecl CURSOR_DrawCursorCel()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpCursorCel;
-    tContext.nFrame = gnFrame_007A6AE0;
-    const int nX = gnValue_007A6AB0 + gnValue_007A6AB4;
-    const int nY = gnValue_007A6AAC + 0x21;
+    tContext.nFrame = gnCursorAnimFrame;
+    const int nX = gnCursorX + gnCursorOffsetX;
+    const int nY = gnCursorY + 0x21;
     tContext.nDirection = 0;
     sub_004F6480(&tContext, nX, nY, -1, 5, 0);
 }
@@ -201,7 +481,7 @@ void __cdecl CURSOR_DrawCursor()
     {
         return;
     }
-    D2UnitStrc* pItem = gpCursorItem_007A6ABC;
+    D2UnitStrc* pItem = gpCursorItem;
     if (pItem && pItem->dwUnitType == UNIT_ITEM && gnCursorState < 6 && gnCursorState < 8)
     {
         D2CelContextStrc tContext;
@@ -210,7 +490,7 @@ void __cdecl CURSOR_DrawCursor()
         if (GFXUTIL_InitUnitCelContext(&tContext, pItem, 0, 0, 0, &nOut, 1, -1) && sub_006001F0(&tContext, 0, 1))
         {
             D2_ASSERT(tContext.pCel, 0x27D);
-            GFX_DrawItemCel(gpCursorItem_007A6ABC, gnCursorX - CelGetWidth(tContext.pCel) / 2 + gnCursorOffsetX,
+            GFX_DrawItemCel(gpCursorItem, gnCursorX - CelGetWidth(tContext.pCel) / 2 + gnCursorOffsetX,
                 gnCursorY - CelGetHeight(tContext.pCel) / 2);
         }
     }
@@ -227,7 +507,7 @@ void __cdecl CURSOR_PaintCursorItem()
     {
         return;
     }
-    D2UnitStrc* pItem = gpCursorItem_007A6ABC;
+    D2UnitStrc* pItem = gpCursorItem;
     D2CelContextStrc tContext;
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
@@ -236,7 +516,7 @@ void __cdecl CURSOR_PaintCursorItem()
         if (GFXUTIL_InitUnitCelContext(&tContext, pItem, 0, 0, 0, &nOut, 1, -1) && sub_006001F0(&tContext, 0, 1))
         {
             D2_ASSERT(tContext.pCel, 0x2BB);
-            GFX_DrawItemCel(gpCursorItem_007A6ABC, gnCursorX - CelGetWidth(tContext.pCel) / 2 + gnCursorOffsetX,
+            GFX_DrawItemCel(gpCursorItem, gnCursorX - CelGetWidth(tContext.pCel) / 2 + gnCursorOffsetX,
                 gnCursorY - CelGetHeight(tContext.pCel) / 2);
         }
     }
@@ -276,5 +556,111 @@ void __cdecl CURSOR_PaintCursorItem()
 // 0x004680A0
 int __cdecl CURSOR_GetCursorItem()
 {
-    return gpCursorItem;
+    return (int)gpCursorItem;
 }
+
+extern int gdwGlobal_007A6AAC; // 0x007A6AAC
+
+extern int gdwGlobal_007A6AB0; // 0x007A6AB0
+
+// 0x00468730
+int __cdecl sub_00468730()
+{
+    return gdwGlobal_007A6AB0;
+}
+
+// 0x00468740
+int __cdecl sub_00468740()
+{
+    return gdwGlobal_007A6AAC;
+}
+
+extern int data_007A6AB0; // 0x007A6AB0
+
+extern int data_007A6AAC; // 0x007A6AAC
+
+// 0x00468750
+void __fastcall sub_00468750_SetCursorPos(int nX, int nY)
+{
+    SetCursorPos(nX, nY);
+    data_007A6AB0 = nX;
+    data_007A6AAC = nY;
+}
+
+// 0x00468770
+void __fastcall UI_SetCursorPosition(int nX, int nY)
+{
+    tagRECT rect;
+    D2_ASSERT(nX >= 0, 0x30F);
+    D2_ASSERT(nY >= 0, 0x310);
+    if (!WINDOW_IsFullScreen())
+    {
+        _ReadWriteBarrier();
+        tagRECT* pWindowRect = &rect;
+        GetWindowRect(sub_004F59A0_GetWindow(), pWindowRect);
+        int nScreenY = GetSystemMetrics(4);
+        nScreenY += pWindowRect->top;
+        nScreenY += nY;
+        const int nScreenX = GetSystemMetrics(7) + rect.left + nX;
+        SetCursorPos(nScreenX, nScreenY);
+    }
+    else
+    {
+        SetCursorPos(nX, nY);
+    }
+    gnCursorY = nY;
+    gnCursorX_007A6AB0 = nX;
+}
+
+// 0x00468820
+void __fastcall sub_00468820(int nArg1, int nArg2)
+{
+}
+
+// 0x00468830
+int __cdecl sub_00468830()
+{
+    return gnCursorState;
+}
+
+// 0x00468840
+void __stdcall sub_00468840_HandleMouseMotion(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    gbCursorVisible = 1;
+    gnCursorX = nX;
+    gnCursorY = nY;
+// build: symbol ?FOG_IsHandlingError@* 0x00407FF0
+    if (D2GFX_HardwareAcceleratedRenderMode() && !FOG_IsHandlingError())
+    {
+        int bClip = 0;
+        if (gnCursorX > gnScreenWidth - 1)
+        {
+            gnCursorX = gnScreenWidth - 1;
+            bClip = 1;
+        }
+        if (gnCursorY > gnScreenHeight - 1)
+        {
+            gnCursorY = gnScreenHeight - 1;
+            bClip = 1;
+        }
+        if (bClip)
+        {
+            sub_00468750_SetMousePos(gnCursorX, gnCursorY);
+            return;
+        }
+    }
+    sub_004F59F0(1);
+    gdwLastMouseMoveTick = GetTickCount();
+    if (gnCursorState == 4 || gnCursorState == 2)
+    {
+        gnCursorState = 3;
+        gnCursorAnim = 2;
+        gnCursorAnimFrame = 0;
+        gnCursorAnimFrame = sub_00467E90_GetCursorAnimLength(gnCursorAnim) - 0x100;
+    }
+    pMsg->bReturn = 0;
+    pMsg->lResult = 0;
+}
+#include "gen/data/Source/D2Client/ENGINE/Cursor.inc"

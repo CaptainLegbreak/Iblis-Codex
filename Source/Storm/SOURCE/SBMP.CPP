@@ -1095,12 +1095,6 @@ static const char* FindFileExtension(const char* szPath)
     return szName;
 }
 
-// calling-convention shim (not game code)
-const char* __fastcall sub_006C5EE0_Shim(const char* szPath)
-{
-    return FindFileExtension(szPath);
-}
-
 // 0x006C5F40
 static int GetImageType(unsigned short signature)
 {
@@ -1259,7 +1253,6 @@ int __cdecl EmitGetImageType(unsigned short signature)
     return GetImageType(signature);
 }
 
-// build: context sub_006C59C0_CopyPixels
 static unsigned int __stdcall sub_006C59C0_CopyPixels(BYTE* out, D2CopyStackArg src, D2CopyStackArg size, D2CopyStackArg pitch, D2CopyStackArg width, unsigned int rows)
 {
     rows += src.value + size.value + pitch.value + width.value;

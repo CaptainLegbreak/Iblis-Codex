@@ -13,6 +13,7 @@
 #include "D2ItemsWorld.h"
 #include "D2MultiTypes.h"
 #include "D2Unicode.h"
+#include "D2WinSplitText.h"
 
 struct D2MsgHandlerEntryStrc;
 
@@ -363,13 +364,7 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); 
 extern int gnScreenWidth;                                                                               // 0x0071146C
 
 
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
-};
-
-T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);       // 0x00502970
+D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);       // 0x00502970
 
 
 
@@ -811,7 +806,7 @@ void __fastcall sub_004787B0_SendStrings(const unsigned char* pData);           
 
 unsigned int __fastcall D2Win_10128(unsigned char nChar);                                                   // 0x00502550
 
-T0044CB60* __fastcall sub_00502970_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970
+D2SplittedTextStrc* __fastcall sub_00502970_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970
 
 extern int gbNoPickup;                                                                             // 0x007A6A90
 

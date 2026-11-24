@@ -66,7 +66,7 @@ struct Room;
 struct RoomCoordinates;
 struct SMSGHANDLER_PARAMS;
 struct SelectionState;
-struct T0044CB60;
+struct D2SplittedTextStrc;
 struct HIMC__;
 struct T00481720;
 struct Unit;
@@ -689,7 +689,7 @@ int __stdcall sub_00645950_CheckTargetPos(int nX, int nY, D2UnitStrc* pUnit, int
 int __stdcall sub_00648E30_GetPathValue(D2DynamicPathStrc* pPath); // 0x00648E30
 int __stdcall sub_0064A380_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A380
 int __stdcall sub_0064A3B0_GetElapsedFrames(D2UnitStrc* pMissile); // 0x0064A3B0
-int __stdcall sub_0064B2A0_GetMissileElementLength(D2UnitStrc*,D2UnitStrc*,int,int); // 0x0064B2A0
+int __stdcall MISSILE_GetElementalLength(D2UnitStrc*,D2UnitStrc*,int,int); // 0x0064B2A0
 int __stdcall sub_0064F420_HasBodyLocFallback(int nBodyLoc); // 0x0064F420
 int __stdcall sub_0064F500_GetFallbackIndex(int nBodyLoc, unsigned char* pComponents); // 0x0064F500
 int __stdcall PATH_HasEnteredNewSubtile(D2DynamicPathStrc* pPath); // 0x006505C0
@@ -851,7 +851,7 @@ void __fastcall sub_004FB0D0(); // 0x004FB0D0
 void __fastcall sub_004FB130_SetActiveState(int bActive); // 0x004FB130
 void __fastcall sub_004FB480_SetActA(unsigned char nAct); // 0x004FB480
 void __fastcall sub_004FCF80_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
-void __fastcall D2Win_10200(T0044CB60* pLines); // 0x005028A0
+void __fastcall D2Win_10200(D2SplittedTextStrc* pLines); // 0x005028A0
 void __fastcall D2SOUND_10034(int nValue); // 0x005148F0
 void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
 void __fastcall D2SOUND_StopSound(D2SoundStrc* pSound); // 0x00515EE0

@@ -15,6 +15,7 @@
 #include "D2LevelTxt.h"
 #include "D2ItemsWorld.h"
 #include "D2ClientUiRecords.h"
+#include "D2WinSplitText.h"
 
 struct D2CelFileStrc;
 
@@ -84,13 +85,6 @@ struct PairStrc_0045BA70
 
 void __stdcall sub_00625960(void* pArg); // 0x00625960
 
-
-
-extern int gdwGlobal_007A6AB0; // 0x007A6AB0
-
-extern int gdwGlobal_007A6AAC; // 0x007A6AAC
-
-extern int gdwGlobal_007A6AF0; // 0x007A6AF0
 
 extern int gnCofMemoryUsed; // 0x007A8918
 
@@ -889,12 +883,6 @@ unsigned long gdwUILastTick; // 0x007A313C
 
 struct D2InventoryStrc;
 
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
-};
-
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 
 extern "C" const char gszNew[];                                                                    // 0x006CC82C
@@ -984,7 +972,7 @@ void* __fastcall sub_004B7CD0_CreatePanel(int nX, int nY, int (__cdecl* pfnCallb
 
 void __fastcall sub_004B8370(void* pPanel, int nValue);                                                     // 0x004B8370
 
-T0044CB60* __fastcall sub_00502970_SplitText(Unicode* pText, int* pLineCount, int nWidth);             // 0x00502970
+D2SplittedTextStrc* __fastcall sub_00502970_SplitText(Unicode* pText, int* pLineCount, int nWidth);             // 0x00502970
 
 void __fastcall sub_004B85F0_AddTextLine(void* pPanel, Unicode* pText, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x004B85F0
 
@@ -1021,18 +1009,10 @@ int __stdcall WINDOW_IsFullScreen(); // 0x004F5A30
 
 void* __cdecl sub_004F59A0_GetWindow(); // 0x004F59A0
 
-extern int gnCursorY_007A6AAC; // 0x007A6AAC
-
-extern int gnCursorX_007A6AB0; // 0x007A6AB0
-
 
 typedef void (__stdcall* D2RecordHandlerFn)(int nArg1, int nArg2, int nArg3);
 
 void __cdecl RECORD_WriteRecordFile(); // 0x00451620
-
-
-
-
 
 
 // 0x004525F0
@@ -2121,12 +2101,12 @@ void __fastcall UI_OpenGoldPanel(int nMode)
     }
 
     int nLineCount;
-    T0044CB60* pLine = sub_00502970_SplitText(wszText, &nLineCount, 0xC8);
+    D2SplittedTextStrc* pLine = sub_00502970_SplitText(wszText, &nLineCount, 0xC8);
     while (pLine)
     {
-        sub_004B85F0_AddTextLine(gpGoldPanel, pLine->pText, 0x18, 0, 4, 1, 0, 0);
-        T0044CB60* pNext = pLine->pNext;
-        FOG_Free(pLine->pText, ".\\UI\\ui.cpp", 0x1827, 0);
+        sub_004B85F0_AddTextLine(gpGoldPanel, pLine->wszLine, 0x18, 0, 4, 1, 0, 0);
+        D2SplittedTextStrc* pNext = pLine->pNextLine;
+        FOG_Free(pLine->wszLine, ".\\UI\\ui.cpp", 0x1827, 0);
         FOG_Free(pLine, ".\\UI\\ui.cpp", 0x1828, 0);
         pLine = pNext;
     }
@@ -3644,9 +3624,7 @@ done:
 }
 
 
-
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
-
 
 
 extern int gbAutomapLeftPrev; // 0x007A51E4
@@ -3654,17 +3632,11 @@ extern int gbAutomapLeftPrev; // 0x007A51E4
 int gbAutomapLeftSaved; // 0x007A51E8
 
 
-
-
-
 // 0x0045A710
 int __cdecl UI_GetAutomapMode()
 {
     return gnAutomapMode;
 }
-
-
-
 
 
 // 0x0045BA70
@@ -3746,44 +3718,8 @@ void __cdecl UI_FreeCels()
 }
 
 
-
-// 0x00468030
-int __cdecl UI_GetCursorFrame()
-{
-    return gdwGlobal_007A6AE0;
-}
-
 int __cdecl CURSOR_GetCursorItem(); // 0x004680A0
-// 0x00468770
-void __fastcall UI_SetCursorPosition(int nX, int nY)
-{
-    tagRECT rect;
-    D2_ASSERT(nX >= 0, 0x30F);
-    D2_ASSERT(nY >= 0, 0x310);
-    if (!WINDOW_IsFullScreen())
-    {
-        _ReadWriteBarrier();
-        tagRECT* pWindowRect = &rect;
-        GetWindowRect(sub_004F59A0_GetWindow(), pWindowRect);
-        int nScreenY = GetSystemMetrics(4);
-        nScreenY += pWindowRect->top;
-        nScreenY += nY;
-        const int nScreenX = GetSystemMetrics(7) + rect.left + nX;
-        SetCursorPos(nScreenX, nScreenY);
-    }
-    else
-    {
-        SetCursorPos(nX, nY);
-    }
-    gnCursorY_007A6AAC = nY;
-    gnCursorX_007A6AB0 = nX;
-}
-
-// 0x00468830
-int __cdecl sub_00468830()
-{
-    return gdwGlobal_007A6AF0;
-}
+void __fastcall UI_SetCursorPosition(int nX, int nY); // 0x00468770
 
 
 // 0x0046F980

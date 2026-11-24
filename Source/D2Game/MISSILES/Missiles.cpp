@@ -112,7 +112,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x73(D2ClientStrc*, D2GSPacketSrv73*); 
 
 
 
-static void __stdcall sub_0059F940_RollMissilePierce(D2UnitStrc* pMissile, D2UnitStrc* pOwner);
+static void __stdcall MISSILES_RollMissilePierce(D2UnitStrc* pMissile, D2UnitStrc* pOwner); // 0x0059F940
 
 static inline unsigned int MISSILES_RollPierceSeed_Inline(D2SeedStrc* pSeed)
 {
@@ -182,7 +182,7 @@ void __fastcall MISSILES_Free(D2GameStrc* pGame, D2UnitStrc* pMissile)
 }
 
 // 0x0059F900
-static void __stdcall sub_0059F900_ApplyMissileDamage(D2UnitStrc* pOrigin, D2UnitStrc* pMissile, int nLevel, D2UnitStrc* pOwner)
+static void __stdcall MISSILES_ApplyMissileDamage(D2UnitStrc* pOrigin, D2UnitStrc* pMissile, int nLevel, D2UnitStrc* pOwner)
 {
     D2MissileDamageDataStrc tDamage;
 
@@ -192,7 +192,7 @@ static void __stdcall sub_0059F900_ApplyMissileDamage(D2UnitStrc* pOrigin, D2Uni
     PLAYER_RestoreWeaponStats(pOwner, 0);
 }
 
-static void __stdcall sub_0059F900_ApplyMissileDamage(D2UnitStrc* pOrigin, D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nLevel) // 0x0059F900
+static void __stdcall MISSILES_ApplyMissileDamage(D2UnitStrc* pOrigin, D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nLevel) // 0x0059F900
 {
     D2MissileDamageDataStrc tDamage;
 
@@ -203,7 +203,7 @@ static void __stdcall sub_0059F900_ApplyMissileDamage(D2UnitStrc* pOrigin, D2Uni
 }
 
 // 0x0059F940
-static void __stdcall sub_0059F940_RollMissilePierce(D2UnitStrc* pMissile, D2UnitStrc* pOwner)
+static void __stdcall MISSILES_RollMissilePierce(D2UnitStrc* pMissile, D2UnitStrc* pOwner)
 {
     if (!pOwner || !pMissile || pMissile->dwUnitType != UNIT_MISSILE)
     {
@@ -507,12 +507,12 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
     MISSILE_SetSkill(pMissile, pMissileParams->nSkill);
     MISSILE_SetLevel(pMissile, pMissileParams->nSkillLevel);
 
-    sub_0059F900_ApplyMissileDamage(pMissileParams->pOrigin, pMissile, pMissileParams->pOwner, pMissileParams->nSkillLevel);
+    MISSILES_ApplyMissileDamage(pMissileParams->pOrigin, pMissile, pMissileParams->pOwner, pMissileParams->nSkillLevel);
 
     UNITS_StoreOwner(pMissile, pMissileParams->pOwner);
     pMissile->dwFlags &= ~8;
 
-    sub_0059F940_RollMissilePierce(pMissile, pMissileParams->pOwner);
+    MISSILES_RollMissilePierce(pMissile, pMissileParams->pOwner);
 
     if (pMissileParams->dwFlags & 0x1000)
     {

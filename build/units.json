@@ -16126,20 +16126,6 @@
      "name": "?UI_FreeCels@@YAXXZ"
     },
     {
-     "va": "0x00468030",
-     "length": 6,
-     "name": "UI_GetCursorFrame"
-    },
-    {
-     "va": "0x00468770",
-     "length": 165
-    },
-    {
-     "va": "0x00468830",
-     "length": 6,
-     "name": "sub_00468830"
-    },
-    {
      "va": "0x0046F980",
      "length": 6,
      "name": "UI_GetGfxMemory"
@@ -16319,36 +16305,6 @@
      "va": "0x0045B4F0",
      "length": 244,
      "name": "AUTOMAP_DrawRoomCollision"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00468730.cpp",
-   "rank": 0,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x00468730",
-     "length": 6,
-     "name": "sub_00468730"
-    },
-    {
-     "va": "0x00468740",
-     "length": 6,
-     "name": "sub_00468740"
     }
    ]
   },
@@ -18121,16 +18077,6 @@
      "name": "ROSTERPETS_HandlePopupButtonUp"
     },
     {
-     "va": "0x00467F20",
-     "length": 116,
-     "name": "ROSTERPETS_HandleButtonDown"
-    },
-    {
-     "va": "0x00467FA0",
-     "length": 92,
-     "name": "ROSTERPETS_HandleButtonUp"
-    },
-    {
      "va": "0x0046BD50",
      "length": 113,
      "name": "ROSTERPETS_GetPulseColor"
@@ -19035,41 +18981,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00467DF0",
-     "length": 69,
-     "name": "?sub_00467DF0_GetCursorAnimField00@@YAHH@Z"
-    },
-    {
-     "va": "0x00467EE0",
-     "length": 16,
-     "name": "?sub_00467EE0_SetCursorAnim@@YAXH@Z"
-    },
-    {
-     "va": "0x00467EF0",
-     "length": 40,
-     "name": "sub_00467EF0_MsgHandler"
-    },
-    {
-     "va": "0x00468000",
-     "length": 7,
-     "name": "?sub_00468000_SetGlobal7A6B08@@YIXH@Z"
-    },
-    {
-     "va": "0x00468010",
-     "length": 28,
-     "name": "?sub_00468010_SetState@@YIXHH@Z"
-    },
-    {
-     "va": "0x00468040",
-     "length": 42,
-     "name": "?sub_00468040@@YIXHH@Z"
-    },
-    {
-     "va": "0x00468070",
-     "length": 48,
-     "name": "?sub_00468070_SetCursorItemState@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x00468B20",
      "length": 99,
      "name": "?sub_00468B20_HandleHotkey@@YAXH@Z"
@@ -19097,53 +19008,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00467E40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00467E40",
-     "length": 69,
-     "name": "?sub_00467E40_IsCursorAnimated@@YAHH@Z"
-    },
-    {
-     "va": "0x00467E90",
-     "length": 72,
-     "name": "?sub_00467E90_GetCursorAnimLength@@YAHH@Z"
-    },
-    {
-     "va": "0x004682C0",
-     "length": 71,
-     "name": "?sub_004682C0_StepCursorAnim@@YAXXZ"
-    },
-    {
-     "va": "0x00468310",
-     "length": 175,
-     "name": "?sub_00468310_UpdateCursor@@YAXXZ"
-    },
-    {
-     "va": "0x00468820",
-     "length": 1,
-     "name": "?sub_00468820@@YIXHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004681C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004681C0",
-     "length": 248,
-     "name": "?sub_004681C0_AdvanceCursorAnim@@YAXXZ"
-    },
-    {
-     "va": "0x00468840",
-     "length": 252,
-     "name": "?sub_00468840_HandleMouseMotion@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/ENGINE/Cursor.cpp",
    "rank": 0,
    "flags": [
@@ -19162,6 +19026,66 @@
    ],
    "functions": [
     {
+     "va": "0x00467DF0",
+     "length": 69,
+     "name": "?sub_00467DF0_GetCursorAnimField00@@YAHH@Z"
+    },
+    {
+     "va": "0x00467E40",
+     "length": 69,
+     "name": "?sub_00467E40_IsCursorAnimated@@YAHH@Z"
+    },
+    {
+     "va": "0x00467E90",
+     "length": 72,
+     "name": "?sub_00467E90_GetCursorAnimLength@@YAHH@Z"
+    },
+    {
+     "va": "0x00467EE0",
+     "length": 16,
+     "name": "?sub_00467EE0_SetCursorAnim@@YAXH@Z"
+    },
+    {
+     "va": "0x00467EF0",
+     "length": 40,
+     "name": "sub_00467EF0_MsgHandler"
+    },
+    {
+     "va": "0x00467F20",
+     "length": 116,
+     "name": "ROSTERPETS_HandleButtonDown"
+    },
+    {
+     "va": "0x00467FA0",
+     "length": 92,
+     "name": "ROSTERPETS_HandleButtonUp"
+    },
+    {
+     "va": "0x00468000",
+     "length": 7,
+     "name": "?sub_00468000_SetGlobal7A6B08@@YIXH@Z"
+    },
+    {
+     "va": "0x00468010",
+     "length": 28,
+     "name": "?sub_00468010_SetState@@YIXHH@Z"
+    },
+    {
+     "va": "0x00468030",
+     "length": 6,
+     "name": "UI_GetCursorFrame"
+    },
+    {
+     "va": "0x00468040",
+     "length": 42,
+     "name": "?sub_00468040@@YIXHH@Z"
+    },
+    {
+     "va": "0x00468070",
+     "length": 48,
+     "name": "?sub_00468070_SetCursorItemState@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004680A0",
      "length": 6,
      "name": "CURSOR_GetCursorItem"
@@ -19175,6 +19099,21 @@
      "va": "0x00468170",
      "length": 65,
      "name": "?CURSOR_ShutdownCursor@@YAXXZ"
+    },
+    {
+     "va": "0x004681C0",
+     "length": 248,
+     "name": "?sub_004681C0_AdvanceCursorAnim@@YAXXZ"
+    },
+    {
+     "va": "0x004682C0",
+     "length": 71,
+     "name": "?sub_004682C0_StepCursorAnim@@YAXXZ"
+    },
+    {
+     "va": "0x00468310",
+     "length": 175,
+     "name": "?sub_00468310_UpdateCursor@@YAXXZ"
     },
     {
      "va": "0x004683C0",
@@ -19194,31 +19133,40 @@
      "va": "0x004685C0",
      "length": 366,
      "name": "CURSOR_PaintCursorItem"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00468750.cpp",
-   "rank": 1,
-   "functions": [
+    },
+    {
+     "va": "0x00468730",
+     "length": 6,
+     "name": "sub_00468730"
+    },
+    {
+     "va": "0x00468740",
+     "length": 6,
+     "name": "sub_00468740"
+    },
     {
      "va": "0x00468750",
      "length": 29
+    },
+    {
+     "va": "0x00468770",
+     "length": 165
+    },
+    {
+     "va": "0x00468820",
+     "length": 1,
+     "name": "?sub_00468820@@YIXHH@Z"
+    },
+    {
+     "va": "0x00468830",
+     "length": 6,
+     "name": "sub_00468830"
+    },
+    {
+     "va": "0x00468840",
+     "length": 252,
+     "name": "?sub_00468840_HandleMouseMotion@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -40676,7 +40624,7 @@
     {
      "va": "0x0052C280",
      "length": 151,
-     "name": "?sub_0052C280_InitGameSeed@@YAXPAUD2GameStrc@@@Z"
+     "name": "?GAME_InitGameSeed@@YAXPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x0052C320",
@@ -44109,7 +44057,7 @@
     {
      "va": "0x00534800",
      "length": 62,
-     "name": "sub_00534800_CreatePlayerIntros"
+     "name": "PLAYER_CreatePlayerIntros"
     },
     {
      "va": "0x00534840",
@@ -44470,7 +44418,7 @@
     {
      "va": "0x005377B0",
      "length": 83,
-     "name": "?sub_005377B0_CountFlaggedClients@@YAHXZ"
+     "name": "?CLIENTS_GetExpansionClientCount@@YAHXZ"
     },
     {
      "va": "0x00537810",
@@ -44970,7 +44918,7 @@
     {
      "va": "0x0053A280",
      "length": 103,
-     "name": "?sub_0053A280_GetDeadTargetUnit@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ClientStrc@@@Z"
+     "name": "?CLIENTS_GetDeadTargetUnit@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ClientStrc@@@Z"
     },
     {
      "va": "0x0053A2F0",
@@ -45001,12 +44949,12 @@
     {
      "va": "0x0053A500",
      "length": 200,
-     "name": "?sub_0053A500_UpdateUnitForClient@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ClientStrc@@@Z"
+     "name": "?LEVEL_UpdateUnitForClient@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ClientStrc@@@Z"
     },
     {
      "va": "0x0053A5D0",
      "length": 76,
-     "name": "?sub_0053A5D0_UpdateRoomUnitsForClient@@YGXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2ClientStrc@@@Z"
+     "name": "?LEVEL_UpdateRoomUnitsForClient@@YGXPAUD2GameStrc@@PAUD2ActiveRoomStrc@@PAUD2ClientStrc@@@Z"
     },
     {
      "va": "0x0053A620",
@@ -45110,7 +45058,7 @@
     {
      "va": "0x0053B090",
      "length": 77,
-     "name": "?sub_0053B090_CountActRooms@@YIHPAUD2GameStrc@@E@Z"
+     "name": "?LEVEL_CountActRooms@@YIHPAUD2GameStrc@@E@Z"
     }
    ]
   },
@@ -45121,22 +45069,22 @@
     {
      "va": "0x0053B0E0",
      "length": 94,
-     "name": "?sub_0053B0E0_WriteVarLength@@YIXPAUD2BitBufferStrc@@I@Z"
+     "name": "?SCMD_WriteVariableValue@@YIXPAUD2BitBufferStrc@@I@Z"
     },
     {
      "va": "0x0053B140",
      "length": 62,
-     "name": "?sub_0053B140_WriteVarLength16@@YIXPAUD2BitBufferStrc@@G@Z"
+     "name": "?SCMD_WriteVariableWord@@YIXPAUD2BitBufferStrc@@G@Z"
     },
     {
      "va": "0x0053B180",
      "length": 23,
-     "name": "?sub_0053B180_GetMonsterDataField3C@@YIPAHPAUD2UnitStrc@@@Z"
+     "name": "?SCMD_GetMonsterOwnerGuidPtr@@YIPAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0053B1A0",
      "length": 11,
-     "name": "?sub_0053B1A0_SendToClient@@YAXHPAXH@Z"
+     "name": "?SCMD_SendToClient@@YAXHPAXH@Z"
     },
     {
      "va": "0x0053B1B0",
@@ -50130,7 +50078,7 @@
     {
      "va": "0x00572330",
      "length": 43,
-     "name": "?sub_00572330_GetNpcIndex@@YIHH@Z"
+     "name": "?PLRINTRO_GetNpcIndex@@YIHH@Z"
     },
     {
      "va": "0x00572360",
@@ -51794,7 +51742,7 @@
     {
      "va": "0x005811D0",
      "length": 80,
-     "name": "?sub_005811D0_CheckPlayerMode@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?PLRMODE_EventModeUpdate@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x00581220",
@@ -52520,7 +52468,7 @@
     {
      "va": "0x00593E10",
      "length": 22,
-     "name": "?sub_00593E10_SetQuestCompleteBefore@@YIXPAUD2GameStrc@@@Z"
+     "name": "?ACT1Q4_SetQuestCompleteBefore@@YIXPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x00593E30",
@@ -52535,12 +52483,12 @@
     {
      "va": "0x00593F60",
      "length": 22,
-     "name": "?sub_00593F60_SetUnk52@@YIXPAUD2GameStrc@@@Z"
+     "name": "?ACT1Q4_SetCainInTownSpawnPending@@YIXPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x00593F80",
      "length": 54,
-     "name": "?sub_00593F80_GetCainNotCreated@@YIHPAUD2GameStrc@@@Z"
+     "name": "?ACT1Q4_IsCainNotCreated@@YIHPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x00593FC0",
@@ -53238,7 +53186,7 @@
     {
      "va": "0x0058AF00",
      "length": 139,
-     "name": "?sub_0058AF00_GetQuestStatus@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
+     "name": "?ACT5Q4_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
     },
     {
      "va": "0x0058AF90",
@@ -53652,7 +53600,7 @@
     {
      "va": "0x0058D9F0",
      "length": 620,
-     "name": "?sub_0058D9F0@@YIXPAUQuest@@PAUArgs@@@Z"
+     "name": "?ACT5Q6_Callback00_NpcActivate@@YIXPAUQuest@@PAUArgs@@@Z"
     },
     {
      "va": "0x0058DC60",
@@ -54106,7 +54054,7 @@
     {
      "va": "0x00590890",
      "length": 134,
-     "name": "?sub_00590890_SyncQuest2@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
+     "name": "?ACT1Q2_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00590920",
@@ -54202,7 +54150,7 @@
     {
      "va": "0x00591340",
      "length": 113,
-     "name": "?sub_00591340_UpdateQuestFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+     "name": "?ACT1Q3_UnitIterate_UpdateQuestStateFlags@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x005913C0",
@@ -55290,12 +55238,12 @@
     {
      "va": "0x00599510",
      "length": 92,
-     "name": "?sub_00599510@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?ACT2Q2_ShouldUpdateQuestStatus@@YGHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00599570",
      "length": 26,
-     "name": "?sub_00599570_ACT2Q2_CycleStatusIfDone@@YAHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?ACT2Q2_CycleStatusIfDone@@YAHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00599590",
@@ -55565,7 +55513,7 @@
     {
      "va": "0x0059F510",
      "length": 85,
-     "name": "?sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked@@YIEPAUD2GameStrc@@@Z"
+     "name": "?ACT2Q4_IsJerhynPalaceBlocked@@YIEPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x0059F570",
@@ -56560,7 +56508,7 @@
     {
      "va": "0x005A0120",
      "length": 23,
-     "name": "@sub_005A0120@4"
+     "name": "@MONSTERUNIQUE_GetUMods@4"
     },
     {
      "va": "0x005A0140",
@@ -56605,7 +56553,7 @@
     {
      "va": "0x005A0260",
      "length": 24,
-     "name": "@sub_005A0260@4"
+     "name": "@MONSTERUNIQUE_GetUModCount@4"
     },
     {
      "va": "0x005A0280",
@@ -57010,7 +56958,7 @@
     {
      "va": "0x0059F900",
      "length": 58,
-     "name": "?sub_0059F900_ApplyMissileDamage@@YGXPAUD2UnitStrc@@0H0@Z"
+     "name": "?MISSILES_ApplyMissileDamage@@YGXPAUD2UnitStrc@@0H0@Z"
     },
     {
      "va": "0x0059F940",
@@ -57346,22 +57294,22 @@
     {
      "va": "0x005A8490",
      "length": 87,
-     "name": "sub_6FC64480"
+     "name": "MONSTERMODE_UpdateWalk"
     },
     {
      "va": "0x005A84F0",
      "length": 41,
-     "name": "sub_6FC64510"
+     "name": "MONSTERMODE_UpdateRun"
     },
     {
      "va": "0x005A8520",
      "length": 259,
-     "name": "?sub_6FC64CD0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MONSTERMODE_EndKnockback@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A8630",
      "length": 52,
-     "name": "?sub_6FC64E20@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?MONSTERMODE_UpdateKnockback@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005A8670",
@@ -58504,7 +58452,7 @@
     {
      "va": "0x005EE260",
      "length": 342,
-     "name": "?sub_005EE260_Think@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
+     "name": "?AITHINK_Fn130_DeathMauler@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"
     },
     {
      "va": "0x005EE3C0",
@@ -58886,7 +58834,7 @@
     {
      "va": "0x005F7F10",
      "length": 253,
-     "name": "?sub_005F7F10_SpawnRandomMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+     "name": "?AITHINK_SpawnUberMephistoMinion@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
      "va": "0x005F8010",
@@ -59026,7 +58974,7 @@
     {
      "va": "0x005FB650",
      "length": 98,
-     "name": "?sub_005FB650_GetTrapArrowVariant@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?AITHINK_GetTrapArrowVariant@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005FB6C0",
@@ -59175,12 +59123,12 @@
     {
      "va": "0x005B1B70",
      "length": 66,
-     "name": "?sub_005B1B70_FreeAllTargetNodes@@YIXPAUD2GameStrc@@@Z"
+     "name": "?TARGETS_FreeAllTargetNodes@@YIXPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x005B1BC0",
      "length": 62,
-     "name": "?sub_005B1BC0_FindTargetNode@@YIPAUD2TargetNodeStrc@@PAUD2UnitStrc@@PAUD2GameStrc@@@Z"
+     "name": "?TARGETS_FindTargetNode@@YIPAUD2TargetNodeStrc@@PAUD2UnitStrc@@PAUD2GameStrc@@@Z"
     },
     {
      "va": "0x005B1C00",
@@ -59755,7 +59703,7 @@
     {
      "va": "0x005B7120",
      "length": 54,
-     "name": "?sub_005B7120_GetHratliEndCoords@@YIHPAUD2GameStrc@@PAUD2CoordStrc@@@Z"
+     "name": "?ACT3Q1_GetHratliEndCoords@@YIHPAUD2GameStrc@@PAUD2CoordStrc@@@Z"
     },
     {
      "va": "0x005B7160",
@@ -59780,7 +59728,7 @@
     {
      "va": "0x005B7310",
      "length": 39,
-     "name": "?sub_005B7310@@YIXPAUD2QuestDataStrc@@PAUD2ObjInitFnStrc@@@Z"
+     "name": "?ACT3Q1_InitTomeObject@@YIXPAUD2QuestDataStrc@@PAUD2ObjInitFnStrc@@@Z"
     },
     {
      "va": "0x005B7340",
@@ -59938,7 +59886,7 @@
     {
      "va": "0x005B8500",
      "length": 38,
-     "name": "?sub_005B8500_IsSewerStairsClosed@@YIHPAUD2GameStrc@@@Z"
+     "name": "?ACT3Q2_IsSewerStairsClosed@@YIHPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x005B8530",
@@ -60007,7 +59955,7 @@
     {
      "va": "0x005B8B00",
      "length": 29,
-     "name": "?sub_005B8B00_AddFlailsDropped@@YIXPAUD2GameStrc@@H@Z"
+     "name": "?ACT3Q2_AddFlailsDropped@@YIXPAUD2GameStrc@@H@Z"
     },
     {
      "va": "0x005BD500",
@@ -60053,7 +60001,7 @@
     {
      "va": "0x005B8C50",
      "length": 104,
-     "name": "?sub_005B8C50_QuestCallback@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+     "name": "?ACT3Q3_Callback02_NpcDeactivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     },
     {
      "va": "0x005B8CC0",
@@ -60331,7 +60279,7 @@
     {
      "va": "0x005BAFD0",
      "length": 233,
-     "name": "?sub_005BAFD0@@YIXPAUQuest@@PAUArgs@@@Z"
+     "name": "?ACT3Q5_Callback00_NpcActivate@@YIXPAUQuest@@PAUArgs@@@Z"
     },
     {
      "va": "0x005BB0C0",
@@ -60556,7 +60504,7 @@
     {
      "va": "0x005BCF60",
      "length": 108,
-     "name": "?sub_005BCF60_ACT3Q6_UpdatePlayerStatus@@YIXPAUD2GameStrc@@_N@Z"
+     "name": "?ACT3Q6_UpdatePlayerStatus@@YIXPAUD2GameStrc@@_N@Z"
     },
     {
      "va": "0x005BCFD0",
@@ -61645,12 +61593,12 @@
     {
      "va": "0x005CA3E0",
      "length": 144,
-     "name": "?sub_005CA3E0@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLS_SrvDo028_Meteor_Blizzard_Eruption_BaalTaunt_Catapult@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005CA470",
      "length": 91,
-     "name": "?sub_005CA470_CreateThunderStormBolt@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHHPAU1@1@Z"
+     "name": "?SKILLS_CreateThunderStormBolt@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHHPAU1@1@Z"
     },
     {
      "va": "0x005CA4D0",
@@ -62871,7 +62819,7 @@
     {
      "va": "0x005DD280",
      "length": 7,
-     "name": "sub_005DD280"
+     "name": "AIUTIL_GetLifePercentage"
     },
     {
      "va": "0x005DD290",
@@ -68389,7 +68337,7 @@
     {
      "va": "0x00624740",
      "length": 63,
-     "name": "sub_00624740_FormatLocalTime"
+     "name": "LOG_FormatLocalTime"
     },
     {
      "va": "0x00624780",
@@ -68456,7 +68404,7 @@
     {
      "va": "0x00624C60",
      "length": 20,
-     "name": "?sub_00624C60_FindStat@@YAPAUD2StatStrc@@PAUD2StatsArrayStrc@@H@Z"
+     "name": "?STATLIST_FindStat@@YAPAUD2StatStrc@@PAUD2StatsArrayStrc@@H@Z"
     },
     {
      "va": "0x00624C80",
@@ -71254,7 +71202,7 @@
     {
      "va": "0x00650EB0",
      "length": 75,
-     "name": "?sub_00650EB0_MakeCode@@YAXPBDPAD@Z"
+     "name": "?DATATBLS_MakeCode@@YAXPBDPAD@Z"
     },
     {
      "va": "0x00650F00",
@@ -71698,7 +71646,7 @@
     {
      "va": "0x00641F20",
      "length": 55,
-     "name": "sub_00641F20_SetPlayerModeState"
+     "name": "UNITS_SetInteractData"
     },
     {
      "va": "0x00641F60",
@@ -72726,31 +72674,6 @@
      "name": "SKILLS_InitSkillList"
     },
     {
-     "va": "0x00648390",
-     "length": 5,
-     "name": "?sub_00648390_AlwaysZero@@YGHHH@Z"
-    },
-    {
-     "va": "0x00648640",
-     "length": 66,
-     "name": "D2COMMON_10193_PATH_AdjustDirection"
-    },
-    {
-     "va": "0x00648770",
-     "length": 16,
-     "name": "D2COMMON_10209_PathCheckPathingFlag"
-    },
-    {
-     "va": "0x006487C0",
-     "length": 13,
-     "name": "D2Common_10155"
-    },
-    {
-     "va": "0x0064C350",
-     "length": 22,
-     "name": "UNITROOM_AddUnitToRoom"
-    },
-    {
      "va": "0x0064EFE0",
      "length": 63,
      "name": "SKILLS_FixThrowWeaponClassCode"
@@ -72774,11 +72697,6 @@
      "va": "0x0066B880",
      "length": 116,
      "name": "DRLG_CheckOverlappingWithOrthogonalMargin"
-    },
-    {
-     "va": "0x0066E140",
-     "length": 20,
-     "name": "SKILLS_GetModeSideChar"
     }
    ]
   },
@@ -72846,6 +72764,11 @@
      "name": "?sub_00648380_Nop@@YAXXZ"
     },
     {
+     "va": "0x00648390",
+     "length": 5,
+     "name": "?sub_00648390_AlwaysZero@@YGHHH@Z"
+    },
+    {
      "va": "0x006483A0",
      "length": 135,
      "name": "?PATH_IsTargetDestinationAllowed@@YAHPAUD2PathInfoStrc@@PAUD2UnitStrc@@@Z"
@@ -72891,6 +72814,11 @@
      "name": "?PATH_SetNewDirection@@YIXPAUD2DynamicPathStrc@@E@Z"
     },
     {
+     "va": "0x00648640",
+     "length": 66,
+     "name": "D2COMMON_10193_PATH_AdjustDirection"
+    },
+    {
      "va": "0x00648690",
      "length": 38,
      "name": "_PATH_SetVelocity@16"
@@ -72931,6 +72859,11 @@
      "name": "_PATH_SetPathingFlag@8"
     },
     {
+     "va": "0x00648770",
+     "length": 16,
+     "name": "D2COMMON_10209_PathCheckPathingFlag"
+    },
+    {
      "va": "0x00648780",
      "length": 13,
      "name": "_PATH_GetNumberOfPathPoints@4"
@@ -72939,6 +72872,11 @@
      "va": "0x00648790",
      "length": 36,
      "name": "_PATH_SetNumberOfPathPoints@8"
+    },
+    {
+     "va": "0x006487C0",
+     "length": 13,
+     "name": "D2Common_10155"
     },
     {
      "va": "0x006487D0",
@@ -73554,7 +73492,7 @@
     {
      "va": "0x0064B2A0",
      "length": 158,
-     "name": "?sub_0064B2A0_GetMissileElementLength@@YGHPAUD2UnitStrc@@0HH@Z"
+     "name": "?MISSILE_GetElementalLength@@YGHPAUD2UnitStrc@@0HH@Z"
     },
     {
      "va": "0x0064B340",
@@ -73639,6 +73577,11 @@
      "va": "0x0064C2C0",
      "length": 137,
      "name": "?UNITROOM_AddUnitToRoomEx@@YGHPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@H@Z"
+    },
+    {
+     "va": "0x0064C350",
+     "length": 22,
+     "name": "UNITROOM_AddUnitToRoom"
     },
     {
      "va": "0x0064C370",
@@ -76540,6 +76483,11 @@
      "name": "?DRLGROOMTILE_ShrinkRoofTilesToShadowCount@@YIXPAUD2DrlgRoomStrc@@@Z"
     },
     {
+     "va": "0x0066E140",
+     "length": 20,
+     "name": "SKILLS_GetModeSideChar"
+    },
+    {
      "va": "0x0066E160",
      "length": 94,
      "name": "?DRLGROOMTILE_UpdateAndGetLvlWarpTxtRecord@@YGXHPAUD2RoomTileStrc@@@Z"
@@ -77176,7 +77124,7 @@
     {
      "va": "0x00675600",
      "length": 103,
-     "name": "sub_00675600_LookupTable"
+     "name": "DRLGOUTDOORS_GetCornerPresetId"
     },
     {
      "va": "0x006757E0",
@@ -78321,7 +78269,7 @@
     {
      "va": "0x0067FC50",
      "length": 30,
-     "name": "sub_0067FC50"
+     "name": "DRLGOUTDESR_FindBridgeInLastColumn"
     },
     {
      "va": "0x0067FC70",
@@ -78336,7 +78284,7 @@
     {
      "va": "0x006801F0",
      "length": 16,
-     "name": "?sub_006801F0_GetCliffPresetId@@YIHPAUD2DrlgLevelStrc@@@Z"
+     "name": "?DRLGOUTDESR_GetCliffPresetId@@YIHPAUD2DrlgLevelStrc@@@Z"
     },
     {
      "va": "0x00680200",

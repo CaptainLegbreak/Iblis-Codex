@@ -1046,4 +1046,3 @@ int __fastcall ACT3Q5_IsDuranceOfHateClosed(D2GameStrc* pGame, D2UnitStrc* pUnit
     return 0;
 }
 
-#include "gen/data/Source/D2Game/Quests/a3q5.inc"

@@ -31,7 +31,7 @@ void __fastcall DRLGOUTDOORS_AddAct124SecondaryBorder(D2DrlgLevelStrc* pLevel, i
 void __fastcall DRLGOUTPLACE_SetOutGridLinkFlags(D2DrlgLevelStrc* pLevel);                                  // 0x00675770
 void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel);                           // 0x00675850
 void __fastcall DRLGOUTDOORS_SpawnAct1DirtPaths(D2DrlgLevelStrc* pLevel);                                   // 0x00681420
-void __stdcall sub_00680200_SpawnRiverAndCliffCaves(D2DrlgLevelStrc* pLevel);
+void __stdcall DRLGOUTDESR_SpawnRiverAndCliffCaves(D2DrlgLevelStrc* pLevel); // 0x00680200
 D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId);
 int __fastcall DRLGOUTDOORS_SpawnPresetFarAway(D2DrlgLevelStrc* pLevel, D2DrlgCoordStrc* pCoords, int nLevelPrestId, int nPickedFile, int a5, int a6);
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);
@@ -348,7 +348,7 @@ void __fastcall DRLGOUTWILD_InitAct1OutdoorLevel(D2DrlgLevelStrc* pLevel)
     if (pLevel->eLevelId >= LEVEL_BLOODMOOR && pLevel->eLevelId <= LEVEL_TAMOEHIGHLAND)
     {
         DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 0, 4);
-        sub_00680200_SpawnRiverAndCliffCaves(pLevel);
+        DRLGOUTDESR_SpawnRiverAndCliffCaves(pLevel);
         DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 1, 4);
         DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 2, 4);
         DRLGOUTWILD_SpawnTownTransitionsAndCaves(pLevel);

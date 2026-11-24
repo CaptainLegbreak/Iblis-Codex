@@ -103,7 +103,7 @@ int __stdcall BigCompareUInt(BigBuffer& a, unsigned int b); // 0x00422570
 // 0x004225C0
 static void __stdcall sub_004225C0_DivUInt(unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c, BigBuffer& a)
 {
-    a.m_array.SetCount((int)a.m_start - (int)b.m_start + b.m_array.f_4);
+    a.m_array.SetCount((int)a.m_start - (int)b.m_start + b.m_array.m_count);
     unsigned __int64 nData = 0;
     unsigned int i = b.Count();
     while (i)
@@ -136,7 +136,6 @@ void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffe
 void FromStr(BigBuffer& a, const char* szString); // 0x004234B0
 void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue); // 0x00423540
 
-// build: context ToStr
 static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput, BigStack& tStack) // 0x00423600
 {
     BigBuffer& tBuffer = tStack.pRecords[tStack.nUsed++];

@@ -22,20 +22,20 @@ struct BigBuffer
 
     unsigned int Count() const
     {
-        return m_array.f_4 - m_start;
+        return m_array.m_count - m_start;
     }
     int IsUsed(unsigned int nIndex) const
     {
-        return nIndex + m_start < m_array.f_4;
+        return nIndex + m_start < m_array.m_count;
     }
     unsigned int operator[](unsigned int nIndex) const
     {
-        return IsUsed(nIndex) ? m_array.f_8[m_start + nIndex] : 0;
+        return IsUsed(nIndex) ? m_array.m_data[m_start + nIndex] : 0;
     }
     __forceinline unsigned int& operator[](unsigned int nIndex)
     {
         m_array.GrowToFit(m_start + nIndex, 1);
-        return m_array.f_8[m_start + nIndex];
+        return m_array.m_data[m_start + nIndex];
     }
     void SetCount(unsigned int nCount)
     {
@@ -45,9 +45,9 @@ struct BigBuffer
     {
         if (this != &tSource)
         {
-            m_array.sub_004215C0_Set(tSource.m_array.f_4, tSource.m_array.f_8);
+            m_array.sub_004215C0_Set(tSource.m_array.m_count, tSource.m_array.m_data);
         }
-        m_array.f_C = tSource.m_array.f_C;
+        m_array.m_chunk = tSource.m_array.m_chunk;
         m_start = tSource.m_start;
         return *this;
     }
@@ -57,22 +57,22 @@ struct BigBuffer
         {
 
             D2StormArrayViewStrc tView;
-            tView.pData = tSource.m_array.f_8;
-            tView.nCount = tSource.m_array.f_4;
+            tView.pData = tSource.m_array.m_data;
+            tView.nCount = tSource.m_array.m_count;
             m_array.sub_004215C0_Set(tView.nCount, tView.pData);
         }
-        m_array.f_C = tSource.m_array.f_C;
+        m_array.m_chunk = tSource.m_array.m_chunk;
         m_start = tSource.m_start;
     }
     unsigned int& Ref(int nIndex)
     {
         GrowToFit(nIndex);
-        return m_array.f_8[m_start + nIndex];
+        return m_array.m_data[m_start + nIndex];
     }
     inline unsigned int& At(unsigned int nIndex)
     {
         m_array.GrowToFitInline(m_start + nIndex);
-        return m_array.f_8[m_start + nIndex];
+        return m_array.m_data[m_start + nIndex];
     }
     void SetStart(unsigned int nStart)
     {
@@ -130,7 +130,7 @@ void __stdcall BigAdd(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 
 // 0x004225C0
 static void __stdcall sub_004225C0_DivUInt(unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c, BigBuffer& a)
 {
-    a.m_array.SetCount((int)a.m_start - (int)b.m_start + b.m_array.f_4);
+    a.m_array.SetCount((int)a.m_start - (int)b.m_start + b.m_array.m_count);
     unsigned __int64 nData = 0;
     unsigned int i = b.Count();
     while (i)
@@ -169,7 +169,6 @@ void SetZero(BigBuffer& a); // 0x00422CC0
 
 static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift); // 0x00422D00
 
-// build: context Shl
 static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift) // 0x00422D00
 {
     unsigned int nWords = nShift / 32;
@@ -212,7 +211,6 @@ void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffe
 
 static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x00423DC0
 
-// build: context Div
 static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack) // 0x00423DC0
 {
     c.sub_00422140_Trim();
@@ -282,10 +280,10 @@ static void __stdcall sub_00422FC0_SubUInt(const BigBuffer* pSrc, BigBuffer* pDs
     unsigned __int64 nAcc = ~(unsigned __int64)nValue + 1;
     unsigned int nIndex = 0;
     unsigned int nCount;
-    while (nCount = pSrc->m_array.f_4, pSrc->m_start + nIndex < nCount)
+    while (nCount = pSrc->m_array.m_count, pSrc->m_start + nIndex < nCount)
     {
         unsigned int nSrcIdx = pSrc->m_start + nIndex;
-        unsigned int nElem = nSrcIdx < nCount ? pSrc->m_array.f_8[nSrcIdx] : 0;
+        unsigned int nElem = nSrcIdx < nCount ? pSrc->m_array.m_data[nSrcIdx] : 0;
         nAcc += nElem;
         unsigned int nLow = (unsigned int)nAcc;
         unsigned int nHigh = (unsigned int)(nAcc >> 32);
@@ -294,12 +292,12 @@ static void __stdcall sub_00422FC0_SubUInt(const BigBuffer* pSrc, BigBuffer* pDs
             nAcc |= 0xFFFFFFFF00000000ull;
 
         unsigned int nDstIdx = pDst->m_start + nIndex;
-        if (nDstIdx >= pDst->m_array.f_4)
+        if (nDstIdx >= pDst->m_array.m_count)
         {
             unsigned int nNewCount = nDstIdx + 1;
-            if (nNewCount > pDst->m_array.f_0)
+            if (nNewCount > pDst->m_array.m_alloc)
             {
-                unsigned int nChunk = pDst->m_array.f_C;
+                unsigned int nChunk = pDst->m_array.m_chunk;
                 if (!nChunk)
                     nChunk = pDst->m_array.sub_004210A0_CalcChunkSize(nNewCount);
                 unsigned int nAlloc = nNewCount;
@@ -308,16 +306,16 @@ static void __stdcall sub_00422FC0_SubUInt(const BigBuffer* pSrc, BigBuffer* pDs
                     nAlloc = nNewCount + (nChunk - nRem);
                 pDst->m_array.sub_004216E0_ReallocData(nAlloc);
             }
-            SMemZero(&pDst->m_array.f_8[pDst->m_array.f_4], (nDstIdx - pDst->m_array.f_4) * 4 + 4);
-            pDst->m_array.f_4 = nNewCount;
+            SMemZero(&pDst->m_array.m_data[pDst->m_array.m_count], (nDstIdx - pDst->m_array.m_count) * 4 + 4);
+            pDst->m_array.m_count = nNewCount;
         }
-        pDst->m_array.f_8[pDst->m_start + nIndex] = nLow;
+        pDst->m_array.m_data[pDst->m_start + nIndex] = nLow;
         nIndex++;
     }
     unsigned int nEnd = pDst->m_start + nIndex;
-    if (nEnd > pDst->m_array.f_4 && nEnd > pDst->m_array.f_0)
+    if (nEnd > pDst->m_array.m_count && nEnd > pDst->m_array.m_alloc)
     {
-        unsigned int nChunk = pDst->m_array.f_C;
+        unsigned int nChunk = pDst->m_array.m_chunk;
         if (!nChunk)
             nChunk = pDst->m_array.sub_004210A0_CalcChunkSize(nEnd);
         unsigned int nAlloc = nEnd;
@@ -326,7 +324,7 @@ static void __stdcall sub_00422FC0_SubUInt(const BigBuffer* pSrc, BigBuffer* pDs
             nAlloc = nEnd + (nChunk - nRem);
         pDst->m_array.sub_004216E0_ReallocData(nAlloc);
     }
-    pDst->m_array.f_4 = nEnd;
+    pDst->m_array.m_count = nEnd;
 }
 
 // 0x00423540
@@ -349,7 +347,6 @@ static void __stdcall BigMulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuf
 
 static void __stdcall PowMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x00425150
 
-// build: context PowMod
 static void __stdcall PowMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack) // 0x00425150
 {
     c.sub_00422140_Trim();
@@ -413,9 +410,9 @@ static int __stdcall IsPrime(BigStack* pStack, BigBuffer& a)
     else
     {
         D2StormQueueRangeStrc tRange;
-        tRange.nCount = tRead.m_array.f_4;
+        tRange.nCount = tRead.m_array.m_count;
         tRange.nStart = tRead.m_start;
-        if (!((tRange.nStart < tRange.nCount ? tRead.m_array.f_8[tRange.nStart] : 0) & 1))
+        if (!((tRange.nStart < tRange.nCount ? tRead.m_array.m_data[tRange.nStart] : 0) & 1))
             bPrime = 0;
     }
     for (unsigned int i = 0; bPrime && i < 171; i++)
@@ -500,7 +497,6 @@ void __stdcall SBigFindPrime(D2StormBigStrc* pResult, unsigned int nBits, D2Stor
 
 static void __stdcall InvMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack); // 0x00424FB0
 
-// build: context InvMod
 static void __stdcall InvMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack) // 0x00424FB0
 {
     BigBuffer& tPrev = tStack.f_0[tStack.nUsed++];

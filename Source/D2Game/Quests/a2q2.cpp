@@ -121,7 +121,7 @@ void __fastcall QUESTS_DeleteItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, int dw
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 
 // 0x00599510
-static int __stdcall sub_00599510(D2GameStrc* pGame, D2UnitStrc* pUnit)
+static int __stdcall ACT2Q2_ShouldUpdateQuestStatus(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
 
@@ -136,9 +136,9 @@ static int __stdcall sub_00599510(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 // 0x00599570
-static int sub_00599570_ACT2Q2_CycleStatusIfDone(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static int ACT2Q2_CycleStatusIfDone(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
-    if (sub_00599510(pGame, pPlayer))
+    if (ACT2Q2_ShouldUpdateQuestStatus(pGame, pPlayer))
     {
         QUESTS_StatusCyclerEx(pGame, pPlayer, QUEST_A2Q2_HORADRICSTAFF);
     }
@@ -474,13 +474,13 @@ void __fastcall ACT2Q2_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2Qu
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
     if (pQuestData->nActNo == DRLG_GetActNoFromLevelId(nLevelId))
     {
-        sub_00599510(pQuestArg->pGame, pQuestArg->pPlayer);
+        ACT2Q2_ShouldUpdateQuestStatus(pQuestArg->pGame, pQuestArg->pPlayer);
     }
 
     if (pItemsTxtRecord->dwCode == ' 1rt' && !bLeftTown)
     {
         pQuestData->fLastState = 1;
-        sub_00599570_ACT2Q2_CycleStatusIfDone(pQuestData->pGame, pQuestArg->pPlayer);
+        ACT2Q2_CycleStatusIfDone(pQuestData->pGame, pQuestArg->pPlayer);
         return;
     }
 
@@ -489,12 +489,12 @@ void __fastcall ACT2Q2_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2Qu
         if (bLeftTown)
         {
             pQuestData->fLastState = 2;
-            sub_00599570_ACT2Q2_CycleStatusIfDone(pQuestData->pGame, pQuestArg->pPlayer);
+            ACT2Q2_CycleStatusIfDone(pQuestData->pGame, pQuestArg->pPlayer);
         }
         else
         {
             pQuestData->fLastState = 6;
-            sub_00599570_ACT2Q2_CycleStatusIfDone(pQuestData->pGame, pQuestArg->pPlayer);
+            ACT2Q2_CycleStatusIfDone(pQuestData->pGame, pQuestArg->pPlayer);
         }
         return;
     }
@@ -504,12 +504,12 @@ void __fastcall ACT2Q2_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2Qu
         if (!bLeftTown)
         {
             pQuestData->fLastState = 6;
-            sub_00599570_ACT2Q2_CycleStatusIfDone(pQuestData->pGame, pQuestArg->pPlayer);
+            ACT2Q2_CycleStatusIfDone(pQuestData->pGame, pQuestArg->pPlayer);
         }
         else
         {
             pQuestData->fLastState = 2;
-            sub_00599570_ACT2Q2_CycleStatusIfDone(pQuestData->pGame, pQuestArg->pPlayer);
+            ACT2Q2_CycleStatusIfDone(pQuestData->pGame, pQuestArg->pPlayer);
         }
         return;
     }
@@ -519,12 +519,12 @@ void __fastcall ACT2Q2_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2Qu
         if (!bLeftTown)
         {
             pQuestData->fLastState = 6;
-            sub_00599570_ACT2Q2_CycleStatusIfDone(pQuestData->pGame, pQuestArg->pPlayer);
+            ACT2Q2_CycleStatusIfDone(pQuestData->pGame, pQuestArg->pPlayer);
         }
         else
         {
             pQuestData->fLastState = 2;
-            sub_00599570_ACT2Q2_CycleStatusIfDone(pQuestData->pGame, pQuestArg->pPlayer);
+            ACT2Q2_CycleStatusIfDone(pQuestData->pGame, pQuestArg->pPlayer);
         }
     }
 }
@@ -816,4 +816,3 @@ void __fastcall ACT2Q2_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQ
     pQuestDataEx->bStaffMissingDetected = 1;
 }
 
-#include "gen/data/Source/D2Game/Quests/a2q2.inc"

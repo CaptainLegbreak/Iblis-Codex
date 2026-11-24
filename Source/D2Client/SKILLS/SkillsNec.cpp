@@ -24,3 +24,5 @@ int __fastcall SKILLSNEC_CheckNecromancerSkill(void* pUnit, int nArg1, int nArg2
         return 0;
     return !STATLIST_GetOwner(pTarget, 0);
 }
+
+#include "gen/data/Source/D2Client/SKILLS/SkillsNec.inc"

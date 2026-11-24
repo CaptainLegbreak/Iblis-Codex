@@ -76,7 +76,7 @@ void __fastcall DRLGGRID_AlterBottomAndRightEdgeFlags(D2DrlgGridStrc* pGrid, int
 
 void __fastcall DRLGGRID_AlterFlagsAlongVertexEdge(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, int nFlag, int eOperation, int bAlterNextVertex); // 0x0067C760
 
-void __fastcall sub_0067C890(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, int nFlag); // 0x0067C890
+void __fastcall DRLGGRID_SetVertexGridFlags(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, int nFlag); // 0x0067C890
 
 void __fastcall DRLGGRID_AlterFlagsAlongVertexLine(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, D2DrlgCoordsStrc* pCoords, int nFlag, int eOperation, int nSize); // 0x0067C8E0
 
@@ -320,7 +320,7 @@ typedef void (__fastcall* DRLGGRID_FlagOperation)(int* pFlag, int nFlag);
 extern DRLGGRID_FlagOperation gpfnDrlgGridFlagOperations[6]; // 0x00749BAC
 
 // 0x0067C890
-void __fastcall sub_0067C890(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, int nFlag)
+void __fastcall DRLGGRID_SetVertexGridFlags(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, int nFlag)
 {
     D2DrlgVertexStrc* pCurrent = pVertex;
     if (pVertex)

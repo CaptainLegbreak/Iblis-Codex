@@ -209,7 +209,7 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 }
 
 // 0x005BD390
-bool __fastcall sub_005BD390(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
+bool __fastcall ACT3Q7_SpawnVileDogs(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
 {
     D2Act3Quest7Strc* pQuestDataEx = (D2Act3Quest7Strc*)pQuestData->pQuestDataEx;
     if (!pQuestDataEx->bVileDogsSpawned)
@@ -248,7 +248,7 @@ bool __fastcall sub_005BD390(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
 
 void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks); // 0x00543F10
 
-bool __fastcall sub_005BD390(D2GameStrc* pGame, D2QuestDataStrc* pQuestData); // 0x005BD390
+bool __fastcall ACT3Q7_SpawnVileDogs(D2GameStrc* pGame, D2QuestDataStrc* pQuestData); // 0x005BD390
 
 // 0x005BD4A0
 void __fastcall ACT3Q7_CreateVileDogSpawnTimer(D2GameStrc* pGame, D2UnitStrc* pUnit)
@@ -267,7 +267,7 @@ void __fastcall ACT3Q7_CreateVileDogSpawnTimer(D2GameStrc* pGame, D2UnitStrc* pU
 
     pQuestDataEx->bVileDogSpawnTimerCreated = 1;
     pQuestDataEx->nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
-    QUESTS_CreateTimer(pQuestData, sub_005BD390, 2);
+    QUESTS_CreateTimer(pQuestData, ACT3Q7_SpawnVileDogs, 2);
 }
 
 #include "gen/data/Source/D2Game/Quests/a3q7.inc"

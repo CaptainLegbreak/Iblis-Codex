@@ -887,4 +887,3 @@ void __fastcall ACT3Q4_ResetAlkor(D2GameStrc* pGame)
 }
 
 int __fastcall ACT3Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005BADC0
-#include "gen/data/Source/D2Game/Quests/a3q4.inc"

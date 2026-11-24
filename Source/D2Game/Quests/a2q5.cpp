@@ -575,4 +575,3 @@ int __fastcall ACT2Q6_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 
 void __fastcall ACT2Q6_UnitIterate_SetCustom1Flag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059CF20
 
-#include "gen/data/Source/D2Game/Quests/a2q5.inc"

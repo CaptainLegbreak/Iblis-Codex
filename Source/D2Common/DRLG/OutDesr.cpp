@@ -112,7 +112,7 @@ static int DRLGOUTWILD_TestSpawnRiver(int nX, D2DrlgLevelStrc* pLevel);
 
 static int __stdcall DRLGOUTWILD_SpawnCliffCaves(D2DrlgLevelStrc* pLevel, int nX, int nY);
 
-void __stdcall sub_00680200_SpawnRiverAndCliffCaves(D2DrlgLevelStrc* pLevel);
+void __stdcall DRLGOUTDESR_SpawnRiverAndCliffCaves(D2DrlgLevelStrc* pLevel); // 0x00680200
 
 static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
@@ -401,7 +401,7 @@ void __fastcall DRLGOUTWILD_GetBridgeCoords(D2DrlgLevelStrc* pLevel, int* pX, in
 }
 
 // 0x0067FC50
-void __fastcall sub_0067FC50(D2DrlgLevelStrc* pLevel, int* pX, int* pY)
+void __fastcall DRLGOUTDESR_FindBridgeInLastColumn(D2DrlgLevelStrc* pLevel, int* pX, int* pY)
 {
     DRLGOUTWILD_FindBridgeInColumn(pLevel, pLevel->pOutdoors->nGridWidth - 2, pX, pY);
 }
@@ -448,7 +448,7 @@ static int __stdcall DRLGOUTWILD_SpawnCliffCaves(D2DrlgLevelStrc* pLevel, int nX
 }
 
 // 0x006801F0
-int __fastcall sub_006801F0_GetCliffPresetId(D2DrlgLevelStrc* pLevel)
+int __fastcall DRLGOUTDESR_GetCliffPresetId(D2DrlgLevelStrc* pLevel)
 {
     return (pLevel->eLevelId == LEVEL_BLOODMOOR) + 0x33;
 }
@@ -478,7 +478,7 @@ static inline unsigned __int64 SEED_RollRandomNumber64_Inline(D2SeedStrc* pSeed)
 }
 
 // 0x00680200
-void __stdcall sub_00680200_SpawnRiverAndCliffCaves(D2DrlgLevelStrc* pLevel)
+void __stdcall DRLGOUTDESR_SpawnRiverAndCliffCaves(D2DrlgLevelStrc* pLevel)
 {
     if (pLevel->eLevelId == LEVEL_MOOMOOFARM)
     {

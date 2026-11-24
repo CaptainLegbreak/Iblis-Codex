@@ -738,8 +738,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/ui.cpp": {
-   "bytes": 7868,
-   "definitions": 79,
+   "bytes": 7864,
+   "definitions": 78,
    "externs": [
     "extern \"C\" void __cdecl TEXT_QuestButtonDownMsg(); // 0x004A2A20",
     "extern \"C\" void __cdecl SCMD_HandleResetMessage(); // 0x00452090",
@@ -864,7 +864,7 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_00460420.cpp": {
-   "bytes": 216,
+   "bytes": 156,
    "definitions": 3,
    "externs": [
     "extern \"C\" void __cdecl AUTOMAP_PopupButtonDownMsg(); // 0x0045FE30",
@@ -899,26 +899,17 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/CUnit.cpp": {
-   "bytes": 1324,
-   "definitions": 7,
+   "bytes": 1260,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004642B0.inc",
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_00467E40.cpp": {
-   "bytes": 40,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_00467E40.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/UI/CmdTbl.cpp": {
-   "bytes": 748,
-   "definitions": 4,
+   "bytes": 812,
+   "definitions": 5,
    "externs": [
     "extern \"C\" void __cdecl sub_00468940_SetUIVar2(); // 0x00468940",
     "extern \"C\" void __cdecl SCMD_HandleHotkeyMessage(); // 0x0046A840",
@@ -1461,8 +1452,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/SkillDesc.cpp": {
-   "bytes": 620,
-   "definitions": 14,
+   "bytes": 440,
+   "definitions": 13,
    "externs": [
     "extern \"C\" void __cdecl SKILLDESC_DrawThrowAndElemDamage(); // 0x004EAAA0",
     "extern \"C\" void __cdecl SKILLSMON_DescIfRecord(); // 0x004EC040",
@@ -1751,8 +1742,8 @@
    "state": "included"
   },
   "Source/D2Gfx/SRC/Window.cpp": {
-   "bytes": 208,
-   "definitions": 7,
+   "bytes": 268,
+   "definitions": 8,
    "externs": [
     "extern \"C\" void __cdecl sub_004F8B80(); // 0x004F8B80",
     "extern \"C\" void __cdecl sub_004F8DE0(); // 0x004F8DE0"
@@ -2691,7 +2682,6 @@
     "extern \"C\" void __cdecl SKILLS_SrvDo150_Smite(); // 0x005CE9F0",
     "extern \"C\" void __cdecl SKILLS_SrvDo151_Unused(); // 0x005CA260",
     "extern \"C\" void __cdecl SKILLS_SrvDo152_DiabLight(); // 0x005CC690",
-    "extern \"C\" void __cdecl sub_005CA3E0(); // 0x005CA3E0",
     "extern \"C\" void __cdecl sub_005C4B00(); // 0x005C4B00",
     "extern \"C\" void __cdecl SKILLS_ExplodeCorpse(); // 0x005C4DF0",
     "extern \"C\" void __cdecl SKILLS_SrvDo057_IronGolem(); // 0x005C5250",
@@ -2718,10 +2708,7 @@
     "extern \"C\" void __cdecl sub_005D3140(); // 0x005D3140",
     "extern \"C\" void __cdecl sub_005D8780(); // 0x005D8780",
     "extern \"C\" void __cdecl SKILLS_SrvDo009_Frenzy(); // 0x005D8E00",
-    "extern \"C\" void __cdecl sub_005DB410_CreateMissileWall(); // 0x005DB410",
-    "extern \"C\" void __cdecl sub_005DBA40_CreateSkillMissile(); // 0x005DBA40",
     "extern \"C\" void __cdecl sub_005DBC60(); // 0x005DBC60",
-    "extern \"C\" void __cdecl sub_005DC000_SrvDoSummonPet(); // 0x005DC000",
     "extern \"C\" void __cdecl SKILLS_SrvDo099_PrimePoisonNova(); // 0x005CCD10",
     "extern \"C\" void __cdecl sub_005CDF10(); // 0x005CDF10",
     "extern \"C\" void __cdecl sub_005CDFB0(); // 0x005CDFB0",
@@ -2752,7 +2739,11 @@
     "extern \"C\" void __cdecl SKILLS_SrvDo139_BaalColdMissiles(); // 0x005D2940",
     "extern \"C\" void __cdecl SKILLS_SrvDo140_BaalTentacle(); // 0x005D2C20",
     "extern \"C\" void __cdecl SKILLS_SrvDo141_BaalCorpseExplode(); // 0x005D2E80",
-    "extern \"C\" void __cdecl SKILLS_SrvDo143_FistsOfFire_RoyalStrike_ProgressiveFn(); // 0x005D4F40"
+    "extern \"C\" void __cdecl SKILLS_SrvDo143_FistsOfFire_RoyalStrike_ProgressiveFn(); // 0x005D4F40",
+    "extern \"C\" void __cdecl SKILLS_SrvDo028_Meteor_Blizzard_Eruption_BaalTaunt_Catapult(); // 0x005CA3E0",
+    "extern \"C\" void __cdecl SKILLS_SrvDo008_MultipleShot_Teeth_ShockWave(); // 0x005DB410",
+    "extern \"C\" void __cdecl SKILLS_SrvDo012_Strafe(); // 0x005DBA40",
+    "extern \"C\" void __cdecl SKILLS_SrvDo015_Dopplezon(); // 0x005DC000"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/Skills.inc",
@@ -2869,15 +2860,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Quests/a1q4.cpp": {
-   "bytes": 2192,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a1q4.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/Quests/a5q1.cpp": {
    "bytes": 1616,
    "definitions": 2,
@@ -2933,65 +2915,11 @@
    "state": "included"
   },
   "Source/D2Game/Unknown_0058F870.cpp": {
-   "bytes": 1236,
-   "definitions": 4,
+   "bytes": 10804,
+   "definitions": 17,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_0058F870.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a1q1.cpp": {
-   "bytes": 1592,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a1q1.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a1q3.cpp": {
-   "bytes": 1200,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a1q3_005912E0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a2q3.cpp": {
-   "bytes": 1176,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a2q3.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a2q6.cpp": {
-   "bytes": 1592,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a2q6.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a1q6.cpp": {
-   "bytes": 1176,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a1q6.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Unknown_00596C40.cpp": {
-   "bytes": 1176,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_00596C40.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3010,45 +2938,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MONSTER/MonsterMsg.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a2q1.cpp": {
-   "bytes": 2944,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a2q1.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a2q2.cpp": {
-   "bytes": 2160,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a2q2.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a2q4.cpp": {
-   "bytes": 2440,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a2q4.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a2q7.cpp": {
-   "bytes": 1704,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod1_RandomName(); // 0x005A0CE0",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod2_HealthBonus(); // 0x005A0DC0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a2q7.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3196,7 +3085,6 @@
     "extern \"C\" void __cdecl sub_005EDC40(); // 0x005EDC40",
     "extern \"C\" void __cdecl sub_005EDC50(); // 0x005EDC50",
     "extern \"C\" void __cdecl sub_005EE040(); // 0x005EE040",
-    "extern \"C\" void __cdecl sub_005EE260_Think(); // 0x005EE260",
     "extern \"C\" void __cdecl sub_005EE3C0(); // 0x005EE3C0",
     "extern \"C\" void __cdecl sub_005EE5C0(); // 0x005EE5C0",
     "extern \"C\" void __cdecl sub_005EE5D0(); // 0x005EE5D0",
@@ -3227,7 +3115,8 @@
     "extern \"C\" void __cdecl AITHINK_Fn076_EvilHole(); // 0x005FB410",
     "extern \"C\" void __cdecl sub_005FB900(); // 0x005FB900",
     "extern \"C\" void __cdecl sub_005FB9B0(); // 0x005FB9B0",
-    "extern \"C\" void __cdecl AIBAAL_RunSpecialAiState(); // 0x005FCF30"
+    "extern \"C\" void __cdecl AIBAAL_RunSpecialAiState(); // 0x005FCF30",
+    "extern \"C\" void __cdecl AITHINK_Fn130_DeathMauler(); // 0x005EE260"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MISSILES/MissMode.inc",
@@ -3528,7 +3417,6 @@
     "extern \"C\" void __cdecl sub_005EE5D0(); // 0x005EE5D0",
     "extern \"C\" void __cdecl AITHINK_InitializeGenericSpawner(); // 0x005E6190",
     "extern \"C\" void __cdecl AITHINK_Fn129_GenericSpawner(); // 0x005E61B0",
-    "extern \"C\" void __cdecl sub_005EE260_Think(); // 0x005EE260",
     "extern \"C\" void __cdecl sub_005EE3C0(); // 0x005EE3C0",
     "extern \"C\" void __cdecl AITHINK_Fn133_Ancient(); // 0x005EF1A0",
     "extern \"C\" void __cdecl sub_005EF310(); // 0x005EF310",
@@ -3558,7 +3446,8 @@
     "extern \"C\" void __cdecl AITHINK_SpecialState13_Countess(); // 0x005E5C50",
     "extern \"C\" void __cdecl AITHINK_SpecialState14_AttackOrApproach(); // 0x005E2610",
     "extern \"C\" void __cdecl AITHINK_InitializeMountedImpSkills(); // 0x005E2CD0",
-    "extern \"C\" void __cdecl sub_005E2D80(); // 0x005E2D80"
+    "extern \"C\" void __cdecl sub_005E2D80(); // 0x005E2D80",
+    "extern \"C\" void __cdecl AITHINK_Fn130_DeathMauler(); // 0x005EE260"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Ai/AiThink.inc",
@@ -3575,74 +3464,11 @@
    "state": "included"
   },
   "Source/D2Game/Quests/a4q1.cpp": {
-   "bytes": 1568,
-   "definitions": 2,
+   "bytes": 16376,
+   "definitions": 25,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a4q1.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a4q2.cpp": {
-   "bytes": 1372,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a4q2.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a4q3.cpp": {
-   "bytes": 2228,
-   "definitions": 9,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a4q3_005B6050.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a3q1.cpp": {
-   "bytes": 1768,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a3q1.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a3q2.cpp": {
-   "bytes": 2552,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a3q2.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a3q3.cpp": {
-   "bytes": 1568,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a3q3.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a3q4.cpp": {
-   "bytes": 1768,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a3q4.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a3q6.cpp": {
-   "bytes": 1600,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a3q6.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -4497,15 +4323,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Quests/a2q5.cpp": {
-   "bytes": 784,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a2q5.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Glide/Src/glDebugFont.cpp": {
    "bytes": 204,
    "definitions": 5,
@@ -4525,8 +4342,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/RosterPets.cpp": {
-   "bytes": 244,
-   "definitions": 4,
+   "bytes": -116,
+   "definitions": 0,
    "externs": [
     "extern \"C\" void __cdecl CURSOR_DrawDefaultCursor(); // 0x004683C0",
     "extern \"C\" void __cdecl CURSOR_DrawCursorCel(); // 0x00468460"
@@ -4546,18 +4363,9 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Quests/a3q5.cpp": {
-   "bytes": 1568,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a3q5.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/Quests/a1q2.cpp": {
-   "bytes": 1176,
-   "definitions": 3,
+   "bytes": 24,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a1q2.inc",
@@ -4570,15 +4378,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a5q4_0058B0B0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Game/Quests/a1q5.cpp": {
-   "bytes": 980,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Quests/a1q5_00594740.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -4656,8 +4455,8 @@
    "state": "included"
   },
   "Source/D2Game/Quests/a2q0.cpp": {
-   "bytes": 2944,
-   "definitions": 1,
+   "bytes": 12700,
+   "definitions": 16,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a2q0.inc",
@@ -4665,8 +4464,8 @@
    "state": "included"
   },
   "Source/D2Game/Quests/a2q8.cpp": {
-   "bytes": 452,
-   "definitions": 2,
+   "bytes": 60,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a2q8.inc",
@@ -4704,8 +4503,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Select.cpp": {
-   "bytes": 456,
-   "definitions": 7,
+   "bytes": -152,
+   "definitions": 5,
    "externs": [
     "extern \"C\" void __cdecl sub_00467EF0_MsgHandler(); // 0x00467EF0",
     "extern \"C\" void __cdecl ROSTERPETS_HandleButtonUp(); // 0x00467FA0",
@@ -4735,8 +4534,8 @@
    "state": "included"
   },
   "Source/D2Game/Quests/a3q7.cpp": {
-   "bytes": 124,
-   "definitions": 2,
+   "bytes": 60,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a3q7.inc",
@@ -5611,6 +5410,33 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Launch/Unknown_0043C4F0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/SKILLS/SkillsNec.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/SKILLS/SkillsNec.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/SKILLS/SkillsAma.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/SKILLS/SkillsAma.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/ENGINE/Cursor.cpp": {
+   "bytes": 556,
+   "definitions": 8,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/ENGINE/Cursor.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -34197,7 +34023,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/ui.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnHoverClassId = ",
@@ -40860,7 +40686,7 @@
    "cname": "gData_00712020",
    "declared": true,
    "decorated": "?gaPanelAnim@@3PAUD2PanelAnimEntryStrc@@A",
-   "file": "Source/D2Client/GAME/RosterPets.cpp",
+   "file": "Source/D2Client/ENGINE/Cursor.cpp",
    "fill": 6,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00712020_t gData_00712020; // 0x00712020",
@@ -40977,7 +40803,7 @@
    "cname": "gData_007120C8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/GAME/RosterPets.cpp",
+   "file": "Source/D2Client/ENGINE/Cursor.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007120C8_t gData_007120C8; // 0x007120C8",
    "head": "extern \"C\" struct d2data_007120C8_t gData_007120C8 = ",
@@ -41273,10 +41099,10 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Client/Unknown_00460420.cpp",
-   "fill": 9,
+   "fill": 4,
    "form": "declared",
    "fwd": null,
-   "head": "extern D2MsgHandlerEntryStrc gaOkCancelHandlers[9] = ",
+   "head": "extern D2MsgHandlerEntryStrc gaOkCancelHandlers[4] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -41315,8 +41141,8 @@
      "size": 12
     },
     "k": "arr",
-    "n": 9,
-    "size": 108
+    "n": 4,
+    "size": 48
    },
    "name": "gaOkCancelHandlers",
    "pointers": [
@@ -41351,9 +41177,29 @@
      "SCMD_ConfirmOkCancelPopup",
      0,
      "func"
-    ],
+    ]
+   ],
+   "region": "data",
+   "size": 48,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x00711D70",
+   "type": "D2MsgHandlerEntryStrc",
+   "va": "0x00711D70"
+  },
+  {
+   "alias": false,
+   "cname": "gData_00711DA0",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/UNIT/Player.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_00711DA0_t gData_00711DA0; // 0x00711DA0",
+   "head": "extern \"C\" struct d2data_00711DA0_t gData_00711DA0 = ",
+   "name": "gData_00711DA0",
+   "pointers": [
     [
-     48,
+     0,
      "0x006CC81C",
      "literal",
      null,
@@ -41361,7 +41207,7 @@
      "string"
     ],
     [
-     52,
+     4,
      "0x006CC814",
      "literal",
      null,
@@ -41369,7 +41215,7 @@
      "string"
     ],
     [
-     56,
+     8,
      "0x006CC80C",
      "literal",
      null,
@@ -41377,7 +41223,7 @@
      "string"
     ],
     [
-     60,
+     12,
      "0x006CC804",
      "literal",
      null,
@@ -41385,7 +41231,7 @@
      "string"
     ],
     [
-     64,
+     16,
      "0x006CC7F8",
      "literal",
      null,
@@ -41393,7 +41239,7 @@
      "string"
     ],
     [
-     68,
+     20,
      "0x006CC7F0",
      "literal",
      null,
@@ -41401,7 +41247,7 @@
      "string"
     ],
     [
-     72,
+     24,
      "0x006CC7E4",
      "literal",
      null,
@@ -41409,7 +41255,7 @@
      "string"
     ],
     [
-     76,
+     28,
      "0x006CC7DC",
      "literal",
      null,
@@ -41417,7 +41263,7 @@
      "string"
     ],
     [
-     80,
+     32,
      "0x006CC7C8",
      "literal",
      null,
@@ -41425,7 +41271,7 @@
      "string"
     ],
     [
-     84,
+     36,
      "0x006CC7B4",
      "literal",
      null,
@@ -41433,7 +41279,7 @@
      "string"
     ],
     [
-     88,
+     40,
      "0x006CC7AC",
      "literal",
      null,
@@ -41441,7 +41287,7 @@
      "string"
     ],
     [
-     92,
+     44,
      "0x006CC7A4",
      "literal",
      null,
@@ -41449,7 +41295,7 @@
      "string"
     ],
     [
-     96,
+     48,
      "0x006CC788",
      "literal",
      null,
@@ -41457,7 +41303,7 @@
      "string"
     ],
     [
-     100,
+     52,
      "0x006CC780",
      "literal",
      null,
@@ -41465,7 +41311,7 @@
      "string"
     ],
     [
-     104,
+     56,
      "0x006CC77C",
      "literal",
      null,
@@ -41474,12 +41320,10 @@
     ]
    ],
    "region": "data",
-   "size": 108,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00711D70",
-   "type": "D2MsgHandlerEntryStrc",
-   "va": "0x00711D70"
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00711DA0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00711DA0",
+   "va": "0x00711DA0"
   },
   {
    "alias": false,
@@ -41701,7 +41545,7 @@
    "cname": "gData_00711EF4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/Player.cpp",
+   "file": "Source/D2Client/UNIT/CUnit.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00711EF4_t gData_00711EF4; // 0x00711EF4",
    "head": "extern \"C\" struct d2data_00711EF4_t gData_00711EF4 = ",
@@ -42031,7 +41875,7 @@
    "cname": "gData_00711F54",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/CUnit.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00711F54_t gData_00711F54; // 0x00711F54",
    "head": "extern \"C\" struct d2data_00711F54_t gData_00711F54 = ",
@@ -42169,7 +42013,7 @@
    "cname": "gData_007121E0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/CUnit.cpp",
+   "file": "Source/D2Client/UI/CmdTbl.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007121E0_t gData_007121E0; // 0x007121E0",
    "head": "extern \"C\" struct d2data_007121E0_t gData_007121E0 = ",
@@ -42393,7 +42237,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Select.cpp",
+   "file": "Source/D2Client/ENGINE/Cursor.cpp",
    "fill": 3,
    "form": "declared",
    "fwd": null,
@@ -42479,7 +42323,7 @@
    "cname": "gData_007120EC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Select.cpp",
+   "file": "Source/D2Client/ENGINE/Cursor.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007120EC_t gData_007120EC; // 0x007120EC",
    "head": "extern \"C\" struct d2data_007120EC_t gData_007120EC = ",
@@ -42590,10 +42434,10 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Client/GAME/Select.cpp",
-   "fill": 21,
+   "fill": 6,
    "form": "declared",
    "fwd": null,
-   "head": "extern int gaUnitHoverPriority[21] = ",
+   "head": "extern int gaUnitHoverPriority[6] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -42602,134 +42446,13 @@
      "size": 4
     },
     "k": "arr",
-    "n": 21,
-    "size": 84
+    "n": 6,
+    "size": 24
    },
    "name": "gaUnitHoverPriority",
-   "pointers": [
-    [
-     24,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     60,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     64,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     68,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     72,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     76,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     80,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
+   "pointers": [],
    "region": "data",
-   "size": 84,
+   "size": 24,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x00711F98",
@@ -42741,7 +42464,7 @@
    "cname": "gData_00712010",
    "declared": true,
    "decorated": "?gaCursorAnim@@3PAUD2CursorAnimStrc@@A",
-   "file": "Source/D2Client/Unknown_00467E40.cpp",
+   "file": "Source/D2Client/ENGINE/Cursor.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00712010_t gData_00712010; // 0x00712010",
    "head": "extern \"C\" struct d2data_00712010_t gData_00712010 = ",
@@ -42758,7 +42481,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00467E40.cpp",
+   "file": "Source/D2Client/ENGINE/Cursor.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnCursorAnimCount = ",
@@ -42783,7 +42506,7 @@
    "cname": "gData_007120D8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00467E40.cpp",
+   "file": "Source/D2Client/ENGINE/Cursor.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007120D8_t gData_007120D8; // 0x007120D8",
    "head": "extern \"C\" struct d2data_007120D8_t gData_007120D8 = ",
@@ -74581,7 +74304,7 @@
    "cname": "gData_0072D994",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/SkillDesc.cpp",
+   "file": "Source/D2Client/SKILLS/SkillsNec.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072D994_t gData_0072D994; // 0x0072D994",
    "head": "extern \"C\" struct d2data_0072D994_t gData_0072D994 = ",
@@ -74706,251 +74429,11 @@
      null,
      0,
      "string"
-    ],
-    [
-     60,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     64,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     68,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     72,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     76,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     80,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     84,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     88,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     92,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     96,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     100,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     104,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     108,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     112,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     116,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     120,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     124,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     128,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     132,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     136,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     140,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     144,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     148,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     152,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     156,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     160,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     164,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     168,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     172,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     176,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
     ]
    ],
    "region": "data",
-   "size": 180,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072D994_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    const void* p15;\n    const void* p16;\n    const void* p17;\n    const void* p18;\n    const void* p19;\n    const void* p20;\n    const void* p21;\n    const void* p22;\n    const void* p23;\n    const void* p24;\n    const void* p25;\n    const void* p26;\n    const void* p27;\n    const void* p28;\n    const void* p29;\n    const void* p30;\n    const void* p31;\n    const void* p32;\n    const void* p33;\n    const void* p34;\n    const void* p35;\n    const void* p36;\n    const void* p37;\n    const void* p38;\n    const void* p39;\n    const void* p40;\n    const void* p41;\n    const void* p42;\n    const void* p43;\n    const void* p44;\n};\n#pragma pack(pop)",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0072D994_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0072D994",
    "va": "0x0072D994"
   },
@@ -95661,7 +95144,7 @@
      0,
      "0x005811D0",
      "names.json",
-     "sub_005811D0_CheckPlayerMode",
+     "PLRMODE_EventModeUpdate",
      0,
      "func"
     ],
@@ -97785,7 +97268,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a1q4.cpp",
+   "file": "Source/D2Game/Unknown_0058F870.cpp",
    "fill": 2160,
    "form": "declared",
    "fwd": null,
@@ -98930,7 +98413,7 @@
    "cname": "gData_00737180",
    "declared": true,
    "decorated": "_gnAct1Quest2NpcIndices",
-   "file": "Source/D2Game/Quests/a1q2.cpp",
+   "file": "Source/D2Game/Unknown_0058F870.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": "extern \"C\" unsigned int gData_00737180[6]; // 0x00737180",
@@ -99194,7 +98677,7 @@
    "cname": "gData_00736CD0",
    "declared": true,
    "decorated": "_gnAct1Quest1NpcIndices",
-   "file": "Source/D2Game/Quests/a1q1.cpp",
+   "file": "Source/D2Game/Unknown_0058F870.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": "extern \"C\" unsigned int gData_00736CD0[6]; // 0x00736CD0",
@@ -99225,7 +98708,7 @@
    "cname": "gData_007366B0",
    "declared": true,
    "decorated": "?gpAct1Q1NpcMessages@@3UD2NPCMessageTableStrc@@A",
-   "file": "Source/D2Game/Quests/a1q1.cpp",
+   "file": "Source/D2Game/Unknown_0058F870.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007366B0_t gData_007366B0; // 0x007366B0",
    "head": "extern \"C\" struct d2data_007366B0_t gData_007366B0 = ",
@@ -99242,7 +98725,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a1q2.cpp",
+   "file": "Source/D2Game/Unknown_0058F870.cpp",
    "fill": 1176,
    "form": "declared",
    "fwd": null,
@@ -99273,7 +98756,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a1q3.cpp",
+   "file": "Source/D2Game/Unknown_0058F870.cpp",
    "fill": 1176,
    "form": "declared",
    "fwd": null,
@@ -99304,7 +98787,7 @@
    "cname": "gData_00737630",
    "declared": true,
    "decorated": "_gnAct1Quest3NpcIndices",
-   "file": "Source/D2Game/Quests/a1q3.cpp",
+   "file": "Source/D2Game/Unknown_0058F870.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": "extern \"C\" unsigned int gData_00737630[6]; // 0x00737630",
@@ -99335,7 +98818,7 @@
    "cname": "gData_00737648",
    "declared": true,
    "decorated": "?gnA1Q4MessageIndices@@3PAHA",
-   "file": "Source/D2Game/Quests/a1q4.cpp",
+   "file": "Source/D2Game/Unknown_0058F870.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": "extern \"C\" int gData_00737648[8]; // 0x00737648",
@@ -99366,7 +98849,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a2q3.cpp",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
    "fill": 1176,
    "form": "declared",
    "fwd": null,
@@ -99397,7 +98880,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a2q6.cpp",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
    "fill": 1568,
    "form": "declared",
    "fwd": null,
@@ -99428,7 +98911,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a1q5.cpp",
+   "file": "Source/D2Game/Unknown_0058F870.cpp",
    "fill": 980,
    "form": "declared",
    "fwd": null,
@@ -99459,7 +98942,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a1q6.cpp",
+   "file": "Source/D2Game/Unknown_0058F870.cpp",
    "fill": 294,
    "form": "declared",
    "fwd": null,
@@ -99550,7 +99033,7 @@
    "cname": "gData_00738778",
    "declared": true,
    "decorated": "?gaAct1Q7NpcMessages@@3PAEA",
-   "file": "Source/D2Game/Unknown_00596C40.cpp",
+   "file": "Source/D2Game/Unknown_0058F870.cpp",
    "fill": 1236,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00738778_t gData_00738778; // 0x00738778",
@@ -99814,144 +99297,6 @@
    "va": "0x00738CC8"
   },
   {
-   "alias": false,
-   "cname": "gData_00738D08",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/Quests/a2q4.cpp",
-   "form": "bytes",
-   "name": "gData_00738D08",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "va": "0x00738D08",
-   "fwd": "extern \"C\" struct d2data_00738D08_t gData_00738D08; // 0x00738D08",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00738D08_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_00738D08_t gData_00738D08 = ",
-   "tail": "; // 0x00738D08"
-  },
-  {
    "alias": true,
    "cname": "gData_006E1D90",
    "declared": true,
@@ -100048,7 +99393,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a2q1.cpp",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
    "fill": 588,
    "form": "declared",
    "fwd": null,
@@ -100110,7 +99455,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a2q1.cpp",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
    "fill": 1764,
    "form": "declared",
    "fwd": null,
@@ -100141,7 +99486,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a2q2.cpp",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
    "fill": 2160,
    "form": "declared",
    "fwd": null,
@@ -100172,7 +99517,7 @@
    "cname": "gData_00738D44",
    "declared": true,
    "decorated": "_gnAct2Quest4NpcIndices",
-   "file": "Source/D2Game/Quests/a2q4.cpp",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
    "fill": 7,
    "form": "declared",
    "fwd": "extern \"C\" int gData_00738D44[7]; // 0x00738D44",
@@ -100203,7 +99548,7 @@
    "cname": "gData_0073B278",
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a2q5.cpp",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
    "fill": 4,
    "form": "declared",
    "fwd": "extern \"C\" int gData_0073B278[4]; // 0x0073B278",
@@ -100234,7 +99579,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a2q4.cpp",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
    "fill": 2352,
    "form": "declared",
    "fwd": null,
@@ -100265,7 +99610,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a2q5.cpp",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
    "fill": 784,
    "form": "declared",
    "fwd": null,
@@ -100296,7 +99641,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a2q6.cpp",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": null,
@@ -100327,7 +99672,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a2q7.cpp",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
    "fill": 1176,
    "form": "declared",
    "fwd": null,
@@ -100358,7 +99703,7 @@
    "cname": "gData_0073BD58",
    "declared": true,
    "decorated": "?gpAct2Q8NpcMessages@@3PADA",
-   "file": "Source/D2Game/Quests/a2q8.cpp",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
    "fill": 528,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0073BD58_t gData_0073BD58; // 0x0073BD58",
@@ -105893,7 +105238,7 @@
      2088,
      "0x005EE260",
      "names.json",
-     "sub_005EE260_Think",
+     "AITHINK_Fn130_DeathMauler",
      0,
      "func"
     ],
@@ -106390,7 +105735,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a4q2.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 343,
    "form": "declared",
    "fwd": null,
@@ -106421,7 +105766,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a4q3.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 980,
    "form": "declared",
    "fwd": null,
@@ -106452,7 +105797,7 @@
    "cname": "gData_0073E5C0",
    "declared": true,
    "decorated": "?gpAct4Q4NpcMessages@@3PADA",
-   "file": "Source/D2Game/Quests/a4q3.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 656,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0073E5C0_t gData_0073E5C0; // 0x0073E5C0",
@@ -106593,7 +105938,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a4q3.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 592,
    "form": "declared",
    "fwd": null,
@@ -106624,7 +105969,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a4q3.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 11,
    "form": "declared",
    "fwd": null,
@@ -106655,7 +106000,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a4q3.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 11,
    "form": "declared",
    "fwd": null,
@@ -106686,7 +106031,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a4q3.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 11,
    "form": "declared",
    "fwd": null,
@@ -106717,7 +106062,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a4q3.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 7,
    "form": "declared",
    "fwd": null,
@@ -106748,7 +106093,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a4q3.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 7,
    "form": "declared",
    "fwd": null,
@@ -106779,7 +106124,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a4q3.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 7,
    "form": "declared",
    "fwd": null,
@@ -106810,7 +106155,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a3q1.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 592,
    "form": "declared",
    "fwd": null,
@@ -106841,7 +106186,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a3q1.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 1176,
    "form": "declared",
    "fwd": null,
@@ -106872,7 +106217,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a3q2.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 2552,
    "form": "declared",
    "fwd": null,
@@ -106903,7 +106248,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a3q3.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 1568,
    "form": "declared",
    "fwd": null,
@@ -106934,7 +106279,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a3q4.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 1768,
    "form": "declared",
    "fwd": null,
@@ -106965,7 +106310,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a3q5.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 1568,
    "form": "declared",
    "fwd": null,
@@ -106996,7 +106341,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a3q5.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": null,
@@ -107027,7 +106372,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a3q6.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": null,
@@ -107058,7 +106403,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a3q6.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "fill": 1568,
    "form": "declared",
    "fwd": null,
@@ -107089,7 +106434,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Quests/a3q7.cpp",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2CoordStrc gaSpawnOffsets[8] = ",
@@ -109283,7 +108628,7 @@
      32,
      "0x005DB410",
      "source",
-     "sub_005DB410_CreateMissileWall",
+     "SKILLS_SrvDo008_MultipleShot_Teeth_ShockWave",
      0,
      "func"
     ],
@@ -109315,7 +108660,7 @@
      48,
      "0x005DBA40",
      "source",
-     "sub_005DBA40_CreateSkillMissile",
+     "SKILLS_SrvDo012_Strafe",
      0,
      "func"
     ],
@@ -109339,7 +108684,7 @@
      60,
      "0x005DC000",
      "source",
-     "sub_005DC000_SrvDoSummonPet",
+     "SKILLS_SrvDo015_Dopplezon",
      0,
      "func"
     ],
@@ -109443,7 +108788,7 @@
      112,
      "0x005CA3E0",
      "names.json",
-     "sub_005CA3E0",
+     "SKILLS_SrvDo028_Meteor_Blizzard_Eruption_BaalTaunt_Catapult",
      0,
      "func"
     ],
@@ -163409,6 +162754,668 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_00712E84_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x00712E84",
    "va": "0x00712E84"
+  },
+  {
+   "alias": true,
+   "cname": "gData_007382AC",
+   "declared": true,
+   "decorated": "?gnAct1Q5NpcMessageIndices@@3PAIA",
+   "file": "Source/D2Game/Unknown_0058F870.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": "extern \"C\" unsigned int gData_007382AC[6]; // 0x007382AC",
+   "head": "extern \"C\" unsigned int gData_007382AC[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "u",
+     "name": "unsigned int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 24
+   },
+   "name": "gnAct1Q5NpcMessageIndices",
+   "pointers": [],
+   "region": "data",
+   "size": 24,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007382AC\n#pragma comment(linker, \"/alternatename:?gnAct1Q5NpcMessageIndices@@3PAIA=_gData_007382AC\")",
+   "type": "unsigned int",
+   "va": "0x007382AC"
+  },
+  {
+   "alias": true,
+   "cname": "gData_007382C4",
+   "declared": true,
+   "decorated": "?gnAct1Q6NpcMessageIndices@@3PAIA",
+   "file": "Source/D2Game/Unknown_0058F870.cpp",
+   "fill": 7,
+   "form": "declared",
+   "fwd": "extern \"C\" unsigned int gData_007382C4[7]; // 0x007382C4",
+   "head": "extern \"C\" unsigned int gData_007382C4[7] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "u",
+     "name": "unsigned int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 7,
+    "size": 28
+   },
+   "name": "gnAct1Q6NpcMessageIndices",
+   "pointers": [],
+   "region": "data",
+   "size": 28,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007382C4\n#pragma comment(linker, \"/alternatename:?gnAct1Q6NpcMessageIndices@@3PAIA=_gData_007382C4\")",
+   "type": "unsigned int",
+   "va": "0x007382C4"
+  },
+  {
+   "alias": true,
+   "cname": "gData_00738FAC",
+   "declared": true,
+   "decorated": "?gnArcaneThingObjectIds@@3PAHA",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
+   "form": "declared",
+   "fwd": "extern \"C\" int gData_00738FAC[7]; // 0x00738FAC",
+   "head": "extern \"C\" int gData_00738FAC[7] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 7,
+    "size": 28
+   },
+   "name": "gnArcaneThingObjectIds",
+   "pointers": [],
+   "region": "data",
+   "size": 28,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x00738FAC\n#pragma comment(linker, \"/alternatename:?gnArcaneThingObjectIds@@3PAHA=_gData_00738FAC\")",
+   "type": "int",
+   "va": "0x00738FAC",
+   "fill": 7
+  },
+  {
+   "alias": true,
+   "cname": "gData_007398FC",
+   "declared": true,
+   "decorated": "?gnAct2Q1NpcMessageIndices@@3PAHA",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
+   "form": "declared",
+   "fwd": "extern \"C\" int gData_007398FC[7]; // 0x007398FC",
+   "head": "extern \"C\" int gData_007398FC[7] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 7,
+    "size": 28
+   },
+   "name": "gnAct2Q1NpcMessageIndices",
+   "pointers": [],
+   "region": "data",
+   "size": 28,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007398FC\n#pragma comment(linker, \"/alternatename:?gnAct2Q1NpcMessageIndices@@3PAHA=_gData_007398FC\")",
+   "type": "int",
+   "va": "0x007398FC",
+   "fill": 7
+  },
+  {
+   "alias": true,
+   "cname": "gData_0073A620",
+   "declared": true,
+   "decorated": "?gnAct2Q3NpcMessageIndices@@3PAHA",
+   "file": "Source/D2Game/Quests/a2q0.cpp",
+   "form": "declared",
+   "fwd": "extern \"C\" int gData_0073A620[6]; // 0x0073A620",
+   "head": "extern \"C\" int gData_0073A620[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 24
+   },
+   "name": "gnAct2Q3NpcMessageIndices",
+   "pointers": [],
+   "region": "data",
+   "size": 24,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0073A620\n#pragma comment(linker, \"/alternatename:?gnAct2Q3NpcMessageIndices@@3PAHA=_gData_0073A620\")",
+   "type": "int",
+   "va": "0x0073A620",
+   "fill": 6
+  },
+  {
+   "alias": true,
+   "cname": "gData_0073F188",
+   "declared": true,
+   "decorated": "?gnAct3Q1NpcMessageIndices@@3PAHA",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": "extern \"C\" int gData_0073F188[6]; // 0x0073F188",
+   "head": "extern \"C\" int gData_0073F188[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 24
+   },
+   "name": "gnAct3Q1NpcMessageIndices",
+   "pointers": [],
+   "region": "data",
+   "size": 24,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0073F188\n#pragma comment(linker, \"/alternatename:?gnAct3Q1NpcMessageIndices@@3PAHA=_gData_0073F188\")",
+   "type": "int",
+   "va": "0x0073F188"
+  },
+  {
+   "alias": true,
+   "cname": "gData_007401B8",
+   "declared": true,
+   "decorated": "?gnAct3Q3NpcMessageIndices@@3PAHA",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": "extern \"C\" int gData_007401B8[6]; // 0x007401B8",
+   "head": "extern \"C\" int gData_007401B8[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 24
+   },
+   "name": "gnAct3Q3NpcMessageIndices",
+   "pointers": [],
+   "region": "data",
+   "size": 24,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007401B8\n#pragma comment(linker, \"/alternatename:?gnAct3Q3NpcMessageIndices@@3PAHA=_gData_007401B8\")",
+   "type": "int",
+   "va": "0x007401B8"
+  },
+  {
+   "alias": true,
+   "cname": "gData_0073DBA0",
+   "declared": true,
+   "decorated": "?gnAct4Q1NpcMessageIndices@@3PAHA",
+   "file": "Source/D2Game/Quests/a4q1.cpp",
+   "fill": 6,
+   "form": "declared",
+   "fwd": "extern \"C\" int gData_0073DBA0[6]; // 0x0073DBA0",
+   "head": "extern \"C\" int gData_0073DBA0[6] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 6,
+    "size": 24
+   },
+   "name": "gnAct4Q1NpcMessageIndices",
+   "pointers": [],
+   "region": "data",
+   "size": 24,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0073DBA0\n#pragma comment(linker, \"/alternatename:?gnAct4Q1NpcMessageIndices@@3PAHA=_gData_0073DBA0\")",
+   "type": "int",
+   "va": "0x0073DBA0"
+  },
+  {
+   "alias": false,
+   "cname": "gData_0072D9D0",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/SKILLS/SkillsAma.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_0072D9D0_t gData_0072D9D0; // 0x0072D9D0",
+   "head": "extern \"C\" struct d2data_0072D9D0_t gData_0072D9D0 = ",
+   "name": "gData_0072D9D0",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0072D9D0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x0072D9D0",
+   "va": "0x0072D9D0"
+  },
+  {
+   "alias": false,
+   "cname": "gData_0072DA0C",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Gfx/SRC/Window.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_0072DA0C_t gData_0072DA0C; // 0x0072DA0C",
+   "head": "extern \"C\" struct d2data_0072DA0C_t gData_0072DA0C = ",
+   "name": "gData_0072DA0C",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0072DA0C_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x0072DA0C",
+   "va": "0x0072DA0C"
+  },
+  {
+   "alias": false,
+   "cname": "gData_00711FB0",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/ENGINE/Cursor.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_00711FB0_t gData_00711FB0; // 0x00711FB0",
+   "head": "extern \"C\" struct d2data_00711FB0_t gData_00711FB0 = ",
+   "name": "gData_00711FB0",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00711FB0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00711FB0",
+   "va": "0x00711FB0"
   }
  ]
 }

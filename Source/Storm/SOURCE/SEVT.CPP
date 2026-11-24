@@ -389,7 +389,6 @@ int __stdcall SEvtPopState(unsigned int nType, unsigned int nSubType)
     return bResult;
 }
 
-// build: context D2StormBreakCmdListStrc::DeleteNode
 inline char* D2StormBreakCmdListStrc::DeleteNode(char* pNode)
 {
     char* pNext = Link(pNode)->Next();

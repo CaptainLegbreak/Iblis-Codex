@@ -1,6 +1,3 @@
-// build: context D2StormArrayAStrc::Reserve
-// build: context D2StormArrayAStrc::SetCount
-// build: context D2StormArrayBStrc::Reserve
 
 #include "Storm.h"
 #include "D2StormTypes.h"
@@ -80,7 +77,6 @@ struct D2StormArrayBStrc
         f_4 += nCount;
     }
 
-// build: context New
     unsigned char* New()
     {
         Reserve(1, 1);
@@ -365,7 +361,7 @@ static void SetOne(BigBuffer& a)
 {
     a.SetCount(1);
     a.GrowToFit(0);
-    a.m_array.f_8[a.m_start] = 1;
+    a.m_array.m_data[a.m_start] = 1;
 }
 
 // 0x00422CC0
@@ -374,7 +370,6 @@ static void SetZero(BigBuffer& a)
     a.SetCount(0);
 }
 
-// build: context Shl
 static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift) // 0x00422D00
 {
     unsigned int nWords = nShift / 32;
@@ -413,7 +408,6 @@ static void __stdcall Shr(BigBuffer& a, const BigBuffer& b, unsigned int nShift)
     a.SetCount(i);
 }
 
-// build: context sub_00422FC0_SubUInt
 static void __stdcall sub_00422FC0_SubUInt(BigBuffer& a, const BigBuffer& b, unsigned int c)
 {
     unsigned __int64 nBorrow = ~(unsigned __int64)c + 1;
@@ -426,7 +420,6 @@ static void __stdcall sub_00422FC0_SubUInt(BigBuffer& a, const BigBuffer& b, uns
     a.SetCount(i);
 }
 
-// build: context sub_00423100_Sub
 static void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned __int64 nBorrow = 0;
@@ -630,7 +623,6 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
     tStack.nUsed -= 3;
 }
 
-// build: context Gcd
 static void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack) // 0x00424180
 {
     BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
@@ -705,11 +697,11 @@ static void __stdcall Pow(BigBuffer* pResult, BigBuffer* pBase, unsigned int nEx
     if (pWork != pBase)
     {
         D2StormArrayViewStrc tView;
-        tView.pData = pBase->m_array.f_8;
-        tView.nCount = pBase->m_array.f_4;
+        tView.pData = pBase->m_array.m_data;
+        tView.nCount = pBase->m_array.m_count;
         pWork->m_array.sub_004215C0_Set(tView.nCount, tView.pData);
     }
-    pWork->m_array.f_C = pBase->m_array.f_C;
+    pWork->m_array.m_chunk = pBase->m_array.m_chunk;
     pWork->m_start = pBase->m_start;
     while (nBit > 1)
     {

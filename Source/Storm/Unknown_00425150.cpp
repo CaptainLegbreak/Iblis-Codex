@@ -12,20 +12,20 @@ struct BigBuffer
 
     unsigned int Count() const
     {
-        return m_array.f_4 - m_start;
+        return m_array.m_count - m_start;
     }
     int IsUsed(unsigned int nIndex) const
     {
-        return nIndex + m_start < m_array.f_4;
+        return nIndex + m_start < m_array.m_count;
     }
     unsigned int operator[](unsigned int nIndex) const
     {
-        return IsUsed(nIndex) ? m_array.f_8[m_start + nIndex] : 0;
+        return IsUsed(nIndex) ? m_array.m_data[m_start + nIndex] : 0;
     }
     __forceinline unsigned int& operator[](unsigned int nIndex)
     {
         m_array.GrowToFit(m_start + nIndex, 1);
-        return m_array.f_8[m_start + nIndex];
+        return m_array.m_data[m_start + nIndex];
     }
     void SetCount(unsigned int nCount)
     {
@@ -35,11 +35,11 @@ struct BigBuffer
     {
         if (this != &tSource)
         {
-            const unsigned int* const pData = *(const unsigned int* const volatile*)&tSource.m_array.f_8;
-            const unsigned int nCount = *(const volatile unsigned int*)&tSource.m_array.f_4;
+            const unsigned int* const pData = *(const unsigned int* const volatile*)&tSource.m_array.m_data;
+            const unsigned int nCount = *(const volatile unsigned int*)&tSource.m_array.m_count;
             m_array.sub_004215C0_Set(nCount, pData);
         }
-        m_array.f_C = tSource.m_array.f_C;
+        m_array.m_chunk = tSource.m_array.m_chunk;
         m_start = tSource.m_start;
         return *this;
     }
@@ -49,22 +49,22 @@ struct BigBuffer
         {
 
             D2StormArrayViewStrc tView;
-            tView.pData = tSource.m_array.f_8;
-            tView.nCount = tSource.m_array.f_4;
+            tView.pData = tSource.m_array.m_data;
+            tView.nCount = tSource.m_array.m_count;
             m_array.sub_004215C0_Set(tView.nCount, tView.pData);
         }
-        m_array.f_C = tSource.m_array.f_C;
+        m_array.m_chunk = tSource.m_array.m_chunk;
         m_start = tSource.m_start;
     }
     unsigned int& Ref(int nIndex)
     {
         GrowToFit(nIndex);
-        return m_array.f_8[m_start + nIndex];
+        return m_array.m_data[m_start + nIndex];
     }
     inline unsigned int& At(unsigned int nIndex)
     {
         m_array.GrowToFitInline(m_start + nIndex);
-        return m_array.f_8[m_start + nIndex];
+        return m_array.m_data[m_start + nIndex];
     }
     void SetStart(unsigned int nStart)
     {
@@ -140,7 +140,7 @@ static void SetOne(BigBuffer& a)
 {
     a.SetCount(1);
     a.GrowToFit(0);
-    a.m_array.f_8[a.m_start] = 1;
+    a.m_array.m_data[a.m_start] = 1;
 }
 
 void SetZero(BigBuffer& a); // 0x00422CC0
@@ -266,7 +266,7 @@ static void __stdcall PowMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer
         do
         {
             --i;
-            const unsigned int nEnd = tExp.m_array.f_4;
+            const unsigned int nEnd = tExp.m_array.m_count;
             unsigned int nDigit = tExp[i];
             unsigned int nBits = 32;
             if (i + 1 == nEnd - tExp.m_start)

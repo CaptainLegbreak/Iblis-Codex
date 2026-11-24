@@ -939,7 +939,6 @@ unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsig
     return nValid ? nResult : 0;
 }
 
-// build: context PowIntT*
 template <class T>
 inline T PowIntT(T x, int nExp)
 {

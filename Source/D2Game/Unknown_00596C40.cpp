@@ -41,4 +41,3 @@ void __fastcall sub_00596C40_InitQuestCallbacks(D2QuestData00596C40Strc* pQuestD
     pQuestData->pfActiveFilterEC = (void*)ACT1Q7_ActiveFilterCallback;
 }
 
-#include "gen/data/Source/D2Game/Unknown_00596C40.inc"

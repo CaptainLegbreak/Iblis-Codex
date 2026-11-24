@@ -220,7 +220,7 @@ void __fastcall CLIENTS_SetSkillHotKey(D2ClientStrc* pClient, int nHotkeyId, sho
 D2PlrIntroStrc* __fastcall PLRINTRO_Create(D2GameStrc* pGame); // 0x00572560
 
 // 0x00534800
-void __fastcall sub_00534800_CreatePlayerIntros(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+void __fastcall PLAYER_CreatePlayerIntros(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
     if (pPlayerData)
@@ -273,7 +273,7 @@ struct D2SkillListStrc;
 
 typedef void (__fastcall* STATLIST_CallbackFn)(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pOther, int nLayer_StatId, int nPreviousValue, int nNewValue);
 
-void __fastcall sub_00534800_CreatePlayerIntros(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00534800
+void __fastcall PLAYER_CreatePlayerIntros(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00534800
 
 void __fastcall ARENA_AllocArenaUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0053F530
 
@@ -310,7 +310,7 @@ void __fastcall PLAYER_Create(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPlaye
 
     STATLIST_AllocStatListEx(pPlayer, 0, D2GAME_ITEMMODE_ServerStatlistCallback_6FC41910, pGame);
     UNITS_AllocPlayerData(pPlayer);
-    sub_00534800_CreatePlayerIntros(pGame, pPlayer);
+    PLAYER_CreatePlayerIntros(pGame, pPlayer);
 
     SUNIT_InitClientInPlayerData(pPlayer, 0);
     D2GAME_DeleteTimersOnUnit_6FC34A30(pGame, pPlayer);

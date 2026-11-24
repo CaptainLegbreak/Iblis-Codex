@@ -494,7 +494,7 @@ static inline unsigned int RollSeed(D2SeedStrc* pSeed)
 }
 
 // 0x005B6710
-void __fastcall sub_005B6710_DropHellforgeReward(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
+void __fastcall ACT4Q3_CreateReward(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit)
 {
     D2Act4Quest3Strc* pQuestDataEx = (D2Act4Quest3Strc*)pQuestData->pQuestDataEx;
     if (pQuestDataEx->bRewardPending) UNITS_ChangeAnimMode(pUnit, 4);
@@ -850,4 +850,3 @@ void __fastcall ACT4Q4_InitQuestData(D2QuestDataStrc* pQuestData)
 
 struct D2UnitStrc;
 
-#include "gen/data/Source/D2Game/Quests/a4q3.inc"

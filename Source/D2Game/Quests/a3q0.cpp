@@ -42,7 +42,7 @@ void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeader
 void __fastcall PLRINTRO_SetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId); // 0x00572360
 
 // 0x005B6C60
-void __fastcall sub_005B6C60_UpdateQuest(void* pUnused, D2QuestArgStrc* pArgs)
+void __fastcall ACT3Intro_Callback11_ScrollMessage(void* pUnused, D2QuestArgStrc* pArgs)
 {
     const int nNpcId = pArgs->nOldLevel;
     const unsigned short nIndex = pArgs->nMessageIndex;

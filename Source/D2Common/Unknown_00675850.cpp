@@ -57,7 +57,7 @@ int __fastcall DRLGOUTDOORS_GetBorderLevelPrestId(int nA, int nB, int nC)
 }
 
 // 0x00675600
-int __fastcall sub_00675600_LookupTable(int nA, int nB, int nC, int nD, int nE)
+int __fastcall DRLGOUTDOORS_GetCornerPresetId(int nA, int nB, int nC, int nD, int nE)
 {
     if (nA < 0)
     {

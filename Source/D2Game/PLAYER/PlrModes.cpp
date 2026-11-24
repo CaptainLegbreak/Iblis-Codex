@@ -2045,7 +2045,7 @@ typedef int (__fastcall* D2ModeCheckFn)(D2GameStrc*, D2UnitStrc*, int, int);
 extern D2ModeCheckFn gpfnModeChecks[]; // 0x00732C10
 
 // 0x005811D0
-void __fastcall sub_005811D0_CheckPlayerMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+void __fastcall PLRMODE_EventModeUpdate(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     const int nMode = !pUnit ? 0 : pUnit->dwAnimMode;
     if (gpfnModeChecks[!pUnit ? 0 : pUnit->dwAnimMode])

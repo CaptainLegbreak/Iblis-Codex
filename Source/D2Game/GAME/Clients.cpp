@@ -250,7 +250,7 @@ void __fastcall CLIENTS_UnlockClientList(int nClientId)
 }
 
 // 0x005377B0
-int __cdecl sub_005377B0_CountFlaggedClients()
+int __cdecl CLIENTS_GetExpansionClientCount()
 {
     int nCount = 0;
     if (!gbClientListInitialized)
@@ -2562,7 +2562,7 @@ struct D2GameHashLinkStrc;
 
 struct D2GameHashListStrc;
 
-int __cdecl sub_005377B0_CountFlaggedClients(); // 0x005377B0
+int __cdecl CLIENTS_GetExpansionClientCount(); // 0x005377B0
 
 void __stdcall DUNGEON_UpdateAndFreeInactiveRooms(D2DrlgActStrc* pAct); // 0x0061AA20
 
@@ -3441,7 +3441,7 @@ void __fastcall ClientRemoveFromGame(D2GameStrc* ptGame,void* hClientId,int bTri
 }
 
 // 0x0053A280
-D2UnitStrc* __fastcall sub_0053A280_GetDeadTargetUnit(D2GameStrc* pGame, D2ClientStrc* pClient)
+D2UnitStrc* __fastcall CLIENTS_GetDeadTargetUnit(D2GameStrc* pGame, D2ClientStrc* pClient)
 {
     D2_ASSERT(pClient, 0x7B9);
 

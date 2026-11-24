@@ -11,6 +11,7 @@
 #include "D2Drlg.h"
 #include "D2ClientTypes.h"
 #include "D2ClientUiRecords.h"
+#include "D2WinSplitText.h"
 struct D2ActiveRoomStrc;
 struct D2SkillStrc;
 struct D2UnitStrc;
@@ -534,12 +535,6 @@ struct D2TileRectStrc
     unsigned int nHeight;
 };
 
-
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
-};
 
 // 0x00467400
 int __cdecl UI_HasSelectedUnit()

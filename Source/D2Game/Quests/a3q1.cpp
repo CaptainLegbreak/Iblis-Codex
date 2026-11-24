@@ -152,7 +152,7 @@ void __cdecl sub_005BDB10_Return()
 }
 
 // 0x005B7120
-int __fastcall sub_005B7120_GetHratliEndCoords(D2GameStrc* pGame, D2CoordStrc* pCoord)
+int __fastcall ACT3Q1_GetHratliEndCoords(D2GameStrc* pGame, D2CoordStrc* pCoord)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 14);
     if (!pQuestData)
@@ -254,7 +254,7 @@ bool __fastcall ACT3Q1_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
 }
 
 // 0x005B7310
-void __fastcall sub_005B7310(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
+void __fastcall ACT3Q1_InitTomeObject(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
 {
     if (!pQuestData)
     {
@@ -338,12 +338,8 @@ void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeader
 
 int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int dwGUID); // 0x005452C0
 
-#include "gen/data/Source/D2Game/Quests/a3q1.inc"
 
-static int gnAct3Q1NpcMessageIndices[] =                                                                            // 0x0073F188
-{
-    -1, 0, 1, 2, 3, 4
-};
+extern int gnAct3Q1NpcMessageIndices[]; // 0x0073F188
 
 // 0x005B7400
 void __fastcall ACT3Q1_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)

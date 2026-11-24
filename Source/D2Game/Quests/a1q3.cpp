@@ -174,7 +174,7 @@ int __fastcall ACT1Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 }
 
 // 0x00591340
-int __fastcall sub_00591340_UpdateQuestFlags(D2GameStrc* game, D2UnitStrc* unit, void* context)
+int __fastcall ACT1Q3_UnitIterate_UpdateQuestStateFlags(D2GameStrc* game, D2UnitStrc* unit, void* context)
 {
     D2BitBufferStrc* flags = UNITS_GetPlayerData(unit)->pQuestData[game->nDifficulty];
     if (QUESTRECORD_GetQuestState(flags, 3, 0) == 1 || QUESTRECORD_GetQuestState(flags, 3, 1) == 1)
@@ -790,4 +790,3 @@ void __fastcall ACT1Q3_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     }
 }
 
-#include "gen/data/Source/D2Game/Quests/a1q3.inc"

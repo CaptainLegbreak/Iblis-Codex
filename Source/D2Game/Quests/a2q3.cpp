@@ -96,7 +96,7 @@ int __fastcall QUESTS_FastRemovePlayerGUID(D2QuestGUIDStrc* pGUIDs, int dwGUID);
 
 void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks); // 0x00543F10
 
-bool __fastcall sub_005BD390(D2GameStrc* pGame, D2QuestDataStrc* pQuestData); // 0x005BD390
+bool __fastcall ACT3Q7_SpawnVileDogs(D2GameStrc* pGame, D2QuestDataStrc* pQuestData); // 0x005BD390
 
 D2SeedStrc* __fastcall QUESTS_GetGlobalSeed(D2GameStrc* pGame); // 0x005438B0
 
@@ -627,12 +627,8 @@ void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeader
 
 int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int dwGUID); // 0x005452C0
 
-#include "gen/data/Source/D2Game/Quests/a2q3.inc"
 
-static int gnAct2Q3NpcMessageIndices[] =                                                                            // 0x0073A620
-{
-    -1, 0, 1, 2, 3, 0
-};
+extern int gnAct2Q3NpcMessageIndices[]; // 0x0073A620
 
 // 0x0059A270
 void __fastcall ACT2Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
