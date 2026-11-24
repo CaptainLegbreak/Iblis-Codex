@@ -768,6 +768,47 @@ int __fastcall SKILLS_SrvDo125_WakeOfDestruction(D2GameStrc* pGame, D2UnitStrc* 
     return 1;
 }
 
+inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+// 0x005D1280
+int __fastcall SKILLS_SrvSt59_ImpInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    int nTimeout = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+    if (nTimeout < 1)
+    {
+        nTimeout = 1;
+    }
+
+    SKILLS_SetParam1(pSkill, nTimeout + pGame->dwGameFrame);
+
+    if (!STATES_CheckState(pUnit, STATE_INFERNO))
+    {
+        STATES_ToggleState(pUnit, STATE_INFERNO, 1);
+    }
+
+    return 1;
+}
+
 // 0x005D1320
 static inline void SKILLS_ResetEventsAndScheduleAiThink(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
@@ -1377,6 +1418,35 @@ int __fastcall SKILLS_SrvDo132_ImpFireMissile(D2GameStrc* pGame, D2UnitStrc* pUn
     DATATBLS_GetMonsterChainInfo(nClassId, 0, &nMissileOffset);
     SKILLS_CreateMissileAtOffset(pGame, nMissileOffset + nMissileId, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 0);
     return 1;
+}
+
+// 0x005D2140
+int __fastcall SKILLS_CanImpregnateTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+{
+    if (!pTarget || pTarget->dwUnitType != UNIT_MONSTER || SUNIT_IsDead(pTarget))
+    {
+        return 0;
+    }
+
+    int nBaseId = CUNIT_GetMonsterBaseId(pTarget);
+    if (nBaseId < 0 || nBaseId >= sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        nBaseId = -1;
+    }
+
+    switch (nBaseId)
+    {
+    case MONSTER_PUTRIDDEFILER1:
+    case MONSTER_PAINWORM1:
+        return 0;
+    }
+
+    if (STATES_CheckState(pTarget, STATE_PREGNANT))
+    {
+        return 0;
+    }
+
+    return STATLIST_GetUnitAlignment(pTarget) != 2;
 }
 
 #include "gen/data/Source/D2Game/Unknown_005D1080.inc"

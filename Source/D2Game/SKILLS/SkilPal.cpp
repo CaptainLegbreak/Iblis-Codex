@@ -16,6 +16,7 @@
 #include "D2LevelTxt.h"
 #include "D2MonModes.h"
 #include "D2LanguageNames.h"
+#include "D2AnimData.h"
 // build: symbol _gaszLanguageNames 0x00741A58
 
 struct D2ActiveRoomStrc;
@@ -1111,6 +1112,27 @@ void __stdcall sub_M217_Emit_005CF280(D2UnitStrc* pUnit, int* pResult)
 static inline D2UnitStrc* SKILLS_FindMeleeTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID)
 {
     return SKILLS_FindNextAuraTarget(pGame, pUnit, 0, 0, 3, 3, nUnitGUID, 0);
+}
+
+struct D2AnimSeqTxt;
+
+// 0x005CF8C0
+int __fastcall SKILLS_GetSequenceEventFrame(D2UnitStrc* pUnit)
+{
+    D2AnimSeqTxt* pMonSeqTxtRecord = DATATBLS_GetMonSeqTxtRecordFromUnit(pUnit);
+    if (pMonSeqTxtRecord)
+    {
+        const int nSequenceFrameCount = DATATBLS_GetSeqFrameCount(pUnit);
+        for (int i = 0; i < nSequenceFrameCount; ++i)
+        {
+            if (!pMonSeqTxtRecord->nEvent)
+            {
+                return i - 1;
+            }
+        }
+    }
+
+    return 7;
 }
 
 static inline D2SkillsTxt* GetSkillsRecord(int nSkillId)

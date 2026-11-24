@@ -50810,6 +50810,11 @@
      "name": "?SKILLS_CanApplyCurseToTarget@@YIHPAUGame@@PAUUnit@@1@Z"
     },
     {
+     "va": "0x005C34B0",
+     "length": 136,
+     "name": "SKILLS_ExecuteCurseTargetAi"
+    },
+    {
      "va": "0x005C35C0",
      "length": 469
     },
@@ -50917,6 +50922,11 @@
      "va": "0x005C50B0",
      "length": 9,
      "name": "?SKILLS_SrvDo055_CorpseExplosion@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005C50C0",
+     "length": 61,
+     "name": "SKILLS_SetGolemStats"
     },
     {
      "va": "0x005C5100",
@@ -60249,24 +60259,9 @@
      "length": 167
     },
     {
-     "va": "0x005C34B0",
-     "length": 136,
-     "name": "SKILLS_ExecuteCurseTargetAi"
-    },
-    {
      "va": "0x005C3540",
      "length": 122,
      "name": "SKILLS_ApplyResistanceImmunityPenalty"
-    },
-    {
-     "va": "0x005C50C0",
-     "length": 61,
-     "name": "SKILLS_SetGolemStats"
-    },
-    {
-     "va": "0x005C6C50",
-     "length": 87,
-     "name": "SKILLS_RemoveStateAndRestoreSkillMode"
     },
     {
      "va": "0x005C72F0",
@@ -60294,29 +60289,9 @@
      "name": "SKILLS_SrvDo083_FireHit"
     },
     {
-     "va": "0x005CBC80",
-     "length": 138,
-     "name": "SKILLS_SrvDo090_SwarmMove"
-    },
-    {
      "va": "0x005CBF30",
      "length": 84,
      "name": "SKILLS_SrvSt50_QuickStrike"
-    },
-    {
-     "va": "0x005CC1F0",
-     "length": 48,
-     "name": "SKILLS_SrvDo094_Submerge"
-    },
-    {
-     "va": "0x005CC240",
-     "length": 157,
-     "name": "SKILLS_SrvSt53_MonInferno"
-    },
-    {
-     "va": "0x005CCC80",
-     "length": 143,
-     "name": "SKILLS_SrvDo098_MonTeleport"
     },
     {
      "va": "0x005CD870",
@@ -60327,21 +60302,6 @@
      "va": "0x005CDD30",
      "length": 158,
      "name": "SKILLS_GetMonFrenzySequenceFrame"
-    },
-    {
-     "va": "0x005CF8C0",
-     "length": 57,
-     "name": "?SKILLS_GetSequenceEventFrame@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005D1280",
-     "length": 157,
-     "name": "SKILLS_SrvSt59_ImpInferno"
-    },
-    {
-     "va": "0x005D2140",
-     "length": 97,
-     "name": "?SKILLS_CanImpregnateTarget@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x005D30A0",
@@ -60636,6 +60596,11 @@
      "name": "SKILLS_GetConvertedMode"
     },
     {
+     "va": "0x005C6C50",
+     "length": 87,
+     "name": "SKILLS_RemoveStateAndRestoreSkillMode"
+    },
+    {
      "va": "0x005C6CB0",
      "length": 8,
      "name": "?SKILLS_RemoveAllStatesInGroup@@YIXPAUD2UnitStrc@@H@Z"
@@ -60910,6 +60875,11 @@
      "name": "?SKILLS_SrvDo125_WakeOfDestruction@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005D1280",
+     "length": 157,
+     "name": "SKILLS_SrvSt59_ImpInferno"
+    },
+    {
      "va": "0x005D1320",
      "length": 39,
      "name": "?SKILLS_ResetEventsAndScheduleAiThink@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
@@ -60979,6 +60949,11 @@
      "va": "0x005D2090",
      "length": 161,
      "name": "SKILLS_SrvDo132_ImpFireMissile"
+    },
+    {
+     "va": "0x005D2140",
+     "length": 97,
+     "name": "?SKILLS_CanImpregnateTarget@@YIHPAUD2UnitStrc@@0@Z"
     }
    ]
   },
@@ -61161,6 +61136,11 @@
      "name": "?SKILLS_SrvSt48_SwarmMove@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005CBC80",
+     "length": 138,
+     "name": "SKILLS_SrvDo090_SwarmMove"
+    },
+    {
      "va": "0x005CBD10",
      "length": 235,
      "name": "SKILLS_SrvSt49_Nest_EvilHutSpawner"
@@ -61180,9 +61160,19 @@
      "name": "?SKILLS_SrvSt51_Submerge@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005CC1F0",
+     "length": 48,
+     "name": "SKILLS_SrvDo094_Submerge"
+    },
+    {
      "va": "0x005CC220",
      "length": 19,
      "name": "?SKILLS_SrvSt52_Emerge@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CC240",
+     "length": 157,
+     "name": "SKILLS_SrvSt53_MonInferno"
     },
     {
      "va": "0x005CC2E0",
@@ -61222,6 +61212,11 @@
      "va": "0x005CCB10",
      "length": 356,
      "name": "?SKILLS_SrvDo097_Resurrect@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CCC80",
+     "length": 143,
+     "name": "SKILLS_SrvDo098_MonTeleport"
     },
     {
      "va": "0x005CCD10",
@@ -61375,6 +61370,11 @@
      "va": "0x005CF8A0",
      "length": 17,
      "name": "?SKILLS_FindMeleeTarget@@YAPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@H@Z"
+    },
+    {
+     "va": "0x005CF8C0",
+     "length": 57,
+     "name": "?SKILLS_GetSequenceEventFrame@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x005CF900",
