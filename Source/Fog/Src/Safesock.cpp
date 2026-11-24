@@ -14,7 +14,7 @@ struct AsyncDataEventSlot;
 
 struct D2CriticalSectionStrc;
 
-struct D2DbgHelpRequestStrc;
+struct D2MiniDumpRequestStrc;
 
 struct T004013C0;
 
@@ -90,7 +90,7 @@ extern D2CriticalSectionStrc gtDbgHelpRequestLock; // 0x0098A6C4
 
 extern void* ghDbgHelp; // 0x0098A680
 
-extern void* gpMiniDumpRequest; // 0x0098A6E4
+extern D2MiniDumpRequestStrc* gpMiniDumpRequest; // 0x0098A6E4
 
 extern void* gpfnCrashHandler; // 0x00992B10
 
@@ -106,45 +106,11 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2ProcessEntryWStrc
-{
-    unsigned long dwSize;
-    unsigned long cntUsage;
-    unsigned long th32ProcessID;
-    unsigned long th32DefaultHeapID;
-    unsigned long th32ModuleID;
-    unsigned long cntThreads;
-    unsigned long th32ParentProcessID;
-    long pcPriClassBase;
-    unsigned long dwFlags;
-    wchar_t szExeFile[260];
-};
 
 extern "C" int __stdcall Process32FirstW(void* hSnapshot, D2ProcessEntryWStrc* pEntry); // 0x006B1524
 
 extern "C" int __stdcall Process32NextW(void* hSnapshot, D2ProcessEntryWStrc* pEntry); // 0x006B1530
 
-struct D2StartupInfoWStrc
-{
-    unsigned long cb;
-    wchar_t* lpReserved;
-    wchar_t* lpDesktop;
-    wchar_t* lpTitle;
-    unsigned long dwX;
-    unsigned long dwY;
-    unsigned long dwXSize;
-    unsigned long dwYSize;
-    unsigned long dwXCountChars;
-    unsigned long dwYCountChars;
-    unsigned long dwFillAttribute;
-    unsigned long dwFlags;
-    unsigned short wShowWindow;
-    unsigned short cbReserved2;
-    unsigned char* lpReserved2;
-    void* hStdInput;
-    void* hStdOutput;
-    void* hStdError;
-};
 
 struct D2ProcessInformationStrc
 {
@@ -266,16 +232,6 @@ typedef char* va_list;
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
-struct D2ThreadEntryStrc
-{
-    unsigned long dwSize;
-    unsigned long cntUsage;
-    unsigned long th32ThreadID;
-    unsigned long th32OwnerProcessID;
-    long tpBasePri;
-    long tpDeltaPri;
-    unsigned long dwFlags;
-};
 
 struct D2CmdArgStrc
 {

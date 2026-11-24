@@ -4,7 +4,7 @@
 #include "D2FogTypes.h"
 
 struct D2CriticalSectionStrc;
-struct D2DbgHelpRequestStrc;
+struct D2MiniDumpRequestStrc;
 struct D2CrashGuidStrc;
 struct D2CrashModuleStrc;
 struct D2CrashModuleListStrc;
@@ -41,7 +41,7 @@ extern bool gbMiniDumpEnabled; // 0x0098A6B1
 extern D2CriticalSectionStrc gtDbgHelpRequestLock; // 0x0098A6C4
 extern void* ghDbgHelpWorkEvent; // 0x0098A6C0
 extern void* ghDbgHelpDoneEvent; // 0x0098A6BC
-extern void* gpMiniDumpRequest; // 0x0098A6E4
+extern D2MiniDumpRequestStrc* gpMiniDumpRequest; // 0x0098A6E4
 
 struct D2CrashGuidStrc
 {
@@ -217,11 +217,11 @@ bool __fastcall sub_00402820_WriteMiniDump(const char* szPath, const char* szCom
         return false;
     }
     EnterCriticalSection(&gtDbgHelpRequestLock);
-    D2DbgHelpRequestStrc tRequest;
+    D2MiniDumpRequestStrc tRequest;
     tRequest.hFile = hFile;
-    tRequest.dwThreadId = dwThreadId ? dwThreadId : GetCurrentThreadId();
-    tRequest.szComment = szComment;
-    tRequest.pExceptionPointers = pExceptionPointers;
+    tRequest.tInfo.dwThreadId = dwThreadId ? dwThreadId : GetCurrentThreadId();
+    tRequest.tInfo.szComment = szComment;
+    tRequest.tInfo.pExceptionPointers = pExceptionPointers;
     tRequest.bResult = false;
     gpMiniDumpRequest = &tRequest;
     SetEvent(ghDbgHelpWorkEvent);
