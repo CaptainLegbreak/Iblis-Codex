@@ -114,7 +114,6 @@ static int gnInvMouseX;                                                         
 
 static int gnInvMouseY;                                                                               // 0x007BCBD8
 
-static int gbHelpCloseButtonDown;                                                                               // 0x007BEEFC
 
 static int gbRedraw;                                                                               // 0x007C0280
 
@@ -757,54 +756,7 @@ int __stdcall ROSTERPETS_HandleRectClick(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
-// 0x00494620
-void __cdecl ROSTERPETS_DrawHelpColumn()
-{
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpHelpYellowBulletCel;
-    tContext.nDirection = 0;
-    tContext.nFrame = 0;
-    int nY = 0x49;
-    for (int i = 0; i < 8; ++i)
-    {
-        sub_004F6480(&tContext, 0x68, nY, -1, 5, 0);
-        nY += 0x14;
-    }
-}
 
-// 0x00494F30
-void __stdcall ROSTERPETS_HandleHelpButtonDown(SMSGHANDLER_PARAMS* pMsg)
-{
-    int nX = pMsg->nXpos;
-    int nY = pMsg->nYpos;
-    if (D2GFX_GetResolutionMode() == 2)
-    {
-        if (nX >= 0x2AD && nX <= 0x2CD && nY >= 0x18 && nY <= 0x38)
-        {
-            gbHelpCloseButtonDown = 1;
-            pMsg->bReturn = 1;
-            pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
-            return;
-        }
-    }
-    else
-    {
-        if (nX >= 0x20D && nX <= 0x22D && nY >= 0x18 && nY <= 0x38)
-        {
-            gbHelpCloseButtonDown = 1;
-            pMsg->bReturn = 1;
-            pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
-            return;
-        }
-    }
-    GAME_ResetMouseButtons();
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
 
 // 0x0049A460
 void __fastcall ROSTERPETS_DrawPanelLabel(int nType, int nUnused, int nY, int bAlt, unsigned short nFlag)

@@ -1438,10 +1438,6 @@ void __stdcall sub_0048BDF0(int nUnused1)
 {
 }
 
-// 0x00494FB0
-void __stdcall sub_00494FB0(int nUnused1)
-{
-}
 
 // 0x0049C160
 int __cdecl sub_0049C160()

@@ -13738,66 +13738,6 @@
      "name": "?VIEW_SetNpcMenuMode@@YAHXZ"
     },
     {
-     "va": "0x00492BC0",
-     "length": 12,
-     "name": "?VIEW_GetPetTypeCount@@YAHXZ"
-    },
-    {
-     "va": "0x00492BD0",
-     "length": 51,
-     "name": "?VIEW_IsInPetIcon@@YIHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00492C10",
-     "length": 13,
-     "name": "?VIEW_IsPetIconVisible@@YAHXZ"
-    },
-    {
-     "va": "0x00492F40",
-     "length": 80,
-     "name": "?VIEW_InitLifeColors@@YIXH@Z"
-    },
-    {
-     "va": "0x00492F90",
-     "length": 8,
-     "name": "?VIEW_ResetLifeColors@@YAXXZ"
-    },
-    {
-     "va": "0x004943B0",
-     "length": 310,
-     "name": "VIEW_DrawHelpFrameLowRes"
-    },
-    {
-     "va": "0x004944F0",
-     "length": 251,
-     "name": "VIEW_DrawHelpFrameHighRes"
-    },
-    {
-     "va": "0x004945F0",
-     "length": 42,
-     "name": "?VIEW_DrawHelpShade@@YAXXZ"
-    },
-    {
-     "va": "0x00494680",
-     "length": 886,
-     "name": "VIEW_DrawHelpLinesLowRes"
-    },
-    {
-     "va": "0x00494A00",
-     "length": 1079,
-     "name": "VIEW_DrawHelpLinesHighRes"
-    },
-    {
-     "va": "0x00494E40",
-     "length": 108,
-     "name": "VIEW_DrawHelpPanelCel"
-    },
-    {
-     "va": "0x00495180",
-     "length": 300,
-     "name": "VIEW_DrawHelpButtons"
-    },
-    {
      "va": "0x00497250",
      "length": 20,
      "name": "?VIEW_InitTextColorRed@@YAXXZ"
@@ -14693,46 +14633,6 @@
      "va": "0x00492770",
      "length": 69,
      "name": "INV_WeaponSwapKeyMsg"
-    },
-    {
-     "va": "0x00493100",
-     "length": 275,
-     "name": "?INV_DrawIconNumber@@YGXHH@Z"
-    },
-    {
-     "va": "0x004953C0",
-     "length": 78,
-     "name": "?INV_GetCenteredX@@YIHGH@Z"
-    },
-    {
-     "va": "0x00495410",
-     "length": 2472,
-     "name": "?sub_00495410_DrawHelpText@@YAXXZ"
-    },
-    {
-     "va": "0x00495DC0",
-     "length": 2294,
-     "name": "?sub_00495DC0_DrawHelpText@@YAXXZ"
-    },
-    {
-     "va": "0x004966C0",
-     "length": 95,
-     "name": "?sub_004966C0_DrawHelpScreen@@YAXXZ"
-    },
-    {
-     "va": "0x00496720",
-     "length": 127,
-     "name": "INV_HelpCloseButtonMsg"
-    },
-    {
-     "va": "0x004967A0",
-     "length": 52,
-     "name": "?sub_004967A0_KeyCloseHelp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004967F0",
-     "length": 395,
-     "name": "?INV_LoadPanelCels@@YAXXZ"
     },
     {
      "va": "0x00497300",
@@ -18150,16 +18050,6 @@
      "name": "ROSTERPETS_HandleRectClick"
     },
     {
-     "va": "0x00494620",
-     "length": 87,
-     "name": "ROSTERPETS_DrawHelpColumn"
-    },
-    {
-     "va": "0x00494F30",
-     "length": 119,
-     "name": "ROSTERPETS_HandleHelpButtonDown"
-    },
-    {
      "va": "0x0049A460",
      "length": 172,
      "name": "ROSTERPETS_DrawPanelLabel"
@@ -21186,11 +21076,6 @@
      "name": "sub_0048BDF0"
     },
     {
-     "va": "0x00494FB0",
-     "length": 3,
-     "name": "sub_00494FB0"
-    },
-    {
      "va": "0x0049C160",
      "length": 6,
      "name": "sub_0049C160"
@@ -22171,21 +22056,6 @@
      "va": "0x004922A0",
      "length": 108,
      "name": "WARDENCLIENT_HandlePanelAreaClick"
-    },
-    {
-     "va": "0x004936E0",
-     "length": 125,
-     "name": "WARDENCLIENT_HandlePetIconClick"
-    },
-    {
-     "va": "0x00496B10",
-     "length": 200,
-     "name": "WARDENCLIENT_DrawHostileIcon"
-    },
-    {
-     "va": "0x00496BE0",
-     "length": 267,
-     "name": "WARDENCLIENT_DrawSkillInfo"
     },
     {
      "va": "0x004A1320",
@@ -23394,11 +23264,6 @@
      "name": "TEXT_ResetNpcPanel"
     },
     {
-     "va": "0x004939B0",
-     "length": 71,
-     "name": "TEXT_LoadPopupHireling"
-    },
-    {
      "va": "0x0049AAA0",
      "length": 78,
      "name": "?TEXT_GetCenteredStringX@@YIHGH@Z"
@@ -24259,6 +24124,21 @@
    ],
    "functions": [
     {
+     "va": "0x00492BC0",
+     "length": 12,
+     "name": "?VIEW_GetPetTypeCount@@YAHXZ"
+    },
+    {
+     "va": "0x00492BD0",
+     "length": 51,
+     "name": "?VIEW_IsInPetIcon@@YIHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00492C10",
+     "length": 13,
+     "name": "?VIEW_IsPetIconVisible@@YAHXZ"
+    },
+    {
      "va": "0x00492C20",
      "length": 665,
      "name": "?HIREABLES_LoadHirelingIcons@@YAXXZ"
@@ -24267,6 +24147,16 @@
      "va": "0x00492EC0",
      "length": 122,
      "name": "?HIREABLES_FreeHirelingIcons@@YAXXZ"
+    },
+    {
+     "va": "0x00492F40",
+     "length": 80,
+     "name": "?VIEW_InitLifeColors@@YIXH@Z"
+    },
+    {
+     "va": "0x00492F90",
+     "length": 8,
+     "name": "?VIEW_ResetLifeColors@@YAXXZ"
     },
     {
      "va": "0x00492FA0",
@@ -24282,6 +24172,11 @@
      "va": "0x004930A0",
      "length": 92,
      "name": "?HIREABLES_DrawRosterName@@YGXPBDHH@Z"
+    },
+    {
+     "va": "0x00493100",
+     "length": 275,
+     "name": "?INV_DrawIconNumber@@YGXHH@Z"
     },
     {
      "va": "0x00493220",
@@ -24312,8 +24207,28 @@
      "length": 522
     },
     {
+     "va": "0x004936E0",
+     "length": 125,
+     "name": "WARDENCLIENT_HandlePetIconClick"
+    },
+    {
+     "va": "0x00493760",
+     "length": 217,
+     "name": "?sub_00493760_HirelingIconHoverMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x00493840",
      "length": 158
+    },
+    {
+     "va": "0x004938E0",
+     "length": 204,
+     "name": "?sub_004938E0_HirelingIconClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004939B0",
+     "length": 71,
+     "name": "TEXT_LoadPopupHireling"
     },
     {
      "va": "0x00493B00",
@@ -24326,9 +24241,54 @@
      "name": "?HIREABLES_GetHelpMenuSetting@@YAHXZ"
     },
     {
+     "va": "0x00494300",
+     "length": 24,
+     "name": "?sub_00494300_SetHelpMenuSetting@@YAXK@Z"
+    },
+    {
      "va": "0x00494320",
      "length": 129,
      "name": "?HIREABLES_LoadHelpCels@@YAXXZ"
+    },
+    {
+     "va": "0x004943B0",
+     "length": 310,
+     "name": "VIEW_DrawHelpFrameLowRes"
+    },
+    {
+     "va": "0x004944F0",
+     "length": 251,
+     "name": "VIEW_DrawHelpFrameHighRes"
+    },
+    {
+     "va": "0x004945F0",
+     "length": 42,
+     "name": "?VIEW_DrawHelpShade@@YAXXZ"
+    },
+    {
+     "va": "0x00494620",
+     "length": 87,
+     "name": "ROSTERPETS_DrawHelpColumn"
+    },
+    {
+     "va": "0x00494680",
+     "length": 886,
+     "name": "VIEW_DrawHelpLinesLowRes"
+    },
+    {
+     "va": "0x00494A00",
+     "length": 1079,
+     "name": "VIEW_DrawHelpLinesHighRes"
+    },
+    {
+     "va": "0x00494E40",
+     "length": 108,
+     "name": "VIEW_DrawHelpPanelCel"
+    },
+    {
+     "va": "0x00494EB0",
+     "length": 42,
+     "name": "?sub_00494EB0@@YAXXZ"
     },
     {
      "va": "0x00494EE0",
@@ -24336,9 +24296,24 @@
      "name": "?HIREABLES_FreeHelpCels@@YAXXZ"
     },
     {
+     "va": "0x00494F30",
+     "length": 119,
+     "name": "ROSTERPETS_HandleHelpButtonDown"
+    },
+    {
+     "va": "0x00494FB0",
+     "length": 3,
+     "name": "sub_00494FB0"
+    },
+    {
      "va": "0x00494FC0",
      "length": 35,
      "name": "?sub_00494FC0@@YAXXZ"
+    },
+    {
+     "va": "0x00494FF0",
+     "length": 64,
+     "name": "?sub_00494FF0_IsMouseInBox@@YGHHHHH@Z"
     },
     {
      "va": "0x00495030",
@@ -24346,9 +24321,79 @@
      "name": "?sub_00495030_DrawKeyHelp@@YAXXZ"
     },
     {
+     "va": "0x00495180",
+     "length": 300,
+     "name": "VIEW_DrawHelpButtons"
+    },
+    {
+     "va": "0x004952B0",
+     "length": 107,
+     "name": "sub_004952B0_ButtonDownMsg"
+    },
+    {
+     "va": "0x00495320",
+     "length": 155,
+     "name": "sub_00495320_ButtonUpMsg"
+    },
+    {
+     "va": "0x004953C0",
+     "length": 78,
+     "name": "?INV_GetCenteredX@@YIHGH@Z"
+    },
+    {
+     "va": "0x00495410",
+     "length": 2472,
+     "name": "?sub_00495410_DrawHelpText@@YAXXZ"
+    },
+    {
+     "va": "0x00495DC0",
+     "length": 2294,
+     "name": "?sub_00495DC0_DrawHelpText@@YAXXZ"
+    },
+    {
+     "va": "0x004966C0",
+     "length": 95,
+     "name": "?sub_004966C0_DrawHelpScreen@@YAXXZ"
+    },
+    {
+     "va": "0x00496720",
+     "length": 127,
+     "name": "INV_HelpCloseButtonMsg"
+    },
+    {
+     "va": "0x004967A0",
+     "length": 52,
+     "name": "?sub_004967A0_KeyCloseHelp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x004967E0",
+     "length": 1,
+     "name": "?sub_004967E0_Empty@@YAXXZ"
+    },
+    {
+     "va": "0x004967F0",
+     "length": 395,
+     "name": "?INV_LoadPanelCels@@YAXXZ"
+    },
+    {
+     "va": "0x00496980",
+     "length": 1,
+     "name": "?sub_00496980_Empty@@YAXXZ"
+    },
+    {
      "va": "0x00496990",
      "length": 378,
      "name": "?HIREABLES_FreePanelCels@@YAXXZ"
+    },
+    {
+     "va": "0x00496B10",
+     "length": 200,
+     "name": "WARDENCLIENT_DrawHostileIcon"
+    },
+    {
+     "va": "0x00496BE0",
+     "length": 267,
+     "name": "WARDENCLIENT_DrawSkillInfo"
     },
     {
      "va": "0x00497270",
@@ -24369,42 +24414,6 @@
      "va": "0x004979F0",
      "length": 68,
      "name": "?HIREABLES_GetBeltRowCount@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00493760.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00493760",
-     "length": 217,
-     "name": "?sub_00493760_HirelingIconHoverMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004938E0",
-     "length": 204,
-     "name": "?sub_004938E0_HirelingIconClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00494300",
-     "length": 24,
-     "name": "?sub_00494300_SetHelpMenuSetting@@YAXK@Z"
-    },
-    {
-     "va": "0x00494FF0",
-     "length": 64,
-     "name": "?sub_00494FF0_IsMouseInBox@@YGHHHHH@Z"
-    },
-    {
-     "va": "0x004967E0",
-     "length": 1,
-     "name": "?sub_004967E0_Empty@@YAXXZ"
-    },
-    {
-     "va": "0x00496980",
-     "length": 1,
-     "name": "?sub_00496980_Empty@@YAXXZ"
     }
    ]
   },
@@ -24521,33 +24530,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004945F0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004952B0",
-     "length": 107,
-     "name": "sub_004952B0_ButtonDownMsg"
-    },
-    {
-     "va": "0x00495320",
-     "length": 155,
-     "name": "sub_00495320_ButtonUpMsg"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00494EB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00494EB0",
-     "length": 42,
-     "name": "?VIEW_DrawHelpShade@@YAXXZ"
-    }
    ]
   },
   {
