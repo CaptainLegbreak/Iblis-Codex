@@ -18,9 +18,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 14:10:24 PST 2026: join-weather ready; join-cmdtbl (CmdTbl.cpp <- Unknown_00468940) and gamedata-table (Storm/Unknown_006CA9C0) verifying. Parked: Gfx <- 0046C7D0, automap <- 0045AE90, Party <- 0049AF60, CmdTbl <- 00469420 (inlining or views, see Questions); five leads conflict with language-table copies (Questions).
+- Tue Nov 24 14:38:08 PST 2026: gamedata-table and join-cmdtbl ready (with join-weather-2, join-gfx-c660-2). Parked this round (Questions): Gfx <- 0046C7D0 (inlining), automap <- 0045AE90 (inlining), Party <- 0049AF60 (helper views), CmdTbl <- 00469420 (inlining), the pet-icon cluster 00493A00/3B50/3CE0/3E10 -> Hireables.cpp (joined, the moved functions differ by ebx/edi swaps), ARCHIVE.CPP <- 0045BF00 (path evidence only; 0x45BF00 is 140 KB from ARCHIVE.CPP's run). Next: the template group 0044F9B0/0044F9D0/0044FB50/0044FD80/00450040.
 
 ## Ready
+
+- lane4/gamedata-table 0f7ab5865 placeholders -1 (Storm/Unknown_006CA9C0.cpp, lane 3's note): the SGAMEDATA export table 0x7A0690 is Game.cpp's constructed global `gtGameDataTable` (Game.cpp's bss neighbours). Its dynamic initializer 0x6CA9C0 (from the Storm placeholder) and atexit destructor 0x6CB3E0 (from Unknown_006CB3E0.cpp, which keeps 0x6CB400) are the compiler's `??__E`/`??__F` for it, marked in Game.cpp. The Sync class's critical section is a member with its own destructor (as in the template placeholders), so the class destructor stays implicit and doesn't reset the vtable, as the original's doesn't. Borrowed data 844 B (main 844). VERIFIED 869a9c44a3eb on #366; rebased onto #367 (precheck equal). Not stacked.
 
 - lane4/join-cmdtbl 4076cc19d placeholders -1 (Unknown_00468940.cpp): CmdTbl.cpp takes in its 55 hotkey and mouse-button command functions (map: sits between two runs of CmdTbl.cpp; CmdTbl.cpp's tables point at them), in address order. The tables now point at their own definitions (52 pointers `owner`, 51 plan externs dropped); the unit takes D2ItemTypes.h, D2StatIds.h, D2Structs.h and D2PlayerModes.h; the button commands are cast to FARPROC for IsBadCodePtr as CmdTbl.cpp's own code does. Unknown_00469420 stays out: CmdTbl.cpp's 0x469C20 inlines it, the original calls it. Borrowed data 844 B (main 844). VERIFIED 11087ced5f8d on #366; rebased onto #367 (precheck equal). Not stacked.
 
