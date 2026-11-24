@@ -7,13 +7,13 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 12:25 PT: strays-c is in (#362). join-drlgwarp rebased onto #362 (include fixed). strays-d posted.
+- 2026-11-24 12:55 PT: strays-d and join-drlgwarp are in (#363). join-tilesub posted (from lane 10's file plan: the RoomTile cluster I had parked).
 
 ## Ready
-- lane8/strays-d f849bb89 (on #362), VERIFIED 03c7d300, borrowed data 880 B. The 0x680040 marker (DRLGOUTWILD_IsVertexBlocking, inside OutDesr's run) moves from OutWild.cpp to OutDesr.cpp's copy of the same static inline; OutWild keeps an unmarked copy for its inlined call.
-- lane8/join-drlgwarp 8bf67eee (rebased on #362), VERIFIED 79ebaa14, borrowed data 880 B (same as main). Fixed: DrlgWarp.cpp now includes gen/data/Source/D2Common/DRLG/DrlgWarp.inc for the two definitions it took over (the copy 0x749804 and 0066AC40's record). DrlgWarp.cpp takes in Unknown_0066AB70 (holds the object's copy 0x749804), 0066AC40, 0066AE70 and DrlgRoom's 0x66AE30, all inside DrlgWarp's run. The header clash is solved by compiling the pieces against DrlgWarp's local structs (a minimal D2DrlgTileDataStrc; the level struct names pTileInfo/nTileInfo for the member 0x66AC40). Units -3.
+- lane8/join-tilesub 51ff9d34 (on #363), VERIFIED cd9e9c5d, borrowed data 848 B. TileSub.cpp becomes the substitution object (17 functions): RoomTile's 0x66F350-0x66FE00 and 0x670750/0x6707A0, Unknown_0066FAD0/0066FF50/00670170, and DrlgRoom's 0x670630/0x6706A0. Evidence: TileSub's 0x6704E0 asserts line 694 vs RoomTile's line 689 at 0x66E260 8 KB earlier (two files); RoomTile's file-name strings stop at 0x66F0B0; D2MOO's DrlgTileSub.cpp holds exactly these functions and its RoomTile.cpp ends with LoadDT1FilesForRoom (0x66F240). The pieces' unsigned SEED_RollLimitedRandomNumber is renamed so the extern int one (0x45C390) stops winning int-literal calls. Units -3.
 
 ## Questions
+- Lane 10 (files-d2common.tsv mediums), for the record: 0066AC40 (DrlgWarp) is in; 00670170 went to TileSub with 0066FAD0 (which belongs to TileSub, not RoomTile); 00627250 stays parked (codegen). 00664530 (overlay getters), 0066A1A0 (cubemain getters) and 00674040 (DRLGOUTDOORS_ helpers) each hold their own language copy, right after OverlayTbls', HoradricCube's and before Outdoors' copies, so by the copy rule they are separate objects and I've left them as files of their own. If the coordinator rules that a loader and its getters share one object despite two copies, they join in one step each.
 
 ## Notes for other lanes
 - Lane 7: join-outplace is on main (#336), so 0x677880 can go into DRLG/OutPlace.cpp on main now.
@@ -26,6 +26,5 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - DataTbls.cpp owns two language copies (0x7442C8, 0x74430C). Inventory.cpp also owns two (0x744760, 0x7447CC), but its asserts run monotonically to 0x63E510 and D2MOO keeps its component map (after the second copy) in Inventory.cpp, so a second copy doesn't by itself mean a second object. Neither is split. Unknown_006115F0 (the empty 0x6115F0, called from D2Client 0x44B400) sits between Ignorelist and ProfCore with no evidence for either.
 - Unknown_00627250 (0x6275B0) into StatsEx.cpp: the original inlines STATLIST_UnitGetStatValue but calls STATLIST_GetTotalStat out of line. In StatsEx the call goes to the `int nLayer` prototype (not inlined); fixing the prototype or adding an inline copy inlines GetTotalStat too. Not moved.
 - Unknown_006808F0 / 00681000 / 00681240 / 00681490: four placeholders for three language copies. 00681240 joins one neighbour, and joined into 00681000 it builds equal, but nothing yet says which neighbour (0x681420 calls into all of them). Not posted.
-- Unknown_0066FAD0, Unknown_0066FF50, Unknown_00670170 (all /GS-) and TileSub.cpp: same RoomTile object. Tried 0x66FAD0 alone into RoomTile.cpp (RoomTile already has an unmarked copy; its nLayer wall-grid helper renamed apart from the real 0x66F380): the body compiles to a different load order at entry (nWallLayers before nBaseX). Not moved.
 - 0x653ED0-0x653F84 (Dungeon.cpp, the unique-monster name builders inside MonsterTbls' run): they read the name tables through Dungeon's gpUniqueNameTxtTables[] macros, which MonsterTbls declares differently. Not moved yet.
 - 0x625560 (DataTbls.cpp, inside StatsEx's run): moved, it doesn't build equal in StatsEx.
