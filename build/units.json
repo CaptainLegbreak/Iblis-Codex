@@ -17515,28 +17515,9 @@
      "name": "?GFX_DrawUnitHealthBar@@YIHPAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x004723F0",
-     "length": 6,
-     "name": "?sub_004723F0_GetPhase@@YAHXZ"
-    },
-    {
-     "va": "0x00472400",
-     "length": 301
-    },
-    {
      "va": "0x00472530",
      "length": 20,
      "name": "?sub_00472530_SetPhaseActive@@YAXH@Z"
-    },
-    {
-     "va": "0x00472550",
-     "length": 57,
-     "name": "?sub_00472550_ResetWeather@@YAXXZ"
-    },
-    {
-     "va": "0x00473A70",
-     "length": 391,
-     "name": "?sub_00473A70@@YIXPAUD2WeatherStrc@@PAUD2WeatherLayerStateStrc@@@Z"
     },
     {
      "va": "0x00475B80",
@@ -20304,6 +20285,20 @@
   {
    "file": "Source/D2Client/Unknown_00472210.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x00472210",
@@ -20341,6 +20336,20 @@
      "name": "?sub_004723C0@@YAXXZ"
     },
     {
+     "va": "0x004723F0",
+     "length": 6,
+     "name": "?sub_004723F0_GetPhase@@YAHXZ"
+    },
+    {
+     "va": "0x00472400",
+     "length": 301
+    },
+    {
+     "va": "0x00472550",
+     "length": 57,
+     "name": "?sub_00472550_ResetWeather@@YAXXZ"
+    },
+    {
      "va": "0x00472590",
      "length": 125,
      "name": "?sub_00472590_SetSplash@@YGXHH@Z"
@@ -20349,6 +20358,15 @@
      "va": "0x00472610",
      "length": 212,
      "name": "?sub_00472610_InitWindAngle@@YAXXZ"
+    },
+    {
+     "va": "0x004726F0",
+     "length": 409
+    },
+    {
+     "va": "0x00472890",
+     "length": 823,
+     "name": "?sub_00472890_InitWeather@@YIXH@Z"
     },
     {
      "va": "0x00472BD0",
@@ -20376,13 +20394,32 @@
      "name": "?sub_00472D10_StepBubbles@@YIXH@Z"
     },
     {
+     "va": "0x00472DA0",
+     "length": 275,
+     "name": "?sub_00472DA0_CreateSplash@@YIXHHHH@Z"
+    },
+    {
+     "va": "0x00472EC0",
+     "length": 239,
+     "name": "?sub_00472EC0_CreateBubble@@YIXHHHH@Z"
+    },
+    {
      "va": "0x00472FB0",
      "length": 209,
      "name": "?sub_00472FB0_GetPeriodLight@@YGXPAEH0@Z"
     },
     {
+     "va": "0x00473090",
+     "length": 556
+    },
+    {
      "va": "0x004732C0",
      "length": 429
+    },
+    {
+     "va": "0x00473470",
+     "length": 584,
+     "name": "?sub_00473470@@YAXXZ"
     },
     {
      "va": "0x004736C0",
@@ -20395,134 +20432,23 @@
      "name": "?sub_00473720_GetLevelWeather@@YAXPAH0@Z"
     },
     {
-     "va": "0x00473CA0",
-     "length": 1,
-     "name": "?sub_00473CA0_Empty@@YAXXZ"
-    },
-    {
-     "va": "0x00473CB0",
-     "length": 1,
-     "name": "?sub_00473CB0_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x00473CC0",
-     "length": 1,
-     "name": "?sub_00473CC0_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x00473CD0",
-     "length": 1,
-     "name": "?sub_00473CD0_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x00473D00",
-     "length": 192,
-     "name": "?sub_00473D00_SetPhase@@YIXH@Z"
-    },
-    {
-     "va": "0x00473DC0",
-     "length": 130
-    },
-    {
-     "va": "0x00473E50",
-     "length": 249,
-     "name": "GFX_StepWeatherPhase"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004726F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004726F0",
-     "length": 409
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00472890.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00472890",
-     "length": 823,
-     "name": "?sub_00472890_InitWeather@@YIXH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004A9BD0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004B17A0",
-     "length": 47,
-     "name": "?sub_004B17A0@@YAXXZ"
-    },
-    {
-     "va": "0x004B1D70",
-     "length": 67,
-     "name": "?sub_004B1D70_FindNpcEntry@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00472DA0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00472DA0",
-     "length": 275,
-     "name": "?sub_00472DA0_CreateSplash@@YIXHHHH@Z"
-    },
-    {
-     "va": "0x00472EC0",
-     "length": 239,
-     "name": "?sub_00472EC0_CreateBubble@@YIXHHHH@Z"
-    },
-    {
-     "va": "0x00473470",
-     "length": 584,
-     "name": "?sub_00473470@@YAXXZ"
-    },
-    {
      "va": "0x00473770",
      "length": 49,
      "name": "?sub_00473770_IsMudLevel@@YAHXZ"
     },
     {
+     "va": "0x004737B0",
+     "length": 342
+    },
+    {
      "va": "0x00473910",
      "length": 341,
      "name": "?sub_00473910_UpdateWeather@@YAXXZ"
+    },
+    {
+     "va": "0x00473A70",
+     "length": 391,
+     "name": "?sub_00473A70@@YIXPAUD2WeatherStrc@@PAUD2WeatherLayerStateStrc@@@Z"
     },
     {
      "va": "0x00473C00",
@@ -20545,6 +20471,26 @@
      "name": "?sub_00473C90_SetGlobal@@YIXH@Z"
     },
     {
+     "va": "0x00473CA0",
+     "length": 1,
+     "name": "?sub_00473CA0_Empty@@YAXXZ"
+    },
+    {
+     "va": "0x00473CB0",
+     "length": 1,
+     "name": "?sub_00473CB0_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x00473CC0",
+     "length": 1,
+     "name": "?sub_00473CC0_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x00473CD0",
+     "length": 1,
+     "name": "?sub_00473CD0_Nop@@YAXXZ"
+    },
+    {
      "va": "0x00473CE0",
      "length": 1,
      "name": "?sub_00473CE0_Nop@@YAXXZ"
@@ -20555,6 +20501,20 @@
      "name": "?sub_00473CF0_Nop@@YAXXZ"
     },
     {
+     "va": "0x00473D00",
+     "length": 192,
+     "name": "?sub_00473D00_SetPhase@@YIXH@Z"
+    },
+    {
+     "va": "0x00473DC0",
+     "length": 130
+    },
+    {
+     "va": "0x00473E50",
+     "length": 249,
+     "name": "GFX_StepWeatherPhase"
+    },
+    {
      "va": "0x00473F50",
      "length": 299,
      "name": "?sub_00473F50_UpdateWeather@@YAXXZ"
@@ -20562,51 +20522,19 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00473090.cpp",
-   "rank": 1,
+   "file": "Source/D2Client/Unknown_004A9BD0.cpp",
+   "rank": 0,
    "functions": [
     {
-     "va": "0x00473090",
-     "length": 556
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004737B0.cpp",
-   "rank": 1,
-   "functions": [
+     "va": "0x004B17A0",
+     "length": 47,
+     "name": "?sub_004B17A0@@YAXXZ"
+    },
     {
-     "va": "0x004737B0",
-     "length": 342
+     "va": "0x004B1D70",
+     "length": 67,
+     "name": "?sub_004B1D70_FindNpcEntry@@YAHXZ"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
