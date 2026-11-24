@@ -10,6 +10,7 @@
 #include "D2MsgRecord.h"
 #include "D2ClientTimer.h"
 #include "D2ClientRange.h"
+#include "D2ClientUiRecords.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -620,11 +621,6 @@ struct D2TileRectStrc
     int nY;
     unsigned int nWidth;
     unsigned int nHeight;
-};
-
-struct D2UIVarRecordStrc
-{
-    int anCloseKind[0x26];
 };
 
 struct D2GridCellStrc;
