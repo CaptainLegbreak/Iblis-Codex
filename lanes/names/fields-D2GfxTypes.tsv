@@ -1,0 +1,2 @@
+header	struct	offset	old	new	confidence	reason
+D2GfxTypes.h	D2PaletteTableStrc	0x11C	unk0x11C	pRedPaletteMap	high	PALETTE_ApplyPaletteTables (D2WinPalette.cpp) sets it to gabRedPaletteMap beside its named siblings pDarkenPalette, pStandardColorsPalette and pRemap

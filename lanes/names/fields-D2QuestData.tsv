@@ -1,0 +1,2 @@
+header	struct	offset	old	new	confidence	reason
+D2QuestData.h	D2Act4Quest1Strc	0x0C	unk0x0C	bPlayerStartedGame	medium	set to 1 in ACT4Q1_Callback13_PlayerStartedGame and tested in ACT4Q1_UnitIterate_UpdateQuestStateFlags; nothing else touches it

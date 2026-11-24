@@ -1,2 +1,3 @@
 header	struct	offset	old	new	confidence	reason
 D2UnitData.h	D2MonsterDataStrc	0x54	unk0x54	dwAiState	medium	D2MOO names D2MonsterDataStrc+0x54 dwAiState (source/D2Common/include/Units/Monster.h); a runtime struct, so check the offset still holds in 1.14d
+D2UnitData.h	D2PlayerDataStrc	0x54	unk0x54	dwLastTradeTick	medium	PLRTRADE_TryToTrade stores nTickCount there and refuses a new trade within 1000 ms of it; PLRSAVE_AttachPlayerToClient and PLRSAVE2_InitPlayerFromClient clear it. Declared unsigned char[4] but always read as one unsigned int, so the type could become unsigned int too
