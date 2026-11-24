@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/small-records-d 894afc59 562->562 Two small headers, each included only by the units that had identical private copies: D2UnitDropPacket.h (the 10-byte drop-items packet SCMD_DropUnitItems reads; SCmd, CharSel, CharSel_0042E600) and D2DrlgDelete.h (the deletion node an active room keeps in pDrlgDelete; Dungeon, Level, PlrSave). The D2Drlg.h version flipped ItemTbls, LvlTbls and D2Comp; VERIFIED faf2ca554a78fe19bb8e0b40ecfb88bcdf0e77f7
+  - Verified on 89693ff5, rebased onto ff0dd9c4. Precheck is equal there.
+  - Outside lane 2: SCmd (lane 4), CharSel x2 (lane 6), Dungeon (lane 8), Level and PlrSave (lane 5).
+
 - lane2/client-records-c da5dea13 562->562 Two commits. D2ClientSound.h gets the sound units' unit list node, which SoundInst, SoundInst_004B9B50 and Unknown_004B82F0 each defined. A new small D2ClientUiRecords.h holds the UI-variable close table (Select, automap, ui, Unknown_0046ACE0) and the UI cel file (spellsel, Unknown_004A76C0/004A9BD0/004AA9C0). One cel-file copy was pack 1 and the others pack 2; the layout is the same either way; VERIFIED bd01be9e53f1c71f67fd5d0c571ff223f8885be7
   - On 89693ff5. All 54 includers and changed units build equal.
   - Outside lane 2: 11 D2Client units (lanes 1 and 4).
