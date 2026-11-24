@@ -882,6 +882,7 @@ Not listed one by one: 3533 functions are compiled with `/GS-` and 589 with `/EH
 | 0x006C9AFF | sub_006C9AFF_FindLastCharacter | `D2Hell/Unknown_006C9A46.cpp` | compiler option /O1 |
 | 0x006C9B17 | sub_006C9B17_StripFileName | `D2Hell/Unknown_006C9A46.cpp` | compiler option /O1 |
 | 0x006C9B30 | sub_006C9B30_GetFileName | `D2Hell/Unknown_006C9A46.cpp` | compiler option /O1 |
+| 0x006CA6F0 | sub_006CA6F0_RecordThreadId | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x006CA700 | sub_006CA700_InitializeLock | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x006CA720 | sub_006CA720_InitializeLock | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x006CA740 | EgtLogMsgQueue_0075E868 | `Fog/Src/LogManager.cpp` | compiler option /EHa |
