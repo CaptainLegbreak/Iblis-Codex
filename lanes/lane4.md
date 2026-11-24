@@ -22,6 +22,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
+- lane4/popup-object: the popup object 0x45FB40-0x46072F (its data: copy 0x711D04, gaPopupHandlers, gaOkCancelHandlers; its bss 0x7A5238-0x7A525C) gathers into Unknown_00460420.cpp from Unknown_0045FB40/0045FB80.cpp, ui.cpp, SCmd.cpp, View.cpp, inv.cpp, RosterPets.cpp, Player.cpp and automap.cpp.
 ## Questions
 
 ## Notes for other lanes
