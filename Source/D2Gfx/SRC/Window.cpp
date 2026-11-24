@@ -209,7 +209,6 @@ extern D2GraphicsInterfaceStrc* gapGraphicsInterfaces[]; // 0x0072DA80
 
 extern const unsigned char gabGraphicsHelpers[]; // 0x0072DA60
 
-
 extern const char gszStringFormat[]; // 0x006FFC58
 
 extern const char gszUnsupportedGraphics[]; // 0x0072DAF0
@@ -303,6 +302,19 @@ extern int ganSubtileRowSrcOffset[]; // 0x0072DBC0
 extern int ganSubtileRowWidth[]; // 0x0072DB84
 
 extern int ganSubtileRowXOffset[]; // 0x0072DB48
+
+void __cdecl sub_006CB400_Nop(); // 0x006CB400
+int __cdecl sub_00683824_RegisterExit(void (__cdecl* callback)()); // 0x00683824
+extern const char* gszDefaultClass_0072DAA0; // 0x0072DAA0
+extern const char* gszDefaultWindow_0072DB3C; // 0x0072DB3C
+extern unsigned int gaTable_00841EC8[0x200]; // 0x00841EC8
+
+unsigned short gwColorCodeFirst_008426E0; // 0x008426E0
+
+unsigned short gwColorCodeSecond_008426E2; // 0x008426E2
+unsigned short gwMonsterCodeFirst_008426DC; // 0x008426DC
+
+unsigned short gwMonsterCodeSecond_008426DE; // 0x008426DE
 
 // 0x004F4FF0
 int __fastcall sub_004F4FF0_SetVideoMode(int nMode)
@@ -2510,3 +2522,44 @@ void __fastcall CMNSUBTILE_SetPaletteTables(D2PaletteTableStrc* pPaletteTables)
 }
 
 #include "gen/data/Source/D2Gfx/SRC/Window.inc"
+// 0x006CADE0
+void __cdecl sub_006CADE0_RegisterCleanup()
+{
+    sub_00683824_RegisterExit(sub_006CB400_Nop);
+}
+// 0x006CADF0
+void __cdecl sub_006CADF0_InitializeWindowText()
+{
+    gszWindowClassName = gszDefaultClass_0072DAA0;
+}
+// 0x006CAE00
+void __cdecl sub_006CAE00_InitializeWindowText()
+{
+    gszWindowClass = gszDefaultWindow_0072DB3C;
+}
+// 0x006CAE10
+void __cdecl sub_006CAE10_InitializeWindowText()
+{
+    gszWindowTitle = gszDefaultWindow_0072DB3C;
+}
+// 0x006CAE20
+void __cdecl sub_006CAE20_ClearTable()
+{
+    for (int i = 0; i < 0x200; ++i)
+    {
+        gaTable_00841EC8[i] = 0;
+    }
+}
+// 0x006CAE40
+void __cdecl sub_006CAE40_InitializeColorCode()
+{
+    gwColorCodeFirst_008426E0 = 0;
+    gwColorCodeSecond_008426E2 = 0;
+}
+// 0x006CAE50
+void __cdecl sub_006CAE50_InitializeMonsterCode()
+{
+    gwMonsterCodeFirst_008426DC = 0;
+    gwMonsterCodeSecond_008426DE = 0;
+}
+

@@ -745,6 +745,27 @@ int __stdcall BNSEND_SendAuthInfo(); // 0x00521BF0
 
 int __cdecl sub_00521DC0_SendAuthCheck();
 
+namespace Storm { namespace SFile { struct ARCHIVEREC; } }
+using Storm::SFile::ARCHIVEREC;
+struct REQUEST;
+struct FILEREC;
+struct EVENTREC;
+struct AUDIOSTREAM;
+struct HANDLER;
+struct WNDREC;
+struct BREAKCMD;
+
+int __cdecl sub_00683824_RegisterExit(void (__cdecl* callback)()); // 0x00683824
+void __cdecl sub_006CB450_StaticFiniNewsCache(); // 0x006CB450
+
+void __cdecl sub_006CB480_DestroyBigPair(); // 0x006CB480
+extern int gnDivisor_00731014; // 0x00731014
+extern int gnQuotient_00883D60; // 0x00883D60
+
+inline void* __cdecl operator new(unsigned int, void* location);
+
+inline void* __cdecl operator new(unsigned int, void* location) { return location; }
+
 // build: symbol ?CUNIT_MarkUnitDead@* 0x00464810
 void __fastcall CUNIT_MarkUnitDead(D2UnitStrc* pUnit)
 {
@@ -2918,3 +2939,20 @@ int __fastcall SERVER_ValidateClientPacket(D2PacketBufferStrc* pPacketBuffer, in
 }
 
 #include "gen/data/Source/D2BNClient/BnSend.inc"
+// 0x006CAEC0
+void __cdecl sub_006CAEC0_RegisterCleanup()
+{
+    sub_00683824_RegisterExit(sub_006CB450_StaticFiniNewsCache);
+}
+// 0x006CAEF0
+void __cdecl sub_006CAEF0_InitializeBigPair()
+{
+    new (&gtBigPair) D2BigPairStrc;
+    atexit(sub_006CB480_DestroyBigPair);
+}
+// 0x006CAF10
+void __cdecl sub_006CAF10_SetPerSecond()
+{
+    gnQuotient_00883D60 = 1000 / gnDivisor_00731014;
+}
+
