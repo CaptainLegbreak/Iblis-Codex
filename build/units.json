@@ -38047,7 +38047,7 @@
    ]
   },
   {
-   "file": "Source/Bnclient/Unknown_00517520.cpp",
+   "file": "Source/D2Hell/Unknown_00517520.cpp",
    "rank": 0,
    "functions": [
     {
@@ -38055,24 +38055,10 @@
      "length": 10,
      "name": "??0D2StormRecordStrc@@QAE@XZ"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Os",
-    "/Oy-",
-    "/Ob2",
-    "/Gd"
    ]
   },
   {
-   "file": "Source/Bnclient/Unknown_0051752A.cpp",
+   "file": "Source/D2Hell/Unknown_0051752A.cpp",
    "rank": 1,
    "functions": [
     {
@@ -38130,7 +38116,7 @@
    ]
   },
   {
-   "file": "Source/Bnclient/Unknown_005175E3.cpp",
+   "file": "Source/D2Hell/Unknown_005175E3.cpp",
    "rank": 1,
    "functions": [
     {
@@ -38141,20 +38127,6 @@
      "va": "0x00517619",
      "length": 10
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/O1"
    ]
   },
   {
