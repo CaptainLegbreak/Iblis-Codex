@@ -34253,7 +34253,7 @@
     {
      "va": "0x004F9870",
      "length": 109,
-     "name": "?D2COMP_DrawAllCompositeUnits@@YAXXZ"
+     "name": "?CONTROL_DrawAllCompositeUnits@@YAXXZ"
     },
     {
      "va": "0x004F98E0",
