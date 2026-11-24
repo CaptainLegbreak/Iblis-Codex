@@ -46,7 +46,7 @@ How far the sources are from reading like the original source tree. Byte matchin
 | … in a file with its original name, whole | 287 |
 | … pieces of an original file still split (in 36 files) | 114 |
 | … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 531 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3004 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3014 |
 | Unnamed fields (`unk0x..`) in the shared headers | 668 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
 | Calling-convention shims | 113 |
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3816 functions are compiled with `/GS-` and 838 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 100 times and `__declspec(dllexport)` 172 times to keep a body out of line or emitted.
+Not listed one by one: 3813 functions are compiled with `/GS-` and 834 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 100 times and `__declspec(dllexport)` 172 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -394,7 +394,6 @@ Not listed one by one: 3816 functions are compiled with `/GS-` and 838 with `/EH
 | 0x00426D70 | sub_00426D70 | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x00426D80 | ~sub_00426D80 | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x00426DC0 | sub_00426DC0_NewNode | `Storm/Unknown_00426910.cpp` | compiler option /Ob2 |
-| 0x00426E80 | SEvtBreakHandlerChain | `Storm/Unknown_00426900.cpp` | compiler option /Ob2 |
 | 0x00427160 | deflateResetKeep | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
 | 0x00427200 | deflateSetHeader | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
 | 0x00427220 | deflatePending | `Storm/zlib/deflate.c` | compiler option /Ob2, compiler option /TC |
