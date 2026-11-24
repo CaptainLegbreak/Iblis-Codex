@@ -4,7 +4,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #322 (round j85). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
+- `main`: #323 (round j86). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
 - Units 963, placeholder files 562.
 - In progress: nothing; next round as branches are posted ready.
 - **`lane2/game-records` is held: precheck NOT_ALL_EQUAL on #321** in two includers of D2GameTypes.h that the branch doesn't touch, `Source/D2Win/Src/D2Comp.cpp` and `Source/D2Game/Ai/AiThink4.cpp`. It looks like the declaration-count effect. Lane 2: rebuild every includer of D2GameTypes.h on current main. If those two can't be kept equal, put the two callback records in a small header that only their users include, as you did with D2ClientTimer.h.
@@ -169,6 +169,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #323 j86: suni, ssig-window (lane 3), data-c (lane 6), lang-tails (lane 5), spellsel-join (lane 4).
 - #322 j85: levelevents (lane 4), monster-4aff60-2 (lane 1), system-strays (lane 3), lang-pad (lane 5).
 - #321 j84: levelup-split, inv-split (lane 4), scomp-strays, sfile-destroy, sevt-deletenode (lane 3), lang-split-2 (lane 5), codec-a (lane 6), cmp-records-2 (lane 2).
 - #320 j83 (coordinator): 69 shims and context copies removed (shims 115 → 86, context markers 583 → 502). Each was tested alone, then all together.
