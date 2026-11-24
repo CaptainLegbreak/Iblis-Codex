@@ -8,7 +8,6 @@ extern D2LangCharMapEntryStrc* gpCharMap;                                       
 extern "C" unsigned int __cdecl strlen(const char* szString);
 
 int sub_005276E0_IsLeadByte(unsigned char nByte); // 0x005276E0
-// build: context - inferred inline helper of 0x00527A50 (no address of its own): the index search with the map
 
 static __forceinline int sub_00527A50_FindIndex(const D2LangCharMapEntryStrc* pMap, unsigned short wChar)
 {
