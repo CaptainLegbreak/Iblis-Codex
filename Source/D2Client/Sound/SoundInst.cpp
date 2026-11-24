@@ -99,13 +99,13 @@ int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
 
 int __cdecl D2SOUND_GetMusicVolumeOption(); // 0x00514CF0
 
-void __fastcall D2SOUND_ListAddHead(void* ppList, void* pData); // 0x00516950
+void __fastcall D2SOUNDUTIL_ListAddHead(void* ppList, void* pData); // 0x00516950
 
-void __fastcall D2SOUND_ListRemove(D2SoundNodeStrc** ppList, D2ClientSoundStrc* pSound); // 0x00516980
+void __fastcall D2SOUNDUTIL_ListRemove(D2SoundNodeStrc** ppList, D2ClientSoundStrc* pSound); // 0x00516980
 
-int __fastcall D2SOUND_ListContains(D2SoundUnitNodeStrc* pList, D2UnitStrc* pUnit); // 0x005169D0
+int __fastcall D2SOUNDUTIL_ListContains(D2SoundUnitNodeStrc* pList, D2UnitStrc* pUnit); // 0x005169D0
 
-void __fastcall D2SOUND_ListFree(void* ppList); // 0x00516A10
+void __fastcall D2SOUNDUTIL_ListFree(void* ppList); // 0x00516A10
 
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 
@@ -137,7 +137,7 @@ D2ClientSoundStrc* __cdecl SOUNDINST_AllocSoundEntry()
         {
             memset(pEntry, 0, sizeof(D2ClientSoundStrc));
             pEntry->bActive = 1;
-            D2SOUND_ListAddHead(&gpSoundList_007C5458, pEntry);
+            D2SOUNDUTIL_ListAddHead(&gpSoundList_007C5458, pEntry);
             gnSoundSerial += 1;
             pEntry->f_8 = gnSoundSerial;
             return pEntry;
@@ -171,7 +171,7 @@ static inline void SOUNDINST_ReleaseUnits(D2ClientSoundStrc* pSound)
     {
         UNITSND_RemoveUnitHint(pNode->pUnit, pSound->f_8);
     }
-    D2SOUND_ListFree(&pSound->pUnitList);
+    D2SOUNDUTIL_ListFree(&pSound->pUnitList);
 }
 
 // 0x004B94A0
@@ -232,7 +232,7 @@ D2ClientSoundStrc* __stdcall SOUNDINST_FindOldestEntry(int nGroup, D2UnitStrc* p
         {
             D2ClientSoundStrc* pEntry = pNode->pSound;
             if (SOUNDHDR_GetSoundRecord(pEntry->nSoundId)->nGroupStart == nGroup && pEntry != pExclude && pEntry->nType == 1
-                && (!pUnit || D2SOUND_ListContains(pEntry->pUnitList, pUnit)) && (!pOldest || pEntry->f_34 < pOldest->f_34))
+                && (!pUnit || D2SOUNDUTIL_ListContains(pEntry->pUnitList, pUnit)) && (!pOldest || pEntry->f_34 < pOldest->f_34))
             {
                 pOldest = pEntry;
             }
@@ -411,7 +411,7 @@ int __fastcall sub_004B9A00_PlaySound(int nSoundId, D2UnitStrc* pUnit, int nDela
 
     if (pUnit)
     {
-        D2SOUND_ListAddHead(&pSound->pUnitList, pUnit);
+        D2SOUNDUTIL_ListAddHead(&pSound->pUnitList, pUnit);
         sub_004CA8A0_AddUnitSound(pUnit, pSound->f_8);
     }
 
@@ -554,11 +554,11 @@ static void SOUNDINST_FreeSound(D2ClientSoundStrc* pSound)
     if (!pSound)
         return;
 
-    D2SOUND_ListRemove(&gpSoundList_007C5458, pSound);
+    D2SOUNDUTIL_ListRemove(&gpSoundList_007C5458, pSound);
     for (D2SoundUnitNodeStrc* pNode = pSound->pUnitList; pNode; pNode = pNode->pNext)
         UNITSND_RemoveUnitHint(pNode->pUnit, pSound->f_8);
 
-    D2SOUND_ListFree(&pSound->pUnitList);
+    D2SOUNDUTIL_ListFree(&pSound->pUnitList);
     if (pSound->nType == 1)
         sub_004DF7B0(pSound->pStream);
 
@@ -674,7 +674,7 @@ static D2ClientSoundStrc* __stdcall SOUNDINST_FindUnitSound(D2ClientSoundStrc* p
         D2ClientSoundStrc* pSound = pNode->pSound;
         if (pSound != pExclude && pSound->nType == 1)
         {
-            if (!pUnit || D2SOUND_ListContains(pSound->pUnitList, pUnit))
+            if (!pUnit || D2SOUNDUTIL_ListContains(pSound->pUnitList, pUnit))
             {
                 if (pSound->nSoundId >= 0xB76 && pSound->nSoundId <= 0x1230)
                     return pSound;
@@ -909,7 +909,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
             }
             else
             {
-                D2SOUND_ListAddHead(&pFreeList, pSound);
+                D2SOUNDUTIL_ListAddHead(&pFreeList, pSound);
             }
             continue;
         }
@@ -995,12 +995,12 @@ void __fastcall sub_004BA020(unsigned int nTick)
                     if (pTxt->bStopInst)
                     {
                         pOther->bLocked = 1;
-                        D2SOUND_ListAddHead(&pFreeList, pOther);
+                        D2SOUNDUTIL_ListAddHead(&pFreeList, pOther);
                     }
                     else
                     {
                         pSound->bLocked = 1;
-                        D2SOUND_ListAddHead(&pFreeList, pSound);
+                        D2SOUNDUTIL_ListAddHead(&pFreeList, pSound);
                         continue;
                     }
                 }
@@ -1046,7 +1046,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
             }
 
             if (!pSound->pStream && !pTxt->nLoop && (!pTxt->bAsyncOnly || pTxt->nState != 1))
-                D2SOUND_ListAddHead(&pFreeList, pSound);
+                D2SOUNDUTIL_ListAddHead(&pFreeList, pSound);
         }
 
         if (pSound->nType == 1)
@@ -1069,7 +1069,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
     for (D2SoundNodeStrc* pFree = pFreeList; pFree; pFree = pFree->pNext)
         SOUNDINST_FreeSound(pFree->pSound);
 
-    D2SOUND_ListFree(&pFreeList);
+    D2SOUNDUTIL_ListFree(&pFreeList);
 
     int bPanel;
     if ((!GAME_GetConnectionType() || GAME_GetConnectionType() == 1) && (UI_GetUIVarUnchecked(9) || UI_GetUIVarUnchecked(11)))

@@ -39,7 +39,7 @@ extern "C" __declspec(dllimport) void* __stdcall BinkOpenDirectSound(unsigned lo
 int __cdecl FOG_UseDirect(); // 0x00406D20
 int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
 void __cdecl sub_006BBBF0_RenderVideoFrame(); // 0x006BBBF0
-void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
+void __fastcall D2SOUNDSMP_SetMasterVolume(int nVolume); // 0x00515CE0
 extern int gnRenderHeight; // 0x007C913C
 extern unsigned int gnBinkY_00989C08; // 0x00989C08
 extern unsigned int gnBinkFlags_00989C18; // 0x00989C18
@@ -199,10 +199,10 @@ LABEL_FAIL:
 
     if (gpBink_00989C10)
     {
-        D2SOUND_SetMasterVolume(0);
+        D2SOUNDSMP_SetMasterVolume(0);
         BinkClose(gpBink_00989C10);
         CloseHandle(hFile);
-        D2SOUND_SetMasterVolume(0xFF);
+        D2SOUNDSMP_SetMasterVolume(0xFF);
         gpBink_00989C10 = 0;
     }
     if (gbBinkQuit_00989C20)

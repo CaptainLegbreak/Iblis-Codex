@@ -713,7 +713,7 @@ unsigned char* __fastcall sub_004DB110_GetLayerOrder(void* pGfx, int nA, int nFr
 unsigned int __cdecl sub_0044CE60_GetPing(); // 0x0044CE60
 unsigned int __cdecl sub_005FF2A0_CountPending(); // 0x005FF2A0
 unsigned int __fastcall sub_0040AA40(AsyncData* pAsync); // 0x0040AA40
-unsigned int __fastcall D2SOUND_GetStreamPosition(D2SoundStrc* pSound); // 0x005159B0
+unsigned int __fastcall D2SOUNDSMP_GetStreamPosition(D2SoundStrc* pSound); // 0x005159B0
 unsigned int __stdcall D2Common_11069(D2UnitStrc* pMonster, unsigned int nIndex, unsigned int nComponent); // 0x00664860
 unsigned int __stdcall INVENTORY_GetItemGUID(D2UnitStrc* pItem); // 0x0063E000
 unsigned int __stdcall ITEMS_GetAltGfx(D2UnitStrc* pItem); // 0x006285F0
@@ -853,8 +853,8 @@ void __fastcall sub_004FB480_SetActA(unsigned char nAct); // 0x004FB480
 void __fastcall sub_004FCF80_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 void __fastcall D2Win_10200(D2SplittedTextStrc* pLines); // 0x005028A0
 void __fastcall D2SOUND_10034(int nValue); // 0x005148F0
-void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
-void __fastcall D2SOUND_StopSound(D2SoundStrc* pSound); // 0x00515EE0
+void __fastcall D2SOUNDSMP_SetMasterVolume(int nVolume); // 0x00515CE0
+void __fastcall D2SOUNDSMP_StopSound(D2SoundStrc* pSound); // 0x00515EE0
 void __fastcall sub_005179A4_VirtualFree(void* pMemory); // 0x005179A4
 void __fastcall PLAYER_SetVirtualPlayerCount(int nPlayers); // 0x00535780
 void __fastcall DATAARRAYS_Reset(D2WeatherStrc* pArray); // 0x006BCAC0

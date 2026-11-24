@@ -408,7 +408,7 @@ int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
 void __stdcall D2Win_10006_ClearDrawCaches(); // 0x004F9130
 
-void __fastcall D2SOUND_FadeOutMasterVolume(int); // 0x00515F50
+void __fastcall D2SOUNDSMP_FadeOutMasterVolume(int); // 0x00515F50
 
 int gbEndScreenButtonPressed; // 0x007A0680
 
@@ -895,7 +895,7 @@ int __cdecl GAME_RunGameSession()
     }
     SCMD_RunMessageLoop(GAME_RunGameFrame);
     GetTickCount();
-    D2SOUND_FadeOutMasterVolume(180);
+    D2SOUNDSMP_FadeOutMasterVolume(180);
     sub_00481830();
     if(GAME_IsTimerRunning(&gtLoadingTimer_007A0684) && !gnDifficultyDirty_007A0604 && !gnCinematicPlayed_007A062C)SCMD_RunMessageLoop(GAME_LoadingTimerCallback);
     if(UI_IsRecordingEnabled())RECORD_WriteRecordFile();

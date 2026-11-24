@@ -37422,7 +37422,7 @@
     {
      "va": "0x00515120",
      "length": 86,
-     "name": "?D2SOUND_StopSoundThread@@YAXXZ"
+     "name": "?D2SOUNDSMP_StopSoundThread@@YAXXZ"
     },
     {
      "va": "0x00515180",
@@ -37431,57 +37431,57 @@
     {
      "va": "0x00515300",
      "length": 177,
-     "name": "D2SOUND_ClearSoundBuffer"
+     "name": "D2SOUNDSMP_ClearSoundBuffer"
     },
     {
      "va": "0x00515530",
      "length": 146,
-     "name": "?D2SOUND_CreateSound@@YIPAUD2SoundStrc@@IH@Z"
+     "name": "?D2SOUNDSMP_CreateSound@@YIPAUD2SoundStrc@@IH@Z"
     },
     {
      "va": "0x005155D0",
      "length": 202,
-     "name": "D2SOUND_SetSoundData"
+     "name": "D2SOUNDSMP_SetSoundData"
     },
     {
      "va": "0x005156A0",
      "length": 104,
-     "name": "?D2SOUND_PlaySound@@YIHPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_PlaySound@@YIHPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00515710",
      "length": 45,
-     "name": "?D2SOUND_GetSoundPlayingFlag@@YIHPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_GetSoundPlayingFlag@@YIHPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00515740",
      "length": 112,
-     "name": "D2SOUND_IsSoundBufferPlaying"
+     "name": "D2SOUNDSMP_IsSoundBufferPlaying"
     },
     {
      "va": "0x005157B0",
      "length": 167,
-     "name": "D2SOUND_SetSoundVolume"
+     "name": "D2SOUNDSMP_SetSoundVolume"
     },
     {
      "va": "0x00515860",
      "length": 39,
-     "name": "?D2SOUND_GetSoundVolume@@YIHPAUD2SoundViewStrc@@@Z"
+     "name": "?D2SOUNDSMP_GetSoundVolume@@YIHPAUD2SoundViewStrc@@@Z"
     },
     {
      "va": "0x00515890",
      "length": 187,
-     "name": "?D2SOUND_SetSoundPan@@YIXPAUD2SoundStrc@@H@Z"
+     "name": "?D2SOUNDSMP_SetSoundPan@@YIXPAUD2SoundStrc@@H@Z"
     },
     {
      "va": "0x00515950",
      "length": 90,
-     "name": "D2SOUND_SetSoundPosition"
+     "name": "D2SOUNDSMP_SetSoundPosition"
     },
     {
      "va": "0x005159B0",
      "length": 119,
-     "name": "?D2SOUND_GetStreamPosition@@YIIPAUD2SoundSampleStrc@@@Z"
+     "name": "?D2SOUNDSMP_GetStreamPosition@@YIIPAUD2SoundSampleStrc@@@Z"
     },
     {
      "va": "0x00515A30",
@@ -37496,42 +37496,42 @@
     {
      "va": "0x00515A90",
      "length": 163,
-     "name": "D2SOUND_SetSoundAttenuation"
+     "name": "D2SOUNDSMP_SetSoundAttenuation"
     },
     {
      "va": "0x00515B40",
      "length": 229,
-     "name": "D2SOUND_SetSoundReverbMix"
+     "name": "D2SOUNDSMP_SetSoundReverbMix"
     },
     {
      "va": "0x00515C30",
      "length": 44,
-     "name": "?D2SOUND_IsSoundStreaming@@YIHPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_IsSoundStreaming@@YIHPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00515C60",
      "length": 114,
-     "name": "D2SOUND_StartSoundFade"
+     "name": "D2SOUNDSMP_StartSoundFade"
     },
     {
      "va": "0x00515CE0",
      "length": 127,
-     "name": "?D2SOUND_SetMasterVolume@@YIXH@Z"
+     "name": "?D2SOUNDSMP_SetMasterVolume@@YIXH@Z"
     },
     {
      "va": "0x00515D60",
      "length": 16,
-     "name": "?D2SOUND_GetMasterVolume@@YAHXZ"
+     "name": "?D2SOUNDSMP_GetMasterVolume@@YAHXZ"
     },
     {
      "va": "0x00515D70",
      "length": 194,
-     "name": "D2SOUND_StartSoundStream"
+     "name": "D2SOUNDSMP_StartSoundStream"
     },
     {
      "va": "0x00515E40",
      "length": 113,
-     "name": "?D2SOUND_CloseSoundStream@@YIXPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_CloseSoundStream@@YIXPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00515EC0",
@@ -37546,32 +37546,32 @@
     {
      "va": "0x00515EE0",
      "length": 98,
-     "name": "?D2SOUND_StopSound@@YIXPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_StopSound@@YIXPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00515F50",
      "length": 125,
-     "name": "?D2SOUND_FadeOutMasterVolume@@YIXH@Z"
+     "name": "?D2SOUNDSMP_FadeOutMasterVolume@@YIXH@Z"
     },
     {
      "va": "0x00515FD0",
      "length": 159,
-     "name": "?D2SOUND_RestoreLostBuffer@@YIHPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_RestoreLostBuffer@@YIHPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00516070",
      "length": 85,
-     "name": "?D2SOUND_ReleaseSoundBuffers@@YAXPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_ReleaseSoundBuffers@@YAXPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x005160D0",
      "length": 98,
-     "name": "?D2SOUND_DestroySound@@YIXPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_DestroySound@@YIXPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00516140",
      "length": 271,
-     "name": "?D2SOUND_ResetSound@@YIXPAUD2SoundStrc@@@Z"
+     "name": "?D2SOUNDSMP_ResetSound@@YIXPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00516250",
@@ -37580,7 +37580,7 @@
     {
      "va": "0x00516510",
      "length": 95,
-     "name": "D2SOUND_StartSoundThread"
+     "name": "D2SOUNDSMP_StartSoundThread"
     },
     {
      "va": "0x00516570",
@@ -37605,22 +37605,22 @@
     {
      "va": "0x005165F0",
      "length": 118,
-     "name": "D2SOUND_ScaleToDecibels"
+     "name": "D2SOUNDSMP_ScaleToDecibels"
     },
     {
      "va": "0x00516670",
      "length": 93,
-     "name": "D2SOUND_DecibelsToScale"
+     "name": "D2SOUNDSMP_DecibelsToScale"
     },
     {
      "va": "0x005166D0",
      "length": 67,
-     "name": "?D2SOUND_FindRiffChunk@@YGPBEPBEPAII1@Z"
+     "name": "?D2SOUNDSMP_FindRiffChunk@@YGPBEPBEPAII1@Z"
     },
     {
      "va": "0x00516720",
      "length": 53,
-     "name": "?D2SOUND_InitWaveFormat@@YIXPAUD2WaveFormatStrc@@H@Z"
+     "name": "?D2SOUNDSMP_InitWaveFormat@@YIXPAUD2WaveFormatStrc@@H@Z"
     },
     {
      "va": "0x00516760",
@@ -37663,12 +37663,12 @@
     {
      "va": "0x00514DB0",
      "length": 90,
-     "name": "?D2SOUND_InitWaveSlots@@YAXXZ"
+     "name": "?D2SOUNDFAST_InitWaveSlots@@YAXXZ"
     },
     {
      "va": "0x00514E10",
      "length": 162,
-     "name": "D2SOUND_PreloadWave"
+     "name": "D2SOUNDFAST_PreloadWave"
     },
     {
      "va": "0x00514EC0",
@@ -37677,27 +37677,27 @@
     {
      "va": "0x00514FB0",
      "length": 49,
-     "name": "?D2SOUND_IsAnyWavePlaying@@YAHXZ"
+     "name": "?D2SOUNDFAST_IsAnyWavePlaying@@YAHXZ"
     },
     {
      "va": "0x00514FF0",
      "length": 36,
-     "name": "?D2SOUND_StopAllWaves@@YAXXZ"
+     "name": "?D2SOUNDFAST_StopAllWaves@@YAXXZ"
     },
     {
      "va": "0x00515020",
      "length": 54,
-     "name": "?D2SOUND_FadeOutWaves@@YAXXZ"
+     "name": "?D2SOUNDFAST_FadeOutWaves@@YAXXZ"
     },
     {
      "va": "0x00515060",
      "length": 6,
-     "name": "D2SOUND_AreWaveSlotsInitialized"
+     "name": "D2SOUNDFAST_AreWaveSlotsInitialized"
     },
     {
      "va": "0x00515070",
      "length": 160,
-     "name": "?D2SOUND_FreeWaveSlots@@YAXXZ"
+     "name": "?D2SOUNDFAST_FreeWaveSlots@@YAXXZ"
     }
    ]
   },
@@ -37893,7 +37893,7 @@
     {
      "va": "0x00516950",
      "length": 47,
-     "name": "?D2SOUND_ListAddHead@@YIXPAPAUD2SoundListNodeStrc@@PAX@Z"
+     "name": "?D2SOUNDUTIL_ListAddHead@@YIXPAPAUD2SoundListNodeStrc@@PAX@Z"
     },
     {
      "va": "0x00516980",
@@ -37902,17 +37902,17 @@
     {
      "va": "0x005169D0",
      "length": 24,
-     "name": "@D2SOUND_ListContains@8"
+     "name": "@D2SOUNDUTIL_ListContains@8"
     },
     {
      "va": "0x005169F0",
      "length": 17,
-     "name": "?D2SOUND_ListCount@@YIHPAUD2SoundListNodeStrc@@@Z"
+     "name": "?D2SOUNDUTIL_ListCount@@YIHPAUD2SoundListNodeStrc@@@Z"
     },
     {
      "va": "0x00516A10",
      "length": 87,
-     "name": "?D2SOUND_ListFree@@YIXPAPAUD2SoundNodeStrc@@@Z"
+     "name": "?D2SOUNDUTIL_ListFree@@YIXPAPAUD2SoundNodeStrc@@@Z"
     },
     {
      "va": "0x00516A70",
@@ -37921,22 +37921,22 @@
     {
      "va": "0x00516AC0",
      "length": 377,
-     "name": "?D2SOUND_ReadVxdVersionResource@@YIHPBDPAKPAX@Z"
+     "name": "?D2SOUNDUTIL_ReadVxdVersionResource@@YIHPBDPAKPAX@Z"
     },
     {
      "va": "0x00516C40",
      "length": 57,
-     "name": "?D2SOUND_GetVxdVersionInfoSize@@YIKPBD@Z"
+     "name": "?D2SOUNDUTIL_GetVxdVersionInfoSize@@YIKPBD@Z"
     },
     {
      "va": "0x00516C80",
      "length": 25,
-     "name": "?D2SOUND_GetVxdVersionInfo@@YIHPBDKPAX@Z"
+     "name": "?D2SOUNDUTIL_GetVxdVersionInfo@@YIHPBDKPAX@Z"
     },
     {
      "va": "0x00516CA0",
      "length": 235,
-     "name": "?D2SOUND_GetVxdFileVersion@@YIHPBDPAI11@Z"
+     "name": "?D2SOUNDUTIL_GetVxdFileVersion@@YIHPBDPAI11@Z"
     }
    ],
    "flags": [

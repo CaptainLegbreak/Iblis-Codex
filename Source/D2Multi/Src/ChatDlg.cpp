@@ -724,9 +724,9 @@ void __fastcall GAME_SetMcpChatCallback(void (__fastcall* pfnCallback)(void* pAr
 
 void __cdecl VIEW_SendMcpMotdRequest(); // 0x0044AA50
 
-void __cdecl D2SOUND_InitWaveSlots(); // 0x00514DB0
+void __cdecl D2SOUNDFAST_InitWaveSlots(); // 0x00514DB0
 
-void __fastcall D2SOUND_PreloadWave(const char* szFile); // 0x00514E10
+void __fastcall D2SOUNDFAST_PreloadWave(const char* szFile); // 0x00514E10
 
 int __cdecl D2SOUND_GetOptionsMusicOption(); // 0x00514D80
 
@@ -742,7 +742,7 @@ void __cdecl VIEW_SendMcpCancelGameCreate(); // 0x0044AA80
 
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
 
-void __cdecl D2SOUND_FreeWaveSlots(); // 0x00515070
+void __cdecl D2SOUNDFAST_FreeWaveSlots(); // 0x00515070
 
 void __cdecl COMCALLBACK_ClearChannel(); // 0x004495A0
 
@@ -4581,8 +4581,8 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
     sub_004FA450_SetActive(gpQuitButton);
     gszText_0077B1D0[0] = 0;
     gszText_0077B0B4[0] = 0;
-    D2SOUND_InitWaveSlots();
-    D2SOUND_PreloadWave("data\\global\\sfx\\cursor\\button.wav");
+    D2SOUNDFAST_InitWaveSlots();
+    D2SOUNDFAST_PreloadWave("data\\global\\sfx\\cursor\\button.wav");
     if (D2SOUND_GetOptionsMusicOption())
         D2SOUND_10034(1);
     gbCheck = gpCharInfo->nStartMode == 4;
@@ -4627,7 +4627,7 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
         gbDone = 4;
 
     GetTickCount();
-    D2SOUND_FreeWaveSlots();
+    D2SOUNDFAST_FreeWaveSlots();
     COMCALLBACK_ClearChannel();
     D2Win_10146();
     CHARSEL_ResetLaunchState();

@@ -50,7 +50,7 @@ void __cdecl GLIDE_DrawVideoFrame(); // 0x0050FD10
 
 void __cdecl DDRAW_DrawVideoFrame(); // 0x005136F0
 
-void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
+void __fastcall D2SOUNDSMP_SetMasterVolume(int nVolume); // 0x00515CE0
 
 extern int gnRenderHeight; // 0x007C913C
 
@@ -272,10 +272,10 @@ LABEL_FAIL:
 
     if (gpGlideBink)
     {
-        D2SOUND_SetMasterVolume(0);
+        D2SOUNDSMP_SetMasterVolume(0);
         BinkClose(gpGlideBink);
         CloseHandle(hFile);
-        D2SOUND_SetMasterVolume(0xFF);
+        D2SOUNDSMP_SetMasterVolume(0xFF);
         gpGlideBink = 0;
     }
 }
@@ -421,10 +421,10 @@ LABEL_FAIL:
 
     if (gpDDrawBink)
     {
-        D2SOUND_SetMasterVolume(0);
+        D2SOUNDSMP_SetMasterVolume(0);
         BinkClose(gpDDrawBink);
         CloseHandle(hFile);
-        D2SOUND_SetMasterVolume(0xFF);
+        D2SOUNDSMP_SetMasterVolume(0xFF);
         gpDDrawBink = 0;
     }
     if (gbDDrawBinkQuit)
