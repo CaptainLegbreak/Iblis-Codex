@@ -4,26 +4,19 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane2/small-records-e 63739ae2 562->562 Two small headers, each included only by the units that had identical private copies: D2ClientDialogWidget.h (a dialog's widget list node; SoundInst, dialog, Unknown_004B8100) and D2ProfileCounter.h (the 0x78-byte profiling counter behind gaProfEntries; ProfCore, Ignorelist, Unknown_006115F0). The widget class itself stays private, because dialog.cpp describes different virtual slots from the other two; VERIFIED d89704bbe5964435dd4a4b2d77925077555095d0
-  - Verified on ff0dd9c4, rebased onto 8aca510f. Precheck is equal there.
-  - Outside lane 2: 3 D2Client units (lanes 1 and 4), 3 D2Common units (lane 8).
-
-- lane2/small-records-d 894afc59 562->562 Two small headers, each included only by the units that had identical private copies: D2UnitDropPacket.h (the 10-byte drop-items packet SCMD_DropUnitItems reads; SCmd, CharSel, CharSel_0042E600) and D2DrlgDelete.h (the deletion node an active room keeps in pDrlgDelete; Dungeon, Level, PlrSave). The D2Drlg.h version flipped ItemTbls, LvlTbls and D2Comp; VERIFIED faf2ca554a78fe19bb8e0b40ecfb88bcdf0e77f7
-  - Verified on 89693ff5, rebased onto ff0dd9c4. Precheck is equal there.
-  - Outside lane 2: SCmd (lane 4), CharSel x2 (lane 6), Dungeon (lane 8), Level and PlrSave (lane 5).
-
-- lane2/client-records-c da5dea13 562->562 Two commits. D2ClientSound.h gets the sound units' unit list node, which SoundInst, SoundInst_004B9B50 and Unknown_004B82F0 each defined. A new small D2ClientUiRecords.h holds the UI-variable close table (Select, automap, ui, Unknown_0046ACE0) and the UI cel file (spellsel, Unknown_004A76C0/004A9BD0/004AA9C0). One cel-file copy was pack 1 and the others pack 2; the layout is the same either way; VERIFIED bd01be9e53f1c71f67fd5d0c571ff223f8885be7
-  - On 89693ff5. All 54 includers and changed units build equal.
-  - Outside lane 2: 11 D2Client units (lanes 1 and 4).
-
-- lane2/records-c a2566fcc 562->562 Two commits. D2McpPackets.h gets the incoming MCP packets (0x03, 0x04, 0x08, 0x09, 0x0A, 0x0E), the packet value record and the create-game body, which WINMAIN, Unknown_0044B400 and Unknown_0044A170 each had private copies of. D2FogTypes.h gets the exception reporter's imagehlp address/stack-frame/symbol/module records, FPO data, toolhelp module entry, module list node and crash dump entry, which Exceptions and Safesock each had copies of; VERIFIED b36c3655546d2af2c5dac52a5512c1d89156ee48
-  - Verified on d4484343, rebased onto 89693ff5. Precheck of all includers of the two headers is equal there.
+- lane2/records-c-2 465be83b 562->562 Replaces `lane2/records-c` (rebased onto #338; the WINMAIN.CPP conflict was include lines only). Two commits. D2McpPackets.h gets the incoming MCP packets (0x03, 0x04, 0x08, 0x09, 0x0A, 0x0E), the packet value record and the create-game body, which WINMAIN, Unknown_0044B400 and Unknown_0044A170 each had private copies of. D2FogTypes.h gets the exception reporter's imagehlp address/stack-frame/symbol/module records, FPO data, toolhelp module entry, module list node and crash dump entry, which Exceptions and Safesock each had copies of; VERIFIED 723f04aedab365a716b6a0446bf001c1a4fbd45f
+  - Verified on 386d6e91 (#337), rebased onto 55b20d70 (#338). Precheck of all 20 includers and changed units is equal there; namesync has nothing to rename.
   - Outside lane 2: WINMAIN, Unknown_0044B400 (lane 4), Unknown_0044A170 (lane 6), Exceptions, Safesock (lane 3).
 
-- lane2/client-records-b e7830e6d 562->562 Four commits, each a small header that only the units holding identical private copies include: D2LaunchRequest.h (the realm game-list request WINMAIN_SendMcpGameListRequest takes; 6 units in D2Client/D2Launch/D2MCPClient/D2Multi), D2ClientStatButton.h (gaStatButtons' 0xE-byte pack(2) record, still named D2BeltSlotStrc because the data plan names it; 4 units), D2ClientKeyConfig.h (the 0x47A-byte .key file; CmdTbl, CUnit), D2ClientTextPanel.h (the scrolling text panel and its line; panel, Unknown_00499500); VERIFIED eb6c179ea2512d03654fb1f487c8e4bd83942885
-  - On d4484343. All 14 changed units build equal.
+- lane2/client-records-b-2 55eacec9 562->562 Replaces `lane2/client-records-b` (rebased onto #337; its first commit, D2LaunchRequest.h, is already in #336, so three commits are left). D2ClientStatButton.h (gaStatButtons' 0xE-byte pack(2) record, still named D2BeltSlotStrc because the data plan names it; 4 units), D2ClientKeyConfig.h (the 0x47A-byte .key file; CmdTbl, CUnit), D2ClientTextPanel.h (the scrolling text panel and its line; panel, Unknown_00499500); VERIFIED 49bb5f40d45fd48749eb56e502b9c224145ea2f7
+  - On 386d6e91. Merges cleanly onto #338, which touches none of its files.
   - Outside lane 2: lanes 4 and 6 (private-copy removal plus one include per unit).
 
+- lane2/client-records-c da5dea13 562->562 Two commits. D2ClientSound.h gets the sound units' unit list node, which SoundInst, SoundInst_004B9B50 and Unknown_004B82F0 each defined. A new small D2ClientUiRecords.h holds the UI-variable close table (Select, automap, ui, Unknown_0046ACE0) and the UI cel file (spellsel, Unknown_004A76C0/004A9BD0/004AA9C0). One cel-file copy was pack 1 and the others pack 2; the layout is the same either way; VERIFIED bd01be9e53f1c71f67fd5d0c571ff223f8885be7
+  - On 89693ff5. All 54 includers and changed units build equal. Merges cleanly onto #338.
+  - Outside lane 2: 11 D2Client units (lanes 1 and 4).
+
+- `lane2/small-records-d-2`: rebased onto #338, verify running; posted here when it passes. It replaces `lane2/small-records-d`.
 
 ## Working on
 
