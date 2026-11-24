@@ -61254,6 +61254,10 @@
      "name": "?SKILLS_ApplyProgressiveElementalConversion@@YGXPAUD2UnitStrc@@PAUD2StatListStrc@@PAUD2DamageStrc@@@Z"
     },
     {
+     "va": "0x005D3AC0",
+     "length": 211
+    },
+    {
      "va": "0x005D3BA0",
      "length": 258
     },
@@ -61495,30 +61499,6 @@
      "length": 134,
      "name": "SKILLS_SrvDo054_BladeShield"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005D3AC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D3AC0",
-     "length": 211
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
