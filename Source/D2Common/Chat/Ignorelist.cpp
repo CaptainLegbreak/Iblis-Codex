@@ -12,6 +12,7 @@
 
 #include "D2CmpCache.h"
 #include "D2ProfileCounter.h"
+#include "D2ExperienceTxt.h"
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags) throw(); // 0x00412650
 
@@ -660,17 +661,7 @@ struct D2CompCodeTxt
     unsigned int dwCode;
 };
 
-struct D2ExperienceTxt
-{
-    unsigned int dwClass[7];
-    unsigned int dwExpRatio;
-};
 
-struct D2ExperienceDataTbl
-{
-    D2ExperienceTxt tMax;
-    D2ExperienceTxt aLevels[1];
-};
 
 typedef void(__stdcall* PROFHOOKFN)(int nA, char* pBuffer, int nC);
 

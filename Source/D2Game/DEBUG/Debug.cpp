@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x007310D0
 
 
 struct D2Game5347F0Strc
@@ -119,3 +121,4 @@ void __fastcall DEBUG_SetRecordValue(D2Game5347F0Strc* pRecord, int nValue)
         pRecord->nValue = nValue;
     }
 }
+

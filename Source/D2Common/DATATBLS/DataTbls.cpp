@@ -16,6 +16,7 @@
 
 #include "D2Unicode.h"
 #include "D2DataTbls.h"
+#include "D2ExperienceTxt.h"
 
 struct D2SkillListStrc;
 
@@ -87,17 +88,7 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 D2StatesTxt* gpStatesTxt; // 0x0096BCEC
 
-struct D2ExperienceTxt
-{
-    unsigned int dwClass[7];
-    unsigned int dwExpRatio;
-};
 
-struct D2ExperienceDataTbl
-{
-    D2ExperienceTxt tMax;
-    D2ExperienceTxt aLevels[1];
-};
 
 extern D2ExperienceDataTbl* gpExperienceTxt; // 0x0096C8A8
 

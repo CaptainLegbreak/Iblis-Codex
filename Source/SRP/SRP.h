@@ -4,7 +4,7 @@
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nSize); // 0x006829C0
 int __fastcall sub_0052A2E0_BigCompare(void* hLeft, void* hRight); // 0x0052A2E0
 int __fastcall sub_0052A2F0_BigCompareUnsigned(void* hBig, unsigned int nValue); // 0x0052A2F0
-int __fastcall BNCLIENT_DeleteBigNum(void* pArg); // 0x0052A600
+int __fastcall GAME_DeleteBigNum(void* pArg); // 0x0052A600
 unsigned int __fastcall sub_0052A2A0_BigToBinary(void* hBig, void* pBuffer, unsigned int nSize); // 0x0052A2A0
 void __fastcall sub_0052A370_BigOpUnsigned_423790(void* hResult, void* hLeft, unsigned int nValue); // 0x0052A370
 void __fastcall sub_0052A560_BigOpPair_424F10_424ED0(void* hResult, void* hLeft, void* hRight, void* hSecond); // 0x0052A560

@@ -91,7 +91,7 @@ int gnSlotCount;                                                                
 
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
 
-char* __fastcall CHARSEL_GetSlotName(int nIndex); // 0x00430B50
+char* __fastcall MAINMENUS_GetSlotName(int nIndex); // 0x00430B50
 
 int __cdecl MAINMENUS_FreeSlots(); // 0x00430A20
 
@@ -244,7 +244,7 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
 
-void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
+void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 
 void __cdecl CHARSEL_DisconnectBattleNet(); // 0x0043B9A0
 
@@ -320,7 +320,7 @@ struct D2ListMsgStrc
     unsigned int uMessage;
 };
 
-int __stdcall COMCALLBACK_OnCharSelectOk(D2ListMsgStrc* pMsg); // 0x00439840
+int __stdcall CHARSEL_OnCharSelectOk(D2ListMsgStrc* pMsg); // 0x00439840
 
 struct D2CompositeUnitStrc;
 
@@ -722,7 +722,7 @@ D2WinControlStrc* gpControl_00779D8C; // 0x00779D8C
 
 int __cdecl GAME_GetStopMainLoop(); // 0x0042FA30
 
-void __cdecl COMCALLBACK_UpdateProgress(); // 0x0042F990
+void __cdecl MAINMENUS_UpdateProgress(); // 0x0042F990
 
 extern int gdwGlobal_0077AC04; // 0x0077AC04
 
@@ -801,9 +801,9 @@ void __fastcall MAINMENUS_ShowMessageBox(const Unicode* pTitle, const Unicode* p
 
 void __fastcall MAINMENUS_JoinGame(D2LaunchCharEntryStrc* pEntry, unsigned short wFlags, int nType, char* szName); // 0x00434A00
 
-int __fastcall CHARSEL_DeleteCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x00434960
+int __fastcall MAINMENUS_DeleteCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x00434960
 
-int __fastcall CHARSEL_UpgradeCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x004349B0
+int __fastcall MAINMENUS_UpgradeCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x004349B0
 
 void __fastcall MAINMENUS_ShowExpansionMessage(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg); // 0x00435180
 
@@ -1070,7 +1070,7 @@ static void CHARSEL_SelectNamedSlot(const char* szName)
 
     int i = 0;
     char* szSlot;
-    while ((szSlot = (i < GAME_GetSlotNameCount() ? CHARSEL_GetSlotName(i) : 0)) != 0)
+    while ((szSlot = (i < GAME_GetSlotNameCount() ? MAINMENUS_GetSlotName(i) : 0)) != 0)
     {
         if (!SStrCmpI(szName, szSlot, 0x7FFFFFFF))
             D2Win_10188(gpNameControl, i, 1);
@@ -1083,7 +1083,7 @@ static int CHARSEL_FindSlotByName(const char* szName)
 {
     for (int i = 0; ; ++i)
     {
-        char* szSlot = i < GAME_GetSlotNameCount() ? CHARSEL_GetSlotName(i) : 0;
+        char* szSlot = i < GAME_GetSlotNameCount() ? MAINMENUS_GetSlotName(i) : 0;
         if (!szSlot)
         {
             break;
@@ -1961,7 +1961,7 @@ void __fastcall CHARSEL_PickClass(int nClass, int bExpansion)
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 0x006829C0
 
-int __stdcall CHARSEL_Back(int nArg); // 0x00435E00
+int __stdcall MAINMENUS_Back(int nArg); // 0x00435E00
 
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
@@ -1970,7 +1970,7 @@ int gbFlag_00779DD8; // 0x00779DD8
 int gnCounter_00779DDC; // 0x00779DDC
 
 // 0x00439840
-int __stdcall COMCALLBACK_OnCharSelectOk(int nArg)
+int __stdcall CHARSEL_OnCharSelectOk(int nArg)
 {
     char szName[0x100];
 
@@ -1983,7 +1983,7 @@ int __stdcall COMCALLBACK_OnCharSelectOk(int nArg)
     {
         if (gnLaunchMode != 1 || !gbFlag_00779DD8)
         {
-            CHARSEL_Back(nArg);
+            MAINMENUS_Back(nArg);
             gnCounter_00779DDC -= 1;
             if (gnCounter_00779DDC <= 0)
             {
@@ -2031,7 +2031,7 @@ int __stdcall COMCALLBACK_OnCharSelectOk(int nArg)
         if ((pEntry->wFlags & 4) && (pEntry->wFlags & 8) && (gnLaunchMode == 0 || gnLaunchMode == 2))
         {
 // build: symbol ?MAINMENUS_DestroyControls@* 0x0042F3F0
-            CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14B8), MAINMENUS_DestroyControls);
+            MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14B8), MAINMENUS_DestroyControls);
             return 1;
         }
 
@@ -2607,7 +2607,7 @@ int __stdcall CHARSEL_OnListClick(D2ListMsgStrc* pMsg)
         {
             const unsigned long dwTick = GetTickCount();
             if (gnSelected != -1 && gnSelected == nPrevious && dwTick - gdwLastClick < 500)
-                return COMCALLBACK_OnCharSelectOk(pMsg);
+                return CHARSEL_OnCharSelectOk(pMsg);
             gdwLastClick = dwTick;
         }
         return CHARSEL_Redraw();
@@ -2846,7 +2846,7 @@ extern "C" __declspec(dllimport) int __stdcall TerminateProcess(void* hProcess, 
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
-void __cdecl COMCALLBACK_ShowProgressScreen(); // 0x0042F890
+void __cdecl MAINMENUS_ShowProgressScreen(); // 0x0042F890
 
 void __cdecl sub_0042FA20(); // 0x0042FA20
 
@@ -2976,7 +2976,7 @@ int __cdecl CHARSEL_InitRealmScreen()
                     SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
                     if (!CHARSEL_FindSlotByName(gszPreferredRealm))
                     {
-                        const char* szFirst = GAME_GetSlotNameCount() > 0 ? CHARSEL_GetSlotName(0) : 0;
+                        const char* szFirst = GAME_GetSlotNameCount() > 0 ? MAINMENUS_GetSlotName(0) : 0;
                         SStrCopy(gszPreferredRealm, szFirst, 0x7FFFFFFF);
                         SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
                     }
@@ -2999,7 +2999,7 @@ int __cdecl CHARSEL_InitRealmScreen()
     return 1;
 
 fail:
-    CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(nStringId), sub_004336C0);
+    MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(nStringId), sub_004336C0);
     return 0;
 }
 

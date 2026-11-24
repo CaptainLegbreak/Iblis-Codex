@@ -1518,11 +1518,8 @@ extern int (__cdecl* const gpfnLaunchInit[1])(); // 0x006D5BE0
 
 extern char gszClientCharName[]; // 0x007A05C4
 
-int gbConnectFailed;                                                                                     // 0x007A0460
 
-unsigned long gdwStartSessionTick;                                                                             // 0x007A0464
 
-unsigned long gdwStopSessionTick;                                                                             // 0x007A045C
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -1588,7 +1585,6 @@ const char* gpszHelpCaption = gpszDefaultCaption_0070EE50; // 0x007A0454
 // build: symbol ??__EgpszCaption_007A0450@@YAXXZ 0x006CA9B0
 const char* gpszCaption_007A0450 = gpszDefaultCaption_0070EE50; // 0x007A0450
 
-int gbGameServerReady; // 0x007A0618
 
 static int s_bHelpChecked; // 0x007A0448
 
@@ -1657,7 +1653,6 @@ extern D2ClientInterfaceStrc gtClientInterface;                                 
 
 extern D2GameDataTableStrc gtGameDataTable;                                                        // 0x007A0690
 
-char gtGameList[4];                                                                                // 0x007A0630
 
 extern char gszServerIP[];                                                                          // 0x0070EF20
 
@@ -2245,132 +2240,10 @@ int __stdcall GAME_LauncherRun(void* hInstance, D2ConfigStrc* pRecord)
     return nResult;
 }
 
-// 0x0044BAD0
-int __stdcall WINMAIN_PollSystemPackets(int nUnused)
-{
-    unsigned char pBuffer[0x200];
-    if ((gdwGlobal_007A0610 != 0 && gdwGlobal_007A0610 != 1) || !WINDOW_GetState())
-    {
-        if (GetTickCount() - gdwStartSessionTick > 10000)
-        {
-            GAME_ShowLoadingMessage(6);
-            gbConnectFailed = 1;
-            gbGameServerReady = 0;
-            return 1;
-        }
 
-        if (!sub_0052A640_IsConnected())
-        {
-            return 1;
-        }
-    }
 
-    const int nLength = CLIENT_DequeueSystemPacket(pBuffer, sizeof(pBuffer));
-    SCMD_HandleSystemPacket(pBuffer, nLength);
-    return gbGameServerReady != 0;
-}
 
-// 0x0044BBB0
-int __stdcall WINMAIN_WaitConnect(int nUnused)
-{
-    if ((gdwGlobal_007A0610 != 0 && gdwGlobal_007A0610 != 1) || !WINDOW_GetState())
-    {
-        const int nStatus = CLIENT_GetConnectionStatus();
-        if (nStatus == 0)
-        {
-            GAME_ShowLoadingMessage(6);
-            gbConnectFailed = 1;
-            gbGameServerReady = 0;
-            return 1;
-        }
-        return nStatus == 2;
-    }
-    return 0;
-}
 
-// 0x0044BC30
-int __cdecl WINMAIN_StartSession()
-{
-    gbGameServerReady = 0;
-    if (gdwGlobal_007A0610 == 0)
-    {
-        SERVER_Initialize(1, 1);
-        CLIENT_Initialize(1, 0);
-        SCMD_RunMessageLoop(WINMAIN_WaitConnect);
-        SERVER_SetHackListEnabled(0);
-        GAME_InitGameDataTable(&gtGameDataTable, gtGameList);
-// build: symbol ?gnSubsystemActive@* 0x007A0458
-        gnSubsystemActive = 1;
-        GAME_Initialize();
-    }
-    else if (gdwGlobal_007A0610 == 1)
-    {
-        SERVER_Initialize(2, 1);
-        CLIENT_Initialize(2, 0);
-        SCMD_RunMessageLoop(WINMAIN_WaitConnect);
-        SERVER_SetHackListEnabled(0);
-        GAME_InitGameDataTable(&gtGameDataTable, gtGameList);
-        gnSubsystemActive = 1;
-        GAME_Initialize();
-    }
-    else if (gdwGlobal_007A0610 == 4)
-    {
-// build: symbol ?gszBattleNetIP@* 0x0070F028
-        CLIENT_Initialize(0, gszBattleNetIP);
-        SCMD_RunMessageLoop(WINMAIN_WaitConnect);
-    }
-    else if (gdwGlobal_007A0610 == 6 || gdwGlobal_007A0610 == 8)
-    {
-        SERVER_Initialize(0, 1);
-        SERVER_SetMaxClientsPerGame(8);
-        SERVER_SetHackListEnabled(0);
-        CLIENT_Initialize(0, gszServerIP);
-        SCMD_RunMessageLoop(WINMAIN_WaitConnect);
-        GAME_InitGameDataTable(&gtGameDataTable, gtGameList);
-        gnSubsystemActive = 1;
-        GAME_Initialize();
-    }
-    else
-    {
-        CLIENT_Initialize(0, gszServerIP);
-        SCMD_RunMessageLoop(WINMAIN_WaitConnect);
-    }
-
-    gdwStartSessionTick = GetTickCount();
-    gbConnectFailed = 0;
-    SCMD_RunMessageLoop(WINMAIN_PollSystemPackets);
-    return GAME_PopStateValue();
-}
-
-// 0x0044BD20
-int __stdcall WINMAIN_PumpSystemPackets(int nUnused)
-{
-    unsigned char pBuffer[0x200];
-    WINDOW_GetState();
-    if (gdwGlobal_007A0610 == 0 || gdwGlobal_007A0610 == 1)
-    {
-        sub_0052CFE0();
-    }
-
-    const int nLength = CLIENT_DequeueSystemPacket(pBuffer, sizeof(pBuffer));
-    SCMD_HandleSystemPacket(pBuffer, nLength);
-    if (GetTickCount() - gdwStopSessionTick > 10000)
-    {
-        return 1;
-    }
-    return gbGameServerReady == 0;
-}
-
-// 0x0044BD90
-int __cdecl WINMAIN_StopSession()
-{
-    gdwStopSessionTick = GetTickCount();
-    SCMD_RunMessageLoop(WINMAIN_PumpSystemPackets);
-    CLIENT_Release();
-    if (gdwGlobal_007A0610 == 0 || gdwGlobal_007A0610 == 1 || gdwGlobal_007A0610 == 6 || gdwGlobal_007A0610 == 8)
-        SERVER_Release();
-    return GAME_PopStateValue();
-}
 
 
 

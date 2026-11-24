@@ -642,6 +642,32 @@ class Plan(object):
                 self._data_markers[objp] = by_file[stem]; self.data_sizes[objp] = size_of[stem]
         return self._data_markers
 
+    def static_data_markers(self):
+        """objp -> {symbol name: va} from the unit's `// build: symbol <name> 0xVA` lines (exact names only), so a
+        data section that nothing references and the plan does not hold (a static such as a header's table) has an
+        address hint. The bytes must still match."""
+        if getattr(self, "_static_markers", None) is not None:
+            return self._static_markers
+        self._static_markers = {}
+        for objp in {p["obj"] for p in self.placed.values()}:
+            stem = self.obj_source.get(objp)
+            if stem is None:
+                continue
+            for ext in (".cpp", ".CPP", ".c", ".C"):
+                p = os.path.join(ROOT, stem + ext)
+                if os.path.exists(p):
+                    break
+            else:
+                continue
+            marks = {}
+            for ln in open(p, encoding="latin-1"):
+                m = checker.SYMBOL_DIRECTIVE.match(ln.strip())
+                if m and not m.group(1).endswith("*"):
+                    marks[m.group(1)] = int(m.group(2), 16)
+            if marks:
+                self._static_markers[objp] = marks
+        return self._static_markers
+
     def place_data(self):
         import image_data as D
         pe = self.pe; lay = self.layout = D.image_layout(pe)
@@ -694,6 +720,22 @@ class Plan(object):
                 va = m.get(checker.undec(y["name"])) if y["cls"] == 2 else None
                 if va is not None and 0 <= y["value"] < max(ds["size"], 1):
                     anchors[key][(va - y["value"]) & 0xFFFFFFFF] += 1; self.problems["data_marker_anchors"] += 1
+        smarks = self.static_data_markers()
+        for key, ds in secs.items():
+            sm = smarks.get(key[0]) if isinstance(key[0], str) else None
+            if not sm or not ds["ch"] & 0x80000000 or ds["raw"] is None:
+                continue                     # initialised writable data only; .bss, literals and .rdata have their own placement
+            for y in ds["defs"]:
+                va = sm.get(y["name"]) if y["cls"] in (2, 3) and not y["name"].startswith("$") else None
+                if va is None or not 0 <= y["value"] < max(ds["size"], 1):
+                    continue
+                base = (va - y["value"]) & 0xFFFFFFFF
+                others = [a_ for a_ in anchors.get(key, {}) if a_ != base]
+                if others:
+                    self.problems["static_data_marker_disagrees"] += 1
+                    raise RuntimeError("static data marker %s 0x%08X disagrees with the section's other anchors (%s) in %s"
+                                       % (y["name"], va, ", ".join("0x%08X" % a_ for a_ in sorted(others)), key[0]))
+                anchors[key][base] += 1; self.problems["static_data_marker_anchors"] += 1
         if self.crt:
             for c in self.crt["placements"]:
                 own = ("crt", c["sec"]["member"]); o = objs[own]; scn = c["sec"]["scn"]

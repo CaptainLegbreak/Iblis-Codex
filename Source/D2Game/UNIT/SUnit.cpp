@@ -21,6 +21,8 @@
 #include "D2TxtTables.h"
 #include "D2GameServer.h"
 #include "D2GameTypes.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00731ED4
 struct D2MapAIStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }

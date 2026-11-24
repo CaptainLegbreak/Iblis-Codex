@@ -9,6 +9,8 @@
 #include "D2ItemsWorld.h"
 #include "D2GameAux.h"
 #include "D2LevelTxt.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x007328C8
 
 #define PETTYPE_SINGLE 1
 
@@ -1522,4 +1524,3 @@ int __fastcall PLAYERPETS_HasLivingHireling(D2GameStrc* pGame, D2UnitStrc* pPlay
     return 0;
 }
 
-#include "gen/data/Source/D2Game/PLAYER/PlayerPets.inc"

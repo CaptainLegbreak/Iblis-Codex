@@ -97,10 +97,10 @@ void __fastcall EDITBOX_SetText(D2WinControlStrc* pControl, const Unicode* pText
 int __fastcall sub_00500960_IsPressed(D2WinControlStrc* pButton); // 0x00500960
 void __fastcall MAINMENUS_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
-void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
+void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 void __fastcall MAINMENUS_JoinGame(D2LaunchCharEntryStrc* pEntry, unsigned short wFlags, int nType, char* szName); // 0x00434A00
-int __fastcall CHARSEL_DeleteCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x00434960
-int __fastcall CHARSEL_UpgradeCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x004349B0
+int __fastcall MAINMENUS_DeleteCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x00434960
+int __fastcall MAINMENUS_UpgradeCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x004349B0
 void __fastcall MAINMENUS_ShowExpansionMessage(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg); // 0x00435180
 int __stdcall sub_004370B0_ShowLoginScreen(int nArg); // 0x004370B0
 void __cdecl CHARSEL_InitCharSelectScreen(); // 0x0043B080
@@ -136,7 +136,7 @@ extern D2WinControlStrc* gpSubmitEditA; // 0x00798C80
 extern D2WinControlStrc* gpSubmitEditB; // 0x00798C84
 extern D2WinControlStrc* gpSubmitEditC; // 0x00798C88
 extern int gnSubmitMode; // 0x00798CAC
-char* __fastcall CHARSEL_GetSlotName(int nIndex); // 0x00430B50
+char* __fastcall MAINMENUS_GetSlotName(int nIndex); // 0x00430B50
 void __cdecl CHARSEL_UpdateStatus(); // 0x0043A270
 extern int gbFlag_00779C6C; // 0x00779C6C
 extern D2WinControlStrc* gpControl_00779D90; // 0x00779D90
@@ -299,7 +299,7 @@ static int CHARSEL_FindSlotByName(const char* szName)
 {
     for (int i = 0; ; ++i)
     {
-        char* szSlot = i < GAME_GetSlotNameCount() ? CHARSEL_GetSlotName(i) : 0;
+        char* szSlot = i < GAME_GetSlotNameCount() ? MAINMENUS_GetSlotName(i) : 0;
         if (!szSlot)
         {
             break;
@@ -322,7 +322,7 @@ static void CHARSEL_SelectNamedSlot(const char* szName)
 
     int i = 0;
     char* szSlot;
-    while ((szSlot = (i < GAME_GetSlotNameCount() ? CHARSEL_GetSlotName(i) : 0)) != 0)
+    while ((szSlot = (i < GAME_GetSlotNameCount() ? MAINMENUS_GetSlotName(i) : 0)) != 0)
     {
         if (!SStrCmpI(szName, szSlot, 0x7FFFFFFF))
             D2Win_10188(gpNameControl, i, 1);
@@ -721,7 +721,7 @@ void __cdecl CHARSEL_CreateCharListControls()
         D2Win_10062((D2WinTextBoxStrc*)gpControl_00779D9C, -6, 0);
         for (int i = 0; ; ++i)
         {
-            char* szName = i < GAME_GetSlotNameCount() ? CHARSEL_GetSlotName(i) : 0;
+            char* szName = i < GAME_GetSlotNameCount() ? MAINMENUS_GetSlotName(i) : 0;
             if (!szName) { break; }
             D2Win_10045(gpNameControl, szName);
             if (!SStrCmpI(gszPreferredRealm, szName, 0x7FFFFFFF))
@@ -759,12 +759,12 @@ int __stdcall CHARSEL_OnCharSelect(int nArg)
             if (pwszName && pwszName->wChar)
             {
                 sub_00526F70(szName, pwszName, 0xFF);
-                bOk = CHARSEL_UpgradeCharacter(pEntry, szName);
+                bOk = MAINMENUS_UpgradeCharacter(pEntry, szName);
                 if (!bOk)
                 {
                     if (GAME_GetConnectError() != 0x7B)
                     {
-                        CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x145B), CHARSEL_InitCharSelectScreen);
+                        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x145B), CHARSEL_InitCharSelectScreen);
                     }
                     else
                     {
@@ -772,7 +772,7 @@ int __stdcall CHARSEL_OnCharSelect(int nArg)
                         Unicode wszArg[0x100];
                         sub_00526F20_ToUnicode(wszArg, pEntry->szName, 0x100);
                         sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x2B89), wszArg);
-                        CHARSEL_ShowText(wszText, CHARSEL_InitCharSelectScreen);
+                        MAINMENUS_ShowText(wszText, CHARSEL_InitCharSelectScreen);
                     }
                     gbCharSelBusy = 0;
                     return 1;
@@ -819,7 +819,7 @@ int __stdcall CHARSEL_JoinSelected(int nArg)
         if (pwszName && pwszName->wChar)
         {
             sub_00526F70(szName, pwszName, 0xFF);
-            if (CHARSEL_DeleteCharacter(pEntry, szName))
+            if (MAINMENUS_DeleteCharacter(pEntry, szName))
             {
                 ++gnCounter_00779DDC;
                 gbFlag_00779DD8 = 0;
@@ -827,7 +827,7 @@ int __stdcall CHARSEL_JoinSelected(int nArg)
             }
             else
             {
-                CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x145B), CHARSEL_InitCharSelectScreen);
+                MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x145B), CHARSEL_InitCharSelectScreen);
                 gbCharSelBusy = 0;
                 return 1;
             }
@@ -876,7 +876,7 @@ int __cdecl CHARSEL_InitRealmScreen()
                     SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
                     if (!CHARSEL_FindSlotByName(gszPreferredRealm))
                     {
-                        const char* szFirst = GAME_GetSlotNameCount() > 0 ? CHARSEL_GetSlotName(0) : 0;
+                        const char* szFirst = GAME_GetSlotNameCount() > 0 ? MAINMENUS_GetSlotName(0) : 0;
                         SStrCopy(gszPreferredRealm, szFirst, 0x7FFFFFFF);
                         SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
                     }
@@ -899,6 +899,6 @@ int __cdecl CHARSEL_InitRealmScreen()
     return 1;
 
 fail:
-    CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(nStringId), sub_004336C0);
+    MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(nStringId), sub_004336C0);
     return 0;
 }

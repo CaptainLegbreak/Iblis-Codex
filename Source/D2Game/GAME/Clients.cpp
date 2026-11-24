@@ -34,6 +34,8 @@
 #include "D2InactiveUnits.h"
 #include "D2Packets.h"
 #include "D2SaveHeader.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x007312E0
 
 #pragma intrinsic(strcpy)
 
@@ -3528,7 +3530,7 @@ void __fastcall CLIENTS_RebuildPlayerWithClass(D2GameStrc* pGame, D2ClientStrc* 
 
 void __fastcall LEVEL_ClearAdjacentRoomUnitTargets(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pTarget); // 0x0053AB10
 // 0x00540890
-int __fastcall PARTY_SumLivingPartyLevelsInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit)
+int __fastcall CLIENTS_SumLivingPartyLevelsInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     int nLevelSum = 0;
     if (SUNIT_GetPartyId(pUnit) == -1)
@@ -3846,4 +3848,3 @@ extern "C" __declspec(dllexport) void __fastcall CLIENTS_GetClientInfo(D2ClientS
     *ppClientInfo = pClient->pClientInfo;
 }
 
-#include "gen/data/Source/D2Game/GAME/Clients.inc"

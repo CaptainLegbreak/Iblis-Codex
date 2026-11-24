@@ -99,20 +99,20 @@ int D2BigPowModStrc::sub_005281D0_ComputeServerKey(void* const& hClientPublic, v
     sub_0052A560_BigOpPair_424F10_424ED0(hTemp, hClientPublic, hTemp, hModulus);
     if (sub_0052A2F0_BigCompareUnsigned(hTemp, 1) <= 0)
     {
-        BNCLIENT_DeleteBigNum(hTemp);
+        GAME_DeleteBigNum(hTemp);
         return 0;
     }
     void* hCheck = sub_0052A240_BigFromUnsigned(0);
     sub_0052A370_BigOpUnsigned_423790(hCheck, hTemp, 1);
     if (!sub_0052A2E0_BigCompare(hCheck, hModulus))
     {
-        BNCLIENT_DeleteBigNum(hCheck);
-        BNCLIENT_DeleteBigNum(hTemp);
+        GAME_DeleteBigNum(hCheck);
+        GAME_DeleteBigNum(hTemp);
         return 0;
     }
-    BNCLIENT_DeleteBigNum(hCheck);
+    GAME_DeleteBigNum(hCheck);
     sub_0052A590_BigOp_425330(hKey, hTemp, hSecret, hModulus);
-    BNCLIENT_DeleteBigNum(hTemp);
+    GAME_DeleteBigNum(hTemp);
     return 1;
 }
 
@@ -134,16 +134,16 @@ int D2BigPairStrc::sub_005285A0_Init(int nSize1, const unsigned char* pData1, in
 {
     if (pState->bValid)
     {
-        BNCLIENT_DeleteBigNum(pState->hModulus);
-        BNCLIENT_DeleteBigNum(pState->hBase);
+        GAME_DeleteBigNum(pState->hModulus);
+        GAME_DeleteBigNum(pState->hBase);
     }
     pState->hBase = sub_0052A270_BigFromBinary(pData1, nSize1);
     pState->hModulus = sub_0052A270_BigFromBinary(pData2, nSize2);
     pState->bValid = 1;
     if (!sub_005284F0_IsValid(pState))
     {
-        BNCLIENT_DeleteBigNum(pState->hModulus);
-        BNCLIENT_DeleteBigNum(pState->hBase);
+        GAME_DeleteBigNum(pState->hModulus);
+        GAME_DeleteBigNum(pState->hBase);
         pState->bValid = 0;
     }
     return pState->bValid;
@@ -161,8 +161,8 @@ void D2BigPairStrc::MakeVerifier(const char* szName, const char* szPassword, uns
         pState->sub_00528010_PowMod(hExp, hResult);
     }
     sub_0052A2A0_BigToBinary(hVerifier, pVerifier, 0x20);
-    BNCLIENT_DeleteBigNum(hExp);
-    BNCLIENT_DeleteBigNum(hVerifier);
+    GAME_DeleteBigNum(hExp);
+    GAME_DeleteBigNum(hVerifier);
 }
 
 inline void D2BigPowModStrc::operator delete(void* pMemory)
@@ -190,8 +190,8 @@ void D2BigPairStrc::sub_00528630_Release()
 {
     if (pState->bValid)
     {
-        BNCLIENT_DeleteBigNum(pState->hModulus);
-        BNCLIENT_DeleteBigNum(pState->hBase);
+        GAME_DeleteBigNum(pState->hModulus);
+        GAME_DeleteBigNum(pState->hBase);
     }
     pState->bValid = 0;
 }
@@ -207,10 +207,10 @@ void D2BigPairStrc::sub_005289F0_ComputeServerPublic(D2BigServerRecordStrc* pRec
     sub_0052A350_BigOp_423790(hPublic, hPublic, hVerifier);
     while (sub_0052A2E0_BigCompare(hPublic, pState->hModulus) > 0)
         sub_0052A3B0_BigOp_423AC0(hPublic, hPublic, pState->hModulus);
-    BNCLIENT_DeleteBigNum(hPrivate);
-    BNCLIENT_DeleteBigNum(hVerifier);
+    GAME_DeleteBigNum(hPrivate);
+    GAME_DeleteBigNum(hVerifier);
     sub_0052A2A0_BigToBinary(hPublic, pRecord->abServerPublic, 0x20);
-    BNCLIENT_DeleteBigNum(hPublic);
+    GAME_DeleteBigNum(hPublic);
 }
 
 // 0x00528C60
@@ -231,12 +231,12 @@ int D2BigPairStrc::sub_00528AC0_VerifyClientProof(D2BigServerRecordStrc* pRecord
     tHandles.hServerPublic = sub_0052A270_BigFromBinary(pRecord->abServerPublic, 0x20);
     tHandles.hClientPublic = sub_0052A270_BigFromBinary(pRecord->abClientPublic, 0x20);
     pState->sub_005281D0_ComputeServerKey(tHandles.hClientPublic, tHandles.hServerPublic, tHandles.hPrivate, tHandles.hVerifier, hKey);
-    BNCLIENT_DeleteBigNum(tHandles.hClientPublic);
-    BNCLIENT_DeleteBigNum(tHandles.hServerPublic);
-    BNCLIENT_DeleteBigNum(tHandles.hPrivate);
-    BNCLIENT_DeleteBigNum(tHandles.hVerifier);
+    GAME_DeleteBigNum(tHandles.hClientPublic);
+    GAME_DeleteBigNum(tHandles.hServerPublic);
+    GAME_DeleteBigNum(tHandles.hPrivate);
+    GAME_DeleteBigNum(tHandles.hVerifier);
     const unsigned int nSize = sub_0052A2A0_BigToBinary(hKey, abKey, 0x20);
-    BNCLIENT_DeleteBigNum(hKey);
+    GAME_DeleteBigNum(hKey);
     SHA_Interleave(pRecord->abKey, abKey, nSize);
     pState->sub_005282A0_ComputeProof(pRecord->szName, pRecord->abSalt, pRecord->abClientPublic, pRecord->abServerPublic, pRecord->abKey, pRecord->abClientProof);
     return memcmp(pRecord->abClientProof, pClientProof, sizeof(pRecord->abClientProof)) == 0;

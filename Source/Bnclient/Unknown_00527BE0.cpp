@@ -303,9 +303,9 @@ void D2BigPairStrc::sub_005286D0_InitLogin(D2BigLoginRecordStrc* pRecord, const 
     void* hPrivate = sub_0052A270_BigFromBinary(pRecord->abPrivate, 0x20);
     void* hPublic = sub_0052A240_BigFromUnsigned(0);
     sub_0052A590_BigOp_425330(hPublic, pState->hBase, hPrivate, pState->hModulus);
-    BNCLIENT_DeleteBigNum(hPrivate);
+    GAME_DeleteBigNum(hPrivate);
     sub_0052A2A0_BigToBinary(hPublic, pRecord->abPublic, 0x20);
-    BNCLIENT_DeleteBigNum(hPublic);
+    GAME_DeleteBigNum(hPublic);
 }
 
 #include "gen/data/Source/Bnclient/Unknown_00527BE0.inc"
@@ -338,9 +338,9 @@ int D2BigPowModStrc::sub_005280C0_ComputeSessionKey(void* const& hSecret, void* 
                 sub_0052A430_BigOpUnsigned_424F10(hTemp, hExp, nScrambler);
                 sub_0052A350_BigOp_423790(hTemp, hTemp, hSecret);
                 sub_0052A590_BigOp_425330(hKey, hBase, hTemp, hModulus);
-                BNCLIENT_DeleteBigNum(hTemp);
-                BNCLIENT_DeleteBigNum(hBase);
-                BNCLIENT_DeleteBigNum(hPower);
+                GAME_DeleteBigNum(hTemp);
+                GAME_DeleteBigNum(hBase);
+                GAME_DeleteBigNum(hPower);
                 return 1;
             }
         }

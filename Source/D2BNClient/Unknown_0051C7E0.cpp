@@ -108,8 +108,8 @@ int __cdecl BNDOWNLOAD_IsReady()
 {
     D2BnStateStrc tState;
     sub_005205F0_GetState(&tState);
-// build: symbol ?BNCLIENT_GetAbortFlag@* 0x00520AE0
-    if (!BNCLIENT_GetAbortFlag() && tState.nState == 0 && InterlockedCompareExchange(&gnConnected, 0, 0))
+// build: symbol ?GAME_GetAbortFlag@* 0x00520AE0
+    if (!GAME_GetAbortFlag() && tState.nState == 0 && InterlockedCompareExchange(&gnConnected, 0, 0))
         return 1;
     return 0;
 }

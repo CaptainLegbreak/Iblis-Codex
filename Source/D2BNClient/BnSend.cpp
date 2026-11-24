@@ -644,9 +644,9 @@ int __fastcall BNSEND_SendCreateAccountEx(const char* szName, const char* szPass
 
 int __cdecl BNSEND_SendLeaveChat(); // 0x0051AF20
 
-int __cdecl BNCLIENT_GetCreateAccountResult(); // 0x00520B10
+int __cdecl GAME_GetCreateAccountResult(); // 0x00520B10
 
-int __cdecl BNCLIENT_GetChangePasswordResult(); // 0x00520B20
+int __cdecl GAME_GetChangePasswordResult(); // 0x00520B20
 
 int __fastcall BNSEND_SendAccountLogon(const char* szName, const char* szPassword); // 0x00521F60
 
@@ -1094,8 +1094,8 @@ int __cdecl BNSEND_SendStartVersioning()
 // build: symbol ?BNDOWNLOAD_IsReplyReceived@* 0x00520BF0
         if (BNDOWNLOAD_IsReplyReceived(7))
             break;
-// build: symbol ?BNCLIENT_GetAbortFlag@* 0x00520AE0
-        if (BNCLIENT_GetAbortFlag())
+// build: symbol ?GAME_GetAbortFlag@* 0x00520AE0
+        if (GAME_GetAbortFlag())
             return 0;
         Sleep(10);
     }
@@ -1840,7 +1840,7 @@ int __fastcall BNSEND_Logon(const char* szName, const char* szPassword)
 // 0x0051C290
 int __cdecl BNSEND_GetLogonResult()
 {
-    if (BNCLIENT_GetAbortFlag())
+    if (GAME_GetAbortFlag())
     {
         BNMESSQUEUE_SetError(0x12);
         return 0;
@@ -1874,7 +1874,7 @@ int __fastcall BNSEND_CreateAccount(const char* szName, const char* szPassword)
 // 0x0051C320
 int __fastcall BNSEND_GetCreateAccountResult(int* pResult)
 {
-    *pResult = BNCLIENT_GetCreateAccountResult();
+    *pResult = GAME_GetCreateAccountResult();
     switch (sub_0051A570_GetMode())
     {
     case 0:
@@ -1904,7 +1904,7 @@ int __fastcall BNSEND_ChangePassword(const char* szAccountName, const char* szOl
 // 0x0051C3B0
 int __fastcall BNSEND_GetChangePasswordResult(int* pResult)
 {
-    *pResult = BNCLIENT_GetChangePasswordResult();
+    *pResult = GAME_GetChangePasswordResult();
     switch (sub_0051A570_GetMode())
     {
     case 0:
@@ -1993,8 +1993,8 @@ int __cdecl BNDOWNLOAD_IsReady()
 {
     D2BnStateStrc tState;
     sub_005205F0_GetState(&tState);
-// build: symbol ?BNCLIENT_GetAbortFlag@* 0x00520AE0
-    if (!BNCLIENT_GetAbortFlag() && tState.nState == 0 && InterlockedCompareExchange(&gnConnected, 0, 0))
+// build: symbol ?GAME_GetAbortFlag@* 0x00520AE0
+    if (!GAME_GetAbortFlag() && tState.nState == 0 && InterlockedCompareExchange(&gnConnected, 0, 0))
         return 1;
     return 0;
 }
@@ -2159,7 +2159,7 @@ int __stdcall sFastestConnect(char* szServerList)
         return 0;
     }
 
-    if (BNCLIENT_GetAbortFlag())
+    if (GAME_GetAbortFlag())
     {
         BNMESSQUEUE_SetState(0xB);
         return 1;

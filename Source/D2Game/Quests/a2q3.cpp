@@ -461,7 +461,7 @@ void __fastcall sub_M118_Emit_0059A3C0(D2QuestDataStrc* pQuestData)
 }
 
 // 0x00599F10
-void __fastcall ACT2Q2_GetHoradricCubeInfo(D2GameStrc* pGame, int* pnValue, unsigned char* pbFlag)
+void __fastcall ACT2Q3_GetHoradricCubeInfo(D2GameStrc* pGame, int* pnValue, unsigned char* pbFlag)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 9);
     if (pQuestData)

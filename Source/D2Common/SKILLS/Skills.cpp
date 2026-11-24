@@ -39,6 +39,7 @@
 #include "D2MonModes.h"
 
 #include "D2PathFind.h"
+#include "D2MissileData.h"
 
 #define LVLSUB_UNUSED_INVALID -1
 
@@ -146,26 +147,6 @@ struct D2SkillDescTxt;
 
 struct D2InventoryStrc;
 
-struct D2MissileDataStrc
-{
-    unsigned int unk0x00;
-    short nStreamMissile;
-    short nStreamRange;
-    short nActivateFrame;
-    short nSkill;
-    short nLevel;
-    short nTotalFrames;
-    short nCurrentFrame;
-    unsigned short unk0x12;
-    unsigned int fFlags;
-    int nOwnerType;
-    int dwOwnerGUID;
-    int nHomeType;
-    int dwHomeGUID;
-    int nTargetX;
-    int nTargetY;
-    void* pStream;
-};
 
 struct D2UnkOutdoorStrc
 {

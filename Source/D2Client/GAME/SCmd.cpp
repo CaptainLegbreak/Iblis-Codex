@@ -4834,33 +4834,6 @@ void __fastcall SCMD_ProcessPackets(unsigned char* pData, int nSize)
 
 
 
-// 0x0046BDD0
-int __fastcall SCMD_GetLevelLight(D2ActiveRoomStrc* pRoom, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue)
-{
-    switch (DUNGEON_GetLevelIdFromRoom(pRoom))
-    {
-    case LEVEL_8:
-        return ROSTERPETS_GetPulseColor(pRed, pGreen, pBlue);
-
-    case LEVEL_107:
-    case LEVEL_108:
-// build: symbol ?gnLevelEffectTick@* 0x007129D0
-        if (gbChaosLightEvent && gnLevelEffectTick == -1)
-        {
-            *pRed = 0xFF;
-            *pGreen = 0x40;
-            *pBlue = 0x30;
-            return 0xA0;
-        }
-        return 0;
-
-    default:
-        *pRed = gnGlobal_007A7434;
-        *pGreen = gnGlobal_007A7435;
-        *pBlue = gnGlobal_007A7436;
-        return gnGlobal_007A7430;
-    }
-}
 
 // 0x0046E150
 void __fastcall SCMD_SetGfxNodeValue(D2UnitStrc* pUnit, int nId, int nValue)

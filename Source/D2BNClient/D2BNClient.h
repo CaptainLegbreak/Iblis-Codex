@@ -51,7 +51,7 @@ extern unsigned int gadwCacheCrcTable[]; // 0x0072FB80
 void __cdecl SLogWrite(void* hLog, const char* szFormat, ...); // 0x00420190
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl sub_0051A570_GetMode(); // 0x0051A570
-int __cdecl BNCLIENT_GetAbortFlag(); // 0x00520AE0
+int __cdecl GAME_GetAbortFlag(); // 0x00520AE0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __fastcall FOG_SOCKET_GetPeerName(FSafeSock* pSafeSock, void* pAddress, int* pnLength); // 0x0040DEE0
 int __fastcall FOG_SOCKET_Receive(FSafeSock* pSafeSock, char* pBuffer, int nBufferLength); // 0x0040DC60

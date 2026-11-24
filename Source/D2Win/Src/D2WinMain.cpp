@@ -550,7 +550,7 @@ int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91
 
 void __fastcall sub_004FDDD0_LinkTab(D2WinControlStrc* pControl, D2WinControlStrc* pNext); // 0x004FDDD0
 
-void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
+void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 
 void __cdecl MAINMENUS_ShowMainMenu(); // 0x004336C0
 
@@ -570,7 +570,7 @@ void __cdecl MAINMENUS_UpdateStatus(); // 0x00436AD0
 
 int __cdecl sub_004F5D60(); // 0x004F5D60
 
-int __stdcall CHARSEL_FilterLoginChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FE70
+int __stdcall MAINMENUS_FilterLoginChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FE70
 
 int __stdcall MAINMENUS_FilterRestrictedChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FEF0
 
@@ -819,7 +819,7 @@ void __cdecl MAINMENUS_CreateLoginScreen()
         pControl = MAINMENUS_CreateControl(0x1F);
     D2Win_10051(pControl, D2LANG_GetStringFromTblIndex(0x2B2B), 0x0, 0x0, 0x0);
     gpAccountEdit = MAINMENUS_CreateControl(0x59);
-    sub_004FDAD0_SetKeyCallback(gpAccountEdit, CHARSEL_FilterLoginChar);
+    sub_004FDAD0_SetKeyCallback(gpAccountEdit, MAINMENUS_FilterLoginChar);
     sub_004FDD50_SetMaxLength(gpAccountEdit, 0x10);
     D2Win_10076(gpAccountEdit, gpLaunchRecord->szAccount);
     gpPasswordEdit = MAINMENUS_CreateControl(0x5A);
@@ -846,7 +846,7 @@ void __cdecl MAINMENUS_CreateEmailScreen()
 {
     if (!gpFuncTable_0077ABF0->pfnSlot68())
     {
-        CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
+        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
         return;
     }
     CHARSEL_CreateBaseScreen();
@@ -880,7 +880,7 @@ void __cdecl MAINMENUS_CreateInfoScreen()
 {
     if (!gpFuncTable_0077ABF0->pfnSlot68())
     {
-        CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
+        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
         return;
     }
     CHARSEL_CreateBaseScreen();
@@ -903,7 +903,7 @@ void __cdecl MAINMENUS_CreatePasswordScreen()
 {
     if (!gpFuncTable_0077ABF0->pfnSlot68())
     {
-        CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
+        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
         return;
     }
     CHARSEL_CreateBaseScreen();

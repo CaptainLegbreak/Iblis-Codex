@@ -9,6 +9,8 @@
 #include "D2Path.h"
 #include "D2GameStrc.h"
 #include "D2GameAux.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00741C0C
 
 union D2SeedStrc;
 
@@ -1200,3 +1202,4 @@ int __fastcall SKILLS_SrvDo016_Valkyrie(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     D2GAME_UpdateSummonAI_6FC401F0(pGame, pPet, 0, pUnit->dwNodeIndex);
     return 1;
 }
+

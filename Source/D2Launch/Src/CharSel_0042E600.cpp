@@ -50,7 +50,7 @@ extern D2WinControlStrc* gpControl_007795E4; // 0x007795E4
 extern void** gppSlots; // 0x00779988
 extern int gnSlotCount; // 0x0077998C
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
-char* __fastcall CHARSEL_GetSlotName(int nIndex); // 0x00430B50
+char* __fastcall MAINMENUS_GetSlotName(int nIndex); // 0x00430B50
 int __cdecl MAINMENUS_FreeSlots(); // 0x00430A20
 extern D2CharSelCacheStrc* gpCharSelCache; // 0x00779DE8
 static int gbFlag_00779C6C;             // 0x00779C6C
@@ -124,7 +124,7 @@ int __stdcall CHARSEL_HandleListKey(SMSGHANDLER_PARAMS* pMsg); // 0x00439E90
 static int gnTopRow; // 0x00779DC8
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
-void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
+void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 void __cdecl CHARSEL_DisconnectBattleNet(); // 0x0043B9A0
 extern int gnBusy; // 0x00779DAC
 extern "C" unsigned int __cdecl strlen(const char* sz);
@@ -174,25 +174,25 @@ struct D2ListMsgStrc
     void* hWnd;
     unsigned int uMessage;
 };
-int __stdcall COMCALLBACK_OnCharSelectOk(D2ListMsgStrc* pMsg); // 0x00439840
+int __stdcall CHARSEL_OnCharSelectOk(D2ListMsgStrc* pMsg); // 0x00439840
 char* __cdecl CHARSEL_StrStr(char* szString, const char* szSubString); // 0x0042E5B0
 // build: symbol ??0Unicode@@QAE@G@Z 0x0042E600
 Unicode::Unicode(unsigned short wValue)
 {
     wChar = wValue;
 }
-int __stdcall CHARSEL_IsRestrictedChar(void* pControl, int nUnused, const char* pChar); // 0x0042FDE0
-int __stdcall CHARSEL_FilterLoginChar(void* pControl, int nUnused, const char* pChar); // 0x0042FE70
+int __stdcall MAINMENUS_IsRestrictedChar(void* pControl, int nUnused, const char* pChar); // 0x0042FDE0
+int __stdcall MAINMENUS_FilterLoginChar(void* pControl, int nUnused, const char* pChar); // 0x0042FE70
 int __stdcall sub_00430120_OnToggle(SMSGHANDLER_PARAMS* pMsg); // 0x00430120
 int __stdcall sub_00430160_OnToggle(SMSGHANDLER_PARAMS* pMsg); // 0x00430160
-bool __stdcall CHARSEL_IsLineBreak(Unicode wc); // 0x004303E0
-int __stdcall CHARSEL_OnHoverSorceress(SMSGHANDLER_PARAMS* pMsg); // 0x00430840
-int __stdcall CHARSEL_OnHoverAmazon(SMSGHANDLER_PARAMS* pMsg); // 0x00430870
-int __stdcall CHARSEL_OnHoverNecromancer(SMSGHANDLER_PARAMS* pMsg); // 0x00430920
-int __stdcall CHARSEL_OnHoverBarbarian(SMSGHANDLER_PARAMS* pMsg); // 0x00430950
-int __stdcall CHARSEL_OnHoverPaladin(SMSGHANDLER_PARAMS* pMsg); // 0x00430980
-int __stdcall CHARSEL_AddToSlots(void* pEntry); // 0x004309C0
-int __cdecl CHARSEL_CompareNames(const void* pEntry1, const void* pEntry2); // 0x00430B00
+bool __stdcall MAINMENUS_IsLineBreak(Unicode wc); // 0x004303E0
+int __stdcall MAINMENUS_OnHoverSorceress(SMSGHANDLER_PARAMS* pMsg); // 0x00430840
+int __stdcall MAINMENUS_OnHoverAmazon(SMSGHANDLER_PARAMS* pMsg); // 0x00430870
+int __stdcall MAINMENUS_OnHoverNecromancer(SMSGHANDLER_PARAMS* pMsg); // 0x00430920
+int __stdcall MAINMENUS_OnHoverBarbarian(SMSGHANDLER_PARAMS* pMsg); // 0x00430950
+int __stdcall MAINMENUS_OnHoverPaladin(SMSGHANDLER_PARAMS* pMsg); // 0x00430980
+int __stdcall MAINMENUS_AddToSlots(void* pEntry); // 0x004309C0
+int __cdecl MAINMENUS_CompareNames(const void* pEntry1, const void* pEntry2); // 0x00430B00
 int __fastcall CHARSEL_IsExpansionFlag(int nValue); // 0x004379D0
 unsigned int __fastcall CHARSEL_GetProgression(unsigned int nValue); // 0x004379E0
 void __cdecl CHARSEL_RefreshRealmList(); // 0x004379F0
@@ -201,7 +201,7 @@ static inline char* CHARSEL_GetSlotNameChecked(int nIndex)
 {
 // build: symbol ?GAME_GetSlotNameCount@* 0x00430B40
     if (nIndex < GAME_GetSlotNameCount())
-        return CHARSEL_GetSlotName(nIndex);
+        return MAINMENUS_GetSlotName(nIndex);
     return 0;
 }
 int __cdecl CHARSEL_FreeSlots(); // 0x00437A60
@@ -226,7 +226,7 @@ static int CHARSEL_FindSlotByName(const char* szName)
 {
     int i = 0;
     char* szSlot;
-    while (i < GAME_GetSlotNameCount() && (szSlot = CHARSEL_GetSlotName(i)) != 0)
+    while (i < GAME_GetSlotNameCount() && (szSlot = MAINMENUS_GetSlotName(i)) != 0)
     {
         if (!SStrCmpI(szName, szSlot, 0x7FFFFFFF))
             return 1;
@@ -275,7 +275,7 @@ int __cdecl CHARSEL_InitRealmScreen()
                     SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
                     if (!CHARSEL_FindSlotByName(gszPreferredRealm))
                     {
-                        const char* szFirst = GAME_GetSlotNameCount() > 0 ? CHARSEL_GetSlotName(0) : 0;
+                        const char* szFirst = GAME_GetSlotNameCount() > 0 ? MAINMENUS_GetSlotName(0) : 0;
                         SStrCopy(gszPreferredRealm, szFirst, 0x7FFFFFFF);
                         SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
                     }
@@ -298,7 +298,7 @@ int __cdecl CHARSEL_InitRealmScreen()
     return 1;
 
 fail:
-    CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(nStringId), sub_004336C0);
+    MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(nStringId), sub_004336C0);
     return 0;
 }
 void __cdecl sub_0043A610_ShowString(); // 0x0043A610
