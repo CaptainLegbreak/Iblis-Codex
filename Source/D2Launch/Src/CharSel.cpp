@@ -2872,14 +2872,6 @@ void __fastcall sub_0043C6A0(int bSet)
         gdwFlags_0077AC34 |= 2;
 }
 
-// 0x0043F850
-int __cdecl CHARSEL_CancelGameCreate()
-{
-    VIEW_SendMcpCancelGameCreate();
-    sub_00449E50_SetValue(0);
-    return 1;
-}
-
 // build: symbol ?gnChatLaunchMode@* 0x0077BBE4
 // build: symbol ?gpLaunchFuncs@* 0x0077B09C
 // build: symbol ?gnHistoryIndex@* 0x0070CD74
