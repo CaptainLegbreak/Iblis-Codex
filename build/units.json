@@ -13574,10 +13574,6 @@
      "name": "VIEW_SetPetEntryValue"
     },
     {
-     "va": "0x0046B850",
-     "length": 334
-    },
-    {
      "va": "0x00475EF0",
      "length": 210,
      "name": "?VIEW_FreeLerpTables@@YAXXZ"
@@ -16956,11 +16952,6 @@
      "name": "SCMD_ShowHelpOnce"
     },
     {
-     "va": "0x0046BDD0",
-     "length": 133,
-     "name": "SCMD_GetLevelLight"
-    },
-    {
      "va": "0x0046E150",
      "length": 91,
      "name": "SCMD_SetGfxNodeValue"
@@ -17831,11 +17822,6 @@
      "va": "0x0045FED0",
      "length": 158,
      "name": "ROSTERPETS_HandlePopupButtonUp"
-    },
-    {
-     "va": "0x0046BD50",
-     "length": 113,
-     "name": "ROSTERPETS_GetPulseColor"
     },
     {
      "va": "0x00478A50",
@@ -19443,6 +19429,10 @@
      "name": "?sub_0046AEE0_ObjectMissileTimedBox@@YAXXZ"
     },
     {
+     "va": "0x0046AF70",
+     "length": 329
+    },
+    {
      "va": "0x0046B0C0",
      "length": 11,
      "name": "?sub_0046B0C0_ResetPulseTick@@YAXXZ"
@@ -19513,6 +19503,14 @@
      "name": "?VIEW_SpawnBrDeathControl@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0046B710",
+     "length": 314
+    },
+    {
+     "va": "0x0046B850",
+     "length": 334
+    },
+    {
      "va": "0x0046B9A0",
      "length": 170,
      "name": "?VIEW_SpawnMephistoDeath@@YIXPAUD2UnitStrc@@@Z"
@@ -19556,6 +19554,16 @@
      "va": "0x0046BD20",
      "length": 36,
      "name": "?sub_0046BD20_GetChaosLevelLight@@YAHPAE00@Z"
+    },
+    {
+     "va": "0x0046BD50",
+     "length": 113,
+     "name": "ROSTERPETS_GetPulseColor"
+    },
+    {
+     "va": "0x0046BDD0",
+     "length": 133,
+     "name": "SCMD_GetLevelLight"
     },
     {
      "va": "0x0046BE60",
@@ -19603,65 +19611,17 @@
      "name": "?sub_0046C140_TestMonModeFlag@@YIHHH@Z"
     },
     {
-     "va": "0x0046C460",
-     "length": 272,
-     "name": "?sub_0046C460_PopulateRoom@@YIXPAUD2ActiveRoomStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0046AF70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0046AF70",
-     "length": 329
-    },
-    {
-     "va": "0x0046B710",
-     "length": 314
-    },
-    {
      "va": "0x0046C1A0",
      "length": 382
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0046B850.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x0046C320",
      "length": 312
+    },
+    {
+     "va": "0x0046C460",
+     "length": 272,
+     "name": "?sub_0046C460_PopulateRoom@@YIXPAUD2ActiveRoomStrc@@@Z"
     }
    ],
    "flags": [

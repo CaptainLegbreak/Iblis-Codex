@@ -844,31 +844,6 @@ static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     return nResult;
 }
 
-// 0x0046B850
-void __fastcall VIEW_SpawnMissileNearObject(D2UnitStrc* unit)
-{
- D2UnitStrc* object=UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(unit),2,0x182);
- int x,y;
- if(object) {
-  ITEM_ShowTimedHint((void*)0x124F,0,0x15E,0,0,0,0);
-  x=CLIENTS_GetUnitXInline(object);
-  y=CLIENTS_GetUnitYInline(object);
- } else {
-  x=CLIENTS_GetUnitXInline(unit)-15;
-  y=CLIENTS_GetUnitYInline(unit)-15;
- }
- D2MissileStrc params;
- memset(&params,0,sizeof(params));
- params.dwFlags=0x420;
- params.nMissile=MISSILE_ORBMIST;
- params.pOwner=unit;
- params.pOrigin=unit;
- params.nTargetX=x;
- params.nTargetY=y;
- params.nSkillLevel=1;
- D2UnitStrc* missile=MISSILE_CreateClientMissile(&params);
- if(missile&&object)MISSILE_SetTargetX(missile,object->dwUnitId);
-}
 
 
 // 0x00475EF0
