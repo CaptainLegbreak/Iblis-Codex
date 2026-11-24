@@ -326,52 +326,9 @@ struct D2StormArchiveListStrc
 };
 
 // A request-completion event.
-struct EVENTREC
+struct EVENTREC : TSLinkedNode<EVENTREC>
 {
-    D2StormLinkStrc tLink;
     void* hEvent;
-
-    EVENTREC()
-    {
-        tLink.m_prevlink = 0;
-        tLink.m_next = 0;
-    }
-};
-
-struct D2StormEventListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2StormLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
-    }
-    void LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode)
-    {
-        D2StormLinkStrc* pLink = Link(pNode);
-        pLink->Unlink();
-        D2StormLinkStrc* pExistingLink = Link(pExistingNode);
-        switch (nLinkType)
-        {
-        case 1:
-            pLink->m_prevlink = pExistingLink;
-            pLink->m_next = pExistingLink->m_next;
-            pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-            pExistingLink->m_next = pNode;
-            break;
-        default:
-            D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-            pLink->m_prevlink = pPrevLink;
-            pLink->m_next = pPrevLink->m_next;
-            pPrevLink->m_next = pNode;
-            pExistingLink->m_prevlink = pLink;
-            break;
-        }
-    }
-    inline EVENTREC* NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-
-    char* sub_00419690_DeleteNode(char* pNode);                                                             // 0x00419690
 };
 
 // The fixed-type node lists (one record for each list of the file).
@@ -414,7 +371,6 @@ struct D2StormFixedListStrc
     char* sub_0041C840_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
     char* sub_0041CA10_DeleteNode(char* pNode);
     char* sub_00418F20_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-    char* sub_00419690_DeleteNode(char* pNode);
 };
 
 struct D2StormListBaseStrc
@@ -473,10 +429,4 @@ struct D2StormList0070836CStrc : D2StormListBaseStrc
 {
     void sub_00418980_UnlinkAll();
     ~D2StormList0070836CStrc();
-};
-
-struct D2StormList00708378Strc : D2StormListBaseStrc
-{
-    void sub_004189C0_UnlinkAll();
-    ~D2StormList00708378Strc();
 };

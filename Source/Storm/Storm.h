@@ -97,7 +97,6 @@ extern char gszTypeNameChar_0070888C[]; // 0x0070888C
 extern char gszTypeNameRequest_007083F0[]; // 0x007083F0
 extern char gszTypeNameUChar_00708880[]; // 0x00708880
 extern char gszTypeNameUInt_00708874[]; // 0x00708874
-extern char* gpEventHead_00708380; // 0x00708380
 extern const char gszEmptyString[]; // 0x006CC837
 extern const char gszSBmpSource[]; // 0x006FCC58
 extern const char gszTypeBreakCmd_007088D8[]; // 0x007088D8
