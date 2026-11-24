@@ -133,12 +133,9 @@ void __cdecl sub_00401A60_UnlockSymbols()
     LeaveCriticalSection(&gtSymbolLock);
 }
 
-// build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
-// build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 
-// build: context sub_00401DF0_GetModuleFromAddr
 static bool __stdcall sub_00401DF0_GetModuleFromAddr(unsigned long dwAddress, char* szModule, unsigned long* pdwBase)
 {
     szModule[0] = 0;
@@ -206,7 +203,6 @@ static bool __stdcall sub_00401F10_GetSymbolFromAddr(char* szName, unsigned long
     return false;
 }
 
-// build: context sub_004020D0_GetLineFromAddr
 static bool __stdcall sub_004020D0_GetLineFromAddr(unsigned long dwAddress, char* szFile, unsigned long* pLineNumber)
 {
     unsigned long dwDisplacement;
@@ -233,7 +229,6 @@ static bool __stdcall sub_004020D0_GetLineFromAddr(unsigned long dwAddress, char
     return false;
 }
 
-// build: context CRASH_GetFileName
 static inline const char* CRASH_GetFileName(const char* szPath)
 {
     const char* pLast = 0;

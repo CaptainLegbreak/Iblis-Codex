@@ -452,7 +452,6 @@ static unsigned int __stdcall EXCEL_HashName(const char* szName)
     return SStrHash(szName, 0, 0);
 }
 
-// build: context EXCEL_HashName
 unsigned int __stdcall sub_E01_Emit_006BCDF0(const char* szName)
 {
     return EXCEL_HashName(szName);

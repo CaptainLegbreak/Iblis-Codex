@@ -384,8 +384,6 @@ struct D2StormByteArrayStrc
     char* sub_00421000_At(unsigned int nIndex);
 };
 
-// build: context D2StormArrayAStrc::Reserve
-// build: context D2StormArrayCStrc::Reserve
 inline void* operator new(unsigned int, void* pPlace) throw()
 {
     return pPlace;

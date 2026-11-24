@@ -169,7 +169,6 @@ void SetZero(BigBuffer& a); // 0x00422CC0
 
 static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift); // 0x00422D00
 
-// build: context Shl
 static void __stdcall Shl(BigBuffer& a, const BigBuffer& b, unsigned int nShift) // 0x00422D00
 {
     unsigned int nWords = nShift / 32;
@@ -212,7 +211,6 @@ void __stdcall sub_00423100_Sub(BigBuffer& a, const BigBuffer& b, const BigBuffe
 
 static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x00423DC0
 
-// build: context Div
 static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack) // 0x00423DC0
 {
     c.sub_00422140_Trim();
@@ -349,7 +347,6 @@ static void __stdcall BigMulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuf
 
 static void __stdcall PowMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack); // 0x00425150
 
-// build: context PowMod
 static void __stdcall PowMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack) // 0x00425150
 {
     c.sub_00422140_Trim();
@@ -500,7 +497,6 @@ void __stdcall SBigFindPrime(D2StormBigStrc* pResult, unsigned int nBits, D2Stor
 
 static void __stdcall InvMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack); // 0x00424FB0
 
-// build: context InvMod
 static void __stdcall InvMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack) // 0x00424FB0
 {
     BigBuffer& tPrev = tStack.f_0[tStack.nUsed++];

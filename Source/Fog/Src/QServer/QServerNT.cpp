@@ -600,12 +600,6 @@ unsigned int __fastcall sub_006C3120_Start(D2QueueServerStrc* pServer, int nPort
     return s;
 }
 
-// calling-convention shim (not game code)
-void __stdcall shim_11(D2QConn006C23B0Strc* pConn, unsigned int nSize, const void* pData)
-{
-    sub_006C23B0_QueueMessage(pConn, pData, nSize);
-}
-
 // 0x006C2D70
 int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, unsigned long nTimeout)
 {

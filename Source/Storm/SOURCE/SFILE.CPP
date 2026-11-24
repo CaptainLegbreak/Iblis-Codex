@@ -3953,7 +3953,6 @@ char* D2StormFixedListStrc::sub_00419690_DeleteNode(char* pNode)
     return pNext;
 }
 
-// build: context AUDIOSTREAM::AUDIOSTREAM
 inline AUDIOSTREAM::AUDIOSTREAM()
 {
     tLink.m_prevlink = 0;
@@ -4521,7 +4520,6 @@ int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned in
     return nResult;
 }
 
-// build: context sub_004192F0_OpenDiskFile
 static __forceinline int sub_004192F0_OpenDiskFile(const char* szFileName, unsigned int dwFlags, void** phFile, const char* szPath)
 {
     void* hFile = CreateFileA(szPath, 0x80000000, 1, 0, 3, 0x8000000, 0);

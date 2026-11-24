@@ -6,7 +6,6 @@ struct D2StormList0074C498Strc;
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void* section); // 0x006CC1FC
 
-// build: context ??_GD2StormList0074C48CStrc@@QAEPAXI@Z
 struct D2StormList0074C48CStrc
 {
     int m_linkoffset;

@@ -115,7 +115,6 @@ bool sub_004048C0_ReadCodeView(const unsigned long* pCv, D2CrashModuleStrc* pMod
 
 bool __stdcall sub_00404900_FindCodeView(const D2ImageDosHeaderStrc* pImage, const D2ImageDebugDirStrc* pDirs, D2CrashModuleStrc* pModule, unsigned long nSize); // 0x00404900
 
-// build: context sub_004049A0_ReadImageInfo
 static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, const D2ImageDosHeaderStrc* pImage)
 {
     pModule->pBase = (void*)pImage;
@@ -219,7 +218,6 @@ extern "C" __declspec(dllimport) void* __stdcall GetModuleHandleW(const wchar_t*
 
 extern void* gahPsapiModules[0x400]; // 0x00992B20
 
-// build: context sub_00404C60_EnumModulesPsapi
 bool __stdcall sub_00404C60_EnumModulesPsapi(void* pContext)
 {
     void* hProcess = GetCurrentProcess();

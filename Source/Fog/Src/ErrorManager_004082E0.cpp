@@ -837,43 +837,6 @@ static void ERRORMANAGER_MoveBlockToFront(D2MemPoolRecStrc* pPool, D2MemPoolBloc
 
 void __fastcall ERRORMANAGER_PoolFree(D2PoolSystemStrc* pSystem, void** ppMemory, const char* szFile, int nLine); // 0x00409AB0
 
-// calling-convention shim (not game code)
-// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-static __forceinline size_t StrLCopy(char* szDest, const char* szSource, size_t nSize)
-{
-    const char* p = szSource;
-    if (nSize)
-    {
-        size_t n = nSize - 1;
-        if (n)
-        {
-            do
-            {
-                const char c = *p;
-                *szDest = c;
-                szDest++;
-                p++;
-                if (!c)
-                {
-                    break;
-                }
-            } while (--n);
-        }
-        if (!n)
-        {
-            *szDest = 0;
-        }
-        else
-        {
-            return p - szSource - 1;
-        }
-    }
-    while (*p++)
-    {
-    }
-    return p - szSource - 1;
-}
-
 inline D2TebStrc* D2_NtCurrentTeb()
 {
     return (D2TebStrc*)__readfsdword(0x18);
