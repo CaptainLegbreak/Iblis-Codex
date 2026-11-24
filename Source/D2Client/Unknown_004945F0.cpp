@@ -5,7 +5,6 @@ void __cdecl sub_00499E30();
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 void __fastcall UI_SetUIVar(int nUIVar, int nState, int nArg); // 0x00455F20
 extern int gnScreenWidth; // 0x0071146C
-extern int gnScreenHeight; // 0x00711470
 extern int gbHelpUiOpened;
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0

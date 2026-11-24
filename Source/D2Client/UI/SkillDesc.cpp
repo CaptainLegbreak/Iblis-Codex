@@ -188,8 +188,6 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* 
 extern "C" const char gszFmtRange[];                                                                // 0x006D9D70
 
 // build: symbol ?gnScreenHeight@* 0x00711470
-extern int gnScreenHeight; // 0x00711470
-
 // build: symbol ?gnPanelOffsetX@* 0x007A2858
 extern int gnPanelOffsetX; // 0x007A2858
 

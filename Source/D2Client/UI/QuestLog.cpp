@@ -644,13 +644,13 @@ void __cdecl sub_004A34F0_DrawQuestPage()
     {
         tDraw.pCellFile = gtQuestLog_007BF298.pCelD5;
         tDraw.nFrame = 0;
-        sub_004F6480(&tDraw, gnPanelOffsetX, gnScreenHeight_00711470 + gnPanelOffsetY - 0xE0, -1, 5, 0);
+        sub_004F6480(&tDraw, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0xE0, -1, 5, 0);
         tDraw.nFrame = 1;
-        sub_004F6480(&tDraw, gnPanelOffsetX + 0x100, gnScreenHeight_00711470 + gnPanelOffsetY - 0xE0, -1, 5, 0);
+        sub_004F6480(&tDraw, gnPanelOffsetX + 0x100, gnScreenHeight + gnPanelOffsetY - 0xE0, -1, 5, 0);
         tDraw.nFrame = 2;
-        sub_004F6480(&tDraw, gnPanelOffsetX, gnScreenHeight_00711470 + gnPanelOffsetY - 0x30, -1, 5, 0);
+        sub_004F6480(&tDraw, gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0x30, -1, 5, 0);
         tDraw.nFrame = 3;
-        sub_004F6480(&tDraw, gnPanelOffsetX + 0x100, gnScreenHeight_00711470 + gnPanelOffsetY - 0x30, -1, 5, 0);
+        sub_004F6480(&tDraw, gnPanelOffsetX + 0x100, gnScreenHeight + gnPanelOffsetY - 0x30, -1, 5, 0);
     }
 
     if (gtQuestLog_007BF298.pCelD9)
@@ -682,7 +682,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
             if (i == gtQuestLog_007BF298.nPage)
             {
                 tDraw.nFrame = 2 * i;
-                sub_004F6480(&tDraw, aX[i] + gnPanelOffsetX, gnScreenHeight_00711470 + gnPanelOffsetY + bExpansion - 0x1C0, -1, 5, 0);
+                sub_004F6480(&tDraw, aX[i] + gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY + bExpansion - 0x1C0, -1, 5, 0);
                 continue;
             }
 
@@ -710,7 +710,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
             }
 
             tDraw.nFrame = 2 * i + 1;
-            sub_004F6480(&tDraw, aX[i] + gnPanelOffsetX, gnScreenHeight_00711470 + gnPanelOffsetY + bExpansion - 0x1C0, -1, 5, 0);
+            sub_004F6480(&tDraw, aX[i] + gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY + bExpansion - 0x1C0, -1, 5, 0);
         }
     }
 
@@ -827,7 +827,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
             tDraw.nFrame = gtQuestLog_007BF298.nA8;
             if (tDraw.nFrame < 0 || tDraw.nFrame > 6)
                 tDraw.nFrame = 0;
-            sub_004F6480(&tDraw, gnPanelOffsetX + 0x6E, gnScreenHeight_00711470 + gnPanelOffsetY - 0x6E, -1, 3, 0);
+            sub_004F6480(&tDraw, gnPanelOffsetX + 0x6E, gnScreenHeight + gnPanelOffsetY - 0x6E, -1, 3, 0);
         }
     }
 
@@ -880,7 +880,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
 
     tDraw.pCellFile = sub_00454600();
     tDraw.nFrame = (gtQuestLog_007BF298.bB2 != 0) + 0xA;
-    sub_004F6480(&tDraw, gnPanelOffsetX + 0x116, gnScreenHeight_00711470 + gnPanelOffsetY - 0x3A, -1, 5, 0);
+    sub_004F6480(&tDraw, gnPanelOffsetX + 0x116, gnScreenHeight + gnPanelOffsetY - 0x3A, -1, 5, 0);
 
     int nMouseX = sub_00468730();
     int nMouseY = sub_00468740();
@@ -890,17 +890,17 @@ void __cdecl sub_004A34F0_DrawQuestPage()
     {
         D2Win_10127_SetFont(9);
         const unsigned short* pHelp = D2LANG_GetStringFromTblIndex(0x1030);
-        sub_00502280_SetPopUpText(pHelp, gnPanelOffsetX + 0x128, gnScreenHeight_00711470 + gnPanelOffsetY - 0x5F, 0, 1);
+        sub_00502280_SetPopUpText(pHelp, gnPanelOffsetX + 0x128, gnScreenHeight + gnPanelOffsetY - 0x5F, 0, 1);
     }
 
     tDraw.pCellFile = gtQuestLog_007BF298.pCel34D;
     tDraw.nFrame = gtQuestLog_007BF298.bB4 != 0;
-    sub_004F6480(&tDraw, gnPanelOffsetX + 0xE2, gnPanelOffsetY + gnScreenHeight_00711470 - 0x3A, -1, 5, 0);
+    sub_004F6480(&tDraw, gnPanelOffsetX + 0xE2, gnPanelOffsetY + gnScreenHeight - 0x3A, -1, 5, 0);
     if (nMouseX >= 0xE6 && nMouseX <= 0x103 && nMouseY >= 0x187 && nMouseY <= 0x1A7)
     {
         const unsigned short* pText = D2LANG_GetStringFromTblIndex(0xE88);
         D2Win_10127_SetFont(9);
-        sub_00502280_SetPopUpText(pText, gnPanelOffsetX + 0xF1, gnScreenHeight_00711470 + gnPanelOffsetY - 0x5F, 0, 1);
+        sub_00502280_SetPopUpText(pText, gnPanelOffsetX + 0xF1, gnScreenHeight + gnPanelOffsetY - 0x5F, 0, 1);
     }
 }
 

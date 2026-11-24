@@ -56,8 +56,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern int gnScreenWidth; // 0x0071146C
 
-extern int gnScreenHeight; // 0x00711470
-
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 unsigned int __cdecl sub_0044DA90(); // 0x0044DA90
@@ -174,8 +172,6 @@ D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 extern "C" int gnScreenWidth; // 0x0071146C
-
-extern "C" int gnScreenHeight; // 0x00711470
 
 extern "C" int __cdecl sub_00468730_MouseX();
 

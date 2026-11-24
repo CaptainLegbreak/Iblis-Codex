@@ -42,7 +42,6 @@ int __cdecl D2GFX_CheckLowQuality(); // 0x004F5210
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 extern D2WeatherLineStrc gaWeatherLines[]; // 0x006D6E78
 extern int gnScreenWidth; // 0x0071146C
-extern int gnScreenHeight; // 0x00711470
 extern D2WeatherStrc* gpWeatherParticles; // 0x007A8A04
 extern int gbWeatherSplash; // 0x007A8A14
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0

@@ -117,8 +117,6 @@ struct D2CelContextStrc { int frame; int unk04[12]; void* cellFile; int unk38[2]
 
 #pragma pack(pop)
 
-extern int gnScreenHeight; // 0x00711470
-
 extern const char gszUseItemCpp[]; // 0x006DAB50
 
 extern "C" void* __cdecl memset(void*,int,unsigned int);

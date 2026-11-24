@@ -26,7 +26,7 @@ void __fastcall D2Win_10117_DrawText(const Unicode*,int,int,int,int); // 0x00502
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short); // 0x00524A30
 int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
-extern int gnScreenHeight_00711470; // 0x00711470
+extern int gnScreenHeight; // 0x00711470
 extern int gnOffsetX_007A2858; // 0x007A2858
 extern int gnOffsetY_007A285C; // 0x007A285C
 extern D2WaypointEntryStrc gaWaypoints_007BF03C[]; // 0x007BF03C
@@ -43,7 +43,7 @@ extern int gnWaypointCount; // 0x007BF08A
 extern int gnPanelMode_007BF08E; // 0x007BF08E
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
-static inline int GetWaypointPanelBottom() { return gnScreenHeight_00711470+gnOffsetY_007A285C; }
+static inline int GetWaypointPanelBottom() { return gnScreenHeight+gnOffsetY_007A285C; }
 
 // 0x0049C9C0
 void __cdecl sub_0049C9C0_DrawWaypointPanel()
@@ -68,9 +68,9 @@ void __cdecl sub_0049C9C0_DrawWaypointPanel()
     tGfx.nFrame=1;
     TEXTURE_CelDraw(&tGfx,gnOffsetX_007A2858+256,GetWaypointPanelBottom()-224,-1,5,0);
     tGfx.nFrame=2;
-    TEXTURE_CelDraw(&tGfx,gnOffsetX_007A2858,(gnScreenHeight_00711470+gnOffsetY_007A285C)-48,-1,5,0);
+    TEXTURE_CelDraw(&tGfx,gnOffsetX_007A2858,(gnScreenHeight+gnOffsetY_007A285C)-48,-1,5,0);
     tGfx.nFrame=3;
-    TEXTURE_CelDraw(&tGfx,gnOffsetX_007A2858+256,(gnScreenHeight_00711470+gnOffsetY_007A285C)-48,-1,5,0);
+    TEXTURE_CelDraw(&tGfx,gnOffsetX_007A2858+256,(gnScreenHeight+gnOffsetY_007A285C)-48,-1,5,0);
     int nMouseX=sub_00468730();
     int nMouseY=sub_00468740();
     nMouseX-=gnOffsetX_007A2858;

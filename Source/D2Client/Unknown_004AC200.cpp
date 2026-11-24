@@ -91,11 +91,11 @@ void __cdecl sub_004AC200_RefreshSkillTree()
     D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
     if ((pUnit && sub_00639DF0_CheckState(pUnit, 0x36)) || gbSkillPointsHighlight_007C0C3C)
     {
-        sub_00502320_DrawText(wszText, gnScreenWidth_0071146C - gnPanelOffsetX_007A2858 - 0x34, gnScreenHeight_00711470 + gnPanelOffsetY_007A285C - 0x190, 1, 0);
+        sub_00502320_DrawText(wszText, gnScreenWidth_0071146C - gnPanelOffsetX_007A2858 - 0x34, gnScreenHeight + gnPanelOffsetY_007A285C - 0x190, 1, 0);
     }
     else
     {
-        sub_00502320_DrawText(wszText, gnScreenWidth_0071146C - gnPanelOffsetX_007A2858 - 0x34, gnPanelOffsetY_007A285C + gnScreenHeight_00711470 - 0x190, 0, 0);
+        sub_00502320_DrawText(wszText, gnScreenWidth_0071146C - gnPanelOffsetX_007A2858 - 0x34, gnPanelOffsetY_007A285C + gnScreenHeight - 0x190, 0, 0);
     }
 
     int bCanLearn;

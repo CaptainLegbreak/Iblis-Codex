@@ -42,7 +42,6 @@ struct D2BeltSlotStrc
 #pragma pack(pop)
 
 extern int gnScreenWidth; // 0x0071146C
-extern int gnScreenHeight; // 0x00711470
 extern int gnPanelOffsetX; // 0x007A2858
 extern int gnPanelOffsetY; // 0x007A285C
 extern int gbStatScreenButtonDown; // 0x007C02F4

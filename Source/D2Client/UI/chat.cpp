@@ -756,8 +756,6 @@ struct D2CandidateListStrc
     unsigned int dwOffset[1];
 };
 
-extern int gnScreenHeight;                                                                               // 0x00711470
-
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 
 // 0x0047B5C0
@@ -1235,8 +1233,6 @@ void __fastcall sub_0047CFE0_LightQualityOption(D2MenuItemStrc* pItem, int nArg)
 static D2OptionEntryStrc* gpOptionEntries; // 0x007BC940
 
 D2OptionHeaderStrc* gpOptionHeader; // 0x007BC93C
-
-extern int gnScreenHeight; // 0x00711470
 
 // 0x0047D520
 static int sub_0047D520_FindOptionAtY(int nY)

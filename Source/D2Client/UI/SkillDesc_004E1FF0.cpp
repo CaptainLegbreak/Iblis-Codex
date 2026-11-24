@@ -290,8 +290,6 @@ extern int gnTextOffset1; // 0x0072D8D4
 
 extern int gnTextOffset2; // 0x0072D8D0
 
-extern int gnScreenHeight; // 0x00711470
-
 extern int gnPanelOffsetX; // 0x007A2858
 
 extern int gnPanelOffsetY; // 0x007A285C

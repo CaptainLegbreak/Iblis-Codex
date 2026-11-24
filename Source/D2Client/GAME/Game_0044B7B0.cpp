@@ -56,8 +56,6 @@ extern D2McpPacketHandler gpfnMcpPacketHandlers[]; // 0x0070ED00
 
 extern int gnScreenWidth; // 0x0071146C
 
-extern int gnScreenHeight; // 0x00711470
-
 extern int gnSavedScreenWidth; // 0x00711474
 
 extern void (__fastcall* gpfnMcpMotdCallback)(void* pArg); // 0x00799308

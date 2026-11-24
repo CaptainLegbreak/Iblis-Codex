@@ -208,8 +208,6 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 extern int gnScreenWidth; // 0x0071146C
 
-extern int gnScreenHeight; // 0x00711470
-
 extern int gnDialogState; // 0x00721E34
 
 extern int gbHoverPlayerItem; // 0x00721E38

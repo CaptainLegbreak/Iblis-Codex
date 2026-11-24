@@ -69,8 +69,6 @@ extern D2WaypointRowRectStrc gaWaypointRowRects[9]; // 0x007224F8
 extern D2WaypointMenuEntryStrc gaWaypointEntries[9]; // 0x007BF03C
 extern bool gbWaypointClosePressed; // 0x007BF06C
 extern char gbSent; // 0x007BF085
-extern int gnScreenHeight; // 0x00711470
-
 // 0x0049BB40
 static inline void sub_0049BB40_SetSlotCount(D2RosterUnitStrc* pRow, int nSlot)
 {

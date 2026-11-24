@@ -258,8 +258,6 @@ extern int gaSetPartialCounts_006DBD90[]; // 0x006DBD90
 
 extern int gnScreenWidth; // 0x0071146C
 
-extern int gnScreenHeight; // 0x00711470
-
 extern D2OptionHeaderStrc gtMainOptionHeader; // 0x00713044
 
 extern D2EscMenuUIStateStrc gaEscMenuUIState[38]; // 0x00713058

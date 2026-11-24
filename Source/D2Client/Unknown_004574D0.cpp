@@ -8,7 +8,6 @@ struct D2AutomapCellStrc;
 extern int gnAutomapBaseY; // 0x007A518C
 extern int gnAutomapMode; // 0x007A5150
 extern int gnScreenWidth; // 0x0071146C
-extern int gnScreenHeight; // 0x00711470
 extern int gnMiniMapX; // 0x007A51DC
 extern int gnMiniMapY; // 0x007A51D8
 void __cdecl AUTOMAP_UpdateAutomapLayout(); // 0x00457520

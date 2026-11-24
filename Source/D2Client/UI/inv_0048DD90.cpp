@@ -231,8 +231,6 @@ int gnPanelOffsetY;                                                             
 
 extern int gnScreenWidth;                                                                               // 0x0071146C
 
-extern int gnScreenHeight;                                                                               // 0x00711470
-
 extern int gbHoverPlayerItem;                                                                               // 0x00721E38
 
 extern int gnHoverTopX;                                                                               // 0x00721E3C
@@ -2520,17 +2518,17 @@ void __cdecl sub_004929F0_DrawMercPanel()
     tContext.pCellFile = gpMercPanelCells_007BCE88;
     tContext.nDirection = 0;
     tContext.nFrame = 0;
-    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858, gnScreenHeight_00711470 + gnPanelY_007A285C - 0xE0, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858, gnScreenHeight + gnPanelY_007A285C - 0xE0, -1, 5, 0);
     tContext.nFrame = 1;
-    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858 + 0x100, gnScreenHeight_00711470 + gnPanelY_007A285C - 0xE0, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858 + 0x100, gnScreenHeight + gnPanelY_007A285C - 0xE0, -1, 5, 0);
     tContext.nFrame = 2;
-    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858, gnScreenHeight_00711470 + gnPanelY_007A285C - 0x30, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858, gnScreenHeight + gnPanelY_007A285C - 0x30, -1, 5, 0);
     tContext.nFrame = 3;
-    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858 + 0x100, gnScreenHeight_00711470 + gnPanelY_007A285C - 0x30, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858 + 0x100, gnScreenHeight + gnPanelY_007A285C - 0x30, -1, 5, 0);
 
     tContext.pCellFile = GAME_GetBuySellButtonCells();
     tContext.nFrame = (gbBuySellPressed_007BCEA0 != 0) + 10;
-    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858 + 0x110, gnScreenHeight_00711470 + gnPanelY_007A285C - 0x3F, -1, 5, 0);
+    TEXTURE_CelDraw(&tContext, gnPanelX_007A2858 + 0x110, gnScreenHeight + gnPanelY_007A285C - 0x3F, -1, 5, 0);
 
     INV_DrawUnitName(pMerc);
     INV_DrawPanelLabels();
