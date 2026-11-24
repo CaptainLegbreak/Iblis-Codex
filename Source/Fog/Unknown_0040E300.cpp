@@ -2,6 +2,7 @@
 #include "D2StormLink.h"
 #include "D2GameTypes.h"
 #include "D2NetTypes.h"
+#include "D2Win32SystemInfo.h"
 
 struct FSafeSock;
 struct D2CriticalSectionStrc;
@@ -62,21 +63,8 @@ extern D2CriticalSectionStrc gtTimeLock; // 0x0075E880
 void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 int __stdcall ERRORMANAGER_MeasureCpuMHz(); // 0x0040E870
 
-struct T004013C0
-{
-    unsigned long dwOemId;
-    unsigned long dwPageSize;
-    void* lpMinimumApplicationAddress;
-    void* lpMaximumApplicationAddress;
-    unsigned long dwActiveProcessorMask;
-    unsigned long dwNumberOfProcessors;
-    unsigned long dwProcessorType;
-    unsigned long dwAllocationGranularity;
-    unsigned short wProcessorLevel;
-    unsigned short wProcessorRevision;
-};
 
-extern T004013C0 gtSystemInfo; // 0x0074D8A0
+extern D2SystemInfoStrc gtSystemInfo; // 0x0074D8A0
 extern "C" const char gszIntel386[]; // 0x006CE074
 extern "C" const char gszIntel486[]; // 0x006CE080
 extern "C" const char gszCpuSpeedFormat[]; // 0x006CE08C

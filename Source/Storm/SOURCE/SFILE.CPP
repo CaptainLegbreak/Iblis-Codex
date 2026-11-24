@@ -5,6 +5,7 @@
 #include "D2StormLink.h"
 #include "D2StormSha1.h"
 #include "D2StormBitOutput.h"
+#include "D2Win32SystemInfo.h"
 
 struct D2FileStrc;
 
@@ -116,19 +117,6 @@ struct CHuffman;
 
 struct HANDLER;
 
-struct T004013C0
-{
-    unsigned long dwOemId;
-    unsigned long dwPageSize;
-    void* lpMinimumApplicationAddress;
-    void* lpMaximumApplicationAddress;
-    unsigned long dwActiveProcessorMask;
-    unsigned long dwNumberOfProcessors;
-    unsigned long dwProcessorType;
-    unsigned long dwAllocationGranularity;
-    unsigned short wProcessorLevel;
-    unsigned short wProcessorRevision;
-};
 
 struct D2StormBufferInfoStrc
 {
@@ -147,7 +135,7 @@ extern "C" char* __cdecl _strupr(char* szString); // 0x006862A2
 
 extern "C" char* __cdecl _strlwr(char* szString); // 0x006864E1
 
-extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(T004013C0* pInfo); // 0x006CC1F0
+extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(D2SystemInfoStrc* pInfo); // 0x006CC1F0
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 

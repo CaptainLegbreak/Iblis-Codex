@@ -1,5 +1,6 @@
 #include "D2GameTypes.h"
 #include "D2StormTypes.h"
+#include "D2Win32SystemInfo.h"
 
 enum D2SMemBlockFlags
 {
@@ -1028,21 +1029,8 @@ void* __stdcall SMemReAlloc(void* pMemory, unsigned int nSize, const char* szFil
 #include "D2StormTypes.h"
 #include "D2StormLink.h"
 
-struct T004013C0
-{
-    unsigned long dwOemId;
-    unsigned long dwPageSize;
-    void* lpMinimumApplicationAddress;
-    void* lpMaximumApplicationAddress;
-    unsigned long dwActiveProcessorMask;
-    unsigned long dwNumberOfProcessors;
-    unsigned long dwProcessorType;
-    unsigned long dwAllocationGranularity;
-    unsigned short wProcessorLevel;
-    unsigned short wProcessorRevision;
-};
 
-extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(T004013C0* pInfo); // 0x006CC1F0
+extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(D2SystemInfoStrc* pInfo); // 0x006CC1F0
 extern int gnFlag3_007788CC; // 0x007788CC
 
 extern int (__stdcall* gpfnReadErrorCallback_00779030)(const char* szName, unsigned long dwError, int nRetry); // 0x00779030
@@ -1062,7 +1050,7 @@ int __stdcall sub_00411700_ToByte(unsigned char nValue)
 // 0x00411A20
 void __cdecl InitPageSize()
 {
-    T004013C0 systemInfo;
+    D2SystemInfoStrc systemInfo;
     GetSystemInfo(&systemInfo);
     gnPageSize_00776CB8 = 1;
     while (gnPageSize_00776CB8 < systemInfo.dwPageSize)
