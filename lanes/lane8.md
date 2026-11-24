@@ -7,11 +7,10 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 03:50 PT: join-missile-3/4 are in #343. strays-a is redone on #344, with strays-b stacked on it. Next: more placeholders.
+- 2026-11-24 04:35 PT: strays-a is in #346 (the coordinator's #345 note referred to the old d0fbb5bb). strays-b is rebased on #346. Next: more placeholders.
 
 ## Ready
-- lane8/strays-b c48bbb5c (stacked on strays-a; take that first), VERIFIED 503d0195. Three more lone strays move: 0x654E80 Skills -> MonsterTbls (chest TC lookup, through MonsterTbls' [3][5][3] gpChestTreasureClasses), 0x667030 Skills -> Preset (with its three private records), and 0x643700 Dungeon -> Skills (Skills' calc table extern for it dropped).
-- lane8/strays-a a929c396 (redone on #344, namesync clean), VERIFIED 1dbfc282. Six lone strays move into the run they sit in: four Skills.cpp functions go to Path.cpp (0x648390, 0x648640, 0x648770, 0x6487C0), 0x64C350 goes to UnitRoom.cpp, and 0x66E140 goes to RoomTile.cpp.
+- lane8/strays-b ffbb5778 (on #346, namesync clean), VERIFIED fb51bdc2. Three more lone strays move: 0x654E80 Skills -> MonsterTbls (chest TC lookup, through MonsterTbls' [3][5][3] gpChestTreasureClasses), 0x667030 Skills -> Preset (with its three private records), and 0x643700 Dungeon -> Skills (Skills' calc table extern for it dropped).
 
 ## Questions
 
