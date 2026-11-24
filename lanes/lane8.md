@@ -10,6 +10,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - 2026-11-24 02:30 PT: place-c, dir-tables and join-missile posted. Next: Unknown_0064A2B0 into Missile (flags), then more placeholders.
 
 ## Ready
+- lane8/strays-a 903eabe2 (on #340), VERIFIED aec81006. Six lone strays move into the run they sit in: four Skills.cpp functions go to Path.cpp (0x648390, 0x648640, 0x648770, 0x6487C0), 0x64C350 goes to UnitRoom.cpp, and 0x66E140 goes to RoomTile.cpp. Independent of the join-missile stack, though both touch Path.cpp and Skills.cpp in different places.
 - lane8/join-missile-4 e429b84b (stacked on join-missile-3), VERIFIED 798e7fd5. Missile.cpp takes back four strays from inside its run. From Path.cpp: 0x64A730. From Skills.cpp: 0x64A7F0 MISSILE_GetHomeType, and 0x64B700/0x64B710 MISSILE_GetMinimum/Maximum, which are entries of Missile's own calc table.
 - lane8/join-missile-3 74b49534 (stacked on join-missile-2), VERIFIED 2c4fafc8. Missile.cpp takes in Unknown_0064A400.cpp (MISSILE_SetOwner), written on Missile's types, so the piece's /Ob1 isn't needed. Units -1. Missile's run is now one file, apart from the 0x64B860 piece and the Skills/Path strays inside it.
 - lane8/join-missile-2 e17e96ce (stacked on join-missile, take that first), VERIFIED b8d8d37f. Missile.cpp takes in Unknown_0064A2B0.cpp: the setters 0x64A5F0/0x64A690, and 0x64ABA0, whose context copy in Missile now carries the marker. The missile calc table data comes with it. The piece's /GS- made no difference. Units -1.
