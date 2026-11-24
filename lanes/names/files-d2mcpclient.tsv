@@ -1,1 +1,2 @@
 placeholder	proposal	evidence	confidence
+D2MCPClient/Unknown_0044A170.cpp	piece of D2MCPClient/Src/McpConnect.cpp	the MCP packet senders (startup, char create, char logon…), the module's only other file being McpConnect.cpp; they sit in D2Client's address range, after ChatDlg.cpp | object map: best D2MCPClient/Src/McpConnect.cpp (score 4, clear lead; # called only from it; data #) | 18 of 52 function names carry WINMAIN_	weak
