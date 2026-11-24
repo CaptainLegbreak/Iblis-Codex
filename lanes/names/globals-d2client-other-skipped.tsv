@@ -1,0 +1,15 @@
+va	old_name	file	reason
+0x00711428	gdwGlobal_00711428	Source/D2Client/D2Client.h	a dword only set and read by the unnamed accessors 0x45AE50/0x45AE60
+0x0071142C	gdwGlobal_0071142C	Source/D2Client/D2Client.h	a dword only set and read by the unnamed accessors 0x45AE70/0x45AE80
+0x00712F04	gdwGlobal_00712F04	Source/D2Client/DRAW/dLightMap.cpp	a dword only returned by the unnamed sub_0047A9D0
+0x00727A28	gnTable_00727A28	Source/D2Client/UNIT/Item.cpp	a value table only searched by the unnamed sub_004C2150_FindInTable
+0x007A0688	gdwGlobal_007A0688	Source/D2Client/GAME/Game.cpp	only cleared in GAME_InitGameState
+0x007A6AE4	gwGlobal_007A6AE4	Source/D2Client/ENGINE/Cursor.cpp	only cleared in CURSOR_InitCursor
+0x007A8A10	gnGlobal_007A8A10	Source/D2Client/Unknown_00472DA0.cpp	only set by the unnamed sub_00473C90_SetGlobal
+0x007BB388	gdwGlobal_007BB388	Source/D2Client/DRAW/dLightMap.cpp	only returned by the unnamed sub_00477C90
+0x007BB38C	gdwGlobal_007BB38C	Source/D2Client/DRAW/dLightMap.cpp	a mode value set by the unnamed sub_004776D0/0x4776E0 and returned by sub_00477740; meaning unclear
+0x007C0225	ganGlobal_007C0225	Source/D2Client/D2Client.h	six bytes cleared per page in TEXT_SetQuestPage; meaning unclear
+0x007C023D	ganGlobal_007C023D	Source/D2Client/D2Client.h	six bytes cleared per page in TEXT_SetQuestPage; meaning unclear
+0x007C0C40	gnGlobal_007C0C40	Source/D2Client/Unknown_004AA9C0.cpp	set and cleared inside the unnamed skill panel drawer; meaning unclear
+0x007C0E74	gbGlobal_007C0E74	Source/D2Client/Unknown_004B8720.cpp	set and cleared by two unnamed functions only
+0x007C8A28	gObj_007C8A28	Source/D2Client/GAME/Wall2.cpp	a D2FloorTileViewStrc object at this address; it waits on the members plan (D2FloorTileViewStrc::UpdateView) for a name

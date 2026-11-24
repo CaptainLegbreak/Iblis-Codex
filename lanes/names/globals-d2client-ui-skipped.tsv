@@ -1,0 +1,39 @@
+va	old_name	file	reason
+0x00726CCB	gB27_00726CCB	Source/D2Client/UI/text_0049A950.cpp	an NPC menu entry field that is only ever zeroed (NPCMENU_ResetHandlers, sub_004B2250_InitializeControls); (also spelled gwGlobal_00726CCB)
+0x00726CDB	gB27_00726CDB	Source/D2Client/UI/text_0049A950.cpp	an NPC menu entry field that is only ever zeroed (NPCMENU_ResetHandlers, sub_004B2250_InitializeControls); (also spelled gnGlobal_00726CDB)
+0x00726E01	gB27_00726E01	Source/D2Client/UI/text_0049A950.cpp	an NPC menu entry field that is only ever zeroed (NPCMENU_ResetHandlers, sub_004B2250_InitializeControls); (also spelled gwGlobal_00726E01)
+0x00726E0F	gB27_00726E0F	Source/D2Client/UI/text_0049A950.cpp	an NPC menu entry field that is only ever zeroed (NPCMENU_ResetHandlers, sub_004B2250_InitializeControls); (also spelled gnGlobal_00726E0F)
+0x00726E4F	gB27_00726E4F	Source/D2Client/UI/text_0049A950.cpp	an NPC menu entry field that is only ever zeroed (NPCMENU_ResetHandlers, sub_004B2250_InitializeControls); (also spelled gwGlobal_00726E4F)
+0x00726E5D	gB27_00726E5D	Source/D2Client/UI/text_0049A950.cpp	an NPC menu entry field that is only ever zeroed (NPCMENU_ResetHandlers, sub_004B2250_InitializeControls); (also spelled gnGlobal_00726E5D)
+0x00726E9D	gB27_00726E9D	Source/D2Client/UI/text_0049A950.cpp	an NPC menu entry field that is only ever zeroed (NPCMENU_ResetHandlers, sub_004B2250_InitializeControls); (also spelled gwGlobal_00726E9D)
+0x00726EAB	gB27_00726EAB	Source/D2Client/UI/text_0049A950.cpp	an NPC menu entry field that is only ever zeroed (NPCMENU_ResetHandlers, sub_004B2250_InitializeControls); (also spelled gnGlobal_00726EAB)
+0x00726F87	gB27_00726F87	Source/D2Client/UI/text_0049A950.cpp	an NPC menu entry field that is only ever zeroed (NPCMENU_ResetHandlers, sub_004B2250_InitializeControls); (also spelled gwGlobal_00726F87)
+0x00726F95	gB27_00726F95	Source/D2Client/UI/text_0049A950.cpp	an NPC menu entry field that is only ever zeroed (NPCMENU_ResetHandlers, sub_004B2250_InitializeControls); (also spelled gnGlobal_00726F95)
+0x00727247	gB27_00727247	Source/D2Client/UI/text_0049A950.cpp	an NPC menu entry field that is only ever zeroed (NPCMENU_ResetHandlers, sub_004B2250_InitializeControls); (also spelled gwGlobal_00727247)
+0x00727257	gB27_00727257	Source/D2Client/UI/text_0049A950.cpp	an NPC menu entry field that is only ever zeroed (NPCMENU_ResetHandlers, sub_004B2250_InitializeControls); (also spelled gnGlobal_00727257)
+0x00727297	gB27_00727297	Source/D2Client/UI/text_0049A950.cpp	an NPC menu entry field that is only ever zeroed (NPCMENU_ResetHandlers, sub_004B2250_InitializeControls); (also spelled gwGlobal_00727297)
+0x007272A9	gB27_007272A9	Source/D2Client/UI/text_0049A950.cpp	an NPC menu entry field that is only ever zeroed (NPCMENU_ResetHandlers, sub_004B2250_InitializeControls); (also spelled gnGlobal_007272A9)
+0x007272DF	gwGlobal_007272DF	Source/D2Client/UI/npcmenu.cpp	string id (the hire string) of an NPC menu entry whose init handler is unnamed; which entry it is is unclear
+0x007272E1	gB27_007272E1	Source/D2Client/UI/text_0049A950.cpp	an NPC menu entry field that is only ever zeroed (NPCMENU_ResetHandlers, sub_004B2250_InitializeControls); (also spelled gwGlobal_007272E1)
+0x007272EF	gB27_007272EF	Source/D2Client/UI/text_0049A950.cpp	an NPC menu entry field that is only ever zeroed (NPCMENU_ResetHandlers, sub_004B2250_InitializeControls); (also spelled gnGlobal_007272EF)
+0x007273F4	gnGlobal_007273F4	Source/D2Client/UI/dialog.cpp	a dialog hotkey value stored by DIALOG_LoadDialogHotkeys; which hotkey is unclear
+0x00727400	gnGlobal_00727400	Source/D2Client/UI/dialog.cpp	a dialog hotkey value stored by DIALOG_LoadDialogHotkeys; which hotkey is unclear
+0x0072D844	gnGlobal_0072D844	Source/D2Client/UI/SkillDesc_004E1FF0.cpp	decremented once in SKILLDESC_RefreshSkills; meaning unclear
+0x0072D88C	gnGlobal_0072D88C	Source/D2Client/UI/SkillDesc_004E1FF0.cpp	decremented once in SKILLDESC_RefreshSkills; meaning unclear
+0x007A2884	gdwGlobal_007A2884	Source/D2Client/UI/ui.cpp	only cleared in UI_FreeLoadingScreen
+0x007A516C	gpAutomapCel_007A516C	Source/D2Client/UI/automap.cpp	automap cel used for minimap modes 1-3 in AUTOMAP_PaintAutomap; which cel file is unclear
+0x007A5170	gpAutomapCel_007A5170	Source/D2Client/UI/automap.cpp	automap cel used for minimap modes 1-3 in AUTOMAP_PaintAutomap; which cel file is unclear
+0x007A5174	gpAutomapCel_007A5174	Source/D2Client/UI/automap.cpp	automap cel used for minimap modes 1-3 in AUTOMAP_PaintAutomap; which cel file is unclear
+0x007BC974	gdwGlobal_007BC974	Source/D2Client/UI/inv.cpp	a flag cleared by the slots click handler and tested by an unnamed accessor; meaning unclear
+0x007BCAD9	gbGlobal_007BCAD9	Source/D2Client/UI/inv.cpp	element 1 of gabInvHighlightColors (0x007BCAD8), not a global of its own
+0x007BCAF0	gnGlobal_007BCAF0	Source/D2Client/UI/inv.cpp	only cleared in INV_LoadStashPanelCels; meaning unclear
+0x007BCC06	gbFlag_007BCC06	Source/D2Client/UI/inv.cpp	a flag only toggled by the unnamed sub_00486AD0_ToggleFlag
+0x007BCE94	gnGlobal_007BCE94	Source/D2Client/UI/inv.cpp	only cleared, in the NPC panel mouse handlers; meaning unclear
+0x007BEFD4	gnGlobal_007BEFD4	Source/D2Client/UI/panel.cpp	toggled on belt mouse release when the mini-panel button is down; meaning unclear
+0x007BF1E0	gnGlobal_007BF1E0	Source/D2Client/UI/text_0049DA50.cpp	set to 0 or 1 in TEXT_OpenTextData only; meaning unclear
+0x007BF264	gnGlobal_007BF264	Source/D2Client/UI/text_0049D5A0.cpp	tested and cleared in the unnamed scroll-text update only
+0x007BF2C1	gnIndex_007BF2C1	Source/D2Client/UI/text_0049A950.cpp	quest panel index slot only set to -1 in TEXT_ResetQuestPanel
+0x007BF2C5	gnIndex_007BF2C5	Source/D2Client/UI/text_0049A950.cpp	quest panel index slot only set to -1 in TEXT_ResetQuestPanel
+0x007BF2C9	gnIndex_007BF2C9	Source/D2Client/UI/text_0049A950.cpp	quest panel index slot only set to -1 in TEXT_ResetQuestPanel
+0x007BF2CD	gnIndex_007BF2CD	Source/D2Client/UI/text_0049A950.cpp	quest panel index slot only set to -1 in TEXT_ResetQuestPanel
+0x007C0DD8	gwGlobal_007C0DD8	Source/D2Client/UI/npcmenu.cpp	an NPC menu value set by MONSTER_SetNpcMenuValue and cleared when the gamble shop opens; meaning unclear
