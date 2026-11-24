@@ -344,3 +344,5 @@ int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsi
     VALIDATEEND;
     return InternalSaveEntry(szKeyName, szValueName, nFlags, 4, (const unsigned char*)&dwValue, 4);
 }
+
+#include "gen/data/Source/Storm/SOURCE/SREG.inc"

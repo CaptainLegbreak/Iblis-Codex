@@ -237,10 +237,17 @@ struct D2StormSoundBufferStrc
     virtual long __stdcall Unlock(void* pPtr1, unsigned long nBytes1, void* pPtr2, unsigned long nBytes2) = 0;
 };
 
+// The link of a list node: it unlinks itself when the node is destroyed.
+template <class T>
+struct TSLink : D2StormLinkStrc
+{
+    ~TSLink() { Unlink(); }
+};
+
 // A streamed sound (0x50 bytes).
 struct AUDIOSTREAM
 {
-    D2StormLinkStrc tLink;                      // 0x00
+    TSLink<AUDIOSTREAM> tLink;                  // 0x00
     FILEREC* pFile;                  // 0x08
     unsigned int nextwrite;                     // 0x0C
     int unk0x10;                                // 0x10
@@ -256,7 +263,7 @@ struct AUDIOSTREAM
     int nPan;                                   // 0x38
     D2StormSoundBufferStrc* pBuffer;            // 0x3C
     unsigned int soundbuffersize;                   // 0x40
-    int unk0x44;                                // 0x44
+    int bBufferOwned;                           // 0x44
     unsigned char nFill;                        // 0x48
     char pad0x49[3];                            // 0x49
     union
@@ -295,7 +302,7 @@ struct D2StormStreamListStrc
 // A pending read request (0x44 bytes).
 struct REQUEST
 {
-    D2StormLinkStrc tLink;                      // 0x00
+    TSLink<REQUEST> tLink;                      // 0x00
     union
     {
         void* hEvent;                           // 0x08

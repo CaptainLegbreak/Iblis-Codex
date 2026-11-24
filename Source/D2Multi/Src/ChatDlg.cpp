@@ -299,6 +299,10 @@ int gnHistoryCount; // 0x0077BD50
 
 extern int gbShowJoinLeave; // 0x0077BD54
 
+unsigned char gab_0077BD64[16]; // 0x0077BD64
+
+unsigned char gab_0077BD74[16]; // 0x0077BD74
+
 D2WinControlStrc* gpChatTextBox; // 0x0077BD8C
 
 extern char gszLastWhisperer[]; // 0x0077B0D0

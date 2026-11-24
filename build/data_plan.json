@@ -254,15 +254,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_00415160.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00415160.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/Storm/SOURCE/SFILE_004177E0.CPP": {
    "bytes": 24,
    "definitions": 1,
@@ -471,8 +462,8 @@
    "state": "included"
   },
   "Source/D2Launch/Src/MainMenus.cpp": {
-   "bytes": 15432,
-   "definitions": 64,
+   "bytes": 15436,
+   "definitions": 65,
    "externs": [
     "extern \"C\" void __cdecl MAINMENUS_OnConnectCancel(); // 0x00436CD0",
     "extern \"C\" void __cdecl sub_004371B0_OnLoginScreen(); // 0x004371B0",
@@ -762,8 +753,8 @@
    "state": "included"
   },
   "Source/D2Multi/Src/ChatDlg.cpp": {
-   "bytes": 1544,
-   "definitions": 57,
+   "bytes": 2120,
+   "definitions": 69,
    "externs": [
     "extern \"C\" void __cdecl CHARSEL_SendChatLine(); // 0x00446890",
     "extern \"C\" void __cdecl COMCALLBACK_SendChatLine(); // 0x004468F0",
@@ -867,8 +858,8 @@
    "state": "included"
   },
   "Source/D2Multi/Unknown_00444020.cpp": {
-   "bytes": 204,
-   "definitions": 5,
+   "bytes": 222,
+   "definitions": 6,
    "externs": [
     "extern \"C\" char gData_0070CD84[]; // 0x0070CD84",
     "extern \"C\" char gData_0070CD94[]; // 0x0070CD94",
@@ -2104,8 +2095,8 @@
    "state": "included"
   },
   "Source/D2Win/Src/D2Comp.cpp": {
-   "bytes": 4936,
-   "definitions": 21,
+   "bytes": 4938,
+   "definitions": 22,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Win/Src/D2Comp.inc",
@@ -2122,8 +2113,8 @@
    "state": "included"
   },
   "Source/D2Win/Src/D2WinFont.cpp": {
-   "bytes": 136,
-   "definitions": 6,
+   "bytes": 168,
+   "definitions": 7,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Win/Src/D2WinFont_005013A0.inc",
@@ -2267,8 +2258,8 @@
    "state": "included"
   },
   "Source/D2Hell/Unknown_00516DE1.cpp": {
-   "bytes": 4,
-   "definitions": 1,
+   "bytes": 12,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Hell/Unknown_00516DE1.inc",
@@ -2422,8 +2413,8 @@
    "state": "included"
   },
   "Source/D2BNClient/BNNews.cpp": {
-   "bytes": 28,
-   "definitions": 2,
+   "bytes": 36,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2BNClient/BNNews.inc",
@@ -4078,8 +4069,8 @@
    "state": "included"
   },
   "Source/D2CMP/Unknown_006056D0.cpp": {
-   "bytes": 39,
-   "definitions": 1,
+   "bytes": 5159,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2CMP/Unknown_006056D0.inc",
@@ -4096,8 +4087,8 @@
    "state": "included"
   },
   "Source/D2CMP/SRC/Codec.cpp": {
-   "bytes": 192,
-   "definitions": 2,
+   "bytes": 320,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2CMP/SRC/Codec.inc",
@@ -4105,8 +4096,8 @@
    "state": "included"
   },
   "Source/D2Common/Chat/Ignorelist.cpp": {
-   "bytes": 3012,
-   "definitions": 7,
+   "bytes": 3132,
+   "definitions": 9,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -4476,8 +4467,8 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/RoomTile.cpp": {
-   "bytes": 1512,
-   "definitions": 5,
+   "bytes": 1684,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/RoomTile_0066D960.inc",
@@ -5185,6 +5176,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/MONSTER/MonsterChoose.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/Storm/SOURCE/SREG.CPP": {
+   "bytes": 4,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/Storm/SOURCE/SREG.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -8585,7 +8585,7 @@
    "cname": "gData_006CEF68",
    "declared": true,
    "decorated": "_gszFmtUnsigned_006CEF68",
-   "file": "Source/Storm/Unknown_00415160.cpp",
+   "file": "Source/Storm/SOURCE/SREG.CPP",
    "fill": 4,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006CEF68[4]; // 0x006CEF68",
@@ -18369,6 +18369,23 @@
    "va": "0x006D4D88"
   },
   {
+   "alias": false,
+   "cname": "gData_0070C234",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
+   "form": "bytes",
+   "name": "gData_0070C234",
+   "pointers": [],
+   "region": "data",
+   "size": 4,
+   "va": "0x0070C234",
+   "fwd": "extern \"C\" struct d2data_0070C234_t gData_0070C234; // 0x0070C234",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0070C234_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" struct d2data_0070C234_t gData_0070C234 = ",
+   "tail": "; // 0x0070C234"
+  },
+  {
    "alias": true,
    "cname": "gData_006DADC0",
    "declared": true,
@@ -23011,6 +23028,1914 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Multi/Src/ChatDlg.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2WinControlInitStrc gtControlInit_0070D3F0 = ",
+   "model": {
+    "k": "struct",
+    "members": [
+     [
+      "nType",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nX",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      8,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nWidth",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nHeight",
+      16,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_14",
+      20,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nStringId",
+      24,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "ppCellFile",
+      28,
+      {
+       "fn": false,
+       "k": "ptr",
+       "size": 4,
+       "spell": "D2CelFileStrc **"
+      }
+     ],
+     [
+      "field_20",
+      32,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_24",
+      36,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_28",
+      40,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_2C",
+      44,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2WinControlInitStrc",
+    "size": 48
+   },
+   "name": "gtControlInit_0070D3F0",
+   "pointers": [
+    [
+     36,
+     "0x0077BD64",
+     "source",
+     "gab_0077BD64",
+     0,
+     "data"
+    ],
+    [
+     40,
+     "0x0070CD94",
+     "generated_same_file",
+     "gData_0070CD94",
+     0,
+     "data"
+    ]
+   ],
+   "region": "data",
+   "size": 48,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0070D3F0",
+   "type": "D2WinControlInitStrc",
+   "va": "0x0070D3F0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2WinControlInitStrc gtControlInit_0070D420 = ",
+   "model": {
+    "k": "struct",
+    "members": [
+     [
+      "nType",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nX",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      8,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nWidth",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nHeight",
+      16,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_14",
+      20,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nStringId",
+      24,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "ppCellFile",
+      28,
+      {
+       "fn": false,
+       "k": "ptr",
+       "size": 4,
+       "spell": "D2CelFileStrc **"
+      }
+     ],
+     [
+      "field_20",
+      32,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_24",
+      36,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_28",
+      40,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_2C",
+      44,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2WinControlInitStrc",
+    "size": 48
+   },
+   "name": "gtControlInit_0070D420",
+   "pointers": [
+    [
+     40,
+     "0x0070CD94",
+     "generated_same_file",
+     "gData_0070CD94",
+     0,
+     "data"
+    ]
+   ],
+   "region": "data",
+   "size": 48,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0070D420",
+   "type": "D2WinControlInitStrc",
+   "va": "0x0070D420"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2WinControlInitStrc gtControlInit_0070D450 = ",
+   "model": {
+    "k": "struct",
+    "members": [
+     [
+      "nType",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nX",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      8,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nWidth",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nHeight",
+      16,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_14",
+      20,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nStringId",
+      24,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "ppCellFile",
+      28,
+      {
+       "fn": false,
+       "k": "ptr",
+       "size": 4,
+       "spell": "D2CelFileStrc **"
+      }
+     ],
+     [
+      "field_20",
+      32,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_24",
+      36,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_28",
+      40,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_2C",
+      44,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2WinControlInitStrc",
+    "size": 48
+   },
+   "name": "gtControlInit_0070D450",
+   "pointers": [
+    [
+     36,
+     "0x0077BD74",
+     "source",
+     "gab_0077BD74",
+     0,
+     "data"
+    ],
+    [
+     40,
+     "0x0070CD94",
+     "generated_same_file",
+     "gData_0070CD94",
+     0,
+     "data"
+    ]
+   ],
+   "region": "data",
+   "size": 48,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0070D450",
+   "type": "D2WinControlInitStrc",
+   "va": "0x0070D450"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2WinControlInitStrc gtControlInit_0070D480 = ",
+   "model": {
+    "k": "struct",
+    "members": [
+     [
+      "nType",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nX",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      8,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nWidth",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nHeight",
+      16,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_14",
+      20,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nStringId",
+      24,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "ppCellFile",
+      28,
+      {
+       "fn": false,
+       "k": "ptr",
+       "size": 4,
+       "spell": "D2CelFileStrc **"
+      }
+     ],
+     [
+      "field_20",
+      32,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_24",
+      36,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_28",
+      40,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_2C",
+      44,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2WinControlInitStrc",
+    "size": 48
+   },
+   "name": "gtControlInit_0070D480",
+   "pointers": [
+    [
+     28,
+     "0x0077BC70",
+     "source",
+     "gpBnetPopUpOkCelFile",
+     0,
+     "data"
+    ]
+   ],
+   "region": "data",
+   "size": 48,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0070D480",
+   "type": "D2WinControlInitStrc",
+   "va": "0x0070D480"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2WinControlInitStrc gtControlInit_0070D4B0 = ",
+   "model": {
+    "k": "struct",
+    "members": [
+     [
+      "nType",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nX",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      8,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nWidth",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nHeight",
+      16,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_14",
+      20,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nStringId",
+      24,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "ppCellFile",
+      28,
+      {
+       "fn": false,
+       "k": "ptr",
+       "size": 4,
+       "spell": "D2CelFileStrc **"
+      }
+     ],
+     [
+      "field_20",
+      32,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_24",
+      36,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_28",
+      40,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_2C",
+      44,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2WinControlInitStrc",
+    "size": 48
+   },
+   "name": "gtControlInit_0070D4B0",
+   "pointers": [
+    [
+     28,
+     "0x0077BC74",
+     "source",
+     "gpBnetCancelButtonBlankCelFileA",
+     0,
+     "data"
+    ],
+    [
+     32,
+     "0x0043EB10",
+     "names.json",
+     "CHATDLG_RunCallback",
+     0,
+     "func"
+    ]
+   ],
+   "region": "data",
+   "size": 48,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0070D4B0",
+   "type": "D2WinControlInitStrc",
+   "va": "0x0070D4B0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2WinControlInitStrc gtControlInit_0070D4E0 = ",
+   "model": {
+    "k": "struct",
+    "members": [
+     [
+      "nType",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nX",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      8,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nWidth",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nHeight",
+      16,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_14",
+      20,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nStringId",
+      24,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "ppCellFile",
+      28,
+      {
+       "fn": false,
+       "k": "ptr",
+       "size": 4,
+       "spell": "D2CelFileStrc **"
+      }
+     ],
+     [
+      "field_20",
+      32,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_24",
+      36,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_28",
+      40,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_2C",
+      44,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2WinControlInitStrc",
+    "size": 48
+   },
+   "name": "gtControlInit_0070D4E0",
+   "pointers": [
+    [
+     28,
+     "0x0077BC74",
+     "source",
+     "gpBnetCancelButtonBlankCelFileA",
+     0,
+     "data"
+    ],
+    [
+     32,
+     "0x0043EB10",
+     "names.json",
+     "CHATDLG_RunCallback",
+     0,
+     "func"
+    ]
+   ],
+   "region": "data",
+   "size": 48,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0070D4E0",
+   "type": "D2WinControlInitStrc",
+   "va": "0x0070D4E0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2WinControlInitStrc gtControlInit_0070D510 = ",
+   "model": {
+    "k": "struct",
+    "members": [
+     [
+      "nType",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nX",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      8,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nWidth",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nHeight",
+      16,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_14",
+      20,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nStringId",
+      24,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "ppCellFile",
+      28,
+      {
+       "fn": false,
+       "k": "ptr",
+       "size": 4,
+       "spell": "D2CelFileStrc **"
+      }
+     ],
+     [
+      "field_20",
+      32,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_24",
+      36,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_28",
+      40,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_2C",
+      44,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2WinControlInitStrc",
+    "size": 48
+   },
+   "name": "gtControlInit_0070D510",
+   "pointers": [
+    [
+     40,
+     "0x0070CDA4",
+     "generated_same_file",
+     "gData_0070CDA4",
+     0,
+     "data"
+    ]
+   ],
+   "region": "data",
+   "size": 48,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0070D510",
+   "type": "D2WinControlInitStrc",
+   "va": "0x0070D510"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2WinControlInitStrc gtControlInit_0070D540 = ",
+   "model": {
+    "k": "struct",
+    "members": [
+     [
+      "nType",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nX",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      8,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nWidth",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nHeight",
+      16,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_14",
+      20,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nStringId",
+      24,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "ppCellFile",
+      28,
+      {
+       "fn": false,
+       "k": "ptr",
+       "size": 4,
+       "spell": "D2CelFileStrc **"
+      }
+     ],
+     [
+      "field_20",
+      32,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_24",
+      36,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_28",
+      40,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_2C",
+      44,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2WinControlInitStrc",
+    "size": 48
+   },
+   "name": "gtControlInit_0070D540",
+   "pointers": [
+    [
+     28,
+     "0x0077BC0C",
+     "source",
+     "gpPopUpLargest2CelFile",
+     0,
+     "data"
+    ]
+   ],
+   "region": "data",
+   "size": 48,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0070D540",
+   "type": "D2WinControlInitStrc",
+   "va": "0x0070D540"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2WinControlInitStrc gtControlInit_0070D570 = ",
+   "model": {
+    "k": "struct",
+    "members": [
+     [
+      "nType",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nX",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      8,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nWidth",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nHeight",
+      16,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_14",
+      20,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nStringId",
+      24,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "ppCellFile",
+      28,
+      {
+       "fn": false,
+       "k": "ptr",
+       "size": 4,
+       "spell": "D2CelFileStrc **"
+      }
+     ],
+     [
+      "field_20",
+      32,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_24",
+      36,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_28",
+      40,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_2C",
+      44,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2WinControlInitStrc",
+    "size": 48
+   },
+   "name": "gtControlInit_0070D570",
+   "pointers": [
+    [
+     28,
+     "0x0077BC10",
+     "source",
+     "gpMediumButtonBlank2CelFile",
+     0,
+     "data"
+    ],
+    [
+     32,
+     "0x00440120",
+     "names.json",
+     "CHATDLG_OnClearEdit",
+     0,
+     "func"
+    ]
+   ],
+   "region": "data",
+   "size": 48,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0070D570",
+   "type": "D2WinControlInitStrc",
+   "va": "0x0070D570"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2WinControlInitStrc gtControlInit_0070D5A0 = ",
+   "model": {
+    "k": "struct",
+    "members": [
+     [
+      "nType",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nX",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      8,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nWidth",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nHeight",
+      16,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_14",
+      20,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nStringId",
+      24,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "ppCellFile",
+      28,
+      {
+       "fn": false,
+       "k": "ptr",
+       "size": 4,
+       "spell": "D2CelFileStrc **"
+      }
+     ],
+     [
+      "field_20",
+      32,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_24",
+      36,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_28",
+      40,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_2C",
+      44,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2WinControlInitStrc",
+    "size": 48
+   },
+   "name": "gtControlInit_0070D5A0",
+   "pointers": [
+    [
+     28,
+     "0x0077BC10",
+     "source",
+     "gpMediumButtonBlank2CelFile",
+     0,
+     "data"
+    ],
+    [
+     32,
+     "0x004428B0",
+     "names.json",
+     "CHATDLG_SendChat",
+     0,
+     "func"
+    ]
+   ],
+   "region": "data",
+   "size": 48,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0070D5A0",
+   "type": "D2WinControlInitStrc",
+   "va": "0x0070D5A0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2WinControlInitStrc gtControlInit_0070D5D0 = ",
+   "model": {
+    "k": "struct",
+    "members": [
+     [
+      "nType",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nX",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      8,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nWidth",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nHeight",
+      16,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_14",
+      20,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nStringId",
+      24,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "ppCellFile",
+      28,
+      {
+       "fn": false,
+       "k": "ptr",
+       "size": 4,
+       "spell": "D2CelFileStrc **"
+      }
+     ],
+     [
+      "field_20",
+      32,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_24",
+      36,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_28",
+      40,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_2C",
+      44,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2WinControlInitStrc",
+    "size": 48
+   },
+   "name": "gtControlInit_0070D5D0",
+   "pointers": [
+    [
+     40,
+     "0x0070CD94",
+     "generated_same_file",
+     "gData_0070CD94",
+     0,
+     "data"
+    ]
+   ],
+   "region": "data",
+   "size": 48,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0070D5D0",
+   "type": "D2WinControlInitStrc",
+   "va": "0x0070D5D0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2WinControlInitStrc gtControlInit_0070D600 = ",
+   "model": {
+    "k": "struct",
+    "members": [
+     [
+      "nType",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nX",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      8,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nWidth",
+      12,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nHeight",
+      16,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_14",
+      20,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nStringId",
+      24,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "ppCellFile",
+      28,
+      {
+       "fn": false,
+       "k": "ptr",
+       "size": 4,
+       "spell": "D2CelFileStrc **"
+      }
+     ],
+     [
+      "field_20",
+      32,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_24",
+      36,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_28",
+      40,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "field_2C",
+      44,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2WinControlInitStrc",
+    "size": 48
+   },
+   "name": "gtControlInit_0070D600",
+   "pointers": [
+    [
+     40,
+     "0x0070CDA4",
+     "generated_same_file",
+     "gData_0070CDA4",
+     0,
+     "data"
+    ]
+   ],
+   "region": "data",
+   "size": 48,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0070D600",
+   "type": "D2WinControlInitStrc",
+   "va": "0x0070D600"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern unsigned char gnSelectModeA = ",
@@ -25020,6 +26945,23 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070EB94_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070EB94",
    "va": "0x0070EB94"
+  },
+  {
+   "alias": false,
+   "cname": "gData_006FFC46",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Multi/Unknown_00444020.cpp",
+   "form": "bytes",
+   "name": "gData_006FFC46",
+   "pointers": [],
+   "region": "rdata",
+   "size": 18,
+   "va": "0x006FFC46",
+   "fwd": "extern \"C\" const struct d2data_006FFC46_t gData_006FFC46; // 0x006FFC46",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006FFC46_t\n{\n    unsigned char b0[18];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" const struct d2data_006FFC46_t gData_006FFC46 = ",
+   "tail": "; // 0x006FFC46"
   },
   {
    "alias": false,
@@ -82941,6 +84883,36 @@
    "va": "0x006DC980"
   },
   {
+   "alias": true,
+   "cname": "gData_006DC9B8",
+   "declared": true,
+   "decorated": "?gaFontCharValidBits@@3PAIA",
+   "file": "Source/D2Win/Src/D2WinFont.cpp",
+   "form": "declared",
+   "fwd": "extern \"C\" const unsigned int gData_006DC9B8[8]; // 0x006DC9B8",
+   "head": "extern \"C\" const unsigned int gData_006DC9B8[8] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "u",
+     "name": "unsigned int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 8,
+    "size": 32
+   },
+   "name": "gaFontCharValidBits",
+   "pointers": [],
+   "region": "rdata",
+   "size": 32,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006DC9B8\n#pragma comment(linker, \"/alternatename:?gaFontCharValidBits@@3PAIA=_gData_006DC9B8\")",
+   "type": "unsigned int",
+   "va": "0x006DC9B8"
+  },
+  {
    "alias": false,
    "cname": null,
    "declared": true,
@@ -83678,6 +85650,23 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_006CE29C_t\n{\n    unsigned char b0[76];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006CE29C",
    "va": "0x006CE29C"
+  },
+  {
+   "alias": false,
+   "cname": "gData_0072E1BA",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Win/Src/D2Comp.cpp",
+   "form": "bytes",
+   "name": "gData_0072E1BA",
+   "pointers": [],
+   "region": "data",
+   "size": 2,
+   "va": "0x0072E1BA",
+   "fwd": "extern \"C\" struct d2data_0072E1BA_t gData_0072E1BA; // 0x0072E1BA",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0072E1BA_t\n{\n    unsigned char b0[2];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" struct d2data_0072E1BA_t gData_0072E1BA = ",
+   "tail": "; // 0x0072E1BA"
   },
   {
    "alias": true,
@@ -86455,6 +88444,32 @@
    "va": "0x0072F9F0"
   },
   {
+   "alias": false,
+   "cname": "gData_0072F9F4",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Hell/Unknown_00516DE1.cpp",
+   "form": "bytes",
+   "name": "gData_0072F9F4",
+   "pointers": [
+    [
+     0,
+     "0x006F28F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 8,
+   "va": "0x0072F9F4",
+   "fwd": "extern \"C\" struct d2data_0072F9F4_t gData_0072F9F4; // 0x0072F9F4",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0072F9F4_t\n{\n    const void* p0;\n    unsigned char b1[4];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" struct d2data_0072F9F4_t gData_0072F9F4 = ",
+   "tail": "; // 0x0072F9F4"
+  },
+  {
    "alias": true,
    "cname": "gData_006CC848",
    "declared": true,
@@ -87917,6 +89932,32 @@
    "tail": "; // 0x0072FF80",
    "type": "char",
    "va": "0x0072FF80"
+  },
+  {
+   "alias": false,
+   "cname": "gData_0072FF84",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2BNClient/BNNews.cpp",
+   "form": "bytes",
+   "name": "gData_0072FF84",
+   "pointers": [
+    [
+     0,
+     "0x006F28F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 8,
+   "va": "0x0072FF84",
+   "fwd": "extern \"C\" struct d2data_0072FF84_t gData_0072FF84; // 0x0072FF84",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0072FF84_t\n{\n    const void* p0;\n    unsigned char b1[4];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" struct d2data_0072FF84_t gData_0072FF84 = ",
+   "tail": "; // 0x0072FF84"
   },
   {
    "alias": true,
@@ -119549,6 +121590,156 @@
    "va": "0x006E61F8"
   },
   {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2CMP/Unknown_006056D0.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int ganTable_007420D8[256] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 256,
+    "size": 1024
+   },
+   "name": "ganTable_007420D8",
+   "pointers": [],
+   "region": "data",
+   "size": 1024,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007420D8",
+   "type": "int",
+   "va": "0x007420D8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2CMP/Unknown_006056D0.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int ganTable_007424D8[256] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 256,
+    "size": 1024
+   },
+   "name": "ganTable_007424D8",
+   "pointers": [],
+   "region": "data",
+   "size": 1024,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007424D8",
+   "type": "int",
+   "va": "0x007424D8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2CMP/Unknown_006056D0.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int ganTable_007428D8[256] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 256,
+    "size": 1024
+   },
+   "name": "ganTable_007428D8",
+   "pointers": [],
+   "region": "data",
+   "size": 1024,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007428D8",
+   "type": "int",
+   "va": "0x007428D8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2CMP/Unknown_006056D0.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int ganTable_00742CD8[256] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 256,
+    "size": 1024
+   },
+   "name": "ganTable_00742CD8",
+   "pointers": [],
+   "region": "data",
+   "size": 1024,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x00742CD8",
+   "type": "int",
+   "va": "0x00742CD8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2CMP/Unknown_006056D0.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int ganTable_007430D8[256] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 256,
+    "size": 1024
+   },
+   "name": "ganTable_007430D8",
+   "pointers": [],
+   "region": "data",
+   "size": 1024,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007430D8",
+   "type": "int",
+   "va": "0x007430D8"
+  },
+  {
    "alias": true,
    "cname": "gData_007434D8",
    "declared": true,
@@ -119841,6 +122032,36 @@
    "va": "0x006E5F70"
   },
   {
+   "alias": true,
+   "cname": "gData_006E5FB0",
+   "declared": true,
+   "decorated": "?gadwDccSignBits@@3QBIB",
+   "file": "Source/D2CMP/SRC/Codec.cpp",
+   "form": "declared",
+   "fwd": "extern \"C\" const unsigned int gData_006E5FB0[32]; // 0x006E5FB0",
+   "head": "extern \"C\" const unsigned int gData_006E5FB0[32] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "u",
+     "name": "unsigned int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 32,
+    "size": 128
+   },
+   "name": "gadwDccSignBits",
+   "pointers": [],
+   "region": "rdata",
+   "size": 128,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E5FB0\n#pragma comment(linker, \"/alternatename:?gadwDccSignBits@@3QBIB=_gData_006E5FB0\")",
+   "type": "unsigned int",
+   "va": "0x006E5FB0"
+  },
+  {
    "alias": false,
    "cname": "gData_006E60B8",
    "declared": true,
@@ -119856,6 +122077,282 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_006E60B8_t\n{\n    unsigned char b0[128];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006E60B8\n#pragma comment(linker, \"/alternatename:?gadwDccSignExtend@@3QBIB=_gData_006E60B8\")",
    "va": "0x006E60B8"
+  },
+  {
+   "alias": false,
+   "cname": "gData_00743780",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/Chat/Ignorelist.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_00743780_t gData_00743780; // 0x00743780",
+   "head": "extern \"C\" struct d2data_00743780_t gData_00743780 = ",
+   "name": "gData_00743780",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00743780_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00743780",
+   "va": "0x00743780"
+  },
+  {
+   "alias": false,
+   "cname": "gData_007437C0",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/Chat/Ignorelist.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_007437C0_t gData_007437C0; // 0x007437C0",
+   "head": "extern \"C\" struct d2data_007437C0_t gData_007437C0 = ",
+   "name": "gData_007437C0",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_007437C0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x007437C0",
+   "va": "0x007437C0"
   },
   {
    "alias": false,
@@ -146205,6 +148702,23 @@
    "tail": "; // 0x006EF554\n#pragma comment(linker, \"/alternatename:?gaWarpTileOffsets@@3QBUD2CoordStrc@@B=_gData_006EF554\")",
    "type": "D2CoordStrc",
    "va": "0x006EF554"
+  },
+  {
+   "alias": false,
+   "cname": "gData_006EF574",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/DRLG/RoomTile.cpp",
+   "form": "bytes",
+   "name": "gData_006EF574",
+   "pointers": [],
+   "region": "rdata",
+   "size": 172,
+   "va": "0x006EF574",
+   "fwd": "extern \"C\" const struct d2data_006EF574_t gData_006EF574; // 0x006EF574",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006EF574_t\n{\n    unsigned char b0[172];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" const struct d2data_006EF574_t gData_006EF574 = ",
+   "tail": "; // 0x006EF574"
   },
   {
    "alias": true,
