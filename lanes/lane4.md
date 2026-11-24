@@ -10,15 +10,11 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- Verifying, to post when each passes: lane4/editbox-split and lane4/winmain-object (both stacked on copies-start-b), lane4/zero-gaps (opaque records take the zero runs after them; npcmenu.cpp's 112 B and more).
+- Verifying, to post when each passes: lane4/editbox-split and lane4/winmain-object (stacked on copies-start-b, now in #330), lane4/zero-gaps (opaque records take the zero runs after them; three 8-byte alignment dwords lose their records), lane4/record-object (Record.cpp and the lng object), lane4/lang-include (22 units take their copy from D2LanguageNames.h), lane4/context-sweep (127 context directives that no unit needs), lane4/session-object (Unknown_0044BA20.cpp, 0x44BA20-0x44BDCF between WINMAIN.CPP and Game.cpp).
 
-- The object after automap.cpp, 0x45AD60-0x45B4F0 (lane4/automap-view, stacked on automap-join): its own copy 0x7113EC with 0x711428/0x71142C after it, its bss 0x7A5204-0x7A5214; the automap draw, offset and screen-to-map functions now in automap.cpp, Player.cpp, ui.cpp, View.cpp and CUnit.cpp gather into Unknown_0045AE90.cpp.
 
-- editbox.cpp is three objects (lane4/editbox-split): the button classes 0x4BABF0-0x4BB16F (data: copy 0x72756C, gaButtonStrings, the UIWidget/Button type descriptors), editbox.cpp proper 0x4BB170-0x4BBE0F (the `.\UI\editbox.cpp` user; copy 0x727608 and the EditBox descriptors, now borrowed) and the spinner classes 0x4BBE10-0x4BC4F9 (copy 0x727688 and the Spinner descriptors, borrowed). The button and spinner runs become placeholders.
 
-- WINMAIN.CPP's object, 0x44B440-0x44B8AF (lane4/winmain-object, stacked on copies-start-b): the `.\CORE\WINMAIN.CPP` users sit in it, and its launch data (copy 0x70EE10, gnClientLaunchState, gpszDefaultCaption, gaszLaunchModeNames, gbExitApplication) is read only by it and by WINMAIN's initializers. The Game.cpp, Game_0044B7B0.cpp and Game_0044E5A0.cpp functions inside it join WINMAIN.CPP; Game.cpp's data starts at the copy 0x70EED0. (copies-start-b sends 0x70EE10 to Game_0044E5A0.cpp; this corrects it.)
 
-- Record.cpp's object, 0x451260-0x4519CF (lane4/record-object): the lng loader, record chunk, record file, playback and replay functions read Record.cpp's bss (0x7A070C-0x7A2788) and its gpMsgRecordChunk, whose borrowed copy 0x70F764 starts its data. The functions inside the run filed in ComCallback.cpp (2, D2Multi), Game.cpp (4), ui.cpp (5), CUnit.cpp (1) and Unknown_00451290.cpp join Record.cpp.
 
 ## Questions
 
