@@ -958,6 +958,26 @@ int __fastcall sub_00678B10_GetDistanceEstimate(int nX1, int nY1, int nX2, int n
     return nMin + 2 * nMax;
 }
 
+// 0x00678B40
+int __stdcall sub_00678B40_PathHeuristic(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
+{
+    int nDiffX = tPoint2.X - tPoint1.X;
+    if (nDiffX < 0)
+    {
+        nDiffX = -nDiffX;
+    }
+
+    int nDiffY = tPoint2.Y - tPoint1.Y;
+    if (nDiffY < 0)
+    {
+        nDiffY = -nDiffY;
+    }
+
+    const int nMin = nDiffX < nDiffY ? nDiffX : nDiffY;
+    const int nMax = nDiffX > nDiffY ? nDiffX : nDiffY;
+    return nMin + 2 * nMax;
+}
+
 // 0x00678B80
 static int __fastcall sub_6FDAB610(int nX1, int nY1, int nX2, int nY2)
 {
@@ -1136,6 +1156,7 @@ struct D2MotionPathStrc
     char unk_1D[3];
     unsigned int nFlags;
 };
+
 void __fastcall PATH_GetDirectionVectorFromPoints(D2CoordStrc* pDirectionVector, int* pOutDirection, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0064FD70
 
 // 0x00678E30

@@ -1561,17 +1561,4 @@ void __fastcall DRLGOUTPLACE_SetOutGridLinkFlags(D2DrlgLevelStrc* pLevel)
     while (pVertex != pOutdoors->pVertex);
 }
 
-// 0x0067B1C0
-D2DrlgTableEntryStrc* __fastcall PATH_AStar_AllocNewNode(D2DrlgEntryTableStrc* pTable)
-{
-    if (pTable->nEntries == 200)
-    {
-        return 0;
-    }
-
-    D2DrlgTableEntryStrc* pEntry = &pTable->pEntries[pTable->nEntries++];
-    memset(pEntry, 0, sizeof(D2DrlgTableEntryStrc));
-    return pEntry;
-}
-
 #include "gen/data/Source/D2Common/DRLG/Drlg.inc"

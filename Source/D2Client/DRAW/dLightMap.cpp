@@ -1343,6 +1343,25 @@ void __cdecl DLIGHTMAP_InitLightTables()
     }
 }
 
+// 0x00475D20
+void __fastcall sub_00475D20_FreeIfSet(void* pMemory)
+{
+    if (pMemory)
+    {
+        sub_005179A4_VirtualFree(pMemory);
+    }
+}
+
+// 0x00475DE0
+void __fastcall sub_00475DE0_FreeIfSet(void* pMemory)
+{
+    if (pMemory)
+    {
+        sub_005179A4_VirtualFree(pMemory);
+    }
+}
+
+
 // 0x00475DF0
 void __cdecl DLIGHTMAP_BuildLerpTables()
 {
@@ -1364,6 +1383,31 @@ int __cdecl DLIGHTMAP_GetLocalBloodPalette()
 {
     return gdwGlobal_007BB384;
 }
+
+int __stdcall D2GFX_TogglePerspective();                                                                    // 0x004F54B0
+
+int __stdcall D2GFX_ToggleBlendedShadows();                                                                 // 0x004F54D0
+
+int __stdcall D2GFX_ToggleLowQuality();                                                                     // 0x004F54F0
+
+// 0x00477690
+int __cdecl sub_00477690_TogglePerspective()
+{
+    return D2GFX_TogglePerspective();
+}
+
+// 0x004776A0
+int __cdecl sub_004776A0_ToggleBlendedShadows()
+{
+    return D2GFX_ToggleBlendedShadows();
+}
+
+// 0x004776B0
+int __cdecl sub_004776B0_ToggleLowQuality()
+{
+    return D2GFX_ToggleLowQuality();
+}
+
 
 // 0x004776C0
 void __fastcall sub_004776C0(void* pArg)

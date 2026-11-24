@@ -6,6 +6,10 @@
 #include "D2UnitData.h"
 #include "D2ClientMenus.h"
 #include "D2StormTypes.h"
+#include "D2CelContext.h"
+#include "D2Unicode.h"
+#include "D2ClientGfx.h"
+#include "D2StatIds.h"
 
 struct D2SkillStrc;
 
@@ -184,6 +188,85 @@ void __stdcall SPELLSEL_SkillSelectClickMsg(SMSGHANDLER_PARAMS* pMsg)
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
+
+extern int gaHotkeySkills[16]; // 0x007C06C8
+
+extern int gaHotkeyOwners[16]; // 0x007C0768
+
+extern int gaHotkeyLeft[16]; // 0x007C07B8
+
+extern int gaChargedSkillIds[60]; // 0x007C04E0
+
+// 0x004A9D70
+void __stdcall sub_004A9D70_ClearSkillHotkeys(D2SkillsTxt* pSkillsTxt, int nQuantity)
+{
+    int i = 0;
+    while (i < 60)
+    {
+        if (gaChargedSkillIds[i] != pSkillsTxt->nSkillId)
+        {
+            ++i;
+            continue;
+        }
+
+        for (int nSlot = 0; nSlot < 16; ++nSlot)
+        {
+            if (gaHotkeySkills[nSlot] == gaChargedSkillIds[i] && nQuantity <= 0)
+            {
+                gaHotkeySkills[nSlot] = -1;
+                gaHotkeyLeft[nSlot] = -1;
+                gaHotkeyOwners[nSlot] = -1;
+                MSG_SendTwoDwords(0x51, (nSlot << 16) + 0xFFFF, -1);
+            }
+        }
+
+        ++i;
+    }
+}
+
+
+// 0x004A9E60
+void __fastcall sub_004A9E60_AssignHotkey(int nHotkey)
+{
+    for (int i = 0; i < 60; ++i)
+    {
+        const int nY = gtHotkeySlots_007C0300.nY[i];
+        const int nX = gtHotkeySlots_007C0300.nX[i];
+        const int nMouseX = sub_00468730();
+        const int nMouseY = sub_00468740();
+        if (nMouseX >= nX && nMouseX <= nX + 48 && nMouseY >= nY - 48 && nMouseY <= nY)
+        {
+            if (gaHotkeySkills[nHotkey] != -1)
+            {
+                MSG_SendTwoDwords(0x51, (nHotkey << 16) + 0xFFFF, -1);
+            }
+
+            gaHotkeySkills[nHotkey] = gtHotkeySlots_007C0300.nSkill[i];
+            if (!gbSkillSelectRight)
+            {
+                gaHotkeyLeft[nHotkey] = 0;
+            }
+            else
+            {
+                gaHotkeyLeft[nHotkey] = 1;
+            }
+            gaHotkeyOwners[nHotkey] = gtHotkeySlots_007C0300.f_2D0[i];
+            MSG_SendTwoDwords(0x51, (nHotkey << 16) + (gaHotkeyLeft[nHotkey] ? 0x8000 : 0) + gaHotkeySkills[nHotkey], gaHotkeyOwners[nHotkey]);
+
+            for (int j = 0; j < 16; ++j)
+            {
+                if (gaHotkeySkills[nHotkey] == gaHotkeySkills[j] && gaHotkeyOwners[nHotkey] == gaHotkeyOwners[j] && nHotkey != j)
+                {
+                    gaHotkeySkills[j] = -1;
+                    gaHotkeyLeft[j] = -1;
+                    gaHotkeyOwners[j] = -1;
+                    MSG_SendTwoDwords(0x51, (j << 16) + 0xFFFF, -1);
+                }
+            }
+        }
+    }
+}
+
 
 // 0x004AA3A0
 void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLeft, int bNoSlots, int bNoDraw)

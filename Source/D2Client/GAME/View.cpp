@@ -15,6 +15,8 @@
 #include "D2ClientUi.h"
 #include "D2StormTypes.h"
 #include "D2ClientSound.h"
+#include "D2Path.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -961,6 +963,92 @@ void __fastcall VIEW_SetPetEntryValue(void* pOwner, D2ClientRecordStrc* pRecord,
     }
 }
 
+typedef void (__cdecl* LEVELEVENT_Fn)();
+
+extern LEVELEVENT_Fn gpfnLevelEvents[];                                                            // 0x007129D8
+
+unsigned int gdwLevelEventBits;                                                                    // 0x007A7458
+
+// 0x0046B630
+void __fastcall sub_0046B630_FireLevelEvent(int nIndex)
+{
+    D2_ASSERT(nIndex < 0x20, 0x1D9);
+    D2_ASSERT(nIndex < 0x14, 0x1DA);
+    gdwLevelEventBits |= 1 << nIndex;
+    if (gpfnLevelEvents[nIndex])
+    {
+        gpfnLevelEvents[nIndex]();
+    }
+}
+
+
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
+
+int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
+
+D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
+
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+{
+    int nResult;
+    switch (pUnit->dwUnitType)
+    {
+    default:
+        if (pUnit->pDynamicPath) nResult = PATH_GetXPosition(pUnit->pDynamicPath); else nResult = 0;
+        break;
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nResult = pUnit->pStaticPath->nXPos;
+        break;
+    }
+    return nResult;
+}
+
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+{
+    int nResult;
+    switch (pUnit->dwUnitType)
+    {
+    default:
+        if (pUnit->pDynamicPath) nResult = PATH_GetYPosition(pUnit->pDynamicPath); else nResult = 0;
+        break;
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nResult = pUnit->pStaticPath->nYPos;
+        break;
+    }
+    return nResult;
+}
+
+// 0x0046B850
+void __fastcall sub_0046B850_SpawnMissileAtObject182(D2UnitStrc* unit)
+{
+ D2UnitStrc* object=UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(unit),2,0x182);
+ int x,y;
+ if(object) {
+  ITEM_ShowTimedHint((void*)0x124F,0,0x15E,0,0,0,0);
+  x=CLIENTS_GetUnitXInline(object);
+  y=CLIENTS_GetUnitYInline(object);
+ } else {
+  x=CLIENTS_GetUnitXInline(unit)-15;
+  y=CLIENTS_GetUnitYInline(unit)-15;
+ }
+ D2MissileStrc params;
+ memset(&params,0,sizeof(params));
+ params.dwFlags=0x420;
+ params.nMissile=MISSILE_ORBMIST;
+ params.pOwner=unit;
+ params.pOrigin=unit;
+ params.nTargetX=x;
+ params.nTargetY=y;
+ params.nSkillLevel=1;
+ D2UnitStrc* missile=MISSILE_CreateClientMissile(&params);
+ if(missile&&object)MISSILE_SetTargetX(missile,object->dwUnitId);
+}
+
+
 // 0x00475EF0
 void __cdecl VIEW_FreeLerpTables()
 {
@@ -1856,6 +1944,20 @@ void __cdecl VIEW_DrawHelpFrameHighRes()
     tContext.nFrame = 6;
     sub_004F6480(&tContext, 0x30C, 0x200, -1, 5, 0);
 }
+
+void __cdecl sub_00499E30();
+
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+
+unsigned char gnHelpShadeColor; // 0x007BEEF8
+
+// 0x004945F0
+void __cdecl sub_00494EB0()
+{
+    sub_00499E30();
+    AUTOMAP_DrawFramedBox(0, 0, gnScreenWidth, gnScreenHeight - 0x31, gnHelpShadeColor, 1);
+}
+
 
 // 0x00494680
 void __cdecl VIEW_DrawHelpLinesLowRes()

@@ -2895,26 +2895,6 @@ int __stdcall D2Common_10227(D2UnitStrc* pUnit)
     return pDynamicPath->tGameCoords.wPosX == pDynamicPath->tTargetCoord.X && pDynamicPath->tGameCoords.wPosY == pDynamicPath->tTargetCoord.Y;
 }
 
-// 0x00678B40
-int __stdcall sub_00678B40_PathHeuristic(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
-{
-    int nDiffX = tPoint2.X - tPoint1.X;
-    if (nDiffX < 0)
-    {
-        nDiffX = -nDiffX;
-    }
-
-    int nDiffY = tPoint2.Y - tPoint1.Y;
-    if (nDiffY < 0)
-    {
-        nDiffY = -nDiffY;
-    }
-
-    const int nMin = nDiffX < nDiffY ? nDiffX : nDiffY;
-    const int nMax = nDiffX > nDiffY ? nDiffX : nDiffY;
-    return nMin + 2 * nMax;
-}
-
 // 0x00679380
 int __stdcall PATH_GetTableHeuristic(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
 {
@@ -2977,48 +2957,7 @@ int __stdcall sub_0067A550_PathHeuristic(D2PathPointStrc tPoint1, D2PathPointStr
     return nMin + 2 * nMax;
 }
 
-// 0x0067A5F0
-int __fastcall PATH_IsPointInBounds(D2PathBoundsContextStrc* pContext, int nUnused, D2PathPointStrc tPoint)
-{
-    return tPoint.X >= pContext->tMin.X && tPoint.X <= pContext->tMax.X && tPoint.Y >= pContext->tMin.Y && tPoint.Y <= pContext->tMax.Y;
-}
-
-// 0x0067ADC0
-int __stdcall PATH_AStar_Heuristic(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
-{
-    int nDiffX = tPoint1.X - tPoint2.X;
-    if (nDiffX < 0)
-    {
-        nDiffX = -nDiffX;
-    }
-
-    int nDiffY = tPoint1.Y - tPoint2.Y;
-    if (nDiffY < 0)
-    {
-        nDiffY = -nDiffY;
-    }
-
-    if (nDiffX >= nDiffY)
-    {
-        return nDiffY + 2 * nDiffX;
-    }
-    return nDiffX + 2 * nDiffY;
-}
-
-// 0x0067B9C0
-int __stdcall PATH_GetSquaredDistanceBetweenPoints(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
-{
-    const int nDiffX = tPoint1.X - tPoint2.X;
-    const int nDiffY = tPoint1.Y - tPoint2.Y;
-    return nDiffY * nDiffY + nDiffX * nDiffX;
-}
-
-// 0x0067BBC0
-int __stdcall PATH_GetAdjacentPointDirection(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
-{
 // build: symbol ?gaPathDeltaTable@* 0x006F1E28
-    return gaPathDeltaTable[3 * (tPoint2.Y - tPoint1.Y) + (tPoint2.X - tPoint1.X)];
-}
 
 // 0x00646460
 int __stdcall SKILLS_GetSpecialParamValue(D2UnitStrc* pUnit, int nParamId, int nSkillId, int nSkillLevel)
@@ -4401,36 +4340,6 @@ static inline D2SkillStrc* SKILLS_GetSkillForceInl(D2UnitStrc* pUnit, int nSkill
     pSkill = 0;
 found:
     return pSkill;
-}
-
-// 0x0067AE00
-D2PathFoWallNodeStrc* __stdcall PATH_AStar_GetNodeFromPendingCache(D2PathFoWallContextStrc* pContext, D2PathPointStrc tPathPoint)
-{
-    const int nHash = (gaIdaStar_PointCacheHashMaskY[tPathPoint.Y & 0x7F] + gaIdaStar_PointCacheHashMaskX[tPathPoint.X & 0x7F]) & 0x7F;
-    for (D2PathFoWallNodeStrc* pNode = pContext->aPendingCache[nHash]; pNode != 0; pNode = pNode->pNextCachePoint)
-    {
-        if (tPathPoint.X == pNode->tPoint.X && tPathPoint.Y == pNode->tPoint.Y)
-        {
-            return pNode;
-        }
-    }
-
-    return 0;
-}
-
-// 0x0067AE50
-D2PathFoWallNodeStrc* __stdcall PATH_AStar_FindPointInVisitedCache(D2PathFoWallContextStrc* pContext, D2PathPointStrc tPathPoint)
-{
-    const int nHash = (gaIdaStar_PointCacheHashMaskY[tPathPoint.Y & 0x7F] + gaIdaStar_PointCacheHashMaskX[tPathPoint.X & 0x7F]) & 0x7F;
-    for (D2PathFoWallNodeStrc* pNode = pContext->aVisitedCache[nHash]; pNode != 0; pNode = pNode->pNextCachePoint)
-    {
-        if (tPathPoint.X == pNode->tPoint.X && tPathPoint.Y == pNode->tPoint.Y)
-        {
-            return pNode;
-        }
-    }
-
-    return 0;
 }
 
 // 0x00647EE0

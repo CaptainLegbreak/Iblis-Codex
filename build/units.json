@@ -2534,6 +2534,16 @@
      "name": "AUTOMAP_ScreenToMap"
     },
     {
+     "va": "0x0045B090",
+     "length": 1,
+     "name": "?sub_0045B090_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x0045B0A0",
+     "length": 1,
+     "name": "?sub_0045B0A0_Nop@@YAXXZ"
+    },
+    {
      "va": "0x0045B1E0",
      "length": 510,
      "name": "AUTOMAP_DrawUnitTileRect"
@@ -13720,9 +13730,18 @@
      "name": "VIEW_StartTimedBox"
     },
     {
+     "va": "0x0046B630",
+     "length": 75,
+     "name": "?sub_0046B630_FireLevelEvent@@YIXH@Z"
+    },
+    {
      "va": "0x0046B680",
      "length": 129,
      "name": "?VIEW_SpawnBrDeathControl@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046B850",
+     "length": 334
     },
     {
      "va": "0x0046B9A0",
@@ -13925,6 +13944,11 @@
      "va": "0x004944F0",
      "length": 251,
      "name": "VIEW_DrawHelpFrameHighRes"
+    },
+    {
+     "va": "0x004945F0",
+     "length": 42,
+     "name": "?sub_00494EB0@@YAXXZ"
     },
     {
      "va": "0x00494680",
@@ -14997,6 +15021,11 @@
      "name": "INV_HelpCloseButtonMsg"
     },
     {
+     "va": "0x004967A0",
+     "length": 52,
+     "name": "?sub_004967A0_KeyCloseHelp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x004967F0",
      "length": 395,
      "name": "?INV_LoadPanelCels@@YAXXZ"
@@ -15045,6 +15074,11 @@
      "va": "0x004AA710",
      "length": 40,
      "name": "?sub_004AA710_BuildLeftRows2@@YAXXZ"
+    },
+    {
+     "va": "0x004AA8B0",
+     "length": 47,
+     "name": "?sub_004AA8B0_GetSkillMaxLevel@@YIHH@Z"
     },
     {
      "va": "0x004AA8E0",
@@ -16490,6 +16524,16 @@
      "name": "?SCMD_ReadVarUnsignedShort@@YIIPAUD2BitBufferStrc@@@Z"
     },
     {
+     "va": "0x0045C370",
+     "length": 28,
+     "name": "?SEED_RollRandomNumber@@YI_KPATD2SeedStrc@@@Z"
+    },
+    {
+     "va": "0x0045C390",
+     "length": 75,
+     "name": "?SEED_RollLimitedRandomNumber@@YIIPATD2SeedStrc@@H@Z"
+    },
+    {
      "va": "0x0045C430",
      "length": 35,
      "name": "SCMD_SetUnitFlagEx"
@@ -17784,16 +17828,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0045B090",
-     "length": 1,
-     "name": "?sub_0045B090_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x0045B0A0",
-     "length": 1,
-     "name": "?sub_0045B0A0_Nop@@YAXXZ"
-    },
-    {
      "va": "0x0045B9D0",
      "length": 16,
      "name": "?sub_0045B9D0_Next@D2StormLinkStrc@@QAEPADXZ"
@@ -17970,24 +18004,9 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0045C370",
-     "length": 28,
-     "name": "?SEED_RollRandomNumber@@YI_KPATD2SeedStrc@@@Z"
-    },
-    {
-     "va": "0x0045C390",
-     "length": 75,
-     "name": "?SEED_RollLimitedRandomNumber@@YIIPATD2SeedStrc@@H@Z"
-    },
-    {
      "va": "0x0045C4B0",
      "length": 36,
      "name": "?sub_0045C4B0_GetSkillsTxtRecord@@YIPAUD2SkillsTxt@@H@Z"
-    },
-    {
-     "va": "0x004AA8B0",
-     "length": 47,
-     "name": "?sub_004AA8B0_GetSkillMaxLevel@@YIHH@Z"
     }
    ]
   },
@@ -18423,6 +18442,15 @@
      "va": "0x00478C90",
      "length": 114,
      "name": "?ROSTERPETS_DropPetEntry@@YIXH@Z"
+    },
+    {
+     "va": "0x00478D10",
+     "length": 113
+    },
+    {
+     "va": "0x00478D90",
+     "length": 173,
+     "name": "?sub_00478D90_GetPetRelation@@YIHH@Z"
     },
     {
      "va": "0x00478E40",
@@ -20098,11 +20126,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0046B630",
-     "length": 75,
-     "name": "?sub_0046B630_FireLevelEvent@@YIXH@Z"
-    },
-    {
      "va": "0x0046BFD0",
      "length": 30,
      "name": "?sub_0046BFD0_StartTimer@@YIXH@Z"
@@ -20118,10 +20141,6 @@
    "file": "Source/D2Client/Unknown_0046B850.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x0046B850",
-     "length": 334
-    },
     {
      "va": "0x0046C320",
      "length": 312
@@ -21445,6 +21464,16 @@
      "name": "?DLIGHTMAP_InitLightTables@@YAXXZ"
     },
     {
+     "va": "0x00475D20",
+     "length": 10,
+     "name": "?sub_00475D20_FreeIfSet@@YIXPAX@Z"
+    },
+    {
+     "va": "0x00475DE0",
+     "length": 10,
+     "name": "?sub_00475DE0_FreeIfSet@@YIXPAX@Z"
+    },
+    {
      "va": "0x00475DF0",
      "length": 185,
      "name": "?DLIGHTMAP_BuildLerpTables@@YAXXZ"
@@ -21453,6 +21482,21 @@
      "va": "0x00477680",
      "length": 6,
      "name": "DLIGHTMAP_GetLocalBloodPalette"
+    },
+    {
+     "va": "0x00477690",
+     "length": 5,
+     "name": "?sub_00477690_TogglePerspective@@YAHXZ"
+    },
+    {
+     "va": "0x004776A0",
+     "length": 5,
+     "name": "?sub_004776A0_ToggleBlendedShadows@@YAHXZ"
+    },
+    {
+     "va": "0x004776B0",
+     "length": 5,
+     "name": "?sub_004776B0_ToggleLowQuality@@YAHXZ"
     },
     {
      "va": "0x004776C0",
@@ -21586,16 +21630,6 @@
      "name": "?sub_00475C30_FreeIfSet@@YIXPAX@Z"
     },
     {
-     "va": "0x00475D20",
-     "length": 10,
-     "name": "?sub_00475D20_FreeIfSet@@YIXPAX@Z"
-    },
-    {
-     "va": "0x00475DE0",
-     "length": 10,
-     "name": "?sub_00475DE0_FreeIfSet@@YIXPAX@Z"
-    },
-    {
      "va": "0x00475EB0",
      "length": 51,
      "name": "?sub_00475EB0_FreeCels@@YAXXZ"
@@ -21664,21 +21698,6 @@
    "file": "Source/D2Client/Unknown_00477690.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00477690",
-     "length": 5,
-     "name": "?sub_00477690_TogglePerspective@@YAHXZ"
-    },
-    {
-     "va": "0x004776A0",
-     "length": 5,
-     "name": "?sub_004776A0_ToggleBlendedShadows@@YAHXZ"
-    },
-    {
-     "va": "0x004776B0",
-     "length": 5,
-     "name": "?sub_004776B0_ToggleLowQuality@@YAHXZ"
-    },
     {
      "va": "0x004776D0",
      "length": 13,
@@ -21889,15 +21908,6 @@
    "file": "Source/D2Client/Unknown_00478D10.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00478D10",
-     "length": 113
-    },
-    {
-     "va": "0x00478D90",
-     "length": 173,
-     "name": "?sub_00478D90_GetPetRelation@@YIHH@Z"
-    },
     {
      "va": "0x00478E70",
      "length": 101,
@@ -24417,6 +24427,11 @@
      "name": "?HIREABLES_FreeHelpCels@@YAXXZ"
     },
     {
+     "va": "0x00494FC0",
+     "length": 35,
+     "name": "?sub_00494FC0@@YAXXZ"
+    },
+    {
      "va": "0x00495030",
      "length": 323,
      "name": "?sub_00495030_DrawKeyHelp@@YAXXZ"
@@ -24604,11 +24619,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x004945F0",
-     "length": 42,
-     "name": "?sub_00494EB0@@YAXXZ"
-    },
-    {
      "va": "0x004952B0",
      "length": 107,
      "name": "sub_004952B0_ButtonDownMsg"
@@ -24617,11 +24627,6 @@
      "va": "0x00495320",
      "length": 155,
      "name": "sub_00495320_ButtonUpMsg"
-    },
-    {
-     "va": "0x004967A0",
-     "length": 52,
-     "name": "?sub_004967A0_KeyCloseHelp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     }
    ]
   },
@@ -24633,11 +24638,6 @@
      "va": "0x00494EB0",
      "length": 42,
      "name": "?sub_00494EB0@@YAXXZ"
-    },
-    {
-     "va": "0x00494FC0",
-     "length": 35,
-     "name": "?sub_00494FC0@@YAXXZ"
     }
    ]
   },
@@ -24821,6 +24821,10 @@
      "name": "?PANEL_DrawControlPanel@@YAXXZ"
     },
     {
+     "va": "0x00499500",
+     "length": 415
+    },
+    {
      "va": "0x004996A0",
      "length": 1289
     },
@@ -24889,10 +24893,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00499500",
-     "length": 415
-    },
-    {
      "va": "0x00499E50",
      "length": 240,
      "name": "sub_00499E50_DrawPanelQuad"
@@ -24906,11 +24906,6 @@
      "va": "0x0049A9B0",
      "length": 154,
      "name": "?sub_0049A9B0_RefreshRosterIndices@@YAXXZ"
-    },
-    {
-     "va": "0x004A9E60",
-     "length": 339,
-     "name": "sub_004A9E60_AssignHotkey"
     },
     {
      "va": "0x004AAAE0",
@@ -26234,6 +26229,15 @@
      "name": "SPELLSEL_SkillSelectClickMsg"
     },
     {
+     "va": "0x004A9D70",
+     "length": 115
+    },
+    {
+     "va": "0x004A9E60",
+     "length": 339,
+     "name": "sub_004A9E60_AssignHotkey"
+    },
+    {
      "va": "0x004AA3A0",
      "length": 736,
      "name": "?SPELLSEL_BuildSkillRows@@YIXPAUD2UnitStrc@@HHHH@Z"
@@ -26258,10 +26262,6 @@
    "file": "Source/D2Client/Unknown_004A9D70.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004A9D70",
-     "length": 115
-    },
     {
      "va": "0x004AA1F0",
      "length": 428,
@@ -27124,6 +27124,11 @@
      "name": "?NPCMENU_CloseHireDialog@@YAHXZ"
     },
     {
+     "va": "0x004B6390",
+     "length": 120,
+     "name": "?sub_004B6390_HandleNpcTransaction@@YIXPAUD2GSPacketSrv2A@@@Z"
+    },
+    {
      "va": "0x004B6410",
      "length": 35,
      "name": "?NPCMENU_InitHireHandler@@YAHXZ"
@@ -27232,11 +27237,6 @@
    "file": "Source/D2Client/Unknown_004B6390.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004B6390",
-     "length": 120,
-     "name": "?sub_004B6390_HandleNpcTransaction@@YIXPAUD2GSPacketSrv2A@@@Z"
-    },
     {
      "va": "0x004B6C70",
      "length": 147,
@@ -31696,11 +31696,6 @@
      "va": "0x004E1C80",
      "length": 170,
      "name": "?sub_004E1C80_CltMissileInitDiabWall@@YIXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004E1E30",
-     "length": 29,
-     "name": "?sub_004E1E30_SkillClearSkillFlags@@YIHPAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -31944,6 +31939,11 @@
      "name": "SKILLSMON_FireVolley"
     },
     {
+     "va": "0x004E1E30",
+     "length": 29,
+     "name": "?sub_004E1E30_SkillClearSkillFlags@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004E1E50",
      "length": 409,
      "name": "SKILLSMON_ChargeFrames"
@@ -32003,6 +32003,10 @@
      "name": "SKILLSMON_SetParamTimes"
     },
     {
+     "va": "0x004F0830",
+     "length": 630
+    },
+    {
      "va": "0x004F0AB0",
      "length": 151,
      "name": "SKILLSMON_StartTimedState"
@@ -32056,6 +32060,11 @@
      "va": "0x004F3EB0",
      "length": 148,
      "name": "sub_004F3EB0_CheckTargetRoom"
+    },
+    {
+     "va": "0x004F3FB0",
+     "length": 65,
+     "name": "?sub_004F3FB0_GetTargetMonster@@YIPAUD2UnitStrc@@PAU1@@Z"
     },
     {
      "va": "0x004F4610",
@@ -32463,11 +32472,6 @@
      "va": "0x004E40A0",
      "length": 85,
      "name": "?sub_004E40A0@@YIHH@Z"
-    },
-    {
-     "va": "0x004E4200",
-     "length": 17,
-     "name": "?sub_004E4200_GetFloatIfEnabled@@YAMXZ"
     }
    ]
   },
@@ -32771,6 +32775,11 @@
      "va": "0x004E4180",
      "length": 91,
      "name": "?sub_004E4180@@YIHHHH@Z"
+    },
+    {
+     "va": "0x004E4200",
+     "length": 17,
+     "name": "?sub_004E4200_GetFloatIfEnabled@@YAMXZ"
     },
     {
      "va": "0x004E42E0",
@@ -33122,6 +33131,11 @@
      "length": 1189
     },
     {
+     "va": "0x004EDA80",
+     "length": 171,
+     "name": "sub_004EDA80_CallSkillDescFunc"
+    },
+    {
      "va": "0x004F16F0",
      "length": 337,
      "name": "MISSILE_CreateMissileVolley"
@@ -33131,20 +33145,59 @@
      "length": 586
     },
     {
+     "va": "0x004F2010",
+     "length": 79,
+     "name": "?sub_004F2010_CheckTarget@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004F2160",
+     "length": 76,
+     "name": "?sub_004F2160_DecrementParam@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004F21B0",
      "length": 171
+    },
+    {
+     "va": "0x004F23E0",
+     "length": 82,
+     "name": "?sub_004F23E0_AuraStateOff@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004F2440",
+     "length": 12,
+     "name": "?sub_004F2440_ClearState@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004F2870",
+     "length": 33,
+     "name": "?sub_004F2870_TargetIsPlayerOrMonster@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004F28A0",
      "length": 321
     },
     {
+     "va": "0x004F2AC0",
+     "length": 93,
+     "name": "?sub_004F2AC0_MissileInit@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
      "va": "0x004F2BE0",
+     "length": 494
+    },
+    {
+     "va": "0x004F4A30",
      "length": 494
     },
     {
      "va": "0x004F4D90",
      "length": 300
+    },
+    {
+     "va": "0x004F4EC0",
+     "length": 121,
+     "name": "?sub_004F4EC0_GetSkillOverlay@@YIHPAUD2UnitStrc@@HHH@Z"
     }
    ],
    "flags": [
@@ -33166,11 +33219,6 @@
    "file": "Source/D2Client/Unknown_004EDA80.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004EDA80",
-     "length": 171,
-     "name": "sub_004EDA80_CallSkillDescFunc"
-    },
     {
      "va": "0x004F03C0",
      "length": 112,
@@ -33207,39 +33255,9 @@
      "name": "?sub_004F0EF0_UpdateRiderPath@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x004F2010",
-     "length": 79,
-     "name": "?sub_004F2010_CheckTarget@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F2160",
-     "length": 76,
-     "name": "?sub_004F2160_DecrementParam@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F23E0",
-     "length": 82,
-     "name": "?sub_004F23E0_AuraStateOff@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F2440",
-     "length": 12,
-     "name": "?sub_004F2440_ClearState@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
      "va": "0x004F26D0",
      "length": 67,
      "name": "?sub_004F26D0_ApplyCltCalc@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F2870",
-     "length": 33,
-     "name": "?sub_004F2870_TargetIsPlayerOrMonster@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F2AC0",
-     "length": 93,
-     "name": "?sub_004F2AC0_MissileInit@@YIXPAUD2UnitStrc@@H@Z"
     }
    ]
   },
@@ -33250,10 +33268,6 @@
     {
      "va": "0x004EDCA0",
      "length": 289
-    },
-    {
-     "va": "0x004F0830",
-     "length": 630
     }
    ],
    "flags": [
@@ -33465,11 +33479,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x004F3FB0",
-     "length": 65,
-     "name": "?sub_004F3FB0_GetTargetMonster@@YIPAUD2UnitStrc@@PAU1@@Z"
-    },
-    {
      "va": "0x004F4140",
      "length": 14,
      "name": "?sub_004F4140_CanThrowCheck@@YIHPAUD2UnitStrc@@HH@Z"
@@ -33478,10 +33487,6 @@
      "va": "0x004F4150",
      "length": 29,
      "name": "?sub_004F4150_ClearSkillParam@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004F4A30",
-     "length": 494
     }
    ]
   },
@@ -33610,11 +33615,6 @@
    "file": "Source/D2Client/Unknown_004F4EC0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004F4EC0",
-     "length": 121,
-     "name": "?sub_004F4EC0_GetSkillOverlay@@YIHPAUD2UnitStrc@@HHH@Z"
-    },
     {
      "va": "0x004F4FF0",
      "length": 39,
@@ -43939,11 +43939,6 @@
      "name": "OBJECTS_CompareDescending"
     },
     {
-     "va": "0x00569EC0",
-     "length": 81,
-     "name": "PLRSAVE2_UnpackWord"
-    },
-    {
      "va": "0x0056CD50",
      "length": 66,
      "name": "SKILL_ComputePeriodicRate"
@@ -49683,6 +49678,11 @@
      "name": "PLRSAVE2_CheckPlayerFlags"
     },
     {
+     "va": "0x00569EC0",
+     "length": 81,
+     "name": "PLRSAVE2_UnpackWord"
+    },
+    {
      "va": "0x00569F20",
      "length": 91,
      "name": "PLRSAVE2_InitPlayerFromClient"
@@ -53171,11 +53171,6 @@
      "length": 81
     },
     {
-     "va": "0x00587F60",
-     "length": 96,
-     "name": "?ACT5Q2_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
      "va": "0x00588C50",
      "length": 67,
      "name": "?ACT5Q2_GetBarbsToBeRescued@@YIHPAUD2QuestDataStrc@@@Z"
@@ -53214,6 +53209,11 @@
      "va": "0x00587F20",
      "length": 63,
      "name": "?ACT1Q1_Callback10_PlayerLeavesGame@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x00587F60",
+     "length": 96,
+     "name": "?ACT5Q2_UnitIterate_SetCompletionFlag@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x00587FC0",
@@ -72410,11 +72410,6 @@
      "va": "0x00675770",
      "length": 103,
      "name": "?DRLGOUTPLACE_SetOutGridLinkFlags@@YIXPAUD2DrlgLevelStrc@@@Z"
-    },
-    {
-     "va": "0x0067B1C0",
-     "length": 59,
-     "name": "?PATH_AStar_AllocNewNode@@YIPAUD2DrlgTableEntryStrc@@PAUD2DrlgEntryTableStrc@@@Z"
     }
    ]
   },
@@ -73296,11 +73291,6 @@
      "name": "SKILLS_GetModeSideChar"
     },
     {
-     "va": "0x00678B40",
-     "length": 55,
-     "name": "sub_00678B40_PathHeuristic"
-    },
-    {
      "va": "0x00679380",
      "length": 90,
      "name": "PATH_GetTableHeuristic"
@@ -73314,36 +73304,6 @@
      "va": "0x0067A550",
      "length": 55,
      "name": "sub_0067A550_PathHeuristic"
-    },
-    {
-     "va": "0x0067A5F0",
-     "length": 60,
-     "name": "PATH_IsPointInBounds"
-    },
-    {
-     "va": "0x0067ADC0",
-     "length": 53,
-     "name": "PATH_AStar_Heuristic"
-    },
-    {
-     "va": "0x0067AE00",
-     "length": 74,
-     "name": "PATH_AStar_GetNodeFromPendingCache"
-    },
-    {
-     "va": "0x0067AE50",
-     "length": 78,
-     "name": "PATH_AStar_FindPointInVisitedCache"
-    },
-    {
-     "va": "0x0067B9C0",
-     "length": 41,
-     "name": "PATH_GetSquaredDistanceBetweenPoints"
-    },
-    {
-     "va": "0x0067BBC0",
-     "length": 47,
-     "name": "PATH_GetAdjacentPointDirection"
     }
    ]
   },
@@ -77974,6 +77934,11 @@
      "length": 43
     },
     {
+     "va": "0x00678B40",
+     "length": 55,
+     "name": "sub_00678B40_PathHeuristic"
+    },
+    {
      "va": "0x00678B80",
      "length": 133,
      "name": "?sub_6FDAB610@@YIHHHHH@Z"
@@ -78384,6 +78349,16 @@
      "length": 353
     },
     {
+     "va": "0x0067B9C0",
+     "length": 41,
+     "name": "PATH_GetSquaredDistanceBetweenPoints"
+    },
+    {
+     "va": "0x0067BBC0",
+     "length": 47,
+     "name": "PATH_GetAdjacentPointDirection"
+    },
+    {
      "va": "0x0067BDF0",
      "length": 1008
     }
@@ -78411,6 +78386,11 @@
      "va": "0x0067A590",
      "length": 62,
      "name": "?PATH_IDAStar_GetNewNode@@YAPAUD2PathIDAStarNodeStrc@@PAUD2PathIDAStarContextStrc@@@Z"
+    },
+    {
+     "va": "0x0067A5F0",
+     "length": 60,
+     "name": "PATH_IsPointInBounds"
     }
    ]
   },
@@ -78482,6 +78462,26 @@
    "file": "Source/D2Common/Unknown_0067B740.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x0067ADC0",
+     "length": 53,
+     "name": "PATH_AStar_Heuristic"
+    },
+    {
+     "va": "0x0067AE00",
+     "length": 74,
+     "name": "PATH_AStar_GetNodeFromPendingCache"
+    },
+    {
+     "va": "0x0067AE50",
+     "length": 78,
+     "name": "PATH_AStar_FindPointInVisitedCache"
+    },
+    {
+     "va": "0x0067B1C0",
+     "length": 59,
+     "name": "?PATH_AStar_AllocNewNode@@YIPAUD2DrlgTableEntryStrc@@PAUD2DrlgEntryTableStrc@@@Z"
+    },
     {
      "va": "0x0067B740",
      "length": 263

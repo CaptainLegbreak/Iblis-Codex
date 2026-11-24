@@ -42,26 +42,6 @@ extern short gwGlobal_00726E9B;                                                 
 extern int (__cdecl* gpfnGlobal_00726EA7)();                                                                // 0x00726EA7
 extern short gwGlobal_007272DF;                                                                             // 0x007272DF
 
-// 0x004B6390
-void __fastcall sub_004B6390_HandleNpcTransaction(D2GSPacketSrv2A* pPacket)
-{
-    gtPacket2A = *pPacket;
-// build: symbol ?gnNpcGoldSnapshot@* 0x007C0C73
-    gnNpcGoldSnapshot = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), STAT_GOLD, 0);
-// build: symbol ?gnNpcMenuState@* 0x007C0C6B
-    if (gnNpcMenuState == 5)
-    {
-        NPCMENU_OnTransactionResult();
-        return;
-    }
-    if (gnNpcMenuState == 10)
-    {
-        sub_004B5640_OpenNpcMenu();
-        return;
-    }
-    if (pPacket->unk0x02 == 1)
-        sub_004B9A00(0xDD, 0, 0, 0, 0);
-}
 
 
 // 0x004B6C70

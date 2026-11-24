@@ -97,69 +97,6 @@ static int __cdecl sub_00497780_Bounds(int nX,int nY)
     return 0;
 }
 
-// 0x00499500
-void __stdcall sub_00499500_Click(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (GAME_IsExitPending() || sub_00463DF0_StateBlocked())
-    {
-        pMsg->bReturn=0;
-        return;
-    }
-    int nY=pMsg->nYpos;
-    int nX=pMsg->nXpos;
-    if (sub_00498DC0_OverlayHit(pMsg))
-    {
-        gbControlPanelClicked=1;
-        pMsg->bReturn=1;
-        pMsg->lResult=0;
-        sub_00420290_BreakHandlerChain(pMsg);
-        return;
-    }
-    int nHeight=gnScreenHeight;
-    if (nY>nHeight + -48)
-    {
-        int nWidth;
-        if ((unsigned int)(nX + -117)<=48 && nY<=nHeight)
-        {
-            gbControlPanelClicked=1;
-            gbLeftSkillButtonDown=1;
-        }
-        else if (nX>=(nWidth=gnScreenWidth) + -165 && nX<=nWidth + -117 && nY<=nHeight)
-        {
-            gbControlPanelClicked=1;
-            gbRightSkillButtonDown=1;
-        }
-        else if ((unsigned int)(nX + -30)<=80 && nY>=nHeight + -75 && nY<=nHeight + -15)
-        {
-            gdwShowHpText=!gdwShowHpText;
-            sub_004150E0_SaveValue("Diablo II","Show HP Text",0,gdwShowHpText);
-        }
-        else if (nX>=nWidth + -111 && nX<=nWidth + -31 && nY>=nHeight + -75 && nY<=nHeight + -15)
-        {
-            gdwShowMpText=!gdwShowMpText;
-            sub_004150E0_SaveValue("Diablo II","Show MP Text",0,gdwShowMpText);
-        }
-        else if (sub_00497780_Bounds(nX,nY))
-        {
-            gbMiniPanelButtonDown=1;
-            gbControlPanelClicked=1;
-            sub_004B9A00_Sound(4,0,0,0,0);
-        }
-        else if (sub_00497440_Bounds(nX,nY))
-        {
-            gbRunButtonDown=1;
-            gbControlPanelClicked=1;
-            sub_004B9A00_Sound(4,0,0,0,0);
-        }
-// build: symbol ?gbControlPanelMouseDown@* 0x00722358
-        gbControlPanelMouseDown=1;
-        pMsg->bReturn=1;
-        pMsg->lResult=0;
-        sub_00420290_BreakHandlerChain(pMsg);
-        return;
-    }
-    pMsg->bReturn=0;
-}
 
 #include "gen/data/Source/D2Client/Unknown_00499500.inc"
 
@@ -187,47 +124,6 @@ void __cdecl sub_00499E50_DrawPanelQuad()
     sub_004F6480(&tContext, gnPanelOffsetX + 256, gnScreenHeight + gnPanelOffsetY - 48, -1, 5, 0);
 }
 
-// 0x004A9E60
-void __fastcall sub_004A9E60_AssignHotkey(int nHotkey)
-{
-    for (int i = 0; i < 60; ++i)
-    {
-        const int nY = gtHotkeySlots_007C0300.nY[i];
-        const int nX = gtHotkeySlots_007C0300.nX[i];
-        const int nMouseX = sub_00468730();
-        const int nMouseY = sub_00468740();
-        if (nMouseX >= nX && nMouseX <= nX + 48 && nMouseY >= nY - 48 && nMouseY <= nY)
-        {
-            if (gaHotkeySkills[nHotkey] != -1)
-            {
-                MSG_SendTwoDwords(0x51, (nHotkey << 16) + 0xFFFF, -1);
-            }
-
-            gaHotkeySkills[nHotkey] = gtHotkeySlots_007C0300.nSkill[i];
-            if (!gbSkillSelectRight)
-            {
-                gaHotkeyLeft[nHotkey] = 0;
-            }
-            else
-            {
-                gaHotkeyLeft[nHotkey] = 1;
-            }
-            gaHotkeyOwners[nHotkey] = gtHotkeySlots_007C0300.f_2D0[i];
-            MSG_SendTwoDwords(0x51, (nHotkey << 16) + (gaHotkeyLeft[nHotkey] ? 0x8000 : 0) + gaHotkeySkills[nHotkey], gaHotkeyOwners[nHotkey]);
-
-            for (int j = 0; j < 16; ++j)
-            {
-                if (gaHotkeySkills[nHotkey] == gaHotkeySkills[j] && gaHotkeyOwners[nHotkey] == gaHotkeyOwners[j] && nHotkey != j)
-                {
-                    gaHotkeySkills[j] = -1;
-                    gaHotkeyLeft[j] = -1;
-                    gaHotkeyOwners[j] = -1;
-                    MSG_SendTwoDwords(0x51, (j << 16) + 0xFFFF, -1);
-                }
-            }
-        }
-    }
-}
 
 // 0x004AAAE0
 void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage)

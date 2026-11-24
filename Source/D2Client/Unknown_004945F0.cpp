@@ -17,12 +17,6 @@ extern int gbHelpButtonVisible; // 0x007BEF08
 
 unsigned char gnHelpShadeColor; // 0x007BEEF8
 
-// 0x004945F0
-void __cdecl sub_00494EB0()
-{
-    sub_00499E30();
-    AUTOMAP_DrawFramedBox(0, 0, gnScreenWidth, gnScreenHeight - 0x31, gnHelpShadeColor, 1);
-}
 
 void __cdecl sub_00494FC0()
 {
@@ -81,13 +75,3 @@ void __stdcall sub_00495320_ButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
 
 int gbHelpUiOpened; // 0x007BEF00
 
-// 0x004967A0
-void __stdcall sub_004967A0_KeyCloseHelp(SMSGHANDLER_PARAMS* pMsg)
-{
-    UI_SetUIVar(0x21, 1, 0);
-    if (gbHelpUiOpened)
-    {
-        UI_SetUIVar(0x15, 1, 0);
-        gbHelpUiOpened = 0;
-    }
-}

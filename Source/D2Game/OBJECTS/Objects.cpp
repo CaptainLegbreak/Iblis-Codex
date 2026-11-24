@@ -2824,26 +2824,6 @@ int __cdecl OBJECTS_CompareDescending(const unsigned int* pValue1, const unsigne
     return nValue1 != nValue2;
 }
 
-// 0x00569EC0
-void __fastcall PLRSAVE2_UnpackWord(D2PackedWordStrc* pPacked, int* pId, int* pFlag, int* pCount)
-{
-    if (pPacked->wRaw == 0xFFFF)
-    {
-        *pId = -1;
-        *pFlag = 0;
-        *pCount = -1;
-        return;
-    }
-
-    *pId = pPacked->nId;
-    *pFlag = pPacked->bFlag;
-    *pCount = pPacked->nCount;
-    if (!*pCount)
-    {
-        *pCount = -1;
-    }
-}
-
 // 0x0056CD50
 int __fastcall SKILL_ComputePeriodicRate(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel)
 {

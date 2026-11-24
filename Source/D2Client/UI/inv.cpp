@@ -9402,6 +9402,18 @@ void __stdcall INV_HelpCloseButtonMsg(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_HandleMsg(pMsg);
 }
 
+// 0x004967A0
+void __stdcall sub_004967A0_KeyCloseHelp(SMSGHANDLER_PARAMS* pMsg)
+{
+    UI_SetUIVar(0x21, 1, 0);
+    if (gbHelpUiOpened)
+    {
+        UI_SetUIVar(0x15, 1, 0);
+        gbHelpUiOpened = 0;
+    }
+}
+
+
 // 0x004967F0
 void __cdecl INV_LoadPanelCels()
 {
@@ -9593,6 +9605,19 @@ void __cdecl sub_004AA710_BuildLeftRows2()
     if (!gbSkillSelectRight)
         SPELLSEL_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), gnScreenWidth - 0x80, 0, 1, 0);
 }
+
+// 0x004AA8B0
+int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        const int nValue = sgptDataTables->pSkillsTxt[nSkillId].nMaxLevel;
+        if (nValue > 0)
+            return nValue;
+    }
+    return 20;
+}
+
 
 // 0x004AA8E0
 void __cdecl sub_004AA8E0_ClearValue7C0C3C()
