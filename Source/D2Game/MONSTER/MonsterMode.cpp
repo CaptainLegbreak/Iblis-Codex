@@ -593,24 +593,7 @@ static inline int UNITS_GetYPosition_Static(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-// 0x005A5650
-unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return 0x80;
-    }
-
-    const int nHitpoints = STATLIST_UnitGetStatValue(pUnit, 6, 0) >> 8;
-    const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pUnit) >> 8;
-    if (nMaxHp > 0 && nHitpoints < nMaxHp)
-    {
-        return (nHitpoints << 7) / nMaxHp;
-    }
-
-    return 0x80;
-}
-
+unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit); // 0x005A5650
 void __fastcall PARTYSCREEN_PlayerLeftParty(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nParam, int* pFailure); // 0x005A5D20
 
 // 0x005A6190

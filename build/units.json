@@ -54637,16 +54637,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x005A54F0",
-     "length": 109,
-     "name": "MONSTERMODE_AddSandLeaperKnockback"
-    },
-    {
-     "va": "0x005A60E0",
-     "length": 77,
-     "name": "FRIENDLY_OpenHostility"
-    },
-    {
      "va": "0x005A87B0",
      "length": 54,
      "name": "?MISSMODE_UnitFindCallback_CanCollideWithMonster@@YIHPAUD2UnitStrc@@PAX@Z"
@@ -55790,11 +55780,6 @@
     {
      "va": "0x005A4940",
      "length": 109
-    },
-    {
-     "va": "0x005A6130",
-     "length": 94,
-     "name": "MONSTERUNIQUE_AreUnitsFriendly"
     }
    ]
   },
@@ -55875,11 +55860,6 @@
     "/Ob1"
    ],
    "functions": [
-    {
-     "va": "0x005A5650",
-     "length": 62,
-     "name": "?MONSTERMODE_GetHpPercent128@@YIEPAUD2UnitStrc@@@Z"
-    },
     {
      "va": "0x005A6190",
      "length": 23,
@@ -56203,17 +56183,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005A4200.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005A5560",
-     "length": 232,
-     "name": "?D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70@@YIXPAUD2UnitStrc@@0PAUD2DamageStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/MONSTER/MonsterEval.cpp",
    "rank": 0,
    "functions": [
@@ -56240,6 +56209,21 @@
      "va": "0x005A5490",
      "length": 86,
      "name": "MONSTERMODE_AllocateTargetCombat"
+    },
+    {
+     "va": "0x005A54F0",
+     "length": 109,
+     "name": "MONSTERMODE_AddSandLeaperKnockback"
+    },
+    {
+     "va": "0x005A5560",
+     "length": 232,
+     "name": "?D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70@@YIXPAUD2UnitStrc@@0PAUD2DamageStrc@@@Z"
+    },
+    {
+     "va": "0x005A5650",
+     "length": 62,
+     "name": "?MONSTERMODE_GetHpPercent128@@YIEPAUD2UnitStrc@@@Z"
     }
    ]
   },
@@ -56381,6 +56365,16 @@
      "va": "0x005A6080",
      "length": 82,
      "name": "?FRIENDLY_RemoveHostility@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
+    {
+     "va": "0x005A60E0",
+     "length": 77,
+     "name": "FRIENDLY_OpenHostility"
+    },
+    {
+     "va": "0x005A6130",
+     "length": 94,
+     "name": "MONSTERUNIQUE_AreUnitsFriendly"
     }
    ]
   },

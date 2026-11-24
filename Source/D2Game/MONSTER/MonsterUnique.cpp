@@ -2206,43 +2206,6 @@ void __fastcall MONSTERUNIQUE_KillMinions(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 }
 
 
-// 0x005A6130
-int __fastcall MONSTERUNIQUE_AreUnitsFriendly(D2GameStrc* pGame, D2UnitStrc* pUnit1, D2UnitStrc* pUnit2)
-{
-    int nType1 = UNIT_INVALID;
-    if (pUnit1)
-    {
-        nType1 = pUnit1->dwUnitType;
-    }
-
-    switch (nType1)
-    {
-    case UNIT_PLAYER:
-        return !PLAYERLIST_CheckFlag(pUnit1, pUnit2, PLAYERLIST_FLAG_HOSTILE);
-
-    case UNIT_MONSTER:
-    {
-        int nType2 = UNIT_INVALID;
-        if (pUnit2)
-        {
-            nType2 = pUnit2->dwUnitType;
-        }
-
-        switch (nType2)
-        {
-        case UNIT_PLAYER:
-            return !PLAYERLIST_CheckFlag(pUnit2, pUnit1, PLAYERLIST_FLAG_HOSTILE);
-
-        case UNIT_MONSTER:
-            return STATLIST_AreUnitsAligned(pUnit1, pUnit2);
-        }
-        break;
-    }
-    }
-
-    return 0;
-}
-
 // 0x005A09E0
 static D2UnitStrc* __stdcall MONSTERUNIQUE_SpawnUniqueMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nX, int nY, int nUnitGUID, int nClassId, int bAvoidWarps)
 {
