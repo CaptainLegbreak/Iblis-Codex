@@ -50,7 +50,7 @@ struct D2ImageHlpSymbolStrc;
 
 struct D2ImageHlpModuleStrc;
 
-struct T0040D1C0;
+struct D2CrashDumpRecordStrc;
 
 struct D2CrashDumpEntryStrc;
 
@@ -360,10 +360,10 @@ StackWalkFn gpfnStackWalk; // 0x0075D008
 
 extern unsigned int gnStackWalkDepth; // 0x0075D018
 
-struct T0040D1C0
+struct D2CrashDumpRecordStrc
 {
-    unsigned long f_0;
-    unsigned long f_4;
+    unsigned long dwHeader0;
+    unsigned long dwHeader1;
     unsigned long dwType;
     int nCount;
     unsigned long adwData[8];
@@ -1423,14 +1423,14 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
 void __fastcall EXCEPTIONS_AppendCrashDump(unsigned long dwHeader0, unsigned long dwHeader1, unsigned long dwType, int nCount, const void* pData)
 {
     char szPath[0x104];
-    T0040D1C0 tRecord;
+    D2CrashDumpRecordStrc tRecord;
     LOGMANAGER_GetLogDirectory(szPath, 0x104);
     SStrPack(szPath, "Crashdump", 0x104);
     _iobuf* pFile = fopen(szPath, "ab");
     if (pFile)
     {
-        tRecord.f_0 = dwHeader0;
-        tRecord.f_4 = dwHeader1;
+        tRecord.dwHeader0 = dwHeader0;
+        tRecord.dwHeader1 = dwHeader1;
         tRecord.dwType = dwType;
         tRecord.nCount = nCount;
         SMemCopy(tRecord.adwData, pData, nCount * 4);
