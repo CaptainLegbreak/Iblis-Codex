@@ -3,13 +3,13 @@
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-D2GlideTexCacheEntryStrc* __fastcall GLIDE_TexCacheUnlink(D2GlideTexCacheStrc* pCache, int nIndex); // 0x0050EAE0
+D2GlideTexCacheEntryStrc* __fastcall GLSMACK_TexCacheUnlink(D2GlideTexCacheStrc* pCache, int nIndex); // 0x0050EAE0
 
-void __fastcall GLIDE_SetTextureCombineMode(int nTmu); // 0x00509460
-void __fastcall GLIDE_TexCacheEvict(D2GlideTexCacheStrc* pCache); // 0x0050EC40
-void __fastcall GLIDE_FloorCacheTouch(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F670
-void __fastcall GLIDE_FloorCacheEvict(D2GlideFloorCacheStrc* pCache); // 0x0050F6D0
-short __fastcall GLIDE_FloorCacheAdd(D2GlideFloorCacheStrc* pCache); // 0x0050F820
+void __fastcall GLCORE_SetTextureCombineMode(int nTmu); // 0x00509460
+void __fastcall GLSMACK_TexCacheEvict(D2GlideTexCacheStrc* pCache); // 0x0050EC40
+void __fastcall GLFLOORCACHE_FloorCacheTouch(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F670
+void __fastcall GLSMACK_FloorCacheEvict(D2GlideFloorCacheStrc* pCache); // 0x0050F6D0
+short __fastcall GLFLOORCACHE_FloorCacheAdd(D2GlideFloorCacheStrc* pCache); // 0x0050F820
 void __stdcall sub_0050F980_DecodeTileBlocks(D2TileLibraryEntryStrc* pTile, unsigned char* pDst); // 0x0050F980
 extern D2GrTexInfoStrc gtGlideFloorTexInfo; // 0x0072F6BC
 extern void (__stdcall* gpfnGrTexDownloadMipMap)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EAB8
@@ -20,7 +20,7 @@ extern unsigned char* gpGlideFloorDecodeBuffer; // 0x00880C00
 int gdwGlobal_0087EFB8; // 0x0087EFB8
 
 // 0x0050E890
-int __fastcall GLIDE_TexCacheInit(D2GlideTexCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nBlockSize)
+int __fastcall GLTEXTURECACHE_TexCacheInit(D2GlideTexCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nBlockSize)
 {
     const int nCount = (nEnd - nStart) / nBlockSize;
     pCache->nBlockSize = nBlockSize;
@@ -78,7 +78,7 @@ int __fastcall GLIDE_TexCacheInit(D2GlideTexCacheStrc* pCache, unsigned int nSta
 }
 
 // 0x0050EA40
-static __declspec(noinline) void GLIDE_TexCacheAppendUsed(D2GlideTexCacheEntryStrc* pEntry, D2GlideTexCacheStrc* pCache)
+static __declspec(noinline) void GLTEXTURECACHE_TexCacheAppendUsed(D2GlideTexCacheEntryStrc* pEntry, D2GlideTexCacheStrc* pCache)
 {
     if (!pCache->pHead)
     {
@@ -93,19 +93,19 @@ static __declspec(noinline) void GLIDE_TexCacheAppendUsed(D2GlideTexCacheEntrySt
 }
 
 // 0x0050EBE0
-void __fastcall GLIDE_TexCacheTouch(D2GlideTexCacheStrc* pCache, int nId)
+void __fastcall GLTEXTURECACHE_TexCacheTouch(D2GlideTexCacheStrc* pCache, int nId)
 {
     if (pCache->nUsed > 1)
     {
         D2_ASSERT(nId, 0xDE);
         D2_ASSERT(nId <= pCache->nCount, 0xDF);
         D2_ASSERT(nId >= 1, 0xE0);
-        GLIDE_TexCacheAppendUsed(GLIDE_TexCacheUnlink(pCache, nId - 1), pCache);
+        GLTEXTURECACHE_TexCacheAppendUsed(GLSMACK_TexCacheUnlink(pCache, nId - 1), pCache);
     }
 }
 
 // 0x0050EA60
-static void GLIDE_TexCacheAppendFree(D2GlideTexCacheEntryStrc* pEntry, D2GlideTexCacheStrc* pCache)
+static void GLTEXTURECACHE_TexCacheAppendFree(D2GlideTexCacheEntryStrc* pEntry, D2GlideTexCacheStrc* pCache)
 {
     if (!pCache->pFreeHead)
     {
@@ -119,7 +119,7 @@ static void GLIDE_TexCacheAppendFree(D2GlideTexCacheEntryStrc* pEntry, D2GlideTe
 }
 
 // 0x0050EA80
-static D2GlideTexCacheEntryStrc* GLIDE_TexCachePopUsed(D2GlideTexCacheStrc* pCache)
+static D2GlideTexCacheEntryStrc* GLTEXTURECACHE_TexCachePopUsed(D2GlideTexCacheStrc* pCache)
 {
     D2GlideTexCacheEntryStrc* pEntry = pCache->pHead;
     if (!pEntry)
@@ -135,7 +135,7 @@ static D2GlideTexCacheEntryStrc* GLIDE_TexCachePopUsed(D2GlideTexCacheStrc* pCac
 }
 
 // 0x0050EAB0
-static D2GlideTexCacheEntryStrc* GLIDE_TexCachePopFree(D2GlideTexCacheStrc* pCache)
+static D2GlideTexCacheEntryStrc* GLTEXTURECACHE_TexCachePopFree(D2GlideTexCacheStrc* pCache)
 {
     D2GlideTexCacheEntryStrc* pEntry = pCache->pFreeHead;
     if (!pEntry)
@@ -151,7 +151,7 @@ static D2GlideTexCacheEntryStrc* GLIDE_TexCachePopFree(D2GlideTexCacheStrc* pCac
 }
 
 // 0x0050EF60
-static void GLIDE_TileCacheAppendFree(D2GlideTileCacheEntryStrc* pEntry, D2GlideTileCacheStrc* pCache)
+static void GLTEXTURECACHE_TileCacheAppendFree(D2GlideTileCacheEntryStrc* pEntry, D2GlideTileCacheStrc* pCache)
 {
     if (!pCache->pFreeHead)
     {
@@ -165,7 +165,7 @@ static void GLIDE_TileCacheAppendFree(D2GlideTileCacheEntryStrc* pEntry, D2Glide
 }
 
 // 0x0050EFB0
-static D2GlideTileCacheEntryStrc* GLIDE_TileCachePopFree(D2GlideTileCacheStrc* pCache)
+static D2GlideTileCacheEntryStrc* GLTEXTURECACHE_TileCachePopFree(D2GlideTileCacheStrc* pCache)
 {
     D2GlideTileCacheEntryStrc* pEntry = pCache->pFreeHead;
     if (!pEntry)
@@ -182,13 +182,13 @@ static D2GlideTileCacheEntryStrc* GLIDE_TileCachePopFree(D2GlideTileCacheStrc* p
 
 void __fastcall sub_M116_Emit_0050EA60(D2GlideTexCacheStrc* pTex, D2GlideTileCacheStrc* pTile)
 {
-    GLIDE_TexCacheAppendFree(GLIDE_TexCachePopUsed(pTex), pTex);
-    GLIDE_TexCacheAppendFree(GLIDE_TexCachePopFree(pTex), pTex);
-    GLIDE_TileCacheAppendFree(GLIDE_TileCachePopFree(pTile), pTile);
+    GLTEXTURECACHE_TexCacheAppendFree(GLTEXTURECACHE_TexCachePopUsed(pTex), pTex);
+    GLTEXTURECACHE_TexCacheAppendFree(GLTEXTURECACHE_TexCachePopFree(pTex), pTex);
+    GLTEXTURECACHE_TileCacheAppendFree(GLTEXTURECACHE_TileCachePopFree(pTile), pTile);
 }
 
 // 0x0050EB60
-static int GLIDE_TexCacheAlloc(D2GlideTexCacheStrc* pList)
+static int GLTEXTURECACHE_TexCacheAlloc(D2GlideTexCacheStrc* pList)
 {
     if (pList->nUsed == pList->nCount)
     {
@@ -244,7 +244,7 @@ static D2GlideTexCacheEntryStrc* sub_N19_TexPopHead(D2GlideTexCacheStrc* pCache)
     return pEntry;
 }
 
-void __fastcall GLIDE_TexCacheEvict(D2GlideTexCacheStrc* pCache)
+void __fastcall GLSMACK_TexCacheEvict(D2GlideTexCacheStrc* pCache)
 {
     if (!pCache->nUsed)
         return;
@@ -273,12 +273,12 @@ void __fastcall GLIDE_TexCacheEvict(D2GlideTexCacheStrc* pCache)
 }
 
 // 0x0050ED10
-int __fastcall GLIDE_TexCacheAdd(D2GlideTexCacheStrc* pList)
+int __fastcall GLTEXTURECACHE_TexCacheAdd(D2GlideTexCacheStrc* pList)
 {
     int nId;
-    while (!(nId = GLIDE_TexCacheAlloc(pList)))
+    while (!(nId = GLTEXTURECACHE_TexCacheAlloc(pList)))
     {
-        GLIDE_TexCacheEvict(pList);
+        GLSMACK_TexCacheEvict(pList);
     }
     return nId;
 }
@@ -286,12 +286,12 @@ int __fastcall GLIDE_TexCacheAdd(D2GlideTexCacheStrc* pList)
 D2GlideFloorCacheStrc gtGlideFloorCache; // 0x0087EB68
 
 // 0x0050ECB0
-void __fastcall GLIDE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush)
+void __fastcall GLTEXTURECACHE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush)
 {
     if (bFlush)
     {
         while (pCache->nUsed)
-            GLIDE_TexCacheEvict(pCache);
+            GLSMACK_TexCacheEvict(pCache);
     }
     if (pCache->pEntries)
     {
@@ -303,7 +303,7 @@ void __fastcall GLIDE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush)
 
 
 // 0x0050FAD0
-int __fastcall GLIDE_BindFloorTexture(D2TileLibraryEntryStrc* pTile)
+int __fastcall GLTEXTURECACHE_BindFloorTexture(D2TileLibraryEntryStrc* pTile)
 {
     int bResult = 0;
     if (D2CMPTileValidate(pTile, 1, 0))
@@ -313,7 +313,7 @@ int __fastcall GLIDE_BindFloorTexture(D2TileLibraryEntryStrc* pTile)
         if (pTile->nCacheIndex == 0)
         {
             sub_0050F980_DecodeTileBlocks(pTile, gpGlideFloorDecodeBuffer);
-            pTile->nCacheIndex = GLIDE_FloorCacheAdd(&gtGlideFloorCache);
+            pTile->nCacheIndex = GLFLOORCACHE_FloorCacheAdd(&gtGlideFloorCache);
             const int nEntry = pTile->nCacheIndex - 1;
             D2_ASSERT(nEntry >= 0, 0xE5);
             D2_ASSERT(nEntry < gtGlideFloorCache.nCount, 0xE6);
@@ -323,11 +323,11 @@ int __fastcall GLIDE_BindFloorTexture(D2TileLibraryEntryStrc* pTile)
         }
         else
         {
-            GLIDE_FloorCacheTouch(&gtGlideFloorCache, pTile->nCacheIndex);
+            GLFLOORCACHE_FloorCacheTouch(&gtGlideFloorCache, pTile->nCacheIndex);
             nTexAddress = gtGlideFloorCache.pEntries[pTile->nCacheIndex - 1].nAddress;
         }
         gpfnGrTexSource(gnGlideTileTmu, nTexAddress, 3, &gtGlideFloorTexInfo);
-        GLIDE_SetTextureCombineMode(gnGlideTileTmu);
+        GLCORE_SetTextureCombineMode(gnGlideTileTmu);
         bResult = 1;
     }
     return bResult;

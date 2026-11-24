@@ -26,7 +26,7 @@ unsigned long gdwGlideDebugFontBkColor; // 0x00880448
 unsigned char* gpGlideDebugFontGlyphs; // 0x0088044C
 
 // 0x0050B9E0
-void __cdecl GLIDE_CreateDebugFont()
+void __cdecl GLDEBUGFONT_CreateDebugFont()
 {
     void* hDC = CreateCompatibleDC(0);
 // build: symbol ?gszCourier@* 0x006DD52C
@@ -64,7 +64,7 @@ void __cdecl GLIDE_CreateDebugFont()
 }
 
 // 0x0050BB70
-void __cdecl GLIDE_FreeDebugFont()
+void __cdecl GLDEBUGFONT_FreeDebugFont()
 {
     if (gpGlideDebugFontGlyphs)
     {
@@ -117,7 +117,7 @@ static int __fastcall GlideAlignAddress(int nAddress, int nAlignment)
 }
 
 // 0x0050B860
-int __fastcall GLIDE_DownloadDebugFont(int nStartAddress, int nAlignment)
+int __fastcall GLDEBUGFONT_DownloadDebugFont(int nStartAddress, int nAlignment)
 {
     int nStride = GlideAlignAddress(0x80, nAlignment);
     int nTotal = nStride * 96;
@@ -167,15 +167,15 @@ int __fastcall GLIDE_DownloadDebugFont(int nStartAddress, int nAlignment)
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, char* args); // 0x006CC4AC
 extern void (__stdcall* gpfnGrTexSource)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
 extern void (__stdcall* gpfnGrDrawVertexArrayContiguous)(int nMode, int nCount, void* pVertices, int nStride); // 0x0087EAC4
-void __fastcall GLIDE_SetColorCombineMode(int nState); // 0x005094B0
-void __fastcall GLIDE_SetAlphaBlendMode(int nMode); // 0x00509500
-void __fastcall GLIDE_SetTextureFilterMode(int nMode); // 0x005095D0
-void __fastcall GLIDE_SetTextureCombineMode(int nTmu); // 0x00509460
+void __fastcall GLCORE_SetColorCombineMode(int nState); // 0x005094B0
+void __fastcall GLCORE_SetAlphaBlendMode(int nMode); // 0x00509500
+void __fastcall GLCORE_SetTextureFilterMode(int nMode); // 0x005095D0
+void __fastcall GLCORE_SetTextureCombineMode(int nTmu); // 0x00509460
 struct D2GlideVtxStrc { float x; float y; float z; float oow; float sow; float tow; unsigned int color; };
 int gaGlideDebugFontCharWidths[96]; // 0x008802C8
 
 // 0x0050BBA0
-static int __stdcall GLIDE_DebugDrawChar(char ch, int nX, int nY)
+static int __stdcall GLDEBUGFONT_DebugDrawChar(char ch, int nX, int nY)
 {
     if (nX > 640)
         return 0;
@@ -206,20 +206,20 @@ static int __stdcall GLIDE_DebugDrawChar(char ch, int nX, int nY)
 }
 
 // 0x0050BC90
-void __fastcall GLIDE_DebugPrintf(int nX, int nY, const char* szFormat, char* args)
+void __fastcall GLDEBUGFONT_DebugPrintf(int nX, int nY, const char* szFormat, char* args)
 {
     char szText[0x200];
     const int nLength = wvsprintfA(szText, szFormat, args);
     const int nStartX = nX;
 
-    GLIDE_SetColorCombineMode(1);
-    GLIDE_SetAlphaBlendMode(1);
-    GLIDE_SetTextureFilterMode(1);
-    GLIDE_SetTextureCombineMode(gnGlideDebugFontTmu);
+    GLCORE_SetColorCombineMode(1);
+    GLCORE_SetAlphaBlendMode(1);
+    GLCORE_SetTextureFilterMode(1);
+    GLCORE_SetTextureCombineMode(gnGlideDebugFontTmu);
 
     for (int i = 0; i < nLength; ++i)
     {
-        nX += GLIDE_DebugDrawChar(szText[i], nX, nY);
+        nX += GLDEBUGFONT_DebugDrawChar(szText[i], nX, nY);
         if (szText[i] == '\n')
         {
             nX = nStartX;

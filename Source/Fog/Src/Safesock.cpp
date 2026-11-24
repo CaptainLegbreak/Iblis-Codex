@@ -1061,7 +1061,7 @@ void __cdecl sub_004BF9C0_Nop()
 {
 }
 
-void __cdecl GLIDE_DebugFillBackBuffer()
+void __cdecl GLSPRITE_DebugFillBackBuffer()
 {
 }
 

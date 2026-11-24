@@ -45,7 +45,7 @@ unsigned char gbGlideAmbientRed; // 0x00880B5A
 
 extern int gnGlideSpriteScale; // 0x00880B64
 
-void __fastcall GLIDE_SetProjectOrigin(int nX, int nY); // 0x0050DD50
+void __fastcall GLPERSPECTIVE_SetProjectOrigin(int nX, int nY); // 0x0050DD50
 
 void __cdecl sub_0050DF00_ResetSpriteScale(); // 0x0050DF00
 
@@ -54,13 +54,13 @@ void __stdcall sub_0050F980_DecodeTileBlocks(D2TileLibraryEntryStrc* pTile, unsi
 int __fastcall sub_00512410_ForwardToDrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, int nScreenMode, void* pPalette); // 0x00512410
 
 // 0x0050DB20
-void __cdecl GLIDE_AllocBlendTable()
+void __cdecl GLVERTEX_AllocBlendTable()
 {
     gpBlendTable = (unsigned char*)FOG_Alloc(0x10000, ".\\Src\\glVertex.cpp", 0x17, 0);
 }
 
 // 0x0050DB40
-void __cdecl GLIDE_FreeBlendTable()
+void __cdecl GLVERTEX_FreeBlendTable()
 {
     if (gpBlendTable)
     {
@@ -70,7 +70,7 @@ void __cdecl GLIDE_FreeBlendTable()
 }
 
 // 0x0050DB70
-void __cdecl GLIDE_BuildBlendTable()
+void __cdecl GLVERTEX_BuildBlendTable()
 {
     for (int y = 0; y < 256; ++y)
     {
@@ -82,7 +82,7 @@ void __cdecl GLIDE_BuildBlendTable()
 }
 
 // 0x0050DBC0
-void __fastcall GLIDE_SetAmbientColor(int nRed, int nGreen, int nBlue)
+void __fastcall GLVERTEX_SetAmbientColor(int nRed, int nGreen, int nBlue)
 {
     gbGlideAmbientRed = nRed;
     gbGlideAmbientGreen = nGreen;
@@ -90,21 +90,21 @@ void __fastcall GLIDE_SetAmbientColor(int nRed, int nGreen, int nBlue)
 }
 
 // 0x0050DBE0
-void __fastcall GLIDE_SetVertexAmbientColor(D2GlideSpriteVertexStrc* pVertex, unsigned char nIntensity)
+void __fastcall GLVERTEX_SetVertexAmbientColor(D2GlideSpriteVertexStrc* pVertex, unsigned char nIntensity)
 {
     const unsigned char* pRow = &gpBlendTable[nIntensity << 8];
     pVertex->dwColor = 0xFF000000 | (pRow[gbGlideAmbientRed] << 16) | (pRow[gbGlideAmbientGreen] << 8) | pRow[gbGlideAmbientBlue];
 }
 
 // 0x0050DC30
-void __fastcall GLIDE_SetVertexColor(D2GlideSpriteVertexStrc* pVertex, unsigned int dwColor)
+void __fastcall GLVERTEX_SetVertexColor(D2GlideSpriteVertexStrc* pVertex, unsigned int dwColor)
 {
     const unsigned char* pRow = &gpBlendTable[(unsigned char)dwColor << 8];
     pVertex->dwColor = (((-1 << 8 | pRow[(unsigned char)(dwColor >> 8)]) << 8 | pRow[(unsigned char)(dwColor >> 16)]) << 8) | pRow[dwColor >> 24];
 }
 
 // 0x0050DD30
-int __cdecl GLIDE_IsPerspective()
+int __cdecl GLVERTEX_IsPerspective()
 {
     if (gpGfxSettings->bPerspectiveCapable)
     {
