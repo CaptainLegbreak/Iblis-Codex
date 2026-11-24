@@ -149,7 +149,7 @@ struct BigBuffer
 
 struct BigStack
 {
-    BigBuffer f_0[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 };
 
@@ -237,7 +237,7 @@ void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue); // 0x00423540
 
 static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput, BigStack& tStack) // 0x00423600
 {
-    BigBuffer& tBuffer = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tBuffer = tStack.pRecords[tStack.nUsed++];
     tBuffer.CopyFrom(tNumber);
     tOutput.m_count = 0;
     do
@@ -377,9 +377,9 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
         b.sub_004220D0_SetCount(1);
         return;
     }
-    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tDiv = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tDiv = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tProduct = tStack.pRecords[tStack.nUsed++];
     unsigned int nShift = 31 - (BigHighBitIndex(&d) & 31);
     Shl(tRem, c, nShift);
     Shl(tDiv, d, nShift);
@@ -413,8 +413,8 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
 
 static void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack) // 0x00424180
 {
-    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tNext = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tNext = tStack.pRecords[tStack.nUsed++];
     if (sub_004212F0_Compare(&b, &c) > 0)
     {
         a.CopyFrom(b);
@@ -439,7 +439,7 @@ void __stdcall BigMulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d,
 void __stdcall SBigDiv(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     BigStack& tStack = pResult->tStack;
-    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
     Div(pResult->tPrimary, tRem, pA->tPrimary, pB->tPrimary, tStack);
     tStack.nUsed--;
 }
@@ -454,7 +454,7 @@ void __stdcall SBigGcd(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
 void __stdcall SBigMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     BigStack& tStack = pResult->tStack;
-    BigBuffer& tQuotient = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tQuotient = tStack.pRecords[tStack.nUsed++];
     Div(tQuotient, pResult->tPrimary, pA->tPrimary, pB->tPrimary, tStack);
     tStack.nUsed--;
 }

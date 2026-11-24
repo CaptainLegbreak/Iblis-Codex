@@ -187,7 +187,7 @@ struct BigBuffer
 
 struct BigStack
 {
-    BigBuffer f_0[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 };
 
@@ -327,11 +327,11 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
     }
     // the original relies on the work-stack index staying below 16 here (its push/pop check); without it the frame and loads differ
     __assume(tStack.nUsed < 16);
-    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
     __assume(tStack.nUsed < 16);
-    BigBuffer& tDiv = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tDiv = tStack.pRecords[tStack.nUsed++];
     __assume(tStack.nUsed < 16);
-    BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tProduct = tStack.pRecords[tStack.nUsed++];
     unsigned int nShift = 31 - (BigHighBitIndex(&d) & 31);
     Shl(tRem, c, nShift);
     Shl(tDiv, d, nShift);
@@ -375,7 +375,7 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
 void __stdcall SBigDiv(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     BigStack& tStack = pResult->tStack;
-    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
     Div(pResult->tPrimary, tRem, pA->tPrimary, pB->tPrimary, tStack);
     tStack.nUsed--;
 }
@@ -384,7 +384,7 @@ void __stdcall SBigDiv(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
 void __stdcall SBigMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     BigStack& tStack = pResult->tStack;
-    BigBuffer& tQuotient = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tQuotient = tStack.pRecords[tStack.nUsed++];
     Div(tQuotient, pResult->tPrimary, pA->tPrimary, pB->tPrimary, tStack);
     tStack.nUsed--;
 }
