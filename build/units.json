@@ -36753,43 +36753,13 @@
      "length": 831
     },
     {
+     "va": "0x0050CDD0",
+     "length": 403
+    },
+    {
      "va": "0x0050CF70",
      "length": 1172
     },
-    {
-     "va": "0x0050D540",
-     "length": 352
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Unknown_0050CDD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0050CDD0",
-     "length": 403
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Unknown_0050D410.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x0050D410",
      "length": 127,
@@ -36804,6 +36774,10 @@
      "va": "0x0050D4C0",
      "length": 117,
      "name": "?sub_0050D4C0_GlideTileDrawLit@@YIHPAUD2TileLibraryEntryStrc@@HHPAUD2GfxLightStrc@@H@Z"
+    },
+    {
+     "va": "0x0050D540",
+     "length": 352
     }
    ]
   },
