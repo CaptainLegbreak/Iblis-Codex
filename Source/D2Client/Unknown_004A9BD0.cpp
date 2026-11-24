@@ -77,120 +77,14 @@ int __stdcall SKILLS_GetPlayerSkillCount(int nClassId); // 0x00646140
 
 int gnSelectedHotkey; // 0x007C0708
 
-// 0x004A9FC0
-static int sub_004A9FC0_IsHotkeyUsable(int nSlot)
-{
-    if (gaHotkeySkills[nSlot] == -1)
-        return 0;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (!pPlayer)
-        return 0;
-    D2SkillStrc* pSkill = SKILLS_GetSkillById(pPlayer, gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
-    if (!pSkill)
-        return 0;
-    if (SKILLS_GetOwnerGUIDFromSkill(pSkill) != -1)
-    {
-        int nCharges;
-        if (SKILLS_GetSkillInfo(pSkill, 0, 0, 0, &nCharges) && nCharges <= 0)
-            return 0;
-    }
-    return 1;
-}
+static int sub_004A9FC0_IsHotkeyUsable(int nSlot); // 0x004A9FC0
 
-// 0x004AA030
-void __fastcall sub_004AA030_SelectHotkey(int nSlot)
-{
-    if (gaHotkeySkills[nSlot] == -1)
-        return;
-    if (!sub_004A9FC0_IsHotkeyUsable(nSlot))
-        return;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    gnSelectedHotkey = nSlot;
-    MSG_SendTwoDwords(0x3C, (gaHotkeyLeft[nSlot] ? 0x80000000 : 0) + gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
-    if (gaHotkeyLeft[nSlot])
-        SKILLS_SetLeftActiveSkill(pPlayer, gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
-    else
-        SKILLS_SetRightActiveSkill(pPlayer, gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
-}
+void __fastcall sub_004AA030_SelectHotkey(int nSlot); // 0x004AA030
 
-// 0x004AA740
-void __fastcall sub_004AA740_CycleHotkey(int nDelta)
-{
-    if (CUNIT_IsPlayerDeadOrMissing())
-        return;
-    const int nStep = (nDelta > 0) * 2 - 1;
-    if (nDelta < 0)
-        nDelta = -nDelta;
-    if (!nDelta)
-        return;
-    int nFound = -1;
-    int nSlot = gnSelectedHotkey + nStep;
-    for (int i = 0; i < 16; ++i, nSlot += nStep)
-    {
-        if (nSlot < 0)
-            nSlot = 15;
-        else if (nSlot >= 16)
-            nSlot = 0;
-        if (gaHotkeySkills[nSlot] != -1 && !gaHotkeyLeft[nSlot] && sub_004A9FC0_IsHotkeyUsable(nSlot))
-        {
-            nFound = nSlot;
-            if (!--nDelta)
-                break;
-        }
-    }
-    if (nFound != -1)
-        sub_004AA030_SelectHotkey(nFound);
-}
 
-// 0x004AA0F0
-static void sub_004AA0F0_AssignFreeHotkey(int nSlot, int nIndex)
-{
-    if (nSlot >= 16)
-        return;
-    if (gaHotkeySkills[nSlot] != -1)
-        return;
+static void sub_004AA0F0_AssignFreeHotkey(int nSlot, int nIndex); // 0x004AA0F0
 
-    gaHotkeySkills[nSlot] = gtHotkeySlots_007C0300.nSkill[nIndex];
-    if (!gbSkillSelectRight)
-        gaHotkeyLeft[nSlot] = 0;
-    else
-        gaHotkeyLeft[nSlot] = 1;
-    gaHotkeyOwners[nSlot] = gtHotkeySlots_007C0300.f_2D0[nIndex];
-    MSG_SendTwoDwords(0x51, (nSlot << 16) + (gaHotkeyLeft[nSlot] ? 0x8000 : 0) + gaHotkeySkills[nSlot], gaHotkeyOwners[nSlot]);
-}
 
-// 0x004AA160
-void __cdecl sub_004AA160_FillHotkeys()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    D2_ASSERT(UNITS_GetStartSkill(pPlayer), 0x524);
-    int nSlot = 0;
-    for (int i = 0; i < 60; ++i)
-    {
-        D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pPlayer, gtHotkeySlots_007C0300.nSkill[i]);
-        if (!pSkill)
-            continue;
-        D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
-        if (!pSkillsTxt)
-            continue;
-        if (BITARRAY_CHECK(pSkillsTxt->nFlags, 4))
-            continue;
-        if (nSlot > 15)
-            continue;
-        sub_004AA0F0_AssignFreeHotkey(nSlot, i);
-        ++nSlot;
-    }
-}
-
-// 0x004AA680
-void __cdecl sub_004AA680_BuildRightRows()
-{
-    if (gbSkillSelectRight)
-    {
-        gtHotkeySlots.bFlag = 0;
-        SPELLSEL_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 0, 0);
-    }
-}
 
 unsigned char gbNpcEntriesProcessed; // 0x007C0C6A
 

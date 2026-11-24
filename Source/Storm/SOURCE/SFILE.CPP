@@ -676,7 +676,7 @@ extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileN
 
 void __fastcall SSignatureVerifyStream_Begin(D2StormHashBufferStrc** ppBuffer, unsigned int nSignSize, int nModulusSize); // 0x0041D3B0
 
-unsigned int __fastcall sub_0041D410_GetWindow(D2StormHashBufferStrc* pBuffer);
+unsigned int __fastcall sub_0041D410_GetWindow(D2StormHashBufferStrc* pBuffer);                          // 0x0041D410
 
 void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const char* pData, int nSize);
 
@@ -2792,12 +2792,6 @@ void __cdecl sub_0041A880_StartThread()
         ghStormThread_00779034 = CreateThread(0, 0, CdThreadProc, 0, 0, &gdwStormThreadId_00779040);
         SetThreadPriority(ghStormThread_00779034, 1);
     }
-}
-
-// 0x0041D410
-unsigned int __fastcall sub_0041D410_GetWindow(D2StormHashBufferStrc* pBuffer)
-{
-    return pBuffer->nWindow;
 }
 
 // 0x0041D9A0

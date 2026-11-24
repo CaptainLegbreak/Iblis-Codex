@@ -4878,11 +4878,6 @@
      "name": "sub_0041BEB0_FlushAndNotify"
     },
     {
-     "va": "0x0041D410",
-     "length": 4,
-     "name": "?sub_0041D410_GetWindow@@YIIPAUD2StormHashBufferStrc@@@Z"
-    },
-    {
      "va": "0x0041D9A0",
      "length": 57,
      "name": "?sub_0041D9A0_Flush@CBitOutput@@QAEXXZ"
@@ -6129,6 +6124,11 @@
      "va": "0x0041D3B0",
      "length": 95,
      "name": "SSignatureVerifyStream_Begin"
+    },
+    {
+     "va": "0x0041D410",
+     "length": 4,
+     "name": "?sub_0041D410_GetWindow@@YIIPAUD2StormHashBufferStrc@@@Z"
     },
     {
      "va": "0x0041D420",
@@ -14997,41 +14997,6 @@
      "name": "sub_004A17D0"
     },
     {
-     "va": "0x004AA0C0",
-     "length": 34,
-     "name": "INV_SetHotkeySkillSlot"
-    },
-    {
-     "va": "0x004AA6B0",
-     "length": 46,
-     "name": "?sub_004AA6B0_BuildLeftRows@@YIXH@Z"
-    },
-    {
-     "va": "0x004AA6E0",
-     "length": 33,
-     "name": "?sub_004AA6E0_BuildRightRows2@@YAXXZ"
-    },
-    {
-     "va": "0x004AA710",
-     "length": 40,
-     "name": "?sub_004AA710_BuildLeftRows2@@YAXXZ"
-    },
-    {
-     "va": "0x004AA8B0",
-     "length": 47,
-     "name": "?sub_004AA8B0_GetSkillMaxLevel@@YIHH@Z"
-    },
-    {
-     "va": "0x004AA8E0",
-     "length": 11,
-     "name": "?sub_004AA8E0_ClearValue7C0C3C@@YAXXZ"
-    },
-    {
-     "va": "0x004AA8F0",
-     "length": 11,
-     "name": "_INV_ClearSkillPointsHighlight"
-    },
-    {
      "va": "0x004B1050",
      "length": 58,
      "name": "INV_GetMonsterOwnerGuid"
@@ -21117,35 +21082,6 @@
      "name": "?sub_00472BD0@@YAXXZ"
     },
     {
-     "va": "0x004A9FC0",
-     "length": 108,
-     "name": "?sub_004A9FC0_IsHotkeyUsable@@YAHH@Z"
-    },
-    {
-     "va": "0x004AA030",
-     "length": 131,
-     "name": "?sub_004AA030_SelectHotkey@@YIXH@Z"
-    },
-    {
-     "va": "0x004AA0F0",
-     "length": 108,
-     "name": "?sub_004AA0F0_AssignFreeHotkey@@YAXHH@Z"
-    },
-    {
-     "va": "0x004AA160",
-     "length": 133,
-     "name": "?sub_004AA160_FillHotkeys@@YAXXZ"
-    },
-    {
-     "va": "0x004AA680",
-     "length": 40
-    },
-    {
-     "va": "0x004AA740",
-     "length": 150,
-     "name": "?sub_004AA740_CycleHotkey@@YIXH@Z"
-    },
-    {
      "va": "0x004AA980",
      "length": 56,
      "name": "?sub_004AA980@@YAXXZ"
@@ -25352,11 +25288,6 @@
      "va": "0x004A6350",
      "length": 86,
      "name": "TEXT_ButtonCaptureMsg"
-    },
-    {
-     "va": "0x004A8D50",
-     "length": 153,
-     "name": "TEXT_UpdateSkillButtonHover"
     }
    ]
   },
@@ -26199,59 +26130,9 @@
      "name": "?sub_004A8A30_InitSkillIcons@@YAXXZ"
     },
     {
-     "va": "0x004A8C00",
-     "length": 116,
-     "name": "?sub_004A8C00_FreeSkillIcons@@YAXXZ"
-    },
-    {
-     "va": "0x004A8C80",
-     "length": 90,
-     "name": "?sub_004A8C80_GetSkillValue@@YIPAXPAUD2SkillsTxt@@@Z"
-    },
-    {
-     "va": "0x004A8CE0",
-     "length": 7,
-     "name": "?sub_004A8CE0_SetValue@@YIXH@Z"
-    },
-    {
      "va": "0x004A8CF0",
      "length": 64,
      "name": "?sub_004A8CF0_IsMouseInRect@@YGHHHHH@Z"
-    },
-    {
-     "va": "0x004A8D30",
-     "length": 26,
-     "name": "?sub_004A8D30_GetSkillState@@YIHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
-    },
-    {
-     "va": "0x004A9A90",
-     "length": 69,
-     "name": "?sub_004A9A90_FindSkill@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004A9AE0",
-     "length": 69,
-     "name": "?sub_004A9AE0_FindSkill@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004A9B30",
-     "length": 69,
-     "name": "?sub_004A9B30_FindSkill@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004A9B80",
-     "length": 69,
-     "name": "?sub_004A9B80_FindSkill@@YIHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004A9DF0",
-     "length": 97,
-     "name": "?sub_004A9DF0_UpdateSkillIcons@@YAXXZ"
-    },
-    {
-     "va": "0x004AA7E0",
-     "length": 193,
-     "name": "?sub_004AA7E0_ResetSkillIcons@@YAXXZ"
     },
     {
      "va": "0x004AA900",
@@ -26327,9 +26208,54 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004A8C00",
+     "length": 116,
+     "name": "?sub_004A8C00_FreeSkillIcons@@YAXXZ"
+    },
+    {
+     "va": "0x004A8C80",
+     "length": 90,
+     "name": "?sub_004A8C80_GetSkillValue@@YIPAXPAUD2SkillsTxt@@@Z"
+    },
+    {
+     "va": "0x004A8CE0",
+     "length": 7,
+     "name": "?sub_004A8CE0_SetValue@@YIXH@Z"
+    },
+    {
+     "va": "0x004A8D30",
+     "length": 26,
+     "name": "?sub_004A8D30_GetSkillState@@YIHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+    },
+    {
+     "va": "0x004A8D50",
+     "length": 153,
+     "name": "TEXT_UpdateSkillButtonHover"
+    },
+    {
      "va": "0x004A9A00",
      "length": 133,
      "name": "?SPELLSEL_RegisterSkillSlot@@YGHHHHPAUD2SkillStrc@@H@Z"
+    },
+    {
+     "va": "0x004A9A90",
+     "length": 69,
+     "name": "?sub_004A9A90_FindSkill@@YIHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004A9AE0",
+     "length": 69,
+     "name": "?sub_004A9AE0_FindSkill@@YIHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004A9B30",
+     "length": 69,
+     "name": "?sub_004A9B30_FindSkill@@YIHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004A9B80",
+     "length": 69,
+     "name": "?sub_004A9B80_FindSkill@@YIHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004A9BD0",
@@ -26341,14 +26267,93 @@
      "length": 115
     },
     {
+     "va": "0x004A9DF0",
+     "length": 97,
+     "name": "?sub_004A9DF0_UpdateSkillIcons@@YAXXZ"
+    },
+    {
      "va": "0x004A9E60",
      "length": 339,
      "name": "sub_004A9E60_AssignHotkey"
     },
     {
+     "va": "0x004A9FC0",
+     "length": 108,
+     "name": "?sub_004A9FC0_IsHotkeyUsable@@YAHH@Z"
+    },
+    {
+     "va": "0x004AA030",
+     "length": 131,
+     "name": "?sub_004AA030_SelectHotkey@@YIXH@Z"
+    },
+    {
+     "va": "0x004AA0C0",
+     "length": 34,
+     "name": "INV_SetHotkeySkillSlot"
+    },
+    {
+     "va": "0x004AA0F0",
+     "length": 108,
+     "name": "?sub_004AA0F0_AssignFreeHotkey@@YAXHH@Z"
+    },
+    {
+     "va": "0x004AA160",
+     "length": 133,
+     "name": "?sub_004AA160_FillHotkeys@@YAXXZ"
+    },
+    {
+     "va": "0x004AA1F0",
+     "length": 428,
+     "name": "?sub_004AA1F0_DrawSkillQuantity@@YIXPAFHHHH@Z"
+    },
+    {
      "va": "0x004AA3A0",
      "length": 736,
      "name": "?SPELLSEL_BuildSkillRows@@YIXPAUD2UnitStrc@@HHHH@Z"
+    },
+    {
+     "va": "0x004AA680",
+     "length": 40
+    },
+    {
+     "va": "0x004AA6B0",
+     "length": 46,
+     "name": "?sub_004AA6B0_BuildLeftRows@@YIXH@Z"
+    },
+    {
+     "va": "0x004AA6E0",
+     "length": 33,
+     "name": "?sub_004AA6E0_BuildRightRows2@@YAXXZ"
+    },
+    {
+     "va": "0x004AA710",
+     "length": 40,
+     "name": "?sub_004AA710_BuildLeftRows2@@YAXXZ"
+    },
+    {
+     "va": "0x004AA740",
+     "length": 150,
+     "name": "?sub_004AA740_CycleHotkey@@YIXH@Z"
+    },
+    {
+     "va": "0x004AA7E0",
+     "length": 193,
+     "name": "?sub_004AA7E0_ResetSkillIcons@@YAXXZ"
+    },
+    {
+     "va": "0x004AA8B0",
+     "length": 47,
+     "name": "?sub_004AA8B0_GetSkillMaxLevel@@YIHH@Z"
+    },
+    {
+     "va": "0x004AA8E0",
+     "length": 11,
+     "name": "?sub_004AA8E0_ClearValue7C0C3C@@YAXXZ"
+    },
+    {
+     "va": "0x004AA8F0",
+     "length": 11,
+     "name": "_INV_ClearSkillPointsHighlight"
     }
    ],
    "flags": [
@@ -26370,11 +26375,6 @@
    "file": "Source/D2Client/Unknown_004A9D70.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004AA1F0",
-     "length": 428,
-     "name": "?sub_004AA1F0_DrawSkillQuantity@@YIXPAFHHHH@Z"
-    },
     {
      "va": "0x004AACE0",
      "length": 1549
@@ -33947,30 +33947,6 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_004F5190.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004F5190",
-     "length": 35
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Gfx/SRC/Window.cpp",
    "rank": 0,
    "functions": [
@@ -34018,6 +33994,10 @@
      "va": "0x004F5180",
      "length": 6,
      "name": "D2GFX_IsFixedAspectRatio"
+    },
+    {
+     "va": "0x004F5190",
+     "length": 35
     },
     {
      "va": "0x004F51C0",
@@ -81258,7 +81238,7 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006C7000.cpp",
+   "file": "Source/Storm/SOURCE/SUNI.CPP",
    "rank": 1,
    "functions": [
     {

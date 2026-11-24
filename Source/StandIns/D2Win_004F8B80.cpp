@@ -32,7 +32,17 @@ void __fastcall sub_004F8850_DrawLitBlock(D2TileLibraryBlockStrc* pBlock, unsign
 void __fastcall sub_004F88B0_DrawBlockClipped(D2TileLibraryBlockStrc* pBlock, int nX, int nY, unsigned char* pDst, unsigned char nLight); // 0x004F88B0
 void __fastcall sub_004F89F0_DrawLitBlockClipped(D2TileLibraryBlockStrc* pBlock, int nX, int nY, unsigned char* pDst, int* pLight); // 0x004F89F0
 
-extern int gdwGlobal_0072DA50; // 0x0072DA50
+struct D2GfxSettingsStrc
+{
+    int bPerspectiveEnabled;
+    int bPerspectiveCapable;
+    int bLowQuality;
+    int nGamma;
+    int bVSync;
+    int bBlendedShadows;
+};
+
+extern D2GfxSettingsStrc gGfxSettings; // 0x0072DA48
 extern int gnInnerBlockTop; // 0x007C9780
 extern int gnTileClipLeft_007C9788; // 0x007C9788
 extern int gnTileClipRight_007C9798; // 0x007C9798
@@ -82,7 +92,7 @@ void __fastcall sub_004F8B80_DrawTileBlocks(D2TileLibraryEntryStrc* pTile, int n
             const int nDiff2 = D2_ABS(nDelta);
             nDelta = nL22 - nL21;
             const int nDiff3 = D2_ABS(nDelta);
-            if (!gdwGlobal_0072DA50 && nDiff3 + nDiff2 + nDiff1 >= 10)
+            if (!gGfxSettings.bLowQuality && nDiff3 + nDiff2 + nDiff1 >= 10)
             {
                 aLight[0] = (nL12 + pCell[16].nLevel + nL11 + pCell[8].nLevel) >> 2;
                 aLight[1] = (pCell[1].nLevel + pCell[2].nLevel + nL21 + nL11) >> 2;

@@ -91,44 +91,6 @@ static inline int IsMouseInSquare(int nX, int nY)
     return nMouseX >= nX && nMouseX <= nX + 0x30 && nMouseY >= nY - 0x30 && nMouseY <= nY;
 }
 
-// 0x004AA1F0
-void __fastcall sub_004AA1F0_DrawSkillQuantity(short* pId, int nState, int nQuantity, int nX, int nY)
-{
-    if (IsMouseInSquare(nX, nY))
-    {
-        if (nState != 1)
-        {
-            nState = 0;
-        }
-    }
-    else
-    {
-        nState = 1;
-    }
-
-    if (!IsMouseInSquare(nX, nY))
-    {
-        return;
-    }
-
-    const Unicode* wszNewline = D2LANG_GetStringFromTblIndex(0xF9E);
-    Unicode wszText[0x100];
-    const unsigned short nNameId = sub_004E6CE0_GetStringId(*pId, 0);
-    const int nTextId = sub_004E6CE0_GetStringId(*pId, 1);
-    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nTextId));
-    sub_00526700(wszText, wszNewline);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x105C));
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
-    Unicode wszNumber[10];
-    char szNumber[12];
-// build: symbol ?gszFormatI@* 0x006D6454
-    wsprintfA(szNumber, gszFormatI, nQuantity);
-    sub_00526320_ToUnicode(wszNumber, szNumber, 9);
-    sub_00526700(wszText, wszNumber);
-    sub_00526700(wszText, wszNewline);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nNameId));
-    D2Win_10129_DrawFramedText(wszText, nX, nY - 0x32, nState, 1);
-}
 
 extern int gnAutomapWidth; // 0x007A5220
 

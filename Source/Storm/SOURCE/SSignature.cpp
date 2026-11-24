@@ -426,6 +426,12 @@ void __fastcall SSignatureVerifyStream_Begin(D2StormHashBufferStrc** ppBuffer, u
     (*ppBuffer)->tHash.Initialize();
 }
 
+// 0x0041D410
+unsigned int __fastcall sub_0041D410_GetWindow(D2StormHashBufferStrc* pBuffer)
+{
+    return pBuffer->nWindow;
+}
+
 // 0x0041D420
 void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const char* pData, int nSize)
 {
