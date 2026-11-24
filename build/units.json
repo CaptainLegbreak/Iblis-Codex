@@ -33376,17 +33376,6 @@
    ]
   },
   {
-   "file": "Source/D2Glide/Unknown_0050CD40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0050CD40",
-     "length": 141,
-     "name": "sub_0050CD40_GlideShadowTileDraw"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Gfx/SRC/Window.cpp",
    "rank": 0,
    "functions": [
@@ -36429,6 +36418,11 @@
     {
      "va": "0x0050CA00",
      "length": 831
+    },
+    {
+     "va": "0x0050CD40",
+     "length": 141,
+     "name": "sub_0050CD40_GlideShadowTileDraw"
     },
     {
      "va": "0x0050CDD0",
