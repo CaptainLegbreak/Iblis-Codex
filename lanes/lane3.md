@@ -4,6 +4,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/qsnt-client 6cd23d7e 447->447 QServerNT.cpp's stand-in views of the client and its write queue go: T006BFAD0 and D2QConn006C23B0Strc are D2QClientStrc, T006C23B0 (Fog.h) and D2QMsg006C23B0Strc are D2QWriteNodeStrc. sQSNTWriteFromQueue (0x6C2760), sub_006C23B0_QueueMessage and sub_006C2C70_SendLocal use them, without casts; SendLocal is rewritten in the file's style; second declarations of QSERVER_AddReference and 0x6C0360 on the stand-in go. VERIFIED 213919a0 on base 88003a4d (#346; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 1,175 B). Not stacked.
+
 - lane3/standin-types 9fd8bb13 447->447 Decompiler stand-in types and dllexport functions in Storm and Fog files go: 0x41D880, 0x41D920 and 0x41D940 are CBitInput's constructor, CBitOutput's constructor (D2StormBitOutput.h already declared it) and CBitOutput::sub_0041D940_GetSize, written as members instead of extern "C" dllexport fastcall functions over Obj0041D880/Obj0041D920/Obj0041D940; SSignature.cpp's D2StormHuffInputStrc, CBitInput's layout with the same constructor, is folded into its CBitInput. FOG_SOCKET_GetError (0x40E0B0) takes FSafeSock, with McpConnect.cpp's signature, instead of a dllexport over a type named after itself. 0x6C43A0 (SCMD.CPP) is a link constructor on a placeholder link type instead of a fastcall over T0051755C. SBMP.CPP calls SMemAlloc/SMemFree and passes its own file-name literal instead of second declarations and two externs for 0x6FCC58. Exceptions.cpp's T0040D1C0 is D2CrashDumpRecordStrc. names.csv: 0x41D880 CBitInput, 0x41D920 CBitOutput (inferred); 0x41D940 sub_0041D940_GetSize, 0x6C43A0 D2SCmdLink006C43A0Strc (placeholder). VERIFIED e77ca0d2 on base 900824d3 (#345; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 1,175 B), then rebased onto 88003a4d (#346) without conflicts and prechecked. Not stacked; independent of bitmanip-clean.
 
 - lane3/bitmanip-clean 7e2f64df 451->451 Fog's bit-mask tables are defined where they're read: 0x6CE268 (32 single-bit masks, Fog.h's gdwBitMasks) and 0x6CE2E8 (their complements, gdwInvBitMasks) become two 128-byte records in Fog/Unknown_00410790.cpp, whose bit functions read them and whose own low-bit masks follow at 0x6CE368. The plan had them as 20 one-entry or slice records in ten other files (plan-only change for those; their declarations stay). The Fog file also writes 0x410B70, 0x410B90 and 0x410E90 in its own types, without stand-in types and dllexport. VERIFIED f4c7f0fc on base 900824d3 (#345; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 1,166 B: 0x6CE264 is no longer copied). Not stacked; independent of ctx-trim.
@@ -11,7 +13,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-(none)
+- **QServer.cpp / QServer98.cpp views → D2QueueServerStrc / D2QClientStrc** (lane3/qserver-views, in verify): every stand-in view of the server and client in QServer.cpp goes, function by function.
 
 ## Questions
 
