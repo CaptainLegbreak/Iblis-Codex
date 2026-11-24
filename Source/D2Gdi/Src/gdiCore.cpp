@@ -229,6 +229,10 @@ struct D2RendererCallbacksStrc
     void (__fastcall* pfnCallback00)(int a, int b, int c, int d);
 };
 
+void* ghRenderWindow; // 0x007C9140
+
+D2PaletteTableStrc gtPaletteView; // 0x0098A040
+
 // 0x006C7A70
 int __fastcall GDICORE_Init(void* pArg1, void* pArg2)
 {
@@ -409,6 +413,43 @@ void __fastcall GDICORE_SetPalette(D2PaletteEntry006C7C10Strc* pEntries)
     }
     SetPaletteEntries(ghPalette, 0, 256, pEntries);
     memcpy(gaPalette_007C8CC8, pEntries, sizeof(gaPalette_007C8CC8));
+}
+
+// 0x006C8000
+void __fastcall sub_006C8000_SetPaletteView(const D2PaletteTableStrc* source)
+{
+    gtPaletteView = *source;
+    gpGfxPaletteView_007C9150 = &gtPaletteView;
+}
+
+// 0x006C8030
+void __cdecl sub_006C8030_Nop()
+{
+}
+
+// 0x006C8040
+void __cdecl sub_006C8040_Nop()
+{
+}
+
+// 0x006C8070
+void __cdecl sub_006C8070_Nop()
+{
+}
+
+// 0x006C8080
+void __stdcall sub_006C8080_Nop(int unused1, int unused2, int unused3)
+{
+}
+
+// 0x006C8090
+void __stdcall sub_006C8090_Nop(int unused1, int unused2, int unused3, int unused4)
+{
+}
+
+// 0x006C80A0
+void __cdecl sub_006C80A0_Nop()
+{
 }
 
 // 0x006C80B0
