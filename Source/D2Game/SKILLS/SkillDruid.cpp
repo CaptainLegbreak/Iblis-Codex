@@ -3076,77 +3076,9 @@ int __fastcall SKILLS_SrvDo149_NecromageMissile(D2GameStrc* pGame, D2UnitStrc* p
 }
 
 int __fastcall SKILLS_SrvDo073_BlessedHammer(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D0040
-// 0x005D6410
-void __fastcall SKILLS_RemoveStatesOnHit(D2UnitStrc* pDefender)
-{
-    if (!STATES_CheckStateMaskRemHitOnUnit(pDefender))
-    {
-        return;
-    }
-
-    const unsigned int* pStatFlags = D2COMMON_10494_STATES_GetStatFlags(pDefender);
-    const int nRecords = (sgptDataTables->nStatesTxtRecordCount + 31) / 32;
-
-    unsigned int nFlags[8];
-    memcpy(nFlags, pStatFlags, sizeof(unsigned int) * nRecords);
-
-    int nBase = 0;
-    for (int i = 0; i < nRecords; ++i, nBase += 32)
-    {
-        unsigned int* pFlag = &nFlags[i];
-        unsigned int nFlag = *pFlag;
-        int nBit = sub_004111A0_GetLowestSetBit(nFlag);
-        if (nBit >= 0)
-        {
-            do
-            {
-                nFlag &= ~(1 << nBit);
-                const int nStateId = nBit + nBase;
-                if (sgptDataTables->fStateMasks[STATEMASK_REMHIT][nStateId >> 5] & gdwBitMasks[nStateId & 31])
-                {
-                    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pDefender, nStateId);
-                    if (pStatList)
-                    {
-                        D2Common_10474(pDefender, pStatList);
-                        STATLIST_FreeStatList(pStatList);
-                    }
-
-                    STATES_ToggleState(pDefender, nStateId, 0);
-                }
-
-                nBit = sub_004111A0_GetLowestSetBit(nFlag);
-            }
-            while (nBit >= 0);
-
-            *pFlag = nFlag;
-        }
-    }
-}
 
 int __fastcall SKILLS_SrvDo048_BladeFury(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D68A0
 int __fastcall SKILLS_SrvSt28_BladeShield(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D7A00
-
-// 0x005D7C40
-int __fastcall SKILLS_AuraCallback_AllocSkillCombat(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit)
-{
-    D2Do142ArgsStrc* pArgs = (D2Do142ArgsStrc*)pAuraCallback->pArgs;
-    D2DamageStrc damage = *pArgs->pDamage;
-
-    SKILLS_SetDamageResultFlags(pAuraCallback->pGame, pAuraCallback->pOwner, pUnit, pArgs->wResultFlags, pArgs->nToHit, &damage, 1);
-    if (damage.wResultFlags & 1)
-    {
-        damage.dwHitFlags |= pArgs->dwHitFlags;
-        if (pArgs->nSrcDam)
-        {
-            SUNITDMG_FillDamageValues(pAuraCallback->pGame, pAuraCallback->pOwner, pUnit, &damage, 0, pArgs->nSrcDam);
-        }
-
-        SUNITDMG_AllocCombat(pAuraCallback->pGame, pAuraCallback->pOwner, pUnit, &damage, 0x80);
-        SUNITDMG_DrainItemDurability(pAuraCallback->pGame, pAuraCallback->pOwner, pUnit, 0);
-    }
-
-    return 1;
-}
 
 // 0x005D8290
 int __fastcall SKILLS_ApplyWarcryStats(D2GameStrc* pGame, D2UnitStrc* a2, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
@@ -3209,67 +3141,6 @@ int __fastcall SKILLS_SrvDo068_BasicShout(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
     SKILLS_CreateMissileRing(pGame, pUnit, pUnit, nMissileId, nSkillId, nSkillLevel, 0);
     SKILLS_ApplyWarcryStats(pGame, pUnit, pUnit, nSkillId, nSkillLevel);
-    return 1;
-}
-
-// 0x005D25B0
-int __fastcall SKILLS_SrvDo136_DeathMaul(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    int nX;
-    int nY;
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    const int nMissileId = pSkillsTxtRecord->wSrvMissileA;
-    if (nMissileId <= 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    if (!D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY))
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
-    }
-
-    D2UnitStrc* pMissile = D2GAME_CreateMissile_6FD115E0(pGame, pUnit, nSkillId, nSkillLevel, nMissileId, 0, 0);
-    if (!pMissile)
-    {
-        return 0;
-    }
-
-    const int nSpeed = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
-    if (nSpeed > 0)
-    {
-        UNITS_SetAnimationSpeed(pMissile, nSpeed);
-    }
-
-    const int nTotalFrames = MISSILE_GetTotalFrames(pMissile);
-    int nDistance = sub_006417F0_GetDistanceToXY(pUnit, nX, nY);
-    if (nDistance < 1)
-    {
-        nDistance = 1;
-    }
-
-    int nFrame;
-    if (nDistance >= 10)
-    {
-        nFrame = nTotalFrames * nDistance / 12;
-    }
-    else
-    {
-        nFrame = nTotalFrames * nDistance / 24 + nTotalFrames / 2;
-    }
-
-    MISSILE_SetTotalFrames(pMissile, nFrame);
-    MISSILE_SetCurrentFrame(pMissile, nFrame);
     return 1;
 }
 

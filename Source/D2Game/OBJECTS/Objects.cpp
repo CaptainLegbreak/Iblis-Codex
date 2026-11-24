@@ -2796,35 +2796,6 @@ void __fastcall OBJECTS_AppendPair(int* pCount, D2UnkPairStrc* pPairs, int nSeco
 }
 
 
-// 0x0055CA00
-int __fastcall OBJECTS_MatchFieldPair(D2UnkFieldPairStrc* pRecord1, D2UnkFieldPairStrc* pRecord2, int nValue1, int nValue2)
-{
-    if (pRecord1->nValue == nValue1 && pRecord2->nValue == nValue2)
-    {
-        return 1;
-    }
-
-    if (pRecord1->nValue == nValue2 && pRecord2->nValue == nValue1)
-    {
-        return 1;
-    }
-
-    return 0;
-}
-
-// 0x00564F00
-int __cdecl OBJECTS_CompareDescending(const unsigned int* pValue1, const unsigned int* pValue2)
-{
-    const unsigned int nValue1 = *pValue1;
-    const unsigned int nValue2 = *pValue2;
-    if (nValue1 > nValue2)
-    {
-        return -1;
-    }
-
-    return nValue1 != nValue2;
-}
-
 // 0x0056CD50
 int __fastcall SKILL_ComputePeriodicRate(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel)
 {

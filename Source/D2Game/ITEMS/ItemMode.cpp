@@ -1865,7 +1865,7 @@ static int ITEMMODE_AreEquipmentTraitsCompatible(D2ItemModeArgStrc* pArg1, D2Ite
     return 0;
 }
 
-// build: symbol ?OBJECTS_MatchFieldPair@* 0x0055CA00
+// 0x0055CA00
 int __fastcall OBJECTS_MatchFieldPair(D2ItemsTxt* pRecord1, D2ItemsTxt* pRecord2, int nValue1, int nValue2)
 {
     if (pRecord1->dwCode == nValue1 && pRecord2->dwCode == nValue2)
