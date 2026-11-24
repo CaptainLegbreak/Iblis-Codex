@@ -21927,11 +21927,6 @@
      "name": "?WARDENCLIENT_InitWarden@@YIHH@Z"
     },
     {
-     "va": "0x004922A0",
-     "length": 108,
-     "name": "WARDENCLIENT_HandlePanelAreaClick"
-    },
-    {
      "va": "0x004A1320",
      "length": 481,
      "name": "WARDENCLIENT_OpenTextPanel"
@@ -23122,6 +23117,11 @@
     {
      "va": "0x0048EDF0",
      "length": 4583
+    },
+    {
+     "va": "0x004922A0",
+     "length": 108,
+     "name": "WARDENCLIENT_HandlePanelAreaClick"
     },
     {
      "va": "0x00492310",

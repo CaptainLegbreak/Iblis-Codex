@@ -479,10 +479,6 @@ extern WardenModule* gpSlotHolder; // 0x007BC990
 
 
 
-static int gnInvMouseX; // 0x007BCA4C
-
-static int gnInvMouseY; // 0x007BCBD8
-
 static int gnPetIconPopupState; // 0x007BEECC
 
 D2WaypointMenuEntryStrc gaWaypointEntries[9]; // 0x007BF03C
@@ -1127,23 +1123,6 @@ int __fastcall WARDENCLIENT_InitWarden(int nValue)
     return 1;
 }
 
-// 0x004922A0
-int __stdcall WARDENCLIENT_HandlePanelAreaClick(SMSGHANDLER_PARAMS* pMsg)
-{
-    const int nX = pMsg->nXpos;
-    const int nY = pMsg->nYpos;
-    gnInvMouseX = nX;
-    gnInvMouseY = nY;
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-    if (nX >= gnGlobal_007BCAA0 && nX < gnGlobal_007BCAA4 && nY >= gnGlobal_007BCAA8 && nY <= gnGlobal_007BCAAC)
-    {
-        INV_HandlePanelClick(pMsg);
-        return 1;
-    }
-    return 0;
-}
 
 static inline int InBox(int nX, int nY, int nLeft, int nRight, int nTop, int nBottom)
 {
