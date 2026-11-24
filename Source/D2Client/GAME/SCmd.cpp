@@ -16,6 +16,7 @@
 #include "D2ClientMenus.h"
 #include "D2ClientTypes.h"
 #include "D2MsgRecord.h"
+#include "D2MultiTypes.h"
 
 struct D2ActiveRoomStrc;
 
@@ -2224,16 +2225,6 @@ public:
 
 struct D2LaunchMsgStrc;
 
-struct D2LaunchMsgStrc
-{
-    int nType;
-    int nArg;
-    char* szName;
-    void* pExtra;
-    void* pData;
-    unsigned long nSize;
-    char szText[0x108];
-};
 
 struct D2MsgRecordStrc;
 

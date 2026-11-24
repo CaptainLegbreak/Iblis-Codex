@@ -364,16 +364,6 @@ static unsigned char COMCALLBACK_ParseStatString(D2MultiChannelUserStrc* pUser, 
 
 struct D2LaunchMsgStrc;
 
-struct D2LaunchMsgStrc
-{
-    int nType;
-    int nArg;
-    char* szName;
-    void* pExtra;
-    void* pData;
-    unsigned long nSize;
-    char szText[0x108];
-};
 
 typedef int (__fastcall* D2LaunchMsgHandler)(int nArg, char* pArg, const char* szText, const char* szNext);
 
