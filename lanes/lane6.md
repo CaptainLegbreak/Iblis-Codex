@@ -5,7 +5,6 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 ## Ready
 
 - lane6/winmain-main d4e4a98e 0 placeholders. WinMain (0x004066E0) moves from MainMenus.cpp to the NT-service object, D2Launch/Unknown_00406410.cpp, with gnCmdShow (0x0074C71C). It follows ERRORMANAGER_StartServiceDispatcher, and gnCmdShow, read only by WinMain, sits inside that object's .bss (between ghD2ServerServiceStatus 0x0074C714 and gbRunningAsService 0x0074C720). Not stacked. Lane 3: this touches Unknown_00406410.cpp, which you are renaming to Main.cpp; it's an append at the end of the file, so a plain rename merges over it. VERIFIED 6e431489 (on #353; borrowed data 1,048 B, unchanged).
-- lane6/bnsend-empty d1c5a247 0 placeholders (plan-only). The 4 zero bytes at 0x006DEF80 sit among BnSend.cpp's .rdata literals (after "Registration Version", before ".\BnSend.cpp") and BnSend reads them first (szEmpty_006DEF80); SRP's SHA1 pad gabSha1Pad00 (lane 3's SHA.cpp, unchanged) reads the same bytes. Planned in BnSend.cpp as one record with both names as alternatenames. Not stacked; independent of celcmp-rtti; no other lane's file changed. VERIFIED 6ecb4ee2 (on #351; borrowed data 1,114 -> 1,107 B).
 
 
 ## Claimed
