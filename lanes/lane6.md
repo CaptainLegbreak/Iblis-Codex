@@ -4,7 +4,7 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- (lane6/chatdlg-object-2: verifying on #337; ready line follows. It replaces lane6/chatdlg-object, pushed on #333 and rebased with main's renames.)
+- (lane6/chatdlg-object-2: verifying on #337; ready line follows. Rebased onto #337 with main's renames applied.)
 
 ## Claimed
 
