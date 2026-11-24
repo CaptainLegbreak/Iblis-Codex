@@ -5595,7 +5595,7 @@
     {
      "va": "0x00412650",
      "length": 179,
-     "name": "?SMemFree@@YGHPAXPBDHI@Z"
+     "name": "_SMemFree@16"
     },
     {
      "va": "0x00412710",

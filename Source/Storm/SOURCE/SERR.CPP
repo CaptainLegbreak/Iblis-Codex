@@ -159,8 +159,8 @@ void TSList<T, TGetLink>::Clear()
 }
 
 // build: symbol ??_R0?AUHANDLER@@@8 0x0070842C
-// build: symbol ?SMemAlloc@@YGPAXIPBDHI@Z 0x00413020
-// build: symbol ?SMemFree@@YGHPAXPBDHI@Z 0x00412650
+// build: symbol _SMemAlloc@16 0x00413020
+// build: symbol _SMemFree@16 0x00412650
 // build: symbol ?Next@?$TSLink@UHANDLER@@@@QAEPAUHANDLER@@XZ 0x0041C370
 // build: symbol ?RawNext@?$TSLink@UHANDLER@@@@QAEPAUHANDLER@@XZ 0x0041C380
 // build: symbol ?NextLink@?$TSLink@UHANDLER@@@@QAEPAU1@H@Z 0x0041C3A0
