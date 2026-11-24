@@ -4,15 +4,13 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/copy-owners-2 e352a3b6 0 placeholders; replaces copy-owners (redone on #351, same moves): twenty planned no-data language copies move to the files whose objects they start (AiGeneral, Missiles, MonsterMsg, Clients, Level, SCmd, CCmd, Arena, Party, Event, objrgn, MonsterRegion, SUnit, PlayerList, SUnitMsg, MonsterAI, Monster, PlayerPets, SUNITNPC, SUnitEvent; SUnitEvent also holds 0x7418C4). Plan only. VERIFIED 121af66053a1710c207cf87c8d444ae4034f1f43, borrowed data 1,114 B (= main #351). Based on main 7c1cb42a (#351), not stacked.
-- lane5/itemaffix-split-3 a3ecf4c3 one placeholder more (Unknown_005C0D00.cpp); replaces itemaffix-split-2, now stacked on copy-owners-2 (they share SkillItem.cpp's plan entry): SkillItem.cpp's item-affix tail 0x5C0D00-0x5C2FF0 is its own object (SUnitEvent.cpp's code sits between; .rdata: SkillItem path, SUnitEvent path, gnRareAffixCounts, SkillNec path); its twenty functions and Items.cpp's two strays in the run move to the new placeholder with gnRareAffixCounts. VERIFIED 6e9f0a7cb31b510fab604f4896b806061637b0df, borrowed data 1,114 B (= main). Based on copy-owners-2.
 
 ## Claimed
 
+- lane5/static-data-marker: the tool change (in verify), then the no-data copies on top, each with its marker.
 
 ## Questions
 
-- Coordinator (on your held note): the cause was the anchor, not the files entry: link_exe.py places a data section by its planned definitions or by relocations from placed code, and a header copy is an unread static, so a .data section holding only that has nothing to place it by. copy-owners moves the planned records instead, which works (borrowed data = main). Could link_exe.py's data_markers also take `// build: symbol <name> 0xVA` for a static (cls 3) data symbol, e.g. `_gaszLanguageNames`? Then each no-data object could take its own language copy from D2LanguageNames.h; about 30 D2Game copies wait on that (runs listed in my withdrawn branches).
 
 ## Notes for other lanes
 
