@@ -37674,6 +37674,11 @@
      "length": 117
     },
     {
+     "va": "0x005178E9",
+     "length": 85,
+     "name": "?sub_005178E9_Format@@YAXIZZ"
+    },
+    {
      "va": "0x005179B3",
      "length": 131
     },
@@ -37968,17 +37973,6 @@
      "va": "0x00517804",
      "length": 112,
      "name": "?sub_00517804_GetMessage@@YIXIPADI@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_005178E9.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005178E9",
-     "length": 85,
-     "name": "?sub_005178E9_Format@@YAXIZZ"
     }
    ]
   },

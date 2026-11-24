@@ -151,6 +151,10 @@ extern "C" __declspec(dllimport) int __stdcall CryptMsgClose(HCRYPTMSG hCryptMsg
 
 #include "gen/data/Source/D2Hell/Unknown_005173EF.inc"
 
+void __fastcall sub_00517804_GetMessage(unsigned int,char*,unsigned int);
+void __fastcall sub_005173EF_Display(const char*);
+#define BUFFER_SIZE 512
+
 // 0x005173EF
 int __fastcall sub_005173EF_FatalBox(const char* text) {
  MessageBoxA(0,text,gpszModuleName,0x2010);
@@ -197,6 +201,15 @@ int __cdecl sub_00517874_ShowError(unsigned int message, ...)
  if(MessageBoxA(0,text,gpszModuleName,0x2215)==4) result=1;
  else {sub_005173DF_TerminateCurrentProcess();result=0;}
  return result;
+}
+
+// 0x005178E9
+void __cdecl sub_005178E9_Format(unsigned int id,...) {
+ char formatted[BUFFER_SIZE];
+ char format[BUFFER_SIZE];
+ sub_00517804_GetMessage(id,format,BUFFER_SIZE);
+ wvsprintfA(formatted,format,(char*)(&id+1));
+ sub_005173EF_Display(formatted);
 }
 
 // 0x005179B3
