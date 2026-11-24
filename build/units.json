@@ -746,6 +746,11 @@
      "name": "?sub_0040E250_GetCpuVendor@@YAHXZ"
     },
     {
+     "va": "0x0040E300",
+     "length": 1350,
+     "name": "?DecodeCpuModelName@@YGXPADHHIHH@Z"
+    },
+    {
      "va": "0x0040E870",
      "length": 226,
      "name": "ERRORMANAGER_MeasureCpuMHz"
@@ -764,6 +769,10 @@
      "va": "0x0040E9E0",
      "length": 26,
      "name": "?sub_0040E9E0_GetCpuidEdx@@YIII@Z"
+    },
+    {
+     "va": "0x0040EA00",
+     "length": 271
     },
     {
      "va": "0x00413740",
@@ -3873,11 +3882,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0040E300",
-     "length": 1350,
-     "name": "?DecodeCpuModelName@@YGXPADHHIHH@Z"
-    },
-    {
      "va": "0x0040EB40",
      "length": 4,
      "name": "?sub_0040EB40_GetMessageData@@YIPADPAUD2LogMessageStrc@@@Z"
@@ -3891,16 +3895,6 @@
      "va": "0x0040EB80",
      "length": 8,
      "name": "?Leave@CCritSect@@QAEXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040EA00.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0040EA00",
-     "length": 271
     }
    ]
   },

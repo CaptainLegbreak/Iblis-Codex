@@ -587,7 +587,7 @@ extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
 
 extern D2CriticalSectionStrc gtTimeLock; // 0x0075E880
 
-int __cdecl ERRORMANAGER_MeasureCpuMHz(); // 0x0040E870
+int __stdcall ERRORMANAGER_MeasureCpuMHz(); // 0x0040E870
 
 extern "C" const char gszIntel386[]; // 0x006CE074
 
