@@ -1,36 +1,23 @@
 #include "D2Client.h"
+#include "D2MsgRecord.h"
 
 #define gpMsgRecordChunkHead_007A2760 (gtMsgRecordChunkFirst.pNext)
 #define FILE_ATTRIBUTE_NORMAL 0x00000080
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnRecordCount_007A2758 (gFirstRecordBlock_007A0818.nCount)
 
-struct D2WinMsgStrc;
+struct D2MsgRecordStrc;
 struct D2RecordFileHeaderStrc;
 struct D2MsgRecordChunkStrc;
 struct D2RecordBlockStrc;
 struct D2RecordHeaderStrc;
 
-struct D2MsgRecordChunkStrc
-{
-    char tRecords[500 * 0x10];
-    int nCount;
-    int nUnk0x1F44;
-    D2MsgRecordChunkStrc* pNext;
-};
 
 int __stdcall SCmdRegisterArgument(unsigned int dwFlags, unsigned int dwId, const char* szName, void* pVariable, unsigned int nBytes, int bSet, void* pfnCallback, void* pParam); // 0x006C4580
 int __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern char gszLngPath[0x104]; // 0x007A0710
 extern D2MsgRecordChunkStrc gtMsgRecordChunkFirst; // 0x007A0818
 
-struct D2WinMsgStrc
-{
-    unsigned int dwTick;
-    unsigned int uMessage;
-    unsigned int wParam;
-    int lParam;
-};
 
 struct D2RecordFileHeaderStrc
 {
@@ -97,7 +84,7 @@ void __cdecl RECORD_AddRecordChunk()
     D2MsgRecordChunkStrc* pChunk = (D2MsgRecordChunkStrc*)FOG_Alloc(sizeof(D2MsgRecordChunkStrc), ".\\GAME\\Record.cpp", 0x35, 0);
     D2MsgRecordChunkStrc* pOld = gpMsgRecordChunk_0070F7A0;
     pChunk->nCount = 0;
-    pChunk->nUnk0x1F44 = 0;
+    pChunk->nIndex = 0;
     pOld->pNext = pChunk;
     pChunk->pNext = 0;
     gpMsgRecordChunk_0070F7A0 = pChunk;
@@ -154,7 +141,7 @@ void __cdecl RECORD_WriteRecordFile()
     WriteFile(hFile, &tHeader, sizeof(tHeader), &nWritten, 0);
     for (pChunk = &gtMsgRecordChunkFirst; pChunk; pChunk = pChunk->pNext)
     {
-        WriteFile(hFile, pChunk, pChunk->nCount * sizeof(D2WinMsgStrc), &nWritten, 0);
+        WriteFile(hFile, pChunk, pChunk->nCount * sizeof(D2MsgRecordStrc), &nWritten, 0);
     }
     CloseHandle(hFile);
 }
@@ -219,11 +206,11 @@ void __cdecl RECORD_FreeMsgRecordChunks()
 }
 
 // 0x00451880
-int __fastcall RECORD_DispatchRecordedMessage(D2WinMsgStrc* pMsg)
+int __fastcall RECORD_DispatchRecordedMessage(D2MsgRecordStrc* pMsg)
 {
     int bUseResult = 0;
     int lResult = 0;
-    D2_ASSERT(pMsg->dwTick == sub_0044DA90(), 0x12A);
+    D2_ASSERT(pMsg->nTick == sub_0044DA90(), 0x12A);
     return SMsgDispatchMessage(WINDOW_GetWindow(), pMsg->uMessage, pMsg->wParam, pMsg->lParam, &bUseResult, &lResult);
 }
 

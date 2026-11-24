@@ -19,6 +19,7 @@
 #include "D2MonModes.h"
 #include "D2ObjModes.h"
 #include "D2SetsTxt.h"
+#include "D2MsgRecord.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -35,21 +36,7 @@ enum
     NUM_HOTKEYS = 114,
 };
 
-struct D2MsgRecordStrc
-{
-    int nTick;
-    unsigned int uMessage;
-    unsigned int wParam;
-    int lParam;
-};
 
-struct D2MsgRecordChunkStrc
-{
-    D2MsgRecordStrc tRecords[500];
-    int nCount;
-    int nIndex;
-    D2MsgRecordChunkStrc* pNext;
-};
 
 struct D2PalShiftDataStrc
 {

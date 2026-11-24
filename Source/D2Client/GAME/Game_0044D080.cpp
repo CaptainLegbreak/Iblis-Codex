@@ -5,6 +5,7 @@
 #include "D2LevelTxt.h"
 #include "D2CelContext.h"
 #include "D2MultiTypes.h"
+#include "D2MsgRecord.h"
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -632,21 +633,7 @@ struct D2MsgRecordStrc;
 
 struct D2MsgRecordChunkStrc;
 
-struct D2MsgRecordStrc
-{
-    unsigned int dwTick;
-    unsigned int uMessage;
-    unsigned int wParam;
-    int lParam;
-};
 
-struct D2MsgRecordChunkStrc
-{
-    D2MsgRecordStrc tRecords[500];
-    int nCount;
-    int nUnk0x1F44;
-    D2MsgRecordChunkStrc* pNext;
-};
 
 struct D2ChatMessageStrc { D2WinControlStrc* pControl; unsigned int nMessage; };
 

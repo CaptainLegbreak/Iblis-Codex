@@ -7,6 +7,7 @@
 #include "D2StormTypes.h"
 #include "D2GameTypes.h"
 #include "D2MultiTypes.h"
+#include "D2MsgRecord.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -147,21 +148,7 @@ struct D2LoadingTimerStrc
     }
 };
 
-struct D2WinMsgStrc
-{
-    unsigned int dwTick;
-    unsigned int uMessage;
-    unsigned int wParam;
-    int lParam;
-};
 
-struct D2MsgRecordChunkStrc
-{
-    D2WinMsgStrc tRecords[500];
-    int nCount;
-    int nUnk0x1F44;
-    D2MsgRecordChunkStrc* pNext;
-};
 
 typedef void (__fastcall* D2InitHandlerFn)(void* pArg);
 
