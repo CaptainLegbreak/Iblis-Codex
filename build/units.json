@@ -36149,20 +36149,6 @@
    ]
   },
   {
-   "file": "Source/D2Glide/Unknown_0050C890.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0050C890",
-     "length": 355
-    },
-    {
-     "va": "0x0050D6A0",
-     "length": 1141
-    }
-   ]
-  },
-  {
    "file": "Source/D2Glide/Unknown_0050BD30.cpp",
    "rank": 0,
    "functions": [
@@ -36219,6 +36205,10 @@
      "name": "?sub_0050C760_GlideInitVertices@@YAXXZ"
     },
     {
+     "va": "0x0050C890",
+     "length": 355
+    },
+    {
      "va": "0x0050CA00",
      "length": 831
     },
@@ -36253,6 +36243,10 @@
     {
      "va": "0x0050D540",
      "length": 352
+    },
+    {
+     "va": "0x0050D6A0",
+     "length": 1141
     }
    ]
   },
