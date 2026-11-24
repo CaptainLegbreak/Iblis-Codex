@@ -1,5 +1,6 @@
 #include "D2StatIds.h"
 #include "D2Structs.h"
+#include "D2Path.h"
 #include "D2ClientTypes.h"
 #include "D2Unicode.h"
 #include "D2DataTbls.h"
@@ -357,53 +358,18 @@ D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, 
 
 int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInventory);                       // 0x0063D340
 
-extern int gnOffsetTorsoX;                                                                               // 0x007220B0
-
-extern int gnOffsetTorsoY;                                                                               // 0x007220B4
-
-extern int gnOffsetBeltX;                                                                               // 0x007220B8
-
-extern int gnOffsetBeltY;                                                                               // 0x007220BC
-
-extern int gnOffsetFeetX;                                                                               // 0x007220C0
-
-extern int gnOffsetFeetY;                                                                               // 0x007220C4
-
-extern int gnOffsetHeadX;                                                                               // 0x007220C8
-
-extern int gnOffsetHeadY;                                                                               // 0x007220CC
-
-extern int gnOffsetGlovesX;                                                                               // 0x007220D0
-
-extern int gnOffsetGlovesY;                                                                               // 0x007220D4
-
-extern int gnOffsetNeckX;                                                                               // 0x007220D8
-
-extern int gnOffsetNeckY;                                                                               // 0x007220DC
-
-extern int gnOffsetLRingX;                                                                               // 0x007220E0
-
-extern int gnOffsetLRingY;                                                                               // 0x007220E4
-
-extern int gnOffsetRRingX;                                                                               // 0x007220E8
-
-extern int gnOffsetRRingY;                                                                               // 0x007220EC
-
-extern int gnOffsetRArmX;                                                                               // 0x007220F0
-
-extern int gnOffsetRArmY;                                                                               // 0x007220F4
-
-extern int gnOffsetLArmX;                                                                               // 0x007220F8
-
-extern int gnOffsetLArmY;                                                                               // 0x007220FC
-
-extern int gnOffsetRArmTabX;                                                                               // 0x00722100
-
-extern int gnOffsetRArmTabY;                                                                               // 0x00722104
-
-extern int gnOffsetLArmTabX;                                                                               // 0x00722108
-
-extern int gnOffsetLArmTabY;                                                                               // 0x0072210C
+extern D2CoordStrc gtOffsetTorso; // 0x007220B0
+extern D2CoordStrc gtOffsetBelt; // 0x007220B8
+extern D2CoordStrc gtOffsetFeet; // 0x007220C0
+extern D2CoordStrc gtOffsetHead; // 0x007220C8
+extern D2CoordStrc gtOffsetGloves; // 0x007220D0
+extern D2CoordStrc gtOffsetNeck; // 0x007220D8
+extern D2CoordStrc gtOffsetLRing; // 0x007220E0
+extern D2CoordStrc gtOffsetRRing; // 0x007220E8
+extern D2CoordStrc gtOffsetRArm; // 0x007220F0
+extern D2CoordStrc gtOffsetLArm; // 0x007220F8
+extern D2CoordStrc gtOffsetRArmTab; // 0x00722100
+extern D2CoordStrc gtOffsetLArmTab; // 0x00722108
 
 static D2CelFileStrc* gpTradePanelCel;                                                                           // 0x007BCB04
 
@@ -1766,10 +1732,10 @@ timer_done:
     {
         tContext.pCellFile = gpCelInvChar6Tab;
         tContext.nFrame = 0;
-        TEXTURE_CelDraw(&tContext, gnGlobal_007BCCBC + gnOffsetLArmTabX, gnGlobal_007BCCC8 + gnOffsetLArmTabY, -1, 5, 0);
+        TEXTURE_CelDraw(&tContext, gnGlobal_007BCCBC + gtOffsetLArmTab.nX, gnGlobal_007BCCC8 + gtOffsetLArmTab.nY, -1, 5, 0);
         tContext.pCellFile = gpCelInvChar6Tab;
         tContext.nFrame = 1;
-        TEXTURE_CelDraw(&tContext, gnGlobal_007BCCA8 + gnOffsetRArmTabX, gnGlobal_007BCCB4 + gnOffsetRArmTabY, -1, 5, 0);
+        TEXTURE_CelDraw(&tContext, gnGlobal_007BCCA8 + gtOffsetRArmTab.nX, gnGlobal_007BCCB4 + gtOffsetRArmTab.nY, -1, 5, 0);
     }
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -1779,49 +1745,49 @@ timer_done:
     {
         tContext.pCellFile = gpCelInvArmor;
         tContext.nFrame = 0;
-        TEXTURE_CelDraw(&tContext, gnGlobal_007BCC94 + gnOffsetTorsoX, gnGlobal_007BCCA0 + gnOffsetTorsoY, -1, 5, 0);
+        TEXTURE_CelDraw(&tContext, gnGlobal_007BCC94 + gtOffsetTorso.nX, gnGlobal_007BCCA0 + gtOffsetTorso.nY, -1, 5, 0);
     }
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 8))
     {
         tContext.pCellFile = gpCelInvBelt;
         tContext.nFrame = 0;
-        TEXTURE_CelDraw(&tContext, gnGlobal_007BCCF8 + gnOffsetBeltX, gnGlobal_007BCD04 + gnOffsetBeltY, -1, 5, 0);
+        TEXTURE_CelDraw(&tContext, gnGlobal_007BCCF8 + gtOffsetBelt.nX, gnGlobal_007BCD04 + gtOffsetBelt.nY, -1, 5, 0);
     }
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 9))
     {
         tContext.pCellFile = gpCelInvBoots;
         tContext.nFrame = 0;
-        TEXTURE_CelDraw(&tContext, gnGlobal_007BCD0C + gnOffsetFeetX, gnGlobal_007BCD18 + gnOffsetFeetY, -1, 5, 0);
+        TEXTURE_CelDraw(&tContext, gnGlobal_007BCD0C + gtOffsetFeet.nX, gnGlobal_007BCD18 + gtOffsetFeet.nY, -1, 5, 0);
     }
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 1))
     {
         tContext.pCellFile = gpCelInvHelmGlove;
         tContext.nFrame = 1;
-        TEXTURE_CelDraw(&tContext, gnGlobal_007BCC6C + gnOffsetHeadX, gnGlobal_007BCC78 + gnOffsetHeadY, -1, 5, 0);
+        TEXTURE_CelDraw(&tContext, gnGlobal_007BCC6C + gtOffsetHead.nX, gnGlobal_007BCC78 + gtOffsetHead.nY, -1, 5, 0);
     }
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 10))
     {
         tContext.pCellFile = gpCelInvHelmGlove;
         tContext.nFrame = 0;
-        TEXTURE_CelDraw(&tContext, gnGlobal_007BCD20 + gnOffsetGlovesX, gnGlobal_007BCD2C + gnOffsetGlovesY, -1, 5, 0);
+        TEXTURE_CelDraw(&tContext, gnGlobal_007BCD20 + gtOffsetGloves.nX, gnGlobal_007BCD2C + gtOffsetGloves.nY, -1, 5, 0);
     }
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 2))
     {
         tContext.pCellFile = gpCelInvRingAmulet;
         tContext.nFrame = 0;
-        TEXTURE_CelDraw(&tContext, gnGlobal_007BCC80 + gnOffsetNeckX, gnGlobal_007BCC8C + gnOffsetNeckY, -1, 5, 0);
+        TEXTURE_CelDraw(&tContext, gnGlobal_007BCC80 + gtOffsetNeck.nX, gnGlobal_007BCC8C + gtOffsetNeck.nY, -1, 5, 0);
     }
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 6))
     {
         tContext.pCellFile = gpCelInvRingAmulet;
         tContext.nFrame = 1;
-        TEXTURE_CelDraw(&tContext, gnGlobal_007BCCD0 + gnOffsetRRingX, gnGlobal_007BCCDC + gnOffsetRRingY, -1, 5, 0);
+        TEXTURE_CelDraw(&tContext, gnGlobal_007BCCD0 + gtOffsetRRing.nX, gnGlobal_007BCCDC + gtOffsetRRing.nY, -1, 5, 0);
     }
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 7))
     {
         tContext.pCellFile = gpCelInvRingAmulet;
         tContext.nFrame = 1;
-        TEXTURE_CelDraw(&tContext, gnGlobal_007BCCE4 + gnOffsetLRingX, gnGlobal_007BCCF0 + gnOffsetLRingY, -1, 5, 0);
+        TEXTURE_CelDraw(&tContext, gnGlobal_007BCCE4 + gtOffsetLRing.nX, gnGlobal_007BCCF0 + gtOffsetLRing.nY, -1, 5, 0);
     }
 
     int nOffsetX = 0;
@@ -1843,12 +1809,12 @@ timer_done:
         {
             if (!bTwoHanded)
             {
-                TEXTURE_CelDraw(&tContext, gnGlobal_007BCCBC + gnOffsetLArmX + nOffsetX, gnGlobal_007BCCC8 + gnOffsetLArmY + nOffsetY, -1, 5, 0);
+                TEXTURE_CelDraw(&tContext, gnGlobal_007BCCBC + gtOffsetLArm.nX + nOffsetX, gnGlobal_007BCCC8 + gtOffsetLArm.nY + nOffsetY, -1, 5, 0);
             }
         }
         else
         {
-            TEXTURE_CelDraw(&tContext, gnGlobal_007BCCBC + gnOffsetLArmX + nOffsetX, gnGlobal_007BCCC8 + gnOffsetLArmY + nOffsetY, -1, 5, 0);
+            TEXTURE_CelDraw(&tContext, gnGlobal_007BCCBC + gtOffsetLArm.nX + nOffsetX, gnGlobal_007BCCC8 + gtOffsetLArm.nY + nOffsetY, -1, 5, 0);
         }
     }
     if (!INVENTORY_GetItemFromBodyLoc(pInventory, 4))
@@ -1859,12 +1825,12 @@ timer_done:
         {
             if (!bTwoHanded)
             {
-                TEXTURE_CelDraw(&tContext, gnGlobal_007BCCA8 + gnOffsetRArmX + nOffsetX, gnGlobal_007BCCB4 + gnOffsetRArmY + nOffsetY, -1, 5, 0);
+                TEXTURE_CelDraw(&tContext, gnGlobal_007BCCA8 + gtOffsetRArm.nX + nOffsetX, gnGlobal_007BCCB4 + gtOffsetRArm.nY + nOffsetY, -1, 5, 0);
             }
         }
         else
         {
-            TEXTURE_CelDraw(&tContext, gnGlobal_007BCCA8 + gnOffsetRArmX + nOffsetX, gnGlobal_007BCCB4 + gnOffsetRArmY + nOffsetY, -1, 5, 0);
+            TEXTURE_CelDraw(&tContext, gnGlobal_007BCCA8 + gtOffsetRArm.nX + nOffsetX, gnGlobal_007BCCB4 + gtOffsetRArm.nY + nOffsetY, -1, 5, 0);
         }
     }
 
@@ -1876,11 +1842,11 @@ timer_done:
         {
             if (!INVENTORY_GetItemFromBodyLoc(pInventory, 5))
             {
-                TEXTURE_CelDraw(&tContext, gnGlobal_007BCCBC + gnOffsetLArmX, gnGlobal_007BCCC8 + gnOffsetLArmY, -1, 5, 0);
+                TEXTURE_CelDraw(&tContext, gnGlobal_007BCCBC + gtOffsetLArm.nX, gnGlobal_007BCCC8 + gtOffsetLArm.nY, -1, 5, 0);
             }
             if (!INVENTORY_GetItemFromBodyLoc(pInventory, 4))
             {
-                TEXTURE_CelDraw(&tContext, gnGlobal_007BCCA8 + gnOffsetRArmX, gnGlobal_007BCCB4 + gnOffsetRArmY, -1, 5, 0);
+                TEXTURE_CelDraw(&tContext, gnGlobal_007BCCA8 + gtOffsetRArm.nX, gnGlobal_007BCCB4 + gtOffsetRArm.nY, -1, 5, 0);
             }
         }
     }
@@ -1888,14 +1854,14 @@ timer_done:
     {
         if (!INVENTORY_GetItemFromBodyLoc(pInventory, 5))
         {
-            TEXTURE_CelDraw(&tContext, gnGlobal_007BCCBC + gnOffsetLArmX, gnGlobal_007BCCC8 + gnOffsetLArmY, -1, 5, 0);
+            TEXTURE_CelDraw(&tContext, gnGlobal_007BCCBC + gtOffsetLArm.nX, gnGlobal_007BCCC8 + gtOffsetLArm.nY, -1, 5, 0);
         }
     }
     else if (bRightHand && !bLeftHand)
     {
         if (!INVENTORY_GetItemFromBodyLoc(pInventory, 4))
         {
-            TEXTURE_CelDraw(&tContext, gnGlobal_007BCCA8 + gnOffsetRArmX, gnGlobal_007BCCB4 + gnOffsetRArmY, -1, 5, 0);
+            TEXTURE_CelDraw(&tContext, gnGlobal_007BCCA8 + gtOffsetRArm.nX, gnGlobal_007BCCB4 + gtOffsetRArm.nY, -1, 5, 0);
         }
     }
 
