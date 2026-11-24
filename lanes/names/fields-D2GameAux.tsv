@@ -1,0 +1,2 @@
+header	struct	offset	old	new	confidence	reason
+D2GameAux.h	D2UnitEventStrc	0x08	unk0x08	nEventKey	medium	D2MOO names D2UnitEventStrc+0x08 nEventKey (source/D2Game/include/UNIT/SUnitEvent.h); a runtime struct, so check the offset still holds in 1.14d

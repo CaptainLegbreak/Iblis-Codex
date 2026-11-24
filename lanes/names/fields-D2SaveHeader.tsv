@@ -1,0 +1,2 @@
+header	struct	offset	old	new	confidence	reason
+D2SaveHeader.h	D2SaveHeaderStrc	0xD0	unk0xD0	dwLastLevel	medium	D2MOO names D2SaveHeaderStrc+0xD0 dwLastLevel (source/D2Game/include/PLAYER/PlrSave2.h); a runtime struct, so check the offset still holds in 1.14d

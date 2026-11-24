@@ -1,0 +1,2 @@
+header	struct	offset	old	new	confidence	reason
+D2GameServer.h	D2ServerCallbackFunctions	0x2C	unk0x2C	pfUpdateGameInformation	medium	D2MOO names D2ServerCallbackFunctions+0x2C pfUpdateGameInformation (source/D2Game/include/GAME/Game.h); a runtime struct, so check the offset still holds in 1.14d

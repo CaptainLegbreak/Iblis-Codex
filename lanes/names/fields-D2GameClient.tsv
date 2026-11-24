@@ -1,0 +1,2 @@
+header	struct	offset	old	new	confidence	reason
+D2GameClient.h	D2ClientStrc	0x6C	unk0x6C	tCharacterInfo	medium	D2MOO names D2ClientStrc+0x6C tCharacterInfo (source/D2Game/include/GAME/Clients.h); a runtime struct, so check the offset still holds in 1.14d

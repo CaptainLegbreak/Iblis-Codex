@@ -1,0 +1,6 @@
+header	struct	offset	old	new	confidence	reason
+D2DataTbls.h	D2DataTablesStrc	0x19C	unk0x19C	nSoundsTxtCodes	high	D2MOO names D2DataTablesStrc+0x19C nSoundsTxtCodes (source/D2Common/include/D2DataTbls.h)
+D2DataTbls.h	D2DataTablesStrc	0x9BC	unk0x9BC	pTreasureClassEx	high	D2MOO names D2DataTablesStrc+0x9BC pTreasureClassEx (source/D2Common/include/D2DataTbls.h)
+D2DataTbls.h	D2DataTablesStrc	0xAA8	unk0xAA8	pMonPresetTxt	high	D2MOO names D2DataTablesStrc+0xAA8 pMonPresetTxt (source/D2Common/include/D2DataTbls.h)
+D2DataTbls.h	D2DataTablesStrc	0xB78	unk0xB78	pMonSeqTxt	high	D2MOO names D2DataTablesStrc+0xB78 pMonSeqTxt (source/D2Common/include/D2DataTbls.h)
+D2DataTbls.h	D2DataTablesStrc	0xC78	unk0xC78	pExperienceTxt	high	D2MOO names D2DataTablesStrc+0xC78 pExperienceTxt (source/D2Common/include/D2DataTbls.h)

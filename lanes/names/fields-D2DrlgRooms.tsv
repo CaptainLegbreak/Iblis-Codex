@@ -1,0 +1,2 @@
+header	struct	offset	old	new	confidence	reason
+D2DrlgRooms.h	D2EnvironmentCycleStrc	0x0B	unk0x0B	nIntensity	medium	D2MOO names D2EnvironmentCycleStrc+0x0B nIntensity (source/D2Common/include/D2Environment.h); a runtime struct, so check the offset still holds in 1.14d

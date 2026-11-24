@@ -1,0 +1,7 @@
+header	struct	offset	old	new	confidence	reason
+D2Txt.h	D2MissilesTxt	0x18E	unk0x18E	nQty	high	D2MOO names D2MissilesTxt+0x18E nQty (source/D2Common/include/DataTbls/MissilesTbls.h)
+D2Txt.h	D2MonStats2Txt	0x10E	unk0x10E	whtTop	high	D2MOO names D2MonStats2Txt+0x10E whtTop (source/D2Common/include/DataTbls/MonsterTbls.h)
+D2Txt.h	D2ObjectsTxt	0xC0	unk0xC0	szToken	high	D2MOO names D2ObjectsTxt+0xC0 szToken (source/D2Common/include/DataTbls/ObjectsTbls.h)
+D2Txt.h	D2ObjectsTxt	0x198	unk0x198	nTgtFX	high	D2MOO names D2ObjectsTxt+0x198 nTgtFX (source/D2Common/include/DataTbls/ObjectsTbls.h)
+D2Txt.h	D2SkillsTxt	0x90	unk0x90	wAuraTgtEvent	high	D2MOO names D2SkillsTxt+0x90 wAuraTgtEvent (source/D2Common/include/DataTbls/SkillsTbls.h)
+D2Txt.h	D2SkillsTxt	0xB8	unk0xB8	wPassiveEvent	high	D2MOO names D2SkillsTxt+0xB8 wPassiveEvent (source/D2Common/include/DataTbls/SkillsTbls.h)

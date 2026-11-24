@@ -1,0 +1,2 @@
+header	struct	offset	old	new	confidence	reason
+D2DrlgMaps.h	D2TileLibraryEntryStrc	0x24	unk0x24	transparentColorRGB24	medium	D2MOO names D2TileLibraryEntryStrc+0x24 transparentColorRGB24 (source/D2CMP/include/D2CMP.h); a runtime struct, so check the offset still holds in 1.14d

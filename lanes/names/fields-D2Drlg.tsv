@@ -1,0 +1,3 @@
+header	struct	offset	old	new	confidence	reason
+D2Drlg.h	D2DrlgOutdoorInfoStrc	0x54	unk0x54	nWidth	medium	D2MOO names D2DrlgOutdoorInfoStrc+0x54 nWidth (source/D2Common/include/Drlg/D2DrlgOutdoors.h); a runtime struct, so check the offset still holds in 1.14d
+D2Drlg.h	D2ActiveRoomStrc	0x14	unk0x14	nCurrentDeathIndex	medium	D2MOO names D2ActiveRoomStrc+0x14 nCurrentDeathIndex (source/D2Common/include/Drlg/D2DrlgDrlg.h); a runtime struct, so check the offset still holds in 1.14d

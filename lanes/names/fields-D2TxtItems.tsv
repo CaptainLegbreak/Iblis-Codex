@@ -1,0 +1,2 @@
+header	struct	offset	old	new	confidence	reason
+D2TxtItems.h	D2ShrinesTxt	0x12	unk0x12	szViewname	high	D2MOO names D2ShrinesTxt+0x12 szViewname (source/D2Common/include/DataTbls/ObjectsTbls.h)

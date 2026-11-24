@@ -1,0 +1,2 @@
+header	struct	offset	old	new	confidence	reason
+D2UnitData.h	D2MonsterDataStrc	0x54	unk0x54	dwAiState	medium	D2MOO names D2MonsterDataStrc+0x54 dwAiState (source/D2Common/include/Units/Monster.h); a runtime struct, so check the offset still holds in 1.14d
