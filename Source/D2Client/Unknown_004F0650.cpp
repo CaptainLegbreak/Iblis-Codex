@@ -8,7 +8,8 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 void __stdcall shim_1(void* p1, void* p2);
 
-static void __stdcall sub_004F0590_CreateCltMissileRequest(D2UnitStrc* pUnit, int nMissile, int nSkillId, int nSkillLevel, int a5)
+// build: symbol ?SKILLSEMON_CreateMissileRequest@* 0x004F0590
+static void __stdcall SKILLSEMON_CreateMissileRequest(D2UnitStrc* pUnit, int nMissile, int nSkillId, int nSkillLevel, int a5)
 {
 
     pUnit->dwFlags = 0;
@@ -16,7 +17,8 @@ static void __stdcall sub_004F0590_CreateCltMissileRequest(D2UnitStrc* pUnit, in
     shim_1(&nSkillLevel, &a5);
 }
 
-static void __stdcall sub_004F04F0_CreateMissileFan(D2UnitStrc* pUnit, int nCount, int nMissile, int nSkillId, int nSkillLevel)
+// build: symbol ?SKILLSEMON_CreateMissileFan@* 0x004F04F0
+static void __stdcall SKILLSEMON_CreateMissileFan(D2UnitStrc* pUnit, int nCount, int nMissile, int nSkillId, int nSkillLevel)
 {
 
     pUnit->dwFlags = 0;
@@ -53,14 +55,14 @@ int __fastcall sub_004F0650_CreateClientMissiles(D2UnitStrc* pUnit, int nSkillId
     const int nMissileA = pSkillsTxtRecord->wCltMissileA;
     if (nMissileA >= 0 && nMissileA < sgptDataTables->nMissilesTxtRecordCount)
     {
-        sub_004F0590_CreateCltMissileRequest(pUnit, nMissileA, nSkillId, nSkillLevel, 0);
+        SKILLSEMON_CreateMissileRequest(pUnit, nMissileA, nSkillId, nSkillLevel, 0);
     }
 
     const int nMissileB = pSkillsTxtRecord->wCltMissileB;
     if (nMissileB >= 0 && nMissileB < sgptDataTables->nMissilesTxtRecordCount)
     {
         const int nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[0], nSkillId, nSkillLevel);
-        sub_004F04F0_CreateMissileFan(pUnit, nCount, nMissileB, nSkillId, nSkillLevel);
+        SKILLSEMON_CreateMissileFan(pUnit, nCount, nMissileB, nSkillId, nSkillLevel);
     }
 
     return 1;
