@@ -42,7 +42,6 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
   - **0x55A6D0** (D2Game Items.cpp, 2,253 B): Items.cpp already holds an unmarked body of D2GAME_DropTC_6FC51360. With a `// 0x0055A6D0` marker it builds 2,239/2,253 with the rest of Items.cpp equal. Next up.
 
 ## Ready
-- lane7/assume-macros 35b546a9 (on #363), VERIFIED 4697d2d5. `STORM_ASSUME` (Storm.h) and `FOG_ASSUME` (Fog.h), one macro each, for the release-build assumptions no plain form reproduces: Storm Div (and its copy in Unknown_00424700.cpp), BigSquare, FillStreamBuffer; Fog FOG_10207's two field-type switch defaults. tools/status.py: bodies using a module assumption macro get their own line, not the forcing-construct count (42 -> 38). Touches lane 3's Storm and Fog files (Storm.h, Fog.h, SFILE.CPP, Excel.cpp, Unknown_00423DC0/00424700/00424B00.cpp) and tools/status.py; precheck rebuilt the 68 includers of the two headers, all equal.
 
 ## Questions
 
@@ -69,3 +68,4 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 - 2026-11-24 11:33 PT: storm-bigbuffer-assign merged (#361), dropped from Ready. Working queues.md's 42 forcing constructs; moving to the __assume group (Storm BigStack bounds, Excel jump tables, the neg-then-add trio).
 - 2026-11-24 12:09 PT: __assume triage done (4 B to 900 B off once removed). Closest: FillStreamBuffer and FrozenOrbNova (4 B each). D2WinFont and 0x477DD0 narrowed (0x477DD0's byte chain matches with + but the original uses or). No new Ready yet.
 - 2026-11-24 12:36 PT: thanks for the __assume answer. lane7/assume-macros 35b546a9 (on #363) is in its full build now: STORM_ASSUME in Storm.h and FOG_ASSUME in Fog.h; Div (and its copy in Unknown_00424700.cpp), BigSquare, FillStreamBuffer and FOG_10207 use them; status.py counts those bodies on their own line (forcing constructs 42 -> 38). That's four functions; if you counted a fifth, tell me which. The other __assume ones (MissMode/Missile neg-add, Window.cpp, D2WinFont, MonsterTbls, 0x477DD0, SCmd) don't read as asserts, so I'm still looking for plain forms there.
+- 2026-11-24 13:29 PT: lane7/assume-macros withdrawn; redoing it per your answer as lane7/assume-macros-2 on #365 (SASSERT in Storm.h, DEFAULT_UNREACHABLE in Fog.h, status.py lists them for completeness like cpuid/bsr, tried forms in the commit message). Full build running.
