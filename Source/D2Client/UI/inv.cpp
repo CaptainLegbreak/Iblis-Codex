@@ -9156,13 +9156,6 @@ void __stdcall sub_004A17D0(SMSGHANDLER_PARAMS* pMsg)
 }
 
 
-// 0x004AA0C0
-void __fastcall INV_SetHotkeySkillSlot(int nSlot, int nValueA, int nValueB, int nValueC)
-{
-    gaHotkeySkills[nSlot] = nValueA;
-    gaHotkeyLeft[nSlot] = nValueB;
-    gaHotkeyOwners[nSlot] = nValueC;
-}
 
 extern D2SkillIconStateStrc gtHotkeySlots;                                                      // 0x007C0300
 
@@ -9170,54 +9163,12 @@ extern int gbSkillSelectRight;                                                  
 
 void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLeft, int bNoSlots, int bNoDraw); // 0x004AA3A0
 
-// 0x004AA6B0
-void __fastcall sub_004AA6B0_BuildLeftRows(int bNoDraw)
-{
-    if (!gbSkillSelectRight)
-    {
-        gtHotkeySlots.bFlag = 0;
-        SPELLSEL_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), gnScreenWidth - 0x80, 0, 0, bNoDraw);
-    }
-}
-
-// 0x004AA6E0
-void __cdecl sub_004AA6E0_BuildRightRows2()
-{
-    if (gbSkillSelectRight)
-        SPELLSEL_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 1, 0);
-}
-
-// 0x004AA710
-void __cdecl sub_004AA710_BuildLeftRows2()
-{
-    if (!gbSkillSelectRight)
-        SPELLSEL_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), gnScreenWidth - 0x80, 0, 1, 0);
-}
-
-// 0x004AA8B0
-int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        const int nValue = sgptDataTables->pSkillsTxt[nSkillId].nMaxLevel;
-        if (nValue > 0)
-            return nValue;
-    }
-    return 20;
-}
 
 
-// 0x004AA8E0
-void __cdecl sub_004AA8E0_ClearValue7C0C3C()
-{
-    gbSkillPointsHighlight = 0;
-}
 
-// 0x004AA8F0
-extern "C" void __cdecl INV_ClearSkillPointsHighlight()
-{
-    gbSkillPointsHighlight = 0;
-}
+
+
+
 
 // 0x004B1050
 int __fastcall INV_GetMonsterOwnerGuid(D2UnitStrc* pUnit, char* pNotFound, int* pValue)
