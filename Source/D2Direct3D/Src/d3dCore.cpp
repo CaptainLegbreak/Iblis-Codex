@@ -1067,7 +1067,7 @@ extern "C" char* __cdecl sub_00687330_Strncpy(char*,const char*,unsigned int); /
 void __fastcall D3DCORE_LogDDrawError(const char*,HRESULT) throw(); // 0x006B20E0
 void __fastcall sub_006B39B0_ShowD3DError(const char* text,long result); // 0x006B39B0
 int __stdcall D3DCORE_EnumerateDisplayMode(DDSURFACEDESC2*,void*); // 0x006B3FD0
-int __stdcall sub_006B1B60_EnumTextureFormat(void*,void*); // 0x006B1B60
+int __stdcall D3D_EnumTextureFormatCallback(void*,void*); // 0x006B1B60
 extern IDirectDraw4* gpIDirectDraw4_00970E60; // 0x00970E60
 extern IDirect3D3* gpIDirect3D3_00970E64; // 0x00970E64
 extern void* ghEnumerationWindow; // 0x00970E84
@@ -1228,7 +1228,7 @@ long ATL::CRegKey::SetStringValue(const char* pszValueName, const char* pszValue
 }
 
 // 0x006B1B60
-int __stdcall sub_006B1B60_EnumTextureFormat(D2PixelFormat006B1B60Strc* pFormat, unsigned long* pFlags)
+int __stdcall D3D_EnumTextureFormatCallback(D2PixelFormat006B1B60Strc* pFormat, unsigned long* pFlags)
 {
     if (!pFlags)
     {
@@ -2080,7 +2080,7 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(D2DDGuidStrc* guid,char* descript
    if(hr) D3DCORE_LogDDrawError(gszAgpMemoryFailed,hr);
    else LOGMANAGER_WriteLogLine(gszAgpMemoryFormat,display->agpTotal/1048576.0f,display->agpFree/1048576.0f);
   } else LOGMANAGER_WriteLogLine(gszNoAgpTexturing);
-  hr=device->vtbl->EnumTextureFormats(device,sub_006B1B60_EnumTextureFormat,display);
+  hr=device->vtbl->EnumTextureFormats(device,D3D_EnumTextureFormatCallback,display);
   if(hr) { sub_006B39B0_ShowD3DError(gszEnumTextureFormatsFailed,hr); goto Cleanup; }
 
   int textures=0;

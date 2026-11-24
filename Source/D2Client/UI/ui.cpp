@@ -773,7 +773,7 @@ void __fastcall GAME_ExtendDelay(int nDelay); // 0x0044DB40
 
 void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
 
-void __fastcall sub_00457640(int bForce); // 0x00457640
+void __fastcall AUTOMAP_ResetBaseOffset(int bForce); // 0x00457640
 
 void __cdecl AUTOMAP_FreeAutomap(); // 0x0045A5C0
 
@@ -1794,7 +1794,7 @@ void __cdecl UI_LoadPlayerUI()
     INV_FreeHoradricCel();
     sub_004A3050();
     TEXT_LoadPopupHireling();
-    sub_00457640(1);
+    AUTOMAP_ResetBaseOffset(1);
     sub_0047E720_LoadAlwaysRun();
 }
 
@@ -3106,7 +3106,8 @@ void __fastcall UI_DrawLoadingScreen(int bAdvanceFrame)
         return;
     }
 
-    sub_004FB0D0();
+// build: symbol ?D2Win_10179_UpdatePaletteFlash@* 0x004FB0D0
+    D2Win_10179_UpdatePaletteFlash();
     if (!D2GFX_StartDraw(1, 0, 0, 0))
     {
         if (bAdvanceFrame)

@@ -404,7 +404,7 @@ extern int gnAutomapHeight_007A521C; // 0x007A521C
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
-void __fastcall sub_00457640(int bForce); // 0x00457640
+void __fastcall AUTOMAP_ResetBaseOffset(int bForce); // 0x00457640
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
@@ -450,7 +450,7 @@ void __fastcall GAME_SetResolution(int nResolution)
     gnSavedScreenWidth = gnScreenWidth;
     sub_004F90A0(nResolution);
     PLAYER_SetPanelSlide(sub_0045AE90());
-    sub_00457640(1);
+    AUTOMAP_ResetBaseOffset(1);
     sub_00457440_Nop(nResolution);
     UI_ToggleListDialog(nResolution);
 }

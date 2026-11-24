@@ -314,9 +314,9 @@ extern unsigned long gdwPaletteFlashTick; // 0x00841B6C
 
 unsigned char* __fastcall D2Win_10175_GetPL2Shift(int nIndex); // 0x004FB0C0
 
-void __stdcall D2Win_10179(); // 0x004FB0D0
+void __stdcall D2Win_10179_UpdatePaletteFlash(); // 0x004FB0D0
 
-void __fastcall D2Win_10176(int bTimed); // 0x004FB130
+void __fastcall D2Win_10176_StartPaletteFlash(int bTimed); // 0x004FB130
 
 void* __stdcall D2Win_GetArchive(); // 0x004FAC80
 

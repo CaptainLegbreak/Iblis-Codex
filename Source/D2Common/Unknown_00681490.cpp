@@ -16,7 +16,7 @@ D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char n
 
 int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordStrc* pCoords, int nX, int nY);          // 0x0066B980
 
-int __fastcall sub_6FDAB750(int nX1, int nY1, int nX2, int nY2);              // 0x00678CF0
+int __fastcall PATH_GetFirstDirectionXY(int nX1, int nY1, int nX2, int nY2);              // 0x00678CF0
 
 extern const unsigned char gPathTurns[4][4]; // 0x006F2840
 
@@ -187,7 +187,7 @@ static D2DrlgPathNodeStrc* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch,
         pNode->nCost = nCost;
         pNode->nSpent = nSpent;
         pNode->nTried = 0;
-        int nBase = sub_00678CF0(nX, nY, nGoalX, nGoalY) / 2;
+        int nBase = PATH_GetFirstDirectionXY(nX, nY, nGoalX, nGoalY) / 2;
         pNode->pTurn = sub_00681540(pNode->pParent->nDirection, nBase);
         pNode->nDirection = (*pNode->pTurn + nBase) & 3;
         pNode->nX = nX;
@@ -234,7 +234,7 @@ D2DrlgPathNodeStrc* __stdcall sub_M_Emit_006814E0(D2DrlgPathSearchStrc* pSearch,
                 pNode->nCost = nCost;
                 pNode->nSpent = nSpent;
                 pNode->nTried = 0;
-                int nBase = sub_6FDAB750(nX, nY, nGoalX, nGoalY) / 2;
+                int nBase = PATH_GetFirstDirectionXY(nX, nY, nGoalX, nGoalY) / 2;
                 pNode->pTurn = sub_00681540(pNode->pParent->nDirection, nBase);
                 pNode->nDirection = (*pNode->pTurn + nBase) & 3;
                 pNode->nX = nX;
@@ -284,7 +284,7 @@ int __fastcall sub_006817D0(D2DrlgLevelStrc* pLevel, int nRoad)
 
     D2DrlgPathSearchStrc tSearch;
     D2DrlgPathNodeStrc tStart;
-    int nDirection = sub_6FDAB750(tFrom.nPosX, tFrom.nPosY, tGoal.nPosX, tGoal.nPosY) / 2;
+    int nDirection = PATH_GetFirstDirectionXY(tFrom.nPosX, tFrom.nPosY, tGoal.nPosX, tGoal.nPosY) / 2;
     tStart.nSpent = 0;
     int nDX = tFrom.nPosX - tGoal.nPosX;
     if (nDX < 0)

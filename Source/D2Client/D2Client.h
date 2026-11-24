@@ -847,8 +847,8 @@ void __fastcall sub_004DC7B0(D2CellPosStrc* pPos, unsigned int nColor, int nArg)
 void __fastcall GFXUTIL_ApplySoundEnviron(int nEnvironId); // 0x004DF6C0
 void __fastcall sub_004DF7B0(void* pStream); // 0x004DF7B0
 void __fastcall sub_004F9740_SetControlState(D2WinControlStrc* pControl, int bSet); // 0x004F9740
-void __fastcall sub_004FB0D0(); // 0x004FB0D0
-void __fastcall sub_004FB130_SetActiveState(int bActive); // 0x004FB130
+void __fastcall D2Win_10179_UpdatePaletteFlash(); // 0x004FB0D0
+void __fastcall D2Win_10176_StartPaletteFlash(int bActive); // 0x004FB130
 void __fastcall sub_004FB480_SetActA(unsigned char nAct); // 0x004FB480
 void __fastcall sub_004FCF80_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 void __fastcall D2Win_10200(D2SplittedTextStrc* pLines); // 0x005028A0

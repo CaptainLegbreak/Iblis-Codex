@@ -771,10 +771,10 @@
     "extern \"C\" void __cdecl SPELLSEL_SkillSelectClickMsg(); // 0x004A9BD0",
     "extern \"C\" void __cdecl sub_004AB7E0_SkillTreeLButtonDown(); // 0x004AB7E0",
     "extern \"C\" void __cdecl sub_004ABC30(); // 0x004ABC30",
-    "extern \"C\" void __cdecl sub_004574D0_AutomapBaseYAddStep(); // 0x004574D0",
-    "extern \"C\" void __cdecl sub_004574E0_AutomapBaseYSubStep(); // 0x004574E0",
-    "extern \"C\" void __cdecl sub_004574F0_AutomapBaseXSubStep(); // 0x004574F0",
-    "extern \"C\" void __cdecl sub_00457500_AutomapBaseXAddStep(); // 0x00457500",
+    "extern \"C\" void __cdecl AUTOMAP_IncreaseBaseY(); // 0x004574D0",
+    "extern \"C\" void __cdecl AUTOMAP_DecreaseBaseY(); // 0x004574E0",
+    "extern \"C\" void __cdecl AUTOMAP_DecreaseBaseX(); // 0x004574F0",
+    "extern \"C\" void __cdecl AUTOMAP_IncreaseBaseX(); // 0x00457500",
     "extern \"C\" void __cdecl ROSTERPETS_HandlePanelButtonDown(); // 0x004A5980",
     "extern \"C\" void __cdecl TEXT_KeyConfigWheelMsg(); // 0x004A59D0",
     "extern \"C\" void __cdecl TEXT_PrevEntryMsg(); // 0x004A5A40",
@@ -38290,7 +38290,7 @@
      8,
      "0x004574E0",
      "names.json",
-     "sub_004574E0_AutomapBaseYSubStep",
+     "AUTOMAP_DecreaseBaseY",
      0,
      "func"
     ],
@@ -38298,7 +38298,7 @@
      20,
      "0x004574D0",
      "names.json",
-     "sub_004574D0_AutomapBaseYAddStep",
+     "AUTOMAP_IncreaseBaseY",
      0,
      "func"
     ],
@@ -38306,7 +38306,7 @@
      32,
      "0x00457500",
      "names.json",
-     "sub_00457500_AutomapBaseXAddStep",
+     "AUTOMAP_IncreaseBaseX",
      0,
      "func"
     ],
@@ -38314,7 +38314,7 @@
      44,
      "0x004574F0",
      "names.json",
-     "sub_004574F0_AutomapBaseXSubStep",
+     "AUTOMAP_DecreaseBaseX",
      0,
      "func"
     ],
@@ -137216,7 +137216,7 @@
      16,
      "0x00676150",
      "source",
-     "sub_00676150_LinkStepDirection",
+     "DRLGOUTPLACE_TryNextSideOffset",
      0,
      "func"
     ],
@@ -137240,7 +137240,7 @@
      64,
      "0x00676150",
      "source",
-     "sub_00676150_LinkStepDirection",
+     "DRLGOUTPLACE_TryNextSideOffset",
      0,
      "func"
     ]
@@ -137375,7 +137375,7 @@
      48,
      "0x00676150",
      "source",
-     "sub_00676150_LinkStepDirection",
+     "DRLGOUTPLACE_TryNextSideOffset",
      0,
      "func"
     ],
@@ -137383,7 +137383,7 @@
      64,
      "0x00676150",
      "source",
-     "sub_00676150_LinkStepDirection",
+     "DRLGOUTPLACE_TryNextSideOffset",
      0,
      "func"
     ]
@@ -137479,7 +137479,7 @@
      32,
      "0x00676280",
      "source",
-     "sub_00676280_PlaceLevelLinkSide",
+     "DRLGOUTPLACE_TryNextCenteredSideOffset",
      0,
      "func"
     ],
@@ -137487,7 +137487,7 @@
      48,
      "0x00676280",
      "source",
-     "sub_00676280_PlaceLevelLinkSide",
+     "DRLGOUTPLACE_TryNextCenteredSideOffset",
      0,
      "func"
     ],
@@ -137495,7 +137495,7 @@
      64,
      "0x00676280",
      "source",
-     "sub_00676280_PlaceLevelLinkSide",
+     "DRLGOUTPLACE_TryNextCenteredSideOffset",
      0,
      "func"
     ],
@@ -137759,7 +137759,7 @@
      16,
      "0x00676C00",
      "source",
-     "sub_00676C00_PlaceLevelNextTo",
+     "DRLGOUTPLACE_PlaceLevelNextTo",
      0,
      "func"
     ],
@@ -137767,7 +137767,7 @@
      32,
      "0x00676150",
      "source",
-     "sub_00676150_LinkStepDirection",
+     "DRLGOUTPLACE_TryNextSideOffset",
      0,
      "func"
     ],
@@ -137775,7 +137775,7 @@
      48,
      "0x00676150",
      "source",
-     "sub_00676150_LinkStepDirection",
+     "DRLGOUTPLACE_TryNextSideOffset",
      0,
      "func"
     ]

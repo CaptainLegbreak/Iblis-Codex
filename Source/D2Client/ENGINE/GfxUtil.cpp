@@ -396,7 +396,7 @@ D2CompEntryStrc* __fastcall sub_0046E570_GetGfxEntry(D2UnitStrc* pUnit, int nMod
 
 int __fastcall GFXUTIL_GetModeArg(D2UnitStrc* pUnit, int nType, int nClass);                           // 0x004DAA00
 
-unsigned char __fastcall sub_004DA770_GetMonComponentIndex(D2UnitStrc* pUnit, unsigned char nComponent);    // 0x004DA770
+unsigned char __fastcall GFXUTIL_GetMonComponentIndex(D2UnitStrc* pUnit, unsigned char nComponent);    // 0x004DA770
 
 int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 
@@ -2385,7 +2385,7 @@ found:
             const int nMonMode = pToken->nMode;
             pToken->dwModeToken = gaMonModeTokens[nMonMode];
             const unsigned char nComp = pComp->nComponent;
-            const unsigned char nIndex = sub_004DA770_GetMonComponentIndex(pUnit, nComp);
+            const unsigned char nIndex = GFXUTIL_GetMonComponentIndex(pUnit, nComp);
             if (nMonMode != 0 && nMonMode != 0xC)
                 pToken->dwToken = D2Common_11069(pUnit, nComp, nIndex);
             else if (MONSTERREGION_CheckMonStats2Flag(pToken->nClass, 0x10))
@@ -2675,7 +2675,7 @@ static void GFXUTIL_CopyCompCode(D2CompCodeStrc* pDst, const char* pSrc)
 }
 
 // 0x004DA770
-unsigned char __fastcall sub_004DA770_GetMonComponentIndex(D2UnitStrc* pUnit, unsigned char nComponent)
+unsigned char __fastcall GFXUTIL_GetMonComponentIndex(D2UnitStrc* pUnit, unsigned char nComponent)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && nComponent < 16 && pUnit->pMonsterData)
         return pUnit->pMonsterData->nComponent[nComponent];
