@@ -1688,33 +1688,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Hell/Unknown_00516DE1.cpp": {
-   "bytes": 12,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Hell/Unknown_00516DE1.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Hell/Unknown_00517669.cpp": {
-   "bytes": 24,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Hell/Unknown_00517669.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Hell/Unknown_00517804.cpp": {
-   "bytes": 140,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Hell/Unknown_00517804.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2BNClient/Unknown_00518C00.cpp": {
    "bytes": 1240,
    "definitions": 2,
@@ -5007,15 +4980,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Hell/Unknown_005173EF.cpp": {
-   "bytes": 124,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Hell/Unknown_005173EF.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/SKILLS/SkillBar.cpp": {
    "bytes": 184,
    "definitions": 2,
@@ -5109,6 +5073,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/DrlgWarp.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Hell/Unknown_00516D8B.cpp": {
+   "bytes": 300,
+   "definitions": 7,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Hell/Unknown_00516D8B.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -80425,7 +80398,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Hell/Unknown_00516DE1.cpp",
+   "file": "Source/D2Hell/Unknown_00516D8B.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern const char* gpReference = ",
@@ -80459,7 +80432,7 @@
    "cname": "gData_0072F9F4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Hell/Unknown_00516DE1.cpp",
+   "file": "Source/D2Hell/Unknown_00516D8B.cpp",
    "form": "bytes",
    "name": "gData_0072F9F4",
    "pointers": [
@@ -80485,7 +80458,7 @@
    "cname": "gData_006CC848",
    "declared": true,
    "decorated": "?gpszModuleName@@3QBDB",
-   "file": "Source/D2Hell/Unknown_005173EF.cpp",
+   "file": "Source/D2Hell/Unknown_00516D8B.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const char* const gData_006CC848; // 0x006CC848",
    "head": "extern \"C\" const char* const gData_006CC848 = ",
@@ -80519,7 +80492,7 @@
    "cname": "gData_006DEBE8",
    "declared": true,
    "decorated": "?sgszAssertFormatString@@3QBDB",
-   "file": "Source/D2Hell/Unknown_005173EF.cpp",
+   "file": "Source/D2Hell/Unknown_00516D8B.cpp",
    "fill": 120,
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006DEBE8_t gData_006DEBE8; // 0x006DEBE8",
@@ -80556,7 +80529,7 @@
    "cname": "gData_0072F9FC",
    "declared": true,
    "decorated": "?gszRecordType@@3QBDB",
-   "file": "Source/D2Hell/Unknown_00517669.cpp",
+   "file": "Source/D2Hell/Unknown_00516D8B.cpp",
    "fill": 24,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_0072F9FC[24]; // 0x0072F9FC",
@@ -80587,7 +80560,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Hell/Unknown_00517804.cpp",
+   "file": "Source/D2Hell/Unknown_00516D8B.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern D2MessageList gtMessages = ",
@@ -80663,7 +80636,7 @@
    "cname": "gData_0072FA20",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Hell/Unknown_00517804.cpp",
+   "file": "Source/D2Hell/Unknown_00516D8B.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072FA20_t gData_0072FA20; // 0x0072FA20",
    "head": "extern \"C\" struct d2data_0072FA20_t gData_0072FA20 = ",
