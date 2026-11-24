@@ -50532,6 +50532,11 @@
      "name": "SKILLS_ExecuteCurseTargetAi"
     },
     {
+     "va": "0x005C3540",
+     "length": 122,
+     "name": "SKILLS_ApplyResistanceImmunityPenalty"
+    },
+    {
      "va": "0x005C35C0",
      "length": 469
     },
@@ -59975,11 +59980,6 @@
     {
      "va": "0x005C09E0",
      "length": 167
-    },
-    {
-     "va": "0x005C3540",
-     "length": 122,
-     "name": "SKILLS_ApplyResistanceImmunityPenalty"
     },
     {
      "va": "0x005C72F0",

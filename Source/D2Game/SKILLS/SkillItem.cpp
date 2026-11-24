@@ -2743,31 +2743,6 @@ int __fastcall SKILLS_SrvSt20_IronGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     return !STATLIST_GetOwner(pTarget, 0);
 }
 
-// 0x005C3540
-int __fastcall SKILLS_ApplyResistanceImmunityPenalty(D2UnitStrc* pUnit, int nStatId, int nResist)
-{
-    switch (nStatId)
-    {
-    case STAT_DAMAGERESIST:
-    case STAT_MAGICRESIST:
-    case STAT_FIRERESIST:
-    case STAT_LIGHTRESIST:
-    case STAT_COLDRESIST:
-    case STAT_POISONRESIST:
-        if (nResist > 0 || pUnit && pUnit->dwUnitType == UNIT_PLAYER || MONSTERS_GetHirelingTypeId(pUnit) || STATLIST_GetUnitBaseStat(pUnit, nStatId, 0) < 100)
-        {
-            break;
-        }
-
-        return nResist / 5;
-
-    default:
-        break;
-    }
-
-    return nResist;
-}
-
 int __fastcall SKILLS_SrvSt22_PsychicHammer(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D30F0
 
 // 0x005C72F0
