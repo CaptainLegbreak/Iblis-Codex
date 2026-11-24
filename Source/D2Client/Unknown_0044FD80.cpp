@@ -1,4 +1,5 @@
 #include "D2StormAutoLink.h"
+#include "D2StormListArray.h"
 int __stdcall SMemFree(void* pLocation, const char* szLogFileName, int nLogLine, unsigned int nFlags);       // 0x00412650
 
 extern const char gszTypeSGameData[];                                                              // 0x0070F56C
@@ -64,13 +65,6 @@ struct D2StormChunkListStrc
     }
 };
 
-struct D2StormListArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    D2StormListAStrc* m_data;
-    unsigned int m_chunk;
-};
 
 struct SGAMEDATA;
 class HASHKEY_NONE;
