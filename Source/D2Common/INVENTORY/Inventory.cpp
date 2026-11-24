@@ -456,12 +456,6 @@ inline void INVENTORY_SetLeftItemGUIDInline(D2InventoryStrc* pInventory, D2UnitS
 
 void __stdcall INVENTORY_GetItemSaveGfxInfo(Unit* unit, u8* firstOutput, u8* secondOutput);
 
-// 0x0063A110
-int __fastcall STATES_GetNumberOfStateFlags()
-{
-    return (sgptDataTables->nStatesTxtRecordCount + 31) / 32;
-}
-
 // build: symbol ?STATES_CheckStateMaskFlagsOnUnit@* 0x0063A130
 static int STATES_CheckStateMaskFlagsOnUnit(D2UnitStrc* pUnit, const unsigned int* pStateMask)
 {
@@ -480,12 +474,6 @@ static int STATES_CheckStateMaskFlagsOnUnit(D2UnitStrc* pUnit, const unsigned in
     }
 
     return 0;
-}
-
-// 0x0063A530
-int __stdcall STATES_CheckStateMaskBlueOnUnit(D2UnitStrc* pUnit)
-{
-    return STATES_CheckStateMaskFlagsOnUnit(pUnit, sgptDataTables->fStateMasks[STATEMASK_BLUE]);
 }
 
 static inline D2ItemExtraDataStrc* ITEMS_GetExtraDataFromItem(D2UnitStrc* pItem)

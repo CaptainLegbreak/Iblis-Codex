@@ -1233,6 +1233,12 @@ void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFie
     return pTxt;
 }
 
+// 0x006125A0
+void __stdcall DATATBLS_ToggleCompileTxtFlag(int bSilent)
+{
+    gbCompileTxt = !bSilent;
+}
+
 // 0x006125C0
 void __stdcall DATATBLS_UnloadBin(void* pBinFile)
 {
@@ -1576,6 +1582,18 @@ void __stdcall DATATBLS_LoadExperienceTxt(void* hArchive)
     };
 
     gpExperienceTxt = (D2ExperienceDataTbl*)DATATBLS_CompileTxt(hArchive, "experience", pTbl, 0, 32);
+}
+
+// 0x00613E60
+unsigned int __stdcall DATATBLS_GetExpRatio(int nLevel)
+{
+    if (!gpExperienceTxt)
+        return 0;
+    if (nLevel <= 0)
+        return gpExperienceTxt->tMax.dwExpRatio;
+    if (nLevel > (int)gpExperienceTxt->tMax.dwClass[0])
+        return 0;
+    return gpExperienceTxt->aLevels[nLevel].dwExpRatio;
 }
 
 // 0x00613E90
