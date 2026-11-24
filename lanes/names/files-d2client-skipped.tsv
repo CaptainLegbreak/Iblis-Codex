@@ -32,4 +32,3 @@ D2Client/Unknown_004E1320.cpp	object map: best D2Client/UNIT/Missile.cpp (score 
 D2Client/Unknown_004E1770.cpp	object map: best D2Client/Unknown_004E12D0.cpp (score 2; next to it); runner-up D2Client/UNIT/Missile.cpp 2
 D2Client/Unknown_004E40A0.cpp	object map: best D2Client/ENGINE/GfxUtil.cpp (score 2; next to it); runner-up D2Client/UI/SkillDesc_004E1FF0.cpp 2
 D2Client/Unknown_004F0650.cpp	object map: best D2Client/Unknown_004EDA80.cpp (score 5, clear lead; calls #, used only by the two; next to it); runner-up D2Client/SKILLS/SkillsMon.cpp 2
-D2Client/Unknown_006CB3E0.cpp	no path string, no assert lines, no language copy, no object-map lead, no name prefix, nothing in D2MOO
