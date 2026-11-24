@@ -7,11 +7,10 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 05:45 PT: strays-b and place-d are in. place-e is rebased on #348. Next: Unknown_00680070 into OutDesr, then the RoomTile group.
+- 2026-11-24 06:40 PT: place-e is in, and place-f is rebased on #350. Next: the RoomTile object, 0x66D820-0x670809 (six placeholders and TileSub; TileSub's assert line 0x2B6 follows RoomTile's 0x2B1).
 
 ## Ready
-- lane8/place-f 746aac47 (stacked on place-e, take that first), VERIFIED 04adf686. OutDesr.cpp takes in Unknown_00680070.cpp (inside the run where OutDesr's assert lines keep rising). The piece's non-static prototypes give way to OutDesr's statics, and /GS- made no difference. Units -1.
-- lane8/place-e 006dbc5f (3 commits, rebased on #348, namesync clean), VERIFIED 373d531c. OutSiege.cpp takes in Unknown_0067E660, which reads OutSiege's table 0x6F22A4. OutDesr.cpp takes in Unknown_0067FB90 and Unknown_0067FFF0: OutDesr's assert lines rise through them, and FB90's table sits inside the span OutDesr reads. Units -3.
+- lane8/place-f a0b7eefe (rebased on #350, namesync clean), VERIFIED 0bbe0851. OutDesr.cpp takes in Unknown_00680070.cpp (inside the run where OutDesr's assert lines keep rising). The piece's non-static prototypes give way to OutDesr's statics, and /GS- made no difference. Units -1.
 
 ## Questions
 
