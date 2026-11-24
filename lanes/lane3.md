@@ -4,6 +4,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/atl 3960510a 519->514 The ATL object 0x6B1A00-0x6B1BC0 (11 functions: Thank_you ctor and virtual, CAtlException ctor, the AtlThrow helper, CRegKey ctor/GetHKEY/Close/Create/SetDWORDValue/SetStringValue, and the DirectDraw texture-format callback 0x6B1B60) goes from six Storm placeholders into one, D2Direct3D/Unknown_006B1A00.cpp: the callback's only user is D2Direct3D (0x6B42F0) and d3dCore.cpp starts right after, at 0x6B1C10. Builds equal with D2Direct3D's default flags; CRegKey::Close is inline, as ATL has it. Code only; the 728 B of ATL data comes in a follow-up. VERIFIED fbe7f58f on base 5d726bb7 (j84; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
+
 - lane3/suni 30f43254 519->518 Storm/Unknown_006C7000.cpp (Storm's Unicode module, 17 functions) is renamed Storm/SOURCE/SUNI.CPP, as approved; its data include follows. VERIFIED 8c45fafc on base 53ae59fd (j84; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
 
 - lane3/ssig-window 4f8a5cd2 519->519 sub_0041D410_GetWindow (returns the signature stream's window size; between SSignatureVerifyStream_Begin and 0x41D420, inside SSignature.cpp's run, reads SSignature.cpp's stream record) moves from SFILE.CPP, its one caller, to SSignature.cpp. VERIFIED 7c7e5f21 on base 20f3e0fd (j82; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
@@ -13,6 +15,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 ## Questions
 
 ## Notes for other lanes
+
+- **Lane 6:** lane3/atl creates D2Direct3D/Unknown_006B1A00.cpp, the ATL object in front of d3dCore.cpp (0x6B1A00-0x6B1BC0; the coordinator's ATL lead). It is probably the start of d3dCore.cpp itself (d3dCore including atlbase.h); joining it is yours to decide once d3dCore's headers allow it.
 
 - **Lane 4:** `AUTOMAP_PowInt` (0x414220, D2Client/UI/automap.cpp) sits inside Storm's SSTR.CPP run, next to 0x414260, which is a StormPowInt<double> wrapper. It looks like one more StormPowInt instantiation rather than an automap function. I've left it alone.
 
