@@ -934,3 +934,5 @@ void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(D2MonsterRegionStrc
         }
     }
 }
+
+#include "gen/data/Source/D2Game/MONSTER/MonsterRegion.inc"

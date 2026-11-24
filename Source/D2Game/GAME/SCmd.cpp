@@ -3166,3 +3166,5 @@ void __fastcall SCMD_SendRawPacket(D2ClientStrc* pClient, const void* pPacket, i
 {
     D2GAME_PACKETS_SendPacket_6FC3C710(pClient, pPacket, nPacketSize);
 }
+
+#include "gen/data/Source/D2Game/GAME/SCmd.inc"

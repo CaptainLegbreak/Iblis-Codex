@@ -917,3 +917,5 @@ int __fastcall SUNITEVENT_Trigger(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc*
 }
 
 
+
+#include "gen/data/Source/D2Game/UNIT/SUnitEvent.inc"

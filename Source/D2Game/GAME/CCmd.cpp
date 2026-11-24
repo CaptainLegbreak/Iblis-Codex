@@ -227,3 +227,5 @@ void __fastcall ProcessClientMessage(void* pData, int nPacketSize)
 
     GAME_LeaveGamesCriticalSection(pGame);
 }
+
+#include "gen/data/Source/D2Game/GAME/CCmd.inc"
