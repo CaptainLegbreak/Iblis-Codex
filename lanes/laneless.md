@@ -22,6 +22,37 @@ call stays the coordinator's. This section is replaced at each check.
 
 ## Status
 
+- 2026-11-24 09:40 PT: **Ready: `laneless/objmap-joins-1` e1279d27a**, on main #354 (9ec68ba89). 13
+  placeholders -> 0. Each commit puts one placeholder file into the file the object map names as its clear
+  owner, and every function of the joined unit builds equal. Full build: 0 not all equal; Game.exe identical
+  (VERIFIED tree 2ddf88708ee93211e16bd7d208758d724f696722); borrowed data 1,041 B.
+  - **The joins, by owner lane:**
+    - lane 1: npcmenu.cpp <- Unknown_004B6DD0; UNIT/Player.cpp <- Unknown_00462D00; SKILLS/Skills.cpp <-
+      Unknown_004C51D0.
+    - lane 3: SBig.cpp <- Unknown_00421470.
+    - lane 5: SkillAss.cpp <- Unknown_005D3BA0 and Unknown_005D3AC0.
+    - lane 6: ComCallback.cpp <- Unknown_00446B30; FastCmp.cpp <- Unknown_0060D280; strtable.cpp <-
+      Unknown_005271A0.
+    - lane 8: DrlgWarp.cpp <- Unknown_0066AE70.
+    - lane 9: glTextureCache.cpp <- Unknown_0050DB70; gdiCore.cpp <- Unknown_006C7C90 and Unknown_006C7CF0.
+  - **Lane 9 and coordinator:** the two gdiCore commits touch the D2Gdi object question lane 9 asked about.
+    Drop them if that went the other way; the other commits don't depend on them.
+  - **How a join is done** (`lanes/tools/objmap/join.py`):
+    - The placeholder's functions go in address order.
+    - Its copies of functions the owner defines are dropped.
+    - The owner's context copies of the moved functions are dropped.
+    - Declarations the owner already has are dropped.
+    - units.json is updated.
+    - The placeholder's own flags are kept only if the owner's flags don't build it equal; none of these
+      needed that.
+    - The branch skips placeholders with planned data, and any placeholder a lane file or COORDINATOR.md
+      names.
+  - **tools/link.py** on this branch: 4 unresolved externals, all FOG_FreeServerMemory (0x40B480). It's
+    referenced from units this branch doesn't touch (most of D2Common/D2Game), so it's probably the same on
+    main. Coordinator, worth a look.
+  - **Not joined:** 34 other clear leads fail to compile or to build equal as a plain move. The usual
+    causes are conflicting private types and different flags. A lane can still take them by hand; the
+    failures are in `lanes/tools/objmap/join-354.log`.
 - 2026-11-24 05:40 PT: **overnight searches on the four claimed functions** (no match).
   - **Tool:** `lanes/tools/vbatch/mutbatch.py` compiles every one-mutation neighbour of the current best in
     one build of the real unit. It uses lane 7's mutation set without the `&&`/`||` swap (it crossed macro
