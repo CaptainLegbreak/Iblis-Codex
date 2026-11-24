@@ -190,9 +190,9 @@ static void sub_00604DF0_RgbToHsl(const unsigned char* pRgb, D2HslStrc* pHsl)
             }
         }
 
-        pHsl->f_0 = dHue;
-        pHsl->f_8 = dSaturation;
-        pHsl->f_10 = dLightness;
+        pHsl->dHue = dHue;
+        pHsl->dSaturation = dSaturation;
+        pHsl->dLightness = dLightness;
         pRgb += 4;
         ++pHsl;
     }
@@ -203,26 +203,26 @@ static void sub_00605080_HslToRgb(const D2HslStrc* pHsl, D2PalRgbaStrc* pRgb)
     for (int i = 0; i < 256; ++i)
     {
         unsigned char nRed, nGreen, nBlue;
-        if (pHsl->f_8 == 0.0)
+        if (pHsl->dSaturation == 0.0)
         {
-            nRed = nGreen = nBlue = (unsigned char)(pHsl->f_10 * 255.0);
+            nRed = nGreen = nBlue = (unsigned char)(pHsl->dLightness * 255.0);
         }
         else
         {
             double dM2;
-            if (pHsl->f_10 <= 0.5)
+            if (pHsl->dLightness <= 0.5)
             {
-                dM2 = (pHsl->f_8 + 1.0) * pHsl->f_10;
+                dM2 = (pHsl->dSaturation + 1.0) * pHsl->dLightness;
             }
             else
             {
-                dM2 = pHsl->f_10 + pHsl->f_8 - pHsl->f_10 * pHsl->f_8;
+                dM2 = pHsl->dLightness + pHsl->dSaturation - pHsl->dLightness * pHsl->dSaturation;
             }
 
-            const double dM1 = pHsl->f_10 + pHsl->f_10 - dM2;
-            nRed = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->f_0 + 120.0) * 255.0);
-            nGreen = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->f_0) * 255.0);
-            nBlue = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->f_0 - 120.0) * 255.0);
+            const double dM1 = pHsl->dLightness + pHsl->dLightness - dM2;
+            nRed = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->dHue + 120.0) * 255.0);
+            nGreen = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->dHue) * 255.0);
+            nBlue = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->dHue - 120.0) * 255.0);
         }
 
         pRgb->nRed = nRed;
@@ -269,9 +269,9 @@ void __stdcall sub_00605F00_BuildTablesE(unsigned char* pTables, D2HslStrc* pHsl
         for (j = 0; j < 256; ++j)
         {
             aHsl[j] = pHsl[j];
-            aHsl[j].f_0 += dShift;
-            if (aHsl[j].f_0 > 360.0)
-                aHsl[j].f_0 -= 360.0;
+            aHsl[j].dHue += dShift;
+            if (aHsl[j].dHue > 360.0)
+                aHsl[j].dHue -= 360.0;
         }
         sub_00605080_HslToRgb(aHsl, tRgb);
         for (j = 0; j < 256; ++j)
@@ -284,13 +284,13 @@ void __stdcall sub_00605F00_BuildTablesE(unsigned char* pTables, D2HslStrc* pHsl
         for (j = 0; j < 256; ++j)
         {
             aHsl[j] = pHsl[j];
-            aHsl[j].f_0 += dShift;
-            if (aHsl[j].f_0 > 360.0)
-                aHsl[j].f_0 -= 360.0;
-            aHsl[j].f_8 = 0.5;
-            aHsl[j].f_10 -= 0.1f;
-            if (aHsl[j].f_10 < 0.0)
-                aHsl[j].f_10 = 0.0;
+            aHsl[j].dHue += dShift;
+            if (aHsl[j].dHue > 360.0)
+                aHsl[j].dHue -= 360.0;
+            aHsl[j].dSaturation = 0.5;
+            aHsl[j].dLightness -= 0.1f;
+            if (aHsl[j].dLightness < 0.0)
+                aHsl[j].dLightness = 0.0;
         }
         sub_00605080_HslToRgb(aHsl, tRgb);
         for (k = 0; k < 256; ++k)
@@ -303,13 +303,13 @@ void __stdcall sub_00605F00_BuildTablesE(unsigned char* pTables, D2HslStrc* pHsl
         for (j = 0; j < 256; ++j)
         {
             aHsl[j] = pHsl[j];
-            aHsl[j].f_0 += dShift;
-            if (aHsl[j].f_0 > 360.0)
-                aHsl[j].f_0 -= 360.0;
-            aHsl[j].f_8 = 0.5;
-            aHsl[j].f_10 += 0.2f;
-            if (aHsl[j].f_10 > 1.0)
-                aHsl[j].f_10 = 1.0;
+            aHsl[j].dHue += dShift;
+            if (aHsl[j].dHue > 360.0)
+                aHsl[j].dHue -= 360.0;
+            aHsl[j].dSaturation = 0.5;
+            aHsl[j].dLightness += 0.2f;
+            if (aHsl[j].dLightness > 1.0)
+                aHsl[j].dLightness = 1.0;
         }
         sub_00605080_HslToRgb(aHsl, tRgb);
         for (j = 0; j < 256; ++j)
@@ -319,8 +319,8 @@ void __stdcall sub_00605F00_BuildTablesE(unsigned char* pTables, D2HslStrc* pHsl
     for (j = 0; j < 256; ++j)
     {
         aHsl[j] = pHsl[j];
-        aHsl[j].f_8 = 0.0;
-        aHsl[j].f_10 *= 0.5;
+        aHsl[j].dSaturation = 0.0;
+        aHsl[j].dLightness *= 0.5;
     }
     sub_00605080_HslToRgb(aHsl, tRgb);
     for (j = 0; j < 256; ++j)
@@ -329,8 +329,8 @@ void __stdcall sub_00605F00_BuildTablesE(unsigned char* pTables, D2HslStrc* pHsl
     for (j = 0; j < 256; ++j)
     {
         aHsl[j] = pHsl[j];
-        aHsl[j].f_8 = 0.0;
-        aHsl[j].f_10 = (aHsl[j].f_10 + 0.2f) / 1.2f;
+        aHsl[j].dSaturation = 0.0;
+        aHsl[j].dLightness = (aHsl[j].dLightness + 0.2f) / 1.2f;
     }
     sub_00605080_HslToRgb(aHsl, tRgb);
     for (j = 0; j < 256; ++j)
@@ -340,12 +340,12 @@ void __stdcall sub_00605F00_BuildTablesE(unsigned char* pTables, D2HslStrc* pHsl
     {
         for (j = 0; j < 256; ++j)
         {
-            if (pHsl[j].f_0 > 45.0 && pHsl[j].f_0 < 315.0)
+            if (pHsl[j].dHue > 45.0 && pHsl[j].dHue < 315.0)
             {
                 aHsl[j] = pHsl[j];
-                aHsl[j].f_0 += (float)i * 15.0;
-                if (aHsl[j].f_0 > 360.0)
-                    aHsl[j].f_0 -= 360.0;
+                aHsl[j].dHue += (float)i * 15.0;
+                if (aHsl[j].dHue > 360.0)
+                    aHsl[j].dHue -= 360.0;
             }
         }
         sub_00605080_HslToRgb(aHsl, tRgb);
@@ -359,8 +359,8 @@ void __stdcall sub_00605F00_BuildTablesE(unsigned char* pTables, D2HslStrc* pHsl
         for (j = 0; j < 256; ++j)
         {
             aHsl[j] = pHsl[j];
-            aHsl[j].f_0 = dHue;
-            aHsl[j].f_8 = 1.0;
+            aHsl[j].dHue = dHue;
+            aHsl[j].dSaturation = 1.0;
         }
         sub_00605080_HslToRgb(aHsl, tRgb);
         for (j = 0; j < 256; ++j)
@@ -383,12 +383,12 @@ static void sub_00606890_BuildBrightnessTable(unsigned char* pTables, D2HslStrc*
 
     for (int i = 0; i < 256; ++i)
     {
-        if (pHsl[i].f_10 != 0.0)
+        if (pHsl[i].dLightness != 0.0)
         {
-            pHsl[i].f_10 += 0.2f;
-            if (pHsl[i].f_10 > 1.0)
+            pHsl[i].dLightness += 0.2f;
+            if (pHsl[i].dLightness > 1.0)
             {
-                pHsl[i].f_10 = 1.0;
+                pHsl[i].dLightness = 1.0;
             }
         }
     }
