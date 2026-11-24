@@ -11,6 +11,7 @@
 #include "D2GameRecords.h"
 #include "D2ItemsWorld.h"
 #include "D2MonsterIds.h"
+#include "D2LanguageNames.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -249,7 +250,8 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-extern D2NpcConfigTableStrc gNpcConfig; // 0x00731184
+extern int gnNpcConfigCount; // 0x00731184
+extern D2NpcConfigStrc gaNpcConfig[]; // 0x00731188
 
 extern int gnCrossbowQuiverItemId; // 0x00883E9C
 
@@ -364,22 +366,22 @@ void __fastcall SUNITPROXY_InitializeNpcControl(D2GameStrc* pGame)
         pNpc->pGamble = 0;
         pNpc->bGambleInit = 0;
         D2_ASSERT(nCount < 64, 0xE6);
-        const int nConfigCount = gNpcConfig.nCount;
+        const int nConfigCount = gnNpcConfigCount;
         ++pControl->nArraySize;
         int nConfig = 0;
         int bFound = 0;
         while (nConfig < nConfigCount && !bFound)
         {
-            if (gNpcConfig.entries[nConfig].nClassId == nClass) bFound = 1;
+            if (gaNpcConfig[nConfig].nClassId == nClass) bFound = 1;
             else ++nConfig;
         }
         if (bFound == 1)
         {
-            pNpc->nAct = gNpcConfig.entries[nConfig].nAct;
-            pNpc->bTrader = gNpcConfig.entries[nConfig].bTrader;
+            pNpc->nAct = gaNpcConfig[nConfig].nAct;
+            pNpc->bTrader = gaNpcConfig[nConfig].bTrader;
             pNpc->bRepair = 0;
             pNpc->bVendor = 0;
-            pNpc->unk0x26 = gNpcConfig.entries[nConfig].unknown06;
+            pNpc->unk0x26 = gaNpcConfig[nConfig].unknown06;
             pNpc->bRefreshInventory = 0;
             if (pNpc->bTrader == 1)
             {

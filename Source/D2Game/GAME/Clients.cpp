@@ -681,7 +681,6 @@ static void SUNITPROXY_InitializeItemCache(D2GameStrc* pGame, D2UnitProxyStrc* p
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-extern D2NpcConfigTableStrc gNpcConfig; // 0x00731184
 
 extern int gnCrossbowQuiverItemId; // 0x00883E9C
 
