@@ -42,6 +42,7 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
   - **0x55A6D0** (D2Game Items.cpp, 2,253 B): Items.cpp already holds an unmarked body of D2GAME_DropTC_6FC51360. With a `// 0x0055A6D0` marker it builds 2,239/2,253 with the rest of Items.cpp equal. Next up.
 
 ## Ready
+- lane7/assume-macros-2 4d860040 (on #365), VERIFIED a99edf5b. Storm.h `SASSERT` (release assert: the condition is assumed) and Fog.h `DEFAULT_UNREACHABLE`, each defined once; Div (and its copy in SBig_00424700.cpp), BigSquare and FillStreamBuffer use SASSERT, FOG_10207's two field-type switches DEFAULT_UNREACHABLE. tools/status.py lists these for completeness like cpuid/bsr, not as forcing constructs (42 -> 38). Plain forms tried are in the commit message. Touches lane 3's Storm/Fog files (Storm.h, Fog.h, SFILE.CPP, Excel.cpp, SBig_00423DC0/00424700/00424B00.cpp) and tools/status.py; precheck rebuilt the 66 includers, all equal. Replaces lane7/assume-macros (withdrawn).
 
 ## Questions
 
