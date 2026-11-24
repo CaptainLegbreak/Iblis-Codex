@@ -128,8 +128,9 @@ char gszMessageBuffer_00779100[256]; // 0x00779100
 unsigned long gdwDebugMemory_00779200; // 0x00779200
 int gbDebugMemoryLoaded_00779204; // 0x00779204
 
-extern HANDLER* gpErrorHandlers_00708428; // 0x00708428
-extern TSList<HANDLER> gHandlerList_00708420;                                                               // 0x00708420
+// build: symbol ??__EgHandlerList_00708420@@YAXXZ 0x006CA8A0
+// build: symbol ??__FgHandlerList_00708420@@YAXXZ 0x006CB2A0
+TSList<HANDLER> gHandlerList_00708420; // 0x00708420
 
 template<class T, class TGetLink>
 void TSList<T, TGetLink>::UnlinkAll()

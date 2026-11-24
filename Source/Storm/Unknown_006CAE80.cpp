@@ -58,10 +58,6 @@ extern TSList<EVENTREC> gList_00708378; // 0x00708378
 
 extern TSList<AUDIOSTREAM> gList_00708384; // 0x00708384
 
-extern TSList<HANDLER> gList_00708420; // 0x00708420
-
-extern TSList<WNDREC> gList_00708860; // 0x00708860
-
 extern TSList<BREAKCMD> gList_007088E8; // 0x007088E8
 
 inline void* __cdecl operator new(unsigned int, void* location);
@@ -131,18 +127,6 @@ void __cdecl sub_006CB1E0_DestroyList()
 void __cdecl sub_006CB240_DestroyList()
 {
     gList_00708384.~TSList();
-}
-
-// 0x006CB2A0
-void __cdecl sub_006CB2A0_DestroyList()
-{
-    gList_00708420.~TSList();
-}
-
-// 0x006CB310
-void __cdecl sub_006CB310_DestroyList()
-{
-    gList_00708860.~TSList();
 }
 
 // 0x006CB380

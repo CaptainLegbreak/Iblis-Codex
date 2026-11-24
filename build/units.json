@@ -6120,6 +6120,14 @@
      "va": "0x0041D1E0",
      "length": 18,
      "name": "SErrReportResourceLeak"
+    },
+    {
+     "va": "0x006CA8A0",
+     "length": 24
+    },
+    {
+     "va": "0x006CB2A0",
+     "length": 81
     }
    ]
   },
@@ -6652,6 +6660,14 @@
      "va": "0x00420DA0",
      "length": 7,
      "name": "?GetSpan@D2Strc00420DA0@@QAEHXZ"
+    },
+    {
+     "va": "0x006CA8E0",
+     "length": 24
+    },
+    {
+     "va": "0x006CB310",
+     "length": 81
     }
    ]
   },
@@ -80624,16 +80640,6 @@
      "name": "?sub_006CA850_InitializeList@@YAXXZ"
     },
     {
-     "va": "0x006CA8A0",
-     "length": 24,
-     "name": "?sub_006CA8A0_InitializeList@@YAXXZ"
-    },
-    {
-     "va": "0x006CA8E0",
-     "length": 24,
-     "name": "?sub_006CA8E0_InitializeList@@YAXXZ"
-    },
-    {
      "va": "0x006CA900",
      "length": 24,
      "name": "?sub_006CA900_InitializeList@@YAXXZ"
@@ -80781,16 +80787,6 @@
      "va": "0x006CB240",
      "length": 81,
      "name": "?sub_006CB240_DestroyList@@YAXXZ"
-    },
-    {
-     "va": "0x006CB2A0",
-     "length": 81,
-     "name": "?sub_006CB2A0_DestroyList@@YAXXZ"
-    },
-    {
-     "va": "0x006CB310",
-     "length": 81,
-     "name": "?sub_006CB310_DestroyList@@YAXXZ"
     },
     {
      "va": "0x006CB380",

@@ -75,7 +75,9 @@ T* TSList<T, TGetLink>::DeleteNode(T* ptr)
     return next;
 }
 
-extern TSList<WNDREC> gWndRecList_00708860; // 0x00708860
+// build: symbol ??__EgWndRecList_00708860@@YAXXZ 0x006CA8E0
+// build: symbol ??__FgWndRecList_00708860@@YAXXZ 0x006CB310
+TSList<WNDREC> gWndRecList_00708860; // 0x00708860
 
 void* gdwGlobal_007792F4; // 0x007792F4
 
