@@ -433,7 +433,6 @@
    "definitions": 15,
    "externs": [
     "extern \"C\" void __cdecl sub_004E1320(); // 0x004E1320",
-    "extern \"C\" void __cdecl SKILLSMON_CreateTargetMissile(); // 0x004E3720",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltDoLeap(); // 0x004C8C60",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltDoLeapAttack(); // 0x004C8ED0",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltDoCollide(); // 0x004C9320",
@@ -527,7 +526,6 @@
     "extern \"C\" void __cdecl sub_004E1720_SkillSetTargetFlags(); // 0x004E1720",
     "extern \"C\" void __cdecl sub_004E1740_SkillNeedTarget(); // 0x004E1740",
     "extern \"C\" void __cdecl MISSILE_SkillStartCltCalc(); // 0x004E18F0",
-    "extern \"C\" void __cdecl SKILLSMON_ClearUsedSkillFlags(); // 0x004E1E30",
     "extern \"C\" void __cdecl sub_004E2320(); // 0x004E2320",
     "extern \"C\" void __cdecl GFXUTIL_CltDoMissileA(); // 0x004E24D0",
     "extern \"C\" void __cdecl MISSILE_SkillStartSpawnRing(); // 0x004E27C0",
@@ -562,7 +560,9 @@
     "extern \"C\" void __cdecl sub_004F4450_InitializeSkillTarget(); // 0x004F4450",
     "extern \"C\" void __cdecl sub_004E0C90(); // 0x004E0C90",
     "extern \"C\" void __cdecl SKILLSAMA_CltDoRepeatAttack(); // 0x004F4C20",
-    "extern \"C\" void __cdecl SKILLSPAL_StartCharge(); // 0x004C9B40"
+    "extern \"C\" void __cdecl SKILLSPAL_StartCharge(); // 0x004C9B40",
+    "extern \"C\" void __cdecl SKILLSMON_CreateTargetMissile(); // 0x004E3720",
+    "extern \"C\" void __cdecl SKILLSMON_ClearUsedSkillFlags(); // 0x004E1E30"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/SKILLS/Skills.inc",
@@ -697,8 +697,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/ui.cpp": {
-   "bytes": 7864,
-   "definitions": 78,
+   "bytes": 7860,
+   "definitions": 77,
    "externs": [
     "extern \"C\" void __cdecl TEXT_QuestButtonDownMsg(); // 0x004A2A20",
     "extern \"C\" void __cdecl SCMD_HandleResetMessage(); // 0x00452090",
@@ -4018,8 +4018,8 @@
    "state": "included"
   },
   "Source/D2Direct3D/Src/d3dCore.cpp": {
-   "bytes": 1928,
-   "definitions": 118,
+   "bytes": 3804,
+   "definitions": 163,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Direct3D/Src/d3dCore.inc",
