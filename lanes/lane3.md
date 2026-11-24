@@ -10,7 +10,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-(none)
+- **LogManager.cpp head join (started).** LogManager's run 0x40EB10-0x41077F still has strays filed elsewhere: 0x40EB20, 0x40ECC0, 0x40ED40, 0x40F4F0, 0x40F880, 0x40FBB0, 0x40FC60 (Storm/SOURCE/SFILE.CPP), 0x40EB40/0x40EB70/0x40EB80 (Fog/Unknown_0040E300.cpp), 0x40EB50/0x40EB60 (Fog/Unknown_0040EB50.cpp; CCritSect's constructor and destructor, which LogManager.obj already emits), 0x40EB90 and 0x40F470 (Exceptions.cpp). They move into LogManager.cpp; then I retry 0x4101C0 (the log thread) there.
 
 ## Questions
 
