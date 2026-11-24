@@ -1382,160 +1382,6 @@ bool __fastcall ERRORMANAGER_EnumLoadedModules(void* pContext)
     return true;
 }
 
-// 0x004059D0
-int __stdcall ERRORMANAGER_RunModeInterface(int nArg)
-{
-    if (gnMode_0074C704 < 1 || gnMode_0074C704 > 5)
-    {
-        return 0;
-    }
-    D2_ASSERT(gaModeTable[gnMode_0074C704].pfnCreate, 307);
-    D2_ASSERT(gaModeTable[gnMode_0074C704].pfnRelease, 308);
-    gpModeIface = gaModeTable[gnMode_0074C704].pfnCreate(gpModeContext_0074C718);
-    const int nResult = gpModeIface->pfnRun(nArg);
-    gaModeTable[gnMode_0074C704].pfnRelease();
-    return nResult;
-}
-
-// 0x00405F00
-void __fastcall SaveCmdLine(const char** argv)
-{
-    char szSRegWriteBuf[0x800];
-    unsigned long bUseCmdLine = 0;
-    if (*argv && strlen(*argv))
-    {
-        sprintf(szSRegWriteBuf, "%s -skiptobnet", *argv);
-        SRegSaveString("Diablo II", "CmdLine", 0, szSRegWriteBuf);
-    }
-    else
-    {
-        SRegLoadValue("Diablo II", "UseCmdLine", 0, &bUseCmdLine);
-        if (bUseCmdLine)
-        {
-            SRegLoadString("Diablo II", "CmdLine", 0, szSRegReadBuf, 0x400);
-            *argv = szSRegReadBuf;
-        }
-        else
-        {
-            memcpy(szSRegWriteBuf, "-skiptobnet", sizeof("-skiptobnet"));
-            SRegSaveString("Diablo II", "CmdLine", 0, szSRegWriteBuf);
-        }
-    }
-    bUseCmdLine = 0;
-    SRegSaveValue("Diablo II", "UseCmdLine", 0, 0);
-    if (gbRunningAsService)
-    {
-        SRegLoadString("Diablo II", "SvcCmdLine", 0, szSRegReadBuf, 0x400);
-        *argv = szSRegReadBuf;
-    }
-}
-
-// 0x00406040
-void __cdecl MoveBetaSettingsToRelease()
-{
-    HKEY hBeta;
-    if (0 == RegOpenKeyA((HKEY)0x80000002, "SOFTWARE\\Blizzard Entertainment\\Diablo II Beta", &hBeta))
-    {
-        HKEY hKey;
-        RegCreateKeyA((HKEY)0x80000002, "SOFTWARE\\Blizzard Entertainment\\Diablo II", &hKey);
-        int i = 0;
-        unsigned long cchValue;
-        unsigned long cbData;
-        char szValue[0x104];
-        unsigned char bData[0x400];
-        unsigned long dwRegType;
-        do
-        {
-            cchValue = 0x104;
-            cbData = 0x400;
-            if (0 != RegEnumValueA(hBeta, i++, szValue, &cchValue, 0, &dwRegType, bData, &cbData))
-            {
-                break;
-            }
-        }
-        while (0 == RegSetValueExA(hKey, szValue, 0, dwRegType, bData, cbData));
-        RegCloseKey(hKey);
-        RegCloseKey(hBeta);
-        RegDeleteKeyA((HKEY)0x80000002, "SOFTWARE\\Blizzard Entertainment\\Diablo II Beta");
-    }
-    char szPath[0x104] = { 0 };
-    FOG_GetInstallPath(szPath, 0x104);
-    if (gbRunningAsService)
-    {
-        SetCurrentDirectoryA(szPath);
-    }
-}
-
-// 0x004061C0
-int __cdecl ERRORMANAGER_DenyProcessAccess()
-{
-    D2SidAuthorityStrc tAuthority = { { 0, 0, 0, 0, 0, 1 } };
-    void* hProcess = GetCurrentProcess();
-    void* pSid = 0;
-    int bResult = 0;
-    unsigned char aAcl[0x200];
-    void* hAdvapi = LoadLibraryA("advapi32.dll");
-    if (hAdvapi)
-    {
-        D2AllocateAndInitializeSidFn pfnAllocSid = (D2AllocateAndInitializeSidFn)GetProcAddress(hAdvapi, "AllocateAndInitializeSid");
-        if (pfnAllocSid)
-        {
-            D2InitializeAclFn pfnInitAcl = (D2InitializeAclFn)GetProcAddress(hAdvapi, "InitializeAcl");
-            if (pfnInitAcl)
-            {
-                D2AddAccessDeniedAceFn pfnAddDenied = (D2AddAccessDeniedAceFn)GetProcAddress(hAdvapi, "AddAccessDeniedAce");
-                if (pfnAddDenied)
-                {
-                    D2SetSecurityInfoFn pfnSetSec = (D2SetSecurityInfoFn)GetProcAddress(hAdvapi, "SetSecurityInfo");
-                    if (pfnSetSec)
-                    {
-                        if (pfnAllocSid(&tAuthority, 1, 0, 0, 0, 0, 0, 0, 0, 0, &pSid)
-                            && pfnInitAcl(aAcl, sizeof(aAcl), 2)
-                            && pfnAddDenied(aAcl, 2, 0xF01FFFFE, pSid)
-                            && !pfnSetSec(hProcess, 6, 0x80000004, 0, 0, aAcl, 0))
-                        {
-                            bResult = 1;
-                        }
-                    }
-                }
-            }
-        }
-        FreeLibrary(hAdvapi);
-    }
-    if (pSid)
-    {
-        FreeSid(pSid);
-    }
-    return bResult;
-}
-
-// 0x00406650
-int __cdecl ERRORMANAGER_StartServiceDispatcher()
-{
-    if (!(GetVersion() & 0x80000000))
-    {
-        void* hManager = OpenSCManagerA(0, 0, 0xF003F);
-        if (hManager)
-        {
-            void* hService = OpenServiceA(hManager, gszServiceName, 0xF01FF);
-            if (hService)
-            {
-                CloseServiceHandle(hService);
-            }
-            CloseServiceHandle(hManager);
-            if (hService)
-            {
-                D2ServiceTableEntryStrc aTable[] = {
-                    { gszServiceName, D2ServerServiceMain },
-                    { 0, 0 }
-                };
-                return StartServiceCtrlDispatcherA(aTable) != 0;
-            }
-        }
-    }
-    return 0;
-}
-
 // 0x004067C0
 int __cdecl ERRORMANAGER_SetBasePathToCurrent()
 {
@@ -2408,25 +2254,6 @@ int __fastcall ERRORMANAGER_IsCmdSeparator(char c)
         }
     }
     return 0;
-}
-
-// 0x00406410
-void __stdcall D2ServerServiceHandlerProc(unsigned long dwCtrlCode)
-{
-    switch (dwCtrlCode)
-    {
-    case 1:
-    case 5:
-        gD2ServerServiceStatus.dwCurrentState = 3;
-        SetServiceStatus(ghD2ServerServiceStatus, &gD2ServerServiceStatus);
-        gbD2ServerStopEvent = 1;
-        return;
-    case 4:
-        SetServiceStatus(ghD2ServerServiceStatus, &gD2ServerServiceStatus);
-        return;
-    default:
-        break;
-    }
 }
 
 // 0x00407360
@@ -4499,12 +4326,6 @@ void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem)
         gtPoolManager.bInit = 0;
         DeleteCriticalSection(&gtPoolManager.tLock);
     }
-}
-
-// 0x00405EF0
-int __cdecl sub_00405EF0()
-{
-    return 1;
 }
 
 int gnStormDirectFlags; // 0x0074C82C

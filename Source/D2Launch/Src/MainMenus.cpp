@@ -1420,18 +1420,6 @@ void __cdecl sub_0042F800(); // 0x0042F800
 
 void __cdecl sub_0042FA20(); // 0x0042FA20
 
-// 0x004065E0
-void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** lpszArgv)
-{
-    gbRunningAsService = 1;
-    ghD2ServerServiceStatus = RegisterServiceCtrlHandlerA(gszServiceName, D2ServerServiceHandlerProc);
-    SetServiceStatus(ghD2ServerServiceStatus, &gD2ServerServiceStatus);
-    GameInit(dwArgc, (const char**)lpszArgv);
-    gD2ServerServiceStatus.dwCurrentState = 1;
-    SetServiceStatus(ghD2ServerServiceStatus, &gD2ServerServiceStatus);
-    gbRunningAsService = 0;
-}
-
 // 0x004066E0
 extern "C" int __stdcall WinMain(void* hInstance, void* hPrevInstance, char* lpCmdLine, int nShowCmd)
 {
