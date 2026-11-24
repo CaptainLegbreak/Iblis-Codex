@@ -4762,6 +4762,11 @@
      "name": "?_GREQUEST"
     },
     {
+     "va": "0x0041A110",
+     "length": 423,
+     "name": "?SFileDestroy@@YAHXZ"
+    },
+    {
      "va": "0x0041A2C0",
      "length": 64,
      "name": "sub_0041A2C0_DeleteNode"
@@ -6006,11 +6011,6 @@
      "va": "0x00418F90",
      "length": 82,
      "name": "?sub_00418F90@List@@QAEPAUNode@@III@Z"
-    },
-    {
-     "va": "0x0041A110",
-     "length": 423,
-     "name": "?SFileDestroy@@YAHXZ"
     }
    ]
   },

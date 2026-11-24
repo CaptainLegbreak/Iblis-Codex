@@ -281,7 +281,7 @@ unsigned int __stdcall InternalReadAligned(FILEREC* pFile, unsigned int nOffset,
 
 void __stdcall CheckRequests(ARCHIVEREC* pLastArchive, unsigned int nLastOffset, REQUEST** ppDue, REQUEST** ppNear, int* pnDistance); // 0x0041A450
 
-extern unsigned int* gpCryptTable_00779048; // 0x00779048
+unsigned int* gpCryptTable_00779048; // 0x00779048
 
 extern int (__stdcall* gpfnReadErrorCallback_00779030)(const char* szName, unsigned long dwError, int nRetry); // 0x00779030
 
@@ -291,13 +291,13 @@ extern D2StormArchiveListStrc gArchiveList_00708354; // 0x00708354
 
 extern D2StormEventListStrc gEventList_00708378; // 0x00708378
 
-extern int gbThreadStop_00778F24; // 0x00778F24
+int gbThreadStop_00778F24; // 0x00778F24
 
-extern void* ghStormEvent_00779054; // 0x00779054
+void* ghStormEvent_00779054; // 0x00779054
 
 static unsigned int gnStreamChunk_00779038; // 0x00779038
 
-extern unsigned char* gpStreamBuffer_00779050; // 0x00779050
+unsigned char* gpStreamBuffer_00779050; // 0x00779050
 
 extern "C" const char gszSFileCpp_006CF084[]; // 0x006CF084
 
@@ -656,7 +656,7 @@ extern "C" __declspec(dllimport) int __stdcall GetVolumeInformationA(const char*
 extern "C" __declspec(dllimport) unsigned int __stdcall GetDriveTypeA(const char* lpRootPathName);         // 0x006CC2EC
 
 
-extern char* gpStormExplodeWork;                                                                            // 0x0077903C
+char* gpStormExplodeWork;                                                                                   // 0x0077903C
 
 // build: symbol ??__EgStormExplodeLock@@YAXXZ 0x006CA870
 // build: symbol ??__FgStormExplodeLock@@YAXXZ 0x006CB0B0
@@ -2906,6 +2906,71 @@ char* D2StormFixedListStrc::sub_00419B90_DeleteNode(char* pNode)
     ((AUDIOSTREAM*)pNode)->~AUDIOSTREAM();
     SMemFree(pNode, gszStormAudioStreamTypeName, -2, 0);
     return pNext;
+}
+
+void __stdcall SErrReportResourceLeak(const char* szName); // 0x0041D1E0
+void __stdcall SErrReportNamedResourceLeak(const char* szName, const char* szDetail); // 0x0041D010
+int __cdecl SFileDdaDestroy(); // 0x00419F30
+
+// 0x0041A110
+int __cdecl SFileDestroy()
+{
+    SFileDdaDestroy();
+    if (ghStormThread_00779034)
+    {
+        gbThreadStop_00778F24 = 1;
+        SetEvent(ghStormEvent_00779054);
+        WaitForSingleObject(ghStormThread_00779034, 1000);
+        if (ghStormEvent_00779054)
+        {
+            CloseHandle(ghStormEvent_00779054);
+            ghStormEvent_00779054 = 0;
+        }
+        if (ghStormThread_00779034)
+        {
+            CloseHandle(ghStormThread_00779034);
+            ghStormThread_00779034 = 0;
+        }
+    }
+    if (gpCurrentRequest_0077902C)
+    {
+        delete gpCurrentRequest_0077902C;
+        gpCurrentRequest_0077902C = 0;
+    }
+    D2StormListStrc& tRequests = (D2StormListStrc&)gRequestList_00708360;
+    while (tRequests.Head())
+        delete (REQUEST*)tRequests.Head();
+    while (AUDIOSTREAM* pStream = (AUDIOSTREAM*)gDdaList_00708384.Head())
+    {
+        SErrReportResourceLeak("AUDIOSTREAM");
+        delete pStream;
+    }
+    while (FILEREC* pFile = (FILEREC*)gFileList_0070836C.Head())
+    {
+        SErrReportNamedResourceLeak("HSFILE", pFile->szName);
+        delete pFile;
+    }
+    while (ARCHIVEREC* pArchive = (ARCHIVEREC*)gArchiveList_00708354.Head())
+    {
+        SErrReportNamedResourceLeak("HSARCHIVE", pArchive->szName);
+        delete pArchive;
+    }
+    if (gpCryptTable_00779048)
+    {
+        SMemFree(gpCryptTable_00779048, ".\\SOURCE\\SFILE.CPP", 0xE24, 0);
+        gpCryptTable_00779048 = 0;
+    }
+    if (gpStormExplodeWork)
+    {
+        SMemFree(gpStormExplodeWork, ".\\SOURCE\\SFILE.CPP", 0xE2A, 0);
+        gpStormExplodeWork = 0;
+    }
+    if (gpStreamBuffer_00779050)
+    {
+        SMemFree(gpStreamBuffer_00779050, ".\\SOURCE\\SFILE.CPP", 0xE30, 0);
+        gpStreamBuffer_00779050 = 0;
+    }
+    return 1;
 }
 
 // 0x0041A2C0
