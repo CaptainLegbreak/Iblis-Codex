@@ -89,7 +89,6 @@ void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 void __fastcall TEXT_MoveKeyConfigSelection(int nStep); // 0x004A45C0
 
-void __fastcall sub_004A6260(int nId); // 0x004A6260
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -687,21 +686,6 @@ extern "C" void __fastcall PLAYER_SetVirtualPlayerCount(unsigned int count)
         gB27_00883D70 = count;
 }
 
-// 0x004A6310
-void __stdcall TEXT_WheelCaptureMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (GAME_IsExitPending())
-    {
-        pMsg->bReturn = 0;
-        return;
-    }
-
-    sub_004A6260(0x100);
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
-
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
@@ -729,30 +713,6 @@ static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
 {
     if (!pUnit) return -1;
     return pUnit->dwUnitId;
-}
-
-// 0x004A6350
-void __stdcall TEXT_ButtonCaptureMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (GAME_IsExitPending())
-    {
-        pMsg->bReturn = 0;
-        return;
-    }
-
-    switch (pMsg->wParamHigh)
-    {
-    case 1:
-        sub_004A6260(0x101);
-        break;
-    case 2:
-        sub_004A6260(0x102);
-        break;
-    }
-
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 
