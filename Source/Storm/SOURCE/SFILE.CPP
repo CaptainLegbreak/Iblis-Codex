@@ -4857,4 +4857,379 @@ int __stdcall SFileOpenFileAsArchive(unsigned int hMpq, const char* szName, int 
     return 0;
 }
 
+// Link holders of the run whose types are not known yet: each constructor zeroes, each destructor unlinks.
+struct sub_00417780
+{
+    D2StormLinkStrc f_0;
+    sub_00417780();
+};
+
+struct sub_00417810
+{
+    D2StormLinkStrc f_0;
+    ~sub_00417810();
+};
+
+struct sub_00417850
+{
+    D2StormLinkStrc f_0;
+    sub_00417850();
+};
+
+struct sub_00417860
+{
+    D2StormLinkStrc f_0;
+    ~sub_00417860();
+};
+
+struct sub_004178B0
+{
+    D2StormLinkStrc f_0;
+    sub_004178B0();
+};
+
+struct sub_004178C0
+{
+    D2StormLinkStrc f_0;
+    ~sub_004178C0();
+};
+
+struct sub_00417900
+{
+    D2StormLinkStrc f_0;
+    ~sub_00417900();
+};
+
+struct sub_00417940
+{
+    D2StormLinkStrc f_0;
+    sub_00417940();
+};
+
+struct sub_00417950
+{
+    D2StormLinkStrc f_0;
+    ~sub_00417950();
+};
+
+struct sub_00417990
+{
+    D2StormLinkStrc f_0;
+    sub_00417990();
+};
+
+struct sub_004179B0
+{
+    D2StormLinkStrc f_0;
+    ~sub_004179B0();
+};
+
+struct sub_004183F0
+{
+    D2StormLinkStrc f_0;
+    ~sub_004183F0();
+};
+
+struct sub_00418430
+{
+    D2StormLinkStrc f_0;
+    ~sub_00418430();
+};
+
+struct sub_00418760
+{
+    D2StormLinkStrc f_0;
+    sub_00418760();
+};
+
+struct sub_00418770
+{
+    D2StormLinkStrc f_0;
+    sub_00418770();
+};
+
+struct sub_00418780
+{
+    D2StormLinkStrc f_0;
+    ~sub_00418780();
+};
+
+struct sub_004187C0
+{
+    D2StormLinkStrc f_0;
+    ~sub_004187C0();
+};
+
+struct sub_00418800
+{
+    D2StormLinkStrc f_0;
+    ~sub_00418800();
+};
+
+struct sub_00418840
+{
+    D2StormLinkStrc f_0;
+    ~sub_00418840();
+};
+
+struct sub_00418880
+{
+    D2StormLinkStrc f_0;
+    ~sub_00418880();
+};
+
+struct sub_004188C0
+{
+    D2StormLinkStrc f_0;
+    ~sub_004188C0();
+};
+
+struct sub_00418A40
+{
+    D2StormLinkStrc f_0;
+    sub_00418A40();
+};
+
+struct sub_00418BA0
+{
+    D2StormLinkStrc f_0;
+    ~sub_00418BA0();
+};
+
+struct sub_00418DE0
+{
+    D2StormLinkStrc f_0;
+    sub_00418DE0();
+};
+
+struct sub_00418DF0
+{
+    D2StormLinkStrc f_0;
+    sub_00418DF0();
+};
+
+struct sub_00418E00
+{
+    D2StormLinkStrc f_0;
+    sub_00418E00();
+};
+
+struct sub_00418E10
+{
+    D2StormLinkStrc f_0;
+    ~sub_00418E10();
+};
+
+struct sub_00418E50
+{
+    D2StormLinkStrc f_0;
+    sub_00418E50();
+};
+
+struct sub_00418FF0
+{
+    D2StormLinkStrc f_0;
+    sub_00418FF0();
+};
+
+struct sub_00419060
+{
+    D2StormLinkStrc f_0;
+    sub_00419060();
+};
+
+// 0x00417780
+sub_00417780::sub_00417780()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00417810
+sub_00417810::~sub_00417810()
+{
+    f_0.Unlink();
+}
+
+// 0x00417850
+sub_00417850::sub_00417850()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00417860
+sub_00417860::~sub_00417860()
+{
+    f_0.Unlink();
+}
+
+// 0x004178B0
+sub_004178B0::sub_004178B0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x004178C0
+sub_004178C0::~sub_004178C0()
+{
+    f_0.Unlink();
+}
+
+// 0x00417900
+sub_00417900::~sub_00417900()
+{
+    f_0.Unlink();
+}
+
+// 0x00417940
+sub_00417940::sub_00417940()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00417950
+sub_00417950::~sub_00417950()
+{
+    f_0.Unlink();
+}
+
+// 0x00417990
+sub_00417990::sub_00417990()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x004179B0
+sub_004179B0::~sub_004179B0()
+{
+    f_0.Unlink();
+}
+
+// 0x004183F0
+sub_004183F0::~sub_004183F0()
+{
+    f_0.Unlink();
+}
+
+// 0x00418430
+sub_00418430::~sub_00418430()
+{
+    f_0.Unlink();
+}
+
+// 0x00418760
+sub_00418760::sub_00418760()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418770
+sub_00418770::sub_00418770()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418780
+sub_00418780::~sub_00418780()
+{
+    f_0.Unlink();
+}
+
+// 0x004187C0
+sub_004187C0::~sub_004187C0()
+{
+    f_0.Unlink();
+}
+
+// 0x00418800
+sub_00418800::~sub_00418800()
+{
+    f_0.Unlink();
+}
+
+// 0x00418840
+sub_00418840::~sub_00418840()
+{
+    f_0.Unlink();
+}
+
+// 0x00418880
+sub_00418880::~sub_00418880()
+{
+    f_0.Unlink();
+}
+
+// 0x004188C0
+sub_004188C0::~sub_004188C0()
+{
+    f_0.Unlink();
+}
+
+// 0x00418A40
+sub_00418A40::sub_00418A40()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418BA0
+sub_00418BA0::~sub_00418BA0()
+{
+    f_0.Unlink();
+}
+
+// 0x00418DE0
+sub_00418DE0::sub_00418DE0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418DF0
+sub_00418DF0::sub_00418DF0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418E00
+sub_00418E00::sub_00418E00()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418E10
+sub_00418E10::~sub_00418E10()
+{
+    f_0.Unlink();
+}
+
+// 0x00418E50
+sub_00418E50::sub_00418E50()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418FF0
+sub_00418FF0::sub_00418FF0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00419060
+sub_00419060::sub_00419060()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
 #include "gen/data/Source/Storm/SOURCE/SFILE.inc"

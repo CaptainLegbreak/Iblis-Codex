@@ -1826,196 +1826,6 @@
      "name": "LOGMANAGER_LogWritePrefixed"
     },
     {
-     "va": "0x00417780",
-     "length": 16,
-     "name": "??0sub_00417780@@QAE@XZ"
-    },
-    {
-     "va": "0x00417810",
-     "length": 50,
-     "name": "??1sub_00417810@@QAE@XZ"
-    },
-    {
-     "va": "0x00417850",
-     "length": 16,
-     "name": "??0sub_00417850@@QAE@XZ"
-    },
-    {
-     "va": "0x00417860",
-     "length": 50,
-     "name": "??1sub_00417860@@QAE@XZ"
-    },
-    {
-     "va": "0x004178B0",
-     "length": 16,
-     "name": "??0sub_004178B0@@QAE@XZ"
-    },
-    {
-     "va": "0x004178C0",
-     "length": 50,
-     "name": "??1sub_004178C0@@QAE@XZ"
-    },
-    {
-     "va": "0x00417900",
-     "length": 50,
-     "name": "??1sub_00417900@@QAE@XZ"
-    },
-    {
-     "va": "0x00417940",
-     "length": 16,
-     "name": "??0sub_00417940@@QAE@XZ"
-    },
-    {
-     "va": "0x00417950",
-     "length": 50,
-     "name": "??1sub_00417950@@QAE@XZ"
-    },
-    {
-     "va": "0x00417990",
-     "length": 16,
-     "name": "??0sub_00417990@@QAE@XZ"
-    },
-    {
-     "va": "0x004179B0",
-     "length": 50,
-     "name": "??1sub_004179B0@@QAE@XZ"
-    },
-    {
-     "va": "0x004183F0",
-     "length": 50,
-     "name": "??1sub_004183F0@@QAE@XZ"
-    },
-    {
-     "va": "0x00418430",
-     "length": 50,
-     "name": "??1sub_00418430@@QAE@XZ"
-    },
-    {
-     "va": "0x00418760",
-     "length": 16,
-     "name": "??0sub_00418760@@QAE@XZ"
-    },
-    {
-     "va": "0x00418770",
-     "length": 16,
-     "name": "??0sub_00418770@@QAE@XZ"
-    },
-    {
-     "va": "0x00418780",
-     "length": 50,
-     "name": "??1sub_00418780@@QAE@XZ"
-    },
-    {
-     "va": "0x004187C0",
-     "length": 50,
-     "name": "??1sub_004187C0@@QAE@XZ"
-    },
-    {
-     "va": "0x00418800",
-     "length": 50,
-     "name": "??1sub_00418800@@QAE@XZ"
-    },
-    {
-     "va": "0x00418840",
-     "length": 50,
-     "name": "??1sub_00418840@@QAE@XZ"
-    },
-    {
-     "va": "0x00418880",
-     "length": 50,
-     "name": "??1sub_00418880@@QAE@XZ"
-    },
-    {
-     "va": "0x004188C0",
-     "length": 50,
-     "name": "??1sub_004188C0@@QAE@XZ"
-    },
-    {
-     "va": "0x00418A40",
-     "length": 16,
-     "name": "??0sub_00418A40@@QAE@XZ"
-    },
-    {
-     "va": "0x00418BA0",
-     "length": 50,
-     "name": "??1sub_00418BA0@@QAE@XZ"
-    },
-    {
-     "va": "0x00418BE0",
-     "length": 50,
-     "name": "??1sub_00418BE0@@QAE@XZ"
-    },
-    {
-     "va": "0x00418C20",
-     "length": 50,
-     "name": "??1sub_00418C20@@QAE@XZ"
-    },
-    {
-     "va": "0x00418DE0",
-     "length": 16,
-     "name": "??0sub_00418DE0@@QAE@XZ"
-    },
-    {
-     "va": "0x00418DF0",
-     "length": 16,
-     "name": "??0sub_00418DF0@@QAE@XZ"
-    },
-    {
-     "va": "0x00418E00",
-     "length": 16,
-     "name": "??0sub_00418E00@@QAE@XZ"
-    },
-    {
-     "va": "0x00418E10",
-     "length": 50,
-     "name": "??1sub_00418E10@@QAE@XZ"
-    },
-    {
-     "va": "0x00418E50",
-     "length": 16,
-     "name": "??0sub_00418E50@@QAE@XZ"
-    },
-    {
-     "va": "0x00418FF0",
-     "length": 16,
-     "name": "??0sub_00418FF0@@QAE@XZ"
-    },
-    {
-     "va": "0x00419060",
-     "length": 16,
-     "name": "??0sub_00419060@@QAE@XZ"
-    },
-    {
-     "va": "0x00426960",
-     "length": 50,
-     "name": "??1sub_00426960@@QAE@XZ"
-    },
-    {
-     "va": "0x00426A80",
-     "length": 50,
-     "name": "??1sub_00426A80@@QAE@XZ"
-    },
-    {
-     "va": "0x00426CA0",
-     "length": 16,
-     "name": "??0sub_00426CA0@@QAE@XZ"
-    },
-    {
-     "va": "0x00426CB0",
-     "length": 50,
-     "name": "??1sub_00426CB0@@QAE@XZ"
-    },
-    {
-     "va": "0x00426D70",
-     "length": 16,
-     "name": "??0sub_00426D70@@QAE@XZ"
-    },
-    {
-     "va": "0x00426D80",
-     "length": 50,
-     "name": "??1sub_00426D80@@QAE@XZ"
-    },
-    {
      "va": "0x006CA700",
      "length": 23
     },
@@ -4395,6 +4205,11 @@
      "name": "?sub_00417770@Link@@QAEPADXZ"
     },
     {
+     "va": "0x00417780",
+     "length": 16,
+     "name": "??0sub_00417780@@QAE@XZ"
+    },
+    {
      "va": "0x00417790",
      "length": 16,
      "name": "?sub_00417790_Next@D2SFileStormLinkM114Strc@@QAEPADXZ"
@@ -4430,14 +4245,64 @@
      "name": "?sub_00417800_Head@D2SFileList00417800Strc@@QAEPADXZ"
     },
     {
+     "va": "0x00417810",
+     "length": 50,
+     "name": "??1sub_00417810@@QAE@XZ"
+    },
+    {
+     "va": "0x00417850",
+     "length": 16,
+     "name": "??0sub_00417850@@QAE@XZ"
+    },
+    {
+     "va": "0x00417860",
+     "length": 50,
+     "name": "??1sub_00417860@@QAE@XZ"
+    },
+    {
      "va": "0x004178A0",
      "length": 16,
      "name": "?sub_004178A0_Next@D2SFileStormLinkM114Strc@@QAEPADXZ"
     },
     {
+     "va": "0x004178B0",
+     "length": 16,
+     "name": "??0sub_004178B0@@QAE@XZ"
+    },
+    {
+     "va": "0x004178C0",
+     "length": 50,
+     "name": "??1sub_004178C0@@QAE@XZ"
+    },
+    {
+     "va": "0x00417900",
+     "length": 50,
+     "name": "??1sub_00417900@@QAE@XZ"
+    },
+    {
+     "va": "0x00417940",
+     "length": 16,
+     "name": "??0sub_00417940@@QAE@XZ"
+    },
+    {
+     "va": "0x00417950",
+     "length": 50,
+     "name": "??1sub_00417950@@QAE@XZ"
+    },
+    {
+     "va": "0x00417990",
+     "length": 16,
+     "name": "??0sub_00417990@@QAE@XZ"
+    },
+    {
      "va": "0x004179A0",
      "length": 16,
      "name": "?sub_004179A0_Next@D2SFileStormLinkM114Strc@@QAEPADXZ"
+    },
+    {
+     "va": "0x004179B0",
+     "length": 50,
+     "name": "??1sub_004179B0@@QAE@XZ"
     },
     {
      "va": "0x004179F0",
@@ -4564,6 +4429,16 @@
      "name": "?SFileFileExistsEx@@YGHPAXPBDH@Z"
     },
     {
+     "va": "0x004183F0",
+     "length": 50,
+     "name": "??1sub_004183F0@@QAE@XZ"
+    },
+    {
+     "va": "0x00418430",
+     "length": 50,
+     "name": "??1sub_00418430@@QAE@XZ"
+    },
+    {
      "va": "0x00418470",
      "length": 32,
      "name": "??0D2ChatStormListCStrc@@QAE@XZ"
@@ -4629,6 +4504,46 @@
      "name": "sub_00418710_sub_006C4290"
     },
     {
+     "va": "0x00418760",
+     "length": 16,
+     "name": "??0sub_00418760@@QAE@XZ"
+    },
+    {
+     "va": "0x00418770",
+     "length": 16,
+     "name": "??0sub_00418770@@QAE@XZ"
+    },
+    {
+     "va": "0x00418780",
+     "length": 50,
+     "name": "??1sub_00418780@@QAE@XZ"
+    },
+    {
+     "va": "0x004187C0",
+     "length": 50,
+     "name": "??1sub_004187C0@@QAE@XZ"
+    },
+    {
+     "va": "0x00418800",
+     "length": 50,
+     "name": "??1sub_00418800@@QAE@XZ"
+    },
+    {
+     "va": "0x00418840",
+     "length": 50,
+     "name": "??1sub_00418840@@QAE@XZ"
+    },
+    {
+     "va": "0x00418880",
+     "length": 50,
+     "name": "??1sub_00418880@@QAE@XZ"
+    },
+    {
+     "va": "0x004188C0",
+     "length": 50,
+     "name": "??1sub_004188C0@@QAE@XZ"
+    },
+    {
      "va": "0x00418900",
      "length": 61,
      "name": "?sub_00418900_UnlinkAll@D2StormList00708354Strc@@QAEXXZ"
@@ -4654,6 +4569,11 @@
      "name": "?sub_00418A00_UnlinkAll@D2StormList00708384Strc@@QAEXXZ"
     },
     {
+     "va": "0x00418A40",
+     "length": 16,
+     "name": "??0sub_00418A40@@QAE@XZ"
+    },
+    {
      "va": "0x00418A50",
      "length": 208,
      "name": "??1ARCHIVEREC@@QAE@XZ"
@@ -4672,6 +4592,21 @@
      "va": "0x00418B80",
      "length": 24,
      "name": "SFileFileExists"
+    },
+    {
+     "va": "0x00418BA0",
+     "length": 50,
+     "name": "??1sub_00418BA0@@QAE@XZ"
+    },
+    {
+     "va": "0x00418BE0",
+     "length": 50,
+     "name": "??1?$TSLink@UAUDIOSTREAM@@@@QAE@XZ"
+    },
+    {
+     "va": "0x00418C20",
+     "length": 50,
+     "name": "??1?$TSLink@UREQUEST@@@@QAE@XZ"
     },
     {
      "va": "0x00418C60",
@@ -4709,6 +4644,31 @@
      "name": "??1D2StormList00708384Strc@@QAE@XZ"
     },
     {
+     "va": "0x00418DE0",
+     "length": 16,
+     "name": "??0sub_00418DE0@@QAE@XZ"
+    },
+    {
+     "va": "0x00418DF0",
+     "length": 16,
+     "name": "??0sub_00418DF0@@QAE@XZ"
+    },
+    {
+     "va": "0x00418E00",
+     "length": 16,
+     "name": "??0sub_00418E00@@QAE@XZ"
+    },
+    {
+     "va": "0x00418E10",
+     "length": 50,
+     "name": "??1sub_00418E10@@QAE@XZ"
+    },
+    {
+     "va": "0x00418E50",
+     "length": 16,
+     "name": "??0sub_00418E50@@QAE@XZ"
+    },
+    {
      "va": "0x00418E60",
      "length": 44,
      "name": "??0FILEREC@@QAE@XZ"
@@ -4734,9 +4694,19 @@
      "name": "?NewNode@D2StormEventListStrc@@QAEPAUEVENTREC@@III@Z"
     },
     {
+     "va": "0x00418FF0",
+     "length": 16,
+     "name": "??0sub_00418FF0@@QAE@XZ"
+    },
+    {
      "va": "0x00419000",
      "length": 81,
      "name": "?_GD2StormRecord419000Strc"
+    },
+    {
+     "va": "0x00419060",
+     "length": 16,
+     "name": "??0sub_00419060@@QAE@XZ"
     },
     {
      "va": "0x00419070",
@@ -8277,9 +8247,39 @@
      "name": "?SEvtUnregisterType@@YGHII@Z"
     },
     {
+     "va": "0x00426960",
+     "length": 50,
+     "name": "??1sub_00426960@@QAE@XZ"
+    },
+    {
      "va": "0x004269C0",
      "length": 154,
      "name": "?SEvtPopState@@YGHII@Z"
+    },
+    {
+     "va": "0x00426A80",
+     "length": 50,
+     "name": "??1sub_00426A80@@QAE@XZ"
+    },
+    {
+     "va": "0x00426CA0",
+     "length": 16,
+     "name": "??0sub_00426CA0@@QAE@XZ"
+    },
+    {
+     "va": "0x00426CB0",
+     "length": 50,
+     "name": "??1sub_00426CB0@@QAE@XZ"
+    },
+    {
+     "va": "0x00426D70",
+     "length": 16,
+     "name": "??0sub_00426D70@@QAE@XZ"
+    },
+    {
+     "va": "0x00426D80",
+     "length": 50,
+     "name": "??1sub_00426D80@@QAE@XZ"
     },
     {
      "va": "0x00426E80",
