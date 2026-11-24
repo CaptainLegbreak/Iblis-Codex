@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/win-popup 0400c7bd 562->562 D2WinPopupLine.h: the popup menu line (64 characters of text, click handler at 0x80). D2Comp, D2WinImage, D2WinMain, D2WinPopup and D2WinScrollbar each had a private copy with the same text. It goes in a small header only those five include, because adding it to D2WinControls.h broke D2WinAnimImage; VERIFIED 6ca786193acebf9f3d7380225415e9d781a1762e
+  - On c4ce2baa. The 5 units build equal.
+  - Outside lane 2: the five D2Win units (lane 6).
+
 - lane2/game-records-2 17112da0 562->562 Replaces the held `lane2/game-records`. The roster-iteration and door-finding callback arguments now go in a small header, D2GameCallbackArgs.h, that only their six users include (Game, Player, PlrSave, AiThink, AiUtil, MissMode); D2GameTypes.h is untouched, so D2Comp and AiThink4 can't flip; VERIFIED 3ace9016c0d210db3642e61a0e47967defc52d62
   - Verified on 5929eec6, rebased onto c4ce2baa. Precheck is equal there.
   - Outside lane 2: the six D2Game units (lane 5).
@@ -26,7 +30,12 @@ Records that two or more units define privately with the same text, moved into t
 4. (done: bn-messages)
 5. (done: path-records)
 6. (done: win32-system-2)
-7. D2WinPopUpLineStrc (five D2Win units).
+7. (done: win-popup)
+8. Client quest log records (quest table, quest panel entry, quest log state, button layout: QuestLog, text, text_0049A950, Unknown_004A43E0/004A6460) -> a small client header.
+9. D2LaunchRequestStrc (WINMAIN, Unknown_0044B400, CharSel, CharSel_0042E600, Unknown_0044A170, Unknown_00444020).
+10. D2BeltSlotStrc (text, Unknown_004A43E0/004A6460/004A76C0).
+11. Char save file and ladder entry (ChatDlg, ChatDlg_00441B70).
+12. Key config file (CmdTbl, CUnit), text panel (panel, Unknown_00499500).
 No borrowed-data block or language split is in lane 2's range: the coord block is runtime-library data.
 
 ## Questions
