@@ -1,4 +1,3 @@
-#include "D2LanguageNames.h"
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2ClientGame.h"
