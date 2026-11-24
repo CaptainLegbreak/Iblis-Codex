@@ -555,25 +555,6 @@ void CBitInput::sub_0041D900_Skip(unsigned int nBits)
     nBitCount -= nBits;
 }
 
-// 0x0041DEC0
-unsigned int __cdecl PkwareBufferRead(char* pBuffer, unsigned int* pSize, D2StormMemSourceStrc* pSource)
-{
-    unsigned int nAvail = pSource->nSize - pSource->nPos;
-    unsigned int nSize = *pSize < nAvail ? *pSize : nAvail;
-    SMemCopy(pBuffer, pSource->pBuffer + pSource->nPos, nSize);
-    pSource->nPos += nSize;
-    return nSize;
-}
-
-// 0x0041DF00
-void __cdecl PkwareBufferWrite(char* pBuffer, unsigned int* pSize, D2StormMemSinkStrc* pSink)
-{
-    unsigned int nAvail = pSink->nSize - pSink->nPos;
-    unsigned int nSize = *pSize < nAvail ? *pSize : nAvail;
-    SMemCopy(pSink->pBuffer + pSink->nPos, pBuffer, nSize);
-    pSink->nPos += nSize;
-}
-
 // 0x0041E900
 D2StormLinkStrc* D2StormLinkStrc::sub_0041E900_NextLink(int nLinkOffset)
 {
