@@ -696,6 +696,11 @@
      "name": "FOG_DecompressPacket"
     },
     {
+     "va": "0x0040B320",
+     "length": 1,
+     "name": "?FOG_10082_Noop@@YAXXZ"
+    },
+    {
      "va": "0x0040B330",
      "length": 27,
      "name": "sub_0040B330_Cos"
@@ -773,11 +778,6 @@
     {
      "va": "0x0040EA00",
      "length": 271
-    },
-    {
-     "va": "0x00413740",
-     "length": 1,
-     "name": "?sub_00413740_Nop@@YAXXZ"
     },
     {
      "va": "0x006CA6F0",
@@ -2019,41 +2019,6 @@
      "va": "0x0041C800",
      "length": 50,
      "name": "??1sub_0041C800@@QAE@XZ"
-    },
-    {
-     "va": "0x00420430",
-     "length": 50,
-     "name": "??1sub_00420430@@QAE@XZ"
-    },
-    {
-     "va": "0x004204A0",
-     "length": 16,
-     "name": "??0sub_004204A0@@QAE@XZ"
-    },
-    {
-     "va": "0x004204B0",
-     "length": 50,
-     "name": "??1sub_004204B0@@QAE@XZ"
-    },
-    {
-     "va": "0x00420700",
-     "length": 16,
-     "name": "??0sub_00420700@@QAE@XZ"
-    },
-    {
-     "va": "0x00420710",
-     "length": 50,
-     "name": "??1sub_00420710@@QAE@XZ"
-    },
-    {
-     "va": "0x004207D0",
-     "length": 16,
-     "name": "??0sub_004207D0@@QAE@XZ"
-    },
-    {
-     "va": "0x004207E0",
-     "length": 50,
-     "name": "??1sub_004207E0@@QAE@XZ"
     },
     {
      "va": "0x00426960",
@@ -3854,11 +3819,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0040B320",
-     "length": 1,
-     "name": "?FOG_10082_Noop@@YAXXZ"
-    },
-    {
      "va": "0x0040B500",
      "length": 53,
      "name": "?sub_0040B500_UnloadImageHlp@@YAHXZ"
@@ -5025,26 +4985,6 @@
      "name": "??0CHuffman@@QAE@XZ"
     },
     {
-     "va": "0x004203E0",
-     "length": 14,
-     "name": "sub_004203E0"
-    },
-    {
-     "va": "0x00420820",
-     "length": 82,
-     "name": "sub_00420820_NewNode"
-    },
-    {
-     "va": "0x00420880",
-     "length": 81,
-     "name": "?_GWNDREC"
-    },
-    {
-     "va": "0x00420970",
-     "length": 106,
-     "name": "sub_00420970_DeleteNode"
-    },
-    {
      "va": "0x00426920",
      "length": 14,
      "name": "sub_00426920"
@@ -5744,6 +5684,11 @@
     {
      "va": "0x004135D0",
      "length": 353
+    },
+    {
+     "va": "0x00413740",
+     "length": 1,
+     "name": "?sub_00413740_Nop@@YAXXZ"
     },
     {
      "va": "0x00413750",
@@ -6448,9 +6393,69 @@
      "name": "SMsgSetDefaultWindow"
     },
     {
+     "va": "0x004203C0",
+     "length": 16,
+     "name": "?Next@?$TSLink@UWNDREC@@@@QAEPAUWNDREC@@XZ"
+    },
+    {
+     "va": "0x004203D0",
+     "length": 4,
+     "name": "?RawNext@?$TSLink@UWNDREC@@@@QAEPAUWNDREC@@XZ"
+    },
+    {
+     "va": "0x004203E0",
+     "length": 14,
+     "name": "sub_004203E0"
+    },
+    {
      "va": "0x004203F0",
      "length": 36,
      "name": "?NextLink@?$TSLink@UWNDREC@@@@QAEPAU1@H@Z"
+    },
+    {
+     "va": "0x00420420",
+     "length": 3,
+     "name": "?sub_00420420_Identity@@YIPAUD2StormLinkStrc@@PAUD2IdentityView@@@Z"
+    },
+    {
+     "va": "0x00420430",
+     "length": 50,
+     "name": "?Unlink@?$TSLink@UWNDREC@@@@QAEXXZ"
+    },
+    {
+     "va": "0x00420470",
+     "length": 11,
+     "name": "?sub_00601DF0_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
+    },
+    {
+     "va": "0x00420480",
+     "length": 3,
+     "name": "?sub_00420480_Identity@@YIPAUD2StormLinkStrc@@PAUD2IdentityView@@@Z"
+    },
+    {
+     "va": "0x00420490",
+     "length": 16,
+     "name": "?Head@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@XZ"
+    },
+    {
+     "va": "0x004204A0",
+     "length": 16,
+     "name": "??0?$TSLink@UWNDREC@@@@QAE@XZ"
+    },
+    {
+     "va": "0x004204B0",
+     "length": 50,
+     "name": "??1sub_004204B0@@QAE@XZ"
+    },
+    {
+     "va": "0x004204F0",
+     "length": 16,
+     "name": "?sub_00601B60_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
+     "va": "0x00420500",
+     "length": 17,
+     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
      "va": "0x00420520",
@@ -6468,9 +6473,19 @@
      "name": "?Next@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@PBU2@@Z"
     },
     {
+     "va": "0x00420610",
+     "length": 50,
+     "name": "??1?$TSLink@UWNDREC@@@@QAE@XZ"
+    },
+    {
      "va": "0x00420650",
      "length": 66,
      "name": "?UnlinkNode@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXPAUWNDREC@@@Z"
+    },
+    {
+     "va": "0x004206A0",
+     "length": 32,
+     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
     },
     {
      "va": "0x004206C0",
@@ -6483,14 +6498,54 @@
      "name": "?RawNext@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@PBU2@@Z"
     },
     {
+     "va": "0x00420700",
+     "length": 16,
+     "name": "??0?$TSLinkedNode@UWNDREC@@@@QAE@XZ"
+    },
+    {
+     "va": "0x00420710",
+     "length": 50,
+     "name": "??1?$TSLinkedNode@UWNDREC@@@@QAE@XZ"
+    },
+    {
+     "va": "0x00420750",
+     "length": 61,
+     "name": "?UnlinkAll@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXXZ"
+    },
+    {
      "va": "0x00420790",
      "length": 60,
      "name": "??1?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAE@XZ"
     },
     {
+     "va": "0x004207D0",
+     "length": 16,
+     "name": "??0WNDREC@@QAE@XZ"
+    },
+    {
+     "va": "0x004207E0",
+     "length": 50,
+     "name": "??1WNDREC@@QAE@XZ"
+    },
+    {
+     "va": "0x00420820",
+     "length": 82,
+     "name": "?NewNode@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@III@Z"
+    },
+    {
+     "va": "0x00420880",
+     "length": 81,
+     "name": "??_GWNDREC@@QAEPAXI@Z"
+    },
+    {
      "va": "0x004208E0",
      "length": 130,
      "name": "AddWindow"
+    },
+    {
+     "va": "0x00420970",
+     "length": 106,
+     "name": "?DeleteNode@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@PAU2@@Z"
     },
     {
      "va": "0x004209E0",
@@ -6573,9 +6628,19 @@
      "name": "?SMsgGetDispatcher@@YGHH@Z"
     },
     {
+     "va": "0x00420D80",
+     "length": 11,
+     "name": "?sub_00420D80_Clear@D2Strc00420D80@@QAEXXZ"
+    },
+    {
      "va": "0x00420D90",
      "length": 4,
      "name": "?DRLGPRESET_GetLinkRawNext@@YIPAUWNDREC@@PAU?$TSLink@UWNDREC@@@@@Z"
+    },
+    {
+     "va": "0x00420DA0",
+     "length": 7,
+     "name": "?sub_00420DA0_GetSpan@D2Strc00420DA0@@QAEHXZ"
     }
    ]
   },
@@ -6736,56 +6801,6 @@
      "va": "0x0041F940",
      "length": 5,
      "name": "??1CHuffmanDecoder@@QAE@XZ"
-    },
-    {
-     "va": "0x004203C0",
-     "length": 16,
-     "name": "?sub_00601B60_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x004203D0",
-     "length": 4,
-     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x00420420",
-     "length": 3,
-     "name": "?sub_00420420_Identity@@YIPAUD2StormLinkStrc@@PAUD2IdentityView@@@Z"
-    },
-    {
-     "va": "0x00420470",
-     "length": 11,
-     "name": "?sub_00601DF0_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
-    },
-    {
-     "va": "0x00420480",
-     "length": 3,
-     "name": "?sub_00420480_Identity@@YIPAUD2StormLinkStrc@@PAUD2IdentityView@@@Z"
-    },
-    {
-     "va": "0x00420490",
-     "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x00420500",
-     "length": 17,
-     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00420610",
-     "length": 50,
-     "name": "?sub_00420610@D2StormLinkStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x004206A0",
-     "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x00420750",
-     "length": 61,
-     "name": "?sub_00420750_UnlinkAll@D2TSListStrc@@QAEXXZ"
     },
     {
      "va": "0x00420E10",
@@ -7016,11 +7031,6 @@
      "name": "HuffmanCompress"
     },
     {
-     "va": "0x004204F0",
-     "length": 16,
-     "name": "?sub_00601B60_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
      "va": "0x00420E70",
      "length": 4,
      "name": "?MONSTERMODE_GetTargetTimerPtr@@YIPAHPAUD2Field14Strc@@@Z"
@@ -7111,16 +7121,6 @@
    "file": "Source/Storm/Unknown_00420220.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00420D80",
-     "length": 11,
-     "name": "?sub_00420D80_Clear@D2Strc00420D80@@QAEXXZ"
-    },
-    {
-     "va": "0x00420DA0",
-     "length": 7,
-     "name": "?sub_00420DA0_GetSpan@D2Strc00420DA0@@QAEHXZ"
-    },
     {
      "va": "0x00420E80",
      "length": 7,

@@ -25,40 +25,7 @@ void __stdcall SErrReportResourceLeak(const char* szName);                      
 extern D2CriticalSectionStrc gaSLogLocks_00779238[4];                                                       // 0x00779238
 extern D2SLogStrc* gapSLogBuckets_00779298[4];                                                              // 0x00779298
 
-
 typedef int (__stdcall* SMSGIDLEPROC)(int nCount);
-
-struct D2Strc00420D80
-{
-    int f_0;
-    int f_4;
-    int f_8;
-    void sub_00420D80_Clear();
-};
-
-// 0x00420D80
-void D2Strc00420D80::sub_00420D80_Clear()
-{
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-}
-
-struct D2Strc00420DA0
-{
-    int f_0;
-    int nEnd;
-    int f_8;
-    int nFieldC;
-    int nStart;
-    int sub_00420DA0_GetSpan();
-};
-
-// 0x00420DA0
-int D2Strc00420DA0::sub_00420DA0_GetSpan()
-{
-    return nEnd - nStart;
-}
 
 struct D2Strc00420E80
 {

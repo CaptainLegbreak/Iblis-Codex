@@ -123,14 +123,6 @@ struct sub_0041C730;
 
 struct sub_0041C800;
 
-struct sub_00420430;
-
-struct sub_004204B0;
-
-struct sub_00420710;
-
-struct sub_004207E0;
-
 struct sub_00426960;
 
 struct sub_00426A80;
@@ -198,12 +190,6 @@ struct sub_0041C4F0;
 struct sub_0041C720;
 
 struct sub_0041C7F0;
-
-struct sub_004204A0;
-
-struct sub_00420700;
-
-struct sub_004207D0;
 
 struct sub_00426CA0;
 
@@ -710,30 +696,6 @@ struct sub_0041C800
     ~sub_0041C800();
 };
 
-struct sub_00420430
-{
-    D2StormLinkStrc f_0;
-    ~sub_00420430();
-};
-
-struct sub_004204B0
-{
-    D2StormLinkStrc f_0;
-    ~sub_004204B0();
-};
-
-struct sub_00420710
-{
-    D2StormLinkStrc f_0;
-    ~sub_00420710();
-};
-
-struct sub_004207E0
-{
-    D2StormLinkStrc f_0;
-    ~sub_004207E0();
-};
-
 struct sub_00426960
 {
     D2StormLinkStrc f_0;
@@ -938,24 +900,6 @@ struct sub_0041C7F0
     sub_0041C7F0();
 };
 
-struct sub_004204A0
-{
-    D2StormLinkStrc f_0;
-    sub_004204A0();
-};
-
-struct sub_00420700
-{
-    D2StormLinkStrc f_0;
-    sub_00420700();
-};
-
-struct sub_004207D0
-{
-    D2StormLinkStrc f_0;
-    sub_004207D0();
-};
-
 struct sub_00426CA0
 {
     D2StormLinkStrc f_0;
@@ -1123,7 +1067,6 @@ struct D2LogDumpStrc;
 
 struct D2StormListStrc;
 
-
 struct D2LogDumpStrc
 {
     const unsigned char* pAddress;
@@ -1139,7 +1082,6 @@ extern "C" unsigned int __cdecl strlen(const char* szString);
 extern "C" int __cdecl strcmp(const char* szA, const char* szB);
 
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
-
 
 void __fastcall sub_0040ECC0_LogWriteHeader(_iobuf* pFile, const D2SystemTimeStrc* pTime); // 0x0040ECC0
 
@@ -1575,7 +1517,6 @@ D2LogMessageStrc::~D2LogMessageStrc()
 {
 }
 
-
 void* ghLogThread; // 0x0075D2E8
 
 int gbLogThreadStop; // 0x0075E830
@@ -1846,51 +1787,6 @@ sub_0041C7F0::sub_0041C7F0()
 
 // 0x0041C800
 sub_0041C800::~sub_0041C800()
-{
-    f_0.Unlink();
-}
-
-// 0x00420430
-sub_00420430::~sub_00420430()
-{
-    f_0.Unlink();
-}
-
-// 0x004204A0
-sub_004204A0::sub_004204A0()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x004204B0
-sub_004204B0::~sub_004204B0()
-{
-    f_0.Unlink();
-}
-
-// 0x00420700
-sub_00420700::sub_00420700()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00420710
-sub_00420710::~sub_00420710()
-{
-    f_0.Unlink();
-}
-
-// 0x004207D0
-sub_004207D0::sub_004207D0()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x004207E0
-sub_004207E0::~sub_004207E0()
 {
     f_0.Unlink();
 }
