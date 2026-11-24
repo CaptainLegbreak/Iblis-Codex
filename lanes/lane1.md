@@ -4,7 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/object-strays-2 4b05a5932 0->0 Object.cpp takes 0x4BDF30 (Item.cpp) and 0x4BDFD0 (Unknown_004BDFD0.cpp), both inside its code run (0x4BC580-0x4BE01F) between 0x4BDEE0 and 0x4BDFE0. 0x4BDFD0 returns the object's owner name, pUnit->pObjectData->szOwner (D2ObjectDataStrc +0x28), which the placeholder spelled through two made-up records; written on the real ones, they go. Borrowed data 880 b, as main; VERIFIED e46c89f14ad27fb73b31f6703b01ef45a3dd97dd (based on main #362).
+- lane1/object-strays-2 4b05a5932 0->0 Object.cpp takes 0x4BDF30 (Item.cpp) and 0x4BDFD0 (Unknown_004BDFD0.cpp), both inside its code run (0x4BC580-0x4BE01F) between 0x4BDEE0 and 0x4BDFE0. 0x4BDFD0 returns the object's owner name, pUnit->pObjectData->szOwner (D2ObjectDataStrc +0x28), which the placeholder spelled through two made-up records; written on the real ones, they go. Borrowed data 848 B, as main; VERIFIED 9051ac64fc0561b48bbb8abd19b84700cadb9c83 (based on main #363; replaces object-strays, docs/index.html conflict only).
   - Tried, not moved: 0x4BC500 (Unknown_004BC500.cpp, just before Object.cpp's run) turns Object.cpp's 0x4BD900 unequal there; Unknown_004BC1B0_004BE770.cpp's 0x4BE770/0x4BE7C0 turn 0x4BF430 unequal in Unknown_004BC1B0.cpp (that is why it was split off).
 
 
