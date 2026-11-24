@@ -69,7 +69,7 @@ struct D2StormNodeListStrc
 
 struct HUFFNODE
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     unsigned int nValue;
     unsigned int nWeight;
     HUFFNODE* pParent;
@@ -196,7 +196,7 @@ void CHuffman::sub_0041F350_IncWeights(HUFFNODE* pItem)
         HUFFNODE* pNext;
         for (;;)
         {
-            pNext = (HUFFNODE*)pCur->f_0.Next();
+            pNext = (HUFFNODE*)pCur->tLink.Next();
             if (!pNext || pNext->nWeight >= pItem->nWeight)
                 break;
             pCur = pNext;

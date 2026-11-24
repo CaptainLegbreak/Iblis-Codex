@@ -248,7 +248,7 @@ struct D2StormGameArrayStrc
 struct D2StormHashObjectChunkStrc
 {
     D2StormGameArrayStrc m_array;
-    D2StormLinkStrc f_10;
+    D2StormLinkStrc m_link;
 
     static void operator delete(void* pMemory);
 };
