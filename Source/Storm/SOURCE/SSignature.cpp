@@ -840,29 +840,4 @@ void __stdcall SBigCopy(BigBuffer* pDest, BigBuffer* pSource)
     pDest->m_start = pSource->m_start;
 }
 
-// 0x00424E40
-void __stdcall SBigDel(D2StormBigStrc* pBig)
-{
-    delete pBig;
-}
-
-// 0x00424F10
-int __stdcall SBigMul(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
-{
-    return sub_004242C0_BigOp(pResult, pA, pB, &pResult->tStack);
-}
-
-// 0x00424F70
-int __stdcall SBigRand(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
-{
-    return sub_00424700_BigOp(pResult, pA, pB, &pResult->tStack);
-}
-
-// 0x00424F90
-int __stdcall SBigSquare(D2StormBigStrc* pResult, D2StormBigStrc* pA)
-{
-    return sub_00424B00_BigOp(pResult, pA, &pResult->tStack);
-}
-
-
 #include "gen/data/Source/Storm/SOURCE/SSignature.inc"

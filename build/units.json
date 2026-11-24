@@ -6293,26 +6293,6 @@
      "va": "0x004237D0",
      "length": 48,
      "name": "SBigCopy"
-    },
-    {
-     "va": "0x00424E40",
-     "length": 38,
-     "name": "SBigDel"
-    },
-    {
-     "va": "0x00424F10",
-     "length": 28,
-     "name": "SBigMul"
-    },
-    {
-     "va": "0x00424F70",
-     "length": 28,
-     "name": "SBigRand"
-    },
-    {
-     "va": "0x00424F90",
-     "length": 24,
-     "name": "SBigSquare"
     }
    ]
   },
@@ -7355,6 +7335,26 @@
      "va": "0x00423950",
      "length": 129,
      "name": "?SBigNew@@YGXPAPAUD2StormBigStrc@@@Z"
+    },
+    {
+     "va": "0x00424E40",
+     "length": 38,
+     "name": "SBigDel"
+    },
+    {
+     "va": "0x00424F10",
+     "length": 28,
+     "name": "SBigMul"
+    },
+    {
+     "va": "0x00424F70",
+     "length": 28,
+     "name": "SBigRand"
+    },
+    {
+     "va": "0x00424F90",
+     "length": 24,
+     "name": "SBigSquare"
     }
    ],
    "flags": [
