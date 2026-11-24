@@ -14,6 +14,17 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
+- lane9/join-d3d-7530 98bdfd62 placeholders 6->1 (D2Direct3D: Unknown_006B7630, _006B8950, _006B8DF0, _006B8E90,
+  _006B87A0 join Unknown_006B7530.cpp; 13 functions). Base main ff0dd9c4 (#335). Precheck: 0 not all equal.
+  Full verify: VERIFIED tree 99488276 on #333 (8f1bf35b); rebased onto #335 with namesync (4 renames in the joined file,
+  unit rebuilt equal), re-verify of 98bdfd62 running.
+  Evidence: the image's calls tie them by file statics. 0x6B7630 calls the static 0x6B7530; 0x6B8950 and 0x6B83A0 call
+  the static 0x6B7FD0; 0x6B8DF0 and 0x6B8E90 call the statics 0x6B8950 and 0x6B87A0; 0x6B8E60 calls the static
+  0x6B8DF0. With the bodies together the context copies, the glyph emitter and the ecx struct trick for 0x6B87A0 go
+  (context copies -4, shims -3 by my count). 0x6B7FD0's parameters are (nSide, pRect, pOffset, bFlag): its
+  custom-convention callers evaluate pRect before nSide. gaGeometry (0x0074C100) moves to this unit's data.
+  Two declaration-set sensitivities in 0x6B8950, both fixed naturally: its indexed draw goes through the file's own
+  device record (as the piece had it), and the file's statics are prototyped once at the top.
 - lane9/place-gdismack 224c0be7 placeholders 1->0 (D2Gdi/Unknown_006C9900.cpp into gdiSmack.cpp). Base main ff0dd9c4 (#335;
   verified on #333, rebase crosses only name sweeps). Precheck: 0 not all equal. Full verify: VERIFIED tree 145e8920.
   GdiPlaySmacker 0x6C9900 calls gdiSmack.cpp's file static RemapRows 0x6C9690 (the placeholder carried a context copy of
