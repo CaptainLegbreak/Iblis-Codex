@@ -5,6 +5,13 @@ Nothing here is ready to merge yet.
 
 ## Status
 
+- 2026-11-24 02:40 PT: **0x679C80** is at 447/450 with the original's frame and stack layout
+  (`lanes/vsearch/00679C80-near.cpp`, lane 7's was 456/450). The key was reading tPoint through a 32-bit
+  view (`(unsigned short)(dw >> 16)` for Y): with a plain struct VC8 keeps an extra stack copy just to read .Y.
+  Left: one scratch-register choice in the first point comparison (eax vs ecx), and every ecx/edx swap after it.
+  Declaration count in the unit doesn't change it (tested 0-15 extra declarations). 0x5EDC50 is unchanged at
+  789/791; its two left differences (the folded -40 and the order of the +-30 term) didn't move under any
+  expression, type or statement-order rewrite, or with 0-15 extra declarations in a minimal unit.
 - 2026-11-24 00:30 PT: no match yet. Two near versions and a faster search tool are on this board.
   - **Tool: `lanes/tools/vbatch/`** compiles dozens of variants of one function in a single build of its real unit
     and ranks them against the original (about 4 s for 40 variants of 0x5EDC50 in AiThink4.cpp); `greedy.py`
