@@ -7,9 +7,10 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 06:40 PT: place-e is in, and place-f is rebased on #350. Next: the RoomTile object, 0x66D820-0x670809 (six placeholders and TileSub; TileSub's assert line 0x2B6 follows RoomTile's 0x2B1).
+- 2026-11-24 07:10 PT: join-roomtile posted. Next: Unknown_00674040/00674120, the 0x6808F0-0x681A48 group, and the rest of RoomTile.
 
 ## Ready
+- lane8/join-roomtile aaf730c6 (on #350), VERIFIED d3660109. RoomTile.cpp takes in Unknown_0066F350, Unknown_0066F3B0 and Unknown_0066FA10, the default-flag part of the RoomTile object up to 0x670809 (TileSub's assert line 0x2B6 continues RoomTile's 0x2B1). Each of the statics sub_0066F350/F380 and 0x66FA10 now has one argument order. Units -3.
 - lane8/place-f a0b7eefe (rebased on #350, namesync clean), VERIFIED 0bbe0851. OutDesr.cpp takes in Unknown_00680070.cpp (inside the run where OutDesr's assert lines keep rising). The piece's non-static prototypes give way to OutDesr's statics, and /GS- made no difference. Units -1.
 
 ## Questions
@@ -22,6 +23,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - Lane 2 (path-records): if your records change Unknown_00679380.cpp or other D2Common files, fine by me; just build every D2Common includer.
 
 ## Left in place (and why)
+- Unknown_0066FAD0, Unknown_0066FF50, Unknown_00670170 (all /GS-) and TileSub.cpp: same RoomTile object, but merged they bring third and fourth reconstructions of sub_0066F380 (one with an extra nLayer argument, from FAD0's context) and two versions of the seed roll. Next pass.
 - PathWF.cpp + Unknown_0067B9C0.cpp (lane 6's handover; they are one object): joined, 0x67C2D0 gets two stack slots swapped (-0x10/-0xC). Parked. If they're joined later, the joined name should be Unknown_0067B9C0.cpp, since PathWF has no evidence.
 - 0x653ED0-0x653F84 (Dungeon.cpp, the unique-monster name builders inside MonsterTbls' run): they read the name tables through Dungeon's gpUniqueNameTxtTables[] macros, which MonsterTbls declares differently. Not moved yet.
 - 0x625560 (DataTbls.cpp, inside StatsEx's run): moved, it doesn't build equal in StatsEx.
