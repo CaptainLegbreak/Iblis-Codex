@@ -2867,6 +2867,12 @@ int __fastcall SKILLS_RollMonFrenzyDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     return 1;
 }
 
+// 0x005CDF00
+int __fastcall sub_005CDF00_HasTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    return SUNIT_GetTargetUnit(pGame, pUnit) != 0;
+}
+
 // 0x005CE0B0
 int __fastcall SKILLS_SrvDo149_NecromageMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
