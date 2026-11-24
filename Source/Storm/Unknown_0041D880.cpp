@@ -173,6 +173,21 @@ void CBitOutput::sub_0041D950_PutBits(unsigned int nValue, unsigned int nBits)
     }
 }
 
+// 0x0041D9A0
+void CBitOutput::sub_0041D9A0_Flush()
+{
+    while (nBitCount)
+    {
+        if (f_4)
+        {
+            *pOutput++ = (unsigned char)nBitBuffer;
+            f_4--;
+        }
+        nBitBuffer >>= 8;
+        nBitCount -= nBitCount > 8 ? 8 : nBitCount;
+    }
+}
+
 // 0x0041D9E0
 void CHuffman::sub_0041D9E0_EncodeOne(CBitOutput* pOutput, unsigned int nValue)
 {
