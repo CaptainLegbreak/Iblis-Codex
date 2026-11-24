@@ -3,6 +3,7 @@
 #include "D2ClientTypes.h"
 #include "D2ClientUi.h"
 #include "D2StormTypes.h"
+#include "D2ClientDialogWidget.h"
 
 #pragma function(memset)
 
@@ -38,11 +39,6 @@ public:
     virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
 };
 
-struct D2DialogWidgetNodeStrc
-{
-    D2DialogWidget* f_0;
-    D2DialogWidgetNodeStrc* pNext;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 

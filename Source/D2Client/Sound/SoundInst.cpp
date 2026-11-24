@@ -7,6 +7,7 @@
 #include "D2StormTypes.h"
 #include "D2Path.h"
 #include "D2ClientSound.h"
+#include "D2ClientDialogWidget.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -303,11 +304,6 @@ struct D2DialogWidget
     virtual void Draw();
 };
 
-struct D2DialogWidgetNodeStrc
-{
-    D2DialogWidget* f_0;
-    D2DialogWidgetNodeStrc* pNext;
-};
 
 // 0x004B97D0
 static void __stdcall sub_004B97D0_GetSoundOffset(D2UnitStrc* pUnit, int nSoundId, D2SoundVecStrc* pPos)
