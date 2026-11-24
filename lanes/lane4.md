@@ -4,6 +4,8 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane4/editbox-split d57e9fa4 +2 placeholders (Unknown_004BABF0.cpp, Unknown_004BBE10.cpp): editbox.cpp is three objects. The copies at 0x72756C, 0x727608 and 0x727688 each start an object's data and are followed by that object's RTTI type descriptors: UIWidget/ButtonImplementation/ButtonWrapper; EditBoxImplementation/EditBoxWrapper; SpinnerImplementation/SpinnerWrapper. The code agrees: button classes 0x4BABF0-0x4BB16F, edit box classes (the only `.\UI\editbox.cpp` users) 0x4BB170-0x4BBE0F, spinner classes 0x4BBE10-0x4BC4F9. The button run becomes Unknown_004BABF0.cpp (with gaButtonStrings; its copy from D2LanguageNames.h), the spinner run Unknown_004BBE10.cpp; each file keeps only its own classes' member definitions and vtable symbol lines. The edit box's and spinner's copies, borrowed until now, get records. Borrowed data 1,707 B on the verified tree (the 0x727608 and 0x727688 blocks are placed now). VERIFIED 25cda9c27395 on #339; rebased onto #340 (plan replayed; precheck equal). Not stacked; nothing outside lane 4.
+
 - lane4/session-object 9307c438 +1 placeholder (Unknown_0044BA20.cpp): the bss runs WINMAIN.CPP's to 0x7A044C, then 0x7A0458-0x7A0630, then Game.cpp's from 0x7A0658. The functions that use the middle block, 0x44BA20-0x44BDCF, are one object of their own: resolution set-up, subsystem start/shutdown, the connect-failed flag, run client, and session start/stop/wait and system packet pumping. Unknown_0044BA20.cpp takes five functions from WINMAIN.CPP and five from Game.cpp, with the bss they define. Its data is the copy at 0x70EE90 alone; that record moves once winmain-object (which cuts the record holding it) is in. VERIFIED 0b594facb878 on #332; rebased onto #339 (precheck equal). Both this and winmain-object edit WINMAIN.CPP, in different places. Not stacked; nothing outside lane 4.
 
 - lane4/context-sweep 7cb8458b no placeholder change: each of the 127 `// build: context` lines in lane 4's files (46 files; lane 1's two placeholders at 0x4DF1C0/0x4DF6C0 left alone) was tried alone and its unit still builds equal without it, so all go; the copies themselves stay. VERIFIED 5b86859e22ab on #332; rebased onto #339 cleanly (all 46 units build equal). Not stacked; nothing outside lane 4.
@@ -18,7 +20,7 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- Verifying, to post when each passes: lane4/editbox-split (now with the header include for all three copies), lane4/lang-include (10 units take their copy from D2LanguageNames.h; in 11 more the header copy did not place, because their data has no other anchor or does not follow the copy without a gap, so they keep their records).
+- Verifying, to post when each passes: lane4/lang-include (10 units take their copy from D2LanguageNames.h; in 11 more the header copy did not place, because their data has no other anchor or does not follow the copy without a gap, so they keep their records).
 
 ## Questions
 
