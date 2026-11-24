@@ -72,8 +72,10 @@ void* gdwGlobal_007792F4; // 0x007792F4
 // build: symbol ?RawNext@?$TSLink@UWNDREC@@@@QAEPAUWNDREC@@XZ 0x004203D0
 // build: symbol ?NextLink@?$TSLink@UWNDREC@@@@QAEPAU1@H@Z 0x004203F0
 // build: symbol ?Unlink@?$TSLink@UWNDREC@@@@QAEXXZ 0x00420430
+// build: symbol ?InitializeTerminator@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXXZ 0x00420470
 // build: symbol ?Head@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@XZ 0x00420490
 // build: symbol ??0?$TSLink@UWNDREC@@@@QAE@XZ 0x004204A0
+// build: symbol ??0?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAE@XZ 0x004206A0
 // build: symbol ?Link@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAU?$TSLink@UWNDREC@@@@PBUWNDREC@@@Z 0x00420520
 // build: symbol ?LinkNode@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXPAUWNDREC@@I0@Z 0x00420540
 // build: symbol ?Next@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@PBU2@@Z 0x004205F0
@@ -94,9 +96,11 @@ template WNDREC* TSLink<WNDREC>::Next();
 template WNDREC* TSLink<WNDREC>::RawNext();
 template TSLink<WNDREC>* TSLink<WNDREC>::NextLink(int);
 template void TSLink<WNDREC>::Unlink();
+template void TSList<WNDREC>::InitializeTerminator();
 template WNDREC* TSList<WNDREC>::Head();
 template TSLink<WNDREC>::TSLink();
 template TSLink<WNDREC>::~TSLink();
+template TSList<WNDREC>::TSList();
 template TSLink<WNDREC>* TSList<WNDREC>::Link(const WNDREC*);
 template void TSList<WNDREC>::LinkNode(WNDREC*, unsigned int, WNDREC*);
 template WNDREC* TSList<WNDREC>::Next(const WNDREC*);
@@ -144,7 +148,6 @@ struct D2SMsgListStrc
     int m_linkoffset;                                       // 0x00
     D2SMsgLinkStrc m_terminator;                            // 0x04
 
-    D2SMsgListStrc();
     void sub_0060E5F0_Reset();
 };
 
@@ -192,13 +195,6 @@ D2SMsgLinkStrc* __fastcall sub_00420420_Identity(D2SMsgLinkStrc* pLink)
     return pLink;
 }
 
-// 0x00420470
-void __fastcall sub_00601DF0_InitTerminator(D2SMsgListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
 // 0x00420480
 D2SMsgLinkStrc* __fastcall sub_00420480_Identity(D2SMsgLinkStrc* pLink)
 {
@@ -219,14 +215,6 @@ char* __fastcall sub_00601B60_LinkNext(D2SMsgLinkStrc* pLink)
 
 // 0x00420500
 void D2SMsgListStrc::sub_0060E5F0_Reset()
-{
-    m_linkoffset = 0;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
-// 0x004206A0
-D2SMsgListStrc::D2SMsgListStrc()
 {
     m_linkoffset = 0;
     m_terminator.m_prevlink = &m_terminator;
