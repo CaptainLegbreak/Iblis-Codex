@@ -13523,9 +13523,19 @@
      "name": "VIEW_SetPetEntryValue"
     },
     {
+     "va": "0x00475C30",
+     "length": 10,
+     "name": "?sub_00475C30_FreeIfSet@@YIXPAX@Z"
+    },
+    {
      "va": "0x00475DF0",
      "length": 185,
      "name": "?DLIGHTMAP_BuildLerpTables@@YAXXZ"
+    },
+    {
+     "va": "0x00475EB0",
+     "length": 51,
+     "name": "?sub_00475EB0_FreeCels@@YAXXZ"
     },
     {
      "va": "0x00475EF0",
@@ -20939,22 +20949,6 @@
      "va": "0x004A8A20",
      "length": 6,
      "name": "sub_004A8A20"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00475C30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00475C30",
-     "length": 10,
-     "name": "?sub_00475C30_FreeIfSet@@YIXPAX@Z"
-    },
-    {
-     "va": "0x00475EB0",
-     "length": 51,
-     "name": "?sub_00475EB0_FreeCels@@YAXXZ"
     }
    ]
   },
