@@ -480,8 +480,6 @@ extern D2CriticalSectionStrc gtLogLock;                                         
 
 struct FSafeSock;
 
-struct FOG_SOCKET_GetError;
-
 struct D2LogMsgListStrc;
 
 struct D2LogMsgNodeStrc;
@@ -489,8 +487,6 @@ struct D2LogMsgNodeStrc;
 struct D2LogMessageStrc;
 
 class CCritSect;
-
-struct FOG_SOCKET_GetError { unsigned char bUnknown00[0x30]; unsigned int dwValue30; unsigned int dwValue34; };
 
 extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); // 0x00684BD5
 
@@ -1332,9 +1328,10 @@ void __fastcall FOG_SOCKET_Unlock(FSafeSock* pSafeSock)
 }
 
 // 0x0040E0B0
-extern "C" __declspec(dllexport) int __fastcall FOG_SOCKET_GetError(FOG_SOCKET_GetError* pObj, unsigned int* pFirst, unsigned int* pSecond) {
-    *pFirst = pObj->dwValue30;
-    *pSecond = pObj->dwValue34;
+int __fastcall FOG_SOCKET_GetError(FSafeSock* pSafeSock, unsigned long* pFogError, unsigned long* pWSALastError)
+{
+    *pFogError = pSafeSock->nFogErrorCode;
+    *pWSALastError = pSafeSock->nWSALastError;
     return 1;
 }
 
