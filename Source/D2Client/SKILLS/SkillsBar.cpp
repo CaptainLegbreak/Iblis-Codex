@@ -798,3 +798,5 @@ int __fastcall SKILLSBAR_SkillCltDoCollide(D2UnitStrc* pUnit, int nSkillId, int 
     return 1;
 }
 
+
+#include "gen/data/Source/D2Client/SKILLS/SkillsBar.inc"
