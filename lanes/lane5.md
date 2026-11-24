@@ -4,11 +4,11 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/monunique-copies b3c67aeb8 0 placeholders; MonsterUnique.cpp's three trailing copies (0x73C4C0, 0x73C4FC, 0x73C538) go to MonsterEval.cpp, PartyScreen.cpp and Friendly.cpp, the three data-less objects between MonsterUnique.cpp and MonsterMode.cpp in code order (PartyScreen.cpp's only table is .rdata, before its path string and MonsterMode.cpp's), each from D2LanguageNames.h with a marker. VERIFIED 4239ed47954f7f5831a237ea02b06e740d78eb4f, borrowed data 848 B (= main #363). Based on main 3bf574f20 (#363), not stacked.
 - lane5/aithink4-split-2 1e7623491 +1 placeholder (Unknown_005EFB80.cpp, an object boundary); AiThink4.cpp's run 0x5E0160-0x5FBA60 is two objects: the first half holds every reference to its path string (0x6E3500) and its data (gpfnMapAiActions 0x741D74); the second half (0x5EFB80-0x5FBA60, AITHINK_Fn007_Brute to Fn087_TrapMelee, the original monsters' AI in number order) shares no out-of-line function with it (one call crosses, to a global __stdcall helper). It takes the first of the six no-data copies after AiThink4's data (0x741D90, from D2LanguageNames.h); the other five stay planned in it, after its copy. Each half drops the helpers it no longer uses. VERIFIED e09a8880e4dd9a9706558613aa3b4b4d9035392e, borrowed data 848 B (= main #363). Based on main 3bf574f20 (#363), not stacked; replaces lane5/aithink4-split (redone on #363).
 
 ## Claimed
 
-- MonsterUnique.cpp's three trailing copies (0x73C4C0, 0x73C4FC, 0x73C538) to MonsterEval.cpp, PartyScreen.cpp and Friendly.cpp, the three data-less objects between MonsterUnique.cpp and MonsterMode.cpp in code order.
 
 ## Questions
 
