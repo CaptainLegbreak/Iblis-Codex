@@ -15,7 +15,7 @@ struct D2StormHashBufferStrc;
 
 struct D2StormRsaKeyStrc;
 
-struct D2StormHuffInputStrc;
+struct CBitInput;
 
 struct HUFFNODE;
 
@@ -150,15 +150,6 @@ struct D2StormRsaKeyStrc
     void Process(unsigned char* pData, unsigned int nSize);                                    // 0x004260A0
 };
 
-struct D2StormHuffInputStrc
-{
-    unsigned char* pInput;
-    unsigned int nBitBuffer;
-    unsigned int nBitCount;
-
-    D2StormHuffInputStrc(void* pInputBuffer);                                                               // 0x0041D880
-};
-
 struct HUFFNODE
 {
     D2StormLinkStrc tLink;
@@ -181,7 +172,7 @@ struct CHuffman
     CHuffman();                                                                                  // 0x0041F950
     ~CHuffman();                                                                                 // 0x0041F6A0
     void sub_0041F350_IncWeights(HUFFNODE* pItem);                                               // 0x0041F350
-    unsigned int Decompress(void* pOutput, unsigned int nOutputSize, D2StormHuffInputStrc* pInput); // 0x0041F740
+    unsigned int Decompress(void* pOutput, unsigned int nOutputSize, CBitInput* pInput); // 0x0041F740
     void AddSymbol(unsigned int nValue);
 };
 
@@ -317,6 +308,7 @@ struct CBitInput
     unsigned int nBitBuffer;
     unsigned int nBitCount;
 
+    CBitInput(void* pInputBuffer);                                                                          // 0x0041D880
     unsigned int Peek(unsigned int nBits, unsigned int nMask)
     {
         if (nBitCount <= nBits)
@@ -589,7 +581,7 @@ void CHuffman::AddSymbol(unsigned int nValue)
 // 0x0041F9E0
 void __fastcall HuffmanDecompress(void* pOutput, unsigned int* pOutputSize, void* pInput, unsigned int nInputSize, int nUnused)
 {
-    D2StormHuffInputStrc tInput(pInput);
+    CBitInput tInput(pInput);
     CHuffman tTree;
     *pOutputSize = tTree.Decompress(pOutput, *pOutputSize, &tInput);
 }
