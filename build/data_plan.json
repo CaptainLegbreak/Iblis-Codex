@@ -4517,15 +4517,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_0067D710.cpp": {
-   "bytes": 156,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_0067D710.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Common/Unknown_0067D7B0.cpp": {
    "bytes": 32,
    "definitions": 1,
@@ -5269,6 +5260,15 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004ADD90.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Common/DRLG/OutSiege.cpp": {
+   "bytes": 156,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Common/DRLG/OutSiege.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -151989,7 +151989,7 @@
    "cname": "gData_006F1F9C",
    "declared": true,
    "decorated": "?gaOutSiegeCaves@@3QBUD2DrlgOutSiegeInitStrc@@B",
-   "file": "Source/D2Common/Unknown_0067D710.cpp",
+   "file": "Source/D2Common/DRLG/OutSiege.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2DrlgOutSiegeInitStrc gData_006F1F9C[3]; // 0x006F1F9C",
    "head": "extern \"C\" const D2DrlgOutSiegeInitStrc gData_006F1F9C[3] = ",
@@ -152066,20 +152066,20 @@
    "va": "0x006F1F9C"
   },
   {
-   "alias": false,
+   "alias": true,
    "cname": "gData_006F1FD8",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Common/Unknown_0067D710.cpp",
+   "declared": true,
+   "decorated": "?gaAct5WallSteps@@3QBUD2CoordStrc@@B",
+   "file": "Source/D2Common/DRLG/OutSiege.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006F1FD8_t gData_006F1FD8; // 0x006F1FD8",
    "head": "extern \"C\" const struct d2data_006F1FD8_t gData_006F1FD8 = ",
-   "name": "gData_006F1FD8",
+   "name": "gaAct5WallSteps",
    "pointers": [],
    "region": "rdata",
    "size": 96,
    "struct": "#pragma pack(push, 1)\nstruct d2data_006F1FD8_t\n{\n    unsigned char b0[96];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x006F1FD8",
+   "tail": "; // 0x006F1FD8\n#pragma comment(linker, \"/alternatename:?gaAct5WallSteps@@3QBUD2CoordStrc@@B=_gData_006F1FD8\")",
    "va": "0x006F1FD8"
   },
   {
@@ -152476,37 +152476,37 @@
    "va": "0x006F2840"
   },
   {
-   "alias": false,
+   "alias": true,
    "cname": "gData_006F2850",
-   "declared": false,
-   "decorated": null,
+   "declared": true,
+   "decorated": "?gPathStepY@@3QBDB",
    "file": "Source/D2Common/Unknown_00681490.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006F2850_t gData_006F2850; // 0x006F2850",
    "head": "extern \"C\" const struct d2data_006F2850_t gData_006F2850 = ",
-   "name": "gData_006F2850",
+   "name": "gPathStepY",
    "pointers": [],
    "region": "rdata",
    "size": 4,
    "struct": "#pragma pack(push, 1)\nstruct d2data_006F2850_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x006F2850",
+   "tail": "; // 0x006F2850\n#pragma comment(linker, \"/alternatename:?gPathStepY@@3QBDB=_gData_006F2850\")",
    "va": "0x006F2850"
   },
   {
-   "alias": false,
+   "alias": true,
    "cname": "gData_006F2854",
-   "declared": false,
-   "decorated": null,
+   "declared": true,
+   "decorated": "?gPathStepX@@3QBDB",
    "file": "Source/D2Common/Unknown_00681490.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006F2854_t gData_006F2854; // 0x006F2854",
    "head": "extern \"C\" const struct d2data_006F2854_t gData_006F2854 = ",
-   "name": "gData_006F2854",
+   "name": "gPathStepX",
    "pointers": [],
    "region": "rdata",
    "size": 4,
    "struct": "#pragma pack(push, 1)\nstruct d2data_006F2854_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x006F2854",
+   "tail": "; // 0x006F2854\n#pragma comment(linker, \"/alternatename:?gPathStepX@@3QBDB=_gData_006F2854\")",
    "va": "0x006F2854"
   },
   {

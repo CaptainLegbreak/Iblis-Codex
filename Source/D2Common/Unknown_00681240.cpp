@@ -1,16 +1,25 @@
 #include "D2Structs.h"
+
 #include "D2Drlg.h"
+
 #include "D2Path.h"
+
 #include "D2DrlgRooms.h"
+
 struct D2DrlgGridStrc;
 
-
 void __fastcall sub_0067C890(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, int nFlag); // 0x0067C890
+
 void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel); // 0x00680D70
+
 void __stdcall sub_00681000(D2DrlgLevelStrc* pLevel); // 0x00681000
+
 int __fastcall sub_006817D0(D2DrlgLevelStrc* pLevel, int nRoad); // 0x006817D0
+
 D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char nDirection); // 0x0067CDD0
+
 extern const int gnAct1PathOffsetX[4]; // 0x006F2820
+
 extern const int gnAct1PathOffsetY[4]; // 0x006F2830
 
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
@@ -75,12 +84,13 @@ void __fastcall DRLGOUTDOORS_SpawnAct1DirtPaths(D2DrlgLevelStrc* pLevel)
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
     sub_00680D70(pLevel);
     sub_00681000(pLevel);
-    for (int i = 0; i < pOutdoors->nVertices; ++i)
+
+    for (int nPath = 0; nPath < pOutdoors->nVertices; ++nPath)
     {
-        if (sub_006817D0(pLevel, i))
+        if (sub_006817D0(pLevel, nPath))
         {
-            sub_0067C890(&pOutdoors->pGrid[2], pOutdoors->pRoads[i], 0x80);
-            sub_00681240(pLevel, i);
+            sub_0067C890(&pOutdoors->pGrid[2], pOutdoors->pRoads[nPath], 0x80);
+            sub_00681240(pLevel, nPath);
         }
     }
 }
