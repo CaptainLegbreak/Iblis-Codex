@@ -4923,11 +4923,6 @@
      "name": "sub_00420970_DeleteNode"
     },
     {
-     "va": "0x00425D90",
-     "length": 49,
-     "name": "?Initialize@Sha1@@QAEXXZ"
-    },
-    {
      "va": "0x00426920",
      "length": 14,
      "name": "sub_00426920"
@@ -7632,10 +7627,6 @@
     {
      "va": "0x00423380",
      "length": 294
-    },
-    {
-     "va": "0x00425850",
-     "length": 1339
     }
    ],
    "flags": [
@@ -7727,56 +7718,6 @@
      "name": "?SBigFromStream@@YGXPAXPBXIPAI@Z"
     },
     {
-     "va": "0x00425720",
-     "length": 7,
-     "name": "?sub_00425720_Rotl@@YIIIH@Z"
-    },
-    {
-     "va": "0x00425730",
-     "length": 58,
-     "name": "sub_00425730_Sha1Round0"
-    },
-    {
-     "va": "0x00425770",
-     "length": 52,
-     "name": "sub_00425770_Sha1Round1"
-    },
-    {
-     "va": "0x004257B0",
-     "length": 60,
-     "name": "sub_004257B0_Sha1Round2"
-    },
-    {
-     "va": "0x004257F0",
-     "length": 50,
-     "name": "sub_004257F0_Sha1Round3"
-    },
-    {
-     "va": "0x00425830",
-     "length": 30,
-     "name": "?sub_00425830_LoadBE32@@YIXPAIPBE@Z"
-    },
-    {
-     "va": "0x00425DD0",
-     "length": 165,
-     "name": "Append"
-    },
-    {
-     "va": "0x00425E80",
-     "length": 85,
-     "name": "sub_00425E80_PutBE64"
-    },
-    {
-     "va": "0x00425EE0",
-     "length": 21,
-     "name": "?sub_00425EE0_PutBE32@@YIXIPAE@Z"
-    },
-    {
-     "va": "0x00425F00",
-     "length": 211,
-     "name": "sub_00425F00_Final"
-    },
-    {
      "va": "0x00426160",
      "length": 23,
      "name": "?sub_00426160_GetTableSize@@YIII@Z"
@@ -7820,6 +7761,84 @@
      "va": "0x00450F50",
      "length": 23,
      "name": "sub_00450F50_ReserveExact"
+    }
+   ]
+  },
+  {
+   "file": "Source/Storm/Unknown_00425720.cpp",
+   "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd"
+   ],
+   "functions": [
+    {
+     "va": "0x00425720",
+     "length": 7,
+     "name": "?sub_00425720_Rotl@@YIIIH@Z"
+    },
+    {
+     "va": "0x00425730",
+     "length": 58,
+     "name": "sub_00425730_Sha1Round0"
+    },
+    {
+     "va": "0x00425770",
+     "length": 52,
+     "name": "sub_00425770_Sha1Round1"
+    },
+    {
+     "va": "0x004257B0",
+     "length": 60,
+     "name": "sub_004257B0_Sha1Round2"
+    },
+    {
+     "va": "0x004257F0",
+     "length": 50,
+     "name": "sub_004257F0_Sha1Round3"
+    },
+    {
+     "va": "0x00425830",
+     "length": 30,
+     "name": "?sub_00425830_LoadBE32@@YIXPAIPBE@Z"
+    },
+    {
+     "va": "0x00425850",
+     "length": 1339
+    },
+    {
+     "va": "0x00425D90",
+     "length": 49,
+     "name": "?Initialize@Sha1@@QAEXXZ"
+    },
+    {
+     "va": "0x00425DD0",
+     "length": 165,
+     "name": "Append"
+    },
+    {
+     "va": "0x00425E80",
+     "length": 85,
+     "name": "sub_00425E80_PutBE64"
+    },
+    {
+     "va": "0x00425EE0",
+     "length": 21,
+     "name": "?sub_00425EE0_PutBE32@@YIXIPAE@Z"
+    },
+    {
+     "va": "0x00425F00",
+     "length": 211,
+     "name": "sub_00425F00_Final"
     }
    ]
   },
