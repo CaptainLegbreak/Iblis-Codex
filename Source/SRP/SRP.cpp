@@ -28,10 +28,6 @@ struct D2BigServerRecordStrc;
 
 struct D2BigServerHandlesStrc;
 
-struct FindSignatureTag;
-
-struct Context00529F50;
-
 struct D2SrpSha1ContextStrc;
 
 
@@ -70,24 +66,7 @@ struct D2BigServerHandlesStrc
 
 unsigned char* __fastcall SHA_Interleave(unsigned char* pDest, const unsigned char* pData, unsigned int nSize); // 0x0052A120
 
-struct FindSignatureTag
-{
-    unsigned long state[5];
-    unsigned int count[2];
-    unsigned char buffer[64];
-};
-
 extern "C" unsigned int __cdecl _rotl(unsigned int nValue, int nShift);
-
-struct Context00529F50 {
-    unsigned int dwH0;
-    unsigned int dwH1;
-    unsigned int dwH2;
-    unsigned int dwH3;
-    unsigned int dwH4;
-    unsigned int dwCountLow;
-    unsigned int dwCountHigh;
-};
 
 struct D2SrpSha1ContextStrc
 {

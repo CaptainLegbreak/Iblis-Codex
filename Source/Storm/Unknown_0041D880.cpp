@@ -3,7 +3,6 @@
 
 struct BigNum;
 struct CBitInput;
-struct D2StormHuffInputStrc;
 struct D2StormLinkStrc;
 struct D2StormNodeListStrc;
 struct HUFFNODE;
@@ -29,15 +28,6 @@ struct CBitInput
 
     CBitInput(void* pInputBuffer);
     int sub_0041D8A0_ReadBit();
-};
-
-struct D2StormHuffInputStrc
-{
-    unsigned char* pInput;
-    unsigned int nBitBuffer;
-    unsigned int nBitCount;
-
-    D2StormHuffInputStrc(void* pInputBuffer);
 };
 
 #include "D2StormBitOutput.h"

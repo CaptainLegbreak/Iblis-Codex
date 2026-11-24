@@ -10,8 +10,6 @@ struct D2CrashModuleStrc;
 struct D2CrashModuleListStrc;
 struct D2CrashRecord24Strc;
 struct D2FloatSaveStrc;
-struct D2FpuRegStrc;
-struct D2XmmRegStrc;
 union D2WordArgStrc;
 struct D2ExceptionRecordStrc;
 struct D2ExceptionPointersStrc;
@@ -103,19 +101,7 @@ extern "C" int __stdcall GetModuleInformation(void* hProcess, void* hModule, D2P
 void __stdcall sub_M452_EmitSink(D2CrashModuleListStrc* pList);
 
 #pragma pack(push, 1)
-struct D2FpuRegStrc
-{
-    unsigned int dwLow;
-    unsigned int dwHigh;
-    unsigned short wExponent;
-};
-
 #pragma pack(pop)
-struct D2XmmRegStrc
-{
-    unsigned int dwWord[4];
-};
-
 union D2WordArgStrc
 {
     unsigned int dwValue;

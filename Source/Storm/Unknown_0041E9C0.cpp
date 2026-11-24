@@ -18,7 +18,6 @@ struct D2StormHuffInputStrc;
 struct CHuffman;
 struct D2CriticalSectionStrc;
 struct D2SLogStrc;
-struct D2StormListStrc;
 struct D2Storm4167B0Strc;
 struct D2Storm4168F0Strc;
 struct D2Storm416A90Strc;
@@ -171,12 +170,6 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); /
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern D2CriticalSectionStrc gaSLogLocks_00779238[4]; // 0x00779238
-
-struct D2StormListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-};
 
 extern unsigned short gwValue_0077905C;
 

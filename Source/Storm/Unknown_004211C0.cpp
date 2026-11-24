@@ -6,9 +6,6 @@ struct D2StormArrayCStrc;
 struct D2Storm408ElemStrc;
 struct D2StormArray408Strc;
 struct BigBuffer;
-struct BigStack;
-struct D2StormBigStrc;
-
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x004133D0
@@ -93,19 +90,6 @@ struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
-};
-
-struct BigStack
-{
-    BigBuffer pRecords[16];
-    unsigned int nUsed;
-};
-
-struct D2StormBigStrc
-{
-    BigBuffer tQueue;
-    BigStack tStack;
-    D2StormArrayBStrc tBuffer;
 };
 
 void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, BigBuffer* pIn); // 0x00421CB0

@@ -1,86 +1,10 @@
 #include "Storm.h"
 
-struct D2StormStreamLinkStrc;
-struct FILEREC;
-struct D2StormSoundBufferStrc;
-struct AUDIOSTREAM;
 struct D2StormUIntArrayStrc;
 struct D2StormUCharArrayStrc;
 struct D2StormBigBufferStrc;
 struct D2StormBigDataStrc;
-struct D2StormOwnerLinkStrc;
-struct REQUEST;
-
 extern "C" int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-
-struct D2StormStreamLinkStrc
-{
-    D2StormStreamLinkStrc* m_prevlink;
-    char* m_next;
-
-// build: symbol ??1D2StormStreamLinkStrc@@QAE@XZ 0x00418BE0
-    ~D2StormStreamLinkStrc()
-    {
-        Unlink();
-    }
-    D2StormStreamLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormStreamLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormStreamLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
-
-struct FILEREC
-{
-    char unk0x00[0x144];
-    int nRefCount;
-    char unk0x148[0x10];
-
-    ~FILEREC();                                                                                  // 0x00419070
-    static void operator delete(void* pMemory)
-    {
-        if (pMemory)
-            SMemFree(pMemory, "delete", -1, 0);
-    }
-};
-
-struct D2StormSoundBufferStrc
-{
-    virtual long __stdcall QueryInterface(const void* pIid, void** ppObject) = 0;
-    virtual unsigned long __stdcall AddRef() = 0;
-    virtual unsigned long __stdcall Release() = 0;
-};
-
-struct AUDIOSTREAM
-{
-    D2StormStreamLinkStrc f_0;
-    FILEREC* pFileRec;
-    char unk0x0C[0x30];
-    D2StormSoundBufferStrc* pBuffer;
-    int soundbuffersize;
-    int bBufferOwned;
-    int nUnk0x48;
-    int nRefCount;
-    ~AUDIOSTREAM();
-    static void operator delete(void* pMemory)
-    {
-        if (pMemory)
-            SMemFree(pMemory, "delete", -1, 0);
-    }
-};
 
 struct D2StormUIntArrayStrc
 {
@@ -124,47 +48,6 @@ struct D2StormBigDataStrc
     D2StormUCharArrayStrc m_output;
 
     ~D2StormBigDataStrc();
-};
-
-struct D2StormOwnerLinkStrc
-{
-    D2StormOwnerLinkStrc* m_prevlink;
-    char* m_next;
-
-// build: symbol ??1D2StormOwnerLinkStrc@@QAE@XZ 0x00418C20
-    ~D2StormOwnerLinkStrc()
-    {
-        Unlink();
-    }
-    D2StormOwnerLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormOwnerLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormOwnerLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
-
-struct REQUEST
-{
-    D2StormOwnerLinkStrc f_0;
-    char unk0x08[0x4];
-    FILEREC* pFileRec;
-    char unk0x10[0x20];
-    AUDIOSTREAM* stream;
-
-    ~REQUEST();
 };
 
 // build: symbol ??1D2StormBigBufferStrc@@QAE@XZ 0x00421810

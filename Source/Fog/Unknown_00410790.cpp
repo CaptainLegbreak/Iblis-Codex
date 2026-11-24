@@ -12,26 +12,12 @@ struct D2CriticalSectionStrc;
 
 struct D2LogMsgListStrc;
 
-struct D2LogMessageStrc;
-
-struct D2LogMemoryInfoStrc;
-
 struct D2LogMsgListStrc
 {
     int m_linkoffset;
     D2StormLinkStrc m_terminator;
 
     char* sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags); // 0x0040FF40
-};
-
-struct D2LogMessageStrc
-{
-    D2StormLinkStrc f_0;
-    unsigned int nSize;
-    int nType;
-    int bTimeStamp;
-    D2SystemTimeStrc f_14;
-    char szName[1];
 };
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC218
@@ -57,15 +43,6 @@ extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
 extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void* pAddress, unsigned int nSize); // 0x006CC238
 
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nSize); // 0x006829C0
-
-struct D2LogMemoryInfoStrc
-{
-    const void* pAddress;
-    unsigned int nSize;
-    int nArg5;
-    int bBadPointer;
-    int bArg7;
-};
 
 extern D2CriticalSectionStrc gtLogQueueLock; // 0x0075E838
 
@@ -214,20 +191,6 @@ void* __stdcall SMemHeapAlloc(unsigned int hHeap, unsigned int dwFlags, unsigned
 
 void __cdecl sub_00411280_ResetRecords(); // 0x00411280
 
-struct FSafeSock
-{
-    int bConnected;
-    int bConnecting;
-    unsigned int nSocket;
-    D2CriticalSectionStrc tCriticalSection;
-    void* hThread;
-    unsigned long nThreadId;
-    int bStopping;
-    unsigned long nFogErrorCode;
-    unsigned long nWSALastError;
-    char szName[64];
-};
-
 extern "C" size_t __cdecl strlen(const char* szString);
 
 extern "C" int __cdecl toupper(int nChar);                                                                  // 0x00685385
@@ -273,16 +236,6 @@ D2PoolDirectoryStrc gtPoolManager;                                              
 extern char gszResolvedHostIP[];                                                                   // 0x0075D040
 
 extern D2CriticalSectionStrc gtLogLock;                                                            // 0x0075E850
-
-struct D2FogBlockStrc;
-
-struct D2FogBlockStrc
-{
-    D2FogBlockStrc* pNext;
-    unsigned int dwSize;
-    int unk0x08[3];
-    int bInUse;
-};
 
 extern const unsigned char gabOffsetMasks[9]; // 0x006CE38C
 

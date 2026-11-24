@@ -5,8 +5,6 @@
 struct D2StormList00708420Strc;
 struct D2StormMsgSourceStrc;
 struct D2CriticalSectionStrc;
-struct D2StormInit0041C0C0Strc;
-
 struct D2StormList00708420Strc
 {
     int m_linkoffset;
@@ -18,10 +16,6 @@ struct D2StormList00708420Strc
 };
 
 
-struct D2StormInit0041C0C0Strc
-{
-    D2StormInit0041C0C0Strc();
-};
 extern "C" __declspec(dllimport) int __stdcall HeapFree(void* hHeap, unsigned long dwFlags, void* lpMem); // 0x006CC320
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
 void __cdecl StormInitialize(); // 0x0041BEE0
