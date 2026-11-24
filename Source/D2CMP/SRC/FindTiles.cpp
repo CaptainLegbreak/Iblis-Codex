@@ -1,5 +1,6 @@
 #include "D2CMP.h"
 #include "D2CmpTypes.h"
+#include "D2FindTileEntry.h"
 
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
@@ -16,14 +17,6 @@ struct D2FindTileNodeStrc
     D2FindTileNodeStrc* pNext;
 };
 
-struct D2FindTileEntryStrc
-{
-    int nKey2;
-    int nKey3;
-    int nKey1;
-    D2FindTileNodeStrc* pTileList;
-    D2FindTileEntryStrc* pNext;
-};
 
 
 

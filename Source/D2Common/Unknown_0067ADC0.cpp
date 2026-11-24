@@ -7,21 +7,12 @@
 #include "D2Path.h"
 
 #include "D2DrlgPresets.h"
+#include "D2PathFoWallContext.h"
 
 int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
 
 static int PATH_AStar_TargetLocationHasEnoughRoom(D2PathInfoStrc* pPathInfo);
 
-struct D2PathFoWallContextStrc
-{
-    D2PathFoWallNodeStrc* aPendingCache[128];
-    D2PathFoWallNodeStrc* aVisitedCache[128];
-    D2PathFoWallNodeStrc* pSortedListByFScore;
-    D2PathFoWallNodeStrc aNodesStorage[200];
-    int nNodesCount;
-    D2PathFoWallNodeStrc* aPointsStack[200];
-    int nStackCount;
-};
 
 extern const int gaIdaStar_PointCacheHashMaskX[]; // 0x006F1998
 

@@ -16,6 +16,7 @@
 
 #include "D2LRUNode.h"
 #include "D2StormListArray.h"
+#include "D2FindTileEntry.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -425,14 +426,6 @@ struct D2FindTileNodeStrc
     D2FindTileNodeStrc* pNext;
 };
 
-struct D2FindTileEntryStrc
-{
-    int nKey2;
-    int nKey3;
-    int nKey1;
-    D2FindTileNodeStrc* pTileList;
-    D2FindTileEntryStrc* pNext;
-};
 
 unsigned char __fastcall FindTileHash(int a, int b, int c); // 0x0060CD70
 

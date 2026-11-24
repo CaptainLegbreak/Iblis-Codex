@@ -9,6 +9,7 @@
 #include "D2Structs.h"
 
 #include "D2DrlgPresets.h"
+#include "D2PathFoWallContext.h"
 
 struct D2DynamicPathStrc;
 
@@ -61,16 +62,6 @@ int __fastcall sub_6FDAA720(D2PathInfoStrc* pPathInfo); // 0x00679B30
 
 typedef int BOOL;
 
-struct D2PathFoWallContextStrc
-{
-    D2PathFoWallNodeStrc* aPendingCache[128];
-    D2PathFoWallNodeStrc* aVisitedCache[128];
-    D2PathFoWallNodeStrc* pSortedListByFScore;
-    D2PathFoWallNodeStrc aNodesStorage[200];
-    int nNodesCount;
-    D2PathFoWallNodeStrc* aPointsStack[200];
-    int nStackCount;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
