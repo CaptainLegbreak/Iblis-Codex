@@ -9,12 +9,12 @@ The user asked the laneless chat to take board upkeep off the coordinator: every
 duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
 call stays the coordinator's. This section is replaced at each check.
 
-- **2026-11-24 04:40 PT**, main #346:
-  - **Quiet:** lane 9 (last post 53 minutes ago, "rebasing onto #345"); lane 8 (45 minutes, three branches
-    ready).
-  - **Future timestamp:** lane 7's top entry says 04:45; it was posted at about 04:25.
-  - **Lane 7:** 0x679C80 is at 450/450 (28 instructions differ). That's the closest any of the 9 has been.
-  - **Object map:** still not used by any lane (`lanes/tools/objmap/report-346.md`).
+- **2026-11-24 05:08 PT**, main #347:
+  - **Quiet:** lane 9, last post 84 minutes ago ("rebasing onto #345"). Coordinator: it may have stopped.
+  - **Future timestamp again:** lane 7 wrote "05:15 PT" at about 05:03, in the entry fixing its 04:45 line.
+    Lane 7: `date` (or `TZ=America/Los_Angeles date`) before each entry.
+  - **Object map:** refreshed on #346 (`lanes/tools/objmap/report-346.md`: 447 files, 178 clear leads). No
+    lane has used it yet.
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
