@@ -4,8 +4,8 @@
  "image_sha256": "631066c1649c4ea9ffe48bf97e24c00bca1f7a6759c21150f1a79982589adaaf",
  "files": {
   "Source/Fog/Src/ErrorManager.cpp": {
-   "bytes": 7072,
-   "definitions": 23,
+   "bytes": 7080,
+   "definitions": 24,
    "externs": [
     "extern \"C\" char gData_006CCB00[]; // 0x006CCB00",
     "extern \"C\" char gData_006CCB04[]; // 0x006CCB04",
@@ -98,8 +98,8 @@
    "state": "included"
   },
   "Source/Fog/Src/Exceptions.cpp": {
-   "bytes": 172,
-   "definitions": 4,
+   "bytes": 180,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Fog/Src/Exceptions_0040BCF0.inc",
@@ -156850,6 +156850,68 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_007274EC_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x007274EC",
    "va": "0x007274EC"
+  },
+  {
+   "alias": true,
+   "cname": "gData_006CCBE8",
+   "declared": true,
+   "decorated": "_gszUnknownTitle",
+   "file": "Source/Fog/Src/ErrorManager.cpp",
+   "fill": 8,
+   "form": "declared",
+   "fwd": "extern \"C\" const char gData_006CCBE8[8]; // 0x006CCBE8",
+   "head": "extern \"C\" const char gData_006CCBE8[8] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 8,
+    "size": 8
+   },
+   "name": "gszUnknownTitle",
+   "pointers": [],
+   "region": "rdata",
+   "size": 8,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006CCBE8\n#pragma comment(linker, \"/alternatename:_gszUnknownTitle=_gData_006CCBE8\")",
+   "type": "char",
+   "va": "0x006CCBE8"
+  },
+  {
+   "alias": true,
+   "cname": "gData_006CD5FC",
+   "declared": true,
+   "decorated": "_gszUnknown",
+   "file": "Source/Fog/Src/Exceptions.cpp",
+   "fill": 8,
+   "form": "declared",
+   "fwd": "extern \"C\" const char gData_006CD5FC[8]; // 0x006CD5FC",
+   "head": "extern \"C\" const char gData_006CD5FC[8] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "c",
+     "name": "char",
+     "size": 1
+    },
+    "k": "arr",
+    "n": 8,
+    "size": 8
+   },
+   "name": "gszUnknown",
+   "pointers": [],
+   "region": "rdata",
+   "size": 8,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006CD5FC\n#pragma comment(linker, \"/alternatename:_gszUnknown=_gData_006CD5FC\")",
+   "type": "char",
+   "va": "0x006CD5FC"
   }
  ]
 }

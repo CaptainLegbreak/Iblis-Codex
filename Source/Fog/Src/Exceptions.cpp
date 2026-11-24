@@ -754,8 +754,8 @@ void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStr
         unsigned long dwDisplacement;
         unsigned long dwEip = pContext->Eip;
         D2ModuleInfoStrc* pModule = EXCEPTIONS_FindModuleByAddress(dwEip, pModules);
-        const char* szSymbol = gpfnSymGetSymFromAddr(hProcess, dwEip, &dwDisplacement, &tSymbol.tSymbol) ? tSymbol.tSymbol.szName : "unknown";
-        const char* szModule = pModule ? pModule->szName : "unknown";
+        const char* szSymbol = gpfnSymGetSymFromAddr(hProcess, dwEip, &dwDisplacement, &tSymbol.tSymbol) ? tSymbol.tSymbol.szName : gszUnknown;
+        const char* szModule = pModule ? pModule->szName : gszUnknown;
         LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, gszStackEipLine, dwEip, szModule, szSymbol, dwDisplacement);
     }
 
@@ -808,7 +808,7 @@ void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStr
             D2ModuleInfoStrc* pValueModule = EXCEPTIONS_FindModuleByAddress(dwValue, pModules);
             D2_ASSERT(pValueModule, 0x3A5);
             unsigned long dwValueDisplacement;
-            const char* szName = gpfnSymGetSymFromAddr(hProcess, dwValue, &dwValueDisplacement, &tSymbol.tSymbol) ? tSymbol.tSymbol.szName : "unknown";
+            const char* szName = gpfnSymGetSymFromAddr(hProcess, dwValue, &dwValueDisplacement, &tSymbol.tSymbol) ? tSymbol.tSymbol.szName : gszUnknown;
             if (!_stricmp(szName, "`string'") && !dwValueDisplacement)
                 LOGMANAGER_LogWritePrefixed(&gszEmptyAssertText, gszStackStringLine, dwValue, pValueModule->szName, szName, sub_004113E0_EscapeString(szEscaped, (const char*)dwValue, 0x50, 0));
             else
@@ -948,7 +948,6 @@ static void __stdcall EXCEPTIONS_GetLogicalAddress(char* szModule, unsigned long
 {
     D2MemoryBasicInfoStrc tInfo;
 
-// build: symbol ?gszUnknown@* 0x006CD5FC
     SStrCopy(szModule, gszUnknown, nSize);
     *pnSection = 0;
     *pnOffset = 0;
