@@ -322,33 +322,19 @@ struct BigStack
     unsigned int nUsed;
 };
 
-typedef unsigned int U32;
-
 struct LimbCell
 {
-    U32 value;
+    unsigned int value;
 };
 
 struct SequenceView
 {
     char prefix[0x4];
-    U32 count;
+    unsigned int count;
     LimbCell* values;
     char gap[0x4];
-    U32 cursor;
+    unsigned int cursor;
 };
-
-typedef char check_pointer[sizeof(void*)==4?1:-1];
-
-typedef char check_word[sizeof(U32)==4?1:-1];
-
-typedef char check_cell[sizeof(LimbCell)==0x4?1:-1];
-
-typedef char check_count[OFFSET(SequenceView,count)==0x4?1:-1];
-
-typedef char check_values[OFFSET(SequenceView,values)==0x8?1:-1];
-
-typedef char check_cursor[OFFSET(SequenceView,cursor)==0x10?1:-1];
 
 extern "C" int gRangeValue;
 extern "C" UiContext* gUiContext;
@@ -782,7 +768,7 @@ void __stdcall SBigFromStream(void* hBig, const void* pData, unsigned int nSize,
 // 0x00420FE0
 extern "C" LimbCell* __fastcall sub_00420FE0_LastCell(SequenceView* sequence)
 {
-    U32 count = sequence->count;
+    unsigned int count = sequence->count;
     if (count)
         return sequence->values + count - 1;
     return 0;

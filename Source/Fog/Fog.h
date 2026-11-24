@@ -90,7 +90,6 @@ void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc* pServer, D2QClientStr
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 void* __fastcall sub_004098B0_ReallocLarge(D2PoolSystemStrc* pSystem, void* pMemory, int nSize, const char* szFile, int nLine); // 0x004098B0
 
-#define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 #define QS_IS_READ(f) (((f) & 1) == 1)
 #define QS_IS_WRITE(f) (((f) & 3) == 2)
 // build: symbol ?FOG_DisplayHalt@* 0x00408A60
