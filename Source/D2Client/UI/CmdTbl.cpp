@@ -133,6 +133,14 @@ int __fastcall FOG_CloseFile(void* hFile); // 0x004069A0
 
 int __fastcall FOG_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
 
+enum D2C_CmdTblConstants
+{
+    VK_MENU = 0x12,
+    VK_F4 = 0x73,
+};
+
+unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
+
 // 0x004690A0
 void __cdecl CMDTBL_HotkeyClearScreen()
 {
@@ -182,6 +190,79 @@ static inline int HOTKEY_CheckWheelKey(int nCommand, int nKey)
         break;
     }
     return 1;
+}
+
+D2WheelCallbackFn gpfnWheelUp; // 0x007A7404
+
+D2WheelCallbackFn gpfnWheelDown; // 0x007A7408
+
+typedef int (__stdcall* D2FarProcFn)();
+
+
+// 0x004693B0
+void __fastcall CUNIT_DispatchMouseWheel(int nSteps)
+{
+    if (nSteps > 0)
+    {
+        if (gpfnWheelUp)
+        {
+            D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpfnWheelUp), 0x383);
+            gpfnWheelUp();
+        }
+    }
+    else if (nSteps < 0)
+    {
+        if (gpfnWheelDown)
+        {
+            D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpfnWheelDown), 0x38B);
+            gpfnWheelDown();
+        }
+    }
+}
+
+struct D2SortEntryStrc;
+
+
+struct D2SortEntryStrc
+{
+    int nKey;
+    unsigned char unk0x04[2];
+    unsigned char nFlag[4];
+};
+
+
+extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0x006CC45C
+
+
+class D2SquelchListStrc
+{
+public:
+    virtual void Squelch(const char* szName);
+    virtual void Unsquelch(const char* szName);
+    virtual int IsSquelched(const char* szName);
+    virtual void VirtSlot3();
+    virtual void VirtSlot4();
+    virtual int IsFiltered(const char* szText);
+};
+
+// 0x00469450
+int __cdecl SCMD_CompareSortEntries(const void* pA, const void* pB)
+{
+    const D2SortEntryStrc* pLeft = (const D2SortEntryStrc*)pA;
+    const D2SortEntryStrc* pRight = (const D2SortEntryStrc*)pB;
+    if (pLeft->nKey < pRight->nKey)
+    {
+        return -1;
+    }
+    if (pLeft->nKey > pRight->nKey)
+    {
+        return 1;
+    }
+    if (*(const int*)pLeft->nFlag)
+    {
+        return *(const int*)pRight->nFlag ? 0 : -1;
+    }
+    return *(const int*)pRight->nFlag ? 1 : 0;
 }
 
 // 0x004694A0
@@ -529,6 +610,58 @@ void __cdecl CMDTBL_SaveHotkeys()
     CMDTBL_BindMouseHotkeys();
 }
 
+// 0x00469D70
+void __fastcall CUNIT_ClearHotkeyBinding(int nId, int nB)
+{
+    for (int i = 0; i < NUM_HOTKEYS; ++i)
+    {
+        if (nId == gtHotkeys_007A6F90[i].nCommand && nB == gtHotkeys_007A6F90[i].nMode)
+        {
+            gtHotkeys_007A6F90[i].nKey = 0xFFFF;
+        }
+    }
+}
+
+// 0x00469D90
+int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB)
+{
+    return CUNIT_GetHotkeyBinding(nA, nB) != 0xFFFF;
+}
+
+// 0x0046A840
+void __stdcall SCMD_HandleHotkeyMessage(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (pMsg->lParam & 0x40000000)
+    {
+        return;
+    }
+
+    for (int i = 0; i < NUM_HOTKEYS; ++i)
+    {
+        if (gtHotkeys_007A6F90[i].nKey == pMsg->wParam && gtHotkeys_007A6F90[i].nCommand != 0xFFFF
+            && gtHotkeys_007A6F90[i].nCommand < NUM_HOTKEY_COMMANDS && gtHotkeys_007A6F90[i].nCommand <= 0xDF
+            && gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand)
+        {
+            if (gtHotkeys_007A6F90[i].nKey == VK_F4 && (GetKeyState(VK_MENU) & 0x8000))
+            {
+                return;
+            }
+
+            if (gnHotkeyMode == 2 && !gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].nModeFlag)
+            {
+                return;
+            }
+
+            D2_ASSERT(!IsBadCodePtr((FARPROC)gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand), 2038);
+            gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand();
+            pMsg->bReturn = 1;
+            pMsg->lResult = 0;
+            sub_00420290_BreakHandlerChain(pMsg);
+            return;
+        }
+    }
+}
+
 // 0x0046AA20
 void __fastcall CMDTBL_SetHotkeyHandlers(int bEnable, int bFlag)
 {
@@ -637,8 +770,8 @@ void __cdecl CMDTBL_EnableHotkeyHandlers()
     }
 }
 
-// build: symbol ?CUNIT_GetHotkeyBinding@* 0x00469AA0
-static inline unsigned short CUNIT_GetHotkeyBinding(int nA, int nB)
+// 0x00469AA0
+unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB)
 {
     for (int i = 0; i < NUM_HOTKEYS; ++i)
     {

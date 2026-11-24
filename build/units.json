@@ -13684,6 +13684,11 @@
      "name": "?VIEW_UpdateShakeSound@@YAXH@Z"
     },
     {
+     "va": "0x00476A80",
+     "length": 61,
+     "name": "SCMD_StartTimedEffect"
+    },
+    {
      "va": "0x00476AC0",
      "length": 33,
      "name": "?VIEW_GetViewShift@@YIHPAH0@Z"
@@ -16989,16 +16994,6 @@
      "name": "SCMD_ShowHelpOnce"
     },
     {
-     "va": "0x00469450",
-     "length": 66,
-     "name": "SCMD_CompareSortEntries"
-    },
-    {
-     "va": "0x0046A840",
-     "length": 256,
-     "name": "SCMD_HandleHotkeyMessage"
-    },
-    {
      "va": "0x0046BDD0",
      "length": 133,
      "name": "SCMD_GetLevelLight"
@@ -17014,24 +17009,9 @@
      "name": "SCMD_SetLightColorBytes"
     },
     {
-     "va": "0x00474550",
-     "length": 177,
-     "name": "SCMD_GetRoomLight"
-    },
-    {
-     "va": "0x00475AA0",
-     "length": 123,
-     "name": "SCMD_ReadGridCell"
-    },
-    {
      "va": "0x00475D30",
      "length": 174,
      "name": "SCMD_BuildRampTable"
-    },
-    {
-     "va": "0x00476A80",
-     "length": 61,
-     "name": "SCMD_StartTimedEffect"
     }
    ]
   },
@@ -18652,26 +18632,6 @@
      "name": "?CUNIT_RemoveInventoryUnits@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
-     "va": "0x004693B0",
-     "length": 97,
-     "name": "?CUNIT_DispatchMouseWheel@@YIXH@Z"
-    },
-    {
-     "va": "0x00469AA0",
-     "length": 49,
-     "name": "?CUNIT_GetHotkeyBinding@@YIGHH@Z"
-    },
-    {
-     "va": "0x00469D70",
-     "length": 31,
-     "name": "?CUNIT_ClearHotkeyBinding@@YIXHH@Z"
-    },
-    {
-     "va": "0x00469D90",
-     "length": 71,
-     "name": "?CUNIT_HasHotkeyBinding@@YIHHH@Z"
-    },
-    {
      "va": "0x0046D750",
      "length": 43,
      "name": "?CUNIT_ClearAiTargets@@YAXXZ"
@@ -19363,6 +19323,16 @@
      "name": "?CMDTBL_CallBoundCommand@@YAXXZ"
     },
     {
+     "va": "0x004693B0",
+     "length": 97,
+     "name": "?CUNIT_DispatchMouseWheel@@YIXH@Z"
+    },
+    {
+     "va": "0x00469450",
+     "length": 66,
+     "name": "SCMD_CompareSortEntries"
+    },
+    {
      "va": "0x004694A0",
      "length": 420,
      "name": "?CMDTBL_BindMouseHotkeys@@YAXXZ"
@@ -19393,6 +19363,11 @@
      "name": "?CMDTBL_ResetKeyConfig@@YIXH@Z"
     },
     {
+     "va": "0x00469AA0",
+     "length": 49,
+     "name": "?CUNIT_GetHotkeyBinding@@YIGHH@Z"
+    },
+    {
      "va": "0x00469AE0",
      "length": 318,
      "name": "?CMDTBL_IsValidKey@@YIHG@Z"
@@ -19418,12 +19393,27 @@
      "name": "?CMDTBL_RestoreHotkeys@@YAXXZ"
     },
     {
+     "va": "0x00469D70",
+     "length": 31,
+     "name": "?CUNIT_ClearHotkeyBinding@@YIXHH@Z"
+    },
+    {
+     "va": "0x00469D90",
+     "length": 71,
+     "name": "?CUNIT_HasHotkeyBinding@@YIHHH@Z"
+    },
+    {
      "va": "0x00469DE0",
      "length": 1862
     },
     {
      "va": "0x0046A530",
      "length": 777
+    },
+    {
+     "va": "0x0046A840",
+     "length": 256,
+     "name": "SCMD_HandleHotkeyMessage"
     },
     {
      "va": "0x0046A940",
@@ -20911,6 +20901,11 @@
      "length": 154
     },
     {
+     "va": "0x00474550",
+     "length": 177,
+     "name": "SCMD_GetRoomLight"
+    },
+    {
      "va": "0x00474610",
      "length": 373
     },
@@ -20989,6 +20984,11 @@
     {
      "va": "0x00475930",
      "length": 364
+    },
+    {
+     "va": "0x00475AA0",
+     "length": 123,
+     "name": "SCMD_ReadGridCell"
     },
     {
      "va": "0x00475B20",

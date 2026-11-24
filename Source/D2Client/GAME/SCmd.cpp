@@ -3531,59 +3531,7 @@ void __cdecl SCMD_ShowHelpOnce()
     }
 }
 
-// 0x00469450
-int __cdecl SCMD_CompareSortEntries(const void* pA, const void* pB)
-{
-    const D2SortEntryStrc* pLeft = (const D2SortEntryStrc*)pA;
-    const D2SortEntryStrc* pRight = (const D2SortEntryStrc*)pB;
-    if (pLeft->nKey < pRight->nKey)
-    {
-        return -1;
-    }
-    if (pLeft->nKey > pRight->nKey)
-    {
-        return 1;
-    }
-    if (*(const int*)pLeft->nFlag)
-    {
-        return *(const int*)pRight->nFlag ? 0 : -1;
-    }
-    return *(const int*)pRight->nFlag ? 1 : 0;
-}
 
-// 0x0046A840
-void __stdcall SCMD_HandleHotkeyMessage(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (pMsg->lParam & 0x40000000)
-    {
-        return;
-    }
-
-    for (int i = 0; i < NUM_HOTKEYS; ++i)
-    {
-        if (gtHotkeys_007A6F90[i].nKey == pMsg->wParam && gtHotkeys_007A6F90[i].nCommand != 0xFFFF
-            && gtHotkeys_007A6F90[i].nCommand < NUM_HOTKEY_COMMANDS && gtHotkeys_007A6F90[i].nCommand <= 0xDF
-            && gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand)
-        {
-            if (gtHotkeys_007A6F90[i].nKey == VK_F4 && (GetKeyState(VK_MENU) & 0x8000))
-            {
-                return;
-            }
-
-            if (gnHotkeyMode == 2 && !gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].nModeFlag)
-            {
-                return;
-            }
-
-            D2_ASSERT(!IsBadCodePtr((FARPROC)gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand), 2038);
-            gaHotkeyCommands[gtHotkeys_007A6F90[i].nCommand].pfnCommand();
-            pMsg->bReturn = 1;
-            pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
-            return;
-        }
-    }
-}
 
 // 0x0045DDB0
 void __fastcall SCMD_HandleSetSkillQuantity(const D2GSPacketSrv22* pPacket)
@@ -4884,18 +4832,6 @@ void __fastcall SCMD_ProcessPackets(unsigned char* pData, int nSize)
     ++gnPacketBlocks;
 }
 
-// 0x00476A80
-void __fastcall SCMD_StartTimedEffect(int nArg0, int nArg1, int nArg2, int nArg3)
-{
-    if (nArg2)
-    {
-        gdwViewEffectStartTick = GetTickCount();
-        gnViewEffectFadeIn = nArg1;
-        gnViewEffectHold = nArg2;
-        gnViewEffectFadeOut = nArg3;
-        gnViewEffectMagnitude = nArg0;
-    }
-}
 
 
 // 0x0046BDD0
@@ -4951,74 +4887,7 @@ void __fastcall SCMD_SetLightColorBytes(D2ByteRecordStrc* pRecord, unsigned char
     pRecord->f_27 = nValue2;
 }
 
-// 0x00474550
-void __fastcall SCMD_GetRoomLight(D2ActiveRoomStrc* pRoom, int* pIntensity, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue, int bLevelLight)
-{
-    unsigned char nRed = 0;
-    unsigned char nGreen = 0;
-    unsigned char nBlue = 0;
-    int nIntensity;
 
-    if (bLevelLight)
-    {
-        nIntensity = SCMD_GetLevelLight(pRoom, &nRed, &nGreen, &nBlue);
-        if (nRed || nGreen || nBlue)
-        {
-            goto out;
-        }
-    }
-
-    unsigned char nRoomIntensity;
-    sub_00619D70(pRoom, &nRoomIntensity, &nRed, &nGreen, &nBlue);
-    nIntensity = nRoomIntensity;
-    if (!nRed && !nGreen && !nBlue)
-    {
-        sub_0061C0B0(gpDrlgAct_007A0634, &nRed, &nGreen, &nBlue);
-        nIntensity = sub_0061C0E0(gpDrlgAct_007A0634);
-    }
-
-out:
-    *pIntensity = nIntensity;
-    *pRed = nRed;
-    *pGreen = nGreen;
-    *pBlue = nBlue;
-}
-
-// 0x00475AA0
-void __fastcall SCMD_ReadGridCell(int nX, int nY, unsigned char* pValue0, unsigned char* pValue1, unsigned char* pValue2, unsigned char* pValue3)
-{
-// build: symbol ?gnCellOriginX@* 0x007B0A54
-    int nCellX = (nX >> 3) - gnCellOriginX;
-// build: symbol ?gnCellOriginY@* 0x007B0A58
-    int nCellY = (nY >> 3) - gnCellOriginY;
-
-    if (nCellX < 0)
-    {
-        nCellX = 0;
-    }
-    else if (nCellX > GRID_SIZE - 1)
-    {
-        nCellX = GRID_SIZE - 1;
-    }
-
-    if (nCellY < 0)
-    {
-        nCellY = 0;
-    }
-    else if (nCellY > GRID_SIZE - 1)
-    {
-        nCellY = GRID_SIZE - 1;
-    }
-
-    D2GridCellStrc* pCell = &gtGridCells_007B0E68[nCellY * GRID_SIZE + nCellX];
-    *pValue0 = pCell->nValue0;
-    if (gnGlobal_00712B8C)
-    {
-        *pValue1 = pCell->nValue1;
-        *pValue2 = pCell->f_6;
-        *pValue3 = pCell->nValue3;
-    }
-}
 
 // 0x00475D30
 unsigned char** __stdcall SCMD_BuildRampTable(unsigned int nSize, int nSteps)

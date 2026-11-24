@@ -3409,58 +3409,10 @@ void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int bCheckOwner)
     }
 }
 
-// 0x004693B0
-void __fastcall CUNIT_DispatchMouseWheel(int nSteps)
-{
-    if (nSteps > 0)
-    {
-        if (gpfnWheelUp)
-        {
-            D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpfnWheelUp), 0x383);
-            gpfnWheelUp();
-        }
-    }
-    else if (nSteps < 0)
-    {
-        if (gpfnWheelDown)
-        {
-            D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpfnWheelDown), 0x38B);
-            gpfnWheelDown();
-        }
-    }
-}
 
-// 0x00469AA0
-unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB)
-{
-    for (int i = 0; i < NUM_HOTKEYS; ++i)
-    {
-        if (gtHotkeys_007A6F90[i].nCommand == nA && gtHotkeys_007A6F90[i].nMode == nB)
-        {
-            return gtHotkeys_007A6F90[i].nKey;
-        }
-    }
+unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 
-    return 0xFFFF;
-}
 
-// 0x00469D70
-void __fastcall CUNIT_ClearHotkeyBinding(int nId, int nB)
-{
-    for (int i = 0; i < NUM_HOTKEYS; ++i)
-    {
-        if (nId == gtHotkeys_007A6F90[i].nCommand && nB == gtHotkeys_007A6F90[i].nMode)
-        {
-            gtHotkeys_007A6F90[i].nKey = 0xFFFF;
-        }
-    }
-}
-
-// 0x00469D90
-int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB)
-{
-    return CUNIT_GetHotkeyBinding(nA, nB) != 0xFFFF;
-}
 
 void __cdecl CUNIT_DrawCountdown(); // 0x0046C060
 
