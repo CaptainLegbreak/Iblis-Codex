@@ -4,12 +4,12 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #356 (round j112). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 999 B (was 15,691 B at #297). Placeholder files 414; shims 73; context copies 219. Names: blizzard 475, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
+- `main`: #357 (round j113). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 975 B (was 15,691 B at #297). Placeholder files 410; shims 73; context copies 219. Names: blizzard 475, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
 - In progress: nothing; next round as branches are posted ready.
 - **Renames are landing on main.** After a rebase, run `python3 tools/namesync.py`: it renames the old spellings in your branch, so your branch stops conflicting with the renamed lines.
-- **Rebase onto #356, run namesync, and repost:** `lane10/names-prefixfix-d2client-2` (D2Common/DRLG/Drlg.cpp and Unknown_00641320.cpp: lane 8's join in #356 moved those functions; rebuild the plan from #356), `lane3/main-cpp-2` (Main.cpp/MainMenus.cpp after #355's winmain-main; still 231ca7d5), `lane9/renderer-tables`, `lane9/take-win-strays` (still 68c9ff42/1f34e0e6, still conflicting in D2DDraw/Unknown_00510130.cpp), `lane10/sweep-d2common`, `lane10/names-d2client-ui`, `lane10/names-moved333`.
+- **Rebase onto #357, run namesync, and repost:** `lane5/monskill-split` (it removes SkilPal.cpp's gen/data include, but skill-run-copies, merged in #357, gives SkilPal.cpp a planned definition: the include audit fails with both; rebase on #357 and keep SkilPal.cpp's include and entry if the copy stays there), `lane10/sweep-d2common-2` (D2Game/SKILLS/SkillDruid.cpp, changed in #357), `lane10/names-prefixfix-d2client-2` (Drlg.cpp, Unknown_00641320.cpp; still d5e26e77), `lane3/main-cpp-2` (still 231ca7d5).
 - `lane4/gamelist-strays-3` fixed the 16 B at 0x7088D8 and merged in #355.
-- **Lane 5's six held copy branches are superseded by #354** (the static data marker and 28 objects' copies). Drop any whose copies #354 already covers. Repost the rest on #354 with markers, giving your verify's borrowed data figure (main: 999 B).
+- **Lane 5's six held copy branches are superseded by #354** (the static data marker and 28 objects' copies). Drop any whose copies #354 already covers. Repost the rest on #354 with markers, giving your verify's borrowed data figure (main: 975 B).
 - **If wine aborts with `free(): invalid pointer`** (every unit COMPILE_ERROR with empty output, 0 s): `unset TMPDIR` before building. A TMPDIR=/tmp in the session environment breaks wine 9.0 here.
 - Earlier rebase requests are done: their new versions were merged in #340, #341 and #342.
 - **`lane2/path-records` (done in #332) needed a rebase onto #328:** it conflicts in D2Common/Unknown_00679380.cpp with lane 6's path regroup (#327). Lane 8 owns D2Common now, so tell lane 8 if the records change its files.
@@ -296,6 +296,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #357 j113: place-m (lane 8), itemmode-run-copies, skill-run-copies (lane 5), take-win-strays, renderer-tables (lane 9), sfile-lists (lane 3), small-records-j, small-records-k (lane 2), names-d2client-ui-2 (94), names-moved333-2 (50) (lane 10). Placeholders 414 -> 410, borrowed data 999 -> 975 B, placeholder names 3,208 -> 3,080.
 - #356 j112: place-j, place-k, place-l (lane 8), run-joins (lane 5), data-strays, weather-object (lane 4), chatdlg-cancel (lane 6), storm-lists (lane 3), small-records-h, small-records-i (lane 2), names-members-slots (lane 10). Placeholders 419 -> 414, context copies 220 -> 219, borrowed data 1,041 -> 999 B.
 - #355 j111: place-h (lane 8), winmain-main (lane 6), qserver-head-2 (lane 3), gamelist-strays-3 (lane 4), unicode-inits (lane 1), names-prefixfix-d2common/-d2net/-d2win/-fog (lane 10, 20 renames). Placeholders 422 -> 419, context copies 218 -> 220.
 - #354 j110: static-data-marker (lane 5: link_exe.py .data anchors + 28 copies), place-g (lane 8), bnsend-empty (lane 6), session-object-5, level-events, party-object-2 (lane 4), names2 (lane 3), missile-data (lane 2), names-prefixfix-d2game/-d2gdi/-d2launch (lane 10, 60 renames). Placeholders 427 -> 422, borrowed data 1,048 -> 1,041 B.
