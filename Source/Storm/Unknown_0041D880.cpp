@@ -163,10 +163,10 @@ void CBitOutput::sub_0041D950_PutBits(unsigned int nValue, unsigned int nBits)
     nBitCount += nBits;
     while (nBitCount >= 8)
     {
-        if (f_4)
+        if (nBytesLeft)
         {
             *pOutput++ = (unsigned char)nBitBuffer;
-            f_4--;
+            nBytesLeft--;
         }
         nBitBuffer >>= 8;
         nBitCount -= 8;
@@ -178,10 +178,10 @@ void CBitOutput::sub_0041D9A0_Flush()
 {
     while (nBitCount)
     {
-        if (f_4)
+        if (nBytesLeft)
         {
             *pOutput++ = (unsigned char)nBitBuffer;
-            f_4--;
+            nBytesLeft--;
         }
         nBitBuffer >>= 8;
         nBitCount -= nBitCount > 8 ? 8 : nBitCount;
