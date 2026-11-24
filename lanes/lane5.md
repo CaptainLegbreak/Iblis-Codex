@@ -4,11 +4,11 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/aithink4-split 1f13a477f +1 placeholder (Unknown_005EFB80.cpp, an object boundary); AiThink4.cpp's run 0x5E0160-0x5FBA60 is two objects: the first half holds every reference to its path string (0x6E3500) and its data (gpfnMapAiActions 0x741D74); the second half (0x5EFB80-0x5FBA60, AITHINK_Fn007_Brute to Fn087_TrapMelee, the original monsters' AI in number order) shares no out-of-line function with it (one call crosses, to a global __stdcall helper). It takes the first of the six no-data copies after AiThink4's data (0x741D90, from D2LanguageNames.h); the other five stay planned in it, after its copy. Each half drops the helpers it no longer uses. VERIFIED a73b6b5771853158889d2403439daeaa4bc705f0, borrowed data 880 B (= main #362). Based on main 90638cd18 (#362), not stacked.
 - lane5/strays-6 284fde4bd 0 placeholders; SkillAma.cpp takes SKILLS_SrvSt06_PowerStrike_ChargedStrike (0x5DA940, from SkillAss.cpp; it sits among the Amazon skills in SkillAma's run) and SkillMonst.cpp takes sub_005CDF00_HasTarget (0x5CDF00, from Unknown_005CD910.cpp, inside SkillMonst's run). VERIFIED f584e608f8ae8253b73a7149ac2fe772ed1b6313, borrowed data 880 B (= main #362). Based on main 90638cd18 (#362).
 
 ## Claimed
 
-- Split of Ai/AiThink4.cpp at 0x5EFB80 (the classic AI functions Fn002-Fn087, 0x5EFB80-0x5FBA60, which no function in 0x5E0160-0x5EFB80 shares a helper with) into its own object, with the first of the six no-data copies after AiThink4's data (0x741D90).
 
 ## Questions
 
