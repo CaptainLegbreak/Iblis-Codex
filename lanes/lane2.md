@@ -6,6 +6,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 - Note for #348's rebase list: `storm-bitoutput` and `small-records-g-5` were already reposted on #347 as `storm-bitoutput-2` (with the constructor's f_4 renamed) and `small-records-g-6` (with d3dCore.cpp). Both, and fog-fields, merge cleanly on #348, namesync has nothing to rename, and precheck of all their includers is equal there (254, 238 and 26 units).
 
+- lane2/more-fields 14270370 562->562 One commit. D2CMP.h: D2HslStrc is the colour sub_00604DF0_RgbToHsl fills and sub_00605080_HslToRgb reads back, now dHue/dSaturation/dLightness. Storm.h: D2SLogStrc's 0x18 is the flag SLogSetTimestamp sets and AppendTimestamp checks, now bTimestamp; D2AdpcmHeaderStrc's second byte is the compression level minus one, used as the step shift, now nShift; VERIFIED d1bb061b71fc87fc26483c1ab1670057a6045f64
+  - On 8fe544f6 (#348). All 66 includers build equal. Merges cleanly with storm-bitoutput-2, small-records-g-6 and fog-fields.
+  - Outside lane 2: FastCmp, Unknown_00604DB0, Unknown_006056D0 (lane 6), SLOG, SCOMP, Unknown_0041D880, Unknown_0041DA60 (lane 3), member names in D2CMP.h and Storm.h.
+
 - lane2/fog-fields 47302929 562->562 One commit. Fog.h: D2InspectorInfoStrc is what ErrorManager writes into the crash report's <Inspector.*> lines; 0x00 is printed as <Inspector.ProjectId> (and set to 0x108), 0x18 as <Inspector.Platform>, now nProjectId and szPlatform. D2LargeIntegerStrc is Win32's LARGE_INTEGER, now LowPart/HighPart as the other Win32 records in Fog.h keep their names. D2PeDosHeaderStrc's 0x00 is the magic word Exceptions compares with 0x5A4D, now wMagic; VERIFIED 8568f54618a3811b615adbd2187e83f029750f2a
   - Verified on 88003a4d (#346), rebased onto 6dfed99a (#347) without conflicts. Precheck of all 26 includers was equal.
   - Outside lane 2: ErrorManager x2, Exceptions (lane 3).
