@@ -139,7 +139,7 @@ void __stdcall FromUnsigned(BigBuffer& a, unsigned int nValue); // 0x00423540
 // build: context ToStr
 static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput, BigStack& tStack) // 0x00423600
 {
-    BigBuffer& tBuffer = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tBuffer = tStack.pRecords[tStack.nUsed++];
     tBuffer.CopyFrom(tNumber);
     tOutput.f_4 = 0;
     do
@@ -265,7 +265,7 @@ void __stdcall sub_004245F0_MulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, Big
 void __stdcall SBigDiv(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     BigStack& tStack = pResult->tStack;
-    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
     Div(pResult->tPrimary, tRem, pA->tPrimary, pB->tPrimary, tStack);
     tStack.nUsed--;
 }
@@ -280,7 +280,7 @@ void __stdcall SBigGcd(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigSt
 void __stdcall SBigMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     BigStack& tStack = pResult->tStack;
-    BigBuffer& tQuotient = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tQuotient = tStack.pRecords[tStack.nUsed++];
     Div(tQuotient, pResult->tPrimary, pA->tPrimary, pB->tPrimary, tStack);
     tStack.nUsed--;
 }

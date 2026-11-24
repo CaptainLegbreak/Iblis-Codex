@@ -3,11 +3,27 @@
 
 #include "D2StormArrayA.h"
 
+int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned int nFlags);                // 0x00412650
+extern char gszTypeNameUInt_00708874[];                                                                     // 0x00708874
+
 struct BigBuffer
 {
     D2StormArrayAStrc m_array;
     unsigned int m_start;
 
+    BigBuffer()
+    {
+        m_array.f_0 = 0;
+        m_array.f_4 = 0;
+        m_array.f_8 = 0;
+        m_array.f_C = 0;
+        m_start = 0;
+    }
+    ~BigBuffer()
+    {
+        if (m_array.f_8)
+            SMemFree(m_array.f_8, gszTypeNameUInt_00708874, -2, 0);
+    }
     unsigned int Count() const
     {
         return m_array.f_4 - m_start;
@@ -28,6 +44,16 @@ struct BigBuffer
     void SetCount(unsigned int nCount)
     {
         m_array.SetCount(m_start + nCount);
+    }
+    BigBuffer& operator=(const BigBuffer& tSource)
+    {
+        if (this != &tSource)
+        {
+            m_array.sub_004215C0_Set(tSource.m_array.f_4, tSource.m_array.f_8);
+        }
+        m_array.f_C = tSource.m_array.f_C;
+        m_start = tSource.m_start;
+        return *this;
     }
     void CopyFrom(const BigBuffer& tSource)
     {
@@ -60,12 +86,12 @@ struct BigBuffer
 
 struct BigStack
 {
-    union
-    {
-        BigBuffer f_0[16];
-        BigBuffer pRecords[16];
-    };
+    BigBuffer pRecords[16];
     unsigned int nUsed;
+
+    BigStack() : nUsed(0)
+    {
+    }
 
     void sub_00423D80_Release(BigBuffer* pResult, BigBuffer* pWork);                                        // 0x00423D80
 };
