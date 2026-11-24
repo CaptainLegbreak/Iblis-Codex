@@ -6,6 +6,7 @@
 #include "D2Unicode.h"
 #include "D2ClientUi.h"
 #include "D2ClientSound.h"
+#include "D2ClientDialogWidget.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SoundUnitNodeStrc;
@@ -24,11 +25,6 @@ struct D2DialogWidget
     virtual void Draw();
 };
 
-struct D2DialogWidgetNodeStrc
-{
-    D2DialogWidget* f_0;
-    D2DialogWidgetNodeStrc* pNext;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
