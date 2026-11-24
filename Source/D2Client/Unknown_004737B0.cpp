@@ -116,7 +116,7 @@ static void sub_00473090_InitParticle(D2SeedStrc* pSeed)
         return;
     }
 
-    T00473470* pParticle = &gpWeatherParticles->pParticles[(short)(nRecord >> 0x10)];
+    D2WeatherParticleStrc* pParticle = &gpWeatherParticles->pParticles[(short)(nRecord >> 0x10)];
     pParticle->bDrop = 0;
     pParticle->nX = sub_00472280(pSeed, 0, gnScreenWidth);
     pParticle->nYEnd = sub_00472280(pSeed, 0x28, gnScreenHeight - 0x57);

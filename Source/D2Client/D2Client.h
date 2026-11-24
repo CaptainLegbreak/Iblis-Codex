@@ -68,7 +68,7 @@ struct SMSGHANDLER_PARAMS;
 struct SelectionState;
 struct T0044CB60;
 struct T0046E1B0;
-struct T00481720;
+struct AsyncData;
 struct Unit;
 struct _FILETIME;
 struct _iobuf;
@@ -115,7 +115,7 @@ D2UnitStrc* __stdcall UNITS_AllocUnit(void* pMemPool, int nUnitType); // 0x00620
 D2UnitStrc* __stdcall sub_00623990_GetWeapon(D2UnitStrc* pUnit, int nArg); // 0x00623990
 D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
-T00481720* __fastcall sub_0040A620(void* hArchive, const char* szFileName, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, const char* szFile, int nLine); // 0x0040A620
+AsyncData* __fastcall sub_0040A620(void* hArchive, const char* szFileName, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, const char* szFile, int nLine); // 0x0040A620
 char* __fastcall FOG_inet_ntoa(int nAddress); // 0x0040E080
 char* __fastcall CHARSEL_GetSlotName(int nIndex); // 0x00430B50
 char* __stdcall SStrUpper(char* szString); // 0x004141E0
@@ -506,7 +506,7 @@ int __fastcall MONSTERS_GetActFromHirelingTxt(int bExpansion, int nClassId, unsi
 int __fastcall MONSTERS_HirelingInit(int bExpansion, D2UnitStrc* pMonster, int nLowSeed, int nAct, int nDifficulty, D2HirelingInitStrc* pHirelingInit); // 0x006637F0
 int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
 int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
-int __fastcall sub_0040A7F0_AsyncDataCheck(T00481720* pAsyncData); // 0x0040A7F0
+int __fastcall sub_0040A7F0_AsyncDataCheck(AsyncData* pAsyncData); // 0x0040A7F0
 int __fastcall MAINMENUS_ConnectToRealm(const char* szName, int bFlag); // 0x00432480
 int __fastcall sub_00451F70_GetUnitMode(D2UnitStrc* pUnit); // 0x00451F70
 int __fastcall sub_004525F0_GetHoverTextY(D2UnitStrc* pUnit); // 0x004525F0
@@ -712,7 +712,7 @@ unsigned char __stdcall sub_00648EA0_GetPathByte(D2DynamicPathStrc* pPath); // 0
 unsigned char* __fastcall sub_004DB110_GetLayerOrder(void* pGfx, int nA, int nFrame); // 0x004DB110
 unsigned int __cdecl sub_0044CE60_GetPing(); // 0x0044CE60
 unsigned int __cdecl sub_005FF2A0_CountPending(); // 0x005FF2A0
-unsigned int __fastcall sub_0040AA40(T00481720* pAsync); // 0x0040AA40
+unsigned int __fastcall sub_0040AA40(AsyncData* pAsync); // 0x0040AA40
 unsigned int __fastcall D2SOUND_GetStreamPosition(D2SoundStrc* pSound); // 0x005159B0
 unsigned int __stdcall D2Common_11069(D2UnitStrc* pMonster, unsigned int nIndex, unsigned int nComponent); // 0x00664860
 unsigned int __stdcall INVENTORY_GetItemGUID(D2UnitStrc* pItem); // 0x0063E000
@@ -781,7 +781,7 @@ void __fastcall D2SOUND_10034(int nArg); // 0x005148F0
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 void __fastcall FOG_GetInstallPath(char* szPath, int nBufferSize); // 0x00406BA0
 void __fastcall FOG_FCloseFile(void* hFile); // 0x004068F0
-void __fastcall sub_0040AB00_FreeAsyncData(T00481720* pAsync); // 0x0040AB00
+void __fastcall sub_0040AB00_FreeAsyncData(AsyncData* pAsync); // 0x0040AB00
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 void __fastcall sub_0043C6A0(int bSet); // 0x0043C6A0
 void __fastcall sub_004527D0(D2UnitStrc* pUnit, int nA, int nB); // 0x004527D0
@@ -981,7 +981,7 @@ void __stdcall sub_0064A690_SetMissileAnimSpeed(D2UnitStrc* pMissile, int nSpeed
 void __stdcall sub_00650590(D2DynamicPathStrc* pPath); // 0x00650590
 void* __cdecl sub_00454600(); // 0x00454600
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-void* __fastcall sub_0040A9E0(T00481720* pAsync); // 0x0040A9E0
+void* __fastcall sub_0040A9E0(AsyncData* pAsync); // 0x0040A9E0
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void* __fastcall sub_004DC0B0_GetUnitMemoryPool(D2UnitStrc* pUnit); // 0x004DC0B0
 void* __fastcall sub_00517993_VirtualAlloc(unsigned int nSize); // 0x00517993
@@ -2124,7 +2124,7 @@ struct SelectionEntry
     char pad04[272-4];
 };
 
-struct T00473470
+struct D2WeatherParticleStrc
 {
     short bActive;
     short unk0x02;
