@@ -701,7 +701,6 @@ static inline void AI_SetTimer_Inline(D2UnitStrc* pUnit, int nTicks)
     }
 }
 
-// build: context sub_0046C720_FindNearestTarget
 static D2UnitStrc* __stdcall sub_0046C720_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance)
 {
     D2UnitStrc* pNearest = 0;
@@ -2136,7 +2135,6 @@ static void __stdcall GFX_PreloadMonsterMode(int bAsync, D2UnitStrc* pUnit, int 
 }
 
 // build: symbol ?GFX_PreloadPlayerMode@* 0x0046FF50
-// build: context GFX_PreloadPlayerMode
 static void __stdcall GFX_PreloadPlayerMode(int bAsync, D2UnitStrc* pUnit, int nMode)
 {
     int nAnimMode;

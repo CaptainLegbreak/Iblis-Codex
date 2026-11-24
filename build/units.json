@@ -1461,11 +1461,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00410790",
-     "length": 10,
-     "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
-    },
-    {
      "va": "0x00410B10",
      "length": 32,
      "name": "sub_00410B10"
@@ -4944,11 +4939,6 @@
      "name": "??0CHuffman@@QAE@XZ"
     },
     {
-     "va": "0x00426920",
-     "length": 14,
-     "name": "sub_00426920"
-    },
-    {
      "va": "0x006CA7F0",
      "length": 23
     },
@@ -4984,6 +4974,11 @@
    "file": "Source/Fog/Src/System/system.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00410790",
+     "length": 10,
+     "name": "?time@@YAJPAJ@Z"
+    },
     {
      "va": "0x004107A0",
      "length": 12,
@@ -6705,11 +6700,6 @@
      "va": "0x00423850",
      "length": 25,
      "name": "?sub_00423850@@YGXPAXPBXI@Z"
-    },
-    {
-     "va": "0x00426A70",
-     "length": 16,
-     "name": "??0D2StormLinkStrc@@QAE@XZ"
     }
    ]
   },
@@ -7659,16 +7649,6 @@
      "name": "?sub_00426160_GetTableSize@@YIII@Z"
     },
     {
-     "va": "0x00426D30",
-     "length": 60,
-     "name": "??1D2StormTSListStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x00426E20",
-     "length": 81,
-     "name": "?_GBREAKCMD"
-    },
-    {
      "va": "0x0044FBB0",
      "length": 43,
      "name": "?_GD2GameStrc"
@@ -7826,42 +7806,6 @@
     "/Ob1",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_004228C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00426930",
-     "length": 36,
-     "name": "sub_00426930_NextLink"
-    },
-    {
-     "va": "0x00426AE0",
-     "length": 17,
-     "name": "sub_00426AE0_Link"
-    },
-    {
-     "va": "0x00426B00",
-     "length": 161,
-     "name": "sub_00426B00_LinkNode"
-    },
-    {
-     "va": "0x00426BB0",
-     "length": 32,
-     "name": "sub_00426BB0_Next"
-    },
-    {
-     "va": "0x00426C10",
-     "length": 66,
-     "name": "sub_00426C10_UnlinkNode"
-    },
-    {
-     "va": "0x00426C80",
-     "length": 24,
-     "name": "sub_00426C80_RawNext"
-    }
    ]
   },
   {
@@ -8206,9 +8150,39 @@
      "name": "?SEvtUnregisterType@@YGHII@Z"
     },
     {
+     "va": "0x00426900",
+     "length": 16,
+     "name": "?sub_00426900_Next@@YIPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
+     "va": "0x00426910",
+     "length": 4,
+     "name": "?sub_00426910_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
+     "va": "0x00426920",
+     "length": 14,
+     "name": "?sub_00426920@@YIXPAUD2SEvtPairStrc@@@Z"
+    },
+    {
+     "va": "0x00426930",
+     "length": 36,
+     "name": "?sub_00426930_NextLink@D2StormLinkStrc@@QAEPAU1@H@Z"
+    },
+    {
      "va": "0x00426960",
      "length": 50,
      "name": "??1sub_00426960@@QAE@XZ"
+    },
+    {
+     "va": "0x004269A0",
+     "length": 11,
+     "name": "?sub_004269A0_InitTerminator@@YIXPAUD2SEvtListStrc@@@Z"
+    },
+    {
+     "va": "0x004269B0",
+     "length": 3,
+     "name": "@sub_004269B0@4"
     },
     {
      "va": "0x004269C0",
@@ -8216,9 +8190,59 @@
      "name": "?SEvtPopState@@YGHII@Z"
     },
     {
+     "va": "0x00426A60",
+     "length": 16,
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
+    },
+    {
+     "va": "0x00426A70",
+     "length": 16,
+     "name": "??0D2SEvtCtorLinkStrc@@QAE@XZ"
+    },
+    {
      "va": "0x00426A80",
      "length": 50,
      "name": "??1sub_00426A80@@QAE@XZ"
+    },
+    {
+     "va": "0x00426AC0",
+     "length": 17,
+     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00426AE0",
+     "length": 17,
+     "name": "?sub_00426AE0_Link@D2SEvtListStrc@@QAEPAUD2StormLinkStrc@@PAU2@@Z"
+    },
+    {
+     "va": "0x00426B00",
+     "length": 161,
+     "name": "?sub_00426B00_LinkNode@D2StormBreakCmdListStrc@@QAEXPADI0@Z"
+    },
+    {
+     "va": "0x00426BB0",
+     "length": 32,
+     "name": "?sub_00426BB0_Next@D2SEvtListStrc@@QAEPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
+     "va": "0x00426BD0",
+     "length": 50,
+     "name": "?sub_00426BD0@D2SEvtUnlinkStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00426C10",
+     "length": 66,
+     "name": "?sub_00426C10_UnlinkNode@D2SEvtListStrc@@QAEXPAUD2StormLinkStrc@@@Z"
+    },
+    {
+     "va": "0x00426C60",
+     "length": 32,
+     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x00426C80",
+     "length": 24,
+     "name": "?sub_00426C80_RawNext@D2StormBreakCmdListStrc@@QAEPADPAUD2StormLinkStrc@@@Z"
     },
     {
      "va": "0x00426CA0",
@@ -8231,6 +8255,16 @@
      "name": "??1sub_00426CB0@@QAE@XZ"
     },
     {
+     "va": "0x00426CF0",
+     "length": 61,
+     "name": "?sub_00426CF0_UnlinkAll@D2SEvtTSListStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00426D30",
+     "length": 60,
+     "name": "??1D2SEvtTSListStrc@@QAE@XZ"
+    },
+    {
      "va": "0x00426D70",
      "length": 16,
      "name": "??0sub_00426D70@@QAE@XZ"
@@ -8239,6 +8273,16 @@
      "va": "0x00426D80",
      "length": 50,
      "name": "??1sub_00426D80@@QAE@XZ"
+    },
+    {
+     "va": "0x00426DC0",
+     "length": 82,
+     "name": "?sub_00426DC0_NewNode@D2StormBreakCmdListStrc@@QAEPAUBREAKCMD@@III@Z"
+    },
+    {
+     "va": "0x00426E20",
+     "length": 81,
+     "name": "??_GBREAKCMD@@QAEPAXI@Z"
     },
     {
      "va": "0x00426E80",
@@ -8269,31 +8313,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00426900",
-     "length": 16,
-     "name": "?sub_00426900_Next@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x004269B0",
-     "length": 3,
-     "name": "@sub_004269B0@4"
-    },
-    {
-     "va": "0x00426A60",
-     "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x00426AC0",
-     "length": 17,
-     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00426C60",
-     "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
-    },
-    {
      "va": "0x0042B9D0",
      "length": 1,
      "name": "?sub_0042B9D0_Nop@@YAXXZ"
@@ -8317,31 +8336,6 @@
    "file": "Source/Storm/Unknown_00426910.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00426910",
-     "length": 4,
-     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x004269A0",
-     "length": 11,
-     "name": "?sub_00601DF0_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
-    },
-    {
-     "va": "0x00426BD0",
-     "length": 50,
-     "name": "?sub_00426BD0@D2StormLinkStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00426CF0",
-     "length": 61,
-     "name": "?sub_00426CF0_UnlinkAll@D2StormTSListStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00426DC0",
-     "length": 82,
-     "name": "sub_00426DC0_NewNode"
-    },
     {
      "va": "0x00450390",
      "length": 85,
@@ -27692,8 +27686,23 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/editbox.cpp",
+   "file": "Source/D2Client/Unknown_004BABF0.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x004BABF0",
@@ -27849,7 +27858,13 @@
      "va": "0x004BB0F0",
      "length": 122,
      "name": "??0ButtonWrapper@@QAE@HHHP6AHXZ@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/editbox.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x004BB170",
      "length": 143,
@@ -28064,7 +28079,43 @@
      "va": "0x004BBD80",
      "length": 138,
      "name": "??0EditBoxWrapper@@QAE@HHHHHGHH@Z"
-    },
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_004BBE10.cpp",
+   "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc",
+    "/GS-"
+   ],
+   "functions": [
     {
      "va": "0x004BBE10",
      "length": 81,
@@ -28224,21 +28275,6 @@
      "length": 122,
      "name": "??0SpinnerWrapper@@QAE@HHHH@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc",
-    "/GS-"
    ]
   },
   {
@@ -40578,6 +40614,10 @@
      "name": "GAME_SetReservedGameGUID"
     },
     {
+     "va": "0x0052C170",
+     "length": 157
+    },
+    {
      "va": "0x0052C210",
      "length": 75,
      "name": "?GAME_ClientEnterAct@@YIXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
@@ -42847,16 +42887,6 @@
      "va": "0x00604A30",
      "length": 15,
      "name": "TileSetHardwareFreeCallback"
-    },
-    {
-     "va": "0x0063E780",
-     "length": 17,
-     "name": "D2Common_11052"
-    },
-    {
-     "va": "0x0063E7C0",
-     "length": 17,
-     "name": "D2Common_11054"
     }
    ]
   },
@@ -43113,30 +43143,6 @@
     {
      "va": "0x0052BC20",
      "length": 377
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Game_0052C170.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0052C170",
-     "length": 157
     }
    ],
    "flags": [
@@ -60865,6 +60871,21 @@
      "name": "?ITEMS_RollTemperedItemAffix@@YIGPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x005C1BF0",
+     "length": 651,
+     "name": "?sub_005C1BF0_RollRareItemNew@@YGHPAUD2ItemDropStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005C1E80",
+     "length": 799,
+     "name": "?ITEMS_RollLegacyRareItem@@YGHPAUD2ItemDropStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005C21A0",
+     "length": 48,
+     "name": "?D2GAME_RollRareItem_6FC53360@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+    },
+    {
      "va": "0x005C21D0",
      "length": 873,
      "name": "?ITEMS_RollCraftedItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
@@ -61085,24 +61106,9 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005C1BF0.cpp",
+   "file": "Source/D2Game/Unknown_005C2AF0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005C1BF0",
-     "length": 651,
-     "name": "?sub_005C1BF0_RollRareItemNew@@YGHPAUD2ItemDropStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005C1E80",
-     "length": 799,
-     "name": "?ITEMS_RollLegacyRareItem@@YGHPAUD2ItemDropStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005C21A0",
-     "length": 48,
-     "name": "?D2GAME_RollRareItem_6FC53360@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
-    },
     {
      "va": "0x005C2AF0",
      "length": 581,
@@ -68884,9 +68890,19 @@
      "name": "STATLIST_SetBaseStat2"
     },
     {
+     "va": "0x00627250",
+     "length": 9,
+     "name": "?sub_00627250_SetStat@@YGHPAUD2StatListStrc@@HHH@Z"
+    },
+    {
      "va": "0x00627260",
      "length": 63,
      "name": "?STATLIST_SetUnitStat@@YGXPAUD2UnitStrc@@HHG@Z"
+    },
+    {
+     "va": "0x006272A0",
+     "length": 9,
+     "name": "?sub_006272A0_AddStat@@YGXPAUD2StatListStrc@@HHG@Z"
     },
     {
      "va": "0x006272B0",
@@ -69003,16 +69019,6 @@
    "file": "Source/D2Common/Unknown_00627250.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00627250",
-     "length": 9,
-     "name": "?sub_00627250_SetStat@@YGHPAUD2StatListStrc@@HHH@Z"
-    },
-    {
-     "va": "0x006272A0",
-     "length": 9,
-     "name": "?sub_006272A0_AddStat@@YGXPAUD2StatListStrc@@HHG@Z"
-    },
     {
      "va": "0x006275B0",
      "length": 264,
@@ -71096,9 +71102,19 @@
      "length": 412
     },
     {
+     "va": "0x0063E780",
+     "length": 17,
+     "name": "D2Common_11052"
+    },
+    {
      "va": "0x0063E7A0",
      "length": 17,
      "name": "INVENTORY_GetEightWayDirection"
+    },
+    {
+     "va": "0x0063E7C0",
+     "length": 17,
+     "name": "D2Common_11054"
     },
     {
      "va": "0x0063E7E0",
@@ -71971,6 +71987,11 @@
      "name": "DUNGEON_ClientToGameCoords"
     },
     {
+     "va": "0x00643560",
+     "length": 27,
+     "name": "?sub_00643560_GameTileToSubtileCoords@@YGXPAH0@Z"
+    },
+    {
      "va": "0x00643580",
      "length": 57,
      "name": "?SKILLS_GetSkillParam7Formula@@YIHHH@Z"
@@ -72773,17 +72794,6 @@
      "va": "0x0066E140",
      "length": 20,
      "name": "SKILLS_GetModeSideChar"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00643560.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00643560",
-     "length": 27,
-     "name": "?sub_00643560_GameTileToSubtileCoords@@YGXPAH0@Z"
     }
    ]
   },
@@ -74504,6 +74514,36 @@
      "name": "?ITEMMODS_GetPropertiesTxtRecordCount@@YAHXZ"
     },
     {
+     "va": "0x0065C5E0",
+     "length": 58,
+     "name": "?sub_0065C5E0_RollItemRange@@YAHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x0065C620",
+     "length": 58,
+     "name": "?sub_0065C620_RollItemRange@@YAHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x0065C660",
+     "length": 49,
+     "name": "?sub_0065C660_GetAffixProperty@@YAPBUD2PropertyStrc@@PBUD2MagicAffixTxt@@H@Z"
+    },
+    {
+     "va": "0x0065C6A0",
+     "length": 45,
+     "name": "?sub_0065C6A0_GetGradeProperty@@YAPBUD2PropertyStrc@@PBUD2GradeModsStrc@@H@Z"
+    },
+    {
+     "va": "0x0065C6D0",
+     "length": 88,
+     "name": "?sub_0065C6D0_GetGemProperty@@YAPBUD2PropertyStrc@@PBUD2GemsTxt@@HH@Z"
+    },
+    {
+     "va": "0x0065C730",
+     "length": 112,
+     "name": "?sub_0065C730_GetModsProperty@@YAPBUD2PropertyStrc@@HPBXHH@Z"
+    },
+    {
      "va": "0x0065C7A0",
      "length": 34,
      "name": "?D2Common_10844_ITEMMODS_First@@YGXHPAH0@Z"
@@ -74883,42 +74923,6 @@
      "va": "0x00660240",
      "length": 74,
      "name": "?ITEMMODS_AddCraftPropertyList@@YGXPAUD2UnitStrc@@PAUD2PropertyStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0065C5E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0065C5E0",
-     "length": 58,
-     "name": "?sub_0065C5E0_RollItemRange@@YAHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x0065C620",
-     "length": 58,
-     "name": "?sub_0065C620_RollItemRange@@YAHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x0065C660",
-     "length": 49,
-     "name": "?sub_0065C660_GetAffixProperty@@YAPBUD2PropertyStrc@@PBUD2MagicAffixTxt@@H@Z"
-    },
-    {
-     "va": "0x0065C6A0",
-     "length": 45,
-     "name": "?sub_0065C6A0_GetGradeProperty@@YAPBUD2PropertyStrc@@PBUD2GradeModsStrc@@H@Z"
-    },
-    {
-     "va": "0x0065C6D0",
-     "length": 88,
-     "name": "?sub_0065C6D0_GetGemProperty@@YAPBUD2PropertyStrc@@PBUD2GemsTxt@@HH@Z"
-    },
-    {
-     "va": "0x0065C730",
-     "length": 112,
-     "name": "?sub_0065C730_GetModsProperty@@YAPBUD2PropertyStrc@@HPBXHH@Z"
     }
    ]
   },
@@ -79290,9 +79294,28 @@
      "length": 1556
     },
     {
+     "va": "0x006B4C90",
+     "length": 486
+    },
+    {
      "va": "0x006B4E80",
      "length": 326
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc",
+    "/GS-"
    ]
   },
   {
@@ -79321,34 +79344,25 @@
    ]
   },
   {
-   "file": "Source/D2Direct3D/Unknown_006B4C90.cpp",
-   "rank": 1,
+   "file": "Source/D2Direct3D/Src/d3dSprite.cpp",
+   "rank": 0,
    "functions": [
     {
-     "va": "0x006B4C90",
-     "length": 486
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp",
-   "rank": 1,
-   "functions": [
+     "va": "0x006B5B10",
+     "length": 155
+    },
+    {
+     "va": "0x006B5BB0",
+     "length": 204
+    },
+    {
+     "va": "0x006B5C80",
+     "length": 108
+    },
+    {
+     "va": "0x006B5CF0",
+     "length": 78
+    },
     {
      "va": "0x006B5D40",
      "length": 1120
@@ -79360,6 +79374,14 @@
     {
      "va": "0x006B63F0",
      "length": 650
+    },
+    {
+     "va": "0x006B6680",
+     "length": 120
+    },
+    {
+     "va": "0x006B6700",
+     "length": 45
     },
     {
      "va": "0x006B6730",
@@ -79388,50 +79410,6 @@
     {
      "va": "0x006B7000",
      "length": 137
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSprite.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006B5B10",
-     "length": 155
-    },
-    {
-     "va": "0x006B5BB0",
-     "length": 204
-    },
-    {
-     "va": "0x006B5C80",
-     "length": 108
-    },
-    {
-     "va": "0x006B5CF0",
-     "length": 78
-    },
-    {
-     "va": "0x006B6680",
-     "length": 120
-    },
-    {
-     "va": "0x006B6700",
-     "length": 45
     },
     {
      "va": "0x006B7090",

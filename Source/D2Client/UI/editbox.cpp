@@ -5,6 +5,9 @@
 
 struct Unicode;
 struct D2ButtonStringStrc;
+// build: symbol ??_7EditBoxImplementation@@6B@ 0x006DA77C
+// build: symbol ??_7EditBoxWrapper@@6B@ 0x006DA7CC
+
 class UIWidget;
 class ButtonImplementation;
 class EditBoxImplementation;
@@ -20,7 +23,6 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags)
 // build: symbol ??1EditBoxImplementation@@UAE@XZ 0x004BB170
 // build: symbol ??1EditBoxWrapper@@UAE@XZ 0x004BB9F0
 // build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
-// build: symbol ??_7ButtonImplementation@@6B@ 0x006DA6F4
 // build: symbol ??_GButtonImplementation@@UAEPAXI@Z 0x004BAFD0
 // build: symbol ??_GButtonWrapper@@UAEPAXI@Z 0x004BAE30
 // build: symbol ??_GEditBoxImplementation@@UAEPAXI@Z 0x004BBD50
@@ -64,61 +66,7 @@ public:
     int unk0x04;
 };
 
-// 0x004BAFD0
-class ButtonImplementation : public UIWidget
-{
-public:
-    ButtonImplementation(int nX, int nY, int nStringSlot, int (__cdecl* pfnCallback)());
-    virtual ~ButtonImplementation();
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
-    virtual void sub_004BAC60_SetUnk24(int nValue);
 
-    int HitTestButton(SMSGHANDLER_PARAMS* pMsg);
-
-    int nX;
-    int nY;
-    int unk0x10[2];
-    int nHeight;
-    int nWidth;
-    int f_20;
-    int unk0x24;
-    int (__cdecl* pfnCallback)();
-    int unk0x2C;
-    unsigned short nBaseFrame;
-    int nStringSlot;
-};
-
-// 0x004BAE30
-class ButtonWrapper : public UIWidget
-{
-public:
-    ButtonWrapper(int nX, int nY, int nStringSlot, int (__cdecl* pfnCallback)());
-    virtual ~ButtonWrapper();
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
-    virtual void sub_004BAF10_SetUnk24(int nValue);
-
-    ButtonImplementation* pImpl;
-};
 
 // 0x004BB5D0
 int __cdecl sub_004BB5D0()
@@ -287,67 +235,11 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 extern D2ButtonStringStrc gaButtonStrings[]; // 0x007275A8
 
-// build: symbol ??1ButtonImplementation@@UAE@XZ 0x004BABF0
-// 0x004BABF0
-ButtonImplementation::~ButtonImplementation()
-{
-}
 
-// 0x004BAC00
-int ButtonImplementation::HitTestButton(SMSGHANDLER_PARAMS* pMsg)
-{
-    const int nMouseX = pMsg->nXpos;
-    const int nMouseY = pMsg->nYpos;
-    if (nMouseX < nX || nMouseX > nX + nWidth || nMouseY < nY - nHeight || nMouseY > nY)
-    {
-        return 0;
-    }
-    return 1;
-}
 
-// build: symbol ?Slot11@ButtonImplementation@@UAEHXZ 0x004BAC50
-// 0x004BAC50
-int ButtonImplementation::Slot11()
-{
-    return 0;
-}
 
-// 0x004BAC60
-void ButtonImplementation::sub_004BAC60_SetUnk24(int nValue)
-{
-    unk0x24 = nValue;
-}
 
-// build: symbol ?MsgSlot03@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAC70
-// 0x004BAC70
-int ButtonImplementation::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (HitTestButton(pMsg))
-    {
-        f_20 = 1;
-        sub_004B9A00(4, 0, 0, 0, 0);
-        return 1;
-    }
-    return 0;
-}
 
-// build: symbol ?MsgSlot04@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BACD0
-// 0x004BACD0
-int ButtonImplementation::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (!f_20)
-    {
-        return 0;
-    }
-    if (HitTestButton(pMsg))
-    {
-        f_20 = 0;
-        return pfnCallback();
-    }
-    unk0x2C = 0;
-    f_20 = 0;
-    return 0;
-}
 
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
@@ -392,154 +284,25 @@ void __fastcall ARCHIVE_FreeClientCellFile(void* pCel);                         
 
 struct SMSGHANDLER_PARAMS;
 
-// build: symbol ?MsgSlot06@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAD40
-// 0x004BAD40
-int ButtonImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (unk0x24 && !(pMsg->lParam & 0x40000000) && pMsg->wParam == 0x0D)
-    {
-        return pfnCallback();
-    }
 
-    return 0;
-}
 
-// build: symbol ?MsgSlot05@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAD70
-// 0x004BAD70
-int ButtonImplementation::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
-{
-    return 0;
-}
 
-// build: symbol ?MsgSlot07@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAD80
-// 0x004BAD80
-int ButtonImplementation::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
-{
-    return 0;
-}
 
-// build: symbol ?MsgSlot08@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAD90
-// 0x004BAD90
-int ButtonImplementation::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
-{
-    return 0;
-}
 
-// build: symbol ?MsgSlot09@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BADA0
-// 0x004BADA0
-int ButtonImplementation::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
-{
-    return 0;
-}
 
-// build: symbol ?MsgSlot10@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BADB0
-// 0x004BADB0
-int ButtonImplementation::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
-{
-    return 0;
-}
 
-// build: symbol ?MsgSlot02@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BADC0
-// 0x004BADC0
-int ButtonImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
-{
-    return 0;
-}
 
-// build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
-// build: symbol ??_7ButtonWrapper@@6B@ 0x006DA72C
-// build: symbol ??_7EditBoxImplementation@@6B@ 0x006DA77C
-// build: symbol ??_7EditBoxWrapper@@6B@ 0x006DA7CC
-// build: symbol ??_7SpinnerImplementation@@6B@ 0x006DA83C
-// build: symbol ??_7SpinnerWrapper@@6B@ 0x006DA874
-// 0x004BADD0
-ButtonWrapper::~ButtonWrapper()
-{
-    delete pImpl;
-}
 
-// build: symbol ?MsgSlot02@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAE60
-// 0x004BAE60
-int ButtonWrapper::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot02(pMsg);
-}
 
-// build: symbol ?MsgSlot03@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAE70
-// 0x004BAE70
-int ButtonWrapper::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot03(pMsg);
-}
 
-// build: symbol ?MsgSlot04@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAE80
-// 0x004BAE80
-int ButtonWrapper::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot04(pMsg);
-}
 
-// build: symbol ?MsgSlot05@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAE90
-// 0x004BAE90
-int ButtonWrapper::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot05(pMsg);
-}
 
-// build: symbol ?Slot01@ButtonWrapper@@UAEXXZ 0x004BAEA0
-// 0x004BAEA0
-void ButtonWrapper::Slot01()
-{
-    pImpl->Slot01();
-}
 
-// build: symbol ?MsgSlot06@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAEB0
-// 0x004BAEB0
-int ButtonWrapper::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot06(pMsg);
-}
 
-// build: symbol ?MsgSlot08@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAEC0
-// 0x004BAEC0
-int ButtonWrapper::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot08(pMsg);
-}
 
-// build: symbol ?MsgSlot07@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAED0
-// 0x004BAED0
-int ButtonWrapper::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot07(pMsg);
-}
 
-// build: symbol ?MsgSlot09@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAEE0
-// 0x004BAEE0
-int ButtonWrapper::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot09(pMsg);
-}
 
-// build: symbol ?MsgSlot10@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAEF0
-// 0x004BAEF0
-int ButtonWrapper::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot10(pMsg);
-}
 
-// build: symbol ?Slot11@ButtonWrapper@@UAEHXZ 0x004BAF00
-// 0x004BAF00
-int ButtonWrapper::Slot11()
-{
-    return pImpl->Slot11();
-}
-
-// 0x004BAF10
-void ButtonWrapper::sub_004BAF10_SetUnk24(int nValue)
-{
-    pImpl->sub_004BAC60_SetUnk24(nValue);
-}
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 
@@ -551,63 +314,8 @@ extern "C" int __stdcall CelGetWidth(D2CelStrc* pCel);                          
 
 extern "C" int __stdcall CelGetHeight(D2CelStrc* pCel);                                                                // 0x006018F0
 
-// build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
-// build: symbol ??_7ButtonImplementation@@6B@ 0x006DA6F4
-// build: symbol ??_7ButtonWrapper@@6B@ 0x006DA72C
-// build: symbol ??_7EditBoxImplementation@@6B@ 0x006DA77C
-// build: symbol ??_7EditBoxWrapper@@6B@ 0x006DA7CC
-// build: symbol ??_7SpinnerWrapper@@6B@ 0x006DA874
-// 0x004BAF20
-ButtonImplementation::ButtonImplementation(int nX, int nY, int nStringSlot, int (__cdecl* pfnCallback)())
-{
-    nBaseFrame = gaButtonStrings[nStringSlot].nCelFrame;
-    this->nStringSlot = nStringSlot;
-    this->pfnCallback = pfnCallback;
-    f_20 = 0;
-    unk0x2C = 0;
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = sub_00454600();
-    tContext.nDirection = 0;
-    tContext.nFrame = nBaseFrame;
-    D2CelStrc* pCel = CelGetHandle(&tContext);
-    this->nX = nX;
-    this->nY = nY;
-    unk0x24 = 0;
-    nHeight = CelGetHeight(pCel);
-    nWidth = CelGetWidth(pCel);
-}
 
-// build: symbol ?Slot01@ButtonImplementation@@UAEXXZ 0x004BB000
-// 0x004BB000
-void ButtonImplementation::Slot01()
-{
-    D2CelContextStrc tCelContext;
-    memset(&tCelContext, 0, sizeof(tCelContext));
-    tCelContext.pCellFile = sub_00454600();
-    tCelContext.nFrame = f_20 + nBaseFrame;
-    tCelContext.nDirection = 0;
-    sub_004F6480(&tCelContext, nX, nY, -1, 5, 0);
 
-    const int nMouseX = sub_00468730();
-    const unsigned int dwMousePos = ((unsigned short)sub_00468740() << 16) | (unsigned short)nMouseX;
-    const int nPosX = (unsigned short)dwMousePos;
-    const int nPosY = dwMousePos >> 16;
-    if (nPosX >= nX && nPosX <= nX + nWidth && nPosY >= nY - nHeight && nPosY <= nY)
-    {
-        const int nOldFont = D2Win_10127_SetFont(1);
-        const Unicode* wszText = D2LANG_GetStringFromTblIndex(gaButtonStrings[nStringSlot].nStringIndex);
-        const int nTextWidth = D2Win_10121_GetTextWidth(wszText);
-        D2Win_10117_DrawText(wszText, nX + (nWidth - nTextWidth) / 2, nY - nHeight - 5, 0, 0);
-        D2Win_10127_SetFont(nOldFont);
-    }
-}
-
-// 0x004BB0F0
-ButtonWrapper::ButtonWrapper(int nX, int nY, int nStringSlot, int (__cdecl* pfnCallback)())
-{
-    pImpl = new ButtonImplementation(nX, nY, nStringSlot, pfnCallback);
-}
 
 // 0x004BB170
 EditBoxImplementation::~EditBoxImplementation()
@@ -1061,55 +769,9 @@ EditBoxWrapper::EditBoxWrapper(int nX, int nY, int nTextWidth, int nHeight, int 
     pImpl = new EditBoxImplementation(nX, nY, nTextWidth, nHeight, nArg10, nMaxLength, nArg18, nFont);
 }
 
-// 0x004BBE10
-SpinnerImplementation::~SpinnerImplementation()
-{
-    ARCHIVE_FreeClientCellFile(pCellFile);
-}
 
-// build: symbol ?Slot01@SpinnerImplementation@@UAEXXZ 0x004BBE70
-// 0x004BBE70
-void SpinnerImplementation::Slot01()
-{
-    if (unk0x38 || unk0x34)
-    {
-        ++nUnk0x3CCalls;
-        pfUnk0x3C();
-    }
 
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = pCellFile;
-    tContext.nFrame = 2 * unk0x34;
-    tContext.nDirection = 0;
-    sub_004F6480(&tContext, nUpX, nUpY, -1, 5, 0);
-    tContext.nFrame = 2 * unk0x38 + 1;
-    sub_004F6480(&tContext, nDownX, nDownY, -1, 5, 0);
-}
 
-// 0x004BBEF0
-int SpinnerImplementation::HitTestUpArrow(SMSGHANDLER_PARAMS* pMsg)
-{
-    const int nMouseX = pMsg->nXpos;
-    const int nMouseY = pMsg->nYpos;
-    if (nMouseX <= nUpX || nMouseX >= nUpX + nArrowWidth || nMouseY <= nUpY - nArrowHeight || nMouseY > nUpY)
-    {
-        return 0;
-    }
-    return 1;
-}
-
-// 0x004BBF40
-int SpinnerImplementation::HitTestDownArrow(SMSGHANDLER_PARAMS* pMsg)
-{
-    const int nMouseX = pMsg->nXpos;
-    const int nMouseY = pMsg->nYpos;
-    if (nMouseX <= nDownX || nMouseX >= nDownX + nArrowWidth || nMouseY <= nDownY - nArrowHeight || nMouseY >= nDownY)
-    {
-        return 0;
-    }
-    return 1;
-}
 
 
 
@@ -1132,73 +794,8 @@ void EditBoxWrapper::sub_004BBB80_Forward(int nArg)
 }
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
-// build: symbol ?Slot11@SpinnerImplementation@@UAEHXZ 0x004BBF90
-int SpinnerImplementation::Slot11()
-{
-    if (unk0x34)
-        return 1;
-    return unk0x38 ? 2 : 0;
-}
 
-// 0x004BBFB0
-int SpinnerImplementation::sub_004BBFB0()
-{
-    if (!unk0x34 && !unk0x38)
-        return 0;
 
-    if (unk0x20)
-    {
-        unk0x34 = 0;
-        unk0x38 = 0;
-        unk0x20 = 0;
-        return 1;
-    }
-
-    unsigned long dwNow = GetTickCount();
-    if (unk0x4C)
-    {
-        unk0x48 = dwNow;
-        return 1;
-    }
-
-    unsigned long dwElapsed = dwNow - unk0x44;
-    if (dwNow - unk0x48 < 0x46)
-        return 0;
-
-    unk0x48 = dwNow;
-    if (dwElapsed > 0x1000)
-        return (dwElapsed >> 11) * nUnk0x3CCalls;
-    if (dwElapsed > 0xBB8)
-        return nUnk0x3CCalls >> 2;
-    if (dwElapsed > 0x7D0)
-        return nUnk0x3CCalls >> 4;
-    if (dwElapsed > 0x3E8)
-        return nUnk0x3CCalls >> 5;
-    return 1;
-}
-
-// build: symbol ?MsgSlot02@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC050
-// 0x004BC050
-int SpinnerImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
-{
-    if ((short)pMsg->wParamHigh > 0)
-    {
-        unk0x34 = 1;
-        unk0x38 = 0;
-        unk0x20 = 1;
-    }
-    else if ((short)pMsg->wParamHigh < 0)
-    {
-        unk0x34 = 0;
-        unk0x38 = 1;
-        unk0x20 = 1;
-    }
-
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-    return 1;
-}
 static inline int sub_004BC0A0_IsInFirst(D2ButtonPairStrc* pButtons, D2MouseMessageStrc* pMessage)
 {
     const int nX = pMessage->nX;
@@ -1215,229 +812,22 @@ static inline int sub_004BC0A0_IsInSecond(D2ButtonPairStrc* pButtons, D2MouseMes
         && nY > pButtons->nSecondY - pButtons->nHeight && nY < pButtons->nSecondY;
 }
 
-// 0x004BC0A0
-int __fastcall EDITBOX_HandleSpinnerPress(D2ButtonPairStrc* pButtons, int nUnused, D2MouseMessageStrc* pMessage)
-{
-    pButtons->f_30 = 1;
-    if (sub_004BC0A0_IsInFirst(pButtons, pMessage))
-    {
-        pButtons->nTick = GetTickCount();
-        pButtons->bFirst = 1;
-        pButtons->bInvoking = 1;
-        pButtons->pCallback();
-        pButtons->bInvoking = 0;
-        return 1;
-    }
-    _ReadWriteBarrier();
-    if (sub_004BC0A0_IsInSecond(pButtons, pMessage))
-    {
-        pButtons->nTick = GetTickCount();
-        pButtons->bSecond = 1;
-        pButtons->bInvoking = 1;
-        pButtons->pCallback();
-        pButtons->bInvoking = 0;
-        return 1;
-    }
-    return 0;
-}
 
-// build: symbol ?MsgSlot04@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC160
-// 0x004BC160
-int SpinnerImplementation::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (!unk0x30)
-    {
-        return 0;
-    }
 
-    nUnk0x3CCalls = 0;
-    unk0x30 = 0;
-    if (unk0x34 == 1)
-    {
-        unk0x34 = 0;
-        return 1;
-    }
 
-    if (unk0x38 == 1)
-    {
-        unk0x38 = 0;
-        return 1;
-    }
 
-    return 0;
-}
 
-// build: symbol ?MsgSlot06@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC190
-// 0x004BC190
-int SpinnerImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
-{
-    return 0;
-}
-// build: symbol ?MsgSlot05@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC1A0
-// 0x004BC1A0
-int SpinnerImplementation::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
-{
-    return 0;
-}
-// build: symbol ?MsgSlot07@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC1B0
-// 0x004BC1B0
-int SpinnerImplementation::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
-{
-    return 0;
-}
-// build: symbol ?MsgSlot08@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC1C0
-// 0x004BC1C0
-int SpinnerImplementation::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
-{
-    return 0;
-}
-// build: symbol ?MsgSlot09@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC1D0
-// 0x004BC1D0
-int SpinnerImplementation::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
-{
-    return 0;
-}
-// build: symbol ?MsgSlot10@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC1E0
-// 0x004BC1E0
-int SpinnerImplementation::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
-{
-    return 0;
-}
 
-// 0x004BC1F0
-SpinnerWrapper::~SpinnerWrapper()
-{
-    delete pImpl;
-}
 
-// build: symbol ?MsgSlot02@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC280
-// 0x004BC280
-int SpinnerWrapper::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot02(pMsg);
-}
 
-// build: symbol ?MsgSlot03@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC290
-// 0x004BC290
-int SpinnerWrapper::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot03(pMsg);
-}
 
-// build: symbol ?MsgSlot04@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC2A0
-// 0x004BC2A0
-int SpinnerWrapper::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot04(pMsg);
-}
 
-// build: symbol ?MsgSlot05@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC2B0
-// 0x004BC2B0
-int SpinnerWrapper::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot05(pMsg);
-}
 
-// build: symbol ?Slot01@SpinnerWrapper@@UAEXXZ 0x004BC2C0
-// 0x004BC2C0
-void SpinnerWrapper::Slot01()
-{
-    pImpl->Slot01();
-}
 
-// build: symbol ?MsgSlot06@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC2D0
-// 0x004BC2D0
-int SpinnerWrapper::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot06(pMsg);
-}
 
-// build: symbol ?MsgSlot08@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC2E0
-// 0x004BC2E0
-int SpinnerWrapper::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot08(pMsg);
-}
 
-// build: symbol ?MsgSlot07@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC2F0
-// 0x004BC2F0
-int SpinnerWrapper::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot07(pMsg);
-}
 
-// build: symbol ?MsgSlot09@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC300
-// 0x004BC300
-int SpinnerWrapper::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot09(pMsg);
-}
 
-// build: symbol ?MsgSlot10@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC310
-// 0x004BC310
-int SpinnerWrapper::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
-{
-    return pImpl->MsgSlot10(pMsg);
-}
-
-// build: symbol ?Slot11@SpinnerWrapper@@UAEHXZ 0x004BC320
-// 0x004BC320
-int SpinnerWrapper::Slot11()
-{
-    return pImpl->Slot11();
-}
-
-// 0x004BC330
-int SpinnerWrapper::sub_004BC330_ForwardSlot30(int nArg)
-{
-    return pImpl->sub_004BBFB0();
-}
-
-// build: symbol ??_7SpinnerImplementation@@6B@ 0x006DA83C
-// build: symbol ??_GSpinnerImplementation@@UAEPAXI@Z 0x004BC450
-// 0x004BC340
-SpinnerImplementation::SpinnerImplementation(int nX, int nY, int bHorizontal, int nArg0C)
-{
-    char szPath[260];
-    sprintf(szPath, "%s\\ui\\menu\\spinner", gszDataGlobal);
-    void* pFile = ARCHIVE_LoadClientCellFile(szPath, 0);
-    pCellFile = pFile;
-    this->nX = nX;
-    this->nY = nY;
-    pfUnk0x3C = (void (__cdecl*)())nArg0C;
-    this->f_2C = bHorizontal;
-    unk0x34 = 0;
-    unk0x38 = 0;
-    unk0x30 = 0;
-    unk0x4C = 0;
-    nUnk0x3CCalls = 0;
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = pFile;
-    tContext.nDirection = 0;
-    tContext.nFrame = 0;
-    D2CelStrc* pCel = CelGetHandle(&tContext);
-    nArrowHeight = CelGetHeight(pCel);
-    nArrowWidth = CelGetWidth(pCel);
-    nUpY = nY;
-    if (this->f_2C)
-    {
-        nUpX = nX + 1;
-        nDownX = nX + nArrowWidth;
-        nDownY = nY;
-    }
-    else
-    {
-        nUpX = nX + 1;
-        nDownX = nX + 1;
-        nDownY = nY + nArrowHeight + 1;
-    }
-}
-// 0x004BC480
-SpinnerWrapper::SpinnerWrapper(int nX, int nY, int bHorizontal, int nArg0C)
-{
-    pImpl = new SpinnerImplementation(nX, nY, bHorizontal, nArg0C);
-}
 
 struct D2CelFileStrc;
 

@@ -157,7 +157,6 @@ static int __stdcall sub_0046C7D0_StepAwayFromUnit(D2UnitStrc* pUnit, unsigned c
     return 1;
 }
 
-// build: context sub_0046C960_StepRandom
 static void __stdcall sub_0046C960_StepRandom(unsigned char nScale, int nCommand, int nArg, D2UnitStrc* pUnit)
 {
     const int nUnitX = CLIENTS_GetUnitXInline(pUnit);

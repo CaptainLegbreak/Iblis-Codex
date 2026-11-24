@@ -50,7 +50,6 @@ extern unsigned int gnWeatherLastTick;                                          
 extern int gbRainActive;                                                                           // 0x007A8A44
 extern int gbMudActive;                                                                            // 0x007A8A40
 
-// build: context sub_U01_RollSeedInline
 static inline unsigned __int64 sub_U01_RollSeedInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;

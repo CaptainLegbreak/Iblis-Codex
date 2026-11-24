@@ -105,9 +105,7 @@ struct D2SkillStrc;
 
 struct D2DynamicPathStrc;
 
-extern unsigned char gabDirection64To16[256]; // 0x007455C0
 
-extern unsigned char gabDirection8To64[256]; // 0x00745640
 
 void __fastcall sub_0055DBC0_RecalcEquippedItemStates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nArg); // 0x0055DBC0
 
@@ -4096,18 +4094,6 @@ int __fastcall sub_J07_Emit_00560020(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Uni
 void __stdcall TileSetHardwareFreeCallback(void* pfnCallback)
 {
     D2CMPTileCacheSetFreeCallback(pfnCallback);
-}
-
-// 0x0063E780
-unsigned char __stdcall D2Common_11052(unsigned char nIndex)
-{
-    return gabDirection64To16[nIndex];
-}
-
-// 0x0063E7C0
-unsigned char __stdcall D2Common_11054(unsigned char nIndex)
-{
-    return gabDirection8To64[nIndex];
 }
 
 // 0x0055F2D0

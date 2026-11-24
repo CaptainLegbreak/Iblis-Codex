@@ -110,7 +110,6 @@ float __cdecl sub_00472310_AbsFloat(float fValue)
     return (float)fabs(fValue);
 }
 
-// build: context RNG_RollLimitedRef
 __forceinline unsigned int RNG_RollLimitedRef(D2SeedStrc* pSeed, const int& nMax)
 {
     if (nMax <= 0)
@@ -466,7 +465,6 @@ static inline void sub_00473720_GetLevelWeather(int* pRain, int* pMud)
     }
 }
 
-// build: context sub_M112_Emit_00473720
 int __cdecl sub_M112_Emit_00473720()
 {
     int nRain;

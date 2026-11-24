@@ -671,7 +671,6 @@ static void __stdcall GFX_BuildMonsterCofPath(int nMode, char* szPath, unsigned 
     wsprintfA(szPath, gszCofPathFormat, gszMonstersDir, szMonster, szMonster, szToken, szWeapon);
 }
 
-// build: context CLIENT_GetMonStats2TxtRecord
 static inline D2MonStats2Txt* CLIENT_GetMonStats2TxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -685,7 +684,6 @@ static inline D2MonStats2Txt* CLIENT_GetMonStats2TxtRecord(int nMonsterId)
     return 0;
 }
 
-// build: context sub_0046C140_TestMonModeFlag
 int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode)
 {
     D2MonStats2Txt* pMonStats2TxtRecord = CLIENT_GetMonStats2TxtRecord(nMonsterId);
@@ -740,7 +738,6 @@ static void GFX_LoadMonsterModeGfx(D2UnitStrc* pUnit, int nIndex)
     GFX_LoadMonsterGfx(pUnit, nIndex);
 }
 
-// build: context sub_0046F870_LoadMonsterCofs
 void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow)
 {
     D2MonCofInfoStrc tInfo;
@@ -819,7 +816,6 @@ struct D2InventoryStrc;
 
 struct D2UnitStrc;
 
-// build: context IsShapeShifted
 inline int IsShapeShifted(D2UnitStrc* pUnit)
 {
     int bResult = 0;
@@ -828,7 +824,6 @@ inline int IsShapeShifted(D2UnitStrc* pUnit)
     return bResult;
 }
 
-// build: context GetNodeLayer
 static inline D2GfxLayerStrc* GetNodeLayer(D2UnitStrc* pUnit, int nMode)
 {
     D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);

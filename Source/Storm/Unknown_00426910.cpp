@@ -142,50 +142,14 @@ D2Storm4167B0Strc::~D2Storm4167B0Strc()
     f_0.Unlink();
 }
 
-// 0x00426910
-char* __fastcall DRLGPRESET_GetLinkRawNext(D2StormLinkStrc* pLink)
-{
-    return pLink->m_next;
-}
-
 D2Storm4168F0Strc::~D2Storm4168F0Strc()
 {
     f_0.Unlink();
 }
 
-// 0x004269A0
-void __fastcall sub_00601DF0_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-// 0x00426BD0
-void D2StormLinkStrc::sub_00426BD0()
-{
-    Unlink();
-}
-
-// 0x00426CF0
-void D2StormTSListStrc::sub_00426CF0_UnlinkAll()
-{
-    while (char* pNode = Head())
-        ((D2StormLinkStrc*)pNode)->Unlink();
-}
-
 inline void* operator new(unsigned int nSize, void* pWhere) throw()
 {
     return pWhere;
-}
-
-// 0x00426DC0
-BREAKCMD* D2StormBreakCmdListStrc::sub_00426DC0_NewNode(unsigned int nLocation, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(BREAKCMD) + nExtraBytes, gszTypeNameBreakCmd_007088D8, -2, nFlags | 8);
-    BREAKCMD* pNode = pMemory ? new (pMemory) BREAKCMD : 0;
-    if (nLocation)
-        sub_00426B00_LinkNode(pNode, nLocation, 0);
-    return pNode;
 }
 
 // 0x00450390

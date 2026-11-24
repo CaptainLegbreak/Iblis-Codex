@@ -313,7 +313,6 @@ extern const unsigned char gabOffsetMasks[9]; // 0x006CE38C
 
 extern unsigned short gawStringCrcTable[256]; // 0x00708140
 
-// 0x00410790
 // build: symbol ?BNDOWNLOAD_GetTime@* 0x00521B40
 static long BNDOWNLOAD_GetTime(long* pTime)
 {

@@ -25,7 +25,6 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 
-// build: context UMODE_GetSkillsTxtRecord
 static inline D2SkillsTxt* UMODE_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -109,14 +108,12 @@ static int UNITMODE_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int 
     return UNITS_IsInMeleeRange(pPlayer, pUnit, UNITS_IsInMovingModeEx(pUnit)) == 0;
 }
 
-// build: context sub_GetPlayerDataOrNull
 static inline D2PlayerDataStrc* sub_GetPlayerDataOrNull(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
         return pUnit->pPlayerData;
     return 0;
 }
-// build: context sub_SetPlayerAction
 static inline void sub_SetPlayerAction(D2UnitStrc* pPlayer, int nState, int nAction, int nArg1, int nArg2)
 {
     if (sub_GetPlayerDataOrNull(pPlayer))
@@ -159,7 +156,6 @@ static void __stdcall UNITMODE_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, 
     sub_SetPlayerAction(pPlayer, 1, nAction, nArg1, nArg2);
 }
 
-// build: context sub_IsUnitTargetable
 static inline int sub_IsUnitTargetable(D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -187,7 +183,6 @@ static int __stdcall sub_004815A0_TryUnitAction(D2UnitStrc* pUnit, D2UnitStrc* p
     return 1;
 }
 
-// build: context sub_004815A0_Shim
 // calling-convention shim (not game code)
 int __stdcall sub_004815A0_Shim(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int nAction, int nArg1, int nArg2)
 {

@@ -1,15 +1,25 @@
 #include "D2Direct3D.h"
 #include "D2DDrawTypes.h"
+#include "D2Win32Types.h"
 
 struct D2GammaControlStrc;
+
 struct D2ComObject006B3730Strc;
+
 struct D2SurfaceStrc;
+
 struct D2GammaRampStrc;
+
 struct D2GammaControlVTableStrc;
+
 struct D2DDPixelFormat006B3730Strc;
+
 struct D2DDSurfaceDesc006B3730Strc;
+
 struct D2ComObjectVtbl006B3730Strc;
+
 struct D2SurfaceVtableStrc;
+
 struct D2VideoKeyStrc;
 
 struct D2GammaRampStrc { int red[128], green[128], blue[128]; };
@@ -23,15 +33,23 @@ struct D2GammaControlVTableStrc
 struct D2GammaControlStrc { D2GammaControlVTableStrc* pVTable; };
 
 extern const unsigned int gnGammaMask_006CE278; // 0x006CE278
+
 extern unsigned int gnCapabilities_0096F3A8; // 0x0096F3A8
+
 extern int gnGammaScale_0074C020; // 0x0074C020
+
 extern D2GammaControlStrc* gpGammaControl; // 0x00970E74
+
 void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dScale, int nStride, int nEntries, int nMask); // 0x006BE190
+
 void __fastcall D3D_LogDDrawError(const char* szMessage, int nResult); // 0x006B20E0
+
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nBytes);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 extern int gnRenderHeight; // 0x007C913C
+
 extern D2DDSurfaceStrc* gpSurface_00970E6C; // 0x00970E6C
 
 struct D2DDPixelFormat006B3730Strc
@@ -69,7 +87,9 @@ struct D2ComObject006B3730Strc
 };
 
 extern D2ComObject006B3730Strc* gpDirectDraw4; // 0x00970E60
+
 extern D2DDPixelFormat006B3730Strc gtWantedFormat_0074C024; // 0x0074C024
+
 extern const unsigned char gabIidTexture[16]; // 0x006FF478
 
 struct D2SurfaceVtableStrc
@@ -86,29 +106,116 @@ struct D2SurfaceStrc
 };
 
 extern D2SurfaceStrc* gpPrimarySurface_00970E68; // 0x00970E68
+
 extern D2SurfaceStrc* gpRenderSurface_00970E6C; // 0x00970E6C
-void __cdecl LOGMANAGER_WriteLogLine(const char*,...); // 0x00410610
+
 
 struct T004013C0 { int unk00; int mode; };
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-int __stdcall sub_006B4C90_ShowVideoConfiguration(void*); // 0x006B4C90
+
+
 int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
+
 int __stdcall SRegLoadValue(const char*,const char*,unsigned int,unsigned long*); // 0x00414F10
+
 int __stdcall SRegLoadData(const char*,const char*,unsigned int,void*,unsigned int,unsigned int*); // 0x00414DE0
 
 #pragma pack(push, 1)
+
 struct D2VideoKeyStrc { unsigned int words[5]; unsigned short tail; };
 
 #pragma pack(pop)
 
 extern const D2VideoKeyStrc gtVideoKey; // 0x006DD634
 
+typedef void* HINSTANCE;
 
+typedef void* HWND;
 
+typedef void* HMENU;
 
-#include "gen/data/Source/D2Direct3D/Unknown_006B3570.inc"
+typedef void* HICON;
+
+typedef void* HCURSOR;
+
+typedef void* HBRUSH;
+
+typedef void* HGDIOBJ;
+
+typedef long LRESULT;
+
+typedef long HRESULT;
+
+typedef unsigned int WPARAM;
+
+typedef long LPARAM;
+
+typedef unsigned short ATOM;
+
+typedef LRESULT (__stdcall* WNDPROC)(HWND, unsigned int, WPARAM, LPARAM);
+
+typedef int (__stdcall* LPDDENUMCALLBACKA)(void* pGuid, char* szDescription, char* szName, void* pContext);
+
+extern "C" __declspec(dllimport) HGDIOBJ __stdcall GetStockObject(int nObject);                             // 0x006CC0E8
+
+extern "C" __declspec(dllimport) void __stdcall SetLastError(unsigned long dwError);                        // 0x006CC2E4
+
+extern "C" __declspec(dllimport) LRESULT __stdcall DefWindowProcA(HWND hWnd, unsigned int nMsg, WPARAM wParam, LPARAM lParam); // 0x006CC488
+
+extern "C" __declspec(dllimport) int __stdcall UnregisterClassA(const char* szClassName, HINSTANCE hInstance); // 0x006CC4C8
+
+extern "C" __declspec(dllimport) ATOM __stdcall RegisterClassA(const WNDCLASSA* pWndClass);                 // 0x006CC4CC
+
+extern "C" __declspec(dllimport) int __stdcall DestroyWindow(HWND hWnd);                                    // 0x006CC4E0
+
+extern "C" __declspec(dllimport) HWND __stdcall CreateWindowExA(unsigned long dwExStyle, const char* szClassName, const char* szWindowName, unsigned long dwStyle, int nX, int nY, int nWidth, int nHeight, HWND hParent, HMENU hMenu, HINSTANCE hInstance, void* pParam); // 0x006CC4F0
+
+extern "C" HRESULT __stdcall DirectDrawEnumerateA(LPDDENUMCALLBACKA pCallback, void* pContext);             // 0x006C9B82
+
+void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...) throw();                                                  // 0x00410610
+
+void __cdecl sub_0051793E_FormatAndRaise(unsigned long dwError, ...); // 0x0051793E
+
+void __fastcall D3D_LogDDrawError(const char* szMessage, long hResult) throw();                      // 0x006B20E0
+
+void __fastcall sub_006B2F60_SaveVideoConfig(int nRender, int nDevice);                                     // 0x006B2F60
+
+int __stdcall sub_006B42F0_DDrawEnumCallback(void* pGuid, char* szDescription, char* szName, void* pContext); // 0x006B42F0
+
+extern char gszEnumerationClass[];                                                                 // 0x0074C044
+
+extern char gszEnumerationWindow[];                                                                // 0x0074C058
+
+extern HWND ghEnumWindow;                                                                          // 0x00970E84
+
+extern int gnD3DDeviceCount;                                                                       // 0x00970E88
+
+extern int gnDeviceStatus2;                                                                        // 0x0096F83C
+
+extern int gnDeviceStatus3;                                                                        // 0x0096F95C
+
+#pragma pack(push,1)
+
+#pragma pack(pop)
+
+static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance);
+
+int gbConfigured; // 0x00970EB8
+
+int gbSeen; // 0x00970EBC
+
+char gszDeviceName[264]; // 0x0096F3BC
+
+unsigned long gdwRenderFlags; // 0x0096F3A8
+
+unsigned int gtDeviceGuid[4]; // 0x0096F3AC
+
+int __fastcall sub_006B4E80_LoadVideoConfiguration(void* window);
 
 // 0x006B3800
 void __cdecl sub_006B3800_Flush()
@@ -195,20 +302,90 @@ void __fastcall sub_006B39B0_ShowD3DError(const char* text,long result)
     case (long)0x88760306: name="D3DERR_VIEWPORTHASNODEVICE"; break;
     case (long)0x88760307: name="D3DERR_NOCURRENTVIEWPORT"; break;
     case 0: name="D3D_OK"; break;
-    default: D3D_LogDDrawError(text,result); return; // 0x006B20E0
+    default: D3D_LogDDrawError(text,result); return;
     }
     LOGMANAGER_WriteLogLine("***** Direct3D error: %s - %s (0x%x)",text,name,result);
 }
 
-int gbConfigured; // 0x00970EB8
+// 0x006B4C90
+static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance)
+{
+    WNDCLASSA wc;
 
-int gbSeen; // 0x00970EBC
+    try
+    {
+        LOGMANAGER_WriteLogLine("Detecting boards which support Direct3D...");
 
-char gszDeviceName[264]; // 0x0096F3BC
+        memset(&wc, 0, sizeof(wc));
+        gnD3DDeviceCount = 0;
+        wc.style = 0;
+        wc.lpfnWndProc = DefWindowProcA;
+        wc.cbClsExtra = 0;
+        wc.cbWndExtra = 0;
+        wc.hInstance = hInstance;
+        wc.hIcon = 0;
+        wc.hbrBackground = (HBRUSH)GetStockObject(5);
+        wc.lpszMenuName = 0;
+        wc.lpszClassName = gszEnumerationClass;
+        if (!RegisterClassA(&wc))
+        {
+            sub_0051793E_FormatAndRaise(GetLastError());
+            return 0;
+        }
 
-unsigned long gdwRenderFlags; // 0x0096F3A8
+        SetLastError(0);
+        ghEnumWindow = CreateWindowExA(0x40000, gszEnumerationClass, gszEnumerationWindow, 0xA0000000, 0, 0, 640, 480, 0, 0, hInstance, 0);
+        if (!ghEnumWindow)
+        {
+            LOGMANAGER_WriteLogLine("***** Failed to create window for D3D enumeration= %d", GetLastError());
+            return 0;
+        }
 
-unsigned int gtDeviceGuid[4]; // 0x0096F3AC
+        const HRESULT hResult = DirectDrawEnumerateA(sub_006B42F0_DDrawEnumCallback, 0);
+        if (hResult)
+        {
+            D3D_LogDDrawError("DirectDrawEnumerate", hResult);
+        }
+    }
+    catch (...)
+    {
+        LOGMANAGER_WriteLogLine(" ** Caught a failure in Direct3DDetect ** ");
+    }
+
+    try
+    {
+        if (ghEnumWindow)
+        {
+            DestroyWindow(ghEnumWindow);
+            LOGMANAGER_WriteLogLine("Destroyed D3D window.");
+        }
+
+        if (!gnD3DDeviceCount)
+        {
+            LOGMANAGER_WriteLogLine("Found no valid Direct3D devices to use!");
+            return 0;
+        }
+    }
+    catch (...)
+    {
+    }
+
+    UnregisterClassA(gszEnumerationClass, hInstance);
+
+    if (gnDeviceStatus2 == 2)
+    {
+        sub_006B2F60_SaveVideoConfig(1, 2);
+        return 2;
+    }
+
+    if (gnDeviceStatus3 == 2)
+    {
+        sub_006B2F60_SaveVideoConfig(1, 3);
+        return 2;
+    }
+
+    return 0;
+}
 
 // 0x006B4E80
 int __fastcall sub_006B4E80_LoadVideoConfiguration(void* window) {
@@ -219,19 +396,19 @@ int __fastcall sub_006B4E80_LoadVideoConfiguration(void* window) {
     if (info->mode==1) return 0;
     D2VideoKeyStrc key=gtVideoKey;
     if (gbSeen && !gbConfigured) {
-        sub_006B4C90_ShowVideoConfiguration(window);
+        sub_006B4C90_DetectDirect3D(window);
         gbConfigured=1;
     }
     gbSeen=1;
     for (;;) {
         if (!SRegLoadString((const char*)&key,"DeviceName",0,gszDeviceName,256)) {
             if (gbConfigured) return 0;
-            int result=sub_006B4C90_ShowVideoConfiguration(window);
+            int result=sub_006B4C90_DetectDirect3D(window);
             gbConfigured=1;
             if (result!=2) return 0;
         } else if (!SRegLoadValue((const char*)&key,"dwFlags",0,&gdwRenderFlags)) {
             if (gbConfigured) return 0;
-            int result=sub_006B4C90_ShowVideoConfiguration(window);
+            int result=sub_006B4C90_DetectDirect3D(window);
             gbConfigured=1;
             if (result!=2) return 0;
         } else break;
@@ -242,3 +419,5 @@ int __fastcall sub_006B4E80_LoadVideoConfiguration(void* window) {
     }
     return 1;
 }
+
+#include "gen/data/Source/D2Direct3D/Unknown_006B3570.inc"

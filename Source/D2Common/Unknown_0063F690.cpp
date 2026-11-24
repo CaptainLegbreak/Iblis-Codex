@@ -192,3 +192,5 @@ void __fastcall DATATBLS_LoadObjectsTxt(void* hArchive)
         }
     }
 }
+
+#include "gen/data/Source/D2Common/Unknown_0063F690.inc"

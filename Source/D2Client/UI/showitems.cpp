@@ -91,7 +91,6 @@ void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int
 
 
 
-// build: context sub_004C0640_ClampToScreen
 static inline void sub_004C0640_ClampToScreen(int* pLeft, int* pTop, int* pRight, int* pBottom, int nMaxX, int nMinX, int nMaxY)
 {
     if (*pLeft < nMinX)

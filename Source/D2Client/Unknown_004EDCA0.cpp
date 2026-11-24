@@ -72,7 +72,6 @@ void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); /
 extern "C" int __stdcall sub_0064A300(Unit0064A300* pUnit); // 0x0064A300
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
 
-// build: context ApplyPercent
 static inline int ApplyPercent(int nValue, int nPercent)
 {
     if (nValue > 0x100000)
@@ -96,7 +95,6 @@ static inline int ApplyPercent(int nValue, int nPercent)
     return nPercent * nValue / 100;
 }
 
-// build: context MonStatsTxtRecord
 static inline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -106,7 +104,6 @@ static inline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-// build: context SkillsTxtRecord_0D0
 static inline D2SkillsTxt* SkillsTxtRecord_0D0(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -116,7 +113,6 @@ static inline D2SkillsTxt* SkillsTxtRecord_0D0(int nSkillId)
     return 0;
 }
 
-// build: context SkillParam_0D0
 static inline int SkillParam_0D0(int nSkillId, int nLevel)
 {
     D2SkillsTxt* pSkillsTxt = SkillsTxtRecord_0D0(nSkillId);
@@ -1166,7 +1162,6 @@ static int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unico
 
 int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nSkillLevel); // 0x004EDDD0
 
-// build: context AppendString
 static inline void AppendString(Unicode* wszText, unsigned short nString)
 {
     if (nString != 0x1506)

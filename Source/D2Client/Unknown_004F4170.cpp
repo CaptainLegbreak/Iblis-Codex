@@ -24,7 +24,6 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4);
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
-// build: context SKILLS_GetSkillsTxtRecord
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -35,7 +34,6 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-// build: context sub_0044BE50
 static inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -46,7 +44,6 @@ static inline int sub_0044BE50(D2UnitStrc* pUnit)
     return pUnit->dwUnitType;
 }
 
-// build: context UNITS_GetUnitId
 static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
 {
     if (!pUnit)

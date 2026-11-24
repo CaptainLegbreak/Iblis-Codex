@@ -129,7 +129,6 @@ static int __stdcall sub_00494FF0_IsMouseInBox(int nLeft, int nBottom, int nWidt
     return 0;
 }
 
-// build: context sub_K04_EmitIsMouseInBox
 void __fastcall sub_K04_EmitIsMouseInBox(int nX, int nY)
 {
     sub_K04_EmitUse(sub_00494FF0_IsMouseInBox(nX + 0x31, nY - 0x27, 0x23, 0x25));

@@ -176,7 +176,6 @@ static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
     }
 }
 
-// build: context sub_00463260_Shim
 // calling-convention shim (not game code)
 void __stdcall sub_00463260_Shim(D2UnitStrc* unit)
 {

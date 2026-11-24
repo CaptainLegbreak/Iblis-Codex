@@ -34,7 +34,6 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 
-// build: context UMODE_GetSkillsTxtRecord
 static inline D2SkillsTxt* UMODE_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -118,14 +117,12 @@ static int UNITMODE_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int 
     return UNITS_IsInMeleeRange(pPlayer, pUnit, UNITS_IsInMovingModeEx(pUnit)) == 0;
 }
 
-// build: context sub_GetPlayerDataOrNull
 static inline D2PlayerDataStrc* sub_GetPlayerDataOrNull(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
         return pUnit->pPlayerData;
     return 0;
 }
-// build: context sub_SetPlayerAction
 static inline void sub_SetPlayerAction(D2UnitStrc* pPlayer, int nState, int nAction, int nArg1, int nArg2)
 {
     if (sub_GetPlayerDataOrNull(pPlayer))
@@ -289,7 +286,6 @@ static int __stdcall UNITMODE_ActOnPlayer(int nAction, int nType, int nId, D2Uni
     return 1;
 }
 
-// build: context sub_0044BE50
 static int sub_0044BE50(D2UnitStrc* pUnit)
 {
     int nType = 6;

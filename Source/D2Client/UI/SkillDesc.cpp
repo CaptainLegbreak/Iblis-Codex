@@ -573,7 +573,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 
-// build: context sub_004F21B0_GetSkillsTxtRecord
 static inline D2SkillsTxt* sub_004F21B0_GetSkillsTxtRecord(int nSkillId)
 {
 	if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -2825,7 +2824,6 @@ static int __stdcall SKILLDESC_AppendManaValue(int nValue, Unicode* wszOut)
     return 1;
 }
 
-// build: context sub_004E85C0_AppendManaCost
 static int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, int nLevel, int nMultiplier, D2SkillsTxt* pSkillsTxt, int nValue)
 {
     short nMana = pSkillsTxt->wMana;
@@ -3413,7 +3411,6 @@ void __fastcall sub_H14_Emit_004E9510(D2UnitStrc* pUnit, D2SkillStrc* pSkill, in
     SKILLDESC_EvaluateForEachWeapon(pValue1, pValue2, 0, pValue3, pValue4, 0, pSkill, SKILLDESC_AttackRatingCallback, 0, pUnit, nLevel);
 }
 
-// build: context sub_004E86F0_GetWeaponDamage
 static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDamage, int* pColor, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem, int bStatBonus, D2UnitStrc* pUnit, int nBonus)
 {
     if (!pSkill)
@@ -3704,7 +3701,6 @@ void __fastcall SKILLDESC_DrawKickBaseDamage(D2UnitStrc* pUnit, D2SkillStrc* pSk
     SKILLDESC_DrawDamageRange(nDamage, nDamage, 0, nY, nLeft, nRight);
 }
 
-// build: context sub_I05_GetSkillsTxtRecord
 static D2SkillsTxt* sub_I05_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -3843,9 +3839,6 @@ int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage
     return 1;
 }
 
-// build: context ApplyRatio_Inline
-// build: context AddPoisonDamage_Inline
-// build: context AddPoisonDamageAndClamp_Inline
 
 // 0x004EA790
 void __fastcall SKILLDESC_DrawWeaponStatDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
@@ -3945,14 +3938,12 @@ extern "C" void __stdcall sub_D05_Emit_4E6EA0(int* a, int* b, D2SkillsTxt* t) { 
 
 extern "C" void __stdcall sub_D05_Emit_4E6F00(int* a, int* b, D2SkillsTxt* t) { SKILLDESC_ApplyLightningMasteryBonus(a, b, t); }
 
-// build: context sub_D05_Emit_4E6F60
 extern "C" unsigned short __stdcall sub_D05_Emit_4E6F60(int n) { return SKILLDESC_GetETypeDamageStr(n); }
 
 extern "C" void __stdcall sub_D05_Emit_4E8D90(D2UnitStrc* u, int* a, int* b, unsigned char t) { SKILLDESC_AddElementalStatDamage(u, a, b, t); }
 
 extern "C" void __stdcall sub_D05_Emit_4E9660(D2UnitStrc* u, int* a, int* b, D2UnitStrc* i, int* c, D2SkillStrc* k, int r) { SKILLDESC_AddScaledWeaponDamage(u, a, b, c, k, i, r); }
 
-// build: context sub_004E72D0_AddElemDamage
 static void __stdcall sub_004E72D0_AddElemDamage(D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit, int nLevel, int* pMin, int* pMax, int* pType)
 {
     int nMin;
@@ -4225,9 +4216,6 @@ void __fastcall SKILLDESC_DrawThrowDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill
     SKILLDESC_DrawDamageRange(nMin + (nBonus * nMin + nMinPercent) / 100, nMax + (nBonus * nMax + nMaxPercent) / 100, nDrawColor, nY, nLeft, nRight);
 }
 
-// build: context ApplyRatio_Inline
-// build: context AddPoisonDamage_Inline
-// build: context AddPoisonDamageAndClamp_Inline
 
 // 0x004EB640
 void __fastcall SKILLDESC_DrawMasteryWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
@@ -4365,9 +4353,6 @@ void __fastcall SKILLDESC_DrawBoostedElemDamage(D2UnitStrc* pUnit, D2SkillStrc* 
     }
 }
 
-// build: context ApplyRatio_Inline
-// build: context AddPoisonDamage_Inline
-// build: context AddPoisonDamageAndClamp_Inline
 
 void __fastcall SKILLDESC_DrawSkillWeaponLine(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
 {
@@ -5190,7 +5175,6 @@ static unsigned short sub_004E6E30_GetSkillDescAltStr(int nSkillId)
     return pSkillDescTxtRecord->wStrAlt;
 }
 
-// build: context sub_004E9940_DrawNumberCentered
 static void __stdcall sub_004E9940_DrawNumberCentered(int nColor, int nLeft, int nY, int nRight, int nValue)
 {
     Unicode wszText[32];

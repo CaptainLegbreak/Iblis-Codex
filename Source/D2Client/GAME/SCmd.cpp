@@ -17,6 +17,7 @@
 #include "D2ClientTypes.h"
 #include "D2MsgRecord.h"
 #include "D2MultiTypes.h"
+#include "D2UnitDropPacket.h"
 
 struct D2ActiveRoomStrc;
 
@@ -844,13 +845,6 @@ struct D2GSPacketSrv10
     unsigned char nCurrentPosY[2];
 };
 
-struct D2UnitDropItemsPacketStrc
-{
-    char nHeader;
-    char bActive;
-    char nUnitId[4];
-    char nOtherUnitId[4];
-};
 
 unsigned char __stdcall AUTOMAP_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00462EE0
 
@@ -4287,13 +4281,11 @@ int __fastcall ERRORMANAGER_GetBitWidth(unsigned int nValue)
     return nValue;
 }
 
-// build: context Log2Ceil
 static inline int Log2Ceil(int nValue)
 {
     return nValue < 3 ? 1 : ERRORMANAGER_GetBitWidth(nValue - 1);
 }
 
-// build: context GetMonStats2TxtRecordFromMonsterId
 static inline D2MonStats2Txt* GetMonStats2TxtRecordFromMonsterId(int nMonsterId)
 {
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount) return 0;
@@ -4305,7 +4297,6 @@ static inline D2MonStats2Txt* GetMonStats2TxtRecordFromMonsterId(int nMonsterId)
     return 0;
 }
 
-// build: context GetItemStatCostTxtRecord
 static inline D2ItemStatCostTxt* GetItemStatCostTxtRecord(int nStatId)
 {
     if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
