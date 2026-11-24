@@ -268,7 +268,6 @@ int __stdcall sub_00424B00_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, Bi
 
 inline void* operator new(unsigned int, void* pPlace) throw();
 
-struct SMSGHANDLER_PARAMS;
 
 void __stdcall SMemMove(void* pDest, const void* pSource, unsigned int nSize);                             // 0x0041D2E0
 

@@ -17,7 +17,6 @@ struct D2PeNtHeadersStrc;
 
 struct D2PeSectionStrc;
 
-struct D2ImageHlpAddressStrc;
 
 struct D2ImageHlpStackFrameStrc;
 
