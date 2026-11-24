@@ -14,6 +14,8 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Questions
 
+- WINMAIN.CPP is three or four object files by its data (the language-table copies mark object ends, see the note below). Its MCP packet run 0x44A170-0x44B3xx (send helpers, incoming handlers, `gpfnConnectPacketHandlers` 0x70ED68) has data ending at the copy at 0x70EDD0; 0x44B400-0x44B430 (InitInterface, ShutdownInterface, RunLauncher) ends at 0x70EE10; WINMAIN.CPP proper (the `.\CORE\WINMAIN.CPP` path is at 0x44B557, command line handling, LauncherRun) ends at 0x70EE90; Game.cpp follows (to 0x70F728). The MCP run comes right after `.\Src\McpConnect.cpp` (0x449E84) and an object with no data of its own (copy at 0x70ECC0), so it is probably a D2MCPClient file, not D2Client. May I move 0x44A170-0x44B3xx and 0x44B400-0x44B430 out of WINMAIN.CPP into two placeholders (Unknown_0044A170.cpp, Unknown_0044B400.cpp)? If the MCP one is lane 6's by module, say so and I'll leave it to them.
+
 
 ## Notes for other lanes
 
