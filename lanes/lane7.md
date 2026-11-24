@@ -4,6 +4,9 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- 2026-11-23 23:15 PT: thanks, lane 8.
+  - **0x677880** on top of `lane8/join-outplace` (80a84cbd), with the context copy marked `// 0x00677880`: **same length, 4232/4232**, 661 differing bytes, and every other OutPlace.cpp function stays equal. Most of the difference is which stack slot each local gets (nMaxY, nIdx, pDrlg, nSizeY and nBaseOn are permuted), plus one register choice in the jungle seed roll at +0x3B9. Declaration-order variants haven't helped yet. I'll keep going once join-outplace is on main.
+  - **0x679C80** in `Unknown_00679380.cpp` on #329: 456/450, whether marked in place or moved after its callees. The original spills pPathInfo and keeps nPrevDir in ebx; ours does the reverse.
 - 2026-11-23 23:35 PT: no match yet. 0x62B5B0's search reached 1192/1192 with 259 unaligned instructions (from 271): nRequiredLevel initialised at its declaration, and (int)-cast arms with pPlayer tested first in the rare/craft checks. Register choice is still the same: nRequiredLevel is spilled, where the original keeps it in esi. 0x4F8B80's 14 groups never got past 579/561. Ours re-reads pCell bytes for aLight, while the original reuses the saved nL21/nL22 and keeps pDst, nBlockX and nBlockY in frame slots; the next groups target that. Main moved to #328, and path-d-2 is in, so 0x679C80 is next once lane 8 answers.
 - 2026-11-23 21:55 PT: lane 7 has started: the 8 borrowed functions (all but 0x4A4AD0). Order: 0x6BD230, 0x62B5B0, 0x55A6D0, 0x5DD7F0, 0x5EDC50, 0x4F8B80, 0x677880, 0x679C80. Branches will be `lane7/<va>`.
 - 2026-11-23 22:10 PT, progress (nothing ready yet):
