@@ -552,11 +552,6 @@ struct D2FpoDataStrc
     unsigned short cbFrame : 2;
 };
 
-// 0x0040B320
-void __cdecl FOG_10082_Noop()
-{
-}
-
 char gszImageHlpSymSearchPath[4096]; // 0x0075BFB8
 
 int gbSymQuiet; // 0x0075CFB8

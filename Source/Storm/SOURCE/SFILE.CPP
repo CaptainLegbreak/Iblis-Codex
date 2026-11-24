@@ -6,12 +6,9 @@
 #include "D2StormSha1.h"
 #include "D2StormBitOutput.h"
 
-
 struct D2FileStrc;
 
 struct D2StormFileSubStrc;
-
-
 
 struct D2CriticalSectionStrc;
 
@@ -48,8 +45,6 @@ struct PairStrc_004169A0;
 struct PairStrc_0041C390;
 
 struct PairStrc_0041E8F0;
-
-struct PairStrc_004203E0;
 
 struct PairStrc_00426920;
 
@@ -121,10 +116,6 @@ struct CHuffman;
 
 struct HANDLER;
 
-struct WNDREC;
-
-struct D2StormNodeListBStrc;
-
 struct T004013C0
 {
     unsigned long dwOemId;
@@ -157,8 +148,6 @@ extern "C" char* __cdecl _strupr(char* szString); // 0x006862A2
 extern "C" char* __cdecl _strlwr(char* szString); // 0x006864E1
 
 extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(T004013C0* pInfo); // 0x006CC1F0
-
-
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 
@@ -382,19 +371,11 @@ struct PairStrc_0041E8F0
 
 extern int gdwGlobal_007792F4; // 0x007792F4
 
-struct PairStrc_004203E0
-{
-    int nFirst;
-    int nSecond;
-};
-
 struct PairStrc_00426920
 {
     int nFirst;
     int nSecond;
 };
-
-
 
 struct D2IdentityView {
  D2StormLinkStrc link;
@@ -454,7 +435,6 @@ struct D2StormList00418490Strc : D2StormListBaseStrc { int sub_00418490_IsEmpty(
 
 struct D2StormList004185B0Strc : D2StormListBaseStrc { int sub_004185B0_IsEmpty(); };
 
-
 extern "C" __declspec(dllimport) void* __stdcall CreateEventA(void* pAttributes, int bManualReset, int bInitialState, const char* szName); // 0x006CC228
 
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfnStart)(void* pParam), void* pParam, unsigned long dwFlags, unsigned long* pThreadId); // 0x006CC250
@@ -512,38 +492,6 @@ struct HANDLER
         if (pMemory)
             SMemFree(pMemory, "delete", -1, 0);
     }
-};
-
-struct WNDREC
-{
-    D2StormLinkStrc f_0;
-    int unk0x08;
-
-    WNDREC()
-    {
-        f_0.m_prevlink = 0;
-        f_0.m_next = 0;
-    }
-    ~WNDREC();
-    static void operator delete(void* pMemory)
-    {
-        if (pMemory)
-            SMemFree(pMemory, "delete", -1, 0);
-    }
-};
-
-struct D2StormNodeListBStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2StormLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
-    }
-    void sub_00420540_LinkNode(char* pNode, unsigned int nLinkType, char* pExisting);                       // 0x00420540
-    char* sub_00420820_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-    char* sub_00420970_DeleteNode(char* pNode);
 };
 
 int __stdcall SFileGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00416370
@@ -623,7 +571,6 @@ extern "C" unsigned int __security_cookie; // 0x00749DE0
 
 extern "C" void __fastcall __security_check_cookie(unsigned int); // 0x00681A48
 
-
 static D2StormBlockStrc* GetBlockEntry(ARCHIVEREC* pArchive, int nHashIndex); // 0x004155B0
 
 static int __stdcall FindHashEntry(unsigned short wLocale, unsigned char nPlatform, ARCHIVEREC* pArchive, const char* szName); // 0x004155D0
@@ -648,13 +595,11 @@ extern "C" const char gszStormFileRecTypeName[]; // 0x007083C0
 
 extern "C" const char gszStormEventRecTypeName[]; // 0x007083D8
 
-
 extern "C" __declspec(dllimport) int __stdcall GetDiskFreeSpaceA(const char* lpRootPathName, unsigned long* lpSectorsPerCluster, unsigned long* lpBytesPerSector, unsigned long* lpNumberOfFreeClusters, unsigned long* lpTotalNumberOfClusters); // 0x006CC270
 
 extern "C" __declspec(dllimport) int __stdcall GetVolumeInformationA(const char* lpRootPathName, char* lpVolumeNameBuffer, unsigned long nVolumeNameSize, unsigned long* lpVolumeSerialNumber, unsigned long* lpMaximumComponentLength, unsigned long* lpFileSystemFlags, char* lpFileSystemNameBuffer, unsigned long nFileSystemNameSize); // 0x006CC2E8
 
 extern "C" __declspec(dllimport) unsigned int __stdcall GetDriveTypeA(const char* lpRootPathName);         // 0x006CC2EC
-
 
 char* gpStormExplodeWork;                                                                                   // 0x0077903C
 
@@ -668,9 +613,7 @@ void __cdecl sub_00415210_ExplodeWrite(char* pBuffer, unsigned int* pnSize, void
 
 extern "C" unsigned int __cdecl sub_006B01B0_Explode(unsigned int (__cdecl* pRead)(char*, unsigned int*, void*), void (__cdecl* pWrite)(char*, unsigned int*, void*), char* pWork, void* pParam); // 0x006B01B0
 
-
 int __stdcall SFileLoadFileEx2(void* hMpq, const char* szFileName, void** ppBuffer, unsigned int* pSize, unsigned int nExtraSize, int nFlags, void* pOverlapped, int nArg8); // 0x0041AF60
-
 
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile);
 
@@ -1240,7 +1183,6 @@ static unsigned int __stdcall InternalReadUnaligned(unsigned char* pBuffer, unsi
 }
 
 int __stdcall SFileAuthenticateArchive(void* hArchive, unsigned int* pnResult);
-
 
 extern int gnValue_00708350;                                                                                // 0x00708350
 
@@ -2413,13 +2355,6 @@ void __fastcall sub_0041E8F0(PairStrc_0041E8F0* pPair)
     pPair->nSecond = 0;
 }
 
-// 0x004203E0
-void __fastcall sub_004203E0(PairStrc_004203E0* pPair)
-{
-    pPair->nFirst = 0;
-    pPair->nSecond = 0;
-}
-
 // 0x00426920
 void __fastcall sub_00426920(PairStrc_00426920* pPair)
 {
@@ -2902,12 +2837,6 @@ inline HANDLER::~HANDLER()
     f_0.Unlink();
 }
 
-// build: symbol ??_GWNDREC@@QAEPAXI@Z 0x00420880
-inline WNDREC::~WNDREC()
-{
-    f_0.Unlink();
-}
-
 // 0x00418EC0
 char* D2StormFixedListStrc::sub_00418EC0_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
 {
@@ -3011,25 +2940,6 @@ char* D2StormFixedListStrc::sub_0041A2C0_DeleteNode(char* pNode)
     return pNext;
 }
 
-// 0x00420820
-char* D2StormNodeListBStrc::sub_00420820_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(WNDREC) + nExtraBytes, gszTypeNameWndRec_00708850, -2, nFlags | 8);
-    WNDREC* pRecord = pMemory ? new (pMemory) WNDREC : 0;
-    if (nLinkType)
-        sub_00420540_LinkNode((char*)pRecord, nLinkType, 0);
-    return (char*)pRecord;
-}
-
-// 0x00420970
-char* D2StormNodeListBStrc::sub_00420970_DeleteNode(char* pNode)
-{
-    char* pNext = Link(pNode)->Next();
-    ((WNDREC*)pNode)->~WNDREC();
-    SMemFree(pNode, gszTypeNameWndRec_00708850, -2, 0);
-    return pNext;
-}
-
 // 0x0041AF60
 int __stdcall SFileLoadFileEx2(void* hMpq, const char* szFileName, void** ppBuffer, unsigned int* pSize, unsigned int nExtraSize, int nFlags, D2StormOverlappedStrc* pOverlapped, int nArg8)
 {
@@ -3107,7 +3017,6 @@ int __stdcall FlushAndNotify(int nArg)
 struct D2StormBlockStrc;
 
 void __cdecl InitCryptTable(); // 0x00415B90
-
 
 // 0x00418390
 int __stdcall SFileFileExistsEx(void* hArchive, const char* szFileName, int nFlags)
@@ -3933,7 +3842,6 @@ void __stdcall sub_00416760_Nop();
 
 char* __fastcall sub_004167A0_LinkNext(D2StormLinkStrc* pLink);
 
-
 char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink);
 
 char* __fastcall DRLGPRESET_GetLinkRawNext(D2StormLinkStrc* pLink);
@@ -3947,7 +3855,6 @@ char* __fastcall sub_00416840_LinkRawNext(D2StormLinkStrc* pLink);
 char* __fastcall sub_00416850_LinkNext(D2StormLinkStrc* pLink);
 
 char* __fastcall sub_00416880_LinkRawNext(D2StormLinkStrc* pLink);
-
 
 void __fastcall sub_004169F0_InitTerminator(D2StormListStrc* pList);
 
@@ -4047,7 +3954,6 @@ void sub_F21_EmitScalarDeletingDestructors(ARCHIVEREC* pArchive, FILEREC* pFile,
     delete pFile;
     delete pRecord;
 }
-
 
 // 0x00419690
 char* D2StormFixedListStrc::sub_00419690_DeleteNode(char* pNode)
@@ -4553,7 +4459,6 @@ int __stdcall SFileCloseFile(void* hFile)
     LeaveCriticalSection(&gBasePathLock_00779068);
     return 1;
 }
-
 
 // 0x00419BD0
 static inline void RemoveStreamRef(AUDIOSTREAM* stream)

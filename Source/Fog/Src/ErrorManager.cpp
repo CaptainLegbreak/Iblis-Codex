@@ -2195,11 +2195,6 @@ void __stdcall sub_K01_Emit_00407FC0(const char* szPrefix, const char* szText, i
     ERRORMANAGER_LogPrefixedText(szPrefix, szText, bFlag);
 }
 
-// 0x00413740
-void __cdecl sub_00413740_Nop()
-{
-}
-
 // build: context sub_00406BA0_GetModuleDirectoryAndSave
 
 
@@ -3003,6 +2998,11 @@ void* __fastcall sub_0040A1F0_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory
 extern float gafSinTable[]; // 0x00707800
 
 extern int gbUsePools; // 0x00708000
+
+// 0x0040B320
+void __cdecl FOG_10082_Noop()
+{
+}
 
 // 0x0040B330
 float __stdcall sub_0040B330_Cos(int nAngle)

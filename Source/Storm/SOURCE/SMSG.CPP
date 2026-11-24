@@ -14,6 +14,15 @@ void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
 struct WNDREC : TSLinkedNode<WNDREC>
 {
     void* hWnd;                                             // 0x08
+
+    ~WNDREC()
+    {
+    }
+    static void operator delete(void* pMemory)
+    {
+        if (pMemory)
+            SMemFree(pMemory, gszDelete_006CC824, -1, 0);
+    }
 };
 
 struct D2WinMsgStrc
@@ -59,30 +68,207 @@ inline void* operator new(unsigned int, void* pPlace) throw()
     return pPlace;
 }
 
+template<class T, class TGetLink>
+void TSList<T, TGetLink>::UnlinkAll()
+{
+    while (T* ptr = Head())
+        UnlinkNode(ptr);
+}
+
+template<class T, class TGetLink>
+T* TSList<T, TGetLink>::DeleteNode(T* ptr)
+{
+    T* next = Next(ptr);
+    ptr->~T();
+    SMemFree(ptr, STORM_TYPENAME(T), -2, 0);
+    return next;
+}
+
 extern TSList<WNDREC> gWndRecList_00708860; // 0x00708860
 
 void* gdwGlobal_007792F4; // 0x007792F4
 
 // build: symbol ??_R0?AUWNDREC@@@8 0x00708848
 // build: symbol ?SMemAlloc@@YGPAXIPBDHI@Z 0x00413020
+// build: symbol ?SMemFree@@YGHPAXPBDHI@Z 0x00412650
+// build: symbol ?Next@?$TSLink@UWNDREC@@@@QAEPAUWNDREC@@XZ 0x004203C0
+// build: symbol ?RawNext@?$TSLink@UWNDREC@@@@QAEPAUWNDREC@@XZ 0x004203D0
 // build: symbol ?NextLink@?$TSLink@UWNDREC@@@@QAEPAU1@H@Z 0x004203F0
+// build: symbol ?Unlink@?$TSLink@UWNDREC@@@@QAEXXZ 0x00420430
+// build: symbol ?Head@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@XZ 0x00420490
+// build: symbol ??0?$TSLink@UWNDREC@@@@QAE@XZ 0x004204A0
 // build: symbol ?Link@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAU?$TSLink@UWNDREC@@@@PBUWNDREC@@@Z 0x00420520
 // build: symbol ?LinkNode@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXPAUWNDREC@@I0@Z 0x00420540
 // build: symbol ?Next@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@PBU2@@Z 0x004205F0
+// build: symbol ??1?$TSLink@UWNDREC@@@@QAE@XZ 0x00420610
 // build: symbol ?UnlinkNode@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXPAUWNDREC@@@Z 0x00420650
 // build: symbol ?IsEmpty@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEHXZ 0x004206C0
 // build: symbol ?RawNext@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@PBU2@@Z 0x004206E0
+// build: symbol ??0?$TSLinkedNode@UWNDREC@@@@QAE@XZ 0x00420700
+// build: symbol ??1?$TSLinkedNode@UWNDREC@@@@QAE@XZ 0x00420710
 // build: symbol ?UnlinkAll@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXXZ 0x00420750
 // build: symbol ??1?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAE@XZ 0x00420790
+// build: symbol ??0WNDREC@@QAE@XZ 0x004207D0
+// build: symbol ??1WNDREC@@QAE@XZ 0x004207E0
+// build: symbol ?NewNode@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@III@Z 0x00420820
+// build: symbol ??_GWNDREC@@QAEPAXI@Z 0x00420880
 // build: symbol ?DeleteNode@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@PAU2@@Z 0x00420970
+template WNDREC* TSLink<WNDREC>::Next();
+template WNDREC* TSLink<WNDREC>::RawNext();
 template TSLink<WNDREC>* TSLink<WNDREC>::NextLink(int);
+template void TSLink<WNDREC>::Unlink();
+template WNDREC* TSList<WNDREC>::Head();
+template TSLink<WNDREC>::TSLink();
+template TSLink<WNDREC>::~TSLink();
 template TSLink<WNDREC>* TSList<WNDREC>::Link(const WNDREC*);
 template void TSList<WNDREC>::LinkNode(WNDREC*, unsigned int, WNDREC*);
 template WNDREC* TSList<WNDREC>::Next(const WNDREC*);
 template void TSList<WNDREC>::UnlinkNode(WNDREC*);
 template int TSList<WNDREC>::IsEmpty();
 template WNDREC* TSList<WNDREC>::RawNext(const WNDREC*);
+template void TSList<WNDREC>::UnlinkAll();
 template TSList<WNDREC>::~TSList();
+template WNDREC* TSList<WNDREC>::NewNode(unsigned int, unsigned int, unsigned int);
+template WNDREC* TSList<WNDREC>::DeleteNode(WNDREC*);
+
+// The run's list pieces that match no stpl.h member, on a link without a destructor.
+struct D2SMsgLinkStrc
+{
+    D2SMsgLinkStrc* m_prevlink;                             // 0x00
+    char* m_next;                                           // 0x04
+
+    D2SMsgLinkStrc()
+    {
+        m_prevlink = 0;
+        m_next = 0;
+    }
+    D2SMsgLinkStrc* NextLink(int nLinkOffset)
+    {
+        if ((int)m_next < 0)
+            return (D2SMsgLinkStrc*)~(unsigned int)m_next;
+        if (nLinkOffset < 0)
+            nLinkOffset = (char*)this - m_prevlink->m_next;
+        return (D2SMsgLinkStrc*)(m_next + nLinkOffset);
+    }
+    void Unlink()
+    {
+        if (m_prevlink)
+        {
+            NextLink(-1)->m_prevlink = m_prevlink;
+            m_prevlink->m_next = m_next;
+            m_prevlink = 0;
+            m_next = 0;
+        }
+    }
+};
+
+struct D2SMsgListStrc
+{
+    int m_linkoffset;                                       // 0x00
+    D2SMsgLinkStrc m_terminator;                            // 0x04
+
+    D2SMsgListStrc();
+    void sub_0060E5F0_Reset();
+};
+
+struct D2SMsgPairStrc
+{
+    int nFirst;                                             // 0x00
+    int nSecond;                                            // 0x04
+};
+
+struct sub_004204B0
+{
+    D2SMsgLinkStrc f_0;                                     // 0x00
+
+    ~sub_004204B0();
+};
+
+struct D2Strc00420D80
+{
+    int f_0;
+    int f_4;
+    int f_8;
+    void sub_00420D80_Clear();
+};
+
+struct D2Strc00420DA0
+{
+    int f_0;
+    int nEnd;
+    int f_8;
+    int nFieldC;
+    int nStart;
+    int sub_00420DA0_GetSpan();
+};
+
+// 0x004203E0
+void __fastcall sub_004203E0(D2SMsgPairStrc* pPair)
+{
+    pPair->nFirst = 0;
+    pPair->nSecond = 0;
+}
+
+// 0x00420420
+D2SMsgLinkStrc* __fastcall sub_00420420_Identity(D2SMsgLinkStrc* pLink)
+{
+    return pLink;
+}
+
+// 0x00420470
+void __fastcall sub_00601DF0_InitTerminator(D2SMsgListStrc* pList)
+{
+    pList->m_terminator.m_prevlink = &pList->m_terminator;
+    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
+}
+
+// 0x00420480
+D2SMsgLinkStrc* __fastcall sub_00420480_Identity(D2SMsgLinkStrc* pLink)
+{
+    return pLink;
+}
+
+// 0x004204B0
+sub_004204B0::~sub_004204B0()
+{
+    f_0.Unlink();
+}
+
+// 0x004204F0
+char* __fastcall sub_00601B60_LinkNext(D2SMsgLinkStrc* pLink)
+{
+    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
+}
+
+// 0x00420500
+void D2SMsgListStrc::sub_0060E5F0_Reset()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x004206A0
+D2SMsgListStrc::D2SMsgListStrc()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x00420D80
+void D2Strc00420D80::sub_00420D80_Clear()
+{
+    f_0 = 0;
+    f_4 = 0;
+    f_8 = 0;
+}
+
+// 0x00420DA0
+int D2Strc00420DA0::sub_00420DA0_GetSpan()
+{
+    return nEnd - nStart;
+}
 
 // 0x00420290
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg)
