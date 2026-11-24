@@ -4,9 +4,10 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/lang-a-2 623ff998 535->535 language-table copies: split the multi-copy blocks after Preset.cpp, and place 17 copies with their objects; VERIFIED 4bc0d273
+- lane6/lang-a-2 9eed120b 535->535 language-table copies: split the multi-copy blocks after Preset.cpp, and place 18 copies with their objects; VERIFIED 29db3ea7
   - **Replaces lane6/lang-a** (that one was on #309; this one is replayed on #311, and its data-plan change is identical).
   - After FieldTbls.cpp: 25 back-to-back copies, broken by 36 B at 0x00749B10 (no readers) and by DrlgGrid.cpp's own gpfnDrlgGridFlagOperations (0x00749BAC). So DrlgGrid.cpp is the 16th object after FieldTbls.cpp. Pinned: FieldTbls.cpp 0x00749744, AnimTbls.cpp 0x007497C8 (next asserted file), DrlgGrid.cpp 0x00749B70, DrlgVer.cpp 0x00749BC4 (was borrowed). The other 14 copies and the 36 B are now one entry each, still in FieldTbls.cpp until their objects are pinned. AnimTbls.cpp, DrlgGrid.cpp and DrlgVer.cpp get their first data includes.
+  - Third commit: gEclipseEnvironmentCycle (Env.cpp) shrinks from 132 B to 72 B. Its last 60 B were LvlTbls.cpp's copy, which ends at gpAutomapSeed.
   - Rule used for 13 more: a copy right before data the plan already gives to F, which only F reads, is F's (ChatDlg, ComCallback, D2WinMain, D2WinPalette, D2WinTextBox, D2Comp, DrlgActivate, Units, Inventory, Composit, MonsterTbls, ItemMods, Waypoint). Touches data entries of D2Client automap.cpp (0x0070CCD8 leaves it).
 - lane6/locks-a a53078d6 535->535 four long-lived locks become CCritSect objects in their files (BnDownload.cpp x2, CACHE.CPP, Preset.cpp), per lane 3's crt-locks pattern; VERIFIED a64fc1f1
   - Based on main #306 (no source file in common with #307-#308); not stacked. Takes eight init/destroy functions out of Storm/Unknown_006CAE80.cpp, Bnclient/Unknown_006CB420.cpp and Storm/Unknown_006CB4E0.cpp (Storm-dir placeholders, as the coordinator assigned).
@@ -15,7 +16,7 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Notes for other lanes
 
-- Lanes 3, 4 and 5: three named definitions swallow a language-table copy that belongs to the next file. gaTable_0070896C (Storm/Unknown_00426900.cpp) holds 0x00708970, MainMenus.cpp's copy. gEclipseEnvironmentCycle (Env.cpp, lane 6) holds 0x007444C8, LvlTbls.cpp's. gabDirection8To64 (D2Game ItemMode.cpp) holds 0x00745738, Skills.cpp's. Those definitions are probably sized too big.
+- Lanes 3 and 5: two named definitions swallow a language-table copy that belongs to the next file. gaTable_0070896C (Storm/Unknown_00426900.cpp) holds 0x00708970, MainMenus.cpp's copy. gabDirection8To64 (D2Game ItemMode.cpp) holds 0x00745738, Skills.cpp's. Those definitions are probably sized too big.
 - Lane 3: D2Gdi `Unknown_006C81A0`, `Unknown_006C84B0`, `Unknown_006C86A0`, `Unknown_006C8750` sit in the Storm SCMD run; D2Direct3D `Unknown_006B1C70` sits in the Fog QServer run; MainMenus 0x00409020 and 0x004107F0 are Fog code. Storm-region stubs: D2Win `Unknown_006B1BC0`, D2Hell `Unknown_006CAE5F`, D2CMP `Unknown_006CB4C0`. SRP 0x00528550, 0x00528890. Yours to place; lane 6 has not moved them.
 - Lane 4: D2Client-range functions filed in lane-6 files: CharSel/ComCallback/ChatDlg 0x00451920, 0x00453470, 0x00458CD0, 0x004756D0, 0x00478160, 0x0044CCA0, 0x00451B30, 0x00451DB0, 0x00449AD0, 0x0044A130; D2Hell `Unknown_006CB401`.
 - Lane 5: D2Game-range functions in SpriteCache.cpp: 0x005B72A0, 0x005B8740, 0x005C2FE0, 0x005DD280, 0x005E5270, 0x005EDC40, 0x005EE5C0, 0x005EF310; D2Net 0x0052BF40.
