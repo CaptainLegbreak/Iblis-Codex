@@ -30,13 +30,13 @@ struct D2FloorEntryStrc { char unknown[8]; D2SurfaceStrc* surface; char tail[12]
 
 struct D2FloorSetStrc { int count; char unknown[20]; D2FloorEntryStrc* entries; };
 
-void __fastcall D3D_LogDDrawError(const char*, int); // 0x006B20E0
+void __fastcall D3DCORE_LogDDrawError(const char*, int); // 0x006B20E0
 
-D2FloorPoolEntryStrc* __fastcall D3D_FloorCacheUnlink(D2FloorPoolStrc* pList); // 0x006BB1F0
+D2FloorPoolEntryStrc* __fastcall D3DFLOORCACHE_FloorCacheUnlink(D2FloorPoolStrc* pList); // 0x006BB1F0
 
 static __declspec(noinline) void sub_006BB150_AppendTail(D2FloorPoolStrc* pList, D2FloorPoolEntryStrc* pNode);
 
-D2FloorPoolEntryStrc* __fastcall D3D_FloorCacheUnlink(D2FloorPoolStrc* pList, int nIndex); // 0x006BB1F0
+D2FloorPoolEntryStrc* __fastcall D3DFLOORCACHE_FloorCacheUnlink(D2FloorPoolStrc* pList, int nIndex); // 0x006BB1F0
 
 #define RELEASE(p) if (p) { p->lpVtbl->Release((D2ComObject006BB640Strc*)p); p = 0; }
 
@@ -103,15 +103,15 @@ struct D2CacheListStrc
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-void __fastcall D3D_BlitIndexedToHighColor(const unsigned char* pSource, unsigned short* pDest, int nWidth, int nHeight, int nPitch, int nUnused); // 0x006B1DC0
+void __fastcall D3DCORE_BlitIndexedToHighColor(const unsigned char* pSource, unsigned short* pDest, int nWidth, int nHeight, int nPitch, int nUnused); // 0x006B1DC0
 
-void __fastcall D3D_CopySurface(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, unsigned int nRows); // 0x006B38A0
+void __fastcall D3DCORE_CopySurface(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, unsigned int nRows); // 0x006B38A0
 
-void __fastcall D3D_SubtileCacheTouch(D2CacheListStrc* pList, int nSlot); // 0x006BACB0
+void __fastcall D3DSUBTILECACHE_SubtileCacheTouch(D2CacheListStrc* pList, int nSlot); // 0x006BACB0
 
-int __fastcall D3D_SubtileCacheAdd(D2CacheListStrc* pList); // 0x006BAF00
+int __fastcall D3DSUBTILECACHE_SubtileCacheAdd(D2CacheListStrc* pList); // 0x006BAF00
 
-static void D3D_DecodeTileBlock(const unsigned char* source, unsigned char* destination); // 0x006BB6B0
+static void D3DFLOORCACHE_DecodeTileBlock(const unsigned char* source, unsigned char* destination); // 0x006BB6B0
 
 extern "C" const char gszFailedToUnlockMemorySurface_006FC284[]; // 0x006FC284
 
@@ -133,25 +133,25 @@ extern D2CacheListStrc gBlockCache_0096FC80; // 0x0096FC80
 
 extern D2CacheListStrc gTileCache_0096FC9C; // 0x0096FC9C
 
-void __fastcall D3D_FloorCacheRelease(D2CacheListStrc* pCache, int nIndex); // 0x006BB390
+void __fastcall D3DFLOORCACHE_FloorCacheRelease(D2CacheListStrc* pCache, int nIndex); // 0x006BB390
 
-void __fastcall D3D_SubtileCacheRelease(D2CacheListStrc* pCache, int nIndex); // 0x006BAD70
+void __fastcall D3DSUBTILECACHE_SubtileCacheRelease(D2CacheListStrc* pCache, int nIndex); // 0x006BAD70
 
-int __fastcall D3D_FloorCacheInit(D2FloorPoolStrc* pPool, unsigned int nBase, unsigned int nLimit, unsigned int nUnit); // 0x006BAFC0
+int __fastcall D3DFLOORCACHE_FloorCacheInit(D2FloorPoolStrc* pPool, unsigned int nBase, unsigned int nLimit, unsigned int nUnit); // 0x006BAFC0
 
-static void D3D_FloorCacheAppendUsed(D2FloorPoolStrc* pPool, D2FloorPoolEntryStrc* pEntry); // 0x006BB150
+static void D3DFLOORCACHE_FloorCacheAppendUsed(D2FloorPoolStrc* pPool, D2FloorPoolEntryStrc* pEntry); // 0x006BB150
 
-static void D3D_FloorCacheAppendFree(D2FloorPoolStrc* pPool, D2FloorPoolEntryStrc* pEntry); // 0x006BB170
+static void D3DFLOORCACHE_FloorCacheAppendFree(D2FloorPoolStrc* pPool, D2FloorPoolEntryStrc* pEntry); // 0x006BB170
 
-static D2FloorPoolEntryStrc* D3D_FloorCachePopUsed(D2FloorPoolStrc* pPool); // 0x006BB190
+static D2FloorPoolEntryStrc* D3DFLOORCACHE_FloorCachePopUsed(D2FloorPoolStrc* pPool); // 0x006BB190
 
-static D2FloorPoolEntryStrc* D3D_FloorCachePopFree(D2FloorPoolStrc* pPool); // 0x006BB1C0
+static D2FloorPoolEntryStrc* D3DFLOORCACHE_FloorCachePopFree(D2FloorPoolStrc* pPool); // 0x006BB1C0
 
-void __fastcall D3D_FloorCacheEvict(D2FloorPoolStrc* pPool); // 0x006BB330
+void __fastcall D3DFLOORCACHE_FloorCacheEvict(D2FloorPoolStrc* pPool); // 0x006BB330
 
-void __fastcall D3D_FloorCacheDestroy(D2FloorPoolStrc* pPool, int bReleaseAll); // 0x006BB3E0
+void __fastcall D3DFLOORCACHE_FloorCacheDestroy(D2FloorPoolStrc* pPool, int bReleaseAll); // 0x006BB3E0
 
-static int D3D_FloorCacheAlloc(D2FloorPoolStrc* pPool); // 0x006BB270
+static int D3DFLOORCACHE_FloorCacheAlloc(D2FloorPoolStrc* pPool); // 0x006BB270
 
 D2CacheListStrc gtSubtileCache; // 0x0096FC80
 
@@ -159,7 +159,7 @@ unsigned char gabTileBuffer[0x400]; // 0x009897F8
 
 D2DDSurfaceStrc* gpMemorySurface32; // 0x00989C00
 
-int __fastcall D3D_CreateMemoryTexture(void** ppSurface, void** ppTexture, int nWidth, int nHeight); // 0x006B3730
+int __fastcall D3DCORE_CreateMemoryTexture(void** ppSurface, void** ppTexture, int nWidth, int nHeight); // 0x006B3730
 
 extern int gnWidth_0096F4DC; // 0x0096F4DC
 
@@ -184,10 +184,10 @@ struct D2TileStrc { int unk00[20]; int count; D2TileBlockStrc* blocks; };
 
 extern unsigned short gwPalette_0096FA80[]; // 0x0096FA80
 
-int __fastcall D3D_FloorCacheAdd(D2FloorPoolStrc* pPool); // 0x006BB520
+int __fastcall D3DFLOORCACHE_FloorCacheAdd(D2FloorPoolStrc* pPool); // 0x006BB520
 
 // 0x006BAFC0
-int __fastcall D3D_FloorCacheInit(D2FloorPoolStrc* pPool, unsigned int nBase, unsigned int nLimit, unsigned int nUnit)
+int __fastcall D3DFLOORCACHE_FloorCacheInit(D2FloorPoolStrc* pPool, unsigned int nBase, unsigned int nLimit, unsigned int nUnit)
 {
 	pPool->nCapacity = (nLimit - nBase) / nUnit;
 	pPool->nCapacity = pPool->nCapacity < 0x400 ? pPool->nCapacity : 0x400;
@@ -231,20 +231,20 @@ int __fastcall D3D_FloorCacheInit(D2FloorPoolStrc* pPool, unsigned int nBase, un
 }
 
 // 0x006BB0E0
-void __fastcall D3D_SetFloorCachePalette(D2FloorSetStrc* textures, void* palette)
+void __fastcall D3DFLOORCACHE_SetFloorCachePalette(D2FloorSetStrc* textures, void* palette)
 {
     if (!palette) return;
     for (int i=0; i<textures->count-1; ++i) {
         D2FloorEntryStrc* entry=&textures->entries[i];
         if (entry->surface) {
             int result=entry->surface->vtable->SetPalette(entry->surface,palette);
-            if (result) { D3D_LogDDrawError("SetPalette (floor surface)",result); return; }
+            if (result) { D3DCORE_LogDDrawError("SetPalette (floor surface)",result); return; }
         }
     }
 }
 
 // 0x006BB150
-static void D3D_FloorCacheAppendUsed(D2FloorPoolStrc* pPool, D2FloorPoolEntryStrc* pEntry)
+static void D3DFLOORCACHE_FloorCacheAppendUsed(D2FloorPoolStrc* pPool, D2FloorPoolEntryStrc* pEntry)
 {
 	if (!pPool->pInUseFirst)
 	{
@@ -260,7 +260,7 @@ static void D3D_FloorCacheAppendUsed(D2FloorPoolStrc* pPool, D2FloorPoolEntryStr
 }
 
 // 0x006BB170
-static void D3D_FloorCacheAppendFree(D2FloorPoolStrc* pPool, D2FloorPoolEntryStrc* pEntry)
+static void D3DFLOORCACHE_FloorCacheAppendFree(D2FloorPoolStrc* pPool, D2FloorPoolEntryStrc* pEntry)
 {
 	if (!pPool->pSpareFirst)
 	{
@@ -276,7 +276,7 @@ static void D3D_FloorCacheAppendFree(D2FloorPoolStrc* pPool, D2FloorPoolEntryStr
 }
 
 // 0x006BB190
-static D2FloorPoolEntryStrc* D3D_FloorCachePopUsed(D2FloorPoolStrc* pPool)
+static D2FloorPoolEntryStrc* D3DFLOORCACHE_FloorCachePopUsed(D2FloorPoolStrc* pPool)
 {
 	D2FloorPoolEntryStrc* pEntry = pPool->pInUseFirst;
 	if (!pEntry)
@@ -299,7 +299,7 @@ static D2FloorPoolEntryStrc* D3D_FloorCachePopUsed(D2FloorPoolStrc* pPool)
 }
 
 // 0x006BB1C0
-static D2FloorPoolEntryStrc* D3D_FloorCachePopFree(D2FloorPoolStrc* pPool)
+static D2FloorPoolEntryStrc* D3DFLOORCACHE_FloorCachePopFree(D2FloorPoolStrc* pPool)
 {
 	D2FloorPoolEntryStrc* pEntry = pPool->pSpareFirst;
 	if (!pEntry)
@@ -322,7 +322,7 @@ static D2FloorPoolEntryStrc* D3D_FloorCachePopFree(D2FloorPoolStrc* pPool)
 }
 
 // 0x006BB1F0
-D2FloorPoolEntryStrc* __fastcall D3D_FloorCacheUnlink(D2FloorPoolStrc* pList, int nIndex)
+D2FloorPoolEntryStrc* __fastcall D3DFLOORCACHE_FloorCacheUnlink(D2FloorPoolStrc* pList, int nIndex)
 {
     D2FloorPoolEntryStrc* pHead = pList->pInUseFirst;
     if (!pHead)
@@ -361,15 +361,15 @@ D2FloorPoolEntryStrc* __fastcall D3D_FloorCacheUnlink(D2FloorPoolStrc* pList, in
 }
 
 // 0x006BB270
-static int D3D_FloorCacheAlloc(D2FloorPoolStrc* pPool)
+static int D3DFLOORCACHE_FloorCacheAlloc(D2FloorPoolStrc* pPool)
 {
 	if (pPool->nInUse == pPool->nCapacity)
 	{
 		return 0;
 	}
 
-	D2FloorPoolEntryStrc* pEntry = D3D_FloorCachePopFree(pPool);
-	D3D_FloorCacheAppendUsed(pPool, pEntry);
+	D2FloorPoolEntryStrc* pEntry = D3DFLOORCACHE_FloorCachePopFree(pPool);
+	D3DFLOORCACHE_FloorCacheAppendUsed(pPool, pEntry);
 	++pPool->nInUse;
 	return pEntry->nIndex + 1;
 }
@@ -388,23 +388,23 @@ static void sub_006BB150_AppendTail(D2FloorPoolStrc* pList, D2FloorPoolEntryStrc
 }
 
 // 0x006BB2D0
-void __fastcall D3D_FloorCacheTouch(D2FloorPoolStrc* pList, int nIndex)
+void __fastcall D3DFLOORCACHE_FloorCacheTouch(D2FloorPoolStrc* pList, int nIndex)
 {
     if (pList->nInUse > 1)
     {
         LRU_ASSERT(nIndex, 199);
         LRU_ASSERT(nIndex <= pList->nCapacity, 200);
         LRU_ASSERT(nIndex >= 1, 201);
-        sub_006BB150_AppendTail(pList, D3D_FloorCacheUnlink(pList, nIndex - 1));
+        sub_006BB150_AppendTail(pList, D3DFLOORCACHE_FloorCacheUnlink(pList, nIndex - 1));
     }
 }
 
 // 0x006BB330
-void __fastcall D3D_FloorCacheEvict(D2FloorPoolStrc* pPool)
+void __fastcall D3DFLOORCACHE_FloorCacheEvict(D2FloorPoolStrc* pPool)
 {
 	if (pPool->nInUse)
 	{
-		D2FloorPoolEntryStrc* pEntry = D3D_FloorCachePopUsed(pPool);
+		D2FloorPoolEntryStrc* pEntry = D3DFLOORCACHE_FloorCachePopUsed(pPool);
 		if (pEntry)
 		{
 			if (pEntry->pOwner)
@@ -412,18 +412,18 @@ void __fastcall D3D_FloorCacheEvict(D2FloorPoolStrc* pPool)
 				pEntry->pOwner->nCacheIndex = 0;
 				pEntry->pOwner = 0;
 			}
-			D3D_FloorCacheAppendFree(pPool, pEntry);
+			D3DFLOORCACHE_FloorCacheAppendFree(pPool, pEntry);
 		}
 		--pPool->nInUse;
 	}
 }
 
 // 0x006BB390
-void __fastcall D3D_FloorCacheRelease(D2FloorPoolStrc* pList)
+void __fastcall D3DFLOORCACHE_FloorCacheRelease(D2FloorPoolStrc* pList)
 {
     if (pList->nInUse)
     {
-        D2FloorPoolEntryStrc* pNode = D3D_FloorCacheUnlink(pList);
+        D2FloorPoolEntryStrc* pNode = D3DFLOORCACHE_FloorCacheUnlink(pList);
         if (pNode)
         {
             if (pNode->pOwner)
@@ -448,7 +448,7 @@ void __fastcall D3D_FloorCacheRelease(D2FloorPoolStrc* pList)
 }
 
 // 0x006BB3E0
-void __fastcall D3D_FloorCacheDestroy(D2FloorPoolStrc* pPool, int bReleaseAll)
+void __fastcall D3DFLOORCACHE_FloorCacheDestroy(D2FloorPoolStrc* pPool, int bReleaseAll)
 {
 	D2_ASSERT(pPool, 96);
 
@@ -477,7 +477,7 @@ void __fastcall D3D_FloorCacheDestroy(D2FloorPoolStrc* pPool, int bReleaseAll)
 	{
 		while (pPool->nInUse)
 		{
-			D3D_FloorCacheEvict(pPool);
+			D3DFLOORCACHE_FloorCacheEvict(pPool);
 		}
 	}
 
@@ -491,26 +491,26 @@ void __fastcall D3D_FloorCacheDestroy(D2FloorPoolStrc* pPool, int bReleaseAll)
 }
 
 // 0x006BB520
-int __fastcall D3D_FloorCacheAdd(D2FloorPoolStrc* pPool)
+int __fastcall D3DFLOORCACHE_FloorCacheAdd(D2FloorPoolStrc* pPool)
 {
-	int nId = D3D_FloorCacheAlloc(pPool);
+	int nId = D3DFLOORCACHE_FloorCacheAlloc(pPool);
 	while (!nId)
 	{
-		D3D_FloorCacheEvict(pPool);
-		nId = D3D_FloorCacheAlloc(pPool);
+		D3DFLOORCACHE_FloorCacheEvict(pPool);
+		nId = D3DFLOORCACHE_FloorCacheAlloc(pPool);
 	}
 	return nId;
 }
 
 // 0x006BB5E0
-void __cdecl D3D_CreateTileSurfaces()
+void __cdecl D3DFLOORCACHE_CreateTileSurfaces()
 {
-    D2_ASSERT(D3D_CreateMemoryTexture((void**)&gpMemorySurface, (void**)&gpMemoryTexture, gnWidth_0096F4DC, gnHeight_009702B8), 0x27);
-    D2_ASSERT(D3D_CreateMemoryTexture((void**)&gpSurface_00989C00, (void**)&gpMemoryTexture32, 0x20, 0x20), 0x2A);
+    D2_ASSERT(D3DCORE_CreateMemoryTexture((void**)&gpMemorySurface, (void**)&gpMemoryTexture, gnWidth_0096F4DC, gnHeight_009702B8), 0x27);
+    D2_ASSERT(D3DCORE_CreateMemoryTexture((void**)&gpSurface_00989C00, (void**)&gpMemoryTexture32, 0x20, 0x20), 0x2A);
 }
 
 // 0x006BB640
-void __cdecl D3D_ReleaseTileSurfaces()
+void __cdecl D3DFLOORCACHE_ReleaseTileSurfaces()
 {
     RELEASE(gpMemoryTexture);
     RELEASE(gpMemorySurface);
@@ -519,7 +519,7 @@ void __cdecl D3D_ReleaseTileSurfaces()
 }
 
 // 0x006BB6B0
-static void D3D_DecodeTileBlock(const unsigned char* source, unsigned char* destination)
+static void D3DFLOORCACHE_DecodeTileBlock(const unsigned char* source, unsigned char* destination)
 {
     int rows = 32;
     unsigned char* row = destination;
@@ -546,7 +546,7 @@ static void D3D_DecodeTileBlock(const unsigned char* source, unsigned char* dest
 }
 
 // 0x006BB720
-void __stdcall D3D_RenderTile(D2TileStrc* tile,unsigned short* output,int stride)
+void __stdcall D3DFLOORCACHE_RenderTile(D2TileStrc* tile,unsigned short* output,int stride)
 {
  memset(output,0,gnHeight_009702B8*stride*sizeof(unsigned short));
  for(int i=0;i<tile->count;++i) {
@@ -602,14 +602,14 @@ void __stdcall D3D_RenderTile(D2TileStrc* tile,unsigned short* output,int stride
 }
 
 // 0x006BBA00
-void __fastcall D3D_BindTileTexture(D2CacheBindingStrc* pTile)
+void __fastcall D3DFLOORCACHE_BindTileTexture(D2CacheBindingStrc* pTile)
 {
     D2_ASSERT(pTile->wSlot >= 0, 0x1EF);
 
     if (!pTile->wSlot)
     {
-        D3D_DecodeTileBlock(pTile->pData, gabTileBuffer);
-        pTile->wSlot = D3D_SubtileCacheAdd(&gtSubtileCache);
+        D3DFLOORCACHE_DecodeTileBlock(pTile->pData, gabTileBuffer);
+        pTile->wSlot = D3DSUBTILECACHE_SubtileCacheAdd(&gtSubtileCache);
         const int nIndex = pTile->wSlot - 1;
         D2_ASSERT(nIndex >= 0, 0x1FC);
         D2_ASSERT(nIndex < gtSubtileCache.capacity, 0x1FD);
@@ -621,22 +621,22 @@ void __fastcall D3D_BindTileTexture(D2CacheBindingStrc* pTile)
         long hResult = gpMemorySurface32->lpVtbl->Lock(gpMemorySurface32, 0, &tDesc, 0x21, 0);
         if (hResult)
         {
-            D3D_LogDDrawError(gszFailedToLockMemorySurface_006FC2A4, hResult);
+            D3DCORE_LogDDrawError(gszFailedToLockMemorySurface_006FC2A4, hResult);
         }
 
         D2_ASSERT(tDesc.dwFlags & 8, 0x20B);
 
-        D3D_BlitIndexedToHighColor(gabTileBuffer, (unsigned short*)tDesc.lpSurface, 0x20, 0x20, tDesc.lPitch >> 1, 0x20);
+        D3DCORE_BlitIndexedToHighColor(gabTileBuffer, (unsigned short*)tDesc.lpSurface, 0x20, 0x20, tDesc.lPitch >> 1, 0x20);
 
         hResult = gpMemorySurface32->lpVtbl->Unlock(gpMemorySurface32, 0);
         if (hResult)
         {
-            D3D_LogDDrawError(gszFailedToUnlockMemorySurface_006FC284, hResult);
+            D3DCORE_LogDDrawError(gszFailedToUnlockMemorySurface_006FC284, hResult);
         }
 
         if (gnRenderFlags_0096F3A8 & gnRenderFlag)
         {
-            D3D_CopySurface(pNode->pSurface, gpMemorySurface32, 0x20);
+            D3DCORE_CopySurface(pNode->pSurface, gpMemorySurface32, 0x20);
         }
         else
         {
@@ -648,24 +648,24 @@ void __fastcall D3D_BindTileTexture(D2CacheBindingStrc* pTile)
     else
     {
         D2CacheNodeStrc* pNode = &gtSubtileCache.pNodes[pTile->wSlot - 1];
-        D3D_SubtileCacheTouch(&gtSubtileCache, pTile->wSlot);
+        D3DSUBTILECACHE_SubtileCacheTouch(&gtSubtileCache, pTile->wSlot);
         gpD3DDevice_00970E78->lpVtbl->SetTexture(gpD3DDevice_00970E78, 0, pNode->pTexture);
     }
 }
 
 // 0x006BBB90
-void __fastcall D3D_InvalidateTileCaches(D2TileLibraryEntryStrc* pTile)
+void __fastcall D3DFLOORCACHE_InvalidateTileCaches(D2TileLibraryEntryStrc* pTile)
 {
     if (pTile->nCacheIndex > 0)
     {
-        D3D_FloorCacheRelease(&gTileCache_0096FC9C, (short)(pTile->nCacheIndex - 1));
+        D3DFLOORCACHE_FloorCacheRelease(&gTileCache_0096FC9C, (short)(pTile->nCacheIndex - 1));
     }
 
     for (int i = 0; i < pTile->nBlocks; ++i)
     {
         if (pTile->pBlocks[i].nCacheIndex > 0)
         {
-            D3D_SubtileCacheRelease(&gBlockCache_0096FC80, (short)(pTile->pBlocks[i].nCacheIndex - 1));
+            D3DSUBTILECACHE_SubtileCacheRelease(&gBlockCache_0096FC80, (short)(pTile->pBlocks[i].nCacheIndex - 1));
         }
     }
 }

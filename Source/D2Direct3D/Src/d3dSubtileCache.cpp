@@ -32,7 +32,7 @@ struct D2SubtileEntryStrc { char unknown[8]; D2SurfaceStrc* surface; char tail[1
 
 struct D2SubtileSetStrc { int count; char unknown[20]; D2SubtileEntryStrc* entries; };
 
-void __fastcall D3D_LogDDrawError(const char*, int); // 0x006B20E0
+void __fastcall D3DCORE_LogDDrawError(const char*, int); // 0x006B20E0
 
 struct D2Node006BABD0Strc
 {
@@ -50,13 +50,13 @@ struct D2List006BABD0Strc
     D2Node006BABD0Strc* pNodes18;
 };
 
-static void D3D_SubtileCacheAppendUsed(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode); // 0x006BAB30
+static void D3DSUBTILECACHE_SubtileCacheAppendUsed(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode); // 0x006BAB30
 
 static __declspec(noinline) void sub_006BAB30_AppendTail(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode);
 
 D2SubtilePoolEntryStrc* __fastcall sub_006BABD0_Unlink(D2SubtilePoolStrc* pList, int nIndex);
 
-D2SubtilePoolEntryStrc* __fastcall D3D_SubtileCacheUnlink(D2SubtilePoolStrc* pList); // 0x006BABD0
+D2SubtilePoolEntryStrc* __fastcall D3DSUBTILECACHE_SubtileCacheUnlink(D2SubtilePoolStrc* pList); // 0x006BABD0
 
 struct D2CacheBindingStrc { int unk_00; short value; };
 
@@ -67,7 +67,7 @@ struct D2CacheListStrc { int capacity; int count; D2CacheNodeStrc* firstUsed; D2
 static int sub_006BAC50_TakeFreeNode(D2CacheListStrc* list); // 0x006BAC50
 
 // 0x006BA9A0
-int __fastcall D3D_SubtileCacheInit(D2SubtilePoolStrc* pPool, unsigned int nBase, unsigned int nLimit, unsigned int nUnit)
+int __fastcall D3DSUBTILECACHE_SubtileCacheInit(D2SubtilePoolStrc* pPool, unsigned int nBase, unsigned int nLimit, unsigned int nUnit)
 {
 	pPool->nCapacity = (nLimit - nBase) / nUnit;
 	pPool->nCapacity = pPool->nCapacity < 0x800 ? pPool->nCapacity : 0x800;
@@ -112,20 +112,20 @@ int __fastcall D3D_SubtileCacheInit(D2SubtilePoolStrc* pPool, unsigned int nBase
 }
 
 // 0x006BAAC0
-void __fastcall D3D_SetSubtileCachePalette(D2SubtileSetStrc* textures, void* palette)
+void __fastcall D3DSUBTILECACHE_SetSubtileCachePalette(D2SubtileSetStrc* textures, void* palette)
 {
     if (!palette) return;
     for (int i=0; i<textures->count-1; ++i) {
         D2SubtileEntryStrc* entry=&textures->entries[i];
         if (entry->surface) {
             int result=entry->surface->vtable->SetPalette(entry->surface,palette);
-            if (result) { D3D_LogDDrawError("SetPalette (subtile surface)",result); return; }
+            if (result) { D3DCORE_LogDDrawError("SetPalette (subtile surface)",result); return; }
         }
     }
 }
 
 // 0x006BAB30
-static void D3D_SubtileCacheAppendUsed(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode)
+static void D3DSUBTILECACHE_SubtileCacheAppendUsed(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode)
 {
     if (!pList->pInUseFirst)
     {
@@ -140,7 +140,7 @@ static void D3D_SubtileCacheAppendUsed(D2SubtilePoolStrc* pList, D2SubtilePoolEn
 
 void __cdecl sub_006BAB30_EmitCaller(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode)
 {
-    D3D_SubtileCacheAppendUsed(pList, pNode);
+    D3DSUBTILECACHE_SubtileCacheAppendUsed(pList, pNode);
 }
 
 static void sub_006BAB30_AppendInUse(D2SubtilePoolStrc* pPool, D2SubtilePoolEntryStrc* pEntry)
@@ -159,7 +159,7 @@ static void sub_006BAB30_AppendInUse(D2SubtilePoolStrc* pPool, D2SubtilePoolEntr
 }
 
 // 0x006BAB50
-static void D3D_SubtileCacheAppendFree(D2SubtilePoolStrc* pPool, D2SubtilePoolEntryStrc* pEntry)
+static void D3DSUBTILECACHE_SubtileCacheAppendFree(D2SubtilePoolStrc* pPool, D2SubtilePoolEntryStrc* pEntry)
 {
 	if (!pPool->pSpareFirst)
 	{
@@ -175,7 +175,7 @@ static void D3D_SubtileCacheAppendFree(D2SubtilePoolStrc* pPool, D2SubtilePoolEn
 }
 
 // 0x006BAB70
-static D2SubtilePoolEntryStrc* D3D_SubtileCachePopUsed(D2SubtilePoolStrc* pPool)
+static D2SubtilePoolEntryStrc* D3DSUBTILECACHE_SubtileCachePopUsed(D2SubtilePoolStrc* pPool)
 {
 	D2SubtilePoolEntryStrc* pEntry = pPool->pInUseFirst;
 	if (!pEntry)
@@ -198,7 +198,7 @@ static D2SubtilePoolEntryStrc* D3D_SubtileCachePopUsed(D2SubtilePoolStrc* pPool)
 }
 
 // 0x006BABA0
-static D2SubtilePoolEntryStrc* D3D_SubtileCachePopFree(D2SubtilePoolStrc* pPool)
+static D2SubtilePoolEntryStrc* D3DSUBTILECACHE_SubtileCachePopFree(D2SubtilePoolStrc* pPool)
 {
 	D2SubtilePoolEntryStrc* pEntry = pPool->pSpareFirst;
 	if (!pEntry)
@@ -221,7 +221,7 @@ static D2SubtilePoolEntryStrc* D3D_SubtileCachePopFree(D2SubtilePoolStrc* pPool)
 }
 
 // 0x006BABD0
-D2Node006BABD0Strc* __fastcall D3D_SubtileCacheUnlink(D2List006BABD0Strc* pList, int nIndex)
+D2Node006BABD0Strc* __fastcall D3DSUBTILECACHE_SubtileCacheUnlink(D2List006BABD0Strc* pList, int nIndex)
 {
     D2Node006BABD0Strc* pHead = pList->pHead8;
     if (!pHead)
@@ -260,14 +260,14 @@ D2Node006BABD0Strc* __fastcall D3D_SubtileCacheUnlink(D2List006BABD0Strc* pList,
 }
 
 // 0x006BAC50
-static int D3D_SubtileCacheAlloc(D2SubtilePoolStrc* pPool)
+static int D3DSUBTILECACHE_SubtileCacheAlloc(D2SubtilePoolStrc* pPool)
 {
 	if (pPool->nInUse == pPool->nCapacity)
 	{
 		return 0;
 	}
 
-	D2SubtilePoolEntryStrc* pEntry = D3D_SubtileCachePopFree(pPool);
+	D2SubtilePoolEntryStrc* pEntry = D3DSUBTILECACHE_SubtileCachePopFree(pPool);
 	sub_006BAB30_AppendInUse(pPool, pEntry);
 	++pPool->nInUse;
 	return pEntry->nIndex + 1;
@@ -288,7 +288,7 @@ static void sub_006BAB30_AppendTail(D2SubtilePoolStrc* pList, D2SubtilePoolEntry
 
 
 // 0x006BACB0
-void __fastcall D3D_SubtileCacheTouch(D2SubtilePoolStrc* pList, int nIndex)
+void __fastcall D3DSUBTILECACHE_SubtileCacheTouch(D2SubtilePoolStrc* pList, int nIndex)
 {
     if (pList->nInUse > 1)
     {
@@ -324,7 +324,7 @@ static inline D2SubtilePoolEntryStrc* TakeNode(D2SubtilePoolStrc* pList)
 }
 
 // 0x006BAD10
-void __fastcall D3D_SubtileCacheEvict(D2SubtilePoolStrc* pList)
+void __fastcall D3DSUBTILECACHE_SubtileCacheEvict(D2SubtilePoolStrc* pList)
 {
     if (pList->nInUse)
     {
@@ -353,11 +353,11 @@ void __fastcall D3D_SubtileCacheEvict(D2SubtilePoolStrc* pList)
 }
 
 // 0x006BAD70
-void __fastcall D3D_SubtileCacheRelease(D2SubtilePoolStrc* pList)
+void __fastcall D3DSUBTILECACHE_SubtileCacheRelease(D2SubtilePoolStrc* pList)
 {
     if (pList->nInUse)
     {
-        D2SubtilePoolEntryStrc* pNode = D3D_SubtileCacheUnlink(pList);
+        D2SubtilePoolEntryStrc* pNode = D3DSUBTILECACHE_SubtileCacheUnlink(pList);
         if (pNode)
         {
             if (pNode->pOwner)
@@ -385,7 +385,7 @@ void __fastcall sub_006BAD10_ReleaseOldest(D2SubtilePoolStrc* pPool)
 {
 	if (pPool->nInUse)
 	{
-		D2SubtilePoolEntryStrc* pEntry = D3D_SubtileCachePopUsed(pPool);
+		D2SubtilePoolEntryStrc* pEntry = D3DSUBTILECACHE_SubtileCachePopUsed(pPool);
 		if (pEntry)
 		{
 			if (pEntry->pOwner)
@@ -393,14 +393,14 @@ void __fastcall sub_006BAD10_ReleaseOldest(D2SubtilePoolStrc* pPool)
 				pEntry->pOwner->nCacheIndex = 0;
 				pEntry->pOwner = 0;
 			}
-			D3D_SubtileCacheAppendFree(pPool, pEntry);
+			D3DSUBTILECACHE_SubtileCacheAppendFree(pPool, pEntry);
 		}
 		--pPool->nInUse;
 	}
 }
 
 // 0x006BADC0
-void __fastcall D3D_SubtileCacheDestroy(D2SubtilePoolStrc* pPool, int bReleaseAll)
+void __fastcall D3DSUBTILECACHE_SubtileCacheDestroy(D2SubtilePoolStrc* pPool, int bReleaseAll)
 {
 	D2_ASSERT(pPool, 96);
 
@@ -444,11 +444,11 @@ void __fastcall D3D_SubtileCacheDestroy(D2SubtilePoolStrc* pPool, int bReleaseAl
 
 int __fastcall sub_006BAF00_AllocOrEvict(D2SubtilePoolStrc* pPool)
 {
-	int nId = D3D_SubtileCacheAlloc(pPool);
+	int nId = D3DSUBTILECACHE_SubtileCacheAlloc(pPool);
 	while (!nId)
 	{
 		sub_006BAD10_ReleaseOldest(pPool);
-		nId = D3D_SubtileCacheAlloc(pPool);
+		nId = D3DSUBTILECACHE_SubtileCacheAlloc(pPool);
 	}
 	return nId;
 }
@@ -491,7 +491,7 @@ static int sub_006BAC50_TakeFreeNode(D2CacheListStrc* list)
 }
 
 // 0x006BAF00
-int __fastcall D3D_SubtileCacheAdd(D2CacheListStrc* list)
+int __fastcall D3DSUBTILECACHE_SubtileCacheAdd(D2CacheListStrc* list)
 {
     int result = sub_006BAC50_TakeFreeNode(list);
     if (result)

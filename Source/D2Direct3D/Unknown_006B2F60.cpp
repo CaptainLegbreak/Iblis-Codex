@@ -82,17 +82,17 @@ struct D2Cache006BA830Strc
     int unk0x00[7];
 };
 
-void __cdecl D3D_ReleaseSprites(); // 0x006B5B10
+void __cdecl D3DSPRITE_ReleaseSprites(); // 0x006B5B10
 
 void __cdecl sub_006B7250_ReleaseAll(); // 0x006B7250
 
-void __cdecl D3D_ReleaseSmackSurfaces(); // 0x006B9B30
+void __cdecl D3DSMACK_ReleaseSmackSurfaces(); // 0x006B9B30
 
 void __fastcall sub_006BA830_FreeCache(D2Cache006BA830Strc* pCache, int bFree); // 0x006BA830
 
-void __fastcall D3D_SubtileCacheDestroy(D2Object006BADC0Strc* pObject, int bFree); // 0x006BADC0
+void __fastcall D3DSUBTILECACHE_SubtileCacheDestroy(D2Object006BADC0Strc* pObject, int bFree); // 0x006BADC0
 
-void __fastcall D3D_FloorCacheDestroy(D2Object006BB3E0Strc* pObject, int bFree); // 0x006BB3E0
+void __fastcall D3DFLOORCACHE_FloorCacheDestroy(D2Object006BB3E0Strc* pObject, int bFree); // 0x006BB3E0
 
 extern int gdwGlobal_00970E8C; // 0x00970E8C
 
@@ -106,7 +106,7 @@ extern D2Cache006BA830Strc gtTextureCache2; // 0x00970EE4
 
 extern D2Cache006BA830Strc gtTextureCache3; // 0x00970F00
 
-void __cdecl D3D_ReleaseResources(); // 0x006B3320
+void __cdecl D3DCORE_ReleaseResources(); // 0x006B3320
 
 extern void* ghDDrawWindow_007C9140; // 0x007C9140
 
@@ -165,7 +165,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
-void __fastcall D3D_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
+void __fastcall D3DCORE_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
 
 extern int gbVideoUp; // 0x00970E40
 
@@ -227,12 +227,12 @@ extern BufferPool gLargePool; // 0x00970EC8
 extern BufferPool gMediumPool; // 0x00970EE4
 extern BufferPool gSmallPool; // 0x00970F00
 char* __fastcall sub_006B76D0_InitVertices(char*); // 0x006B76D0
-char* __fastcall D3D_CreateSmackSurfaces(char*); // 0x006B9A50
-char* __fastcall D3D_FloorCacheInit(BufferPool*,char*,char*,unsigned int); // 0x006BAFC0
-char* __fastcall D3D_SubtileCacheInit(BufferPool*,char*,char*,unsigned int); // 0x006BA9A0
+char* __fastcall D3DSMACK_CreateSmackSurfaces(char*); // 0x006B9A50
+char* __fastcall D3DFLOORCACHE_FloorCacheInit(BufferPool*,char*,char*,unsigned int); // 0x006BAFC0
+char* __fastcall D3DSUBTILECACHE_SubtileCacheInit(BufferPool*,char*,char*,unsigned int); // 0x006BA9A0
 char* __fastcall sub_006BA420(BufferPool*,char*,char*,unsigned int,unsigned int); // 0x006BA420
-void __cdecl D3D_InitSprites(); // 0x006B7110
-void __fastcall D3D_InvalidateTileCaches(D2TileLibraryEntryStrc* pTile); // 0x006BBB90
+void __cdecl D3DSPRITE_InitSprites(); // 0x006B7110
+void __fastcall D3DFLOORCACHE_InvalidateTileCaches(D2TileLibraryEntryStrc* pTile); // 0x006BBB90
 void __stdcall TileSetHardwareFreeCallback(void*); // 0x00604A30
 struct D2ComVtblStrc
 {
@@ -248,7 +248,7 @@ struct D2ComObjectStrc
 };
 extern D2ComObjectStrc* gpInterface_00970E78; // 0x00970E78
 void __cdecl sub_006B9150_ReleaseResource(); // 0x006B9150
-void __cdecl D3D_ReleaseTileSurfaces(); // 0x006BB640
+void __cdecl D3DFLOORCACHE_ReleaseTileSurfaces(); // 0x006BB640
 int gbVideoUp; // 0x00970E40
 int gnVideoState; // 0x00970E44
 D2ComObjectStrc* gpPrimarySurface; // 0x00970E68
@@ -284,17 +284,17 @@ void __cdecl sub_006B3080()
   current=sub_006B76D0_InitVertices(current);
   gPrimaryBudget=primary;
   primary+=(unsigned int)current;
-  current=D3D_FloorCacheInit(&gTilePool,current,(char*)primary,tileSize);
+  current=D3DFLOORCACHE_FloorCacheInit(&gTilePool,current,(char*)primary,tileSize);
   gSecondaryBudget=secondary;
   secondary+=(unsigned int)current;
-  current=D3D_SubtileCacheInit(&gAuxiliaryPool,current,(char*)secondary,2048);
+  current=D3DSUBTILECACHE_SubtileCacheInit(&gAuxiliaryPool,current,(char*)secondary,2048);
   start=current;remaining=memory-(unsigned int)current;
   current=sub_006BA420(&gLargePool,current,current+remaining*20/100,256,256);
   gLargeBudget=gLargePool.count*gBufferCopies*65536;
   current=sub_006BA420(&gMediumPool,current,start+remaining*75/100,128,128);
  } else {
   gPrimaryBudget=0;gSecondaryBudget=0;
-  current=D3D_CreateSmackSurfaces(current);
+  current=D3DSMACK_CreateSmackSurfaces(current);
   start=current;remaining=memory-(unsigned int)current;
   current=sub_006BA420(&gLargePool,current,current+remaining*70/100,256,256);
   gLargeBudget=gLargePool.count*gBufferCopies*65536;
@@ -303,8 +303,8 @@ void __cdecl sub_006B3080()
  gMediumBudget=gMediumPool.count*gBufferCopies*16384;
  sub_006BA420(&gSmallPool,current,(char*)memory,32,32);
  gSmallBudget=gSmallPool.count*gBufferCopies*1024;
- D3D_InitSprites();
- TileSetHardwareFreeCallback((void*)D3D_InvalidateTileCaches);
+ D3DSPRITE_InitSprites();
+ TileSetHardwareFreeCallback((void*)D3DFLOORCACHE_InvalidateTileCaches);
 }
 
 // 0x006B32B0
@@ -313,18 +313,18 @@ void __cdecl sub_006B32B0_ReleaseRenderer()
     if (gdwGlobal_00970E8C)
     {
         sub_006B7250_ReleaseAll();
-        D3D_FloorCacheDestroy(&gObject_0096FC9C, 1);
-        D3D_SubtileCacheDestroy(&gObject_0096FC80, 1);
+        D3DFLOORCACHE_FloorCacheDestroy(&gObject_0096FC9C, 1);
+        D3DSUBTILECACHE_SubtileCacheDestroy(&gObject_0096FC80, 1);
     }
     else
     {
-        D3D_ReleaseSmackSurfaces();
+        D3DSMACK_ReleaseSmackSurfaces();
     }
 
     sub_006BA830_FreeCache(&gtTextureCache1, 1);
     sub_006BA830_FreeCache(&gtTextureCache2, 1);
     sub_006BA830_FreeCache(&gtTextureCache3, 1);
-    D3D_ReleaseSprites();
+    D3DSPRITE_ReleaseSprites();
 }
 
 #include "gen/data/Source/D2Direct3D/Unknown_006B2F60.inc"

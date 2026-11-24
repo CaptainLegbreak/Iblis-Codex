@@ -27,7 +27,7 @@ struct D2TextureEntryStrc { char unknown[16]; D2SurfaceStrc* surface; char tail[
 
 struct D2TextureSetStrc { int count; char unknown[20]; D2TextureEntryStrc* entries; };
 
-void __fastcall D3D_LogDDrawError(const char*, int); // 0x006B20E0
+void __fastcall D3DCORE_LogDDrawError(const char*, int); // 0x006B20E0
 
 static void sub_006BA5C0_Append(D2TexPoolStrc* pList, D2TexPoolEntryStrc* pNode);
 
@@ -137,7 +137,7 @@ void __fastcall sub_006BA550_SetTexturePalette(D2TextureSetStrc* textures, void*
         D2TextureEntryStrc* entry=&textures->entries[i];
         if (entry->surface) {
             int result=entry->surface->vtable->SetPalette(entry->surface,palette);
-            if (result) { D3D_LogDDrawError("SetPalette (texture surface)",result); return; }
+            if (result) { D3DCORE_LogDDrawError("SetPalette (texture surface)",result); return; }
         }
     }
 }

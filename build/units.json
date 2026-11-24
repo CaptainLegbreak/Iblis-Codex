@@ -78101,12 +78101,12 @@
     {
      "va": "0x006B1C30",
      "length": 47,
-     "name": "?D3D_FlipPrimary@@YAHXZ"
+     "name": "?D3DCORE_FlipPrimary@@YAHXZ"
     },
     {
      "va": "0x006B1C60",
      "length": 16,
-     "name": "?D3D_GetScreenSize@@YIXPAH0@Z"
+     "name": "?D3DCORE_GetScreenSize@@YIXPAH0@Z"
     },
     {
      "va": "0x006B1C70",
@@ -78115,12 +78115,12 @@
     {
      "va": "0x006B1D50",
      "length": 8,
-     "name": "?D3D_GetColor@@YIII@Z"
+     "name": "?D3DCORE_GetColor@@YIII@Z"
     },
     {
      "va": "0x006B1D60",
      "length": 29,
-     "name": "?D3D_SetPaletteView@@YIXPBUD2GfxPaletteViewStrc@@@Z"
+     "name": "?D3DCORE_SetPaletteView@@YIXPBUD2GfxPaletteViewStrc@@@Z"
     },
     {
      "va": "0x006B1D80",
@@ -78137,7 +78137,7 @@
     {
      "va": "0x006B1EA0",
      "length": 145,
-     "name": "?D3D_SetColorCombineMode@@YIXH@Z"
+     "name": "?D3DCORE_SetColorCombineMode@@YIXH@Z"
     },
     {
      "va": "0x006B1F40",
@@ -78146,7 +78146,7 @@
     {
      "va": "0x006B2030",
      "length": 106,
-     "name": "?D3D_SetTextureFilterMode@@YIXH@Z"
+     "name": "?D3DCORE_SetTextureFilterMode@@YIXH@Z"
     },
     {
      "va": "0x006B20A0",
@@ -78161,7 +78161,7 @@
     {
      "va": "0x006B20C0",
      "length": 20,
-     "name": "?D3D_SetOption@@YIHHH@Z"
+     "name": "?D3DCORE_SetOption@@YIHHH@Z"
     },
     {
      "va": "0x006B20E0",
@@ -78174,7 +78174,7 @@
     {
      "va": "0x006B3400",
      "length": 21,
-     "name": "?D3D_ReleaseWindow@@YAHXZ"
+     "name": "?D3DCORE_ReleaseWindow@@YAHXZ"
     },
     {
      "va": "0x006B3420",
@@ -78235,7 +78235,7 @@
     {
      "va": "0x006B5550",
      "length": 130,
-     "name": "?D3D_Close@@YAHXZ"
+     "name": "?D3DCORE_Close@@YAHXZ"
     },
     {
      "va": "0x006B55E0",
@@ -78244,22 +78244,22 @@
     {
      "va": "0x006B5630",
      "length": 142,
-     "name": "?D3D_PauseSurface@@YIXHHH@Z"
+     "name": "?D3DCORE_PauseSurface@@YIXHHH@Z"
     },
     {
      "va": "0x006B56C0",
      "length": 94,
-     "name": "?D3D_OpenSmackCutscene@@YIXHHH@Z"
+     "name": "?D3DCORE_OpenSmackCutscene@@YIXHHH@Z"
     },
     {
      "va": "0x006B5720",
      "length": 161,
-     "name": "?D3D_StartDraw@@YIHHHHH@Z"
+     "name": "?D3DCORE_StartDraw@@YIHHHHH@Z"
     },
     {
      "va": "0x006B57D0",
      "length": 82,
-     "name": "?D3D_EndDraw@@YAHXZ"
+     "name": "?D3DCORE_EndDraw@@YAHXZ"
     },
     {
      "va": "0x006B5830",
@@ -78779,7 +78779,7 @@
     {
      "va": "0x006B7100",
      "length": 1,
-     "name": "?D3D_DebugFillBackBuffer@@YAXXZ"
+     "name": "?D3DSPRITE_DebugFillBackBuffer@@YAXXZ"
     },
     {
      "va": "0x006B7110",
@@ -79014,32 +79014,32 @@
     {
      "va": "0x006B9A10",
      "length": 64,
-     "name": "?D3D_SmackInit@@YAXXZ"
+     "name": "?D3DSMACK_SmackInit@@YAXXZ"
     },
     {
      "va": "0x006B9A50",
      "length": 163,
-     "name": "?D3D_CreateSmackSurfaces@@YIPADPAD@Z"
+     "name": "?D3DSMACK_CreateSmackSurfaces@@YIPADPAD@Z"
     },
     {
      "va": "0x006B9B00",
      "length": 35,
-     "name": "_D3D_SmackFree"
+     "name": "_D3DSMACK_SmackFree"
     },
     {
      "va": "0x006B9B30",
      "length": 113,
-     "name": "?D3D_ReleaseSmackSurfaces@@YAXXZ"
+     "name": "?D3DSMACK_ReleaseSmackSurfaces@@YAXXZ"
     },
     {
      "va": "0x006B9BB0",
      "length": 30,
-     "name": "?D3D_CloseSmacker@@YIXPAUD2SmackRecordStrc@@@Z"
+     "name": "?D3DSMACK_CloseSmacker@@YIXPAUD2SmackRecordStrc@@@Z"
     },
     {
      "va": "0x006B9BD0",
      "length": 97,
-     "name": "?D3D_UploadSmackTextures@@YAXXZ"
+     "name": "?D3DSMACK_UploadSmackTextures@@YAXXZ"
     },
     {
      "va": "0x006B9C40",
@@ -79178,7 +79178,7 @@
     {
      "va": "0x006BAD70",
      "length": 77,
-     "name": "?D3D_SubtileCacheRelease@@YIXPAUD2List006BAD70Strc@@@Z"
+     "name": "?D3DSUBTILECACHE_SubtileCacheRelease@@YIXPAUD2List006BAD70Strc@@@Z"
     },
     {
      "va": "0x006BADC0",
@@ -79237,7 +79237,7 @@
     {
      "va": "0x006BB390",
      "length": 77,
-     "name": "?D3D_FloorCacheRelease@@YIXPAUD2List006BB390Strc@@@Z"
+     "name": "?D3DFLOORCACHE_FloorCacheRelease@@YIXPAUD2List006BB390Strc@@@Z"
     },
     {
      "va": "0x006BB3E0",
@@ -79250,12 +79250,12 @@
     {
      "va": "0x006BB5E0",
      "length": 88,
-     "name": "?D3D_CreateTileSurfaces@@YAXXZ"
+     "name": "?D3DFLOORCACHE_CreateTileSurfaces@@YAXXZ"
     },
     {
      "va": "0x006BB640",
      "length": 97,
-     "name": "?D3D_ReleaseTileSurfaces@@YAXXZ"
+     "name": "?D3DFLOORCACHE_ReleaseTileSurfaces@@YAXXZ"
     },
     {
      "va": "0x006BB6B0",
