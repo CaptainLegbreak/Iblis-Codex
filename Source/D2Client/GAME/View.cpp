@@ -898,17 +898,6 @@ extern LEVELEVENT_Fn gpfnLevelEvents[];                                         
 
 unsigned int gdwLevelEventBits;                                                                    // 0x007A7458
 
-// 0x0046B630
-void __fastcall sub_0046B630_FireLevelEvent(int nIndex)
-{
-    D2_ASSERT(nIndex < 0x20, 0x1D9);
-    D2_ASSERT(nIndex < 0x14, 0x1DA);
-    gdwLevelEventBits |= 1 << nIndex;
-    if (gpfnLevelEvents[nIndex])
-    {
-        gpfnLevelEvents[nIndex]();
-    }
-}
 
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
@@ -2190,105 +2179,10 @@ void __fastcall VIEW_DrawUnitClickCross(D2UnitStrc* pUnit)
     D2GFX_DrawBox(nBoxX, nBoxY, nBoxX + 4, nBoxY + 4, 0xFF, DRAW_MODE_5);
 }
 
-// 0x0046AE50
-void __fastcall VIEW_StartTimedBox(int nFadeIn, int nHold, int nFadeOut, int nLevelId, int bForce)
-{
-    if (gtTimedBox.bLocked && !bForce)
-    {
-        return;
-    }
-    memset(&gtTimedBox, 0, sizeof(gtTimedBox));
-    gtTimedBox.bActive = 1;
-    D2_ASSERT(nFadeIn, 0x67);
-    gtTimedBox.nFadeIn = nFadeIn;
-    gtTimedBox.nHold = nHold;
-    if (!nFadeOut)
-    {
-        nFadeOut = 0x19;
-    }
-    gtTimedBox.nFadeOut = nFadeOut;
-    gtTimedBox.nTotal = nFadeIn + nHold + nFadeOut;
-    gtTimedBox.nLevelId = nLevelId;
-}
 
-// 0x0046B680
-void __fastcall VIEW_SpawnBrDeathControl(D2UnitStrc* pUnit)
-{
-    D2MissileStrc tMissileParams;
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.nMissile = MISSILE_BRDEATHCONTROL;
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.pOrigin = pUnit;
-    tMissileParams.nSkillLevel = 1;
-    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
-    if (pMissile)
-        MISSILE_SetTargetX(pMissile, 0x32);
 
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.nMissile = MISSILE_BRDEATHSPIRITS1;
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.pOrigin = pUnit;
-    tMissileParams.nSkillLevel = 1;
-    MISSILE_CreateClientMissile(&tMissileParams);
-    tMissileParams.nMissile = MISSILE_BRDEATHSMOKES1;
-    MISSILE_CreateClientMissile(&tMissileParams);
-}
 
-// 0x0046B9A0
-void __fastcall VIEW_SpawnMephistoDeath(D2UnitStrc* pUnit)
-{
-    D2MissileStrc tMissileParams;
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.nMissile = MISSILE_MEPHISTODEATHCONTROL;
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.pOrigin = pUnit;
-    tMissileParams.nSkillLevel = 1;
-    D2UnitStrc* pMissile = MISSILE_CreateClientMissile(&tMissileParams);
-    if (pMissile)
-    {
-        MISSILE_SetTargetX(pMissile, 0x4B);
-        MISSILE_SetTargetY(pMissile, 0x4B);
-    }
 
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.nSkillLevel = 1;
-    tMissileParams.pOrigin = pUnit;
-    tMissileParams.nMissile = MISSILE_MEPHISTOHOLEDELAY;
-    MISSILE_CreateClientMissile(&tMissileParams);
-
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.nMissile = MISSILE_MEPHISTODONOTDRAW;
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.pOrigin = pUnit;
-    tMissileParams.nSkillLevel = 1;
-    MISSILE_CreateClientMissile(&tMissileParams);
-}
-
-// 0x0046BA50
-void __fastcall VIEW_SpawnAndarielDeath(D2UnitStrc* pUnit)
-{
-    D2MissileStrc tMissileParams;
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.nMissile = MISSILE_ANDYCONTROL0;
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.pOrigin = pUnit;
-    tMissileParams.nSkillLevel = 1;
-    MISSILE_CreateClientMissile(&tMissileParams);
-}
-
-// 0x0046BC10
-void __fastcall VIEW_SpawnIzualDeath(D2UnitStrc* pUnit)
-{
-    ITEM_ShowTimedHint((void*)0x1253, 0, 0xFA, 0, 0, 0, 0);
-    D2MissileStrc tMissileParams;
-    memset(&tMissileParams, 0, sizeof(tMissileParams));
-    tMissileParams.nMissile = MISSILE_IZUAL_CONTROL;
-    tMissileParams.pOwner = pUnit;
-    tMissileParams.pOrigin = pUnit;
-    tMissileParams.nSkillLevel = 1;
-    MISSILE_CreateClientMissile(&tMissileParams);
-}
 
 void __stdcall LIST_UnloadPentspinCellfile()
 {

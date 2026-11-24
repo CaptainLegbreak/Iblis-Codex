@@ -1466,11 +1466,6 @@
      "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
     },
     {
-     "va": "0x004107B0",
-     "length": 23,
-     "name": "?sub_004107B0_AtomicStore64@@YIXPA_JPB_J@Z"
-    },
-    {
      "va": "0x00410B10",
      "length": 32,
      "name": "sub_00410B10"
@@ -5054,6 +5049,11 @@
      "va": "0x004107A0",
      "length": 12,
      "name": "?sub_004107A0_DeleteTimeLock@@YAXXZ"
+    },
+    {
+     "va": "0x004107B0",
+     "length": 23,
+     "name": "?sub_004107B0_AtomicStore64@@YIXPA_JPB_J@Z"
     },
     {
      "va": "0x004107D0",
@@ -13779,38 +13779,8 @@
      "name": "VIEW_SetPetEntryValue"
     },
     {
-     "va": "0x0046AE50",
-     "length": 136,
-     "name": "VIEW_StartTimedBox"
-    },
-    {
-     "va": "0x0046B630",
-     "length": 75,
-     "name": "?sub_0046B630_FireLevelEvent@@YIXH@Z"
-    },
-    {
-     "va": "0x0046B680",
-     "length": 129,
-     "name": "?VIEW_SpawnBrDeathControl@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x0046B850",
      "length": 334
-    },
-    {
-     "va": "0x0046B9A0",
-     "length": 170,
-     "name": "?VIEW_SpawnMephistoDeath@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0046BA50",
-     "length": 58,
-     "name": "?VIEW_SpawnAndarielDeath@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0046BC10",
-     "length": 83,
-     "name": "?VIEW_SpawnIzualDeath@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00475EF0",
@@ -16373,11 +16343,6 @@
      "name": "sub_00468830"
     },
     {
-     "va": "0x0046BC70",
-     "length": 22,
-     "name": "?UI_SetTimerUnitId@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x0046F980",
      "length": 6,
      "name": "UI_GetGfxMemory"
@@ -17355,11 +17320,6 @@
      "va": "0x0046A840",
      "length": 256,
      "name": "SCMD_HandleHotkeyMessage"
-    },
-    {
-     "va": "0x0046B4A0",
-     "length": 121,
-     "name": "SCMD_TriggerNearbyMonsterEffect"
     },
     {
      "va": "0x0046BDD0",
@@ -19183,11 +19143,6 @@
    ],
    "functions": [
     {
-     "va": "0x0046C060",
-     "length": 208,
-     "name": "?CUNIT_DrawCountdown@@YAXXZ"
-    },
-    {
      "va": "0x00477530",
      "length": 232,
      "name": "?CUNIT_GetPalShift@@YIPAEPAUD2UnitStrc@@@Z"
@@ -19951,6 +19906,11 @@
      "name": "?sub_0046AD10_UpdateTimedBox@@YAXXZ"
     },
     {
+     "va": "0x0046AE50",
+     "length": 136,
+     "name": "VIEW_StartTimedBox"
+    },
+    {
      "va": "0x0046AEE0",
      "length": 135,
      "name": "?sub_0046AEE0_ObjectMissileTimedBox@@YAXXZ"
@@ -20001,6 +19961,11 @@
      "name": "?sub_0046B440_EventObject1CCRequest@@YAXXZ"
     },
     {
+     "va": "0x0046B4A0",
+     "length": 121,
+     "name": "SCMD_TriggerNearbyMonsterEffect"
+    },
+    {
      "va": "0x0046B520",
      "length": 11,
      "name": "?sub_0046B520_SetFlag7A7468@@YAXXZ"
@@ -20009,6 +19974,26 @@
      "va": "0x0046B530",
      "length": 247,
      "name": "?sub_0046B530_SpawnMissileAtObject@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046B630",
+     "length": 75,
+     "name": "?sub_0046B630_FireLevelEvent@@YIXH@Z"
+    },
+    {
+     "va": "0x0046B680",
+     "length": 129,
+     "name": "?VIEW_SpawnBrDeathControl@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046B9A0",
+     "length": 170,
+     "name": "?VIEW_SpawnMephistoDeath@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046BA50",
+     "length": 58,
+     "name": "?VIEW_SpawnAndarielDeath@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046BA90",
@@ -20024,6 +20009,16 @@
      "va": "0x0046BB90",
      "length": 120,
      "name": "?sub_0046BB90_PlayerRequestAtUnit16B@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046BC10",
+     "length": 83,
+     "name": "?VIEW_SpawnIzualDeath@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046BC70",
+     "length": 22,
+     "name": "?UI_SetTimerUnitId@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046BC90",
@@ -20056,6 +20051,21 @@
      "name": "?sub_0046BF90_ResetLevelEffects@@YAXXZ"
     },
     {
+     "va": "0x0046BFD0",
+     "length": 30,
+     "name": "?sub_0046BFD0_StartTimer@@YIXH@Z"
+    },
+    {
+     "va": "0x0046BFF0",
+     "length": 112,
+     "name": "?sub_0046BFF0_UnitEventMissile271@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046C060",
+     "length": 208,
+     "name": "?CUNIT_DrawCountdown@@YAXXZ"
+    },
+    {
      "va": "0x0046C130",
      "length": 5,
      "name": "?sub_0046C130_DrawCountdown@@YAXXZ"
@@ -20070,6 +20080,20 @@
      "length": 272,
      "name": "?sub_0046C460_PopulateRoom@@YIXPAUD2ActiveRoomStrc@@@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -20102,22 +20126,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0046B630.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0046BFD0",
-     "length": 30,
-     "name": "?sub_0046BFD0_StartTimer@@YIXH@Z"
-    },
-    {
-     "va": "0x0046BFF0",
-     "length": 112,
-     "name": "?sub_0046BFF0_UnitEventMissile271@@YIXPAUD2UnitStrc@@@Z"
-    }
    ]
   },
   {
@@ -25856,35 +25864,6 @@
      "name": "?MONSTER_GetMonUmods@@YIPAEPAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x004ADD90",
-     "length": 167
-    },
-    {
-     "va": "0x004ADE40",
-     "length": 11,
-     "name": "?MONSTER_RunUModCommandCallbacks@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADE50",
-     "length": 11,
-     "name": "?MONSTER_RunUModUpdateCallbacks@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADE60",
-     "length": 11,
-     "name": "?MONSTER_RunUModFrameCallbacks@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADE70",
-     "length": 11,
-     "name": "?MONSTER_RunUModHitCallbacks@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADE80",
-     "length": 23,
-     "name": "?MONSTER_RunUModMissileCallbacks@@YIXPAUD2UnitStrc@@PAX@Z"
-    },
-    {
      "va": "0x004AE0A0",
      "length": 64,
      "name": "?MONSTER_SetClientFlags@@YIXPAUD2UnitStrc@@G@Z"
@@ -26041,6 +26020,10 @@
      "name": "?MONSTER_UpdateCollisionForMode@@YAXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x004AFF60",
+     "length": 4280
+    },
+    {
      "va": "0x004B1020",
      "length": 6,
      "name": "MONSTER_GetEventUnit"
@@ -26064,6 +26047,11 @@
      "va": "0x004B1280",
      "length": 280,
      "name": "?MONSTER_HandleSequenceStop@@YIHPAUD2UnitStrc@@PAUD2SeqModeStrc@@@Z"
+    },
+    {
+     "va": "0x004B13A0",
+     "length": 592,
+     "name": "?MONSTER_UpdateMonsterClient@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004B15F0",
@@ -26162,22 +26150,42 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004ADEA0.cpp",
+   "file": "Source/D2Client/Unknown_004ADD90.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004ADD90",
+     "length": 167
+    },
+    {
+     "va": "0x004ADE40",
+     "length": 11,
+     "name": "?MONSTER_RunUModCommandCallbacks@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADE50",
+     "length": 11,
+     "name": "?MONSTER_RunUModUpdateCallbacks@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADE60",
+     "length": 11,
+     "name": "?MONSTER_RunUModFrameCallbacks@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADE70",
+     "length": 11,
+     "name": "?MONSTER_RunUModHitCallbacks@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADE80",
+     "length": 23,
+     "name": "?MONSTER_RunUModMissileCallbacks@@YIXPAUD2UnitStrc@@PAX@Z"
+    },
     {
      "va": "0x004ADEA0",
      "length": 480,
      "name": "?MONSTER_GetMonsterName@@YIXPAUD2UnitStrc@@PAUUnicode@@HG@Z"
-    },
-    {
-     "va": "0x004AFF60",
-     "length": 4280
-    },
-    {
-     "va": "0x004B13A0",
-     "length": 592,
-     "name": "?MONSTER_UpdateMonsterClient@@YIXPAUD2UnitStrc@@@Z"
     }
    ]
   },

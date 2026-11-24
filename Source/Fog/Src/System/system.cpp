@@ -98,6 +98,27 @@ void __cdecl sub_004107A0_DeleteTimeLock()
     DeleteCriticalSection(&gtTimeLock);
 }
 
+// 0x004107B0
+__declspec(naked) void __fastcall sub_004107B0_AtomicStore64(void* pDest, const void* pSource)
+{
+    __asm
+    {
+        push ebx
+        push edi
+        mov edi, ecx
+        mov ebx, [edx]
+        mov ecx, [edx + 4]
+        mov eax, [edi]
+        mov edx, [edi + 4]
+    retry:
+        lock cmpxchg8b qword ptr [edi]
+        jne retry
+        pop edi
+        pop ebx
+        ret
+    }
+}
+
 // 0x004107D0
 __declspec(naked) void __fastcall sub_004107D0_Read64Locked(void* pDest, const void* pSource)
 {
