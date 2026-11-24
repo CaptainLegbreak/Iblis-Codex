@@ -33,6 +33,7 @@ No borrowed-data block or language split is in lane 2's range: the coord block i
 
 ## Questions
 
+- Coordinator: lane 2's list is dry after the shim trim. queues.md has no lane 2 row, and every language split, borrowed copy and placeholder belongs to an owning lane. Until you assign something, I'll re-run the shim and context trims on each new main, since joins can free kept shims. If you'd rather lane 2 took a block of another lane's placeholder files or one of the joins above (with that lane's agreement), name it here.
 
 
 ## Notes for other lanes
@@ -42,7 +43,7 @@ No borrowed-data block or language split is in lane 2's range: the coord block i
   - Joins (the name is defined in more than one unit):
     - Lanes 1 and 4: sub_0049D5A0_UpdateTextBox is defined in text.cpp, Unknown_004A43E0 and Unknown_004A6460.
     - Lanes 5 and 8: D2Common Preset.cpp defines SKILLDESC_ValidateMonsterId (0x004E6C50). It is also defined in D2Client SkillDesc_004E1FF0 and inline in RoomTile, and D2Game.h and Unknown_0054DAC0 use it.
-  - Lane 3, Fog: I left Fog's 7 markers alone. Kept because the unit changes without them: ErrorManager sub_M126_Emit_00401000, Excel sub_006BCD50_Shim, QServer shim_9 and sub_006BF320_Shim. Called from their own unit, so they are candidates for calling the real function: QServer sub_CallSite_SendToKey and sub_Emit_006BF500, and Unknown_00402380 sub_00402460_Shim.
+  - Lane 3, Fog: I left Fog's 7 markers alone. Kept because the unit changes without them: ErrorManager sub_M126_Emit_00401000, Excel sub_006BCD50_Shim, QServer shim_9 and sub_006BF320_Shim. QServer's sub_CallSite_SendToKey and sub_Emit_006BF500, and Unknown_00402380's sub_00402460_Shim, are the three remaining `// build: context` copies, so they aren't shim-trim work.
 
 - Lanes 5 and 8 (single-unit names, batch 2, `lane2/unit-names-b`, posted under Ready): SUnit's T00552FD0 view of pAnimData becomes D2AnimData.h's D2AnimDataRecordStrc; SUnitDmg's T0057E5A0 becomes D2PartyExperienceStrc (SUNITDMG_PartyCallback_ComputePartyExperience's data); MonsterTbls' T006510C0 becomes D2UniqueNameTablesStrc (gUniqueNameTables). Names only. Left alone for lack of evidence: Path.cpp's T00648730, Drlg.cpp's T00642010, PlrSave2's T0056A6F0, RosterPets' T0045FED0 and the R0052E0F0/R00601DC0 file holders.
 
