@@ -5010,27 +5010,7 @@ int __stdcall MAINMENUS_OnRealmListClick(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
-// 0x004431B0
-void __cdecl MAINMENUS_LoadMaxPlayers()
-{
-    unsigned long nValue = 4;
-    if (!SRegLoadValue("Diablo II", "MAX_PLAYER", 0, &nValue))
-        SRegSaveValue("Diablo II", "MAX_PLAYER", 0, nValue);
-    char szText[2] = "4";
-    int nPlayers = nValue;
-    if (nPlayers < 9 && nPlayers > 0)
-    {
 // build: symbol ?gszFormatD@* 0x006D57BC
-        sprintf(szText, gszFormatD, nPlayers);
-        sub_004FFE10_SetTextA(gpMaxPlayerControl_00798C38, szText);
-    }
-}
-
-// 0x00443C10
-int __stdcall sub_00443C10_AlwaysOne(int nArg)
-{
-    return 1;
-}
 
 void __fastcall sub_J02_EmitLaunchVideoPath(char* szOut, const char* szFormat, const char* szFile)
 {
