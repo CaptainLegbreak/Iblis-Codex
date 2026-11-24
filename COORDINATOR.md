@@ -98,6 +98,11 @@ A function belongs to the lane whose address range or file run it sits in, whate
 | 0x5EDC50 | 791 | 5 | D2Game AI, no file constraint |
 | 0x6BD230 | 246 | 3 | Fog export 10215. Every byte equal except one unused 4-byte frame slot; verified functions show such a slot only when they have register parameters |
 
+**Unattended variant search (new, run by the coordinator).** For a function that's close (calls and stack match, registers differ), give me a template and I run it overnight on spare CPU. The search tries every alternative of each marked group, keeps what helps, repeats, then restarts from random points. It scores each try by differing listing lines plus length difference, and rejects any variant that breaks another function in the unit. The best variant goes on this board.
+- **Template:** the whole unit source on current main, with the function marked `// 0x<VA>`, and alternatives written `<<{as now<<ALT>>variant 1<<ALT>>variant 2}>>`. Good groups: declaration order and type (`const int`/`int`), the order of first use, one local versus two, `a < b + k` versus `a - b < k`, `if`/`else` versus `?:`, reading a global into a local or not, and condition order.
+- **How to submit:** put it on coord at `lanes/vsearch/<va>.cpp` with one line in your board file (unit path, and what each group tries). Templates are not merged into main.
+- **Running now:** 0x4A4AD0 in Unknown_004A43E0.cpp, 9 groups (lane 1's current source).
+
 A match goes into its file in address order: record it in units.json and as `verified` in functions.json, delete its stand-in in Source/StandIns/, and post it as usual. No forcing constructs.
 
 **Freeze lifted:** `config-record-3` is on main (#296). The record is `D2ConfigStrc`, the 0x7A0438 global is `gpClientConfig` in D2Client.h. Rebase before your next push.
