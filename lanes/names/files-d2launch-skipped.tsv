@@ -2,5 +2,3 @@ placeholder	reason
 D2Launch/Unknown_004059D0.cpp	object map: best D2Launch/Main.cpp (score 5; # called only from it; next to it); runner-up D2Launch/Src/MainMenus.cpp 3 | 1 of 5 function names carry ERRORMANAGER_
 D2Launch/Unknown_0042E590.cpp	object map: best D2Launch/Src/CharSel.cpp (score 2; next to it)
 D2Launch/Unknown_0042E5D0.cpp	object map: best D2Launch/Unknown_0042E5A0.cpp (score 4, clear lead; next to it x2); runner-up D2Launch/Src/CharSel_0042E600.cpp 2
-D2Launch/Unknown_004370B0.cpp	object map: best D2Launch/Src/MainMenus.cpp (score 35; calls #, used only by the two x10; # called only from it; next to it); runner-up D2Launch/Unknown_0043B7A0.cpp 24 | 16 of 30 function names carry MAINMENUS_ (file D2Launch/Src/MainMenus.cpp exists)
-D2Launch/Unknown_0043C4F0.cpp	object map: best D2Launch/Src/MainMenus.cpp (score 3; calls #, used only by the two); runner-up D2Launch/Unknown_0043B7A0.cpp 2 | 1 of 1 function names carry CHARSEL_ (file D2Launch/Src/CharSel.cpp exists)
