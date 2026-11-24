@@ -6,6 +6,7 @@
 #include "D2QuestData.h"
 #include "D2GameTypes.h"
 #include "D2ObjModes.h"
+#include "D2LanguageNames.h"
 
 #define QUESTSTATEFLAG_A1Q1 1
 #define QUESTSTATEFLAG_A2Q1 9
