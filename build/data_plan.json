@@ -4096,8 +4096,8 @@
    "state": "included"
   },
   "Source/D2CMP/Unknown_006056D0.cpp": {
-   "bytes": 39,
-   "definitions": 1,
+   "bytes": 5159,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2CMP/Unknown_006056D0.inc",
@@ -119601,6 +119601,156 @@
    "tail": "; // 0x006E61F8\n#pragma comment(linker, \"/alternatename:_szSubTileFile=_gData_006E61F8\")",
    "type": "char",
    "va": "0x006E61F8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2CMP/Unknown_006056D0.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int ganTable_007420D8[256] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 256,
+    "size": 1024
+   },
+   "name": "ganTable_007420D8",
+   "pointers": [],
+   "region": "data",
+   "size": 1024,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007420D8",
+   "type": "int",
+   "va": "0x007420D8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2CMP/Unknown_006056D0.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int ganTable_007424D8[256] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 256,
+    "size": 1024
+   },
+   "name": "ganTable_007424D8",
+   "pointers": [],
+   "region": "data",
+   "size": 1024,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007424D8",
+   "type": "int",
+   "va": "0x007424D8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2CMP/Unknown_006056D0.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int ganTable_007428D8[256] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 256,
+    "size": 1024
+   },
+   "name": "ganTable_007428D8",
+   "pointers": [],
+   "region": "data",
+   "size": 1024,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007428D8",
+   "type": "int",
+   "va": "0x007428D8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2CMP/Unknown_006056D0.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int ganTable_00742CD8[256] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 256,
+    "size": 1024
+   },
+   "name": "ganTable_00742CD8",
+   "pointers": [],
+   "region": "data",
+   "size": 1024,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x00742CD8",
+   "type": "int",
+   "va": "0x00742CD8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2CMP/Unknown_006056D0.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int ganTable_007430D8[256] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 256,
+    "size": 1024
+   },
+   "name": "ganTable_007430D8",
+   "pointers": [],
+   "region": "data",
+   "size": 1024,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007430D8",
+   "type": "int",
+   "va": "0x007430D8"
   },
   {
    "alias": true,
