@@ -23,6 +23,7 @@
 #include "D2LevelTxt.h"
 #include "D2PlayerModes.h"
 #include "D2ItemModes.h"
+#include "D2SaveHeader.h"
 
 #pragma function(memset)
 
@@ -305,19 +306,6 @@ int __stdcall INVENTORY_GetUnitGUIDFromCorpse(D2CorpseStrc* pCorpse); // 0x0063D
 
 __declspec(noalias) int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int* pSize, unsigned int nMaxSize, int a6, int a7); // 0x00569AD0
 
-struct D2SaveHeaderStrc
-{
-    unsigned int dwHeaderMagic;
-    unsigned int dwVersion;
-    unsigned int dwSize;
-    unsigned int dwChecksum;
-    char unk0x10[0x20];
-    unsigned int dwLasTime;
-    unsigned int dwPlayTime;
-    char unk0x38[0x73];
-    unsigned char dwMapSeed[4];
-    unsigned char unk_AF[0x1];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -1618,12 +1606,12 @@ int __fastcall D2GAME_SAVE_CalculateChecksum_6FC8A140(D2SaveHeaderStrc* pSaveHea
         nCheckSum = pSaveHeader->dwChecksum;
         nLastTime = pSaveHeader->dwLasTime;
         nPlayTime = pSaveHeader->dwPlayTime;
-        nMapSeed = *(int*)pSaveHeader->dwMapSeed;
+        nMapSeed = pSaveHeader->dwMapSeed;
 
         pSaveHeader->dwChecksum = 0;
         pSaveHeader->dwLasTime = 0;
         pSaveHeader->dwPlayTime = 0;
-        *(int*)pSaveHeader->dwMapSeed = 0;
+        pSaveHeader->dwMapSeed = 0;
     }
 
     const int result = CRC32_Compute(pSaveHeader, nSize);
@@ -1633,7 +1621,7 @@ int __fastcall D2GAME_SAVE_CalculateChecksum_6FC8A140(D2SaveHeaderStrc* pSaveHea
         pSaveHeader->dwChecksum = nCheckSum;
         pSaveHeader->dwLasTime = nLastTime;
         pSaveHeader->dwPlayTime = nPlayTime;
-        *(int*)pSaveHeader->dwMapSeed = nMapSeed;
+        pSaveHeader->dwMapSeed = nMapSeed;
     }
 
     return result;
@@ -1675,11 +1663,11 @@ static int __stdcall D2GAME_SAVE_WriteFileOnRealm(D2GameStrc* pGame, D2UnitStrc*
                 nOldCheck = pOldHeader->dwChecksum;
                 nOldLast = pOldHeader->dwLasTime;
                 nOldPlay = pOldHeader->dwPlayTime;
-                nOldMap = *(int*)pOldHeader->dwMapSeed;
+                nOldMap = pOldHeader->dwMapSeed;
                 pOldHeader->dwChecksum = 0;
                 pOldHeader->dwLasTime = 0;
                 pOldHeader->dwPlayTime = 0;
-                *(int*)pOldHeader->dwMapSeed = 0;
+                pOldHeader->dwMapSeed = 0;
             }
             D2SaveHeaderStrc* pNewHeader = (D2SaveHeaderStrc*)(pData + 2);
             const unsigned int nNewVersion = pNewHeader->dwVersion;
@@ -1692,11 +1680,11 @@ static int __stdcall D2GAME_SAVE_WriteFileOnRealm(D2GameStrc* pGame, D2UnitStrc*
                 nNewCheck = pNewHeader->dwChecksum;
                 nNewLast = pNewHeader->dwLasTime;
                 nNewPlay = pNewHeader->dwPlayTime;
-                nNewMap = *(int*)pNewHeader->dwMapSeed;
+                nNewMap = pNewHeader->dwMapSeed;
                 pNewHeader->dwChecksum = 0;
                 pNewHeader->dwLasTime = 0;
                 pNewHeader->dwPlayTime = 0;
-                *(int*)pNewHeader->dwMapSeed = 0;
+                pNewHeader->dwMapSeed = 0;
             }
             for (int i = 0; i < nOldSize; ++i)
             {
@@ -1711,14 +1699,14 @@ static int __stdcall D2GAME_SAVE_WriteFileOnRealm(D2GameStrc* pGame, D2UnitStrc*
                 pOldHeader->dwChecksum = nOldCheck;
                 pOldHeader->dwLasTime = nOldLast;
                 pOldHeader->dwPlayTime = nOldPlay;
-                *(int*)pOldHeader->dwMapSeed = nOldMap;
+                pOldHeader->dwMapSeed = nOldMap;
             }
             if (nNewVersion > 91)
             {
                 pNewHeader->dwChecksum = nNewCheck;
                 pNewHeader->dwLasTime = nNewLast;
                 pNewHeader->dwPlayTime = nNewPlay;
-                *(int*)pNewHeader->dwMapSeed = nNewMap;
+                pNewHeader->dwMapSeed = nNewMap;
             }
         }
         else bMatching = 0;
