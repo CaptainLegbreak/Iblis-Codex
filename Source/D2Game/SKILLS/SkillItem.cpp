@@ -22,6 +22,7 @@
 #include "D2ItemModes.h"
 #include "D2Records.h"
 #include "D2GameAux.h"
+#include "D2LanguageNames.h"
 
 #define IFLAG_TARGETING 4
 
