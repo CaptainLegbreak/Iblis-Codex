@@ -2,10 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 14:24:23 PST 2026): join-0051c760 and join-0060ae80 ready (both verified on #366, merge cleanly on #367); nothing else in the queue. Next: one view of D2BnLogStrc so Unknown_00518B90 can take Unknown_00518B60.
+Status (Tue Nov 24 14:37:16 PST 2026): join-00518b90 ready; the rest of the object-map joins are still in the verify queue.
 
 ## Ready
 
+- lane6/join-00518b90 3b4d3e49 304->303 placeholders. Unknown_00518B90.cpp takes Unknown_00518B60.cpp: each had half of D2BnLogStrc (constructor 0x518B60 and deleting destructor 0x518BD0 in one; destructor 0x518B80 and handle getter 0x518B90 in the other, interleaved with 0x518BC0). One struct now carries all of it. Not stacked; D2BNClient only. VERIFIED 95378f9b (on #367, merges cleanly on #368; borrowed data 844 B, unchanged).
 - lane6/join-0060ae80 e3ee55a8 304->303 placeholders. Unknown_0060AE80.cpp takes Unknown_0060B160.cpp, the bit-buffer copy that sits inside 0x60AE80's run of bit-buffer helpers; it moves with the placeholder's wrapper that keeps the uncalled static emitted. Not stacked; D2CMP only. VERIFIED 4ff5008e (on #366, merges cleanly on #367; borrowed data 844 B, unchanged).
 - lane6/join-0051c760 4612a4f2 304->303 placeholders (count on #367). Unknown_0051C760.cpp takes Unknown_0051C7E0.cpp: 0x51C760 starts the receive thread 0x51C7E0 and the two sit side by side, called only from each other (report-360 clear lead). Not stacked; D2BNClient only. VERIFIED c70b98f2 (on #366, merges cleanly on #367; borrowed data 844 B, unchanged).
 
