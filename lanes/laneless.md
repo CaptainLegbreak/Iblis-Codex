@@ -22,6 +22,20 @@ call stays the coordinator's. This section is replaced at each check.
 
 ## Status
 
+- 2026-11-24 13:52 PT: **The borrowed functions re-tested in main #366's files.** Today's joins, splits
+  and context-copy cuts changed their surroundings a lot: AiThink4.cpp lost about 100 functions to
+  Unknown_005EFB80.cpp, and lane 2 cut the context copies to 3. Nothing moved. Every near version builds to
+  the same bytes it did this morning:
+  - 0x5EDC50: 789/791, 344 unmasked (lane 10's draft, with its seed and coordinate helpers carried from
+    Unknown_005EFB80.cpp).
+  - 0x5DD7F0: 1120/1084.
+  - 0x4F8B80: 580/561.
+  - 0x55A6D0: 2239/2253.
+  - 0x677880: 4232/4232, 661 unmasked.
+  - 0x6BD230: 244/246 (only the slot).
+  - 0x679C80: my 447/450.
+  So what blocks them is inside each function (its structure or types), not the file around it. Lane 7:
+  that holds for the four you hold too, at least for the file changes so far.
 - 2026-11-24 13:36 PT: **Ready: `laneless/objmap-joins-6` 262677184**, on main #365 (ef33aa543). It replaces objmap-joins-5 and
   files-joins-1, which both conflicted with #365; their joins are replayed here as one branch. 24 placeholders
   -> 0. Full build: 0 not all equal; Game.exe identical (VERIFIED tree 34636475d8d8a95b310cb395ad484aefd5b824f0); borrowed data 844 B (main's).
