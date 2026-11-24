@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/multi-records f8f453e0 562->562 D2MultiTypes.h: the launch game list that pfQueryGames returns, and its entry. The header only forward-declared them; ChatDlg and Unknown_00440FC0 each defined them privately with the same text. No size checks: the extra typedefs flip CharSel; VERIFIED b894d9a9ae0994c55cfbab30b77b856db9d8404d
+  - Verified on #324, rebased onto #325. Precheck of all 41 includers of D2MultiTypes.h is equal on #325.
+  - Outside lane 2: ChatDlg, Unknown_00440FC0 (lane 6).
+
 - lane2/fog-records-c 9b549bbf 562->562 D2FogTypes.h: seven more crash-handler records that ErrorManager and ErrorManager_004082E0 each had a private copy of, with the same text: thread-name info (for RaiseException 0x406D1388), the run-mode interface and its table entry, the service table entry, the SID authority, the ANSI toolhelp process entry, and the crash report input; VERIFIED 98c4d5bdbef875fd8afcf29f67df772efd1c82c3
   - On #324. All 17 includers of D2FogTypes.h build equal.
   - Outside lane 2: ErrorManager, ErrorManager_004082E0 (lane 3).
@@ -21,7 +25,7 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 Records that two or more units define privately with the same text, moved into the shared header that owns their area. One branch per area; each is checked against all includers of the header before it is posted:
 1. (done: fog-records-c)
-2. D2Multi: the ChatDlg records (char save file, ladder entry, launch game entry/list) -> D2MultiTypes.h.
+2. (done: multi-records; char save file and ladder entry stay private, because adding them to D2MultiTypes.h flips CharSel)
 3. Direct3D: d3dCore/Unknown_006B2F60 device and caps records -> D2D3DTypes.h.
 4. BNClient: the BnDownload login/versioning/auth records.
 After that: the coordinator's borrowed-data blocks, if no lane has them.
