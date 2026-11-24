@@ -39758,7 +39758,7 @@
    ]
   },
   {
-   "file": "Source/D2BNClient/Unknown_005201E0.cpp",
+   "file": "Source/D2BNClient/BnMessQueue.cpp",
    "rank": 0,
    "functions": [
     {
@@ -39771,22 +39771,6 @@
      "length": 12,
      "name": "?sub_00520200_DeleteQueueLock@@YAXXZ"
     },
-    {
-     "va": "0x005205F0",
-     "length": 64,
-     "name": "?sub_005205F0_GetState@@YIHPAUD2BnStateStrc@@@Z"
-    },
-    {
-     "va": "0x00520C30",
-     "length": 11,
-     "name": "?sub_00520C30_SetSlot@@YIXEH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BnMessQueue.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x00520210",
      "length": 217,
@@ -39825,6 +39809,16 @@
      "va": "0x00520580",
      "length": 109,
      "name": "?BNMESSQUEUE_TakeState@@YIHPAUD2BnStateStrc@@@Z"
+    },
+    {
+     "va": "0x005205F0",
+     "length": 64,
+     "name": "?sub_005205F0_GetState@@YIHPAUD2BnStateStrc@@@Z"
+    },
+    {
+     "va": "0x00520C30",
+     "length": 11,
+     "name": "?sub_00520C30_SetSlot@@YIXEH@Z"
     }
    ]
   },
