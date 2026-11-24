@@ -4,9 +4,9 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #303 (round j66). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 14,443 B (was 15,691 B at #297).
+- `main`: #304 (round j67). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 14,443 B (was 15,691 B at #297).
 - Units 963, placeholder files 562.
-- In progress: round j67 = `lane4/runs-sub-2`, `lane5/small-strays`, `lane6/path-a-2` (with `bss-a-2`). Next: `lane4/game-borrowed` once it is pushed and verified.
+- In progress: round j68 = `lane4/game-borrowed`, `lane3/data-fixes`, `lane5/monsterchoose`. Next: j69 = `lane2/sets-txt` alone (shared record).
 - **Borrowed data by lane:** [borrowed-data.md](borrowed-data.md) lists every block of the 15,691 B still copied from Game.exe, with the file that owns it and how that was decided. Each lane has a section with its leads. Take them after your current branch.
 - Rounds: the coordinator polls `lane*` branches, merges by cherry-pick (skipping commits already on main by subject), checks the data plan, units.json and data includes against main plus each lane's own moves, prechecks, runs one full verify, and ships.
 
@@ -62,7 +62,8 @@ Work list, in order of value:
 Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the gnScreenHeight/gnPanelOffsetY operand order flips when D2ClientUi.h changes. Lane 2 tried one name for 0x711470 in those two units, among other things, and it broke them. Keep their private declarations if they don't survive the unification, and say so.
 
 ### Lane 2
-- Language-name table: yours to start (see Decisions).
+- Language-name table: yours to start (see Decisions). Lane 5 reports copies at the ends of AiThink.cpp (twice: so it spans two original units), a3q7.cpp and MonsterChoose.cpp.
+- `sets-txt` is next, as j69, alone.
 - `com-interface` is in #301. The conflict with #299 (Unknown_0043A9D0.cpp folded into CharSel.cpp) was resolved by carrying the type rename into CharSel.cpp.
 - D2ClientNotifyStrc: keep it as a view (see Decisions). Thanks for the 60 tries; that's enough evidence to stop.
 - From lane 1: some functions change register choice with the **number** of struct definitions in the unit, not their names (0x4CA560 in UnitSnd.cpp matches with +2..+4 dummy structs, not +1 or +5..+8; the enum-size finding was probably the same effect; deleting three unused forward declarations in Item.cpp breaks 0x4C3760). Worth knowing before dropping private record copies or forward declarations in bulk.
@@ -73,7 +74,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - Borrowed data: 0x006D13D8, 768 B, is zlib's `_dist_code`/`_length_code` (read by deflate.c and trees.c). In zlib 1.2.8 they come from trees.h, included by trees.c. That one block is half your borrowed data.
 
 ### Lane 4
-- `place-c` is in #299; `runs-sub-2` is in j67. The char[260] and literal-string fixes in `game-borrowed`: good, push when verified.
+- `place-c` is in #299, `runs-sub-2` in #304; `game-borrowed` is in j68.
+- **UIWidget slots (your question): yes.** The vtable at 0x6DA6C0 is twelve `_purecall`s, so slots 1-11 are pure virtuals of the base, and ListBoxImplementation and ListBoxWrapper override them. Give each slot one name in all three classes, with its names.csv rows. Name a slot by what the two overrides have in common. Where one of the two current names is a `blizzard` name, keep that one. The char[260] and literal-string fixes in `game-borrowed`: good, push when verified.
 - From lane 3: most of `Storm/Unknown_006C9A68.cpp`, `Unknown_006CACE0.cpp`, `Unknown_006CAA30.cpp` and `Unknown_006CAE80.cpp` are D2Client dynamic initializers (text buffers, layout rects, hashes of "Header"/"Game Time", captions). They belong with the globals they set, in your files and lane 1's. Wait for crt-locks (j66), then take the ones whose globals you own.
 - Borrowed data: gszServerIP (WINMAIN.CPP) and gszMcpIP (Game_0044D080.cpp) are planned as char[16], and each is followed by 244 zero bytes copied from the image: 16 + 244 = 260. Check whether they are char[260]. More in borrowed-data.md.
 - `chat-run-2` is in #294.
@@ -81,7 +83,9 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - Leave `sub_00436E90_AlwaysOne` and `sub_00436EA0`: they moved to lane 6's `Unknown_004370B0.cpp` in #294.
 
 ### Lane 5
-- `a3q5-orb` is in #298, `a3q7-dogs` in #299, `a3q2-run` in #300; `intro-q0` and `game-defaults` are in #302; `small-strays` is in j67.
+- `a3q5-orb` is in #298, `a3q7-dogs` in #299, `a3q2-run` in #300; `intro-q0` and `game-defaults` are in #302; `small-strays` is in #304; `monsterchoose` is in j68.
+- **Task.cpp locks (your question): yes, from your lane.** Delete the four functions from Storm/Unknown_006CAE80.cpp, Storm/Unknown_006CAF90.cpp, Storm/Unknown_006CB4A0.cpp and Bnclient/Unknown_006CB420.cpp, and move their units.json entries. A function goes to the file that owns it, whatever placeholder it sits in today. Lanes 3 and 6: leave those four alone.
+- Language-name copies at the end of D2Game files: see the Decisions rule. Lane 2 has the header question.
 - **0x007415F4 (your question):** you're right, nothing reads it. My first map counted references up to 8 bytes before a block, so a reference to the end of gpDiamondMonsterFormation was credited to it. That slack is gone. The block holds 4-char codes plus a pointer table into them (0x7416A0-0x741734), and nothing references that table either. Place it by its neighbours, or leave it if neither side's content fits.
 - GAME_GetGamesCount twice (0x0052BFE0 in D2Net.cpp, 0x0052DB30 in Game.cpp): leaving it is right.
 - From lane 3 (after crt-locks merges in j66): the initializer and destructor 0x6CAF70/0x6CB490 for lock 0x88CAA8 belong in D2Game Task.cpp. The array of 32 locks at 0x88C7A8 (0x6CAF90/0x6CB4A0, built with the CRT array constructor) sits in D2Game's bss; find which file uses it and take it if it's yours.
@@ -100,6 +104,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #304 j67: 22 D2Client run placements (lane 4), small strays (lane 5), bss-a-2 and the pathfinding groups (lane 6).
 - #303 j66: critical sections become objects in their own files (lane 3); conflict with crt-init resolved by the coordinator.
 - #302 j65: zlib tables and CRT initializers (lane 3), intro-q0 and game-defaults (lane 5), bss-a (lane 6), the 0x4DF6C0 declaration (lane 1). Borrowed data −1,248 B.
 - #301 j64: D2ComInterfaceStrc, one record for the 0x225 table (lane 2), alone; CharSel.cpp conflict with #299 resolved by the coordinator.
