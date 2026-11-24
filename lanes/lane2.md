@@ -37,6 +37,7 @@ Records that two or more units define privately with the same text, moved into t
 8. (done: questlog-records)
 9, 10, 12. (done: client-records-b)
 11. Skipped: ChatDlg's D2CharSaveFileStrc is a 0x2000-byte view of the .d2s file that reads 0x18 as old flags; merging it with D2SaveHeaderStrc needs a union there. The ladder entry alone isn't worth a header.
+17. **Claimed:** Storm's growable/fixed array views. About 110 private and header records across ~45 files (D2StormSlotArrayStrc, D2StormEntryArrayStrc, D2StormArrayB/CStrc, D2StormArray408Strc, D2StormListArrayStrc, ...) have the TSGrowableArray shape capacity/count/data/chunk as f_0/f_4/f_8/f_C. I'm renaming them to m_alloc/m_count/m_data/m_chunk as one branch stacked on storm-array (names only). Lanes 1, 3, 4, 6, 8: please don't rename those fields in your units meanwhile.
 16. (done: sound-environ, which also took T005C40D0.) The address names left in shared headers are Fog.h's QServer client and packet records (T006BFAD0, T006C23B0); Fog's QServer units have several overlapping views of them (D2QClientStrc, D2QConn006C23B0Strc, D2QMsg006C23B0Strc, ...), so I'm leaving them to lane 3's unit work. Single-unit address names (T006090E0 in LRUCache, T00648730 in Path, T004DA110 in GfxUtil, T00516950 in D2SoundUtil, T00552FD0 in SUnit) belong to those units.
 15. (done: split-text)
 14. (done: small-records-f, small-records-g)
