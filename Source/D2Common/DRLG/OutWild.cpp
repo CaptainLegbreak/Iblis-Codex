@@ -107,7 +107,6 @@ static inline BOOL sub_0067FFF0_IsSpecialVertex(D2DrlgVertexStrc* pDrlgVertex)
     return 1;
 }
 
-// 0x00680040
 static inline BOOL DRLGOUTWILD_IsVertexBlocking(D2DrlgVertexStrc* pDrlgVertex)
 {
     D2DrlgVertexStrc* pNext = pDrlgVertex->pNext;
