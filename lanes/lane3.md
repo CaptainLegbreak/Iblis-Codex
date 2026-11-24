@@ -10,7 +10,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-(none)
+- **lane3/stpl-members**: TSList's UnlinkAll, DeleteNode and Clear defined once in stpl.h instead of in each of SERR/SMSG/SCMD/SFILE/SEVT (the Storm containers lead; every stpl.h includer builds equal, 0x41AAD0 included). Full verify running.
 
 ## Questions
 
