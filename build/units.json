@@ -6405,7 +6405,7 @@
     {
      "va": "0x00420470",
      "length": 11,
-     "name": "?sub_00601DF0_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
+     "name": "?InitializeTerminator@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXXZ"
     },
     {
      "va": "0x00420480",
@@ -6465,7 +6465,7 @@
     {
      "va": "0x004206A0",
      "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
+     "name": "??0?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAE@XZ"
     },
     {
      "va": "0x004206C0",
