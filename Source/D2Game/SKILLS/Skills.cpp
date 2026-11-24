@@ -3949,11 +3949,6 @@ int __fastcall SKILLS_GetCrossbowClassFlag(D2UnitStrc* pUnit)
     return nWeaponClassId == 7 ? 0x1F : 0;
 }
 
-// calling-convention shim (not game code)
-void __stdcall shim_4(D2GameStrc* pGame, D2UnitStrc* pUnit, int nDelay)
-{
-    D2GAME_SKILLS_SetDelay_6FD11C00(pGame, pUnit, nDelay);
-}
 
 // 0x00570420
 void __fastcall SKILLS_StunMonster(D2GameStrc* pGame, D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nDelay)

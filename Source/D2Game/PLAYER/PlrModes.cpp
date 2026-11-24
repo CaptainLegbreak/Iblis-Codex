@@ -1209,14 +1209,6 @@ D2UnitStrc* __fastcall PLRMODE_CreateDeadBody(D2GameStrc* pGame,D2UnitStrc* pUni
  return pCorpse;
 }
 
-// calling-convention shim (not game code)
-int __fastcall sub_M380_Emit_0057F700(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int nBodyLoc, int nExtra)
-{
-    PLRMODE_DropItemsOnCorpseOverflow(pGame, pUnit);
-    PLRMODE_RemoveCursorItemForCorpse(pGame, pItem, pUnit);
-    PLRMODE_RemoveEquippedItemForCorpse(pGame, nBodyLoc, pItem, pUnit);
-    return nExtra + 0x35;
-}
 
 // 0x0057FAF0
 static int __stdcall PLRMODE_CanPickUpCorpse(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pDeadBody)

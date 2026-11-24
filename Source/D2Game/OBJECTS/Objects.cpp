@@ -2448,11 +2448,6 @@ void __stdcall OBJECTS_SpawnFliesOnCorpse(D2GameStrc* pGame, D2UnitStrc* pObject
     SUNIT_AllocUnitData(UNIT_OBJECT, OBJECT_FLIES, tCoord.nX, tCoord.nY, pGame, hRoom, 1, 0, 0);
 }
 
-// calling-convention shim (not game code)
-int __stdcall shim_3(D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, D2ActiveRoomStrc* pRoom, int nSizeX, int nSizeY)
-{
-    return OBJECTS_CanPlaceObject(pDrlgCoords, pCoord, pRoom, nSizeX, nSizeY);
-}
 
 static inline unsigned int OBJPOP_RollSeed_Inline(D2SeedStrc* pSeed)
 {

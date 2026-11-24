@@ -822,18 +822,6 @@ static void __stdcall MONSTERMODE_UpdateModePath(D2GameStrc* pGame, D2UnitStrc* 
     }
 }
 
-// calling-convention shim (not game code)
-void __stdcall sub_A08_EmitModeHelpers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MonVelocityParamStrc* pParam, int a, int b)
-{
-    MONSTERMODE_SetAiStateForMode(a, pUnit);
-    if (MONSTERMODE_StartNeutralUnlessDead(pGame, b, pUnit))
-    {
-        MONSTERMODE_SetVelocityPercent(pUnit, pParam);
-    }
-    MONSTERMODE_SetAiStateForMode(b, *(int*)pParam ? pUnit : 0);
-    MONSTERMODE_SetVelocityPercent(pUnit, (D2MonVelocityParamStrc*)((char*)pParam + 0x14));
-    MONSTERMODE_StartNeutralUnlessDead(pGame, a, pUnit);
-}
 
 // 0x005A6490
 D2MonsterModeDataStrc* __fastcall MONSTERMODE_AllocParams(D2GameStrc* pGame)
