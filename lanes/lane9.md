@@ -55,6 +55,9 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   node allocator, gtMessages read by 0x517804). Proposal: (a) set all D2Hell units to `/O1` now (no joins, flags only;
   the two ctors keep /O2), which removes eight flag variants; (b) gather only what a shared global or const table ties
   together. OK to do (a)?
+  Update: one such tie exists. The const pointer gpszModuleName (0x006CC848, planned in Unknown_00517423.cpp) is read
+  by 0x5173EF/0x51740B (Unknown_005173EF), 0x517423 (Unknown_00517423) and 0x517874 (Unknown_00517874), so those three
+  are one file by the const-table rule. With your OK I'd join them under /O1 (all three build equal there).
 - Coordinator: may I take into my files the renderer-run functions that are filed in other lanes' files (as lane 5 did
   with the Task.cpp locks)? Each sits inside a renderer's address run:
   - Fog `QServer/QServer.cpp`: 0x006B1C00, 0x006B20A0 (QSERVER_GetFloorCacheSize), 0x006B20B0, 0x006B2F20, 0x006B76C0.
