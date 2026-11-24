@@ -58,7 +58,6 @@ struct D2StaticPathStrc;
 
 struct D2CltMissileModeStrc;
 
-
 struct D2BallisticStrc;
 
 struct D2DrlgCoordsStrc;
@@ -300,7 +299,6 @@ struct D2CltMissileModeStrc
     int nCollisionMask;
 };
 
-
 extern const int gaSpiralOuterY[7]; // 0x006DADC0
 
 extern const int gaSpiralOuterX[7]; // 0x006DADE0
@@ -312,7 +310,6 @@ extern const int gaSpiralInnerY[4]; // 0x006DAE1C
 extern const int gaSpiralOuterA[7]; // 0x006DAE2C
 
 extern const int gaSpiralInnerX[4]; // 0x006DAE48
-
 
 extern D2CltMissileModeStrc gaCltMissileModes[]; // 0x0072A350
 
@@ -359,7 +356,6 @@ int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMo
 int __stdcall MONSTERS_IsPrimeEvil(D2UnitStrc* pMonster); // 0x0063EDC0
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
-
 
 struct D2ActiveRoomViewStrc
 {
@@ -595,6 +591,12 @@ int __stdcall sub_00648390_AlwaysZero(int nUnused1, int nUnused2)
     return 0;
 }
 
+// 0x004C51D0
+int __cdecl sub_004C51D0_GetStatesTxtRecordCount()
+{
+    return sgptDataTables->nStatesTxtRecordCount;
+}
+
 // 0x004C5390
 void __fastcall SKILLS_ScaleUpDirection(int* pX, int* pY)
 {
@@ -620,6 +622,21 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
         return &sgptDataTables->pSkillsTxt[nSkillId];
     }
     return 0;
+}
+
+// 0x004C53D0
+void __fastcall sub_004C53D0_ScaleDownDirection(int* pX, int* pY)
+{
+    int nY = *pY;
+    int nX = -*pX;
+    while (nX * nX + nY * nY > 3)
+    {
+        nY /= 2;
+        nX /= 2;
+    }
+
+    *pX = nY;
+    *pY = nX;
 }
 
 // 0x004C54F0
@@ -3082,7 +3099,6 @@ int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x
 void __stdcall PATH_SetType(D2DynamicPathStrc* pPath, int nType); // 0x00648CF0
 
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
-
 
 static inline int sub_GetUnitTypeChecked(D2UnitStrc* pUnit)
 {
