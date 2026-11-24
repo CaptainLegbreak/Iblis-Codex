@@ -77008,6 +77008,31 @@
      "length": 3644
     },
     {
+     "va": "0x006B2F20",
+     "length": 6,
+     "name": "sub_006B2F20"
+    },
+    {
+     "va": "0x006B2F30",
+     "length": 7
+    },
+    {
+     "va": "0x006B2F40",
+     "length": 24
+    },
+    {
+     "va": "0x006B2F60",
+     "length": 277
+    },
+    {
+     "va": "0x006B3080",
+     "length": 555
+    },
+    {
+     "va": "0x006B32B0",
+     "length": 101
+    },
+    {
      "va": "0x006B3320",
      "length": 224
     },
@@ -77484,49 +77509,6 @@
     "/Ob2",
     "/Gd",
     "/EHa"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B2F30.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B2F20",
-     "length": 6,
-     "name": "sub_006B2F20"
-    },
-    {
-     "va": "0x006B2F30",
-     "length": 7
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B2F40.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B2F40",
-     "length": 24
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B2F60.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006B2F60",
-     "length": 277
-    },
-    {
-     "va": "0x006B3080",
-     "length": 555
-    },
-    {
-     "va": "0x006B32B0",
-     "length": 101
-    }
    ]
   },
   {

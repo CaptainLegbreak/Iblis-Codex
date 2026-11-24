@@ -14337,7 +14337,7 @@ address,name,source,alias
 0x006B20E0,D3DCORE_LogDDrawError,inferred,
 0x006B2F20,sub_006B2F20,placeholder,
 0x006B2F30,sub_006B2F30_SetGlobal,placeholder,
-0x006B2F40,sub_006B2F40_CloseKey,placeholder,
+0x006B2F40,~CRegKey,library,
 0x006B2F60,sub_006B2F60_SaveVideoConfig,placeholder,
 0x006B3080,sub_006B3080,placeholder,
 0x006B32B0,sub_006B32B0_ReleaseRenderer,placeholder,

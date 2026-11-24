@@ -3658,15 +3658,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Direct3D/Unknown_006B2F60.cpp": {
-   "bytes": 0,
-   "definitions": 0,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Direct3D/Unknown_006B2F60.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Direct3D/Src/d3dCore.cpp": {
    "bytes": 4020,
    "definitions": 164,
