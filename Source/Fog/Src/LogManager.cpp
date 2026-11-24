@@ -2519,4 +2519,17 @@ void __cdecl LOGMANAGER_CloseStaleLogs()
     }
 }
 
+struct PairStrc_0040F570
+{
+    int nFirst;
+    int nSecond;
+};
+
+// 0x0040F570
+void __fastcall sub_0040F570(PairStrc_0040F570* pPair)
+{
+    pPair->nFirst = 0;
+    pPair->nSecond = 0;
+}
+
 #include "gen/data/Source/Fog/Src/LogManager.inc"

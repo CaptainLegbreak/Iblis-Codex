@@ -4472,4 +4472,36 @@ void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem)
     }
 }
 
+// 0x00405EF0
+int __cdecl sub_00405EF0()
+{
+    return 1;
+}
+
+int gnStormDirectFlags; // 0x0074C82C
+
+// 0x00406D20
+int __cdecl sub_00406D20()
+{
+    return gnStormDirectFlags;
+}
+
+// 0x00407FF0
+int __cdecl sub_00407FF0()
+{
+// build: symbol ?gbWritingCrashReport@* 0x0074F0C8
+    return gbWritingCrashReport;
+}
+
+// 0x004080A0
+void __stdcall sub_004080A0(int nUnused1, int nUnused2)
+{
+}
+
+// 0x0040A070
+int __cdecl sub_0040A070()
+{
+    return 0;
+}
+
 #include "gen/data/Source/Fog/Src/ErrorManager.inc"
