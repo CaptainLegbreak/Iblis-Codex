@@ -1716,3 +1716,4 @@ static void __stdcall SUNITINACTIVE_CompressMonsterIfNeeded(D2GameStrc* pGame, D
     }
 }
 
+#include "gen/data/Source/D2Game/UNIT/SUnitInactive.inc"
