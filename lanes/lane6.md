@@ -4,7 +4,9 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- (verifying on #340: lane6/launch-copies-2, a stack of lane6/chatdlg-tail-3 (ChatDlg.cpp's object edges, the part of chatdlg-tail-2 not merged in #340) and the D2Launch language-copy split. They replace chatdlg-tail-2 and chatdlg-tail.)
+- lane6/launch-copies-2 4f136297 536->536, a stack of two; taking it takes both (lane6/chatdlg-tail-3 8b3837d6 is the first alone). They replace chatdlg-tail-2, chatdlg-tail and launch-copies: #340 merged the first half of chatdlg-tail-2, so the rest is replayed onto #340. VERIFIED 1efe218e (on #340). Borrowed data 1,577 B.
+  - chatdlg-tail-3: 0x0043CBE0 gets its own placeholder (Unknown_0043CBE0.cpp) with its data: copy 0x0070CCD8 and gtInterface, which is 4 B (one pointer; the 60 B planned after it are ChatDlg's copy, so the record splits 4 + 60). 0x0043C6B0/0x0043CAA0 go to Unknown_0043C8A0.cpp; 0x00446810-0x00446840/0x00446A90 leave ChatDlg.cpp for ComCallback.cpp; 0x00443D10/0x00445A80/0x00445C70/0x00445DF0 join ChatDlg.cpp.
+  - launch copies: gData_0070CB84 splits 4 + 60 + 60 (MainMenus_00431AF0's tail; the copy that starts data-less Unknown_004370B0.cpp; CharSel.cpp's copy before its statics) and gData_0070CC50 60 + 60 (stays in CharSel.cpp; the copy that starts Unknown_0043C8A0.cpp's data). Plan-only. FYI lane 4: gtCharSaveId and 0x0043C540, both in your automap.cpp, belong to Unknown_0043C8A0.cpp's object (gtCharSaveId follows its copy and only 0x0043C540/0x0043C8A0 read it).
 
 ## Claimed
 
