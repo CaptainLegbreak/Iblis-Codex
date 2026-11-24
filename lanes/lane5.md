@@ -4,7 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/monskill-split-3 9e796552c one placeholder more (Unknown_005D1080.cpp); replaces monskill-split, monskill-split-2, skill-strays and run-strays: their three commits rebased onto #357 (skill-run-copies, merged, is no longer carried). (1) SkillDruid.cpp's imp/monster-skill run 0x5D1080-0x5D2090 becomes Unknown_005D1080.cpp with gnVolleyOffsetX/Y and the copy 0x741A94, which leaves SkilPal.cpp with no planned data: its gen/data include and entry go, which is right, since SkilPal.cpp's own copy comes from the header with a marker. (2) Ten SkillItem.cpp strays to SkillNec/SkillDruid/SkillMonst/SkilPal/Unknown_005D1080. (3) Eight strays to ItemMode, PlrTrade, PlrModes, SkillAss, SkillAma. VERIFIED dae096daf873be9fba2110316dd01e19181cc28c, borrowed data 972 B (main 975). Based on main ff65a331a (#357), not stacked.
+- lane5/strays-3 bde6524cc 0 placeholders; replaces monskill-split-3's two strays commits (its split merged in #358 as monskill-split-2), rebased onto #358, plus a third commit: (1) ten SkillItem.cpp strays to SkillNec/SkillDruid/SkillMonst/SkilPal/Unknown_005D1080; (2) eight strays to ItemMode, PlrTrade, PlrModes, SkillAss, SkillAma; (3) fourteen more: Telekinesis/Nova/Blaze/Hydra/Chilling Armor to SkillSor.cpp, the Maggot/Andrial/Jump skills to SkillMonst.cpp (all from SkillDruid.cpp), BasicShout (SkillDruid) and Double Throw/Grim Ward (SkillAss) to SkillBar.cpp, packet callbacks 0x42/0x43 (SCmd) to PlrMsg.cpp. Each sits inside the receiving file's run. VERIFIED 6704d7d21cd94b8590f5c49a3efbbc27226682d7, borrowed data 922 B (= main #358). Based on main bc489a890 (#358), not stacked.
 
 ## Claimed
 
