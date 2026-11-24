@@ -2681,6 +2681,12 @@ int __fastcall ITEM_CallClientStateEvent(void* pArg1, int nArg2, int nArg3, int 
     return 0;
 }
 
+// 0x004C7C80
+int __cdecl sub_004C7C80_GetMissilesTxtRecordCount()
+{
+    return sgptDataTables->nMissilesTxtRecordCount;
+}
+
 // 0x004C7C90
 int __fastcall sub_004C7C90_TestTarget11018(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
