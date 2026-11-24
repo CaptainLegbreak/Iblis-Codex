@@ -27692,8 +27692,23 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/editbox.cpp",
+   "file": "Source/D2Client/Unknown_004BABF0.cpp",
    "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc",
+    "/GS-"
+   ],
    "functions": [
     {
      "va": "0x004BABF0",
@@ -27849,7 +27864,13 @@
      "va": "0x004BB0F0",
      "length": 122,
      "name": "??0ButtonWrapper@@QAE@HHHP6AHXZ@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/UI/editbox.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x004BB170",
      "length": 143,
@@ -28064,7 +28085,43 @@
      "va": "0x004BBD80",
      "length": 138,
      "name": "??0EditBoxWrapper@@QAE@HHHHHGHH@Z"
-    },
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_004BBE10.cpp",
+   "rank": 0,
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc",
+    "/GS-"
+   ],
+   "functions": [
     {
      "va": "0x004BBE10",
      "length": 81,
@@ -28224,21 +28281,6 @@
      "length": 122,
      "name": "??0SpinnerWrapper@@QAE@HHHH@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc",
-    "/GS-"
    ]
   },
   {
