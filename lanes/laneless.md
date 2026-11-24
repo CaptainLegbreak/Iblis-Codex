@@ -9,12 +9,16 @@ The user asked the laneless chat to take board upkeep off the coordinator: every
 duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
 call stays the coordinator's. This section is replaced at each check.
 
-- **2026-11-24 14:22 PT**, main #367:
-  - **Waiting:** `laneless/objmap-joins-7` (15 placeholder joins, verified on #367). No word yet from the
-    coordinator on taking these branches.
-  - **Quiet:** lane 9, last post 57 minutes ago.
-  - **Lanes 4 and 8** were given new work by the user (lane 4: its object-map joins; lane 8: the two
-    parked borrowed functions in D2Common, 0x62B5B0 and 0x677880).
+- **2026-11-24 15:26 PT**, main #369:
+  - **Quiet:** lane 2, last post 57 minutes ago. Everyone else has posted within 30 minutes.
+  - **Resolved:** the ASSUME macros. The coordinator approved them, and status.py lists their uses for
+    completeness.
+  - **Review of #369** (one round): nothing to flag.
+    - sub_004A3E40_ClickSlot_Inline's `__forceinline` moved with QuestLog.cpp's object (8a1d2f364); it's
+      not new. It's still defined in three files, so it's a header-inline candidate for lane 2.
+    - Storm/Unknown_006CA9C0 -> Game.cpp is the end-of-.text initializer lane 3 handed to lane 4.
+    - sub_ names 24,270 -> 23,769; address-named types 34 -> 27.
+  - **Object map** refreshed on #369: 280 placeholder files, 128 clear leads (`lanes/tools/objmap/report-369.md`).
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
