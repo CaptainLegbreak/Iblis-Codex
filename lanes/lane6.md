@@ -4,13 +4,9 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/lang-a-2 9eed120b 535->535 language-table copies: split the multi-copy blocks after Preset.cpp, and place 18 copies with their objects; VERIFIED 29db3ea7
-  - **Replaces lane6/lang-a** (that one was on #309; this one is replayed on #311, and its data-plan change is identical).
-  - After FieldTbls.cpp: 25 back-to-back copies, broken by 36 B at 0x00749B10 (no readers) and by DrlgGrid.cpp's own gpfnDrlgGridFlagOperations (0x00749BAC). So DrlgGrid.cpp is the 16th object after FieldTbls.cpp. Pinned: FieldTbls.cpp 0x00749744, AnimTbls.cpp 0x007497C8 (next asserted file), DrlgGrid.cpp 0x00749B70, DrlgVer.cpp 0x00749BC4 (was borrowed). The other 14 copies and the 36 B are now one entry each, still in FieldTbls.cpp until their objects are pinned. AnimTbls.cpp, DrlgGrid.cpp and DrlgVer.cpp get their first data includes.
-  - Third commit: gEclipseEnvironmentCycle (Env.cpp) shrinks from 132 B to 72 B. Its last 60 B were LvlTbls.cpp's copy, which ends at gpAutomapSeed.
-  - Rule used for 13 more: a copy right before data the plan already gives to F, which only F reads, is F's (ChatDlg, ComCallback, D2WinMain, D2WinPalette, D2WinTextBox, D2Comp, DrlgActivate, Units, Inventory, Composit, MonsterTbls, ItemMods, Waypoint). Touches data entries of D2Client automap.cpp (0x0070CCD8 leaves it).
-- lane6/locks-a a53078d6 535->535 four long-lived locks become CCritSect objects in their files (BnDownload.cpp x2, CACHE.CPP, Preset.cpp), per lane 3's crt-locks pattern; VERIFIED a64fc1f1
-  - Based on main #306 (no source file in common with #307-#308); not stacked. Takes eight init/destroy functions out of Storm/Unknown_006CAE80.cpp, Bnclient/Unknown_006CB420.cpp and Storm/Unknown_006CB4E0.cpp (Storm-dir placeholders, as the coordinator assigned).
+- lane6/seg-a 49f5394a 531->528 three one-function placeholders gather by shared const tables (Unknown_006637F0 and Unknown_00663B40 into Unknown_006634F0, Unknown_006817D0 into Unknown_00681490); VERIFIED 81541d4d
+  - Stacked on lane6/lang-a-2, which #313-#315 already took; only its last commit is new.
+  - Evidence: a namespace-scope const table has internal linkage in C++, so two functions reading the same one were in one file, unless the table was extern. Strings and floating-point constants are pooled across files, so they are ignored. So are GUIDs (DirectX IIDs are selectany).
 
 ## Questions
 
@@ -23,6 +19,8 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Left in place (and why)
 
+- Path.cpp 0x00648020 (sub_00648020_GetTablePair, in Unknown_00648020.cpp): it shares gnOrthogonalStepTable with Path.cpp's 0x00648050, but no code calls it. Its register calling convention reproduces only with the placeholder's dummy caller (sub_K15_Emit8), so it stays until that pattern has a home in Path.cpp.
+- CharSel_0042FFE0.cpp 0x0043B080 shares CharSel.cpp's gapszSkyPalette, but in CharSel.cpp it inlines a callee the original calls. The table is declared extern, so it is no proof, and the piece stays.
 - DUNGEON_ coordinate functions 0x00643260-0x00643560: filed alternately in Drlg.cpp and Skills.cpp, so there is no run. Drlg.cpp is asserted only to 0x00643060, and the names are d2moo. Unknown_00641320's 0x006432C0 and Unknown_00643560 stay.
 - D2DDraw software renderer 0x00511DF0-0x005132C0: ddCore.cpp is asserted only at 0x00511B80-0x00511CE0, and the shared global 0x007C9138 is used by a dozen files. No run, so Unknown_00512930, Unknown_00512C20 and the rest of Unknown_005125E0 stay.
 - Items.cpp 0x006313E0-0x006314A0 (Unknown_00631430): Items.cpp is scattered into ItemTbls.cpp's asserted span (0x006315D0-0x00639CC0), so adjacency here says little.
