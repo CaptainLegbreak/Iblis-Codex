@@ -14057,16 +14057,6 @@
      "name": "?VIEW_ResetBeltHover@@YAXXZ"
     },
     {
-     "va": "0x004A3070",
-     "length": 38,
-     "name": "?VIEW_LookupQuestValue@@YIHHH@Z"
-    },
-    {
-     "va": "0x004A3200",
-     "length": 19,
-     "name": "?VIEW_ClearQuestPanelValues@@YIPAUD2QuestPanelValuesStrc@@PAU1@@Z"
-    },
-    {
      "va": "0x004B9640",
      "length": 77,
      "name": "?VIEW_CountHintsForOwner@@YIHH@Z"
@@ -23926,11 +23916,6 @@
      "length": 224
     },
     {
-     "va": "0x004A28A0",
-     "length": 38,
-     "name": "@TEXT_AcceptShortPacket@4"
-    },
-    {
      "va": "0x004A2CB0",
      "length": 833
     },
@@ -23946,11 +23931,6 @@
     {
      "va": "0x004A3E40",
      "length": 406
-    },
-    {
-     "va": "0x004A40D0",
-     "length": 64,
-     "name": "?TEXT_SetQuestRecord@@YIXPBUD2Record42Strc@@@Z"
     },
     {
      "va": "0x004A4180",
@@ -25143,11 +25123,6 @@
      "name": "?TEXT_GetQuestTabAtPoint@@YGHHH@Z"
     },
     {
-     "va": "0x004A2760",
-     "length": 72,
-     "name": "?TEXT_SendQuestUpdates@@YAXXZ"
-    },
-    {
      "va": "0x004A27D0",
      "length": 105,
      "name": "?TEXT_OpenQuestDescription@@YAXH@Z"
@@ -25158,19 +25133,9 @@
      "name": "TEXT_CloseQuestPanelMsg"
     },
     {
-     "va": "0x004A2900",
-     "length": 100,
-     "name": "?TEXT_GetButtonLayout@@YAHH@Z"
-    },
-    {
      "va": "0x004A2A20",
      "length": 93,
      "name": "?TEXT_QuestButtonDownMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004A2A80",
-     "length": 429,
-     "name": "?TEXT_DrawQuestButton@@YAXXZ"
     },
     {
      "va": "0x004A3020",
@@ -25579,9 +25544,19 @@
      "name": "TEXT_OpenQuestPanel"
     },
     {
+     "va": "0x004A2760",
+     "length": 72,
+     "name": "?TEXT_SendQuestUpdates@@YAXXZ"
+    },
+    {
      "va": "0x004A27B0",
      "length": 21,
      "name": "?TEXT_CloseQuestText@@YIHPAXHH@Z"
+    },
+    {
+     "va": "0x004A28A0",
+     "length": 38,
+     "name": "@TEXT_AcceptShortPacket@4"
     },
     {
      "va": "0x004A28D0",
@@ -25589,9 +25564,19 @@
      "name": "?TEXT_ResetQuestButton@@YAXXZ"
     },
     {
+     "va": "0x004A2900",
+     "length": 100,
+     "name": "?TEXT_GetButtonLayout@@YAHH@Z"
+    },
+    {
      "va": "0x004A2970",
      "length": 176,
      "name": "?TEXT_IsMouseOnQuestButton@@YGHHH@Z"
+    },
+    {
+     "va": "0x004A2A80",
+     "length": 429,
+     "name": "?TEXT_DrawQuestButton@@YAXXZ"
     },
     {
      "va": "0x004A2C30",
@@ -25612,6 +25597,11 @@
      "va": "0x004A3000",
      "length": 20,
      "name": "_TEXT_ResetQuestButtonState"
+    },
+    {
+     "va": "0x004A3070",
+     "length": 38,
+     "name": "?VIEW_LookupQuestValue@@YIHHH@Z"
     },
     {
      "va": "0x004A30A0",
@@ -25644,6 +25634,11 @@
      "name": "?TEXT_SpawnQuestUnits@@YIXHH@Z"
     },
     {
+     "va": "0x004A3200",
+     "length": 19,
+     "name": "?VIEW_ClearQuestPanelValues@@YIPAUD2QuestPanelValuesStrc@@PAU1@@Z"
+    },
+    {
      "va": "0x004A34F0",
      "length": 2376
     },
@@ -25651,6 +25646,11 @@
      "va": "0x004A3FE0",
      "length": 229,
      "name": "?TEXT_ToggleQuestLog@@YIXH@Z"
+    },
+    {
+     "va": "0x004A40D0",
+     "length": 64,
+     "name": "?TEXT_SetQuestRecord@@YIXPBUD2Record42Strc@@@Z"
     }
    ],
    "flags": [
