@@ -4,6 +4,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/system-strays c1bd9dce 518->518 sub_004107B0_AtomicStore64 (between system.cpp's 0x4107A0 and 0x4107D0; only callers SYSTEM_InitTimeBase and FOG_GetSyncTime) moves from Fog/Unknown_00410790 to system.cpp, written __declspec(naked) like its neighbour Read64Locked (with a plain __asm body visible, both callers change). VERIFIED 31c9d75f on base 20f3e0fd (j82; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
+
 - lane3/sevt-deletenode 8b7d9fb4 519->518 D2StormBreakCmdListStrc::sub_00426F20_DeleteNode (0x426F20, inside SEVT.CPP's run between SEvtBreakHandlerChain and SEvtDispatch; SEvtDispatch calls it; frees with SEVT.CPP's BREAKCMD type name) moves from Unknown_00426F20.cpp to SEVT.CPP, which already declared it. The piece had nothing else of its own and is removed. VERIFIED 68f5bf63 on base 20f3e0fd (j82; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
 
 - lane3/sfile-destroy 72495592 519->519 SFileDestroy (0x41A110, Storm name, inside SFILE.CPP's run) moves from SFILE_004177E0 to SFILE.CPP. The piece also defined five SFILE.CPP globals (gpCryptTable, gbThreadStop, ghStormEvent, gpStreamBuffer, gpStormExplodeWork; SFILE.CPP had them extern) plus duplicate copies of two SFILE.CPP statics; SFILE.CPP now defines the five and the piece drops all seven. Edits Storm/D2SFileTypes.h (D2StormFixedListStrc gets Head()). VERIFIED 557e0354 on base 39564cf8 (j81; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
