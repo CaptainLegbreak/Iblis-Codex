@@ -244,7 +244,7 @@ D2TextBoxStrc* __stdcall CHAT_GetUsedFromHoverMsg(D2HoverTextStrc* pHoverMsg); /
 
 void __stdcall CHAT_SetUsedInHoverMsg(D2HoverTextStrc* pHoverMsg, int bUsed); // 0x00661210
 
-void __stdcall sub_006612A0(int nHandle); // 0x006612A0
+void __stdcall TEXT_FreeTextHeader(int nHandle); // 0x006612A0
 
 
 
@@ -1172,7 +1172,7 @@ Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 void __stdcall D2Common_10474(D2UnitStrc* pUnused, D2StatListStrc* pStatList); // 0x006277E0
 
-void __stdcall sub_0065FEC0_ItemApplyProps(int nPass, int nArg1, D2UnitStrc* pItem, int nArg, int nArg2, int nArg5); // 0x0065FEC0
+void __stdcall ITEMMODS_AssignProperty(int nPass, int nArg1, D2UnitStrc* pItem, int nArg, int nArg2, int nArg5); // 0x0065FEC0
 
 extern Unicode gwszName_007C0E84[]; // 0x007C0E84
 
@@ -1742,7 +1742,8 @@ static int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc* pTextBox)
 
 
 
-static inline int sub_00623C60(D2UnitStrc* pUnit)
+// build: symbol ?UNITS_GetWeaponClass@* 0x00623C60
+static inline int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -3031,26 +3032,6 @@ static int sub_004A76C0_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
 
 
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey);
-
-// 0x004A4110
-void __stdcall TEXT_QuestButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    int nX = pMsg->nXpos;
-    int nY = pMsg->nYpos;
-    if (sub_004A2970(nX, nY) && gbGlobal_007BF2B0)
-    {
-        UI_SetUIVar(17, 1, 0);
-        TEXT_ToggleQuestLog(0);
-        gbGlobal_007BF2B0 = 0;
-        pMsg->bReturn = 1;
-        pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
-        return;
-    }
-
-    gbGlobal_007BF2B0 = 0;
-    pMsg->bReturn = 0;
-}
 
 
 

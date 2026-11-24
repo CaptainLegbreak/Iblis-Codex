@@ -18,6 +18,7 @@
 #include "D2GameRecords.h"
 #include "D2SkillIds.h"
 #include "D2LanguageNames.h"
+#include "D2AnimData.h"
 // build: symbol _gaszLanguageNames 0x00741A1C
 
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
@@ -696,9 +697,9 @@ int __stdcall D2Common_10095(D2ActiveRoomStrc*, int, int); // 0x0061B130
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
 
-int __stdcall sub_00648A20_GetTargetX(D2DynamicPathStrc*); // 0x00648A20
+int __stdcall PATH_GetFinalTargetX(D2DynamicPathStrc*); // 0x00648A20
 
-int __stdcall sub_00648A30_GetTargetY(D2DynamicPathStrc*); // 0x00648A30
+int __stdcall PATH_GetFinalTargetY(D2DynamicPathStrc*); // 0x00648A30
 
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 
@@ -2649,7 +2650,7 @@ int __fastcall SKILLS_StartSkill(Game*, D2UnitStrc*, int, int, int); // 0x0056F6
 
 int __fastcall SKILLS_RollMonFrenzyDamage(Game*, D2UnitStrc*, D2UnitStrc*, int, int); // 0x005CDDD0
 
-int __stdcall sub_006444A0(Skill*); // 0x006444A0
+int __stdcall SKILLS_GetParam1(Skill*); // 0x006444A0
 
 int __fastcall SKILLS_ApplyFrenzyStats(Game*, D2UnitStrc*, int, int); // 0x005D8C70
 
@@ -2801,6 +2802,93 @@ int __fastcall SKILLS_SrvDo107_Mosquito(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     }
 
     return 1;
+}
+
+void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID);              // 0x0061A270
+
+void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);                                     // 0x00555600
+
+// 0x005CDC10
+int __fastcall sub_005CDC10_ConsumeCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = 0;
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+        pSkillsTxtRecord = &sgptDataTables->pSkillsTxt[nSkillId];
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (pTarget)
+    {
+        const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
+        if (nType == UNIT_MONSTER && !MONSTERS_GetHirelingTypeId(pTarget) && pTarget->dwAnimMode == 12)
+        {
+            const int nCorpseLife = STATLIST_GetMaxLifeFromUnit(pTarget);
+            DUNGEON_AllocDrlgDelete(UNITS_GetRoom(pTarget), UNIT_MONSTER, !pTarget ? -1 : pTarget->dwUnitId);
+            SUNIT_RemoveUnit(pGame, pTarget);
+
+            int nHitpoints = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
+            const int nMaxHitpoints = STATLIST_GetMaxLifeFromUnit(pUnit);
+            if (nCorpseLife > 0)
+            {
+                nHitpoints += DATATBLS_ApplyRatio(nCorpseLife, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel), 100);
+                nHitpoints = D2_MIN(D2_MAX(nHitpoints, 1), nMaxHitpoints);
+                STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, nHitpoints, 0);
+            }
+
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+struct D2AnimSeqTxt;
+
+D2AnimSeqTxt* __stdcall DATATBLS_GetMonSeqTxtRecordFromUnit(D2UnitStrc* pUnit);                             // 0x006633B0
+
+int __stdcall DATATBLS_GetSeqFramePointsCount(D2UnitStrc* pUnit);                                          // 0x006633D0
+
+void __stdcall DATATBLS_GetSequenceEvent(D2AnimSeqTxt* pMonSeqTxt, int nSeqFramePoint, int* pEvent);        // 0x006634C0
+
+// 0x005CDD30
+int __fastcall SKILLS_GetMonFrenzySequenceFrame(D2UnitStrc* pUnit)
+{
+    if (DATATBLS_GetMonSeqTxtRecordFromUnit(pUnit))
+    {
+        const int nMax = DATATBLS_GetSeqFramePointsCount(pUnit) >> 8;
+        const int nCurrent = pUnit->dwSeqFrame >> 8;
+        for (int i = nCurrent + 1; i < nMax; ++i)
+        {
+            int nEvent;
+            DATATBLS_GetSequenceEvent(pUnit->pAnimSeq, nCurrent << 8, &nEvent);
+            if (nEvent)
+            {
+                return nEvent;
+            }
+        }
+    }
+    else
+    {
+        const int nMax = pUnit->dwFrameCountPrecise >> 8;
+        const int nCurrent = pUnit->nSeqCurrentFramePrecise >> 8;
+        if (nMax > pUnit->pAnimData->dwFrames)
+        {
+            return 0;
+        }
+
+        for (int i = nCurrent + 1; i < nMax; ++i)
+        {
+            if (pUnit->pAnimData->pFrameFlags[nCurrent])
+            {
+                return pUnit->pAnimData->pFrameFlags[nCurrent];
+            }
+        }
+    }
+
+    return 0;
 }
 
 

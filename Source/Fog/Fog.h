@@ -90,7 +90,6 @@ void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc* pServer, D2QClientStr
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 void* __fastcall sub_004098B0_ReallocLarge(D2PoolSystemStrc* pSystem, void* pMemory, int nSize, const char* szFile, int nLine); // 0x004098B0
 
-#define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 #define QS_IS_READ(f) (((f) & 1) == 1)
 #define QS_IS_WRITE(f) (((f) & 3) == 2)
 // build: symbol ?FOG_DisplayHalt@* 0x00408A60
@@ -483,50 +482,6 @@ struct D2StormArray408Strc
 typedef unsigned char FOGASTType;
 
 typedef unsigned char FOGCalcExpressionParserTokenType;
-
-typedef unsigned char U8;
-
-struct PaletteColor
-{
-    U8 c0;
-    U8 c1;
-    U8 c2;
-    U8 unused;
-};
-
-struct PaletteTables
-{
-    PaletteColor colors[256];
-    U8 tables[256*32];
-};
-
-typedef unsigned int U32;
-
-struct ReceiveQueue
-{
-    U32 status;
-    U8 criticalSection[0x18];
-    void* head;
-    void* tail;
-};
-
-struct ReceiveConnection
-{
-    U8 pad0[0x170];
-    ReceiveQueue queue;
-};
-
-typedef char check_PaletteColor_size[sizeof(PaletteColor)==4?1:-1];
-
-typedef char check_PaletteTables_tables[OFFSET(PaletteTables,tables)==0x400?1:-1];
-
-typedef char check_ReceiveConnection_queue[OFFSET(ReceiveConnection,queue)==0x170?1:-1];
-
-typedef char check_ReceiveQueue_head[OFFSET(ReceiveQueue,head)==0x1C?1:-1];
-
-typedef char check_ReceiveQueue_size[sizeof(ReceiveQueue)==0x24?1:-1];
-
-typedef char check_pointer_size[sizeof(void*)==4?1:-1];
 
 typedef int int32_t;
 

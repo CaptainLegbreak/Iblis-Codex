@@ -1226,7 +1226,8 @@ static inline int sub_0044BE50(D2UnitStrc* pUnit)
     return pUnit->dwUnitType;
 }
 
-static inline int sub_00623C60(D2UnitStrc* pUnit)
+// build: symbol ?UNITS_GetWeaponClass@* 0x00623C60
+static inline int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -1252,7 +1253,7 @@ int __stdcall SKILLITEM_EventFunc07_Knockback(D2UnitStrc* pUnit, D2UnitStrc* pDe
     int nChance = 64;
     if (sub_0044BE50(pDefender) == UNIT_MONSTER)
     {
-        D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(sub_00623C60(pDefender));
+        D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(UNITS_GetWeaponClass(pDefender));
         if (pMonStats2TxtRecord)
         {
             if (pMonStats2TxtRecord->nFlags[MONSTATS2FLAGINDEX_LARGE >> 3] & gdwBitMasks[MONSTATS2FLAGINDEX_LARGE & 7])
@@ -2313,44 +2314,6 @@ int __fastcall SKILLITEM_pSpell11_CastFireBallToCoordinates(D2GameStrc* pGame, D
 struct D2InventoryStrc;
 
 
-// 0x005CDD30
-int __fastcall SKILLS_GetMonFrenzySequenceFrame(D2UnitStrc* pUnit)
-{
-    if (DATATBLS_GetMonSeqTxtRecordFromUnit(pUnit))
-    {
-        const int nMax = DATATBLS_GetSeqFramePointsCount(pUnit) >> 8;
-        const int nCurrent = pUnit->dwSeqFrame >> 8;
-        for (int i = nCurrent + 1; i < nMax; ++i)
-        {
-            int nEvent;
-            DATATBLS_GetSequenceEvent(pUnit->pAnimSeq, nCurrent << 8, &nEvent);
-            if (nEvent)
-            {
-                return nEvent;
-            }
-        }
-    }
-    else
-    {
-        const int nMax = pUnit->dwFrameCountPrecise >> 8;
-        const int nCurrent = pUnit->nSeqCurrentFramePrecise >> 8;
-        if (nMax > pUnit->pAnimData->dwFrames)
-        {
-            return 0;
-        }
-
-        for (int i = nCurrent + 1; i < nMax; ++i)
-        {
-            if (pUnit->pAnimData->pFrameFlags[nCurrent])
-            {
-                return pUnit->pAnimData->pFrameFlags[nCurrent];
-            }
-        }
-    }
-
-    return 0;
-}
-
 // 0x005C32A0
 int __fastcall SKILLS_SrvSt20_IronGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -2383,30 +2346,7 @@ int __fastcall SKILLS_SrvSt20_IronGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     return !STATLIST_GetOwner(pTarget, 0);
 }
 
-// 0x005C3540
-int __fastcall SKILLS_ApplyResistanceImmunityPenalty(D2UnitStrc* pUnit, int nStatId, int nResist)
-{
-    switch (nStatId)
-    {
-    case STAT_DAMAGERESIST:
-    case STAT_MAGICRESIST:
-    case STAT_FIRERESIST:
-    case STAT_LIGHTRESIST:
-    case STAT_COLDRESIST:
-    case STAT_POISONRESIST:
-        if (nResist > 0 || pUnit && pUnit->dwUnitType == UNIT_PLAYER || MONSTERS_GetHirelingTypeId(pUnit) || STATLIST_GetUnitBaseStat(pUnit, nStatId, 0) < 100)
-        {
-            break;
-        }
-
-        return nResist / 5;
-
-    default:
-        break;
-    }
-
-    return nResist;
-}
+int __fastcall SKILLS_SrvSt22_PsychicHammer(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D30F0
 
 // 0x005C72F0
 int __fastcall SKILLS_SrvDo118_Twister_Tornado(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)

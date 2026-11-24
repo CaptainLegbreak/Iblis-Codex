@@ -1480,11 +1480,11 @@ extern "C" void __fastcall MSG_SendTwoDwords(U8 command,U32 first,U32 second); /
 
 extern "C" Auxiliary* __cdecl sub_004646A0_GetAuxiliary();
 
-extern "C" void __stdcall sub_0061C240_Configure(Context* context,Auxiliary* auxiliary,int mode,int angle,int flag);
+extern "C" void __stdcall ENVIRONMENT_InitializeEnvironment(Context* context,Auxiliary* auxiliary,int mode,int angle,int flag); // 0x0061C240
 
 extern "C" void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
-extern "C" void __stdcall sub_006612A0_Release(Allocation* allocation);
+extern "C" void __stdcall TEXT_FreeTextHeader(Allocation* allocation); // 0x006612A0
 
 extern "C" int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
@@ -1614,16 +1614,22 @@ public:
     static void operator delete(void* pMemory);
 };
 
+struct D2StormCritSectStrc
+{
+    D2CriticalSectionStrc tLock;
+
+    ~D2StormCritSectStrc()
+    {
+        DeleteCriticalSection(&tLock);
+    }
+};
+
 template <> class TSExportTableSync<SGAMEDATA, HSGAMEDATA__*, HSGAMEDATALOCK__*, CCritSect, 0> : public D2StormExportTableSimpleStrc
 {
 public:
-    D2CriticalSectionStrc m_cs;
+    D2StormCritSectStrc m_cs;
 
     TSExportTableSync();
-    ~TSExportTableSync()
-    {
-        DeleteCriticalSection(&m_cs);
-    }
     static void operator delete(void* pMemory);
 };
 
@@ -1638,6 +1644,11 @@ inline void D2StormExportTableSyncStrc::operator delete(void* pMemory)
     if (pMemory)
         SMemFree(pMemory, "delete", -1, 0);
 }
+
+// build: symbol ??__EgtGameDataTable@@YAXXZ 0x006CA9C0
+// build: symbol ??__FgtGameDataTable@@YAXXZ 0x006CB3E0
+// build: symbol ??1?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@UAE@XZ 0x00450760
+D2StormExportTableSyncStrc gtGameDataTable; // 0x007A0690
 
 int __stdcall GAME_Shutdown(); // 0x0052C030
 
@@ -2547,7 +2558,7 @@ void __cdecl GAME_UpdateGameState()
 extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer()
 {
     if(gContext != (Context*)0)
-        sub_0061C240_Configure(gContext,sub_004646A0_GetAuxiliary(),5,0,1);
+        ENVIRONMENT_InitializeEnvironment(gContext,sub_004646A0_GetAuxiliary(),5,0,1);
     else
         gDeferred=1;
 }
@@ -3909,7 +3920,7 @@ D2StormExportTableSimpleStrc::TSExportTableSimple()
 // 0x004511F0
 D2StormExportTableSyncStrc::TSExportTableSync()
 {
-    InitializeCriticalSection(&m_cs);
+    InitializeCriticalSection(&m_cs.tLock);
 }
 
 
@@ -4187,7 +4198,7 @@ extern "C" void __cdecl CUNIT_ClearTextPanel()
     Allocation* allocation=gAllocation;
     gCleanupState=0;
     if(allocation) {
-        sub_006612A0_Release(allocation);
+        TEXT_FreeTextHeader(allocation);
         gAllocation=(Allocation*)0;
     }
 }

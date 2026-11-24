@@ -751,13 +751,13 @@ unsigned int __stdcall DATATBLS_GetCurrentLevelFromExp(int nClass, unsigned int 
 
 unsigned int __stdcall DATATBLS_GetLevelThreshold(int nClass, unsigned int dwLevel); // 0x00611800
 
-int __stdcall sub_00625D60(D2UnitStrc*); // 0x00625D60
+int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc*); // 0x00625D60
 
 void __fastcall sub_00536850_UpdateLevel(D2GameStrc*,D2UnitStrc*,int); // 0x00536850
 
 void __fastcall D2GAME_UpdatePlayerVitals(D2GameStrc*,D2UnitStrc*); // 0x0055F500
 
-int __stdcall sub_00622150_GetLevelInfo(D2UnitStrc*,int,int); // 0x00622150
+int __stdcall UNITS_GetPlayerName(D2UnitStrc*,int,int); // 0x00622150
 
 static void sub_00570A50_SpendStatPointsOnStrength(D2UnitStrc* pUnit, int nValue);
 
@@ -4306,12 +4306,12 @@ int __fastcall SKILLS_GetBaseWalkVelocity(D2UnitStrc* pUnit)
 
 int __fastcall AIGENERAL_GetMinionSpawnClassId(D2UnitStrc* pUnit); // 0x0058F710
 
-int __stdcall sub_0063EA70_GetMonsterId(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7); // 0x0063EA70
+int __stdcall MONSTERS_GetSpawnMode_XY(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7); // 0x0063EA70
 
 // 0x0056E620
 int __fastcall D2GAME_GetSummonIdFromSkill(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7)
 {
-    int nMonsterId = sub_0063EA70_GetMonsterId(pUnit, nArg2, nArg3, nArg4, nArg5, nArg6, nArg7);
+    int nMonsterId = MONSTERS_GetSpawnMode_XY(pUnit, nArg2, nArg3, nArg4, nArg5, nArg6, nArg7);
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
         return nMonsterId;

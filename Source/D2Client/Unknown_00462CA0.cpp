@@ -109,14 +109,14 @@ void __fastcall SKILLS_DoUsedSkill(D2UnitStrc* pUnit); // 0x004C68F0
 void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);
-int __stdcall sub_0061AA40(D2ActiveRoomStrc* pRoom);
+int __stdcall DUNGEON_CheckLOSDraw(D2ActiveRoomStrc* pRoom); // 0x0061AA40
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);
-void __stdcall sub_0061ACD0_SetRoomPos(D2ActiveRoomStrc* pRoom, int nX, int nY, int bChanged);
+void __stdcall DUNGEON_UpdatePops(D2ActiveRoomStrc* pRoom, int nX, int nY, int bChanged); // 0x0061ACD0
 int __stdcall DUNGEON_GetPortalFlagFromLevelId(int nLevelId);
-void __stdcall sub_0061AF10(void* pAct, D2ActiveRoomStrc* pNextRoom, D2ActiveRoomStrc* pRoom);
+void __stdcall DUNGEON_InitRoomTileAnimation(void* pAct, D2ActiveRoomStrc* pNextRoom, D2ActiveRoomStrc* pRoom); // 0x0061AF10
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit);
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit);
-void __stdcall sub_00620E40_GetClassSpeed(D2UnitStrc* pUnit, int nClassId, int* pSpeed, int* pBase);
+void __stdcall UNITS_GetRunAndWalkSpeedForPlayer(D2UnitStrc* pUnit, int nClassId, int* pSpeed, int* pBase); // 0x00620E40
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit);
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit);
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);
@@ -124,7 +124,7 @@ int __stdcall UNITS_IsCurrentRoomInvalid(D2UnitStrc* pUnit);
 void __stdcall UNITS_FreePlayerData(void* pMemPool, D2UnitStrc* pPlayer);
 void __stdcall UNITS_SetPlayerPortalFlags(D2UnitStrc* pUnit, int nPortalFlags);
 int __stdcall UNITS_GetPlayerPortalFlags(D2UnitStrc* pUnit);
-int __stdcall sub_00622B50_TestInteractCollision(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMask);
+int __stdcall UNITS_TestCollisionBetweenInteractingUnits(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMask); // 0x00622B50
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus);
 int __stdcall UNITS_IsInMovingModeEx(D2UnitStrc* pUnit);
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer);
@@ -134,7 +134,7 @@ int __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);
 int __stdcall SKILLS_GetSkillModeFromUnit(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);
 int __stdcall UNITS_IsObjectInInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject);
-int __stdcall sub_006486C0(D2DynamicPathStrc* pDynamicPath);
+int __stdcall PATH_GetVelocity(D2DynamicPathStrc* pDynamicPath); // 0x006486C0
 void __stdcall D2Common_10153(D2DynamicPathStrc* pDynamicPath);
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit);
 void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory);
@@ -150,14 +150,14 @@ int __stdcall D2Common_11016(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 void __stdcall PATH_FreeDynamicPath(void* pMemPool, D2DynamicPathStrc* pDynamicPath);
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);
-int __stdcall sub_00648A40_GetTargetX(D2DynamicPathStrc* pPath);
-int __stdcall sub_00648A60_GetTargetY(D2DynamicPathStrc* pPath);
+int __stdcall PATH_GetLastPointX(D2DynamicPathStrc* pPath); // 0x00648A40
+int __stdcall PATH_GetLastPointY(D2DynamicPathStrc* pPath); // 0x00648A60
 D2ActiveRoomStrc* __stdcall PATH_GetNextRoom(D2DynamicPathStrc* pDynamicPath);
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY);
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit);
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int a3);
 void __stdcall D2Common_10228(D2UnitStrc* pUnit);
-void __stdcall sub_00649F70(D2UnitStrc* pUnit, int nArg);
+void __stdcall PATH_SetUnitDeadCollision(D2UnitStrc* pUnit, int nArg); // 0x00649F70
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);
 unsigned short __stdcall COLLISION_CheckMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask);
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms);
@@ -217,7 +217,7 @@ static void PLAYER_UpdateRoomPosition(D2UnitStrc* pUnit)
     int nY;
     UNIT_GETY(pUnit, nY);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    sub_0061ACD0_SetRoomPos(pRoom, nX, nY, UNITS_IsCurrentRoomInvalid(pUnit));
+    DUNGEON_UpdatePops(pRoom, nX, nY, UNITS_IsCurrentRoomInvalid(pUnit));
 }
 
 // build: symbol ?PLAYER_UpdateRoomState@* 0x00460E70
@@ -231,12 +231,12 @@ static void PLAYER_UpdateRoomState(D2UnitStrc* pUnit)
     int nPortalFlags = UNITS_GetPlayerPortalFlags(pUnit);
     nPortalFlags |= DUNGEON_GetPortalFlagFromLevelId(nLevelId);
     UNITS_SetPlayerPortalFlags(pUnit, nPortalFlags);
-    sub_0061AF10(gpDrlgAct_007A0634, PATH_GetNextRoom(pUnit->pDynamicPath), UNITS_GetRoom(pUnit));
+    DUNGEON_InitRoomTileAnimation(gpDrlgAct_007A0634, PATH_GetNextRoom(pUnit->pDynamicPath), UNITS_GetRoom(pUnit));
     const int bInTown = DUNGEON_IsRoomInTown(pRoom) != 0;
     if (gnInTown != bInTown && !bInTown)
         NPCMENU_RefreshNpcEntries(pUnit);
     gnInTown = bInTown;
-    sub_00473C90_SetGlobal(sub_0061AA40(pRoom));
+    sub_00473C90_SetGlobal(DUNGEON_CheckLOSDraw(pRoom));
     sub_0046BF30_CheckThroneLevel(pRoom);
 }
 
@@ -415,8 +415,8 @@ static int __stdcall PLAYER_WalkTo(int nMode, D2UnitStrc* pUnit, int nX, int nY)
     if (!D2Common_10142(pPath, pUnit, 0))
         return 0;
 
-    const int nTargetX = sub_00648A40_GetTargetX(pPath);
-    const int nTargetY = sub_00648A60_GetTargetY(pPath);
+    const int nTargetX = PATH_GetLastPointX(pPath);
+    const int nTargetY = PATH_GetLastPointY(pPath);
     UNITMODE_DoUnitAction(nMode, pUnit, nTargetX, nTargetY, 0);
     return 1;
 }
@@ -433,7 +433,7 @@ static void __stdcall PLAYER_OperateObject(int nObjectId, D2PlayerCmdStrc* pCmd)
     if (pObject->dwClassId == OBJECT_TOWN_PORTAL && STATES_CheckState(sub_00463DD0(), STATE_JUST_PORTALED))
         bSetMode = 0;
 
-    if (UNITS_IsObjectInInteractRange(pCmd->pPlayer, pCmd->pTarget) && !sub_00622B50_TestInteractCollision(pCmd->pPlayer, pCmd->pTarget, 0x804))
+    if (UNITS_IsObjectInInteractRange(pCmd->pPlayer, pCmd->pTarget) && !UNITS_TestCollisionBetweenInteractingUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
     {
         if (bSetMode)
             UNITMODE_DoUnitAction(0x13, pCmd->pPlayer, 2, nObjectId, 0);
@@ -457,7 +457,7 @@ static void PLAYER_InteractWithTarget(D2PlayerCmdStrc* pCmd, int nTargetId)
     case 0:
     case 1:
     case 2:
-        if (!sub_00622B50_TestInteractCollision(pCmd->pTarget, pCmd->pPlayer, 0x804))
+        if (!UNITS_TestCollisionBetweenInteractingUnits(pCmd->pTarget, pCmd->pPlayer, 0x804))
         {
             UNITMODE_DoUnitAction(0x13, pCmd->pPlayer, 0, nTargetId, 0);
             return;
@@ -601,7 +601,7 @@ static void __stdcall PLAYER_InteractWithUnit(int nUnitType, int nUnitId, D2Play
             int bSetMode = 1;
             if (pCmd->pTarget && pCmd->pTarget->dwClassId == 0x3B && STATES_CheckState(pPlayerUnit, STATE_JUST_PORTALED))
                 bSetMode = 0;
-            if (UNITS_IsObjectInInteractRange(pCmd->pPlayer, pCmd->pTarget) && !sub_00622B50_TestInteractCollision(pCmd->pPlayer, pCmd->pTarget, 0x804))
+            if (UNITS_IsObjectInInteractRange(pCmd->pPlayer, pCmd->pTarget) && !UNITS_TestCollisionBetweenInteractingUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
             {
                 if (bSetMode)
                 {
@@ -625,7 +625,7 @@ static void __stdcall PLAYER_InteractWithUnit(int nUnitType, int nUnitId, D2Play
         {
             if (pCmd->dwFlags & 8)
                 return;
-            if (D2Common_10399(pTarget, pCmd->pPlayer) <= 4 && !sub_00622B50_TestInteractCollision(pCmd->pPlayer, pCmd->pTarget, 0x804))
+            if (D2Common_10399(pTarget, pCmd->pPlayer) <= 4 && !UNITS_TestCollisionBetweenInteractingUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
             {
                 UNITMODE_DoUnitAction(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
                 GAME_SetClickHandled();
@@ -640,7 +640,7 @@ static void __stdcall PLAYER_InteractWithUnit(int nUnitType, int nUnitId, D2Play
         }
         case UNIT_PLAYER:
         {
-            if (D2Common_10399(pTarget, pCmd->pPlayer) <= 4 && !sub_00622B50_TestInteractCollision(pCmd->pPlayer, pCmd->pTarget, 0x804))
+            if (D2Common_10399(pTarget, pCmd->pPlayer) <= 4 && !UNITS_TestCollisionBetweenInteractingUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
             {
                 UNITMODE_DoUnitAction(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
                 return;
@@ -1106,11 +1106,11 @@ static int PLAYER_CmdLeftSkillMove(D2PlayerCmdStrc* pCmd)
     D2UnitStrc* pPlayer = pCmd->pPlayer;
     int nSpeed;
     int nBase;
-    sub_00620E40_GetClassSpeed(pPlayer, !pPlayer ? -1 : pPlayer->dwClassId, &nSpeed, &nBase);
+    UNITS_GetRunAndWalkSpeedForPlayer(pPlayer, !pPlayer ? -1 : pPlayer->dwClassId, &nSpeed, &nBase);
     nSpeed <<= 8;
     D2DynamicPathStrc* pPath = pCmd->pPlayer->pDynamicPath;
     const int nVelocity = STATLIST_UnitGetStatValue(pCmd->pPlayer, STAT_VELOCITYPERCENT, 0) * nSpeed / 100;
-    if (sub_006486C0(pPath) == nVelocity)
+    if (PATH_GetVelocity(pPath) == nVelocity)
     {
         if (pCmd->dwFlags & 0x40)
             bChanged = 1;

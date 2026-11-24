@@ -688,7 +688,7 @@ struct Key { char* text; Key() { text=0; } };
 struct Node { unsigned hash; Link slot,full; Key key; void* mapped; Node() { mapped=0; } };
 
 struct List {
-    void sub_0060E890(char*,int,char*);
+    void IGNORELIST_LinkMappingListNode(char*,int,char*); // 0x0060E890
     Node* IGNORELIST_NewMappingListNode(int,unsigned,unsigned);
 };
 
@@ -787,7 +787,7 @@ public:
     D2CommonStringEntryNodeStrc* IGNORELIST_NewStringTableNode(const char* szKey, unsigned int nExtraBytes, unsigned int nFlags); // 0x00610D60
     void IGNORELIST_ClearStringTable();
     char* IGNORELIST_GetStringTableHead();
-    int sub_00610840(unsigned int nSlot);                                                                   // 0x00610840
+    int IGNORELIST_MonitorStringTableFullness(unsigned int nSlot);                                                                   // 0x00610840
     void InternalLinkNode(D2CommonStringEntryNodeStrc* pNode, unsigned int nHashVal)
     {
         m_slotlistarray.m_data[nHashVal & m_slotmask].LinkNode((char*)pNode, 2, 0);
@@ -817,7 +817,7 @@ public:
     char* IGNORELIST_GetMappingTableNext(char* pNode);
     void IGNORELIST_InternalClearMappingTable(int bWarn);                                                             // 0x0060EE60
     void IGNORELIST_ClearMappingTable();
-    D2CommonMappingEntryNodeStrc* sub_0060F1D0_InternalFind(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key);
+    D2CommonMappingEntryNodeStrc* IGNORELIST_InternalFindMappingTableNode(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key); // 0x0060F1D0
     D2CommonMappingEntryNodeStrc* IGNORELIST_FindMappingTableNode(const char* szKey);                                      // 0x0060F510
     void InternalLinkNode(D2CommonMappingEntryNodeStrc* pNode, unsigned int nHashVal)
     {
@@ -825,7 +825,7 @@ public:
     }
     void IGNORELIST_GrowMappingTableSlots();
     D2CommonMappingEntryNodeStrc* IGNORELIST_NewMappingTableNode(const char* szKey, unsigned int nExtraBytes, unsigned int nFlags); // 0x00611170
-    int sub_00610CA0(unsigned int nSlot);                                                                   // 0x00610CA0
+    int IGNORELIST_MonitorMappingTableFullness(unsigned int nSlot);                                                                   // 0x00610CA0
     D2CommonMappingEntryNodeStrc* IGNORELIST_InternalNewMappingTableNode(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key, unsigned int nExtraBytes, unsigned int nFlags);
 };
 
@@ -882,11 +882,11 @@ public:
     virtual void IGNORELIST_ClearAccountAliases();                                                                 // 0x0060F500
     virtual ~IgnoreList();                                                                                  // 0x00610AA0
     void IGNORELIST_CloseFile();
-    void sub_0060DE30_Normalize(const char* szName, char* szOut, int nSize);                                // 0x0060DE30
-    void sub_0060DEA0_NormalizeAlias(const char* szName, char* szOut, int nSize);                           // 0x0060DEA0
+    void IGNORELIST_CopyNameBeforeStar(const char* szName, char* szOut, int nSize);                                // 0x0060DE30
+    void IGNORELIST_CopyAccountFromStar(const char* szName, char* szOut, int nSize);                           // 0x0060DEA0
     int IGNORELIST_AppendLineToFile(const char* szLine);                                                           // 0x0060DF10
     int IGNORELIST_NormalizeKey(const char* szName, char* szOut, int nSize);                              // 0x0060DFF0
-    int sub_0060F0A0_Save();                                                                                // 0x0060F0A0
+    int IGNORELIST_SaveToFile();                                                                                // 0x0060F0A0
     int IGNORELIST_ContainsName(const char* szKey);
     void IGNORELIST_LoadFromFile();                                                                               // 0x00611050
 };
@@ -1101,7 +1101,7 @@ void D2CommonIgnoreListStrc::IGNORELIST_SetEnabled(int bEnabled)
 }
 
 // 0x0060DE30
-void D2CommonIgnoreListStrc::sub_0060DE30_Normalize(const char* szName, char* szOut, int nSize)
+void D2CommonIgnoreListStrc::IGNORELIST_CopyNameBeforeStar(const char* szName, char* szOut, int nSize)
 {
     unsigned int i = 0;
     while (szName[i] != '*' && szName[i] && i <= 16 && i < nSize - 1)
@@ -1113,7 +1113,7 @@ void D2CommonIgnoreListStrc::sub_0060DE30_Normalize(const char* szName, char* sz
 }
 
 // 0x0060DEA0
-void D2CommonIgnoreListStrc::sub_0060DEA0_NormalizeAlias(const char* szName, char* szOut, int nSize)
+void D2CommonIgnoreListStrc::IGNORELIST_CopyAccountFromStar(const char* szName, char* szOut, int nSize)
 {
     for (unsigned int i = 0; szName[i]; ++i)
     {
@@ -1701,7 +1701,7 @@ D2CommonStormListFStrc::D2CommonStormListFStrc(const D2CommonStormListFStrc& sou
 }
 
 // 0x0060F0A0
-int D2CommonIgnoreListStrc::sub_0060F0A0_Save()
+int D2CommonIgnoreListStrc::IGNORELIST_SaveToFile()
 {
     _iobuf* pFile = fopen(szFileName, gszFileModeW);
     if (!pFile)
@@ -1733,7 +1733,7 @@ D2CommonStormSlotListCStrc::~D2CommonStormSlotListCStrc()
 }
 
 // 0x0060F1D0
-D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::sub_0060F1D0_InternalFind(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key)
+D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::IGNORELIST_InternalFindMappingTableNode(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key)
 {
     for (char* pNode = m_slotlistarray[nHashVal & m_slotmask].MaskHead(); (int)pNode > 0; pNode = m_slotlistarray[nHashVal & m_slotmask].RawNext(pNode))
     {
@@ -1825,7 +1825,7 @@ void D2CommonIgnoreListStrc::IGNORELIST_ClearAccountAliases()
 // 0x0060F510
 D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::IGNORELIST_FindMappingTableNode(const char* szKey)
 {
-    return sub_0060F1D0_InternalFind(SStrHash(szKey, 0, 0), D2StormHashKeyStrIStrc(szKey));
+    return IGNORELIST_InternalFindMappingTableNode(SStrHash(szKey, 0, 0), D2StormHashKeyStrIStrc(szKey));
 }
 
 // 0x0060F590
@@ -1939,10 +1939,10 @@ int D2CommonIgnoreListStrc::IGNORELIST_NormalizeKey(const char* szName, char* sz
 
     *szOut = '\0';
     char szKey[0x100] = "";
-    sub_0060DEA0_NormalizeAlias(szName, szKey, sizeof(szKey));
+    IGNORELIST_CopyAccountFromStar(szName, szKey, sizeof(szKey));
     if (!szKey[0])
     {
-        sub_0060DE30_Normalize(szName, szKey, sizeof(szKey));
+        IGNORELIST_CopyNameBeforeStar(szName, szKey, sizeof(szKey));
     }
     SStrCopy(szOut, szKey, nSize);
     return 0;
@@ -2098,7 +2098,7 @@ int D2CommonIgnoreListStrc::IGNORELIST_RemoveName(const char* szName)
     if (!pNode)
         return 0;
     m_table.IGNORELIST_UnlinkStringTableNode(pNode);
-    sub_0060F0A0_Save();
+    IGNORELIST_SaveToFile();
     return 1;
 }
 
@@ -2111,7 +2111,7 @@ int D2CommonIgnoreListStrc::IGNORELIST_RemoveAlias(const char* szName)
         if (pNode)
         {
             m_table2.IGNORELIST_UnlinkStringTableNode(pNode);
-            sub_0060F0A0_Save();
+            IGNORELIST_SaveToFile();
             return 1;
         }
         else
@@ -2359,10 +2359,10 @@ int D2CommonIgnoreListStrc::IGNORELIST_IsListed(const char* szName)
         return 0;
     char szAlias[0x100] = "";
     char szNormalized[0x100] = "";
-    sub_0060DE30_Normalize(szName, szNormalized, 0x100);
+    IGNORELIST_CopyNameBeforeStar(szName, szNormalized, 0x100);
     IGNORELIST_TranslateAlias(szNormalized, szAlias, 0x100);
     if (!szAlias[0])
-        sub_0060DEA0_NormalizeAlias(szName, szAlias, 0x100);
+        IGNORELIST_CopyAccountFromStar(szName, szAlias, 0x100);
     if (szAlias[0] && IGNORELIST_ContainsName(szAlias))
         return 1;
     if (szNormalized[0] && IGNORELIST_ContainsName(szNormalized))
@@ -2405,7 +2405,7 @@ D2CommonStormZero6105F0Strc::D2CommonStormZero6105F0Strc() : n0x04(0), n0x08(0),
 {
 }
 
-// build: symbol ?sub_0060E890@List@@QAEXPADH0@Z 0x0060E890
+// build: symbol ?IGNORELIST_LinkMappingListNode@List@@QAEXPADH0@Z 0x0060E890
 // 0x00610610
 D2CommonRecord610610Strc::D2CommonRecord610610Strc(int nValue)
     : f_4(0), f_8(0), nFieldC(0), nField10(0), nField14(0), nField18(nValue)
@@ -2417,7 +2417,7 @@ Node* List::IGNORELIST_NewMappingListNode(int linkType,unsigned extra,unsigned f
 {
     void* memory=sub_00413020(sizeof(Node)+extra,mappingName,-2,flags|ALLOC_FLAG);
     Node* node=new(memory) Node;
-    if(linkType) sub_0060E890((char*)node,linkType,0);
+    if(linkType) IGNORELIST_LinkMappingListNode((char*)node,linkType,0);
     return node;
 }
 
@@ -2467,7 +2467,7 @@ void D2CommonStormSlotArrayBStrc::IGNORELIST_ForwardSetMappingSlotArrayCount(uns
 }
 
 // 0x00610840
-int D2CommonStormHashTableAStrc::sub_00610840(unsigned int nSlot)
+int D2CommonStormHashTableAStrc::IGNORELIST_MonitorStringTableFullness(unsigned int nSlot)
 {
     D2CommonStormSlotListAStrc* const& pListArray = m_slotlistarray.m_data;
     if (m_slotmask >= 0x3FF)
@@ -2538,7 +2538,7 @@ D2CommonStormHashTableBStrc::TSHashTable()
 D2CommonStringEntryNodeStrc* D2CommonStormHashTableAStrc::IGNORELIST_InternalNewStringTableNode(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key, unsigned int nExtraBytes, unsigned int nFlags)
 {
     unsigned int nSlot = nHashVal & m_slotmask;
-    if (sub_00610840(nSlot))
+    if (IGNORELIST_MonitorStringTableFullness(nSlot))
         nSlot = nHashVal & m_slotmask;
     D2CommonStringEntryNodeStrc* pNode = IGNORELIST_AllocStringTableNodeInList(&m_slotlistarray[nSlot], nExtraBytes, nFlags);
     m_fulllist.LinkNode((char*)pNode, 2, 0);
@@ -2548,7 +2548,7 @@ D2CommonStringEntryNodeStrc* D2CommonStormHashTableAStrc::IGNORELIST_InternalNew
 }
 
 // 0x00610CA0
-int D2CommonStormHashTableBStrc::sub_00610CA0(unsigned int nSlot)
+int D2CommonStormHashTableBStrc::IGNORELIST_MonitorMappingTableFullness(unsigned int nSlot)
 {
     D2CommonStormSlotListBStrc* const& pListArray = m_slotlistarray.m_data;
     if (m_slotmask >= 0x3FF)
@@ -2593,7 +2593,7 @@ D2CommonStringEntryNodeStrc* D2CommonStormHashTableAStrc::IGNORELIST_NewStringTa
 D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::IGNORELIST_InternalNewMappingTableNode(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key, unsigned int nExtraBytes, unsigned int nFlags)
 {
     unsigned int nSlot = nHashVal & m_slotmask;
-    if (sub_00610CA0(nSlot))
+    if (IGNORELIST_MonitorMappingTableFullness(nSlot))
         nSlot = nHashVal & m_slotmask;
     D2CommonMappingEntryNodeStrc* pNode = IGNORELIST_AllocMappingTableNodeInList(&m_slotlistarray[nSlot], nExtraBytes, nFlags);
     m_fulllist.LinkNode((char*)pNode, 2, 0);

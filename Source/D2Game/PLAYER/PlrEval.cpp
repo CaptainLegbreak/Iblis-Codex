@@ -63,13 +63,13 @@ unsigned int __stdcall DATATBLS_GetLevelThreshold(int nClass, unsigned int dwLev
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, int); // 0x00627260
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc*, int, int, int); // 0x006272B0
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc*); // 0x00625D10
-int __stdcall sub_00625D60(D2UnitStrc*); // 0x00625D60
+int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc*); // 0x00625D60
 int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc*); // 0x00625DB0
 void __fastcall sub_00536850_UpdateLevel(D2GameStrc*,D2UnitStrc*,int); // 0x00536850
 void __fastcall SUNIT_AttachSound(D2UnitStrc*,int,D2UnitStrc*); // 0x00553380
 void __fastcall D2GAME_UpdatePlayerVitals(D2GameStrc*,D2UnitStrc*); // 0x0055F500
 void __fastcall D2GAME_UpdatePlayerItems_6FC4BB90(D2GameStrc*,D2UnitStrc*,int); // 0x0055FDE0
-int __stdcall sub_00622150_GetLevelInfo(D2UnitStrc*,int,int); // 0x00622150
+int __stdcall UNITS_GetPlayerName(D2UnitStrc*,int,int); // 0x00622150
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 static void sub_00570A50_SpendStatPointsOnStrength(D2UnitStrc* pUnit, int nValue);
 static void sub_00570B30_SpendStatPointsOnDexterity(D2UnitStrc* pUnit, int nValue);
@@ -190,7 +190,7 @@ void __fastcall PLAYERSTATS_LevelUp(D2GameStrc* game,D2UnitStrc* unit)
   if(STATLIST_UnitGetStatValue(unit,STAT_HITPOINTS,0)>0) STATLIST_SetUnitStat(unit,STAT_HITPOINTS,maxLife,0);
   int mana=STATLIST_GetUnitBaseStat(unit,STAT_MAXMANA,0)+((record->manaPerLevel*gained)<<6);
   STATLIST_SetUnitStat(unit,STAT_MAXMANA,mana,0);
-  int maxMana=sub_00625D60(unit);
+  int maxMana=STATLIST_GetMaxManaFromUnit(unit);
   STATLIST_SetUnitStat(unit,STAT_MANA,maxMana,0);
   int stamina=STATLIST_GetUnitBaseStat(unit,STAT_MAXSTAMINA,0)+((record->staminaPerLevel*gained)<<6);
   STATLIST_SetUnitStat(unit,STAT_MAXSTAMINA,stamina,0);
@@ -203,6 +203,6 @@ void __fastcall PLAYERSTATS_LevelUp(D2GameStrc* game,D2UnitStrc* unit)
   SUNIT_IterateLivingPlayers(game,(SUNIT_IterateFn)PLAYERSTATS_OnPlayerLeveledUp,unit);
   D2GAME_UpdatePlayerVitals(game,unit);
   D2GAME_UpdatePlayerItems_6FC4BB90(game,unit,1);
-  if(gpServerCallbacks && gpServerCallbacks->levelUp) gpServerCallbacks->levelUp(game->nGameId,sub_00622150_GetLevelInfo(unit,classId,level));
+  if(gpServerCallbacks && gpServerCallbacks->levelUp) gpServerCallbacks->levelUp(game->nGameId,UNITS_GetPlayerName(unit,classId,level));
  }
 }

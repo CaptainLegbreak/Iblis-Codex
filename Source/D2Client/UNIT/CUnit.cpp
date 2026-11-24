@@ -647,7 +647,7 @@ struct D2TileRectStrc
     int nHeight;
 };
 
-void __stdcall sub_00625960(void* pArg); // 0x00625960
+void __stdcall STATLIST_FreeModStats(void* pArg); // 0x00625960
 
 // 0x004645B0
 static int __stdcall CUNIT_CanInterruptSequence(int nUnused, D2UnitStrc* pUnit); // 0x004645B0
@@ -1059,7 +1059,7 @@ void __cdecl sub_00463D70_Empty()
 // 0x00463D80
 void __fastcall UI_FreeUnitModStats(void* pArg)
 {
-    sub_00625960(pArg);
+    STATLIST_FreeModStats(pArg);
 }
 
 

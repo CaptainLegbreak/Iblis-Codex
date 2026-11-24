@@ -161,9 +161,9 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-int __stdcall sub_00648A40_GetTargetX(D2DynamicPathStrc* pPath); // 0x00648A40
+int __stdcall PATH_GetLastPointX(D2DynamicPathStrc* pPath); // 0x00648A40
 
-int __stdcall sub_00648A60_GetTargetY(D2DynamicPathStrc* pPath); // 0x00648A60
+int __stdcall PATH_GetLastPointY(D2DynamicPathStrc* pPath); // 0x00648A60
 
 unsigned char __stdcall PATH_GetMaxDistance(D2DynamicPathStrc* pPath); // 0x00648EA0
 
@@ -752,8 +752,8 @@ void __fastcall D2GAME_PACKETS_SendPacket0x67_6FC3CBC0(D2ClientStrc* pClient, un
         else
         {
             packet67.nPathType = 1;
-            packet67.nX = sub_00648A40_GetTargetX(pPath);
-            packet67.nY = sub_00648A60_GetTargetY(pPath);
+            packet67.nX = PATH_GetLastPointX(pPath);
+            packet67.nY = PATH_GetLastPointY(pPath);
         }
     }
 
@@ -832,8 +832,8 @@ void __fastcall D2GAME_PACKETS_SendPacket0x67_6FC3CDE0(D2ClientStrc* pClient, un
         else
         {
             packet67.nPathType = 1;
-            packet67.nX = sub_00648A40_GetTargetX(pPath);
-            packet67.nY = sub_00648A60_GetTargetY(pPath);
+            packet67.nX = PATH_GetLastPointX(pPath);
+            packet67.nY = PATH_GetLastPointY(pPath);
         }
     }
 
@@ -2451,7 +2451,8 @@ static inline int sub_0044BE50(D2UnitStrc* pUnit)
     return nType;
 }
 
-static inline int sub_00623C60(D2UnitStrc* pUnit)
+// build: symbol ?UNITS_GetWeaponClass@* 0x00623C60
+static inline int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -2966,7 +2967,7 @@ void __fastcall SCMD_SendMonsterAssign(D2ClientStrc* pClient, D2UnitStrc* pUnit)
     D2GSPacketSrvAC packetAC;
     packetAC.nHeader = 0xAC;
     packetAC.dwUnitGUID = pUnit->dwUnitId;
-    packetAC.nUnitIndex = sub_00623C60(pUnit);
+    packetAC.nUnitIndex = UNITS_GetWeaponClass(pUnit);
     packetAC.nPosX = CLIENTS_GetUnitXByType(pUnit);
     packetAC.nPosY = CLIENTS_GetUnitYByType(pUnit);
     packetAC.nLifePct = MONSTERMODE_GetHpPercent128(pUnit);

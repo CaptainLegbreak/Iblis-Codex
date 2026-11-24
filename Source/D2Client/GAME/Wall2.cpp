@@ -129,13 +129,13 @@ extern s32 __fastcall CUNIT_IsUnitDead(D2UnitStrc*); // 0x00464860
 
 extern s32 __stdcall TileGetTotalHeight(TileRecord*); // 0x00604CB0
 
-extern Tile* __stdcall sub_006196A0_WallTiles(D2ActiveRoomStrc*,u32*); // 0x006196A0
+extern Tile* __stdcall DUNGEON_GetWallTilesFromRoom(D2ActiveRoomStrc*,u32*); // 0x006196A0
 
-extern Tile* __stdcall sub_006196E0_FloorTiles(D2ActiveRoomStrc*,u32*); // 0x006196E0
+extern Tile* __stdcall DUNGEON_GetRoofTilesFromRoom(D2ActiveRoomStrc*,u32*); // 0x006196E0
 
-extern s32 __stdcall sub_00620650_PixelX(D2UnitStrc*); // 0x00620650
+extern s32 __stdcall UNITS_GetClientCoordX(D2UnitStrc*); // 0x00620650
 
-extern s32 __stdcall sub_006206B0_PixelY(D2UnitStrc*); // 0x006206B0
+extern s32 __stdcall UNITS_GetClientCoordY(D2UnitStrc*); // 0x006206B0
 
 extern void __stdcall DUNGEON_ClientTileDrawPositionToGameCoords(s32,s32,s32*,s32*); // 0x00643340
 
@@ -223,9 +223,9 @@ struct D2GridCellStrc
 
 extern void* gpGlobal_007A0634; // 0x007A0634
 
-unsigned char __stdcall sub_0061C0E0(void* pAct); // 0x0061C0E0
+unsigned char __stdcall ENVIRONMENT_GetIntensityFromAct(void* pAct); // 0x0061C0E0
 
-void __stdcall sub_0061C0B0(void* pAct, unsigned char* pR, unsigned char* pG, unsigned char* pB); // 0x0061C0B0
+void __stdcall ENVIRONMENT_GetLightColorFromAct(void* pAct, unsigned char* pR, unsigned char* pG, unsigned char* pB); // 0x0061C0B0
 
 void __fastcall SCMD_ReadGridCell(int nX, int nY, unsigned char* pB0, unsigned char* pB1, unsigned char* pB2, unsigned char* pB3); // 0x00475AA0
 
@@ -619,7 +619,7 @@ s32 __stdcall WALL2_VisitRoom(D2ActiveRoomStrc* room,View* view)
     if(rectangle.bottom<FIELD(s32,view,8)) return 1;
     u32 i;
     u32 count;
-    Tile* tiles=sub_006196A0_WallTiles(room,&count);
+    Tile* tiles=DUNGEON_GetWallTilesFromRoom(room,&count);
     for(i=0;i<count;++i)
     {
         Tile* tile=(Tile*)((u8*)tiles+48*i);
@@ -649,7 +649,7 @@ s32 __stdcall WALL2_VisitRoom(D2ActiveRoomStrc* room,View* view)
             }
         }
     }
-    tiles=sub_006196E0_FloorTiles(room,&count);
+    tiles=DUNGEON_GetRoofTilesFromRoom(room,&count);
     for(i=0;i<count;++i)
     {
         Tile* tile=(Tile*)((u8*)tiles+48*i);
@@ -670,8 +670,8 @@ s32 __stdcall WALL2_VisitRoom(D2ActiveRoomStrc* room,View* view)
     if(FIELD(s32,view,24)) return 1;
     for(D2UnitStrc* unit=DUNGEON_GetFirstUnitInRoom(room);unit;unit=FIELD(D2UnitStrc*,unit,232))
     {
-        s32 x=sub_00620650_PixelX(unit);
-        s32 y=sub_006206B0_PixelY(unit);
+        s32 x=UNITS_GetClientCoordX(unit);
+        s32 y=UNITS_GetClientCoordY(unit);
         DUNGEON_ClientTileDrawPositionToGameCoords(x,y,&x,&y);
         if(!sub_004DCF70_Inside_inl(context,y,x)) continue;
         x-=FIELD(s32,context,0xEA68);
@@ -744,9 +744,9 @@ static void __stdcall sub_004DDEF0_BuildLargeGrid(int nX, int nY, int bFlat, D2G
 {
     if (bFlat)
     {
-        const unsigned char nB0 = sub_0061C0E0(gpGlobal_007A0634);
+        const unsigned char nB0 = ENVIRONMENT_GetIntensityFromAct(gpGlobal_007A0634);
         unsigned char nB1, nB2, nB3;
-        sub_0061C0B0(gpGlobal_007A0634, &nB1, &nB2, &nB3);
+        ENVIRONMENT_GetLightColorFromAct(gpGlobal_007A0634, &nB1, &nB2, &nB3);
         for (int j = 0; j < 8; ++j)
         {
             for (int i = 0; i < 8; ++i)
@@ -922,7 +922,7 @@ static void __stdcall sub_004DDFD0_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY
 // 0x004DE070
 void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int bFlat, int nMode, int bCorners)
 {
-    const unsigned char nB0 = sub_0061C0E0(gpGlobal_007A0634);
+    const unsigned char nB0 = ENVIRONMENT_GetIntensityFromAct(gpGlobal_007A0634);
     D2GridCellStrc* pCell = pCells;
     switch (nMode)
     {
@@ -935,7 +935,7 @@ void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, i
     }
 
     unsigned char nB1, nB2, nB3;
-    sub_0061C0B0(gpGlobal_007A0634, &nB1, &nB2, &nB3);
+    ENVIRONMENT_GetLightColorFromAct(gpGlobal_007A0634, &nB1, &nB2, &nB3);
 
     for (int j = 0; j < 6; ++j)
     {
@@ -1027,7 +1027,7 @@ static inline int CLIENTS_GetUnitY_FloorView(D2UnitStrc* pUnit)
 // 0x004DE260
 void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ, int nMode, int bCorners)
 {
-    const unsigned char nB0 = sub_0061C0E0(gpGlobal_007A0634);
+    const unsigned char nB0 = ENVIRONMENT_GetIntensityFromAct(gpGlobal_007A0634);
     D2GridCellStrc* pCell = pCells;
 
     int nOffset = 0;
@@ -1043,7 +1043,7 @@ void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ
     }
 
     unsigned char nB1, nB2, nB3;
-    sub_0061C0B0(gpGlobal_007A0634, &nB1, &nB2, &nB3);
+    ENVIRONMENT_GetLightColorFromAct(gpGlobal_007A0634, &nB1, &nB2, &nB3);
 
     int i;
     int j;
@@ -1332,8 +1332,8 @@ void __fastcall sub_004DED10(void* pArg)
 // 0x004DED20
 void __cdecl MISSILE_UpdateRoomColor()
 {
-    sub_0061C0B0(gpGlobal_007A0634, &gnRoomColorRed, &gnRoomColorGreen, &gnRoomColorBlue);
-    gnRoomColorIntensity = sub_0061C0E0(gpGlobal_007A0634);
+    ENVIRONMENT_GetLightColorFromAct(gpGlobal_007A0634, &gnRoomColorRed, &gnRoomColorGreen, &gnRoomColorBlue);
+    gnRoomColorIntensity = ENVIRONMENT_GetIntensityFromAct(gpGlobal_007A0634);
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)

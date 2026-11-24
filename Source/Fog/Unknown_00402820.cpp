@@ -14,7 +14,7 @@ struct D2FloatSaveStrc;
 union D2WordArgStrc;
 struct D2ExceptionRecordStrc;
 struct D2ExceptionPointersStrc;
-struct T00403AC0;
+struct D2CrashHandlerInfoStrc;
 struct D2CrashSubmitInfoStrc;
 struct D2ImageDosHeaderStrc;
 struct D2ImageFileHeaderStrc;
@@ -116,7 +116,7 @@ struct D2ExceptionRecordStrc
     unsigned long ExceptionCode;
 };
 
-struct T00403AC0
+struct D2CrashHandlerInfoStrc
 {
     const char* szName;
     char* szText;
@@ -128,7 +128,7 @@ struct T00403AC0
     char szBuffer[0x200];
 };
 
-typedef int (__fastcall* D2CrashHandlerFn)(T00403AC0* pReport, void* pContext);
+typedef int (__fastcall* D2CrashHandlerFn)(D2CrashHandlerInfoStrc* pReport, void* pContext);
 
 extern "C" int __cdecl strncpy_s(char* szDest, size_t nDestSize, const char* szSource, size_t nCount); // 0x006859D2
 extern "C" __declspec(dllimport) unsigned long __stdcall FormatMessageA(unsigned long dwFlags, const void* pSource, unsigned long dwMessageId, unsigned long dwLanguageId, char* pBuffer, unsigned long nSize, void* pArguments); // 0x006CC2B0
@@ -570,7 +570,7 @@ long __stdcall sub_00403E90_UnhandledExceptionFilter(void* pExceptionPointers)
     D2ExceptionPointersStrc* pPointers = (D2ExceptionPointersStrc*)pExceptionPointers;
     char szName[0x100];
     sub_00403AC0_GetExceptionName(szName, pPointers->pExceptionRecord->ExceptionCode);
-    T00403AC0 tReport;
+    D2CrashHandlerInfoStrc tReport;
     tReport.szBuffer[0] = 0;
     tReport.szName = szName;
     tReport.szText = tReport.szBuffer;

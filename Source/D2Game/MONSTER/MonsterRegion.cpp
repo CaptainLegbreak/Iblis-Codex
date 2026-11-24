@@ -771,7 +771,8 @@ static __forceinline D2MonStats2Txt* MONSTERREGION_GetMonStats2TxtRecord(int nMo
     return 0;
 }
 
-static inline int sub_00623C60(D2UnitStrc* pUnit)
+// build: symbol ?UNITS_GetWeaponClass@* 0x00623C60
+static inline int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -784,7 +785,7 @@ static inline int sub_00623C60(D2UnitStrc* pUnit)
 // 0x00547BC0
 D2MonRegDataStrc* __fastcall MONSTERREGION_GetMonsterComponentData(D2MonsterRegionStrc** ppMonsterRegion, D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit)
 {
-    const short nClassId = sub_00623C60(pUnit);
+    const short nClassId = UNITS_GetWeaponClass(pUnit);
 
     switch (MONSTERREGION_SanitizeMonsterId(nClassId))
     {

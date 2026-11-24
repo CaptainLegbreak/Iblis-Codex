@@ -1861,9 +1861,9 @@ int __stdcall ROSTERPETS_GetPulseColor(unsigned char* pRed, unsigned char* pGree
 
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
-void __stdcall sub_0061C0B0(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
+void __stdcall ENVIRONMENT_GetLightColorFromAct(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
 
-int __stdcall sub_0061C0E0(void* pAct); // 0x0061C0E0
+int __stdcall ENVIRONMENT_GetIntensityFromAct(void* pAct); // 0x0061C0E0
 
 extern int gbPopupMouseDown; // 0x007A5248
 
