@@ -13,7 +13,7 @@
 struct D2WeatherLayerStateStrc;
 union D2SeedStrc;
 struct D2WeatherSplashStrc;
-struct T00473470;
+struct D2WeatherParticleStrc;
 struct D2WeatherLineStrc;
 struct D2PeriodLightStrc;
 
@@ -175,7 +175,7 @@ void __cdecl sub_00473470()
         break;
     }
 
-    T00473470* pParticle = gpWeatherParticles->pParticles;
+    D2WeatherParticleStrc* pParticle = gpWeatherParticles->pParticles;
     for (int i = 0; i <= gpWeatherParticles->nLastParticle; ++i, ++pParticle)
     {
         if (!pParticle->bActive)
@@ -433,7 +433,7 @@ static void sub_00473090_InitParticle(D2SeedStrc* pSeed)
         return;
     }
 
-    T00473470* pParticle = &gpWeatherParticles->pParticles[(short)(nRecord >> 0x10)];
+    D2WeatherParticleStrc* pParticle = &gpWeatherParticles->pParticles[(short)(nRecord >> 0x10)];
     pParticle->bDrop = 0;
     pParticle->nX = sub_00472280(pSeed, 0, gnScreenWidth);
     pParticle->nYEnd = sub_00472280(pSeed, 0x28, gnScreenHeight - 0x57);
@@ -502,7 +502,7 @@ void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed)
         fScale = gfPhaseLevel * 0.15f + 0.85f;
     }
 
-    T00473470* pParticle = gpWeatherParticles->pParticles;
+    D2WeatherParticleStrc* pParticle = gpWeatherParticles->pParticles;
     for (int i = 0; i <= gpWeatherParticles->nLastParticle; ++i, ++pParticle)
     {
         if (!pParticle->bActive)
