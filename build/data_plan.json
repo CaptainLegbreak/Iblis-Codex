@@ -3789,7 +3789,6 @@
    "bytes": 2084,
    "definitions": 11,
    "externs": [
-    "extern \"C\" void __cdecl DUNGEON_SkillCalcGetRandomNumberInRange(); // 0x00643700",
     "extern \"C\" void __cdecl sub_00646C00(); // 0x00646C00"
    ],
    "fn_types": {},

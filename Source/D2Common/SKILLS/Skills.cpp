@@ -88,12 +88,6 @@ union D2FP32_16;
 
 struct D2MissilesTxt;
 
-struct D2Unk00667030InnerStrc;
-
-struct D2Unk00667030MidStrc;
-
-struct D2Unk00667030Strc;
-
 struct D2DrlgCoordStrc;
 
 struct D2DrlgOutdoorInfoStrc;
@@ -171,24 +165,6 @@ struct D2MissileDataStrc
     int nTargetX;
     int nTargetY;
     void* pStream;
-};
-
-struct D2Unk00667030InnerStrc
-{
-    int nValue0;
-    int nValue1;
-};
-
-struct D2Unk00667030MidStrc
-{
-    char unk0x00[0x08];
-    D2Unk00667030InnerStrc* pInner;
-};
-
-struct D2Unk00667030Strc
-{
-    char unk0x00[0x20];
-    D2Unk00667030MidStrc* pMid;
 };
 
 struct D2UnkOutdoorStrc
@@ -921,6 +897,24 @@ int __fastcall SKILLS_GetMinimum(int nA, int nB, int nUnused1, int nUnused2)
 int __fastcall SKILLS_GetMaximum(int nA, int nB, int nUnused1, int nUnused2)
 {
     return nA > nB ? nA : nB;
+}
+
+unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
+
+// 0x00643700
+int __fastcall DUNGEON_SkillCalcGetRandomNumberInRange(int nMin, int nMax, int nUnused, void* pUserData)
+{
+    D2SkillCalcStrc* pSkillCalc = (D2SkillCalcStrc*)pUserData;
+    if (!pSkillCalc)
+    {
+        return 0;
+    }
+    D2SeedStrc* pSeed = &pSkillCalc->pUnit->pSeed;
+    if (nMin >= nMax)
+    {
+        return nMin;
+    }
+    return nMin + ITEMS_RollLimitedRandomNumber(pSeed, nMax - nMin + 1);
 }
 
 // 0x00643740
@@ -2725,33 +2719,6 @@ inline int UNITS_GetYPositionInl(D2UnitStrc* pUnit)
             return PATH_GetYPosition(pUnit->pDynamicPath);
         }
         return 0;
-    }
-}
-
-// 0x00654E80
-D2TCExShortStrc* __stdcall DATATBLS_GetTreasureClassExRecordFromActAndDifficulty(int nDifficulty, int nAct, int nIndex)
-{
-    const int nDifficultyFloor = nDifficulty > 0 ? nDifficulty : 0;
-    const int nDifficultyIndex = nDifficultyFloor < 2 ? nDifficultyFloor : 2;
-    const int nActFloor = nAct > 0 ? nAct : 0;
-    const int nActIndex = nActFloor < 4 ? nActFloor : 4;
-    const int nIndexFloor = nIndex > 0 ? nIndex : 0;
-    const int nChestIndex = nIndexFloor < 2 ? nIndexFloor : 2;
-
-    return gpChestTreasureClasses[nChestIndex + 3 * (nActIndex + 5 * nDifficultyIndex)];
-}
-
-// 0x00667030
-void __fastcall SKILLS_GetInnerPair(D2Unk00667030Strc* pRecord, int* pValue0, int* pValue1)
-{
-    D2Unk00667030MidStrc* pMid = pRecord->pMid;
-    if (pValue0)
-    {
-        *pValue0 = pMid->pInner->nValue0;
-    }
-    if (pValue1)
-    {
-        *pValue1 = pMid->pInner->nValue1;
     }
 }
 

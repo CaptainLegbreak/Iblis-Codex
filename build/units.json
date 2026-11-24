@@ -67028,11 +67028,6 @@
      "name": "?DUNGEON_ItemCalcGetRandomNumberInRange@@YIHHHHPAX@Z"
     },
     {
-     "va": "0x00643700",
-     "length": 51,
-     "name": "?DUNGEON_SkillCalcGetRandomNumberInRange@@YIHHHHPAX@Z"
-    },
-    {
      "va": "0x00653ED0",
      "length": 52,
      "name": "?DATATBLS_RollRandomUniquePrefixString@@YIPBUUnicode@@PAUD2UnitStrc@@@Z"
@@ -71330,6 +71325,11 @@
      "name": "sub_00654E70"
     },
     {
+     "va": "0x00654E80",
+     "length": 107,
+     "name": "DATATBLS_GetTreasureClassExRecordFromActAndDifficulty"
+    },
+    {
      "va": "0x00654EF0",
      "length": 5,
      "name": "?DATATBLS_UnloadTreasureClassExTxt@@YIXXZ"
@@ -71983,6 +71983,11 @@
      "va": "0x006436F0",
      "length": 11,
      "name": "?SKILLS_GetMaximum@@YIHHHHH@Z"
+    },
+    {
+     "va": "0x00643700",
+     "length": 51,
+     "name": "?DUNGEON_SkillCalcGetRandomNumberInRange@@YIHHHHPAX@Z"
     },
     {
      "va": "0x00643740",
@@ -72677,16 +72682,6 @@
      "va": "0x0064EFE0",
      "length": 63,
      "name": "SKILLS_FixThrowWeaponClassCode"
-    },
-    {
-     "va": "0x00654E80",
-     "length": 107,
-     "name": "DATATBLS_GetTreasureClassExRecordFromActAndDifficulty"
-    },
-    {
-     "va": "0x00667030",
-     "length": 36,
-     "name": "SKILLS_GetInnerPair"
     },
     {
      "va": "0x0066B800",
@@ -75531,6 +75526,11 @@
      "va": "0x00667010",
      "length": 24,
      "name": "DRLGPRESET_GetPickedLevelPrestFilePathFromRoomEx"
+    },
+    {
+     "va": "0x00667030",
+     "length": 36,
+     "name": "SKILLS_GetInnerPair"
     },
     {
      "va": "0x00667060",
