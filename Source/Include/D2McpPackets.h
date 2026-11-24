@@ -6,7 +6,7 @@
 #pragma pack(push, 1)
 struct D2McpPacket02Strc
 {
-    unsigned char f_0;
+    unsigned char nPacketId;
     int nValue;
     unsigned short wValue;
     char szText[0x400];
@@ -14,46 +14,46 @@ struct D2McpPacket02Strc
 
 struct D2McpPacket07Strc
 {
-    unsigned char f_0;
+    unsigned char nPacketId;
     char szText[0x400];
 };
 
 struct D2McpPacket04Strc
 {
-    unsigned char f_0;
-    unsigned short f_1;
+    unsigned char nPacketId;
+    unsigned short wRequestId;
     char szText[0x400];
 };
 
 struct D2McpPacket08Strc
 {
-    unsigned char f_0;
-    unsigned short f_1;
+    unsigned char nPacketId;
+    unsigned short wRequestId;
     char szText[0x400];
 };
 
 struct D2McpPacket09Strc
 {
-    unsigned char f_0;
-    unsigned short f_1;
+    unsigned char nPacketId;
+    unsigned short wRequestId;
     char szText[0x400];
 };
 
 struct D2McpPacket0BStrc
 {
-    unsigned char f_0;
+    unsigned char nPacketId;
     char szText[0x400];
 };
 
 struct D2McpPacket0CStrc
 {
-    unsigned char f_0;
+    unsigned char nPacketId;
     char szText[0x400];
 };
 
 struct D2McpPacket16Strc
 {
-    unsigned char f_0;
+    unsigned char nPacketId;
     int nValue01;
     int nValue05;
     char szText[0x400];
@@ -61,8 +61,8 @@ struct D2McpPacket16Strc
 
 struct D2McpPacket05Strc
 {
-    unsigned char f_0;
-    unsigned short f_1;
+    unsigned char nPacketId;
+    unsigned short wRequestId;
     union
     {
         unsigned int dwFlags;
@@ -85,36 +85,36 @@ struct D2McpPacket05Strc
 
 struct D2McpPacket06Strc
 {
-    unsigned char f_0;
-    unsigned short f_1;
+    unsigned char nPacketId;
+    unsigned short wRequestId;
     char szText[0x400];
 };
 
 struct D2McpPacket0AStrc
 {
-    unsigned char f_0;
-    unsigned short f_1;
+    unsigned char nPacketId;
+    unsigned short wRequestId;
     char szText[0x400];
 };
 
 struct D2McpPacket18Strc
 {
-    unsigned char f_0;
+    unsigned char nPacketId;
     char szText[0x400];
 };
 
 struct D2McpPacket10Strc
 {
-    unsigned char f_0;
+    unsigned char nPacketId;
     int nValueB0;
     int nValue88;
-    int f_9;
+    int nAddress;
     int nCode;
 };
 
 struct D2McpPacket01Strc
 {
-    unsigned char f_0;
+    unsigned char nPacketId;
     int nValue01;
     int nValue05;
     int nValue09;
@@ -136,7 +136,7 @@ struct D2McpPacket01Strc
 
 struct D2McpPacket03Strc
 {
-    unsigned char f_0;
+    unsigned char nPacketId;
     unsigned short wRequestId;
     int nValue;
     unsigned char nByte07;
@@ -149,7 +149,7 @@ struct D2McpPacket03Strc
 #pragma pack(push, 1)
 struct D2McpPacketValueStrc
 {
-    unsigned char f_0;
+    unsigned char nPacketId;
     int nValue;
 };
 #pragma pack(pop)
@@ -157,8 +157,8 @@ struct D2McpPacketValueStrc
 #pragma pack(push, 1)
 struct D2McpIncoming03Strc
 {
-    unsigned char f_0;
-    unsigned short f_1;
+    unsigned char nPacketId;
+    unsigned short wRequestId;
     int nValueB0;
     int nCode;
 };
@@ -167,10 +167,10 @@ struct D2McpIncoming03Strc
 #pragma pack(push, 1)
 struct D2McpIncoming04Strc
 {
-    unsigned char f_0;
-    unsigned short f_1;
+    unsigned char nPacketId;
+    unsigned short wRequestId;
     int nValueB0;
-    int f_7;
+    int nAddress;
     int nValue88;
     int nCode;
 };
@@ -179,8 +179,8 @@ struct D2McpIncoming04Strc
 #pragma pack(push, 1)
 struct D2McpIncoming0AStrc
 {
-    unsigned char f_0;
-    unsigned short f_1;
+    unsigned char nPacketId;
+    unsigned short wRequestId;
     int nCode;
 };
 #pragma pack(pop)
@@ -188,8 +188,8 @@ struct D2McpIncoming0AStrc
 #pragma pack(push, 1)
 struct D2McpIncoming08Strc
 {
-    unsigned char f_0;
-    unsigned short f_1;
+    unsigned char nPacketId;
+    unsigned short wRequestId;
     unsigned char aData[1];
 };
 #pragma pack(pop)
@@ -197,8 +197,8 @@ struct D2McpIncoming08Strc
 #pragma pack(push, 1)
 struct D2McpIncoming09Strc
 {
-    unsigned char f_0;
-    unsigned short f_1;
+    unsigned char nPacketId;
+    unsigned short wRequestId;
     unsigned char nByte03;
     unsigned char aData[1];
 };
@@ -207,7 +207,7 @@ struct D2McpIncoming09Strc
 #pragma pack(push, 1)
 struct D2McpIncoming0EStrc
 {
-    unsigned char f_0;
+    unsigned char nPacketId;
     char szText[1];
 };
 #pragma pack(pop)
