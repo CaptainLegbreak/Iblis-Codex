@@ -8,6 +8,11 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 - lane4/spellsel-join 9b657eed no placeholder change: spellsel.cpp (the user of `.\UI\spellsel.cpp`, object 0x4A7AE0-0x4AA900; asserts 236-1316; its data starts with the copy at 0x724A80, which is still planned in Unknown_004A6460.cpp, see the note below) takes 25 functions of its object: the skill select icon and hotkey functions from Unknown_004A76C0.cpp (10), Unknown_004A9BD0.cpp (6), inv.cpp (7, among them 0x4AA8B0-0x4AA8F0 just before the skill tree), Unknown_004A9D70.cpp (0x4AA1F0) and text_0049A950.cpp (0x4A8D50). 0x4A8A30, 0x4A8CF0, 0x4A8DF0 and Unknown_004A7AE0.cpp's 0x4A8ED0-0x4A9870 still differ there. VERIFIED a2211f1a40cd on #321. Not stacked; nothing outside lane 4.
 
+## Claimed
+
+- The View-to-chat run, code 0x475EF0-0x47AA60, data 0x712C10-0x712F44 (lane4/view-chat-run, in progress). Seven copies there match seven objects in code order: View.cpp, PalShift.cpp, the light render mode object (0x477620-0x478010, gnLightmapRenderMode), Msg.cpp, ARCHIVE.CPP, RosterPets.cpp, the 0x478D10 object, then Roster.cpp and chat.cpp. I'll file each copy and data block with its object and gather the light object's code (now in dLightMap.cpp, inv.cpp, View.cpp and three placeholders) into one placeholder.
+- Copy records by the start rule (lane4/copies-start, verifying on #323).
+
 ## Questions
 
 ## Notes for other lanes
