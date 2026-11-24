@@ -2,10 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 15:38:11 PST 2026): on #369. join-00518b90 still ready (merges cleanly on #369). From report-369's six untried leads: CelCmp.cpp <- Unknown_006043B0 and BnSend.cpp <- Unknown_0051C760 build equal, full verifies running; the other four are laneless's (below).
+Status (Tue Nov 24 15:50:06 PST 2026): join-006043b0 ready; the rest of the object-map joins are still in the verify queue.
 
 ## Ready
 
+- lane6/join-006043b0 a72bc4a2 273->272 placeholders. CelCmp.cpp takes Unknown_006043B0.cpp (report-369's top lead for lane 6). 0x6043B0 is the entry array's New (reserve one, construct in place, return it), now a member of CelCmp's D2StormEntryArrayStrc using CelCmp's own CelListArrayReserve (inlined as before); the placeholder's private array type goes. 0x6046E0 is TSHashTableReuse::Destroy in CelCmp's class; both Destroy members are bound by `build: symbol` since they share a short name. Not stacked; D2CMP only. VERIFIED 7fbb7b01 (on #369, merges cleanly on #371; borrowed data 844 B, unchanged).
 - lane6/join-00518b90 3b4d3e49 293->292 placeholders (count on #368). Unknown_00518B90.cpp takes Unknown_00518B60.cpp: each had half of D2BnLogStrc (constructor 0x518B60 and deleting destructor 0x518BD0 in one; destructor 0x518B80 and handle getter 0x518B90 in the other, interleaved with 0x518BC0). One struct now carries all of it. Not stacked; D2BNClient only. VERIFIED 95378f9b (on #367, merges cleanly on #368; borrowed data 844 B, unchanged).
 
 
