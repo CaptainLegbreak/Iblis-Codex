@@ -849,30 +849,6 @@ struct D2TCExRecordArgStrc
 
 static int __stdcall DATATBLS_ParseTreasureClassItem(D2TCExRecordArgStrc tRecord, int nProb, char* szText); // 0x00654440
 
-// 0x00640EE0
-void __fastcall DATATBLS_UnloadObjectsTxt()
-{
-    DATATBLS_UnloadBin(gpObjectsTxt);
-    gpObjectsTxt = 0;
-    gnObjectsTxtRecordCount = 0;
-}
-
-// 0x00640F00
-void __fastcall DATATBLS_UnloadObjGroupTxt()
-{
-    DATATBLS_UnloadBin(gpObjgroupTxt);
-    gpObjgroupTxt = 0;
-    gnObjgroupTxtRecordCount = 0;
-}
-
-// 0x00641510
-void __fastcall DATATBLS_UnloadShrinesTxt()
-{
-    DATATBLS_UnloadBin(gpShrinesTxt);
-    gpShrinesTxt = 0;
-    gnShrinesTxtRecordCount = 0;
-}
-
 const D2AnimDataRecordStrc* __fastcall DATATBLS_GetAnimDataRecord(D2UnitStrc* pUnit, int nClassId, int nMode, int nUnitType, void* pInventory); // 0x0066A9B0
 struct D2ChainRecordStrc
 {

@@ -3688,20 +3688,11 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/Drlg.cpp": {
-   "bytes": 188,
-   "definitions": 3,
+   "bytes": 444,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/Drlg_006412F0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/Unknown_00641320.cpp": {
-   "bytes": 256,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_00641320.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -118351,7 +118342,7 @@
    "cname": "gData_006EB180",
    "declared": true,
    "decorated": "?gnUnitDistanceTable@@3PAHA",
-   "file": "Source/D2Common/Unknown_00641320.cpp",
+   "file": "Source/D2Common/DRLG/Drlg.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006EB180[64]; // 0x006EB180",
    "head": "extern \"C\" const int gData_006EB180[64] = ",

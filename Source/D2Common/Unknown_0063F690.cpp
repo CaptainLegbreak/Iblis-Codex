@@ -1,3 +1,4 @@
+#include "D2Common.h"
 #include "D2Txt.h"
 #include "D2Records.h"
 struct D2TxtLinkStrc;
@@ -8,6 +9,13 @@ extern "C" const char gszTxtField_end[];                                        
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize);// 0x006122F0
 extern D2ObjectsTxt* gpObjectsTxt;                                                                          // 0x0096D470
 int gnObjectsTxtRecordCount;                                                                                // 0x0096D474
+extern void* gpObjgroupTxt; // 0x0096D478
+extern int gnObjgroupTxtRecordCount; // 0x0096D47C
+void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 const unsigned short* __fastcall D2LANG_GetStringByReferenceString(const char* szReference);                // 0x00524E20
 unsigned short* __fastcall sub_00526790(unsigned short* wszDest, const unsigned short* wszSrc, int nCount);// 0x00526790
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
@@ -191,6 +199,30 @@ void __fastcall DATATBLS_LoadObjectsTxt(void* hArchive)
             pObjectsTxtRecord->dwFrameCnt[j] <<= 8;
         }
     }
+}
+
+// 0x00640E90
+D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId)
+{
+    D2_ASSERT(nObjectId < gnObjectsTxtRecordCount, 221);
+    D2_ASSERT(nObjectId >= 0, 222);
+    return &gpObjectsTxt[nObjectId];
+}
+
+// 0x00640EE0
+void __fastcall DATATBLS_UnloadObjectsTxt()
+{
+    DATATBLS_UnloadBin(gpObjectsTxt);
+    gpObjectsTxt = 0;
+    gnObjectsTxtRecordCount = 0;
+}
+
+// 0x00640F00
+void __fastcall DATATBLS_UnloadObjGroupTxt()
+{
+    DATATBLS_UnloadBin(gpObjgroupTxt);
+    gpObjgroupTxt = 0;
+    gnObjgroupTxtRecordCount = 0;
 }
 
 #include "gen/data/Source/D2Common/Unknown_0063F690.inc"
