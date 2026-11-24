@@ -521,7 +521,6 @@ struct D2StormNodeListStrc
     {
         return m_terminator.Next();
     }
-    void sub_0041EE40_UnlinkAll();                                                                           // 0x0041EE40
 };
 
 struct D2Storm4167B0Strc

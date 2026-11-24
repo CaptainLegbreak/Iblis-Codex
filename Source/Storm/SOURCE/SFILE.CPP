@@ -5,6 +5,7 @@
 #include "D2StormLink.h"
 #include "D2StormSha1.h"
 #include "D2StormBitOutput.h"
+#include "D2Win32SystemInfo.h"
 
 struct D2FileStrc;
 
@@ -43,8 +44,6 @@ struct PairStrc_00416960;
 struct PairStrc_004169A0;
 
 struct PairStrc_0041C390;
-
-struct PairStrc_0041E8F0;
 
 struct PairStrc_00426920;
 
@@ -116,19 +115,6 @@ struct CHuffman;
 
 struct HANDLER;
 
-struct T004013C0
-{
-    unsigned long dwOemId;
-    unsigned long dwPageSize;
-    void* lpMinimumApplicationAddress;
-    void* lpMaximumApplicationAddress;
-    unsigned long dwActiveProcessorMask;
-    unsigned long dwNumberOfProcessors;
-    unsigned long dwProcessorType;
-    unsigned long dwAllocationGranularity;
-    unsigned short wProcessorLevel;
-    unsigned short wProcessorRevision;
-};
 
 struct D2StormBufferInfoStrc
 {
@@ -147,7 +133,7 @@ extern "C" char* __cdecl _strupr(char* szString); // 0x006862A2
 
 extern "C" char* __cdecl _strlwr(char* szString); // 0x006864E1
 
-extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(T004013C0* pInfo); // 0x006CC1F0
+extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(D2SystemInfoStrc* pInfo); // 0x006CC1F0
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 
@@ -358,12 +344,6 @@ struct PairStrc_004169A0
 };
 
 struct PairStrc_0041C390
-{
-    int nFirst;
-    int nSecond;
-};
-
-struct PairStrc_0041E8F0
 {
     int nFirst;
     int nSecond;
@@ -2253,13 +2233,6 @@ void __fastcall sub_004169A0(PairStrc_004169A0* pPair)
     pPair->nSecond = 0;
 }
 
-// 0x0041E8F0
-void __fastcall sub_0041E8F0(PairStrc_0041E8F0* pPair)
-{
-    pPair->nFirst = 0;
-    pPair->nSecond = 0;
-}
-
 // 0x004168A0
 D2StormLinkStrc* __fastcall sub_004168A0_Identity(D2IdentityView* value) {return &value->link;}
 
@@ -2798,28 +2771,6 @@ void __cdecl StartCdThread()
         ghStormThread_00779034 = CreateThread(0, 0, CdThreadProc, 0, 0, &gdwStormThreadId_00779040);
         SetThreadPriority(ghStormThread_00779034, 1);
     }
-}
-
-// 0x0041D9A0
-void CBitOutput::sub_0041D9A0_Flush()
-{
-    while (nBitCount)
-    {
-        if (f_4)
-        {
-            *pOutput++ = (unsigned char)nBitBuffer;
-            f_4--;
-        }
-        nBitBuffer >>= 8;
-        nBitCount -= nBitCount > 8 ? 8 : nBitCount;
-    }
-}
-
-// 0x0041EE40
-void D2StormNodeListStrc::sub_0041EE40_UnlinkAll()
-{
-    while (char* pNode = Head())
-        ((D2StormLinkStrc*)pNode)->Unlink();
 }
 
 // 0x0041F950

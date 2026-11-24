@@ -2159,98 +2159,20 @@ extern "C" { U32 gSlotSecond; } // 0x00799304
 
 
 
-// 0x0044B440
-void __fastcall GAME_PushStateValue(int nValue)
-{
-    D2_ASSERT(gnStateStackCount < 5, 0xAA);
-    gaStateStack[gnStateStackCount] = nValue;
-    gnStateStackCount += 1;
-}
-
-// 0x0044B480
-int __cdecl GAME_PopStateValue()
-{
-    D2_ASSERT(gnStateStackCount, 0xB4);
-    int nValue = gaStateStack[0];
-    --gnStateStackCount;
-    for (int i = 0; i < 3; ++i)
-        gaStateStack[i] = gaStateStack[i + 1];
-    return nValue;
-}
-
-// 0x0044B5E0
-int __stdcall GAME_SaveDefaultCmdLine(D2CmdLineArgStrc* pArg, int nUnused)
-{
-    return SRegSaveString("Diablo II", "Default Command Line", 0, pArg->szValue);
-}
-
-// 0x0044B780
-void __cdecl GAME_RaiseGameWindow()
-{
-    void* hWnd = (void*)WINDOW_GetWindow();
-    if (hWnd)
-        SendMessageA(hWnd, 0x1C, 0, 0);
-    WINDOW_ShowAll();
-}
-
-// 0x0044B7A0
-D2ConfigStrc* __cdecl GAME_GetClientInfo()
-{
-    return gpClientConfig;
-}
 
 
-// 0x0044B7C0
-const char* __cdecl GAME_GetGameName()
-{
-    if (gpClientConfig && strlen(gpClientConfig->szGameName) >= 1)
-        return gpClientConfig->szGameName;
-    return 0;
-}
 
-// 0x0044B7F0
-const char* __cdecl GAME_GetGameDescription()
-{
-    if (gpClientConfig && strlen(gpClientConfig->szText0x245) >= 1)
-        return gpClientConfig->szText0x245;
-    return 0;
-}
 
-// 0x0044B820
-const char* __cdecl GAME_GetGamePassword()
-{
-    if (gpClientConfig && strlen(gpClientConfig->szServerIP) >= 1)
-        return gpClientConfig->szServerIP;
-    return 0;
-}
 
-// 0x0044B850
-int __cdecl GAME_IsHardcore()
-{
-    return gpClientConfig->aFlags1EF[0] & 4;
-}
 
-// 0x0044B860
-void __cdecl GAME_SetCharDiedFlag()
-{
-    gpClientConfig->wFlags1EF |= 8;
-}
 
-// 0x0044B870
-void __cdecl GAME_SetLaunchStateOne()
-{
-// build: symbol ?gnClientLaunchState@* 0x0070EE4C
-    gnClientLaunchState = 1;
-}
+
+
+
+
 
 void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
 
-// 0x0044B890
-int __cdecl GAME_GetExitApplication()
-{
-// build: symbol ?gbExitApplication@* 0x0070EE8C
-    return gbExitApplication;
-}
 
 // 0x0044BA20
 void __fastcall GAME_SetResolution(int nResolution)

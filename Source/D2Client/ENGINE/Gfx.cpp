@@ -1,3 +1,4 @@
+#include "D2LanguageNames.h"
 #include "D2ItemTypes.h"
 #include "D2StateIds.h"
 #include "D2StatIds.h"

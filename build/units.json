@@ -4919,21 +4919,6 @@
      "name": "FlushAndNotify"
     },
     {
-     "va": "0x0041D9A0",
-     "length": 57,
-     "name": "?sub_0041D9A0_Flush@CBitOutput@@QAEXXZ"
-    },
-    {
-     "va": "0x0041E8F0",
-     "length": 14,
-     "name": "sub_0041E8F0"
-    },
-    {
-     "va": "0x0041EE40",
-     "length": 61,
-     "name": "?sub_0041EE40_UnlinkAll@D2StormNodeListStrc@@QAEXXZ"
-    },
-    {
      "va": "0x0041F950",
      "length": 37,
      "name": "??0CHuffman@@QAE@XZ"
@@ -5123,6 +5108,16 @@
      "name": "_SCompDestroy"
     },
     {
+     "va": "0x0041E8F0",
+     "length": 14,
+     "name": "?sub_0041E8F0@@YIXPAUD2SCompPairStrc@@@Z"
+    },
+    {
+     "va": "0x0041E900",
+     "length": 36,
+     "name": "?sub_0041E900_NextLink@D2SCompNextLinkStrc@@QAEPAUD2StormLinkStrc@@H@Z"
+    },
+    {
      "va": "0x0041E930",
      "length": 16,
      "name": "?sub_0041E930_Next@D2SCompLinkNextAStrc@@QAEPADXZ"
@@ -5148,9 +5143,24 @@
      "name": "?sub_0041E9B0_InitializeTerminator@D2SCompListTermStrc@@QAEXXZ"
     },
     {
+     "va": "0x0041E9C0",
+     "length": 3,
+     "name": "?sub_0041E9C0_Identity@@YIPAUD2StormLinkStrc@@PAU1@@Z"
+    },
+    {
      "va": "0x0041E9D0",
      "length": 11,
      "name": "?sub_0041E9D0_SwapDwords@@YIXPAH0@Z"
+    },
+    {
+     "va": "0x0041E9E0",
+     "length": 62,
+     "name": "?sub_0041E9E0_Get@D2SCompBitInputStrc@@QAEIII@Z"
+    },
+    {
+     "va": "0x0041EA20",
+     "length": 30,
+     "name": "?sub_0041EA20_Forward@@YGHPAXPAIPBXI@Z"
     },
     {
      "va": "0x0041EA40",
@@ -5193,6 +5203,16 @@
      "name": "?sub_0041EB20_Init@D2SCompListInitStrc@@QAEXXZ"
     },
     {
+     "va": "0x0041EB40",
+     "length": 17,
+     "name": "?sub_0041EB40_Link@D2StormNodeListAStrc@@QAEPAUD2StormLinkStrc@@PAD@Z"
+    },
+    {
+     "va": "0x0041EB60",
+     "length": 66,
+     "name": "?sub_0041EB60_UnlinkNode@D2StormNodeListAStrc@@QAEXPAD@Z"
+    },
+    {
      "va": "0x0041EBB0",
      "length": 16,
      "name": "??0D2SCompLinkCtorBStrc@@QAE@XZ"
@@ -5206,6 +5226,16 @@
      "va": "0x0041ED70",
      "length": 32,
      "name": "??0D2SCompListStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0041ED90",
+     "length": 161,
+     "name": "?LinkNode@D2StormNodeListAStrc@@QAEXPADI0@Z"
+    },
+    {
+     "va": "0x0041EE40",
+     "length": 61,
+     "name": "?sub_0041EE40_UnlinkAll@D2StormNodeListStrc@@QAEXXZ"
     },
     {
      "va": "0x0041EE80",
@@ -6046,31 +6076,6 @@
      "name": "sub_0041D900_Skip"
     },
     {
-     "va": "0x0041E900",
-     "length": 36,
-     "name": "sub_0041E900_NextLink"
-    },
-    {
-     "va": "0x0041E9E0",
-     "length": 62,
-     "name": "sub_0041E9E0_Get"
-    },
-    {
-     "va": "0x0041EB40",
-     "length": 17,
-     "name": "sub_0041EB40_Link"
-    },
-    {
-     "va": "0x0041EB60",
-     "length": 66,
-     "name": "sub_0041EB60_sub_006C4290"
-    },
-    {
-     "va": "0x0041ED90",
-     "length": 161,
-     "name": "LinkNode"
-    },
-    {
      "va": "0x0041F510",
      "length": 397,
      "name": "AddSymbol"
@@ -6528,6 +6533,11 @@
      "name": "sub_0041D950_PutBits"
     },
     {
+     "va": "0x0041D9A0",
+     "length": 57,
+     "name": "?sub_0041D9A0_Flush@CBitOutput@@QAEXXZ"
+    },
+    {
      "va": "0x0041D9E0",
      "length": 75,
      "name": "?sub_0041D9E0_EncodeOne@CHuffman@@QAEXPAUCBitOutput@@I@Z"
@@ -6606,16 +6616,6 @@
    "file": "Source/Storm/Unknown_0041E9C0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0041E9C0",
-     "length": 3,
-     "name": "?sub_0041E9C0_Identity@@YIPAUD2StormLinkStrc@@PAUD2IdentityView@@@Z"
-    },
-    {
-     "va": "0x0041EA20",
-     "length": 30,
-     "name": "?sub_0041EA20_Forward@@YGHPAXPAIPBXI@Z"
-    },
     {
      "va": "0x0041F460",
      "length": 60,
@@ -9754,66 +9754,6 @@
      "name": "sub_00449E60"
     },
     {
-     "va": "0x0044B440",
-     "length": 57,
-     "name": "?GAME_PushStateValue@@YIXH@Z"
-    },
-    {
-     "va": "0x0044B480",
-     "length": 89,
-     "name": "?GAME_PopStateValue@@YAHXZ"
-    },
-    {
-     "va": "0x0044B5E0",
-     "length": 31,
-     "name": "GAME_SaveDefaultCmdLine"
-    },
-    {
-     "va": "0x0044B780",
-     "length": 27,
-     "name": "?GAME_RaiseGameWindow@@YAXXZ"
-    },
-    {
-     "va": "0x0044B7A0",
-     "length": 6,
-     "name": "GAME_GetClientInfo"
-    },
-    {
-     "va": "0x0044B7C0",
-     "length": 38,
-     "name": "?GAME_GetGameName@@YAPBDXZ"
-    },
-    {
-     "va": "0x0044B7F0",
-     "length": 40,
-     "name": "?GAME_GetGameDescription@@YAPBDXZ"
-    },
-    {
-     "va": "0x0044B820",
-     "length": 38,
-     "name": "?GAME_GetGamePassword@@YAPBDXZ"
-    },
-    {
-     "va": "0x0044B850",
-     "length": 16,
-     "name": "?GAME_IsHardcore@@YAHXZ"
-    },
-    {
-     "va": "0x0044B860",
-     "length": 14,
-     "name": "?GAME_SetCharDiedFlag@@YAXXZ"
-    },
-    {
-     "va": "0x0044B870",
-     "length": 11,
-     "name": "?GAME_SetLaunchStateOne@@YAXXZ"
-    },
-    {
-     "va": "0x0044B890",
-     "length": 6,
-     "name": "GAME_GetExitApplication"
-    },
-    {
      "va": "0x0044BA20",
      "length": 167,
      "name": "?GAME_SetResolution@@YIXH@Z"
@@ -10792,16 +10732,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0044B7B0",
-     "length": 12,
-     "name": "?GAME_GetClientNotify@@YAPAUD2ClientNotifyStrc@@XZ"
-    },
-    {
-     "va": "0x0044B880",
-     "length": 7,
-     "name": "?GAME_SetExitApplication@@YIXH@Z"
-    },
-    {
      "va": "0x0044E200",
      "length": 372,
      "name": "?GAME_InitGameState@@YAXXZ"
@@ -10810,6 +10740,17 @@
      "va": "0x00452130",
      "length": 40,
      "name": "?GAME_InitColors@@YAXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Multi/Unknown_0043CBE0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0043CBE0",
+     "length": 12,
+     "name": "?CHATDLG_GetModuleInterface@@YIPAUD2ModuleInterfaceStrc@@PAX@Z"
     }
    ]
   },
@@ -10833,29 +10774,9 @@
      "name": "?COMCALLBACK_FilterNameChar@@YGHPAUD2WinControlStrc@@HPBD@Z"
     },
     {
-     "va": "0x00443D10",
-     "length": 49,
-     "name": "?COMCALLBACK_SetPendingName@@YGXHHPBD@Z"
-    },
-    {
      "va": "0x004453B0",
      "length": 379,
      "name": "?COMCALLBACK_BuildCreateGamePanel@@YAXXZ"
-    },
-    {
-     "va": "0x00445A80",
-     "length": 483,
-     "name": "?COMCALLBACK_ShowProfileDialog@@YIXPBDHH@Z"
-    },
-    {
-     "va": "0x00445C70",
-     "length": 381,
-     "name": "?COMCALLBACK_ShowUserInfoDialog@@YIXPBD0HH@Z"
-    },
-    {
-     "va": "0x00445DF0",
-     "length": 502,
-     "name": "?COMCALLBACK_CreateJoinScreen@@YAXXZ"
     },
     {
      "va": "0x00445FF0",
@@ -10871,6 +10792,21 @@
      "va": "0x004467D0",
      "length": 57,
      "name": "?COMCALLBACK_OpenCreateScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x00446810",
+     "length": 9,
+     "name": "CHATDLG_StrChr"
+    },
+    {
+     "va": "0x00446820",
+     "length": 27,
+     "name": "?CHATDLG_SkipNamePrefix@@YIPBDPBD@Z"
+    },
+    {
+     "va": "0x00446840",
+     "length": 62,
+     "name": "?CHATDLG_CopyNamePrefix@@YIXPBDPAD@Z"
     },
     {
      "va": "0x004468F0",
@@ -10891,6 +10827,11 @@
      "va": "0x00446A00",
      "length": 141,
      "name": "?COMCALLBACK_SendAwayCommand@@YGHH@Z"
+    },
+    {
+     "va": "0x00446A90",
+     "length": 152,
+     "name": "CHATDLG_RemoveTableString"
     },
     {
      "va": "0x00446B70",
@@ -11845,21 +11786,6 @@
    ],
    "functions": [
     {
-     "va": "0x0043C6B0",
-     "length": 156,
-     "name": "?CHATDLG_WriteSaveHeader@@YIHPBD@Z"
-    },
-    {
-     "va": "0x0043CAA0",
-     "length": 308,
-     "name": "?CHATDLG_UpdateSaveFlags@@YIHPBD@Z"
-    },
-    {
-     "va": "0x0043CBE0",
-     "length": 12,
-     "name": "?CHATDLG_GetModuleInterface@@YIPAUD2ModuleInterfaceStrc@@PAX@Z"
-    },
-    {
      "va": "0x0043CBF0",
      "length": 1,
      "name": "?sub_0043CBF0_Nop@@YAXXZ"
@@ -12652,6 +12578,11 @@
      "name": "?sub_00443CC0_SelectHell@@YGHH@Z"
     },
     {
+     "va": "0x00443D10",
+     "length": 49,
+     "name": "?COMCALLBACK_SetPendingName@@YGXHHPBD@Z"
+    },
+    {
      "va": "0x00443D50",
      "length": 190,
      "name": "?CHATDLG_CreateProfileControls@@YAXXZ"
@@ -12735,24 +12666,19 @@
      "name": "?sub_004456C0_OnEnter@@YGHH@Z"
     },
     {
-     "va": "0x00446810",
-     "length": 9,
-     "name": "CHATDLG_StrChr"
+     "va": "0x00445A80",
+     "length": 483,
+     "name": "?COMCALLBACK_ShowProfileDialog@@YIXPBDHH@Z"
     },
     {
-     "va": "0x00446820",
-     "length": 27,
-     "name": "?CHATDLG_SkipNamePrefix@@YIPBDPBD@Z"
+     "va": "0x00445C70",
+     "length": 381,
+     "name": "?COMCALLBACK_ShowUserInfoDialog@@YIXPBD0HH@Z"
     },
     {
-     "va": "0x00446840",
-     "length": 62,
-     "name": "?CHATDLG_CopyNamePrefix@@YIXPBDPAD@Z"
-    },
-    {
-     "va": "0x00446A90",
-     "length": 152,
-     "name": "CHATDLG_RemoveTableString"
+     "va": "0x00445DF0",
+     "length": 502,
+     "name": "?COMCALLBACK_CreateJoinScreen@@YAXXZ"
     },
     {
      "va": "0x00448BD0",
@@ -12839,8 +12765,18 @@
    "rank": 1,
    "functions": [
     {
+     "va": "0x0043C6B0",
+     "length": 156,
+     "name": "?CHATDLG_WriteSaveHeader@@YIHPBD@Z"
+    },
+    {
      "va": "0x0043C8A0",
      "length": 497
+    },
+    {
+     "va": "0x0043CAA0",
+     "length": 308,
+     "name": "?CHATDLG_UpdateSaveFlags@@YIHPBD@Z"
     }
    ],
    "flags": [
@@ -13119,6 +13055,16 @@
      "name": "?WINMAIN_PollMcpConnection@@YAHXZ"
     },
     {
+     "va": "0x0044B440",
+     "length": 57,
+     "name": "?GAME_PushStateValue@@YIXH@Z"
+    },
+    {
+     "va": "0x0044B480",
+     "length": 89,
+     "name": "?GAME_PopStateValue@@YAHXZ"
+    },
+    {
      "va": "0x0044B4E0",
      "length": 98,
      "name": "?WINMAIN_ShowCommandLineHelp@@YGHPBUD2CmdParamsStrc@@H@Z"
@@ -13149,6 +13095,11 @@
      "name": "?WINMAIN_HandleArgumentError@@YGHH@Z"
     },
     {
+     "va": "0x0044B5E0",
+     "length": 31,
+     "name": "GAME_SaveDefaultCmdLine"
+    },
+    {
      "va": "0x0044B600",
      "length": 166,
      "name": "?WINMAIN_SetLaunchMode@@YGHPBUD2CmdParamsStrc@@H@Z"
@@ -13157,6 +13108,66 @@
      "va": "0x0044B6B0",
      "length": 201,
      "name": "?WINMAIN_ProcessCommandLine@@YGHPAX@Z"
+    },
+    {
+     "va": "0x0044B780",
+     "length": 27,
+     "name": "?GAME_RaiseGameWindow@@YAXXZ"
+    },
+    {
+     "va": "0x0044B7A0",
+     "length": 6,
+     "name": "GAME_GetClientInfo"
+    },
+    {
+     "va": "0x0044B7B0",
+     "length": 12,
+     "name": "?GAME_GetClientNotify@@YAPAUD2ClientNotifyStrc@@XZ"
+    },
+    {
+     "va": "0x0044B7C0",
+     "length": 38,
+     "name": "?GAME_GetGameName@@YAPBDXZ"
+    },
+    {
+     "va": "0x0044B7F0",
+     "length": 40,
+     "name": "?GAME_GetGameDescription@@YAPBDXZ"
+    },
+    {
+     "va": "0x0044B820",
+     "length": 38,
+     "name": "?GAME_GetGamePassword@@YAPBDXZ"
+    },
+    {
+     "va": "0x0044B850",
+     "length": 16,
+     "name": "?GAME_IsHardcore@@YAHXZ"
+    },
+    {
+     "va": "0x0044B860",
+     "length": 14,
+     "name": "?GAME_SetCharDiedFlag@@YAXXZ"
+    },
+    {
+     "va": "0x0044B870",
+     "length": 11,
+     "name": "?GAME_SetLaunchStateOne@@YAXXZ"
+    },
+    {
+     "va": "0x0044B880",
+     "length": 7,
+     "name": "?GAME_SetExitApplication@@YIXH@Z"
+    },
+    {
+     "va": "0x0044B890",
+     "length": 6,
+     "name": "GAME_GetExitApplication"
+    },
+    {
+     "va": "0x0044B8A0",
+     "length": 370,
+     "name": "?GAME_LauncherRun@@YGHPAXPAUD2ClientCharRecordStrc@@@Z"
     },
     {
      "va": "0x0044BAD0",
@@ -15225,11 +15236,6 @@
    "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0044B8A0",
-     "length": 370,
-     "name": "?GAME_LauncherRun@@YGHPAXPAUD2ClientCharRecordStrc@@@Z"
-    },
     {
      "va": "0x0044BDD0",
      "length": 4,
@@ -55824,6 +55830,10 @@
      "name": "?MISSMODE_FillDamageParams@@YGXPAUD2UnitStrc@@0PAUD2DamageStrc@@@Z"
     },
     {
+     "va": "0x005A8C70",
+     "length": 684
+    },
+    {
      "va": "0x005A8F20",
      "length": 136
     },
@@ -57576,30 +57586,6 @@
      "length": 82,
      "name": "?FRIENDLY_RemoveHostility@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MISSILES/MissMode_005A8C70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005A8C70",
-     "length": 684
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -67225,6 +67211,10 @@
      "name": "?DRLGACTIVATE_GetARoomInClientSight@@YIPAUD2ActiveRoomStrc@@PAUD2DrlgStrc@@@Z"
     },
     {
+     "va": "0x0061B870",
+     "length": 57
+    },
+    {
      "va": "0x0061B8B0",
      "length": 53,
      "name": "?DRLGACTIVATE_UpdateRoomsAllocationStats@@YAXPAUD2DrlgStrc@@@Z"
@@ -67278,46 +67268,6 @@
      "va": "0x0061BB60",
      "length": 25,
      "name": "?DRLGACTIVATE_ApplyArreatSummitLightColor@@YGXPAUD2ColorRecordStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0061B870.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0061B870",
-     "length": 57
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0061C390.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0061C390",
-     "length": 18,
-     "name": "?sub_0061C390@@YGHPAUAct@@@Z"
-    },
-    {
-     "va": "0x0061C530",
-     "length": 12,
-     "name": "?sub_0061C530_GetLvlPrestTxtRecordCount@@YAHXZ"
     }
    ]
   },
@@ -67410,6 +67360,11 @@
      "name": "ENVIRONMENT_GetStatistics"
     },
     {
+     "va": "0x0061C390",
+     "length": 18,
+     "name": "?sub_0061C390@@YGHPAUAct@@@Z"
+    },
+    {
      "va": "0x0061C3B0",
      "length": 156,
      "name": "?ENVIRONMENT_SetNextTimeRate@@YGXPAUD2DrlgActStrc@@PAUD2ActiveRoomStrc@@@Z"
@@ -67423,6 +67378,11 @@
      "va": "0x0061C4D0",
      "length": 92,
      "name": "?ENVIRONMENT_TaintedSunEnd@@YGXPAUD2DrlgActStrc@@@Z"
+    },
+    {
+     "va": "0x0061C530",
+     "length": 12,
+     "name": "?sub_0061C530_GetLvlPrestTxtRecordCount@@YAHXZ"
     }
    ]
   },
@@ -73374,16 +73334,163 @@
      "name": "MISSILE_FreeMissileData"
     },
     {
+     "va": "0x0064A190",
+     "length": 35,
+     "name": "_sub_0064A190@4"
+    },
+    {
+     "va": "0x0064A1C0",
+     "length": 32,
+     "name": "MISSILE_SetFlags"
+    },
+    {
+     "va": "0x0064A1E0",
+     "length": 34,
+     "name": "_sub_0064A1E0_SetMissileLevel@8"
+    },
+    {
+     "va": "0x0064A210",
+     "length": 36,
+     "name": "_sub_0064A210@4"
+    },
+    {
+     "va": "0x0064A240",
+     "length": 57,
+     "name": "MISSILE_SetSkill"
+    },
+    {
+     "va": "0x0064A280",
+     "length": 36,
+     "name": "_sub_0064A280@4"
+    },
+    {
      "va": "0x0064A2B0",
      "length": 65
+    },
+    {
+     "va": "0x0064A300",
+     "length": 36,
+     "name": "_sub_0064A300@4"
     },
     {
      "va": "0x0064A330",
      "length": 65
     },
     {
+     "va": "0x0064A380",
+     "length": 36,
+     "name": "_sub_0064A380@4"
+    },
+    {
+     "va": "0x0064A3B0",
+     "length": 42,
+     "name": "_sub_0064A3B0@4"
+    },
+    {
+     "va": "0x0064A3E0",
+     "length": 28,
+     "name": "_sub_0064A3E0@4"
+    },
+    {
      "va": "0x0064A470",
      "length": 110
+    },
+    {
+     "va": "0x0064A4E0",
+     "length": 34,
+     "name": "_sub_0064A4E0@8"
+    },
+    {
+     "va": "0x0064A510",
+     "length": 37,
+     "name": "_sub_0064A510@4"
+    },
+    {
+     "va": "0x0064A540",
+     "length": 34,
+     "name": "_sub_0064A540@8"
+    },
+    {
+     "va": "0x0064A570",
+     "length": 36,
+     "name": "_sub_0064A570@4"
+    },
+    {
+     "va": "0x0064A5A0",
+     "length": 69,
+     "name": "MISSILE_GetHitClass"
+    },
+    {
+     "va": "0x0064A5F0",
+     "length": 65
+    },
+    {
+     "va": "0x0064A640",
+     "length": 36,
+     "name": "_sub_0064A640@4"
+    },
+    {
+     "va": "0x0064A670",
+     "length": 29,
+     "name": "MISSILE_GetAnimSpeed"
+    },
+    {
+     "va": "0x0064A690",
+     "length": 58
+    },
+    {
+     "va": "0x0064A6D0",
+     "length": 20,
+     "name": "@sub_0064A6D0@8"
+    },
+    {
+     "va": "0x0064A6F0",
+     "length": 23,
+     "name": "@sub_0064A6F0@4"
+    },
+    {
+     "va": "0x0064A710",
+     "length": 32,
+     "name": "MISSILE_SetTargetX"
+    },
+    {
+     "va": "0x0064A760",
+     "length": 32,
+     "name": "MISSILE_SetTargetY"
+    },
+    {
+     "va": "0x0064A780",
+     "length": 35,
+     "name": "_sub_0064A780_targetValue@4"
+    },
+    {
+     "va": "0x0064A7B0",
+     "length": 62,
+     "name": "MISSILE_SetHomeType"
+    },
+    {
+     "va": "0x0064A850",
+     "length": 224,
+     "name": "?sub_0064A850_CheckCritical@@YGHPAUUnit@@0@Z"
+    },
+    {
+     "va": "0x0064A930",
+     "length": 298,
+     "name": "?sub_0064A930_AddElements@@YAXHPAUUnit@@PAUDamage@@@Z"
+    },
+    {
+     "va": "0x0064AA60",
+     "length": 319,
+     "name": "?sub_0064AA60_ScaleElements@@YAXHPAUDamage@@@Z"
+    },
+    {
+     "va": "0x0064ABA0",
+     "length": 180
+    },
+    {
+     "va": "0x0064AC60",
+     "length": 700,
+     "name": "?MISSILE_SetDamageStats@@YGXPAUD2UnitStrc@@0PAUD2MissileDamageDataStrc@@H@Z"
     },
     {
      "va": "0x0064AF20",
@@ -73437,184 +73544,17 @@
     {
      "va": "0x0064B7C0",
      "length": 157
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Common/UNITS/Missile_0064B860.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x0064B860",
      "length": 1780
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0064A190.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0064A190",
-     "length": 35,
-     "name": "_sub_0064A190@4"
-    },
-    {
-     "va": "0x0064A1C0",
-     "length": 32,
-     "name": "MISSILE_SetFlags"
-    },
-    {
-     "va": "0x0064A1E0",
-     "length": 34,
-     "name": "_sub_0064A1E0_SetMissileLevel@8"
-    },
-    {
-     "va": "0x0064A210",
-     "length": 36,
-     "name": "_sub_0064A210@4"
-    },
-    {
-     "va": "0x0064A240",
-     "length": 57,
-     "name": "MISSILE_SetSkill"
-    },
-    {
-     "va": "0x0064A280",
-     "length": 36,
-     "name": "_sub_0064A280@4"
-    },
-    {
-     "va": "0x0064A300",
-     "length": 36,
-     "name": "_sub_0064A300@4"
-    },
-    {
-     "va": "0x0064A380",
-     "length": 36,
-     "name": "_sub_0064A380@4"
-    },
-    {
-     "va": "0x0064A3B0",
-     "length": 42,
-     "name": "_sub_0064A3B0@4"
-    },
-    {
-     "va": "0x0064A3E0",
-     "length": 28,
-     "name": "_sub_0064A3E0@4"
-    },
-    {
-     "va": "0x0064A4E0",
-     "length": 34,
-     "name": "_sub_0064A4E0@8"
-    },
-    {
-     "va": "0x0064A510",
-     "length": 37,
-     "name": "_sub_0064A510@4"
-    },
-    {
-     "va": "0x0064A540",
-     "length": 34,
-     "name": "_sub_0064A540@8"
-    },
-    {
-     "va": "0x0064A570",
-     "length": 36,
-     "name": "_sub_0064A570@4"
-    },
-    {
-     "va": "0x0064A5A0",
-     "length": 69,
-     "name": "MISSILE_GetHitClass"
-    },
-    {
-     "va": "0x0064A640",
-     "length": 36,
-     "name": "_sub_0064A640@4"
-    },
-    {
-     "va": "0x0064A670",
-     "length": 29,
-     "name": "MISSILE_GetAnimSpeed"
-    },
-    {
-     "va": "0x0064A6D0",
-     "length": 20,
-     "name": "@sub_0064A6D0@8"
-    },
-    {
-     "va": "0x0064A6F0",
-     "length": 23,
-     "name": "@sub_0064A6F0@4"
-    },
-    {
-     "va": "0x0064A710",
-     "length": 32,
-     "name": "MISSILE_SetTargetX"
-    },
-    {
-     "va": "0x0064A760",
-     "length": 32,
-     "name": "MISSILE_SetTargetY"
-    },
-    {
-     "va": "0x0064A780",
-     "length": 35,
-     "name": "_sub_0064A780_targetValue@4"
-    },
-    {
-     "va": "0x0064A7B0",
-     "length": 62,
-     "name": "MISSILE_SetHomeType"
-    },
-    {
-     "va": "0x0064A850",
-     "length": 224,
-     "name": "?sub_0064A850_CheckCritical@@YGHPAUUnit@@0@Z"
-    },
-    {
-     "va": "0x0064A930",
-     "length": 298,
-     "name": "?sub_0064A930_AddElements@@YAXHPAUUnit@@PAUDamage@@@Z"
-    },
-    {
-     "va": "0x0064AA60",
-     "length": 319,
-     "name": "?sub_0064AA60_ScaleElements@@YAXHPAUDamage@@@Z"
-    },
-    {
-     "va": "0x0064AC60",
-     "length": 700,
-     "name": "?MISSILE_SetDamageStats@@YGXPAUD2UnitStrc@@0PAUD2MissileDamageDataStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0064A2B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0064A5F0",
-     "length": 65
-    },
-    {
-     "va": "0x0064A690",
-     "length": 58
-    },
-    {
-     "va": "0x0064ABA0",
-     "length": 180
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
