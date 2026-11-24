@@ -1388,8 +1388,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/text.cpp": {
-   "bytes": 4692,
-   "definitions": 51,
+   "bytes": 4572,
+   "definitions": 49,
    "externs": [
     "extern \"C\" void __cdecl D2CLIENT_CloseNPCTalk(); // 0x004A17D0",
     "extern \"C\" void __cdecl TEXT_EatMsg(); // 0x0049DA10",
@@ -1511,8 +1511,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_004A76C0.cpp": {
-   "bytes": 1140,
-   "definitions": 7,
+   "bytes": 580,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004A76C0.inc",
@@ -5249,6 +5249,25 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004A43E0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/Unknown_004A6460.cpp": {
+   "bytes": 680,
+   "definitions": 5,
+   "externs": [
+    "extern \"C\" void __cdecl D2CLIENT_CloseNPCTalk(); // 0x004A17D0",
+    "extern \"C\" void __cdecl TEXT_EatMsg(); // 0x0049DA10",
+    "extern \"C\" void __cdecl TEXT_KeyUpMsg(); // 0x004A1770",
+    "extern \"C\" void __cdecl TEXT_HotkeyMsg(); // 0x004A1870",
+    "extern \"C\" void __cdecl TEXT_KeyDownMsg(); // 0x004A18C0",
+    "extern \"C\" void __cdecl sub_004A6000_RegisterPressMsgHandler(); // 0x004A6000",
+    "extern \"C\" void __cdecl TEXT_WheelCaptureMsg(); // 0x004A6310",
+    "extern \"C\" void __cdecl TEXT_ButtonCaptureMsg(); // 0x004A6350",
+    "extern \"C\" void __cdecl sub_004A63B0_WheelMsgHandler(); // 0x004A63B0"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/Unknown_004A6460.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -56764,7 +56783,7 @@
    "cname": "gData_00724824",
    "declared": true,
    "decorated": "?gaTextEntries@@3PAUD2TextEntryStrc@@A",
-   "file": "Source/D2Client/Unknown_004A76C0.cpp",
+   "file": "Source/D2Client/Unknown_004A6460.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00724824_t gData_00724824; // 0x00724824",
    "head": "extern \"C\" struct d2data_00724824_t gData_00724824 = ",
@@ -56872,7 +56891,7 @@
    "cname": "gData_00724818",
    "declared": true,
    "decorated": "?gaCharTexts@@3PAUD2CharTextStrc@@A",
-   "file": "Source/D2Client/Unknown_004A76C0.cpp",
+   "file": "Source/D2Client/Unknown_004A6460.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00724818_t gData_00724818; // 0x00724818",
    "head": "extern \"C\" struct d2data_00724818_t gData_00724818 = ",
@@ -56889,7 +56908,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004A76C0.cpp",
+   "file": "Source/D2Client/Unknown_004A6460.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2CharFieldStrc gaCharFields[18] = ",
@@ -57170,7 +57189,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text.cpp",
+   "file": "Source/D2Client/Unknown_004A6460.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2BeltSlotStrc gaStatButtons[4] = ",
@@ -57241,7 +57260,7 @@
    "cname": "gData_00724A80",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/text.cpp",
+   "file": "Source/D2Client/Unknown_004A6460.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00724A80_t gData_00724A80; // 0x00724A80",
    "head": "extern \"C\" struct d2data_00724A80_t gData_00724A80 = ",

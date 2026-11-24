@@ -995,11 +995,8 @@ D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 
 int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
-void* gpLevelCel; // 0x007C02DC
 
-void* gpLevelSocketCel; // 0x007C02E0
 
-int gbStatButtonPressed; // 0x007C02E4
 
 int gbSkillButtonPressed; // 0x007C02E8
 
@@ -1024,7 +1021,6 @@ static int TEXT_IsOnThumb(int nX, int nY);
 
 static int TEXT_IsBelowThumb(int nX, int nY);
 
-unsigned char gnTextColor; // 0x007C02F8
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 
@@ -5174,134 +5170,13 @@ void __stdcall TEXT_UnregisterKeyConfigHandlers(int bReset);                    
 
 
 
-// 0x004A6460
-void __cdecl TEXT_LoadLevelCels()
-{
-    gpLevelCel = sub_004520C0_LoadUiCelFile("Panel\\Level");
-    gpLevelSocketCel = sub_004520C0_LoadUiCelFile("Panel\\Levelsocket");
-}
-
-// 0x004A6480
-void __cdecl TEXT_FreeLevelCels()
-{
-    if (gpLevelCel)
-    {
-        ARCHIVE_FreeClientCellFile(gpLevelCel);
-        gpLevelCel = 0;
-    }
-    if (gpLevelSocketCel)
-    {
-        ARCHIVE_FreeClientCellFile(gpLevelSocketCel);
-        gpLevelSocketCel = 0;
-    }
-}
-
-// 0x004A64C0
-void __cdecl TEXT_UpdateLevelUpButtons()
-{
-    if (GAME_GetUIVarState(0xB))
-        return;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (GAME_GetUIVarState(6))
-    {
-        if (!STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
-            UI_SetUIVar(6, 1, 0);
-    }
-    else
-    {
-        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0) && !GAME_GetUIVarState(2))
-            UI_SetUIVar(6, 0, 0);
-    }
-    if (GAME_GetUIVarState(7))
-    {
-        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_NEWSKILLS, 0) <= 0)
-            UI_SetUIVar(7, 1, 0);
-    }
-    else
-    {
-        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_NEWSKILLS, 0) > 0 && !GAME_GetUIVarState(4))
-            UI_SetUIVar(7, 0, 0);
-    }
-}
-
-// 0x004A65E0
-int __cdecl TEXT_IsMouseOnStatButton()
-{
-    int nX = sub_00468730();
-    int nY = sub_00468740();
-    if (nX > gnScreenWidth / 2 - 0xC2 && nX < gnScreenWidth / 2 - 0xA0 && nY > gnScreenHeight - 0x2A && nY < gnScreenHeight - 8)
-        return 1;
-    return 0;
-}
-
-// 0x004A6630
-int __fastcall TEXT_IsInRightPanelButton(int nMode, int nX, int nY)
-{
-    switch (nMode)
-    {
-    case 1:
-        if (nX > (gnScreenWidth - gnScreenWidth / 2) - 73 && nX < (gnScreenWidth - gnScreenWidth / 2) - 40 && nY > gnScreenHeight - 138 && nY < gnScreenHeight - 102)
-            return 1;
-        return 0;
-    default:
-        if (nX > gnScreenWidth - 73 && nX < gnScreenWidth - 40 && nY > gnScreenHeight - 138 && nY < gnScreenHeight - 102)
-            return 1;
-        return 0;
-    }
-}
-
-// 0x004A6690
-int __cdecl TEXT_IsMouseOnSkillButton()
-{
-    int nX = sub_00468730();
-    int nY = sub_00468740();
-    if (nX > gnScreenWidth / 2 + 0xA3 && nX < gnScreenWidth / 2 + 0xC5 && nY > gnScreenHeight - 0x2A && nY < gnScreenHeight - 8)
-        return 1;
-    return 0;
-}
 
 
-// 0x004A66E0
-void __stdcall TEXT_StatButtonDownMsg(SMSGHANDLER_PARAMS* message)
-{
-    int x = message->nXpos;
-    int y = message->nYpos;
-    const int nResolution = D2GFX_GetResolutionMode();
-    if (nResolution == 2 && GAME_GetUIVarState(nResolution + 7))
-    {
-        return;
-    }
-    int border = sub_0045AE90();
-    if (D2GFX_GetResolutionMode() != 2)
-    {
-        if (TEXT_IsInPanelButton(border, x, y))
-        {
-            gbStatButtonPressed = 1;
-            sub_004B9A00(4, 0, 0, 0, 0);
-            ROSTERPETS_HandleButtonDown(message);
-            if (border == 2 && NPCMENU_IsNpcTalkActive()) return;
-            message->bReturn = 1;
-            message->lResult = 0;
-            sub_00420290_BreakHandlerChain(message);
-            return;
-        }
-    }
-    else
-    {
-        if (TEXT_IsMouseOnStatButton())
-        {
-            gbStatButtonPressed = 1;
-            sub_004B9A00(4, 0, 0, 0, 0);
-            ROSTERPETS_HandleButtonDown(message);
-            if (border == 2 && NPCMENU_IsNpcTalkActive()) return;
-            message->bReturn = 1;
-            message->lResult = 0;
-            sub_00420290_BreakHandlerChain(message);
-            return;
-        }
-    }
-    message->bReturn = 0;
-}
+
+
+
+
+
 
 static inline void MarkRightButtonPressed()
 {
@@ -5310,384 +5185,25 @@ static inline void MarkRightButtonPressed()
     sub_004B9A00(nClickSound, 0, 0, 0, 0);
 }
 
-// 0x004A6790
-void __stdcall TEXT_SkillButtonDownMsg(SMSGHANDLER_PARAMS* message)
-{
-    int x = message->nXpos;
-    int y = message->nYpos;
-    const int nResolution = D2GFX_GetResolutionMode();
-    if (nResolution == 2 && GAME_GetUIVarState(nResolution + 7))
-        return;
-    int border = sub_0045AE90();
-    if (D2GFX_GetResolutionMode() != 2)
-    {
-        if (TEXT_IsInRightPanelButton(border, x, y))
-        {
-            MarkRightButtonPressed();
-            ROSTERPETS_HandleButtonDown(message);
-            if (border == 1 && NPCMENU_IsNpcTalkActive()) return;
-            message->bReturn = 1;
-            message->lResult = 0;
-            sub_00420290_BreakHandlerChain(message);
-            return;
-        }
-    }
-    else
-    {
-        if (TEXT_IsMouseOnSkillButton())
-        {
-            MarkRightButtonPressed();
-            ROSTERPETS_HandleButtonDown(message);
-            if (border == 1 && NPCMENU_IsNpcTalkActive()) return;
-            message->bReturn = 1;
-            message->lResult = 0;
-            sub_00420290_BreakHandlerChain(message);
-            return;
-        }
-    }
-    message->bReturn = 0;
-}
 
 static int __fastcall CLIENT_HitPanelButton(int nMode, int nX, int nY)
 {
     return TEXT_IsInPanelButton(nMode, nX, nY);
 }
 
-// 0x004A6840
-void __stdcall TEXT_StatButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    int nX = pMsg->nXpos;
-    int nY = pMsg->nYpos;
-    if (D2GFX_GetResolutionMode() == 2 && GAME_GetUIVarState(9))
-    {
-        return;
-    }
-
-    ROSTERPETS_HandleButtonUp(pMsg);
-    if (D2GFX_GetResolutionMode() != 2)
-    {
-        if (gbStatButtonPressed && CLIENT_HitPanelButton(sub_0045AE90(), nX, nY))
-        {
-            gbStatButtonPressed = 0;
-            UI_SetUIVar(6, 1, 0);
-            UI_SetUIVar(2, 0, 0);
-            pMsg->bReturn = 1;
-            pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
-            return;
-        }
-    }
-    else
-    {
-        if (gbStatButtonPressed && sub_004A65E0_IsInLeftButton())
-        {
-            gbStatButtonPressed = 0;
-            UI_SetUIVar(2, 0, 0);
-            pMsg->bReturn = 1;
-            pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
-            return;
-        }
-    }
-
-    gbStatButtonPressed = 0;
-    pMsg->bReturn = 0;
-}
 
 static int __fastcall CLIENT_HitRightPanelButton(int nMode, int nX, int nY)
 {
     return TEXT_IsInRightPanelButton(nMode, nX, nY);
 }
 
-// 0x004A6920
-void __stdcall TEXT_SkillButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    int nX = pMsg->nXpos;
-    int nY = pMsg->nYpos;
-    if (D2GFX_GetResolutionMode() == 2 && GAME_GetUIVarState(9))
-    {
-        return;
-    }
 
-    ROSTERPETS_HandleButtonUp(pMsg);
-    if (D2GFX_GetResolutionMode() != 2)
-    {
-        if (gbSkillButtonPressed && CLIENT_HitRightPanelButton(sub_0045AE90(), nX, nY))
-        {
-            gbSkillButtonPressed = 0;
-            UI_SetUIVar(7, 1, 0);
-            UI_SetUIVar(4, 0, 0);
-            pMsg->bReturn = 1;
-            pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
-            return;
-        }
-    }
-    else
-    {
-        if (gbSkillButtonPressed && TEXT_IsMouseOnSkillButton())
-        {
-            gbSkillButtonPressed = 0;
-            UI_SetUIVar(4, 0, 0);
-            pMsg->bReturn = 1;
-            pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
-            return;
-        }
-    }
 
-    gbSkillButtonPressed = 0;
-    pMsg->bReturn = 0;
-}
 
-// 0x004A6A00
-bool __stdcall TEXT_IsStatButtonHidden(int nArg)
-{
-    if (nArg == 3)
-        return true;
-    if (GAME_GetUIVarState(2))
-        return true;
-    if (GAME_GetUIVarState(0x16) && GAME_GetUIVarState(1))
-        return true;
-    if (GAME_GetUIVarState(0x16) && GAME_GetUIVarState(4))
-        return true;
-    return (bool)GAME_GetUIVarState(0xC);
-}
 
-// 0x004A6B30
-void __cdecl TEXT_DrawStatButton()
-{
-    const int nBorder = sub_0045AE90();
-    if (D2GFX_GetResolutionMode() != 2 && TEXT_IsStatButtonHidden(nBorder))
-    {
-        gbStatButtonPressed = 0;
-        return;
-    }
 
-    int nX;
-    if (nBorder == 2)
-        nX = gnScreenWidth / 2 + 0x28;
-    else
-        nX = 0x28;
 
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.nDirection = 0;
-    tContext.pCellFile = gpLevelSocketCel;
-    tContext.nFrame = 0;
-    const int nCelWidth = CelGetWidth(CelGetHandle(&tContext));
-    const int nTextWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF92));
-    if (D2GFX_GetResolutionMode() != 2)
-    {
-        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF92), nCelWidth / 2 - nTextWidth / 2 + nX + 1, gnScreenHeight - 0x8E, 0, 0);
-        TEXTURE_CelDraw(&tContext, nX, gnScreenHeight - 0x69, -1, 5, 0);
-    }
 
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.nDirection = 0;
-    tContext.pCellFile = gpLevelCel;
-    if (D2GFX_GetResolutionMode() != 2)
-    {
-        if (gbStatButtonPressed && TEXT_IsInPanelButton(nBorder, sub_00468730(), sub_00468740()))
-            tContext.nFrame = 1;
-        else
-            tContext.nFrame = 0;
-    }
-    else
-    {
-        if (gbStatButtonPressed && sub_004A65E0_IsInLeftButton())
-            tContext.nFrame = 1;
-        else
-            tContext.nFrame = 0;
-    }
-    CelGetWidth(CelGetHandle(&tContext));
-    D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF92));
-    if (D2GFX_GetResolutionMode() != 2)
-    {
-        TEXTURE_CelDraw(&tContext, nX + 3, gnScreenHeight - 0x6D, -1, 5, 0);
-        return;
-    }
-
-    if (sub_004A65E0_IsInLeftButton() && !GAME_GetUIVarState(9))
-        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF92), gnScreenWidth / 2 - 0xB3, gnScreenHeight - 0x32, 0, 1);
-    TEXTURE_CelDraw(&tContext, gnScreenWidth / 2 - 0xC2, gnScreenHeight - 8, -1, 5, 0);
-}
-
-// 0x004A6D50
-bool __stdcall TEXT_IsSkillButtonHidden(int nArg)
-{
-    if (nArg == 3)
-        return true;
-    if (GAME_GetUIVarState(4))
-        return true;
-    if (GAME_GetUIVarState(0xC))
-        return true;
-    if (GAME_GetUIVarState(0x16) && GAME_GetUIVarState(1))
-        return true;
-    return false;
-}
-
-// 0x004A6E60
-void __cdecl TEXT_DrawSkillButton()
-{
-    const int nBorder = sub_0045AE90();
-    if (D2GFX_GetResolutionMode() != 2 && TEXT_IsSkillButtonHidden(nBorder))
-    {
-        gbSkillButtonPressed = 0;
-        return;
-    }
-
-    int nX;
-    if (nBorder == 1)
-        nX = gnScreenWidth - gnScreenWidth / 2 - 0x49;
-    else
-        nX = gnScreenWidth - 0x49;
-
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.nDirection = 0;
-    tContext.pCellFile = gpLevelSocketCel;
-    tContext.nFrame = 0;
-    const int nCelWidth = CelGetWidth(CelGetHandle(&tContext));
-    const int nTextWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF93));
-    if (D2GFX_GetResolutionMode() != 2)
-    {
-        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF93), nCelWidth / 2 - nTextWidth / 2 + nX + 1, gnScreenHeight - 0x8E, 0, 0);
-        TEXTURE_CelDraw(&tContext, nX, gnScreenHeight - 0x69, -1, 5, 0);
-    }
-
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.nDirection = 0;
-    tContext.pCellFile = gpLevelCel;
-    if (D2GFX_GetResolutionMode() != 2)
-    {
-        if (gbSkillButtonPressed && sub_004A6630_IsInPanelButton2(nBorder, sub_00468730(), sub_00468740()))
-            tContext.nFrame = 1;
-        else
-            tContext.nFrame = 0;
-    }
-    else
-    {
-        if (gbSkillButtonPressed && sub_004A6690_IsInRightButton())
-            tContext.nFrame = 1;
-        else
-            tContext.nFrame = 0;
-    }
-    CelGetWidth(CelGetHandle(&tContext));
-    D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(0xF93));
-    if (D2GFX_GetResolutionMode() != 2)
-    {
-        TEXTURE_CelDraw(&tContext, nX + 3, gnScreenHeight - 0x6D, -1, 5, 0);
-        return;
-    }
-
-    if (sub_004A6690_IsInRightButton() && !GAME_GetUIVarState(9))
-        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF93), gnScreenWidth / 2 + 0xB2, gnScreenHeight - 0x32, 0, 1);
-    TEXTURE_CelDraw(&tContext, gnScreenWidth / 2 + 0xA3, gnScreenHeight - 8, -1, 5, 0);
-}
-
-// 0x004A70C0
-static int TEXT_GetWeaponBlock(D2UnitStrc* pUnit)
-{
-    int i;
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2UnitStrc* pRightItem = 0;
-    D2UnitStrc* pLeftItem = 0;
-    if (pInventory)
-    {
-        pRightItem = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-        pLeftItem = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-    }
-
-    D2StatStrc aStats[0x20];
-    const int nCount = STATLIST_CopyStats(pUnit, STAT_PASSIVE_WEAPONBLOCK, aStats, 0x20);
-    int nBest = 0;
-    for (i = 0; i < nCount; ++i)
-    {
-        const int nItemType = aStats[i].nLayer;
-        const int nValue = aStats[i].nValue;
-        if (nItemType <= 0)
-        {
-            nBest = nValue;
-        }
-        else if (pLeftItem && ITEMSIsA(pLeftItem, nItemType))
-        {
-            if (nValue > nBest)
-            {
-                nBest = nValue;
-            }
-        }
-        else if (pRightItem && ITEMSIsA(pRightItem, nItemType))
-        {
-            if (nValue > nBest)
-            {
-                nBest = nValue;
-            }
-        }
-    }
-
-    return nBest;
-}
-
-// 0x004A7180
-static void TEXT_DrawBlockChanceHover(int nX, int nY, int nValue)
-{
-    if (nValue < 5)
-    {
-        nValue = 5;
-    }
-    else if (nValue > 0x5F)
-    {
-        nValue = 0x5F;
-    }
-
-    Unicode wszText[0x80];
-    if (nX < gnPanelOffsetX + 0xAD || nX > gnPanelOffsetX + 0x137
-        || nY < gnScreenHeight + gnPanelOffsetY - 0x11E || nY > gnScreenHeight + gnPanelOffsetY - 0x10B)
-    {
-        return;
-    }
-
-    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
-    int nLevel = UNITS_GetBlockRate(pPlayer, GAME_IsExpansion());
-    if (nLevel <= 0)
-    {
-        nLevel = TEXT_GetWeaponBlock(pPlayer);
-        if (nLevel > 0)
-        {
-            int nWeaponClass;
-            COMPOSIT_GetWeaponClassId(pPlayer, pPlayer->pInventory, &nWeaponClass, -1, 1);
-            if (nWeaponClass != 0x0D)
-            {
-                nLevel = 0;
-            }
-        }
-    }
-
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(UI_GetHoverClassId());
-    D2_ASSERT(pMonStatsTxtRecord, 0x15C);
-
-    if (nLevel)
-    {
-        sub_005269D0(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2779), nLevel, nValue, D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
-    }
-    else
-    {
-        sub_005269D0(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2778), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
-    }
-
-    D2Win_10132(wszText, gnPanelOffsetX + 0x8B, gnScreenHeight + gnPanelOffsetY - 0x13B, gnTextColor, 2, 0);
-}
-
-void __stdcall sub_I10_Emit_004A7180(int nX, int nY, int nValue)
-{
-    TEXT_DrawBlockChanceHover(nX, nY, nValue);
-}
 
 static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord_Inl(int nMonsterId)
 {
@@ -5709,26 +5225,7 @@ static inline D2CharStatsTxt* DATATBLS_GetCharStatsTxtRecord_Inl(int nClass)
     return 0;
 }
 
-// 0x004A7300
-static int TEXT_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate)
-{
-    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
-    {
-        D2CharStatsTxt* pCharStatsTxtRecord = DATATBLS_GetCharStatsTxtRecord_Inl(pUnit->dwClassId);
-        if (pCharStatsTxtRecord)
-        {
-            nAttackRate += pCharStatsTxtRecord->dwToHitFactor;
-        }
-    }
 
-    return nAttackRate;
-}
-
-int __fastcall sub_004A70C0_Emit(int nArg, D2UnitStrc* pUnit)
-{
-    int nValue = TEXT_GetWeaponBlock(pUnit);
-    return nValue > 0 ? nValue : nArg;
-}
 
 inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 {
@@ -5740,149 +5237,10 @@ inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-// 0x004A7340
-int __stdcall TEXT_GetChanceToHit(int nAttackRate)
-{
-    if (!nAttackRate)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    int nPercent = 100;
-    const int nDifficulty = GAME_GetDifficulty();
-    D2_ASSERT(nDifficulty < 3, 398);
-
-    const int nMonsterId = sub_00466DC0();
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nMonsterId);
-    D2_ASSERT(pMonStatsTxtRecord, 403);
-
-    D2MonStatsInitStrc monStatsInit;
-    memset(&monStatsInit, 0, sizeof(monStatsInit));
-    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 2, &monStatsInit);
-    int nDefense = monStatsInit.nAC;
-    if (pMonStatsTxtRecord->nAlign != 1 && !GAME_IsExpansion() && GAME_GetDifficulty())
-    {
-        nDefense = nDefense * 10 / 12;
-    }
-
-    int nToHit = TEXT_AddToHitFactor(pPlayer, nAttackRate);
-    if (nDefense < 0)
-    {
-        nToHit -= nDefense;
-        nDefense = 0;
-    }
-
-    if (nToHit < 0)
-    {
-        nDefense -= nToHit;
-        nToHit = 0;
-    }
-
-    if (nToHit || nDefense)
-    {
-        nDefense += nToHit;
-        nToHit *= 100;
-        nPercent = nToHit / nDefense;
-    }
-
-    const int nPlayerLevel = STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0);
-    const int nChance = 2 * nPlayerLevel * nPercent / (pMonStatsTxtRecord->nLevel[nDifficulty] + nPlayerLevel);
-    if (nChance < 5)
-    {
-        return 5;
-    }
-    if (nChance > 95)
-    {
-        return 95;
-    }
-    return nChance;
-}
 
 #define STAT_ARMORCLASS_VS_HTH 33
 
-// 0x004A74A0
-int __cdecl MONSTER_GetPlayerDefensePercent()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    int nPercent = 100;
-    int nDefense = UNITS_GetDefense(pPlayer);
-    nDefense += STATLIST_UnitGetStatValue(pPlayer, STAT_ARMORCLASS_VS_HTH, 0);
-    const int nDifficulty = GAME_GetDifficulty();
-    D2_ASSERT(nDifficulty < 3, 470);
 
-    const int nMonsterId = UI_GetHoverClassId();
-    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord_Inl(nMonsterId);
-    if (!pMonStatsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2MonStatsInitStrc monStatsInit;
-    memset(&monStatsInit, 0, sizeof(monStatsInit));
-    DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 8, &monStatsInit);
-    int nToHit = monStatsInit.nTH;
-    if (!nToHit)
-    {
-        memset(&monStatsInit, 0, sizeof(monStatsInit));
-        DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 0x10, &monStatsInit);
-        nToHit = monStatsInit.nTH;
-        if (!nToHit)
-        {
-            memset(&monStatsInit, 0, sizeof(monStatsInit));
-            DATATBLS_CalculateMonsterStatsByLevel(nMonsterId, GAME_GetLadderFlag(), nDifficulty, pMonStatsTxtRecord->nLevel[nDifficulty], 0x20, &monStatsInit);
-            nToHit = monStatsInit.nTH;
-        }
-    }
-
-    if (pMonStatsTxtRecord->nAlign != 1 && !GAME_IsExpansion() && GAME_GetDifficulty())
-    {
-        nToHit = nToHit * 10 / 15;
-    }
-
-    if (nDefense < 0)
-    {
-        nToHit -= nDefense;
-        nDefense = 0;
-    }
-
-    if (nToHit < 0)
-    {
-        nDefense -= nToHit;
-        nToHit = 0;
-    }
-
-    if (nToHit || nDefense)
-    {
-        nPercent = nToHit * 100 / (nToHit + nDefense);
-    }
-
-    const int nLevel = pMonStatsTxtRecord->nLevel[nDifficulty];
-    return 2 * nLevel * nPercent / (STATLIST_UnitGetStatValue(pPlayer, STAT_LEVEL, 0) + nLevel);
-}
-
-// 0x004A7660
-int __fastcall TEXT_SplitAtNewline(Unicode* wszText, Unicode** ppNext)
-{
-    Unicode* pChar = wszText;
-    *ppNext = 0;
-    int nLen = sub_00526800(wszText);
-    int i = 0;
-    while (pChar->wChar)
-    {
-        if (pChar->wChar == '\n')
-        {
-            wszText[i].wChar = 0;
-            if (i >= nLen)
-                return 0;
-            *ppNext = pChar + 1;
-            return 1;
-        }
-        ++pChar;
-        ++i;
-    }
-    return 0;
-}
 
 #pragma pack(push, 2)
 struct D2BeltSlotStrc
@@ -5894,7 +5252,6 @@ struct D2BeltSlotStrc
 };
 #pragma pack(pop)
 
-static int gbStatScreenButtonDown;                                                                               // 0x007C02F4
 
 extern D2BeltSlotStrc gaStatButtons[4];                                                                  // 0x00724A48
 
@@ -5917,111 +5274,13 @@ static int sub_004A76C0_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
-// 0x004A7720
-void __stdcall sub_004A7720_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
-{
-    const int nX = pMsg->nXpos;
-    const int nY = pMsg->nYpos;
-    if (nX >= gnPanelOffsetX + 0x80 && nX <= gnPanelOffsetX + 0xA0 && nY >= gnScreenHeight + gnPanelOffsetY - 0x5C && nY <= gnScreenHeight + gnPanelOffsetY - 0x3C)
-    {
-        gbStatScreenButtonDown = 1;
-        pMsg->bReturn = 1;
-        pMsg->lResult = 0;
-        sub_004B9A00(4, 0, 0, 0, 0);
-        sub_00420290_BreakHandlerChain(pMsg);
-        return;
-    }
-    if (nX >= gnPanelOffsetX && nX <= gnScreenWidth / 2 - 1 && nY >= gnPanelOffsetY && nY <= gnScreenHeight + gnPanelOffsetY - 0x31)
-    {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
-        {
-            for (int i = 0; i < 4; ++i)
-            {
-                if (nY > gaStatButtons[i].nY + gnPanelOffsetY + gnScreenHeight - 0x1F6 && nY < gaStatButtons[i].nY + gnPanelOffsetY + gnScreenHeight - 0x1E0 && nX > gaStatButtons[i].nX + gnPanelOffsetX && nX < gaStatButtons[i].nX + gnPanelOffsetX + 0x28)
-                {
-                    gaStatButtons[i].bActive = 1;
-                    ROSTERPETS_HandleButtonDown(pMsg);
-                    pMsg->bReturn = 1;
-                    pMsg->lResult = 0;
-                    sub_004B9A00(5, 0, 0, 0, 0);
-                    sub_00420290_BreakHandlerChain(pMsg);
-                    return;
-                }
-            }
-        }
-        pMsg->bReturn = 1;
-        pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
-        return;
-    }
-    if (!sub_004A76C0_ClaimLeftPanelClick(pMsg))
-        pMsg->bReturn = 0;
-}
 
 
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey);
 
-// 0x004A78C0
-void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
-{
-    const int nX = pMsg->nXpos;
-    const int nY = pMsg->nYpos;
-    ROSTERPETS_HandleButtonUp(pMsg);
-    gbStatScreenButtonDown = 0;
-    if (nX >= gnPanelOffsetX + 0x80 && nX <= gnPanelOffsetX + 0xA0 && nY >= gnScreenHeight + gnPanelOffsetY - 0x5C && nY <= gnScreenHeight + gnPanelOffsetY - 0x3C)
-    {
-        UI_SetUIVar(2, 1, 0);
-        return;
-    }
-    if (nX >= gnPanelOffsetX && nX <= gnScreenWidth / 2 - 1 && nY >= gnPanelOffsetY && nY <= gnScreenHeight + gnPanelOffsetY - 0x31)
-    {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        if (STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
-        {
-            const int nScreenH = gnScreenHeight;
-            for (int i = 0; i < 4; ++i)
-            {
-                gaStatButtons[i].bActive = 0;
-                if (nY > gaStatButtons[i].nY + gnPanelOffsetY + nScreenH - 0x1F6 && nY < gaStatButtons[i].nY + gnPanelOffsetY + nScreenH - 0x1E0 && nX > gaStatButtons[i].nX + gnPanelOffsetX && nX < gaStatButtons[i].nX + gnPanelOffsetX + 0x28)
-                {
-                    int nCount = STATLIST_UnitGetStatValue(pPlayer, STAT_STATPTS, 0);
-                    if (GetKeyState(0x10) >= 0)
-                        nCount = 1;
-                    else if (!nCount)
-                        break;
-                    do
-                    {
-                        const int nStack = nCount < 0x20 ? nCount : 0x20;
-                        nCount -= nStack;
-                        sub_004785B0_SendPacket3(0x3A, ((unsigned char)(nStack - 1) << 8) | gaStatButtons[i].wCode);
-                    }
-                    while (nCount);
-                    break;
-                }
-            }
-        }
-        GAME_ResetMouseButtons();
-        pMsg->bReturn = 1;
-        pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
-        return;
-    }
-    if (!sub_004A76C0_ClaimLeftPanelClick(pMsg))
-        pMsg->bReturn = 0;
-}
 
 
-// 0x004A7A90
-void __cdecl TEXT_SetGoldDialogFlag()
-{
-    gnFlag_007C02EC = 1;
-}
 
-// 0x004A7AD0
-void __cdecl sub_004A7AD0()
-{
-}
 
 // 0x004B23E0
 void __cdecl TEXT_InitNpcMenu()
