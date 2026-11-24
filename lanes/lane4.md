@@ -24,6 +24,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
+- lane4/export-vtables: the Storm template RTTI in lane 4's range (vtable slots 0x6D5E8C/0x6D5EA0, type descriptor headers 0x70F564/0x70F5EC). Verifying.
 ## Questions
 
 ## Notes for other lanes
