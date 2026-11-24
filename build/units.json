@@ -72227,6 +72227,11 @@
      "name": "DUNGEON_ClientToGameCoords"
     },
     {
+     "va": "0x00643560",
+     "length": 27,
+     "name": "?sub_00643560_GameTileToSubtileCoords@@YGXPAH0@Z"
+    },
+    {
      "va": "0x00643580",
      "length": 57,
      "name": "?SKILLS_GetSkillParam7Formula@@YIHHH@Z"
@@ -73029,17 +73034,6 @@
      "va": "0x0066E140",
      "length": 20,
      "name": "SKILLS_GetModeSideChar"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00643560.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00643560",
-     "length": 27,
-     "name": "?sub_00643560_GameTileToSubtileCoords@@YGXPAH0@Z"
     }
    ]
   },
