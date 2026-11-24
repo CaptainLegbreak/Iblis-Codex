@@ -28,13 +28,9 @@ struct RoomFlags;
 
 struct PathFlags;
 
-struct KeyValue;
-
 struct CodeRow;
 
 struct CodeOutput;
-
-struct LinkView;
 
 struct CodeLink;
 
@@ -160,16 +156,6 @@ typedef char check_PathFlags_flags[OFFSET(PathFlags,flags)==0x34?1:-1];
 
 typedef char check_PathFlags_size[sizeof(PathFlags)==0x38?1:-1];
 
-struct KeyValue
-{
-    U32 key;
-    int value;
-};
-
-typedef char check_KeyValue_value[OFFSET(KeyValue,value)==4?1:-1];
-
-typedef char check_KeyValue_size[sizeof(KeyValue)==8?1:-1];
-
 struct CodeRow
 {
     S8 c0;
@@ -212,17 +198,6 @@ typedef char check_CodeOutput_c3[OFFSET(CodeOutput,c3)==3?1:-1];
 
 typedef char check_CodeOutput_size[sizeof(CodeOutput)==5?1:-1];
 
-struct LinkView
-{
-    int count;
-    char pad4[0x4];
-    KeyValue* entries;
-};
-
-typedef char check_LinkView_entries[OFFSET(LinkView,entries)==0x8?1:-1];
-
-typedef char check_LinkView_size[sizeof(LinkView)==0xC?1:-1];
-
 struct CodeLink
 {
     int count;
@@ -260,7 +235,7 @@ typedef char check_DirectionRecord_size[sizeof(DirectionRecord)==12?1:-1];
 // build: symbol ?gaTanToDirectionTable@* 0x006EB7E0
 extern DirectionRecord gaTanToDirectionTable[128];
 
-struct D2TxtLinkEntryStrc { char code[4]; int index; };
+struct D2TxtLinkEntryStrc { union { char code[4]; unsigned int nCode; }; int index; };
 
 struct D2TxtLinkStrc
 {
@@ -344,11 +319,10 @@ int __stdcall sub_006BD230_AddCode(void*,unsigned); // 0x006BD230
 
 int __stdcall FOG_10216_AddRecordToLinkingTable(D2TxtLinkStrc* pLinker, const char* szCode); // 0x006BD500
 
-int __fastcall EXCEL_GetOrAddLinkIndex(void*,const char*); // 0x006BD5A0
+int __fastcall EXCEL_GetOrAddLinkIndex(D2TxtLinkStrc* pLinker, const char* szText); // 0x006BD5A0
 
-int __stdcall FOG_GetLinkIndexByCode(void*,unsigned,int); // 0x006BD130
+extern "C" int __stdcall FOG_GetLinkIndexByCode(D2TxtLinkStrc* pLink, unsigned int nCode, int bLogError); // 0x006BD130
 
-int __stdcall FOG_GetRowFromTxt(void*,const char*,int); // 0x006BD3C0
 
 void __stdcall sub_00410B10(void*,int); // 0x00410B10
 
@@ -607,7 +581,7 @@ void __stdcall FOG_10207(D2BinFileStrc* bin,D2BinFieldStrc* fields,char* output,
      }break;
     }
     case 16:{char* start=dst;char* end=dst+field->length-1;while(*input&&dst<end)*dst++=*input++;*dst=0;while(*input)++input;++input;FOG_10216_AddRecordToLinkingTable(*(D2TxtLinkStrc**)field->link,start);break;}
-    case 17:case 18:{char name[32];char* p=name;while(*input&&p<name+31)*p++=*input++;*p=0;while(*input)++input;++input;void* const tArg4 = *(void**)field->link;
+    case 17:case 18:{char name[32];char* p=name;while(*input&&p<name+31)*p++=*input++;*p=0;while(*input)++input;++input;D2TxtLinkStrc* const tArg4 = *(D2TxtLinkStrc**)field->link;
     int index=EXCEL_GetOrAddLinkIndex(tArg4,name);char* rec=output+field->offset;if(field->type==17)*(unsigned short*)rec=(unsigned short)index;else *(int*)rec=index;break;}
     default:SKIP_CELL();break;
     }
@@ -630,8 +604,8 @@ void __stdcall FOG_10207(D2BinFileStrc* bin,D2BinFieldStrc* fields,char* output,
    case 1:case 7:{while(*input){if(dst>=end){while(*input)++input;break;}*dst++=*input++;}++input;*dst=0;break;}
    case 9:{READ_CODE();PAD9(dst);break;}
    case 10:case 12:case 14:case 16:case 17:case 18:SKIP_CELL();break;
-   case 11:case 13:case 15:{READ_CODE();PAD_CODE(code);int index=FOG_GetLinkIndexByCode(*(void**)field->link,*(unsigned*)code,1);switch(field->type){case 11:*(int*)dst=index;break;case 13:*dst=(char)index;break;case 15:*(unsigned short*)dst=(unsigned short)index;break;}break;}
-   case 19:case 20:case 21:{char* p=small;while(*input&&p<small+31)*p++=*input++;*p=0;while(*input)++input;++input;int index=FOG_GetRowFromTxt(*(void**)field->link,small,1);switch(field->type){case 19:*(int*)dst=index;break;case 20:*(unsigned short*)dst=(unsigned short)index;break;case 21:*dst=(char)index;break;}break;}
+   case 11:case 13:case 15:{READ_CODE();PAD_CODE(code);int index=FOG_GetLinkIndexByCode(*(D2TxtLinkStrc**)field->link,*(unsigned*)code,1);switch(field->type){case 11:*(int*)dst=index;break;case 13:*dst=(char)index;break;case 15:*(unsigned short*)dst=(unsigned short)index;break;}break;}
+   case 19:case 20:case 21:{char* p=small;while(*input&&p<small+31)*p++=*input++;*p=0;while(*input)++input;++input;int index=FOG_GetLinkIndex(*(D2TxtLinkStrc**)field->link,small,1);switch(field->type){case 19:*(int*)dst=index;break;case 20:*(unsigned short*)dst=(unsigned short)index;break;case 21:*dst=(char)index;break;}break;}
    case 2:case 3:case 4:case 5:case 6:case 8:case 26:{if(*input=='-')++input;int value=0;while(*input)value=value*10+*input++-'0';if(*start=='-')value=-value;++input;switch(type){case 2:case 8:*(int*)dst=value;break;case 3:*(unsigned short*)dst=(unsigned short)value;break;case 4:case 6:*dst=(char)value;break;case 5:if(start+1!=input)*dst=(char)value;break;case 26:if(value)sub_00410B10(dst,length);else sub_00410B50(dst,length);break;}break;}
    case 22:{char callbackText[256];char* p=callbackText;while(*input){if(p>=callbackText+256){while(*input)++input;break;}*p++=*input++;}++input;*p=0;if(field->link)*(unsigned short*)dst=(unsigned short)((KeyCallback)field->link)(callbackText);break;}
    case 23:case 24:case 25:{char callbackText[256];char* p=callbackText;while(*input){if(p>=callbackText+256){while(*input)++input;break;}*p++=*input++;}if(field->link)++input;else ++input;*p=0;if(field->link)((FieldCallback)field->link)(callbackText,output,offset,length,row,c);break;}
@@ -708,21 +682,21 @@ int __stdcall FOG_10186(D2Object006BE390Strc* pObject, int nIndex, int nValue)
 }
 
 // 0x006BD130
-extern "C" int __stdcall FOG_GetLinkIndexByCode(LinkView* link, U32 key, int unusedLogError)
+extern "C" int __stdcall FOG_GetLinkIndexByCode(D2TxtLinkStrc* pLink, unsigned int nCode, int bLogError)
 {
-    int upper = link->count;
-    int lower = 0;
-    KeyValue* entries = link->entries;
-    while (lower < upper)
+    int nUpper = pLink->count;
+    int nLower = 0;
+    D2TxtLinkEntryStrc* pEntries = pLink->entries;
+    while (nLower < nUpper)
     {
-        int middle = lower + (upper - lower) / 2;
-        U32 current = entries[middle].key;
-        if (key > current)
-            lower = middle + 1;
-        else if (key < current)
-            upper = middle;
+        int nMiddle = nLower + (nUpper - nLower) / 2;
+        unsigned int nCurrent = pEntries[nMiddle].nCode;
+        if (nCode > nCurrent)
+            nLower = nMiddle + 1;
+        else if (nCode < nCurrent)
+            nUpper = nMiddle;
         else
-            return entries[middle].value;
+            return pEntries[nMiddle].index;
     }
     return -1;
 }
