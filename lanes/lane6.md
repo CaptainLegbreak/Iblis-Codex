@@ -4,7 +4,7 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/chatdlg-pieces-2 e9759397 -1 placeholder. ChatDlg.cpp takes ChatDlg_00441B70.cpp whole (but for 0x00447700, which lies after ChatDlg's object and goes to ComCallback.cpp), CHARSEL_SubmitProfile 0x00443F80 from CharSel.cpp and COMCALLBACK_BuildCreateGamePanel 0x004453B0 from ComCallback.cpp. They failed before only because ChatDlg.cpp inlined small callees that the original calls; each such callee is called only by these functions, always un-inlined, so it is __declspec(noinline) (0x00442E00, 0x00443F50, 0x00444E20, 0x0043F5F0, 0x00443E10, 0x0043DAD0). Not stacked; only lane 6 files. VERIFIED 64a21d6b (on #347). Borrowed data 1,166 B.
+- lane6/strtable-mpqs d3d80da3 0 placeholders (plan-only). The 31 B still copied between strtable.cpp's strings and SRP.cpp's data are 3 B of alignment and an unreferenced 7-pointer table at 0x006E0318 (the string.tbl/default.map/patchstring.tbl/expansionstring.tbl formats and the d2data/patch_d2/d2exp MPQ names), now planned in strtable.cpp as a const table of literals. Not stacked; only strtable.cpp's plan. VERIFIED 1824f12d (on #348; borrowed data 1,135 B, 31 B less than chatdlg-pieces-2's run); rebased onto #349 with no conflicts.
 
 ## Claimed
 
