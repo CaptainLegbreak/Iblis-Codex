@@ -217,3 +217,5 @@ int __fastcall sub_00664800_GetCompChoiceCount(int nMonsterId, unsigned int nCom
 
     return pMonStats2TxtRecord->nComponentChoiceCounts[nComponent];
 }
+
+#include "gen/data/Source/D2Common/Unknown_00664530.inc"

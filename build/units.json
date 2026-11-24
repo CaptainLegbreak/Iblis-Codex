@@ -1614,14 +1614,59 @@
      "name": "LOGMANAGER_DbgHelpThreadProc"
     },
     {
+     "va": "0x0040EB20",
+     "length": 8,
+     "name": "??2@YAPAXIPAX@Z"
+    },
+    {
      "va": "0x0040EB30",
      "length": 1,
      "name": "??3D2LogMessageStrc@@SAXPAX0@Z"
     },
     {
+     "va": "0x0040EB40",
+     "length": 4,
+     "name": "?sub_0040EB40_GetMessageData@@YIPADPAUD2LogMessageStrc@@@Z"
+    },
+    {
+     "va": "0x0040EB50",
+     "length": 14,
+     "name": "??0CCritSect@@QAE@XZ"
+    },
+    {
+     "va": "0x0040EB60",
+     "length": 8,
+     "name": "??1CCritSect@@QAE@XZ"
+    },
+    {
+     "va": "0x0040EB70",
+     "length": 8,
+     "name": "?Enter@CCritSect@@QAEXXZ"
+    },
+    {
+     "va": "0x0040EB80",
+     "length": 8,
+     "name": "?Leave@CCritSect@@QAEXXZ"
+    },
+    {
+     "va": "0x0040EB90",
+     "length": 49,
+     "name": "?LOGMANAGER_GetLogFilePaths@@YIIPAPADI@Z"
+    },
+    {
      "va": "0x0040EBD0",
      "length": 235,
      "name": "LOGMANAGER_OpenDatedLogFile"
+    },
+    {
+     "va": "0x0040ECC0",
+     "length": 120,
+     "name": "?LOGMANAGER_WriteDateBanner@@YIXPAU_iobuf@@PBUD2SystemTimeStrc@@@Z"
+    },
+    {
+     "va": "0x0040ED40",
+     "length": 158,
+     "name": "?LOGMANAGER_WriteStartupBanner@@YIXPAU_iobuf@@@Z"
     },
     {
      "va": "0x0040EDE0",
@@ -1645,6 +1690,16 @@
      "va": "0x0040F3D0",
      "length": 153,
      "name": "?LOGMANAGER_SweepLogFile@@YIXPBUD2FileTimeStrc@@PBD@Z"
+    },
+    {
+     "va": "0x0040F470",
+     "length": 123,
+     "name": "?LOGMANAGER_CloseNamedLog@@YIXPBD@Z"
+    },
+    {
+     "va": "0x0040F4F0",
+     "length": 36,
+     "name": "?NextLink@D2LogMsgLinkStrc@@QAEPAU1@H@Z"
     },
     {
      "va": "0x0040F520",
@@ -1717,6 +1772,11 @@
      "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
     },
     {
+     "va": "0x0040F880",
+     "length": 17,
+     "name": "?sub_0040F880_Link@D2LogMsgListStrc@@QAEPAUD2LogMsgLinkStrc@@PAD@Z"
+    },
+    {
      "va": "0x0040F8A0",
      "length": 191,
      "name": "?LOGMANAGER_CloseLogFilesNow@@YAXXZ"
@@ -1740,6 +1800,16 @@
      "va": "0x0040FB50",
      "length": 84,
      "name": "??0D2LogMsgListStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0040FBB0",
+     "length": 161,
+     "name": "?sub_0040FBB0_LinkNode@D2LogMsgListStrc@@QAEXPADH0@Z"
+    },
+    {
+     "va": "0x0040FC60",
+     "length": 66,
+     "name": "?sub_0040FC60_UnlinkNode@D2LogMsgListStrc@@QAEXPAD@Z"
     },
     {
      "va": "0x0040FCB0",
@@ -1791,6 +1861,11 @@
      "length": 375
     },
     {
+     "va": "0x004101C0",
+     "length": 378,
+     "name": "?sub_004101C0_LogThreadProc@@YGKPAX@Z"
+    },
+    {
      "va": "0x00410340",
      "length": 508,
      "name": "?LOGMANAGER_WriteLogV@@YIXPBDHH0PAD@Z"
@@ -1824,231 +1899,6 @@
      "va": "0x00410740",
      "length": 69,
      "name": "LOGMANAGER_LogWritePrefixed"
-    },
-    {
-     "va": "0x00417780",
-     "length": 16,
-     "name": "??0sub_00417780@@QAE@XZ"
-    },
-    {
-     "va": "0x00417810",
-     "length": 50,
-     "name": "??1sub_00417810@@QAE@XZ"
-    },
-    {
-     "va": "0x00417850",
-     "length": 16,
-     "name": "??0sub_00417850@@QAE@XZ"
-    },
-    {
-     "va": "0x00417860",
-     "length": 50,
-     "name": "??1sub_00417860@@QAE@XZ"
-    },
-    {
-     "va": "0x004178B0",
-     "length": 16,
-     "name": "??0sub_004178B0@@QAE@XZ"
-    },
-    {
-     "va": "0x004178C0",
-     "length": 50,
-     "name": "??1sub_004178C0@@QAE@XZ"
-    },
-    {
-     "va": "0x00417900",
-     "length": 50,
-     "name": "??1sub_00417900@@QAE@XZ"
-    },
-    {
-     "va": "0x00417940",
-     "length": 16,
-     "name": "??0sub_00417940@@QAE@XZ"
-    },
-    {
-     "va": "0x00417950",
-     "length": 50,
-     "name": "??1sub_00417950@@QAE@XZ"
-    },
-    {
-     "va": "0x00417990",
-     "length": 16,
-     "name": "??0sub_00417990@@QAE@XZ"
-    },
-    {
-     "va": "0x004179B0",
-     "length": 50,
-     "name": "??1sub_004179B0@@QAE@XZ"
-    },
-    {
-     "va": "0x004183F0",
-     "length": 50,
-     "name": "??1sub_004183F0@@QAE@XZ"
-    },
-    {
-     "va": "0x00418430",
-     "length": 50,
-     "name": "??1sub_00418430@@QAE@XZ"
-    },
-    {
-     "va": "0x00418760",
-     "length": 16,
-     "name": "??0sub_00418760@@QAE@XZ"
-    },
-    {
-     "va": "0x00418770",
-     "length": 16,
-     "name": "??0sub_00418770@@QAE@XZ"
-    },
-    {
-     "va": "0x00418780",
-     "length": 50,
-     "name": "??1sub_00418780@@QAE@XZ"
-    },
-    {
-     "va": "0x004187C0",
-     "length": 50,
-     "name": "??1sub_004187C0@@QAE@XZ"
-    },
-    {
-     "va": "0x00418800",
-     "length": 50,
-     "name": "??1sub_00418800@@QAE@XZ"
-    },
-    {
-     "va": "0x00418840",
-     "length": 50,
-     "name": "??1sub_00418840@@QAE@XZ"
-    },
-    {
-     "va": "0x00418880",
-     "length": 50,
-     "name": "??1sub_00418880@@QAE@XZ"
-    },
-    {
-     "va": "0x004188C0",
-     "length": 50,
-     "name": "??1sub_004188C0@@QAE@XZ"
-    },
-    {
-     "va": "0x00418A40",
-     "length": 16,
-     "name": "??0sub_00418A40@@QAE@XZ"
-    },
-    {
-     "va": "0x00418BA0",
-     "length": 50,
-     "name": "??1sub_00418BA0@@QAE@XZ"
-    },
-    {
-     "va": "0x00418BE0",
-     "length": 50,
-     "name": "??1sub_00418BE0@@QAE@XZ"
-    },
-    {
-     "va": "0x00418C20",
-     "length": 50,
-     "name": "??1sub_00418C20@@QAE@XZ"
-    },
-    {
-     "va": "0x00418DE0",
-     "length": 16,
-     "name": "??0sub_00418DE0@@QAE@XZ"
-    },
-    {
-     "va": "0x00418DF0",
-     "length": 16,
-     "name": "??0sub_00418DF0@@QAE@XZ"
-    },
-    {
-     "va": "0x00418E00",
-     "length": 16,
-     "name": "??0sub_00418E00@@QAE@XZ"
-    },
-    {
-     "va": "0x00418E10",
-     "length": 50,
-     "name": "??1sub_00418E10@@QAE@XZ"
-    },
-    {
-     "va": "0x00418E50",
-     "length": 16,
-     "name": "??0sub_00418E50@@QAE@XZ"
-    },
-    {
-     "va": "0x00418FF0",
-     "length": 16,
-     "name": "??0sub_00418FF0@@QAE@XZ"
-    },
-    {
-     "va": "0x00419060",
-     "length": 16,
-     "name": "??0sub_00419060@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C3D0",
-     "length": 50,
-     "name": "??1sub_0041C3D0@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C4F0",
-     "length": 16,
-     "name": "??0sub_0041C4F0@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C500",
-     "length": 50,
-     "name": "??1sub_0041C500@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C720",
-     "length": 16,
-     "name": "??0sub_0041C720@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C730",
-     "length": 50,
-     "name": "??1sub_0041C730@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C7F0",
-     "length": 16,
-     "name": "??0sub_0041C7F0@@QAE@XZ"
-    },
-    {
-     "va": "0x0041C800",
-     "length": 50,
-     "name": "??1sub_0041C800@@QAE@XZ"
-    },
-    {
-     "va": "0x00426960",
-     "length": 50,
-     "name": "??1sub_00426960@@QAE@XZ"
-    },
-    {
-     "va": "0x00426A80",
-     "length": 50,
-     "name": "??1sub_00426A80@@QAE@XZ"
-    },
-    {
-     "va": "0x00426CA0",
-     "length": 16,
-     "name": "??0sub_00426CA0@@QAE@XZ"
-    },
-    {
-     "va": "0x00426CB0",
-     "length": 50,
-     "name": "??1sub_00426CB0@@QAE@XZ"
-    },
-    {
-     "va": "0x00426D70",
-     "length": 16,
-     "name": "??0sub_00426D70@@QAE@XZ"
-    },
-    {
-     "va": "0x00426D80",
-     "length": 50,
-     "name": "??1sub_00426D80@@QAE@XZ"
     },
     {
      "va": "0x006CA700",
@@ -3637,16 +3487,6 @@
      "va": "0x0043B4C0",
      "length": 82,
      "name": "MAINMENUS_OnRealmListClick"
-    },
-    {
-     "va": "0x004431B0",
-     "length": 112,
-     "name": "MAINMENUS_LoadMaxPlayers"
-    },
-    {
-     "va": "0x00443C10",
-     "length": 8,
-     "name": "?sub_00443C10_AlwaysOne@@YGHH@Z"
     }
    ],
    "flags": [
@@ -3875,37 +3715,6 @@
     {
      "va": "0x0040D7D0",
      "length": 162
-    },
-    {
-     "va": "0x0040EB90",
-     "length": 49,
-     "name": "?EXCEPTIONS_GetLogFilePaths@@YIIPAPADI@Z"
-    },
-    {
-     "va": "0x0040F470",
-     "length": 123,
-     "name": "?EXCEPTIONS_CloseNamedLog@@YIXPBD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040E300.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040EB40",
-     "length": 4,
-     "name": "?sub_0040EB40_GetMessageData@@YIPADPAUD2LogMessageStrc@@@Z"
-    },
-    {
-     "va": "0x0040EB70",
-     "length": 8,
-     "name": "?Enter@CCritSect@@QAEXXZ"
-    },
-    {
-     "va": "0x0040EB80",
-     "length": 8,
-     "name": "?Leave@CCritSect@@QAEXXZ"
     }
    ]
   },
@@ -3913,41 +3722,6 @@
    "file": "Source/Storm/SOURCE/SFILE.CPP",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0040EB20",
-     "length": 8,
-     "name": "sub_0040EB20_ReturnSecond"
-    },
-    {
-     "va": "0x0040ECC0",
-     "length": 120,
-     "name": "LOGMANAGER_WriteDateBanner"
-    },
-    {
-     "va": "0x0040ED40",
-     "length": 158,
-     "name": "LOGMANAGER_WriteStartupBanner"
-    },
-    {
-     "va": "0x0040F4F0",
-     "length": 36,
-     "name": "sub_0040F4F0_NextLink"
-    },
-    {
-     "va": "0x0040F880",
-     "length": 17,
-     "name": "sub_0040F880_Link"
-    },
-    {
-     "va": "0x0040FBB0",
-     "length": 161,
-     "name": "sub_0040FBB0_LinkNode"
-    },
-    {
-     "va": "0x0040FC60",
-     "length": 66,
-     "name": "sub_0040FC60_UnlinkNode"
-    },
     {
      "va": "0x00414260",
      "length": 51,
@@ -4430,6 +4204,11 @@
      "name": "?sub_00417770@Link@@QAEPADXZ"
     },
     {
+     "va": "0x00417780",
+     "length": 16,
+     "name": "??0sub_00417780@@QAE@XZ"
+    },
+    {
      "va": "0x00417790",
      "length": 16,
      "name": "?sub_00417790_Next@D2SFileStormLinkM114Strc@@QAEPADXZ"
@@ -4465,14 +4244,64 @@
      "name": "?sub_00417800_Head@D2SFileList00417800Strc@@QAEPADXZ"
     },
     {
+     "va": "0x00417810",
+     "length": 50,
+     "name": "??1sub_00417810@@QAE@XZ"
+    },
+    {
+     "va": "0x00417850",
+     "length": 16,
+     "name": "??0sub_00417850@@QAE@XZ"
+    },
+    {
+     "va": "0x00417860",
+     "length": 50,
+     "name": "??1sub_00417860@@QAE@XZ"
+    },
+    {
      "va": "0x004178A0",
      "length": 16,
      "name": "?sub_004178A0_Next@D2SFileStormLinkM114Strc@@QAEPADXZ"
     },
     {
+     "va": "0x004178B0",
+     "length": 16,
+     "name": "??0sub_004178B0@@QAE@XZ"
+    },
+    {
+     "va": "0x004178C0",
+     "length": 50,
+     "name": "??1sub_004178C0@@QAE@XZ"
+    },
+    {
+     "va": "0x00417900",
+     "length": 50,
+     "name": "??1sub_00417900@@QAE@XZ"
+    },
+    {
+     "va": "0x00417940",
+     "length": 16,
+     "name": "??0sub_00417940@@QAE@XZ"
+    },
+    {
+     "va": "0x00417950",
+     "length": 50,
+     "name": "??1sub_00417950@@QAE@XZ"
+    },
+    {
+     "va": "0x00417990",
+     "length": 16,
+     "name": "??0sub_00417990@@QAE@XZ"
+    },
+    {
      "va": "0x004179A0",
      "length": 16,
      "name": "?sub_004179A0_Next@D2SFileStormLinkM114Strc@@QAEPADXZ"
+    },
+    {
+     "va": "0x004179B0",
+     "length": 50,
+     "name": "??1sub_004179B0@@QAE@XZ"
     },
     {
      "va": "0x004179F0",
@@ -4599,6 +4428,16 @@
      "name": "?SFileFileExistsEx@@YGHPAXPBDH@Z"
     },
     {
+     "va": "0x004183F0",
+     "length": 50,
+     "name": "??1sub_004183F0@@QAE@XZ"
+    },
+    {
+     "va": "0x00418430",
+     "length": 50,
+     "name": "??1sub_00418430@@QAE@XZ"
+    },
+    {
      "va": "0x00418470",
      "length": 32,
      "name": "??0D2ChatStormListCStrc@@QAE@XZ"
@@ -4664,6 +4503,46 @@
      "name": "sub_00418710_sub_006C4290"
     },
     {
+     "va": "0x00418760",
+     "length": 16,
+     "name": "??0sub_00418760@@QAE@XZ"
+    },
+    {
+     "va": "0x00418770",
+     "length": 16,
+     "name": "??0sub_00418770@@QAE@XZ"
+    },
+    {
+     "va": "0x00418780",
+     "length": 50,
+     "name": "??1sub_00418780@@QAE@XZ"
+    },
+    {
+     "va": "0x004187C0",
+     "length": 50,
+     "name": "??1sub_004187C0@@QAE@XZ"
+    },
+    {
+     "va": "0x00418800",
+     "length": 50,
+     "name": "??1sub_00418800@@QAE@XZ"
+    },
+    {
+     "va": "0x00418840",
+     "length": 50,
+     "name": "??1sub_00418840@@QAE@XZ"
+    },
+    {
+     "va": "0x00418880",
+     "length": 50,
+     "name": "??1sub_00418880@@QAE@XZ"
+    },
+    {
+     "va": "0x004188C0",
+     "length": 50,
+     "name": "??1sub_004188C0@@QAE@XZ"
+    },
+    {
      "va": "0x00418900",
      "length": 61,
      "name": "?sub_00418900_UnlinkAll@D2StormList00708354Strc@@QAEXXZ"
@@ -4689,6 +4568,11 @@
      "name": "?sub_00418A00_UnlinkAll@D2StormList00708384Strc@@QAEXXZ"
     },
     {
+     "va": "0x00418A40",
+     "length": 16,
+     "name": "??0sub_00418A40@@QAE@XZ"
+    },
+    {
      "va": "0x00418A50",
      "length": 208,
      "name": "??1ARCHIVEREC@@QAE@XZ"
@@ -4707,6 +4591,21 @@
      "va": "0x00418B80",
      "length": 24,
      "name": "SFileFileExists"
+    },
+    {
+     "va": "0x00418BA0",
+     "length": 50,
+     "name": "??1sub_00418BA0@@QAE@XZ"
+    },
+    {
+     "va": "0x00418BE0",
+     "length": 50,
+     "name": "??1?$TSLink@UAUDIOSTREAM@@@@QAE@XZ"
+    },
+    {
+     "va": "0x00418C20",
+     "length": 50,
+     "name": "??1?$TSLink@UREQUEST@@@@QAE@XZ"
     },
     {
      "va": "0x00418C60",
@@ -4744,6 +4643,31 @@
      "name": "??1D2StormList00708384Strc@@QAE@XZ"
     },
     {
+     "va": "0x00418DE0",
+     "length": 16,
+     "name": "??0sub_00418DE0@@QAE@XZ"
+    },
+    {
+     "va": "0x00418DF0",
+     "length": 16,
+     "name": "??0sub_00418DF0@@QAE@XZ"
+    },
+    {
+     "va": "0x00418E00",
+     "length": 16,
+     "name": "??0sub_00418E00@@QAE@XZ"
+    },
+    {
+     "va": "0x00418E10",
+     "length": 50,
+     "name": "??1sub_00418E10@@QAE@XZ"
+    },
+    {
+     "va": "0x00418E50",
+     "length": 16,
+     "name": "??0sub_00418E50@@QAE@XZ"
+    },
+    {
      "va": "0x00418E60",
      "length": 44,
      "name": "??0FILEREC@@QAE@XZ"
@@ -4769,9 +4693,19 @@
      "name": "?NewNode@D2StormEventListStrc@@QAEPAUEVENTREC@@III@Z"
     },
     {
+     "va": "0x00418FF0",
+     "length": 16,
+     "name": "??0sub_00418FF0@@QAE@XZ"
+    },
+    {
      "va": "0x00419000",
      "length": 81,
      "name": "?_GD2StormRecord419000Strc"
+    },
+    {
+     "va": "0x00419060",
+     "length": 16,
+     "name": "??0sub_00419060@@QAE@XZ"
     },
     {
      "va": "0x00419070",
@@ -5044,46 +4978,6 @@
     "/Ob1",
     "/Gd",
     "/EHsc"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_0040EB50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040EB50",
-     "length": 14,
-     "name": "??0CCritSect@@QAE@XZ"
-    },
-    {
-     "va": "0x0040EB60",
-     "length": 8,
-     "name": "??1CCritSect@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_004101C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004101C0",
-     "length": 378
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHa"
    ]
   },
   {
@@ -5861,12 +5755,12 @@
     {
      "va": "0x0041C370",
      "length": 16,
-     "name": "?sub_00601B60_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?Next@?$TSLink@UHANDLER@@@@QAEPAUHANDLER@@XZ"
     },
     {
      "va": "0x0041C380",
      "length": 4,
-     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?RawNext@?$TSLink@UHANDLER@@@@QAEPAUHANDLER@@XZ"
     },
     {
      "va": "0x0041C390",
@@ -5877,6 +5771,11 @@
      "va": "0x0041C3A0",
      "length": 36,
      "name": "?NextLink@?$TSLink@UHANDLER@@@@QAEPAU1@H@Z"
+    },
+    {
+     "va": "0x0041C3D0",
+     "length": 50,
+     "name": "?Unlink@?$TSLink@UHANDLER@@@@QAEXXZ"
     },
     {
      "va": "0x0041C410",
@@ -5895,7 +5794,17 @@
     {
      "va": "0x0041C4E0",
      "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?Head@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAUHANDLER@@XZ"
+    },
+    {
+     "va": "0x0041C4F0",
+     "length": 16,
+     "name": "??0?$TSLink@UHANDLER@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0041C500",
+     "length": 50,
+     "name": "??1sub_0041C500@@QAE@XZ"
     },
     {
      "va": "0x0041C540",
@@ -5920,7 +5829,7 @@
     {
      "va": "0x0041C650",
      "length": 50,
-     "name": "?sub_0041C650@D2StormLinkStrc@@QAEXXZ"
+     "name": "??1?$TSLink@UHANDLER@@@@QAE@XZ"
     },
     {
      "va": "0x0041C690",
@@ -5938,6 +5847,16 @@
      "name": "?RawNext@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAUHANDLER@@PBU2@@Z"
     },
     {
+     "va": "0x0041C720",
+     "length": 16,
+     "name": "??0?$TSLinkedNode@UHANDLER@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0041C730",
+     "length": 50,
+     "name": "??1?$TSLinkedNode@UHANDLER@@@@QAE@XZ"
+    },
+    {
      "va": "0x0041C770",
      "length": 61,
      "name": "?UnlinkAll@?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEXXZ"
@@ -5946,6 +5865,16 @@
      "va": "0x0041C7B0",
      "length": 60,
      "name": "??1?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0041C7F0",
+     "length": 16,
+     "name": "??0HANDLER@@QAE@XZ"
+    },
+    {
+     "va": "0x0041C800",
+     "length": 50,
+     "name": "??1HANDLER@@QAE@XZ"
     },
     {
      "va": "0x0041C840",
@@ -8277,9 +8206,39 @@
      "name": "?SEvtUnregisterType@@YGHII@Z"
     },
     {
+     "va": "0x00426960",
+     "length": 50,
+     "name": "??1sub_00426960@@QAE@XZ"
+    },
+    {
      "va": "0x004269C0",
      "length": 154,
      "name": "?SEvtPopState@@YGHII@Z"
+    },
+    {
+     "va": "0x00426A80",
+     "length": 50,
+     "name": "??1sub_00426A80@@QAE@XZ"
+    },
+    {
+     "va": "0x00426CA0",
+     "length": 16,
+     "name": "??0sub_00426CA0@@QAE@XZ"
+    },
+    {
+     "va": "0x00426CB0",
+     "length": 50,
+     "name": "??1sub_00426CB0@@QAE@XZ"
+    },
+    {
+     "va": "0x00426D70",
+     "length": 16,
+     "name": "??0sub_00426D70@@QAE@XZ"
+    },
+    {
+     "va": "0x00426D80",
+     "length": 50,
+     "name": "??1sub_00426D80@@QAE@XZ"
     },
     {
      "va": "0x00426E80",
@@ -9470,104 +9429,9 @@
      "name": "?sub_0043C6A0@@YIXH@Z"
     },
     {
-     "va": "0x0043D990",
-     "length": 16,
-     "name": "?CHARSEL_ActivateChatEdit@@YAXXZ"
-    },
-    {
-     "va": "0x0043DB20",
-     "length": 107,
-     "name": "?CHARSEL_DestroyDialogControls@@YAXXZ"
-    },
-    {
-     "va": "0x0043DC30",
-     "length": 30,
-     "name": "?CHARSEL_GetConnectStatus@@YAHXZ"
-    },
-    {
-     "va": "0x0043E130",
-     "length": 65,
-     "name": "?CHARSEL_ResetChatControls@@YAXXZ"
-    },
-    {
-     "va": "0x0043EA20",
-     "length": 71,
-     "name": "?CHARSEL_DestroyPopupControls@@YAXXZ"
-    },
-    {
-     "va": "0x0043F4D0",
-     "length": 52,
-     "name": "?CHARSEL_ClearHistory@@YAXXZ"
-    },
-    {
-     "va": "0x0043F560",
-     "length": 25,
-     "name": "?CHARSEL_DisableControl@@YIXPAUD2WinControlStrc@@@Z"
-    },
-    {
      "va": "0x0043F850",
      "length": 18,
      "name": "?CHARSEL_CancelGameCreate@@YAHXZ"
-    },
-    {
-     "va": "0x0043F8C0",
-     "length": 109,
-     "name": "?CHARSEL_ResetLaunchState@@YAXXZ"
-    },
-    {
-     "va": "0x00441240",
-     "length": 85,
-     "name": "?CHARSEL_UseEditText@@YGHH@Z"
-    },
-    {
-     "va": "0x004412A0",
-     "length": 128,
-     "name": "?CHARSEL_UseRegistryChannel@@YGHH@Z"
-    },
-    {
-     "va": "0x004429A0",
-     "length": 205,
-     "name": "?CHARSEL_OnChatLine@@YGHPBUUnicode@@@Z"
-    },
-    {
-     "va": "0x00443360",
-     "length": 45,
-     "name": "?CHARSEL_GetMaxPlayers@@YAHXZ"
-    },
-    {
-     "va": "0x00443390",
-     "length": 45,
-     "name": "?CHARSEL_GetLevelRange@@YAHXZ"
-    },
-    {
-     "va": "0x004433C0",
-     "length": 95,
-     "name": "?CHARSEL_IncrementMaxPlayers@@YGHH@Z"
-    },
-    {
-     "va": "0x00443420",
-     "length": 95,
-     "name": "?CHARSEL_DecrementMaxPlayers@@YGHH@Z"
-    },
-    {
-     "va": "0x00443480",
-     "length": 95,
-     "name": "?CHARSEL_IncrementLevelRange@@YGHH@Z"
-    },
-    {
-     "va": "0x004434E0",
-     "length": 94,
-     "name": "?CHARSEL_DecrementLevelRange@@YGHH@Z"
-    },
-    {
-     "va": "0x004437E0",
-     "length": 93,
-     "name": "?CHARSEL_UpdateJoinButtonState@@YAXXZ"
-    },
-    {
-     "va": "0x004439F0",
-     "length": 537,
-     "name": "?CHARSEL_JoinByName@@YGHH@Z"
     },
     {
      "va": "0x00443F80",
@@ -10814,26 +10678,6 @@
      "name": "??0D2StormExportTableSyncStrc@@QAE@XZ"
     },
     {
-     "va": "0x00451330",
-     "length": 202,
-     "name": "?GAME_LoadLngModule@@YAHXZ"
-    },
-    {
-     "va": "0x00451940",
-     "length": 26,
-     "name": "?GAME_InstallRecordHandler@@YAXXZ"
-    },
-    {
-     "va": "0x00451970",
-     "length": 11,
-     "name": "?GAME_SetRecordPlaying@@YAXXZ"
-    },
-    {
-     "va": "0x004519A0",
-     "length": 31,
-     "name": "?GAME_ToggleRecordPlayback@@YAXXZ"
-    },
-    {
      "va": "0x00451F10",
      "length": 12,
      "name": "?GAME_PushRegisterState@@YAHXZ"
@@ -10995,19 +10839,9 @@
      "name": "?COMCALLBACK_FilterNameChar@@YGHPAUD2WinControlStrc@@HPBD@Z"
     },
     {
-     "va": "0x0043F730",
-     "length": 196,
-     "name": "?COMCALLBACK_UpdateNameListText@@YAXXZ"
-    },
-    {
      "va": "0x00443D10",
      "length": 49,
      "name": "?COMCALLBACK_SetPendingName@@YGXHHPBD@Z"
-    },
-    {
-     "va": "0x00445300",
-     "length": 165,
-     "name": "COMCALLBACK_LoadLevelRestriction"
     },
     {
      "va": "0x004453B0",
@@ -11315,16 +11149,6 @@
      "va": "0x00449860",
      "length": 45,
      "name": "?COMCALLBACK_IsValidKeyText@@YIHPBD@Z"
-    },
-    {
-     "va": "0x004512C0",
-     "length": 97,
-     "name": "COMCALLBACK_LoadLngString"
-    },
-    {
-     "va": "0x00451450",
-     "length": 83,
-     "name": "COMCALLBACK_RecordMessage"
     }
    ],
    "flags": [
@@ -11408,11 +11232,6 @@
      "va": "0x0043C750",
      "length": 322,
      "name": "?LAUNCHER_DeleteCharacterFiles@@YIXPBD0@Z"
-    },
-    {
-     "va": "0x0043E900",
-     "length": 201,
-     "name": "?MAINMENUS_FindCdKeyInText@@YGHPBD@Z"
     }
    ],
    "flags": [
@@ -11726,34 +11545,16 @@
      "name": "SKILLS_SetLobVelocity"
     },
     {
-     "va": "0x004C9060",
-     "length": 187,
-     "name": "SKILLS_RotateUnitDirection"
-    },
-    {
-     "va": "0x004C9420",
-     "length": 56,
-     "name": "?SKILLS_EndLoopSoundSkill@@YIXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004C9460",
-     "length": 43,
-     "name": "?SKILLS_GetFirstSkillParam@@YIHH@Z"
-    },
-    {
-     "va": "0x004C95E0",
-     "length": 236,
-     "name": "?MISSILE_SkillStartAtTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004C96D0",
-     "length": 228,
-     "name": "?sub_004C96D0@@YIHPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004C97C0",
-     "length": 450
-    },
+     "va": "0x004D16C0",
+     "length": 352,
+     "name": "SKILLS_SpawnOffsetMissile"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_004C9D50.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x004C9D50",
      "length": 17,
@@ -11779,6 +11580,11 @@
      "name": "?sub_004CA030_TickEvent@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004CA060",
+     "length": 413,
+     "name": "?MISSILE_DoSkillWithTempTarget@@YIHPAUD2UnitStrc@@HH0HHG@Z"
+    },
+    {
      "va": "0x004CA200",
      "length": 44,
      "name": "SKILLS_TriggerSkillOnUnit"
@@ -11797,11 +11603,41 @@
      "va": "0x004CA280",
      "length": 52,
      "name": "?SKILLS_ResetLevelSpeech@@YAXXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_004C9420.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004C9420",
+     "length": 56,
+     "name": "?SKILLS_EndLoopSoundSkill@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
-     "va": "0x004D16C0",
-     "length": 352,
-     "name": "SKILLS_SpawnOffsetMissile"
+     "va": "0x004C9460",
+     "length": 43,
+     "name": "?SKILLS_GetFirstSkillParam@@YIHH@Z"
+    },
+    {
+     "va": "0x004C9490",
+     "length": 322,
+     "name": "?sub_004C9490_MissileAroundUnit@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004C95E0",
+     "length": 236,
+     "name": "?MISSILE_SkillStartAtTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004C96D0",
+     "length": 228,
+     "name": "?sub_004C96D0@@YIHPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004C97C0",
+     "length": 450
     }
    ]
   },
@@ -12050,6 +11886,16 @@
      "name": "?CHATDLG_LoadFrontEndCels@@YAXXZ"
     },
     {
+     "va": "0x0043D510",
+     "length": 1139,
+     "name": "?sub_0043D510_FreeCellFiles@@YAXXZ"
+    },
+    {
+     "va": "0x0043D990",
+     "length": 16,
+     "name": "?CHARSEL_ActivateChatEdit@@YAXXZ"
+    },
+    {
      "va": "0x0043D9A0",
      "length": 13,
      "name": "?CHATDLG_OnRealmConnectCancel@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
@@ -12095,9 +11941,53 @@
      "name": "?CHATDLG_EnableMainControl@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x0043DB20",
+     "length": 107,
+     "name": "?CHARSEL_DestroyDialogControls@@YAXXZ"
+    },
+    {
      "va": "0x0043DB90",
      "length": 13,
      "name": "?CHATDLG_OnChatEditEnter@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043DBA0",
+     "length": 22,
+     "name": "?sub_0043DBA0_ClearSelection@@YGHHHH@Z"
+    },
+    {
+     "va": "0x0043DBC0",
+     "length": 40,
+     "name": "?sub_0043DBC0_OnWaitTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043DBF0",
+     "length": 52,
+     "name": "?sub_0043DBF0_OnReceiveTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0043DC30",
+     "length": 30,
+     "name": "?CHARSEL_GetConnectStatus@@YAHXZ"
+    },
+    {
+     "va": "0x0043DCE0",
+     "length": 28,
+     "name": "?sub_0043DCE0_FreeChatCellFile@@YAXXZ"
+    },
+    {
+     "va": "0x0043DD00",
+     "length": 196,
+     "name": "?sub_0043DD00_GetClassName@@YAXHPAUUnicode@@@Z"
+    },
+    {
+     "va": "0x0043DDD0",
+     "length": 852
+    },
+    {
+     "va": "0x0043E130",
+     "length": 65,
+     "name": "?CHARSEL_ResetChatControls@@YAXXZ"
     },
     {
      "va": "0x0043E180",
@@ -12195,9 +12085,19 @@
      "name": "?CHATDLG_NotifyCommand@@YAHPBD0@Z"
     },
     {
+     "va": "0x0043E900",
+     "length": 201,
+     "name": "?MAINMENUS_FindCdKeyInText@@YGHPBD@Z"
+    },
+    {
      "va": "0x0043E9D0",
      "length": 80,
      "name": "?CHATDLG_CreateControl@@YAPAUD2WinControlStrc@@H@Z"
+    },
+    {
+     "va": "0x0043EA20",
+     "length": 71,
+     "name": "?CHARSEL_DestroyPopupControls@@YAXXZ"
     },
     {
      "va": "0x0043EA70",
@@ -12309,9 +12209,19 @@
      "name": "?CHATDLG_OnAssassinLadderButton@@YGHPAUD2WinMsgStrc@@@Z"
     },
     {
+     "va": "0x0043F4D0",
+     "length": 52,
+     "name": "?CHARSEL_ClearHistory@@YAXXZ"
+    },
+    {
      "va": "0x0043F510",
      "length": 73,
      "name": "?CHATDLG_PushHistory@@YAXPBD@Z"
+    },
+    {
+     "va": "0x0043F560",
+     "length": 25,
+     "name": "?CHARSEL_DisableControl@@YIXPAUD2WinControlStrc@@@Z"
     },
     {
      "va": "0x0043F580",
@@ -12334,6 +12244,11 @@
      "name": "?CHATDLG_OnToggleButton@@YGHH@Z"
     },
     {
+     "va": "0x0043F730",
+     "length": 196,
+     "name": "?COMCALLBACK_UpdateNameListText@@YAXXZ"
+    },
+    {
      "va": "0x0043F800",
      "length": 57,
      "name": "?CHATDLG_FreeNameList@@YAXXZ"
@@ -12347,6 +12262,11 @@
      "va": "0x0043F8A0",
      "length": 19,
      "name": "?CHATDLG_SaveDefaultChannel@@YAXPBD@Z"
+    },
+    {
+     "va": "0x0043F8C0",
+     "length": 109,
+     "name": "?CHARSEL_ResetLaunchState@@YAXXZ"
     },
     {
      "va": "0x0043F930",
@@ -12376,6 +12296,11 @@
      "va": "0x0043FC20",
      "length": 537,
      "name": "?CHATDLG_CreateChatScreen@@YAXXZ"
+    },
+    {
+     "va": "0x0043FE40",
+     "length": 349,
+     "name": "?CHATDLG_SetupLogin@@YIHPAUD2LaunchLoginStrc@@PBD@Z"
     },
     {
      "va": "0x0043FFA0",
@@ -12497,6 +12422,20 @@
      "name": "?CHATDLG_JoinChannel@@YIXPBD@Z"
     },
     {
+     "va": "0x00441240",
+     "length": 85,
+     "name": "?CHARSEL_UseEditText@@YGHH@Z"
+    },
+    {
+     "va": "0x004412A0",
+     "length": 128,
+     "name": "?CHARSEL_UseRegistryChannel@@YGHH@Z"
+    },
+    {
+     "va": "0x00441320",
+     "length": 178
+    },
+    {
      "va": "0x004413E0",
      "length": 222,
      "name": "CHATDLG_EnableConnection"
@@ -12539,6 +12478,26 @@
      "va": "0x004428B0",
      "length": 18,
      "name": "?CHATDLG_SendChat@@YGHH@Z"
+    },
+    {
+     "va": "0x004429A0",
+     "length": 205,
+     "name": "?CHARSEL_OnChatLine@@YGHPBUUnicode@@@Z"
+    },
+    {
+     "va": "0x00442A70",
+     "length": 15,
+     "name": "?sub_00442A70_SetFlagBits12@@YIXPAIH@Z"
+    },
+    {
+     "va": "0x00442A80",
+     "length": 41,
+     "name": "?sub_00442A80_IsNightmareOpen@@YIHI@Z"
+    },
+    {
+     "va": "0x00442AB0",
+     "length": 41,
+     "name": "?sub_00442AB0_IsHellOpen@@YIHI@Z"
     },
     {
      "va": "0x00442AE0",
@@ -12585,9 +12544,54 @@
      "name": "?CHATDLG_DestroyJoinControls@@YAXXZ"
     },
     {
+     "va": "0x004431B0",
+     "length": 112,
+     "name": "MAINMENUS_LoadMaxPlayers"
+    },
+    {
      "va": "0x00443220",
      "length": 316,
      "name": "?CHATDLG_DestroyCreateControls@@YAXXZ"
+    },
+    {
+     "va": "0x00443360",
+     "length": 45,
+     "name": "?CHARSEL_GetMaxPlayers@@YAHXZ"
+    },
+    {
+     "va": "0x00443390",
+     "length": 45,
+     "name": "?CHARSEL_GetLevelRange@@YAHXZ"
+    },
+    {
+     "va": "0x004433C0",
+     "length": 95,
+     "name": "?CHARSEL_IncrementMaxPlayers@@YGHH@Z"
+    },
+    {
+     "va": "0x00443420",
+     "length": 95,
+     "name": "?CHARSEL_DecrementMaxPlayers@@YGHH@Z"
+    },
+    {
+     "va": "0x00443480",
+     "length": 95,
+     "name": "?CHARSEL_IncrementLevelRange@@YGHH@Z"
+    },
+    {
+     "va": "0x004434E0",
+     "length": 94,
+     "name": "?CHARSEL_DecrementLevelRange@@YGHH@Z"
+    },
+    {
+     "va": "0x00443540",
+     "length": 144,
+     "name": "?sub_00443540_IsNameChar@@YGHPAUD2WinControlStrc@@HPBD@Z"
+    },
+    {
+     "va": "0x004435D0",
+     "length": 38,
+     "name": "?sub_004435D0@@YGHPAX0PBUCharacter@@@Z"
     },
     {
      "va": "0x00443600",
@@ -12595,9 +12599,63 @@
      "name": "CHATDLG_IsPrintableChar"
     },
     {
+     "va": "0x00443630",
+     "length": 420,
+     "name": "?sub_00443630_UpdateCreateButton@@YAXXZ"
+    },
+    {
+     "va": "0x004437E0",
+     "length": 93,
+     "name": "?CHARSEL_UpdateJoinButtonState@@YAXXZ"
+    },
+    {
      "va": "0x00443840",
      "length": 40,
      "name": "CHATDLG_CheckStartAdvResult"
+    },
+    {
+     "va": "0x00443870",
+     "length": 13,
+     "name": "?sub_00443870_SetCancel@@YGHH@Z"
+    },
+    {
+     "va": "0x00443880",
+     "length": 53,
+     "name": "?sub_00443880_PollMcp@@YGHH@Z"
+    },
+    {
+     "va": "0x004438C0",
+     "length": 23,
+     "name": "?sub_004438C0_OnCancel@@YGHH@Z"
+    },
+    {
+     "va": "0x004438E0",
+     "length": 262
+    },
+    {
+     "va": "0x004439F0",
+     "length": 537,
+     "name": "?CHARSEL_JoinByName@@YGHH@Z"
+    },
+    {
+     "va": "0x00443C10",
+     "length": 8,
+     "name": "?sub_00443C10_AlwaysOne@@YGHH@Z"
+    },
+    {
+     "va": "0x00443C20",
+     "length": 69,
+     "name": "?sub_00443C20_SelectNormal@@YGHH@Z"
+    },
+    {
+     "va": "0x00443C70",
+     "length": 72,
+     "name": "?sub_00443C70_SelectNightmare@@YGHH@Z"
+    },
+    {
+     "va": "0x00443CC0",
+     "length": 72,
+     "name": "?sub_00443CC0_SelectHell@@YGHH@Z"
     },
     {
      "va": "0x00443D50",
@@ -12620,14 +12678,67 @@
      "name": "?CHATDLG_CopyName@@YIXPAD@Z"
     },
     {
+     "va": "0x00443F70",
+     "length": 13,
+     "name": "?sub_00443F70_OnRefresh@@YGHH@Z"
+    },
+    {
+     "va": "0x00444020",
+     "length": 3579
+    },
+    {
      "va": "0x00444E20",
      "length": 67,
      "name": "?CHATDLG_DestroyGameListControls@@YAHXZ"
     },
     {
+     "va": "0x00444E70",
+     "length": 421
+    },
+    {
+     "va": "0x004450A0",
+     "length": 23,
+     "name": "?sub_004450A0_JoinNameKey@@YGHPAUD2WinControlStrc@@HPBD@Z"
+    },
+    {
+     "va": "0x004450C0",
+     "length": 13,
+     "name": "?sub_004450C0_JoinNameEnter@@YGHH@Z"
+    },
+    {
+     "va": "0x004451C0",
+     "length": 316,
+     "name": "?sub_004451C0_UpdateLevelControls@@YAXXZ"
+    },
+    {
+     "va": "0x00445300",
+     "length": 165,
+     "name": "COMCALLBACK_LoadLevelRestriction"
+    },
+    {
+     "va": "0x00445530",
+     "length": 18,
+     "name": "?sub_00445530_ResetBuildPanel@@YGHH@Z"
+    },
+    {
      "va": "0x00445550",
      "length": 324,
      "name": "?CHATDLG_OnLevelRestrictToggle@@YGHH@Z"
+    },
+    {
+     "va": "0x004456A0",
+     "length": 13,
+     "name": "?sub_004456A0_OnEnter@@YGHH@Z"
+    },
+    {
+     "va": "0x004456B0",
+     "length": 13,
+     "name": "?sub_004456B0_OnEnter@@YGHH@Z"
+    },
+    {
+     "va": "0x004456C0",
+     "length": 13,
+     "name": "?sub_004456C0_OnEnter@@YGHH@Z"
     },
     {
      "va": "0x00446810",
@@ -12665,115 +12776,9 @@
      "name": "CHATDLG_MixChar"
     },
     {
-     "va": "0x00449AD0",
-     "length": 92,
-     "name": "?D2MCPClientCloseMCP@@YAXXZ"
-    },
-    {
-     "va": "0x00449BD0",
-     "length": 7,
-     "name": "?CHATDLG_GetRequestId@@YAGXZ"
-    },
-    {
-     "va": "0x00449BF0",
-     "length": 15,
-     "name": "CHATDLG_SetMcpResult"
-    },
-    {
-     "va": "0x00449C20",
-     "length": 15,
-     "name": "CHATDLG_SetCharCreateReceived"
-    },
-    {
-     "va": "0x00449C40",
-     "length": 15,
-     "name": "CHATDLG_SetCharLogonReceived"
-    },
-    {
-     "va": "0x00449C60",
-     "length": 15,
-     "name": "CHATDLG_SetCharDeleteReceived"
-    },
-    {
-     "va": "0x00449C80",
-     "length": 15,
-     "name": "CHATDLG_SetCharUpgradeReceived"
-    },
-    {
-     "va": "0x00449C90",
-     "length": 15,
-     "name": "sub_00449C90_SetValue"
-    },
-    {
-     "va": "0x00449CC0",
-     "length": 15,
-     "name": "sub_00449CC0_SetValue"
-    },
-    {
-     "va": "0x00449CD0",
-     "length": 59,
-     "name": "CHATDLG_GetMcpTexts"
-    },
-    {
-     "va": "0x00449D10",
-     "length": 62,
-     "name": "CHATDLG_SetMcpTexts"
-    },
-    {
-     "va": "0x00449D60",
-     "length": 21,
-     "name": "?CHATDLG_ClearReply@@YAXXZ"
-    },
-    {
-     "va": "0x00449D90",
-     "length": 15,
-     "name": "sub_00449D90_SetValue"
-    },
-    {
-     "va": "0x00449DB0",
-     "length": 15,
-     "name": "sub_00449DB0_SetValue"
-    },
-    {
-     "va": "0x00449DD0",
-     "length": 15,
-     "name": "sub_00449DD0_SetValue"
-    },
-    {
-     "va": "0x00449DF0",
-     "length": 22,
-     "name": "CHATDLG_RequestCharCreate"
-    },
-    {
-     "va": "0x00449E10",
-     "length": 15,
-     "name": "CHATDLG_RequestCharLogon"
-    },
-    {
-     "va": "0x00449E30",
-     "length": 15,
-     "name": "sub_00449E30_SetValue"
-    },
-    {
-     "va": "0x00449E50",
-     "length": 15,
-     "name": "sub_00449E50_SetValue"
-    },
-    {
      "va": "0x0044A130",
      "length": 63,
      "name": "CHATDLG_StartThread"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Src/ChatDlg_0043FE40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043FE40",
-     "length": 349,
-     "name": "?CHATDLG_SetupLogin@@YIHPAUD2LaunchLoginStrc@@PBD@Z"
     }
    ]
   },
@@ -12860,171 +12865,6 @@
    ]
   },
   {
-   "file": "Source/D2Multi/Unknown_0043CBE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043D510",
-     "length": 1139,
-     "name": "?sub_0043D510_FreeCellFiles@@YAXXZ"
-    },
-    {
-     "va": "0x0043DBA0",
-     "length": 22,
-     "name": "?sub_0043DBA0_ClearSelection@@YGHHHH@Z"
-    },
-    {
-     "va": "0x0043DBC0",
-     "length": 40,
-     "name": "?sub_0043DBC0_OnWaitTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x0043DBF0",
-     "length": 52,
-     "name": "?sub_0043DBF0_OnReceiveTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_0043DA30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043DCE0",
-     "length": 28,
-     "name": "?sub_0043DCE0_FreeChatCellFile@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_0043DD00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0043DD00",
-     "length": 196,
-     "name": "?sub_0043DD00_GetClassName@@YAXHPAUUnicode@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_0043DDD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0043DDD0",
-     "length": 852
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_00440FC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004438E0",
-     "length": 262
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_00441320.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00441320",
-     "length": 178
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_004414C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00442A70",
-     "length": 15,
-     "name": "?sub_00442A70_SetFlagBits12@@YIXPAIH@Z"
-    },
-    {
-     "va": "0x00442A80",
-     "length": 41,
-     "name": "?sub_00442A80_IsNightmareOpen@@YIHI@Z"
-    },
-    {
-     "va": "0x00442AB0",
-     "length": 41,
-     "name": "?sub_00442AB0_IsHellOpen@@YIHI@Z"
-    },
-    {
-     "va": "0x00443540",
-     "length": 144,
-     "name": "?sub_00443540_IsNameChar@@YGHPAUD2WinControlStrc@@HPBD@Z"
-    },
-    {
-     "va": "0x004435D0",
-     "length": 38,
-     "name": "?sub_004435D0@@YGHPAX0PBUCharacter@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Multi/Src/ChatDlg_004423B0.cpp",
    "rank": 1,
    "functions": [
@@ -13049,122 +12889,13 @@
    ]
   },
   {
-   "file": "Source/D2Multi/Unknown_00443630.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00443630",
-     "length": 420,
-     "name": "?sub_00443630_UpdateCreateButton@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_00443870.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00443870",
-     "length": 13,
-     "name": "?sub_00443870_SetCancel@@YGHH@Z"
-    },
-    {
-     "va": "0x00443880",
-     "length": 53,
-     "name": "?sub_00443880_PollMcp@@YGHH@Z"
-    },
-    {
-     "va": "0x004438C0",
-     "length": 23,
-     "name": "?sub_004438C0_OnCancel@@YGHH@Z"
-    },
-    {
-     "va": "0x00443C20",
-     "length": 69,
-     "name": "?sub_00443C20_SelectNormal@@YGHH@Z"
-    },
-    {
-     "va": "0x00443C70",
-     "length": 72,
-     "name": "?sub_00443C70_SelectNightmare@@YGHH@Z"
-    },
-    {
-     "va": "0x00443CC0",
-     "length": 72,
-     "name": "?sub_00443CC0_SelectHell@@YGHH@Z"
-    },
-    {
-     "va": "0x00443F70",
-     "length": 13,
-     "name": "?sub_00443F70_OnRefresh@@YGHH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Multi/Unknown_00444020.cpp",
    "rank": 0,
    "functions": [
     {
-     "va": "0x00444020",
-     "length": 3579
-    },
-    {
-     "va": "0x00444E70",
-     "length": 421
-    },
-    {
      "va": "0x00445020",
      "length": 126,
      "name": "CHARSEL_RequestGameList"
-    },
-    {
-     "va": "0x004450A0",
-     "length": 23,
-     "name": "?sub_004450A0_JoinNameKey@@YGHPAUD2WinControlStrc@@HPBD@Z"
-    },
-    {
-     "va": "0x004450C0",
-     "length": 13,
-     "name": "?sub_004450C0_JoinNameEnter@@YGHH@Z"
-    },
-    {
-     "va": "0x004451C0",
-     "length": 316,
-     "name": "?sub_004451C0_UpdateLevelControls@@YAXXZ"
-    },
-    {
-     "va": "0x00445530",
-     "length": 18,
-     "name": "?sub_00445530_ResetBuildPanel@@YGHH@Z"
-    },
-    {
-     "va": "0x004456A0",
-     "length": 13,
-     "name": "?sub_004456A0_OnEnter@@YGHH@Z"
-    },
-    {
-     "va": "0x004456B0",
-     "length": 13,
-     "name": "?sub_004456B0_OnEnter@@YGHH@Z"
-    },
-    {
-     "va": "0x004456C0",
-     "length": 13,
-     "name": "?sub_004456C0_OnEnter@@YGHH@Z"
     }
    ]
   },
@@ -13278,9 +13009,104 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00449AD0",
+     "length": 92,
+     "name": "?D2MCPClientCloseMCP@@YAXXZ"
+    },
+    {
      "va": "0x00449B30",
      "length": 50,
      "name": "sub_00449B30_QueryAddress"
+    },
+    {
+     "va": "0x00449BD0",
+     "length": 7,
+     "name": "?CHATDLG_GetRequestId@@YAGXZ"
+    },
+    {
+     "va": "0x00449BF0",
+     "length": 15,
+     "name": "CHATDLG_SetMcpResult"
+    },
+    {
+     "va": "0x00449C20",
+     "length": 15,
+     "name": "CHATDLG_SetCharCreateReceived"
+    },
+    {
+     "va": "0x00449C40",
+     "length": 15,
+     "name": "CHATDLG_SetCharLogonReceived"
+    },
+    {
+     "va": "0x00449C60",
+     "length": 15,
+     "name": "CHATDLG_SetCharDeleteReceived"
+    },
+    {
+     "va": "0x00449C80",
+     "length": 15,
+     "name": "CHATDLG_SetCharUpgradeReceived"
+    },
+    {
+     "va": "0x00449C90",
+     "length": 15,
+     "name": "sub_00449C90_SetValue"
+    },
+    {
+     "va": "0x00449CC0",
+     "length": 15,
+     "name": "sub_00449CC0_SetValue"
+    },
+    {
+     "va": "0x00449CD0",
+     "length": 59,
+     "name": "CHATDLG_GetMcpTexts"
+    },
+    {
+     "va": "0x00449D10",
+     "length": 62,
+     "name": "CHATDLG_SetMcpTexts"
+    },
+    {
+     "va": "0x00449D60",
+     "length": 21,
+     "name": "?CHATDLG_ClearReply@@YAXXZ"
+    },
+    {
+     "va": "0x00449D90",
+     "length": 15,
+     "name": "sub_00449D90_SetValue"
+    },
+    {
+     "va": "0x00449DB0",
+     "length": 15,
+     "name": "sub_00449DB0_SetValue"
+    },
+    {
+     "va": "0x00449DD0",
+     "length": 15,
+     "name": "sub_00449DD0_SetValue"
+    },
+    {
+     "va": "0x00449DF0",
+     "length": 22,
+     "name": "CHATDLG_RequestCharCreate"
+    },
+    {
+     "va": "0x00449E10",
+     "length": 15,
+     "name": "CHATDLG_RequestCharLogon"
+    },
+    {
+     "va": "0x00449E30",
+     "length": 15,
+     "name": "sub_00449E30_SetValue"
+    },
+    {
+     "va": "0x00449E50",
+     "length": 15,
+     "name": "sub_00449E50_SetValue"
     }
    ]
   },
@@ -15779,14 +15605,14 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00451260",
-     "length": 39,
-     "name": "?RECORD_RegisterLngArgument@@YAHXZ"
-    },
-    {
      "va": "0x00451400",
      "length": 67,
      "name": "?RECORD_AddRecordChunk@@YAXXZ"
+    },
+    {
+     "va": "0x00451450",
+     "length": 83,
+     "name": "COMCALLBACK_RecordMessage"
     },
     {
      "va": "0x004514B0",
@@ -15815,6 +15641,51 @@
      "va": "0x004518E0",
      "length": 47,
      "name": "?WINMAIN_StartPlayback@@YAXXZ"
+    },
+    {
+     "va": "0x00451910",
+     "length": 6,
+     "name": "UI_IsRecordingEnabled"
+    },
+    {
+     "va": "0x00451920",
+     "length": 24,
+     "name": "CHARSEL_RecordHandler"
+    },
+    {
+     "va": "0x00451940",
+     "length": 26,
+     "name": "?GAME_InstallRecordHandler@@YAXXZ"
+    },
+    {
+     "va": "0x00451960",
+     "length": 6,
+     "name": "UI_IsRecordHandlerInstalled"
+    },
+    {
+     "va": "0x00451970",
+     "length": 11,
+     "name": "?GAME_SetRecordPlaying@@YAXXZ"
+    },
+    {
+     "va": "0x00451980",
+     "length": 6,
+     "name": "UI_IsPlaybackEnabled"
+    },
+    {
+     "va": "0x00451990",
+     "length": 6,
+     "name": "UI_IsReplayActive"
+    },
+    {
+     "va": "0x004519A0",
+     "length": 31,
+     "name": "?GAME_ToggleRecordPlayback@@YAXXZ"
+    },
+    {
+     "va": "0x004519C0",
+     "length": 207,
+     "name": "?CUNIT_ReplayRecords@@YAXXZ"
     }
    ]
   },
@@ -15823,8 +15694,23 @@
    "rank": 1,
    "functions": [
     {
+     "va": "0x00451260",
+     "length": 39,
+     "name": "?RECORD_RegisterLngArgument@@YAHXZ"
+    },
+    {
      "va": "0x00451290",
      "length": 33
+    },
+    {
+     "va": "0x004512C0",
+     "length": 97,
+     "name": "COMCALLBACK_LoadLngString"
+    },
+    {
+     "va": "0x00451330",
+     "length": 202,
+     "name": "?GAME_LoadLngModule@@YAHXZ"
     }
    ],
    "flags": [
@@ -15846,31 +15732,6 @@
    "file": "Source/D2Client/UI/ui.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00451910",
-     "length": 6,
-     "name": "UI_IsRecordingEnabled"
-    },
-    {
-     "va": "0x00451920",
-     "length": 24,
-     "name": "CHARSEL_RecordHandler"
-    },
-    {
-     "va": "0x00451960",
-     "length": 6,
-     "name": "UI_IsRecordHandlerInstalled"
-    },
-    {
-     "va": "0x00451980",
-     "length": 6,
-     "name": "UI_IsPlaybackEnabled"
-    },
-    {
-     "va": "0x00451990",
-     "length": 6,
-     "name": "UI_IsReplayActive"
-    },
     {
      "va": "0x004525F0",
      "length": 195
@@ -18471,11 +18332,6 @@
    "file": "Source/D2Client/UNIT/CUnit.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004519C0",
-     "length": 207,
-     "name": "?CUNIT_ReplayRecords@@YAXXZ"
-    },
     {
      "va": "0x004637F0",
      "length": 23,
@@ -29542,6 +29398,11 @@
      "name": "?SKILLSBAR_SkillCltDoLeapAttack@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004C9060",
+     "length": 187,
+     "name": "SKILLS_RotateUnitDirection"
+    },
+    {
      "va": "0x004C9120",
      "length": 504
     },
@@ -29553,14 +29414,9 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004C9320.cpp",
+   "file": "Source/D2Client/Unknown_004E6E30.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004C9490",
-     "length": 322,
-     "name": "?sub_004C9490_MissileAroundUnit@@YIHPAUD2UnitStrc@@HH@Z"
-    },
     {
      "va": "0x004E6E30",
      "length": 77,
@@ -29572,11 +29428,6 @@
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004CA060",
-     "length": 413,
-     "name": "?MISSILE_DoSkillWithTempTarget@@YIHPAUD2UnitStrc@@HH0HHG@Z"
-    },
     {
      "va": "0x004CC790",
      "length": 37,
@@ -36684,20 +36535,16 @@
    ]
   },
   {
-   "file": "Source/D2Glide/Unknown_0050BBA0.cpp",
-   "rank": 0,
+   "file": "Source/D2Glide/Unknown_0050C890.cpp",
+   "rank": 1,
    "functions": [
     {
-     "va": "0x0050BE20",
-     "length": 204
+     "va": "0x0050C890",
+     "length": 355
     },
     {
-     "va": "0x0050C690",
-     "length": 193
-    },
-    {
-     "va": "0x0050D540",
-     "length": 352
+     "va": "0x0050D6A0",
+     "length": 1141
     }
    ],
    "flags": [
@@ -36727,6 +36574,10 @@
     {
      "va": "0x0050BD80",
      "length": 160
+    },
+    {
+     "va": "0x0050BE20",
+     "length": 204
     },
     {
      "va": "0x0050C270",
@@ -36759,116 +36610,26 @@
      "name": "?sub_0050C680_ClearBuffer@@YAXXZ"
     },
     {
+     "va": "0x0050C690",
+     "length": 193
+    },
+    {
      "va": "0x0050C760",
      "length": 298,
      "name": "?sub_0050C760_GlideInitVertices@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Unknown_0050C890.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0050C890",
-     "length": 355
     },
-    {
-     "va": "0x0050D6A0",
-     "length": 1141
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Unknown_0050CA00.cpp",
-   "rank": 1,
-   "functions": [
     {
      "va": "0x0050CA00",
      "length": 831
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Unknown_0050CDD0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x0050CDD0",
      "length": 403
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Unknown_0050CF70.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x0050CF70",
      "length": 1172
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Unknown_0050D410.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0050D410",
      "length": 127,
@@ -36883,6 +36644,10 @@
      "va": "0x0050D4C0",
      "length": 117,
      "name": "?sub_0050D4C0_GlideTileDrawLit@@YIHPAUD2TileLibraryEntryStrc@@HHPAUD2GfxLightStrc@@H@Z"
+    },
+    {
+     "va": "0x0050D540",
+     "length": 352
     }
    ]
   },
@@ -37403,6 +37168,10 @@
      "name": "?sub_00511FB0_DrawImage@@YIHPAXHHIH0@Z"
     },
     {
+     "va": "0x00512250",
+     "length": 133
+    },
+    {
      "va": "0x005123B0",
      "length": 92,
      "name": "?sub_005123B0_DDrawDebugFillBackBuffer@@YIXHH@Z"
@@ -37427,31 +37196,6 @@
      "va": "0x005121A0",
      "length": 171
     }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_00512250.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00512250",
-     "length": 133
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
@@ -79810,6 +79554,10 @@
      "length": 249
     },
     {
+     "va": "0x006B7630",
+     "length": 129
+    },
+    {
      "va": "0x006B7FD0",
      "length": 197
     },
@@ -79822,8 +79570,24 @@
      "length": 841
     },
     {
+     "va": "0x006B87A0",
+     "length": 428
+    },
+    {
+     "va": "0x006B8950",
+     "length": 1182
+    },
+    {
+     "va": "0x006B8DF0",
+     "length": 108
+    },
+    {
      "va": "0x006B8E60",
      "length": 35
+    },
+    {
+     "va": "0x006B8E90",
+     "length": 122
     },
     {
      "va": "0x006B8F10",
@@ -79851,31 +79615,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B7630.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B7630",
-     "length": 129
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
@@ -79916,102 +79655,6 @@
      "va": "0x006B86F0",
      "length": 173
     }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B87A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B87A0",
-     "length": 428
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B8950.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B8950",
-     "length": 1182
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B8DF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B8DF0",
-     "length": 108
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B8E90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B8E90",
-     "length": 122
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

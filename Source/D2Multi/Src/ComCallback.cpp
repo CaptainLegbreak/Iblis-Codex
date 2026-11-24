@@ -706,35 +706,6 @@ int __stdcall COMCALLBACK_FilterNameChar(D2WinControlStrc* pControl, int bAllowS
 // build: symbol ?MAINMENUS_DestroyControls@* 0x0042F3F0
 // build: symbol ?MAINMENUS_JoinGame@* 0x00434A00
 
-// 0x0043F730
-void __cdecl COMCALLBACK_UpdateNameListText()
-{
-    char szText[0x200];
-
-    Unicode wszText[0x200];
-
-    if (!gpControlMain_0077BC4C)
-        return;
-
-    szText[0] = 0;
-    int nLen = 0;
-    for (D2LaunchNameNodeStrc* pNode = gpNameList; pNode; pNode = pNode->pNext)
-    {
-        if (nLen >= 0x200)
-            break;
-        strncat(szText, pNode->szName, 0x200 - nLen);
-        nLen = strlen(szText);
-    }
-
-    if (!szText[0])
-        sub_004F9740_SetControlState(gpNamesButton, 1);
-    else
-        sub_004F9740_SetControlState(gpNamesButton, 0);
-
-    sub_00526E40_Utf8ToUnicode(wszText, szText, 0x200);
-    sub_004FC9B0_SetText(gpControlMain_0077BC4C, wszText, 1, 0, 0);
-}
-
 // 0x00443D10
 static void __stdcall COMCALLBACK_SetPendingName(int nA, int nB, const char* szText)
 {
@@ -743,27 +714,7 @@ static void __stdcall COMCALLBACK_SetPendingName(int nA, int nB, const char* szT
     gnPendingValueB = nB;
 }
 
-// 0x00445300
-void __cdecl COMCALLBACK_LoadLevelRestriction()
-{
-    unsigned long nValue = 4;
-    if (!SRegLoadValue("Diablo II", "LVL_REST", 0, &nValue))
-    {
-        SRegSaveValue("Diablo II", "LVL_REST", 0, nValue);
-        return;
-    }
-    char szText[4] = "4";
-    if (nValue == 666)
-    {
-        BUTTON_SetIsPressed((D2WinControlStrc*)gpLevelDiffCheck, 0);
-        sub_004451C0_UpdateLevelControls();
-        return;
-    }
-    SStrPrintf(szText, 4, gszFormatInt_006D57BC, nValue);
-    D2Win_10076(gpEditBox_00798C3C, szText);
-    BUTTON_SetIsPressed((D2WinControlStrc*)gpLevelDiffCheck, 1);
-    sub_004451C0_UpdateLevelControls();
-}
+void __cdecl COMCALLBACK_LoadLevelRestriction(); // 0x00445300
 
 // 0x004453B0
 void __cdecl COMCALLBACK_BuildCreateGamePanel()
@@ -1475,7 +1426,6 @@ static unsigned char COMCALLBACK_ParseStatString(D2MultiChannelUserStrc* pUser, 
             ++pStat;
             *pDst = 0;
 
-// build: symbol ?FOG_Decode14BitsFromString@* 0x006BBF20
             FOG_Decode14BitsFromString(pStat);
             pStat += 2;
 
@@ -2931,29 +2881,7 @@ void* __fastcall sub_M109_Emit_00449320(const char* szName, const unsigned char*
 }
 
 
-// 0x004512C0
-int __stdcall COMCALLBACK_LoadLngString(int nId, char* szBuffer, unsigned int nSize)
-{
-    D2_ASSERT(gbStringsLoaded_007A070C, 0x81);
-    if (!SErrGetErrorStr(nId, szBuffer, nSize))
-    {
-        SStrCopy(szBuffer, "Stupid Lng.cpp error.", nSize);
-        return 0;
-    }
-    return 1;
-}
 
-// 0x00451450
-void __stdcall COMCALLBACK_RecordMessage(unsigned int uMessage, unsigned int wParam, int lParam)
-{
-    if (gpMsgRecordChunk_0070F7A0->nCount >= 500)
-        RECORD_AddRecordChunk();
-    D2MsgRecordStrc* pRecord = &gpMsgRecordChunk_0070F7A0->tRecords[gpMsgRecordChunk_0070F7A0->nCount++];
-    pRecord->nTick = sub_0044DA90();
-    pRecord->uMessage = uMessage;
-    pRecord->wParam = wParam;
-    pRecord->lParam = lParam;
-}
 
 
 

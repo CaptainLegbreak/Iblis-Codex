@@ -659,84 +659,6 @@ static unsigned int __stdcall HashString(unsigned int nHashType, const char* szS
 
 int __stdcall SFileOpenFileAsArchive(void* hMpq, const char* szName, int nPriority, unsigned int nFlags, void** phArchive);
 
-// 0x0040EB20
-int __cdecl sub_0040EB20_ReturnSecond(int, int nValue)
-{
-    return nValue;
-}
-
-// 0x0040ECC0
-void __fastcall LOGMANAGER_WriteDateBanner(D2FileStrc* pFile, const D2SystemTimeStrc* pTime)
-{
-    char szComputerName[0x40];
-    unsigned long nSize = sizeof(szComputerName);
-    if (!GetComputerNameA(szComputerName, &nSize))
-        szComputerName[0] = 0;
-    fprintf(pFile, "---------------------------------------------------------------\n");
-    fprintf(pFile, "%s %04d-%02d-%02d\n", szComputerName, pTime->wYear, pTime->wMonth, pTime->wDay);
-    fprintf(pFile, "---------------------------------------------------------------\n");
-}
-
-// 0x0040ED40
-void __fastcall LOGMANAGER_WriteStartupBanner(D2FileStrc* pFile)
-{
-    char szComputerName[0x40];
-    unsigned long nSize = sizeof(szComputerName);
-    if (!GetComputerNameA(szComputerName, &nSize))
-        szComputerName[0] = 0;
-    fprintf(pFile, "---------------------------------------------------------------\n");
-    fprintf(pFile, "%s Realm startup at %04d-%02d-%02d %02d:%02d:%02d.%03u\n", szComputerName, gLogStartTime_0075D288.wYear,
-        gLogStartTime_0075D288.wMonth, gLogStartTime_0075D288.wDay, gLogStartTime_0075D288.wHour,
-        gLogStartTime_0075D288.wMinute, gLogStartTime_0075D288.wSecond, gLogStartTime_0075D288.wMilliseconds);
-    fprintf(pFile, "---------------------------------------------------------------\n");
-}
-
-// 0x0040F4F0
-D2StormLinkStrc* D2StormLinkStrc::sub_0040F4F0_NextLink(int nLinkOffset)
-{
-    if ((int)m_next < 0)
-        return (D2StormLinkStrc*)~(unsigned int)m_next;
-    if (nLinkOffset < 0)
-        nLinkOffset = (char*)this - m_prevlink->m_next;
-    return (D2StormLinkStrc*)(m_next + nLinkOffset);
-}
-
-// 0x0040F880
-D2StormLinkStrc* D2StormFixedListStrc::sub_0040F880_Link(char* pNode)
-{
-    return Link(pNode);
-}
-
-// 0x0040FBB0
-void D2StormFixedListStrc::sub_0040FBB0_LinkNode(char* pNode, int nLinkType, char* pExistingNode)
-{
-    D2StormLinkStrc* pLink = Link(pNode);
-    pLink->Unlink();
-    D2StormLinkStrc* pExistingLink = Link(pExistingNode);
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->m_prevlink = pExistingLink;
-        pLink->m_next = pExistingLink->m_next;
-        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-        pExistingLink->m_next = pNode;
-        break;
-    default:
-        D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-        pLink->m_prevlink = pPrevLink;
-        pLink->m_next = pPrevLink->m_next;
-        pPrevLink->m_next = pNode;
-        pExistingLink->m_prevlink = pLink;
-        break;
-    }
-}
-
-// 0x0040FC60
-void D2StormFixedListStrc::sub_0040FC60_UnlinkNode(char* pNode)
-{
-    Link(pNode)->Unlink();
-}
-
 double __fastcall AUTOMAP_PowInt(double x, int nExp); // 0x00414220
 
 // 0x00414260
@@ -4855,6 +4777,381 @@ int __stdcall SFileOpenFileAsArchive(unsigned int hMpq, const char* szName, int 
     sub_0041C340_SetLastError(0x3EE);
     LeaveCriticalSection(&gBasePathLock_00779068);
     return 0;
+}
+
+// Link holders of the run whose types are not known yet: each constructor zeroes, each destructor unlinks.
+struct sub_00417780
+{
+    D2StormLinkStrc f_0;
+    sub_00417780();
+};
+
+struct sub_00417810
+{
+    D2StormLinkStrc f_0;
+    ~sub_00417810();
+};
+
+struct sub_00417850
+{
+    D2StormLinkStrc f_0;
+    sub_00417850();
+};
+
+struct sub_00417860
+{
+    D2StormLinkStrc f_0;
+    ~sub_00417860();
+};
+
+struct sub_004178B0
+{
+    D2StormLinkStrc f_0;
+    sub_004178B0();
+};
+
+struct sub_004178C0
+{
+    D2StormLinkStrc f_0;
+    ~sub_004178C0();
+};
+
+struct sub_00417900
+{
+    D2StormLinkStrc f_0;
+    ~sub_00417900();
+};
+
+struct sub_00417940
+{
+    D2StormLinkStrc f_0;
+    sub_00417940();
+};
+
+struct sub_00417950
+{
+    D2StormLinkStrc f_0;
+    ~sub_00417950();
+};
+
+struct sub_00417990
+{
+    D2StormLinkStrc f_0;
+    sub_00417990();
+};
+
+struct sub_004179B0
+{
+    D2StormLinkStrc f_0;
+    ~sub_004179B0();
+};
+
+struct sub_004183F0
+{
+    D2StormLinkStrc f_0;
+    ~sub_004183F0();
+};
+
+struct sub_00418430
+{
+    D2StormLinkStrc f_0;
+    ~sub_00418430();
+};
+
+struct sub_00418760
+{
+    D2StormLinkStrc f_0;
+    sub_00418760();
+};
+
+struct sub_00418770
+{
+    D2StormLinkStrc f_0;
+    sub_00418770();
+};
+
+struct sub_00418780
+{
+    D2StormLinkStrc f_0;
+    ~sub_00418780();
+};
+
+struct sub_004187C0
+{
+    D2StormLinkStrc f_0;
+    ~sub_004187C0();
+};
+
+struct sub_00418800
+{
+    D2StormLinkStrc f_0;
+    ~sub_00418800();
+};
+
+struct sub_00418840
+{
+    D2StormLinkStrc f_0;
+    ~sub_00418840();
+};
+
+struct sub_00418880
+{
+    D2StormLinkStrc f_0;
+    ~sub_00418880();
+};
+
+struct sub_004188C0
+{
+    D2StormLinkStrc f_0;
+    ~sub_004188C0();
+};
+
+struct sub_00418A40
+{
+    D2StormLinkStrc f_0;
+    sub_00418A40();
+};
+
+struct sub_00418BA0
+{
+    D2StormLinkStrc f_0;
+    ~sub_00418BA0();
+};
+
+struct sub_00418DE0
+{
+    D2StormLinkStrc f_0;
+    sub_00418DE0();
+};
+
+struct sub_00418DF0
+{
+    D2StormLinkStrc f_0;
+    sub_00418DF0();
+};
+
+struct sub_00418E00
+{
+    D2StormLinkStrc f_0;
+    sub_00418E00();
+};
+
+struct sub_00418E10
+{
+    D2StormLinkStrc f_0;
+    ~sub_00418E10();
+};
+
+struct sub_00418E50
+{
+    D2StormLinkStrc f_0;
+    sub_00418E50();
+};
+
+struct sub_00418FF0
+{
+    D2StormLinkStrc f_0;
+    sub_00418FF0();
+};
+
+struct sub_00419060
+{
+    D2StormLinkStrc f_0;
+    sub_00419060();
+};
+
+// 0x00417780
+sub_00417780::sub_00417780()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00417810
+sub_00417810::~sub_00417810()
+{
+    f_0.Unlink();
+}
+
+// 0x00417850
+sub_00417850::sub_00417850()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00417860
+sub_00417860::~sub_00417860()
+{
+    f_0.Unlink();
+}
+
+// 0x004178B0
+sub_004178B0::sub_004178B0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x004178C0
+sub_004178C0::~sub_004178C0()
+{
+    f_0.Unlink();
+}
+
+// 0x00417900
+sub_00417900::~sub_00417900()
+{
+    f_0.Unlink();
+}
+
+// 0x00417940
+sub_00417940::sub_00417940()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00417950
+sub_00417950::~sub_00417950()
+{
+    f_0.Unlink();
+}
+
+// 0x00417990
+sub_00417990::sub_00417990()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x004179B0
+sub_004179B0::~sub_004179B0()
+{
+    f_0.Unlink();
+}
+
+// 0x004183F0
+sub_004183F0::~sub_004183F0()
+{
+    f_0.Unlink();
+}
+
+// 0x00418430
+sub_00418430::~sub_00418430()
+{
+    f_0.Unlink();
+}
+
+// 0x00418760
+sub_00418760::sub_00418760()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418770
+sub_00418770::sub_00418770()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418780
+sub_00418780::~sub_00418780()
+{
+    f_0.Unlink();
+}
+
+// 0x004187C0
+sub_004187C0::~sub_004187C0()
+{
+    f_0.Unlink();
+}
+
+// 0x00418800
+sub_00418800::~sub_00418800()
+{
+    f_0.Unlink();
+}
+
+// 0x00418840
+sub_00418840::~sub_00418840()
+{
+    f_0.Unlink();
+}
+
+// 0x00418880
+sub_00418880::~sub_00418880()
+{
+    f_0.Unlink();
+}
+
+// 0x004188C0
+sub_004188C0::~sub_004188C0()
+{
+    f_0.Unlink();
+}
+
+// 0x00418A40
+sub_00418A40::sub_00418A40()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418BA0
+sub_00418BA0::~sub_00418BA0()
+{
+    f_0.Unlink();
+}
+
+// 0x00418DE0
+sub_00418DE0::sub_00418DE0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418DF0
+sub_00418DF0::sub_00418DF0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418E00
+sub_00418E00::sub_00418E00()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418E10
+sub_00418E10::~sub_00418E10()
+{
+    f_0.Unlink();
+}
+
+// 0x00418E50
+sub_00418E50::sub_00418E50()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418FF0
+sub_00418FF0::sub_00418FF0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00419060
+sub_00419060::sub_00419060()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
 }
 
 #include "gen/data/Source/Storm/SOURCE/SFILE.inc"

@@ -216,3 +216,5 @@ int __fastcall sub_004C9B40_StartCharge(D2UnitStrc* pUnit,int nSkillId,int nSkil
  SKILLS_AttachMoveSkillEndList(pUnit);
  return 1;
 }
+
+#include "gen/data/Source/D2Client/SKILLS/SkillsPal.inc"

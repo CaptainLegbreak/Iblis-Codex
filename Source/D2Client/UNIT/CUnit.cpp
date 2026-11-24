@@ -20,6 +20,7 @@
 #include "D2ObjModes.h"
 #include "D2SetsTxt.h"
 #include "D2MsgRecord.h"
+#include "D2ClientKeyConfig.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -69,9 +70,7 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);            
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
-int gnReplayEndTick;                                                                               // 0x007A2774
 
-int gbRecordPlaying;                                                                                     // 0x007A2788
 
 extern int gnAutomapOriginY;                                                                              // 0x007A5208
 
@@ -445,9 +444,6 @@ int __fastcall sub_M210_EmitTest(D2UnitStrc* pPlayer, D2UnitStrc* pUnit);
 
 int __fastcall sub_M210_EmitUse(D2UnitStrc* pUnit);
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 typedef int (__stdcall* D2FarProcFn)();
 
@@ -743,41 +739,6 @@ int __stdcall CUNIT_CheckSkillSelectProc(D2UnitStrc* pPlayer, D2UnitStrc* pTarge
 
 int __fastcall CUNIT_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, int bHitTest);
 
-// 0x004519C0
-void __cdecl CUNIT_ReplayRecords()
-{
-    if (!gbRecordPlaying)
-        return;
-    if (!gpMsgRecordChunk_0070F7A0)
-        return;
-    const int nNow = sub_0044DA90();
-    if (nNow >= gnReplayEndTick)
-    {
-        gbRecordPlaying = 0;
-        return;
-    }
-    D2MsgRecordChunkStrc* pChunk = gpMsgRecordChunk_0070F7A0;
-    D2_ASSERT(pChunk->nIndex < 500, 0x189);
-    if (!pChunk->pNext && pChunk->nCount == pChunk->nIndex)
-        return;
-    D2MsgRecordStrc* pRecord = &pChunk->tRecords[pChunk->nIndex];
-    while (pRecord->nTick <= nNow)
-    {
-        RECORD_DispatchRecordedMessage(pRecord);
-        pChunk = gpMsgRecordChunk_0070F7A0;
-        pChunk->nIndex++;
-        if (!pChunk->pNext && pChunk->nCount == pChunk->nIndex)
-            return;
-        if (pChunk->nIndex >= 500)
-        {
-            pChunk = pChunk->pNext;
-            gpMsgRecordChunk_0070F7A0 = pChunk;
-        }
-        if (!pChunk)
-            return;
-        pRecord = &pChunk->tRecords[pChunk->nIndex];
-    }
-}
 
 
 // 0x004637F0
@@ -2008,13 +1969,6 @@ int __fastcall CUNIT_IsPetSkillTarget(D2UnitStrc* unit, D2UnitStrc* target)
     return 0;
 }
 
-struct D2KeyConfigFileStrc
-{
-    unsigned short wTag;
-    unsigned short wVersion;
-    unsigned short wSize;
-    unsigned char aBody[0x474];
-};
 
 static int __stdcall CUNIT_CanInterruptSequence(int nUnused, D2UnitStrc* pUnit)
 {

@@ -240,42 +240,6 @@ void __fastcall MAINMENUS_DeleteCharFiles(const char* szCharName, const char* sz
     }
 }
 
-// 0x0043E900
-int __stdcall MAINMENUS_FindCdKeyInText(const char* szText)
-{
-    char szKey[0x400];
-    int nCount = 0;
-    const int nLength = SStrLen(szText);
-    for (int i = 0; i < nLength; ++i)
-    {
-        if (nLength - i < 16 - nCount)
-            return 0;
-
-        const char c = szText[i];
-        if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9'))
-        {
-            szKey[nCount++] = c;
-        }
-        else if (c != '-' && c != ' ')
-        {
-            nCount = 0;
-            continue;
-        }
-
-        if (nCount == 16)
-        {
-            unsigned int nProduct;
-            unsigned int nValue;
-            szKey[16] = 0;
-            if (WINMAIN_DecodeCdKey(szKey, &nProduct, &nValue)
-                && (nProduct == 6 || nProduct == 7 || nProduct == 10 || nProduct == 12))
-                return 1;
-            nCount = 0;
-        }
-    }
-    return 0;
-}
-
 D2LaunchDoneFn gpfnGatewayDone; // 0x007795BC
 
 // 0x004330A0
