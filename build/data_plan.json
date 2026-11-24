@@ -2073,8 +2073,8 @@
    "state": "included"
   },
   "Source/D2Lang/StrTable/strtable.cpp": {
-   "bytes": 936,
-   "definitions": 9,
+   "bytes": 964,
+   "definitions": 10,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Lang/StrTable/strtable.inc",
@@ -83927,6 +83927,80 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_00730524_t\n{\n    unsigned char b0[20];\n};\n#pragma pack(pop)",
    "tail": "; // 0x00730524",
    "va": "0x00730524"
+  },
+  {
+   "alias": false,
+   "cname": "gData_006E0318",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Lang/StrTable/strtable.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" const struct d2data_006E0318_t gData_006E0318; // 0x006E0318",
+   "head": "extern \"C\" const struct d2data_006E0318_t gData_006E0318 = ",
+   "name": "gData_006E0318",
+   "pointers": [
+    [
+     0,
+     "0x006E02F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006E02D8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006E02B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006E028C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006DC770",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006DC728",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CD3A0",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "rdata",
+   "size": 28,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006E0318_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x006E0318",
+   "va": "0x006E0318"
   },
   {
    "alias": false,
