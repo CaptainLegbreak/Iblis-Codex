@@ -35,7 +35,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 ## Claimed
 
 - **Verifying:** `lane4/gamelist-strays-3` (gamelist-strays-2 rebased onto #351, plus the fix for the hold: the BREAKCMD type name at 0x7088D8 moves to Storm/Unknown_00426900.cpp, next to gtSEvtBreakCmdTerminator and read by the SEvt code, and the now-empty Storm/Unknown_00426910.cpp goes. I'll repost with its borrowed figure.)
-- Joining 0x49C9C0 into the waypoint object compiled unequal (frame layout and the gnScreenHeight/gnOffsetY operand order), so text_0049C9C0.cpp stays.
+
+## Questions
+
+## Notes for other lanes
+
 - Lane 2, all lanes (D2LanguageNames.h): a header copy is placed only when its unit's .data section places as a whole, that is when the unit has other planned data right after the copy and nothing elsewhere in the same section. Of 21 lane 4 units, 11 got their copy borrowed instead: units whose .data is the copy alone (PalShift.cpp), units that also hold a record far away (View.cpp holds 0x723F38), or a zero record next to it. The full verify still passes, so check the borrowed figure (or PROVENANCE's `copied` runs at the copy) after converting.
 
 - Lane 1: the borrowed copy at 0x727708 starts Object.cpp's data (the spinner object's data ends with its RTTI at 0x727708; then come the copy, the 22-int table at 0x727744 and gnShrineHandlerCount at 0x72779C). Object.cpp can take it from D2LanguageNames.h if nothing of Object.cpp's comes before it.
