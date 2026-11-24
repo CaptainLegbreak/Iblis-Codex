@@ -35904,9 +35904,89 @@
      "name": "?DDCORE_Detect@@YIHPAX@Z"
     },
     {
+     "va": "0x00510130",
+     "length": 1,
+     "name": "?sub_00510130_DDrawNop@@YIXXZ"
+    },
+    {
+     "va": "0x00510140",
+     "length": 6,
+     "name": "DDRAW_CheckCutScene"
+    },
+    {
+     "va": "0x00510150",
+     "length": 16,
+     "name": "?sub_00510150_DDrawGetScreenSize@@YIXPAH0@Z"
+    },
+    {
      "va": "0x00510160",
      "length": 360,
      "name": "?sub_00510160_DDrawSetPalette@@YIXPAUD2PaletteEntryStrc@@@Z"
+    },
+    {
+     "va": "0x005102D0",
+     "length": 29,
+     "name": "?sub_005102D0_DDrawSetPaletteView@@YIXPAUD2GfxPaletteViewStrc@@@Z"
+    },
+    {
+     "va": "0x005102F0",
+     "length": 1,
+     "name": "?sub_005102F0_DDrawNop@@YIXXZ"
+    },
+    {
+     "va": "0x00510300",
+     "length": 16,
+     "name": "?sub_00510300_DDrawSetGamma@@YIXH@Z"
+    },
+    {
+     "va": "0x00510310",
+     "length": 6,
+     "name": "?sub_00510310_ReturnOne@@YAHXZ"
+    },
+    {
+     "va": "0x00510320",
+     "length": 3,
+     "name": "DDRAW_SetAmbientColor"
+    },
+    {
+     "va": "0x00510330",
+     "length": 1,
+     "name": "?sub_00510330_DDrawNop@@YIXXZ"
+    },
+    {
+     "va": "0x00510340",
+     "length": 3,
+     "name": "?sub_00510340_DDrawStub5@@YIXHHHHH@Z"
+    },
+    {
+     "va": "0x00510350",
+     "length": 3,
+     "name": "?sub_00510350_DDrawStub6@@YIXHHHHHH@Z"
+    },
+    {
+     "va": "0x00510360",
+     "length": 1,
+     "name": "?sub_00510360_DDrawNop@@YIXXZ"
+    },
+    {
+     "va": "0x00510370",
+     "length": 3,
+     "name": "DDRAW_GetCacheResults"
+    },
+    {
+     "va": "0x00510380",
+     "length": 3,
+     "name": "DDRAW_ActivateWindow"
+    },
+    {
+     "va": "0x00510390",
+     "length": 20,
+     "name": "?sub_00510390_DDrawSetOption@@YIHHH@Z"
+    },
+    {
+     "va": "0x005103B0",
+     "length": 3668,
+     "name": "?sub_005103B0_DDrawLogError@@YIXPBDH@Z"
     },
     {
      "va": "0x00511210",
@@ -36017,6 +36097,11 @@
      "va": "0x005136F0",
      "length": 238,
      "name": "DDRAW_DrawVideoFrame"
+    },
+    {
+     "va": "0x005137E0",
+     "length": 573,
+     "name": "?sub_005137E0_PlayBinkMovie@@YIXPBDHP6AXXZ@Z"
     }
    ]
   },
@@ -36617,97 +36702,6 @@
      "va": "0x0050FDF0",
      "length": 554,
      "name": "?sub_0050FDF0_GlidePlayVideoFile@@YIXPBDHP6AXXZ@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_00510130.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00510130",
-     "length": 1,
-     "name": "?sub_00510130_DDrawNop@@YIXXZ"
-    },
-    {
-     "va": "0x00510140",
-     "length": 6,
-     "name": "DDRAW_CheckCutScene"
-    },
-    {
-     "va": "0x00510150",
-     "length": 16,
-     "name": "?sub_00510150_DDrawGetScreenSize@@YIXPAH0@Z"
-    },
-    {
-     "va": "0x005102D0",
-     "length": 29,
-     "name": "?sub_005102D0_DDrawSetPaletteView@@YIXPAUD2GfxPaletteViewStrc@@@Z"
-    },
-    {
-     "va": "0x005102F0",
-     "length": 1,
-     "name": "?sub_005102F0_DDrawNop@@YIXXZ"
-    },
-    {
-     "va": "0x00510300",
-     "length": 16,
-     "name": "?sub_00510300_DDrawSetGamma@@YIXH@Z"
-    },
-    {
-     "va": "0x00510310",
-     "length": 6,
-     "name": "?sub_00510310_ReturnOne@@YAHXZ"
-    },
-    {
-     "va": "0x00510320",
-     "length": 3,
-     "name": "DDRAW_SetAmbientColor"
-    },
-    {
-     "va": "0x00510330",
-     "length": 1,
-     "name": "?sub_00510330_DDrawNop@@YIXXZ"
-    },
-    {
-     "va": "0x00510340",
-     "length": 3,
-     "name": "?sub_00510340_DDrawStub5@@YIXHHHHH@Z"
-    },
-    {
-     "va": "0x00510350",
-     "length": 3,
-     "name": "?sub_00510350_DDrawStub6@@YIXHHHHHH@Z"
-    },
-    {
-     "va": "0x00510360",
-     "length": 1,
-     "name": "?sub_00510360_DDrawNop@@YIXXZ"
-    },
-    {
-     "va": "0x00510370",
-     "length": 3,
-     "name": "DDRAW_GetCacheResults"
-    },
-    {
-     "va": "0x00510380",
-     "length": 3,
-     "name": "DDRAW_ActivateWindow"
-    },
-    {
-     "va": "0x00510390",
-     "length": 20,
-     "name": "?sub_00510390_DDrawSetOption@@YIHHH@Z"
-    },
-    {
-     "va": "0x005103B0",
-     "length": 3668,
-     "name": "?sub_005103B0_DDrawLogError@@YIXPBDH@Z"
-    },
-    {
-     "va": "0x005137E0",
-     "length": 573,
-     "name": "?sub_005137E0_PlayBinkMovie@@YIXPBDHP6AXXZ@Z"
     }
    ]
   },
