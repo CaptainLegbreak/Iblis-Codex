@@ -77957,6 +77957,10 @@
      "name": "?sub_0067FFB0_IsRectAdjacent@@YAHPAUD2DrlgOutRectStrc@@0@Z"
     },
     {
+     "va": "0x0067FFF0",
+     "length": 71
+    },
+    {
      "va": "0x006801A0",
      "length": 76,
      "name": "?DRLGOUTWILD_SpawnCliffCaves@@YGHPAUD2DrlgLevelStrc@@HH@Z"
@@ -77974,16 +77978,6 @@
      "va": "0x006803D0",
      "length": 269,
      "name": "?DRLGOUTWILD_SpawnTownTransitionsAndCaves@@YAXPAUD2DrlgLevelStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0067FFF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0067FFF0",
-     "length": 71
     }
    ]
   },
