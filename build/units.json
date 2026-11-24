@@ -2515,6 +2515,11 @@
      "name": "AUTOMAP_PopupButtonDownMsg"
     },
     {
+     "va": "0x00460190",
+     "length": 81,
+     "name": "?sub_00460190_DrawFrame@@YAXXZ"
+    },
+    {
      "va": "0x004601F0",
      "length": 227,
      "name": "AUTOMAP_PopupTwoButtonDownMsg"
@@ -17917,17 +17922,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00460190.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00460190",
-     "length": 81,
-     "name": "?sub_00460190_DrawFrame@@YAXXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_00460420.cpp",
    "rank": 0,
    "functions": [
@@ -20722,20 +20716,14 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00474080.cpp",
+   "file": "Source/D2Client/DRAW/dLightMap.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x00474080",
      "length": 67,
      "name": "?sub_00474080_GetDistance@@YIHHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/DRAW/dLightMap.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x004740D0",
      "length": 73,
