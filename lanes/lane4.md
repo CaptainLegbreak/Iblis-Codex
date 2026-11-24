@@ -20,8 +20,6 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 - lane4/popup-object 273819389 placeholders -1 (Unknown_0045FB40.cpp): the popup object 0x45FB40-0x46072F gathers into Unknown_00460420.cpp. Its data (copy 0x711D04, gaPopupHandlers, gaOkCancelHandlers) names eight of the run's functions, and its state 0x7A5238-0x7A525F is read by the run's functions and nothing else. The functions come from Unknown_0045FB40.cpp, ui.cpp, SCmd.cpp, View.cpp, inv.cpp, RosterPets.cpp, Player.cpp (lane 1's file: 0x460170, 0x460480 and the gbCinematicExpansion definition) and automap.cpp (including 0x460190 from singles-2); the handler tables point at their own definitions (plan externs dropped, pointers `owner`), and the popup state becomes the unit's statics (as externs, 0x45FED0 schedules its argument push after the stores). 0x45FB80 stays in its placeholder: it is an uncalled copy of the skill tree's mouse test. Borrowed data 848 B (unchanged). VERIFIED 0e6534257f6b on #364; rebased onto #365 (precheck equal). Not stacked.
 
-- lane4/bnet-prefix-2 282d453c7 no placeholder change: "<BattleNet>: " (0x6D72B0) is 13 characters and its terminator, but its record stopped at 12, so 0x6D72BC came from the image. As char[14] the last two bytes before chat.cpp's name format at 0x6D72C0 are alignment padding (PROVENANCE `padding`). Borrowed data 844 B (main 848: -4). VERIFIED 41c023894c35 on #363; rebased onto #364 (precheck equal; replaces lane4/bnet-prefix). Not stacked.
-
 ## Claimed
 
 ## Questions
