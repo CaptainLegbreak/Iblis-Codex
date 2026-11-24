@@ -4249,8 +4249,8 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/FieldTbls.cpp": {
-   "bytes": 1008,
-   "definitions": 18,
+   "bytes": 612,
+   "definitions": 11,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DATATBLS/FieldTbls.inc",
@@ -4342,8 +4342,8 @@
    "state": "included"
   },
   "Source/D2Common/Unknown_00679380.cpp": {
-   "bytes": 576,
-   "definitions": 6,
+   "bytes": 636,
+   "definitions": 7,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_00679380.inc",
@@ -5106,11 +5106,20 @@
    "state": "included"
   },
   "Source/D2Common/Unknown_0067A550.cpp": {
-   "bytes": 192,
-   "definitions": 2,
+   "bytes": 252,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_0067A550.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Common/Unknown_0067ADC0.cpp": {
+   "bytes": 96,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Common/Unknown_0067ADC0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -5169,8 +5178,8 @@
    "state": "included"
   },
   "Source/D2Common/Unknown_0067B9C0.cpp": {
-   "bytes": 152,
-   "definitions": 2,
+   "bytes": 212,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_0067B9C0.inc",
@@ -5252,8 +5261,8 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/OutPlace.cpp": {
-   "bytes": 2840,
-   "definitions": 13,
+   "bytes": 2900,
+   "definitions": 14,
    "externs": [
     "extern \"C\" void __cdecl sub_006760F0(); // 0x006760F0",
     "extern \"C\" void __cdecl sub_00676450_LinkStepDirectionSide(); // 0x00676450",
@@ -5271,8 +5280,8 @@
    "state": "included"
   },
   "Source/D2Common/PATH/PathUtil.cpp": {
-   "bytes": 375,
-   "definitions": 2,
+   "bytes": 435,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/PATH/PathUtil.inc",
@@ -141548,7 +141557,7 @@
    "cname": "gData_007499E4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DATATBLS/FieldTbls.cpp",
+   "file": "Source/D2Common/DRLG/OutPlace.cpp",
    "form": "bytes",
    "name": "gData_007499E4",
    "pointers": [
@@ -141686,7 +141695,7 @@
    "cname": "gData_00749A20",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DATATBLS/FieldTbls.cpp",
+   "file": "Source/D2Common/PATH/PathUtil.cpp",
    "form": "bytes",
    "name": "gData_00749A20",
    "pointers": [
@@ -141824,7 +141833,7 @@
    "cname": "gData_00749A5C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DATATBLS/FieldTbls.cpp",
+   "file": "Source/D2Common/Unknown_00679380.cpp",
    "form": "bytes",
    "name": "gData_00749A5C",
    "pointers": [
@@ -141962,7 +141971,7 @@
    "cname": "gData_00749A98",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DATATBLS/FieldTbls.cpp",
+   "file": "Source/D2Common/Unknown_0067A550.cpp",
    "form": "bytes",
    "name": "gData_00749A98",
    "pointers": [
@@ -142100,7 +142109,7 @@
    "cname": "gData_00749AD4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DATATBLS/FieldTbls.cpp",
+   "file": "Source/D2Common/Unknown_0067ADC0.cpp",
    "form": "bytes",
    "name": "gData_00749AD4",
    "pointers": [
@@ -142238,7 +142247,7 @@
    "cname": "gData_00749B10",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DATATBLS/FieldTbls.cpp",
+   "file": "Source/D2Common/Unknown_0067ADC0.cpp",
    "form": "bytes",
    "name": "gData_00749B10",
    "pointers": [],
@@ -142255,7 +142264,7 @@
    "cname": "gData_00749B34",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/DATATBLS/FieldTbls.cpp",
+   "file": "Source/D2Common/Unknown_0067B9C0.cpp",
    "form": "bytes",
    "name": "gData_00749B34",
    "pointers": [
