@@ -7,14 +7,10 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 09:40 PT: place-m posted (OutPlace run done). Next: Unknown_00631430 and the rest of D2Common's placeholders.
+- 2026-11-24 09:55 PT: place-h/j/k/l are in (#355, #356). place-m is rebased onto #356. Next: Unknown_00631430 and the rest of D2Common's placeholders.
 
 ## Ready
 - lane8/place-m 8329fcc0 (on #355), VERIFIED 5849b358. OutPlace.cpp takes in Unknown_00675850, 00675DE0, 006768C0 and 006769A0 (all inside its run, no copies). Link-table entries for 0x676450/0x676650/0x6768C0/0x6769A0 now point at the source functions. 00675850's four .rdata records (0x6F0620, 0x6F06F0, 0x6F1088, 0x6F112C) sit among OutPlace's tables and move with it. 0x6769A0 builds equal without /Ob1. Lane 7: OutPlace.cpp grows ~450 lines between 0x675DE0 and 0x676AE0; your 0x677880 edit is elsewhere in the file. Units -4.
-- lane8/place-l 0bf7ebd2 (on #354), VERIFIED 1c76d096. Unknown_0063E6B0 held two objects' functions. 0x63E6B0 (D2Common_11050) goes into Inventory.cpp (inside its run, 0x63E510..0x63E780). 0x664860 (11069) is one object with 0x6647C0/0x664800/0x664930 (11068, 11070) out of Unknown_00664530: copy 0x7488C0 and the skeleton/archer code tables come right after 00664530's copy 0x748884, so overlay getters and component functions are two objects. The file is renamed Unknown_006647C0.cpp. Units unchanged (one placeholder renamed).
-- lane8/place-k 9183f405 (on #354), VERIFIED 70250030. Drlg.cpp takes in Unknown_00641320 (0x641530-0x6417F0, 0x6432C0; inside Drlg's run, no copy) and 0x641510 (UnloadShrinesTxt, MonsterTbls). Unknown_0063F690 (LoadObjectsTxt, copy 0x745684) takes 0x640E90 (DataTbls) and 0x640EE0/0x640F00 (MonsterTbls), which sit between it and LoadObjGroupTxt's copy 0x7456C0. Units -1.
-- lane8/place-j 5c37b9f4 (on #354), VERIFIED 98a9fa99. InvTbls.cpp takes in Unknown_0065C130.cpp (inside InvTbls' object; no language copy of its own). Units -1.
-- lane8/place-h 326896fb (rebased on #354), VERIFIED e9b4fd0d. DrlgAnim.cpp takes in Unknown_0066D290 (on both sides of DrlgAnim's 0x66D440) and Unknown_0066D7E0 (reads DrlgAnim's .rdata). The calls from 0x66D700 now use the static's own argument order. Units -2.
 
 ## Questions
 
