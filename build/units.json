@@ -5112,6 +5112,16 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x0041DEC0",
+     "length": 52,
+     "name": "PkwareBufferRead"
+    },
+    {
+     "va": "0x0041DF00",
+     "length": 49,
+     "name": "PkwareBufferWrite"
+    },
+    {
      "va": "0x0041DF40",
      "length": 186,
      "name": "PkwareCompress"
@@ -6153,16 +6163,6 @@
      "va": "0x0041D900",
      "length": 18,
      "name": "sub_0041D900_Skip"
-    },
-    {
-     "va": "0x0041DEC0",
-     "length": 52,
-     "name": "PkwareBufferRead"
-    },
-    {
-     "va": "0x0041DF00",
-     "length": 49,
-     "name": "PkwareBufferWrite"
     },
     {
      "va": "0x0041E900",

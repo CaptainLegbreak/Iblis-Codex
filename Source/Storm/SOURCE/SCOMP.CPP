@@ -154,9 +154,7 @@ void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const 
 
 int __fastcall SSignatureVerifyStream_Finish(D2StormHashBufferStrc* pBuffer, const void* pExponent, const void* pModulus); // 0x0041D6D0
 
-unsigned int __cdecl PkwareBufferRead(char* pBuffer, unsigned int* pSize, D2StormMemSourceStrc* pSource); // 0x0041DEC0
 
-void __cdecl PkwareBufferWrite(char* pBuffer, unsigned int* pSize, D2StormMemSinkStrc* pSink); // 0x0041DF00
 
 extern "C" unsigned int __cdecl sub_006B01B0_Explode(unsigned int (__cdecl* pRead)(char*, unsigned int*, D2StormMemSourceStrc*), void (__cdecl* pWrite)(char*, unsigned int*, D2StormMemSinkStrc*), char* pWork, void* pParam); // 0x006B01B0
 
@@ -268,6 +266,27 @@ SCompBufferState gSCompBuffer_0077920C;         // 0x0077920C
 
 
 int __fastcall SSignatureVerify(const char* pData, int nSize, const void* pExponent, unsigned int nSignSize, const void* pModulus, int nModulusSize); // 0x0041D7D0
+
+void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
+
+// 0x0041DEC0
+unsigned int __cdecl PkwareBufferRead(char* pBuffer, unsigned int* pSize, D2StormMemSourceStrc* pSource)
+{
+    unsigned int nAvail = pSource->nSize - pSource->nPos;
+    unsigned int nSize = *pSize < nAvail ? *pSize : nAvail;
+    SMemCopy(pBuffer, pSource->pBuffer + pSource->nPos, nSize);
+    pSource->nPos += nSize;
+    return nSize;
+}
+
+// 0x0041DF00
+void __cdecl PkwareBufferWrite(char* pBuffer, unsigned int* pSize, D2StormMemSinkStrc* pSink)
+{
+    unsigned int nAvail = pSink->nSize - pSink->nPos;
+    unsigned int nSize = *pSize < nAvail ? *pSize : nAvail;
+    SMemCopy(pSink->pBuffer + pSink->nPos, pBuffer, nSize);
+    pSink->nPos += nSize;
+}
 
 // 0x0041DF40
 void __fastcall PkwareCompress(char* pDst, unsigned int* pDstLen, char* pSrc, unsigned int nSrcLen, int* pType, int nLevel)
@@ -827,7 +846,6 @@ struct D2SCompDecompStrc
 };
 
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 void __fastcall HuffmanCompress(void* pvOutBuffer, int* pcbOutBuffer, void* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel); // 0x0041F980
 void __fastcall HuffmanDecompress(void* pOut, unsigned int* pcbOut, void* pIn, unsigned int cbIn, int nExtra); // 0x0041F9E0
 
