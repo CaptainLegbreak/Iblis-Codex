@@ -17,12 +17,12 @@ Bytes of the built Game.exe by origin:
 
 | Origin | Bytes |
 |---|---:|
-| game code and data compiled from Source/ | 2,689,110 |
-| initialised data generated from your Game.exe (build/data_plan.json) | 373,001 |
+| game code and data compiled from Source/ | 2,689,532 |
+| initialised data generated from your Game.exe (build/data_plan.json) | 372,577 |
 | C runtime (libcmt.lib, placed by identity) | 239,696 |
 | import thunks and the import address table | 3,782 |
 | headers, import and export tables, relocations, checksum | 163,407 |
-| alignment padding | 122,052 |
+| alignment padding | 122,054 |
 | code taken from your Game.exe (unmatched functions) | 12,041 |
 | data no source defines yet, taken from your Game.exe | 3,415 |
 | resources (from your Game.exe) | 5,888 |
@@ -42,16 +42,16 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 920 |
+| Compilation units | 918 |
 | … in a file with its original name, whole | 287 |
 | … pieces of an original file still split (in 36 files) | 114 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 519 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3020 |
-| Unnamed fields (`unk0x..`) in the shared headers | 668 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 517 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3047 |
+| Unnamed fields (`unk0x..`) in the shared headers | 671 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
-| Calling-convention shims | 115 |
-| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 583 |
-| `__declspec(noinline)` / `__forceinline` | 101 / 213 |
+| Calling-convention shims | 86 |
+| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 502 |
+| `__declspec(noinline)` / `__forceinline` | 100 / 212 |
 | Function names: blizzard / d2moo / inferred / placeholder | 460 / 5409 / 5292 / 3766 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3827 functions are compiled with `/GS-` and 895 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 101 times and `__declspec(dllexport)` 172 times to keep a body out of line or emitted.
+Not listed one by one: 3875 functions are compiled with `/GS-` and 921 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 100 times and `__declspec(dllexport)` 172 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -97,9 +97,9 @@ Not listed one by one: 3827 functions are compiled with `/GS-` and 895 with `/EH
 | 0x00401A30 | ?strrchr@@YAPADPADH@Z | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00401A40 | ERRORMANAGER_LockSymbols | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00401A70 | ERRORMANAGER_SetMiniDumpThreadName | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x00401DF0 | sub_00401DF0_GetModuleFromAddr | `Fog/Unknown_00401DF0.cpp` | calling-convention shim, link-time code generation (/GL /LTCG) |
+| 0x00401DF0 | sub_00401DF0_GetModuleFromAddr | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) |
 | 0x00401F10 | sub_00401F10_GetSymbolFromAddr | `Fog/Unknown_00401DF0.cpp` | calling-convention shim, link-time code generation (/GL /LTCG) |
-| 0x004020D0 | sub_004020D0_GetLineFromAddr | `Fog/Unknown_00401DF0.cpp` | calling-convention shim, link-time code generation (/GL /LTCG) |
+| 0x004020D0 | sub_004020D0_GetLineFromAddr | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) |
 | 0x004021D0 | sub_004021D0_EnumerateModules | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) |
 | 0x00402280 | sub_00402280_SetSearchPath | `Fog/Unknown_00402280.cpp` | link-time code generation (/GL /LTCG) |
 | 0x00402380 | sub_00402380_FindFileInPath | `Fog/Unknown_00402380.cpp` | link-time code generation (/GL /LTCG) |
@@ -378,6 +378,23 @@ Not listed one by one: 3827 functions are compiled with `/GS-` and 895 with `/EH
 | 0x004207E0 | ~sub_004207E0 | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x00423DC0 | Div | `Storm/Unknown_00423DC0.cpp` | __assume |
 | 0x00424B00 | sub_00424B00_BigSquare | `Storm/Unknown_00424B00.cpp` | __assume |
+| 0x00425720 | sub_00425720_Rotl | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
+| 0x00425730 | sub_00425730_Sha1Round0 | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
+| 0x00425770 | sub_00425770_Sha1Round1 | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
+| 0x004257B0 | sub_004257B0_Sha1Round2 | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
+| 0x004257F0 | sub_004257F0_Sha1Round3 | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
+| 0x00425830 | sub_00425830_LoadBE32 | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
+| 0x00425850 | sub_00425850_Sha1Transform | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
+| 0x00425D90 | Initialize | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
+| 0x00425DD0 | Append | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
+| 0x00425E80 | sub_00425E80_PutBE64 | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
+| 0x00425EE0 | sub_00425EE0_PutBE32 | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
+| 0x00425F00 | sub_00425F00_Final | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
+| 0x00425FE0 | sub_00425FE0_Apply | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
+| 0x00426010 | sub_00426010_ReadFill | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
+| 0x00426050 | sub_00426050_Call | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
+| 0x00426070 | Prepare | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
+| 0x004260A0 | Process | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
 | 0x00426900 | sub_00426900_Next | `Storm/Unknown_00426900.cpp` | compiler option /Ob2 |
 | 0x00426910 | sub_00416800_LinkRawNext | `Storm/Unknown_00426910.cpp` | compiler option /Ob2 |
 | 0x00426960 | ~sub_00426960 | `Fog/Src/LogManager.cpp` | compiler option /EHa |
@@ -482,14 +499,11 @@ Not listed one by one: 3827 functions are compiled with `/GS-` and 895 with `/EH
 | 0x00446D30 | COMCALLBACK_GetUserRank | `D2Multi/Src/ComCallback.cpp` | calling-convention shim |
 | 0x00450390 | sub_00450390_NewNode | `Storm/Unknown_00426910.cpp` | compiler option /Ob2 |
 | 0x00450FA0 | sub_00450FA0_NewNode | `Storm/Unknown_00426910.cpp` | compiler option /Ob2 |
-| 0x00461DC0 | PLAYER_InteractWithUnit | `D2Client/UNIT/Player.cpp` | calling-convention shim |
-| 0x004623C0 | PLAYER_ClampTarget | `D2Client/UNIT/Player.cpp` | calling-convention shim |
 | 0x00463260 | sub_00463260_UpdateStoredUnit | `D2Client/Unknown_004630E0.cpp` | calling-convention shim |
 | 0x00468750 | sub_00468750_SetCursorPos | `D2Client/Unknown_00468750.cpp` | compiler option /Ob1 |
 | 0x0046E040 | GFX_RemoveStateOverlay | `D2Client/ENGINE/Gfx_0046DCC0.cpp` | calling-convention shim |
 | 0x004732C0 | sub_004732C0_StepParticles | `D2Client/ENGINE/Gfx.cpp` | volatile read or qualifier |
 | 0x00474160 | DLIGHTMAP_MakeLightEntry | `D2Client/DRAW/dLightMap.cpp` | volatile read or qualifier |
-| 0x00477060 | PALSHIFT_BuildBloodShift | `D2Client/GAME/PalShift.cpp` | calling-convention shim |
 | 0x00477DD0 | sub_00477DD0 | `D2Client/Unknown_00477760.cpp` | __assume |
 | 0x004815A0 | sub_004815A0_TryUnitAction | `D2Client/Unknown_004815A0.cpp` | calling-convention shim |
 | 0x0049D5A0 | sub_0049D5A0_UpdateScrollText | `D2Client/UI/text_0049D5A0.cpp` | calling-convention shim |
@@ -551,8 +565,10 @@ Not listed one by one: 3827 functions are compiled with `/GS-` and 895 with `/EH
 | 0x004FA410 | D2Win_10029 | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FA420 | D2Win_10030_CONTROL_ToggleFourthFlag | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FA450 | CONTROL_SetEscapeButton | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
+| 0x004FA460 | D2Win_IsMouseButtonPressed | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FA470 | D2Win_10033 | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FA490 | CONTROL_GetType | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
+| 0x004FA4B0 | CONTROL_GetActiveControlList | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FA4C0 | D2Win_COMMANDS_NcMouseMove | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FA4F0 | D2Win_COMMANDS_MouseLeave | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FA520 | D2Win_CreateWindow | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
@@ -569,7 +585,6 @@ Not listed one by one: 3827 functions are compiled with `/GS-` and 895 with `/EH
 | 0x004FBF30 | TEXTBOX_Draw | `D2Win/Src/D2WinTextBox.cpp` | volatile read or qualifier |
 | 0x004FD5D0 | IMAGE2_HandleMouseDown | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FE710 | EDITBOX_HandleMultiLineMouseDown | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
-| 0x00501A80 | FONT_DrawString | `D2Win/Src/D2WinFont.cpp` | calling-convention shim |
 | 0x00502550 | D2Win_10128 | `D2Win/Src/D2WinFont.cpp` | __assume |
 | 0x00503FA0 | D2COMP_AddHoverTextLine | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x00508610 | POPUP_AddLine | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
@@ -650,18 +665,14 @@ Not listed one by one: 3827 functions are compiled with `/GS-` and 895 with `/EH
 | 0x0051D860 | BNNEWS_ParseNewsInfo | `D2BNClient/BNNews.cpp` | compiler option /Ob1 |
 | 0x0051DA30 | BNNEWS_LoadNews | `D2BNClient/BNNews.cpp` | compiler option /Ob1 |
 | 0x0051DF90 | BNNEWS_TryDecodeCDKey | `D2BNClient/BNNews.cpp` | compiler option /Ob1 |
-| 0x0051E920 | BNDOWNLOAD_ExtractFile | `D2BNClient/BnDownload.cpp` | calling-convention shim |
 | 0x00522C30 | BNDOWNLOAD_InitCipherKeys | `D2BNClient/BnDownload.cpp` | volatile read or qualifier |
 | 0x005232B0 | sub_005232B0_DecodeAndValidate | `Bnclient/Unknown_00520DC0.cpp` | calling-convention shim |
 | 0x00523350 | GRID_CopyDecodedKeys | `D2BNClient/grid.cpp` | calling-convention shim |
-| 0x00524C60 | STRTABLE_FindKey | `D2Lang/StrTable/strtable.cpp` | calling-convention shim |
 | 0x0052C900 | GAME_TriggerClientSave | `D2Game/GAME/Game.cpp` | volatile read or qualifier |
-| 0x00540DF0 | EVENT_AllocateUnitTimer | `D2Game/GAME/Event.cpp` | calling-convention shim |
 | 0x005485B0 | PLRMSG_GetPotionLifePercent | `D2Game/PLAYER/PlrMsg.cpp` | calling-convention shim |
 | 0x00574250 | MONSTER_Initialize | `D2Game/MONSTER/Monster_00574250.cpp` | compiler option /Ob1 |
 | 0x00579090 | SUNITNPC_RefillNpcStore | `D2Game/UNIT/SUNITNPC.CPP` | volatile read or qualifier |
 | 0x0057BF10 | SUNITDMG_AbsorbDamage | `D2Game/UNIT/SUnitDmg.cpp` | calling-convention shim |
-| 0x0057F700 | PLRMODE_CreateDeadBody | `D2Game/PLAYER/PlrModes.cpp` | calling-convention shim |
 | 0x00580C20 | PLRMODE_UpdateMovement | `D2Game/PLAYER/PlrModes.cpp` | volatile read or qualifier |
 | 0x00588E10 | sub_00588E10_IsMonsterNearby | `D2Game/Unknown_00588E10.cpp` | compiler option /Ob1 |
 | 0x005A48C0 | MONSTERUNIQUE_PromoteToChampion | `D2Game/MONSTER/MonsterUnique_005A49B0.cpp` | compiler option /Ob1 |
@@ -733,7 +744,7 @@ Not listed one by one: 3827 functions are compiled with `/GS-` and 895 with `/EH
 | 0x005ADA80 | MISSMODE_GetPierceFlags | `D2Game/MISSILES/MissMode.cpp` | calling-convention shim |
 | 0x005AF170 | MISSMODE_SrvDo16_FrozenOrbNova | `D2Game/MISSILES/MissMode.cpp` | __assume |
 | 0x005B0FF0 | D2GAME_AICORE_MinionLeash_6FCF0D10 | `D2Game/Ai/AiThink.cpp` | volatile read or qualifier |
-| 0x005B2830 | MONSTERSPAWN_SpawnMinionParty | `D2Game/Unknown_005B24E0.cpp` | calling-convention shim, volatile read or qualifier |
+| 0x005B2830 | MONSTERSPAWN_SpawnMinionParty | `D2Game/Unknown_005B24E0.cpp` | volatile read or qualifier |
 | 0x005B2A00 | D2GAME_SpawnNormalMonster | `D2Game/Unknown_005B24E0.cpp` | volatile read or qualifier |
 | 0x005C09E0 | SKILLITEM_EventFunc31_Reanimate | `D2Game/SKILLS/SkillItem.cpp` | volatile read or qualifier |
 | 0x005C3300 | SKILLS_CanReviveCorpse | `D2Game/SKILLS/SkillNec.cpp` | calling-convention shim |
@@ -742,21 +753,17 @@ Not listed one by one: 3827 functions are compiled with `/GS-` and 895 with `/EH
 | 0x005D81C0 | SKILLS_SrvDo069_FindPotion | `D2Game/Unknown_005D81C0.cpp` | compiler option /Ob1 |
 | 0x005EB970 | AITHINK_Fn106_143_ShadowMaster | `D2Game/Ai/AiThink4.cpp` | volatile read or qualifier |
 | 0x005EEDA0 | AITHINK_AncientBarb2SkillHandler | `D2Game/Unknown_005EEDA0.cpp` | compiler option /Ob1 |
-| 0x005FC450 | AIBAAL_RollRandomAiParamForNonCollidingUnit | `D2Game/Ai/AiBaal.cpp` | calling-convention shim |
-| 0x005FFE90 | D2CMPSpriteLoadDc6Entry | `D2CMP/SRC/SpriteCache.cpp` | calling-convention shim |
 | 0x006009C0 | sub_006009C0 | `D2CMP/Unknown_006009C0.cpp` | compiler option /Od, compiler option /Oi, compiler option /Oy, without /Oy- |
 | 0x0060B280 | sub_0060B280_ReadBitsSigned | `D2CMP/Unknown_0060B280.cpp` | calling-convention shim, compiler option /Ob1 |
 | 0x0060D6F0 | SubTileConvertPixels24To8 | `D2CMP/SRC/SubTile.cpp` | calling-convention shim |
-| 0x0060DA80 | SubTileConvertFloor24To8 | `D2CMP/SRC/SubTile.cpp` | calling-convention shim |
 | 0x00621F90 | UNITS_AllocPlayerData | `D2Common/UNITS/Units.cpp` | volatile read or qualifier |
 | 0x00628830 | ITEMS_ApplyAffixLevelRequirement | `D2Common/ITEMS/Items.cpp` | calling-convention shim |
-| 0x006292F0 | ITEMS_CalculateAdditionalCostsForSocketables | `D2Common/ITEMS/Items.cpp` | calling-convention shim |
 | 0x0062A370 | ITEMS_GetSetItemsMask | `D2Common/ITEMS/Items.cpp` | volatile read or qualifier |
 | 0x006419F0 | D2Common_10406 | `D2Common/DRLG/Drlg.cpp` | volatile read or qualifier |
 | 0x00647280 | SKILLS_AssignSkill | `D2Common/SKILLS/Skills.cpp` | volatile read or qualifier |
 | 0x00649970 | D2Common_10142 | `D2Common/PATH/Path.cpp` | volatile read or qualifier |
 | 0x0064A400 | MISSILE_SetOwner | `D2Common/Unknown_0064A400.cpp` | compiler option /Ob1 |
-| 0x00651040 | sub_00651040_ComputeDepths | `D2Common/Unknown_0064FC60.cpp` | __assume |
+| 0x00651040 | sub_00651040_ComputeDepths | `D2Common/DATATBLS/MonsterTbls.cpp` | __assume |
 | 0x0065A710 | UNITFINDS_IsInRoomRange | `D2Common/UNITS/UnitFinds.cpp` | calling-convention shim |
 | 0x0065EA50 | ITEMMODS_AddPropertyToItemStatList | `D2Common/ITEMS/ItemMods.cpp` | volatile read or qualifier |
 | 0x00660D10 | DATATBLS_GetInvRectFromBeltsTxt | `D2Common/DATATBLS/BeltTbls.cpp` | volatile read or qualifier |
@@ -777,7 +784,6 @@ Not listed one by one: 3827 functions are compiled with `/GS-` and 895 with `/EH
 | 0x006B83A0 | sub_006B83A0_DrawPerspective | `D2Direct3D/Unknown_006B7530.cpp` | volatile read or qualifier |
 | 0x006B8DF0 | sub_006B8DF0_DrawTransparentWallTile | `D2Direct3D/Unknown_006B8DF0.cpp` | calling-convention shim |
 | 0x006BCE20 | EXCEL_MapColumns | `Fog/Src/Excel/Excel.cpp` | calling-convention shim |
-| 0x006BD490 | EXCEL_InsertLinkNode | `Fog/Src/Excel/Excel.cpp` | calling-convention shim |
 | 0x006BD780 | FOG_10207 | `Fog/Src/Excel/Excel.cpp` | __assume |
 | 0x006BE3C0 | QSERVER_FreeAllSlots | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006BE450 | FOG_10180 | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
@@ -852,11 +858,6 @@ Not listed one by one: 3827 functions are compiled with `/GS-` and 895 with `/EH
 | 0x006C0770 | QSERVER_BanClient | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006C0800 | QSERVER_BanAddress | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006C08A0 | QSERVER_ProcessReceived | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
-| 0x006C5B10 | CompressPcxRow | `Storm/SOURCE/SBMP.CPP` | calling-convention shim |
-| 0x006C5B60 | EncodePcx256File | `Storm/SOURCE/SBMP.CPP` | calling-convention shim |
-| 0x006C60F0 | DecodeBmpMem | `Storm/SOURCE/SBMP.CPP` | calling-convention shim |
-| 0x006C61C0 | EncodeBmp256File | `Storm/SOURCE/SBMP.CPP` | calling-convention shim |
-| 0x006C6370 | sub_006C6370_AddChar | `Storm/SOURCE/SBMP.CPP` | calling-convention shim |
 | 0x006C77F0 | SUniConvertUTF16ToCP | `Storm/Unknown_006C7000.cpp` | volatile read or qualifier |
 | 0x006C7A70 | GDI_Init | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7AB0 | GDI_Close | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
