@@ -9,6 +9,7 @@
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
 #include "D2Txt.h"
+#include "D2ClientStatButton.h"
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -30,16 +31,6 @@ struct D2SkillDescTxt;
 struct D2UiCelFileStrc;
 struct D2SkillIconStateStrc;
 
-#pragma pack(push, 2)
-struct D2BeltSlotStrc
-{
-    int nX;
-    int nY;
-    int bActive;
-    unsigned short wCode;
-};
-
-#pragma pack(pop)
 
 extern int gnScreenWidth; // 0x0071146C
 extern int gnPanelOffsetX; // 0x007A2858

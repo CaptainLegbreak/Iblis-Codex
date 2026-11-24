@@ -14,6 +14,7 @@
 #include "D2LevelTxt.h"
 #include "D2StatIds.h"
 #include "D2MsgRecord.h"
+#include "D2ClientStatButton.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -621,9 +622,6 @@ extern D2TextListStrc gtOverheadTextList; // 0x007BF1EA
 
 extern D2TextListStrc gtTextHistory; // 0x007BF1F0
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 extern "C" __declspec(dllimport) int __stdcall IntersectRect(D2RectStrc* pDest, const D2RectStrc* pSrc1, const D2RectStrc* pSrc2); // 0x006CC4C4
 
@@ -693,9 +691,6 @@ extern D2CelFileStrc* gpScroin2_007BF270; // 0x007BF270
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char* szFormat, ...); // 0x006CC468
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 int __cdecl sub_00525150();
 
@@ -915,9 +910,6 @@ static int TEXT_GetKeyConfigButtonAt(int nX, int nY);
 
 int gtQuestLog; // 0x007BF298
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 int __stdcall TEXT_IsAbovePanelLine(int nX); // 0x004A4780
 
@@ -959,9 +951,6 @@ void __fastcall TEXT_ScrollKeyConfigList(int nStep);
 
 #define STAT_NEWSKILLS 5
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 void __cdecl CMDTBL_SaveAndBindHotkeys(); // 0x00469D40
 
@@ -1167,13 +1156,7 @@ extern void* gpBuySellCel; // 0x007C0DC8
 
 extern void* gpGoldBtnCel; // 0x007C0DCC
 
-#pragma pack(push, 2)
 
-#pragma pack(pop)
-
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 struct D2StringSoundStrc
 {
@@ -1288,9 +1271,6 @@ static int TEXT_FormatPartyEvent(Unicode* pOut, D2GSPacketSrv5A* pPacket); // 0x
 
 void __fastcall sub_0049E3A0_ShowChatText(const Unicode* wszText, char nColor);
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 extern "C" __declspec(dllimport) int __stdcall SetRect(D2RectStrc* pRect, int nLeft, int nTop, int nRight, int nBottom);
 
@@ -1357,9 +1337,6 @@ int gnTextActive; // 0x007BF1C0
 
 struct D2KeyConfigButtonStrc;
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 
 
@@ -1529,9 +1506,6 @@ struct D2QuestLogStateStrc
 
 extern D2QuestLogStateStrc gtQuestLog_007BF298; // 0x007BF298
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
@@ -1543,17 +1517,8 @@ unsigned short gwTextPanelClassId; // 0x007BF234
 
 D2TextHeaderStrc* gpTextHeader; // 0x007BF250
 
-#pragma pack(push, 1)
 
-#pragma pack(pop)
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
-
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 extern D2ClientListEntryStrc gaKeyConfigEntries[]; // 0x00724268
 
@@ -1616,15 +1581,9 @@ extern D2UiEntry10Strc gaQuestLookup[41]; // 0x00723F38
 
 extern D2QuestUiFlagsStrc gtQuestUiFlags_007BF2B3; // 0x007BF2B3
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 Unicode* __fastcall strncpy(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 static void TEXT_FreeTextNode(D2TextNodeStrc* pNode); // 0x0049D490
 
@@ -5230,15 +5189,6 @@ inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 
 
 
-#pragma pack(push, 2)
-struct D2BeltSlotStrc
-{
-    int nX;
-    int nY;
-    int bActive;
-    unsigned short wCode;
-};
-#pragma pack(pop)
 
 
 extern D2BeltSlotStrc gaStatButtons[4];                                                                  // 0x00724A48
