@@ -18,12 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/warden-4922a0-2 9ed7ff28a no placeholder change: WardenClient.cpp's 0x4922A0 (WARDENCLIENT_HandlePanelAreaClick, the inventory panel's click handler) moves to inv_0048DD90.cpp, whose run it sits in, just before 0x492310. Like the other inventory fragments, inv_0048DD90.cpp now keeps gnInvMouseX/gnInvMouseY (0x7BCA4C/0x7BCBD8) as statics; as externs the compiler schedules the argument push after the two stores. WardenClient.cpp drops its now unused copies. Borrowed data 975 B (unchanged). VERIFIED 0af7ddc0ca29 on #357 (replaces lane4/warden-4922a0). Not stacked; touches inv_0048DD90.cpp like small-gaps, in different lines.
-
-- lane4/small-gaps (being replaced by small-gaps-2, rebased onto #357; verifying) no placeholder change: six small borrowed data blocks are their records' own bytes. The hotkey command table at 0x712698 has 57 entries (the dispatcher's `gaActions` at 0x71269C was the same table read from its second field; it now uses `gaHotkeyCommands[i].pfnUnk0x04`/`.nModeFlag`), so the 8 B at 0x71293C are the last entry's fields. The option headers are D2OptionHeaderStrc's five fields (20 B; 0x714220 and the stray record 0x714234 are their nY). The token separator 0x712FFC is in .data, so its record is not const; that puts the blink delay's padding at 0x713002 in place. The inventory slot offsets 0x7220B0-0x72210F are twelve D2CoordStrc pairs (zero x offsets are in .data only as members). The NPC tabs 0x722110 are one `D2PanelTabStrc gaNpcTabs[4]` record in inv_004886C0.cpp (it was split over three files; 0x722154 is the last bEnabled). Borrowed data 953 B (main 999). VERIFIED 0ec817980320 on #356. Not stacked. Touches only lane 4 files.
-
 ## Claimed
-
 
 ## Questions
 
@@ -49,7 +44,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 - WardenClient.cpp: of the strays listed earlier, 0x479230, 0x4936E0 and 0x496B10-0x496BE0 have gone to RosterPets.cpp and Hireables.cpp, and 0x4922A0 is on `warden-4922a0`. 0x4E6560 and the text panel opener 0x4A1320 are in lane 1's range now (0x4A1320 belongs to the text unit by its data, gnTextTop 0x7225FC, but brings the text panel globals WardenClient.cpp defines under other types).
 - 0x70F814 and 0x722314 (4 zero bytes before ui.cpp's and panel.cpp's language table copies): alignment padding, but only once the copy is the first data of its unit. D2LanguageNames.h with a build symbol marker stops the link ("static data marker disagrees with the section's other anchors"): neither unit's .data is in the original order (panel.cpp defines gbControlPanelMouseDown before gnUiRecordIndex; ui.cpp's data has another file's 32 bytes at 0x70F858). Parked until those units' data are in order.
-- 0x47C420: retried in chat.cpp. It differs only by an esi/edi swap throughout; turning each other chat.cpp function before or after it into a declaration does not change it, so the cause is in the declarations, not the code.
+- 0x47C420: retried in chat.cpp. It differs only by an esi/edi swap throughout. Not the cause: any other chat.cpp function's definition (each one, and all its chat.cpp callees together, turned into declarations), or whether gbNoPickup, gnLanguageId and gbChatInputOpen are defined or extern. So it is the order or set of declarations.
+- Weather block: in Unknown_00472210.cpp, 0x4726F0 and 0x473090 inline the seed roll differently (different length); Unknown_00472890/004737B0 and Gfx.cpp's 0x473A70 need their declarations sorted first.
 - 0x70F564/0x70F5EC and 0x6D5E8C/0x6D5EA0: RTTI type descriptor headers (type_info vftable, spare) of SGAMEDATA and TSHashTable<SGAMEDATA,HASHKEY_NONE>, and slots 2-3 of the two hash table vtables at 0x6D5E80. They come with one definition of the Storm list and hash table templates (see the Game.cpp/Unknown_0044F9B0 item); the plan's gszType* char arrays are those descriptors' names.
 
 
@@ -61,5 +57,5 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 - WardenClient.cpp 0x47F8B0-0x47F990 and Unknown_0047F950: no assert; they sit on the chat/Warden boundary just before 0x47FA20.
 - Weather block 0x472210-0x473F50: no assert path or data reference names its file yet.
 - Unknown_0046C7D0: Gfx.cpp would inline its functions into 0x46CE40 and 0x46D780.
-- Hireables.cpp's four placeholders (0x493A00, 0x493B50, 0x493CE0, 0x493E10): they disagree on the pet-icon helpers' argument order; aligning the calls made seven functions differ.
+- Hireables.cpp's four placeholders (0x493A00, 0x493B50, 0x493CE0, 0x493E10): they disagree on the pet-icon helpers' argument order; aligning the calls made seven functions differ. Retried one at a time in Hireables.cpp: 0x493B50 and 0x493CE0 differ only by ebx/edi swaps, the other two are rejected forms.
 
