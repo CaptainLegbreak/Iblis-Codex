@@ -1,11 +1,12 @@
 #include "D2Drlg.h"
 
+#include "D2Common.h"
+
 #include "D2DrlgMaps.h"
 
 #include "D2DrlgRooms.h"
 
 static T00681490* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal);
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
@@ -19,9 +20,9 @@ int __fastcall sub_6FDAB750(int nX1, int nY1, int nX2, int nY2);              //
 
 extern const unsigned char gPathTurns[4][4]; // 0x006F2840
 
-extern const char gPathStepY[4];
+extern const char gPathStepY[4]; // 0x006F2850
 
-extern const char gPathStepX[4];
+extern const char gPathStepX[4]; // 0x006F2854
 
 // 0x00681490
 static T00681490* sub_00681490(D2DrlgPathSearchStrc* pSearch)
@@ -66,6 +67,188 @@ static int __stdcall sub_00681510(T00681490* pNode, int nX, int nY)
 static const unsigned char* __stdcall sub_00681540(unsigned char nDirection, unsigned char nBase)
 {
     return gPathTurns[(unsigned char)(nDirection - nBase) & 3];
+}
+
+
+// 0x00681560
+static T00681490* __stdcall sub_00681560(T00681490* pNode, T00681490** ppStart)
+{
+    if (pNode->nTried < 4)
+    {
+        ++pNode->pTurn;
+        pNode->nDirection = (*pNode->pTurn + pNode->nDirection) & 3;
+    }
+    ++pNode->nTried;
+
+    while (pNode->nTried == 3)
+    {
+        if (pNode == *ppStart)
+        {
+            return 0;
+        }
+
+        pNode = pNode->pParent;
+        ++pNode->pTurn;
+        pNode->nDirection = (*pNode->pTurn + pNode->nDirection) & 3;
+        ++pNode->nTried;
+    }
+
+    return pNode;
+}
+
+// 0x006815C0
+static int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2DrlgLevelStrc* pLevel, T00681490* pNode)
+{
+    if (nX == pGoal->nPosX && nY == pGoal->nPosY)
+    {
+        return 1;
+    }
+
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
+    if (!DRLGROOM_AreXYInsideCoordinates(&pInfo->tCoords, nX, nY) || (DRLGGRID_GetGridEntry(&pInfo->pGrid[2], nX, nY) & 0x200))
+    {
+        return 0;
+    }
+
+    for (T00681490* pParent = pNode; pParent; pParent = pParent->pParent)
+    {
+        if (pParent->nX == nX && pParent->nY == nY)
+        {
+            return 0;
+        }
+    }
+
+    return 1;
+}
+
+// 0x00681630
+static T00681490* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal)
+{
+    T00681490* pNode = pSearch->pStart;
+    int nGoalX = pGoal->nPosX;
+    int nGoalY = pGoal->nPosY;
+
+    while (1)
+    {
+        if (pNode->nX == nGoalX && pNode->nY == nGoalY)
+        {
+            return pNode;
+        }
+
+        int nX = gPathStepX[pNode->nDirection] + pNode->nX;
+        int nY = gPathStepY[pNode->nDirection] + pNode->nY;
+        if (!sub_006815C0(pGoal, nX, nY, pLevel, pNode))
+        {
+            pNode = sub_00681560(pNode, &pSearch->pStart);
+            if (!pNode)
+            {
+                return 0;
+            }
+            continue;
+        }
+
+        int nSpent = pNode->nSpent + sub_00681510(pNode, nX, nY);
+
+        const int rawX = nX - nGoalX;
+        int dx = rawX < 0 ? -rawX : rawX;
+        const int rawY = nY - nGoalY;
+        int dy = rawY < 0 ? -rawY : rawY;
+        int nMin = dx;
+        if (dx >= dy)
+        {
+            nMin = dy;
+            if (dx > dy)
+                dy = dx;
+        }
+        int nEstimate = nMin + 2 * dy;
+        int nCost = nEstimate + nSpent;
+        if (nCost > nMaxCost)
+        {
+            pNode = sub_00681560(pNode, &pSearch->pStart);
+            if (!pNode)
+            {
+                return 0;
+            }
+            continue;
+        }
+
+        if (!pNode->pChild)
+        {
+            pNode->pChild = sub_00681490(pSearch);
+            if (!pNode->pChild)
+            {
+                return 0;
+            }
+            pNode->pChild->pParent = pNode;
+        }
+
+        pNode = pNode->pChild;
+        pNode->nEstimate = nEstimate;
+        pNode->nCost = nCost;
+        pNode->nSpent = nSpent;
+        pNode->nTried = 0;
+        int nBase = sub_00678CF0(nX, nY, nGoalX, nGoalY) / 2;
+        pNode->pTurn = sub_00681540(pNode->pParent->nDirection, nBase);
+        pNode->nDirection = (*pNode->pTurn + nBase) & 3;
+        pNode->nX = nX;
+        pNode->nY = nY;
+    }
+}
+
+// build: context sub_M_Emit_006814E0
+// emits the static 0x006814E0, which the original inlines into 0x00681630 and also keeps (not game code)
+T00681490* __stdcall sub_M_Emit_006814E0(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal)
+{
+    T00681490* pNode = pSearch->pStart;
+    int nGoalX = pGoal->nPosX;
+    int nGoalY = pGoal->nPosY;
+
+    while (1)
+    {
+        if (pNode->nX == nGoalX && pNode->nY == nGoalY)
+        {
+            return pNode;
+        }
+
+        int nX = gPathStepX[pNode->nDirection] + pNode->nX;
+        int nY = gPathStepY[pNode->nDirection] + pNode->nY;
+        if (sub_006815C0(pGoal, nX, nY, pLevel, pNode))
+        {
+            int nSpent = pNode->nSpent + sub_00681510(pNode, nX, nY);
+            int nEstimate = sub_006814E0(nX, nY, nGoalX, nGoalY);
+            int nCost = nEstimate + nSpent;
+            if (nCost <= nMaxCost)
+            {
+                if (!pNode->pChild)
+                {
+                    pNode->pChild = sub_00681490(pSearch);
+                    if (!pNode->pChild)
+                    {
+                        return 0;
+                    }
+                    pNode->pChild->pParent = pNode;
+                }
+
+                pNode = pNode->pChild;
+                pNode->nEstimate = nEstimate;
+                pNode->nCost = nCost;
+                pNode->nSpent = nSpent;
+                pNode->nTried = 0;
+                int nBase = sub_6FDAB750(nX, nY, nGoalX, nGoalY) / 2;
+                pNode->pTurn = sub_00681540(pNode->pParent->nDirection, nBase);
+                pNode->nDirection = (*pNode->pTurn + nBase) & 3;
+                pNode->nX = nX;
+                pNode->nY = nY;
+                continue;
+            }
+        }
+
+        pNode = sub_00681560(pNode, &pSearch->pStart);
+        if (!pNode)
+        {
+            return 0;
+        }
+    }
 }
 
 // 0x006817D0
@@ -167,113 +350,6 @@ int __fastcall sub_006817D0(D2DrlgLevelStrc* pLevel, int nRoad)
     while (nMaxCost < nLimit);
 
     return 0;
-}
-
-static T00681490* __stdcall sub_00681560(D2DrlgPathSearchStrc* pSearch, T00681490* pNode)
-{
-    if (pNode->nTried < 4)
-    {
-        ++pNode->pTurn;
-        pNode->nDirection = (*pNode->pTurn + pNode->nDirection) & 3;
-    }
-
-    ++pNode->nTried;
-    if (pNode->nTried == 3)
-    {
-        do
-        {
-            if (pNode == pSearch->pStart)
-            {
-                return 0;
-            }
-
-            pNode = pNode->pParent;
-            ++pNode->pTurn;
-            pNode->nDirection = (*pNode->pTurn + pNode->nDirection) & 3;
-            ++pNode->nTried;
-        }
-        while (pNode->nTried == 3);
-    }
-
-    return pNode;
-}
-
-static int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2DrlgLevelStrc* pLevel, T00681490* pNode)
-{
-    if (nX == pGoal->nPosX && nY == pGoal->nPosY)
-    {
-        return 1;
-    }
-
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
-    if (!DRLGROOM_AreXYInsideCoordinates(&pInfo->tCoords, nX, nY) || (DRLGGRID_GetGridEntry(&pInfo->pGrid[2], nX, nY) & 0x200))
-    {
-        return 0;
-    }
-
-    for (; pNode; pNode = pNode->pParent)
-    {
-        if (pNode->nX == nX && pNode->nY == nY)
-        {
-            return 0;
-        }
-    }
-
-    return 1;
-}
-
-static T00681490* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal)
-{
-    T00681490* pNode = pSearch->pStart;
-    int nGoalX = pGoal->nPosX;
-    int nGoalY = pGoal->nPosY;
-
-    while (1)
-    {
-        if (pNode->nX == nGoalX && pNode->nY == nGoalY)
-        {
-            return pNode;
-        }
-
-        int nX = gPathStepX[pNode->nDirection] + pNode->nX;
-        int nY = gPathStepY[pNode->nDirection] + pNode->nY;
-        if (sub_006815C0(pGoal, nX, nY, pLevel, pNode))
-        {
-            int nSpent = pNode->nSpent + sub_00681510(pNode, nX, nY);
-            int nEstimate = sub_006814E0(nX, nY, nGoalX, nGoalY);
-            int nCost = nEstimate + nSpent;
-            if (nCost <= nMaxCost)
-            {
-                if (!pNode->pChild)
-                {
-                    pNode->pChild = sub_00681490(pSearch);
-                    if (!pNode->pChild)
-                    {
-                        return 0;
-                    }
-                    pNode->pChild->pParent = pNode;
-                }
-
-                pNode = pNode->pChild;
-                pNode->nEstimate = nEstimate;
-                pNode->nCost = nCost;
-                pNode->nSpent = nSpent;
-                pNode->nTried = 0;
-                int nBase = sub_6FDAB750(nX, nY, nGoalX, nGoalY) / 2;
-                pNode->pTurn = sub_00681540(pNode->pParent->nDirection, nBase);
-                pNode->nDirection = (*pNode->pTurn + nBase) & 3;
-                pNode->nX = nX;
-                pNode->nY = nY;
-                continue;
-            }
-        }
-
-        pNode = sub_00681560(pSearch, pNode);
-        if (!pNode)
-        {
-            return 0;
-        }
-    }
 }
 
 #include "gen/data/Source/D2Common/Unknown_00681490.inc"

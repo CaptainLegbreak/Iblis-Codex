@@ -49,6 +49,50 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
+// 0x0067D7E0
+static inline void __fastcall sub_0067D7E0_SetOffsetCoords(D2DrlgCoordStrc* pCoords, D2DrlgCoordStrc* pLinkCoords, int nRand, int nLinkRand)
+{
+    switch (nRand)
+    {
+    case 0:
+        pCoords->nWidth = 64;
+        pCoords->nHeight = 160;
+        break;
+    case 1:
+        pCoords->nWidth = 160;
+        pCoords->nHeight = 64;
+        break;
+    }
+
+    const int nIndex = nRand + 2 * nLinkRand;
+    pCoords->nPosX = gOutdoorOrthOffsets[nIndex].nX + pLinkCoords->nPosX;
+    pCoords->nPosY = gOutdoorOrthOffsets[nIndex].nY + pLinkCoords->nPosY;
+}
+
+// build: context sub_M_Emit_0067D7E0
+// emits the static 0x0067D7E0 the way its lost caller did (not game code)
+int __fastcall sub_M_Emit_0067D7E0(D2DrlgLevelLinkDataStrc* pLevelLinkData)
+{
+    if (pLevelLinkData->nRand[1][pLevelLinkData->nIteration] == -1)
+    {
+        pLevelLinkData->nRand[1][pLevelLinkData->nIteration] = SEED_RollRandomNumber(&pLevelLinkData->pSeed) & 1;
+        pLevelLinkData->nRand[0][pLevelLinkData->nIteration] = pLevelLinkData->nRand[1][pLevelLinkData->nIteration];
+    }
+    else
+    {
+        const int bRand0IsNull = pLevelLinkData->nRand[0][pLevelLinkData->nIteration] == 0;
+        if (bRand0IsNull == pLevelLinkData->nRand[1][pLevelLinkData->nIteration])
+        {
+            return 0;
+        }
+        pLevelLinkData->nRand[0][pLevelLinkData->nIteration] = bRand0IsNull;
+    }
+
+    const int nLevelLink = pLevelLinkData->pLink[pLevelLinkData->nIteration].nLevelLink;
+    sub_0067D7E0_SetOffsetCoords(&pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration], &pLevelLinkData->pLevelCoord[nLevelLink], pLevelLinkData->nRand[0][pLevelLinkData->nIteration], pLevelLinkData->nRand[0][nLevelLink]);
+    return 1;
+}
+
 // 0x0067D830
 int __fastcall DRLGOUTROOM_LinkLevelsByLevelCoords(D2DrlgLevelLinkDataStrc* pLevelLinkData)
 {
