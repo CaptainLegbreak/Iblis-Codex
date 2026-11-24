@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/small-records-e 63739ae2 562->562 Two small headers, each included only by the units that had identical private copies: D2ClientDialogWidget.h (a dialog's widget list node; SoundInst, dialog, Unknown_004B8100) and D2ProfileCounter.h (the 0x78-byte profiling counter behind gaProfEntries; ProfCore, Ignorelist, Unknown_006115F0). The widget class itself stays private, because dialog.cpp describes different virtual slots from the other two; VERIFIED d89704bbe5964435dd4a4b2d77925077555095d0
+  - Verified on ff0dd9c4, rebased onto 8aca510f. Precheck is equal there.
+  - Outside lane 2: 3 D2Client units (lanes 1 and 4), 3 D2Common units (lane 8).
+
 - lane2/small-records-d 894afc59 562->562 Two small headers, each included only by the units that had identical private copies: D2UnitDropPacket.h (the 10-byte drop-items packet SCMD_DropUnitItems reads; SCmd, CharSel, CharSel_0042E600) and D2DrlgDelete.h (the deletion node an active room keeps in pDrlgDelete; Dungeon, Level, PlrSave). The D2Drlg.h version flipped ItemTbls, LvlTbls and D2Comp; VERIFIED faf2ca554a78fe19bb8e0b40ecfb88bcdf0e77f7
   - Verified on 89693ff5, rebased onto ff0dd9c4. Precheck is equal there.
   - Outside lane 2: SCmd (lane 4), CharSel x2 (lane 6), Dungeon (lane 8), Level and PlrSave (lane 5).
