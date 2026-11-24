@@ -73415,6 +73415,10 @@
      "name": "MISSILE_GetHitClass"
     },
     {
+     "va": "0x0064A5F0",
+     "length": 65
+    },
+    {
      "va": "0x0064A640",
      "length": 36,
      "name": "_sub_0064A640@4"
@@ -73423,6 +73427,10 @@
      "va": "0x0064A670",
      "length": 29,
      "name": "MISSILE_GetAnimSpeed"
+    },
+    {
+     "va": "0x0064A690",
+     "length": 58
     },
     {
      "va": "0x0064A6D0",
@@ -73468,6 +73476,10 @@
      "va": "0x0064AA60",
      "length": 319,
      "name": "?sub_0064AA60_ScaleElements@@YAXHPAUDamage@@@Z"
+    },
+    {
+     "va": "0x0064ABA0",
+     "length": 180
     },
     {
      "va": "0x0064AC60",
@@ -73537,38 +73549,6 @@
      "va": "0x0064B860",
      "length": 1780
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0064A2B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0064A5F0",
-     "length": 65
-    },
-    {
-     "va": "0x0064A690",
-     "length": 58
-    },
-    {
-     "va": "0x0064ABA0",
-     "length": 180
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

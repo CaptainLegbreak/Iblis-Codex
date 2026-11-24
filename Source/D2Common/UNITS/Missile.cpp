@@ -1078,6 +1078,16 @@ int __stdcall MISSILE_GetHitClass(D2UnitStrc* pMissile)
     return 0;
 }
 
+// 0x0064A5F0
+void __stdcall MISSILE_SetActivateFrame(D2UnitStrc* pMissile, int nActivateFrame)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE && pMissile->pMissileData)
+    {
+        nActivateFrame = D2_MIN(D2_MAX(nActivateFrame, -32768), 32767);
+        pMissile->pMissileData->nActivateFrame = nActivateFrame;
+    }
+}
+
 // 0x0064A640
 extern "C" __declspec(dllexport) int __stdcall sub_0064A640(Unit0064A640* pUnit) {
     if (pUnit && pUnit->nType == 3 && pUnit->pData) {
@@ -1094,6 +1104,15 @@ int __stdcall MISSILE_GetAnimSpeed(D2UnitStrc* pMissile)
         return pMissile->wAnimSpeed;
     }
     return 0;
+}
+
+// 0x0064A690
+void __stdcall MISSILE_SetAnimSpeed(D2UnitStrc* pMissile, int nAnimSpeed)
+{
+    if (pMissile && pMissile->dwUnitType == UNIT_MISSILE)
+    {
+        pMissile->wAnimSpeed = D2_MIN(D2_MAX(nAnimSpeed, -32768), 32767);
+    }
 }
 
 // 0x0064A6D0
@@ -1250,6 +1269,7 @@ static void sub_0064AA60_ScaleElements(int factor, Damage* damage)
     }
 }
 
+// 0x0064ABA0
 static int sub_0064ABA0_ElementBonus(int amount, int kind, Unit* unit)
 {
     int bonus;
