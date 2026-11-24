@@ -11,6 +11,7 @@
 #include "D2MultiTypes.h"
 #include "D2Win32Types.h"
 #include "D2Win32System.h"
+#include "D2MultiCharSave.h"
 struct _iobuf;
 
 typedef struct _iobuf FILE;
@@ -41,26 +42,6 @@ void __stdcall FOG_Encode14BitsToString(unsigned char* pStream, unsigned short n
 
 extern const char gszDefaultSaveName_0070CCC8[]; // 0x0070CCC8
 
-struct D2CharSaveHeaderStrc
-{
-    unsigned int dwMagic;
-    unsigned int dwVersion;
-    unsigned int dwSize;
-    unsigned int dwChecksum;
-    char unk0x10[0x13F];
-};
-struct D2CharSaveFileStrc
-{
-    unsigned int dwMagic;
-    unsigned int dwVersion;
-    unsigned int dwSize;
-    unsigned int dwChecksum;
-    char unk0x10[0x08];
-    unsigned int dwOldFlags;
-    char unk0x1C[0x08];
-    unsigned int dwFlags;
-    char unk0x28[0x1FD8];
-};
 void* __fastcall FOG_CreateFileA(const char* szPath, unsigned long dwAccess, unsigned long dwShare, void* pSecurity, unsigned long dwCreation, unsigned long dwFlags, void* hTemplate); // 0x00406960
 int __fastcall FOG_ReadFile(void* hFile, void* pBuffer, unsigned long nSize, unsigned long* pRead, void* pOverlapped); // 0x004069B0
 int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nSize, unsigned long* pWritten, void* pOverlapped); // 0x004069D0
