@@ -740,6 +740,200 @@ __forceinline int UNITS_GetUnitYPositionInline(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
+int __fastcall SKILLS_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5);   // 0x0056F640
+
+// 0x005CAE40
+int __fastcall SKILLS_SrvSt42_FireHit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    if (!pUnit || pUnit->dwUnitType != UNIT_PLAYER)
+    {
+        D2DamageStrc damage;
+        memset(&damage, 0, sizeof(damage));
+        damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel), 0);
+        if (damage.wResultFlags & 1)
+        {
+            damage.wResultFlags |= pSkillsTxtRecord->wResultFlags;
+            damage.dwHitFlags |= pSkillsTxtRecord->dwHitFlags;
+            if (pSkillsTxtRecord->dwHitClass)
+            {
+                damage.dwHitClass = pSkillsTxtRecord->dwHitClass;
+            }
+
+            sub_6FC627B0(pUnit, 8);
+        }
+
+        SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, 0x80);
+
+        return 1;
+    }
+
+    return SKILLS_SrvSt32_Conversion_Bash_Stun_Concentrate_BearSmite(pGame, pUnit, nSkillId, nSkillLevel);
+}
+
+// 0x005CAF30
+int __fastcall SKILLS_SrvDo083_FireHit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
+    SUNITDMG_FreeAttackerDefenderCombatList(pGame, pUnit, pTarget);
+    return SKILLS_StartSkill(pGame, pUnit, nSkillId, nSkillLevel, 0);
+}
+
+// 0x005CAF80
+int __fastcall SKILLS_SrvSt43_MaggotEgg(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags &= 0xFFFFFFF1;
+    }
+
+    PATH_SetUnitDeadCollision(pUnit, 1);
+    return 1;
+}
+
+// 0x005CAFA0
+int __fastcall SKILLS_SrvDo084_MaggotEgg(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    int nSpawnMode;
+    const int nSummonId = D2GAME_GetSummonIdFromSkill_6FD15580(pUnit, 1, nSkillId, nSkillLevel, &nSpawnMode, 0, 0);
+    if (nSummonId < 0)
+    {
+        return 0;
+    }
+
+    if (!UNITS_GetUsedSkill(pUnit))
+    {
+        return 0;
+    }
+
+    pUnit->dwSeqSpeed = 0;
+
+    const int nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+    if (nCount > 0)
+    {
+        int nCounter1 = 0;
+        D2UnitStrc* pSummon = MONSTERSPAWN_SpawnAtUnit(pGame, pUnit, nSummonId, nSpawnMode, -1, 0);
+        if (pSummon)
+        {
+            nCounter1 = 1;
+            pSummon->dwFlags |= UNITFLAG_NOXP;
+        }
+
+        int nCounter2 = 1;
+        for (int i = 0; nCounter1 < nCount; i += 1)
+        {
+            if (nCounter2 >= 5 || i >= 2 * nCount)
+            {
+                break;
+            }
+
+            pSummon = MONSTERSPAWN_SpawnAtUnit(pGame, pUnit, nSummonId, MONMODE_SKILL1, nCounter2, 0);
+            if (pSummon)
+            {
+                pSummon->dwFlags |= UNITFLAG_NOXP;
+                nCounter1 += 1;
+            }
+            else
+            {
+                nCounter2 += 1;
+            }
+        }
+    }
+
+    SUNITDMG_KillMonster(pGame, pUnit, pUnit, 1);
+    return 1;
+}
+
+// 0x005CB0C0
+int __fastcall SKILLS_SrvDo085_UnholyBolt_ShamanFire(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    int nMissileId = pSkillsTxtRecord->wSrvMissileA;
+    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
+    }
+
+    const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
+
+    int nMissileOffset;
+    DATATBLS_GetMonsterChainInfo(nClassId, 0, &nMissileOffset);
+    nMissileId += nMissileOffset;
+    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    SKILLS_CreateMissileAtOffset(pGame, nMissileId, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 0);
+    return 1;
+}
+
+static int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x005CB170
+int __fastcall SKILLS_SrvSt44_MaggotUp(Game* game,D2UnitStrc* unit,int skillId,int level)
+{
+    if(!SUNIT_TeleportUnit(game,unit,UNITS_GetRoom(unit),UNITS_GetUnitXPosition(unit),UNITS_GetUnitYPosition(unit),0,0)) return 0;
+    unit->dwFlags |= UNIT_FLAGS;
+    COLLISION_SetMaskWithPattern(UNITS_GetRoom(unit),UNITS_GetUnitXPosition(unit),UNITS_GetUnitYPosition(unit),1,0x1000);
+    return 1;
+}
+
 // 0x005CB270
 int __fastcall SKILLS_SrvSt45_MaggotDown(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -1286,6 +1480,62 @@ int __fastcall SKILLS_SrvDo091_Nest_EvilHutSpawner(D2GameStrc* pGame, D2UnitStrc
     }
 
     return 1;
+}
+
+// 0x005CBF30
+int __fastcall SKILLS_SrvSt50_QuickStrike(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    D2DamageStrc damage;
+    memset(&damage, 0x00, sizeof(damage));
+    SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, 128);
+    return 1;
+}
+
+// 0x005CBF90
+int __fastcall SKILLS_SrvDo092_QuickStrike(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
+    SUNITDMG_FreeAttackerDefenderCombatList(pGame, pUnit, pTarget);
+
+    int nMissileId = pSkillsTxtRecord->wSrvMissileA;
+    if (nMissileId < 0)
+    {
+        if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
+        {
+            nMissileId = D2Common_11050(pUnit, 1);
+        }
+
+        if (nMissileId < 0)
+        {
+            return 0;
+        }
+    }
+
+    if (nMissileId < sgptDataTables->nMissilesTxtRecordCount)
+    {
+        SKILLS_CreateMissileAtOffset(pGame, nMissileId, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 1);
+        return 1;
+    }
+
+    return 0;
 }
 
 static inline D2SkillsTxt* GetSkillsTxtRecord(int nId)
@@ -2265,6 +2515,136 @@ int __fastcall SKILLS_SrvDo104_DiabPrison(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     return 0;
 }
 
+// 0x005CD6A0
+int __fastcall SKILLS_SrvDo105_DesertTurret(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    const int nMissileId = pSkillsTxtRecord->wSrvMissileA;
+    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
+    }
+
+    int nTargetX;
+    int nTargetY;
+    if (!D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nTargetX, &nTargetY))
+    {
+        return 0;
+    }
+
+    const int nX = CLIENTS_GetUnitX(pUnit);
+    const int nY = CLIENTS_GetUnitY(pUnit);
+    int nOffsetX = nTargetX - nX;
+    int nOffsetY = nTargetY - nY;
+    if (!nOffsetX && !nOffsetY)
+    {
+        return 0;
+    }
+
+    int nBaseX = 0;
+    int nBaseY = 0;
+    if (nOffsetX < 0 && nOffsetY < 0)
+    {
+        nBaseX = 2;
+        nBaseY = -2;
+    }
+    else if (nOffsetX == 0 && nOffsetY < 0)
+    {
+        nBaseX = 2;
+    }
+    else if (nOffsetX > 0 && nOffsetY < 0)
+    {
+        nBaseX = 2;
+        nBaseY = 2;
+    }
+    else if (nOffsetX > 0 && nOffsetY == 0)
+    {
+        nBaseY = 2;
+    }
+    else if (nOffsetX > 0 && nOffsetY > 0)
+    {
+        nBaseX = -2;
+        nBaseY = 2;
+    }
+    else if (nOffsetX == 0 && nOffsetY > 0)
+    {
+        nBaseX = -2;
+    }
+    else if (nOffsetX < 0 && nOffsetY > 0)
+    {
+        nBaseX = -2;
+        nBaseY = -2;
+    }
+    else if (nOffsetX < 0 && nOffsetY == 0)
+    {
+        nBaseY = -2;
+    }
+
+    const int nSubMissiles = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+    nOffsetX -= nSubMissiles / 2 * nBaseX;
+    nOffsetY -= nSubMissiles / 2 * nBaseY;
+
+    D2MissileStrc missileParams;
+    memset(&missileParams, 0, sizeof(missileParams));
+    missileParams.dwFlags = 3;
+    for (int i = 0; i < nSubMissiles; ++i)
+    {
+        missileParams.pOwner = pUnit;
+        missileParams.nX = nX + nOffsetX / 6;
+        missileParams.nY = nY + nOffsetX / 6;
+        missileParams.nTargetX = nOffsetX;
+        missileParams.nTargetY = nOffsetY;
+        missileParams.nSkillLevel = nSkillLevel;
+        missileParams.nMissile = nMissileId;
+        MISSILES_CreateMissileFromParams(pGame, &missileParams);
+        nOffsetX += nBaseX;
+        nOffsetY += nBaseY;
+    }
+
+    return 1;
+}
+
+int __stdcall DATATBLS_GetMissileVelocityFromMissilesTxt(int nMissileId, int nLevel);                       // 0x00663270
+
+// 0x005CD870
+int __fastcall SKILLS_SrvDo106_ArcaneTower(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    const int nMissileId = pSkillsTxtRecord->wSrvMissileA;
+    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
+    }
+
+    if (!SUNIT_GetTargetUnit(pGame, pUnit))
+    {
+        return 0;
+    }
+
+    SKILLS_CreateMissileRing(pGame, pUnit, pUnit, nMissileId, nSkillId, nSkillLevel, DATATBLS_GetMissileVelocityFromMissilesTxt(nMissileId, nSkillLevel));
+    return 1;
+}
+
 struct MissileRecord;
 
 struct MonsterData;
@@ -2482,6 +2862,50 @@ int __fastcall SKILLS_RollMonFrenzyDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         }
 
         SKILLS_SetParam1(pSkill, 0);
+    }
+
+    return 1;
+}
+
+// 0x005CE0B0
+int __fastcall SKILLS_SrvDo149_NecromageMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    if (!SUNIT_GetTargetUnit(pGame, pUnit))
+    {
+        return 0;
+    }
+
+    int nMissileId = pSkillsTxtRecord->wSrvMissileA;
+    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    const unsigned char nComponent = (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) ? pUnit->pMonsterData->nComponent[11] : 0;
+    nMissileId += nComponent;
+    if (nMissileId >= sgptDataTables->nMissilesTxtRecordCount || !sub_0046ACE0(nMissileId))
+    {
+        return 0;
+    }
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
+    }
+
+    if (pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_01 >> 3] & gdwBitMasks[SKILLSFLAGINDEX_01 & 7])
+    {
+        SKILLS_CreateMissileFromOrigin(pGame, nMissileId, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 0);
+    }
+    else
+    {
+        SKILLS_CreateMissileAtOffset(pGame, nMissileId, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 0);
     }
 
     return 1;
