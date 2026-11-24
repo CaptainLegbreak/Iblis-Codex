@@ -4,6 +4,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/d2launch-entry ae5417a7 519->520 As decided: D2Launch/Unknown_0042E590.cpp takes sub_0042E590_SetOwner (from Storm/Unknown_00426900) and sub_0042E5A0_Nop (from lane 6's D2Launch/Unknown_0042E5A0.cpp), with gpOwner_00779324. Its .data: the language copy at 0x708930 from D2LanguageNames.h (the trees.c record goes) and gaTable_0070896C, now 4 B. The 60 B that record swallowed are the 0x708970 copy, now a MainMenus.cpp record in front of gData_007089AC (plan only; MainMenus.cpp source untouched). VERIFIED 740bbd4b on base f5e0e3e9 (#329; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 2,382 B). Not stacked. **Lane 6:** this touches your Unknown_0042E5A0.cpp (one function out) and MainMenus.cpp's plan entry.
+
 - lane3/fog-log-strays-2 c00e5335 519->519 Two LogManager.cpp-run functions filed in Exceptions.cpp move to LogManager.cpp: 0x410540 (log system start-up, renamed LOGMANAGER_InitLogSystem from the inferred EXCEPTIONS_ name; counterpart of sub_0040FFD0_ShutdownLogSystem) and 0x40FD00 (the log list's UnlinkAll, inline like SFILE's). LogManager.cpp also takes the definitions of ganLogNewFile, gbLogInitialized, gaszLogFilePaths and gnLogThreadId (their .bss neighbours are LogManager's). VERIFIED 97903cb1 on base cbd4f9ec (j88), then rebased onto 4bf262f6 (j90) and prechecked ( 14,918/14,918; borrowed code 12,041 B / 9 functions, data 2,507 B). Not stacked.
 
 ## Claimed
