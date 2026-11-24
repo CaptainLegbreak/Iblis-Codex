@@ -4,14 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/npcmenu-copy b87ee9fa6 0->0 gData_00725340 (Monster.cpp, 156 B) is 96 B of Monster.cpp's animation records and the language-name copy at 0x7253A0, which runs into gnHandlerCount (0x7253DC), npcmenu.cpp's first data; the copy is planned in npcmenu.cpp (mine since the ownership change); VERIFIED bd7b6ae990231ef9bee7d13bff6f286e1caca1a6
-  - based on main #333.
-
-- lane1/listbox-copy f08e1065c 0->0 gapfnObjectClientFn (Object.cpp) is 19 entries, not 34; the 60 B after it are the language-name copy that starts the list-box object's data (Unknown_004BC1B0.cpp, next in code order; the ListBoxWrapper/ListBoxImplementation type descriptors follow the copy), planned there with its data include; VERIFIED 38a9dbb9f02514f471456c6dd475b9852cf99c95
-  - based on main #332.
-
-- lane1/useitem-copies-2 0ea6cf293 0->0 the language-name copies between Object.cpp and Skills.cpp, by code order list-box object, useitem.cpp, showitems.cpp, Item.cpp, Skills.cpp: the borrowed copy 0x7278C0 is useitem.cpp's (it runs into gnHotspotCount and the hotspot bytes at 0x727900, which move from Item.cpp's plan to useitem.cpp's); gaUseItemHandlers is 8 entries, not 18, and the 120 B after it are showitems.cpp's copy (0x7279B0; it has no other .data) and Item.cpp's (0x7279EC); gData_00727A4C (64 B, Item.cpp) is 4 B of Item.cpp and Skills.cpp's copy (0x727A50); borrowed data 2,382 -> 2,314 B; VERIFIED 15d39f57aa190f215ca2d273d6c4c777661ac7c4
-  - based on main #331. Replaces lane1/useitem-copies (same change on #329). useitem.cpp/showitems.cpp are in my range since the ownership change. Left: 0x72783C (the list-box object's copy, inside gapfnObjectClientFn, which is really 19 entries) and moving Item.cpp's 0x4BFBC0 into useitem.cpp (needs the two D2HotspotStrc definitions unified; goes with the gaUseItemHotspots[2] / 0x4C0550 work).
+- lane1/skills-objects 32fd04d76 +2 placeholders (Unknown_004C9420.cpp, Unknown_004C9D50.cpp; Unknown_004C9320.cpp becomes Unknown_004E6E30.cpp) the four back-to-back copies 0x727DBC-0x727EAC are four data-less objects between Skills.cpp and UnitSnd.cpp: SkillsBar.cpp (on main), 0x4C9420-0x4C97C0 (new placeholder; SkillsPal's 0x4C9B40 calls the 43-byte 0x4C9460 out of line, so it is not SkillsPal code), SkillsPal.cpp, and 0x4C9D50-0x4CA280 (new placeholder; its .bss gdwNextTick 0x7C78B0 sits right before UnitSnd.cpp's gaLevelVisited 0x7C78B8). Each takes its copy; 0x4C9420's object takes the offset tables 0x4C9490 reads; Skills.cpp's 0x4C9060 (inside SkillsBar's run) joins SkillsBar.cpp; Skills.cpp keeps a context copy of 0x4C9D50, which 0x4C9060 inlines and nothing calls; VERIFIED b916f65a6436560a80b546124259bcd7fa2f1e3f
+  - based on main #337. Left: Skills.cpp's 0x4C8670 (inside SkillsBar's run) needs gaLobBrackets' type in SkillsBar.cpp.
 
 ## In progress
 
