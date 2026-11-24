@@ -511,24 +511,6 @@ extern "C" B27RecordHandler __fastcall sub_005173D3_ExchangeRecordHandler(B27Rec
 
 static inline int TEXT_FindEntryIndex(int nId);
 
-static int __stdcall TEXT_GetQuestTabAtPoint(int nY, int nX); // 0x004A26F0
-
-static void sub_004A2390_ResetQuestSelection();
-
-static int TEXT_GetQuestSlotAtPoint(int nX, int nY); // 0x004A2630
-
-static unsigned char TEXT_HitTestQuestCloseButton(int nX, int nY); // 0x004A2690
-
-static unsigned char sub_004A2610_HitTestButtonA(int nX, int nY);
-
-static void TEXT_OpenQuestDescription(int nSlot); // 0x004A27D0
-
-
-
-
-
-
-
 
 
 // 0x004A01A0
@@ -600,77 +582,9 @@ void __stdcall TEXT_KeyDownMsg(SMSGHANDLER_PARAMS* pMsg)
     }
 }
 
-// 0x004A18E0
-static inline void TEXT_SetQuestIndex(int nIndex)
-{
-// build: symbol ?gnQuestSelectedSlot@* 0x007BF2B9
-    gnQuestSelectedSlot = nIndex;
-}
-
-int __fastcall sub_M115_Emit_004A18E0(int nIndex, int nId)
-{
-    TEXT_SetQuestIndex(nIndex);
-    return TEXT_FindEntryIndex(nId);
-}
 
 
-// 0x004A1910
-static inline int TEXT_FindQuestIndex(int nKey)
-{
-    for (int i = 0; i < 41; i++)
-    {
-        if (gaQuestLookup[i].nKey == nKey)
-            return i;
-    }
-    return -1;
-}
 
-// 0x004A1930
-static inline int TEXT_FindEntryIndex(int nId)
-{
-    for (int i = 0; i < 41; i++)
-    {
-        if (gaQuestLookup[i].nId == nId)
-            return i;
-    }
-    return -1;
-}
-
-int __fastcall sub_M224_Emit_004A1910(int nIndex, int nKey)
-{
-    gnQuestSelectedSlot = nIndex;
-    return TEXT_FindQuestIndex(nKey);
-}
-
-// build: symbol ?TEXT_SetQuestPage@* 0x004A2220
-static void TEXT_SetQuestPage(int nPage)
-{
-    if (nPage >= 5)
-    {
-        nPage = 0;
-    }
-    switch (nPage)
-    {
-    case 4:
-        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x1A, 0)) nPage = 3;
-    case 3:
-        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x17, 0)) nPage = 2;
-    case 2:
-        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0xF, 0)) nPage = 1;
-    case 1:
-        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 7, 0)) nPage = 0;
-    }
-// build: symbol ?gnPage@* 0x007C0255
-    gnPage = nPage;
-    for (int i = 0; i < 6; ++i)
-    {
-        ganGlobal_007C0225[i] = 0;
-        ganGlobal_007C023D[i] = 0;
-    }
-    gnQuestSelectedSlot = -1;
-// build: symbol ?gnQuestPressedSlot@* 0x007BF2B5
-    gnQuestPressedSlot = -1;
-}
 
 
 // build: symbol _TEXT_ClearListFlags 0x004A01E0
@@ -681,166 +595,7 @@ extern "C" void __cdecl TEXT_ClearListFlags(void)
 }
 
 
-void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    int nX = D2_LOWORD(pMsg->lParam);
-    int nY = D2_HIWORD(pMsg->lParam);
-    int nIndex;
-    if (sub_00483350())
-    {
-        return;
-    }
-    if (nX > gnScreenWidth / 2)
-    {
-        return;
-    }
-    if (D2GFX_GetResolutionMode() == 2)
-    {
-        if (nY > gnScreenHeight - 0x2F) return;
-    }
-    else
-    {
-        if (nY > gnScreenHeight - 0x31) return;
-    }
-    nX -= gnPanelOffsetX;
-    nY += gnPanelOffsetY;
-    if (!gbQuestDescriptionOpen)
-    {
-        nIndex = TEXT_GetQuestTabAtPoint(nY, nX);
-        if (nIndex != -1)
-        {
-// build: symbol ?FOG_IsExpansion@* 0x00408F20
-            if (nIndex < 5 && nIndex != gnPage && ((FOG_IsExpansion() && GAME_IsExpansion()) || nIndex != 4))
-            {
-                sub_004A2760(gnPage);
-                TEXT_SetQuestPage(nIndex);
-                TEXT_LoadQuestPage(gnPage, 1);
-                sub_004A2390_ResetQuestSelection();
-            }
-        }
-        else
-        {
-            nIndex = TEXT_GetQuestSlotAtPoint(nX, nY);
-            if (nIndex != -1 && nIndex < gnQuestCount)
-            {
-                for (int i = 0; i < gnQuestCount; ++i)
-                {
-                    if (nIndex == gaQuestEntries[i].nSlot && gaQuestEntries[i].bEnabled)
-                    {
-// build: symbol ?gbQuestSlotDown@* 0x007BF2B1
-                        gbQuestSlotDown = 1;
-                        gnQuestPressedSlot = nIndex;
-                        sub_004B9A00(4, 0, 0, 0, 0);
-                    }
-                }
-            }
-            else
-            {
-                if (TEXT_HitTestQuestCloseButton(nX, nY))
-                {
-                    gbGlobal_007BF2B2 = 1;
-                    sub_004B9A00(4, 0, 0, 0, 0);
-                }
-                else if (sub_004A2610_HitTestButtonA(nX, nY))
-                {
-                    gbGlobal_007BF2B4 = 1;
-                    sub_004B9A00(4, 0, 0, 0, 0);
-                }
-            }
-        }
-    }
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
 
-void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    int nX = D2_LOWORD(pMsg->lParam) - gnPanelOffsetX;
-    int nY = D2_HIWORD(pMsg->lParam) + gnPanelOffsetY;
-    if (gbGlobal_007BF2B2)
-    {
-        if (TEXT_HitTestQuestCloseButton(nX, nY)) TEXT_ToggleQuestLog(0);
-    }
-    else if (!gbQuestDescriptionOpen)
-    {
-        if (gnQuestPressedSlot != -1)
-        {
-            int nSlot = TEXT_GetQuestSlotAtPoint(nX, nY);
-            if (nSlot == gnQuestPressedSlot)
-            {
-// build: symbol ?gaQuestPageSelection@* 0x007BF2BD
-                gaQuestPageSelection[gnPage] = nSlot;
-                gnQuestSelectedSlot = nSlot;
-            }
-        }
-        else if (gbGlobal_007BF2B4 == 1)
-        {
-            if (sub_004A2610_HitTestButtonA(nX, nY) && gnQuestSelectedSlot != -1)
-            {
-                TEXT_OpenQuestDescription(gnQuestSelectedSlot);
-            }
-        }
-    }
-    sub_004A2390_ResetQuestSelection();
-    if (D2_LOWORD(pMsg->lParam) > gnScreenWidth / 2) return;
-    if (D2GFX_GetResolutionMode() == 2)
-    {
-        if (D2_HIWORD(pMsg->lParam) > gnScreenHeight - 0x2F) return;
-    }
-    else
-    {
-        if (D2_HIWORD(pMsg->lParam) > gnScreenHeight - 0x31) return;
-    }
-    GAME_ResetMouseButtons();
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
-
-// 0x004A3410
-void __cdecl TEXT_ResetQuestPanel()
-{
-    SRegSaveValue("Diablo II", "GAMEOVER", 0, 0);
-    gtQuestLog = 0;
-// build: symbol ?gpQuestBackgroundCel@* 0x007BF2D5
-    gpQuestBackgroundCel = 0;
-// build: symbol ?gpQuestTabsCel@* 0x007BF2D9
-    gpQuestTabsCel = 0;
-// build: symbol ?gpQuestSocketsCel@* 0x007BF2D1
-    gpQuestSocketsCel = 0;
-// build: symbol ?gpQuestDoneCel@* 0x007BF2DD
-    gpQuestDoneCel = 0;
-// build: symbol ?gpInvPsCel@* 0x007BF351
-    gpInvPsCel = 0;
-// build: symbol ?gpQuestLastCel@* 0x007BF34D
-    gpQuestLastCel = 0;
-    memset(gapQuestIconCels, 0, sizeof(gapQuestIconCels));
-    gnQuestAct = 0;
-    gnQuestParam = 0;
-// build: symbol ?gdwQuestLogToggleTick@* 0x007C0259
-    gdwQuestLogToggleTick = 0;
-    for (int i = 0; i < 41; ++i)
-    {
-        gabQuestFlagsA[i] = 0;
-        gabQuestFlagsB[i] = 0;
-    }
-    gbQuestSlotDown = 0;
-    gbGlobal_007BF2B2 = 0;
-    gbGlobal_007BF2B0 = 0;
-    gbGlobal_007BF2B4 = 0;
-    gbGlobal_007C025D = 0;
-    gbGlobal_007C025E = 0;
-    gbGlobal_007C025F = 0;
-    gbGlobal_007C0260 = 0;
-    gbQuestDescriptionOpen = 0;
-    gnQuestPressedSlot = -1;
-    gnIndex_007BF2BD = -1;
-    gnIndex_007BF2C1 = -1;
-    gnIndex_007BF2C5 = -1;
-    gnIndex_007BF2C9 = -1;
-    gnIndex_007BF2CD = -1;
-}
 
 void __cdecl TEXT_FreeQuestCels(); // 0x004A2550
 
@@ -858,155 +613,12 @@ static void sub_004A2390_ResetQuestSelection()
 }
 
 
-// 0x004A2610
-static unsigned char sub_004A2610_HitTestButtonA(int nX, int nY)
-{
-    if (nX >= 0xE6 && nX <= 0xE6 + 0x1D && nY >= 0x187 && nY <= 0x187 + 0x20)
-    {
-        return 1;
-    }
-    return 0;
-}
-
-// 0x004A2630
-static int TEXT_GetQuestSlotAtPoint(int nX, int nY)
-{
-    int nCount = gnQuestCount;
-    D2_ASSERT((unsigned int)nCount <= 6, 0x738);
-    for (int i = 0; i < nCount; ++i)
-    {
-        if (nX >= gaQuestSlots[i].nX && nX < gaQuestSlots[i].nX + 0x38 && nY >= gaQuestSlots[i].nY && nY < gaQuestSlots[i].nY + 0x34)
-        {
-            return i;
-        }
-    }
-    return -1;
-}
-
-// 0x004A2690
-static unsigned char TEXT_HitTestQuestCloseButton(int nX, int nY)
-{
-    if (nX >= 0x116 && nX <= 0x116 + 0x23 && nY >= 0x188 && nY <= 0x188 + 0x21)
-    {
-        return 1;
-    }
-    return 0;
-}
-
-
-// 0x004A26F0
-static int __stdcall TEXT_GetQuestTabAtPoint(int nY, int nX)
-{
-    if (nY < 0 || nY > 0x1B || nX < 0 || nX > 0x13F)
-    {
-        return -1;
-    }
-    if (FOG_IsExpansion() && GAME_IsExpansion())
-    {
-        int i = 0;
-        for (int n = 0; n < 0x140; n += 0x40, ++i)
-        {
-            if (nX >= n && nX <= n + 0x40) return i;
-        }
-        return -1;
-    }
-    int i = 0;
-    for (int n = 0; n < 0x140; n += 0x50, ++i)
-    {
-        if (nX >= n && nX <= n + 0x50) return i;
-    }
-    return -1;
-}
 
 
 int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
 
-// 0x004A27D0
-static void TEXT_OpenQuestDescription(int nSlot)
-{
-    int nIndex = -1;
-    for (int i = 0; i < gnQuestCount; ++i)
-    {
-        if (gaQuestEntries[i].nSlot == nSlot)
-        {
-            nIndex = i;
-            break;
-        }
-    }
-    if (nIndex == -1)
-    {
-        return;
-    }
-    unsigned short wTextId = gaQuestEntries[nIndex].wTextId;
-    if (wTextId == 0xE8C || wTextId == 0xE8D)
-    {
-        return;
-    }
-    WARDENCLIENT_OpenTextPanel(wTextId, 1, 0);
-    TEXT_SetTextCallback(TEXT_CloseQuestText, 0);
-    gbQuestDescriptionOpen = 1;
-}
-
-// 0x004A2840
-void __stdcall TEXT_CloseQuestPanelMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-    if (gtQuestLog == 2)
-    {
-        gtQuestLog = 0;
-        gbGlobal_007BF2B0 = 0;
-        gbQuestDescriptionOpen = 0;
-    }
-
-    sub_004A2550();
-    UI_SetUIVar(15, 1, 1);
-    gdwQuestLogToggleTick = GetTickCount();
-}
 
 
-// build: symbol ?sub_E10_GetButtonLayoutCopy@@YAHH@Z 0x004A2900
-static int sub_E10_GetButtonLayoutCopy(int nMode)
-{
-    if (GAME_GetUIVarState(6) && !GAME_GetUIVarState(2))
-    {
-        const int nResolution = D2GFX_GetResolutionMode();
-        if (nMode == 2)
-            return nResolution == 2 ? 1 : 3;
-        return nResolution == 2 ? 0 : 2;
-    }
-
-    const int nResolution = D2GFX_GetResolutionMode();
-    if (nMode == 2)
-    {
-        if (nResolution == 2 || GAME_GetUIVarState(2))
-            return 1;
-        return 3;
-    }
-    return nResolution == 2 ? 0 : 2;
-}
-
-
-// 0x004A2A20
-void __stdcall TEXT_QuestButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    const int nX = pMsg->nXpos;
-    const int nY = pMsg->nYpos;
-    if ((unsigned char)TEXT_IsMouseOnQuestButton(nX, nY))
-    {
-        gbGlobal_007BF2B0 = 1;
-        sub_004B9A00(SOUND_ID, 0, 0, 0, 0);
-        pMsg->bReturn = 1;
-        pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
-    }
-    else
-    {
-        gbGlobal_007BF2B0 = 0;
-        pMsg->bReturn = 0;
-    }
-}
 
 int __stdcall TEXT_IsMouseOnQuestButton(int nX, int nY); // 0x004A2970
 
@@ -1151,35 +763,12 @@ void __stdcall TEXT_ButtonCaptureMsg(SMSGHANDLER_PARAMS* pMsg)
 
 
 
-// 0x004A3020
-void __cdecl TEXT_ClearQuestFlags()
-{
-    for (int i = 0; i < 41; ++i)
-    {
-        gabQuestFlagsA[i] = 0;
-        gabQuestFlagsB[i] = 0;
-    }
-}
 
 
 
 
 
 
-
-// build: symbol @TEXT_SelectQuestPage@* 0x004A2C30
-extern "C" void __fastcall TEXT_SelectQuestPage(int key)
-{
-    for (int i = 0; i < 41; ++i)
-    {
-        if (gSearch_00723F30[i].key == key)
-        {
-            if (i != -1)
-                gSelected_007BF280[gSearch_00723F30[i].destination] = gSearch_00723F30[i].value;
-            return;
-        }
-    }
-}
 
 // build: symbol @SPELLSEL_GetSkillMaxLevel@* 0x004AA8B0
 extern "C" int __fastcall SPELLSEL_GetSkillMaxLevel(int index)
