@@ -49,7 +49,6 @@ struct BigBuffer;
 struct BigStack;
 struct LimbCell;
 struct SequenceView;
-struct StoredRecordView;
 
 struct D2StormLinkStrc
 {
@@ -175,14 +174,14 @@ extern unsigned short gwValue_0077905C;
 
 struct D2Storm4167B0Strc
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
 
     ~D2Storm4167B0Strc();
 };
 
 struct D2Storm4168F0Strc
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
 
     ~D2Storm4168F0Strc();
 };
@@ -339,12 +338,6 @@ struct SequenceView
     U32 cursor;
 };
 
-struct StoredRecordView
-{
-    char prefix[0x10];
-    int f_10;
-};
-
 typedef char check_pointer[sizeof(void*)==4?1:-1];
 
 typedef char check_word[sizeof(U32)==4?1:-1];
@@ -357,11 +350,6 @@ typedef char check_values[OFFSET(SequenceView,values)==0x8?1:-1];
 
 typedef char check_cursor[OFFSET(SequenceView,cursor)==0x10?1:-1];
 
-typedef char check_mode[OFFSET(StoredRecordView,f_10)==0x10?1:-1];
-
-extern "C" U32 gSlotFirst;
-extern "C" U32 gSlotSecond;
-extern "C" U32 gRangeMode;
 extern "C" int gRangeValue;
 extern "C" UiContext* gUiContext;
 extern "C" int gRequest;
@@ -491,12 +479,12 @@ unsigned short __stdcall SFileGetLocale()
 
 D2Storm4167B0Strc::~D2Storm4167B0Strc()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 D2Storm4168F0Strc::~D2Storm4168F0Strc()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 bool D2ChatStormLinkStrc::IGNORELIST_IsLinkLinked()

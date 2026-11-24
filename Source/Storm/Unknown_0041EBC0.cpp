@@ -60,7 +60,7 @@ struct HUFFNODE
     {
         struct
         {
-            D2StormLinkStrc f_0;
+            D2StormLinkStrc tLink;
         };
         struct
         {
@@ -241,7 +241,7 @@ void CHuffman::BuildTree(unsigned char nCmpType)
         {
             HUFFNODE* pNext = (HUFFNODE*)tItemList.m_terminator.Next();
             while (pNext && pNext->nWeight < pItem->nWeight)
-                pNext = (HUFFNODE*)pNext->f_0.Next();
+                pNext = (HUFFNODE*)pNext->tLink.Next();
             tItemList.LinkNode((char*)pItem, 2, (char*)pNext);
         }
     }
@@ -255,7 +255,7 @@ void CHuffman::BuildTree(unsigned char nCmpType)
     HUFFNODE* pLow = (HUFFNODE*)tItemList.m_terminator.Next();
     while (pLow)
     {
-        HUFFNODE* pNext = (HUFFNODE*)pLow->f_0.Next();
+        HUFFNODE* pNext = (HUFFNODE*)pLow->tLink.Next();
         if (!pNext)
             break;
         pItem = AllocateItem(2);
@@ -266,12 +266,12 @@ void CHuffman::BuildTree(unsigned char nCmpType)
         if (pItem->nWeight >= nMaxWeight) nMaxWeight = pItem->nWeight;
         else
         {
-            HUFFNODE* pInsert = (HUFFNODE*)pNext->f_0.Next();
+            HUFFNODE* pInsert = (HUFFNODE*)pNext->tLink.Next();
             while (pInsert && pInsert->nWeight < pItem->nWeight)
-                pInsert = (HUFFNODE*)pInsert->f_0.Next();
+                pInsert = (HUFFNODE*)pInsert->tLink.Next();
             tItemList.LinkNode((char*)pItem, 2, (char*)pInsert);
         }
-        pLow = (HUFFNODE*)pNext->f_0.Next();
+        pLow = (HUFFNODE*)pNext->tLink.Next();
     }
     nUnk0x04 = 1;
 }

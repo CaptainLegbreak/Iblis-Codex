@@ -2313,37 +2313,4 @@ extern D2PartyRowStrc* gpRosterUnits;  // 0x007BF014
 
 
 
-// 0x004BE340
-int __fastcall PANEL_CountLinesInView(D2TextPanelStrc* pPanel)
-{
-    const int nLineCount = pPanel->nLineCount;
-    int nTotal = 0;
-    for (int i = 0; i < nLineCount; ++i)
-    {
-        if (i >= pPanel->nFirstLine && i < nLineCount)
-        {
-            for (int k = 0; k < 6; ++k)
-            {
-                if (pPanel->pLines[i].wszText[k][0].wChar)
-                {
-                    nTotal += *(int*)pPanel->nLineStep;
-                }
-            }
-            nTotal += *(int*)pPanel->nLineGap;
-        }
-
-        if (nTotal > pPanel->nHeight - 20)
-        {
-            i -= pPanel->nFirstLine;
-            if (i < 1)
-            {
-                i = 1;
-            }
-            return i;
-        }
-    }
-
-    return nLineCount;
-}
-
 #include "gen/data/Source/D2Client/UI/panel.inc"

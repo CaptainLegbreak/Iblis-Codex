@@ -802,6 +802,7 @@ static bool sub_004047D0_GetDebugDirectory(unsigned long* pSize, unsigned long* 
     return (!nRva && !nSize) || (nRva && AUTOMAP_IsDebugDirectorySizeValid(*pSize));
 }
 
+// 0x00404850
 BOOLEAN __stdcall AUTOMAP_IsDebugDirectorySizeValid(unsigned int nValue)
 {
     return nValue >= 0x1C;

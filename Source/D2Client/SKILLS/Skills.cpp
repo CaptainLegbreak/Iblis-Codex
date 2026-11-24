@@ -26,6 +26,12 @@
 
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 
+// Row numbers in WeaponClass.txt (hth, bow, 1hs, 1ht, stf, 2hs, 2ht, xbw, ...).
+enum D2C_WeaponClassRows
+{
+    WEAPONCLASS_XBW = 7,
+};
+
 struct D2MissilesTxt;
 
 struct D2GfxLightStrc;
@@ -513,6 +519,8 @@ int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);       
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                  // 0x0045C3E0
 
 void __stdcall PATH_SetDirection(D2DynamicPathStrc* pDynamicPath, int nDirection);                          // 0x006488A0
+
+int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
 
 // 0x00457300
 void __fastcall SKILLS_InitGfxCaches(void* pMemPool, int bCelPool)
@@ -2494,6 +2502,15 @@ int __fastcall SKILLS_RaiseTargetUnitEvent(D2UnitStrc* pUnit, D2UnitStrc* pTarge
     sub_00480C10_UnitEvent(0x16, pUnit, args, 1);
     return 1;
 }
+
+// 0x004C76A0
+int __fastcall VIEW_GetWeaponClassMask(D2UnitStrc* pUnit)
+{
+    int nWeaponClassId = 0;
+    COMPOSIT_GetWeaponClassId(pUnit, pUnit->pInventory, &nWeaponClassId, -1, 1);
+    return nWeaponClassId == WEAPONCLASS_XBW ? 0x1F : 0;
+}
+
 
 // 0x004C76D0
 void __fastcall SKILLS_ScaleFramePrecise(D2UnitStrc* pUnit, int nPercent)

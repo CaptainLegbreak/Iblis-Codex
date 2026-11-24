@@ -366,43 +366,6 @@ static int SKILLDESC_GetETypeColor(int nEType)
     return 0;
 }
 
-// 0x004EB290
-void __fastcall SKILLDESC_DrawElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
-{
-    if (!pSkill || !pSkillsTxt)
-    {
-        return;
-    }
-
-    D2SkillDescTxt* pSkillDesc = sub_004A89D0_SkillDescRec(pSkillsTxt->nSkillId);
-    if (!pSkillDesc)
-    {
-        return;
-    }
-
-    const int nSkillId = pSkillsTxt->nSkillId;
-    // volatile: the volatile read keeps the original's esi/edi assignment; no plain form found
-    const int nLevel = *(volatile int*)&nSkillLevel;
-    const int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nLevel, 1);
-    const int nMax = SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nLevel, 1);
-    const int nColor = SKILLDESC_GetETypeColor(pSkillsTxt->nEType);
-
-// build: symbol ?gszSkillDescFile@* 0x006DBF24
-    int nFrames = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDesc->dwDamCalc[0], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 3114), nLevel);
-    if (!nFrames)
-    {
-        nFrames = 1;
-    }
-
-    int nDivisor = SKILLS_EvaluateSkillDescFormula(pUnit, pSkillDesc->dwDamCalc[1], SKILLS_GetSkillIdFromSkill(pSkill, gszSkillDescFile, 3119), nLevel);
-    if (!nDivisor)
-    {
-        nDivisor = 1;
-    }
-
-    SKILLDESC_DrawDamageRange((nFrames * nMin * 25 / nDivisor) >> 8, (nFrames * nMax * 25 / nDivisor) >> 8, nColor, nY, nLeft, nRight);
-}
-
 static int __stdcall SKILLDESC_AddElemRatePerSecond(unsigned short nString, Unicode* wszText, int nMin, int nMax)
 {
     Unicode wszNumber[32];

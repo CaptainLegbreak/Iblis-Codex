@@ -1191,6 +1191,11 @@
      "name": "?sub_00404780_IsNtHeaderValid@@YA_NPBUD2ImageNtHeadersStrc@@@Z"
     },
     {
+     "va": "0x00404850",
+     "length": 14,
+     "name": "AUTOMAP_IsDebugDirectorySizeValid"
+    },
+    {
      "va": "0x00404860",
      "length": 36,
      "name": "?sub_00404860_SetNb10Info@@YAXPAUD2CrashModuleStrc@@PBUD2CvNb10Strc@@@Z"
@@ -2123,11 +2128,6 @@
    "file": "Source/D2Client/UI/automap.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00404850",
-     "length": 14,
-     "name": "AUTOMAP_IsDebugDirectorySizeValid"
-    },
     {
      "va": "0x0040E850",
      "length": 24,
@@ -9568,96 +9568,6 @@
      "name": "?GAME_CalcCdKeyChecksum@@YIXPADPAI@Z"
     },
     {
-     "va": "0x00449AC0",
-     "length": 6,
-     "name": "GAME_GetWaitHandle"
-    },
-    {
-     "va": "0x00449BC0",
-     "length": 6,
-     "name": "GAME_GetMcpGameServerIP"
-    },
-    {
-     "va": "0x00449BE0",
-     "length": 6,
-     "name": "GAME_GetMcpGameToken"
-    },
-    {
-     "va": "0x00449C00",
-     "length": 6,
-     "name": "GAME_GetConnectError"
-    },
-    {
-     "va": "0x00449C10",
-     "length": 6,
-     "name": "GAME_IsMcpCharCreateReceived"
-    },
-    {
-     "va": "0x00449C30",
-     "length": 6,
-     "name": "GAME_IsMcpCharLogonReceived"
-    },
-    {
-     "va": "0x00449C50",
-     "length": 6,
-     "name": "GAME_IsMcpCharDeleteReceived"
-    },
-    {
-     "va": "0x00449C70",
-     "length": 6,
-     "name": "GAME_IsMcpCharUpgradeReceived"
-    },
-    {
-     "va": "0x00449CA0",
-     "length": 6,
-     "name": "sub_00449CA0"
-    },
-    {
-     "va": "0x00449CB0",
-     "length": 6,
-     "name": "sub_00449CB0"
-    },
-    {
-     "va": "0x00449D50",
-     "length": 6,
-     "name": "GAME_GetMcpReply"
-    },
-    {
-     "va": "0x00449D80",
-     "length": 6,
-     "name": "sub_00449D80"
-    },
-    {
-     "va": "0x00449DA0",
-     "length": 6,
-     "name": "sub_00449DA0"
-    },
-    {
-     "va": "0x00449DC0",
-     "length": 6,
-     "name": "GAME_IsMcpServerAddressReceived"
-    },
-    {
-     "va": "0x00449DE0",
-     "length": 6,
-     "name": "GAME_GetMcpGameHash"
-    },
-    {
-     "va": "0x00449E20",
-     "length": 6,
-     "name": "GAME_GetMcpCharLevel"
-    },
-    {
-     "va": "0x00449E40",
-     "length": 6,
-     "name": "GAME_IsMcpCreateQueued"
-    },
-    {
-     "va": "0x00449E60",
-     "length": 6,
-     "name": "sub_00449E60"
-    },
-    {
      "va": "0x0044BDE0",
      "length": 16,
      "name": "??0sub_0044BDE0@@QAE@XZ"
@@ -10693,6 +10603,11 @@
      "name": "COMCALLBACK_RemoveTableString"
     },
     {
+     "va": "0x00446B30",
+     "length": 62,
+     "name": "?sub_00446B30_ShowText@@YIHHPBD@Z"
+    },
+    {
      "va": "0x00446B70",
      "length": 300
     },
@@ -11240,6 +11155,11 @@
      "va": "0x004C7630",
      "length": 102,
      "name": "?SKILLS_RaiseTargetUnitEvent@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x004C76A0",
+     "length": 48,
+     "name": "?VIEW_GetWeaponClassMask@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004C76D0",
@@ -12697,6 +12617,201 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00449AC0",
+     "length": 6,
+     "name": "GAME_GetWaitHandle"
+    },
+    {
+     "va": "0x00449AD0",
+     "length": 92,
+     "name": "?D2MCPClientCloseMCP@@YAXXZ"
+    },
+    {
+     "va": "0x00449B30",
+     "length": 50,
+     "name": "sub_00449B30_QueryAddress"
+    },
+    {
+     "va": "0x00449B70",
+     "length": 71,
+     "name": "?WINMAIN_PollMcpConnection@@YAHXZ"
+    },
+    {
+     "va": "0x00449BC0",
+     "length": 6,
+     "name": "GAME_GetMcpGameServerIP"
+    },
+    {
+     "va": "0x00449BD0",
+     "length": 7,
+     "name": "?CHATDLG_GetRequestId@@YAGXZ"
+    },
+    {
+     "va": "0x00449BE0",
+     "length": 6,
+     "name": "GAME_GetMcpGameToken"
+    },
+    {
+     "va": "0x00449BF0",
+     "length": 15,
+     "name": "CHATDLG_SetMcpResult"
+    },
+    {
+     "va": "0x00449C00",
+     "length": 6,
+     "name": "GAME_GetConnectError"
+    },
+    {
+     "va": "0x00449C10",
+     "length": 6,
+     "name": "GAME_IsMcpCharCreateReceived"
+    },
+    {
+     "va": "0x00449C20",
+     "length": 15,
+     "name": "CHATDLG_SetCharCreateReceived"
+    },
+    {
+     "va": "0x00449C30",
+     "length": 6,
+     "name": "GAME_IsMcpCharLogonReceived"
+    },
+    {
+     "va": "0x00449C40",
+     "length": 15,
+     "name": "CHATDLG_SetCharLogonReceived"
+    },
+    {
+     "va": "0x00449C50",
+     "length": 6,
+     "name": "GAME_IsMcpCharDeleteReceived"
+    },
+    {
+     "va": "0x00449C60",
+     "length": 15,
+     "name": "CHATDLG_SetCharDeleteReceived"
+    },
+    {
+     "va": "0x00449C70",
+     "length": 6,
+     "name": "GAME_IsMcpCharUpgradeReceived"
+    },
+    {
+     "va": "0x00449C80",
+     "length": 15,
+     "name": "CHATDLG_SetCharUpgradeReceived"
+    },
+    {
+     "va": "0x00449C90",
+     "length": 15,
+     "name": "sub_00449C90_SetValue"
+    },
+    {
+     "va": "0x00449CA0",
+     "length": 6,
+     "name": "sub_00449CA0"
+    },
+    {
+     "va": "0x00449CB0",
+     "length": 6,
+     "name": "sub_00449CB0"
+    },
+    {
+     "va": "0x00449CC0",
+     "length": 15,
+     "name": "sub_00449CC0_SetValue"
+    },
+    {
+     "va": "0x00449CD0",
+     "length": 59,
+     "name": "CHATDLG_GetMcpTexts"
+    },
+    {
+     "va": "0x00449D10",
+     "length": 62,
+     "name": "CHATDLG_SetMcpTexts"
+    },
+    {
+     "va": "0x00449D50",
+     "length": 6,
+     "name": "GAME_GetMcpReply"
+    },
+    {
+     "va": "0x00449D60",
+     "length": 21,
+     "name": "?CHATDLG_ClearReply@@YAXXZ"
+    },
+    {
+     "va": "0x00449D80",
+     "length": 6,
+     "name": "sub_00449D80"
+    },
+    {
+     "va": "0x00449D90",
+     "length": 15,
+     "name": "sub_00449D90_SetValue"
+    },
+    {
+     "va": "0x00449DA0",
+     "length": 6,
+     "name": "sub_00449DA0"
+    },
+    {
+     "va": "0x00449DB0",
+     "length": 15,
+     "name": "sub_00449DB0_SetValue"
+    },
+    {
+     "va": "0x00449DC0",
+     "length": 6,
+     "name": "GAME_IsMcpServerAddressReceived"
+    },
+    {
+     "va": "0x00449DD0",
+     "length": 15,
+     "name": "sub_00449DD0_SetValue"
+    },
+    {
+     "va": "0x00449DE0",
+     "length": 6,
+     "name": "GAME_GetMcpGameHash"
+    },
+    {
+     "va": "0x00449DF0",
+     "length": 22,
+     "name": "CHATDLG_RequestCharCreate"
+    },
+    {
+     "va": "0x00449E10",
+     "length": 15,
+     "name": "CHATDLG_RequestCharLogon"
+    },
+    {
+     "va": "0x00449E20",
+     "length": 6,
+     "name": "GAME_GetMcpCharLevel"
+    },
+    {
+     "va": "0x00449E30",
+     "length": 15,
+     "name": "sub_00449E30_SetValue"
+    },
+    {
+     "va": "0x00449E40",
+     "length": 6,
+     "name": "GAME_IsMcpCreateQueued"
+    },
+    {
+     "va": "0x00449E50",
+     "length": 15,
+     "name": "sub_00449E50_SetValue"
+    },
+    {
+     "va": "0x00449E60",
+     "length": 6,
+     "name": "sub_00449E60"
+    },
+    {
      "va": "0x00449E70",
      "length": 317,
      "name": "MCPCONNECT_SetPacket"
@@ -12716,6 +12831,20 @@
      "length": 63,
      "name": "CHATDLG_StartThread"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -12754,137 +12883,6 @@
    ]
   },
   {
-   "file": "Source/D2Multi/Unknown_00446B30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00446B30",
-     "length": 62,
-     "name": "?sub_00446B30_ShowText@@YIHHPBD@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00449890.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00449AD0",
-     "length": 92,
-     "name": "?D2MCPClientCloseMCP@@YAXXZ"
-    },
-    {
-     "va": "0x00449B30",
-     "length": 50,
-     "name": "sub_00449B30_QueryAddress"
-    },
-    {
-     "va": "0x00449BD0",
-     "length": 7,
-     "name": "?CHATDLG_GetRequestId@@YAGXZ"
-    },
-    {
-     "va": "0x00449BF0",
-     "length": 15,
-     "name": "CHATDLG_SetMcpResult"
-    },
-    {
-     "va": "0x00449C20",
-     "length": 15,
-     "name": "CHATDLG_SetCharCreateReceived"
-    },
-    {
-     "va": "0x00449C40",
-     "length": 15,
-     "name": "CHATDLG_SetCharLogonReceived"
-    },
-    {
-     "va": "0x00449C60",
-     "length": 15,
-     "name": "CHATDLG_SetCharDeleteReceived"
-    },
-    {
-     "va": "0x00449C80",
-     "length": 15,
-     "name": "CHATDLG_SetCharUpgradeReceived"
-    },
-    {
-     "va": "0x00449C90",
-     "length": 15,
-     "name": "sub_00449C90_SetValue"
-    },
-    {
-     "va": "0x00449CC0",
-     "length": 15,
-     "name": "sub_00449CC0_SetValue"
-    },
-    {
-     "va": "0x00449CD0",
-     "length": 59,
-     "name": "CHATDLG_GetMcpTexts"
-    },
-    {
-     "va": "0x00449D10",
-     "length": 62,
-     "name": "CHATDLG_SetMcpTexts"
-    },
-    {
-     "va": "0x00449D60",
-     "length": 21,
-     "name": "?CHATDLG_ClearReply@@YAXXZ"
-    },
-    {
-     "va": "0x00449D90",
-     "length": 15,
-     "name": "sub_00449D90_SetValue"
-    },
-    {
-     "va": "0x00449DB0",
-     "length": 15,
-     "name": "sub_00449DB0_SetValue"
-    },
-    {
-     "va": "0x00449DD0",
-     "length": 15,
-     "name": "sub_00449DD0_SetValue"
-    },
-    {
-     "va": "0x00449DF0",
-     "length": 22,
-     "name": "CHATDLG_RequestCharCreate"
-    },
-    {
-     "va": "0x00449E10",
-     "length": 15,
-     "name": "CHATDLG_RequestCharLogon"
-    },
-    {
-     "va": "0x00449E30",
-     "length": 15,
-     "name": "sub_00449E30_SetValue"
-    },
-    {
-     "va": "0x00449E50",
-     "length": 15,
-     "name": "sub_00449E50_SetValue"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/CORE/WINMAIN.CPP",
    "rank": 0,
    "functions": [
@@ -12892,11 +12890,6 @@
      "va": "0x00449920",
      "length": 402,
      "name": "?WINMAIN_DecodeCdKey@@YIHPBDPAI1@Z"
-    },
-    {
-     "va": "0x00449B70",
-     "length": 71,
-     "name": "?WINMAIN_PollMcpConnection@@YAHXZ"
     },
     {
      "va": "0x0044B440",
@@ -13542,16 +13535,6 @@
      "va": "0x00487CA0",
      "length": 27,
      "name": "?VIEW_SetNpcMenuMode@@YAHXZ"
-    },
-    {
-     "va": "0x004B9640",
-     "length": 77,
-     "name": "?VIEW_CountHintsForOwner@@YIHH@Z"
-    },
-    {
-     "va": "0x004C76A0",
-     "length": 48,
-     "name": "?VIEW_GetWeaponClassMask@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004D1640",
@@ -17724,11 +17707,6 @@
      "va": "0x004A5980",
      "length": 80,
      "name": "ROSTERPETS_HandlePanelButtonDown"
-    },
-    {
-     "va": "0x004B76D0",
-     "length": 146,
-     "name": "ROSTERPETS_HandleDialogEscape"
     }
    ]
   },
@@ -23395,11 +23373,6 @@
      "name": "?TEXT_QuestLButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
-     "va": "0x004B23E0",
-     "length": 192,
-     "name": "?TEXT_InitNpcMenu@@YAXXZ"
-    },
-    {
      "va": "0x004BF2F0",
      "length": 306
     },
@@ -24540,11 +24513,6 @@
      "va": "0x00499D10",
      "length": 208,
      "name": "?PANEL_BeltClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004BE340",
-     "length": 206,
-     "name": "PANEL_CountLinesInView"
     }
    ],
    "flags": [
@@ -25573,16 +25541,6 @@
      "name": "sub_004B1DC0"
     },
     {
-     "va": "0x004B32D0",
-     "length": 6,
-     "name": "MONSTER_GetQuestFlags"
-    },
-    {
-     "va": "0x004B32E0",
-     "length": 6,
-     "name": "MONSTER_GetGameQuestFlags"
-    },
-    {
      "va": "0x004BF9B0",
      "length": 3,
      "name": "sub_004BF9B0"
@@ -26196,6 +26154,11 @@
      "name": "NPCMENU_ClearInteractOverlay"
     },
     {
+     "va": "0x004B23E0",
+     "length": 192,
+     "name": "?TEXT_InitNpcMenu@@YAXXZ"
+    },
+    {
      "va": "0x004B24A0",
      "length": 276,
      "name": "?NPCMENU_FreeNpcMenu@@YAXXZ"
@@ -26301,6 +26264,16 @@
      "va": "0x004B3290",
      "length": 53,
      "name": "?NPCMENU_ResetSlots@@YAXXZ"
+    },
+    {
+     "va": "0x004B32D0",
+     "length": 6,
+     "name": "MONSTER_GetQuestFlags"
+    },
+    {
+     "va": "0x004B32E0",
+     "length": 6,
+     "name": "MONSTER_GetGameQuestFlags"
     },
     {
      "va": "0x004B32F0",
@@ -26816,6 +26789,11 @@
      "length": 178
     },
     {
+     "va": "0x004B76D0",
+     "length": 146,
+     "name": "ROSTERPETS_HandleDialogEscape"
+    },
+    {
      "va": "0x004B7770",
      "length": 122
     },
@@ -27186,6 +27164,11 @@
      "va": "0x004B9610",
      "length": 37,
      "name": "?sub_004B9610@@YIPAXH@Z"
+    },
+    {
+     "va": "0x004B9640",
+     "length": 77,
+     "name": "?VIEW_CountHintsForOwner@@YIHH@Z"
     },
     {
      "va": "0x004B9690",
@@ -28050,6 +28033,11 @@
      "name": "?sub_004BE110_UpdateScrollBar@ListBoxImplementation@@QAEXXZ"
     },
     {
+     "va": "0x004BE340",
+     "length": 206,
+     "name": "PANEL_CountLinesInView"
+    },
+    {
      "va": "0x004BE410",
      "length": 231,
      "name": "?DrawClippedText@ListBoxImplementation@@QAEXPBUUnicode@@HHH@Z"
@@ -28387,15 +28375,6 @@
      "va": "0x004C0620",
      "length": 21,
      "name": "?USEITEM_OpenNpcItemPanel@@YIXH@Z"
-    },
-    {
-     "va": "0x004C0CE0",
-     "length": 19
-    },
-    {
-     "va": "0x004C0D00",
-     "length": 27,
-     "name": "?USEITEM_LeaveGame@@YAXXZ"
     }
    ]
   },
@@ -29048,6 +29027,15 @@
     {
      "va": "0x004C0810",
      "length": 1232
+    },
+    {
+     "va": "0x004C0CE0",
+     "length": 19
+    },
+    {
+     "va": "0x004C0D00",
+     "length": 27,
+     "name": "?USEITEM_LeaveGame@@YAXXZ"
     },
     {
      "va": "0x006CADB0",
@@ -30899,6 +30887,10 @@
      "length": 160
     },
     {
+     "va": "0x004DE070",
+     "length": 279
+    },
+    {
      "va": "0x004DE190",
      "length": 202
     },
@@ -30941,10 +30933,6 @@
    "file": "Source/D2Client/DRAW/dFloor.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x004DE070",
-     "length": 279
-    },
     {
      "va": "0x004DEA70",
      "length": 668
@@ -32166,10 +32154,6 @@
      "length": 278
     },
     {
-     "va": "0x004EB290",
-     "length": 256
-    },
-    {
      "va": "0x004EC6F0",
      "length": 66
     },
@@ -32524,6 +32508,10 @@
      "va": "0x004EB240",
      "length": 77,
      "name": "?SKILLDESC_DrawSkillWeaponDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+    },
+    {
+     "va": "0x004EB290",
+     "length": 256
     },
     {
      "va": "0x004EB390",
@@ -36824,43 +36812,47 @@
      "name": "?sub_00511FB0_DrawImage@@YIHPAXHHIH0@Z"
     },
     {
+     "va": "0x005120A0",
+     "length": 245
+    },
+    {
+     "va": "0x005121A0",
+     "length": 171
+    },
+    {
      "va": "0x00512250",
      "length": 133
+    },
+    {
+     "va": "0x005122E0",
+     "length": 188
     },
     {
      "va": "0x005123B0",
      "length": 92,
      "name": "?sub_005123B0_DDrawDebugFillBackBuffer@@YIXHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_005120A0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
-     "va": "0x005120A0",
-     "length": 245
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_005121A0.cpp",
-   "rank": 1,
-   "functions": [
+     "va": "0x00512710",
+     "length": 408,
+     "name": "?sub_00512710_DDrawDrawBox@@YIXHHHHIH@Z"
+    },
     {
-     "va": "0x005121A0",
-     "length": 171
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_005122E0.cpp",
-   "rank": 1,
-   "functions": [
+     "va": "0x00512930",
+     "length": 281
+    },
     {
-     "va": "0x005122E0",
-     "length": 188
+     "va": "0x00512C20",
+     "length": 179
+    },
+    {
+     "va": "0x00512CE0",
+     "length": 163
+    },
+    {
+     "va": "0x00512D90",
+     "length": 232,
+     "name": "?sub_00512D90_DDrawUtilFilledRect@@YIXPAUtagRECT@@E@Z"
     }
    ]
   },
@@ -36913,52 +36905,6 @@
     {
      "va": "0x005131B0",
      "length": 262
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_00512710.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00512710",
-     "length": 408,
-     "name": "?sub_00512710_DDrawDrawBox@@YIXHHHHIH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_00512930.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00512930",
-     "length": 281
-    },
-    {
-     "va": "0x00512D90",
-     "length": 232,
-     "name": "?sub_00512D90_DDrawUtilFilledRect@@YIXPAUtagRECT@@E@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_00512C20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00512C20",
-     "length": 179
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_00512CE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00512CE0",
-     "length": 163
     }
    ]
   },
@@ -39071,14 +39017,68 @@
      "name": "BNSEND_LoadBNetNews"
     },
     {
+     "va": "0x0051DC70",
+     "length": 10,
+     "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
+    },
+    {
      "va": "0x0051DC80",
      "length": 70,
      "name": "BNSEND_ComputeShaDigest"
     },
     {
+     "va": "0x0051DCD0",
+     "length": 58,
+     "name": "?sub_0051DCD0_EncodeChar@@YGXPADPAIH@Z"
+    },
+    {
+     "va": "0x0051DD10",
+     "length": 16,
+     "name": "?sub_0051DD10_NibbleToHex@@YAII@Z"
+    },
+    {
+     "va": "0x0051DD20",
+     "length": 27,
+     "name": "?sub_0051DD20_HexToNibble@@YAHD@Z"
+    },
+    {
+     "va": "0x0051DD40",
+     "length": 11,
+     "name": "?sub_0051DD40_MapKeyChar@@YAHE@Z"
+    },
+    {
+     "va": "0x0051DD50",
+     "length": 114,
+     "name": "?sub_0051DD50_DecodeKeyPairs@@YAXPADPAI@Z"
+    },
+    {
+     "va": "0x0051DDD0",
+     "length": 446,
+     "name": "?sub_0051DDD0_DecodeCDKey16@@YIHPAH0PBD0@Z"
+    },
+    {
+     "va": "0x0051DFC0",
+     "length": 231
+    },
+    {
+     "va": "0x0051E0B0",
+     "length": 387,
+     "name": "?sub_0051E0B0_SendAuthCheck@@YGHXZ"
+    },
+    {
+     "va": "0x0051E240",
+     "length": 34,
+     "name": "?sub_0051E240_CheckAuth@@YAHXZ"
+    },
+    {
      "va": "0x0051E270",
      "length": 208,
      "name": "?BNSEND_CheckCDKeys@@YGHXZ"
+    },
+    {
+     "va": "0x0051E340",
+     "length": 40,
+     "name": "?sub_0051E340_BuildCDKeyInfoForSlot@@YIHPAUD2CDKeyInfoStrc@@IH@Z"
     },
     {
      "va": "0x0051F2D0",
@@ -39340,66 +39340,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/Unknown_0051DC70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0051DC70",
-     "length": 10,
-     "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
-    },
-    {
-     "va": "0x0051DCD0",
-     "length": 58,
-     "name": "?sub_0051DCD0_EncodeChar@@YGXPADPAIH@Z"
-    },
-    {
-     "va": "0x0051DD10",
-     "length": 16,
-     "name": "?sub_0051DD10_NibbleToHex@@YAII@Z"
-    },
-    {
-     "va": "0x0051DD20",
-     "length": 27,
-     "name": "?sub_0051DD20_HexToNibble@@YAHD@Z"
-    },
-    {
-     "va": "0x0051DD40",
-     "length": 11,
-     "name": "?sub_0051DD40_MapKeyChar@@YAHE@Z"
-    },
-    {
-     "va": "0x0051DD50",
-     "length": 114,
-     "name": "?sub_0051DD50_DecodeKeyPairs@@YAXPADPAI@Z"
-    },
-    {
-     "va": "0x0051DDD0",
-     "length": 446,
-     "name": "?sub_0051DDD0_DecodeCDKey16@@YIHPAH0PBD0@Z"
-    },
-    {
-     "va": "0x0051DFC0",
-     "length": 231
-    },
-    {
-     "va": "0x0051E0B0",
-     "length": 387,
-     "name": "?sub_0051E0B0_SendAuthCheck@@YGHXZ"
-    },
-    {
-     "va": "0x0051E240",
-     "length": 34,
-     "name": "?sub_0051E240_CheckAuth@@YAHXZ"
-    },
-    {
-     "va": "0x0051E340",
-     "length": 40,
-     "name": "?sub_0051E340_BuildCDKeyInfoForSlot@@YIHPAUD2CDKeyInfoStrc@@IH@Z"
-    }
    ]
   },
   {
@@ -40924,31 +40864,11 @@
      "va": "0x00527790",
      "length": 699,
      "name": "?UNISYS_LoadSysMap@@YIHPAXPBD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Lang/Unknown_00527A50.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00527A50",
      "length": 135
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -41321,6 +41241,11 @@
      "name": "?CLIENT_GetLocalIpAddressString@@YGXPAD@Z"
     },
     {
+     "va": "0x0052B050",
+     "length": 130,
+     "name": "?CLIENT_GetConnectionStatus@@YAHXZ"
+    },
+    {
      "va": "0x0052B1F0",
      "length": 23,
      "name": "SERVER_WaitForSingleObject"
@@ -41344,17 +41269,6 @@
      "va": "0x0052B490",
      "length": 30,
      "name": "sub_0052B490_ObjectCall_6BED90"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0052B050.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052B050",
-     "length": 130,
-     "name": "?CLIENT_GetConnectionStatus@@YAHXZ"
     },
     {
      "va": "0x0052BDA0",
@@ -51930,13 +51844,7 @@
      "va": "0x00588880",
      "length": 75,
      "name": "?ACT5Q2_UpdateWussieCounters@@YIXPAUD2GameStrc@@HPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00588830.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00588CA0",
      "length": 178,
@@ -53304,13 +53212,7 @@
      "va": "0x00591F70",
      "length": 277,
      "name": "?ACT1Q3_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00592090.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00592090",
      "length": 64,
@@ -61110,6 +61012,10 @@
      "name": "?SKILLS_ApplyProgressiveElementalConversion@@YGXPAUD2UnitStrc@@PAUD2StatListStrc@@PAUD2DamageStrc@@@Z"
     },
     {
+     "va": "0x005D3AC0",
+     "length": 211
+    },
+    {
      "va": "0x005D3BA0",
      "length": 258
     },
@@ -61351,30 +61257,6 @@
      "length": 134,
      "name": "SKILLS_SrvDo054_BladeShield"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005D3AC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D3AC0",
-     "length": 211
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -77009,27 +76891,7 @@
     {
      "va": "0x00681000",
      "length": 576
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00681240.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00681240",
      "length": 472
@@ -79509,26 +79371,22 @@
     {
      "va": "0x006C8A60",
      "length": 408
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C8C50.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006C8C50",
      "length": 47
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C8C80.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x006C8C80",
      "length": 281
+    },
+    {
+     "va": "0x006C8F70",
+     "length": 179
+    },
+    {
+     "va": "0x006C9030",
+     "length": 163
     },
     {
      "va": "0x006C90E0",
@@ -79551,6 +79409,19 @@
      "va": "0x006C9280",
      "length": 9,
      "name": "?sub_006C9280_Apply@@YIXHEHH@Z"
+    },
+    {
+     "va": "0x006C9290",
+     "length": 272
+    },
+    {
+     "va": "0x006C95C0",
+     "length": 1
+    },
+    {
+     "va": "0x006C95D0",
+     "length": 101,
+     "name": "?sub_006C95D0_DrawShifted@@YIXPAX0HHHHHHH@Z"
     }
    ]
   },
@@ -79569,57 +79440,6 @@
     {
      "va": "0x006C94B0",
      "length": 262
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C8F70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C8F70",
-     "length": 179
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C9030.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C9030",
-     "length": 163
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C9290.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C9290",
-     "length": 272
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C95C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C95C0",
-     "length": 1
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C95D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006C95D0",
-     "length": 101,
-     "name": "?sub_006C95D0_DrawShifted@@YIXPAX0HHHHHHH@Z"
     }
    ]
   },

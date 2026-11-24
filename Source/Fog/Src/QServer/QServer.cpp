@@ -786,9 +786,9 @@ void __stdcall FOG_10170(D2QueueServerStrc* pServer, D2AddressCallback pfnCallba
 }
 
 // 0x006BF080
-void __stdcall FOG_10171(D2QueueServerStrc* pServer, int nValue)
+void __stdcall FOG_10171(D2QueueServerStrc* pServer, void* pfnCallback)
 {
-    pServer->unk0xBBC = nValue;
+    pServer->pfnRemoveClient = pfnCallback;
 }
 
 // 0x006BF0A0
@@ -1291,7 +1291,7 @@ D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc* server,unsigned int s
  client->nSocket=socket;
  client->nAddress=address;
  client->nPending24=0;client->nQueued=0;client->nValue74=0;
- client->bEnabled=1;client->nState=2;
+ client->tRead.nFlags=1;client->tWrite.nFlags=2;
  unsigned int tick=SYSTEM_GetSyncTime();
  client->nCreateTime=tick;client->nLastTick=tick;client->nTick3=tick;client->nTick4=tick;
  InitializeCriticalSection(&client->tLock);

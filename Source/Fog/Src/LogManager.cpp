@@ -825,11 +825,6 @@ void __cdecl LOGMANAGER_CloseLogFilesNow()
     }
 }
 
-bool D2ChatStormLinkStrc::IGNORELIST_IsLinkLinked()
-{
-    return m_next != 0;
-}
-
 char* D2ChatStormLinkStrc::sub_0060E1A0_Next()
 {
     return MaskNext();
@@ -872,21 +867,11 @@ D2ChatStormLinkBStrc::D2ChatStormLinkBStrc()
     m_next = 0;
 }
 
-char* D2ChatStormNodeStrc::IGNORELIST_GetStringEntryKey()
-{
-    return m_key;
-}
-
 D2ChatStormBaseArrayAStrc::D2ChatStormBaseArrayAStrc()
 {
     m_alloc = 0;
     m_count = 0;
     m_data = 0;
-}
-
-unsigned int D2ChatStormBaseArrayAStrc::IGNORELIST_GetStringSlotArrayCount()
-{
-    return m_count;
 }
 
 D2ChatStormBaseArrayBStrc::D2ChatStormBaseArrayBStrc()
@@ -896,36 +881,10 @@ D2ChatStormBaseArrayBStrc::D2ChatStormBaseArrayBStrc()
     m_data = 0;
 }
 
-unsigned int D2ChatStormBaseArrayBStrc::IGNORELIST_GetMappingSlotArrayCount()
-{
-    return m_count;
-}
-
-void D2ChatStormListAStrc::IGNORELIST_InitStringListTerminator()
-{
-    InitializeTerminator();
-}
-
 // 0x0040F960
 void __cdecl LOGMANAGER_CloseLogFiles()
 {
     LOGMANAGER_CloseLogFilesNow();
-}
-
-void D2ChatStormListBStrc::IGNORELIST_InitMappingListTerminator()
-{
-    InitializeTerminator();
-}
-
-char* D2ChatStormListBStrc::IGNORELIST_GetMappingListHead()
-{
-    return m_terminator.MaskNext();
-}
-
-void D2ChatStormListBStrc::IGNORELIST_ResetMappingList()
-{
-    m_linkoffset = 0;
-    InitializeTerminator();
 }
 
 char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset)
@@ -936,11 +895,6 @@ char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset)
 char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset)
 {
     return pNode + nLinkOffset;
-}
-
-char* D2ChatStormHashTableStrc::IGNORELIST_GetStringTableHead()
-{
-    return m_fulllist.m_terminator.MaskNext();
 }
 
 D2ChatStormListCStrc::D2ChatStormListCStrc()
@@ -978,16 +932,6 @@ D2CommonMappingEntryNodeStrc::~D2CommonMappingEntryNodeStrc()
 {
     if (pMapped)
         SMemFree(pMapped, gszIgnoreListSourceFile_006E6290, 0x11, 0);
-}
-
-void D2CommonStringEntryNodeStrc::IGNORELIST_DestroyStringEntryNode()
-{
-    this->~D2CommonStringEntryNodeStrc();
-}
-
-void D2CommonStormHashTableAStrc::IGNORELIST_ClearStringTable()
-{
-    IGNORELIST_InternalClearStringTable(0);
 }
 
 // 0x0040FAA0

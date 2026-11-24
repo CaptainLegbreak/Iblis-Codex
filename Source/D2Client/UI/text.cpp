@@ -5168,32 +5168,6 @@ extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey);
 
 
 
-// 0x004B23E0
-void __cdecl TEXT_InitNpcMenu()
-{
-    char szPath[0x104];
-    gbWaitSoundScheduled = 0;
-    gbWaitSoundPlayed = 0;
-    GetTickCount();
-    memset(gabNpcMenuState, 0, 0x160);
-    gpGlobal_007C0D43 = QUESTRECORD_AllocRecord(0);
-    gpGlobal_007C0D47 = QUESTRECORD_AllocRecord(0);
-// build: symbol ?gnNpcMenuState@* 0x007C0C6B
-    gnNpcMenuState = 0;
-    sprintf(szPath, "%s\\ui\\panel\\buysell", gszDataGlobal);
-    gpBuySellCel = ARCHIVE_LoadClientCellFile(szPath, 0);
-    sprintf(szPath, "%s\\ui\\menu\\goldbtn", gszDataGlobal);
-    gpGoldBtnCel = ARCHIVE_LoadClientCellFile(szPath, 0);
-// build: symbol ?gnTradeRequestFailCount@* 0x007C0DED
-    gnTradeRequestFailCount = 0;
-// build: symbol ?gbTradeClickPending@* 0x007C0DE0
-    gbTradeClickPending = 0;
-// build: symbol ?gdwLastTradeSendTick@* 0x007C0DF1
-    gdwLastTradeSendTick = 0;
-// build: symbol ?gdwTradeRequestTick@* 0x007C0DE9
-    gdwTradeRequestTick = 0;
-}
-
 // 0x004BF2F0
 int ListBoxView::ClickScrollTrack(SMSGHANDLER_PARAMS* pMsg)
 {
