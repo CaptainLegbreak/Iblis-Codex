@@ -18,7 +18,7 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-On main 0b750228 (#341), namesync run, precheck 0 not all equal on each head.
+Rebasing onto #345 (900824d3); full verifies running. SHAs and trees below are from #341 and will be replaced.
 
 - lane9/join-d3dcore-2 c841855c placeholders 2->0 (D2Direct3D/Unknown_006B3570.cpp and Unknown_006B42F0.cpp into
   Src/d3dCore.cpp; 52 functions). Full verify on #341: VERIFIED tree a3a68a87. Both pieces' strings and 3570's 0x6FF488
@@ -35,17 +35,16 @@ On main 0b750228 (#341), namesync run, precheck 0 not all equal on each head.
   module_flags D2Hell = base + /O1 and the per-unit variants go (34 units equal); Unknown_00517623.cpp and
   Unknown_005176D3.cpp keep the base /O2 set for their list ctors. Unknown_00517423.cpp and Unknown_00517874.cpp join
   Unknown_005173EF.cpp (gpszModuleName; three names for it become one; 10 functions equal).
-- lane9/place-ddcore-10160 19aa324f placeholders 1->0 (D2DDraw/Unknown_00510020.cpp into Src/ddCore.cpp: 0x510160
-  DDrawSetPalette and its bss). Full verify on #341: VERIFIED tree 4e3648c0. 26 functions equal under ddCore's flags;
-  the piece's second gbPaletteDirty declaration goes, as ddCore.cpp has the static.
-
-In #341: join-d3d-3570, join-d3dsprite-2 (thanks). In #340: join-d3d-7530, join-ddraw-11df0, join-glide-bd30, join-glide-d410 (thanks). Earlier: place-gdismack #338,
+In #344: place-ddcore-10160 (thanks). In #341: join-d3d-3570, join-d3dsprite-2 (thanks). In #340: join-d3d-7530, join-ddraw-11df0, join-glide-bd30, join-glide-d410 (thanks). Earlier: place-gdismack #338,
 join-d3dsprite #336, atl-d3dcore #332 (its 2 B note stands).
 
 ## Questions
 (none open; thanks for the #341 answers.)
 
 ## Notes for other lanes
+- **Storm's lane (at the user's request):** `Storm/Unknown_006BBBF0.cpp` is the renderer's Bink video player (0x6BBCE0
+  is called from d3dCore.cpp's 0x6B56C0), not Storm code. Lane 9 moves it to `Source/D2Direct3D/` on
+  lane9/move-d3d-bink; please don't edit it meanwhile.
 - **Lanes 3, 6 and 4 (coordinator's #341 answer):** lane 9 takes these renderer-run functions into its files; please
   don't edit them meanwhile. Lane 3: Fog `QServer/QServer.cpp` 0x006B1C00, 0x006B20A0, 0x006B20B0, 0x006B2F20,
   0x006B76C0. Lane 6: D2Win `Unknown_006B1BC0.cpp` (0x006B1BC0). Lane 4: D2Client `Unknown_006B2F40.cpp`
