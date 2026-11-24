@@ -75037,14 +75037,42 @@
      "name": "DRLGWARP_GetDestinationRoom"
     },
     {
+     "va": "0x0066AB70",
+     "length": 18,
+     "name": "?DRLGWARP_ToggleRoomTilesEnableFlag@@YIXPAUD2DrlgRoomStrc@@H@Z"
+    },
+    {
+     "va": "0x0066AB90",
+     "length": 67,
+     "name": "?DRLGWARP_UpdateWarpRoomSelect@@YIXPAUD2DrlgRoomStrc@@H@Z"
+    },
+    {
+     "va": "0x0066ABE0",
+     "length": 67,
+     "name": "?DRLGWARP_UpdateWarpRoomDeselect@@YIXPAUD2DrlgRoomStrc@@H@Z"
+    },
+    {
      "va": "0x0066AC30",
      "length": 11,
      "name": "?DRLGWARP_GetActiveRoomFromRoomEx@@YAPAUD2ActiveRoomStrc@@PAUD2DrlgRoomStrc@@@Z"
     },
     {
+     "va": "0x0066AC40",
+     "length": 316
+    },
+    {
      "va": "0x0066AD80",
      "length": 164,
      "name": "?DRLGWARP_GetWaypointRoomExFromLevel@@YGPAUD2DrlgRoomStrc@@PAUD2DrlgLevelStrc@@PAH1@Z"
+    },
+    {
+     "va": "0x0066AE30",
+     "length": 53,
+     "name": "DRLGROOM_GetRoomExAtLevelCenterOffset"
+    },
+    {
+     "va": "0x0066AE70",
+     "length": 80
     },
     {
      "va": "0x0066AEC0",
@@ -75208,59 +75236,9 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0066AB70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0066AB70",
-     "length": 18,
-     "name": "?DRLGWARP_ToggleRoomTilesEnableFlag@@YIXPAUD2DrlgRoomStrc@@H@Z"
-    },
-    {
-     "va": "0x0066AB90",
-     "length": 67,
-     "name": "?DRLGWARP_UpdateWarpRoomSelect@@YIXPAUD2DrlgRoomStrc@@H@Z"
-    },
-    {
-     "va": "0x0066ABE0",
-     "length": 67,
-     "name": "?DRLGWARP_UpdateWarpRoomDeselect@@YIXPAUD2DrlgRoomStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0066AC40.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066AC40",
-     "length": 316
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Common/DRLG/DrlgRoom.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0066AE30",
-     "length": 53,
-     "name": "DRLGROOM_GetRoomExAtLevelCenterOffset"
-    },
     {
      "va": "0x0066B3E0",
      "length": 214,
@@ -75500,30 +75478,6 @@
      "length": 164,
      "name": "?DRLGTILESUB_PickSubThemes@@YIHPAUD2DrlgRoomStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0066AE70.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066AE70",
-     "length": 80
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

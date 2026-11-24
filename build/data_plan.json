@@ -3597,15 +3597,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_0066AC40.cpp": {
-   "bytes": 112,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_0066AC40.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Common/DRLG/DrlgLogic.cpp": {
    "bytes": 276,
    "definitions": 4,
@@ -4610,15 +4601,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_0066AB70.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_0066AB70.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/Unknown_0045AE90.cpp": {
    "bytes": 68,
    "definitions": 3,
@@ -5132,6 +5114,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0046C570.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Common/DRLG/DrlgWarp.cpp": {
+   "bytes": 172,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Common/DRLG/DrlgWarp.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -130201,7 +130192,7 @@
    "cname": "gData_00749804",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0066AB70.cpp",
+   "file": "Source/D2Common/DRLG/DrlgWarp.cpp",
    "form": "bytes",
    "name": "gData_00749804",
    "pointers": [
@@ -132150,7 +132141,7 @@
    "cname": "gData_006EED88",
    "declared": true,
    "decorated": "?gaTileGroups@@3PAUD2TileGroupStrc@@A",
-   "file": "Source/D2Common/Unknown_0066AC40.cpp",
+   "file": "Source/D2Common/DRLG/DrlgWarp.cpp",
    "fill": 14,
    "form": "declared",
    "fwd": "extern \"C\" const D2TileGroupStrc gData_006EED88[14]; // 0x006EED88",

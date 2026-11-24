@@ -33,6 +33,14 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
+struct D2DrlgTileDataStrc
+{
+    char unk0x00[0x14];
+    unsigned int dwFlags;
+    char unk0x18[0x08];
+    D2DrlgTileDataStrc* pNext;
+};
+
 struct D2DrlgRoomStrc
 {
     char unk0x00[0x24];
@@ -54,6 +62,19 @@ struct D2DrlgRoomStrc
     D2PresetUnitStrc* pPresetUnits;
 };
 
+struct D2DrlgTileInfoStrc
+{
+    int nPosX;
+    int nPosY;
+    int nTileIndex;
+};
+
+struct D2TileGroupStrc
+{
+    int bValid;
+    int nGroup;
+};
+
 struct D2DrlgLevelStrc
 {
     char unk0x00[0x08];
@@ -65,12 +86,15 @@ struct D2DrlgLevelStrc
     int nPosY;
     int nWidth;
     int nHeight;
-    char unk0x2C[0x188];
+    D2DrlgTileInfoStrc pTileInfo[32];
+    char unk0x1AC[0x08];
     D2DrlgStrc* pDrlg;
     char unk0x1B8[0x0C];
     D2SeedStrc pSeed;
     char unk0x1CC[0x04];
     int eLevelId;
+    char unk0x1D4[0x04];
+    int nTileInfo;
     D2DrlgRoomStrc* sub_0066AC40_GetTileRoom(int nTileIndex, int* pX, int* pY);    // 0x0066AC40
 };
 
@@ -192,6 +216,63 @@ D2ActiveRoomStrc* __fastcall DRLGWARP_GetDestinationRoom(D2DrlgRoomStrc* pDrlgRo
     return 0;
 }
 
+// 0x0066AB70
+void __fastcall DRLGWARP_ToggleRoomTilesEnableFlag(D2DrlgRoomStrc* pDrlgRoom, int bEnabled)
+{
+    for (D2RoomTileStrc* i = pDrlgRoom->pRoomTiles; i; i = i->pNext)
+    {
+        i->bEnabled = bEnabled;
+    }
+}
+
+// 0x0066AB90
+void __fastcall DRLGWARP_UpdateWarpRoomSelect(D2DrlgRoomStrc* pDrlgRoom, int nLevelId)
+{
+    for (D2RoomTileStrc* pRoomTile = pDrlgRoom->pRoomTiles; pRoomTile; pRoomTile = pRoomTile->pNext)
+    {
+        if (pRoomTile->pLvlWarpTxtRecord->dwLevelId == nLevelId)
+        {
+            if (pRoomTile->pSelectedTiles)
+            {
+                for (D2DrlgTileDataStrc* i = pRoomTile->pSelectedTiles; i; i = i->pNext)
+                {
+                    i->dwFlags &= 0xFFFFFFF7;
+                }
+
+                for (D2DrlgTileDataStrc* i = pRoomTile->pUnselectedTiles; i; i = i->pNext)
+                {
+                    i->dwFlags |= 8;
+                }
+            }
+            return;
+        }
+    }
+}
+
+// 0x0066ABE0
+void __fastcall DRLGWARP_UpdateWarpRoomDeselect(D2DrlgRoomStrc* pDrlgRoom, int nLevelId)
+{
+    for (D2RoomTileStrc* pRoomTile = pDrlgRoom->pRoomTiles; pRoomTile; pRoomTile = pRoomTile->pNext)
+    {
+        if (pRoomTile->pLvlWarpTxtRecord->dwLevelId == nLevelId)
+        {
+            if (pRoomTile->pUnselectedTiles)
+            {
+                for (D2DrlgTileDataStrc* i = pRoomTile->pUnselectedTiles; i; i = i->pNext)
+                {
+                    i->dwFlags &= 0xFFFFFFF7;
+                }
+
+                for (D2DrlgTileDataStrc* i = pRoomTile->pSelectedTiles; i; i = i->pNext)
+                {
+                    i->dwFlags |= 8;
+                }
+            }
+            return;
+        }
+    }
+}
+
 // 0x0066AC30
 static inline D2ActiveRoomStrc* DRLGWARP_GetActiveRoomFromRoomEx(D2DrlgRoomStrc* pDrlgRoom)
 {
@@ -210,6 +291,79 @@ static inline int* sub_0066AEC0(D2DrlgStrc* pDrlg, int nLevelId)
         }
     }
     return DATATBLS_GetLevelDefRecord(nLevelId)->dwWarp;
+}
+
+extern D2TileGroupStrc gaTileGroups[];                                                             // 0x006EED88
+D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromCoordinates(int nX, int nY, D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pRoomHint, D2DrlgLevelStrc* pLevel); // 0x00642C30
+
+static inline int TileMatches(int nTileIndex, int nOther)
+{
+    return nTileIndex == nOther || (gaTileGroups[nTileIndex].bValid && gaTileGroups[nTileIndex].nGroup == gaTileGroups[nOther].nGroup);
+}
+
+static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+
+    unsigned int const tNHighSeed = pSeed->nHighSeed;
+    if ((nMax - 1) & nMax)
+    {
+        unsigned __int64 lSeed = tNHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+        pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+        pSeed->nLowSeed = (unsigned int)lSeed;
+        return (unsigned int)lSeed % nMax;
+    }
+
+    unsigned __int64 lSeed = tNHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed & (nMax - 1);
+}
+
+// 0x0066AC40
+D2DrlgRoomStrc* D2DrlgLevelStrc::sub_0066AC40_GetTileRoom(int nTileIndex, int* pX, int* pY)
+{
+    int nCount = 0;
+    for (int i = 0; i < nTileInfo; ++i)
+    {
+        if (TileMatches(nTileIndex, pTileInfo[i].nTileIndex))
+        {
+            ++nCount;
+        }
+    }
+
+    int nPick;
+    if (nCount)
+    {
+        nPick = SEED_RollLimitedRandomNumber_Inline(&pSeed, nCount) + 1;
+    }
+    else
+    {
+        nPick = 0;
+    }
+
+    int i = 0;
+    const D2DrlgTileInfoStrc* pInfo = pTileInfo;
+    for (; i < nTileInfo; ++i, ++pInfo)
+    {
+        const int nTile = pInfo->nTileIndex;
+        if (nTileIndex == nTile || (gaTileGroups[nTileIndex].bValid && gaTileGroups[nTileIndex].nGroup == gaTileGroups[nTile].nGroup))
+        {
+            --nPick;
+        }
+
+        if (nPick <= 0)
+        {
+            break;
+        }
+    }
+
+    *pX = pTileInfo[i].nPosX;
+    *pY = pTileInfo[i].nPosY;
+    return DRLG_GetRoomExFromCoordinates(*pX, *pY, pDrlg, 0, this);
 }
 
 // 0x0066AD80
@@ -233,6 +387,14 @@ static D2DrlgRoomStrc* __stdcall DRLGWARP_GetWaypointRoomExFromLevel(D2DrlgLevel
         }
     }
     return 0;
+}
+
+// 0x0066AE30
+D2DrlgRoomStrc* __fastcall DRLGROOM_GetRoomExAtLevelCenterOffset(D2DrlgLevelStrc* pLevel, int nUnused, int nOffsetX, int nOffsetY)
+{
+    const int nX = pLevel->nWidth / 2 + pLevel->nPosX + nOffsetX - 2;
+    const int nY = pLevel->nHeight / 2 + pLevel->nPosY + nOffsetY - 2;
+    return DRLG_GetRoomExFromLevelAndCoordinates(pLevel, nX, nY);
 }
 
 // 0x0066AEC0
@@ -412,6 +574,7 @@ void __fastcall DRLGWARP_InitializeConnectedLevels(D2DrlgStrc* pDrlg,int unused,
  }
 }
 
+// 0x0066AE70
 static D2DrlgRoomStrc* sub_0066AE70_GetRandomRoom(D2DrlgLevelStrc* pLevel)
 {
     D2_ASSERT(pLevel, 318);
@@ -516,3 +679,5 @@ D2ActiveRoomStrc* __fastcall DRLGWARP_GetLevelEntryRoom(D2DrlgStrc* pDrlg, int n
 void __cdecl DRLGWARP_Nop()
 {
 }
+
+#include "gen/data/Source/D2Common/DRLG/DrlgWarp.inc"
