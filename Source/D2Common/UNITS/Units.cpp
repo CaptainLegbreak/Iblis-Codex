@@ -1374,15 +1374,6 @@ void __stdcall UNITS_RefreshInventory(D2UnitStrc* pUnit, int bSetFlag)
     }
 }
 
-// calling-convention shim (not game code)
-int __stdcall sub_K14_EmitCharacterStartRunning(D2UnitStrc* pUnit, int nClass)
-{
-    if (UNITS_GetUnitSizeX(pUnit) == 3)
-        UNITS_CharacterStartRunningOrKnockback(pUnit, nClass);
-    if (UNITS_GetUnitSizeX(pUnit) == 5)
-        UNITS_CharacterStartRunningOrKnockback(pUnit, pUnit->dwClassId);
-    return 1;
-}
 
 // 0x00621050
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* hUnit, int nInvPage, int bLoD)

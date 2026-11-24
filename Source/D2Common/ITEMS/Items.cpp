@@ -3610,13 +3610,6 @@ int __stdcall ITEMS_HasUsedCharges(D2UnitStrc* pItem, int* pHasChargedSkills)
     return bResult;
 }
 
-// calling-convention shim (not game code)
-void __stdcall sub_K14_EmitSetDefenseOrDamage(D2UnitStrc* pItem, int nOther)
-{
-    ITEMS_SetDefenseOrDamage(pItem, 17);
-    STATLIST_SetUnitStat(pItem, nOther, 0, 0);
-    ITEMS_SetDefenseOrDamage(pItem, 18);
-}
 
 // 0x0062A8D0
 int __stdcall ITEMS_IsEthereal(D2UnitStrc* pItem)
@@ -4611,11 +4604,6 @@ int __stdcall ITEMS_GetNoOfSetItemsFromItem(D2UnitStrc* pItem)
     return -1;
 }
 
-// calling-convention shim (not game code)
-void __stdcall sub_K14_EmitReadStat(D2BitBufferStrc* pBuffer, D2StatListStrc* pStatList, int nStatId, D2ItemStatCostTxt* pItemStatCostTxtRecord, int n109, unsigned int dwVersion)
-{
-    ITEMS_ReadStatFromItemBitstream(pBuffer, pStatList, pItemStatCostTxtRecord, nStatId, dwVersion, n109);
-}
 
 // 0x0062B450
 static void __stdcall ITEMS_GetBonusStatFromSockets(int nStatId, int* pValue, D2UnitStrc* pItem)
@@ -8040,17 +8028,7 @@ int __stdcall STATES_CheckStateMaskCurseByStateId(int nState)
     return 0;
 }
 
-// calling-convention shim (not game code)
-void __stdcall ITEMS_SerializeItemCompleteCaller(D2UnitStrc* pItem, D2BitBufferStrc* pBuffer, int bServer, int bGamble)
-{
-    ITEMS_SerializeItemComplete(pItem, pBuffer, bServer, bGamble);
-}
 
-// calling-convention shim (not game code)
-int __stdcall ITEMS_DecodeItemBitstreamCompleteCaller(D2UnitStrc* pItem, D2BitBufferStrc* pBuffer, int bCheckForHeader, int bGamble, int* pSocketedItems, unsigned int dwVersion)
-{
-    return ITEMS_DecodeItemBitstreamComplete(pItem, pBuffer, bCheckForHeader, bGamble, pSocketedItems, dwVersion) > 0;
-}
 
 inline int __fastcall STATES_CheckStateMaskByStateId(int nState, int nStateMask)
 {
