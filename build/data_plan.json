@@ -556,12 +556,10 @@
     "extern \"C\" void __cdecl SKILLDESC_CltDoTargetedMissile(); // 0x004F47B0",
     "extern \"C\" void __cdecl SKILLDESC_CltDoMirrorMissiles(); // 0x004F48F0",
     "extern \"C\" void __cdecl sub_004F4A30_CltDoChargedMissile(); // 0x004F4A30",
-    "extern \"C\" void __cdecl SKILLSAMA_CltDoRepeatAttack(); // 0x004F4C20",
     "extern \"C\" void __cdecl sub_004F4D90_MissileAtTarget(); // 0x004F4D90",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartPosition(); // 0x004C83C0",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartLeap(); // 0x004C8D90",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartRun(); // 0x004C9120",
-    "extern \"C\" void __cdecl SKILLSPAL_StartCharge(); // 0x004C9B40",
     "extern \"C\" void __cdecl MISSILE_SkillStartPlace(); // 0x004E0A40",
     "extern \"C\" void __cdecl sub_004E0BD0_CltStartClearCollision(); // 0x004E0BD0",
     "extern \"C\" void __cdecl sub_004E0EB0_CltStartPathToTarget(); // 0x004E0EB0",
@@ -603,7 +601,9 @@
     "extern \"C\" void __cdecl sub_004F4170(); // 0x004F4170",
     "extern \"C\" void __cdecl sub_004F42E0(); // 0x004F42E0",
     "extern \"C\" void __cdecl sub_004F4450_InitializeSkillTarget(); // 0x004F4450",
-    "extern \"C\" void __cdecl sub_004E0C90(); // 0x004E0C90"
+    "extern \"C\" void __cdecl sub_004E0C90(); // 0x004E0C90",
+    "extern \"C\" void __cdecl SKILLSAMA_CltDoRepeatAttack(); // 0x004F4C20",
+    "extern \"C\" void __cdecl SKILLSPAL_StartCharge(); // 0x004C9B40"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/SKILLS/Skills.inc",
@@ -1465,8 +1465,8 @@
    "definitions": 14,
    "externs": [
     "extern \"C\" void __cdecl SKILLDESC_DrawThrowAndElemDamage(); // 0x004EAAA0",
-    "extern \"C\" void __cdecl SKILLDESC_DrawElemDamage(); // 0x004EB290",
-    "extern \"C\" void __cdecl SKILLSMON_DescIfRecord(); // 0x004EC040"
+    "extern \"C\" void __cdecl SKILLSMON_DescIfRecord(); // 0x004EC040",
+    "extern \"C\" void __cdecl SKILLDESC_DrawElemDamage(); // 0x004EB290"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004E42E0.inc",
@@ -1654,9 +1654,6 @@
     "extern \"C\" void __cdecl sub_006B6730_DrawPerspectiveSprite(); // 0x006B6730",
     "extern \"C\" void __cdecl sub_006B6B40(); // 0x006B6B40",
     "extern \"C\" void __cdecl sub_006B6BF0(); // 0x006B6BF0",
-    "extern \"C\" void __cdecl D3D_DrawSpriteRows(); // 0x006B6C90",
-    "extern \"C\" void __cdecl D3D_DrawSpriteClipped(); // 0x006B6EE0",
-    "extern \"C\" void __cdecl D3D_DrawSpriteShadow(); // 0x006B7000",
     "extern \"C\" void __cdecl D3D_CelDrawHilight(); // 0x006B7090",
     "extern \"C\" void __cdecl D3D_DebugFillBackBuffer(); // 0x006B7100",
     "extern \"C\" void __cdecl sub_006B7630_DrawTextV(); // 0x006B7630",
@@ -1734,7 +1731,10 @@
     "extern \"C\" void __cdecl sub_006C95D0_DrawShifted(); // 0x006C95D0",
     "extern \"C\" void __cdecl sub_006C9640_GdiCloseSmacker(); // 0x006C9640",
     "extern \"C\" void __cdecl sub_006C9710_GdiDecodeSmacker(); // 0x006C9710",
-    "extern \"C\" void __cdecl sub_006C9900_GdiPlaySmacker(); // 0x006C9900"
+    "extern \"C\" void __cdecl sub_006C9900_GdiPlaySmacker(); // 0x006C9900",
+    "extern \"C\" void __cdecl D3D_DrawSpriteRows(); // 0x006B6C90",
+    "extern \"C\" void __cdecl D3D_DrawSpriteClipped(); // 0x006B6EE0",
+    "extern \"C\" void __cdecl D3D_DrawSpriteShadow(); // 0x006B7000"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004F4EC0.inc",
