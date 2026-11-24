@@ -11845,6 +11845,10 @@
      "name": "?sub_004C96D0@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x004C97C0",
+     "length": 450
+    },
+    {
      "va": "0x004C9D50",
      "length": 17,
      "name": "?sub_004C9D50_FindDestinationById@@YAPAUD2UnitStrc@@PAU1@H@Z"
@@ -30581,30 +30585,6 @@
     {
      "va": "0x004D66E0",
      "length": 305
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004C97C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004C97C0",
-     "length": 450
     }
    ],
    "flags": [
