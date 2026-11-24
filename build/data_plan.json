@@ -192,7 +192,7 @@
    "state": "included"
   },
   "Source/Storm/Unknown_00425720.cpp": {
-   "bytes": 72,
+   "bytes": 64,
    "definitions": 1,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
@@ -221,8 +221,8 @@
    "state": "included"
   },
   "Source/Storm/Unknown_00426900.cpp": {
-   "bytes": 16,
-   "definitions": 1,
+   "bytes": 0,
+   "definitions": 0,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/Unknown_00426900.inc",
@@ -9462,25 +9462,16 @@
    "declared": true,
    "decorated": "_gaSha1Padding_00708890",
    "file": "Source/Storm/Unknown_00425720.cpp",
-   "fill": 72,
+   "fill": 64,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708890_t gData_00708890; // 0x00708890",
    "head": "extern \"C\" struct d2data_00708890_t gData_00708890 = ",
    "name": "gaSha1Padding_00708890",
-   "pointers": [
-    [
-     64,
-     "0x006F28F8",
-     "address",
-     "gData_006F28F8",
-     0,
-     "data"
-    ]
-   ],
+   "pointers": [],
    "region": "data",
-   "size": 72,
+   "size": 64,
    "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00708890_t\n{\n    unsigned char b0[64];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00708890_t\n{\n    unsigned char b0[64];\n};\n#pragma pack(pop)",
    "tail": "; // 0x00708890\n#pragma comment(linker, \"/alternatename:_gaSha1Padding_00708890=_gData_00708890\")",
    "type": "unsigned char",
    "va": "0x00708890"
@@ -9575,23 +9566,6 @@
    "tail": "; // 0x006CFF78\n#pragma comment(linker, \"/alternatename:?gaSBigSmallPrimes@@3QBIB=_gData_006CFF78\")",
    "type": "unsigned int",
    "va": "0x006CFF78"
-  },
-  {
-   "alias": false,
-   "cname": "gData_007088D8",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_00426900.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007088D8_t gData_007088D8; // 0x007088D8",
-   "head": "extern \"C\" struct d2data_007088D8_t gData_007088D8 = ",
-   "name": "gData_007088D8",
-   "pointers": [],
-   "region": "data",
-   "size": 16,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007088D8_t\n{\n    unsigned char b0[16];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007088D8",
-   "va": "0x007088D8"
   },
   {
    "alias": true,
