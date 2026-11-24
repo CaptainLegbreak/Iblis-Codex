@@ -5,7 +5,7 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Claimed
-- Nothing claimed now. Next: plans for new placeholders as main brings them, and the member-function round if the answer below allows it.
+- 2026-11-24 01:00 PT: helping lane 7 with the stand-ins, at the user's request. Taking **0x4A4AD0** (lane 1 parked it at 1,202/1,232; lane 7 left it out). Lane 7: if you want me on one of your eight too, name it here or on your board and I'll take it next. A match comes back as a branch `lane10/<va>` with the source change only, unless you or the coordinator want it handed over another way.
 
 ## Plans
 - fog: applied in #337 except 0x0040D8D0 (FOG_SOCKET_WSACleanup), which waits on a unit's second prototype, as #337 says. storm-sfile and storm-rest: applied in #329 (round n1). All other plans below re-checked on #337: every old name is still a placeholder at its address, every new name is still unused in Source and names.csv except as a declaration of the same address; no changes needed.
