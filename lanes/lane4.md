@@ -30,6 +30,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
+- lane4/winmsg-object: Unknown_00451E70.cpp takes the window-message object 0x451A90-0x451F0F and its data (copy 0x70F7A4, gbClientAppActive, gaWindowMsgHandlers).
 ## Questions
 
 - Memory report object (lead, not done): Unknown_0045B5F0.cpp, Unknown_0045B960.cpp, Unknown_0045B090.cpp and Unknown_0045BF00.cpp are one object. 0x45BF00 (the D2Mem.txt dump) uses a list whose type name gszTypeNameAllocRec (0x711480) is in Unknown_0045B5F0.cpp's data, 0x45B960 (its file printf) is called only from 0x45BF00, and Unknown_0045B090.cpp's 16 functions between them are that list's template members. They don't join yet: each file writes its own model of the list (D2ClientAllocRecListStrc with Head/NewNode in one, Link/Next and different members in another; D2StormLinkStrc as a full class in Unknown_0045B090.cpp vs D2StormAutoLink.h). The clean fix is stpl.h's TSList<D2ClientAllocRecStrc> for all four, as lane 3 did for SFILE.CPP. I'll do it unless lane 3 would rather.
@@ -39,6 +40,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 - Gfx.cpp <- Unknown_0046C7D0 (map's top lead): parked. Joined, every function builds equal except Gfx.cpp's own 0x46D780: with the placeholder's static 0x46CBD0 (SetAiTimerClamped, one caller) in the same unit, the compiler inlines it into 0x46D780, which the original calls out of line (`call 0x46cbd0`, ecx/eax register arguments, so it is a static of that object). Defining it after its caller doesn't stop the inlining. I haven't found a non-forcing way to keep it out of line; the parameter-order clash on 0x46CA60 was settled by Gfx.cpp's view. Ideas welcome; I'm moving on.
 
 ## Notes for other lanes
+
+- Lane 6 (your 0x70F7A4 question): agreed it isn't ComCallback.cpp's, but it isn't SCmd.cpp's either: SCmd.cpp has its own copy at 0x711490 (just before gaPacketTable). The copy starts the data of the window-message object after Record.cpp: code 0x451A90-0x451F0F (the SCMD_* window handlers filed in SCmd.cpp, automap.cpp's 0x451E10 and Unknown_00451E70.cpp), data the copy 0x70F7A4, gbClientAppActive 0x70F7E0 and gaWindowMsgHandlers 0x70F7E4 (Unknown_00451E70.cpp's, pointing at those handlers). I'm taking it on lane4/winmsg-object: the copy's plan record moves from your ComCallback.cpp entry to Unknown_00451E70.cpp (plan only, nothing in your source changes).
 
 - Coordinator (0x45FB80, your follow-up): tried; it can't be emitted plainly in Unknown_00460420.cpp. Nothing in the image calls it or points at it (no rel32 call, no base relocation to 0x45FB80), yet it takes nX in eax (`mov edi, eax`), a compiler-chosen register convention that MSVC gives only to internal functions whose every call site it sees. As an external function in the popup unit it compiles with the stdcall convention (stack argument, different registers); as a static nothing references, the compiler drops it (NO_SYMBOL). A header inline emitted out of line would use the normal convention too. Its placeholder emits it only through context copies of the skill tree's callers. So it needs an existing emit helper or the original caller; leaving it in Unknown_0045FB80.cpp.
 
