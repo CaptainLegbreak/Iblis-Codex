@@ -2010,6 +2010,22 @@ void __stdcall TEXT_UnregisterKeyConfigHandlers(int bReset);                    
 
 
 
+struct D2TextCellStrc
+{
+    int nValue;
+
+    D2TextCellStrc() : nValue(0) {}
+};
+
+inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInl(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+    return 0;
+}
+
 // 0x004A6460
 void __cdecl TEXT_LoadLevelCels()
 {
@@ -3076,7 +3092,7 @@ int __stdcall STATES_CheckStateMaskArmRedOnUnit(D2UnitStrc* pUnit); // 0x0063A5F
 
 int __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc* pInventory, D2UnitStrc** ppItem); // 0x0063C8F0
 
-static void __stdcall sub_004A7AE0_DrawHoverToHit(int nX, int nY, int nLeftChance, int nRightChance); // 0x004A7AE0
+static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, int nX, int nY); // 0x004A7AE0
 
 static inline D2MonStatsTxt* sub_MonStatsTxtRecord(int nMonsterId)
 {
@@ -3098,75 +3114,72 @@ static inline D2CharStatsTxt* sub_CharStatsTxtRecord(int nClass)
     return 0;
 }
 
-static void __stdcall sub_004A7AE0_DrawHoverToHit(int nX, int nY, int nLeftChance, int nRightChance)
+// 0x004A7AE0
+static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, int nX, int nY)
 {
-    int anText[0x40];
-    for (int k = 0; k < 0x40; ++k)
-    {
-        anText[k] = 0;
-    }
-
+    D2TextCellStrc aText[0x40];
     PANEL_SetBlackColour();
 
-    int bLeft = 0;
-    int bRight = 0;
+    int bHoverA = 0;
+    int bHoverB = 0;
     if (nX >= gnPanelOffsetX + 0xA2 && nX <= gnPanelOffsetX + 0x140
-        && nY >= gnPanelOffsetY + gnScreenHeight - 0x14E && nY <= gnPanelOffsetY + gnScreenHeight - 0x13B)
+        && nY >= gnScreenHeight + gnPanelOffsetY - 0x14E && nY <= gnScreenHeight + gnPanelOffsetY - 0x13B)
     {
-        bLeft = 1;
+        bHoverA = 1;
     }
     else if (nX >= gnPanelOffsetX + 0xA2 && nX <= gnPanelOffsetX + 0x140
-        && nY >= gnPanelOffsetY + gnScreenHeight - 0x134 && nY <= gnPanelOffsetY + gnScreenHeight - 0x121)
+        && nY >= gnScreenHeight + gnPanelOffsetY - 0x134 && nY <= gnScreenHeight + gnPanelOffsetY - 0x121)
     {
-        bRight = 1;
+        bHoverB = 1;
     }
 
-    if (!nLeftChance)
+    if (!nValueA)
     {
-        bLeft = 0;
+        bHoverA = 0;
     }
-
-    if (!nRightChance)
+    if (!nValueB)
     {
-        bRight = 0;
+        bHoverB = 0;
     }
 
     int nIndex;
-    int nChance;
-    if (bLeft)
+    int nValue;
+    if (bHoverA)
     {
         nIndex = 0;
-        nChance = nLeftChance;
+        nValue = nValueA;
     }
-    else if (bRight)
+    else if (bHoverB)
     {
         nIndex = 1;
-        nChance = nRightChance;
+        nValue = nValueB;
     }
     else
     {
         return;
     }
 
-    if (nChance < 5)
+    if (nValue < 5)
     {
-        nChance = 5;
+        nValue = 5;
     }
-    else if (nChance > 0x5F)
+    else if (nValue > 0x5F)
     {
-        nChance = 0x5F;
+        nValue = 0x5F;
     }
 
-    AUTOMAP_DrawFramedBox(gaHoverBoxes[nIndex].nBoxX + gnPanelOffsetX, gaHoverBoxes[nIndex].nBoxY + gnPanelOffsetY + gnScreenHeight - 0x1E0, 0x9B, 0x1E, gnTextColor, 2);
-    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x103F), gaHoverBoxes[nIndex].nTitleX + gnPanelOffsetX, gaHoverBoxes[nIndex].nTitleY + gnPanelOffsetY + gnScreenHeight - 0x1E0, 0, 0);
+    AUTOMAP_DrawFramedBox(gaHoverBoxes[nIndex].nBoxX + gnPanelOffsetX, gaHoverBoxes[nIndex].nBoxY + gnPanelOffsetY + gnScreenHeight - 480, 0x9B, 0x1E, gnTextColor, 2);
+    const int nTitleY = gaHoverBoxes[nIndex].nTitleY + gnPanelOffsetY + gnScreenHeight - 480;
+    const int nTitleX = gaHoverBoxes[nIndex].nTitleX + gnPanelOffsetX;
+    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0x103F), nTitleX, nTitleY, 0, 0);
 
-    D2MonStatsTxt* pMonStatsTxtRecord = sub_MonStatsTxtRecord(sub_00466DC0());
+    D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInl(sub_00466DC0());
     D2_ASSERT(pMonStatsTxtRecord, 0xEC);
 
-    Unicode* wszText = (Unicode*)anText;
-    sub_005269D0(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2777), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nChance);
-    D2Win_10117_DrawText(wszText, gaHoverBoxes[nIndex].nTextX + gnPanelOffsetX, gaHoverBoxes[nIndex].nTextY + gnPanelOffsetY + gnScreenHeight - 0x1E0, 0, 0);
+    sub_005269D0(0x80, (Unicode*)aText, D2LANG_GetStringFromTblIndex(0x2777), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
+    D2Win_10117_DrawText((Unicode*)aText, gaHoverBoxes[nIndex].nTextX + gnPanelOffsetX, gaHoverBoxes[nIndex].nTextY + gnPanelOffsetY + gnScreenHeight - 480, 0, 0);
 }
+
 
 // 0x004A7D00
 void __cdecl sub_004A7D00_DrawCharStats()
@@ -3271,7 +3284,7 @@ NEXT_TEXT:;
     const int nLeftChance = TEXT_GetChanceToHit(sub_004EDA80_CallSkillDescFunc(pPlayer, 1));
     const int nRightChance = TEXT_GetChanceToHit(sub_004EDA80_CallSkillDescFunc(pPlayer, 0));
     const int nPercent = MONSTER_GetPlayerDefensePercent();
-    sub_004A7AE0_DrawHoverToHit(nMouseX, nMouseY, nLeftChance, nRightChance);
+    sub_004A7AE0_DrawHoverValueBox(nLeftChance, nRightChance, nMouseX, nMouseY);
     TEXT_DrawBlockChanceHover(nMouseX, nMouseY, nPercent);
     D2Win_10127_SetFont(1);
 
