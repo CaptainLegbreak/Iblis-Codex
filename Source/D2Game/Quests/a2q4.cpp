@@ -1338,4 +1338,3 @@ void __fastcall ACT2Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     }
 }
 
-#include "gen/data/Source/D2Game/Quests/a2q4.inc"

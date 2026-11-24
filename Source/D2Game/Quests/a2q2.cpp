@@ -816,4 +816,3 @@ void __fastcall ACT2Q2_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQ
     pQuestDataEx->bStaffMissingDetected = 1;
 }
 
-#include "gen/data/Source/D2Game/Quests/a2q2.inc"
