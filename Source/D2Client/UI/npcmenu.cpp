@@ -507,7 +507,8 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
-extern Unicode gwszCost_007C0DF5[]; // 0x007C0DF5
+// build: symbol ??__EgwszCost_007C0DF5@@YAXXZ 0x006CAD10
+Unicode gwszCost_007C0DF5[40]; // 0x007C0DF5
 
 typedef char sub_I16_AssertUnitSeed[(int)&((D2UnitStrc*)0)->pSeed == 0x20 ? 1 : -1];
 

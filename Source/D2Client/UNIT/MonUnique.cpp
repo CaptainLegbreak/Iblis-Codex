@@ -14,6 +14,8 @@
 
 #include "D2LevelTxt.h"
 
+#include "D2Unicode.h"
+
 #define UNIT_MONSTER 1
 
 #define MONTYPEFLAG_CHAMPION 4
@@ -99,7 +101,8 @@ struct D2HoverModeStrc
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
-extern wchar_t gwszSpace_007C0C58[];                                                                        // 0x007C0C58
+// build: symbol ??__EgwszNameSeparator@@YAXXZ 0x006CAD00
+Unicode gwszNameSeparator[2]; // 0x007C0C58
 
 extern const D2HoverModeStrc gaHoverModes[];                                                       // 0x006DA488
 
@@ -111,7 +114,7 @@ int __fastcall MONSTER_IsChampionMonster(D2UnitStrc* pUnit);                    
 
 wchar_t* __fastcall D2LANG_GetStringFromTblIndex(unsigned short wIndex);                                    // 0x00524A30
 
-void __fastcall sub_00526320_ToUnicode(wchar_t* pDest, const char* szSource, int nLength);                  // 0x00526320
+void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                  // 0x00526320
 
 void __fastcall sub_0063E810_SetUnitName(D2UnitStrc* pUnit, const wchar_t* wszName);                        // 0x0063E810
 
@@ -275,7 +278,7 @@ void __fastcall sub_004AC870_SetMonsterHoverName(D2UnitStrc* pUnit, int nMode, i
     }
     char szSpace[8];
     strcpy(szSpace, " ");
-    sub_00526320_ToUnicode(gwszSpace_007C0C58, szSpace, 2);
+    sub_00526320_ToUnicode(gwszNameSeparator, szSpace, 2);
 
     D2SeedStrc* pSeed = &pUnit->pSeed;
     unsigned short nNameSeed = sub_004AC760_GetNameSeed(pUnit);

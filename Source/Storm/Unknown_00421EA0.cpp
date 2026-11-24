@@ -337,29 +337,6 @@ BigBuffer& BigBuffer::operator=(const BigBuffer& tSource)
     return *this;
 }
 
-// 0x00450E70
-void D2StormArray2Strc::sub_00450E70_Reserve(unsigned int nCount, int bRound)
-{
-    nCount += m_count;
-    if (nCount > m_alloc)
-    {
-        if (bRound)
-        {
-            unsigned int nChunk = m_chunk ? m_chunk : sub_00450810_CalcChunkSize(nCount);
-            nCount = RoundUp(nCount, nChunk);
-        }
-        sub_00450D90_ReallocData(nCount);
-    }
-}
-
-// 0x00450F50
-void D2StormArray2Strc::sub_00450F50_ReserveExact(unsigned int nCount)
-{
-    const unsigned int nNewCount = m_count + nCount;
-    if (nNewCount > m_alloc)
-        sub_00450D90_ReallocData(nNewCount);
-}
-
 // 0x00422080
 void BigBuffer::sub_00422080_TrimToStart()
 {
@@ -461,10 +438,7 @@ void __stdcall SBigToStreamPtr(D2StormBigStrc* pBig, unsigned char** ppData, uns
     *pSize = pBig->tBuffer.m_count;
 }
 
-// build: symbol ??_GD2GameStrc@@QAEPAXI@Z 0x0044FBB0
 // build: symbol ??_GD2StormBigStrc@@QAEPAXI@Z 0x00423820
-// build: symbol ??_GD2StormHashObjectChunkStrc@@QAEPAXI@Z 0x004500A0
-// build: symbol ??_GD2StormListArrayStrc@@QAEPAXI@Z 0x004504D0
 // 0x00423820
 inline void D2StormBigStrc::operator delete(void* pMemory)
 {
@@ -472,60 +446,7 @@ inline void D2StormBigStrc::operator delete(void* pMemory)
         SMemFree(pMemory, "delete", -1, 0);
 }
 
-// 0x0044FBB0
-inline void D2GameStrc::operator delete(void* pMemory)
-{
-    if (pMemory)
-        SMemFree(pMemory, "delete", -1, 0);
-}
-
-// build: symbol ??_GD2StormListAStrc@@QAEPAXI@Z 0x0044FCF0
-inline D2StormListAStrc::~D2StormListAStrc()
-{
-    UnlinkAll();
-}
-
-inline void D2StormListAStrc::operator delete(void* pMemory)
-{
-    if (pMemory)
-        SMemFree(pMemory, "delete", -1, 0);
-}
-
-// 0x004500A0
-inline void D2StormHashObjectChunkStrc::operator delete(void* pMemory)
-{
-    if (pMemory)
-        SMemFree(pMemory, "delete", -1, 0);
-}
-
-// 0x004504D0
-inline void D2StormListArrayStrc::operator delete(void* pMemory)
-{
-    if (pMemory)
-        SMemFree(pMemory, "delete", -1, 0);
-}
-
 void sub_Emit_D2StormBigStrc(D2StormBigStrc* p)
-{
-    delete p;
-}
-
-void sub_Emit_D2GameStrc(D2GameStrc* p)
-{
-    delete p;
-}
-
-void sub_Emit_D2StormListAStrc(D2StormListAStrc* p)
-{
-    delete p;
-}
-
-void sub_Emit_D2StormHashObjectChunkStrc(D2StormHashObjectChunkStrc* p)
-{
-    delete p;
-}
-
-void sub_Emit_D2StormListArrayStrc(D2StormListArrayStrc* p)
 {
     delete p;
 }

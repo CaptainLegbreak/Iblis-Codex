@@ -837,6 +837,11 @@
      "va": "0x00406650",
      "length": 131,
      "name": "ERRORMANAGER_StartServiceDispatcher"
+    },
+    {
+     "va": "0x004066E0",
+     "length": 71,
+     "name": "WinMain"
     }
    ]
   },
@@ -2753,11 +2758,6 @@
    "file": "Source/D2Launch/Src/MainMenus.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004066E0",
-     "length": 71,
-     "name": "WinMain"
-    },
     {
      "va": "0x00406870",
      "length": 108,
@@ -5158,7 +5158,7 @@
     {
      "va": "0x00410A80",
      "length": 132,
-     "name": "?FOG_GetSyncTime@@YAJXZ"
+     "name": "?SYSTEM_GetSyncTime@@YAJXZ"
     }
    ]
   },
@@ -7804,36 +7804,6 @@
      "va": "0x00426160",
      "length": 23,
      "name": "?sub_00426160_GetTableSize@@YIII@Z"
-    },
-    {
-     "va": "0x0044FBB0",
-     "length": 43,
-     "name": "?_GD2GameStrc"
-    },
-    {
-     "va": "0x0044FCF0",
-     "length": 96,
-     "name": "?_GD2StormListAStrc"
-    },
-    {
-     "va": "0x004500A0",
-     "length": 98,
-     "name": "?_GD2StormHashObjectChunkStrc"
-    },
-    {
-     "va": "0x004504D0",
-     "length": 43,
-     "name": "?_GD2StormListArrayStrc"
-    },
-    {
-     "va": "0x00450E70",
-     "length": 70,
-     "name": "sub_00450E70_Reserve"
-    },
-    {
-     "va": "0x00450F50",
-     "length": 23,
-     "name": "sub_00450F50_ReserveExact"
     }
    ]
   },
@@ -8473,35 +8443,6 @@
      "va": "0x0042B9D0",
      "length": 1,
      "name": "?sub_0042B9D0_Nop@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00426910.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00450390",
-     "length": 85,
-     "name": "sub_00450390_NewNode"
-    },
-    {
-     "va": "0x00450FA0",
-     "length": 87,
-     "name": "sub_00450FA0_NewNode"
     }
    ],
    "flags": [
@@ -14789,6 +14730,11 @@
     {
      "va": "0x004AD020",
      "length": 150
+    },
+    {
+     "va": "0x006CAD00",
+     "length": 15,
+     "name": "?sub_006CAD00_InitializeNameSeparator@@YAXXZ"
     }
    ],
    "flags": [
@@ -14993,9 +14939,19 @@
      "name": "??0D2ChatStormListEStrc@@QAE@XZ"
     },
     {
+     "va": "0x0044FBB0",
+     "length": 43,
+     "name": "?_GD2GameStrc"
+    },
+    {
      "va": "0x0044FC60",
      "length": 135,
      "name": "sub_0044FC60_DeleteAll"
+    },
+    {
+     "va": "0x0044FCF0",
+     "length": 96,
+     "name": "?_GD2StormListAStrc"
     },
     {
      "va": "0x0044FE10",
@@ -15008,9 +14964,19 @@
      "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
     },
     {
+     "va": "0x004500A0",
+     "length": 98,
+     "name": "?_GD2StormHashObjectChunkStrc"
+    },
+    {
      "va": "0x00450350",
      "length": 17,
      "name": "??0D2Storm603530Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x00450390",
+     "length": 85,
+     "name": "sub_00450390_NewNode"
     },
     {
      "va": "0x004503F0",
@@ -15021,6 +14987,11 @@
      "va": "0x00450420",
      "length": 170,
      "name": "InternalNew"
+    },
+    {
+     "va": "0x004504D0",
+     "length": 43,
+     "name": "?_GD2StormListArrayStrc"
     },
     {
      "va": "0x00450580",
@@ -15046,6 +15017,11 @@
      "va": "0x00450F80",
      "length": 22,
      "name": "??0D2Storm604470Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x00450FA0",
+     "length": 87,
+     "name": "sub_00450FA0_NewNode"
     },
     {
      "va": "0x00451000",
@@ -15280,6 +15256,16 @@
      "va": "0x00450D90",
      "length": 209,
      "name": "?sub_00450D90_ReallocData@D2StormGameDataArrayStrc@@QAEXI@Z"
+    },
+    {
+     "va": "0x00450E70",
+     "length": 70,
+     "name": "sub_00450E70_Reserve"
+    },
+    {
+     "va": "0x00450F50",
+     "length": 23,
+     "name": "sub_00450F50_ReserveExact"
     },
     {
      "va": "0x004510B0",
@@ -26797,6 +26783,11 @@
      "va": "0x004B6A30",
      "length": 568,
      "name": "?NPCMENU_NpcTextCallback@@YIHPAXHH@Z"
+    },
+    {
+     "va": "0x006CAD10",
+     "length": 103,
+     "name": "?sub_006CAD10_InitBlock@@YAXXZ"
     }
    ],
    "flags": [
@@ -34262,7 +34253,7 @@
     {
      "va": "0x004F9870",
      "length": 109,
-     "name": "?D2COMP_DrawAllCompositeUnits@@YAXXZ"
+     "name": "?CONTROL_DrawAllCompositeUnits@@YAXXZ"
     },
     {
      "va": "0x004F98E0",
@@ -42584,32 +42575,32 @@
     {
      "va": "0x0052BE40",
      "length": 3,
-     "name": "?GAME_DefaultLeaveGame@@YGXHHHHHHHHHHHHHHHHHH@Z"
+     "name": "?NET_DefaultLeaveGame@@YGXHHHHHHHHHHHHHHHHHH@Z"
     },
     {
      "va": "0x0052BE60",
      "length": 3,
-     "name": "?GAME_DefaultSaveDatabaseCharacter@@YGXHHHH@Z"
+     "name": "?NET_DefaultSaveDatabaseCharacter@@YGXHHHH@Z"
     },
     {
      "va": "0x0052BE70",
      "length": 1,
-     "name": "?GAME_DefaultServerLogMessage@@YAXXZ"
+     "name": "?NET_DefaultServerLogMessage@@YAXXZ"
     },
     {
      "va": "0x0052BE80",
      "length": 3,
-     "name": "?GAME_DefaultEnterGame@@YGXHHH@Z"
+     "name": "?NET_DefaultEnterGame@@YGXHHH@Z"
     },
     {
      "va": "0x0052BE90",
      "length": 5,
-     "name": "?GAME_DefaultFindPlayerToken@@YGHHHHHHHH@Z"
+     "name": "?NET_DefaultFindPlayerToken@@YGHHHHHHHH@Z"
     },
     {
      "va": "0x0052BED0",
      "length": 3,
-     "name": "?GAME_DefaultUpdateCharacterLadder@@YGXHHHHH@Z"
+     "name": "?NET_DefaultUpdateCharacterLadder@@YGXHHHHH@Z"
     },
     {
      "va": "0x0052BFE0",
@@ -67775,7 +67766,7 @@
     {
      "va": "0x00624700",
      "length": 7,
-     "name": "?LOG_SetLogValue@@YIXH@Z"
+     "name": "?LOGGING_SetLogValue@@YIXH@Z"
     },
     {
      "va": "0x00624710",
@@ -67785,17 +67776,17 @@
     {
      "va": "0x00624720",
      "length": 15,
-     "name": "?LOG_OpenLogFile@@YAPAU_iobuf@@PBD@Z"
+     "name": "?LOGGING_OpenLogFile@@YAPAU_iobuf@@PBD@Z"
     },
     {
      "va": "0x00624730",
      "length": 8,
-     "name": "?LOG_CloseLogFile@@YAXPAU_iobuf@@@Z"
+     "name": "?LOGGING_CloseLogFile@@YAXPAU_iobuf@@@Z"
     },
     {
      "va": "0x00624740",
      "length": 63,
-     "name": "LOG_FormatLocalTime"
+     "name": "LOGGING_FormatLocalTime"
     },
     {
      "va": "0x00624780",
@@ -67805,7 +67796,7 @@
     {
      "va": "0x006248B0",
      "length": 45,
-     "name": "?LOG_WriteLogEntry@@YAXPAU_iobuf@@HHHHPBDH1ZZ"
+     "name": "?LOGGING_WriteLogEntry@@YAXPAU_iobuf@@HHHHPBDH1ZZ"
     },
     {
      "va": "0x006248E0",
@@ -67815,22 +67806,22 @@
     {
      "va": "0x00624930",
      "length": 400,
-     "name": "?LOG_WriteGameLogLine@@YAXHHHHHPBDZZ"
+     "name": "?LOGGING_WriteGameLogLine@@YAXHHHHHPBDZZ"
     },
     {
      "va": "0x00624AC0",
      "length": 84,
-     "name": "?LOG_OpenLog@@YIHPBD@Z"
+     "name": "?LOGGING_OpenLog@@YIHPBD@Z"
     },
     {
      "va": "0x00624B20",
      "length": 40,
-     "name": "?LOG_CloseLog@@YAXXZ"
+     "name": "?LOGGING_CloseLog@@YAXXZ"
     },
     {
      "va": "0x00624B50",
      "length": 60,
-     "name": "?LOG_SetLoggingEnabled@@YIXH@Z"
+     "name": "?LOGGING_SetLoggingEnabled@@YIXH@Z"
     }
    ]
   },
@@ -69605,7 +69596,7 @@
     {
      "va": "0x0063A7E0",
      "length": 23,
-     "name": "?INVENTORY_GetExtraDataFromItem@@YAPAUD2ItemExtraDataStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?ITEMS_GetExtraDataFromItem@@YAPAUD2ItemExtraDataStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0063A800",
@@ -74993,7 +74984,7 @@
     {
      "va": "0x00667030",
      "length": 36,
-     "name": "SKILLS_GetInnerPair"
+     "name": "DRLGPRESET_GetInnerPair"
     },
     {
      "va": "0x00667060",
@@ -75818,7 +75809,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0066D290.cpp",
+   "file": "Source/D2Common/DRLG/DrlgAnim.cpp",
    "rank": 0,
    "functions": [
     {
@@ -75837,6 +75828,10 @@
      "name": "DRLGANIM_AnimateTiles"
     },
     {
+     "va": "0x0066D440",
+     "length": 692
+    },
+    {
      "va": "0x0066D700",
      "length": 77,
      "name": "DRLGANIM_AllocAnimationTileGrids"
@@ -75845,23 +75840,7 @@
      "va": "0x0066D750",
      "length": 139,
      "name": "DRLGANIM_UpdateFrameInAdjacentRooms"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/DrlgAnim.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0066D440",
-     "length": 692
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0066D7E0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0066D7E0",
      "length": 8,
@@ -75933,7 +75912,7 @@
     {
      "va": "0x0066E140",
      "length": 20,
-     "name": "SKILLS_GetModeSideChar"
+     "name": "DRLGROOMTILE_GetModeSideChar"
     },
     {
      "va": "0x0066E160",
@@ -78187,6 +78166,19 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x006BE310",
+     "length": 53
+    },
+    {
+     "va": "0x006BE350",
+     "length": 55
+    },
+    {
+     "va": "0x006BE390",
+     "length": 36,
+     "name": "?FOG_10186@@YGHPAUD2Object006BE390Strc@@HH@Z"
+    },
+    {
      "va": "0x006BE3C0",
      "length": 132
     },
@@ -79279,19 +79271,6 @@
      "va": "0x006BE300",
      "length": 1,
      "name": "?sub_006BE300_Nop@@YAXPBD0H@Z"
-    },
-    {
-     "va": "0x006BE310",
-     "length": 53
-    },
-    {
-     "va": "0x006BE350",
-     "length": 55
-    },
-    {
-     "va": "0x006BE390",
-     "length": 36,
-     "name": "?FOG_10186@@YGHPAUD2Object006BE390Strc@@HH@Z"
     }
    ]
   },
@@ -80750,16 +80729,6 @@
    "file": "Source/Storm/Unknown_006CACE0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x006CAD00",
-     "length": 15,
-     "name": "?sub_006CAD00_InitializeNameSeparator@@YAXXZ"
-    },
-    {
-     "va": "0x006CAD10",
-     "length": 103,
-     "name": "?sub_006CAD10_InitBlock@@YAXXZ"
-    },
     {
      "va": "0x006CAD80",
      "length": 43,

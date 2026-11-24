@@ -18,11 +18,11 @@ Bytes of the built Game.exe by origin:
 | Origin | Bytes |
 |---|---:|
 | game code and data compiled from Source/ | 2,693,019 |
-| initialised data generated from your Game.exe (build/data_plan.json) | 371,355 |
+| initialised data generated from your Game.exe (build/data_plan.json) | 371,358 |
 | C runtime (libcmt.lib, placed by identity) | 239,696 |
 | import thunks and the import address table | 3,782 |
 | headers, import and export tables, relocations, checksum | 163,407 |
-| alignment padding | 122,163 |
+| alignment padding | 122,160 |
 | code taken from your Game.exe (unmatched functions) | 12,041 |
 | data no source defines yet, taken from your Game.exe | 1,041 |
 | resources (from your Game.exe) | 5,888 |
@@ -42,15 +42,15 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 812 |
+| Compilation units | 809 |
 | … in a file with its original name, whole | 293 |
 | … pieces of an original file still split (in 32 files) | 97 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 422 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2686 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 419 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2675 |
 | Unnamed fields (`unk0x..`) in the shared headers | 695 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
 | Calling-convention shims | 73 |
-| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 218 |
+| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 220 |
 | `__declspec(noinline)` / `__forceinline` | 104 / 217 |
 | Function names: blizzard / library / d2moo / inferred / placeholder | 475 / 85 / 5268 / 5843 / 3256 |
 
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 4094 functions are compiled with `/GS-` and 1006 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 104 times and `__declspec(dllexport)` 154 times to keep a body out of line or emitted.
+Not listed one by one: 4095 functions are compiled with `/GS-` and 1006 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 104 times and `__declspec(dllexport)` 154 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -442,8 +442,6 @@ Not listed one by one: 4094 functions are compiled with `/GS-` and 1006 with `/E
 | 0x0042DC70 | zcalloc | `Storm/zlib/zutil.c` | compiler option /Ob2, compiler option /TC |
 | 0x0042DC90 | zcfree | `Storm/zlib/zutil.c` | compiler option /Ob2, compiler option /TC |
 | 0x00446D30 | COMCALLBACK_GetUserRank | `D2Multi/Src/ComCallback.cpp` | calling-convention shim |
-| 0x00450390 | sub_00450390_NewNode | `Storm/Unknown_00426910.cpp` | compiler option /Ob2 |
-| 0x00450FA0 | sub_00450FA0_NewNode | `Storm/Unknown_00426910.cpp` | compiler option /Ob2 |
 | 0x004732C0 | sub_004732C0_StepParticles | `D2Client/ENGINE/Gfx.cpp` | volatile read or qualifier |
 | 0x00474160 | DLIGHTMAP_MakeLightEntry | `D2Client/DRAW/dLightMap.cpp` | volatile read or qualifier |
 | 0x00477DD0 | sub_00477DD0 | `D2Client/Unknown_00477760.cpp` | __assume |
@@ -484,7 +482,7 @@ Not listed one by one: 4094 functions are compiled with `/GS-` and 1006 with `/E
 | 0x004F97B0 | CONTROL_MouseInsideRect | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F97D0 | D2Win_IsCtrlKeyDown | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F97E0 | CURSOR_Draw | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
-| 0x004F9870 | D2COMP_DrawAllCompositeUnits | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
+| 0x004F9870 | CONTROL_DrawAllCompositeUnits | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F98E0 | D2Win_UpdateAndDraw | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F9A80 | D2Win_MAINWINDOW_WndProc_6F8AD9B0 | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004F9B30 | CONTROL_IsActiveListMember | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
@@ -664,6 +662,9 @@ Not listed one by one: 4094 functions are compiled with `/GS-` and 1006 with `/E
 | 0x006B83A0 | sub_006B83A0_DrawPerspective | `D2Direct3D/Unknown_006B7530.cpp` | volatile read or qualifier |
 | 0x006BCE20 | EXCEL_MapColumns | `Fog/Src/Excel/Excel.cpp` | calling-convention shim |
 | 0x006BD780 | FOG_10207 | `Fog/Src/Excel/Excel.cpp` | __assume |
+| 0x006BE310 | FOG_SetServerConfig | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
+| 0x006BE350 | FOG_StartServer | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
+| 0x006BE390 | FOG_10186 | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006BE3C0 | QSERVER_FreeAllSlots | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006BE450 | FOG_10180 | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006BE470 | QSERVER_IsActive | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |

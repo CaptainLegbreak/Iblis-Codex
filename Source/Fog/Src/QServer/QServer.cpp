@@ -85,7 +85,7 @@ void* __cdecl sub_006829C0_Copy(void* dest,const void* source,unsigned int size)
 
 extern const char gszQServerPrefix[]; // 0x006FC47C
 
-long __cdecl FOG_GetSyncTime(); // 0x00410A80
+long __cdecl SYSTEM_GetSyncTime(); // 0x00410A80
 
 
 static int __stdcall sub_006BF180_ReferenceAddress(D2QueueServerStrc* server,const unsigned int* address); // 0x006BF180
@@ -202,7 +202,7 @@ struct D2QSrvAutoLock
     }
 };
 
-// build: symbol ?FOG_SetServerConfig@* 0x006BE310
+// 0x006BE310
 void __stdcall FOG_SetServerConfig(D2QServerConfigStrc* pConfig)
 {
     gnLockCount = pConfig->nClientCapacity;
@@ -210,6 +210,29 @@ void __stdcall FOG_SetServerConfig(D2QServerConfigStrc* pConfig)
     gnQServerSlotCount = pConfig->nValue04;
     gnQServerBucketCount = pConfig->nValue08;
     gnGlobal_00989C28 = pConfig->nValue0C;
+}
+
+// 0x006BE350
+void __stdcall FOG_StartServer(D2QueueServerStrc* pServer, unsigned int nValue)
+{
+    if (pServer->bAltSend)
+    {
+        sub_006C3120_Start(pServer, nValue);
+    }
+    else
+    {
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 297);
+        exit(-1);
+    }
+}
+
+// 0x006BE390
+int __stdcall FOG_10186(D2QueueServerStrc* pServer, int nIndex, int nValue)
+{
+    int nOld = pServer->aValues[nIndex];
+    if (nValue)
+        pServer->aValues[nIndex] = nValue;
+    return nOld;
 }
 
 // 0x006BE3C0
@@ -1277,7 +1300,7 @@ D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc* server,unsigned int s
  client->nAddress=address;
  client->nPending24=0;client->nQueued=0;client->nValue74=0;
  client->bEnabled=1;client->nState=2;
- unsigned int tick=FOG_GetSyncTime();
+ unsigned int tick=SYSTEM_GetSyncTime();
  client->nCreateTime=tick;client->nLastTick=tick;client->nTick3=tick;client->nTick4=tick;
  InitializeCriticalSection(&client->tLock);
  unsigned int bucket=id&server->nMask;
@@ -1344,7 +1367,7 @@ static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nCl
 
     unsigned int* pAddress = &pClient->nAddress;
     sub_006BE300_Nop("QSRV", "[sRemoveClient]  Remove client %d %s refcount=%d life=%d", nClientId,
-        sub_006B013E_FormatAddress(*pAddress), pClient->nRefCount, FOG_GetSyncTime() - pClient->nCreateTime);
+        sub_006B013E_FormatAddress(*pAddress), pClient->nRefCount, SYSTEM_GetSyncTime() - pClient->nCreateTime);
 
     D2CriticalSectionStrc* pLock = (D2CriticalSectionStrc*)&pServer->tAddressLock;
     EnterCriticalSection(pLock);

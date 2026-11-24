@@ -715,7 +715,7 @@ void __fastcall DRLGROOMTILE_ShrinkRoofTilesToShadowCount(D2DrlgRoomStrc* pDrlgR
 }
 
 // 0x0066E140
-char __stdcall SKILLS_GetModeSideChar(int nMode)
+char __stdcall DRLGROOMTILE_GetModeSideChar(int nMode)
 {
     return nMode == 11 ? 'r' : 'l';
 }

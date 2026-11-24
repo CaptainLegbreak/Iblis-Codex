@@ -221,8 +221,8 @@
    "state": "included"
   },
   "Source/Storm/Unknown_00426900.cpp": {
-   "bytes": 4,
-   "definitions": 1,
+   "bytes": 20,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/Unknown_00426900.inc",
@@ -245,15 +245,6 @@
    "fn_types": {},
    "include": "gen/data/Source/Storm/zlib/crc32.inc",
    "lang": "c",
-   "state": "included"
-  },
-  "Source/Storm/Unknown_00426910.cpp": {
-   "bytes": 16,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00426910.inc",
-   "lang": "cpp",
    "state": "included"
   },
   "Source/Storm/zlib/zutil.c": {
@@ -3886,20 +3877,11 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/DrlgAnim.cpp": {
-   "bytes": 80,
-   "definitions": 2,
+   "bytes": 144,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/DrlgAnim.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/Unknown_0066D7E0.cpp": {
-   "bytes": 64,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_0066D7E0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -4024,8 +4006,8 @@
    "state": "included"
   },
   "Source/Fog/Src/QServer/QServer.cpp": {
-   "bytes": 180,
-   "definitions": 3,
+   "bytes": 192,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Fog/Src/QServer/QServer.inc",
@@ -4096,8 +4078,8 @@
    "state": "included"
   },
   "Source/Fog/Src/Excel/Excel.cpp": {
-   "bytes": 16,
-   "definitions": 4,
+   "bytes": 4,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Fog/Src/Excel/Excel.inc",
@@ -9955,6 +9937,23 @@
   },
   {
    "alias": false,
+   "cname": "gData_007088D8",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/Storm/Unknown_00426900.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_007088D8_t gData_007088D8; // 0x007088D8",
+   "head": "extern \"C\" struct d2data_007088D8_t gData_007088D8 = ",
+   "name": "gData_007088D8",
+   "pointers": [],
+   "region": "data",
+   "size": 16,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_007088D8_t\n{\n    unsigned char b0[16];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x007088D8",
+   "va": "0x007088D8"
+  },
+  {
+   "alias": false,
    "cname": "gData_007088EC",
    "declared": true,
    "decorated": "?gtSEvtBreakCmdTerminator@@3USEvtLinkStrc@@A",
@@ -10221,37 +10220,6 @@
    "tail": "; // 0x0070896C\n#pragma comment(linker, \"/alternatename:?gaTable_0070896C@@3PADA=_gData_0070896C\")",
    "type": "char",
    "va": "0x0070896C"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_00426910.cpp",
-   "fill": 16,
-   "form": "declared_owner",
-   "fwd": null,
-   "head": "extern char gszTypeNameBreakCmd_007088D8[16] = ",
-   "model": {
-    "elem": {
-     "k": "prim",
-     "kind": "c",
-     "name": "char",
-     "size": 1
-    },
-    "k": "arr",
-    "n": 16,
-    "size": 16
-   },
-   "name": "gszTypeNameBreakCmd_007088D8",
-   "pointers": [],
-   "region": "data",
-   "size": 16,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x007088D8",
-   "type": "char",
-   "va": "0x007088D8"
   },
   {
    "alias": true,
@@ -85405,7 +85373,7 @@
      4,
      "0x0052BE40",
      "names.json",
-     "GAME_DefaultLeaveGame",
+     "NET_DefaultLeaveGame",
      0,
      "func"
     ],
@@ -85421,7 +85389,7 @@
      12,
      "0x0052BE60",
      "names.json",
-     "GAME_DefaultSaveDatabaseCharacter",
+     "NET_DefaultSaveDatabaseCharacter",
      0,
      "func"
     ],
@@ -85429,7 +85397,7 @@
      16,
      "0x0052BE70",
      "names.json",
-     "GAME_DefaultServerLogMessage",
+     "NET_DefaultServerLogMessage",
      0,
      "func"
     ],
@@ -85437,7 +85405,7 @@
      20,
      "0x0052BE80",
      "names.json",
-     "GAME_DefaultEnterGame",
+     "NET_DefaultEnterGame",
      0,
      "func"
     ],
@@ -85445,7 +85413,7 @@
      24,
      "0x0052BE90",
      "names.json",
-     "GAME_DefaultFindPlayerToken",
+     "NET_DefaultFindPlayerToken",
      0,
      "func"
     ],
@@ -85477,7 +85445,7 @@
      40,
      "0x0052BED0",
      "names.json",
-     "GAME_DefaultUpdateCharacterLadder",
+     "NET_DefaultUpdateCharacterLadder",
      0,
      "func"
     ],
@@ -134219,7 +134187,7 @@
    "cname": "gData_006EEF88",
    "declared": true,
    "decorated": "?gnTileTypeTable@@3QBHB",
-   "file": "Source/D2Common/Unknown_0066D7E0.cpp",
+   "file": "Source/D2Common/DRLG/DrlgAnim.cpp",
    "fill": 16,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006EEF88[16]; // 0x006EEF88",
@@ -146206,57 +146174,6 @@
   },
   {
    "alias": false,
-   "cname": "gData_0074C3E4",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/Fog/Src/Excel/Excel.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0074C3E4_t gData_0074C3E4; // 0x0074C3E4",
-   "head": "extern \"C\" struct d2data_0074C3E4_t gData_0074C3E4 = ",
-   "name": "gData_0074C3E4",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0074C3E4_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0074C3E4",
-   "va": "0x0074C3E4"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0074C3E8",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/Fog/Src/Excel/Excel.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0074C3E8_t gData_0074C3E8; // 0x0074C3E8",
-   "head": "extern \"C\" struct d2data_0074C3E8_t gData_0074C3E8 = ",
-   "name": "gData_0074C3E8",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0074C3E8_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0074C3E8",
-   "va": "0x0074C3E8"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0074C3EC",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/Fog/Src/Excel/Excel.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0074C3EC_t gData_0074C3EC; // 0x0074C3EC",
-   "head": "extern \"C\" struct d2data_0074C3EC_t gData_0074C3EC = ",
-   "name": "gData_0074C3EC",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0074C3EC_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0074C3EC",
-   "va": "0x0074C3EC"
-  },
-  {
-   "alias": false,
    "cname": null,
    "declared": true,
    "decorated": null,
@@ -146310,6 +146227,81 @@
    "tail": "; // 0x0074C3E0",
    "type": "int",
    "va": "0x0074C3E0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/Fog/Src/QServer/QServer.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int gnQServerClientCapacity = ",
+   "model": {
+    "k": "prim",
+    "kind": "s",
+    "name": "int",
+    "size": 4
+   },
+   "name": "gnQServerClientCapacity",
+   "pointers": [],
+   "region": "data",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0074C3E4",
+   "type": "int",
+   "va": "0x0074C3E4"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/Fog/Src/QServer/QServer.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int gnQServerSlotCount = ",
+   "model": {
+    "k": "prim",
+    "kind": "s",
+    "name": "int",
+    "size": 4
+   },
+   "name": "gnQServerSlotCount",
+   "pointers": [],
+   "region": "data",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0074C3E8",
+   "type": "int",
+   "va": "0x0074C3E8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/Fog/Src/QServer/QServer.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int gnQServerBucketCount = ",
+   "model": {
+    "k": "prim",
+    "kind": "s",
+    "name": "int",
+    "size": 4
+   },
+   "name": "gnQServerBucketCount",
+   "pointers": [],
+   "region": "data",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0074C3EC",
+   "type": "int",
+   "va": "0x0074C3EC"
   },
   {
    "alias": true,

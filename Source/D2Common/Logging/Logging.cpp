@@ -65,7 +65,7 @@ extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 extern "C" unsigned int __cdecl strlen(const char* sz);
 
 // 0x00624700
-void __fastcall LOG_SetLogValue(int nValue)
+void __fastcall LOGGING_SetLogValue(int nValue)
 {
     gnLogValue = nValue;
 }
@@ -79,19 +79,19 @@ int __cdecl sub_00624710()
 }
 
 // 0x00624720
-static _iobuf* LOG_OpenLogFile(const char* szFileName)
+static _iobuf* LOGGING_OpenLogFile(const char* szFileName)
 {
     return fopen(szFileName, "wt");
 }
 
 // 0x00624730
-static void LOG_CloseLogFile(_iobuf* pFile)
+static void LOGGING_CloseLogFile(_iobuf* pFile)
 {
     fclose(pFile);
 }
 
 // 0x00624740
-void __stdcall LOG_FormatLocalTime(char* szBuffer, size_t nSize)
+void __stdcall LOGGING_FormatLocalTime(char* szBuffer, size_t nSize)
 {
     D2SystemTimeStrc tTime;
     GetLocalTime(&tTime);
@@ -124,7 +124,7 @@ static void __stdcall StoreLogging(_iobuf* pFile, int nThreadId, int nLogLevel, 
 }
 
 // 0x006248B0
-void __cdecl LOG_WriteLogEntry(_iobuf* pFile, int nThreadId, int nLogLevel, int nComponent, int nSubsystem, const char* szContext, int nSequence, const char* szFormat, ...)
+void __cdecl LOGGING_WriteLogEntry(_iobuf* pFile, int nThreadId, int nLogLevel, int nComponent, int nSubsystem, const char* szContext, int nSequence, const char* szFormat, ...)
 {
     va_list va;
     va_start(va, szFormat);
@@ -145,7 +145,7 @@ void __cdecl LOG_11100(int nThreadId, int nLogLevel, int nComponent, int nSubsys
 }
 
 // 0x00624930
-void __cdecl LOG_WriteGameLogLine(int nGame, int nFrame, int nClient, int nType, int nSize, const char* szFormat, ...)
+void __cdecl LOGGING_WriteGameLogLine(int nGame, int nFrame, int nClient, int nType, int nSize, const char* szFormat, ...)
 {
     if (!gpLogFile)
     {
@@ -187,11 +187,11 @@ void __cdecl LOG_WriteGameLogLine(int nGame, int nFrame, int nClient, int nType,
 }
 
 // 0x00624AC0
-int __fastcall LOG_OpenLog(const char* szFileName)
+int __fastcall LOGGING_OpenLog(const char* szFileName)
 {
     if (!gpLogFile)
     {
-        gpLogFile = LOG_OpenLogFile(szFileName);
+        gpLogFile = LOGGING_OpenLogFile(szFileName);
         if (!gpLogFile)
             return 0;
         InitializeCriticalSection(&gLogLock);
@@ -201,26 +201,26 @@ int __fastcall LOG_OpenLog(const char* szFileName)
 }
 
 // 0x00624B20
-void __cdecl LOG_CloseLog()
+void __cdecl LOGGING_CloseLog()
 {
     if (gpLogFile)
     {
-        LOG_CloseLogFile(gpLogFile);
+        LOGGING_CloseLogFile(gpLogFile);
         DeleteCriticalSection(&gLogLock);
         gpLogFile = 0;
     }
 }
 
 // 0x00624B50
-void __fastcall LOG_SetLoggingEnabled(int bEnable)
+void __fastcall LOGGING_SetLoggingEnabled(int bEnable)
 {
     gbLogEnabled = bEnable;
     if (bEnable)
     {
-        LOG_OpenLog("d2log.txt");
+        LOGGING_OpenLog("d2log.txt");
         return;
     }
-    LOG_CloseLog();
+    LOGGING_CloseLog();
 }
 
 static inline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId)

@@ -712,8 +712,8 @@ void __stdcall sub_005645E0_TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask
     }
     GAME_UpdateProgress(pGame);
     sub_6FC39270(pGame, 0);
-// build: symbol ?FOG_GetSyncTime@* 0x00410A80
-    const int nTime = FOG_GetSyncTime();
+// build: symbol ?SYSTEM_GetSyncTime@* 0x00410A80
+    const int nTime = SYSTEM_GetSyncTime();
     const unsigned int nSyncTimer = pGame->nSyncTimer;
     if (nSyncTimer == 1 || nTime - nSyncTimer > 1800)
     {

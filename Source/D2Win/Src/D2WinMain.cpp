@@ -67,7 +67,7 @@ int __stdcall CONTROL_FreeDeadList(); // 0x004F9290
 
 void __cdecl CURSOR_Draw(); // 0x004F97E0
 
-void __cdecl D2COMP_DrawAllCompositeUnits(); // 0x004F9870
+void __cdecl CONTROL_DrawAllCompositeUnits(); // 0x004F9870
 
 void __stdcall D2CMPSpriteCacheInit(void* pMemPool, unsigned int nMaxSize, int nArg, unsigned int nCacheSize); // 0x005FFD40
 
@@ -1427,7 +1427,7 @@ void __cdecl CURSOR_Draw()
 }
 
 // 0x004F9870
-void __cdecl D2COMP_DrawAllCompositeUnits()
+void __cdecl CONTROL_DrawAllCompositeUnits()
 {
     for (D2CompositeUnitStrc* p = D2COMP_GetFirstCompositeUnit(); p; p = D2Win_10148(p))
     {
@@ -1507,7 +1507,7 @@ void __stdcall D2Win_UpdateAndDraw()
             }
         }
 
-        D2COMP_DrawAllCompositeUnits();
+        CONTROL_DrawAllCompositeUnits();
 
         if (dword_6F8FE278)
         {

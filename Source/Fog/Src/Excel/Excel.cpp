@@ -305,12 +305,6 @@ extern "C" const char* __cdecl sub_00408090();                                  
 
 struct D2BinFieldStrc;
 
-struct D2QServerConfigStrc;
-
-struct D2QueueServerStrc;
-
-struct D2Object006BE390Strc;
-
 struct D2BinFieldStrc { const char* name; unsigned type; int length,offset; void* link; };
 
 int __stdcall EXCEL_MapColumns(unsigned short*,D2BinFileStrc*,D2BinFieldStrc*); // 0x006BCE20
@@ -331,19 +325,6 @@ void __stdcall sub_00410B50(void*,int); // 0x00410B50
 typedef int (__fastcall* KeyCallback)(const char*);
 
 typedef void (__fastcall* FieldCallback)(const char*,void*,int,int,int,int);
-
-struct D2QueueServerStrc
-{
-    void* pHandle;
-};
-
-unsigned int __fastcall sub_006C3120_Start(D2QueueServerStrc* pServer, int nValue); // 0x006C3120
-
-struct D2Object006BE390Strc
-{
-    unsigned char unk_000[0xBA8];
-    int anSlots[1];
-};
 
 extern "C" void __fastcall sub_0061BAC0_portalFlag(RoomFlags* room, int reset)
 {
@@ -648,39 +629,6 @@ void __stdcall FOG_10207(D2BinFileStrc* bin,D2BinFieldStrc* fields,char* output,
  }
 }
 
-// 0x006BE2F0
-void __cdecl sub_006BE2F0_Nop(const char* unused1, const char* unused2, int unused3)
-{
-}
-
-// 0x006BE300
-void __cdecl sub_006BE300_Nop(const char* szTag, const char* szFormat, ...)
-{
-}
-
-// 0x006BE350
-void __stdcall FOG_StartServer(D2QueueServerStrc* pServer, unsigned int nValue)
-{
-    if (pServer->pHandle)
-    {
-        sub_006C3120_Start(pServer, nValue);
-    }
-    else
-    {
-        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 297);
-        exit(-1);
-    }
-}
-
-// 0x006BE390
-int __stdcall FOG_10186(D2Object006BE390Strc* pObject, int nIndex, int nValue)
-{
-    int nOld = pObject->anSlots[nIndex];
-    if (nValue)
-        pObject->anSlots[nIndex] = nValue;
-    return nOld;
-}
-
 // 0x006BD130
 extern "C" int __stdcall FOG_GetLinkIndexByCode(D2TxtLinkStrc* pLink, unsigned int nCode, int bLogError)
 {
@@ -879,24 +827,14 @@ D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine)
     return pLink;
 }
 
-static int gnLockCount; // 0x0074C3E0
-
-static int gnQServerClientCapacity; // 0x0074C3E4
-
-static int gnQServerSlotCount; // 0x0074C3E8
-
-static int gnQServerBucketCount; // 0x0074C3EC
-
-static int gnGlobal_00989C28; // 0x00989C28
-
-// 0x006BE310
-void __stdcall FOG_SetServerConfig(D2QServerConfigStrc* pConfig)
+// 0x006BE2F0
+void __cdecl sub_006BE2F0_Nop(const char* szTag, const char* szFormat, ...)
 {
-    gnLockCount = pConfig->nClientCapacity;
-    gnQServerClientCapacity = pConfig->nClientCapacity - 1;
-    gnQServerSlotCount = pConfig->nValue04;
-    gnQServerBucketCount = pConfig->nValue08;
-    gnGlobal_00989C28 = pConfig->nValue0C;
+}
+
+// 0x006BE300
+void __cdecl sub_006BE300_Nop(const char* szTag, const char* szFormat, ...)
+{
 }
 
 // 0x006BD070

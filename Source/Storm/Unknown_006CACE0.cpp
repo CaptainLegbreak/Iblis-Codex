@@ -1,34 +1,7 @@
 #include "Storm.h"
 
-struct D2Block006CAD10Strc;
 extern int gnKeyConfigThumbY; // 0x007C02CC
-extern unsigned short gwNameSeparatorFirst_007C0C58; // 0x007C0C58
 
-struct D2Block006CAD10Strc
-{
-    int n00;
-    int n04;
-    int n08;
-    int n0C;
-    int n10;
-    int n14;
-    int n18;
-    int n1C;
-    int n20;
-    int n24;
-    int n28;
-    int n2C;
-    int n30;
-    int n34;
-    int n38;
-    int n3C;
-    int n40;
-    int n44;
-    int n48;
-    int n4C;
-};
-
-extern D2Block006CAD10Strc gBlock_007C0DF5; // 0x007C0DF5
 extern int gnValue_007C0E84; // 0x007C0E84
 void __cdecl sub_006CB400_Nop(); // 0x006CB400
 int __cdecl sub_00683824_RegisterExit(void (__cdecl* callback)()); // 0x00683824
@@ -38,40 +11,6 @@ extern const char* gszDefaultWindow_0072DB3C; // 0x0072DB3C
 extern const char* gszWindowClass; // 0x007C9344
 extern const char* gszWindowTitle; // 0x007C9348
 extern unsigned int gaTable_00841EC8[0x200]; // 0x00841EC8
-
-unsigned short gwNameSeparatorSecond_007C0C5A; // 0x007C0C5A
-
-// 0x006CAD00
-void __cdecl sub_006CAD00_InitializeNameSeparator()
-{
-    gwNameSeparatorFirst_007C0C58 = 0;
-    gwNameSeparatorSecond_007C0C5A = 0;
-}
-
-// 0x006CAD10
-void __cdecl sub_006CAD10_InitBlock()
-{
-    gBlock_007C0DF5.n00 = 0;
-    gBlock_007C0DF5.n04 = 0;
-    gBlock_007C0DF5.n08 = 0;
-    gBlock_007C0DF5.n0C = 0;
-    gBlock_007C0DF5.n10 = 0;
-    gBlock_007C0DF5.n14 = 0;
-    gBlock_007C0DF5.n18 = 0;
-    gBlock_007C0DF5.n1C = 0;
-    gBlock_007C0DF5.n20 = 0;
-    gBlock_007C0DF5.n24 = 0;
-    gBlock_007C0DF5.n28 = 0;
-    gBlock_007C0DF5.n2C = 0;
-    gBlock_007C0DF5.n30 = 0;
-    gBlock_007C0DF5.n34 = 0;
-    gBlock_007C0DF5.n38 = 0;
-    gBlock_007C0DF5.n3C = 0;
-    gBlock_007C0DF5.n40 = 0;
-    gBlock_007C0DF5.n44 = 0;
-    gBlock_007C0DF5.n48 = 0;
-    gBlock_007C0DF5.n4C = 0;
-}
 
 int gnValue_007C0E88; // 0x007C0E88
 
