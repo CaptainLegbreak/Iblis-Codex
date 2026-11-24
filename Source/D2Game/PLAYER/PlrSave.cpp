@@ -3417,7 +3417,7 @@ void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* ptGame, SUNIT_IterateFn p
 void __fastcall MONSTER_RemoveAll(D2GameStrc* pGame); // 0x00573640
 
 // 0x005CEC90
-int __stdcall SKILLS_ShortenPoisonAndCurses(D2GameStrc* pGame, D2UnitStrc* pUnit, int nPercent)
+int __stdcall PLRSAVE_ShortenPoisonAndCurses(D2GameStrc* pGame, D2UnitStrc* pUnit, int nPercent)
 {
     int bPoisonedOrCursed = 0;
     if (STATES_CheckState(pUnit, STATE_POISON))

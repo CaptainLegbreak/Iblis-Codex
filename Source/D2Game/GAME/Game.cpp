@@ -1304,31 +1304,31 @@ void* __cdecl sub_00520650()
 }
 
 // 0x00520AE0
-int __cdecl BNCLIENT_GetAbortFlag()
+int __cdecl GAME_GetAbortFlag()
 {
     return gdwGlobal_00882528;
 }
 
 // 0x00520AF0
-int __cdecl BNCLIENT_GetLastStatus()
+int __cdecl GAME_GetLastStatus()
 {
     return gnLastStatus;
 }
 
 // 0x00520B00
-void* __cdecl BNCLIENT_GetReplyText()
+void* __cdecl GAME_GetReplyText()
 {
     return gszReplyText;
 }
 
 // 0x00520B10
-int __cdecl BNCLIENT_GetCreateAccountResult()
+int __cdecl GAME_GetCreateAccountResult()
 {
     return gnCreateAccountResult;
 }
 
 // 0x00520B20
-int __cdecl BNCLIENT_GetChangePasswordResult()
+int __cdecl GAME_GetChangePasswordResult()
 {
     return gnChangePasswordResult;
 }
@@ -1346,25 +1346,25 @@ int __cdecl sub_005210E0()
 }
 
 // 0x005224E0
-int __cdecl BNCLIENT_GetLoginRetryCount()
+int __cdecl GAME_GetLoginRetryCount()
 {
     return gnLoginRetryCount;
 }
 
 // 0x00523A00
-int __cdecl BNCLIENT_GetExeHash()
+int __cdecl GAME_GetExeHash()
 {
     return gdwGlobal_00730190;
 }
 
 // 0x00523AA0
-int __cdecl BNCLIENT_GetExeInfo()
+int __cdecl GAME_GetExeInfo()
 {
     return gdwGlobal_00882750;
 }
 
 // 0x0052A600
-int __fastcall BNCLIENT_DeleteBigNum(void* pArg)
+int __fastcall GAME_DeleteBigNum(void* pArg)
 {
     return sub_00424E40(pArg);
 }

@@ -45,6 +45,6 @@ int __stdcall sub_00528970_FillRecord(D2BigRecordStrc* pRecord, const char* szNa
     pRecord->tThird = *pThird;
     void* hBig = sub_0052A270_BigFromBinary(pThird, 0x20);
     const int nResult = sub_0052A2F0_BigCompareUnsigned(hBig, 0);
-    BNCLIENT_DeleteBigNum(hBig);
+    GAME_DeleteBigNum(hBig);
     return nResult == 1;
 }

@@ -39923,27 +39923,27 @@
     {
      "va": "0x00520AE0",
      "length": 6,
-     "name": "BNCLIENT_GetAbortFlag"
+     "name": "GAME_GetAbortFlag"
     },
     {
      "va": "0x00520AF0",
      "length": 6,
-     "name": "BNCLIENT_GetLastStatus"
+     "name": "GAME_GetLastStatus"
     },
     {
      "va": "0x00520B00",
      "length": 6,
-     "name": "BNCLIENT_GetReplyText"
+     "name": "GAME_GetReplyText"
     },
     {
      "va": "0x00520B10",
      "length": 6,
-     "name": "BNCLIENT_GetCreateAccountResult"
+     "name": "GAME_GetCreateAccountResult"
     },
     {
      "va": "0x00520B20",
      "length": 6,
-     "name": "BNCLIENT_GetChangePasswordResult"
+     "name": "GAME_GetChangePasswordResult"
     },
     {
      "va": "0x00520C40",
@@ -39958,22 +39958,22 @@
     {
      "va": "0x005224E0",
      "length": 6,
-     "name": "BNCLIENT_GetLoginRetryCount"
+     "name": "GAME_GetLoginRetryCount"
     },
     {
      "va": "0x00523A00",
      "length": 6,
-     "name": "BNCLIENT_GetExeHash"
+     "name": "GAME_GetExeHash"
     },
     {
      "va": "0x00523AA0",
      "length": 6,
-     "name": "BNCLIENT_GetExeInfo"
+     "name": "GAME_GetExeInfo"
     },
     {
      "va": "0x0052A600",
      "length": 7,
-     "name": "BNCLIENT_DeleteBigNum"
+     "name": "GAME_DeleteBigNum"
     },
     {
      "va": "0x0052BDC0",
@@ -43019,7 +43019,7 @@
     {
      "va": "0x00568D70",
      "length": 12,
-     "name": "?PLRSAVE2_GetHighestClassSkillCount@@YAHXZ"
+     "name": "?AITACTICS_GetHighestClassSkillCount@@YAHXZ"
     },
     {
      "va": "0x005DDE50",
@@ -43488,7 +43488,7 @@
     {
      "va": "0x005CEC90",
      "length": 297,
-     "name": "SKILLS_ShortenPoisonAndCurses"
+     "name": "PLRSAVE_ShortenPoisonAndCurses"
     }
    ]
   },
@@ -43890,7 +43890,7 @@
     {
      "va": "0x005A4F20",
      "length": 35,
-     "name": "?MONSTEREVAL_GetDifficultyScaledBonus@@YIHPAUD2GameStrc@@H@Z"
+     "name": "?SUNITPROXY_GetDifficultyScaledBonus@@YIHPAUD2GameStrc@@H@Z"
     }
    ]
   },
@@ -44436,7 +44436,7 @@
     {
      "va": "0x00540890",
      "length": 73,
-     "name": "PARTY_SumLivingPartyLevelsInSameLevel"
+     "name": "CLIENTS_SumLivingPartyLevelsInSameLevel"
     },
     {
      "va": "0x00541830",
@@ -54587,12 +54587,12 @@
     {
      "va": "0x00597C70",
      "length": 118,
-     "name": "?MONSTERMSG_SendSummonerInfo@@YGXPAUD2ClientStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?INVMODE_SendSummonerInfo@@YGXPAUD2ClientStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x00597CF0",
      "length": 115,
-     "name": "?MONSTERMSG_SendLifeUpdate@@YGXPAUD2UnitStrc@@PAUD2ClientStrc@@@Z"
+     "name": "?INVMODE_SendLifeUpdate@@YGXPAUD2UnitStrc@@PAUD2ClientStrc@@@Z"
     },
     {
      "va": "0x00597D70",
@@ -56427,7 +56427,7 @@
     {
      "va": "0x005A6130",
      "length": 94,
-     "name": "FRIENDLY_AreUnitsFriendly"
+     "name": "MONSTERUNIQUE_AreUnitsFriendly"
     }
    ]
   },
@@ -59208,7 +59208,7 @@
     {
      "va": "0x005B7230",
      "length": 100,
-     "name": "?ACT3Q0_ChangeHratliMapAI@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2MapAIStrc@@@Z"
+     "name": "?ACT3Q1_ChangeHratliMapAI@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2MapAIStrc@@@Z"
     },
     {
      "va": "0x005B72A0",

@@ -212,7 +212,7 @@ void __fastcall OBJECTS_InitFunction50_HratliEnd(D2ObjInitFnStrc* pOp)
 }
 
 // 0x005B7230
-void __fastcall ACT3Q0_ChangeHratliMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAI)
+void __fastcall ACT3Q1_ChangeHratliMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAI)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 14);
     if (!pQuestData)
