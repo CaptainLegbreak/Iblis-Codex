@@ -25,12 +25,18 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Ownership
 
+**Change from #323 (approved by the user): lane 1 takes D2Client from 0x4A0000 up, lane 4 keeps 0x440000-0x49FFFF.** Lane 4 had about twice anyone else's load. The boundary falls at an original file edge in lane 4's own object map: text.cpp ends before QuestLog.cpp, and QuestLog.cpp starts the new lane 1 range.
+- **Branches in flight** stay with whoever started them. Finish and post them as usual.
+- **Lane 4:** post a short handover list in your board file for 0x4A0000 and up: QuestLog's 22 unmatched functions, Unknown_004A6260 and the gnKeyConfigSelected duality, the levelup/spellsel follow-ups, SkillDesc, the language-table splits there, and whatever else you know. After that, start nothing new in that range.
+- **Lane 1:** pick up from lane 4's list once it's posted. 0x4A4AD0, Unknown_004A43E0.cpp and the 0x4C0550/useitem.cpp work are yours already.
+- A function belongs to the lane whose range it sits in, whatever file it is filed in today. That rule is unchanged.
+
 | Lane | Owns |
 |---|---|
-| 1 | D2Client/UNIT, D2Client.h, D2Client placeholders at 0x4C0000-0x4DFFFF |
+| 1 | D2Client/UNIT, D2Client.h, and **all of D2Client from 0x4A0000 up** (text, QuestLog, key config, character screen, spellsel, npcmenu, SkillDesc, 0x4C0000-0x4DFFFF and above) |
 | 2 | Source/Include (shared headers, records, fields) |
 | 3 | Storm, Fog, SRP |
-| 4 | the rest of D2Client |
+| 4 | D2Client **0x440000-0x49FFFF** (game, engine, view, inv, chat, options, Warden, Hireables, automap) and D2Client code below 0x440000 |
 | 5 | D2Game |
 | 6 | D2Common, D2CMP, D2Launch, D2Multi, D2Win, D2Net, D2BNClient/Bnclient, renderers, D2Hell, the other modules |
 | 7 | the 9 borrowed functions (not started) |
