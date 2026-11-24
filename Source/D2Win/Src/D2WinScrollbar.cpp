@@ -1,5 +1,6 @@
 #include "D2Win.h"
 #include "D2GfxTypes.h"
+
 #include "D2MultiTypes.h"
 
 #include "D2CelContext.h"
@@ -84,6 +85,20 @@ int __fastcall POPUP_Draw(D2WinControlStrc* pControl); // 0x005087A0
 
 extern D2WinPopUpStrc* gpPopUp; // 0x0087E974
 
+// 0x00507EF0
+extern "C" int __fastcall sub_00507EF0_GetScrollBarField48(D2WinScrollBarStrc* ptScrollbarData)
+{
+    D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_SCROLLBAR, 0x4B);
+    return ptScrollbarData->nMaxSteps;
+}
+
+// 0x00507FA0
+extern "C" int __fastcall sub_00507FA0_GetScrollBarField4C(D2WinScrollBarStrc* ptScrollbarData)
+{
+    D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_SCROLLBAR, 0x74);
+    return ptScrollbarData->nCurrentStep;
+}
+
 // 0x00508000
 extern "C" int __fastcall SCROLLBAR_SetScrollCallback(D2WinScrollBarStrc* pScrollBar, D2WinMsgHandler pfHandler)
 {
@@ -133,6 +148,13 @@ int __fastcall SCROLLBAR_HandleMouseWheel(SMSGHANDLER_PARAMS* pMsg, D2WinScrollB
     }
 
     return 0;
+}
+
+// 0x005080C0
+extern "C" void __fastcall D2Win_10202(D2WinScrollBarStrc* ptScrollbarData, int nValue)
+{
+    D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_SCROLLBAR, 0xCA);
+    ptScrollbarData->nPageStep = nValue;
 }
 
 // 0x005080F0
@@ -381,3 +403,5 @@ D2WinScrollBarStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int 
     CONTROL_AppendToList(&pScrollBar->controlHeader);
     return pScrollBar;
 }
+
+#include "gen/data/Source/D2Win/Src/D2WinScrollbar.inc"

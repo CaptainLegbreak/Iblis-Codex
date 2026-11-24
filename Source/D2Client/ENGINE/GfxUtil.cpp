@@ -613,26 +613,6 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor)
     return nMultiplier * nValue / nDivisor;
 }
 
-// 0x004AC810
-void __fastcall GFXUTIL_ToggleMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
-{
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
-    {
-        D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
-        if (pMonsterData)
-        {
-            if (bSet)
-            {
-                pMonsterData->nTypeFlag |= nFlag;
-            }
-            else
-            {
-                pMonsterData->nTypeFlag &= ~nFlag;
-            }
-        }
-    }
-}
-
 inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)

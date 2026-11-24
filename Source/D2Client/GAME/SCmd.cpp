@@ -5059,3 +5059,5 @@ unsigned char** __stdcall SCMD_BuildRampTable(unsigned int nSize, int nSteps)
     return ppTable;
 }
 
+
+#include "gen/data/Source/D2Client/GAME/SCmd.inc"

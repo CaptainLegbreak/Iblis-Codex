@@ -385,7 +385,7 @@ address,name,source,alias
 0x00410040,LOGMANAGER_LogMemoryDump,inferred,
 0x004101C0,sub_004101C0_LogThreadProc,placeholder,
 0x00410340,sub_00410340_LogV,placeholder,
-0x00410540,EXCEPTIONS_InitLogSystem,inferred,
+0x00410540,LOGMANAGER_InitLogSystem,inferred,
 0x00410610,LOGMANAGER_WriteLogLine,inferred,
 0x00410660,LOGMANAGER_LogWritePrefixedLine,inferred,
 0x004106B0,LOGMANAGER_LogWritePrefixedNoNewline,inferred,

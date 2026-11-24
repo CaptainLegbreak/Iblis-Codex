@@ -374,10 +374,7 @@ void __fastcall ACT4Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
 
 void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
 
-static int gnAct4Q2NpcMessageIndices[] =                                                                            // 0x0073D56C
-{
-    -1, 0, 1, -1, -1
-};
+extern int gnAct4Q2NpcMessageIndices[]; // 0x0073D56C
 
 // 0x005B4790
 void __fastcall ACT4Q2_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
@@ -1411,5 +1408,10 @@ int __fastcall OBJECTS_OperateFunction56_DiabloSeal(D2ObjOperateFnStrc* pOp, int
     ACT4Q2_SpawnSealObject(pOp, pCoord, 5);
     return 0;
 }
+
+int gnAct4Q1NpcMessageIndices[] = // 0x0073DBA0
+{
+    -1, 0, 1, 2, 3, 4
+};
 
 #include "gen/data/Source/D2Game/Quests/a4q2.inc"

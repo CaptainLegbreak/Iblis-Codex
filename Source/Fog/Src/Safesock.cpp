@@ -411,7 +411,7 @@ int __fastcall ERRORMANAGER_CrashHandler(D2CrashInputStrc* pInput); // 0x004082E
 
 int __cdecl sub_0040D5B0_LoadImageHlp(); // 0x0040D5B0
 
-void __cdecl EXCEPTIONS_InitLogSystem(); // 0x00410540
+void __cdecl LOGMANAGER_InitLogSystem(); // 0x00410540
 
 int __cdecl SYSTEM_IsPlatformNT(); // 0x00410960
 

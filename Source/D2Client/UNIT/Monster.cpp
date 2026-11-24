@@ -597,17 +597,6 @@ struct D2ClientPacket7Strc
 
 #pragma pack(pop)
 
-// 0x004AC740
-unsigned char* __fastcall MONSTER_GetMonUmods(D2UnitStrc* pUnit)
-{
-    D2MonsterDataStrc* pMonsterData = CLIENT_GetMonsterData(pUnit);
-    if (!pMonsterData)
-    {
-        return 0;
-    }
-    return pMonsterData->nMonUmod;
-}
-
 // build: context sub_0044BE50
 static int sub_0044BE50(D2UnitStrc* pUnit)
 {
