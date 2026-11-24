@@ -1,0 +1,107 @@
+va	old_name	file	reason
+0x00405EF0	sub_00405EF0	Source/Fog/Src/ErrorManager.cpp	returns 1; purpose unknown
+0x00407260	sub_0051D690_Init	Source/Fog/Src/ErrorManager.cpp	record initialiser returning this (clears four fields): constructor-shaped; named by its class
+0x00408050	sub_00408050_Empty	Source/Fog/Src/ErrorManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00408060	sub_00408060_Empty	Source/Fog/Src/ErrorManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00408070	sub_00408070_Empty	Source/Fog/Src/ErrorManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00408080	sub_00408080_Empty	Source/Fog/Src/ErrorManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004080A0	sub_004080A0	Source/Fog/Src/ErrorManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004095D0	sub_004095D0_Nop	Source/Fog/Src/ErrorManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00409C70	sub_00409C70_Nop	Source/Fog/Src/ErrorManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0040A030	sub_0040A030_Nop	Source/Fog/Src/AsyncData.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0040A070	sub_0040A070	Source/Fog/Src/ErrorManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0040ADA0	sub_0040ADA0_Nop	Source/Fog/Src/ErrorManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0040B110	sub_0040B110_Nop	Source/Fog/Src/ErrorManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0040B120	sub_0040B120_Nop	Source/Fog/Src/ErrorManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0040EB30	??3D2LogMessageStrc@@SAXPAX0@Z	Source/Fog/Src/LogManager.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??3@YAXPAX0@Z]; named by its template; in // build: symbol
+0x0040F520	sub_0040F520_LinkNext	Source/Fog/Src/LogManager.cpp	TSLink next copy (returns next or 0); template member
+0x0040F530	~sub_0040F530	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0040F530)
+0x0040F570	sub_0040F570	Source/Fog/Src/LogManager.cpp	pair constructor body (clears two fields); named by its class
+0x0040F580	sub_0040F580_InitTerminator	Source/Fog/Src/LogManager.cpp	TSList terminator initialiser (constructor body); named by its class
+0x0040F590	sub_0040F590	Source/Fog/Src/LogManager.cpp	identity helper (returns its argument)
+0x0040F7C0	sub_0060E440_Head	Source/Fog/Src/LogManager.cpp	TSList Head copy, defined in the source as IGNORELIST_GetStringListHead (another module's copy of the same template member); template member
+0x0040F7D0	~sub_0040F7D0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0040F7D0)
+0x0040F810	sub_0040F810	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0040F820	~D2LogMsgLinkStrc	Source/Fog/Src/LogManager.cpp	constructor/destructor/operator; named by its class
+0x0040F860	sub_0060E5F0_Reset	Source/Fog/Src/LogManager.cpp	TSList reset copy, defined in the source as IGNORELIST_ResetStringList; template member
+0x0040FAA0	~D2LogMsgNodeStrc	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0040FB50	D2LogMsgListStrc	Source/Fog/Src/LogManager.cpp	constructor/destructor/operator; named by its class
+0x0040FCB0	D2LogMsgNodeStrc	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0040FD00	sub_0040FD00_UnlinkAll	Source/Fog/Src/Exceptions.cpp	TSList UnlinkAll instance: template member
+0x0040FD40	~D2LogMessageStrc	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0040FD90	~D2LogMsgListStrc	Source/Fog/Src/LogManager.cpp	constructor/destructor/operator; named by its class
+0x0040FE10	D2LogMessageStrc	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0040FED0	sub_0040FED0_DeleteAll	Source/Fog/Src/LogManager.cpp	TSList DeleteAll instance for log messages: template member
+0x0040FF40	sub_0040FF40_NewNode	Source/Fog/Src/LogManager.cpp	TSList NewNode instance for log messages: template member
+0x00413740	sub_00413740_Nop	Source/Fog/Src/ErrorManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00417780	sub_00417780	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00417810	~sub_00417810	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00417810)
+0x00417850	sub_00417850	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00417860	~sub_00417860	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00417860)
+0x004178B0	sub_004178B0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004178C0	~sub_004178C0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_004178C0)
+0x00417900	~sub_00417900	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00417900)
+0x00417940	sub_00417940	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00417950	~sub_00417950	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00417950)
+0x00417990	sub_00417990	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004179B0	~sub_004179B0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_004179B0)
+0x004183F0	~sub_004183F0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_004183F0)
+0x00418430	~sub_00418430	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00418430)
+0x00418760	sub_00418760	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00418770	sub_00418770	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00418780	~sub_00418780	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00418780)
+0x004187C0	~sub_004187C0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_004187C0)
+0x00418800	~sub_00418800	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00418800)
+0x00418840	~sub_00418840	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00418840)
+0x00418880	~sub_00418880	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00418880)
+0x004188C0	~sub_004188C0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_004188C0)
+0x00418A40	sub_00418A40	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00418BA0	~sub_00418BA0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00418BA0)
+0x00418BE0	~sub_00418BE0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol; (also spelled sub_00418BE0)
+0x00418C20	~sub_00418C20	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol; (also spelled sub_00418C20)
+0x00418DE0	sub_00418DE0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00418DF0	sub_00418DF0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00418E00	sub_00418E00	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00418E10	~sub_00418E10	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00418E10)
+0x00418E50	sub_00418E50	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00418FF0	sub_00418FF0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00419060	sub_00419060	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0041C3D0	~sub_0041C3D0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0041C3D0)
+0x0041C4F0	sub_0041C4F0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0041C500	~sub_0041C500	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0041C500)
+0x0041C720	sub_0041C720	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0041C730	~sub_0041C730	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0041C730)
+0x0041C7F0	sub_0041C7F0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0041C800	~sub_0041C800	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0041C800)
+0x00420430	~sub_00420430	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00420430)
+0x004204A0	sub_004204A0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004204B0	~sub_004204B0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_004204B0)
+0x00420700	sub_00420700	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00420710	~sub_00420710	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00420710)
+0x004207D0	sub_004207D0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004207E0	~sub_004207E0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_004207E0)
+0x00426960	~sub_00426960	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00426960)
+0x00426A80	~sub_00426A80	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00426A80)
+0x00426CA0	sub_00426CA0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00426CB0	~sub_00426CB0	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00426CB0)
+0x00426D70	sub_00426D70	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00426D80	~sub_00426D80	Source/Fog/Src/LogManager.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00426D80)
+0x006B1C00	sub_006B1C00	Source/Fog/Src/QServer/QServer.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x006B20B0	sub_006B20B0	Source/Fog/Src/QServer/QServer.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x006B2F20	sub_006B2F20	Source/Fog/Src/QServer/QServer.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006B76C0	sub_006B76C0	Source/Fog/Src/QServer/QServer.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x006BC850	sub_006BC850	Source/Fog/Src/D2QSSocket.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006BE2F0	sub_006BE2F0_Nop	Source/Fog/Src/Excel/Excel.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006BE300	sub_006BE300_Nop	Source/Fog/Src/Excel/Excel.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_006BE300_Log)
+0x006BE510	sub_006BE510_Enter	Source/Fog/Src/QServer/QServer.cpp	lock guard constructor (stores and enters a critical section); named by its class; (also spelled sub_006BE510_Guard)
+0x006BF250	sub_006BF250_Nop	Source/Fog/Src/QServer/QServer.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006BF740	sub_006BF740_Nop	Source/Fog/Src/QServer/QServer.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006BF750	sub_006BF750_Nop	Source/Fog/Src/QServer/QServer.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006C1F80	Destroy	Source/Fog/Src/D2QSQueue.cpp	D2QSQueueStrc member "Destroy" (frees the messages, deletes the lock); a member name, see the member-function question; in // build: symbol; in data_plan.json; (also spelled sub_006C1F80)
+0x006CA6F0	sub_006CA6F0_RecordThreadId	Source/Fog/Src/ErrorManager.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgdwMainThreadId@@YAXXZ]; named by its template; in // build: symbol
+0x006CA700	sub_006CA700_InitializeLock	Source/Fog/Src/LogManager.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgtLogQueueLock@@YAXXZ]; named by its template; in // build: symbol
+0x006CA720	sub_006CA720_InitializeLock	Source/Fog/Src/LogManager.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgtLogLock@@YAXXZ]; named by its template; in // build: symbol
+0x006CA740	EgtLogMsgQueue_0075E868	Source/Fog/Src/LogManager.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgtLogMsgQueue_0075E868@@YAXXZ]; named by its template; in // build: symbol
+0x006CB070	sub_006CB070_DeleteCriticalSection	Source/Fog/Src/LogManager.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__FgtLogQueueLock@@YAXXZ]; named by its template; in // build: symbol
+0x006CB080	sub_006CB080_DeleteCriticalSection	Source/Fog/Src/LogManager.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__FgtLogLock@@YAXXZ]; named by its template; in // build: symbol
+0x006CB090	sub_006CB090_DestroyLogMsgList	Source/Fog/Src/LogManager.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__FgtLogMsgQueue_0075E868@@YAXXZ]; named by its template; in // build: symbol

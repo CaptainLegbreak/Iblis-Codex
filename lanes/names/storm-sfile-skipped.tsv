@@ -1,7 +1,7 @@
 va	old_name	file	reason
 0x0040EB20	sub_0040EB20_ReturnSecond	Source/Storm/SOURCE/SFILE.CPP	purpose unknown: returns its second argument, no callers by name (identical to 0x00411700)
-0x0040ECC0	sub_0040ECC0_LogWriteHeader	Source/Storm/SOURCE/SFILE.CPP	Fog LogManager code filed in SFILE.CPP: sits in Fog's run, only caller is Fog LogManager.cpp (writes a dated log banner); name it in the Fog plan once lane 3 moves it
-0x0040ED40	sub_0040ED40_LogWriteStartup	Source/Storm/SOURCE/SFILE.CPP	Fog LogManager code filed in SFILE.CPP: sits in Fog's run, only caller is Fog LogManager.cpp (writes the "Realm startup" log banner); name it once lane 3 moves it
+0x0040ECC0	sub_0040ECC0_LogWriteHeader	Source/Storm/SOURCE/SFILE.CPP	planned in fog.tsv as LOGMANAGER_WriteDateBanner: Fog LogManager code filed in SFILE.CPP (in LogManager's run, only LogManager.cpp calls it)
+0x0040ED40	sub_0040ED40_LogWriteStartup	Source/Storm/SOURCE/SFILE.CPP	planned in fog.tsv as LOGMANAGER_WriteStartupBanner: Fog LogManager code filed in SFILE.CPP (in LogManager's run, only LogManager.cpp calls it)
 0x0040F4F0	sub_0040F4F0_NextLink	Source/Storm/SOURCE/SFILE.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
 0x0040F880	sub_0040F880_Link	Source/Storm/SOURCE/SFILE.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
 0x0040FBB0	sub_0040FBB0_LinkNode	Source/Storm/SOURCE/SFILE.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
@@ -95,11 +95,11 @@ va	old_name	file	reason
 0x004186D0	sub_004186D0_RawNext	Source/Storm/SOURCE/SFILE.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
 0x004186F0	sub_004186F0_RawNext	Source/Storm/SOURCE/SFILE.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
 0x00418710	sub_00418710_UnlinkNode	Source/Storm/SOURCE/SFILE.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
-0x00418900	sub_00418900_UnlinkAll	Source/Storm/SOURCE/SFILE_00418900.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol
-0x00418940	sub_00418940_UnlinkAll	Source/Storm/SOURCE/SFILE_00418900.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol
-0x00418980	sub_00418980_UnlinkAll	Source/Storm/SOURCE/SFILE_00418900.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol
-0x004189C0	sub_004189C0_UnlinkAll	Source/Storm/SOURCE/SFILE_00418900.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol
-0x00418A00	sub_00418A00_UnlinkAll	Source/Storm/SOURCE/SFILE_00418900.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol
+0x00418900	sub_00418900_UnlinkAll	Source/Storm/SOURCE/SFILE.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol
+0x00418940	sub_00418940_UnlinkAll	Source/Storm/SOURCE/SFILE.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol
+0x00418980	sub_00418980_UnlinkAll	Source/Storm/SOURCE/SFILE.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol
+0x004189C0	sub_004189C0_UnlinkAll	Source/Storm/SOURCE/SFILE.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol
+0x00418A00	sub_00418A00_UnlinkAll	Source/Storm/SOURCE/SFILE.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol
 0x00418A50	~D2StormArchiveRecStrc	Source/Storm/SOURCE/SFILE.CPP	constructor/destructor/operator; named by its class; in // build: symbol
 0x00418C60	~D2StormList00708354Strc	Source/Storm/SOURCE/SFILE.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
 0x00418CA0	D2ChatStormListCStrc	Source/Storm/SOURCE/SFILE_004177F0.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart

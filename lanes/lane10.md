@@ -5,9 +5,11 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Claimed
-- Fog (next), then D2Client by area.
+- D2Client by area (next), then D2Game, D2CMP, D2Common, the rest.
 
 ## Plans
+- plan fog: 51 high, 17 medium, 106 skipped (d2moo 14, inferred 54). All of Fog in named files, plus 0x0040ECC0/0x0040ED40 (filed in Storm SFILE.CPP, but in LogManager's run; storm-sfile-skipped.tsv now points here). Prefixes as each file already uses (ERRORMANAGER_, LOGMANAGER_, EXCEPTIONS_, SYSTEM_, DATAARRAYS_, D2QSQUEUE_; D2QSSOCKET_ for D2QSSocket.cpp, whose only named functions are FOG_ exports); FOG_ for the exports D2MOO's ordinal list places. FOG_10083_Cos_LUT / FOG_10084_Sin_LUT keep the ordinal style the file already has (FOG_10082_Noop).
+- All three plans re-checked against #327: every old name is still a placeholder, every new name is unused in Source and names.csv.
 - plan storm-rest: 70 high, 30 medium, 127 skipped (d2moo 12, inferred 88). All of Storm outside SFILE (SMem, SStr, SReg, SErr, SSignature, SBig, SComp, SLog, SMsg, SEvt, SCmd) and the 3 zlib functions still sub_ (get_crc_table, zlibVersion, zlibCompileFlags: the source already defines them under those names). SBig's static helpers get a Big stem (BigAdd…) because bare Add/And are array member names elsewhere.
 - plan storm-sfile: 23 high, 17 medium, 133 skipped (d2moo 7, inferred 33). Storm SFILE.CPP and its pieces. Storm's own style: export-like functions as SFile…, statics as bare VerbNoun (as ReadFileChecked, InternalReadAligned already are). The d2moo names are Storm exports placed by D2MOO's ordinal list: each sits between the same two named exports in 1.10f and 1.14d.
 

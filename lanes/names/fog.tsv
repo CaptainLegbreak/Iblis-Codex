@@ -1,0 +1,69 @@
+va	old_name	new_name	source	file	confidence	reason
+0x00406D20	sub_00406D20	FOG_UseDirect	d2moo	Source/Fog/Src/ErrorManager.cpp	medium	D2MOO Fog.#10117 (BOOL, no arguments); returns the direct-file-access flag D2Win's archive code tests
+0x00407FF0	sub_00407FF0	FOG_IsHandlingError	d2moo	Source/Fog/Src/ErrorManager.cpp	medium	D2MOO Fog.#10039 (BOOL, no arguments); returns whether a crash report is being written
+0x00408A60	sub_00408A60	FOG_DisplayHalt	d2moo	Source/Fog/Src/ErrorManager_004082E0.cpp	high	D2MOO Fog.#10024 (text, file, line); raises the "Unrecoverable internal error" report and closes the logs; sits between FOG_DisplayAssert and FOG_DisplayWarning as #10024 does; (also spelled sub_00408A60_Assert)
+0x00409220	sub_00409220_FindZeroBit	ERRORMANAGER_FindZeroBit	inferred	Source/Fog/Src/ErrorManager.cpp	high	index of the lowest clear bit of a mask (bsf of the complement)
+0x00409240	sub_00409240_FindFreeSlot	ERRORMANAGER_FindFreeSlot	inferred	Source/Fog/Src/ErrorManager.cpp	high	finds the first free slot in a pool block's used-bits array
+0x00409370	sub_00409370_InsertBlockRecord	ERRORMANAGER_InsertBlockRecord	inferred	Source/Fog/Src/ErrorManager.cpp	high	inserts a pool block into the pool system's sorted record array, growing it by 0x20
+0x00409490	sub_00409490_RemoveBlockRecord	ERRORMANAGER_RemoveBlockRecord	inferred	Source/Fog/Src/ErrorManager.cpp	high	binary-searches and removes a pool block's record
+0x004095E0	sub_004095E0_NewBlock	ERRORMANAGER_NewPoolBlock	inferred	Source/Fog/Src/ErrorManager.cpp	high	allocates a pool block with its used-bits and memory and records it
+0x00409700	sub_00409700_GetFreeSlot	ERRORMANAGER_GetFreeSlot	inferred	Source/Fog/Src/ErrorManager.cpp	high	returns a free slot and its block in a pool, adding a block when all are full
+0x004099D0	sub_004099D0_FindBlock	ERRORMANAGER_FindPoolBlock	inferred	Source/Fog/Src/ErrorManager.cpp	high	binary-searches the pool system's records for the block holding an address
+0x00409A60	sub_00409A60_MoveBlockToFront	ERRORMANAGER_MoveBlockToFront	inferred	Source/Fog/Src/ErrorManager.cpp	medium	moves a block with free slots ahead of the full blocks in its pool's list
+0x00409AB0	sub_00409AB0_PoolFree	ERRORMANAGER_PoolFree	inferred	Source/Fog/Src/ErrorManager.cpp	high	frees a pool allocation (default pool system when none is given)
+0x00409B80	sub_00409B80_FreeUnusedPoolBlocks	ERRORMANAGER_FreeUnusedPoolBlocks	inferred	Source/Fog/Src/ErrorManager.cpp	high	frees every pool block with no slot in use; (also spelled sub_00409B80)
+0x00409DD0	sub_00409DD0_InitPoolSystem	FOG_CreateNewPoolSystem	d2moo	Source/Fog/Src/ErrorManager.cpp	high	D2MOO Fog.#10142; creates a pool system (name, size), initialising the pool manager on first use
+0x0040A040	sub_0040A040_GetPoolSystemCount	FOG_GetMemoryUsage	d2moo	Source/Fog/Src/ErrorManager.cpp	high	D2MOO Fog.#10147; returns a pool system's usage counter (D2Game stores it as memory usage)
+0x0040A080	sub_0040A080_PoolAlloc	ERRORMANAGER_PoolAlloc	inferred	Source/Fog/Src/ErrorManager.cpp	high	allocates from a pool system (initialises the global one, large sizes go to PoolAllocLarge)
+0x0040A1F0	sub_0040A1F0_PoolRealloc	ERRORMANAGER_PoolRealloc	inferred	Source/Fog/Src/ErrorManager.cpp	high	reallocates a pool allocation
+0x0040B330	sub_0040B330_Cos	FOG_10083_Cos_LUT	d2moo	Source/Fog/Src/ErrorManager.cpp	high	D2MOO Fog.#10083; cosine from the 512-entry table; follows FOG_10082_Noop as in 1.10 (the file's established ordinal-style names)
+0x0040B350	sub_0040B350_Sin	FOG_10084_Sin_LUT	d2moo	Source/Fog/Src/ErrorManager.cpp	high	D2MOO Fog.#10084; sine from the 512-entry table
+0x0040B370	sub_0040B370_SetUsePools	ERRORMANAGER_SetUsePools	inferred	Source/Fog/Src/ErrorManager.cpp	high	sets whether allocations go through the pools
+0x0040B500	sub_0040B500_UnloadImageHlp	EXCEPTIONS_UnloadImageHlp	inferred	Source/Fog/Src/Exceptions.cpp	high	frees dbghelp.dll and its lock
+0x0040D530	sub_0040D530_Call0040C720	EXCEPTIONS_ReleaseAllSymbols	inferred	Source/Fog/Src/Exceptions.cpp	medium	EXCEPTIONS_ReleaseSymbols(1)
+0x0040D5B0	sub_0040D5B0_LoadImageHlp	EXCEPTIONS_LoadImageHlp	inferred	Source/Fog/Src/Exceptions.cpp	high	loads dbghelp.dll and its entry points once
+0x0040D7D0	sub_0040D7D0_WalkCurrentStack	EXCEPTIONS_WalkCurrentStack	inferred	Source/Fog/Src/Exceptions.cpp	high	captures the current thread context and logs its stack walk
+0x0040D880	sub_0040D880	FOG_SOCKET_CloseSocket	d2moo	Source/Fog/Src/Safesock.cpp	high	D2MOO Fog.#10000; closesocket
+0x0040D8D0	sub_0040D8D0	FOG_SOCKET_WSACleanup	d2moo	Source/Fog/Src/Safesock.cpp	high	D2MOO Fog.#10002; WSACleanup; Fog.h already declares FOG_SOCKET_WSACleanup at this same address (0x0040D8D0)
+0x0040E0B0	sub_0040E0B0	FOG_SOCKET_GetError	d2moo	Source/Fog/Src/Safesock.cpp	high	D2MOO Fog.#10016; returns a socket's Fog and WSA error codes; McpConnect.cpp already declares it at this same address (0x0040E0B0); (also spelled Obj0040E0B0, sub_0040E0B0_GetStatus)
+0x0040E250	sub_0040E250_GetCpuVendor	ERRORMANAGER_GetCpuVendor	inferred	Source/Fog/Src/ErrorManager.cpp	high	CPUID vendor string to 1 Intel / 2 AMD / …
+0x0040E300	sub_0040E300	ERRORMANAGER_GetCpuName	inferred	Source/Fog/Src/ErrorManager.cpp	high	writes the processor's marketing name from vendor, family, model and brand
+0x0040E960	sub_0040E960_GetCpuSignature	ERRORMANAGER_GetCpuSignature	inferred	Source/Fog/Src/ErrorManager.cpp	high	CPUID function 1 eax
+0x0040E980	sub_0040E980_GetCpuidEbxIfBrandIndexed	ERRORMANAGER_GetCpuBrandIndex	inferred	Source/Fog/Src/ErrorManager.cpp	medium	CPUID function 1 ebx on Intel CPUs that have a brand index; (also spelled sub_0040E980_GetCpuBrand)
+0x0040E9E0	sub_0040E9E0_GetCpuidEdx	ERRORMANAGER_GetCpuidEdx	inferred	Source/Fog/Src/ErrorManager.cpp	medium	edx of a CPUID function
+0x0040EA00	sub_0040EA00_WriteProcessorReport	ERRORMANAGER_WriteProcessorReport	inferred	Source/Fog/Src/ErrorManager.cpp	high	writes the processor description lines to the log
+0x0040EBD0	sub_0040EBD0_OpenDatedLogFile	LOGMANAGER_OpenDatedLogFile	inferred	Source/Fog/Src/LogManager.cpp	high	opens <prefix><name>YYMMDD.txt and says whether it is new
+0x0040EDE0	sub_0040EDE0_GetLogFile	LOGMANAGER_GetLogFile	inferred	Source/Fog/Src/LogManager.cpp	high	finds or opens the log file for a name in the 20 cached slots, replacing the oldest
+0x0040F070	sub_0040F070_WriteDumpMessage	LOGMANAGER_WriteDumpMessage	inferred	Source/Fog/Src/LogManager.cpp	high	writes a queued memory-dump message as hex lines
+0x0040FFD0	sub_0040FFD0_ShutdownLogSystem	LOGMANAGER_ShutdownLogSystem	inferred	Source/Fog/Src/LogManager.cpp	high	stops the log thread and frees the queued messages
+0x00410340	sub_00410340_LogV	LOGMANAGER_WriteLogV	inferred	Source/Fog/Src/LogManager.cpp	medium	formats a log line from a va_list and queues it for the log thread
+0x004107A0	sub_004107A0_DeleteTimeLock	SYSTEM_DeleteTimeLock	inferred	Source/Fog/Src/System/system.cpp	high	deletes the time lock
+0x004107B0	sub_004107B0_AtomicStore64	SYSTEM_AtomicStore64	inferred	Source/Fog/Src/System/system.cpp	high	stores 64 bits atomically with lock cmpxchg8b
+0x004107D0	sub_004107D0_Read64Locked	SYSTEM_AtomicRead64	inferred	Source/Fog/Src/System/system.cpp	high	reads 64 bits atomically with lock cmpxchg8b
+0x006BBF20	sub_006BBF20	FOG_Decode14BitsFromString	d2moo	Source/Fog/Src/D2QSSocket.cpp	high	D2MOO Fog.#10085; two 7-bit bytes to a 14-bit value; the four codec exports sit in #10085-10088 order in both builds; (also spelled sub_006BBF20_ReadPackedWord)
+0x006BBF40	sub_006BBF40	FOG_Encode14BitsToString	d2moo	Source/Fog/Src/D2QSSocket.cpp	high	D2MOO Fog.#10086; 14-bit value to two bytes with the high bit set; (also spelled sub_006BBF40_PutPackedWord)
+0x006BBF60	sub_006BBF60_DecodeBase255	FOG_Decode32BitsFromString	d2moo	Source/Fog/Src/D2QSSocket.cpp	high	D2MOO Fog.#10087; four base-255 digits (+1) to a 32-bit value
+0x006BBFA0	sub_006BBFA0_EncodeBase255	FOG_Encode32BitsToString	d2moo	Source/Fog/Src/D2QSSocket.cpp	high	D2MOO Fog.#10088; 32-bit value to four base-255 digits (+1)
+0x006BC010	sub_006BC010_SetHandler	D2QSSOCKET_SetPacketHandler	inferred	Source/Fog/Src/D2QSSocket.cpp	high	sets a socket record's packet handler and its argument
+0x006BC030	sub_006BC030_Send	D2QSSOCKET_SafeSockSend	inferred	Source/Fog/Src/D2QSSocket.cpp	medium	send() on a safe socket under its lock, recording the WSA error
+0x006BC150	sub_006BC150_SplitPackets	D2QSSOCKET_SplitPackets	inferred	Source/Fog/Src/D2QSSocket.cpp	high	splits a receive buffer into packets by the record's header/length layout and calls the handler
+0x006BC290	sub_006BC290_SetValues	D2QSSOCKET_SetPacketFormat	inferred	Source/Fog/Src/D2QSSocket.cpp	medium	sets a record's packet header size, length offset and a third format value; (also spelled T006BC290)
+0x006BC2C0	sub_006BC2C0_SetClosing	D2QSSOCKET_SetClosing	inferred	Source/Fog/Src/D2QSSocket.cpp	high	marks a record's thread and safe socket as stopping
+0x006BC310	sub_006BC310_CloseSocket	D2QSSOCKET_CloseSocket	inferred	Source/Fog/Src/D2QSSocket.cpp	high	closes a record's socket under its lock
+0x006BC370	sub_006BC370_FreeNet	D2QSSOCKET_FreeSafeSock	inferred	Source/Fog/Src/D2QSSocket.cpp	medium	destroys a record's safe socket
+0x006BC3A0	sub_006BC3A0_ReceiveLoop	D2QSSOCKET_ReceiveLoop	inferred	Source/Fog/Src/D2QSSocket.cpp	high	socket thread loop: receives into a buffer and splits it into packets until stopped
+0x006BC560	sub_006BC560_Connect	D2QSSOCKET_ConnectThreadProc	inferred	Source/Fog/Src/D2QSSocket.cpp	medium	thread procedure: connects the record's safe socket with ReceiveLoop as its callback
+0x006BC5A0	sub_006BC5A0_StartThread	D2QSSOCKET_ConnectAndWait	inferred	Source/Fog/Src/D2QSSocket.cpp	medium	starts the connect thread and waits until it finishes; (also spelled sub_006BC5A0_Start)
+0x006BC620	sub_006BC620_StartThread	D2QSSOCKET_StartConnect	inferred	Source/Fog/Src/D2QSSocket.cpp	medium	starts the connect thread and returns its handle
+0x006BC680	sub_006BC680_Signal	D2QSSOCKET_Close	inferred	Source/Fog/Src/D2QSSocket.cpp	medium	asks a record's socket to close (SetClosing); (also spelled sub_006BC680_Close)
+0x006BC6A0	sub_006BC6A0_AllocSocketRecord	D2QSSOCKET_CreateRecord	inferred	Source/Fog/Src/D2QSSocket.cpp	high	allocates a socket record for a host, port and label
+0x006BC780	sub_006BC780_Destroy	D2QSSOCKET_DestroyRecord	inferred	Source/Fog/Src/D2QSSocket.cpp	high	stops, frees the queue and safe socket, frees the record; (also spelled sub_006BC780)
+0x006BC7E0	sub_006BC7E0_Wait	D2QSSOCKET_WaitEvent	inferred	Source/Fog/Src/D2QSSocket.cpp	high	waits on a record's event
+0x006BC810	sub_006BC810	D2QSSOCKET_GetSafeSock	inferred	Source/Fog/Src/D2QSSocket.cpp	high	returns a record's safe socket; (also spelled sub_006BC810_LookupHandle)
+0x006BC830	sub_006BC830_SetEvent	D2QSSOCKET_SignalEvent	inferred	Source/Fog/Src/D2QSSocket.cpp	high	sets a record's event
+0x006BC860	sub_006BC860_send	D2QSSOCKET_Send	inferred	Source/Fog/Src/D2QSSocket.cpp	medium	sends raw bytes on a connected record
+0x006BC8A0	sub_006BC8A0_SendBuffer	D2QSSOCKET_SendPacket	inferred	Source/Fog/Src/D2QSSocket.cpp	high	builds the packet header for the record's format and sends header and payload
+0x006BCC10	sub_006BCC10_GetEntry	DATAARRAYS_GetEntry	inferred	Source/Fog/Src/DataArrays.cpp	high	returns a data array entry by handle (index in the high word, tag check in the low word)
+0x006C1F60	sub_006C1F60_InitLockedList	D2QSQUEUE_InitQueue	inferred	Source/Fog/Src/D2QSQueue.cpp	high	clears a queue and initialises its lock
+0x0040ECC0	sub_0040ECC0_LogWriteHeader	LOGMANAGER_WriteDateBanner	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	writes the computer name and date between rule lines; filed in Storm SFILE.CPP but sits in LogManager's run (between 0x0040EBD0 and 0x0040EDE0) and only LogManager.cpp calls it
+0x0040ED40	sub_0040ED40_LogWriteStartup	LOGMANAGER_WriteStartupBanner	inferred	Source/Storm/SOURCE/SFILE.CPP	medium	writes the "Realm startup" line between rule lines; filed in Storm SFILE.CPP but sits in LogManager's run and only LogManager.cpp calls it
