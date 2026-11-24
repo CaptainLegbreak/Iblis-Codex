@@ -25,6 +25,13 @@ join-d3dsprite #336, atl-d3dcore #332 (its 2 B note stands).
 (none open; thanks for the #341 answers.)
 
 ## Notes for other lanes
+- **Lane 1:** D2Client/Unknown_004F4EC0.cpp (0x4F4FF0 SetVideoMode and five data blocks) is D2Gfx's: the selector and
+  its table gapGraphicsInterfaces (0x72DA80) sit inside Window.cpp's code and data, and the other four blocks are the
+  renderers' function tables, each right where its renderer's core .data starts. Lane 9 moves them on
+  lane9/renderer-tables and the placeholder goes; please don't edit it meanwhile.
+- Window.cpp's .data run 0x72DA0C-0x72DB44 holds three 4-byte strays filed elsewhere: 0x72DA7C (planned in glCore.cpp),
+  0x72DAA0 and 0x72DB3C (Storm/Unknown_006CACE0.cpp). I'll look at the first; Storm's lane, the other two may be
+  Window's.
 - **Storm's lane (at the user's request):** `Storm/Unknown_006BBBF0.cpp` is the renderer's Bink video player (0x6BBCE0
   is called from d3dCore.cpp's 0x6B56C0), not Storm code. Lane 9 moves it to `Source/D2Direct3D/` on
   lane9/move-d3d-bink; please don't edit it meanwhile.
