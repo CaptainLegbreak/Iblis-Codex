@@ -1847,8 +1847,8 @@
    "state": "included"
   },
   "Source/D2DDraw/Src/ddCore.cpp": {
-   "bytes": 68,
-   "definitions": 4,
+   "bytes": 76,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2DDraw/Src/ddCore.inc",
@@ -1916,15 +1916,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Win/Unknown_0050F910.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2DDraw/Unknown_00510020.cpp": {
-   "bytes": 8,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2DDraw/Unknown_00510020.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -81368,7 +81359,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2DDraw/Unknown_00510020.cpp",
+   "file": "Source/D2DDraw/Src/ddCore.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnDDrawGammaScale = ",
@@ -81393,7 +81384,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2DDraw/Unknown_00510020.cpp",
+   "file": "Source/D2DDraw/Src/ddCore.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnDDrawGamma = ",

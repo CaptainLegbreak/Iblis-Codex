@@ -36324,6 +36324,11 @@
      "name": "?DDRAW_Detect@@YIHPAX@Z"
     },
     {
+     "va": "0x00510160",
+     "length": 360,
+     "name": "?sub_00510160_DDrawSetPalette@@YIXPAUD2PaletteEntryStrc@@@Z"
+    },
+    {
      "va": "0x00511210",
      "length": 696,
      "name": "?DDRAW_OpenSurfaces@@YAHH@Z"
@@ -37152,31 +37157,6 @@
      "length": 573,
      "name": "?sub_005137E0_PlayBinkMovie@@YIXPBDHP6AXXZ@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_00510020.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00510160",
-     "length": 360,
-     "name": "?sub_00510160_DDrawSetPalette@@YIXPAUD2PaletteEntryStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
