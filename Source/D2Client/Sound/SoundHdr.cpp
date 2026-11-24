@@ -650,3 +650,46 @@ void __fastcall SOUNDHDR_UpdateCache(unsigned int nTick)
     }
     gnCacheLastTick = nTick;
 }
+
+struct D2ClientServiceStrc;
+
+struct D2ClientServiceStrc
+{
+    char unk0x00[0xD0];
+    int (__fastcall* pfnCall)(int nArg1, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
+};
+
+extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
+
+void __fastcall sub_004BA020(unsigned int nTick); // 0x004BA020
+
+void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int nTick); // 0x004DCAA0
+
+int __cdecl sub_004DF870(); // 0x004DF870
+
+void __cdecl sub_004DF890(); // 0x004DF890
+
+void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int nTick); // 0x004E42E0
+
+struct D2RareAffixTxt
+{
+    char unk0x00[0x0C];
+    unsigned short wStringId;
+    char unk0x0E[0x18];
+    char szName[0x20];
+};
+
+// 0x00482C20
+void __cdecl INV_TickSound()
+{
+    if (sub_004DF870())
+    {
+        SKILLDESC_UpdateEnvironSounds(gdwSoundTick);
+        sub_004DCAA0_UpdateLevelSong(gdwSoundTick);
+        SOUNDHDR_UpdateCache(gdwSoundTick);
+        sub_004BA020(gdwSoundTick);
+        sub_004DF890();
+        ++gdwSoundTick;
+        Sleep(0);
+    }
+}

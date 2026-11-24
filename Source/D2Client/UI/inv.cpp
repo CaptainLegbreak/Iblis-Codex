@@ -876,13 +876,9 @@ void __cdecl sub_004DF890(); // 0x004DF890
 
 void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int nTick); // 0x004E42E0
 
-char gbCinematicStop; // 0x007BC9D4
 
-char gbCinematicWide; // 0x007BC9D6
 
-char gbCinematicBusy; // 0x007BC9D7
 
-char gbCinematicChain; // 0x007BC9D8
 
 static unsigned char INV_GetFlagIndex(unsigned char nFlags);
 
@@ -1489,7 +1485,6 @@ extern "C" const char gszRes640x292[]; // 0x006D421C
 extern int gnAuxLevelEntries; // 0x00721D94
 
 
-char gbCinematicPlaying; // 0x007BC9D5
 
 extern int gnAutomapHeight; // 0x007A521C
 
@@ -1912,343 +1907,15 @@ int __stdcall INV_FreeCacheEntries(unsigned int nFree, int bTwoPasses, int bChec
     return 1;
 }
 
-// 0x00482C20
-void __cdecl INV_TickSound()
-{
-    if (sub_004DF870())
-    {
-        SKILLDESC_UpdateEnvironSounds(gdwSoundTick);
-        sub_004DCAA0_UpdateLevelSong(gdwSoundTick);
-        SOUNDHDR_UpdateCache(gdwSoundTick);
-        sub_004BA020(gdwSoundTick);
-        sub_004DF890();
-        ++gdwSoundTick;
-        Sleep(0);
-    }
-}
 
-// 0x00482C70
-static unsigned char INV_GetFlagIndex(unsigned char nFlags)
-{
-    if (nFlags & 0x01)
-        return 7;
-    if (nFlags & 0x80)
-        return 6;
-    if (nFlags & 0x10)
-        return 5;
-    if (nFlags & 0x08)
-        return 4;
-    if (nFlags & 0x40)
-        return 3;
-    if (nFlags & 0x04)
-        return 2;
-    return 1;
-}
 
-// 0x00482CA0
-void __fastcall INV_UpdateAuxBattleNetAddress(int nIndex)
-{
-    const int nType = gaAuxLevelEntries[nIndex].nType;
-    char szAddress[0x64];
-    int a;
-    int b;
-    int c;
-    int d = 0x22;
-    unsigned char nLevel;
-    if (SRegLoadString("Diablo II", "Aux Battle.net", 0, szAddress, 0x64))
-    {
-        sscanf(szAddress, "%d.%d.%d.%d", &a, &b, &c, &d);
-        const unsigned char nLow = d;
-        if (nLow & 1)
-            nLevel = 7;
-        else if (nLow & 0x80)
-            nLevel = 6;
-        else if (nLow & 0x10)
-            nLevel = 5;
-        else if (nLow & 0x08)
-            nLevel = 4;
-        else if (nLow & 0x40)
-            nLevel = 3;
-        else
-            nLevel = (nLow & 4) ? 2 : 1;
-    }
-    else
-    {
-        nLevel = 0x22;
-    }
 
-    unsigned char nNeeded;
-    switch (nType)
-    {
-    case 2:
-        nNeeded = 2;
-        break;
-    case 3:
-        nNeeded = 3;
-        break;
-    case 4:
-        nNeeded = 4;
-        break;
-    case 5:
-    case 6:
-        nNeeded = 5;
-        break;
-    case 7:
-        nNeeded = 7;
-        break;
-    default:
-        nNeeded = 1;
-        break;
-    }
 
-    if (nNeeded > nLevel)
-    {
-        int nValue;
-        switch (nNeeded)
-        {
-        case 7:
-            nValue = 0x23;
-            break;
-        case 5:
-            nValue = 0xB2;
-            break;
-        case 4:
-            nValue = 0x2A;
-            break;
-        case 3:
-            nValue = 0x62;
-            break;
-        case 2:
-            nValue = 0x26;
-            break;
-        default:
-            nValue = 0x22;
-            break;
-        }
-        d = nValue;
-        sprintf(szAddress, "%d.%d.%d.%d", 0xD8, 0x94, 0xF6, d);
-        SRegSaveString("Diablo II", "Aux Battle.net", 0, szAddress);
-    }
-}
 
-// 0x00482E00
-static int INV_ArchiveFilePresent(const char* szFile)
-{
-    void* hFile;
-    if (!SFileOpenFileEx(0, szFile, 0, &hFile))
-        return 0;
-    SFileCloseFile(hFile);
-    return 1;
-}
 
-// 0x00482E30
-static void INV_BuildLocalizedVideoPath(char* szOut, const char* szFormat, const char* szFile)
-{
-    char szLang[4];
-// build: symbol ?STRTABLE_GetLanguageInfoField@* 0x00525260
-    STRTABLE_GetLanguageInfoField(szLang, 0);
-// build: symbol ?gszDataLocal@* 0x006D41A8
-    sprintf(szOut, szFormat, gszDataLocal, szLang, szFile);
-    if (INV_ArchiveFilePresent(szOut))
-        return;
-    if (STRTABLE_GetLanguage())
-    {
-        sprintf(szOut, szFormat, gszDataLocal, "ENG", szFile);
-        INV_ArchiveFilePresent(szOut);
-    }
-    else
-    {
-        sprintf(szOut, szFormat, gszDataLocal, "CHI", szFile);
-        INV_ArchiveFilePresent(szOut);
-    }
-}
 
-// 0x00482EF0
-void __fastcall INV_PlayCinematic(int nIndex)
-{
-    int nMode;
-    int bPlayed;
-    int bLoaded;
-    int bExpansion;
-    char szName[0x104];
-    char szFile[0x104];
 
-    D2_ASSERT(nIndex < gnAuxLevelEntries, 0xEF);
-    gbCinematicBusy = 1;
-    INV_UpdateAuxBattleNetAddress(nIndex);
-    if (gbCinematicPlaying)
-        return;
 
-    if (nIndex >= gnAuxLevelEntries)
-    {
-        MSG_SendHeaderOnly(0x48);
-        gbCinematicBusy = 0;
-        return;
-    }
-
-    nMode = 0;
-    if (gaAuxLevelEntries[nIndex].bFormat)
-    {
-        if (gbCinematicWide)
-        {
-            sprintf(szName, gaAuxLevelEntries[nIndex].szFile, gszRes640x292);
-        }
-        else
-        {
-            nMode = 2;
-            sprintf(szName, gaAuxLevelEntries[nIndex].szFile, gszRes640x146);
-        }
-    }
-    else
-    {
-        strcpy(szName, gaAuxLevelEntries[nIndex].szFile);
-    }
-
-    sub_00481830();
-    sub_004DCA30();
-    sub_004FAD70();
-
-    bExpansion = 0;
-    bPlayed = bLoaded = 0;
-    if (nIndex == 7)
-    {
-        bExpansion = 1;
-        char szPath[0x104];
-        FOG_GetInstallPath(szPath, 0x104);
-        strcat(szPath, "d2game.dll");
-        void* hFile = CreateFileA(szPath, 0, 1, 0, 3, 0x80, 0);
-        if (hFile != (void*)-1)
-        {
-            CloseHandle(hFile);
-        }
-        else
-        {
-            GAME_SetPlayCinematic(0);
-            goto lMissing;
-        }
-    }
-    else if (nIndex == 6)
-    {
-        bExpansion = 1;
-    }
-
-    PLAYER_SetCinematicExpansion(bExpansion);
-    if (ARCHIVE_LoadVideoArchives(bExpansion ? (void*)sub_00460500_RunPopup : (void*)sub_00460680_RunOkCancel, 0, bExpansion))
-    {
-        bLoaded = 1;
-        if (gaAuxLevelEntries[nIndex].bLocalized)
-            INV_BuildLocalizedVideoPath(szFile, "%s\\video\\%s\\%s", szName);
-        else
-// build: symbol ?gszDataGlobal@* 0x006D4118
-            sprintf(szFile, "%s\\video\\%s", gszDataGlobal, szName);
-
-        gbCinematicPlaying = 1;
-        PLAYERLIST_ClearFadeTimer();
-        UI_SetUIVar(0x12, 0, 0);
-// build: symbol ?D2Win_10003@* 0x004F9050
-        if (D2Win_10003())
-        {
-            if (gbCinematicStop)
-                WINDOW_OpenSmackCutscene(szFile, nMode, 0);
-            else
-                WINDOW_OpenSmackCutscene(szFile, nMode, (void*)sub_00477DD0);
-            bPlayed = 1;
-        }
-
-        if (nIndex != 5 || !gbCinematicChain)
-        {
-            D2Win_10004(D2GFX_GetResolutionMode());
-            UI_SetUIVar(0x12, 1, 0);
-            gbCinematicPlaying = 0;
-        }
-    }
-
-    if (gbCinematicChain)
-    {
-        if (bLoaded)
-            sub_004FAD70();
-        if (bPlayed)
-            D2Win_10004(D2GFX_GetResolutionMode());
-
-        PLAYER_SetCinematicExpansion(1);
-        if (ARCHIVE_LoadVideoArchives((void*)sub_00460500_RunPopup, 0, 1))
-        {
-            nIndex = 6;
-            if (gbCinematicWide)
-            {
-                sprintf(szName, gaAuxLevelEntries[nIndex].szFile, gszRes640x292);
-            }
-            else
-            {
-                nMode = 2;
-                sprintf(szName, gaAuxLevelEntries[nIndex].szFile, gszRes640x146);
-            }
-
-            if (gaAuxLevelEntries[nIndex].bLocalized)
-                INV_BuildLocalizedVideoPath(szFile, "%s\\video\\%s\\%s", szName);
-            else
-                sprintf(szFile, "%s\\video\\%s", gszDataGlobal, szName);
-
-            if (D2Win_10003())
-            {
-                WINDOW_OpenSmackCutscene(szFile, nMode, (void*)sub_00477DD0);
-                INV_UpdateAuxBattleNetAddress(nIndex);
-            }
-        }
-
-        D2Win_10004(D2GFX_GetResolutionMode());
-        UI_SetUIVar(0x12, 1, 0);
-        gbCinematicPlaying = 0;
-        gbCinematicChain = 0;
-        D2Win_10177(4);
-    }
-
-    MSG_SendHeaderOnly(0x48);
-    if (gbCinematicStop)
-    {
-        gbCinematicStop = 0;
-        GAME_ExitForCinematic();
-    }
-    else if (nIndex == 7)
-    {
-lMissing:
-        GAME_SetPlayCinematic(0);
-        gbCinematicStop = 0;
-        GAME_SetCinematicPlayed();
-        GAME_ExitForCinematic();
-    }
-
-    sub_004FAD70();
-    ARCHIVE_LoadExpansionArchives(sub_00460500_RunPopup, sub_004605A0_RunPopup, 0, gpClientConfig);
-    gbCinematicBusy = 0;
-}
-
-// 0x00483300
-extern "C" void __cdecl INV_StopCinematic()
-{
-    gbFlag_007BC9D4 = 1;
-}
-
-// 0x00483310
-void __cdecl INV_ResetCinematicFlags()
-{
-    gbCinematicStop = 0;
-    gbCinematicWide = !sub_0040EB10();
-    gbCinematicChain = 0;
-    gbCinematicBusy = 0;
-}
-
-// 0x00483340
-extern "C" void __cdecl INV_ChainCinematic()
-{
-    gbFlag_007BC9D8 = 1;
-}
-
-// 0x00483350
-unsigned char __cdecl INV_IsCinematicBusy()
-{
-    return gbCinematicBusy;
-}
 
 // 0x004834A0
 const Unicode* __fastcall INV_SkipBracketTag(const Unicode* pString)
@@ -2413,13 +2080,6 @@ static void INV_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor)
 }
 
 // calling-convention shim (not game code)
-int __fastcall sub_00482C70_Shim(const unsigned char* pFlags, int nCount)
-{
-    int nSum = 0;
-    for (int i = 0; i < nCount; ++i)
-        nSum += INV_GetFlagIndex(pFlags[i]);
-    return nSum;
-}
 
 // 0x00483AE0
 static int INV_IsInTradeOtherGrid(int nX, int nY)
