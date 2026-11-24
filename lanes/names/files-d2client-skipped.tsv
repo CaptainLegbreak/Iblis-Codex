@@ -16,7 +16,6 @@ D2Client/Unknown_004815A0.cpp	object map: best D2Client/UNIT/UnitMode.cpp (score
 D2Client/Unknown_00481600.cpp	object map: best D2Client/UNIT/UnitMode.cpp (score 6; calls #, used only by the two x2); runner-up D2Client/Unknown_004815A0.cpp 5
 D2Client/Unknown_0049B030.cpp	object map: best D2Client/GAME/Roster.cpp (score 12; calls #, used only by the two x4); runner-up D2Client/UI/Party.cpp 7 | language-table copy at 0x722414 starts its data, so it is an object of its own
 D2Client/Unknown_004AA9C0.cpp	object map: best D2Client/UI/inv_0048DD90.cpp (score 23; data # x23); runner-up D2Client/Unknown_0045B5F0.cpp 21 | language-table copy at 0x724BB0 starts its data, so it is an object of its own
-D2Client/Unknown_004BA760.cpp	object map: best D2Client/Sound/SoundInst.cpp (score 2; next to it); runner-up D2Client/Unknown_004BABF0.cpp 2
 D2Client/Unknown_004BC500.cpp	object map: best D2Client/Unknown_004BBE10.cpp (score 2; next to it); runner-up D2Client/UNIT/Object.cpp 2 | 1 of 1 function names carry OBJECTS_
 D2Client/Unknown_004BDFD0.cpp	object map: best D2Client/UI/ui.cpp (score 3; # called only from it); runner-up D2Client/UNIT/Item.cpp 2
 D2Client/Unknown_004C51D0.cpp	object map: best D2Client/SKILLS/Skills.cpp (score 4, clear lead; next to it x2); runner-up D2Client/UNIT/Item.cpp 2
