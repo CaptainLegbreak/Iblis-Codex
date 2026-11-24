@@ -74,19 +74,7 @@ extern char gszLastWhisperer[]; // 0x0077B0D0
 
 int __stdcall CHATDLG_CompareCommand(const char* szText, const char* szCommand); // 0x0043E6E0
 
-struct D2LaunchGameEntryStrc
-{
-    int nAddress;
-    char unk0x04[0x10];
-    char szName[1];
-};
 
-struct D2LaunchGameListStrc
-{
-    int nCount;
-    char unk0x04[0x0C];
-    D2LaunchGameEntryStrc tFirst;
-};
 
 const char* __fastcall CHATDLG_SkipString(const char* szText); // 0x00442AE0
 

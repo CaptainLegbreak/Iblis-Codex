@@ -3062,19 +3062,7 @@ extern D2WinControlInitStrc gtControlInit_0070E110; // 0x0070E110
 
 extern D2WinControlStrc* gpControl_0077BCEC; // 0x0077BCEC
 
-struct D2LaunchGameEntryStrc
-{
-    int nAddress;
-    char unk0x04[0x10];
-    char szName[1];
-};
 
-struct D2LaunchGameListStrc
-{
-    int nCount;
-    char unk0x04[0x0C];
-    D2LaunchGameEntryStrc tFirst;
-};
 
 D2WinControlStrc* gpCreateJoinBckgImage; // 0x0077BCDC
 
