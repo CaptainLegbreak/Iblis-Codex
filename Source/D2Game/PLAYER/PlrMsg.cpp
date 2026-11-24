@@ -1251,7 +1251,7 @@ int __fastcall PLRMSG_SendPlayerStatUpdates(D2UnitStrc* pUnit, D2UnitStrc* pPlay
     return 1;
 }
 
-extern const int gnBaseStatIdsToSend[]; // 0x00731AD8
+extern int gnBaseStatIdsToSend[]; // 0x00731AD8
 
 // 0x005489F0
 void __fastcall PLRMSG_SendUnitBaseStats(D2UnitStrc* pUnit, D2ClientStrc* pClient)

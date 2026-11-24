@@ -163,8 +163,8 @@ extern "C" const char gszSkillSorSourceFile[]; // 0x006E30C4
 extern "C" const char gszTargetsSourceFile[]; // 0x006E2C78
 extern "C" const char gszAiBaalSourceFile[]; // 0x006E3580
 extern "C" const char szPlayerCppFile[]; // 0x006E0A1C
-extern "C" const int gnAct2Quest5NpcIndices[]; // 0x0073B278
-extern "C" const unsigned int gnA5Q2NpcActivateIndices[]; // 0x00734270
+extern "C" int gnAct2Quest5NpcIndices[]; // 0x0073B278
+extern "C" unsigned int gnA5Q2NpcActivateIndices[]; // 0x00734270
 extern "C" int __fastcall sub_0045C390_Roll(Seed*, int); // 0x0045C390
 extern "C" int __fastcall sub_00463860_BaseClass(Unit*); // 0x00463860
 extern "C" int __fastcall sub_00463900_ValidateClass(int); // 0x00463900

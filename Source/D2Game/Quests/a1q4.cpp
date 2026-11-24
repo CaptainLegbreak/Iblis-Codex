@@ -262,7 +262,7 @@ D2SeedStrc* __fastcall QUESTS_GetGlobalSeed(D2GameStrc* pGame); // 0x005438B0
 
 struct D2ObjInitFnStrc;
 
-extern const int gnA1Q4MessageIndices[]; // 0x00737648
+extern int gnA1Q4MessageIndices[]; // 0x00737648
 
 int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int nId); // 0x005452C0
 

@@ -236,7 +236,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-extern const int gnBaseStatIdsToSend[]; // 0x00731AD8
+extern int gnBaseStatIdsToSend[]; // 0x00731AD8
 
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 

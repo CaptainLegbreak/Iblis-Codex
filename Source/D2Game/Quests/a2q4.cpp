@@ -143,7 +143,7 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 void __stdcall QUESTRECORD_ResetIntermediateStateFlags(D2BitBufferStrc* pQuestRecord, int nQuest); // 0x0065C3E0
 
-extern "C" const int gnAct2Quest4NpcIndices[]; // 0x00738D44
+extern "C" int gnAct2Quest4NpcIndices[]; // 0x00738D44
 
 typedef int (__stdcall* FARPROC)();
 
