@@ -118,7 +118,6 @@ struct D2PaletteEntry { BYTE red, green, blue, flags; };
 
 struct D2BitmapColor { BYTE blue, green, red, reserved; };
 
-void* __stdcall sub_00413020_Alloc(unsigned int, const char*, int, unsigned int); // 0x00413020
 
 
 struct D2CopyStackArg { unsigned int value; };
@@ -271,9 +270,7 @@ struct D2PcxRgbStrc {unsigned char red,green,blue;};
 struct D2PcxPaletteBlockStrc {unsigned char marker; D2PcxRgbStrc colors[256];};
 
 
-int __stdcall sub_00412650_Free(void*,const char*,int,unsigned); // 0x00412650
 
-extern const char gszSource_006FCC58[]; // 0x006FCC58
 
 static int __fastcall EncodePcx256File(int width,int height,void* file,D2PaletteStrc* colors,unsigned char* pixels);
 
@@ -322,7 +319,6 @@ static int __stdcall DecodePcxFile(void* hFile, unsigned char* pPalette, unsigne
 
 static int __stdcall DecodeTgaFile(void* hFile, D2PaletteColorStrc* pPalette, unsigned char* pBuffer, unsigned int* pWidth, int nBufferSize, unsigned int* pHeight, unsigned int* pBitDepth);
 
-extern const char gszSBmpSource[]; // 0x006FCC58
 
 
 
@@ -934,12 +930,12 @@ static int __fastcall EncodePcx256File(int width,int height,void* file,D2Palette
   WriteFile(file,&header,128,&written,0);
  }
  unsigned long writtenData;
- unsigned char* encoded=(unsigned char*)sub_00413020_Alloc(height*nWidth*2,gszSource_006FCC58,0x4eb,0);
+ unsigned char* encoded=(unsigned char*)SMemAlloc(height*nWidth*2,".\\SOURCE\\SBMP.CPP",0x4eb,0);
  unsigned char* source=pixels;
  unsigned char* dest=encoded;
  for(int row=0;row<height;++row) CompressPcxRow(&dest,&source,nWidth);
  WriteFile(file,encoded,(unsigned)(dest-encoded),&writtenData,0);
- sub_00412650_Free(encoded,gszSource_006FCC58,0x4f2,0);
+ SMemFree(encoded,".\\SOURCE\\SBMP.CPP",0x4f2,0);
  D2PcxPaletteBlockStrc palette;
  palette.marker=12;
  for(int i=0;i<256;++i) {
@@ -1300,7 +1296,7 @@ static int __stdcall EncodeBmp256File(void* file, const D2PaletteEntry* palette,
     if ((width & 3))
         nPitch = width - (width & 3) + 4;
     int bufferSize = nPitch * height;
-    BYTE* buffer = (BYTE*)sub_00413020_Alloc(bufferSize, ".\\SOURCE\\SBMP.CPP", 660, 0);
+    BYTE* buffer = (BYTE*)SMemAlloc(bufferSize, ".\\SOURCE\\SBMP.CPP", 660, 0);
     D2CopyStackArg copySource = { (unsigned int)pixels };
     D2CopyStackArg copySize = { (unsigned int)bufferSize };
     D2CopyStackArg copyPitch = { nPitch };
@@ -1478,10 +1474,10 @@ static int __stdcall EncodeGif256File(HANDLE hFile, const RGBQuad* pPalette, con
     header[9] = 8;
     SBmpWrite(hFile, header, 10);
 
-    unsigned char* pData = (unsigned char*)SMemAlloc(nWidth * nHeight * 2, gszSBmpSource, 1000, 0);
+    unsigned char* pData = (unsigned char*)SMemAlloc(nWidth * nHeight * 2, ".\\SOURCE\\SBMP.CPP", 1000, 0);
     int nLength = CompressGifImage(nWidth * nHeight, pPixels, pData);
     WriteFile(hFile, pData, nLength, &written, 0);
-    SMemFree(pData, gszSBmpSource, 1006, 0);
+    SMemFree(pData, ".\\SOURCE\\SBMP.CPP", 1006, 0);
 
     marker = 0;
     SBmpWrite(hFile, &marker, 1);
@@ -1760,7 +1756,7 @@ int __stdcall SBmpAllocLoadImage(const char* szFileName, D2PaletteColorStrc* pPa
         return 0;
 
     unsigned int nFileSize = SFileGetFileSize(hFile, 0);
-    unsigned char* pFileData = (unsigned char*)SMemAlloc(nFileSize, gszSBmpSource, 0x5B6, 0);
+    unsigned char* pFileData = (unsigned char*)SMemAlloc(nFileSize, ".\\SOURCE\\SBMP.CPP", 0x5B6, 0);
     SFileReadFile(hFile, pFileData, nFileSize, 0, 0);
     SFileCloseFile(hFile);
 
@@ -1795,7 +1791,7 @@ int __stdcall SBmpAllocLoadImage(const char* szFileName, D2PaletteColorStrc* pPa
     }
 
 done:
-    SMemFree(pFileData, gszSBmpSource, 0x5F3, 0);
+    SMemFree(pFileData, ".\\SOURCE\\SBMP.CPP", 0x5F3, 0);
     return bResult;
 }
 
