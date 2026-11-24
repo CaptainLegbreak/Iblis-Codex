@@ -292,3 +292,5 @@ int __fastcall D2SOUND_GetVxdFileVersion(const char* szPath, unsigned int* pMajo
     *pBuild = pInfo->wFileVersionLSLow;
     return 1;
 }
+
+#include "gen/data/Source/D2Sound/Src/D2SoundUtil.inc"

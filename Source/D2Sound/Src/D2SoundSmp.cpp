@@ -2,7 +2,6 @@
 
 #include "D2SoundTypes.h"
 
-static D2SoundChannelEntryStrc* sub_N19_GetChannelEntry(int nIndex);
 
 #define DSBSTATUS_BUFFERLOST 0x00000002
 
@@ -86,9 +85,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 
-extern D2SoundChannelEntryStrc gaChannelTableA[8]; // 0x0072F878
 
-extern D2SoundChannelEntryStrc gaChannelTableB[8]; // 0x0072F8B8
 
 extern D2ComObjectStrc* gpSoundObject_008816D8; // 0x008816D8
 
@@ -405,127 +402,6 @@ extern "C" void* __fastcall ROSTER_GetLinkFirst(D2OwnerStrc_004CA990* pOwner)
     return 0;
 }
 
-// 0x00513C50
-void __fastcall D2SOUND_SetEaxEnvironment(D2EaxEnvironmentStrc* pEnvironment)
-{
-    if (!gbEaxEnabled || !gpEaxListenerPropertySet)
-        return;
-    if (gnEaxVersion == 1)
-    {
-        float fVolume = sub_00516670_RoomToVolume((float)pEnvironment->nRoom);
-        gpEaxListenerPropertySet->Set(gtEaxListener10PropertySet, 1, 0, 0, pEnvironment, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener10PropertySet, 2, 0, 0, &fVolume, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener10PropertySet, 3, 0, 0, &pEnvironment->f_14, 4);
-    }
-    if (gnEaxVersion == 2)
-    {
-        int nFlags = 0x20;
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 0xB, 0, 0, pEnvironment, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 0xF, 0, 0, &nFlags, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 0xB, 0, 0, pEnvironment, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 0xC, 0, 0, &pEnvironment->fEnvironmentSize, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 0xD, 0, 0, &pEnvironment->fEnvironmentDiffusion, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 2, 0, 0, &pEnvironment->nRoom, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 3, 0, 0, &pEnvironment->f_10, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 5, 0, 0, &pEnvironment->f_14, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 6, 0, 0, &pEnvironment->f_18, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 7, 0, 0, &pEnvironment->f_1C, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 8, 0, 0, &pEnvironment->f_20, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 9, 0, 0, &pEnvironment->f_24, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 0xA, 0, 0, &pEnvironment->f_28, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 4, 0, 0, &pEnvironment->fRoomRolloffFactor, 4);
-        gpEaxListenerPropertySet->Set(gtEaxListener20PropertySet, 0xE, 0, 0, &pEnvironment->f_30, 4);
-    }
-    gbEaxRoomOff = pEnvironment->nRoom == -10000;
-}
-
-// 0x00513ED0
-const char* __fastcall D2SOUND_GetDirectSoundErrorString(long hResult)
-{
-    switch (hResult)
-    {
-    case 0x80004005:
-        return "DSERR_GENERIC";
-    case 0x80004002:
-        return "DSERR_NOINTERFACE";
-    case 0x80004001:
-        return "DSERR_UNSUPPORTED";
-    case 0x80040110:
-        return "DSERR_NOAGGREGATION";
-    case 0x80070057:
-        return "DSERR_INVALIDPARAM";
-    case 0x8007000E:
-        return "DSERR_OUTOFMEMORY";
-    case 0x8878000A:
-        return "DSERR_ALLOCATED";
-    case 0x88780064:
-        return "DSERR_BADFORMAT";
-    case 0x8878001E:
-        return "DSERR_CONTROLUNAVAIL";
-    case 0x88780032:
-        return "DSERR_INVALIDCALL";
-    case 0x88780078:
-        return "DSERR_NODRIVER";
-    case 0x88780046:
-        return "DSERR_PRIOLEVELNEEDED";
-    case 0x88780082:
-        return "DSERR_ALREADYINITIALIZED";
-    case 0x887800A0:
-        return "DSERR_OTHERAPPHASPRIO";
-    case 0x88780096:
-        return "DSERR_BUFFERLOST";
-    case 0x887800AA:
-        return "DSERR_UNINITIALIZED";
-    case 0:
-        return "DS_OK";
-    }
-    return 0;
-}
-
-// 0x00514710
-static D2SoundChannelEntryStrc* sub_00514710_GetChannelEntry(int nIndex)
-{
-    if (!gbChannelTableInit)
-    {
-        gbChannelTableInit = 1;
-// build: symbol ?D2SOUND_IsExpansion@* 0x00513AE0
-        gnChannelTableSel = D2SOUND_IsExpansion();
-    }
-// build: symbol ?gnChannelCountA@* 0x0072F874
-// build: symbol ?gnChannelCountB@* 0x0072F8F8
-    D2_ASSERT(gnChannelCountA == gnChannelCountB, 0x52);
-    D2_ASSERT(nIndex < gnChannelCountA, 0x53);
-    if (gnChannelTableSel)
-        return &gaChannelTableB[nIndex];
-    return &gaChannelTableA[nIndex];
-}
-
-// 0x00514780
-extern "C" void __fastcall D2SOUND_CreateStreamChannel(int nArg)
-{
-    gnStreamChannelArg = nArg;
-    SFileDdaInitialize((int)D2SOUND_GetDirectSound());
-    gpSoundChannel = D2SOUND_CreateSound(1, gnStreamChannelArg);
-}
-
-// 0x005147B0
-void __cdecl D2SOUND_DestroyStreamChannel()
-{
-    if (gpSoundChannel)
-    {
-        D2SOUND_DestroySound(gpSoundChannel);
-        gpSoundChannel = 0;
-    }
-    sub_00419F30();
-}
-
-// 0x00514860
-void __cdecl D2SOUND_ClearChannelTable()
-{
-    for (int i = 0; i < gnChannelCountA; ++i)
-        sub_N19_GetChannelEntry(i)->bBusy = 0;
-}
-
 extern "C" void __fastcall CLIENTS_SetPlayerUnitAlive(D2ClientStrc* pClient)
 {
     D2_ASSERT(pClient, 518);
@@ -536,71 +412,6 @@ void __cdecl sub_00650EA0_Nop()
 {
 }
 
-// 0x00514B60
-void __cdecl D2SOUND_LoadRegistrySettings()
-{
-    unsigned long nValue;
-    gnSoundMode = 0;
-    gnMasterVolume = 100;
-    gnMusicVolume = 50;
-    gnPositionalBias = 50;
-    gnNpcSpeech = 2;
-    gnOptionsMusic = 1;
-    if (SRegLoadValue("Diablo II", "Sound Mixer", 0, &nValue) && nValue < 3)
-        gnSoundMode = nValue;
-    if (SRegLoadValue("Diablo II", "Master Volume", 0, &nValue) && nValue <= 100)
-        gnMasterVolume = nValue;
-    if (SRegLoadValue("Diablo II", "Music Volume", 0, &nValue) && nValue <= 100)
-        gnMusicVolume = nValue;
-    if (SRegLoadValue("Diablo II", "Positional Bias", 0, &nValue) && nValue <= 100)
-        gnPositionalBias = nValue;
-    if (SRegLoadValue("Diablo II", "NPC Speech", 0, &nValue) && nValue < 3)
-        gnNpcSpeech = nValue;
-    if (SRegLoadValue("Diablo II", "Options Music", 0, &nValue) && nValue <= 1)
-        gnOptionsMusic = nValue;
-}
-
-// build: symbol ?sub_N19_GetChannelEntry@@YAPAUD2SoundChannelEntryStrc@@H@Z 0x00514710
-static D2SoundChannelEntryStrc* sub_N19_GetChannelEntry(int nIndex)
-{
-    if (!gbChannelTableInit)
-    {
-        gbChannelTableInit = 1;
-// build: symbol ?D2SOUND_IsExpansion@* 0x00513AE0
-        gnChannelTableSel = D2SOUND_IsExpansion();
-    }
-// build: symbol ?gnChannelCountA@* 0x0072F874
-// build: symbol ?gnChannelCountB@* 0x0072F8F8
-    D2_ASSERT(gnChannelCountA == gnChannelCountB, 0x52);
-    D2_ASSERT(nIndex < gnChannelCountA, 0x53);
-    if (gnChannelTableSel)
-        return &gaChannelTableB[nIndex];
-    return &gaChannelTableA[nIndex];
-}
-
-// 0x00514CA0
-int __fastcall D2SOUND_SetSoundMixerOption(int nValue)
-{
-    SRegSaveValue("Diablo II", "Sound Mixer", 0, nValue);
-    gnSoundMode = nValue;
-    return nValue;
-}
-
-// 0x00514D00
-int __fastcall D2SOUND_SetMusicVolumeOption(int nValue)
-{
-    SRegSaveValue("Diablo II", "Music Volume", 0, nValue);
-    gnMusicVolume = nValue;
-    return nValue;
-}
-
-// 0x00514D90
-int __fastcall D2SOUND_SetOptionsMusicOption(int nValue)
-{
-    SRegSaveValue("Diablo II", "Options Music", 0, nValue);
-    gnOptionsMusic = nValue;
-    return nValue;
-}
 
 // 0x00515110
 void __cdecl sub_00515110_Nop()
