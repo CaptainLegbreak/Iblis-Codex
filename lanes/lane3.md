@@ -4,6 +4,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/names-c 0bdf7bb8 293->293 Decompiler names and scaffolding in my files; borrowed data unchanged. (1) The huffman tree's word at +4 starts at 1 and goes up each time the tree rebalances, invalidating older quick links: nMinValidValue (was nUnk0x04 in three placeholders). TOutputStream's word before BitCount is its BitBuffer (was T00410B70). SBMP.CPP's 128-byte image header (id 0x050A, RLE, 8 bits, 72 dpi) is D2PcxHeaderStrc (was T006C5B10); the crash filter's record for the crash callback is D2CrashHandlerInfoStrc (was T00403AC0). (2) Fog.h loses four records nothing uses (PaletteColor, PaletteTables, ReceiveQueue, ReceiveConnection, with U8/U32 and offset checks) and its OFFSET macro; Unknown_0041E9C0.cpp loses its offset checks and U32. (3) QSrvAddClient clears the client's write queue as pWriteQueue (the nValue74 alias union goes). VERIFIED 0846d528 on base 7de5c518 (#367); borrowed data 844 B (main 844 B); rebased onto 5ed199a4 (#368) with no conflicts, namesync had nothing to rename, prechecked. Not stacked.
+
 - lane3/huff-names fb6c9af0 293->293 CHuffman's table after its items-by-value array (0x3474, 128 twelve-byte slots whose first word the constructor clears) is the decoder's quick-link table: aQuickLinks (was f_3474) in SFILE.CPP and SSignature.cpp. VERIFIED ba32b6ca on base 7de5c518 (#367); borrowed data 844 B (main 844 B); rebased onto 5ed199a4 (#368) with no conflicts, namesync had nothing to rename, prechecked. Not stacked.
 
 - lane3/smsg-members 32d2e692 304->304 SMSG.CPP's 0x420470 and 0x4206A0, among the window list's template members, are a TSList's InitializeTerminator and constructor; they are taken as TSList<WNDREC>'s by symbol line and explicit instantiation, and the free-function and D2SMsgListStrc constructor stand-ins go. Caveat: the bytes are the same for any list type, and SMSG.CPP's remaining stand-ins (a second Next 0x4204F0, a link destructor 0x4204B0, a reset 0x420500) suggest a second list type these could belong to. VERIFIED 4a32f79d on base 7de5c518 (#367); borrowed data 844 B (main 844 B); namesync had nothing to rename; prechecked. Not stacked.
@@ -12,7 +14,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- **lane3/names-c**: the huffman tree's nMinValidValue (was nUnk0x04), TOutputStream's BitBuffer (was T00410B70), D2PcxHeaderStrc (was T006C5B10), D2CrashHandlerInfoStrc (was T00403AC0); Fog.h loses four unused records and its OFFSET macro, Unknown_0041E9C0.cpp its offset checks; QSrvAddClient clears pWriteQueue by name (nValue74 alias goes). Full verify running.
+(none)
 
 ## Questions
 
