@@ -34,7 +34,6 @@ typedef int (__stdcall* FARPROC)();
 
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
-typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 

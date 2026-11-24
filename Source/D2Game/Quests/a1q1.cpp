@@ -184,7 +184,6 @@ struct D2NPCMessageTableStrc;
 
 struct D2MonsterRegionStrc;
 
-typedef void (__fastcall* QUESTUPDATE)(D2QuestDataStrc* pQuest);
 
 typedef int (__fastcall* SUNIT_ITERATEFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
