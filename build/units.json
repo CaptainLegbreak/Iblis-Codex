@@ -4878,11 +4878,6 @@
      "name": "sub_0041BEB0_FlushAndNotify"
     },
     {
-     "va": "0x0041D410",
-     "length": 4,
-     "name": "?sub_0041D410_GetWindow@@YIIPAUD2StormHashBufferStrc@@@Z"
-    },
-    {
      "va": "0x0041D9A0",
      "length": 57,
      "name": "?sub_0041D9A0_Flush@CBitOutput@@QAEXXZ"
@@ -6129,6 +6124,11 @@
      "va": "0x0041D3B0",
      "length": 95,
      "name": "SSignatureVerifyStream_Begin"
+    },
+    {
+     "va": "0x0041D410",
+     "length": 4,
+     "name": "?sub_0041D410_GetWindow@@YIIPAUD2StormHashBufferStrc@@@Z"
     },
     {
      "va": "0x0041D420",
