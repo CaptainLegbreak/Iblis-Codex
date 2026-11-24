@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2TxtTables.h"
+#include "D2BookDataTbl.h"
 struct D2UnitStrc;
 
 union D2SeedStrc;
@@ -34,11 +35,6 @@ struct D2ItemsTxt
     int dwCode;
 };
 
-struct D2BookDataTbl
-{
-    int nBooksTxtRecordCount;
-    D2BooksTxt* pBooksTxt;
-};
 
 D2BookDataTbl* __fastcall DATATBLS_GetBookDataTables(); // 0x006374A0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0

@@ -31,6 +31,7 @@
 #include "D2TxtItems.h"
 
 #include "D2ItemModes.h"
+#include "D2InventoryPair.h"
 
 #define STATEMASK_BLUE 18
 
@@ -116,11 +117,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 unsigned int* __stdcall D2COMMON_STATES_GetStatFlags_6FDB8A90(D2UnitStrc* pUnit); // 0x00625BB0
 
-struct D2InventoryPairStrc
-{
-    D2UnitStrc* pFirstItem;
-    D2UnitStrc* pLastItem;
-};
 
 extern "C" int __fastcall sub_0045ADF0_GetX(D2UnitStrc* pItem); // 0x0045ADF0
 

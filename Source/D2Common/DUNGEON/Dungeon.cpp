@@ -24,6 +24,7 @@
 
 #include "D2TxtTables.h"
 #include "D2DrlgDelete.h"
+#include "D2CommonLevelNode.h"
 
 struct D2DrlgRoomStrc;
 
@@ -272,15 +273,6 @@ struct D2CommonLevelNodeStrc;
 
 typedef tagRECT RECT;
 
-struct D2CommonLevelNodeStrc
-{
-    char unk0x00[0x8];
-    D2CommonLevelNodeStrc** ppChildren;
-    unsigned short wLevelCounts[16];
-    int nChildren;
-    char unk0x30[0x14];
-    unsigned char nMaxLevel;
-};
 
 typedef int (__stdcall* FARPROC)();
 

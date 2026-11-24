@@ -17,6 +17,7 @@
 #include "D2ItemsWorld.h"
 #include "D2SaveHeader.h"
 #include "D2LanguageNames.h"
+#include "D2BookDataTbl.h"
 
 struct D2ItemDataTbl
 {
@@ -3864,11 +3865,6 @@ struct D2BooksTxt;
 
 struct D2BookDataTbl;
 
-struct D2BookDataTbl
-{
-    int nBooksTxtRecordCount;
-    D2BooksTxt* pBooksTxt;
-};
 
 D2BookDataTbl* __fastcall DATATBLS_GetBookDataTables(); // 0x006374A0
 
