@@ -4,13 +4,15 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/qserver-head 71ca8efe 447->447 **Stacked on log-nop (and so on qserver-names).** QServer.cpp takes FOG_SetServerConfig (0x6BE310), FOG_StartServer (0x6BE350) and FOG_10186 (0x6BE390) from Excel.cpp: they sit right in front of QServer.cpp's run and work on the queue server; SetServerConfig sets the default sizes at 0x74C3E0-0x74C3EC that QSInit reads, which run into QServer.cpp's gaMaskTable (0x74C3F0). Excel.cpp held them on a one-field server view and a flags stand-in; QServer.cpp held a context copy of SetServerConfig (goes). The three settings records 0x74C3E4-0x74C3EC move from Excel.cpp's plan to QServer.cpp's, by QServer.cpp's names (units.json moves the three functions). The two empty log functions in front of them (0x6BE2F0, 0x6BE300) stay in Excel.cpp: in QServer.cpp's unit they would be inlined away, so they weren't part of it. VERIFIED ef95d177 on base 8fe544f6 (#348) with its stack; the stack cherry-picks onto 27bf69d9 (#349) without conflicts.
+
 - lane3/log-nop f97f1cf1 447->447 **Stacked on qserver-names.** 0x6BE300 (an empty cdecl function) is called by its own name, sub_006BE300_Nop: QServer.cpp and QServerNT.cpp called it through a second, variadic declaration (sub_006BE300_Log) while Excel.cpp defined it with three fixed arguments; its definition is variadic now and it is declared once in D2QServer.h. VERIFIED 9fdc2d4b on base 8fe544f6 (#348) with qserver-names under it; the pair cherry-picks onto 27bf69d9 (#349) without conflicts and prechecks equal (26 units).
 
 - lane3/qserver-names 72738e2d 447->447 (cherry-picks onto 27bf69d9, #349, without conflicts; the 26 Fog.h/D2QServer.h includers precheck equal there) The QServer files call their callees by their own names, each declared once: QSERVER_ReleaseClient (0x6C0360) and QSrvCloseRemoteConnection (0x6C0420) had five other names between Fog.h, QServer.cpp and QServer98.cpp; 0x6C30D0, 0x6C2C70, 0x6C2D70, 0x6BFFA0, 0x6BE3C0 and 0x6BFAD0 had one or two each. The cross-file ones are declared in D2QServer.h. QServerNT.cpp's two thread procedures take the thread parameter and read one argument type (D2QWorkerArgStrc) instead of three identical one-off types, and CreateThread gets them by their own names. VERIFIED 58f66ff8 on base 8fe544f6 (#348; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 1,166 B). Not stacked.
 
 ## Claimed
 
-- **QServer.cpp takes 0x6BE2F0-0x6BE390 from Excel.cpp** (lane3/qserver-head, stacked on log-nop): the two log no-ops, FOG_SetServerConfig, FOG_StartServer and FOG_10186 sit between the gamma placeholder and QServer.cpp's run, work on the queue server, and share QServer.cpp's static settings at 0x74C3E0-0x74C3EC (which run into QServer's gaMaskTable at 0x74C3F0); QServer.cpp already carries a context copy of FOG_SetServerConfig.
+(none)
 
 ## Questions
 
