@@ -5,12 +5,10 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 ## Ready
 
 - lane5/monsterchoose 1161446b 542->540 MonsterChoose.cpp takes in the three MONSTERCHOOSE_ functions after it (0x5BDE80/0x5BDFF0/0x5BE020) and their data, including the borrowed 0x7415F4 block (component codes + self pointer tables, 348 B, as gData_007415F4) and the unread language list at 0x741750 (60 B); borrowed data 15,283 B on this branch (-408 B); VERIFIED 7a06ba5fdb344019c625b5fb03463583d28c0b90. Based on main #301, not stacked, D2Game only.
-- lane5/small-strays af53db9a 0 placeholders; PlrSave2.cpp takes 0x569EC0 from Objects.cpp (adopts its unmarked copy), a5q2.cpp takes 0x587F60 from a5q1.cpp (its QUESTS_SendLogUpdateEx prototype lacked the // 0x00545920 marker, which is why it failed before); VERIFIED 2e6d3ea629aaa5608194d1654f622d960a27046d. Based on main #301, not stacked, D2Game only.
-- lane5/intro-q0 4c6049d0 545->543; a2q0.cpp and a3q0.cpp take in their acts' intro-quest clusters, which open each q0 file's run (from a1q4, a2q1, a2q3, a4q3, MissMode.cpp and two placeholders); VERIFIED d0c4ee8dc981a8aff29e31a334ac0f8d55ce18c6. Based on main #299, not stacked, D2Game only.
-- lane5/game-defaults 37ddf94b 0 placeholders; Game.cpp takes in 0x52BFB0/0x52BFC0 from D2Net.cpp (inside Game.cpp's run; lane 6 file) and defines the borrowed zero blocks 0x6E0498 (184 B), 0x6E0550 (24 B), 0x6E0568 (272 B) as const char arrays; borrowed data 15,211 B on this branch; VERIFIED db10a6a4d4e916035cbbe1b1002f4b483b683bda. Based on main #298, not stacked; touches D2Net.cpp (removes the two functions only).
-- lane5/a3q2-run b250ff23 561->558 a3q2.cpp takes in four strays in its runs (0x5B7F90 from a3q1.cpp; 0x5B7FE0, 0x5B8B00, 0x5BDB10 from placeholders); VERIFIED eabdc2af95c0bf45405ca91445b37593b91ec622. Based on main #297, not stacked, D2Game only.
 
 ## Questions
+
+- Task.cpp locks (from lane 3's note): Task.cpp is ready to define gtTaskQueuesCriticalSections[32] and gTaskSlotsCriticalSection as CCritSect objects, so the compiler emits 0x6CAF90/0x6CB4A0 and 0x6CAF70/0x6CB490. Taking them means deleting those four functions from Storm/Unknown_006CAE80.cpp, Storm/Unknown_006CAF90.cpp, Storm/Unknown_006CB4A0.cpp and Bnclient/Unknown_006CB420.cpp (lanes 3 and 6) and moving their units.json entries. Is that OK from here, or should lane 3/6 drop them first?
 
 ## Notes for other lanes
 
