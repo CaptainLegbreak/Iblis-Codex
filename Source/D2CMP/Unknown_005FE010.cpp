@@ -18,7 +18,7 @@ struct D2CmpGfxHashEntryStrc;
 
 struct D2CelDataHashStrc;
 
-struct T00604AE0;
+struct D2CelDataHashEntryStrc;
 
 struct D2CmpPoolStrc
 {
@@ -49,7 +49,7 @@ struct D2SpriteFreeNodeStrc
 struct D2TilePoolEntryStrc
 {
     char unk0x00[0x08];
-    T00604AE0* pCelData;
+    D2CelDataHashEntryStrc* pCelData;
 };
 
 struct D2CelDataViewStrc
@@ -78,7 +78,7 @@ extern D2CmpBlockTableBStrc gCmpBlockTableB;                                    
 
 void __fastcall GfxHashRemove(void* pMemPool, D2CmpGfxHashStrc* pHash, D2CmpGfxHashEntryStrc* pEntry); // 0x0060AB10
 
-void __fastcall CelDataHashRemove(void* pMemPool, D2CelDataHashStrc* pHash, T00604AE0* pEntry); // 0x0060B0B0
+void __fastcall CelDataHashRemove(void* pMemPool, D2CelDataHashStrc* pHash, D2CelDataHashEntryStrc* pEntry); // 0x0060B0B0
 
 // 0x005FE170
 void __fastcall sub_005FE170_SpriteCacheFreeCallback(void* pNode)
