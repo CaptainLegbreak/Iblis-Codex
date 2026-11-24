@@ -26797,6 +26797,11 @@
      "va": "0x004B6A30",
      "length": 568,
      "name": "?NPCMENU_NpcTextCallback@@YIHPAXHH@Z"
+    },
+    {
+     "va": "0x006CAD10",
+     "length": 103,
+     "name": "?sub_006CAD10_InitBlock@@YAXXZ"
     }
    ],
    "flags": [
@@ -80754,11 +80759,6 @@
      "va": "0x006CAD00",
      "length": 15,
      "name": "?sub_006CAD00_InitializeNameSeparator@@YAXXZ"
-    },
-    {
-     "va": "0x006CAD10",
-     "length": 103,
-     "name": "?sub_006CAD10_InitBlock@@YAXXZ"
     },
     {
      "va": "0x006CAD80",
