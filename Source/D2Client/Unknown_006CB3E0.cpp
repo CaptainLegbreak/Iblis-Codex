@@ -15,13 +15,6 @@ struct D2StormHashTableReuseStrc
 extern D2StormHashTableReuseStrc data_007A0690; // 0x007A0690
 extern CRITICAL_SECTION gtGameDataTableLock; // 0x007A06E0
 
-// 0x006CB3E0
-void __cdecl sub_006CB3E0_DestroyHashTable()
-{
-    DeleteCriticalSection(&gtGameDataTableLock);
-    data_007A0690.~D2StormHashTableReuseStrc();
-}
-
 // 0x006CB400
 void __cdecl sub_006CB400_Nop()
 {
