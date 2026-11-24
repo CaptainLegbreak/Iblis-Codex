@@ -4682,7 +4682,7 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/Object.cpp": {
-   "bytes": 600,
+   "bytes": 540,
    "definitions": 3,
    "externs": [],
    "fn_types": {},
@@ -5282,6 +5282,15 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Launch/Unknown_0042E590.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/Unknown_004BC1B0.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/Unknown_004BC1B0.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -59196,10 +59205,10 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Client/UNIT/Object.cpp",
-   "fill": 34,
+   "fill": 19,
    "form": "declared",
    "fwd": null,
-   "head": "extern D2ObjectClientFn gapfnObjectClientFn[34] = ",
+   "head": "extern D2ObjectClientFn gapfnObjectClientFn[19] = ",
    "model": {
     "elem": {
      "fn": true,
@@ -59208,8 +59217,8 @@
      "spell": "D2ObjectClientFn"
     },
     "k": "arr",
-    "n": 34,
-    "size": 136
+    "n": 19,
+    "size": 76
    },
    "name": "gapfnObjectClientFn",
    "pointers": [
@@ -59356,9 +59365,29 @@
      "OBJECT_RandomSound",
      0,
      "func"
-    ],
+    ]
+   ],
+   "region": "data",
+   "size": 76,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007277F0",
+   "type": "D2ObjectClientFn",
+   "va": "0x007277F0"
+  },
+  {
+   "alias": false,
+   "cname": "gData_0072783C",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/Unknown_004BC1B0.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_0072783C_t gData_0072783C; // 0x0072783C",
+   "head": "extern \"C\" struct d2data_0072783C_t gData_0072783C = ",
+   "name": "gData_0072783C",
+   "pointers": [
     [
-     76,
+     0,
      "0x006CC81C",
      "literal",
      null,
@@ -59366,7 +59395,7 @@
      "string"
     ],
     [
-     80,
+     4,
      "0x006CC814",
      "literal",
      null,
@@ -59374,7 +59403,7 @@
      "string"
     ],
     [
-     84,
+     8,
      "0x006CC80C",
      "literal",
      null,
@@ -59382,7 +59411,7 @@
      "string"
     ],
     [
-     88,
+     12,
      "0x006CC804",
      "literal",
      null,
@@ -59390,7 +59419,7 @@
      "string"
     ],
     [
-     92,
+     16,
      "0x006CC7F8",
      "literal",
      null,
@@ -59398,7 +59427,7 @@
      "string"
     ],
     [
-     96,
+     20,
      "0x006CC7F0",
      "literal",
      null,
@@ -59406,7 +59435,7 @@
      "string"
     ],
     [
-     100,
+     24,
      "0x006CC7E4",
      "literal",
      null,
@@ -59414,7 +59443,7 @@
      "string"
     ],
     [
-     104,
+     28,
      "0x006CC7DC",
      "literal",
      null,
@@ -59422,7 +59451,7 @@
      "string"
     ],
     [
-     108,
+     32,
      "0x006CC7C8",
      "literal",
      null,
@@ -59430,7 +59459,7 @@
      "string"
     ],
     [
-     112,
+     36,
      "0x006CC7B4",
      "literal",
      null,
@@ -59438,7 +59467,7 @@
      "string"
     ],
     [
-     116,
+     40,
      "0x006CC7AC",
      "literal",
      null,
@@ -59446,7 +59475,7 @@
      "string"
     ],
     [
-     120,
+     44,
      "0x006CC7A4",
      "literal",
      null,
@@ -59454,7 +59483,7 @@
      "string"
     ],
     [
-     124,
+     48,
      "0x006CC788",
      "literal",
      null,
@@ -59462,7 +59491,7 @@
      "string"
     ],
     [
-     128,
+     52,
      "0x006CC780",
      "literal",
      null,
@@ -59470,7 +59499,7 @@
      "string"
     ],
     [
-     132,
+     56,
      "0x006CC77C",
      "literal",
      null,
@@ -59479,12 +59508,10 @@
     ]
    ],
    "region": "data",
-   "size": 136,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x007277F0",
-   "type": "D2ObjectClientFn",
-   "va": "0x007277F0"
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0072783C_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x0072783C",
+   "va": "0x0072783C"
   },
   {
    "alias": false,
