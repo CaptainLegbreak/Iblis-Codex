@@ -1,8 +1,14 @@
 #include "D2StatIds.h"
+#include "D2DataTbls.h"
+
 #include "D2CmpTileRecord.h"
+
 #include "D2GameTypes.h"
+
 #include "D2DrlgMaps.h"
+
 #include "D2CmpTypes.h"
+
 #include "D2LRUNode.h"
 
 #include "D2Path.h"
@@ -388,6 +394,190 @@ __forceinline unsigned int ITEMS_GetStoreSetItemsMaskInline(D2UnitStrc* pUnit, D
     }
 
     return ITEMS_GetSetItemsMask(pUnit, pItem, 1);
+}
+
+extern const int gnItemSetStates[]; // 0x006EE424
+
+int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
+
+D2SetItemsTxt* __stdcall ITEMS_GetSetItemsTxtRecordFromItem(D2UnitStrc* pItem); // 0x0062A490
+
+int __stdcall ITEMS_GetNoOfSetItemsFromItem(D2UnitStrc* pItem); // 0x0062B3A0
+
+int __stdcall D2Common_10574(D2UnitStrc* pUnit, int nStateId, int bSet); // 0x006279A0
+
+// 0x00663A20
+int __fastcall sub_00663A20_SetItemBonusStates(D2UnitStrc* pItem, unsigned int nSetItemMask)
+{
+    const int nType = pItem ? pItem->dwUnitType : UNIT_INVALID;
+    if (nType == 4 && ITEMS_GetItemQuality(pItem) == ITEMQUAL_SET)
+    {
+        const D2SetItemsTxt* pSetItemsTxt = ITEMS_GetSetItemsTxtRecordFromItem(pItem);
+        if (pSetItemsTxt)
+        {
+            switch (pSetItemsTxt->nAddFunc)
+            {
+            case 0:
+                return 0;
+
+            case 1:
+            {
+                const int nSetItems = ITEMS_GetNoOfSetItemsFromItem(pItem);
+                for (int i = 0; i < 6; ++i)
+                {
+                    int nIndex = i;
+                    if (i != nSetItems)
+                    {
+                        if (i > nSetItems)
+                        {
+                            nIndex -= 1;
+                        }
+
+                        if ((1 << i) & nSetItemMask)
+                        {
+                            D2Common_10574(pItem, gnItemSetStates[nIndex], 0);
+                        }
+                        else
+                        {
+                            D2Common_10574(pItem, gnItemSetStates[nIndex], 1);
+                        }
+                    }
+                }
+                break;
+            }
+
+            case 2:
+            {
+                const int nBonuses = (nSetItemMask >= 0x40 ? 0 : gnSetMaskToBonusMappingTable[nSetItemMask]) - 1;
+
+                for (int i = 0; i < nBonuses; ++i)
+                {
+                    D2Common_10574(pItem, gnItemSetStates[i], 0);
+                }
+
+                if (nBonuses >= 5)
+                {
+                    return 1;
+                }
+
+                for (int i = nBonuses; i < 5; ++i)
+                {
+                    D2Common_10574(pItem, gnItemSetStates[i], 1);
+                }
+                break;
+            }
+            }
+
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
+D2SetItemsTxt* __fastcall DATATBLS_GetSetItemsTxtRecord(int nIndex);                                    // 0x00483440
+D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFlags, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState);             // 0x006256B0
+int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer);        // 0x00625D00
+void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList);                                           // 0x00626CD0
+void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
+void __stdcall STATLIST_AddStat(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627030
+void __stdcall STATLIST_RemoveAllStats(D2StatListStrc* pStatList);                                         // 0x00627340
+void __stdcall D2Common_10474(D2UnitStrc* pUnit, D2StatListStrc* pStatList);                               // 0x006277E0
+int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem);                                                        // 0x00629DA0
+int __stdcall ITEMS_IsMagSetRarUniCrfOrTmp(D2UnitStrc* pItem);                                              // 0x0062A0F0
+void __fastcall ITEMMODS_UpdateFullSetBoni(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nState);               // 0x00660120
+
+// 0x00663B40
+int __fastcall sub_00663B40_SetBonusStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3)
+{
+    if (a3 > 1)
+    {
+        return 0;
+    }
+
+    if (!pUnit || !pItem || (!pItem ? 6 : pItem->dwUnitType) != 4 || ITEMS_GetItemQuality(pItem) != ITEMQUAL_SET)
+    {
+        return 0;
+    }
+
+    if ((!pUnit ? 6 : pUnit->dwUnitType) == 4 && ITEMS_IsMagSetRarUniCrfOrTmp(pUnit))
+    {
+        return 0;
+    }
+
+    D2SetItemsTxt* pSetItemsTxtRecord = DATATBLS_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+    if (!pSetItemsTxtRecord)
+    {
+        return 0;
+    }
+
+    const int nValue = pSetItemsTxtRecord->nSetId;
+    if (nValue < 0 || nValue >= sgptDataTables->nSetsTxtRecordCount)
+    {
+        return 0;
+    }
+
+    int nIndex = -1;
+    D2StatListStrc* pStatList;
+    int nState;
+    int i = 0;
+    for (;;)
+    {
+        if (!(i < 6))
+            break;
+        nState = gnItemSetStates[i];
+        pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
+        if (pStatList)
+        {
+            if (nValue == STATLIST_GetStatValue(pStatList, STAT_VALUE, 0))
+            {
+                if (a3 == 0)
+                {
+                    STATLIST_RemoveAllStats(pStatList);
+                }
+                goto update;
+            }
+        }
+        else if (nIndex < 0)
+        {
+            nIndex = i;
+        }
+        ++i;
+    }
+
+    if (a3 == 1)
+    {
+        return 0;
+    }
+    if (nIndex < 0)
+    {
+        return 0;
+    }
+
+    nState = gnItemSetStates[nIndex];
+    int const nItemId = pItem->dwUnitId;
+    void* const pPool = pUnit->pMemoryPool;
+    pStatList = STATLIST_AllocStatList(pPool, 0, 0, !pItem ? 6 : pItem->dwUnitType, nItemId);
+    D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
+    STATLIST_SetState(pStatList, nState);
+
+update:
+    switch (a3)
+    {
+    case 0:
+        STATLIST_AddStat(pStatList, STAT_VALUE, nValue, 0);
+        ITEMMODS_UpdateFullSetBoni(pUnit, pItem, nState);
+        break;
+
+    case 1:
+        D2Common_10474(pUnit, pStatList);
+        STATLIST_FreeStatList(pStatList);
+        break;
+    }
+
+    return 1;
 }
 
 // 0x00663CC0

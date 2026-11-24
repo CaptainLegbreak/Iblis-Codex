@@ -1,12 +1,20 @@
 #include "D2Drlg.h"
+
 #include "D2DrlgMaps.h"
+
 #include "D2DrlgRooms.h"
+
+static T00681490* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal);
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
+
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                         // 0x0067C570
+
 D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char nDirection);          // 0x0067CDD0
+
 int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordStrc* pCoords, int nX, int nY);          // 0x0066B980
+
 int __fastcall sub_6FDAB750(int nX1, int nY1, int nX2, int nY2);              // 0x00678CF0
 
 extern const unsigned char gPathTurns[4][4]; // 0x006F2840
@@ -58,6 +66,107 @@ static int __stdcall sub_00681510(T00681490* pNode, int nX, int nY)
 static const unsigned char* __stdcall sub_00681540(unsigned char nDirection, unsigned char nBase)
 {
     return gPathTurns[(unsigned char)(nDirection - nBase) & 3];
+}
+
+// 0x006817D0
+int __fastcall sub_006817D0(D2DrlgLevelStrc* pLevel, int nRoad)
+{
+    void* pMemPool = pLevel->pDrlg->pMempool;
+    D2DrlgVertexStrc tGoal = {};
+
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
+    D2DrlgVertexStrc tFrom;
+    tFrom.nPosX = (pInfo->pVertices[nRoad + 6].nPosX - pLevel->nPosX) / 8;
+    tFrom.nPosY = (pInfo->pVertices[nRoad + 6].nPosY - pLevel->nPosY) / 8;
+    tGoal.nPosX = (pInfo->pVertices[nRoad + 12].nPosX - pLevel->nPosX) / 8;
+    tGoal.nPosY = (pInfo->pVertices[nRoad + 12].nPosY - pLevel->nPosY) / 8;
+
+    int nDiffX = tFrom.nPosX - tGoal.nPosX;
+    if (nDiffX < 0)
+        nDiffX = -nDiffX;
+    int nDiffY = tFrom.nPosY - tGoal.nPosY;
+    if (nDiffY < 0)
+        nDiffY = -nDiffY;
+    if (nDiffX + nDiffY < 2)
+    {
+        pInfo->pRoads[nRoad] = DRLGVER_AllocVertex(pMemPool, 0);
+        pInfo->pRoads[nRoad]->nPosX = tFrom.nPosX;
+        pInfo->pRoads[nRoad]->nPosY = tFrom.nPosY;
+        D2DrlgVertexStrc* pGoalVertex = DRLGVER_AllocVertex(pMemPool, 0);
+        pInfo->pRoads[nRoad]->pNext = pGoalVertex;
+        pInfo->pRoads[nRoad]->pNext->nPosX = tGoal.nPosX;
+        pInfo->pRoads[nRoad]->pNext->nPosY = tGoal.nPosY;
+        return 1;
+    }
+
+    D2DrlgPathSearchStrc tSearch;
+    T00681490 tStart;
+    int nDirection = sub_6FDAB750(tFrom.nPosX, tFrom.nPosY, tGoal.nPosX, tGoal.nPosY) / 2;
+    tStart.nSpent = 0;
+    int nDX = tFrom.nPosX - tGoal.nPosX;
+    if (nDX < 0)
+        nDX = -nDX;
+    const int nRawY = tFrom.nPosY - tGoal.nPosY;
+    const int nDY = nRawY < 0 ? -nRawY : nRawY;
+    int nMin = nDX;
+    int nMax = nDX;
+    if (nDX >= nDY)
+        nMin = nDY;
+    if (nDX <= nDY)
+        nMax = nDY;
+    int nEstimate = nMin + 2 * nMax;
+    tStart.nY = tFrom.nPosY;
+    tStart.nDirection = nDirection & 3;
+    memset(tSearch.tNodes, 0, sizeof(T00681490));
+    tSearch.pStart = tSearch.tNodes;
+    tStart.nX = tFrom.nPosX;
+    int nMaxCost = nEstimate + nEstimate / 2;
+    tStart.nEstimate = nEstimate;
+    tStart.nCost = nEstimate;
+    tStart.nTried = -1;
+    tStart.pTurn = gPathTurns[0];
+    tStart.pChild = 0;
+    tStart.pParent = 0;
+    tSearch.nNodes = 1;
+    int nLimit = nMaxCost + 35;
+
+    do
+    {
+        *tSearch.pStart = tStart;
+        T00681490* pNode = sub_00681630(&tSearch, nMaxCost, pLevel, &tGoal);
+        nMaxCost += 5;
+        if (tSearch.nNodes >= 900)
+        {
+            return 0;
+        }
+
+        tSearch.nNodes = 1;
+        if (pNode)
+        {
+            D2DrlgVertexStrc* pVertex = 0;
+            do
+            {
+                if (pInfo->pRoads[nRoad])
+                {
+                    pVertex = pVertex->pNext = DRLGVER_AllocVertex(pMemPool, 0);
+                }
+                else
+                {
+                    pVertex = pInfo->pRoads[nRoad] = DRLGVER_AllocVertex(pMemPool, 0);
+                }
+
+                pVertex->nPosX = pNode->nX;
+                pVertex->nPosY = pNode->nY;
+                pNode = pNode->pParent;
+            }
+            while (pNode);
+
+            return 1;
+        }
+    }
+    while (nMaxCost < nLimit);
+
+    return 0;
 }
 
 static T00681490* __stdcall sub_00681560(D2DrlgPathSearchStrc* pSearch, T00681490* pNode)
@@ -165,95 +274,6 @@ static T00681490* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMax
             return 0;
         }
     }
-}
-
-// build: context sub_006817D0
-int __fastcall sub_006817D0(D2DrlgLevelStrc* pLevel, int nRoad)
-{
-    void* pMemPool = pLevel->pDrlg->pMempool;
-    D2DrlgVertexStrc tGoal;
-    memset(&tGoal, 0, sizeof(tGoal));
-
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
-    int nStartX = (pInfo->pVertices[nRoad + 6].nPosX - pLevel->nPosX) / 8;
-    int nStartY = (pInfo->pVertices[nRoad + 6].nPosY - pLevel->nPosY) / 8;
-    tGoal.nPosX = (pInfo->pVertices[nRoad + 12].nPosX - pLevel->nPosX) / 8;
-    tGoal.nPosY = (pInfo->pVertices[nRoad + 12].nPosY - pLevel->nPosY) / 8;
-
-    int nDiffX = nStartX - tGoal.nPosX;
-    int nDiffY = nStartY - tGoal.nPosY;
-    if ((nDiffX < 0 ? -nDiffX : nDiffX) + (nDiffY < 0 ? -nDiffY : nDiffY) < 2)
-    {
-        pInfo->pRoads[nRoad] = DRLGVER_AllocVertex(pMemPool, 0);
-        pInfo->pRoads[nRoad]->nPosX = nStartX;
-        pInfo->pRoads[nRoad]->nPosY = nStartY;
-        pInfo->pRoads[nRoad]->pNext = DRLGVER_AllocVertex(pMemPool, 0);
-        pInfo->pRoads[nRoad]->pNext->nPosX = tGoal.nPosX;
-        pInfo->pRoads[nRoad]->pNext->nPosY = tGoal.nPosY;
-        return 1;
-    }
-
-    D2DrlgPathSearchStrc tSearch;
-    T00681490 tStart;
-    int nDirection = sub_6FDAB750(nStartX, nStartY, tGoal.nPosX, tGoal.nPosY) / 2;
-    tStart.nSpent = 0;
-    int nEstimate = sub_006814E0(nStartX, nStartY, tGoal.nPosX, tGoal.nPosY);
-    tStart.nDirection = nDirection & 3;
-    memset(tSearch.tNodes, 0, sizeof(T00681490));
-    tSearch.pStart = tSearch.tNodes;
-    tStart.nX = nStartX;
-    tStart.nY = nStartY;
-    int nMaxCost = nEstimate + nEstimate / 2;
-    tStart.nEstimate = nEstimate;
-    tStart.nCost = nEstimate;
-    int nLimit = nMaxCost + 35;
-    tStart.nTried = -1;
-    tStart.pTurn = gPathTurns[0];
-    tStart.pChild = 0;
-    tStart.pParent = 0;
-    tSearch.nNodes = 1;
-
-    do
-    {
-        *tSearch.pStart = tStart;
-        T00681490* pNode = sub_00681630(&tSearch, nMaxCost, pLevel, &tGoal);
-        nMaxCost += 5;
-        if (tSearch.nNodes >= 900)
-        {
-            return 0;
-        }
-
-        tSearch.nNodes = 1;
-        if (pNode)
-        {
-            D2DrlgVertexStrc* pVertex = 0;
-            do
-            {
-                D2DrlgVertexStrc* pNew;
-                if (pInfo->pRoads[nRoad])
-                {
-                    pNew = DRLGVER_AllocVertex(pMemPool, 0);
-                    pVertex->pNext = pNew;
-                }
-                else
-                {
-                    pNew = DRLGVER_AllocVertex(pMemPool, 0);
-                    pInfo->pRoads[nRoad] = pNew;
-                }
-
-                pVertex = pNew;
-                pVertex->nPosX = pNode->nX;
-                pVertex->nPosY = pNode->nY;
-                pNode = pNode->pParent;
-            }
-            while (pNode);
-
-            return 1;
-        }
-    }
-    while (nMaxCost < nLimit);
-
-    return 0;
 }
 
 #include "gen/data/Source/D2Common/Unknown_00681490.inc"
