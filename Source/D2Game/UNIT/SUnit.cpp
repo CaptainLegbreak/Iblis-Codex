@@ -490,7 +490,11 @@ void __stdcall ITEMS_AllocItemData(void* pMemPool, D2UnitStrc* pItem);          
 
 extern "C" void __stdcall PATH_SetUnitCollisionPattern(D2UnitStrc* pUnit, int nCollisionPattern);           // 0x00649190
 
-int gnUnitInitSeed_008846E8; // 0x008846E8
+extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
+// build: symbol ??__EgnUnitInitSeed_008846E8@@YAXXZ 0x006CAF60
+// build: symbol ?gnUnitInitSeed_008846E8@@3HA 0x008846E8
+int gnUnitInitSeed_008846E8 = GetTickCount(); // 0x008846E8
 
 struct D2UnitStrc;
 
@@ -523,8 +527,6 @@ int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
-
-extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 

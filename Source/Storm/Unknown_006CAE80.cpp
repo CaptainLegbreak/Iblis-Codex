@@ -36,8 +36,6 @@ extern int gnCopy_00731EB8; // 0x00731EB8
 extern int gnCopy_00731EC0; // 0x00731EC0
 extern int gnCopy_00731EC8; // 0x00731EC8
 extern int gnCopy_00731ED0; // 0x00731ED0
-extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount(); // 0x006CC260
-extern unsigned int gnUnitInitSeed; // 0x008846E8
 void __cdecl sub_006CB4E0_DestroyLock(); // 0x006CB4E0
 extern unsigned int gnListTerminator_0074C490; // 0x0074C490
 extern void* gpListHead_0074C494; // 0x0074C494
@@ -135,12 +133,6 @@ void __cdecl sub_006CAF30_SnapshotCounters()
 }
 
 #include "gen/data/Source/Storm/Unknown_006CAE80.inc"
-
-// 0x006CAF60
-void __cdecl sub_006CAF60_InitStartTick()
-{
-    gnUnitInitSeed = GetTickCount();
-}
 
 // 0x006CB010
 void __cdecl sub_006CB010_InitializeLock()
