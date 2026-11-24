@@ -344,4 +344,22 @@ int __cdecl ERRORMANAGER_StartServiceDispatcher()
     return 0;
 }
 
+int gnCmdShow; // 0x0074C71C
+
+// 0x004066E0
+extern "C" int __stdcall WinMain(void* hInstance, void* hPrevInstance, char* lpCmdLine, int nShowCmd)
+{
+    ghCurrentProcess_0074C718 = hInstance;
+    gnCmdShow = nShowCmd;
+    if (!ERRORMANAGER_StartServiceDispatcher())
+    {
+        const char* argv[2];
+        argv[0] = "d2server";
+        argv[1] = lpCmdLine;
+        ERRORMANAGER_DenyProcessAccess();
+        GameInit(2, argv);
+    }
+    return 0;
+}
+
 #include "gen/data/Source/D2Launch/Unknown_00406410.inc"

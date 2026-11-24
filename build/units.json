@@ -837,6 +837,11 @@
      "va": "0x00406650",
      "length": 131,
      "name": "ERRORMANAGER_StartServiceDispatcher"
+    },
+    {
+     "va": "0x004066E0",
+     "length": 71,
+     "name": "WinMain"
     }
    ]
   },
@@ -2753,11 +2758,6 @@
    "file": "Source/D2Launch/Src/MainMenus.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004066E0",
-     "length": 71,
-     "name": "WinMain"
-    },
     {
      "va": "0x00406870",
      "length": 108,
