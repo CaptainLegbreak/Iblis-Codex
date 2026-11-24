@@ -17719,18 +17719,9 @@
      "name": "?sub_00472550_ResetWeather@@YAXXZ"
     },
     {
-     "va": "0x004732C0",
-     "length": 429
-    },
-    {
      "va": "0x00473A70",
      "length": 391,
      "name": "?sub_00473A70@@YIXPAUD2WeatherStrc@@PAUD2WeatherLayerStateStrc@@@Z"
-    },
-    {
-     "va": "0x00473E50",
-     "length": 249,
-     "name": "GFX_StepWeatherPhase"
     },
     {
      "va": "0x00475B80",
@@ -20476,6 +20467,11 @@
      "name": "?sub_00472610_InitWindAngle@@YAXXZ"
     },
     {
+     "va": "0x00472BD0",
+     "length": 69,
+     "name": "?sub_00472BD0@@YAXXZ"
+    },
+    {
      "va": "0x00472C20",
      "length": 37,
      "name": "?sub_00472C20_PlayerMoved@@YIXH@Z"
@@ -20499,6 +20495,10 @@
      "va": "0x00472FB0",
      "length": 209,
      "name": "?sub_00472FB0_GetPeriodLight@@YGXPAEH0@Z"
+    },
+    {
+     "va": "0x004732C0",
+     "length": 429
     },
     {
      "va": "0x004736C0",
@@ -20538,6 +20538,11 @@
     {
      "va": "0x00473DC0",
      "length": 130
+    },
+    {
+     "va": "0x00473E50",
+     "length": 249,
+     "name": "GFX_StepWeatherPhase"
     }
    ]
   },
@@ -20594,11 +20599,6 @@
    "file": "Source/D2Client/Unknown_004A9BD0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00472BD0",
-     "length": 69,
-     "name": "?sub_00472BD0@@YAXXZ"
-    },
     {
      "va": "0x004B17A0",
      "length": 47,
