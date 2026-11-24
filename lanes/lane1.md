@@ -4,8 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(object-strays-2 is on main #364.)
-
+- lane1/client-strays 7602eda6e 0->0 D2Client strays from 0x4A0000 up go to the files whose runs hold them: dialog.cpp takes 0x4B76D0 (RosterPets.cpp); npcmenu.cpp takes 0x4B23E0 (text.cpp) and 0x4B32D0/0x4B32E0 (Monster.cpp); SoundInst.cpp takes 0x4B9640 (View.cpp); Unknown_004BC1B0.cpp takes 0x4BE340 (panel.cpp); showitems.cpp takes 0x4C0CE0/0x4C0D00 (useitem.cpp: the asserted line drops to 71 at 0x4C0640, and the path strings run UseItem, showitems, Item); Skills.cpp takes 0x4C76A0 (View.cpp); Wall2.cpp takes 0x4DE070 (dFloor.cpp); SkillDesc.cpp takes 0x4EB290 (SkillDesc_004EAE70.cpp). Touches lane 4's text.cpp, View.cpp, RosterPets.cpp, panel.cpp, dFloor.cpp only by taking those functions out. Borrowed data 844 B, as main; VERIFIED c5d78308e629c2e4f97dfc0d96840b7e8e74d633 (based on main #366).
+  - Left where it is: 0x4F4C20 (SkillsAma.cpp, inside SkillDesc.cpp's run). It is SkillsAma.cpp's only function, and that object holds the language copy at 0x72D9D0; moving it out leaves the copy borrowed (+60 B).
 
 ## In progress
 
