@@ -63102,6 +63102,11 @@
      "name": "sub_00603F20_RoundUp"
     },
     {
+     "va": "0x00603F40",
+     "length": 13,
+     "name": "??0D2Warden47F930Strc@@QAE@XZ"
+    },
+    {
      "va": "0x00603F50",
      "length": 24,
      "name": "sub_00603F50_CopyLinkOffset"
@@ -63122,9 +63127,24 @@
      "name": "CelChunkListLinkNode"
     },
     {
+     "va": "0x00604070",
+     "length": 8,
+     "name": "?sub_00604070_Clear@D2GameHashTableStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00604080",
+     "length": 35,
+     "name": "?sub_00604080_ConstructEntry@@YIXPAUD2StormEntry604080Strc@@@Z"
+    },
+    {
      "va": "0x006040B0",
      "length": 79,
      "name": "?0D2StormEntry38Strc"
+    },
+    {
+     "va": "0x00604100",
+     "length": 72,
+     "name": "?sub_00604100_CopyConstructEntry@@YIXPAUD2StormEntry604080Strc@@PBU1@@Z"
     },
     {
      "va": "0x00604150",
@@ -63132,14 +63152,34 @@
      "name": "InternalDelete"
     },
     {
+     "va": "0x006041B0",
+     "length": 401,
+     "name": "?sub_006041B0_ReallocData@D2StormEntryArrayStrc@@QAEXI@Z"
+    },
+    {
      "va": "0x00604350",
      "length": 70,
      "name": "CelListArrayReserve"
     },
     {
+     "va": "0x006043A0",
+     "length": 16,
+     "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
+    },
+    {
      "va": "0x00604440",
      "length": 23,
      "name": "CelListArrayGrow"
+    },
+    {
+     "va": "0x00604460",
+     "length": 5,
+     "name": "?sub_00604460_New@D2Storm604460Strc@@QAEPAUD2StormEntry604080Strc@@XZ"
+    },
+    {
+     "va": "0x00604470",
+     "length": 22,
+     "name": "??0D2Storm604470Strc@@QAE@XZ"
     },
     {
      "va": "0x00604490",
@@ -63156,6 +63196,10 @@
      "length": 144
     },
     {
+     "va": "0x00604640",
+     "length": 157
+    },
+    {
      "va": "0x00604700",
      "length": 43,
      "name": "?_GD2GameHashTableReuseStrc"
@@ -63166,6 +63210,11 @@
      "name": "CelListTableNew"
     },
     {
+     "va": "0x00604800",
+     "length": 5,
+     "name": "??1D2GameExportTableSimpleViewStrc@@QAE@XZ"
+    },
+    {
      "va": "0x00604840",
      "length": 37,
      "name": "CelListTableNewHandle"
@@ -63174,6 +63223,11 @@
      "va": "0x00604870",
      "length": 43,
      "name": "?_GD2GameExportTableSimpleStrc"
+    },
+    {
+     "va": "0x006048A0",
+     "length": 21,
+     "name": "??1D2GameDataTableViewStrc@@QAE@XZ"
     },
     {
      "va": "0x006048C0",
@@ -63723,72 +63777,6 @@
      "va": "0x00603E70",
      "length": 96,
      "name": "??0D2GameHashTableReuseStrc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_00603F40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00603F40",
-     "length": 13,
-     "name": "??0D2Warden47F930Strc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_00604070.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00604070",
-     "length": 8,
-     "name": "?sub_00604070_Clear@D2GameHashTableStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00604080",
-     "length": 35,
-     "name": "?sub_00604080_ConstructEntry@@YIXPAUD2StormEntry604080Strc@@@Z"
-    },
-    {
-     "va": "0x00604100",
-     "length": 72,
-     "name": "?sub_00604100_CopyConstructEntry@@YIXPAUD2StormEntry604080Strc@@PBU1@@Z"
-    },
-    {
-     "va": "0x006041B0",
-     "length": 401,
-     "name": "?sub_006041B0_ReallocData@D2StormEntryArrayStrc@@QAEXI@Z"
-    },
-    {
-     "va": "0x006043A0",
-     "length": 16,
-     "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
-    },
-    {
-     "va": "0x00604460",
-     "length": 5,
-     "name": "?sub_00604460_New@D2Storm604460Strc@@QAEPAUD2StormEntry604080Strc@@XZ"
-    },
-    {
-     "va": "0x00604470",
-     "length": 22,
-     "name": "??0D2Storm604470Strc@@QAE@XZ"
-    },
-    {
-     "va": "0x00604640",
-     "length": 157
-    },
-    {
-     "va": "0x00604800",
-     "length": 5,
-     "name": "??1D2GameExportTableSimpleViewStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x006048A0",
-     "length": 21,
-     "name": "??1D2GameDataTableViewStrc@@QAE@XZ"
     }
    ]
   },

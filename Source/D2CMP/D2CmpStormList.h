@@ -143,6 +143,10 @@ struct D2StormSlotListStrc
         Link(pNode)->Unlink();
     }
     void UnlinkAll() throw();                               // 0x00602640
+    void CelReuseListLinkNode(char* pNode, int nLinkType, char* pExistingNode);                            // 0x006024E0
+    void CelReuseListDeleteAll();                                                                          // 0x00602D20
+    char* CelReuseListDeleteNode(char* pNode);
+    D2StormEntry38Strc* CelReuseListNewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
     char* CelSlotListRawNext(char* pNode);
     void CelSlotListChangeLinkOffset(int nLinkOffset);
 };
@@ -236,17 +240,22 @@ struct D2StormListEStrc
     void sub_006022F0_InitLinkField(int nLinkOffset);
     char* sub_00602310_Next(char* pNode);
     void sub_00602350_InitLinkField(int nLinkOffset);
-    void CelReuseListLinkNode(char* pNode, int nLinkType, char* pExistingNode);                            // 0x006024E0
     void sub_00602590_UnlinkNode(char* pNode);
-    void CelReuseListDeleteAll();                                                                          // 0x00602D20
-    char* CelReuseListDeleteNode(char* pNode);
-    D2StormEntry38Strc* CelReuseListNewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
     void CelChunkListDeleteAll();                                                                          // 0x00603B60
     void sub_00603F50_CopyLinkOffset(const D2StormListEStrc* pSource);
     void CelChunkListLinkNode(char* pNode, int nLinkType, char* pExistingNode);                            // 0x00603FC0
     D2StormHashChunkStrc* CelChunkListNewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
     void sub_0060E370_CopyLinkOffset(const D2StormListEStrc* pSource);
     void sub_0060E390_CopyLinkOffset(const D2StormListEStrc* pSource);
+};
+
+// The hash table's chunk list: a list E that unlinks its nodes when it goes.
+struct D2StormHashChunkListStrc : D2StormListEStrc
+{
+    ~D2StormHashChunkListStrc()
+    {
+        UnlinkAll();
+    }
 };
 
 struct D2StormListAStrc
@@ -324,6 +333,7 @@ struct D2StormEntryArrayStrc
     ~D2StormEntryArrayStrc();                                                                               // 0x00603140
     unsigned int CelListArrayCalcChunkSize(unsigned int nCount);
     void sub_006041B0_ReallocData(unsigned int nAlloc);                                                     // 0x006041B0
+    D2StormEntryArrayStrc* sub_006043A0_Init();                                                             // 0x006043A0
     void CelListArrayReserve(unsigned int nCount, int bRound);
     void CelListArrayGrow(unsigned int nCount);
 };
