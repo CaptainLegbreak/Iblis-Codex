@@ -412,7 +412,7 @@ void __fastcall TEXT_SaveTextDisplaySetting(unsigned long nValue); // 0x0049D570
 
 void __stdcall D2GFX_SetLowQuality(int bLowQuality); // 0x004F5220
 
-void __fastcall sub_004CCF20_SetValue(int nValue); // 0x004CCF20
+void __fastcall MISSILE_SetMissileLights(int nValue); // 0x004CCF20
 
 extern int gaSlotX_007BC898[]; // 0x007BC898
 
@@ -532,15 +532,15 @@ void __fastcall sub_0047CF80_LightQualitySelect(D2MenuItemStrc* pItem, SMSGHANDL
     {
     case 0:
         D2GFX_SetLowQuality(1);
-        sub_004CCF20_SetValue(0);
+        MISSILE_SetMissileLights(0);
         break;
     case 1:
         D2GFX_SetLowQuality(0);
-        sub_004CCF20_SetValue(0);
+        MISSILE_SetMissileLights(0);
         break;
     case 2:
         D2GFX_SetLowQuality(0);
-        sub_004CCF20_SetValue(1);
+        MISSILE_SetMissileLights(1);
         break;
     }
 }
@@ -553,15 +553,15 @@ void __fastcall sub_0047CFE0_LightQualityOption(D2MenuItemStrc* pItem, int nArg)
     {
     case 0:
         D2GFX_SetLowQuality(1);
-        sub_004CCF20_SetValue(0);
+        MISSILE_SetMissileLights(0);
         break;
     case 1:
         D2GFX_SetLowQuality(0);
-        sub_004CCF20_SetValue(0);
+        MISSILE_SetMissileLights(0);
         break;
     case 2:
         D2GFX_SetLowQuality(0);
-        sub_004CCF20_SetValue(1);
+        MISSILE_SetMissileLights(1);
         break;
     }
 }

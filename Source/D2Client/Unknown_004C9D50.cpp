@@ -385,7 +385,7 @@ int __fastcall SKILLS_DoSkillAtPosition(void* pArg1, int nArg2, int nArg3, int n
 }
 
 // 0x004CA270
-int __cdecl sub_004CA270_GetLevelsTxtRecordCount()
+int __cdecl SKILLS_GetLevelsTxtRecordCount()
 {
     return sgptDataTables->nLevelsTxtRecordCount;
 }

@@ -43,7 +43,7 @@ int __cdecl sub_004DF870(); // 0x004DF870
 
 int __cdecl UNITMODE_GetPlayerLevelId(); // 0x00481780
 
-D2SoundEnvironTxtStrc* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
+D2SoundEnvironTxtStrc* __fastcall SOUNDHDR_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 
 void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 
@@ -945,7 +945,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
         break;
     }
     const int nEnviron = sub_004817A0_GetPlayerSoundEnviron();
-    D2SoundEnvironTxtStrc* pEnv = sub_00481920_GetSoundEnvironTxtRecord(nEnviron);
+    D2SoundEnvironTxtStrc* pEnv = SOUNDHDR_GetSoundEnvironTxtRecord(nEnviron);
     if (pEnv)
     {
         if (bNight)
@@ -4177,7 +4177,8 @@ void __fastcall SKILLDESC_DrawThrowDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill
     }
 
     int nColor = 0;
-    int nBonus = sub_004CC7C0_GetSkillBonus(pSkillsTxt->nSkillId, nSkillLevel);
+// build: symbol ?MISSILE_GetSkillMissileRange@* 0x004CC7C0
+    int nBonus = MISSILE_GetSkillMissileRange(pSkillsTxt->nSkillId, nSkillLevel);
     int nFactor = ITEMS_GetStrengthBonus(pItem);
     if (nFactor)
     {

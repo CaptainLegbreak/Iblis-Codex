@@ -433,7 +433,7 @@
    "definitions": 15,
    "externs": [
     "extern \"C\" void __cdecl sub_004E1320(); // 0x004E1320",
-    "extern \"C\" void __cdecl sub_004E3720(); // 0x004E3720",
+    "extern \"C\" void __cdecl SKILLSMON_CreateTargetMissile(); // 0x004E3720",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltDoLeap(); // 0x004C8C60",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltDoLeapAttack(); // 0x004C8ED0",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltDoCollide(); // 0x004C9320",
@@ -527,7 +527,7 @@
     "extern \"C\" void __cdecl sub_004E1720_SkillSetTargetFlags(); // 0x004E1720",
     "extern \"C\" void __cdecl sub_004E1740_SkillNeedTarget(); // 0x004E1740",
     "extern \"C\" void __cdecl MISSILE_SkillStartCltCalc(); // 0x004E18F0",
-    "extern \"C\" void __cdecl sub_004E1E30_SkillClearSkillFlags(); // 0x004E1E30",
+    "extern \"C\" void __cdecl SKILLSMON_ClearUsedSkillFlags(); // 0x004E1E30",
     "extern \"C\" void __cdecl sub_004E2320(); // 0x004E2320",
     "extern \"C\" void __cdecl GFXUTIL_CltDoMissileA(); // 0x004E24D0",
     "extern \"C\" void __cdecl MISSILE_SkillStartSpawnRing(); // 0x004E27C0",
@@ -18689,7 +18689,7 @@
      8,
      "0x004CCFE0",
      "names.json",
-     "sub_004CCFE0_CltCanCollideWithGoodAlignmentUnit",
+     "MISSILE_CltCanCollideWithGoodAlignmentUnit",
      0,
      "func"
     ],
@@ -18697,7 +18697,7 @@
      16,
      "0x004CCFB0",
      "names.json",
-     "sub_004CCFB0_CltCanCollideWithMonster",
+     "MISSILE_CltCanCollideWithMonster",
      0,
      "func"
     ],
@@ -18705,7 +18705,7 @@
      24,
      "0x004CD020",
      "names.json",
-     "sub_004CD020_CltCanCollideWithPlayerOrMonster",
+     "MISSILE_CltCanCollideWithPlayerOrMonster",
      0,
      "func"
     ],
@@ -18713,7 +18713,7 @@
      40,
      "0x004CCFB0",
      "names.json",
-     "sub_004CCFB0_CltCanCollideWithMonster",
+     "MISSILE_CltCanCollideWithMonster",
      0,
      "func"
     ],
@@ -18721,7 +18721,7 @@
      56,
      "0x004CD050",
      "names.json",
-     "sub_004CD050_CltCanMissileDestroy",
+     "MISSILE_CltCanMissileDestroy",
      0,
      "func"
     ],
@@ -18729,7 +18729,7 @@
      64,
      "0x004CD020",
      "names.json",
-     "sub_004CD020_CltCanCollideWithPlayerOrMonster",
+     "MISSILE_CltCanCollideWithPlayerOrMonster",
      0,
      "func"
     ]
@@ -54466,7 +54466,7 @@
      32,
      "0x004ACDB0",
      "source",
-     "sub_004ACDB0_UMod8_Resistant",
+     "MONUNIQUE_ApplyResistantMod",
      0,
      "func"
     ],
@@ -54474,7 +54474,7 @@
      36,
      "0x004ACDB0",
      "source",
-     "sub_004ACDB0_UMod8_Resistant",
+     "MONUNIQUE_ApplyResistantMod",
      0,
      "func"
     ],
@@ -54482,7 +54482,7 @@
      44,
      "0x004ACD50",
      "source",
-     "sub_004ACD50_ClearMonsterField18",
+     "MONUNIQUE_ClearDurielFlag",
      0,
      "func"
     ],
@@ -54506,7 +54506,7 @@
      68,
      "0x004ACDB0",
      "source",
-     "sub_004ACDB0_UMod8_Resistant",
+     "MONUNIQUE_ApplyResistantMod",
      0,
      "func"
     ],
@@ -54514,7 +54514,7 @@
      72,
      "0x004ACDB0",
      "source",
-     "sub_004ACDB0_UMod8_Resistant",
+     "MONUNIQUE_ApplyResistantMod",
      0,
      "func"
     ],
@@ -54522,7 +54522,7 @@
      92,
      "0x004ACDB0",
      "source",
-     "sub_004ACDB0_UMod8_Resistant",
+     "MONUNIQUE_ApplyResistantMod",
      0,
      "func"
     ],
@@ -54530,7 +54530,7 @@
      100,
      "0x004ACDB0",
      "source",
-     "sub_004ACDB0_UMod8_Resistant",
+     "MONUNIQUE_ApplyResistantMod",
      0,
      "func"
     ],
@@ -54546,7 +54546,7 @@
      108,
      "0x004ACDB0",
      "source",
-     "sub_004ACDB0_UMod8_Resistant",
+     "MONUNIQUE_ApplyResistantMod",
      0,
      "func"
     ],
@@ -54554,7 +54554,7 @@
      112,
      "0x004ACDB0",
      "source",
-     "sub_004ACDB0_UMod8_Resistant",
+     "MONUNIQUE_ApplyResistantMod",
      0,
      "func"
     ],
@@ -60864,7 +60864,7 @@
      108,
      "0x004E3720",
      "names.json",
-     "sub_004E3720",
+     "SKILLSMON_CreateTargetMissile",
      0,
      "func"
     ],
@@ -61939,7 +61939,7 @@
      164,
      "0x004E1E30",
      "names.json",
-     "sub_004E1E30_SkillClearSkillFlags",
+     "SKILLSMON_ClearUsedSkillFlags",
      0,
      "func"
     ],
@@ -67880,7 +67880,7 @@
      136,
      "0x004D6FA0",
      "source",
-     "sub_004D6FA0_CltDoLinked",
+     "MISSILE_CltDoLinked",
      0,
      "func"
     ],
@@ -68048,7 +68048,7 @@
      220,
      "0x004D8260",
      "source",
-     "sub_004D8260_CltDoMissileSpray",
+     "MISSILE_CltDoMissileSpray",
      0,
      "func"
     ],
@@ -68088,7 +68088,7 @@
      240,
      "0x004D8400",
      "names.json",
-     "sub_004D8400_CltDoRotateTarget",
+     "MISSILE_CltDoRotateTargetPoint",
      0,
      "func"
     ],
@@ -68120,7 +68120,7 @@
      256,
      "0x004D7930",
      "source",
-     "sub_004D7930_CltDoBaalStormMissile",
+     "MISSILE_CltDoBaalStormMissile",
      0,
      "func"
     ],
@@ -68257,7 +68257,7 @@
      40,
      "0x004CC9A0",
      "names.json",
-     "sub_004CC9A0_CltHitProgOverlay",
+     "MISSILE_CltHitProgOverlay",
      0,
      "func"
     ],
@@ -68297,7 +68297,7 @@
      72,
      "0x004CF9B0",
      "source",
-     "sub_004CF9B0_CltHitRingSubMissiles",
+     "MISSILE_CltHitRingSubMissiles",
      0,
      "func"
     ],
@@ -68385,7 +68385,7 @@
      136,
      "0x004CCCA0",
      "names.json",
-     "sub_004CCCA0_CltHitFlagOwner",
+     "MISSILE_CltHitFlagOwner",
      0,
      "func"
     ],
@@ -68489,7 +68489,7 @@
      200,
      "0x004D0DB0",
      "source",
-     "sub_004D0DB0_CltHitBurst",
+     "MISSILE_CltHitParamBurst",
      0,
      "func"
     ],
@@ -68505,7 +68505,7 @@
      208,
      "0x004D0E00",
      "source",
-     "sub_004D0E00_CltHitBurstSub",
+     "MISSILE_CltHitBurstSub",
      0,
      "func"
     ],
@@ -68561,7 +68561,7 @@
      244,
      "0x004CCF00",
      "names.json",
-     "sub_004CCF00_CltHitClearGlobals",
+     "MISSILE_CltHitClearGlobals",
      0,
      "func"
     ],

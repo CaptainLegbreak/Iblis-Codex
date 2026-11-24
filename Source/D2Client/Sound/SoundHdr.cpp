@@ -186,7 +186,7 @@ int __fastcall SOUNDHDR_GetLoopFlag(int nIndex)
 
 
 // 0x00481920
-D2SoundEnvironTxtStrc* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId)
+D2SoundEnvironTxtStrc* __fastcall SOUNDHDR_GetSoundEnvironTxtRecord(int nEnvironId)
 {
     if (sgptSoundEnvironTable && nEnvironId >= 0 && nEnvironId < gdwGlobal_007BC9AC)
     {

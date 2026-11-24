@@ -155,7 +155,7 @@ struct D2SoundEnvironStrc
 
 extern int gnSoundEnvironId; // 0x0072ADE4
 
-D2SoundEnvironTxtStrc* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
+D2SoundEnvironTxtStrc* __fastcall SOUNDHDR_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 
 void __fastcall D2SOUND_SetEaxEnvironment(D2SoundEnvironStrc* pEnviron); // 0x00513C50
 
@@ -167,7 +167,7 @@ void __fastcall GFXUTIL_ApplySoundEnviron(int nEnvironId)
         return;
     }
 
-    D2SoundEnvironTxtStrc* pTxt = sub_00481920_GetSoundEnvironTxtRecord(nEnvironId);
+    D2SoundEnvironTxtStrc* pTxt = SOUNDHDR_GetSoundEnvironTxtRecord(nEnvironId);
     if ((sub_00514C90_GetSoundMode() == 2 || !nEnvironId) && sub_00513B70_IsSoundEnvironEnabled())
     {
         D2SoundEnvironStrc tEnviron;

@@ -373,7 +373,7 @@ enum D2C_M11MeteorConstants
     MONSTATS2FLAGINDEX_LARGE = 11,
 };
 
-int __fastcall sub_004CC7C0_GetSkillMissileRange(int nSkillId, int nLevel); // 0x004CC7C0
+int __fastcall MISSILE_GetSkillMissileRange(int nSkillId, int nLevel); // 0x004CC7C0
 
 struct D2AiParamStrc;
 
@@ -2161,7 +2161,7 @@ int __fastcall MISSMODE_SrvHit17_Howl(D2GameStrc* pGame, D2UnitStrc* pMissile, D
         {
             const int nMaxLevel = STATLIST_UnitGetStatValue(pOwner, 12, 0) + nSkillLevel + SKILLDESC_GetSkillParamTwo(nSkillId);
             if (nMaxLevel > STATLIST_UnitGetStatValue(pTarget, 12, 0))
-                AIUTIL_ApplyTerrorCurseState(pGame, pOwner, pTarget, nSkillId, sub_004CC7C0_GetSkillMissileRange(nSkillId, nSkillLevel), SKILLDESC_GetSummonLevel(nSkillId, nSkillLevel));
+                AIUTIL_ApplyTerrorCurseState(pGame, pOwner, pTarget, nSkillId, MISSILE_GetSkillMissileRange(nSkillId, nSkillLevel), SKILLDESC_GetSummonLevel(nSkillId, nSkillLevel));
         }
     }
     return 0;
@@ -2647,7 +2647,7 @@ int __fastcall MISSMODE_SrvHit14_MeteorCenter_CatapultMeteor_RoyalStrikeMeteor(D
     const short nHitSubMissile = pMissilesTxtRecord->wHitSubMissile[0];
     if (nHitSubMissile >= 0)
     {
-        const int nMissileRange = sub_004CC7C0_GetSkillMissileRange(nSkillId, nLevel);
+        const int nMissileRange = MISSILE_GetSkillMissileRange(nSkillId, nLevel);
         int nParam = pMissilesTxtRecord->dwHitPar[1];
         if (nParam < 1)
         {
@@ -3294,7 +3294,8 @@ void __fastcall MISSILE_InitFromOwner(D2UnitStrc* pMissile, int nInitArg)
     pMissile->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->nAnimLen) << 8;
 }
 
-int __fastcall sub_004CCCA0_CltHitFlagOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
+// build: symbol ?MISSILE_CltHitFlagOwner@* 0x004CCCA0
+int __fastcall MISSILE_CltHitFlagOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 {
     D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
     if (pOwner)
@@ -3321,7 +3322,8 @@ static inline void MISSMODE_BaalFxOpenPortal(D2GameStrc* pGame, D2UnitStrc* pMis
     DUNGEON_ToggleHasPortalFlag(pRoom, 1);
 }
 
-int __fastcall sub_004CCF00_CltHitClearGlobals(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
+// build: symbol ?MISSILE_CltHitClearGlobals@* 0x004CCF00
+int __fastcall MISSILE_CltHitClearGlobals(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {

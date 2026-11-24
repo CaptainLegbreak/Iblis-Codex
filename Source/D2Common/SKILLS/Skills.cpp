@@ -547,7 +547,7 @@ int __fastcall SKILLDESC_GetSkillParamByLevel(int nSkillId, int nSkillLevel); //
 
 int __stdcall D2Common_11034(int nSkillLevel, int nSkillId); // 0x00645B70
 
-int __fastcall sub_004CC7C0_GetSkillMissileRange(int nSkillId, int nLevel); // 0x004CC7C0
+int __fastcall MISSILE_GetSkillMissileRange(int nSkillId, int nLevel); // 0x004CC7C0
 
 int __stdcall D2Common_11035(int nSkillLevel, int nSkillId); // 0x00645BC0
 
@@ -2808,7 +2808,7 @@ int __stdcall SKILLS_GetSpecialParamValue(D2UnitStrc* pUnit, int nParamId, int n
         nResult = D2Common_11034(nSkillLevel, nSkillId);
         break;
     case 2:
-        nResult = sub_004CC7C0_GetSkillMissileRange(nSkillId, nSkillLevel);
+        nResult = MISSILE_GetSkillMissileRange(nSkillId, nSkillLevel);
         break;
     case 3:
         nResult = D2Common_11035(nSkillLevel, nSkillId);

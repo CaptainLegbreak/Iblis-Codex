@@ -31,7 +31,7 @@ int __cdecl sub_004817F0();                                                     
 int __cdecl sub_00481800();                                                                                 // 0x00481800
 int __cdecl sub_00481810();                                                                                 // 0x00481810
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId);                                                         // 0x00481860
-D2SoundEnvironTxtStrc* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId);                        // 0x00481920
+D2SoundEnvironTxtStrc* __fastcall SOUNDHDR_GetSoundEnvironTxtRecord(int nEnvironId);                        // 0x00481920
 int __fastcall sub_004B9590(void* pEntry);                                                                  // 0x004B9590
 void* __fastcall sub_004B9610(int nId);                                                                     // 0x004B9610
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
@@ -58,7 +58,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
     }
 
     int nSong = 0;
-    D2SoundEnvironTxtStrc* pSoundEnvironTxtRecord = sub_00481920_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
+    D2SoundEnvironTxtStrc* pSoundEnvironTxtRecord = SOUNDHDR_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
     if (pSoundEnvironTxtRecord)
     {
         nSong = pSoundEnvironTxtRecord->nSong;

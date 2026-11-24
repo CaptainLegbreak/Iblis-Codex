@@ -87,7 +87,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
-static int __stdcall sub_004C8350_CanTargetRoom(int nSkillId, D2UnitStrc* pUnit, int nX, int nY); // 0x004C8350
+static int __stdcall SKILLSBAR_CanTargetRoom(int nSkillId, D2UnitStrc* pUnit, int nX, int nY); // 0x004C8350
 
 static int __stdcall sub_004C80D0_AdjustTargetPosition(int nSkillId, D2UnitStrc* pUnit, int nSkillLevel, int* pX, int* pY); // 0x004C80D0
 
@@ -207,7 +207,7 @@ struct D2LobBracketStrc
 extern D2LobBracketStrc gaLobBrackets[2]; // 0x006DAE70
 
 // 0x004C8350
-static int __stdcall sub_004C8350_CanTargetRoom(int nSkillId, D2UnitStrc* pUnit, int nX, int nY)
+static int __stdcall SKILLSBAR_CanTargetRoom(int nSkillId, D2UnitStrc* pUnit, int nX, int nY)
 {
     D2SkillsTxt* pSkillsTxt = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
     if (!pSkillsTxt)
@@ -283,7 +283,7 @@ int __fastcall SKILLSBAR_SkillCltStartPosition(D2UnitStrc* pUnit, int nSkillId, 
     {
         if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
             return 0;
-        if (!sub_004C8350_CanTargetRoom(nSkillId, pUnit, nX, nY))
+        if (!SKILLSBAR_CanTargetRoom(nSkillId, pUnit, nX, nY))
             return 0;
         if (!sub_004C80D0_AdjustTargetPosition(nSkillId, pUnit, nSkillLevel, &nX, &nY))
             return 0;

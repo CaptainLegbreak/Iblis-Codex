@@ -1389,7 +1389,7 @@ void __fastcall TEXT_SaveTextDisplaySetting(unsigned long nValue); // 0x0049D570
 
 void __stdcall D2GFX_SetLowQuality(int bLowQuality); // 0x004F5220
 
-void __fastcall sub_004CCF20_SetValue(int nValue); // 0x004CCF20
+void __fastcall MISSILE_SetMissileLights(int nValue); // 0x004CCF20
 
 
 static void sub_0047D5C0_ActivateOption(SMSGHANDLER_PARAMS* pMsg);

@@ -11561,7 +11561,7 @@
     {
      "va": "0x004CA270",
      "length": 12,
-     "name": "?sub_004CA270_GetLevelsTxtRecordCount@@YAHXZ"
+     "name": "?SKILLS_GetLevelsTxtRecordCount@@YAHXZ"
     },
     {
      "va": "0x004CA280",
@@ -22101,7 +22101,7 @@
     {
      "va": "0x0047F950",
      "length": 58,
-     "name": "?sub_0047F950_CheckBlockSignature@@YGHPBD0PAH0@Z"
+     "name": "?WARDENCLIENT_CheckBlockSignature@@YGHPBD0PAH0@Z"
     },
     {
      "va": "0x0047F990",
@@ -23244,7 +23244,7 @@
     {
      "va": "0x00481920",
      "length": 33,
-     "name": "?sub_00481920_GetSoundEnvironTxtRecord@@YIPAUD2SoundEnvironTxtStrc@@H@Z"
+     "name": "?SOUNDHDR_GetSoundEnvironTxtRecord@@YIPAUD2SoundEnvironTxtStrc@@H@Z"
     },
     {
      "va": "0x00481950",
@@ -29392,7 +29392,7 @@
     {
      "va": "0x004C8350",
      "length": 107,
-     "name": "?sub_004C8350_CanTargetRoom@@YGHHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLSBAR_CanTargetRoom@@YGHHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004C83C0",
@@ -29475,17 +29475,17 @@
     {
      "va": "0x004CC790",
      "length": 37,
-     "name": "?sub_004CC790_RollRange@@YIHPAUD2SeedStrc@@HH@Z"
+     "name": "?MISSILE_RollRange@@YIHPAUD2SeedStrc@@HH@Z"
     },
     {
      "va": "0x004CC7C0",
      "length": 57,
-     "name": "?sub_004CC7C0_GetSkillMissileRange@@YIHHH@Z"
+     "name": "?MISSILE_GetSkillMissileRange@@YIHHH@Z"
     },
     {
      "va": "0x004CC800",
      "length": 104,
-     "name": "?sub_004CC800_CheckDistanceAndLineOfSight@@YGHHHHPAUD2ActiveRoomStrc@@HH@Z"
+     "name": "?MISSILE_CheckDistanceAndLineOfSight@@YGHHHHPAUD2ActiveRoomStrc@@HH@Z"
     },
     {
      "va": "0x004CC870",
@@ -29495,7 +29495,7 @@
     {
      "va": "0x004CC910",
      "length": 52,
-     "name": "?sub_004CC910_GetSpawnDelay@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?MISSILE_GetSpawnDelay@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004CC950",
@@ -29505,7 +29505,7 @@
     {
      "va": "0x004CC9A0",
      "length": 86,
-     "name": "?sub_004CC9A0_CltHitProgOverlay@@YIHPAUD2UnitStrc@@0@Z"
+     "name": "?MISSILE_CltHitProgOverlay@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x004CCA00",
@@ -29525,7 +29525,7 @@
     {
      "va": "0x004CCCA0",
      "length": 25,
-     "name": "?sub_004CCCA0_CltHitFlagOwner@@YIHPAUD2UnitStrc@@0@Z"
+     "name": "?MISSILE_CltHitFlagOwner@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x004CCCC0",
@@ -29545,42 +29545,42 @@
     {
      "va": "0x004CCF00",
      "length": 18,
-     "name": "?sub_004CCF00_CltHitClearGlobals@@YIHPAUD2UnitStrc@@0@Z"
+     "name": "?MISSILE_CltHitClearGlobals@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x004CCF20",
      "length": 7,
-     "name": "?sub_004CCF20_SetValue@@YIXH@Z"
+     "name": "?MISSILE_SetMissileLights@@YIXH@Z"
     },
     {
      "va": "0x004CCF30",
      "length": 6,
-     "name": "sub_004CCF30"
+     "name": "MISSILE_GetMissileLights"
     },
     {
      "va": "0x004CCF40",
      "length": 111,
-     "name": "?sub_004CCF40_CanMissileHitUnit@@YGHPAUD2UnitStrc@@00PAUD2MissilesTxt@@@Z"
+     "name": "?MISSILE_CanMissileHitUnit@@YGHPAUD2UnitStrc@@00PAUD2MissilesTxt@@@Z"
     },
     {
      "va": "0x004CCFB0",
      "length": 41,
-     "name": "?sub_004CCFB0_CltCanCollideWithMonster@@YIHPAUD2UnitStrc@@PAUD2CltMissileFindArgStrc@@@Z"
+     "name": "?MISSILE_CltCanCollideWithMonster@@YIHPAUD2UnitStrc@@PAUD2CltMissileFindArgStrc@@@Z"
     },
     {
      "va": "0x004CCFE0",
      "length": 64,
-     "name": "?sub_004CCFE0_CltCanCollideWithGoodAlignmentUnit@@YIHPAUD2UnitStrc@@PAUD2CltMissileFindArgStrc@@@Z"
+     "name": "?MISSILE_CltCanCollideWithGoodAlignmentUnit@@YIHPAUD2UnitStrc@@PAUD2CltMissileFindArgStrc@@@Z"
     },
     {
      "va": "0x004CD020",
      "length": 47,
-     "name": "?sub_004CD020_CltCanCollideWithPlayerOrMonster@@YIHPAUD2UnitStrc@@PAUD2CltMissileFindArgStrc@@@Z"
+     "name": "?MISSILE_CltCanCollideWithPlayerOrMonster@@YIHPAUD2UnitStrc@@PAUD2CltMissileFindArgStrc@@@Z"
     },
     {
      "va": "0x004CD050",
      "length": 66,
-     "name": "?sub_004CD050_CltCanMissileDestroy@@YIHPAUD2UnitStrc@@PAX@Z"
+     "name": "?MISSILE_CltCanMissileDestroy@@YIHPAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x004CD0A0",
@@ -29619,7 +29619,7 @@
     {
      "va": "0x004CD380",
      "length": 12,
-     "name": "?sub_004CD380_StatRemoveCallback_ToggleStateOff@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+     "name": "?MISSILE_StatRemoveToggleStateOff@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
     },
     {
      "va": "0x004CD390",
@@ -30271,7 +30271,7 @@
     {
      "va": "0x004D8400",
      "length": 191,
-     "name": "?sub_004D8400_CltDoRotateTarget@@YIXPAUD2UnitStrc@@@Z"
+     "name": "?MISSILE_CltDoRotateTargetPoint@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004E1090",
@@ -30433,7 +30433,7 @@
     {
      "va": "0x004CA870",
      "length": 39,
-     "name": "?sub_004CA870_GetUnitHintList@@YAPAPAUD2TimedHintNodeStrc@@PAUD2UnitStrc@@@Z"
+     "name": "?UNITSND_GetUnitHintList@@YAPAPAUD2TimedHintNodeStrc@@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004CA8A0",
@@ -30468,7 +30468,7 @@
     {
      "va": "0x004CAA70",
      "length": 40,
-     "name": "?sub_004CAA70_GetUnitByte70@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?UNITSND_GetUnitSfxFlag@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004CAAA0",
@@ -30508,7 +30508,7 @@
     {
      "va": "0x004CAC00",
      "length": 42,
-     "name": "?sub_004CAC00_GetUnitField84@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?UNITSND_GetSfxStepTicks@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004CAC30",
@@ -30518,7 +30518,7 @@
     {
      "va": "0x004CAC70",
      "length": 42,
-     "name": "?sub_004CAC70_GetUnitField88@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?UNITSND_HasActiveSound@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004CACA0",
@@ -30678,7 +30678,7 @@
     {
      "va": "0x004D84C0",
      "length": 82,
-     "name": "?sub_004D84C0_IsInSequenceMode@@YAHPAUD2UnitStrc@@@Z"
+     "name": "?PLRSKILLS_IsInSequenceMode@@YAHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004D8520",
@@ -30896,12 +30896,12 @@
     {
      "va": "0x004D9E60",
      "length": 222,
-     "name": "sub_004D9E60_StartClientState"
+     "name": "PLRSKILLS_StartClientState"
     },
     {
      "va": "0x004D9F40",
      "length": 118,
-     "name": "?sub_004D9F40_EndClientState@@YIXPAUD2UnitStrc@@H@Z"
+     "name": "?PLRSKILLS_EndClientState@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004E0FD0",
@@ -31040,7 +31040,7 @@
     {
      "va": "0x004DC210",
      "length": 85,
-     "name": "?sub_004DC210_RunCltUnitEvents@@YIHHPAUD2UnitStrc@@HH@Z"
+     "name": "?CUNITEVENT_RunCltUnitEvents@@YIHHPAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -31700,7 +31700,7 @@
     {
      "va": "0x004E1E30",
      "length": 29,
-     "name": "?sub_004E1E30_SkillClearSkillFlags@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLSMON_ClearUsedSkillFlags@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E1E50",
@@ -31739,7 +31739,7 @@
     {
      "va": "0x004E3720",
      "length": 152,
-     "name": "?sub_004E3720@@YIHPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLSMON_CreateTargetMissile@@YIHPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004E39A0",
@@ -31828,7 +31828,7 @@
     {
      "va": "0x004F3FB0",
      "length": 65,
-     "name": "?sub_004F3FB0_GetTargetMonster@@YIPAUD2UnitStrc@@PAU1@@Z"
+     "name": "?SKILLSMON_GetTargetMonster@@YIPAUD2UnitStrc@@PAU1@@Z"
     },
     {
      "va": "0x004F4610",

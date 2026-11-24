@@ -844,7 +844,8 @@ void __fastcall MONSTER_OwnerMissileHit(D2UnitStrc* pUnit)
     if (pOwner)
     {
         D2_ASSERT(pOwner->dwUnitType == UNIT_MISSILE, 353);
-        sub_004D2D70_CltMissileHit(pOwner, 0, 0);
+// build: symbol ?MISSILE_CltMissileHit@* 0x004D2D70
+        MISSILE_CltMissileHit(pOwner, 0, 0);
     }
 }
 
