@@ -1440,8 +1440,8 @@
    "state": "included"
   },
   "Source/D2Glide/Src/glCore.cpp": {
-   "bytes": 304,
-   "definitions": 5,
+   "bytes": 364,
+   "definitions": 6,
    "externs": [
     "extern \"C\" void __cdecl GLDEBUGFONT_DebugPrintf(); // 0x0050BC90",
     "extern \"C\" void __cdecl GLIDE_DebugDraw(); // 0x0050BEF0",
@@ -1462,7 +1462,6 @@
     "extern \"C\" void __cdecl GLSPRITE_CelDrawShadow(); // 0x0050B690",
     "extern \"C\" void __cdecl GLSPRITE_CelFlatSpriteDraw(); // 0x0050ACC0",
     "extern \"C\" void __cdecl GLSPRITE_DebugFillBackBuffer(); // 0x0050B7A0",
-    "extern \"C\" void __cdecl sub_00508F60_GlideCheckBoards(); // 0x00508F60",
     "extern \"C\" void __cdecl sub_0050C0F0_GlideDrawBoxAlpha(); // 0x0050C0F0",
     "extern \"C\" void __cdecl sub_0050C5E0_GlideUtilFilledRect(); // 0x0050C5E0",
     "extern \"C\" void __cdecl sub_0050C680_ClearBuffer(); // 0x0050C680",
@@ -5108,15 +5107,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Glide/Unknown_0050F910.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Glide/Unknown_00508970.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Glide/Unknown_00508970.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -148488,7 +148478,7 @@
    "cname": "gData_0072F13C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Glide/Unknown_00508970.cpp",
+   "file": "Source/D2Glide/Src/glCore.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072F13C_t gData_0072F13C; // 0x0072F13C",
    "head": "extern \"C\" struct d2data_0072F13C_t gData_0072F13C = ",
