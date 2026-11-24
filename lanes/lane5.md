@@ -4,7 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/act5-intro 184f6731 451->451 placeholders (Unknown_00586C40.cpp becomes Unknown_00586B50.cpp); the act 5 intro object: ACT5Intro_Callback00_NpcActivate (0x586B50, from a1q4.cpp), the status filter 0x586C40 and ACT5Intro_ActiveFilterCallback (0x586C50, from a5q1.cpp), plus its data: the copy 0x732FB0 (was planned in ObjMode.cpp) from D2LanguageNames.h, a5q2's runes, the intro messages and a5q1-a5q6's messages and indices up to 0x735EFC, in image order; a5q3's reward tables stay in a5q3.cpp. Built alone its .data matches the image's offsets. VERIFIED aa224844db9db0422b47cb1130676186ab69e5a1. Based on main 900824d3 (#345), not stacked; touches only D2Game.
+- lane5/act5-intro-2 b0bd4dd2 (replaces act5-intro: rebased onto #346, no other change) 451->451 placeholders (Unknown_00586C40.cpp becomes Unknown_00586B50.cpp); the act 5 intro object: ACT5Intro_Callback00_NpcActivate (0x586B50, from a1q4.cpp), the status filter 0x586C40 and ACT5Intro_ActiveFilterCallback (0x586C50, from a5q1.cpp), plus its data: the copy 0x732FB0 (was planned in ObjMode.cpp) from D2LanguageNames.h, a5q2's runes, the intro messages and a5q1-a5q6's messages and indices up to 0x735EFC, in image order; a5q3's reward tables stay in a5q3.cpp. Built alone its .data matches the image's offsets. VERIFIED c8cd66537ec8e7f8bf3f7c69e2c6bc522356ec18. Based on main 88003a4d (#346), not stacked; touches only D2Game.
 
 ## Claimed
 
