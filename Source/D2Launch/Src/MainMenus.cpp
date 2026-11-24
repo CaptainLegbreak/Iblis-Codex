@@ -260,7 +260,7 @@ void __cdecl CHARSEL_CreateBaseScreen(); // 0x0043C4F0
 
 int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
 
-void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
+void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 
 void __fastcall sub_0042E6B0(int nValue); // 0x0042E6B0
 
@@ -270,7 +270,7 @@ void __cdecl CHARSEL_SetCancelled(); // 0x0043B810
 
 void __cdecl MAINMENUS_UpdateStatus(); // 0x00436AD0
 
-int __stdcall CHARSEL_FilterLoginChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FE70
+int __stdcall MAINMENUS_FilterLoginChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FE70
 
 int __stdcall MAINMENUS_FilterRestrictedChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FEF0
 
@@ -312,7 +312,7 @@ void __stdcall CHATDLG_SetCharUpgradeReceived(int nValue); // 0x00449C80
 
 void __cdecl MAINMENUS_UpdateNameOk(); // 0x00430620
 
-void __cdecl CHARSEL_UpdateLoginOk(); // 0x004306C0
+void __cdecl MAINMENUS_UpdateLoginOk(); // 0x004306C0
 
 int gdwGlobal_00779974; // 0x00779974
 
@@ -357,11 +357,11 @@ int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsi
 
 void __fastcall BUTTON_SetText(D2WinControlStrc* pControl, int nMode, unsigned short* pText, int nArg); // 0x005009D0
 
-int __stdcall CHARSEL_IsRestrictedChar(void* pControl, int nUnused, const char* pChar); // 0x0042FDE0
+int __stdcall MAINMENUS_IsRestrictedChar(void* pControl, int nUnused, const char* pChar); // 0x0042FDE0
 
 int __fastcall MAINMENUS_IsDoubleClick(SMSGHANDLER_PARAMS* pMsg); // 0x00431A60
 
-int __stdcall CHARSEL_OnRealmSelected(SMSGHANDLER_PARAMS* pMsg); // 0x00434700
+int __stdcall MAINMENUS_OnRealmSelected(SMSGHANDLER_PARAMS* pMsg); // 0x00434700
 
 void __cdecl CHARSEL_RefreshCharEntry(); // 0x0043A650
 
@@ -871,9 +871,9 @@ extern "C" int __cdecl isalpha(int c); // 0x00686DA5
 
 Unicode* __stdcall MAINMENUS_LoadCreditsText(int* pnLength); // 0x00430CD0
 
-void __cdecl CHARSEL_FillCreditsList(); // 0x00430C80
+void __cdecl MAINMENUS_FillCreditsList(); // 0x00430C80
 
-void __cdecl CHARSEL_SyncCreditsLists(); // 0x00430EF0
+void __cdecl MAINMENUS_SyncCreditsLists(); // 0x00430EF0
 
 extern "C" const char gszDiabloII[]; // 0x006CC8B8
 
@@ -1125,7 +1125,7 @@ extern "C" void __cdecl qsort(void* pBase, unsigned int nCount, unsigned int nSi
 
 int __stdcall MAINMENUS_StopLoop(int nArg); // 0x00431D10
 
-int __cdecl CHARSEL_CompareNames(const void* pEntry1, const void* pEntry2); // 0x00430B00
+int __cdecl MAINMENUS_CompareNames(const void* pEntry1, const void* pEntry2); // 0x00430B00
 
 extern D2MenuListStrc* gpMenuList; // 0x007795C0
 
@@ -1149,7 +1149,7 @@ int gnLaunchState; // 0x007795E8
 
 static void MAINMENUS_SetModeFlags(char nMode); // 0x00431E70
 
-int __stdcall CHARSEL_IsRestrictedChar(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x0042FDE0
+int __stdcall MAINMENUS_IsRestrictedChar(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x0042FDE0
 
 int __stdcall sub_0042FE60_KeyFilter(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x0042FE60
 
@@ -1173,7 +1173,7 @@ int __fastcall D2Win_10076(D2WinControlStrc* pControl, const char* szText); // 0
 
 extern int gnValue_00779980; // 0x00779980
 
-int __stdcall COMCALLBACK_FilterNameChar(D2WinControlStrc* pControl, int bAllowSep, const char* pChar); // 0x00430590
+int __stdcall MAINMENUS_FilterNameChar(D2WinControlStrc* pControl, int bAllowSep, const char* pChar); // 0x00430590
 
 void __cdecl MAINMENUS_LoadCharCreateCells(); // 0x004326F0
 
@@ -1315,7 +1315,7 @@ void __cdecl MAINMENUS_PlayIntroVideo(); // 0x00433640
 
 int __stdcall MAINMENUS_LoopCallback(int nArg); // 0x00431950
 
-void __fastcall CHARSEL_CreateExpansionDiscPopup(int bFlag); // 0x00431570
+void __fastcall MAINMENUS_CreateExpansionDiscPopup(int bFlag); // 0x00431570
 
 class BNGatewayAccess
 {
@@ -1910,7 +1910,7 @@ static inline int ProgressBarValue(int nPercent)
 }
 
 // 0x0042F890
-void __cdecl COMCALLBACK_ShowProgressScreen()
+void __cdecl MAINMENUS_ShowProgressScreen()
 {
     char szText[100];
     CHARSEL_CreateBaseScreen();
@@ -1932,7 +1932,7 @@ void __cdecl COMCALLBACK_ShowProgressScreen()
 }
 
 // 0x0042F990
-void __cdecl COMCALLBACK_UpdateProgress()
+void __cdecl MAINMENUS_UpdateProgress()
 {
     char szText[100];
     sub_004FB6A0_ClearText(gpProgressText);
@@ -2023,7 +2023,7 @@ void __cdecl MAINMENUS_ReturnToCharSelect()
 }
 
 // 0x0042FDE0
-int __stdcall CHARSEL_IsRestrictedChar(void* pControl, int nUnused, const char* pChar)
+int __stdcall MAINMENUS_IsRestrictedChar(void* pControl, int nUnused, const char* pChar)
 {
     char c = *pChar;
     switch (c)
@@ -2052,7 +2052,7 @@ int __stdcall sub_0042FE60_FilterChar(void* pControl, int nUnused, const char* p
 }
 
 // 0x0042FE70
-int __stdcall CHARSEL_FilterLoginChar(void* pControl, int nUnused, const char* pChar)
+int __stdcall MAINMENUS_FilterLoginChar(void* pControl, int nUnused, const char* pChar)
 {
     char c = *pChar;
     switch (c)
@@ -2077,7 +2077,7 @@ int __stdcall CHARSEL_FilterLoginChar(void* pControl, int nUnused, const char* p
 // 0x0042FEF0
 int __stdcall MAINMENUS_FilterRestrictedChar(void* pControl, int nUnused, const char* pChar)
 {
-    return CHARSEL_IsRestrictedChar(pControl, nUnused, pChar);
+    return MAINMENUS_IsRestrictedChar(pControl, nUnused, pChar);
 }
 
 // 0x0042FF00
@@ -2201,7 +2201,7 @@ void __cdecl MAINMENUS_CreateMultiplayerScreen()
 
 // build: symbol ?gpAccountEdit@* 0x0077958C
     gpAccountEdit = MAINMENUS_CreateControl(0x54);
-    sub_004FDAD0_SetKeyCallback(gpAccountEdit, CHARSEL_FilterLoginChar);
+    sub_004FDAD0_SetKeyCallback(gpAccountEdit, MAINMENUS_FilterLoginChar);
     sub_004FDD50_SetMaxLength(gpAccountEdit, 0x10);
     sub_004FFE10_SetTextA(gpAccountEdit, gpLaunchRecord->szAccount);
 
@@ -2250,7 +2250,7 @@ void __cdecl MAINMENUS_CreateTermsControls()
 }
 
 // 0x004303E0
-bool __stdcall CHARSEL_IsLineBreak(Unicode wc)
+bool __stdcall MAINMENUS_IsLineBreak(Unicode wc)
 {
     if (wc.wChar == 13 || wc.wChar == 10)
         return true;
@@ -2334,7 +2334,7 @@ static __forceinline int FilterNoSeparator(D2WinControlStrc* pControl)
 }
 
 // 0x00430590
-int __stdcall COMCALLBACK_FilterNameChar(D2WinControlStrc* pControl, int bAllowSep, const char* pChar)
+int __stdcall MAINMENUS_FilterNameChar(D2WinControlStrc* pControl, int bAllowSep, const char* pChar)
 {
     const char c = *pChar;
     if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || ((c == '-' || c == '_') && bAllowSep && FilterNoSeparator(pControl)))
@@ -2387,7 +2387,7 @@ void __cdecl MAINMENUS_UpdateNameOk()
 }
 
 // 0x004306C0
-void __cdecl CHARSEL_UpdateLoginOk()
+void __cdecl MAINMENUS_UpdateLoginOk()
 {
 // build: symbol ?gpAccountEdit@* 0x0077958C
     const Unicode* pName = sub_004FDD90_GetEditText(gpAccountEdit);
@@ -2458,7 +2458,7 @@ int __fastcall MAINMENUS_ShowOptionDescription(unsigned int nArg, int nMode, int
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
 
 // 0x00430840
-int __stdcall CHARSEL_OnHoverSorceress(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall MAINMENUS_OnHoverSorceress(SMSGHANDLER_PARAMS* pMsg)
 {
     MAINMENUS_ShowOptionDescription(pMsg->lParam, 1, 0xFAA, 0x140B);
     return 1;
@@ -2469,7 +2469,7 @@ int __stdcall CHARSEL_OnHoverSorceress(SMSGHANDLER_PARAMS* pMsg)
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
 
 // 0x00430870
-int __stdcall CHARSEL_OnHoverAmazon(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall MAINMENUS_OnHoverAmazon(SMSGHANDLER_PARAMS* pMsg)
 {
     MAINMENUS_ShowOptionDescription(pMsg->lParam, 0, 0xFAB, 0x1408);
     return 1;
@@ -2502,7 +2502,7 @@ int __stdcall MAINMENUS_OnSelectDruid(D2MenuCallbackArgStrc* pArg)
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
 
 // 0x00430920
-int __stdcall CHARSEL_OnHoverNecromancer(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall MAINMENUS_OnHoverNecromancer(SMSGHANDLER_PARAMS* pMsg)
 {
     MAINMENUS_ShowOptionDescription(pMsg->lParam, 2, 0xFA9, 0x1409);
     return 1;
@@ -2513,7 +2513,7 @@ int __stdcall CHARSEL_OnHoverNecromancer(SMSGHANDLER_PARAMS* pMsg)
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
 
 // 0x00430950
-int __stdcall CHARSEL_OnHoverBarbarian(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall MAINMENUS_OnHoverBarbarian(SMSGHANDLER_PARAMS* pMsg)
 {
     MAINMENUS_ShowOptionDescription(pMsg->lParam, 4, 0xFA7, 0x140A);
     return 1;
@@ -2524,7 +2524,7 @@ int __stdcall CHARSEL_OnHoverBarbarian(SMSGHANDLER_PARAMS* pMsg)
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
 
 // 0x00430980
-int __stdcall CHARSEL_OnHoverPaladin(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall MAINMENUS_OnHoverPaladin(SMSGHANDLER_PARAMS* pMsg)
 {
     MAINMENUS_ShowOptionDescription(pMsg->lParam, 3, 0xFA8, 0x140C);
     return 1;
@@ -2551,7 +2551,7 @@ int gnSlotCount;                                                                
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
 
 // 0x004309C0
-int __stdcall CHARSEL_AddToSlots(void* pEntry)
+int __stdcall MAINMENUS_AddToSlots(void* pEntry)
 {
     D2_ASSERT(gppSlots, 4383);
     for (int i = 0; i < gnSlotCount; i++)
@@ -2594,19 +2594,19 @@ int __stdcall sub_M121_Emit_00430600(const char* szText, int nLength) { return M
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
 
 // 0x00430B00
-int __cdecl CHARSEL_CompareNames(const void* pEntry1, const void* pEntry2)
+int __cdecl MAINMENUS_CompareNames(const void* pEntry1, const void* pEntry2)
 {
     return strcmp(**(const char* const* const*)pEntry1, **(const char* const* const*)pEntry2);
 }
 
-char* __fastcall CHARSEL_GetSlotName(int nIndex); // 0x00430B50
+char* __fastcall MAINMENUS_GetSlotName(int nIndex); // 0x00430B50
 
 // build: symbol ?gpAccountEdit@* 0x0077958C
 // build: symbol ?gpPasswordEdit@* 0x00779334
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
 
 // 0x00430B50
-char* __fastcall CHARSEL_GetSlotName(int nIndex)
+char* __fastcall MAINMENUS_GetSlotName(int nIndex)
 {
     D2LaunchSlotStrc* pSlot = gppSlots[nIndex];
     D2_ASSERT(pSlot, 0x115C);
@@ -2671,7 +2671,7 @@ D2WinControlStrc* gpList_00779964;                                              
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
 
 // 0x00430C80
-void __cdecl CHARSEL_FillCreditsList()
+void __cdecl MAINMENUS_FillCreditsList()
 {
     for (int i = 0; i < 50; i++)
         D2Win_10045(gpList_00779964, &gszEmptyAssertText);
@@ -2758,7 +2758,7 @@ D2WinControlStrc* gpList_00779960;                                              
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
 
 // 0x00430EF0
-void __cdecl CHARSEL_SyncCreditsLists()
+void __cdecl MAINMENUS_SyncCreditsLists()
 {
     int nFirst = sub_004FB950_GetFirstVisible(gpList_00779964);
     int nSecond = sub_004FB950_GetFirstVisible(gpList_0077995C);
@@ -2882,10 +2882,10 @@ int __fastcall MAINMENUS_ShowCredits(int nUnused)
                 D2Win_10045(gpList_00779964, &gszEmptyAssertText);
             } while (pCursor->wChar != 0x2A);
         }
-        CHARSEL_SyncCreditsLists();
+        MAINMENUS_SyncCreditsLists();
     }
 
-    CHARSEL_FillCreditsList();
+    MAINMENUS_FillCreditsList();
     FOG_Free(pText, ".\\Src\\MainMenus.cpp", 0x146F, 0);
     return 1;
 }
@@ -2987,7 +2987,7 @@ void __stdcall MAINMENUS_CreateLevelScreen(int nLevel)
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
 
 // 0x00431570
-void __fastcall CHARSEL_CreateExpansionDiscPopup(int bFlag)
+void __fastcall MAINMENUS_CreateExpansionDiscPopup(int bFlag)
 {
     MAINMENUS_DestroyControls();
     D2WinControlStrc* pControl = MAINMENUS_CreateFromTemplate(0xDE);
@@ -3478,7 +3478,7 @@ void __cdecl MAINMENUS_CreateLoginScreen()
         pControl = MAINMENUS_CreateControl(0x1F);
     D2Win_10051(pControl, D2LANG_GetStringFromTblIndex(0x2B2B), 0x0, 0x0, 0x0);
     gpAccountEdit = MAINMENUS_CreateControl(0x59);
-    sub_004FDAD0_SetKeyCallback(gpAccountEdit, CHARSEL_FilterLoginChar);
+    sub_004FDAD0_SetKeyCallback(gpAccountEdit, MAINMENUS_FilterLoginChar);
     sub_004FDD50_SetMaxLength(gpAccountEdit, 0x10);
     sub_004FFE10_SetTextA(gpAccountEdit, gpLaunchRecord->szAccount);
     gpPasswordEdit = MAINMENUS_CreateControl(0x5A);
@@ -3878,7 +3878,7 @@ void __fastcall MAINMENUS_ShowMessageNoArg(const Unicode* pText, D2LaunchDoneFn 
 }
 
 // 0x00433450
-void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone)
+void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone)
 {
     MAINMENUS_ShowMessage(pText, pfnDone, 1);
 }
@@ -4003,7 +4003,7 @@ int __stdcall MAINMENUS_OnNameChanged(int nArg)
 // 0x00433BE0
 int __stdcall MAINMENUS_OnLoginChanged(int nArg)
 {
-    CHARSEL_UpdateLoginOk();
+    MAINMENUS_UpdateLoginOk();
     return 1;
 }
 
@@ -4043,9 +4043,9 @@ void __cdecl MAINMENUS_BuildRealmList()
             pSlot->pData = FOG_Alloc(nLength, gszMainMenusFile, 4516, 0);
             SStrCopy((char*)pSlot->pData, pText, nLength);
             pText += nLength;
-            CHARSEL_AddToSlots(pSlot);
+            MAINMENUS_AddToSlots(pSlot);
         }
-        qsort(gppSlots, gnSlotCount, sizeof(D2LaunchSlotStrc*), CHARSEL_CompareNames);
+        qsort(gppSlots, gnSlotCount, sizeof(D2LaunchSlotStrc*), MAINMENUS_CompareNames);
     }
 }
 
@@ -4083,7 +4083,7 @@ int __cdecl MAINMENUS_PromptPlayDisc()
 // 0x004342E0
 int __cdecl MAINMENUS_PromptExpansionDisc()
 {
-    CHARSEL_CreateExpansionDiscPopup(1);
+    MAINMENUS_CreateExpansionDiscPopup(1);
     gnFlag_007798D0 = 0;
     gnFlag_007798D4 = 0;
     gpfnArchiveLoader2 = (void*)ARCHIVE_LoadExpansionArchives;
@@ -4236,7 +4236,7 @@ struct D2ComInterfaceStrc;
 extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
 
 // 0x00434700
-int __stdcall CHARSEL_OnRealmSelected(SMSGHANDLER_PARAMS* pMsg)
+int __stdcall MAINMENUS_OnRealmSelected(SMSGHANDLER_PARAMS* pMsg)
 {
     D2FuncRecordStrc* pRecord = gpFuncTable_0077ABF0->pfnGetRecord();
     int nSelection = sub_004FB990_GetSelection(gpGatewayList);
@@ -4389,12 +4389,12 @@ void __fastcall WINMAIN_SendMcpCharDelete(const char* szName, unsigned short nAr
 
 void __fastcall WINMAIN_SendMcpCharUpgrade(const char* szName);                                                           // 0x0044A810
 
-int __fastcall CHARSEL_DeleteCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x00434960
+int __fastcall MAINMENUS_DeleteCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x00434960
 
-int __fastcall CHARSEL_UpgradeCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x004349B0
+int __fastcall MAINMENUS_UpgradeCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x004349B0
 
 // 0x00434960
-int __fastcall CHARSEL_DeleteCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName)
+int __fastcall MAINMENUS_DeleteCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName)
 {
     if (!sub_00449B30_QueryAddress())
     {
@@ -4412,7 +4412,7 @@ int __fastcall CHARSEL_DeleteCharacter(D2LaunchCharEntryStrc* pEntry, const char
 }
 
 // 0x004349B0
-int __fastcall CHARSEL_UpgradeCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName)
+int __fastcall MAINMENUS_UpgradeCharacter(D2LaunchCharEntryStrc* pEntry, const char* szName)
 {
     if (!sub_00449B30_QueryAddress())
     {
@@ -4850,7 +4850,7 @@ create:
     gpAccountEdit = MAINMENUS_CreateControl(0x22);
     sub_004FDD50_SetMaxLength(gpAccountEdit, 0x10);
     sub_004FDB00_SetEnterCallback(gpAccountEdit, MAINMENUS_OnLoginChanged);
-    sub_004FDAD0_SetKeyCallback(gpAccountEdit, CHARSEL_IsRestrictedChar);
+    sub_004FDAD0_SetKeyCallback(gpAccountEdit, MAINMENUS_IsRestrictedChar);
     gpPasswordEdit = MAINMENUS_CreateControl(0x23);
     sub_004FDD50_SetMaxLength(gpPasswordEdit, 0xD);
     sub_004FDB00_SetEnterCallback(gpPasswordEdit, MAINMENUS_OnLoginChanged);
@@ -4868,7 +4868,7 @@ create:
     MAINMENUS_CreateControl(0x25);
     gpControl_00779594 = MAINMENUS_CreateControl(0x26);
     MAINMENUS_CreateControl(0x27);
-    CHARSEL_UpdateLoginOk();
+    MAINMENUS_UpdateLoginOk();
     if (gnValue_00779980)
     {
         pControl = MAINMENUS_CreateControl(0x28);
@@ -4908,7 +4908,7 @@ void __cdecl MAINMENUS_CreateCharCreateScreen()
     sub_004FC9B0_SetText(gpControl_007795CC, D2LANG_GetStringFromTblIndex(0x1405), 4, 0, 0);
     gpNameEdit = MAINMENUS_CreateControl(0xCC);
     sub_004FDD50_SetMaxLength(gpNameEdit, 0x10);
-    sub_004FDAD0_SetKeyCallback(gpNameEdit, COMCALLBACK_FilterNameChar);
+    sub_004FDAD0_SetKeyCallback(gpNameEdit, MAINMENUS_FilterNameChar);
     sub_004FDB00_SetEnterCallback(gpNameEdit, MAINMENUS_OnNameChanged);
 
     if (FOG_IsExpansion())
@@ -5162,7 +5162,7 @@ int __stdcall MAINMENUS_OnBattleNet(int nArg)
 int __stdcall MAINMENUS_OnRealmDoubleClick(SMSGHANDLER_PARAMS* pMsg)
 {
     if (MAINMENUS_IsDoubleClick(pMsg))
-        return CHARSEL_OnRealmSelected(pMsg);
+        return MAINMENUS_OnRealmSelected(pMsg);
     return 1;
 }
 
@@ -5186,7 +5186,7 @@ int __stdcall MAINMENUS_OnTcpIpHost(int nArg)
 }
 
 // 0x00435E00
-int __stdcall CHARSEL_Back(int nArg)
+int __stdcall MAINMENUS_Back(int nArg)
 {
     sub_00435580();
     return 1;
@@ -5241,7 +5241,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
                     sub_00526320_ToUnicode(wszName, szName, 100);
                     sub_00526700(wszText, wszName);
                     sub_00526700(wszText, wszTail);
-                    CHARSEL_ShowText(wszText, sub_00435580);
+                    MAINMENUS_ShowText(wszText, sub_00435580);
                     return;
                 }
 
@@ -5250,7 +5250,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
                 Unicode wszName[256];
                 sub_00526F20_ToUnicode(wszName, gpLaunchRecord->szCharName, 256);
                 sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0x2B33), wszName);
-                CHARSEL_ShowText(wszText, sub_00435580);
+                MAINMENUS_ShowText(wszText, sub_00435580);
                 return;
             }
 
@@ -5276,7 +5276,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
     case 10:
     case 11:
     case 12:
-        CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x145D), sub_00435580);
+        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x145D), sub_00435580);
         return;
 
     case 71:
@@ -5288,7 +5288,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
         break;
     }
 
-    CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(nString), MAINMENUS_ReturnToCharSelect);
+    MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(nString), MAINMENUS_ReturnToCharSelect);
 }
 
 // 0x004361B0

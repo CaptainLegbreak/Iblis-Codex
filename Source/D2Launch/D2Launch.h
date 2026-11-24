@@ -17,7 +17,7 @@ struct D2ConfigStrc;
 struct SMSGHANDLER_PARAMS;
 D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId); // 0x0042F430
-char* __fastcall CHARSEL_GetSlotName(int nIndex); // 0x00430B50
+char* __fastcall MAINMENUS_GetSlotName(int nIndex); // 0x00430B50
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 extern "C" __declspec(dllimport) void* __stdcall GetCurrentProcess(); // 0x006CC13C
 extern "C" const char gszSpace[]; // 0x006FFC44

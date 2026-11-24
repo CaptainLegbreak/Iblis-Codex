@@ -62,7 +62,7 @@ extern int gnLaunchMode; // 0x007795EC
 extern int gbFlag_00779C6C; // 0x00779C6C
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
-void __fastcall CHARSEL_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
+void __fastcall MAINMENUS_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 void __cdecl MAINMENUS_ShowMainMenu(); // 0x004336C0
 void __cdecl CHARSEL_FreeCharList(); // 0x00438EA0
 int __stdcall CHARSEL_HandleCharList(const char* szName, int pPacket, int bFlag); // 0x0043AAB0
@@ -105,7 +105,7 @@ extern D2WinControlStrc* gpControl_00779D8C; // 0x00779D8C
 extern int gnTopRow; // 0x00779DC8
 extern D2WinControlStrc* gpCharSelectText; // 0x00779DD4
 int __cdecl GAME_GetStopMainLoop(); // 0x0042FA30
-void __cdecl COMCALLBACK_UpdateProgress(); // 0x0042F990
+void __cdecl MAINMENUS_UpdateProgress(); // 0x0042F990
 int __cdecl sub_0042F6D0(); // 0x0042F6D0
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 extern int gdwGlobal_0077AC04; // 0x0077AC04
@@ -158,7 +158,7 @@ static void CHARSEL_RequestCharList(char* szName)
     {
         if (!gpFuncTable_0077ABF0->pfnSlot68())
         {
-            CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
+            MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
             return;
         }
         gnBusy = 1;
@@ -173,8 +173,8 @@ static int CHARSEL_FindSlotByName(const char* szName)
 {
     int i = 0;
     char* szSlot;
-// build: symbol ?CHARSEL_GetSlotName@* 0x00430B50
-    while (i < GAME_GetSlotNameCount() && (szSlot = CHARSEL_GetSlotName(i)) != 0)
+// build: symbol ?MAINMENUS_GetSlotName@* 0x00430B50
+    while (i < GAME_GetSlotNameCount() && (szSlot = MAINMENUS_GetSlotName(i)) != 0)
     {
         if (!SStrCmpI(szName, szSlot, 0x7FFFFFFF))
             return 1;
@@ -205,14 +205,14 @@ void __cdecl CHARSEL_InitCharSelectScreen()
             if (nCount == 0)
             {
                 CHARSEL_DisconnectBattleNet();
-                CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14AA), MAINMENUS_ShowMainMenu);
+                MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14AA), MAINMENUS_ShowMainMenu);
                 return;
             }
         }
         else
         {
             CHARSEL_DisconnectBattleNet();
-            CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
+            MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
             return;
         }
     }
@@ -279,7 +279,7 @@ void __cdecl CHARSEL_InitCharSelectScreen()
         }
         if (nFound == 0)
         {
-            const char* szFirst = GAME_GetSlotNameCount() > 0 ? CHARSEL_GetSlotName(0) : 0;
+            const char* szFirst = GAME_GetSlotNameCount() > 0 ? MAINMENUS_GetSlotName(0) : 0;
             SStrCopy(gszPreferredRealm, szFirst, 0x7FFFFFFF);
             SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
         }
