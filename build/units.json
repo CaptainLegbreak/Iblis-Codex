@@ -15062,6 +15062,52 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004AC730",
+     "length": 16,
+     "name": "?sub_004AC730_MonsterDataOf@@YIPAUD2MonsterDataStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004AC740",
+     "length": 23,
+     "name": "?MONSTER_GetMonUmods@@YIPAEPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004AC760",
+     "length": 25,
+     "name": "?sub_004AC760_GetNameSeed@@YIGPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004AC780",
+     "length": 21
+    },
+    {
+     "va": "0x004AC7A0",
+     "length": 21
+    },
+    {
+     "va": "0x004AC7C0",
+     "length": 25,
+     "name": "?sub_004AC7C0_GetSuperUniqueId@@YIFPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004AC7E0",
+     "length": 34,
+     "name": "?sub_004AC7E0_CheckMonTypeFlag@@YIHPAUD2UnitStrc@@G@Z"
+    },
+    {
+     "va": "0x004AC810",
+     "length": 43,
+     "name": "GFXUTIL_ToggleMonTypeFlag"
+    },
+    {
+     "va": "0x004AC840",
+     "length": 34
+    },
+    {
+     "va": "0x004AC870",
+     "length": 1012
+    },
+    {
      "va": "0x004ACC70",
      "length": 219
     },
@@ -15082,6 +15128,20 @@
      "va": "0x004AD020",
      "length": 150
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -20054,11 +20114,6 @@
      "name": "DATATBLS_ApplyRatio"
     },
     {
-     "va": "0x004AC810",
-     "length": 43,
-     "name": "GFXUTIL_ToggleMonTypeFlag"
-    },
-    {
      "va": "0x004DA110",
      "length": 31,
      "name": "GFXUTIL_GetMotionAX"
@@ -20987,16 +21042,6 @@
      "va": "0x00472BD0",
      "length": 69,
      "name": "?sub_00472BD0@@YAXXZ"
-    },
-    {
-     "va": "0x004AC730",
-     "length": 16,
-     "name": "?sub_004AC730_MonsterDataOf@@YIPAUD2MonsterDataStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004AC760",
-     "length": 25,
-     "name": "?sub_004AC760_GetMonsterDataWord14@@YIFPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004B17A0",
@@ -25735,11 +25780,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x004AC740",
-     "length": 23,
-     "name": "?MONSTER_GetMonUmods@@YIPAEPAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x004AE0A0",
      "length": 64,
      "name": "?MONSTER_SetClientFlags@@YIXPAUD2UnitStrc@@G@Z"
@@ -26408,61 +26448,6 @@
      "va": "0x004AC690",
      "length": 155,
      "name": "?sub_004AC690_DrawSkillPanel@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004AC780.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004AC780",
-     "length": 21,
-     "name": "@sub_004AC780@8"
-    },
-    {
-     "va": "0x004AC7A0",
-     "length": 21,
-     "name": "@sub_004AC7A0@8"
-    },
-    {
-     "va": "0x004AC7C0",
-     "length": 25,
-     "name": "@sub_004AC7C0@4"
-    },
-    {
-     "va": "0x004AC7E0",
-     "length": 34,
-     "name": "@sub_004AC7E0@8"
-    },
-    {
-     "va": "0x004AC840",
-     "length": 34,
-     "name": "@sub_004AC840@8"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004AC870.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004AC870",
-     "length": 1012
     }
    ],
    "flags": [
