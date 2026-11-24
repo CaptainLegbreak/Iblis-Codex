@@ -284,7 +284,8 @@ static int gbHoverInGrid; // 0x007BCBE4
 
 extern int gnRecipeScrollColor; // 0x007BCEA4
 
-extern Unicode gwszRecipeScrollText[]; // 0x007BCEA8
+// build: symbol ??__EgwszRecipeScrollText@@YAXXZ 0x006CABF0
+Unicode gwszRecipeScrollText[4096]; // 0x007BCEA8
 
 extern unsigned char gbTextHoverSet; // 0x007BF23A
 

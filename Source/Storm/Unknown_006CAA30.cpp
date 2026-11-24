@@ -2,11 +2,6 @@
 
 struct D2LayoutRectStrc;
 
-extern unsigned short gwszHoverLine[256]; // 0x007A2D30
-extern unsigned short gwszHoverText[256]; // 0x007A2A78
-extern unsigned short gwszHoverName[256]; // 0x007A2F38
-extern unsigned short gawszChatHistory[2056]; // 0x007BB840
-extern unsigned short gwszRecipeScrollText[4096]; // 0x007BCEA8
 
 struct D2LayoutRectStrc
 {
@@ -18,51 +13,6 @@ struct D2LayoutRectStrc
 };
 extern int gnScreenHeight_00711470; // 0x00711470
 extern D2LayoutRectStrc gaLayoutRects_007241C8[4]; // 0x007241C8
-
-// 0x006CAA30
-void __cdecl sub_006CAA30_ClearText()
-{
-    for (int i = 0; i < 256; ++i)
-    {
-        gwszHoverLine[i] = 0;
-    }
-}
-
-// 0x006CAA50
-void __cdecl sub_006CAA50_ClearText()
-{
-    for (int i = 0; i < 256; ++i)
-    {
-        gwszHoverText[i] = 0;
-    }
-}
-
-// 0x006CAA70
-void __cdecl sub_006CAA70_ClearText()
-{
-    for (int i = 0; i < 256; ++i)
-    {
-        gwszHoverName[i] = 0;
-    }
-}
-
-// 0x006CAB10
-void __cdecl sub_006CAB10_ClearText()
-{
-    for (int i = 0; i < 2056; ++i)
-    {
-        gawszChatHistory[i] = 0;
-    }
-}
-
-// 0x006CABF0
-void __cdecl sub_006CABF0_ClearText()
-{
-    for (int i = 0; i < 4096; ++i)
-    {
-        gwszRecipeScrollText[i] = 0;
-    }
-}
 
 // 0x006CAC30
 void __cdecl sub_006CAC30_InitLayout()

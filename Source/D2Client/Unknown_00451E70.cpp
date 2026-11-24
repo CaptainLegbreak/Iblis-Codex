@@ -129,7 +129,7 @@ extern "C" __declspec(dllexport) unsigned int __fastcall sub_00451F70(Obj00451F7
 
 
 
-Unicode gwszHoverText[256]; // 0x007A2A78
+extern Unicode gwszHoverText[]; // 0x007A2A78
 
 int gnHoverTextState; // 0x007A2C78
 

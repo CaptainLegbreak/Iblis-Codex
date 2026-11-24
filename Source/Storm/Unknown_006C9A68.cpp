@@ -34,7 +34,6 @@ extern unsigned short gwszRealmNames[7 * 0x100]; // 0x00779DF0
 unsigned int __stdcall SStrHash(const char* text, unsigned int flags, unsigned int hashSeed); // 0x00413CE0
 extern const char* gpszDefaultCaption_0070EE50; // 0x0070EE50
 extern const char* gpszHelpCaption; // 0x007A0454
-extern unsigned short gwszText_007A2C80[80]; // 0x007A2C80
 extern int gnScreenWidth; // 0x0071146C
 extern int gnAutomapWidth; // 0x007A5220
 extern int gnScreenHeight; // 0x00711470
@@ -193,40 +192,7 @@ void __cdecl sub_006CA980_InitializeGameTimeHash()
     gdwGameTimeHash_0077AD60 = SStrHash("Game Time", 0, 0);
 }
 
-// 0x006CA9A0
-void __cdecl sub_006CA9A0_Initialize()
-{
-    gpszHelpCaption = gpszDefaultCaption_0070EE50;
-}
-
 const char* gpszCaption_007A0450; // 0x007A0450
-
-// 0x006CA9B0
-void __cdecl sub_006CA9B0_Initialize()
-{
-    gpszCaption_007A0450 = gpszDefaultCaption_0070EE50;
-}
-
-// 0x006CAA10
-void __cdecl sub_006CAA10_ClearText()
-{
-    for (int i = 0; i < 80; ++i)
-    {
-        gwszText_007A2C80[i] = 0;
-    }
-}
-
-// 0x006CAA90
-void __cdecl sub_006CAA90_Initialize()
-{
-    gnAutomapWidth = gnScreenWidth;
-}
-
-// 0x006CAAA0
-void __cdecl sub_006CAAA0_InitializeHeight()
-{
-    gnAutomapHeight_007A521C = gnScreenHeight - 40;
-}
 
 int gnQuotient_007A6B0C; // 0x007A6B0C
 
@@ -236,78 +202,9 @@ void __cdecl sub_006CAAB0_SetPerSecond()
     gnQuotient_007A6B0C = 1000 / gnDivisor_007121DC;
 }
 
-unsigned short gwCharacterBuffer_007A741C; // 0x007A741C
-
-unsigned short gwCharacterBuffer_007A741E; // 0x007A741E
-
-unsigned short gwCharacterBuffer_007A7420; // 0x007A7420
-
-unsigned short gwCharacterBuffer_007A7422; // 0x007A7422
-
-// 0x006CAAD0
-void __cdecl sub_006CAAD0_ClearCharacterBuffer()
-{
-    gwCharacterBuffer_007A741C = 0;
-    gwCharacterBuffer_007A741E = 0;
-    gwCharacterBuffer_007A7420 = 0;
-    gwCharacterBuffer_007A7422 = 0;
-}
-
-unsigned short gwszBuffer_007BB638[257]; // 0x007BB638
-
-// 0x006CAAF0
-void __cdecl sub_006CAAF0_ClearBuffer()
-{
-    for (int i = 0; i < 257; ++i)
-    {
-        gwszBuffer_007BB638[i] = 0;
-    }
-}
-
-// 0x006CAB30
-void __cdecl sub_006CAB30_InitBlock()
-{
-    gBlock_007BC850.n00 = 0;
-    gBlock_007BC850.n04 = 0;
-    gBlock_007BC850.n08 = 0;
-    gBlock_007BC850.n0C = 0;
-    gBlock_007BC850.n10 = 0;
-    gBlock_007BC850.n14 = 0;
-    gBlock_007BC850.n18 = 0;
-    gBlock_007BC850.n1C = 0;
-    gBlock_007BC850.n20 = 0;
-    gBlock_007BC850.n24 = 0;
-    gBlock_007BC850.n28 = 0;
-    gBlock_007BC850.n2C = 0;
-    gBlock_007BC850.n30 = 0;
-    gBlock_007BC850.n34 = 0;
-    gBlock_007BC850.n38 = 0;
-    gBlock_007BC850.n3C = 0;
-}
-
-// 0x006CAB90
-void __cdecl sub_006CAB90_InitBlock()
-{
-    gBlock_007BB5F8.n00 = 0;
-    gBlock_007BB5F8.n04 = 0;
-    gBlock_007BB5F8.n08 = 0;
-    gBlock_007BB5F8.n0C = 0;
-    gBlock_007BB5F8.n10 = 0;
-    gBlock_007BB5F8.n14 = 0;
-    gBlock_007BB5F8.n18 = 0;
-    gBlock_007BB5F8.n1C = 0;
-    gBlock_007BB5F8.n20 = 0;
-    gBlock_007BB5F8.n24 = 0;
-    gBlock_007BB5F8.n28 = 0;
-    gBlock_007BB5F8.n2C = 0;
-    gBlock_007BB5F8.n30 = 0;
-    gBlock_007BB5F8.n34 = 0;
-    gBlock_007BB5F8.n38 = 0;
-    gBlock_007BB5F8.n3C = 0;
-}
-
 // 0x006CAC10
 void __cdecl sub_006CAC10_InitializeHorizontalPosition()
 {
     gnTextLeft = (gnScreenWidth_0071146C - 325) / 2;
 }
+

@@ -895,7 +895,7 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Game_0044E5A0.cpp": {
-   "bytes": 386,
+   "bytes": 282,
    "definitions": 9,
    "externs": [
     "extern \"C\" void __cdecl WINMAIN_StartSession(); // 0x0044BC30",
@@ -905,10 +905,7 @@
     "extern \"C\" void __cdecl GAME_SwallowMessage(); // 0x0044C5C0",
     "extern \"C\" void __cdecl GAME_HandleActivateApp(); // 0x0044C5E0",
     "extern \"C\" void __cdecl GAME_AdvanceBetaScreen(); // 0x0044D0A0",
-    "extern \"C\" void __cdecl GAME_AdvanceBetaScreenNoRepeat(); // 0x0044D0D0",
-    "extern \"C\" void __cdecl GAME_HandleKeyDown(); // 0x0044D360",
-    "extern \"C\" void __cdecl GAME_HandleEndScreenButtonDown(); // 0x0044E460",
-    "extern \"C\" void __cdecl GAME_HandleEndScreenButtonUp(); // 0x0044E4F0"
+    "extern \"C\" void __cdecl GAME_AdvanceBetaScreenNoRepeat(); // 0x0044D0D0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/GAME/Game_0044B8A0.inc",
@@ -4857,8 +4854,8 @@
    "state": "included"
   },
   "Source/Storm/Unknown_006C9A68.cpp": {
-   "bytes": 372,
-   "definitions": 13,
+   "bytes": 368,
+   "definitions": 12,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -156968,7 +156965,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_006C9A68.cpp",
+   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern const char* gpszDefaultCaption_0070EE50 = ",

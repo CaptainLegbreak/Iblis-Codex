@@ -692,7 +692,8 @@ const char* __cdecl GAME_GetGameDescription(); // 0x0044B7F0
 
 unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 
-extern int gnAutomapWidth; // 0x007A5220
+// build: symbol ??__EgnAutomapWidth@@YAXXZ 0x006CAA90
+int gnAutomapWidth = gnScreenWidth; // 0x007A5220
 
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, va_list args); // 0x006CC4AC
 
@@ -783,7 +784,8 @@ int __cdecl UI_GetAutomapOffsetY();                                             
 
 void __fastcall AUTOMAP_DrawAutomapCells(D2AutomapCellStrc* pCell, D2AutomapDrawStrc* pInfo);                  // 0x00459440
 
-extern int gnAutomapHeight_007A521C;                                                                        // 0x007A521C
+// build: symbol ??__EgnAutomapHeight_007A521C@@YAXXZ 0x006CAAA0
+int gnAutomapHeight_007A521C = gnScreenHeight - 40; // 0x007A521C
 
 int gnAutomapViewX;                                                                                // 0x007A5190
 
