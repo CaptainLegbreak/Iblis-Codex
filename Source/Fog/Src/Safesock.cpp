@@ -6,6 +6,7 @@
 #include "D2Primitives.h"
 #include "D2StormLink.h"
 #include "D2Win32System.h"
+#include "D2FogTypes.h"
 
 int __stdcall SFileCloseFile(void* pArg);    // 0x004198D0
 
@@ -660,14 +661,6 @@ unsigned long __stdcall sub_004101C0_LogThreadProc(void* pParam); // 0x004101C0
 
 extern D2SystemTimeStrc gLogStartTime_0075D288; // 0x0075D288
 
-struct D2ModuleInfoStrc
-{
-    char szPath[0x104];
-    char szName[0x100];
-    unsigned long dwBase;
-    unsigned long dwSize;
-    D2ModuleInfoStrc* pNext;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(); // 0x006CC1B4
 
@@ -817,50 +810,9 @@ extern "C" const char gszPartyFile[];
 // build: symbol _gszMonsterAIFile 0x006E1560
 extern "C" const char gszMonsterAIFile[];
 
-struct D2ImageHlpAddressStrc
-{
-    unsigned long dwOffset;
-    unsigned short wSegment;
-    int nMode;
-};
 
-struct D2ImageHlpStackFrameStrc
-{
-    D2ImageHlpAddressStrc tAddrPC;
-    D2ImageHlpAddressStrc tAddrReturn;
-    D2ImageHlpAddressStrc tAddrFrame;
-    D2ImageHlpAddressStrc tAddrStack;
-    void* pFuncTableEntry;
-    unsigned long dwParams[4];
-    int bFar;
-    int bVirtual;
-    unsigned long dwReserved[3];
-    unsigned long dwKdHelp[19];
-};
 
-struct D2ImageHlpSymbolStrc
-{
-    unsigned long dwSizeOfStruct;
-    unsigned long dwAddress;
-    unsigned long dwSize;
-    unsigned long dwFlags;
-    unsigned long dwMaxNameLength;
-    char szName[1];
-};
 
-struct D2ImageHlpModuleStrc
-{
-    unsigned long dwSizeOfStruct;
-    unsigned long dwBaseOfImage;
-    unsigned long dwImageSize;
-    unsigned long dwTimeDateStamp;
-    unsigned long dwCheckSum;
-    unsigned long dwNumSyms;
-    int nSymType;
-    char szModuleName[32];
-    char szImageName[256];
-    char szLoadedImageName[256];
-};
 
 typedef int (__stdcall* StackWalkFn)(unsigned long dwMachine, void* hProcess, void* hThread, D2ImageHlpStackFrameStrc* pFrame, void* pContext, void* pfnReadMemory, void* pfnFunctionTableAccess, void* pfnGetModuleBase, void* pfnTranslateAddress);
 
@@ -901,19 +853,6 @@ struct T0040D1C0
 
 void __stdcall SMemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
 
-#pragma pack(push, 1)
-
-struct D2CrashDumpEntryStrc
-{
-    unsigned short nHits;
-    unsigned long f_2;
-    unsigned long f_6;
-    unsigned long dwType;
-    unsigned char nCount;
-    unsigned long adwData[8];
-};
-
-#pragma pack(pop)
 
 extern "C" unsigned int __cdecl fread(void* pBuffer, unsigned int nSize, unsigned int nCount, _iobuf* pFile); // 0x00684782
 
@@ -937,19 +876,6 @@ int gnLogQueueCount; // 0x0075E870
 
 struct D2ToolhelpModuleEntryStrc;
 
-struct D2ToolhelpModuleEntryStrc
-{
-    unsigned long dwSize;
-    unsigned long th32ModuleID;
-    unsigned long th32ProcessID;
-    unsigned long GlblcntUsage;
-    unsigned long ProccntUsage;
-    unsigned int modBaseAddr;
-    unsigned int modBaseSize;
-    void* hModule;
-    char szModule[0x100];
-    char szExePath[0x104];
-};
 
 typedef void* (__stdcall* CreateToolhelp32SnapshotFn)(unsigned long dwFlags, unsigned long dwProcessId);
 
@@ -963,11 +889,6 @@ typedef int (__stdcall* GetModuleInformationFn)(void* hProcess, void* hModule, D
 
 extern "C" const char gszExceptionsCpp_006CD628[]; // 0x006CD628
 
-struct D2ImageHlpSymbolBufferStrc
-{
-    D2ImageHlpSymbolStrc tSymbol;
-    char szNameBuffer[0x100];
-};
 
 extern "C" __declspec(dllimport) int __stdcall IsBadReadPtr(const void* lp, unsigned int ucb); // 0x006CC238
 
@@ -1005,19 +926,6 @@ extern "C" void __fastcall EXCEPTIONS_FreeModuleList(D2ModuleInfoStrc* pList);  
 
 void __fastcall EXCEPTIONS_DumpAnnotatedStack(void* hProcess, D2ThreadContextStrc* pContext, D2ModuleInfoStrc* pModules); // 0x0040BCF0
 
-struct D2FpoDataStrc
-{
-    unsigned long dwOffStart;
-    unsigned long dwProcSize;
-    unsigned long dwLocals;
-    unsigned short wParams;
-    unsigned short cbProlog : 8;
-    unsigned short cbRegs : 3;
-    unsigned short fHasSEH : 1;
-    unsigned short fUseBP : 1;
-    unsigned short reserved : 1;
-    unsigned short cbFrame : 2;
-};
 
 char gszImageHlpSymSearchPath[4096]; // 0x0075BFB8
 
