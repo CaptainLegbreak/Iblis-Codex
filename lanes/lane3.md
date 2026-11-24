@@ -4,6 +4,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/sha1 962440b3 519->520 The SHA-1 run 0x425720-0x425F00 (rotate, the four rounds, the big-endian helpers, the transform, Initialize, Append, Final; 12 functions) becomes one placeholder, Unknown_00425720.cpp, with its padding block 0x708890. They came from Unknown_00421EA0, the rank-1 piece Unknown_00421BD0, and SFILE.CPP (Sha1::Initialize at 0x425D90 sat outside SFILE.CPP's run). No file name in the image, so it stays a placeholder (+1 file). The unit builds with /Ob2: the original inlines the rounds into the transform and also keeps their standalone copies. VERIFIED afa45ec9 on base 39564cf8 (j81; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
+
 - lane3/sbig-copy 777970b3 520->520 SBigCopy (0x4237D0, from SSignature.cpp) and SBigIsEven (0x421540, from Unknown_0041F6A0) join SBig.cpp; both sit inside its run and have Storm's SBig names. VERIFIED 7e30b84d on base 0af72138 (j80; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). **Stacked on lane3/sbig-arrays** (rebased onto j80; same content as 58ac47ac).
 
 ## Questions
