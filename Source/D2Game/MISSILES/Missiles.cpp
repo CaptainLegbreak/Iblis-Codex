@@ -568,4 +568,21 @@ void __fastcall MISSILES_SyncToClient(D2ClientStrc* pClient, D2GameStrc* pGame, 
     D2GAME_PACKETS_SendPacket0x73(pClient, &packet);
 }
 
+// 0x0059FFF0
+unsigned short __fastcall sub_0059FFF0_ToWord(unsigned short nValue)
+{
+    return nValue;
+}
+
+// 0x005A0000
+extern "C" D2MonLvlTxt* __fastcall sub_005A0000_GetMonLvlTxtRecord(int nLevel)
+{
+    if (nLevel >= 0 && nLevel < sgptDataTables->nMonLvlTxtRecordCount)
+    {
+        return &sgptDataTables->pMonLvlTxt[nLevel];
+    }
+
+    return 0;
+}
+
 #include "gen/data/Source/D2Game/MISSILES/Missiles.inc"
