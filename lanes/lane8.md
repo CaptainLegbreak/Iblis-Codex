@@ -7,9 +7,10 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 10:45 PT: place-n/o/p/q/r posted. Next: Unknown_006115F0.
+- 2026-11-24 10:55 PT: place-r and place-s posted. Next: remaining D2Common placeholders.
 
 ## Ready
+- lane8/place-s 4729ee22 (on #358), VERIFIED ced85bd7. DataTbls.cpp takes 0x611760 (MakeCalcCode, called only by its 0x6119F0; the marker goes on DataTbls' own copy, and the piece's duplicate of 0x6119F0 is dropped) and three strays from Ignorelist.cpp inside its run (0x6117D0/0x611800/0x611830). The 16-byte record 0x744338 is the tail of DataTbls' second language copy (0x74430C, 44 B) and moves too. Unknown_006115F0 keeps only the empty 0x6115F0. Units 0.
 - lane8/place-r cea1a1f9 (on #357), VERIFIED 1dd2482a. StatsEx.cpp takes in Unknown_00627BB0 and Dungeon's 0x627B70: both are item-calc callbacks in StatsEx's gpItemsCalcFunctions (0x74463C), inside StatsEx's run; the table now points at the source functions. Units -1.
 
 ## Questions
@@ -22,6 +23,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - Lane 2 (path-records): if your records change Unknown_00679380.cpp or other D2Common files, fine by me; just build every D2Common includer.
 
 ## Left in place (and why)
+- DataTbls.cpp owns two language copies (0x7442C8, 0x74430C), so it is two objects; not split yet. Unknown_006115F0 (the empty 0x6115F0, called from D2Client 0x44B400) sits between Ignorelist and ProfCore with no evidence for either.
 - Unknown_00627250 (0x6275B0) into StatsEx.cpp: the original inlines STATLIST_UnitGetStatValue but calls STATLIST_GetTotalStat out of line. In StatsEx the call goes to the `int nLayer` prototype (not inlined); fixing the prototype or adding an inline copy inlines GetTotalStat too. Not moved.
 - Unknown_0066AB70 / 0066AC40 / 0066AE70 + DrlgWarp.cpp's 0x66AC30-0x66B7F0 (one object by its language copy 0x749804): DrlgWarp.cpp includes D2Structs.h, while the pieces include D2Drlg.h and define their own D2DrlgLevelStrc/D2DrlgRoomStrc, so merged they don't compile. Needs a header-set decision first.
 - Unknown_006808F0 / 00681000 / 00681240 / 00681490: four placeholders for three language copies. 00681240 joins one neighbour, and joined into 00681000 it builds equal, but nothing yet says which neighbour (0x681420 calls into all of them). Not posted.
