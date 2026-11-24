@@ -9,6 +9,7 @@
 #include "D2MultiTypes.h"
 #include "D2MsgRecord.h"
 #include "D2ClientTimer.h"
+#include "D2ClientRange.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -86,11 +87,6 @@ extern int gnAutomapHeight_007A521C; // 0x007A521C
 
 extern int gnAutomapWidth; // 0x007A5220
 
-struct D2RangeStrc
-{
-    int nStart;
-    int nLength;
-};
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 

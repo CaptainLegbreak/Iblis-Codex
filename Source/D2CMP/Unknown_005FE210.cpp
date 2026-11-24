@@ -1,6 +1,7 @@
 #include "D2CMP.h"
 
 #include "D2CmpTypes.h"
+#include "D2CmpDC6CacheEntry.h"
 
 struct Config;
 
@@ -28,11 +29,6 @@ void* __fastcall sub_0040A9E0(AsyncData* pAsync); // 0x0040A9E0
 
 int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections); // 0x00600C90
 
-struct D2CmpDC6CacheEntryStrc
-{
-    char unk0x00[0x20];
-    D2CmpDC6HeaderStrc tHeader;
-};
 
 // 0x005FEB80
 static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader)

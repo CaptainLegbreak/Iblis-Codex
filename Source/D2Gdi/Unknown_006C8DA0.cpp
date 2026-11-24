@@ -2,21 +2,14 @@
 #include "D2GfxTypes.h"
 #include "D2GlideTypes.h"
 #include "D2DrlgMaps.h"
+#include "D2CoordPair.h"
+#include "D2TileLight.h"
 
 struct D2CoordPairStrc;
 struct D2TileLightStrc;
 
-struct D2CoordPairStrc
-{
-    int nX;
-    int nY;
-};
 extern unsigned char* gpSurfaceBits_007C9154; // 0x007C9154
 
-struct D2TileLightStrc
-{
-    int nCorner[4];
-};
 
 int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
 extern int gnRenderHeight; // 0x007C913C
