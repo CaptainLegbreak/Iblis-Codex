@@ -7,6 +7,7 @@
 #include "D2ClientUi.h"
 #include "D2ClientSound.h"
 #include "D2ClientDialogWidget.h"
+#include "D2SoundEnvironTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SoundUnitNodeStrc;
@@ -16,7 +17,7 @@ struct D2DialogWidget;
 struct D2DialogWidgetNodeStrc;
 struct D2DialogLineStrc;
 struct D2SoundVecStrc;
-struct T00481920;
+struct D2SoundEnvironTxtStrc;
 struct D2SoundNodeStrc;
 
 struct D2DialogWidget
@@ -60,19 +61,13 @@ struct D2ClientSoundStrc
 };
 
 #pragma pack(pop)
-struct T00481920
-{
-    char unk0x00[0x18];
-    unsigned char bFlag;
-};
-
 extern D2SoundNodeStrc* gpSoundList_007C5458; // 0x007C5458
 extern int gbClientSoundReady; // 0x007C545C
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 int __fastcall SOUNDHDR_GetGroupStart(int nId); // 0x00481890
-T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
+D2SoundEnvironTxtStrc* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 float __fastcall sub_004B93A0_ClampFloat(float fValue, float fMin, float fMax); // 0x004B93A0
 float __stdcall GFXUTIL_VectorLengthSquared(float fX, float fY); // 0x004E4160
 void __fastcall D2SOUND_ListAddHead(D2SoundUnitNodeStrc** ppList, D2UnitStrc* pUnit); // 0x00516950

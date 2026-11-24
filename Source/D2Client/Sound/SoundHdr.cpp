@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Records.h"
 #include "D2ClientSound.h"
+#include "D2SoundEnvironTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -39,12 +40,6 @@ extern int gdwSoundTick; // 0x007BC9BC
 unsigned int gnCacheMax; // 0x007BC9CC
 
 unsigned int gdwCacheUsed; // 0x007BC9D0
-
-struct D2SoundEnvironTxtStrc
-{
-    int f_0;
-    char unk0x04[0x54];
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -318,7 +313,7 @@ void __cdecl SOUNDHDR_LoadSoundTables()
     gnSongMax = 0;
     for (int j = 0; j < gnSoundEnvironTxtRecordCount; ++j, ++pEnv)
     {
-        const int nSong = pEnv->f_0;
+        const int nSong = pEnv->nSong;
         if (nSong > 0)
         {
             if (nSong < gnSongMin)

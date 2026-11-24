@@ -19,6 +19,7 @@
 #include "D2ClientGfx.h"
 #include "D2ClientTypes.h"
 #include "D2LevelIds.h"
+#include "D2SoundEnvironTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -932,13 +933,7 @@ struct D2DrlgCoordsStrc;
 
 struct D2TileLibraryEntryStrc;
 
-struct T00481920;
-
-struct T00481920
-{
-    int unk0x00[7];
-    int nMaterial1;
-};
+struct D2SoundEnvironTxtStrc;
 
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
 
