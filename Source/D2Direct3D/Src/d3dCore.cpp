@@ -864,7 +864,7 @@ long ATL::CRegKey::SetStringValue(const char* pszValueName, const char* pszValue
 }
 
 // 0x006B1B60
-int __stdcall sub_006B1B60_EnumTextureFormat(D2PixelFormat006B1B60Strc* pFormat, unsigned long* pFlags)
+int __stdcall D3D_EnumTextureFormatCallback(D2PixelFormat006B1B60Strc* pFormat, unsigned long* pFlags)
 {
     if (!pFlags)
     {

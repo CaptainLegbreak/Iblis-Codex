@@ -17,7 +17,8 @@ void __cdecl sub_00460190_DrawFrame()
     if (!D2GFX_StartDraw(1, 0, 0, 0))
         return;
     D2GFX_ClearScreen(0);
-    sub_004FB0D0();
+// build: symbol ?D2Win_10179_UpdatePaletteFlash@* 0x004FB0D0
+    D2Win_10179_UpdatePaletteFlash();
     UI_DrawCelPair(0);
     UI_DrawCenteredStrings();
     VIEW_DrawPanelCels(gbPopupOkPressed, gbPopupCancelPressed);

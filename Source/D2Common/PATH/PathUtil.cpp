@@ -32,7 +32,7 @@ extern const D2UnkPathStrc gaPathDirectionTriplets[25]; // 0x006F1518
 
 extern const D2UnkPathStrc2 gaPathDirectionTripletsAlt[25]; // 0x006F1648
 
-int __stdcall sub_00678C10(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2); // 0x00678C10
+int __stdcall PATH_GetDirectionIndex(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2); // 0x00678C10
 
 struct D2PathTestStrc
 {
@@ -78,10 +78,10 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
 unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask); // 0x0064D9B0
 
-void __fastcall sub_00678E30(D2PathRayStrc* pRay); // 0x00678E30
+void __fastcall PATH_UpdateMotionVelocity(D2PathRayStrc* pRay); // 0x00678E30
 
 // 0x00678B10
-int __fastcall sub_00678B10_GetDistanceEstimate(int nX1, int nY1, int nX2, int nY2)
+int __fastcall PATH_EstimateDistanceXY(int nX1, int nY1, int nX2, int nY2)
 {
     int nDiffX = nX1 - nX2;
     if (nDiffX < 0)
@@ -101,7 +101,7 @@ int __fastcall sub_00678B10_GetDistanceEstimate(int nX1, int nY1, int nX2, int n
 }
 
 // 0x00678B40
-int __stdcall sub_00678B40_PathHeuristic(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
+int __stdcall PATH_EstimateDistance(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
     int nDiffX = tPoint2.X - tPoint1.X;
     if (nDiffX < 0)
@@ -121,7 +121,7 @@ int __stdcall sub_00678B40_PathHeuristic(D2PathPointStrc tPoint1, D2PathPointStr
 }
 
 // 0x00678B80
-static int __fastcall sub_6FDAB610(int nX1, int nY1, int nX2, int nY2)
+static int __fastcall PATH_GetDirectionIndexXY(int nX1, int nY1, int nX2, int nY2)
 {
     int nAbsDiffX = nX2 - nX1;
     int nAbsDiffY = nY2 - nY1;
@@ -162,21 +162,21 @@ static int __fastcall sub_6FDAB610(int nX1, int nY1, int nX2, int nY2)
 }
 
 // 0x00678CB0
-int __fastcall sub_00678CB0_GetFirstDirectionXY(int nX1, int nY1, int nX2, int nY2)
+int __fastcall PATH_GetAltFirstDirectionXY(int nX1, int nY1, int nX2, int nY2)
 {
-    return gaPathDirectionTripletsAlt[sub_6FDAB610(nX1, nY1, nX2, nY2)].unk0x00;
+    return gaPathDirectionTripletsAlt[PATH_GetDirectionIndexXY(nX1, nY1, nX2, nY2)].unk0x00;
 }
 
 // 0x00678CF0
-int __fastcall sub_6FDAB750(int nX1, int nY1, int nX2, int nY2)
+int __fastcall PATH_GetFirstDirectionXY(int nX1, int nY1, int nX2, int nY2)
 {
-    return gaPathDirectionTriplets[sub_6FDAB610(nX1, nY1, nX2, nY2)].unk0x00;
+    return gaPathDirectionTriplets[PATH_GetDirectionIndexXY(nX1, nY1, nX2, nY2)].unk0x00;
 }
 
 // 0x00678D30
-void __fastcall sub_00678D30_GetDirectionsXY(int nX1, int nY1, int nX2, int nY2, int* pTestDir)
+void __fastcall PATH_GetDirectionTripletXY(int nX1, int nY1, int nX2, int nY2, int* pTestDir)
 {
-    int nIndex = sub_6FDAB610(nX1, nY1, nX2, nY2);
+    int nIndex = PATH_GetDirectionIndexXY(nX1, nY1, nX2, nY2);
 
     pTestDir[0] = gaPathDirectionTriplets[nIndex].unk0x00;
     pTestDir[1] = gaPathDirectionTriplets[nIndex].unk0x04;
@@ -184,9 +184,9 @@ void __fastcall sub_00678D30_GetDirectionsXY(int nX1, int nY1, int nX2, int nY2,
 }
 
 // 0x00678DB0
-void __fastcall sub_00678DB0_GetDirectionTripletXY(int nX1, int nY1, int nX2, int nY2, int* pTestDir)
+void __fastcall PATH_GetAltDirectionTripletXY(int nX1, int nY1, int nX2, int nY2, int* pTestDir)
 {
-    int nIndex = sub_6FDAB610(nX1, nY1, nX2, nY2);
+    int nIndex = PATH_GetDirectionIndexXY(nX1, nY1, nX2, nY2);
 
     pTestDir[0] = gaPathDirectionTripletsAlt[nIndex].unk0x00;
     pTestDir[1] = gaPathDirectionTripletsAlt[nIndex].unk0x01;
@@ -194,7 +194,7 @@ void __fastcall sub_00678DB0_GetDirectionTripletXY(int nX1, int nY1, int nX2, in
 }
 
 // 0x00678C10
-int __stdcall sub_00678C10(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
+int __stdcall PATH_GetDirectionIndex(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
 {
     int nAbsDiffX = pPoint2.X - pPoint1.X;
     int nAbsDiffY = pPoint2.Y - pPoint1.Y;
@@ -256,15 +256,15 @@ int __stdcall sub_00678C10(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
 }
 
 // 0x00678CD0
-int __stdcall sub_00678CD0_GetFirstDirection(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
+int __stdcall PATH_GetAltFirstDirection(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
 {
-    return gaPathDirectionTripletsAlt[sub_00678C10(pPoint1, pPoint2)].unk0x00;
+    return gaPathDirectionTripletsAlt[PATH_GetDirectionIndex(pPoint1, pPoint2)].unk0x00;
 }
 
 // 0x00678D70
 void __fastcall PATH_GetDirections_6FDAB790(int* pTestDir, D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
 {
-    int nIndex = sub_00678C10(pPoint1, pPoint2);
+    int nIndex = PATH_GetDirectionIndex(pPoint1, pPoint2);
 
     pTestDir[0] = gaPathDirectionTriplets[nIndex].unk0x00;
     pTestDir[1] = gaPathDirectionTriplets[nIndex].unk0x04;
@@ -272,9 +272,9 @@ void __fastcall PATH_GetDirections_6FDAB790(int* pTestDir, D2PathPointStrc pPoin
 }
 
 // 0x00678DF0
-void __fastcall sub_00678DF0(int* pTestDir, D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
+void __fastcall PATH_GetAltDirectionTriplet(int* pTestDir, D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
 {
-    int nIndex = sub_00678C10(pPoint1, pPoint2);
+    int nIndex = PATH_GetDirectionIndex(pPoint1, pPoint2);
 
     pTestDir[0] = gaPathDirectionTripletsAlt[nIndex].unk0x00;
     pTestDir[1] = gaPathDirectionTripletsAlt[nIndex].unk0x01;
@@ -282,9 +282,9 @@ void __fastcall sub_00678DF0(int* pTestDir, D2PathPointStrc pPoint1, D2PathPoint
 }
 
 // 0x00678D10
-int __stdcall sub_6FDAB770(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
+int __stdcall PATH_GetFirstDirection(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
 {
-    return gaPathDirectionTriplets[sub_00678C10(tPoint1, tPoint2)].unk0x00;
+    return gaPathDirectionTriplets[PATH_GetDirectionIndex(tPoint1, tPoint2)].unk0x00;
 }
 
 struct D2MotionPathStrc
@@ -302,7 +302,7 @@ struct D2MotionPathStrc
 void __fastcall PATH_GetDirectionVectorFromPoints(D2CoordStrc* pDirectionVector, int* pOutDirection, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0064FD70
 
 // 0x00678E30
-int __fastcall sub_00678E30_UpdateMotion(D2MotionPathStrc* pPath)
+int __fastcall PATH_UpdateMotionVelocity(D2MotionPathStrc* pPath)
 {
     if (pPath->tStart.X == pPath->tTarget.X && pPath->tStart.Y == pPath->tTarget.Y)
     {
@@ -332,7 +332,7 @@ int __fastcall sub_00678E30_UpdateMotion(D2MotionPathStrc* pPath)
 }
 
 // 0x00678F00
-void __fastcall sub_6FDAB810(int* a1, int* a2)
+void __fastcall PATH_NormalizeStep(int* a1, int* a2)
 {
     if (*a1 >= 0)
     {
@@ -370,12 +370,12 @@ void __fastcall sub_6FDAB810(int* a1, int* a2)
 }
 
 // 0x00678F70
-int __fastcall sub_00678F70_TestRay(D2PathTestStrc* pPath, D2PathRayStrc* pRay)
+int __fastcall PATH_TestRay(D2PathTestStrc* pPath, D2PathRayStrc* pRay)
 {
     if (!pRay->bValid)
         return 0;
 
-    sub_00678E30(pRay);
+    PATH_UpdateMotionVelocity(pRay);
     if (!pRay->bValid)
         return 0;
 
@@ -388,7 +388,7 @@ int __fastcall sub_00678F70_TestRay(D2PathTestStrc* pPath, D2PathRayStrc* pRay)
     int nY = (pRay->nStartY << 16) + 0x8000;
     const int nTargetX = (pRay->nTargetX << 16) + 0x8000;
     const int nTargetY = (pRay->nTargetY << 16) + 0x8000;
-    sub_6FDAB810(&nStepX, &nStepY);
+    PATH_NormalizeStep(&nStepX, &nStepY);
 
     int nStep;
     if (D2_ABS(nStepX) > D2_ABS(nStepY))

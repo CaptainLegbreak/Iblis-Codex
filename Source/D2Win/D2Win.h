@@ -85,7 +85,7 @@ unsigned char* __fastcall D2COMP_GetComponentPalette(int nColor); // 0x005038D0
 void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void __fastcall FOG_FCloseFile(void* hFile); // 0x004068F0
 void __fastcall sub_004FAAE0_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
-void __fastcall sub_004FB130_SetActiveState(int bActive); // 0x004FB130
+void __fastcall D2Win_10176_StartPaletteFlash(int bActive); // 0x004FB130
 void __stdcall D2GFX_SetPaletteTables(D2PaletteTableStrc* pPaletteTables); // 0x004F6410
 void __stdcall sub_004F6540(D2GfxDataStrc* pContext, int nX, int nY); // 0x004F6540
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380

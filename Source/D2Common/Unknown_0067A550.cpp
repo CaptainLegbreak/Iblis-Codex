@@ -145,7 +145,7 @@ static D2PathIDAStarNodeStrc* __stdcall sub_6FDC0840(D2PathIDAStarContextStrc* p
 
 int __stdcall COLLISION_CheckAnyCollisionWithPattern(void* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064D910
 
-int __stdcall sub_6FDAB770(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2);                              // 0x00678D10
+int __stdcall PATH_GetFirstDirection(D2PathPointStrc tPoint1, D2PathPointStrc tPoint2);                              // 0x00678D10
 
 extern const D2CoordStrc aCoordOffsets[8];                                                                  // 0x006F1958
 
@@ -236,7 +236,7 @@ static D2PathIDAStarNodeStrc* __stdcall PATH_IDAStar_VisitNodes(int nFScoreCutof
                     pCurrentNode->nBestDistanceFromStart = nNewDistanceFromStart;
                     pCurrentNode->nFScore = nNewNodeFScore;
                     pCurrentNode->nEvaluationsCount = 0;
-                    const int nDirection = sub_6FDAB770(tNeighborCoords, tTargetCoord);
+                    const int nDirection = PATH_GetFirstDirection(tNeighborCoords, tTargetCoord);
 // build: symbol ?gnIdaStarNeighborSequences@* 0x006F17D8
                     pCurrentNode->pNeighborsSequence = gnIdaStarNeighborSequences[(nDirection - pCurrentNode->pParent->nNextNeighborIndex) & 7];
                     if (pContext->bRandomDirection)
@@ -355,7 +355,7 @@ int D2PathRoomsAABBStrc::PATH_IdaStar_ComputePathWithRooms(D2PathInfoStrc* pPath
     tStartNode.nFScore = tStartNode.nHeuristicDistanceToTarget;
     tStartNode.tCoord = tStartCoord;
     tStartNode.nEvaluationsCount = -3;
-    tStartNode.nNextNeighborIndex = sub_6FDAB770(tStartCoord, tTargetCoord) & 7;
+    tStartNode.nNextNeighborIndex = PATH_GetFirstDirection(tStartCoord, tTargetCoord) & 7;
     tStartNode.pBestChild = 0;
     tStartNode.pParent = 0;
     memset(&tContext.aNodesStorage[0], 0, sizeof(tContext.aNodesStorage[0]));

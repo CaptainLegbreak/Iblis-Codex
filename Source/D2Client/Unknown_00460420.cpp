@@ -43,7 +43,8 @@ int __stdcall sub_00460490_DrawPopup(int nArg)
     if (!WINDOW_GetState() && D2GFX_StartDraw(1, 0, 0, 0))
     {
         D2GFX_ClearScreen(0);
-        sub_004FB0D0();
+// build: symbol ?D2Win_10179_UpdatePaletteFlash@* 0x004FB0D0
+        D2Win_10179_UpdatePaletteFlash();
         UI_DrawCelPair(1);
         SCMD_DrawLoadingTexts();
         VIEW_DrawPanelCel(gbPopupOkPressed);
@@ -59,7 +60,8 @@ int __stdcall sub_00460490_DrawPopup(int nArg)
 int __cdecl sub_00460500_RunPopup()
 {
     gbPopupDismissed = 0;
-    sub_004FB130_SetActiveState(0);
+// build: symbol ?D2Win_10176_StartPaletteFlash@* 0x004FB130
+    D2Win_10176_StartPaletteFlash(0);
     gpPopupOkCelA = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
     gpPopupOkCelB = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
     gpOkCancelButtonCel = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Menu\\okcancelbtn", 0);
@@ -77,7 +79,7 @@ int __cdecl sub_00460500_RunPopup()
 int __cdecl sub_004605A0_RunPopup()
 {
     gbPopupDismissed = 0;
-    sub_004FB130_SetActiveState(0);
+    D2Win_10176_StartPaletteFlash(0);
     gpPopupOkCelA = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
     gpPopupOkCelB = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
     gpOkCancelButtonCel = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Menu\\okcancelbtn", 0);
@@ -108,7 +110,7 @@ int __cdecl sub_00460680_RunOkCancel()
     int nResult = 1;
     gbOkCancelCancelled = 0;
     gbOkCancelAccepted = 0;
-    sub_004FB130_SetActiveState(0);
+    D2Win_10176_StartPaletteFlash(0);
     gpPopupOkCelA = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
     gpPopupOkCelB = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Bigmenu\\popupok", 0);
     gpOkCancelButtonCel = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Menu\\okcancelbtn", 0);

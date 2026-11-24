@@ -34,7 +34,7 @@ int __cdecl sub_0045AE90(); // 0x0045AE90
 
 void __fastcall PLAYER_SetPanelSlide(int nMode); // 0x0045AEA0
 
-void __fastcall sub_00457640(int nValue); // 0x00457640
+void __fastcall AUTOMAP_ResetBaseOffset(int nValue); // 0x00457640
 
 void __fastcall sub_00457440_Nop(int nResolution); // 0x00457440
 
