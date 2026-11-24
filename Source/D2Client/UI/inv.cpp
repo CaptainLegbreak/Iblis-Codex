@@ -1776,21 +1776,6 @@ void __cdecl sub_00478010()
     gnSentPackets += 1;
 }
 
-// 0x004790B0
-void __fastcall INV_FindNodeValues(int nId, int* pValueA, int* pValueB)
-{
-    for (D2ClientNodeStrc* pNode = gpNodeList_007BB5BC; pNode; pNode = pNode->pNext)
-    {
-        if (pNode->nId == nId)
-        {
-            *pValueA = pNode->nValueA;
-            *pValueB = pNode->nValueB;
-            return;
-        }
-    }
-    *pValueA = 0;
-    *pValueB = 0;
-}
 
 
 

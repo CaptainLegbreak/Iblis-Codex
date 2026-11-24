@@ -3172,25 +3172,6 @@ unsigned char** __stdcall GFX_BuildLerpRowTable(unsigned int nCount, int nSteps)
     return pTable;
 }
 
-// 0x00478FA0
-void __cdecl GFX_UpdatePetFlags()
-{
-    D2RosterPetStrc* pPet = gpRosterPets;
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    for (; pPet; pPet = pPet->pNext)
-    {
-        if (pPet->nType == 4)
-        {
-            D2UnitStrc* pUnit = CUNIT_FindClientUnit(pPet->dwUnitId, 1);
-            if (pUnit)
-            {
-                int bSet = !sub_00478E70_IsPetFriendly(pPlayer, pUnit);
-                sub_00463E20_SetUnitFlagA(pUnit, bSet);
-                sub_00463E80_SetUnitFlagB(pUnit, bSet);
-            }
-        }
-    }
-}
 
 // 0x004795F0
 D2RosterUnitStrc* __stdcall GFX_SortRosterByName(D2RosterUnitStrc* pList)
