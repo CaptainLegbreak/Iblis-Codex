@@ -1916,7 +1916,7 @@ int __stdcall MISSILE_EvaluateMissileFormula(D2UnitStrc* pMissile, D2UnitStrc* p
     return DATATBLS_CalcEvaluateExpression((char*)sgptDataTables->pMissCode + nCalc, sgptDataTables->nMissCodeSize - nCalc, MISSILE_GetCalcParamValue, gpfnMissileCalcFunctions, gnMissileCalcFunctionCount, &pMissileCalc);
 }
 
-extern "C" void __stdcall sub_0064B860_BuildDamage(Damage* damage, Unit* owner, Unit* origin, Unit* missile, int level)
+extern "C" void __stdcall MISSILE_CalculateDamageData(Damage* damage, Unit* owner, Unit* origin, Unit* missile, int level)
 {
     memset(damage, 0, 124);
     if (!owner) return;

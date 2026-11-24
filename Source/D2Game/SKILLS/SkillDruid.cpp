@@ -591,7 +591,7 @@ struct ModeRequest
     U32 field1C;
 };
 
-extern "C" int __stdcall sub_00646CA0_Evaluate(Unit*, U32, int, int); // 0x00646CA0
+extern "C" int __stdcall SKILLS_EvaluateSkillFormula(Unit*, U32, int, int); // 0x00646CA0
 
 struct D2PlayerDataStrc;
 
@@ -643,9 +643,9 @@ int __stdcall D2Common_10095(D2ActiveRoomStrc*, int, int); // 0x0061B130
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
 
-int __stdcall sub_00648A20_GetTargetX(D2DynamicPathStrc*); // 0x00648A20
+int __stdcall PATH_GetFinalTargetX(D2DynamicPathStrc*); // 0x00648A20
 
-int __stdcall sub_00648A30_GetTargetY(D2DynamicPathStrc*); // 0x00648A30
+int __stdcall PATH_GetFinalTargetY(D2DynamicPathStrc*); // 0x00648A30
 
 __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
@@ -3598,7 +3598,7 @@ static inline AiState* GetAiState(Unit* unit)
 
 static inline int SkillChanceSucceeds(Unit* owner, SkillRecord* record, int skill, int level)
 {
-    int chance = sub_00646CA0_Evaluate(owner, record->chance, skill, level);
+    int chance = SKILLS_EvaluateSkillFormula(owner, record->chance, skill, level);
     return sub_0045C390_Roll(&owner->seed, 100) < chance;
 }
 
@@ -3614,7 +3614,7 @@ static void __stdcall SKILLS_ApplyAuraStateToTarget(Unit* owner, Unit* target, i
     request.target = target;
     request.skill = skill;
     request.level = level;
-    request.duration = sub_00646CA0_Evaluate(owner, record->calc, skill, level);
+    request.duration = SKILLS_EvaluateSkillFormula(owner, record->calc, skill, level);
     request.stat = -1;
     request.state = record->state;
     D2StatListStrc* list = sub_0056E970_Apply(&request);
@@ -4002,8 +4002,8 @@ static __forceinline void HIRELING_StepAside(D2GameStrc* pGame, D2UnitStrc* pOwn
 {
     D2DynamicPathStrc* pPath = pOwner->pDynamicPath;
     UNITS_GetPlayerData(pOwner);
-    int nX = sub_00648A20_GetTargetX(pPath);
-    int nY = sub_00648A30_GetTargetY(pPath);
+    int nX = PATH_GetFinalTargetX(pPath);
+    int nY = PATH_GetFinalTargetY(pPath);
     sub_005DE190_SetAiParam(pUnit, 7, 0, 0);
     if (D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pOwner, nSteps)) return;
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);

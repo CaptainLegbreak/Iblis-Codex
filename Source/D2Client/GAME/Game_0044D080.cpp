@@ -316,7 +316,7 @@ void __fastcall VIEW_PrepareView(D2ViewStrc* pView, int nArg); // 0x00476140
 
 void __cdecl sub_00473F50_UpdateWeather(); // 0x00473F50
 
-void __stdcall sub_0061C0B0(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
+void __stdcall ENVIRONMENT_GetLightColorFromAct(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
 
 void __stdcall D2GFX_SetAmbientColor(int nRed, int nGreen, int nBlue); // 0x004F6430
 
@@ -518,7 +518,7 @@ void __fastcall GAME_DrawGameView(int bNoCursor)
     sub_00473F50_UpdateWeather();
 
     unsigned char nRed, nGreen, nBlue;
-    sub_0061C0B0(gpGlobal_007A0634, &nRed, &nGreen, &nBlue);
+    ENVIRONMENT_GetLightColorFromAct(gpGlobal_007A0634, &nRed, &nGreen, &nBlue);
     D2GFX_SetAmbientColor(nRed, nGreen, nBlue);
 
     if (!D2GFX_StartDraw(GetRoomBlankScreen(CUNIT_GetPlayerRoom()), 0, 0, 0))

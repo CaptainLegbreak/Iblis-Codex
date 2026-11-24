@@ -111,7 +111,7 @@ typedef char check_ClientNode_size[sizeof(ClientNode)==0x24?1:-1];
 
 extern "C" U8 __stdcall GetClosestColor(const U8* palette,U32 count,int c0,int c1,int c2);
 
-extern "C" int __fastcall sub_0063E860_UnitPredicate(Unit* unit);
+extern "C" int __fastcall MONSTERS_CanBeInTown(Unit* unit); // 0x0063E860
 
 extern "C" int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int classId,int flag); // 0x00457490
 
@@ -326,7 +326,8 @@ typedef int (__fastcall* KeyCallback)(const char*);
 
 typedef void (__fastcall* FieldCallback)(const char*,void*,int,int,int,int);
 
-extern "C" void __fastcall sub_0061BAC0_portalFlag(RoomFlags* room, int reset)
+// build: symbol @DRLGACTIVATE_ToggleHasPortalFlag@* 0x0061BAC0
+extern "C" void __fastcall DRLGACTIVATE_ToggleHasPortalFlag(RoomFlags* room, int reset)
 {
     if (reset)
         room->flags &= ~0x400000U;

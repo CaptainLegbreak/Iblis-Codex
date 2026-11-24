@@ -260,7 +260,7 @@ D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
 
 struct Room { char pad[0x10]; RoomEx* roomEx[2]; };
 
-void __fastcall sub_00666A80(RoomEx*,Coord**,int*); // 0x00666A80
+void __fastcall DRLGPRESET_GetTombStoneTileCoords(RoomEx*,Coord**,int*); // 0x00666A80
 
 enum { ROOM_SLOT = 0 };
 
@@ -310,7 +310,7 @@ D2ActiveRoomStrc* __fastcall DRLGWARP_GetDestinationRoom(D2DrlgRoomStrc* pDrlgRo
 
 void __fastcall DRLGROOM_UnlinkActiveRoom(D2DrlgRoomStrc* pDrlgRoom, int bClient, unsigned int nFlags); // 0x0066B4C0
 
-void __fastcall sub_0066C370_OnChildlessNode(void* pContext, D2CommonLevelNodeStrc* pNode); // 0x0066C370
+void __fastcall DRLGROOM_InitNearRooms(void* pContext, D2CommonLevelNodeStrc* pNode); // 0x0066C370
 
 int __fastcall DRLGLOGIC_GetRoomCoordListIndex(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY); // 0x0066CE30
 
@@ -1397,7 +1397,7 @@ void __stdcall DUNGEON_UpdatePops(D2ActiveRoomStrc* ptRoom, int nX, int nY, int 
 // 0x0061AD10
 void __stdcall DUNGEON_GetTombStoneTileCoords(Room* room,Coord** tiles,int* count)
 {
-    sub_00666A80(room->roomEx[ROOM_SLOT],tiles,count);
+    DRLGPRESET_GetTombStoneTileCoords(room->roomEx[ROOM_SLOT],tiles,count);
 }
 
 // 0x0061AD30

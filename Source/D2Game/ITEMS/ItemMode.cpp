@@ -635,7 +635,7 @@ int __fastcall ITEMMODE_MarkItemOnCursor(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 
 int __stdcall INVENTORY_IsItemBodyLocFree(D2InventoryStrc*, D2UnitStrc*, int, int); // 0x0063CB00
 
-int __stdcall sub_0063B950_PlaceItem(D2InventoryStrc*, D2UnitStrc*, int, int, int, const char*, int); // 0x0063B950
+int __stdcall INVENTORY_PlaceItemAtFreePosition(D2InventoryStrc*, D2UnitStrc*, int, int, int, const char*, int); // 0x0063B950
 
 unsigned char __fastcall CLIENTS_GetWeaponSwitch(D2ClientStrc*); // 0x00539220
 
@@ -737,21 +737,21 @@ extern "C" int __stdcall sub_00621050_Grid(Unit*, U8, int); // 0x00621050
 
 extern "C" int __stdcall sub_006280A0_TestFlag(Unit*, U32, int, const char*); // 0x006280A0
 
-extern "C" void __stdcall sub_006280D0_SetFlag(Unit*, U32, int); // 0x006280D0
+extern "C" void __stdcall ITEMS_SetItemFlag(Unit*, U32, int); // 0x006280D0
 
 extern "C" void __stdcall sub_00628170_CommandFlag(Unit*, U32, int); // 0x00628170
 
 extern "C" U8 __stdcall sub_00628250_Page(Unit*); // 0x00628250
 
-extern "C" void __stdcall sub_00628280_SetPage(Unit*, U8); // 0x00628280
+extern "C" void __stdcall ITEMS_SetInvPage(Unit*, U8); // 0x00628280
 
-extern "C" void __stdcall sub_00628320_SavePage(Unit*, U8); // 0x00628320
+extern "C" void __stdcall ITEMS_SetItemCell(Unit*, U8); // 0x00628320
 
-extern "C" void __stdcall sub_006287B0_Flags(U32*, U32, int); // 0x006287B0
+extern "C" void __stdcall ITEMS_SetOrRemoveFlag(U32*, U32, int); // 0x006287B0
 
-extern "C" int __stdcall sub_0063B950_Place(void*, Unit*, int, int, U8, const char*, int); // 0x0063B950
+extern "C" int __stdcall INVENTORY_PlaceItemAtFreePosition(void*, Unit*, int, int, U8, const char*, int); // 0x0063B950
 
-extern "C" void __stdcall sub_0063BCF0_Trace(const char*, int, void*, int, int, int, int, U8); // 0x0063BCF0
+extern "C" void __stdcall INVENTORY_Return(const char*, int, void*, int, int, int, int, U8); // 0x0063BCF0
 
 static void ITEMMODE_BuildEquipmentTraits(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ItemModeArgStrc* pItemModeArg);
 
@@ -771,11 +771,11 @@ struct BeltRecord;
 
 struct BeltRecord { char unknown00[4]; U8 nBoxes; U8 reserved5; unsigned short reserved6; D2InvRectStrc boxes[16]; };
 
-extern "C" void __stdcall sub_00660CB0_Record(int, int, BeltRecord*); // 0x00660CB0
+extern "C" void __stdcall DATATBLS_GetBeltsTxtRecord(int, int, BeltRecord*); // 0x00660CB0
 
 extern "C" int __stdcall UNITS_GetBeltType(Unit*); // 0x00621ED0
 
-extern "C" Unit* __stdcall sub_0063C7F0_Belt(void*, int); // 0x0063C7F0
+extern "C" Unit* __stdcall INVENTORY_GetItemFromBeltSlot(void*, int); // 0x0063C7F0
 
 void __fastcall D2GAME_SendP0x9C_ItemAction_RemoveFromBelt_6FC3EBE0(void*, Unit*, Unit*, U32); // 0x0053EED0
 
@@ -2724,7 +2724,8 @@ static inline D2InventoryStrc* UNITS_GetInventory(D2UnitStrc* pUnit)
     return !pUnit ? 0 : pUnit->pInventory;
 }
 
-static inline int sub_00623C60(D2UnitStrc* pUnit)
+// build: symbol ?UNITS_GetWeaponClass@* 0x00623C60
+static inline int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 {
     return !pUnit ? -1 : pUnit->dwClassId;
 }
@@ -3324,7 +3325,7 @@ int __fastcall ITEMMODE_UseStoredItemAtCoordinates(D2GameStrc* ptGame, D2UnitStr
         }
         return 1;
     }
-    D2ItemsTxt* record = DATATBLS_GetItemsTxtRecord(sub_00623C60(item));
+    D2ItemsTxt* record = DATATBLS_GetItemsTxtRecord(UNITS_GetWeaponClass(item));
     D2BitBufferStrc* flags = sub_00543520(ptGame, hUnit);
     if (record->dwCode == 0x20737361) {
         ITEMMODE_ClearTargetingFlags(hUnit, ".\\ITEMS\\ItemMode.cpp", 0x10D5);
@@ -4182,7 +4183,7 @@ static __forceinline int PlaceIntoInventory(Game* game, Unit* player, int itemId
                     case 2: special = 1; break;
                     }
                 }
-                if (!sub_0063B950_Place(targetInventory, placed, targetGrid, 0, targetPage, ".\\ITEMS\\ItemMode.cpp", line)) return 0;
+                if (!INVENTORY_PlaceItemAtFreePosition(targetInventory, placed, targetGrid, 0, targetPage, ".\\ITEMS\\ItemMode.cpp", line)) return 0;
                 if (!sub_0063B210_Add(targetInventory, placed, 1)) return 0;
                 if (sub_00628250_Page(placed) != 4) ITEMMODE_AddItemScrollSkillQuantity(player, placed);
                 placed->flags &= -3;
@@ -4190,8 +4191,8 @@ static __forceinline int PlaceIntoInventory(Game* game, Unit* player, int itemId
                 if (clearCursor) sub_0063C180_Cursor(targetInventory, 0);
                 sub_00624690_Mode(placed, 0);
                 sub_00628170_CommandFlag(placed, 2, 1);
-                if (D2GAME_CheckHasFilledSockets((D2UnitStrc*)placed, ".\\ITEMS\\ItemMode.cpp", 0x8EA)) sub_006280D0_SetFlag(placed, 1, 1);
-                if (sub_006280A0_TestFlag(placed, 0x4000, 0x8EE, ".\\ITEMS\\ItemMode.cpp")) sub_006280D0_SetFlag(placed, 0x4000, 0);
+                if (D2GAME_CheckHasFilledSockets((D2UnitStrc*)placed, ".\\ITEMS\\ItemMode.cpp", 0x8EA)) ITEMS_SetItemFlag(placed, 1, 1);
+                if (sub_006280A0_TestFlag(placed, 0x4000, 0x8EE, ".\\ITEMS\\ItemMode.cpp")) ITEMS_SetItemFlag(placed, 0x4000, 0);
                 sub_00621000_SetFlag(player, 1);
                 sub_0063CC70_Refresh(targetInventory, placed);
                 if (special == 1) PLRTRADE_AddItemToTrade(game, player, placed);
@@ -4220,8 +4221,8 @@ static void __stdcall ITEMMODE_MoveCubeContentsToInventory(Game* game, Unit* box
         Unit* next = sub_0063DFA0_Next(node);
         if (sub_00628250_Page(item) == 3) {
             U32 flags = 0;
-            sub_006287B0_Flags(&flags, 32, 1);
-            sub_00628320_SavePage(box, 3);
+            ITEMS_SetOrRemoveFlag(&flags, 32, 1);
+            ITEMS_SetItemCell(box, 3);
             D2GAME_UpdateClientItem_6FC3E9D0(sub_005531C0_Client(player, ".\\ITEMS\\ItemMode.cpp", 0x80D), player, item, flags);
             Unit* removed = sub_0063AD90_Remove(inventory, item);
             D2_ASSERT(removed, 0x80F);
@@ -4238,9 +4239,9 @@ static void __stdcall ITEMMODE_MoveCubeContentsToInventory(Game* game, Unit* box
             case 2: case 4: case 5: x = item->path->x; break;
             default: x = item->path ? sub_006488C0_X(item->path) : 0; break;
             }
-            sub_0063BCF0_Trace(".\\ITEMS\\ItemMode.cpp", 0x813, inventory, x, y, grid, 0, page);
+            INVENTORY_Return(".\\ITEMS\\ItemMode.cpp", 0x813, inventory, x, y, grid, 0, page);
             sub_00624690_Mode(removed, 4);
-            sub_00628280_SetPage(item, 0);
+            ITEMS_SetInvPage(item, 0);
             int itemId = item->id;
             ITEMMODE_ClearTargetingFlags(player, ".\\ITEMS\\ItemMode.cpp", 0x87B);
             Unit* placed = SUNIT_GetServerUnit(game, 4, itemId);
@@ -4258,7 +4259,7 @@ static void __stdcall ITEMMODE_MoveCubeContentsToInventory(Game* game, Unit* box
                     case 2: special = 1; break;
                     }
                 }
-                if (!sub_0063B950_Place(targetInventory, placed, targetGrid, 0, targetPage, ".\\ITEMS\\ItemMode.cpp", 0x817)) goto dropFailure;
+                if (!INVENTORY_PlaceItemAtFreePosition(targetInventory, placed, targetGrid, 0, targetPage, ".\\ITEMS\\ItemMode.cpp", 0x817)) goto dropFailure;
                 if (!sub_0063B210_Add(targetInventory, placed, 1)) goto dropFailure;
                 if (sub_00628250_Page(placed) != 4) ITEMMODE_AddItemScrollSkillQuantity(player, placed);
                 placed->flags &= -3;
@@ -4266,8 +4267,8 @@ static void __stdcall ITEMMODE_MoveCubeContentsToInventory(Game* game, Unit* box
                 if (clearCursor) sub_0063C180_Cursor(targetInventory, 0);
                 sub_00624690_Mode(placed, 0);
                 sub_00628170_CommandFlag(placed, 2, 1);
-                if (D2GAME_CheckHasFilledSockets((D2UnitStrc*)placed, ".\\ITEMS\\ItemMode.cpp", 0x8EA)) sub_006280D0_SetFlag(placed, 1, 1);
-                if (sub_006280A0_TestFlag(placed, 0x4000, 0x8EE, ".\\ITEMS\\ItemMode.cpp")) sub_006280D0_SetFlag(placed, 0x4000, 0);
+                if (D2GAME_CheckHasFilledSockets((D2UnitStrc*)placed, ".\\ITEMS\\ItemMode.cpp", 0x8EA)) ITEMS_SetItemFlag(placed, 1, 1);
+                if (sub_006280A0_TestFlag(placed, 0x4000, 0x8EE, ".\\ITEMS\\ItemMode.cpp")) ITEMS_SetItemFlag(placed, 0x4000, 0);
                 sub_00621000_SetFlag(player, 1);
                 sub_0063CC70_Refresh(targetInventory, placed);
                 if (special == 1) PLRTRADE_AddItemToTrade(game, player, placed);
@@ -4278,7 +4279,7 @@ static void __stdcall ITEMMODE_MoveCubeContentsToInventory(Game* game, Unit* box
                 goto nextItem;
             }
         dropFailure:
-            sub_00628280_SetPage(item, 255);
+            ITEMS_SetInvPage(item, 255);
             Point playerPosition;
             Point dropPosition;
             sub_00620870_Position(player, &playerPosition);
@@ -4306,8 +4307,8 @@ extern "C" void __fastcall ITEMMODE_DropCursorItem(Game* ptGame, Unit* hUnit, in
     if (!room) return;
     D2GAME_DropItem_6FC52260(ptGame, hUnit, item, room, dropPosition.x, dropPosition.y);
     sub_0063C180_Cursor(hUnit->inventory, 0);
-    if (D2GAME_CheckHasFilledSockets((D2UnitStrc*)item, ".\\ITEMS\\ItemMode.cpp", 0x85B)) sub_006280D0_SetFlag(item, 1, 1);
-    if (sub_006280A0_TestFlag(item, 0x4000, 0x85E, ".\\ITEMS\\ItemMode.cpp")) sub_006280D0_SetFlag(item, 0x4000, 0);
+    if (D2GAME_CheckHasFilledSockets((D2UnitStrc*)item, ".\\ITEMS\\ItemMode.cpp", 0x85B)) ITEMS_SetItemFlag(item, 1, 1);
+    if (sub_006280A0_TestFlag(item, 0x4000, 0x85E, ".\\ITEMS\\ItemMode.cpp")) ITEMS_SetItemFlag(item, 0x4000, 0);
     ITEMMODE_MoveCubeContentsToInventory(ptGame, item, hUnit);
 }
 
@@ -4943,13 +4944,13 @@ void __fastcall ITEMMODE_MoveExcessBeltItems(Game* game, Unit* player, Unit* bel
     void* hInventory = player->inventory;
     D2_ASSERT(hInventory, 0xC0C);
     BeltRecord record;
-    if (belt) sub_00660CB0_Record(UNITS_GetBeltType(belt), 0, &record);
-    else sub_00660CB0_Record(2, 0, &record);
+    if (belt) DATATBLS_GetBeltsTxtRecord(UNITS_GetBeltType(belt), 0, &record);
+    else DATATBLS_GetBeltsTxtRecord(2, 0, &record); // 0x00660CB0
     for (int index = 0; index < 16; ++index) {
-        Unit* hItem = sub_0063C7F0_Belt(hInventory, index);
+        Unit* hItem = INVENTORY_GetItemFromBeltSlot(hInventory, index);
         if (index < record.nBoxes || !hItem) continue;
         U32 flags = 0;
-        sub_006287B0_Flags(&flags, 32, 1);
+        ITEMS_SetOrRemoveFlag(&flags, 32, 1);
         D2GAME_SendP0x9C_ItemAction_RemoveFromBelt_6FC3EBE0(sub_005531C0_Client(player, ".\\ITEMS\\ItemMode.cpp", 0xC1F), player, hItem, flags);
         Unit* removed = sub_0063AD90_Remove(hInventory, hItem);
         D2_ASSERT(removed, 0xC22);
@@ -4962,7 +4963,7 @@ void __fastcall ITEMMODE_MoveExcessBeltItems(Game* game, Unit* player, Unit* bel
         D2COMMON_10267_Return((D2InventoryStrc*)hInventory, x);
         sub_00624690_Mode(removed, 4);
         ITEMMODE_RemoveItemScrollSkillQuantity((D2UnitStrc*)player, (D2UnitStrc*)hItem);
-        sub_00628280_SetPage(hItem, 0);
+        ITEMS_SetInvPage(hItem, 0);
         if (PlaceIntoInventory(game, player, hItem->id, 0xC29)) continue;
         {
             Point playerPosition;
@@ -5098,7 +5099,7 @@ int __fastcall ITEMMODE_ReplaceHandItemsWithCursorItem(D2GameStrc* ptGame, D2Uni
     D2_ASSERT(pOther == pRemoved, 0xD7E);
     sub_0063BE30(pInventory, nOtherBodyLoc);
     D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, pRemoved, pUnit, 0, 1);
-    if (sub_0063B950_PlaceItem(pInventory, pRemoved, nRecord, 0, 0, ".\\ITEMS\\ItemMode.cpp", 0xD86))
+    if (INVENTORY_PlaceItemAtFreePosition(pInventory, pRemoved, nRecord, 0, 0, ".\\ITEMS\\ItemMode.cpp", 0xD86))
     {
         if (INVENTORY_PlaceItemInSocket(pInventory, pRemoved, 1))
         {

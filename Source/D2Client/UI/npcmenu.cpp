@@ -98,7 +98,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLay
 
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 
-void __stdcall sub_0063BD00(D2InventoryStrc* pInventory); // 0x0063BD00
+void __stdcall D2COMMON_10251_Return(D2InventoryStrc* pInventory); // 0x0063BD00
 
 void __stdcall INVENTORY_RemoveInventoryItems(D2InventoryStrc* pInventory); // 0x0063CB70
 
@@ -2911,7 +2911,7 @@ void __fastcall NPCMENU_RemoveInventoryClientUnits(D2UnitStrc* pUnit)
         }
     }
     INVENTORY_RemoveInventoryItems(pInventory);
-    sub_0063BD00(pInventory);
+    D2COMMON_10251_Return(pInventory);
 }
 
 // 0x004B3830

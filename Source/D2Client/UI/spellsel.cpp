@@ -150,7 +150,7 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
-D2UnitStrc* __stdcall sub_0063BDE0_GetBodyItem(D2InventoryStrc*,int); // 0x0063BDE0
+D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc*,int); // 0x0063BDE0
 
 int __stdcall ITEMSIsA(D2UnitStrc*,int); // 0x00629BB0
 
@@ -160,7 +160,7 @@ unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*,int,int); // 0x00625480
 
-D2UnitStrc* __stdcall sub_0063BEF0_GetMainHand(D2InventoryStrc*); // 0x0063BEF0
+D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc*); // 0x0063BEF0
 
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nPaletteShift); // 0x004F64B0
 
@@ -1089,9 +1089,9 @@ void __fastcall sub_004A9690_DrawSkillInfoBase(void* cell,D2SkillsTxt* skills,in
   D2InventoryStrc* inv=player->pInventory;
   switch(skills->nSkillId) {
   case SKILL_LEFTHANDTHROW: {
-   D2UnitStrc* hand=sub_0063BEF0_GetMainHand(inv);
-   D2UnitStrc* item=sub_0063BDE0_GetBodyItem(inv,4);
-   D2UnitStrc* other=sub_0063BDE0_GetBodyItem(inv,5);
+   D2UnitStrc* hand=INVENTORY_GetLeftHandWeapon(inv);
+   D2UnitStrc* item=INVENTORY_GetItemFromBodyLoc(inv,4);
+   D2UnitStrc* other=INVENTORY_GetItemFromBodyLoc(inv,5);
    if(hand==item)item=other;
    if(item && ITEMSIsA(item,45) && ITEMS_CheckIfThrowable(item) && ITEMS_CheckIfStackable(item)) {
     quantity=STATLIST_UnitGetStatValue(item,STAT_QUANTITY,0);goto draw;
@@ -1099,7 +1099,7 @@ void __fastcall sub_004A9690_DrawSkillInfoBase(void* cell,D2SkillsTxt* skills,in
    break;
   }
   case SKILL_THROW: {
-   D2UnitStrc* item=sub_0063BEF0_GetMainHand(inv);
+   D2UnitStrc* item=INVENTORY_GetLeftHandWeapon(inv);
    if(item && ITEMS_CheckIfThrowable(item) && ITEMS_CheckIfStackable(item)) {
     quantity=STATLIST_UnitGetStatValue(item,STAT_QUANTITY,0);goto draw;
    }

@@ -425,13 +425,13 @@ extern int __stdcall INVENTORY_GetWieldType(D2UnitStrc*,D2InventoryStrc*); // 0x
 
 extern int __stdcall sub_00625480_GetStat(D2UnitStrc*,int,int); // 0x00625480
 
-extern int __stdcall sub_006449F0_ToHit(D2UnitStrc*,int,int); // 0x006449F0
+extern int __stdcall SKILLS_GetToHitFactor(D2UnitStrc*,int,int); // 0x006449F0
 
-extern int __stdcall sub_00646CA0_EvaluateFormula(D2UnitStrc*,unsigned int,int,int); // 0x00646CA0
+extern int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc*,unsigned int,int,int); // 0x00646CA0
 
 extern int __fastcall sub_00483360_ApplyRatio(int,int,int); // 0x00483360
 
-extern void __stdcall sub_00644560_SetParameter(D2SkillStrc*,int); // 0x00644560
+extern void __stdcall SKILLS_SetParam1(D2SkillStrc*,int); // 0x00644560
 
 extern void __fastcall SUNITDMG_AllocCombat(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,D2DamageStrc*,int); // 0x0057DBF0
 
@@ -1291,7 +1291,7 @@ int __fastcall SKILLS_SrvSt35_Vengeance(D2GameStrc* pGame,D2UnitStrc* pUnit,int 
     if (!pTarget) return 0;
     D2DamageStrc damage;
     memset(&damage,0,sizeof(damage));
-    damage.wResultFlags=SUNITDMG_GetResultFlags(pGame,pUnit,pTarget,sub_006449F0_ToHit(pUnit,nSkillId,nSkillLevel),0);
+    damage.wResultFlags=SUNITDMG_GetResultFlags(pGame,pUnit,pTarget,SKILLS_GetToHitFactor(pUnit,nSkillId,nSkillLevel),0);
     if (damage.wResultFlags & 1)
     {
         damage.dwPhysDamage=SUNITDMG_ApplyDamageBonuses(pUnit,1,0,0,0,0,0,pRecord->nSrcDam);
@@ -1299,21 +1299,21 @@ int __fastcall SKILLS_SrvSt35_Vengeance(D2GameStrc* pGame,D2UnitStrc* pUnit,int 
         damage.wResultFlags|=pRecord->wResultFlags;
         damage.dwHitFlags=pRecord->dwHitFlags|1;
         const int nDamage=SKILLS_RollWeaponPhysicalDamage(pUnit);
-        int nPercent=sub_00646CA0_EvaluateFormula(pUnit,pRecord->dwCalc[0],nSkillId,nSkillLevel);
+        int nPercent=SKILLS_EvaluateSkillFormula(pUnit,pRecord->dwCalc[0],nSkillId,nSkillLevel);
         if (nPercent)
         {
             const int nMastery=sub_00625480_GetStat(pUnit,329,0);
             if (nMastery) nPercent+=sub_00483360_ApplyRatio(nPercent,nMastery,100);
         }
         damage.dwFireDamage+=sub_00483360_ApplyRatio(nDamage,nPercent,100);
-        nPercent=sub_00646CA0_EvaluateFormula(pUnit,pRecord->dwCalc[1],nSkillId,nSkillLevel);
+        nPercent=SKILLS_EvaluateSkillFormula(pUnit,pRecord->dwCalc[1],nSkillId,nSkillLevel);
         if (nPercent)
         {
             const int nMastery=sub_00625480_GetStat(pUnit,331,0);
             if (nMastery) nPercent+=sub_00483360_ApplyRatio(nPercent,nMastery,100);
         }
         damage.dwColdDamage+=sub_00483360_ApplyRatio(nDamage,nPercent,100);
-        nPercent=sub_00646CA0_EvaluateFormula(pUnit,pRecord->dwCalc[2],nSkillId,nSkillLevel);
+        nPercent=SKILLS_EvaluateSkillFormula(pUnit,pRecord->dwCalc[2],nSkillId,nSkillLevel);
         if (nPercent)
         {
             const int nMastery=sub_00625480_GetStat(pUnit,330,0);
@@ -1328,7 +1328,7 @@ int __fastcall SKILLS_SrvSt35_Vengeance(D2GameStrc* pGame,D2UnitStrc* pUnit,int 
         case 1: damage.dwHitClass=48; break;
         case 2: damage.dwHitClass=64; break;
         }
-        sub_00644560_SetParameter(pSkill,(nParameter+1)%3);
+        SKILLS_SetParam1(pSkill,(nParameter+1)%3);
     }
     SUNITDMG_AllocCombat(pGame,pUnit,pTarget,&damage,128);
     return 1;

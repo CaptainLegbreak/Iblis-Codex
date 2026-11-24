@@ -63,7 +63,7 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* unit, int updateType, D2UnitStrc* 
 
 struct Quest {char pad00[0xC];unsigned char state;char pad0D[0xD3];int id;};
 
-int __stdcall sub_0065C310(void*,int,int); // 0x0065C310
+int __stdcall QUESTRECORD_GetQuestState(void*,int,int); // 0x0065C310
 
 struct D2NPCMessageTableStrc;
 
@@ -830,12 +830,12 @@ int __fastcall ACT5Q4_UnitIterate_AttachCompletionSound(D2GameStrc* game, D2Unit
 bool __fastcall ACT5Q4_ActiveFilterCallback(Quest* quest,int npc,void* player,void* flags,void* extra) {
  if(npc==512) {
   if(quest->state==1) {
-   if(!(sub_0065C310(flags,37,0) || sub_0065C310(flags,37,1))) goto inactive;
-   if(sub_0065C310(flags,quest->id,0)) goto inactive;
-   if(sub_0065C310(flags,quest->id,1)) goto inactive;
+   if(!(QUESTRECORD_GetQuestState(flags,37,0) || QUESTRECORD_GetQuestState(flags,37,1))) goto inactive;
+   if(QUESTRECORD_GetQuestState(flags,quest->id,0)) goto inactive;
+   if(QUESTRECORD_GetQuestState(flags,quest->id,1)) goto inactive;
   } else {
-   if(!sub_0065C310(flags,quest->id,13)) goto inactive;
-   if(sub_0065C310(flags,38,4)) goto inactive;
+   if(!QUESTRECORD_GetQuestState(flags,quest->id,13)) goto inactive;
+   if(QUESTRECORD_GetQuestState(flags,38,4)) goto inactive;
   }
   return true;
  }

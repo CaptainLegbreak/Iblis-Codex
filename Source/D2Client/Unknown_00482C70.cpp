@@ -1269,7 +1269,7 @@ void __cdecl INV_CloseCubePanel(); // 0x0048A050
 
 Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit);   // 0x004521C0
 
-int __stdcall sub_00626020_GetUnitDefense(D2UnitStrc* pUnit);
+int __stdcall STATLIST_GetDefenseFromUnit(D2UnitStrc* pUnit); // 0x00626020
 
 #pragma pack(push, 2)
 
@@ -2087,7 +2087,8 @@ extern "C" { int gRequest; } // 0x007BCC0C
 
 
 
-static int sub_00623C60(D2UnitStrc* pUnit)
+// build: symbol ?UNITS_GetWeaponClass@* 0x00623C60
+static int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 {
     int nClassId = -1;
     if (pUnit)

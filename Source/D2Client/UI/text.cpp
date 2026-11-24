@@ -262,7 +262,7 @@ T00479230* __stdcall CHAT_GetUsedFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x
 
 void __stdcall CHAT_SetUsedInHoverMsg(D2HoverTextStrc* pHoverMsg, int bUsed); // 0x00661210
 
-void __stdcall sub_006612A0(int nHandle); // 0x006612A0
+void __stdcall TEXT_FreeTextHeader(int nHandle); // 0x006612A0
 
 unsigned long gdwTextEndTick; // 0x007BF1AC
 
@@ -1190,7 +1190,7 @@ Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 void __stdcall D2Common_10474(D2UnitStrc* pUnused, D2StatListStrc* pStatList); // 0x006277E0
 
-void __stdcall sub_0065FEC0_ItemApplyProps(int nPass, int nArg1, D2UnitStrc* pItem, int nArg, int nArg2, int nArg5); // 0x0065FEC0
+void __stdcall ITEMMODS_AssignProperty(int nPass, int nArg1, D2UnitStrc* pItem, int nArg, int nArg2, int nArg5); // 0x0065FEC0
 
 extern Unicode gwszName_007C0E84[]; // 0x007C0E84
 
@@ -3704,7 +3704,7 @@ void __cdecl TEXT_FreeTextResources()
 {
     if (gdwGlobal_007BF250)
     {
-        sub_006612A0(gdwGlobal_007BF250);
+        TEXT_FreeTextHeader(gdwGlobal_007BF250);
         gdwGlobal_007BF250 = 0;
     }
     if (gpTextBox)
@@ -4075,7 +4075,8 @@ void __fastcall TEXT_ShowTextBox(unsigned short nStringId)
 }
 
 
-static inline int sub_00623C60(D2UnitStrc* pUnit)
+// build: symbol ?UNITS_GetWeaponClass@* 0x00623C60
+static inline int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -4127,7 +4128,7 @@ void __fastcall TEXT_HandleNpcTextPacket(D2HoverTextPacketStrc* pPacket)
         gnTextObjectId = pPacket->dwUnitId;
         if (pUnit)
         {
-            gwTextPanelClassId = sub_00623C60(pUnit);
+            gwTextPanelClassId = UNITS_GetWeaponClass(pUnit);
         }
         WARDENCLIENT_OpenTextPanel(pPacket->wStringId, 0, 1);
     }
@@ -5365,7 +5366,7 @@ void __fastcall TEXT_AppendUndeadDamageBonus(D2UnitStrc* pUnused, Unicode* wszOu
 // 0x004E6720
 void __fastcall TEXT_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4)
 {
-    sub_0065FEC0_ItemApplyProps(5, 0, pItem, nArg, nArg2, 0);
+    ITEMMODS_AssignProperty(5, 0, pItem, nArg, nArg2, 0);
     Unicode wszBuffer[1024];
     wszBuffer[0].wChar = 0;
     sub_004E6410_BuildPropText(pItem, wszBuffer, nArg3, 1, nArg4);

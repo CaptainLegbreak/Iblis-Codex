@@ -1484,11 +1484,11 @@ extern "C" void __fastcall MSG_SendTwoDwords(U8 command,U32 first,U32 second); /
 
 extern "C" Auxiliary* __cdecl sub_004646A0_GetAuxiliary();
 
-extern "C" void __stdcall sub_0061C240_Configure(Context* context,Auxiliary* auxiliary,int mode,int angle,int flag);
+extern "C" void __stdcall ENVIRONMENT_InitializeEnvironment(Context* context,Auxiliary* auxiliary,int mode,int angle,int flag); // 0x0061C240
 
 extern "C" void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
-extern "C" void __stdcall sub_006612A0_Release(Allocation* allocation);
+extern "C" void __stdcall TEXT_FreeTextHeader(Allocation* allocation); // 0x006612A0
 
 extern "C" int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
@@ -2636,7 +2636,7 @@ void __cdecl GAME_UpdateGameState()
 extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer()
 {
     if(gContext != (Context*)0)
-        sub_0061C240_Configure(gContext,sub_004646A0_GetAuxiliary(),5,0,1);
+        ENVIRONMENT_InitializeEnvironment(gContext,sub_004646A0_GetAuxiliary(),5,0,1);
     else
         gDeferred=1;
 }
@@ -4276,7 +4276,7 @@ extern "C" void __cdecl CUNIT_ClearTextPanel()
     Allocation* allocation=gAllocation;
     gCleanupState=0;
     if(allocation) {
-        sub_006612A0_Release(allocation);
+        TEXT_FreeTextHeader(allocation);
         gAllocation=(Allocation*)0;
     }
 }

@@ -53,7 +53,7 @@ void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(Game*, Unit*, Unit*); //
 int __fastcall SKILLS_GetMonFrenzySequenceFrame(Unit*); // 0x005CDD30
 int __fastcall SKILLS_StartSkill(Game*, Unit*, int, int, int); // 0x0056F640
 int __fastcall SKILLS_RollMonFrenzyDamage(Game*, Unit*, Unit*, int, int); // 0x005CDDD0
-int __stdcall sub_006444A0(Skill*); // 0x006444A0
+int __stdcall SKILLS_GetParam1(Skill*); // 0x006444A0
 int __fastcall SKILLS_ApplyFrenzyStats(Game*, Unit*, int, int); // 0x005D8C70
 
 enum { UNIT_FLAG = 0x40 };
@@ -116,7 +116,7 @@ int __fastcall sub_005CDF10(Game* game, Unit* unit, int skillId, int skillLevel)
     if (unit) unit->flags |= UNIT_FLAG;
     if (SKILLS_GetMonFrenzySequenceFrame(unit)) SKILLS_StartSkill(game, unit, skillId, skillLevel, 0);
     SKILLS_RollMonFrenzyDamage(game, unit, target, skillId, skillLevel);
-    if (sub_006444A0(skill)) SKILLS_ApplyFrenzyStats(game, unit, skillId, skillLevel);
+    if (SKILLS_GetParam1(skill)) SKILLS_ApplyFrenzyStats(game, unit, skillId, skillLevel);
     return 1;
 }
 
