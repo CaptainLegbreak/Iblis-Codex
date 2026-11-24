@@ -36388,6 +36388,21 @@
      "va": "0x0050DD30",
      "length": 17,
      "name": "?GLVERTEX_IsPerspective@@YAHXZ"
+    },
+    {
+     "va": "0x0050DF00",
+     "length": 11,
+     "name": "?sub_0050DF00_ResetSpriteScale@@YAXXZ"
+    },
+    {
+     "va": "0x0050F980",
+     "length": 323,
+     "name": "sub_0050F980_DecodeTileBlocks"
+    },
+    {
+     "va": "0x00512410",
+     "length": 28,
+     "name": "sub_00512410_ForwardToDrawImage"
     }
    ]
   },
@@ -36423,27 +36438,6 @@
     {
      "va": "0x0050DE10",
      "length": 236
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Unknown_0050DB70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0050DF00",
-     "length": 11,
-     "name": "?sub_0050DF00_ResetSpriteScale@@YAXXZ"
-    },
-    {
-     "va": "0x0050F980",
-     "length": 323,
-     "name": "sub_0050F980_DecodeTileBlocks"
-    },
-    {
-     "va": "0x00512410",
-     "length": 28,
-     "name": "sub_00512410_ForwardToDrawImage"
     }
    ]
   },
