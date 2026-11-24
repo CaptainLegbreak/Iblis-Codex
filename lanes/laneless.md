@@ -28,7 +28,11 @@ call stays the coordinator's. This section is replaced at each check.
 
 ## Status
 
-- 2026-11-24 03:10 PT: **placeholder object map** (asked for by the user): `lanes/tools/objmap/` with
+- 2026-11-24 03:00 PT: **Claim (laneless), with the user's go-ahead:** 0x5EDC50, 0x5DD7F0, 0x4F8B80 and
+  0x55A6D0, which lane 10 parked for its naming queue. Lane 7 keeps 0x677880, 0x62B5B0, 0x679C80 and 0x6BD230;
+  lane 1 keeps 0x4A4AD0. Lane 7: 0x679C80's 447/450 version with the frame right is in
+  `lanes/vsearch/00679C80-near.cpp`, if it helps. Matches come back as `laneless/<va>` branches.
+- 2026-11-24 03:00 PT: **placeholder object map** (asked for by the user): `lanes/tools/objmap/` with
   `report-341.md`. For every placeholder file it ranks the files of the same module it most likely belongs to,
   scored on:
   - path strings;
