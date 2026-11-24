@@ -40189,6 +40189,11 @@
      "name": "?MaskHash@D2StormHashTableStrc@@QAEII@Z"
     },
     {
+     "va": "0x0052E0F0",
+     "length": 9,
+     "name": "?sub_0052E0F0_IsOpen@R0052E0F0@@QAE_NXZ"
+    },
+    {
      "va": "0x0052E100",
      "length": 4,
      "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
@@ -42400,11 +42405,6 @@
    "file": "Source/D2Game/OBJECTS/Objects.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0052E0F0",
-     "length": 9,
-     "name": "?sub_0052E0F0_IsOpen@R0052E0F0@@QAE_NXZ"
-    },
     {
      "va": "0x0054DA60",
      "length": 91,
