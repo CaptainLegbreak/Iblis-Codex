@@ -87,7 +87,6 @@ extern const char gszQServerPrefix[]; // 0x006FC47C
 
 long __cdecl FOG_GetSyncTime(); // 0x00410A80
 
-void __cdecl sub_006BE300_Log(const char* prefix,const char* format,...); // 0x006BE300
 
 static int __stdcall sub_006BF180_ReferenceAddress(D2QueueServerStrc* server,const unsigned int* address); // 0x006BF180
 
@@ -329,7 +328,7 @@ static void sub_006BE650_DestroyClient(D2QClientStrc* pClient)
 {
     if (pClient->pNext)
     {
-        sub_006BE300_Log("QSRV", "  ptClient->ptNextClient =  %08X", pClient->pNext);
+        sub_006BE300_Nop("QSRV", "  ptClient->ptNextClient =  %08X", pClient->pNext);
     }
     D2QWriteNodeStrc* pNode = pClient->pWriteQueue;
     while (pNode)
@@ -1148,7 +1147,7 @@ D2QueueServerStrc* __stdcall QSInit(int nState, int nSlots, int nPort, int bDisa
     pServer->nRecordBuckets = gnQServerBucketCount;
     pServer->ppRecords = (D2QServerNodeStrc**)FOG_Alloc(gnQServerBucketCount * sizeof(D2QServerNodeStrc*), gszQServerCppFile, 180, 0);
     memset(pServer->ppRecords, 0, gnQServerBucketCount * sizeof(D2QServerNodeStrc*));
-    sub_006BE300_Log(gszQServerTag, gszQServerAllocated, pServer);
+    sub_006BE300_Nop(gszQServerTag, gszQServerAllocated, pServer);
     pServer->nClients = 0;
     pServer->pHead = 0;
     pServer->pTail = 0;
@@ -1296,7 +1295,7 @@ D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc* server,unsigned int s
  InterlockedIncrement(&client->nRefCount);
  ++server->nClients;
  LeaveCriticalSection(&server->tLock);
- sub_006BE300_Log(gszQServerPrefix,"[QSrvAddClient]  Added client %d %s on socket %d",client->nId,sub_006B013E_InetNtoa(client->nAddress),client->nSocket);
+ sub_006BE300_Nop(gszQServerPrefix,"[QSrvAddClient]  Added client %d %s on socket %d",client->nId,sub_006B013E_InetNtoa(client->nAddress),client->nSocket);
  return client;
 }
 
@@ -1321,7 +1320,7 @@ static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nCl
     if (!pClient)
     {
         sub_006BE2F0_Nop(&gszEmptyAssertText, "[sRemoveClient]  Couldn't remove TCLIENT id = %d", nClientId);
-        sub_006BE300_Log("QSRV", "[sRemoveClient]  Couldn't remove TCLIENT id = %d", nClientId);
+        sub_006BE300_Nop("QSRV", "[sRemoveClient]  Couldn't remove TCLIENT id = %d", nClientId);
         LeaveCriticalSection((D2CriticalSectionStrc*)&pServer->pClientLocks[nBucket]);
         return;
     }
@@ -1344,7 +1343,7 @@ static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nCl
     D2_ASSERT(nClientId == pClient->nId, 0x3E0);
 
     unsigned int* pAddress = &pClient->nAddress;
-    sub_006BE300_Log("QSRV", "[sRemoveClient]  Remove client %d %s refcount=%d life=%d", nClientId,
+    sub_006BE300_Nop("QSRV", "[sRemoveClient]  Remove client %d %s refcount=%d life=%d", nClientId,
         sub_006B013E_FormatAddress(*pAddress), pClient->nRefCount, FOG_GetSyncTime() - pClient->nCreateTime);
 
     D2CriticalSectionStrc* pLock = (D2CriticalSectionStrc*)&pServer->tAddressLock;
