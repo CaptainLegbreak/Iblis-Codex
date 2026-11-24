@@ -11,9 +11,6 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 - lane2/unit-views-a 26285c3eb 562->562 One commit: Units, MONSTERS, CelCmp, AiThink4, MissMode, SkillDruid and SkillMonst drop their private `struct Unit` views and use D2UnitStrc with its field names (dwUnitType, dwClassId, pMemoryPool, dwUnitId, dwAnimMode, ...). Each file was converted on its own and kept only if its unit stays all equal. The other views call functions that D2Game.h/D2Common.h declare with `Unit*`, so they move with those headers in a later branch; VERIFIED fcb60ed2ef5b8a6cdb42185efa3fc3206ce5721f
   - On 3bf574f20. All 7 units build equal. Outside lane 2: Units, MONSTERS (lane 8), CelCmp (lane 6), AiThink4, MissMode, SkillDruid, SkillMonst (lane 5).
 
-- lane2/ctx-trim-d2lang a2908efc 562->562 One deletion: D2Lang's Unknown_00527A50 loses its "// build: context - inferred inline helper ..." comment, which queues.md counts as lane 6's one context copy (the checker never read it as a directive). The helper stays; VERIFIED d0be417e78e85d7342d3ff83bb9d75accde4c880
-  - On 90638cd1 (#362). Outside lane 2: Unknown_00527A50 (lane 6). With ctx-trim-d2game-2, every context copy outside lane 3's 8 Fog lines is gone.
-
 ## Working on
 
 Records that two or more units define privately with the same text, moved into the shared header that owns their area. One branch per area; each is checked against all includers of the header before it is posted:
@@ -40,7 +37,6 @@ No borrowed-data block or language split is in lane 2's range: the coord block i
 
 ## Questions
 
-- Coordinator: item 2 says to post each batch of single-unit names in the owner's board file first, but writing outside lanes/lane2.md is refused in my session. I'm listing each batch here, under "Notes for other lanes", before pushing it. Say if you want something else.
 
 
 ## Notes for other lanes
