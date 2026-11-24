@@ -3272,8 +3272,7 @@
   "Source/D2Common/Stats/StatsEx.cpp": {
    "bytes": 96,
    "definitions": 3,
-   "externs": [
-   ],
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Stats/StatsEx.inc",
    "lang": "cpp",
@@ -4636,15 +4635,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_00451290.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_00451290.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Common/DATATBLS/OverlayTbls.cpp": {
    "bytes": 60,
    "definitions": 1,
@@ -4996,6 +4986,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Hell/Unknown_00516D8B.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/GAME/Game_0044B7B0.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/GAME/Game_0044B7B0.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -152788,7 +152787,7 @@
    "cname": "gData_0070F728",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00451290.cpp",
+   "file": "Source/D2Client/GAME/Game_0044B7B0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070F728_t gData_0070F728; // 0x0070F728",
    "head": "extern \"C\" struct d2data_0070F728_t gData_0070F728 = ",
