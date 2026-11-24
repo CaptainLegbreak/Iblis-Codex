@@ -172,7 +172,7 @@ int D2BigPairStrc::sub_005285A0_Init(int nSize1, const unsigned char* pData1, in
 }
 
 // 0x00528660
-void D2BigPairStrc::sub_00528660_MakeVerifier(const char* szName, const char* szPassword, unsigned char* pSalt, unsigned char* pVerifier)
+void D2BigPairStrc::MakeVerifier(const char* szName, const char* szPassword, unsigned char* pSalt, unsigned char* pVerifier)
 {
     sub_00527E70_RandomBytes(pSalt, 0x20);
     void* hExp;

@@ -2455,7 +2455,8 @@ int __fastcall BNSEND_SendAccountCreate(const char* szName, const char* szPasswo
     SStrUpper(szNameUpper);
     SStrCopy(szPasswordUpper, szPassword, 0x100);
     SStrUpper(szPasswordUpper);
-    gtBigPair.sub_00528660_MakeVerifier(szNameUpper, szPasswordUpper, tPacket.abSalt, tPacket.abVerifier);
+// build: symbol ?MakeVerifier@* 0x00528660
+    gtBigPair.MakeVerifier(szNameUpper, szPasswordUpper, tPacket.abSalt, tPacket.abVerifier);
     unsigned int nLength = SStrCopy(tPacket.szName, szName, 0x7FFFFFFF);
     BNSEND_SendPacket(0x52, &tPacket, nLength + 0x41);
     return 1;
@@ -2476,7 +2477,7 @@ int __fastcall BNSEND_SendAccountChange(const char* szAccountName, const char* s
     SStrUpper(szOldUpper);
     SStrCopy(szNewUpper, szNewPassword, 0x100);
     SStrUpper(szNewUpper);
-    gtBigPair.sub_00528660_MakeVerifier(szAccountUpper, szNewUpper, gabNewVerifier, &gabNewVerifier[0x20]);
+    gtBigPair.MakeVerifier(szAccountUpper, szNewUpper, gabNewVerifier, &gabNewVerifier[0x20]);
     gtBigPair.sub_005286D0_InitLogin(&gtLoginRecord, szAccountUpper, szOldUpper);
     sub_0041D2A0_MemCopy(tPacket.abPublic, gtLoginRecord.abPublic, sizeof(tPacket.abPublic));
     unsigned int nLength = SStrCopy(tPacket.szName, szAccountName, 0x100);

@@ -119,7 +119,7 @@ struct D2OffsetTableRefStrc
 {
     D2OffsetTableStrc* f_0;
 
-    void* sub_004E0700_GetEntry(int nId);
+    void* GetEntry(int nId); // 0x004E0700
 };
 
 struct D2RequestStrc
@@ -200,7 +200,7 @@ struct D2DrawBoundsStrc
     int nMinY;
     int nMaxY;
 
-    void sub_004DDE80_ExtendBounds(D2DrawBoundsArgStrc* pArg, int nX, int nY);
+    void ExtendBounds(D2DrawBoundsArgStrc* pArg, int nX, int nY); // 0x004DDE80
 };
 
 extern "C" double __cdecl sqrt(double x); // 0x006879C0
@@ -1225,7 +1225,7 @@ int __stdcall GFXUTIL_TestLevelDrawEdges(int bArg)
 }
 
 // 0x004DDE80
-void D2DrawBoundsStrc::sub_004DDE80_ExtendBounds(D2DrawBoundsArgStrc* pArg, int nX, int nY)
+void D2DrawBoundsStrc::ExtendBounds(D2DrawBoundsArgStrc* pArg, int nX, int nY)
 {
     pArg->dwFlags |= 0x20000;
     if (bActive)
@@ -1250,7 +1250,7 @@ void D2DrawBoundsStrc::sub_004DDE80_ExtendBounds(D2DrawBoundsArgStrc* pArg, int 
 }
 
 // 0x004E0700
-void* D2OffsetTableRefStrc::sub_004E0700_GetEntry(int nId)
+void* D2OffsetTableRefStrc::GetEntry(int nId)
 {
     D2OffsetTableStrc* pTable = this->f_0;
     if (!pTable)

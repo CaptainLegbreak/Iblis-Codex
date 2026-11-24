@@ -81,7 +81,7 @@ struct D2BnLogStrc
         SLogClose(hLog);
     }
 
-    void sub_00518BA0_LogWrite(const char* szText);
+    void Write(const char* szText); // 0x00518BA0
 };
 
 extern int gbDnsPending; // 0x008818E0
@@ -609,7 +609,7 @@ unsigned int __fastcall BNDOWNLOAD_GetKeyBit(const unsigned int* pKey, unsigned 
 void __fastcall BNDOWNLOAD_SetKeyBit(unsigned int* pKey, unsigned int nIndex, unsigned char nValue); // 0x005225A0
 
 // 0x00518BA0
-void D2BnLogStrc::sub_00518BA0_LogWrite(const char* szText)
+void D2BnLogStrc::Write(const char* szText)
 {
     SLogWrite(hLog, szText);
 }
@@ -2639,7 +2639,8 @@ int __fastcall BNDOWNLOAD_SendAccountUpgrade(int bRetry)
     if (bRetry && (unsigned int)++gnLoginRetryCount > 1)
         return 0;
 
-    gtBigPair.sub_00528660_MakeVerifier(gtLoginRecord.szName, gtLoginRecord.szPassword, gabNewVerifier, gabNewVerifier + 0x20);
+// build: symbol ?MakeVerifier@* 0x00528660
+    gtBigPair.MakeVerifier(gtLoginRecord.szName, gtLoginRecord.szPassword, gabNewVerifier, gabNewVerifier + 0x20);
     BNSEND_SendPacket(0x57, 0, 0);
     return 1;
 }

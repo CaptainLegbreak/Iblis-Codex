@@ -27,7 +27,7 @@ struct D2BigPairStrc
     int sub_005285A0_Init(int nSize1, const unsigned char* pData1, int nSize2, const unsigned char* pData2); // 0x005285A0
     void sub_00528620_InitRandom(unsigned int nSeed); // 0x00528620
     void sub_00528630_Release(); // 0x00528630
-    void sub_00528660_MakeVerifier(const char* szName, const char* szPassword, unsigned char* pSalt, unsigned char* pVerifier); // 0x00528660
+    void MakeVerifier(const char* szName, const char* szPassword, unsigned char* pSalt, unsigned char* pVerifier); // 0x00528660
     void sub_005286D0_InitLogin(D2BigLoginRecordStrc* pRecord, const char* szName, const char* szPassword); // 0x005286D0
     int sub_00528760_ComputeLoginProof(D2BigLoginRecordStrc* pRecord, const unsigned char* pSalt, const unsigned char* pServerPublic); // 0x00528760
     int sub_00528890_CompareServerProof(const D2BigLoginRecordStrc* pRecord, const unsigned char* pServerProof); // 0x00528890

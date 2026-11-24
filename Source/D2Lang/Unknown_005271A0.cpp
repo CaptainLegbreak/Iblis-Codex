@@ -135,7 +135,8 @@ void __fastcall sub_005272B0_FormatText(Unicode* pDst, const Unicode* pOwner, co
 
     case 3:
         sub_005267E0(pDst, pItem);
-        if (((const D2LangCharSetStrc*)"aeiou")->sub_00527090_ContainsChar(pOwner))
+// build: symbol ?ContainsChar@* 0x00527090
+        if (((const D2LangCharSetStrc*)"aeiou")->ContainsChar(pOwner))
             strcpy(szSuffix, " d'");
         else
             strcpy(szSuffix, " de ");

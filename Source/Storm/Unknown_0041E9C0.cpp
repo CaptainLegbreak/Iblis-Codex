@@ -441,7 +441,8 @@ unsigned int CHuffman::Decompress(void* pOutput, unsigned int nOutputSize, D2Sto
     }
 }
 
-void CBitOutput::sub_0041D9A0_Flush()
+// build: symbol ?Flush@* 0x0041D9A0
+void CBitOutput::Flush()
 {
     while (nBitCount)
     {
@@ -486,7 +487,7 @@ unsigned int CHuffman::Compress(CBitOutput* pOutput, void* pvIn, int cbIn, unsig
         }
     }
     sub_0041D9E0_EncodeOne(pOutput, 0x100);
-    pOutput->sub_0041D9A0_Flush();
+    pOutput->Flush();
     return pOutput->sub_0041D940_GetSize();
 }
 
