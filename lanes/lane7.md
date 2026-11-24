@@ -42,7 +42,6 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
   - **0x55A6D0** (D2Game Items.cpp, 2,253 B): Items.cpp already holds an unmarked body of D2GAME_DropTC_6FC51360. With a `// 0x0055A6D0` marker it builds 2,239/2,253 with the rest of Items.cpp equal. Next up.
 
 ## Ready
-- lane7/assume-macros-3 4d1454dc (on #369), VERIFIED 29420d2e. Follow-up to #366: renames STORM_ASSUME to `SASSERT` (Storm.h) and FOG_ASSUME to `DEFAULT_UNREACHABLE` (Fog.h, `default: DEFAULT_UNREACHABLE;`), and tools/status.py lists these for completeness like cpuid/bsr instead of its own count line. Forcing constructs stay 38. Touches lane 3's Storm/Fog files (Storm.h, Fog.h, SFILE.CPP, Excel.cpp, SBig_00423DC0/00424700/00424B00.cpp) and tools/status.py; precheck rebuilt the 65 includers, all equal. Replaces lane7/assume-macros-2.
 
 ## Questions
 
@@ -73,3 +72,4 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 - 2026-11-24 14:07 PT: assume-macros-2 merged (forcing constructs 38), dropped from Ready. Exhaustive one-mutation searches on the six closest volatile rows (SkillItem, SkillDesc, Fog 0x402A90, BNetGW, dLightMap, Units) found nothing; these are register/scheduling pins with no plain lever found yet. Also found an uncounted bare __assume in D2Client SCmd.cpp's inlined FindStoppedPlayer (0x45F7B0, 5 B without it).
 - 2026-11-24 14:40 PT: no new Ready. spellsel 0x4A9870 and BnDownload 0x522C30 by hand: no plain form (118 B / 14 lines). The larger rows (PlrModes, 0x5B2A00, Game.cpp) also lean on identical-arm ifs that only steer code generation; those want the same cleanup.
 - 2026-11-24 15:14 PT: #366 merged the withdrawn lane7/assume-macros (STORM_ASSUME/FOG_ASSUME), not -2. Reposting -2's content on #369 as lane7/assume-macros-3 (renames to SASSERT / DEFAULT_UNREACHABLE, status.py lists them for completeness); full build running. Please drop lane7/assume-macros-2 from the rebase list.
+- 2026-11-24 15:59 PT: assume-macros-3 is in (main has SASSERT / DEFAULT_UNREACHABLE), dropped from Ready. Game.cpp 0x52C900 and Gfx 0x4732C0 by hand: register / float-temp choices, no plain form yet.
