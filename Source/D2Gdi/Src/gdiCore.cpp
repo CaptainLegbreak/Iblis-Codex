@@ -331,7 +331,7 @@ int __cdecl GDI_EndDraw()
 }
 
 // 0x006C7E30
-int __cdecl sub_006C7E30_BlitWindow()
+int __cdecl GDI_BlitWindow()
 {
     void* hDC = GetDC(ghRenderWindow);
     void* hMemoryDC = CreateCompatibleDC(hDC);
@@ -351,7 +351,7 @@ int __cdecl sub_006C7E30_BlitWindow()
 }
 
 // 0x006C7F90
-void __fastcall sub_006C7F90_GetScreenSize(int* width, int* height)
+void __fastcall GDI_GetScreenSize(int* width, int* height)
 {
     *width = gnRenderWidth;
     *height = gnRenderHeight;
@@ -382,7 +382,7 @@ int __fastcall GDI_ChangeRes(int nUnused, int nMode)
 }
 
 // 0x006C81A0
-void __fastcall sub_006C81A0_RENDERER_WINDOWED_GetPalette(void** phPalette, D2RgbQuadStrc** ppEntries)
+void __fastcall GDI_GetPalette(void** phPalette, D2RgbQuadStrc** ppEntries)
 {
     D2_ASSERT(phPalette, 546);
     D2_ASSERT(ppEntries, 547);
@@ -425,7 +425,7 @@ static inline int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX,
 }
 
 // 0x006C84B0
-int __fastcall sub_006C84B0_Draw(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, void* pPalette)
+int __fastcall GDI_DrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, void* pPalette)
 {
     D2CelContextStrc* pContext = (D2CelContextStrc*)pData;
     if (!sub_006001F0(pContext, 0, 1))
@@ -470,7 +470,7 @@ int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue)
 }
 
 // 0x006C86A0
-void __fastcall sub_006C86A0_DrawImageRows(D2CelContextStrc* pContext, int nX, int nY, int nSkipTop, int nDrawHeight, int nDrawMode)
+void __fastcall GDI_DrawImageRows(D2CelContextStrc* pContext, int nX, int nY, int nSkipTop, int nDrawHeight, int nDrawMode)
 {
     if (!sub_006001F0(pContext, 0, 1))
         return;
@@ -484,7 +484,7 @@ void __fastcall sub_006C86A0_DrawImageRows(D2CelContextStrc* pContext, int nX, i
 }
 
 // 0x006C87E0
-void __fastcall sub_006C87E0_DrawShadow(void* pData, int nX, int nY)
+void __fastcall GDI_DrawShadow(void* pData, int nX, int nY)
 {
     D2CelContextStrc* pContext = (D2CelContextStrc*)pData;
     if (!sub_006001F0(pContext, 0, 1))
@@ -562,7 +562,7 @@ static int __stdcall sub_006C8380_Clip(D2CelFileStrc* pCelFile, int nY, D2ClipRe
 }
 
 // 0x006C8750
-void __fastcall sub_006C8750_DrawCel(D2CelContext006C8750Strc* pContext, int nX, int nY, D2ClipRect006C8750Strc* pClip, int nC)
+void __fastcall GDI_DrawCelClipped(D2CelContext006C8750Strc* pContext, int nX, int nY, D2ClipRect006C8750Strc* pClip, int nC)
 {
     D2ClipRect006C8750Strc tRect = {};
     if (!sub_006001F0_Prepare(pContext, 0, 1))

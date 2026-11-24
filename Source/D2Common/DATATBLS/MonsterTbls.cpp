@@ -703,7 +703,7 @@ void __fastcall DATATBLS_LoadMonTypeTxt(void* hArchive);
 
 #define FIXTURE_LINE(x) (x)
 
-unsigned short __stdcall sub_00524D30_FindString(const char* szKey, const wchar_t** ppText);               // 0x00524D30
+unsigned short __stdcall STRTABLE_FindString(const char* szKey, const wchar_t** ppText);               // 0x00524D30
 
 D2TxtLinkStrc* gpHireDescLinker_0096BCE8;                                                                   // 0x0096BCE8
 
@@ -2371,8 +2371,8 @@ void __fastcall DATATBLS_LoadHirelingTxt(void* hArchive)
     for (int i = 0; i < gnHirelingTxtRecordCount; ++i)
     {
         const wchar_t* pUnicode = 0;
-        gpHirelingTxt[i].wNameFirst = sub_00524D30_FindString(gpHirelingTxt[i].szNameFirst, &pUnicode);
-        gpHirelingTxt[i].wNameLast = sub_00524D30_FindString(gpHirelingTxt[i].szNameLast, &pUnicode);
+        gpHirelingTxt[i].wNameFirst = STRTABLE_FindString(gpHirelingTxt[i].szNameFirst, &pUnicode);
+        gpHirelingTxt[i].wNameLast = STRTABLE_FindString(gpHirelingTxt[i].szNameLast, &pUnicode);
         if (bExpansion)
         {
             D2_ASSERT(gpHirelingTxt[i].wNameFirst > 0, 0x816);

@@ -28,9 +28,9 @@ void __fastcall CMNSUBTILE_DrawIsoBlockFlat(unsigned char* pSrc, unsigned char* 
 
 void __fastcall D2GFX_DrawLitSubtileRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep); // 0x004F6BB0
 
-void __fastcall sub_004F71A0_DrawLitRleRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nArg); // 0x004F71A0
+void __fastcall CMNSUBTILE_DrawLitRleRows(unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nArg); // 0x004F71A0
 
-void __fastcall sub_004F7580_DrawRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows); // 0x004F7580
+void __fastcall CMNSUBTILE_DrawRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows); // 0x004F7580
 
 extern int gnClipBottom; // 0x007C978C
 
@@ -54,11 +54,11 @@ extern unsigned char* gpScreenBuffer; // 0x007D5448
 
 extern int gnScreenPitch; // 0x007D544C
 
-void __fastcall sub_004F7850_DrawLitRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nArg);
+void __fastcall CMNSUBTILE_DrawLitRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, int nLightX, int nLightXStep, int nLightY, int nLightYStep, int nRows, int nArg); // 0x004F7850
 
-void __fastcall sub_004F7EA0_DrawVisTile(unsigned char* pSrc, int nX, int nY);
+void __fastcall CMNSUBTILE_DrawVisTile(unsigned char* pSrc, int nX, int nY); // 0x004F7EA0
 
-void __fastcall sub_004F8050_DrawRleVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nLight); // 0x004F8050
+void __fastcall CMNSUBTILE_DrawRleVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nLight); // 0x004F8050
 
 extern "C" int gnFlag_007788DC;
 
@@ -92,7 +92,7 @@ int __stdcall D2GFX_SetGamma(int nGamma); // 0x004F5230
 
 int __fastcall D2GFX_SetOption(int nOption, int nValue); // 0x004F52B0
 
-void __fastcall sub_004F7DA0_SetPanelCoords(int nPitch, int nHeight); // 0x004F7DA0
+void __fastcall WINDOW_SetPanelCoords(int nPitch, int nHeight); // 0x004F7DA0
 
 void __cdecl CMNSUBTILE_BuildLineOffsets(); // 0x004F7E70
 
@@ -149,7 +149,7 @@ void __fastcall sub_004F8DE0(unsigned char* a1, int a2, int a3, int a4)
 
     if (gnViewMatrixAdjust != gnViewMatrixAdjustDefault)
     {
-        sub_004F7DA0_SetPanelCoords(a2, a3);
+        WINDOW_SetPanelCoords(a2, a3);
     }
 }
 

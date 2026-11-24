@@ -44,7 +44,7 @@ extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
 
 extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
 
-unsigned short __stdcall sub_00524D30_FindString(const char* szKey, const wchar_t** ppText); // 0x00524D30
+unsigned short __stdcall STRTABLE_FindString(const char* szKey, const wchar_t** ppText); // 0x00524D30
 
 int __fastcall STRTABLE_GetLanguageIdFromName(const char* szLanguage); // 0x00525100
 
@@ -93,7 +93,7 @@ unsigned int __stdcall STRTABLE_HashKey(const char* szKey, unsigned int nTableSi
 
 wchar_t* __fastcall STRTABLE_GetUntranslatedString(const char* szKey); // 0x00524AC0
 
-void __cdecl sub_00527720_FreeCodePageTables(); // 0x00527720
+void __cdecl UNISYS_FreeCodePageTables(); // 0x00527720
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
@@ -327,7 +327,7 @@ static unsigned short __stdcall STRTABLE_FindKey(void** ppSlots, const char* szK
 }
 
 // 0x00524D30
-unsigned short __stdcall sub_00524D30_FindString(const char* szKey, const wchar_t** ppText)
+unsigned short __stdcall STRTABLE_FindString(const char* szKey, const wchar_t** ppText)
 {
     D2_ASSERT(sghStringTable, 0x2BA);
     D2_ASSERT(sghPatchStringTable, 0x2BB);
@@ -359,7 +359,7 @@ unsigned short __stdcall sub_00524D30_FindString(const char* szKey, const wchar_
 const wchar_t* __fastcall D2LANG_GetStringByReferenceString(const char* szKey)
 {
     const wchar_t* pText = 0;
-    sub_00524D30_FindString(szKey, &pText);
+    STRTABLE_FindString(szKey, &pText);
     return pText;
 }
 
@@ -417,7 +417,7 @@ void __cdecl STRTABLE_UnloadStringTables()
             pNode = pNext;
         }
         gpStringCache = 0;
-        sub_00527720_FreeCodePageTables();
+        UNISYS_FreeCodePageTables();
     }
 }
 

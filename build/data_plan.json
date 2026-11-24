@@ -9,7 +9,7 @@
    "externs": [
     "extern \"C\" void __cdecl sub_0042E590_SetOwner(); // 0x0042E590",
     "extern \"C\" void __cdecl sub_0042E5A0_Nop(); // 0x0042E5A0",
-    "extern \"C\" void __cdecl sub_0043CBE0_Init(); // 0x0043CBE0",
+    "extern \"C\" void __cdecl CHATDLG_GetModuleInterface(); // 0x0043CBE0",
     "extern \"C\" void __cdecl sub_0043CBF0_Nop(); // 0x0043CBF0",
     "extern \"C\" void __cdecl WINMAIN_InitInterface(); // 0x0044B400",
     "extern \"C\" void __cdecl WINMAIN_ShutdownInterface(); // 0x0044B420",
@@ -416,7 +416,7 @@
     "extern \"C\" char gData_0070CD84[]; // 0x0070CD84",
     "extern \"C\" char gpPlayerProfileBckgCelFileA[]; // 0x0077BD3C",
     "extern \"C\" char gpPlayerProfileBckgCelFileB[]; // 0x0077BD40",
-    "extern \"C\" void __cdecl sub_00443EF0_OnSelect(); // 0x00443EF0",
+    "extern \"C\" void __cdecl CHATDLG_OnLadderSelect(); // 0x00443EF0",
     "extern \"C\" void __cdecl sub_00443F70_OnRefresh(); // 0x00443F70",
     "extern \"C\" void __cdecl CHARSEL_SubmitProfile(); // 0x00443F80",
     "extern \"C\" void __cdecl CHATDLG_OnChannelDoesNotExist(); // 0x00447700",
@@ -1638,7 +1638,7 @@
     "extern \"C\" void __cdecl GLIDE_CelDrawShadow(); // 0x0050B690",
     "extern \"C\" void __cdecl GLIDE_CelDrawHilight(); // 0x0050B720",
     "extern \"C\" void __cdecl GLIDE_DebugFillBackBuffer(); // 0x0050B7A0",
-    "extern \"C\" void __cdecl sub_0050BC90_GlideDebugPrintf(); // 0x0050BC90",
+    "extern \"C\" void __cdecl GLIDE_DebugPrintf(); // 0x0050BC90",
     "extern \"C\" void __cdecl GLIDE_DebugDraw(); // 0x0050BEF0",
     "extern \"C\" void __cdecl sub_0050BF50_GlideDrawBox(); // 0x0050BF50",
     "extern \"C\" void __cdecl sub_0050C0F0_GlideDrawBoxAlpha(); // 0x0050C0F0",
@@ -1652,8 +1652,8 @@
     "extern \"C\" void __cdecl sub_0050D490_GlideTileDrawTrans(); // 0x0050D490",
     "extern \"C\" void __cdecl sub_0050D4C0_GlideTileDrawLit(); // 0x0050D4C0",
     "extern \"C\" void __cdecl sub_0050D6A0(); // 0x0050D6A0",
-    "extern \"C\" void __cdecl sub_0050DBC0_GlideSetAmbientColor(); // 0x0050DBC0",
-    "extern \"C\" void __cdecl sub_0050DD50_SetProjectOrigin(); // 0x0050DD50",
+    "extern \"C\" void __cdecl GLIDE_SetAmbientColor(); // 0x0050DBC0",
+    "extern \"C\" void __cdecl GLIDE_SetProjectOrigin(); // 0x0050DD50",
     "extern \"C\" void __cdecl GLIDE_PerspectiveTransform(); // 0x0050DD60",
     "extern \"C\" void __cdecl sub_0050DE10(); // 0x0050DE10",
     "extern \"C\" void __cdecl sub_0050DF00_ResetSpriteScale(); // 0x0050DF00",
@@ -1697,7 +1697,7 @@
     "extern \"C\" void __cdecl DDRAW_CelDrawHilight(); // 0x005123A0",
     "extern \"C\" void __cdecl sub_005123B0_DDrawDebugFillBackBuffer(); // 0x005123B0",
     "extern \"C\" void __cdecl sub_00512410_ForwardToDrawImage(); // 0x00512410",
-    "extern \"C\" void __cdecl sub_00512680_SoftDebugPrintf(); // 0x00512680",
+    "extern \"C\" void __cdecl DDRAW_DebugPrintf(); // 0x00512680",
     "extern \"C\" void __cdecl DDRAW_DebugDraw(); // 0x005126F0",
     "extern \"C\" void __cdecl sub_00512710_DDrawDrawBox(); // 0x00512710",
     "extern \"C\" void __cdecl DDRAW_DrawBoxAlpha(); // 0x005128B0",
@@ -1713,20 +1713,20 @@
     "extern \"C\" void __cdecl DDRAW_FloorTileDraw(); // 0x005132C0",
     "extern \"C\" void __cdecl DDRAW_CloseSmacker(); // 0x00513330",
     "extern \"C\" void __cdecl DDRAW_DecodeSmacker(); // 0x00513400",
-    "extern \"C\" void __cdecl sub_005135F0_DDrawPlaySmacker(); // 0x005135F0",
+    "extern \"C\" void __cdecl DDRAW_PlaySmacker(); // 0x005135F0",
     "extern \"C\" void __cdecl sub_006B1BC0(); // 0x006B1BC0",
     "extern \"C\" void __cdecl sub_006B1C00(); // 0x006B1C00",
     "extern \"C\" void __cdecl sub_006B1C10_SetGlobal(); // 0x006B1C10",
     "extern \"C\" void __cdecl sub_006B1C20_GetMaskedFlags(); // 0x006B1C20",
-    "extern \"C\" void __cdecl sub_006B1C30_SetMode(); // 0x006B1C30",
-    "extern \"C\" void __cdecl sub_006B1C60_GetScreenSize(); // 0x006B1C60",
+    "extern \"C\" void __cdecl D3D_FlipPrimary(); // 0x006B1C30",
+    "extern \"C\" void __cdecl D3D_GetScreenSize(); // 0x006B1C60",
     "extern \"C\" void __cdecl D3D_SetPalette(); // 0x006B1C70",
-    "extern \"C\" void __cdecl sub_006B1D60_SetPaletteView(); // 0x006B1D60",
+    "extern \"C\" void __cdecl D3D_SetPaletteView(); // 0x006B1D60",
     "extern \"C\" void __cdecl QSERVER_GetFloorCacheSize(); // 0x006B20A0",
     "extern \"C\" void __cdecl sub_006B20B0(); // 0x006B20B0",
-    "extern \"C\" void __cdecl sub_006B20C0_SetOption(); // 0x006B20C0",
-    "extern \"C\" void __cdecl sub_006B3400_ReleaseWindow(); // 0x006B3400",
-    "extern \"C\" void __cdecl sub_006B3530_BeginCutScene(); // 0x006B3530",
+    "extern \"C\" void __cdecl D3D_SetOption(); // 0x006B20C0",
+    "extern \"C\" void __cdecl D3D_ReleaseWindow(); // 0x006B3400",
+    "extern \"C\" void __cdecl D3D_BeginCutScene(); // 0x006B3530",
     "extern \"C\" void __cdecl D3D_SetGamma(); // 0x006B3570",
     "extern \"C\" void __cdecl D3D_GetBackBuffer(); // 0x006B3610",
     "extern \"C\" void __cdecl sub_006B4E80_LoadVideoConfiguration(); // 0x006B4E80",
@@ -1780,9 +1780,9 @@
     "extern \"C\" void __cdecl GDI_PauseSurface(); // 0x006C7D30",
     "extern \"C\" void __cdecl sub_006C7D80_LockAndSend(); // 0x006C7D80",
     "extern \"C\" void __cdecl GDI_EndDraw(); // 0x006C7DF0",
-    "extern \"C\" void __cdecl sub_006C7E30_BlitWindow(); // 0x006C7E30",
+    "extern \"C\" void __cdecl GDI_BlitWindow(); // 0x006C7E30",
     "extern \"C\" void __cdecl sub_006C7EF0_ConvertPalette(); // 0x006C7EF0",
-    "extern \"C\" void __cdecl sub_006C7F90_GetScreenSize(); // 0x006C7F90",
+    "extern \"C\" void __cdecl GDI_GetScreenSize(); // 0x006C7F90",
     "extern \"C\" void __cdecl GDI_SetPalette(); // 0x006C7FA0",
     "extern \"C\" void __cdecl sub_006C8000_SetPaletteView(); // 0x006C8000",
     "extern \"C\" void __cdecl sub_006C8030_Nop(); // 0x006C8030",
@@ -1797,11 +1797,11 @@
     "extern \"C\" void __cdecl sub_006C80F0(); // 0x006C80F0",
     "extern \"C\" void __cdecl sub_006C8100(); // 0x006C8100",
     "extern \"C\" void __cdecl sub_006C8190(); // 0x006C8190",
-    "extern \"C\" void __cdecl sub_006C84B0_Draw(); // 0x006C84B0",
+    "extern \"C\" void __cdecl GDI_DrawImage(); // 0x006C84B0",
     "extern \"C\" void __cdecl sub_006C85A0_DrawImage(); // 0x006C85A0",
-    "extern \"C\" void __cdecl sub_006C86A0_DrawImageRows(); // 0x006C86A0",
-    "extern \"C\" void __cdecl sub_006C8750_DrawCel(); // 0x006C8750",
-    "extern \"C\" void __cdecl sub_006C87E0_DrawShadow(); // 0x006C87E0",
+    "extern \"C\" void __cdecl GDI_DrawImageRows(); // 0x006C86A0",
+    "extern \"C\" void __cdecl GDI_DrawCelClipped(); // 0x006C8750",
+    "extern \"C\" void __cdecl GDI_DrawShadow(); // 0x006C87E0",
     "extern \"C\" void __cdecl sub_006C88A0(); // 0x006C88A0",
     "extern \"C\" void __cdecl sub_006C88B0_DrawAt(); // 0x006C88B0",
     "extern \"C\" void __cdecl sub_006C8910_ForwardDraw(); // 0x006C8910",
@@ -2171,7 +2171,7 @@
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleStartAdvex(); // 0x00520D60",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleLogonChallengeEx(); // 0x00520D70",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleLogonResponse(); // 0x00520DA0",
-    "extern \"C\" void __cdecl sub_00520DC0_HandleStatus(); // 0x00520DC0",
+    "extern \"C\" void __cdecl BNDOWNLOAD_HandleStatus(); // 0x00520DC0",
     "extern \"C\" void __cdecl sub_00520E50(); // 0x00520E50",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleStartVersioning(); // 0x00520F60",
     "extern \"C\" void __cdecl BNDOWNLOAD_HandlePing(); // 0x00520FC0",
@@ -5258,7 +5258,7 @@
    "bytes": 4,
    "definitions": 1,
    "externs": [
-    "extern \"C\" void __cdecl sub_004359D0_RunFrontEnd(); // 0x004359D0"
+    "extern \"C\" void __cdecl MAINMENUS_RunFrontEnd(); // 0x004359D0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Launch/Unknown_0042E590.inc",
@@ -6105,7 +6105,7 @@
      24,
      "0x0043CBE0",
      "names.json",
-     "sub_0043CBE0_Init",
+     "CHATDLG_GetModuleInterface",
      0,
      "func"
     ],
@@ -9789,7 +9789,7 @@
      0,
      "0x004359D0",
      "names.json",
-     "sub_004359D0_RunFrontEnd",
+     "MAINMENUS_RunFrontEnd",
      0,
      "func"
     ]
@@ -13015,7 +13015,7 @@
      32,
      "0x00443EF0",
      "names.json",
-     "sub_00443EF0_OnSelect",
+     "CHATDLG_OnLadderSelect",
      0,
      "func"
     ]
@@ -19149,7 +19149,7 @@
      80,
      "0x0043DA00",
      "names.json",
-     "sub_0043DA00_ScrollPageDown",
+     "CHATDLG_OnScrollPageDown",
      0,
      "func"
     ],
@@ -19165,7 +19165,7 @@
      128,
      "0x0043DA20",
      "names.json",
-     "sub_0043DA20_ScrollUp",
+     "CHATDLG_OnScrollUp",
      0,
      "func"
     ],
@@ -19181,7 +19181,7 @@
      176,
      "0x0043DA30",
      "names.json",
-     "sub_0043DA30_ScrollForward",
+     "CHATDLG_OnScrollDown",
      0,
      "func"
     ]
@@ -74794,7 +74794,7 @@
      96,
      "0x0050DD50",
      "names.json",
-     "sub_0050DD50_SetProjectOrigin",
+     "GLIDE_SetProjectOrigin",
      0,
      "func"
     ],
@@ -74842,7 +74842,7 @@
      120,
      "0x0050DBC0",
      "names.json",
-     "sub_0050DBC0_GlideSetAmbientColor",
+     "GLIDE_SetAmbientColor",
      0,
      "func"
     ],
@@ -75002,7 +75002,7 @@
      200,
      "0x0050BC90",
      "names.json",
-     "sub_0050BC90_GlideDebugPrintf",
+     "GLIDE_DebugPrintf",
      0,
      "func"
     ],
@@ -75188,7 +75188,7 @@
      68,
      "0x005135F0",
      "source",
-     "sub_005135F0_DDrawPlaySmacker",
+     "DDRAW_PlaySmacker",
      0,
      "func"
     ],
@@ -75452,7 +75452,7 @@
      200,
      "0x00512680",
      "names.json",
-     "sub_00512680_SoftDebugPrintf",
+     "DDRAW_DebugPrintf",
      0,
      "func"
     ],
@@ -75534,7 +75534,7 @@
      16,
      "0x006B3400",
      "names.json",
-     "sub_006B3400_ReleaseWindow",
+     "D3D_ReleaseWindow",
      0,
      "func"
     ],
@@ -75566,7 +75566,7 @@
      32,
      "0x006B1C30",
      "names.json",
-     "sub_006B1C30_SetMode",
+     "D3D_FlipPrimary",
      0,
      "func"
     ],
@@ -75598,7 +75598,7 @@
      48,
      "0x006B20C0",
      "names.json",
-     "sub_006B20C0_SetOption",
+     "D3D_SetOption",
      0,
      "func"
     ],
@@ -75606,7 +75606,7 @@
      52,
      "0x006B3530",
      "source",
-     "sub_006B3530_BeginCutScene",
+     "D3D_BeginCutScene",
      0,
      "func"
     ],
@@ -75662,7 +75662,7 @@
      80,
      "0x006B1C60",
      "names.json",
-     "sub_006B1C60_GetScreenSize",
+     "D3D_GetScreenSize",
      0,
      "func"
     ],
@@ -75734,7 +75734,7 @@
      116,
      "0x006B1D60",
      "names.json",
-     "sub_006B1D60_SetPaletteView",
+     "D3D_SetPaletteView",
      0,
      "func"
     ],
@@ -76016,7 +76016,7 @@
      32,
      "0x006C7E30",
      "source",
-     "sub_006C7E30_BlitWindow",
+     "GDI_BlitWindow",
      0,
      "func"
     ],
@@ -76112,7 +76112,7 @@
      80,
      "0x006C7F90",
      "names.json",
-     "sub_006C7F90_GetScreenSize",
+     "GDI_GetScreenSize",
      0,
      "func"
     ],
@@ -76216,7 +76216,7 @@
      132,
      "0x006C84B0",
      "source",
-     "sub_006C84B0_Draw",
+     "GDI_DrawImage",
      0,
      "func"
     ],
@@ -76232,7 +76232,7 @@
      140,
      "0x006C86A0",
      "source",
-     "sub_006C86A0_DrawImageRows",
+     "GDI_DrawImageRows",
      0,
      "func"
     ],
@@ -76240,7 +76240,7 @@
      144,
      "0x006C87E0",
      "source",
-     "sub_006C87E0_DrawShadow",
+     "GDI_DrawShadow",
      0,
      "func"
     ],
@@ -76256,7 +76256,7 @@
      152,
      "0x006C8750",
      "source",
-     "sub_006C8750_DrawCel",
+     "GDI_DrawCelClipped",
      0,
      "func"
     ],
@@ -76528,7 +76528,7 @@
      4,
      "0x004F7EA0",
      "source",
-     "sub_004F7EA0_DrawVisTile",
+     "CMNSUBTILE_DrawVisTile",
      0,
      "func"
     ],
@@ -76536,7 +76536,7 @@
      8,
      "0x004F8050",
      "names.json",
-     "sub_004F8050_DrawRleVisTile",
+     "CMNSUBTILE_DrawRleVisTile",
      0,
      "func"
     ],
@@ -76552,7 +76552,7 @@
      16,
      "0x004F8120",
      "names.json",
-     "sub_004F8120_TileDrawLit",
+     "CMNSUBTILE_DrawLitVisTile",
      0,
      "func"
     ],
@@ -76560,7 +76560,7 @@
      20,
      "0x004F82D0",
      "source",
-     "sub_004F82D0_DrawBlendVisTile",
+     "CMNSUBTILE_DrawBlendVisTile",
      0,
      "func"
     ],
@@ -76568,7 +76568,7 @@
      24,
      "0x004F84F0",
      "source",
-     "sub_004F84F0_TileDrawLitBlend",
+     "CMNSUBTILE_DrawLitBlendVisTile",
      0,
      "func"
     ]
@@ -83005,7 +83005,7 @@
      232,
      "0x00520DC0",
      "names.json",
-     "sub_00520DC0_HandleStatus",
+     "BNDOWNLOAD_HandleStatus",
      0,
      "func"
     ],

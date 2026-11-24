@@ -270,7 +270,7 @@ void __fastcall CHARSEL_UseName(char* szName);                                  
 
 void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags);                     // 0x004F96F0
 
-void __fastcall sub_004FB590(int nFont);                                                                    // 0x004FB590
+void __fastcall TEXTBOX_SetSmallGap(int nFont);                                                                    // 0x004FB590
 
 int __fastcall D2Win_10191(D2WinTextBoxStrc* pTextBox, int nMaxSteps);                                      // 0x004FC5E0
 
@@ -607,7 +607,7 @@ extern "C" int __cdecl tolower(int nChar);
 // build: symbol ?gacCDKeyMap@* 0x006DF238
 extern const char gacCDKeyMap[];
 
-void __cdecl sub_0042FF20_ShowLocalAddress();                                                                                // 0x0042FF20
+void __cdecl MAINMENUS_ShowLocalAddress();                                                                                // 0x0042FF20
 
 void __cdecl MAINMENUS_UpdateTwoEditOk();                                                                                // 0x00436CF0
 
@@ -1107,13 +1107,13 @@ char* __cdecl CHARSEL_StrStr(char* szString, const char* szSubString)
 extern "C" unsigned short __cdecl _rotl16(unsigned short nValue, unsigned char nShift);
 
 // 0x0042E5C0
-unsigned short __fastcall sub_0042E5C0_SwapBytes(unsigned short wValue)
+unsigned short __fastcall CHARSEL_SwapBytes(unsigned short wValue)
 {
     return _rotl16(wValue, 8);
 }
 
 // 0x0042E5D0
-extern "C" __declspec(dllexport) void __fastcall sub_0042E5D0(unsigned short* pValues, unsigned int nCount) {
+extern "C" __declspec(dllexport) void __fastcall CHARSEL_SwapUnicodeBytes(unsigned short* pValues, unsigned int nCount) {
     for (unsigned int i = 0; i < nCount; i++) {
         pValues[i] = (unsigned short)((pValues[i] << 8) | (pValues[i] >> 8));
     }
@@ -3091,9 +3091,9 @@ void __cdecl CHARSEL_InitCharList()
 // build: symbol ?gszSpace@* 0x006FFC44
             D2Win_10045((D2WinControlStrc*)gapRowControlsX[i], gszSpace);
         }
-        sub_004FB590(1);
+        TEXTBOX_SetSmallGap(1);
         gapRowControls[i] = MAINMENUS_CreateControl(i + 0x84);
-        sub_004FB590(0);
+        TEXTBOX_SetSmallGap(0);
         ganRowValues_007799FC[i] = i / 2 * 0x5D + 0xB2;
     }
     gpControl_00779D94 = MAINMENUS_CreateControl(0x96);
@@ -3169,7 +3169,7 @@ int __cdecl sub_0043B830()
 }
 
 // 0x0043B840
-int __cdecl sub_0043B840()
+int __cdecl CHARSEL_IsBattleNetConnected()
 {
     return gbBattleNetConnected;
 }
@@ -3275,7 +3275,7 @@ void __stdcall Unload(int nValue); // 0x00517ED0
 extern int gbConnectCancelled; // 0x007795F4
 
 // 0x0043BF40
-static __declspec(noinline) void sub_0043BF40_ReportStatus(int nCode, int nArg)
+static __declspec(noinline) void CHARSEL_ReportStatus(int nCode, int nArg)
 {
     D2StatusStrc tStatus;
     tStatus.nCode = nCode;
@@ -3377,7 +3377,7 @@ int __cdecl sub_0043BF60()
 }
 
 // 0x0043C180
-int __fastcall sub_0043C180_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode)
+int __fastcall CHARSEL_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode)
 {
     D2StatusStrc tStatus;
 
@@ -3437,7 +3437,7 @@ int __fastcall sub_0043C180_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode)
                 break;
             }
 
-            sub_0043BF40_ReportStatus(nCode, 0);
+            CHARSEL_ReportStatus(nCode, 0);
             return 0;
         }
     }
@@ -3455,7 +3455,7 @@ int __fastcall sub_0043C180_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode)
         gpFuncTable_0077ABF0->pfnSlotA0(&nMode);
         if (nMode != 1 && gpFuncTable_0077ABF0->pfnSlot68())
         {
-            sub_0043BF40_ReportStatus(0xE, 0);
+            CHARSEL_ReportStatus(0xE, 0);
             return 0;
         }
     }

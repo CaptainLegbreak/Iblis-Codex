@@ -59,16 +59,16 @@ extern unsigned long gdwFontTextColor; // 0x0074C0CC
 extern unsigned int gdwRenderFlags_0096F3A8; // 0x0096F3A8
 extern void* gapFontGlyphA_00971150[]; // 0x00971150
 extern D2D3DTextureStrc* gapFontGlyphB_009712D0[]; // 0x009712D0
-void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
+void __fastcall D3D_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
 int __fastcall D3D_CreateMemoryTexture(D2DDSurfaceStrc** ppSurface, D2D3DTextureStrc** ppTexture, int nWidth, int nHeight); // 0x006B3730
 int __fastcall sub_006B58A0_CreateGlyphTexture(void** ppGlyphA, D2D3DTextureStrc** ppGlyphB, int nWidth, int nHeight); // 0x006B58A0
-void __fastcall sub_006B38A0_UploadGlyph(void* pGlyphA, D2DDSurfaceStrc* pSurface, int nHeight); // 0x006B38A0
+void __fastcall D3D_CopySurface(void* pGlyphA, D2DDSurfaceStrc* pSurface, int nHeight); // 0x006B38A0
 
 struct D2SurfaceVtableStrc { void* unk[31]; int (__stdcall *SetPalette)(D2SurfaceStrc*, void*); };
 
 struct D2SurfaceStrc { D2SurfaceVtableStrc* vtable; };
 
-void __fastcall sub_006B20E0_DDrawLogError(const char*, int); // 0x006B20E0
+void __fastcall D3D_LogDDrawError(const char*, int); // 0x006B20E0
 
 void __cdecl sub_006B72A0_CreateFontTextures(); // 0x006B72A0
 
@@ -195,7 +195,7 @@ void __cdecl sub_006B72A0_CreateFontTextures()
         long hResult = pSurface->lpVtbl->Lock(pSurface, 0, &tDesc, 0x21, 0);
         if (hResult)
         {
-            sub_006B20E0_DDrawLogError("Failed to lock memory surface", hResult);
+            D3D_LogDDrawError("Failed to lock memory surface", hResult);
         }
 
         unsigned short* pPixel = (unsigned short*)tDesc.lpSurface;
@@ -217,13 +217,13 @@ void __cdecl sub_006B72A0_CreateFontTextures()
         hResult = pSurface->lpVtbl->Unlock(pSurface, 0);
         if (hResult)
         {
-            sub_006B20E0_DDrawLogError("Failed to unlock memory surface", hResult);
+            D3D_LogDDrawError("Failed to unlock memory surface", hResult);
         }
 
         D2_ASSERT(sub_006B58A0_CreateGlyphTexture(&gapFontGlyphA_00971150[nChar - ' '], &gapFontGlyphB_009712D0[nChar - ' '], 8, 16), 0xBF);
         if (gdwRenderFlags_0096F3A8 & gdwBitMasks[10])
         {
-            sub_006B38A0_UploadGlyph(gapFontGlyphA_00971150[nChar - ' '], pSurface, 16);
+            D3D_CopySurface(gapFontGlyphA_00971150[nChar - ' '], pSurface, 16);
         }
         else
         {
@@ -252,7 +252,7 @@ void __fastcall sub_006B74F0_SetPalette(void* pPalette)
   D2SurfaceStrc* s = *p;
   if (s) {
    int result = s->vtable->SetPalette(s, pPalette);
-   if (result) { sub_006B20E0_DDrawLogError("SetPalette (debug font surface)", result); return; }
+   if (result) { D3D_LogDDrawError("SetPalette (debug font surface)", result); return; }
   }
   ++p;
  } while ((int)p < (int)(gaSurfaces_00971150 + 96));
@@ -354,7 +354,8 @@ void __fastcall sub_006B77B0_Call(int nX1, int nY1, int nX2, int nY2, unsigned c
     tVertices[3].fU = 0.0f;
     tVertices[3].fV = 0.0f;
 
-    unsigned int dwColor = sub_006B1D50_GetColor(nColor) & 0xFFFFFF;
+// build: symbol ?D3D_GetColor@* 0x006B1D50
+    unsigned int dwColor = D3D_GetColor(nColor) & 0xFFFFFF;
     switch (nMode)
     {
     case 0:

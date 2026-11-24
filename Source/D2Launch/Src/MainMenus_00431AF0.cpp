@@ -56,7 +56,7 @@ int __fastcall FOG_CloseFile(void*); // 0x004069A0
 int __fastcall FOG_DeleteFileA(const char*); // 0x00406990
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-void __fastcall sub_0042E5D0_SwapUnicode(Unicode*, unsigned int); // 0x0042E5D0
+void __fastcall CHARSEL_SwapUnicodeBytes(Unicode*, unsigned int); // 0x0042E5D0
 Unicode* __fastcall win2Unicode(Unicode*, const char*, int); // 0x00526F20
 int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820
 int __fastcall sub_00526D30_IsLineBreak(const Unicode* pText, unsigned int nIndex); // 0x00526D30
@@ -482,7 +482,7 @@ int __cdecl MAINMENUS_ShowTerms()
         {
             pChars = (Unicode*)pBuffer + 1;
             nCount = (nSize - 2) / 2;
-            sub_0042E5D0_SwapUnicode(pChars, nCount);
+            CHARSEL_SwapUnicodeBytes(pChars, nCount);
         }
         else
         {

@@ -47,7 +47,7 @@ int gnProjectOriginX; // 0x00880B60
 int gnProjectOriginY; // 0x00880B68
 
 // 0x0050DD50
-void __fastcall sub_0050DD50_SetProjectOrigin(int nX, int nY)
+void __fastcall GLIDE_SetProjectOrigin(int nX, int nY)
 {
     gnProjectOriginX = nX;
     gnProjectOriginY = nY;
@@ -68,7 +68,7 @@ void __fastcall GLIDE_PerspectiveTransform(int nX, int nY, int nZ, int* pScreenX
 static int* gpnPerspectiveTable;                                                                   // 0x00880B6C
 
 // 0x0050DE10
-void __fastcall sub_0050DE10_ProjectToScreenScaled(int nX, int nY, int nZ, int* pScreenX, int* pScreenY, int bLarge)
+void __fastcall GLIDE_ProjectToScreenScaled(int nX, int nY, int nZ, int* pScreenX, int* pScreenY, int bLarge)
 {
     const int* pTable = gpnPerspectiveTable;
     const int nA = ((nX - gnProjectOriginX) * 24) >> 16;

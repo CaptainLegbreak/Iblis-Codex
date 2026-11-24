@@ -89,7 +89,7 @@ extern const char gCreateFailure[]; // 0x006FC2C4
 extern const char gLockFailure[]; // 0x006FC330
 extern const char gUnlockFailure[]; // 0x006FC310
 void __fastcall sub_006B39B0_ShowD3DError(const char*,long); // 0x006B39B0
-void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
+void __fastcall D3D_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
 
 struct D2GridPointStrc { unsigned char nScale,nRed,nGreen,nBlue; int nX,nY; };
 
@@ -102,7 +102,7 @@ extern unsigned short gaGridIndices[65]; // 0x009716B0
 extern unsigned char gabMultiplyTable[256][256]; // 0x00971740
 int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile); // 0x006BB870
 void __fastcall D3D_SetColorCombineMode(int nState); // 0x006B1EA0
-void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere,int hResult); // 0x006B20E0
+void __fastcall D3D_LogDDrawError(const char* szWhere,int hResult); // 0x006B20E0
 extern int gnD3DOriginX; // 0x00981740
 extern int gnOriginY; // 0x00981744
 extern int gnPerspectiveScale; // 0x00989748
@@ -377,7 +377,7 @@ void __cdecl sub_006B8F10()
     result = gGridBuffer->Lock(0x21, &data, 0);
     if (result)
     {
-        sub_006B20E0_DDrawLogError(gLockFailure, result);
+        D3D_LogDDrawError(gLockFailure, result);
         return;
     }
 
@@ -424,7 +424,7 @@ void __cdecl sub_006B8F10()
     result = gGridBuffer->Unlock();
     if (result)
     {
-        sub_006B20E0_DDrawLogError(gUnlockFailure, result);
+        D3D_LogDDrawError(gUnlockFailure, result);
         return;
     }
 
@@ -476,19 +476,19 @@ void __fastcall sub_006B9170_DrawGrid(D2TileLibraryEntryStrc* pTexture,D2GridPoi
     if(gpRendererSettings_007C9148->bFlat)
     {
         long nResult=gpGridBuffer_00971734->lpVtbl->Lock(gpGridBuffer_00971734,0x21,(void**)&pVertices,0);
-        if(nResult) { sub_006B20E0_DDrawLogError(gLockFailure,nResult);return; }
+        if(nResult) { D3D_LogDDrawError(gLockFailure,nResult);return; }
         WRITE_CORNER(0)
         WRITE_CORNER(5)
         WRITE_CORNER(35)
         WRITE_CORNER(30)
         nResult=gpGridBuffer_00971734->lpVtbl->Unlock(gpGridBuffer_00971734);
-        if(nResult) { sub_006B20E0_DDrawLogError(gUnlockFailure,nResult);return; }
+        if(nResult) { D3D_LogDDrawError(gUnlockFailure,nResult);return; }
         gpDevice_00970E78->lpVtbl->DrawIndexedPrimitiveVB(gpDevice_00970E78,6,gpGridBuffer_00971734,gaFlatIndices,4,0x1c);
     }
     else
     {
         long nResult=gpGridBuffer_00971734->lpVtbl->Lock(gpGridBuffer_00971734,0x21,(void**)&pVertices,0);
-        if(nResult) { sub_006B20E0_DDrawLogError(gLockFailure,nResult);return; }
+        if(nResult) { D3D_LogDDrawError(gLockFailure,nResult);return; }
         const D2GridPointStrc* pPoint=pPoints;
         for(int nPoint=0;nPoint<36;++nPoint)
         {
@@ -499,7 +499,7 @@ void __fastcall sub_006B9170_DrawGrid(D2TileLibraryEntryStrc* pTexture,D2GridPoi
             ++pPoint;
         }
         nResult=gpGridBuffer_00971734->lpVtbl->Unlock(gpGridBuffer_00971734);
-        if(nResult) { sub_006B20E0_DDrawLogError(gUnlockFailure,nResult);return; }
+        if(nResult) { D3D_LogDDrawError(gUnlockFailure,nResult);return; }
         gpDevice_00970E78->lpVtbl->DrawIndexedPrimitiveVB(gpDevice_00970E78,5,gpGridBuffer_00971734,gaGridIndices,65,0x1c);
     }
     }

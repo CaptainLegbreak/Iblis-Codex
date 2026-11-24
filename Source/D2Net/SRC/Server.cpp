@@ -298,7 +298,7 @@ int __fastcall SERVER_OnClientDisconnectedCallback(int a1, int a2, int a3, int a
 }
 
 // 0x0052B780
-void __fastcall sub_0052B780()
+void __fastcall SERVER_SendConnectionInfo()
 {
     D2GSPacketSrvAFStrc packetAF;
     packetAF.nHeader = 0xAF;

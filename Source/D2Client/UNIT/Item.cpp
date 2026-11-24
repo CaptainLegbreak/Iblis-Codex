@@ -301,7 +301,7 @@ void __fastcall sub_004DBEA0(D2UnitStrc* pUnit, int nArg2, int nArg3, unsigned i
 
 int __fastcall sub_004DC110(void* pArg1, int nArg2, int nArg3, int nArg4, void* pfnCallback, int nArg6, int nArg7); // 0x004DC110
 
-int __fastcall sub_00516760(int nSocket, int* pParam, D2AddressInfoStrc* pInfo); // 0x00516760
+int __fastcall D2SOUND_ReadWaveHeader(int nSocket, int* pParam, D2AddressInfoStrc* pInfo); // 0x00516760
 
 int __stdcall sub_006001F0(D2PanelGfxStrc* pGfx, int nArg2, int nArg3); // 0x006001F0
 
@@ -4062,7 +4062,7 @@ int __fastcall ITEM_QueryCacheAddress(D2AddressQueryStrc* pQuery)
 
     D2AddressInfoStrc tInfo;
     int nParam = pQuery->nParam;
-    int nResult = sub_00516760(pQuery->nSocket, &nParam, &tInfo);
+    int nResult = D2SOUND_ReadWaveHeader(pQuery->nSocket, &nParam, &tInfo);
     if (nResult && tInfo.nVersion == 0x10 && tInfo.nMagic == 0x5622)
     {
         pQuery->nResult = nResult;

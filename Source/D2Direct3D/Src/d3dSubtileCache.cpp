@@ -32,7 +32,7 @@ struct D2SubtileEntryStrc { char unknown[8]; D2SurfaceStrc* surface; char tail[1
 
 struct D2SubtileSetStrc { int count; char unknown[20]; D2SubtileEntryStrc* entries; };
 
-void __fastcall sub_006B20E0_DDrawLogError(const char*, int); // 0x006B20E0
+void __fastcall D3D_LogDDrawError(const char*, int); // 0x006B20E0
 
 struct D2Node006BABD0Strc
 {
@@ -119,7 +119,7 @@ void __fastcall D3D_SetSubtileCachePalette(D2SubtileSetStrc* textures, void* pal
         D2SubtileEntryStrc* entry=&textures->entries[i];
         if (entry->surface) {
             int result=entry->surface->vtable->SetPalette(entry->surface,palette);
-            if (result) { sub_006B20E0_DDrawLogError("SetPalette (subtile surface)",result); return; }
+            if (result) { D3D_LogDDrawError("SetPalette (subtile surface)",result); return; }
         }
     }
 }

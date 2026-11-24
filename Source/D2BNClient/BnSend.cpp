@@ -1920,7 +1920,7 @@ extern long volatile gpSocket_00881BF0; // 0x00881BF0
 extern const char gszLineEnd_006FFCB0[]; // 0x006FFCB0
 
 // 0x0051C570
-int __fastcall sub_0051C570_SendLine(const char* szLine)
+int __fastcall BNSEND_SendLine(const char* szLine)
 {
     FSafeSock* pSocket = (FSafeSock*)InterlockedCompareExchange(&gpSocket_00881BF0, 0, 0);
     FOG_SOCKET_Send(pSocket, (char *)szLine, strlen(szLine));

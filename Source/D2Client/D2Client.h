@@ -951,7 +951,7 @@ void __stdcall sub_004B2650(int nArg1, int nArg2); // 0x004B2650
 void __stdcall sub_004DA000(D2UnitStrc* pUnit); // 0x004DA000
 void __stdcall sub_004DA250(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int nArg5); // 0x004DA250
 void __stdcall sub_004DD7C0(D2ActiveRoomStrc* pRoom, D2WallRoomArgStrc* pArg); // 0x004DD7C0
-void __stdcall sub_004F5190_SetTownMode(int bTown); // 0x004F5190
+void __stdcall D2GFX_SetTownMode(int bTown); // 0x004F5190
 void __stdcall sub_004F59F0(int nArg); // 0x004F59F0
 void __stdcall sub_004F6760(int nX, int nY, int nZ, int* pOutX, int* pOutY); // 0x004F6760
 void __stdcall sub_004F6760_PrecisionToScreen(int nPrecisionX, int nPrecisionY, int nArg, int* pX, int* pY); // 0x004F6760

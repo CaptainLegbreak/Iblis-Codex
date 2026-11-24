@@ -180,7 +180,7 @@ void __fastcall DATATBLS_ItemParamLinker(char* pSrc, void* pRecord, int nOffset,
 D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine);                    // 0x006BD040
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize);// 0x006122F0
 void __stdcall FOG_10216_AddRecordToLinkingTable(D2TxtLinkStrc* pLinker, const char* szName);       // 0x006BD500
-unsigned short __stdcall sub_00524D30_FindString(const char* szKey, void** ppText);                 // 0x00524D30
+unsigned short __stdcall STRTABLE_FindString(const char* szKey, void** ppText);                 // 0x00524D30
 extern "C" const char* __cdecl sub_00408090();                                              // 0x00408090
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);           // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                       // 0x00681E09
@@ -373,7 +373,7 @@ void __fastcall DATATBLS_LoadSets_SetItemsTxt(void* hArchive)
         pSetItemsTxtRecord->wSetItemId = i;
         FOG_10216_AddRecordToLinkingTable(sgtDataTables.pSetItemsLinker, pSetItemsTxtRecord->szName);
         void* pUnicode = 0;
-        pSetItemsTxtRecord->wStringId = sub_00524D30_FindString(pSetItemsTxtRecord->szName, &pUnicode);
+        pSetItemsTxtRecord->wStringId = STRTABLE_FindString(pSetItemsTxtRecord->szName, &pUnicode);
         if (!pSetItemsTxtRecord->wStringId)
         {
             pSetItemsTxtRecord->wStringId = 5383;

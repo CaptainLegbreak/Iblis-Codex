@@ -414,7 +414,7 @@ unsigned int __stdcall SStrHashHT(const char* szPath);                          
 
 int __fastcall sub_00526590_Compare(const Unicode* pString1, const Unicode* pString2);                      // 0x00526590
 
-int __fastcall sub_0043C180_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode);                    // 0x0043C180
+int __fastcall CHARSEL_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode);                    // 0x0043C180
 
 int __cdecl MAINMENUS_HasSaveFiles();                                                                    // 0x00430BC0
 
@@ -526,7 +526,7 @@ int __stdcall ANIMIMAGE_SetIsRunning(D2WinAnimImageStrc* pAnimImage, int bIsRunn
 
 int __stdcall D2Win_10033(D2WinControlStrc* pControl, int nArg);                                            // 0x004FA470
 
-void __cdecl sub_0042FF20_ShowLocalAddress();                                                               // 0x0042FF20
+void __cdecl MAINMENUS_ShowLocalAddress();                                                               // 0x0042FF20
 
 void __cdecl MAINMENUS_UpdateTwoEditOk(); // 0x00436CF0
 
@@ -854,7 +854,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-void __fastcall sub_0042E5D0_SwapUnicodeBytes(Unicode* pText, int nLength); // 0x0042E5D0
+void __fastcall CHARSEL_SwapUnicodeBytes(Unicode* pText, int nLength); // 0x0042E5D0
 
 Unicode* __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
@@ -1146,7 +1146,7 @@ int __stdcall sub_0042FE60_KeyFilter(D2WinControlStrc* pControl, int nArg, const
 
 int __stdcall MAINMENUS_OnLoginChanged(int nArg); // 0x00433BE0
 
-int __cdecl sub_0043B840(); // 0x0043B840
+int __cdecl CHARSEL_IsBattleNetConnected(); // 0x0043B840
 
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 
@@ -1359,7 +1359,7 @@ int __stdcall MAINMENUS_LoginOk(int nArg);
 
 int __stdcall MAINMENUS_CreateAccountOk(int nArg);
 
-static int sub_0042FCE0_ArchiveFilePresent(const char* szFile);
+static int MAINMENUS_IsArchiveFilePresent(const char* szFile); // 0x0042FCE0
 
 static void MAINMENUS_BuildLocalizedVideoPath(char* szOut, const char* szFormat, const char* szFile);
 
@@ -1467,7 +1467,7 @@ void __cdecl MAINMENUS_SetGatewayFlag()
 }
 
 // 0x0042E6C0
-int __cdecl sub_0042E6C0_GetGatewayFlag()
+int __cdecl MAINMENUS_GetGatewayFlag()
 {
     return gbGatewayFlag;
 }
@@ -1708,7 +1708,7 @@ int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFil
 }
 
 // 0x0042F370
-void __cdecl sub_0042F370_RestorePalette()
+void __cdecl MAINMENUS_RestorePalette()
 {
     if (gbPaletteBusy)
     {
@@ -1902,7 +1902,7 @@ int __cdecl MAINMENUS_GetAuxBattleNetFlag()
 }
 
 // 0x0042FCE0
-static int sub_0042FCE0_ArchiveFilePresent(const char* szFile)
+static int MAINMENUS_IsArchiveFilePresent(const char* szFile)
 {
     void* hFile;
     if (!SFileOpenFileEx(0, szFile, 0, &hFile))
@@ -1918,17 +1918,17 @@ static void MAINMENUS_BuildLocalizedVideoPath(char* szOut, const char* szFormat,
     STRTABLE_GetLanguageInfoField(szLang, 0);
 // build: symbol ?gszDataLocal@* 0x006D41A8
     sprintf(szOut, szFormat, gszDataLocal, szLang, szFile);
-    if (sub_0042FCE0_ArchiveFilePresent(szOut))
+    if (MAINMENUS_IsArchiveFilePresent(szOut))
         return;
     if (STRTABLE_GetLanguage())
     {
         sprintf(szOut, szFormat, gszDataLocal, "ENG", szFile);
-        sub_0042FCE0_ArchiveFilePresent(szOut);
+        MAINMENUS_IsArchiveFilePresent(szOut);
     }
     else
     {
         sprintf(szOut, szFormat, gszDataLocal, "CHI", szFile);
-        sub_0042FCE0_ArchiveFilePresent(szOut);
+        MAINMENUS_IsArchiveFilePresent(szOut);
     }
 }
 
@@ -1965,7 +1965,7 @@ void __fastcall sub_0042FF10_SetValue(int nValue)
 }
 
 // 0x0042FF20
-void __cdecl sub_0042FF20_ShowLocalAddress()
+void __cdecl MAINMENUS_ShowLocalAddress()
 {
     const char* szAddress = FOG_GetHostIPAddress();
     sub_004FB6A0_ClearText(gpControl_00779588);
@@ -1989,7 +1989,7 @@ void __cdecl sub_0042FF20_ShowLocalAddress()
 // 0x0042FFD0
 int __stdcall MAINMENUS_ShowAddress(SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_0042FF20_ShowLocalAddress();
+    MAINMENUS_ShowLocalAddress();
     return 1;
 }
 
@@ -2233,7 +2233,8 @@ void __cdecl MAINMENUS_ClearLaunchState()
     gnLaunchState = 0;
 }
 
-extern "C" int __fastcall sub_0043DAD0_SetControlFlag(int value)
+// build: symbol @CHATDLG_SetMainControlState@* 0x0043DAD0
+extern "C" int __fastcall CHATDLG_SetMainControlState(int value)
 {
     sub_004F9740_ControlFlag(gControl, value);
     return 1;
@@ -2358,7 +2359,7 @@ Unicode* __stdcall MAINMENUS_LoadCreditsText(int* pnLength)
         *pnLength = nLength;
         pText = (Unicode*)FOG_Alloc(sizeof(Unicode) * nLength, gszMainMenusFile, 0x13BF, 0);
         memcpy(pText, pBuffer + 2, sizeof(Unicode) * *pnLength);
-        sub_0042E5D0_SwapUnicodeBytes(pText, *pnLength);
+        CHARSEL_SwapUnicodeBytes(pText, *pnLength);
     }
     else
     {
@@ -2583,7 +2584,8 @@ int __stdcall MAINMENUS_ShowLevelScreen(int nUnused)
     char szAddress[0x64];
     unsigned char nLevel;
     sub_00515F50(0xB4);
-    sub_00514930();
+// build: symbol ?D2SOUND_StopChannel@* 0x00514930
+    D2SOUND_StopChannel();
 // build: symbol ?D2SOUND_SetMasterVolume@* 0x00515CE0
     D2SOUND_SetMasterVolume(0xFF);
     CHARSEL_CreateBaseScreen();
@@ -3496,7 +3498,8 @@ void __cdecl MAINMENUS_ShowMainMenu()
         MAINMENUS_CreateControl(0x09);
         pSecond = MAINMENUS_CreateControl(0x0C);
     }
-    if (sub_004FAC90())
+// build: symbol ?D2Win_10185_CheckCharMpq@* 0x004FAC90
+    if (D2Win_10185_CheckCharMpq())
     {
         CONTROL_SetEnabled(pFirst, 0);
         CONTROL_SetEnabled(pSecond, 0);
@@ -3836,7 +3839,7 @@ int __fastcall MAINMENUS_JoinGame(const char* szGameName, unsigned short wFlags,
             CHARSEL_CreateBaseScreen();
             if (!sub_0043BF60())
                 return 0;
-            if (!sub_0043C180_Connect(gpLaunchRecord, 0, 0))
+            if (!CHARSEL_Connect(gpLaunchRecord, 0, 0))
                 return 0;
         }
     }
@@ -4134,7 +4137,7 @@ int __stdcall MAINMENUS_ChangePasswordOk(int nArg)
         return 1;
     }
     gbConnectCancelled = 0;
-    if (!sub_0043C180_Connect(gpLaunchRecord, 0, 1))
+    if (!CHARSEL_Connect(gpLaunchRecord, 0, 1))
     {
         if (gbConnectCancelled)
         {
@@ -4209,7 +4212,7 @@ void __cdecl MAINMENUS_ShowLoginScreen()
     char szAccount[0x400];
     s_bGatewayFlag_00779954 = 1;
     int bConnected = gpFuncTable_0077ABF0->pfnSlot68();
-    if (bConnected && !sub_0043B840())
+    if (bConnected && !CHARSEL_IsBattleNetConnected())
         goto create;
     if (bConnected)
         CHARSEL_DisconnectBattleNet();
@@ -4394,7 +4397,7 @@ void __cdecl MAINMENUS_CreateCharCreateScreen()
 }
 
 // 0x004359D0
-int __fastcall sub_004359D0_RunFrontEnd(D2ConfigStrc* pRecord)
+int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
 {
 // build: symbol ?gpLaunchRecord@* 0x007795D4
     gpLaunchRecord = pRecord;
@@ -4691,7 +4694,7 @@ int __stdcall MAINMENUS_LoginOk(int nArg)
     if (!sub_004F9710_TestFlag(gpControl_00779594))
         return 0;
     MAINMENUS_StoreAccountTexts(gpAccountEdit, gpPasswordEdit);
-    if (sub_0043C180_Connect(gpLaunchRecord, 0, 0))
+    if (CHARSEL_Connect(gpLaunchRecord, 0, 0))
     {
         SRegSaveString("Diablo II", "Last BNet", 0, gpLaunchRecord->szAccount);
         if (gnLaunchMode == 1)
@@ -4722,7 +4725,7 @@ int __stdcall MAINMENUS_OnShowLogin(int nArg)
 int __stdcall MAINMENUS_ConnectOk(int nArg)
 {
     gbConnectCancelled = 0;
-    if (!sub_0043C180_Connect(gpLaunchRecord, 1, 0))
+    if (!CHARSEL_Connect(gpLaunchRecord, 1, 0))
     {
         if (gbConnectCancelled)
         {

@@ -17,7 +17,7 @@ extern D2WinControlStrc* gpJoinName;                                            
 unsigned long gdwGameListLastClickTick;                                                                    // 0x00798CEC
 
 // 0x00442E30
-static void sub_00442E30_ShowGameInfo(int nIndex)
+static void CHATDLG_ShowGameInfo(int nIndex)
 {
     if (!gpGameText_00798BC4)
         return;
@@ -81,7 +81,7 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
         }
         else
         {
-            sub_00442E30_ShowGameInfo(nSelection);
+            CHATDLG_ShowGameInfo(nSelection);
         }
     }
     return 0;

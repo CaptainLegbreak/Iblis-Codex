@@ -27,10 +27,10 @@ struct D2LightCellStrc
 
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 
-void __fastcall sub_004F8810_DrawBlock(D2TileLibraryBlockStrc* pBlock, unsigned char* pDst, unsigned char nLight); // 0x004F8810
-void __fastcall sub_004F8850_DrawLitBlock(D2TileLibraryBlockStrc* pBlock, unsigned char* pDst, int* pLight); // 0x004F8850
-void __fastcall sub_004F88B0_DrawBlockClipped(D2TileLibraryBlockStrc* pBlock, int nX, int nY, unsigned char* pDst, unsigned char nLight); // 0x004F88B0
-void __fastcall sub_004F89F0_DrawLitBlockClipped(D2TileLibraryBlockStrc* pBlock, int nX, int nY, unsigned char* pDst, int* pLight); // 0x004F89F0
+void __fastcall CMNSUBTILE_DrawBlock(D2TileLibraryBlockStrc* pBlock, unsigned char* pDst, unsigned char nLight); // 0x004F8810
+void __fastcall CMNSUBTILE_DrawLitBlock(D2TileLibraryBlockStrc* pBlock, unsigned char* pDst, int* pLight); // 0x004F8850
+void __fastcall CMNSUBTILE_DrawBlockClipped(D2TileLibraryBlockStrc* pBlock, int nX, int nY, unsigned char* pDst, unsigned char nLight); // 0x004F88B0
+void __fastcall CMNSUBTILE_DrawLitBlockClipped(D2TileLibraryBlockStrc* pBlock, int nX, int nY, unsigned char* pDst, int* pLight); // 0x004F89F0
 
 struct D2GfxSettingsStrc
 {
@@ -109,16 +109,16 @@ void __fastcall sub_004F8B80_DrawTileBlocks(D2TileLibraryEntryStrc* pTile, int n
         if (nBlockY >= gnInnerBlockTop && nBlockY < gnInnerBlockBottom && nBlockX >= gnInnerBlockLeft && nBlockX < gnInnerBlockRight)
         {
             if (bFlat)
-                sub_004F8810_DrawBlock(pBlock, pDst, nLight);
+                CMNSUBTILE_DrawBlock(pBlock, pDst, nLight);
             else
-                sub_004F8850_DrawLitBlock(pBlock, pDst, aLight);
+                CMNSUBTILE_DrawLitBlock(pBlock, pDst, aLight);
         }
         else
         {
             if (bFlat)
-                sub_004F88B0_DrawBlockClipped(pBlock, nBlockX, nBlockY, pDst, nLight);
+                CMNSUBTILE_DrawBlockClipped(pBlock, nBlockX, nBlockY, pDst, nLight);
             else
-                sub_004F89F0_DrawLitBlockClipped(pBlock, nBlockX, nBlockY, pDst, aLight);
+                CMNSUBTILE_DrawLitBlockClipped(pBlock, nBlockX, nBlockY, pDst, aLight);
         }
     }
 }

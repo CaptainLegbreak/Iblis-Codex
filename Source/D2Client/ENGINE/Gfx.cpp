@@ -272,7 +272,7 @@ struct D2GfxBoundsStrc;
 
 void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOverlay); // 0x0046E040
 
-int __cdecl sub_004FAC90_CheckCharArchive(); // 0x004FAC90
+int __cdecl D2Win_10185_CheckCharMpq(); // 0x004FAC90
 
 void __cdecl PARTICLE_InitModeTokens(); // 0x004DA790
 
@@ -2204,7 +2204,7 @@ void __fastcall GFX_InitGfxTables(int nValue)
     const int nSize = sgptDataTables->nMonStatsTxtRecordCount * sizeof(D2MonGfxCacheStrc);
     gpPoolBlock = (D2MonGfxCacheStrc*)sub_0040B430(0, nSize, ".\\ENGINE\\Gfx.cpp", 0x7E1, 0);
     memset(gpPoolBlock, 0, nSize);
-    gbCharArchiveLoaded = sub_004FAC90_CheckCharArchive();
+    gbCharArchiveLoaded = D2Win_10185_CheckCharMpq();
     PARTICLE_InitModeTokens();
 }
 

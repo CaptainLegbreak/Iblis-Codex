@@ -175,7 +175,7 @@ struct D2GlideVtxStrc { float x; float y; float z; float oow; float sow; float t
 int gaGlideDebugFontCharWidths[96]; // 0x008802C8
 
 // 0x0050BBA0
-static int __stdcall sub_0050BBA0_GlideDebugDrawChar(char ch, int nX, int nY)
+static int __stdcall GLIDE_DebugDrawChar(char ch, int nX, int nY)
 {
     if (nX > 640)
         return 0;
@@ -206,7 +206,7 @@ static int __stdcall sub_0050BBA0_GlideDebugDrawChar(char ch, int nX, int nY)
 }
 
 // 0x0050BC90
-void __fastcall sub_0050BC90_GlideDebugPrintf(int nX, int nY, const char* szFormat, char* args)
+void __fastcall GLIDE_DebugPrintf(int nX, int nY, const char* szFormat, char* args)
 {
     char szText[0x200];
     const int nLength = wvsprintfA(szText, szFormat, args);
@@ -219,7 +219,7 @@ void __fastcall sub_0050BC90_GlideDebugPrintf(int nX, int nY, const char* szForm
 
     for (int i = 0; i < nLength; ++i)
     {
-        nX += sub_0050BBA0_GlideDebugDrawChar(szText[i], nX, nY);
+        nX += GLIDE_DebugDrawChar(szText[i], nX, nY);
         if (szText[i] == '\n')
         {
             nX = nStartX;

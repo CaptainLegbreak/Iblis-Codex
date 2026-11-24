@@ -666,11 +666,11 @@ extern tagPALETTEENTRY gatRGBAPalette[]; // 0x0081E668
 
 extern int gbTextBoxSmallGap; // 0x00841B70
 
-int __cdecl sub_004FAB00_ShowInsertExpansionDisc(); // 0x004FAB00
+int __cdecl ARCHIVE_ShowInsertExpansionDiscMessage(); // 0x004FAB00
 
-int __cdecl sub_004FAB30_ShowInsertPlayDisc(); // 0x004FAB30
+int __cdecl ARCHIVE_ShowInsertPlayDiscMessage(); // 0x004FAB30
 
-int __cdecl sub_004FAB60_ShowInsertDisc(); // 0x004FAB60
+int __cdecl ARCHIVE_ShowInsertCinematicsDisc(); // 0x004FAB60
 
 extern D2ArchiveHandleStrc* gpD2XMusicMPQ; // 0x007D5604
 
@@ -704,7 +704,7 @@ void __stdcall D2Win_10179(); // 0x004FB0D0
 
 void __fastcall D2Win_10176(int bTimed); // 0x004FB130
 
-void __fastcall sub_004FB590(int nValue); // 0x004FB590
+void __fastcall TEXTBOX_SetSmallGap(int nValue); // 0x004FB590
 
 void* __stdcall D2Win_GetArchive(); // 0x004FAC80
 
@@ -726,7 +726,7 @@ void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
 
 extern void* ghXMusicMpq; // 0x007D5604
 
-int __cdecl sub_004FAC90_CheckCharArchive(); // 0x004FAC90
+int __cdecl D2Win_10185_CheckCharMpq(); // 0x004FAC90
 
 extern void* ghCharMpq; // 0x007D5610
 

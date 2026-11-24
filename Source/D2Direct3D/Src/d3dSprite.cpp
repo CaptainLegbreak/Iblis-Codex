@@ -47,7 +47,7 @@ int __fastcall D3D_CreateMemoryTexture(void** ppSurface, void** ppTexture, int n
 
 void __fastcall sub_006B39B0_ShowD3DError(const char* szText, long nResult); // 0x006B39B0
 
-void __fastcall sub_006B5BB0_FreePixelData(void* pData); // 0x006B5BB0
+void __fastcall D3D_ClearResourceEntries(void* pData); // 0x006B5BB0
 
 extern D2Direct3D006B7110Strc* gpDirect3D_00970E64; // 0x00970E64
 
@@ -139,7 +139,7 @@ struct D2ResourceSetStrc { D2ResourcePairStrc pairs[5]; };
 extern D2ResourceGroupStrc gaResourceGroups[]; // 0x00970EE0
 
 // 0x006B5BB0
-void __fastcall sub_006B5BB0_ClearResourceEntries(D2ResourceSetStrc* set)
+void __fastcall D3D_ClearResourceEntries(D2ResourceSetStrc* set)
 {
     for (int i = 0; i < 5; ++i)
     {
@@ -330,5 +330,5 @@ void __cdecl D3D_InitSprites()
     }
 
     gnVertexCount_00970F40 = 0;
-    CelSetHardwareFreeCallback(sub_006B5BB0_FreePixelData);
+    CelSetHardwareFreeCallback(D3D_ClearResourceEntries);
 }

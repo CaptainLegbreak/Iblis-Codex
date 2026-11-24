@@ -6,7 +6,7 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 int __fastcall MAINMENUS_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 D2WinControlStrc* __fastcall MAINMENUS_CreateControl(int nId);                                           // 0x0042F430
 void __cdecl MAINMENUS_Reset();                                                                          // 0x0042F480
-void __cdecl sub_0042FF20_ShowLocalAddress();                                                                                // 0x0042FF20
+void __cdecl MAINMENUS_ShowLocalAddress();                                                                                // 0x0042FF20
 int __cdecl MAINMENUS_FreeSlots();                                                                       // 0x00430A20
 void __cdecl MAINMENUS_UpdateTwoEditOk();                                                                                // 0x00436CF0
 int __stdcall MAINMENUS_OnTwoEditChange(int nArg);                                                                       // 0x00436D40
@@ -95,7 +95,7 @@ void __cdecl CHARSEL_InitCharList(); // 0x0043AE30
 void __fastcall CHARSEL_UseName(char* szName); // 0x0043ADB0
 int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140
 void __fastcall CONTROL_SetVisible(D2WinControlStrc* pControl, int bSet); // 0x004F9740
-void __fastcall sub_004FB590(int nArg); // 0x004FB590
+void __fastcall TEXTBOX_SetSmallGap(int nArg); // 0x004FB590
 int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
 void __fastcall TIMER_DisableSpaceKey(D2WinTimerStrc* pTimer); // 0x004FD830
 void __fastcall TIMER_SetRepeating(D2WinTimerStrc* pTimer); // 0x004FDA50
@@ -156,7 +156,7 @@ void __cdecl CHARSEL_CreateTcpIpScreen()
     sub_004FD830(gpControl_00779344);
     sub_004FDA50(gpControl_00779344);
     gpControl_00779588 = MAINMENUS_CreateControl(0x105);
-    sub_0042FF20_ShowLocalAddress();
+    MAINMENUS_ShowLocalAddress();
 }
 
 void __cdecl CHARSEL_FreeCache(); // 0x00437B90
@@ -280,9 +280,9 @@ void __cdecl CHARSEL_InitCharSelectScreen()
         gnVisibleRows = 4;
         for (int i = 0; i < gnVisibleRows; ++i)
         {
-            sub_004FB590(1);
+            TEXTBOX_SetSmallGap(1);
             gapRowControls[i] = MAINMENUS_CreateControl(i + 0x80);
-            sub_004FB590(0);
+            TEXTBOX_SetSmallGap(0);
             ganRowValues_007799FC[i] = 0xF6 + 0x5D * i;
         }
 
@@ -316,9 +316,9 @@ void __cdecl CHARSEL_InitCharSelectScreen()
         gnVisibleRows = 5;
         for (int i = 0; i < gnVisibleRows; ++i)
         {
-            sub_004FB590(1);
+            TEXTBOX_SetSmallGap(1);
             gapRowControls[i] = MAINMENUS_CreateControl(i + 0x7F);
-            sub_004FB590(0);
+            TEXTBOX_SetSmallGap(0);
             ganRowValues_007799FC[i] = 0x99 + 0x5D * i;
         }
         BUTTON_SetCoordinates((D2WinButtonStrc*)gpScrollUpButton, 0x27A, 0x32, 0x1D, 0x14);

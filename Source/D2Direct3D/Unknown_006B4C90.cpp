@@ -29,7 +29,7 @@ extern "C" HRESULT __stdcall DirectDrawEnumerateA(LPDDENUMCALLBACKA pCallback, v
 
 void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...) throw();                                                  // 0x00410610
 void __cdecl sub_0051793E_FormatAndRaise(unsigned long dwError, ...); // 0x0051793E
-void __fastcall sub_006B20E0_ReportError(const char* szMessage, long hResult) throw();                      // 0x006B20E0
+void __fastcall D3D_LogDDrawError(const char* szMessage, long hResult) throw();                      // 0x006B20E0
 void __fastcall sub_006B2F60_SaveVideoConfig(int nRender, int nDevice);                                     // 0x006B2F60
 int __stdcall sub_006B42F0_DDrawEnumCallback(void* pGuid, char* szDescription, char* szName, void* pContext); // 0x006B42F0
 
@@ -96,7 +96,7 @@ static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance)
         const HRESULT hResult = DirectDrawEnumerateA(sub_006B42F0_DDrawEnumCallback, 0);
         if (hResult)
         {
-            sub_006B20E0_ReportError("DirectDrawEnumerate", hResult);
+            D3D_LogDDrawError("DirectDrawEnumerate", hResult);
         }
     }
     catch (...)

@@ -100,7 +100,7 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
-void* __fastcall sub_00516760_ParseWave(const void* pFile, unsigned int* pnSize, D2WaveFormatStrc* pFormat); // 0x00516760
+void* __fastcall D2SOUND_ReadWaveHeader(const void* pFile, unsigned int* pnSize, D2WaveFormatStrc* pFormat); // 0x00516760
 
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
@@ -179,7 +179,7 @@ void __fastcall D2SOUND_PreloadWave(const char* szName)
         return;
     unsigned int nWaveSize = nFileSize;
     D2WaveFormatStrc tFormat;
-    sub_00516760_ParseWave(pFile, &nWaveSize, &tFormat);
+    D2SOUND_ReadWaveHeader(pFile, &nWaveSize, &tFormat);
     if (tFormat.nSamplesPerSec != 22050)
         return;
     D2SoundWaveStrc* pWave = (D2SoundWaveStrc*)FOG_Alloc(sizeof(D2SoundWaveStrc), ".\\Src\\D2SoundFast.cpp", 0x85, 0);

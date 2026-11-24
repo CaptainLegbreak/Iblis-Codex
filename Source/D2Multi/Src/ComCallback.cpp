@@ -89,7 +89,7 @@ void __fastcall CHARSEL_PickClass(int nClass, int bExpansion); // 0x00439780
 
 void __cdecl CHARSEL_CreateBaseScreen(); // 0x0043C4F0
 
-int __fastcall sub_0043DAD0_SetMainState(int bSet); // 0x0043DAD0
+int __fastcall CHATDLG_SetMainControlState(int bSet); // 0x0043DAD0
 
 int __fastcall CHATDLG_PrintText(Unicode* pText, int nColor); // 0x0043E610
 
@@ -536,9 +536,9 @@ extern const unsigned char gabCdKeyMap[256]; // 0x006D59F0
 
 D2WinButtonStrc* gpLevelDiffCheck; // 0x00798C40
 
-void __cdecl sub_00445DF0_CreateJoinScreen();                                                               // 0x00445DF0
+void __cdecl COMCALLBACK_CreateJoinScreen();                                                               // 0x00445DF0
 
-void __cdecl sub_00445FF0_BuildCreateScreen();                                                              // 0x00445FF0
+void __cdecl COMCALLBACK_BuildCreateScreen();                                                              // 0x00445FF0
 
 extern int gnChatLaunchMode;                                                                           // 0x0077BBE4
 
@@ -797,7 +797,7 @@ void __cdecl COMCALLBACK_BuildCreateGamePanel()
     gpPanelCancelButton = CONTROL_Create(&gtPanelCancelButtonInit);
     sub_004FA450_SetActive(gpPanelCancelButton);
     gpCreateButton = CONTROL_Create(&gtResetBuildPanelTimerInit);
-    sub_0043DAD0_SetMainState(0);
+    CHATDLG_SetMainControlState(0);
 }
 
 // 0x00445A80
@@ -901,7 +901,7 @@ void __fastcall COMCALLBACK_ShowUserInfoDialog(const char* szUser, const char* s
 }
 
 // 0x00445DF0
-void __cdecl sub_00445DF0_CreateJoinScreen()
+void __cdecl COMCALLBACK_CreateJoinScreen()
 {
 // build: symbol ?CHARSEL_GetConnectStatus@* 0x0043DC30
     if (CHARSEL_GetConnectStatus() == -1)
@@ -1019,7 +1019,7 @@ int __stdcall sub_004456B0_OnEnter(int nArg);                                   
 int __stdcall sub_004456C0_OnEnter(int nArg);                                                               // 0x004456C0
 
 // 0x00445FF0
-void __cdecl sub_00445FF0_BuildCreateScreen()
+void __cdecl COMCALLBACK_BuildCreateScreen()
 {
 // build: symbol ?CHARSEL_GetConnectStatus@* 0x0043DC30
     if (CHARSEL_GetConnectStatus() == -1)
@@ -1190,7 +1190,7 @@ int __stdcall COMCALLBACK_OpenJoinScreen(int nArg)
 // build: symbol ?CHARSEL_ResetLaunchState@* 0x0043F8C0
     CHARSEL_ResetLaunchState();
     gnChatLaunchMode = 3;
-    sub_00445DF0_CreateJoinScreen();
+    COMCALLBACK_CreateJoinScreen();
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
@@ -1201,7 +1201,7 @@ int __stdcall COMCALLBACK_OpenJoinScreen(int nArg)
 int __stdcall COMCALLBACK_OpenCreateScreen(int nArg)
 {
     CHARSEL_ResetLaunchState();
-    sub_00445FF0_BuildCreateScreen();
+    COMCALLBACK_BuildCreateScreen();
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
     BUTTON_SetIsPressed(gpControlC_0077B07C, 0);

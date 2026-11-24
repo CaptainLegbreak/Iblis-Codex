@@ -252,7 +252,7 @@ int __fastcall GFXUTIL_GetCompTransparency(D2UnitStrc*, int, int*, int); // 0x00
 unsigned char* __fastcall GFXUTIL_GetBodyLocItemShift(D2UnitStrc*, int, unsigned char*); // 0x004DB570
 void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int bForce); // 0x004DC7B0
 int __cdecl D2GFX_CheckUnitPerspective(); // 0x004F5170
-void __stdcall sub_004F5190_SetTownMode(int); // 0x004F5190
+void __stdcall D2GFX_SetTownMode(int); // 0x004F5190
 void __stdcall TEXTURE_CelFlatSpriteDraw(D2CelContextStrc*, int, int, unsigned int, int, int, unsigned char*); // 0x004F6450
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc*); // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc*); // 0x00620410
@@ -306,13 +306,13 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
     int nTown = D2GFX_CheckUnitPerspective();
     if (nTown && bPerspective && pUnit == sub_00463DD0_GetPlayerUnit() && nUnitType == 0)
     {
-        sub_004F5190_SetTownMode(0);
+        D2GFX_SetTownMode(0);
         bRestoreTown = 1;
         bPerspective = 0;
     }
     if (!sub_004709A0_IsOnScreen(pUnit, nDrawX, nDrawY, 1, 0))
     {
-        if (bRestoreTown) sub_004F5190_SetTownMode(nTown);
+        if (bRestoreTown) D2GFX_SetTownMode(nTown);
         return 0;
     }
     if (bOverlay) GFX_DrawUnitOverlays(pUnit, dwColor, 1, -1, -1, bRestoreTown);
@@ -423,6 +423,6 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
         }
     }
     if (bOverlay) GFX_DrawUnitOverlays(pUnit, dwColor, 0, -1, -1, bRestoreTown);
-    if (bRestoreTown) sub_004F5190_SetTownMode(nTown);
+    if (bRestoreTown) D2GFX_SetTownMode(nTown);
     return 1;
 }

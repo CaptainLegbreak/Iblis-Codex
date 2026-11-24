@@ -146,7 +146,7 @@ int __cdecl sub_00449B70_Receive(); // 0x00449B70
 int __cdecl GAME_GetConnectError(); // 0x00449C00
 int __cdecl sub_00449E60(); // 0x00449E60
 int __cdecl VIEW_SendMcpCharListRequest(); // 0x0044AAB0
-int __cdecl sub_004FAC90(); // 0x004FAC90
+int __cdecl D2Win_10185_CheckCharMpq(); // 0x004FAC90
 int __cdecl D2SOUND_GetOptionsMusicOption(); // 0x00514D80
 int __fastcall ARCHIVE_LoadVideoArchives(void* pfShowMessage, void* hFile, int bExpansion); // 0x004FAD10
 int __fastcall D2Win_10188(D2WinControlStrc* pTextBox, int nLineNum, int a3); // 0x004FBDE0
@@ -180,7 +180,7 @@ void __cdecl sub_00438560_Refresh(); // 0x00438560
 int __cdecl CHARSEL_Redraw(); // 0x00439210
 void __cdecl CHATDLG_DestroyJoinControls(); // 0x00443130
 void __cdecl CHATDLG_DestroyProfileControls(); // 0x00443E10
-void __cdecl sub_00514930(); // 0x00514930
+void __cdecl D2SOUND_StopChannel(); // 0x00514930
 void __cdecl sub_00515020(); // 0x00515020
 void __cdecl sub_0052A7E0(); // 0x0052A7E0
 void __fastcall D2SOUND_10034(int nArg); // 0x005148F0

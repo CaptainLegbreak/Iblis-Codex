@@ -45,7 +45,7 @@ unsigned char gbGlideAmbientRed; // 0x00880B5A
 
 extern int gnGlideSpriteScale; // 0x00880B64
 
-void __fastcall sub_0050DD50_SetProjectOrigin(int nX, int nY); // 0x0050DD50
+void __fastcall GLIDE_SetProjectOrigin(int nX, int nY); // 0x0050DD50
 
 void __cdecl sub_0050DF00_ResetSpriteScale(); // 0x0050DF00
 
@@ -82,7 +82,7 @@ void __cdecl GLIDE_BuildBlendTable()
 }
 
 // 0x0050DBC0
-void __fastcall sub_0050DBC0_GlideSetAmbientColor(int nRed, int nGreen, int nBlue)
+void __fastcall GLIDE_SetAmbientColor(int nRed, int nGreen, int nBlue)
 {
     gbGlideAmbientRed = nRed;
     gbGlideAmbientGreen = nGreen;

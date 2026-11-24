@@ -26,10 +26,10 @@ extern unsigned int* gpCacheTable_00881888; // 0x00881888
 static void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength, unsigned int dwKey);
 unsigned int __stdcall sub_00518FA0_HashString(unsigned int nHashType, const char* szString); // 0x00518FA0
 
-// build: symbol ?$S1@?1??sub_00518C30_GetLog@@YAAAUD2BnLogStrc@@XZ@4IA 0x0088187C
-// build: symbol ??__FtLog_00881878@?1??sub_00518C30_GetLog@@YAAAUD2BnLogStrc@@XZ@YAXXZ 0x006CB430
+// build: symbol ?$S1@?1??BNDOWNLOAD_GetLog@@YAAAUD2BnLogStrc@@XZ@4IA 0x0088187C
+// build: symbol ??__FtLog_00881878@?1??BNDOWNLOAD_GetLog@@YAAAUD2BnLogStrc@@XZ@YAXXZ 0x006CB430
 // 0x00518C30
-static D2BnLogStrc& sub_00518C30_GetLog()
+static D2BnLogStrc& BNDOWNLOAD_GetLog()
 {
     static D2BnLogStrc tLog_00881878; // 0x00881878
     return tLog_00881878;
@@ -42,13 +42,13 @@ int __cdecl BNDOWNLOAD_ConfigureLog(int nMode, int nValue)
     EnterCriticalSection(&gtBnLogLock);
     if (nMode == 1)
     {
-        SLogClose(sub_00518C30_GetLog().hLog);
-        SLogCreate("BnetLog.txt", 0, &sub_00518C30_GetLog().hLog);
+        SLogClose(BNDOWNLOAD_GetLog().hLog);
+        SLogCreate("BnetLog.txt", 0, &BNDOWNLOAD_GetLog().hLog);
         nResult = 1;
     }
     else if (nMode == 2)
     {
-        sub_00420120_LogAdjust(sub_00518C30_GetLog().hLog, nValue);
+        sub_00420120_LogAdjust(BNDOWNLOAD_GetLog().hLog, nValue);
     }
     LeaveCriticalSection(&gtBnLogLock);
     return nResult;

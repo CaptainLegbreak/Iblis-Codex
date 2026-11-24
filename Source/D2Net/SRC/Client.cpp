@@ -62,7 +62,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 const char* __fastcall FOG_ResolveHostIPAddress(const char* szHostName); // 0x0040E0D0
 
-void __fastcall sub_0052B780(); // 0x0052B780
+void __fastcall SERVER_SendConnectionInfo(); // 0x0052B780
 
 extern void* ghClientConnectToHostThreadHandle; // 0x00882CE0
 
@@ -358,7 +358,7 @@ void __stdcall CLIENT_Initialize(int nArg, const char* szIpAddress)
     sub_0052B810(nArg);
     if (NET_IsLocalConnection())
     {
-        sub_0052B780();
+        SERVER_SendConnectionInfo();
         return;
     }
     ghClientConnectToHostThreadHandle = CreateThread(0, 0, CLIENT_ConnectToHost, (void*)szIpAddress, 0, &gdwThreadId);
