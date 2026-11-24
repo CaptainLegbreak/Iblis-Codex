@@ -16,7 +16,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-(none)
+- **lane3/sfile-next** (stacked on sfile-links): 0x417B20 and 0x417D20 as TSList<FILEREC>/<AUDIOSTREAM>::Next, by their place in each type's group of list members. Full verify running.
 
 ## Questions
 
