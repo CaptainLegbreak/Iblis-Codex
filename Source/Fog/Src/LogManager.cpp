@@ -27,7 +27,7 @@ unsigned long gdwLastLogSweep;                                                  
 
 struct D2CriticalSectionStrc;
 
-struct D2LogMessageStrc;
+namespace LogManager { struct Message; }
 
 struct D2StormLinkStrc;
 
@@ -487,19 +487,22 @@ struct D2LogMsgNodeStrc
     ~D2LogMsgNodeStrc();
 };
 
-struct D2LogMessageStrc : D2LogMsgNodeStrc
+namespace LogManager
+{
+struct Message : D2LogMsgNodeStrc
 {
     unsigned int nSize;
     int nType;
     int bTimeStamp;
     D2SystemTimeStrc f_14;
 
-    D2LogMessageStrc();
-    ~D2LogMessageStrc();
+    Message();
+    ~Message();
     char* GetName() { return (char*)(this + 1); }
     static void operator delete(void* pMemory);
     static void operator delete(void*, void*) {}
 };
+}
 
 // build: symbol ??2@YAPAXIPAX@Z 0x0040EB20
 inline void* operator new(unsigned int, void* pWhere) throw()
@@ -508,7 +511,7 @@ inline void* operator new(unsigned int, void* pWhere) throw()
 }
 
 // 0x0040EB40
-char* __fastcall sub_0040EB40_GetMessageData(D2LogMessageStrc* pMessage)
+char* __fastcall sub_0040EB40_GetMessageData(LogManager::Message* pMessage)
 {
     return (char*)&pMessage->nSize;
 }
@@ -526,9 +529,9 @@ struct D2LogMsgListStrc
 
     D2LogMsgListStrc();
     ~D2LogMsgListStrc();
-    D2LogMessageStrc* Head()
+    LogManager::Message* Head()
     {
-        return (D2LogMessageStrc*)D2LogMsgLinkStrc::NextOf(m_terminator.m_next);
+        return (LogManager::Message*)D2LogMsgLinkStrc::NextOf(m_terminator.m_next);
     }
     D2LogMsgLinkStrc* Link(char* pNode)
     {
@@ -1002,7 +1005,7 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 
 extern "C" const char gszLogMessageTypeName[]; // 0x00708124
 
-// build: symbol ??3D2LogMessageStrc@@SAXPAX0@Z 0x0040EB30
+// build: symbol ??3Message@LogManager@@SAXPAX0@Z 0x0040EB30
 // 0x0040FB50
 D2LogMsgListStrc::D2LogMsgListStrc()
 {
@@ -1063,8 +1066,8 @@ D2LogMsgListStrc::~D2LogMsgListStrc()
     sub_0040FD00_UnlinkAll();
 }
 
-// build: symbol ??_GD2LogMessageStrc@@QAEPAXI@Z 0x0040FE60
-inline void D2LogMessageStrc::operator delete(void* pMemory)
+// build: symbol ??_GMessage@LogManager@@QAEPAXI@Z 0x0040FE60
+inline void LogManager::Message::operator delete(void* pMemory)
 {
     if (pMemory)
         SMemFree(pMemory, "delete", -1, 0);
@@ -1073,9 +1076,9 @@ inline void D2LogMessageStrc::operator delete(void* pMemory)
 // 0x0040FED0
 void D2LogMsgListStrc::sub_0040FED0_DeleteAll()
 {
-    while (D2LogMessageStrc* pNode = (D2LogMessageStrc*)m_terminator.Next())
+    while (LogManager::Message* pNode = (LogManager::Message*)m_terminator.Next())
     {
-        pNode->~D2LogMessageStrc();
+        pNode->~Message();
         SMemFree(pNode, gszLogMessageTypeName, -2, 0);
     }
 }
@@ -1083,20 +1086,20 @@ void D2LogMsgListStrc::sub_0040FED0_DeleteAll()
 // 0x0040FF40
 char* D2LogMsgListStrc::sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
 {
-    void* pMemory = SMemAlloc(sizeof(D2LogMessageStrc) + nExtraBytes, gszLogMessageTypeName, -2, nFlags | 8);
-    D2LogMessageStrc* pNode = new (pMemory) D2LogMessageStrc;
+    void* pMemory = SMemAlloc(sizeof(LogManager::Message) + nExtraBytes, gszLogMessageTypeName, -2, nFlags | 8);
+    LogManager::Message* pNode = new (pMemory) LogManager::Message;
     if (nLinkType)
         sub_0040FBB0_LinkNode((char*)pNode, nLinkType, 0);
     return (char*)pNode;
 }
 
 // 0x0040FE10
-D2LogMessageStrc::D2LogMessageStrc()
+LogManager::Message::Message()
 {
 }
 
 // 0x0040FD40
-D2LogMessageStrc::~D2LogMessageStrc()
+LogManager::Message::~Message()
 {
 }
 
@@ -1136,7 +1139,7 @@ void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle,
     if (!bBadPointer)
         nExtraBytes += nSize;
     EnterCriticalSection(&gtLogQueueLock);
-    D2LogMessageStrc* pMessage = (D2LogMessageStrc*)gtLogMsgQueue_0075E868.sub_0040FF40_NewNode(0, nExtraBytes, 0);
+    LogManager::Message* pMessage = (LogManager::Message*)gtLogMsgQueue_0075E868.sub_0040FF40_NewNode(0, nExtraBytes, 0);
     LeaveCriticalSection(&gtLogQueueLock);
     pMessage->nSize = nExtraBytes + 0x24;
     pMessage->nType = 2;
@@ -1204,7 +1207,7 @@ void __fastcall LOGMANAGER_WriteLogV(const char* szPrefix, int nArg2, int nArg3,
     nExtraBytes += SStrLen(szBuffer) + 1;
 
     EnterCriticalSection(&gtLogQueueLock);
-    D2LogMessageStrc* pMessage = (D2LogMessageStrc*)gtLogMsgQueue_0075E868.sub_0040FF40_NewNode(0, nExtraBytes, 0);
+    LogManager::Message* pMessage = (LogManager::Message*)gtLogMsgQueue_0075E868.sub_0040FF40_NewNode(0, nExtraBytes, 0);
     LeaveCriticalSection(&gtLogQueueLock);
 
     pMessage->nSize = nExtraBytes + 0x24;
@@ -1239,8 +1242,8 @@ void __fastcall LOGMANAGER_WriteLogV(const char* szPrefix, int nArg2, int nArg3,
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfnStart)(void* pParam), void* pParam, unsigned long dwFlags, unsigned long* pnThreadId); // 0x006CC250
 extern D2SystemTimeStrc gLogStartTime_0075D288; // 0x0075D288
 
-void __fastcall LOGMANAGER_WriteMessage(D2LogMessageStrc* pMessage); // 0x0040F720
-void __fastcall LOGMANAGER_WriteDumpMessage(D2LogMessageStrc* pMessage); // 0x0040F070
+void __fastcall LOGMANAGER_WriteMessage(LogManager::Message* pMessage); // 0x0040F720
+void __fastcall LOGMANAGER_WriteDumpMessage(LogManager::Message* pMessage); // 0x0040F070
 void __cdecl LOGMANAGER_CloseStaleLogs(); // 0x0040F350
 void __cdecl LOGMANAGER_SweepOldLogFiles(); // 0x0040F970
 
@@ -1251,10 +1254,10 @@ unsigned long __stdcall sub_004101C0_LogThreadProc(void* pParam)
     for (;;)
     {
         EnterCriticalSection(&gtLogQueueLock);
-        D2LogMessageStrc* pMessage = gtLogMsgQueue_0075E868.Head();
+        LogManager::Message* pMessage = gtLogMsgQueue_0075E868.Head();
         if (pMessage)
         {
-            ((D2LogMessageStrc*)gtLogMsgQueue_0075E868.m_terminator.m_next)->tLink.Unlink();
+            ((LogManager::Message*)gtLogMsgQueue_0075E868.m_terminator.m_next)->tLink.Unlink();
             --gnLogQueued;
             gnLogQueuedBytes -= pMessage->nSize;
         }
@@ -1377,7 +1380,7 @@ void __cdecl LOGMANAGER_LogWritePrefixed(const char* szPrefix, const char* szFor
 }
 
 // 0x0040F720
-void __fastcall LOGMANAGER_WriteMessage(D2LogMessageStrc* pMessage)
+void __fastcall LOGMANAGER_WriteMessage(LogManager::Message* pMessage)
 {
     D2_ASSERT(pMessage->nType == 1, 0x2A1);
     char* szName = pMessage->GetName();
@@ -1588,7 +1591,7 @@ done:
 }
 
 // 0x0040F070
-void __fastcall LOGMANAGER_WriteDumpMessage(D2LogMessageStrc* pMessage)
+void __fastcall LOGMANAGER_WriteDumpMessage(LogManager::Message* pMessage)
 {
     D2SystemTimeStrc* const pStamp = &pMessage->f_14;
     D2_ASSERT(pMessage->nType == 2, 0x389);
