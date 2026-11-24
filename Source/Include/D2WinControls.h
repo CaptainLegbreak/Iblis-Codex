@@ -1,6 +1,6 @@
 #pragma once
 // D2Win: the window control types built on the control header (text boxes and their lines, edit boxes, buttons,
-// account lists, scroll bars, lists, images, animated images, movies).
+// account lists, scroll bars, lists, images, animated images, movies, timers and the small image of IMAGE2_Create).
 
 #include "D2Check.h"
 #include "D2Structs.h"
@@ -172,6 +172,21 @@ struct D2WinSmackStrc
     int nMovieY; // 0x14C
 };
 
+struct D2WinTimerStrc
+{
+    D2WinControlStrc controlHeader; // 0x00
+    unsigned int nTimeout; // 0x40
+    unsigned int dwTickCount; // 0x44
+};
+
+struct D2WinImage2Strc
+{
+    D2WinControlStrc controlHeader; // 0x00
+    int nFrame; // 0x40
+    int eDrawMode; // 0x44
+    D2WinImageClickRectStrc* pClickRect; // 0x48
+};
+
 D2_CHECK_SIZE(D2WinTextBoxLineStrc, 0x20);
 D2_CHECK_SIZE(D2WinTextBoxStrc, 0xAC);
 D2_CHECK_SIZE(D2WinEditBoxStrc, 0x284);
@@ -182,3 +197,5 @@ D2_CHECK_SIZE(D2WinListStrc, 0x6C);
 D2_CHECK_SIZE(D2WinImageStrc, 0x54);
 D2_CHECK_SIZE(D2WinAnimImageStrc, 0x60);
 D2_CHECK_SIZE(D2WinSmackStrc, 0x150);
+D2_CHECK_SIZE(D2WinTimerStrc, 0x48);
+D2_CHECK_SIZE(D2WinImage2Strc, 0x4C);

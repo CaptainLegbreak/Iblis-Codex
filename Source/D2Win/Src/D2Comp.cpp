@@ -421,12 +421,6 @@ struct D2FontStrc;
 
 struct D2CharStrc;
 
-struct D2WinTimerStrc
-{
-    D2WinControlStrc controlHeader;
-    unsigned int nTimeout;
-    unsigned int dwTickCount;
-};
 
 struct D2WinPopUpLineStrc
 {
@@ -481,13 +475,6 @@ struct D2CelStrc;
 
 struct D2WinImageClickRectStrc;
 
-struct D2WinImage2Strc
-{
-    D2WinControlStrc controlHeader;
-    int nFrame;
-    int eDrawMode;
-    D2WinImageClickRectStrc* pClickRect;
-};
 
 struct D2AnimatedImageDescriptor;
 

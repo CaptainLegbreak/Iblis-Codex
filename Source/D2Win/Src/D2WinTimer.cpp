@@ -38,12 +38,6 @@ enum D2ControlTypes
     D2WIN_IMAGE2 = 13,
 };
 
-struct D2WinTimerStrc
-{
-    D2WinControlStrc controlHeader;
-    unsigned int nTimeout;
-    unsigned int dwTickCount;
-};
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 
