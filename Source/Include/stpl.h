@@ -85,6 +85,11 @@ template<class T>
 struct TSLinkedNode
 {
     TSLink<T> m_link;                                       // 0x00
+
+    ~TSLinkedNode()
+    {
+        m_link.Unlink();
+    }
 };
 
 // The link policies: TSGetLink finds a node's link in its m_link member; TSGetExplicitLink uses the list's
