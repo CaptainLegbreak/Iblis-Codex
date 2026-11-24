@@ -1190,80 +1190,7 @@ static __forceinline int CONSOLE_FindSecondTokenInline(const char* szText, char*
     return 0;
 }
 
-// 0x0043C6B0
-int __fastcall CHATDLG_WriteSaveHeader(const char* szName)
-{
-    char szDir[0x400];
-    char szPath[0x1F4];
-    unsigned long dwWritten;
-
-    FOG_GetSavePath(szDir, 0x400);
-    sprintf(szPath, gszSaveFormat_006D4230, szDir, szName);
-
-    void* hFile = FOG_CreateFileA(szPath, 0x40000000, 0, 0, 2, 0x8000000, 0);
-    if (!hFile)
-        return 0;
-
-    gtCharSaveHeader.dwChecksum = FOG_ComputeChecksum((const unsigned char*)&gtCharSaveHeader, 0x14F);
-    FOG_WriteFile(hFile, &gtCharSaveHeader, 0x14F, &dwWritten, 0);
 // build: symbol ?FOG_CloseFile@* 0x004069A0
-    FOG_CloseFile(hFile);
-    return 1;
-}
-
-// 0x0043CAA0
-int __fastcall CHATDLG_UpdateSaveFlags(const char* szName)
-{
-    D2CharSaveFileStrc tSave;
-    char szDir[0x400];
-    char szPath[0x1F4];
-    unsigned long dwFlags;
-    unsigned long dwWritten;
-    unsigned long dwRead;
-
-    FOG_GetSavePath(szDir, 0x400);
-    sprintf(szPath, gszSaveFormat_006D4230, szDir, szName);
-
-    void* hFile = FOG_CreateFileA(szPath, 0xC0000000, 0, 0, 3, 0x8000000, 0);
-    if (!hFile)
-        return 0;
-
-    FOG_ReadFile(hFile, &tSave, 0x2000, &dwRead, 0);
-    if (dwRead < 8)
-        return 0;
-    if (tSave.dwMagic != 0xAA55AA55)
-        return 0;
-
-    int nResult;
-    if (tSave.dwVersion <= 0x5B)
-    {
-        if (dwRead < 0x82)
-            return 0;
-        dwFlags = tSave.dwOldFlags | 0x20;
-        FOG_SetFilePointer(hFile, 0x18, 0, 0);
-        nResult = FOG_WriteFile(hFile, &dwFlags, 4, &dwWritten, 0);
-    }
-    else
-    {
-        if (dwRead < 0x14F)
-            return 0;
-        tSave.dwFlags |= 0x20;
-        tSave.dwChecksum = 0;
-        tSave.dwChecksum = FOG_ComputeChecksum((const unsigned char*)&tSave, dwRead);
-        FOG_SetFilePointer(hFile, 0, 0, 0);
-        nResult = FOG_WriteFile(hFile, &tSave, dwRead, &dwWritten, 0);
-    }
-
-    FOG_CloseFile(hFile);
-    return nResult;
-}
-
-// 0x0043CBE0
-D2ModuleInterfaceStrc* __fastcall sub_0043CBE0_Init(void* hInstance)
-{
-    gpInstance = hInstance;
-    return &gtInterface;
-}
 
 // 0x0043CBF0
 void __cdecl sub_0043CBF0_Nop()
@@ -1986,7 +1913,7 @@ int __stdcall sub_0043DBF0_OnReceiveTick(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0043DC30
-int __cdecl CHARSEL_GetConnectStatus()
+__declspec(noinline) int __cdecl CHARSEL_GetConnectStatus()
 {
 // build: symbol ?gpCharInfo@* 0x0077BBD8
     if (gpCharInfo->nByte22D && !sub_00449B30_QueryAddress())
@@ -5150,6 +5077,70 @@ int __stdcall sub_00443CC0_SelectHell(int nArg)
     return 1;
 }
 
+extern D2WinControlInitStrc gtProfileEditBckgInit; // 0x0070E680
+
+extern D2WinControlInitStrc gtControlInit_0070E6B0; // 0x0070E6B0
+
+extern D2WinControlInitStrc gtSubmitEditAInit; // 0x0070E6E0
+
+extern D2WinControlInitStrc gtSubmitEditBInit; // 0x0070E710
+
+extern D2WinControlInitStrc gtSubmitEditCInit; // 0x0070E740
+
+extern D2WinControlInitStrc gtProfileViewBckgInit; // 0x0070E770
+
+extern D2WinControlInitStrc gtControlInit_0070E7A0; // 0x0070E7A0
+
+extern D2WinControlInitStrc gtControlInit_0070E7D0; // 0x0070E7D0
+
+extern D2WinControlInitStrc gtControlInit_0070E800; // 0x0070E800
+
+extern D2WinControlInitStrc gtControlInit_0070E830; // 0x0070E830
+
+extern D2WinControlInitStrc gtRefreshButtonInit; // 0x0070E920
+
+extern D2WinControlInitStrc gtSubmitButtonInit; // 0x0070E950
+
+extern D2WinControlInitStrc gtSelectButtonInit; // 0x0070E980
+
+D2WinControlStrc* gpChatControl_0077B074;                                                                   // 0x0077B074
+
+D2WinControlStrc* gpControlC_0077B07C;                                                                      // 0x0077B07C
+
+int gbCheck; // 0x0077BD58
+
+D2WinControlStrc* gpControl_00798C74; // 0x00798C74
+
+D2WinControlStrc* gpSubmitEditA; // 0x00798C80
+
+D2WinControlStrc* gpSubmitEditB; // 0x00798C84
+
+D2WinControlStrc* gpSubmitEditC; // 0x00798C88
+
+D2WinControlStrc* gpSubmitButton; // 0x00798CA0
+
+D2WinControlStrc* gpSelectButton; // 0x00798CA4
+
+void __fastcall COMCALLBACK_ShowProfileDialog(const char*,int,int); // 0x00445A80
+
+void __fastcall COMCALLBACK_ShowUserInfoDialog(const char*,const char*,int,int); // 0x00445C70
+
+const char* __fastcall CHATDLG_SkipNamePrefix(const char* szName); // 0x00446820
+
+// build: symbol ?gbCharSelBusy@* 0x00779DA0
+// build: symbol ?gpCharList@* 0x00779DBC
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+// build: symbol ?MAINMENUS_DestroyControls@* 0x0042F3F0
+// build: symbol ?MAINMENUS_JoinGame@* 0x00434A00
+
+// 0x00443D10
+static void __stdcall COMCALLBACK_SetPendingName(int nA, int nB, const char* szText)
+{
+    strcpy(gszPendingEntryName, szText);
+    gnPendingValueA = nA;
+    gnPendingValueB = nB;
+}
+
 // 0x00443D50
 void __cdecl CHATDLG_CreateProfileControls()
 {
@@ -5594,8 +5585,11 @@ void __cdecl sub_004451C0_UpdateLevelControls()
 }
 
 extern "C" int __cdecl SStrPrintf(char* szBuffer, unsigned int nSize, const char* szFormat, ...); // 0x00413A40
+
 int __fastcall D2Win_10076(D2WinEditBoxStrc* pEditBox, const char* szText); // 0x004FFE10
+
 extern const char gszFormatInt_006D57BC[]; // 0x006D57BC
+
 D2WinControlStrc* gpLevelDiffCheck; // 0x00798C40
 
 // 0x00445300
@@ -5681,53 +5675,176 @@ int __stdcall sub_004456C0_OnEnter(int nArg)
     return 1;
 }
 
-// 0x00446810
-char* __cdecl CHATDLG_StrChr(const char* szString, int nChar)
+// 0x00445A80
+void __fastcall COMCALLBACK_ShowProfileDialog(const char* szText, int nA, int nB)
 {
-    return strchr(szString, nChar);
+    const char* szName = gpCharInfo->szAccount;
+    char szA[12];
+    char szB[44];
+    char szC[204];
+
+    BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
+    BUTTON_SetIsPressed(gpCreateScreenButton, 0);
+    BUTTON_SetIsPressed(gpJoinScreenButton, 0);
+    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    if (!MAINMENUS_RequestProfile((int)szName, (int)szA, (int)szB, (int)szC))
+    {
+        return;
+    }
+
+// build: symbol ?CHARSEL_ResetLaunchState@* 0x0043F8C0
+    CHARSEL_ResetLaunchState();
+    gnSubmitMode = 2;
+    gpProfileEditBckg = CONTROL_Create(&gtProfileEditBckgInit);
+    gpControl_00798C7C = CONTROL_Create(&gtControlInit_0070E6B0);
+    sub_004FCF80_SetTextA(gpControl_00798C7C, szName);
+    gpSubmitEditA = CONTROL_Create(&gtSubmitEditAInit);
+    sub_004FFE10_SetTextA(gpSubmitEditA, szA);
+    sub_004FDD50_SetMaxLength(gpSubmitEditA, 8);
+    gpSubmitEditB = CONTROL_Create(&gtSubmitEditBInit);
+    sub_004FFE10_SetTextA(gpSubmitEditB, szB);
+    sub_004FDD50_SetMaxLength(gpSubmitEditB, 0x28);
+    gpSubmitEditC = CONTROL_Create(&gtSubmitEditCInit);
+    sub_004FFE10_SetTextA(gpSubmitEditC, szC);
+    sub_004FDD50_SetMaxLength(gpSubmitEditC, 0xC8);
+    gpRefreshButton = CONTROL_Create(&gtRefreshButtonInit);
+    sub_004FA450_SetActive(gpRefreshButton);
+    gpSubmitButton = CONTROL_Create(&gtSubmitButtonInit);
+    if (!gbCheck)
+    {
+        gpSelectButton = CONTROL_Create(&gtSelectButtonInit);
+    }
+    CHATDLG_CreateProfileControls();
+    sub_004FDDD0_LinkTab(gpSubmitEditC, gpSubmitEditA);
+    sub_004FDDD0_LinkTab(gpSubmitEditA, gpSubmitEditB);
+    sub_004FDDD0_LinkTab(gpSubmitEditB, gpSubmitEditC);
+    if (!szA[0] && !szB[0] && !szC[0])
+    {
+        CONTROL_SetFocusedEditBox(gpSubmitEditA);
+    }
+    else
+    {
+        CONTROL_SetFocusedEditBox(gpSubmitEditC);
+        D2Win_10082(gpSubmitEditC);
+    }
+    COMCALLBACK_SetPendingName(nA, nB, szText);
 }
 
-// 0x00446820
-const char* __fastcall CHATDLG_SkipNamePrefix(const char* szName)
+// 0x00445C70
+void __fastcall COMCALLBACK_ShowUserInfoDialog(const char* szUser, const char* szText, int nA, int nB)
 {
-    const char* pFound = SStrChr(szName, '*');
-    if (pFound)
+    const char* szName = CHATDLG_SkipNamePrefix(szUser);
+    char szA[12];
+    char szB[44];
+    char szC[204];
+
+    BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
+    BUTTON_SetIsPressed(gpCreateScreenButton, 0);
+    BUTTON_SetIsPressed(gpJoinScreenButton, 0);
+    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    if (!MAINMENUS_RequestProfile((int)szName, (int)szA, (int)szB, (int)szC))
     {
-        pFound += 1;
-        if (*pFound != 0)
-            return pFound;
+        return;
     }
-    return szName;
+
+    CHARSEL_ResetLaunchState();
+    gnSubmitMode = 1;
+    gpProfileViewBckg = CONTROL_Create(&gtProfileViewBckgInit);
+    gpControl_00798C68 = CONTROL_Create(&gtControlInit_0070E7A0);
+    sub_004FCF80_SetTextA(gpControl_00798C68, szName);
+    gpControl_00798C6C = CONTROL_Create(&gtControlInit_0070E7D0);
+    sub_004FCF80_SetTextA(gpControl_00798C6C, szA);
+    gpControl_00798C70 = CONTROL_Create(&gtControlInit_0070E800);
+    sub_004FCF80_SetTextA(gpControl_00798C70, szB);
+    gpControl_00798C74 = CONTROL_Create(&gtControlInit_0070E830);
+    char szDelim[] = "\r\n";
+    char* szLine = strtok(szC, szDelim);
+    while (szLine)
+    {
+        sub_004FCF80_SetTextA(gpControl_00798C74, szLine);
+        szLine = strtok(0, szDelim);
+    }
+    gpSubmitButton = CONTROL_Create(&gtSubmitButtonInit);
+    sub_004FA450_SetActive(gpSubmitButton);
+    if (!gbCheck)
+    {
+        gpSelectButton = CONTROL_Create(&gtSelectButtonInit);
+    }
+    CHATDLG_CreateProfileControls();
+    sub_0043D990();
+    COMCALLBACK_SetPendingName(nA, nB, szText);
 }
 
-// 0x00446840
-void __fastcall CHATDLG_CopyNamePrefix(const char* szName, char* szOut)
-{
-    if (*szName != '*')
-    {
-        const char* pFound = SStrChr(szName, '*');
-        if (pFound)
-        {
-            memcpy(szOut, szName, pFound - szName);
-            szOut[pFound - szName] = 0;
-            return;
-        }
-    }
-    SStrCopy(szOut, szName, 0x7FFFFFFF);
-}
+void __cdecl sub_00445DF0_CreateJoinScreen();                                                               // 0x00445DF0
+extern D2WinControlInitStrc gtJoinGameBckgImageInit;                                                         // 0x0070D630
+extern D2WinControlInitStrc gtJoinGameTitleInit;                                                         // 0x0070D660
+extern D2WinControlInitStrc gtJoinNameLabelInit;                                                         // 0x0070D690
+extern D2WinControlInitStrc gtJoinPasswordLabelInit;                                                         // 0x0070D6C0
+extern D2WinControlInitStrc gtControlInit_0070D6F0;                                                         // 0x0070D6F0
+extern D2WinControlInitStrc gtJoinNameInit;                                                         // 0x0070D720
+extern D2WinControlInitStrc gtJoinPasswordInit;                                                         // 0x0070D750
+extern D2WinControlInitStrc gtGameListInit;                                                         // 0x0070D780
+extern D2WinControlInitStrc gtJoinButtonInit;                                                         // 0x0070D7B0
+extern D2WinControlInitStrc gtGameInfoTextInit;                                                         // 0x0070D8A0
+D2WinControlStrc* gpJoinName;                                                                      // 0x00798BD4
+D2WinControlStrc* gpJoinPassword;                                                                       // 0x00798BD8
+D2WinControlStrc* gpJoinGameTitle;                                                                       // 0x00798BDC
+D2WinControlStrc* gpJoinNameLabel;                                                                       // 0x00798BE0
+D2WinControlStrc* gpJoinPasswordLabel;                                                                       // 0x00798BE4
+D2WinControlStrc* gpControl_00798BE8;                                                                       // 0x00798BE8
+unsigned long gdwLastRefresh;                                                                      // 0x00798CF0
 
-// 0x00446A90
-void __stdcall CHATDLG_RemoveTableString(Unicode* pText)
+// 0x00445DF0
+void __cdecl sub_00445DF0_CreateJoinScreen()
 {
-    D2_ASSERT(sub_00526800(pText) < 500, 0x300);
-    const Unicode* pPattern = D2LANG_GetStringFromTblIndex(0xF9A);
-    const int nPatternLength = sub_00526800(pPattern);
-    Unicode* pFound = sub_00526940_FindSubstring(pText, pPattern);
-    while (pFound && pFound[nPatternLength].wChar)
+// build: symbol ?CHARSEL_GetConnectStatus@* 0x0043DC30
+    if (CHARSEL_GetConnectStatus() == -1)
     {
-        memmove(pFound, &pFound[nPatternLength + 1], (sub_00526800(pFound) - nPatternLength) * sizeof(Unicode));
-        pFound = sub_00526940_FindSubstring(pText, pPattern);
+        CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x1413), 0);
+        return;
     }
+    gpJoinGameBckgImage = CONTROL_Create(&gtJoinGameBckgImageInit);
+    gpJoinGameTitle = CONTROL_Create(&gtJoinGameTitleInit);
+    D2Win_10044(gpJoinGameTitle, D2LANG_GetStringFromTblIndex(0x141F));
+    gpJoinNameLabel = CONTROL_Create(&gtJoinNameLabelInit);
+    D2Win_10044(gpJoinNameLabel, D2LANG_GetStringFromTblIndex(0x149A));
+    gpJoinPasswordLabel = CONTROL_Create(&gtJoinPasswordLabelInit);
+    D2Win_10044(gpJoinPasswordLabel, D2LANG_GetStringFromTblIndex(0x1469));
+    gpControl_00798BE8 = CONTROL_Create(&gtControlInit_0070D6F0);
+    D2Win_10044(gpControl_00798BE8, D2LANG_GetStringFromTblIndex(0x149B));
+    gpControl_00798BCC = CONTROL_Create(&gtJoinButtonInit);
+    gpControl_00798BD0 = CONTROL_Create(&gtControlInit_0070E110);
+    sub_004FA450_SetActive(gpControl_00798BD0);
+    gpJoinName = CONTROL_Create(&gtJoinNameInit);
+    sub_004FDD50_SetMaxLength(gpJoinName, 0x10);
+    sub_004FDAD0_SetKeyCallback(gpJoinName, sub_004450A0_JoinNameKey);
+    sub_004FDB00_SetEnterCallback(gpJoinName, sub_004450C0_JoinNameEnter);
+    gpJoinPassword = CONTROL_Create(&gtJoinPasswordInit);
+    sub_004FDD50_SetMaxLength(gpJoinPassword, 0x10);
+    sub_004FDAD0_SetKeyCallback(gpJoinPassword, (int (__stdcall*)(D2WinControlStrc*, int, const char*))CHATDLG_IsPrintableChar);
+    sub_004FDDD0_LinkTab(gpJoinName, gpJoinPassword);
+    sub_004FDDD0_LinkTab(gpJoinPassword, gpJoinName);
+// build: symbol ?gpGameList@* 0x00798BC0
+    gpGameList = CONTROL_Create(&gtGameListInit);
+    if (sub_00449B30_QueryAddress())
+    {
+        sub_004FBC20(gpGameList, 2);
+        sub_004FBC80(gpGameList, 1, 0x87);
+    }
+    gpControl_00798BC4 = CONTROL_Create(&gtGameInfoTextInit);
+    const unsigned long dwElapsed = GetTickCount() - gdwLastRefresh;
+    if (dwElapsed >= 0x1388)
+    {
+        gdwLastRefresh += dwElapsed;
+// build: symbol ?CHARSEL_RequestGameList@* 0x00445020
+        CHARSEL_RequestGameList();
+    }
+    CONTROL_SetFocusedEditBox(gpJoinName);
+// build: symbol ?gnLastGameCount@* 0x00798CC8
+    gnLastGameCount = 0;
+    gnValue_00798CCC = 0;
+// build: symbol ?CHARSEL_UpdateJoinButtonState@* 0x004437E0
+    CHARSEL_UpdateJoinButtonState();
 }
 
 // 0x00448BD0

@@ -611,8 +611,8 @@
    "state": "included"
   },
   "Source/D2Multi/Src/ChatDlg.cpp": {
-   "bytes": 8124,
-   "definitions": 153,
+   "bytes": 8060,
+   "definitions": 152,
    "externs": [
     "extern \"C\" void __cdecl CHARSEL_SendChatLine(); // 0x00446890",
     "extern \"C\" void __cdecl COMCALLBACK_SendChatLine(); // 0x004468F0",
@@ -5463,6 +5463,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Logging/Logging.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Multi/Unknown_0043CBE0.cpp": {
+   "bytes": 64,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Multi/Unknown_0043CBE0.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -19535,7 +19544,7 @@
    "cname": "gData_0070CD14",
    "declared": true,
    "decorated": "?gtInterface@@3UD2ModuleInterfaceStrc@@A",
-   "file": "Source/D2Multi/Src/ChatDlg.cpp",
+   "file": "Source/D2Multi/Unknown_0043CBE0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070CD14_t gData_0070CD14; // 0x0070CD14",
    "head": "extern \"C\" struct d2data_0070CD14_t gData_0070CD14 = ",
@@ -19548,9 +19557,27 @@
      "CHATDLG_StartChat",
      0,
      "func"
-    ],
+    ]
+   ],
+   "region": "data",
+   "size": 4,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0070CD14_t\n{\n    const void* p0;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x0070CD14\n#pragma comment(linker, \"/alternatename:?gtInterface@@3UD2ModuleInterfaceStrc@@A=_gData_0070CD14\")",
+   "va": "0x0070CD14"
+  },
+  {
+   "alias": false,
+   "cname": "gData_0070CD18",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Multi/Src/ChatDlg.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_0070CD18_t gData_0070CD18; // 0x0070CD18",
+   "head": "extern \"C\" struct d2data_0070CD18_t gData_0070CD18 = ",
+   "name": "gData_0070CD18",
+   "pointers": [
     [
-     4,
+     0,
      "0x006CC81C",
      "literal",
      null,
@@ -19558,7 +19585,7 @@
      "string"
     ],
     [
-     8,
+     4,
      "0x006CC814",
      "literal",
      null,
@@ -19566,7 +19593,7 @@
      "string"
     ],
     [
-     12,
+     8,
      "0x006CC80C",
      "literal",
      null,
@@ -19574,7 +19601,7 @@
      "string"
     ],
     [
-     16,
+     12,
      "0x006CC804",
      "literal",
      null,
@@ -19582,7 +19609,7 @@
      "string"
     ],
     [
-     20,
+     16,
      "0x006CC7F8",
      "literal",
      null,
@@ -19590,7 +19617,7 @@
      "string"
     ],
     [
-     24,
+     20,
      "0x006CC7F0",
      "literal",
      null,
@@ -19598,7 +19625,7 @@
      "string"
     ],
     [
-     28,
+     24,
      "0x006CC7E4",
      "literal",
      null,
@@ -19606,7 +19633,7 @@
      "string"
     ],
     [
-     32,
+     28,
      "0x006CC7DC",
      "literal",
      null,
@@ -19614,7 +19641,7 @@
      "string"
     ],
     [
-     36,
+     32,
      "0x006CC7C8",
      "literal",
      null,
@@ -19622,7 +19649,7 @@
      "string"
     ],
     [
-     40,
+     36,
      "0x006CC7B4",
      "literal",
      null,
@@ -19630,7 +19657,7 @@
      "string"
     ],
     [
-     44,
+     40,
      "0x006CC7AC",
      "literal",
      null,
@@ -19638,7 +19665,7 @@
      "string"
     ],
     [
-     48,
+     44,
      "0x006CC7A4",
      "literal",
      null,
@@ -19646,7 +19673,7 @@
      "string"
     ],
     [
-     52,
+     48,
      "0x006CC788",
      "literal",
      null,
@@ -19654,7 +19681,7 @@
      "string"
     ],
     [
-     56,
+     52,
      "0x006CC780",
      "literal",
      null,
@@ -19662,7 +19689,7 @@
      "string"
     ],
     [
-     60,
+     56,
      "0x006CC77C",
      "literal",
      null,
@@ -19671,10 +19698,10 @@
     ]
    ],
    "region": "data",
-   "size": 64,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070CD14_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    const void* p15;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070CD14\n#pragma comment(linker, \"/alternatename:?gtInterface@@3UD2ModuleInterfaceStrc@@A=_gData_0070CD14\")",
-   "va": "0x0070CD14"
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0070CD18_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x0070CD18",
+   "va": "0x0070CD18"
   },
   {
    "alias": false,
@@ -25907,7 +25934,7 @@
    "cname": "gData_0070CCD8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Multi/Src/ChatDlg.cpp",
+   "file": "Source/D2Multi/Unknown_0043CBE0.cpp",
    "form": "bytes",
    "name": "gData_0070CCD8",
    "pointers": [
