@@ -14,6 +14,11 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
+- lane9/join-ddraw-11df0 0c5db874 placeholders 1->0 (D2DDraw/Unknown_00512250.cpp into Unknown_00511DF0.cpp). Base
+  main ff0dd9c4 (#335). Precheck: 0 not all equal. Full verify: VERIFIED tree 7887dac9.
+  DrawCelClipped 0x512250 is the only caller of the file static ClipCel 0x511E80 (the placeholder carried a copy of
+  it). Unknown_00511DF0.cpp already held an emitter for it; the emitter becomes the real function (prepare mode 1,
+  the palette lookup evaluated as CelDrawEx's argument, as the image orders it).
 - lane9/join-d3d-7530 98bdfd62 placeholders 6->1 (D2Direct3D: Unknown_006B7630, _006B8950, _006B8DF0, _006B8E90,
   _006B87A0 join Unknown_006B7530.cpp; 13 functions). Base main ff0dd9c4 (#335). Precheck: 0 not all equal.
   Full verify on #335: VERIFIED tree fadd5258 (98bdfd62; rebased with namesync, 4 renames in the joined file).
@@ -34,6 +39,12 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   Full verify: VERIFIED tree 0eb9d35e. Every d3dSprite unit builds equal with and without /GS-, so flags don't keep
   the group apart; d3dSprite_006B5D40.cpp stays until its shims are reconciled with the main file's.
 ## Questions
+- Coordinator, D2Gdi direction (I'll hold off): the file static 0x6C8380 (in Unknown_006C8250.cpp, 12 functions) is
+  called from 0x6C8750, which is filed in gdiCore.cpp. So 0x6C8750 and Unknown_006C8250 are one object. gdiCore.cpp's
+  only file evidence is the allocation tags in 0x6C7A70/0x6C7AB0, 0x6C8750 came into gdiCore from a placeholder, and
+  the two units interleave function by function over 0x6C7A70-0x6C8C43 (renderer code here doesn't follow file
+  order, as in Glide). Either Unknown_006C8250 joins gdiCore.cpp, or 0x6C8750 (and its neighbours 0x6C81A0, 0x6C84B0,
+  0x6C86A0) leave gdiCore for the placeholder. I lean to the first: one D2Gdi core object. Which do you want?
 - Coordinator, D2Hell grouping (I'll hold off joining until you say): every D2Hell unit builds equal under one flag
   set, plain `/O1` (config flags + /O1), including the pieces now carrying /O2, /Os, /O1 /Ob1 /Oy- or /GS- variants. The
   only exceptions are two copies of one list constructor, 0x00517628 and 0x005176E4 (TSList-style ctor: linkOffset 0,
