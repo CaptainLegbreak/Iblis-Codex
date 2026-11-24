@@ -1083,15 +1083,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_0049B030.cpp": {
-   "bytes": 92,
-   "definitions": 5,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_0049B030.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/Unknown_0049BB40.cpp": {
    "bytes": 335,
    "definitions": 4,
@@ -4996,6 +4987,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Hell/Unknown_00516D8B.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/UI/Party.cpp": {
+   "bytes": 92,
+   "definitions": 5,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/UI/Party.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -49779,7 +49779,7 @@
    "cname": "gData_00722414",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0049B030.cpp",
+   "file": "Source/D2Client/UI/Party.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00722414_t gData_00722414; // 0x00722414",
    "head": "extern \"C\" struct d2data_00722414_t gData_00722414 = ",
@@ -50220,7 +50220,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0049B030.cpp",
+   "file": "Source/D2Client/UI/Party.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern unsigned short gawRosterHostileMale[2][2] = ",
@@ -50255,7 +50255,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0049B030.cpp",
+   "file": "Source/D2Client/UI/Party.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern unsigned short gawRosterHostileFemale[2][2] = ",
@@ -50290,7 +50290,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0049B030.cpp",
+   "file": "Source/D2Client/UI/Party.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern unsigned short gawRosterLootMale[2][2] = ",
@@ -50325,7 +50325,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0049B030.cpp",
+   "file": "Source/D2Client/UI/Party.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern unsigned short gawRosterLootFemale[2][2] = ",
