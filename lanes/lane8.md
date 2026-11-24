@@ -10,6 +10,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - 2026-11-24 11:05 PT: join-drlgwarp and join-pathwf posted. The D2Common placeholders without a language copy of their own are now only the parked ones (see Left in place).
 
 ## Ready
+- lane8/strays-c 24763064 (on #359), VERIFIED 66a0b8a9. Seven single-function strays move into the file on both sides of them: 0x6125A0/0x613E60 Ignorelist -> DataTbls, 0x63A110/0x63A530 Inventory -> Items, 0x66D7F0 Drlg -> DrlgAnim, 0x66B800/0x66B880 Skills -> DrlgRoom. Left: 0x680040 (OutWild, in OutDesr's run; OutDesr has its own unmarked copy and OutWild calls it), and the Drlg/Skills DUNGEON_ coordinate helpers at 0x643260-0x643400 (interleaved, boundary unclear).
 - lane8/join-pathwf 1186fca5 (on #359), VERIFIED e0945fae. Unknown_0067B9C0 takes in PATH/PathWF.cpp (0x67C2D0, inside its run, no copy of its own). PathWF's plain-inline PATH_TestNewTargetPoint is renamed apart from the piece's __forceinline one; with that, the stack-slot swap I saw before is gone and the unit builds equal. Units -1.
 - lane8/join-drlgwarp 2fd4fd28 (on #358), VERIFIED 6fb2069b. DrlgWarp.cpp takes in Unknown_0066AB70 (holds the object's copy 0x749804), 0066AC40, 0066AE70 and DrlgRoom's 0x66AE30, all inside DrlgWarp's run. The header clash is solved by compiling the pieces against DrlgWarp's local structs (a minimal D2DrlgTileDataStrc; the level struct names pTileInfo/nTileInfo for the member 0x66AC40). Units -3.
 
