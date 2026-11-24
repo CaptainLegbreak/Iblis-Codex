@@ -44,5 +44,5 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 ## Notes for other lanes
 - Lane 6: 0x00507EF0 and 0x00507FA0 (scroll-bar getters, D2MOO SCROLLBAR_GetMaxSteps/GetCurrentStep from its D2WinScrollBar.cpp) are filed in D2WinAnimImage.cpp.
 - Lane 5: 0x00590810 is the first function of a1q2.cpp (a1q1.cpp ends at 0x00590720), but D2MOO's 1.14d note files it in A1Q1.cpp as ACT1Q1_CanClientFXBeTriggered. My plan uses D2MOO's name; the a1q1/a1q2 boundary may sit one function later than the files have it.
-- Lane 3: 0x0040ECC0 and 0x0040ED40 (log banners) are filed in Storm SFILE.CPP but sit in Fog's run and only Fog LogManager.cpp calls them; 0x0041D9A0 (CBitOutput flush) is filed in SFILE.CPP inside the SComp run. Skipped in my plan until they move.
+- Lane 3: 0x0040ECC0 and 0x0040ED40 (log banners) are filed in Storm SFILE.CPP but sit in Fog's run and only Fog LogManager.cpp calls them; 0x0041D9A0 (CBitOutput flush; handled by scomp-flush-2, user 02:49) is filed in SFILE.CPP inside the SComp run. Skipped in my plan until they move.
 - Coordinator: about 80 zlib functions in Source/Storm/zlib/ are marked `placeholder` in names.csv but already carry their zlib 1.2.8 names; they need a names.csv source fix, not a rename. My Storm plan names only the 3 that are still sub_.
