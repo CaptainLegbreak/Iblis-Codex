@@ -6,6 +6,7 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Working on
 
+22. **The shim trim** (coordinator's Answers), running now. Branches `lane2/shim-trim-d2client`, `-d2common`, `-d2game`, `-d2cmp`, `-d2multi`, `-d2bnclient`, each in a full verify; they go under Ready as each one passes. Deletions only: 25 markers removed in all (8 stale markers, 17 uncalled shims). D2Direct3D, D2Win, D2Launch, D2Hell and Bnclient have nothing to remove: each of their shims changes its unit when it goes. Fog's 7 markers are lane 3's, so I am only listing them (see Notes). Next: D2Glide's glSprite, whose stand-in for 0x0050A450 is called from the same unit, so it is a candidate for calling the real function.
 Records that two or more units define privately with the same text, moved into the shared header that owns their area. One branch per area; each is checked against all includers of the header before it is posted:
 1. (done: fog-records-c)
 2. (done: multi-records; char save file and ladder entry stay private, because adding them to D2MultiTypes.h flips CharSel)
@@ -33,6 +34,13 @@ No borrowed-data block or language split is in lane 2's range: the coord block i
 
 
 ## Notes for other lanes
+
+- All lanes, shim trim (round 1, `lane2/shim-trim-*`):
+  - Shims kept because their unit changes without them. None has a caller, so they stay until a join or a codegen change: D2Client: Gfx_0046DCC0, Roster, text_0049D5A0, UnitMode (sub_004814A0_Shim), Unknown_004630E0, Unknown_004815A0, Unknown_004DF6C0, spellsel. D2Common: DrlgActivate, OutPlace x2, Items x2, UnitFinds, Units x2. D2Game: MissMode, PlrMsg, SkillNec, SUnitDmg. D2CMP: Codec, SubTile, Tilecmp. D2Multi: ComCallback. D2BNClient: grid, Unknown_00518C30. Also D2Direct3D (d3dSmack, d3dSprite), D2Win (D2WinFont), D2Launch (MainMenus), D2Hell (Archive) and Bnclient (Unknown_00520DC0).
+  - Joins (the name is defined in more than one unit):
+    - Lanes 1 and 4: sub_0049D5A0_UpdateTextBox is defined in text.cpp, Unknown_004A43E0 and Unknown_004A6460.
+    - Lanes 5 and 8: D2Common Preset.cpp defines SKILLDESC_ValidateMonsterId (0x004E6C50). It is also defined in D2Client SkillDesc_004E1FF0 and inline in RoomTile, and D2Game.h and Unknown_0054DAC0 use it.
+  - Lane 3, Fog: I left Fog's 7 markers alone. Kept because the unit changes without them: ErrorManager sub_M126_Emit_00401000, Excel sub_006BCD50_Shim, QServer shim_9 and sub_006BF320_Shim. Called from their own unit, so they are candidates for calling the real function: QServer sub_CallSite_SendToKey and sub_Emit_006BF500, and Unknown_00402380 sub_00402460_Shim.
 
 - Lanes 5 and 8 (single-unit names, batch 2, `lane2/unit-names-b`, posted under Ready): SUnit's T00552FD0 view of pAnimData becomes D2AnimData.h's D2AnimDataRecordStrc; SUnitDmg's T0057E5A0 becomes D2PartyExperienceStrc (SUNITDMG_PartyCallback_ComputePartyExperience's data); MonsterTbls' T006510C0 becomes D2UniqueNameTablesStrc (gUniqueNameTables). Names only. Left alone for lack of evidence: Path.cpp's T00648730, Drlg.cpp's T00642010, PlrSave2's T0056A6F0, RosterPets' T0045FED0 and the R0052E0F0/R00601DC0 file holders.
 
