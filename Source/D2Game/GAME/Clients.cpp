@@ -2077,11 +2077,11 @@ extern int gdwGlobal_00882750; // 0x00882750
 
 int __stdcall sub_00424E40(void* pArg); // 0x00424E40
 
-extern char gszEmptyLoadComplete[]; // 0x006E0498
+extern const char gszEmptyLoadComplete[184]; // 0x006E0498
 
-extern char gData_006E0550[]; // 0x006E0550
+extern const char gData_006E0550[24]; // 0x006E0550
 
-extern char gData_006E0568[]; // 0x006E0568
+extern const char gData_006E0568[272]; // 0x006E0568
 
 extern int gdwGlobal_00731010; // 0x00731010
 

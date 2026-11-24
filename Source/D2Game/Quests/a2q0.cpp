@@ -73,6 +73,142 @@ enum D2QuestConstants
 
 #define QFLAG_REWARDGRANTED 0
 
+void __fastcall PLRINTRO_SetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId); // 0x00572360
+
+// 0x005983E0
+void __fastcall ACT2Intro_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    const int nNpcId = pQuestArg->nOldLevel;
+    const unsigned short nMessage = pQuestArg->nMessageIndex;
+    switch (nNpcId)
+    {
+    case 199:
+        if (nMessage == 204 || nMessage == 203)
+        {
+            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, nNpcId);
+        }
+        break;
+    case 200:
+        if (nMessage == 231 || nMessage == 230)
+        {
+            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, nNpcId);
+        }
+        break;
+    case 210:
+        if (nMessage == 242 || nMessage == 241)
+        {
+            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, nNpcId);
+        }
+        break;
+    case 178:
+        if (nMessage == 264 || nMessage == 263)
+        {
+            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, nNpcId);
+        }
+        break;
+    case 177:
+        if (nMessage == 286 || nMessage == 285)
+        {
+            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, nNpcId);
+        }
+        break;
+    case 198:
+        if (nMessage == 190)
+        {
+            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, nNpcId);
+        }
+        break;
+    case 175:
+        if (nMessage == 215)
+        {
+            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, nNpcId);
+        }
+        break;
+    case 202:
+        if (nMessage == 274)
+        {
+            PLRINTRO_SetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, nNpcId);
+        }
+        break;
+    }
+}
+
+int __fastcall PLRINTRO_GetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId); // 0x005723C0
+
+// 0x005984C0
+void __fastcall ACT2Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
+    int nPlayerClass = !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwClassId;
+
+    int nSpecialIntroClass = 7;
+    switch (nNpcId)
+    {
+    case 199:
+        nSpecialIntroClass = 2;
+        break;
+    case 200:
+        nSpecialIntroClass = 4;
+        break;
+    case 210:
+        nSpecialIntroClass = 0;
+        break;
+    case 178:
+        nSpecialIntroClass = 3;
+        break;
+    case 177:
+        nSpecialIntroClass = 1;
+        break;
+    case 175:
+    case 198:
+    case 202:
+        break;
+    default:
+        return;
+    }
+
+    if (PLRINTRO_GetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, nNpcId))
+    {
+        return;
+    }
+
+    if (nPlayerClass == nSpecialIntroClass)
+    {
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 1);
+    }
+    else
+    {
+        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 0);
+    }
+}
+
+// 0x005985B0
+bool __fastcall ACT2Intro_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
+{
+    *pStatus = 0;
+    return false;
+}
+
+extern "C" char gpAct2IntroNpcMessages[]; // 0x00738D60
+
+bool __fastcall ACT2Intro_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x005985C0
+
+// 0x005985D0
+void __fastcall ACT2Intro_InitQuestData(D2QuestDataStrc* pQuestData)
+{
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->pCallback[0] = ACT2Intro_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT2Intro_Callback11_ScrollMessage;
+    pQuestData->pNPCMessages = gpAct2IntroNpcMessages;
+    pQuestData->bActive = 1;
+    pQuestData->fState = 0;
+    pQuestData->fLastState = 0;
+    pQuestData->pQuestDataEx = 0;
+    pQuestData->eFilter = 42;
+    pQuestData->pfStatusFilter = ACT2Intro_StatusFilterCallback;
+    pQuestData->pfActiveFilter = ACT2Intro_ActiveFilterCallback;
+}
+
 // 0x00598640
 void __fastcall ACT2Q0_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {

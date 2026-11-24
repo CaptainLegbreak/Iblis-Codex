@@ -744,6 +744,10 @@
      "va": "0x00413740",
      "length": 1,
      "name": "?sub_00413740_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x006CA6F0",
+     "length": 12
     }
    ],
    "flags": [
@@ -6280,6 +6284,10 @@
      "va": "0x0041C0C0",
      "length": 12,
      "name": "??0D2StormInit0041C0C0Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x006CA890",
+     "length": 5
     }
    ]
   },
@@ -37176,6 +37184,10 @@
      "va": "0x0050DD60",
      "length": 176,
      "name": "GLIDE_PerspectiveTransform"
+    },
+    {
+     "va": "0x0050DE10",
+     "length": 236
     }
    ]
   },
@@ -37198,30 +37210,6 @@
      "length": 28,
      "name": "sub_00512410_ForwardToDrawImage"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Unknown_0050DE10.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0050DE10",
-     "length": 236
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -37856,27 +37844,7 @@
      "va": "0x00513400",
      "length": 491,
      "name": "?DDRAW_DecodeSmacker@@YIXPBDPAUD2SmackRecordStrc@@E@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_005135F0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x005135F0",
      "length": 246
@@ -39430,6 +39398,10 @@
      "name": "sub_00518BA0_LogWrite"
     },
     {
+     "va": "0x00518C30",
+     "length": 55
+    },
+    {
      "va": "0x00518C70",
      "length": 207,
      "name": "BNDOWNLOAD_ConfigureLog"
@@ -39986,10 +39958,6 @@
    "file": "Source/D2BNClient/Unknown_00518C30.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x00518C30",
-     "length": 55
-    },
     {
      "va": "0x00518EC0",
      "length": 108
@@ -40971,6 +40939,16 @@
      "va": "0x0052BFA0",
      "length": 6,
      "name": "sub_0052BFA0"
+    },
+    {
+     "va": "0x0052BFB0",
+     "length": 3,
+     "name": "?sub_0052BFB0_Stub@@YGXHHHH@Z"
+    },
+    {
+     "va": "0x0052BFC0",
+     "length": 25,
+     "name": "?GAME_GetLoadCompleteString@@YIPBDXZ"
     },
     {
      "va": "0x0052C030",
@@ -43503,16 +43481,6 @@
      "va": "0x0052BED0",
      "length": 3,
      "name": "?GAME_DefaultUpdateCharacterLadder@@YGXHHHHH@Z"
-    },
-    {
-     "va": "0x0052BFB0",
-     "length": 3,
-     "name": "?sub_0052BFB0_Stub@@YGXHHHH@Z"
-    },
-    {
-     "va": "0x0052BFC0",
-     "length": 25,
-     "name": "?GAME_GetLoadCompleteString@@YIPBDXZ"
     },
     {
      "va": "0x0052BFE0",
@@ -53004,16 +52972,6 @@
      "va": "0x00597310",
      "length": 222,
      "name": "?ACT1Q4_UpdateQuestStateOnActChange@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005984C0",
-     "length": 228,
-     "name": "?ACT2Intro_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x005B6D30",
-     "length": 237,
-     "name": "?ACT3Intro_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
     }
    ]
   },
@@ -54809,11 +54767,6 @@
      "name": "ACT1Q7_ActiveFilterCallback"
     },
     {
-     "va": "0x005985B0",
-     "length": 15,
-     "name": "ACT2Intro_StatusFilterCallback"
-    },
-    {
      "va": "0x00599C10",
      "length": 220,
      "name": "?OBJECTS_OperateFunction40_HoradricScrollChest@@YIHPAUD2ObjOperateFnStrc@@H@Z"
@@ -55379,6 +55332,25 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x005983E0",
+     "length": 212
+    },
+    {
+     "va": "0x005984C0",
+     "length": 228,
+     "name": "?ACT2Intro_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005985B0",
+     "length": 15,
+     "name": "ACT2Intro_StatusFilterCallback"
+    },
+    {
+     "va": "0x005985D0",
+     "length": 101,
+     "name": "?ACT2Intro_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
+    {
      "va": "0x00598640",
      "length": 111,
      "name": "?ACT2Q0_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
@@ -55513,38 +55485,9 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005983E0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005983E0",
-     "length": 212
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Game/Quests/a2q1.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005985D0",
-     "length": 101,
-     "name": "?ACT2Intro_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
     {
      "va": "0x005988B0",
      "length": 96,
@@ -56107,6 +56050,30 @@
    "file": "Source/D2Game/Quests/a3q0.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x005B6C60",
+     "length": 201
+    },
+    {
+     "va": "0x005B6D30",
+     "length": 237,
+     "name": "?ACT3Intro_Callback00_NpcActivate@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x005B6E20",
+     "length": 15,
+     "name": "ACT3Intro_StatusFilterCallback"
+    },
+    {
+     "va": "0x005B6E30",
+     "length": 39,
+     "name": "ACT3Intro_ActiveFilterCallback"
+    },
+    {
+     "va": "0x005B6E60",
+     "length": 101,
+     "name": "?ACT3Intro_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
+    },
     {
      "va": "0x005B6ED0",
      "length": 80,
@@ -56851,16 +56818,6 @@
      "va": "0x005B0BC0",
      "length": 5,
      "name": "?MISSMODE_SrvDo01_BasicMissile@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005B6E20",
-     "length": 15,
-     "name": "ACT3Intro_StatusFilterCallback"
-    },
-    {
-     "va": "0x005B6E30",
-     "length": 39,
-     "name": "ACT3Intro_ActiveFilterCallback"
     },
     {
      "va": "0x005D7E10",
@@ -60110,36 +60067,7 @@
      "va": "0x005B6A70",
      "length": 91,
      "name": "?ACT4Q4_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x005B6E60",
-     "length": 101,
-     "name": "?ACT3Intro_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005B6710.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005B6C60",
-     "length": 201
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -77880,6 +77808,11 @@
      "name": "DRLGOUTDOORS_GetBorderLevelPrestId"
     },
     {
+     "va": "0x00675600",
+     "length": 103,
+     "name": "sub_00675600_LookupTable"
+    },
+    {
      "va": "0x006757E0",
      "length": 110,
      "name": "?DRLGOUTDOORS_GetBorderLookupId@@YIHPAUD2DrlgLevelStrc@@_N@Z"
@@ -77894,11 +77827,6 @@
    "file": "Source/D2Common/Unknown_00675600.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00675600",
-     "length": 103,
-     "name": "sub_00675600_LookupTable"
-    },
     {
      "va": "0x00675670",
      "length": 255,
@@ -82435,10 +82363,6 @@
      "length": 37
     },
     {
-     "va": "0x006CA6F0",
-     "length": 12
-    },
-    {
      "va": "0x006CA700",
      "length": 23
     },
@@ -82568,16 +82492,6 @@
      "va": "0x006CAC10",
      "length": 21,
      "name": "?sub_006CAC10_InitializeHorizontalPosition@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006CA890.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CA890",
-     "length": 5
     }
    ]
   },

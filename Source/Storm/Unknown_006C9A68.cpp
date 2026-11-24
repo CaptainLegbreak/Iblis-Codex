@@ -4,7 +4,6 @@ struct D2Block006CAB30Strc;
 struct D2Block006CAB90Strc;
 char* __fastcall sub_006C9AFF(char* p, char c); // 0x006C9AFF
 extern "C" __declspec(dllimport) char* __stdcall CharNextA(const char*); // 0x006CC450
-extern unsigned long gdwThreadId_00992B1C; // 0x00992B1C
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(void* section); // 0x006CC210
 extern unsigned char gCriticalSection_0075E838[]; // 0x0075E838
 void __cdecl sub_006CB070_DeleteCriticalSection(); // 0x006CB070
@@ -121,12 +120,6 @@ char* __fastcall sub_006C9B45(char* s)
         return s;
     *r = 0;
     return s;
-}
-
-// 0x006CA6F0
-void __cdecl sub_006CA6F0_RecordThreadId()
-{
-    gdwThreadId_00992B1C = GetCurrentThreadId();
 }
 
 // 0x006CA700

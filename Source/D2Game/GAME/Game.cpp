@@ -136,11 +136,11 @@ extern int gdwGlobal_00882750; // 0x00882750
 
 int __stdcall sub_00424E40(void* pArg); // 0x00424E40
 
-extern char gszEmptyLoadComplete[]; // 0x006E0498
+extern const char gszEmptyLoadComplete[184]; // 0x006E0498
 
-extern char gData_006E0550[]; // 0x006E0550
+extern const char gData_006E0550[24]; // 0x006E0550
 
-extern char gData_006E0568[]; // 0x006E0568
+extern const char gData_006E0568[272]; // 0x006E0568
 
 extern int gdwGlobal_00731010; // 0x00731010
 
@@ -1435,7 +1435,7 @@ void __stdcall GAME_DefaultRelockDatabaseCharacter(int nUnused1)
 }
 
 // 0x0052BF20
-void* __cdecl GAME_DefaultLoadComplete()
+const char* __cdecl GAME_DefaultLoadComplete()
 {
     return gszEmptyLoadComplete;
 }
@@ -1472,13 +1472,13 @@ void __fastcall sub_0052BF80_ZeroBlock8(void* pData)
 }
 
 // 0x0052BF90
-void* __cdecl sub_0052BF90()
+const void* __cdecl sub_0052BF90()
 {
     return gData_006E0550;
 }
 
 // 0x0052BFA0
-void* __cdecl sub_0052BFA0()
+const void* __cdecl sub_0052BFA0()
 {
     return gData_006E0568;
 }
@@ -2637,11 +2637,12 @@ void __stdcall sub_0052BF40_Stub(int a1, int a2, int a3, int a4)
 {
 }
 
+// 0x0052BFB0
 void __stdcall sub_0052BFB0_Stub(int a1, int a2, int a3, int a4)
 {
 }
 
-// build: symbol ?GAME_GetLoadCompleteString@* 0x0052BFC0
+// 0x0052BFC0
 const char* __fastcall GAME_GetLoadCompleteString()
 {
     if (!gbD2ServerCallbackFunctionsInitialized)

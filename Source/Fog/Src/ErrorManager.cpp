@@ -400,7 +400,6 @@ unsigned long gdwTotalPhys; // 0x0074D898
 
 #define OUTPUT_SIZE 0x80
 
-extern int gdwMainThreadId;  // 0x00992B1C
 
 extern "C" const char gszMainThread[];  // 0x006FF988
 
@@ -501,6 +500,11 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volati
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend);              // 0x006CC204
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetCurrentThreadId();                               // 0x006CC20C
+
+// The thread that started the game, recorded before main.
+// build: symbol ??__EgdwMainThreadId@@YAXXZ 0x006CA6F0
+// build: symbol ?gdwMainThreadId@@3HA 0x00992B1C
+int gdwMainThreadId = GetCurrentThreadId(); // 0x00992B1C
 
 void __fastcall ERRORMANAGER_DumpThread(unsigned long dwThreadId, D2ThreadContextStrc* pThreadContext, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader, int nArg7); // 0x00403070
 

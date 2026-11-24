@@ -129,6 +129,15 @@ int __stdcall StormGetOption(unsigned int nOption, const void* pInput, unsigned 
     return nValid ? 1 : 0;
 }
 
+// Initializes Storm before main.
+struct D2StormStartupStrc
+{
+    D2StormStartupStrc() { sub_0041BEE0_InitStorm(); }
+};
+
+// build: symbol ??__EgtStormStartup@@YAXXZ 0x006CA890
+static D2StormStartupStrc gtStormStartup;
+
 // 0x0041C0C0
 D2StormInit0041C0C0Strc::D2StormInit0041C0C0Strc()
 {
