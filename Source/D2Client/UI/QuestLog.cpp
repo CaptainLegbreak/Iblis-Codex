@@ -940,7 +940,14 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
-extern D2ButtonLayoutStrc gaButtonLayouts[]; // 0x007241C0
+// build: symbol ??__EgaButtonLayouts@@YAXXZ 0x006CAC30
+D2ButtonLayoutStrc gaButtonLayouts[4] = // 0x007241C0
+{
+    { 40, 75, gnScreenHeight - 140, gnScreenHeight - 105, gnScreenHeight - 143 },
+    { gnScreenWidth / 2 + 40, gnScreenWidth / 2 + 75, gnScreenHeight - 140, gnScreenHeight - 105, gnScreenHeight - 143 },
+    { 40, 75, gnScreenHeight - 195, gnScreenHeight - 160, gnScreenHeight - 198 },
+    { gnScreenWidth / 2 + 40, gnScreenWidth / 2 + 75, gnScreenHeight - 195, gnScreenHeight - 160, gnScreenHeight - 198 },
+};
 
 // build: symbol ?sub_E10_GetButtonLayoutCopy@@YAHH@Z 0x004A2900
 static int sub_E10_GetButtonLayoutCopy(int nMode)
