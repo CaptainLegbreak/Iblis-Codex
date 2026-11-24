@@ -50,3 +50,5 @@ void __fastcall sub_0066A270()
 void __fastcall DATATBLS_EmptyStub_0066A280()
 {
 }
+
+#include "gen/data/Source/D2Common/Unknown_0066A1A0.inc"

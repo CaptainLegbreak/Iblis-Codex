@@ -4197,8 +4197,8 @@
    "state": "included"
   },
   "Source/D2Common/Unknown_00665810.cpp": {
-   "bytes": 3180,
-   "definitions": 4,
+   "bytes": 3000,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_00665810.inc",
@@ -5577,6 +5577,33 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_00664530.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Common/Unknown_00668510.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Common/Unknown_00668510.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Common/DATATBLS/HoradricCube.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Common/DATATBLS/HoradricCube.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Common/Unknown_0066A1A0.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Common/Unknown_0066A1A0.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -136765,7 +136792,7 @@
    "cname": "gData_00749690",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_00665810.cpp",
+   "file": "Source/D2Common/Unknown_00668510.cpp",
    "form": "bytes",
    "name": "gData_00749690",
    "pointers": [
@@ -136903,7 +136930,7 @@
    "cname": "gData_007496CC",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_00665810.cpp",
+   "file": "Source/D2Common/DATATBLS/HoradricCube.cpp",
    "form": "bytes",
    "name": "gData_007496CC",
    "pointers": [
@@ -137041,7 +137068,7 @@
    "cname": "gData_00749708",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_00665810.cpp",
+   "file": "Source/D2Common/Unknown_0066A1A0.cpp",
    "form": "bytes",
    "name": "gData_00749708",
    "pointers": [

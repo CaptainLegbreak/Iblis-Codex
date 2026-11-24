@@ -151,3 +151,5 @@ void __fastcall DATATBLS_LoadCubeMainTxt(void* hArchive)
 
     sgtDataTables.pCubeMainTxt = (D2CubeMainTxt*)DATATBLS_CompileTxt(hArchive, "cubemain", pTbl, &sgtDataTables.nCubeMainTxtRecordCount, 0x148);
 }
+
+#include "gen/data/Source/D2Common/DATATBLS/HoradricCube.inc"
