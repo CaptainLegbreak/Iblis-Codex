@@ -73765,13 +73765,7 @@
      "va": "0x0065B660",
      "length": 2763,
      "name": "DATATBLS_LoadInventoryTxt"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0065C130.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0065C130",
      "length": 12,
