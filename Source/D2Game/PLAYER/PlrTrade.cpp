@@ -17,6 +17,8 @@
 #include "D2ItemsWorld.h"
 #include "D2ItemModes.h"
 #include "D2Packets.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00732048
 
 struct D2ClientStrc;
 
