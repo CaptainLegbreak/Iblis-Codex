@@ -619,7 +619,6 @@ static inline int GLSPRITE_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc* 
     return 0;
 }
 
-// build: context sub_0050A450_UploadSprite
 // calling-convention shim (not game code)
 static int __stdcall sub_0050A450_UploadSprite(D2GlideTexInfoStrc* pInfo, unsigned char* pPalette, int nArg2, int nArg3)
 {

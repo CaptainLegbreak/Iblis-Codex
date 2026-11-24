@@ -165,7 +165,6 @@ extern "C" __declspec(dllimport) int __stdcall SystemTimeToFileTime(const D2Syst
 
 static void CACHE_GetCacheFilePath(char* szPath); // 0x00519220
 
-// build: context sub_00518DE0_Crc32
 static unsigned int sub_00518DE0_Crc32(const void* pData, unsigned int nSize)
 {
     VALIDATEBEGIN;
@@ -179,7 +178,6 @@ static unsigned int sub_00518DE0_Crc32(const void* pData, unsigned int nSize)
     return dwCrc;
 }
 
-// build: context sub_00518E60_DecryptBlock
 static void sub_00518E60_DecryptBlock(unsigned int* pData, unsigned int nLength, unsigned int dwKey)
 {
     unsigned int dwSeed = 0xEEEEEEEE;
@@ -194,7 +192,6 @@ static void sub_00518E60_DecryptBlock(unsigned int* pData, unsigned int nLength,
     }
 }
 
-// build: context sub_00518EC0_EncryptBlock
 static void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength, unsigned int dwKey)
 {
     unsigned int dwSeed = 0xEEEEEEEE;
@@ -215,7 +212,6 @@ static void sub_00518EC0_EncryptBlock(unsigned int* pData, unsigned int nLength,
     }
 }
 
-// build: context sub_00518F30_GetCacheFileTime
 static D2FileTimeStrc* sub_00518F30_GetCacheFileTime(unsigned int nSeconds)
 {
     if (nSeconds != gnCacheTimeSeconds || GetTickCount() != gdwCacheTimeTick)
@@ -230,7 +226,6 @@ static D2FileTimeStrc* sub_00518F30_GetCacheFileTime(unsigned int nSeconds)
     return (D2FileTimeStrc*)&gqwCacheFileTime;
 }
 
-// build: context sub_00518FA0_HashString
 static unsigned int __stdcall sub_00518FA0_HashString(unsigned int nHashType, const char* szString)
 {
     unsigned int dwSeed1 = 0x7FED7FED;
@@ -275,14 +270,12 @@ static int __stdcall CACHE_FindHashEntry(const char* szName, unsigned int dwLoca
     return nFallback;
 }
 
-// build: context sub_H08_ClearBlockEntry
 static void sub_H08_ClearBlockEntry(D2CacheBlockEntryStrc* pBlockTable, unsigned int nBlock)
 {
     pBlockTable[nBlock].dwDataSize = 0;
     pBlockTable[nBlock].dwFlags = 0;
 }
 
-// build: context sub_005191D0_DeleteHashEntries
 static void sub_005191D0_DeleteHashEntries(const char* szName)
 {
     int nIndex;
@@ -580,7 +573,6 @@ void __cdecl CACHE_ResetCache()
     CACHE_LoadCache();
 }
 
-// build: context sub_00519920_ReadEntry
 static __forceinline int sub_00519920_ReadEntry(const char* szName,D2FileTimeStrc* time,void** data,unsigned int* size,unsigned int block,int* pArchiveError,int* pFileError) {
  D2CacheRecordStrc header;
  unsigned long count; D2FileTimeStrc* tCreated;

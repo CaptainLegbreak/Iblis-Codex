@@ -27,7 +27,6 @@ static void __stdcall sub_00524140_UpdateHash(D2BnHashCtxStrc* pCtx, const void*
     }
 }
 
-// build: context sub_00524200_HashBlock
 void __fastcall sub_00524200_HashBlock(int nIndex, const void* pBlock, unsigned int* pDigest)
 {
     D2BnHashCtxStrc* pCtx = &gatBnHashCtx[(nIndex)];

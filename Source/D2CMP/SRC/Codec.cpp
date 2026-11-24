@@ -182,7 +182,6 @@ static unsigned int __fastcall CodecReadBitsSigned(int nBitWidthCode, D2CmpBitCu
     return nBitsRead;
 }
 
-// build: context sub_0060B280_Shim
 // calling-convention shim (not game code)
 unsigned int __fastcall sub_0060B280_Shim(int nBitWidthCode, D2CmpBitCursorStrc* pBitState, int bSigned)
 {
@@ -493,7 +492,6 @@ static inline void CodecRemapRun(D2CmpByteRunStrc* pRun, const unsigned char* pT
     }
 }
 
-// build: context sub_M123_Emit_0060BD90
 // emits the static RemapRun (not game code)
 void sub_M123_Emit_0060BD90(D2CmpByteRunStrc* pRun, const unsigned char* pTable)
 {
@@ -620,7 +618,6 @@ static inline int DccReadSigned(int nCount, D2CmpBitCursorStrc* pCursor)
     return nValue;
 }
 
-// build: context sub_0060B7B0_DecodeCell
 static void __stdcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pCursor, D2CmpBitCursorStrc* pEqual, D2DccCellStrc* pCell, unsigned char** ppRun, D2DccCellStrc* pPrev)
 {
     unsigned char abBuffer[25];

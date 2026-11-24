@@ -273,7 +273,6 @@ int __cdecl EmitFindArchive(const char* filename,int priority,void** outHandle,c
  return ARCHIVE_FindArchive(filename,priority,outHandle,path);
 }
 
-// build: context sub_005170E7_Shim
 
 // calling-convention shim (not game code)
 void __fastcall sub_005170E7_Shim(char* szPath)

@@ -90,7 +90,6 @@ extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
 extern "C" const char gszTypeNameCelEntry[]; // 0x00741F14
 
-// build: context ??_GD2CelEntryStrc@@QAEPAXI@Z
 struct D2CelEntryStrc : D2StormNodeStrc
 {
     int nArg8;

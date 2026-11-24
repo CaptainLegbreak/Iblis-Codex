@@ -163,7 +163,6 @@ static D2GlideFloorCacheEntryStrc* GLSUBTILECACHE_FloorCachePopFree(D2GlideFloor
     return pEntry;
 }
 
-// build: context sub_M117_Emit_0050F150
 D2GlideFloorCacheEntryStrc* __fastcall sub_M117_Emit_0050F150(D2GlideTileCacheStrc* pTileCache, D2GlideFloorCacheStrc* pCache, D2GlideFloorCacheEntryStrc* pEntry)
 {
     GLFLOORCACHE_TileCacheEvict(pTileCache);

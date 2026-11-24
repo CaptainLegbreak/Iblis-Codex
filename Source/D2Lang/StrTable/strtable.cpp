@@ -1013,7 +1013,6 @@ void __cdecl STRTABLE_InitUnitSuffixes()
     }
 }
 
-// build: context Unicode::strncat
 Unicode* __fastcall Unicode::strncat(Unicode* dest, const Unicode* src, int count)
 {
     Unicode* pEnd = dest;
