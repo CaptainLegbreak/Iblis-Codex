@@ -934,6 +934,14 @@ extern int (__cdecl* gpfnGlobal_00726C62)();                                    
 
 extern short gwGlobal_00726C54;                                                                             // 0x00726C54
 
+D2BitBufferStrc* __stdcall QUESTRECORD_AllocRecord(void* pMemPool); // 0x0065C430
+
+extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
+
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
+
+extern void* gpGlobal_007C0D43; // 0x007C0D43
+
 // 0x004AD0C0
 void __fastcall NPCMENU_StateOverlayBurst(D2UnitStrc* pUnit, int nState, int bFlag)
 {
@@ -2034,6 +2042,33 @@ void __fastcall NPCMENU_ClearInteractOverlay(D2UnitStrc* pUnit)
     }
 }
 
+// 0x004B23E0
+void __cdecl TEXT_InitNpcMenu()
+{
+    char szPath[0x104];
+    gbWaitSoundScheduled = 0;
+    gbWaitSoundPlayed = 0;
+    GetTickCount();
+    memset(gabNpcMenuState, 0, 0x160);
+    gpGlobal_007C0D43 = QUESTRECORD_AllocRecord(0);
+    gpGlobal_007C0D47 = QUESTRECORD_AllocRecord(0);
+// build: symbol ?gnNpcMenuState@* 0x007C0C6B
+    gnNpcMenuState = 0;
+    sprintf(szPath, "%s\\ui\\panel\\buysell", gszDataGlobal);
+    gpBuySellCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    sprintf(szPath, "%s\\ui\\menu\\goldbtn", gszDataGlobal);
+    gpGoldBtnCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+// build: symbol ?gnTradeRequestFailCount@* 0x007C0DED
+    gnTradeRequestFailCount = 0;
+// build: symbol ?gbTradeClickPending@* 0x007C0DE0
+    gbTradeClickPending = 0;
+// build: symbol ?gdwLastTradeSendTick@* 0x007C0DF1
+    gdwLastTradeSendTick = 0;
+// build: symbol ?gdwTradeRequestTick@* 0x007C0DE9
+    gdwTradeRequestTick = 0;
+}
+
+
 // 0x004B24A0
 void __cdecl NPCMENU_FreeNpcMenu()
 {
@@ -2641,6 +2676,19 @@ void __cdecl NPCMENU_ResetSlots()
         gaNpcItemSlots[i].nUnitId = 0;
     }
 }
+
+// 0x004B32D0
+int __cdecl MONSTER_GetQuestFlags()
+{
+    return (int)gpGlobal_007C0D43;
+}
+
+// 0x004B32E0
+int __cdecl MONSTER_GetGameQuestFlags()
+{
+    return (int)gpGlobal_007C0D47;
+}
+
 
 // 0x004B32F0
 void __cdecl NPCMENU_ResetNpcMenu()
@@ -4301,6 +4349,7 @@ int __cdecl NPCMENU_CloseHireDialog()
     NPCMENU_BuildNpcMenu();
     return 1;
 }
+
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv2A

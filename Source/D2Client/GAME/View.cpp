@@ -235,7 +235,6 @@ enum D2C_W10Constants
 {
     STAT_HITPOINTS = 6,
     PET_TYPE_LIFE = 7,
-    WEAPON_CLASS_7 = 7,
     DRAW_MODE_5 = 5,
 };
 
@@ -1646,19 +1645,6 @@ void __stdcall sub_M114_Emit_00492BD0(int nMode, int nPopupX)
 
 
 
-// 0x004B9640
-int __fastcall VIEW_CountHintsForOwner(int nOwnerId)
-{
-    int nCount = 0;
-    for (D2TimedHintNodeStrc* pNode = gpClientSoundList; pNode; pNode = pNode->pNext)
-    {
-        D2TimedHintEntryStrc* pEntry = pNode->pEntry;
-        if (SOUNDHDR_GetSoundRecord(pEntry->nHintId)->nGroupStart == nOwnerId && pEntry->nState == 1)
-            nCount += 1;
-    }
-    return nCount;
-}
-
 static int ButtonHitTest_00497480(int nX, int nY)
 {
     int nHeight = gnScreenHeight;
@@ -1666,14 +1652,6 @@ static int ButtonHitTest_00497480(int nX, int nY)
     return nX >= nWidth / 2 - 0x91 && nX <= nWidth / 2 - 0x80 && nY >= nHeight - 0x1C && nY <= nHeight - 8;
 }
 
-
-// 0x004C76A0
-int __fastcall VIEW_GetWeaponClassMask(D2UnitStrc* pUnit)
-{
-    int nWeaponClassId = 0;
-    COMPOSIT_GetWeaponClassId(pUnit, pUnit->pInventory, &nWeaponClassId, -1, 1);
-    return nWeaponClassId == WEAPON_CLASS_7 ? 0x1F : 0;
-}
 
 // 0x004D1640
 D2UnitStrc* __fastcall VIEW_SpawnDirectionalMissile(D2UnitStrc* pUnit, int nFrame)

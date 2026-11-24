@@ -11152,6 +11152,11 @@
      "name": "?SKILLS_RaiseTargetUnitEvent@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x004C76A0",
+     "length": 48,
+     "name": "?VIEW_GetWeaponClassMask@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004C76D0",
      "length": 42,
      "name": "?SKILLS_ScaleFramePrecise@@YIXPAUD2UnitStrc@@H@Z"
@@ -13550,16 +13555,6 @@
      "va": "0x00487CA0",
      "length": 27,
      "name": "?VIEW_SetNpcMenuMode@@YAHXZ"
-    },
-    {
-     "va": "0x004B9640",
-     "length": 77,
-     "name": "?VIEW_CountHintsForOwner@@YIHH@Z"
-    },
-    {
-     "va": "0x004C76A0",
-     "length": 48,
-     "name": "?VIEW_GetWeaponClassMask@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004D1640",
@@ -17732,11 +17727,6 @@
      "va": "0x004A5980",
      "length": 80,
      "name": "ROSTERPETS_HandlePanelButtonDown"
-    },
-    {
-     "va": "0x004B76D0",
-     "length": 146,
-     "name": "ROSTERPETS_HandleDialogEscape"
     }
    ]
   },
@@ -23403,11 +23393,6 @@
      "name": "?TEXT_QuestLButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
-     "va": "0x004B23E0",
-     "length": 192,
-     "name": "?TEXT_InitNpcMenu@@YAXXZ"
-    },
-    {
      "va": "0x004BF2F0",
      "length": 306
     },
@@ -24548,11 +24533,6 @@
      "va": "0x00499D10",
      "length": 208,
      "name": "?PANEL_BeltClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004BE340",
-     "length": 206,
-     "name": "PANEL_CountLinesInView"
     }
    ],
    "flags": [
@@ -25581,16 +25561,6 @@
      "name": "sub_004B1DC0"
     },
     {
-     "va": "0x004B32D0",
-     "length": 6,
-     "name": "MONSTER_GetQuestFlags"
-    },
-    {
-     "va": "0x004B32E0",
-     "length": 6,
-     "name": "MONSTER_GetGameQuestFlags"
-    },
-    {
      "va": "0x004BF9B0",
      "length": 3,
      "name": "sub_004BF9B0"
@@ -26204,6 +26174,11 @@
      "name": "NPCMENU_ClearInteractOverlay"
     },
     {
+     "va": "0x004B23E0",
+     "length": 192,
+     "name": "?TEXT_InitNpcMenu@@YAXXZ"
+    },
+    {
      "va": "0x004B24A0",
      "length": 276,
      "name": "?NPCMENU_FreeNpcMenu@@YAXXZ"
@@ -26309,6 +26284,16 @@
      "va": "0x004B3290",
      "length": 53,
      "name": "?NPCMENU_ResetSlots@@YAXXZ"
+    },
+    {
+     "va": "0x004B32D0",
+     "length": 6,
+     "name": "MONSTER_GetQuestFlags"
+    },
+    {
+     "va": "0x004B32E0",
+     "length": 6,
+     "name": "MONSTER_GetGameQuestFlags"
     },
     {
      "va": "0x004B32F0",
@@ -26824,6 +26809,11 @@
      "length": 178
     },
     {
+     "va": "0x004B76D0",
+     "length": 146,
+     "name": "ROSTERPETS_HandleDialogEscape"
+    },
+    {
      "va": "0x004B7770",
      "length": 122
     },
@@ -27194,6 +27184,11 @@
      "va": "0x004B9610",
      "length": 37,
      "name": "?sub_004B9610@@YIPAXH@Z"
+    },
+    {
+     "va": "0x004B9640",
+     "length": 77,
+     "name": "?VIEW_CountHintsForOwner@@YIHH@Z"
     },
     {
      "va": "0x004B9690",
@@ -28058,6 +28053,11 @@
      "name": "?sub_004BE110_UpdateScrollBar@ListBoxImplementation@@QAEXXZ"
     },
     {
+     "va": "0x004BE340",
+     "length": 206,
+     "name": "PANEL_CountLinesInView"
+    },
+    {
      "va": "0x004BE410",
      "length": 231,
      "name": "?DrawClippedText@ListBoxImplementation@@QAEXPBUUnicode@@HHH@Z"
@@ -28395,15 +28395,6 @@
      "va": "0x004C0620",
      "length": 21,
      "name": "?USEITEM_OpenNpcItemPanel@@YIXH@Z"
-    },
-    {
-     "va": "0x004C0CE0",
-     "length": 19
-    },
-    {
-     "va": "0x004C0D00",
-     "length": 27,
-     "name": "?USEITEM_LeaveGame@@YAXXZ"
     }
    ]
   },
@@ -29056,6 +29047,15 @@
     {
      "va": "0x004C0810",
      "length": 1232
+    },
+    {
+     "va": "0x004C0CE0",
+     "length": 19
+    },
+    {
+     "va": "0x004C0D00",
+     "length": 27,
+     "name": "?USEITEM_LeaveGame@@YAXXZ"
     },
     {
      "va": "0x006CADB0",
@@ -30907,6 +30907,10 @@
      "length": 160
     },
     {
+     "va": "0x004DE070",
+     "length": 279
+    },
+    {
      "va": "0x004DE190",
      "length": 202
     },
@@ -30949,10 +30953,6 @@
    "file": "Source/D2Client/DRAW/dFloor.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x004DE070",
-     "length": 279
-    },
     {
      "va": "0x004DEA70",
      "length": 668
@@ -32174,10 +32174,6 @@
      "length": 278
     },
     {
-     "va": "0x004EB290",
-     "length": 256
-    },
-    {
      "va": "0x004EC6F0",
      "length": 66
     },
@@ -32532,6 +32528,10 @@
      "va": "0x004EB240",
      "length": 77,
      "name": "?SKILLDESC_DrawSkillWeaponDamage@@YIXPAUD2UnitStrc@@PAUD2SkillStrc@@PAUD2SkillsTxt@@HHHH@Z"
+    },
+    {
+     "va": "0x004EB290",
+     "length": 256
     },
     {
      "va": "0x004EB390",
