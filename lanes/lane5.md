@@ -4,6 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/copies-runs-b e993aa2f 0 placeholders; nine no-data copies go to the files whose objects they start, by code order and .rdata's source paths: 0x73192C/0x731968 (QUESTS.CPP's plan) -> objrgn.cpp, MonsterRegion.cpp; 0x731ED4 (Storm/Unknown_006CAE80.cpp's plan; lane 3: plan entry only) -> SUnit.cpp; 0x731F74 (Items.cpp's) -> PlayerList.cpp; 0x7326B8 (Unknown_00570420.cpp's) -> SUnitMsg.cpp; 0x732850-0x732904 (PlrIntro.cpp's) -> MonsterAI.cpp, Monster.cpp, PlayerPets.cpp, SUNITNPC.CPP. Each includes D2LanguageNames.h. VERIFIED 11e6d5bab460b88bbdb0a538fc7f5f977b4ad327. Based on main 6dfed99a (#347), not stacked.
 - lane5/game-copies ee31b323 0 placeholders; the seven copies 0x7312E0-0x731448 (planned in sunitproxy.cpp, between its data and SUnitInactive.cpp's own copy) are seven no-data objects: Clients.cpp, Level.cpp, SCmd.cpp, CCmd.cpp, Arena.cpp, Party.cpp, Event.cpp, the seven files between them in code order (.rdata's source paths agree; SCmd.cpp has none). Each includes D2LanguageNames.h. VERIFIED 05daa2fa829fee13ec4f8d52f28af81223d3c2db. Based on main 6dfed99a (#347), not stacked.
 - lane5/skill-ai-copies ee466e05 0 placeholders; the five copies 0x741C0C-0x741CFC (planned in Unknown_005D8100.cpp, after its potion table and before AiThink4.cpp's own copy) are five no-data objects; the five files between them in code order are SkillAma.cpp, AiUtil.cpp, AiTatics.cpp, OBJEVAL.CPP and QuestsFX.cpp, and .rdata's source-path strings agree on the order. Each includes D2LanguageNames.h. VERIFIED c69c0609ea32b25c44c899be8ca639a128102102. Based on main 88003a4d (#346), not stacked.
 - lane5/missiles-copy 8b2e3521 0 placeholders; the copy 0x73BEE0 (planned in a2q8.cpp, its last planned data) follows act 2's block and only padding precedes MonsterUnique.cpp's own copy at 0x73BF20, so it starts a no-data object; between a2q8.cpp and MonsterUnique.cpp in code order sit Unknown_0059F440.cpp (an act 2 quest function, ACT2Q4_GetAndUpdatePalaceNpcState, and two small helpers) and Missiles.cpp, and quest code carries no copy, so Missiles.cpp includes D2LanguageNames.h; a2q8.cpp loses its data include. VERIFIED aa733c7296f35fd377acef68ccc0e70bd924c03c. Based on main 88003a4d (#346), not stacked.
@@ -12,7 +13,6 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- lane5/copies-runs-b (in verify): nine no-data copies to their files by code and .rdata order (objrgn, MonsterRegion, SUnit, PlayerList, SUnitMsg, MonsterAI, Monster, PlayerPets, SUNITNPC). Lane 3: one of them, 0x731ED4, is a record planned in Storm/Unknown_006CAE80.cpp; the branch removes it from that file's plan entry (plan only, no source change).
 - Join: Unknown_005D8100.cpp (0x5D8100, 0x5D8780: Find Item / potion skill code and the potion table) and Unknown_005D81C0.cpp sit inside SkillBar.cpp's run; joining them into SkillBar.cpp next.
 
 ## Questions
