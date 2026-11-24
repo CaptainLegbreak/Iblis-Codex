@@ -176,7 +176,7 @@ int __cdecl D2SOUND_IsStreamChannelPlaying(); // 0x00514840
 
 void __cdecl D2SOUND_StopChannel(); // 0x00514930
 
-void __fastcall D2SOUND_FadeOutMasterVolume(int nArg); // 0x00515F50
+void __fastcall D2SOUNDSMP_FadeOutMasterVolume(int nArg); // 0x00515F50
 
 int __stdcall GAME_UpdateGamesProgress(int nArg); // 0x0052FC20
 
@@ -1361,10 +1361,10 @@ int __stdcall GAME_RunGameFrame(int nUnused)
         SELECT_UpdateHoverUnit();
         if (D2SOUND_IsStreamChannelPlaying())
         {
-            D2SOUND_FadeOutMasterVolume(0xB4);
+            D2SOUNDSMP_FadeOutMasterVolume(0xB4);
             D2SOUND_StopChannel();
-// build: symbol ?D2SOUND_SetMasterVolume@* 0x00515CE0
-            D2SOUND_SetMasterVolume(0xFF);
+// build: symbol ?D2SOUNDSMP_SetMasterVolume@* 0x00515CE0
+            D2SOUNDSMP_SetMasterVolume(0xFF);
         }
 
         if (!gnSkipped)

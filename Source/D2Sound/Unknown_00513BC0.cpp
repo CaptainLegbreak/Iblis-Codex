@@ -36,15 +36,15 @@ int __cdecl D2SOUND_IsExpansion();                                              
 
 void __cdecl D2SOUND_ClearChannelTable();                                                               // 0x00514860
 
-void __fastcall D2SOUND_SetSoundVolume(D2SoundStrc* pSound, int nVolume);                              // 0x005157B0
+void __fastcall D2SOUNDSMP_SetSoundVolume(D2SoundStrc* pSound, int nVolume);                              // 0x005157B0
 
-int __fastcall D2SOUND_IsSoundStreaming(D2SoundStrc* pSound);                                          // 0x00515C30
+int __fastcall D2SOUNDSMP_IsSoundStreaming(D2SoundStrc* pSound);                                          // 0x00515C30
 
-int __cdecl D2SOUND_GetMasterVolume();                                                                  // 0x00515D60
+int __cdecl D2SOUNDSMP_GetMasterVolume();                                                                  // 0x00515D60
 
-int __fastcall D2SOUND_StartSoundStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop); // 0x00515D70
+int __fastcall D2SOUNDSMP_StartSoundStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop); // 0x00515D70
 
-void __fastcall D2SOUND_ResetSound(D2SoundStrc* pSound);                                                // 0x00516140
+void __fastcall D2SOUNDSMP_ResetSound(D2SoundStrc* pSound);                                                // 0x00516140
 
 extern D2CriticalSectionStrc gtSoundLock;                                                           // 0x0088174C
 
@@ -62,7 +62,7 @@ void __cdecl sub_00419F30(); // 0x00419F30
 
 D2DirectSoundStrc* __cdecl D2SOUND_GetDirectSound(); // 0x00513B50
 
-void __fastcall D2SOUND_DestroySound(D2SoundStrc* pSound); // 0x005160D0
+void __fastcall D2SOUNDSMP_DestroySound(D2SoundStrc* pSound); // 0x005160D0
 
 int gnChannelTableSel; // 0x008817A4
 
@@ -72,11 +72,11 @@ extern "C" { int gnStreamChannelArg; } // 0x008817A0
 
 extern "C" int __stdcall SFileDdaInitialize(int nValue); // 0x00415EE0
 
-D2SoundStrc* __fastcall D2SOUND_CreateSound(unsigned int nFlags, int nValue); // 0x00515530
+D2SoundStrc* __fastcall D2SOUNDSMP_CreateSound(unsigned int nFlags, int nValue); // 0x00515530
 
-D2SoundStrc* __fastcall D2SOUND_CreateSound(unsigned int nFlags, int nValue); // 0x00515530
+D2SoundStrc* __fastcall D2SOUNDSMP_CreateSound(unsigned int nFlags, int nValue); // 0x00515530
 
-void __fastcall D2SOUND_DestroySound(D2SoundStrc* pSound); // 0x005160D0
+void __fastcall D2SOUNDSMP_DestroySound(D2SoundStrc* pSound); // 0x005160D0
 
 extern "C" __declspec(dllimport) unsigned int __stdcall GetWindowsDirectoryA(char* lpBuffer, unsigned int uSize); // 0x006CC374
 
@@ -88,7 +88,7 @@ int __stdcall sub_00513A20_EnumCallback(void* pGuid, const char* szDescription, 
 
 void __cdecl sub_005140D0_InitDirectSound(); // 0x005140D0
 
-int __fastcall D2SOUND_GetVxdFileVersion(const char* szPath, unsigned int* pMajor, unsigned int* pMinor, unsigned int* pBuild); // 0x00516CA0
+int __fastcall D2SOUNDUTIL_GetVxdFileVersion(const char* szPath, unsigned int* pMajor, unsigned int* pMinor, unsigned int* pBuild); // 0x00516CA0
 
 extern int gnSoundArg_008816DC;                                                                             // 0x008816DC
 
@@ -209,13 +209,13 @@ void __cdecl D2SOUND_CloseSoundSystem(); // 0x00514060
 
 void __cdecl D2SOUND_LoadRegistrySettings(); // 0x00514B60
 
-int __fastcall D2SOUND_ClearSoundBuffer(D2DSBuffer* pBuffer, unsigned long nOffset, unsigned long nBytes); // 0x00515300
+int __fastcall D2SOUNDSMP_ClearSoundBuffer(D2DSBuffer* pBuffer, unsigned long nOffset, unsigned long nBytes); // 0x00515300
 
-void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
+void __fastcall D2SOUNDSMP_SetMasterVolume(int nVolume); // 0x00515CE0
 
-void __cdecl D2SOUND_StartSoundThread(); // 0x00516510
+void __cdecl D2SOUNDSMP_StartSoundThread(); // 0x00516510
 
-void __fastcall D2SOUND_InitWaveFormat(D2WaveFormatStrc* pFormat, int nChannels); // 0x00516720
+void __fastcall D2SOUNDSMP_InitWaveFormat(D2WaveFormatStrc* pFormat, int nChannels); // 0x00516720
 
 extern D2DSPropertySet* gpPropertySet_008816D8; // 0x008816D8
 
@@ -361,7 +361,7 @@ const char* __fastcall D2SOUND_GetDirectSoundErrorString(long hResult)
     return 0;
 }
 
-void __cdecl D2SOUND_StopSoundThread(); // 0x00515120
+void __cdecl D2SOUNDSMP_StopSoundThread(); // 0x00515120
 
 void __cdecl D2SOUND_DestroyStreamChannel(); // 0x005147B0
 
@@ -379,9 +379,9 @@ void __cdecl sub_00514050_Nothing()
 void __cdecl D2SOUND_CloseSoundSystem()
 {
     gnSoundState_00881764 = 0;
-    D2SOUND_SetMasterVolume(0);
+    D2SOUNDSMP_SetMasterVolume(0);
     D2SOUND_DestroyStreamChannel();
-    D2SOUND_StopSoundThread();
+    D2SOUNDSMP_StopSoundThread();
     D2SOUND_ReleaseSoundObjects();
     if (gpSoundObject)
     {
@@ -483,7 +483,7 @@ void __cdecl sub_005140D0_InitDirectSound()
     if (gbUseEax_00881770)
     {
         D2WaveFormatStrc tEaxFormat;
-        D2SOUND_InitWaveFormat(&tEaxFormat, 1);
+        D2SOUNDSMP_InitWaveFormat(&tEaxFormat, 1);
         D2DSBufferDescStrc tEaxDesc;
     memset(&tEaxDesc, 0, sizeof(tEaxDesc));
         tEaxDesc.dwSize = 0x14;
@@ -535,12 +535,12 @@ void __cdecl sub_005140D0_InitDirectSound()
     memset(&tCaps, 0, sizeof(tCaps));
     tCaps.dwSize = 0x14;
     gpSoundObject->GetCaps(&tCaps);
-    D2SOUND_ClearSoundBuffer(gpSoundObject, 0, tCaps.dwBufferBytes);
+    D2SOUNDSMP_ClearSoundBuffer(gpSoundObject, 0, tCaps.dwBufferBytes);
     gpSoundObject->Play(0, 0, 1);
-    D2SOUND_StartSoundThread();
+    D2SOUNDSMP_StartSoundThread();
     D2SOUND_CreateStreamChannel(gnChannelArg);
     D2SOUND_LoadRegistrySettings();
-    D2SOUND_SetMasterVolume(0xFF);
+    D2SOUNDSMP_SetMasterVolume(0xFF);
     gnSoundState_00881764 = 1;
 }
 
@@ -560,7 +560,7 @@ void __fastcall sub_00514530_InitSound(int nArg1, int nArg2)
     {
         GetWindowsDirectoryA(szPath, sizeof(szPath));
         strcat(szPath, "\\SYSTEM\\EMU10K1.VXD");
-        if (D2SOUND_GetVxdFileVersion(szPath, &nMajor, &nMinor, &nBuild) && nMajor == 4)
+        if (D2SOUNDUTIL_GetVxdFileVersion(szPath, &nMajor, &nMinor, &nBuild) && nMajor == 4)
         {
             if (nMinor == 6)
             {
@@ -583,7 +583,7 @@ void __fastcall sub_00514530_InitSound(int nArg1, int nArg2)
     {
         GetWindowsDirectoryA(szPath, sizeof(szPath));
         strcat(szPath, "\\SYSTEM\\CRLDS3D.VXD");
-        if (D2SOUND_GetVxdFileVersion(szPath, &nMajor, &nMinor, &nBuild)
+        if (D2SOUNDUTIL_GetVxdFileVersion(szPath, &nMajor, &nMinor, &nBuild)
             && (nMajor < 4 || nMajor == 4 && (nMinor < 12 || nMinor == 12 && nBuild < 0x40B)))
         {
             gbOldSoundDriver = 1;
@@ -651,7 +651,7 @@ extern "C" void __fastcall D2SOUND_CreateStreamChannel(int nArg)
 {
     gnStreamChannelArg = nArg;
     SFileDdaInitialize((int)D2SOUND_GetDirectSound());
-    gpSoundChannel = D2SOUND_CreateSound(1, gnStreamChannelArg);
+    gpSoundChannel = D2SOUNDSMP_CreateSound(1, gnStreamChannelArg);
 }
 
 // 0x005147B0
@@ -659,15 +659,15 @@ __declspec(noinline) void __cdecl D2SOUND_DestroyStreamChannel()
 {
     if (gpSoundChannel)
     {
-        D2SOUND_DestroySound(gpSoundChannel);
+        D2SOUNDSMP_DestroySound(gpSoundChannel);
         gpSoundChannel = 0;
     }
     sub_00419F30();
 }
 
-void __fastcall D2SOUND_StopSound(D2SoundStrc* pSound);                                                // 0x00515EE0
+void __fastcall D2SOUNDSMP_StopSound(D2SoundStrc* pSound);                                                // 0x00515EE0
 
-void __fastcall D2SOUND_StartSoundFade(D2SoundStrc* pFade, int nTarget, int nDuration); // 0x00515C60
+void __fastcall D2SOUNDSMP_StartSoundFade(D2SoundStrc* pFade, int nTarget, int nDuration); // 0x00515C60
 
 int gnChannelValue; // 0x00881798
 
@@ -678,11 +678,11 @@ extern int gdwGlobal_00881798; // 0x00881798
 // 0x005147D0
 int __fastcall D2SOUND_PlayStreamChannel(const char* szFile, int bLoop)
 {
-    if (gpSoundChannel && D2SOUND_GetMasterVolume() && !D2SOUND_IsSoundStreaming(gpSoundChannel) && szFile)
+    if (gpSoundChannel && D2SOUNDSMP_GetMasterVolume() && !D2SOUNDSMP_IsSoundStreaming(gpSoundChannel) && szFile)
     {
-        D2SOUND_ResetSound(gpSoundChannel);
-        D2SOUND_SetSoundVolume(gpSoundChannel, 0x6E);
-        if (D2SOUND_StartSoundStream(gpSoundChannel, szFile, 0, bLoop))
+        D2SOUNDSMP_ResetSound(gpSoundChannel);
+        D2SOUNDSMP_SetSoundVolume(gpSoundChannel, 0x6E);
+        if (D2SOUNDSMP_StartSoundStream(gpSoundChannel, szFile, 0, bLoop))
         {
             return 1;
         }
@@ -693,7 +693,7 @@ int __fastcall D2SOUND_PlayStreamChannel(const char* szFile, int bLoop)
 // 0x00514840
 int __cdecl D2SOUND_IsStreamChannelPlaying()
 {
-    if (gpSoundChannel && D2SOUND_IsSoundStreaming(gpSoundChannel))
+    if (gpSoundChannel && D2SOUNDSMP_IsSoundStreaming(gpSoundChannel))
         return 1;
     return 0;
 }
@@ -728,8 +728,8 @@ void __cdecl D2SOUND_StopChannel()
     if (gpSoundChannel)
     {
         gnChannelValue = 0;
-        if (D2SOUND_IsSoundStreaming(gpSoundChannel))
-            D2SOUND_StopSound(gpSoundChannel);
+        if (D2SOUNDSMP_IsSoundStreaming(gpSoundChannel))
+            D2SOUNDSMP_StopSound(gpSoundChannel);
     }
 }
 
@@ -739,8 +739,8 @@ void __cdecl D2SOUND_FadeOutStreamChannel()
     if (gpSoundChannel)
     {
         gnChannelValue = 0;
-        if (D2SOUND_IsSoundStreaming(gpSoundChannel))
-            D2SOUND_StartSoundFade(gpSoundChannel, 0, 200);
+        if (D2SOUNDSMP_IsSoundStreaming(gpSoundChannel))
+            D2SOUNDSMP_StartSoundFade(gpSoundChannel, 0, 200);
     }
 }
 
@@ -753,7 +753,7 @@ int __cdecl sub_00514990_PickRandomChannel()
     int bCleared;
 
     EnterCriticalSection(&gtSoundLock);
-    if (!gpSoundChannel || !D2SOUND_GetMasterVolume() || D2SOUND_IsStreamChannelPlaying())
+    if (!gpSoundChannel || !D2SOUNDSMP_GetMasterVolume() || D2SOUND_IsStreamChannelPlaying())
     {
         LeaveCriticalSection(&gtSoundLock);
         return 0;

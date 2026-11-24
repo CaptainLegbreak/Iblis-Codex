@@ -30,7 +30,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 void __fastcall D2SOUND_SetSoundMixerOption(int nMode); // 0x00514CA0
 
-D2SoundStrc* __fastcall D2SOUND_CreateSound(int nType, int nArg); // 0x00515530
+D2SoundStrc* __fastcall D2SOUNDSMP_CreateSound(int nType, int nArg); // 0x00515530
 
 void __cdecl sub_004DFA60(); // 0x004DFA60
 
@@ -59,13 +59,13 @@ struct D2SlotObjectStrc
 
 #pragma pack(pop)
 
-int __fastcall D2SOUND_GetSoundPlayingFlag(D2SoundStrc* pSound); // 0x00515710
+int __fastcall D2SOUNDSMP_GetSoundPlayingFlag(D2SoundStrc* pSound); // 0x00515710
 
-int __fastcall D2SOUND_IsSoundBufferPlaying(D2SoundStrc* pSound); // 0x00515740
+int __fastcall D2SOUNDSMP_IsSoundBufferPlaying(D2SoundStrc* pSound); // 0x00515740
 
-int __fastcall D2SOUND_IsSoundStreaming(D2SoundStrc* pSound); // 0x00515C30
+int __fastcall D2SOUNDSMP_IsSoundStreaming(D2SoundStrc* pSound); // 0x00515C30
 
-void __fastcall D2SOUND_DestroySound(D2SoundStrc* pSound); // 0x005160D0
+void __fastcall D2SOUNDSMP_DestroySound(D2SoundStrc* pSound); // 0x005160D0
 
 struct S { int pad; int type; };
 
@@ -73,7 +73,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volati
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend); // 0x006CC204
 
-void __fastcall D2SOUND_FadeOutMasterVolume(int nTime); // 0x00515F50
+void __fastcall D2SOUNDSMP_FadeOutMasterVolume(int nTime); // 0x00515F50
 
 struct D2StringSoundStrc
 {
@@ -98,19 +98,19 @@ int __fastcall SOUNDINST_CompareSounds(D2SlotObjectStrc* pA, D2SlotObjectStrc* p
 
 void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot); // 0x004DFC20
 
-int __fastcall D2SOUND_SetSoundData(D2SoundStrc* pSound, const void* pFile, unsigned int nSize); // 0x005155D0
+int __fastcall D2SOUNDSMP_SetSoundData(D2SoundStrc* pSound, const void* pFile, unsigned int nSize); // 0x005155D0
 
-int __fastcall D2SOUND_PlaySound(D2SoundStrc* pSound); // 0x005156A0
+int __fastcall D2SOUNDSMP_PlaySound(D2SoundStrc* pSound); // 0x005156A0
 
 void __fastcall sub_00515A30(D2SoundStrc* pSound, int nValue); // 0x00515A30
 
 void __fastcall sub_00515A60(D2SoundStrc* pSound, int nValue); // 0x00515A60
 
-void __fastcall D2SOUND_SetSoundReverbMix(D2SoundStrc* pSound, float fValue); // 0x00515B40
+void __fastcall D2SOUNDSMP_SetSoundReverbMix(D2SoundStrc* pSound, float fValue); // 0x00515B40
 
-int __fastcall D2SOUND_StartSoundStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop); // 0x00515D70
+int __fastcall D2SOUNDSMP_StartSoundStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop); // 0x00515D70
 
-void __fastcall D2SOUND_ResetSound(D2SoundStrc* pSound); // 0x00516140
+void __fastcall D2SOUNDSMP_ResetSound(D2SoundStrc* pSound); // 0x00516140
 
 extern "C" int __cdecl memcmp(const void* pA, const void* pB, unsigned int nSize);
 
@@ -122,15 +122,15 @@ int __cdecl D2SOUND_GetMusicVolumeOption(); // 0x00514CF0
 
 int __cdecl D2SOUND_GetPositionalBiasOption(); // 0x00514D20
 
-void __fastcall D2SOUND_SetSoundVolume(D2SoundStrc* pSound, int nVolume); // 0x005157B0
+void __fastcall D2SOUNDSMP_SetSoundVolume(D2SoundStrc* pSound, int nVolume); // 0x005157B0
 
-void __fastcall D2SOUND_SetSoundPan(D2SoundStrc* pSound, int nPan); // 0x00515890
+void __fastcall D2SOUNDSMP_SetSoundPan(D2SoundStrc* pSound, int nPan); // 0x00515890
 
-void __fastcall D2SOUND_SetSoundPosition(D2SoundStrc* pSound, float x, float y, float z); // 0x00515950
+void __fastcall D2SOUNDSMP_SetSoundPosition(D2SoundStrc* pSound, float x, float y, float z); // 0x00515950
 
-void __fastcall D2SOUND_SetSoundAttenuation(D2SoundStrc* pSound, float fAttenuation); // 0x00515A90
+void __fastcall D2SOUNDSMP_SetSoundAttenuation(D2SoundStrc* pSound, float fAttenuation); // 0x00515A90
 
-void __fastcall D2SOUND_GetPositionalVolumePan(int* pVolume, int* pPan, float x, float y, float z); // 0x00516830
+void __fastcall D2SOUNDSMP_GetPositionalVolumePan(int* pVolume, int* pPan, float x, float y, float z); // 0x00516830
 
 extern int gnSfxVolume_00727564; // 0x00727564
 
@@ -211,12 +211,12 @@ void __fastcall sub_004DF7B0_StopSlot(D2SlotStrc* pSlot)
     {
         if (pSlot->pObject)
         {
-// build: symbol ?D2SOUND_GetStreamPosition@* 0x005159B0
-            pSlot->pObject->f_41 = D2SOUND_GetStreamPosition(pSlot->pSound);
+// build: symbol ?D2SOUNDSMP_GetStreamPosition@* 0x005159B0
+            pSlot->pObject->f_41 = D2SOUNDSMP_GetStreamPosition(pSlot->pSound);
         }
 
-// build: symbol ?D2SOUND_StopSound@* 0x00515EE0
-        D2SOUND_StopSound(pSlot->pSound);
+// build: symbol ?D2SOUNDSMP_StopSound@* 0x00515EE0
+        D2SOUNDSMP_StopSound(pSlot->pSound);
     }
 
     if (pSlot->pObject)
@@ -236,14 +236,14 @@ void __cdecl sub_004DF800()
         return;
     }
 
-// build: symbol ?D2SOUND_SetMasterVolume@* 0x00515CE0
-    D2SOUND_SetMasterVolume(0);
+// build: symbol ?D2SOUNDSMP_SetMasterVolume@* 0x00515CE0
+    D2SOUNDSMP_SetMasterVolume(0);
     for (int i = 0; i < 16; ++i)
     {
         sub_004DF7B0_StopSlot(&gaSlots[i]);
     }
 
-    D2SOUND_SetMasterVolume(0xFF);
+    D2SOUNDSMP_SetMasterVolume(0xFF);
 }
 
 // 0x004DF870
@@ -264,9 +264,9 @@ void __cdecl sub_004DF890()
     for (int i = 0; i < 16; ++i)
     {
         D2SlotStrc* pSlot = &gaSlots[i];
-        if (pSlot->pObject && !SOUNDHDR_GetSoundRecord(pSlot->pObject->nSoundId)->nLoop && !D2SOUND_GetSoundPlayingFlag(pSlot->pSound))
+        if (pSlot->pObject && !SOUNDHDR_GetSoundRecord(pSlot->pObject->nSoundId)->nLoop && !D2SOUNDSMP_GetSoundPlayingFlag(pSlot->pSound))
         {
-            if (D2SOUND_IsSoundStreaming(pSlot->pSound))
+            if (D2SOUNDSMP_IsSoundStreaming(pSlot->pSound))
             {
                 sub_004DF7B0_StopSlot(pSlot);
             }
@@ -284,8 +284,8 @@ void __cdecl sub_004DF890()
 // 0x004DF900
 unsigned int __fastcall sub_004DF900_GetSlotSampleCount(D2SlotStrc* pSlot)
 {
-// build: symbol ?D2SOUND_GetStreamPosition@* 0x005159B0
-    return D2SOUND_GetStreamPosition(pSlot->pSound);
+// build: symbol ?D2SOUNDSMP_GetStreamPosition@* 0x005159B0
+    return D2SOUNDSMP_GetStreamPosition(pSlot->pSound);
 }
 
 // 0x004DF910
@@ -365,7 +365,7 @@ D2SlotStrc* __fastcall SoundChannelFind(int nOwner)
     for (int i = 0; i < 16; i++)
     {
         D2SlotStrc* pSlot = &gaSlots[i];
-        if (D2SOUND_GetSoundPlayingFlag(pSlot->pSound) && pSlot->pObject && pSlot->pObject->nSoundId == nOwner)
+        if (D2SOUNDSMP_GetSoundPlayingFlag(pSlot->pSound) && pSlot->pObject && pSlot->pObject->nSoundId == nOwner)
         {
             if (!pBest || pSlot->pObject->nKey < pBest->pObject->nKey)
             {
@@ -382,7 +382,7 @@ int __fastcall sub_004DFA40_IsSlotPlaying(D2SlotStrc* pSlot)
 {
     if (pSlot && pSlot->pSound)
     {
-        return D2SOUND_IsSoundBufferPlaying(pSlot->pSound);
+        return D2SOUNDSMP_IsSoundBufferPlaying(pSlot->pSound);
     }
 
     return 0;
@@ -396,7 +396,7 @@ void __cdecl sub_004DFA60()
         sub_004DF800();
         for (int i = 0; i < 16; ++i)
         {
-            D2SOUND_DestroySound(gaSlots[i].pSound);
+            D2SOUNDSMP_DestroySound(gaSlots[i].pSound);
             gaSlots[i].pSound = 0;
         }
 
@@ -423,7 +423,7 @@ static int sub_004DFAA0_InitSoundChannels(int nMode)
         else
             gaSlots[i].nType = nMode == 2 ? 6 : 0;
 
-        gaSlots[i].pSound = D2SOUND_CreateSound(gaSlots[i].nType, gnSoundRestartArg);
+        gaSlots[i].pSound = D2SOUNDSMP_CreateSound(gaSlots[i].nType, gnSoundRestartArg);
         if (!gaSlots[i].pSound)
         {
             sub_004DFA60();
@@ -442,7 +442,7 @@ static D2SlotStrc* __stdcall sub_004DFB50_GetFreeSlot(D2SlotObjectStrc* pObject,
     for (int i = 0; i < 16; ++i)
     {
         D2SlotStrc* pSlot = &gaSlots[i];
-        if (!pSlot->pObject && pSlot->nType == nType && !D2SOUND_GetSoundPlayingFlag(pSlot->pSound))
+        if (!pSlot->pObject && pSlot->nType == nType && !D2SOUNDSMP_GetSoundPlayingFlag(pSlot->pSound))
             return pSlot;
     }
     D2SlotStrc* pBest = 0;
@@ -459,10 +459,10 @@ static D2SlotStrc* __stdcall sub_004DFB50_GetFreeSlot(D2SlotObjectStrc* pObject,
     if (pBest->pSound)
     {
         if (pBest->pObject)
-// build: symbol ?D2SOUND_GetStreamPosition@* 0x005159B0
-            pBest->pObject->f_41 = D2SOUND_GetStreamPosition(pBest->pSound);
-// build: symbol ?D2SOUND_StopSound@* 0x00515EE0
-        D2SOUND_StopSound(pBest->pSound);
+// build: symbol ?D2SOUNDSMP_GetStreamPosition@* 0x005159B0
+            pBest->pObject->f_41 = D2SOUNDSMP_GetStreamPosition(pBest->pSound);
+// build: symbol ?D2SOUNDSMP_StopSound@* 0x00515EE0
+        D2SOUNDSMP_StopSound(pBest->pSound);
     }
     if (pBest->pObject)
     {
@@ -539,16 +539,16 @@ void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot)
     {
         int nPanVolume;
         int nPan;
-        D2SOUND_GetPositionalVolumePan(&nPanVolume, &nPan, fX, fY, fZ);
-        D2SOUND_SetSoundPan(pSlot->pSound, nPan);
+        D2SOUNDSMP_GetPositionalVolumePan(&nPanVolume, &nPan, fX, fY, fZ);
+        D2SOUNDSMP_SetSoundPan(pSlot->pSound, nPan);
         nFinal = nPanVolume * nFinal / 255;
     }
 
     if (pSlot->nType & 2)
-        D2SOUND_SetSoundPosition(pSlot->pSound, fX, fY, fZ);
+        D2SOUNDSMP_SetSoundPosition(pSlot->pSound, fX, fY, fZ);
 
-    D2SOUND_SetSoundAttenuation(pSlot->pSound, pObject->fAttenuation);
-    D2SOUND_SetSoundVolume(pSlot->pSound, nFinal);
+    D2SOUNDSMP_SetSoundAttenuation(pSlot->pSound, pObject->fAttenuation);
+    D2SOUNDSMP_SetSoundVolume(pSlot->pSound, nFinal);
     pSlot->tPos = *pPos;
     pSlot->nVolume = nVolume;
     pSlot->fAttenuation = pObject->fAttenuation;
@@ -602,12 +602,12 @@ int __cdecl sub_004E00D0_ToggleSoundMode01()
         nNew = 1;
     else
         nNew = 0;
-    D2SOUND_FadeOutMasterVolume(0xB4);
+    D2SOUNDSMP_FadeOutMasterVolume(0xB4);
     const int nResult = sub_004E0000_SetSoundMode(nNew);
     if (!nResult)
         sub_004E0000_SetSoundMode(nOld);
-// build: symbol ?D2SOUND_SetMasterVolume@* 0x00515CE0
-    D2SOUND_SetMasterVolume(0xFF);
+// build: symbol ?D2SOUNDSMP_SetMasterVolume@* 0x00515CE0
+    D2SOUNDSMP_SetMasterVolume(0xFF);
     InterlockedDecrement(&gnSoundModeSwitchLock);
     return nResult;
 }
@@ -625,11 +625,11 @@ int __cdecl sub_004E0140_ToggleSoundMode12()
         nNew = 1;
     else
         nNew = 2;
-    D2SOUND_FadeOutMasterVolume(0xB4);
+    D2SOUNDSMP_FadeOutMasterVolume(0xB4);
     const int nResult = sub_004E0000_SetSoundMode(nNew);
     if (!nResult)
         sub_004E0000_SetSoundMode(nOld);
-    D2SOUND_SetMasterVolume(0xFF);
+    D2SOUNDSMP_SetMasterVolume(0xFF);
     InterlockedDecrement(&gnSoundModeSwitchLock);
     return nResult;
 }
@@ -667,20 +667,20 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
     D2SlotStrc* pSlot = sub_004DFB50_GetFreeSlot(pObject, nType);
     if (!pSlot)
         return 0;
-    D2SOUND_ResetSound(pSlot->pSound);
+    D2SOUNDSMP_ResetSound(pSlot->pSound);
     if (!pRecord->bStream)
     {
         sub_00515A30(pSlot->pSound, pRecord->nLoop);
         if (pRecord->nBlocks == 1)
             sub_00515A60(pSlot->pSound, pRecord->nBlock[0] * 2);
-        if (!D2SOUND_SetSoundData(pSlot->pSound, pRecord->pData, pRecord->nSize))
+        if (!D2SOUNDSMP_SetSoundData(pSlot->pSound, pRecord->pData, pRecord->nSize))
             return 0;
     }
     pSlot->pObject = pObject;
     if (nType & 4)
     {
         float fValue = pRecord->bReverb ? 1.0f : 0.0f;
-        D2SOUND_SetSoundReverbMix(pSlot->pSound, fValue);
+        D2SOUNDSMP_SetSoundReverbMix(pSlot->pSound, fValue);
     }
     pSlot->fAttenuation = 0.0f;
     pSlot->nVolume = -1;
@@ -689,13 +689,13 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
     int bOk;
     if (!pRecord->bStream)
     {
-        bOk = D2SOUND_PlaySound(pSlot->pSound);
+        bOk = D2SOUNDSMP_PlaySound(pSlot->pSound);
     }
     else
     {
         char szPath[0x50];
         sub_00482710(pObject->nSoundId, szPath);
-        bOk = D2SOUND_StartSoundStream(pSlot->pSound, szPath, pObject->nField0x24, pRecord->nLoop);
+        bOk = D2SOUNDSMP_StartSoundStream(pSlot->pSound, szPath, pObject->nField0x24, pRecord->nLoop);
     }
     if (!bOk)
     {

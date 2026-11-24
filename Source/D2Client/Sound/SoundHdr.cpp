@@ -91,9 +91,9 @@ void __cdecl SKILLS_ResetLevelSpeech(); // 0x004CA280
 
 D2SlotStrc* __fastcall SoundChannelFind(int nOwner); // 0x004DF9D0
 
-void __fastcall D2SOUND_ListRemove(D2ClientCacheNodeStrc** ppList, int nId); // 0x00516980
+void __fastcall D2SOUNDUTIL_ListRemove(D2ClientCacheNodeStrc** ppList, int nId); // 0x00516980
 
-void __fastcall D2SOUND_ListAddTail(D2ClientCacheNodeStrc** ppList, int nId); // 0x00516A70
+void __fastcall D2SOUNDUTIL_ListAddTail(D2ClientCacheNodeStrc** ppList, int nId); // 0x00516A70
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
@@ -473,8 +473,8 @@ void __fastcall SOUNDHDR_UpdateSoundSystem(int nArg)
     SOUNDINST_ResetSoundState();
     sub_004DCA30();
     SKILLS_ResetLevelSpeech();
-// build: symbol ?D2SOUND_SetMasterVolume@* 0x00515CE0
-    D2SOUND_SetMasterVolume(0xFF);
+// build: symbol ?D2SOUNDSMP_SetMasterVolume@* 0x00515CE0
+    D2SOUNDSMP_SetMasterVolume(0xFF);
     gdwSoundTick = 0;
     gnCacheLastTick = 0;
     gnCacheLastLoadTick = 0;
@@ -535,7 +535,7 @@ void __fastcall SOUNDHDR_ReleaseCacheEntry(int nIndex)
         exit(-1);
     }
     gdwCacheUsed -= pEntry->nSize;
-    D2SOUND_ListRemove(&gpCacheList, nIndex);
+    D2SOUNDUTIL_ListRemove(&gpCacheList, nIndex);
     pEntry->dwLastUse = 0;
     if (pEntry->pAsync)
     {
@@ -622,8 +622,8 @@ int __fastcall SOUNDHDR_PickVariant(int nIndex)
 void __fastcall SOUNDHDR_TouchCacheEntry(int nIndex)
 {
     SOUNDHDR_GetSoundRecord(nIndex)->dwLastUse = gdwSoundTick;
-    D2SOUND_ListRemove(&gpCacheList, nIndex);
-    D2SOUND_ListAddTail(&gpCacheList, nIndex);
+    D2SOUNDUTIL_ListRemove(&gpCacheList, nIndex);
+    D2SOUNDUTIL_ListAddTail(&gpCacheList, nIndex);
 }
 
 // 0x00481840
