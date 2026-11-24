@@ -11579,7 +11579,7 @@ address,name,source,alias
 0x006036D0,?InternalDelete@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEXPAUD2StormEntry38Strc@@@Z,blizzard,InternalDelete
 0x00603730,sub_00603730,placeholder,
 0x00603760,CelSlotArrayClear,inferred,
-0x00603780,Destroy,placeholder,
+0x00603780,Destroy,inferred,
 0x006037B0,??_G?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEPAXI@Z,blizzard,
 0x006037E0,??_GD2StormHashChunkStrc@@QAEPAXI@Z,d2moo,
 0x00603850,sub_00603850_SetCount,placeholder,
@@ -14627,7 +14627,7 @@ address,name,source,alias
 0x006C1A50,DATATBLS_ExpressionBuffer_PushCallbackConstant,d2moo,
 0x006C1AE0,DATATBLS_CompileExpression,d2moo,
 0x006C1F60,D2QSQUEUE_InitQueue,inferred,
-0x006C1F80,Destroy,placeholder,
+0x006C1F80,Destroy,inferred,
 0x006C1FD0,D2QSQUEUE_GetOverflow,inferred,
 0x006C1FF0,D2QSQUEUE_Push,inferred,
 0x006C2090,D2QSQUEUE_Pop,inferred,
