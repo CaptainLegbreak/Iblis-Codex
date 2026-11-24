@@ -77,7 +77,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall ResumeThread(void* hThr
 
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);                                  // 0x006CC134
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2HostentStrc;
 
@@ -145,7 +145,7 @@ typedef void* HKEY;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -297,7 +297,7 @@ extern "C" const char gszTypeNewsTableItem_0072FF8C[];
 
 const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 
-void __stdcall sub_0040EA00_WriteProcessorReport(); // 0x0040EA00
+void __stdcall ERRORMANAGER_WriteProcessorReport(); // 0x0040EA00
 
 void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
@@ -341,13 +341,13 @@ void __cdecl FOG_AsyncDataDestroy();                                            
 
 void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem);                                        // 0x00409C80
 
-int __cdecl sub_0040B500_UnloadImageHlp();                                                                  // 0x0040B500
+int __cdecl EXCEPTIONS_UnloadImageHlp();                                                                  // 0x0040B500
 
 void __cdecl LOGMANAGER_CloseLogFilesNow();                                                               // 0x0040F8A0
 
-void __cdecl sub_004107A0_DeleteTimeLock();                                                                 // 0x004107A0
+void __cdecl SYSTEM_DeleteTimeLock();                                                                 // 0x004107A0
 
-void __cdecl sub_0040FFD0_ShutdownLogSystem();                                                              // 0x0040FFD0
+void __cdecl LOGMANAGER_ShutdownLogSystem();                                                              // 0x0040FFD0
 
 extern "C" const char gszStringFormat[];                                                           // 0x006FFC58
 
@@ -800,7 +800,7 @@ void __cdecl ERRORMANAGER_ExitHandler(); // 0x00407F20
 
 int __fastcall ERRORMANAGER_CrashHandler(D2CrashInputStrc* pInput); // 0x004082E0
 
-int __cdecl sub_0040D5B0_LoadImageHlp(); // 0x0040D5B0
+int __cdecl EXCEPTIONS_LoadImageHlp(); // 0x0040D5B0
 
 void __cdecl LOGMANAGER_InitLogSystem(); // 0x00410540
 
@@ -834,16 +834,16 @@ void* __fastcall ERRORMANAGER_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSiz
 
 extern const unsigned int gadwLowBitMasks[]; // 0x006CD490
 
-int __fastcall sub_00409220_FindZeroBit(unsigned int nWord); // 0x00409220
+int __fastcall ERRORMANAGER_FindZeroBit(unsigned int nWord); // 0x00409220
 
 
-void* __fastcall sub_0040A080_PoolAlloc(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine); // 0x0040A080
+void* __fastcall ERRORMANAGER_PoolAlloc(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine); // 0x0040A080
 
-static D2MemPoolBlockStrc* __stdcall sub_004099D0_FindBlock(void* pMemory, D2PoolSystemStrc* pSystem);
+static D2MemPoolBlockStrc* __stdcall ERRORMANAGER_FindPoolBlock(void* pMemory, D2PoolSystemStrc* pSystem); // 0x004099D0
 
-static void sub_00409A60_MoveBlockToFront(D2MemPoolRecStrc* pPool, D2MemPoolBlockStrc* pBlock);
+static void ERRORMANAGER_MoveBlockToFront(D2MemPoolRecStrc* pPool, D2MemPoolBlockStrc* pBlock); // 0x00409A60
 
-void __fastcall sub_00409AB0_PoolFree(D2PoolSystemStrc* pSystem, void** ppMemory, const char* szFile, int nLine);
+void __fastcall ERRORMANAGER_PoolFree(D2PoolSystemStrc* pSystem, void** ppMemory, const char* szFile, int nLine); // 0x00409AB0
 
 // calling-convention shim (not game code)
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
@@ -1140,7 +1140,7 @@ void __cdecl GLIDE_DebugFillBackBuffer()
 {
 }
 
-void* __fastcall sub_0040A1F0_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory, int nSize, const char* szFile, int nLine);
+void* __fastcall ERRORMANAGER_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory, int nSize, const char* szFile, int nLine); // 0x0040A1F0
 
 
 // 0x004088C0
@@ -1155,7 +1155,7 @@ int __fastcall ERRORMANAGER_ReportNestedError(const char* szFile, int nLine, con
 }
 
 // 0x00408A60
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine)
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine)
 {
     FOG_SOCKET_WSACleanup();
     ERRORMANAGER_RaiseErrorReport(6, &gszEmptyAssertText, nLine, "Unrecoverable internal error %08x", szFile);
@@ -1202,7 +1202,8 @@ void __fastcall FOG_InitErrorMgr(const char* szProgramName, const char* szVersio
     unsigned long dwValue = 0;
     SRegLoadValue("Diablo II", "TraceUnfreedMemory", 0, &dwValue);
     gdwRegValue = dwValue;
-    sub_00409DD0_InitPoolSystem(0, "Global Pool System", 0x40000, 0x8000);
+// build: symbol ?FOG_CreateNewPoolSystem@* 0x00409DD0
+    FOG_CreateNewPoolSystem(0, "Global Pool System", 0x40000, 0x8000);
     sub_00411210_InitTimer();
     for (int i = 0; i < 0x20; ++i)
     {
@@ -1217,7 +1218,7 @@ void __fastcall FOG_InitErrorMgr(const char* szProgramName, const char* szVersio
         ERRORMANAGER_LogSystemInfo();
     }
     atexit(ERRORMANAGER_ExitHandler);
-    sub_0040D5B0_LoadImageHlp();
+    EXCEPTIONS_LoadImageHlp();
 // build: symbol ?ERRORMANAGER_ShowErrorReport@* 0x00408660
     SetErrorReportCallback(ERRORMANAGER_ShowErrorReport);
 }

@@ -46,7 +46,7 @@ void __fastcall QSERVER_HackListAddress(D2QueueServerStrc*,const char*,unsigned 
 D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc*,int,unsigned int); // 0x006BFB70
 void __fastcall sub_006C0420_CloseClient(D2QueueServerStrc*,int,const char*,int); // 0x006C0420
 void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc*,D2QClientStrc*); // 0x006C08A0
-int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
+int __fastcall FOG_SOCKET_CloseSocket(unsigned int s); // 0x0040D880
 void __fastcall ERRORMANAGER_UnregisterThread(unsigned int nId); // 0x00407F90
 int __stdcall sub_006B0186_Select(int,D2SocketSetStrc*,void*,D2SocketSetStrc*,D2TimevalStrc*); // 0x006B0186
 int __stdcall sub_006B0180_IsSocketSet(int,D2SocketSetStrc*); // 0x006B0180
@@ -219,15 +219,15 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
                         continue;
                     }
 // build: symbol ?RefreshRecord@* 0x006BE980
-                    if(server->RefreshRecord(buffers.address.address)) sub_0040D880(accepted);
+                    if(server->RefreshRecord(buffers.address.address)) FOG_SOCKET_CloseSocket(accepted);
                     else if(QSERVER_CheckRecordThreshold(server,&buffers.address.address)) {
                         QSERVER_BanAddress(server,&buffers.address.address,gszSource,0x138);
-                        sub_0040D880(accepted);
+                        FOG_SOCKET_CloseSocket(accepted);
                     }
                     else if(!sub_006BFFA0_CheckAddress(server,&buffers.address.address)) {
                         LOGMANAGER_LogWritePrefixedLine(gszHack,gszReconnect);
                         QSERVER_HackListAddress(server,gszSource,buffers.address.address,0x142);
-                        sub_0040D880(accepted);
+                        FOG_SOCKET_CloseSocket(accepted);
                     }
                     else {
                         node=QSrvAddClient(server,accepted,buffers.address.address);
@@ -286,11 +286,11 @@ int __fastcall sub_006C3B50_StartServer(D2QueueServerStrc* pServer, int nPort)
     pServer->aPorts[0] = (unsigned short)nPort;
     if (sub_006C9B76_Bind(pServer->hListenSockets[0], &tAddress, sizeof(tAddress)) == -1)
     {
-        sub_0040D880(s);
+        FOG_SOCKET_CloseSocket(s);
         return 0;
     }
     if (sub_006C9B70_Listen(s, 25) == -1)
-        sub_0040D880(s);
+        FOG_SOCKET_CloseSocket(s);
     pServer->hEvent = CreateEventA(0, 0, 0, 0);
     pServer->hAcceptThreads[0] = CreateThread(0, 0, (unsigned long (__stdcall*)(void*))sub_006C3470_ServerThread, pServer, 0, &pServer->aThreadIds[0]);
     ERRORMANAGER_RegisterThread(pServer->aThreadIds[0], pServer->hAcceptThreads[0]);

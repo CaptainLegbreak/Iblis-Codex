@@ -104,7 +104,7 @@ extern "C" const unsigned char gabDefault[]; // 0x006D4D88
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); // 0x00684BD5
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern D2ComInterfaceStrc* gpFuncTable_0077ABF0; // 0x0077ABF0
 extern D2ConfigStrc* gpCharInfo; // 0x0077BBD8
@@ -212,7 +212,7 @@ void __stdcall sub_004F5D90_PlayVideo(const char* szFile, int nMode, int nArg); 
 void __stdcall sub_004FA450_SetActive(D2WinControlStrc* pControl); // 0x004FA450
 void __stdcall sub_0052A750(int nArg, const char* szAddress); // 0x0052A750
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CharSelCacheStrc
 {

@@ -2,7 +2,7 @@
 #pragma function(memcpy)
 #pragma intrinsic(memset)
 
-#define FIELD_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define FIELD_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define FIELD_CELL(pFieldArg, nPosX, nPosY) \
     *reinterpret_cast<unsigned char*>(gtCollisionField.nCenterX \
         + ((((nPosY - (pFieldArg)->nY + gtCollisionField.nCenterY) << 8) - (pFieldArg)->nX + nPosX) \
@@ -32,7 +32,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __stdcall D2Common_11098(D2FieldStrc* pField, int* pX, int* pY); // 0x0066A5D0
 extern "C" const char gszDataGlobalPath[]; // 0x006D4118

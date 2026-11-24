@@ -134,7 +134,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -604,7 +604,7 @@ D2TxtLinkStrc* gpSuperUniquesLinker; // 0x0096C708
 
 void* gpMonTable_96C6C0; // 0x0096C6C0
 
-#define TC_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define TC_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct T006510C0;
 
@@ -717,7 +717,7 @@ extern "C" const char gszTxtField_gold[]; // 0x006DCD90
 
 extern "C" const char gszField_006D9060[]; // 0x006D9060
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), FIXTURE_LINE(line)); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), FIXTURE_LINE(line)); exit(-1); }
 
 struct D2HirelingTableGlobals
 {
@@ -756,7 +756,7 @@ D2AnimSeqRecordStrc* gpMonSeqTable; // 0x0096C7B4
 
 int gnMonSeqTableRecordCount; // 0x0096C7B8
 
-#define MON_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define MON_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2MonItemPercentDataTbl;
 
@@ -3480,7 +3480,7 @@ void __fastcall DATATBLS_LoadMonEquipTxt(void* archive)
  {gszTxtField_end,0,0,0,0}};
  gpMonEquipTxt=(D2MonEquipTxt*)DATATBLS_CompileTxt(archive,gszField_monequip,fields,&gnMonEquipTxtRecordCount,sizeof(D2MonEquipTxt));
  if(gnMonEquipTxtRecordCount>=32767){
-  sub_00408A60(&gszEmptyAssertText,sub_00408090(),3356);exit(-1);
+  FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),3356);exit(-1);
  }
  for(int i=0;i<sgptDataTables->nMonStatsTxtRecordCount;++i)gpMonstatsTxt[i].nMonEquipTxtRecordId=-1;
  for(int i=0;i<gnMonEquipTxtRecordCount;++i){

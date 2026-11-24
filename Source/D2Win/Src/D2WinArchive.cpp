@@ -105,7 +105,8 @@ int __cdecl ARCHIVE_LoadArchives()
     gpD2ExpMPQ = sub_00517332_LoadMpqFile(gszExpansionMpq, 0, 0, 3000);
 
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
-    return sub_00406D20() || gpD2DataMPQ && gpD2SfxMPQ && gpD2SpeechMPQ && (!FOG_IsExpansion() || gpD2ExpMPQ);
+// build: symbol ?FOG_UseDirect@* 0x00406D20
+    return FOG_UseDirect() || gpD2DataMPQ && gpD2SfxMPQ && gpD2SpeechMPQ && (!FOG_IsExpansion() || gpD2ExpMPQ);
 }
 
 // 0x004FAC80
@@ -141,7 +142,7 @@ int __cdecl sub_004FAC90_CheckCharArchive()
         return 0;
     }
 
-    return !sub_00406D20();
+    return !FOG_UseDirect();
 }
 
 extern "C" const char gszD2XVideoMpq[]; // 0x006DC788
@@ -162,7 +163,7 @@ extern void* ghXVideoMpq; // 0x007D562C
 // 0x004FAD10
 int __fastcall ARCHIVE_LoadVideoArchives(void* pfShowMessage, void* hFile, int bExpansion)
 {
-    if (sub_00406D20())
+    if (FOG_UseDirect())
     {
         pfShowMessage = 0;
     }
@@ -283,7 +284,7 @@ void __cdecl ARCHIVE_FreeArchives()
 
 // 0x004FAEC0
 int __fastcall ARCHIVE_LoadExpansionArchives(DiscCallback play,DiscCallback expansion,void* file,D2ConfigStrc* config) {
-    if (sub_00406D20()) { play=0; expansion=0; }
+    if (FOG_UseDirect()) { play=0; expansion=0; }
     ghXVideoMpq=0;
     int bOk;
 // build: symbol ?FOG_IsExpansion@* 0x00408F20

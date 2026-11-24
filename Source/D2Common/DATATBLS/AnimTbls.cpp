@@ -30,10 +30,10 @@ void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* pUnit, int nClassId, int 
 void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* hUnit, char* szPath, int* pWeaponClassCode, int bAddPathPrefix, int a5, D2InventoryStrc* pInventory, int nAnimMode); // 0x0064FA00
 extern "C" const char gszEmptyAssertText;                                                                         // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                              // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                  // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                  // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                                // 0x00681E09
 
-#define ANIM_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define ANIM_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 // 0x0066A770
 D2AnimDataTableStrc* __fastcall DATATBLS_LoadAnimDataD2(void* hArchive)

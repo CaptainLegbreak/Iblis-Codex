@@ -182,10 +182,10 @@ void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFie
 void __stdcall FOG_10216_AddRecordToLinkingTable(D2TxtLinkStrc* pLinker, const char* szName);       // 0x006BD500
 unsigned short __stdcall sub_00524D30_FindString(const char* szKey, void** ppText);                 // 0x00524D30
 extern "C" const char* __cdecl sub_00408090();                                              // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);           // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);           // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                       // 0x00681E09
 
-#define ITEM_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define ITEM_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 // 0x00634DC0
 void __fastcall DATATBLS_LoadSets_SetItemsTxt(void* hArchive)

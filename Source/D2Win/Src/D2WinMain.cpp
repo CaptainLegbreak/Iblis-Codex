@@ -21,7 +21,7 @@
 
 typedef long (__stdcall* WNDPROC)(void* hWnd, unsigned int uMsg, unsigned int wParam, long lParam);
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CelFileStrc;
 
@@ -93,7 +93,7 @@ int __stdcall WINDOW_Destroy(); // 0x004F5900
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 D2CelFileStrc* gpCursorCellFile; // 0x007D5594
 
@@ -233,7 +233,7 @@ extern "C" __declspec(dllimport) int __stdcall SetCursorPos(int nX, int nY); // 
 
 extern "C" __declspec(dllimport) int __stdcall TrackMouseEvent(tagTRACKMOUSEEVENT* pEventTrack); // 0x006CC520
 
-int __cdecl sub_00407FF0(); // 0x00407FF0
+int __cdecl FOG_IsHandlingError(); // 0x00407FF0
 
 void __stdcall WINDOW_SetPaused(int bPaused); // 0x004F5990
 
@@ -1803,7 +1803,7 @@ void __stdcall D2Win_COMMANDS_ActivateApp_6F8ADC40(SMSGHANDLER_PARAMS* pMsg)
     gbAppActive = nActive != 0;
     if (nActive)
     {
-        if (!sub_00407FF0())
+        if (!FOG_IsHandlingError())
         {
             WINDOW_SetPaused(0);
             sub_004FB130_SetActiveState(1);

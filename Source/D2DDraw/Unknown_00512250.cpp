@@ -24,7 +24,7 @@ int __stdcall CelGetHeight(D2CelFileStrc* pCelFile); // 0x006018F0
 int __stdcall CelGetOffsetX(D2CelFileStrc* pCelFile); // 0x00601920
 int __stdcall CelGetOffsetY(D2CelFileStrc* pCelFile); // 0x00601950
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern const char gszAssertExpr_006CC837[]; // 0x006CC837
 extern int gnValue_007C9154; // 0x007C9154
 extern int gnValue_007C913C; // 0x007C913C
@@ -87,7 +87,7 @@ static int __stdcall sub_00511E80_ClipCel(D2CelFileStrc* pCelFile, int nY, D2Cli
 
     if (pOut->nY2 <= 0)
     {
-        sub_00408A60(gszAssertExpr_006CC837, sub_00408090(), 171);
+        FOG_DisplayHalt(gszAssertExpr_006CC837, sub_00408090(), 171);
         exit(-1);
     }
     return 0;

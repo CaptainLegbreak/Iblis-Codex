@@ -2,13 +2,13 @@
 #include "D2GameTypes.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                              // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                    // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                    // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 char* gpMcpPacket; // 0x007992F4
 
@@ -51,7 +51,7 @@ void __stdcall MCPCONNECT_SetPacket(const char* pData, int nSize)
         D2_ASSERT(0, 0x254);
     }
 }
-struct T006BC290;
+struct D2QSSOCKET_SetPacketFormat;
 
 struct FSafeSock
 {
@@ -85,17 +85,17 @@ int __fastcall WINMAIN_SendMcpStartup(D2LaunchThreadRecordStrc* pRecord);       
 
 int __fastcall WINMAIN_DispatchConnectPacket(const unsigned char* pData, unsigned int nSize, int nArg);         // 0x0044B1C0
 
-void __stdcall sub_006BC010_SetHandler(void* pConnection, D2LaunchPacketHandler pfnHandler, int nArg);      // 0x006BC010
+void __stdcall D2QSSOCKET_SetPacketHandler(void* pConnection, D2LaunchPacketHandler pfnHandler, int nArg);      // 0x006BC010
 
 int __stdcall FOG_ConnectionSend(void* pConnection, const char* pData, int nSize);                           // 0x006BC0B0
 
-void __stdcall sub_006BC5A0_Start(void* pConnection);                                                       // 0x006BC5A0
+void __stdcall D2QSSOCKET_ConnectAndWait(void* pConnection);                                                       // 0x006BC5A0
 
-void __stdcall sub_006BC680_Close(void* pConnection);                                                       // 0x006BC680
+void __stdcall D2QSSOCKET_Close(void* pConnection);                                                       // 0x006BC680
 
-T006BC290* __stdcall sub_006BC6A0_AllocSocketRecord(const char* szName, int nValue, const char* szLabel); // 0x006BC6A0
+D2QSSOCKET_SetPacketFormat* __stdcall D2QSSOCKET_CreateRecord(const char* szName, int nValue, const char* szLabel); // 0x006BC6A0
 
-FSafeSock* __stdcall sub_006BC810_LookupHandle(void* pConnection);                                          // 0x006BC810
+FSafeSock* __stdcall D2QSSOCKET_GetSafeSock(void* pConnection);                                          // 0x006BC810
 
 extern void* gpMcpConnection;                                                                         // 0x00798FB4
 
@@ -111,7 +111,7 @@ void* ghConnectEvent;                                                           
 
 int __cdecl sub_00449B30_QueryAddress()
 {
-    FSafeSock* pHandle = sub_006BC810_LookupHandle(gpMcpConnection);
+    FSafeSock* pHandle = D2QSSOCKET_GetSafeSock(gpMcpConnection);
     if (!pHandle)
         return 0;
     D2LaunchAddressStrc tAddress;
@@ -151,13 +151,13 @@ int __cdecl MCPCONNECT_ConnectThread()
 // build: symbol ?FOG_inet_ntoa@* 0x0040E080
     const char* szAddress = FOG_inet_ntoa(gnServerAddress_00798FC8);
     gnValue_0079929C = 0;
-    void* pConnection = sub_006BC6A0_AllocSocketRecord(szAddress, gnServerPort_00798FCC, "clt->mcp");
+    void* pConnection = D2QSSOCKET_CreateRecord(szAddress, gnServerPort_00798FCC, "clt->mcp");
     gpMcpConnection = pConnection;
-    sub_006BC010_SetHandler(pConnection, WINMAIN_DispatchConnectPacket, 0);
-    sub_006BC5A0_Start(pConnection);
+    D2QSSOCKET_SetPacketHandler(pConnection, WINMAIN_DispatchConnectPacket, 0);
+    D2QSSOCKET_ConnectAndWait(pConnection);
     unsigned long nFogError = 0;
     unsigned long nWSALastError;
-    FSafeSock* pSafeSock = sub_006BC810_LookupHandle(pConnection);
+    FSafeSock* pSafeSock = D2QSSOCKET_GetSafeSock(pConnection);
     if (pSafeSock)
     {
         FOG_SOCKET_GetError(pSafeSock, &nFogError, &nWSALastError);
@@ -165,7 +165,7 @@ int __cdecl MCPCONNECT_ConnectThread()
         {
             if (pConnection != gpMcpConnection)
             {
-                sub_006BC680_Close(pConnection);
+                D2QSSOCKET_Close(pConnection);
                 return 0;
             }
             char nValue = 1;

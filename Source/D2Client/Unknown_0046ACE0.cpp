@@ -15,7 +15,7 @@
 
 #define LEVEL_EFFECT_TICKS 30
 #define THRONE_MISSILE 0x27F
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MissilesTxt;
 struct D2MonStatsTxt;
 struct D2MonStats2Txt;
@@ -69,7 +69,7 @@ extern int gnTimerEnd; // 0x007A7464
 extern int gbThroneEventPending; // 0x007A7468
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __stdcall sub_0046AF70(D2ActiveRoomStrc* pRoom); // 0x0046AF70
 void __cdecl sub_0046AD10_UpdateTimedBox(); // 0x0046AD10
@@ -442,12 +442,13 @@ void __cdecl sub_0046AD10_UpdateTimedBox()
 
     if (gtTimedBox.nTick < gtTimedBox.nFadeIn)
     {
-        gtTimedBox.nValue = (int)(sub_0040B330_Cos(gtTimedBox.nAngle) * nLight);
+// build: symbol ?FOG_10083_Cos_LUT@* 0x0040B330
+        gtTimedBox.nValue = (int)(FOG_10083_Cos_LUT(gtTimedBox.nAngle) * nLight);
         gtTimedBox.nAngle = (gtTimedBox.nTick << 7) / gtTimedBox.nFadeIn;
     }
     else if (gtTimedBox.nTick >= gtTimedBox.nTotal - gtTimedBox.nFadeOut)
     {
-        gtTimedBox.nValue = (int)(sub_0040B330_Cos(gtTimedBox.nAngle) * nLight);
+        gtTimedBox.nValue = (int)(FOG_10083_Cos_LUT(gtTimedBox.nAngle) * nLight);
         const int nElapsed = gtTimedBox.nFadeOut - gtTimedBox.nTotal + gtTimedBox.nTick;
         if (!gtTimedBox.nFadeOut)
         {

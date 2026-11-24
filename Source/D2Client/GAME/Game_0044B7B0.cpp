@@ -10,7 +10,7 @@
 #include "D2MsgRecord.h"
 #include "D2ClientTimer.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2ClientNotifyStrc;
 
@@ -22,7 +22,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -159,7 +159,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem);                                        // 0x00409C80
 
-int __cdecl sub_00409DD0_InitPoolSystem(D2PoolSystemStrc** ppPoolSystem, const char* szName, int nSize, int nUnused); // 0x00409DD0
+int __cdecl FOG_CreateNewPoolSystem(D2PoolSystemStrc** ppPoolSystem, const char* szName, int nSize, int nUnused); // 0x00409DD0
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 
@@ -683,7 +683,7 @@ void __cdecl GAME_InitGameState()
     gbActUnloaded = 0;
     gbStandStillHeld = 0;
     memset(gaClientState_007A0480, 0, sizeof(gaClientState_007A0480));
-    sub_00409DD0_InitPoolSystem(&gpMemPool, "Client Pool System", 0x40000, 0x1000);
+    FOG_CreateNewPoolSystem(&gpMemPool, "Client Pool System", 0x40000, 0x1000);
     CUNIT_SetPlayerUnit(0);
     GAME_ReadColorFlag();
     if (!gpClientView)

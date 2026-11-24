@@ -27,7 +27,7 @@
 
 #pragma intrinsic(_ReadWriteBarrier)
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define MAX_MSG_SIZE 516
 
@@ -153,7 +153,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -982,7 +982,7 @@ struct D2PoolSystemStrc;
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                              // 0x0040B380
 
-int __cdecl sub_0040A040_GetPoolSystemCount(D2PoolSystemStrc* pSystem);                                     // 0x0040A040
+int __cdecl FOG_GetMemoryUsage(D2PoolSystemStrc* pSystem);                                     // 0x0040A040
 
 void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);            // 0x00542B40
 
@@ -1243,7 +1243,7 @@ void __fastcall SEED_InitSeed(D2SeedStrc* pSeed);                               
 
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);                                 // 0x00650E40
 
-void __cdecl sub_00409DD0_InitPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize);
+void __cdecl FOG_CreateNewPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize); // 0x00409DD0
 
 void __stdcall GAME_SetReservedGameGUID(int hGame, unsigned short nGameId);                            // 0x0052C110
 
@@ -1627,7 +1627,7 @@ void __fastcall GAME_SynchronizePlayerWithClients(D2GameStrc* pGame, D2ClientStr
     D2UnitStrc* hNewUnit = CLIENTS_GetPlayerFromClient(pClient, 0);
     if (!hNewUnit)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x5A1);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x5A1);
         exit(-1);
     }
     for (D2ClientStrc* pOtherClient = pGame->pClientList; pOtherClient; pOtherClient = pOtherClient->pNext)
@@ -2391,7 +2391,7 @@ static void GAME_UpdateFrameRate(D2GameStrc* pGame)
         pGame->nPreviousUpdateTickCount = nTickCount;
         gnFrameRate = pGame->nFrameRate;
 
-        const unsigned int nMemoryUsage = sub_0040A040_GetPoolSystemCount((D2PoolSystemStrc*)pGame->pMemoryPool);
+        const unsigned int nMemoryUsage = FOG_GetMemoryUsage((D2PoolSystemStrc*)pGame->pMemoryPool);
         if (nTickCount - gnPreviousMemUsageTick > 10000)
         {
             gnPreviousMemUsageTick = nTickCount;
@@ -3877,7 +3877,7 @@ int __cdecl GAME_GetFrameRate()
 // 0x0052DBA0
 void __stdcall GAME_GetMemoryUsage(int* pCurrentMemoryUsage, int* pPeakMemoryUsageInLast10s)
 {
-    *pCurrentMemoryUsage = sub_0040A040_GetPoolSystemCount(0);
+    *pCurrentMemoryUsage = FOG_GetMemoryUsage(0);
     *pPeakMemoryUsageInLast10s = gnPeakMemoryUsageInLast10s_6FD45828;
 }
 
@@ -4065,7 +4065,7 @@ int __stdcall SrvCreateNewEmptyGame(char* szGameName, const char* szPassword, co
     pGame->lpCriticalSection = (D2CriticalSectionStrc*)FOG_AllocPool(0, sizeof(D2CriticalSectionStrc), ".\\GAME\\Game.cpp", 796, 0);
     InitializeCriticalSection(pGame->lpCriticalSection);
 
-    sub_00409DD0_InitPoolSystem(&pGame->pMemoryPool, szGameName, 0x8000, 0x1000);
+    FOG_CreateNewPoolSystem(&pGame->pMemoryPool, szGameName, 0x8000, 0x1000);
 
     memset(pGame->pUnitList[0], 0, sizeof(pGame->pUnitList[0]));
     memset(pGame->pUnitList[1], 0, sizeof(pGame->pUnitList[1]));

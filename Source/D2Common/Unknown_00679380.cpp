@@ -38,7 +38,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -87,7 +87,7 @@ extern const D2CoordStrc gnDirectionsToAdjacentCellOffsets[16]; // 0x006F1D98
 
 extern const int gaPathHeuristicTable[]; // 0x006F1698
 void __fastcall PATH_GetDirectionVectorFromPoints(D2CoordStrc* pDirectionVector, int* pOutDirection, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0064FD70
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
@@ -650,8 +650,10 @@ int __fastcall PATH_ComputePathBlessedHammer_6FDAB3C0(D2DynamicPathStrc* pPath, 
         nRadius += 0x2580;
         nAngle += 16;
         float fRadius = (float)nRadius;
-        unsigned int nX = (unsigned int)(sub_0040B330_Cos(nAngle) * fRadius) + tCenter.dwPrecisionX;
-        unsigned int nY = (unsigned int)(sub_0040B350_Sin(nAngle) * fRadius) + tCenter.dwPrecisionY;
+// build: symbol ?FOG_10083_Cos_LUT@* 0x0040B330
+        unsigned int nX = (unsigned int)(FOG_10083_Cos_LUT(nAngle) * fRadius) + tCenter.dwPrecisionX;
+// build: symbol ?FOG_10084_Sin_LUT@* 0x0040B350
+        unsigned int nY = (unsigned int)(FOG_10084_Sin_LUT(nAngle) * fRadius) + tCenter.dwPrecisionY;
         if ((unsigned short)(nX >> 16) != (unsigned short)(tPrevious.dwPrecisionX >> 16) || (nY >> 16) != (unsigned short)(tPrevious.dwPrecisionY >> 16))
         {
             tPrevious.dwPrecisionX = nX;

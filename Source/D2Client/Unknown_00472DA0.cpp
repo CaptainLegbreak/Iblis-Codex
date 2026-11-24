@@ -2,7 +2,7 @@
 #include "D2Structs.h"
 #include "D2ClientGame.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define M341_ROLL_SEED_LOW(pSeed, nOut)                                                                     \
     {                                                                                                       \
         const unsigned __int64 lSeed = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed;              \
@@ -19,7 +19,7 @@ struct D2PeriodLightStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 
 
@@ -199,8 +199,10 @@ void __cdecl sub_00473470()
         else
         {
 // build: symbol ?gnWeatherAngle@* 0x007A89C4
-            int nDX = (int)(sub_0040B330_Cos(gnWeatherAngle) * pParticle->nParam);
-            int nDY = (int)(sub_0040B350_Sin(gnWeatherAngle) * pParticle->nParam);
+// build: symbol ?FOG_10083_Cos_LUT@* 0x0040B330
+            int nDX = (int)(FOG_10083_Cos_LUT(gnWeatherAngle) * pParticle->nParam);
+// build: symbol ?FOG_10084_Sin_LUT@* 0x0040B350
+            int nDY = (int)(FOG_10084_Sin_LUT(gnWeatherAngle) * pParticle->nParam);
             const int nY0 = pParticle->nY;
             const int nRange = pParticle->nYEnd - nY0;
             if (nDY > nRange)
@@ -488,7 +490,7 @@ void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed)
     float fScale;
     if (gbWeatherSplash)
     {
-        const float fCos = (float)fabs(sub_0040B330_Cos(gnWeatherAngle));
+        const float fCos = (float)fabs(FOG_10083_Cos_LUT(gnWeatherAngle));
         fScale = fCos;
         if (0.25f > fScale)
         {
@@ -510,8 +512,8 @@ void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed)
 
         const int nSpeed = (int)(pParticle->nParam2 * fScale);
         const float fSpeed = (float)nSpeed;
-        int nDeltaX = (int)(sub_0040B330_Cos(gnWeatherAngle) * fSpeed);
-        const int nDeltaY = (int)(sub_0040B350_Sin(gnWeatherAngle) * fSpeed);
+        int nDeltaX = (int)(FOG_10083_Cos_LUT(gnWeatherAngle) * fSpeed);
+        const int nDeltaY = (int)(FOG_10084_Sin_LUT(gnWeatherAngle) * fSpeed);
         pParticle->nY += nDeltaY - gnViewDeltaY;
         if (pParticle->nY > pParticle->nYEnd)
         {
@@ -544,7 +546,7 @@ void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed)
 
         if (gbWeatherSplash && !pParticle->bDrop)
         {
-            nDeltaX += (int)(2 * sub_0040B350_Sin((pParticle->nFrame + (gnWeatherTick << 9) / 25) & 0x1FF));
+            nDeltaX += (int)(2 * FOG_10084_Sin_LUT((pParticle->nFrame + (gnWeatherTick << 9) / 25) & 0x1FF));
         }
 
         pParticle->nX += nDeltaX - gnViewDeltaX;

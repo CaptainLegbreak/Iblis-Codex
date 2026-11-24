@@ -9,7 +9,7 @@ extern "C" const char gszEmptyAssertText;                                       
 
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
@@ -130,7 +130,7 @@ int __fastcall sub_004C0640_ClampRectToScreen(int* pLeft, int* pTop, int* pRight
 
     if (gnBlockRectCount_007C54A0 >= 32)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x47);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x47);
         exit(-1);
     }
 
@@ -185,7 +185,7 @@ int __fastcall sub_004C0640_AdjustLabel(int* pLeft, int* pTop, int* pRight, int*
 
     if (gnItemLabelCount >= 32)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x47);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x47);
         exit(-1);
     }
 

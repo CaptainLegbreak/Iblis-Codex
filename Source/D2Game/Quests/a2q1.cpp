@@ -8,7 +8,7 @@
 
 #pragma function(memset)
 
-#define CHECK(p,line) if(!(p)){sub_00408A60(text_006CC837,sub_00408090(),line);sub_00681E09(-1);}
+#define CHECK(p,line) if(!(p)){FOG_DisplayHalt(text_006CC837,sub_00408090(),line);sub_00681E09(-1);}
 
 struct D2BitBufferStrc;
 
@@ -95,7 +95,7 @@ extern "C" const char gszA2Q1SourceFile[],text_006CC837[]; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char*,const char*,int); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl sub_00681E09(int); // 0x00681E09
 
@@ -400,7 +400,7 @@ int __fastcall ACT2Q1_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
     return 0;
 }
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
@@ -652,7 +652,7 @@ bool __fastcall ACT2Q1_SeqCallback(D2QuestDataStrc* pQuestData)
     {
         if (IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter))
         {
-            sub_00408A60(&gszEmptyAssertText, sub_00408090(), ASSERT_LINE);
+            FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), ASSERT_LINE);
             exit(-1);
         }
         return pQuest->pfSeqFilter(pQuest);

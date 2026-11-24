@@ -139,7 +139,8 @@ void __stdcall SErrSetLastError(unsigned int); // 0x0041C340
 void __stdcall sub_0041D300_ZeroMemory(void* pDest, unsigned int nSize); // 0x0041D300
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+// build: symbol ?FOG_DisplayHalt@* 0x00408A60
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define DOLIT4 c ^= *buf4++; \

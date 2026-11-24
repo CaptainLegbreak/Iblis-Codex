@@ -37,7 +37,7 @@ struct D2UnitStrc;
 
 #define IFLAG_BROKEN 0x00000100
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define UNIT_MONSTER 1
 
@@ -57,7 +57,7 @@ struct D2UnitStrc;
 
 #define NPC_CLASS_198 198
 
-#define CHECK(p,line) if (!(p)) { sub_00408A60(&gszEmptyAssertText,sub_00408090(),line); exit(-1); }
+#define CHECK(p,line) if (!(p)) { FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),line); exit(-1); }
 
 struct D2PlayerDataStrc;
 
@@ -152,7 +152,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -1654,7 +1654,7 @@ D2UnitStrc* __fastcall D2GAME_MERCS_Create_6FCC8630(D2GameStrc* pGame, D2UnitStr
 
     if (!pHirelingTxtRecord)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x744);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x744);
         exit(-1);
     }
 
@@ -1878,7 +1878,7 @@ D2UnitStrc* __fastcall sub_00577700_FindStack(D2GameStrc* pGame, D2UnitStrc* pUn
 // 0x00577830
 int __fastcall SUNITNPC_BuyItem(D2GameStrc* ptGame,D2UnitStrc* pPlayer,D2UnitStrc* pNpc,int nItemGuid,int nItemMode,unsigned short nTransaction,int nQuotedCost,int bMultibuy)
 {
-    if(!ptGame){sub_00408A60(&gszEmptyAssertText,sub_00408090(),2010);exit(-1);}
+    if(!ptGame){FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),2010);exit(-1);}
     D2UnitStrc* pItem=SUNIT_GetServerUnit(ptGame,4,nItemGuid);
     D2UnitStrc* pVendorItem=pItem;
     if(pItem)
@@ -2668,7 +2668,7 @@ void __fastcall D2GAME_NPC_AssignMercenary(D2GameStrc* pGame, D2UnitStrc* pPlaye
     D2HirelingTxt* pHirelingTxt = DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(pGame->bExpansion, nVendorId, pGame->nDifficulty, 0);
     if (!pHirelingTxt)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xFA2);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0xFA2);
         exit(-1);
     }
 
@@ -2962,7 +2962,7 @@ static inline int GetId(D2UnitStrc* u){ if(u) return u->dwUnitId; return -1; }
 // 0x00579510
 int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* player,int npcId,int itemId,unsigned short itemMode,int unused)
 {
-    if (!ptGame) { sub_00408A60(&gszEmptyAssertText,sub_00408090(),0x4AE); exit(-1); }
+    if (!ptGame) { FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),0x4AE); exit(-1); }
     D2UnitStrc* interact=SUNIT_GetInteractUnit(ptGame,player);
     D2UnitStrc* npc=SUNIT_GetServerUnit(ptGame,1,npcId);
     D2UnitStrc* item=SUNIT_GetServerUnit(ptGame,4,itemId);

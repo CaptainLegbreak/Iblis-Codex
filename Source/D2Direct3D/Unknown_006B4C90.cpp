@@ -42,7 +42,7 @@ extern int gnDeviceStatus3;                                                     
 
 struct T004013C0 { int unk00; int mode; };
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 int __stdcall SRegLoadValue(const char*,const char*,unsigned int,unsigned long*); // 0x00414F10
@@ -144,7 +144,7 @@ int __fastcall sub_006B4E80_LoadVideoConfiguration(void* window) {
 // build: symbol ?FOG_GetSystemInfo@* 0x00407360
     T004013C0* info=FOG_GetSystemInfo();
 // build: symbol ?gszEmptyString@* 0x006CC837
-    if (!info) { sub_00408A60(gszEmptyString,sub_00408090(),1032); exit(-1); }
+    if (!info) { FOG_DisplayHalt(gszEmptyString,sub_00408090(),1032); exit(-1); }
     if (info->mode==1) return 0;
     D2VideoKeyStrc key=gtVideoKey;
     if (gbSeen && !gbConfigured) {

@@ -6,7 +6,7 @@ struct D2CriticalSectionStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -35,7 +35,7 @@ extern "C" __declspec(dllimport) void __stdcall BinkClose(D2BinkStrc* pBink); //
 extern "C" __declspec(dllimport) unsigned int __stdcall BinkDDSurfaceType(D2DDSurfaceStrc* pSurface); // 0x006CC5D0
 extern "C" __declspec(dllimport) int __stdcall BinkSetSoundSystem(void* pfOpen, unsigned long nParam); // 0x006CC5D4
 extern "C" __declspec(dllimport) void* __stdcall BinkOpenDirectSound(unsigned long nParam); // 0x006CC5D8
-int __cdecl sub_00406D20(); // 0x00406D20
+int __cdecl FOG_UseDirect(); // 0x00406D20
 int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
 void __cdecl sub_006BBBF0_RenderVideoFrame(); // 0x006BBBF0
 void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
@@ -98,7 +98,7 @@ void __fastcall sub_006BBCE0_Run(const char* szFile, int nMode, void (__cdecl* p
     gnBinkFlags_00989C18 = BinkDDSurfaceType(gpSurface_00970E68);
     BinkSetSoundSystem(BinkOpenDirectSound, 0);
     int nScope = 4;
-    if (sub_00406D20())
+    if (FOG_UseDirect())
     {
         nScope = 5;
     }

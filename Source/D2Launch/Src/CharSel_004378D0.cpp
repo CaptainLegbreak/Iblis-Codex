@@ -183,9 +183,9 @@ static Unicode* CHARSEL_GetClassName(Unicode* pBuffer, int nClass); // 0x00437F6
 static int CHARSEL_IsTestRealm(const Unicode* pName); // 0x00437D20
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
 extern int gnGlobal_00779DC4;                                                                               // 0x00779DC4
@@ -199,7 +199,7 @@ int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode);     
 void __stdcall D2Win_10149(D2CompositeUnitStrc* pCompositeUnit, unsigned char nValue);                     // 0x005051A0
 void __stdcall D2Win_10151(D2CompositeUnitStrc* pCompositeUnit, int nFrame);                               // 0x00505260
 D2CompositeUnitStrc* __stdcall D2COMP_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors); // 0x005066C0
-unsigned short __stdcall sub_006BBF20_ReadPackedWord(const unsigned char* pData);                           // 0x006BBF20
+unsigned short __stdcall FOG_Decode14BitsFromString(const unsigned char* pData);                           // 0x006BBF20
 static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStats, int nFlag, unsigned int nKeyLow, unsigned int nKeyHigh, const char* szRealm); // 0x00438AD0
 #pragma intrinsic(strlen)
 extern "C" __declspec(dllimport) void* __stdcall FindFirstFileA(const char* szFileName, D2FindDataStrc* pFindData);
@@ -510,7 +510,7 @@ static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStat
     }
 
     const unsigned char* pData = (const unsigned char*)szStats;
-    pEntry->nWord326 = sub_006BBF20_ReadPackedWord(pData);
+    pEntry->nWord326 = FOG_Decode14BitsFromString(pData);
     pData += 2;
     if (CHARSEL_IsTestRealm(pText))
     {
@@ -550,9 +550,9 @@ static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStat
 
     pEntry->pNext = 0;
     pEntry->nWord322 = *pData++;
-    pEntry->nWord324 = sub_006BBF20_ReadPackedWord(pData);
+    pEntry->nWord324 = FOG_Decode14BitsFromString(pData);
     pData += 2;
-    pEntry->nWord328 = sub_006BBF20_ReadPackedWord(pData);
+    pEntry->nWord328 = FOG_Decode14BitsFromString(pData);
     pData += 2;
     pEntry->nByte32E = *pData++;
     pEntry->nByte32E = pEntry->nByte32E == 0xFF ? 0 : pEntry->nByte32E;

@@ -9,7 +9,7 @@
 #include "D2MultiTypes.h"
 #include "D2ClientTimer.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2PoolSystemStrc;
 
@@ -30,7 +30,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -451,7 +451,8 @@ unsigned int gnSaveBufferSize; // 0x007A5228
 int __stdcall GAME_LauncherRun(void* hInstance, D2ConfigStrc* pRecord)
 {
     gpClientConfig = pRecord;
-    sub_00409B80(0);
+// build: symbol ?ERRORMANAGER_FreeUnusedPoolBlocks@* 0x00409B80
+    ERRORMANAGER_FreeUnusedPoolBlocks(0);
     FOG_SetMemoryPoolSystemMode(0, 1);
     ghLaunchInstance = hInstance;
     GetModuleFileNameA(hInstance, gszModulePath, 0x104);

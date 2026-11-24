@@ -302,7 +302,7 @@
     {
      "va": "0x00406D20",
      "length": 6,
-     "name": "sub_00406D20"
+     "name": "FOG_UseDirect"
     },
     {
      "va": "0x00406D30",
@@ -411,7 +411,7 @@
     {
      "va": "0x00407FF0",
      "length": 6,
-     "name": "sub_00407FF0"
+     "name": "FOG_IsHandlingError"
     },
     {
      "va": "0x00408000",
@@ -535,17 +535,17 @@
     {
      "va": "0x00409240",
      "length": 296,
-     "name": "?sub_00409240_FindFreeSlot@@YAHHPBI@Z"
+     "name": "?ERRORMANAGER_FindFreeSlot@@YAHHPBI@Z"
     },
     {
      "va": "0x00409370",
      "length": 281,
-     "name": "?sub_00409370_InsertBlockRecord@@YGXPAUD2PoolBlockStrc@@PAUD2PoolSystemStrc@@@Z"
+     "name": "?ERRORMANAGER_InsertBlockRecord@@YGXPAUD2PoolBlockStrc@@PAUD2PoolSystemStrc@@@Z"
     },
     {
      "va": "0x00409490",
      "length": 313,
-     "name": "?sub_00409490_RemoveBlockRecord@@YGXPAUD2PoolSystemStrc@@PAUD2PoolBlockStrc@@@Z"
+     "name": "?ERRORMANAGER_RemoveBlockRecord@@YGXPAUD2PoolSystemStrc@@PAUD2PoolBlockStrc@@@Z"
     },
     {
      "va": "0x004095D0",
@@ -555,12 +555,12 @@
     {
      "va": "0x004095E0",
      "length": 284,
-     "name": "?sub_004095E0_NewBlock@@YGPAUD2PoolBlockStrc@@PAUD2PoolStrc@@PAUD2PoolSystemStrc@@@Z"
+     "name": "?ERRORMANAGER_NewPoolBlock@@YGPAUD2PoolBlockStrc@@PAUD2PoolStrc@@PAUD2PoolSystemStrc@@@Z"
     },
     {
      "va": "0x00409700",
      "length": 110,
-     "name": "?sub_00409700_GetFreeSlot@@YGHPAPAUD2PoolBlockStrc@@PAUD2PoolStrc@@PAUD2PoolSystemStrc@@@Z"
+     "name": "?ERRORMANAGER_GetFreeSlot@@YGHPAPAUD2PoolBlockStrc@@PAUD2PoolStrc@@PAUD2PoolSystemStrc@@@Z"
     },
     {
      "va": "0x00409770",
@@ -585,22 +585,22 @@
     {
      "va": "0x004099D0",
      "length": 131,
-     "name": "?sub_004099D0_FindBlock@@YGPAUD2PoolBlockStrc@@PAXPAUD2PoolSystemStrc@@@Z"
+     "name": "?ERRORMANAGER_FindPoolBlock@@YGPAUD2PoolBlockStrc@@PAXPAUD2PoolSystemStrc@@@Z"
     },
     {
      "va": "0x00409A60",
      "length": 67,
-     "name": "?sub_00409A60_MoveBlockToFront@@YAXPAUD2PoolStrc@@PAUD2PoolBlockStrc@@@Z"
+     "name": "?ERRORMANAGER_MoveBlockToFront@@YAXPAUD2PoolStrc@@PAUD2PoolBlockStrc@@@Z"
     },
     {
      "va": "0x00409AB0",
      "length": 205,
-     "name": "?sub_00409AB0_PoolFree@@YIXPAUD2PoolSystemStrc@@PAPAXPBDH@Z"
+     "name": "?ERRORMANAGER_PoolFree@@YIXPAUD2PoolSystemStrc@@PAPAXPBDH@Z"
     },
     {
      "va": "0x00409B80",
      "length": 226,
-     "name": "?sub_00409B80_FreeUnusedPoolBlocks@@YAXPAUD2PoolSystemStrc@@@Z"
+     "name": "?ERRORMANAGER_FreeUnusedPoolBlocks@@YAXPAUD2PoolSystemStrc@@@Z"
     },
     {
      "va": "0x00409C70",
@@ -624,7 +624,7 @@
     {
      "va": "0x0040A040",
      "length": 46,
-     "name": "sub_0040A040_GetPoolSystemCount"
+     "name": "FOG_GetMemoryUsage"
     },
     {
      "va": "0x0040A070",
@@ -634,12 +634,12 @@
     {
      "va": "0x0040A080",
      "length": 358,
-     "name": "?sub_0040A080_PoolAlloc@@YIPAXPAUD2PoolSystemStrc@@HPBDH@Z"
+     "name": "?ERRORMANAGER_PoolAlloc@@YIPAXPAUD2PoolSystemStrc@@HPBDH@Z"
     },
     {
      "va": "0x0040A1F0",
      "length": 409,
-     "name": "?sub_0040A1F0_PoolRealloc@@YIPAXPAUD2PoolSystemStrc@@PAXHPBDH@Z"
+     "name": "?ERRORMANAGER_PoolRealloc@@YIPAXPAUD2PoolSystemStrc@@PAXHPBDH@Z"
     },
     {
      "va": "0x0040ABF0",
@@ -703,17 +703,17 @@
     {
      "va": "0x0040B330",
      "length": 27,
-     "name": "sub_0040B330_Cos"
+     "name": "FOG_10083_Cos_LUT"
     },
     {
      "va": "0x0040B350",
      "length": 22,
-     "name": "sub_0040B350_Sin"
+     "name": "FOG_10084_Sin_LUT"
     },
     {
      "va": "0x0040B370",
      "length": 7,
-     "name": "sub_0040B370_SetUsePools"
+     "name": "ERRORMANAGER_SetUsePools"
     },
     {
      "va": "0x0040B380",
@@ -748,7 +748,7 @@
     {
      "va": "0x0040E250",
      "length": 172,
-     "name": "?sub_0040E250_GetCpuVendor@@YAHXZ"
+     "name": "?ERRORMANAGER_GetCpuVendor@@YAHXZ"
     },
     {
      "va": "0x0040E300",
@@ -763,17 +763,17 @@
     {
      "va": "0x0040E960",
      "length": 23,
-     "name": "?sub_0040E960_GetCpuSignature@@YAIXZ"
+     "name": "?ERRORMANAGER_GetCpuSignature@@YAIXZ"
     },
     {
      "va": "0x0040E980",
      "length": 83,
-     "name": "?sub_0040E980_GetCpuidEbxIfBrandIndexed@@YAIXZ"
+     "name": "?ERRORMANAGER_GetCpuBrandIndex@@YAIXZ"
     },
     {
      "va": "0x0040E9E0",
      "length": 26,
-     "name": "?sub_0040E9E0_GetCpuidEdx@@YIII@Z"
+     "name": "?ERRORMANAGER_GetCpuidEdx@@YIII@Z"
     },
     {
      "va": "0x0040EA00",
@@ -815,7 +815,7 @@
     {
      "va": "0x00408A60",
      "length": 42,
-     "name": "_sub_00408A60"
+     "name": "_FOG_DisplayHalt"
     },
     {
      "va": "0x00408CE0",
@@ -1162,7 +1162,7 @@
     {
      "va": "0x0040D880",
      "length": 7,
-     "name": "sub_0040D880"
+     "name": "FOG_SOCKET_CloseSocket"
     },
     {
      "va": "0x0040D890",
@@ -1237,7 +1237,7 @@
     {
      "va": "0x0040E0B0",
      "length": 25,
-     "name": "@sub_0040E0B0@12"
+     "name": "@FOG_SOCKET_GetError@12"
     },
     {
      "va": "0x0040E0D0",
@@ -1621,7 +1621,7 @@
     {
      "va": "0x0040EBD0",
      "length": 235,
-     "name": "sub_0040EBD0_OpenDatedLogFile"
+     "name": "LOGMANAGER_OpenDatedLogFile"
     },
     {
      "va": "0x0040EDE0",
@@ -1784,7 +1784,7 @@
     {
      "va": "0x0040FFD0",
      "length": 105,
-     "name": "?sub_0040FFD0_ShutdownLogSystem@@YAXXZ"
+     "name": "?LOGMANAGER_ShutdownLogSystem@@YAXXZ"
     },
     {
      "va": "0x00410040",
@@ -1793,7 +1793,7 @@
     {
      "va": "0x00410340",
      "length": 508,
-     "name": "?sub_00410340_LogV@@YIXPBDHH0PAD@Z"
+     "name": "?LOGMANAGER_WriteLogV@@YIXPBDHH0PAD@Z"
     },
     {
      "va": "0x00410540",
@@ -3771,7 +3771,7 @@
     {
      "va": "0x0040B500",
      "length": 53,
-     "name": "?sub_0040B500_UnloadImageHlp@@YAHXZ"
+     "name": "?EXCEPTIONS_UnloadImageHlp@@YAHXZ"
     },
     {
      "va": "0x0040B540",
@@ -3860,7 +3860,7 @@
     {
      "va": "0x0040D530",
      "length": 10,
-     "name": "?sub_0040D530_Call0040C720@@YAHXZ"
+     "name": "?EXCEPTIONS_ReleaseAllSymbols@@YAHXZ"
     },
     {
      "va": "0x0040D540",
@@ -3870,7 +3870,7 @@
     {
      "va": "0x0040D5B0",
      "length": 531,
-     "name": "?sub_0040D5B0_LoadImageHlp@@YAHXZ"
+     "name": "?EXCEPTIONS_LoadImageHlp@@YAHXZ"
     },
     {
      "va": "0x0040D7D0",
@@ -3921,12 +3921,12 @@
     {
      "va": "0x0040ECC0",
      "length": 120,
-     "name": "sub_0040ECC0_LogWriteHeader"
+     "name": "LOGMANAGER_WriteDateBanner"
     },
     {
      "va": "0x0040ED40",
      "length": 158,
-     "name": "sub_0040ED40_LogWriteStartup"
+     "name": "LOGMANAGER_WriteStartupBanner"
     },
     {
      "va": "0x0040F4F0",
@@ -5093,12 +5093,12 @@
     {
      "va": "0x004107A0",
      "length": 12,
-     "name": "?sub_004107A0_DeleteTimeLock@@YAXXZ"
+     "name": "?SYSTEM_DeleteTimeLock@@YAXXZ"
     },
     {
      "va": "0x004107B0",
      "length": 23,
-     "name": "?sub_004107B0_AtomicStore64@@YIXPA_JPB_J@Z"
+     "name": "?SYSTEM_AtomicStore64@@YIXPA_JPB_J@Z"
     },
     {
      "va": "0x004107D0",
@@ -80421,12 +80421,12 @@
     {
      "va": "0x006BBF20",
      "length": 28,
-     "name": "_sub_006BBF20@4"
+     "name": "_FOG_Decode14BitsFromString@4"
     },
     {
      "va": "0x006BBF40",
      "length": 28,
-     "name": "_sub_006BBF40@8"
+     "name": "_FOG_Encode14BitsToString@8"
     },
     {
      "va": "0x006BBF60",
@@ -80439,7 +80439,7 @@
     {
      "va": "0x006BC010",
      "length": 32,
-     "name": "_sub_006BC010_SetHandler@12"
+     "name": "_D2QSSOCKET_SetPacketHandler@12"
     },
     {
      "va": "0x006BC030",
@@ -80486,7 +80486,7 @@
     {
      "va": "0x006BC5A0",
      "length": 118,
-     "name": "?sub_006BC5A0_StartThread@@YGXPAUD2ThreadRecord006BC5A0Strc@@@Z"
+     "name": "?D2QSSOCKET_ConnectAndWait@@YGXPAUD2ThreadRecord006BC5A0Strc@@@Z"
     },
     {
      "va": "0x006BC620",
@@ -80511,7 +80511,7 @@
     {
      "va": "0x006BC810",
      "length": 24,
-     "name": "_sub_006BC810@4"
+     "name": "_D2QSSOCKET_GetSafeSock@4"
     },
     {
      "va": "0x006BC830",
@@ -80525,7 +80525,7 @@
     {
      "va": "0x006BC860",
      "length": 49,
-     "name": "_sub_006BC860_send@12"
+     "name": "_D2QSSOCKET_Send@12"
     },
     {
      "va": "0x006BC8A0",
@@ -80559,7 +80559,7 @@
     {
      "va": "0x006BCC10",
      "length": 117,
-     "name": "?sub_006BCC10_GetEntry@@YIPAGPAUD2HandleTable006BCC10Strc@@H@Z"
+     "name": "?DATAARRAYS_GetEntry@@YIPAGPAUD2HandleTable006BCC10Strc@@H@Z"
     },
     {
      "va": "0x006BCC90",
@@ -80649,7 +80649,7 @@
     {
      "va": "0x006C1F60",
      "length": 21,
-     "name": "?sub_006C1F60_InitLockedList@@YIXPAUD2LockedListStrc@@@Z"
+     "name": "?D2QSQUEUE_InitQueue@@YIXPAUD2LockedListStrc@@@Z"
     },
     {
      "va": "0x006C1F80",

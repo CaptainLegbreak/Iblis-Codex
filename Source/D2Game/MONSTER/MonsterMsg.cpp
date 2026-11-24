@@ -2,7 +2,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 
-#define D2_ASSERT(expr,line) if(!(expr)) {sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
+#define D2_ASSERT(expr,line) if(!(expr)) {FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
 struct D2MonsterModeInfo;
 
 void __fastcall SCMD_SendUnitActionAtPosition(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned short a4, unsigned short a5, int a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D4D0
@@ -21,7 +21,7 @@ struct D2MonsterModeInfo { int bTarget,bTargetCoords,bSimple,bIncludeCoords,nCoo
 extern D2MonsterModeInfo gMonsterModeInfo[]; // 0x006E1D90
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char*,const char*,int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 int __stdcall PATH_GetType(D2DynamicPathStrc*); // 0x00648E30
 int __stdcall PATH_GetLastPointX(D2DynamicPathStrc*); // 0x00648A40

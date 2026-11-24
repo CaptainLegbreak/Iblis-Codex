@@ -50,7 +50,7 @@ extern "C" const char gszEmptyAssertText;                                       
 
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
@@ -922,14 +922,14 @@ void __fastcall DRLG_UpdateRoomExCoordinates(D2DrlgLevelStrc* pLevel)
 
     if (!pLevel)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 739);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 739);
         exit(-1);
     }
 
     D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst;
     if (!pDrlgRoom)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 740);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 740);
         exit(-1);
     }
 
@@ -939,13 +939,13 @@ void __fastcall DRLG_UpdateRoomExCoordinates(D2DrlgLevelStrc* pLevel)
 
     if (pLevel->nWidth < nTileX[1] - nTileX[0])
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 747);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 747);
         exit(-1);
     }
 
     if (pLevel->nHeight < nTileY[1] - nTileY[0])
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 748);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 748);
         exit(-1);
     }
 

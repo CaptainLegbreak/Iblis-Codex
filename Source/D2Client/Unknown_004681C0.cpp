@@ -4,9 +4,9 @@
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern D2CursorAnimStrc gaCursorAnim[CURSOR_ANIM_COUNT];                                           // 0x00712010
 extern int gbCursorVisible;                                                                               // 0x007A6B08
@@ -97,7 +97,8 @@ void __stdcall sub_00468840_HandleMouseMotion(SMSGHANDLER_PARAMS* pMsg)
     gbCursorVisible = 1;
     gnCursorX = nX;
     gnCursorY = nY;
-    if (D2GFX_HardwareAcceleratedRenderMode() && !sub_00407FF0())
+// build: symbol ?FOG_IsHandlingError@* 0x00407FF0
+    if (D2GFX_HardwareAcceleratedRenderMode() && !FOG_IsHandlingError())
     {
         int bClip = 0;
         if (gnCursorX > gnScreenWidth - 1)

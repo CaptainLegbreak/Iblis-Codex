@@ -653,7 +653,7 @@ extern D2WinControlStrc* gpWaitText_0077BD9C;                                   
 
 extern int gdwGlobal_00798CC0;                                                                              // 0x00798CC0
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2WinTimerStrc;
 
@@ -732,7 +732,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -939,7 +939,7 @@ extern int gdwGlobal_00779DA4;                                                  
 
 D2CompositeUnitStrc* __stdcall D2COMP_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors); // 0x005066C0
 
-unsigned short __stdcall sub_006BBF20_ReadPackedWord(const unsigned char* pData);                           // 0x006BBF20
+unsigned short __stdcall FOG_Decode14BitsFromString(const unsigned char* pData);                           // 0x006BBF20
 
 static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStats, int nFlag, unsigned int nKeyLow, unsigned int nKeyHigh, const char* szRealm); // 0x00438AD0
 
@@ -1871,7 +1871,7 @@ static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStat
     }
 
     const unsigned char* pData = (const unsigned char*)szStats;
-    pEntry->nWord326 = sub_006BBF20_ReadPackedWord(pData);
+    pEntry->nWord326 = FOG_Decode14BitsFromString(pData);
     pData += 2;
     if (CHARSEL_IsTestRealm(pText))
     {
@@ -1911,9 +1911,9 @@ static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStat
 
     pEntry->pNext = 0;
     pEntry->nWord322 = *pData++;
-    pEntry->nWord324 = sub_006BBF20_ReadPackedWord(pData);
+    pEntry->nWord324 = FOG_Decode14BitsFromString(pData);
     pData += 2;
-    pEntry->nWord328 = sub_006BBF20_ReadPackedWord(pData);
+    pEntry->nWord328 = FOG_Decode14BitsFromString(pData);
     pData += 2;
     pEntry->nByte32E = *pData++;
     pEntry->nByte32E = pEntry->nByte32E == 0xFF ? 0 : pEntry->nByte32E;
@@ -2209,7 +2209,7 @@ BUILD_MODEL:
         gpCurrentCharEntry->aFlags[1]=1;
         gpCurrentCharEntry->pAnim=D2COMP_CreateCompositeUnit(7,5,gpCurrentCharEntry->aFlags,gpCurrentCharEntry->aColors);
     }
-    if(!gpCurrentCharEntry->pAnim) {sub_00408A60(&gszEmptyAssertText,sub_00408090(),0x619);exit(-1);}
+    if(!gpCurrentCharEntry->pAnim) {FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),0x619);exit(-1);}
     sub_005051A0_SetAnimField(gpCurrentCharEntry->pAnim,0);
     sub_00505260_SetAnimField(gpCurrentCharEntry->pAnim,0);
     sub_005042F0_SetAnimMode(gpCurrentCharEntry->pAnim,5);

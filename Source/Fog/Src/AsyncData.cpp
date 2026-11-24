@@ -1,6 +1,6 @@
 #include "Fog.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct AsyncDataEventSlot;
 struct D2OverlappedStrc;
@@ -8,7 +8,7 @@ struct AsyncData;
 struct AsyncDataLoadFileCallback;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 struct AsyncData
@@ -67,7 +67,7 @@ int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x004
 
 int __fastcall FOG_FSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00406940
 
-void* __fastcall sub_0040A080_PoolAlloc(void* pPool, int nSize, const char* szFile, int nLine); // 0x0040A080
+void* __fastcall ERRORMANAGER_PoolAlloc(void* pPool, int nSize, const char* szFile, int nLine); // 0x0040A080
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
@@ -278,7 +278,7 @@ AsyncData* __fastcall FOG_AsyncDataLoadFileEx(void* pMemPool, const char* szFile
     }
     else
     {
-        pBuffer = sub_0040A080_PoolAlloc(pMemPool, pAsync->nFileSize, szFile, nLine);
+        pBuffer = ERRORMANAGER_PoolAlloc(pMemPool, pAsync->nFileSize, szFile, nLine);
         pAsync->dwFlags |= 2;
     }
     pAsync->ptBuffer = pBuffer;

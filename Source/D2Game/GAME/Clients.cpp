@@ -37,7 +37,7 @@
 
 #pragma intrinsic(strcpy)
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define CLIENTFLAGEX_PLAYER_UNIT_ALIVE 0x01
 #define UNIT_PLAYER 0
 #define UNIT_OBJECT 2
@@ -79,7 +79,7 @@ struct D2CoordStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
@@ -179,7 +179,7 @@ struct D2CharacterPreviewRecordStrc
 
 #pragma pack(pop)
 
-extern "C" void __stdcall sub_006BBF40(unsigned char* pBuffer, unsigned int nValue); // 0x006BBF40
+extern "C" void __stdcall FOG_Encode14BitsToString(unsigned char* pBuffer, unsigned int nValue); // 0x006BBF40
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 void __stdcall sub_0063E510_FillInventoryTables(D2UnitStrc* pUnit, unsigned char* pTableA, unsigned char* pTableB);
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
@@ -2609,7 +2609,7 @@ struct D2PoolSystemStrc;
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                              // 0x0040B380
 
-int __cdecl sub_0040A040_GetPoolSystemCount(D2PoolSystemStrc* pSystem);                                     // 0x0040A040
+int __cdecl FOG_GetMemoryUsage(D2PoolSystemStrc* pSystem);                                     // 0x0040A040
 
 void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);            // 0x00542B40
 
@@ -2749,7 +2749,7 @@ extern "C" const char gszSGameDataTypeName[];                                   
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags);                  // 0x00412650
 
-void __cdecl sub_00409DD0_InitPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize);
+void __cdecl FOG_CreateNewPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize); // 0x00409DD0
 
 void __stdcall GAME_SetReservedGameGUID(int hGame, unsigned short nGameId);                            // 0x0052C110
 
@@ -3247,7 +3247,7 @@ D2ClientStrc* __fastcall ClientAddToGame(D2GameStrc* pGame, int nClientId, unsig
 // 0x00539BE0
 void __fastcall CLIENTS_FillCharacterPreviewInfo(D2ClientStrc* pClient, char* szInfo)
 {
-    sub_006BBF40((unsigned char*)szInfo, PREVIEW_VERSION);
+    FOG_Encode14BitsToString((unsigned char*)szInfo, PREVIEW_VERSION);
     D2CharacterPreviewRecordStrc* pPreview = (D2CharacterPreviewRecordStrc*)(szInfo + 2);
     D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
     if (pPlayer)
@@ -3288,8 +3288,8 @@ void __fastcall CLIENTS_FillCharacterPreviewInfo(D2ClientStrc* pClient, char* sz
         {
             nFlags &= 0xFFF7;
         }
-        sub_006BBF40(pPreview->nClientFlags, nFlags);
-        sub_006BBF40(pPreview->nGuildFlags, pClient->nGuildFlags);
+        FOG_Encode14BitsToString(pPreview->nClientFlags, nFlags);
+        FOG_Encode14BitsToString(pPreview->nGuildFlags, pClient->nGuildFlags);
 
         unsigned char nBgColor = pClient->nGuildBgColor;
         unsigned char nFgColor = pClient->nGuildFgColor;

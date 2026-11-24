@@ -28,7 +28,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[]; // 0x006CE268
 extern const char gszAssertFormat[]; // 0x006CC837
 const char* __cdecl sub_00408090_GetAssertText(int); // 0x00408090
-void __cdecl sub_00408A60_Assert(const char*,...); // 0x00408A60
+void __cdecl FOG_DisplayHalt(const char*,...); // 0x00408A60
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 unsigned int __fastcall sub_0045C3E0(D2SeedStrc*,int); // 0x0045C3E0
 int __fastcall CUNIT_ValidateMonsterId(int); // 0x00463900
@@ -77,8 +77,8 @@ static __forceinline D2MonStatsExTxt* MONSTER_GetMonStatsEx(int nClass)
 }
 static __forceinline int MONSTER_Regeneration(int nLife,int nRegen)
 {
-    if (nRegen<0) { sub_00408A60_Assert(gszAssertFormat,sub_00408090_GetAssertText(222)); exit(-1); }
-    if (nRegen&0xFFFFF000) { sub_00408A60_Assert(gszAssertFormat,sub_00408090_GetAssertText(223)); exit(-1); }
+    if (nRegen<0) { FOG_DisplayHalt(gszAssertFormat,sub_00408090_GetAssertText(222)); exit(-1); }
+    if (nRegen&0xFFFFF000) { FOG_DisplayHalt(gszAssertFormat,sub_00408090_GetAssertText(223)); exit(-1); }
     int nResult=0;
     if (nRegen)
     {

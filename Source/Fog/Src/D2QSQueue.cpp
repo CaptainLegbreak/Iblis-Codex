@@ -1,7 +1,7 @@
 #include "Fog.h"
 #include "D2SysTypes.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2QSMessageStrc;
 struct D2QSQueueStrc;
@@ -40,12 +40,12 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 // 0x006C1F60
-void __fastcall sub_006C1F60_InitLockedList(D2QSQueueStrc* pQueue)
+void __fastcall D2QSQUEUE_InitQueue(D2QSQueueStrc* pQueue)
 {
     pQueue->pHead = 0;
     pQueue->pTail = 0;

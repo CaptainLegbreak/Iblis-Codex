@@ -144,8 +144,8 @@ extern void* gpPettypeTxt; // 0x0096C818
 extern void* gpSetItemsTxt; // 0x0096C848
 extern void* gpSkillsCalcFunctions[]; // 0x00745774
 extern void* gpUniqueItemsTxt; // 0x0096C854
-float __stdcall sub_0040B330_Cos(int nAngle); // 0x0040B330
-float __stdcall sub_0040B350_Sin(int nAngle); // 0x0040B350
+float __stdcall FOG_10083_Cos_LUT(int nAngle); // 0x0040B330
+float __stdcall FOG_10084_Sin_LUT(int nAngle); // 0x0040B350
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __fastcall MONSTERS_GetBaseIdFromMonsterId(int nMonsterId); // 0x00463900
 int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
@@ -241,7 +241,8 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 #define COLLISION_UNIT_SIZE_COUNT 4
 #define COMPOSIT_LEFTHAND 6
 #define D2UnitInvalidGUID -1
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+// build: symbol ?FOG_DisplayHalt@* 0x00408A60
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ENVCYCLE_NOON 2
 #define ENVCYCLE_SUNRISE 0
 #define ENVPERIOD_NIGHT 2
@@ -318,7 +319,7 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
             nValue = nMin + ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nPossibleRolls); \
         }
 #define ITEMSTATCOST_HASFLAG(pRecord, nFlag) ((pRecord)->nItemStatFlags[(nFlag) >> 3] & gdwBitMasks[(nFlag) & 7])
-#define ITEM_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define ITEM_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define LINE_DOOR 0x215
 #define LINE_GETDIMENSIONS 2855
 #define LINE_GRID_ALLOC1 721
@@ -372,7 +373,7 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 #define PCLASS_PALADIN 3
 #define PCLASS_SORCERESS 1
 #define SIZE_LINE 0x199
-#define SKILLS_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define SKILLS_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SKILLS_HasFlag(pSkillsTxt, nFlag) ((pSkillsTxt)->nFlags[(nFlag) >> 3] & gdwBitMasks[(nFlag) & 7])
 #define STATEMASK_AURA 1
 #define STATEMASK_DISGUISE 16
@@ -397,7 +398,7 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 #define STAT_NONE 0xFFFF
 #define STAT_QUESTITEMDIFFICULTY 356
 #define STAT_STRENGTH 0
-#define TBL_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define TBL_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define TRUE 1
 #define UNITFLAGEX_ISSHAPESHIFTED 8
 #define UNITFLAGEX_SERVERUNIT 0x4000000

@@ -37,7 +37,7 @@ struct D2DeviceStrc
 };
 extern D2DeviceStrc* gpDevice_00970E78; // 0x00970E78
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char*, const char*, int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 void __fastcall D3D_SetColorCombineMode(int state); // 0x006B1EA0
 void __fastcall D3D_SetAlphaBlendMode(int mode); // 0x006B1F40
@@ -72,7 +72,7 @@ void __fastcall sub_006B7980_DrawRectangle(int left, int top, int right, int bot
         return;
     if (bottom <= top)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x68);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x68);
         exit(-1);
     }
     D3D_SetColorCombineMode(2);

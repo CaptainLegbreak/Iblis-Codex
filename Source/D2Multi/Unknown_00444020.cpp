@@ -13,7 +13,7 @@
 extern int gnChatLaunchMode; // 0x0077BBE4
 
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2WinTextBoxStrc;
 
@@ -47,7 +47,7 @@ extern D2WinControlStrc* gpJoinScreenButton; // 0x0077B078
 
 extern D2WinControlStrc* gpControlC_0077B07C; // 0x0077B07C
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

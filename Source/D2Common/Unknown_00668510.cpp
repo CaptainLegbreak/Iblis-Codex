@@ -2,7 +2,7 @@
 
 extern "C" const char gszEmptyAssertText;
 extern "C" const char* __cdecl sub_00408090();
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern "C" char* __cdecl strchr(const char* szString, int nChar);
 void __fastcall DATATBLS_FreeTreasureClassEx();

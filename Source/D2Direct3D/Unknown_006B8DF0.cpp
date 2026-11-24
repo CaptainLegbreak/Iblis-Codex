@@ -15,7 +15,7 @@ extern unsigned short gaIndices[22]; // 0x0074C0D0
 extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
 extern const char gszAssert_006CC837[]; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 __declspec(noreturn) void __cdecl sub_00681E09_Exit(int);
 void __cdecl sub_00681E09_Exit(int); // 0x00681E09
 void __fastcall sub_006B9860_Project(int,int,int,int*,int*); // 0x006B9860
@@ -27,7 +27,7 @@ void __fastcall D3D_SetAlphaBlendMode(int); // 0x006B1F40
 void __fastcall D3D_SetTextureFilterMode(int); // 0x006B2030
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 #define D3D_VERTEX_IN_RECT(v, r) ((v).fX >= (r).nLeft && (v).fX < (r).nRight && (v).fY >= (r).nTop && (v).fY < (r).nBottom)
-#define D2ASSERT(c,l) if(!(c)) { sub_00408A60(gszAssert_006CC837,sub_00408090(),l); sub_00681E09_Exit(-1); }
+#define D2ASSERT(c,l) if(!(c)) { FOG_DisplayHalt(gszAssert_006CC837,sub_00408090(),l); sub_00681E09_Exit(-1); }
 static void __stdcall sub_006B7FD0_Viewport(int,volatile D2RectStrc*,int*,int);
 static void __stdcall sub_006B7FD0_Viewport(int,volatile D2RectStrc*,int*,int); // 0x006B7FD0
 // 0x006B7FD0

@@ -10,7 +10,7 @@ typedef int (__fastcall* D2McpPacketHandler)(const unsigned char* pPacket, unsig
 typedef unsigned int U32;
 
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CmdParamsStrc;
 
@@ -132,7 +132,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -383,7 +383,8 @@ void __cdecl sub_0044A980_SendPacket0D()
 // build: symbol ?CHATDLG_SetMcpResult@* 0x00449BF0
     CHATDLG_SetMcpResult(0);
     nHeader = 0x0D;
-    sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
+// build: symbol ?D2QSSOCKET_SendPacket@* 0x006BC8A0
+    D2QSSOCKET_SendPacket(gpGlobal_00798FB4, &nHeader, 1);
 }
 
 // 0x0044A9B0
@@ -392,7 +393,7 @@ void __cdecl sub_0044A9B0_SendPacket0F()
     unsigned char nHeader;
     CHATDLG_SetMcpResult(0);
     nHeader = 0x0F;
-    sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
+    D2QSSOCKET_SendPacket(gpGlobal_00798FB4, &nHeader, 1);
 }
 
 // 0x0044A9E0
@@ -401,7 +402,7 @@ void __cdecl sub_0044A9E0_SendPacket10()
     unsigned char nHeader;
     CHATDLG_SetMcpResult(0);
     nHeader = 0x10;
-    sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
+    D2QSSOCKET_SendPacket(gpGlobal_00798FB4, &nHeader, 1);
 }
 
 // 0x0044AA10
@@ -412,7 +413,7 @@ void __fastcall VIEW_SendMcpLadderRequest(unsigned char nArg1, unsigned short nA
     tPacket.nHeader = 0x11;
     tPacket.nArg1 = nArg1;
     tPacket.nArg2 = nArg2;
-    sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, (unsigned char*)&tPacket, 4);
+    D2QSSOCKET_SendPacket(gpGlobal_00798FB4, (unsigned char*)&tPacket, 4);
 }
 
 // 0x0044AA50
@@ -421,7 +422,7 @@ void __cdecl VIEW_SendMcpMotdRequest()
     unsigned char nHeader;
     CHATDLG_SetMcpResult(0);
     nHeader = 0x12;
-    sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
+    D2QSSOCKET_SendPacket(gpGlobal_00798FB4, &nHeader, 1);
 }
 
 // 0x0044AA80
@@ -430,7 +431,7 @@ void __cdecl VIEW_SendMcpCancelGameCreate()
     unsigned char nHeader;
     CHATDLG_SetMcpResult(0);
     nHeader = 0x13;
-    sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
+    D2QSSOCKET_SendPacket(gpGlobal_00798FB4, &nHeader, 1);
 }
 
 // 0x0044AAB0
@@ -440,7 +441,7 @@ void __cdecl VIEW_SendMcpCharListRequest()
     CHATDLG_SetMcpResult(0);
     tPacket.nHeader = 0x19;
     *(int*)&tPacket.nValue0 = 8;
-    sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &tPacket.nHeader, 5);
+    D2QSSOCKET_SendPacket(gpGlobal_00798FB4, &tPacket.nHeader, 5);
 }
 
 // 0x0044AB70
@@ -846,7 +847,7 @@ int __fastcall WINMAIN_SendMcpStartup(D2LaunchThreadRecordStrc* pRecord)
     WINMAIN_AppendPacketString(tPacket.szText, (const char*)&pRecord->nData[0x12], sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 0x41;
     D2_ASSERT(nTotal < 0xFFFF, 0x5C);
-    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
+    return D2QSSOCKET_SendPacket(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044A2E0
@@ -863,7 +864,7 @@ int __fastcall WINMAIN_SendMcpCharCreate(const char* szText, int nValue, unsigne
     WINMAIN_AppendPacketString(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 7;
     D2_ASSERT(nTotal < 0xFFFF, 0x7E);
-    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
+    return D2QSSOCKET_SendPacket(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044A380
@@ -876,7 +877,7 @@ int __fastcall WINMAIN_SendMcpCharLogon(const char* szText)
     WINMAIN_AppendPacketString(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 1;
     D2_ASSERT(nTotal < 0xFFFF, 0x9A);
-    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
+    return D2QSSOCKET_SendPacket(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044A400
@@ -898,7 +899,7 @@ int __fastcall WINMAIN_SendMcpCreateGame(D2McpCreateGameStrc* pRecord, unsigned 
     const unsigned int nTotal = nSize + 10;
     D2_ASSERT(nTotal < 0xFFFF, 0xC1);
     gnGlobal_00798FB0 = 0;
-    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
+    return D2QSSOCKET_SendPacket(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044A4E0
@@ -914,7 +915,7 @@ int __fastcall WINMAIN_SendMcpJoinGame(const char* szName, const char* szRealm, 
     WINMAIN_AppendPacketString(pText, szRealm, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 3;
     D2_ASSERT(nTotal < 0xFFFF, 0xE9);
-    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
+    return D2QSSOCKET_SendPacket(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044A590
@@ -929,7 +930,7 @@ void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, un
     gwMcpRequestId = wRequestId;
     WINMAIN_AppendPacketString(tPacket.szText, (const char*)pRequest->nData, sizeof(tPacket.szText), &nSize);
     nSize += 7;
-    sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nSize);
+    D2QSSOCKET_SendPacket(gpMcpConnection, &tPacket.f_0, nSize);
 }
 
 // 0x0044A610
@@ -943,7 +944,7 @@ int __fastcall WINMAIN_SendMcpGameInfoRequest(char* szText, unsigned short wRequ
     gwMcpRequestId = wRequestId;
     WINMAIN_AppendPacketString(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
     nSize += 3;
-    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nSize);
+    return D2QSSOCKET_SendPacket(gpMcpConnection, &tPacket.f_0, nSize);
 }
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
@@ -959,7 +960,7 @@ int __fastcall sub_0044A680_SendPacket08(const char* szText, unsigned short wReq
     const unsigned int nTotal = nSize + 3;
     D2_ASSERT(nTotal < 0xFFFF, 0x148);
     gwMcpRequestId = wRequestId;
-    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
+    return D2QSSOCKET_SendPacket(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044A710
@@ -974,7 +975,7 @@ int __fastcall sub_0044A710_SendPacket09(const char* szText, unsigned short wReq
     const unsigned int nTotal = nSize + 3;
     D2_ASSERT(nTotal < 0xFFFF, 0x169);
     gwMcpRequestId = wRequestId;
-    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
+    return D2QSSOCKET_SendPacket(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044A7A0
@@ -986,7 +987,7 @@ void __fastcall WINMAIN_SendMcpCharDelete(const char* szText, unsigned short wRe
     tPacket.f_0 = 0x0A;
     tPacket.f_1 = wRequestId;
     SStrCopy(tPacket.szText, szText, sizeof(tPacket.szText));
-    sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, SStrLen(tPacket.szText) + 4);
+    D2QSSOCKET_SendPacket(gpMcpConnection, &tPacket.f_0, SStrLen(tPacket.szText) + 4);
 }
 
 // 0x0044A810
@@ -996,7 +997,7 @@ void __fastcall WINMAIN_SendMcpCharUpgrade(const char* szText)
     CHATDLG_SetMcpResult(0);
     tPacket.f_0 = 0x18;
     SStrCopy(tPacket.szText, szText, sizeof(tPacket.szText));
-    sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, SStrLen(tPacket.szText) + 2);
+    D2QSSOCKET_SendPacket(gpMcpConnection, &tPacket.f_0, SStrLen(tPacket.szText) + 2);
 }
 
 // 0x0044A870
@@ -1010,7 +1011,7 @@ int __fastcall sub_0044A870_SendPacket0B(const char* szText1, const char* szText
     WINMAIN_AppendPacketString(pText, szText2, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 1;
     D2_ASSERT(nTotal < 0xFFFF, 0x1C2);
-    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
+    return D2QSSOCKET_SendPacket(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044AF30
@@ -1192,7 +1193,7 @@ int __fastcall sub_0044A900_SendPacket0C(const char* szText)
     WINMAIN_AppendPacketString(tPacket.szText, szText, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 1;
     D2_ASSERT(nTotal < 0xFFFF, 0x1DE);
-    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
+    return D2QSSOCKET_SendPacket(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044AAE0
@@ -1207,7 +1208,7 @@ int __fastcall WINMAIN_SendMcpCharRank(const char* szName, int nB, int nC)
     WINMAIN_AppendPacketString(tPacket.szText, szName, sizeof(tPacket.szText), &nSize);
     const unsigned int nTotal = nSize + 9;
     D2_ASSERT(nTotal < 0xFFFF, 0x27B);
-    return sub_006BC8A0_SendBuffer(gpMcpConnection, &tPacket.f_0, nTotal);
+    return D2QSSOCKET_SendPacket(gpMcpConnection, &tPacket.f_0, nTotal);
 }
 
 // 0x0044B120

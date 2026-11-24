@@ -15,7 +15,7 @@
 #include "D2Txt.h"
 #include "D2Packets.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2MonsterDataStrc;
 
@@ -36,7 +36,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -1130,7 +1130,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x9E_9F_A0_6FC3D520(D2ClientStrc* pClie
 
 // 0x0053BFD0
 void __fastcall D2GAME_PACKETS_SendPacket0xA0_A1_A2(D2ClientStrc* client,D2UnitStrc* unit,unsigned short stat,unsigned int base,unsigned int full) {
- if(stat>=0xFF) {sub_00408A60(text_006CC837,sub_00408090(),1069);sub_00681E09(-1);}
+ if(stat>=0xFF) {FOG_DisplayHalt(text_006CC837,sub_00408090(),1069);sub_00681E09(-1);}
  full-=base;
  const int fitsWord=full<0xFFFF;
  if(full<0xFF) {
@@ -1400,7 +1400,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(D2ClientStr
     int nMessageLength = 0;
     if (strlen(pPacket->szMessage) >= 256)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x5BA);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x5BA);
         exit(-1);
     }
     if (pPacket->szMessage[255])

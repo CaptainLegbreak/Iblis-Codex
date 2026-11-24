@@ -111,7 +111,7 @@ extern "C" const char gszNameTagFormat[]; // 0x006D4E34
 extern "C" const char gszLevelFormat[]; // 0x006D4E24
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char*,const char*,int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" unsigned int __cdecl strlen(const char*);
 extern "C" int __cdecl sprintf(char*,const char*,...); // 0x006823FD
@@ -217,7 +217,7 @@ void __cdecl sub_00438560_Refresh()
                 sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x2B3B),1,0,0);
                 goto VISIBLE_END;
             }
-            if(entry->nState!=0) {sub_00408A60(&gszEmptyAssertText,sub_00408090(),0x3B0);exit(-1);}
+            if(entry->nState!=0) {FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),0x3B0);exit(-1);}
             char text[100];text[0]=0;
             Unicode className[100];
             const int bExpansion=entry->wFlags&32;

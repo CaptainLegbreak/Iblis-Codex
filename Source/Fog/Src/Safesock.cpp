@@ -9,7 +9,7 @@
 
 int __stdcall SFileCloseFile(void* pArg);    // 0x004198D0
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct AsyncDataEventSlot;
 
@@ -103,7 +103,7 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -403,7 +403,7 @@ void __cdecl ERRORMANAGER_ExitHandler(); // 0x00407F20
 
 int __fastcall ERRORMANAGER_CrashHandler(D2CrashInputStrc* pInput); // 0x004082E0
 
-int __cdecl sub_0040D5B0_LoadImageHlp(); // 0x0040D5B0
+int __cdecl EXCEPTIONS_LoadImageHlp(); // 0x0040D5B0
 
 void __cdecl LOGMANAGER_InitLogSystem(); // 0x00410540
 
@@ -445,15 +445,15 @@ void* __fastcall ERRORMANAGER_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSiz
 
 extern const unsigned int gadwLowBitMasks[]; // 0x006CD490
 
-int __fastcall sub_00409220_FindZeroBit(unsigned int nWord); // 0x00409220
+int __fastcall ERRORMANAGER_FindZeroBit(unsigned int nWord); // 0x00409220
 
-void* __fastcall sub_0040A080_PoolAlloc(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine); // 0x0040A080
+void* __fastcall ERRORMANAGER_PoolAlloc(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine); // 0x0040A080
 
-static D2MemPoolBlockStrc* __stdcall sub_004099D0_FindBlock(void* pMemory, D2PoolSystemStrc* pSystem);
+static D2MemPoolBlockStrc* __stdcall ERRORMANAGER_FindPoolBlock(void* pMemory, D2PoolSystemStrc* pSystem); // 0x004099D0
 
-static void sub_00409A60_MoveBlockToFront(D2MemPoolRecStrc* pPool, D2MemPoolBlockStrc* pBlock);
+static void ERRORMANAGER_MoveBlockToFront(D2MemPoolRecStrc* pPool, D2MemPoolBlockStrc* pBlock); // 0x00409A60
 
-void __fastcall sub_00409AB0_PoolFree(D2PoolSystemStrc* pSystem, void** ppMemory, const char* szFile, int nLine);
+void __fastcall ERRORMANAGER_PoolFree(D2PoolSystemStrc* pSystem, void** ppMemory, const char* szFile, int nLine); // 0x00409AB0
 
 int sgfAsyncDataEnabled; // 0x0075AF94
 
@@ -487,7 +487,7 @@ extern D2CriticalSectionStrc gtLogLock;                                         
 
 struct FSafeSock;
 
-struct Obj0040E0B0;
+struct FOG_SOCKET_GetError;
 
 struct D2LogMsgListStrc;
 
@@ -497,7 +497,7 @@ struct D2LogMessageStrc;
 
 class CCritSect;
 
-struct Obj0040E0B0 { unsigned char bUnknown00[0x30]; unsigned int dwValue30; unsigned int dwValue34; };
+struct FOG_SOCKET_GetError { unsigned char bUnknown00[0x30]; unsigned int dwValue30; unsigned int dwValue34; };
 
 extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); // 0x00684BD5
 
@@ -1236,7 +1236,7 @@ void __cdecl GLIDE_DebugFillBackBuffer()
 {
 }
 
-void* __fastcall sub_0040A1F0_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory, int nSize, const char* szFile, int nLine);
+void* __fastcall ERRORMANAGER_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory, int nSize, const char* szFile, int nLine); // 0x0040A1F0
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC
 
@@ -1432,7 +1432,7 @@ void __fastcall FOG_SOCKET_Unlock(FSafeSock* pSafeSock)
 }
 
 // 0x0040E0B0
-extern "C" __declspec(dllexport) int __fastcall sub_0040E0B0(Obj0040E0B0* pObj, unsigned int* pFirst, unsigned int* pSecond) {
+extern "C" __declspec(dllexport) int __fastcall FOG_SOCKET_GetError(FOG_SOCKET_GetError* pObj, unsigned int* pFirst, unsigned int* pSecond) {
     *pFirst = pObj->dwValue30;
     *pSecond = pObj->dwValue34;
     return 1;
@@ -1544,7 +1544,7 @@ extern "C" void __cdecl sub_0049A020_FreeList()
 }
 
 // 0x0040D880
-int __fastcall sub_0040D880(unsigned int s)
+int __fastcall FOG_SOCKET_CloseSocket(unsigned int s)
 {
     return closesocket(s);
 }

@@ -42,7 +42,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char*,const char*,int); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 
@@ -62,7 +62,7 @@ static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc* pSeed, int bHigher
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define QUEST_A2Q3_TAINTEDSUN 10
 
@@ -698,7 +698,7 @@ void __fastcall MONSTERREGION_InitializeAll(void* pool,D2MonsterRegionStrc** reg
  SEED_InitLowSeed(seed,lowSeed);
  ++regions;
  if(!DATATBLS_GetDifficultyLevelsTxtRecord(difficulty)) {
-  sub_00408A60(&gszEmptyAssertText,sub_00408090(),0x83);exit(-1);
+  FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),0x83);exit(-1);
  }
  for(int level=1;level<sgptDataTables->nLevelsTxtRecordCount;++level) {
   D2MonsterRegionStrc* region=(D2MonsterRegionStrc*)FOG_AllocPool(pool,sizeof(D2MonsterRegionStrc),gszMonsterRegion,0x87,0);
