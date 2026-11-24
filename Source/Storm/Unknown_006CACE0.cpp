@@ -1,7 +1,6 @@
 #include "Storm.h"
 
 extern int gnKeyConfigThumbY; // 0x007C02CC
-extern unsigned short gwNameSeparatorFirst_007C0C58; // 0x007C0C58
 
 extern int gnValue_007C0E84; // 0x007C0E84
 void __cdecl sub_006CB400_Nop(); // 0x006CB400
@@ -12,15 +11,6 @@ extern const char* gszDefaultWindow_0072DB3C; // 0x0072DB3C
 extern const char* gszWindowClass; // 0x007C9344
 extern const char* gszWindowTitle; // 0x007C9348
 extern unsigned int gaTable_00841EC8[0x200]; // 0x00841EC8
-
-unsigned short gwNameSeparatorSecond_007C0C5A; // 0x007C0C5A
-
-// 0x006CAD00
-void __cdecl sub_006CAD00_InitializeNameSeparator()
-{
-    gwNameSeparatorFirst_007C0C58 = 0;
-    gwNameSeparatorSecond_007C0C5A = 0;
-}
 
 int gnValue_007C0E88; // 0x007C0E88
 
