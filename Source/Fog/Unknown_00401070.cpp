@@ -1,4 +1,5 @@
 #include "D2Win32System.h"
+#include "D2Win32SystemInfo.h"
 struct _iobuf;
 
 extern "C" int __cdecl fclose(_iobuf* pFile);                                                               // 0x00681FDC
@@ -104,29 +105,16 @@ struct D2OsVersionInfoStrc
 };
 
 
-struct T004013C0
-{
-    unsigned long dwOemId;
-    unsigned long dwPageSize;
-    void* lpMinimumApplicationAddress;
-    void* lpMaximumApplicationAddress;
-    unsigned long dwActiveProcessorMask;
-    unsigned long dwNumberOfProcessors;
-    unsigned long dwProcessorType;
-    unsigned long dwAllocationGranularity;
-    unsigned short wProcessorLevel;
-    unsigned short wProcessorRevision;
-};
 
 extern "C" __declspec(dllimport) int __stdcall GetVersionExA(D2OsVersionInfoStrc* pInfo); // 0x006CC1F8
 
 extern "C" __declspec(dllimport) void __stdcall GlobalMemoryStatus(D2MemoryStatusStrc* pStatus); // 0x006CC1F4
 
-extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(T004013C0* pInfo); // 0x006CC1F0
+extern "C" __declspec(dllimport) void __stdcall GetSystemInfo(D2SystemInfoStrc* pInfo); // 0x006CC1F0
 
 extern unsigned long gdwTotalPhys; // 0x0074D898
 
-extern T004013C0 gtSystemInfo; // 0x0074D8A0
+extern D2SystemInfoStrc gtSystemInfo; // 0x0074D8A0
 
 int gnOsKind; // 0x0074D890
 
