@@ -7,6 +7,6 @@ struct D2DialogWidget;
 
 struct D2DialogWidgetNodeStrc
 {
-    D2DialogWidget* f_0;
+    D2DialogWidget* pWidget;
     D2DialogWidgetNodeStrc* pNext;
 };

@@ -444,8 +444,8 @@ struct D2ModuleInfoStrc
 struct D2CrashDumpEntryStrc
 {
     unsigned short nHits;
-    unsigned long f_2;
-    unsigned long f_6;
+    unsigned long dwHeader0;
+    unsigned long dwHeader1;
     unsigned long dwType;
     unsigned char nCount;
     unsigned long adwData[8];

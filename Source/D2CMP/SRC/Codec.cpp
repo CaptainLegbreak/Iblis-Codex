@@ -10,9 +10,9 @@
 
 static int DccTestBit(const unsigned int* pBits, int nBit);
 
-static unsigned int __stdcall sub_0060B200_ReadBits(int nNumBits, D2CmpBitCursorStrc* pBitState);
+static unsigned int __stdcall CodecReadBits(int nNumBits, D2CmpBitCursorStrc* pBitState); // 0x0060B200
 
-static int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt);
+static int CodecDccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt); // 0x0060B480
 
 struct D2CmpBitCursorStrc;
 
@@ -89,7 +89,7 @@ int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRea
 
 int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 
-static int sub_0060B2B0_DccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt);
+static int CodecDccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt); // 0x0060B2B0
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -109,7 +109,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
 
-int __fastcall sub_0060BDB0_EncodeFrame(D2DccFrameStrc* pFrame, D2Dc6FrameStrc* pHeader, unsigned char* pDst); // 0x0060BDB0
+int __fastcall CodecEncodeSprite(D2DccFrameStrc* pFrame, D2Dc6FrameStrc* pHeader, unsigned char* pDst); // 0x0060BDB0
 
 extern D2CriticalSectionStrc gtCodecLock_008F03CC;                                                          // 0x008F03CC
 
@@ -131,7 +131,7 @@ extern "C" const unsigned int gData_006E6030[33]; // 0x006E6030
 
 extern unsigned int gdwBitMasks_006CE268[];                                                                 // 0x006CE268
 
-void __stdcall sub_0060B9A0_DecodeStage1(D2DccDirStrc* pDir, D2DccCellStrc* pCells, D2CmpBitCursorStrc* pEqual, D2CmpBitCursorStrc* pMask, D2CmpBitCursorStrc* pEncoding, D2CmpBitCursorStrc* pRaw, D2CmpBitCursorStrc* pCode, D2CmpByteRunStrc* pRun, int* pnBitsUsed); // 0x0060B9A0
+void __stdcall CodecDccDecodeCells(D2DccDirStrc* pDir, D2DccCellStrc* pCells, D2CmpBitCursorStrc* pEqual, D2CmpBitCursorStrc* pMask, D2CmpBitCursorStrc* pEncoding, D2CmpBitCursorStrc* pRaw, D2CmpBitCursorStrc* pCode, D2CmpByteRunStrc* pRun, int* pnBitsUsed); // 0x0060B9A0
 
 static inline int DccGetBitPos(D2CmpBitCursorStrc* pCursor)
 {
@@ -139,7 +139,7 @@ static inline int DccGetBitPos(D2CmpBitCursorStrc* pCursor)
 }
 
 // 0x0060B200
-static unsigned int __stdcall sub_0060B200_ReadBits(int nNumBits, D2CmpBitCursorStrc* pBitState)
+static unsigned int __stdcall CodecReadBits(int nNumBits, D2CmpBitCursorStrc* pBitState)
 {
     if (!nNumBits)
         return 0;
@@ -169,13 +169,13 @@ extern unsigned int gaCodecBitWidthTable_006E5F70[48]; // 0x006E5F70
 
 extern unsigned int gaCodecSignExtendTable_006E60B8[32]; // 0x006E60B8
 
-static unsigned int __fastcall sub_0060B280_ReadBitsSigned(int nBitWidthCode, D2CmpBitCursorStrc* pBitState, int bSigned);
+static unsigned int __fastcall CodecReadBitsSigned(int nBitWidthCode, D2CmpBitCursorStrc* pBitState, int bSigned); // 0x0060B280
 
 // 0x0060B280
-static unsigned int __fastcall sub_0060B280_ReadBitsSigned(int nBitWidthCode, D2CmpBitCursorStrc* pBitState, int bSigned)
+static unsigned int __fastcall CodecReadBitsSigned(int nBitWidthCode, D2CmpBitCursorStrc* pBitState, int bSigned)
 {
     const int nNumBits = gaCodecBitWidthTable_006E5F70[nBitWidthCode];
-    unsigned int nBitsRead = sub_0060B200_ReadBits(nNumBits, pBitState);
+    unsigned int nBitsRead = CodecReadBits(nNumBits, pBitState);
     if (nNumBits && bSigned && (gaCodecBitWidthTable_006E5F70[nNumBits + 15] & nBitsRead))
         nBitsRead |= gaCodecSignExtendTable_006E60B8[nNumBits];
 
@@ -186,7 +186,7 @@ static unsigned int __fastcall sub_0060B280_ReadBitsSigned(int nBitWidthCode, D2
 // calling-convention shim (not game code)
 unsigned int __fastcall sub_0060B280_Shim(int nBitWidthCode, D2CmpBitCursorStrc* pBitState, int bSigned)
 {
-    return sub_0060B280_ReadBitsSigned(nBitWidthCode, pBitState, bSigned);
+    return CodecReadBitsSigned(nBitWidthCode, pBitState, bSigned);
 }
 
 struct D2DccDirIndexStrc
@@ -195,7 +195,7 @@ struct D2DccDirIndexStrc
 };
 
 // 0x0060B2B0
-static int sub_0060B2B0_DccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
+static int CodecDccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
 {
     pIt->nX += pIt->nStepX;
     if (pIt->nX < pIt->nWidth)
@@ -250,7 +250,7 @@ static int sub_0060B2B0_DccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
 }
 
 // 0x0060B480
-static inline int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
+static inline int CodecDccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
 {
     if (!pDir->nFrames)
     {
@@ -258,11 +258,11 @@ static inline int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* p
     }
     memset(pIt, 0, sizeof(*pIt));
     pIt->nFrame = -1;
-    return sub_0060B2B0_DccNextCell(pDir, pIt);
+    return CodecDccNextCell(pDir, pIt);
 }
 
 // 0x0060B4B0
-static void sub_0060B4B0_DccCountCells(D2DccDirStrc* pDir)
+static void CodecDccCountCells(D2DccDirStrc* pDir)
 {
     const int nCellsX = (pDir->nBoxWidth + 3) / 4;
     const int nCellsY = (pDir->nBoxHeight + 3) / 4;
@@ -274,19 +274,19 @@ static void sub_0060B4B0_DccCountCells(D2DccDirStrc* pDir)
         D2DccIterStrc iter;
         memset(&iter, 0, sizeof(iter));
         iter.nFrame = -1;
-        if (sub_0060B2B0_DccNextCell(pDir, &iter))
+        if (CodecDccNextCell(pDir, &iter))
         {
             do
             {
                 ++pDir->nCells;
             }
-            while (sub_0060B2B0_DccNextCell(pDir, &iter));
+            while (CodecDccNextCell(pDir, &iter));
         }
     }
 }
 
 // 0x0060B530
-static void __stdcall sub_0060B530_DccInitDir(D2DccHeaderStrc* pHeader, D2DccFrameStrc* pFrames, D2DccDirStrc* pDir, D2DccDirIndexStrc tDirIndex)
+static void __stdcall CodecDccInitDir(D2DccHeaderStrc* pHeader, D2DccFrameStrc* pFrames, D2DccDirStrc* pDir, D2DccDirIndexStrc tDirIndex)
 {
     pDir->pHeader = pHeader;
     pDir->pFrames = pFrames;
@@ -333,7 +333,7 @@ struct D2CmpByteMapArgStrc
 };
 
 // 0x0060B5F0
-static void __stdcall sub_0060B5F0_BuildColorMaps(D2CmpByteMapArgStrc tInverse, const unsigned char* pFlags, D2CmpByteMapStrc* pForward)
+static void __stdcall CodecBuildColorMaps(D2CmpByteMapArgStrc tInverse, const unsigned char* pFlags, D2CmpByteMapStrc* pForward)
 {
     int i;
     int n;
@@ -351,18 +351,18 @@ static void __stdcall sub_0060B5F0_BuildColorMaps(D2CmpByteMapArgStrc tInverse, 
 }
 
 // 0x0060B640
-static void __fastcall sub_0060B640_BuildColorMaps(D2CmpByteMapStrc* pForward, const unsigned int* pBits, D2CmpByteMapStrc* pInverse)
+static void __fastcall CodecBuildColorMapsFromBits(D2CmpByteMapStrc* pForward, const unsigned int* pBits, D2CmpByteMapStrc* pInverse)
 {
     unsigned char abFlags[0x100];
     for (int i = 0; i < 0x100; ++i)
     {
         abFlags[i] = (pBits[i >> 5] & gdwBitMasks_006CE268[i & 0x1F]) != 0;
     }
-    sub_0060B5F0_BuildColorMaps(*(D2CmpByteMapArgStrc*)&pInverse, abFlags, pForward);
+    CodecBuildColorMaps(*(D2CmpByteMapArgStrc*)&pInverse, abFlags, pForward);
 }
 
 // 0x0060B780
-static inline int sub_0060B780_GetRunBits(const unsigned char* pBytes)
+static inline int CodecGetRunBits(const unsigned char* pBytes)
 {
     int nBits;
     for (nBits = 0; (1 << nBits) + 1 <= 4 && pBytes[1 << nBits] != pBytes[(1 << nBits) - 1]; ++nBits)
@@ -372,12 +372,12 @@ static inline int sub_0060B780_GetRunBits(const unsigned char* pBytes)
 }
 
 // 0x0060B9A0
-void __stdcall sub_0060B9A0_DecodeStage1(D2DccDirStrc* pDir, D2DccCellStrc* pCells, D2CmpBitCursorStrc* pEqual, D2CmpBitCursorStrc* pMask, D2CmpBitCursorStrc* pEncoding, D2CmpBitCursorStrc* pRaw, D2CmpBitCursorStrc* pCode, D2CmpByteRunStrc* pRun, int* pnBitsUsed)
+void __stdcall CodecDccDecodeCells(D2DccDirStrc* pDir, D2DccCellStrc* pCells, D2CmpBitCursorStrc* pEqual, D2CmpBitCursorStrc* pMask, D2CmpBitCursorStrc* pEncoding, D2CmpBitCursorStrc* pRaw, D2CmpBitCursorStrc* pCode, D2CmpByteRunStrc* pRun, int* pnBitsUsed)
 {
     D2DccIterStrc tIt;
     unsigned char* pData = pRun->pData;
     const int nStart = DccGetBitPos(pCode);
-    if (sub_0060B480_DccFirstCell(pDir, &tIt))
+    if (CodecDccFirstCell(pDir, &tIt))
     {
         do
         {
@@ -385,17 +385,17 @@ void __stdcall sub_0060B9A0_DecodeStage1(D2DccDirStrc* pDir, D2DccCellStrc* pCel
             unsigned char* pPrev = pCells[tIt.nCell].pColors;
             if (pPrev)
             {
-                if (pEqual && sub_0060B200_ReadBits(1, pEqual))
+                if (pEqual && CodecReadBits(1, pEqual))
                 {
                     continue;
                 }
-                dwMask = sub_0060B200_ReadBits(4, pMask);
+                dwMask = CodecReadBits(4, pMask);
             }
 
             int bRaw = 0;
             if (dwMask && pEncoding)
             {
-                bRaw = sub_0060B200_ReadBits(1, pEncoding);
+                bRaw = CodecReadBits(1, pEncoding);
             }
 
             dwMask |= 0xFFFFFFF0;
@@ -408,7 +408,7 @@ void __stdcall sub_0060B9A0_DecodeStage1(D2DccDirStrc* pDir, D2DccCellStrc* pCel
                     unsigned char nColor;
                     if (bRaw)
                     {
-                        nColor = (unsigned char)sub_0060B200_ReadBits(8, pRaw);
+                        nColor = (unsigned char)CodecReadBits(8, pRaw);
                         pData[i] = nColor;
                     }
                     else
@@ -417,7 +417,7 @@ void __stdcall sub_0060B9A0_DecodeStage1(D2DccDirStrc* pDir, D2DccCellStrc* pCel
                         unsigned int nStep = 0xF;
                         while (nStep == 0xF)
                         {
-                            nStep = sub_0060B200_ReadBits(4, pCode);
+                            nStep = CodecReadBits(4, pCode);
                             nColor += nStep;
                         }
                         pData[i] = nColor;
@@ -478,14 +478,14 @@ void __stdcall sub_0060B9A0_DecodeStage1(D2DccDirStrc* pDir, D2DccCellStrc* pCel
             pCells[tIt.nCell].pColors = pData;
             pData += 4;
         }
-        while (sub_0060B2B0_DccNextCell(pDir, &tIt));
+        while (CodecDccNextCell(pDir, &tIt));
     }
     *pnBitsUsed = DccGetBitPos(pCode) - nStart;
     pRun->nCount = (int)(pData - pRun->pData);
 }
 
 // 0x0060BD90
-static inline void sub_0060BD90_RemapRun(D2CmpByteRunStrc* pRun, const unsigned char* pTable)
+static inline void CodecRemapRun(D2CmpByteRunStrc* pRun, const unsigned char* pTable)
 {
     for (int i = 0; i < pRun->nCount; ++i)
     {
@@ -497,11 +497,11 @@ static inline void sub_0060BD90_RemapRun(D2CmpByteRunStrc* pRun, const unsigned 
 // emits the static RemapRun (not game code)
 void sub_M123_Emit_0060BD90(D2CmpByteRunStrc* pRun, const unsigned char* pTable)
 {
-    sub_0060BD90_RemapRun(pRun, pTable);
+    CodecRemapRun(pRun, pTable);
 }
 
 // 0x0060BDB0
-int __fastcall sub_0060BDB0_EncodeSprite(D2SpritePixelsStrc* sprite,D2SpriteCelStrc* cel,unsigned char* output)
+int __fastcall CodecEncodeSprite(D2SpritePixelsStrc* sprite,D2SpriteCelStrc* cel,unsigned char* output)
 {
  unsigned char* dest=output;
  unsigned char* row=sprite->pixels;
@@ -612,7 +612,7 @@ static inline unsigned int DccReadBits(D2CmpBitCursorStrc* pCursor, int nCount)
 
 static inline int DccReadSigned(int nCount, D2CmpBitCursorStrc* pCursor)
 {
-    int nValue = sub_0060B200_ReadBits(nCount, pCursor);
+    int nValue = CodecReadBits(nCount, pCursor);
     if (nCount && (nValue & gadwDccSignBits[nCount - 1]))
     {
         nValue |= gadwDccSignExtend[nCount];
@@ -624,7 +624,7 @@ static inline int DccReadSigned(int nCount, D2CmpBitCursorStrc* pCursor)
 static void __stdcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pCursor, D2CmpBitCursorStrc* pEqual, D2DccCellStrc* pCell, unsigned char** ppRun, D2DccCellStrc* pPrev)
 {
     unsigned char abBuffer[25];
-    if (pEqual && pPrev->pColors && sub_0060B200_ReadBits(1, pEqual))
+    if (pEqual && pPrev->pColors && CodecReadBits(1, pEqual))
     {
         if (pCell->nWidth == pPrev->nWidth && pCell->nHeight == pPrev->nHeight)
         {
@@ -661,7 +661,7 @@ static void __stdcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pCursor, D2Cmp
     }
 
     unsigned char* pDst = pCell->pDst;
-    const int nBits = sub_0060B780_GetRunBits(pCell->pColors);
+    const int nBits = CodecGetRunBits(pCell->pColors);
     if (!nBits)
     {
         const int nColor = **ppRun;
@@ -677,7 +677,7 @@ static void __stdcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pCursor, D2Cmp
         {
             for (int x = 0; x < pCell->nWidth; ++x)
             {
-                pDst[x] = (*ppRun)[sub_0060B200_ReadBits(nBits, pCursor)];
+                pDst[x] = (*ppRun)[CodecReadBits(nBits, pCursor)];
             }
             pDst += pCell->nPitch;
         }
@@ -761,15 +761,15 @@ int __fastcall CodecDecodeDccData(unsigned char* pData, void* pMemPool, int nSiz
         D2DccFrameStrc* pFrame;
         for (pFrame = gatDccFrames; pFrame < pFramesEnd; ++pFrame)
         {
-            pFrame->nVar0 = sub_0060B200_ReadBits(ganDccFieldWidths[nVar0Bits], &tCursor);
-            pFrame->nWidth = sub_0060B200_ReadBits(ganDccFieldWidths[nWidthBits], &tCursor);
-            pFrame->nHeight = sub_0060B200_ReadBits(ganDccFieldWidths[nHeightBits], &tCursor);
+            pFrame->nVar0 = CodecReadBits(ganDccFieldWidths[nVar0Bits], &tCursor);
+            pFrame->nWidth = CodecReadBits(ganDccFieldWidths[nWidthBits], &tCursor);
+            pFrame->nHeight = CodecReadBits(ganDccFieldWidths[nHeightBits], &tCursor);
             pFrame->nXOffset = DccReadSigned(ganDccFieldWidths[nXBits], &tCursor);
             pFrame->nYOffset = DccReadSigned(ganDccFieldWidths[nYBits], &tCursor);
-            const int nOpt = sub_0060B200_ReadBits(ganDccFieldWidths[nOptBits], &tCursor);
+            const int nOpt = CodecReadBits(ganDccFieldWidths[nOptBits], &tCursor);
             pFrame->nOptBytes = nOpt;
             pFrame->pOptData = 0;
-            pFrame->nCodedBytes = sub_0060B200_ReadBits(ganDccFieldWidths[nCodedBits], &tCursor);
+            pFrame->nCodedBytes = CodecReadBits(ganDccFieldWidths[nCodedBits], &tCursor);
             pFrame->nCellsX = 0;
             pFrame->nCellsY = 0;
             pFrame->bBottomUp = DccReadBits(&tCursor, 1);
@@ -791,8 +791,8 @@ int __fastcall CodecDecodeDccData(unsigned char* pData, void* pMemPool, int nSiz
             tCursor.AdvanceBits(nOptSum * 8);
         }
 
-        sub_0060B530_DccInitDir(&tHeader, gatDccFrames, &tDir, *(D2DccDirIndexStrc*)&nDir);
-        sub_0060B4B0_DccCountCells(&tDir);
+        CodecDccInitDir(&tHeader, gatDccFrames, &tDir, *(D2DccDirIndexStrc*)&nDir);
+        CodecDccCountCells(&tDir);
         memset(gatDccCells, 0, tDir.nCellsTotal * sizeof(D2DccCellStrc));
 
         int nEqualSize = 0;
@@ -816,7 +816,7 @@ int __fastcall CodecDecodeDccData(unsigned char* pData, void* pMemPool, int nSiz
                 adwColors[j] = DccReadBits(&tCursor, 32);
             }
             D2CmpByteMapStrc tForward;
-            sub_0060B640_BuildColorMaps(&tForward, adwColors, &tInverse);
+            CodecBuildColorMapsFromBits(&tForward, adwColors, &tInverse);
         }
 
         tEqual = tCursor;
@@ -834,7 +834,7 @@ int __fastcall CodecDecodeDccData(unsigned char* pData, void* pMemPool, int nSiz
             tRun.pData = gabDccRunBuffer;
             tRun.nCount = 0;
             tEqual1 = tEqual;
-            sub_0060B9A0_DecodeStage1(&tDir, gatDccCells, nEqualSize ? &tEqual1 : 0, &tMask, nEncodingSize ? &tEncoding : 0, nRawSize ? &tRaw : 0, &tCode, &tRun, &nBitsUsed);
+            CodecDccDecodeCells(&tDir, gatDccCells, nEqualSize ? &tEqual1 : 0, &tMask, nEncodingSize ? &tEncoding : 0, nRawSize ? &tRaw : 0, &tCode, &tRun, &nBitsUsed);
             tCursor.AdvanceBits(nBitsUsed);
         }
 
@@ -853,7 +853,7 @@ int __fastcall CodecDecodeDccData(unsigned char* pData, void* pMemPool, int nSiz
 
         {
             unsigned char* pRun = tRun.pData;
-            if (sub_0060B480_DccFirstCell(&tDir, &tIt))
+            if (CodecDccFirstCell(&tDir, &tIt))
             {
                 int nPrevFrame = 0;
                 memset(gatDccCells, 0, sizeof(gatDccCells));
@@ -870,7 +870,7 @@ int __fastcall CodecDecodeDccData(unsigned char* pData, void* pMemPool, int nSiz
                     sub_0060B7B0_DecodeCell(&tCursor, pEqual, &tCell, &pRun, &gatDccCells[tIt.nCell]);
                     gatDccCells[tIt.nCell] = tCell;
 
-                    bMore = sub_0060B2B0_DccNextCell(&tDir, &tIt);
+                    bMore = CodecDccNextCell(&tDir, &tIt);
                     if (tIt.nFrame != nPrevFrame)
                     {
                         D2DccFrameStrc* pDone = &gatDccFrames[nPrevFrame];
@@ -883,7 +883,7 @@ int __fastcall CodecDecodeDccData(unsigned char* pData, void* pMemPool, int nSiz
                         pHeader->nLength = pDone->nCodedBytes;
                         pHeader->unk0x14 = 0;
                         pHeader->nNextBlock = 0;
-                        if (!sub_0060BDB0_EncodeFrame(pDone, pHeader, pHeader->abData))
+                        if (!CodecEncodeSprite(pDone, pHeader, pHeader->abData))
                         {
                             char szError[0x200];
                             LOGMANAGER_WriteLogLine("Sprite Decompression Error -- File:%s", szFile);

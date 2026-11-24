@@ -16,10 +16,10 @@ struct D2SpriteCacheStrc
     D2SpriteCacheNodeStrc* pTailA; // 0x18
     D2SpriteCacheNodeStrc* pHeadB; // 0x1C
     D2SpriteCacheNodeStrc* pTailB; // 0x20
-    D2SpriteCacheNodeStrc* f_24; // 0x24
-    D2SpriteCacheNodeStrc* f_28; // 0x28
+    D2SpriteCacheNodeStrc* pFreeHead; // 0x24
+    D2SpriteCacheNodeStrc* pFreeTail; // 0x28
     int nArg; // 0x2C
     D2CriticalSectionStrc tLock; // 0x30
     unsigned int nHits; // 0x48
-    unsigned int f_4C; // 0x4C
+    unsigned int nRequests; // 0x4C
 };

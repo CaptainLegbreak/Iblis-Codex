@@ -109,9 +109,9 @@ void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog)
 
     for (D2DialogWidgetNodeStrc* pNode = pDialog->pWidgets; pNode; pNode = pNode->pNext)
     {
-        if (pNode->f_0)
+        if (pNode->pWidget)
         {
-            pNode->f_0->Draw();
+            pNode->pWidget->Draw();
         }
     }
 

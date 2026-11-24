@@ -276,8 +276,8 @@
    "state": "included"
   },
   "Source/D2Launch/Src/CharSel.cpp": {
-   "bytes": 328,
-   "definitions": 21,
+   "bytes": 204,
+   "definitions": 18,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Launch/Src/CharSel.inc",
@@ -696,8 +696,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/inv.cpp": {
-   "bytes": 3760,
-   "definitions": 25,
+   "bytes": 3520,
+   "definitions": 24,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/inv.inc",
@@ -1105,8 +1105,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Roster.cpp": {
-   "bytes": 12,
-   "definitions": 3,
+   "bytes": 60,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/GAME/Roster_0047A120.inc",
@@ -1255,8 +1255,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_004A76C0.cpp": {
-   "bytes": 288,
-   "definitions": 3,
+   "bytes": 48,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004A76C0.inc",
@@ -2933,8 +2933,8 @@
    "state": "included"
   },
   "Source/D2Game/Unknown_0058F870.cpp": {
-   "bytes": 1180,
-   "definitions": 2,
+   "bytes": 1236,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_0058F870.inc",
@@ -2978,8 +2978,8 @@
    "state": "included"
   },
   "Source/D2Game/Quests/a1q6.cpp": {
-   "bytes": 1292,
-   "definitions": 4,
+   "bytes": 1176,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a1q6.inc",
@@ -4525,8 +4525,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/RosterPets.cpp": {
-   "bytes": 184,
-   "definitions": 3,
+   "bytes": 244,
+   "definitions": 4,
    "externs": [
     "extern \"C\" void __cdecl CURSOR_DrawDefaultCursor(); // 0x004683C0",
     "extern \"C\" void __cdecl CURSOR_DrawCursorCel(); // 0x00468460"
@@ -4944,8 +4944,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/spellsel.cpp": {
-   "bytes": 64,
-   "definitions": 1,
+   "bytes": 302,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/spellsel.inc",
@@ -5566,6 +5566,51 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Multi/Unknown_0043C8A0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/GAME/Msg.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/GAME/Msg.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/CORE/ARCHIVE.CPP": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/CORE/ARCHIVE.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/Unknown_0047A980.cpp": {
+   "bytes": 72,
+   "definitions": 4,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/Unknown_0047A980.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Launch/Unknown_0043B7A0.cpp": {
+   "bytes": 64,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Launch/Unknown_0043B7A0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Launch/Unknown_0043C4F0.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Launch/Unknown_0043C4F0.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -11641,7 +11686,7 @@
    "cname": "gData_0070CC10",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/CharSel.cpp",
+   "file": "Source/D2Launch/Unknown_0043B7A0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070CC10_t gData_0070CC10; // 0x0070CC10",
    "head": "extern \"C\" struct d2data_0070CC10_t gData_0070CC10 = ",
@@ -19186,7 +19231,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Launch/Src/CharSel.cpp",
+   "file": "Source/D2Launch/Unknown_0043B7A0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnLogonRetries = ",
@@ -19211,7 +19256,7 @@
    "cname": "gData_0070CC50",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Launch/Src/CharSel.cpp",
+   "file": "Source/D2Launch/Unknown_0043C4F0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0070CC50_t gData_0070CC50; // 0x0070CC50",
    "head": "extern \"C\" struct d2data_0070CC50_t gData_0070CC50 = ",
@@ -40992,6 +41037,144 @@
   },
   {
    "alias": false,
+   "cname": "gData_00712E48",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/GAME/RosterPets.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_00712E48_t gData_00712E48; // 0x00712E48",
+   "head": "extern \"C\" struct d2data_00712E48_t gData_00712E48 = ",
+   "name": "gData_00712E48",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00712E48_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00712E48",
+   "va": "0x00712E48"
+  },
+  {
+   "alias": false,
    "cname": null,
    "declared": true,
    "decorated": null,
@@ -44340,7 +44523,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Roster.cpp",
+   "file": "Source/D2Client/Unknown_0047A980.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gdwGlobal_00712F04 = ",
@@ -45109,7 +45292,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Roster.cpp",
+   "file": "Source/D2Client/Unknown_0047A980.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern int gdwClientFlags = ",
@@ -45134,7 +45317,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Roster.cpp",
+   "file": "Source/D2Client/Unknown_0047A980.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnCTemp = ",
@@ -45153,6 +45336,144 @@
    "tail": "; // 0x00712F00",
    "type": "int",
    "va": "0x00712F00"
+  },
+  {
+   "alias": false,
+   "cname": "gData_00712EC0",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/Unknown_0047A980.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_00712EC0_t gData_00712EC0; // 0x00712EC0",
+   "head": "extern \"C\" struct d2data_00712EC0_t gData_00712EC0 = ",
+   "name": "gData_00712EC0",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00712EC0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00712EC0",
+   "va": "0x00712EC0"
   },
   {
    "alias": false,
@@ -54328,7 +54649,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004A76C0.cpp",
+   "file": "Source/D2Client/UI/spellsel.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern D2UiCelFileStrc gaSkillIconCels[7] = ",
@@ -54377,23 +54698,6 @@
    "tail": "; // 0x00724AC0",
    "type": "D2UiCelFileStrc",
    "va": "0x00724AC0"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00724BAE",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/Unknown_004A76C0.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00724BAE_t gData_00724BAE; // 0x00724BAE",
-   "head": "extern \"C\" struct d2data_00724BAE_t gData_00724BAE = ",
-   "name": "gData_00724BAE",
-   "pointers": [],
-   "region": "data",
-   "size": 2,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00724BAE_t\n{\n    unsigned char b0[2];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00724BAE",
-   "va": "0x00724BAE"
   },
   {
    "alias": false,
@@ -98544,144 +98848,6 @@
   },
   {
    "alias": false,
-   "cname": "gData_007361A0",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/Quests/a1q6.cpp",
-   "form": "bytes",
-   "name": "gData_007361A0",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "va": "0x007361A0",
-   "fwd": "extern \"C\" struct d2data_007361A0_t gData_007361A0; // 0x007361A0",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007361A0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_007361A0_t gData_007361A0 = ",
-   "tail": "; // 0x007361A0"
-  },
-  {
-   "alias": false,
    "cname": null,
    "declared": true,
    "decorated": null,
@@ -99324,7 +99490,7 @@
    "cname": "gData_007361DC",
    "declared": true,
    "decorated": "_gdwA1Q6ChippedGemCodes",
-   "file": "Source/D2Game/Quests/a1q6.cpp",
+   "file": "Source/D2Game/Unknown_0058F870.cpp",
    "form": "declared",
    "fwd": "extern \"C\" unsigned int gData_007361DC[7]; // 0x007361DC",
    "head": "extern \"C\" unsigned int gData_007361DC[7] = ",
@@ -99354,7 +99520,7 @@
    "cname": "gData_00736444",
    "declared": true,
    "decorated": "_gdwA1Q6NormalGemCodes",
-   "file": "Source/D2Game/Quests/a1q6.cpp",
+   "file": "Source/D2Game/Unknown_0058F870.cpp",
    "form": "declared",
    "fwd": "extern \"C\" unsigned int gData_00736444[7]; // 0x00736444",
    "head": "extern \"C\" unsigned int gData_00736444[7] = ",
@@ -154902,7 +155068,7 @@
    "cname": "gData_00712DD0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/inv.cpp",
+   "file": "Source/D2Client/GAME/Msg.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00712DD0_t gData_00712DD0; // 0x00712DD0",
    "head": "extern \"C\" struct d2data_00712DD0_t gData_00712DD0 = ",
@@ -155027,371 +155193,11 @@
      null,
      0,
      "string"
-    ],
-    [
-     60,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     64,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     68,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     72,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     76,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     80,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     84,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     88,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     92,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     96,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     100,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     104,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     108,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     112,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     116,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     120,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     124,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     128,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     132,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     136,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     140,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     144,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     148,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     152,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     156,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     160,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     164,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     168,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     172,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     176,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     180,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     184,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     188,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     192,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     196,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     200,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     204,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     208,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     212,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     216,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     220,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     224,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     228,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     232,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     236,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
     ]
    ],
    "region": "data",
-   "size": 240,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00712DD0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    const void* p15;\n    const void* p16;\n    const void* p17;\n    const void* p18;\n    const void* p19;\n    const void* p20;\n    const void* p21;\n    const void* p22;\n    const void* p23;\n    const void* p24;\n    const void* p25;\n    const void* p26;\n    const void* p27;\n    const void* p28;\n    const void* p29;\n    const void* p30;\n    const void* p31;\n    const void* p32;\n    const void* p33;\n    const void* p34;\n    const void* p35;\n    const void* p36;\n    const void* p37;\n    const void* p38;\n    const void* p39;\n    const void* p40;\n    const void* p41;\n    const void* p42;\n    const void* p43;\n    const void* p44;\n    const void* p45;\n    const void* p46;\n    const void* p47;\n    const void* p48;\n    const void* p49;\n    const void* p50;\n    const void* p51;\n    const void* p52;\n    const void* p53;\n    const void* p54;\n    const void* p55;\n    const void* p56;\n    const void* p57;\n    const void* p58;\n    const void* p59;\n};\n#pragma pack(pop)",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00712DD0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x00712DD0",
    "va": "0x00712DD0"
   },
@@ -163327,6 +163133,282 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070CC8C_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070CC8C",
    "va": "0x0070CC8C"
+  },
+  {
+   "alias": false,
+   "cname": "gData_00712E0C",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/CORE/ARCHIVE.CPP",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_00712E0C_t gData_00712E0C; // 0x00712E0C",
+   "head": "extern \"C\" struct d2data_00712E0C_t gData_00712E0C = ",
+   "name": "gData_00712E0C",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00712E0C_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00712E0C",
+   "va": "0x00712E0C"
+  },
+  {
+   "alias": false,
+   "cname": "gData_00712E84",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/GAME/Roster.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_00712E84_t gData_00712E84; // 0x00712E84",
+   "head": "extern \"C\" struct d2data_00712E84_t gData_00712E84 = ",
+   "name": "gData_00712E84",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00712E84_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00712E84",
+   "va": "0x00712E84"
   }
  ]
 }

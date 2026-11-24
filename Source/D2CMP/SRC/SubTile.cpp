@@ -81,7 +81,7 @@ struct D2CmpSubTileBlockStrc
 
 
 
-void __fastcall sub_0060DB60_MapBlock(D2CmpTileBlockStrc* pSrc, D2CmpTileBlockStrc* pDst, D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap); // 0x0060DB60
+void __fastcall SubTileMapBlock(D2CmpTileBlockStrc* pSrc, D2CmpTileBlockStrc* pDst, D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap); // 0x0060DB60
 
 // 0x0060D430
 unsigned char* __fastcall SubTileCompress(const unsigned char* pData, unsigned int* pSize)
@@ -483,7 +483,7 @@ void __fastcall SubTileEncodeFloor(D2CmpSubTileRecordStrc* pRecord)
 }
 
 // 0x0060DB60
-void __fastcall sub_0060DB60_MapBlock(D2CmpTileBlockStrc* ptTile24, D2CmpTileBlockStrc* ptTile8, D2CmpColorStrc tColor, D2CmpMapColorFn pfnQuantize)
+void __fastcall SubTileMapBlock(D2CmpTileBlockStrc* ptTile24, D2CmpTileBlockStrc* ptTile8, D2CmpColorStrc tColor, D2CmpMapColorFn pfnQuantize)
 {
     D2_ASSERT(ptTile24, 0x1EC);
     D2_ASSERT(ptTile8, 0x1ED);

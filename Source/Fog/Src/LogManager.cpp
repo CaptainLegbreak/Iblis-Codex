@@ -234,13 +234,13 @@ _iobuf* __fastcall LOGMANAGER_GetLogFile(const char* szName, int* pnSlot); // 0x
 
 struct sub_0040F530
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_0040F530();
 };
 
 struct sub_0040F810
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     sub_0040F810();
 };
 
@@ -487,133 +487,133 @@ struct D2CommonStormHashTableAStrc
 
 struct sub_0040F7D0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_0040F7D0();
 };
 
 struct sub_0044DDD0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_0044DDD0();
 };
 
 struct sub_0044DE90
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_0044DE90();
 };
 
 struct sub_0044ECC0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_0044ECC0();
 };
 
 struct sub_0044ED50
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_0044ED50();
 };
 
 struct sub_00601BF0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_00601BF0();
 };
 
 struct sub_00601C70
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_00601C70();
 };
 
 struct sub_00601D60
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_00601D60();
 };
 
 struct sub_00601F20
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_00601F20();
 };
 
 struct sub_00601F60
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_00601F60();
 };
 
 struct sub_006020D0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_006020D0();
 };
 
 struct sub_00602140
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_00602140();
 };
 
 struct sub_006024A0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_006024A0();
 };
 
 struct sub_00602760
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     ~sub_00602760();
 };
 
 struct sub_0044BDE0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     sub_0044BDE0();
 };
 
 struct sub_0044ED40
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     sub_0044ED40();
 };
 
 struct sub_0044ED90
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     sub_0044ED90();
 };
 
 struct sub_00601F10
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     sub_00601F10();
 };
 
 struct sub_00602130
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     sub_00602130();
 };
 
 struct sub_00602180
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     sub_00602180();
 };
 
 struct sub_00602420
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     sub_00602420();
 };
 
 struct sub_00602750
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc tLink;
     sub_00602750();
 };
 
@@ -657,7 +657,7 @@ struct D2LogMsgLinkStrc
 
 struct D2LogMsgNodeStrc
 {
-    D2LogMsgLinkStrc f_0;
+    D2LogMsgLinkStrc tLink;
 
     D2LogMsgNodeStrc();
     ~D2LogMsgNodeStrc();
@@ -919,7 +919,7 @@ void __fastcall LOGMANAGER_SweepLogFile(const D2FileTimeStrc* pNow, const char* 
 // 0x0040F530
 sub_0040F530::~sub_0040F530()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 // 0x0040F5A0
@@ -1166,7 +1166,7 @@ void D2CommonStormHashTableAStrc::IGNORELIST_ClearStringTable()
 // 0x0040FAA0
 D2LogMsgNodeStrc::~D2LogMsgNodeStrc()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 // 0x0040FCB0
@@ -1301,115 +1301,115 @@ void __cdecl LOGMANAGER_ShutdownLogSystem()
 
 sub_0044BDE0::sub_0044BDE0()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    tLink.m_prevlink = 0;
+    tLink.m_next = 0;
 }
 
 sub_0044DDD0::~sub_0044DDD0()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 sub_0044DE90::~sub_0044DE90()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 sub_0044ECC0::~sub_0044ECC0()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 sub_0044ED40::sub_0044ED40()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    tLink.m_prevlink = 0;
+    tLink.m_next = 0;
 }
 
 sub_0044ED50::~sub_0044ED50()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 sub_0044ED90::sub_0044ED90()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    tLink.m_prevlink = 0;
+    tLink.m_next = 0;
 }
 
 sub_00601BF0::~sub_00601BF0()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 sub_00601C70::~sub_00601C70()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 sub_00601D60::~sub_00601D60()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 sub_00601F10::sub_00601F10()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    tLink.m_prevlink = 0;
+    tLink.m_next = 0;
 }
 
 sub_00601F20::~sub_00601F20()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 sub_00601F60::~sub_00601F60()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 sub_006020D0::~sub_006020D0()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 sub_00602130::sub_00602130()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    tLink.m_prevlink = 0;
+    tLink.m_next = 0;
 }
 
 sub_00602140::~sub_00602140()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 sub_00602180::sub_00602180()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    tLink.m_prevlink = 0;
+    tLink.m_next = 0;
 }
 
 sub_00602420::sub_00602420()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    tLink.m_prevlink = 0;
+    tLink.m_next = 0;
 }
 
 sub_006024A0::~sub_006024A0()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 sub_00602750::sub_00602750()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    tLink.m_prevlink = 0;
+    tLink.m_next = 0;
 }
 
 sub_00602760::~sub_00602760()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 // 0x00410040
@@ -1444,7 +1444,7 @@ void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle,
     if (!bBadPointer)
         memcpy(pText, (const void*)dwAddress, nSize);
     EnterCriticalSection(&gtLogQueueLock);
-    D2LogMsgLinkStrc* pLink = &pMessage->f_0;
+    D2LogMsgLinkStrc* pLink = &pMessage->tLink;
     if (pLink->m_prevlink)
     {
         pLink->NextLink(-1)->m_prevlink = pLink->m_prevlink;
@@ -1507,7 +1507,7 @@ void __fastcall LOGMANAGER_WriteLogV(const char* szPrefix, int nArg2, int nArg3,
     SStrCopy(pText, szBuffer, nExtraBytes);
 
     EnterCriticalSection(&gtLogQueueLock);
-    D2LogMsgLinkStrc* pLink = &pMessage->f_0;
+    D2LogMsgLinkStrc* pLink = &pMessage->tLink;
     if (pLink->m_prevlink)
     {
         pLink->NextLink(-1)->m_prevlink = pLink->m_prevlink;
@@ -1543,7 +1543,7 @@ unsigned long __stdcall sub_004101C0_LogThreadProc(void* pParam)
         D2LogMessageStrc* pMessage = gtLogMsgQueue_0075E868.Head();
         if (pMessage)
         {
-            ((D2LogMessageStrc*)gtLogMsgQueue_0075E868.m_terminator.m_next)->f_0.Unlink();
+            ((D2LogMessageStrc*)gtLogMsgQueue_0075E868.m_terminator.m_next)->tLink.Unlink();
             --gnLogQueued;
             gnLogQueuedBytes -= pMessage->nSize;
         }
@@ -1692,14 +1692,14 @@ char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
 // 0x0040F7D0
 sub_0040F7D0::~sub_0040F7D0()
 {
-    f_0.Unlink();
+    tLink.Unlink();
 }
 
 // 0x0040F810
 sub_0040F810::sub_0040F810()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    tLink.m_prevlink = 0;
+    tLink.m_next = 0;
 }
 
 // 0x0040F860
