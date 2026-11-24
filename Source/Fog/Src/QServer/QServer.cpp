@@ -56,10 +56,6 @@ struct D2RecordStrc;
 
 struct D2QServerConfigStrc;
 
-struct D2ConnectionNodeStrc;
-
-struct D2ConnectionTableStrc;
-
 extern int gdwGlobal_00970E50; // 0x00970E50
 
 extern char gnFloorCacheSize[]; // 0x007C90C8
@@ -336,26 +332,6 @@ extern "C" const char gszQServerAllocated[]; // 0x006FC548
 void __stdcall QSERVER_LogHackListSize(int nSize); // 0x006BE6C0
 
 int __fastcall sub_006C0420_ProcessClient(QServer* pServer, int nClientId, const char* szFile, int nLine); // 0x006C0420
-
-struct D2ConnectionNodeStrc
-{
-    int nClient;
-    char unk_04[0x14];
-    unsigned int nIP;
-    D2ConnectionNodeStrc* pNext;
-};
-
-struct D2ConnectionTableStrc
-{
-    char unk_00[0xC];
-    unsigned int nMask;
-    char unk_10[0x10];
-    D2ConnectionNodeStrc** ppBuckets;
-    int unk_24;
-    D2CriticalSectionStrc tLock;
-};
-
-void __fastcall QSrvCloseRemoteConnection(D2ConnectionTableStrc* pTable, int nClient, const char* pFile, int nLine); // 0x006C0420
 
 const char* __stdcall sub_006B013E_FormatIP(unsigned int nIP); // 0x006B013E
 
@@ -2226,20 +2202,20 @@ int __stdcall FOG_10165(QServer* pServer, int nClientId, const char* szFile, int
 }
 
 // 0x006C06D0
-void __stdcall QSERVER_DisconnectIP(D2ConnectionTableStrc* pTable, unsigned int nIP, const char* pFile, int nLine)
+void __stdcall QSERVER_DisconnectIP(D2QueueServerStrc* pServer, unsigned int nIP, const char* pFile, int nLine)
 {
-    unsigned int nBucket = pTable->nMask & nIP;
-    EnterCriticalSection(&pTable->tLock);
-    D2ConnectionNodeStrc* pNode = pTable->ppBuckets[nBucket];
+    unsigned int nBucket = pServer->nMask & nIP;
+    EnterCriticalSection(&pServer->tAddressLock);
+    D2QClientStrc* pNode = pServer->ppAddressBuckets[nBucket];
     while (pNode)
     {
-        if (pNode->nIP == nIP)
+        if (pNode->nAddress == nIP)
             break;
-        pNode = pNode->pNext;
+        pNode = pNode->pNextByAddress;
     }
-    LeaveCriticalSection(&pTable->tLock);
+    LeaveCriticalSection(&pServer->tAddressLock);
     if (pNode)
-        QSrvCloseRemoteConnection(pTable, pNode->nClient, pFile, nLine);
+        QSrvCloseRemoteConnection(pServer, pNode->iId, pFile, nLine);
     else
         LOGMANAGER_LogWritePrefixedLine(gszHackChannel_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_FormatIP(nIP));
     LOGMANAGER_LogWritePrefixedLine(gszHackChannel_006FC4A8, "[HACKLIST]  IP:%s  QSDisconnectIP() from FILE:%s  LINE:%d", sub_006B013E_FormatIP(nIP), pFile, nLine);
