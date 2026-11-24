@@ -28,14 +28,6 @@ extern D2BigPairStrc gtBigPair; // 0x0088273C
 void __cdecl sub_006CB480_DestroyBigPair(); // 0x006CB480
 extern int gnDivisor_00731014; // 0x00731014
 extern int gnQuotient_00883D60; // 0x00883D60
-extern int gnSource_00731DCC; // 0x00731DCC
-extern int gnSource_00731DF8; // 0x00731DF8
-extern int gnSource_00731E24; // 0x00731E24
-extern int gnSource_00731E60; // 0x00731E60
-extern int gnCopy_00731EB8; // 0x00731EB8
-extern int gnCopy_00731EC0; // 0x00731EC0
-extern int gnCopy_00731EC8; // 0x00731EC8
-extern int gnCopy_00731ED0; // 0x00731ED0
 void __cdecl sub_006CB4E0_DestroyLock(); // 0x006CB4E0
 extern unsigned int gnListTerminator_0074C490; // 0x0074C490
 extern void* gpListHead_0074C494; // 0x0074C494
@@ -100,15 +92,6 @@ void __cdecl sub_006CAEF0_InitializeBigPair()
 void __cdecl sub_006CAF10_SetPerSecond()
 {
     gnQuotient_00883D60 = 1000 / gnDivisor_00731014;
-}
-
-// 0x006CAF30
-void __cdecl sub_006CAF30_SnapshotCounters()
-{
-    gnCopy_00731EB8 = gnSource_00731DCC;
-    gnCopy_00731EC0 = gnSource_00731DF8;
-    gnCopy_00731EC8 = gnSource_00731E24;
-    gnCopy_00731ED0 = gnSource_00731E60;
 }
 
 #include "gen/data/Source/Storm/Unknown_006CAE80.inc"
