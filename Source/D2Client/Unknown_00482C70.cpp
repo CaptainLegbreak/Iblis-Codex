@@ -224,7 +224,7 @@ void __cdecl WARDENCLIENT_ActivatePendingModule(); // 0x00480230
 
 void __cdecl sub_0048A730(); // 0x0048A730
 
-void __cdecl sub_00494FC0(); // 0x00494FC0
+void __cdecl HIREABLES_CloseHelpUi(); // 0x00494FC0
 
 void __fastcall sub_0049EB10_PostRecord(D2ClientRecordStrc* pRecord); // 0x0049EB10
 
@@ -401,7 +401,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
-int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nMode, int nX, int nY, int nArg, int bCheckTick, int bRepairAll); // 0x004B3870
+int __fastcall NPCMENU_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nMode, int nX, int nY, int nArg, int bCheckTick, int bRepairAll); // 0x004B3870
 
 void __cdecl sub_K04_EmitUse(int nValue);
 
@@ -1173,7 +1173,7 @@ void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsign
 
 void __fastcall MSG_SendFourDwords(char nCommand, int nArg0, int nArg1, int nArg2, int nArg3); // 0x00478700
 
-void __cdecl sub_004A9DF0_UpdateSkillIcons(); // 0x004A9DF0
+void __cdecl SPELLSEL_UpdateSkillIcons(); // 0x004A9DF0
 
 int __fastcall NPCMENU_GetInteractNpcId(int* pUnitId); // 0x004B3230
 
@@ -1244,7 +1244,7 @@ extern D2BodyClickFn gaBodyClick[]; // 0x00721E58
 
 static void __stdcall INV_DrawGridCells(D2InventoryGridInfoStrc* pGrid, int nX, int nY, unsigned char nWidth, unsigned char nHeight, int nColor); // 0x004839D0
 
-int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY); // 0x00483AB0
+int __fastcall INV_IsInPlayerInvRect(int nX, int nY); // 0x00483AB0
 
 static int INV_IsOverWeaponSwapTab(int nX, int nY); // 0x00486860
 
@@ -1363,7 +1363,7 @@ static void INV_AppendBookCharges(Unicode* pText);
 
 static D2UnitStrc* INV_FindSetItem(D2InventoryStrc* pInventory, int nSetItemId); // 0x00486770
 
-static void __stdcall sub_00483C50_DrawCursorPlacement(D2InventoryStrc* pInventory, D2InventoryGridInfoStrc* pGrid, int nRecord, unsigned char nPage, D2UnitStrc* pCursorItem);
+static void __stdcall INV_DrawCursorPlacement(D2InventoryStrc* pInventory, D2InventoryGridInfoStrc* pGrid, int nRecord, unsigned char nPage, D2UnitStrc* pCursorItem); // 0x00483C50
 
 static void INV_DrawBodyLocPlacement(D2InventoryStrc* pInventory);
 

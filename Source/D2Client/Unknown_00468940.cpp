@@ -13,16 +13,16 @@ int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 int __cdecl GAME_IsExitPending(); // 0x0044DA30
 int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
-void __fastcall sub_00457640(int bForce); // 0x00457640
+void __fastcall AUTOMAP_ResetBaseOffset(int bForce); // 0x00457640
 int __cdecl AUTOMAP_GetAutomapFade(); // 0x004576C0
 int __fastcall AUTOMAP_SetAutomapFade(int nFade); // 0x004576F0
 int __cdecl UI_GetAutomapParty(); // 0x004577B0
 int __cdecl UI_GetAutomapPartyNames(); // 0x004577E0
 int __cdecl UI_GetAutomapLeft(); // 0x00457770
 int __fastcall OBJECT_SaveAutomapLeft(int nValue); // 0x00457780
-void __fastcall sub_004A8CE0_SetValue(int nValue); // 0x004A8CE0
-void __fastcall sub_004A9E60_AssignHotkey(int nHotkey); // 0x004A9E60
-void __fastcall sub_004AA030_SelectHotkey(int nSlot); // 0x004AA030
+void __fastcall SPELLSEL_SetSkillSelectRight(int nValue); // 0x004A8CE0
+void __fastcall SPELLSEL_AssignHotkey(int nHotkey); // 0x004A9E60
+void __fastcall SPELLSEL_SelectHotkey(int nSlot); // 0x004AA030
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 
@@ -47,7 +47,7 @@ int __cdecl TEXT_IsTextBoxOpen(); // 0x004A0000
 void __fastcall sub_0047E200_CloseMenus(int nArg); // 0x0047E200
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 void __fastcall WARDENCLIENT_ToggleEscMenuUIState(int bSaveState, int nMenu); // 0x0047E090
-void __fastcall sub_004AA740_CycleHotkey(int nDelta); // 0x004AA740
+void __fastcall SPELLSEL_CycleHotkey(int nDelta); // 0x004AA740
 void __cdecl INV_ResetEquipSounds(); // 0x0048A730
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 void __cdecl SELECT_ClearSelection(); // 0x00466FE0
@@ -110,13 +110,13 @@ void __cdecl sub_00468A30_SetUIVar10()
 {
     UI_SetUIVar(0xA, 2, 0);
     if (!GAME_GetUIVarState(0xA))
-        sub_00457640(0);
+        AUTOMAP_ResetBaseOffset(0);
 }
 
 // 0x00468A60
 void __cdecl sub_00468A60_Force()
 {
-    sub_00457640(1);
+    AUTOMAP_ResetBaseOffset(1);
 }
 
 // 0x00468A70
@@ -153,7 +153,7 @@ void __cdecl sub_00468AF0_SetUIVar4()
 void __cdecl sub_00468B00_SetUIVar3()
 {
     UI_SetUIVar(3, 2, 0);
-    sub_004A8CE0_SetValue(0);
+    SPELLSEL_SetSkillSelectRight(0);
 }
 
 // 0x00468B90
@@ -162,9 +162,9 @@ void __cdecl sub_00468B90_Hotkey0()
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
-            sub_004A9E60_AssignHotkey(0);
+            SPELLSEL_AssignHotkey(0);
         else
-            sub_004AA030_SelectHotkey(0);
+            SPELLSEL_SelectHotkey(0);
     }
 }
 
@@ -174,9 +174,9 @@ void __cdecl sub_00468BC0_Hotkey1()
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
-            sub_004A9E60_AssignHotkey(1);
+            SPELLSEL_AssignHotkey(1);
         else
-            sub_004AA030_SelectHotkey(1);
+            SPELLSEL_SelectHotkey(1);
     }
 }
 
@@ -186,9 +186,9 @@ void __cdecl sub_00468BF0_Hotkey2()
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
-            sub_004A9E60_AssignHotkey(2);
+            SPELLSEL_AssignHotkey(2);
         else
-            sub_004AA030_SelectHotkey(2);
+            SPELLSEL_SelectHotkey(2);
     }
 }
 
@@ -198,9 +198,9 @@ void __cdecl sub_00468C20_Hotkey3()
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
-            sub_004A9E60_AssignHotkey(3);
+            SPELLSEL_AssignHotkey(3);
         else
-            sub_004AA030_SelectHotkey(3);
+            SPELLSEL_SelectHotkey(3);
     }
 }
 
@@ -210,9 +210,9 @@ void __cdecl sub_00468C50_Hotkey4()
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
-            sub_004A9E60_AssignHotkey(4);
+            SPELLSEL_AssignHotkey(4);
         else
-            sub_004AA030_SelectHotkey(4);
+            SPELLSEL_SelectHotkey(4);
     }
 }
 
@@ -222,9 +222,9 @@ void __cdecl sub_00468C80_Hotkey5()
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
-            sub_004A9E60_AssignHotkey(5);
+            SPELLSEL_AssignHotkey(5);
         else
-            sub_004AA030_SelectHotkey(5);
+            SPELLSEL_SelectHotkey(5);
     }
 }
 
@@ -234,9 +234,9 @@ void __cdecl sub_00468CB0_Hotkey6()
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
-            sub_004A9E60_AssignHotkey(6);
+            SPELLSEL_AssignHotkey(6);
         else
-            sub_004AA030_SelectHotkey(6);
+            SPELLSEL_SelectHotkey(6);
     }
 }
 
@@ -246,9 +246,9 @@ void __cdecl sub_00468CE0_Hotkey7()
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
-            sub_004A9E60_AssignHotkey(7);
+            SPELLSEL_AssignHotkey(7);
         else
-            sub_004AA030_SelectHotkey(7);
+            SPELLSEL_SelectHotkey(7);
     }
 }
 
@@ -258,9 +258,9 @@ void __cdecl sub_00468D10_Hotkey8()
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing())
     {
         if (GAME_GetUIVarState(3))
-            sub_004A9E60_AssignHotkey(8);
+            SPELLSEL_AssignHotkey(8);
         else
-            sub_004AA030_SelectHotkey(8);
+            SPELLSEL_SelectHotkey(8);
     }
 }
 
@@ -270,9 +270,9 @@ void __cdecl sub_00468D40_Hotkey9()
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
         if (GAME_GetUIVarState(3))
-            sub_004A9E60_AssignHotkey(9);
+            SPELLSEL_AssignHotkey(9);
         else
-            sub_004AA030_SelectHotkey(9);
+            SPELLSEL_SelectHotkey(9);
     }
 }
 
@@ -282,9 +282,9 @@ void __cdecl sub_00468D80_Hotkey10()
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
         if (GAME_GetUIVarState(3))
-            sub_004A9E60_AssignHotkey(10);
+            SPELLSEL_AssignHotkey(10);
         else
-            sub_004AA030_SelectHotkey(10);
+            SPELLSEL_SelectHotkey(10);
     }
 }
 
@@ -294,9 +294,9 @@ void __cdecl sub_00468DC0_Hotkey11()
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
         if (GAME_GetUIVarState(3))
-            sub_004A9E60_AssignHotkey(11);
+            SPELLSEL_AssignHotkey(11);
         else
-            sub_004AA030_SelectHotkey(11);
+            SPELLSEL_SelectHotkey(11);
     }
 }
 
@@ -306,9 +306,9 @@ void __cdecl sub_00468E00_Hotkey12()
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
         if (GAME_GetUIVarState(3))
-            sub_004A9E60_AssignHotkey(12);
+            SPELLSEL_AssignHotkey(12);
         else
-            sub_004AA030_SelectHotkey(12);
+            SPELLSEL_SelectHotkey(12);
     }
 }
 
@@ -318,9 +318,9 @@ void __cdecl sub_00468E40_Hotkey13()
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
         if (GAME_GetUIVarState(3))
-            sub_004A9E60_AssignHotkey(13);
+            SPELLSEL_AssignHotkey(13);
         else
-            sub_004AA030_SelectHotkey(13);
+            SPELLSEL_SelectHotkey(13);
     }
 }
 
@@ -330,9 +330,9 @@ void __cdecl sub_00468E80_Hotkey14()
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
         if (GAME_GetUIVarState(3))
-            sub_004A9E60_AssignHotkey(14);
+            SPELLSEL_AssignHotkey(14);
         else
-            sub_004AA030_SelectHotkey(14);
+            SPELLSEL_SelectHotkey(14);
     }
 }
 
@@ -342,9 +342,9 @@ void __cdecl sub_00468EC0_Hotkey15()
     if (!GAME_IsExitPending() && !CUNIT_IsPlayerDeadOrMissing() && GAME_IsExpansion())
     {
         if (GAME_GetUIVarState(3))
-            sub_004A9E60_AssignHotkey(15);
+            SPELLSEL_AssignHotkey(15);
         else
-            sub_004AA030_SelectHotkey(15);
+            SPELLSEL_SelectHotkey(15);
     }
 }
 
@@ -526,7 +526,7 @@ void __cdecl sub_00469100_HotkeyPrevSkill()
         return;
     if (CUNIT_IsPlayerDeadOrMissing())
         return;
-    sub_004AA740_CycleHotkey(-1);
+    SPELLSEL_CycleHotkey(-1);
 }
 
 // 0x00469120
@@ -536,7 +536,7 @@ void __cdecl sub_00469120_HotkeyNextSkill()
         return;
     if (CUNIT_IsPlayerDeadOrMissing())
         return;
-    sub_004AA740_CycleHotkey(1);
+    SPELLSEL_CycleHotkey(1);
 }
 
 // 0x00469170

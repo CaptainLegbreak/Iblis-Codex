@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2ClientUi.h"
 #include "D2ClientSound.h"
+#include "D2HintKeyList.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -35,11 +36,6 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __cdecl sub_004B8BA0_OnClose2(); // 0x004B8BA0
 
-struct D2HintKeyListStrc
-{
-    int unk0x00;
-    int nCount;
-};
 
 struct D2TimedHintEntryStrc
 {

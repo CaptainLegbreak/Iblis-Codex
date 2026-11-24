@@ -53,8 +53,8 @@ void __fastcall MSG_SendTwoDwords(char nHeader, int nArg1, int nArg2); // 0x0047
 int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg);
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);
 D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId);
-void* __fastcall sub_004A8C80_GetSkillValue(D2SkillsTxt* pSkillsTxt);
-int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId);
+void* __fastcall SPELLSEL_GetSkillIconCel(D2SkillsTxt* pSkillsTxt); // 0x004A8C80
+int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 int __cdecl sub_004AA900_IsStateOrValue();
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);
 void __fastcall SKILLDESC_ShowSkillPopup(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY);
@@ -400,7 +400,7 @@ LNotHandled:
                                 if (pSkill)
                                     nLevel = SKILLS_GetSkillLevel(pPlayer, pSkill, 0);
 
-                                if (nLevel <= sub_004AA8B0_GetSkillMaxLevel(pSkillsTxt->nSkillId) && !sub_004AA900_IsStateOrValue())
+                                if (nLevel <= SPELLSEL_GetSkillMaxLevel(pSkillsTxt->nSkillId) && !sub_004AA900_IsStateOrValue())
                                 {
                                     MSG_SendWord(0x3B, nSkillId);
                                     gbSkillPointsHighlight = 0;
@@ -450,7 +450,7 @@ void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt,
     nX = sub_004AAA50_GetSkillColumnX(pDesc->nSkillColumn);
     nMouseX = sub_00468730();
     nMouseY = sub_00468740();
-    pCellFile = sub_004A8C80_GetSkillValue(0);
+    pCellFile = SPELLSEL_GetSkillIconCel(0);
     nFrame = pDesc->nIconCel;
     if (nState == 1)
         ++nFrame;

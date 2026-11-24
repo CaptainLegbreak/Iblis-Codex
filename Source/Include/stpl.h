@@ -70,6 +70,10 @@ struct TSLink
     {
         return (int)m_next <= 0 ? 0 : m_next;
     }
+    T* Prev()
+    {
+        return m_prevlink->m_prevlink->Next();
+    }
     T* RawNext()
     {
         return m_next;

@@ -364,7 +364,7 @@ void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, un
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
 
-void __fastcall sub_004A9E60_AssignHotkey(int nHotkey); // 0x004A9E60
+void __fastcall SPELLSEL_AssignHotkey(int nHotkey); // 0x004A9E60
 
 void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage); // 0x004AAAE0
 
@@ -465,7 +465,7 @@ void* gp800CtrlPnl7Cel; // 0x007BEF74
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-void __fastcall sub_004A8CE0_SetValue(int); // 0x004A8CE0
+void __fastcall SPELLSEL_SetSkillSelectRight(int); // 0x004A8CE0
 
 int __cdecl GAME_GetAlwaysRun(); // 0x0044BE90
 
@@ -989,7 +989,7 @@ int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00499500
-void __stdcall sub_00499500_Click(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall PANEL_OnMouseClick(SMSGHANDLER_PARAMS* pMsg)
 {
     if (GAME_IsExitPending() || sub_00463DF0_StateBlocked())
     {
@@ -2141,11 +2141,11 @@ void __stdcall PANEL_BeltMouseReleaseMsg(SMSGHANDLER_PARAMS* pMsg)
             }
             else if(x>=117 && x<=165 && y>=gnScreenHeight-48 && y<=gnScreenHeight) {
                 UI_SetUIVar(3,2,0);
-                sub_004A8CE0_SetValue(1);
+                SPELLSEL_SetSkillSelectRight(1);
             }
             else if(x>=gnScreenWidth-165 && x<=gnScreenWidth-117 && y>=gnScreenHeight-48 && y<=gnScreenHeight) {
                 UI_SetUIVar(3,2,0);
-                sub_004A8CE0_SetValue(0);
+                SPELLSEL_SetSkillSelectRight(0);
             }
             else if(x>=gnScreenWidth/2-145 && x<=gnScreenWidth/2-128 && y>=gnScreenHeight-28 && y<=gnScreenHeight-8) {
                 GAME_SetAlwaysRun(!GAME_GetAlwaysRun());
@@ -2161,13 +2161,13 @@ void __stdcall PANEL_BeltMouseReleaseMsg(SMSGHANDLER_PARAMS* pMsg)
                 CancelCursorMode();
                 if(GAME_GetUIVarState(3)) UI_SetUIVar(3,1,0);
                 else UI_SetUIVar(3,0,0); // 0x00455F20
-                sub_004A8CE0_SetValue(1);
+                SPELLSEL_SetSkillSelectRight(1);
             }
             else if(x>=gnScreenWidth-165 && x<=gnScreenWidth-117 && y<=gnScreenHeight) {
                 CancelCursorMode();
                 if(GAME_GetUIVarState(3)) UI_SetUIVar(3,1,0);
                 else UI_SetUIVar(3,0,0); // 0x00455F20
-                sub_004A8CE0_SetValue(0);
+                SPELLSEL_SetSkillSelectRight(0);
             }
             else if(x>=gnScreenWidth/2-145 && x<=gnScreenWidth/2-128 && y>=gnScreenHeight-28 && y<=gnScreenHeight-8) {
                 GAME_SetAlwaysRun(!GAME_GetAlwaysRun());

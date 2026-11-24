@@ -387,7 +387,7 @@ inline unsigned int PATH_ToFP16Center(unsigned short value)
 }
 
 // 0x00678F00
-void __fastcall sub_6FDAB810(int* a1, int* a2)
+void __fastcall PATH_NormalizeStep(int* a1, int* a2)
 {
     if (*a1 >= 0)
     {
@@ -439,7 +439,7 @@ static int __stdcall sub_00679530_TraceLineFP16(D2DynamicPathStrc* pDynamicPath,
     int nVelocityX = pDirectionVector->nX;
     int nVelocityY = pDirectionVector->nY;
     D2_ASSERT(D2_ABS(nVelocityX) > 0 || D2_ABS(nVelocityY) > 0, 110);
-    sub_6FDAB810(&nVelocityX, &nVelocityY);
+    PATH_NormalizeStep(&nVelocityX, &nVelocityY);
     const int nStepX = nVelocityX;
     const int nStepY = nVelocityY;
     if (D2_ABS(nDeltaX) > D2_ABS(nDeltaY))
@@ -688,7 +688,7 @@ static int __stdcall sub_0067A420_TraceSegment(D2DynamicPathStrc* pDynamicPath, 
     D2CoordStrc tDirectionVector;
     PATH_GetScaledDirectionVector(pDynamicPath->dwVelocity, &tDirectionVector, tStartCoord, tTargetCoord);
     D2_ASSERT(D2_ABS(tDirectionVector.nX) > 0 || D2_ABS(tDirectionVector.nY) > 0, 834);
-    sub_6FDAB810(&tDirectionVector.nX, &tDirectionVector.nY);
+    PATH_NormalizeStep(&tDirectionVector.nX, &tDirectionVector.nY);
     return sub_00679530_TraceLineFP16(pDynamicPath, &tDirectionVector, tStartCoord, &tTargetCoord);
 }
 

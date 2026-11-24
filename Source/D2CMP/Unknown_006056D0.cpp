@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2ColorBlock.h"
 
 static void sub_00606890_BuildBrightnessTable(unsigned char* pTables, D2HslStrc* pHsl);
 
@@ -23,10 +24,6 @@ extern int gbPaletteLoaded; // 0x008E9934
 
 unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 
-struct D2ColorBlockStrc
-{
-    unsigned char data[39];
-};
 
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 

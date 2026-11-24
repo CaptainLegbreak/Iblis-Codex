@@ -13,6 +13,7 @@
 #include "D2TxtTables.h"
 #include "D2MsgRecord.h"
 #include "D2ClientTimer.h"
+#include "D2ClientRange.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -486,7 +487,7 @@ int __cdecl sub_0045AE90(); // 0x0045AE90
 
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
-void __fastcall sub_00457640(int bForce); // 0x00457640
+void __fastcall AUTOMAP_ResetBaseOffset(int bForce); // 0x00457640
 
 D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
@@ -1231,11 +1232,6 @@ extern int gnBeltUiRecordRow; // 0x007A5218
 
 extern int gnAutomapWidth; // 0x007A5220
 
-struct D2RangeStrc
-{
-    int nStart;
-    int nLength;
-};
 
 
 void __stdcall WINDOW_ShowAll(); // 0x004F5F60
@@ -1344,7 +1340,7 @@ void __cdecl sub_00477DD0();                                                    
 
 void __fastcall MSG_UploadSaveFile(int bAnimate);                                                    // 0x004781D0
 
-void __cdecl sub_0047BD30_ResetChatHistory();                                                                                // 0x0047BD30
+void __cdecl CHAT_ResetChatHistory();                                                                                // 0x0047BD30
 
 void __cdecl sub_0047F1D0_LoadResolution();                                                                 // 0x0047F1D0
 
@@ -2595,7 +2591,7 @@ void __cdecl GAME_CloseAllPanels()
 {
     if (gbPositionalSound && !UI_CloseUIVars(0, 1))
     {
-        sub_00457640(0);
+        AUTOMAP_ResetBaseOffset(0);
         UI_CloseUIVars(1, 0);
     }
 }

@@ -48,9 +48,9 @@ void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, in
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570
 
-static void __stdcall sub_00675EB0_PlaceCoord(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4);
+static void __stdcall DRLGOUTPLACE_PlaceCoordBeside(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4); // 0x00675EB0
 
-static void __stdcall sub_00675F80_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4);
+static void __stdcall DRLGOUTPLACE_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4); // 0x00675F80
 
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId); // 0x0061E470
 
@@ -158,8 +158,46 @@ void __fastcall DRLGOUTPLACE_SetBlankBorderGridCells(D2DrlgLevelStrc* pLevel)
     }
 }
 
+#define LARGE_SHIFT 16
+#define SMALL_SHIFT 8
+
+// 0x00675DE0
+static void __fastcall sub_00675DE0_Place(D2DrlgCoordStrc* src,int mode,int side,D2DrlgCoordStrc* dst) {
+ switch(side) {
+ case 0:
+  dst->nPosX=src->nPosX;
+  dst->nPosY=src->nHeight+src->nPosY;
+  if(mode==1) dst->nPosX-=LARGE_SHIFT;
+  break;
+ case 1:
+  dst->nPosX=src->nPosX-dst->nWidth;
+  dst->nPosY=src->nPosY;
+  if(mode==1) dst->nPosY-=LARGE_SHIFT;
+  else if(mode==2) dst->nPosY+=SMALL_SHIFT;
+  break;
+ case 2:
+  dst->nPosX=src->nWidth-dst->nWidth+src->nPosX;
+  dst->nPosY=src->nPosY-dst->nHeight;
+  if(mode==1) dst->nPosX+=LARGE_SHIFT;
+  break;
+ case 3:
+  dst->nPosX=src->nWidth+src->nPosX;
+  dst->nPosY=src->nHeight-dst->nHeight+src->nPosY;
+  if(mode==1) dst->nPosY+=LARGE_SHIFT;
+  else if(mode==2) dst->nPosY-=SMALL_SHIFT;
+  else if(mode==3) dst->nPosY+=SMALL_SHIFT;
+  break;
+ }
+}
+
+void __fastcall EmitPlacement(D2DrlgCoordStrc* src,int mode,int side,D2DrlgCoordStrc* dst) {
+ sub_00675DE0_Place(src,mode,side,dst);
+}
+#undef LARGE_SHIFT
+#undef SMALL_SHIFT
+
 // 0x00675EB0
-static void __stdcall sub_00675EB0_PlaceCoord(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4)
+static void __stdcall DRLGOUTPLACE_PlaceCoordBeside(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4)
 {
     switch (nDirection)
     {
@@ -215,12 +253,12 @@ void __fastcall sub_00675EB0_Shim(D2DrlgCoordStrc* pCoords, int nCount)
 {
     for (int i = 1; i < nCount; ++i)
     {
-        sub_00675EB0_PlaceCoord(&pCoords[i - 1], &pCoords[i], i & 3, i & 1);
+        DRLGOUTPLACE_PlaceCoordBeside(&pCoords[i - 1], &pCoords[i], i & 3, i & 1);
     }
 }
 
 // 0x00675F80
-static void __stdcall sub_00675F80_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4)
+static void __stdcall DRLGOUTPLACE_PlaceCoordCentered(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4)
 {
     switch (nDirection)
     {
@@ -296,7 +334,7 @@ void __fastcall sub_00675F80_Shim(D2DrlgCoordStrc* pCoords, int nCount)
 {
     for (int i = 1; i < nCount; ++i)
     {
-        sub_00675F80_PlaceCoordCentered(&pCoords[i - 1], &pCoords[i], i & 7, i & 1);
+        DRLGOUTPLACE_PlaceCoordCentered(&pCoords[i - 1], &pCoords[i], i & 7, i & 1);
     }
 }
 
@@ -382,7 +420,7 @@ static void __fastcall sub_6FD815E0(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStr
 }
 
 // 0x006760F0
-int __fastcall sub_6FD81330(D2DrlgLevelLinkDataStrc* pLevelLinkData)
+int __fastcall DRLGOUTPLACE_PlaceAtLevelDefOffset(D2DrlgLevelLinkDataStrc* pLevelLinkData)
 {
     if (pLevelLinkData->nRand[1][pLevelLinkData->nIteration] == -1)
     {
@@ -396,8 +434,396 @@ int __fastcall sub_6FD81330(D2DrlgLevelLinkDataStrc* pLevelLinkData)
     return 1;
 }
 
+// 0x00676450
+int __fastcall sub_00676450_LinkStepDirectionSide(D2DrlgLevelLinkDataStrc* pData)
+{
+    if (pData->nRand[1][pData->nIteration] == -1)
+    {
+        pData->nRand[1][pData->nIteration] = SEED_RollRandomNumber(&pData->pSeed) & 3;
+        pData->nRand[0][pData->nIteration] = pData->nRand[1][pData->nIteration];
+        pData->nRand[3][pData->nIteration] = SEED_RollRandomNumber(&pData->pSeed) & 1;
+        pData->nRand[2][pData->nIteration] = pData->nRand[3][pData->nIteration];
+    }
+    else
+    {
+        const int nNext = (pData->nRand[0][pData->nIteration] + pData->nRand[2][pData->nIteration]) % 4;
+        const int nSide = (pData->nRand[2][pData->nIteration] + 1) % 2;
+        if (nNext == pData->nRand[1][pData->nIteration] && nSide == pData->nRand[3][pData->nIteration])
+        {
+            return 0;
+        }
+
+        pData->nRand[0][pData->nIteration] = nNext;
+        pData->nRand[2][pData->nIteration] = nSide;
+    }
+
+    const int nIndex = pData->nIteration;
+    D2DrlgCoordStrc* pLinkCoord = &pData->pLevelCoord[pData->pLink[nIndex].nLevelLink];
+    if (pData->nRand[2][nIndex] == 1)
+    {
+        switch (pData->nRand[0][nIndex])
+        {
+        case 0:
+            pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nPosX;
+            pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nHeight + pLinkCoord->nPosY;
+            break;
+        case 1:
+            pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nPosX - pData->pLevelCoord[nIndex].nWidth;
+            pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nPosY + 8;
+            break;
+        case 2:
+            pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nWidth - pData->pLevelCoord[nIndex].nWidth + pLinkCoord->nPosX;
+            pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nPosY - pData->pLevelCoord[nIndex].nHeight;
+            break;
+        case 3:
+            pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nWidth + pLinkCoord->nPosX;
+            pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nHeight - pData->pLevelCoord[nIndex].nHeight + pLinkCoord->nPosY - 8;
+            break;
+        }
+    }
+    else
+    {
+        switch (pData->nRand[0][nIndex])
+        {
+        case 0:
+            pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nWidth - pData->pLevelCoord[nIndex].nWidth + pLinkCoord->nPosX;
+            pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nHeight + pLinkCoord->nPosY;
+            break;
+        case 1:
+            pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nPosX - pData->pLevelCoord[nIndex].nWidth;
+            pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nHeight - pData->pLevelCoord[nIndex].nHeight + pLinkCoord->nPosY - 8;
+            break;
+        case 2:
+            pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nPosX;
+            pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nPosY - pData->pLevelCoord[nIndex].nHeight;
+            break;
+        case 3:
+            pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nWidth + pLinkCoord->nPosX;
+            pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nPosY + 8;
+            break;
+        }
+    }
+
+    return 1;
+}
+
+static inline void DRLGOUTPLACE_PlaceCoordSide1(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4)
+{
+    switch (nDirection)
+    {
+    case 0:
+        pCoord->nPosX = pLinkCoord->nPosX;
+        pCoord->nPosY = pLinkCoord->nHeight + pLinkCoord->nPosY;
+        if (a4 == 1)
+        {
+            pCoord->nPosX -= 16;
+        }
+        break;
+    case 1:
+        pCoord->nPosX = pLinkCoord->nPosX - pCoord->nWidth;
+        pCoord->nPosY = pLinkCoord->nPosY;
+        if (a4 == 1)
+        {
+            pCoord->nPosY -= 16;
+        }
+        break;
+    case 2:
+        pCoord->nPosX = pLinkCoord->nWidth - pCoord->nWidth + pLinkCoord->nPosX;
+        pCoord->nPosY = pLinkCoord->nPosY - pCoord->nHeight;
+        if (a4 == 1)
+        {
+            pCoord->nPosX += 16;
+        }
+        break;
+    case 3:
+        pCoord->nPosX = pLinkCoord->nWidth + pLinkCoord->nPosX;
+        pCoord->nPosY = pLinkCoord->nHeight - pCoord->nHeight + pLinkCoord->nPosY;
+        if (a4 == 1)
+        {
+            pCoord->nPosY += 16;
+        }
+        break;
+    }
+}
+
+static inline void DRLGOUTPLACE_PlaceCoordSide0(D2DrlgCoordStrc* pLinkCoord, D2DrlgCoordStrc* pCoord, int nDirection, int a4)
+{
+    switch (nDirection)
+    {
+    case 0:
+        pCoord->nPosX = pLinkCoord->nWidth - pCoord->nWidth + pLinkCoord->nPosX;
+        pCoord->nPosY = pLinkCoord->nHeight + pLinkCoord->nPosY;
+        if (a4 == 1)
+        {
+            pCoord->nPosX += 16;
+        }
+        break;
+    case 1:
+        pCoord->nPosX = pLinkCoord->nPosX - pCoord->nWidth;
+        pCoord->nPosY = pLinkCoord->nHeight - pCoord->nHeight + pLinkCoord->nPosY;
+        if (a4 == 1)
+        {
+            pCoord->nPosY += 16;
+        }
+        break;
+    case 2:
+        pCoord->nPosX = pLinkCoord->nPosX;
+        pCoord->nPosY = pLinkCoord->nPosY - pCoord->nHeight;
+        if (a4 == 1)
+        {
+            pCoord->nPosX -= 16;
+        }
+        break;
+    case 3:
+        pCoord->nPosX = pLinkCoord->nWidth + pLinkCoord->nPosX;
+        pCoord->nPosY = pLinkCoord->nPosY;
+        if (a4 == 1)
+        {
+            pCoord->nPosY -= 16;
+        }
+        break;
+    }
+}
+
+// 0x00676650
+int __fastcall sub_00676650_LinkStepDirectionSideSized(D2DrlgLevelLinkDataStrc* pData)
+{
+    if (pData->nRand[1][pData->nIteration] == -1)
+    {
+        pData->nRand[1][pData->nIteration] = SEED_RollRandomNumber(&pData->pSeed) & 3;
+        pData->nRand[0][pData->nIteration] = pData->nRand[1][pData->nIteration];
+        pData->nRand[3][pData->nIteration] = SEED_RollRandomNumber(&pData->pSeed) & 1;
+        pData->nRand[2][pData->nIteration] = pData->nRand[3][pData->nIteration];
+    }
+    else
+    {
+        const int nNext = (pData->nRand[0][pData->nIteration] + pData->nRand[2][pData->nIteration]) % 4;
+        const int nSide = (pData->nRand[2][pData->nIteration] + 1) % 2;
+        if (nNext == pData->nRand[1][pData->nIteration] && nSide == pData->nRand[3][pData->nIteration])
+        {
+            return 0;
+        }
+
+        pData->nRand[0][pData->nIteration] = nNext;
+        pData->nRand[2][pData->nIteration] = nSide;
+    }
+
+    pData->pLevelCoord[pData->nIteration].nWidth = (pData->nRand[0][pData->nIteration] % 2) ? 96 : 56;
+    pData->pLevelCoord[pData->nIteration].nHeight = (pData->nRand[0][pData->nIteration] % 2) ? 56 : 96;
+
+    const int nIndex = pData->nIteration;
+    D2DrlgCoordStrc* pLinkCoord = &pData->pLevelCoord[pData->pLink[nIndex].nLevelLink];
+    if (pData->nRand[2][nIndex] == 1)
+    {
+        DRLGOUTPLACE_PlaceCoordSide1(pLinkCoord, &pData->pLevelCoord[nIndex], pData->nRand[0][nIndex], 1);
+    }
+    else
+    {
+        DRLGOUTPLACE_PlaceCoordSide0(pLinkCoord, &pData->pLevelCoord[nIndex], pData->nRand[0][nIndex], 1);
+    }
+
+    return 1;
+}
+
+// 0x006768C0
+int __fastcall sub_006768C0_PlaceLevel(D2DrlgLevelLinkDataStrc* pData)
+{
+    pData->nRand[1][pData->nIteration] = 0;
+    pData->nRand[0][pData->nIteration] = pData->nRand[1][pData->nIteration];
+    const int nIndex = pData->nIteration;
+    const int nDirection = pData->nRand[0][nIndex];
+    D2DrlgCoordStrc* pLinkCoord = &pData->pLevelCoord[pData->pLink[nIndex].nLevelLink];
+    switch (nDirection)
+    {
+    case 0:
+        pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nPosX;
+        pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nHeight + pLinkCoord->nPosY;
+        break;
+    case 1:
+        pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nPosX - pData->pLevelCoord[nIndex].nWidth;
+        pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nPosY;
+        break;
+    case 2:
+        pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nWidth - pData->pLevelCoord[nIndex].nWidth + pLinkCoord->nPosX;
+        pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nPosY - pData->pLevelCoord[nIndex].nHeight;
+        break;
+    case 3:
+        pData->pLevelCoord[nIndex].nPosX = pLinkCoord->nWidth + pLinkCoord->nPosX;
+        pData->pLevelCoord[nIndex].nPosY = pLinkCoord->nHeight - pData->pLevelCoord[nIndex].nHeight + pLinkCoord->nPosY;
+        break;
+    }
+    return 1;
+}
+
+static inline void sub_6FD81430(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
+{
+	switch (a3)
+	{
+	case 0:
+		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX;
+		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY + pDrlgCoord1->nHeight;
+
+		if (a4 == 1)
+		{
+			pDrlgCoord2->nPosX -= 16;
+		}
+		break;
+
+	case 1:
+		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX - pDrlgCoord2->nWidth;
+		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY;
+
+		if (a4 == 1)
+		{
+			pDrlgCoord2->nPosY -= 16;
+		}
+		else if (a4 == 2)
+		{
+			pDrlgCoord2->nPosY += 8;
+		}
+		break;
+
+	case 2:
+		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX + pDrlgCoord1->nWidth - pDrlgCoord2->nWidth;
+		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY - pDrlgCoord2->nHeight;
+
+		if (a4 == 1)
+		{
+			pDrlgCoord2->nPosX += 16;
+		}
+		break;
+
+	case 3:
+		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX + pDrlgCoord1->nWidth;
+		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY + pDrlgCoord1->nHeight - pDrlgCoord2->nHeight;
+
+		switch (a4)
+		{
+		case 1:
+			pDrlgCoord2->nPosY += 16;
+			break;
+
+		case 2:
+			pDrlgCoord2->nPosY -= 8;
+			break;
+
+		case 3:
+			pDrlgCoord2->nPosY += 8;
+			break;
+		default:
+			break;
+		}
+		break;
+
+	default:
+		return;
+	}
+}
+
+static inline void sub_6FD81850(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int a3, int a4)
+{
+	switch (a3)
+	{
+	case 0:
+		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX + pDrlgCoord1->nWidth - pDrlgCoord2->nWidth;
+		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY + pDrlgCoord1->nHeight;
+
+		if (a4 == 1)
+		{
+			pDrlgCoord2->nPosX += 16;
+		}
+		break;
+
+	case 1:
+		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX - pDrlgCoord2->nWidth;
+		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY + pDrlgCoord1->nHeight - pDrlgCoord2->nHeight;
+
+		if (a4 == 1)
+		{
+			pDrlgCoord2->nPosY += 16;
+		}
+		else if (a4 == 2)
+		{
+			pDrlgCoord2->nPosY -= 8;
+		}
+		break;
+
+	case 2:
+		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX;
+		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY - pDrlgCoord2->nHeight;
+
+		if (a4 == 1)
+		{
+			pDrlgCoord2->nPosX -= 16;
+		}
+		break;
+
+	case 3:
+		pDrlgCoord2->nPosX = pDrlgCoord1->nPosX + pDrlgCoord1->nWidth;
+		pDrlgCoord2->nPosY = pDrlgCoord1->nPosY;
+
+		switch (a4)
+		{
+		case 1:
+			pDrlgCoord2->nPosY -= 16;
+			break;
+
+		case 2:
+			pDrlgCoord2->nPosY += 8;
+			break;
+
+		case 3:
+			pDrlgCoord2->nPosY -= 8;
+			break;
+		default:
+			break;
+		}
+		break;
+
+	default:
+		return;
+	}
+}
+
+// 0x006769A0
+int __fastcall sub_6FD81B30(D2DrlgLevelLinkDataStrc* pLevelLinkData)
+{
+    int nRand = 0;
+
+    if (pLevelLinkData->nRand[1][pLevelLinkData->nIteration] == -1)
+    {
+        pLevelLinkData->nRand[1][pLevelLinkData->nIteration] = (SEED_RollRandomNumber(&pLevelLinkData->pSeed) & 1) + 1;
+        pLevelLinkData->nRand[0][pLevelLinkData->nIteration] = pLevelLinkData->nRand[1][pLevelLinkData->nIteration];
+    }
+    else
+    {
+        nRand = pLevelLinkData->nRand[0][pLevelLinkData->nIteration] != 1 ? 1 : 2;
+
+        if (nRand == pLevelLinkData->nRand[1][pLevelLinkData->nIteration])
+        {
+            return 0;
+        }
+
+        pLevelLinkData->nRand[0][pLevelLinkData->nIteration] = nRand;
+    }
+
+    D2DrlgCoordStrc* pDrlgCoord1 = &pLevelLinkData->pLevelCoord[pLevelLinkData->pLink[pLevelLinkData->nIteration].nLevelLink];
+    D2DrlgCoordStrc* pDrlgCoord2 = &pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration];
+    const int nDirection = pLevelLinkData->nRand[0][pLevelLinkData->nIteration];
+    if (nDirection == 1)
+    {
+        sub_6FD81430(pDrlgCoord1, pDrlgCoord2, 1, 0);
+    }
+    else
+    {
+        sub_6FD81850(pDrlgCoord1, pDrlgCoord2, nDirection, 0);
+    }
+
+    return 1;
+}
+
 // 0x00676AE0
-int __fastcall sub_6FD81BF0(D2DrlgLevelLinkDataStrc* pLevelLinkData)
+int __fastcall DRLGOUTPLACE_TryNextCenteredSide(D2DrlgLevelLinkDataStrc* pLevelLinkData)
 {
     int nRand = 0;
 
@@ -490,7 +916,7 @@ static inline void DRLGOUTPLACE_PlaceCoord(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgC
 }
 
 // 0x00676150
-int __fastcall sub_00676150_LinkStepDirection(D2DrlgLevelLinkDataStrc* pLevelLinkData)
+int __fastcall DRLGOUTPLACE_TryNextSideOffset(D2DrlgLevelLinkDataStrc* pLevelLinkData)
 {
     if (pLevelLinkData->nRand[1][pLevelLinkData->nIteration] == -1)
     {
@@ -514,7 +940,7 @@ int __fastcall sub_00676150_LinkStepDirection(D2DrlgLevelLinkDataStrc* pLevelLin
 }
 
 // 0x00676280
-int __fastcall sub_00676280_PlaceLevelLinkSide(D2DrlgLevelLinkDataStrc* pLevelLinkData)
+int __fastcall DRLGOUTPLACE_TryNextCenteredSideOffset(D2DrlgLevelLinkDataStrc* pLevelLinkData)
 {
     int nRand = 0;
 
@@ -543,7 +969,7 @@ int __fastcall sub_00676280_PlaceLevelLinkSide(D2DrlgLevelLinkDataStrc* pLevelLi
 static int gnDrlgLinkFlags_0096D66C; // 0x0096D66C
 
 // 0x00676C00
-int __fastcall sub_00676C00_PlaceLevelNextTo(D2DrlgLevelLinkDataStrc* pLevelLinkData)
+int __fastcall DRLGOUTPLACE_PlaceLevelNextTo(D2DrlgLevelLinkDataStrc* pLevelLinkData)
 {
     pLevelLinkData->nRand[1][pLevelLinkData->nIteration] = 3;
     pLevelLinkData->nRand[0][pLevelLinkData->nIteration] = pLevelLinkData->nRand[1][pLevelLinkData->nIteration];
@@ -607,7 +1033,7 @@ extern D2DrlgLinkStrc gAct1WildernessDrlgLink[15];                              
 extern const int gnAct1WildernessLinkTable[];                                                               // 0x006F1158
 
 // 0x00676DD0
-int __fastcall sub_00676DD0_LinkAct1Wilderness(D2DrlgLevelLinkDataStrc* pLevelLinkData, int nIteration)
+int __fastcall DRLGOUTPLACE_LinkAct1Wilderness(D2DrlgLevelLinkDataStrc* pLevelLinkData, int nIteration)
 {
     int nCounter = 0;
     int nLevelLink = gAct1WildernessDrlgLink[nIteration].nLevelLink;
@@ -642,7 +1068,7 @@ int __fastcall sub_00676DD0_LinkAct1Wilderness(D2DrlgLevelLinkDataStrc* pLevelLi
 }
 
 // 0x00676EB0
-int __fastcall sub_6FD82130(D2DrlgLevelLinkDataStrc* pLevelLinkData, int nIteration)
+int __fastcall DRLGOUTPLACE_LinkAct1Monastery(D2DrlgLevelLinkDataStrc* pLevelLinkData, int nIteration)
 {
     const int nLevelLink = gAct1MonasteryDrlgLink[nIteration].nLevelLink;
     int nCounter = 0;
@@ -756,7 +1182,7 @@ int __fastcall DRLGOUTPLACE_LinkAct4ChaosSanctum(D2DrlgLevelLinkDataStrc* pLevel
 }
 
 // 0x00677180
-void __fastcall sub_00677180_SetAct1OutdoorFlags(D2DrlgLevelStrc* pLevel, int nIteration, int* pRand)
+void __fastcall DRLGOUTPLACE_SetAct1OutdoorFlags(D2DrlgLevelStrc* pLevel, int nIteration, int* pRand)
 {
     if (pLevel->nDrlgType == DRLGTYPE_OUTDOOR)
     {
@@ -822,14 +1248,14 @@ int* __fastcall DRLGWARP_GetWarpIdArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevel
 int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId);                           // 0x0066C040
 void __fastcall DRLGROOM_AddOrth(D2DrlgOrthStrc** ppDrlgOrth, D2DrlgLevelStrc* pLevel, int nDirection, int bIsPreset);
 
-int __fastcall sub_00676DD0_LinkAct1Wilderness(D2DrlgLevelLinkDataStrc* pLevelLinkData, int nIteration);    // 0x00676DD0
-int __fastcall sub_6FD82130(D2DrlgLevelLinkDataStrc* pLevelLinkData, int nIteration);                       // 0x00676EB0
+int __fastcall DRLGOUTPLACE_LinkAct1Wilderness(D2DrlgLevelLinkDataStrc* pLevelLinkData, int nIteration);    // 0x00676DD0
+int __fastcall DRLGOUTPLACE_LinkAct1Monastery(D2DrlgLevelLinkDataStrc* pLevelLinkData, int nIteration);                       // 0x00676EB0
 int __fastcall DRLGOUTPLACE_LinkAct2Outdoors(D2DrlgLevelLinkDataStrc* pLevelLinkData, int nIteration);      // 0x00676F50
 int __fastcall DRLGOUTPLACE_LinkAct2Canyon(D2DrlgLevelLinkDataStrc* pLevelLinkData, int nIteration);        // 0x00676FC0
 int __fastcall DRLGOUTPLACE_LinkAct5Ubers(D2DrlgLevelLinkDataStrc* pLevelLinkData, int nIteration);         // 0x00677030
 int __fastcall DRLGOUTPLACE_LinkAct4Outdoors(D2DrlgLevelLinkDataStrc* pLevelLinkData, int nIteration);      // 0x006770A0
 int __fastcall DRLGOUTPLACE_LinkAct4ChaosSanctum(D2DrlgLevelLinkDataStrc* pLevelLinkData, int nIteration);  // 0x00677110
-void __fastcall sub_00677180_SetAct1OutdoorFlags(D2DrlgLevelStrc* pLevel, int nIteration, int* pRand);      // 0x00677180
+void __fastcall DRLGOUTPLACE_SetAct1OutdoorFlags(D2DrlgLevelStrc* pLevel, int nIteration, int* pRand);      // 0x00677180
 
 extern D2DrlgLinkStrc gAct1WildernessDrlgLink[15];                                                          // 0x006F0750
 extern D2DrlgLinkStrc gAct1MonasteryDrlgLink[15];                                                           // 0x006F0840
@@ -1016,13 +1442,13 @@ static void __stdcall DRLGOUTPLACE_SetOverlapWarps(int nStartId, int nEndId, D2D
     }
 }
 
-void sub_00677640_AddOrthToLevel(D2DrlgLevelStrc* pLevel, int nLevelId); // 0x00677640
+void DRLGOUTPLACE_AddOrthToLevel(D2DrlgLevelStrc* pLevel, int nLevelId); // 0x00677640
 
 
 struct D2ActiveRoomStrc;
 
 // 0x00677640
-static inline void sub_00677640_AddOrthToLevel(D2DrlgLevelStrc* pLevel, int nLevelId)
+static inline void DRLGOUTPLACE_AddOrthToLevel(D2DrlgLevelStrc* pLevel, int nLevelId)
 {
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
     D2DrlgLevelStrc* pWarpLevel = DRLG_GetLevel(pLevel->pDrlg, nLevelId);
@@ -1031,7 +1457,7 @@ static inline void sub_00677640_AddOrthToLevel(D2DrlgLevelStrc* pLevel, int nLev
 }
 
 // 0x00677680
-static void __stdcall sub_00677680_AddLevelOrths(D2DrlgStrc* pDrlg, int nEndId, int nStartId)
+static void __stdcall DRLGOUTPLACE_AddLevelOrths(D2DrlgStrc* pDrlg, int nEndId, int nStartId)
 {
     for (int i = nStartId; i <= nEndId; ++i)
     {
@@ -1046,7 +1472,7 @@ static void __stdcall sub_00677680_AddLevelOrths(D2DrlgStrc* pDrlg, int nEndId, 
             {
                 if (pVisArray[j] && pWarpIdArray[j] == -1)
                 {
-                    sub_00677640_AddOrthToLevel(pLevel, pVisArray[j]);
+                    DRLGOUTPLACE_AddOrthToLevel(pLevel, pVisArray[j]);
                 }
             }
         }
@@ -1054,23 +1480,23 @@ static void __stdcall sub_00677680_AddLevelOrths(D2DrlgStrc* pDrlg, int nEndId, 
 }
 
 // 0x00677750
-static void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg)
+static void DRLGOUTPLACE_CreateAct1LevelConnections(D2DrlgStrc* pDrlg)
 {
-    DRLGOUTPLACE_InitLevelLinks(gAct1WildernessDrlgLink, sub_00676DD0_LinkAct1Wilderness, sub_00677180_SetAct1OutdoorFlags, pDrlg);
-    DRLGOUTPLACE_InitLevelLinks(gAct1MonasteryDrlgLink, sub_6FD82130, sub_00677180_SetAct1OutdoorFlags, pDrlg);
-    sub_00677680_AddLevelOrths(pDrlg, 0x11, 1);
+    DRLGOUTPLACE_InitLevelLinks(gAct1WildernessDrlgLink, DRLGOUTPLACE_LinkAct1Wilderness, DRLGOUTPLACE_SetAct1OutdoorFlags, pDrlg);
+    DRLGOUTPLACE_InitLevelLinks(gAct1MonasteryDrlgLink, DRLGOUTPLACE_LinkAct1Monastery, DRLGOUTPLACE_SetAct1OutdoorFlags, pDrlg);
+    DRLGOUTPLACE_AddLevelOrths(pDrlg, 0x11, 1);
 }
 
 // 0x00677790
-static void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg)
+static void DRLGOUTPLACE_CreateAct2LevelConnections(D2DrlgStrc* pDrlg)
 {
     DRLGOUTPLACE_InitLevelLinks(gAct2OutdoorDrlgLink, DRLGOUTPLACE_LinkAct2Outdoors, 0, pDrlg);
     DRLGOUTPLACE_InitLevelLinks(gAct2CanyonDrlgLink, DRLGOUTPLACE_LinkAct2Canyon, 0, pDrlg);
-    sub_00677680_AddLevelOrths(pDrlg, 0x2E, 0x28);
+    DRLGOUTPLACE_AddLevelOrths(pDrlg, 0x2E, 0x28);
 }
 
 // 0x006777D0
-static void __stdcall sub_006777D0_OffsetByDirection(const D2PosStrc* pBase, int nDir, int nA, int nB, D2OffsetPosStrc* pOut)
+static void __stdcall DRLGOUTPLACE_OffsetByDirection(const D2PosStrc* pBase, int nDir, int nA, int nB, D2OffsetPosStrc* pOut)
 {
     int nDx = 0;
     int nDy = 0;
@@ -1185,14 +1611,14 @@ static D2DrlgLevelStrc* DRLG_GenerateJungles(D2DrlgLevelStrc* pLevel)
     D2JungleStrc tJungles[3];
     sub_00681EF0_Memset(tJungles, 0, sizeof(tJungles));
 
-    sub_006777D0_OffsetByDirection((const D2PosStrc*)&pLevel->nPosX, 0, nSizeX, nSizeY, &tJungles[0].tCoord);
+    DRLGOUTPLACE_OffsetByDirection((const D2PosStrc*)&pLevel->nPosX, 0, nSizeX, nSizeY, &tJungles[0].tCoord);
 
     int nJ;
     while (nIdx < 3)
     {
         unsigned int nBaseOn;
         SEED_ROLL_LIMITED(&pDrlg->pSeed, nIdx, nBaseOn);
-        sub_006777D0_OffsetByDirection((const D2PosStrc*)&tJungles[nBaseOn].tCoord, SEED_RollLimitedRandomNumber(&pDrlg->pSeed, 5), nSizeX, nSizeY, &tJungles[nIdx].tCoord);
+        DRLGOUTPLACE_OffsetByDirection((const D2PosStrc*)&tJungles[nBaseOn].tCoord, SEED_RollLimitedRandomNumber(&pDrlg->pSeed, 5), nSizeX, nSizeY, &tJungles[nIdx].tCoord);
 
         for (nJ = 0; nJ < nIdx; nJ++)
         {
@@ -1722,7 +2148,7 @@ RESTART:
 }
 
 // 0x00678910
-D2DrlgLevelStrc* __stdcall sub_00678910(D2DrlgLevelStrc* pLevel)
+D2DrlgLevelStrc* __stdcall DRLGOUTPLACE_PlaceKurastLevels(D2DrlgLevelStrc* pLevel)
 {
     D2LevelDefBin* pLevelDef;
     D2DrlgLevelStrc* pAdjacentLevel;
@@ -1761,30 +2187,30 @@ static void DRLGOUTPLACE_CreateAct3LevelConnections(D2DrlgStrc* pDrlg)
     pLevel->nWidth = pDef->dwSizeX[pDrlg->nDifficulty];
     pLevel->nHeight = pDef->dwSizeY[pDrlg->nDifficulty];
     pLevel = DRLG_GenerateJungles(pLevel);
-    sub_00678910(pLevel);
+    DRLGOUTPLACE_PlaceKurastLevels(pLevel);
     DRLGOUTPLACE_SetOverlapWarps(75, 83, pDrlg);
-    sub_00677680_AddLevelOrths(pDrlg, 83, 75);
+    DRLGOUTPLACE_AddLevelOrths(pDrlg, 83, 75);
 }
 
 // 0x00678A20
-static void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg)
+static void DRLGOUTPLACE_CreateAct4LevelConnections(D2DrlgStrc* pDrlg)
 {
     DRLGOUTPLACE_InitLevelLinks(gAct4OutdoorDrlgLink, DRLGOUTPLACE_LinkAct4Outdoors, 0, pDrlg);
     DRLGOUTPLACE_InitLevelLinks(gAct4ChaosSanctumDrlgLink, DRLGOUTPLACE_LinkAct4ChaosSanctum, 0, pDrlg);
 
     DRLG_GetLevel(pDrlg, LEVEL_OUTERSTEPPES)->pOutdoors->dwFlags |= gnDrlgLinkFlags_0096D66C;
 
-    sub_00677680_AddLevelOrths(pDrlg, 0x6A, 0x67);
+    DRLGOUTPLACE_AddLevelOrths(pDrlg, 0x6A, 0x67);
 }
 
 // 0x00678A70
-static void sub_00678A70_CreateAct5LevelConnections(D2DrlgStrc* pDrlg)
+static void DRLGOUTPLACE_CreateAct5LevelConnections(D2DrlgStrc* pDrlg)
 {
     DRLGOUTPLACE_InitLevelLinks(gAct5OutdoorDrlgLink, 0, 0, pDrlg);
     DRLGOUTPLACE_InitLevelLinks(gAct5TundraDrlgLink, 0, 0, pDrlg);
 
     DRLGOUTPLACE_SetOverlapWarps(0x6F, 0x70, pDrlg);
-    sub_00677680_AddLevelOrths(pDrlg, 0x70, 0x6F);
+    DRLGOUTPLACE_AddLevelOrths(pDrlg, 0x70, 0x6F);
 
     DRLGOUTPLACE_SetOverlapWarps(0x6E, 0x6F, pDrlg);
     DRLGOUTPLACE_SetOverlapWarps(0x6D, 0x6E, pDrlg);
@@ -1797,19 +2223,19 @@ void __fastcall DRLGOUTPLACE_CreateLevelConnections(D2DrlgStrc* pDrlg, unsigned 
     switch (nAct)
     {
     case 0:
-        sub_00677750_CreateAct1LevelConnections(pDrlg);
+        DRLGOUTPLACE_CreateAct1LevelConnections(pDrlg);
         break;
     case 1:
-        sub_00677790_CreateAct2LevelConnections(pDrlg);
+        DRLGOUTPLACE_CreateAct2LevelConnections(pDrlg);
         break;
     case 2:
         DRLGOUTPLACE_CreateAct3LevelConnections(pDrlg);
         break;
     case 3:
-        sub_00678A20_CreateAct4LevelConnections(pDrlg);
+        DRLGOUTPLACE_CreateAct4LevelConnections(pDrlg);
         break;
     case 4:
-        sub_00678A70_CreateAct5LevelConnections(pDrlg);
+        DRLGOUTPLACE_CreateAct5LevelConnections(pDrlg);
         break;
     }
 }

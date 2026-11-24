@@ -9,6 +9,7 @@
 #include "D2PlayerModes.h"
 #include "D2MonModes.h"
 #include "D2Path.h"
+#include "D2UnitEventArgs.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -67,7 +68,7 @@ void __stdcall UNITS_StoreOwnerTypeAndGUID(D2UnitStrc* pUnit, int nOwnerType, in
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall VIEW_StartTimedBox(int nFadeIn, int nHold, int nFadeOut, int nLevelId, int bForce); // 0x0046AE50
-int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
+int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
@@ -155,16 +156,6 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x00648820
 
-struct D2UnitEventArgsStrc
-{
-    int nX;
-    int nY;
-    int nArg2;
-    int nArg3;
-    int nArg4;
-    int nArg5;
-    int nArg6;
-};
 
 int __fastcall sub_00480C10_DispatchUnitEvent(int nEvent, D2UnitStrc* pUnit, D2UnitEventArgsStrc* pArgs, int nArg); // 0x00480C10
 
@@ -311,7 +302,7 @@ void __fastcall PLRSKILLS_StateSkillLevel(D2UnitStrc* pUnit, int nState)
         return;
     }
 
-    int nMax = sub_004AA8B0_GetSkillMaxLevel(nSkillId);
+    int nMax = SPELLSEL_GetSkillMaxLevel(nSkillId);
     if (nLevel > nMax)
     {
         SKILLS_AssignSkill(pUnit, nSkillId, nMax, 0, ".\\UNIT\\PlrSkills.cpp", 0x11B);

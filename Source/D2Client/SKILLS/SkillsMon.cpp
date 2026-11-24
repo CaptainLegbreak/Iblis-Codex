@@ -91,7 +91,7 @@ D2UnitStrc* __fastcall SKILLDESC_CltDoRandomMissile(D2UnitStrc* pUnit, int nSkil
 
 void __fastcall SKILLDESC_DrawSkillWeaponLine(D2UnitStrc* pUnit, void* pArg, D2SkillsTxt* pSkillsTxtRecord, int nArg3, int nArg4, int nArg5, int nArg6); // 0x004EA010
 
-void __fastcall sub_004F2440_OnStateRemove(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);       // 0x004F2440
+void __fastcall SKILLDESC_ToggleStateOff(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);       // 0x004F2440
 
 int __fastcall SKILLDESC_CreateCorpseExplosionMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nParam1, int nParam2, int nParam3); // 0x004F3A60
 
@@ -1068,7 +1068,7 @@ int __fastcall SKILLSMON_StartStateList(D2UnitStrc* pUnit, int nSkillId, int nAr
 
         SKILLS_SetParam1(pSkill, 0);
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
-        STATLIST_SetStatRemoveCallback(pStatList, sub_004F2440_OnStateRemove);
+        STATLIST_SetStatRemoveCallback(pStatList, SKILLDESC_ToggleStateOff);
         STATLIST_SetState(pStatList, STATE_INFERNO);
         STATES_ToggleState(pUnit, 0xC, 1);
         return 1;

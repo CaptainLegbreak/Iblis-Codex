@@ -156,7 +156,7 @@ D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc*,int,int); // 0x006439B0
 
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc*,D2SkillStrc*,int); // 0x006442A0
 
-int __fastcall sub_004AA8B0_GetSkillMaxLevel(int); // 0x004AA8B0
+int __fastcall SPELLSEL_GetSkillMaxLevel(int); // 0x004AA8B0
 
 void __fastcall sub_004521C0_SetTextColor(Unicode*,int); // 0x004521C0
 
@@ -1925,7 +1925,7 @@ void __fastcall SKILLDESC_ShowSkillPopup(D2UnitStrc* pUnit, int nSkillId, int nS
     sub_005267E0(wszText,D2LANG_GetStringFromTblIndex(0x109C));
     D2SkillStrc* pSkill=SKILLS_GetSkillById(pUnit,nSkillId,-1);
     int bMaxed;
-    if(pSkill && SKILLS_GetSkillLevel(pUnit,pSkill,0)>=sub_004AA8B0_GetSkillMaxLevel(nSkillId))bMaxed=1;
+    if(pSkill && SKILLS_GetSkillLevel(pUnit,pSkill,0)>=SPELLSEL_GetSkillMaxLevel(nSkillId))bMaxed=1;
     else bMaxed=0;
     int bFound=0;
     for(int i=16;i>=10;--i)

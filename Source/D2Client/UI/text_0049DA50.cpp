@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2ClientUi.h"
 #include "D2Unicode.h"
+#include "D2TextIdEntry.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -47,11 +48,6 @@ struct D2HoverClearPacketStrc
 
 #pragma pack(pop)
 
-struct D2TextIdEntryStrc
-{
-    unsigned short wId;
-    unsigned short wStringId;
-};
 
 class ListBoxWrapper
 {
@@ -135,10 +131,6 @@ void* gpTextCallbackContext; // 0x007BF25C
 
 struct T00479230;
 
-#pragma pack(push, 1)
-
-
-#pragma pack(pop)
 
 extern T00479230* gpTextBox;                                                                   // 0x007BF0A4
 

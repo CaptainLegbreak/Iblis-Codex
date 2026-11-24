@@ -17,6 +17,7 @@
 #include "D2ClientSound.h"
 #include "D2Path.h"
 #include "D2Txt.h"
+#include "D2QuestLookupEntry.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -197,7 +198,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 int __cdecl HIREABLES_GetHelpMenuSetting(); // 0x004942D0
 
-void __cdecl sub_00495030_DrawKeyHelp(); // 0x00495030
+void __cdecl HIREABLES_DrawKeyHelp(); // 0x00495030
 
 extern void* gpGlobal_00798FB4; // 0x00798FB4
 
@@ -445,18 +446,7 @@ int __fastcall SEED_GetRandomValue(int nValue); // 0x00650DE0
 
 void __stdcall VIEW_ResetStar(int nStar, int bRespawn); // 0x00476190
 
-struct D2QuestLookupEntryStrc
-{
-    int nKey;
-    int nValue;
-    int unk0x08;
-    int unk0x0C;
-};
 
-#pragma pack(push, 1)
-
-
-#pragma pack(pop)
 
 extern D2QuestLookupEntryStrc gaQuestLookup_00723F38[0x29]; // 0x00723F38
 

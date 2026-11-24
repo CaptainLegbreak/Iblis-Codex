@@ -388,7 +388,7 @@ void __cdecl VIEW_FreeLerpTables(); // 0x00475EF0
 
 void __fastcall sub_00477CA0_SendPacket67(const char*,int); // 0x00477CA0
 
-void __fastcall sub_00477F70_SendGameLogon(int,int); // 0x00477F70
+void __fastcall INV_SendGameLogon(int,int); // 0x00477F70
 
 int __cdecl DLIGHTMAP_GetClientFlags(); // 0x0047A990
 
@@ -754,7 +754,8 @@ int __stdcall GAME_DrawEndGameScreen(int nUnused)
             memset(&tContext, 0, sizeof(tContext));
             tContext.pCellFile = s_pEndGameCell;
             tContext.nDirection = 0;
-            sub_004FB0D0();
+// build: symbol ?D2Win_10179_UpdatePaletteFlash@* 0x004FB0D0
+            D2Win_10179_UpdatePaletteFlash();
             if (!gbExpansion)
             {
                 tContext.nFrame = 0;
@@ -874,7 +875,7 @@ int __cdecl GAME_RunGameSession()
     }
     else
     {
-        sub_00477F70_SendGameLogon(gnServerToken_007A0520,gnServerHash_007A05C0);
+        INV_SendGameLogon(gnServerToken_007A0520,gnServerHash_007A05C0);
         if(gnMode_007A0610==2 || gnMode_007A0610==3)WARDENCLIENT_InitWarden(gnServerHash_007A05C0);
     }
     SOUNDHDR_UpdateSoundSystem(gpClientConfig->bSoundBackground);

@@ -164,7 +164,7 @@ void __cdecl SELECT_UpdateHoverUnit(); // 0x00467AC0
 
 void __cdecl sub_00477DD0(); // 0x00477DD0
 
-int __cdecl sub_0047BDF0_HandleBnetChatMessage(); // 0x0047BDF0
+int __cdecl CHAT_HandleBnetChatMessage(); // 0x0047BDF0
 
 void __fastcall WARDENCLIENT_TickModule(int nDelta); // 0x00480320
 
@@ -451,7 +451,8 @@ void __stdcall GAME_HandleActivateApp(SMSGHANDLER_PARAMS* pMessage)
         UI_SetUIVar(0xD, 1, 0);
         gbStandStillHeld = 0;
         SELECT_ClearSelection();
-        sub_004FB130_SetActiveState(0);
+// build: symbol ?D2Win_10176_StartPaletteFlash@* 0x004FB130
+        D2Win_10176_StartPaletteFlash(0);
         pMessage->bReturn = 0;
         return;
     }
@@ -524,7 +525,8 @@ void __fastcall GAME_DrawGameView(int bNoCursor)
     if (!D2GFX_StartDraw(GetRoomBlankScreen(CUNIT_GetPlayerRoom()), 0, 0, 0))
         return;
 
-    sub_004FB0D0();
+// build: symbol ?D2Win_10179_UpdatePaletteFlash@* 0x004FB0D0
+    D2Win_10179_UpdatePaletteFlash();
     AUTOMAP_UpdateAutomapOrigin();
     if (sub_0045AE90() != 3)
         VIEW_PrepareSceneLighting(gpClientView);
@@ -1302,7 +1304,7 @@ int __stdcall GAME_RunGameFrame(int nUnused)
     }
 
     WINMAIN_DrainPacketQueues();
-    sub_0047BDF0_HandleBnetChatMessage();
+    CHAT_HandleBnetChatMessage();
     WINMAIN_PollMcpConnection();
     GAME_CheckConnectionTimeouts();
 

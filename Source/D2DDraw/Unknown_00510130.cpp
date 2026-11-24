@@ -1,10 +1,17 @@
-#include "D2Win.h"
+#include "D2DDraw.h"
 
 #include "D2GfxTypes.h"
 
 #include "D2GlideTypes.h"
 
 #include "D2Win32Types.h"
+
+extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
+extern "C" __declspec(dllimport) long __stdcall DispatchMessageA(const tagMSG* pMsg); // 0x006CC478
+int __cdecl FOG_UseDirect(); // 0x00406D20
+extern "C" __declspec(dllimport) int __stdcall PeekMessageA(tagMSG* pMsg, void* hWnd, unsigned int uMsgFilterMin, unsigned int uMsgFilterMax, unsigned int wRemoveMsg); // 0x006CC480
+extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
+extern "C" __declspec(dllimport) int __stdcall TranslateMessage(const tagMSG* pMsg); // 0x006CC47C
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -70,80 +77,6 @@ extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 
 extern tagPALETTEENTRY gaDDrawSavedPalette[256]; // 0x00880D40
 
-// 0x0050F910
-static void sub_0050F910_DecodeTileRuns(const unsigned char* pData, unsigned char* pDst)
-{
-    int nRows = 0x20;
-    unsigned char* pRow = pDst;
-    unsigned char* p = pDst;
-    const unsigned char* pSrc = pData;
-    memset(pDst, 0, 0x400);
-
-    do
-    {
-        const unsigned char nGap = *pSrc++;
-        unsigned char nCount = *pSrc++;
-        if (!nGap && !nCount)
-        {
-            --nRows;
-            pRow += 0x20;
-            p = pRow;
-        }
-        else
-        {
-            p += nGap;
-            while (nCount--)
-            {
-                *p++ = *pSrc++;
-            }
-        }
-    }
-    while (nRows);
-}
-
-D2GlideTileCacheStrc gtGlideTileCache; // 0x0087EB48
-
-int gnGlideTileTmu; // 0x00880BF8
-
-// 0x0050FBD0
-void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile)
-{
-    D2_ASSERT(pTile->nCacheIndex >= 0, 0x105);
-
-    int nTexAddress;
-    if (pTile->nCacheIndex == 0)
-    {
-        sub_0050F910_DecodeTileRuns(pTile->pData, gpGlideTileDecodeBuffer);
-        pTile->nCacheIndex = GLSUBTILECACHE_TileCacheAdd(&gtGlideTileCache);
-        const int nEntry = pTile->nCacheIndex - 1;
-        D2_ASSERT(nEntry >= 0, 0x112);
-        D2_ASSERT(nEntry < gtGlideTileCache.nCount, 0x113);
-        gtGlideTileCache.pEntries[pTile->nCacheIndex - 1].pTile = pTile;
-        nTexAddress = gtGlideTileCache.pEntries[pTile->nCacheIndex - 1].nAddress;
-// build: symbol ?gpfnGrTexDownloadMipMap@* 0x0087EAB8
-        gpfnGrTexDownloadMipMap(gnGlideTileTmu, nTexAddress, 3, &gtGlideTileTexInfo);
-    }
-    else
-    {
-        GLSUBTILECACHE_TileCacheTouch(&gtGlideTileCache, pTile->nCacheIndex);
-        nTexAddress = gtGlideTileCache.pEntries[pTile->nCacheIndex - 1].nAddress;
-    }
-
-// build: symbol ?gpfnGrTexSource@* 0x0087EB98
-    gpfnGrTexSource(gnGlideTileTmu, nTexAddress, 3, &gtGlideTileTexInfo);
-    GLCORE_SetTextureCombineMode(gnGlideTileTmu);
-}
-
-#include "gen/data/Source/D2Win/Unknown_0050F910.inc"
-
-unsigned int gnGlideBinkX; // 0x00880C08
-
-D2BinkStrc* gpGlideBink; // 0x00880C0C
-
-int gbGlideBinkDone; // 0x00880C18
-
-unsigned long gdwGlideBinkAbortTick; // 0x00880C1C
-
 unsigned int gnDDrawBinkX; // 0x008816BC
 
 D2BinkStrc* gpDDrawBink; // 0x008816C0
@@ -153,132 +86,6 @@ int gbDDrawBinkDone; // 0x008816CC
 int gbDDrawBinkQuit; // 0x008816D0
 
 unsigned long gdwDDrawBinkAbortTick; // 0x008816D4
-
-// 0x0050FDF0
-void __fastcall sub_0050FDF0_GlidePlayVideoFile(const char* szFile, int nMode, void (__cdecl* pfCallback)())
-{
-    int bAbort = 0;
-    gbGlideBinkDone = 0;
-    if (gpGlideBink)
-    {
-        return;
-    }
-// build: symbol ?gbRenderPaused@* 0x007C9144
-    if (gbRenderPaused)
-    {
-        return;
-    }
-
-    gnGlideBinkFlags = 2;
-    BinkSetSoundSystem(BinkOpenDirectSound, 0);
-    int nScope = 4;
-// build: symbol ?FOG_UseDirect@* 0x00406D20
-    if (FOG_UseDirect())
-    {
-        nScope = 5;
-    }
-
-    void* hFile;
-    SFileOpenFileEx(0, szFile, nScope, &hFile);
-    if (!hFile)
-    {
-        goto LABEL_FAIL;
-    }
-
-    unsigned int nFlags;
-    nFlags = 0x800000;
-    switch (nMode)
-    {
-    case 1:
-        nFlags = 0x30800000;
-        break;
-    case 2:
-        nFlags = 0x10800000;
-        break;
-    case 3:
-        nFlags = 0x40800000;
-        break;
-    }
-    gpGlideBink = BinkOpen(hFile, nFlags);
-    if (!gpGlideBink)
-    {
-        CloseHandle(hFile);
-LABEL_FAIL:
-        if (gpGlideBink)
-        {
-            BinkClose(gpGlideBink);
-            gpGlideBink = 0;
-        }
-        return;
-    }
-
-// build: symbol ?gnRenderWidth@* 0x007C9138
-    gnGlideBinkX = (gnRenderWidth - gpGlideBink->nWidth) >> 1;
-    if (gnGlideBinkX & 3)
-    {
-        gnGlideBinkX = (gnGlideBinkX | 3) + 1;
-    }
-    gnGlideBinkY = (gnRenderHeight - gpGlideBink->nHeight) >> 1;
-    {
-        const unsigned long dwEnd = GetTickCount() + 500;
-        for (;;)
-        {
-            if (gbGlideBinkDone && GetTickCount() >= dwEnd)
-            {
-                break;
-            }
-            if (gbRenderPaused)
-            {
-                break;
-            }
-            if (pfCallback)
-            {
-                pfCallback();
-            }
-            if (bAbort)
-            {
-                break;
-            }
-
-            tagMSG tMsg;
-            if (PeekMessageA(&tMsg, 0, 0, 0, 1))
-            {
-                switch (tMsg.message)
-                {
-                case 0x12:
-                    gbGlideBinkDone = 1;
-                    break;
-                case 0x102:
-                case 0x201:
-                case 0x204:
-                case 0x207:
-                    bAbort = 1;
-                    gdwGlideBinkAbortTick = GetTickCount();
-                    break;
-                }
-                TranslateMessage(&tMsg);
-                DispatchMessageA(&tMsg);
-            }
-            else if (!BinkWait(gpGlideBink))
-            {
-                GLIDE_DrawVideoFrame();
-            }
-            else
-            {
-                Sleep(1);
-            }
-        }
-    }
-
-    if (gpGlideBink)
-    {
-        D2SOUNDSMP_SetMasterVolume(0);
-        BinkClose(gpGlideBink);
-        CloseHandle(hFile);
-        D2SOUNDSMP_SetMasterVolume(0xFF);
-        gpGlideBink = 0;
-    }
-}
 
 extern int gdwGlobal_0088126C; // 0x0088126C
 

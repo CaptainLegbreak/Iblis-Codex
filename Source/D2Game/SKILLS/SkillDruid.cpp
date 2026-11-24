@@ -16,6 +16,8 @@
 #include "D2GameRecords.h"
 #include "D2LevelTxt.h"
 #include "D2MonModes.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x007419A4
 
 #define STATEMASK_REMHIT 6
 

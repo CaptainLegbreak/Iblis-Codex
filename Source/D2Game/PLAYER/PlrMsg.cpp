@@ -398,7 +398,7 @@ int __stdcall SKILLS_CheckRequiredAttributes(D2UnitStrc* pUnit, int nSkillId); /
 
 void __fastcall D2GAME_PACKETS_SendPacket0x21_UpdateSkills_6FC3DB50(D2ClientStrc* pClient, D2UnitStrc* pUnit, unsigned short nSkillId, unsigned char nSkillLevel, unsigned char bRemove); // 0x0053C4A0
 
-int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
+int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 
 int __fastcall SKILLS_TryIncreaseSkillLevel(D2UnitStrc* pUnit, int nSkillId); // 0x00570080
 
@@ -3893,7 +3893,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x3B_AddSkillPoint_6FC86EF0(D2GameStrc* 
         return nResult;
     }
     D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
-    if (pSkill && SKILLS_GetSkillLevel(pUnit, pSkill, 0) >= sub_004AA8B0_GetSkillMaxLevel(nSkillId))
+    if (pSkill && SKILLS_GetSkillLevel(pUnit, pSkill, 0) >= SPELLSEL_GetSkillMaxLevel(nSkillId))
     {
         D2GAME_PACKETS_SendPacket0x21_UpdateSkills_6FC3DB50(UnitGetClient(pUnit, ".\\PLAYER\\PlrMsg.cpp", 0x1159), pUnit, 0, 1, 0);
         return 2;

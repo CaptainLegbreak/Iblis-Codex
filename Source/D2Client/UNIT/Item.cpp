@@ -15,6 +15,7 @@
 #include "D2ClientGfx.h"
 #include "D2ItemsWorld.h"
 #include "D2ClientSound.h"
+#include "D2UnitEventArgs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -113,16 +114,6 @@ struct D2GSPacketSrv9C
     unsigned char pBitstream[244];
 };
 
-struct D2UnitEventArgsStrc
-{
-    int nX;
-    int nY;
-    int nArg2;
-    int nArg3;
-    int nArg4;
-    int nArg5;
-    int nArg6;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -557,9 +548,6 @@ void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, StatLis
 
 void __fastcall SKILLDESC_ToggleStateOffCallback(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x004C21E0
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 D2UnitStrc* __fastcall CUNIT_AllocClientUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5); // 0x004661C0
 
@@ -599,9 +587,6 @@ int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom)
 
 void __stdcall UNITROOM_UpdatePath(D2UnitStrc* pUnit);                                                      // 0x0064C450
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 void __fastcall INV_QuestCodeUpdate(int nCode); // 0x0048A540
 
@@ -619,9 +604,6 @@ static void ITEM_PlayDropSound(D2UnitStrc* pItem); // 0x004C18B0
 
 static void ITEM_StoreHandWeaponClass(D2UnitStrc* pItem, unsigned char nType); // 0x004C1C20
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue);                        // 0x0046F020
 
@@ -639,9 +621,6 @@ void __cdecl GAME_RequestExit();                                                
 
 void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 void __fastcall ITEM_HandleIndirectSwapBodyItem(D2GSPacketSrv9D* pPacket); // 0x004C3070
 
@@ -649,9 +628,6 @@ static void __stdcall ITEM_PlaceItem(D2UnitStrc* pItem, unsigned short nX, unsig
 
 int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 static void __stdcall ITEM_RemoveBodyItem(D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x004C1C90
 
@@ -669,17 +645,11 @@ void __fastcall ITEM_HandleGridItemToBody(D2GSPacketSrv9D* pPacket); // 0x004C4A
 
 D2UnitStrc* __fastcall ITEM_HandleBodyGridSwap(D2GSPacketSrv9D* pPacket); // 0x004C4C70
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 static void __stdcall ITEM_ReattachItemComponent(int nMode, int nComponent, D2UnitStrc* pUnit, D2UnitStrc* pItem);
 
 void __fastcall ITEM_HandleItemStatePacket(D2GSPacketSrv7DStrc* pPacket);
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 int __fastcall ITEM_SetChargedSkill(D2UnitStrc* pItem, int nSkillId, int nSkillLevel, int nCharges); // 0x004C1E40
 

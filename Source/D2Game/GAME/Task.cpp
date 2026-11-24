@@ -2,6 +2,8 @@
 #include "D2GameTypes.h"
 #include "D2GameStrc.h"
 #include "D2GameClient.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x0073200C
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -763,3 +765,4 @@ close_game:
     GAME_LeaveGamesCriticalSection(pGame);
     TASK_CloseGame(nGameHashKey, nTaskNumber, ptTask);
 }
+

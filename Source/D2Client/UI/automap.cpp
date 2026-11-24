@@ -984,9 +984,9 @@ struct D2AutomapCellBlockStrc
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-void __stdcall sub_00457900_RotateLeftHeavy(D2AutomapCellStrc** ppRoot); // 0x00457900
+void __stdcall AUTOMAP_BalanceLeftHeavy(D2AutomapCellStrc** ppRoot); // 0x00457900
 
-void __stdcall sub_004579E0_RotateRightHeavy(D2AutomapCellStrc** ppRoot); // 0x004579E0
+void __stdcall AUTOMAP_BalanceRightHeavy(D2AutomapCellStrc** ppRoot); // 0x004579E0
 
 extern int gaAutomapCellTable[0x800]; // 0x007A3150
 
@@ -1166,7 +1166,7 @@ extern int gbUiRecordMode; // 0x007BEF98
 extern int gnAutomapMode_007A5150; // 0x007A5150
 
 
-void __fastcall sub_00457640(int force); // 0x00457640
+void __fastcall AUTOMAP_ResetBaseOffset(int force); // 0x00457640
 
 enum D2C_F06UiConstants
 {
@@ -1897,25 +1897,25 @@ int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag)
 }
 
 // 0x004574D0
-void __stdcall sub_004574D0_AutomapBaseYAddStep(int nUnused)
+void __stdcall AUTOMAP_IncreaseBaseY(int nUnused)
 {
     gnAutomapBaseY += 0x10;
 }
 
 // 0x004574E0
-void __stdcall sub_004574E0_AutomapBaseYSubStep(int nUnused)
+void __stdcall AUTOMAP_DecreaseBaseY(int nUnused)
 {
     gnAutomapBaseY -= 0x10;
 }
 
 // 0x004574F0
-void __stdcall sub_004574F0_AutomapBaseXSubStep(int nUnused)
+void __stdcall AUTOMAP_DecreaseBaseX(int nUnused)
 {
     gnAutomapBaseX -= 0x10;
 }
 
 // 0x00457500
-void __stdcall sub_00457500_AutomapBaseXAddStep(int nUnused)
+void __stdcall AUTOMAP_IncreaseBaseX(int nUnused)
 {
     gnAutomapBaseX += 0x10;
 }
@@ -1931,13 +1931,13 @@ void __cdecl AUTOMAP_UpdateAutomapLayout()
     if (gbLayoutPetIconVisible != VIEW_IsPetIconVisible() && gnAutomapMode == 1)
     {
         gbLayoutPetIconVisible = VIEW_IsPetIconVisible();
-        sub_00457640(1);
+        AUTOMAP_ResetBaseOffset(1);
         return;
     }
     if (gbLayoutAutomapLeft != gbAutomapLeft && gnAutomapMode == 1)
     {
         gbLayoutAutomapLeft = gbAutomapLeft;
-        sub_00457640(1);
+        AUTOMAP_ResetBaseOffset(1);
         return;
     }
     if (gbAutomapLeft)
@@ -1970,7 +1970,7 @@ void __cdecl AUTOMAP_UpdateAutomapLayout()
 }
 
 // 0x00457640
-void __fastcall sub_00457640(int bForce)
+void __fastcall AUTOMAP_ResetBaseOffset(int bForce)
 {
 // build: symbol ?gbAutomapCenter@* 0x007113E0
     if (!gbAutomapCenter && !bForce)
@@ -2079,10 +2079,10 @@ int __fastcall OBJECT_SaveAutomapPartyNames(int nValue)
     return nValue;
 }
 
-static void sub_00457860_PivotNext(D2AutomapCellStrc** ppNode);
+static void AUTOMAP_RotateCellLeft(D2AutomapCellStrc** ppNode); // 0x00457860
 
 // 0x00457860
-static void sub_00457860_PivotNext(D2AutomapCellStrc** ppNode)
+static void AUTOMAP_RotateCellLeft(D2AutomapCellStrc** ppNode)
 {
     D2AutomapCellStrc* pNode = *ppNode;
     D2_ASSERT(pNode, 0x233);
@@ -2094,7 +2094,7 @@ static void sub_00457860_PivotNext(D2AutomapCellStrc** ppNode)
 }
 
 // 0x004578B0
-static void sub_004578B0_PivotPrev(D2AutomapCellStrc** ppNode)
+static void AUTOMAP_RotateCellRight(D2AutomapCellStrc** ppNode)
 {
     D2AutomapCellStrc* pNode = *ppNode;
     D2_ASSERT(pNode, 0x244);
@@ -2106,7 +2106,7 @@ static void sub_004578B0_PivotPrev(D2AutomapCellStrc** ppNode)
 }
 
 // 0x00457900
-void __stdcall sub_00457900_RotateLeftHeavy(D2AutomapCellStrc** ppRoot)
+void __stdcall AUTOMAP_BalanceLeftHeavy(D2AutomapCellStrc** ppRoot)
 {
     D2AutomapCellStrc* pNode = *ppRoot;
     D2AutomapCellStrc* pPrev = pNode->pPrev;
@@ -2115,7 +2115,7 @@ void __stdcall sub_00457900_RotateLeftHeavy(D2AutomapCellStrc** ppRoot)
     {
         pNode->wWeight = 0;
         pPrev->wWeight = 0;
-        sub_004578B0_PivotPrev(&pNode);
+        AUTOMAP_RotateCellRight(&pNode);
     }
     else
     {
@@ -2136,14 +2136,14 @@ void __stdcall sub_00457900_RotateLeftHeavy(D2AutomapCellStrc** ppRoot)
             break;
         }
         pPrevNext->wWeight = 0;
-        sub_00457860_PivotNext(&pNode->pPrev);
-        sub_004578B0_PivotPrev(&pNode);
+        AUTOMAP_RotateCellLeft(&pNode->pPrev);
+        AUTOMAP_RotateCellRight(&pNode);
     }
     *ppRoot = pNode;
 }
 
 // 0x004579E0
-void __stdcall sub_004579E0_RotateRightHeavy(D2AutomapCellStrc** ppRoot)
+void __stdcall AUTOMAP_BalanceRightHeavy(D2AutomapCellStrc** ppRoot)
 {
     D2AutomapCellStrc* pNode = *ppRoot;
     D2AutomapCellStrc* pNext = pNode->pNext;
@@ -2152,7 +2152,7 @@ void __stdcall sub_004579E0_RotateRightHeavy(D2AutomapCellStrc** ppRoot)
     {
         pNode->wWeight = 0;
         pNext->wWeight = 0;
-        sub_00457860_PivotNext(&pNode);
+        AUTOMAP_RotateCellLeft(&pNode);
     }
     else
     {
@@ -2173,8 +2173,8 @@ void __stdcall sub_004579E0_RotateRightHeavy(D2AutomapCellStrc** ppRoot)
             break;
         }
         pNextPrev->wWeight = 0;
-        sub_004578B0_PivotPrev(&pNode->pNext);
-        sub_00457860_PivotNext(&pNode);
+        AUTOMAP_RotateCellRight(&pNode->pNext);
+        AUTOMAP_RotateCellLeft(&pNode);
     }
     *ppRoot = pNode;
 }
@@ -2230,7 +2230,7 @@ int __fastcall AUTOMAP_InsertAutomapCell(D2AutomapCellStrc* pCell, D2AutomapCell
                 switch (pRoot->wWeight)
                 {
                 case -1:
-                    sub_00457900_RotateLeftHeavy(&pRotate);
+                    AUTOMAP_BalanceLeftHeavy(&pRotate);
                     pRoot = pRotate;
                     nResult = 0;
                     break;
@@ -2259,7 +2259,7 @@ int __fastcall AUTOMAP_InsertAutomapCell(D2AutomapCellStrc* pCell, D2AutomapCell
                     pRoot->wWeight = 1;
                     break;
                 case 1:
-                    sub_004579E0_RotateRightHeavy(&pRotate);
+                    AUTOMAP_BalanceRightHeavy(&pRotate);
                     pRoot = pRotate;
                     nResult = 0;
                     break;
@@ -3881,7 +3881,7 @@ void __fastcall AUTOMAP_SetAutomapMode(int mode)
             break;
         }
         AUTOMAP_ReloadAutomapCels();
-        sub_00457640(1);
+        AUTOMAP_ResetBaseOffset(1);
     }
 }
 
@@ -4402,7 +4402,7 @@ D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, 
 }
 
 // 0x0045AC90
-void __cdecl sub_0045AC90_DrawAutomapUnits()
+void __cdecl AUTOMAP_DrawAutomapUnits()
 {
     D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(0);
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();

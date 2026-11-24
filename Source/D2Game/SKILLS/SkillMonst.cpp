@@ -17,6 +17,8 @@
 #include "D2LevelTxt.h"
 #include "D2GameRecords.h"
 #include "D2SkillIds.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00741A1C
 
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
 

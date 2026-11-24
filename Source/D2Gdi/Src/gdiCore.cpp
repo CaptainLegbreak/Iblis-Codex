@@ -6,6 +6,7 @@
 
 #include "D2GfxTypes.h"
 #include "D2CelContext.h"
+#include "D2Win32RgbQuad.h"
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 
@@ -200,6 +201,27 @@ extern void* ghGdiDebugFont_0098A170; // 0x0098A170
 extern D2GfxSettingsStrc* gpGfxSettings; // 0x007C9148
 void __fastcall sub_006C8A60_Draw(int nX1, int nY1, int nX2, int nY2, unsigned char nColor, int nLevel); // 0x006C8A60
 
+int __fastcall GDICORE_Init(void* pArg1, void* pArg2); // 0x006C7A70
+int __cdecl GDICORE_Close(); // 0x006C7AB0
+int __fastcall GDICORE_CreateSurface(int nValue, int nArg); // 0x006C7C10
+int __cdecl GDICORE_CloseSurface(); // 0x006C7CF0
+void __stdcall GDICORE_PauseSurface(int nValue); // 0x006C7D30
+int __fastcall sub_006C7D80_LockAndSend(void* pObject, char nKey, int a, int b); // 0x006C7D80
+int __cdecl GDICORE_EndDraw(); // 0x006C7DF0
+int __cdecl GDICORE_BlitWindow(); // 0x006C7E30
+int __fastcall GDICORE_ChangeRes(int nUnused, int nMode); // 0x006C80B0
+void __fastcall GDICORE_GetScreenSize(int* width, int* height); // 0x006C7F90
+void __fastcall GDICORE_SetPalette(D2PaletteEntry006C7C10Strc* pEntries); // 0x006C7FA0
+int __fastcall sub_006C8910_ForwardDraw(void* context, int second, int third, int fourth, int fifth, int unused, int last); // 0x006C8910
+int __fastcall sub_006C85A0_DrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, int nPalette); // 0x006C85A0
+void __fastcall GDICORE_DrawImageRows(D2CelContextStrc* pContext, int nX, int nY, int nSkipTop, int nDrawHeight, int nDrawMode); // 0x006C86A0
+void __fastcall GDICORE_DrawShadow(void* pData, int nX, int nY); // 0x006C87E0
+void __fastcall GDICORE_DrawCelClipped(D2CelContextStrc* pContext, int nX, int nY, const D2ClipRectStrc* pClip, int nDrawMode); // 0x006C8750
+void __fastcall sub_006C8C00_DrawAlpha(int nArg1, int nArg2, int a, int b, int c, unsigned char nAlpha); // 0x006C8C00
+void __fastcall sub_006C8970_GdiDebugPrintf(int nX, int nY, const char* szFormat, char* args); // 0x006C8970
+int __fastcall sub_006C88B0_DrawAt(int nX, int nY); // 0x006C88B0
+void __cdecl sub_006C7AF0_Nop(); // 0x006C7AF0
+
 #include "gen/data/Source/D2Gdi/Src/gdiCore.inc"
 
 // 0x006C7A70
@@ -293,13 +315,6 @@ int __fastcall GDICORE_CreateSurface(int nValue, int nArg)
     return 1;
 }
 
-struct D2RgbQuad006C7FA0Strc
-{
-    unsigned char rgbBlue;
-    unsigned char rgbGreen;
-    unsigned char rgbRed;
-    unsigned char rgbReserved;
-};
 
 // 0x006C7CF0
 int __cdecl GDICORE_CloseSurface()

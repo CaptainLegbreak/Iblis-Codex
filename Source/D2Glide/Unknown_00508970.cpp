@@ -1,5 +1,8 @@
-#include "D2Win.h"
+#include "D2Glide.h"
 #include "D2GlideTypes.h"
+
+extern void (__stdcall* gpfnGrTexDownloadMipMap)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EAB8
+extern void (__stdcall* gpfnGrTexSource)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define GLIDE_GETPROC(pfn, szName, nLine) *(void**)&pfn = GetProcAddress(ghGlideLibrary, szName); D2_ASSERT(pfn, nLine)
@@ -163,4 +166,4 @@ int __cdecl sub_00508F60_GlideCheckBoards()
 }
 
 
-#include "gen/data/Source/D2Win/Unknown_00508970.inc"
+#include "gen/data/Source/D2Glide/Unknown_00508970.inc"

@@ -7,7 +7,7 @@
 
 
 typedef unsigned short Unicode;
-unsigned short __fastcall sub_004E6CE0_GetStringId(int skillId, int stringIndex); // 0x004E6CE0
+unsigned short __fastcall SKILLDESC_GetSkillDescStringId(int skillId, int stringIndex); // 0x004E6CE0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
@@ -55,7 +55,7 @@ void __fastcall sub_004E4670_BuildSkillBonusText(D2UnitStrc* pUnit, Unicode* pBu
         const int nSkillId = tStats[i].nLayer;
         const int nValue = tStats[i].nValue;
 
-        const Unicode* wszSkillName = D2LANG_GetStringFromTblIndex(sub_004E6CE0_GetStringId(nSkillId, 0));
+        const Unicode* wszSkillName = D2LANG_GetStringFromTblIndex(SKILLDESC_GetSkillDescStringId(nSkillId, 0));
         wszNum[0] = 0;
         wszNum[1] = 0;
         wszNum[2] = 0;

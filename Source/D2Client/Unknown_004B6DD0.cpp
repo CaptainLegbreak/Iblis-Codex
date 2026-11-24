@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2UnitData.h"
 #include "D2ClientMenus.h"
+#include "D2NpcIndex.h"
 struct D2BitBufferStrc;
 struct D2TextHeaderStrc;
 struct D2InventoryStrc;
@@ -22,17 +23,6 @@ struct D2ClientStringListStrc
     unsigned short wCount;
 };
 
-#pragma pack(push, 1)
-struct D2NpcIndexStrc
-{
-    int nId;
-    int nCount;
-    unsigned short awIds[5];
-    int (__cdecl* apfHandlers[5])();
-    char bEnabled;
-};
-
-#pragma pack(pop)
 
 typedef char check_size_npcindex[(sizeof(D2NpcIndexStrc) == 0x27) ? 1 : -1];
 typedef char check_size_npcentry[(sizeof(D2NpcEntryStrc) == 0x16) ? 1 : -1];
@@ -73,7 +63,7 @@ void __fastcall NPCMENU_EndNpcInteraction(int nValue);                          
 void __cdecl sub_004B3DE0_CloseNpc();                                                                       // 0x004B3DE0
 void __cdecl NPCMENU_BuildNpcMenu();                                                                        // 0x004B4830
 void __cdecl NPCMENU_OpenGreetingDialog();                                                             // 0x004B4DB0
-void __stdcall sub_004B4FD0_OpenNpcWindow(D2UnitStrc* pUnit);                                                             // 0x004B4FD0
+void __stdcall NPCMENU_OpenNpcWindow(D2UnitStrc* pUnit);                                                             // 0x004B4FD0
 int __cdecl NPCMENU_ShowMainMenu();                                                                         // 0x004B5C60
 int __cdecl NPCMENU_InitHireHandler();                                                                     // 0x004B6410
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
@@ -188,7 +178,8 @@ static int NPCMENU_FindNpcIndex(D2UnitStrc* pRecord)
     return 0;
 }
 
-static int __stdcall sub_004B6440_ToggleNpcHandler(int bAdd, int nIndex)
+// build: symbol ?NPCMENU_ToggleNpcHandler@* 0x004B6440
+static int __stdcall NPCMENU_ToggleNpcHandler(int bAdd, int nIndex)
 {
     if (!FOG_IsExpansion() || !GAME_IsExpansion())
     {
@@ -251,10 +242,10 @@ static int __stdcall sub_004B6440_ToggleNpcHandler(int bAdd, int nIndex)
     return 1;
 }
 
-static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen);
+static void __stdcall NPCMENU_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen); // 0x004B66B0
 
 // 0x004B66B0
-static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen)
+static void __stdcall NPCMENU_OpenNpcInteract(D2UnitStrc* pUnit, int bReopen)
 {
     GAME_ResetMouseState();
     if (!pUnit)
@@ -313,23 +304,23 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
         {
             NPCMENU_InitHireHandler();
         }
-        sub_004B6440_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0xB);
+        NPCMENU_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0xB);
         break;
 
     case 0xC6:
-        sub_004B6440_ToggleNpcHandler(gnHirelingName != 0xFFFF, 8);
+        NPCMENU_ToggleNpcHandler(gnHirelingName != 0xFFFF, 8);
         break;
 
     case 0xFC:
-        sub_004B6440_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0x18);
+        NPCMENU_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0x18);
         break;
 
     case 0x16F:
-        sub_004B6440_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0x15);
+        NPCMENU_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0x15);
         break;
 
     case 0x203:
-        sub_004B6440_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0x2B);
+        NPCMENU_ToggleNpcHandler(gnHirelingName != 0xFFFF, 0x2B);
         break;
     }
 
@@ -391,11 +382,11 @@ void __fastcall NPCMENU_SetNpcMenuState(unsigned short wValue, int nValue)
     gnNpcMenuValue = nValue;
     if (wValue == 0xFFFF)
     {
-        sub_004B6440_ToggleNpcHandler(0, 0xB);
-        sub_004B6440_ToggleNpcHandler(0, 8);
-        sub_004B6440_ToggleNpcHandler(0, 0x18);
-        sub_004B6440_ToggleNpcHandler(0, 0x15);
-        sub_004B6440_ToggleNpcHandler(0, 0x2B);
+        NPCMENU_ToggleNpcHandler(0, 0xB);
+        NPCMENU_ToggleNpcHandler(0, 8);
+        NPCMENU_ToggleNpcHandler(0, 0x18);
+        NPCMENU_ToggleNpcHandler(0, 0x15);
+        NPCMENU_ToggleNpcHandler(0, 0x2B);
     }
 }
 
@@ -435,7 +426,7 @@ int __fastcall NPCMENU_NpcTextCallback(void* pContext, int nArg, int nValue)
             gnNpcMenuState = 1;
             if (NPCMENU_GetInteractNpc())
             {
-                sub_004B66B0_OpenNpcInteract(NPCMENU_GetInteractNpc(), 1);
+                NPCMENU_OpenNpcInteract(NPCMENU_GetInteractNpc(), 1);
                 return 1;
             }
             sub_004B3DE0_CloseNpc();
@@ -554,7 +545,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
             UI_CloseUIVars(0, 0);
             gwNpcGreetingString = wString2;
             gwNpcMessageString = NPCMENU_GetFreeStringId(wString2);
-            sub_004B4FD0_OpenNpcWindow(pUnit);
+            NPCMENU_OpenNpcWindow(pUnit);
         }
         else
         {
@@ -572,7 +563,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
                 }
                 INV_ResetHover();
                 UI_CloseUIVars(0, 0);
-                sub_004B66B0_OpenNpcInteract(pUnit, 0);
+                NPCMENU_OpenNpcInteract(pUnit, 0);
             }
             else
             {

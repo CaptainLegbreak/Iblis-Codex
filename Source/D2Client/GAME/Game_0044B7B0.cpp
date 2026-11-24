@@ -9,6 +9,7 @@
 #include "D2MultiTypes.h"
 #include "D2MsgRecord.h"
 #include "D2ClientTimer.h"
+#include "D2ClientRange.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -34,7 +35,7 @@ int __cdecl sub_0045AE90(); // 0x0045AE90
 
 void __fastcall PLAYER_SetPanelSlide(int nMode); // 0x0045AEA0
 
-void __fastcall sub_00457640(int nValue); // 0x00457640
+void __fastcall AUTOMAP_ResetBaseOffset(int nValue); // 0x00457640
 
 void __fastcall sub_00457440_Nop(int nResolution); // 0x00457440
 
@@ -86,11 +87,6 @@ extern int gnAutomapHeight_007A521C; // 0x007A521C
 
 extern int gnAutomapWidth; // 0x007A5220
 
-struct D2RangeStrc
-{
-    int nStart;
-    int nLength;
-};
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
@@ -233,7 +229,7 @@ void __cdecl sub_00477DD0();                                                    
 
 void __fastcall MSG_UploadSaveFile(int bAnimate);                                                    // 0x004781D0
 
-void __cdecl sub_0047BD30_ResetChatHistory();                                                                                // 0x0047BD30
+void __cdecl CHAT_ResetChatHistory();                                                                                // 0x0047BD30
 
 void __cdecl sub_0047F1D0_LoadResolution();                                                                 // 0x0047F1D0
 
@@ -702,7 +698,7 @@ void __cdecl GAME_InitGameState()
     CUNIT_ClearUnitTables();
     DLIGHTMAP_ClearLightGrid();
     sub_00472320();
-    sub_0047BD30_ResetChatHistory();
+    CHAT_ResetChatHistory();
     gbCinematicExit = 0;
     gbPositionalSound = 0;
 }

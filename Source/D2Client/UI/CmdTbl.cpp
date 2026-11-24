@@ -48,7 +48,7 @@ void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc*
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
-void __cdecl sub_0046AAE0_LoadKeyConfig(); // 0x0046AAE0
+void __cdecl CMDTBL_LoadHotkeyFile(); // 0x0046AAE0
 
 extern D2HotkeyCommandStrc gaHotkeyCommands[]; // 0x00712698
 
@@ -72,7 +72,7 @@ extern D2MsgHandlerEntryStrc gaHotkeyHandlers[4]; // 0x00712944
 
 extern D2MsgHandlerEntryStrc gaHotkeyUpHandlers[2]; // 0x00712974
 
-void __cdecl sub_00469780_SaveKeyConfig(); // 0x00469780
+void __cdecl CMDTBL_SaveHotkeyFile(); // 0x00469780
 
 void __cdecl CMDTBL_BindMouseHotkeys(); // 0x004694A0
 
@@ -367,7 +367,7 @@ extern char gszRealm[];                                                         
 extern char gszClientCharName[];                                                                         // 0x007A05C4
 
 // 0x00469650
-static void* sub_00469650_OpenKeyFile(unsigned long dwDesiredAccess, unsigned long dwCreationDisposition)
+static void* CMDTBL_OpenKeyFile(unsigned long dwDesiredAccess, unsigned long dwCreationDisposition)
 {
     char szSavePath[0x104] = { 0 };
     char szFileName[0x104] = { 0 };
@@ -390,9 +390,9 @@ static void* sub_00469650_OpenKeyFile(unsigned long dwDesiredAccess, unsigned lo
 }
 
 // 0x00469780
-void __cdecl sub_00469780_SaveKeyConfig()
+void __cdecl CMDTBL_SaveHotkeyFile()
 {
-    void* hFile = sub_00469650_OpenKeyFile(GENERIC_WRITE, CREATE_ALWAYS);
+    void* hFile = CMDTBL_OpenKeyFile(GENERIC_WRITE, CREATE_ALWAYS);
     if (hFile == INVALID_HANDLE_VALUE)
     {
         return;
@@ -695,9 +695,9 @@ void __fastcall CMDTBL_SetHotkeyHandlers(int bEnable, int bFlag)
 }
 
 // 0x0046AAE0
-void __cdecl sub_0046AAE0_LoadKeyConfig()
+void __cdecl CMDTBL_LoadHotkeyFile()
 {
-    void* hFile = sub_00469650_OpenKeyFile(GENERIC_READ, OPEN_EXISTING);
+    void* hFile = CMDTBL_OpenKeyFile(GENERIC_READ, OPEN_EXISTING);
     if (hFile != INVALID_HANDLE_VALUE)
     {
         D2HotkeyFileStrc tFile = { 0 };
@@ -755,13 +755,13 @@ LOAD_DEFAULT:
 // build: symbol ?gaKeyTable@* 0x00712220
     memcpy(gtHotkeys_007A6F90, gaKeyTable, sizeof(gtHotkeys_007A6F90));
     CMDTBL_BindMouseHotkeys();
-    sub_00469780_SaveKeyConfig();
+    CMDTBL_SaveHotkeyFile();
 }
 
 // 0x0046AC70
 void __cdecl CMDTBL_EnableHotkeyHandlers()
 {
-    sub_0046AAE0_LoadKeyConfig();
+    CMDTBL_LoadHotkeyFile();
     gnHotkeyMode = 1;
     if (gbHotkeyHandlersRegistered == 0)
     {
@@ -810,7 +810,7 @@ static inline unsigned short FindHotkeyKey_Inline(int nId, int nMode)
 // 0x00469D40
 void __cdecl CMDTBL_SaveAndBindHotkeys()
 {
-    sub_00469780_SaveKeyConfig();
+    CMDTBL_SaveHotkeyFile();
     CMDTBL_BindMouseHotkeys();
 }
 

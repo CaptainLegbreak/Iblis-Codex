@@ -12,6 +12,7 @@
 #include "D2GameTypes.h"
 #include "D2SkillIds.h"
 #include "D2SoundEnvironTxt.h"
+#include "D2MonTypeTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -63,11 +64,6 @@ extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E
 
 static void SKILLDESC_AddEnvironSoundRefs(int nIndex); // 0x004E4240
 
-struct D2MonTypeTxt
-{
-    char unk0x00[0x0A];
-    unsigned short wStrPlur;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -91,7 +87,7 @@ D2MonTypeTxt* __fastcall SKILLDESC_GetMonTypeTxtRecord(int nMonType); // 0x004E4
 
 void __fastcall TEXT_AppendUndeadDamageBonus(D2UnitStrc* pUnused, Unicode* wszOut, int nUnused); // 0x004E48B0
 
-unsigned short __fastcall sub_004E6CE0_GetStringId(int nId, int nIndex); // 0x004E6CE0
+unsigned short __fastcall SKILLDESC_GetSkillDescStringId(int nId, int nIndex); // 0x004E6CE0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
@@ -599,7 +595,7 @@ void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
 
 // 0x004EDA80
-int __fastcall sub_004EDA80_CallSkillDescFunc(D2UnitStrc* pUnit, int bLeft)
+int __fastcall SKILLDESC_CallSkillDescFunc(D2UnitStrc* pUnit, int bLeft)
 {
     if (!pUnit)
     {
@@ -644,7 +640,7 @@ int __fastcall sub_004EDA80_CallSkillDescFunc(D2UnitStrc* pUnit, int bLeft)
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
 // 0x004F2010
-int __fastcall sub_004F2010_CheckTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLDESC_CanTargetHostile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     if (pTarget && !DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)) && !DUNGEON_IsRoomInTown(UNITS_GetRoom(pTarget))
@@ -764,7 +760,7 @@ int __fastcall MISSILE_VolleyAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkil
 }
 
 // 0x004E3AB0
-void __fastcall sub_004E3AB0_CreateStateSkillMissile(D2UnitStrc* pUnit)
+void __fastcall SKILLDESC_CreateBlazeMissile(D2UnitStrc* pUnit)
 {
     if (!pUnit->pDynamicPath || !PATH_HasEnteredNewSubtile(pUnit->pDynamicPath))
     {
@@ -1479,12 +1475,12 @@ static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* 
         if (nSkillId <= 0 || nSkillId >= sgptDataTables->nSkillsTxtRecordCount)
             return 0;
 
-        sub_005269D0(256, pOut, D2LANG_GetStringFromTblIndex(pRecord->wDescStrPos), nDisplay, 0, nLevel, D2LANG_GetStringFromTblIndex(sub_004E6CE0_GetStringId(nSkillId, 0)));
+        sub_005269D0(256, pOut, D2LANG_GetStringFromTblIndex(pRecord->wDescStrPos), nDisplay, 0, nLevel, D2LANG_GetStringFromTblIndex(SKILLDESC_GetSkillDescStringId(nSkillId, 0)));
         break;
     }
     case 16:
     {
-        const Unicode* pSkillName = D2LANG_GetStringFromTblIndex(sub_004E6CE0_GetStringId(nLayer, 0));
+        const Unicode* pSkillName = D2LANG_GetStringFromTblIndex(SKILLDESC_GetSkillDescStringId(nLayer, 0));
         if (!pSkillName)
             return 0;
 
@@ -1614,7 +1610,7 @@ static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* 
     {
         const int nSkillId = nLayer >> sgptDataTables->nStuff;
         const int nLevel = nLayer & sgptDataTables->nShiftedStuff;
-        const Unicode* pSkillName = D2LANG_GetStringFromTblIndex(sub_004E6CE0_GetStringId(nSkillId, 0));
+        const Unicode* pSkillName = D2LANG_GetStringFromTblIndex(SKILLDESC_GetSkillDescStringId(nSkillId, 0));
         if (!pSkillName)
             break;
 
@@ -1672,7 +1668,7 @@ static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* 
         if (!nDisplay)
             break;
 
-        const Unicode* pSkillName = D2LANG_GetStringFromTblIndex(sub_004E6CE0_GetStringId(nLayer, 0));
+        const Unicode* pSkillName = D2LANG_GetStringFromTblIndex(SKILLDESC_GetSkillDescStringId(nLayer, 0));
         if (!pSkillName)
             break;
 
@@ -1727,7 +1723,7 @@ static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* 
         if (!pTo)
             break;
 
-        const Unicode* pSkillName = D2LANG_GetStringFromTblIndex(sub_004E6CE0_GetStringId(nLayer, 0));
+        const Unicode* pSkillName = D2LANG_GetStringFromTblIndex(SKILLDESC_GetSkillDescStringId(nLayer, 0));
         if (!pSkillName)
             break;
 
@@ -2121,7 +2117,7 @@ static D2SkillDescTxt* sub_H14_GetSkillDescTxtRecord(int nSkillDesc)
 }
 
 // 0x004E6CE0
-unsigned short __fastcall sub_004E6CE0_GetStringId(int skillId, int stringIndex)
+unsigned short __fastcall SKILLDESC_GetSkillDescStringId(int skillId, int stringIndex)
 {
     D2SkillsTxt* skill = SKILLS_GetSkillsTxtRecord(skillId);
     D2SkillDescTxt* description = 0;
@@ -2322,10 +2318,10 @@ static int SKILLDESC_FormatIntOrDecimal(Unicode* wszText, int bPrefixSign, int n
     return SKILLDESC_FormatSignedInt(wszText, bPrefixSign, nValue);
 }
 
-static void __stdcall sub_004E74A0_FormatDamageRange(int bPrefixSign, Unicode* wszText, int bUseFormat, int nMinDamage, int nMaxDamage);
+static void __stdcall SKILLDESC_FormatDamageRange(int bPrefixSign, Unicode* wszText, int bUseFormat, int nMinDamage, int nMaxDamage); // 0x004E74A0
 
 // 0x004E74A0
-static void __stdcall sub_004E74A0_FormatDamageRange(int bPrefixSign, Unicode* wszText, int bUseFormat, int nMinDamage, int nMaxDamage)
+static void __stdcall SKILLDESC_FormatDamageRange(int bPrefixSign, Unicode* wszText, int bUseFormat, int nMinDamage, int nMaxDamage)
 {
     char szText[32];
     if (bUseFormat && (nMinDamage >= 10000 || nMaxDamage >= 10000))
@@ -2344,7 +2340,7 @@ static void __stdcall sub_004E74A0_FormatDamageRange(int bPrefixSign, Unicode* w
 }
 
 // 0x004E75B0
-static int sub_004E75B0_FormatValueOrRange(Unicode* wszText, int bPrefixSign, int nMin, int nMax)
+static int SKILLDESC_FormatValueOrRange(Unicode* wszText, int bPrefixSign, int nMin, int nMax)
 {
     if (nMin == nMax)
     {
@@ -2356,17 +2352,17 @@ static int sub_004E75B0_FormatValueOrRange(Unicode* wszText, int bPrefixSign, in
         sub_00526320_ToUnicode(wszText, szText, 32);
         return 1;
     }
-    sub_004E74A0_FormatDamageRange(bPrefixSign, wszText, 1, nMin, nMax);
+    SKILLDESC_FormatDamageRange(bPrefixSign, wszText, 1, nMin, nMax);
     return 1;
 }
 
 extern "C" int __stdcall sub_Z13_EmitA(Unicode* p, int a, int b, int c)
 {
-    return sub_004E75B0_FormatValueOrRange(p, a, b, c);
+    return SKILLDESC_FormatValueOrRange(p, a, b, c);
 }
 
 // 0x004E7610
-static void __stdcall sub_004E7610_FormatDecimalRange(Unicode* wszText, int bPrefixSign, int nMin, int nMinFrac, int nMax, int nMaxFrac)
+static void __stdcall SKILLDESC_FormatDecimalRange(Unicode* wszText, int bPrefixSign, int nMin, int nMinFrac, int nMax, int nMaxFrac)
 {
     char szText[32];
     if (bPrefixSign)
@@ -2378,7 +2374,7 @@ static void __stdcall sub_004E7610_FormatDecimalRange(Unicode* wszText, int bPre
 
 extern "C" void __stdcall sub_K07_EmitB(Unicode* p, int b, int a1, int a2, int a3, int a4)
 {
-    sub_004E7610_FormatDecimalRange(p, b, a1, a2, a3, a4);
+    SKILLDESC_FormatDecimalRange(p, b, a1, a2, a3, a4);
 }
 
 // 0x004E7650
@@ -2702,10 +2698,10 @@ static int __stdcall SKILLDESC_AppendLabelValueLabels(unsigned short wStr1, unsi
     return 1;
 }
 
-static int __stdcall sub_004E82A0_AppendSecondsTwentieths(unsigned short wStr, Unicode* wszOut, int nValue);
+static int __stdcall SKILLDESC_AppendSecondsTwentieths(unsigned short wStr, Unicode* wszOut, int nValue); // 0x004E82A0
 
 // 0x004E82A0
-static int __stdcall sub_004E82A0_AppendSecondsTwentieths(unsigned short wStr, Unicode* wszOut, int nValue)
+static int __stdcall SKILLDESC_AppendSecondsTwentieths(unsigned short wStr, Unicode* wszOut, int nValue)
 {
     int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
     for (int i = 0; i < 32; ++i)
@@ -2739,7 +2735,7 @@ int __fastcall sub_Emit_004E82A0(Unicode* wszOut, int nValue, int nStr)
 {
     if (!wszOut)
         return 0;
-    return sub_004E82A0_AppendSecondsTwentieths((unsigned short)nStr, wszOut, nValue);
+    return SKILLDESC_AppendSecondsTwentieths((unsigned short)nStr, wszOut, nValue);
 }
 
 // 0x004E83B0
@@ -2750,10 +2746,10 @@ static int SKILLDESC_AppendSkillDescStrLong(Unicode* wszOut, int nSkillId)
     return 1;
 }
 
-static int __stdcall sub_004E83E0_AppendSecondsTenths(unsigned short wStr, Unicode* wszOut, int nValue);
+static int __stdcall SKILLDESC_AppendSecondsTenths(unsigned short wStr, Unicode* wszOut, int nValue); // 0x004E83E0
 
 // 0x004E83E0
-static int __stdcall sub_004E83E0_AppendSecondsTenths(unsigned short wStr, Unicode* wszOut, int nValue)
+static int __stdcall SKILLDESC_AppendSecondsTenths(unsigned short wStr, Unicode* wszOut, int nValue)
 {
     int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
     for (int i = 0; i < 32; ++i)
@@ -2787,7 +2783,7 @@ int __fastcall sub_Emit_004E83E0(Unicode* wszOut, int nValue, int nStr)
 {
     if (!wszOut)
         return 0;
-    return sub_004E83E0_AppendSecondsTenths((unsigned short)nStr, wszOut, nValue);
+    return SKILLDESC_AppendSecondsTenths((unsigned short)nStr, wszOut, nValue);
 }
 
 // 0x004E84F0
@@ -5541,7 +5537,7 @@ static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed,
 }
 
 // 0x004F23E0
-int __fastcall sub_004F23E0_AuraStateOff(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLDESC_IsAuraStateOff(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (pSkillsTxtRecord && pSkillsTxtRecord->nAuraState >= 0 && pSkillsTxtRecord->nAuraState < sgptDataTables->nStatesTxtRecordCount)
@@ -5553,13 +5549,13 @@ int __fastcall sub_004F23E0_AuraStateOff(D2UnitStrc* pUnit, int nSkillId, int nS
 }
 
 // 0x004F2440
-void __fastcall sub_004F2440_ClearState(D2UnitStrc* pUnit, int nState, int nSkillLevel)
+void __fastcall SKILLDESC_ToggleStateOff(D2UnitStrc* pUnit, int nState, int nSkillLevel)
 {
     STATES_ToggleState(pUnit, nState, 0);
 }
 
 // 0x004F2870
-int __fastcall sub_004F2870_TargetIsPlayerOrMonster(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLDESC_IsTargetPlayerOrMonster(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     if (!pTarget)
@@ -6101,7 +6097,7 @@ inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
 }
 
 // 0x004F4A30
-int __fastcall sub_004F4A30_CltDoChargedMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLDESC_CltDoChargedMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -6200,7 +6196,7 @@ int __fastcall sub_004F4A30_CltDoChargedMissile(D2UnitStrc* pUnit, int nSkillId,
 
 
 // 0x004F4D90
-int __fastcall sub_004F4D90_MissileAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLDESC_CreateMissileAtTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -6267,7 +6263,7 @@ static int MONSTERS_GetBaseIdInline_J03(int nMonsterId)
 }
 
 // 0x004F4EC0
-int __fastcall sub_004F4EC0_GetSkillOverlay(D2UnitStrc* pUnit, int nSkillId, int nDefault, int nUnused)
+int __fastcall SKILLDESC_GetSkillOverlay(D2UnitStrc* pUnit, int nSkillId, int nDefault, int nUnused)
 {
     int nResult = nDefault;
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)

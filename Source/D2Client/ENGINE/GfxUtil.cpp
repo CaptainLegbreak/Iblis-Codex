@@ -16,6 +16,7 @@
 #include "D2ItemsWorld.h"
 #include "D2MonModes.h"
 #include "D2WinSplitText.h"
+#include "D2ClientBallistic.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -395,7 +396,7 @@ D2CompEntryStrc* __fastcall sub_0046E570_GetGfxEntry(D2UnitStrc* pUnit, int nMod
 
 int __fastcall GFXUTIL_GetModeArg(D2UnitStrc* pUnit, int nType, int nClass);                           // 0x004DAA00
 
-unsigned char __fastcall sub_004DA770_GetMonComponentIndex(D2UnitStrc* pUnit, unsigned char nComponent);    // 0x004DA770
+unsigned char __fastcall GFXUTIL_GetMonComponentIndex(D2UnitStrc* pUnit, unsigned char nComponent);    // 0x004DA770
 
 int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 
@@ -513,20 +514,6 @@ struct D2GfxNodeStrc
 };
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 
-struct D2BallisticStrc
-{
-    unsigned int dwFlags;
-    int f_4;
-    int f_8;
-    int nVelocity;
-    int nVelA;
-    int nVelB;
-    int nStartVelocity;
-    int unk0x1C[2];
-    int f_24;
-    int unk0x28[8];
-    int nFrames;
-};
 
 D2BallisticStrc* __fastcall sub_0046F060(D2UnitStrc* pUnit); // 0x0046F060
 
@@ -2398,7 +2385,7 @@ found:
             const int nMonMode = pToken->nMode;
             pToken->dwModeToken = gaMonModeTokens[nMonMode];
             const unsigned char nComp = pComp->nComponent;
-            const unsigned char nIndex = sub_004DA770_GetMonComponentIndex(pUnit, nComp);
+            const unsigned char nIndex = GFXUTIL_GetMonComponentIndex(pUnit, nComp);
             if (nMonMode != 0 && nMonMode != 0xC)
                 pToken->dwToken = D2Common_11069(pUnit, nComp, nIndex);
             else if (MONSTERREGION_CheckMonStats2Flag(pToken->nClass, 0x10))
@@ -2688,7 +2675,7 @@ static void GFXUTIL_CopyCompCode(D2CompCodeStrc* pDst, const char* pSrc)
 }
 
 // 0x004DA770
-unsigned char __fastcall sub_004DA770_GetMonComponentIndex(D2UnitStrc* pUnit, unsigned char nComponent)
+unsigned char __fastcall GFXUTIL_GetMonComponentIndex(D2UnitStrc* pUnit, unsigned char nComponent)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && nComponent < 16 && pUnit->pMonsterData)
         return pUnit->pMonsterData->nComponent[nComponent];

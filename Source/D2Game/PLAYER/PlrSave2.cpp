@@ -18,6 +18,8 @@
 #include "D2GameServer.h"
 #include "D2GameClient.h"
 #include "D2SaveHeader.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00732084
 
 struct D2ClientStrc;
 

@@ -17,6 +17,7 @@
 #include "D2ClientQuestLog.h"
 #include "D2ClientStatButton.h"
 #include "D2WinSplitText.h"
+#include "D2TextIdEntry.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -1155,7 +1156,7 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 void __stdcall WAYPOINTS_FreeWaypointData(void* pMemPool, D2WaypointDataStrc* pData); // 0x00660FD0
 
-extern "C" void __cdecl sub_0049C650_CloseArchives(); // 0x0049C650
+extern "C" void __cdecl TEXT_FreeWaypointCels(); // 0x0049C650
 
 static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect); // 0x0049D9A0
 
@@ -1742,7 +1743,7 @@ void __cdecl TEXT_ResetNpcPanel()
 
 
 
-extern "C" void __cdecl sub_0049C650_CloseArchives(); // 0x0049C650
+extern "C" void __cdecl TEXT_FreeWaypointCels(); // 0x0049C650
 
 
 void __cdecl sub_0049C6C0_SendWaypointClose(); // 0x0049C6C0
@@ -1761,7 +1762,7 @@ static int sub_0049C510_GetWaypointRowAtPoint(int nX, int nY)
 }
 
 // 0x0049D010
-void __stdcall sub_0049D010_WaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall TEXT_OnWaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
 {
     int nX = (unsigned short)pMsg->lParam;
     int nY = (unsigned short)((unsigned int)pMsg->lParam >> 16);
@@ -1837,7 +1838,7 @@ struct D2BitBufferStrc;
 void __stdcall sub_L04_EmitUse(const Unicode* pText);
 
 // 0x0049D310
-static void __stdcall sub_0049D310_CopyTextLine(Unicode* pDest, int nMax, const Unicode** ppSrc)
+static void __stdcall TEXT_CopyTextLine(Unicode* pDest, int nMax, const Unicode** ppSrc)
 {
     int i = 0;
     memset(pDest, 0, nMax * sizeof(Unicode));
@@ -1862,7 +1863,7 @@ void __stdcall sub_L04_EmitCopyTextLine(const Unicode* pText)
     while (p->wChar)
     {
         Unicode wszLine[0x20];
-        sub_0049D310_CopyTextLine(wszLine, 0x20, &p);
+        TEXT_CopyTextLine(wszLine, 0x20, &p);
         sub_L04_EmitUse(wszLine);
     }
 }
@@ -2071,11 +2072,6 @@ void __fastcall TEXT_SetHoverUnit(D2UnitStrc* pUnit)
 
 struct D2TextIdEntryStrc;
 
-struct D2TextIdEntryStrc
-{
-    unsigned short wId;
-    unsigned short wStringId;
-};
 
 void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
@@ -4870,7 +4866,8 @@ static int TEXT_GetQuestSlotAtPoint(int nX, int nY)
     return -1;
 }
 
-static unsigned char sub_004A2690_HitTestButtonB(int nX, int nY)
+// build: symbol ?TEXT_HitTestQuestCloseButton@* 0x004A2690
+static unsigned char TEXT_HitTestQuestCloseButton(int nX, int nY)
 {
     if (nX >= 0x116 && nX <= 0x116 + 0x23 && nY >= 0x188 && nY <= 0x188 + 0x21)
     {
@@ -4938,7 +4935,7 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
             }
             else
             {
-                if (sub_004A2690_HitTestButtonB(nX, nY))
+                if (TEXT_HitTestQuestCloseButton(nX, nY))
                 {
                     gbGlobal_007BF2B2 = 1;
                     sub_004B9A00(4, 0, 0, 0, 0);
@@ -5045,7 +5042,7 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     int nY = D2_HIWORD(pMsg->lParam) + gnPanelOffsetY;
     if (gbGlobal_007BF2B2)
     {
-        if (sub_004A2690_HitTestButtonB(nX, nY)) TEXT_ToggleQuestLog(0);
+        if (TEXT_HitTestQuestCloseButton(nX, nY)) TEXT_ToggleQuestLog(0);
     }
     else if (!gbQuestDescriptionOpen)
     {

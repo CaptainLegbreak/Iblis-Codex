@@ -107,8 +107,8 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SFILE.CPP": {
-   "bytes": 424,
-   "definitions": 13,
+   "bytes": 348,
+   "definitions": 10,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -522,8 +522,6 @@
     "extern \"C\" void __cdecl SKILLSMON_MissileLine(); // 0x004F4610",
     "extern \"C\" void __cdecl SKILLDESC_CltDoTargetedMissile(); // 0x004F47B0",
     "extern \"C\" void __cdecl SKILLDESC_CltDoMirrorMissiles(); // 0x004F48F0",
-    "extern \"C\" void __cdecl sub_004F4A30_CltDoChargedMissile(); // 0x004F4A30",
-    "extern \"C\" void __cdecl sub_004F4D90_MissileAtTarget(); // 0x004F4D90",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartPosition(); // 0x004C83C0",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartLeap(); // 0x004C8D90",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartRun(); // 0x004C9120",
@@ -549,12 +547,9 @@
     "extern \"C\" void __cdecl sub_004F0C20_StoreTargetPos(); // 0x004F0C20",
     "extern \"C\" void __cdecl sub_004F0DD0_StoreTargetInfo(); // 0x004F0DD0",
     "extern \"C\" void __cdecl sub_004F1640_AuraStateOverlay(); // 0x004F1640",
-    "extern \"C\" void __cdecl sub_004F2010_CheckTarget(); // 0x004F2010",
     "extern \"C\" void __cdecl GFXUTIL_CltDoSetParamFromCalc(); // 0x004F20C0",
-    "extern \"C\" void __cdecl sub_004F23E0_AuraStateOff(); // 0x004F23E0",
     "extern \"C\" void __cdecl sub_004F2590_StartStateListEntry(); // 0x004F2590",
     "extern \"C\" void __cdecl sub_004F26D0_ApplyCltCalc(); // 0x004F26D0",
-    "extern \"C\" void __cdecl sub_004F2870_TargetIsPlayerOrMonster(); // 0x004F2870",
     "extern \"C\" void __cdecl GFXUTIL_CltDoMissileC(); // 0x004F34D0",
     "extern \"C\" void __cdecl SKILLDESC_CltStartMissileC(); // 0x004F3810",
     "extern \"C\" void __cdecl sub_004F3870_SetTargetPosParams(); // 0x004F3870",
@@ -571,7 +566,12 @@
     "extern \"C\" void __cdecl SKILLSAMA_CltDoRepeatAttack(); // 0x004F4C20",
     "extern \"C\" void __cdecl SKILLSPAL_StartCharge(); // 0x004C9B40",
     "extern \"C\" void __cdecl SKILLSMON_CreateTargetMissile(); // 0x004E3720",
-    "extern \"C\" void __cdecl SKILLSMON_ClearUsedSkillFlags(); // 0x004E1E30"
+    "extern \"C\" void __cdecl SKILLSMON_ClearUsedSkillFlags(); // 0x004E1E30",
+    "extern \"C\" void __cdecl SKILLDESC_CltDoChargedMissile(); // 0x004F4A30",
+    "extern \"C\" void __cdecl SKILLDESC_CreateMissileAtTarget(); // 0x004F4D90",
+    "extern \"C\" void __cdecl SKILLDESC_CanTargetHostile(); // 0x004F2010",
+    "extern \"C\" void __cdecl SKILLDESC_IsAuraStateOff(); // 0x004F23E0",
+    "extern \"C\" void __cdecl SKILLDESC_IsTargetPlayerOrMonster(); // 0x004F2870"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/SKILLS/Skills.inc",
@@ -755,7 +755,6 @@
     "extern \"C\" void __cdecl sub_0049BB60_OnRosterMouseDown(); // 0x0049BB60",
     "extern \"C\" void __cdecl sub_0049BDD0(); // 0x0049BDD0",
     "extern \"C\" void __cdecl TEXT_WaypointKeyMsg(); // 0x0049CEC0",
-    "extern \"C\" void __cdecl sub_0049D010_WaypointMouseUp(); // 0x0049D010",
     "extern \"C\" void __cdecl sub_0049D160_WaypointMouseDown(); // 0x0049D160",
     "extern \"C\" void __cdecl TEXT_PanelClickMsg(); // 0x0049FEA0",
     "extern \"C\" void __cdecl TEXT_CloseQuestPanelMsg(); // 0x004A2840",
@@ -771,10 +770,6 @@
     "extern \"C\" void __cdecl SPELLSEL_SkillSelectClickMsg(); // 0x004A9BD0",
     "extern \"C\" void __cdecl sub_004AB7E0_SkillTreeLButtonDown(); // 0x004AB7E0",
     "extern \"C\" void __cdecl sub_004ABC30(); // 0x004ABC30",
-    "extern \"C\" void __cdecl sub_004574D0_AutomapBaseYAddStep(); // 0x004574D0",
-    "extern \"C\" void __cdecl sub_004574E0_AutomapBaseYSubStep(); // 0x004574E0",
-    "extern \"C\" void __cdecl sub_004574F0_AutomapBaseXSubStep(); // 0x004574F0",
-    "extern \"C\" void __cdecl sub_00457500_AutomapBaseXAddStep(); // 0x00457500",
     "extern \"C\" void __cdecl ROSTERPETS_HandlePanelButtonDown(); // 0x004A5980",
     "extern \"C\" void __cdecl TEXT_KeyConfigWheelMsg(); // 0x004A59D0",
     "extern \"C\" void __cdecl TEXT_PrevEntryMsg(); // 0x004A5A40",
@@ -790,17 +785,25 @@
     "extern \"C\" void __cdecl ROSTERPETS_HandleHelpButtonDown(); // 0x00494F30",
     "extern \"C\" void __cdecl sub_00494FB0(); // 0x00494FB0",
     "extern \"C\" void __cdecl INV_HelpCloseButtonMsg(); // 0x00496720",
-    "extern \"C\" void __cdecl sub_004967A0_KeyCloseHelp(); // 0x004967A0",
     "extern \"C\" char gData_007A28A0[]; // 0x007A28A0",
     "extern \"C\" char gData_007A2938[]; // 0x007A2938",
     "extern \"C\" char gData_007A29D0[]; // 0x007A29D0",
     "extern \"C\" void __cdecl sub_004952B0_ButtonDownMsg(); // 0x004952B0",
     "extern \"C\" void __cdecl sub_00495320_ButtonUpMsg(); // 0x00495320",
-    "extern \"C\" void __cdecl sub_00499500_Click(); // 0x00499500",
     "extern \"C\" void __cdecl PANEL_BeltMouseReleaseMsg(); // 0x004996A0",
     "extern \"C\" void __cdecl PANEL_BeltMouseMove(); // 0x00499BB0",
     "extern \"C\" void __cdecl PANEL_BeltClickMsg(); // 0x00499D10",
-    "extern \"C\" void __cdecl sub_00457510(); // 0x00457510"
+    "extern \"C\" void __cdecl sub_00457510(); // 0x00457510",
+    "extern \"C\" void __cdecl TEXT_OnWaypointMouseUp(); // 0x0049D010",
+    "extern \"C\" void __cdecl INV_OnKeyCloseHelp(); // 0x004967A0",
+    "extern \"C\" void __cdecl PANEL_OnMouseClick(); // 0x00499500",
+    "extern \"C\" void __cdecl sub_0049D010_WaypointMouseUp(); // 0x0049D010",
+    "extern \"C\" void __cdecl AUTOMAP_IncreaseBaseY(); // 0x004574D0",
+    "extern \"C\" void __cdecl AUTOMAP_DecreaseBaseY(); // 0x004574E0",
+    "extern \"C\" void __cdecl AUTOMAP_DecreaseBaseX(); // 0x004574F0",
+    "extern \"C\" void __cdecl AUTOMAP_IncreaseBaseX(); // 0x00457500",
+    "extern \"C\" void __cdecl sub_004967A0_KeyCloseHelp(); // 0x004967A0",
+    "extern \"C\" void __cdecl sub_00499500_Click(); // 0x00499500"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/ui.inc",
@@ -935,7 +938,7 @@
     "extern \"C\" void __cdecl sub_00469170_HotkeyPetUi(); // 0x00469170",
     "extern \"C\" void __cdecl sub_004691C0_HotkeyRunOff(); // 0x004691C0",
     "extern \"C\" void __cdecl sub_00469210_HotkeyUiVarOn(); // 0x00469210",
-    "extern \"C\" void __cdecl sub_00493840_TogglePopup(); // 0x00493840"
+    "extern \"C\" void __cdecl HIREABLES_TogglePetIconPopup(); // 0x00493840"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/CmdTbl.inc",
@@ -1436,300 +1439,54 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004F4EC0.cpp": {
-   "bytes": 928,
+  "Source/D2Glide/Src/glCore.cpp": {
+   "bytes": 304,
    "definitions": 5,
    "externs": [
-    "extern \"C\" void __cdecl sub_00508F60_GlideCheckBoards(); // 0x00508F60",
-    "extern \"C\" void __cdecl GLIDE_GetBackBuffer(); // 0x00509210",
-    "extern \"C\" void __cdecl GLIDE_OpenSmackCutscene(); // 0x00509B60",
-    "extern \"C\" void __cdecl sub_0050ACC0_GlideDrawSpritePerspective(); // 0x0050ACC0",
+    "extern \"C\" void __cdecl GLDEBUGFONT_DebugPrintf(); // 0x0050BC90",
     "extern \"C\" void __cdecl GLIDE_DebugDraw(); // 0x0050BEF0",
-    "extern \"C\" void __cdecl sub_0050BF50_GlideDrawBox(); // 0x0050BF50",
-    "extern \"C\" void __cdecl sub_0050C0F0_GlideDrawBoxAlpha(); // 0x0050C0F0",
-    "extern \"C\" void __cdecl sub_0050C270_GlideDrawLine(); // 0x0050C270",
     "extern \"C\" void __cdecl GLIDE_UtilDiamond(); // 0x0050C3A0",
-    "extern \"C\" void __cdecl GLIDE_UtilRect(); // 0x0050C490",
-    "extern \"C\" void __cdecl sub_0050C5E0_GlideUtilFilledRect(); // 0x0050C5E0",
     "extern \"C\" void __cdecl GLIDE_UtilPoint(); // 0x0050C630",
+    "extern \"C\" void __cdecl GLIDE_UtilRect(); // 0x0050C490",
+    "extern \"C\" void __cdecl GLPERSPECTIVE_PerspectiveTransform(); // 0x0050DD60",
+    "extern \"C\" void __cdecl GLPERSPECTIVE_ProjectToScreenScaled(); // 0x0050DE10",
+    "extern \"C\" void __cdecl GLPERSPECTIVE_SetProjectOrigin(); // 0x0050DD50",
+    "extern \"C\" void __cdecl GLSMACK_CloseSmacker(); // 0x0050E040",
+    "extern \"C\" void __cdecl GLSMACK_DecodeSmacker(); // 0x0050E5D0",
+    "extern \"C\" void __cdecl GLSMACK_PlaySmacker(); // 0x0050E7F0",
+    "extern \"C\" void __cdecl GLSPRITE_CelDraw(); // 0x0050B0D0",
+    "extern \"C\" void __cdecl GLSPRITE_CelDrawClipped(); // 0x0050B500",
+    "extern \"C\" void __cdecl GLSPRITE_CelDrawColor(); // 0x0050B190",
+    "extern \"C\" void __cdecl GLSPRITE_CelDrawEx(); // 0x0050B230",
+    "extern \"C\" void __cdecl GLSPRITE_CelDrawHilight(); // 0x0050B720",
+    "extern \"C\" void __cdecl GLSPRITE_CelDrawShadow(); // 0x0050B690",
+    "extern \"C\" void __cdecl GLSPRITE_CelFlatSpriteDraw(); // 0x0050ACC0",
+    "extern \"C\" void __cdecl GLSPRITE_DebugFillBackBuffer(); // 0x0050B7A0",
+    "extern \"C\" void __cdecl sub_00508F60_GlideCheckBoards(); // 0x00508F60",
+    "extern \"C\" void __cdecl sub_0050C0F0_GlideDrawBoxAlpha(); // 0x0050C0F0",
+    "extern \"C\" void __cdecl sub_0050C5E0_GlideUtilFilledRect(); // 0x0050C5E0",
     "extern \"C\" void __cdecl sub_0050C680_ClearBuffer(); // 0x0050C680",
     "extern \"C\" void __cdecl sub_0050CD40_GlideShadowTileDraw(); // 0x0050CD40",
     "extern \"C\" void __cdecl sub_0050D490_GlideTileDrawTrans(); // 0x0050D490",
     "extern \"C\" void __cdecl sub_0050D4C0_GlideTileDrawLit(); // 0x0050D4C0",
-    "extern \"C\" void __cdecl sub_0050D6A0(); // 0x0050D6A0",
-    "extern \"C\" void __cdecl sub_0050DE10(); // 0x0050DE10",
-    "extern \"C\" void __cdecl sub_0050DF00_ResetSpriteScale(); // 0x0050DF00",
-    "extern \"C\" void __cdecl sub_00510130_DDrawNop(); // 0x00510130",
-    "extern \"C\" void __cdecl DDRAW_CheckCutScene(); // 0x00510140",
-    "extern \"C\" void __cdecl sub_00510150_DDrawGetScreenSize(); // 0x00510150",
-    "extern \"C\" void __cdecl sub_00510160_DDrawSetPalette(); // 0x00510160",
-    "extern \"C\" void __cdecl sub_005102D0_DDrawSetPaletteView(); // 0x005102D0",
-    "extern \"C\" void __cdecl sub_005102F0_DDrawNop(); // 0x005102F0",
-    "extern \"C\" void __cdecl sub_00510300_DDrawSetGamma(); // 0x00510300",
-    "extern \"C\" void __cdecl sub_00510310_ReturnOne(); // 0x00510310",
-    "extern \"C\" void __cdecl DDRAW_SetAmbientColor(); // 0x00510320",
-    "extern \"C\" void __cdecl sub_00510330_DDrawNop(); // 0x00510330",
-    "extern \"C\" void __cdecl sub_00510340_DDrawStub5(); // 0x00510340",
-    "extern \"C\" void __cdecl sub_00510350_DDrawStub6(); // 0x00510350",
-    "extern \"C\" void __cdecl sub_00510360_DDrawNop(); // 0x00510360",
-    "extern \"C\" void __cdecl DDRAW_GetCacheResults(); // 0x00510370",
-    "extern \"C\" void __cdecl DDRAW_ActivateWindow(); // 0x00510380",
-    "extern \"C\" void __cdecl sub_00510390_DDrawSetOption(); // 0x00510390",
-    "extern \"C\" void __cdecl DDRAW_OpenSmackCutscene(); // 0x00511660",
-    "extern \"C\" void __cdecl DDRAW_GetBackBuffer(); // 0x00511970",
-    "extern \"C\" void __cdecl sub_00511FB0_DrawImage(); // 0x00511FB0",
-    "extern \"C\" void __cdecl sub_005120A0_DrawImagePalette(); // 0x005120A0",
-    "extern \"C\" void __cdecl sub_005121A0_DrawClipped(); // 0x005121A0",
-    "extern \"C\" void __cdecl sub_00512250_DrawCel(); // 0x00512250",
-    "extern \"C\" void __cdecl sub_005122E0_DrawShadow(); // 0x005122E0",
-    "extern \"C\" void __cdecl DDRAW_CelDrawHilight(); // 0x005123A0",
-    "extern \"C\" void __cdecl sub_005123B0_DDrawDebugFillBackBuffer(); // 0x005123B0",
-    "extern \"C\" void __cdecl sub_00512410_ForwardToDrawImage(); // 0x00512410",
-    "extern \"C\" void __cdecl DDRAW_DebugDraw(); // 0x005126F0",
-    "extern \"C\" void __cdecl sub_00512710_DDrawDrawBox(); // 0x00512710",
-    "extern \"C\" void __cdecl sub_00512930_DDrawDrawLine(); // 0x00512930",
-    "extern \"C\" void __cdecl sub_00512C20(); // 0x00512C20",
-    "extern \"C\" void __cdecl sub_00512CE0_DrawRect(); // 0x00512CE0",
-    "extern \"C\" void __cdecl sub_00512D90_DDrawUtilFilledRect(); // 0x00512D90",
-    "extern \"C\" void __cdecl sub_00512ED0_ClearScreen(); // 0x00512ED0",
-    "extern \"C\" void __cdecl sub_00512F90(); // 0x00512F90",
-    "extern \"C\" void __cdecl sub_005130A0(); // 0x005130A0",
-    "extern \"C\" void __cdecl sub_005131B0(); // 0x005131B0",
-    "extern \"C\" void __cdecl sub_006B1BC0(); // 0x006B1BC0",
-    "extern \"C\" void __cdecl sub_006B1C00(); // 0x006B1C00",
-    "extern \"C\" void __cdecl sub_006B1C10_SetGlobal(); // 0x006B1C10",
-    "extern \"C\" void __cdecl sub_006B1C20_GetMaskedFlags(); // 0x006B1C20",
-    "extern \"C\" void __cdecl QSERVER_GetFloorCacheSize(); // 0x006B20A0",
-    "extern \"C\" void __cdecl sub_006B20B0(); // 0x006B20B0",
-    "extern \"C\" void __cdecl sub_006B4E80_LoadVideoConfiguration(); // 0x006B4E80",
-    "extern \"C\" void __cdecl sub_006B6730_DrawPerspectiveSprite(); // 0x006B6730",
-    "extern \"C\" void __cdecl sub_006B6B40(); // 0x006B6B40",
-    "extern \"C\" void __cdecl sub_006B6BF0(); // 0x006B6BF0",
-    "extern \"C\" void __cdecl sub_006B7630_DrawTextV(); // 0x006B7630",
-    "extern \"C\" void __cdecl sub_006B76C0(); // 0x006B76C0",
-    "extern \"C\" void __cdecl sub_006B77B0_Call(); // 0x006B77B0",
-    "extern \"C\" void __cdecl sub_006B7980_DrawRectangle(); // 0x006B7980",
-    "extern \"C\" void __cdecl sub_006B7B30_DrawLine(); // 0x006B7B30",
-    "extern \"C\" void __cdecl sub_006B7C90_DrawDiamond(); // 0x006B7C90",
-    "extern \"C\" void __cdecl sub_006B7D80_DrawRectangle(); // 0x006B7D80",
-    "extern \"C\" void __cdecl sub_006B7ED0_CallRect(); // 0x006B7ED0",
-    "extern \"C\" void __cdecl sub_006B7F20_CallSquare(); // 0x006B7F20",
-    "extern \"C\" void __cdecl sub_006B7F70_ClearTarget(); // 0x006B7F70",
-    "extern \"C\" void __cdecl sub_006B86F0_DrawShadow(); // 0x006B86F0",
-    "extern \"C\" void __cdecl sub_006B8E60_DrawRelay(); // 0x006B8E60",
-    "extern \"C\" void __cdecl sub_006B8E90(); // 0x006B8E90",
-    "extern \"C\" void __cdecl sub_006B9170(); // 0x006B9170",
-    "extern \"C\" void __cdecl sub_006B9710_SetColorComponents(); // 0x006B9710",
-    "extern \"C\" void __cdecl sub_006B9850_SetOrigin(); // 0x006B9850",
-    "extern \"C\" void __cdecl sub_006B9860_Project(); // 0x006B9860",
-    "extern \"C\" void __cdecl sub_006B9910_ProjectPoint(); // 0x006B9910",
-    "extern \"C\" void __cdecl sub_006B9A00_ResetScale(); // 0x006B9A00",
-    "extern \"C\" void __cdecl sub_006BA010(); // 0x006BA010",
-    "extern \"C\" void __cdecl sub_006C7A60(); // 0x006C7A60",
-    "extern \"C\" void __cdecl sub_006C7AF0_Nop(); // 0x006C7AF0",
-    "extern \"C\" void __cdecl sub_006C7CC0(); // 0x006C7CC0",
-    "extern \"C\" void __cdecl sub_006C7CD0(); // 0x006C7CD0",
-    "extern \"C\" void __cdecl sub_006C7CE0(); // 0x006C7CE0",
-    "extern \"C\" void __cdecl sub_006C7D80_LockAndSend(); // 0x006C7D80",
-    "extern \"C\" void __cdecl sub_006C7EF0_ConvertPalette(); // 0x006C7EF0",
-    "extern \"C\" void __cdecl sub_006C8000_SetPaletteView(); // 0x006C8000",
-    "extern \"C\" void __cdecl sub_006C8030_Nop(); // 0x006C8030",
-    "extern \"C\" void __cdecl sub_006C8040_Nop(); // 0x006C8040",
-    "extern \"C\" void __cdecl sub_006C8050(); // 0x006C8050",
-    "extern \"C\" void __cdecl sub_006C8060(); // 0x006C8060",
-    "extern \"C\" void __cdecl sub_006C8070_Nop(); // 0x006C8070",
-    "extern \"C\" void __cdecl sub_006C8080_Nop(); // 0x006C8080",
-    "extern \"C\" void __cdecl sub_006C8090_Nop(); // 0x006C8090",
-    "extern \"C\" void __cdecl sub_006C80A0_Nop(); // 0x006C80A0",
-    "extern \"C\" void __cdecl sub_006C80F0(); // 0x006C80F0",
-    "extern \"C\" void __cdecl sub_006C8100(); // 0x006C8100",
-    "extern \"C\" void __cdecl sub_006C8190(); // 0x006C8190",
-    "extern \"C\" void __cdecl sub_006C85A0_DrawImage(); // 0x006C85A0",
-    "extern \"C\" void __cdecl sub_006C88A0(); // 0x006C88A0",
-    "extern \"C\" void __cdecl sub_006C88B0_DrawAt(); // 0x006C88B0",
-    "extern \"C\" void __cdecl sub_006C8910_ForwardDraw(); // 0x006C8910",
-    "extern \"C\" void __cdecl sub_006C8970_GdiDebugPrintf(); // 0x006C8970",
-    "extern \"C\" void __cdecl sub_006C8A40(); // 0x006C8A40",
-    "extern \"C\" void __cdecl sub_006C8A60_Draw(); // 0x006C8A60",
-    "extern \"C\" void __cdecl sub_006C8C00_DrawAlpha(); // 0x006C8C00",
-    "extern \"C\" void __cdecl sub_006C8C80_GdiDrawLine(); // 0x006C8C80",
-    "extern \"C\" void __cdecl sub_006C8F70(); // 0x006C8F70",
-    "extern \"C\" void __cdecl sub_006C9030_DrawRect(); // 0x006C9030",
-    "extern \"C\" void __cdecl sub_006C90E0_FillRect(); // 0x006C90E0",
-    "extern \"C\" void __cdecl sub_006C91D0_GdiUtilPoint(); // 0x006C91D0",
-    "extern \"C\" void __cdecl sub_006C9270_Apply(); // 0x006C9270",
-    "extern \"C\" void __cdecl sub_006C9290(); // 0x006C9290",
-    "extern \"C\" void __cdecl sub_006C93A0(); // 0x006C93A0",
-    "extern \"C\" void __cdecl sub_006C94B0(); // 0x006C94B0",
-    "extern \"C\" void __cdecl sub_006C95D0_DrawShifted(); // 0x006C95D0",
-    "extern \"C\" void __cdecl sub_006C9640_GdiCloseSmacker(); // 0x006C9640",
-    "extern \"C\" void __cdecl sub_006C9710_GdiDecodeSmacker(); // 0x006C9710",
-    "extern \"C\" void __cdecl GLCORE_ClearCaches(); // 0x00508F90",
-    "extern \"C\" void __cdecl GLCORE_CheckCutScene(); // 0x00508FD0",
-    "extern \"C\" void __cdecl GLCORE_StartDraw(); // 0x00508FE0",
-    "extern \"C\" void __cdecl GLCORE_SetGlobalScale(); // 0x005090A0",
-    "extern \"C\" void __cdecl GLCORE_SetGamma(); // 0x005090B0",
-    "extern \"C\" void __cdecl GLCORE_GammaCanBeControlled(); // 0x00509190",
-    "extern \"C\" void __cdecl GLCORE_EndDraw(); // 0x005091A0",
-    "extern \"C\" void __cdecl GLCORE_Blit(); // 0x005091E0",
-    "extern \"C\" void __cdecl GLCORE_GetDimensions(); // 0x005092F0",
-    "extern \"C\" void __cdecl GLCORE_SetPalette(); // 0x00509300",
-    "extern \"C\" void __cdecl GLCORE_SetPaletteTables(); // 0x00509400",
-    "extern \"C\" void __cdecl GLCORE_ActivateWindow(); // 0x00509420",
-    "extern \"C\" void __cdecl GLCORE_SetOption(); // 0x00509430",
-    "extern \"C\" void __cdecl GLCORE_GetCacheResults(); // 0x00509640",
-    "extern \"C\" void __cdecl GLCORE_CloseSurface(); // 0x00509AA0",
-    "extern \"C\" void __cdecl GLCORE_Close(); // 0x00509E10",
-    "extern \"C\" void __cdecl GLCORE_CreateSurface(); // 0x00509E90",
-    "extern \"C\" void __cdecl GLCORE_PauseSurface(); // 0x00509EE0",
-    "extern \"C\" void __cdecl GLCORE_ChangeRes(); // 0x00509F70",
-    "extern \"C\" void __cdecl GLCORE_PlayCutscene(); // 0x00509FE0",
-    "extern \"C\" void __cdecl GLCORE_Init(); // 0x0050A010",
-    "extern \"C\" void __cdecl GLSPRITE_CelDraw(); // 0x0050B0D0",
-    "extern \"C\" void __cdecl GLSPRITE_CelDrawColor(); // 0x0050B190",
-    "extern \"C\" void __cdecl GLSPRITE_CelDrawEx(); // 0x0050B230",
-    "extern \"C\" void __cdecl GLSPRITE_CelDrawClipped(); // 0x0050B500",
-    "extern \"C\" void __cdecl GLSPRITE_CelDrawShadow(); // 0x0050B690",
-    "extern \"C\" void __cdecl GLSPRITE_CelDrawHilight(); // 0x0050B720",
-    "extern \"C\" void __cdecl GLSPRITE_DebugFillBackBuffer(); // 0x0050B7A0",
-    "extern \"C\" void __cdecl GLDEBUGFONT_DebugPrintf(); // 0x0050BC90",
-    "extern \"C\" void __cdecl GLVERTEX_SetAmbientColor(); // 0x0050DBC0",
-    "extern \"C\" void __cdecl GLPERSPECTIVE_SetProjectOrigin(); // 0x0050DD50",
-    "extern \"C\" void __cdecl GLPERSPECTIVE_PerspectiveTransform(); // 0x0050DD60",
-    "extern \"C\" void __cdecl GLSMACK_CloseSmacker(); // 0x0050E040",
-    "extern \"C\" void __cdecl GLSMACK_DecodeSmacker(); // 0x0050E5D0",
-    "extern \"C\" void __cdecl GLSMACK_PlaySmacker(); // 0x0050E7F0",
-    "extern \"C\" void __cdecl DDCORE_Detect(); // 0x00510020",
-    "extern \"C\" void __cdecl DDCORE_CreateSurface(); // 0x005115E0",
-    "extern \"C\" void __cdecl DDCORE_StartDraw(); // 0x00511720",
-    "extern \"C\" void __cdecl DDCORE_EndDraw(); // 0x005117F0",
-    "extern \"C\" void __cdecl DDCORE_Blit(); // 0x00511870",
-    "extern \"C\" void __cdecl DDCORE_PlayCutscene(); // 0x00511B10",
-    "extern \"C\" void __cdecl DDCORE_CloseSurface(); // 0x00511B30",
-    "extern \"C\" void __cdecl DDCORE_ChangeRes(); // 0x00511B60",
-    "extern \"C\" void __cdecl DDCORE_Close(); // 0x00511B80",
-    "extern \"C\" void __cdecl DDCORE_PauseSurface(); // 0x00511C20",
-    "extern \"C\" void __cdecl DDCORE_Init(); // 0x00511CE0",
-    "extern \"C\" void __cdecl DDDEBUGFONT_DebugPrintf(); // 0x00512680",
-    "extern \"C\" void __cdecl DDCORE_DrawBoxAlpha(); // 0x005128B0",
-    "extern \"C\" void __cdecl DDCORE_UtilPoint(); // 0x00512E80",
-    "extern \"C\" void __cdecl DDCORE_FloorTileDraw(); // 0x005132C0",
-    "extern \"C\" void __cdecl DDSMACK_CloseSmacker(); // 0x00513330",
-    "extern \"C\" void __cdecl DDSMACK_DecodeSmacker(); // 0x00513400",
-    "extern \"C\" void __cdecl DDSMACK_PlaySmacker(); // 0x005135F0",
-    "extern \"C\" void __cdecl GLIDE_ClearCaches(); // 0x00508F90",
-    "extern \"C\" void __cdecl GLIDE_CheckCutScene(); // 0x00508FD0",
-    "extern \"C\" void __cdecl GLIDE_StartDraw(); // 0x00508FE0",
-    "extern \"C\" void __cdecl GLIDE_SetGlobalScale(); // 0x005090A0",
-    "extern \"C\" void __cdecl GLIDE_SetGamma(); // 0x005090B0",
-    "extern \"C\" void __cdecl GLIDE_GammaCanBeControlled(); // 0x00509190",
-    "extern \"C\" void __cdecl GLIDE_EndDraw(); // 0x005091A0",
-    "extern \"C\" void __cdecl GLIDE_Blit(); // 0x005091E0",
-    "extern \"C\" void __cdecl GLIDE_GetDimensions(); // 0x005092F0",
-    "extern \"C\" void __cdecl GLIDE_SetPalette(); // 0x00509300",
-    "extern \"C\" void __cdecl GLIDE_SetPaletteTables(); // 0x00509400",
-    "extern \"C\" void __cdecl GLIDE_ActivateWindow(); // 0x00509420",
-    "extern \"C\" void __cdecl GLIDE_SetOption(); // 0x00509430",
-    "extern \"C\" void __cdecl GLIDE_GetCacheResults(); // 0x00509640",
-    "extern \"C\" void __cdecl GLIDE_CloseSurface(); // 0x00509AA0",
-    "extern \"C\" void __cdecl GLIDE_Close(); // 0x00509E10",
-    "extern \"C\" void __cdecl GLIDE_CreateSurface(); // 0x00509E90",
-    "extern \"C\" void __cdecl GLIDE_PauseSurface(); // 0x00509EE0",
-    "extern \"C\" void __cdecl GLIDE_ChangeRes(); // 0x00509F70",
-    "extern \"C\" void __cdecl GLIDE_PlayCutscene(); // 0x00509FE0",
-    "extern \"C\" void __cdecl GLIDE_Init(); // 0x0050A010",
-    "extern \"C\" void __cdecl GLIDE_CelDraw(); // 0x0050B0D0",
-    "extern \"C\" void __cdecl GLIDE_CelDrawColor(); // 0x0050B190",
-    "extern \"C\" void __cdecl GLIDE_CelDrawEx(); // 0x0050B230",
-    "extern \"C\" void __cdecl GLIDE_CelDrawClipped(); // 0x0050B500",
-    "extern \"C\" void __cdecl GLIDE_CelDrawShadow(); // 0x0050B690",
-    "extern \"C\" void __cdecl GLIDE_CelDrawHilight(); // 0x0050B720",
-    "extern \"C\" void __cdecl GLIDE_DebugFillBackBuffer(); // 0x0050B7A0",
-    "extern \"C\" void __cdecl GLIDE_DebugPrintf(); // 0x0050BC90",
-    "extern \"C\" void __cdecl GLIDE_SetAmbientColor(); // 0x0050DBC0",
-    "extern \"C\" void __cdecl GLIDE_SetProjectOrigin(); // 0x0050DD50",
-    "extern \"C\" void __cdecl GLIDE_PerspectiveTransform(); // 0x0050DD60",
-    "extern \"C\" void __cdecl GLIDE_CloseSmacker(); // 0x0050E040",
-    "extern \"C\" void __cdecl GLIDE_DecodeSmacker(); // 0x0050E5D0",
-    "extern \"C\" void __cdecl GLIDE_PlaySmacker(); // 0x0050E7F0",
-    "extern \"C\" void __cdecl DDRAW_Detect(); // 0x00510020",
-    "extern \"C\" void __cdecl DDRAW_CreateSurface(); // 0x005115E0",
-    "extern \"C\" void __cdecl DDRAW_StartDraw(); // 0x00511720",
-    "extern \"C\" void __cdecl DDRAW_EndDraw(); // 0x005117F0",
-    "extern \"C\" void __cdecl DDRAW_Blit(); // 0x00511870",
-    "extern \"C\" void __cdecl DDRAW_PlayCutscene(); // 0x00511B10",
-    "extern \"C\" void __cdecl DDRAW_CloseSurface(); // 0x00511B30",
-    "extern \"C\" void __cdecl DDRAW_ChangeRes(); // 0x00511B60",
-    "extern \"C\" void __cdecl DDRAW_Close(); // 0x00511B80",
-    "extern \"C\" void __cdecl DDRAW_PauseSurface(); // 0x00511C20",
-    "extern \"C\" void __cdecl DDRAW_Init(); // 0x00511CE0",
-    "extern \"C\" void __cdecl DDRAW_DebugPrintf(); // 0x00512680",
-    "extern \"C\" void __cdecl DDRAW_DrawBoxAlpha(); // 0x005128B0",
-    "extern \"C\" void __cdecl DDRAW_UtilPoint(); // 0x00512E80",
-    "extern \"C\" void __cdecl DDRAW_FloorTileDraw(); // 0x005132C0",
-    "extern \"C\" void __cdecl DDRAW_CloseSmacker(); // 0x00513330",
-    "extern \"C\" void __cdecl DDRAW_DecodeSmacker(); // 0x00513400",
-    "extern \"C\" void __cdecl DDRAW_PlaySmacker(); // 0x005135F0",
-    "extern \"C\" void __cdecl D3DCORE_FlipPrimary(); // 0x006B1C30",
-    "extern \"C\" void __cdecl D3DCORE_GetScreenSize(); // 0x006B1C60",
-    "extern \"C\" void __cdecl D3DCORE_SetPalette(); // 0x006B1C70",
-    "extern \"C\" void __cdecl D3DCORE_SetPaletteView(); // 0x006B1D60",
-    "extern \"C\" void __cdecl D3DCORE_SetOption(); // 0x006B20C0",
-    "extern \"C\" void __cdecl D3DCORE_ReleaseWindow(); // 0x006B3400",
-    "extern \"C\" void __cdecl D3DCORE_BeginCutScene(); // 0x006B3530",
-    "extern \"C\" void __cdecl D3DCORE_SetGamma(); // 0x006B3570",
-    "extern \"C\" void __cdecl D3DCORE_GetBackBuffer(); // 0x006B3610",
-    "extern \"C\" void __cdecl D3DCORE_Close(); // 0x006B5550",
-    "extern \"C\" void __cdecl D3DCORE_CreateSurface(); // 0x006B55E0",
-    "extern \"C\" void __cdecl D3DCORE_PauseSurface(); // 0x006B5630",
-    "extern \"C\" void __cdecl D3DCORE_OpenSmackCutscene(); // 0x006B56C0",
-    "extern \"C\" void __cdecl D3DCORE_StartDraw(); // 0x006B5720",
-    "extern \"C\" void __cdecl D3DCORE_EndDraw(); // 0x006B57D0",
-    "extern \"C\" void __cdecl D3DCORE_ChangeRes(); // 0x006B5830",
-    "extern \"C\" void __cdecl D3DCORE_Init(); // 0x006B59A0",
-    "extern \"C\" void __cdecl D3DSPRITE_CelDrawHilight(); // 0x006B7090",
-    "extern \"C\" void __cdecl D3DSPRITE_DebugFillBackBuffer(); // 0x006B7100",
-    "extern \"C\" void __cdecl D3DSMACK_CloseSmacker(); // 0x006B9BB0",
-    "extern \"C\" void __cdecl D3DSMACK_PlaySmacker(); // 0x006BA390",
-    "extern \"C\" void __cdecl D3DSPRITE_DrawSpriteRows(); // 0x006B6C90",
-    "extern \"C\" void __cdecl D3DSPRITE_DrawSpriteClipped(); // 0x006B6EE0",
-    "extern \"C\" void __cdecl D3DSPRITE_DrawSpriteShadow(); // 0x006B7000",
-    "extern \"C\" void __cdecl GDICORE_Init(); // 0x006C7A70",
-    "extern \"C\" void __cdecl GDICORE_Close(); // 0x006C7AB0",
-    "extern \"C\" void __cdecl GDICORE_CreateSurface(); // 0x006C7C10",
-    "extern \"C\" void __cdecl GDICORE_CloseSurface(); // 0x006C7CF0",
-    "extern \"C\" void __cdecl GDICORE_PauseSurface(); // 0x006C7D30",
-    "extern \"C\" void __cdecl GDICORE_EndDraw(); // 0x006C7DF0",
-    "extern \"C\" void __cdecl GDICORE_BlitWindow(); // 0x006C7E30",
-    "extern \"C\" void __cdecl GDICORE_GetScreenSize(); // 0x006C7F90",
-    "extern \"C\" void __cdecl GDICORE_SetPalette(); // 0x006C7FA0",
-    "extern \"C\" void __cdecl GDICORE_ChangeRes(); // 0x006C80B0",
-    "extern \"C\" void __cdecl GDICORE_DrawImage(); // 0x006C84B0",
-    "extern \"C\" void __cdecl GDICORE_DrawImageRows(); // 0x006C86A0",
-    "extern \"C\" void __cdecl GDICORE_DrawCelClipped(); // 0x006C8750",
-    "extern \"C\" void __cdecl GDICORE_DrawShadow(); // 0x006C87E0",
-    "extern \"C\" void __cdecl GDISMACK_PlaySmacker(); // 0x006C9900"
+    "extern \"C\" void __cdecl sub_0050D6A0_GlideDrawFloorTile(); // 0x0050D6A0",
+    "extern \"C\" void __cdecl sub_0050DF00_ResetSpriteScale(); // 0x0050DF00"
    ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004F4EC0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Glide/Src/glCore.cpp": {
-   "bytes": 88,
-   "definitions": 4,
-   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Glide/Src/glCore.inc",
    "lang": "cpp",
    "state": "included"
   },
   "Source/D2Gfx/SRC/Window.cpp": {
-   "bytes": 268,
-   "definitions": 8,
+   "bytes": 300,
+   "definitions": 9,
    "externs": [
     "extern \"C\" void __cdecl sub_004F8B80(); // 0x004F8B80",
-    "extern \"C\" void __cdecl sub_004F8DE0(); // 0x004F8DE0"
+    "extern \"C\" void __cdecl sub_004F8DE0(); // 0x004F8DE0",
+    "extern \"C\" struct d2data_0072F178_t gData_0072F178; // 0x0072F178",
+    "extern \"C\" struct d2data_0072F6D0_t gData_0072F6D0; // 0x0072F6D0",
+    "extern \"C\" struct d2data_0074BF28_t gData_0074BF28; // 0x0074BF28",
+    "extern \"C\" struct d2data_0074C4A8_t gData_0074C4A8; // 0x0074C4A8"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Gfx/SRC/Window.inc",
@@ -1821,9 +1578,44 @@
    "state": "included"
   },
   "Source/D2DDraw/Src/ddCore.cpp": {
-   "bytes": 76,
-   "definitions": 6,
-   "externs": [],
+   "bytes": 292,
+   "definitions": 7,
+   "externs": [
+    "extern \"C\" void __cdecl DDDEBUGFONT_DebugPrintf(); // 0x00512680",
+    "extern \"C\" void __cdecl DDRAW_ActivateWindow(); // 0x00510380",
+    "extern \"C\" void __cdecl DDRAW_CelDrawHilight(); // 0x005123A0",
+    "extern \"C\" void __cdecl DDRAW_CheckCutScene(); // 0x00510140",
+    "extern \"C\" void __cdecl DDRAW_GetBackBuffer(); // 0x00511970",
+    "extern \"C\" void __cdecl DDRAW_GetCacheResults(); // 0x00510370",
+    "extern \"C\" void __cdecl DDRAW_OpenSmackCutscene(); // 0x00511660",
+    "extern \"C\" void __cdecl DDRAW_SetAmbientColor(); // 0x00510320",
+    "extern \"C\" void __cdecl DDSMACK_DecodeSmacker(); // 0x00513400",
+    "extern \"C\" void __cdecl DDSMACK_PlaySmacker(); // 0x005135F0",
+    "extern \"C\" void __cdecl sub_00510130_DDrawNop(); // 0x00510130",
+    "extern \"C\" void __cdecl sub_00510150_DDrawGetScreenSize(); // 0x00510150",
+    "extern \"C\" void __cdecl sub_005102D0_DDrawSetPaletteView(); // 0x005102D0",
+    "extern \"C\" void __cdecl sub_005102F0_DDrawNop(); // 0x005102F0",
+    "extern \"C\" void __cdecl sub_00510300_DDrawSetGamma(); // 0x00510300",
+    "extern \"C\" void __cdecl sub_00510310_ReturnOne(); // 0x00510310",
+    "extern \"C\" void __cdecl sub_00510330_DDrawNop(); // 0x00510330",
+    "extern \"C\" void __cdecl sub_00510340_DDrawStub5(); // 0x00510340",
+    "extern \"C\" void __cdecl sub_00510350_DDrawStub6(); // 0x00510350",
+    "extern \"C\" void __cdecl sub_00510360_DDrawNop(); // 0x00510360",
+    "extern \"C\" void __cdecl sub_00510390_DDrawSetOption(); // 0x00510390",
+    "extern \"C\" void __cdecl sub_00511FB0_DrawImage(); // 0x00511FB0",
+    "extern \"C\" void __cdecl sub_005120A0_DrawImagePalette(); // 0x005120A0",
+    "extern \"C\" void __cdecl sub_005121A0_DrawClipped(); // 0x005121A0",
+    "extern \"C\" void __cdecl sub_00512250_DrawCel(); // 0x00512250",
+    "extern \"C\" void __cdecl sub_005122E0_DrawShadow(); // 0x005122E0",
+    "extern \"C\" void __cdecl sub_005123B0_DDrawDebugFillBackBuffer(); // 0x005123B0",
+    "extern \"C\" void __cdecl sub_00512410_ForwardToDrawImage(); // 0x00512410",
+    "extern \"C\" void __cdecl sub_00512930_DDrawDrawLine(); // 0x00512930",
+    "extern \"C\" void __cdecl sub_00512C20_DrawDiamond(); // 0x00512C20",
+    "extern \"C\" void __cdecl sub_00512CE0_DrawRect(); // 0x00512CE0",
+    "extern \"C\" void __cdecl sub_00512F90_DrawWallTile(); // 0x00512F90",
+    "extern \"C\" void __cdecl sub_005130A0_DrawLitTile(); // 0x005130A0",
+    "extern \"C\" void __cdecl sub_005131B0_DrawTile(); // 0x005131B0"
+   ],
    "fn_types": {},
    "include": "gen/data/Source/D2DDraw/Src/ddCore.inc",
    "lang": "cpp",
@@ -1881,15 +1673,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Glide/Src/glTextureCache.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Win/Unknown_0050F910.cpp": {
-   "bytes": 20,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Win/Unknown_0050F910.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2173,8 +1956,8 @@
    "state": "included"
   },
   "Source/D2Game/ITEMS/ItemMode.cpp": {
-   "bytes": 336,
-   "definitions": 6,
+   "bytes": 92,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/ITEMS/ItemMode.inc",
@@ -3415,8 +3198,8 @@
    "state": "included"
   },
   "Source/D2Game/SKILLS/SkillNec.cpp": {
-   "bytes": 560,
-   "definitions": 9,
+   "bytes": 260,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillNec_005C35C0.inc",
@@ -3424,7 +3207,7 @@
    "state": "included"
   },
   "Source/D2Game/SKILLS/SkillDruid.cpp": {
-   "bytes": 208,
+   "bytes": 144,
    "definitions": 7,
    "externs": [],
    "fn_types": {},
@@ -3433,7 +3216,7 @@
    "state": "included"
   },
   "Source/D2Game/SKILLS/SkillMonst.cpp": {
-   "bytes": 84,
+   "bytes": 148,
    "definitions": 3,
    "externs": [],
    "fn_types": {},
@@ -3913,15 +3696,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_00675850.cpp": {
-   "bytes": 316,
-   "definitions": 4,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_00675850.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Common/Unknown_00679380.cpp": {
    "bytes": 636,
    "definitions": 7,
@@ -4013,9 +3787,38 @@
    "state": "included"
   },
   "Source/D2Direct3D/Src/d3dCore.cpp": {
-   "bytes": 3804,
-   "definitions": 163,
-   "externs": [],
+   "bytes": 4020,
+   "definitions": 164,
+   "externs": [
+    "extern \"C\" void __cdecl D3DSMACK_CloseSmacker(); // 0x006B9BB0",
+    "extern \"C\" void __cdecl D3DSMACK_DecodeSmacker(); // 0x006BA010",
+    "extern \"C\" void __cdecl D3DSMACK_PlaySmacker(); // 0x006BA390",
+    "extern \"C\" void __cdecl D3DSPRITE_CelDrawHilight(); // 0x006B7090",
+    "extern \"C\" void __cdecl D3DSPRITE_DebugFillBackBuffer(); // 0x006B7100",
+    "extern \"C\" void __cdecl D3DSPRITE_DrawFlatSprite(); // 0x006B6730",
+    "extern \"C\" void __cdecl D3DSPRITE_DrawSpriteClipped(); // 0x006B6EE0",
+    "extern \"C\" void __cdecl D3DSPRITE_DrawSpriteRows(); // 0x006B6C90",
+    "extern \"C\" void __cdecl D3DSPRITE_DrawSpriteShadow(); // 0x006B7000",
+    "extern \"C\" void __cdecl sub_006B6B40_DrawSprite(); // 0x006B6B40",
+    "extern \"C\" void __cdecl sub_006B6BF0_DrawSprite(); // 0x006B6BF0",
+    "extern \"C\" void __cdecl sub_006B7630_DrawTextV(); // 0x006B7630",
+    "extern \"C\" void __cdecl sub_006B76C0(); // 0x006B76C0",
+    "extern \"C\" void __cdecl sub_006B77B0_Call(); // 0x006B77B0",
+    "extern \"C\" void __cdecl sub_006B7980_DrawRectangle(); // 0x006B7980",
+    "extern \"C\" void __cdecl sub_006B7B30_DrawLine(); // 0x006B7B30",
+    "extern \"C\" void __cdecl sub_006B7C90_DrawDiamond(); // 0x006B7C90",
+    "extern \"C\" void __cdecl sub_006B7D80_DrawRectangle(); // 0x006B7D80",
+    "extern \"C\" void __cdecl sub_006B7ED0_CallRect(); // 0x006B7ED0",
+    "extern \"C\" void __cdecl sub_006B7F20_CallSquare(); // 0x006B7F20",
+    "extern \"C\" void __cdecl sub_006B86F0_DrawShadow(); // 0x006B86F0",
+    "extern \"C\" void __cdecl sub_006B8E60_DrawRelay(); // 0x006B8E60",
+    "extern \"C\" void __cdecl sub_006B8E90_DrawWallTile(); // 0x006B8E90",
+    "extern \"C\" void __cdecl sub_006B9170_DrawGrid(); // 0x006B9170",
+    "extern \"C\" void __cdecl sub_006B9850_SetOrigin(); // 0x006B9850",
+    "extern \"C\" void __cdecl sub_006B9860_Project(); // 0x006B9860",
+    "extern \"C\" void __cdecl sub_006B9910_ProjectPoint(); // 0x006B9910",
+    "extern \"C\" void __cdecl sub_006B9A00_ResetScale(); // 0x006B9A00"
+   ],
    "fn_types": {},
    "include": "gen/data/Source/D2Direct3D/Src/d3dCore.inc",
    "lang": "cpp",
@@ -4130,8 +3933,8 @@
    "state": "included"
   },
   "Source/Storm/Unknown_006C9A68.cpp": {
-   "bytes": 288,
-   "definitions": 8,
+   "bytes": 276,
+   "definitions": 5,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -4688,27 +4491,14 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Win/Unknown_00508970.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Win/Unknown_00508970.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Common/DRLG/OutPlace.cpp": {
-   "bytes": 2900,
-   "definitions": 14,
+   "bytes": 3216,
+   "definitions": 18,
    "externs": [
     "extern \"C\" void __cdecl sub_006760F0(); // 0x006760F0",
-    "extern \"C\" void __cdecl sub_00676450_LinkStepDirectionSide(); // 0x00676450",
-    "extern \"C\" void __cdecl sub_00676650_LinkStepDirectionSideSized(); // 0x00676650",
     "extern \"C\" void __cdecl DRLGOUTROOM_LinkLevelsByLevelCoords(); // 0x0067D830",
     "extern \"C\" void __cdecl DRLGOUTROOM_LinkLevelsByLevelDef(); // 0x0067D8E0",
     "extern \"C\" void __cdecl DRLGOUTROOM_LinkLevelsByOffsetCoords(); // 0x0067D980",
-    "extern \"C\" void __cdecl sub_006768C0_PlaceLevel(); // 0x006768C0",
-    "extern \"C\" void __cdecl sub_006769A0(); // 0x006769A0",
     "extern \"C\" void __cdecl sub_00676AE0(); // 0x00676AE0"
    ],
    "fn_types": {},
@@ -5268,9 +5058,35 @@
    "state": "included"
   },
   "Source/D2Gdi/Src/gdiCore.cpp": {
-   "bytes": 36,
-   "definitions": 2,
-   "externs": [],
+   "bytes": 284,
+   "definitions": 3,
+   "externs": [
+    "extern \"C\" void __cdecl GDISMACK_PlaySmacker(); // 0x006C9900",
+    "extern \"C\" void __cdecl sub_006C7A60(); // 0x006C7A60",
+    "extern \"C\" void __cdecl sub_006C7CC0(); // 0x006C7CC0",
+    "extern \"C\" void __cdecl sub_006C7CD0(); // 0x006C7CD0",
+    "extern \"C\" void __cdecl sub_006C7CE0(); // 0x006C7CE0",
+    "extern \"C\" void __cdecl sub_006C7EF0_ConvertPalette(); // 0x006C7EF0",
+    "extern \"C\" void __cdecl sub_006C8050(); // 0x006C8050",
+    "extern \"C\" void __cdecl sub_006C8060(); // 0x006C8060",
+    "extern \"C\" void __cdecl sub_006C80F0(); // 0x006C80F0",
+    "extern \"C\" void __cdecl sub_006C8100(); // 0x006C8100",
+    "extern \"C\" void __cdecl sub_006C8190(); // 0x006C8190",
+    "extern \"C\" void __cdecl sub_006C88A0(); // 0x006C88A0",
+    "extern \"C\" void __cdecl sub_006C8A40(); // 0x006C8A40",
+    "extern \"C\" void __cdecl sub_006C8C80_GdiDrawLine(); // 0x006C8C80",
+    "extern \"C\" void __cdecl sub_006C8F70_RectDiamond(); // 0x006C8F70",
+    "extern \"C\" void __cdecl sub_006C9030_DrawRect(); // 0x006C9030",
+    "extern \"C\" void __cdecl sub_006C90E0_FillRect(); // 0x006C90E0",
+    "extern \"C\" void __cdecl sub_006C91D0_GdiUtilPoint(); // 0x006C91D0",
+    "extern \"C\" void __cdecl sub_006C9270_Apply(); // 0x006C9270",
+    "extern \"C\" void __cdecl sub_006C9290_DrawWallTile(); // 0x006C9290",
+    "extern \"C\" void __cdecl sub_006C93A0_DrawLitTile(); // 0x006C93A0",
+    "extern \"C\" void __cdecl sub_006C94B0_DrawTile(); // 0x006C94B0",
+    "extern \"C\" void __cdecl sub_006C95D0_DrawShifted(); // 0x006C95D0",
+    "extern \"C\" void __cdecl sub_006C9640_GdiCloseSmacker(); // 0x006C9640",
+    "extern \"C\" void __cdecl sub_006C9710_GdiDecodeSmacker(); // 0x006C9710"
+   ],
    "fn_types": {},
    "include": "gen/data/Source/D2Gdi/Src/gdiCore.inc",
    "lang": "cpp",
@@ -5315,6 +5131,33 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0044BA20.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/SKILLS/SkilPal.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/SKILLS/SkilPal.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Glide/Unknown_0050F910.cpp": {
+   "bytes": 20,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Glide/Unknown_0050F910.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Glide/Unknown_00508970.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Glide/Unknown_00508970.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -8405,64 +8248,6 @@
   },
   {
    "alias": true,
-   "cname": "gData_007083D8",
-   "declared": true,
-   "decorated": "_gszStormEventRecTypeName",
-   "file": "Source/Storm/SOURCE/SFILE.CPP",
-   "fill": 24,
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007083D8_t gData_007083D8; // 0x007083D8",
-   "head": "extern \"C\" struct d2data_007083D8_t gData_007083D8 = ",
-   "name": "gszStormEventRecTypeName",
-   "pointers": [
-    [
-     16,
-     "0x006F28F8",
-     "address",
-     "gData_006F28F8",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 24,
-   "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007083D8_t\n{\n    unsigned char b0[16];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007083D8\n#pragma comment(linker, \"/alternatename:_gszStormEventRecTypeName=_gData_007083D8\")",
-   "type": "char",
-   "va": "0x007083D8"
-  },
-  {
-   "alias": true,
-   "cname": "gData_007083F0",
-   "declared": true,
-   "decorated": "?gszTypeNameRequest_007083F0@@3PADA",
-   "file": "Source/Storm/SOURCE/SFILE.CPP",
-   "fill": 24,
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007083F0_t gData_007083F0; // 0x007083F0",
-   "head": "extern \"C\" struct d2data_007083F0_t gData_007083F0 = ",
-   "name": "gszTypeNameRequest_007083F0",
-   "pointers": [
-    [
-     16,
-     "0x006F28F8",
-     "address",
-     "gData_006F28F8",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 24,
-   "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007083F0_t\n{\n    unsigned char b0[16];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007083F0\n#pragma comment(linker, \"/alternatename:?gszTypeNameRequest_007083F0@@3PADA=_gData_007083F0\")",
-   "type": "char",
-   "va": "0x007083F0"
-  },
-  {
-   "alias": true,
    "cname": "gData_00708124",
    "declared": true,
    "decorated": "_gszLogMessageTypeName",
@@ -8916,59 +8701,19 @@
    "declared": true,
    "decorated": "_gszStormFileRecTypeName",
    "file": "Source/Storm/SOURCE/SFILE.CPP",
-   "fill": 24,
+   "fill": 16,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007083C0_t gData_007083C0; // 0x007083C0",
    "head": "extern \"C\" struct d2data_007083C0_t gData_007083C0 = ",
    "name": "gszStormFileRecTypeName",
-   "pointers": [
-    [
-     16,
-     "0x006F28F8",
-     "address",
-     "gData_006F28F8",
-     0,
-     "data"
-    ]
-   ],
+   "pointers": [],
    "region": "data",
-   "size": 24,
+   "size": 16,
    "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007083C0_t\n{\n    unsigned char b0[16];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_007083C0_t\n{\n    unsigned char b0[16];\n};\n#pragma pack(pop)",
    "tail": "; // 0x007083C0\n#pragma comment(linker, \"/alternatename:_gszStormFileRecTypeName=_gData_007083C0\")",
    "type": "char",
    "va": "0x007083C0"
-  },
-  {
-   "alias": true,
-   "cname": "gData_00708408",
-   "declared": true,
-   "decorated": "_gszStormAudioStreamTypeName",
-   "file": "Source/Storm/SOURCE/SFILE.CPP",
-   "fill": 20,
-   "form": "declared",
-   "fwd": "extern \"C\" const char gData_00708408[20]; // 0x00708408",
-   "head": "extern \"C\" const char gData_00708408[20] = ",
-   "model": {
-    "elem": {
-     "k": "prim",
-     "kind": "c",
-     "name": "char",
-     "size": 1
-    },
-    "k": "arr",
-    "n": 20,
-    "size": 20
-   },
-   "name": "gszStormAudioStreamTypeName",
-   "pointers": [],
-   "region": "data",
-   "size": 20,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00708408\n#pragma comment(linker, \"/alternatename:_gszStormAudioStreamTypeName=_gData_00708408\")",
-   "type": "char",
-   "va": "0x00708408"
   },
   {
    "alias": true,
@@ -34837,7 +34582,7 @@
      20,
      "0x0049D010",
      "source",
-     "sub_0049D010_WaypointMouseUp",
+     "TEXT_OnWaypointMouseUp",
      0,
      "func"
     ],
@@ -34853,7 +34598,7 @@
      44,
      "0x0049D010",
      "source",
-     "sub_0049D010_WaypointMouseUp",
+     "TEXT_OnWaypointMouseUp",
      0,
      "func"
     ],
@@ -38548,7 +38293,7 @@
      8,
      "0x004574E0",
      "names.json",
-     "sub_004574E0_AutomapBaseYSubStep",
+     "AUTOMAP_DecreaseBaseY",
      0,
      "func"
     ],
@@ -38556,7 +38301,7 @@
      20,
      "0x004574D0",
      "names.json",
-     "sub_004574D0_AutomapBaseYAddStep",
+     "AUTOMAP_IncreaseBaseY",
      0,
      "func"
     ],
@@ -38564,7 +38309,7 @@
      32,
      "0x00457500",
      "names.json",
-     "sub_00457500_AutomapBaseXAddStep",
+     "AUTOMAP_IncreaseBaseX",
      0,
      "func"
     ],
@@ -38572,7 +38317,7 @@
      44,
      "0x004574F0",
      "names.json",
-     "sub_004574F0_AutomapBaseXSubStep",
+     "AUTOMAP_DecreaseBaseX",
      0,
      "func"
     ],
@@ -38866,7 +38611,7 @@
      32,
      "0x004967A0",
      "names.json",
-     "sub_004967A0_KeyCloseHelp",
+     "INV_OnKeyCloseHelp",
      0,
      "func"
     ],
@@ -38874,7 +38619,7 @@
      44,
      "0x004967A0",
      "names.json",
-     "sub_004967A0_KeyCloseHelp",
+     "INV_OnKeyCloseHelp",
      0,
      "func"
     ],
@@ -38908,7 +38653,7 @@
      8,
      "0x00499500",
      "source",
-     "sub_00499500_Click",
+     "PANEL_OnMouseClick",
      0,
      "func"
     ],
@@ -42752,7 +42497,7 @@
      512,
      "0x00493840",
      "source",
-     "sub_00493840_TogglePopup",
+     "HIREABLES_TogglePetIconPopup",
      0,
      "func"
     ],
@@ -44969,7 +44714,7 @@
      8,
      "0x0047CA70",
      "names.json",
-     "sub_0047CA70_OnChatChar",
+     "CHAT_OnChatChar",
      0,
      "func"
     ],
@@ -45027,7 +44772,7 @@
      20,
      "0x0047AA60",
      "names.json",
-     "sub_0047AA60_OnImeComposition",
+     "CHAT_OnImeComposition",
      0,
      "func"
     ],
@@ -60245,7 +59990,7 @@
      8,
      "0x004C04E0",
      "names.json",
-     "sub_004C04E0_OnHotspotClick",
+     "USEITEM_OnHotspotClick",
      0,
      "func"
     ],
@@ -60269,7 +60014,7 @@
      44,
      "0x004C04E0",
      "names.json",
-     "sub_004C04E0_OnHotspotClick",
+     "USEITEM_OnHotspotClick",
      0,
      "func"
     ],
@@ -60584,7 +60329,7 @@
      80,
      "0x004F4A30",
      "source",
-     "sub_004F4A30_CltDoChargedMissile",
+     "SKILLDESC_CltDoChargedMissile",
      0,
      "func"
     ],
@@ -60600,7 +60345,7 @@
      88,
      "0x004F4D90",
      "source",
-     "sub_004F4D90_MissileAtTarget",
+     "SKILLDESC_CreateMissileAtTarget",
      0,
      "func"
     ],
@@ -61427,7 +61172,7 @@
      20,
      "0x004F2010",
      "names.json",
-     "sub_004F2010_CheckTarget",
+     "SKILLDESC_CanTargetHostile",
      0,
      "func"
     ],
@@ -61443,7 +61188,7 @@
      28,
      "0x004F23E0",
      "names.json",
-     "sub_004F23E0_AuraStateOff",
+     "SKILLDESC_IsAuraStateOff",
      0,
      "func"
     ],
@@ -61467,7 +61212,7 @@
      40,
      "0x004F2870",
      "names.json",
-     "sub_004F2870_TargetIsPlayerOrMonster",
+     "SKILLDESC_IsTargetPlayerOrMonster",
      0,
      "func"
     ],
@@ -73842,7 +73587,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004F4EC0.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": null,
@@ -73906,7 +73651,7 @@
    "cname": "gData_0072F178",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004F4EC0.cpp",
+   "file": "Source/D2Glide/Src/glCore.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072F178_t gData_0072F178; // 0x0072F178",
    "head": "extern \"C\" struct d2data_0072F178_t gData_0072F178 = ",
@@ -74124,7 +73869,7 @@
      104,
      "0x0050DE10",
      "queue_function",
-     "sub_0050DE10",
+     "GLPERSPECTIVE_ProjectToScreenScaled",
      0,
      "func"
     ],
@@ -74164,7 +73909,7 @@
      124,
      "0x0050D6A0",
      "queue_function",
-     "sub_0050D6A0",
+     "sub_0050D6A0_GlideDrawFloorTile",
      0,
      "func"
     ],
@@ -74172,7 +73917,7 @@
      128,
      "0x0050ACC0",
      "source",
-     "sub_0050ACC0_GlideDrawSpritePerspective",
+     "GLSPRITE_CelFlatSpriteDraw",
      0,
      "func"
     ],
@@ -74356,7 +74101,7 @@
    "cname": "gData_0072F6D0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004F4EC0.cpp",
+   "file": "Source/D2DDraw/Src/ddCore.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072F6D0_t gData_0072F6D0; // 0x0072F6D0",
    "head": "extern \"C\" struct d2data_0072F6D0_t gData_0072F6D0 = ",
@@ -74678,7 +74423,7 @@
      156,
      "0x005131B0",
      "queue_function",
-     "sub_005131B0",
+     "sub_005131B0_DrawTile",
      0,
      "func"
     ],
@@ -74686,7 +74431,7 @@
      160,
      "0x005130A0",
      "queue_function",
-     "sub_005130A0",
+     "sub_005130A0_DrawLitTile",
      0,
      "func"
     ],
@@ -74694,7 +74439,7 @@
      164,
      "0x00512F90",
      "queue_function",
-     "sub_00512F90",
+     "sub_00512F90_DrawWallTile",
      0,
      "func"
     ],
@@ -74702,7 +74447,7 @@
      168,
      "0x00512C20",
      "queue_function",
-     "sub_00512C20",
+     "sub_00512C20_DrawDiamond",
      0,
      "func"
     ],
@@ -74806,7 +74551,7 @@
    "cname": "gData_0074BF28",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004F4EC0.cpp",
+   "file": "Source/D2Direct3D/Src/d3dCore.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0074BF28_t gData_0074BF28; // 0x0074BF28",
    "head": "extern \"C\" struct d2data_0074BF28_t gData_0074BF28 = ",
@@ -74944,7 +74689,7 @@
      64,
      "0x006BA010",
      "queue_function",
-     "sub_006BA010",
+     "D3DSMACK_DecodeSmacker",
      0,
      "func"
     ],
@@ -75064,7 +74809,7 @@
      124,
      "0x006B9170",
      "queue_function",
-     "sub_006B9170",
+     "sub_006B9170_DrawGrid",
      0,
      "func"
     ],
@@ -75072,7 +74817,7 @@
      128,
      "0x006B6730",
      "source",
-     "sub_006B6730_DrawPerspectiveSprite",
+     "D3DSPRITE_DrawFlatSprite",
      0,
      "func"
     ],
@@ -75080,7 +74825,7 @@
      132,
      "0x006B6B40",
      "queue_function",
-     "sub_006B6B40",
+     "sub_006B6B40_DrawSprite",
      0,
      "func"
     ],
@@ -75088,7 +74833,7 @@
      136,
      "0x006B6BF0",
      "queue_function",
-     "sub_006B6BF0",
+     "sub_006B6BF0_DrawSprite",
      0,
      "func"
     ],
@@ -75128,7 +74873,7 @@
      156,
      "0x006B8E90",
      "queue_function",
-     "sub_006B8E90",
+     "sub_006B8E90_DrawWallTile",
      0,
      "func"
     ],
@@ -75240,7 +74985,7 @@
      212,
      "0x006B1BC0",
      "source",
-     "sub_006B1BC0",
+     "sub_006B1BC0_ClearCaches",
      0,
      "func"
     ]
@@ -75256,7 +75001,7 @@
    "cname": "gData_0074C4A8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004F4EC0.cpp",
+   "file": "Source/D2Gdi/Src/gdiCore.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0074C4A8_t gData_0074C4A8; // 0x0074C4A8",
    "head": "extern \"C\" struct d2data_0074C4A8_t gData_0074C4A8 = ",
@@ -75578,7 +75323,7 @@
      156,
      "0x006C94B0",
      "queue_function",
-     "sub_006C94B0",
+     "sub_006C94B0_DrawTile",
      0,
      "func"
     ],
@@ -75586,7 +75331,7 @@
      160,
      "0x006C93A0",
      "queue_function",
-     "sub_006C93A0",
+     "sub_006C93A0_DrawLitTile",
      0,
      "func"
     ],
@@ -75594,7 +75339,7 @@
      164,
      "0x006C9290",
      "queue_function",
-     "sub_006C9290",
+     "sub_006C9290_DrawWallTile",
      0,
      "func"
     ],
@@ -75602,7 +75347,7 @@
      168,
      "0x006C8F70",
      "queue_function",
-     "sub_006C8F70",
+     "sub_006C8F70_RectDiamond",
      0,
      "func"
     ],
@@ -79717,7 +79462,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Win/Unknown_0050F910.cpp",
+   "file": "Source/D2Glide/Unknown_0050F910.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2GrTexInfoStrc gtGlideTileTexInfo = ",
@@ -79773,7 +79518,7 @@
    "cname": "gData_0072F6B4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Win/Unknown_0050F910.cpp",
+   "file": "Source/D2Glide/Unknown_0050F910.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072F6B4_t gData_0072F6B4; // 0x0072F6B4",
    "head": "extern \"C\" struct d2data_0072F6B4_t gData_0072F6B4 = ",
@@ -89657,558 +89402,6 @@
    "tail": "; // 0x00731FEC",
    "type": "D2QuestItemPairStrc",
    "va": "0x00731FEC"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0073200C",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/ITEMS/ItemMode.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0073200C_t gData_0073200C; // 0x0073200C",
-   "head": "extern \"C\" struct d2data_0073200C_t gData_0073200C = ",
-   "name": "gData_0073200C",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0073200C_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0073200C",
-   "va": "0x0073200C"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00732048",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/ITEMS/ItemMode.cpp",
-   "form": "bytes",
-   "name": "gData_00732048",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "va": "0x00732048",
-   "fwd": "extern \"C\" struct d2data_00732048_t gData_00732048; // 0x00732048",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00732048_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_00732048_t gData_00732048 = ",
-   "tail": "; // 0x00732048"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00732084",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/ITEMS/ItemMode.cpp",
-   "form": "bytes",
-   "name": "gData_00732084",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "va": "0x00732084",
-   "fwd": "extern \"C\" struct d2data_00732084_t gData_00732084; // 0x00732084",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00732084_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_00732084_t gData_00732084 = ",
-   "tail": "; // 0x00732084"
-  },
-  {
-   "alias": false,
-   "cname": "gData_007320C0",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/ITEMS/ItemMode.cpp",
-   "form": "bytes",
-   "name": "gData_007320C0",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 64,
-   "va": "0x007320C0",
-   "fwd": "extern \"C\" struct d2data_007320C0_t gData_007320C0; // 0x007320C0",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007320C0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    unsigned char b15[4];\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_007320C0_t gData_007320C0 = ",
-   "tail": "; // 0x007320C0"
   },
   {
    "alias": false,
@@ -103603,562 +102796,10 @@
   },
   {
    "alias": false,
-   "cname": "gData_007419A4",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/SKILLS/SkillNec.cpp",
-   "form": "bytes",
-   "name": "gData_007419A4",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "va": "0x007419A4",
-   "fwd": "extern \"C\" struct d2data_007419A4_t gData_007419A4; // 0x007419A4",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007419A4_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_007419A4_t gData_007419A4 = ",
-   "tail": "; // 0x007419A4"
-  },
-  {
-   "alias": false,
-   "cname": "gData_007419E0",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/SKILLS/SkillNec.cpp",
-   "form": "bytes",
-   "name": "gData_007419E0",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "va": "0x007419E0",
-   "fwd": "extern \"C\" struct d2data_007419E0_t gData_007419E0; // 0x007419E0",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007419E0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_007419E0_t gData_007419E0 = ",
-   "tail": "; // 0x007419E0"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00741A1C",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/SKILLS/SkillNec.cpp",
-   "form": "bytes",
-   "name": "gData_00741A1C",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "va": "0x00741A1C",
-   "fwd": "extern \"C\" struct d2data_00741A1C_t gData_00741A1C; // 0x00741A1C",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00741A1C_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_00741A1C_t gData_00741A1C = ",
-   "tail": "; // 0x00741A1C"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00741A58",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/SKILLS/SkillNec.cpp",
-   "form": "bytes",
-   "name": "gData_00741A58",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "va": "0x00741A58",
-   "fwd": "extern \"C\" struct d2data_00741A58_t gData_00741A58; // 0x00741A58",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00741A58_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_00741A58_t gData_00741A58 = ",
-   "tail": "; // 0x00741A58"
-  },
-  {
-   "alias": false,
    "cname": "gData_00741A94",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/SKILLS/SkillNec.cpp",
+   "file": "Source/D2Game/SKILLS/SkilPal.cpp",
    "form": "bytes",
    "name": "gData_00741A94",
    "pointers": [
@@ -138388,7 +137029,7 @@
    "cname": "gData_006F0620",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_00675850.cpp",
+   "file": "Source/D2Common/DRLG/OutPlace.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006F0620_t gData_006F0620; // 0x006F0620",
    "head": "extern \"C\" const struct d2data_006F0620_t gData_006F0620 = ",
@@ -138405,7 +137046,7 @@
    "cname": "gData_006F06F0",
    "declared": true,
    "decorated": "?gaBarricadeCliffBorderIds@@3PAY01HA",
-   "file": "Source/D2Common/Unknown_00675850.cpp",
+   "file": "Source/D2Common/DRLG/OutPlace.cpp",
    "fill": 12,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006F06F0[12][2]; // 0x006F06F0",
@@ -138441,7 +137082,7 @@
    "cname": "gData_006F1088",
    "declared": true,
    "decorated": "?gaBorderIndicesByDelta@@3PAHA",
-   "file": "Source/D2Common/Unknown_00675850.cpp",
+   "file": "Source/D2Common/DRLG/OutPlace.cpp",
    "fill": 41,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006F1088[41]; // 0x006F1088",
@@ -138472,7 +137113,7 @@
    "cname": "gData_006F112C",
    "declared": true,
    "decorated": "?gaDesertBorderIds@@3PAY01HA",
-   "file": "Source/D2Common/Unknown_00675850.cpp",
+   "file": "Source/D2Common/DRLG/OutPlace.cpp",
    "fill": 5,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006F112C[5][2]; // 0x006F112C",
@@ -138578,7 +137219,7 @@
      16,
      "0x00676150",
      "source",
-     "sub_00676150_LinkStepDirection",
+     "DRLGOUTPLACE_TryNextSideOffset",
      0,
      "func"
     ],
@@ -138602,7 +137243,7 @@
      64,
      "0x00676150",
      "source",
-     "sub_00676150_LinkStepDirection",
+     "DRLGOUTPLACE_TryNextSideOffset",
      0,
      "func"
     ]
@@ -138737,7 +137378,7 @@
      48,
      "0x00676150",
      "source",
-     "sub_00676150_LinkStepDirection",
+     "DRLGOUTPLACE_TryNextSideOffset",
      0,
      "func"
     ],
@@ -138745,7 +137386,7 @@
      64,
      "0x00676150",
      "source",
-     "sub_00676150_LinkStepDirection",
+     "DRLGOUTPLACE_TryNextSideOffset",
      0,
      "func"
     ]
@@ -138832,8 +137473,8 @@
     [
      16,
      "0x006769A0",
-     "queue_function",
-     "sub_006769A0",
+     "source",
+     "sub_6FD81B30",
      0,
      "func"
     ],
@@ -138841,7 +137482,7 @@
      32,
      "0x00676280",
      "source",
-     "sub_00676280_PlaceLevelLinkSide",
+     "DRLGOUTPLACE_TryNextCenteredSideOffset",
      0,
      "func"
     ],
@@ -138849,7 +137490,7 @@
      48,
      "0x00676280",
      "source",
-     "sub_00676280_PlaceLevelLinkSide",
+     "DRLGOUTPLACE_TryNextCenteredSideOffset",
      0,
      "func"
     ],
@@ -138857,7 +137498,7 @@
      64,
      "0x00676280",
      "source",
-     "sub_00676280_PlaceLevelLinkSide",
+     "DRLGOUTPLACE_TryNextCenteredSideOffset",
      0,
      "func"
     ],
@@ -139121,7 +137762,7 @@
      16,
      "0x00676C00",
      "source",
-     "sub_00676C00_PlaceLevelNextTo",
+     "DRLGOUTPLACE_PlaceLevelNextTo",
      0,
      "func"
     ],
@@ -139129,7 +137770,7 @@
      32,
      "0x00676150",
      "source",
-     "sub_00676150_LinkStepDirection",
+     "DRLGOUTPLACE_TryNextSideOffset",
      0,
      "func"
     ],
@@ -139137,7 +137778,7 @@
      48,
      "0x00676150",
      "source",
-     "sub_00676150_LinkStepDirection",
+     "DRLGOUTPLACE_TryNextSideOffset",
      0,
      "func"
     ]
@@ -146911,40 +145552,6 @@
    "file": "Source/Storm/Unknown_006C9A68.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern unsigned int gnListTerminator_00708364 = ",
-   "model": {
-    "k": "prim",
-    "kind": "u",
-    "name": "unsigned int",
-    "size": 4
-   },
-   "name": "gnListTerminator_00708364",
-   "pointers": [
-    [
-     0,
-     "0x00708364",
-     "owner",
-     "gnListTerminator_00708364",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00708364",
-   "type": "unsigned int",
-   "va": "0x00708364"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006C9A68.cpp",
-   "form": "declared",
-   "fwd": null,
    "head": "extern unsigned int gnListTerminator_00708370 = ",
    "model": {
     "k": "prim",
@@ -146970,74 +145577,6 @@
    "tail": "; // 0x00708370",
    "type": "unsigned int",
    "va": "0x00708370"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006C9A68.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern unsigned int gnListTerminator_0070837C = ",
-   "model": {
-    "k": "prim",
-    "kind": "u",
-    "name": "unsigned int",
-    "size": 4
-   },
-   "name": "gnListTerminator_0070837C",
-   "pointers": [
-    [
-     0,
-     "0x0070837C",
-     "owner",
-     "gnListTerminator_0070837C",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070837C",
-   "type": "unsigned int",
-   "va": "0x0070837C"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006C9A68.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern unsigned int gnListTerminator_00708388 = ",
-   "model": {
-    "k": "prim",
-    "kind": "u",
-    "name": "unsigned int",
-    "size": 4
-   },
-   "name": "gnListTerminator_00708388",
-   "pointers": [
-    [
-     0,
-     "0x00708388",
-     "owner",
-     "gnListTerminator_00708388",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00708388",
-   "type": "unsigned int",
-   "va": "0x00708388"
   },
   {
    "alias": false,
@@ -150566,7 +149105,7 @@
    "cname": "gData_0072F13C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Win/Unknown_00508970.cpp",
+   "file": "Source/D2Glide/Unknown_00508970.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072F13C_t gData_0072F13C; // 0x0072F13C",
    "head": "extern \"C\" struct d2data_0072F13C_t gData_0072F13C = ",

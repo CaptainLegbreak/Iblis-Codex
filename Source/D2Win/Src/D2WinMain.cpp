@@ -685,9 +685,9 @@ extern unsigned long gdwPaletteFlashTick; // 0x00841B6C
 
 unsigned char* __fastcall D2Win_10175_GetPL2Shift(int nIndex); // 0x004FB0C0
 
-void __stdcall D2Win_10179(); // 0x004FB0D0
+void __stdcall D2Win_10179_UpdatePaletteFlash(); // 0x004FB0D0
 
-void __fastcall D2Win_10176(int bTimed); // 0x004FB130
+void __fastcall D2Win_10176_StartPaletteFlash(int bTimed); // 0x004FB130
 
 void __fastcall TEXTBOX_SetSmallGap(int nValue); // 0x004FB590
 
@@ -996,7 +996,7 @@ int __stdcall D2Win_10005(int nResolution)
         exit(-1);
     }
 
-    sub_004FB130_SetActiveState(0);
+    D2Win_10176_StartPaletteFlash(0);
     D2CMPSpriteCacheInit(0, 0x800000, 0x7D000, 0);
     return 1;
 }
@@ -1791,7 +1791,7 @@ void __stdcall D2Win_COMMANDS_ActivateApp_6F8ADC40(SMSGHANDLER_PARAMS* pMsg)
         if (!FOG_IsHandlingError())
         {
             WINDOW_SetPaused(0);
-            sub_004FB130_SetActiveState(1);
+            D2Win_10176_StartPaletteFlash(1);
         }
 
         D2SOUND_10049(gnSavedVolume);

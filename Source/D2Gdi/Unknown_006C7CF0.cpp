@@ -19,6 +19,7 @@ extern void* ghObject_0098A164; // 0x0098A164
 extern D2Callbacks006C7CF0Strc* gpCallbacks_007C914C; // 0x007C914C
 
 #include "D2SysTypes.h"
+#include "D2Win32RgbQuad.h"
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
@@ -48,13 +49,6 @@ extern int gnRenderHeight; // 0x007C913C
 extern D2RgbQuadStrc gaPalette_00989C40[256]; // 0x00989C40
 extern void* ghPalette; // 0x0098A160
 
-struct D2RgbQuad006C7FA0Strc
-{
-    unsigned char rgbBlue;
-    unsigned char rgbGreen;
-    unsigned char rgbRed;
-    unsigned char rgbReserved;
-};
 
 extern "C" __declspec(dllimport) unsigned int __stdcall SetPaletteEntries(void* hPalette, unsigned int nStart, unsigned int nEntries, const D2PaletteEntry006C7C10Strc* pEntries);
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);

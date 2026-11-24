@@ -62,7 +62,7 @@ void __fastcall sub_004A9870_DrawSkillSlot(D2SkillsTxt* pSkillsTxt, int nOwner, 
 
 void __fastcall TEXT_UpdateSkillButtonHover(D2SkillsTxt* pSkillsTxt, int nState, int nLevel, int nCharges, int nX, int nY); // 0x004A8D50
 
-void __fastcall sub_004AA1F0_DrawSkillQuantity(D2SkillsTxt* pSkillsTxt, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
+void __fastcall SPELLSEL_DrawSkillQuantity(D2SkillsTxt* pSkillsTxt, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -171,7 +171,7 @@ unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB);               
 const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB);                                          // 0x0046A530
 
 // 0x004A8C00
-void __cdecl sub_004A8C00_FreeSkillIcons()
+void __cdecl SPELLSEL_FreeSkillIcons()
 {
     if (gpSkillIconCel)
     {
@@ -200,7 +200,7 @@ void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 int __stdcall SKILLS_GetClassIdFromSkillId(int nSkillId); // 0x00645040
 
 // 0x004A8C80
-void* __fastcall sub_004A8C80_GetSkillValue(D2SkillsTxt* pSkillsTxt)
+void* __fastcall SPELLSEL_GetSkillIconCel(D2SkillsTxt* pSkillsTxt)
 {
     if (!pSkillsTxt)
     {
@@ -222,13 +222,13 @@ void* __fastcall sub_004A8C80_GetSkillValue(D2SkillsTxt* pSkillsTxt)
 }
 
 // 0x004A8CE0
-void __fastcall sub_004A8CE0_SetValue(int nValue)
+void __fastcall SPELLSEL_SetSkillSelectRight(int nValue)
 {
     gbSkillSelectRight = nValue;
 }
 
 // 0x004A8D30
-int __fastcall sub_004A8D30_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+int __fastcall SPELLSEL_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
     const int nState = sub_004D9FC0(pUnit, pSkill);
     if (nState)
@@ -425,7 +425,7 @@ int gaHotkeyLeft[16]; // 0x007C07B8
 extern int gaChargedSkillIds[60]; // 0x007C04E0
 
 // 0x004A9D70
-void __stdcall sub_004A9D70_ClearSkillHotkeys(D2SkillsTxt* pSkillsTxt, int nQuantity)
+void __stdcall SPELLSEL_ClearChargedSkillHotkeys(D2SkillsTxt* pSkillsTxt, int nQuantity)
 {
     int i = 0;
     while (i < 60)
@@ -457,7 +457,7 @@ void __stdcall sub_004A9D70_ClearSkillHotkeys(D2SkillsTxt* pSkillsTxt, int nQuan
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 // 0x004A9DF0
-void __cdecl sub_004A9DF0_UpdateSkillIcons()
+void __cdecl SPELLSEL_UpdateSkillIcons()
 {
     D2SkillStrc* pSkill = UNITS_GetStartSkill(sub_00463DD0_GetPlayerUnit());
     D2_ASSERT(pSkill, 1149);
@@ -467,7 +467,7 @@ void __cdecl sub_004A9DF0_UpdateSkillIcons()
         D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
         if (BITARRAY_CHECK(pSkillsTxt->nFlags, 36))
         {
-            sub_004A9D70_ClearSkillHotkeys(pSkillsTxt, SKILLS_GetQuantity(pSkill));
+            SPELLSEL_ClearChargedSkillHotkeys(pSkillsTxt, SKILLS_GetQuantity(pSkill));
         }
         pSkill = SKILLS_GetNextSkill(pSkill);
     }
@@ -475,7 +475,7 @@ void __cdecl sub_004A9DF0_UpdateSkillIcons()
 }
 
 // 0x004A9E60
-void __fastcall sub_004A9E60_AssignHotkey(int nHotkey)
+void __fastcall SPELLSEL_AssignHotkey(int nHotkey)
 {
     for (int i = 0; i < 60; ++i)
     {
@@ -524,7 +524,7 @@ void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int n
 int gnSelectedHotkey; // 0x007C0708
 
 // 0x004A9FC0
-static int sub_004A9FC0_IsHotkeyUsable(int nSlot)
+static int SPELLSEL_IsHotkeyUsable(int nSlot)
 {
     if (gaHotkeySkills[nSlot] == -1)
         return 0;
@@ -544,11 +544,11 @@ static int sub_004A9FC0_IsHotkeyUsable(int nSlot)
 }
 
 // 0x004AA030
-void __fastcall sub_004AA030_SelectHotkey(int nSlot)
+void __fastcall SPELLSEL_SelectHotkey(int nSlot)
 {
     if (gaHotkeySkills[nSlot] == -1)
         return;
-    if (!sub_004A9FC0_IsHotkeyUsable(nSlot))
+    if (!SPELLSEL_IsHotkeyUsable(nSlot))
         return;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     gnSelectedHotkey = nSlot;
@@ -595,7 +595,7 @@ Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
-unsigned short __fastcall sub_004E6CE0_GetStringId(int nId, int nIndex); // 0x004E6CE0
+unsigned short __fastcall SKILLDESC_GetSkillDescStringId(int nId, int nIndex); // 0x004E6CE0
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
@@ -607,7 +607,7 @@ static inline int IsMouseInSquare(int nX, int nY)
 }
 
 // 0x004AA0F0
-static void sub_004AA0F0_AssignFreeHotkey(int nSlot, int nIndex)
+static void SPELLSEL_AssignFreeHotkey(int nSlot, int nIndex)
 {
     if (nSlot >= 16)
         return;
@@ -626,7 +626,7 @@ static void sub_004AA0F0_AssignFreeHotkey(int nSlot, int nIndex)
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 
 // 0x004AA160
-void __cdecl sub_004AA160_FillHotkeys()
+void __cdecl SPELLSEL_FillHotkeys()
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(UNITS_GetStartSkill(pPlayer), 0x524);
@@ -643,13 +643,13 @@ void __cdecl sub_004AA160_FillHotkeys()
             continue;
         if (nSlot > 15)
             continue;
-        sub_004AA0F0_AssignFreeHotkey(nSlot, i);
+        SPELLSEL_AssignFreeHotkey(nSlot, i);
         ++nSlot;
     }
 }
 
 // 0x004AA1F0
-void __fastcall sub_004AA1F0_DrawSkillQuantity(short* pId, int nState, int nQuantity, int nX, int nY)
+void __fastcall SPELLSEL_DrawSkillQuantity(short* pId, int nState, int nQuantity, int nX, int nY)
 {
     if (IsMouseInSquare(nX, nY))
     {
@@ -670,8 +670,8 @@ void __fastcall sub_004AA1F0_DrawSkillQuantity(short* pId, int nState, int nQuan
 
     const Unicode* wszNewline = D2LANG_GetStringFromTblIndex(0xF9E);
     Unicode wszText[0x100];
-    const unsigned short nNameId = sub_004E6CE0_GetStringId(*pId, 0);
-    const int nTextId = sub_004E6CE0_GetStringId(*pId, 1);
+    const unsigned short nNameId = SKILLDESC_GetSkillDescStringId(*pId, 0);
+    const int nTextId = SKILLDESC_GetSkillDescStringId(*pId, 1);
     sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nTextId));
     sub_00526700(wszText, wszNewline);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x105C));
@@ -761,7 +761,7 @@ void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLef
                 if (!nQuantity)
                     TEXT_UpdateSkillButtonHover(pSkillsTxt, nState, SKILLS_GetSkillLevel(pUnit, pSkill, 1), nCharges, nX, nY);
                 else
-                    sub_004AA1F0_DrawSkillQuantity(pSkillsTxt, nState, nQuantity, nX, nY);
+                    SPELLSEL_DrawSkillQuantity(pSkillsTxt, nState, nQuantity, nX, nY);
                 nX += nStepX;
             }
             switch (nRow)
@@ -788,7 +788,7 @@ struct D2SkillIconStateStrc;
 extern D2SkillIconStateStrc gtHotkeySlots; // 0x007C0300
 
 // 0x004AA680
-void __cdecl sub_004AA680_BuildRightRows()
+void __cdecl SPELLSEL_BuildRightRows()
 {
     if (gbSkillSelectRight)
     {
@@ -800,7 +800,7 @@ void __cdecl sub_004AA680_BuildRightRows()
 extern int gnScreenWidth; // 0x0071146C
 
 // 0x004AA6B0
-void __fastcall sub_004AA6B0_BuildLeftRows(int bNoDraw)
+void __fastcall SPELLSEL_BuildLeftRows(int bNoDraw)
 {
     if (!gbSkillSelectRight)
     {
@@ -826,7 +826,7 @@ void __cdecl sub_004AA710_BuildLeftRows2()
 int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
 // 0x004AA740
-void __fastcall sub_004AA740_CycleHotkey(int nDelta)
+void __fastcall SPELLSEL_CycleHotkey(int nDelta)
 {
     if (CUNIT_IsPlayerDeadOrMissing())
         return;
@@ -843,7 +843,7 @@ void __fastcall sub_004AA740_CycleHotkey(int nDelta)
             nSlot = 15;
         else if (nSlot >= 16)
             nSlot = 0;
-        if (gaHotkeySkills[nSlot] != -1 && !gaHotkeyLeft[nSlot] && sub_004A9FC0_IsHotkeyUsable(nSlot))
+        if (gaHotkeySkills[nSlot] != -1 && !gaHotkeyLeft[nSlot] && SPELLSEL_IsHotkeyUsable(nSlot))
         {
             nFound = nSlot;
             if (!--nDelta)
@@ -851,11 +851,11 @@ void __fastcall sub_004AA740_CycleHotkey(int nDelta)
         }
     }
     if (nFound != -1)
-        sub_004AA030_SelectHotkey(nFound);
+        SPELLSEL_SelectHotkey(nFound);
 }
 
 // 0x004AA7E0
-void __cdecl sub_004AA7E0_ResetSkillIcons()
+void __cdecl SPELLSEL_ResetSkillIcons()
 {
     memset(&gtHotkeySlots, 0, 0x3C5);
     for (int i = 0; i < 60; ++i)
@@ -884,7 +884,7 @@ void __cdecl sub_004AA7E0_ResetSkillIcons()
 }
 
 // 0x004AA8B0
-int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId)
+int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
@@ -898,7 +898,7 @@ int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId)
 extern "C" int gbSkillPointsHighlight; // 0x007C0C3C
 
 // 0x004AA8E0
-void __cdecl sub_004AA8E0_ClearValue7C0C3C()
+void __cdecl SPELLSEL_ClearSkillPointsHighlight()
 {
     gbSkillPointsHighlight = 0;
 }

@@ -2,6 +2,7 @@
 #include "D2CmpTypes.h"
 #include "D2CmpTiles.h"
 #include "D2CelDataHash.h"
+#include "D2ColorBlock.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -195,10 +196,6 @@ extern int gbPaletteLoaded; // 0x008E9934
 
 unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 
-struct D2ColorBlockStrc
-{
-    unsigned char data[39];
-};
 
 extern const D2ColorBlockStrc gtColorBlock; // 0x007434D8
 

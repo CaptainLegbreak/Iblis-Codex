@@ -546,7 +546,7 @@ static int __stdcall SKILLDESC_AppendLabelValueLabels(Unicode* wszOut, unsigned 
 }
 
 // 0x004E82A0
-static int __stdcall sub_004E82A0_AppendSecondsTwentieths(Unicode* wszOut, unsigned short wStr, int nValue)
+static int __stdcall SKILLDESC_AppendSecondsTwentieths(Unicode* wszOut, unsigned short wStr, int nValue)
 {
     int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
     for (int i = 0; i < 32; ++i)
@@ -577,7 +577,7 @@ static int __stdcall sub_004E82A0_AppendSecondsTwentieths(Unicode* wszOut, unsig
 }
 
 // 0x004E83E0
-static int __stdcall sub_004E83E0_AppendSecondsThirds(Unicode* wszOut, unsigned short wStr, int nValue)
+static int __stdcall SKILLDESC_AppendSecondsTenths(Unicode* wszOut, unsigned short wStr, int nValue)
 {
     int wszText_[16]; Unicode* const wszText = (Unicode*)wszText_;
     for (int i = 0; i < 32; ++i)
@@ -1304,7 +1304,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
 
     case 19:
         AppendString(wszText, nStringB);
-        sub_004E82A0_AppendSecondsTwentieths(wszText, nStringA, nCalcA);
+        SKILLDESC_AppendSecondsTwentieths(wszText, nStringA, nCalcA);
         break;
 
     case 20:
@@ -1374,7 +1374,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         {
             return 0;
         }
-        sub_004E82A0_AppendSecondsTwentieths(wszText, 0x10AE, pMissilesTxt->dwParam[0]);
+        SKILLDESC_AppendSecondsTwentieths(wszText, 0x10AE, pMissilesTxt->dwParam[0]);
         break;
     }
 
@@ -1447,7 +1447,7 @@ int __fastcall SKILLDESC_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2Ski
         break;
 
     case 37:
-        sub_004E83E0_AppendSecondsThirds(wszText, nStringA, nCalcA);
+        SKILLDESC_AppendSecondsTenths(wszText, nStringA, nCalcA);
         break;
 
     case 38:
