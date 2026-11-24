@@ -555,23 +555,11 @@ struct Seed
     U32 high;
 };
 
-struct Unit
-{
-    int type;
-    int classId;
-    U32 unknown08;
-    int id;
-    int mode;
-    Monster* monster;
-    U32 unknown18;
-    void* pool;
-    Seed seed;
-};
 
 struct AuraRequest
 {
-    Unit* owner;
-    Unit* target;
+    D2UnitStrc* owner;
+    D2UnitStrc* target;
     int skill;
     int level;
     int duration;
@@ -584,7 +572,7 @@ struct AuraRequest
 struct ModeRequest
 {
     int mode;
-    Unit* target;
+    D2UnitStrc* target;
     U32 field08;
     U32 field0C;
     U32 field10;
@@ -593,7 +581,7 @@ struct ModeRequest
     U32 field1C;
 };
 
-extern "C" int __stdcall sub_00646CA0_Evaluate(Unit*, U32, int, int); // 0x00646CA0
+extern "C" int __stdcall sub_00646CA0_Evaluate(D2UnitStrc*, U32, int, int); // 0x00646CA0
 
 struct D2PlayerDataStrc;
 

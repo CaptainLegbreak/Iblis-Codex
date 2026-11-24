@@ -646,21 +646,9 @@ struct Seed
     U32 high;
 };
 
-struct Unit
-{
-    int type;
-    int classId;
-    U32 unknown08;
-    int id;
-    int mode;
-    Monster* monster;
-    U32 unknown18;
-    void* pool;
-    Seed seed;
-};
 
 
-extern "C" int __stdcall sub_00646CA0_Evaluate(Unit*, U32, int, int); // 0x00646CA0
+extern "C" int __stdcall sub_00646CA0_Evaluate(D2UnitStrc*, U32, int, int); // 0x00646CA0
 
 struct D2PlayerDataStrc;
 
@@ -2651,19 +2639,19 @@ struct MonsterData;
 struct Skills;
 
 
-Unit* __stdcall sub_00553540(Game*, Unit*); // 0x00553540
+D2UnitStrc* __stdcall sub_00553540(Game*, D2UnitStrc*); // 0x00553540
 
-void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(Game*, Unit*, Unit*); // 0x0057C9F0
+void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(Game*, D2UnitStrc*, D2UnitStrc*); // 0x0057C9F0
 
-int __fastcall SKILLS_GetMonFrenzySequenceFrame(Unit*); // 0x005CDD30
+int __fastcall SKILLS_GetMonFrenzySequenceFrame(D2UnitStrc*); // 0x005CDD30
 
-int __fastcall SKILLS_StartSkill(Game*, Unit*, int, int, int); // 0x0056F640
+int __fastcall SKILLS_StartSkill(Game*, D2UnitStrc*, int, int, int); // 0x0056F640
 
-int __fastcall SKILLS_RollMonFrenzyDamage(Game*, Unit*, Unit*, int, int); // 0x005CDDD0
+int __fastcall SKILLS_RollMonFrenzyDamage(Game*, D2UnitStrc*, D2UnitStrc*, int, int); // 0x005CDDD0
 
 int __stdcall sub_006444A0(Skill*); // 0x006444A0
 
-int __fastcall SKILLS_ApplyFrenzyStats(Game*, Unit*, int, int); // 0x005D8C70
+int __fastcall SKILLS_ApplyFrenzyStats(Game*, D2UnitStrc*, int, int); // 0x005D8C70
 
 enum { UNIT_FLAG = 0x40 };
 
@@ -2675,9 +2663,9 @@ struct Tables { char pad0[0xB6C]; int missileCount; char padB70[0x28]; Skills* s
 
 extern unsigned bitMasks[]; // 0x006CE268
 
-Unit* __fastcall SKILLS_CreateMissileFromOrigin(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056EE90
+D2UnitStrc* __fastcall SKILLS_CreateMissileFromOrigin(Game*,int,D2UnitStrc*,int,int,int,int,int,int,int); // 0x0056EE90
 
-Unit* __fastcall SKILLS_CreateMissileAtOffset(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056ECB0
+D2UnitStrc* __fastcall SKILLS_CreateMissileAtOffset(Game*,int,D2UnitStrc*,int,int,int,int,int,int,int); // 0x0056ECB0
 
 typedef char D2SkillsTxtSizeCheck[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 
