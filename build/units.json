@@ -17273,6 +17273,11 @@
      "name": "?GFX_ClearPendingAction@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0046C660",
+     "length": 126,
+     "name": "?sub_0046C660_FindCorpseCallback@@YIHPAUD2UnitStrc@@0PAPAU1@PAH@Z"
+    },
+    {
      "va": "0x0046C6E0",
      "length": 27,
      "name": "?GFX_AddAiTargetUnit@@YIXPAUD2UnitStrc@@@Z"
@@ -17281,6 +17286,11 @@
      "va": "0x0046C700",
      "length": 30,
      "name": "?GFX_RemoveAiTargetUnit@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046C720",
+     "length": 75,
+     "name": "?sub_0046C720_FindNearestTarget@@YGPAUD2UnitStrc@@PAU1@PAH@Z"
     },
     {
      "va": "0x0046C770",
@@ -17308,6 +17318,26 @@
     {
      "va": "0x0046D780",
      "length": 563
+    },
+    {
+     "va": "0x0046D9C0",
+     "length": 36,
+     "name": "?sub_0046D9C0_GetTxtRecord@@YIPAUD2OverlayTxt@@H@Z"
+    },
+    {
+     "va": "0x0046D9F0",
+     "length": 100,
+     "name": "?sub_0046D9F0_GetConvertedUnitType@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046DA60",
+     "length": 94,
+     "name": "?sub_0046DA60_GetConvertedUnitMode@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0046DAC0",
+     "length": 99,
+     "name": "?sub_0046DAC0_GetConvertedClassId@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0046DB30",
@@ -19954,42 +19984,6 @@
      "va": "0x004F34D0",
      "length": 86,
      "name": "GFXUTIL_CltDoMissileC"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0046C660.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0046C660",
-     "length": 126,
-     "name": "?sub_0046C660_FindCorpseCallback@@YIHPAUD2UnitStrc@@0PAPAU1@PAH@Z"
-    },
-    {
-     "va": "0x0046C720",
-     "length": 75,
-     "name": "?sub_0046C720_FindNearestTarget@@YGPAUD2UnitStrc@@PAU1@PAH@Z"
-    },
-    {
-     "va": "0x0046D9C0",
-     "length": 36,
-     "name": "?sub_0046D9C0_GetTxtRecord@@YIPAUD2OverlayTxt@@H@Z"
-    },
-    {
-     "va": "0x0046D9F0",
-     "length": 100,
-     "name": "?sub_0046D9F0_GetConvertedUnitType@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0046DA60",
-     "length": 94,
-     "name": "?sub_0046DA60_GetConvertedUnitMode@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0046DAC0",
-     "length": 99,
-     "name": "?sub_0046DAC0_GetConvertedClassId@@YIHPAUD2UnitStrc@@@Z"
     }
    ]
   },
