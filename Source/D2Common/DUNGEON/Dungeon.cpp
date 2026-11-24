@@ -23,6 +23,7 @@
 #include "D2Skills.h"
 
 #include "D2TxtTables.h"
+#include "D2DrlgDelete.h"
 
 struct D2DrlgRoomStrc;
 
@@ -239,12 +240,6 @@ struct Obj00619EE0 {
     int nCount28;
 };
 
-struct D2DrlgDeleteStrc
-{
-    int nUnitType;
-    int nUnitGUID;
-    D2DrlgDeleteStrc* pNext;
-};
 
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 

@@ -7,6 +7,7 @@
 #include "D2Drlg.h"
 #include "D2DrlgRooms.h"
 #include "D2GameClient.h"
+#include "D2DrlgDelete.h"
 struct D2DrlgActStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -92,12 +93,6 @@ void __fastcall OBJMODE_SendObjectUpdates(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 void __fastcall ITEMMODE_SendUpdatedGroundItemToClient(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x0055BF30
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
-struct D2DrlgDeleteStrc
-{
-    int nUnitType;
-    int nUnitGUID;
-    D2DrlgDeleteStrc* pNext;
-};
 
 D2DrlgDeleteStrc* __stdcall DUNGEON_GetDrlgDeleteFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A330
 void __fastcall D2GAME_PACKETS_SendPacket0x0A_RemoveObject(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID); // 0x0053BDA0
