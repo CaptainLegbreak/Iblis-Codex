@@ -48322,14 +48322,6 @@
      "va": "0x0055A550",
      "length": 374,
      "name": "?ITEMS_CreateDropAtUnit@@YGPAUD2UnitStrc@@PAUD2GameStrc@@HHHHPAU1@@Z"
-    },
-    {
-     "va": "0x005C0F90",
-     "length": 706
-    },
-    {
-     "va": "0x005C2540",
-     "length": 127
     }
    ]
   },
@@ -60440,104 +60432,6 @@
      "length": 167
     },
     {
-     "va": "0x005C0D00",
-     "length": 27,
-     "name": "?ITEMS_AddPotentialMagicAffix@@YGHHPAUD2MagicAffixTxt@@PAUD2MagicAffixIndexAndPtrStrc@@H@Z"
-    },
-    {
-     "va": "0x005C0D20",
-     "length": 21,
-     "name": "?ITEMS_GetSkillPairEntry@@YGPAUD2SkillPairStrc@@HPAU1@H@Z"
-    },
-    {
-     "va": "0x005C0D40",
-     "length": 36,
-     "name": "?SKILLITEM_PercentWithMinimum@@YGHHHH@Z"
-    },
-    {
-     "va": "0x005C0D70",
-     "length": 537
-    },
-    {
-     "va": "0x005C1260",
-     "length": 131,
-     "name": "ITEMS_AssignStaffModsForFormat"
-    },
-    {
-     "va": "0x005C12F0",
-     "length": 525
-    },
-    {
-     "va": "0x005C1500",
-     "length": 82,
-     "name": "?ITEMMODS_HasAffixWithGroup@@YAHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005C18E0",
-     "length": 81,
-     "name": "ITEMS_RollMagicAffixes"
-    },
-    {
-     "va": "0x005C1940",
-     "length": 83,
-     "name": "ITEMS_RollMagicAffixes"
-    },
-    {
-     "va": "0x005C19A0",
-     "length": 270,
-     "name": "?SKILLITEM_RollRareAffixLegacy@@YGGPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005C1AB0",
-     "length": 270,
-     "name": "?SKILLITEM_RollRareAffix@@YGGPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005C1BC0",
-     "length": 37,
-     "name": "?ITEMS_RollTemperedItemAffix@@YIGPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x005C1BF0",
-     "length": 651,
-     "name": "?sub_005C1BF0_RollRareItemNew@@YGHPAUD2ItemDropStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005C1E80",
-     "length": 799,
-     "name": "?ITEMS_RollLegacyRareItem@@YGHPAUD2ItemDropStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005C21A0",
-     "length": 48,
-     "name": "?D2GAME_RollRareItem_6FC53360@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
-    },
-    {
-     "va": "0x005C21D0",
-     "length": 873,
-     "name": "?ITEMS_RollCraftedItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
-    },
-    {
-     "va": "0x005C2940",
-     "length": 36,
-     "name": "?ITEMS_RollSetItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
-    },
-    {
-     "va": "0x005C2FB0",
-     "length": 34,
-     "name": "?ITEMS_ApplyLowQualityForFormat@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
-    },
-    {
-     "va": "0x005C2FE0",
-     "length": 6,
-     "name": "sub_005C2FE0"
-    },
-    {
-     "va": "0x005C2FF0",
-     "length": 120,
-     "name": "SKILLS_DamagePaladinCaster"
-    },
-    {
      "va": "0x005C34B0",
      "length": 136,
      "name": "SKILLS_ExecuteCurseTargetAi"
@@ -60664,6 +60558,118 @@
      "va": "0x005FDCA0",
      "length": 189,
      "name": "?SKILLITEM_CastSkillOnTarget@@YIHPAUD2UnitStrc@@HH0H@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Unknown_005C0D00.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x005C0D00",
+     "length": 27,
+     "name": "?ITEMS_AddPotentialMagicAffix@@YGHHPAUD2MagicAffixTxt@@PAUD2MagicAffixIndexAndPtrStrc@@H@Z"
+    },
+    {
+     "va": "0x005C0D20",
+     "length": 21,
+     "name": "?ITEMS_GetSkillPairEntry@@YGPAUD2SkillPairStrc@@HPAU1@H@Z"
+    },
+    {
+     "va": "0x005C0D40",
+     "length": 36,
+     "name": "?SKILLITEM_PercentWithMinimum@@YGHHHH@Z"
+    },
+    {
+     "va": "0x005C0D70",
+     "length": 537
+    },
+    {
+     "va": "0x005C0F90",
+     "length": 706
+    },
+    {
+     "va": "0x005C1260",
+     "length": 131,
+     "name": "ITEMS_AssignStaffModsForFormat"
+    },
+    {
+     "va": "0x005C12F0",
+     "length": 525
+    },
+    {
+     "va": "0x005C1500",
+     "length": 82,
+     "name": "?ITEMMODS_HasAffixWithGroup@@YAHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005C18E0",
+     "length": 81,
+     "name": "ITEMS_RollMagicAffixes"
+    },
+    {
+     "va": "0x005C1940",
+     "length": 83,
+     "name": "ITEMS_RollMagicAffixes"
+    },
+    {
+     "va": "0x005C19A0",
+     "length": 270,
+     "name": "?SKILLITEM_RollRareAffixLegacy@@YGGPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005C1AB0",
+     "length": 270,
+     "name": "?SKILLITEM_RollRareAffix@@YGGPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005C1BC0",
+     "length": 37,
+     "name": "?ITEMS_RollTemperedItemAffix@@YIGPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005C1BF0",
+     "length": 651,
+     "name": "?sub_005C1BF0_RollRareItemNew@@YGHPAUD2ItemDropStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005C1E80",
+     "length": 799,
+     "name": "?ITEMS_RollLegacyRareItem@@YGHPAUD2ItemDropStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005C21A0",
+     "length": 48,
+     "name": "?D2GAME_RollRareItem_6FC53360@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+    },
+    {
+     "va": "0x005C21D0",
+     "length": 873,
+     "name": "?ITEMS_RollCraftedItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+    },
+    {
+     "va": "0x005C2540",
+     "length": 127
+    },
+    {
+     "va": "0x005C2940",
+     "length": 36,
+     "name": "?ITEMS_RollSetItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+    },
+    {
+     "va": "0x005C2FB0",
+     "length": 34,
+     "name": "?ITEMS_ApplyLowQualityForFormat@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+    },
+    {
+     "va": "0x005C2FE0",
+     "length": 6,
+     "name": "sub_005C2FE0"
+    },
+    {
+     "va": "0x005C2FF0",
+     "length": 120,
+     "name": "SKILLS_DamagePaladinCaster"
     }
    ]
   },
