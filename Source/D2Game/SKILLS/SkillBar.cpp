@@ -512,6 +512,36 @@ int __fastcall SKILLS_SrvDo069_FindPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     return 1;
 }
 
+int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x005D3CF0
+
+void __fastcall SKILLS_CreateMissileRing(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOrigin, int nMissileId, int nSkillId, int nSkillLevel, int nVelocity); // 0x0056D400
+
+int __fastcall SKILLS_ApplyWarcryStats(D2GameStrc* pGame, D2UnitStrc* a2, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D8290
+
+// 0x005D83E0
+int __fastcall SKILLS_SrvDo068_BasicShout(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
+    }
+
+    if (!SKILLS_GetSkillsTxtRecord(nSkillId))
+    {
+        return 0;
+    }
+
+    const int nMissileId = SKILLS_GetProgressiveSkillMissileId(pUnit, nSkillId);
+    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    SKILLS_CreateMissileRing(pGame, pUnit, pUnit, nMissileId, nSkillId, nSkillLevel, 0);
+    SKILLS_ApplyWarcryStats(pGame, pUnit, pUnit, nSkillId, nSkillLevel);
+    return 1;
+}
+
 // 0x005D8470
 int __fastcall SKILLS_SrvDo070_DoubleSwing(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -735,6 +765,142 @@ int __fastcall sub_005D8780_SrvDoStageRoll(D2GameStrc* pGame, D2UnitStrc* pUnit,
     }
 
     MONSTERMODE_DropTreasureForFindItem(pGame, pTarget, pUnit, nStage);
+    return 1;
+}
+
+D2UnitStrc* __fastcall SKILLS_CreateMissileAtOffset(D2GameStrc* pGame, int nMissileId, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nTargetX, int nTargetY, int a10); // 0x0056ECB0
+
+D2UnitStrc* __fastcall SKILLS_CreateMissileFromOrigin(D2GameStrc* pGame, int nMissileId, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nTargetX, int nTargetY, int a10); // 0x0056EE90
+
+void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x006272B0
+
+// 0x005D88B0
+int __fastcall SKILLS_SrvDo074_DoubleThrow(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pItem = PLAYER_GetWeaponForSkill(pUnit);
+    if (!pItem)
+    {
+        return 0;
+    }
+
+    const int nMissileId = ITEMS_GetMissileType(pItem);
+    if (nMissileId <= 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pMissile;
+    if (ITEMSIsA(pItem, 38))
+    {
+        pMissile = SKILLS_CreateMissileFromOrigin(pGame, nMissileId, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 1);
+    }
+    else
+    {
+        pMissile = SKILLS_CreateMissileAtOffset(pGame, nMissileId, pUnit, nSkillId, nSkillLevel, 0, 0, 0, 0, 1);
+    }
+
+    if (pMissile)
+    {
+        STATLIST_AddUnitStat(pMissile, 19, SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel), 0);
+        const int nDamagePercent = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+        STATLIST_AddUnitStat(pMissile, 25, nDamagePercent, 0);
+    }
+
+    return 1;
+}
+
+struct D2MonStats2Txt;
+
+D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
+
+D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
+
+// 0x005D89B0
+int __fastcall SKILLS_SrvDo075_GrimWard(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        return 0;
+    }
+
+    if (!D2COMMON_11018(pTarget))
+    {
+        return 0;
+    }
+
+    D2CoordStrc coords;
+    coords.nX = CLIENTS_GetUnitX(pTarget);
+    coords.nY = CLIENTS_GetUnitY(pTarget);
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pTarget);
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, coords.nX, coords.nY);
+    if (!pRoom)
+    {
+        return 0;
+    }
+
+    if (!COLLISION_GetFreeCoordinates(pRoom, &coords, 2, 0x1000, 1))
+    {
+        return 0;
+    }
+
+    if (pTarget->dwUnitType != UNIT_MONSTER)
+    {
+        return 0;
+    }
+
+    int nMissileId = pSkillsTxtRecord->wSrvMissileA;
+    D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(pTarget->dwClassId);
+    if (!pMonStats2TxtRecord)
+    {
+        return 0;
+    }
+
+    if (pMonStats2TxtRecord->nFlags[11 >> 3] & gdwBitMasks[11 & 7])
+    {
+        nMissileId = pSkillsTxtRecord->wSrvMissileC;
+    }
+    else if (pMonStats2TxtRecord->nFlags[10 >> 3] & gdwBitMasks[10 & 7])
+    {
+        nMissileId = pSkillsTxtRecord->wSrvMissileB;
+    }
+
+    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    D2MissileStrc missileParams;
+    memset(&missileParams, 0, sizeof(missileParams));
+    missileParams.dwFlags = 1;
+    missileParams.nMissile = nMissileId;
+    missileParams.pOwner = pUnit;
+    missileParams.nSkill = nSkillId;
+    missileParams.nSkillLevel = nSkillLevel;
+    missileParams.nX = coords.nX;
+    missileParams.nY = coords.nY;
+    MISSILES_CreateMissileFromParams(pGame, &missileParams);
+    STATES_ToggleState(pTarget, 104, 1);
+    STATES_ToggleState(pTarget, 118, 1);
+    UNITROOM_RefreshUnit(pTarget);
     return 1;
 }
 
