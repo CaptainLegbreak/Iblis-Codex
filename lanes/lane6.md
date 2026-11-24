@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 13:48:04 PST 2026): join-mcpconnect ready; the rest of the object-map joins are still in the verify queue.
+Status (Tue Nov 24 13:50:13 PST 2026): object-map joins done: CelCmp, Codec, FastCmp, SpriteCache, BnMessQueue merged; BnSend and the McpConnect accessors ready. The rest of my leads are parked with reasons (Left in place). Next: the remaining placeholders in my modules that the report ranks but didn't list.
 
 ## Ready
 
@@ -12,7 +12,7 @@ Status (Tue Nov 24 13:48:04 PST 2026): join-mcpconnect ready; the rest of the ob
 
 ## Claimed
 
-- **Object-map joins (report-356.md):** merged: CelCmp, Codec (#364), FastCmp (#365), SpriteCache, BnMessQueue (#366); ready: BnSend; McpConnect accessors (lane 4's handover) verifying. ChatDlg three (Unknown_004456D0, Unknown_004450D0, Unknown_00444020) retried on #361: still register-allocation/scheduling diffs, left in place. The other leads are skipped on language-copy evidence (Left in place).
+- **Object-map joins (report-356.md):** merged: CelCmp, Codec (#364), FastCmp (#365), SpriteCache, BnMessQueue (#366); ready: BnSend, McpConnect accessors (lane 4's handover). ChatDlg three (Unknown_004456D0, Unknown_004450D0, Unknown_00444020) retried on #361: still register-allocation/scheduling diffs, left in place. The other leads are skipped on language-copy evidence (Left in place).
 - **The MCP connect object (0x00449890-0x0044A16F):** one object by its .bss (0x00798F58-0x007992F4, read across the whole run) and its language copy (0x0070EC80, now swallowed by ComCallback.cpp's gapfnMsgHandlers, which the dispatcher bounds at 24 entries). Its code is split over D2Client/GAME/Game.cpp (the GAME_ getters, lane 4), D2Client/CORE/WINMAIN.CPP (0x00449920, 0x00449B70, lane 4), D2Client/Unknown_00449890.cpp, D2MCPClient/Src/McpConnect.cpp and ChatDlg.cpp (0x0044A130). The data is in (#358). Then the join into McpConnect.cpp; lane 4, I'll list the Game.cpp/WINMAIN.CPP pieces for you to hand over.
 
 - ChatDlg.cpp's object, what's left: 0x004423B0, 0x00445020, 0x004450D0, 0x004456D0 and 0x00445FF0 build unequal (0x0043F850 is in chatdlg-cancel; retried 0x004423B0, 0x00445020 and 0x004456D0 on #354: register allocation and scheduling differ, not inlining) in ChatDlg.cpp even with noinline on their callees. Game.cpp's 0x0043DB10 and 0x0043F840 (lane 4's file) are inside the object: lane 4, they're yours to hand over when convenient.
