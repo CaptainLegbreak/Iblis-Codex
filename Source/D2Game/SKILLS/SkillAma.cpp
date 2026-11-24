@@ -419,6 +419,54 @@ int __fastcall SKILLS_SrvSt09_Fend(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
     return 1;
 }
 
+// 0x005DAF40
+int __fastcall SKILLS_SrvSt37_Zeal_Fury_BloodLordFrenzy(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    const int nAuraRange = sub_6FD15460(pUnit);
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (!pTarget)
+    {
+        pTarget = SKILLS_FindNextAuraTarget(pGame, pUnit, 0, 0, nAuraRange, 0x20003, -1, 0);
+    }
+
+    if (!pTarget)
+    {
+        SKILLS_SetParam1(pSkill, 0);
+        return 0;
+    }
+
+    SKILLS_SetParam1(pSkill, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel));
+    int nUnitType = UNIT_INVALID;
+    if (pTarget)
+    {
+        nUnitType = pTarget->dwUnitType;
+    }
+    SKILLS_SetParam2(pSkill, nUnitType);
+    int nUnitGUID;
+    if (!pTarget)
+    {
+        nUnitGUID = -1;
+    }
+    else
+    {
+        nUnitGUID = pTarget->dwUnitId;
+    }
+    SKILLS_SetParam3(pSkill, nUnitGUID);
+    return 1;
+}
+
 // 0x005DB020
 int __fastcall SKILLS_SrvSt10_LightningStrike(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {

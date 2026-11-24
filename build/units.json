@@ -41962,6 +41962,11 @@
      "name": "?ITEMMODE_DropBackToGround@@YGXHPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x0055CA00",
+     "length": 57,
+     "name": "OBJECTS_MatchFieldPair"
+    },
+    {
      "va": "0x0055CA40",
      "length": 579
     },
@@ -42991,16 +42996,6 @@
      "va": "0x00555CD0",
      "length": 34,
      "name": "OBJECTS_AppendPair"
-    },
-    {
-     "va": "0x0055CA00",
-     "length": 57,
-     "name": "OBJECTS_MatchFieldPair"
-    },
-    {
-     "va": "0x00564F00",
-     "length": 33,
-     "name": "OBJECTS_CompareDescending"
     },
     {
      "va": "0x0056CD50",
@@ -48415,11 +48410,6 @@
      "name": "?TASK_ProcessGame@@YIXHPAUD2TaskStrc@@@Z"
     },
     {
-     "va": "0x00564CC0",
-     "length": 8,
-     "name": "?TASK_SetType@@YIXPAUD2TaskStrc@@H@Z"
-    },
-    {
      "va": "0x006CAF70",
      "length": 23
     },
@@ -48471,6 +48461,11 @@
      "name": "?sub_00564CB0_Nop@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00564CC0",
+     "length": 8,
+     "name": "?TASK_SetType@@YIXPAUD2TaskStrc@@H@Z"
+    },
+    {
      "va": "0x00564CD0",
      "length": 123,
      "name": "?OBJECTS_OperateFunction32_Bank@@YIHPAUD2ObjOperateFnStrc@@H@Z"
@@ -48479,6 +48474,11 @@
      "va": "0x00564D50",
      "length": 423,
      "name": "?PLRTRADE_HandleStashButton@@YGXPAUD2GameStrc@@GPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x00564F00",
+     "length": 33,
+     "name": "OBJECTS_CompareDescending"
     },
     {
      "va": "0x00564F30",
@@ -50733,11 +50733,6 @@
      "va": "0x0057ED50",
      "length": 23,
      "name": "?SUNITDMG_SetPlayerDataMode@@YIXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0057F390",
-     "length": 128,
-     "name": "SUNITDMG_DropCorpseGold"
     }
    ]
   },
@@ -51073,6 +51068,11 @@
      "va": "0x0057F330",
      "length": 95,
      "name": "?PLRMODE_FinalizeDeath@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0057F390",
+     "length": 128,
+     "name": "SUNITDMG_DropCorpseGold"
     },
     {
      "va": "0x0057F410",
@@ -60820,24 +60820,9 @@
      "name": "SKILLS_SrvDo149_NecromageMissile"
     },
     {
-     "va": "0x005D25B0",
-     "length": 317,
-     "name": "SKILLS_SrvDo136_DeathMaul"
-    },
-    {
      "va": "0x005D2F80",
      "length": 273,
      "name": "SKILLS_FindUseableCorpse"
-    },
-    {
-     "va": "0x005D6410",
-     "length": 264,
-     "name": "SKILLS_RemoveStatesOnHit"
-    },
-    {
-     "va": "0x005D7C40",
-     "length": 147,
-     "name": "SKILLS_AuraCallback_AllocSkillCombat"
     },
     {
      "va": "0x005D8290",
@@ -61477,6 +61462,11 @@
      "name": "?SKILLS_SrvDo135_MinionSpawner@@YIHPAUGame@@PAUUnit@@HH@Z"
     },
     {
+     "va": "0x005D25B0",
+     "length": 317,
+     "name": "SKILLS_SrvDo136_DeathMaul"
+    },
+    {
      "va": "0x005D26F0",
      "length": 182,
      "name": "SKILLS_SrvDo137_FenrisRage"
@@ -61706,6 +61696,11 @@
      "name": "?SKILLS_SrvDo046_DragonClaw@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005D6410",
+     "length": 264,
+     "name": "SKILLS_RemoveStatesOnHit"
+    },
+    {
      "va": "0x005D6520",
      "length": 259,
      "name": "SKILLS_AuraCallback_CloakOfShadows"
@@ -61795,6 +61790,11 @@
      "name": "SKILLS_SrvDo053_ApplyAreaDamage"
     },
     {
+     "va": "0x005D7C40",
+     "length": 147,
+     "name": "SKILLS_AuraCallback_AllocSkillCombat"
+    },
+    {
      "va": "0x005D7CE0",
      "length": 298,
      "name": "SKILLS_SrvDo142_ApplyAreaCombat"
@@ -61813,11 +61813,6 @@
      "va": "0x005DA940",
      "length": 243,
      "name": "SKILLS_SrvSt06_PowerStrike_ChargedStrike"
-    },
-    {
-     "va": "0x005DAF40",
-     "length": 219,
-     "name": "SKILLS_SrvSt37_Zeal_Fury_BloodLordFrenzy"
     }
    ]
   },
@@ -62049,6 +62044,11 @@
     {
      "va": "0x005DAE30",
      "length": 259
+    },
+    {
+     "va": "0x005DAF40",
+     "length": 219,
+     "name": "SKILLS_SrvSt37_Zeal_Fury_BloodLordFrenzy"
     },
     {
      "va": "0x005DB020",

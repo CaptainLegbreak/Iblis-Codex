@@ -844,6 +844,32 @@ static void PLRMODE_FinalizeDeath(D2GameStrc* pGame, D2UnitStrc* pPlayer)
     D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
 }
 
+#define GOLD_PILE_COUNT 32
+
+int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
+
+void __fastcall ITEMS_DropGoldPiles(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nAmount, D2UnitStrc** ppGold, int* pCount, int nMaxCount); // 0x0055A090
+
+void __stdcall ITEMS_SetOwnerId(D2UnitStrc* pItem, int nOwnerGUID); // 0x00629ED0
+
+// 0x0057F390
+void __fastcall SUNITDMG_DropCorpseGold(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pDeadBody, int nGold, int nUnused)
+{
+    if (nGold > 0)
+    {
+        D2UnitStrc* pGoldPiles[GOLD_PILE_COUNT];
+        int nCount = 0;
+        ITEMS_DropGoldPiles(pGame, pDeadBody, nGold, pGoldPiles, &nCount, GOLD_PILE_COUNT);
+
+        for (int i = 0; i < nCount; ++i)
+        {
+            D2UnitStrc* pGold = pGoldPiles[i];
+            D2_ASSERT(ITEMS_GetItemType(pGold) == ITEMTYPE_GOLD, 588);
+            ITEMS_SetOwnerId(pGold, GAME_GetUnitGUID(pPlayer));
+        }
+    }
+}
+
 static inline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
 {
     if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
