@@ -2149,11 +2149,6 @@
      "name": "AUTOMAP_InitCharSaveHeader"
     },
     {
-     "va": "0x00451E10",
-     "length": 85,
-     "name": "AUTOMAP_UnregisterHandlerTable"
-    },
-    {
      "va": "0x00452580",
      "length": 97,
      "name": "AUTOMAP_GetHoverMonsterName"
@@ -15937,51 +15932,6 @@
    ],
    "functions": [
     {
-     "va": "0x00451A90",
-     "length": 32,
-     "name": "SCMD_HandleQuitMessage"
-    },
-    {
-     "va": "0x00451AB0",
-     "length": 31,
-     "name": "?SCMD_OnActivateApp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00451AD0",
-     "length": 43,
-     "name": "SCMD_HandleDefaultMessage"
-    },
-    {
-     "va": "0x00451B00",
-     "length": 41,
-     "name": "SCMD_HandleCloseMessage"
-    },
-    {
-     "va": "0x00451B30",
-     "length": 114,
-     "name": "COMCALLBACK_WindowProc"
-    },
-    {
-     "va": "0x00451BB0",
-     "length": 186,
-     "name": "SCMD_RunMessageLoop"
-    },
-    {
-     "va": "0x00451C70",
-     "length": 152,
-     "name": "SCMD_RegisterMsgHandler"
-    },
-    {
-     "va": "0x00451D10",
-     "length": 152,
-     "name": "SCMD_UnregisterMsgHandler"
-    },
-    {
-     "va": "0x00451DB0",
-     "length": 85,
-     "name": "COMCALLBACK_RegisterMsgHandlers"
-    },
-    {
      "va": "0x00452090",
      "length": 35,
      "name": "SCMD_HandleResetMessage"
@@ -16780,6 +16730,56 @@
    "file": "Source/D2Client/Unknown_00451E70.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00451A90",
+     "length": 32,
+     "name": "SCMD_HandleQuitMessage"
+    },
+    {
+     "va": "0x00451AB0",
+     "length": 31,
+     "name": "?SCMD_OnActivateApp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x00451AD0",
+     "length": 43,
+     "name": "SCMD_HandleDefaultMessage"
+    },
+    {
+     "va": "0x00451B00",
+     "length": 41,
+     "name": "SCMD_HandleCloseMessage"
+    },
+    {
+     "va": "0x00451B30",
+     "length": 114,
+     "name": "COMCALLBACK_WindowProc"
+    },
+    {
+     "va": "0x00451BB0",
+     "length": 186,
+     "name": "SCMD_RunMessageLoop"
+    },
+    {
+     "va": "0x00451C70",
+     "length": 152,
+     "name": "SCMD_RegisterMsgHandler"
+    },
+    {
+     "va": "0x00451D10",
+     "length": 152,
+     "name": "SCMD_UnregisterMsgHandler"
+    },
+    {
+     "va": "0x00451DB0",
+     "length": 85,
+     "name": "COMCALLBACK_RegisterMsgHandlers"
+    },
+    {
+     "va": "0x00451E10",
+     "length": 85,
+     "name": "AUTOMAP_UnregisterHandlerTable"
+    },
     {
      "va": "0x00451E70",
      "length": 63,

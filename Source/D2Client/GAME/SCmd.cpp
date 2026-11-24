@@ -2135,38 +2135,11 @@ static void __stdcall SCMD_QueuePacket(unsigned char* pPacket, int nLength, D2Un
 
 void __stdcall GAME_HandleActivateApp(SMSGHANDLER_PARAMS* pMsg); // 0x0044C5E0
 
-// 0x00451A90
-void __stdcall SCMD_HandleQuitMessage(SMSGHANDLER_PARAMS* pMsg)
-{
-    PostQuitMessage(0);
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-}
 
 enum { USE_RESULT = 0 };
 
-// 0x00451AB0
-void __stdcall SCMD_OnActivateApp(SMSGHANDLER_PARAMS* msg)
-{
-// build: symbol ?gbClientAppActive@* 0x0070F7E0
-    gbClientAppActive = msg->wParam != 0;
-    msg->bReturn = USE_RESULT;
-}
 
-// 0x00451AD0
-void __stdcall SCMD_HandleDefaultMessage(SMSGHANDLER_PARAMS* pMsg)
-{
-    pMsg->bReturn = 1;
-    pMsg->lResult = DefWindowProcA(pMsg->hWnd, pMsg->uMessage, pMsg->wParam, pMsg->lParam);
-}
 
-// 0x00451B00
-void __stdcall SCMD_HandleCloseMessage(SMSGHANDLER_PARAMS* pMsg)
-{
-    SendMessageA(pMsg->hWnd, 0x10, 0, 0);
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-}
 
 class D2SquelchListStrc
 {
@@ -2194,119 +2167,13 @@ int __cdecl UI_IsReplayActive(); // 0x00451990
 
 void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x004514B0
 
-// 0x00451B30
-int __stdcall COMCALLBACK_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam)
-{
-    int bUseResult = 0;
-    int lResult = 0;
-    RECORD_RecordInputMessage(uMessage, wParam, lParam);
-    if (!UI_IsReplayActive() || uMessage == 0x10)
-    {
-        if (SMsgDispatchMessage(hWnd, uMessage, wParam, lParam, &bUseResult, &lResult) && bUseResult)
-            return lResult;
-    }
-    return DefWindowProcA(hWnd, uMessage, wParam, lParam);
-}
 
-// 0x00451BB0
-int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int))
-{
-    int nCount = 0;
-    int bContinue = 1;
-    int nResult;
-    D2WinMsgStrc msg;
 
-    while (bContinue)
-    {
-        if (PeekMessageA(&msg, 0, 0, 0, 0))
-        {
-            bContinue = GetMessageA(&msg, 0, 0, 0);
-            if (bContinue && ghAccelerators)
-            {
-                TranslateAcceleratorA((void*)WINDOW_GetWindow(), ghAccelerators, &msg);
-            }
-            TranslateMessage(&msg);
-            DispatchMessageA(&msg);
-        }
-        else
-        {
-            if (pfnIdle)
-            {
-                nResult = pfnIdle(nCount++);
-                if (nResult)
-                {
-                    break;
-                }
-            }
+void __fastcall SCMD_RegisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler); // 0x00451C70
 
-// build: symbol ?gbClientAppActive@* 0x0070F7E0
-            if (!gbClientAppActive && gdwGlobal_007A0610 != 6 && gdwGlobal_007A0610 != 8)
-            {
-                Sleep(10);
-            }
-        }
-    }
-
-    return bContinue ? nResult : 1;
-}
-
-// 0x00451C70
-void __fastcall SCMD_RegisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler)
-{
-    D2_ASSERT(hWnd, 0x110);
-
-    switch (nType)
-    {
-    case 0:
-        D2_ASSERT(nId != 0x111, 0x114);
-        SMsgRegisterMessage(hWnd, nId, pfnHandler);
-        return;
-    case 1:
-        SMsgRegisterCommand(hWnd, nId, pfnHandler);
-        return;
-    case 2:
-        SMsgRegisterKeyUp(hWnd, nId, pfnHandler);
-        return;
-    case 3:
-        SMsgRegisterKeyDown(hWnd, nId, pfnHandler);
-        return;
-    }
-}
-
-// 0x00451D10
-void __fastcall SCMD_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler)
-{
-    D2_ASSERT(hWnd, 0x131);
-
-    switch (nType)
-    {
-    case 0:
-        D2_ASSERT(nId != 0x111, 0x135);
-        SMsgUnregisterMessage(hWnd, nId, pfnHandler);
-        return;
-    case 1:
-        SMsgUnregisterCommand(hWnd, nId, pfnHandler);
-        return;
-    case 2:
-        SMsgUnregisterKeyUp(hWnd, nId, pfnHandler);
-        return;
-    case 3:
-        SMsgUnregisterKeyDown(hWnd, nId, pfnHandler);
-        return;
-    }
-}
 
 struct D2MsgHandlerEntryStrc;
 
-// 0x00451DB0
-void __fastcall COMCALLBACK_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount)
-{
-    D2_ASSERT(hWnd, 0x153);
-    for (unsigned int i = 0; i < nCount; i++)
-    {
-        SCMD_RegisterMsgHandler(hWnd, pTable[i].nType, pTable[i].nId, (SMSGHANDLER)pTable[i].pfnHandler);
-    }
-}
 
 // 0x00452090
 void __stdcall SCMD_HandleResetMessage(SMSGHANDLER_PARAMS* pMsg)
