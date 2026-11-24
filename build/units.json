@@ -4919,21 +4919,6 @@
      "name": "FlushAndNotify"
     },
     {
-     "va": "0x0041D9A0",
-     "length": 57,
-     "name": "?sub_0041D9A0_Flush@CBitOutput@@QAEXXZ"
-    },
-    {
-     "va": "0x0041E8F0",
-     "length": 14,
-     "name": "sub_0041E8F0"
-    },
-    {
-     "va": "0x0041EE40",
-     "length": 61,
-     "name": "?sub_0041EE40_UnlinkAll@D2StormNodeListStrc@@QAEXXZ"
-    },
-    {
      "va": "0x0041F950",
      "length": 37,
      "name": "??0CHuffman@@QAE@XZ"
@@ -5123,6 +5108,16 @@
      "name": "_SCompDestroy"
     },
     {
+     "va": "0x0041E8F0",
+     "length": 14,
+     "name": "?sub_0041E8F0@@YIXPAUD2SCompPairStrc@@@Z"
+    },
+    {
+     "va": "0x0041E900",
+     "length": 36,
+     "name": "?sub_0041E900_NextLink@D2SCompNextLinkStrc@@QAEPAUD2StormLinkStrc@@H@Z"
+    },
+    {
      "va": "0x0041E930",
      "length": 16,
      "name": "?sub_0041E930_Next@D2SCompLinkNextAStrc@@QAEPADXZ"
@@ -5148,9 +5143,24 @@
      "name": "?sub_0041E9B0_InitializeTerminator@D2SCompListTermStrc@@QAEXXZ"
     },
     {
+     "va": "0x0041E9C0",
+     "length": 3,
+     "name": "?sub_0041E9C0_Identity@@YIPAUD2StormLinkStrc@@PAU1@@Z"
+    },
+    {
      "va": "0x0041E9D0",
      "length": 11,
      "name": "?sub_0041E9D0_SwapDwords@@YIXPAH0@Z"
+    },
+    {
+     "va": "0x0041E9E0",
+     "length": 62,
+     "name": "?sub_0041E9E0_Get@D2SCompBitInputStrc@@QAEIII@Z"
+    },
+    {
+     "va": "0x0041EA20",
+     "length": 30,
+     "name": "?sub_0041EA20_Forward@@YGHPAXPAIPBXI@Z"
     },
     {
      "va": "0x0041EA40",
@@ -5193,6 +5203,16 @@
      "name": "?sub_0041EB20_Init@D2SCompListInitStrc@@QAEXXZ"
     },
     {
+     "va": "0x0041EB40",
+     "length": 17,
+     "name": "?sub_0041EB40_Link@D2StormNodeListAStrc@@QAEPAUD2StormLinkStrc@@PAD@Z"
+    },
+    {
+     "va": "0x0041EB60",
+     "length": 66,
+     "name": "?sub_0041EB60_UnlinkNode@D2StormNodeListAStrc@@QAEXPAD@Z"
+    },
+    {
      "va": "0x0041EBB0",
      "length": 16,
      "name": "??0D2SCompLinkCtorBStrc@@QAE@XZ"
@@ -5206,6 +5226,16 @@
      "va": "0x0041ED70",
      "length": 32,
      "name": "??0D2SCompListStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0041ED90",
+     "length": 161,
+     "name": "?LinkNode@D2StormNodeListAStrc@@QAEXPADI0@Z"
+    },
+    {
+     "va": "0x0041EE40",
+     "length": 61,
+     "name": "?sub_0041EE40_UnlinkAll@D2StormNodeListStrc@@QAEXXZ"
     },
     {
      "va": "0x0041EE80",
@@ -6046,31 +6076,6 @@
      "name": "sub_0041D900_Skip"
     },
     {
-     "va": "0x0041E900",
-     "length": 36,
-     "name": "sub_0041E900_NextLink"
-    },
-    {
-     "va": "0x0041E9E0",
-     "length": 62,
-     "name": "sub_0041E9E0_Get"
-    },
-    {
-     "va": "0x0041EB40",
-     "length": 17,
-     "name": "sub_0041EB40_Link"
-    },
-    {
-     "va": "0x0041EB60",
-     "length": 66,
-     "name": "sub_0041EB60_sub_006C4290"
-    },
-    {
-     "va": "0x0041ED90",
-     "length": 161,
-     "name": "LinkNode"
-    },
-    {
      "va": "0x0041F510",
      "length": 397,
      "name": "AddSymbol"
@@ -6528,6 +6533,11 @@
      "name": "sub_0041D950_PutBits"
     },
     {
+     "va": "0x0041D9A0",
+     "length": 57,
+     "name": "?sub_0041D9A0_Flush@CBitOutput@@QAEXXZ"
+    },
+    {
      "va": "0x0041D9E0",
      "length": 75,
      "name": "?sub_0041D9E0_EncodeOne@CHuffman@@QAEXPAUCBitOutput@@I@Z"
@@ -6606,16 +6616,6 @@
    "file": "Source/Storm/Unknown_0041E9C0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0041E9C0",
-     "length": 3,
-     "name": "?sub_0041E9C0_Identity@@YIPAUD2StormLinkStrc@@PAUD2IdentityView@@@Z"
-    },
-    {
-     "va": "0x0041EA20",
-     "length": 30,
-     "name": "?sub_0041EA20_Forward@@YGHPAXPAIPBXI@Z"
-    },
     {
      "va": "0x0041F460",
      "length": 60,

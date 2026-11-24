@@ -106,6 +106,12 @@ struct D2StormNodeListAStrc
     {
         return m_terminator.Next();
     }
+    D2StormLinkStrc* Link(char* pNode)
+    {
+        return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
+    }
+    D2StormLinkStrc* sub_0041EB40_Link(char* pNode);
+    void sub_0041EB60_UnlinkNode(char* pNode);
     void LinkNode(char* pNode, unsigned int nLinkType, char* pExisting);                       // 0x0041ED90
 };
 
@@ -1099,6 +1105,136 @@ HUFFNODE::HUFFNODE()
 HUFFNODE::~HUFFNODE()
 {
     f_0.Unlink();
+}
+
+// List and bit-reader pieces of the run that no caller reaches, on placeholder types.
+struct D2SCompPairStrc
+{
+    int nFirst;
+    int nSecond;
+};
+
+struct D2SCompNextLinkStrc : D2StormLinkStrc
+{
+    D2StormLinkStrc* sub_0041E900_NextLink(int nLinkOffset);
+};
+
+struct D2SCompBitInputStrc
+{
+    unsigned char* pInput;
+    unsigned int nBitBuffer;
+    unsigned int nBitCount;
+
+    unsigned int Peek(unsigned int nBits, unsigned int nMask)
+    {
+        if (nBitCount <= nBits)
+        {
+            nBitBuffer |= *(unsigned short*)pInput << nBitCount;
+            nBitCount += 16;
+            pInput += 2;
+        }
+        return nBitBuffer & nMask;
+    }
+    void Skip(unsigned int nBits)
+    {
+        nBitBuffer >>= nBits;
+        nBitCount -= nBits;
+    }
+    unsigned int sub_0041E9E0_Get(unsigned int nBits, unsigned int nMask);
+};
+
+struct D2StormNodeListStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+
+    char* Head()
+    {
+        return m_terminator.Next();
+    }
+    void sub_0041EE40_UnlinkAll();
+};
+
+// 0x0041E8F0
+void __fastcall sub_0041E8F0(D2SCompPairStrc* pPair)
+{
+    pPair->nFirst = 0;
+    pPair->nSecond = 0;
+}
+
+// 0x0041E900
+D2StormLinkStrc* D2SCompNextLinkStrc::sub_0041E900_NextLink(int nLinkOffset)
+{
+    if ((int)m_next < 0)
+        return (D2StormLinkStrc*)~(unsigned int)m_next;
+    if (nLinkOffset < 0)
+        nLinkOffset = (char*)this - m_prevlink->m_next;
+    return (D2StormLinkStrc*)(m_next + nLinkOffset);
+}
+
+// 0x0041E9C0
+D2StormLinkStrc* __fastcall sub_0041E9C0_Identity(D2StormLinkStrc* pLink)
+{
+    return pLink;
+}
+
+// 0x0041E9E0
+unsigned int D2SCompBitInputStrc::sub_0041E9E0_Get(unsigned int nBits, unsigned int nMask)
+{
+    unsigned int nValue = Peek(nBits, nMask);
+    Skip(nBits);
+    return nValue;
+}
+
+// 0x0041EA20
+int __stdcall sub_0041EA20_Forward(void* p1, unsigned int* p2, const void* p3, unsigned int n4)
+{
+    return SCompDecompress(p1, p2, (unsigned char*)p3, n4, 0);
+}
+
+// 0x0041EB40
+D2StormLinkStrc* D2StormNodeListAStrc::sub_0041EB40_Link(char* pNode)
+{
+    return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
+}
+
+// 0x0041EB60
+void D2StormNodeListAStrc::sub_0041EB60_UnlinkNode(char* pNode)
+{
+    Link(pNode)->Unlink();
+}
+
+// 0x0041ED90
+void D2StormNodeListAStrc::LinkNode(char* pNode, unsigned int nLinkType, char* pExisting)
+{
+    D2StormLinkStrc* pLink = Link(pNode);
+    pLink->Unlink();
+    D2StormLinkStrc* pExistingLink = Link(pExisting);
+    switch (nLinkType)
+    {
+    case 1:
+        pLink->m_prevlink = pExistingLink;
+        pLink->m_next = pExistingLink->m_next;
+        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
+        pExistingLink->m_next = pNode;
+        break;
+    default:
+        {
+            D2StormLinkStrc* pPrev = pExistingLink->m_prevlink;
+            pLink->m_prevlink = pPrev;
+            pLink->m_next = pPrev->m_next;
+            pPrev->m_next = pNode;
+            pExistingLink->m_prevlink = pLink;
+        }
+        break;
+    }
+}
+
+// 0x0041EE40
+void D2StormNodeListStrc::sub_0041EE40_UnlinkAll()
+{
+    while (char* pNode = Head())
+        ((D2StormLinkStrc*)pNode)->Unlink();
 }
 
 // 0x0041EED0
