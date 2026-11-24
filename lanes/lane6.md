@@ -8,7 +8,7 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
   - Based on #324. Not stacked. Everything stays in lane 6. Replaces lane6/tails-a. lane6/data-c-2 is not needed: data-c went in #323.
   - Several register-argument statics have no caller anywhere in the image: 0x0060B280, 0x0064FAA0, 0x0067A5D0, 0x0067D7E0, 0x006814E0. Their callers were probably inline functions whose copies the linker dropped for another file's copy. They keep emitting shims, marked as not game code.
 - lane6/path-b 90b3499b 510->507 D2Common pathfinding: the IDA* range 0x0067A550-0x0067ADBF becomes one placeholder, Unknown_0067A550.cpp, gathered from seven files. The call chain 0x0067AD00 -> 0x0067AAA0 -> 0x0067A740 -> 0x0067A690 -> 0x0067A630 and the const tables 0x006F17D8/0x006F18D8 agree. Shared D2PathInfoStrc and D2DrlgCoordsStrc replace the private copies; VERIFIED b5fca7e0
-  - Based on #324. Not stacked. Everything stays in lane 6. Its count includes tails-a-2's four, so on main alone it is 510->507 if tails-a-2 is in, and 3 fewer either way.
+  - Based on #324. Not stacked, and independent of tails-a-2. Everything stays in lane 6.
 
 ## Claimed
 
