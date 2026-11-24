@@ -9,7 +9,6 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- Join of Unknown_00570420.cpp into PLAYER/PlrEval.cpp (0x570590-0x570E10, one object: one language copy and the word 0x7326B4 that both files' functions read), with the strays inside it (SCmd.cpp 0x570680/0x570690, Objects.cpp 0x570850).
 
 ## Questions
 
@@ -35,6 +34,8 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Left in place (and why)
 
+- Unknown_00570420.cpp + PLAYER/PlrEval.cpp (0x570590-0x570E10) are one object: one language copy (0x732678) and the word gnActCount (0x7326B4) right after it, read by both 0x5706A0 (placeholder) and 0x5706D0 (PlrEval.cpp), with gnStartingActTargetLevels (.rdata 0x6E1520) read by both too; the SCmd.cpp (0x570680, 0x570690) and Objects.cpp (0x570850) singles sit inside it. Joined, 0x5706D0 stops inlining sub_005706A0_UseActEntry: the image has that static both inlined into 0x5706D0 and out of line (nAct in al, so a static with a register convention) with no caller and no pointer anywhere, and the placeholder only gets the out-of-line copy through an emitter function (sub_K11_Emit005706A0), which in one file makes a second call site. PlrEval.cpp builds 0x5706D0 from its own unmarked copy of the helper. Tried non-static and `inline`: neither gives both. Parked until the second call site is understood.
+- 0x5D3AC0 (Unknown_005D3AC0.cpp, inside SkillAss.cpp's run): SkillAss.cpp already holds an unmarked copy that builds differently, and the placeholder's reads go through VOLATILE_DATATABLES (a forcing construct, lane 7's); left.
 - Lone strays tried and left: 0x5350F0 (PlrSave.cpp, inside Player.cpp's run; Player.cpp already has a different PLAYER_CloseInteraction at 0x5351C0, a name clash), 0x540890 (Clients.cpp -> Party.cpp changes bytes), 0x56CD50 (Objects.cpp -> Skills.cpp), 0x592D50 (a5q4.cpp's ACT1Q4_OpenPortalToTristram -> a1q4.cpp changes bytes even with a1q4's prototype corrected to bool), 0x5A4F20 (sunitproxy.cpp -> MonsterEval.cpp), 0x5E52D0 (SkillDruid.cpp -> AiThink4.cpp; an AIUTIL prototype clash), and the Druid/Sor/Monst interleave around 0x5C8FA0-0x5CB4D0.
 - Quest tails (lead, not acted on): after each act's quests the code has a second run per quest, in quest order, holding InitQuestData and its callbacks: a1q4 0x596CA0-0x597310 after a1q6; a2q2 0x59E5C0-0x59EB00, a2q3 0x59EBE0-0x59EEA0, a2q4 0x59EF70-0x59F570 after a2q8; a4q2 0x5B6AD0-0x5B6C10 after a4q3; a3q2 0x5BD500-0x5BDB10 after a3q7. .rdata's pooled path strings agree that the a2q2 object sits after a2q8 (its path comes after a2q8's), so the early 'a2q2' run 0x599510-0x599BF0 may be another object. Needs a closer look before any move.
 - Tried and left (placeholders inside a named run): Unknown_005A03E0.cpp (MonsterUnique.cpp's own unmarked copy of 0x5A03E0 builds differently), Unknown_005A3D20.cpp, MonsterUnique_005A49B0.cpp (0x5A49B0), AiThink4_005E17E0.cpp (0x5EC6C0), AiThink4_005ED2A0.cpp (0x5ED2A0): change bytes when joined; SCmd_0053E2C0.cpp: a record clash (SCMD_WriteBitBufferBool); Task_005645E0.cpp: Task.cpp keeps an unmarked older copy of 0x5645E0, and the placeholder's version builds differently inside Task.cpp.
