@@ -3,6 +3,7 @@
 #include "D2ClientMenus.h"
 #include "D2StormTypes.h"
 #include "D2Unicode.h"
+#include "D2ClientKeyConfig.h"
 
 #pragma intrinsic(memcpy)
 
@@ -124,13 +125,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2); // 0x00469DE0
 
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
-struct D2KeyConfigFileStrc
-{
-    unsigned short wTag;
-    unsigned short wVersion;
-    unsigned short wSize;
-    unsigned char aBody[0x474];
-};
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);

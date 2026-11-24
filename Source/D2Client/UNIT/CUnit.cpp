@@ -20,6 +20,7 @@
 #include "D2ObjModes.h"
 #include "D2SetsTxt.h"
 #include "D2MsgRecord.h"
+#include "D2ClientKeyConfig.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -445,9 +446,6 @@ int __fastcall sub_M210_EmitTest(D2UnitStrc* pPlayer, D2UnitStrc* pUnit);
 
 int __fastcall sub_M210_EmitUse(D2UnitStrc* pUnit);
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 typedef int (__stdcall* D2FarProcFn)();
 
@@ -2018,13 +2016,6 @@ int __fastcall CUNIT_IsPetSkillTarget(D2UnitStrc* unit, D2UnitStrc* target)
     return 0;
 }
 
-struct D2KeyConfigFileStrc
-{
-    unsigned short wTag;
-    unsigned short wVersion;
-    unsigned short wSize;
-    unsigned char aBody[0x474];
-};
 
 static int __stdcall CUNIT_CanInterruptSequence(int nUnused, D2UnitStrc* pUnit)
 {
