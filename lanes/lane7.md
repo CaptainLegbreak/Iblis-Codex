@@ -52,3 +52,4 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 ## Notes for other lanes
 
 ## Left in place (and why)
+- 2026-11-24 05:35 PT: 0x679C80 has a new base: the edi load, the shifted copy in ecx, the pPathInfo reload into edx and every frame slot now match the original. Two things are left: ours tests X in a register where the original stores the point first and tests the word in memory, and the cast on the backtrack test is still in. Searches are running from both bases. 0x677880 is down to 604 differing bytes (same length).
