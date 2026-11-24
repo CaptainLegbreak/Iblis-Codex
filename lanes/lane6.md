@@ -8,6 +8,7 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- MainMenus.cpp's object (lane6/mainmenus-object, starting, stacked on charsel-tail-2): 0x0042E6A0-0x004369F0. MainMenus.cpp's code there reads bss 0x0077932C-0x00779990; the D2Launch bss that follows is Unknown_004370B0.cpp's (0x007799A4-0x007799E4) and then CharSel.cpp's (from 0x007799E8). About 40 functions inside the run are filed elsewhere, and the CharSel-named ones read only MainMenus' bss. The ones in lane 6 files (CharSel.cpp, CharSel_0042FFE0.cpp, MainMenus_00431AF0.cpp, Unknown_0042F370.cpp, ComCallback.cpp) join MainMenus.cpp. Game.cpp's 0x0042F6D0/0x0042FA30/0x00430B40 and npcmenu.cpp's 0x0042F530 (lane 4's files) are inside it too.
 - ChatDlg.cpp's object, what's left (next): ChatDlg_00441B70's seven, 0x004423B0, 0x00445020, 0x004450D0, 0x004456D0, 0x0043F850, 0x00443F80, 0x004453B0 and 0x00445FF0 each build unequal in ChatDlg.cpp (inline and register choices). Game.cpp's 0x0043DB10 and 0x0043F840 (lane 4's file) are inside the object: lane 4, they're yours to hand over when convenient.
 
 ## Handover to lane 8 (D2Common)
