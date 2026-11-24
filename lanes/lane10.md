@@ -68,6 +68,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 - lane10/names-rank1 8df1c87 rank-1 plan retried: 106 renames applied (names.csv and call sites), 36 addresses dropped by nameround because their units didn't build equal, 3 dropped by hand because the old spelling is also the file's stem (inv_0048DD90, inv_00491D20, text_0049C9C0: renaming them changes the gen include path; MISSING_GEN in the full verify). VERIFIED 0c3b912a on base 0b750228 (#341), placed all, Game.exe matches.
 
 ## Claimed
+- Tue Nov 24 15:05:42 PST 2026: rebasing files-d2client/-storm/-d2bnclient onto #368 (as -2); file plans now mark 'separate object' where both sides hold a language copy.
 - Tue Nov 24 14:10:29 PST 2026: applying own strong/medium file proposals by module (join.py): all 17 modules tried, 22 placeholders joined in 10 branches (d2client, d2game, storm, fog, d2bnclient, bnclient, d2gdi, d2glide, d2multi, d2lang); D2Common, D2CMP, D2DDraw, D2Direct3D, D2Launch, D2Sound, D2Win had none that join mechanically. Next: remake sweep-d2common and names-prefixfix-d2client on current main.
 - Tue Nov 24 12:25:56 PST 2026: file-name plans: 331 of 400 placeholders with a proposal on main #361; reviewing the rest.
 - Tue Nov 24 11:54:24 PST 2026: file-name plans regenerated on main #361 (400 placeholders, 308 with a proposal, 92 skipped).
@@ -119,6 +120,48 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 - None open. Answered (2026-11-24): rank1 applies (rank-1 units take their file's prefix); members are planned as a separate members plan, applied in rounds of their own; the zlib and ATL names become names.csv label fixes; apply order Fog, small, rank1, D2CMP, D2Common, D2Game, the D2Client plans, moved333, one per naming round.
 
 ## Notes for other lanes
+- Tue Nov 24 15:05:42 PST 2026, lane 10 joins in progress (owners, please don't take these until the branch posts or I release them): remaking lane10/files-d2client, files-storm and files-d2bnclient on #368 as -2 branches, now without any pair where both sides hold a language-table copy (Unknown_00477620 -> View.cpp is dropped). Candidates, the ones join.py can do will land:
+  - D2Client/Unknown_00450210.cpp -> D2Client/GAME/Game.cpp (medium)
+  - D2Client/Unknown_00450520.cpp -> D2Client/GAME/Game.cpp (medium)
+  - D2Client/Unknown_0045BF00.cpp -> D2Hell/SRC/Archive.cpp (strong)
+  - D2Client/Unknown_00462D00.cpp -> D2Client/UNIT/Player.cpp (medium)
+  - D2Client/Unknown_00469420.cpp -> D2Client/UI/CmdTbl.cpp (medium)
+  - D2Client/Unknown_0046C7D0.cpp -> D2Client/ENGINE/Gfx.cpp (medium)
+  - D2Client/Unknown_00475C30.cpp -> D2Client/GAME/View.cpp (medium)
+  - D2Client/Unknown_0047C420.cpp -> D2Client/UI/chat.cpp (medium)
+  - D2Client/Unknown_00493A00.cpp -> D2Client/UI/Hireables.cpp (medium)
+  - D2Client/Unknown_0049AF60.cpp -> D2Client/UI/Party.cpp (medium)
+  - D2Client/Unknown_004B5810.cpp -> D2Client/UI/npcmenu.cpp (medium)
+  - D2Client/Unknown_004B6DD0.cpp -> D2Client/UI/npcmenu.cpp (medium)
+  - D2Client/Unknown_004B93F0.cpp -> D2Client/Sound/SoundInst.cpp (medium)
+  - D2Client/Unknown_004C0440.cpp -> D2Client/UI/useitem.cpp (medium)
+  - D2Client/Unknown_004CA560.cpp -> D2Client/UNIT/UnitSnd.cpp (medium)
+  - D2Client/Unknown_004D1300.cpp -> D2Client/UNIT/Missile.cpp (medium)
+  - D2Client/Unknown_004DF4B0.cpp -> D2Client/UI/SkillDesc.cpp (medium)
+  - D2Client/Unknown_0044F9B0.cpp -> D2Client/GAME/Game.cpp (medium)
+  - D2Client/Unknown_0044F9D0.cpp -> D2Client/GAME/Game.cpp (medium)
+  - D2Client/Unknown_0044FB50.cpp -> D2Client/GAME/Game.cpp (medium)
+  - D2Client/Unknown_0044FD80.cpp -> D2Client/GAME/Game.cpp (medium)
+  - D2Client/Unknown_00450040.cpp -> D2Client/GAME/Game.cpp (medium)
+  - D2Client/Unknown_00450550.cpp -> D2Client/GAME/Game.cpp (medium)
+  - D2Client/Unknown_00450950.cpp -> D2Client/GAME/Game.cpp (medium)
+  - D2Client/Unknown_00450D90.cpp -> D2Client/GAME/Game.cpp (medium)
+  - D2Client/Unknown_00451290.cpp -> D2Client/GAME/Game_0044B7B0.cpp (medium)
+  - D2Client/Unknown_004E4670.cpp -> D2Client/UI/SkillDesc.cpp (medium)
+  - D2Client/Unknown_004E6E30.cpp -> D2Client/UI/SkillDesc.cpp (medium)
+  - D2Client/Unknown_004E89A0.cpp -> D2Client/UI/SkillDesc.cpp (medium)
+  - D2Client/Unknown_004EDCA0.cpp -> D2Client/UI/SkillDesc.cpp (medium)
+  - D2Client/Unknown_004EDDD0.cpp -> D2Client/UI/SkillDesc.cpp (medium)
+  - D2Client/Unknown_006CB3E0.cpp -> D2Client/GAME/Game.cpp (medium)
+  - Storm/Unknown_0041DA60.cpp -> Storm/SOURCE/SCOMP.CPP (medium)
+  - Storm/Unknown_00421EA0.cpp -> Storm/SOURCE/SBig.cpp (medium)
+  - Storm/Unknown_0041EBC0.cpp -> Storm/SOURCE/SCOMP.CPP (medium)
+  - Storm/Unknown_006C9A68.cpp -> D2Client/CORE/WINMAIN.CPP (medium)
+  - Storm/Unknown_006CA9C0.cpp -> D2Client/GAME/Game.cpp (medium)
+  - Storm/Unknown_006CACE0.cpp -> D2Gfx/SRC/Window.cpp (medium)
+  - Storm/Unknown_006CAE80.cpp -> D2BNClient/BnSend.cpp (medium)
+  - Storm/Unknown_006CAFC0.cpp -> D2CMP/SRC/CelCmp.cpp (medium)
+  - D2BNClient/Unknown_0051C760.cpp -> D2BNClient/BnSend.cpp (medium)
 - Lane 6: 0x00507EF0 and 0x00507FA0 (scroll-bar getters, D2MOO SCROLLBAR_GetMaxSteps/GetCurrentStep from its D2WinScrollBar.cpp) are filed in D2WinAnimImage.cpp.
 - Lane 5: 0x00590810 is the first function of a1q2.cpp (a1q1.cpp ends at 0x00590720), but D2MOO's 1.14d note files it in A1Q1.cpp as ACT1Q1_CanClientFXBeTriggered. My plan uses D2MOO's name; the a1q1/a1q2 boundary may sit one function later than the files have it.
 - Lane 3: 0x0040ECC0 and 0x0040ED40 (log banners) are filed in Storm SFILE.CPP but sit in Fog's run and only Fog LogManager.cpp calls them; 0x0041D9A0 (CBitOutput flush; handled by scomp-flush-2, user 02:49) is filed in SFILE.CPP inside the SComp run. Skipped in my plan until they move.
