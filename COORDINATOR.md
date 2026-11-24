@@ -6,7 +6,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 - `main`: #316 (round j79). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
 - Units 963, placeholder files 562.
-- In progress: nothing; next round as branches are posted ready. Waiting: `lane4/options-split` (rebase).
+- In progress: round j80 = `lane4/options-split-2`, `lane4/keyconfig-split`, `lane3/sbig-exports`.
 - **Rounds now also check plan `files` entries** (`planfiles.py`): j74's first verify failed because a stale whole entry dropped one lane's externs. The precheck also builds every file whose data plan changed. If you edit a file's plan entry, keep your branch on a recent main.
 - **`lane4/options-split` needs a rebase onto #308:** it conflicts in chat.cpp with #308's gnScreenHeight change. A 94-function move is yours to redo, not mine.
 - **Borrowed data by lane:** [borrowed-data.md](borrowed-data.md), regenerated at #305, lists every block of the 15,691 B still copied from Game.exe, with the file that owns it and how that was decided. Each lane has a section with its leads. Take them after your current branch.
@@ -37,6 +37,8 @@ A function belongs to the lane whose address range or file run it sits in, whate
 | `lane6/bss-a` | replaced by `bss-a-2` | nothing |
 | `lane5/unit-init-seed` | replaced by `unit-init-seed-2` | nothing |
 | `lane6/lang-a` | replaced by `lang-a-2` | nothing |
+| `lane4/options-split` | replaced by `options-split-2` | nothing |
+| `lane5/coord-init-2` | same two commits as `coord-init`, already in #314 | nothing |
 | `lane1/join-gethitsounds` | 0x4CA560 MISMATCH in UnitSnd.cpp on main | waits until UnitSnd.cpp's headers settle |
 
 ## Decisions in force
@@ -59,6 +61,7 @@ A function belongs to the lane whose address range or file run it sits in, whate
 - `hdr-4df6c0-2` is in #302, `one-screenheight-r` in #308. Keeping the one private declaration in inv_004886C0.cpp is right; the declaration-count finding is now in Lane 2's notes too.
 - **0x4A4AD0:**
   - **Earlier notes.** I've re-sent the lane-7 package to the user. The earlier attempts' finding: 0x4A4AD0's callees take arguments in registers, so it must share their unit. Then that unit was text_0049D490.cpp; it is text.cpp now, so your choice of text.cpp is right. The earlier attempts built it standalone and never got close.
+  - **Update:** lane 4's `keyconfig-split` (j80) puts the key-config panel 0x4A43E0-0x4A63B0, with its data and globals, in `Unknown_004A43E0.cpp`, and your 0x4A4AD0 work is in it. Continue there once j80 merges.
   - **Correction, from lane 4's object map:** text.cpp ends around 0x4A15xx. It has path users, its data runs to 0x723768, and its asserts go up to line 5747. **0x4A4AD0 sits in an unnamed object at 0x4A41xx-0x4A61A0** (stat/skill buttons and panel keys; its data runs to 0x724798). We have that object filed inside text.cpp. Its callees are in the same object, so the unit constraint still holds, but the unit is the smaller object, not text.cpp. Build it as that object: with lane 4, split 0x4A41xx-0x4A61A0 out of text.cpp into a placeholder, then try 0x4A4AD0 there with `gnKeyConfigFirstVisible` static. In a smaller unit, 0x4A4500 may survive the static.
   - **Lead on the static.** text_0049A950.cpp still owns 0x4A4110 and 0x4A4780, inside text.cpp's 0x4A40D0-0x4A5270 run. It also defines `gnKeyConfigSelected`, which text.cpp has as its own static (lane 4's note). That's the key-config list's state split across two files. If 0x4A4110/0x4A4780 join text.cpp and the key-config globals are made text.cpp statics together, 0x4A4500 may match with `gnKeyConfigFirstVisible` static. Lane 4 owns text_0049A950.cpp: coordinate there, or do it on your branch and say so.
 Work list, in order of value:
@@ -87,7 +90,11 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ### Lane 4
 - `borrowed-b` and `initializers` are in #311; `warden-strays-2` and `init-more` are in j76.
-- **`options-split` still needs a rebase onto main** (it conflicts in chat.cpp). The evidence (data ends and bss splits at language-table copies) is right; it's approved once it applies.
+- `options-split-2` and `keyconfig-split` are in j80. Thanks for doing the key-config split.
+- Fast-forwarding a new commit onto an already-posted branch (questlog) is fine, as long as the old commits stay and the ready line names the new head. The new-name rule is for rewritten history.
+- **WINMAIN.CPP split (your question): yes, both.** The language-table copies are the evidence, and they're strong.
+  - Move 0x44B400-0x44B430 (InitInterface, ShutdownInterface, RunLauncher) to `Source/D2Client/Unknown_0044B400.cpp`.
+  - Move the MCP packet run 0x44A170-0x44B3xx, with `gpfnConnectPacketHandlers` and its data, to `Source/D2MCPClient/Unknown_0044A170.cpp`. It follows `.\Src\McpConnect.cpp` and a data-less object, so it belongs to the D2MCPClient module. You know the code, so you do the move, on one branch. After it merges, the file is lane 6's; lane 6, take note.
 - **The text-area object map:** good work, and it's now the basis for lane 1's 0x4A4AD0 attempt. Please split the unnamed object 0x4A41xx-0x4A61A0 out of text.cpp into a placeholder (it's your file), and tell lane 1 when it's pushed.
 - From lane 3: 0x700140-0x7001C0 (listed as lane 3's in borrowed-data.md) is WardenClient's RTTI (object locator, class hierarchy, base class descriptors). It belongs with WardenClient.cpp's `??_R0` line; take it.
 - `place-c` is in #299, `runs-sub-2` in #304; `game-borrowed` is in #305; `warden-class` is in j70. Reading the vtable through its object locator is the right way to settle a class.
@@ -113,6 +120,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 ### Lane 6
 - `data-b` is in #309: borrowed data fell to 6,376 B in that round.
 - **Language-table runs as an object count:** yes, go ahead. A run of back-to-back copies with no other data counts objects in link order, so match the copies to code files in order. Two cautions. First, a file that includes the header twice through different paths still gets one copy, because it's one static per translation unit; Ignorelist.cpp's two copies therefore mean two units. Second, objects that define no initialized data of their own still get a copy. A gData_ block holding N copies is N files' data: split it before you place anything.
+- D2MCPClient: lane 4 is moving the MCP packet run out of WINMAIN.CPP into `Source/D2MCPClient/Unknown_0044A170.cpp`. It becomes yours once merged.
 - `seg-a` is in #316. The const-table rule is now in Decisions. Leaving 0x00648020 and 0x0043B080 is right.
 - `cands-d` is in #299, `bss-a` in #302; `bss-a-2` and `path-a-2` are in j67. The path split by data reader is the right call.
 - From lane 3: the dynamic initializers and atexit destructors of long-lived critical sections go into the file that owns the lock. `lane3/crt-locks` shows the pattern: a `CCritSect` type plus the `// build: symbol ??__E…`/`??__F…` lines. Yours: 0x6CAE80/0x6CB420 lock 0x881860 and 0x6CAED0/0x6CB470 lock 0x881F64 (BnDownload.cpp); 0x6CAEA0/0x6CB440 lock 0x881894 (CACHE.CPP); 0x6CB010/0x6CB4E0 lock 0x96D610 (Preset.cpp). Wait for crt-locks to merge (j66) and build on its type. CharSel.cpp taking sub_0043B830/0x43B840 from Game.cpp is fine: the run and the globals settle it.
