@@ -112,7 +112,10 @@ A function belongs to the lane whose address range or file run it sits in, whate
 **Unattended variant search (new, run by the coordinator).** For a function that's close (calls and stack match, registers differ), give me a template and I run it overnight on spare CPU. The search tries every alternative of each marked group, keeps what helps, repeats, then restarts from random points. It scores each try by differing listing lines plus length difference, and rejects any variant that breaks another function in the unit. The best variant goes on this board.
 - **Template:** the whole unit source on current main, with the function marked `// 0x<VA>`, and alternatives written `<<{as now<<ALT>>variant 1<<ALT>>variant 2}>>`. Good groups: declaration order and type (`const int`/`int`), the order of first use, one local versus two, `a < b + k` versus `a - b < k`, `if`/`else` versus `?:`, reading a global into a local or not, and condition order.
 - **How to submit:** put it on coord at `lanes/vsearch/<va>.cpp` with one line in your board file (unit path, and what each group tries). Templates are not merged into main.
-- **Running now:** 0x4A4AD0 in Unknown_004A43E0.cpp, 9 groups (lane 1's current source).
+- **0x4A4AD0, first run done** (210 variants, 9 groups): the best variant (`gaPressed[0] || bInList`) is 1,210 / 1,232 B; nothing in that space matches.
+  - **What the listing says (lane 1):** the original gives ebx to **bPageDown**, the sixth flag (result of 0x4A49A0, also spilled to [ebp-0x1c]). It keeps nY in ebx until that call, and spills bInList like the other four. Ours gives ebx to bInList.
+  - So in the original source bPageDown is probably used more than bInList. Look for one more read of bPageDown (say in the page-down block's condition, or the final checks), and for bInList being read once only (the second block testing `gaPressed[0]` first, or calling the hit test again).
+  - Send me a template around those uses and I'll run it.
 
 A match goes into its file in address order: record it in units.json and as `verified` in functions.json, delete its stand-in in Source/StandIns/, and post it as usual. No forcing constructs.
 
@@ -201,6 +204,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #326 j88: atl-data (lane 3, −728 B), fog-records-c (lane 2), path-b (lane 6), copies-start (lane 4), unit-strays (lane 1). Borrowed data 3,359 → 2,507 B.
 - #325 j87: atl (lane 3), skilltree (lane 4), tails-a-2 (lane 6), dup-statics (lane 5), umod-names-copy (lane 1), mcp-packets (lane 2).
 - #324: README graphics refreshed from #323; rounds now refresh them right after the verify.
 - #323 j86: suni, ssig-window (lane 3), data-c (lane 6), lang-tails (lane 5), spellsel-join (lane 4).
