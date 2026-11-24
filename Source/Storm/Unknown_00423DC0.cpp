@@ -131,17 +131,6 @@ struct D2StormArrayBStrc
     void sub_004211C0_ReallocData(unsigned int nAlloc);                                                     // 0x004211C0
 };
 
-struct D2StormArrayCStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    char* m_data;
-    unsigned int m_chunk;
-
-    void sub_00421A50_Set(unsigned int nCount, const char* pData);                                          // 0x00421A50
-    unsigned int sub_00421F60_Add(unsigned int nCount, const char* pData);                                  // 0x00421F60
-};
-
 struct BigBuffer
 {
     D2StormArrayAStrc m_array;

@@ -6,10 +6,6 @@
 
 struct D2StormNodeListStrc;
 
-struct HANDLER;
-
-struct WNDREC;
-
 
 struct D2StormHashBufferStrc;
 
@@ -100,18 +96,6 @@ struct D2StormNodeListStrc
             break;
         }
     }
-};
-
-struct HANDLER
-{
-    D2StormLinkStrc tLink;
-    int nValue;
-};
-
-struct WNDREC
-{
-    D2StormLinkStrc tLink;
-    int nValue;
 };
 
 extern D2StormNodeListStrc gHandlerList_00708420; // 0x00708420
@@ -287,21 +271,6 @@ int __stdcall SEvtBreakHandlerChain(void* pData); // 0x00426E80
 
 extern int gdwGlobal_007792F4;                                                                              // 0x007792F4
 
-struct D2StormMemSourceStrc
-{
-    int unk0x00[3];
-    char* pBuffer;
-    unsigned int nPos;
-    unsigned int nSize;
-};
-
-struct D2StormMemSinkStrc
-{
-    char* pBuffer;
-    unsigned int nPos;
-    unsigned int nSize;
-};
-
 struct CBitInput
 {
     unsigned char* pInput;
@@ -338,22 +307,6 @@ struct D2StormNodeListAStrc
         return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
     }
     void LinkNode(char* pNode, unsigned int nLinkType, char* pExisting);
-};
-
-struct D2StormNodeListBStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2StormLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
-    }
-    D2StormLinkStrc* sub_00420520_Link(char* pNode);
-    void sub_00420540_LinkNode(char* pNode, unsigned int nLinkType, char* pExisting);
-    char* sub_004205F0_Next(char* pNode);
-    void sub_00420650_UnlinkNode(char* pNode);
-    char* sub_004206E0_RawNext(char* pNode);
 };
 
 struct D2StormPtrArrayStrc
