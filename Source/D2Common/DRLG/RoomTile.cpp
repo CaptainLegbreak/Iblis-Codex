@@ -644,6 +644,12 @@ void __fastcall DRLGROOMTILE_ShrinkRoofTilesToShadowCount(D2DrlgRoomStrc* pDrlgR
     }
 }
 
+// 0x0066E140
+char __stdcall SKILLS_GetModeSideChar(int nMode)
+{
+    return nMode == 11 ? 'r' : 'l';
+}
+
 // 0x0066E160
 static void __stdcall DRLGROOMTILE_UpdateAndGetLvlWarpTxtRecord(int nTileType, D2RoomTileStrc* pWarpTile)
 {

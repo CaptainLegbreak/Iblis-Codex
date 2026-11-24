@@ -2692,33 +2692,6 @@ int __stdcall D2COMMON_11019(D2UnitStrc* pUnit)
     return 1;
 }
 
-// 0x00648390
-int __stdcall sub_00648390_AlwaysZero(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
-// 0x00648640
-void __stdcall D2COMMON_10193_PATH_AdjustDirection(D2DynamicPathStrc* pDynamicPath)
-{
-    if ((pDynamicPath->nDirection != pDynamicPath->nNewDirection) && !(pDynamicPath->dwFlags & PATH_UNKNOWN_FLAG_0x00040))
-    {
-        pDynamicPath->nDirection = (pDynamicPath->nDirection + pDynamicPath->nDiffDirection) & 63;
-
-        const unsigned char dirDiff = (pDynamicPath->nDirection - pDynamicPath->nNewDirection) & 63;
-        if ((dirDiff > 31 && pDynamicPath->nDiffDirection > 63) || (dirDiff < 31 && pDynamicPath->nDiffDirection < 63))
-        {
-            pDynamicPath->nDirection = pDynamicPath->nNewDirection;
-        }
-    }
-}
-
-// 0x00648770
-int __stdcall D2COMMON_10209_PathCheckPathingFlag(D2DynamicPathStrc* pDynamicPath)
-{
-    return (pDynamicPath->dwFlags & PATH_UNKNOWN_FLAG_0x00020);
-}
-
 inline int UNITS_GetXPositionInl(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -2753,12 +2726,6 @@ inline int UNITS_GetYPositionInl(D2UnitStrc* pUnit)
         }
         return 0;
     }
-}
-
-// 0x006487C0
-int __stdcall D2Common_10155(D2DynamicPathStrc* pDynamicPath)
-{
-    return pDynamicPath->dwCurrentPointIdx;
 }
 
 // 0x00654E80
@@ -2823,12 +2790,6 @@ int __fastcall DRLG_CheckOverlappingWithOrthogonalMargin(D2DrlgCoordStrc* pDrlgC
     }
 
     return nSignedDistanceY == 0 && nSignedDistanceX <= nOrthogonalDistanceMax;
-}
-
-// 0x0066E140
-char __stdcall SKILLS_GetModeSideChar(int nMode)
-{
-    return nMode == 11 ? 'r' : 'l';
 }
 
 static inline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
@@ -5075,12 +5036,6 @@ void __stdcall SKILLS_CalculateKickDamage(D2UnitStrc* pUnit, int* pMinDamage, in
     {
         STATLIST_MergeStatLists(pUnit, pLeftHand, 1);
     }
-}
-
-// 0x0064C350
-int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom)
-{
-    return UNITROOM_AddUnitToRoomEx(pUnit, pRoom, 1);
 }
 
 // 0x0064EFE0
