@@ -77477,6 +77477,11 @@
      "length": 71
     },
     {
+     "va": "0x00680040",
+     "length": 37,
+     "name": "?DRLGOUTWILD_IsVertexBlocking@@YAHPAUD2DrlgVertexStrc@@@Z"
+    },
+    {
      "va": "0x00680070",
      "length": 294
     },
@@ -77505,11 +77510,6 @@
    "file": "Source/D2Common/DRLG/OutWild.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00680040",
-     "length": 37,
-     "name": "?DRLGOUTWILD_IsVertexBlocking@@YAHPAUD2DrlgVertexStrc@@@Z"
-    },
     {
      "va": "0x006804E0",
      "length": 145,
