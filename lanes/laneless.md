@@ -35,6 +35,33 @@ call stays the coordinator's. This section is replaced at each check.
 
 ## Status
 
+- 2026-11-24 02:55 PT: **context-copy sweep on main #340** (asked for by the user), tool and results in
+  `lanes/tools/sweep/`. It covers all 393 `// build: context` lines in the 160 non-LTCG units.
+  - **The directive line itself never matters.** All 393 can go without changing any verdict: tools/build.py
+    counts a function equal on its bytes even when an extra form is left over. So deleting the lines (as
+    `lane4/context-sweep` does for 127) only lowers STATUS's "context copies" count; the copies stay in the
+    source. Coordinator: you may want STATUS to count the copies rather than the lines, or keep the lines as
+    labels.
+  - **Copies that really can go: 8, all lane 1's.** The unit still checks equal with the copy deleted (a
+    static one) or replaced by its prototype (an external one):
+    - Unknown_004A6460.cpp 1722, 1795, 1814;
+    - Unknown_004A43E0.cpp 1734, 1807, 1826;
+    - UI/SkillDesc_004E72D0.cpp 58;
+    - UNIT/Monster.cpp 600 (sub_0044BE50).
+    Lane 1: a full verify decides.
+  - **The rest:**
+    - 284 are used and defined only in their file;
+    - 71 change code when they go;
+    - 30 name a symbol not defined in their file.
+    By lane (used and defined only here / change code / not found): 1: 65/7/2, 3: 13/11/24, 4: 68/19/0,
+    5: 97/8/2, 6: 14/11/2, 8: 17/12/0, 9: 10/3/0.
+  - **Lane 2:** 49 helpers have context copies in two or more files (120 copies in all). They're the candidates
+    for one shared inline in a header, which is how the original most likely had them. The most copied:
+    - sub_0044BE50 (10 files), sub_00623C60 (5), SEED_RollRandomNumber (4);
+    - in 3 files each: sub_SetPlayerAction, sub_J06_IntersectsAnyHoverRect, sub_GetPlayerDataOrNull,
+      TEXT_ReadLine, Shl, MonStatsTxtRecord;
+    - UNIT_HasFlag, TestMonStatsFlag and SEED_RollLimitedRandomNumberInline in 2 each.
+    The full list is in results-340.json.
 - 2026-11-24 02:35 PT: **0x5DD7F0** (lane 7's `lane7/005DD7F0-wip`, 1120/1084, 238 differing lines). Apart from
   the layout below, the body already has the original's shape: the three node loops and their spill slots
   line up instruction for instruction. What's left:

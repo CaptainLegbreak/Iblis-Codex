@@ -1,0 +1,2753 @@
+[
+ {
+  "file": "Source/Bnclient/Unknown_00520DC0.cpp",
+  "line": 241,
+  "name": "sub_005232B0_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x005232B0"
+ },
+ {
+  "file": "Source/Bnclient/Unknown_00524140.cpp",
+  "line": 30,
+  "name": "sub_00524200_HashBlock",
+  "directive_removable": true,
+  "copy": "needed by 0x00524140"
+ },
+ {
+  "file": "Source/D2BNClient/CACHE.CPP",
+  "line": 168,
+  "name": "sub_00518DE0_Crc32",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2BNClient/CACHE.CPP",
+  "line": 182,
+  "name": "sub_00518E60_DecryptBlock",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2BNClient/CACHE.CPP",
+  "line": 197,
+  "name": "sub_00518EC0_EncryptBlock",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2BNClient/CACHE.CPP",
+  "line": 218,
+  "name": "sub_00518F30_GetCacheFileTime",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2BNClient/CACHE.CPP",
+  "line": 233,
+  "name": "sub_00518FA0_HashString",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2BNClient/CACHE.CPP",
+  "line": 278,
+  "name": "sub_H08_ClearBlockEntry",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2BNClient/CACHE.CPP",
+  "line": 285,
+  "name": "sub_005191D0_DeleteHashEntries",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2BNClient/CACHE.CPP",
+  "line": 583,
+  "name": "sub_00519920_ReadEntry",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2BNClient/Unknown_00518C30.cpp",
+  "line": 80,
+  "name": "sub_00518EC0_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x00518EC0"
+ },
+ {
+  "file": "Source/D2BNClient/grid.cpp",
+  "line": 147,
+  "name": "sub_00523350_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x00523350"
+ },
+ {
+  "file": "Source/D2CMP/SRC/CelCmp.cpp",
+  "line": 3955,
+  "name": "sub_F43_EmitTableVtables",
+  "directive_removable": true,
+  "copy": "needed by 0x00604700,0x00604870,0x00604900"
+ },
+ {
+  "file": "Source/D2CMP/SRC/CelCmp_005FF2A0.cpp",
+  "line": 93,
+  "name": "??_GD2CelEntryStrc@@QAEPAXI@Z",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/D2CMP/SRC/Codec.cpp",
+  "line": 185,
+  "name": "sub_0060B280_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x0060B280"
+ },
+ {
+  "file": "Source/D2CMP/SRC/Codec.cpp",
+  "line": 496,
+  "name": "sub_M123_Emit_0060BD90",
+  "directive_removable": true,
+  "copy": "needed by 0x0060BD90"
+ },
+ {
+  "file": "Source/D2CMP/SRC/Codec.cpp",
+  "line": 623,
+  "name": "sub_0060B7B0_DecodeCell",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2CMP/SRC/SubTile.cpp",
+  "line": 237,
+  "name": "sub_0060D6F0_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x0060D6F0"
+ },
+ {
+  "file": "Source/D2CMP/Unknown_00604070.cpp",
+  "line": 97,
+  "name": "D2StormEntry604080Strc",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/D2Client/ENGINE/Gfx.cpp",
+  "line": 704,
+  "name": "sub_0046C720_FindNearestTarget",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/ENGINE/Gfx.cpp",
+  "line": 2139,
+  "name": "GFX_PreloadPlayerMode",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/ENGINE/GfxUtil.cpp",
+  "line": 2482,
+  "name": "?UNITS_GetClassIdInline@@YAHPAUD2UnitStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/ENGINE/GfxUtil.cpp",
+  "line": 2483,
+  "name": "?STATES_IsUnitShapeShiftedInline@@YAHPAUD2UnitStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/ENGINE/GfxUtil.cpp",
+  "line": 2484,
+  "name": "?GFXUTIL_ResolveUnitCelContext@@YGHPAUD2UnitStrc@@PAUD2CelContextStrc@@HPAH@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/ENGINE/Gfx_0046DB90.cpp",
+  "line": 674,
+  "name": "CLIENT_GetMonStats2TxtRecord",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/ENGINE/Gfx_0046DB90.cpp",
+  "line": 688,
+  "name": "sub_0046C140_TestMonModeFlag",
+  "directive_removable": true,
+  "copy": "needed by 0x0046F9E0"
+ },
+ {
+  "file": "Source/D2Client/ENGINE/Gfx_0046DB90.cpp",
+  "line": 743,
+  "name": "sub_0046F870_LoadMonsterCofs",
+  "directive_removable": true,
+  "copy": "needed by 0x0046F490,0x0046F650"
+ },
+ {
+  "file": "Source/D2Client/ENGINE/Gfx_0046DB90.cpp",
+  "line": 822,
+  "name": "IsShapeShifted",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/ENGINE/Gfx_0046DB90.cpp",
+  "line": 831,
+  "name": "GetNodeLayer",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/ENGINE/Gfx_0046DCC0.cpp",
+  "line": 272,
+  "name": "sub_0046E040_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x0046E040"
+ },
+ {
+  "file": "Source/D2Client/ENGINE/Gfx_0046F870.cpp",
+  "line": 81,
+  "name": "STATES_IsUnitShapeShiftedInl",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/ENGINE/Gfx_0046F870.cpp",
+  "line": 92,
+  "name": "DATATBLS_GetMonStatsTxtRecordInl",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/ENGINE/Gfx_0046F870.cpp",
+  "line": 98,
+  "name": "DATATBLS_GetMonStats2TxtRecordInl",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/ENGINE/Gfx_0046F870.cpp",
+  "line": 129,
+  "name": "GFX_LoadGfxNode",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/ENGINE/Gfx_00470EC0.cpp",
+  "line": 58,
+  "name": "sub_00471EC0",
+  "directive_removable": true,
+  "copy": "needed by 0x00470EC0"
+ },
+ {
+  "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
+  "line": 1206,
+  "name": "SEED_RollRandomNumberInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
+  "line": 1215,
+  "name": "SEED_RollLimitedRandomNumberInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/GAME/SCmd.cpp",
+  "line": 4290,
+  "name": "Log2Ceil",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/GAME/SCmd.cpp",
+  "line": 4296,
+  "name": "GetMonStats2TxtRecordFromMonsterId",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/GAME/SCmd.cpp",
+  "line": 4308,
+  "name": "GetItemStatCostTxtRecord",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/GAME/Wall2.cpp",
+  "line": 876,
+  "name": "sub_B08_FillCellsInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/SKILLS/Skills.cpp",
+  "line": 2640,
+  "name": "sub_004C7990_GetSkillDescFromSkillId",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/SKILLS/Skills.cpp",
+  "line": 3168,
+  "name": "sub_004C9D50_FindDestinationById",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/SKILLS/SkillsBar.cpp",
+  "line": 436,
+  "name": "MONSTATS_GetRecordInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/SKILLS/SkillsBar.cpp",
+  "line": 444,
+  "name": "MONSTATS_GetBaseIdInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/SKILLS/SkillsBar.cpp",
+  "line": 453,
+  "name": "MONSTERS_GetBaseIdInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/SKILLS/SkillsEMon.cpp",
+  "line": 47,
+  "name": "SKILLS_GetSkillsTxtRecordInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/SKILLS/SkillsEMon.cpp",
+  "line": 57,
+  "name": "UNITS_GetXPositionInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/SKILLS/SkillsEMon.cpp",
+  "line": 67,
+  "name": "UNITS_GetYPositionInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/SKILLS/SkillsEMon.cpp",
+  "line": 77,
+  "name": "MISSILE_SetPathDirectionInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/QuestLog.cpp",
+  "line": 58,
+  "name": "TEXT_BuildQuestText",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc.cpp",
+  "line": 576,
+  "name": "sub_004F21B0_GetSkillsTxtRecord",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc.cpp",
+  "line": 2828,
+  "name": "sub_004E85C0_AppendManaCost",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc.cpp",
+  "line": 3416,
+  "name": "sub_004E86F0_GetWeaponDamage",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc.cpp",
+  "line": 3707,
+  "name": "sub_I05_GetSkillsTxtRecord",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc.cpp",
+  "line": 3846,
+  "name": "ApplyRatio_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc.cpp",
+  "line": 3847,
+  "name": "AddPoisonDamage_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc.cpp",
+  "line": 3848,
+  "name": "AddPoisonDamageAndClamp_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc.cpp",
+  "line": 3948,
+  "name": "sub_D05_Emit_4E6F60",
+  "directive_removable": true,
+  "copy": "needed by 0x004E6F60"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc.cpp",
+  "line": 3955,
+  "name": "sub_004E72D0_AddElemDamage",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc.cpp",
+  "line": 4228,
+  "name": "ApplyRatio_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc.cpp",
+  "line": 4229,
+  "name": "AddPoisonDamage_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc.cpp",
+  "line": 4230,
+  "name": "AddPoisonDamageAndClamp_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc.cpp",
+  "line": 4368,
+  "name": "ApplyRatio_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc.cpp",
+  "line": 4369,
+  "name": "AddPoisonDamage_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc.cpp",
+  "line": 4370,
+  "name": "AddPoisonDamageAndClamp_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc.cpp",
+  "line": 5193,
+  "name": "sub_004E9940_DrawNumberCentered",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc_004E72D0.cpp",
+  "line": 58,
+  "name": "SkillsTxtRecord_0D0",
+  "directive_removable": true,
+  "copy": "removable"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc_004E72D0.cpp",
+  "line": 235,
+  "name": "sub_004EDDD0_AddAttackInfo",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc_004E72D0.cpp",
+  "line": 255,
+  "name": "AppendString",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc_004EA010.cpp",
+  "line": 346,
+  "name": "SKILLDESC_DrawDamageRange",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc_004EA010.cpp",
+  "line": 586,
+  "name": "ApplyRatio_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc_004EA010.cpp",
+  "line": 587,
+  "name": "AddPoisonDamage_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc_004EA010.cpp",
+  "line": 588,
+  "name": "AddPoisonDamageAndClamp_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc_004EA010.cpp",
+  "line": 844,
+  "name": "ApplyPercent_2E0",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc_004EA010.cpp",
+  "line": 869,
+  "name": "ApplyPercent_150",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/SkillDesc_004EA010.cpp",
+  "line": 963,
+  "name": "sub_004E72D0_GetElemDamage",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/automap.cpp",
+  "line": 4538,
+  "name": "ITEM_GetTargetPosition",
+  "directive_removable": true,
+  "copy": "needed by 0x004C5470"
+ },
+ {
+  "file": "Source/D2Client/UI/inv.cpp",
+  "line": 3520,
+  "name": "sub_E05_Emit_004844A0",
+  "directive_removable": true,
+  "copy": "needed by 0x004865D0"
+ },
+ {
+  "file": "Source/D2Client/UI/inv.cpp",
+  "line": 3533,
+  "name": "sub_E05_Emit_00489FB0",
+  "directive_removable": true,
+  "copy": "needed by 0x00489FB0"
+ },
+ {
+  "file": "Source/D2Client/UI/inv.cpp",
+  "line": 3549,
+  "name": "INV_DrawBodyLocPlacement",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/inv.cpp",
+  "line": 6090,
+  "name": "sub_E05_Emit_Tooltip",
+  "directive_removable": true,
+  "copy": "needed by 0x00484DB0"
+ },
+ {
+  "file": "Source/D2Client/UI/inv_0048DD90.cpp",
+  "line": 941,
+  "name": "INV_AppendItemFormulaText",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/inv_0048DD90.cpp",
+  "line": 1024,
+  "name": "INV_AppendSocketedGemLetters",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/inv_0048DD90.cpp",
+  "line": 1093,
+  "name": "INV_AppendShopPriceText",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/inv_00491D20.cpp",
+  "line": 834,
+  "name": "?sub_00486BD0_GetItemCell@@YGXIIPAH0PAUD2UnitStrc@@PAUD2InventoryGridInfoStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/inv_00491D20.cpp",
+  "line": 835,
+  "name": "?GetNpcTabLeft@@YAHH@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/inv_00491D20.cpp",
+  "line": 836,
+  "name": "?GetNpcTabRight@@YAHH@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/showitems.cpp",
+  "line": 94,
+  "name": "sub_004C0640_ClampToScreen",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/text.cpp",
+  "line": 1979,
+  "name": "sub_L04_EmitCopyTextLine",
+  "directive_removable": true,
+  "copy": "needed by 0x0049D310"
+ },
+ {
+  "file": "Source/D2Client/UI/text.cpp",
+  "line": 2501,
+  "name": "sub_J06_IntersectsAnyHoverRect",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/text.cpp",
+  "line": 3541,
+  "name": "TEXT_ReadLine",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/text.cpp",
+  "line": 3889,
+  "name": "sub_0049D5A0_UpdateTextBox",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/text.cpp",
+  "line": 4027,
+  "name": "sub_00623C60",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/text.cpp",
+  "line": 4795,
+  "name": "sub_004A3E40_ClickSlot_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/text_0049D5A0.cpp",
+  "line": 55,
+  "name": "sub_0049D5A0_DrawClippedLine",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UI/text_0049D5A0.cpp",
+  "line": 311,
+  "name": "sub_004A0770_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x0049D5A0"
+ },
+ {
+  "file": "Source/D2Client/UNIT/CUnit.cpp",
+  "line": 777,
+  "name": "UNITS_GetMonStats2TxtRecordFromMonsterId_Inl",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/CUnit.cpp",
+  "line": 868,
+  "name": "UNIT_HasFlag",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/CUnit.cpp",
+  "line": 876,
+  "name": "UNIT_HasFlagEx",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/CUnit.cpp",
+  "line": 887,
+  "name": "CUNIT_GetUnitClassId",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/CUnit.cpp",
+  "line": 1014,
+  "name": "CLIENT_FindUnitInHashTable_Inl",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Item.cpp",
+  "line": 3592,
+  "name": "?ITEMPKT_GetUnitX@@YAHPAUD2UnitStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Item.cpp",
+  "line": 3593,
+  "name": "?ITEMPKT_GetUnitY@@YAHPAUD2UnitStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Item.cpp",
+  "line": 3594,
+  "name": "?ITEMPKT_UnitFlag9@@YAHPAUD2UnitStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Item.cpp",
+  "line": 3595,
+  "name": "?sub_0044BE50@@YAHPAUD2UnitStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Item.cpp",
+  "line": 3596,
+  "name": "?ITEM_RemoveItemStats@@YAXPAUD2UnitStrc@@0@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Item.cpp",
+  "line": 3597,
+  "name": "?ITEM_HandleIndirectSwapBodyItem@@YIXPAUD2GSPacketSrv9D@@@Z",
+  "directive_removable": true,
+  "copy": "needed by 0x004C3070"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Missile.cpp",
+  "line": 722,
+  "name": "MISSILE_RollInRange",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Missile.cpp",
+  "line": 1020,
+  "name": "SEED_RollLimitedRandomNumberInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Missile.cpp",
+  "line": 5269,
+  "name": "MISSILE_GetApproxOffsetLengthInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Missile.cpp",
+  "line": 7127,
+  "name": "DATATBLS_GetMissilesTxtRecordInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/MonUnique.cpp",
+  "line": 137,
+  "name": "sub_0044BE50",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/MonUnique.cpp",
+  "line": 146,
+  "name": "MONSTERS_CheckMonTypeFlag",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Monster.cpp",
+  "line": 600,
+  "name": "sub_0044BE50",
+  "directive_removable": true,
+  "copy": "removable"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1300,
+  "name": "UNITS_GetXPosition",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1318,
+  "name": "UNITS_GetYPosition",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1345,
+  "name": "?PLAYER_GetUnitXInline@@YAHPAUD2UnitStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1346,
+  "name": "?PLAYER_GetUnitYInline@@YAHPAUD2UnitStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1347,
+  "name": "?PLAYER_CheckCommandSkill@@YAHPAUD2PlayerCmdStrc@@PAH@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1348,
+  "name": "?E06_GetUnitMonStatsTxt@@YAPAUD2MonStatsTxt@@PAUD2UnitStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1349,
+  "name": "?PLAYER_InteractWithUnit@@YGXHHPAUD2PlayerCmdStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1350,
+  "name": "?E06_GetPlayerMode@@YAHPAUD2UnitStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1351,
+  "name": "?E06_GetPlayerModeArg1@@YAHPAUD2UnitStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1352,
+  "name": "?E06_GetPlayerModeArg2@@YAHPAUD2UnitStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1353,
+  "name": "?E06_ClearPlayerMode@@YAXPAUD2UnitStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1354,
+  "name": "?PLAYER_PrepareCommand@@YAHPAUD2PlayerCmdStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1355,
+  "name": "?PLAYER_ClampTarget@@YGHPAUD2UnitStrc@@PAUD2PlayerCmdStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1356,
+  "name": "?PLAYER_ExecuteCommand@@YAXPAUD2PlayerCmdStrc@@@Z",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1357,
+  "name": "?sub_00462D00_PlayerCommand@@YIHHHHE@Z",
+  "directive_removable": true,
+  "copy": "needed by 0x00461890,0x00461DC0,0x00462370,0x004623C0"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1358,
+  "name": "?sub_E06_Emit_Player1@@YAXXZ",
+  "directive_removable": true,
+  "copy": "needed by 0x00460DE0,0x00460E70,0x00460F10"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1886,
+  "name": "ClampTarget_GetX",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 1904,
+  "name": "ClampTarget_GetY",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/Player.cpp",
+  "line": 2457,
+  "name": "sub_E06_Emit_Player1",
+  "directive_removable": true,
+  "copy": "needed by 0x00460DE0,0x00460E70,0x00460F10"
+ },
+ {
+  "file": "Source/D2Client/UNIT/UnitMode.cpp",
+  "line": 1252,
+  "name": "sub_GetPlayerDataOrNull",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/UNIT/UnitMode.cpp",
+  "line": 1260,
+  "name": "sub_SetPlayerAction",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_0045FB80.cpp",
+  "line": 96,
+  "name": "SKILLTREE_GetSkillDescRec",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004630E0.cpp",
+  "line": 179,
+  "name": "sub_00463260_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x00463260"
+ },
+ {
+  "file": "Source/D2Client/Unknown_00463390.cpp",
+  "line": 367,
+  "name": "PLAYER_QueueMoveInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_00467DF0.cpp",
+  "line": 97,
+  "name": "sub_M115_Emit_00468B20",
+  "directive_removable": true,
+  "copy": "needed by 0x00468B20"
+ },
+ {
+  "file": "Source/D2Client/Unknown_0046C7D0.cpp",
+  "line": 160,
+  "name": "sub_0046C960_StepRandom",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_00472210.cpp",
+  "line": 113,
+  "name": "RNG_RollLimitedRef",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_00472210.cpp",
+  "line": 469,
+  "name": "sub_M112_Emit_00473720",
+  "directive_removable": true,
+  "copy": "needed by 0x00473720"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004726F0.cpp",
+  "line": 109,
+  "name": "sub_00472C20_PlayerMoved",
+  "directive_removable": true,
+  "copy": "needed by 0x004726F0"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004737B0.cpp",
+  "line": 53,
+  "name": "sub_U01_RollSeedInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004815A0.cpp",
+  "line": 28,
+  "name": "UMODE_GetSkillsTxtRecord",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004815A0.cpp",
+  "line": 112,
+  "name": "sub_GetPlayerDataOrNull",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004815A0.cpp",
+  "line": 119,
+  "name": "sub_SetPlayerAction",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004815A0.cpp",
+  "line": 162,
+  "name": "sub_IsUnitTargetable",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004815A0.cpp",
+  "line": 190,
+  "name": "sub_004815A0_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x004815A0"
+ },
+ {
+  "file": "Source/D2Client/Unknown_00481600.cpp",
+  "line": 37,
+  "name": "UMODE_GetSkillsTxtRecord",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_00481600.cpp",
+  "line": 121,
+  "name": "sub_GetPlayerDataOrNull",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_00481600.cpp",
+  "line": 128,
+  "name": "sub_SetPlayerAction",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_00481600.cpp",
+  "line": 292,
+  "name": "sub_0044BE50",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_00493760.cpp",
+  "line": 132,
+  "name": "sub_K04_EmitIsMouseInBox",
+  "directive_removable": true,
+  "copy": "needed by 0x00494FF0"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004A43E0.cpp",
+  "line": 1734,
+  "name": "sub_J06_IntersectsAnyHoverRect",
+  "directive_removable": true,
+  "copy": "removable"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004A43E0.cpp",
+  "line": 1784,
+  "name": "TEXT_ReadLine",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004A43E0.cpp",
+  "line": 1807,
+  "name": "sub_0049D5A0_UpdateTextBox",
+  "directive_removable": true,
+  "copy": "removable"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004A43E0.cpp",
+  "line": 1823,
+  "name": "sub_004A0770_Shim",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004A43E0.cpp",
+  "line": 1826,
+  "name": "sub_00623C60",
+  "directive_removable": true,
+  "copy": "removable"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004A43E0.cpp",
+  "line": 1902,
+  "name": "sub_004A3E40_ClickSlot_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004A6260.cpp",
+  "line": 59,
+  "name": "TEXT_WheelCaptureMsg",
+  "directive_removable": true,
+  "copy": "needed by 0x004A6260"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004A6460.cpp",
+  "line": 1722,
+  "name": "sub_J06_IntersectsAnyHoverRect",
+  "directive_removable": true,
+  "copy": "removable"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004A6460.cpp",
+  "line": 1772,
+  "name": "TEXT_ReadLine",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004A6460.cpp",
+  "line": 1795,
+  "name": "sub_0049D5A0_UpdateTextBox",
+  "directive_removable": true,
+  "copy": "removable"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004A6460.cpp",
+  "line": 1811,
+  "name": "sub_004A0770_Shim",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004A6460.cpp",
+  "line": 1814,
+  "name": "sub_00623C60",
+  "directive_removable": true,
+  "copy": "removable"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004A6460.cpp",
+  "line": 1891,
+  "name": "sub_004A3E40_ClickSlot_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004A7AE0.cpp",
+  "line": 166,
+  "name": "sub_004A7AE0_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x004A7AE0"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004ADD90.cpp",
+  "line": 43,
+  "name": "sub_0044BE50",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004ADD90.cpp",
+  "line": 52,
+  "name": "MONSTERS_CheckMonTypeFlag",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004ADD90.cpp",
+  "line": 63,
+  "name": "MONSTERUNIQUE_GetUMods",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004BA890.cpp",
+  "line": 49,
+  "name": "CLIENT_ArmHintInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004BC1B0.cpp",
+  "line": 755,
+  "name": "D2ListScrollStrc::DrawRows",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004DF1C0.cpp",
+  "line": 446,
+  "name": "CLT_Abs",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004DF6C0.cpp",
+  "line": 900,
+  "name": "sub_004DF770_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x004DF770"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004E2320.cpp",
+  "line": 1619,
+  "name": "SKILLDESC_DrawWeaponAndSkillDamage",
+  "directive_removable": true,
+  "copy": "needed by 0x004E86F0"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004EDA80.cpp",
+  "line": 224,
+  "name": "sub_004F0650_CltSkillMissileFan",
+  "directive_removable": true,
+  "copy": "needed by 0x004F04F0"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004EDCA0.cpp",
+  "line": 75,
+  "name": "ApplyPercent",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004EDCA0.cpp",
+  "line": 99,
+  "name": "MonStatsTxtRecord",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004EDCA0.cpp",
+  "line": 109,
+  "name": "SkillsTxtRecord_0D0",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004EDCA0.cpp",
+  "line": 119,
+  "name": "SkillParam_0D0",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004EDCA0.cpp",
+  "line": 1169,
+  "name": "AppendString",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004F0650.cpp",
+  "line": 11,
+  "name": "sub_004F0590_CreateCltMissileRequest",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004F0650.cpp",
+  "line": 20,
+  "name": "sub_004F04F0_CreateMissileFan",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004F4170.cpp",
+  "line": 27,
+  "name": "SKILLS_GetSkillsTxtRecord",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004F4170.cpp",
+  "line": 38,
+  "name": "sub_0044BE50",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Client/Unknown_004F4170.cpp",
+  "line": 49,
+  "name": "UNITS_GetUnitId",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/COMPOSIT/Composit.cpp",
+  "line": 170,
+  "name": "DATATBLS_GetMonStatsTxtRecord",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/COMPOSIT/Composit.cpp",
+  "line": 173,
+  "name": "COMPOSIT_FormatPathInto",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/DRLG/DrlgRoom.cpp",
+  "line": 603,
+  "name": "DRLG_ComputeManhattanDistance",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/DRLG/Maze.cpp",
+  "line": 575,
+  "name": "sub_M116_Emit_00670860",
+  "directive_removable": true,
+  "copy": "needed by 0x00670860,0x00670960,0x006709A0,0x00670C10"
+ },
+ {
+  "file": "Source/D2Common/DRLG/OutPlace.cpp",
+  "line": 1169,
+  "name": "DRLG_GenerateJungles",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/DRLG/OutWild.cpp",
+  "line": 293,
+  "name": "DRLGOUTWILD_SpawnTownTransitionsAndCaves",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/DRLG/Preset.cpp",
+  "line": 741,
+  "name": "SKILLDESC_ValidateMonsterId",
+  "directive_removable": true,
+  "copy": "needed by 0x00665950"
+ },
+ {
+  "file": "Source/D2Common/ITEMS/Items.cpp",
+  "line": 1571,
+  "name": "sub_00623C60",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/ITEMS/Items.cpp",
+  "line": 1705,
+  "name": "sub_00628830_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x00628830"
+ },
+ {
+  "file": "Source/D2Common/Stats/StatsEx.cpp",
+  "line": 1160,
+  "name": "STATLIST_GetTotalStatValue_Inl",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/UNITS/Missile.cpp",
+  "line": 604,
+  "name": "sub_0044BE50",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/UNITS/Missile.cpp",
+  "line": 614,
+  "name": "MISSILE_GetLevel",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/UNITS/UnitFinds.cpp",
+  "line": 405,
+  "name": "sub_0065A710_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x0065A710"
+ },
+ {
+  "file": "Source/D2Common/Unknown_0061B870.cpp",
+  "line": 86,
+  "name": "ENVIRONMENT_UpdateLightIntensity",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/Unknown_0061C390.cpp",
+  "line": 70,
+  "name": "ENVIRONMENT_UpdateLightIntensity",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/Unknown_0064A2B0.cpp",
+  "line": 123,
+  "name": "sub_0044BE50",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/Unknown_0065C5E0.cpp",
+  "line": 201,
+  "name": "sub_C01_Emit_0065C730",
+  "directive_removable": true,
+  "copy": "needed by 0x0065C660,0x0065C6A0,0x0065C6D0,0x0065C730"
+ },
+ {
+  "file": "Source/D2Common/Unknown_006685C0.cpp",
+  "line": 144,
+  "name": "sub_00668A90_LookupItem",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/Unknown_006685C0.cpp",
+  "line": 195,
+  "name": "sub_00668A90_TryItemCode",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/Unknown_006685C0.cpp",
+  "line": 208,
+  "name": "sub_00668A90_ParseItemName",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/Unknown_00670170.cpp",
+  "line": 112,
+  "name": "sub_006707A0",
+  "directive_removable": true,
+  "copy": "needed by 0x00670170"
+ },
+ {
+  "file": "Source/D2Common/Unknown_0067A550.cpp",
+  "line": 84,
+  "name": "sub_M125_Emit_0067A5D0",
+  "directive_removable": true,
+  "copy": "needed by 0x0067A5D0"
+ },
+ {
+  "file": "Source/D2Common/Unknown_0067ADC0.cpp",
+  "line": 116,
+  "name": "sub_M_Emit_0067AEA0",
+  "directive_removable": true,
+  "copy": "needed by 0x0067AEA0"
+ },
+ {
+  "file": "Source/D2Common/Unknown_0067B9C0.cpp",
+  "line": 458,
+  "name": "sub_0067B9F0_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x0067B9F0"
+ },
+ {
+  "file": "Source/D2Common/Unknown_0067B9C0.cpp",
+  "line": 515,
+  "name": "sub_M110_Emit_0067BD70",
+  "directive_removable": true,
+  "copy": "needed by 0x0067BD70"
+ },
+ {
+  "file": "Source/D2Common/Unknown_0067D7B0.cpp",
+  "line": 72,
+  "name": "sub_M_Emit_0067D7E0",
+  "directive_removable": true,
+  "copy": "needed by 0x0067D7E0"
+ },
+ {
+  "file": "Source/D2Common/Unknown_0067FFF0.cpp",
+  "line": 188,
+  "name": "DRLGOUTWILD_SpawnTownTransitionsAndCaves",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/Unknown_0067FFF0.cpp",
+  "line": 264,
+  "name": "DRLGOUTWILD_SpawnSpecialPresets",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Common/Unknown_00681490.cpp",
+  "line": 198,
+  "name": "sub_M_Emit_006814E0",
+  "directive_removable": true,
+  "copy": "needed by 0x006814E0"
+ },
+ {
+  "file": "Source/D2DDraw/Unknown_00512C20.cpp",
+  "line": 47,
+  "name": "sub_00512A50_DrawLine",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2DDraw/Unknown_00512CE0.cpp",
+  "line": 42,
+  "name": "sub_00512A50_DrawLine",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Direct3D/Src/d3dSprite.cpp",
+  "line": 250,
+  "name": "sub_006B5D40_UploadTexture",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Direct3D/Src/d3dSprite.cpp",
+  "line": 257,
+  "name": "sub_006B63F0_DrawTexture",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp",
+  "line": 614,
+  "name": "sub_006B5D40_UploadSprite",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp",
+  "line": 829,
+  "name": "sub_006B6BF0_IsOnScreen",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp",
+  "line": 1014,
+  "name": "sub_006B61A0_DrawShadowQuad",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Direct3D/Unknown_006B4C90.cpp",
+  "line": 142,
+  "name": "sub_006B4E80_LoadVideoConfiguration",
+  "directive_removable": true,
+  "copy": "needed by 0x006B4C90"
+ },
+ {
+  "file": "Source/D2Game/Ai/AiBaal.cpp",
+  "line": 1294,
+  "name": "sub_005FC630",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Ai/AiTatics.cpp",
+  "line": 184,
+  "name": "CLIENTS_GetUnitX",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Ai/AiTatics.cpp",
+  "line": 202,
+  "name": "CLIENTS_GetUnitY",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Ai/AiThink4.cpp",
+  "line": 3402,
+  "name": "SEED_RollRandomNumber_005E3530",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Ai/AiThink4.cpp",
+  "line": 11495,
+  "name": "CLIENTS_GetUnitXInline_005F3170",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Ai/AiThink4.cpp",
+  "line": 11501,
+  "name": "CLIENTS_GetUnitYInline_005F3170",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Ai/AiThink4.cpp",
+  "line": 14911,
+  "name": "AI_RollPercentage_005F9490",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Ai/AiUtil.cpp",
+  "line": 504,
+  "name": "DistanceWithSize",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/GAME/Clients.cpp",
+  "line": 3343,
+  "name": "CLIENTS_UnlinkId",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/GAME/Clients.cpp",
+  "line": 3344,
+  "name": "CLIENTS_UnlinkName",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/GAME/Event.cpp",
+  "line": 402,
+  "name": "EVENT_ExecuteEventsImpl5",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/GAME/Event.cpp",
+  "line": 453,
+  "name": "EVENT_ExecuteEventsImpl3",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/GAME/SCmd.cpp",
+  "line": 2454,
+  "name": "sub_0044BE50",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/GAME/SCmd.cpp",
+  "line": 2465,
+  "name": "sub_00623C60",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/GAME/SCmd.cpp",
+  "line": 2475,
+  "name": "sub_00451F50",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/GAME/SCmd.cpp",
+  "line": 2505,
+  "name": "CLIENTS_GetUnitX",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/D2Game/GAME/SCmd.cpp",
+  "line": 2518,
+  "name": "CLIENTS_GetUnitY",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/D2Game/GAME/Task.cpp",
+  "line": 467,
+  "name": "TASK_LinkList_InsertInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/GAME/Task.cpp",
+  "line": 478,
+  "name": "TASK_LinkList_PushFrontInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/GAME/Task_005645E0.cpp",
+  "line": 101,
+  "name": "TASK_CloseGame",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/GAME/Task_005645E0.cpp",
+  "line": 140,
+  "name": "sub_005645E0_IsEmptyGameExpired",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/ITEMS/ItemMode.cpp",
+  "line": 2582,
+  "name": "sub_0055DBC0_UnitFlag9",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/ITEMS/ItemMode.cpp",
+  "line": 2707,
+  "name": "sub_0055E0D0_DecrementBook",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MISSILES/MissMode.cpp",
+  "line": 6212,
+  "name": "sub_005ADA80_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x005ADA80"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterMode.cpp",
+  "line": 1339,
+  "name": "sub_6FC63FD0",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterMode.cpp",
+  "line": 2302,
+  "name": "MONSTERMODE_AiThinkUnlessFrozen",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 561,
+  "name": "MonsterDataOf",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 571,
+  "name": "UModsOf",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 582,
+  "name": "SetMonTypeFlag",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 606,
+  "name": "CountUMods",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 617,
+  "name": "CountUModsTo",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 630,
+  "name": "TestMonTypeFlag",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 640,
+  "name": "UModsOfData",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 656,
+  "name": "InitUMod",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 666,
+  "name": "MonStatsTxtRecord",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 677,
+  "name": "MonStatsTxtRecordOrNull",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 687,
+  "name": "TestMonStatsFlag",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 698,
+  "name": "MonUModTxtRecord",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 707,
+  "name": "RollRandomInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 716,
+  "name": "RollLimitedInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 2508,
+  "name": "MONSTERUNIQUE_CheckMonTypeFlag",
+  "directive_removable": true,
+  "copy": "needed by 0x005A4270"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 3545,
+  "name": "SetBossIndex",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 3747,
+  "name": "PromoteGetUMods",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
+  "line": 3759,
+  "name": "PromoteSetTypeFlag",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 73,
+  "name": "MonsterDataOf",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 83,
+  "name": "UModsOf",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 94,
+  "name": "SetMonTypeFlag",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 118,
+  "name": "CountUMods",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 129,
+  "name": "CountUModsTo",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 142,
+  "name": "TestMonTypeFlag",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 152,
+  "name": "UModsOfData",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 168,
+  "name": "InitUMod",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 178,
+  "name": "MonStatsTxtRecord",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 189,
+  "name": "MonStatsTxtRecordOrNull",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 199,
+  "name": "TestMonStatsFlag",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 210,
+  "name": "MonUModTxtRecord",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 218,
+  "name": "SuperUniqueHcIdx",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 228,
+  "name": "RollRandomInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 237,
+  "name": "RollLimitedInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 458,
+  "name": "MONSTERUNIQUE_AssignRandomUMods",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 459,
+  "name": "MONSTERUNIQUE_AssignRandomUMods",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 744,
+  "name": "SetBossIndex",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 898,
+  "name": "PromoteGetUMods",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 910,
+  "name": "PromoteSetTypeFlag",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/MonsterUnique_005A49B0.cpp",
+  "line": 941,
+  "name": "AiControlOf",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/MONSTER/Monster_00574250.cpp",
+  "line": 35,
+  "name": "sub_00573CB0",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/OBJECTS/Objects.cpp",
+  "line": 766,
+  "name": "SEED_RollRandomNumber",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/OBJECTS/Objects.cpp",
+  "line": 2123,
+  "name": "OBJECTS_RollObjectIndex_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/PLAYER/Player.cpp",
+  "line": 215,
+  "name": "sub_M08_PlaceStartItemInBelt",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/PLAYER/Player.cpp",
+  "line": 1002,
+  "name": "PLAYER_SetStatOrResetGold",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/PLAYER/PlrModes.cpp",
+  "line": 1083,
+  "name": "ApplyRatio",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/PLAYER/PlrMsg.cpp",
+  "line": 925,
+  "name": "sub_005485B0_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x005485B0"
+ },
+ {
+  "file": "Source/D2Game/PLAYER/PlrMsg.cpp",
+  "line": 1055,
+  "name": "sub_005485B0_GetPotionLifePercent",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/PLAYER/PlrMsg.cpp",
+  "line": 1707,
+  "name": "sub_M114_Emit_00549080",
+  "directive_removable": true,
+  "copy": "needed by 0x00549080,0x005490A0,0x005490C0,0x00549290"
+ },
+ {
+  "file": "Source/D2Game/Quests/QUESTS.CPP",
+  "line": 1095,
+  "name": "QUESTS_GetQuestData_Inlined",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Quests/QUESTS.CPP",
+  "line": 1148,
+  "name": "QUESTS_GetQuestData_Inl",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Quests/a1q4.cpp",
+  "line": 1559,
+  "name": "sub_00593AF0_GetPlayerQuestFlags",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Quests/a4q1.cpp",
+  "line": 468,
+  "name": "MONSTERREGION_SanitizeMonsterId_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Quests/a4q1.cpp",
+  "line": 558,
+  "name": "MONSTERS_GetMonStatsTxtRecord_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Quests/a4q1.cpp",
+  "line": 568,
+  "name": "MONSTERS_ValidateMonsterId_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Quests/a4q1.cpp",
+  "line": 578,
+  "name": "MONSTERUNIQUE_ToggleUnitFlag_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Quests/a4q1.cpp",
+  "line": 734,
+  "name": "SEED_RollRandomNumber",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Quests/a4q2.cpp",
+  "line": 625,
+  "name": "sub_K13_Emit_005B4A30",
+  "directive_removable": true,
+  "copy": "needed by 0x005B4A30"
+ },
+ {
+  "file": "Source/D2Game/Quests/a5q3.cpp",
+  "line": 440,
+  "name": "sub_005891D0_SpawnDrehyaInTown",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
+  "line": 1054,
+  "name": "SKILLS_CreateSubMissilesInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/SKILLS/SkillDruid.cpp",
+  "line": 4000,
+  "name": "HIRELING_StepAside",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/SKILLS/SkillItem_005C1560.cpp",
+  "line": 245,
+  "name": "?ITEMS_RollMagicAffixes@@YIFPAUD2UnitStrc@@HHHHH@Z",
+  "directive_removable": true,
+  "copy": "needed by 0x005C1560"
+ },
+ {
+  "file": "Source/D2Game/SKILLS/SkillMonst.cpp",
+  "line": 1012,
+  "name": "SKILLS_Abs",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/SKILLS/SkillNec.cpp",
+  "line": 1162,
+  "name": "sub_005C3300_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x005C3300"
+ },
+ {
+  "file": "Source/D2Game/UNIT/SUnit.cpp",
+  "line": 913,
+  "name": "UNIT_HasFlag",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/UNIT/SUnit.cpp",
+  "line": 1780,
+  "name": "sub_0044BE50",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/UNIT/SUnitDmg.cpp",
+  "line": 1865,
+  "name": "sub_0057C420_GetConvertedUnitType",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/UNIT/SUnitDmg.cpp",
+  "line": 2543,
+  "name": "sub_0057BF10_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x0057BF10"
+ },
+ {
+  "file": "Source/D2Game/UNIT/SUnitEvent.cpp",
+  "line": 559,
+  "name": "SUNITEVENT_FreeEvent",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/UNIT/sunitproxy.cpp",
+  "line": 316,
+  "name": "SUNITPROXY_GetMonStatsTxtRecordInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Unknown_0054EC90.cpp",
+  "line": 39,
+  "name": "SEED_RollRandomNumber",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Unknown_00573780.cpp",
+  "line": 109,
+  "name": "sub_00573AE0_GetComponents",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Unknown_005A1230.cpp",
+  "line": 42,
+  "name": "sub_005A0D20_AddLifePercent",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Unknown_005B24E0.cpp",
+  "line": 583,
+  "name": "MONSTERREGION_SanitizeMonsterId_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Unknown_005B24E0.cpp",
+  "line": 675,
+  "name": "MONSTERS_GetMonStatsTxtRecord_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Unknown_005B24E0.cpp",
+  "line": 685,
+  "name": "MONSTERS_ValidateMonsterId_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Unknown_005B24E0.cpp",
+  "line": 695,
+  "name": "MONSTERUNIQUE_ToggleUnitFlag_Inline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Unknown_005B24E0.cpp",
+  "line": 851,
+  "name": "GetMonStats2",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Unknown_005B24E0.cpp",
+  "line": 860,
+  "name": "SEED_RollRandomNumber",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Unknown_005B24E0.cpp",
+  "line": 869,
+  "name": "ITEMS_RollRandomNumber",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Unknown_005C2740.cpp",
+  "line": 35,
+  "name": "ITEMS_RollLimitedRandomNumber",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Game/Unknown_005D81C0.cpp",
+  "line": 24,
+  "name": "sub_005D8100",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Gdi/Unknown_006C8F70.cpp",
+  "line": 47,
+  "name": "sub_006C8DA0_DrawLine",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Gdi/Unknown_006C9030.cpp",
+  "line": 42,
+  "name": "sub_006C8DA0_DrawLine",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Glide/Src/glFloorCache.cpp",
+  "line": 166,
+  "name": "sub_M117_Emit_0050F150",
+  "directive_removable": true,
+  "copy": "needed by 0x0050F510"
+ },
+ {
+  "file": "Source/D2Glide/Src/glSprite.cpp",
+  "line": 622,
+  "name": "sub_0050A450_UploadSprite",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Hell/SRC/Archive.cpp",
+  "line": 276,
+  "name": "sub_005170E7_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x005170E7"
+ },
+ {
+  "file": "Source/D2Lang/StrTable/strtable.cpp",
+  "line": 1016,
+  "name": "Unicode::strncat",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Lang/Unknown_00526100.cpp",
+  "line": 149,
+  "name": "sub_00526320_ToUnicode",
+  "directive_removable": true,
+  "copy": "needed by 0x00526100"
+ },
+ {
+  "file": "Source/D2Lang/Unknown_00526100.cpp",
+  "line": 250,
+  "name": "sub_00527A50_MapCodePageChar",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Multi/Src/ChatDlg.cpp",
+  "line": 4992,
+  "name": "sub_004438E0_HasProgress",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Multi/Src/ChatDlg_004423B0.cpp",
+  "line": 113,
+  "name": "CONSOLE_FindSecondTokenInline",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/D2Multi/Src/ComCallback.cpp",
+  "line": 2394,
+  "name": "sub_00446D30_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x00446D30"
+ },
+ {
+  "file": "Source/D2Win/Src/D2Comp.cpp",
+  "line": 627,
+  "name": "sub_M118_Emit_00503310",
+  "directive_removable": true,
+  "copy": "needed by 0x00503310"
+ },
+ {
+  "file": "Source/D2Win/Src/D2Comp.cpp",
+  "line": 1277,
+  "name": "sub_D2Win_10143_ApplyCof",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/Fog/Src/Excel/Excel.cpp",
+  "line": 455,
+  "name": "EXCEL_HashName",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/Fog/Src/Excel/Excel.cpp",
+  "line": 801,
+  "name": "sub_006BCE20_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x006BCE20"
+ },
+ {
+  "file": "Source/Fog/Src/QServer/QServer.cpp",
+  "line": 1333,
+  "name": "sub_006BF180_Shim",
+  "directive_removable": true,
+  "copy": "needed by 0x006BF180"
+ },
+ {
+  "file": "Source/Fog/Src/QServer/QServer.cpp",
+  "line": 1482,
+  "name": "sub_Emit_006BF500",
+  "directive_removable": true,
+  "copy": "needed by 0x006BF500"
+ },
+ {
+  "file": "Source/Fog/Src/QServer/QServer.cpp",
+  "line": 2035,
+  "name": "sub_006BF320_FreeChain",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/Fog/Src/QServer/QServer.cpp",
+  "line": 2050,
+  "name": "sub_006BF0F0_FreeBuckets",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/Fog/Src/QServer/QServer.cpp",
+  "line": 2134,
+  "name": "sub_006BF180_ReferenceAddress",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/Fog/Src/QServer/QServer.cpp",
+  "line": 2288,
+  "name": "sub_CallSite_SendToKey",
+  "directive_removable": true,
+  "copy": "needed by 0x006C0140"
+ },
+ {
+  "file": "Source/Fog/Unknown_00401010.cpp",
+  "line": 117,
+  "name": "sub_M123_Emit_00401020",
+  "directive_removable": true,
+  "copy": "needed by 0x00401020"
+ },
+ {
+  "file": "Source/Fog/Unknown_00402820.cpp",
+  "line": 422,
+  "name": "sub_M452_Emit_00402FE0",
+  "directive_removable": true,
+  "copy": "needed by 0x00402FE0"
+ },
+ {
+  "file": "Source/Fog/Unknown_00402820.cpp",
+  "line": 790,
+  "name": "sub_004047D0_GetDebugDirectory",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/Fog/Unknown_00404AB0.cpp",
+  "line": 118,
+  "name": "sub_004049A0_ReadImageInfo",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/Fog/Unknown_00404AB0.cpp",
+  "line": 222,
+  "name": "sub_00404C60_EnumModulesPsapi",
+  "directive_removable": true,
+  "copy": "needed by 0x00404AB0"
+ },
+ {
+  "file": "Source/Storm/SOURCE/SBMP.CPP",
+  "line": 1262,
+  "name": "sub_006C59C0_CopyPixels",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/Storm/SOURCE/SBig.cpp",
+  "line": 1,
+  "name": "D2StormArrayAStrc::Reserve",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/SOURCE/SBig.cpp",
+  "line": 2,
+  "name": "D2StormArrayAStrc::SetCount",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/SOURCE/SBig.cpp",
+  "line": 3,
+  "name": "D2StormArrayBStrc::Reserve",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/SOURCE/SBig.cpp",
+  "line": 83,
+  "name": "New",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/SOURCE/SBig.cpp",
+  "line": 377,
+  "name": "Shl",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/SOURCE/SBig.cpp",
+  "line": 416,
+  "name": "sub_00422FC0_SubUInt",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/Storm/SOURCE/SBig.cpp",
+  "line": 429,
+  "name": "sub_00423100_Sub",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/Storm/SOURCE/SBig.cpp",
+  "line": 633,
+  "name": "Gcd",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/SOURCE/SEVT.CPP",
+  "line": 379,
+  "name": "D2StormBreakCmdListStrc::DeleteNode",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/Storm/SOURCE/SFILE.CPP",
+  "line": 4012,
+  "name": "AUDIOSTREAM::AUDIOSTREAM",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/Storm/SOURCE/SFILE.CPP",
+  "line": 4580,
+  "name": "sub_004192F0_OpenDiskFile",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/Storm/SOURCE/SSTR.CPP",
+  "line": 942,
+  "name": "PowIntT*",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/SOURCE/SSignature.cpp",
+  "line": 390,
+  "name": "D2StormArrayAStrc::Reserve",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/SOURCE/SSignature.cpp",
+  "line": 391,
+  "name": "D2StormArrayCStrc::Reserve",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/Unknown_0041E9C0.cpp",
+  "line": 811,
+  "name": "SBigFromStream",
+  "directive_removable": true,
+  "copy": "needed by 0x00420F80,0x004234F0"
+ },
+ {
+  "file": "Source/Storm/Unknown_00421EA0.cpp",
+  "line": 543,
+  "name": "sub_Emit_BREAKCMD",
+  "directive_removable": true,
+  "copy": "needed by 0x00426E20"
+ },
+ {
+  "file": "Source/Storm/Unknown_00421EA0.cpp",
+  "line": 554,
+  "name": "sub_Emit_D2StormListAStrc",
+  "directive_removable": true,
+  "copy": "needed by 0x0044FCF0"
+ },
+ {
+  "file": "Source/Storm/Unknown_00421EA0.cpp",
+  "line": 560,
+  "name": "sub_Emit_D2StormHashObjectChunkStrc",
+  "directive_removable": true,
+  "copy": "needed by 0x004500A0"
+ },
+ {
+  "file": "Source/Storm/Unknown_004225C0.cpp",
+  "line": 139,
+  "name": "ToStr",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/Unknown_00423DC0.cpp",
+  "line": 268,
+  "name": "Shl",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/Unknown_00423DC0.cpp",
+  "line": 307,
+  "name": "sub_00423100_Sub",
+  "directive_removable": true,
+  "copy": "does not compile without it"
+ },
+ {
+  "file": "Source/Storm/Unknown_00425350.cpp",
+  "line": 172,
+  "name": "Shl",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/Unknown_00425350.cpp",
+  "line": 215,
+  "name": "Div",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/Unknown_00425350.cpp",
+  "line": 352,
+  "name": "PowMod",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/Unknown_00425350.cpp",
+  "line": 503,
+  "name": "InvMod",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/Unknown_006CAE80.cpp",
+  "line": 50,
+  "name": "??_G?$TSList@UARCHIVEREC@@U?$TSGetLink@UARCHIVEREC@@@@@@QAEPAXI@Z",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/Unknown_006CAE80.cpp",
+  "line": 51,
+  "name": "??_G?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAEPAXI@Z",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/Unknown_006CAE80.cpp",
+  "line": 52,
+  "name": "??_G?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEPAXI@Z",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/Unknown_006CAE80.cpp",
+  "line": 53,
+  "name": "??_G?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAEPAXI@Z",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/Unknown_006CAE80.cpp",
+  "line": 54,
+  "name": "??_G?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEPAXI@Z",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/Unknown_006CAE80.cpp",
+  "line": 55,
+  "name": "??_G?$TSList@UHANDLER@@U?$TSGetLink@UHANDLER@@@@@@QAEPAXI@Z",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/Unknown_006CAE80.cpp",
+  "line": 56,
+  "name": "??_G?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAXI@Z",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/Unknown_006CAE80.cpp",
+  "line": 57,
+  "name": "??_G?$TSList@UBREAKCMD@@U?$TSGetLink@UBREAKCMD@@@@@@QAEPAXI@Z",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ },
+ {
+  "file": "Source/Storm/Unknown_006CB4E0.cpp",
+  "line": 9,
+  "name": "??_GD2StormList0074C48CStrc@@QAEPAXI@Z",
+  "directive_removable": true,
+  "copy": "definition not found in file"
+ }
+]
