@@ -1,5 +1,6 @@
 #include "Storm.h"
 #include "D2MultiTypes.h"
+#include "D2LanguageNames.h"
 
 #include "D2CrashTypes.h"
 #include "D2FogTypes.h"
