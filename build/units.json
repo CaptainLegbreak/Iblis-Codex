@@ -73216,16 +73216,6 @@
      "va": "0x0066E140",
      "length": 20,
      "name": "SKILLS_GetModeSideChar"
-    },
-    {
-     "va": "0x00679380",
-     "length": 90,
-     "name": "PATH_GetTableHeuristic"
-    },
-    {
-     "va": "0x0067A390",
-     "length": 129,
-     "name": "PATH_GetScaledDirectionVector"
     }
    ]
   },
@@ -78028,9 +78018,14 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_006793E0.cpp",
+   "file": "Source/D2Common/Unknown_00679380.cpp",
    "rank": 1,
    "functions": [
+    {
+     "va": "0x00679380",
+     "length": 90,
+     "name": "PATH_GetTableHeuristic"
+    },
     {
      "va": "0x006793E0",
      "length": 321
@@ -78044,37 +78039,13 @@
      "length": 827
     },
     {
-     "va": "0x00679B30",
-     "length": 329
-    },
-    {
-     "va": "0x0067A240",
-     "length": 326
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00679A60.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00679A60",
      "length": 196,
      "name": "?PATH_CheckCollisionsToNextPosition@@YAHPAUD2DynamicPathStrc@@PAUD2PathPointStrc@@@Z"
+    },
+    {
+     "va": "0x00679B30",
+     "length": 329
     },
     {
      "va": "0x00679E50",
@@ -78110,6 +78081,15 @@
      "length": 244
     },
     {
+     "va": "0x0067A240",
+     "length": 326
+    },
+    {
+     "va": "0x0067A390",
+     "length": 129,
+     "name": "PATH_GetScaledDirectionVector"
+    },
+    {
      "va": "0x0067A420",
      "length": 128,
      "name": "?sub_0067A420_TraceSegment@@YGHPAUD2DynamicPathStrc@@UD2PathPointStrc@@1@Z"
@@ -78118,6 +78098,20 @@
      "va": "0x0067A4A0",
      "length": 169
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {

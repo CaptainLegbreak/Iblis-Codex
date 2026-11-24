@@ -2858,48 +2858,6 @@ static inline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-// 0x00679380
-int __stdcall PATH_GetTableHeuristic(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
-{
-    int nDiffX = pPoint1.X - pPoint2.X;
-    if (nDiffX < 0)
-    {
-        nDiffX = -nDiffX;
-    }
-
-    int nDiffY = pPoint1.Y - pPoint2.Y;
-    if (nDiffY < 0)
-    {
-        nDiffY = -nDiffY;
-    }
-
-    if (nDiffX < 8 && nDiffY < 8)
-    {
-        const int nResult = gaPathHeuristicTable[nDiffX + 8 * nDiffY];
-        if (nResult < 0)
-        {
-            return 0;
-        }
-        return nResult + 1;
-    }
-
-    if (nDiffX > nDiffY)
-    {
-        return nDiffY + 2 * nDiffX;
-    }
-    return nDiffX + 2 * nDiffY;
-}
-
-// 0x0067A390
-void __fastcall PATH_GetScaledDirectionVector(int nVelocity, D2CoordStrc* pDirectionVector, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2)
-{
-    int nDirection;
-    PATH_GetDirectionVectorFromPoints(pDirectionVector, &nDirection, tPoint1, tPoint2);
-    pDirectionVector->nX = (pDirectionVector->nX * nVelocity) >> 8;
-    pDirectionVector->nY = (pDirectionVector->nY * nVelocity) >> 8;
-    D2_ASSERT(D2_MAX(D2_ABS(pDirectionVector->nX), D2_ABS(pDirectionVector->nY)) < 0x200000, 817);
-}
-
 // build: symbol ?gaPathDeltaTable@* 0x006F1E28
 
 // 0x00646460
