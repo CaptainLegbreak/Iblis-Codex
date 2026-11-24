@@ -836,15 +836,7 @@
   "Source/D2Client/Unknown_00460420.cpp": {
    "bytes": 156,
    "definitions": 3,
-   "externs": [
-    "extern \"C\" void __cdecl AUTOMAP_PopupButtonDownMsg(); // 0x0045FE30",
-    "extern \"C\" void __cdecl ROSTERPETS_HandlePopupButtonUp(); // 0x0045FED0",
-    "extern \"C\" void __cdecl SCMD_ConfirmPopup(); // 0x0045FF70",
-    "extern \"C\" void __cdecl SCMD_HandlePopupEscape(); // 0x0045FFB0",
-    "extern \"C\" void __cdecl AUTOMAP_PopupTwoButtonDownMsg(); // 0x004601F0",
-    "extern \"C\" void __cdecl AUTOMAP_PopupTwoButtonUpMsg(); // 0x004602E0",
-    "extern \"C\" void __cdecl SCMD_ConfirmOkCancelPopup(); // 0x004603E0"
-   ],
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_00460420.inc",
    "lang": "cpp",
@@ -39920,7 +39912,7 @@
     [
      8,
      "0x0045FE30",
-     "names.json",
+     "owner",
      "AUTOMAP_PopupButtonDownMsg",
      0,
      "func"
@@ -39928,7 +39920,7 @@
     [
      20,
      "0x0045FED0",
-     "names.json",
+     "owner",
      "ROSTERPETS_HandlePopupButtonUp",
      0,
      "func"
@@ -39936,7 +39928,7 @@
     [
      32,
      "0x0045FFB0",
-     "names.json",
+     "owner",
      "SCMD_HandlePopupEscape",
      0,
      "func"
@@ -39944,7 +39936,7 @@
     [
      44,
      "0x0045FF70",
-     "names.json",
+     "owner",
      "SCMD_ConfirmPopup",
      0,
      "func"
@@ -40014,7 +40006,7 @@
     [
      8,
      "0x004601F0",
-     "names.json",
+     "owner",
      "AUTOMAP_PopupTwoButtonDownMsg",
      0,
      "func"
@@ -40022,7 +40014,7 @@
     [
      20,
      "0x004602E0",
-     "names.json",
+     "owner",
      "AUTOMAP_PopupTwoButtonUpMsg",
      0,
      "func"
@@ -40038,7 +40030,7 @@
     [
      44,
      "0x004603E0",
-     "names.json",
+     "owner",
      "SCMD_ConfirmOkCancelPopup",
      0,
      "func"

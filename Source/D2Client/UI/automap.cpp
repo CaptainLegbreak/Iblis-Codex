@@ -1410,12 +1410,6 @@ int gnRevealLastY; // 0x007A51F4
 void __stdcall AUTOMAP_RevealRoomCallback(D2ActiveRoomStrc* pRoom); // 0x00459150
 
 
-int gbPopupMouseDown; // 0x007A5248
-
-int gbPopupOkPressed; // 0x007A524C
-
-int gbPopupCancelPressed; // 0x007A5250
-
 static D2AutomapCellBlockStrc* gpAutomapCellBlocks; // 0x007A5158
 
 static int gnAutomapCellCount_007A515C; // 0x007A515C
@@ -4169,28 +4163,6 @@ void __fastcall AUTOMAP_ProcessUnitPacketBuffer(void* pArg)
     pBuffer->nCount = 0;
 }
 
-// 0x0045FE30
-void __stdcall AUTOMAP_PopupButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    int nLeft = gnPanelOffsetX + 0x110;
-    int nBottom = 0x136 - gnPanelOffsetY;
-    int nX = sub_00468730();
-    int nY = sub_00468740();
-    if (nX >= nLeft && nX <= nLeft + 0x60 && nY >= nBottom - 0x20 && nY <= nBottom)
-    {
-        gbPopupOkPressed = 1;
-        gbPopupMouseDown = 1;
-        sub_004B9A00(4, 0, 0, 0, 0);
-        pMsg->bReturn = 1;
-        pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
-        return;
-    }
-    GAME_ResetMouseButtons();
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
 
 void __stdcall UI_DrawCelPair(int bFirst);                                                        // 0x0045FBC0
 
@@ -4202,96 +4174,8 @@ void __cdecl UI_DrawCenteredStringPair();                                       
 
 void __cdecl CURSOR_DrawCursor(); // 0x004684C0
 
-// 0x00460190
-void __cdecl sub_00460190_DrawFrame()
-{
-    if (WINDOW_GetState())
-        return;
-    if (!D2GFX_StartDraw(1, 0, 0, 0))
-        return;
-    D2GFX_ClearScreen(0);
-// build: symbol ?D2Win_10179_UpdatePaletteFlash@* 0x004FB0D0
-    D2Win_10179_UpdatePaletteFlash();
-    UI_DrawCelPair(0);
-    UI_DrawCenteredStrings();
-    VIEW_DrawPanelCels(gbPopupOkPressed, gbPopupCancelPressed);
-    UI_DrawCenteredStringPair();
-    CURSOR_DrawCursor();
-    D2GFX_EndScene();
-}
 
-// 0x004601F0
-void __stdcall AUTOMAP_PopupTwoButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    int nLeft = gnPanelOffsetX + 0xCE;
-    int nBottom = 0x136 - gnPanelOffsetY;
-    int nX = sub_00468730();
-    int nY = sub_00468740();
-    if (nX >= nLeft && nX <= nLeft + 0x60 && nY >= nBottom - 0x20 && nY <= nBottom)
-    {
-        gbPopupOkPressed = 1;
-        gbPopupMouseDown = 1;
-        sub_004B9A00(4, 0, 0, 0, 0);
-        pMsg->bReturn = 1;
-        pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
-        return;
-    }
-    nLeft = gnPanelOffsetX + 0x152;
-    nBottom = 0x136 - gnPanelOffsetY;
-    nX = sub_00468730();
-    nY = sub_00468740();
-    if (nX >= nLeft && nX <= nLeft + 0x60 && nY >= nBottom - 0x20 && nY <= nBottom)
-    {
-        gbPopupCancelPressed = 1;
-        gbPopupMouseDown = 1;
-        sub_004B9A00(4, 0, 0, 0, 0);
-        pMsg->bReturn = 1;
-        pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
-        return;
-    }
-    GAME_ResetMouseButtons();
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
 
-// 0x004602E0
-void __stdcall AUTOMAP_PopupTwoButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    gbPopupOkPressed = 0;
-    gbPopupCancelPressed = 0;
-    if (gbPopupMouseDown)
-    {
-        int nLeft = gnPanelOffsetX + 0xCE;
-        int nBottom = 0x136 - gnPanelOffsetY;
-        int nX = sub_00468730();
-        int nY = sub_00468740();
-        if (nX >= nLeft && nX <= nLeft + 0x60 && nY >= nBottom - 0x20 && nY <= nBottom)
-        {
-            gbOkCancelAccepted = 1;
-            gbPopupMouseDown = 0;
-        }
-        nLeft = gnPanelOffsetX + 0x152;
-        nBottom = 0x136 - gnPanelOffsetY;
-        nX = sub_00468730();
-        nY = sub_00468740();
-        if (nX >= nLeft && nX <= nLeft + 0x60 && nY >= nBottom - 0x20 && nY <= nBottom)
-        {
-            gbOkCancelCancelled = 1;
-            gbPopupMouseDown = 0;
-        }
-        pMsg->bReturn = 1;
-        pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
-        return;
-    }
-    GAME_ResetMouseButtons();
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
 
 // 0x00460930
 void __fastcall AUTOMAP_SetUnitLightRadius(D2UnitStrc* pUnit, int nDelta)

@@ -2510,26 +2510,6 @@
      "name": "AUTOMAP_ProcessUnitPacketBuffer"
     },
     {
-     "va": "0x0045FE30",
-     "length": 157,
-     "name": "AUTOMAP_PopupButtonDownMsg"
-    },
-    {
-     "va": "0x00460190",
-     "length": 81,
-     "name": "?sub_00460190_DrawFrame@@YAXXZ"
-    },
-    {
-     "va": "0x004601F0",
-     "length": 227,
-     "name": "AUTOMAP_PopupTwoButtonDownMsg"
-    },
-    {
-     "va": "0x004602E0",
-     "length": 245,
-     "name": "AUTOMAP_PopupTwoButtonUpMsg"
-    },
-    {
      "va": "0x00460930",
      "length": 110,
      "name": "AUTOMAP_SetUnitLightRadius"
@@ -13439,16 +13419,6 @@
      "name": "sub_0045BBE0_LinkNode"
     },
     {
-     "va": "0x0045FD20",
-     "length": 90,
-     "name": "VIEW_DrawPanelCel"
-    },
-    {
-     "va": "0x00460060",
-     "length": 136,
-     "name": "VIEW_DrawPanelCels"
-    },
-    {
      "va": "0x00466820",
      "length": 79,
      "name": "?VIEW_SpawnRoomPresets@@YIXPAUD2ActiveRoomStrc@@@Z"
@@ -13625,11 +13595,6 @@
      "va": "0x00454970",
      "length": 9,
      "name": "_INV_GetScreenHeightMinusPanel"
-    },
-    {
-     "va": "0x0045FDD0",
-     "length": 12,
-     "name": "?INV_IsPopupDismissed@@YAHXZ"
     },
     {
      "va": "0x00477EE0",
@@ -15798,31 +15763,6 @@
      "name": "UI_ClearPair"
     },
     {
-     "va": "0x0045FBC0",
-     "length": 155,
-     "name": "?UI_DrawCelPair@@YGXH@Z"
-    },
-    {
-     "va": "0x0045FD80",
-     "length": 68,
-     "name": "?UI_DrawCenteredString@@YAXXZ"
-    },
-    {
-     "va": "0x0045FFC0",
-     "length": 159,
-     "name": "?UI_DrawCenteredStrings@@YAXXZ"
-    },
-    {
-     "va": "0x004600F0",
-     "length": 115,
-     "name": "?UI_DrawCenteredStringPair@@YAXXZ"
-    },
-    {
-     "va": "0x00460430",
-     "length": 80,
-     "name": "?UI_FreeCels@@YAXXZ"
-    },
-    {
      "va": "0x0046F980",
      "length": 6,
      "name": "UI_GetGfxMemory"
@@ -16832,26 +16772,6 @@
      "name": "?SCMD_FreePacketBuffer@@YIXPAX@Z"
     },
     {
-     "va": "0x0045FC60",
-     "length": 180,
-     "name": "?SCMD_DrawLoadingTexts@@YAXXZ"
-    },
-    {
-     "va": "0x0045FF70",
-     "length": 55,
-     "name": "SCMD_ConfirmPopup"
-    },
-    {
-     "va": "0x0045FFB0",
-     "length": 13,
-     "name": "?SCMD_HandlePopupEscape@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004603E0",
-     "length": 55,
-     "name": "SCMD_ConfirmOkCancelPopup"
-    },
-    {
      "va": "0x00460730",
      "length": 45,
      "name": "SCMD_SetMonsterClientFlags"
@@ -16957,16 +16877,6 @@
      "va": "0x0045C4F0",
      "length": 36,
      "name": "?PLAYER_GetItemStatCostTxtRecord@@YIPAUD2ItemStatCostTxt@@H@Z"
-    },
-    {
-     "va": "0x00460170",
-     "length": 27,
-     "name": "?PLAYER_IsOkCancelDone@@YAHXZ"
-    },
-    {
-     "va": "0x00460480",
-     "length": 7,
-     "name": "?PLAYER_SetCinematicExpansion@@YIXH@Z"
     },
     {
      "va": "0x00460760",
@@ -17675,22 +17585,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_0045FB40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0045FB40",
-     "length": 58,
-     "name": "?sub_0045FB40_LoadPopupCels@@YAXXZ"
-    },
-    {
-     "va": "0x0045FDE0",
-     "length": 74,
-     "name": "?sub_0045FDE0_DrawLoadingScreen@@YAXXZ"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_0045FB80.cpp",
    "rank": 0,
    "functions": [
@@ -17719,11 +17613,6 @@
    "file": "Source/D2Client/GAME/RosterPets.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0045FED0",
-     "length": 158,
-     "name": "ROSTERPETS_HandlePopupButtonUp"
-    },
     {
      "va": "0x00478A50",
      "length": 51,
@@ -17860,9 +17749,114 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x0045FB40",
+     "length": 58,
+     "name": "?sub_0045FB40_LoadPopupCels@@YAXXZ"
+    },
+    {
+     "va": "0x0045FBC0",
+     "length": 155,
+     "name": "?UI_DrawCelPair@@YGXH@Z"
+    },
+    {
+     "va": "0x0045FC60",
+     "length": 180,
+     "name": "?SCMD_DrawLoadingTexts@@YAXXZ"
+    },
+    {
+     "va": "0x0045FD20",
+     "length": 90,
+     "name": "VIEW_DrawPanelCel"
+    },
+    {
+     "va": "0x0045FD80",
+     "length": 68,
+     "name": "?UI_DrawCenteredString@@YAXXZ"
+    },
+    {
+     "va": "0x0045FDD0",
+     "length": 12,
+     "name": "?INV_IsPopupDismissed@@YAHXZ"
+    },
+    {
+     "va": "0x0045FDE0",
+     "length": 74,
+     "name": "?sub_0045FDE0_DrawLoadingScreen@@YAXXZ"
+    },
+    {
+     "va": "0x0045FE30",
+     "length": 157,
+     "name": "AUTOMAP_PopupButtonDownMsg"
+    },
+    {
+     "va": "0x0045FED0",
+     "length": 158,
+     "name": "ROSTERPETS_HandlePopupButtonUp"
+    },
+    {
+     "va": "0x0045FF70",
+     "length": 55,
+     "name": "SCMD_ConfirmPopup"
+    },
+    {
+     "va": "0x0045FFB0",
+     "length": 13,
+     "name": "?SCMD_HandlePopupEscape@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0045FFC0",
+     "length": 159,
+     "name": "?UI_DrawCenteredStrings@@YAXXZ"
+    },
+    {
+     "va": "0x00460060",
+     "length": 136,
+     "name": "VIEW_DrawPanelCels"
+    },
+    {
+     "va": "0x004600F0",
+     "length": 115,
+     "name": "?UI_DrawCenteredStringPair@@YAXXZ"
+    },
+    {
+     "va": "0x00460170",
+     "length": 27,
+     "name": "?PLAYER_IsOkCancelDone@@YAHXZ"
+    },
+    {
+     "va": "0x00460190",
+     "length": 81,
+     "name": "?sub_00460190_DrawFrame@@YAXXZ"
+    },
+    {
+     "va": "0x004601F0",
+     "length": 227,
+     "name": "AUTOMAP_PopupTwoButtonDownMsg"
+    },
+    {
+     "va": "0x004602E0",
+     "length": 245,
+     "name": "AUTOMAP_PopupTwoButtonUpMsg"
+    },
+    {
+     "va": "0x004603E0",
+     "length": 55,
+     "name": "SCMD_ConfirmOkCancelPopup"
+    },
+    {
      "va": "0x00460420",
      "length": 13,
      "name": "?sub_00460420_SetCancelFlag@@YGXH@Z"
+    },
+    {
+     "va": "0x00460430",
+     "length": 80,
+     "name": "?UI_FreeCels@@YAXXZ"
+    },
+    {
+     "va": "0x00460480",
+     "length": 7,
+     "name": "?PLAYER_SetCinematicExpansion@@YIXH@Z"
     },
     {
      "va": "0x00460490",

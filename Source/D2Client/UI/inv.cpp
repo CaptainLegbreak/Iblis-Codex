@@ -1678,11 +1678,6 @@ extern "C" int __cdecl INV_GetScreenHeightMinusPanel()
     return gnScreenHeight - 49;
 }
 
-// 0x0045FDD0
-int __cdecl INV_IsPopupDismissed()
-{
-    return gbPopupDismissed != 0;
-}
 
 extern "C" { int gnFlag_007C02EC; } // 0x007C02EC
 
