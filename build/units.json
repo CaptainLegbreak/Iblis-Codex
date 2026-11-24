@@ -41244,27 +41244,6 @@
    ]
   },
   {
-   "file": "Source/Bnclient/Unknown_00528010.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00528010",
-     "length": 30,
-     "name": "sub_00528010_PowMod"
-    },
-    {
-     "va": "0x00528550",
-     "length": 68,
-     "name": "sub_00528550_ReadBoth"
-    },
-    {
-     "va": "0x00528970",
-     "length": 114,
-     "name": "sub_00528970_FillRecord"
-    }
-   ]
-  },
-  {
    "file": "Source/Bnclient/Unknown_00528030.cpp",
    "rank": 0,
    "functions": [
@@ -41290,6 +41269,11 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00528010",
+     "length": 30,
+     "name": "sub_00528010_PowMod"
+    },
+    {
      "va": "0x005281D0",
      "length": 200,
      "name": "?sub_005281D0_ComputeServerKey@D2BigPowModStrc@@QAEHABQAX0000@Z"
@@ -41310,6 +41294,11 @@
      "name": "??1D2BigPairStrc@@QAE@XZ"
     },
     {
+     "va": "0x00528550",
+     "length": 68,
+     "name": "sub_00528550_ReadBoth"
+    },
+    {
      "va": "0x005285A0",
      "length": 124,
      "name": "?sub_005285A0_Init@D2BigPairStrc@@QAEHHPBEH0@Z"
@@ -41328,6 +41317,11 @@
      "va": "0x00528660",
      "length": 98,
      "name": "?MakeVerifier@D2BigPairStrc@@QAEXPBD0PAE1@Z"
+    },
+    {
+     "va": "0x00528970",
+     "length": 114,
+     "name": "sub_00528970_FillRecord"
     },
     {
      "va": "0x005289F0",
