@@ -578,83 +578,10 @@ void __stdcall TEXT_WaypointKeyMsg(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
-// 0x0049D440
-void __cdecl TEXT_LoadTextSettings()
-{
-    memset(gData_007BF1B0, 0, 0x9F);
-    unsigned long nValue;
-    if (!SRegLoadValue("Diablo II", "Text Display Beta", 0, &nValue))
-    {
-// build: symbol ?gnTextDisplaySetting@* 0x007BF1F6
-        gnTextDisplaySetting = 1;
-    }
-    else
-    {
-        gnTextDisplaySetting = nValue;
-    }
-}
 
-// 0x0049D4D0
-void __stdcall TEXT_FreeTextList(D2TextListStrc* pList)
-{
-    int nCount = 0;
-    D2TextNodeStrc* pNode = pList->pFirst;
-    if (pNode)
-    {
-        do
-        {
-            D2TextNodeStrc* pCurrent = pNode;
-            pNode = *(D2TextNodeStrc**)pNode->pNext;
-            for (int i = 0; i < 6; ++i)
-            {
-                if (pCurrent->pOwned[i])
-                {
-                    FOG_Free(pCurrent->pOwned[i], ".\\UI\\text.cpp", 1715, 0);
-                }
-            }
 
-            FOG_Free(pCurrent, ".\\UI\\text.cpp", 1718, 0);
-            ++nCount;
-        }
-        while (pNode);
 
-        pList->pFirst = pNode;
-    }
 
-    D2_ASSERT((unsigned short)nCount == pList->wCount, 1741);
-    pList->wCount = 0;
-}
-
-// 0x0049DA10
-void __stdcall TEXT_EatMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
-
-// 0x0049E810
-void __cdecl TEXT_SetPanelRect()
-{
-    D2RectStrc tRect;
-// build: symbol ?gnTextTop@* 0x007225FC
-    tRect.nTop = gnTextTop;
-    tRect.nBottom = (gnTextTop + 182 < gnScreenHeight - 53) ? gnTextTop + 182 : gnScreenHeight - 53;
-    tRect.nLeft = gnTextLeft - 10;
-    tRect.nRight = gnTextLeft + 335;
-    sub_00467430(&tRect);
-    SELECT_ClearSelection();
-}
-
-// 0x0049FE60
-void __stdcall TEXT_CloseTextPanelMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-    UI_SetUIVar(16, 2, 0);
-    TEXT_FreeTextPanelCels();
-}
 
 // 0x004A01A0
 void __cdecl TEXT_CloseMessageLogDialog()

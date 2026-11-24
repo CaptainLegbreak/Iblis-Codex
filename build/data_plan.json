@@ -1114,7 +1114,6 @@
    "definitions": 48,
    "externs": [
     "extern \"C\" void __cdecl D2CLIENT_CloseNPCTalk(); // 0x004A17D0",
-    "extern \"C\" void __cdecl TEXT_EatMsg(); // 0x0049DA10",
     "extern \"C\" void __cdecl TEXT_KeyUpMsg(); // 0x004A1770",
     "extern \"C\" void __cdecl TEXT_HotkeyMsg(); // 0x004A1870",
     "extern \"C\" void __cdecl TEXT_KeyDownMsg(); // 0x004A18C0",
