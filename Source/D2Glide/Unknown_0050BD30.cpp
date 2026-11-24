@@ -101,7 +101,6 @@ int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3); 
 
 static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, int nScreenPanels, tagRECT* pRect, int* pOffset);
 
-
 void __cdecl sub_0050BE20_GlideDebugRefresh();
 
 D2GlideSpriteVertexStrc gaGlideTileGrid[15]; // 0x00880458
@@ -118,9 +117,12 @@ int __stdcall sub_0050D410_GlideTileDrawAlpha(int nPosX, int nPosY, D2GfxLightSt
 
 int __fastcall sub_0050D4C0_GlideTileDrawLit(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels); // 0x0050D4C0
 
-
-
 static int __stdcall sub_0050CDD0_GlideTileDrawFlat(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels);
+
+struct D2TileLibraryEntryStrc;
+
+int __cdecl sub_0050BF40_GlideGetBlendedShadows();                                                                    // 0x0050BF40
+int __fastcall sub_0050C890_GlideTileDrawShaded(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, unsigned char nShade, int nScreenPanels); // 0x0050C890
 
 // 0x0050BD30
 static void sub_0050BD30_GlideDrawPointCross(unsigned int dwColor, int nX, int nY)
@@ -532,6 +534,37 @@ DrawVisibleTile:
     return nResult;
 }
 
+// 0x0050CD40
+int __fastcall sub_0050CD40_GlideShadowTileDraw(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels)
+{
+    int nResult = 0;
+    if (D2CMPTileValidate(pTile, 1, 0))
+    {
+        GLCORE_SetColorCombineMode(1);
+        if (sub_0050BF40_GlideGetBlendedShadows())
+        {
+            GLCORE_SetAlphaBlendMode(4);
+            gpfnGrConstantColorValue(0xC0);
+        }
+        else
+        {
+            GLCORE_SetAlphaBlendMode(1);
+        }
+
+        GLCORE_SetTextureFilterMode(1);
+        if (GLVERTEX_IsPerspective())
+        {
+            nResult = sub_0050CA00_GlideShadowTileDrawPerspective(pTile, nPosX, nPosY, eDrawMode, nScreenPanels);
+        }
+        else
+        {
+            nResult = sub_0050C890_GlideTileDrawShaded(pTile, nPosX, nPosY, eDrawMode, nScreenPanels);
+        }
+    }
+
+    return nResult;
+}
+
 // 0x0050CDD0
 static int __stdcall sub_0050CDD0_GlideTileDrawFlat(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels)
 {
@@ -573,7 +606,6 @@ static int __stdcall sub_0050CDD0_GlideTileDrawFlat(D2TileLibraryEntryStrc* pTil
 
     return nResult;
 }
-
 
 // 0x0050CF70
 static int __stdcall sub_0050CF70_GlideTileDrawPerspective(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightStrc* pLight, int nScreenPanels)
