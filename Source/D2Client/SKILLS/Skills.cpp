@@ -1310,6 +1310,73 @@ int __fastcall SKILLS_ScanFindCallback(D2AreaScanStrc* pScan, D2UnitStrc* pUnit)
     return 1;
 }
 
+struct Unicode;
+
+struct D2ClientServiceStrc
+{
+    char unk0x00[0xC8];
+    void (__fastcall* pfnFree)(void* pData, int nSize);
+    int (__fastcall* pfnFind)(char* szName, int* pArg, void** ppData, int* pSize);
+    void (__fastcall* pfnCall)(const char* szName, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
+};
+
+struct T0044CB60
+{
+    Unicode* pText;
+    T0044CB60* pNext;
+};
+
+struct D2ChatMessageStrc
+{
+    unsigned char unk0x00;
+    unsigned char nType;
+    unsigned char unk0x02[6];
+    unsigned char nColor;
+    unsigned char unk0x09[0x11];
+    D2ChatTextStrc tText;
+};
+
+class D2SquelchListStrc
+{
+public:
+    virtual int Squelch(const char* szName);
+    virtual int Unsquelch(const char* szName);
+    virtual int IsSquelched(const char* szName);
+    virtual int AddFilter(const char* szText);
+    virtual int RemoveFilter(const char* szText);
+    virtual int IsFiltered(const char* szText);
+    virtual void VirtSlot6();
+    virtual void VirtSlot7();
+    virtual int IsPersistent();
+    virtual void SetPersistent(int bPersistent);
+};
+
+// 0x004C5EB0
+int __fastcall WARDENCLIENT_ScanFindUnit(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, int nArg, int* pOut)
+{
+    D2AreaScanFindStrc tFind = { 0, -1, 0, nArg, nArg, 0 };
+
+    if (!nFlags)
+    {
+        nFlags = 0x583;
+    }
+
+    SKILLS_ScanArea(pUnit, nX, nY, nRange, nFlags | 0xA280, SKILLS_ScanFindCallback, &tFind, 0);
+
+    D2UnitStrc* pResult = tFind.pFirst;
+    if (!pResult)
+    {
+        pResult = tFind.pSecond;
+    }
+
+    if (pOut)
+    {
+        *pOut = tFind.nOut;
+    }
+
+    return (int)pResult;
+}
+
 // 0x004C5F30
 int __fastcall SKILLS_CheckWeaponStart(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {

@@ -1377,31 +1377,6 @@ void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, 
     }
 }
 
-// 0x004C5EB0
-int __fastcall WARDENCLIENT_ScanFindUnit(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, int nArg, int* pOut)
-{
-    D2AreaScanFindStrc tFind = { 0, -1, 0, nArg, nArg, 0 };
-
-    if (!nFlags)
-    {
-        nFlags = 0x583;
-    }
-
-    SKILLS_ScanArea(pUnit, nX, nY, nRange, nFlags | 0xA280, SKILLS_ScanFindCallback, &tFind, 0);
-
-    int nResult = tFind.nFirst;
-    if (!nResult)
-    {
-        nResult = tFind.nSecond;
-    }
-
-    if (pOut)
-    {
-        *pOut = tFind.nOut;
-    }
-
-    return nResult;
-}
 
 // 0x004DB670
 int __fastcall WARDENCLIENT_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
