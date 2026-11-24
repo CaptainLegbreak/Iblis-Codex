@@ -2054,39 +2054,6 @@ int __fastcall SKILLS_ApplyWarcryStats(D2GameStrc* pGame, D2UnitStrc* a2, D2Unit
 int __fastcall SKILLS_SrvDo071_Taunt(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D8570
 struct D2ActiveRoomStrc;
 
-// 0x005D2F80
-D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nUnitSize)
-{
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    const int nX = UNITS_GetUnitXPositionInline(pUnit);
-    const int nY = UNITS_GetUnitYPositionInline(pUnit);
-
-    D2UnitFindArgStrc unitFindArg;
-    memset(&unitFindArg, 0, sizeof(unitFindArg));
-    unitFindArg.nFlags = 0x1002;
-    unitFindArg.pUnit = pUnit;
-    unitFindArg.nX = nX;
-    unitFindArg.nY = nY;
-    unitFindArg.nSize = nUnitSize;
-
-    D2UnitFindDataStrc unitFindData;
-    UNITFINDS_InitializeUnitFindData(pGame->pMemoryPool, &unitFindData, pRoom, nX, nY, nUnitSize, 0, &unitFindArg);
-    UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(&unitFindData);
-
-    for (int i = 0; i < unitFindData.nIndex; ++i)
-    {
-        D2UnitStrc* pResult = unitFindData.pUnitsArray[i];
-        if (UNITS_IsCorpseUseable(pResult) && SUNIT_AreUnitsHostile(pGame, pUnit, pResult))
-        {
-            UNITFINDS_FreeUnitFindData(&unitFindData);
-            return pResult;
-        }
-    }
-
-    UNITFINDS_FreeUnitFindData(&unitFindData);
-    return 0;
-}
-
 // build: context HIRELING_StepAside
 static __forceinline void HIRELING_StepAside(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, unsigned char nSteps)
 {

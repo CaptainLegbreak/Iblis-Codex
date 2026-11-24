@@ -3409,48 +3409,6 @@ void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* ptGame, SUNIT_IterateFn p
 
 void __fastcall MONSTER_RemoveAll(D2GameStrc* pGame); // 0x00573640
 
-// 0x005CEC90
-int __stdcall PLRSAVE_ShortenPoisonAndCurses(D2GameStrc* pGame, D2UnitStrc* pUnit, int nPercent)
-{
-    int bPoisonedOrCursed = 0;
-    if (STATES_CheckState(pUnit, STATE_POISON))
-    {
-        D2StatListStrc* pPoisonStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_POISON);
-        if (pPoisonStatList)
-        {
-            const int nFrame = pGame->dwGameFrame;
-            const int nRemaining = D2COMMON_10473(pPoisonStatList) - nFrame;
-            const int nExpireFrame = DATATBLS_ApplyRatio(nRemaining, nPercent, 100) + nFrame;
-            D2COMMON_10476(pPoisonStatList, nExpireFrame);
-            EVENT_SetEvent(pGame, pUnit, EVENTTYPE_REMOVESTATE, nExpireFrame, 0, 0);
-            bPoisonedOrCursed = 1;
-        }
-    }
-
-    for (int i = 0; i < sgptDataTables->nCurseStates; ++i)
-    {
-        const int nCurseStateId = sgptDataTables->pCurseStates[i];
-        if (STATES_CheckState(pUnit, nCurseStateId))
-        {
-            D2StatListStrc* pCurseStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nCurseStateId);
-            if (pCurseStatList)
-            {
-                if (STATES_CheckStateMaskCurableByStateId(nCurseStateId))
-                {
-                    const int nFrame = pGame->dwGameFrame;
-                    const int nRemaining = D2COMMON_10473(pCurseStatList) - nFrame;
-                    const int nExpireFrame = DATATBLS_ApplyRatio(nRemaining, nPercent, 100) + nFrame;
-                    D2COMMON_10476(pCurseStatList, nExpireFrame);
-                    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_REMOVESTATE, nExpireFrame, 0, 0);
-                }
-                bPoisonedOrCursed = 1;
-            }
-        }
-    }
-
-    return bPoisonedOrCursed;
-}
-
 // 0x005339A0
 int __fastcall PLRSAVE_ReadCorpseSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pSection, unsigned int dwVersion, int nRemainingSize, int* pSize)
 {
