@@ -1469,8 +1469,8 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/Monster.cpp": {
-   "bytes": 1344,
-   "definitions": 10,
+   "bytes": 1408,
+   "definitions": 11,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/Monster.inc",
@@ -5242,7 +5242,7 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_004ADD90.cpp": {
-   "bytes": 1012,
+   "bytes": 948,
    "definitions": 2,
    "externs": [
     "extern \"C\" void __cdecl NPCMENU_StateOverlayBurst(); // 0x004AD0C0",
@@ -59920,19 +59920,48 @@
    "zero_tail": 4
   },
   {
-   "alias": true,
-   "cname": "gData_00725188",
+   "alias": false,
+   "cname": null,
    "declared": true,
-   "decorated": "_gwUniqueModNameIds",
+   "decorated": null,
    "file": "Source/D2Client/Unknown_004ADD90.cpp",
-   "fill": 76,
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00725188_t gData_00725188; // 0x00725188",
-   "head": "extern \"C\" struct d2data_00725188_t gData_00725188 = ",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern unsigned short gwUniqueModNameIds[44] = ",
    "name": "gwUniqueModNameIds",
+   "pointers": [],
+   "region": "data",
+   "size": 88,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x00725188",
+   "type": "unsigned short",
+   "va": "0x00725188",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "u",
+     "name": "unsigned short",
+     "size": 2
+    },
+    "k": "arr",
+    "n": 44,
+    "size": 88
+   }
+  },
+  {
+   "alias": false,
+   "cname": "gData_007251E0",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/UNIT/Monster.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_007251E0_t gData_007251E0; // 0x007251E0",
+   "head": "extern \"C\" struct d2data_007251E0_t gData_007251E0 = ",
+   "name": "gData_007251E0",
    "pointers": [
     [
-     88,
+     0,
      "0x006CC81C",
      "literal",
      null,
@@ -59940,7 +59969,7 @@
      "string"
     ],
     [
-     92,
+     4,
      "0x006CC814",
      "literal",
      null,
@@ -59948,7 +59977,7 @@
      "string"
     ],
     [
-     96,
+     8,
      "0x006CC80C",
      "literal",
      null,
@@ -59956,7 +59985,7 @@
      "string"
     ],
     [
-     100,
+     12,
      "0x006CC804",
      "literal",
      null,
@@ -59964,7 +59993,7 @@
      "string"
     ],
     [
-     104,
+     16,
      "0x006CC7F8",
      "literal",
      null,
@@ -59972,7 +60001,7 @@
      "string"
     ],
     [
-     108,
+     20,
      "0x006CC7F0",
      "literal",
      null,
@@ -59980,7 +60009,7 @@
      "string"
     ],
     [
-     112,
+     24,
      "0x006CC7E4",
      "literal",
      null,
@@ -59988,7 +60017,7 @@
      "string"
     ],
     [
-     116,
+     28,
      "0x006CC7DC",
      "literal",
      null,
@@ -59996,7 +60025,7 @@
      "string"
     ],
     [
-     120,
+     32,
      "0x006CC7C8",
      "literal",
      null,
@@ -60004,7 +60033,7 @@
      "string"
     ],
     [
-     124,
+     36,
      "0x006CC7B4",
      "literal",
      null,
@@ -60012,7 +60041,7 @@
      "string"
     ],
     [
-     128,
+     40,
      "0x006CC7AC",
      "literal",
      null,
@@ -60020,7 +60049,7 @@
      "string"
     ],
     [
-     132,
+     44,
      "0x006CC7A4",
      "literal",
      null,
@@ -60028,7 +60057,7 @@
      "string"
     ],
     [
-     136,
+     48,
      "0x006CC788",
      "literal",
      null,
@@ -60036,7 +60065,7 @@
      "string"
     ],
     [
-     140,
+     52,
      "0x006CC780",
      "literal",
      null,
@@ -60044,7 +60073,7 @@
      "string"
     ],
     [
-     144,
+     56,
      "0x006CC77C",
      "literal",
      null,
@@ -60053,12 +60082,10 @@
     ]
    ],
    "region": "data",
-   "size": 152,
-   "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00725188_t\n{\n    unsigned char b0[88];\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    const void* p15;\n    unsigned char b16[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00725188\n#pragma comment(linker, \"/alternatename:_gwUniqueModNameIds=_gData_00725188\")",
-   "type": "unsigned short",
-   "va": "0x00725188"
+   "size": 64,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_007251E0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    unsigned char b15[4];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x007251E0",
+   "va": "0x007251E0"
   },
   {
    "alias": false,
