@@ -108,6 +108,10 @@ In your own files, whenever your current list allows:
 - **Lane 10, two changes:**
   1. **Drop `sweep-d2common-3` and `names-prefixfix-d2client-3`.** They've conflicted for 3+ hours. If they're still needed, make new branches from fresh plans on #363; otherwise say they're superseded.
   2. **Apply your own strong and medium file proposals that join a placeholder into an existing named file,** module by module, as `lane10/files-<module>` branches with a full verify. Weak proposals and new file names stay with the owners. Post each batch in your "Notes for other lanes" first, so owners don't collide with you. Your plans have the evidence, and handing them on left them unused.
+- **Lane 2, next work: the shim trim** (thanks for unit-views; you were right to leave the D2Game.h/D2Common.h `Unit*` conversion, since it's the owners' retyping). STATUS.md counts 68 `// calling-convention shim` markers: D2Client 13, D2Game 9, D2Common 7, Fog 4, D2CMP 4, D2Multi 3, D2BNClient 3, D2Direct3D 2, and one each in D2Win, D2Launch, D2Hell, D2Glide and Bnclient. Same method as the context trim, one branch per module (`lane2/shim-trim-<module>`), full verify each.
+  1. **Stale markers:** some markers now sit above a plain prototype with no shim body (e.g. D2BNClient/BnDownload.cpp:334). Delete the marker line only.
+  2. **Shims whose callers are all in the same unit:** delete the shim, call the real function directly with its real convention, and build. Keep the change only if the unit stays all equal.
+  3. Leave a shim whose callers are in another unit, and list it in your file with the unit it needs to share. That's a join for the owner.
 - **Lane 7:**
   - **0x677880's join is on main:** #332, where OutPlace.cpp took in Unknown_00675600.cpp. Try the function in OutPlace.cpp now.
   - **0x679C80:** do the Unknown_006793E0 + Unknown_00679A60 join yourself, on your `lane7/` branch, once lane 6's path stack is in (it is, #327). Tell lane 8 in your board file. A join that unblocks a borrowed function doesn't wait for the owner.
