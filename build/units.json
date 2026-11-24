@@ -28702,6 +28702,16 @@
      "name": "?OBJECT_RunClientFunction@@YIDPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004BDF30",
+     "length": 146,
+     "name": "ITEM_ApplyTownPortalState"
+    },
+    {
+     "va": "0x004BDFD0",
+     "length": 7,
+     "name": "@sub_004BDFD0@4"
+    },
+    {
      "va": "0x004BDFE0",
      "length": 16,
      "name": "?OBJECT_SetObjectOwnerName@@YIXPAUD2UnitStrc@@PBD@Z"
@@ -28717,11 +28727,6 @@
    "file": "Source/D2Client/UNIT/Item.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004BDF30",
-     "length": 146,
-     "name": "ITEM_ApplyTownPortalState"
-    },
     {
      "va": "0x004C0D20",
      "length": 410
@@ -29110,11 +29115,6 @@
    "file": "Source/D2Client/Unknown_004BDFD0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004BDFD0",
-     "length": 7,
-     "name": "@sub_004BDFD0@4"
-    },
     {
      "va": "0x004BF990",
      "length": 22,
