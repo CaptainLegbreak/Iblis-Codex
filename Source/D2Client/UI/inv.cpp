@@ -20,6 +20,7 @@
 #include "D2TxtItems.h"
 #include "D2StateIds.h"
 #include "D2SkillIds.h"
+#include "D2SetsTxt.h"
 
 #include <D2UnitData.h>
 
@@ -1583,16 +1584,6 @@ int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem,
 extern D2MercStatLineStrc gaMercStatLines[12]; // 0x007221A8
 
 static void INV_DrawMercStats(D2UnitStrc* pUnit); // 0x0048A990
-
-struct D2SetsTxt
-{
-    char unk0x00[0x02];
-    unsigned short wStrName;
-    char unk0x04[0x08];
-    int nSetItems;
-    char unk0x10[0x100];
-    D2SetItemsTxt* pSetItems[6];
-};
 
 D2SetsTxt* __fastcall DATATBLS_GetSetsTxtRecord(int nSetId); // 0x00483410
 
@@ -7867,7 +7858,7 @@ void __fastcall INV_DrawSetItemTooltip(D2UnitStrc* pUnit)
     if (!pSetsTxt)
         return;
 
-    sub_005267E0(wszSetName, D2LANG_GetStringFromTblIndex(pSetsTxt->wStrName));
+    sub_005267E0(wszSetName, D2LANG_GetStringFromTblIndex(pSetsTxt->wStringId));
     sub_00526700(wszSetName, pNewline);
 
     int bStrength;
@@ -8002,7 +7993,7 @@ void __fastcall INV_DrawSetItemTooltip(D2UnitStrc* pUnit)
 
     for (int i = 0; i < pSetsTxt->nSetItems; ++i)
     {
-        D2SetItemsTxt* pSetItem = pSetsTxt->pSetItems[i];
+        D2SetItemsTxt* pSetItem = pSetsTxt->pSetItem[i];
         if (!pSetItem)
             break;
 

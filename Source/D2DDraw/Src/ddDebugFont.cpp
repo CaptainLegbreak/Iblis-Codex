@@ -14,9 +14,6 @@
 struct D2PlayerDataStrc;
 
 struct D2TextHeaderStrc;
-
-struct D2SetsTxt { char unk0x000[0x128]; };
-
 enum
 {
     NUM_HOTKEYS = 114,
