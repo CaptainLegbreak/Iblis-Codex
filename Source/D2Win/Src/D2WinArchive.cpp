@@ -304,3 +304,5 @@ int __fastcall ARCHIVE_LoadExpansionArchives(DiscCallback play,DiscCallback expa
     if (!bOk) { ARCHIVE_UnloadExpansionArchives(); return 0; }
     return 1;
 }
+
+#include "gen/data/Source/D2Win/Src/D2WinArchive.inc"

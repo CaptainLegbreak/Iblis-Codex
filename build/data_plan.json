@@ -1871,8 +1871,8 @@
    "state": "included"
   },
   "Source/D2Win/Src/D2WinMain.cpp": {
-   "bytes": 532,
-   "definitions": 7,
+   "bytes": 472,
+   "definitions": 6,
    "externs": [
     "extern \"C\" void __cdecl sub_004F9B60(); // 0x004F9B60",
     "extern \"C\" void __cdecl sub_004F9BF0(); // 0x004F9BF0",
@@ -5381,6 +5381,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Win/Src/D2WinButton.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Win/Src/D2WinArchive.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Win/Src/D2WinArchive.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -77286,7 +77295,7 @@
    "cname": "gData_0072DDD8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Win/Src/D2WinMain.cpp",
+   "file": "Source/D2Win/Src/D2WinArchive.cpp",
    "form": "bytes",
    "name": "gData_0072DDD8",
    "pointers": [
