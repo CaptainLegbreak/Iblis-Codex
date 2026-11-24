@@ -111,17 +111,7 @@ struct D2ProcessEntryStrc;
 
 void __cdecl sub_00402980_StartDbgHelpWorker(); // 0x00402980
 
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-
-
-
-
-
-
-
-
 
 struct D2GuidStrc
 {
@@ -130,8 +120,6 @@ struct D2GuidStrc
     unsigned short Data3;
     unsigned char Data4[8];
 };
-
-
 
 typedef long (__stdcall* D2KnownFolderPathFn)(const D2GuidStrc* pFolderId, unsigned long dwFlags, void* hToken, wchar_t** pwszPath);
 
@@ -328,7 +316,6 @@ char szSRegReadBuf[260]; // 0x0074C728
 unsigned long gdwTotalPhys; // 0x0074D898
 
 #define OUTPUT_SIZE 0x80
-
 
 extern "C" const char gszMainThread[];  // 0x006FF988
 
@@ -565,13 +552,9 @@ extern void* gpfnCrashHandler; // 0x00992B10
 
 extern D2FogSystemInfoStrc gtSystemInfo_0074D88C; // 0x0074D88C
 
-
-
 extern "C" int __stdcall Process32FirstW(void* hSnapshot, D2ProcessEntryWStrc* pEntry); // 0x006B1524
 
 extern "C" int __stdcall Process32NextW(void* hSnapshot, D2ProcessEntryWStrc* pEntry); // 0x006B1530
-
-
 
 extern "C" __declspec(dllimport) int __stdcall CreateProcessW(const wchar_t* wszApplicationName, wchar_t* wszCommandLine, void* pProcessAttributes, void* pThreadAttributes, int bInheritHandles, unsigned long dwCreationFlags, void* pEnvironment, const wchar_t* wszCurrentDirectory, D2StartupInfoWStrc* pStartupInfo, D2ProcessInformationStrc* pProcessInformation); // 0x006CC2C4
 
@@ -645,9 +628,6 @@ int gnSourcePrefixLength; // 0x0074F0D4
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
-
-
-
 extern "C" int __cdecl vsprintf(char* szDest, const char* szFormat, va_list args);                          // 0x00682DA1
 
 extern "C" void* __cdecl malloc(size_t nSize);                                                              // 0x00683EFD
@@ -690,7 +670,6 @@ extern "C" int __stdcall Thread32Next(void* hSnapshot, D2ThreadEntryStrc* pEntry
 
 extern "C" unsigned long __stdcall GetModuleFileNameExA(void* hProcess, void* hModule, char* szFileName, unsigned long nSize); // 0x006B13C2
 
-
 extern "C" int __stdcall send(unsigned int nSocket, const char* pBuffer, int nLength, int nFlags);          // 0x006B017A
 
 extern "C" int __stdcall WSAGetLastError();                                                                 // 0x006B0168
@@ -704,7 +683,6 @@ extern "C" int __stdcall __WSAFDIsSet(unsigned int nSocket, D2FdSetStrc* pSet); 
 extern "C" int __stdcall getpeername(unsigned int nSocket, void* pAddress, int* pnLength);                 // 0x006B018C
 
 extern "C" int __stdcall ioctlsocket(unsigned int nSocket, long nCommand, unsigned long* pArgument);       // 0x006B015C
-
 
 void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...);
 
@@ -735,8 +713,6 @@ unsigned char gabHuffmanCode[256];                                              
 const unsigned char* gapHuffmanDecode[256];                                                        // 0x0075AFA0
 
 extern unsigned int gadwHuffmanMask[32];                                                           // 0x007077C0
-
-
 
 extern "C" int __stdcall gethostname(char* szName, int nNameLength);                                        // 0x006B0198
 
@@ -1410,11 +1386,6 @@ bool __stdcall ERRORMANAGER_GetKnownFolderPathA(char* szPath, int nSize)
     return nResult && !bUsedDefault;
 }
 
-int __cdecl D2CMPToggleCelDrawMode()
-{
-    return gnGenericRle = (gnGenericRle == 0);
-}
-
 // 0x004076B0
 void __cdecl ERRORMANAGER_LogSystemInfo()
 {
@@ -1617,39 +1588,11 @@ inline void D2StormArray408Strc::ReserveInline(unsigned int nCount, int bRound)
     }
 }
 
-D2StormArray408Strc* D2StormArray408Strc::sub_0051D2C0_InitBase()
-{
-    m_alloc = 0;
-    m_count = 0;
-    m_data = 0;
-    return this;
-}
-
-void __cdecl sub_0051D2D0_Nop()
-{
-}
-
-void __cdecl sub_0051D2E0_Nop()
-{
-}
-
 // build: symbol ?BNNEWS_CopyNewsItem@* 0x0051D350
 void __fastcall BNNEWS_CopyNewsItem(D2Storm408ElemStrc* pDst, const D2Storm408ElemStrc* pSrc)
 {
     if (pDst)
         *pDst = *pSrc;
-}
-
-void D2StormArray408Strc::sub_0051D570_FreeData()
-{
-    if (m_data)
-        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
-}
-
-void D2StormArray408Strc::sub_0051D670_FreeData()
-{
-    if (m_data)
-        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
 }
 
 // 0x00407A80
@@ -1731,36 +1674,6 @@ int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile)
 int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6)
 {
     return SFileReadFileEx2(hFile, pBuffer, nToRead, pnRead, pOverlapped, nArg6, nArg7);
-}
-
-void D2StormArray408Strc::sub_0051D6A0_Clear()
-{
-    if (m_data)
-        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
-    m_alloc = 0;
-    m_count = 0;
-    m_data = 0;
-}
-
-D2StormArray408Strc* D2StormArray408Strc::sub_0051D720_Init()
-{
-    m_alloc = 0;
-    m_count = 0;
-    m_data = 0;
-    m_chunk = 0;
-    return this;
-}
-
-void D2StormArray408Strc::sub_0051D730_FreeData()
-{
-    if (m_data)
-        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
-}
-
-D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
-{
-    ReserveInline(1, 1);
-    return &m_data[m_count++];
 }
 
 // 0x00406930
@@ -2021,8 +1934,6 @@ void __stdcall sub_K01_Emit_00407FC0(const char* szPrefix, const char* szText, i
 {
     ERRORMANAGER_LogPrefixedText(szPrefix, szText, bFlag);
 }
-
-
 
 // 0x004013C0
 void __fastcall ERRORMANAGER_TerminateCurrentProcess(unsigned int nExitCode)
@@ -2929,7 +2840,6 @@ unsigned long __fastcall FOG_SetFilePointer(void* hFile, long nDistance, long* p
     return SetFilePointer(hFile, nDistance, pnDistanceHigh, dwMoveMethod);
 }
 
-
 // 0x00408900
 void __cdecl ERRORMANAGER_RaiseErrorReport(int nType, const char* szFile, int nLine, const char* szFormat, ...)
 {
@@ -3639,18 +3549,6 @@ void __cdecl sub_004095D0_Nop()
 
 // 0x00409C70
 void __cdecl sub_00409C70_Nop()
-{
-}
-
-void __cdecl sub_0047B4D0_Nop()
-{
-}
-
-void __cdecl sub_004BF9C0_Nop()
-{
-}
-
-void __cdecl GLSPRITE_DebugFillBackBuffer()
 {
 }
 
