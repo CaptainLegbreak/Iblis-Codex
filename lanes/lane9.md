@@ -6,7 +6,6 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 `Source/D2DDraw/**`, `Source/D2Gdi/**`, `Source/D2Glide/**`, `Source/D2Hell/**`, taking over from lane 6.
 
 ## Claimed
-- D2Glide/Unknown_00508970.cpp into glCore.cpp (lane9/join-glcore-8970, stacked on renderer-tables).
 - Renderer functions filed in D2Win: Unknown_0050F910.cpp (Glide 0x50F910, 0x50FBD0, 0x50FDF0; DDraw 0x510130-0x5103B0,
   0x5137E0) and Unknown_00508970.cpp (0x508970 GlideLoadLibrary, 0x508F60 GlideCheckBoards). Lane 6: please don't edit
   these meanwhile. Then Storm SCMD.CPP's stubs in gdiCore's run and the Bnclient units in the D2Hell run.
@@ -17,23 +16,25 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-Both rebased onto main a6db6df9 (#356) as asked (the #354 rebase, 102200ca/487e00a9, had been pushed before your note), namesync run (plus main's renames in the moved lines by hand), precheck 0 not all equal on each head; borrowed data in each full verify: 999 B, main's figure.
+All on main bc489a89 (#359), namesync run, precheck 0 not all equal on each head; borrowed data in each full verify:
+906 B, main's figure.
 
-- lane9/take-win-strays 74ebf7d3 (your #341 answer; placeholders 2->3, D2Win -2): D2Win/Unknown_00508970.cpp
-  (GlideLoadLibrary, GlideCheckBoards) moves to D2Glide. D2Win/Unknown_0050F910.cpp held both renderers: its Glide part
-  (tile decoder 0x50F910/0x50FBD0, video player 0x50FDF0, .data 0x72F6A8) stays Unknown_0050F910.cpp under D2Glide;
-  its DDraw part (0x510130-0x5103B0 with DDrawLogError, video player 0x5137E0, their bss) becomes
-  D2DDraw/Unknown_00510130.cpp. Each copies the few declarations it took from D2Win.h. Full verify on #356: VERIFIED
-  tree 1e9e777c, borrowed data 999 B.
-- lane9/renderer-tables f2bf4a06, STACKED on take-win-strays (placeholders -1: D2Client/Unknown_004F4EC0.cpp goes).
-  The four renderer function tables each end exactly where their renderer's core .data starts, so they join those
-  files: 0x72F178 -> glCore.cpp (ends at 0x72F250), 0x72F6D0 -> ddCore.cpp (0x72F7A8), 0x74BF28 -> d3dCore.cpp
-  (0x74C000), 0x74C4A8 -> gdiCore.cpp (0x74C5A0). The selector 0x4F4FF0 and its table gapGraphicsInterfaces 0x72DA80
-  sit in Window.cpp's code and data, so they join Window.cpp (whose unmarked copy of the selector goes). Full verify on
-  #356: VERIFIED tree b9da4c62, borrowed data 999 B. (The selector keeps its string literal: with the named
-  string instead, the 33 B at 0x6DC457 became borrowed.) The moved tables' pointer names follow names.csv.
+- lane9/join-glcore-8970 de4efb47 (placeholders -1): D2Glide/Unknown_00508970.cpp joins glCore.cpp. The language
+  copy 0x72F13C (planned there) is the only copy in front of glCore's .data and is followed directly by the Glide
+  function table 0x72F178 (glCore's since #357) and glCore's own data from 0x72F250. The table's first entry is
+  GlideCheckBoards 0x508F60, whose only callee is GlideLoadLibrary 0x508970. 45 functions equal. Full verify: VERIFIED
+  tree 411a179d, borrowed data 906 B.
+- lane9/gdi-stubs a574fada, STACKED on join-glcore-8970: 13 small functions filed in Storm/SOURCE/SCMD.CPP sit inside
+  gdiCore's code run (0x6C7A60-0x6C8A40). Eleven are entries of the GDI function table (gdiCore's since #357); 0x6C8020
+  returns gdiCore's ghBufferBitmap and is called by gdiCore's 0x6C8970; 0x6C8240 returns 0x7C914C like its neighbours.
+  All join gdiCore.cpp; gdiCore (43) and SCMD.CPP (53) stay equal. Full verify: VERIFIED tree 9bd3cc7e, borrowed data
+  906 B. (Storm's lane: SCMD.CPP loses these 13; please don't edit them meanwhile.)
+- lane9/hell-bnclient-pieces 1d957e5b: Bnclient/Unknown_00517520.cpp, Unknown_0051752A.cpp, Unknown_005175E3.cpp
+  (0x517520-0x517619, storm-list members) sit inside D2Hell's unpadded code run; they move to Source/D2Hell and build
+  equal under D2Hell's /O1 module default, so their own flag sets go. Full verify: VERIFIED tree 743065d5, borrowed
+  data 906 B. (Lane 6: three Bnclient placeholders leave.)
 
-In #350: drawquad-note, move-d3d-bink, take-renderer-strays (thanks). In #347: join-d3dcore-2, join-gdicore-8250, d2hell-o1. In #344: place-ddcore-10160. In #341: join-d3d-3570, join-d3dsprite-2. In #340: join-d3d-7530, join-ddraw-11df0, join-glide-bd30, join-glide-d410 (thanks). Earlier: place-gdismack #338,
+In #357: take-win-strays, renderer-tables (thanks). In #350: drawquad-note, move-d3d-bink, take-renderer-strays (thanks). In #347: join-d3dcore-2, join-gdicore-8250, d2hell-o1. In #344: place-ddcore-10160. In #341: join-d3d-3570, join-d3dsprite-2. In #340: join-d3d-7530, join-ddraw-11df0, join-glide-bd30, join-glide-d410 (thanks). Earlier: place-gdismack #338,
 join-d3dsprite #336, atl-d3dcore #332 (its 2 B note stands).
 
 ## Questions
