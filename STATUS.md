@@ -42,11 +42,11 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 731 |
+| Compilation units | 708 |
 | … in a file with its original name, whole | 292 |
 | … pieces of an original file still split (in 33 files) | 112 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 327 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2555 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 304 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2536 |
 | Unnamed fields (`unk0x..`) in the shared headers | 717 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 38 |
 | Functions relying on a module assumption macro (`STORM_ASSUME`, `FOG_ASSUME`: the original's release-build assert or unreachable default) | 4 |
@@ -79,7 +79,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3913 functions are compiled with `/GS-` and 1007 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 107 times and `__declspec(dllexport)` 153 times to keep a body out of line or emitted.
+Not listed one by one: 3934 functions are compiled with `/GS-` and 1007 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 107 times and `__declspec(dllexport)` 153 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -441,7 +441,7 @@ Not listed one by one: 3913 functions are compiled with `/GS-` and 1007 with `/E
 | 0x004A9870 | sub_004A9870_DrawSkillSlot | `D2Client/UI/spellsel.cpp` | volatile read or qualifier |
 | 0x004B8100 | sub_004B8100_DrawDialog | `D2Client/UI/dialog.cpp` | volatile read or qualifier |
 | 0x004C0450 | USEITEM_ClickHotspots | `D2Client/UI/useitem.cpp` | volatile read or qualifier |
-| 0x004EB290 | SKILLDESC_DrawElemDamage | `D2Client/UI/SkillDesc_004EAE70.cpp` | volatile read or qualifier |
+| 0x004EB290 | SKILLDESC_DrawElemDamage | `D2Client/UI/SkillDesc.cpp` | volatile read or qualifier |
 | 0x004F0650 | sub_004F0650_CreateClientMissiles | `D2Client/Unknown_004F0650.cpp` | compiler option /Ob1 |
 | 0x004F2BE0 | SKILLDESC_InitCurvingMissilePath | `D2Client/UI/SkillDesc.cpp` | volatile read or qualifier |
 | 0x004F4590 | sub_004F4590_DoSkillSound | `D2Client/Unknown_004F4590.cpp` | compiler option /Ob1 |
