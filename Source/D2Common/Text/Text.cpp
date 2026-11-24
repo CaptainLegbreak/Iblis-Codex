@@ -331,3 +331,5 @@ void __stdcall TEXT_SortTextNodeListByStringId(D2TextHeaderStrc* pTextHead)
 
     sub_0040B480(pTextHead->pMemPool, pNodeList, ".\\Text\\Text.cpp", 382, 0);
 }
+
+#include "gen/data/Source/D2Common/Text/Text.inc"

@@ -476,3 +476,5 @@ int __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc
     pUnitFindData->nIndex = nCount;
     return nCount;
 }
+
+#include "gen/data/Source/D2Common/UNITS/UnitFinds.inc"

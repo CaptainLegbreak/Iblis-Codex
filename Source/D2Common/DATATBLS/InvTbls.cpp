@@ -92,3 +92,5 @@ void __fastcall DATATBLS_LoadInventoryTxt(void* hArchive)
     gpInventoryTxt = DATATBLS_CompileTxt(hArchive, "inventory", pTbl, &gnInventoryTxtRecordCount, 240);
     TBL_ASSERT(gnInventoryTxtRecordCount == 32, 112);
 }
+
+#include "gen/data/Source/D2Common/DATATBLS/InvTbls.inc"

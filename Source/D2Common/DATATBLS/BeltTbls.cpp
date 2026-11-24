@@ -132,3 +132,5 @@ void __stdcall DATATBLS_GetInvRectFromBeltsTxt(int nIndex, int bHigherRes, D2Inv
     pInvRect->nBottom = pBoxStats->nBottom;
 }
 
+
+#include "gen/data/Source/D2Common/DATATBLS/BeltTbls.inc"

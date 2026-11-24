@@ -126,3 +126,5 @@ const D2PropertiesTxt* __fastcall QUESTRECORD_GetPropertiesTxtRecord(int nProper
     return 0;
 }
 
+
+#include "gen/data/Source/D2Common/QuestRecord/QuestRecord.inc"

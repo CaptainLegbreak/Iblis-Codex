@@ -33,3 +33,5 @@ void __stdcall sub_M130_Emit_0064FAA0(D2DynamicPathStrc* pPath, D2ActiveRoomStrc
 {
     PATHMISC_SetRoom(pPath, pRoom);
 }
+
+#include "gen/data/Source/D2Common/Unknown_0064FAA0.inc"

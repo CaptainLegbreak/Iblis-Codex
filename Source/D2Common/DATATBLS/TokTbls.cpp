@@ -330,3 +330,5 @@ D2TokRecord* __stdcall DATATBLS_GetArmTypeTxtRecord(int nId)
     TOK_ASSERT(&gpArmTypeTxt[nId], 336);
     return &gpArmTypeTxt[nId];
 }
+
+#include "gen/data/Source/D2Common/DATATBLS/TokTbls.inc"
