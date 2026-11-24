@@ -4,10 +4,7 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/chatdlg-tail-2 0330811f 545->536, a stack of two commits; taking it takes both (lane6/chatdlg-object-3 428defea is the first alone). Replaces lane6/chatdlg-object-2 and lane6/chatdlg-tail, which were on #338: these are the same two commits replayed onto #339 with #339's renames applied (plan deltas checked equal).
-  - chatdlg-object-3: ChatDlg.cpp's object, 0x0043CC00-0x0044677F (marked by the 0x0070CD18 copy's 0x1E40 B of data, ChatDlg's bss 0x0077AD70-0x0077BDFF and its .rdata from the assert path 0x006D5460 on, all referenced by that span): ten D2Multi placeholders join ChatDlg.cpp whole, plus 9 of Unknown_00444020's 10 functions, 21 from CharSel.cpp, 3 from MainMenus/MainMenus_00431AF0, 2 from ComCallback.cpp, and the object's data records planned in ComCallback.cpp (61), Unknown_00444020.cpp (5) and CharSel.cpp (2). The MCP glue getters/setters 0x00449AD0-0x00449E50 leave ChatDlg.cpp for D2Client/Unknown_00449890.cpp (outside the object; 0x0043DBF0 calls the 15-byte 0x00449C40 un-inlined).
-  - chatdlg-tail-2: 0x0043CBE0 gets its own placeholder (Unknown_0043CBE0.cpp) with its data: copy 0x0070CCD8 and gtInterface, which is 4 B (one pointer; the 60 B planned after it are ChatDlg's copy, so the record splits 4 + 60). 0x0043C6B0/0x0043CAA0 go to Unknown_0043C8A0.cpp; 0x00446810-0x00446840/0x00446A90 leave ChatDlg.cpp for ComCallback.cpp; 0x00443D10/0x00445A80/0x00445C70/0x00445DF0 join ChatDlg.cpp.
-  - Outside lane 6's files: D2Client/Unknown_00449890.cpp gains the 19 glue functions (FYI lane 4: it is the MCP glue run 0x00449890-0x00449E60 between ComCallback and McpConnect). VERIFIED c15aca6a (on #339). Borrowed data 1,700 B.
+- (verifying on #340: lane6/launch-copies-2, a stack of lane6/chatdlg-tail-3 (ChatDlg.cpp's object edges, the part of chatdlg-tail-2 not merged in #340) and the D2Launch language-copy split. They replace chatdlg-tail-2 and chatdlg-tail.)
 
 ## Claimed
 
