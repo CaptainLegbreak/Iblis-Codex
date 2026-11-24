@@ -4233,19 +4233,6 @@ void __fastcall MISSMODE_SrvDmg06_MarkTargetNoTreasureClass(D2GameStrc* pGame, D
     }
 }
 
-// 0x005A54F0
-void __fastcall MONSTERMODE_AddSandLeaperKnockback(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage)
-{
-    if (pDamage->wResultFlags & 4)
-    {
-        const int nBaseId = D2GAME_GetMonsterBaseId_6FC64B10(pUnit);
-        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_SANDLEAPER1 && !STATES_CheckState(pUnit, STATE_FREEZE))
-        {
-            pDamage->wResultFlags |= 8;
-        }
-    }
-}
-
 static inline void MISSMODE_SetMissileHitFlags(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
 {
     if (MISSILE_GetFlags(pUnit) & 1)
@@ -4345,15 +4332,6 @@ void __fastcall MISSMODE_SetDamageFlags(D2GameStrc* pGame, D2UnitStrc* pMissile,
     }
 
     SUNITDMG_ExecuteMissileDamage(pGame, pOwner, pDefender, pDamage);
-}
-
-// 0x005A60E0
-void __fastcall FRIENDLY_OpenHostility(D2GameStrc* pGame, D2UnitStrc* hPlayer, D2UnitStrc* pPlayer2)
-{
-    D2_ASSERT((hPlayer ? hPlayer->dwUnitType : UNIT_INVALID) == UNIT_PLAYER, 36);
-
-    PLAYERLIST_AllocPlayerList(pGame, hPlayer, pPlayer2);
-    PLAYERLIST_ToggleFlag(pGame, hPlayer, pPlayer2, PLAYERLIST_FLAG_HOSTILE, 1);
 }
 
 void __fastcall sub_M250_Emit_005AD930(D2GameStrc* pGame, D2UnitStrc* pMissile)

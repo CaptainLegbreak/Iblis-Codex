@@ -389,6 +389,101 @@ void __fastcall MONSTERMODE_AllocateTargetCombat(D2UnitStrc* pUnit, D2GameStrc* 
     }
 }
 
+static D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+
+    return 0;
+}
+
+static int D2GAME_GetMonsterBaseId_6FC64B10(D2UnitStrc* pUnit)
+{
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nUnitType == UNIT_MONSTER)
+    {
+        D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(pUnit->dwClassId);
+        if (pMonStatsTxtRecord)
+        {
+            return pMonStatsTxtRecord->nBaseId;
+        }
+
+        return pUnit->dwClassId;
+    }
+
+    return -1;
+}
+
+// 0x005A54F0
+void __fastcall MONSTERMODE_AddSandLeaperKnockback(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage)
+{
+    if (pDamage->wResultFlags & 4)
+    {
+        const int nBaseId = D2GAME_GetMonsterBaseId_6FC64B10(pUnit);
+        if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_SANDLEAPER1 && !STATES_CheckState(pUnit, STATE_FREEZE))
+        {
+            pDamage->wResultFlags |= 8;
+        }
+    }
+}
+
+enum D2C_J10MonModeConstants
+{
+    HITCLASS_CRITICAL = 0x10,
+    OVERLAY_CRITICAL = 54,
+};
+
+int __fastcall SUNITDMG_SetHitClass(D2DamageStrc* pDamage, unsigned int nHitClass); // 0x00554650
+
+void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int a3); // 0x00621E40
+
+// 0x005A5560
+void __fastcall D2GAME_MONSTER_ApplyCriticalDamage_6FC62E70(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage)
+{
+    if (pAttacker && pAttacker->dwUnitType == UNIT_MONSTER)
+    {
+        D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(pAttacker->dwClassId);
+        if (pMonStatsTxtRecord && pMonStatsTxtRecord->nCrit && (unsigned char)(SEED_RollRandomNumber(&pAttacker->pSeed) % 100) < pMonStatsTxtRecord->nCrit)
+        {
+            pDamage->dwPhysDamage *= 2;
+            pDamage->dwFireDamage *= 2;
+            pDamage->dwLtngDamage *= 2;
+            pDamage->dwMagDamage *= 2;
+            pDamage->dwColdDamage *= 2;
+            pDamage->dwPoisDamage *= 2;
+
+            if (pDefender && !SUNITDMG_SetHitClass(pDamage, HITCLASS_CRITICAL))
+            {
+                UNITS_SetOverlay(pDefender, OVERLAY_CRITICAL, 0);
+            }
+        }
+    }
+}
+
+int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
+
+unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit); // 0x005A5650
+
+// 0x005A5650
+unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0x80;
+    }
+
+    const int nHitpoints = STATLIST_UnitGetStatValue(pUnit, 6, 0) >> 8;
+    const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pUnit) >> 8;
+    if (nMaxHp > 0 && nHitpoints < nMaxHp)
+    {
+        return (nHitpoints << 7) / nMaxHp;
+    }
+
+    return 0x80;
+}
+
 
 void __fastcall SKILLS_FillMinionSkillDamage(D2UnitStrc* pUnit, int nUnused, D2MonSkillInfoStrc* pMonSkillInfo); // 0x0056E050
 int __fastcall SUNITPROXY_GetDifficultyScaledBonus(D2GameStrc* pGame, int nCount); // 0x005A4F20
