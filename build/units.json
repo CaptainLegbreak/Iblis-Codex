@@ -64121,9 +64121,19 @@
      "name": "FindTileHash"
     },
     {
+     "va": "0x0060D280",
+     "length": 143,
+     "name": "?sub_0060D280_ScanSameRun@@YIHPBE0HPAH1@Z"
+    },
+    {
      "va": "0x0060D310",
      "length": 141,
      "name": "CmpScanRun"
+    },
+    {
+     "va": "0x0060D3A0",
+     "length": 143,
+     "name": "?sub_0060D3A0_ScanOtherRun@@YIHPBE0EHPAH1@Z"
     }
    ]
   },
@@ -64666,22 +64676,6 @@
     {
      "va": "0x0060D190",
      "length": 239
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_0060D280.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060D280",
-     "length": 143,
-     "name": "?sub_0060D280_ScanSameRun@@YIHPBE0HPAH1@Z"
-    },
-    {
-     "va": "0x0060D3A0",
-     "length": 143,
-     "name": "?sub_0060D3A0_ScanOtherRun@@YIHPBE0EHPAH1@Z"
     }
    ]
   },

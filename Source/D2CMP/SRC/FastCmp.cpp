@@ -196,7 +196,6 @@ extern int gbPaletteLoaded; // 0x008E9934
 
 unsigned char __stdcall GetClosestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 
-
 extern const D2ColorBlockStrc gtColorBlock; // 0x007434D8
 
 double __stdcall PaletteHueToRgb(double n1, double n2, double hue); // 0x00604FE0
@@ -1881,6 +1880,30 @@ unsigned char __fastcall FindTileHash(unsigned char a, unsigned char b, unsigned
     return nResult;
 }
 
+// 0x0060D280
+int __fastcall sub_0060D280_ScanSameRun(const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd)
+{
+    D2_ASSERT(pData < pEnd, 0x19);
+    unsigned char nValue = *pData;
+    int nCount = 0;
+    while (pData < pEnd && nValue == *pData && nCount < nMax)
+    {
+        ++pData;
+        ++nCount;
+    }
+    if (pData == pEnd)
+    {
+        *pbRunReachedEnd = 1;
+        *pbRestReachedEnd = 0;
+        return nCount;
+    }
+    *pbRunReachedEnd = 0;
+    while (pData < pEnd && nValue == *pData)
+        ++pData;
+    *pbRestReachedEnd = pData == pEnd;
+    return nCount;
+}
+
 // 0x0060D310
 int __fastcall CmpScanRun(unsigned char nValue, const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd)
 {
@@ -1899,6 +1922,29 @@ int __fastcall CmpScanRun(unsigned char nValue, const unsigned char* pData, cons
     }
     *pbRunReachedEnd = 0;
     while (pData < pEnd && nValue == *pData)
+        ++pData;
+    *pbRestReachedEnd = pData == pEnd;
+    return nCount;
+}
+
+// 0x0060D3A0
+int __fastcall sub_0060D3A0_ScanOtherRun(const unsigned char* pData, const unsigned char* pEnd, unsigned char nValue, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd)
+{
+    D2_ASSERT(pData < pEnd, 0x6F);
+    int nCount = 0;
+    while (pData < pEnd && *pData != nValue && nCount < nMax)
+    {
+        ++pData;
+        ++nCount;
+    }
+    if (pData == pEnd)
+    {
+        *pbRunReachedEnd = 1;
+        *pbRestReachedEnd = 0;
+        return nCount;
+    }
+    *pbRunReachedEnd = 0;
+    while (pData < pEnd && *pData == nValue)
         ++pData;
     *pbRestReachedEnd = pData == pEnd;
     return nCount;
@@ -1998,7 +2044,6 @@ static void sub_00605080_HslToRgb(const D2HslStrc* pHsl, D2PalRgbaStrc* pRgb)
         ++pRgb;
     }
 }
-
 
 static void sub_00606890_BuildBrightnessTable(unsigned char* pTables, D2HslStrc* pHsl)
 {
