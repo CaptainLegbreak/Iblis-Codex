@@ -1015,6 +1015,32 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_0064A3E0(Unit0064A3E
     return 0;
 }
 
+// 0x0064A400
+void __stdcall MISSILE_SetOwner(D2UnitStrc* pMissile, D2UnitStrc* pOwner)
+{
+    D2MissilesTxt* pMissilesTxtRecord = 0;
+    if (pMissile && (!pMissile ? 6 : pMissile->dwUnitType) == 3)
+    {
+        pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecordInline(pMissile->dwClassId);
+        if (pMissilesTxtRecord && pMissilesTxtRecord->nMissileFlags[0 >> 3] & gdwBitMasks[0 & 7])
+        {
+            D2MissileDataStrc* pMissileData = pMissile->pMissileData;
+            if (pMissileData)
+            {
+                if (pOwner)
+                {
+                    pMissileData->nOwnerType = pOwner->dwUnitType;
+                    pMissileData->dwOwnerGUID = pOwner->dwUnitId;
+                }
+                else
+                {
+                    pMissileData->dwOwnerGUID = -1;
+                }
+            }
+        }
+    }
+}
+
 // 0x0064A470
 int __stdcall MISSILE_CheckUnitIfOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
 {
