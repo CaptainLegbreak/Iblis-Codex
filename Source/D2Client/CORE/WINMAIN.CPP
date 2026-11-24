@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Unicode.h"
 #include "D2McpPackets.h"
+#include "D2MultiTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -65,6 +66,1406 @@ struct D2CmdArgStrc
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 extern "C" __declspec(dllimport) int __stdcall GetUserNameA(char* szBuffer, unsigned long* pSize); // 0x006CC000
 
@@ -502,6 +1903,193 @@ extern void* ghConnectEvent;                                                    
 
 
 
+int gaStateStack[1]; // 0x007A0424
+
+int gnStateStackCount; // 0x007A044C
+
+struct D2MonLvlTxt;
+
+struct D2MonLvlTxt
+{
+    char unk0x00[0x78];
+};
+
+// 0x0044B440
+void __fastcall GAME_PushStateValue(int nValue)
+{
+    D2_ASSERT(gnStateStackCount < 5, 0xAA);
+    gaStateStack[gnStateStackCount] = nValue;
+    gnStateStackCount += 1;
+}
+
+// 0x0044B480
+int __cdecl GAME_PopStateValue()
+{
+    D2_ASSERT(gnStateStackCount, 0xB4);
+    int nValue = gaStateStack[0];
+    --gnStateStackCount;
+    for (int i = 0; i < 3; ++i)
+        gaStateStack[i] = gaStateStack[i + 1];
+    return nValue;
+}
+
+struct D2CmdLineArgStrc;
+
+struct D2CmdLineArgStrc
+{
+    char unk0x00[0x18];
+    const char* szValue;
+};
+
+int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
+
+// 0x0044B5E0
+int __stdcall GAME_SaveDefaultCmdLine(D2CmdLineArgStrc* pArg, int nUnused)
+{
+    return SRegSaveString("Diablo II", "Default Command Line", 0, pArg->szValue);
+}
+
+void* __cdecl WINDOW_GetWindow(); // 0x004F59A0
+
+void __stdcall WINDOW_ShowAll(); // 0x004F5F60
+
+// 0x0044B780
+void __cdecl GAME_RaiseGameWindow()
+{
+    void* hWnd = (void*)WINDOW_GetWindow();
+    if (hWnd)
+        SendMessageA(hWnd, 0x1C, 0, 0);
+    WINDOW_ShowAll();
+}
+
+struct D2ConfigStrc;
+
+D2ConfigStrc* gpClientConfig; // 0x007A0438
+
+// 0x0044B7A0
+D2ConfigStrc* __cdecl GAME_GetClientInfo()
+{
+    return gpClientConfig;
+}
+
+struct D2ClientNotifyStrc;
+
+// 0x0044B7B0
+D2ClientNotifyStrc* __cdecl GAME_GetClientNotify()
+{
+    return (D2ClientNotifyStrc*)gpClientConfig->pComInterface;
+}
+
+// 0x0044B7C0
+const char* __cdecl GAME_GetGameName()
+{
+    if (gpClientConfig && strlen(gpClientConfig->szGameName) >= 1)
+        return gpClientConfig->szGameName;
+    return 0;
+}
+
+// 0x0044B7F0
+const char* __cdecl GAME_GetGameDescription()
+{
+    if (gpClientConfig && strlen(gpClientConfig->szText0x245) >= 1)
+        return gpClientConfig->szText0x245;
+    return 0;
+}
+
+// 0x0044B820
+const char* __cdecl GAME_GetGamePassword()
+{
+    if (gpClientConfig && strlen(gpClientConfig->szServerIP) >= 1)
+        return gpClientConfig->szServerIP;
+    return 0;
+}
+
+// 0x0044B850
+int __cdecl GAME_IsHardcore()
+{
+    return gpClientConfig->aFlags1EF[0] & 4;
+}
+
+// 0x0044B860
+void __cdecl GAME_SetCharDiedFlag()
+{
+    gpClientConfig->wFlags1EF |= 8;
+}
+
+// 0x0044B870
+void __cdecl GAME_SetLaunchStateOne()
+{
+// build: symbol ?gnClientLaunchState@* 0x0070EE4C
+    gnClientLaunchState = 1;
+}
+
+#pragma pack(push, 1)
+struct D2ClientInfoStrc
+{
+    char unk0x00[0x1EF];
+    union
+    {
+        unsigned short wFlags;
+        struct
+        {
+            unsigned char lowFlags;
+            unsigned char progress;
+        };
+    };
+    char unk0x1F1[0x33];
+    unsigned char nSoundArg;
+};
+#pragma pack(pop)
+
+// 0x0044B880
+void __fastcall GAME_SetExitApplication(int nValue)
+{
+// build: symbol ?gbExitApplication@* 0x0070EE8C
+    gbExitApplication = nValue;
+}
+
+// 0x0044B890
+int __cdecl GAME_GetExitApplication()
+{
+// build: symbol ?gbExitApplication@* 0x0070EE8C
+    return gbExitApplication;
+}
+
+struct D2PoolSystemStrc;
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetModuleFileNameA(void* hModule, char* szFileName, unsigned long nSize); // 0x006CC1BC
+
+typedef long (__stdcall* WNDPROC)(void* hWnd, unsigned int uMsg, unsigned int wParam, long lParam);
+
+void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc* pSystem, int bFreePoolAlloc); // 0x00409FF0
+
+int __cdecl GAME_LoadLngModule(); // 0x00451330
+
+int __fastcall D2Win_10015(); // 0x004F8FE0
+
+int __stdcall D2Win_10014_SetWndProc(WNDPROC wndProc); // 0x004F8FC0
+
+int __stdcall COMCALLBACK_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam); // 0x00451B30
+
+void* __stdcall sub_004FAC80(int nArg); // 0x004FAC80
+
+void __stdcall sub_00619300(void* pArg, int bArg); // 0x00619300
+
+void __stdcall DATATBLS_UnloadAllBins(); // 0x00619140
+
+void __cdecl sub_00451290_FreeLngModule(); // 0x00451290
+
+void __cdecl PROFCORE_WriteProfileCounters(); // 0x006116B0
+
+extern "C" int __cdecl GAME_ShutdownIfActive(); // 0x0044BB80
+
+void* ghLaunchInstance; // 0x007A043C
+
+char gszModulePath[260]; // 0x007A0320
+
+int gnLaunchResult; // 0x007A0440
+
+
 // 0x0044C6E0
 void __cdecl WINMAIN_DrainPacketQueues()
 {
@@ -659,6 +2247,74 @@ int __stdcall WINMAIN_ProcessCommandLine(void* pArg)
         }
     }
     return 1;
+}
+
+extern int (__cdecl* gpfnLaunchStates[])(); // 0x0070EE54
+
+// 0x0044B8A0
+int __stdcall GAME_LauncherRun(void* hInstance, D2ConfigStrc* pRecord)
+{
+    gpClientConfig = pRecord;
+    sub_00409B80(0);
+    FOG_SetMemoryPoolSystemMode(0, 1);
+    ghLaunchInstance = hInstance;
+    GetModuleFileNameA(hInstance, gszModulePath, 0x104);
+    if (!WINMAIN_ProcessCommandLine(pRecord))
+        return 0;
+    if (!GAME_LoadLngModule())
+        return 0;
+    D2Win_10015();
+    D2Win_10014_SetWndProc((WNDPROC)COMCALLBACK_WindowProc);
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+    if (!sub_005259C0(sub_004FAC80(FOG_IsExpansion()), 0))
+        return 0;
+    int nLanguage;
+// build: symbol ?STRTABLE_GetLanguageInfoField@* 0x00525260
+    STRTABLE_GetLanguageInfoField(&nLanguage, 0);
+    sub_00619300(sub_004FAC80(0), pRecord->dwGameType == 6);
+// build: symbol ?gnClientLaunchState@* 0x0070EE4C
+    gnClientLaunchState = 3;
+// build: symbol ?gbExitApplication@* 0x0070EE8C
+    gbExitApplication = 1;
+    while (gnClientLaunchState != 1)
+    {
+        gnClientLaunchState = gpfnLaunchStates[gnClientLaunchState]();
+        D2_ASSERT(gnClientLaunchState < 7, 0x28E);
+        D2_ASSERT(gnClientLaunchState > 0, 0x28F);
+    }
+    sub_004FA550();
+    DATATBLS_UnloadAllBins();
+    sub_00524E40();
+    sub_00451290_FreeLngModule();
+    PROFCORE_WriteProfileCounters();
+    GAME_ShutdownIfActive();
+    int nResult;
+    if (gbExitApplication)
+    {
+        nResult = 0;
+    }
+    else
+    {
+        switch (pRecord->dwGameType)
+        {
+        case 0:
+        case 8:
+        case 9:
+            nResult = 4;
+            break;
+        case 2:
+        case 3:
+        case 6:
+        case 7:
+            nResult = 3;
+            break;
+        default:
+            gnLaunchResult = 4;
+            return 4;
+        }
+    }
+    gnLaunchResult = nResult;
+    return nResult;
 }
 
 // 0x0044BAD0
