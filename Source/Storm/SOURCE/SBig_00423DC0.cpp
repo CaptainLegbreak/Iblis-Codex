@@ -1,3 +1,4 @@
+#include "Storm.h"
 inline void* operator new(unsigned int, void* pWhere) throw()
 {
     return pWhere;
@@ -325,12 +326,12 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
         b.sub_004220D0_SetCount(1);
         return;
     }
-    // the original relies on the work-stack index staying below 16 here (its push/pop check); without it the frame and loads differ
-    __assume(tStack.nUsed < 16);
+    // the work stack holds 16 buffers
+    STORM_ASSUME(tStack.nUsed < 16);
     BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
-    __assume(tStack.nUsed < 16);
+    STORM_ASSUME(tStack.nUsed < 16);
     BigBuffer& tDiv = tStack.pRecords[tStack.nUsed++];
-    __assume(tStack.nUsed < 16);
+    STORM_ASSUME(tStack.nUsed < 16);
     BigBuffer& tProduct = tStack.pRecords[tStack.nUsed++];
     unsigned int nShift = 31 - (BigHighBitIndex(&d) & 31);
     Shl(tRem, c, nShift);
@@ -367,7 +368,7 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
     }
     Shr(b, tRem, nShift);
     b.sub_00422140_Trim();
-    __assume(3 <= tStack.nUsed);
+    STORM_ASSUME(3 <= tStack.nUsed);
     tStack.nUsed -= 3;
 }
 

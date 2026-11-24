@@ -1,3 +1,4 @@
+#include "Storm.h"
 #include "D2StormTypes.h"
 void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                    // 0x0041D300
 
@@ -111,8 +112,8 @@ void __stdcall sub_00424B00_BigSquare(BigBuffer* pResult, BigBuffer* pA, BigStac
     BigBuffer* pWork;
     if (pResult == pA)
     {
-        // the original relies on the work-stack index staying below 16 here (its push/pop check); without it the frame and loads differ
-        __assume(pStack->nUsed < 16);
+        // the work stack holds 16 buffers
+        STORM_ASSUME(pStack->nUsed < 16);
         pWork = &pStack->pRecords[pStack->nUsed++];
     }
     else
@@ -142,7 +143,7 @@ void __stdcall sub_00424B00_BigSquare(BigBuffer* pResult, BigBuffer* pA, BigStac
         pResult->m_array.sub_004215C0_Set(pWork->m_array.m_count.n, pWork->m_array.m_data);
         pResult->m_array.m_chunk = pWork->m_array.m_chunk;
         pResult->m_start = pWork->m_start;
-        __assume(1 <= pStack->nUsed);
+        STORM_ASSUME(1 <= pStack->nUsed);
         pStack->nUsed--;
     }
 }

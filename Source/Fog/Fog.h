@@ -96,6 +96,9 @@ void* __fastcall sub_004098B0_ReallocLarge(D2PoolSystemStrc* pSystem, void* pMem
 // build: symbol ?FOG_DisplayHalt@* 0x00408A60
 #define S_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText_006CC837, sub_00408090(), line); exit(-1); }
 #define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
+
+// Fog's release-build assumption: not checked, the compiler is told it holds (also the unreachable default of a switch)
+#define FOG_ASSUME(expr) __assume(expr)
 // build: symbol ?gtPoolManager@* 0x0074F0E8
 #define gtDefaultPoolSystem_0074F104 (gtPoolManager.aSystems[0])
 #define va_start(ap, v) (ap = (va_list)&v + _INTSIZEOF(v))

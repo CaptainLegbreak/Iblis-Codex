@@ -627,8 +627,8 @@ void __stdcall FOG_10207(D2BinFileStrc* bin,D2BinFieldStrc* fields,char* output,
    case 2:case 3:case 4:case 5:case 6:case 8:case 26:{if(*input=='-')++input;int value=0;while(*input)value=value*10+*input++-'0';if(*start=='-')value=-value;++input;switch(type){case 2:case 8:*(int*)dst=value;break;case 3:*(unsigned short*)dst=(unsigned short)value;break;case 4:case 6:*dst=(char)value;break;case 5:if(start+1!=input)*dst=(char)value;break;case 26:if(value)sub_00410B10(dst,length);else sub_00410B50(dst,length);break;}break;}
    case 22:{char callbackText[256];char* p=callbackText;while(*input){if(p>=callbackText+256){while(*input)++input;break;}*p++=*input++;}++input;*p=0;if(field->link)*(unsigned short*)dst=(unsigned short)((KeyCallback)field->link)(callbackText);break;}
    case 23:case 24:case 25:{char callbackText[256];char* p=callbackText;while(*input){if(p>=callbackText+256){while(*input)++input;break;}*p++=*input++;}if(field->link)++input;else ++input;*p=0;if(field->link)((FieldCallback)field->link)(callbackText,output,offset,length,row,c);break;}
-   // the original jump table has no range check: every field type is a listed case
-   default:__assume(0);
+   // every field type is a listed case
+   default:FOG_ASSUME(0);
    }
   }
   for(;c<total;++c){
@@ -658,8 +658,8 @@ void __stdcall FOG_10207(D2BinFileStrc* bin,D2BinFieldStrc* fields,char* output,
    case 22:*(unsigned short*)dst=0;break;
    case 23:case 24:case 25:if(field->link)((FieldCallback)field->link)(0,output,field->offset,field->length,row,c);break;
    case 26:break;
-   // the original jump table has no range check: every field type is a listed case
-   default:__assume(0);
+   // every field type is a listed case
+   default:FOG_ASSUME(0);
    }
   }
   D2_ASSERT(*input=='\n',0x286);++input;

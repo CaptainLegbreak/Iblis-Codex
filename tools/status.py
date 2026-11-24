@@ -65,6 +65,11 @@ def flag_notes(u):
 
 
 FORCING = ('volatile read or qualifier', '#pragma optimize', '__assume')
+# Module assumption macros (`#define <MODULE>_ASSUME(expr) __assume(expr)` in a module header): the original's own
+# release-build asserts and unreachable switch defaults, used only where no plain form gives the original's code.
+# A body that uses one is not a forcing construct; it is counted on its own line.
+ASSUME_MACROS = ('STORM_ASSUME', 'FOG_ASSUME')
+ASSUME_RE = re.compile(r'\b(%s)\(' % '|'.join(ASSUME_MACROS))
 
 
 def constructs(a):
@@ -88,6 +93,7 @@ def constructs(a):
 
 
 CONS = {f: constructs(int(f[0], 16)) for f in map(tuple, GAME)}
+assumed = {int(f[0], 16) for f in map(tuple, GAME) if OWNER.get(int(f[0], 16)) and ASSUME_RE.search(BODY.get(int(f[0], 16), ''))}
 forced = {int(f[0], 16) for f, c in CONS.items() if any(x in FORCING for x in c)}
 
 
@@ -169,6 +175,7 @@ L.append('| … placeholder files (`Unknown_<address>.cpp`), original file not y
 L.append('| Record definitions private to a source file (`struct`/`union` in a .cpp) | %d |' % private)
 L.append('| Unnamed fields (`unk0x..`) in the shared headers | %d |' % unk_fields)
 L.append('| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | %d |' % len(forced))
+L.append('| Functions relying on a module assumption macro (`%s`: the original\'s release-build assert or unreachable default) | %d |' % ('`, `'.join(ASSUME_MACROS), len(assumed)))
 L.append('| Calling-convention shims | %d |' % count(r'calling-convention shim'))
 L.append('| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | %d |' % count(r'// build: context'))
 L.append('| `__declspec(noinline)` / `__forceinline` | %d / %d |' % (count(r'__declspec\(noinline\)'), count(r'__forceinline')))
