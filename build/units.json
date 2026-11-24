@@ -77909,6 +77909,10 @@
      "length": 71
     },
     {
+     "va": "0x00680070",
+     "length": 294
+    },
+    {
      "va": "0x006801A0",
      "length": 76,
      "name": "?DRLGOUTWILD_SpawnCliffCaves@@YGHPAUD2DrlgLevelStrc@@HH@Z"
@@ -77953,30 +77957,6 @@
      "length": 253,
      "name": "?DRLGOUTWILD_InitAct1OutdoorLevel@@YIXPAUD2DrlgLevelStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00680070.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00680070",
-     "length": 294
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

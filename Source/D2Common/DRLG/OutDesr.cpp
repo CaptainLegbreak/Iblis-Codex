@@ -154,6 +154,14 @@ static inline int sub_0067FFB0_IsRectAdjacent(D2DrlgOutRectStrc* pRect, D2DrlgOu
 
 static void DRLGOUTWILD_SpawnSpecialPresets(D2DrlgLevelStrc* pLevel); // 0x00680580
 
+static inline BOOL sub_0067FFF0_IsSpecialVertex(D2DrlgVertexStrc* pDrlgVertex);
+
+static void sub_00680070_MarkVertexDirections(D2DrlgLevelStrc* pLevel);
+
+static void sub_00680070_MarkVertexDirections(D2DrlgLevelStrc* pLevel);
+
+void __stdcall DRLGOUTWILD_SpawnCottage(int bExtraCottage, int nLvlPrestId, D2DrlgLevelStrc* pLevel); // 0x006804E0
+
 static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
@@ -620,6 +628,92 @@ static inline BOOL sub_0067FFF0_IsSpecialVertex(D2DrlgVertexStrc* pDrlgVertex)
     return 0;
 }
 
+static inline BOOL DRLGOUTWILD_IsVertexBlocking(D2DrlgVertexStrc* pDrlgVertex)
+{
+    D2DrlgVertexStrc* pNext = pDrlgVertex->pNext;
+
+    if (pDrlgVertex->nPosY < pNext->nPosY)
+    {
+        return 1;
+    }
+
+    if (pDrlgVertex->nPosX > pNext->nPosX)
+    {
+        return 1;
+    }
+
+    if (pDrlgVertex->dwFlags & 1)
+    {
+        return 1;
+    }
+
+    if (pNext->dwFlags & 1)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
+// 0x00680070
+static void sub_00680070_MarkVertexDirections(D2DrlgLevelStrc* pLevel)
+{
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+    D2DrlgVertexStrc* pVertex = pOutdoors->pVertex;
+    D2DrlgVertexStrc* pPreviousVertex = pVertex;
+    BOOL bBreak = 0;
+
+    while (pPreviousVertex->pNext != pVertex)
+    {
+        pPreviousVertex = pPreviousVertex->pNext;
+    }
+
+    do
+    {
+        if (sub_0067FFB0_IsRectAdjacent((D2DrlgOutRectStrc*)pVertex, (D2DrlgOutRectStrc*)pPreviousVertex))
+        {
+            D2DrlgVertexStrc* pFirstVertex = pVertex;
+            D2DrlgVertexStrc* pSpecialVertex = 0;
+            do
+            {
+                if (pVertex == pOutdoors->pVertex)
+                {
+                    bBreak = 1;
+                }
+
+                if (DRLGOUTWILD_IsVertexBlocking(pVertex))
+                {
+                    break;
+                }
+
+                if (sub_0067FFF0_IsSpecialVertex(pVertex))
+                {
+                    pSpecialVertex = pVertex;
+                }
+
+                pVertex = pVertex->pNext;
+            }
+            while (pVertex != pFirstVertex);
+
+            if (pSpecialVertex)
+            {
+                D2DrlgVertexStrc* pTemp = pFirstVertex;
+                for (; pTemp != pSpecialVertex; pTemp = pTemp->pNext)
+                {
+                    pTemp->nDirection = 1;
+                }
+
+                pTemp->nDirection = 1;
+                pOutdoors->dwFlags |= 0x20;
+            }
+        }
+
+        pPreviousVertex = pVertex;
+        pVertex = pVertex->pNext;
+    }
+    while (!bBreak && pVertex != pOutdoors->pVertex);
+}
+
 // 0x006801A0
 static int __stdcall DRLGOUTWILD_SpawnCliffCaves(D2DrlgLevelStrc* pLevel, int nX, int nY)
 {
@@ -827,85 +921,6 @@ void __fastcall sub_I19_Emit_0067F8D0(D2DrlgLevelStrc* pLevel)
     DRLGOUTDESR_InitAct2OutdoorLevel(pLevel);
 }
 
-static inline BOOL DRLGOUTWILD_IsVertexBlocking(D2DrlgVertexStrc* pDrlgVertex)
-{
-    D2DrlgVertexStrc* pNext = pDrlgVertex->pNext;
-
-    if (pDrlgVertex->nPosY < pNext->nPosY)
-    {
-        return 1;
-    }
-
-    if (pDrlgVertex->nPosX > pNext->nPosX)
-    {
-        return 1;
-    }
-
-    if (pDrlgVertex->dwFlags & 1)
-    {
-        return 1;
-    }
-
-    return pNext->dwFlags & 1;
-}
-
-static void sub_00680070_MarkVertexDirections(D2DrlgLevelStrc* pLevel)
-{
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
-    D2DrlgVertexStrc* pVertex = pOutdoors->pVertex;
-    D2DrlgVertexStrc* pPreviousVertex = pVertex;
-    BOOL bBreak = 0;
-
-    for (D2DrlgVertexStrc* i = pVertex->pNext; i != pVertex; i = i->pNext)
-    {
-        pPreviousVertex = i;
-    }
-
-    do
-    {
-        if (sub_0067FFB0_IsRectAdjacent((D2DrlgOutRectStrc*)pVertex, (D2DrlgOutRectStrc*)pPreviousVertex))
-        {
-            D2DrlgVertexStrc* pFirstVertex = pVertex;
-            D2DrlgVertexStrc* pSpecialVertex = 0;
-            do
-            {
-                if (pVertex == pOutdoors->pVertex)
-                {
-                    bBreak = 1;
-                }
-
-                if (DRLGOUTWILD_IsVertexBlocking(pVertex))
-                {
-                    break;
-                }
-
-                if (sub_0067FFF0_IsSpecialVertex(pVertex))
-                {
-                    pSpecialVertex = pVertex;
-                }
-
-                pVertex = pVertex->pNext;
-            }
-            while (pVertex != pFirstVertex);
-
-            if (pSpecialVertex)
-            {
-                D2DrlgVertexStrc* pTemp = pFirstVertex;
-                for (; pTemp != pSpecialVertex; pTemp = pTemp->pNext)
-                {
-                    pTemp->nDirection = 1;
-                }
-
-                pTemp->nDirection = 1;
-                pOutdoors->dwFlags |= 0x20;
-            }
-        }
-
-        pPreviousVertex = pVertex;
-        pVertex = pVertex->pNext;
-    }
-    while (!bBreak && pVertex != pOutdoors->pVertex);
-}
 
 static void __stdcall DRLGOUTWILD_SpawnCottage(int bExtraCottage, int nLvlPrestId, D2DrlgLevelStrc* pLevel)
 {
