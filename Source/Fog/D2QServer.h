@@ -336,3 +336,4 @@ int __fastcall sub_006C2C70_SendLocal(D2QueueServerStrc* pServer, D2QClientStrc*
 int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, unsigned long nTimeout);        // 0x006C2D70
 int __fastcall sub_006C30D0_ServiceSlots(D2QueueServerStrc* pServer, int nTimeout);                          // 0x006C30D0
 void __cdecl sub_006BE300_Nop(const char* szTag, const char* szFormat, ...);                                // 0x006BE300
+unsigned int __fastcall sub_006C3120_Start(D2QueueServerStrc* pServer, int nPort);                          // 0x006C3120

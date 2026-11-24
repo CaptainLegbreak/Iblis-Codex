@@ -238,7 +238,7 @@ void __stdcall sub_006B76C0(int nUnused1, int nUnused2)
 {
 }
 
-// build: symbol ?FOG_SetServerConfig@* 0x006BE310
+// 0x006BE310
 void __stdcall FOG_SetServerConfig(D2QServerConfigStrc* pConfig)
 {
     gnLockCount = pConfig->nClientCapacity;
@@ -246,6 +246,29 @@ void __stdcall FOG_SetServerConfig(D2QServerConfigStrc* pConfig)
     gnQServerSlotCount = pConfig->nValue04;
     gnQServerBucketCount = pConfig->nValue08;
     gnGlobal_00989C28 = pConfig->nValue0C;
+}
+
+// 0x006BE350
+void __stdcall FOG_StartServer(D2QueueServerStrc* pServer, unsigned int nValue)
+{
+    if (pServer->bAltSend)
+    {
+        sub_006C3120_Start(pServer, nValue);
+    }
+    else
+    {
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 297);
+        exit(-1);
+    }
+}
+
+// 0x006BE390
+int __stdcall FOG_10186(D2QueueServerStrc* pServer, int nIndex, int nValue)
+{
+    int nOld = pServer->aValues[nIndex];
+    if (nValue)
+        pServer->aValues[nIndex] = nValue;
+    return nOld;
 }
 
 // 0x006BE3C0
