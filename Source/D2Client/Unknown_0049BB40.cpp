@@ -219,6 +219,107 @@ static int sub_0049C510_GetWaypointRowAtPoint(int nX, int nY)
     return -1;
 }
 
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
+
+
+struct D2CelFileStrc;
+
+extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
+
+D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
+
+
+extern void* gpWaypointBackgroundCel; // 0x007BF071
+
+extern void* gpWaypointActTabsCel; // 0x007BF075
+
+extern void* gpWaypointIconCel; // 0x007BF079
+
+D2WaypointDataStrc* __stdcall WAYPOINTS_AllocWaypointData(void* pMemPool); // 0x00660F30
+
+void __stdcall WAYPOINTS_FreeWaypointData(void* pMemPool, D2WaypointDataStrc* pData); // 0x00660FD0
+
+extern "C" void __cdecl sub_0049C650_CloseArchives(); // 0x0049C650
+
+// 0x0049C580
+void __cdecl TEXT_LoadWaypointPanelCels()
+{
+    char szPath[0x104];
+    if (!gpWaypointBackgroundCel)
+    {
+// build: symbol ?gszDataGlobal@* 0x006D4118
+        sprintf(szPath, "%s\\ui\\menu\\waygatebackground", gszDataGlobal);
+        gpWaypointBackgroundCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+    if (!gpWaypointActTabsCel)
+    {
+// build: symbol ?FOG_IsExpansion@* 0x00408F20
+        if (FOG_IsExpansion() && GAME_IsExpansion())
+        {
+            sprintf(szPath, "%s\\ui\\menu\\expwaygatetabs", gszDataGlobal);
+        }
+        else
+        {
+            sprintf(szPath, "%s\\ui\\menu\\waygatetabs", gszDataGlobal);
+        }
+        gpWaypointActTabsCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+    if (!gpWaypointIconCel)
+    {
+        sprintf(szPath, "%s\\ui\\menu\\waygateicons", gszDataGlobal);
+        gpWaypointIconCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+}
+
+// 0x0049C650
+extern "C" void __cdecl sub_0049C650_CloseArchives()
+{
+    if (gpWaypointBackgroundCel)
+    {
+        ARCHIVE_FreeClientCellFile(gpWaypointBackgroundCel);
+        gpWaypointBackgroundCel = 0;
+    }
+    if (gpWaypointActTabsCel)
+    {
+        ARCHIVE_FreeClientCellFile(gpWaypointActTabsCel);
+        gpWaypointActTabsCel = 0;
+    }
+    if (gpWaypointIconCel)
+    {
+        ARCHIVE_FreeClientCellFile(gpWaypointIconCel);
+        gpWaypointIconCel = 0;
+    }
+}
+
+// 0x0049C6A0
+void __cdecl sub_0049C6A0()
+{
+// build: symbol ?gpWaypointData@* 0x007BF081
+    gpWaypointData = WAYPOINTS_AllocWaypointData(0);
+    gbSent = 0;
+}
+
+// 0x0049C6C0
+void __cdecl sub_0049C6C0_SendWaypointClose()
+{
+    if (!gbSent && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
+    {
+// build: symbol ?gnWaypointId@* 0x007BF07D
+        MSG_SendTwoDwords(0x49, gnWaypointId, 0);
+        gbSent = 1;
+    }
+}
+
+// 0x0049C700
+void __cdecl sub_0049C700_CloseWaypointPanel()
+{
+    sub_0049C6C0_SendWaypointClose();
+    if (gpWaypointData)
+        WAYPOINTS_FreeWaypointData(0, gpWaypointData);
+    gpWaypointData = 0;
+    sub_0049C650_CloseArchives();
+}
+
 // 0x0049C760
 static void sub_0049C760_SetWaypointAct(int nAct)
 {
@@ -271,23 +372,7 @@ extern int gnWaypointCount; // 0x007BF08A
 
 extern int gnWaypointEnabledCount; // 0x007BF08E
 
-struct D2ClientServiceStrc
-{
-    char unk0x00[0xC8];
-    void (__fastcall* pfnFree)(void* pData, int nSize);
-    int (__fastcall* pfnFind)(char* szName, int* pArg, void** ppData, int* pSize);
-    void (__fastcall* pfnCall)(const char* szName, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
-};
 
-struct D2ChatMessageStrc
-{
-    unsigned char unk0x00;
-    unsigned char nType;
-    unsigned char unk0x02[6];
-    unsigned char nColor;
-    unsigned char unk0x09[0x11];
-    D2ChatTextStrc tText;
-};
 
 class D2SquelchListStrc
 {
