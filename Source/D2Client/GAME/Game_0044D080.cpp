@@ -618,16 +618,6 @@ public:
 
 struct D2LaunchMsgStrc;
 
-struct D2LaunchMsgStrc
-{
-    int nType;
-    int nArg;
-    char* szName;
-    void* pExtra;
-    void* pData;
-    unsigned long nSize;
-    char szText[0x108];
-};
 
 struct D2MsgRecordStrc;
 

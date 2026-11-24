@@ -365,12 +365,6 @@ struct D2LaunchThreadRecordStrc;
 
 struct D2LaunchNameNodeStrc;
 
-struct D2LaunchRecord3Strc
-{
-    int nValue0;
-    int nValue1;
-    int f_8;
-};
 
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfnStart)(void*), void* pParameter, unsigned long nFlags, unsigned long* pThreadId); // 0x006CC250
 

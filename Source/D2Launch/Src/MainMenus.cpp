@@ -351,12 +351,6 @@ struct D2LaunchControlTemplateStrc;
 
 struct D2LaunchRecord3Strc;
 
-struct D2LaunchRecord3Strc
-{
-    int nValue0;
-    int nValue1;
-    int f_8;
-};
 
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 

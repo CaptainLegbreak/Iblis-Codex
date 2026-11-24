@@ -263,8 +263,28 @@ struct D2LaunchGameRecStrc
     char nAddress0x37[4]; // 0x37
 };
 
+struct D2LaunchRecord3Strc
+{
+    int nValue0; // 0x00
+    int nValue1; // 0x04
+    int f_8; // 0x08
+};
+
+struct D2LaunchMsgStrc
+{
+    int nType; // 0x00
+    int nArg; // 0x04
+    char* szName; // 0x08
+    void* pExtra; // 0x0C
+    void* pData; // 0x10
+    unsigned long nSize; // 0x14
+    char szText[0x108]; // 0x18
+};
+
 D2_CHECK_SIZE(D2MultiChannelUserStrc, 0xB4);
 D2_CHECK_SIZE(D2LaunchGameRecStrc, 0x3B);
 D2_CHECK_SIZE(D2LaunchFuncsStrc, 0xB0);
+D2_CHECK_SIZE(D2LaunchRecord3Strc, 0xC);
+D2_CHECK_SIZE(D2LaunchMsgStrc, 0x120);
 D2_CHECK_SIZE(D2WinControlInitStrc, 0x30);
 D2_CHECK_SIZE(D2ConfigStrc, 0x3CD);
