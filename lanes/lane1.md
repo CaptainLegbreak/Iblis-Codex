@@ -4,6 +4,9 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/lob-velocity 125a9cb3e 0->0 Skills.cpp's 0x4C8670 (SKILLS_SetLobVelocity, inside SkillsBar.cpp's code run) and gaLobBrackets (0x6DAE70, in .rdata between SkillsBar.cpp's table at 0x6DAE58 and the 0x4C9420 object's) join SkillsBar.cpp; its second argument is the skill (both callers pass pSkill; it reads SKILLS_GetParam1/2), so it is typed D2SkillStrc* and uses D2Client.h's names instead of two private sub_006444A0/D0 prototypes; VERIFIED 1432656532dd503e1619d5fb9b4485c99bebf1bd
+  - based on main #345. Closes the item left from skills-objects.
+
 - lane1/necama-copies-2 c6f317c54 0->0 gData_0072D994 (SkillDesc.cpp, 180 B) is three copies back to back, the third running into Window.cpp's gGfxSettings; by .rdata path order (SkillsEMon, SkillsNec 0x6DC428, SkillsAma 0x6DC440, then Window) and code order they are SkillsNec.cpp's, SkillsAma.cpp's and Window.cpp's; each is planned there (the first two take data includes; Window.cpp is lane 9's, plan entry only); VERIFIED 58fb78517d44ac8b2242a88f08608778e6094a24
   - based on main #344. Replaces lane1/necama-copies (same commit on #343, never posted).
 
