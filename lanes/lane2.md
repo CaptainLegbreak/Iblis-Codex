@@ -4,8 +4,11 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/ctx-trim-d2lang a2908efc 562->562 One deletion: D2Lang's Unknown_00527A50 loses its "// build: context - inferred inline helper ..." comment, which queues.md counts as lane 6's one context copy (the checker never read it as a directive). The helper stays; VERIFIED d0be417e78e85d7342d3ff83bb9d75accde4c880
+  - On 90638cd1 (#362). Outside lane 2: Unknown_00527A50 (lane 6). With ctx-trim-d2game-2, every context copy outside lane 3's 8 Fog lines is gone.
+
 - lane2/ctx-trim-d2game-2 7d20f441 562->562 Replaces `lane2/ctx-trim-d2game`, redone on #362 (lane 5's skill-runs moved code into SkillDruid.cpp): all 105 `// build: context` lines in D2Game's 36 units go, each unit still all equal without them. Deletions only; VERIFIED 1389203f7ab9b91d238681afe29d3a5d243ecea3
-  - On 90638cd1. With #362's three trims, this takes 210 of the 219 context directives; the 9 left are lane 3's 8 kept Fog lines and D2Lang's comment line.
+  - On 90638cd1. With #362's three trims, this takes 210 of the 219 context directives; the 9 left are lane 3's 8 kept Fog lines and D2Lang's comment line, which ctx-trim-d2lang takes.
 
 - lane2/unit-names-b 9d7a00bd 562->562 Single-unit address names, batch 2 (see Notes for other lanes): SUnit's T00552FD0 view goes for D2AnimData.h's D2AnimDataRecordStrc; SUnitDmg's T0057E5A0 is D2PartyExperienceStrc; MonsterTbls' T006510C0 is D2UniqueNameTablesStrc. Names only; VERIFIED 70739b6cd0b77eacd525b35abaf7e8ed8f64e280
   - On 90638cd1. All 3 changed units build equal. Outside lane 2: SUnit, SUnitDmg (lane 5), MonsterTbls (lane 8).
