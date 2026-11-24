@@ -267,76 +267,7 @@ inline void __fastcall sub_00425830_LoadBE32(unsigned int* pOut, const unsigned 
     *pOut = ((((pIn[0] << 8) | pIn[1]) << 8 | pIn[2]) << 8) | pIn[3];
 }
 
-// 0x00425850
-void __fastcall sub_00425850_Sha1Transform(unsigned int* pState, const unsigned char* pBlock)
-{
-    unsigned int W[80];
-    int i;
-
-    for (i = 0; i < 16; i++)
-    {
-        sub_00425830_LoadBE32(&W[i], pBlock);
-        pBlock += 4;
-    }
-
-    do
-    {
-        W[i] = sub_00425720_Rotl(W[i - 3] ^ W[i - 8] ^ W[i - 14] ^ W[i - 16], 1);
-    } while (++i < 80);
-
-    unsigned int a = pState[0];
-    unsigned int b = pState[1];
-    unsigned int c = pState[2];
-    unsigned int d = pState[3];
-    unsigned int e = pState[4];
-
-    i = 0;
-    do
-    {
-        sub_00425730_Sha1Round0(a, &b, c, d, &e, &W[i]);
-        sub_00425730_Sha1Round0(e, &a, b, c, &d, &W[i + 1]);
-        sub_00425730_Sha1Round0(d, &e, a, b, &c, &W[i + 2]);
-        sub_00425730_Sha1Round0(c, &d, e, a, &b, &W[i + 3]);
-        sub_00425730_Sha1Round0(b, &c, d, e, &a, &W[i + 4]);
-        i += 5;
-    } while (i < 20);
-
-    do
-    {
-        sub_00425770_Sha1Round1(a, &b, c, d, &e, &W[i]);
-        sub_00425770_Sha1Round1(e, &a, b, c, &d, &W[i + 1]);
-        sub_00425770_Sha1Round1(d, &e, a, b, &c, &W[i + 2]);
-        sub_00425770_Sha1Round1(c, &d, e, a, &b, &W[i + 3]);
-        sub_00425770_Sha1Round1(b, &c, d, e, &a, &W[i + 4]);
-        i += 5;
-    } while (i < 40);
-
-    do
-    {
-        sub_004257B0_Sha1Round2(a, &b, c, d, &e, &W[i]);
-        sub_004257B0_Sha1Round2(e, &a, b, c, &d, &W[i + 1]);
-        sub_004257B0_Sha1Round2(d, &e, a, b, &c, &W[i + 2]);
-        sub_004257B0_Sha1Round2(c, &d, e, a, &b, &W[i + 3]);
-        sub_004257B0_Sha1Round2(b, &c, d, e, &a, &W[i + 4]);
-        i += 5;
-    } while (i < 60);
-
-    do
-    {
-        sub_004257F0_Sha1Round3(a, &b, c, d, &e, &W[i]);
-        sub_004257F0_Sha1Round3(e, &a, b, c, &d, &W[i + 1]);
-        sub_004257F0_Sha1Round3(d, &e, a, b, &c, &W[i + 2]);
-        sub_004257F0_Sha1Round3(c, &d, e, a, &b, &W[i + 3]);
-        sub_004257F0_Sha1Round3(b, &c, d, e, &a, &W[i + 4]);
-        i += 5;
-    } while (i < 80);
-
-    pState[0] += a;
-    pState[1] += b;
-    pState[2] += c;
-    pState[3] += d;
-    pState[4] += e;
-}
+void __fastcall sub_00425850_Sha1Transform(unsigned int* pState, const unsigned char* pBlock); // 0x00425850
 
 // 0x00425DD0
 void Sha1::Append(const unsigned char* pData, unsigned int nLen)
