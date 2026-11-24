@@ -4,14 +4,14 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/unitsnd-table 5af46c365 0->0 UnitSnd.cpp: the 116 pieces at 0x00727F48-0x007295C8 become one D2UnitSndObjectStrc gaUnitSndObjects[121] (5,808 B); gapUnitSndObjects points at its elements, gaUnitSndObject3D is gaUnitSndObjects[21]; borrowed data should drop by 2,692 B (verify shows 9,924 B); VERIFIED fdb0012051a0a221d5c2df4ff6de6801b4344474
+  - based on main #307 (main is #309 now).
+
 - lane1/one-screenheight-r 3514d976a 0->0 gnScreenHeight (0x711470): D2Client.h declares it as gnScreenHeight, the suffixed uses take that name, and 47 private declarations go from units that include D2Client.h; VERIFIED e772c83f971be867452c7ca456185e5956de0ae0
   - based on main #302 (main reached #304 while it verified). Touches lane 4's files (many D2Client units); merge alone, as asked.
   - kept: UI/inv_004886C0.cpp keeps one private declaration under the old name gnScreenHeight_00711470. 0x488B00 builds equal only with a second declaration of 0x711470 in scope; the count matters, not the name. Swapping the operands of `gnScreenHeight + gnPanelOffsetY - 0x6D` does not help, and moving a declaration ahead of D2Client.h does not either.
   - kept (they do not include D2Client.h): UI/inv_00491D20.cpp, UI/text_0049C9C0.cpp, Unknown_00494EB0.cpp, Unknown_004AA9C0.cpp, Unknown_004ABC30.cpp.
   - not touched: UI/inv.cpp `gScreenHeight` (in an unmarked copy of 0x494EB0), Storm/Unknown_006CAA30.cpp (lane 3, own `gnScreenHeight_00711470`).
-- lane1/hdr-4df6c0-2 6ec053a92 0->0 D2Client.h: 0x4DF6C0 is declared as GFXUTIL_ApplySoundEnviron instead of the unused sub_004DF6C0; VERIFIED a57139fe6f3b53f305c2618a526ee1e86125452e
-  - based on main #299. Replaces lane1/hdr-drop-4df6c0.
-  - Dropping the line outright breaks 0x488B00 (UI/inv_004886C0.cpp) the same way as above, so the line is corrected in place. one-screenheight-r does not depend on it.
 
 ## In progress
 
@@ -22,6 +22,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
   - text.cpp's unmarked copy of the stand-in body (~line 6198) goes when this lands.
 
 ## Questions
+
+- 0x4A4AD0 lead: text_0049A950.cpp and text.cpp are interleaved across 0x491940-0x4A8D50 (61 text_0049A950 functions sit inside text.cpp's address range, including the key-config handlers 0x4A5A40-0x4A5F70 that use gnKeyConfigSelected / gpListEntries / gnKeyConfigColumn). Making the key-config state text.cpp statics means joining at least those, likely the whole of text_0049A950 into text.cpp. That is lane 4's file and a large join. Should lane 4 do it, or may I do it on a lane1/ branch? Until then I keep 0x4A4AD0 local (1,210 of 1,232 B).
 
 ## Notes for other lanes
 
