@@ -411,7 +411,7 @@
   ["0x00410930", 44, "verified", "SYSTEM_GetMemoryStatus"],
   ["0x00410960", 108, "verified", "SYSTEM_IsPlatformNT"],
   ["0x004109D0", 163, "verified", "?SYSTEM_InitTimeBase@@YAXXZ"],
-  ["0x00410A80", 132, "verified", "?FOG_GetSyncTime@@YAJXZ"],
+  ["0x00410A80", 132, "verified", "?SYSTEM_GetSyncTime@@YAJXZ"],
   ["0x00410B10", 32, "verified", "sub_00410B10"],
   ["0x00410B30", 32, "verified", "sub_00410B30"],
   ["0x00410B50", 32, "verified", "sub_00410B50"],

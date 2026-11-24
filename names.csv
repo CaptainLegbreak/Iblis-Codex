@@ -399,7 +399,7 @@ address,name,source,alias
 0x00410930,SYSTEM_GetMemoryStatus,inferred,
 0x00410960,SYSTEM_IsPlatformNT,inferred,
 0x004109D0,SYSTEM_InitTimeBase,inferred,
-0x00410A80,FOG_GetSyncTime,inferred,
+0x00410A80,SYSTEM_GetSyncTime,inferred,
 0x00410B10,sub_00410B10,placeholder,
 0x00410B30,sub_00410B30,placeholder,
 0x00410B50,sub_00410B50,placeholder,

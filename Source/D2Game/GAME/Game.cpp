@@ -4171,8 +4171,8 @@ int __stdcall SrvCreateNewEmptyGame(char* szGameName, const char* szPassword, co
 
     GAME_SetReservedGameGUID(hGame, nGameId);
 
-// build: symbol ?FOG_GetSyncTime@* 0x00410A80
-    pGame->nSyncTimer = FOG_GetSyncTime();
+// build: symbol ?SYSTEM_GetSyncTime@* 0x00410A80
+    pGame->nSyncTimer = SYSTEM_GetSyncTime();
     if (pGame->nSyncTimer <= 1)
     {
         pGame->nSyncTimer = 2;
@@ -4268,7 +4268,7 @@ void __fastcall sSrvSendGameInit(int nClientId, char* szGameName, unsigned char 
     CLIENTS_SetClientState(pClient, 1);
     CLIENTS_SetActNo(pClient, gnAct);
 
-    pGame->nSyncTimer = FOG_GetSyncTime();
+    pGame->nSyncTimer = SYSTEM_GetSyncTime();
     if (pGame->nSyncTimer <= 1)
     {
         pGame->nSyncTimer = 2;

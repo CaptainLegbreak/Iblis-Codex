@@ -5158,7 +5158,7 @@
     {
      "va": "0x00410A80",
      "length": 132,
-     "name": "?FOG_GetSyncTime@@YAJXZ"
+     "name": "?SYSTEM_GetSyncTime@@YAJXZ"
     }
    ]
   },

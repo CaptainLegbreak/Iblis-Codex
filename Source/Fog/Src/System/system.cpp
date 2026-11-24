@@ -54,7 +54,7 @@ void __cdecl SYSTEM_InitTimeBase()
 }
 
 // 0x00410A80
-long __cdecl FOG_GetSyncTime()
+long __cdecl SYSTEM_GetSyncTime()
 {
     const unsigned long nTick = GetTickCount();
     D2TimeStampStrc tBase;

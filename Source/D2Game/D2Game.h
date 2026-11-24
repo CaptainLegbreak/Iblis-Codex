@@ -434,7 +434,7 @@ int __stdcall sub_006488C0_PathX(Path*); // 0x006488C0
 int __stdcall sub_00648900_PathGetY(D2PathRecordStrc* pPath); // 0x00648900
 int __stdcall sub_00648900_PathY(Path*); // 0x00648900
 int __stdcall sub_00648E30_GetPathValue(D2DynamicPathStrc* pPath); // 0x00648E30
-long __cdecl FOG_GetSyncTime(); // 0x00410A80
+long __cdecl SYSTEM_GetSyncTime(); // 0x00410A80
 short __fastcall sub_6FCBA9D0(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B3F0
 short __stdcall ITEMS_RollMagicAffixesNew(D2UnitStrc* pItem, int bRequireSpawnableAffix, int bForceAffixRoll, int bAssignProperties, int bPrefixes, int nPreferredAffixIndex, int nAutoMagicGroup); // 0x005C1560
 unsigned char __fastcall sub_00547330_Force(Game*,int); // 0x00547330
