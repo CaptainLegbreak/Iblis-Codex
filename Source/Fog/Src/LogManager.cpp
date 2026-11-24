@@ -2,6 +2,7 @@
 #include "D2GameTypes.h"
 #include "D2FogTypes.h"
 #include "D2StormLink.h"
+#include "stpl.h"
 
 struct D2FindDataStrc
 {
@@ -80,10 +81,6 @@ struct sub_0040F7D0;
 struct D2SystemTimeStrc;
 
 struct D2FileTimeStrc;
-
-struct D2LogMsgLinkStrc;
-
-struct D2LogMsgNodeStrc;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 
@@ -194,7 +191,9 @@ struct sub_0040F810
     sub_0040F810();
 };
 
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
+// build: symbol _SMemAlloc@16 0x00413020
+// build: symbol ??3Message@LogManager@@SAXPAX0@Z 0x0040EB30
+// build: symbol _SMemFree@16 0x00412650
 
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
@@ -441,55 +440,14 @@ struct sub_0040F7D0
     ~sub_0040F7D0();
 };
 
-struct D2LogMsgLinkStrc
+namespace LogManager
 {
-    D2LogMsgLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2LogMsgLinkStrc() { m_prevlink = 0; m_next = 0; }
-    // 0x0040F820
-    ~D2LogMsgLinkStrc() { Unlink(); }
-    D2LogMsgLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2LogMsgLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2LogMsgLinkStrc*)(m_next + nLinkOffset);
-    }
-    char* Next()
-    {
-        return (int)m_next <= 0 ? 0 : m_next;
-    }
-    static char* NextOf(char* pNext)
-    {
-        if ((int)pNext > 0)
-            return pNext;
-        return 0;
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
-
-struct D2LogMsgNodeStrc
-{
-    D2LogMsgLinkStrc tLink;
-
-    D2LogMsgNodeStrc();
-    ~D2LogMsgNodeStrc();
-};
+struct Message;
+}
 
 namespace LogManager
 {
-struct Message : D2LogMsgNodeStrc
+struct Message : TSLinkedNode<Message>
 {
     unsigned int nSize;
     int nType;
@@ -522,29 +480,6 @@ CCritSect gtLogLock; // 0x0075E850
 
 D2MiniDumpRequestStrc* gpMiniDumpRequest; // 0x0098A6E4
 
-struct D2LogMsgListStrc
-{
-    int m_linkoffset;
-    D2LogMsgLinkStrc m_terminator;
-
-    D2LogMsgListStrc();
-    ~D2LogMsgListStrc();
-    LogManager::Message* Head()
-    {
-        return (LogManager::Message*)D2LogMsgLinkStrc::NextOf(m_terminator.m_next);
-    }
-    D2LogMsgLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2LogMsgLinkStrc*)pNode : &m_terminator;
-    }
-    D2LogMsgLinkStrc* sub_0040F880_Link(char* pNode);
-    void sub_0040FD00_UnlinkAll();
-    void sub_0040FBB0_LinkNode(char* pNode, int nLinkType, char* pExistingNode);
-    void sub_0040FC60_UnlinkNode(char* pNode);
-    void sub_0040FED0_DeleteAll();
-    char* sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
-};
-
 struct D2LogMemoryInfoStrc
 {
     const void* pAddress;
@@ -562,7 +497,24 @@ int gnLogQueued; // 0x0075D140
 
 // build: symbol ??__EgtLogMsgQueue_0075E868@@YAXXZ 0x006CA740
 // build: symbol ??__FgtLogMsgQueue_0075E868@@YAXXZ 0x006CB090
-D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
+TSList<LogManager::Message> gtLogMsgQueue_0075E868; // 0x0075E868
+// build: symbol ?NextLink@?$TSLink@UMessage@LogManager@@@@QAEPAU1@H@Z 0x0040F4F0
+// build: symbol ??1?$TSLink@UMessage@LogManager@@@@QAE@XZ 0x0040F820
+// build: symbol ?Link@?$TSList@UMessage@LogManager@@U?$TSGetLink@UMessage@LogManager@@@@@@QAEPAU?$TSLink@UMessage@LogManager@@@@PBUMessage@LogManager@@@Z 0x0040F880
+// build: symbol ??1?$TSLinkedNode@UMessage@LogManager@@@@QAE@XZ 0x0040FAA0
+// build: symbol ??0?$TSList@UMessage@LogManager@@U?$TSGetLink@UMessage@LogManager@@@@@@QAE@XZ 0x0040FB50
+// build: symbol ?LinkNode@?$TSList@UMessage@LogManager@@U?$TSGetLink@UMessage@LogManager@@@@@@QAEXPAUMessage@LogManager@@I0@Z 0x0040FBB0
+// build: symbol ?UnlinkNode@?$TSList@UMessage@LogManager@@U?$TSGetLink@UMessage@LogManager@@@@@@QAEXPAUMessage@LogManager@@@Z 0x0040FC60
+// build: symbol ??0?$TSLinkedNode@UMessage@LogManager@@@@QAE@XZ 0x0040FCB0
+// build: symbol ?UnlinkAll@?$TSList@UMessage@LogManager@@U?$TSGetLink@UMessage@LogManager@@@@@@QAEXXZ 0x0040FD00
+// build: symbol ??1?$TSList@UMessage@LogManager@@U?$TSGetLink@UMessage@LogManager@@@@@@QAE@XZ 0x0040FD90
+// build: symbol ?Clear@?$TSList@UMessage@LogManager@@U?$TSGetLink@UMessage@LogManager@@@@@@QAEXXZ 0x0040FED0
+// build: symbol ?NewNode@?$TSList@UMessage@LogManager@@U?$TSGetLink@UMessage@LogManager@@@@@@QAEPAUMessage@LogManager@@III@Z 0x0040FF40
+// build: symbol ??_R0?AUMessage@LogManager@@@8 0x0070811C
+template TSLink<LogManager::Message>* TSLink<LogManager::Message>::NextLink(int);
+template TSLink<LogManager::Message>::~TSLink();
+template TSLink<LogManager::Message>* TSList<LogManager::Message>::Link(const LogManager::Message*);
+template void TSList<LogManager::Message>::UnlinkNode(LogManager::Message*);
 
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nSize); // 0x006829C0
 
@@ -990,107 +942,11 @@ void D2CommonStormHashTableAStrc::IGNORELIST_ClearStringTable()
     IGNORELIST_InternalClearStringTable(0);
 }
 
-// 0x0040FAA0
-D2LogMsgNodeStrc::~D2LogMsgNodeStrc()
-{
-    tLink.Unlink();
-}
-
-// 0x0040FCB0
-D2LogMsgNodeStrc::D2LogMsgNodeStrc()
-{
-}
-
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
-
-extern "C" const char gszLogMessageTypeName[]; // 0x00708124
-
-// build: symbol ??3Message@LogManager@@SAXPAX0@Z 0x0040EB30
-// 0x0040FB50
-D2LogMsgListStrc::D2LogMsgListStrc()
-{
-    m_linkoffset = 0;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
-// build: symbol ?NextLink@D2LogMsgLinkStrc@@QAEPAU1@H@Z 0x0040F4F0
-
-// 0x0040F880
-D2LogMsgLinkStrc* D2LogMsgListStrc::sub_0040F880_Link(char* pNode)
-{
-    return Link(pNode);
-}
-
-// 0x0040FBB0
-void D2LogMsgListStrc::sub_0040FBB0_LinkNode(char* pNode, int nLinkType, char* pExistingNode)
-{
-    D2LogMsgLinkStrc* pLink = Link(pNode);
-    pLink->Unlink();
-    D2LogMsgLinkStrc* pExistingLink = Link(pExistingNode);
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->m_prevlink = pExistingLink;
-        pLink->m_next = pExistingLink->m_next;
-        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-        pExistingLink->m_next = pNode;
-        break;
-    default:
-        D2LogMsgLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-        pLink->m_prevlink = pPrevLink;
-        pLink->m_next = pPrevLink->m_next;
-        pPrevLink->m_next = pNode;
-        pExistingLink->m_prevlink = pLink;
-        break;
-    }
-}
-
-// 0x0040FC60
-void D2LogMsgListStrc::sub_0040FC60_UnlinkNode(char* pNode)
-{
-    Link(pNode)->Unlink();
-}
-
-// 0x0040FD00
-inline void D2LogMsgListStrc::sub_0040FD00_UnlinkAll()
-{
-    char* pNode;
-    while ((pNode = (int)m_terminator.m_next > 0 ? m_terminator.m_next : 0) != 0)
-        ((D2LogMsgLinkStrc*)pNode)->Unlink();
-}
-
-// 0x0040FD90
-D2LogMsgListStrc::~D2LogMsgListStrc()
-{
-    sub_0040FD00_UnlinkAll();
-}
-
 // build: symbol ??_GMessage@LogManager@@QAEPAXI@Z 0x0040FE60
 inline void LogManager::Message::operator delete(void* pMemory)
 {
     if (pMemory)
         SMemFree(pMemory, "delete", -1, 0);
-}
-
-// 0x0040FED0
-void D2LogMsgListStrc::sub_0040FED0_DeleteAll()
-{
-    while (LogManager::Message* pNode = (LogManager::Message*)m_terminator.Next())
-    {
-        pNode->~Message();
-        SMemFree(pNode, gszLogMessageTypeName, -2, 0);
-    }
-}
-
-// 0x0040FF40
-char* D2LogMsgListStrc::sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(LogManager::Message) + nExtraBytes, gszLogMessageTypeName, -2, nFlags | 8);
-    LogManager::Message* pNode = new (pMemory) LogManager::Message;
-    if (nLinkType)
-        sub_0040FBB0_LinkNode((char*)pNode, nLinkType, 0);
-    return (char*)pNode;
 }
 
 // 0x0040FE10
@@ -1116,7 +972,7 @@ void __cdecl LOGMANAGER_ShutdownLogSystem()
     WaitForSingleObject(ghLogThread, 30000);
     CloseHandle(ghLogThread);
     EnterCriticalSection(&gtLogQueueLock);
-    gtLogMsgQueue_0075E868.sub_0040FED0_DeleteAll();
+    gtLogMsgQueue_0075E868.Clear();
     gnLogQueued = 0;
     gnLogQueuedBytes = 0;
     ghLogThread = 0;
@@ -1139,7 +995,7 @@ void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle,
     if (!bBadPointer)
         nExtraBytes += nSize;
     EnterCriticalSection(&gtLogQueueLock);
-    LogManager::Message* pMessage = (LogManager::Message*)gtLogMsgQueue_0075E868.sub_0040FF40_NewNode(0, nExtraBytes, 0);
+    LogManager::Message* pMessage = gtLogMsgQueue_0075E868.NewNode(0, nExtraBytes, 0);
     LeaveCriticalSection(&gtLogQueueLock);
     pMessage->nSize = nExtraBytes + 0x24;
     pMessage->nType = 2;
@@ -1158,19 +1014,7 @@ void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle,
     if (!bBadPointer)
         memcpy(pText, (const void*)dwAddress, nSize);
     EnterCriticalSection(&gtLogQueueLock);
-    D2LogMsgLinkStrc* pLink = &pMessage->tLink;
-    if (pLink->m_prevlink)
-    {
-        pLink->NextLink(-1)->m_prevlink = pLink->m_prevlink;
-        pLink->m_prevlink->m_next = pLink->m_next;
-        pLink->m_prevlink = 0;
-        pLink->m_next = 0;
-    }
-    D2LogMsgLinkStrc* pPrev = gtLogMsgQueue_0075E868.m_terminator.m_prevlink;
-    pLink->m_prevlink = pPrev;
-    pLink->m_next = pPrev->m_next;
-    pPrev->m_next = (char*)pMessage;
-    gtLogMsgQueue_0075E868.m_terminator.m_prevlink = pLink;
+    gtLogMsgQueue_0075E868.LinkNode(pMessage, 2, 0);
     ++gnLogQueued;
     gnLogQueuedBytes += pMessage->nSize;
     LeaveCriticalSection(&gtLogQueueLock);
@@ -1207,7 +1051,7 @@ void __fastcall LOGMANAGER_WriteLogV(const char* szPrefix, int nArg2, int nArg3,
     nExtraBytes += SStrLen(szBuffer) + 1;
 
     EnterCriticalSection(&gtLogQueueLock);
-    LogManager::Message* pMessage = (LogManager::Message*)gtLogMsgQueue_0075E868.sub_0040FF40_NewNode(0, nExtraBytes, 0);
+    LogManager::Message* pMessage = gtLogMsgQueue_0075E868.NewNode(0, nExtraBytes, 0);
     LeaveCriticalSection(&gtLogQueueLock);
 
     pMessage->nSize = nExtraBytes + 0x24;
@@ -1221,19 +1065,7 @@ void __fastcall LOGMANAGER_WriteLogV(const char* szPrefix, int nArg2, int nArg3,
     SStrCopy(pText, szBuffer, nExtraBytes);
 
     EnterCriticalSection(&gtLogQueueLock);
-    D2LogMsgLinkStrc* pLink = &pMessage->tLink;
-    if (pLink->m_prevlink)
-    {
-        pLink->NextLink(-1)->m_prevlink = pLink->m_prevlink;
-        pLink->m_prevlink->m_next = pLink->m_next;
-        pLink->m_prevlink = 0;
-        pLink->m_next = 0;
-    }
-    D2LogMsgLinkStrc* pPrev = gtLogMsgQueue_0075E868.m_terminator.m_prevlink;
-    pLink->m_prevlink = pPrev;
-    pLink->m_next = pPrev->m_next;
-    pPrev->m_next = (char*)pMessage;
-    gtLogMsgQueue_0075E868.m_terminator.m_prevlink = pLink;
+    gtLogMsgQueue_0075E868.LinkNode(pMessage, 2, 0);
     ++gnLogQueued;
     gnLogQueuedBytes += pMessage->nSize;
     LeaveCriticalSection(&gtLogQueueLock);
@@ -1247,6 +1079,19 @@ void __fastcall LOGMANAGER_WriteDumpMessage(LogManager::Message* pMessage); // 0
 void __cdecl LOGMANAGER_CloseStaleLogs(); // 0x0040F350
 void __cdecl LOGMANAGER_SweepOldLogFiles(); // 0x0040F970
 
+// The queue's first message, or 0 when the terminator's link carries the complemented list address.
+static inline LogManager::Message* LOGMANAGER_QueuedNode(LogManager::Message* pNext)
+{
+    if ((int)pNext > 0)
+        return pNext;
+    return 0;
+}
+
+static inline LogManager::Message* LOGMANAGER_QueueHead(TSList<LogManager::Message>* pQueue)
+{
+    return LOGMANAGER_QueuedNode(pQueue->m_terminator.m_next);
+}
+
 // 0x004101C0
 unsigned long __stdcall sub_004101C0_LogThreadProc(void* pParam)
 {
@@ -1254,10 +1099,10 @@ unsigned long __stdcall sub_004101C0_LogThreadProc(void* pParam)
     for (;;)
     {
         EnterCriticalSection(&gtLogQueueLock);
-        LogManager::Message* pMessage = gtLogMsgQueue_0075E868.Head();
+        LogManager::Message* pMessage = LOGMANAGER_QueueHead(&gtLogMsgQueue_0075E868);
         if (pMessage)
         {
-            ((LogManager::Message*)gtLogMsgQueue_0075E868.m_terminator.m_next)->tLink.Unlink();
+            gtLogMsgQueue_0075E868.m_terminator.m_next->m_link.Unlink();
             --gnLogQueued;
             gnLogQueuedBytes -= pMessage->nSize;
         }
