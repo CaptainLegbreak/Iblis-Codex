@@ -922,7 +922,6 @@ void __fastcall PLRMSG_SendWalkMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Clie
     }
 }
 
-// build: context sub_005485B0_Shim
 // calling-convention shim (not game code)
 int __stdcall sub_005485B0_Shim(D2UnitStrc* pUnit)
 {
@@ -1052,7 +1051,6 @@ static unsigned char PLRMSG_GetPotionLifePercent(D2UnitStrc* pUnit)
 	return (unsigned char)nClamped;
 }
 
-// build: context sub_005485B0_GetPotionLifePercent
 static unsigned char sub_005485B0_GetPotionLifePercent(D2UnitStrc* pUnit)
 {
     D2StatListStrc* pHealthPotStatList;
@@ -1704,7 +1702,6 @@ static inline int PLRMSG_CheckBodyLocOccupied(D2UnitStrc* pUnit, int nBodyLoc)
     return INVENTORY_GetItemFromBodyLoc(pUnit->pInventory, nBodyLoc) ? 0 : 1;
 }
 
-// build: context sub_M114_Emit_00549080
 int __stdcall sub_M114_Emit_00549080(D2UnitStrc* pUnit, const char* szName, int a, int b)
 {
     return PLRMSG_CheckLeftSkill(pUnit) + PLRMSG_CheckRightSkill(pUnit) + PLRMSG_CheckName(szName)

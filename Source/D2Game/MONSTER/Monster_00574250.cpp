@@ -32,7 +32,6 @@ void __fastcall SUNIT_InitializeAnimation(D2UnitStrc* pUnit); // 0x005533D0
 void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode); // 0x00553570
 void __stdcall shim_1(void* p1, void* p2);
 
-// build: context sub_00573CB0
 static void __stdcall sub_00573CB0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit, D2MonRegDataStrc* pMonRegData)
 {
 

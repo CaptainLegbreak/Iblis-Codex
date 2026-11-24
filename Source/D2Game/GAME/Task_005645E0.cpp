@@ -98,7 +98,6 @@ static void TASK_QueueIncrement(D2TaskStrc* ptTaskQueue, int* pTaskType, int nTa
     TASK_LinkList_Insert(ptPrev, &TASK_GetTaskFromTaskType(pTaskType)->pTaskQueueLink);
 }
 
-// build: context TASK_CloseGame
 static __forceinline void TASK_CloseGame(int nGameHashKey, int nTaskNumber, D2TaskStrc* ptTask)
 {
     GAME_CloseGame(nGameHashKey);
@@ -137,7 +136,6 @@ static __forceinline void TASK_CloseGame(int nGameHashKey, int nTaskNumber, D2Ta
     LeaveCriticalSection(&gTaskSlotsCriticalSection);
 }
 
-// build: context sub_005645E0_IsEmptyGameExpired
 static __forceinline int sub_005645E0_IsEmptyGameExpired(D2GameStrc* pGame)
 {
     int bExpired = 0;

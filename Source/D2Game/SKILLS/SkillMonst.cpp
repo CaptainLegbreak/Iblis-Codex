@@ -1545,7 +1545,6 @@ static inline D2SkillsTxt* GetSkillsTxtRecord(int nId)
     return 0;
 }
 
-// build: context SKILLS_Abs
 static int SKILLS_Abs(int nValue)
 {
     return nValue < 0 ? -nValue : nValue;

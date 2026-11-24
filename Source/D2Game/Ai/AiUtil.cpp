@@ -503,7 +503,6 @@ static inline int synh_GetUnitY(SynUnit* pUnit)
     }
 }
 
-// build: context DistanceWithSize
 static __forceinline int DistanceWithSize(int nX, int nY, SynUnit* pUnit)
 {
     int nXDiff = synh_GetUnitX(pUnit) - nX;

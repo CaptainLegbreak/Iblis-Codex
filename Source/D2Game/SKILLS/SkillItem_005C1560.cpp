@@ -242,7 +242,6 @@ static short __stdcall ITEMS_RollMagicAffixesNew(D2UnitStrc* pItem, int bRequire
     return nRolledAffixId + 1;
 }
 
-// build: context ?ITEMS_RollMagicAffixes@@YIFPAUD2UnitStrc@@HHHHH@Z
 short __fastcall ITEMS_RollMagicAffixes(D2UnitStrc* pItem, int bRequireSpawnableAffix, int bForceAffixRoll, int bAssignProperties, int bPrefix, int nPreferredAffixIndex)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1u)

@@ -6301,7 +6301,6 @@ static inline int synh_GetUnitY(SynUnit* pUnit)
 }
 
 
-// build: context sub_005ADA80_Shim
 
 // calling-convention shim (not game code)
 int __fastcall sub_005ADA80_Shim(D2UnitStrc* pMissile)

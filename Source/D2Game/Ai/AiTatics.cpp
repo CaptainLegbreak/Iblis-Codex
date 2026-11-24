@@ -183,7 +183,6 @@ int __cdecl AITACTICS_GetHighestClassSkillCount()
 
 int SUNITNPC_GetItemStorePage(D2UnitStrc* pItem); // 0x00576320
 
-// build: context CLIENTS_GetUnitX
 inline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
     int nX;
@@ -201,7 +200,6 @@ inline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
     return nX;
 }
 
-// build: context CLIENTS_GetUnitY
 inline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
 {
     int nY;

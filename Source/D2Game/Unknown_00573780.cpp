@@ -106,7 +106,6 @@ void __fastcall MONSTER_SetComponents(D2MonRegDataStrc* pMonRegData, D2UnitStrc*
     }
 }
 
-// build: context sub_00573AE0_GetComponents
 static inline unsigned char* sub_00573AE0_GetComponents(D2UnitStrc* pUnit)
 {
 	if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
