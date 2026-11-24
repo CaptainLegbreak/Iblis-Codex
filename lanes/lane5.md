@@ -4,8 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/act4-tables d6351d7c 0 placeholders; ACT4Q2_Callback00_NpcActivate reads the index table at 0x73D56C, which sits in a4q1.cpp's data, and ACT4Q1_Callback00_NpcActivate reads 0x73DBA0, which sits right before a4q2.cpp's messages; statics can't be laid out that way, so each is a global defined in the other file (gnAct4Q2NpcMessageIndices in a4q1.cpp, gnAct4Q1NpcMessageIndices in a4q2.cpp, extern where read). The copy 0x73D530 is a4q1.cpp's (header include), and the zero word 0x73D52C before it is padding: dropped, now built (-4 B). Borrowed data 2,378 B on this branch; VERIFIED 9e0b48bf5fa15bef8d8cfb823f045abc99f1590e. Based on main #327, not stacked, D2Game only.
-- lane5/skill-do-table-2 1c9be6eb 0 placeholders; the second commit of skill-do-table (its first is in #327), rebased on #327: gpfnSkillSrvDoFunctions moves from SkillAss.cpp to Skills.cpp (its data position) and drops const; its 152 function externs move with it. VERIFIED ee4962c1690d29f58ddbf0ef69345f5bb356a23a. Not stacked.
+- lane5/lang-more 7d0b818b 0 placeholders; stacked: act4-tables' commit rebased on #329 (take this instead of act4-tables: a4q1/a4q2 index tables become globals in the files whose data holds them; a4q1.cpp takes copy 0x73D530; padding 0x73D52C dropped and built, -4 B) plus Unknown_005B24E0.cpp taking its copy 0x73D4B4 (planned as AiThink.cpp's last) from D2LanguageNames.h. Borrowed data 2,378 B; VERIFIED 21dba7eb2b1d12f30860eb213b1e8c3e1cffb325. Based on main #329, D2Game only.
 
 ## Questions
 
@@ -28,7 +27,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Left in place (and why)
 
-- Language copies still planned (header include does not land yet): ItemMode.cpp 0x731FB0 (its D2Common strays hold far data, see note to lane 6), a1q6.cpp 0x7361A0, a2q4.cpp 0x738D08, AiThink.cpp 0x73C9DC, MonsterChoose.cpp 0x741578 (needs the component-code header from lane 2), a5q2.cpp 0x732FB0, Unknown_005B24E0.cpp 0x73D4B4; SUnitDmg.cpp, SkillNec.cpp, Skills.cpp, MonsterUnique.cpp, MonsterMode.cpp, sunitproxy.cpp, SUnitInactive.cpp, Items.cpp keep theirs planned too.
+- Language copies still planned (header include does not land yet): ItemMode.cpp 0x731FB0 (its D2Common strays hold far data, see note to lane 6); a5q2.cpp 0x732FB0 and a2q4.cpp 0x738D08 (their message tables sit far from their copy, in other files' planned data, so the object is split and the unmarked copy is lost); a1q6.cpp 0x7361A0 (its static gnAct1Q6NpcMessageIndices comes out before the extern gem tables, not after); AiThink.cpp 0x73C9DC (the compiler aligns gaAiTable to 8, the image has it at copy+60); MonsterChoose.cpp 0x741578 (needs the component-code header from lane 2); SUnitDmg.cpp, SkillNec.cpp, Skills.cpp, MonsterUnique.cpp, MonsterMode.cpp, sunitproxy.cpp, SUnitInactive.cpp, Items.cpp keep theirs planned too.
 - Borrowed 0x745580 (64 B: 0x11B + another language list) between D2Common Inventory.cpp and ItemMode.cpp data: the leading int is not 0 like the others, and the previous neighbour is lane 6's; left for now.
 - Act 1 and Act 5 intro clusters (Unknown_0058F870.cpp 0x58F870-0x58FB80 before a1q1.cpp; 0x586B50/0x586C40/0x586C50 before a5q1.cpp): the Act 2/3 intros open a2q0.cpp/a3q0.cpp, but there is no a1q0.cpp or a5q0.cpp and nothing names the file; left until evidence turns up.
 - 0x5985C0 (Unknown_00598220.cpp): Act 2 intro's empty status filter, named ACT3Q7_StatusFilterCallback like a2q0.cpp's own stub; needs its own name before it can join a2q0.cpp.
