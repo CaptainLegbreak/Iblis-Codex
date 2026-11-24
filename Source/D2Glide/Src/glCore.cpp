@@ -281,9 +281,9 @@ void __cdecl sub_0050BE20_GlideDebugRefresh();                                  
 
 void __fastcall GLVERTEX_SetAmbientColor(int nRed, int nGreen, int nBlue);                         // 0x0050DBC0
 
-void __cdecl DDRAW_ReleaseSurfaces();                                                           // 0x00511A80
+void __cdecl DDCORE_ReleaseSurfaces();                                                           // 0x00511A80
 
-int __fastcall DDRAW_CreateSurface(void* hWnd, int nResolutionMode);                           // 0x005115E0
+int __fastcall DDCORE_CreateSurface(void* hWnd, int nResolutionMode);                           // 0x005115E0
 
 void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x00512710
 

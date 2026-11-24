@@ -130,7 +130,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall SetBkColor(void* hdc, u
 extern "C" __declspec(dllimport) unsigned long __stdcall SetTextColor(void* hdc, unsigned long color); // 0x006CC0AC
 
 // 0x005125B0
-void __cdecl DDRAW_FreeDebugFont()
+void __cdecl DDDEBUGFONT_FreeDebugFont()
 {
     if (gpDDrawDebugFontGlyphs)
     {
@@ -140,7 +140,7 @@ void __cdecl DDRAW_FreeDebugFont()
 }
 
 // 0x00512430
-void __cdecl DDRAW_CreateDebugFont()
+void __cdecl DDDEBUGFONT_CreateDebugFont()
 {
     void* hDC = CreateDCA("DISPLAY", 0, 0, 0);
     void* hFont = CreateFontA(10, 0, 0, 0, 400, 0, 0, 0, 0, 0, 0, 0, 1, gszCourier);
@@ -182,7 +182,7 @@ extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const ch
 int gaDDrawDebugFontCharWidths[96]; // 0x00881428
 
 // 0x005125E0
-static int __stdcall DDRAW_DebugDrawChar(int nY, int nX, char ch)
+static int __stdcall DDDEBUGFONT_DebugDrawChar(int nY, int nX, char ch)
 {
     if (nX > 640)
         return 0;
@@ -213,7 +213,7 @@ static int __stdcall DDRAW_DebugDrawChar(int nY, int nX, char ch)
 }
 
 // 0x00512680
-void __fastcall DDRAW_DebugPrintf(int nX, int nY, const char* szFormat, char* args)
+void __fastcall DDDEBUGFONT_DebugPrintf(int nX, int nY, const char* szFormat, char* args)
 {
     char szText[0x200];
     const int nLength = wvsprintfA(szText, szFormat, args);
@@ -221,7 +221,7 @@ void __fastcall DDRAW_DebugPrintf(int nX, int nY, const char* szFormat, char* ar
 
     for (int i = 0; i < nLength; ++i)
     {
-        nX += DDRAW_DebugDrawChar(nY, nX, szText[i]);
+        nX += DDDEBUGFONT_DebugDrawChar(nY, nX, szText[i]);
         if (szText[i] == '\n')
         {
             nX = nStartX;

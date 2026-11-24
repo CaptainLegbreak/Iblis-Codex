@@ -5,7 +5,7 @@ int __stdcall CelGetWidth(D2CelStrc*); // 0x006018C0
 int __stdcall CelGetHeight(D2CelStrc*); // 0x006018F0
 int __stdcall CelGetOffsetX(D2CelStrc*); // 0x00601920
 int __stdcall CelGetOffsetY(D2CelStrc*); // 0x00601950
-int __fastcall DDRAW_GetDrawModePalette(int, int*); // 0x00511D70
+int __fastcall DDCORE_GetDrawModePalette(int, int*); // 0x00511D70
 void __stdcall CelDrawEx(D2CmpCelContextStrc*, int, int, int, int, unsigned char*, int, int, int, int, int, int, int); // 0x00601650
 extern int gnWidth_007C9138; // 0x007C9138
 extern int gnHeight_007C913C; // 0x007C913C
@@ -41,5 +41,5 @@ void __fastcall sub_005121A0_DrawClipped(D2CmpCelContextStrc* context, int x, in
     if (!sub_006001F0_ValidateContext(context, 0, 1)) return;
     if (sub_00511E10_IsCelOffScreen(context->pCel, x, y, 0)) return;
     int screenHeight = gnHeight_007C913C;
-    CelDrawEx(context, x, y, gnClip_0088129C, gnClip_008812A0, gpPixels_007C9154, screenHeight, gnWidth_007C9138, 0, DDRAW_GetDrawModePalette(index, &rows), top, rows, 0);
+    CelDrawEx(context, x, y, gnClip_0088129C, gnClip_008812A0, gpPixels_007C9154, screenHeight, gnWidth_007C9138, 0, DDCORE_GetDrawModePalette(index, &rows), top, rows, 0);
 }

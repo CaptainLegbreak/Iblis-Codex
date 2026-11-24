@@ -961,8 +961,8 @@ int __cdecl CUNIT_IsTrading()
     return 0;
 }
 
-// build: symbol ?DDRAW_FreeDebugFont@* 0x005125B0
-void __cdecl DDRAW_FreeDebugFont()
+// build: symbol ?DDDEBUGFONT_FreeDebugFont@* 0x005125B0
+void __cdecl DDDEBUGFONT_FreeDebugFont()
 {
     if (gpDDrawDebugFontGlyphs)
     {
