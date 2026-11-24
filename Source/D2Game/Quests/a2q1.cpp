@@ -199,7 +199,7 @@ int __fastcall ACT3Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2Uni
 int __fastcall ACT3Q5_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
 // 0x00598910
-bool __fastcall ACT2Q1_ActiveFilterCallback(Quest* quest,int npc,Unit* player,Flags* flags,Unit* npcUnit)
+bool __fastcall ACT2Q1_ActiveFilterCallback(Quest* quest,int npc,D2UnitStrc* player,Flags* flags,D2UnitStrc* npcUnit)
 {
     if (npc == NPC_ID && sub_0065C310(flags,quest->filter,0)!=1) {
         if (quest->notIntro && quest->state==1 && !sub_0065C310(flags,quest->filter,15)) return true;

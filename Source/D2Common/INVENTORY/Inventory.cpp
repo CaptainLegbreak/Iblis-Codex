@@ -183,23 +183,23 @@ extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 
 extern CodeEntry gTable_0096CC68[]; // 0x0096CC68
 
-s32 __fastcall GAME_GetUnitClassId(Unit*); // 0x00451F60
+s32 __fastcall GAME_GetUnitClassId(D2UnitStrc*); // 0x00451F60
 
-u8 __stdcall sub_00627D40_Page(Unit*); // 0x00627D40
+u8 __stdcall sub_00627D40_Page(D2UnitStrc*); // 0x00627D40
 
-u8 __stdcall sub_00628660_BodySlot(Unit*); // 0x00628660
+u8 __stdcall sub_00628660_BodySlot(D2UnitStrc*); // 0x00628660
 
 int __stdcall ITEMS_CheckType(int nItemType1, int nItemType2); // 0x00629B50
 
-s32 __stdcall sub_0062C100_Transform(Unit*, Unit*, u8*, s32); // 0x0062C100
+s32 __stdcall sub_0062C100_Transform(D2UnitStrc*, D2UnitStrc*, u8*, s32); // 0x0062C100
 
 ItemRecord* __stdcall sub_006335F0_ItemRecord(s32); // 0x006335F0
 
 ItemRecord* __stdcall sub_00633640_RecordByCode(u32, s32*); // 0x00633640
 
-Unit* __stdcall sub_0063C050_BodyItem(Inventory*, s32); // 0x0063C050
+D2UnitStrc* __stdcall sub_0063C050_BodyItem(Inventory*, s32); // 0x0063C050
 
-u32 __stdcall sub_0064F380_WeaponCode(Unit*, Inventory*, s32*, s32, s32); // 0x0064F380
+u32 __stdcall sub_0064F380_WeaponCode(D2UnitStrc*, Inventory*, s32*, s32, s32); // 0x0064F380
 
 s32 __stdcall COMPOSIT_IsArmorComponent(s32); // 0x0064F420
 
@@ -394,7 +394,7 @@ static BOOL __stdcall INVENTORY_FindFreePositionBottomRightToTopLeftWithWeight(D
 
 static BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBottomRightWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight); // 0x0063B620
 
-static void __stdcall INVENTORY_FillItemComponentGfxInfo(Unit* unit, u8* firstOutput, u8* secondOutput, Unit* item);
+static void __stdcall INVENTORY_FillItemComponentGfxInfo(D2UnitStrc* unit, u8* firstOutput, u8* secondOutput, D2UnitStrc* item);
 
 int __stdcall ITEMS_CheckBodyLocation(D2UnitStrc* pItem, int nBodyLoc);                                     // 0x0062ED50
 
@@ -444,17 +444,17 @@ BOOL __stdcall INVENTORY_PlaceItemInFreeBeltSlot(D2InventoryStrc* pInventory, D2
 
 D2UnitStrc* __stdcall INVENTORY_GetBackPackItemByType(D2InventoryStrc* pInventory, int nItemType, D2UnitStrc* pCheckItem);
 
-static void __cdecl INVENTORY_GetArmorComponents(Unit* item, AppearanceSix* output);
+static void __cdecl INVENTORY_GetArmorComponents(D2UnitStrc* item, AppearanceSix* output);
 
 BOOL __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nUnused);
 
 BOOL __stdcall INVENTORY_PlaceItemAtFreePosition(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nInventoryRecordId, BOOL bUnused, unsigned char nPage, const char* szFile, int nLine);
 
-static void __stdcall INVENTORY_SetBowHandComponents(u8* firstOutput, u8* secondOutput, Unit* item, Unit* unit);
+static void __stdcall INVENTORY_SetBowHandComponents(u8* firstOutput, u8* secondOutput, D2UnitStrc* item, D2UnitStrc* unit);
 
 inline void INVENTORY_SetLeftItemGUIDInline(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int bSet);
 
-void __stdcall INVENTORY_GetItemSaveGfxInfo(Unit* unit, u8* firstOutput, u8* secondOutput);
+void __stdcall INVENTORY_GetItemSaveGfxInfo(D2UnitStrc* unit, u8* firstOutput, u8* secondOutput);
 
 // build: symbol ?STATES_CheckStateMaskFlagsOnUnit@* 0x0063A130
 static int STATES_CheckStateMaskFlagsOnUnit(D2UnitStrc* pUnit, const unsigned int* pStateMask)
@@ -3430,7 +3430,7 @@ extern "C" __declspec(dllexport) unsigned int __stdcall INVENTORY_IsPlayerCorpse
 }
 
 // 0x0063D690
-static void __cdecl INVENTORY_GetArmorComponents(Unit* item, AppearanceSix* output)
+static void __cdecl INVENTORY_GetArmorComponents(D2UnitStrc* item, AppearanceSix* output)
 {
     if (item)
     {
@@ -3549,7 +3549,7 @@ static s32 __cdecl INVENTORY_FindComponentArrayIndex(u32 second, u32 first)
 }
 
 // 0x0063D930
-static void __stdcall INVENTORY_SetBowHandComponents(u8* firstOutput, u8* secondOutput, Unit* hItem, Unit* unit)
+static void __stdcall INVENTORY_SetBowHandComponents(u8* firstOutput, u8* secondOutput, D2UnitStrc* hItem, D2UnitStrc* unit)
 {
     D2_ASSERT(unit, 0x13B3);
     D2_ASSERT(hItem, 0x13B4);
@@ -3566,7 +3566,7 @@ static void __stdcall INVENTORY_SetBowHandComponents(u8* firstOutput, u8* second
             {
                 if (inventory)
                 {
-                    Unit* equipped = sub_0063C050_BodyItem(inventory, 5);
+                    D2UnitStrc* equipped = sub_0063C050_BodyItem(inventory, 5);
                     if (equipped)
                     {
                         s32 equippedId = FIELD(s32, equipped, 4);
@@ -3615,13 +3615,13 @@ static void __stdcall INVENTORY_SetBowHandComponents(u8* firstOutput, u8* second
 }
 
 // 0x0063DA70
-static void __stdcall INVENTORY_FillItemComponentGfxInfo(Unit* unit, u8* firstOutput, u8* secondOutput, Unit* item)
+static void __stdcall INVENTORY_FillItemComponentGfxInfo(D2UnitStrc* unit, u8* firstOutput, u8* secondOutput, D2UnitStrc* item)
 {
     Inventory* inventory = FIELD(Inventory*, unit, 0x60);
     if (inventory)
     {
-        Unit* firstHand = sub_0063C050_BodyItem(inventory, 5);
-        Unit* secondHand = sub_0063C050_BodyItem(inventory, 6);
+        D2UnitStrc* firstHand = sub_0063C050_BodyItem(inventory, 5);
+        D2UnitStrc* secondHand = sub_0063C050_BodyItem(inventory, 6);
         ItemRecord* record = sub_006335F0_ItemRecord(!item ? -1 : FIELD(s32, item, 4));
         D2_ASSERT(record, 0x140C);
         u8 slot = sub_00628660_BodySlot(item);
@@ -4235,12 +4235,12 @@ static inline s32 INVENTORY_CheckSignature_Inline(Inventory* inventory)
     return inventory && FIELD(u32, inventory, 0) == 0x01020304;
 }
 
-static inline ItemData* ITEMS_GetItemData_Inline(Unit* item)
+static inline ItemData* ITEMS_GetItemData_Inline(D2UnitStrc* item)
 {
     return (item && FIELD(s32, item, 0) == 4 && FIELD(ItemData*, item, 0x14)) ? FIELD(ItemData*, item, 0x14) : 0;
 }
 
-static inline Unit* INVENTORY_GetNextItem_Inline(Unit* item)
+static inline D2UnitStrc* INVENTORY_GetNextItem_Inline(D2UnitStrc* item)
 {
     const s32 nUnitType = item ? FIELD(s32, item, 0) : 6;
     if (nUnitType != 4)
@@ -4257,16 +4257,16 @@ static inline Unit* INVENTORY_GetNextItem_Inline(Unit* item)
     {
         return 0;
     }
-    return FIELD(Unit*, link, 8);
+    return FIELD(D2UnitStrc*, link, 8);
 }
 
 // 0x0063E510
-void __stdcall INVENTORY_GetItemSaveGfxInfo(Unit* unit, u8* firstOutput, u8* secondOutput)
+void __stdcall INVENTORY_GetItemSaveGfxInfo(D2UnitStrc* unit, u8* firstOutput, u8* secondOutput)
 {
     Inventory* inventory = FIELD(Inventory*, unit, 0x60);
     if (INVENTORY_CheckSignature_Inline(inventory))
     {
-        for (Unit* item = FIELD(Unit*, inventory, 0x0C); item; item = INVENTORY_GetNextItem_Inline(item))
+        for (D2UnitStrc* item = FIELD(D2UnitStrc*, inventory, 0x0C); item; item = INVENTORY_GetNextItem_Inline(item))
         {
             if (FIELD(u32, item, 0) == 4 && FIELD(s32, item, 0x10) == 1)
             {
