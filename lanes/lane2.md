@@ -4,17 +4,13 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/small-records-k 89000292 562->562 One commit, six small headers, each included only by the units that had identical private copies: D2CoordPair.h (an x/y pair; D2DDraw Unknown_005125E0, D2Gdi Unknown_006C8DA0, D2Launch MainMenus), D2TileLight.h (a tile's four corner light values; the same D2DDraw and D2Gdi units), D2CmpDC6CacheEntry.h (CelCmp, Unknown_005FE210), D2ColorBlock.h (FastCmp, Unknown_006056D0), D2UnitEventArgs.h (client Item, PlrSkills), D2ClientRange.h (client Game, Game_0044B7B0). D2WeatherLayerStateStrc stays private: shared, one of its units flips; VERIFIED 989e543043c9246561ffd94966d3a0f8e27c642e
+  - Verified on e40ccd0c (#355), rebased onto a6db6df9 (#356): CelCmp.cpp's conflict with small-records-i was include lines only. Precheck of all 11 changed units is equal there.
+  - Outside lane 2: CelCmp, FastCmp, Unknown_005FE210/006056D0 (lane 6), Unknown_005125E0, Unknown_006C8DA0 (lanes 6 and 9), MainMenus (lane 6), client Item, PlrSkills, Game, Game_0044B7B0 (lanes 1 and 4).
+
 - lane2/small-records-j 1e1cec7e 562->562 One commit, nine small headers, each included only by the two units that had identical private copies: D2MonTypeTxt.h (the part of a montype.txt record the client reads; SkillDesc, Unknown_004E2320), D2Win32RgbQuad.h (RGBQUAD; gdiCore, Unknown_006C7CF0), D2ClientBallistic.h (GfxUtil, client Skills), D2QuestLookupEntry.h (View, QuestLog), D2TextIdEntry.h (text, text_0049DA50), D2NpcIndex.h (pack 1; npcmenu, Unknown_004B6DD0), D2HintKeyList.h (Unknown_004B8720, Unknown_004BA890), D2ListBoxLine.h (Unknown_004BC1B0, Unknown_004BC1B0_004BE770), D2WaypointActRange.h (Unknown_0049BB40, WardenClient). D2CltMissileModeStrc stays private: shared, both its units flip; VERIFIED 7e465a62f46450291dcbbdb2e315093ff08f5920
   - On e40ccd0c (#355). All 18 changed units build equal. Independent of small-records-h and -i.
   - Outside lane 2: 16 D2Client units (lanes 1 and 4), gdiCore, Unknown_006C7CF0 (lane 6).
-
-- lane2/small-records-i 34aae4fa 562->562 One commit, four small headers, each included only by the units that had identical private copies: D2PathFoWallContext.h (the FoWall path search's working state; Unknown_0067ADC0, Unknown_0067B9C0), D2ClientTileLight.h (a client tile light list node; Unknown_004DEDB0, Unknown_004DF1C0), D2NpcEvent.h (an event queued on an NPC's record, with nAction/nParam as SUNITPROXY_AddNpcEvent stores them; PlrSave, sunitproxy), D2FindTileEntry.h (FindTiles.cpp's lookup hash entry, with a forward declaration of the tile node, whose two copies differ; CelCmp, FindTiles); VERIFIED 37ecf04a9a0e651d32ec29882703f2c8fffe377c
-  - Verified on 9ec68ba8 (#354), rebased onto e40ccd0c (#355) without conflicts. Precheck of all 8 changed units is equal there.
-  - Outside lane 2: Unknown_0067ADC0/0067B9C0 (lane 8), Unknown_004DEDB0/004DF1C0 (lanes 1 and 4), PlrSave, sunitproxy (lane 5), CelCmp, FindTiles (lane 6).
-
-- lane2/small-records-h 8f6d201c 562->562 One commit, four small headers, each included only by the units that had identical private copies: D2BookDataTbl.h (the books.txt table D2Game's item code reads; Items, Unknown_005C0D00, Unknown_005C0F90), D2WinListData.h (a D2Win list control's line; D2WinImage, D2WinList, D2WinMain), D2CommonLevelNode.h (a node of the level tree; DrlgActivate, Dungeon), D2InventoryPair.h (an item list's first and last item; Inventory, Items). D2QuestInfoStrc and D2QuestIntroTableStrc (MonsterRegion, objrgn, QUESTS) stay private: as one header they don't build there; VERIFIED 7164f4475ff655d87a9e159d47e6b3c5c4429336
-  - On 9ec68ba8 (#354): its Unknown_005C0D00.cpp conflict with #354 was include lines only (the new include goes before the D2LanguageNames.h copy). All 10 changed units build equal.
-  - Outside lane 2: Items, Unknown_005C0D00/005C0F90 (lane 5), the D2Win units (lane 6), DrlgActivate, Dungeon, Inventory, D2Common Items (lane 8).
 
 ## Working on
 
