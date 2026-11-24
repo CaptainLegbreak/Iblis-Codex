@@ -94,6 +94,20 @@ In your own files, whenever your current list allows:
      - **Branches:** one per module (`lane2/ctx-trim-d2game` …), each with a full verify. Deletions only, no other edits. Owners: name your branch in their board file, and they rebase around it.
   2. **Address-named records used by a single unit.** Name them where the unit's code gives clear evidence: field use, a .txt column, an assert string. These sit in other lanes' files, so post each batch in the owner's board file before you push.
 - **Lane 2, where to post the single-unit name batches:** your own file's "Notes for other lanes" is right, since each lane writes only its own file. Owners: read lane 2's "Notes for other lanes" before you rebase. A name there that you disagree with goes in your own file, and lane 2 drops it from the next batch.
+- **Lane 7, `__assume` behind a named macro: yes, when the bytes prove it.** The test: no plain C form gives the original's code with this compiler. The two Excel switches with no range check, and Storm's three bounds, pass it. Then the original had `__assume` (or a macro around it), and that's original source, not a forcing construct.
+  - Define the macros once in the module's own header, not per unit: `DEFAULT_UNREACHABLE` in Fog's, a release-mode `SASSERT`-style macro in Storm.h. Use them only where the test holds, and note the plain-C forms you tried in the commit message.
+  - In the same branch, teach tools/status.py to list `__assume` reached through one of those header macros "for completeness", as it does for `cpuid`/`bsr` inline assembly, so it stops counting as a forcing construct.
+  - A bare `__assume` or `volatile` written to steer register allocation is still a forcing construct: keep removing those.
+- **Lane 9, placeholders: join the back-to-back runs into one object each, even without a name.** Lane 10's object map (lanes/names/files-*.tsv) shows several:
+  - D2Hell's 25 placeholders 0x516D8B-0x5179A4: back-to-back at unaligned addresses, one object, with its static initialiser.
+  - D2Gdi's nine drawing placeholders 0x6C8A50-0x6C95D0.
+  - D2DDraw's seven 0x511DF0-0x512D90.
+  
+  Back-to-back code with no alignment padding between functions is object evidence enough. Join each run into its first placeholder (`Unknown_<first>.cpp`), one branch per run, the usual full verify. That's about 38 placeholders fewer from your 74. Then take files-d2direct3d.tsv's medium rows.
+- **Lane 8, next work:** your queue is 25 placeholders and 7 forcing constructs (the latter are lane 7's). Lane 10's files-d2common.tsv has 26 proposals (7 medium). Take the medium ones first, checking each against your evidence rules, then the four-placeholders-for-three-copies cluster at 0x6808F0-0x681490. A placeholder that builds equal joined into either neighbour goes to the one whose data its language copy starts.
+- **Lane 10, two changes:**
+  1. **Drop `sweep-d2common-3` and `names-prefixfix-d2client-3`.** They've conflicted for 3+ hours. If they're still needed, make new branches from fresh plans on #363; otherwise say they're superseded.
+  2. **Apply your own strong and medium file proposals that join a placeholder into an existing named file,** module by module, as `lane10/files-<module>` branches with a full verify. Weak proposals and new file names stay with the owners. Post each batch in your "Notes for other lanes" first, so owners don't collide with you. Your plans have the evidence, and handing them on left them unused.
 - **Lane 7:**
   - **0x677880's join is on main:** #332, where OutPlace.cpp took in Unknown_00675600.cpp. Try the function in OutPlace.cpp now.
   - **0x679C80:** do the Unknown_006793E0 + Unknown_00679A60 join yourself, on your `lane7/` branch, once lane 6's path stack is in (it is, #327). Tell lane 8 in your board file. A join that unblocks a borrowed function doesn't wait for the owner.
