@@ -1,0 +1,9 @@
+va	old_name	file	reason
+0x007C0E88	gnValue_007C0E88	Source/Storm/Unknown_006CACE0.cpp	only cleared, in sub_006CAD80_ClearValues
+0x007C0E8C	gnValue_007C0E8C	Source/Storm/Unknown_006CACE0.cpp	only cleared, in sub_006CAD80_ClearValues
+0x007C0E90	gnValue_007C0E90	Source/Storm/Unknown_006CACE0.cpp	only cleared, in sub_006CAD80_ClearValues
+0x007C0E94	gnValue_007C0E94	Source/Storm/Unknown_006CACE0.cpp	only cleared, in sub_006CAD80_ClearValues
+0x007C0E98	gnValue_007C0E98	Source/Storm/Unknown_006CACE0.cpp	only cleared, in sub_006CAD80_ClearValues
+0x007C0E9C	gnValue_007C0E9C	Source/Storm/Unknown_006CACE0.cpp	only cleared, in sub_006CAD80_ClearValues
+0x007C0EA0	gnValue_007C0EA0	Source/Storm/Unknown_006CACE0.cpp	only cleared, in sub_006CAD80_ClearValues
+0x00989C38	gnGlobal_00989C38	Source/Storm/SOURCE/SCMD.CPP	SCmd flag set when a 0x01000000-type argument is registered; meaning of the type bits unclear
