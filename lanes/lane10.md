@@ -5,11 +5,10 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Claimed
-- New scope `ordinals` (182): the bare ordinal names #331 relabelled as placeholders (D2Win_100xx ×76, D2Common_10xxx ×69, FOG_102xx ×21, a few in D2Net/D2Game/D2Sound) plus the 8 placeholders #330 moved into D2Client MonUnique.cpp. D2MOO has only the same bare ordinals for them, so names come from the bodies, with each file's prefix.
-- Revising three names in my posted plans that are bare ordinals themselves (D2Win_10185 in small.tsv; D2Win_10178, D2Win_10199 in rank1.tsv), to follow #331. Coordinator: hold those three rows until the revised plans are up.
+- Nothing claimed now. Next: plans for new placeholders as main brings them, and the member-function round if the answer below allows it.
 
 ## Plans
-- storm-sfile and storm-rest: applied in #329 (round n1). All other plans below re-checked on #331 (unchanged since #329): every old name is still a placeholder, every new name is still unused in Source and names.csv; no changes needed.
+- storm-sfile and storm-rest: applied in #329 (round n1). All other plans below re-checked on #333: every old name is still a placeholder at its address, every new name is still unused in Source and names.csv except as a declaration of the same address; no changes needed.
 - plan ordinals: 109 high, 64 medium, 9 skipped (d2moo 0, inferred 173). The 182 bare ordinal names #331 relabelled as placeholders. Each keeps its ordinal and gains a description from its body (D2Win_10053_SetTopLine, D2Common_11030_SetSkillBonusLevel, FOG_10152_DestroyServer), the style of the 70 ordinal+description names already in names.csv; finalize with digits allowed for the ordinal only. The 8 MonUnique.cpp sub_ accessors take MONUNIQUE_. Skips: four identical corpse-test copies (D2COMMON_11018/11019/11021, D2Common_11020) and five field setters/getters whose role is unclear.
 - revised small.tsv and rank1.tsv: the three names that were bare ordinals now carry a description (0x004FAC90 D2Win_10185_CheckCharMpq, 0x004FB1C0 D2Win_10178_CopyGammaTable, 0x00502970 D2Win_10199_SplitTextLines). Nothing else changed in either file.
 - plan rank1: 68 high, 60 medium, 17 skipped (d2moo 10, inferred 118). The 145 placeholders in named files whose only unit is rank 1 (SoundInst.cpp, d3dTextureCache.cpp, QServerNT/98.cpp, SBMP.CPP, the Gfx/inv/text/SkillDesc pieces…). The brief scopes rank-0 units, so this one is separate: take it or leave it (see Questions).
