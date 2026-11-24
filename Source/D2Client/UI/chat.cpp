@@ -14,6 +14,7 @@
 #include "D2MultiTypes.h"
 #include "D2Unicode.h"
 #include "D2WinSplitText.h"
+#include "D2ClientChatCommand.h"
 
 struct D2MsgHandlerEntryStrc;
 
@@ -968,21 +969,12 @@ void __fastcall sub_0047F400_OpenPanel(D2OptionEntryStrc* pEntry, SMSGHANDLER_PA
 
 void __fastcall sub_0047F430_ShowPage0(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg);
 
-#pragma pack(push, 2)
-struct T0047BAD0
-{
-    const char* szName;
-    short nCode;
-    int bArgument;
-    int bAlways;
-};
-#pragma pack(pop)
 
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
 void __stdcall SStrTokenize(const char** pszString, char* szBuffer, unsigned int nBufferChars, const char* szWhitespace, int* pQuoted); // 0x00413B80
 
-extern T0047BAD0 gaChatCommands[3]; // 0x00712F7C
+extern D2ChatCommandStrc gaChatCommands[3]; // 0x00712F7C
 
 extern D2CelFileStrc* gpSliderDisabledCell_007BC950; // 0x007BC950
 
