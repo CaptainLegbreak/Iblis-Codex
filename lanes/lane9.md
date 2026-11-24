@@ -15,6 +15,10 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   best has every caller equal and the helper differing in one register choice (ebx vs edx for the second point's y).
   Separately compiled, the helper and the callers each match. Until that gives, I'll post the two runs without the
   helper's file (helper + its file-mates stay where they are) unless you'd rather wait.
+  Update: the two rectangle drawers call 0x6C8DA0 with ecx/edx loaded fastcall-style (first point in ecx), and the
+  helper built alone as a non-static __fastcall matches. With one shared non-static __fastcall definition, the callers
+  get the right registers but the two `lea`s in the other order; with the static stdcall copy as the definition, the
+  callers match and the helper differs (ebx vs edx), under /Ob2 and /Ob1 alike. Still parked.
 
 ## Status
 - Setup done; baseline VERIFIED on #325.
@@ -42,7 +46,7 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   blended-shadow getter 0x50BF40 instead of inlining it, so the unit takes /Ob1 (like gdiCore.cpp) with the draw-rect
   helper 0x50C690 marked inline. **Coordinator:** a per-unit option; the module as a whole doesn't build under /Ob1
   (glDebugFont, glSmack, glTextureCache, glSubtileCache break). The same uninlined getter call is what keeps 0x6C8A50 out
-  of the D2Gdi run and 0x6B7530 out of 0x6B7250's object; I'll try the same /Ob1 + inline route there next.
+  of the D2Gdi run and 0x6B7530 out of 0x6B7250's object; Tried there: it doesn't carry over. In D2Gdi under /Ob1, 0x6C9290 still differs with 0x6C8A50 in the file, so the getter's case there is something else.
 - Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
