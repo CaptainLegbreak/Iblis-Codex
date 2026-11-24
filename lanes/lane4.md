@@ -18,13 +18,17 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 13:42:41 PST 2026: starting the placeholder joins from the object map (report-360), strongest leads first: Gfx.cpp <- Unknown_0046C7D0 and Unknown_0046C660.
+- Tue Nov 24 13:56:58 PST 2026: join-gfx-c660 ready; weather object (Unknown_00472210 + 00472DA0 + four single-function weather placeholders + Gfx.cpp's weather strays) verifying; Gfx.cpp <- Unknown_0046C7D0 parked (see Questions). Next: automap.cpp <- Unknown_0045AE90.
 
 ## Ready
+
+- lane4/join-gfx-c660 395148d4b placeholders -1 (Unknown_0046C660.cpp): Gfx.cpp takes in Unknown_0046C660.cpp's six functions (map: clear lead; they sit between Gfx.cpp's runs and are called only from it), in address order, with D2PlayerModes.h/D2MonModes.h. Borrowed data 844 B (main 844). VERIFIED b2f9b52d21c5 on #366. Not stacked. lane4/join-weather also edits Gfx.cpp (different functions).
 
 ## Claimed
 
 ## Questions
+
+- Gfx.cpp <- Unknown_0046C7D0 (map's top lead): parked. Joined, every function builds equal except Gfx.cpp's own 0x46D780: with the placeholder's static 0x46CBD0 (SetAiTimerClamped, one caller) in the same unit, the compiler inlines it into 0x46D780, which the original calls out of line (`call 0x46cbd0`, ecx/eax register arguments, so it is a static of that object). Defining it after its caller doesn't stop the inlining. I haven't found a non-forcing way to keep it out of line; the parameter-order clash on 0x46CA60 was settled by Gfx.cpp's view. Ideas welcome; I'm moving on.
 
 ## Notes for other lanes
 
