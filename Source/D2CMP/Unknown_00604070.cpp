@@ -232,10 +232,10 @@ struct D2StormNodeListStrc
 
 struct D2StormHashObjectStrc
 {
-    unsigned int f_0;
+    unsigned int m_hashval;
     D2StormLinkStrc m_linktoslot;
-    D2StormLinkStrc f_C;
-    int f_14;
+    D2StormLinkStrc m_linktofull;
+    int m_key;
 
     D2StormHashObjectStrc()
     {

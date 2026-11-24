@@ -12,10 +12,10 @@ extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2Critical
 
 struct D2StormHashObjectStrc
 {
-    unsigned int f_0;                                       // 0x00 hash value
+    unsigned int m_hashval;                                       // 0x00 hash value
     D2StormSlotLinkStrc m_linktoslot;                       // 0x04
-    D2StormSlotLinkStrc f_C;                                // 0x0C link in the full list
-    int f_14;                                               // 0x14
+    D2StormSlotLinkStrc m_linktofull;                                // 0x0C link in the full list
+    int m_key;                                               // 0x14
 
     ~D2StormHashObjectStrc();                                                                               // 0x00602430
 };

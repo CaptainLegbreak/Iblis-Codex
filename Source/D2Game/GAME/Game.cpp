@@ -597,7 +597,7 @@ struct D2StormHashNodeStrc
 {
     unsigned int m_hashval;
     D2StormLinkStrc m_linktoslot;
-    D2StormLinkStrc f_C;
+    D2StormLinkStrc m_linktofull;
 };
 
 struct D2StormHashTable0052E650Strc
