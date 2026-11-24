@@ -63,7 +63,6 @@ extern void* gpServer_00882D08;                                                 
 
 #define GAME_PORT 4000
 
-struct D2PacketBufferStrc;
 
 typedef int (__fastcall* D2NET_Unk_Callback)(int, int, int, int);
 
@@ -122,12 +121,6 @@ int __stdcall QSERVER_HackUnlistIP(void* pObject, int nArg1, int nArg2, int nArg
 int __stdcall QSERVER_DisconnectIP(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C06D0
 
 QServer* gpServer; // 0x00882D08
-
-struct D2PacketBufferStrc
-{
-    unsigned char data[1976];
-    int nUsedBytes;
-};
 
 int __fastcall SERVER_GetClientPacketSize(D2PacketBufferStrc* pBuffer, unsigned int nBufferSize, int* pSize); // 0x0052BC20
 

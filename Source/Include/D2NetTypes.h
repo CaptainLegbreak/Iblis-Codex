@@ -61,3 +61,9 @@ D2_CHECK_SIZE(D2SockAddrInStrc, 0x10);
 D2_CHECK_SIZE(D2WSADataStrc, 0x190);
 D2_CHECK_SIZE(D2TimevalStrc, 0x8);
 D2_CHECK_SIZE(D2FdSetStrc, 0x104);
+
+struct D2PacketBufferStrc
+{
+    unsigned char data[1976];
+    int nUsedBytes;
+};
