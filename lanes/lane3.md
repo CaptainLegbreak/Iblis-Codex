@@ -4,6 +4,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/sfile-links ba2ba61f 293->293 SFILE.CPP's five Link stand-ins (D2StormFixedListStrc::sub_..._Link, 0x417A10, 0x417A50, 0x417B60, 0x417C50, 0x417D60) are TSList<T>::Link for its five list types: four sit directly in front of the LinkNode of REQUEST, FILEREC, EVENTREC and AUDIOSTREAM, and the first is taken as ARCHIVEREC's, the remaining type (the bytes are the same for all five). Symbol lines and explicit instantiations; the stand-in members go from D2SFileTypes.h and SFILE.CPP; SFileReadFileEx2 (0x41AAD0) stays equal. VERIFIED 9664c05f on base 5ed199a4 (#368); borrowed data 844 B (main 844 B); namesync had nothing to rename; prechecked. Not stacked.
+
 - lane3/names-c 0bdf7bb8 293->293 Decompiler names and scaffolding in my files; borrowed data unchanged. (1) The huffman tree's word at +4 starts at 1 and goes up each time the tree rebalances, invalidating older quick links: nMinValidValue (was nUnk0x04 in three placeholders). TOutputStream's word before BitCount is its BitBuffer (was T00410B70). SBMP.CPP's 128-byte image header (id 0x050A, RLE, 8 bits, 72 dpi) is D2PcxHeaderStrc (was T006C5B10); the crash filter's record for the crash callback is D2CrashHandlerInfoStrc (was T00403AC0). (2) Fog.h loses four records nothing uses (PaletteColor, PaletteTables, ReceiveQueue, ReceiveConnection, with U8/U32 and offset checks) and its OFFSET macro; Unknown_0041E9C0.cpp loses its offset checks and U32. (3) QSrvAddClient clears the client's write queue as pWriteQueue (the nValue74 alias union goes). VERIFIED 0846d528 on base 7de5c518 (#367); borrowed data 844 B (main 844 B); rebased onto 5ed199a4 (#368) with no conflicts, namesync had nothing to rename, prechecked. Not stacked.
 
 - lane3/huff-names fb6c9af0 293->293 CHuffman's table after its items-by-value array (0x3474, 128 twelve-byte slots whose first word the constructor clears) is the decoder's quick-link table: aQuickLinks (was f_3474) in SFILE.CPP and SSignature.cpp. VERIFIED ba32b6ca on base 7de5c518 (#367); borrowed data 844 B (main 844 B); rebased onto 5ed199a4 (#368) with no conflicts, namesync had nothing to rename, prechecked. Not stacked.
@@ -14,7 +16,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- **lane3/sfile-links**: SFILE.CPP's five Link stand-ins (0x417A10-0x417D60) as TSList<T>::Link for its five list types, by adjacency to each type's LinkNode. Full verify running.
+(none)
 
 ## Questions
 
