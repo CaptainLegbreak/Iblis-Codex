@@ -623,53 +623,6 @@ static int __stdcall SUNITNPC_RollGambleUpgrade(int nItemId, int nUberChance, in
 
 int gnNpcGUID; // 0x0088CAC4
 
-// 0x00573B20
-void __fastcall MONSTERAI_CreateAndEquipItem(D2GameStrc* pGame, D2UnitStrc* pMonster, D2MonsterItemCodeStrc* pItemCode, int dwILvl, int dwQuality)
-{
-    const int nType = pMonster ? pMonster->dwUnitType : UNIT_INVALID;
-    if (nType != 1)
-    {
-        return;
-    }
-
-    if (!pMonster->pInventory)
-    {
-        INVENTORY_AllocInventory(0, pMonster);
-    }
-
-    int nItemId;
-    if (!DATATBLS_GetItemRecordFromItemCode(pItemCode->nItemCode, &nItemId))
-    {
-        return;
-    }
-
-    D2UnitStrc* pItem = D2GAME_CreateItemUnit_6FC501A0(pMonster, nItemId, pGame, 4, dwQuality, 1, 1, dwILvl, 0, 0, 0);
-    if (!pItem)
-    {
-        return;
-    }
-
-    ITEMS_SetItemFlag(pItem, 0x1000, 1);
-    ITEMS_SetBodyLocation(pItem, pItemCode->nBodyLoc);
-    if (pItemCode->nBodyLoc == 0)
-    {
-        return;
-    }
-
-    {
-        const int nItemGUID = pItem->dwUnitId;
-        int nUnused;
-        if (!ITEMMODE_EquipCursorItem(pGame, pMonster, nItemGUID, ITEMS_GetBodyLocation(pItem), 1, &nUnused))
-        {
-            SUNIT_RemoveUnit(pGame, pItem);
-        }
-        else
-        {
-            STATLIST_SetUnitStat(pItem, STAT_DURABILITY, STATLIST_GetMaxDurabilityFromUnit(pItem), 0);
-        }
-    }
-}
-
 inline int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
