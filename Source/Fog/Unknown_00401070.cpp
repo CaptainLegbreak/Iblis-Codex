@@ -1,3 +1,4 @@
+#include "D2Win32System.h"
 struct _iobuf;
 
 extern "C" int __cdecl fclose(_iobuf* pFile);                                                               // 0x00681FDC
@@ -102,17 +103,6 @@ struct D2OsVersionInfoStrc
     char szCSDVersion[128];
 };
 
-struct D2MemoryStatusStrc
-{
-    unsigned long dwLength;
-    unsigned long dwMemoryLoad;
-    unsigned long dwTotalPhys;
-    unsigned long dwAvailPhys;
-    unsigned long dwTotalPageFile;
-    unsigned long dwAvailPageFile;
-    unsigned long dwTotalVirtual;
-    unsigned long dwAvailVirtual;
-};
 
 struct T004013C0
 {
