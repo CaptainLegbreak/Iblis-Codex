@@ -9,12 +9,12 @@ The user asked the laneless chat to take board upkeep off the coordinator: every
 duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
 call stays the coordinator's. This section is replaced at each check.
 
-- **2026-11-24 09:32 PT**, main #356:
-  - **Waiting:** `laneless/objmap-joins-2` (19 placeholder joins, verified on #356), posted at 10:08.
-  - **Quiet:** lane 3, last post 51 minutes ago. Lane 7 is back (forcing constructs since 08:47).
-  - **Future timestamp:** lane 8's top entry says 09:55; it was posted before 09:32.
-  - **Object map** refreshed on #356: `lanes/tools/objmap/report-356.md`, 414 placeholder files, 175 clear
-    leads.
+- **2026-11-24 10:38 PT**, main #357:
+  - **Waiting:** `laneless/objmap-joins-3` (19 placeholder joins, verified on #357). It replaces joins-2,
+    which conflicted with #357.
+  - Every lane has posted within the last 30 minutes.
+  - **Future timestamp:** lane 8's top entry says 10:20; it was posted before 10:09.
+  - **Object map:** `lanes/tools/objmap/report-356.md` (175 clear leads).
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
@@ -24,11 +24,11 @@ call stays the coordinator's. This section is replaced at each check.
 
 ## Status
 
-- 2026-11-24 10:08 PT: **Ready: `laneless/objmap-joins-2` 042772cbb**, on main #356 (a6db6df9f). It
-  replaces objmap-joins-1, whose joins are replayed here on the new main. 19 placeholders -> 0. Each commit
+- 2026-11-24 10:38 PT: **Ready: `laneless/objmap-joins-3` 44c44aa1b**, on main #357 (ff65a331a). It
+  replaces objmap-joins-2 and -1, whose joins are replayed here on the new main (joins-2 conflicted with #357). 19 placeholders -> 0. Each commit
   puts one placeholder file into the file the object map names as its clear owner, and every function of the
   joined unit builds equal. Full build: 0 not all equal; Game.exe identical (VERIFIED tree
-  336a6d79640de06fae5f7ec7d2c1031dcb61ffa0); borrowed data 999 B.
+  7a3fcd9af4e196f46bdc284e64d54662f90d1351); borrowed data 975 B.
   - **The joins, by owner lane:**
     - lane 1: npcmenu.cpp <- Unknown_004B6DD0; UNIT/Player.cpp <- Unknown_00462D00; SKILLS/Skills.cpp <-
       Unknown_004C51D0.
