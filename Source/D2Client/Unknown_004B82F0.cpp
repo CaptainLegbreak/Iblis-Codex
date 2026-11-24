@@ -128,11 +128,6 @@ extern "C" int gUiPhase;
 extern "C" U32 gRangeMode;
 extern "C" int gRangeValue;
 
-struct D2SoundUnitNodeStrc
-{
-    D2UnitStrc* pUnit;
-    D2SoundUnitNodeStrc* pNext;
-};
 
 struct D2ClientSoundStrc
 {
