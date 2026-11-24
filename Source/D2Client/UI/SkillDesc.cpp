@@ -11,10 +11,11 @@
 #include "D2Path.h"
 #include "D2GameTypes.h"
 #include "D2SkillIds.h"
+#include "D2SoundEnvironTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct T00481920;
+struct D2SoundEnvironTxtStrc;
 
 struct Unicode;
 
@@ -36,26 +37,13 @@ struct D2CombinedStatIdStrc;
 
 struct D2FileIndexTextStrc;
 
-struct T00481920
-{
-    char unk0x00[0x4];
-    int nDaySound;
-    int nNightSound;
-    int nDayAmbient;
-    int nNightAmbient;
-    unsigned int nAmbientDelay;
-    char unk0x18[0x4];
-    int nEntryA;
-    int nEntryB;
-};
-
 extern D2DrlgActStrc* gpAct; // 0x007A0634
 
 int __cdecl sub_004DF870(); // 0x004DF870
 
 int __cdecl UNITMODE_GetPlayerLevelId(); // 0x00481780
 
-T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
+D2SoundEnvironTxtStrc* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 
 void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 
@@ -957,18 +945,18 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
         break;
     }
     const int nEnviron = sub_004817A0_GetPlayerSoundEnviron();
-    T00481920* pEnv = sub_00481920_GetSoundEnvironTxtRecord(nEnviron);
+    D2SoundEnvironTxtStrc* pEnv = sub_00481920_GetSoundEnvironTxtRecord(nEnviron);
     if (pEnv)
     {
         if (bNight)
         {
-            nAmbient = pEnv->nNightAmbient;
-            nSound = pEnv->nNightSound;
+            nAmbient = pEnv->nNightEvent;
+            nSound = pEnv->nNightAmbience;
         }
         else
         {
-            nAmbient = pEnv->nDayAmbient;
-            nSound = pEnv->nDaySound;
+            nAmbient = pEnv->nDayEvent;
+            nSound = pEnv->nDayAmbience;
         }
     }
     int nSecond = sub_00473C40() ? 0x40 : 0;
@@ -980,9 +968,9 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
     if (nSound != gnEnvironSoundId)
     {
         int bCross = 0;
-        if (nSound == pEnv->nDaySound && gnEnvironSoundId == pEnv->nNightSound)
+        if (nSound == pEnv->nDayAmbience && gnEnvironSoundId == pEnv->nNightAmbience)
             bCross = 1;
-        if (nSound == pEnv->nNightSound && gnEnvironSoundId == pEnv->nDaySound)
+        if (nSound == pEnv->nNightAmbience && gnEnvironSoundId == pEnv->nDayAmbience)
             bCross = 1;
         if (bCross)
         {
@@ -1051,7 +1039,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
     {
         if (nAmbient != gnEnvironAmbientId)
         {
-            gnAmbientDelay = sub_004E4120(pEnv->nAmbientDelay / 3) + pEnv->nAmbientDelay;
+            gnAmbientDelay = sub_004E4120(pEnv->nEventDelay / 3) + pEnv->nEventDelay;
             gnAmbientTick = dwTick - sub_004E40A0(gnAmbientDelay);
             gnEnvironAmbientId = nAmbient;
         }
@@ -1065,14 +1053,14 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
                 const int nPanVolume = sub_004E4120(0x64);
                 sub_004B99A0(nHandle, nPan, nPanVolume, 0);
                 gnAmbientTick = dwTick;
-                gnAmbientDelay = sub_004E4120(pEnv->nAmbientDelay / 3) + pEnv->nAmbientDelay;
+                gnAmbientDelay = sub_004E4120(pEnv->nEventDelay / 3) + pEnv->nEventDelay;
             }
         }
     }
     if (nLevelId != gnEnvironLevelId)
     {
-        const int nEntryA = pEnv->nEntryA;
-        const int nEntryB = pEnv->nEntryB;
+        const int nEntryA = pEnv->nMaterial1;
+        const int nEntryB = pEnv->nMaterial2;
         for (int nId = 0xAA0; nId < 0xB3D; nId += 4)
             sub_00482370(nId);
         if (nEntryA)

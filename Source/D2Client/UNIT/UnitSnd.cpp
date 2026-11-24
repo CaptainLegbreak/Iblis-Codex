@@ -12,6 +12,7 @@
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
 #include "D2ClientUi.h"
+#include "D2SoundEnvironTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -214,19 +215,13 @@ struct D2DrlgCoordsStrc;
 
 struct D2TileLibraryEntryStrc;
 
-struct T00481920;
-
-struct T00481920
-{
-    int unk0x00[7];
-    int nMaterial1;
-};
+struct D2SoundEnvironTxtStrc;
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
 
-T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
+D2SoundEnvironTxtStrc* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 
@@ -705,7 +700,7 @@ static __declspec(noinline) int UNITSND_GetTileMaterial(D2DrlgTileDataStrc* pTil
 int __fastcall UNITSND_GetUnitFloorMaterial(D2UnitStrc* pUnit)
 {
     int nRooms;
-    T00481920* pSoundEnvironTxtRecord = sub_00481920_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
+    D2SoundEnvironTxtStrc* pSoundEnvironTxtRecord = sub_00481920_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
     int nDefault = 1;
     if (pSoundEnvironTxtRecord && pSoundEnvironTxtRecord->nMaterial1 > 0 && pSoundEnvironTxtRecord->nMaterial1 < 7)
         nDefault = pSoundEnvironTxtRecord->nMaterial1;

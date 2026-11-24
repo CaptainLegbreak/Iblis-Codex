@@ -8,6 +8,7 @@
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
 #include "D2Txt.h"
+#include "D2SoundEnvironTxt.h"
 
 int gnSoundRestartArg; // 0x007C8A70
 
@@ -135,24 +136,6 @@ extern int gnSfxVolume_00727564; // 0x00727564
 
 extern int gnEnvVolume_00727568; // 0x00727568
 
-struct T00481920
-{
-    char unk0x00[0x24];
-    int nEAXEnviron;
-    int nEAXEnvSize;
-    int nEAXEnvDiff;
-    int nEAXRoomVol;
-    int nEAXRoomHF;
-    int nEAXDecayTime;
-    int nEAXDecayHF;
-    int nEAXReflect;
-    int nEAXReflectDelay;
-    int nEAXReverb;
-    int nEAXRevDelay;
-    int nEAXRoomRoll;
-    int nEAXAirAbsorb;
-};
-
 struct D2SoundEnvironStrc
 {
     int nEnviron;
@@ -172,7 +155,7 @@ struct D2SoundEnvironStrc
 
 extern int gnSoundEnvironId; // 0x0072ADE4
 
-T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
+D2SoundEnvironTxtStrc* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 
 void __fastcall D2SOUND_SetEaxEnvironment(D2SoundEnvironStrc* pEnviron); // 0x00513C50
 
@@ -184,7 +167,7 @@ void __fastcall GFXUTIL_ApplySoundEnviron(int nEnvironId)
         return;
     }
 
-    T00481920* pTxt = sub_00481920_GetSoundEnvironTxtRecord(nEnvironId);
+    D2SoundEnvironTxtStrc* pTxt = sub_00481920_GetSoundEnvironTxtRecord(nEnvironId);
     if ((sub_00514C90_GetSoundMode() == 2 || !nEnvironId) && sub_00513B70_IsSoundEnvironEnabled())
     {
         D2SoundEnvironStrc tEnviron;

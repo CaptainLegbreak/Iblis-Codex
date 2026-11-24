@@ -8,6 +8,7 @@
 #include "D2Path.h"
 #include "D2ClientSound.h"
 #include "D2ClientDialogWidget.h"
+#include "D2SoundEnvironTxt.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -63,12 +64,6 @@ struct D2ClientSoundStrc
 
 #pragma pack(pop)
 
-struct T00481920
-{
-    char unk0x00[0x18];
-    unsigned char bFlag;
-};
-
 int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
 int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
@@ -79,7 +74,7 @@ unsigned int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
 
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 
-T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
+D2SoundEnvironTxtStrc* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 
 float __fastcall SOUNDHDR_GetFalloffRange(int nSoundId); // 0x00482610
 
@@ -348,8 +343,8 @@ static float __stdcall sub_004B9890_GetSoundPan(D2UnitStrc* pUnit, int nSoundId)
 
         if (pTxt->nGroupStart == 0xCA)
         {
-            T00481920* pEnviron = sub_00481920_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
-            if (pEnviron && pEnviron->bFlag)
+            D2SoundEnvironTxtStrc* pEnviron = sub_00481920_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
+            if (pEnviron && pEnviron->bIndoors)
                 return 0.5f;
 
             return 0.0f;
