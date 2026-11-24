@@ -127,6 +127,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 D2ClientSoundStrc gaHintEntries[200];                                                           // 0x007C0ED0
 
+int gbRandomSoundTest; // 0x007C5468
+
 // 0x004B93F0
 D2ClientSoundStrc* __cdecl SOUNDINST_AllocSoundEntry()
 {
@@ -1254,5 +1256,17 @@ void __cdecl SOUNDINST_LockSpeechSounds()
         }
     }
 }
+
+// 0x004BABC0
+void __cdecl sub_004BABC0_ToggleHints()
+{
+    gbRandomSoundTest = !gbRandomSoundTest;
+    if (!gbRandomSoundTest)
+    {
+// build: symbol ?SOUNDINST_LockSpeechSounds@* 0x004BAA50
+        SOUNDINST_LockSpeechSounds();
+    }
+}
+
 
 #include "gen/data/Source/D2Client/Sound/SoundInst.inc"
