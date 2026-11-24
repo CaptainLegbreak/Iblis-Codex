@@ -289,11 +289,6 @@ struct D2StormFixedListStrc
     {
         return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
     }
-    D2StormLinkStrc* sub_00417A10_Link(char* pNode);
-    D2StormLinkStrc* sub_00417A50_Link(char* pNode);
-    D2StormLinkStrc* sub_00417B60_Link(char* pNode);
-    D2StormLinkStrc* sub_00417C50_Link(char* pNode);
-    D2StormLinkStrc* sub_00417D60_Link(char* pNode);
     D2StormLinkStrc* sub_0041C560_Link(char* pNode);
     void sub_0041C580_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
     char* sub_00417B20_Next(char* pNode);
