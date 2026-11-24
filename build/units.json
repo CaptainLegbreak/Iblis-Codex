@@ -79926,6 +79926,10 @@
      "length": 122
     },
     {
+     "va": "0x006C7C90",
+     "length": 40
+    },
+    {
      "va": "0x006C7CF0",
      "length": 50,
      "name": "?GDICORE_CloseSurface@@YAHXZ"
@@ -80050,16 +80054,6 @@
     "/Gd",
     "/GS-",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C7C90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C7C90",
-     "length": 40
-    }
    ]
   },
   {
