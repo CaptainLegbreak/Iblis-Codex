@@ -10,7 +10,7 @@ extern "C" __declspec(dllimport) void __stdcall SmackNextFrame(D2SmackStrc* hSma
 void __fastcall sub_006C9640_GdiCloseSmacker(D2SmackRecordStrc* pRecord); // 0x006C9640
 extern unsigned char* gpScreenBuffer_007C9154; // 0x007C9154
 extern unsigned char gabGdiSmackPaletteMap[256]; // 0x0098A178
-extern int gbRemapValid; // 0x0098A27C
+int gbRemapValid; // 0x0098A27C
 extern unsigned char gabGamePalette_007C8CC8[]; // 0x007C8CC8
 extern int gbSurfaceActive_007C9140; // 0x007C9140
 extern int gbRenderPaused; // 0x007C9144
