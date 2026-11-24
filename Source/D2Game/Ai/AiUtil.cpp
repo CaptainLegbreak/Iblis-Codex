@@ -1472,7 +1472,7 @@ void __fastcall AIUTIL_ToggleAiControlFlag0x20(D2UnitStrc* pUnit, int bSet)
 int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit); // 0x00621F20
 
 // 0x005DD280
-int __fastcall sub_005DD280(D2UnitStrc* pArg)
+int __fastcall AIUTIL_GetLifePercentage(D2UnitStrc* pArg)
 {
     return UNITS_GetCurrentLifePercentage(pArg);
 }

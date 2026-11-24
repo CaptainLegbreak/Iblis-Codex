@@ -152,7 +152,7 @@ void __cdecl sub_005BDB10_Return()
 }
 
 // 0x005B7120
-int __fastcall sub_005B7120_GetHratliEndCoords(D2GameStrc* pGame, D2CoordStrc* pCoord)
+int __fastcall ACT3Q1_GetHratliEndCoords(D2GameStrc* pGame, D2CoordStrc* pCoord)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 14);
     if (!pQuestData)
@@ -254,7 +254,7 @@ bool __fastcall ACT3Q1_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
 }
 
 // 0x005B7310
-void __fastcall sub_005B7310(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
+void __fastcall ACT3Q1_InitTomeObject(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
 {
     if (!pQuestData)
     {

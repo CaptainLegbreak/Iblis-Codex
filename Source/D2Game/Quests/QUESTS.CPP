@@ -155,7 +155,7 @@ void __fastcall ACT2Q4_InitializeJerhynPalaceObject(D2QuestDataStrc* pQuestData,
 
 void __fastcall ACT2Q3_InitAltarObject(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp); // 0x0059A3F0
 
-void __fastcall sub_005B7310(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp); // 0x005B7310
+void __fastcall ACT3Q1_InitTomeObject(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp); // 0x005B7310
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
@@ -366,7 +366,7 @@ D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* p
 
 void __fastcall ACT4Q2_SpawnSealBoss(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B5750
 
-void __fastcall sub_005B6710_DropHellforgeReward(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x005B6710
+void __fastcall ACT4Q3_CreateReward(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x005B6710
 
 void __fastcall ACT3Q2_OpenSewerStairs(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x005B85E0
 
@@ -1763,7 +1763,7 @@ void __fastcall QUESTS_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
         D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 24);
         if (pQuestData)
         {
-            sub_005B6710_DropHellforgeReward(pQuestData, pUnit);
+            ACT4Q3_CreateReward(pQuestData, pUnit);
         }
         break;
     }
@@ -1811,7 +1811,7 @@ void __fastcall OBJECTS_InitFunction23_LamEsenTomeStand(D2ObjInitFnStrc* pOp)
     D2QuestDataStrc* pQuestInfo = QUESTS_GetQuestData(pOp->pGame, QUEST_A3Q1_LAMESENTOME);
     D2_ASSERT(pQuestInfo, 2435);
 
-    sub_005B7310(pQuestInfo, pOp);
+    ACT3Q1_InitTomeObject(pQuestInfo, pOp);
 }
 
 // 0x00544E80

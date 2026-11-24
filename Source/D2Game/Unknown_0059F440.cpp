@@ -102,7 +102,7 @@ struct D2Act2Quest4Strc
     int nHaremBlockerGUID;
 };
 bool __fastcall ACT2Q6_IsTyraelPortalOpened(D2GameStrc* pGame); // 0x0059DFB0
-unsigned char __fastcall sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked(D2GameStrc* pGame); // 0x0059F510
+unsigned char __fastcall ACT2Q4_IsJerhynPalaceBlocked(D2GameStrc* pGame); // 0x0059F510
 
 typedef int (__fastcall* SUNIT_ITERATEFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 D2UnitStrc* __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, SUNIT_ITERATEFN pfIterate); // 0x005537D0
@@ -162,7 +162,7 @@ void __stdcall ACT2Q4_InitializeJerhynMonster(D2QuestDataStrc* quest,D2ActiveRoo
 }
 
 void __fastcall ACT2Q4_InitializeJerhynPalaceObject(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp); // 0x0059F440
-unsigned char __fastcall sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked(D2GameStrc* pGame); // 0x0059F510
+unsigned char __fastcall ACT2Q4_IsJerhynPalaceBlocked(D2GameStrc* pGame); // 0x0059F510
 
 // 0x0059F580
 void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc* pUnit, int* a3, int* pIdle)

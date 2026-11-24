@@ -217,7 +217,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 
-void __fastcall sub_0053B0E0_WriteVarLength(D2BitBufferStrc* pBuffer, unsigned int nValue); // 0x0053B0E0
+void __fastcall SCMD_WriteVariableValue(D2BitBufferStrc* pBuffer, unsigned int nValue); // 0x0053B0E0
 
 void __fastcall D2GAME_SendPacket0x9C_6FC3E570(D2ClientStrc* pClient, D2UnitStrc* pItem, char nAction, unsigned int dwFlag, int bGamble); // 0x0053EAE0
 
@@ -372,7 +372,7 @@ extern "C" char* __cdecl strcpy(char* pDst, const char* pSrc);
 #define ITEMACTION_ONGROUND 3
 
 // 0x0053B0E0
-void __fastcall sub_0053B0E0_WriteVarLength(D2BitBufferStrc* pBuffer, unsigned int nValue)
+void __fastcall SCMD_WriteVariableValue(D2BitBufferStrc* pBuffer, unsigned int nValue)
 {
     if (nValue < 0x100)
     {
@@ -396,7 +396,7 @@ void __fastcall sub_0053B0E0_WriteVarLength(D2BitBufferStrc* pBuffer, unsigned i
 }
 
 // 0x0053B140
-void __fastcall sub_0053B140_WriteVarLength16(D2BitBufferStrc* pBuffer, unsigned short nValue)
+void __fastcall SCMD_WriteVariableWord(D2BitBufferStrc* pBuffer, unsigned short nValue)
 {
     if (nValue < 0x100)
     {
@@ -411,7 +411,7 @@ void __fastcall sub_0053B140_WriteVarLength16(D2BitBufferStrc* pBuffer, unsigned
 }
 
 // 0x0053B180
-int* __fastcall sub_0053B180_GetMonsterDataField3C(D2UnitStrc* pUnit)
+int* __fastcall SCMD_GetMonsterOwnerGuidPtr(D2UnitStrc* pUnit)
 {
     if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
     {
@@ -426,11 +426,11 @@ int* __fastcall sub_0053B180_GetMonsterDataField3C(D2UnitStrc* pUnit)
 }
 
 // 0x0053B1A0
-static inline void sub_0053B1A0_SendToClient(int nClientId, void* pPacket, int nSize)
+static inline void SCMD_SendToClient(int nClientId, void* pPacket, int nSize)
 {
     sub_0052B330(0, nClientId, pPacket, nSize);
 }
-void __stdcall sub_M121_Emit_0053B1A0(int nClientId, void* pPacket, int nSize) { sub_0053B1A0_SendToClient(nClientId, pPacket, nSize); }
+void __stdcall sub_M121_Emit_0053B1A0(int nClientId, void* pPacket, int nSize) { SCMD_SendToClient(nClientId, pPacket, nSize); }
 
 // 0x0053B1B0
 int __fastcall D2GAME_PACKETS_SendGameListEntry(int nClientId, short nGameId, short nClientCount, const char* szGameName)
@@ -1996,10 +1996,10 @@ void __fastcall D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(D2ClientStrc* pClient, D2
 
     tPacket.nHeader = 0x3E;
     BITMANIP_Initialize(&tBitBuffer, tPacket.pBuffer, sizeof(tPacket.pBuffer));
-    sub_0053B0E0_WriteVarLength(&tBitBuffer, !pItem ? -1 : pItem->dwUnitId);
+    SCMD_WriteVariableValue(&tBitBuffer, !pItem ? -1 : pItem->dwUnitId);
     BITMANIP_Write(&tBitBuffer, a3 != 0, 1);
     BITMANIP_Write(&tBitBuffer, nStatId, 9);
-    sub_0053B0E0_WriteVarLength(&tBitBuffer, nValue);
+    SCMD_WriteVariableValue(&tBitBuffer, nValue);
     if (a6 < 0x100)
     {
         BITMANIP_Write(&tBitBuffer, 0, 1);

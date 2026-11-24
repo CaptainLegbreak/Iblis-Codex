@@ -108,7 +108,7 @@ void __stdcall UNITROOM_ClearUpdateQueue(D2ActiveRoomStrc* pRoom); // 0x0064C160
 void __fastcall ARENA_ClearUpdateFlag(D2GameStrc* pGame); // 0x0053FAE0
 
 // 0x0053A500
-static void __stdcall sub_0053A500_UpdateUnitForClient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
+static void __stdcall LEVEL_UpdateUnitForClient(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
     D2_ASSERT(pUnit, 21);
     const int nUnitType = pUnit->dwUnitType;
@@ -146,14 +146,14 @@ static void __stdcall sub_0053A500_UpdateUnitForClient(D2GameStrc* pGame, D2Unit
 }
 
 // 0x0053A5D0
-static void __stdcall sub_0053A5D0_UpdateRoomUnitsForClient(D2GameStrc* pGame, D2ActiveRoomStrc* pAdjacentRoom, D2ClientStrc* pClient)
+static void __stdcall LEVEL_UpdateRoomUnitsForClient(D2GameStrc* pGame, D2ActiveRoomStrc* pAdjacentRoom, D2ClientStrc* pClient)
 {
     D2_ASSERT(pAdjacentRoom, 68);
     D2UnitStrc* pUnit = pAdjacentRoom->pUnitUpdate;
     while (pUnit)
     {
         D2UnitStrc* pNextUnit = pUnit->pChangeNextUnit;
-        sub_0053A500_UpdateUnitForClient(pGame, pUnit, pClient);
+        LEVEL_UpdateUnitForClient(pGame, pUnit, pClient);
         pUnit = pNextUnit;
     }
 }
@@ -171,7 +171,7 @@ void __fastcall LEVEL_UpdateUnitsInAdjacentRooms(D2GameStrc* pGame, D2ActiveRoom
     DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
     for (unsigned int i = 0; i < nNumRooms; ++i)
     {
-        sub_0053A5D0_UpdateRoomUnitsForClient(pGame, ppRoomList[i], pClient);
+        LEVEL_UpdateRoomUnitsForClient(pGame, ppRoomList[i], pClient);
     }
 }
 
@@ -619,7 +619,7 @@ void __fastcall LEVEL_UpdateQueuedUnitsInAllActs(D2GameStrc* pGame)
 }
 
 // 0x0053B090
-int __fastcall sub_0053B090_CountActRooms(D2GameStrc* pGame, unsigned char nAct)
+int __fastcall LEVEL_CountActRooms(D2GameStrc* pGame, unsigned char nAct)
 {
     D2_ASSERT(nAct < 5, 0x294);
     D2ActiveRoomStrc* pRoom = DUNGEON_GetRoomFromAct(pGame->pAct[nAct]);

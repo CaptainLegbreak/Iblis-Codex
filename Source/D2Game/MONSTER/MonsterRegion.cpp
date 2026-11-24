@@ -58,7 +58,7 @@ D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int); // 0x0061DB70
 
 void __stdcall MONSTERCHOOSE_GenerateComponentVariants(D2SeedStrc*,D2MonRegDataStrc*,int); // 0x005BDB20
 
-static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc* pSeed, int bHigher, D2LevelsTxt* pLevels, D2MonsterRegionStrc* pRegion);
+static void __stdcall MONSTERREGION_SelectMonsters(D2SeedStrc* pSeed, int bHigher, D2LevelsTxt* pLevels, D2MonsterRegionStrc* pRegion); // 0x005475E0
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
@@ -181,7 +181,7 @@ void __fastcall ACT2Q4_InitializeJerhynPalaceObject(D2QuestDataStrc* pQuestData,
 
 void __fastcall ACT2Q3_InitAltarObject(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp); // 0x0059A3F0
 
-void __fastcall sub_005B7310(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp); // 0x005B7310
+void __fastcall ACT3Q1_InitTomeObject(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp); // 0x005B7310
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
@@ -382,7 +382,7 @@ D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnit(D2GameStrc* pGame, D2UnitStrc* p
 
 void __fastcall ACT4Q2_SpawnSealBoss(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B5750
 
-void __fastcall sub_005B6710_DropHellforgeReward(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x005B6710
+void __fastcall ACT4Q3_CreateReward(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x005B6710
 
 void __fastcall ACT3Q2_OpenSewerStairs(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x005B85E0
 
@@ -632,7 +632,7 @@ static inline D2MonStatsTxt* MonStats(int id) {
 }
 
 // 0x005475E0
-static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc* pSeed, int bHigher, D2LevelsTxt* pLevels, D2MonsterRegionStrc* pRegion)
+static void __stdcall MONSTERREGION_SelectMonsters(D2SeedStrc* pSeed, int bHigher, D2LevelsTxt* pLevels, D2MonsterRegionStrc* pRegion)
 {
     int nToSpawn = pLevels->nNumMon;
     if (nToSpawn > 13)
@@ -709,7 +709,7 @@ void __fastcall MONSTERREGION_InitializeAll(void* pool,D2MonsterRegionStrc** reg
   region->nMonWander=levels->nWandering;region->nQuest=levels->nQuest;region->nTrapVariant=-1;region->nMonsterRegionLevel=-1;
   if(expansion) {region->nDungeonLevel=levels->wMonLvlEx[difficulty];region->nDungeonLevelEx=levels->wMonLvlEx[difficulty];}
   else {region->nDungeonLevel=(short)levels->wMonLvl[difficulty];region->nDungeonLevelEx=(short)levels->wMonLvl[difficulty];}
-  sub_005475E0_SelectMonsters(seed,difficulty>0,levels,region);
+  MONSTERREGION_SelectMonsters(seed,difficulty>0,levels,region);
   D2MonRegDataStrc* entry=region->pMonData;
   for(int i=0;i<region->nMonCount;++i){MONSTERCHOOSE_GenerateComponentVariants(seed,entry,3);++entry;}
   *regions=region;++regions;

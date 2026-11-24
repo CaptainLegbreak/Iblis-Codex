@@ -1347,7 +1347,8 @@ void __cdecl PANEL_DrawBorderFrameRight()
     sub_004F6480(&tContext, 400, 553, -1, 5, 0);
 }
 
-extern "C" void __fastcall sub_0053B0E0_WriteVariableValue(BitStreamContext* stream, U32 value)
+// build: symbol @SCMD_WriteVariableValue@* 0x0053B0E0
+extern "C" void __fastcall SCMD_WriteVariableValue(BitStreamContext* stream, U32 value)
 {
     if (value < 256u)
     {

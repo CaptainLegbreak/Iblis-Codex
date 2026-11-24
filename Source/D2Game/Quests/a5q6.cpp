@@ -97,7 +97,7 @@ int __fastcall ACT5Q6_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2Uni
 
 void __fastcall ACT5Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);   // 0x0058D870
 
-void __fastcall sub_0058D940_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);   // 0x0058D940
+void __fastcall ACT5Q6_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);   // 0x0058D940
 
 void __fastcall ACT5Q6_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);     // 0x0058D9F0
 
@@ -311,7 +311,7 @@ void __fastcall ACT5Q6_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pCallback[8] = ACT5Q6_Callback08_MonsterKilled;
     pQuestData->pCallback[0] = ACT5Q6_Callback00_NpcActivate;
     pQuestData->pCallback[2] = ACT5Q6_Callback02_NpcDeactivate;
-    pQuestData->pCallback[11] = sub_0058D940_Callback11_ScrollMessage;
+    pQuestData->pCallback[11] = ACT5Q6_Callback11_ScrollMessage;
     pQuestData->pCallback[13] = ACT5Q6_Callback13_PlayerStartedGame;
     pQuestData->pCallback[14] = ACT5Q6_Callback14_PlayerJoinedGame;
     pQuestData->pNPCMessages = gpAct5Q6NpcMessages;
@@ -838,7 +838,7 @@ int __fastcall ACT5Q6_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2Uni
 }
 
 // 0x0058D940
-void __fastcall sub_0058D940_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+void __fastcall ACT5Q6_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
     switch (pQuestArg->nMessageIndex)
     {

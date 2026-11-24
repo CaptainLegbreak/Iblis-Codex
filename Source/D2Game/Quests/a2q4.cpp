@@ -523,7 +523,7 @@ void __fastcall ACT2Q4_InitializeJerhynStartObject(D2QuestDataStrc* pQuestData, 
 
 bool __fastcall ACT2Q6_IsTyraelPortalOpened(D2GameStrc* pGame); // 0x0059DFB0
 
-unsigned char __fastcall sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked(D2GameStrc* pGame); // 0x0059F510
+unsigned char __fastcall ACT2Q4_IsJerhynPalaceBlocked(D2GameStrc* pGame); // 0x0059F510
 
 D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, short nFlags); // 0x005B3090
 
@@ -562,7 +562,7 @@ void __fastcall ACT2Q4_InitializeJerhynPalaceObject(D2QuestDataStrc* pQuestData,
 }
 
 // 0x0059F510
-unsigned char __fastcall sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked(D2GameStrc* pGame)
+unsigned char __fastcall ACT2Q4_IsJerhynPalaceBlocked(D2GameStrc* pGame)
 {
     D2QuestDataStrc* pQuestData11 = QUESTS_GetQuestData(pGame, 11);
     if (!pQuestData11 || !((D2Act2Quest4Strc*)pQuestData11->pQuestDataEx)->bJerhynPalaceInitialized)
@@ -578,7 +578,7 @@ unsigned char __fastcall sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked(D2GameStrc* p
 // 0x0059F570
 int __fastcall ACT2Q4_IsJerhynPalaceActivated(D2GameStrc* pGame)
 {
-    return sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked(pGame) == 1 ? 1 : 0;
+    return ACT2Q4_IsJerhynPalaceBlocked(pGame) == 1 ? 1 : 0;
 }
 
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
