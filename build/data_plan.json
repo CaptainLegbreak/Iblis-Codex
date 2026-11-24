@@ -4311,8 +4311,8 @@
    "state": "included"
   },
   "Source/D2Direct3D/Unknown_006B3570.cpp": {
-   "bytes": 160,
-   "definitions": 1,
+   "bytes": 204,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Direct3D/Unknown_006B3570.inc",
@@ -4334,15 +4334,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Direct3D/Unknown_006B42F0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Direct3D/Unknown_006B4C90.cpp": {
-   "bytes": 44,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Direct3D/Unknown_006B4C90.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -151055,7 +151046,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Direct3D/Unknown_006B4C90.cpp",
+   "file": "Source/D2Direct3D/Unknown_006B3570.cpp",
    "fill": 20,
    "form": "declared",
    "fwd": null,
@@ -151086,7 +151077,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Direct3D/Unknown_006B4C90.cpp",
+   "file": "Source/D2Direct3D/Unknown_006B3570.cpp",
    "fill": 24,
    "form": "declared",
    "fwd": null,
