@@ -79791,6 +79791,10 @@
      "length": 249
     },
     {
+     "va": "0x006B7630",
+     "length": 129
+    },
+    {
      "va": "0x006B7FD0",
      "length": 197
     },
@@ -79803,8 +79807,24 @@
      "length": 841
     },
     {
+     "va": "0x006B87A0",
+     "length": 428
+    },
+    {
+     "va": "0x006B8950",
+     "length": 1182
+    },
+    {
+     "va": "0x006B8DF0",
+     "length": 108
+    },
+    {
      "va": "0x006B8E60",
      "length": 35
+    },
+    {
+     "va": "0x006B8E90",
+     "length": 122
     },
     {
      "va": "0x006B8F10",
@@ -79832,31 +79852,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B7630.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B7630",
-     "length": 129
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
@@ -79897,102 +79892,6 @@
      "va": "0x006B86F0",
      "length": 173
     }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B87A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B87A0",
-     "length": 428
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B8950.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B8950",
-     "length": 1182
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B8DF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B8DF0",
-     "length": 108
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B8E90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B8E90",
-     "length": 122
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
