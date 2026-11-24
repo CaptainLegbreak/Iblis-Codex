@@ -339,6 +339,12 @@ T* TSList<T, TGetLink>::DeleteNode(T* ptr)
 // build: symbol ??1?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAE@XZ 0x00418D40
 // build: symbol ?NewNode@?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAEPAUEVENTREC@@III@Z 0x00418F90
 // build: symbol ?DeleteNode@?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAEPAUEVENTREC@@PAU2@@Z 0x00419690
+// build: symbol ??_R0?AUFILEREC@@@8 0x007083B8
+// build: symbol ?LinkNode@?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEXPAUFILEREC@@I0@Z 0x00417B80
+// build: symbol ?UnlinkAll@?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEXXZ 0x00418980
+// build: symbol ??1?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAE@XZ 0x00418D00
+// build: symbol ?NewNode@?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEPAUFILEREC@@III@Z 0x00418F20
+template TSList<FILEREC>::~TSList();
 template TSList<EVENTREC>::~TSList();
 template TSList<REQUEST>::~TSList();
 template REQUEST* TSList<REQUEST>::DeleteNode(REQUEST*);
@@ -610,7 +616,6 @@ struct D2StormRecord419000Strc
     }
 };
 
-extern "C" const char gszStormFileRecTypeName[]; // 0x007083C0
 
 
 extern "C" __declspec(dllimport) int __stdcall GetDiskFreeSpaceA(const char* lpRootPathName, unsigned long* lpSectorsPerCluster, unsigned long* lpBytesPerSector, unsigned long* lpNumberOfFreeClusters, unsigned long* lpTotalNumberOfClusters); // 0x006CC270
@@ -649,7 +654,7 @@ extern "C" const unsigned char gabSignatureExponent_006CF078[4];                
 
 struct D2StormLinkStrc;
 
-extern D2StormFixedListStrc gFileList_0070836C; // 0x0070836C
+extern TSList<FILEREC> gFileList_0070836C; // 0x0070836C
 
 int __stdcall CheckCdVolume(const char* szPath);                                                 // 0x00415960
 
@@ -2063,30 +2068,6 @@ D2StormLinkStrc* D2StormFixedListStrc::sub_00417B60_Link(char* pNode)
     return Link(pNode);
 }
 
-// 0x00417B80
-void D2StormFixedListStrc::sub_00417B80_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode)
-{
-    D2StormLinkStrc* pLink = Link(pNode);
-    pLink->Unlink();
-    D2StormLinkStrc* pExistingLink = Link(pExistingNode);
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->m_prevlink = pExistingLink;
-        pLink->m_next = pExistingLink->m_next;
-        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-        pExistingLink->m_next = pNode;
-        break;
-    default:
-        D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
-        pLink->m_prevlink = pPrevLink;
-        pLink->m_next = pPrevLink->m_next;
-        pPrevLink->m_next = pNode;
-        pExistingLink->m_prevlink = pLink;
-        break;
-    }
-}
-
 // 0x00417C50
 D2StormLinkStrc* D2StormFixedListStrc::sub_00417C50_Link(char* pNode)
 {
@@ -2602,13 +2583,6 @@ inline void D2StormList00708354Strc::sub_00418900_UnlinkAll()
         ((D2StormLinkStrc*)pNode)->Unlink();
 }
 
-// 0x00418980
-inline void D2StormList0070836CStrc::sub_00418980_UnlinkAll()
-{
-    while (char* pNode = m_terminator.Next())
-        ((D2StormLinkStrc*)pNode)->Unlink();
-}
-
 // 0x00418C60
 D2StormList00708354Strc::~D2StormList00708354Strc()
 {
@@ -2616,33 +2590,14 @@ D2StormList00708354Strc::~D2StormList00708354Strc()
     m_terminator.Unlink();
 }
 
-// 0x00418D00
-D2StormList0070836CStrc::~D2StormList0070836CStrc()
-{
-    sub_00418980_UnlinkAll();
-    m_terminator.Unlink();
-}
-
 // 0x00418E60
 inline FILEREC::FILEREC()
 {
-    tLink.m_prevlink = 0;
-    tLink.m_next = 0;
     pBuffer0x10C = 0;
     hFile = (void*)-1;
     archive = 0;
     pBuffer0x12C = 0;
     pBuffer0x138 = 0;
-}
-
-// 0x00418F20
-char* D2StormFixedListStrc::sub_00418F20_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(FILEREC) + nExtraBytes, gszStormFileRecTypeName, -2, nFlags | 8);
-    FILEREC* pRecord = pMemory ? new (pMemory) FILEREC : 0;
-    if (nLinkType)
-        sub_00417B80_LinkNode((char*)pRecord, nLinkType, 0);
-    return (char*)pRecord;
 }
 
 // 0x00418E90
@@ -2702,7 +2657,6 @@ FILEREC::~FILEREC()
         delete pArch;
     if (pBuffer0x10C)
         SMemFree(pBuffer0x10C, ".\\SOURCE\\SFILE.CPP", 0x14E, 0);
-    tLink.Unlink();
 }
 
 // 0x0041A880
@@ -2814,7 +2768,7 @@ int __cdecl SFileDestroy()
         SErrReportResourceLeak("AUDIOSTREAM");
         delete pStream;
     }
-    while (FILEREC* pFile = (FILEREC*)gFileList_0070836C.Head())
+    while (FILEREC* pFile = gFileList_0070836C.Head())
     {
         SErrReportNamedResourceLeak("HSFILE", pFile->szName);
         delete pFile;
@@ -4309,7 +4263,7 @@ int __stdcall SFileCloseFile(void* hFile)
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 0;
     }
-    (pRec ? &pRec->tLink : &gFileList_0070836C.m_terminator)->Unlink();
+    gFileList_0070836C.UnlinkNode(pRec);
     if (pRec && !--pRec->nRefCount)
         delete pRec;
     LeaveCriticalSection(&gBasePathLock_00779068);
@@ -4399,7 +4353,7 @@ static __forceinline int sub_004192F0_OpenDiskFile(const char* szFileName, unsig
         }
         else
         {
-            FILEREC* pFile = (FILEREC*)gFileList_0070836C.sub_00418F20_NewNode(1, 0, 0);
+            FILEREC* pFile = gFileList_0070836C.NewNode(1, 0, 0);
             SStrCopy(pFile->name, szFileName, 0x104);
             pFile->szLocalPath = SStrDup(szPath);
             pFile->hFile = hFile;
@@ -4522,7 +4476,7 @@ int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, unsigned int d
             if (dwBlockFlags & 0xFF00)
                 pBlockOffsets = (unsigned int*)SMemAlloc((nBlocks + 1) * sizeof(unsigned int), gszSFileSourceFile_006CF084, 0x1231, 0);
 
-            FILEREC* pFile = (FILEREC*)gFileList_0070836C.sub_00418F20_NewNode(1, 0, 0);
+            FILEREC* pFile = gFileList_0070836C.NewNode(1, 0, 0);
             SStrCopy(pFile->name, szFileName, 0x104);
             pFile->hFile = (void*)-1;
             pFile->archive = pFileArchive;
@@ -4977,3 +4931,7 @@ TSList<AUDIOSTREAM> gDdaList_00708384; // 0x00708384
 // build: symbol ??__EgEventList_00708378@@YAXXZ 0x006CA830
 // build: symbol ??__FgEventList_00708378@@YAXXZ 0x006CB1E0
 TSList<EVENTREC> gEventList_00708378; // 0x00708378
+
+// build: symbol ??__EgFileList_0070836C@@YAXXZ 0x006CA810
+// build: symbol ??__FgFileList_0070836C@@YAXXZ 0x006CB180
+TSList<FILEREC> gFileList_0070836C; // 0x0070836C
