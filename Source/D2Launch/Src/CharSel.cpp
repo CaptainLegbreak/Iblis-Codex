@@ -15,6 +15,7 @@
 #include "D2LevelTxt.h"
 
 #include "D2Unicode.h"
+#include "D2LaunchRequest.h"
 
 static long BNDOWNLOAD_GetTime(long* pTime);
 
@@ -100,11 +101,6 @@ static int gbFlag_00779C6C;             // 0x00779C6C
 
 extern char gszBaseName_00779B68[]; // 0x00779B68
 
-struct D2LaunchRequestStrc
-{
-    int nData[5];
-    unsigned int dwFlags;
-};
 
 struct D2UnitDropItemsPacketStrc
 {

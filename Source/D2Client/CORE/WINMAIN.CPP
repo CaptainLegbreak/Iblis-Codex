@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Unicode.h"
 #include "D2McpPackets.h"
+#include "D2LaunchRequest.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -136,11 +137,6 @@ extern "C" unsigned int __cdecl strlen(const char* pString);
 extern unsigned short gwMcpRequestId; // 0x00798F8C
 
 
-struct D2LaunchRequestStrc
-{
-    int nData[5];
-    unsigned int dwFlags;
-};
 
 
 struct D2McpInfoStrc
