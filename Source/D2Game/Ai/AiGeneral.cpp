@@ -4,6 +4,8 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2Constants.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00736160
 
 #define UNIT_MONSTER 1
 
@@ -929,4 +931,3 @@ int __fastcall AIGENERAL_GetMinionSpawnClassId(D2UnitStrc* pUnit)
     return AIGENERAL_GetAiControlFromUnitByType(pUnit)->nMinionSpawnClassId;
 }
 
-#include "gen/data/Source/D2Game/Ai/AiGeneral.inc"

@@ -24,6 +24,8 @@
 #include "D2GameClient.h"
 #include "D2HotkeySkill.h"
 #include "D2GameAux.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00741888
 
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -918,4 +920,3 @@ int __fastcall SUNITEVENT_Trigger(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc*
 
 
 
-#include "gen/data/Source/D2Game/UNIT/SUnitEvent.inc"

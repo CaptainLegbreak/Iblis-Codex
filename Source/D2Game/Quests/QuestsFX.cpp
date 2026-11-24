@@ -13,6 +13,8 @@
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
 #include "D2ObjModes.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00741CFC
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
@@ -290,4 +292,5 @@ void __fastcall QUESTSFX_UberPrimeEvil(D2GameStrc* pGame, D2UnitStrc* pUnit)
         }
     }
 }
+
 

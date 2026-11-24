@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00741CC0
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -128,3 +130,4 @@ void __fastcall OBJEVAL_ApplyTrapObjectDamage(D2GameStrc* pGame, D2UnitStrc* pSr
     SUNITDMG_ExecuteEvents(pGame, pSrcUnit, pTargetUnit, 0, &damage);
     SUNITDMG_ExecuteMissileDamage(pGame, pSrcUnit, pTargetUnit, &damage);
 }
+

@@ -8,6 +8,8 @@
 #include "D2DrlgRooms.h"
 #include "D2GameClient.h"
 #include "D2DrlgDelete.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x0073131C
 struct D2DrlgActStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -633,4 +635,3 @@ int __fastcall LEVEL_CountActRooms(D2GameStrc* pGame, unsigned char nAct)
 }
 
 
-#include "gen/data/Source/D2Game/GAME/Level.inc"

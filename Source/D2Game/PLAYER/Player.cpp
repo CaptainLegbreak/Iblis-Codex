@@ -11,6 +11,8 @@
 #include "D2PlayerModes.h"
 #include "D2StateIds.h"
 #include "D2GameCallbackArgs.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x0073110C
 
 #define UNIT_PLAYER 0
 
@@ -1410,4 +1412,5 @@ void __fastcall PLAYER_RestoreWeaponStats(D2UnitStrc* pTarget, int bTemporaryWea
         }
     }
 }
+
 

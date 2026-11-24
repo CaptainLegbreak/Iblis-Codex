@@ -19,6 +19,8 @@
 #include "D2ItemModes.h"
 #include "D2Packets.h"
 #include "D2QuestData.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00731968
 
 struct D2DifficultyLevelsTxt;
 
@@ -935,4 +937,3 @@ void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(D2MonsterRegionStrc
     }
 }
 
-#include "gen/data/Source/D2Game/MONSTER/MonsterRegion.inc"

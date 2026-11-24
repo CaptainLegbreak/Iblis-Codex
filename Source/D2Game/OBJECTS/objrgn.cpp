@@ -29,6 +29,8 @@
 #include "D2ItemModes.h"
 #include "D2GameObjs.h"
 #include "D2Packets.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x0073192C
 
 union D2SeedStrc;
 
@@ -1956,4 +1958,3 @@ int __fastcall OBJRGN_GetTrapMonsterId(D2ObjOperateFnStrc* pOp)
 
 
 
-#include "gen/data/Source/D2Game/OBJECTS/objrgn.inc"
