@@ -17,6 +17,7 @@
 #include "D2ClientTypes.h"
 #include "D2MsgRecord.h"
 #include "D2MultiTypes.h"
+#include "D2UnitDropPacket.h"
 
 struct D2ActiveRoomStrc;
 
@@ -844,13 +845,6 @@ struct D2GSPacketSrv10
     unsigned char nCurrentPosY[2];
 };
 
-struct D2UnitDropItemsPacketStrc
-{
-    char nHeader;
-    char bActive;
-    char nUnitId[4];
-    char nOtherUnitId[4];
-};
 
 unsigned char __stdcall AUTOMAP_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00462EE0
 
