@@ -1191,6 +1191,11 @@
      "name": "?sub_00404780_IsNtHeaderValid@@YA_NPBUD2ImageNtHeadersStrc@@@Z"
     },
     {
+     "va": "0x00404850",
+     "length": 14,
+     "name": "AUTOMAP_IsDebugDirectorySizeValid"
+    },
+    {
      "va": "0x00404860",
      "length": 36,
      "name": "?sub_00404860_SetNb10Info@@YAXPAUD2CrashModuleStrc@@PBUD2CvNb10Strc@@@Z"
@@ -2123,11 +2128,6 @@
    "file": "Source/D2Client/UI/automap.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00404850",
-     "length": 14,
-     "name": "AUTOMAP_IsDebugDirectorySizeValid"
-    },
     {
      "va": "0x0040E850",
      "length": 24,

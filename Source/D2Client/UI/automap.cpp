@@ -1650,12 +1650,6 @@ void __stdcall AUTOMAP_AddTownCelsCallback(int nLevelId, int nPickedFile, int nX
 
 static void AUTOMAP_DrawAutomapUnit(D2UnitStrc* pUnit); // 0x0045A860
 
-// 0x00404850
-BOOLEAN __stdcall AUTOMAP_IsDebugDirectorySizeValid(unsigned int nValue)
-{
-    return nValue >= 0x1C;
-}
-
 // 0x0040E850
 unsigned __int64 __cdecl AUTOMAP_ReadTimeStampCounter()
 {
