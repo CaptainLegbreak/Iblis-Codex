@@ -19,6 +19,7 @@
 #include "D2LevelTxt.h"
 #include "D2Packets.h"
 #include "D2QuestData.h"
+#include "D2LanguageNames.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
