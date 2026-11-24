@@ -60,7 +60,7 @@ public:
     unsigned char* pbOutBuffer;
     unsigned int cbOutSize;
     unsigned char* pbOutPos;
-    unsigned int T00410B70;
+    unsigned int BitBuffer;
     unsigned int BitCount;
 };
 

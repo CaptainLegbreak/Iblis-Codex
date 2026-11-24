@@ -79,7 +79,7 @@ struct HUFFNODE
 struct CHuffman
 {
     int bIsCmp0;
-    unsigned int nUnk0x04;
+    unsigned int nMinValidValue;
     HUFFNODE aItems[0x203];
     D2StormNodeListStrc tFreeList;
     D2StormNodeListStrc tItemList;
@@ -213,7 +213,7 @@ void CHuffman::sub_0041F350_IncWeights(HUFFNODE* pItem)
         HUFFNODE* pTemp = pItem->pParent;
         pItem->pParent = pCur->pParent;
         pCur->pParent = pTemp;
-        nUnk0x04++;
+        nMinValidValue++;
     }
 }
 
