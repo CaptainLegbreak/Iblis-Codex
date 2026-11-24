@@ -470,8 +470,8 @@
    "state": "included"
   },
   "Source/D2Client/SKILLS/Skills.cpp": {
-   "bytes": 1556,
-   "definitions": 16,
+   "bytes": 1532,
+   "definitions": 15,
    "externs": [
     "extern \"C\" void __cdecl sub_004E1320(); // 0x004E1320",
     "extern \"C\" void __cdecl sub_004E3720(); // 0x004E3720",
@@ -5009,8 +5009,8 @@
    "state": "included"
   },
   "Source/D2Client/SKILLS/SkillsBar.cpp": {
-   "bytes": 60,
-   "definitions": 1,
+   "bytes": 84,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/SKILLS/SkillsBar.inc",
@@ -18890,7 +18890,7 @@
    "cname": "gData_006DAE70",
    "declared": true,
    "decorated": "?gaLobBrackets@@3PAUD2LobBracketStrc@@A",
-   "file": "Source/D2Client/SKILLS/Skills.cpp",
+   "file": "Source/D2Client/SKILLS/SkillsBar.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2LobBracketStrc gData_006DAE70[2]; // 0x006DAE70",
    "head": "extern \"C\" const D2LobBracketStrc gData_006DAE70[2] = ",

@@ -11515,11 +11515,6 @@
      "length": 627
     },
     {
-     "va": "0x004C8670",
-     "length": 222,
-     "name": "SKILLS_SetLobVelocity"
-    },
-    {
      "va": "0x004D16C0",
      "length": 352,
      "name": "SKILLS_SpawnOffsetMissile"
@@ -29465,6 +29460,11 @@
      "va": "0x004C85B0",
      "length": 192,
      "name": "SKILLSBAR_SetRunPath"
+    },
+    {
+     "va": "0x004C8670",
+     "length": 222,
+     "name": "SKILLS_SetLobVelocity"
     },
     {
      "va": "0x004C8750",
