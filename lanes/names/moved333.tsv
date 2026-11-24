@@ -1,0 +1,47 @@
+va	old_name	new_name	source	file	confidence	reason
+0x004574D0	sub_004574D0_AutomapBaseYAddStep	AUTOMAP_IncreaseBaseY	inferred	Source/D2Client/UI/automap.cpp	medium	key callback: moves the automap base 16 px down (gnAutomapBaseY += 16); in data_plan.json
+0x004574E0	sub_004574E0_AutomapBaseYSubStep	AUTOMAP_DecreaseBaseY	inferred	Source/D2Client/UI/automap.cpp	medium	key callback: moves the automap base 16 px up; in data_plan.json
+0x004574F0	sub_004574F0_AutomapBaseXSubStep	AUTOMAP_DecreaseBaseX	inferred	Source/D2Client/UI/automap.cpp	medium	key callback: moves the automap base 16 px left; in data_plan.json
+0x00457500	sub_00457500_AutomapBaseXAddStep	AUTOMAP_IncreaseBaseX	inferred	Source/D2Client/UI/automap.cpp	medium	key callback: moves the automap base 16 px right; in data_plan.json
+0x00457640	sub_00457640	AUTOMAP_ResetBaseOffset	inferred	Source/D2Client/UI/automap.cpp	medium	when centring is on (or forced), relayouts and resets the automap base offset for the mode
+0x00457860	sub_00457860_PivotNext	AUTOMAP_RotateCellLeft	inferred	Source/D2Client/UI/automap.cpp	high	AVL rotation: lifts the node's next (right) child into its place
+0x004578B0	sub_004578B0_PivotPrev	AUTOMAP_RotateCellRight	inferred	Source/D2Client/UI/automap.cpp	high	AVL rotation: lifts the node's prev (left) child into its place
+0x00457900	sub_00457900_RotateLeftHeavy	AUTOMAP_BalanceLeftHeavy	inferred	Source/D2Client/UI/automap.cpp	high	AVL rebalance of a left-heavy automap cell node (single or double rotation, weights fixed)
+0x004579E0	sub_004579E0_RotateRightHeavy	AUTOMAP_BalanceRightHeavy	inferred	Source/D2Client/UI/automap.cpp	high	AVL rebalance of a right-heavy automap cell node
+0x004DA770	sub_004DA770_GetMonComponentIndex	GFXUTIL_GetMonComponentIndex	inferred	Source/D2Client/ENGINE/GfxUtil.cpp	high	returns a monster's component index for a component slot
+0x00675EB0	sub_00675EB0_PlaceCoord	DRLGOUTPLACE_PlaceCoordBeside	inferred	Source/D2Common/DRLG/OutPlace.cpp	medium	places a level coord against a side of a linked coord, with an optional 16/8 offset (an inline DRLGOUTPLACE_PlaceCoord already exists in OutPlace.cpp); (also spelled sub_00675EB0_Shim)
+0x00675F80	sub_00675F80_PlaceCoordCentered	DRLGOUTPLACE_PlaceCoordCentered	inferred	Source/D2Common/DRLG/OutPlace.cpp	medium	places a level coord against one of eight sides of a linked coord, centred when asked; (also spelled sub_00675F80_Shim)
+0x006760F0	sub_6FD81330	DRLGOUTPLACE_PlaceAtLevelDefOffset	inferred	Source/D2Common/DRLG/OutPlace.cpp	medium	places the current link's level at its LevelDef offset
+0x00676150	sub_00676150_LinkStepDirection	DRLGOUTPLACE_TryNextSideOffset	inferred	Source/D2Common/DRLG/OutPlace.cpp	medium	rolls or advances one of four sides and places the level beside its link, offset; in data_plan.json
+0x00676280	sub_00676280_PlaceLevelLinkSide	DRLGOUTPLACE_TryNextCenteredSideOffset	inferred	Source/D2Common/DRLG/OutPlace.cpp	medium	rolls or advances one of eight sides and places the level centred beside its link, offset; in data_plan.json
+0x00676AE0	sub_6FD81BF0	DRLGOUTPLACE_TryNextCenteredSide	inferred	Source/D2Common/DRLG/OutPlace.cpp	medium	as 0x676280 without the offset
+0x00676C00	sub_00676C00_PlaceLevelNextTo	DRLGOUTPLACE_PlaceLevelNextTo	inferred	Source/D2Common/DRLG/OutPlace.cpp	medium	places the level on side 3 of its link, aligned to a random end, and sets the link flags; in data_plan.json
+0x00676DD0	sub_00676DD0_LinkAct1Wilderness	DRLGOUTPLACE_LinkAct1Wilderness	inferred	Source/D2Common/DRLG/OutPlace.cpp	high	link test for the act 1 wilderness (overlap check, camp table, burial grounds sides); twin of DRLGOUTPLACE_LinkAct2Outdoors
+0x00676EB0	sub_6FD82130	DRLGOUTPLACE_LinkAct1Monastery	inferred	Source/D2Common/DRLG/OutPlace.cpp	high	link test for the act 1 monastery levels (overlap check with the first level stretched north)
+0x00677180	sub_00677180_SetAct1OutdoorFlags	DRLGOUTPLACE_SetAct1OutdoorFlags	inferred	Source/D2Common/DRLG/OutPlace.cpp	high	sets act 1 outdoor flags from the rolled sides
+0x00677640	sub_00677640_AddOrthToLevel	DRLGOUTPLACE_AddOrthToLevel	inferred	Source/D2Common/DRLG/OutPlace.cpp	high	adds an orth from a level to a neighbour level in its direction
+0x00677680	sub_00677680_AddLevelOrths	DRLGOUTPLACE_AddLevelOrths	inferred	Source/D2Common/DRLG/OutPlace.cpp	high	for each outdoor level in a range, adds orths to visible levels with no warp
+0x00677750	sub_00677750_CreateAct1LevelConnections	DRLGOUTPLACE_CreateAct1LevelConnections	inferred	Source/D2Common/DRLG/OutPlace.cpp	high	links the act 1 wilderness and monastery levels and adds their orths
+0x00677790	sub_00677790_CreateAct2LevelConnections	DRLGOUTPLACE_CreateAct2LevelConnections	inferred	Source/D2Common/DRLG/OutPlace.cpp	high	links the act 2 outdoor and canyon levels and adds their orths
+0x006777D0	sub_006777D0_OffsetByDirection	DRLGOUTPLACE_OffsetByDirection	inferred	Source/D2Common/DRLG/OutPlace.cpp	medium	offsets a position by one of five directions and records the offset
+0x00677870	sub_00677870_IsYGreater	DRLGOUTPLACE_IsPosYGreater	inferred	Source/D2Common/DRLG/OutPlace.cpp	medium	position comparator on y; (also spelled sub_00677870_Emit)
+0x00678910	sub_00678910	DRLGOUTPLACE_PlaceKurastLevels	inferred	Source/D2Common/DRLG/OutPlace.cpp	medium	stacks levels 79-83 above a level, centred on it; (also spelled sub_00678910_PlaceKurastLevels)
+0x00678A20	sub_00678A20_CreateAct4LevelConnections	DRLGOUTPLACE_CreateAct4LevelConnections	inferred	Source/D2Common/DRLG/OutPlace.cpp	high	links the act 4 outdoor and chaos sanctum levels, sets outer steppes flags, adds orths
+0x00678A70	sub_00678A70_CreateAct5LevelConnections	DRLGOUTPLACE_CreateAct5LevelConnections	inferred	Source/D2Common/DRLG/OutPlace.cpp	high	links the act 5 outdoor, tundra and uber levels and their overlap warps
+0x00678B10	sub_00678B10_GetDistanceEstimate	PATH_EstimateDistanceXY	inferred	Source/D2Common/PATH/PathUtil.cpp	high	min + 2*max of the x/y distances, from coordinates
+0x00678B40	sub_00678B40_PathHeuristic	PATH_EstimateDistance	inferred	Source/D2Common/PATH/PathUtil.cpp	high	min + 2*max of the x/y distances, from path points
+0x00678B80	sub_6FDAB610	PATH_GetDirectionIndexXY	inferred	Source/D2Common/PATH/PathUtil.cpp	high	index into the direction triplet tables for a delta, from coordinates
+0x00678C10	sub_00678C10	PATH_GetDirectionIndex	inferred	Source/D2Common/PATH/PathUtil.cpp	high	index into the direction triplet tables, from path points
+0x00678CB0	sub_00678CB0_GetFirstDirectionXY	PATH_GetAltFirstDirectionXY	inferred	Source/D2Common/PATH/PathUtil.cpp	high	first direction of the alternate triplet, from coordinates
+0x00678CD0	sub_00678CD0_GetFirstDirection	PATH_GetAltFirstDirection	inferred	Source/D2Common/PATH/PathUtil.cpp	high	first direction of the alternate triplet, from path points
+0x00678CF0	sub_6FDAB750	PATH_GetFirstDirectionXY	inferred	Source/D2Common/PATH/PathUtil.cpp	high	first direction of the triplet, from coordinates; (also spelled sub_00678CF0)
+0x00678D10	sub_6FDAB770	PATH_GetFirstDirection	inferred	Source/D2Common/PATH/PathUtil.cpp	high	first direction of the triplet, from path points
+0x00678D30	sub_00678D30_GetDirectionsXY	PATH_GetDirectionTripletXY	inferred	Source/D2Common/PATH/PathUtil.cpp	high	copies the three test directions, from coordinates
+0x00678DB0	sub_00678DB0_GetDirectionTripletXY	PATH_GetAltDirectionTripletXY	inferred	Source/D2Common/PATH/PathUtil.cpp	high	copies the three alternate test directions, from coordinates
+0x00678DF0	sub_00678DF0	PATH_GetAltDirectionTriplet	inferred	Source/D2Common/PATH/PathUtil.cpp	high	copies the three alternate test directions, from path points
+0x00678E30	sub_00678E30_UpdateMotion	PATH_UpdateMotionVelocity	inferred	Source/D2Common/PATH/PathUtil.cpp	medium	computes direction and velocity of a motion path and whether the step fits the distance; (also spelled sub_00678E30)
+0x00678F00	sub_6FDAB810	PATH_NormalizeStep	inferred	Source/D2Common/PATH/PathUtil.cpp	medium	halves a step pair until both parts are within 65536
+0x00678F70	sub_00678F70_TestRay	PATH_TestRay	inferred	Source/D2Common/PATH/PathUtil.cpp	medium	walks a ray in fixed point and tests collision along it
+0x006B1B60	sub_006B1B60_EnumTextureFormat	D3D_EnumTextureFormatCallback	inferred	Source/D2Direct3D/Src/d3dCore.cpp	high	EnumTextureFormats callback: flags the wanted pixel format when the device offers it
+0x004FB0D0	D2Win_10179	D2Win_10179_UpdatePaletteFlash	inferred	Source/D2Win/Src/D2WinPalette.cpp	high	ticks the palette flash: every 2 s resets the palette until the count runs out, then ends the flash; (also spelled sub_004FB0D0)
+0x004FB130	D2Win_10176	D2Win_10176_StartPaletteFlash	inferred	Source/D2Win/Src/D2WinPalette.cpp	medium	starts a timed two-step palette flash, or stops it, and resets the palette; (also spelled sub_004FB130_SetActiveState)

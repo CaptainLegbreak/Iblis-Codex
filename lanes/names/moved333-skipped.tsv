@@ -1,0 +1,22 @@
+va	old_name	file	reason
+0x004203C0	sub_00601B60_LinkNext	Source/Storm/SOURCE/SMSG.CPP	template member instantiation, emitted from the class template (no body of its own in the unit) [?Next@?$TSLink@UWNDREC@@@@QAEPAUWNDREC@@XZ]; named by its template; in // build: symbol
+0x004203D0	sub_00416800_LinkRawNext	Source/Storm/SOURCE/SMSG.CPP	template member instantiation, emitted from the class template (no body of its own in the unit) [?RawNext@?$TSLink@UWNDREC@@@@QAEPAUWNDREC@@XZ]; named by its template; in // build: symbol
+0x00420420	sub_00420420_Identity	Source/Storm/SOURCE/SMSG.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00420470	sub_00601DF0_InitTerminator	Source/Storm/SOURCE/SMSG.CPP	list terminator init of the Storm TSList template (template member, inline copy)
+0x00420480	sub_00420480_Identity	Source/Storm/SOURCE/SMSG.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00420490	sub_0060E440_Head	Source/Storm/SOURCE/SMSG.CPP	template member instantiation, emitted from the class template (no body of its own in the unit) [?Head@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEPAUWNDREC@@XZ]; named by its template; in // build: symbol
+0x004204F0	sub_00601B60_LinkNext	Source/Storm/SOURCE/SMSG.CPP	TSLink next-link getter of the Storm TSList template (template member)
+0x00420500	sub_0060E5F0_Reset	Source/Storm/SOURCE/SMSG.CPP	D2SMsgListStrc member (list reset); waits on the member-function question
+0x00420610	sub_00420610	Source/Storm/SOURCE/SMSG.CPP	template member instantiation, emitted from the class template (no body of its own in the unit) [??1?$TSLink@UWNDREC@@@@QAE@XZ]; named by its template; in // build: symbol
+0x004206A0	D2ChatStormListCStrc	Source/Storm/SOURCE/SMSG.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00420750	sub_00420750_UnlinkAll	Source/Storm/SOURCE/SMSG.CPP	template member instantiation, emitted from the class template (no body of its own in the unit) [?UnlinkAll@?$TSList@UWNDREC@@U?$TSGetLink@UWNDREC@@@@@@QAEXXZ]; named by its template; in // build: symbol
+0x00420D80	sub_00420D80_Clear	Source/Storm/SOURCE/SMSG.CPP	D2Strc00420D80 member; waits on the member-function question
+0x00420DA0	sub_00420DA0_GetSpan	Source/Storm/SOURCE/SMSG.CPP	D2Strc00420DA0 member; waits on the member-function question
+0x006B1A00	Thank_you	Source/D2Direct3D/Src/d3dCore.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006B1A10	sub_006B1A10_Nop	Source/D2Direct3D/Src/d3dCore.cpp	ATL Thank_you member (empty); class member
+0x006B1A20	CAtlException	Source/D2Direct3D/Src/d3dCore.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??0CAtlException@ATL@@QAE@J@Z]; named by its template; in // build: symbol
+0x006B1A30	sub_006B1A30_ThrowAtlException	Source/D2Direct3D/Src/d3dCore.cpp	ATL::AtlThrowImpl in the ATL namespace; a library name, needs the names.csv source fixed, not a rename
+0x006B1A50	CRegKey	Source/D2Direct3D/Src/d3dCore.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006B1A60	sub_006B1A60_CRegKey_GetHKEY	Source/D2Direct3D/Src/d3dCore.cpp	ATL::CRegKey::GetHKEY, already its ATL name; needs the names.csv source fixed
+0x006B1B00	sub_006B1B00_RegKeySetDWORDValue	Source/D2Direct3D/Src/d3dCore.cpp	ATL::CRegKey::SetDWORDValue, already its ATL name; needs the names.csv source fixed
+0x006B1B20	sub_006B1B20_RegKeySetStringValue	Source/D2Direct3D/Src/d3dCore.cpp	ATL::CRegKey::SetStringValue, already its ATL name; needs the names.csv source fixed
