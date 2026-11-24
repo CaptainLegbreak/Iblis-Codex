@@ -33688,6 +33688,40 @@
      "va": "0x004F8E40",
      "length": 66,
      "name": "?CMNSUBTILE_SetPaletteTables@@YIXPAUD2PaletteTableStrc@@@Z"
+    },
+    {
+     "va": "0x006CADE0",
+     "length": 12,
+     "name": "?sub_006CADE0_RegisterCleanup@@YAXXZ"
+    },
+    {
+     "va": "0x006CADF0",
+     "length": 11,
+     "name": "?sub_006CADF0_InitializeWindowText@@YAXXZ"
+    },
+    {
+     "va": "0x006CAE00",
+     "length": 11,
+     "name": "?sub_006CAE00_InitializeWindowText@@YAXXZ"
+    },
+    {
+     "va": "0x006CAE10",
+     "length": 11,
+     "name": "?sub_006CAE10_InitializeWindowText@@YAXXZ"
+    },
+    {
+     "va": "0x006CAE20",
+     "length": 17
+    },
+    {
+     "va": "0x006CAE40",
+     "length": 15,
+     "name": "?sub_006CAE40_InitializeColorCode@@YAXXZ"
+    },
+    {
+     "va": "0x006CAE50",
+     "length": 15,
+     "name": "?sub_006CAE50_InitializeMonsterCode@@YAXXZ"
     }
    ]
   },
@@ -38962,6 +38996,21 @@
      "va": "0x0052B100",
      "length": 235,
      "name": "SERVER_ValidateClientPacket"
+    },
+    {
+     "va": "0x006CAEC0",
+     "length": 12,
+     "name": "?sub_006CAEC0_RegisterCleanup@@YAXXZ"
+    },
+    {
+     "va": "0x006CAEF0",
+     "length": 22,
+     "name": "?sub_006CAEF0_InitializeBigPair@@YAXXZ"
+    },
+    {
+     "va": "0x006CAF10",
+     "length": 18,
+     "name": "?sub_006CAF10_SetPerSecond@@YAXXZ"
     }
    ]
   },
@@ -79242,67 +79291,6 @@
     {
      "va": "0x006CAC10",
      "length": 21
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006CACE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006CADE0",
-     "length": 12,
-     "name": "?sub_006CADE0_RegisterCleanup@@YAXXZ"
-    },
-    {
-     "va": "0x006CADF0",
-     "length": 11,
-     "name": "?sub_006CADF0_InitializeWindowText@@YAXXZ"
-    },
-    {
-     "va": "0x006CAE00",
-     "length": 11,
-     "name": "?sub_006CAE00_InitializeWindowText@@YAXXZ"
-    },
-    {
-     "va": "0x006CAE10",
-     "length": 11,
-     "name": "?sub_006CAE10_InitializeWindowText@@YAXXZ"
-    },
-    {
-     "va": "0x006CAE20",
-     "length": 17
-    },
-    {
-     "va": "0x006CAE40",
-     "length": 15,
-     "name": "?sub_006CAE40_InitializeColorCode@@YAXXZ"
-    },
-    {
-     "va": "0x006CAE50",
-     "length": 15,
-     "name": "?sub_006CAE50_InitializeMonsterCode@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006CAE80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006CAEC0",
-     "length": 12,
-     "name": "?sub_006CAEC0_RegisterCleanup@@YAXXZ"
-    },
-    {
-     "va": "0x006CAEF0",
-     "length": 22,
-     "name": "?sub_006CAEF0_InitializeBigPair@@YAXXZ"
-    },
-    {
-     "va": "0x006CAF10",
-     "length": 18,
-     "name": "?sub_006CAF10_SetPerSecond@@YAXXZ"
     }
    ]
   },

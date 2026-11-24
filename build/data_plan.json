@@ -1381,8 +1381,8 @@
    "state": "included"
   },
   "Source/D2Gfx/SRC/Window.cpp": {
-   "bytes": 300,
-   "definitions": 9,
+   "bytes": 308,
+   "definitions": 11,
    "externs": [
     "extern \"C\" void __cdecl sub_004F8B80(); // 0x004F8B80",
     "extern \"C\" void __cdecl sub_004F8DE0(); // 0x004F8DE0",
@@ -3723,24 +3723,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/Storm/Unknown_006C9A68.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Storm/Unknown_006CACE0.cpp": {
-   "bytes": 8,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_006CACE0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Storm/Unknown_006CAE80.cpp": {
-   "bytes": 0,
-   "definitions": 0,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_006CAE80.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -144343,7 +144325,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_006CACE0.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern const char* gszDefaultClass_0072DAA0 = ",
@@ -144378,7 +144360,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_006CACE0.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern const char* gszDefaultWindow_0072DB3C = ",
