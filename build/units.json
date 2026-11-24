@@ -16086,20 +16086,6 @@
      "name": "?UI_FreeCels@@YAXXZ"
     },
     {
-     "va": "0x00468030",
-     "length": 6,
-     "name": "UI_GetCursorFrame"
-    },
-    {
-     "va": "0x00468770",
-     "length": 165
-    },
-    {
-     "va": "0x00468830",
-     "length": 6,
-     "name": "sub_00468830"
-    },
-    {
      "va": "0x0046F980",
      "length": 6,
      "name": "UI_GetGfxMemory"
@@ -16279,36 +16265,6 @@
      "va": "0x0045B4F0",
      "length": 244,
      "name": "AUTOMAP_DrawRoomCollision"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00468730.cpp",
-   "rank": 0,
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ],
-   "functions": [
-    {
-     "va": "0x00468730",
-     "length": 6,
-     "name": "sub_00468730"
-    },
-    {
-     "va": "0x00468740",
-     "length": 6,
-     "name": "sub_00468740"
     }
    ]
   },
@@ -18081,16 +18037,6 @@
      "name": "ROSTERPETS_HandlePopupButtonUp"
     },
     {
-     "va": "0x00467F20",
-     "length": 116,
-     "name": "ROSTERPETS_HandleButtonDown"
-    },
-    {
-     "va": "0x00467FA0",
-     "length": 92,
-     "name": "ROSTERPETS_HandleButtonUp"
-    },
-    {
      "va": "0x0046BD50",
      "length": 113,
      "name": "ROSTERPETS_GetPulseColor"
@@ -18995,41 +18941,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00467DF0",
-     "length": 69,
-     "name": "?sub_00467DF0_GetCursorAnimField00@@YAHH@Z"
-    },
-    {
-     "va": "0x00467EE0",
-     "length": 16,
-     "name": "?sub_00467EE0_SetCursorAnim@@YAXH@Z"
-    },
-    {
-     "va": "0x00467EF0",
-     "length": 40,
-     "name": "sub_00467EF0_MsgHandler"
-    },
-    {
-     "va": "0x00468000",
-     "length": 7,
-     "name": "?sub_00468000_SetGlobal7A6B08@@YIXH@Z"
-    },
-    {
-     "va": "0x00468010",
-     "length": 28,
-     "name": "?sub_00468010_SetState@@YIXHH@Z"
-    },
-    {
-     "va": "0x00468040",
-     "length": 42,
-     "name": "?sub_00468040@@YIXHH@Z"
-    },
-    {
-     "va": "0x00468070",
-     "length": 48,
-     "name": "?sub_00468070_SetCursorItemState@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x00468B20",
      "length": 99,
      "name": "?sub_00468B20_HandleHotkey@@YAXH@Z"
@@ -19057,53 +18968,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_00467E40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00467E40",
-     "length": 69,
-     "name": "?sub_00467E40_IsCursorAnimated@@YAHH@Z"
-    },
-    {
-     "va": "0x00467E90",
-     "length": 72,
-     "name": "?sub_00467E90_GetCursorAnimLength@@YAHH@Z"
-    },
-    {
-     "va": "0x004682C0",
-     "length": 71,
-     "name": "?sub_004682C0_StepCursorAnim@@YAXXZ"
-    },
-    {
-     "va": "0x00468310",
-     "length": 175,
-     "name": "?sub_00468310_UpdateCursor@@YAXXZ"
-    },
-    {
-     "va": "0x00468820",
-     "length": 1,
-     "name": "?sub_00468820@@YIXHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004681C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004681C0",
-     "length": 248,
-     "name": "?sub_004681C0_AdvanceCursorAnim@@YAXXZ"
-    },
-    {
-     "va": "0x00468840",
-     "length": 252,
-     "name": "?sub_00468840_HandleMouseMotion@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Client/ENGINE/Cursor.cpp",
    "rank": 0,
    "flags": [
@@ -19122,6 +18986,66 @@
    ],
    "functions": [
     {
+     "va": "0x00467DF0",
+     "length": 69,
+     "name": "?sub_00467DF0_GetCursorAnimField00@@YAHH@Z"
+    },
+    {
+     "va": "0x00467E40",
+     "length": 69,
+     "name": "?sub_00467E40_IsCursorAnimated@@YAHH@Z"
+    },
+    {
+     "va": "0x00467E90",
+     "length": 72,
+     "name": "?sub_00467E90_GetCursorAnimLength@@YAHH@Z"
+    },
+    {
+     "va": "0x00467EE0",
+     "length": 16,
+     "name": "?sub_00467EE0_SetCursorAnim@@YAXH@Z"
+    },
+    {
+     "va": "0x00467EF0",
+     "length": 40,
+     "name": "sub_00467EF0_MsgHandler"
+    },
+    {
+     "va": "0x00467F20",
+     "length": 116,
+     "name": "ROSTERPETS_HandleButtonDown"
+    },
+    {
+     "va": "0x00467FA0",
+     "length": 92,
+     "name": "ROSTERPETS_HandleButtonUp"
+    },
+    {
+     "va": "0x00468000",
+     "length": 7,
+     "name": "?sub_00468000_SetGlobal7A6B08@@YIXH@Z"
+    },
+    {
+     "va": "0x00468010",
+     "length": 28,
+     "name": "?sub_00468010_SetState@@YIXHH@Z"
+    },
+    {
+     "va": "0x00468030",
+     "length": 6,
+     "name": "UI_GetCursorFrame"
+    },
+    {
+     "va": "0x00468040",
+     "length": 42,
+     "name": "?sub_00468040@@YIXHH@Z"
+    },
+    {
+     "va": "0x00468070",
+     "length": 48,
+     "name": "?sub_00468070_SetCursorItemState@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004680A0",
      "length": 6,
      "name": "CURSOR_GetCursorItem"
@@ -19135,6 +19059,21 @@
      "va": "0x00468170",
      "length": 65,
      "name": "?CURSOR_ShutdownCursor@@YAXXZ"
+    },
+    {
+     "va": "0x004681C0",
+     "length": 248,
+     "name": "?sub_004681C0_AdvanceCursorAnim@@YAXXZ"
+    },
+    {
+     "va": "0x004682C0",
+     "length": 71,
+     "name": "?sub_004682C0_StepCursorAnim@@YAXXZ"
+    },
+    {
+     "va": "0x00468310",
+     "length": 175,
+     "name": "?sub_00468310_UpdateCursor@@YAXXZ"
     },
     {
      "va": "0x004683C0",
@@ -19154,31 +19093,40 @@
      "va": "0x004685C0",
      "length": 366,
      "name": "CURSOR_PaintCursorItem"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00468750.cpp",
-   "rank": 1,
-   "functions": [
+    },
+    {
+     "va": "0x00468730",
+     "length": 6,
+     "name": "sub_00468730"
+    },
+    {
+     "va": "0x00468740",
+     "length": 6,
+     "name": "sub_00468740"
+    },
     {
      "va": "0x00468750",
      "length": 29
+    },
+    {
+     "va": "0x00468770",
+     "length": 165
+    },
+    {
+     "va": "0x00468820",
+     "length": 1,
+     "name": "?sub_00468820@@YIXHH@Z"
+    },
+    {
+     "va": "0x00468830",
+     "length": 6,
+     "name": "sub_00468830"
+    },
+    {
+     "va": "0x00468840",
+     "length": 252,
+     "name": "?sub_00468840_HandleMouseMotion@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {

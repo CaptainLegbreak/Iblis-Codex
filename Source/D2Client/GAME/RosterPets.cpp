@@ -102,17 +102,6 @@ static int gbPopupMouseDown;                                                    
 
 static int gbPopupDismissed;                                                                               // 0x007A5254
 
-static int gnCursorY;                                                                               // 0x007A6AAC
-
-static int gnCursorX;                                                                               // 0x007A6AB0
-
-static int gnCursorAnim;                                                                               // 0x007A6ADC
-
-static int gnCursorAnimFrame;                                                                               // 0x007A6AE0
-
-static int gdwLastMouseMoveTick;                                                                               // 0x007A6AE8
-
-static int gnCursorState;                                                                               // 0x007A6AF0
 
 static int gbPulseDone;                                                                               // 0x007A745C
 
@@ -188,35 +177,6 @@ void __stdcall ROSTERPETS_HandlePopupButtonUp(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
-// 0x00467F20
-void __stdcall ROSTERPETS_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg)
-{
-    gnCursorX = pMsg->nXpos;
-    gnCursorY = pMsg->nYpos;
-    gdwLastMouseMoveTick = GetTickCount();
-    if (gnCursorState != 5 && gaPanelAnim[gnCursorAnim].pData)
-    {
-        gnCursorState = 5;
-        gnCursorAnim = 4;
-        gnCursorAnimFrame = 0;
-    }
-    pMsg->bReturn = 0;
-}
-
-// 0x00467FA0
-void __stdcall ROSTERPETS_HandleButtonUp(SMSGHANDLER_PARAMS* pMsg)
-{
-    gnCursorX = pMsg->nXpos;
-    gnCursorY = pMsg->nYpos;
-    gdwLastMouseMoveTick = GetTickCount();
-    if (gnCursorState == 5)
-    {
-        gnCursorAnim = 5;
-        gnCursorState = 1;
-        gnCursorAnimFrame = 0;
-    }
-    pMsg->bReturn = 0;
-}
 
 // 0x0046BD50
 int __stdcall ROSTERPETS_GetPulseColor(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue)

@@ -85,13 +85,6 @@ struct PairStrc_0045BA70
 void __stdcall sub_00625960(void* pArg); // 0x00625960
 
 
-
-extern int gdwGlobal_007A6AB0; // 0x007A6AB0
-
-extern int gdwGlobal_007A6AAC; // 0x007A6AAC
-
-extern int gdwGlobal_007A6AF0; // 0x007A6AF0
-
 extern int gnCofMemoryUsed; // 0x007A8918
 
 D2CelFileStrc* gpBoxPiecesCel; // 0x007A2798
@@ -1021,18 +1014,10 @@ int __stdcall WINDOW_IsFullScreen(); // 0x004F5A30
 
 void* __cdecl sub_004F59A0_GetWindow(); // 0x004F59A0
 
-extern int gnCursorY_007A6AAC; // 0x007A6AAC
-
-extern int gnCursorX_007A6AB0; // 0x007A6AB0
-
 
 typedef void (__stdcall* D2RecordHandlerFn)(int nArg1, int nArg2, int nArg3);
 
 void __cdecl RECORD_WriteRecordFile(); // 0x00451620
-
-
-
-
 
 
 // 0x004525F0
@@ -3644,9 +3629,7 @@ done:
 }
 
 
-
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
-
 
 
 extern int gbAutomapLeftPrev; // 0x007A51E4
@@ -3654,17 +3637,11 @@ extern int gbAutomapLeftPrev; // 0x007A51E4
 int gbAutomapLeftSaved; // 0x007A51E8
 
 
-
-
-
 // 0x0045A710
 int __cdecl UI_GetAutomapMode()
 {
     return gnAutomapMode;
 }
-
-
-
 
 
 // 0x0045BA70
@@ -3746,44 +3723,8 @@ void __cdecl UI_FreeCels()
 }
 
 
-
-// 0x00468030
-int __cdecl UI_GetCursorFrame()
-{
-    return gdwGlobal_007A6AE0;
-}
-
 int __cdecl CURSOR_GetCursorItem(); // 0x004680A0
-// 0x00468770
-void __fastcall UI_SetCursorPosition(int nX, int nY)
-{
-    tagRECT rect;
-    D2_ASSERT(nX >= 0, 0x30F);
-    D2_ASSERT(nY >= 0, 0x310);
-    if (!WINDOW_IsFullScreen())
-    {
-        _ReadWriteBarrier();
-        tagRECT* pWindowRect = &rect;
-        GetWindowRect(sub_004F59A0_GetWindow(), pWindowRect);
-        int nScreenY = GetSystemMetrics(4);
-        nScreenY += pWindowRect->top;
-        nScreenY += nY;
-        const int nScreenX = GetSystemMetrics(7) + rect.left + nX;
-        SetCursorPos(nScreenX, nScreenY);
-    }
-    else
-    {
-        SetCursorPos(nX, nY);
-    }
-    gnCursorY_007A6AAC = nY;
-    gnCursorX_007A6AB0 = nX;
-}
-
-// 0x00468830
-int __cdecl sub_00468830()
-{
-    return gdwGlobal_007A6AF0;
-}
+void __fastcall UI_SetCursorPosition(int nX, int nY); // 0x00468770
 
 
 // 0x0046F980
