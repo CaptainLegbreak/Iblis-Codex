@@ -5323,7 +5323,7 @@ struct D2RequestStrc
 
 D2UnitStrc* __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0x004CD540
 
-void __stdcall sub_00649030_SetPathFlag40(D2DynamicPathStrc* pPath, int bClear); // 0x00649030
+void __stdcall D2COMMON_10203_PATH_SetRotateFlag(D2DynamicPathStrc* pPath, int bClear); // 0x00649030
 
 static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
@@ -5369,7 +5369,7 @@ int __fastcall MISSILE_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, int nA
         {
             if (bClearPathFlag)
             {
-                sub_00649030_SetPathFlag40(pMissile->pDynamicPath, 0);
+                D2COMMON_10203_PATH_SetRotateFlag(pMissile->pDynamicPath, 0);
             }
 
             sub_00621780_SetMissileArg(pMissile, nMissileArg);
@@ -5401,7 +5401,7 @@ int __fastcall MISSILE_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, int nA
         {
             if (bClearPathFlag)
             {
-                sub_00649030_SetPathFlag40(pMissile->pDynamicPath, 0);
+                D2COMMON_10203_PATH_SetRotateFlag(pMissile->pDynamicPath, 0);
             }
 
             sub_00621780_SetMissileArg(pMissile, nMissileArg);

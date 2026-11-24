@@ -83,7 +83,7 @@ struct PairStrc_0045BA70
     int nSecond;
 };
 
-void __stdcall sub_00625960(void* pArg); // 0x00625960
+void __stdcall STATLIST_FreeModStats(void* pArg); // 0x00625960
 
 
 extern int gnCofMemoryUsed; // 0x007A8918

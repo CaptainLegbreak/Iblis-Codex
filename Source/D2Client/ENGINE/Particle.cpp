@@ -48,7 +48,7 @@ struct B28Waypoint;
 
 extern "C" int __stdcall sub_004FB180_Palette(U8 red, U8 green, U8 blue);
 
-extern "C" B28Waypoint* __stdcall sub_00660F30_AllocWaypoint(void* pool);
+extern "C" B28Waypoint* __stdcall WAYPOINTS_AllocWaypointData(void* pool); // 0x00660F30
 
 extern "C" void __fastcall sub_004786D0_SendPacket(U8 command, U32 arg1, U32 arg2, U32 arg3);
 
@@ -180,7 +180,7 @@ extern "C" void __cdecl sub_00497250_SetPalette()
 
 extern "C" void __cdecl sub_0049C6A0_InitWaypoint()
 {
-    gB28Waypoint = sub_00660F30_AllocWaypoint(0);
+    gB28Waypoint = WAYPOINTS_AllocWaypointData(0);
     gB28WaypointFlag = 0;
 }
 

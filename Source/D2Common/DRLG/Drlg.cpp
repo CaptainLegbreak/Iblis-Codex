@@ -175,17 +175,17 @@ extern "C" void* __fastcall sub_0040B430_Allocate(void*, unsigned, const char*, 
 
 extern "C" int __fastcall sub_0040B480_Free(void*, void*, const char*, int, int); // 0x0040B480
 
-extern "C" void __fastcall sub_0066C100_FreeRoom(Room*); // 0x0066C100
+extern "C" void __fastcall DRLGROOM_FreeRoomEx(Room*); // 0x0066C100
 
-extern "C" void __fastcall sub_006683D0_FreeMap(void*, void*); // 0x006683D0
+extern "C" void __fastcall DRLGPRESET_FreeDrlgMap(void*, void*); // 0x006683D0
 
-extern "C" void __fastcall sub_006754C0_ClearType3(Level*, int); // 0x006754C0
+extern "C" void __fastcall DRLGOUTDOORS_FreeOutdoorInfo(Level*, int); // 0x006754C0
 
-extern "C" void __fastcall sub_006674D0_ClearType2(Level*, int); // 0x006674D0
+extern "C" void __fastcall DRLGPRESET_ResetDrlgMap(Level*, int); // 0x006674D0
 
-extern "C" void __fastcall sub_00673FE0_ClearType1(Level*, int); // 0x00673FE0
+extern "C" void __fastcall DRLGMAZE_ResetMazeRecord(Level*, int); // 0x00673FE0
 
-extern "C" int __stdcall sub_00643060_CanFree(Level*); // 0x00643060
+extern "C" int __stdcall DRLG_FreeInactiveVisRoomTiles(Level*); // 0x00643060
 
 typedef unsigned int size_t;
 
@@ -649,21 +649,21 @@ static void __stdcall DRLG_FreeLevel(void* pool, int keep, Level* level)
             room = room->next;
             if (level->savedFlags)
                 level->savedFlags[index++] = current->flags & 1;
-            sub_0066C100_FreeRoom(current);
+            DRLGROOM_FreeRoomEx(current);
         } while (room);
         level->rooms = 0;
         level->f_8 = 0;
     }
     if (level->mapData)
     {
-        sub_006683D0_FreeMap(pool, level->mapData);
+        DRLGPRESET_FreeDrlgMap(pool, level->mapData);
         level->mapData = 0;
     }
     switch (level->kind)
     {
-    case 1: sub_00673FE0_ClearType1(level, keep); break;
-    case 2: sub_006674D0_ClearType2(level, keep); break;
-    case 3: sub_006754C0_ClearType3(level, keep); break;
+    case 1: DRLGMAZE_ResetMazeRecord(level, keep); break; // 0x00673FE0
+    case 2: DRLGPRESET_ResetDrlgMap(level, keep); break; // 0x006674D0
+    case 3: DRLGOUTDOORS_FreeOutdoorInfo(level, keep); break; // 0x006754C0
     }
     memset(level->regionA, 0, 384);
     level->state = 0;
@@ -1476,7 +1476,7 @@ void __fastcall DRLG_UpdateAndFreeInactiveRooms(Dungeon* dungeon)
         {
             if (level->inactiveTicks)
                 --level->inactiveTicks;
-            else if (sub_00643060_CanFree(level))
+            else if (DRLG_FreeInactiveVisRoomTiles(level))
                 DRLG_FreeLevel(pool, 1, level);
             else
                 level->inactiveTicks = 10;

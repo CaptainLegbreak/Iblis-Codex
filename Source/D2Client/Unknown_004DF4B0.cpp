@@ -94,7 +94,7 @@ void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
 
 void __stdcall SKILLS_SetParam1(D2SkillStrc*, int); // 0x00644560
 
-void __stdcall sub_006445A0(D2SkillStrc*, int); // 0x006445A0
+void __stdcall SKILLS_SetParam2(D2SkillStrc*, int); // 0x006445A0
 
 enum { SUCCESS_VALUE = 1 };
 
@@ -357,7 +357,7 @@ int __fastcall sub_004E0C90(D2UnitStrc* unit, int skillId, int skillLevel)
     D2SkillStrc* skill = UNITS_GetUsedSkill(unit);
     if (!skill) return 0;
     SKILLS_SetParam1(skill, UNITS_GetUnitXPosition(target));
-    sub_006445A0(skill, UNITS_GetUnitYPosition(target));
+    SKILLS_SetParam2(skill, UNITS_GetUnitYPosition(target));
     return SUCCESS_VALUE;
 }
 

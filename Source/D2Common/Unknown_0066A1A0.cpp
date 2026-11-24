@@ -47,7 +47,8 @@ void __fastcall sub_0066A270()
 {
 }
 
-void __fastcall DATATBLS_EmptyStub_0066A280()
+// build: symbol ?D2COMMON_10916_Return@* 0x0066A280
+void __fastcall D2COMMON_10916_Return()
 {
 }
 

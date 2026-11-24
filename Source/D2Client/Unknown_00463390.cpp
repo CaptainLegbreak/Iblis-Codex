@@ -51,7 +51,7 @@ int __stdcall DUNGEON_CheckLOSDraw(D2ActiveRoomStrc* pRoom);                    
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
 void __stdcall DUNGEON_UpdatePops(D2ActiveRoomStrc* pRoom, int nX, int nY, int bChanged);              // 0x0061ACD0
 int __stdcall DUNGEON_GetPortalFlagFromLevelId(int nLevelId);                                               // 0x0061AE30
-void __stdcall sub_0061AF10(void* pAct, D2ActiveRoomStrc* pNextRoom, D2ActiveRoomStrc* pRoom);              // 0x0061AF10
+void __stdcall DUNGEON_InitRoomTileAnimation(void* pAct, D2ActiveRoomStrc* pNextRoom, D2ActiveRoomStrc* pRoom);              // 0x0061AF10
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill);                              // 0x00620210
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit);                                               // 0x00620250
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit);                                                        // 0x00620510
@@ -71,7 +71,7 @@ void __stdcall D2COMMON_10193_PATH_AdjustDirection(D2DynamicPathStrc* pDynamicPa
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pPath);                                        // 0x00648A00
-int __stdcall sub_00648A10_GetPathTargetY(D2DynamicPathStrc* pPath);                                        // 0x00648A10
+int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pPath);                                        // 0x00648A10
 D2ActiveRoomStrc* __stdcall PATH_GetNextRoom(D2DynamicPathStrc* pDynamicPath);                              // 0x00648AA0
 D2UnitStrc* __stdcall PATH_GetTargetUnit(D2DynamicPathStrc* pDynamicPath); // 0x00648BF0
 void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc* pPath);                                                      // 0x00648DC0
@@ -158,7 +158,7 @@ static void PLAYER_UpdateRoomState(D2UnitStrc* pUnit)
     int nPortalFlags = UNITS_GetPlayerPortalFlags(pUnit);
     nPortalFlags |= DUNGEON_GetPortalFlagFromLevelId(nLevelId);
     UNITS_SetPlayerPortalFlags(pUnit, nPortalFlags);
-    sub_0061AF10(gpDrlgAct_007A0634, PATH_GetNextRoom(pUnit->pDynamicPath), UNITS_GetRoom(pUnit));
+    DUNGEON_InitRoomTileAnimation(gpDrlgAct_007A0634, PATH_GetNextRoom(pUnit->pDynamicPath), UNITS_GetRoom(pUnit));
     const int bInTown = DUNGEON_IsRoomInTown(pRoom) != 0;
     if (gnInTown != bInTown && !bInTown)
         NPCMENU_RefreshNpcEntries(pUnit);
@@ -274,7 +274,7 @@ static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
         return;
     }
     args[0] = D2COMMON_10175_PathGetFirstPointX(path);
-    args[1] = sub_00648A10_GetPathTargetY(path);
+    args[1] = D2COMMON_10176_PathGetFirstPointY(path);
     void* related = D2Common_10958(unit, 0);
     if (related)
         DLIGHTMAP_ReleaseLight(related);

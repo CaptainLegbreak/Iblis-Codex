@@ -338,7 +338,7 @@ void __stdcall STATLIST_ExpireUnitStatlist(D2UnitStrc* pUnused, D2UnitStrc* pUni
 
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType);   // 0x00627910
 
-int __stdcall sub_00626020_GetUnitDefense(D2UnitStrc* pUnit);
+int __stdcall STATLIST_GetDefenseFromUnit(D2UnitStrc* pUnit); // 0x00626020
 
 #pragma pack(push, 2)
 

@@ -53,7 +53,7 @@ void __fastcall sub_0057C9F0(Game*, Unit*, Unit*); // 0x0057C9F0
 int __fastcall sub_005CDD30(Unit*); // 0x005CDD30
 int __fastcall sub_0056F640(Game*, Unit*, int, int, int); // 0x0056F640
 int __fastcall sub_005CDDD0(Game*, Unit*, Unit*, int, int); // 0x005CDDD0
-int __stdcall sub_006444A0(Skill*); // 0x006444A0
+int __stdcall SKILLS_GetParam1(Skill*); // 0x006444A0
 int __fastcall SKILLS_ApplyFrenzyStats(Game*, Unit*, int, int); // 0x005D8C70
 
 enum { UNIT_FLAG = 0x40 };
@@ -116,7 +116,7 @@ int __fastcall sub_005CDF10(Game* game, Unit* unit, int skillId, int skillLevel)
     if (unit) unit->flags |= UNIT_FLAG;
     if (sub_005CDD30(unit)) sub_0056F640(game, unit, skillId, skillLevel, 0);
     sub_005CDDD0(game, unit, target, skillId, skillLevel);
-    if (sub_006444A0(skill)) SKILLS_ApplyFrenzyStats(game, unit, skillId, skillLevel);
+    if (SKILLS_GetParam1(skill)) SKILLS_ApplyFrenzyStats(game, unit, skillId, skillLevel);
     return 1;
 }
 

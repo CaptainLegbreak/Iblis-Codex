@@ -330,7 +330,7 @@ struct D2CommonLevelNodeStrc
 };
 typedef void (__fastcall* LEVELNODEFN)(D2CommonLevelNodeStrc* pNode);
 extern const LEVELNODEFN gpfnRoomExSetStatus[]; // 0x00744384
-void __fastcall sub_0066C370_OnChildlessNode(void* pContext, D2CommonLevelNodeStrc* pNode); // 0x0066C370
+void __fastcall DRLGROOM_InitNearRooms(void* pContext, D2CommonLevelNodeStrc* pNode); // 0x0066C370
 static inline int sub_F45_IsFirstAtLevel(D2CommonLevelNodeStrc* pNode, int nLevel)
 {
     for (int i = 0; i <= nLevel; ++i)
@@ -351,7 +351,7 @@ static inline void sub_F45_VisitChild(D2CommonLevelNodeStrc* pChild, int nLevel)
 void __fastcall DRLGACTIVATE_RoomExPropagateSetStatus(void* pContext, D2CommonLevelNodeStrc* pNode, unsigned char nLevel)
 {
     if (!pNode->nChildren)
-        sub_0066C370_OnChildlessNode(pContext, pNode);
+        DRLGROOM_InitNearRooms(pContext, pNode);
     if (nLevel < 3)
     {
         for (int i = 0; i < pNode->nChildren; ++i)

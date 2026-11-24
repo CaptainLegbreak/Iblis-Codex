@@ -81,8 +81,8 @@ extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
 
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-D2UnitStrc* __stdcall sub_0063BEF0_GetMainHand(D2InventoryStrc*); // 0x0063BEF0
-D2UnitStrc* __stdcall sub_0063BDE0_GetBodyItem(D2InventoryStrc*,int); // 0x0063BDE0
+D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc*); // 0x0063BEF0
+D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc*,int); // 0x0063BDE0
 int __stdcall ITEMSIsA(D2UnitStrc*,int); // 0x00629BB0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc*); // 0x0062BA80
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
@@ -280,9 +280,9 @@ void __fastcall sub_004A9690_DrawSkillInfoBase(void* cell,D2SkillsTxt* skills,in
   D2InventoryStrc* inv=player->pInventory;
   switch(skills->nSkillId) {
   case SKILL_LEFTHANDTHROW: {
-   D2UnitStrc* hand=sub_0063BEF0_GetMainHand(inv);
-   D2UnitStrc* item=sub_0063BDE0_GetBodyItem(inv,4);
-   D2UnitStrc* other=sub_0063BDE0_GetBodyItem(inv,5);
+   D2UnitStrc* hand=INVENTORY_GetLeftHandWeapon(inv);
+   D2UnitStrc* item=INVENTORY_GetItemFromBodyLoc(inv,4);
+   D2UnitStrc* other=INVENTORY_GetItemFromBodyLoc(inv,5);
    if(hand==item)item=other;
    if(item && ITEMSIsA(item,45) && ITEMS_CheckIfThrowable(item) && ITEMS_CheckIfStackable(item)) {
     quantity=STATLIST_UnitGetStatValue(item,STAT_QUANTITY,0);goto draw;
@@ -290,7 +290,7 @@ void __fastcall sub_004A9690_DrawSkillInfoBase(void* cell,D2SkillsTxt* skills,in
    break;
   }
   case SKILL_THROW: {
-   D2UnitStrc* item=sub_0063BEF0_GetMainHand(inv);
+   D2UnitStrc* item=INVENTORY_GetLeftHandWeapon(inv);
    if(item && ITEMS_CheckIfThrowable(item) && ITEMS_CheckIfStackable(item)) {
     quantity=STATLIST_UnitGetStatValue(item,STAT_QUANTITY,0);goto draw;
    }

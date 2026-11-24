@@ -334,13 +334,13 @@ void __stdcall DUNGEON_UpdatePops(D2ActiveRoomStrc* pRoom, int nX, int nY, int b
 
 int __stdcall DUNGEON_GetPortalFlagFromLevelId(int nLevelId);                                               // 0x0061AE30
 
-void __stdcall sub_0061AF10(void* pAct, D2ActiveRoomStrc* pNextRoom, D2ActiveRoomStrc* pRoom);              // 0x0061AF10
+void __stdcall DUNGEON_InitRoomTileAnimation(void* pAct, D2ActiveRoomStrc* pNextRoom, D2ActiveRoomStrc* pRoom);              // 0x0061AF10
 
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit);                                               // 0x00620190
 
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit);                                              // 0x006201D0
 
-void __stdcall sub_00620E40_GetClassSpeed(D2UnitStrc* pUnit, int nClassId, int* pSpeed, int* pBase);        // 0x00620E40
+void __stdcall UNITS_GetRunAndWalkSpeedForPlayer(D2UnitStrc* pUnit, int nClassId, int* pSpeed, int* pBase);        // 0x00620E40
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit);                                               // 0x00620250
 
@@ -390,9 +390,9 @@ int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill);                             
 
 void __stdcall PATH_FreeDynamicPath(void* pMemPool, D2DynamicPathStrc* pDynamicPath);                      // 0x00648460
 
-int __stdcall sub_00648A40_GetTargetX(D2DynamicPathStrc* pPath);                                            // 0x00648A40
+int __stdcall PATH_GetLastPointX(D2DynamicPathStrc* pPath);                                            // 0x00648A40
 
-int __stdcall sub_00648A60_GetTargetY(D2DynamicPathStrc* pPath);                                            // 0x00648A60
+int __stdcall PATH_GetLastPointY(D2DynamicPathStrc* pPath);                                            // 0x00648A60
 
 D2ActiveRoomStrc* __stdcall PATH_GetNextRoom(D2DynamicPathStrc* pDynamicPath);                              // 0x00648AA0
 
@@ -897,7 +897,7 @@ static void PLAYER_UpdateRoomState(D2UnitStrc* pUnit)
     int nPortalFlags = UNITS_GetPlayerPortalFlags(pUnit);
     nPortalFlags |= DUNGEON_GetPortalFlagFromLevelId(nLevelId);
     UNITS_SetPlayerPortalFlags(pUnit, nPortalFlags);
-    sub_0061AF10(gpDrlgAct_007A0634, PATH_GetNextRoom(pUnit->pDynamicPath), UNITS_GetRoom(pUnit));
+    DUNGEON_InitRoomTileAnimation(gpDrlgAct_007A0634, PATH_GetNextRoom(pUnit->pDynamicPath), UNITS_GetRoom(pUnit));
     const int bInTown = DUNGEON_IsRoomInTown(pRoom) != 0;
     if (gnInTown != bInTown && !bInTown)
         NPCMENU_RefreshNpcEntries(pUnit);
@@ -1365,8 +1365,8 @@ static int __stdcall PLAYER_WalkTo(int nMode, D2UnitStrc* pUnit, int nX, int nY)
     if (!D2Common_10142(pPath, pUnit, 0))
         return 0;
 
-    const int nTargetX = sub_00648A40_GetTargetX(pPath);
-    const int nTargetY = sub_00648A60_GetTargetY(pPath);
+    const int nTargetX = PATH_GetLastPointX(pPath);
+    const int nTargetY = PATH_GetLastPointY(pPath);
     UNITMODE_DoUnitAction(nMode, pUnit, nTargetX, nTargetY, 0);
     return 1;
 }
@@ -2275,7 +2275,7 @@ static int PLAYER_CmdLeftSkillMove(D2PlayerCmdStrc* pCmd)
     D2UnitStrc* pPlayer = pCmd->pPlayer;
     int nSpeed;
     int nBase;
-    sub_00620E40_GetClassSpeed(pPlayer, !pPlayer ? -1 : pPlayer->dwClassId, &nSpeed, &nBase);
+    UNITS_GetRunAndWalkSpeedForPlayer(pPlayer, !pPlayer ? -1 : pPlayer->dwClassId, &nSpeed, &nBase);
     nSpeed <<= 8;
     D2DynamicPathStrc* pPath = pCmd->pPlayer->pDynamicPath;
     const int nVelocity = STATLIST_UnitGetStatValue(pCmd->pPlayer, STAT_VELOCITYPERCENT, 0) * nSpeed / 100;

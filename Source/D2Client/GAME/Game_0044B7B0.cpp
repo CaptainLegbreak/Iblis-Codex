@@ -405,11 +405,11 @@ extern "C" void __fastcall sub_004786A0_SendPacket(U8 command,U32 first,U32 seco
 
 extern "C" Auxiliary* __cdecl sub_004646A0_GetAuxiliary();
 
-extern "C" void __stdcall sub_0061C240_Configure(Context* context,Auxiliary* auxiliary,int mode,int angle,int flag);
+extern "C" void __stdcall ENVIRONMENT_InitializeEnvironment(Context* context,Auxiliary* auxiliary,int mode,int angle,int flag); // 0x0061C240
 
 extern "C" void __cdecl sub_0049F960_Cleanup();
 
-extern "C" void __stdcall sub_006612A0_Release(Allocation* allocation);
+extern "C" void __stdcall TEXT_FreeTextHeader(Allocation* allocation); // 0x006612A0
 
 extern "C" int __cdecl sub_0044DCC0_Mode();
 
@@ -796,7 +796,7 @@ extern "C" void __cdecl sub_004A1730_ClearAllocation()
     Allocation* allocation=gAllocation;
     gCleanupState=0;
     if(allocation) {
-        sub_006612A0_Release(allocation);
+        TEXT_FreeTextHeader(allocation);
         gAllocation=(Allocation*)0;
     }
 }

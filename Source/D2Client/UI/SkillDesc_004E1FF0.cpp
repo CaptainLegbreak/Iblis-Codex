@@ -248,7 +248,7 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 void __stdcall D2Common_10474(D2UnitStrc* pUnused, D2StatListStrc* pStatList); // 0x006277E0
 
-void __stdcall sub_0065FEC0_ItemApplyProps(int nPass, int nArg1, D2UnitStrc* pItem, int nArg, int nArg2, int nArg5); // 0x0065FEC0
+void __stdcall ITEMMODS_AssignProperty(int nPass, int nArg1, D2UnitStrc* pItem, int nArg, int nArg2, int nArg5); // 0x0065FEC0
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 
@@ -1307,7 +1307,7 @@ void __stdcall sub_004E5A10_Emit(int nUnused, unsigned int nSetItemMask)
 // 0x004E67D0
 void __fastcall SKILLDESC_BuildItemPropText(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4)
 {
-    sub_0065FEC0_ItemApplyProps(2, 0, pItem, nArg, nArg2, 0);
+    ITEMMODS_AssignProperty(2, 0, pItem, nArg, nArg2, 0);
     sub_004E6410_BuildPropText(pItem, wszText, nArg3, 0, nArg4);
 
     D2StatListStrc* pStatList = sub_00625790_UnitFindStatList(pItem, 0, 0x40);

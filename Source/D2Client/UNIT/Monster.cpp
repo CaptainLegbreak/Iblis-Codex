@@ -399,7 +399,7 @@ void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc*, int); // 0x006
 
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int); // 0x00611D30
 
-void __stdcall sub_00644340_SetSkillMode(D2SkillStrc*, int); // 0x00644340
+void __stdcall SKILLS_SetSkillMode(D2SkillStrc*, int); // 0x00644340
 
 void __stdcall sub_0063EBC0(D2UnitStrc*, int); // 0x0063EBC0
 
@@ -1150,7 +1150,7 @@ void __fastcall MONSTER_InitMonster(D2UnitStrc* pUnit, D2RoomStrc* pRoom, int nX
         if(pMonStats->nSkill[i]>=0 && pMonStats->nSkLvl[i]>0)
         {
             SKILLS_AssignSkill(pUnit,pMonStats->nSkill[i],pMonStats->nSkLvl[i]+nSkillBonus,1,gszMonsterFile_006DA5C8,0x23F);
-            sub_00644340_SetSkillMode(SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit,pMonStats->nSkill[i]),(char)pMonStats->nSkillMode[i]);
+            SKILLS_SetSkillMode(SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit,pMonStats->nSkill[i]),(char)pMonStats->nSkillMode[i]);
         }
     }
     sub_0063EBC0(pUnit,nSkillBonus);

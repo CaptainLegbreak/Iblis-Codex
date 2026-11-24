@@ -170,7 +170,7 @@ extern "C" void __stdcall BITMANIP_Write(BitStreamContext* stream, U32 value, in
 
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0x006CC45C
 
-void __stdcall sub_00660CB0_GetUiRecord(int nIndex, int nRow, D2UiRecordStrc* pRecord); // 0x00660CB0
+void __stdcall DATATBLS_GetBeltsTxtRecord(int nIndex, int nRow, D2UiRecordStrc* pRecord); // 0x00660CB0
 
 void __stdcall DATATBLS_GetInvRectFromBeltsTxt(int nIndex, int bHigherRes, D2UiRectStrc* pInvRect, int nBoxId); // 0x00660D10
 
@@ -921,7 +921,7 @@ static void __cdecl PANEL_DrawCursorBeltBox(D2InventoryStrc* pInventory)
         return;
 
     D2UiRecordStrc tRecord;
-    sub_00660CB0_GetUiRecord(gnUiRecordIndex, gnBeltUiRecordRow, &tRecord);
+    DATATBLS_GetBeltsTxtRecord(gnUiRecordIndex, gnBeltUiRecordRow, &tRecord);
 // build: symbol ?gnBeltBox@* 0x0072235C
     if (gnBeltBox < 0 || gnBeltBox >= tRecord.nBoxes)
         return;
@@ -1376,7 +1376,7 @@ static int __stdcall PANEL_GetBeltBoxAt(int nY, int nX)
 {
     D2UiRecordStrc tRecord;
     int nResult = -1;
-    sub_00660CB0_GetUiRecord(gnUiRecordIndex, gnBeltUiRecordRow, &tRecord);
+    DATATBLS_GetBeltsTxtRecord(gnUiRecordIndex, gnBeltUiRecordRow, &tRecord);
     for (int i = 0; i < tRecord.nBoxes; ++i)
     {
         D2UiRectStrc tRect;
@@ -1802,7 +1802,7 @@ void __cdecl PANEL_DrawBelt()
     }
 
     D2UiRecordStrc tRecord;
-    sub_00660CB0_GetUiRecord(gnUiRecordIndex, gnBeltUiRecordRow, &tRecord);
+    DATATBLS_GetBeltsTxtRecord(gnUiRecordIndex, gnBeltUiRecordRow, &tRecord);
     for (int nSlot = 0; nSlot < tRecord.nBoxes; ++nSlot)
     {
         if (nSlot > 3 && !gbBeltRowsShown)

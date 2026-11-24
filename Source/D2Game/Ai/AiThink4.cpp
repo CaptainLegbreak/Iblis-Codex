@@ -800,9 +800,9 @@ int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc*); // 0x00648A
 
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc*); // 0x00648A10
 
-unsigned int __stdcall sub_00648A20_GetLastPointX(D2DynamicPathStrc*); // 0x00648A20
+unsigned int __stdcall PATH_GetFinalTargetX(D2DynamicPathStrc*); // 0x00648A20
 
-unsigned int __stdcall sub_00648A30_GetLastPointY(D2DynamicPathStrc*); // 0x00648A30
+unsigned int __stdcall PATH_GetFinalTargetY(D2DynamicPathStrc*); // 0x00648A30
 
 D2PetInfoStrc* __fastcall PLAYERPETS_GetPetInfoFromPetGUID(D2UnitStrc*, int); // 0x00574BD0
 
@@ -1595,7 +1595,7 @@ int __fastcall sub_005541B0_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 
 D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nRange); // 0x005D2F80
 
-int __stdcall sub_00625D60(D2UnitStrc* pUnit); // 0x00625D60
+int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
 
 void __fastcall sub_005DEC80_Walk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSteps); // 0x005DEC80
 
@@ -3571,7 +3571,7 @@ int __fastcall AITHINK_PetMove(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStr
     const int nPlayerMode = pPlayer->dwAnimMode;
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
     const int nOwnerX = PATH_GetX(pPath);
-    const int nOwnerY = sub_00648A30_GetLastPointY(pPath);
+    const int nOwnerY = PATH_GetFinalTargetY(pPath);
     switch (nMode)
     {
     case 0:
@@ -3758,8 +3758,8 @@ int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner,
     unsigned int nTargetX = 0;
     unsigned int nTargetY = 0;
     D2PlayerDataStrc* pData = UNITS_GetPlayerData(pOwner);
-    int nLastX = (int)sub_00648A20_GetLastPointX(pPath);
-    int nLastY = (int)sub_00648A30_GetLastPointY(pPath);
+    int nLastX = (int)PATH_GetFinalTargetX(pPath);
+    int nLastY = (int)PATH_GetFinalTargetY(pPath);
     int nX = GetUnitX(pUnit);
     int nY = GetUnitY(pUnit);
     int nOwnerX = GetUnitX(pOwner);
@@ -3922,8 +3922,8 @@ int __fastcall AITHINK_TryPetFollowOwner(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     nUnitCollision = D2Common_10095(UNITS_GetRoom(pUnit), GetUnitX(pUnit), GetUnitY(pUnit));
     nFirstX = D2COMMON_10175_PathGetFirstPointX(pPath);
     nFirstY = D2COMMON_10176_PathGetFirstPointY(pPath);
-    nLastX = sub_00648A20_GetLastPointX(pPath);
-    nLastY = sub_00648A30_GetLastPointY(pPath);
+    nLastX = PATH_GetFinalTargetX(pPath);
+    nLastY = PATH_GetFinalTargetY(pPath);
     nMove = 2;
     if (nMode == 2 || nMode == 6 || nMode == 3) nMove = 0;
     if (nFirstX != nLastX && nFirstY != nLastY) nMove = 0;
@@ -13694,7 +13694,7 @@ void __fastcall AITHINK_Fn111_CycleOfLife(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         break;
     case 427:
         nCurrent = STATLIST_UnitGetStatValue(pOwner, STAT_MANA, 0);
-        nMaximum = sub_00625D60(pOwner);
+        nMaximum = STATLIST_GetMaxManaFromUnit(pOwner);
         if (nCurrent >= nMaximum) bUseSkill = 0;
         break;
     }

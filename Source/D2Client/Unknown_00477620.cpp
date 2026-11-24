@@ -14,7 +14,8 @@ inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-static inline int sub_00623C60(D2UnitStrc* pUnit)
+// build: symbol ?UNITS_GetWeaponClass@* 0x00623C60
+static inline int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {
@@ -33,7 +34,7 @@ int __fastcall sub_00477620_RollUnitValue(D2UnitStrc* pUnit, unsigned short nOff
     }
 
     D2SeedStrc* pSeed = &pUnit->pSeed;
-    SEED_InitLowSeed(pSeed, sub_00623C60(pUnit) + nOffset);
+    SEED_InitLowSeed(pSeed, UNITS_GetWeaponClass(pUnit) + nOffset);
     return (unsigned int)SEED_RollRandomNumber(pSeed) % 30 + 9;
 }
 
