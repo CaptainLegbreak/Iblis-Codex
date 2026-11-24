@@ -10695,6 +10695,10 @@
      "va": "0x004538D0",
      "length": 44,
      "name": "?GAME_GetUIVarState@@YIHI@Z"
+    },
+    {
+     "va": "0x006CA9C0",
+     "length": 70
     }
    ],
    "flags": [
@@ -80330,16 +80334,6 @@
     {
      "va": "0x006CAC10",
      "length": 21
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006CA9C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CA9C0",
-     "length": 70
     }
    ]
   },
