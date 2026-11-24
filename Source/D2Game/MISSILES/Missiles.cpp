@@ -8,6 +8,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2TxtTables.h"
+#include "D2Packets.h"
 
 typedef void(__fastcall* MISSILEINITFUNC)(D2UnitStrc* pMissile, int nInitArg);
 
@@ -89,7 +90,6 @@ union D2SeedStrc;
 
 #pragma pack(push, 1)
 
-struct D2GSPacketSrv73 { unsigned char nHeader; int unk01; unsigned short nMissileId; int nX; int nY; int nFirstX; int nFirstY; unsigned short nCurrentFrame; unsigned char nUnitType; int nUnitGUID; unsigned char nLevel; unsigned char nPierce; };
 
 #pragma pack(pop)
 

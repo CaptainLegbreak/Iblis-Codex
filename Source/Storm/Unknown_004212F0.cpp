@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2StormArrayA.h"
 
 struct D2StormArrayAStrc;
 struct D2StormArrayCStrc;
@@ -10,42 +11,6 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x004133D0
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
-struct D2StormArrayAStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
-    static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
-    {
-        unsigned int nRemainder = nValue % nAlign;
-        if (nRemainder)
-            nValue += nAlign - nRemainder;
-        return nValue;
-    }
-    void Reserve(unsigned int nCount, int bRound)
-    {
-        nCount += f_4;
-        if (nCount > f_0)
-        {
-            if (bRound)
-            {
-                unsigned int nChunk = f_C ? f_C : sub_004210A0_CalcChunkSize(nCount);
-                nCount = RoundUp(nCount, nChunk);
-            }
-            sub_004216E0_ReallocData(nCount);
-        }
-    }
-    void SetCount(unsigned int nCount)
-    {
-        if (nCount > f_4)
-            Reserve(nCount - f_4, 1);
-        f_4 = nCount;
-    }
-    unsigned int* sub_00420FE0_Top();                                                                       // 0x00420FE0
-    unsigned int sub_004210A0_CalcChunkSize(unsigned int nCount);                                           // 0x004210A0
-    void sub_004216E0_ReallocData(unsigned int nAlloc);                                                     // 0x004216E0
-};
 
 struct D2StormArrayCStrc
 {
