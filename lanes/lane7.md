@@ -4,6 +4,7 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- 2026-11-23 23:35 PT: no match yet. 0x62B5B0's search reached 1192/1192 with 259 unaligned instructions (from 271): nRequiredLevel initialised at its declaration, and (int)-cast arms with pPlayer tested first in the rare/craft checks. Register choice is still the same: nRequiredLevel is spilled, where the original keeps it in esi. 0x4F8B80's 14 groups never got past 579/561. Ours re-reads pCell bytes for aLight, while the original reuses the saved nL21/nL22 and keeps pDst, nBlockX and nBlockY in frame slots; the next groups target that. Main moved to #328, and path-d-2 is in, so 0x679C80 is next once lane 8 answers.
 - 2026-11-23 21:55 PT: lane 7 has started: the 8 borrowed functions (all but 0x4A4AD0). Order: 0x6BD230, 0x62B5B0, 0x55A6D0, 0x5DD7F0, 0x5EDC50, 0x4F8B80, 0x677880, 0x679C80. Branches will be `lane7/<va>`.
 - 2026-11-23 22:10 PT, progress (nothing ready yet):
   - **0x6BD230** (Fog, 246 B): parked for now. In Excel.cpp itself (its types, gszExcelSourceFile extern) it is 244/246 and every other Excel.cpp function stays equal; the only difference is the missing unused `push ecx` slot. Also tried a __stdcall member of D2TxtLinkStrc and an in-class inline member called from the export (not inlined under /Ob2, and it flips 0x6BD780). Coming back to it after the others.
