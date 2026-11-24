@@ -28,6 +28,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Questions
 
+- automap.cpp <- Unknown_0045AE90 (map: clear lead): parked, the inlining says they are two objects. Joined, it compiles, but automap.cpp's 0x452580, 0x459440 and 0x459700 inline the placeholder's 0x45AE90 (the automap view getter), which the original calls out of line from all three (`call 0x45ae90`). MSVC inlines a visible small function whether it is defined before or after its caller, so 0x45AE90 was in another unit. That's the automap view object I split out in automap-view (0x45AD60-0x45B4F0, its own data). Coordinator: if you know a case where the original compiler kept such a helper out of line in the same unit, tell me and I'll retry.
 - Gfx.cpp <- Unknown_0046C7D0 (map's top lead): parked. Joined, every function builds equal except Gfx.cpp's own 0x46D780: with the placeholder's static 0x46CBD0 (SetAiTimerClamped, one caller) in the same unit, the compiler inlines it into 0x46D780, which the original calls out of line (`call 0x46cbd0`, ecx/eax register arguments, so it is a static of that object). Defining it after its caller doesn't stop the inlining. I haven't found a non-forcing way to keep it out of line; the parameter-order clash on 0x46CA60 was settled by Gfx.cpp's view. Ideas welcome; I'm moving on.
 
 ## Notes for other lanes
