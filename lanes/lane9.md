@@ -14,30 +14,41 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-- lane9/join-ddraw-11df0 0c5db874 placeholders 1->0 (D2DDraw/Unknown_00512250.cpp into Unknown_00511DF0.cpp). Base
-  main ff0dd9c4 (#335). Precheck: 0 not all equal. Full verify: VERIFIED tree 7887dac9.
-  DrawCelClipped 0x512250 is the only caller of the file static ClipCel 0x511E80 (the placeholder carried a copy of
-  it). Unknown_00511DF0.cpp already held an emitter for it; the emitter becomes the real function (prepare mode 1,
-  the palette lookup evaluated as CelDrawEx's argument, as the image orders it).
-- lane9/join-d3d-7530 98bdfd62 placeholders 6->1 (D2Direct3D: Unknown_006B7630, _006B8950, _006B8DF0, _006B8E90,
-  _006B87A0 join Unknown_006B7530.cpp; 13 functions). Base main ff0dd9c4 (#335). Precheck: 0 not all equal.
-  Full verify on #335: VERIFIED tree fadd5258 (98bdfd62; rebased with namesync, 4 renames in the joined file).
-  Evidence: the image's calls tie them by file statics. 0x6B7630 calls the static 0x6B7530; 0x6B8950 and 0x6B83A0 call
-  the static 0x6B7FD0; 0x6B8DF0 and 0x6B8E90 call the statics 0x6B8950 and 0x6B87A0; 0x6B8E60 calls the static
-  0x6B8DF0. With the bodies together the context copies, the glyph emitter and the ecx struct trick for 0x6B87A0 go
- . 0x6B7FD0's parameters are (nSide, pRect, pOffset, bFlag): its
-  custom-convention callers evaluate pRect before nSide. gaGeometry (0x0074C100) moves to this unit's data.
-  Two declaration-set sensitivities in 0x6B8950, both fixed naturally: its indexed draw goes through the file's own
-  device record (as the piece had it), and the file's statics are prototyped once at the top.
-- lane9/place-gdismack 224c0be7 placeholders 1->0 (D2Gdi/Unknown_006C9900.cpp into gdiSmack.cpp). Base main ff0dd9c4 (#335;
-  verified on #333, rebase crosses only name sweeps). Precheck: 0 not all equal. Full verify: VERIFIED tree 145e8920.
-  GdiPlaySmacker 0x6C9900 calls gdiSmack.cpp's file static RemapRows 0x6C9690 (the placeholder carried a context copy of
-  it), so it is gdiSmack code; gdiSmack already defined it and builds equal with it, and now defines gbRemapValid.
-- lane9/join-d3dsprite dbee0f1a 4->2 units (d3dSprite group: Unknown_006B5C80.cpp and d3dSprite_006B5CF0.cpp go;
-  d3dSprite.cpp now owns 0x6B5C80 and 0x6B5CF0, which it already defined). Base main ff0dd9c4 (#335; verified on #333, the rebase crosses only name sweeps in other files).
-  Precheck: no changed units (deletions only; d3dSprite.cpp and the remaining piece built: 0 not all equal).
-  Full verify: VERIFIED tree 0eb9d35e. Every d3dSprite unit builds equal with and without /GS-, so flags don't keep
-  the group apart; d3dSprite_006B5D40.cpp stays until its shims are reconciled with the main file's.
+All on main 386d6e91 (#337), rebased today with namesync; each branch's changed units rebuild equal on its #337 head.
+A tree with all seven cherry-picked onto #337 (gdismack, d3d-7530, ddraw, glide-bd30, glide-d410, d3d-3570,
+d3dsprite-2, in that order) applies without conflicts beyond units.json/data_plan.json/docs and builds equal; its full
+verify is queued and I'll post the tree id.
+
+- lane9/place-gdismack cc959493 placeholders 1->0 (D2Gdi/Unknown_006C9900.cpp into gdiSmack.cpp). Full verify:
+  VERIFIED tree 145e8920 (on #333). GdiPlaySmacker 0x6C9900 calls gdiSmack.cpp's file static RemapRows 0x6C9690.
+- lane9/join-d3d-7530 d75177c6 placeholders 6->1 (Unknown_006B7630, _006B8950, _006B8DF0, _006B8E90, _006B87A0 join
+  Unknown_006B7530.cpp; 13 functions). Full verify: VERIFIED tree fadd5258 (on #335). Evidence: file statics 0x6B7530,
+  0x6B7FD0, 0x6B8950, 0x6B87A0, 0x6B8DF0 called across those units. 0x6B7FD0 takes (nSide, pRect, pOffset, bFlag).
+  Two declaration-set sensitivities in 0x6B8950, fixed naturally (its indexed draw through the file's own device
+  record; the file's statics prototyped once at the top).
+- lane9/join-ddraw-11df0 f17e4c44 placeholders 1->0 (D2DDraw/Unknown_00512250.cpp into Unknown_00511DF0.cpp). Full
+  verify: VERIFIED tree 7887dac9 (on #335). 0x512250 (sub_00512250_DrawCel) is the only caller of the file static
+  ClipCel 0x511E80; the file's emitter for it becomes the real function.
+- lane9/join-glide-bd30 04390cae placeholders 4->1 (D2Glide Unknown_0050BBA0, _0050CA00, _0050CF70 join
+  Unknown_0050BD30.cpp; 14 functions). Full verify: VERIFIED tree 8bd90044 (on #335). Evidence: file statics 0x50BD30
+  and 0x50C690 called across them; GlideGetDrawRect 0x50C690 takes (bPerspective, nScreenPanels, pRect, pOffset).
+- lane9/join-glide-d410 73c54178 STACKED on lane9/join-glide-bd30, placeholders 2->0 (Unknown_0050CDD0 and
+  Unknown_0050D410 join the same unit; 18 functions). Full verify: VERIFIED tree 211ccdbe (on #335). 0x50D410/0x50D4C0
+  call the file statics 0x50CDD0 and 0x50CF70.
+- lane9/join-d3d-3570 86b9058f placeholders 1->0 (D2Direct3D/Unknown_006B4C90.cpp into Unknown_006B3570.cpp). Full
+  verify of its #337 rebase before namesync (79b0123b, which differs by two renamed lines) is running. DetectDirect3D
+  0x6B4C90 is a file static whose only caller is 0x6B4E80. The unit is /EHsc /GS-, as its try/catch blocks need;
+  LOGMANAGER_WriteLogLine keeps its throw() declaration, which /EHsc reads.
+- lane9/join-d3dsprite-2 0c0e5581 pieces 2->1 (d3dSprite_006B5D40.cpp joins d3dSprite.cpp; 19 functions). Full verify
+  queued. The piece's functions call d3dSprite.cpp's statics 0x6B5C80, 0x6B5CF0, 0x6B6680, and d3dSprite.cpp's
+  0x6B7090 calls the piece's statics 0x6B5D40 and 0x6B63F0. Shims, context copies, emitters and the two noinline
+  prototypes go; the three names for the 0x00970F40 counter become one static. **Please look at one point:**
+  DrawQuad 0x6B63F0 returns what its exits leave in eax (the failed Lock's result; on the normal path there is no
+  return statement, a C4715 warning), and 0x6B7090 returns that value, as the image does. It adds no instructions.
+  If you'd rather not have a missing return, I'll keep 0x6B7090 and 0x6B63F0 apart instead.
+- join-d3dsprite (the first half) is in #336; atl-d3dcore is in #332 (its 2 B note stands: 0x006FADC2 now counts as
+  copied, not padding).
+
 ## Questions
 - Coordinator, D2Gdi direction (I'll hold off): the file static 0x6C8380 (in Unknown_006C8250.cpp, 12 functions) is
   called from 0x6C8750, which is filed in gdiCore.cpp. So 0x6C8750 and Unknown_006C8250 are one object. gdiCore.cpp's
