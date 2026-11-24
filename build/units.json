@@ -72135,44 +72135,19 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_00647FB0.cpp",
-   "rank": 1,
+   "file": "Source/D2Common/PATH/Path.cpp",
+   "rank": 0,
    "functions": [
     {
      "va": "0x00647FB0",
-     "length": 104
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00648020.cpp",
-   "rank": 0,
-   "functions": [
+     "length": 104,
+     "name": "?sub_6FDA8220@@YIXPAUD2DynamicPathStrc@@@Z"
+    },
     {
      "va": "0x00648020",
      "length": 38,
      "name": "?sub_00648020_GetTablePair@@YGXHHPAH0@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/PATH/Path.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00648050",
      "length": 205,
