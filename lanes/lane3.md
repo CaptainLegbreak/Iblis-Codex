@@ -14,6 +14,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- **lane3/sbig-pieces-3**: Unknown_004199A0.cpp (0x421D80, SBig's handle record destructor) and Unknown_004212F0.cpp (BigBuffer compare/GrowToFit/Trim) become SBig_00421D80.cpp and SBig_004212F0.cpp. Full verify running.
+
 ## Questions
 
 (none)
