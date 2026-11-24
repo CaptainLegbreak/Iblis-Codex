@@ -47,9 +47,35 @@ unsigned int gnNumberOfTasksCreated; // 0x0088C798
 
 static unsigned int gnGamesCount;        // 0x0088C79C
 
-D2CriticalSectionStrc gtTaskQueuesCriticalSections[32]; // 0x0088C7A8
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
 
-D2CriticalSectionStrc gTaskSlotsCriticalSection; // 0x0088CAA8
+// Fog's critical-section object; its constructor and destructor are out of line (0x0040EB50/0x0040EB60),
+// so the array below is built and torn down by the CRT's vector constructor and destructor iterators.
+class CCritSect : public D2CriticalSectionStrc
+{
+public:
+    CCritSect();
+    ~CCritSect();
+};
+// build: symbol ??0CCritSect@@QAE@XZ 0x0040EB50
+// build: symbol ??1CCritSect@@QAE@XZ 0x0040EB60
+
+// A critical section for the whole run whose constructor and destructor are inline:
+// the initializer calls InitializeCriticalSection itself.
+struct CStaticCritSect : D2CriticalSectionStrc
+{
+    CStaticCritSect() { InitializeCriticalSection(this); }
+    ~CStaticCritSect() { DeleteCriticalSection(this); }
+};
+
+// build: symbol ??__EgtTaskQueuesCriticalSections@@YAXXZ 0x006CAF90
+// build: symbol ??__FgtTaskQueuesCriticalSections@@YAXXZ 0x006CB4A0
+CCritSect gtTaskQueuesCriticalSections[32]; // 0x0088C7A8
+
+// build: symbol ??__EgTaskSlotsCriticalSection@@YAXXZ 0x006CAF70
+// build: symbol ??__FgTaskSlotsCriticalSection@@YAXXZ 0x006CB490
+CStaticCritSect gTaskSlotsCriticalSection; // 0x0088CAA8
 
 struct D2TaskQueueStrc
 {

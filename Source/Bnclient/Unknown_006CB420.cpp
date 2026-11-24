@@ -13,7 +13,6 @@ extern const char gszTypeNewsTableItem_0072FF8C[]; // 0x0072FF8C
 
 extern unsigned char gCriticalSection_00881F64[24]; // 0x00881F64
 
-extern unsigned char gCriticalSection_0088CAA8[]; // 0x0088CAA8
 
 // 0x006CB420
 void __cdecl sub_006CB420_DestroyLock()
@@ -50,10 +49,4 @@ extern D2BigPairStrc data_0088273C; // 0x0088273C
 void __cdecl sub_006CB480_DestroyBigPair()
 {
     data_0088273C.~D2BigPairStrc();
-}
-
-// 0x006CB490
-void __cdecl sub_006CB490_DestroyLock()
-{
-    DeleteCriticalSection(gCriticalSection_0088CAA8);
 }
