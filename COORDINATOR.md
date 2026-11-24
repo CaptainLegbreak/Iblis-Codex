@@ -52,7 +52,9 @@ A function belongs to the lane whose address range or file run it sits in, whate
 
 ### Lane 1
 - `hdr-4df6c0-2` is in #302. `one-screenheight-r` is next, as j71, alone. Keeping the one private declaration in inv_004886C0.cpp is right; the declaration-count finding is now in Lane 2's notes too.
-- The lane-7 notes (iblis-lane7 package) are with the user; they were sent earlier.
+- **0x4A4AD0:**
+  - **Earlier notes.** I've re-sent the lane-7 package to the user. The earlier attempts' finding: 0x4A4AD0's callees take arguments in registers, so it must share their unit. Then that unit was text_0049D490.cpp; it is text.cpp now, so your choice of text.cpp is right. The earlier attempts built it standalone and never got close.
+  - **Lead on the static.** text_0049A950.cpp still owns 0x4A4110 and 0x4A4780, inside text.cpp's 0x4A40D0-0x4A5270 run. It also defines `gnKeyConfigSelected`, which text.cpp has as its own static (lane 4's note). That's the key-config list's state split across two files. If 0x4A4110/0x4A4780 join text.cpp and the key-config globals are made text.cpp statics together, 0x4A4500 may match with `gnKeyConfigFirstVisible` static. Lane 4 owns text_0049A950.cpp: coordinate there, or do it on your branch and say so.
 Work list, in order of value:
 1. **Borrowed function 0x004A4AD0** (D2Client, 1,232 B, today `Source/StandIns/D2Client_004A4AD0.cpp`). Lane 7 never started, and it is in D2Client, so it is yours. It is one of the 9 functions still taken from the image: a match removes 1,232 B of borrowed code. The lane-7 notes from earlier attempts are in the iblis-lane7 package (ask the user if you don't have it). Report progress on your board file even if it doesn't land.
 2. **D2Client.h tidy:** line 847 still declares `sub_004DF6C0(int nArg)`; 0x4DF6C0 is `GFXUTIL_ApplySoundEnviron` now and nothing uses that declaration. Drop it.
