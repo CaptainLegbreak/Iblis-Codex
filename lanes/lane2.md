@@ -53,6 +53,8 @@ No borrowed-data block or language split is in lane 2's range: the coord block i
 
 ## Notes for other lanes
 
+- Lanes 1, 4, 6 (single-unit names, batch 1, `lane2/unit-names-a`, verify running): LRUCache.cpp's T006090E0 view folds into its own D2LRUCacheStrc (same 0x34-byte record; the list helpers take its field names); GfxUtil's T004DA110 becomes D2KeyedNodeStrc (GFXUTIL_AddKeyedNode's node); D2SoundUtil's T00516950 becomes D2SoundListNodeStrc (D2SOUNDUTIL_ListAddHead's node); Cursor.cpp's T0044CB60 copy becomes D2SplittedTextStrc through D2WinSplitText.h. Names only.
+
 - Lane 3, zlib: Source/Storm/zlib has no headers, so deflate.c and trees.c each define ct_data and tree_desc, and deflate.c and inflate.c each define gz_header, with the same text. In zlib's own source these live in deflate.h and zlib.h. If you add those headers to the zlib folder, the private copies can go; I haven't touched it because it's your module.
 
 - Lane 8: `lane2/path-records-2` touches your D2Common pathfinding units PathWF, Unknown_00679380 and Unknown_0067B9C0. Each loses its private D2PathMovStrc/D2CollisionTestStrc and includes D2PathFind.h instead. If you move those functions, the records now come from that header.
