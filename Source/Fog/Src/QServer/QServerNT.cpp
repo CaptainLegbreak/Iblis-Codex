@@ -92,7 +92,7 @@ extern const char gszQServerFile[]; // 0x006FC8A0
 
 static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, D2QueueServerStrc* pServer, D2SockAddrInStrc* pAddr);
 
-long __cdecl FOG_GetSyncTime(); // 0x00410A80
+long __cdecl SYSTEM_GetSyncTime(); // 0x00410A80
 
 
 static int sQSNTWriteFromQueue(D2QueueServerStrc* pServer, D2QClientStrc* pClient);
@@ -692,7 +692,7 @@ int __fastcall sub_006C2C70_SendLocal(D2QueueServerStrc* pServer, D2QClientStrc*
     int nError;
     D2CriticalSectionStrc* pLock = &pClient->tLock;
     EnterCriticalSection(pLock);
-    pClient->nTick3 = FOG_GetSyncTime();
+    pClient->nTick3 = SYSTEM_GetSyncTime();
     if (pClient->pWriteQueue)
     {
         sub_006C23B0_QueueMessage(pClient, pBytes, nSize);
