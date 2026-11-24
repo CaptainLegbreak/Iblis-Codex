@@ -904,6 +904,16 @@ extern D2NpcChoiceStrc gaNpcChoices[];                                          
 
 extern "C" const char gszNpcMenuFile[];                                                            // 0x006DA630
 
+struct D2InventoryStrc;
+struct D2DynamicPathStrc;
+
+typedef int (__fastcall* D2TextCallback)(void* pContext, int nArg, int nValue);
+
+static inline int NPC_GetUnitClassId(D2UnitStrc* pUnit)
+{
+    return pUnit ? pUnit->dwClassId : -1;
+}
+
 static int GetUnitPathX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -4344,7 +4354,6 @@ void __fastcall sub_004B6390_HandleNpcTransaction(D2GSPacketSrv2A* pPacket)
         sub_004B9A00(0xDD, 0, 0, 0, 0);
 }
 
-
 // 0x004B6410
 int __cdecl NPCMENU_InitHireHandler()
 {
@@ -4685,6 +4694,10 @@ int __fastcall NPCMENU_NpcTextCallback(void* pContext, int nArg, int nValue)
     return 0;
 }
 
+struct D2TextHeaderStrc;
+
+#include "gen/data/Source/D2Client/UI/npcmenu.inc"
+// 0x004B6DD0
 void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUnitId, unsigned char* pBuffer, unsigned char nArg)
 {
     if (nUnitType == 6)
@@ -4728,14 +4741,15 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
     D2_ASSERT(pTextHeader, 0x1060);
 
     const unsigned short wString = TEXT_GetStringIdOfMenuType0Node(pTextHeader, 0);
-    const int nClassId = pUnit->dwClassId;
+    const int nClassId = NPC_GetUnitClassId(pUnit);
     if (MONSTERUNIQUE_CheckMonStatsFlag(nClassId, 9) && nClassId != 0x219 && nClassId != 0x21A && nClassId != 0x21B
         && nClassId != 0x20F)
     {
         CUNIT_TurnTowardPlayer(pUnit);
     }
 
-    if (INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory))
+    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+    if (INVENTORY_GetCursorItem(pInventory))
     {
         gbNpcInteracting = 1;
         gnInteractNpcId = pUnit->dwUnitId;
@@ -4776,7 +4790,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
             UI_CloseUIVars(0, 0);
             gwNpcGreetingString = wString2;
             gwNpcMessageString = NPCMENU_GetFreeStringId(wString2);
-            sub_004B4FD0(pUnit);
+            sub_004B4FD0_OpenNpcWindow(pUnit);
         }
         else
         {
@@ -4806,6 +4820,3 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
     gbGambleShop = 0;
 }
 
-struct D2TextHeaderStrc;
-
-#include "gen/data/Source/D2Client/UI/npcmenu.inc"

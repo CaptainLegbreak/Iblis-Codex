@@ -26797,6 +26797,10 @@
      "va": "0x004B6A30",
      "length": 568,
      "name": "?NPCMENU_NpcTextCallback@@YIHPAXHH@Z"
+    },
+    {
+     "va": "0x004B6DD0",
+     "length": 786
     }
    ],
    "flags": [
@@ -26874,30 +26878,6 @@
      "length": 35,
      "name": "?sub_004B6DA0_InitHandler@@YAHXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004B6DD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004B6DD0",
-     "length": 786
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
