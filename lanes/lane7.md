@@ -4,6 +4,7 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- 2026-11-24 05:15 PT: correction to my 04:45 line: the 450/450 base keeps the `(unsigned char)` cast on the backtrack test. Dropping the cast, as the original's `lea ecx,[eax-4]` wants, gives 447 and drops the pre-loop bNotStraightLine store. The current best is 450/450 with 117 differing bytes, and **everything from +0xE2 to the end now matches**. The only difference left is in the 0x91–0xDB block: the original stores tPoint (edi) straight to tCurCoords at -4, shifts a copy in ecx for `.Y`, and reloads pPathInfo from its slot; ours copies through eax and keeps pPathInfo in ecx. That 3-byte trade is what the cast is covering for. Two mutation searches are working on it.
 - 2026-11-24 04:45 PT: **0x679C80 is now 450/450 with 28 unaligned instructions** (it was 456 B at 123), and from +0xE2 to the end everything matches except a 3-byte offset shift. What did it:
   - the verified sibling 0x679B30's frame map: its tLastSegmentEndCoord has no frame slot and tCurCoords sits at -4, which is exactly the original 0x679C80 layout;
   - the start-coordinate test going through a const copy of tPoint, so tPoint loses its slot;
