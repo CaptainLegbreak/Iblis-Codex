@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Packets.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x0073C4FC
 struct D2GameStrc;
 
 struct D2PartyScreenCallbackStrc;

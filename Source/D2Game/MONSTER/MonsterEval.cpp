@@ -16,6 +16,8 @@
 #include "D2Constants.h"
 #include "D2UnitData.h"
 #include "D2GameAux.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x0073C4C0
 
 
 union D2SeedStrc;
