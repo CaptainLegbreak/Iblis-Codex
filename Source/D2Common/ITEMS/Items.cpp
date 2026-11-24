@@ -2783,21 +2783,28 @@ unsigned int __stdcall ITEMS_GetTransmogrifyFromItemId(int nItemId)
 }
 
 
+static inline int UNITS_GetUnitTypeOrInvalid_Inline(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 6;
+    }
+    return pUnit->dwUnitType;
+}
+
 // 0x0062A370
 unsigned int __stdcall ITEMS_GetSetItemsMask(D2UnitStrc* pPlayer, D2UnitStrc* pSetItem, int bDontIgnoreInputItem)
 {
-    // volatile: stands in for the original loading the type and quality into eax before comparing
-    if (!pPlayer || !pSetItem || *(volatile int*)&pSetItem->dwUnitType != UNIT_ITEM || !pSetItem->pItemData)
+    if (!pPlayer || UNITS_GetUnitTypeOrInvalid_Inline(pSetItem) != UNIT_ITEM)
     {
         return 0;
     }
-    switch (*(volatile int*)&pSetItem->pItemData->dwQualityNo)
+
+    if (ITEMS_GetItemQuality_Inl(pSetItem) != ITEMQUAL_SET)
     {
-    case ITEMQUAL_SET:
-        break;
-    default:
         return 0;
     }
+
     D2InventoryStrc* pInventory = pPlayer->pInventory;
     if (!pInventory)
     {
