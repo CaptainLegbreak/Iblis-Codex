@@ -407,13 +407,6 @@ int Unicode::isWhitespace() const
     return 0;
 }
 
-// 0x004B8370
-extern "C" void __fastcall ROSTER_SetCtrlState(D2PanelCtrlStrc_004B8370* pCtrl, int nState)
-{
-    D2_ASSERT(pCtrl, 1310);
-    pCtrl->nState = nState;
-}
-
 static inline D2RosterGroupStrc* ROSTER_FindGroup(unsigned short wId)
 {
     for (D2RosterGroupStrc* pGroup = gpRosterGroups; pGroup; pGroup = pGroup->pNext)

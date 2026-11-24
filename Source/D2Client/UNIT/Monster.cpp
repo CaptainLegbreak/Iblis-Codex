@@ -3371,12 +3371,6 @@ int __cdecl sub_004B70F0()
     return gdwGlobal_007C0E54;
 }
 
-// 0x004B85E0
-int __cdecl sub_004B85E0()
-{
-    return gdwGlobal_007C0E5C;
-}
-
 
 
 // 0x004BF9B0
