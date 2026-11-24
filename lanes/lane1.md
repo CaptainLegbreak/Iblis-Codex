@@ -4,12 +4,16 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(QuestLog.cpp's join is on main #369.)
+(QuestLog.cpp's join is on main #369, Unknown_004A6260.cpp's object on #370.)
 
-- lane1/keyconfig-join-3 f76c696ee 279->278 Unknown_004A6260.cpp takes the rest of its object, 0x4A6260-0x4A645F. The language copy at 0x724798, right after the key config data (gaKeyCaptureWheelHandlers ends at 0x724797), starts this object's data; 0x4A6310/0x4A6350 call 0x4A6260, a static (argument in ecx, no fastcall name), so they share its file (from text_0049A950.cpp; Unknown_004A6260.cpp's copy of 0x4A6310 goes); 0x4A63B0 comes from Unknown_004A6000.cpp, which is left empty and goes. 0x4A5D70 stays where it is: 0x4A6260 inlines it and the key config functions call it out of line, so it reads like an inline function both files see (each has a body today). Borrowed data 844 B, as main; VERIFIED 78feb4390b14fd0763e653122a100b0a2f298206 (based on main #369; replaces lane1/keyconfig-join-2, whose QuestLog commit #369 took).
+- lane1/umod-join-3 fdb8122fc 0->0 Two commits on #370 (lane1/umod-join and umod-join-2 were pushed but never posted; this replaces both).
+  - 4c698c5e5: Unknown_004ADD90.cpp takes the unique-mod callbacks 0x4AD0C0-0x4ADD8F from npcmenu.cpp. Its table gaUModCallbacks (0x724E28) holds pointers to twelve of them and its code from 0x4ADD90 dispatches through it; the other two are their helpers (0x4AD6E0, 0x4ADCE0).
+  - fdb8122fc: it also takes 0x4AE080, the monster client-flag test (npcmenu.cpp), which closes its code before Monster.cpp's 0x4AE0A0. Monster.cpp's four callers call it out of line; with its body in Monster.cpp under the name they call, it and 0x4AFF60 stop matching. It now reads the monster data's client flags (+0x28) on the real unit records.
+  - Borrowed data 844 B, as main; VERIFIED 6f5283daabce356a5847ff5a2bf392bcf19eae84 (based on main #370).
 
 ## In progress
 
+- **Parked: MonUnique.cpp + Unknown_004ADD90.cpp as one object?** No language copy sits between their data (MonUnique's copy 0x724D3C, gpfnUModCallbacks 0x724D78, then ADD90's gaUModCallbacks 0x724E28, then Monster.cpp's copy 0x7251E0), and both use bss 0x7C0C58. That fits one object, or an ADD90 object that never includes the language header. Joining them needs the two files' string and Unicode declarations unified (MonUnique declares the string lookups with wchar_t). I left it until something decides between the two.
 - **Strays, tried and left (main #365):**
   - 0x4DEA70 (dFloor.cpp, inside Wall2.cpp's run): Wall2.cpp needs D2Client.h's D2GridInfoStrc to gain the word at +4 that 0x4DEA70 reads (the tile's height; wFlags at +6 stays). Any new name in D2Client.h, even an unused struct, turns lane 4's inv_004886C0.cpp 0x488B00 unequal (two loads swap: gnPanelOffsetY/gnScreenHeight). Lane 4: that unit is fragile to D2Client.h; a fix there would free the header.
   - 0x4B5C60 (npcmenu_004B5C60.cpp): the piece builds with /EHsc and npcmenu.cpp without. With /EHsc on npcmenu.cpp everything else there stays equal, but 0x4B5C60 is still off by one push/xor order.
