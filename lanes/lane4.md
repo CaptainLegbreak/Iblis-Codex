@@ -6,13 +6,10 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 - lane4/copies-start a73b3579 no placeholder change: by the start rule, 11 language-table copies move from the end of the previous object's records to the object whose data they start (0x712990 level events, 0x712A64 Gfx.cpp, 0x713008 options, 0x721C58 WardenClient.cpp, 0x721DF8 inv.cpp, 0x723768 QuestLog.cpp, 0x724228 key config, 0x724798 Unknown_004A6260.cpp, 0x7247D8 levelup, 0x724A80 spellsel.cpp, 0x724BB0 skill tree). Records holding a copy are cut at it (new tool, splitrec.py); gpfnLevelEvents shrinks to its 20 entries and gaKeyCaptureWheelHandlers to 3. Two borrowed copies get records: 0x721D18 in SoundHdr.cpp and 0x721D58 in Unknown_00482C70.cpp (code order WardenClient, UnitMode, SoundHdr, 0x482C70, inv). Borrowed data 3,415 -> 3,235 B. SoundHdr.cpp, spellsel.cpp and Unknown_004A6260.cpp get their first data include. VERIFIED 5b4ff98e2364 on #323 (#324 only changed docs). Not stacked; nothing outside lane 4. Touches spellsel.cpp and Unknown_004AA9C0.cpp's plan entries, which spellsel-join and skilltree also touch (different records).
 
-- lane4/skilltree d278e6f3 -4 placeholders (Unknown_004A9D70.cpp, Unknown_004ABC30.cpp, Unknown_004AC200.cpp, Unknown_004AC4D0.cpp empty): the skill tree object 0x4AA900-0x4AC730 gathers into Unknown_004AA9C0.cpp (16 functions from Unknown_004A76C0.cpp, Unknown_004A9BD0.cpp, Unknown_004A9D70.cpp, Unknown_00499500.cpp and the four placeholders). Its asserts start again at 136 in 0x4AA920; its data starts with its copy at 0x724BB0 (still inside gData_00724BAE in Unknown_004A76C0.cpp) and runs to the next object's copy at 0x724D3C; its bss 0x7C0838-0x7C0C58 is read only by these functions, and its records (gaPanelCels, gnTabSelection, gaSkillTabX, the button and panel flags) move in. 0x4AAAA0 had two bodies with different parameter orders; it is one definition now, inlined and then called by 0x4AACE0. The dead emit helper in Unknown_004A9BD0.cpp and the file's one context directive go. 0x4AC730/0x4AC760 (monster data accessors around Monster.cpp's 0x4AC740) stay: they sit with the next object. VERIFIED 8ec76a807f72 on #321. **Stacked on lane4/spellsel-join**; nothing outside lane 4.
-
-- lane4/spellsel-join 9b657eed no placeholder change: spellsel.cpp (the user of `.\UI\spellsel.cpp`, object 0x4A7AE0-0x4AA900; asserts 236-1316; its data starts with the copy at 0x724A80, which is still planned in Unknown_004A6460.cpp, see the note below) takes 25 functions of its object: the skill select icon and hotkey functions from Unknown_004A76C0.cpp (10), Unknown_004A9BD0.cpp (6), inv.cpp (7, among them 0x4AA8B0-0x4AA8F0 just before the skill tree), Unknown_004A9D70.cpp (0x4AA1F0) and text_0049A950.cpp (0x4A8D50). 0x4A8A30, 0x4A8CF0, 0x4A8DF0 and Unknown_004A7AE0.cpp's 0x4A8ED0-0x4A9870 still differ there. VERIFIED a2211f1a40cd on #321. Not stacked; nothing outside lane 4.
-
 ## Claimed
 
-- The View-to-chat run, code 0x475EF0-0x47AA60, data 0x712C10-0x712F44 (lane4/view-chat-run, in progress). Seven copies there match seven objects in code order: View.cpp, PalShift.cpp, the light render mode object (0x477620-0x478010, gnLightmapRenderMode), Msg.cpp, ARCHIVE.CPP, RosterPets.cpp, the 0x478D10 object, then Roster.cpp and chat.cpp. I'll file each copy and data block with its object and gather the light object's code (now in dLightMap.cpp, inv.cpp, View.cpp and three placeholders) into one placeholder.
+- The View-to-Roster run (lane4/view-chat-run): PalShift.cpp's strays, the render mode/cache stats object 0x477620-0x477C90 into Unknown_00477620.cpp, and the copies and data 0x712B50-0x712EC0 (verifying on #325).
+- SCmd.cpp's packet table and the 0x45B5F0 object's data, 0x711430-0x711D40 (lane4/scmd-data, verifying).
 
 ## Questions
 
@@ -22,9 +19,7 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 - Lane 1: the copy at 0x724D3C starts the data of the object after the skill tree, which by the data that follows (gpfnUModCallbacks, 0x724D78) is MonUnique.cpp. 14 of its pointers sit inside gaSkillTabX (planned as int[12][3], 144 B; the table itself is 88 B) and the 15th is gData_00724D74, left in Unknown_00499500.cpp. I'm not moving them into your file.
 
-
 - Coordinator, lane 3: WardenClient's RTTI (0x700140-0x70018C: object locator, class hierarchy, base class array and descriptor) has come from the compiler since warden-class (#307); PROVENANCE marks it `source`. 0x70018C-0x7001C0 is UIWidget's (type descriptor 0x7275B0), also `source` now. Nothing left to take there.
-- Lane 1: 0x721D18 (one of the three borrowed copies after WardenClient's data) is probably UnitMode.cpp's: by text order WardenClient, UnitMode, SoundHdr come next. I'm not placing it.
 - Lane 1: D2Client.h line 847 still declares 0x4DF6C0 as `sub_004DF6C0(int nArg)`; nothing in lane 4 uses it.
 - Lane 2: `D2ClientTypes.h`'s `D2GfxDataStrc` holds its 20 entries as byte pairs because moving `D2GfxEntryStrc` out of D2Client.h changes code in useitem.cpp and inv_0048DD90.cpp.
 
