@@ -2900,29 +2900,6 @@ inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     }
 }
 
-// 0x005C8FA0
-int __fastcall SKILLS_SrvSt11_Inferno_ArcticBlast(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    if (!STATES_CheckState(pUnit, STATE_INFERNO) && STATLIST_UnitGetStatValue(pUnit, STAT_MANA, 0) < pSkillsTxtRecord->wStartMana << 8)
-    {
-        return 0;
-    }
-
-    const int nMissileId = pSkillsTxtRecord->wSrvMissileA;
-    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    return SKILLS_StartInferno(pGame, pUnit, nSkillId, nSkillLevel, nMissileId);
-}
-
 static inline D2MonStatsTxt* GetMonStatsTxtRecord(int nId)
 {
     if (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -3001,43 +2978,6 @@ int __fastcall MONSTERSPAWN_CanSpawnAtSpawnerExit(int nMonsterId, D2ActiveRoomSt
     }
     }
     return 1;
-}
-
-// 0x005C91C0
-int __fastcall SKILLS_SrvSt13_ThunderStorm(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    if (!DATATBLS_GetSkillsTxtRecord(nSkillId))
-    {
-        return 0;
-    }
-
-    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    SKILLS_SetParam1(pSkill, -1);
-    SKILLS_SetParam2(pSkill, 1);
-    return 1;
-}
-
-// 0x005C9640
-int __fastcall SKILLS_SrvDo019_Inferno_ArcticBlast(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    const int nMissileId = pSkillsTxtRecord->wSrvMissileA;
-    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    return SKILLS_DoInferno(pGame, pUnit, nSkillId, nSkillLevel, nMissileId);
 }
 
 int __fastcall SKILLS_SrvDo027_Teleport(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005CA360

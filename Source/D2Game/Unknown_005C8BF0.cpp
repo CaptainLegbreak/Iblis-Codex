@@ -62,17 +62,6 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType); // 
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
 
-// 0x005C8BF0
-void __fastcall SKILLS_StatRemoveCallback_RemoveState(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
-{
-    STATES_ToggleState(pUnit, nState, 0);
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-}
-
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -205,25 +194,4 @@ int __fastcall SKILLDESC_CltDoFrameSteps(D2UnitStrc* pUnit, int nSkillId, int nS
     return 1;
 }
 
-// 0x005C9290
-void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nSeedOffset)
-{
-    if (!pMissile)
-    {
-        return;
-    }
-
-    int nFrames = MISSILE_GetTotalFrames(pMissile);
-    if (nFrames >= PATHINIT_MAX_FRAMES)
-    {
-        nFrames = PATHINIT_CAP_FRAMES;
-        MISSILE_SetTotalFrames(pMissile, nFrames);
-        MISSILE_SetCurrentFrame(pMissile, nFrames);
-    }
-
-    D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
-    SEED_InitLowSeed(&pMissile->pSeed, D2COMMON_10175_PathGetFirstPointX(pPath) + nSeedOffset);
-    PATH_SetType(pPath, PATHTYPE_CHARGEDBOLT);
-    PATH_SetNewDistance(pPath, nFrames);
-    D2Common_10142(pPath, pMissile, 0);
-}
+void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nSeedOffset); // 0x005C9290
