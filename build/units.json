@@ -1373,6 +1373,18 @@
     {
      "va": "0x004021D0",
      "length": 164
+    },
+    {
+     "va": "0x00402D60",
+     "length": 373
+    },
+    {
+     "va": "0x00403100",
+     "length": 484
+    },
+    {
+     "va": "0x00405250",
+     "length": 402
     }
    ],
    "flags": [
@@ -2021,36 +2033,6 @@
      "length": 32,
      "name": "?sub_00404F20_EnumModules@@YA_NPAUD2CrashModuleListStrc@@@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00402D60.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00402D60",
-     "length": 373
-    }
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00403100.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00403100",
-     "length": 484
-    }
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
    ]
   },
   {
@@ -2718,21 +2700,6 @@
     "/Oy-",
     "/Ob2",
     "/Gd"
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_00405250.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00405250",
-     "length": 402
-    }
-   ],
-   "ltcg": true,
-   "link": [
-    "/OPT:REF",
-    "/OPT:ICF"
    ]
   },
   {
