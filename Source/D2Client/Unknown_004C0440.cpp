@@ -3,22 +3,8 @@
 #include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-struct D2HotspotStrc;
 struct D2PacketRecord7Strc;
 
-struct D2HotspotStrc
-{
-    char unk0x00[0x10];
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-    char unk0x20[0x04];
-    char bFlag0x24;
-    char bFlag0x25;
-    char unk0x26[0x02];
-};
-extern D2HotspotStrc gaUseItemHotspotRects[]; // 0x00727902
 extern int gnUseItemDialogState; // 0x007C5474
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __cdecl sub_004BFAF0_ShowConfirmation(); // 0x004BFAF0
@@ -53,7 +39,6 @@ static int sub_004C0450_ClickHotspots(int nX, int nY);
 
 static int sub_004C0450_ClickHotspots(int nX, int nY); // 0x004C0450
 
-#include "gen/data/Source/D2Client/Unknown_004C0440.inc"
 
 static int gnFlag_007C5470; // 0x007C5470
 

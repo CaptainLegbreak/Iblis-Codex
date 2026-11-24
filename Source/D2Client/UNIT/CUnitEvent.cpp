@@ -88,7 +88,7 @@ void __fastcall CUNITEVENT_RemoveCltUnitEvents(D2UnitStrc* pUnit, int nParam4, i
 }
 
 // 0x004DC210
-int __fastcall sub_004DC210_RunCltUnitEvents(int nType, D2UnitStrc* pUnit, int a3, int a4)
+int __fastcall CUNITEVENT_RunCltUnitEvents(int nType, D2UnitStrc* pUnit, int a3, int a4)
 {
     if (!pUnit)
     {

@@ -2093,6 +2093,19 @@ char* __stdcall sub_M116_Emit_006543C0(char* szText, char** ppOut)
     return szText;
 }
 
+// 0x00654E80
+D2TCExShortStrc* __stdcall DATATBLS_GetTreasureClassExRecordFromActAndDifficulty(int nDifficulty, int nAct, int nIndex)
+{
+    const int nDifficultyFloor = nDifficulty > 0 ? nDifficulty : 0;
+    const int nDifficultyIndex = nDifficultyFloor < 2 ? nDifficultyFloor : 2;
+    const int nActFloor = nAct > 0 ? nAct : 0;
+    const int nActIndex = nActFloor < 4 ? nActFloor : 4;
+    const int nIndexFloor = nIndex > 0 ? nIndex : 0;
+    const int nChestIndex = nIndexFloor < 2 ? nIndexFloor : 2;
+
+    return gpChestTreasureClasses[nDifficultyIndex][nActIndex][nChestIndex];
+}
+
 // 0x00654EF0
 void __fastcall DATATBLS_UnloadTreasureClassExTxt()
 {

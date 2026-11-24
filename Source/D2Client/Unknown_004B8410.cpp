@@ -56,7 +56,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 int __fastcall SOUNDHDR_GetGroupStart(int nId); // 0x00481890
-D2SoundEnvironTxtStrc* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
+D2SoundEnvironTxtStrc* __fastcall SOUNDHDR_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 float __fastcall sub_004B93A0_ClampFloat(float fValue, float fMin, float fMax); // 0x004B93A0
 float __stdcall GFXUTIL_VectorLengthSquared(float fX, float fY); // 0x004E4160
 void __fastcall D2SOUND_ListAddHead(D2SoundUnitNodeStrc** ppList, D2UnitStrc* pUnit); // 0x00516950

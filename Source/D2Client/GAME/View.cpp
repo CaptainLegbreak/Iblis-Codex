@@ -205,7 +205,7 @@ D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey); // 0x00478E40
 
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
-void __fastcall sub_004785D0_SendShortShort(char nHeader, short nArg1, short nArg2); // 0x004785D0
+void __fastcall MSG_SendTwoWords(char nHeader, short nArg1, short nArg2); // 0x004785D0
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
@@ -906,7 +906,7 @@ static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 }
 
 // 0x0046B850
-void __fastcall sub_0046B850_SpawnMissileAtObject182(D2UnitStrc* unit)
+void __fastcall VIEW_SpawnMissileNearObject(D2UnitStrc* unit)
 {
  D2UnitStrc* object=UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(unit),2,0x182);
  int x,y;
@@ -1719,7 +1719,7 @@ void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, i
 unsigned char gnHelpShadeColor; // 0x007BEEF8
 
 // 0x004945F0
-void __cdecl sub_00494EB0()
+void __cdecl VIEW_DrawHelpShade()
 {
     sub_00499E30();
     AUTOMAP_DrawFramedBox(0, 0, gnScreenWidth, gnScreenHeight - 0x31, gnHelpShadeColor, 1);

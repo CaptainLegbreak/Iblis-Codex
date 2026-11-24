@@ -344,9 +344,9 @@ void PLAYER_ResetPlayerState(D2UnitStrc* pUnit); // 0x00461010
 int __cdecl GAME_GetLeftClickState(); // 0x0044BF00
 int __cdecl GAME_GetRightClickState(); // 0x0044BF10
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
-void __cdecl sub_00466FE0(); // 0x00466FE0
-D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
-void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
+void __cdecl SELECT_ClearSelection(); // 0x00466FE0
+D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
+void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 void __fastcall GFX_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
 int __fastcall UI_CloseUIVars(int, int); // 0x00456300
 int __fastcall INV_SetPathTargetUnit(D2UnitStrc*, int, int); // 0x00480780
@@ -478,13 +478,13 @@ static inline int PLAYER_QueueMoveInline(int nCommand, D2UnitStrc* pUnit, D2Unit
     case 8:
         if (sub_00463DD0_GetPlayerUnit() == pUnit) UI_CloseUIVars(1, 0);
         pUnit->dwLastHitClass = pTarget->nParam;
-        if (sub_00467A10() == pUnit)
+        if (SELECT_GetSelectedUnit() == pUnit)
         {
-            if (!(GAME_GetLeftClickState() & 8) && !(GAME_GetRightClickState() & 8)) sub_00466FE0();
+            if (!(GAME_GetLeftClickState() & 8) && !(GAME_GetRightClickState() & 8)) SELECT_ClearSelection();
             else
             {
                 GAME_ResetMouseState();
-                sub_00467A70_RefreshHoverUnit(0);
+                SELECT_RefreshHoverUnit(0);
             }
         }
         UNITMODE_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 0, 0, 0);

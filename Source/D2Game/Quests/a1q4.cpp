@@ -408,54 +408,6 @@ inline int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     }
 }
 
-// 0x00586B50
-void __fastcall ACT5Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
-    int nPlayerClass = !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwClassId;
-
-    int nSpecialIntroClass1 = 7;
-    int nSpecialIntroClass2 = 7;
-    switch (nNpcId)
-    {
-    case 513:
-        nSpecialIntroClass1 = 4;
-        nSpecialIntroClass2 = 1;
-        break;
-    case 514:
-        nSpecialIntroClass1 = 6;
-        nSpecialIntroClass2 = 2;
-        break;
-    case 515:
-        nSpecialIntroClass1 = 5;
-        nSpecialIntroClass2 = 3;
-        break;
-    case 512:
-    case 520:
-        break;
-    default:
-        return;
-    }
-
-    if (PLRINTRO_GetQuestIntroFlag(pQuestArg->pPlayer, pQuestArg->pGame, nNpcId))
-    {
-        return;
-    }
-
-    if (nPlayerClass == nSpecialIntroClass1)
-    {
-        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 1);
-    }
-    else if (nPlayerClass == nSpecialIntroClass2)
-    {
-        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 2);
-    }
-    else
-    {
-        QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 0);
-    }
-}
-
 // 0x00588D60
 int __fastcall ACT5Q2_FindPortal(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc** ppPortal)
 {

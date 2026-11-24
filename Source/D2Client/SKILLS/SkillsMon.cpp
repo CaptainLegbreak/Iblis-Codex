@@ -263,7 +263,7 @@ int __fastcall SKILLSMON_FireVolley(D2UnitStrc* pUnit, int nSkillId, int nSkillL
 }
 
 // 0x004E1E30
-int __fastcall sub_004E1E30_SkillClearSkillFlags(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLSMON_ClearUsedSkillFlags(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill)
@@ -555,7 +555,7 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 }
 
 // 0x004E2D40
-D2UnitStrc* __fastcall sub_004E2D40_UpdateState22(D2UnitStrc* pUnit)
+D2UnitStrc* __fastcall SKILLSMON_UpdateSpiderLay(D2UnitStrc* pUnit)
 {
     int nX;
     int nY;
@@ -684,7 +684,7 @@ int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId);      
 D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nArg0, int nArg3, int nArg4); // 0x004C5420
 
 // 0x004E3720
-int __fastcall sub_004E3720(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLSMON_CreateTargetMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -792,7 +792,7 @@ inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
 }
 
 // 0x004F0830
-int __fastcall sub_004F0830_CreateTimedMissileLine(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLSMON_CreateTimedMissileLine(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -1388,7 +1388,7 @@ int __fastcall sub_004F3EB0_CheckTargetRoom(D2UnitStrc* pUnit, int nSkillId, int
 int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
 
 // 0x004F3FB0
-D2UnitStrc* __fastcall sub_004F3FB0_GetTargetMonster(D2UnitStrc* pUnit)
+D2UnitStrc* __fastcall SKILLSMON_GetTargetMonster(D2UnitStrc* pUnit)
 {
     D2UnitStrc* pTarget = CUNIT_GetPathTargetUnit(pUnit);
     if (!pTarget)

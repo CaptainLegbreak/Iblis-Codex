@@ -11,7 +11,7 @@
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-void __cdecl sub_00466FE0(); // 0x00466FE0
+void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB); // 0x00469D90
 
@@ -19,7 +19,7 @@ unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 
 void __cdecl GAME_ResetLeftClick(); // 0x0044C060
 
-void __cdecl sub_00466FF0(); // 0x00466FF0
+void __cdecl SELECT_UnlockHover(); // 0x00466FF0
 
 extern int gbStandStillHeld; // 0x007A0664
 
@@ -160,7 +160,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
-void __cdecl sub_00467AC0_UpdateHoverUnit(); // 0x00467AC0
+void __cdecl SELECT_UpdateHoverUnit(); // 0x00467AC0
 
 void __cdecl sub_00477DD0(); // 0x00477DD0
 
@@ -450,7 +450,7 @@ void __stdcall GAME_HandleActivateApp(SMSGHANDLER_PARAMS* pMessage)
     {
         UI_SetUIVar(0xD, 1, 0);
         gbStandStillHeld = 0;
-        sub_00466FE0();
+        SELECT_ClearSelection();
         sub_004FB130_SetActiveState(0);
         pMessage->bReturn = 0;
         return;
@@ -474,7 +474,7 @@ void __stdcall GAME_HandleActivateApp(SMSGHANDLER_PARAMS* pMessage)
         gbRightButtonDown = 0;
         gbRightClickConsumed = 1;
         gbClickHandled = 0;
-        sub_00466FF0();
+        SELECT_UnlockHover();
         pMessage->bReturn = 0;
         return;
     }
@@ -898,7 +898,7 @@ D2ChatStormLinkBStrc::D2ChatStormLinkBStrc()
 
 char* D2ChatStormNodeStrc::IGNORELIST_GetStringEntryKey()
 {
-    return f_14;
+    return m_key;
 }
 
 D2ChatStormBaseArrayAStrc::D2ChatStormBaseArrayAStrc()
@@ -1358,7 +1358,7 @@ int __stdcall GAME_RunGameFrame(int nUnused)
     if (gbPositionalSound)
     {
         PLAYER_ClearCommandPending();
-        sub_00467AC0_UpdateHoverUnit();
+        SELECT_UpdateHoverUnit();
         if (D2SOUND_IsStreamChannelPlaying())
         {
             D2SOUND_FadeOutMasterVolume(0xB4);

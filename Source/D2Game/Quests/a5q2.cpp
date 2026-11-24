@@ -972,4 +972,3 @@ void __fastcall ACT5Q2_UpdateWussieCounters(D2GameStrc* pGame, int nUnused, D2Un
     }
 }
 
-#include "gen/data/Source/D2Game/Quests/a5q2.inc"

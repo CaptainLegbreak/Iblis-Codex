@@ -92,7 +92,7 @@ int __cdecl sub_00468830(); // 0x00468830
 
 void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
 
-void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
+void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
 void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 
@@ -370,7 +370,7 @@ int gbBuySellPressed;                                                           
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
-struct D2CelFileStrc* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath);                          // 0x004520C0
+struct D2CelFileStrc* __fastcall GAME_LoadUiCelFile(const char* szPath);                          // 0x004520C0
 
 int __fastcall D2Win_10127_SetFont(int nSize);                                                                     // 0x00502EF0
 
@@ -750,7 +750,7 @@ void __stdcall INV_DrawRecipeScroll()
 
     if (!gpRecipeScrollCel)
     {
-        gpRecipeScrollCel = sub_004520C0_LoadUiCelFile("menu\\recipescroll");
+        gpRecipeScrollCel = GAME_LoadUiCelFile("menu\\recipescroll");
         if (!gpRecipeScrollCel)
         {
             return;

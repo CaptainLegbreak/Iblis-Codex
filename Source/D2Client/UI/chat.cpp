@@ -1389,7 +1389,7 @@ void __fastcall TEXT_SaveTextDisplaySetting(unsigned long nValue); // 0x0049D570
 
 void __stdcall D2GFX_SetLowQuality(int bLowQuality); // 0x004F5220
 
-void __fastcall sub_004CCF20_SetValue(int nValue); // 0x004CCF20
+void __fastcall MISSILE_SetMissileLights(int nValue); // 0x004CCF20
 
 
 static void sub_0047D5C0_ActivateOption(SMSGHANDLER_PARAMS* pMsg);
@@ -1666,7 +1666,7 @@ void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFor
 
 void __fastcall TEXT_PrintChatLine(const Unicode* pText, char nColor);                              // 0x0049E3A0
 
-void __fastcall sub_004787B0_SendStrings(const unsigned char* pData);                                       // 0x004787B0
+void __fastcall MSG_SendStrings(const unsigned char* pData);                                       // 0x004787B0
 
 unsigned int __fastcall D2Win_10128(unsigned char nChar);                                                   // 0x00502550
 
@@ -1919,7 +1919,7 @@ static int __stdcall sub_0047C1F0_HandleWhisperCommand(int bCheckStored, char* s
                         tSend.nLang = gnLanguageId;
                         tSend.nCode = 2;
                         tSend.nType = 0x15;
-                        sub_004787B0_SendStrings((const unsigned char*)&tSend);
+                        MSG_SendStrings((const unsigned char*)&tSend);
                         return 1;
                     }
                 }
@@ -2074,7 +2074,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
         {
             memcpy(tSend.szText, pText, sizeof(tSend.szText) - 1);
             tSend.szText[sizeof(tSend.szText) - 1] = 0;
-            sub_004787B0_SendStrings((const unsigned char*)&tSend);
+            MSG_SendStrings((const unsigned char*)&tSend);
         }
     }
     UI_SetUIVar(5, 1, 0);
@@ -2226,7 +2226,7 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
 
 int __cdecl GAME_GetAlwaysRun(); // 0x0044BE90
 
-void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
+void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 extern int gbPanelFlag; // 0x0071315C
 

@@ -221,7 +221,7 @@ void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsS
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
 
-D2SoundEnvironTxtStrc* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
+D2SoundEnvironTxtStrc* __fastcall SOUNDHDR_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 
@@ -700,7 +700,7 @@ static __declspec(noinline) int UNITSND_GetTileMaterial(D2DrlgTileDataStrc* pTil
 int __fastcall UNITSND_GetUnitFloorMaterial(D2UnitStrc* pUnit)
 {
     int nRooms;
-    D2SoundEnvironTxtStrc* pSoundEnvironTxtRecord = sub_00481920_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
+    D2SoundEnvironTxtStrc* pSoundEnvironTxtRecord = SOUNDHDR_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
     int nDefault = 1;
     if (pSoundEnvironTxtRecord && pSoundEnvironTxtRecord->nMaterial1 > 0 && pSoundEnvironTxtRecord->nMaterial1 < 7)
         nDefault = pSoundEnvironTxtRecord->nMaterial1;
@@ -1875,40 +1875,40 @@ done:
 }
 
 // 0x004CA870
-static inline D2TimedHintNodeStrc** sub_004CA870_GetUnitHintList(D2UnitStrc* pUnit)
+static inline D2TimedHintNodeStrc** UNITSND_GetUnitHintList(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0xC2C);
     return (D2TimedHintNodeStrc**)&pUnit->pUnitSfxData;
 }
 
-D2TimedHintNodeStrc** __stdcall sub_M121_Emit_004CA870(D2UnitStrc* pUnit) { return sub_004CA870_GetUnitHintList(pUnit); }
+D2TimedHintNodeStrc** __stdcall sub_M121_Emit_004CA870(D2UnitStrc* pUnit) { return UNITSND_GetUnitHintList(pUnit); }
 
 // 0x004CAA70
-static inline int sub_004CAA70_GetUnitByte70(D2UnitStrc* pUnit)
+static inline int UNITSND_GetUnitSfxFlag(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0xC8F);
     return pUnit->bUnitSfx;
 }
 
-int __stdcall sub_M121_Emit_004CAA70(D2UnitStrc* pUnit) { return sub_004CAA70_GetUnitByte70(pUnit); }
+int __stdcall sub_M121_Emit_004CAA70(D2UnitStrc* pUnit) { return UNITSND_GetUnitSfxFlag(pUnit); }
 
 // 0x004CAC00
-static inline int sub_004CAC00_GetUnitField84(D2UnitStrc* pUnit)
+static inline int UNITSND_GetSfxStepTicks(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0xCE7);
     return pUnit->dwSfxStepTicks;
 }
 
-int __stdcall sub_M121_Emit_004CAC00(D2UnitStrc* pUnit) { return sub_004CAC00_GetUnitField84(pUnit); }
+int __stdcall sub_M121_Emit_004CAC00(D2UnitStrc* pUnit) { return UNITSND_GetSfxStepTicks(pUnit); }
 
 // 0x004CAC70
-static inline int sub_004CAC70_GetUnitField88(D2UnitStrc* pUnit)
+static inline int UNITSND_HasActiveSound(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0xCFD);
     return pUnit->bHasActiveSound;
 }
 
-int __stdcall sub_M121_Emit_004CAC70(D2UnitStrc* pUnit) { return sub_004CAC70_GetUnitField88(pUnit); }
+int __stdcall sub_M121_Emit_004CAC70(D2UnitStrc* pUnit) { return UNITSND_HasActiveSound(pUnit); }
 
 // 0x004CA900
 void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId)

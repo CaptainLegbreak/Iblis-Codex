@@ -62,14 +62,14 @@ int __stdcall sub_00461D60_IsPendingMode(int nArg1, int nArg2);
 int __fastcall sub_00464600(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
-void __cdecl sub_00466FE0();
-D2UnitStrc* __cdecl sub_00467A10();
-void __fastcall sub_00467A70(D2UnitStrc* pUnit);
-D2UnitStrc* __fastcall sub_00467880_FindSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pX, int* pY, unsigned int dwFlags, int bForce);
+void __cdecl SELECT_ClearSelection(); // 0x00466FE0
+D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
+void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
+D2UnitStrc* __fastcall SELECT_GetSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pX, int* pY, unsigned int dwFlags, int bForce); // 0x00467880
 int __cdecl sub_00468830();
 int __fastcall sub_00474080_GetDistance(int nDX, int nDY);
-void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg);
-void __fastcall sub_00478700_SendCommand(char nCommand, int nUnitType, int nUnitId, int nX, int nY);
+void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
+void __fastcall MSG_SendFourDwords(char nCommand, int nUnitType, int nUnitId, int nX, int nY); // 0x00478700
 int __cdecl sub_00454970();
 int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);
@@ -691,7 +691,7 @@ check_range:
             const int nId = pUnit ? pUnit->dwUnitId : -1;
             const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
             const int nY = CLIENTS_GetUnitY(pUnit);
-            sub_00478700_SendCommand(0x59, nType, nId, CLIENTS_GetUnitX(pCmd->pTarget), nY);
+            MSG_SendFourDwords(0x59, nType, nId, CLIENTS_GetUnitX(pCmd->pTarget), nY);
             pUnit = pCmd->pTarget;
             if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
                 pUnit->pMonsterData->nClientFlags |= 1;
@@ -802,14 +802,14 @@ static int PLAYER_PrepareCommand(D2PlayerCmdStrc* pCmd)
     int bForce = (pCmd->dwFlags >> 5) & 1;
     if ((pCmd->dwFlags & 2) && !pCmd->pTarget)
         bForce = 1;
-    pCmd->pTarget = sub_00467880_FindSkillTarget(pCmd->pSkill, pCmd->pTarget, &pCmd->nX, &pCmd->nY, pCmd->dwFlags, bForce);
+    pCmd->pTarget = SELECT_GetSkillTarget(pCmd->pSkill, pCmd->pTarget, &pCmd->nX, &pCmd->nY, pCmd->dwFlags, bForce);
     if (sub_00468830() == 6)
     {
         UI_CancelCursorItemUse();
         return 1;
     }
     if (sub_00468830() == 8)
-        sub_00478680_SendPacket5(0x4C, -1);
+        MSG_SendDword(0x4C, -1);
     return 1;
 }
 
@@ -963,7 +963,7 @@ no_target:
             if (!pSkill || SKILLS_GetSkillIdFromSkill(pSkill, gszPlayerCpp, 0x7AF) || nResult != 1 || bNoTarget)
             {
                 PLAYER_SendCommand(0, pCmd);
-                sub_00467A70(0);
+                SELECT_RefreshHoverUnit(0);
                 return;
             }
         }
@@ -971,7 +971,7 @@ no_target:
         if (!PLAYER_ClampTarget(pCmd->pPlayer, pCmd))
             return;
         PLAYER_WalkTo(pCmd->nArg, pPlayer, pCmd->nX, pCmd->nY);
-        sub_00467A70(0);
+        SELECT_RefreshHoverUnit(0);
         return;
     }
 
@@ -1082,13 +1082,13 @@ static int PLAYER_CmdLeftSkill(D2PlayerCmdStrc* pCmd)
     if (sub_00468830() == 6)
         UI_CancelCursorItemUse();
     else if (sub_00468830() == 8)
-        sub_00478680_SendPacket5(0x4C, -1);
+        MSG_SendDword(0x4C, -1);
 
     D2UnitStrc* pItem = INVENTORY_GetCursorItem(pCmd->pPlayer->pInventory);
     if (!pItem)
         return 1;
 
-    sub_00478680_SendPacket5(0x17, pItem->dwUnitId);
+    MSG_SendDword(0x17, pItem->dwUnitId);
     return 0;
 }
 
@@ -1231,7 +1231,7 @@ int __fastcall sub_00462D00_PlayerCommand(int nCommand, int nX, int nY, unsigned
     D2PlayerCmdStrc tCmd = {};
     tCmd.dwFlags = 0;
     tCmd.pPlayer = sub_00463DD0();
-    D2UnitStrc* pSelected = sub_00467A10();
+    D2UnitStrc* pSelected = SELECT_GetSelectedUnit();
     tCmd.pTarget = pSelected;
     tCmd.nX = nX;
     tCmd.nY = nY;
@@ -1256,30 +1256,30 @@ int __fastcall sub_00462D00_PlayerCommand(int nCommand, int nX, int nY, unsigned
     {
     case 0:
         if (tCmd.pTarget)
-            sub_00467A70(tCmd.pTarget);
+            SELECT_RefreshHoverUnit(tCmd.pTarget);
         else
-            sub_00466FE0();
+            SELECT_ClearSelection();
         tCmd.dwFlags |= 5;
         return PLAYER_CmdLeftSkill(&tCmd);
     case 1:
         tCmd.dwFlags |= 9;
         return PLAYER_CmdLeftSkillMove(&tCmd);
     case 2:
-        sub_00466FE0();
+        SELECT_ClearSelection();
         tCmd.dwFlags |= 0x11;
         return PLAYER_UpdatePetCommand(&tCmd);
     case 3:
         if (tCmd.pTarget)
-            sub_00467A70(tCmd.pTarget);
+            SELECT_RefreshHoverUnit(tCmd.pTarget);
         else
-            sub_00466FE0();
+            SELECT_ClearSelection();
         tCmd.dwFlags |= 6;
         return PLAYER_CmdRightSkill(&tCmd);
     case 4:
         tCmd.dwFlags |= 0xA;
         return PLAYER_CmdRightSkillMove(&tCmd);
     case 5:
-        sub_00466FE0();
+        SELECT_ClearSelection();
         tCmd.dwFlags |= 0x12;
         return sub_00462CA0_UpdatePetCommandNoWalk(&tCmd);
     }

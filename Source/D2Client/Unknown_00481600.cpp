@@ -6,7 +6,7 @@
 struct D2UnitStrc;
 struct D2SkillStrc;
 
-void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
+void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
@@ -173,7 +173,7 @@ static int __stdcall sub_004815A0_TryUnitAction(D2UnitStrc* pUnit, D2UnitStrc* p
         bSelectable = (pUnit->dwFlags >> 1) & 1;
     if (!bSelectable)
     {
-        sub_00467A70_RefreshHoverUnit(0);
+        SELECT_RefreshHoverUnit(0);
         return 0;
     }
     if (UNITMODE_IsTargetInRange(pPlayer, pUnit, nAction))
@@ -226,7 +226,7 @@ static int __stdcall UNITMODE_TryMonsterAction(int nAction, int nArg1, int nArg2
                 goto InRange;
             }
         }
-        sub_00467A70_RefreshHoverUnit(0);
+        SELECT_RefreshHoverUnit(0);
         return 0;
     }
 
@@ -236,7 +236,7 @@ static int __stdcall UNITMODE_TryMonsterAction(int nAction, int nArg1, int nArg2
             bSelectable = (pUnit->dwFlags >> 1) & 1;
         if (!bSelectable)
         {
-            sub_00467A70_RefreshHoverUnit(0);
+            SELECT_RefreshHoverUnit(0);
             return 0;
         }
     }
@@ -262,7 +262,7 @@ static int __stdcall UNITMODE_ActOnPlayer(int nAction, int nType, int nId, D2Uni
             return 0;
         }
 
-        sub_00467A70_RefreshHoverUnit(0);
+        SELECT_RefreshHoverUnit(0);
         return 0;
     }
 
@@ -272,7 +272,7 @@ static int __stdcall UNITMODE_ActOnPlayer(int nAction, int nType, int nId, D2Uni
             bSelectable = (pUnit->dwFlags >> 1) & 1;
         if (!bSelectable)
         {
-            sub_00467A70_RefreshHoverUnit(0);
+            SELECT_RefreshHoverUnit(0);
             return 0;
         }
     }
@@ -332,7 +332,7 @@ void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer)
             default:
                 if (!sub_00451F30_TestUnitFlag(pUnit, 2))
                 {
-                    sub_00467A70_RefreshHoverUnit(0);
+                    SELECT_RefreshHoverUnit(0);
                     return;
                 }
                 break;

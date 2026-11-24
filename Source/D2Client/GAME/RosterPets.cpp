@@ -358,7 +358,7 @@ inline D2PetTypeTxt* PETTXT_GetRecordInl(int nPetType)
 }
 
 // 0x00478D10
-int __fastcall sub_00478D10_GetPetOwnerRelation(int nUnitId)
+int __fastcall ROSTERPETS_GetPetOwnerRelation(int nUnitId)
 {
     for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
     {
@@ -383,7 +383,7 @@ int __fastcall sub_00478D10_GetPetOwnerRelation(int nUnitId)
 }
 
 // 0x00478D90
-int __fastcall sub_00478D90_GetPetRelation(int nUnitId)
+int __fastcall ROSTERPETS_GetPetRelation(int nUnitId)
 {
     for (D2RosterPetStrc* pPet = gpRosterPets; pPet; pPet = pPet->pNext)
     {

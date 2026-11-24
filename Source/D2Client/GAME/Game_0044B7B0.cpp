@@ -46,7 +46,7 @@ int __cdecl sub_00468730(); // 0x00468730
 
 int __cdecl sub_00468740(); // 0x00468740
 
-void __cdecl sub_00466FF0(); // 0x00466FF0
+void __cdecl SELECT_UnlockHover(); // 0x00466FF0
 
 void __fastcall sub_0046C460_PopulateRoom(D2ActiveRoomStrc* pRoom); // 0x0046C460
 
@@ -195,7 +195,7 @@ void __fastcall CUNIT_SetPlayerUnit(D2UnitStrc* pUnit); // 0x00463D90
 
 void __cdecl CUNIT_FreeAllUnits();                                                                                // 0x004659C0
 
-void __cdecl sub_00466FE0();                                                                                // 0x00466FE0
+void __cdecl SELECT_ClearSelection();                                                                                // 0x00466FE0
 
 unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB);                                                     // 0x00469AA0
 

@@ -50,7 +50,7 @@ void __cdecl TEXT_ClearHoverUnit();                                             
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType);                    // 0x00463990
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 void __fastcall VIEW_SetViewDirty(D2ViewStrc* pView);                                               // 0x00475FF0
-void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg);                                           // 0x00478680
+void __fastcall MSG_SendDword(char nHeader, int nArg);                                           // 0x00478680
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId);                        // 0x00451FE0
 int __fastcall SCMD_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY);                           // 0x00463EE0
@@ -74,7 +74,7 @@ int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile
 int __stdcall ITEMS_IsMetalItem(int nItemId);                                                               // 0x00629CC0
 D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataStrc* pUnitFindData, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize, D2UnitFindCallback pfnUnitTest, D2UnitFindArgStrc* pUnitFindArg); // 0x0065A950
-int __fastcall sub_00467470_UnitFindTest(D2UnitStrc* pUnit, void* pArg);                                    // 0x00467470
+int __fastcall SELECT_IsMetalItemUnit(D2UnitStrc* pUnit, void* pArg);                                    // 0x00467470
 D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitFindCallback pCallback, void* pArg, int nSize); // 0x00641CB0
 int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x00465C60
@@ -150,7 +150,7 @@ static inline int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
 }
 
 // 0x00466DC0
-int __cdecl sub_00466DC0()
+int __cdecl SELECT_GetHoverMonClassId()
 {
 // build: symbol ?gnHoverMonClassId@* 0x00711F90
     return gnHoverMonClassId;
@@ -164,7 +164,7 @@ int __cdecl UI_GetHoverClassId()
 }
 
 // 0x00466DE0
-static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
+static void SELECT_SetHoverUnit(D2UnitStrc* pUnit)
 {
     char szBuffer[0x200];
 
@@ -244,7 +244,7 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         sprintf(szBuffer, "msg at %d\n", dwTick);
         OutputDebugStringA(szBuffer);
         pUnit->dwTickCount = dwTick;
-        sub_00478680_SendPacket5(0x3D, gnSelectedUnitId);
+        MSG_SendDword(0x3D, gnSelectedUnitId);
         break;
     }
 
@@ -276,20 +276,20 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
 }
 
 // 0x00466FE0
-void __cdecl sub_00466FE0()
+void __cdecl SELECT_ClearSelection()
 {
     gbHoverLocked = 0;
     gbHasSelectedUnit = 0;
 }
 
 // 0x00466FF0
-void __cdecl sub_00466FF0()
+void __cdecl SELECT_UnlockHover()
 {
     gbHoverLocked = 0;
 }
 
 // 0x00467000
-static int __stdcall sub_00467000_CheckWarpTileHover(D2UnitStrc* pPlayer, D2HoverCoordStrc tY1, int nX2, int nY2, D2UnitStrc* pUnit, int nX1, int* pnFlag)
+static int __stdcall SELECT_CheckWarpTileHover(D2UnitStrc* pPlayer, D2HoverCoordStrc tY1, int nX2, int nY2, D2UnitStrc* pUnit, int nX1, int* pnFlag)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_TILE
         && SCMD_IsPointInTileRect(pUnit, nX1, tY1.nValue)
@@ -317,11 +317,11 @@ int __stdcall sub_662F_Emit_00467AC0(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int
 {
     D2HoverCoordStrc tY1;
     tY1.nValue = nPY;
-    return sub_00467000_CheckWarpTileHover(pPlayer, tY1, nX, nY, pUnit, nPX, &gbWarpTileHovered);
+    return SELECT_CheckWarpTileHover(pPlayer, tY1, nX, nY, pUnit, nPX, &gbWarpTileHovered);
 }
 
 // 0x004670A0
-static void __stdcall sub_004670A0_AdjustCursorPerspective(int* pnX, int* pnY)
+static void __stdcall SELECT_AdjustCursorPerspective(int* pnX, int* pnY)
 {
     if (sub_004F51D0_IsPerspective())
     {
@@ -361,7 +361,7 @@ static inline void HOVER_ClearHoverUnit()
 }
 
 // 0x00467130
-static int sub_00467130_GetHoverCursorPos(int* pnX, int* pnY)
+static int SELECT_GetHoverCursorPos(int* pnX, int* pnY)
 {
     const int nMode = sub_0045AE90();
     if (nMode == 3)
@@ -397,14 +397,14 @@ static int sub_00467130_GetHoverCursorPos(int* pnX, int* pnY)
     const int nMaxY = gnScreenHeight - 0x31;
     if (*pnY > nMaxY)
     {
-        sub_00466DE0_SetHoverUnit(0);
+        SELECT_SetHoverUnit(0);
         return 1;
     }
 
     if (gbSelectionRectValid && *pnX > gnSelectionLeft && *pnX < gnSelectionRight
         && *pnY > gnSelectionTop && *pnY < gnSelectionBottom)
     {
-        sub_00466DE0_SetHoverUnit(0);
+        SELECT_SetHoverUnit(0);
         return 1;
     }
 
@@ -413,7 +413,7 @@ static int sub_00467130_GetHoverCursorPos(int* pnX, int* pnY)
     case 2:
         if (*pnX < gnScreenWidth / 2)
         {
-            sub_00466DE0_SetHoverUnit(0);
+            SELECT_SetHoverUnit(0);
             return 1;
         }
         break;
@@ -421,19 +421,19 @@ static int sub_00467130_GetHoverCursorPos(int* pnX, int* pnY)
     case 1:
         if (*pnX >= gnScreenWidth / 2)
         {
-            sub_00466DE0_SetHoverUnit(0);
+            SELECT_SetHoverUnit(0);
             return 1;
         }
         break;
     }
 
-    sub_004670A0_AdjustCursorPerspective(pnX, pnY);
+    SELECT_AdjustCursorPerspective(pnX, pnY);
     return 0;
 }
 
 
 // 0x00467250
-static int __stdcall sub_00467250_CheckDoorSideA(D2UnitStrc* pOther, D2UnitStrc* pUnit)
+static int __stdcall SELECT_CheckDoorSideA(D2UnitStrc* pOther, D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwAnimMode)
     {
@@ -475,7 +475,7 @@ static int __stdcall sub_00467250_CheckDoorSideA(D2UnitStrc* pOther, D2UnitStrc*
 
 
 // 0x00467310
-static int __stdcall sub_00467310_CheckDoorSideB(D2UnitStrc* pOther, D2UnitStrc* pUnit)
+static int __stdcall SELECT_CheckDoorSideB(D2UnitStrc* pOther, D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwAnimMode)
     {
@@ -517,7 +517,7 @@ static int __stdcall sub_00467310_CheckDoorSideB(D2UnitStrc* pOther, D2UnitStrc*
 }
 
 // 0x004673C0
-static int sub_004673C0_GetDistanceSquared(D2UnitStrc* pUnit, D2UnitStrc* pOther)
+static int SELECT_GetDistanceSquared(D2UnitStrc* pUnit, D2UnitStrc* pOther)
 {
     const int nDX = UNITS_GetClientCoordX(pUnit) - UNITS_GetClientCoordX(pOther);
     const int nDY = UNITS_GetClientCoordY(pUnit) - UNITS_GetClientCoordY(pOther);
@@ -560,7 +560,7 @@ void __fastcall sub_00467430_SetSelectionRect(const D2SelectionRectStrc* pRect)
 }
 
 // 0x00467470
-int __fastcall sub_00467470_UnitFindTest(D2UnitStrc* pUnit, void* pArg)
+int __fastcall SELECT_IsMetalItemUnit(D2UnitStrc* pUnit, void* pArg)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_ITEM
         && ITEMS_IsMetalItem(UNITS_GetClassIdInline(pUnit)))
@@ -597,7 +597,7 @@ static D2UnitStrc* __stdcall SELECT_FindSkillTarget(D2SkillStrc* pSkill, D2UnitS
             }
         }
         nFlags = 0x20;
-        pfnTest = sub_00467470_UnitFindTest;
+        pfnTest = SELECT_IsMetalItemUnit;
     }
 
     D2UnitFindArgStrc tArg;
@@ -644,7 +644,7 @@ static inline int UNITS_IsSelectable(D2UnitStrc* pUnit)
 struct SGAMEDATA;
 
 // 0x00467640
-int __fastcall sub_00467640_UnitIsOfTypeMonster(D2UnitStrc* pUnit, SGAMEDATA* pGame)
+int __fastcall SELECT_IsMonsterUnit(D2UnitStrc* pUnit, SGAMEDATA* pGame)
 {
     if ((pUnit ? pUnit->dwUnitType : UNIT_INVALID) != 1)
     {
@@ -654,7 +654,7 @@ int __fastcall sub_00467640_UnitIsOfTypeMonster(D2UnitStrc* pUnit, SGAMEDATA* pG
 }
 
 // 0x00467660
-static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pUnit)
+static D2UnitStrc* __stdcall SELECT_FindAdjacentTarget(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pUnit)
 {
     const int nDirection = (unsigned char)UNITS_GetNewDirection(pUnit) >> 3;
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
@@ -665,7 +665,7 @@ static D2UnitStrc* __stdcall sub_00467660_FindAdjacentTarget(D2SkillsTxt* pSkill
         const int nY = gaDirectionDY[nIndex] + CLIENT_GetUnitYInline(pUnit);
         if (COLLISION_CheckMaskWithSize(pRoom, nX, nY, 1, 0x180))
         {
-            D2UnitStrc* pTarget = D2Common_10407(pRoom, nX, nY, sub_00467640_UnitFindTest, 0, 1);
+            D2UnitStrc* pTarget = D2Common_10407(pRoom, nX, nY, SELECT_IsMonsterUnit, 0, 1);
             if (UNITS_IsSelectable(pTarget))
             {
                 if (!(pSkillsTxtRecord->nFlags[2] & gdwMask_006CE278)
@@ -686,14 +686,14 @@ D2UnitStrc* __fastcall sub_807B_Emit_00467660(D2SkillsTxt* pSkillsTxtRecord, D2U
 {
     if (bArg && pPlayer->dwUnitType == UNIT_PLAYER)
     {
-        return sub_00467660_FindAdjacentTarget(pSkillsTxtRecord, pPlayer);
+        return SELECT_FindAdjacentTarget(pSkillsTxtRecord, pPlayer);
     }
     UNITS_SetTargetUnitForDynamicUnit(pPlayer, 0);
     return pPlayer;
 }
 
 // 0x004677B0
-static D2UnitStrc* __stdcall sub_004677B0_FindFreeTargetCoords(int* pnX, int* pnY, D2UnitStrc* pUnit)
+static D2UnitStrc* __stdcall SELECT_FindFreeTargetCoords(int* pnX, int* pnY, D2UnitStrc* pUnit)
 {
     D2CoordStrc tCoord;
     if (pUnit)
@@ -720,7 +720,7 @@ static D2UnitStrc* __stdcall sub_004677B0_FindFreeTargetCoords(int* pnX, int* pn
 }
 
 // 0x00467880
-D2UnitStrc* __fastcall sub_00467880_GetSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pUnit, int* pnX, int* pnY, unsigned char nFlags, int bArg)
+D2UnitStrc* __fastcall SELECT_GetSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pUnit, int* pnX, int* pnY, unsigned char nFlags, int bArg)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecordFromSkill(pSkill);
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -736,7 +736,7 @@ D2UnitStrc* __fastcall sub_00467880_GetSkillTarget(D2SkillStrc* pSkill, D2UnitSt
             goto skip;
         }
 
-        sub_00466DE0_SetHoverUnit(0);
+        SELECT_SetHoverUnit(0);
         *pnX = CLIENTS_GetUnitX(pUnit);
         *pnY = CLIENTS_GetUnitY(pUnit);
         pUnit = 0;
@@ -766,12 +766,12 @@ skip:
 
     if (!pUnit && (nFlags6 & gdwBitMasks[5]) && bArg)
     {
-        return sub_00467660_FindAdjacentTarget(pSkillsTxtRecord, pPlayer);
+        return SELECT_FindAdjacentTarget(pSkillsTxtRecord, pPlayer);
     }
 
     if (nFlags6 & gdwBitMasks[7])
     {
-        return sub_004677B0_FindFreeTargetCoords(pnX, pnY, pUnit);
+        return SELECT_FindFreeTargetCoords(pnX, pnY, pUnit);
     }
 
     return pUnit;
@@ -782,7 +782,7 @@ void __cdecl sub_E01_Emit_00467AC0(D2UnitStrc* pFirst)
 {
     int nX = 0;
     int nY = 0;
-    if (sub_00467130_GetHoverCursorPos(&nX, &nY))
+    if (SELECT_GetHoverCursorPos(&nX, &nY))
     {
         return;
     }
@@ -794,7 +794,7 @@ void __cdecl sub_E01_Emit_00467AC0(D2UnitStrc* pFirst)
     for (D2UnitStrc* pUnit = pFirst; pUnit; pUnit = pUnit->ptRoomNext)
     {
         D2HoverCoordStrc tPlayerY = { nPY };
-        if (sub_00467000_CheckWarpTileHover(pPlayer, tPlayerY, nX, nY, pUnit, nPX, &gbWarpTileHovered))
+        if (SELECT_CheckWarpTileHover(pPlayer, tPlayerY, nX, nY, pUnit, nPX, &gbWarpTileHovered))
         {
             continue;
         }
@@ -803,24 +803,24 @@ void __cdecl sub_E01_Emit_00467AC0(D2UnitStrc* pFirst)
             pBest = pUnit;
             continue;
         }
-        if (sub_00467250_CheckDoorSideA(pUnit, pBest))
+        if (SELECT_CheckDoorSideA(pUnit, pBest))
         {
             pBest = pUnit;
         }
-        else if (sub_00467310_CheckDoorSideB(pBest, pUnit))
+        else if (SELECT_CheckDoorSideB(pBest, pUnit))
         {
             pBest = pUnit;
         }
-        else if (sub_004673C0_GetDistanceSquared(pPlayer, pUnit) < sub_004673C0_GetDistanceSquared(pPlayer, pBest))
+        else if (SELECT_GetDistanceSquared(pPlayer, pUnit) < SELECT_GetDistanceSquared(pPlayer, pBest))
         {
             pBest = pUnit;
         }
     }
-    sub_00466DE0_SetHoverUnit(pBest);
+    SELECT_SetHoverUnit(pBest);
 }
 
 // 0x00467A00
-void __cdecl sub_00467A00()
+void __cdecl SELECT_ResetHoverClassIds()
 {
     gnHoverMonClassId = 0x13;
 // build: symbol ?gnHoverClassId@* 0x00711F94
@@ -829,7 +829,7 @@ void __cdecl sub_00467A00()
 
 
 // 0x00467A10
-D2UnitStrc* __cdecl sub_00467A10()
+D2UnitStrc* __cdecl SELECT_GetSelectedUnit()
 {
     if (gbHasSelectedUnit)
     {
@@ -848,14 +848,14 @@ D2UnitStrc* __cdecl sub_00467A10()
 
 
 // 0x00467A70
-void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit)
+void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
         if (sub_00466870(pUnit, 0, 0, 0))
         {
             gbHoverLocked = 0;
-            sub_00466DE0_SetHoverUnit(pUnit);
+            SELECT_SetHoverUnit(pUnit);
             gbHoverLocked = 1;
         }
         else
@@ -876,7 +876,7 @@ extern int gaUnitHoverPriority[];                                               
 
 extern D2ActiveRoomStrc* gpHoverRoom;                                                             // 0x007A6AA4
 
-D2UnitStrc* __cdecl sub_00467A10();                                                            // 0x00467A10
+D2UnitStrc* __cdecl SELECT_GetSelectedUnit();                                                            // 0x00467A10
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
@@ -885,7 +885,7 @@ int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                            
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                            // 0x00639DF0
 
 // 0x00467AC0
-void __cdecl sub_00467AC0_UpdateHoverUnit()
+void __cdecl SELECT_UpdateHoverUnit()
 {
     if (gbHoverLocked)
     {
@@ -894,15 +894,15 @@ void __cdecl sub_00467AC0_UpdateHoverUnit()
 
     int nX = 0;
     int nY = 0;
-    if (sub_00467130_GetHoverCursorPos(&nX, &nY))
+    if (SELECT_GetHoverCursorPos(&nX, &nY))
     {
         return;
     }
 
-    D2UnitStrc* pSelected = sub_00467A10();
+    D2UnitStrc* pSelected = SELECT_GetSelectedUnit();
     if (pSelected && sub_00466870(pSelected, nX, nY, 1) && (pSelected->dwUnitType != UNIT_ITEM || !gdwGlobal_007A6A90))
     {
-        sub_00466DE0_SetHoverUnit(pSelected);
+        SELECT_SetHoverUnit(pSelected);
         return;
     }
 
@@ -959,7 +959,7 @@ void __cdecl sub_00467AC0_UpdateHoverUnit()
             }
 
             D2HoverCoordStrc tPlayerY = { nPlayerY };
-            if (sub_00467000_CheckWarpTileHover(pPlayer, tPlayerY, nX, nY, pUnit, nPlayerX, &gbWarpTileHovered))
+            if (SELECT_CheckWarpTileHover(pPlayer, tPlayerY, nX, nY, pUnit, nPlayerX, &gbWarpTileHovered))
             {
                 continue;
             }
@@ -1020,7 +1020,7 @@ void __cdecl sub_00467AC0_UpdateHoverUnit()
                 {
                     if (UnitIsDoor(pBest))
                     {
-                        if (sub_00467250_CheckDoorSideA(pUnit, pBest))
+                        if (SELECT_CheckDoorSideA(pUnit, pBest))
                         {
                             pBest = pUnit;
                         }
@@ -1033,7 +1033,7 @@ void __cdecl sub_00467AC0_UpdateHoverUnit()
             {
                 if (UnitIsDoor(pUnit))
                 {
-                    if (sub_00467310_CheckDoorSideB(pBest, pUnit) && nBestPriority < nPriority)
+                    if (SELECT_CheckDoorSideB(pBest, pUnit) && nBestPriority < nPriority)
                     {
                         pBest = pUnit;
                     }
@@ -1052,7 +1052,7 @@ void __cdecl sub_00467AC0_UpdateHoverUnit()
                     pBest = pUnit;
                 }
             }
-            else if (sub_004673C0_GetDistanceSquared(pPlayer, pUnit) < sub_004673C0_GetDistanceSquared(pPlayer, pBest))
+            else if (SELECT_GetDistanceSquared(pPlayer, pUnit) < SELECT_GetDistanceSquared(pPlayer, pBest))
             {
                 pBest = pUnit;
             }
@@ -1066,7 +1066,7 @@ NonDoorA:
         }
     }
 
-    sub_00466DE0_SetHoverUnit(pBest);
+    SELECT_SetHoverUnit(pBest);
 }
 
 

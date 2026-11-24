@@ -449,10 +449,10 @@ void UnlinkAll();
 
 struct D2CommonMappingEntryNodeBaseStrc
 {
-    unsigned int f_0;
+    unsigned int m_hashval;
     D2CommonStormSlotLinkStrc m_linktoslot;
-    D2CommonStormSlotLinkStrc f_C;
-    D2StormHashKeyStrIStrc f_14;
+    D2CommonStormSlotLinkStrc m_linktofull;
+    D2StormHashKeyStrIStrc m_key;
 
     ~D2CommonMappingEntryNodeBaseStrc();                                                                    // 0x0060EA10
 };
@@ -471,10 +471,10 @@ struct D2CommonMappingEntryNodeStrc : D2CommonMappingEntryNodeBaseStrc
 
 struct D2CommonStringEntryNodeStrc
 {
-    unsigned int f_0;
+    unsigned int m_hashval;
     D2CommonStormSlotLinkStrc m_linktoslot;
-    D2CommonStormSlotLinkStrc f_C;
-    D2StormHashKeyStrIStrc f_14;
+    D2CommonStormSlotLinkStrc m_linktofull;
+    D2StormHashKeyStrIStrc m_key;
 
     ~D2CommonStringEntryNodeStrc();                                                                         // 0x0060EAE0
     void IGNORELIST_DestroyStringEntryNode();
@@ -1142,7 +1142,7 @@ void D2CommonIgnoreListStrc::sub_0060DEA0_NormalizeAlias(const char* szName, cha
 // 0x0060E0B0
 char* D2CommonStringEntryNodeStrc::IGNORELIST_GetStringEntryKey()
 {
-    return f_14.m_str;
+    return m_key.m_str;
 }
 
 // 0x0060E0C0
@@ -1407,7 +1407,7 @@ void D2CommonStormHashTableAStrc::IGNORELIST_UnlinkStringTableNode(D2CommonStrin
     if (pNode->m_linktoslot.m_next)
     {
         pNode->m_linktoslot.Unlink();
-        pNode->f_C.Unlink();
+        pNode->m_linktofull.Unlink();
     }
 }
 
@@ -1716,9 +1716,9 @@ int D2CommonIgnoreListStrc::sub_0060F0A0_Save()
     if (!pFile)
         return 0;
     for (char* pNode = m_table.m_fulllist.m_terminator.NextChecked(); (int)pNode > 0; pNode = ((D2CommonStormSlotLinkStrc*)(pNode + m_table.m_fulllist.m_linkoffset))->Next())
-        fprintf(pFile, gszFirstFormat_006CD90C, ((D2CommonStringEntryNodeStrc*)pNode)->f_14.m_str);
+        fprintf(pFile, gszFirstFormat_006CD90C, ((D2CommonStringEntryNodeStrc*)pNode)->m_key.m_str);
     for (char* pNode = m_table2.m_fulllist.m_terminator.NextChecked(); (int)pNode > 0; pNode = ((D2CommonStormSlotLinkStrc*)(pNode + m_table2.m_fulllist.m_linkoffset))->Next())
-        fprintf(pFile, gszBangLineFormat, ((D2CommonStringEntryNodeStrc*)pNode)->f_14.m_str);
+        fprintf(pFile, gszBangLineFormat, ((D2CommonStringEntryNodeStrc*)pNode)->m_key.m_str);
     fclose(pFile);
     return 1;
 }
@@ -1747,7 +1747,7 @@ D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::sub_0060F1D0_Internal
     for (char* pNode = m_slotlistarray[nHashVal & m_slotmask].MaskHead(); (int)pNode > 0; pNode = m_slotlistarray[nHashVal & m_slotmask].RawNext(pNode))
     {
         D2CommonMappingEntryNodeStrc* pEntry = (D2CommonMappingEntryNodeStrc*)pNode;
-        if (pEntry->f_0 == nHashVal && !SStrCmpI(pEntry->f_14.m_str, key.m_str, 0x7FFFFFFF))
+        if (pEntry->m_hashval == nHashVal && !SStrCmpI(pEntry->m_key.m_str, key.m_str, 0x7FFFFFFF))
             return pEntry;
     }
     return 0;
@@ -1843,7 +1843,7 @@ D2CommonStringEntryNodeStrc* D2CommonStormHashTableAStrc::IGNORELIST_InternalFin
     for (char* pNode = m_slotlistarray[nHashVal & m_slotmask].MaskHead(); (int)pNode > 0; pNode = m_slotlistarray[nHashVal & m_slotmask].RawNext(pNode))
     {
         D2CommonStringEntryNodeStrc* pEntry = (D2CommonStringEntryNodeStrc*)pNode;
-        if (pEntry->f_0 == nHashVal && !SStrCmpI(pEntry->f_14.m_str, key.m_str, 0x7FFFFFFF))
+        if (pEntry->m_hashval == nHashVal && !SStrCmpI(pEntry->m_key.m_str, key.m_str, 0x7FFFFFFF))
             return pEntry;
     }
     return 0;
@@ -2145,7 +2145,7 @@ int D2CommonIgnoreListStrc::IGNORELIST_IsTextFiltered(const char* szName)
         for (char* pNode = (char*)((((int)m_table2.m_fulllist.m_terminator.m_next <= 0) - 1) & (int)m_table2.m_fulllist.m_terminator.m_next);
              (int)pNode > 0; pNode = m_table2.IGNORELIST_GetStringTableNext(pNode))
         {
-            SStrCopy(szKey, ((D2CommonStringEntryNodeStrc*)pNode)->f_14.m_str, 0x7FFFFFFF);
+            SStrCopy(szKey, ((D2CommonStringEntryNodeStrc*)pNode)->m_key.m_str, 0x7FFFFFFF);
             SStrLower(szKey);
             if (strstr(szLower, szKey))
                 return 1;
@@ -2358,7 +2358,7 @@ void D2CommonStormHashTableAStrc::IGNORELIST_GrowStringTableSlots()
     m_slotmask = nNewCount - 1;
     D2CommonStringEntryNodeStrc* pNode;
     while ((pNode = (D2CommonStringEntryNodeStrc*)tTemp.Head()) != 0)
-        InternalLinkNode(pNode, pNode->f_0);
+        InternalLinkNode(pNode, pNode->m_hashval);
 }
 
 // 0x00610380
@@ -2522,7 +2522,7 @@ void D2CommonStormHashTableBStrc::IGNORELIST_GrowMappingTableSlots()
     m_slotmask = nNewCount - 1;
     D2CommonMappingEntryNodeStrc* pNode;
     while ((pNode = (D2CommonMappingEntryNodeStrc*)tTemp.Head()) != 0)
-        InternalLinkNode(pNode, pNode->f_0);
+        InternalLinkNode(pNode, pNode->m_hashval);
 }
 
 // 0x00610AA0
@@ -2551,8 +2551,8 @@ D2CommonStringEntryNodeStrc* D2CommonStormHashTableAStrc::IGNORELIST_InternalNew
         nSlot = nHashVal & m_slotmask;
     D2CommonStringEntryNodeStrc* pNode = IGNORELIST_AllocStringTableNodeInList(&m_slotlistarray[nSlot], nExtraBytes, nFlags);
     m_fulllist.LinkNode((char*)pNode, 2, 0);
-    pNode->f_0 = nHashVal;
-    pNode->f_14 = key;
+    pNode->m_hashval = nHashVal;
+    pNode->m_key = key;
     return pNode;
 }
 
@@ -2606,8 +2606,8 @@ D2CommonMappingEntryNodeStrc* D2CommonStormHashTableBStrc::IGNORELIST_InternalNe
         nSlot = nHashVal & m_slotmask;
     D2CommonMappingEntryNodeStrc* pNode = IGNORELIST_AllocMappingTableNodeInList(&m_slotlistarray[nSlot], nExtraBytes, nFlags);
     m_fulllist.LinkNode((char*)pNode, 2, 0);
-    pNode->f_0 = nHashVal;
-    pNode->f_14 = key;
+    pNode->m_hashval = nHashVal;
+    pNode->m_key = key;
     return pNode;
 }
 

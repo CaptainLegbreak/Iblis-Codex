@@ -518,7 +518,7 @@ int __fastcall sub_00464EC0(D2UnitStrc*,D2UnitStrc*); // 0x00464EC0
 int __fastcall sub_00464F70(D2UnitStrc*,D2UnitStrc*); // 0x00464F70
 int __fastcall sub_00465C60(D2UnitStrc*,D2UnitStrc*); // 0x00465C60
 int __fastcall sub_00466870(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x00466870
-int __fastcall sub_00467640_UnitFindTest(D2UnitStrc* pUnit, void* pArg); // 0x00467640
+int __fastcall SELECT_IsMonsterUnit(D2UnitStrc* pUnit, void* pArg); // 0x00467640
 int __fastcall sub_0046C140_CheckMonStats2ModeFlag(int nMonsterId, int nMode); // 0x0046C140
 int __fastcall sub_0046C570_FindRoomUnit(D2UnitStrc* pUnit, D2UnitStrc** ppFound, int* pDistance,
     int (__fastcall* pfnCheck)(D2UnitStrc* pUnit, D2UnitStrc* pOther, D2UnitStrc** ppFound, int* pDistance)); // 0x0046C570
@@ -545,7 +545,7 @@ int __fastcall sub_004B1280(D2UnitStrc* pUnit, D2MonAnimRecStrc* pRecord); // 0x
 int __fastcall sub_004B95C0_IsHintPlaying(void* pHint); // 0x004B95C0
 int __fastcall sub_004B9610_FindHint(int nId); // 0x004B9610
 int __fastcall sub_004CAEB0(D2UnitStrc* pUnit, int nMode); // 0x004CAEB0
-int __fastcall sub_004CC7C0_GetSkillBonus(int nSkillId, int nSkillLevel); // 0x004CC7C0
+int __fastcall MISSILE_GetSkillMissileRange(int nSkillId, int nSkillLevel); // 0x004CC7C0
 int __fastcall sub_004DAB40_CheckCel(D2CelStrc* pCel, int nX, int nY, int nArg4); // 0x004DAB40
 int __fastcall sub_004DBB50_InitCelContext(D2CelContextStrc* pContext, D2UnitStrc* pUnit, int a3, int nDirection, int nFrame, int* pOut, int a7, int a8); // 0x004DBB50
 int __fastcall sub_004DBD30_CountVisibleLayers(D2UnitStrc* pUnit, D2GfxLayerHeaderStrc* pHeader, unsigned char* pLayers, int* pOut, int nDirection, int nFrame); // 0x004DBD30
@@ -840,7 +840,7 @@ void __fastcall sub_004CC160(D2UnitStrc* pUnit, int nValue); // 0x004CC160
 void __fastcall sub_004CC5B0_RequestMode(D2UnitStrc* pUnit, int nMode, int nArg); // 0x004CC5B0
 void __fastcall sub_004CC870_SubMissileCallback(D2UnitStrc* pMissile); // 0x004CC870
 void __fastcall sub_004CED20(D2UnitStrc* pMissile, int nMissile); // 0x004CED20
-D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitStrc* pTarget, int bArg); // 0x004D2D70
+D2UnitStrc* __fastcall MISSILE_CltMissileHit(D2UnitStrc* pMissile, D2UnitStrc* pTarget, int bArg); // 0x004D2D70
 void __fastcall sub_004DA620(D2UnitStrc* pUnit, int nArg); // 0x004DA620
 void __fastcall sub_004DB1C0_SetGfxByte(D2UnitStrc* pUnit, int nIndex, unsigned char nValue); // 0x004DB1C0
 void __fastcall sub_004DC7B0(D2CellPosStrc* pPos, unsigned int nColor, int nArg); // 0x004DC7B0
@@ -1305,10 +1305,10 @@ struct D2ChatStormListEStrc
 
 struct D2ChatStormNodeStrc
 {
-    unsigned int f_0;
+    unsigned int m_hashval;
     D2ChatStormLinkStrc m_linktoslot;
-    D2ChatStormLinkStrc f_C;
-    char* f_14;
+    D2ChatStormLinkStrc m_linktofull;
+    char* m_key;
 
     char* IGNORELIST_GetStringEntryKey();
 };
@@ -1429,10 +1429,10 @@ struct D2CommonIgnoreListStrc : D2CommonChatIgnoreListStrc
 
 struct D2CommonMappingEntryNodeBaseStrc
 {
-    unsigned int f_0;
+    unsigned int m_hashval;
     D2ChatStormLinkStrc m_linktoslot;
-    D2ChatStormLinkStrc f_C;
-    char* f_14;
+    D2ChatStormLinkStrc m_linktofull;
+    char* m_key;
 
     ~D2CommonMappingEntryNodeBaseStrc();
 };
@@ -1499,10 +1499,10 @@ struct D2CommonStormSlotListBStrc
 
 struct D2CommonStringEntryNodeStrc
 {
-    unsigned int f_0;
+    unsigned int m_hashval;
     D2ChatStormLinkStrc m_linktoslot;
-    D2ChatStormLinkStrc f_C;
-    char* f_14;
+    D2ChatStormLinkStrc m_linktofull;
+    char* m_key;
 
     ~D2CommonStringEntryNodeStrc();
     void IGNORELIST_DestroyStringEntryNode();

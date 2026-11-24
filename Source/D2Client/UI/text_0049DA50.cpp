@@ -83,7 +83,7 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); 
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
+void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
 void __stdcall TEXT_FreeTextBox(D2ClientTextBoxStrc* pTextBox); // 0x0049D410
 
@@ -272,7 +272,7 @@ void __fastcall TEXT_OpenTextData(D2UnitStrc* pUnit, D2ClientTextDataStrc* pText
     if (gpTextData->dwTag == 0x20646B62)
     {
         gbTextDataOpen = 1;
-        sub_00478680_SendPacket5(0x3E, !pUnit ? -1 : pUnit->dwUnitId);
+        MSG_SendDword(0x3E, !pUnit ? -1 : pUnit->dwUnitId);
         gnGlobal_007BF1E0 = 0;
     }
     else

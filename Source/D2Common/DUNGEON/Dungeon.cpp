@@ -1561,22 +1561,6 @@ int __fastcall DUNGEON_ItemCalcGetRandomNumberInRange(int nMin, int nMax, int nU
     return nMin + ITEMS_RollLimitedRandomNumber(pSeed, nMax - nMin + 1);
 }
 
-// 0x00643700
-int __fastcall DUNGEON_SkillCalcGetRandomNumberInRange(int nMin, int nMax, int nUnused, void* pUserData)
-{
-    D2SkillCalcStrc* pSkillCalc = (D2SkillCalcStrc*)pUserData;
-    if (!pSkillCalc)
-    {
-        return 0;
-    }
-    D2SeedStrc* pSeed = &pSkillCalc->pUnit->pSeed;
-    if (nMin >= nMax)
-    {
-        return nMin;
-    }
-    return nMin + ITEMS_RollLimitedRandomNumber(pSeed, nMax - nMin + 1);
-}
-
 // 0x00653ED0
 const Unicode* __fastcall DATATBLS_RollRandomUniquePrefixString(D2UnitStrc* pUnit)
 {

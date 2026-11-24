@@ -40,7 +40,7 @@ void __fastcall VIEW_SpawnBrDeathControl(D2UnitStrc* pUnit);                    
 
 void __fastcall sub_0046B710_SpawnMissileAtObject173(D2UnitStrc* pUnit);                                                            // 0x0046B710
 
-void __fastcall sub_0046B850_SpawnMissileAtObject182(D2UnitStrc* pUnit);                                                            // 0x0046B850
+void __fastcall VIEW_SpawnMissileNearObject(D2UnitStrc* pUnit);                                                            // 0x0046B850
 
 void __fastcall VIEW_SpawnMephistoDeath(D2UnitStrc* pUnit);                                          // 0x0046B9A0
 
@@ -423,7 +423,7 @@ void __fastcall MONUNIQUE_InitUModLight(D2UnitStrc* pUnit, int nUnused, int bIni
 }
 
 // 0x004ACD50
-void __fastcall sub_004ACD50_ClearMonsterField18(D2UnitStrc* unit, void* unused, int unusedStack)
+void __fastcall MONUNIQUE_ClearDurielFlag(D2UnitStrc* unit, void* unused, int unusedStack)
 {
     if (GetUnitType(unit) == 1)
     {
@@ -444,7 +444,7 @@ void __fastcall MONUNIQUE_AssignTeleportSkill(D2UnitStrc* pUnit, int nUnused, in
 }
 
 // 0x004ACDB0
-int __fastcall sub_004ACDB0_UMod8_Resistant(D2UnitStrc* pUnit, int nUMod, int bUnique)
+int __fastcall MONUNIQUE_ApplyResistantMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
     if (bUnique)
     {

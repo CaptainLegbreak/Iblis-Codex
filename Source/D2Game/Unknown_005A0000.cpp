@@ -37,7 +37,7 @@ inline D2ItemTypesTxt* DATATBLS_GetItemTypesTxtRecord(int nItemType)
 }
 
 // 0x00452040
-extern "C" D2StatesTxt* __fastcall sub_00452040_GetStatesTxtRecord(int nStateId)
+extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId)
 {
     if (nStateId >= 0 && nStateId < sgptDataTables->nStatesTxtRecordCount)
     {

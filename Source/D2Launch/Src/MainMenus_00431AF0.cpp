@@ -177,30 +177,6 @@ void __cdecl MAINMENUS_ShowCurrentGateway()
     BUTTON_SetText(gpControl_007795AC, 10, wszOut, 0);
 }
 
-// 0x00431C90
-int __stdcall MAINMENUS_PollSystemPacket(int nUnused)
-{
-    unsigned char pBuffer[0x200];
-    if (CLIENT_DequeueSystemPacket(pBuffer, sizeof(pBuffer)) != -1)
-    {
-        switch (pBuffer[0])
-        {
-        case 0xAF:
-            gdwGlobal_00779990 = 1;
-            D2Win_StopMessageLoop();
-            return 1;
-        case 0xB0:
-            gdwGlobal_00779990 = 0;
-            break;
-        }
-    }
-
-    if (gdwGlobal_00779990 || gdwGlobal_00779974)
-        D2Win_StopMessageLoop();
-
-    return 1;
-}
-
 // 0x0043C750
 void __fastcall MAINMENUS_DeleteCharFiles(const char* szCharName, const char* szSubdirectory)
 {

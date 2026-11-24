@@ -181,7 +181,7 @@ int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nState); // 0x0
 
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
 
-void __cdecl sub_00466FE0(); // 0x00466FE0
+void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 
@@ -203,7 +203,7 @@ int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
+void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 
 void __stdcall INV_HandlePanelClick(SMSGHANDLER_PARAMS* pMsg); // 0x004912A0
 
@@ -324,7 +324,7 @@ extern int gnGlobal_007BEEE8; // 0x007BEEE8
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);         // 0x00413020
 
-int __fastcall sub_00478830_SendPacket66(const void* pData, int nSize); // 0x00478830
+int __fastcall MSG_SendWardenPacket(const void* pData, int nSize); // 0x00478830
 
 struct D2ClientSlotObjStrc
 {
@@ -598,7 +598,7 @@ int __fastcall sub_00526800(const Unicode* pString);                            
 
 void __fastcall TEXT_PrintChatLine(const Unicode* pText, char nColor);                              // 0x0049E3A0
 
-void __fastcall sub_004787B0_SendStrings(const unsigned char* pData);                                       // 0x004787B0
+void __fastcall MSG_SendStrings(const unsigned char* pData);                                       // 0x004787B0
 
 unsigned int __fastcall D2Win_10128(unsigned char nChar);                                                   // 0x00502550
 
@@ -711,7 +711,7 @@ D2WardenModuleHolderAStrc::~D2WardenModuleHolderAStrc()
 void __cdecl sub_K04_EmitUse(int* pValue);
 
 // 0x0047F950
-static int __stdcall sub_0047F950_CheckBlockSignature(const char* pEnd, const char* pBegin, int* pSize, const char* pBase)
+static int __stdcall WARDENCLIENT_CheckBlockSignature(const char* pEnd, const char* pBegin, int* pSize, const char* pBase)
 {
     *pSize = pEnd - pBegin - 4;
     if (pEnd >= pBegin + 4)
@@ -726,7 +726,7 @@ static int __stdcall sub_0047F950_CheckBlockSignature(const char* pEnd, const ch
 int __cdecl sub_K04_EmitCheckBlockSignature(const char* pBegin, const char* pEnd, const char* pBase)
 {
     int nSize;
-    const int bOk = sub_0047F950_CheckBlockSignature(pEnd, pBegin, &nSize, pBase);
+    const int bOk = WARDENCLIENT_CheckBlockSignature(pEnd, pBegin, &nSize, pBase);
     sub_K04_EmitUse(&nSize);
     return bOk;
 }
@@ -964,7 +964,7 @@ int __stdcall INV_CallServiceWithTime(const char* szName, int nArg2, int nArg3)
 // 0x00480000
 int WardenClient::GFX_SendWardenPacket(const void* pData, int nSize)
 {
-    return sub_00478830_SendPacket66(pData, nSize);
+    return MSG_SendWardenPacket(pData, nSize);
 }
 
 // 0x00480020
@@ -1197,7 +1197,7 @@ void __stdcall WARDENCLIENT_HandlePetIconClick(SMSGHANDLER_PARAMS* pMsg)
     }
     if (HIREABLES_CanEquipHirelingItem(1))
     {
-        sub_004785B0_SendPacket3(0x61, 0);
+        MSG_SendWord(0x61, 0);
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
@@ -1334,7 +1334,7 @@ void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, 
     tRect.nLeft = gnTextLeft - 10;
     tRect.nRight = gnTextLeft + 0x14F;
     sub_00467430(&tRect);
-    sub_00466FE0();
+    SELECT_ClearSelection();
 
     gwTextStringId = nStringId;
     if (gpTextBox)

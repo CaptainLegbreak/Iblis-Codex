@@ -169,7 +169,7 @@ struct D2UnitEventArgsStrc
 int __fastcall sub_00480C10_DispatchUnitEvent(int nEvent, D2UnitStrc* pUnit, D2UnitEventArgsStrc* pArgs, int nArg); // 0x00480C10
 
 // 0x004D84C0
-static int sub_004D84C0_IsInSequenceMode(D2UnitStrc* pUnit)
+static int PLRSKILLS_IsInSequenceMode(D2UnitStrc* pUnit)
 {
     int nUnitType = UNIT_INVALID;
     if (pUnit)
@@ -191,7 +191,7 @@ void __fastcall PLRSKILLS_SkillSeqDoForward(D2UnitStrc* pUnit, int nArg)
     if (!pSkill)
         return;
 
-    if (!sub_004D84C0_IsInSequenceMode(pUnit))
+    if (!PLRSKILLS_IsInSequenceMode(pUnit))
         return;
 
     const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, ".\\UNIT\\PlrSkills.cpp", 38);
@@ -225,7 +225,7 @@ void __fastcall PLRSKILLS_SkillSeqDoBackward(D2UnitStrc* pUnit, int nArg)
     if (!pSkill)
         return;
 
-    if (!sub_004D84C0_IsInSequenceMode(pUnit))
+    if (!PLRSKILLS_IsInSequenceMode(pUnit))
         return;
 
     const int nSkillId = SKILLS_GetSkillIdFromSkill(pSkill, ".\\UNIT\\PlrSkills.cpp", 79);
@@ -977,7 +977,7 @@ void __fastcall MISSILE_StateMissile(D2UnitStrc* pUnit, int nState)
 }
 
 // 0x004D9E60
-void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_StartClientState(D2UnitStrc* pUnit, int nState)
 {
     if (!pUnit || nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
     {
@@ -1025,7 +1025,7 @@ void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState)
 }
 
 // 0x004D9F40
-void __fastcall sub_004D9F40_EndClientState(D2UnitStrc* pUnit, int nState)
+void __fastcall PLRSKILLS_EndClientState(D2UnitStrc* pUnit, int nState)
 {
     if (!pUnit || nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
     {

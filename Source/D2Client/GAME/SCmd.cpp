@@ -426,7 +426,7 @@ extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSiz
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-void __cdecl sub_00466FE0(); // 0x00466FE0
+void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB); // 0x00469D90
 
@@ -434,7 +434,7 @@ unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 
 void __cdecl GAME_ResetLeftClick(); // 0x0044C060
 
-void __cdecl sub_00466FF0(); // 0x00466FF0
+void __cdecl SELECT_UnlockHover(); // 0x00466FF0
 
 void __cdecl TEXT_ClearListFlags(); // 0x004A01E0
 
@@ -820,7 +820,7 @@ void __fastcall PLRSKILLS_BeginState(D2UnitStrc* pUnit, int nState); // 0x004D9B
 
 int __fastcall PLRSKILLS_SetStateStat(D2UnitStrc* pUnit, int nPrev, int nState, int nStatId, int nValue, int nLayer); // 0x004D9D70
 
-void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState); // 0x004D9E60
+void __fastcall PLRSKILLS_StartClientState(D2UnitStrc* pUnit, int nState); // 0x004D9E60
 
 D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
 
@@ -1489,7 +1489,7 @@ extern "C" void __cdecl sub_0048A700(); // 0x0048A700
 
 void __stdcall DATATBLS_AddOrChangeRunesTxtRecord(int nRecordId, D2RunesTxt* pRecord); // 0x00639CC0
 
-void __fastcall sub_004D9F40_EndClientState(D2UnitStrc* pUnit, int nState); // 0x004D9F40
+void __fastcall PLRSKILLS_EndClientState(D2UnitStrc* pUnit, int nState); // 0x004D9F40
 
 void __fastcall PLRSKILLS_EndState(D2UnitStrc* pUnit, int nState); // 0x004D9C30
 
@@ -2175,7 +2175,7 @@ void __stdcall SCMD_HandleQuitMessage(SMSGHANDLER_PARAMS* pMsg)
 enum { USE_RESULT = 0 };
 
 // 0x00451AB0
-void __stdcall sub_00451AB0(SMSGHANDLER_PARAMS* msg)
+void __stdcall SCMD_OnActivateApp(SMSGHANDLER_PARAMS* msg)
 {
 // build: symbol ?gbClientAppActive@* 0x0070F7E0
     gbClientAppActive = msg->wParam != 0;
@@ -2370,7 +2370,7 @@ void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMa
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
 
 // 0x004523A0
-Unicode* __fastcall sub_004523A0_FormatRangeText(Unicode* pText, int nFirst, int nSecond)
+Unicode* __fastcall SCMD_FormatRangeText(Unicode* pText, int nFirst, int nSecond)
 {
     if (pText->wChar)
     {
@@ -3786,7 +3786,7 @@ void __fastcall SCMD_HandleRefreshItems(const D2PacketRecord11Strc* pPacket)
 }
 
 // 0x0045E2D0
-void __fastcall sub_0045E2D0_Packet48(const D2PacketRecord11Strc* pPacket)
+void __fastcall SCMD_HandleRefreshItemsRecord(const D2PacketRecord11Strc* pPacket)
 {
     D2PacketRecord11Strc tPacket = *pPacket;
     ITEM_RefreshUnitItemsFromRecord(&tPacket);
@@ -4432,7 +4432,7 @@ void __fastcall SCMD_HandleDelayedState(const D2GSPacketSrvA7* pPacket)
     {
         const int nState = pPacket->nState;
         PLRSKILLS_BeginState(pUnit, nState);
-        sub_004D9E60_StartClientState(pUnit, nState);
+        PLRSKILLS_StartClientState(pUnit, nState);
     }
 }
 
@@ -4484,7 +4484,7 @@ void __fastcall SCMD_HandleSetState(D2GSPacketSrvA8* pPacket)
         nStatId = sub_00411020_ReadBits(&tBuffer, 9);
     }
 
-    sub_004D9E60_StartClientState(pUnit, nState);
+    PLRSKILLS_StartClientState(pUnit, nState);
 }
 
 // 0x0045EF60
@@ -4494,7 +4494,7 @@ void __fastcall SCMD_HandleEndState(const D2GSPacketSrvA9* pPacket)
     if (pUnit)
     {
         const int nState = pPacket->nState;
-        sub_004D9F40_EndClientState(pUnit, nState);
+        PLRSKILLS_EndClientState(pUnit, nState);
         PLRSKILLS_EndState(pUnit, nState);
     }
 }
@@ -4592,7 +4592,7 @@ void __fastcall SCMD_HandleAddUnitStates(D2GSPacketSrvAA* pPacket)
                 nStatId = sub_00411020_ReadBits(&tBuffer, 9);
             }
         }
-        sub_004D9E60_StartClientState(pUnit, nState);
+        PLRSKILLS_StartClientState(pUnit, nState);
         nState = sub_00411020_ReadBits(&tBuffer, 8);
     }
 }

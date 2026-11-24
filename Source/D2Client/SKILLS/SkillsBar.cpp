@@ -87,7 +87,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
-static int __stdcall sub_004C8350_CanTargetRoom(int nSkillId, D2UnitStrc* pUnit, int nX, int nY); // 0x004C8350
+static int __stdcall SKILLSBAR_CanTargetRoom(int nSkillId, D2UnitStrc* pUnit, int nX, int nY); // 0x004C8350
 
 static int __stdcall sub_004C80D0_AdjustTargetPosition(int nSkillId, D2UnitStrc* pUnit, int nSkillLevel, int* pX, int* pY); // 0x004C80D0
 
@@ -195,8 +195,19 @@ int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 
 int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0
 
+void __fastcall SKILLS_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames); // 0x004DA5B0
+
+struct D2LobBracketStrc
+{
+    int nMaxDistance;
+    int nMultiplier;
+    int nAddend;
+};
+
+extern D2LobBracketStrc gaLobBrackets[2]; // 0x006DAE70
+
 // 0x004C8350
-static int __stdcall sub_004C8350_CanTargetRoom(int nSkillId, D2UnitStrc* pUnit, int nX, int nY)
+static int __stdcall SKILLSBAR_CanTargetRoom(int nSkillId, D2UnitStrc* pUnit, int nX, int nY)
 {
     D2SkillsTxt* pSkillsTxt = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
     if (!pSkillsTxt)
@@ -272,7 +283,7 @@ int __fastcall SKILLSBAR_SkillCltStartPosition(D2UnitStrc* pUnit, int nSkillId, 
     {
         if (!ITEM_GetTargetPosition(pUnit, &nX, &nY))
             return 0;
-        if (!sub_004C8350_CanTargetRoom(nSkillId, pUnit, nX, nY))
+        if (!SKILLSBAR_CanTargetRoom(nSkillId, pUnit, nX, nY))
             return 0;
         if (!sub_004C80D0_AdjustTargetPosition(nSkillId, pUnit, nSkillLevel, &nX, &nY))
             return 0;
@@ -341,6 +352,61 @@ int __fastcall SKILLSBAR_SetRunPath(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
     D2Common_10142(pDynamicPath, pUnit, 0);
     return 1;
 }
+
+// 0x004C8670
+void __fastcall SKILLS_SetLobVelocity(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+{
+    if (!pSkill)
+    {
+        return;
+    }
+
+    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
+    if (!pDynamicPath)
+    {
+        return;
+    }
+
+    const int nX = SKILLS_GetParam1(pSkill);
+    const int nY = SKILLS_GetParam2(pSkill);
+    const int nSpeed = PATH_GetVelocity(pDynamicPath) >> 8;
+    if (!nSpeed)
+    {
+        return;
+    }
+
+    int nDistance = UNITS_GetDistanceToCoordinates(pUnit, nX, nY);
+    if (nDistance < 1)
+    {
+        nDistance = 1;
+    }
+
+    int nFrames = (nDistance << 0x10) / (nSpeed << 0x0C);
+    if (nFrames > 1)
+    {
+        nFrames -= 1;
+    }
+
+    int i = 0;
+    for (; i < 1; i++)
+    {
+        if (nDistance < gaLobBrackets[i].nMaxDistance)
+        {
+            break;
+        }
+    }
+
+    int nVelocity = gaLobBrackets[i].nMultiplier * nDistance + gaLobBrackets[i].nAddend;
+    if (nVelocity < 0x1F4)
+    {
+        nVelocity = 0x1F4;
+    }
+
+    sub_004DA000(pUnit);
+    sub_004DA250(pUnit, 0, 0, -nVelocity, 0);
+    SKILLS_SetBallistic(pUnit, 0, nFrames);
+}
+
 
 inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {

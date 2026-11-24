@@ -17,7 +17,7 @@ void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x0064326
 int __fastcall GFXUTIL_HitTestUnitCel(D2UnitStrc* pUnit, int nX, int nY); // 0x004DBF20
 D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
 extern D2DrlgActStrc* gpAct; // 0x007A0634
-void __fastcall sub_004785D0_SendShortShort(char nHeader, short nArg1, short nArg2); // 0x004785D0
+void __fastcall MSG_SendTwoWords(char nHeader, short nArg1, short nArg2); // 0x004785D0
 void __fastcall AUTOMAP_UpdatePathAndMove(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463180
 int __stdcall D2Common_10230(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650C60
 

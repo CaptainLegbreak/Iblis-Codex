@@ -208,7 +208,7 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); 
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
+D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
@@ -342,7 +342,7 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 
 int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
-D2CelFileStrc* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
+D2CelFileStrc* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 int __cdecl sub_00468830(); // 0x00468830
 
@@ -379,7 +379,7 @@ extern D2InventoryGridInfoStrc gtBankGrid; // 0x007BCB40
 
 extern D2InventoryGridInfoStrc gtPlayerInvGrid; // 0x007BCB88
 
-void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
+void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
 void __fastcall sub_004786D0_SendPacket(char nHeader, int nArg1, int nArg2, int nArg3); // 0x004786D0
 
@@ -546,7 +546,7 @@ void __stdcall sub_00467FA0(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 
 int __fastcall ITEM_GetDropSound(D2UnitStrc* pItem); // 0x004C1D60
 
-void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
+void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 
 
 extern "C" int gnLightmapRenderMode; // 0x00712CCC
@@ -1171,7 +1171,7 @@ D2UnitStrc* __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
-void __fastcall sub_00478700_SendCommand(char nCommand, int nArg0, int nArg1, int nArg2, int nArg3); // 0x00478700
+void __fastcall MSG_SendFourDwords(char nCommand, int nArg0, int nArg1, int nArg2, int nArg3); // 0x00478700
 
 void __cdecl sub_004A9DF0_UpdateSkillIcons(); // 0x004A9DF0
 

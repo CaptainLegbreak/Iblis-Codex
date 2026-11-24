@@ -647,42 +647,6 @@ static inline int ProgressBarValue(int nPercent)
     return nPercent * sub_004FD1B0_GetBarMax(gpProgressBar) / 100;
 }
 
-// 0x0042F890
-void __cdecl COMCALLBACK_ShowProgressScreen()
-{
-    char szText[100];
-    CHARSEL_CreateBaseScreen();
-    MAINMENUS_CreateControl(0x116);
-    gpProgressBar = MAINMENUS_CreateControl(0x117);
-    sub_004FD170_SetBarMode(gpProgressBar, 3);
-    gpProgressText = MAINMENUS_CreateControl(0x113);
-    int nPercent = gpFuncTable_0077ABF0->pfnSlot4C();
-    if (nPercent > 100)
-        nPercent = 100;
-    D2WinControlStrc* pControl = MAINMENUS_CreateControl(0x114);
-    sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x143A), 0, 0, 0);
-    pControl = MAINMENUS_CreateControl(0x112);
-    sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x143B), 0, 0, 0);
-    MAINMENUS_CreateControl(0x118);
-    sub_004FD110_SetBarValue(gpProgressBar, ProgressBarValue(nPercent));
-    sprintf(szText, "%d%%", nPercent);
-    sub_004FCFF0_SetTextA(gpProgressText, szText, 0);
-}
-
-// 0x0042F990
-void __cdecl COMCALLBACK_UpdateProgress()
-{
-    char szText[100];
-    sub_004FB6A0_ClearText(gpProgressText);
-    int nPercent = gpFuncTable_0077ABF0->pfnSlot4C();
-    if (nPercent > 100)
-        nPercent = 100;
-    sub_004FD110_SetBarValue(gpProgressBar, ProgressBarValue(nPercent));
-    sprintf(szText, "%d%%", nPercent);
-    if (gpProgressText)
-        sub_004FCFF0_SetTextA(gpProgressText, szText, 0);
-}
-
 static __forceinline int FilterNoSeparator(D2WinControlStrc* pControl)
 {
     char szText[0x20];
@@ -694,15 +658,6 @@ static __forceinline int FilterNoSeparator(D2WinControlStrc* pControl)
             return 0;
     }
     return 1;
-}
-
-// 0x00430590
-int __stdcall COMCALLBACK_FilterNameChar(D2WinControlStrc* pControl, int bAllowSep, const char* pChar)
-{
-    const char c = *pChar;
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || ((c == '-' || c == '_') && bAllowSep && FilterNoSeparator(pControl)))
-        return 1;
-    return 0;
 }
 
 // build: symbol ?gbCharSelBusy@* 0x00779DA0

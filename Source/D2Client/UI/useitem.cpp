@@ -35,7 +35,7 @@ struct D2HotspotStrc
 
 #pragma pack(pop)
 
-void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
+void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
@@ -95,7 +95,7 @@ void __cdecl GAME_RequestExit(); // 0x0044D520
 
 void __cdecl USEITEM_OpenPanel(); // 0x004C0380
 
-void __fastcall sub_00478700_SendCommand(char nCommand, int nUnitId, int nArg1, int nArg2, int nArg3); // 0x00478700
+void __fastcall MSG_SendFourDwords(char nCommand, int nUnitId, int nArg1, int nArg2, int nArg3); // 0x00478700
 
 void __cdecl sub_004B3FE0(); // 0x004B3FE0
 
@@ -170,8 +170,8 @@ void __cdecl USEITEM_InitUseItemPanel()
     gnAnvilObjectId = 0;
     gnGlobal_007C5478 = 0;
     gdwUseItemClickTick = 0;
-    gpUpgradeCel = sub_004520C0_LoadUiCelFile("menu\\upgrade");
-    gpHoradricBackCel = sub_004520C0_LoadUiCelFile("menu\\horadricback");
+    gpUpgradeCel = GAME_LoadUiCelFile("menu\\upgrade");
+    gpHoradricBackCel = GAME_LoadUiCelFile("menu\\horadricback");
 // build: symbol ?gnHotspotCount@* 0x007278FC
     for (int i = 0; i < gnHotspotCount; i++)
     {
@@ -206,7 +206,7 @@ int __cdecl sub_004BFAF0_ShowConfirmation()
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         int nUnitId = !pPlayer ? -1 : pPlayer->dwUnitId;
-        sub_00478700_SendCommand(0x44, nUnitId, gnAnvilObjectId, gnAnvilItemId, 3);
+        MSG_SendFourDwords(0x44, nUnitId, gnAnvilObjectId, gnAnvilItemId, 3);
     }
     else
     {
@@ -216,6 +216,28 @@ int __cdecl sub_004BFAF0_ShowConfirmation()
     }
     return 0;
 }
+
+// 0x004BFBC0
+void __fastcall ITEM_HitTestHotspots(int nX, int nY)
+{
+// build: symbol ?gnHotspotCount@* 0x007278FC
+    for (int i = 0; i < gnHotspotCount; i++)
+    {
+        gaUseItemHotspots[i].pressed = 0;
+        gaUseItemHotspots[i].hovered = 0;
+    }
+
+    for (int i = 0; i < gnHotspotCount; i++)
+    {
+        if (nX >= gaUseItemHotspots[i].left && nX <= gaUseItemHotspots[i].right && nY >= gaUseItemHotspots[i].top && nY <= gaUseItemHotspots[i].bottom)
+        {
+            sub_004B9A00(1, 0, 0, 0, 0);
+            gaUseItemHotspots[i].pressed = 1;
+            gaUseItemHotspots[i].hovered = 1;
+        }
+    }
+}
+
 
 // 0x004C0100
 void __cdecl USEITEM_FreeUseItemPanel()
@@ -456,7 +478,7 @@ int __cdecl USEITEM_ClosePanel()
         D2UnitStrc* player = sub_00463DD0_GetPlayerUnit();
         int id = !player ? -1 : player->dwUnitId;
         int value = gnAnvilObjectId;
-        sub_00478700_SendCommand(0x44, id, value, 0, 2);
+        MSG_SendFourDwords(0x44, id, value, 0, 2);
         USEITEM_CloseUseItemPanel();
     } else {
         sub_004B3FE0();
@@ -577,7 +599,7 @@ void __stdcall USEITEM_OnPanelCloseMsg(SMSGHANDLER_PARAMS* pMsg)
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         const int nUnitId = !pPlayer ? -1 : pPlayer->dwUnitId;
         const int nValue = gnAnvilObjectId;
-        sub_00478700_SendCommand(0x44, nUnitId, nValue, 0, 2);
+        MSG_SendFourDwords(0x44, nUnitId, nValue, 0, 2);
         sub_004C0090();
     }
     else
@@ -600,7 +622,7 @@ void __cdecl USEITEM_OpenPanel()
         if (!gnUseItemPanelMode)
         {
             D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-            sub_00478700_SendCommand(0x44, !pPlayer ? -1 : pPlayer->dwUnitId, gnAnvilObjectId, 0, 2);
+            MSG_SendFourDwords(0x44, !pPlayer ? -1 : pPlayer->dwUnitId, gnAnvilObjectId, 0, 2);
             sub_004C0090();
         }
         else

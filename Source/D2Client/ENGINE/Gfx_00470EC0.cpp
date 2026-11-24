@@ -28,7 +28,7 @@ extern "C" int __cdecl PLAYER_GetScreenOffsetX();                               
 extern "C" int __cdecl PLAYER_GetScreenOffsetY();                                                      // 0x0045AFD0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __fastcall CUNIT_TickDrawDelay(D2UnitStrc* pUnit);                                          // 0x00464C40
-D2UnitStrc* __cdecl sub_00467A10();                                                             // 0x00467A10
+D2UnitStrc* __cdecl SELECT_GetSelectedUnit();                                                             // 0x00467A10
 D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                                    // 0x0046ACE0
 void __stdcall GFX_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int dwColor, int bFront, int nX, int nY, int bLift); // 0x0046E300
 int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit);                                               // 0x00471BD0
@@ -164,7 +164,7 @@ int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int
         }
     }
 
-    const int bSelected = sub_00467A10() == pUnit;
+    const int bSelected = SELECT_GetSelectedUnit() == pUnit;
     if (bSelected)
     {
         unsigned int nAlpha = (dwColor & 0xFF) * 2;

@@ -75,7 +75,7 @@ unsigned int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
 
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 
-D2SoundEnvironTxtStrc* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
+D2SoundEnvironTxtStrc* __fastcall SOUNDHDR_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 
 float __fastcall SOUNDHDR_GetFalloffRange(int nSoundId); // 0x00482610
 
@@ -344,7 +344,7 @@ static float __stdcall SOUNDINST_GetSoundPan(D2UnitStrc* pUnit, int nSoundId)
 
         if (pTxt->nGroupStart == 0xCA)
         {
-            D2SoundEnvironTxtStrc* pEnviron = sub_00481920_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
+            D2SoundEnvironTxtStrc* pEnviron = SOUNDHDR_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
             if (pEnviron && pEnviron->bIndoors)
                 return 0.5f;
 

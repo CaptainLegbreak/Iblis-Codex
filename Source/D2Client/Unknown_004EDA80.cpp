@@ -303,7 +303,8 @@ int __fastcall SKILLSEMON_CltSkillMonMissile(D2UnitStrc* pUnit, int nSkillId, in
             D2UnitStrc* pTarget = D2Common_10407(UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), SKILLDESC_IsVineBeastMissile, 0, 1);
             if (pTarget)
             {
-                sub_004D2D70_CltMissileHit(pTarget, 0, 0);
+// build: symbol ?MISSILE_CltMissileHit@* 0x004D2D70
+                MISSILE_CltMissileHit(pTarget, 0, 0);
             }
         }
         nMissile = pSkillsTxtRecord->wCltMissileD;
