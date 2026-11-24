@@ -1,0 +1,129 @@
+va	old_name	new_name	source	file	confidence	reason
+0x00438560	sub_00438560_Refresh	CHARSEL_RefreshCharList	inferred	Source/D2Launch/Src/CharSel_00438560.cpp	medium	redraws the classic character list (the expansion path calls CHARSEL_UpdateCharList)
+0x004423B0	sub_004423B0_RunCommand	CHATDLG_RunCommand	inferred	Source/D2Multi/Src/ChatDlg_004423B0.cpp	high	pushes a chat line to history and runs its slash command (/r, /reply…); (also spelled sub_A09_Emit_004423B0)
+0x0046F870	sub_0046F870_LoadMonsterCofs	GFX_LoadMonsterCofs	inferred	Source/D2Client/ENGINE/Gfx_0046F870.cpp	high	loads a monster's COF/graphics records from MonStats/MonStats2; (also spelled sub_0046F870)
+0x004709A0	sub_004709A0_IsOnScreen	GFX_IsUnitOnScreen	inferred	Source/D2Client/ENGINE/Gfx_0046F870.cpp	medium	loads the unit's gfx node if needed and tells whether its frame bounds are on screen
+0x00470C30	sub_00470C30_UpdateStateOverlays	GFX_UpdateStateOverlays	inferred	Source/D2Client/ENGINE/Gfx_00470C30.cpp	high	advances a unit's state overlays
+0x00470EC0	sub_00470EC0_DrawGfxUnit	GFX_DrawGfxUnit	inferred	Source/D2Client/ENGINE/Gfx_00470EC0.cpp	medium	draws a unit's graphics for its current mode, with colour and overlay flags
+0x00471EC0	sub_00471EC0_DrawUnit	GFX_DrawUnit	inferred	Source/D2Client/ENGINE/Gfx_00471EC0.cpp	high	draws a unit (not tiles), handling perspective and the draw delay; (also spelled sub_00471EC0)
+0x0048DD90	sub_0048DD90_DrawItemTooltip	INV_DrawItemTooltip	inferred	Source/D2Client/UI/inv_0048DD90.cpp	high	builds and draws an item's tooltip; (also spelled inv_0048DD90)
+0x0048EDF0	sub_0048EDF0_DrawInventoryPanel	INV_DrawInventoryPanel	inferred	Source/D2Client/UI/inv_0048DD90.cpp	high	draws the inventory panel
+0x00491D20	sub_00491D20_HandleNpcClick	INV_HandleNpcClick	inferred	Source/D2Client/UI/inv_00491D20.cpp	medium	click handler for the NPC trade panel; (also spelled inv_00491D20)
+0x00492310	sub_00492310_StashButtonUp	INV_OnStashButtonUp	inferred	Source/D2Client/UI/inv_0048DD90.cpp	medium	button-up handler of the stash panel
+0x004929F0	sub_004929F0_DrawMercPanel	INV_DrawMercPanel	inferred	Source/D2Client/UI/inv_0048DD90.cpp	high	draws the mercenary panel (expansion)
+0x0049C9C0	sub_0049C9C0_DrawWaypointPanel	TEXT_DrawWaypointPanel	inferred	Source/D2Client/UI/text_0049C9C0.cpp	high	draws the waypoint panel; (also spelled text_0049C9C0)
+0x0049D5A0	sub_0049D5A0_UpdateScrollText	TEXT_UpdateScrollText	inferred	Source/D2Client/UI/text_0049D5A0.cpp	medium	advances and draws a scrolling text box; (also spelled sub_0049D5A0_DrawClippedLine, sub_0049D5A0_UpdateTextBox)
+0x004A10E0	sub_004A10E0_ShowNpcMessage	TEXT_ShowNpcMessage	inferred	Source/D2Client/UI/text_004A10E0.cpp	high	opens an NPC's message text box; (also spelled sub_004A10E0)
+0x004A34F0	sub_004A34F0_DrawQuestPage	TEXT_DrawQuestPage	inferred	Source/D2Client/UI/QuestLog.cpp	high	draws the quest log page
+0x004B5C60	sub_004B5C60_Handler	NPCMENU_ShowMainMenu	inferred	Source/D2Client/UI/npcmenu_004B5C60.cpp	medium	NPC menu handler that rebuilds the NPC main menu dialog; in data_plan.json
+0x004B93F0	sub_004B93F0_AllocHintEntry	SOUNDINST_AllocSoundEntry	inferred	Source/D2Client/Sound/SoundInst.cpp	high	takes a free entry from the 200 sound entries
+0x004B9440	sub_004B9440_FindSoundByHandle	SOUNDINST_FindSoundByHandle	inferred	Source/D2Client/Sound/SoundInst.cpp	high	finds a playing sound by handle
+0x004B9470	sub_004B9470_ReleaseUnits	SOUNDINST_ReleaseUnits	inferred	Source/D2Client/Sound/SoundInst.cpp	medium	removes a sound's hints from its units and frees the unit list; (also spelled sub_M112_Emit_004B9470)
+0x004B94A0	sub_004B94A0_StopStream	SOUNDINST_StopStream	inferred	Source/D2Client/Sound/SoundInst.cpp	medium	stops a streamed sound; (also spelled sub_M112_Emit_004B94A0)
+0x004B94E0	sub_004B94E0_FreeSound	SOUNDINST_FreeSound	inferred	Source/D2Client/Sound/SoundInst.cpp	high	unlinks and frees a sound
+0x004B9560	sub_004B9560_HasSoundHandle	SOUNDINST_HasSoundHandle	inferred	Source/D2Client/Sound/SoundInst.cpp	high	tells whether a sound handle is playing
+0x004B9610	sub_004B9610	SOUNDINST_FindHandleBySoundId	inferred	Source/D2Client/Sound/SoundInst.cpp	high	returns the handle of the playing sound with a sound id; (also spelled sub_004B9610_FindHint)
+0x004B9690	sub_004B9690_FindOldestEntry	SOUNDINST_FindOldestEntry	inferred	Source/D2Client/Sound/SoundInst.cpp	high	finds the oldest sound of a group (excluding one)
+0x004B9700	sub_004B9700_FindUnitSound	SOUNDINST_FindUnitSound	inferred	Source/D2Client/Sound/SoundInst.cpp	high	finds a streamed sound attached to a unit
+0x004B9760	sub_004B9760_FindGroupSound	SOUNDINST_FindGroupSound	inferred	Source/D2Client/Sound/SoundInst.cpp	high	finds a compound sound of the same group
+0x004B97D0	sub_004B97D0_GetSoundOffset	SOUNDINST_GetSoundOffset	inferred	Source/D2Client/Sound/SoundInst.cpp	medium	computes a sound's position relative to the player
+0x004B9890	sub_004B9890_GetSoundPan	SOUNDINST_GetSoundPan	inferred	Source/D2Client/Sound/SoundInst.cpp	high	computes a sound's pan from its falloff
+0x004B98F0	sub_004B98F0_SetSoundPosition	SOUNDINST_SetSoundPosition	inferred	Source/D2Client/Sound/SoundInst.cpp	high	stores a sound's position and distance
+0x004B99A0	sub_004B99A0_MoveSound	SOUNDINST_MoveSound	inferred	Source/D2Client/Sound/SoundInst.cpp	high	moves the sound with a handle; (also spelled sub_004B99A0)
+0x004B9A00	sub_004B9A00_PlaySound	SOUNDINST_PlaySound	inferred	Source/D2Client/Sound/SoundInst.cpp	high	starts a sound by id (optionally on a unit, delayed); (also spelled sub_004B9A00, sub_004B9A00_Notify, sub_004B9A00_PlayOverlay, sub_004B9A00_Sound)
+0x004B9B80	sub_004B9B80_SetFields	SOUNDINST_StartFade	inferred	Source/D2Client/Sound/SoundInst.cpp	medium	starts a volume fade to a value over a time
+0x004B9BE0	sub_004B9BE0_HasActiveHint	SOUNDINST_HasActiveHint	inferred	Source/D2Client/Sound/SoundInst.cpp	medium	tells whether the sound with a key is still active
+0x004B9C20	sub_004B9C20_IsSpeechPlaying	SOUNDINST_IsSpeechPlaying	inferred	Source/D2Client/Sound/SoundInst.cpp	high	tells whether a speech sound (ids 0xB76-0x1230) is playing
+0x004B9C60	sub_004B9C60_IsSongPlaying	SOUNDINST_IsSongPlaying	inferred	Source/D2Client/Sound/SoundInst.cpp	high	tells whether a song (ids 0x1231-0x125A) is playing
+0x004B9CA0	sub_004B9CA0_GetHintIdByKey	SOUNDINST_GetSoundIdByHandle	inferred	Source/D2Client/Sound/SoundInst.cpp	high	returns the sound id of the sound with a handle
+0x004B9D00	sub_004B9D00_ResetSoundState	SOUNDINST_ResetSoundState	inferred	Source/D2Client/Sound/SoundInst.cpp	medium	resets the sound serial and flag
+0x004B9D20	sub_004B9D20_FreeAllSounds	SOUNDINST_FreeAllSounds	inferred	Source/D2Client/Sound/SoundInst.cpp	high	frees every playing sound
+0x004B9D50	sub_004B9D50_GetPosition	SOUNDINST_GetPosition	inferred	Source/D2Client/Sound/SoundInst.cpp	medium	returns the play position of the sound with a key
+0x004B9DA0	sub_004B9DA0_CompareItems	SOUNDINST_CompareSounds	inferred	Source/D2Client/Sound/SoundInst.cpp	medium	orders two sounds by priority and distance
+0x004B9E90	sub_004B9E90_HasUnitSound	SOUNDINST_HasUnitSound	inferred	Source/D2Client/Sound/SoundInst.cpp	high	tells whether a unit has a streamed sound
+0x004B9EB0	sub_004B9EB0_PlayRandomSound	SOUNDINST_PlayRandomSpeech	inferred	Source/D2Client/Sound/SoundInst.cpp	medium	every third sound tick, plays a random sound from the speech range
+0x004B9EF0	sub_004B9EF0_ArmHint	SOUNDINST_ArmHint	inferred	Source/D2Client/Sound/SoundInst.cpp	medium	arms the timed hint of the sound with a key
+0x004BA020	sub_004BA020	SOUNDINST_UpdateSounds	inferred	Source/D2Client/Sound/SoundInst.cpp	medium	per-tick update of the playing sounds (volume, pan, priority, freeing); (also spelled sub_004BA020_MaxF, sub_004BA020_MinF, sub_004BA020_SortsBefore)
+0x004BA890	sub_004BA890_RefreshHintsById	SOUNDINST_LockSoundsById	inferred	Source/D2Client/Sound/SoundInst.cpp	medium	marks the playing sounds of an id as locked and refreshes them
+0x004BAA50	sub_004BAA50_RefreshHintRange	SOUNDINST_LockSpeechSounds	inferred	Source/D2Client/Sound/SoundInst.cpp	medium	marks the playing speech sounds as locked and refreshes them
+0x004C0640	sub_004C0640_ClampRectToScreen	SHOWITEMS_ClampRectToScreen	inferred	Source/D2Client/UI/showitems.cpp	medium	clamps a label rectangle to the screen and keeps it clear of the other labels; (also spelled sub_004C0640_AdjustLabel, sub_004C0640_ClampToScreen)
+0x004C0810	sub_004C0810_DrawUnitNames	SHOWITEMS_DrawUnitNames	inferred	Source/D2Client/UI/showitems.cpp	high	draws the names of the items/units around the player
+0x004C9990	sub_004C9990_DrawMotionTrail	SKILLSPAL_DrawMotionTrail	inferred	Source/D2Client/SKILLS/SkillsPal.cpp	medium	draws a unit's skill motion trail; (also spelled sub_004C9990)
+0x004C9B40	sub_004C9B40_StartCharge	SKILLSPAL_StartCharge	inferred	Source/D2Client/SKILLS/SkillsPal.cpp	medium	client skill callback that starts a charge; in data_plan.json
+0x004DEA70	sub_004DEA70	DFLOOR_UpdateFloorView	inferred	Source/D2Client/DRAW/dFloor.cpp	medium	updates the floor cells of the view
+0x004DEF80	sub_004DEF80_DrawCellTiles	DWALL_DrawCellTiles	inferred	Source/D2Client/DRAW/dWall.cpp	high	draws a grid cell's tiles for a pass
+0x004E72D0	sub_004E72D0_GetElemDamage	SKILLDESC_GetElemDamage	inferred	Source/D2Client/UI/SkillDesc_004E72D0.cpp	high	computes a skill's elemental damage range and type; (also spelled sub_004E72D0_AddElemDamage)
+0x004EAE70	sub_004EAE70_DrawPhysWeaponElemDamage	SKILLDESC_DrawPhysWeaponElemDamage	inferred	Source/D2Client/UI/SkillDesc_004EAE70.cpp	medium	draws a skill's physical/weapon/elemental damage line; in data_plan.json
+0x004EB290	sub_004EB290_DrawElemDamage	SKILLDESC_DrawElemDamage	inferred	Source/D2Client/UI/SkillDesc_004EAE70.cpp	medium	draws a skill's elemental damage line; in data_plan.json
+0x004EC280	sub_004EC280_AddMissileElemDamage	SKILLDESC_AddMissileElemDamage	inferred	Source/D2Client/UI/SkillDesc_004EC280.cpp	high	appends a missile's elemental damage range to a text
+0x004EC6F0	sub_004EC6F0_AddSkillElemRate	SKILLDESC_AddSkillElemRate	inferred	Source/D2Client/UI/SkillDesc_004EAE70.cpp	high	appends a skill's elemental damage per second to a text
+0x004ED150	sub_004ED150_AddSummonDamageBonus	SKILLDESC_AddSummonDamageBonus	inferred	Source/D2Client/UI/SkillDesc_004EAE70.cpp	medium	appends a summon's damage bonus to a text
+0x004F0F30	sub_004F0F30_CltSkillMonMissile	SKILLSEMON_CltSkillMonMissile	inferred	Source/D2Client/SKILLS/SkillsEMon.cpp	medium	client skill callback for a monster's vine-attack missile
+0x004F4C20	sub_004F4C20_CltDoRepeatAttack	SKILLSAMA_CltDoRepeatAttack	inferred	Source/D2Client/SKILLS/SkillsAma.cpp	medium	client skill callback for a repeated attack; in data_plan.json
+0x004FB180	sub_004FB180_FindPaletteIndex	D2Win_10034_MixRGB	d2moo	Source/D2Win/Src/D2WinPalette.cpp	high	D2MOO 1.14d 0x004FB180 (ordinal-style name as D2WinPalette.cpp already uses); closest palette index to an RGB colour; (also spelled sub_004FB180_Palette)
+0x004FB1C0	sub_004FB1C0_CopyRowTable	D2Win_10178	d2moo	Source/D2Win/Src/D2WinPalette.cpp	high	D2MOO 1.14d 0x004FB1C0; copies the shadow/light gamma row table
+0x004FB1E0	sub_004FB1E0_LoadPaletteFiles	PALETTE_LoadPaletteFiles	d2moo	Source/D2Win/Src/D2WinPalette.cpp	high	D2MOO 1.14d 0x004FB1E0; loads a palette .dat and .pl2
+0x00501DF0	sub_00501DF0_DrawClippedFontText	D2Win_10119_DrawCroppedText	d2moo	Source/D2Win/Src/D2WinFont_00501DF0.cpp	high	D2MOO 1.14d 0x00501DF0; draws text lines clipped by skip/draw counts; (also spelled sub_00501DF0_IsColorCodePrefix)
+0x00501FE0	sub_00501FE0_DrawTickerText	FONT_DrawTickerText	d2moo	Source/D2Win/Src/D2WinFont_00501DF0.cpp	high	D2MOO 1.14d 0x00501FE0; draws scrolling ticker text
+0x00502970	sub_00502970_SplitText	D2Win_10199	d2moo	Source/D2Win/Src/D2WinFont_00501DF0.cpp	medium	D2MOO 1.14d 0x00502970 (declared there only); splits text into lines of a width
+0x0052C170	sub_0052C170_ReserveGameId	GAME_ReserveGameId	inferred	Source/D2Game/GAME/Game_0052C170.cpp	medium	takes the next free game id under the game-list lock; (also spelled sub_0052C170_AllocGameId)
+0x00597D70	sub_00597D70_SendUsedSkill	MONSTERMSG_SendUsedSkill	inferred	Source/D2Game/MONSTER/MonsterMsg.cpp	high	sends a monster's used skill to a client; (also spelled sub_00597D70_EmitCaller)
+0x005BDB20	sub_005BDB20_RollComponentVariants	MONSTERCHOOSE_GenerateComponentVariants	d2moo	Source/D2Game/MONSTER/MonsterChoose.cpp	high	D2MOO 1.14d 0x005BDB20; rolls a preset's component variants; (also spelled sub_005BDB20_GenerateComponentVariants)
+0x005BDFF0	sub_005BDFF0_RollSeedGetTable	MONSTERCHOOSE_RollFormation	d2moo	Source/D2Game/MONSTER/MonsterChoose.cpp	high	D2MOO 1.14d 0x005BDFF0; rolls the seed and returns the formation table
+0x005C2970	sub_005C2970_RollSuperiorItemRecord	ITEMS_RollSuperiorItemRecord	inferred	Source/D2Game/ITEMS/Items_005C2970.cpp	medium	rolls a superior quality record for an item drop
+0x0060D190	sub_0060D190_BuildDC6FromRaw	RawBuildCelFile	inferred	Source/D2CMP/SRC/Raw.cpp	medium	builds a cel (DC6) file from raw frames (D2CMP's bare style); (also spelled sub_0060D190_BuildCelFileWithData)
+0x006772C0	sub_006772C0_InitLevelLinks	DRLGOUTPLACE_InitLevelLinks	inferred	Source/D2Common/DRLG/OutPlace.cpp	medium	sets up the links between an act's levels (D2MOO has it unnamed)
+0x006775C0	sub_006775C0_SetOverlapWarps	DRLGOUTPLACE_SetOverlapWarps	inferred	Source/D2Common/DRLG/OutPlace.cpp	medium	sets the warps between overlapping levels in a range (D2MOO has it unnamed); (also spelled Unknown_006775C0)
+0x006789B0	sub_006789B0_CreateAct3LevelConnections	DRLGOUTPLACE_CreateAct3LevelConnections	inferred	Source/D2Common/DRLG/OutPlace.cpp	high	places Kurast Docks and generates the act 3 jungles
+0x00679190	sub_00679190	PATHUTIL_AdvanceTowardsTarget	inferred	Source/D2Common/PATH/PathUtil.cpp	medium	D2MOO calls it PATHUtil_AdvanceTowardsTarget_6FDAB890 (an address-suffixed name, so not taken as is)
+0x00679250	sub_6FDAB940	PATHUTIL_GetTargetPathPoint	inferred	Source/D2Common/PATH/PathUtil.cpp	medium	computes a path point towards the path's target unit (D2MOO has it unnamed)
+0x006B5CF0	sub_006B5CF0_SetTextureSize	D3D_SetTextureSize	inferred	Source/D2Direct3D/Src/d3dSprite_006B5CF0.cpp	medium	picks the power-of-two texture size for a sprite
+0x006B5D40	sub_006B5D40_UploadTexture	D3D_UploadTexture	inferred	Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp	high	uploads a cel frame to a texture slot; (also spelled d3dSprite_006B5D40, sub_006B5D40_UploadSprite)
+0x006B61A0	sub_006B61A0_DrawQuad	D3D_DrawTexturedQuad	inferred	Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp	medium	draws a textured quad at an offset with alpha; (also spelled sub_006B61A0_DrawShadowQuad, sub_006B61A0_EmitDrawQuad)
+0x006B63F0	sub_006B63F0_DrawQuad	D3D_DrawSpriteQuad	inferred	Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp	medium	draws a sprite's quad with colour, palette and alpha; (also spelled sub_006B63F0_DrawTexture, sub_006B63F0_Emit)
+0x006B6730	sub_006B6730_DrawFlatSprite	D3D_DrawFlatSprite	inferred	Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp	high	draws a flat (non-perspective) sprite
+0x006B6C90	sub_006B6C90_DrawSpriteRows	D3D_DrawSpriteRows	inferred	Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp	high	draws part of a sprite's rows; in data_plan.json
+0x006B6D70	sub_006B6D70_ClipSprite	D3D_ClipSprite	inferred	Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp	high	clips a sprite to bounds
+0x006B6EE0	sub_006B6EE0_DrawSpriteClipped	D3D_DrawSpriteClipped	inferred	Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp	high	draws a sprite clipped to bounds; in data_plan.json
+0x006B7000	sub_006B7000_DrawSpriteShadow	D3D_DrawSpriteShadow	inferred	Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp	high	draws a sprite's shadow; in data_plan.json
+0x006BA420	sub_006BA420_Init	D3D_InitTexturePool	inferred	Source/D2Direct3D/Src/d3dTextureCache.cpp	medium	sets up a texture pool's entries for a size; (also spelled sub_006BA420)
+0x006BA550	sub_006BA550_SetTexturePalette	D3D_SetTexturePalette	inferred	Source/D2Direct3D/Src/d3dTextureCache.cpp	high	sets the palette of every texture surface
+0x006BA5C0	sub_006BA5C0_Append	D3D_AppendInUse	inferred	Source/D2Direct3D/Src/d3dTextureCache.cpp	medium	appends a pool entry to the in-use list; (also spelled sub_006BA5C0_AppendInUse, sub_006BA5C0_AppendTail, sub_006BA5C0_EmitCaller)
+0x006BA5E0	sub_006BA5E0_AppendSpare	D3D_AppendSpare	inferred	Source/D2Direct3D/Src/d3dTextureCache.cpp	medium	appends a pool entry to the spare list
+0x006BA600	sub_006BA600_PopInUse	D3D_PopInUse	inferred	Source/D2Direct3D/Src/d3dTextureCache.cpp	medium	takes the first in-use pool entry
+0x006BA630	sub_006BA630_PopSpare	D3D_PopSpare	inferred	Source/D2Direct3D/Src/d3dTextureCache.cpp	medium	takes the first spare pool entry
+0x006BA660	sub_006BA660_Unlink	D3D_UnlinkPoolEntry	inferred	Source/D2Direct3D/Src/d3dTextureCache.cpp	medium	unlinks a pool entry from the in-use list
+0x006BA6D0	sub_006BA6D0_Alloc	D3D_AllocPoolEntry	inferred	Source/D2Direct3D/Src/d3dTextureCache.cpp	medium	allocates a pool entry id
+0x006BA760	sub_006BA760_MoveToTail	D3D_TouchPoolEntry	inferred	Source/D2Direct3D/Src/d3dTextureCache.cpp	medium	moves a pool entry to the tail (most recently used); (also spelled sub_006BA760_Touch, sub_006BA760_TouchEntry)
+0x006BA7C0	sub_006BA7C0_MoveFreeNode	D3D_ReleaseOldestPoolEntry	inferred	Source/D2Direct3D/Src/d3dTextureCache.cpp	medium	releases the least recently used pool entry; (also spelled sub_006BA7C0_ReleaseOldest)
+0x006BA830	sub_006BA830_Destroy	D3D_DestroyTexturePool	inferred	Source/D2Direct3D/Src/d3dTextureCache.cpp	medium	frees a texture pool; (also spelled sub_006BA830_FreeCache, sub_006BA830_FreeTextureCache)
+0x006BA920	sub_006BA920_AllocOrEvict	D3D_AllocOrEvictPoolEntry	inferred	Source/D2Direct3D/Src/d3dTextureCache.cpp	medium	allocates a pool entry, evicting the oldest until one is free; (also spelled sub_006BA920_AllocEntry)
+0x006C2110	sub_006C2110_StopServerThreads	QSERVERNT_StopServerThreads	inferred	Source/Fog/Src/QServer/QServerNT.cpp	high	stops and waits for the queue server's threads
+0x006C2280	sub_006C2280_PostRead	QSERVERNT_PostRead	inferred	Source/Fog/Src/QServer/QServerNT.cpp	high	posts an overlapped read for a client
+0x006C23B0	sub_006C23B0_QueueMessage	QSERVERNT_QueueMessage	inferred	Source/Fog/Src/QServer/QServerNT.cpp	high	queues a message for a connection; (also spelled T006C23B0)
+0x006C2810	sub_006C2810_PopWrite	QSERVERNT_PopWrite	inferred	Source/Fog/Src/QServer/QServerNT.cpp	medium	takes a client's next queued write; (also spelled sub_Emit_006C2810)
+0x006C2860	sub_006C2860_AcceptThread	QSERVERNT_AcceptThread	inferred	Source/Fog/Src/QServer/QServerNT.cpp	medium	accept/worker thread of a listen slot; (also spelled sub_006C2860_WorkerThread)
+0x006C2C70	sub_006C2C70_SendLocal	QSERVERNT_SendLocal	inferred	Source/Fog/Src/QServer/QServerNT.cpp	medium	sends or queues bytes to a client; (also spelled sub_006C2C70)
+0x006C2D70	sub_006C2D70_ServiceSlot	QSERVERNT_ServiceSlot	inferred	Source/Fog/Src/QServer/QServerNT.cpp	medium	services a slot's completion port until a timeout; (also spelled sub_006C2D70)
+0x006C30D0	sub_006C30D0_ServiceSlots	QSERVERNT_ServiceSlots	inferred	Source/Fog/Src/QServer/QServerNT.cpp	medium	services every listen slot; (also spelled sub_006C30D0_Wait)
+0x006C3120	sub_006C3120_Start	QSERVERNT_Start	inferred	Source/Fog/Src/QServer/QServerNT.cpp	high	creates the completion port and listen socket for a port
+0x006C3360	sub_006C3360_Startup	QSERVERNT_Startup	inferred	Source/Fog/Src/QServer/QServerNT.cpp	high	starts Winsock and the queue server
+0x006C33D0	sub_006C33D0_Stop	QSERVER98_Stop	inferred	Source/Fog/Src/QServer/QServer98.cpp	high	stops the queue server thread
+0x006C3410	sub_006C3410_Send	QSERVER98_Send	inferred	Source/Fog/Src/QServer/QServer98.cpp	high	sends bytes to a client socket
+0x006C3440	sub_006C3440_AddClient	QSERVER98_AddClient	inferred	Source/Fog/Src/QServer/QServer98.cpp	high	adds an accepted client and calls the accept callback; (also spelled sub_Emit_006C3440)
+0x006C3470	sub_006C3470_ServerThread	QSERVER98_ServerThread	inferred	Source/Fog/Src/QServer/QServer98.cpp	high	select() server thread
+0x006C3B50	sub_006C3B50_StartServer	QSERVER98_StartServer	inferred	Source/Fog/Src/QServer/QServer98.cpp	high	creates the listen socket and starts the server thread
+0x006C50D0	sub_006C50D0_IsSupportedTgaHeader	IsSupportedTgaHeader	inferred	Source/Storm/SOURCE/SBMP.CPP	high	tells whether a TGA header is a supported type/depth
+0x006C5150	sub_006C5150_ReadTgaPalette	ReadTgaPalette	inferred	Source/Storm/SOURCE/SBMP.CPP	high	reads a TGA colour map into a palette
+0x006C5210	sub_006C5210_DecodeTgaPixels	DecodeTgaPixels	inferred	Source/Storm/SOURCE/SBMP.CPP	high	decodes TGA pixels (raw or RLE)
+0x006C5A60	sub_006C5A60_FlushBlock	FlushOutputBlock	inferred	Source/Storm/SOURCE/SBMP.CPP	medium	writes the pending output block with its length byte
+0x006C5EE0	sub_006C5EE0_FindExtension	FindFileExtension	inferred	Source/Storm/SOURCE/SBMP.CPP	high	returns a path's extension; (also spelled sub_006C5EE0_Shim)
+0x006C5F40	sub_006C5F40_GetImageType	GetImageType	inferred	Source/Storm/SOURCE/SBMP.CPP	high	maps a file signature to an image type (BMP, PCX…)
+0x006C6370	sub_006C6370_AddChar	AddOutputChar	inferred	Source/Storm/SOURCE/SBMP.CPP	medium	adds a code to the image encoder's output
+0x006C6B70	sub_006C6B70_LoadImage	SBmpLoadImage	d2moo	Source/Storm/SOURCE/SBMP.CPP	high	D2MOO Storm.#323; loads an image file's palette and pixels
+0x006C7000	sub_006C7000_Wrapper	SBmpSaveImage	d2moo	Source/Storm/SOURCE/SBMP.CPP	high	D2MOO Storm.#324, just before SBmpSaveImageEx (#326) in both builds; calls SBmpSaveImageEx with 0
+0x006C7790	sub_006C7790_SkipUtf8Continuation	SkipUtf8Continuation	inferred	Source/Storm/SOURCE/SUNI.CPP	high	steps over UTF-8 continuation bytes
+0x006C78C0	sub_006C78C0_Translate	TranslateToUnicode	inferred	Source/Storm/SOURCE/SUNI.CPP	medium	translates bytes to UTF-16 through a table
+0x006C9640	sub_006C9640_GdiCloseSmacker	GDI_CloseSmacker	inferred	Source/D2Gdi/Src/gdiSmack.cpp	high	closes a Smacker record and frees the GDI buffer; in data_plan.json
+0x006C9690	sub_006C9690_RemapRows	GDI_RemapSmackerRows	inferred	Source/D2Gdi/Src/gdiSmack.cpp	medium	copies decoded Smacker rows to the screen buffer; (also spelled sub_006C9690_RemapSpan)
+0x006C9710	sub_006C9710_GdiDecodeSmacker	GDI_DecodeSmacker	inferred	Source/D2Gdi/Src/gdiSmack.cpp	high	opens or decodes a Smacker file into a record; in data_plan.json

@@ -40,7 +40,6 @@ va	old_name	new_name	source	file	confidence	reason
 0x0049D010	sub_0049D010_WaypointMouseUp	TEXT_OnWaypointMouseUp	inferred	Source/D2Client/UI/text.cpp	high	mouse-up handler of the waypoint panel; in data_plan.json
 0x0049D310	sub_0049D310_CopyTextLine	TEXT_CopyTextLine	inferred	Source/D2Client/UI/text.cpp	high	copies one line of Unicode text up to a newline
 0x004A2690	sub_004A2690_HitTestButtonB	TEXT_HitTestQuestCloseButton	inferred	Source/D2Client/UI/text_0049A950.cpp	medium	hit test on the quest-log button that closes the quest log
-0x004A3050	sub_004A3050	TEXT_ResetQuestPageDefaults	inferred	Source/D2Client/UI/text.cpp	medium	sets the five default quest pages to -1
 0x004A8C00	sub_004A8C00_FreeSkillIcons	SPELLSEL_FreeSkillIcons	inferred	Source/D2Client/UI/spellsel.cpp	high	frees the skill icon cel files
 0x004A8C80	sub_004A8C80_GetSkillValue	SPELLSEL_GetSkillIconCel	inferred	Source/D2Client/UI/spellsel.cpp	high	returns the skill icon cel file for a skill's class
 0x004A8CE0	sub_004A8CE0_SetValue	SPELLSEL_SetSkillSelectRight	inferred	Source/D2Client/UI/spellsel.cpp	high	sets whether the right skill is being selected

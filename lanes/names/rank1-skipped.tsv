@@ -1,0 +1,18 @@
+va	old_name	file	reason
+0x004A18F0	sub_004A3050	Source/D2Client/UI/QuestLog.cpp	sets the five default quest pages to -1; identical to 0x004A3050 (one of two copies)
+0x004B9590	sub_004B9590	Source/D2Client/Sound/SoundInst.cpp	looks up a sound by key and returns an unnamed property
+0x004B9B20	sub_004B9B20	Source/D2Client/Sound/SoundInst.cpp	looks up a sound by key and returns an unnamed property
+0x004B9B50	sub_004B9B50_SetValue	Source/D2Client/Sound/SoundInst_004B9B50.cpp	sets an unnamed property of the sound with a key
+0x004B9BB0	sub_004B9BB0_GetStreamValue	Source/D2Client/Sound/SoundInst.cpp	returns an unnamed sound field; (also spelled sub_M112_Emit_004B9BB0)
+0x004B9BC0	sub_004B9BC0_IsOnAndNotHeld	Source/D2Client/Sound/SoundInst.cpp	tests unnamed sound fields
+0x004B9CD0	sub_004B9CD0_SetEntryByte	Source/D2Client/Sound/SoundInst.cpp	sets an unnamed byte of the sound with an id
+0x004BA840	sub_004BA840	Source/D2Client/Sound/SoundInst.cpp	acts on the sound with a handle; purpose not clear from the body
+0x004BA8F0	sub_004BA8F0	Source/D2Client/Sound/SoundInst.cpp	walks the sound list; purpose unclear
+0x004BA950	sub_004BA950_RefreshHintsInRangeA	Source/D2Client/Sound/SoundInst.cpp	refreshes sounds in a group range; one of two variants not told apart
+0x004BA9D0	sub_004BA9D0_RefreshHintsInRangeB	Source/D2Client/Sound/SoundInst.cpp	refreshes sounds in a group range; one of two variants not told apart
+0x004BB620	MsgSlot06	Source/D2Client/UI/editbox_004BB620.cpp	EditBoxImplementation virtual member (key handler); member names, see the member-function question; in // build: symbol
+0x004DE070	sub_004DE070	Source/D2Client/DRAW/dFloor.cpp	fills grid cells from light by mode; a variant of the Build*Grid helpers not clear enough to name
+0x006B6B40	sub_006B6B40_DrawSprite	Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp	sprite draw entry; one of two variants not told apart
+0x006B6BF0	sub_006B6BF0_DrawSprite	Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp	sprite draw entry; one of two variants not told apart; (also spelled sub_006B6BF0_IsOnScreen)
+0x006C3030	sub_006C3030_ReleaseSlot	Source/Fog/Src/QServer/QServerNT.cpp	thread entry that frees its request and services a slot; purpose too unclear to name; (also spelled sub_006C3030_WorkerThread2)
+0x006CADB0	sub_006CADB0_InitializeUnicodeRecords	Source/D2Client/UI/showitems.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgaItemLabels@@YAXXZ]; named by its template; in // build: symbol
