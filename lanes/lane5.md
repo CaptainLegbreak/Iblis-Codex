@@ -4,6 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/skillbar-join d7630018 2 placeholders fewer; stacked on lane5/skill-ai-copies (ee466e05, posted above), apply that first. SkillBar.cpp takes in Unknown_005D8100.cpp and Unknown_005D81C0.cpp: SKILLS_SrvDo069_FindPotion (0x5D81C0), its out-of-line potion pick (0x5D8100, static) and the stage roll (0x5D8780) sit inside SkillBar.cpp's run and are barbarian skill code. The potion table and the copy in front of it (0x741B18) become SkillBar.cpp's data (it includes D2LanguageNames.h). VERIFIED f9a14d7c3f397bbe681590d9e516e38a5a173f96. Based on main 88003a4d (#346) + skill-ai-copies; touches only D2Game.
 - lane5/copies-runs-b e993aa2f 0 placeholders; nine no-data copies go to the files whose objects they start, by code order and .rdata's source paths: 0x73192C/0x731968 (QUESTS.CPP's plan) -> objrgn.cpp, MonsterRegion.cpp; 0x731ED4 (Storm/Unknown_006CAE80.cpp's plan; lane 3: plan entry only) -> SUnit.cpp; 0x731F74 (Items.cpp's) -> PlayerList.cpp; 0x7326B8 (Unknown_00570420.cpp's) -> SUnitMsg.cpp; 0x732850-0x732904 (PlrIntro.cpp's) -> MonsterAI.cpp, Monster.cpp, PlayerPets.cpp, SUNITNPC.CPP. Each includes D2LanguageNames.h. VERIFIED 11e6d5bab460b88bbdb0a538fc7f5f977b4ad327. Based on main 6dfed99a (#347), not stacked.
 - lane5/game-copies ee31b323 0 placeholders; the seven copies 0x7312E0-0x731448 (planned in sunitproxy.cpp, between its data and SUnitInactive.cpp's own copy) are seven no-data objects: Clients.cpp, Level.cpp, SCmd.cpp, CCmd.cpp, Arena.cpp, Party.cpp, Event.cpp, the seven files between them in code order (.rdata's source paths agree; SCmd.cpp has none). Each includes D2LanguageNames.h. VERIFIED 05daa2fa829fee13ec4f8d52f28af81223d3c2db. Based on main 6dfed99a (#347), not stacked.
 - lane5/skill-ai-copies ee466e05 0 placeholders; the five copies 0x741C0C-0x741CFC (planned in Unknown_005D8100.cpp, after its potion table and before AiThink4.cpp's own copy) are five no-data objects; the five files between them in code order are SkillAma.cpp, AiUtil.cpp, AiTatics.cpp, OBJEVAL.CPP and QuestsFX.cpp, and .rdata's source-path strings agree on the order. Each includes D2LanguageNames.h. VERIFIED c69c0609ea32b25c44c899be8ca639a128102102. Based on main 88003a4d (#346), not stacked.
@@ -13,7 +14,6 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- Join: Unknown_005D8100.cpp (0x5D8100, 0x5D8780: Find Item / potion skill code and the potion table) and Unknown_005D81C0.cpp sit inside SkillBar.cpp's run; joining them into SkillBar.cpp next.
 
 ## Questions
 
