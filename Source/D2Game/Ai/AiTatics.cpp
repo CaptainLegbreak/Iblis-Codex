@@ -10,6 +10,7 @@
 #include "D2GameTypes.h"
 #include "D2MonModes.h"
 #include "D2PlayerModes.h"
+#include "D2LanguageNames.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 

@@ -9,6 +9,7 @@
 #include "D2Path.h"
 #include "D2GameStrc.h"
 #include "D2GameAux.h"
+#include "D2LanguageNames.h"
 
 union D2SeedStrc;
 
