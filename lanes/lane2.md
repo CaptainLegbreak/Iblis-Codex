@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/small-records-j 1e1cec7e 562->562 One commit, nine small headers, each included only by the two units that had identical private copies: D2MonTypeTxt.h (the part of a montype.txt record the client reads; SkillDesc, Unknown_004E2320), D2Win32RgbQuad.h (RGBQUAD; gdiCore, Unknown_006C7CF0), D2ClientBallistic.h (GfxUtil, client Skills), D2QuestLookupEntry.h (View, QuestLog), D2TextIdEntry.h (text, text_0049DA50), D2NpcIndex.h (pack 1; npcmenu, Unknown_004B6DD0), D2HintKeyList.h (Unknown_004B8720, Unknown_004BA890), D2ListBoxLine.h (Unknown_004BC1B0, Unknown_004BC1B0_004BE770), D2WaypointActRange.h (Unknown_0049BB40, WardenClient). D2CltMissileModeStrc stays private: shared, both its units flip; VERIFIED 7e465a62f46450291dcbbdb2e315093ff08f5920
+  - On e40ccd0c (#355). All 18 changed units build equal. Independent of small-records-h and -i.
+  - Outside lane 2: 16 D2Client units (lanes 1 and 4), gdiCore, Unknown_006C7CF0 (lane 6).
+
 - lane2/small-records-i 34aae4fa 562->562 One commit, four small headers, each included only by the units that had identical private copies: D2PathFoWallContext.h (the FoWall path search's working state; Unknown_0067ADC0, Unknown_0067B9C0), D2ClientTileLight.h (a client tile light list node; Unknown_004DEDB0, Unknown_004DF1C0), D2NpcEvent.h (an event queued on an NPC's record, with nAction/nParam as SUNITPROXY_AddNpcEvent stores them; PlrSave, sunitproxy), D2FindTileEntry.h (FindTiles.cpp's lookup hash entry, with a forward declaration of the tile node, whose two copies differ; CelCmp, FindTiles); VERIFIED 37ecf04a9a0e651d32ec29882703f2c8fffe377c
   - Verified on 9ec68ba8 (#354), rebased onto e40ccd0c (#355) without conflicts. Precheck of all 8 changed units is equal there.
   - Outside lane 2: Unknown_0067ADC0/0067B9C0 (lane 8), Unknown_004DEDB0/004DF1C0 (lanes 1 and 4), PlrSave, sunitproxy (lane 5), CelCmp, FindTiles (lane 6).
