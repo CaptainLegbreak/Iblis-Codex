@@ -2,16 +2,16 @@
 #include "D2CelContext.h"
 #include "D2Unicode.h"
 #include "D2ClientTypes.h"
+#include "D2ClientParty.h"
 
 struct D2StoredUnitRecordStrc;
 
 struct Unicode;
 
-struct D2RosterUnitStrc;
+struct D2PartyRowStrc;
 
 struct D2SevenIntStrc;
 
-struct D2RosterSlotStrc;
 
 struct D2CelContextStrc;
 
@@ -35,42 +35,9 @@ extern int gnPanelOffsetY; // 0x007A285C
 
 extern void* gpPartyButtonsCel; // 0x007BF01C
 
-struct D2RosterSlotStrc
-{
-    int bFlag;
-    int nX;
-    int nY;
-    void* pCellFile;
-    int nFrame;
-    int nType;
-    int nState;
-    int bActive;
-};
 
 #pragma pack(push, 1)
 
-struct D2RosterUnitStrc
-{
-    union
-    {
-        struct
-        {
-            D2RosterSlotStrc f_0[5];
-        };
-        struct
-        {
-            unsigned char unk_00[0x18];
-            int nState;
-        };
-    };
-    char szName[0x19];
-    int nClass;
-    int nLevel;
-    int nLevelId;
-    int nId;
-    int nY;
-    D2RosterUnitStrc* pNext;
-};
 
 #pragma pack(pop)
 
@@ -115,7 +82,7 @@ int __fastcall ROSTER_GetLevelId(D2StoredUnitRecordStrc* pEntry); // 0x0047A1E0
 
 void __cdecl PARTY_FreeRosterUnits(); // 0x0049A020
 
-D2RosterUnitStrc* gpRosterUnits; // 0x007BF014
+D2PartyRowStrc* gpRosterUnits; // 0x007BF014
 
 const Unicode* __fastcall UI_GetLevelName(int nLevelId); // 0x00453E70
 
@@ -135,7 +102,7 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 
 int __fastcall ROSTER_IsHostileToPlayer(D2StoredUnitRecordStrc* pEntry); // 0x0047A5B0
 
-void __stdcall sub_0049A690_DrawRosterButtons(D2RosterUnitStrc* pRow); // 0x0049A690
+void __stdcall sub_0049A690_DrawRosterButtons(D2PartyRowStrc* pRow); // 0x0049A690
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char* szFormat, ...); // 0x006CC468
 
@@ -202,10 +169,10 @@ static void __stdcall PARTY_DrawPanelCel(void* pCellFile, int nX, int nFrame, in
 // 0x0049A020
 void __cdecl PARTY_FreeRosterUnits()
 {
-    D2RosterUnitStrc* pUnit = gpRosterUnits;
+    D2PartyRowStrc* pUnit = gpRosterUnits;
     while (pUnit)
     {
-        D2RosterUnitStrc* pNext = pUnit->pNext;
+        D2PartyRowStrc* pNext = pUnit->pNext;
         FOG_Free(pUnit, ".\\UI\\Party.cpp", 0x108, 0);
         pUnit = pNext;
     }
@@ -243,23 +210,23 @@ static void sub_L04_InitSlot(D2RosterSlotStrc* pSlot, int bFlag, int nX, int nY,
 }
 
 // 0x0049A090
-static void PARTY_InitRosterUnit(D2StoredUnitRecordStrc* pEntry, D2RosterUnitStrc* pUnit, int nY)
+static void PARTY_InitRosterUnit(D2StoredUnitRecordStrc* pEntry, D2PartyRowStrc* pUnit, int nY)
 {
     pUnit->nY = nY + 0xD;
-    sub_L04_InitSlot(&pUnit->f_0[0], 1, 0xBE, nY, gpPartyButtonsCel, 0, 0, ROSTER_GetPartyFlags(pEntry));
-    sub_L04_InitSlot(&pUnit->f_0[1], 0, 0xE, nY + 7, gpPartyBoxesCel, ROSTER_TestHostileFlag(pEntry) ? 6 : 4, 1, 0);
-    sub_L04_InitSlot(&pUnit->f_0[2], 0, 0xF5, nY, gpPartyBoxesCel, ROSTER_TestLootFlag(pEntry) ? 0xE : 0xC, 2, 0);
-    sub_L04_InitSlot(&pUnit->f_0[3], 0, 0x10A, nY, gpPartyBoxesCel, ROSTER_TestMuteFlag(pEntry) ? 2 : 0, 3, 0);
-    sub_L04_InitSlot(&pUnit->f_0[4], 0, 0x11F, nY, gpPartyBoxesCel, ROSTER_TestSquelchFlag(pEntry) ? 0xA : 8, 4, 0);
+    sub_L04_InitSlot(&pUnit->aSlots[0], 1, 0xBE, nY, gpPartyButtonsCel, 0, 0, ROSTER_GetPartyFlags(pEntry));
+    sub_L04_InitSlot(&pUnit->aSlots[1], 0, 0xE, nY + 7, gpPartyBoxesCel, ROSTER_TestHostileFlag(pEntry) ? 6 : 4, 1, 0);
+    sub_L04_InitSlot(&pUnit->aSlots[2], 0, 0xF5, nY, gpPartyBoxesCel, ROSTER_TestLootFlag(pEntry) ? 0xE : 0xC, 2, 0);
+    sub_L04_InitSlot(&pUnit->aSlots[3], 0, 0x10A, nY, gpPartyBoxesCel, ROSTER_TestMuteFlag(pEntry) ? 2 : 0, 3, 0);
+    sub_L04_InitSlot(&pUnit->aSlots[4], 0, 0x11F, nY, gpPartyBoxesCel, ROSTER_TestSquelchFlag(pEntry) ? 0xA : 8, 4, 0);
     pUnit->nId = ROSTER_GetRecordUnitId(pEntry);
 }
 
 // 0x0049A1D0
 static void PARTY_AddRosterUnit(int nY, D2StoredUnitRecordStrc* pEntry)
 {
-    D2RosterUnitStrc* pLast = gpRosterUnits;
-    D2RosterUnitStrc* pUnit = (D2RosterUnitStrc*)FOG_Alloc(sizeof(D2RosterUnitStrc), ".\\UI\\Party.cpp", 0x14D, 0);
-    memset(pUnit, 0, sizeof(D2RosterUnitStrc));
+    D2PartyRowStrc* pLast = gpRosterUnits;
+    D2PartyRowStrc* pUnit = (D2PartyRowStrc*)FOG_Alloc(sizeof(D2PartyRowStrc), ".\\UI\\Party.cpp", 0x14D, 0);
+    memset(pUnit, 0, sizeof(D2PartyRowStrc));
     PARTY_InitRosterUnit(pEntry, pUnit, nY);
     strcpy(pUnit->szName, ROSTER_GetEntryName(pEntry));
     pUnit->nClass = ROSTER_GetClassId(pEntry);
@@ -533,7 +500,7 @@ static void __stdcall ROSTERPETS_DrawPanelLabel(int nY, int bAlt, unsigned short
     TEXT_DrawCenteredText(nLeft, nY - gnPanelOffsetY - 2, nLeft + 0x35, D2LANG_GetStringFromTblIndex(nStringId), nColor);
 }
 
-static void __stdcall sub_0049A830_DrawRosterArea(int nY, D2RosterUnitStrc* pEntry, int nColor)
+static void __stdcall sub_0049A830_DrawRosterArea(int nY, D2PartyRowStrc* pEntry, int nColor)
 {
     Unicode wszName[0xFF];
     sub_005267E0(wszName, UI_GetLevelName(pEntry->nLevelId));
@@ -575,7 +542,7 @@ static void __stdcall sub_0049C170_DrawRosterLevel(int nY, int nLevel, int nColo
 // 0x0049C270
 void __cdecl PARTY_DrawPartyRows()
 {
-    D2RosterUnitStrc* pRow = gpRosterUnits;
+    D2PartyRowStrc* pRow = gpRosterUnits;
     int nY = 0x5A;
     D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(0);
     const unsigned short nSelfIndex = ROSTER_GetEntryIndex(pEntry);
@@ -620,11 +587,11 @@ void __cdecl PARTY_DrawPartyRows()
         sub_0049A690_DrawRosterButtons(pRow);
         if (nSelfIndex == nIndex)
         {
-            ROSTERPETS_DrawPanelLabel(nY, 1, nIndex, pRow->nState);
+            ROSTERPETS_DrawPanelLabel(nY, 1, nIndex, pRow->aSlots[0].nState);
         }
         else
         {
-            ROSTERPETS_DrawPanelLabel(nY, 0, nIndex, pRow->nState);
+            ROSTERPETS_DrawPanelLabel(nY, 0, nIndex, pRow->aSlots[0].nState);
         }
         pRow = pRow->pNext;
         ++nCount;
