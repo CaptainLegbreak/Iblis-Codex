@@ -6,6 +6,7 @@
 #include "D2Primitives.h"
 #include "D2Structs.h"
 #include "D2Unicode.h"
+#include "D2ClientQuestLog.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -304,22 +305,6 @@ extern D2UiEntry10Strc gaQuestLookup[41]; // 0x00723F38
 
 extern int gaQuestPageDefault[5]; // 0x007BF280
 
-#pragma pack(push, 1)
-
-struct D2QuestPanelEntryStrc
-{
-    int nQuestId;
-    char unk0x004[0x25E - 0x004];
-    unsigned short wTextId;
-    unsigned char nSlot;
-    char unk0x261[0x263 - 0x261];
-    unsigned char bEnabled;
-    char unk0x264[0x265 - 0x264];
-    int bDone;
-    char unk0x269[0x26A - 0x269];
-};
-
-#pragma pack(pop)
 
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 
@@ -387,14 +372,6 @@ extern void* gapQuestIconCels[27]; // 0x007BF2E1
 
 extern volatile char gabQuestFlagsB[]; // 0x007BF380
 
-struct D2ButtonLayoutStrc
-{
-    int nTextX;
-    int nRight;
-    int nTop;
-    int nBottom;
-    int nTextY;
-};
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
@@ -414,16 +391,6 @@ extern void* gpLevelCel; // 0x007C02DC
 
 extern void* gpLevelSocketCel; // 0x007C02E0
 
-struct D2QuestTableStrc
-{
-    unsigned char bEnabled;
-    unsigned char nCelId;
-    unsigned char nCelId2;
-    unsigned char nPage;
-    D2QuestTextsStrc* pTexts;
-    int nCondition;
-    int nQuestId;
-};
 
 extern D2QuestTableStrc gaQuestTable[]; // 0x00723F30
 
