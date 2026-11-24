@@ -1596,6 +1596,38 @@ char* __fastcall DRLGPRESET_GetPickedLevelPrestFilePathFromRoomEx(D2DrlgRoomStrc
     return pMaze->pMap->pLvlPrestTxtRecord->szFile[pMaze->pMap->nPickedFile];
 }
 
+struct D2Unk00667030InnerStrc
+{
+    int nValue0;
+    int nValue1;
+};
+
+struct D2Unk00667030MidStrc
+{
+    char unk0x00[0x08];
+    D2Unk00667030InnerStrc* pInner;
+};
+
+struct D2Unk00667030Strc
+{
+    char unk0x00[0x20];
+    D2Unk00667030MidStrc* pMid;
+};
+
+// 0x00667030
+void __fastcall SKILLS_GetInnerPair(D2Unk00667030Strc* pRecord, int* pValue0, int* pValue1)
+{
+    D2Unk00667030MidStrc* pMid = pRecord->pMid;
+    if (pValue0)
+    {
+        *pValue0 = pMid->pInner->nValue0;
+    }
+    if (pValue1)
+    {
+        *pValue1 = pMid->pInner->nValue1;
+    }
+}
+
 // 0x00667060
 static void __stdcall DRLGPRESET_TogglePopsVisibility(D2DrlgRoomStrc* ptRoom, int nPopSubIndex, D2DrlgCoordStrc* pDrlgCoord, int nTick, int bClose)
 {
