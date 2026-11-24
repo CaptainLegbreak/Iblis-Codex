@@ -1239,8 +1239,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/text.cpp": {
-   "bytes": 4420,
-   "definitions": 47,
+   "bytes": 4416,
+   "definitions": 46,
    "externs": [
     "extern \"C\" void __cdecl D2CLIENT_CloseNPCTalk(); // 0x004A17D0",
     "extern \"C\" void __cdecl TEXT_EatMsg(); // 0x0049DA10",
