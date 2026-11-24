@@ -1156,8 +1156,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/text_0049A950.cpp": {
-   "bytes": 108,
-   "definitions": 3,
+   "bytes": 88,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/text_0049A950.inc",
@@ -4120,15 +4120,6 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/Storm/Unknown_006C9A68.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Storm/Unknown_006CAA30.cpp": {
-   "bytes": 12,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_006CAA30.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -53093,88 +53084,6 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_00723F00_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
    "tail": "; // 0x00723F00",
    "va": "0x00723F00"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/text_0049A950.cpp",
-   "fill": 1,
-   "form": "declared",
-   "fwd": null,
-   "head": "extern D2ButtonLayoutStrc gaButtonLayouts[1] = ",
-   "model": {
-    "elem": {
-     "k": "struct",
-     "members": [
-      [
-       "nTextX",
-       0,
-       {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
-       }
-      ],
-      [
-       "nRight",
-       4,
-       {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
-       }
-      ],
-      [
-       "nTop",
-       8,
-       {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
-       }
-      ],
-      [
-       "nBottom",
-       12,
-       {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
-       }
-      ],
-      [
-       "nTextY",
-       16,
-       {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
-       }
-      ]
-     ],
-     "name": "D2ButtonLayoutStrc",
-     "size": 20
-    },
-    "k": "arr",
-    "n": 1,
-    "size": 20
-   },
-   "name": "gaButtonLayouts",
-   "pointers": [],
-   "region": "data",
-   "size": 20,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x007241C0",
-   "type": "D2ButtonLayoutStrc",
-   "va": "0x007241C0"
   },
   {
    "alias": false,
@@ -151265,23 +151174,6 @@
    "tail": "; // 0x007121DC",
    "type": "int",
    "va": "0x007121DC"
-  },
-  {
-   "alias": false,
-   "cname": "gData_007241E4",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006CAA30.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007241E4_t gData_007241E4; // 0x007241E4",
-   "head": "extern \"C\" struct d2data_007241E4_t gData_007241E4 = ",
-   "name": "gData_007241E4",
-   "pointers": [],
-   "region": "data",
-   "size": 12,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007241E4_t\n{\n    unsigned char b0[12];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007241E4",
-   "va": "0x007241E4"
   },
   {
    "alias": false,
