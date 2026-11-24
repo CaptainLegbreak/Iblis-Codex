@@ -7,7 +7,6 @@
 
 struct D2StormMpqHeaderStrc;
 struct D2StormHashEntryStrc;
-struct D2StormFileSubStrc;
 struct D2StormArchiveFileStrc;
 struct D2StormRequestCallbackStrc;
 namespace Storm { namespace SFile { struct ARCHIVEREC; } }
@@ -24,17 +23,9 @@ struct D2StormBlockStrc
     unsigned int nPackedSize;                   // 0x04
     unsigned int nFileSize;                     // 0x08
     unsigned int dwFlags;                       // 0x0C
-    union
-    {
-        struct
-        {
-            unsigned int unk0x10;               // 0x10
-            unsigned int unk0x14;               // 0x14
-        };
-        D2FileTimeStrc tFileTime;
-    };
+    D2FileTimeStrc tFileTime;                   // 0x10
     unsigned int nCrc;                          // 0x18
-    unsigned int unk0x1C[4];                    // 0x1C
+    unsigned int aMd5[4];                       // 0x1C
 
     void ExpandBlockEntries(unsigned int nCount);                                                    // 0x004156A0
 };
@@ -170,7 +161,6 @@ struct FILEREC : TSLinkedNode<FILEREC>
     union
     {
         D2StormBlockStrc* pBlock;               // 0x118
-        D2StormFileSubStrc* f_118;
         D2StormArchiveFileStrc* pArchiveFile;
         unsigned int* pBlockWords;
     };
