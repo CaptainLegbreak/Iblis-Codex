@@ -820,7 +820,7 @@ void __fastcall PLRSKILLS_BeginState(D2UnitStrc* pUnit, int nState); // 0x004D9B
 
 int __fastcall PLRSKILLS_SetStateStat(D2UnitStrc* pUnit, int nPrev, int nState, int nStatId, int nValue, int nLayer); // 0x004D9D70
 
-void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState); // 0x004D9E60
+void __fastcall PLRSKILLS_StartClientState(D2UnitStrc* pUnit, int nState); // 0x004D9E60
 
 D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
 
@@ -1489,7 +1489,7 @@ extern "C" void __cdecl sub_0048A700(); // 0x0048A700
 
 void __stdcall DATATBLS_AddOrChangeRunesTxtRecord(int nRecordId, D2RunesTxt* pRecord); // 0x00639CC0
 
-void __fastcall sub_004D9F40_EndClientState(D2UnitStrc* pUnit, int nState); // 0x004D9F40
+void __fastcall PLRSKILLS_EndClientState(D2UnitStrc* pUnit, int nState); // 0x004D9F40
 
 void __fastcall PLRSKILLS_EndState(D2UnitStrc* pUnit, int nState); // 0x004D9C30
 
@@ -4432,7 +4432,7 @@ void __fastcall SCMD_HandleDelayedState(const D2GSPacketSrvA7* pPacket)
     {
         const int nState = pPacket->nState;
         PLRSKILLS_BeginState(pUnit, nState);
-        sub_004D9E60_StartClientState(pUnit, nState);
+        PLRSKILLS_StartClientState(pUnit, nState);
     }
 }
 
@@ -4484,7 +4484,7 @@ void __fastcall SCMD_HandleSetState(D2GSPacketSrvA8* pPacket)
         nStatId = sub_00411020_ReadBits(&tBuffer, 9);
     }
 
-    sub_004D9E60_StartClientState(pUnit, nState);
+    PLRSKILLS_StartClientState(pUnit, nState);
 }
 
 // 0x0045EF60
@@ -4494,7 +4494,7 @@ void __fastcall SCMD_HandleEndState(const D2GSPacketSrvA9* pPacket)
     if (pUnit)
     {
         const int nState = pPacket->nState;
-        sub_004D9F40_EndClientState(pUnit, nState);
+        PLRSKILLS_EndClientState(pUnit, nState);
         PLRSKILLS_EndState(pUnit, nState);
     }
 }
@@ -4592,7 +4592,7 @@ void __fastcall SCMD_HandleAddUnitStates(D2GSPacketSrvAA* pPacket)
                 nStatId = sub_00411020_ReadBits(&tBuffer, 9);
             }
         }
-        sub_004D9E60_StartClientState(pUnit, nState);
+        PLRSKILLS_StartClientState(pUnit, nState);
         nState = sub_00411020_ReadBits(&tBuffer, 8);
     }
 }

@@ -82,7 +82,7 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 
 int __cdecl D2GFX_CheckLowQuality(); // 0x004F5210
 
-int __cdecl sub_004CCF30(); // 0x004CCF30
+int __cdecl MISSILE_GetMissileLights(); // 0x004CCF30
 
 int __cdecl GAME_GetFramesPerSecond(); // 0x0044DAE0
 
@@ -1504,7 +1504,7 @@ int __cdecl DLIGHTMAP_GetIndicatorLevel()
     int nLevel = 2;
     if (D2GFX_CheckLowQuality())
     {
-        if (!sub_004CCF30())
+        if (!MISSILE_GetMissileLights())
         {
             goto low;
         }

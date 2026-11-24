@@ -545,7 +545,7 @@ int __fastcall sub_004B1280(D2UnitStrc* pUnit, D2MonAnimRecStrc* pRecord); // 0x
 int __fastcall sub_004B95C0_IsHintPlaying(void* pHint); // 0x004B95C0
 int __fastcall sub_004B9610_FindHint(int nId); // 0x004B9610
 int __fastcall sub_004CAEB0(D2UnitStrc* pUnit, int nMode); // 0x004CAEB0
-int __fastcall sub_004CC7C0_GetSkillBonus(int nSkillId, int nSkillLevel); // 0x004CC7C0
+int __fastcall MISSILE_GetSkillMissileRange(int nSkillId, int nSkillLevel); // 0x004CC7C0
 int __fastcall sub_004DAB40_CheckCel(D2CelStrc* pCel, int nX, int nY, int nArg4); // 0x004DAB40
 int __fastcall sub_004DBB50_InitCelContext(D2CelContextStrc* pContext, D2UnitStrc* pUnit, int a3, int nDirection, int nFrame, int* pOut, int a7, int a8); // 0x004DBB50
 int __fastcall sub_004DBD30_CountVisibleLayers(D2UnitStrc* pUnit, D2GfxLayerHeaderStrc* pHeader, unsigned char* pLayers, int* pOut, int nDirection, int nFrame); // 0x004DBD30
@@ -840,7 +840,7 @@ void __fastcall sub_004CC160(D2UnitStrc* pUnit, int nValue); // 0x004CC160
 void __fastcall sub_004CC5B0_RequestMode(D2UnitStrc* pUnit, int nMode, int nArg); // 0x004CC5B0
 void __fastcall sub_004CC870_SubMissileCallback(D2UnitStrc* pMissile); // 0x004CC870
 void __fastcall sub_004CED20(D2UnitStrc* pMissile, int nMissile); // 0x004CED20
-D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitStrc* pTarget, int bArg); // 0x004D2D70
+D2UnitStrc* __fastcall MISSILE_CltMissileHit(D2UnitStrc* pMissile, D2UnitStrc* pTarget, int bArg); // 0x004D2D70
 void __fastcall sub_004DA620(D2UnitStrc* pUnit, int nArg); // 0x004DA620
 void __fastcall sub_004DB1C0_SetGfxByte(D2UnitStrc* pUnit, int nIndex, unsigned char nValue); // 0x004DB1C0
 void __fastcall sub_004DC7B0(D2CellPosStrc* pPos, unsigned int nColor, int nArg); // 0x004DC7B0

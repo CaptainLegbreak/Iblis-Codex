@@ -196,7 +196,7 @@ extern "C" int __stdcall sub_00639DF0_CheckState(D2UnitStrc* unit, int state);
 
 extern "C" void __fastcall sub_004E3AB0_UpdateState13(D2UnitStrc* unit);
 
-extern "C" int __fastcall sub_004E2D40_UpdateState22(D2UnitStrc* unit);
+extern "C" int __fastcall SKILLSMON_UpdateSpiderLay(D2UnitStrc* unit); // 0x004E2D40
 
 extern "C" unsigned int __cdecl sub_0044DB10_GetFrame();
 
@@ -428,7 +428,7 @@ extern "C" int __fastcall UNITMODE_UpdateUnitPath(D2UnitStrc* unit)
     if (sub_00639DF0_CheckState(unit, 13))
         sub_004E3AB0_UpdateState13(unit);
     if (sub_00639DF0_CheckState(unit, 22))
-        sub_004E2D40_UpdateState22(unit);
+        SKILLSMON_UpdateSpiderLay(unit);
     return sub_00650840_UpdatePath(unit, sub_0044DB10_GetFrame()) ? 0 : 1;
 }
 

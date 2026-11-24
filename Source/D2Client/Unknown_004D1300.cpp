@@ -400,7 +400,8 @@ void __fastcall sub_004D6130_CltDoRandomSubMissile3(D2UnitStrc* pMissile)
 
     if (nCount <= 0)
     {
-        sub_004D2D70_CltMissileHit(pMissile, 0, 0);
+// build: symbol ?MISSILE_CltMissileHit@* 0x004D2D70
+        MISSILE_CltMissileHit(pMissile, 0, 0);
         return;
     }
 
@@ -430,7 +431,7 @@ void __fastcall sub_004D6130_CltDoRandomSubMissile3(D2UnitStrc* pMissile)
     D2UnitStrc* pNew = MISSILE_CreateClientMissile(&tMissile);
     if (pNew)
     {
-        sub_004D2D70_CltMissileHit(pNew, 0, 1);
+        MISSILE_CltMissileHit(pNew, 0, 1);
     }
 
     MISSILE_CltDoCommon(pMissile);

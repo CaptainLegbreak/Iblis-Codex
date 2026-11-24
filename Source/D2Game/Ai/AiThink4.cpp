@@ -692,7 +692,7 @@ int __stdcall D2Common_11063(D2ActiveRoomStrc*, int); // 0x0063EC70
 
 inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed);
 
-int __fastcall sub_004CC7C0_GetSkillMissileRange(int nSkillId, int nSkillLevel);                                   // 0x004CC7C0
+int __fastcall MISSILE_GetSkillMissileRange(int nSkillId, int nSkillLevel);                                   // 0x004CC7C0
 
 D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pDistance, int* pInMeleeRange); // 0x005DDC30
 
@@ -12239,7 +12239,7 @@ void __fastcall AITHINK_Fn104_DeathSentry(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
     pSkillTarget = SKILLS_FindCorpseNearTarget(pUnit, pTarget, nSkillId, nSkillLevel);
     nLastTarget = pAiTickParam->pAiControl->dwAiParam[0];
-    nRange = sub_004CC7C0_GetSkillMissileRange(nSkillId, nSkillLevel) / 2;
+    nRange = MISSILE_GetSkillMissileRange(nSkillId, nSkillLevel) / 2;
     if (pSkillTarget && (!pSkillTarget ? -1 : pSkillTarget->dwUnitId) != nLastTarget && sub_006416D0_UnitEdgeDistance(pTarget, pSkillTarget) < nRange)
     {
         if (AITHINK_AssasinSentryHasLostTarget(pGame, pUnit, pAiTickParam, 1))

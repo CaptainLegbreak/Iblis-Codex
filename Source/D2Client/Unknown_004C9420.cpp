@@ -254,7 +254,7 @@ int __fastcall sub_004C96D0(D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
 }
 
 // 0x004C97C0
-int __fastcall sub_004C97C0_SpawnScatterMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLS_SpawnScatterMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
     if (!pRoom || DUNGEON_IsRoomInTown(pRoom))
