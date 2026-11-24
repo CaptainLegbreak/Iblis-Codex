@@ -4,15 +4,14 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/task-locks 1290899c 534->532 Task.cpp's two lock globals become objects (Fog's out-of-line CCritSect array + an inline-ctor lock), so it emits the four initializers/destructors 0x6CAF70/0x6CAF90/0x6CB490/0x6CB4A0 itself; they leave Storm/Unknown_006CAE80.cpp, Storm/Unknown_006CAF90.cpp, Storm/Unknown_006CB4A0.cpp (both removed) and Bnclient/Unknown_006CB420.cpp as approved; Task.cpp now compiles /EHsc (the eh vector iterators need it; all its functions still equal); VERIFIED f969f40c2a7d79882c6d47011fb5d8534d4a6865. Based on main #305, not stacked; touches lane 3/6 placeholders as above.
-- lane5/prime-nova b8dd60e3 0 placeholders; defines borrowed data: 0x6E31E8 (SkillMonst.cpp: gnPrimePoisonNovaX/Y as whole const int[16] tables, replacing a split 4 B + 60 B), 0x7314CC and 0x73D52C (int + unread language list closing SUnitInactive.cpp's and Unknown_005B24E0.cpp's data); borrowed data 14,319 B on this branch (expected -132 B); VERIFIED 3bab3cd3ac7a70c4d0a49994046ce8bbacfe8cd7. Based on main #303, not stacked, D2Game only.
+- lane5/coord-init 9efc6b45 0 placeholders; Objects.cpp defines gaCoordInit (0x731EB4) as its four { coords, count } pairs, so the compiler emits the count-copying initializer 0x6CAF30 itself (was Storm/Unknown_006CAE80.cpp's "SnapshotCounters"); the two coordinate tables 0x731DFC/0x731E28 and the four counts 0x731DCC/DF8/E24/E60 move from that Storm placeholder's data to Objects.cpp's (their neighbours were already Objects.cpp's); borrowed data -16 B (6,360 B on this branch); VERIFIED d8986c8b6c6ca7458c9679d15040597ec75ebe39. **Stacked on unit-init-seed-2**; touches lane 3's Storm/Unknown_006CAE80.cpp (removes the function, its externs and data records).
+- lane5/unit-init-seed-2 b4351f1a 0 placeholders; SUnit.cpp's gnUnitInitSeed_008846E8 = GetTickCount(), so the compiler emits its initializer 0x6CAF60, which leaves Storm/Unknown_006CAE80.cpp as approved; VERIFIED e7448c9e813ed1ca352b29e54575eaedc7f0bdaf. Based on main #310, not stacked; replaces lane5/unit-init-seed (stacked on the old task-locks). Touches lane 3's Storm/Unknown_006CAE80.cpp.
 
 ## Questions
 
 
 ## Notes for other lanes
 
-- Lane 2 / all: the 15-entry language-name list ('English' ... 'Unknown', '14') appears unread at the end of several D2Game files' data (AiThink.cpp twice, a3q7.cpp, MonsterChoose.cpp). It looks like a static array defined in a header those files include; if lane 2 knows the header, the copies could become one header definition.
 - Lane 2: D2Act2Quest4Strc holds 0x12-0x13 as `unsigned short unk0x12`, but 0x0059F580 (ACT2Q4_GetAndUpdatePalaceNpcState) reads and sets the byte at +0x13 on its own. Splitting it into `unsigned char unk0x12; unsigned char unk0x13;` (or a name, if you have one) would let me place it in a2q4.cpp.
 - Lane 1/4: `tools/namesync.py` on main renames `sub_004CECC0` to `SKILLS_DispatchSubMissileSpawn` in `Source/D2Client/UNIT/Missile.cpp`; lane 5 reverts that each time and leaves it to the D2Client owner.
 - Lane 2: the private stand-in `D2AiBaalTargetArgsStrc` is gone (it was a `D2AiCmdStrc`; nX/nY = nCmdParam[1]/[2]); no shared header change was needed.
@@ -21,7 +20,6 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 ## Left in place (and why)
 
 - Borrowed 0x745580 (64 B: 0x11B + another language list) between D2Common Inventory.cpp and ItemMode.cpp data: the leading int is not 0 like the others, and the previous neighbour is lane 6's; left for now.
-- Borrowed 0x731EB8 (4 B, gnUnitInitSeed set by the dynamic initializer 0x6CAF60 in Storm/Unknown_006CAE80.cpp, read by Objects.cpp): same cross-lane question as the Task.cpp locks.
 - Act 1 and Act 5 intro clusters (Unknown_0058F870.cpp 0x58F870-0x58FB80 before a1q1.cpp; 0x586B50/0x586C40/0x586C50 before a5q1.cpp): the Act 2/3 intros open a2q0.cpp/a3q0.cpp, but there is no a1q0.cpp or a5q0.cpp and nothing names the file; left until evidence turns up.
 - 0x5985C0 (Unknown_00598220.cpp): Act 2 intro's empty status filter, named ACT3Q7_StatusFilterCallback like a2q0.cpp's own stub; needs its own name before it can join a2q0.cpp.
 - 0x59F820 (Unknown_0059F440.cpp): memsets 0x7A00 bytes at game+0x1920, past the end of the shared D2GameStrc; needs a look at what that pointer really is.
