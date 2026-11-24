@@ -4,9 +4,10 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #310 (round j73). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 6,376 B (was 15,691 B at #297).
+- `main`: #312 (round j75). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,493 B (was 15,691 B at #297).
 - Units 963, placeholder files 562.
-- In progress: nothing; next round as branches are posted ready.
+- In progress: round j76 = `warden-strays-2`, `init-more` (lane 4), `sstr-strays`, `sevt-strays` (lane 3), `quest-timer`, `shared-copies` (lane 2). Next: j77 = `lane5/unit-init-seed-2` + `coord-init`; they conflict in Storm/Unknown_006CAE80.cpp, and the coordinator resolves it. Lane 5: no rebase needed.
+- **Rounds now also check plan `files` entries** (`planfiles.py`): j74's first verify failed because a stale whole entry dropped one lane's externs. The precheck also builds every file whose data plan changed. If you edit a file's plan entry, keep your branch on a recent main.
 - **`lane4/options-split` needs a rebase onto #308:** it conflicts in chat.cpp with #308's gnScreenHeight change. A 94-function move is yours to redo, not mine.
 - **Borrowed data by lane:** [borrowed-data.md](borrowed-data.md), regenerated at #305, lists every block of the 15,691 B still copied from Game.exe, with the file that owns it and how that was decided. Each lane has a section with its leads. Take them after your current branch.
 - Rounds: the coordinator polls `lane*` branches, merges by cherry-pick (skipping commits already on main by subject), checks the data plan, units.json and data includes against main plus each lane's own moves, prechecks, runs one full verify, and ships.
@@ -34,6 +35,7 @@ A function belongs to the lane whose address range or file run it sits in, whate
 | `lane1/hdr-drop-4df6c0` | same commit as `hdr-4df6c0-2` on an older base | nothing; superseded |
 | `lane4/runs-sub`, `lane4/game-loader` | replaced by `runs-sub-2` and `game-borrowed` | nothing |
 | `lane6/bss-a` | replaced by `bss-a-2` | nothing |
+| `lane5/unit-init-seed` | replaced by `unit-init-seed-2` | nothing |
 | `lane1/join-gethitsounds` | 0x4CA560 MISMATCH in UnitSnd.cpp on main | waits until UnitSnd.cpp's headers settle |
 
 ## Decisions in force
@@ -55,6 +57,7 @@ A function belongs to the lane whose address range or file run it sits in, whate
 - `hdr-4df6c0-2` is in #302, `one-screenheight-r` in #308. Keeping the one private declaration in inv_004886C0.cpp is right; the declaration-count finding is now in Lane 2's notes too.
 - **0x4A4AD0:**
   - **Earlier notes.** I've re-sent the lane-7 package to the user. The earlier attempts' finding: 0x4A4AD0's callees take arguments in registers, so it must share their unit. Then that unit was text_0049D490.cpp; it is text.cpp now, so your choice of text.cpp is right. The earlier attempts built it standalone and never got close.
+  - **Correction, from lane 4's object map:** text.cpp ends around 0x4A15xx. It has path users, its data runs to 0x723768, and its asserts go up to line 5747. **0x4A4AD0 sits in an unnamed object at 0x4A41xx-0x4A61A0** (stat/skill buttons and panel keys; its data runs to 0x724798). We have that object filed inside text.cpp. Its callees are in the same object, so the unit constraint still holds, but the unit is the smaller object, not text.cpp. Build it as that object: with lane 4, split 0x4A41xx-0x4A61A0 out of text.cpp into a placeholder, then try 0x4A4AD0 there with `gnKeyConfigFirstVisible` static. In a smaller unit, 0x4A4500 may survive the static.
   - **Lead on the static.** text_0049A950.cpp still owns 0x4A4110 and 0x4A4780, inside text.cpp's 0x4A40D0-0x4A5270 run. It also defines `gnKeyConfigSelected`, which text.cpp has as its own static (lane 4's note). That's the key-config list's state split across two files. If 0x4A4110/0x4A4780 join text.cpp and the key-config globals are made text.cpp statics together, 0x4A4500 may match with `gnKeyConfigFirstVisible` static. Lane 4 owns text_0049A950.cpp: coordinate there, or do it on your branch and say so.
 Work list, in order of value:
 1. **Borrowed function 0x004A4AD0** (D2Client, 1,232 B, today `Source/StandIns/D2Client_004A4AD0.cpp`). Lane 7 never started, and it is in D2Client, so it is yours. It is one of the 9 functions still taken from the image: a match removes 1,232 B of borrowed code. The lane-7 notes from earlier attempts are in the iblis-lane7 package (ask the user if you don't have it). Report progress on your board file even if it doesn't land.
@@ -67,7 +70,7 @@ Work list, in order of value:
 Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the gnScreenHeight/gnPanelOffsetY operand order flips when D2ClientUi.h changes. Lane 2 tried one name for 0x711470 in those two units, among other things, and it broke them. Keep their private declarations if they don't survive the unification, and say so.
 
 ### Lane 2
-- `party-row`, `msg-record`, `save-header` and `lang-names` are in #310. D2LanguageNames.h is on main: lanes can now include it where a unit's original had a copy.
+- `party-row`, `msg-record`, `save-header` and `lang-names` are in #310; `quest-timer` and `shared-copies` are in j76. D2LanguageNames.h is on main: lanes can now include it where a unit's original had a copy.
 - Language-name table: yours to start (see Decisions). Lane 5 reports copies at the ends of AiThink.cpp (twice: so it spans two original units), a3q7.cpp and MonsterChoose.cpp.
 - `sets-txt` is in #306.
 - `com-interface` is in #301. The conflict with #299 (Unknown_0043A9D0.cpp folded into CharSel.cpp) was resolved by carrying the type rename into CharSel.cpp.
@@ -80,6 +83,10 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - Borrowed data: 0x006D13D8, 768 B, is zlib's `_dist_code`/`_length_code` (read by deflate.c and trees.c). In zlib 1.2.8 they come from trees.h, included by trees.c. That one block is half your borrowed data.
 
 ### Lane 4
+- `borrowed-b` and `initializers` are in #311; `warden-strays-2` and `init-more` are in j76.
+- **`options-split` still needs a rebase onto main** (it conflicts in chat.cpp). The evidence (data ends and bss splits at language-table copies) is right; it's approved once it applies.
+- **The text-area object map:** good work, and it's now the basis for lane 1's 0x4A4AD0 attempt. Please split the unnamed object 0x4A41xx-0x4A61A0 out of text.cpp into a placeholder (it's your file), and tell lane 1 when it's pushed.
+- From lane 3: 0x700140-0x7001C0 (listed as lane 3's in borrowed-data.md) is WardenClient's RTTI (object locator, class hierarchy, base class descriptors). It belongs with WardenClient.cpp's `??_R0` line; take it.
 - `place-c` is in #299, `runs-sub-2` in #304; `game-borrowed` is in #305; `warden-class` is in j70. Reading the vtable through its object locator is the right way to settle a class.
 - **UIWidget slots (your question): yes.** The vtable at 0x6DA6C0 is twelve `_purecall`s, so slots 1-11 are pure virtuals of the base, and ListBoxImplementation and ListBoxWrapper override them. Give each slot one name in all three classes, with its names.csv rows. Name a slot by what the two overrides have in common. Where one of the two current names is a `blizzard` name, keep that one. The char[260] and literal-string fixes in `game-borrowed`: good, push when verified.
 - From lane 3: most of `Storm/Unknown_006C9A68.cpp`, `Unknown_006CACE0.cpp`, `Unknown_006CAA30.cpp` and `Unknown_006CAE80.cpp` are D2Client dynamic initializers (text buffers, layout rects, hashes of "Header"/"Game Time", captions). They belong with the globals they set, in your files and lane 1's. Wait for crt-locks (j66), then take the ones whose globals you own.
@@ -114,6 +121,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #312 j75: BnDownload/CACHE/Preset locks become objects (lane 6); conflict with #309 resolved by the coordinator.
+- #311 j74: UnitSnd table (lane 1), borrowed-b and initializers (lane 4), text-data (lane 3). Borrowed data −2,883 B.
 - #310 j73: D2ClientParty.h, D2MsgRecord.h, D2SaveHeader.h, D2LanguageNames.h (lane 2).
 - #309 j72: data-b (lane 6), task-locks (lane 5), storm-strays and sfile-dtors (lane 3), uiwidget (lane 4). Borrowed data −6,240 B.
 - #308 j71: one declaration of gnScreenHeight, in D2Client.h (lane 1), alone. automap.cpp conflict resolved by the coordinator.
