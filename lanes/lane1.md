@@ -4,12 +4,12 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/monster-4aff60-2 220db1b71 0->0 Monster.cpp takes 0x4AFF60 (asserts .\UNIT\Monster.cpp 1762-2374, between 0x4AF4C0 (949) and 0x4B1090 (2504)) and 0x4B13A0 from Unknown_004ADEA0.cpp; the umod dispatcher 0x4ADD90 and its wrappers 0x4ADE40-0x4ADE80 leave Monster.cpp for the placeholder, now Unknown_004ADD90.cpp, with gaUModCallbacks (0x724E28) and gwUniqueModNameIds (0x725188) in its data; VERIFIED 87894116a80552a1a152a4f09df9e1b96e186d41
-  - based on main #319. Replaces lane1/monster-4aff60 (same commit on #318; pushed before I saw #319).
-  - Why the wrappers leave: 0x4AFF60 and 0x4B13A0 call 0x4ADE40/50/60/70 in the image; with those bodies in Monster.cpp our compiler inlines them. The data agrees: 0x4ADD90 reads 0x724E28, 0x4ADEA0 reads 0x725188, and Monster.cpp's own .data starts at gaMonAnimRecords (0x725220).
-  - MONSTER_RefreshMonsterMode (0x4AE1D0) is now `__declspec(noinline)`: 0x4AFF60 is its only caller in the image and calls it at both sites, but our compiler inlines one of them.
+- lane1/umod-names-copy 2dd685ab6 0->0 gwUniqueModNameIds (0x725188) becomes a typed unsigned short[44] in Unknown_004ADD90.cpp; the language-name copy at 0x7251E0 (with its 4 zero bytes) is planned in Monster.cpp as gData_007251E0, the start of Monster.cpp's data; VERIFIED c8c501af1c872cf44e94f4398518b317a2bbbddf
+  - based on main #323. The include route (D2LanguageNames.h in Monster.cpp) does not land yet: the compiler puts gtDiabloAnimRecord right after the unit's first data item (main's build does the same), so the copy is not followed by gaMonAnimRecords. Left as planned data for now.
 
 ## In progress
+
+- **Claimed: UNIT run strays** (branch lane1/unit-strays). Single functions filed elsewhere that sit between two functions of one UNIT file, all with inferred or placeholder names, move into that file: 0x463D80/0x463E10/0x463EE0/0x466820 -> CUnit.cpp; 0x460780/0x461AC0 -> Player.cpp; 0x480780/0x480B40/0x480C10 -> UnitMode.cpp; 0x4ACD50/0x4ACDB0 -> MonUnique.cpp; 0x4B1050 (+0x4B1240, 0x4B1D70 if they build) -> Monster.cpp; 0x4C1A70/0x4C1AD0 -> Item.cpp; 0x4CD0A0/0x4CDB40 -> Missile.cpp. They come out of lane 4's ui.cpp, View.cpp, automap.cpp, inv.cpp, npcmenu.cpp, SCmd.cpp, Skills.cpp, GfxUtil.cpp and placeholders. Skipping Unknown_004D1300's four (not Missile.cpp code) and 0x4CA560.
 
 - Borrowed 0x4A4AD0, in Unknown_004A43E0.cpp (keycfg-extras state, marked locally): still 1,202 of 1,232 B, the same register difference after the first helper call. Tried the board's lever as well: a local copy of nY before the first call, and calling TEXT_IsInKeyConfigList again in the list block instead of reusing bInList (the compiler merges it): no change. Kept as a stand-in.
 
