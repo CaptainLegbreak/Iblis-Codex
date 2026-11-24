@@ -12,6 +12,7 @@
 #include "D2Primitives.h"
 #include "D2LevelTxt.h"
 #include "D2Packets.h"
+#include "D2LanguageNames.h"
 #define MONTYPEFLAG_UNIQUE 8
 #define EVENTTYPE_REMOVESTATE 0x0C
 
