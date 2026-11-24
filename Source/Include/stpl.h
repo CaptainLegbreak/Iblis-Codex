@@ -241,6 +241,10 @@ struct TSGrowableArray : TSFixedArray<T, TCD>
 {
     unsigned int m_chunk;                                   // 0x0C
 
+    TSGrowableArray()
+    {
+        m_chunk = 0;
+    }
     static unsigned int __stdcall RoundUp(unsigned int value, unsigned int align)
     {
         unsigned int remainder = value % align;
