@@ -20,7 +20,6 @@ struct D2StormBigStrc
     char unk0x14[0x154];
 };
 
-static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c);
 int __stdcall sub_00425330(void* hHandle, int nArg1, int nArg2, int nArg3); // 0x00425330
 void __stdcall SBigToBinaryBuffer(void* hHandle, void* pBuffer, unsigned int nSize, unsigned int* pRead); // 0x00423B30
 int __stdcall sub_00423850(void* hHandle, int nArg1, int nArg2); // 0x00423850
@@ -69,51 +68,11 @@ struct D2StormListAStrc
     char* sub_00426C80_RawNext(D2StormLinkStrc* pNode);
 };
 
-// 0x004228C0
-static void __stdcall sub_004228C0_Not(BigBuffer& a, const BigBuffer& b)
-{
-    unsigned int i = 0;
-    for (; b.IsUsed(i); i++)
-    {
-        a[i] = ~b[i];
-    }
-    a.SetCount(i);
-}
-
-// 0x004239E0
-void __stdcall SBigNot(D2StormBigStrc* pResult, D2StormBigStrc* pA)
-{
-    sub_004228C0_Not(pResult->tPrimary, pA->tPrimary);
-}
-
 inline unsigned int ExtractLowPart(unsigned __int64& nValue)
 {
     unsigned int nLow = (unsigned int)nValue;
     nValue >>= 32;
     return nLow;
-}
-
-static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
-{
-    unsigned __int64 nCarry = 0;
-    unsigned int i = 0;
-    for (; b.IsUsed(i) || c.IsUsed(i); i++)
-    {
-        nCarry += (unsigned __int64)b[i] + c[i];
-        a[i] = ExtractLowPart(nCarry);
-    }
-    if (nCarry)
-    {
-        a[i] = (unsigned int)nCarry;
-        i++;
-    }
-    a.SetCount(i);
-}
-
-// 0x00423790
-void __stdcall SBigAdd(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
-{
-    sub_00422300_Add(pResult->tPrimary, pA->tPrimary, pB->tPrimary);
 }
 
 static void __stdcall sub_00422440_And(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
@@ -126,12 +85,6 @@ static void __stdcall sub_00422440_And(BigBuffer& a, const BigBuffer& b, const B
     a.SetCount(i);
 }
 
-// 0x004237B0
-void __stdcall SBigAnd(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
-{
-    sub_00422440_And(pResult->tPrimary, pA->tPrimary, pB->tPrimary);
-}
-
 static void __stdcall sub_004229D0_Or(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned int i = 0;
@@ -142,12 +95,6 @@ static void __stdcall sub_004229D0_Or(BigBuffer& a, const BigBuffer& b, const Bi
     a.SetCount(i);
 }
 
-// 0x00423A00
-void __stdcall SBigOr(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
-{
-    sub_004229D0_Or(pResult->tPrimary, pA->tPrimary, pB->tPrimary);
-}
-
 static void __stdcall sub_00423250_Xor(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned int i = 0;
@@ -156,12 +103,6 @@ static void __stdcall sub_00423250_Xor(BigBuffer& a, const BigBuffer& b, const B
         a[i] = b[i] ^ c[i];
     }
     a.SetCount(i);
-}
-
-// 0x00423D60
-void __stdcall SBigXor(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
-{
-    sub_00423250_Xor(pResult->tPrimary, pA->tPrimary, pB->tPrimary);
 }
 
 // 0x00425FE0
