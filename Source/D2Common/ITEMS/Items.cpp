@@ -2783,21 +2783,28 @@ unsigned int __stdcall ITEMS_GetTransmogrifyFromItemId(int nItemId)
 }
 
 
+static inline int UNITS_GetUnitTypeOrInvalid_Inline(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 6;
+    }
+    return pUnit->dwUnitType;
+}
+
 // 0x0062A370
 unsigned int __stdcall ITEMS_GetSetItemsMask(D2UnitStrc* pPlayer, D2UnitStrc* pSetItem, int bDontIgnoreInputItem)
 {
-    // volatile: stands in for the original loading the type and quality into eax before comparing
-    if (!pPlayer || !pSetItem || *(volatile int*)&pSetItem->dwUnitType != UNIT_ITEM || !pSetItem->pItemData)
+    if (!pPlayer || UNITS_GetUnitTypeOrInvalid_Inline(pSetItem) != UNIT_ITEM)
     {
         return 0;
     }
-    switch (*(volatile int*)&pSetItem->pItemData->dwQualityNo)
+
+    if (ITEMS_GetItemQuality_Inl(pSetItem) != ITEMQUAL_SET)
     {
-    case ITEMQUAL_SET:
-        break;
-    default:
         return 0;
     }
+
     D2InventoryStrc* pInventory = pPlayer->pInventory;
     if (!pInventory)
     {
@@ -7722,42 +7729,6 @@ static int ITEMS_IsQuantityRepairable(D2UnitStrc* pItem)
     {
         return 1;
     }
-    return 0;
-}
-
-// 0x006314A0
-int __fastcall ITEMS_ResolveItemCalcKeyword(char* szText, int* a2, int a3, int nKeywordNumber)
-{
-    int nRow = 0;
-
-    if (a3 == 1 && nKeywordNumber == 3)
-    {
-        if (gpItemStatCostLinker)
-        {
-            nRow = FOG_GetRowFromTxt(gpItemStatCostLinker, szText, 0);
-            if (nRow >= 0)
-            {
-                *a2 = 1;
-                return nRow;
-            }
-        }
-
-        if (!SStrCmpI(szText, "base", 32))
-        {
-            *a2 = 0;
-            return 1;
-        }
-
-        if (!SStrCmpI(szText, "mod", 32))
-        {
-            *a2 = 0;
-            return 2;
-        }
-
-        SStrCmpI(szText, "accr", 32);
-        *a2 = 0;
-    }
-
     return 0;
 }
 

@@ -1117,6 +1117,63 @@ inline unsigned int PATH_InlineGetUnitY(D2UnitStrc* pUnit)
 
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
+struct D2PathPoint00647FB0Strc
+{
+    unsigned short X;
+    unsigned short Y;
+};
+struct D2ActiveRoom00647FB0Strc
+{
+    unsigned char unk_00[0x4C];
+    int nSubtileX;
+    int nSubtileY;
+    int nSubtileWidth;
+    int nSubtileHeight;
+};
+struct D2DynamicPath00647FB0Strc
+{
+    unsigned char unk_00[0x1C];
+    D2ActiveRoom00647FB0Strc* pRoom;
+    unsigned char unk_20[8];
+    int nPathPoints;
+    unsigned char unk_2C[8];
+    unsigned int dwFlags;
+    unsigned char unk_38[0x64];
+    D2PathPoint00647FB0Strc PathPoints[78];
+};
+
+// 0x00647FB0
+void __fastcall sub_6FDA8220(D2DynamicPathStrc* pDynamicPath)
+{
+    D2DynamicPath00647FB0Strc* const pPath = (D2DynamicPath00647FB0Strc*)pDynamicPath;
+    D2PathPoint00647FB0Strc* const pPathPoints = pPath->PathPoints;
+    pPath->dwFlags &= ~1u;
+    D2ActiveRoom00647FB0Strc* pRoom = pPath->pRoom;
+    for (int i = 0; i < pPath->nPathPoints; ++i)
+    {
+        if (!pRoom
+            || pPathPoints[i].X < pRoom->nSubtileX || pPathPoints[i].X >= pRoom->nSubtileX + pRoom->nSubtileWidth
+            || pPathPoints[i].Y < pRoom->nSubtileY || pPathPoints[i].Y >= pRoom->nSubtileY + pRoom->nSubtileHeight)
+        {
+            pPath->dwFlags |= 1;
+            return;
+        }
+    }
+}
+
+// 0x00648020
+static void __stdcall sub_00648020_GetTablePair(int b, int a, int* pOut1, int* pOut2)
+{
+    *pOut1 = gnOrthogonalStepTable[a][b];
+    *pOut2 = gnOrthogonalStepTable[b][a];
+}
+
+void __stdcall sub_K15_Emit8(int* p, int n)
+{
+    sub_00648020_GetTablePair(p[1], n, p, p + 1);
+    sub_00648020_GetTablePair(n, p[2], p + 2, p + 3);
+}
+
 // 0x00648050
 static void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo)
 {

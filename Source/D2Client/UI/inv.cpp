@@ -297,10 +297,6 @@ extern int gaHotkeyOwners[16]; // 0x007C0768
 
 extern int gaHotkeyLeft[16]; // 0x007C07B8
 
-extern unsigned char gaTable_007C0EA4[]; // 0x007C0EA4
-
-extern int gbQuestIntroFlagsReady; // 0x007C0ECC
-
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -1000,21 +996,10 @@ extern int gnRectLArmLeft; // 0x007BCD9C
 
 extern int gnRectLArmBottom; // 0x007BCDA8
 
-extern int gnOffsetTorsoX_007220B0; // 0x007220B0
-
-extern int gnOffsetTorsoY_007220B4; // 0x007220B4
-
-extern int gnOffsetHeadX_007220C8; // 0x007220C8
-
-extern int gnOffsetHeadY_007220CC; // 0x007220CC
-
-extern int gnOffsetRArmX_007220F0; // 0x007220F0
-
-extern int gnOffsetRArmY_007220F4; // 0x007220F4
-
-extern int gnOffsetLArmX_007220F8; // 0x007220F8
-
-extern int gnOffsetLArmY_007220FC; // 0x007220FC
+extern D2CoordStrc gtOffsetTorso; // 0x007220B0
+extern D2CoordStrc gtOffsetHead; // 0x007220C8
+extern D2CoordStrc gtOffsetRArm; // 0x007220F0
+extern D2CoordStrc gtOffsetLArm; // 0x007220F8
 
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId);                                                 // 0x006372C0
 
@@ -6332,14 +6317,14 @@ void __stdcall INV_DrawMercEmptyBodyLocs(D2UnitStrc* pUnit)
     {
         tGfx.pCellFile = gpTorsoCell_007BCE68;
         tGfx.nFrame = 0;
-        TEXTURE_CelDraw(&tGfx, gnRectTorsoLeft + gnOffsetTorsoX_007220B0, gnRectTorsoBottom + gnOffsetTorsoY_007220B4, -1, 5, 0);
+        TEXTURE_CelDraw(&tGfx, gnRectTorsoLeft + gtOffsetTorso.nX, gnRectTorsoBottom + gtOffsetTorso.nY, -1, 5, 0);
     }
 
     if (!pInventory || !INVENTORY_GetItemFromBodyLoc(pInventory, 1))
     {
         tGfx.pCellFile = gpHeadCell_007BCE74;
         tGfx.nFrame = 1;
-        TEXTURE_CelDraw(&tGfx, gnRectHeadLeft + gnOffsetHeadX_007220C8, gnRectHeadBottom + gnOffsetHeadY_007220CC, -1, 5, 0);
+        TEXTURE_CelDraw(&tGfx, gnRectHeadLeft + gtOffsetHead.nX, gnRectHeadBottom + gtOffsetHead.nY, -1, 5, 0);
     }
 
     D2UnitStrc* pRightItem = pInventory ? INVENTORY_GetItemFromBodyLoc(pInventory, 4) : 0;
@@ -6354,12 +6339,12 @@ void __stdcall INV_DrawMercEmptyBodyLocs(D2UnitStrc* pUnit)
         {
             if (!bTwoHanded)
             {
-                TEXTURE_CelDraw(&tGfx, gnRectLArmLeft + gnOffsetLArmX_007220F8, gnRectLArmBottom + gnOffsetLArmY_007220FC, -1, 5, 0);
+                TEXTURE_CelDraw(&tGfx, gnRectLArmLeft + gtOffsetLArm.nX, gnRectLArmBottom + gtOffsetLArm.nY, -1, 5, 0);
             }
         }
         else
         {
-            TEXTURE_CelDraw(&tGfx, gnRectLArmLeft + gnOffsetLArmX_007220F8, gnRectLArmBottom + gnOffsetLArmY_007220FC, -1, 5, 0);
+            TEXTURE_CelDraw(&tGfx, gnRectLArmLeft + gtOffsetLArm.nX, gnRectLArmBottom + gtOffsetLArm.nY, -1, 5, 0);
         }
     }
 
@@ -6371,12 +6356,12 @@ void __stdcall INV_DrawMercEmptyBodyLocs(D2UnitStrc* pUnit)
         {
             if (!bTwoHanded)
             {
-                TEXTURE_CelDraw(&tGfx, gnRectRArmLeft + gnOffsetRArmX_007220F0, gnRectRArmBottom + gnOffsetRArmY_007220F4, -1, 5, 0);
+                TEXTURE_CelDraw(&tGfx, gnRectRArmLeft + gtOffsetRArm.nX, gnRectRArmBottom + gtOffsetRArm.nY, -1, 5, 0);
             }
         }
         else
         {
-            TEXTURE_CelDraw(&tGfx, gnRectRArmLeft + gnOffsetRArmX_007220F0, gnRectRArmBottom + gnOffsetRArmY_007220F4, -1, 5, 0);
+            TEXTURE_CelDraw(&tGfx, gnRectRArmLeft + gtOffsetRArm.nX, gnRectRArmBottom + gtOffsetRArm.nY, -1, 5, 0);
         }
     }
 }
@@ -8657,14 +8642,6 @@ void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLef
 
 
 
-
-// 0x004B92E0
-int __stdcall INV_GetTableByte(int nUnused, int nIndex)
-{
-    D2_ASSERT(gbQuestIntroFlagsReady, 0x60);
-    D2_ASSERT(nIndex < 0x25, 0x65);
-    return gaTable_007C0EA4[nIndex];
-}
 
 int __cdecl sub_M133_Emit_00483C20(int nX, int nY)
 {

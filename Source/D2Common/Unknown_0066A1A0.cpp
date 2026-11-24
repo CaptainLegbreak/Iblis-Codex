@@ -39,11 +39,13 @@ void __stdcall DATATBLS_EmptyStub_0066A250(int a1)
 {
 }
 
-void __fastcall DATATBLS_EmptyStub_0066A260()
+// 0x0066A260
+void __fastcall sub_0066A260_PlayerDataFreeHook(D2UnitStrc* pUnit)
 {
 }
 
-void __fastcall sub_0066A270()
+// 0x0066A270
+void __fastcall sub_0066A270(void* hArchive)
 {
 }
 

@@ -32,7 +32,7 @@ struct Unicode;
 
 struct D2RectStrc;
 
-struct T00479230;
+struct D2TextBoxStrc;
 
 struct D2WaypointMenuEntryStrc;
 
@@ -76,7 +76,7 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct T00479230
+struct D2TextBoxStrc
 {
     char unk0x00[0x16];
     char nScroll[4];
@@ -178,7 +178,7 @@ void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 
-T00479230* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode); // 0x004A05E0
+D2TextBoxStrc* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode); // 0x004A05E0
 
 void __fastcall SKILLS_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
 
@@ -301,7 +301,7 @@ extern int gnWaypointCount; // 0x007BF08A
 
 extern int gnWaypointEnabledCount; // 0x007BF08E
 
-extern T00479230* gpTextBox; // 0x007BF0A4
+extern D2TextBoxStrc* gpTextBox; // 0x007BF0A4
 
 extern int gbTextBoxDone; // 0x007BF1BC
 
@@ -471,10 +471,6 @@ void __cdecl WARDENCLIENT_ActivatePendingModule(); // 0x00480230
 extern WardenModule* gpSlotHolder; // 0x007BC990
 
 
-
-static int gnInvMouseX; // 0x007BCA4C
-
-static int gnInvMouseY; // 0x007BCBD8
 
 static int gnPetIconPopupState; // 0x007BEECC
 
@@ -1120,23 +1116,6 @@ int __fastcall WARDENCLIENT_InitWarden(int nValue)
     return 1;
 }
 
-// 0x004922A0
-int __stdcall WARDENCLIENT_HandlePanelAreaClick(SMSGHANDLER_PARAMS* pMsg)
-{
-    const int nX = pMsg->nXpos;
-    const int nY = pMsg->nYpos;
-    gnInvMouseX = nX;
-    gnInvMouseY = nY;
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-    if (nX >= gnGlobal_007BCAA0 && nX < gnGlobal_007BCAA4 && nY >= gnGlobal_007BCAA8 && nY <= gnGlobal_007BCAAC)
-    {
-        INV_HandlePanelClick(pMsg);
-        return 1;
-    }
-    return 0;
-}
 
 static inline int InBox(int nX, int nY, int nLeft, int nRight, int nTop, int nBottom)
 {

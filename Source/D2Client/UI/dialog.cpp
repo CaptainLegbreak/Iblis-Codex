@@ -31,7 +31,7 @@ class D2DialogWidget
 {
 public:
     virtual void V0();
-    virtual void V1();
+    virtual void Draw();
     virtual void V2();
     virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
     virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
@@ -196,6 +196,57 @@ static int __stdcall DIALOG_UpdateHoverItem(SMSGHANDLER_PARAMS* pMsg, D2ClientDi
 void __stdcall DIALOG_LButtonUpMsg(SMSGHANDLER_PARAMS* pMsg);
 
 void __stdcall DIALOG_LButtonDownMsg(SMSGHANDLER_PARAMS* pMsg);
+
+int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+
+void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
+
+void __fastcall UI_DrawRectangleBorder(D2RectStrc* pRect); // 0x00452E50
+
+int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
+
+void* __cdecl UI_GetFocusCel(); // 0x00453AB0
+
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+
+int gnSelectionFrame; // 0x007C0E50
+
+struct Obj004B8580 {
+    unsigned int dwUnknown00;
+    unsigned int dwUnknown04;
+    unsigned int dwUnknown08;
+    unsigned int dwUnknown0C;
+    unsigned int f_10;
+    unsigned int dwUnknown14;
+    unsigned int dwUnknown18;
+    unsigned int dwUnknown1C;
+    unsigned int dwUnknown20;
+    unsigned int dwUnknown24;
+    unsigned int dwUnknown28;
+    unsigned int dwUnknown2C;
+    unsigned int dwUnknown30;
+    unsigned int dwUnknown34;
+    unsigned int dwUnknown38;
+    unsigned int dwUnknown3C;
+    unsigned int dwUnknown40;
+    int nValue44;
+};
+
+int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
+
+int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+
+Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
+
+extern int gnScreenWidth; // 0x0071146C
+
+struct D2PanelCtrlStrc_004B8370
+{
+    char unk0x00[0x5C];
+    int nState;
+};
+
+int gdwGlobal_007C0E5C; // 0x007C0E5C
 
 // 0x004B7150
 static inline void DIALOG_HoverFirstEnabledLine(D2ClientDialogStrc* pDialog)
@@ -832,5 +883,249 @@ void __fastcall DIALOG_DestroyDialog(void* pRes)
         exit(-1);
     }
 }
+
+// 0x004B8100
+void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog)
+{
+    D2_ASSERT(pDialog, 0x48E);
+
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+
+    ++pDialog->nState;
+
+    tContext.nDirection = 0;
+    D2RectStrc tRect;
+    tRect.nTop = pDialog->nY;
+    tRect.nLeft = pDialog->nX;
+    tRect.nRight = pDialog->nX + pDialog->nWidth - 1;
+    tRect.nBottom = pDialog->nY + pDialog->nHeight - 1;
+
+    if (pDialog->bDrawCel)
+    {
+        if (pDialog->pCelFile)
+        {
+            tContext.pCellFile = pDialog->pCelFile;
+            tContext.nFrame = 0;
+            sub_004F6480(&tContext, pDialog->nX, pDialog->nY + pDialog->nHeight, -1, 5, 0);
+        }
+    }
+    else
+    {
+        AUTOMAP_DrawFramedBox(tRect.nLeft, tRect.nTop, tRect.nRight - tRect.nLeft + 1, tRect.nBottom - tRect.nTop + 1, 0, 1);
+        UI_DrawRectangleBorder(&tRect);
+    }
+
+    for (D2DialogWidgetNodeStrc* pNode = pDialog->pWidgets; pNode; pNode = pNode->pNext)
+    {
+        if (pNode->pWidget)
+        {
+            pNode->pWidget->Draw();
+        }
+    }
+
+    const int nOldFont = D2Win_10127_SetFont(1);
+    int nOffsetY = 0;
+    for (int i = 0; i < pDialog->nLines; ++i)
+    {
+        D2DialogLineStrc* pLine = &pDialog->pLines[i];
+        int nColor = pLine->nType;
+        D2Win_10127_SetFont(pLine->nFont);
+        int nLineY = pDialog->nY;
+        // volatile: the original adds dialog y and the offset first, then the line height
+        nLineY += *(volatile int*)&nOffsetY;
+        nLineY += pLine->nHeight;
+        const int nLineX = pLine->nX + pDialog->nX;
+        if (pDialog->nHover == i)
+        {
+            if (pDialog->nMode == 1)
+            {
+                nColor = 3;
+            }
+
+            if (pDialog->nMode == 2)
+            {
+                tContext.pCellFile = UI_GetFocusCel();
+                tContext.nFrame = gnSelectionFrame % 7;
+                sub_004F6480(&tContext, nLineX - 24, nLineY + 4, -1, 5, 0);
+                sub_004F6480(&tContext, pLine->nWidth + nLineX + 2, nLineY + 4, -1, 5, 0);
+                ++gnSelectionFrame;
+            }
+        }
+
+        D2Win_10117_DrawText(pLine->wszText, nLineX, nLineY, nColor, 0);
+        nOffsetY += pLine->nHeight;
+    }
+
+    D2Win_10127_SetFont(nOldFont);
+}
+
+// 0x004B82F0
+void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex)
+{
+    D2_ASSERT(pDialog, 0x4E7);
+    D2_ASSERT(nIndex < pDialog->nLines, 0x4ED);
+    if (nIndex == -1)
+    {
+        pDialog->nHover = nIndex;
+        return;
+    }
+
+    for (int i = 0; i < pDialog->nLines; ++i)
+    {
+        const int* pbEnabled = &pDialog->pLines[i].bEnabled;
+        if (nIndex == i)
+        {
+            if (*pbEnabled)
+            {
+                pDialog->nHover = nIndex;
+                return;
+            }
+
+            D2_ASSERT(0, 0x50F);
+        }
+    }
+
+    D2_ASSERT(0, 0x513);
+}
+
+// 0x004B8370
+extern "C" void __fastcall ROSTER_SetCtrlState(D2PanelCtrlStrc_004B8370* pCtrl, int nState)
+{
+    D2_ASSERT(pCtrl, 1310);
+    pCtrl->nState = nState;
+}
+
+
+// 0x004B83A0
+static void sub_004B83A0_PlaceLine(D2ClientDialogStrc* pDialog, int nIndex)
+{
+    int nOldFont = D2Win_10127_SetFont(1);
+    D2Win_10127_SetFont(pDialog->pLines[nIndex].nFont);
+    int nWidth = D2Win_10121_GetTextWidth(pDialog->pLines[nIndex].wszText);
+    if (nWidth >= pDialog->nWidth)
+        pDialog->pLines[nIndex].nX = 0;
+    else
+        pDialog->pLines[nIndex].nX = (pDialog->nWidth - nWidth + 1) / 2 + 1;
+    pDialog->pLines[nIndex].nWidth = nWidth;
+    D2Win_10127_SetFont(nOldFont);
+}
+
+// 0x004B8410
+void __fastcall sub_004B8410_LayoutDialog(D2ClientDialogStrc* pDialog)
+{
+    int nMaxWidth = 0;
+    int nHeight = 0;
+    D2_ASSERT(pDialog->bAutoSize, 0x59F);
+    int nOldFont = D2Win_10127_SetFont(1);
+    int nDisabled = 0;
+    for (int i = 0; i < pDialog->nLines; ++i)
+    {
+        int nWidth = D2Win_10121_GetTextWidth(pDialog->pLines[i].wszText);
+        if (nWidth > nMaxWidth)
+            nMaxWidth = nWidth;
+        if (!pDialog->pLines[i].bEnabled)
+            ++nDisabled;
+        nHeight += pDialog->pLines[i].nHeight;
+    }
+    nMaxWidth += 0x14;
+    nHeight += 0xF;
+    D2Win_10127_SetFont(nOldFont);
+    pDialog->nX = pDialog->nCenterX - nMaxWidth / 2;
+    if (pDialog->bCountEnabled)
+        pDialog->nY = pDialog->nCenterY - nDisabled * 0x15;
+    else
+        pDialog->nY = pDialog->nCenterY - nHeight / 3;
+    D2_ASSERT(nMaxWidth <= gnScreenWidth - 0x50, 0x5D2);
+    D2_ASSERT(nHeight <= gnScreenHeight - 0x62, 0x5D7);
+    if (pDialog->nX + nMaxWidth > gnScreenWidth - 0xA)
+        pDialog->nX = gnScreenWidth - nMaxWidth;
+    if (pDialog->nY + nHeight > gnScreenHeight - 0x3A)
+        pDialog->nY = gnScreenHeight - nHeight - 0x30;
+    if (pDialog->nX <= 0xA)
+        pDialog->nX = 0xA;
+    if (pDialog->nY <= 0xA)
+        pDialog->nY = 0xA;
+    pDialog->nWidth = nMaxWidth;
+    pDialog->nHeight = nHeight;
+    for (int j = 0; j < pDialog->nLines; ++j)
+        sub_004B83A0_PlaceLine(pDialog, j);
+}
+
+// 0x004B8580
+extern "C" __declspec(dllexport) int __fastcall sub_004B8580(Obj004B8580* pObj) {
+    if (pObj) {
+        return pObj->nValue44;
+    }
+    return -1;
+}
+
+// 0x004B8590
+D2DialogLineStrc* __fastcall sub_004B8590_GetLine(D2ClientDialogStrc* pDialog, int nIndex)
+{
+    if (pDialog && nIndex >= 0 && nIndex < pDialog->nLines)
+        return &pDialog->pLines[nIndex];
+    return 0;
+}
+
+// 0x004B85B0
+void __fastcall sub_004B85B0_GetRect(D2ClientDialogStrc* pDialog, D2RectStrc* pRect)
+{
+    if (pDialog && pRect)
+    {
+        pRect->nTop = pDialog->nY;
+        pRect->nLeft = pDialog->nX;
+        pRect->nBottom = pDialog->nHeight + pDialog->nY;
+        pRect->nRight = pDialog->nWidth + pDialog->nX;
+    }
+}
+
+// 0x004B85E0
+int __cdecl sub_004B85E0()
+{
+    return gdwGlobal_007C0E5C;
+}
+
+
+// 0x004B85F0
+void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nHeight, int nArg4,
+    int nType, int nFont, int (__cdecl* pfnCallback)(), int bEnabled)
+{
+    int nIndex = pDialog->nLines;
+    D2_ASSERT(nIndex < 10, 0x552);
+    pDialog->nLines = nIndex + 1;
+    pDialog->pLines[nIndex].nHeight = nHeight;
+    pDialog->pLines[nIndex].nX = 0;
+    pDialog->pLines[nIndex].nArg4 = nArg4;
+    pDialog->pLines[nIndex].nFont = nFont;
+    if (nType == 3)
+    {
+        D2_ASSERT(pDialog->nMode != 1, 0x55E);
+    }
+    pDialog->pLines[nIndex].nType = nType;
+    pDialog->pLines[nIndex].pfnCallback = pfnCallback;
+    pDialog->pLines[nIndex].bEnabled = bEnabled;
+    int nLen = sub_00526800(wszText) + 1;
+    if (nLen > 0x77)
+        nLen = 0x77;
+    sub_00526790(pDialog->pLines[nIndex].wszText, wszText, nLen);
+    pDialog->pLines[nIndex].wszText[nLen].wChar = 0;
+    if (bEnabled)
+        pDialog->nEnabled += 1;
+    if (pDialog->bAutoSize)
+        sub_004B8410_LayoutDialog(pDialog);
+    else
+        sub_004B83A0_PlaceLine(pDialog, nIndex);
+    D2RectStrc tRect;
+    tRect.nTop = pDialog->nY;
+    tRect.nLeft = pDialog->nX;
+    tRect.nBottom = pDialog->nY + pDialog->nHeight;
+    tRect.nRight = pDialog->nX + pDialog->nWidth;
+    sub_00467430(&tRect);
+    if (pDialog->nHover == -1 && bEnabled)
+        sub_004B82F0_Select(pDialog, nIndex);
+}
+
+
 
 #include "gen/data/Source/D2Client/UI/dialog.inc"
