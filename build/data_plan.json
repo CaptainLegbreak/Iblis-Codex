@@ -1362,7 +1362,7 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/Missile.cpp": {
-   "bytes": 3508,
+   "bytes": 3464,
    "definitions": 39,
    "externs": [
     "extern \"C\" void __cdecl sub_004D2610(); // 0x004D2610",
@@ -1387,7 +1387,7 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/UnitSnd.cpp": {
-   "bytes": 9320,
+   "bytes": 9300,
    "definitions": 26,
    "externs": [],
    "fn_types": {},
@@ -1396,8 +1396,8 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/PlrSkills.cpp": {
-   "bytes": 808,
-   "definitions": 4,
+   "bytes": 872,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/PlrSkills.inc",
@@ -1405,8 +1405,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_004DEDB0.cpp": {
-   "bytes": 1060,
-   "definitions": 4,
+   "bytes": 1000,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004DEDB0.inc",
@@ -4767,8 +4767,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_004DF6C0.cpp": {
-   "bytes": 8168,
-   "definitions": 6,
+   "bytes": 8228,
+   "definitions": 7,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004DF6C0.inc",
@@ -62658,7 +62658,7 @@
    "file": "Source/D2Client/UNIT/UnitSnd.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern D2LevelSpeechStrc* gapLevelSpeeches[20] = ",
+   "head": "extern D2LevelSpeechStrc* gapLevelSpeeches[15] = ",
    "model": {
     "elem": {
      "fn": false,
@@ -62667,8 +62667,8 @@
      "spell": "D2LevelSpeechStrc*"
     },
     "k": "arr",
-    "n": 20,
-    "size": 80
+    "n": 15,
+    "size": 60
    },
    "name": "gapLevelSpeeches",
    "pointers": [
@@ -62783,50 +62783,10 @@
      "gData_0072A294",
      0,
      "data"
-    ],
-    [
-     60,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     64,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     68,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     72,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     76,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
     ]
    ],
    "region": "data",
-   "size": 80,
+   "size": 60,
    "stars": 1,
    "struct": null,
    "tail": "; // 0x0072A2C4",
@@ -62835,18 +62795,18 @@
   },
   {
    "alias": false,
-   "cname": "gData_0072A314",
+   "cname": "gData_0072A300",
    "declared": false,
    "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
    "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072A314_t gData_0072A314; // 0x0072A314",
-   "head": "extern \"C\" struct d2data_0072A314_t gData_0072A314 = ",
-   "name": "gData_0072A314",
+   "fwd": "extern \"C\" struct d2data_0072A300_t gData_0072A300; // 0x0072A300",
+   "head": "extern \"C\" struct d2data_0072A300_t gData_0072A300 = ",
+   "name": "gData_0072A300",
    "pointers": [
     [
      0,
-     "0x006CC7F0",
+     "0x006CC81C",
      "literal",
      null,
      0,
@@ -62854,7 +62814,7 @@
     ],
     [
      4,
-     "0x006CC7E4",
+     "0x006CC814",
      "literal",
      null,
      0,
@@ -62862,7 +62822,7 @@
     ],
     [
      8,
-     "0x006CC7DC",
+     "0x006CC80C",
      "literal",
      null,
      0,
@@ -62870,7 +62830,7 @@
     ],
     [
      12,
-     "0x006CC7C8",
+     "0x006CC804",
      "literal",
      null,
      0,
@@ -62878,7 +62838,7 @@
     ],
     [
      16,
-     "0x006CC7B4",
+     "0x006CC7F8",
      "literal",
      null,
      0,
@@ -62886,7 +62846,7 @@
     ],
     [
      20,
-     "0x006CC7AC",
+     "0x006CC7F0",
      "literal",
      null,
      0,
@@ -62894,7 +62854,7 @@
     ],
     [
      24,
-     "0x006CC7A4",
+     "0x006CC7E4",
      "literal",
      null,
      0,
@@ -62902,7 +62862,7 @@
     ],
     [
      28,
-     "0x006CC788",
+     "0x006CC7DC",
      "literal",
      null,
      0,
@@ -62910,7 +62870,7 @@
     ],
     [
      32,
-     "0x006CC780",
+     "0x006CC7C8",
      "literal",
      null,
      0,
@@ -62918,6 +62878,46 @@
     ],
     [
      36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
      "0x006CC77C",
      "literal",
      null,
@@ -62926,10 +62926,10 @@
     ]
    ],
    "region": "data",
-   "size": 40,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072A314_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072A314",
-   "va": "0x0072A314"
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0072A300_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x0072A300",
+   "va": "0x0072A300"
   },
   {
    "alias": true,
@@ -68440,10 +68440,10 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Client/UNIT/Missile.cpp",
-   "fill": 98,
+   "fill": 82,
    "form": "declared",
    "fwd": null,
-   "head": "extern CLTHITFUNC gpfnCltHitFuncs[98] = ",
+   "head": "extern CLTHITFUNC gpfnCltHitFuncs[82] = ",
    "model": {
     "elem": {
      "fn": true,
@@ -68452,8 +68452,8 @@
      "spell": "CLTHITFUNC"
     },
     "k": "arr",
-    "n": 98,
-    "size": 392
+    "n": 82,
+    "size": 328
    },
    "name": "gpfnCltHitFuncs",
    "pointers": [
@@ -68832,9 +68832,29 @@
      "MISSILE_CltHitRing",
      0,
      "func"
-    ],
+    ]
+   ],
+   "region": "data",
+   "size": 328,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0072A508",
+   "type": "CLTHITFUNC",
+   "va": "0x0072A508"
+  },
+  {
+   "alias": false,
+   "cname": "gData_0072A650",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/UNIT/PlrSkills.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_0072A650_t gData_0072A650; // 0x0072A650",
+   "head": "extern \"C\" struct d2data_0072A650_t gData_0072A650 = ",
+   "name": "gData_0072A650",
+   "pointers": [
     [
-     328,
+     0,
      "0x006CC81C",
      "literal",
      null,
@@ -68842,7 +68862,7 @@
      "string"
     ],
     [
-     332,
+     4,
      "0x006CC814",
      "literal",
      null,
@@ -68850,7 +68870,7 @@
      "string"
     ],
     [
-     336,
+     8,
      "0x006CC80C",
      "literal",
      null,
@@ -68858,7 +68878,7 @@
      "string"
     ],
     [
-     340,
+     12,
      "0x006CC804",
      "literal",
      null,
@@ -68866,7 +68886,7 @@
      "string"
     ],
     [
-     344,
+     16,
      "0x006CC7F8",
      "literal",
      null,
@@ -68874,7 +68894,7 @@
      "string"
     ],
     [
-     348,
+     20,
      "0x006CC7F0",
      "literal",
      null,
@@ -68882,7 +68902,7 @@
      "string"
     ],
     [
-     352,
+     24,
      "0x006CC7E4",
      "literal",
      null,
@@ -68890,7 +68910,7 @@
      "string"
     ],
     [
-     356,
+     28,
      "0x006CC7DC",
      "literal",
      null,
@@ -68898,7 +68918,7 @@
      "string"
     ],
     [
-     360,
+     32,
      "0x006CC7C8",
      "literal",
      null,
@@ -68906,7 +68926,7 @@
      "string"
     ],
     [
-     364,
+     36,
      "0x006CC7B4",
      "literal",
      null,
@@ -68914,7 +68934,7 @@
      "string"
     ],
     [
-     368,
+     40,
      "0x006CC7AC",
      "literal",
      null,
@@ -68922,7 +68942,7 @@
      "string"
     ],
     [
-     372,
+     44,
      "0x006CC7A4",
      "literal",
      null,
@@ -68930,7 +68950,7 @@
      "string"
     ],
     [
-     376,
+     48,
      "0x006CC788",
      "literal",
      null,
@@ -68938,7 +68958,7 @@
      "string"
     ],
     [
-     380,
+     52,
      "0x006CC780",
      "literal",
      null,
@@ -68946,7 +68966,7 @@
      "string"
     ],
     [
-     384,
+     56,
      "0x006CC77C",
      "literal",
      null,
@@ -68955,12 +68975,10 @@
     ]
    ],
    "region": "data",
-   "size": 392,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0072A508",
-   "type": "CLTHITFUNC",
-   "va": "0x0072A508"
+   "size": 64,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0072A650_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    unsigned char b15[4];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x0072A650",
+   "va": "0x0072A650"
   },
   {
    "alias": false,
@@ -70868,10 +70886,10 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Client/Unknown_004DEDB0.cpp",
-   "fill": 11,
+   "fill": 10,
    "form": "declared",
    "fwd": null,
-   "head": "extern D2LightOffsetsStrc gaLightOffsetsA[11] = ",
+   "head": "extern D2LightOffsetsStrc gaLightOffsetsA[10] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -70917,110 +70935,13 @@
      "size": 48
     },
     "k": "arr",
-    "n": 11,
-    "size": 528
+    "n": 10,
+    "size": 480
    },
    "name": "gaLightOffsetsA",
-   "pointers": [
-    [
-     480,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     484,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     488,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     492,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     496,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     500,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     504,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     508,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     512,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     516,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     520,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     524,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
+   "pointers": [],
    "region": "data",
-   "size": 528,
+   "size": 480,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x0072ABC8",
@@ -71029,18 +70950,18 @@
   },
   {
    "alias": false,
-   "cname": "gData_0072ADD8",
+   "cname": "gData_0072ADA8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004DEDB0.cpp",
+   "file": "Source/D2Client/Unknown_004DF6C0.cpp",
    "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072ADD8_t gData_0072ADD8; // 0x0072ADD8",
-   "head": "extern \"C\" struct d2data_0072ADD8_t gData_0072ADD8 = ",
-   "name": "gData_0072ADD8",
+   "fwd": "extern \"C\" struct d2data_0072ADA8_t gData_0072ADA8; // 0x0072ADA8",
+   "head": "extern \"C\" struct d2data_0072ADA8_t gData_0072ADA8 = ",
+   "name": "gData_0072ADA8",
    "pointers": [
     [
      0,
-     "0x006CC788",
+     "0x006CC81C",
      "literal",
      null,
      0,
@@ -71048,7 +70969,7 @@
     ],
     [
      4,
-     "0x006CC780",
+     "0x006CC814",
      "literal",
      null,
      0,
@@ -71056,6 +70977,102 @@
     ],
     [
      8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
      "0x006CC77C",
      "literal",
      null,
@@ -71064,10 +71081,10 @@
     ]
    ],
    "region": "data",
-   "size": 12,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072ADD8_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072ADD8",
-   "va": "0x0072ADD8"
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0072ADA8_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x0072ADA8",
+   "va": "0x0072ADA8"
   },
   {
    "alias": true,

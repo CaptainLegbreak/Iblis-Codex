@@ -261,7 +261,7 @@ struct D2LevelSpeechStrc
     unsigned short f_2C;
 };
 
-extern D2LevelSpeechStrc* gapLevelSpeeches[20]; // 0x0072A2C4
+extern D2LevelSpeechStrc* gapLevelSpeeches[15]; // 0x0072A2C4
 
 int __fastcall TEXT_TestQuestCondition(int nCondition); // 0x004A4180
 
