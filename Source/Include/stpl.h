@@ -109,9 +109,19 @@ struct TSList
     int m_linkoffset;                                       // 0x00
     TSLink<T> m_terminator;                                 // 0x04
 
+    TSList()
+    {
+        m_linkoffset = 0;
+        InitializeTerminator();
+    }
     ~TSList()
     {
         UnlinkAll();
+    }
+    void InitializeTerminator()
+    {
+        m_terminator.m_prevlink = &m_terminator;
+        m_terminator.m_next = (T*)~(unsigned int)&m_terminator;
     }
     T* Head()
     {
