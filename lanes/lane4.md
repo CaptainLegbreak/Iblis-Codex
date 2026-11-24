@@ -4,11 +4,13 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane4/copies-start-b 2adf5b60 no placeholder change: nine more copies go to the object whose data follows them: 0x70EDD0 to Unknown_0044B400.cpp (gtClientInterface), 0x70EE10 to Game_0044E5A0.cpp (winmain-object below moves it on to WINMAIN.CPP), 0x70F818 to ui.cpp, 0x7222D4 to Hireables.cpp, 0x722318 to panel.cpp, 0x722414 to Unknown_0049B030.cpp, 0x7273A8 to dialog.cpp, 0x727528 to SoundInst.cpp, 0x72756C to editbox.cpp. gpfnConnectPacketHandlers has 26 handlers, not 41. dialog.cpp's data runs from its copy to 0x7274B0 (handlers, the cel name string, gaszDialogCels with its one entry); dialog.cpp's unused emit pointer to DIALOG_LButtonDownMsg goes, since as the file's first initialised global it sat in front of the copy. Copies that start an object with no other data stay put: 0x722298, 0x7274B0, 0x7274EC. Touches Source/D2MCPClient's plan record (gpfnConnectPacketHandlers shrinks); no source there. VERIFIED ecb4f39d87d0 on #326; rebased onto #327 (plan replayed). Not stacked.
+
 - lane4/scmd-data c2b6ce82 no placeholder change: gaPacketTable (0x7114D0) moves from automap.cpp to SCmd.cpp, whose handlers fill it and whose dispatch reads it. The table has 175 entries, not 180; the last 60 B are the copy that starts Unknown_00460420.cpp's data. It renders with SCmd.cpp's own D2PacketTableEntryStrc, so automap.cpp's plan entry loses its 130 handler externs. SCmd.cpp's data starts with its copy at 0x711490 (cut from gszTypeNameAllocRec). The object before it, Unknown_0045B5F0.cpp, owns 0x711430-0x711490: its copy, gnScreenWidth, gnScreenHeight, gnSavedScreenWidth (from text.cpp, inv_0048DD90.cpp, Game.cpp; every includer still builds equal), 8 borrowed bytes at 0x711478 and gszTypeNameAllocRec. Borrowed data -8 B. VERIFIED ee5007665cad on #326; rebased onto #327 (only the plan needed replaying). Not stacked; nothing outside lane 4.
 
 ## Claimed
 
-- Verifying on #326, to post when each passes: lane4/copies-start-b (nine more copies, dialog.cpp's data), lane4/automap-join (automap.cpp takes 0x457420-0x457B00), lane4/chat-head (chat.cpp starts at 0x47A980), lane4/text-data (waypoint panel and text.cpp globals).
+- Verifying on #326, to post when each passes: lane4/automap-join (automap.cpp takes 0x457420-0x457B00), lane4/chat-head (chat.cpp starts at 0x47A980), lane4/text-data (waypoint panel and text.cpp globals).
 
 - The object after automap.cpp, 0x45AD60-0x45B4F0 (lane4/automap-view, stacked on automap-join): its own copy 0x7113EC with 0x711428/0x71142C after it, its bss 0x7A5204-0x7A5214; the automap draw, offset and screen-to-map functions now in automap.cpp, Player.cpp, ui.cpp, View.cpp and CUnit.cpp gather into Unknown_0045AE90.cpp.
 
