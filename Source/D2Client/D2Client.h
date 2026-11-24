@@ -66,7 +66,7 @@ struct Room;
 struct RoomCoordinates;
 struct SMSGHANDLER_PARAMS;
 struct SelectionState;
-struct T0044CB60;
+struct D2SplittedTextStrc;
 struct HIMC__;
 struct T00481720;
 struct Unit;
@@ -851,7 +851,7 @@ void __fastcall sub_004FB0D0(); // 0x004FB0D0
 void __fastcall sub_004FB130_SetActiveState(int bActive); // 0x004FB130
 void __fastcall sub_004FB480_SetActA(unsigned char nAct); // 0x004FB480
 void __fastcall sub_004FCF80_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
-void __fastcall D2Win_10200(T0044CB60* pLines); // 0x005028A0
+void __fastcall D2Win_10200(D2SplittedTextStrc* pLines); // 0x005028A0
 void __fastcall D2SOUND_10034(int nValue); // 0x005148F0
 void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
 void __fastcall D2SOUND_StopSound(D2SoundStrc* pSound); // 0x00515EE0

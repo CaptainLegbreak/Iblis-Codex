@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2MsgRecord.h"
+#include "D2WinSplitText.h"
 
 #define gpMsgRecordChunkHead_007A2760 (gtMsgRecordChunkFirst.pNext)
 #define FILE_ATTRIBUTE_NORMAL 0x00000080
@@ -261,12 +262,6 @@ struct D2TileRectStrc
 struct D2UIVarRecordStrc
 {
     int anCloseKind[0x26];
-};
-
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
 };
 
 struct D2GridCellStrc;

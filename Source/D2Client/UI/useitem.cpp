@@ -109,7 +109,7 @@ static void USEITEM_ToggleUseMode(D2UnitStrc* pItem);
 
 struct Unicode { unsigned short value; };
 
-struct T0044CB60 { Unicode* text; T0044CB60* next; };
+struct D2SplittedTextStrc { Unicode* text; D2SplittedTextStrc* next; };
 
 struct D2CelContextStrc { int frame; int unk04[12]; void* cellFile; int unk38[2]; int direction; int unk44; };
 
@@ -135,7 +135,7 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820
 
 void __fastcall D2Win_10117_DrawText(const Unicode*,int,int,int,int); // 0x00502320
 
-T0044CB60* __fastcall sub_00502970_SplitText(const Unicode*,int*,int); // 0x00502970
+D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode*,int*,int); // 0x00502970
 
 int __fastcall D2Win_10127_SetFont(int); // 0x00502EF0
 
@@ -379,13 +379,13 @@ void __cdecl USEITEM_DrawUseItemPanel()
    else if(MONSTER_GetUseItemMode()==512)textIndex=22747;
    const Unicode* panelText=D2LANG_GetStringFromTblIndex(textIndex);
    int lineCount;
-   T0044CB60* line=sub_00502970_SplitText(panelText,&lineCount,300);
+   D2SplittedTextStrc* line=sub_00502970_SplitText(panelText,&lineCount,300);
    if(line){
     int y=30;
     do {
     int lineWidth=D2Win_10121_GetTextWidth(line->text);
     D2Win_10117_DrawText(line->text,160-lineWidth/2,y,4,0);
-    T0044CB60* next=line->next;
+    D2SplittedTextStrc* next=line->next;
     FOG_Free(line->text,gszUseItemCpp,707,0);
     FOG_Free(line,gszUseItemCpp,708,0);
     y+=20;line=next;

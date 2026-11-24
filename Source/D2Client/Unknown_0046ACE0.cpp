@@ -12,6 +12,7 @@
 #include "D2Drlg.h"
 #include "D2LevelTxt.h"
 #include "D2ClientUiRecords.h"
+#include "D2WinSplitText.h"
 
 #define LEVEL_EFFECT_TICKS 30
 #define THRONE_MISSILE 0x27F
@@ -234,12 +235,6 @@ void __cdecl SCMD_TriggerNearbyMonsterEffect()
 
 struct Unicode;
 
-
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
-};
 
 
 

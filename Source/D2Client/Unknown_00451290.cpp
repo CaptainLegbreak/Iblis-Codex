@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2WinSplitText.h"
 
 void* ghAccelerators;                                                                                    // 0x007A0708
 void* ghLngModule;                                                                                 // 0x007A070C
@@ -34,12 +35,6 @@ struct D2TileRectStrc
 struct D2UIVarRecordStrc
 {
     int anCloseKind[0x26];
-};
-
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
 };
 
 struct D2GridCellStrc;

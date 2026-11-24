@@ -13,6 +13,7 @@
 #include "D2ItemsWorld.h"
 #include "D2MultiTypes.h"
 #include "D2Unicode.h"
+#include "D2WinSplitText.h"
 
 struct D2MsgHandlerEntryStrc;
 
@@ -1120,13 +1121,7 @@ void __stdcall sub_0047B4F0_DrawImeText(int nX, int nY)
     sub_0047B450_DrawBlinkingCaret(nTextY, 4, nWidth2 + nTextX + nWidth - 0x83);
 }
 
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
-};
-
-T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);       // 0x00502970
+D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);       // 0x00502970
 
 // 0x0047B720
 void __cdecl sub_0047B720_DrawChatPanel()
@@ -1189,22 +1184,22 @@ void __cdecl sub_0047B720_DrawChatPanel()
         sub_00526790(wszText, gwszChatLine_007BB638, 0x100);
 
         int nLineCount;
-        T0044CB60* pLines = sub_00502970_SplitText(wszText, &nLineCount, gnScreenWidth - 0x109);
-        T0044CB60* pLine = pLines;
+        D2SplittedTextStrc* pLines = sub_00502970_SplitText(wszText, &nLineCount, gnScreenWidth - 0x109);
+        D2SplittedTextStrc* pLine = pLines;
         int nLine = 0;
         while (pLine)
         {
             nRow = nLine;
             if (nLine < 3)
             {
-                D2Win_10117_DrawText(pLine->pText, 0x83, 15 * nLine + gnScreenHeight - 0x58, 0, 0);
-                nWidth = D2Win_10121_GetTextWidth(pLine->pText);
+                D2Win_10117_DrawText(pLine->wszLine, 0x83, 15 * nLine + gnScreenHeight - 0x58, 0, 0);
+                nWidth = D2Win_10121_GetTextWidth(pLine->wszLine);
             }
 
-            T0044CB60* pNext = pLine->pNext;
+            D2SplittedTextStrc* pNext = pLine->pNextLine;
             if (!pNext && gbChatInputOpen && gbImeOpen)
             {
-                sub_0047B4F0_DrawImeText(D2Win_10121_GetTextWidth(pLine->pText) + 0x83, 15 * nLine + gnScreenHeight - 0x58);
+                sub_0047B4F0_DrawImeText(D2Win_10121_GetTextWidth(pLine->wszLine) + 0x83, 15 * nLine + gnScreenHeight - 0x58);
             }
 
             nLine += 1;
@@ -1675,7 +1670,7 @@ void __fastcall sub_004787B0_SendStrings(const unsigned char* pData);           
 
 unsigned int __fastcall D2Win_10128(unsigned char nChar);                                                   // 0x00502550
 
-T0044CB60* __fastcall sub_00502970_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970
+D2SplittedTextStrc* __fastcall sub_00502970_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970
 
 extern int gbNoPickup;                                                                             // 0x007A6A90
 
@@ -2161,12 +2156,12 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
             break;
         const int nOldFont = D2Win_10127_SetFont(0xD);
         unsigned int nLines;
-        T0044CB60* pLines = sub_00502970_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
+        D2SplittedTextStrc* pLines = sub_00502970_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
         int nWidth = 0;
-        for (T0044CB60* pLine = pLines; pLine; )
+        for (D2SplittedTextStrc* pLine = pLines; pLine; )
         {
-            T0044CB60* pNext = pLine->pNext;
-            nWidth = D2Win_10121_GetTextWidth(pLine->pText);
+            D2SplittedTextStrc* pNext = pLine->pNextLine;
+            nWidth = D2Win_10121_GetTextWidth(pLine->wszLine);
             pLine = pNext;
         }
 // build: symbol ?D2Win_10200@* 0x005028A0
@@ -2176,10 +2171,10 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
             gwszChatLine_007BB638[nLength].wChar = pMsg->wParam;
             pLines = sub_00502970_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
             nWidth = 0;
-            for (T0044CB60* pLine = pLines; pLine; )
+            for (D2SplittedTextStrc* pLine = pLines; pLine; )
             {
-                T0044CB60* pNext = pLine->pNext;
-                nWidth = D2Win_10121_GetTextWidth(pLine->pText);
+                D2SplittedTextStrc* pNext = pLine->pNextLine;
+                nWidth = D2Win_10121_GetTextWidth(pLine->wszLine);
                 pLine = pNext;
             }
             D2Win_10200(pLines);

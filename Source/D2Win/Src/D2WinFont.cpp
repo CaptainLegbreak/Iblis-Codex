@@ -14,6 +14,7 @@
 #include "D2ClientTypes.h"
 
 #include "D2CelContext.h"
+#include "D2WinSplitText.h"
 
 struct D2CelFileStrc;
 
@@ -97,7 +98,7 @@ struct D2CharStrc;
 
 struct D2FontCacheStrc;
 
-struct T0044CB60;
+struct D2SplittedTextStrc;
 
 struct D2CelContextStrc;
 
@@ -113,19 +114,7 @@ void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, un
 
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift); // 0x004F64B0
 
-struct T0044CB60
-{
-    void* pText;
-    T0044CB60* pNext;
-};
-
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
-
-struct D2SplittedTextStrc
-{
-    Unicode* wszLine;
-    D2SplittedTextStrc* pNextLine;
-};
 
 int gnFramedTextAlign;                                                                             // 0x008426D4
 
@@ -1021,12 +1010,12 @@ void __fastcall D2Win_10120(const Unicode* text,int x,int y,int color,int center
 }
 
 // 0x005028A0
-void __fastcall D2Win_10200(T0044CB60* pLines)
+void __fastcall D2Win_10200(D2SplittedTextStrc* pLines)
 {
     while (pLines)
     {
-        T0044CB60* pNext = pLines->pNext;
-        FOG_Free(pLines->pText, ".\\Src\\D2WinFont.cpp", 0x579, 0);
+        D2SplittedTextStrc* pNext = pLines->pNextLine;
+        FOG_Free(pLines->wszLine, ".\\Src\\D2WinFont.cpp", 0x579, 0);
         FOG_Free(pLines, ".\\Src\\D2WinFont.cpp", 0x57A, 0);
         pLines = pNext;
     }
