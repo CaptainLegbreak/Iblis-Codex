@@ -22,6 +22,8 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 - WINMAIN.CPP's object, 0x44B440-0x44B8AF (lane4/winmain-object, stacked on copies-start-b): the `.\CORE\WINMAIN.CPP` users sit in it, and its launch data (copy 0x70EE10, gnClientLaunchState, gpszDefaultCaption, gaszLaunchModeNames, gbExitApplication) is read only by it and by WINMAIN's initializers. The Game.cpp, Game_0044B7B0.cpp and Game_0044E5A0.cpp functions inside it join WINMAIN.CPP; Game.cpp's data starts at the copy 0x70EED0. (copies-start-b sends 0x70EE10 to Game_0044E5A0.cpp; this corrects it.)
 
+- Record.cpp's object, 0x451260-0x4519CF (lane4/record-object): the lng loader, record chunk, record file, playback and replay functions read Record.cpp's bss (0x7A070C-0x7A2788) and its gpMsgRecordChunk, whose borrowed copy 0x70F764 starts its data. The functions inside the run filed in ComCallback.cpp (2, D2Multi), Game.cpp (4), ui.cpp (5), CUnit.cpp (1) and Unknown_00451290.cpp join Record.cpp.
+
 ## Questions
 
 ## Notes for other lanes
