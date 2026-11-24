@@ -1060,10 +1060,7 @@ void __fastcall ACT2Q6_SendTombIdToClient(D2GameStrc* pGame, D2UnitStrc* pUnit)
     D2GAME_SendPacket0x50_6FC3F440(pClient, &packet50);
 }
 
-static int gnArcaneThingObjectIds[] =                                                               // 0x00738FAC
-{
-    313, 312, 308, 310, 311, 309, 307
-};
+extern int gnArcaneThingObjectIds[]; // 0x00738FAC
 
 // 0x0059D720
 int __fastcall ACT2Q6_GetTombArcaneThingObjectId(D2QuestDataStrc* pQuestData)
@@ -1761,4 +1758,3 @@ int __fastcall ACT2Q6_UnitIterate_SetLeaveTownFlag(D2GameStrc* pGame, D2UnitStrc
     return 0;
 }
 
-#include "gen/data/Source/D2Game/Quests/a2q6.inc"

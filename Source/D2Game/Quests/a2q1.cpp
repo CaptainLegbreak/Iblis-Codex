@@ -323,10 +323,7 @@ int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int dwGUID); // 0
 
 #define QFLAG_REWARDPENDING 1
 
-static int gnAct2Q1NpcMessageIndices[] =                                                                            // 0x007398FC
-{
-    -1, 0, 1, 2, 3, 4, 0
-};
+extern int gnAct2Q1NpcMessageIndices[]; // 0x007398FC
 
 // 0x00598C40
 void __fastcall ACT2Q1_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
@@ -733,4 +730,3 @@ void __fastcall ACT2Q1_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestDataEx->bRadamentKilled = 0;
 }
 
-#include "gen/data/Source/D2Game/Quests/a2q1.inc"
