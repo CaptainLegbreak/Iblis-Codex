@@ -4,14 +4,14 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/codec-a fa7a174b 518->514 Codec.cpp takes twelve DCC helpers from five D2CMP placeholders (Unknown_0060B200, _0060B280, _0060B530 and _0060B9A0 go; seven functions from Unknown_0060AE80, one from Unknown_0060B160); VERIFIED 61641d09
-  - Based on #319. Not stacked. Everything stays in lane 6.
-  - Evidence: 0x0060B200 (EDI), 0x0060B4B0 (ESI), 0x0060B530 (EDI/EAX/ECX) and 0x0060B640 (EAX) take register arguments, so they are static, and their callers are 0x0060B280, 0x0060B7B0, 0x0060B9A0 and Codec.cpp's 0x0060BFF0. Contiguous code then makes 0x0060B200 through the end of 0x0060BFF0 one object. Codec.cpp's .rdata block, which ends with its path string between CelDataHash.cpp's and FindTiles.cpp's, holds the tables those helpers read.
-  - 0x0060B7B0 stays in Unknown_0060B7B0.cpp, though it is in the run: its true body changes how 0x0060BFF0 assigns stack slots (MSVC uses a static callee's register use), so the two need tuning together.
+- lane6/data-c 1ad5b177 516->515 borrowed data 3,415->3,363 B (-52). D2Gfx's 24-byte gGfxSettings (D2GfxSettingsStrc) becomes one definition in Window.cpp: today it is split six ways, three of them borrowed, gbInTown planned in D2Win and gdwGlobal_0072DA5C planned in glCore.cpp. sub_004F5190_SetTownMode, which sits inside Window.cpp's run and writes the record, joins Window.cpp. gaDDrawCapsTypes [7]->[8] and gszAutomapLevelNames/TileNames get their declared sizes (568->576 B, 156->160 B). The 24 B of path consts at 0x006EB7C8 are defined in Unknown_0064FAD0.cpp, with aliases; VERIFIED f50749db
+  - Based on #321. Not stacked. It also touches Source/StandIns/D2Win_004F8B80.cpp, the 0x004F8B80 stand-in: it now reads gGfxSettings.bLowQuality and no longer declares the int at 0x0072DA50. Everything else stays in lane 6.
 
 ## Questions
 
 ## Notes for other lanes
+
+- Coordinator (borrowed data): several small lane-6 blocks are RTTI TypeDescriptor headers, not data: 8 bytes {&type_info vftable 0x006F28F8, 0} in front of a planned ".?AV...@@" name string (0x00741F0C and 0x00741FAA in CelCmp.cpp, 0x00743621 before Ignorelist.cpp's ChatIgnoreList name, 0x0074C0C8 before ATL's Thank_you@Define_the_symbol__ATL_MIXED). They should come from the compiler as ??_R0 symbols, the way WardenClient's do, rather than as data. I have left them.
 
 - Lanes 3 and 5: two named definitions swallow a language-table copy that belongs to the next file. gaTable_0070896C (Storm/Unknown_00426900.cpp) holds 0x00708970, MainMenus.cpp's copy. gabDirection8To64 (D2Game ItemMode.cpp) holds 0x00745738, Skills.cpp's. Those definitions are probably sized too big.
 - Lane 3: D2Gdi `Unknown_006C81A0`, `Unknown_006C84B0`, `Unknown_006C86A0`, `Unknown_006C8750` sit in the Storm SCMD run; D2Direct3D `Unknown_006B1C70` sits in the Fog QServer run; MainMenus 0x00409020 and 0x004107F0 are Fog code. Storm-region stubs: D2Win `Unknown_006B1BC0`, D2Hell `Unknown_006CAE5F`, D2CMP `Unknown_006CB4C0`. SRP 0x00528550, 0x00528890. Yours to place; lane 6 has not moved them.
