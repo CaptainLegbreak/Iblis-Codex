@@ -4,14 +4,9 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane2/quest-timer d0db7ed2 562->562 D2QuestData.h: the quest timer record (0x14) and the QUESTUPDATE callback type, shared. The record replaces four private copies (Game, MonsterRegion, objrgn, QUESTS), and the typedef replaces 26 private ones with three return types. bool is the type most units use, and the one QUESTS.CPP's `== 1` test builds with; VERIFIED 0d005d6cb202d55d6bf644ef6caf6647ebdb4703
-  - On #310, not stacked. All 46 includers of D2QuestData.h build equal.
-  - Outside lane 2: 27 D2Game files (lane 5). Typedef and private-copy removal; QUESTS.CPP and MonsterRegion gain the include.
-
-- lane2/shared-copies cdb9c9fd 562->562 Shared headers replace eight private record copies whose layout already agrees with the header: D2DataTablesStrc (inv_004886C0), D2GSPacketSrv73 (Missiles), D2GSPacketSrvAA (PlrEval, Unknown_00570420), D2GSPacketSrv5D (a5q3), D2RoomCoordListStrc (Unknown_0054DAC0), D2ObjInitFnStrc (Unknown_0059F440), D2StormArrayAStrc (Storm Unknown_004212F0); VERIFIED 4c77adfc7ff97a0aea2eca2579de942cd8382406
-  - Verified on #309, rebased onto #310. #310 touches none of the 8 units; precheck is equal on #310.
-  - Outside lane 2: lanes 3, 4 and 5 (one include replaces the private copy in each unit).
-  - Found by a sweep of every unit whose private struct shares its name with a shared-header struct (about 230 names). Only these build equal as they are. The rest fail to compile (different field names, or other private records in the unit that clash with the header) or change code (sizeof, or a different layout). Those need work unit by unit.
+- lane2/fog-records c9defc5f 562->562 D2FogTypes.h: the D2Server service status (passed to SetServiceStatus) and the crash handler's minidump request, shared. Each was defined privately with the same text in four units (ErrorManager, ErrorManager_004082E0, Safesock, plus MainMenus or Unknown_00402820); VERIFIED 255cb65f887771557bc73a1af17a11e35d3349c2
+  - Verified on #312, rebased onto #314. #313/#314 touch none of the 5 units; precheck of all 16 includers is equal on #314.
+  - Outside lane 2: Fog (lane 3) and MainMenus (lane 6). Private-copy removal only.
 
 
 ## Questions
