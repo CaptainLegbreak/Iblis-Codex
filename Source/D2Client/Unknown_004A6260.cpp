@@ -72,3 +72,5 @@ void __stdcall TEXT_WheelCaptureMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 void __stdcall TEXT_ButtonCaptureMsg(SMSGHANDLER_PARAMS* pMsg); // 0x004A6350
+
+#include "gen/data/Source/D2Client/Unknown_004A6260.inc"

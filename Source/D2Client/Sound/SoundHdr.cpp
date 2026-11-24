@@ -693,3 +693,5 @@ void __cdecl INV_TickSound()
         Sleep(0);
     }
 }
+
+#include "gen/data/Source/D2Client/Sound/SoundHdr.inc"
