@@ -13,6 +13,7 @@
 #include "D2LevelTxt.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2StatIds.h"
 
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
 
@@ -24,7 +25,6 @@
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
-#define STAT_HITPOINTS 6
 
 struct D2CofDataStrc;
 
@@ -219,9 +219,6 @@ void __stdcall sub_00627150(D2StatListStrc*,int,int,int); // 0x00627150
 
 enum D2C_Y09SummonConstants
 {
-    STAT_LEVEL = 12,
-    STAT_TOHIT = 19,
-    STAT_ARMORCLASS = 31,
     MONLVL_AC = 0,
     MONLVL_TH = 2,
 };
@@ -337,7 +334,6 @@ int __stdcall STATLIST_SetStatValue(D2StatListStrc* pStatList, int nStatId, int 
 
 enum D2C_Q05SkillConstants
 {
-    STAT_UNSENTPARAM1 = 84,
     AISPECIALSTATE_NONE = 0,
 };
 
@@ -922,6 +918,31 @@ void __fastcall SKILLS_ExecuteCurseTargetAi(D2GameStrc* pGame, D2UnitStrc* pUnit
     {
         AITHINK_ExecuteAiFn(pGame, pTarget, AIGENERAL_GetAiControlFromUnitInline(pTarget), AiSpecialStateFromAuraState(pSkillsTxtRecord->wAuraTargetState));
     }
+}
+
+// 0x005C3540
+int __fastcall SKILLS_ApplyResistanceImmunityPenalty(D2UnitStrc* pUnit, int nStatId, int nResist)
+{
+    switch (nStatId)
+    {
+    case STAT_DAMAGERESIST:
+    case STAT_MAGICRESIST:
+    case STAT_FIRERESIST:
+    case STAT_LIGHTRESIST:
+    case STAT_COLDRESIST:
+    case STAT_POISONRESIST:
+        if (nResist > 0 || pUnit && pUnit->dwUnitType == UNIT_PLAYER || MONSTERS_GetHirelingTypeId(pUnit) || STATLIST_GetUnitBaseStat(pUnit, nStatId, 0) < 100)
+        {
+            break;
+        }
+
+        return nResist / 5;
+
+    default:
+        break;
+    }
+
+    return nResist;
 }
 
 // 0x005C35C0
