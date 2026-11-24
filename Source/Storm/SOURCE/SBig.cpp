@@ -11,6 +11,10 @@ inline void* operator new(unsigned int, void* pPlace) throw()
 inline void operator delete(void*, void*) throw()
 {
 }
+inline void operator delete(void* pMemory)
+{
+    SMemFree(pMemory, "delete", -1, 0);
+}
 
 struct BigBuffer
 {
@@ -64,6 +68,10 @@ struct D2StormBigStrc
     ~D2StormBigStrc();                                                                                      // 0x00421D80
 };
 
+int __stdcall sub_004242C0_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, BigStack* pStack); // 0x004242C0
+int __stdcall sub_00424700_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, BigStack* pStack); // 0x00424700
+int __stdcall sub_00424B00_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, BigStack* pStack); // 0x00424B00
+
 // build: symbol ??3@YAXPAX0@Z 0x0040EB30
 // 0x00421E10
 D2StormBigStrc::D2StormBigStrc()
@@ -74,4 +82,28 @@ D2StormBigStrc::D2StormBigStrc()
 void __stdcall SBigNew(D2StormBigStrc** ppBig)
 {
     *ppBig = new (SMemAlloc(sizeof(D2StormBigStrc), ".\\SOURCE\\SBig.cpp", 0x521, 0)) D2StormBigStrc;
+}
+
+// 0x00424E40
+void __stdcall SBigDel(D2StormBigStrc* pBig)
+{
+    delete pBig;
+}
+
+// 0x00424F10
+int __stdcall SBigMul(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
+{
+    return sub_004242C0_BigOp(pResult, pA, pB, &pResult->tStack);
+}
+
+// 0x00424F70
+int __stdcall SBigRand(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
+{
+    return sub_00424700_BigOp(pResult, pA, pB, &pResult->tStack);
+}
+
+// 0x00424F90
+int __stdcall SBigSquare(D2StormBigStrc* pResult, D2StormBigStrc* pA)
+{
+    return sub_00424B00_BigOp(pResult, pA, &pResult->tStack);
 }
