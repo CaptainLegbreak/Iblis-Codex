@@ -76872,6 +76872,10 @@
     {
      "va": "0x0067C1E0",
      "length": 233
+    },
+    {
+     "va": "0x0067C2D0",
+     "length": 328
     }
    ],
    "flags": [
@@ -77005,30 +77009,6 @@
     {
      "va": "0x0067B850",
      "length": 353
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/PATH/PathWF.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0067C2D0",
-     "length": 328
     }
    ],
    "flags": [
