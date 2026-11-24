@@ -2,6 +2,7 @@
 #include "D2Primitives.h"
 #include "D2StormTypes.h"
 #include "D2ClientParty.h"
+#include "D2WinSplitText.h"
 
 struct D2PartyRowStrc;
 struct D2PacketRecord21Strc;
@@ -276,12 +277,6 @@ struct D2ClientServiceStrc
     void (__fastcall* pfnFree)(void* pData, int nSize);
     int (__fastcall* pfnFind)(char* szName, int* pArg, void** ppData, int* pSize);
     void (__fastcall* pfnCall)(const char* szName, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
-};
-
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
 };
 
 struct D2ChatMessageStrc

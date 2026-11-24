@@ -525,10 +525,10 @@ void __stdcall TEXT_LoadQuestPage(int nPage, int bReset);                       
 static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg);                                          // 0x004A1950
 
 
-struct T0044CB60
+struct D2SplittedTextStrc
 {
-    unsigned short* pText;
-    T0044CB60* pNext;
+    unsigned short* wszLine;
+    D2SplittedTextStrc* pNextLine;
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
@@ -547,7 +547,7 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 int __fastcall D2Win_10121_GetTextWidth(const unsigned short* wszText);                                      // 0x00501820
 void __fastcall sub_00502280_SetPopUpText(const unsigned short* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 void __fastcall D2Win_10117_DrawText(const unsigned short* wszText, int nX, int nY, int nColor, int bCentered);   // 0x00502320
-T0044CB60* __fastcall sub_00502970_SplitText(unsigned short* pText, unsigned int* pLineCount, int nWidth); // 0x00502970
+D2SplittedTextStrc* __fastcall sub_00502970_SplitText(unsigned short* pText, unsigned int* pLineCount, int nWidth); // 0x00502970
 int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);           // 0x0065C360
 extern D2QuestPosStrc gaQuestPos[];                                                                // 0x00723EA8
@@ -1546,7 +1546,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
             if (!gtQuestLog_007BF298.bB3 && gtQuestLog_007BF298.aMsgs[nFound].wszText[0])
             {
                 unsigned int nLines;
-                T0044CB60* pLine = sub_00502970_SplitText(gtQuestLog_007BF298.aMsgs[nFound].wszText, &nLines, 0x10E);
+                D2SplittedTextStrc* pLine = sub_00502970_SplitText(gtQuestLog_007BF298.aMsgs[nFound].wszText, &nLines, 0x10E);
                 if (pLine)
                 {
                     int nLine = 0;
@@ -1554,9 +1554,9 @@ void __cdecl sub_004A34F0_DrawQuestPage()
                     {
 // build: symbol ?gnQuestTextTop@* 0x00724210
 // build: symbol ?gnQuestTextLeft@* 0x00724214
-                        D2Win_10117_DrawText(pLine->pText, gnPanelOffsetX + gnQuestTextLeft, nLine * 0x14 - gnPanelOffsetY + gnQuestTextTop, 0, 0);
-                        T0044CB60* pNext = pLine->pNext;
-                        FOG_Free(pLine->pText, ".\\UI\\QuestLog.cpp", 0x8D1, 0);
+                        D2Win_10117_DrawText(pLine->wszLine, gnPanelOffsetX + gnQuestTextLeft, nLine * 0x14 - gnPanelOffsetY + gnQuestTextTop, 0, 0);
+                        D2SplittedTextStrc* pNext = pLine->pNextLine;
+                        FOG_Free(pLine->wszLine, ".\\UI\\QuestLog.cpp", 0x8D1, 0);
                         FOG_Free(pLine, ".\\UI\\QuestLog.cpp", 0x8D2, 0);
                         ++nLine;
                         pLine = pNext;

@@ -1,6 +1,7 @@
 #include "D2Win.h"
 #include "D2CelContext.h"
 #include "D2WinTypes.h"
+#include "D2WinSplitText.h"
 
 struct Unicode;
 struct D2CharStrc;
@@ -49,11 +50,6 @@ extern D2GetCharInfoFn gpfnGetCharInfo; // 0x00841DA0
 extern D2FontCacheStrc gatFontCache[]; // 0x00841DA8
 extern wchar_t gwszColorCode_008426E0[2]; // 0x008426E0
 
-struct D2SplittedTextStrc
-{
-    Unicode* wszLine;
-    D2SplittedTextStrc* pNextLine;
-};
 extern "C" const char gszD2WinFontSourceFile[]; // 0x006DC9FC
 int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 int __fastcall sub_00526D30_IsLineBreak(const Unicode* pText, unsigned int nIndex); // 0x00526D30

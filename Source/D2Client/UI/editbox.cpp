@@ -2,6 +2,7 @@
 #include "D2CelContext.h"
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
+#include "D2WinSplitText.h"
 
 struct Unicode;
 struct D2ButtonStringStrc;
@@ -345,15 +346,9 @@ extern "C" int __cdecl atoi(const char* szString);                              
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
-};
-
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
-T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);
+D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
@@ -413,15 +408,15 @@ void EditBoxImplementation::Slot01()
     }
 
     int nLines;
-    T0044CB60* pLine = sub_00502970_SplitText(pText, &nLines, nTextWidth);
+    D2SplittedTextStrc* pLine = sub_00502970_SplitText(pText, &nLines, nTextWidth);
     int nLine = 0;
     int nChars = 0;
     int bDone = 0;
     while (pLine)
     {
-        D2Win_10117_DrawText(pLine->pText, nTextX, nTextY + 20 * nLine, 0, 0);
-        const int nLength = sub_00526800(pLine->pText);
-        T0044CB60* pNext = pLine->pNext;
+        D2Win_10117_DrawText(pLine->wszLine, nTextX, nTextY + 20 * nLine, 0, 0);
+        const int nLength = sub_00526800(pLine->wszLine);
+        D2SplittedTextStrc* pNext = pLine->pNextLine;
         nChars += nLength;
         ++nLine;
         if (unk0x36 < nMaxLength && unk0x4A && nChars >= unk0x36 && !bDone)
@@ -432,13 +427,13 @@ void EditBoxImplementation::Slot01()
             {
                 nColumn = 0;
             }
-            if (sub_00526800(pLine->pText))
+            if (sub_00526800(pLine->wszLine))
             {
-                if (sub_00526800(pLine->pText) > 199)
+                if (sub_00526800(pLine->wszLine) > 199)
                 {
                     return;
                 }
-                sub_005267E0(wszBuffer, pLine->pText);
+                sub_005267E0(wszBuffer, pLine->wszLine);
                 wszBuffer[nColumn] = 0;
                 D2Win_10117_DrawText(wszCursor, D2Win_10121_GetTextWidth(wszBuffer) + nTextX, nTextY + 20 * (nLine - 1), 0, 0);
             }
@@ -447,7 +442,7 @@ void EditBoxImplementation::Slot01()
                 D2Win_10117_DrawText(wszCursor, nTextX, nTextY + 20 * (nLine - 1), 0, 0);
             }
         }
-        FOG_Free(pLine->pText, ".\\UI\\editbox.cpp", 0x103, 0);
+        FOG_Free(pLine->wszLine, ".\\UI\\editbox.cpp", 0x103, 0);
         FOG_Free(pLine, ".\\UI\\editbox.cpp", 0x104, 0);
         pLine = pNext;
     }

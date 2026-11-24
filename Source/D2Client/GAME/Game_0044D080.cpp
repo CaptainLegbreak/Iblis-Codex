@@ -7,6 +7,7 @@
 #include "D2MultiTypes.h"
 #include "D2MsgRecord.h"
 #include "D2ClientTimer.h"
+#include "D2WinSplitText.h"
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -343,12 +344,6 @@ int __cdecl sub_00468740(); // 0x00468740
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
-};
-
 #pragma pack(push, 1)
 
 struct D2ClientNotifyStrc;
@@ -357,7 +352,7 @@ struct D2ClientNotifyStrc;
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
-T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
+D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 
 extern unsigned short gawLoadingStrings[]; // 0x0070F384
 
@@ -583,13 +578,13 @@ void __cdecl GAME_DrawLoadingText()
     {
         D2Win_10127_SetFont(2);
         int nLines;
-        T0044CB60* pLines = sub_00502970_SplitText(pText, &nLines, 0x258);
-        T0044CB60* pLine = pLines;
+        D2SplittedTextStrc* pLines = sub_00502970_SplitText(pText, &nLines, 0x258);
+        D2SplittedTextStrc* pLine = pLines;
         for (unsigned int i = 0; i < nLines; ++i)
         {
-            const int nX = (gnAutomapWidth - D2Win_10121_GetTextWidth(pLine->pText)) >> 1;
-            D2Win_10117_DrawText(pLine->pText, nX, 2 * (D2Win_10125() * i) + 0xC8, 0, 0);
-            pLine = pLine->pNext;
+            const int nX = (gnAutomapWidth - D2Win_10121_GetTextWidth(pLine->wszLine)) >> 1;
+            D2Win_10117_DrawText(pLine->wszLine, nX, 2 * (D2Win_10125() * i) + 0xC8, 0, 0);
+            pLine = pLine->pNextLine;
         }
 // build: symbol ?D2Win_10200@* 0x005028A0
         D2Win_10200(pLines);

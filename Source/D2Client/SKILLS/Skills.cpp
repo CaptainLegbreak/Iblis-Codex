@@ -14,6 +14,7 @@
 #include "D2GameTypes.h"
 #include "D2Records.h"
 #include "D2AnimData.h"
+#include "D2WinSplitText.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1324,12 +1325,6 @@ struct D2ClientServiceStrc
     void (__fastcall* pfnFree)(void* pData, int nSize);
     int (__fastcall* pfnFind)(char* szName, int* pArg, void** ppData, int* pSize);
     void (__fastcall* pfnCall)(const char* szName, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
-};
-
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
 };
 
 struct D2ChatMessageStrc
