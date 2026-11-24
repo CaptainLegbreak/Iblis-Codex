@@ -4,9 +4,9 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #316 (round j79). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
+- `main`: #317 (round j80). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
 - Units 963, placeholder files 562.
-- In progress: round j80 = `lane4/options-split-2`, `lane4/keyconfig-split`, `lane3/sbig-exports`.
+- In progress: nothing; next round as branches are posted ready.
 - **Rounds now also check plan `files` entries** (`planfiles.py`): j74's first verify failed because a stale whole entry dropped one lane's externs. The precheck also builds every file whose data plan changed. If you edit a file's plan entry, keep your branch on a recent main.
 - **`lane4/options-split` needs a rebase onto #308:** it conflicts in chat.cpp with #308's gnScreenHeight change. A 94-function move is yours to redo, not mine.
 - **Borrowed data by lane:** [borrowed-data.md](borrowed-data.md), regenerated at #305, lists every block of the 15,691 B still copied from Game.exe, with the file that owns it and how that was decided. Each lane has a section with its leads. Take them after your current branch.
@@ -61,7 +61,7 @@ A function belongs to the lane whose address range or file run it sits in, whate
 - `hdr-4df6c0-2` is in #302, `one-screenheight-r` in #308. Keeping the one private declaration in inv_004886C0.cpp is right; the declaration-count finding is now in Lane 2's notes too.
 - **0x4A4AD0:**
   - **Earlier notes.** I've re-sent the lane-7 package to the user. The earlier attempts' finding: 0x4A4AD0's callees take arguments in registers, so it must share their unit. Then that unit was text_0049D490.cpp; it is text.cpp now, so your choice of text.cpp is right. The earlier attempts built it standalone and never got close.
-  - **Update:** lane 4's `keyconfig-split` (j80) puts the key-config panel 0x4A43E0-0x4A63B0, with its data and globals, in `Unknown_004A43E0.cpp`, and your 0x4A4AD0 work is in it. Continue there once j80 merges.
+  - **Update:** lane 4's `keyconfig-split` (#317) puts the key-config panel 0x4A43E0-0x4A63B0, with its data and globals, in `Unknown_004A43E0.cpp`, and your 0x4A4AD0 work is in it. It is on main: continue there.
   - **Correction, from lane 4's object map:** text.cpp ends around 0x4A15xx. It has path users, its data runs to 0x723768, and its asserts go up to line 5747. **0x4A4AD0 sits in an unnamed object at 0x4A41xx-0x4A61A0** (stat/skill buttons and panel keys; its data runs to 0x724798). We have that object filed inside text.cpp. Its callees are in the same object, so the unit constraint still holds, but the unit is the smaller object, not text.cpp. Build it as that object: with lane 4, split 0x4A41xx-0x4A61A0 out of text.cpp into a placeholder, then try 0x4A4AD0 there with `gnKeyConfigFirstVisible` static. In a smaller unit, 0x4A4500 may survive the static.
   - **Lead on the static.** text_0049A950.cpp still owns 0x4A4110 and 0x4A4780, inside text.cpp's 0x4A40D0-0x4A5270 run. It also defines `gnKeyConfigSelected`, which text.cpp has as its own static (lane 4's note). That's the key-config list's state split across two files. If 0x4A4110/0x4A4780 join text.cpp and the key-config globals are made text.cpp statics together, 0x4A4500 may match with `gnKeyConfigFirstVisible` static. Lane 4 owns text_0049A950.cpp: coordinate there, or do it on your branch and say so.
 Work list, in order of value:
@@ -133,6 +133,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #317 j80: options-split-2 and keyconfig-split (lane 4), sbig-exports (lane 3).
 - #316 j79: questlog (lane 4), seg-a (lane 6), fog-records (lane 2).
 - #315 j78: skills-placeholders (lane 1), sbig-names (lane 3), questlog (lane 4), lang-a-2 (lane 6).
 - #314 j77: unit-init-seed-2 and coord-init (lane 5); Storm conflict resolved by the coordinator.
