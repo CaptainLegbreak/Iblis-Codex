@@ -675,19 +675,19 @@ static int sub_00438030_IsNotListedCode(int nValue)
 int __cdecl CHARSEL_Redraw(); // 0x00439210
 // build: symbol ?MAINMENUS_CreateMultiplayerScreen@* 0x004301A0
 // build: symbol ?gpLaunchRecord@* 0x007795D4
-void __cdecl CHARSEL_UpdateOkEnabled(); // 0x0043E660
-int __stdcall CHARSEL_UseEditText(int nArg); // 0x00441240
-int __stdcall CHARSEL_UseRegistryChannel(int nArg); // 0x004412A0
-int __stdcall CHARSEL_OnChatLine(const Unicode* pText); // 0x004429A0
-void __cdecl CHARSEL_FillGameListControl(); // 0x00442C20
-int __cdecl CHARSEL_GetMaxPlayers(); // 0x00443360
-int __cdecl CHARSEL_GetLevelRange(); // 0x00443390
-int __stdcall CHARSEL_IncrementMaxPlayers(int nArg); // 0x004433C0
-int __stdcall CHARSEL_DecrementMaxPlayers(int nArg); // 0x00443420
-int __stdcall CHARSEL_IncrementLevelRange(int nArg); // 0x00443480
-int __stdcall CHARSEL_DecrementLevelRange(int nArg); // 0x004434E0
-void __cdecl CHARSEL_UpdateJoinButtonState(); // 0x004437E0
-int __stdcall CHARSEL_JoinByName(int nArg); // 0x004439F0
+void __cdecl CHATDLG_UpdateOkEnabled(); // 0x0043E660
+int __stdcall CHATDLG_UseEditText(int nArg); // 0x00441240
+int __stdcall CHATDLG_UseRegistryChannel(int nArg); // 0x004412A0
+int __stdcall CHATDLG_OnChatLine(const Unicode* pText); // 0x004429A0
+void __cdecl CHATDLG_FillGameListControl(); // 0x00442C20
+int __cdecl CHATDLG_GetMaxPlayers(); // 0x00443360
+int __cdecl CHATDLG_GetLevelRange(); // 0x00443390
+int __stdcall CHATDLG_IncrementMaxPlayers(int nArg); // 0x004433C0
+int __stdcall CHATDLG_DecrementMaxPlayers(int nArg); // 0x00443420
+int __stdcall CHATDLG_IncrementLevelRange(int nArg); // 0x00443480
+int __stdcall CHATDLG_DecrementLevelRange(int nArg); // 0x004434E0
+void __cdecl CHATDLG_UpdateJoinButtonState(); // 0x004437E0
+int __stdcall CHATDLG_JoinByName(int nArg); // 0x004439F0
 int __stdcall CHARSEL_SubmitProfile(int nArg); // 0x00443F80
 int __stdcall CHARSEL_SendChatLine(int nArg); // 0x00446890
 // 0x0043A800

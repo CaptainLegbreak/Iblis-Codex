@@ -111,7 +111,7 @@ D2WinControlStrc* gpHelpBckgImage; // 0x00798CBC
 
 int gnValue_00798CC0; // 0x00798CC0
 
-// build: symbol ?CHARSEL_ResetLaunchState@* 0x0043F8C0
+// build: symbol ?CHATDLG_ResetLaunchState@* 0x0043F8C0
 // build: symbol ?GAME_IsLaunchExpansion@* 0x0043DB10
 // build: symbol ?gszSpace@* 0x006FFC44
 
@@ -135,7 +135,7 @@ static inline char* sub_00444E70_NextString(char* p)
 }
 
 // build: symbol ?gpGameList@* 0x00798BC0
-// build: symbol ?CHARSEL_FillGameListControl@* 0x00442C20
+// build: symbol ?CHATDLG_FillGameListControl@* 0x00442C20
 void __cdecl sub_00444E70_FillGameList(); // 0x00444E70
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -168,6 +168,6 @@ void __cdecl CHARSEL_RequestGameList()
     }
 }
 
-// build: symbol ?CHARSEL_UpdateJoinButtonState@* 0x004437E0
+// build: symbol ?CHATDLG_UpdateJoinButtonState@* 0x004437E0
 
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0

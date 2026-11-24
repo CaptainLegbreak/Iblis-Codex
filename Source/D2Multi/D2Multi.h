@@ -84,7 +84,7 @@ extern int gnValue_00798CCC; // 0x00798CCC
 extern unsigned short gwRequestId; // 0x0070CD60
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl GAME_IsLaunchExpansion(); // 0x0043DB10
-int __cdecl CHARSEL_GetConnectStatus(); // 0x0043DC30
+int __cdecl CHATDLG_GetConnectStatus(); // 0x0043DC30
 int __cdecl CHARSEL_CancelGameCreate(); // 0x0043F850
 int __cdecl sub_00449B30_QueryAddress(); // 0x00449B30
 int __cdecl sub_00449B70_Receive(); // 0x00449B70
@@ -119,11 +119,11 @@ unsigned short __stdcall FOG_Decode14BitsFromString(const unsigned char* pData);
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
 void __cdecl sub_0043D990(); // 0x0043D990
 int __cdecl CHATDLG_PostClearMessage(); // 0x0043E570
-void __cdecl CHARSEL_UpdateOkEnabled(); // 0x0043E660
-void __cdecl CHARSEL_DestroyPopupControls(); // 0x0043EA20
-void __cdecl CHARSEL_ResetLaunchState(); // 0x0043F8C0
-void __cdecl CHARSEL_FillGameListControl(); // 0x00442C20
-void __cdecl CHARSEL_UpdateJoinButtonState(); // 0x004437E0
+void __cdecl CHATDLG_UpdateOkEnabled(); // 0x0043E660
+void __cdecl CHATDLG_DestroyPopupControls(); // 0x0043EA20
+void __cdecl CHATDLG_ResetLaunchState(); // 0x0043F8C0
+void __cdecl CHATDLG_FillGameListControl(); // 0x00442C20
+void __cdecl CHATDLG_UpdateJoinButtonState(); // 0x004437E0
 void __cdecl sub_00444020(); // 0x00444020
 void __cdecl CHARSEL_RequestGameList(); // 0x00445020
 void __cdecl COMCALLBACK_RefreshChannelList(); // 0x00447BB0

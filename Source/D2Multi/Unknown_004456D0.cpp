@@ -127,8 +127,8 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
             gpLaunchFuncs->pfn0x34(tLogin.szText0x00, tLogin.szText0x10, szDesc, nFlags);
             CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), 0);
             sub_004FA590_RunLoop(CHATDLG_CheckStartAdvResult);
-// build: symbol ?CHARSEL_DestroyPopupControls@* 0x0043EA20
-            CHARSEL_DestroyPopupControls();
+// build: symbol ?CHATDLG_DestroyPopupControls@* 0x0043EA20
+            CHATDLG_DestroyPopupControls();
 
             D2LaunchResultStrc tResult;
             gpLaunchFuncs->pfn0x8C((int*)&tResult);
@@ -169,7 +169,7 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
         gdwGlobal_00798CC4 = 0;
         CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), sub_00443870_SetCancel);
         sub_004FA590_RunLoop(sub_00443880_PollMcp);
-        CHARSEL_DestroyPopupControls();
+        CHATDLG_DestroyPopupControls();
         if (gdwGlobal_00798CC4)
 // build: symbol ?CHARSEL_CancelGameCreate@* 0x0043F850
             CHARSEL_CancelGameCreate();

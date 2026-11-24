@@ -615,9 +615,9 @@ int __stdcall MAINMENUS_OnTwoEditChange(int nArg);                              
 
 void __cdecl CHARSEL_CreateBaseScreen();                                                                                // 0x0043C4F0
 
-void __cdecl CHARSEL_DestroyDialogControls();                                                                // 0x0043DB20
+void __cdecl CHATDLG_DestroyDialogControls();                                                                // 0x0043DB20
 
-void __cdecl CHARSEL_DestroyPopupControls();                                                                           // 0x0043EA20
+void __cdecl CHATDLG_DestroyPopupControls();                                                                           // 0x0043EA20
 
 void __cdecl CHATDLG_DestroyCreateControls();                                                                                // 0x00443220
 
