@@ -24,6 +24,23 @@ call stays the coordinator's. This section is replaced at each check.
 
 ## Status
 
+- 2026-11-24 13:20 PT: **Ready: `laneless/files-joins-1` 9f7bb9643**, stacked on `laneless/objmap-joins-5` (8d735419d),
+  main #361. 6 more placeholders -> 0. Lane 10's file plans (lanes/names/files-*.tsv), strong and medium
+  rows, tried as joins. Full build: 0 not all equal; Game.exe identical (VERIFIED tree 787bdb413f7bd026d7f6745a9278da9a5b54658f); borrowed data
+  898 B (main's).
+  - **From lane 10's plans:**
+    - Game.cpp <- Storm/Unknown_006CA9C0. Lane 10: an end-of-.text static finalizer that belongs to Game.cpp,
+      though it's filed under Storm. Lane 4.
+    - Quests/a5q2.cpp <- Unknown_00588830; Quests/a1q3.cpp <- Unknown_00592090. Lane 5.
+    - SRP/SRP.cpp <- Bnclient/Unknown_00528010 (lane 10's call, across modules). Lane 3.
+  - **From the object map, carrying their planned data** (the join tool now moves a placeholder's definitions
+    and its data-plan entry into the owner's):
+    - D2Glide Unknown_0050BD30 <- Unknown_0050C890. Lane 9.
+    - DATATBLS/OverlayTbls.cpp <- Unknown_00664530. Lane 8.
+  - **Dropped:** PlrSave2.cpp <- Unknown_0056B180. It builds equal but raises borrowed data by 60 B (the
+    moved data isn't placed). Lane 5: its data needs placing by hand.
+  - Of lane 10's other strong and medium rows: 17 carry data (3 of those joined, with the object-map ones);
+    the rest fail on compile or equality (lanes/tools/objmap/join-log.txt).
 - 2026-11-24 12:09 PT: **Ready: `laneless/objmap-joins-5` 8d735419d**, on main #361 (ef7b4a195). It
   replaces objmap-joins-4 and the earlier ones. 20 placeholders -> 0. Each commit puts one placeholder file
   into the file the object map names as its clear owner, and every function of the joined unit builds equal.

@@ -22,7 +22,33 @@ if P not in U or F not in U: print('FAILED unit missing'); sys.exit(1)
 if U[P].get('ltcg') or U[F].get('ltcg'): print('FAILED ltcg unit'); sys.exit(1)
 fp = list(U[P].get('flags') or default_flags(P)); ff = list(U[F].get('flags') or default_flags(F))
 FLAGSETS = [ff] if fp == ff else [ff, fp]
-if P in load_json('data_plan.json').get('files', {}): print('FAILED placeholder has planned data'); sys.exit(1)
+DP_PATH = 'build/data_plan.json'
+DP_TEXT = open(DP_PATH).read(); DP = json.loads(DP_TEXT)
+P_DATA = DP.get('files', {}).get(P)
+P_INC = P_DATA.get('include') if P_DATA else None
+F_DATA = DP.get('files', {}).get(F)
+
+
+def render_gen():
+    import gendata
+    gendata.render_all(S['image'])
+
+
+def plan_with_data():
+    """The placeholder's planned data moves to the owner: its definitions, and its files entry merged into the owner's."""
+    d = json.loads(DP_TEXT)
+    for x in d['definitions']:
+        if x.get('file') == P: x['file'] = F
+    pe_ = d['files'].pop(P)
+    if F in d['files']:
+        fe = d['files'][F]
+        fe['bytes'] += pe_['bytes']; fe['definitions'] += pe_['definitions']
+        fe['externs'] = fe['externs'] + [e for e in pe_['externs'] if e not in fe['externs']]
+        fe.setdefault('fn_types', {}).update(pe_.get('fn_types', {}))
+    else:
+        fe = dict(pe_); fe['include'] = 'gen/data/' + os.path.splitext(F)[0] + '.inc'
+        d['files'][F] = fe
+    return d, fe['include']
 EQ = ('RAW_EQUAL', 'RELOCATION_RESOLVED_EQUAL')
 pt = open(P, encoding='latin-1').read(); ft = open(F, encoding='latin-1').read()
 nl = '\r\n' if '\r\n' in ft else '\n'
@@ -61,16 +87,18 @@ pf = top_level_functions(pt)
 if not pf: print('FAILED no functions found in placeholder'); sys.exit(1)
 pre = pt[:pf[0][0]]
 p_includes = [l.strip() for l in pre.split('\n') if l.startswith('#include') and 'gen/data/' not in l]
+P_INC_LINE = '#include "%s"' % P_INC if P_INC else None
 f_includes = {l.strip() for l in ft_n.split('\n') if l.startswith('#include')}
 NEW_INCLUDES = [l for l in p_includes if l not in f_includes]
-pre = '\n'.join(l for l in pre.split('\n') if not l.startswith('#include')) + '\n'
+pre = '\n'.join(l for l in pre.split('\n') if not l.startswith('#include') or ('gen/data/' in l and l.strip() != P_INC_LINE)) + '\n'
 # anything between the placeholder's functions that isn't a function (declarations, statics, data) rides with pre
 mid = ''
 for (a, b, _, _), (c, _, _, _) in zip(pf, pf[1:]):
     seg = pt[b:c]
     if seg.strip(): mid += seg.strip('\n') + '\n'
 tail = pt[pf[-1][1]:]
-if re.search(r'#include', mid + tail): print('FAILED include after code'); sys.exit(1)
+mid = '\n'.join(l for l in mid.split('\n') if l.strip() != P_INC_LINE); tail = '\n'.join(l for l in tail.split('\n') if l.strip() != P_INC_LINE)
+if re.search(r'(?m)^#include (?!"gen/data/)', mid + tail): print('FAILED include after code'); sys.exit(1)
 pre = pre + mid + tail.strip('\n') + '\n'
 fdefs = {n for _, _, n, v in top_level_functions(ft_n)}
 owned = {int(f['va'], 16) for f in U[P]['functions']}
@@ -187,6 +215,28 @@ def tidy_pre(lines):
     return t.split('\n')
 
 
+NEW_PLAN = None
+if P_DATA:
+    NEW_PLAN, F_INC = plan_with_data()
+    open(DP_PATH, 'w').write(json.dumps(NEW_PLAN, indent=1) + '\n')
+    render_gen()
+    if not F_DATA:
+        # the owner had no planned data: its include goes where the placeholder's first moved function lands
+        moves[0] = (moves[0][0], '#include "%s"\n' % F_INC + moves[0][1])
+
+
+def restore_plan():
+    if P_DATA:
+        open(DP_PATH, 'w').write(DP_TEXT); render_gen()
+
+
+import atexit
+atexit.register(lambda: None)
+_exit = sys.exit
+def _fail_exit(c=0):
+    if c: restore_plan()
+    _exit(c)
+sys.exit = _fail_exit
 CUR_FLAGS = [ff]
 pre_lines = tidy_pre(pre.split('\n'))
 for rnd in range(12):

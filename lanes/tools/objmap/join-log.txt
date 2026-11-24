@@ -132,3 +132,100 @@ Source/Fog/Unknown_00404AB0.cpp -> Source/Fog/Unknown_004049A0.cpp: FAILED not e
 Source/D2BNClient/Unknown_00518B60.cpp -> Source/D2BNClient/Unknown_00518B90.cpp: FAILED owned functions without a body found: 0x00518BD0
 Source/D2Hell/Unknown_00517623.cpp -> Source/D2Hell/Unknown_0051763C.cpp: FAILED compile: C3861 'memset': identifier not found; C2600 'D2ListStrc::D2ListStrc' : cannot define a compiler-generated special member function (must be declared in the class first); C2065 'linkOffset' : undeclared identifier
 Source/D2Launch/Unknown_0042E5D0.cpp -> Source/D2Launch/Unknown_0042E5A0.cpp: FAILED compile: C2039 'toUpper' : is not a member of 'Unicode'; C2270 'toUpper' : modifiers not allowed on nonmember functions; C2065 'wChar' : undeclared identifier
+Source/D2Client/Unknown_0045BF00.cpp -> Source/D2Hell/SRC/Archive.cpp: FAILED compile: unit.cpp | unit.cpp(2) : fatal error C1083: Cannot open include file: 'D2Client.h': No such file or directory | cl : Command line warning D9025 : overriding '/O2' with '/O1' | 
+Source/D2Client/Unknown_0044FB50.cpp -> Source/D2Client/GAME/Game.cpp: FAILED compile: C2600 'D2StormListAStrc::~D2StormListAStrc' : cannot define a compiler-generated special member function (must be declared in the class first); C2660 'operator new' : function does not take 2 arguments; C2264 'D2StormListAStrc::~D2StormListAStrc' : error in function definition or declaration; function not called
+Source/D2Client/Unknown_0044FD80.cpp -> Source/D2Client/GAME/Game.cpp: FAILED compile: C2011 'D2StormLinkStrc' : 'struct' type redefinition; C2079 'D2StormListAStrc::m_terminator' uses undefined struct 'D2StormLinkStrc'; C2446 ':' : no conversion from 'int *' to 'D2StormLinkStrc *'
+Source/D2Client/Unknown_00450040.cpp -> Source/D2Client/GAME/Game.cpp: FAILED compile: C2039 'sub_00450040_Reserve' : is not a member of 'D2StormListArrayStrc'; C2065 'm_count' : undeclared identifier; C2065 'm_alloc' : undeclared identifier
+Source/D2Client/Unknown_00450210.cpp -> Source/D2Client/GAME/Game.cpp: FAILED compile: C2011 'D2StormLinkStrc' : 'struct' type redefinition; C2079 'D2StormListAStrc::m_terminator' uses undefined struct 'D2StormLinkStrc'; C2446 ':' : no conversion from 'int *' to 'D2StormLinkStrc *'
+Source/D2Client/Unknown_00450D90.cpp -> Source/D2Client/GAME/Game.cpp: FAILED compile: C2011 'D2StormLinkStrc' : 'struct' type redefinition; C2079 'D2StormListAStrc::m_terminator' uses undefined struct 'D2StormLinkStrc'; C2446 ':' : no conversion from 'int *' to 'D2StormLinkStrc *'
+Source/D2Client/Unknown_0047A980.cpp -> Source/D2Client/GAME/Roster.cpp: FAILED placeholder has planned data
+Source/D2Client/Unknown_0047C420.cpp -> Source/D2Client/UI/chat.cpp: FAILED placeholder has planned data
+Source/D2Client/Unknown_004BABF0.cpp -> Source/D2Client/UI/editbox.cpp: FAILED placeholder has planned data
+Source/D2Client/Unknown_004BBE10.cpp -> Source/D2Client/UI/editbox.cpp: FAILED placeholder has planned data
+Source/D2Client/Unknown_004BC1B0_004BE770.cpp -> Source/D2Client/Unknown_004BC1B0.cpp: FAILED compile: C2146 syntax error : missing ';' before identifier 'tBar'; C4430 missing type specifier - int assumed. Note: C++ does not support default-int; C4430 missing type specifier - int assumed. Note: C++ does not support default-int
+Source/D2Client/Unknown_004C9D50.cpp -> Source/D2Client/UNIT/UnitSnd.cpp: FAILED placeholder has planned data
+Source/D2Client/Unknown_004E4670.cpp -> Source/D2Client/UI/SkillDesc.cpp: FAILED not equal: 0x004E4670:MULTI_FORM_REJECTED
+Source/D2Client/Unknown_004E6E30.cpp -> Source/D2Client/UI/SkillDesc.cpp: FAILED compile: C3861 'sub_004E6E30_GetSkillDescAltStr': identifier not found; C2365 'sub_004E6E30_GetSkillDescAltStr' : redefinition; previous definition was 'formerly unknown identifier'; C2365 'sub_004E6E30_GetSkillDescAltStr' : redefinition; previous definition was 'formerly unknown identifier'
+Source/D2Client/Unknown_004E89A0.cpp -> Source/D2Client/UI/SkillDesc.cpp: FAILED placeholder has planned data
+Source/D2Client/Unknown_004EDCA0.cpp -> Source/D2Client/UI/SkillDesc.cpp: FAILED compile: C2664 'SKILLDESC_AppendLabelValue' : cannot convert parameter 1 from 'Unicode *' to 'unsigned short'; C2664 'SKILLDESC_AppendLabelValueLabel' : cannot convert parameter 1 from 'Unicode *' to 'unsigned short'; C3861 'SkillParam_0D0': identifier not found
+Source/D2Client/Unknown_004EDDD0.cpp -> Source/D2Client/UI/SkillDesc.cpp: FAILED compile: C3861 'sub_004E7430_FormatDecimal': identifier not found; C3861 'sub_004E73E0_FormatValue': identifier not found; C3861 'ApplyPercent_2E0': identifier not found
+Source/D2Client/Unknown_006CB3E0.cpp -> Source/D2Client/GAME/Game.cpp: FAILED not equal: 0x006CB3E0:MISMATCH (also tried the placeholder's flags)
+Source/D2Direct3D/Unknown_006B7530.cpp -> Source/D2Direct3D/Unknown_006B7250.cpp: FAILED placeholder has planned data
+Source/D2CMP/Unknown_006043B0.cpp -> Source/D2CMP/SRC/CelCmp.cpp: FAILED owned functions without a body found: 0x006046E0
+Source/D2DDraw/Unknown_00510130.cpp -> Source/D2DDraw/Src/ddCore.cpp: FAILED compile: C2664 'BinkDDSurfaceType' : cannot convert parameter 1 from 'D2DDrawSurfaceClass *' to 'D2DDrawSurfaceStrc *'
+Source/Storm/Unknown_0041D200.cpp -> Source/Storm/SOURCE/SMEM.CPP: FAILED compile: \home\claude\wtj\Source\Storm\D2SFileTypes.h(344) : error C2228: left of '.Next' must have class/struct/union |         type is 'int' | Z:\home\claude\wtj\Source\Storm\D2SFileTypes.h(350) : error C2079: 'D2Storm4167B0Strc::tLink' uses undefined struct 'D2StormLinkStrc' | Z:\home\claude\wtj\Source\Storm\D2SFileTypes.h(357) : error C2079: 'D2Storm4168F0Strc::tLink' uses undefined struct 'D2StormLinkStrc' | 
+Source/Storm/Unknown_0041EBC0.cpp -> Source/Storm/SOURCE/SCOMP.CPP: FAILED placeholder has planned data
+Source/Storm/Unknown_00422FC0.cpp -> Source/Storm/SOURCE/SBig.cpp: FAILED compile: C2039 'm_offset' : is not a member of 'D2StormArrayAStrc'
+Source/Storm/Unknown_00423100.cpp -> Source/Storm/SOURCE/SBig.cpp: FAILED not equal: 0x00423100:MULTI_FORM_REJECTED (also tried the placeholder's flags)
+Source/Storm/Unknown_00423D80.cpp -> Source/Storm/SOURCE/SBig.cpp: FAILED include after code
+Source/Storm/Unknown_00423DC0.cpp -> Source/Storm/SOURCE/SBig.cpp: FAILED compile: C3861 'SetZero': identifier not found; C3861 'Shl': identifier not found; C3861 'Shl': identifier not found
+Source/Storm/Unknown_00424180.cpp -> Source/Storm/SOURCE/SBig.cpp: FAILED include after code
+Source/Storm/Unknown_004242C0.cpp -> Source/Storm/SOURCE/SBig.cpp: FAILED compile: C2039 'sub_00420DB0_InRange' : is not a member of 'BigBuffer'; C2270 'sub_00420DB0_InRange' : modifiers not allowed on nonmember functions; C2065 'm_start' : undeclared identifier
+Source/Storm/Unknown_00424700.cpp -> Source/Storm/SOURCE/SBig.cpp: FAILED placeholder has planned data
+Source/Storm/Unknown_00424B00.cpp -> Source/Storm/SOURCE/SBig.cpp: FAILED compile: C2039 'SetCountInline' : is not a member of 'BigBuffer'; C2039 'GetInline' : is not a member of 'BigBuffer'; C2039 'AtInline' : is not a member of 'BigBuffer'
+Source/Storm/Unknown_00425150.cpp -> Source/Storm/SOURCE/SBig.cpp: FAILED compile: C2065 'pStack' : undeclared identifier; C2227 left of '->pRecords' must point to class/struct/union/generic type; C2227 left of '->nUsed' must point to class/struct/union/generic type
+Source/Storm/Unknown_006CA9C0.cpp -> Source/D2Client/GAME/Game.cpp: JOINED 1 functions, 1 copies dropped, 3 declarations kept
+Traceback (most recent call last):
+  File "<string>", line 4, in <module>
+    b=R['Source/Storm/Unknown_006CA9C0.cpp']['best'][0]; print(b['evidence'].replace('#','<addr>'))
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+Source/Storm/Unknown_006CAFC0.cpp -> Source/D2CMP/SRC/CelCmp.cpp: FAILED compile: C2628 'TSHashTable<CELLIST,HASHKEY_NONE>' followed by 'char' is illegal (did you forget a ';'?); C2146 syntax error : missing ';' before identifier 'unk0x04'; C4430 missing type specifier - int assumed. Note: C++ does not support default-int
+Source/D2Multi/Unknown_00444020.cpp -> Source/D2Multi/Src/ChatDlg.cpp: FAILED placeholder has planned data
+Source/D2Multi/Unknown_004450D0.cpp -> Source/D2Multi/Src/ChatDlg.cpp: FAILED placeholder has planned data
+Source/D2Multi/Unknown_004456D0.cpp -> Source/D2Multi/Src/ChatDlg.cpp: FAILED not equal: 0x004456D0:MISMATCH
+Source/Fog/Unknown_00401220.cpp -> Source/Fog/Src/ErrorManager.cpp: FAILED compile: C2761 'bool crashy::Report::sub_00401220_AddFile(const char *,bool)' : member function redeclaration not allowed
+Source/Fog/Unknown_00402280.cpp -> Source/Fog/Src/ErrorManager.cpp: FAILED ltcg unit
+Source/Fog/Unknown_00402380.cpp -> Source/Fog/Src/ErrorManager.cpp: FAILED ltcg unit
+Source/Fog/Unknown_00402530.cpp -> Source/Fog/Src/ErrorManager.cpp: FAILED ltcg unit
+Source/Fog/Unknown_004025F0.cpp -> Source/Fog/Src/ErrorManager.cpp: FAILED ltcg unit
+Source/Fog/Unknown_00402C60.cpp -> Source/Fog/Src/ErrorManager.cpp: FAILED compile: C3861 'sub_00402C60_FormatModule': identifier not found; C2365 'sub_00402C60_FormatModule' : redefinition; previous definition was 'formerly unknown identifier'; C2065 'ERRORMANAGER_CompareUInt' : undeclared identifier
+Source/Fog/Unknown_00404100.cpp -> Source/Fog/Src/ErrorManager.cpp: FAILED owned functions without a body found: 0x00404100
+Source/Fog/Unknown_00404330.cpp -> Source/Fog/Src/ErrorManager.cpp: FAILED compile: C3861 'sub_00404DC0_EnumModulesToolhelp': identifier not found; C2365 'sub_00404DC0_EnumModulesToolhelp' : redefinition; previous definition was 'formerly unknown identifier'
+Source/Fog/Unknown_004047D0.cpp -> Source/Fog/Src/ErrorManager.cpp: FAILED not equal: 0x0040B480:NO_MARKER (also tried the placeholder's flags)
+Source/Fog/Unknown_004049A0.cpp -> Source/Fog/Src/ErrorManager.cpp: FAILED not equal: 0x0040B480:NO_MARKER (also tried the placeholder's flags)
+Source/Fog/Unknown_00404AB0.cpp -> Source/Fog/Src/ErrorManager.cpp: FAILED not equal: 0x00401480:MISMATCH, 0x00401540:MISMATCH, 0x00403070:MISMATCH, 0x00403FA0:MISMATCH, 0x00404010:MISMATCH, 0x00404AB0:MULTI_FORM_REJECTED (also tried the placeholder's flags)
+Source/D2Glide/Unknown_0050C890.cpp -> Source/D2Glide/Unknown_0050BD30.cpp: FAILED placeholder has planned data
+Source/D2Common/Unknown_00664530.cpp -> Source/D2Common/DATATBLS/OverlayTbls.cpp: FAILED placeholder has planned data
+Source/D2Common/Unknown_0066A1A0.cpp -> Source/D2Common/DATATBLS/HoradricCube.cpp: FAILED placeholder has planned data
+Source/D2Common/Unknown_0066AC40.cpp -> Source/D2Common/DRLG/DrlgWarp.cpp: FAILED placeholder has planned data
+Source/D2Common/Unknown_00674040.cpp -> Source/D2Common/DRLG/Outdoors.cpp: FAILED placeholder has planned data
+Source/D2Game/Unknown_0056B180.cpp -> Source/D2Game/PLAYER/PlrSave2.cpp: FAILED placeholder has planned data
+Source/D2Game/Unknown_00588830.cpp -> Source/D2Game/Quests/a5q2.cpp: JOINED 1 functions, 0 copies dropped, 5 declarations kept
+Source/D2Game/Unknown_00592090.cpp -> Source/D2Game/Quests/a1q3.cpp: JOINED 1 functions, 0 copies dropped, 0 declarations kept
+Source/D2Game/Unknown_00596BB0.cpp -> Source/D2Game/Quests/a3q7.cpp: FAILED compile: C2084 function 'bool ACT3Q7_StatusFilterCallback(D2QuestDataStrc *,D2UnitStrc *,D2BitBufferStrc *,D2BitBufferStrc *,unsigned char *)' already has a body; C2440 '=' : cannot convert from 'bool (__fastcall *)(D2QuestDataStrc *,D2UnitStrc *,D2BitBufferStrc *,D2BitBufferStrc *,unsigned char *)' to 'QUESTSTATUSFILTER'
+Source/D2BNClient/Unknown_0051C760.cpp -> Source/D2BNClient/BnSend.cpp: FAILED compile: C3861 'BNSEND_DispatchPacket': identifier not found; C2365 'BNSEND_DispatchPacket' : redefinition; previous definition was 'formerly unknown identifier'
+Source/Bnclient/Unknown_00521DC0.cpp -> Source/D2BNClient/BnSend.cpp: FAILED compile: unit.cpp | unit.cpp(22) : fatal error C1083: Cannot open include file: 'Bnclient.h': No such file or directory | 
+Source/Bnclient/Unknown_00528010.cpp -> Source/SRP/SRP.cpp: JOINED 3 functions, 0 copies dropped, 16 declarations kept
+Source/D2Client/Unknown_0047A980.cpp -> Source/D2Client/GAME/Roster.cpp: FAILED not equal: 0x004799C0:MISMATCH (also tried the placeholder's flags)
+Source/D2Client/Unknown_0047C420.cpp -> Source/D2Client/UI/chat.cpp: FAILED not equal: 0x0047C420:MISMATCH
+Source/D2Client/Unknown_004BABF0.cpp -> Source/D2Client/UI/editbox.cpp: FAILED owned functions without a body found: 0x004BAE30, 0x004BAFD0
+Source/D2Client/Unknown_004BBE10.cpp -> Source/D2Client/UI/editbox.cpp: FAILED owned functions without a body found: 0x004BBF90, 0x004BC250, 0x004BC450
+Source/D2Client/Unknown_004C9D50.cpp -> Source/D2Client/UNIT/UnitSnd.cpp: FAILED compile: C3861 'sub_004C9D50_FindDestinationById': identifier not found; C2365 'sub_004C9D50_FindDestinationById' : redefinition; previous definition was 'formerly unknown identifier'
+Source/D2Client/Unknown_004E89A0.cpp -> Source/D2Client/UI/SkillDesc.cpp: FAILED compile: C3861 'ApplyRatio_Inline': identifier not found; C3861 'ApplyRatio_Inline': identifier not found; C3861 'AddPoisonDamageAndClamp_Inline': identifier not found
+Source/D2Direct3D/Unknown_006B7530.cpp -> Source/D2Direct3D/Unknown_006B7250.cpp: FAILED compile: C3861 'sub_006B9860_Project': identifier not found; C3861 'sub_006B9860_Project': identifier not found; C3861 'sub_006B9860_Project': identifier not found
+Source/Storm/Unknown_0041EBC0.cpp -> Source/Storm/SOURCE/SCOMP.CPP: FAILED compile: C2039 'sub_0041EBC0_DecodeOne' : is not a member of 'CHuffman'; C2065 'cache' : undeclared identifier; C2065 'generation' : undeclared identifier
+Source/Storm/Unknown_00424700.cpp -> Source/Storm/SOURCE/SBig.cpp: FAILED compile: C3861 'SetZero': identifier not found; C3861 'sub_004225C0_DivUInt': identifier not found; C3861 'BigHighBitIndex': identifier not found
+Source/D2Multi/Unknown_00444020.cpp -> Source/D2Multi/Src/ChatDlg.cpp: FAILED compile: r []' | Z:\home\claude\wtj\gen/data/Source/D2Multi/Src/ChatDlg.inc(1057) : error C2040: 'gData_0070CD94' : 'd2data_0070CD94_t' differs in levels of indirection from 'char []' | Z:\home\claude\wtj\gen/data/Source/D2Multi/Src/ChatDlg.inc(2054) : error C2440: 'type cast' : cannot convert from 'overloaded-function' to 'unsigned int' |         Context does not allow for disambiguation of overloaded function | 
+Source/D2Multi/Unknown_004450D0.cpp -> Source/D2Multi/Src/ChatDlg.cpp: FAILED not equal: 0x004450D0:MISMATCH
+Source/D2Glide/Unknown_0050C890.cpp -> Source/D2Glide/Unknown_0050BD30.cpp: JOINED 2 functions, 0 copies dropped, 19 declarations kept
+Source/D2Common/Unknown_00664530.cpp -> Source/D2Common/DATATBLS/OverlayTbls.cpp: JOINED 9 functions, 0 copies dropped, 5 declarations kept
+Source/D2Common/Unknown_0066A1A0.cpp -> Source/D2Common/DATATBLS/HoradricCube.cpp: FAILED compile: C2036 'D2CubeMainTxt *' : unknown size
+Source/D2Common/Unknown_0066AC40.cpp -> Source/D2Common/DRLG/DrlgWarp.cpp: FAILED compile: C2065 'nTileInfo' : undeclared identifier; C2065 'pTileInfo' : undeclared identifier; C2228 left of '.nTileIndex' must have class/struct/union
+Source/D2Common/Unknown_00674040.cpp -> Source/D2Common/DRLG/Outdoors.cpp: FAILED compile: C3861 'DRLGOUTDOORS_TestGridCellSpawnValid': identifier not found; C2365 'DRLGOUTDOORS_TestGridCellSpawnValid' : redefinition; previous definition was 'formerly unknown identifier'; C3861 'DRLGOUTDOORS_TestGridCellSpawnValid': identifier not found
+Source/D2Game/Unknown_0056B180.cpp -> Source/D2Game/PLAYER/PlrSave2.cpp: JOINED 2 functions, 2 copies dropped, 19 declarations kept
+Source/Bnclient/Unknown_00527BE0.cpp -> Source/Bnclient/Unknown_00528030.cpp: FAILED compile: C3861 'BNDOWNLOAD_GetTime': identifier not found; C2365 'BNDOWNLOAD_GetTime' : redefinition; previous definition was 'formerly unknown identifier'
+Source/D2Client/Unknown_0044BA20.cpp -> Source/D2Client/CORE/WINMAIN.CPP: FAILED compile: r C2556: 'void WINMAIN_StopSession(void)' : overloaded function differs only by return type from 'int WINMAIN_StopSession(void)' |         unit.cpp(2228) : see declaration of 'WINMAIN_StopSession' | Z:\home\claude\wtj\gen/data/Source/D2Client/CORE/WINMAIN.inc(7) : error C2371: 'WINMAIN_StopSession' : redefinition; different basic types |         unit.cpp(2228) : see declaration of 'WINMAIN_StopSession' | 
+Source/D2Client/Unknown_00451290.cpp -> Source/D2Client/CORE/WINMAIN.CPP: FAILED compile: C2556 'int RECORD_RegisterLngArgument(void)' : overloaded function differs only by return type from 'void RECORD_RegisterLngArgument(void)'; C2371 'RECORD_RegisterLngArgument' : redefinition; different basic types
+Source/D2Client/Unknown_00472DA0.cpp -> Source/D2Client/Unknown_00472210.cpp: FAILED compile: C2061 syntax error : identifier 'D2WeatherLayerStateStrc'; C2065 'gpWeatherParticles' : undeclared identifier; C2227 left of '->nCount' must point to class/struct/union/generic type
+Source/D2Client/Unknown_00477620.cpp -> Source/D2Client/GAME/Game.cpp: FAILED compile: C2732 linkage specification contradicts earlier specification for 'INV_SetRenderModeGlide'; C2732 linkage specification contradicts earlier specification for 'INV_SetRenderModeOpenGL'; C2732 linkage specification contradicts earlier specification for 'INV_SetRenderModeDirect3D'
+Source/D2Client/Unknown_0049BB40.cpp -> Source/D2Client/UI/text.cpp: FAILED compile: C3861 'sub_0049BB40_SetSlotCount': identifier not found; C3861 'sub_0049C470_IsPointInRect': identifier not found; C2365 'sub_0049BB40_SetSlotCount' : redefinition; previous definition was 'formerly unknown identifier'
+Source/D2Client/Unknown_004B9200.cpp -> Source/D2Client/GAME/SCmd.cpp: FAILED not equal: 0x0045E570:MISMATCH, 0x0045E660:MISMATCH, 0x004B9210:MISMATCH (also tried the placeholder's flags)
+Source/D2Client/Unknown_004C9420.cpp -> Source/D2Client/UI/SkillDesc_004E1FF0.cpp: FAILED compile: C2664 'sub_004BA840' : cannot convert parameter 1 from 'void *' to 'int'; C3861 'SKILLS_GetSkillsTxtRecord': identifier not found; C3861 'SKILLS_GetSkillsTxtRecord': identifier not found
+Source/D2Common/Unknown_00624740.cpp -> Source/D2Common/Stats/StatsEx.cpp: FAILED not equal: 0x00627340:MISMATCH
+Source/D2Common/Unknown_006634F0.cpp -> Source/D2Common/DATATBLS/MonsterTbls.cpp: FAILED compile: C3861 'sub_00663A10_GetSetBonusCount': identifier not found; C2365 'sub_00663A10_GetSetBonusCount' : redefinition; previous definition was 'formerly unknown identifier'
+Source/D2Common/Unknown_006647C0.cpp -> Source/D2Common/DATATBLS/DataTbls.cpp: FAILED not equal: 0x00664930:MISMATCH
+Source/D2Common/Unknown_0067ADC0.cpp -> Source/D2Common/SKILLS/Skills.cpp: FAILED compile: C2011 'D2PathFoWallContextStrc' : 'struct' type redefinition; C3861 'PATH_AStar_PushToVisitedCache': identifier not found; C2027 use of undefined type 'D2PathFoWallContextStrc'
+Source/D2Game/Unknown_0054DAC0.cpp -> Source/D2Game/Unknown_0054EC90.cpp: FAILED compile: C3861 'SEED_RollRandomNumber': identifier not found; C3861 'SEED_RollRandomNumber': identifier not found; C3861 'sub_0054DAC0_GetSpawnBounds': identifier not found
+Source/D2Lang/Unknown_00526610.cpp -> Source/D2Lang/Unknown_00525FB0.cpp: FAILED compile: C2039 'compare' : is not a member of 'Unicode'; C2039 'toUpper' : is not a member of 'Unicode'; C2228 left of '.wChar' must have class/struct/union
+Source/Storm/Unknown_00425720.cpp -> Source/Storm/SOURCE/SSignature.cpp: FAILED compile: C3861 'SBigNew': identifier not found; C3861 'SBigDel': identifier not found; C2062 type 'void' unexpected
