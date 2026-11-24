@@ -42392,11 +42392,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00568D70",
-     "length": 12,
-     "name": "?AITACTICS_GetHighestClassSkillCount@@YAHXZ"
-    },
-    {
      "va": "0x005DDE50",
      "length": 39,
      "name": "AITACTICS_FindTargetInRange"
@@ -48049,6 +48044,11 @@
      "va": "0x00568D10",
      "length": 76,
      "name": "?PLRTRADE_RefreshTradeSnapshot@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00568D70",
+     "length": 12,
+     "name": "?AITACTICS_GetHighestClassSkillCount@@YAHXZ"
     },
     {
      "va": "0x00568D80",
@@ -59631,11 +59631,6 @@
      "name": "SKILLS_SrvDo118_Twister_Tornado"
     },
     {
-     "va": "0x005CDD30",
-     "length": 158,
-     "name": "SKILLS_GetMonFrenzySequenceFrame"
-    },
-    {
      "va": "0x005FD350",
      "length": 285
     }
@@ -60561,6 +60556,15 @@
      "length": 528
     },
     {
+     "va": "0x005CDC10",
+     "length": 279
+    },
+    {
+     "va": "0x005CDD30",
+     "length": 158,
+     "name": "SKILLS_GetMonFrenzySequenceFrame"
+    },
+    {
      "va": "0x005CDDD0",
      "length": 304,
      "name": "SKILLS_RollMonFrenzyDamage"
@@ -60594,30 +60598,6 @@
      "length": 277,
      "name": "SKILLS_SrvDo111_FetishAura"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005CDC10.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005CDC10",
-     "length": 279
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
