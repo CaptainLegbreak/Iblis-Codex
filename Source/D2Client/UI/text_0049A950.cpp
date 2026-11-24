@@ -773,15 +773,6 @@ int __fastcall sub_M115_Emit_004A18E0(int nIndex, int nId)
     return TEXT_FindEntryIndex(nId);
 }
 
-// 0x004A18F0
-void __cdecl sub_004A3050()
-{
-    gaQuestPageDefault[0] = -1;
-    gaQuestPageDefault[1] = -1;
-    gaQuestPageDefault[2] = -1;
-    gaQuestPageDefault[3] = -1;
-    gaQuestPageDefault[4] = -1;
-}
 
 // 0x004A1910
 static inline int TEXT_FindQuestIndex(int nKey)
@@ -841,25 +832,6 @@ static void TEXT_SetQuestPage(int nPage)
     gnQuestPressedSlot = -1;
 }
 
-// 0x004A2300
-void __cdecl TEXT_UpdateQuestPage()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (pPlayer)
-    {
-        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-        if (pRoom)
-        {
-            int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-            if (nLevelId)
-            {
-                TEXT_SetQuestPage(DRLG_GetActNoFromLevelId(nLevelId));
-                return;
-            }
-        }
-    }
-    TEXT_SetQuestPage(0);
-}
 
 extern "C" void __cdecl sub_004A01E0_ClearList(void)
 {
@@ -867,19 +839,6 @@ extern "C" void __cdecl sub_004A01E0_ClearList(void)
         p->value = 0;
 }
 
-// 0x004A2390
-extern "C" void __cdecl TEXT_ResetQuestGlobals(void)
-{
-    gByte_007BF2B1 = 0;
-    gByte_007BF2B2 = 0;
-    gByte_007BF2B0 = 0;
-    gSentinel_007BF2B5 = -1;
-    gByte_007BF2B4 = 0;
-    gByte_007C025D = 0;
-    gByte_007C025E = 0;
-    gByte_007C025F = 0;
-    gByte_007C0260 = 0;
-}
 
 void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -1042,48 +1001,7 @@ void __cdecl TEXT_ResetQuestPanel()
     gnIndex_007BF2CD = -1;
 }
 
-// 0x004A2550
-void __cdecl TEXT_FreeQuestCels()
-{
-    if (gpQuestBackgroundCel)
-    {
-        ARCHIVE_FreeClientCellFile(gpQuestBackgroundCel);
-        gpQuestBackgroundCel = 0;
-    }
-    if (gpQuestTabsCel)
-    {
-        ARCHIVE_FreeClientCellFile(gpQuestTabsCel);
-        gpQuestTabsCel = 0;
-    }
-    if (gpQuestLastCel)
-    {
-        ARCHIVE_FreeClientCellFile(gpQuestLastCel);
-        gpQuestLastCel = 0;
-    }
-    if (gpQuestSocketsCel)
-    {
-        ARCHIVE_FreeClientCellFile(gpQuestSocketsCel);
-        gpQuestSocketsCel = 0;
-    }
-    if (gpQuestDoneCel)
-    {
-        ARCHIVE_FreeClientCellFile(gpQuestDoneCel);
-        gpQuestDoneCel = 0;
-    }
-    if (gpInvPsCel)
-    {
-        ARCHIVE_FreeClientCellFile(gpInvPsCel);
-        gpInvPsCel = 0;
-    }
-    for (int i = 0; i < 27; ++i)
-    {
-        if (gapQuestIconCels[i])
-        {
-            ARCHIVE_FreeClientCellFile(gapQuestIconCels[i]);
-            gapQuestIconCels[i] = 0;
-        }
-    }
-}
+void __cdecl TEXT_FreeQuestCels(); // 0x004A2550
 
 static void sub_004A2390_ResetQuestSelection()
 {
@@ -1098,11 +1016,6 @@ static void sub_004A2390_ResetQuestSelection()
     gbGlobal_007C0260 = 0;
 }
 
-// 0x004A2600
-void __cdecl TEXT_FreeQuestPanel()
-{
-    TEXT_FreeQuestCels();
-}
 
 // 0x004A2610
 static unsigned char sub_004A2610_HitTestButtonA(int nX, int nY)
@@ -1139,20 +1052,6 @@ static unsigned char sub_004A2690_HitTestButtonB(int nX, int nY)
     return 0;
 }
 
-// 0x004A26B0
-int __stdcall TEXT_OpenQuestPanel(int nArg)
-{
-    if (gtQuestLog == 2)
-    {
-        gtQuestLog = 0;
-        gbGlobal_007BF2B0 = 0;
-        gbQuestDescriptionOpen = 0;
-    }
-
-    sub_004A2550();
-    UI_SetUIVar(15, 1, nArg);
-    return 1;
-}
 
 // 0x004A26F0
 static int __stdcall TEXT_GetQuestTabAtPoint(int nY, int nX)
@@ -1192,13 +1091,7 @@ void __cdecl TEXT_SendQuestUpdates()
     }
 }
 
-// 0x004A27B0
-int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue)
-{
-    gbQuestDescriptionOpen = 0;
-    TEXT_SetTextCallback(0, pContext);
-    return 0;
-}
+int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
 
 // 0x004A27D0
 static void TEXT_OpenQuestDescription(int nSlot)
@@ -1244,16 +1137,6 @@ void __stdcall TEXT_CloseQuestPanelMsg(SMSGHANDLER_PARAMS* pMsg)
     gdwQuestLogToggleTick = GetTickCount();
 }
 
-// 0x004A28D0
-void __cdecl TEXT_ResetQuestButton()
-{
-    if (gnPage < 5)
-        sub_004A2760(gnPage);
-    gbGlobal_007BF2B0 = 0;
-    gtQuestLog = 0;
-    gbQuestDescriptionOpen = 0;
-    sub_004A2550();
-}
 
 // build: symbol ?sub_E10_GetButtonLayoutCopy@@YAHH@Z 0x004A2900
 static int sub_E10_GetButtonLayoutCopy(int nMode)
@@ -1317,18 +1200,7 @@ void __stdcall TEXT_QuestButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
     }
 }
 
-// 0x004A2970
-int __stdcall TEXT_IsMouseOnQuestButton(int nX, int nY)
-{
-    const int nMode = sub_0045AE90();
-    const int nIndex = sub_E10_GetButtonLayoutCopy(nMode);
-    const int nLeft = gaButtonLayouts[nIndex].nTextX + (nMode == 2 ? (gnScreenWidth - 0x280) / 2 : 0);
-    const int nTop = gaButtonLayouts[nIndex].nTop + gnScreenHeight - 0x1E0;
-    const int nRight = gaButtonLayouts[nIndex].nRight + (nMode == 2 ? (gnScreenWidth - 0x280) / 2 : 0);
-    if (nX > nLeft && nX < nRight && nY > nTop && nY < gaButtonLayouts[nIndex].nBottom + gnScreenHeight - 0x1E0)
-        return 1;
-    return 0;
-}
+int __stdcall TEXT_IsMouseOnQuestButton(int nX, int nY); // 0x004A2970
 
 // 0x004A4110
 void __stdcall TEXT_QuestButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
@@ -1757,42 +1629,9 @@ void __cdecl TEXT_DrawQuestButton()
     sub_004F6480(&tCel, nCelX + 3, nCelY - 4, -1, 5, 0);
 }
 
-// 0x004A2C30
-void __fastcall TEXT_SelectQuestPage(int nCondition)
-{
-    int nIndex = -1;
-    for (int i = 0; i < 41; ++i)
-    {
-        if (gaQuestTable[i].nCondition == nCondition)
-        {
-            nIndex = i;
-            break;
-        }
-    }
-    if (nIndex != -1)
-        gaQuestPageDefault[gaQuestTable[nIndex].nPage] = gaQuestTable[nIndex].nCelId2;
-}
 
-// 0x004A2C70
-void __fastcall TEXT_ClearCainFlag(D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwClassId == 0x92)
-        pUnit->dwFlags &= ~2u;
-}
 
-// 0x004A2C90
-void __fastcall TEXT_ClearNihlathakFlag(D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwClassId == 0x20F)
-        pUnit->dwFlags &= ~2u;
-}
 
-// 0x004A3000
-extern "C" void __cdecl TEXT_ResetQuestButtonState()
-{
-    if (gB27_007BF298 == 1)
-        gB27_007BF298 = 0;
-}
 
 // 0x004A3020
 void __cdecl TEXT_ClearQuestFlags()
@@ -1804,66 +1643,11 @@ void __cdecl TEXT_ClearQuestFlags()
     }
 }
 
-// 0x004A30A0
-void __cdecl TEXT_LoadDurielCofsOnce()
-{
-    if (!gbGlobal_007C025D)
-    {
-        gbGlobal_007C025D = 1;
-        sub_0046F870(0xD3, 1);
-    }
-}
 
-// 0x004A30C0
-void __cdecl TEXT_LoadAncientsCofsOnce()
-{
-    if (!gbGlobal_007C025E)
-    {
-        gbGlobal_007C025E = 1;
-        sub_0046F870(0x219, 0);
-        sub_0046F870(0x21A, 0);
-        sub_0046F870(0x21B, 0);
-    }
-}
 
-// 0x004A3100
-extern "C" void __fastcall TEXT_SetQuestPacketValue(unsigned int value)
-{
-    gB27_007C025F = 1;
-    gB27_007C0265 = value;
-}
 
-// 0x004A3110
-char __cdecl TEXT_HasQuestPacketValue()
-{
-    return gbGlobal_007C025F;
-}
 
-// 0x004A3120
-char __cdecl TEXT_IsQuestUnitPresent()
-{
-    if (gbGlobal_007C0260 && CUNIT_FindServerSideUnit(gnQuestUnitId, 1))
-    {
-        return 1;
-    }
-    return 0;
-}
 
-// 0x004A3150
-void __fastcall TEXT_SpawnQuestUnits(int nX, int nY)
-{
-    if (gbGlobal_007C025F)
-    {
-        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        int nCount = SEED_RollLimitedRandomNumber(&pPlayer->pSeed, 3) + 2;
-        for (int i = 0; i < nCount; ++i)
-        {
-            D2UnitStrc* pUnit = CUNIT_SpawnPresetUnit(0x95, nX + i % 2, nY + i % 2, 1, 1);
-            gnQuestUnitId = UNITS_GetUnitId(pUnit);
-            gbGlobal_007C0260 = 1;
-        }
-    }
-}
 
 extern "C" void __fastcall sub_004A2C30_SelectRecord(int key)
 {

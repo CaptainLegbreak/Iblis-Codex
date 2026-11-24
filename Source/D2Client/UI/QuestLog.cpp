@@ -601,6 +601,491 @@ struct D2QuestLogStateStrc
 
 extern D2QuestLogStateStrc gtQuestLog_007BF298;                                                             // 0x007BF298
 
+struct D2TextNodeStrc;
+
+struct D2ClientListEntryStrc
+{
+    unsigned char nId[4];
+    unsigned char unk0x04[6];
+};
+
+struct D2TextNodeStrc
+{
+    void* pOwned[6];
+    unsigned char unk0x18[10];
+    unsigned char pNext[4];
+};
+
+// 0x004A18F0
+void __cdecl sub_004A3050()
+{
+    gaQuestPageDefault[0] = -1;
+    gaQuestPageDefault[1] = -1;
+    gaQuestPageDefault[2] = -1;
+    gaQuestPageDefault[3] = -1;
+    gaQuestPageDefault[4] = -1;
+}
+
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
+unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
+
+// build: symbol ?TEXT_SetQuestPage@* 0x004A2220
+static void TEXT_SetQuestPage(int nPage)
+{
+    if (nPage >= 5)
+    {
+        nPage = 0;
+    }
+    switch (nPage)
+    {
+    case 4:
+        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x1A, 0)) nPage = 3;
+    case 3:
+        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0x17, 0)) nPage = 2;
+    case 2:
+        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 0xF, 0)) nPage = 1;
+    case 1:
+        if (!QUESTRECORD_GetQuestState(MONSTER_GetQuestFlags(), 7, 0)) nPage = 0;
+    }
+// build: symbol ?gnPage@* 0x007C0255
+    gnPage = nPage;
+    for (int i = 0; i < 6; ++i)
+    {
+        ganGlobal_007C0225[i] = 0;
+        ganGlobal_007C023D[i] = 0;
+    }
+    gnQuestSelectedSlot = -1;
+// build: symbol ?gnQuestPressedSlot@* 0x007BF2B5
+    gnQuestPressedSlot = -1;
+}
+
+// 0x004A2300
+void __cdecl TEXT_UpdateQuestPage()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+    if (pPlayer)
+    {
+        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+        if (pRoom)
+        {
+            int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+            if (nLevelId)
+            {
+                TEXT_SetQuestPage(DRLG_GetActNoFromLevelId(nLevelId));
+                return;
+            }
+        }
+    }
+    TEXT_SetQuestPage(0);
+}
+
+extern "C" { unsigned char gByte_007BF2B1; } // 0x007BF2B1
+
+extern "C" unsigned char gByte_007BF2B2; // 0x007BF2B2
+
+extern "C" unsigned char gByte_007BF2B0; // 0x007BF2B0
+
+extern "C" int gSentinel_007BF2B5; // 0x007BF2B5
+
+extern "C" unsigned char gByte_007BF2B4; // 0x007BF2B4
+
+extern "C" unsigned char gByte_007C025D; // 0x007C025D
+
+extern "C" unsigned char gByte_007C025E; // 0x007C025E
+
+extern "C" unsigned char gByte_007C025F; // 0x007C025F
+
+extern "C" unsigned char gByte_007C0260; // 0x007C0260
+
+// 0x004A2390
+extern "C" void __cdecl TEXT_ResetQuestGlobals(void)
+{
+    gByte_007BF2B1 = 0;
+    gByte_007BF2B2 = 0;
+    gByte_007BF2B0 = 0;
+    gSentinel_007BF2B5 = -1;
+    gByte_007BF2B4 = 0;
+    gByte_007C025D = 0;
+    gByte_007C025E = 0;
+    gByte_007C025F = 0;
+    gByte_007C0260 = 0;
+}
+
+struct D2ClientServiceStrc
+{
+    char unk0x00[0xD0];
+    int (__fastcall* pfnCall)(int nArg1, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
+};
+
+class D2SquelchListStrc
+{
+public:
+    virtual void Squelch(const char* szName);
+    virtual void Unsquelch(const char* szName);
+    virtual int IsNameSquelched(const char* szName);
+    virtual void Unknown0C();
+    virtual void Unknown10();
+    virtual int IsTextSquelched(const char* szText);
+    virtual void AddName(const char* szName, int nSize);
+};
+
+// 0x004A23D0
+void __cdecl TEXT_LoadQuestPanelCels()
+{
+    char szPath[0x104];
+    if (sub_00483350())
+    {
+        return;
+    }
+// build: symbol ?gpQuestBackgroundCel@* 0x007BF2D5
+    if (!gpQuestBackgroundCel)
+    {
+        sprintf(szPath, "%s\\ui\\menu\\questbackground", gszDataGlobal);
+        gpQuestBackgroundCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+// build: symbol ?gpQuestTabsCel@* 0x007BF2D9
+    if (!gpQuestTabsCel)
+    {
+        if (FOG_IsExpansion() && GAME_IsExpansion())
+        {
+            sprintf(szPath, "%s\\ui\\menu\\expquesttabs", gszDataGlobal);
+        }
+        else
+        {
+            sprintf(szPath, "%s\\ui\\menu\\questtabs", gszDataGlobal);
+        }
+        gpQuestTabsCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+// build: symbol ?gpQuestSocketsCel@* 0x007BF2D1
+    if (!gpQuestSocketsCel)
+    {
+        sprintf(szPath, "%s\\ui\\menu\\questsockets", gszDataGlobal);
+        gpQuestSocketsCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+// build: symbol ?gpQuestDoneCel@* 0x007BF2DD
+    if (!gpQuestDoneCel)
+    {
+        sprintf(szPath, "%s\\ui\\menu\\questdone", gszDataGlobal);
+        gpQuestDoneCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+// build: symbol ?gpInvPsCel@* 0x007BF351
+    if (!gpInvPsCel)
+    {
+        sprintf(szPath, "%s\\ui\\menu\\invps", gszDataGlobal);
+        gpInvPsCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+// build: symbol ?gpQuestLastCel@* 0x007BF34D
+    if (!gpQuestLastCel)
+    {
+        sprintf(szPath, "%s\\ui\\menu\\questlast", gszDataGlobal);
+        gpQuestLastCel = ARCHIVE_LoadClientCellFile(szPath, 0);
+    }
+}
+
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
+
+// 0x004A2550
+void __cdecl TEXT_FreeQuestCels()
+{
+    if (gpQuestBackgroundCel)
+    {
+        ARCHIVE_FreeClientCellFile(gpQuestBackgroundCel);
+        gpQuestBackgroundCel = 0;
+    }
+    if (gpQuestTabsCel)
+    {
+        ARCHIVE_FreeClientCellFile(gpQuestTabsCel);
+        gpQuestTabsCel = 0;
+    }
+    if (gpQuestLastCel)
+    {
+        ARCHIVE_FreeClientCellFile(gpQuestLastCel);
+        gpQuestLastCel = 0;
+    }
+    if (gpQuestSocketsCel)
+    {
+        ARCHIVE_FreeClientCellFile(gpQuestSocketsCel);
+        gpQuestSocketsCel = 0;
+    }
+    if (gpQuestDoneCel)
+    {
+        ARCHIVE_FreeClientCellFile(gpQuestDoneCel);
+        gpQuestDoneCel = 0;
+    }
+    if (gpInvPsCel)
+    {
+        ARCHIVE_FreeClientCellFile(gpInvPsCel);
+        gpInvPsCel = 0;
+    }
+    for (int i = 0; i < 27; ++i)
+    {
+        if (gapQuestIconCels[i])
+        {
+            ARCHIVE_FreeClientCellFile(gapQuestIconCels[i]);
+            gapQuestIconCels[i] = 0;
+        }
+    }
+}
+
+// 0x004A2600
+void __cdecl TEXT_FreeQuestPanel()
+{
+    TEXT_FreeQuestCels();
+}
+
+extern int gtQuestLog; // 0x007BF298
+
+char gbGlobal_007BF2B0; // 0x007BF2B0
+
+char gbQuestDescriptionOpen; // 0x007BF2B3
+
+// 0x004A26B0
+int __stdcall TEXT_OpenQuestPanel(int nArg)
+{
+    if (gtQuestLog == 2)
+    {
+        gtQuestLog = 0;
+        gbGlobal_007BF2B0 = 0;
+        gbQuestDescriptionOpen = 0;
+    }
+
+    sub_004A2550();
+    UI_SetUIVar(15, 1, nArg);
+    return 1;
+}
+
+void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
+
+int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue); // 0x004A27B0
+
+// 0x004A27B0
+int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue)
+{
+    gbQuestDescriptionOpen = 0;
+    TEXT_SetTextCallback(0, pContext);
+    return 0;
+}
+
+// 0x004A28D0
+void __cdecl TEXT_ResetQuestButton()
+{
+    if (gnPage < 5)
+        sub_004A2760(gnPage);
+    gbGlobal_007BF2B0 = 0;
+    gtQuestLog = 0;
+    gbQuestDescriptionOpen = 0;
+    sub_004A2550();
+}
+
+extern int gnScreenWidth; // 0x0071146C
+
+int __stdcall TEXT_IsMouseOnQuestButton(int nX, int nY);
+
+struct D2ButtonLayoutStrc;
+
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
+
+struct D2ButtonLayoutStrc
+{
+    int nTextX;
+    int nRight;
+    int nTop;
+    int nBottom;
+    int nTextY;
+};
+
+int __cdecl sub_0045AE90(); // 0x0045AE90
+
+extern D2ButtonLayoutStrc gaButtonLayouts[]; // 0x007241C0
+
+// build: symbol ?sub_E10_GetButtonLayoutCopy@@YAHH@Z 0x004A2900
+static int sub_E10_GetButtonLayoutCopy(int nMode)
+{
+    if (GAME_GetUIVarState(6) && !GAME_GetUIVarState(2))
+    {
+        const int nResolution = D2GFX_GetResolutionMode();
+        if (nMode == 2)
+            return nResolution == 2 ? 1 : 3;
+        return nResolution == 2 ? 0 : 2;
+    }
+
+    const int nResolution = D2GFX_GetResolutionMode();
+    if (nMode == 2)
+    {
+        if (nResolution == 2 || GAME_GetUIVarState(2))
+            return 1;
+        return 3;
+    }
+    return nResolution == 2 ? 0 : 2;
+}
+
+// 0x004A2970
+int __stdcall TEXT_IsMouseOnQuestButton(int nX, int nY)
+{
+    const int nMode = sub_0045AE90();
+    const int nIndex = sub_E10_GetButtonLayoutCopy(nMode);
+    const int nLeft = gaButtonLayouts[nIndex].nTextX + (nMode == 2 ? (gnScreenWidth - 0x280) / 2 : 0);
+    const int nTop = gaButtonLayouts[nIndex].nTop + gnScreenHeight - 0x1E0;
+    const int nRight = gaButtonLayouts[nIndex].nRight + (nMode == 2 ? (gnScreenWidth - 0x280) / 2 : 0);
+    if (nX > nLeft && nX < nRight && nY > nTop && nY < gaButtonLayouts[nIndex].nBottom + gnScreenHeight - 0x1E0)
+        return 1;
+    return 0;
+}
+
+// 0x004A2C30
+void __fastcall TEXT_SelectQuestPage(int nCondition)
+{
+    int nIndex = -1;
+    for (int i = 0; i < 41; ++i)
+    {
+        if (gaQuestTable[i].nCondition == nCondition)
+        {
+            nIndex = i;
+            break;
+        }
+    }
+    if (nIndex != -1)
+        gaQuestPageDefault[gaQuestTable[nIndex].nPage] = gaQuestTable[nIndex].nCelId2;
+}
+
+// 0x004A2C70
+void __fastcall TEXT_ClearCainFlag(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwClassId == 0x92)
+        pUnit->dwFlags &= ~2u;
+}
+
+// 0x004A2C90
+void __fastcall TEXT_ClearNihlathakFlag(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwClassId == 0x20F)
+        pUnit->dwFlags &= ~2u;
+}
+
+extern "C" int gB27_007BF298; // 0x007BF298
+
+// 0x004A3000
+extern "C" void __cdecl TEXT_ResetQuestButtonState()
+{
+    if (gB27_007BF298 == 1)
+        gB27_007BF298 = 0;
+}
+
+char gbGlobal_007C025D; // 0x007C025D
+
+// 0x004A30A0
+void __cdecl TEXT_LoadDurielCofsOnce()
+{
+    if (!gbGlobal_007C025D)
+    {
+        gbGlobal_007C025D = 1;
+        sub_0046F870(0xD3, 1);
+    }
+}
+
+char gbGlobal_007C025E; // 0x007C025E
+
+// 0x004A30C0
+void __cdecl TEXT_LoadAncientsCofsOnce()
+{
+    if (!gbGlobal_007C025E)
+    {
+        gbGlobal_007C025E = 1;
+        sub_0046F870(0x219, 0);
+        sub_0046F870(0x21A, 0);
+        sub_0046F870(0x21B, 0);
+    }
+}
+
+extern "C" unsigned char gB27_007C025F; // 0x007C025F
+
+extern "C" unsigned int gB27_007C0265; // 0x007C0265
+
+// 0x004A3100
+extern "C" void __fastcall TEXT_SetQuestPacketValue(unsigned int value)
+{
+    gB27_007C025F = 1;
+    gB27_007C0265 = value;
+}
+
+char gbGlobal_007C025F; // 0x007C025F
+
+// 0x004A3110
+char __cdecl TEXT_HasQuestPacketValue()
+{
+    return gbGlobal_007C025F;
+}
+
+char gbGlobal_007C0260; // 0x007C0260
+
+D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x004639B0
+
+extern unsigned int gnQuestUnitId; // 0x007C0261
+
+// 0x004A3120
+char __cdecl TEXT_IsQuestUnitPresent()
+{
+    if (gbGlobal_007C0260 && CUNIT_FindServerSideUnit(gnQuestUnitId, 1))
+    {
+        return 1;
+    }
+    return 0;
+}
+
+union D2SeedStrc;
+
+D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nIndex, int nX, int nY, int nUnitType, int nMode); // 0x00466730
+
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+
+    if ((nMax - 1) & nMax)
+    {
+        return SEED_RollRandomNumber(pSeed) % nMax;
+    }
+
+    return SEED_RollRandomNumber(pSeed) & (nMax - 1);
+}
+
+static inline int UNITS_GetUnitId(D2UnitStrc* pUnit)
+{
+    if (!pUnit) return -1;
+    return pUnit->dwUnitId;
+}
+
+// 0x004A3150
+void __fastcall TEXT_SpawnQuestUnits(int nX, int nY)
+{
+    if (gbGlobal_007C025F)
+    {
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        int nCount = SEED_RollLimitedRandomNumber(&pPlayer->pSeed, 3) + 2;
+        for (int i = 0; i < nCount; ++i)
+        {
+            D2UnitStrc* pUnit = CUNIT_SpawnPresetUnit(0x95, nX + i % 2, nY + i % 2, 1, 1);
+            gnQuestUnitId = UNITS_GetUnitId(pUnit);
+            gbGlobal_007C0260 = 1;
+        }
+    }
+}
+
 // 0x004A34F0
 void __cdecl sub_004A34F0_DrawQuestPage()
 {
@@ -902,6 +1387,61 @@ void __cdecl sub_004A34F0_DrawQuestPage()
         D2Win_10127_SetFont(9);
         sub_00502280_SetPopUpText(pText, gnPanelOffsetX + 0xF1, gnScreenHeight + gnPanelOffsetY - 0x5F, 0, 1);
     }
+}
+
+unsigned char __cdecl INV_IsCinematicBusy(); // 0x00483350
+
+int __cdecl sub_004A1760_Forward();
+
+void __stdcall sub_004A3220(int nPage, int nArg);
+
+void __fastcall MSG_SendHeaderOnly(char nValue); // 0x00478590
+
+void __fastcall TEXT_ToggleQuestLog(int nMode); // 0x004A3FE0
+
+// build: symbol ??0Unicode@@QAE@XZ 0x0042F530
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x004A3FE0
+void __fastcall TEXT_ToggleQuestLog(int nMode)
+{
+    if (gtQuestLog == 0)
+    {
+// build: symbol ?gdwQuestLogToggleTick@* 0x007C0259
+        if (GetTickCount() - gdwQuestLogToggleTick < 250)
+            return;
+        if (CUNIT_IsPlayerDeadOrMissing())
+            return;
+        if (INV_IsCinematicBusy())
+            return;
+        if (UI_SetUIVar(15, 0, nMode) != 1)
+            return;
+        TEXT_LoadQuestPanelCels();
+        gtQuestLog = 2;
+        TEXT_UpdateQuestPage();
+// build: symbol ?gnPage@* 0x007C0255
+        sub_004A3220(gnPage, 0);
+        MSG_SendHeaderOnly(0x40);
+        return;
+    }
+
+    if (gtQuestLog == 1)
+    {
+        gtQuestLog = 0;
+        if (INV_IsCinematicBusy())
+            return;
+        if (UI_SetUIVar(15, 0, nMode) != 1)
+            return;
+        TEXT_LoadQuestPanelCels();
+        gtQuestLog = 2;
+        TEXT_UpdateQuestPage();
+        sub_004A3220(gnPage, 0);
+        MSG_SendHeaderOnly(0x40);
+        return;
+    }
+
+    TEXT_OpenQuestPanel(nMode);
+    gdwQuestLogToggleTick = GetTickCount();
+    sub_004A1760_Forward();
 }
 
 #include "gen/data/Source/D2Client/UI/QuestLog.inc"

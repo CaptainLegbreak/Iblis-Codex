@@ -177,6 +177,7 @@ inline int UNITS_GetYInline(D2UnitStrc* pUnit)
     }
 }
 
+// 0x004C8350
 static int __stdcall sub_004C8350_CanTargetRoom(int nSkillId, D2UnitStrc* pUnit, int nX, int nY)
 {
     D2SkillsTxt* pSkillsTxt = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
