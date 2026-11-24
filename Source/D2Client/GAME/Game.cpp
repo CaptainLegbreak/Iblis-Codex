@@ -390,7 +390,7 @@ struct D2McpInfoStrc
 
 int __stdcall GAME_GetPlayerUnitsCount(unsigned short nGameId); // 0x0052EFF0
 
-void* __stdcall sub_0052FC20(int nArg); // 0x0052FC20
+void* __stdcall GAME_UpdateGamesProgress(int nArg); // 0x0052FC20
 
 extern unsigned short gwMcpRequestId; // 0x00798F8C
 
@@ -2872,7 +2872,7 @@ unsigned long __stdcall GAME_RunQServerThread(void* pArg)
         if (bRestart)
         {
             sub_0052CFE0();
-            pSession = sub_0052FC20(1);
+            pSession = GAME_UpdateGamesProgress(1);
             if (pSession)
                 sub_0052FD90(0, 0);
         }

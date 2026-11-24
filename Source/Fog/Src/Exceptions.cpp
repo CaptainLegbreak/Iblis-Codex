@@ -785,7 +785,8 @@ extern "C" FourWords* __stdcall sub_006BD040_AllocateFourWords(const char* file,
     return result;
 }
 
-extern "C" unsigned char __fastcall sub_0059D7E0_QuestStateCheck(void* game)
+// build: symbol @ACT2Q6_IsAwaitingJerhynTalk@* 0x0059D7E0
+extern "C" unsigned char __fastcall ACT2Q6_IsAwaitingJerhynTalk(void* game)
 {
     QuestView* quest = QUESTS_GetQuestData(game, 0xD);
     if (quest && quest->active != 0 && quest->state == 1)

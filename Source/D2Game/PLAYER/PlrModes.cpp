@@ -363,7 +363,7 @@ void __stdcall ITEMS_SetBodyLocation(D2UnitStrc*,unsigned char); // 0x00627D70
 
 void __fastcall SUNITDMG_DropCorpseGold(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int,int); // 0x0057F390
 
-void __fastcall sub_0053DF80_SendCorpse(D2GameStrc*,int,int,int); // 0x0053DF80
+void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameStrc*,int,int,int); // 0x0053DF80
 
 struct D2CorpsePositionStrc { D2CoordStrc coords; D2ActiveRoomStrc* room; };
 
@@ -1180,7 +1180,7 @@ D2UnitStrc* __fastcall PLRMODE_CreateDeadBody(D2GameStrc* pGame,D2UnitStrc* pUni
  if(pUnit->dwUnitType==UNIT_PLAYER) UNITS_GetInventoryGoldLimit(pUnit);
  STATLIST_SetUnitStat(pUnit,STAT_GOLD,0,0);
  SUNITDMG_DropCorpseGold(pGame,pUnit,pCorpse,nGold,1);
- sub_0053DF80_SendCorpse(pGame,!pUnit ? -1 : pUnit->dwUnitId,!pCorpse ? -1 : pCorpse->dwUnitId,1);
+ D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(pGame,!pUnit ? -1 : pUnit->dwUnitId,!pCorpse ? -1 : pCorpse->dwUnitId,1);
  return pCorpse;
 }
 

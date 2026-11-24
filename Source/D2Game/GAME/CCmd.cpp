@@ -37,7 +37,7 @@ int __fastcall D2GAME_Return1_6FC41900(int nClientId); // 0x0052DAF0
 void __fastcall GAME_HandleGameListRequest(int nClientId); // 0x0052E9B0
 int __fastcall GAME_VerifyJoinAct(int nClientId); // 0x0052C550
 void __fastcall SrvJoinAct(int nClientId); // 0x00530190
-int __fastcall sub_0052DB00_Return1(int nClientId); // 0x0052DB00
+int __fastcall GAME_VerifyReceiveSaveFilePart(int nClientId); // 0x0052DB00
 int __fastcall GAME_ReceiveSaveFilePart(int nClientId, D2GSPacketClt6B* pPacket); // 0x0052DB10
 int __fastcall GAME_VerifyDisconnect(int nClientId); // 0x0052CBE0
 void __fastcall SrvDisconnectClientById(int nClientId, int nEventType); // 0x00530270
@@ -177,7 +177,7 @@ void __fastcall CCMD_ProcessClientSystemMessage(void* pData, int nSize)
     {
         D2GSPacketClt6B* p6B = (D2GSPacketClt6B*)pData;
         D2_ASSERT(p6B->dwTotalSize < 0x2000, 0x1A8);
-        if (sub_0052DB00_Return1(nClientId))
+        if (GAME_VerifyReceiveSaveFilePart(nClientId))
         {
             GAME_ReceiveSaveFilePart(nClientId, p6B);
         }

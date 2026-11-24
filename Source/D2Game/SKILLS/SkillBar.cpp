@@ -269,9 +269,9 @@ void __fastcall PLRMODE_HandleDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pUn
 
 void __fastcall PLRMODE_BreakDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580380
 
-int __fastcall sub_005D8C70_AdvanceSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D8C70
+int __fastcall SKILLS_ApplyFrenzyStats(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D8C70
 
-int __fastcall sub_005D8B10_ApplyToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel); // 0x005D8B10
+int __fastcall SKILLS_RollFrenzyDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel); // 0x005D8B10
 
 static int __stdcall SKILLS_SetVelocityForLeap(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 
@@ -602,11 +602,11 @@ int __stdcall sub_006449F0(Unit*,int,int);  // 0x006449F0
 
 int __stdcall sub_00646CA0(Unit*,unsigned,int,int);  // 0x00646CA0
 
-void __fastcall sub_0056E0C0(Unit*,D2DamageStrc*,int,int);  // 0x0056E0C0
+void __fastcall D2GAME_RollElementalDamage_6FD14DD0(Unit*,D2DamageStrc*,int,int);  // 0x0056E0C0
 
-void __fastcall sub_0057DBF0(Game*,Unit*,Unit*,D2DamageStrc*,unsigned char);  // 0x0057DBF0
+void __fastcall SUNITDMG_AllocCombat(Game*,Unit*,Unit*,D2DamageStrc*,unsigned char);  // 0x0057DBF0
 
-void __fastcall sub_0057D4F0(Game*,Unit*,Unit*,int);  // 0x0057D4F0
+void __fastcall SUNITDMG_DrainItemDurability(Game*,Unit*,Unit*,int);  // 0x0057D4F0
 
 void __stdcall sub_00644560(Skill*,int);  // 0x00644560
 
@@ -633,12 +633,12 @@ int __fastcall SKILLS_RollFrenzyDamage(Game* game,Unit* unit,Unit* target,int id
             damage.dwConvPct=sub_00646CA0(unit,record->calc[3],id,level);
             if(damage.dwConvPct>0) damage.nConvType=record->element;
         }
-        sub_0056E0C0(unit,&damage,id,level);
+        D2GAME_RollElementalDamage_6FD14DD0(unit,&damage,id,level);
     }
     unsigned char source=record->srcDamage;
     if(!source) source=DEFAULT_SRC;
-    sub_0057DBF0(game,unit,target,&damage,source);
-    sub_0057D4F0(game,unit,target,0);
+    SUNITDMG_AllocCombat(game,unit,target,&damage,source);
+    SUNITDMG_DrainItemDurability(game,unit,target,0);
     Skill* skill=sub_00620250(unit);
     if(skill) {
         if(damage.wResultFlags&1) sub_00644560(skill,1);
@@ -716,18 +716,18 @@ int __fastcall SKILLS_SrvDo009_Frenzy(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
         SUNITDMG_FreeAttackerDefenderCombatList(pGame, pUnit, pTarget);
         PLRMODE_HandleDepletedWeapons(pGame, pUnit);
         PLRMODE_BreakDepletedWeapons(pGame, pUnit);
-        sub_005D8C70_AdvanceSkill(pGame, pUnit, nSkillId, nSkillLevel);
-        return sub_005D8B10_ApplyToTarget(pGame, pUnit, pTarget, nSkillId, nSkillLevel);
+        SKILLS_ApplyFrenzyStats(pGame, pUnit, nSkillId, nSkillLevel);
+        return SKILLS_RollFrenzyDamage(pGame, pUnit, pTarget, nSkillId, nSkillLevel);
     }
     pUnit->dwFlags |= SKILL_FLAG;
     SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
     PLRMODE_HandleDepletedWeapons(pGame, pUnit);
     PLRMODE_BreakDepletedWeapons(pGame, pUnit);
-    sub_005D8C70_AdvanceSkill(pGame, pUnit, nSkillId, nSkillLevel);
+    SKILLS_ApplyFrenzyStats(pGame, pUnit, nSkillId, nSkillLevel);
     const int nAuraRange = SKILLS_GetMeleeSearchRange(pUnit);
     const int nTargetGUID = pTarget->dwUnitId;
     pTarget = SKILLS_FindNextAuraTarget(pGame, pUnit, 0, 0, nAuraRange, TARGET_FILTER, nTargetGUID, 0);
-    return sub_005D8B10_ApplyToTarget(pGame, pUnit, pTarget, nSkillId, nSkillLevel);
+    return SKILLS_RollFrenzyDamage(pGame, pUnit, pTarget, nSkillId, nSkillLevel);
 }
 
 // 0x005D8EF0

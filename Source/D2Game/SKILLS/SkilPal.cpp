@@ -433,7 +433,7 @@ extern int __fastcall sub_00483360_ApplyRatio(int,int,int); // 0x00483360
 
 extern void __stdcall sub_00644560_SetParameter(D2SkillStrc*,int); // 0x00644560
 
-extern void __fastcall sub_0057DBF0_AllocateCombat(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,D2DamageStrc*,int); // 0x0057DBF0
+extern void __fastcall SUNITDMG_AllocCombat(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,D2DamageStrc*,int); // 0x0057DBF0
 
 typedef char chk_D2DamageStrc_size[sizeof(D2DamageStrc) == 0x70 ? 1 : -1];
 
@@ -1330,7 +1330,7 @@ int __fastcall SKILLS_SrvSt35_Vengeance(D2GameStrc* pGame,D2UnitStrc* pUnit,int 
         }
         sub_00644560_SetParameter(pSkill,(nParameter+1)%3);
     }
-    sub_0057DBF0_AllocateCombat(pGame,pUnit,pTarget,&damage,128);
+    SUNITDMG_AllocCombat(pGame,pUnit,pTarget,&damage,128);
     return 1;
 }
 

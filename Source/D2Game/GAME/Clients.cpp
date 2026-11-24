@@ -583,7 +583,7 @@ void __stdcall ITEMS_SetInvPage(D2UnitStrc*,unsigned char); // 0x00628280
 
 void __fastcall SUNITNPC_SetItemTradeFlags(D2UnitStrc*,D2UnitStrc*,D2GameStrc*,int,int); // 0x005762C0
 
-int __fastcall sub_00579030(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x00579030
+int __fastcall SUNITNPC_RollTraderItems(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x00579030
 
 void __fastcall FOG_FreePool(void*,void*,const char*,int,int); // 0x0040B480
 
@@ -1682,7 +1682,7 @@ D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0
 
 extern int gnBaseStatIdsToSend[]; // 0x00731AD8
 
-void __fastcall sub_M93_UseCount_00531750(int nCount);
+void __fastcall PLRSAVE_CountInventoryItems(int nCount); // 0x00531750
 
 int __fastcall PLRSAVE_WriteItems(D2GameStrc* pGame, D2UnitStrc* pUnit, D2InventoryStrc* pInventory, unsigned char* pBuffer, int nBufferSize, int nArg5, int nArg6, int nArg7); // 0x005317B0
 
@@ -2139,7 +2139,7 @@ int __fastcall GAME_IsGameNameUnused(const char* szGameName); // 0x0052F8B0
 
 void __fastcall ClientRemoveFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave); // 0x00539DA0
 
-void __fastcall sub_0053B1B0_SendGameInfo(void* pClientId, unsigned short nGameId, int nClients, const char* szGameName); // 0x0053B1B0
+void __fastcall D2GAME_PACKETS_SendGameListEntry(void* pClientId, unsigned short nGameId, int nClients, const char* szGameName); // 0x0053B1B0
 
 void __fastcall SCMD_SendSkillList(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053C5D0
 
@@ -2486,7 +2486,7 @@ void __fastcall PLRMSG_BroadcastSystemMessage(D2GameStrc* pGame, const char* szM
 
 void __fastcall GAME_ClientEnterAct(D2GameStrc* pGame, D2ClientStrc* pClient);                      // 0x0052C210
 
-int __fastcall sub_00539760(D2ClientStrc* pClient, D2GameStrc* pGame, int a3, D2ActiveRoomStrc* pRoom, int nX, int nY);
+int __fastcall ClientAddPlayerToGame(D2ClientStrc* pClient, D2GameStrc* pGame, int a3, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00539760
 
 void __fastcall D2GAME_PACKETS_SendSystemError(int nClientId, unsigned int nReason);           // 0x0053B260
 
@@ -2551,7 +2551,7 @@ void __stdcall D2NET_10016(int);  // 0x0052B570
 
 extern "C" int __cdecl strncmp(const char*,const char*,unsigned int);
 
-void __fastcall sub_0054A9B0(D2GameStrc*,const char*,unsigned char);  // 0x0054A9B0
+void __fastcall PLRMSG_BroadcastSystemMessage(D2GameStrc*,const char*,unsigned char);  // 0x0054A9B0
 
 enum { MODE_MASK = 15 };
 
@@ -2686,7 +2686,7 @@ void __stdcall QUESTRECORD_FreeRecord(void* pMemPool, D2BitBufferStrc* pQuestRec
 
 extern int gnVirtualPlayerCount; // 0x00883D70
 
-void __fastcall sub_0056DEB0(int a1, int a2, int a3, int a4); // 0x0056DEB0
+void __fastcall D2GAME_SetSkills_6FD14C60(int a1, int a2, int a3, int a4); // 0x0056DEB0
 
 void __fastcall PLRMODE_ChangeModeToCoords(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7); // 0x005809D0
 
@@ -2765,7 +2765,7 @@ void __fastcall PARTY_AllocPartyControl(D2GameStrc* pGame);                     
 
 void __fastcall EVENT_AllocEventQueue(D2GameStrc* pGame);                                            // 0x00541470
 
-void __fastcall sub_00545D80_QuestInit(D2GameStrc* pGame);
+void __fastcall QUESTS_QuestInit(D2GameStrc* pGame); // 0x00545D80
 
 int __fastcall OBJRGN_AllocObjectControl(D2GameStrc* pGame); // 0x00546C60
 

@@ -321,7 +321,7 @@ void __fastcall D2GAME_RepairBrokenItem(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); //
 
 int __fastcall D2GAME_RechargeItem_6FC4BD50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055FE80
 
-unsigned short __fastcall sub_00565930_RollClass(D2GameStrc*,int,int); // 0x00565930
+unsigned short __fastcall PLRTRADE_RollRandomItemClassOfSameType(D2GameStrc*,int,int); // 0x00565930
 
 void __fastcall ACT2Q2_UpdateHoradricItemCounts(D2GameStrc*,D2UnitStrc*); // 0x0059E5C0
 
@@ -1243,7 +1243,7 @@ D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* p
    if(out->nType==254) { if(inputs[index].nClassId>=0) id=inputs[index].nClassId; }
    else if(out->nType==255) id=inputs[index].nClassId;
    else if(out->nType==252) id=out->wBaseItemId;
-   else if(out->nType==253) id=sub_00565930_RollClass(game,level,out->wBaseItemId);
+   else if(out->nType==253) id=PLRTRADE_RollRandomItemClassOfSameType(game,level,out->wBaseItemId);
    if(item) item->dwClassId=id;
    D2GAME_InitItemStats_6FC4E520(game,&item,0,0);outputs[index]=item;
    UNITS_ChangeAnimMode(item,4);ITEMS_SetInvPage(original,3);
@@ -1275,7 +1275,7 @@ D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* p
      }
     }
    } else if(out->nType==252) { bCreate=1; id=out->wBaseItemId; }
-   else if(out->nType==253) { bCreate=1; id=sub_00565930_RollClass(game,level,out->wBaseItemId); }
+   else if(out->nType==253) { bCreate=1; id=PLRTRADE_RollRandomItemClassOfSameType(game,level,out->wBaseItemId); }
    if(bCreate) {
     D2ItemDropStrc drop;memset(&drop,0,sizeof(drop));
     drop.pUnit=player;drop.wItemFormat=game->wItemFormat;drop.nId=id;drop.nQuality=quality;drop.nItemIndex=itemIndex;drop.nItemLvl=level;drop.pGame=game;

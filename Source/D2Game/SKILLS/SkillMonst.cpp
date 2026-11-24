@@ -620,7 +620,7 @@ void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int n
 
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 
-int __fastcall sub_00554EA0(Game*,D2UnitStrc*,D2ActiveRoomStrc*,int,int,int,int); // 0x00554EA0
+int __fastcall SUNIT_TeleportUnit(Game*,D2UnitStrc*,D2ActiveRoomStrc*,int,int,int,int); // 0x00554EA0
 
 enum { UNIT_FLAGS = 0xE };
 
@@ -1907,13 +1907,13 @@ struct Skills;
 
 Unit* __stdcall sub_00553540(Game*, Unit*); // 0x00553540
 
-void __fastcall sub_0057C9F0(Game*, Unit*, Unit*); // 0x0057C9F0
+void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(Game*, Unit*, Unit*); // 0x0057C9F0
 
-int __fastcall sub_005CDD30(Unit*); // 0x005CDD30
+int __fastcall SKILLS_GetMonFrenzySequenceFrame(Unit*); // 0x005CDD30
 
-int __fastcall sub_0056F640(Game*, Unit*, int, int, int); // 0x0056F640
+int __fastcall SKILLS_StartSkill(Game*, Unit*, int, int, int); // 0x0056F640
 
-int __fastcall sub_005CDDD0(Game*, Unit*, Unit*, int, int); // 0x005CDDD0
+int __fastcall SKILLS_RollMonFrenzyDamage(Game*, Unit*, Unit*, int, int); // 0x005CDDD0
 
 int __stdcall sub_006444A0(Skill*); // 0x006444A0
 
@@ -1929,9 +1929,9 @@ struct Tables { char pad0[0xB6C]; int missileCount; char padB70[0x28]; Skills* s
 
 extern unsigned bitMasks[]; // 0x006CE268
 
-Unit* __fastcall sub_0056EE90(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056EE90
+Unit* __fastcall SKILLS_CreateMissileFromOrigin(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056EE90
 
-Unit* __fastcall sub_0056ECB0(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056ECB0
+Unit* __fastcall SKILLS_CreateMissileAtOffset(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056ECB0
 
 typedef char D2SkillsTxtSizeCheck[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 

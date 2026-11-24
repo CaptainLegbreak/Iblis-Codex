@@ -246,7 +246,7 @@ D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 
-void __fastcall sub_M93_UseCount_00531750(int nCount);
+void __fastcall PLRSAVE_CountInventoryItems(int nCount); // 0x00531750
 
 typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
@@ -889,13 +889,13 @@ void __fastcall CLIENTS_SetActNo(D2ClientStrc*,unsigned char); // 0x005382E0
 
 D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc*); // 0x005387C0
 
-void __fastcall sub_00539120_SetGuildFlags(D2ClientStrc*,int); // 0x00539120
+void __fastcall CLIENTS_SetGuildFlags(D2ClientStrc*,int); // 0x00539120
 
-void __fastcall sub_00539140_SetGuildTag(D2ClientStrc*,char*); // 0x00539140
+void __fastcall CLIENTS_SetGuildTag(D2ClientStrc*,char*); // 0x00539140
 
-void __fastcall sub_00539170_SetGuildName(D2ClientStrc*,char*); // 0x00539170
+void __fastcall CLIENTS_SetGuildName(D2ClientStrc*,char*); // 0x00539170
 
-void __fastcall sub_005391C0_SetGuildColors(D2ClientStrc*,unsigned char,int,int); // 0x005391C0
+void __fastcall CLIENTS_SetGuildEmblem(D2ClientStrc*,unsigned char,int,int); // 0x005391C0
 
 void __fastcall sub_00539230_SetFlag(D2ClientStrc*,unsigned char); // 0x00539230
 
@@ -1451,7 +1451,7 @@ int __fastcall PLRSAVE_WriteItems(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Invent
 
 void __stdcall sub_M93_Emit_00531750(int nUnused, D2InventoryStrc* pInventory)
 {
-    sub_M93_UseCount_00531750(PLRSAVE_CountInventoryItems(pInventory));
+    PLRSAVE_CountInventoryItems(PLRSAVE_CountInventoryItems(pInventory));
 }
 
 // 0x00531BB0
@@ -1927,14 +1927,14 @@ int __fastcall PLRSAVE_ReadLegacyHeader(D2GameStrc* pGame,D2ClientStrc* pClient,
  if(nProgress<8 && pGame->nDifficulty>1) return 18;
  if((nSaveFlags & 0x20) && nProgress<5 && pGame->nDifficulty>0) return 17;
  if(nProgress<4 && pGame->nDifficulty>0) return 17;
- sub_00539120_SetGuildFlags(pClient,*(int*)header.guildFlags);
+ CLIENTS_SetGuildFlags(pClient,*(int*)header.guildFlags);
  char szGuildName[28];
  memcpy(szGuildTag,header.guildTag,4);
  memcpy(szGuildName,header.guildName,28);
  szGuildTag[3]=0;szGuildName[27]=0;
- sub_00539140_SetGuildTag(pClient,szGuildTag);
- sub_00539170_SetGuildName(pClient,szGuildName);
- sub_005391C0_SetGuildColors(pClient,header.guildColors[0],*(int*)&header.guildColors[1],*(int*)&header.guildColors[2]);
+ CLIENTS_SetGuildTag(pClient,szGuildTag);
+ CLIENTS_SetGuildName(pClient,szGuildName);
+ CLIENTS_SetGuildEmblem(pClient,header.guildColors[0],*(int*)&header.guildColors[1],*(int*)&header.guildColors[2]);
  if(header.dwFlags & 1) {
   *pNewPlayer=1;header.dwFlags &= ~1;
   sub_00538630(pClient,header.dwFlags);
@@ -2108,14 +2108,14 @@ int __fastcall PLRSAVE_ReadLegacyStats(D2GameStrc* pGame, D2UnitStrc* pUnit, uns
     return 0;
 }
 
-void __fastcall sub_0056DEB0(int a1, int a2, int a3, int a4); // 0x0056DEB0
+void __fastcall D2GAME_SetSkills_6FD14C60(int a1, int a2, int a3, int a4); // 0x0056DEB0
 
 // 0x00532E70
 void __stdcall PLRSAVE_SetSkillIfLevelSet(int a1, int a2, unsigned char a3)
 {
     if (a3)
     {
-        sub_0056DEB0(a1, a2, a3, 1);
+        D2GAME_SetSkills_6FD14C60(a1, a2, a3, 1);
     }
 }
 

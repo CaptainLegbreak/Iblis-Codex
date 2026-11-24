@@ -99,7 +99,7 @@ extern "C" void __cdecl FOG_DisplayHalt(const char*,const char*,int); // 0x00408
 
 extern "C" __declspec(noreturn) void __cdecl sub_00681E09(int); // 0x00681E09
 
-void __fastcall sub_00544350(D2QuestDataStrc*,int,const char*,int); // 0x00544350
+void __fastcall QUESTS_StateDebug(D2QuestDataStrc*,int,const char*,int); // 0x00544350
 
 D2UnitStrc* __fastcall SUNIT_IterateUnitsOfType(D2GameStrc*,int,void*,QUESTUNITITERATE); // 0x005537D0
 
@@ -279,7 +279,7 @@ void __fastcall ACT2Q1_Callback11_ScrollMessage(D2QuestDataStrc* q,D2QuestArgStr
  D2Act2Quest1Strc* ex=(D2Act2Quest1Strc*)q->pQuestDataEx;
  if(message==304) {
   ex->bAtmaActivated=1;
-  sub_00544350(q,2,gszA2Q1SourceFile,239);
+  QUESTS_StateDebug(q,2,gszA2Q1SourceFile,239);
   SUNIT_IterateUnitsOfType(q->pGame,0,0,ACT2Q1_UnitIterate_UpdateQuestStateFlags);
  } else {
   if(message!=334) return;
@@ -290,7 +290,7 @@ void __fastcall ACT2Q1_Callback11_ScrollMessage(D2QuestDataStrc* q,D2QuestArgStr
     q->dwFlags&=0xFFFFFF00;
     QUESTS_UnitIterate(q,13,0,ACT2Q1_UnitIterate_StatusCyclerEx,true);
     q->pCallback[2]=0;
-    sub_00544350(q,5,gszA2Q1SourceFile,253);
+    QUESTS_StateDebug(q,5,gszA2Q1SourceFile,253);
     CHECK(!IsBadCodePtr((int (__stdcall*)())q->pfSeqFilter),254);
     q->pfSeqFilter(q);
    }
