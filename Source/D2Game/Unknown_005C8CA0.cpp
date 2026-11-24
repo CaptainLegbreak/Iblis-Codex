@@ -28,6 +28,69 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
+union D2SeedStrc;
+
+enum
+{
+    SKILLDO_FRAME_A = 6,
+    SKILLDO_FRAME_A_SET = 7,
+    SKILLDO_FRAME_A_COUNT = 0x3200,
+    SKILLDO_FRAME_B = 22,
+    SKILLDO_REPEATS = 4,
+    SKILLDO_FRAME_B_SET = 40,
+    SKILLDO_FRAME_B_COUNT = 0x1100,
+    SKILLDO_FRAME_C = 30,
+    SKILLDO_FRAME_C_STATE = 12,
+    PATHINIT_MAX_FRAMES = 78,
+    PATHINIT_CAP_FRAMES = 77,
+    PATHTYPE_CHARGEDBOLT = 10,
+};
+
+D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);
+void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
+void __fastcall CUNIT_MarkUnitDead(D2UnitStrc* pUnit); // 0x00464810
+void __stdcall UNITS_SetAnimationFrame(D2UnitStrc* pUnit, int nFrame);
+void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
+void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
+void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
+int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
+void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType); // 0x00648CF0
+void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
+int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
+
+int __fastcall SKILLDESC_CltDoFrameSteps(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
+    const int nRepeats = SKILLS_GetParam1(pSkill);
+
+    switch (pUnit->nSeqCurrentFramePrecise >> 8)
+    {
+    case SKILLDO_FRAME_A:
+        UNITS_SetAnimationFrame(pUnit, SKILLDO_FRAME_A_SET);
+        pUnit->dwFrameCountPrecise = SKILLDO_FRAME_A_COUNT;
+        break;
+
+    case SKILLDO_FRAME_B:
+        if (nRepeats >= SKILLDO_REPEATS)
+        {
+            UNITS_SetAnimationFrame(pUnit, SKILLDO_FRAME_B_SET);
+            pUnit->dwFrameCountPrecise = SKILLDO_FRAME_B_COUNT;
+        }
+        else
+        {
+            SKILLS_SetParam1(pSkill, nRepeats + 1);
+        }
+        break;
+
+    case SKILLDO_FRAME_C:
+        UNITMODE_SetUnitMode(pUnit, SKILLDO_FRAME_C_STATE);
+        CUNIT_MarkUnitDead(pUnit);
+        break;
+    }
+
+    return 1;
+}
+
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -50,6 +113,18 @@ inline D2MonStats2Txt* MONSTERREGION_GetMonStats2TxtRecord(int nMonsterId)
     return 0;
 }
 
+// 0x005C8BF0
+void __fastcall SKILLS_StatRemoveCallback_RemoveState(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
+{
+    STATES_ToggleState(pUnit, nState, 0);
+
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+}
+
+// 0x005C8C10
 static void sub_005C8C10_StopInferno(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     int nInfernoLength = 1;
@@ -125,3 +200,26 @@ int __fastcall SKILLS_DoInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkill
     sub_005C8C10_StopInferno(pGame, pUnit);
     return 1;
 }
+// 0x005C9290
+void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nSeedOffset)
+{
+    if (!pMissile)
+    {
+        return;
+    }
+
+    int nFrames = MISSILE_GetTotalFrames(pMissile);
+    if (nFrames >= PATHINIT_MAX_FRAMES)
+    {
+        nFrames = PATHINIT_CAP_FRAMES;
+        MISSILE_SetTotalFrames(pMissile, nFrames);
+        MISSILE_SetCurrentFrame(pMissile, nFrames);
+    }
+
+    D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
+    SEED_InitLowSeed(&pMissile->pSeed, D2COMMON_10175_PathGetFirstPointX(pPath) + nSeedOffset);
+    PATH_SetType(pPath, PATHTYPE_CHARGEDBOLT);
+    PATH_SetNewDistance(pPath, nFrames);
+    D2Common_10142(pPath, pMissile, 0);
+}
+

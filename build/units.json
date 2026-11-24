@@ -60882,8 +60882,8 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005C8BF0.cpp",
-   "rank": 0,
+   "file": "Source/D2Game/Unknown_005C8CA0.cpp",
+   "rank": 1,
    "functions": [
     {
      "va": "0x005C8BF0",
@@ -60896,19 +60896,13 @@
      "name": "?sub_005C8C10_StopInferno@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005C8CA0",
+     "length": 397
+    },
+    {
      "va": "0x005C9290",
      "length": 101,
      "name": "?SKILLDESC_InitCappedChargedPath@@YIXPAUD2UnitStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005C8CA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005C8CA0",
-     "length": 397
     }
    ],
    "flags": [
