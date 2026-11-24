@@ -7,12 +7,11 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 11:55 PT: join-pathwf is in (#361). join-drlgwarp reposted with the missing include. strays-c still applies to #361.
+- 2026-11-24 12:25 PT: strays-c is in (#362). join-drlgwarp rebased onto #362 (include fixed). strays-d posted.
 
 ## Ready
 - lane8/strays-d f849bb89 (on #362), VERIFIED 03c7d300, borrowed data 880 B. The 0x680040 marker (DRLGOUTWILD_IsVertexBlocking, inside OutDesr's run) moves from OutWild.cpp to OutDesr.cpp's copy of the same static inline; OutWild keeps an unmarked copy for its inlined call.
-- lane8/strays-c 24763064 (on #359), VERIFIED 66a0b8a9. Seven single-function strays move into the file on both sides of them: 0x6125A0/0x613E60 Ignorelist -> DataTbls, 0x63A110/0x63A530 Inventory -> Items, 0x66D7F0 Drlg -> DrlgAnim, 0x66B800/0x66B880 Skills -> DrlgRoom. Left: the Drlg/Skills DUNGEON_ coordinate helpers at 0x643260-0x643400 (interleaved, boundary unclear).
-- lane8/join-drlgwarp d39b9ba6 (rebased on #361), VERIFIED 06d1a9a0, borrowed data 898 B (same as main). Fixed: DrlgWarp.cpp now includes gen/data/Source/D2Common/DRLG/DrlgWarp.inc for the two definitions it took over (the copy 0x749804 and 0066AC40's record). DrlgWarp.cpp takes in Unknown_0066AB70 (holds the object's copy 0x749804), 0066AC40, 0066AE70 and DrlgRoom's 0x66AE30, all inside DrlgWarp's run. The header clash is solved by compiling the pieces against DrlgWarp's local structs (a minimal D2DrlgTileDataStrc; the level struct names pTileInfo/nTileInfo for the member 0x66AC40). Units -3.
+- lane8/join-drlgwarp 8bf67eee (rebased on #362), VERIFIED 79ebaa14, borrowed data 880 B (same as main). Fixed: DrlgWarp.cpp now includes gen/data/Source/D2Common/DRLG/DrlgWarp.inc for the two definitions it took over (the copy 0x749804 and 0066AC40's record). DrlgWarp.cpp takes in Unknown_0066AB70 (holds the object's copy 0x749804), 0066AC40, 0066AE70 and DrlgRoom's 0x66AE30, all inside DrlgWarp's run. The header clash is solved by compiling the pieces against DrlgWarp's local structs (a minimal D2DrlgTileDataStrc; the level struct names pTileInfo/nTileInfo for the member 0x66AC40). Units -3.
 
 ## Questions
 
