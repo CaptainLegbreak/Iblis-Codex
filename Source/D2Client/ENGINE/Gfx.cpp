@@ -12,6 +12,7 @@
 #include "D2ClientGame.h"
 #include "D2Path.h"
 #include "D2LevelIds.h"
+#include "D2ClientGfxState.h"
 
 struct D2UnitStrc;
 
@@ -141,24 +142,6 @@ void __fastcall sub_00474290(D2GfxLightStrc* pLight, int nRadius); // 0x00474290
 int __fastcall sub_004DBE20(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOverlay); // 0x004DBE20
 
 int __stdcall UNITS_GetOverlayHeight(D2UnitStrc* pUnit); // 0x006223A0
-
-struct D2StateNodeStrc
-{
-    int dwType;
-    int unk0x04;
-    int nCurrent;
-    char unk0x0C[0x2C];
-    int nStateId;
-    int bSelected;
-    char unk0x40[0x64];
-    D2StateNodeStrc* pNext;
-};
-
-struct D2StateOwnerStrc
-{
-    char unk0x00[0x2C];
-    D2StateNodeStrc* pFirst;
-};
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
