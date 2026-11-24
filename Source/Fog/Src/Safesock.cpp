@@ -590,8 +590,6 @@ struct D2ImageHlpSymbolStrc;
 
 struct D2ImageHlpModuleStrc;
 
-struct T0040D1C0;
-
 struct D2CrashDumpEntryStrc;
 
 struct D2SystemTimeStrc;
@@ -829,15 +827,6 @@ extern SymGetSymFromAddrFn gpfnSymGetSymFromAddr; // 0x0075CFF4
 extern StackWalkFn gpfnStackWalk; // 0x0075D008
 
 extern unsigned int gnStackWalkDepth; // 0x0075D018
-
-struct T0040D1C0
-{
-    unsigned long f_0;
-    unsigned long f_4;
-    unsigned long dwType;
-    int nCount;
-    unsigned long adwData[8];
-};
 
 void __stdcall SMemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
 
