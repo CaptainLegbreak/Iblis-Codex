@@ -29,7 +29,7 @@ struct D2SrpSha1ContextStrc
 {
     unsigned int aState[5];
     unsigned int aCount[2];
-    unsigned char f_1C[64];
+    unsigned char aBuffer[64];
 };
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int dwFlags);         // 0x00413020

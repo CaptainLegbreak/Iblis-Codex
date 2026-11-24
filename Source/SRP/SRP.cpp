@@ -72,7 +72,7 @@ struct D2SrpSha1ContextStrc
 {
     unsigned int aState[5];
     unsigned int aCount[2];
-    unsigned char f_1C[64];
+    unsigned char aBuffer[64];
 };
 
 extern "C" const unsigned char gabSha1Pad80[]; // 0x006E03F0

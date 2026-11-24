@@ -494,7 +494,7 @@ struct Message : D2LogMsgNodeStrc
     unsigned int nSize;
     int nType;
     int bTimeStamp;
-    D2SystemTimeStrc f_14;
+    D2SystemTimeStrc tTimeStamp;
 
     Message();
     ~Message();
@@ -1144,7 +1144,7 @@ void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle,
     pMessage->nSize = nExtraBytes + 0x24;
     pMessage->nType = 2;
     pMessage->bTimeStamp = 1;
-    GetLocalTime(&pMessage->f_14);
+    GetLocalTime(&pMessage->tTimeStamp);
     char* pText = pMessage->GetName();
     pText += SStrCopy(pText, szPrefix, 0x7FFFFFFF) + 1;
     D2LogMemoryInfoStrc* pInfo = (D2LogMemoryInfoStrc*)pText;
@@ -1213,7 +1213,7 @@ void __fastcall LOGMANAGER_WriteLogV(const char* szPrefix, int nArg2, int nArg3,
     pMessage->nSize = nExtraBytes + 0x24;
     pMessage->nType = 1;
     pMessage->bTimeStamp = nArg2 == 1;
-    GetLocalTime(&pMessage->f_14);
+    GetLocalTime(&pMessage->tTimeStamp);
 
     char* pText = pMessage->GetName();
     SStrCopy(pText, szPrefix, nExtraBytes);
@@ -1390,7 +1390,7 @@ void __fastcall LOGMANAGER_WriteMessage(LogManager::Message* pMessage)
     if (pFile)
     {
         if (pMessage->bTimeStamp)
-            fprintf(pFile, "%02d:%02d:%02d.%03d  ", pMessage->f_14.wHour, pMessage->f_14.wMinute, pMessage->f_14.wSecond, pMessage->f_14.wMilliseconds);
+            fprintf(pFile, "%02d:%02d:%02d.%03d  ", pMessage->tTimeStamp.wHour, pMessage->tTimeStamp.wMinute, pMessage->tTimeStamp.wSecond, pMessage->tTimeStamp.wMilliseconds);
         fwrite(szText, SStrLen(szText), 1, pFile);
 // build: symbol ?gadwLogWriteTick@* 0x0075D2F0
         gadwLogWriteTick[nSlot] = GetTickCount();
@@ -1593,7 +1593,7 @@ done:
 // 0x0040F070
 void __fastcall LOGMANAGER_WriteDumpMessage(LogManager::Message* pMessage)
 {
-    D2SystemTimeStrc* const pStamp = &pMessage->f_14;
+    D2SystemTimeStrc* const pStamp = &pMessage->tTimeStamp;
     D2_ASSERT(pMessage->nType == 2, 0x389);
     char* szName = pMessage->GetName();
     D2LogDumpStrc* pDump = (D2LogDumpStrc*)(szName + SStrLen(szName) + 1);
