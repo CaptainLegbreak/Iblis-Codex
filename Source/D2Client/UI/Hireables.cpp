@@ -1588,30 +1588,7 @@ void __fastcall WARDENCLIENT_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkil
     }
 }
 
-// 0x004979E0
-int __cdecl HIREABLES_AreBeltRowsShown()
-{
-    return gbBeltRowsShown != 0;
-}
 
-// 0x004979F0
-int __cdecl HIREABLES_GetBeltRowCount()
-{
-// build: symbol ?gnUiRecordIndex@* 0x00722354
-    switch (gnUiRecordIndex)
-    {
-    case 2:
-        return 1;
-    case 1:
-    case 4:
-        return 2;
-    case 0:
-    case 5:
-        return 3;
-    default:
-        return 4;
-    }
-}
 
 static void __stdcall sub_00493A00_DrawLifeBar(int nPetType, int nX, int nUnitId)
 {
@@ -1640,17 +1617,7 @@ static void __stdcall sub_00493A00_DrawLifeBar(int nPetType, int nX, int nUnitId
     D2GFX_DrawBox(nXFill, 0xE, nXEnd, 0x13, 0, 5);
 }
 
-// 0x00497270
-void __cdecl HIREABLES_InitTextColorA()
-{
-    gnTextColorA = D2Win_10034_MixRGB(0xF4, 0xC0, 0x4C);
-}
 
-// 0x00497290
-void __cdecl HIREABLES_InitTextColorB()
-{
-    gnTextColorB = D2Win_10034_MixRGB(0, 0, 0xFF);
-}
 
 // 0x00493240
 D2CelFileStrc* __fastcall HIREABLES_GetPetIcon(D2UnitStrc* pOwner, int nPetType, int* pUnitId, int* pSingle)
