@@ -184,7 +184,7 @@ extern "C" const U16* __fastcall sub_00524A30_LocalizedText(U16 index);
 
 extern "C" void __fastcall sub_00502280_SetTooltip(const U16* text, int x, int y, int color, int mode);
 
-extern "C" void __stdcall sub_00410EB0_WriteBits(BitStreamContext* stream, U32 value, int bitCount);
+extern "C" void __stdcall BITMANIP_Write(BitStreamContext* stream, U32 value, int bitCount); // 0x00410EB0
 
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0x006CC45C
 
@@ -1369,21 +1369,21 @@ extern "C" void __fastcall sub_0053B0E0_WriteVariableValue(BitStreamContext* str
 {
     if (value < 256u)
     {
-        sub_00410EB0_WriteBits(stream, 0, 1);
-        sub_00410EB0_WriteBits(stream, value, 8);
+        BITMANIP_Write(stream, 0, 1);
+        BITMANIP_Write(stream, value, 8);
     }
     else
     {
-        sub_00410EB0_WriteBits(stream, 1, 1);
+        BITMANIP_Write(stream, 1, 1);
         if (value < 65536u)
         {
-            sub_00410EB0_WriteBits(stream, 0, 1);
-            sub_00410EB0_WriteBits(stream, value, 16);
+            BITMANIP_Write(stream, 0, 1);
+            BITMANIP_Write(stream, value, 16);
         }
         else
         {
-            sub_00410EB0_WriteBits(stream, 1, 1);
-            sub_00410EB0_WriteBits(stream, value, 32);
+            BITMANIP_Write(stream, 1, 1);
+            BITMANIP_Write(stream, value, 32);
         }
     }
 }

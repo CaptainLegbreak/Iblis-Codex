@@ -526,7 +526,7 @@ extern int gnPaused_007C9144; // 0x007C9144
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc*);
 
-void __fastcall sub_006B55E0_InitializeWindow(int, int); // 0x006B55E0
+void __fastcall D3D_CreateSurface(int, int); // 0x006B55E0
 
 int gnState_00970E54; // 0x00970E54
 
@@ -722,9 +722,9 @@ void __cdecl D3D_ReleaseSmackSurfaces(); // 0x006B9B30
 
 void __fastcall sub_006BA830_FreeCache(D2Cache006BA830Strc* pCache, int bFree); // 0x006BA830
 
-void __fastcall sub_006BADC0_Free(D2Object006BADC0Strc* pObject, int bFree); // 0x006BADC0
+void __fastcall D3D_SubtileCacheDestroy(D2Object006BADC0Strc* pObject, int bFree); // 0x006BADC0
 
-void __fastcall sub_006BB3E0_Free(D2Object006BB3E0Strc* pObject, int bFree); // 0x006BB3E0
+void __fastcall D3D_FloorCacheDestroy(D2Object006BB3E0Strc* pObject, int bFree); // 0x006BB3E0
 
 extern int gdwGlobal_00970E8C; // 0x00970E8C
 
@@ -1636,7 +1636,7 @@ void __fastcall D3D_PauseSurface(int window, int mode, int paused)
     }
     else {
         gnPaused_007C9144 = 0;
-        sub_006B55E0_InitializeWindow(window, mode);
+        D3D_CreateSurface(window, mode);
     }
     LeaveCriticalSection(gpCriticalSection_007C9134);
 }

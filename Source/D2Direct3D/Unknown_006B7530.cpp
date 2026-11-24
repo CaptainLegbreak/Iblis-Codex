@@ -34,7 +34,7 @@ struct D2DrawDeviceStrc { D2DrawVtableStrc* vtable; };
 
 extern D2TLVertexStrc gaQuadVertices[4]; // 0x00971630
 extern D2DrawDeviceStrc* gpDrawDevice; // 0x00970E78
-void __fastcall sub_006BBA00_BindTilePart(D2TilePartStrc*); // 0x006BBA00
+void __fastcall D3D_BindTileTexture(D2TilePartStrc*); // 0x006BBA00
 void __fastcall sub_006B9730_SetQuadColor(D2TLVertexStrc*,unsigned char,int); // 0x006B9730
 
 struct D2PerspectiveTileStrc { short nX,nY; char unknown04[0x10]; };
@@ -46,8 +46,8 @@ extern D2TLVertexStrc gaPerspectiveVertices[15]; // 0x00971450
 extern unsigned short gaPerspectiveIndices[22]; // 0x0074C0D0
 void __fastcall sub_006B9860_Project(int nX,int nY,int nZ,int* pOutX,int* pOutY); // 0x006B9860
 void __fastcall sub_006B9730_SetColor(D2TLVertexStrc* pVertex,unsigned char nIndex,unsigned char nAlpha); // 0x006B9730
-void __fastcall sub_006BBA00_SelectTile(D2PerspectiveTileStrc* pTile); // 0x006BBA00
-int __stdcall sub_005FDEA0_CheckSurface(void*, int, int); // 0x005FDEA0
+void __fastcall D3D_BindTileTexture(D2PerspectiveTileStrc* pTile); // 0x006BBA00
+int __stdcall D2CMPTileValidate(void*, int, int); // 0x005FDEA0
 void __fastcall D3D_SetAlphaBlendMode(int); // 0x006B1F40
 void __fastcall D3D_SetTextureFilterMode(int); // 0x006B2030
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
@@ -239,7 +239,7 @@ int __fastcall sub_006B8220_DrawTileParts(D2TileContextStrc* pTile, int nX, int 
             int nTop = nBottom - 32;
             bDrawn = 1;
             int nRight = nLeft + 32;
-            sub_006BBA00_BindTilePart(&pTile->parts[i]);
+            D3D_BindTileTexture(&pTile->parts[i]);
             gaQuadVertices[0].fX = (float)nLeft;
             gaQuadVertices[0].fY = (float)nTop;
             gaQuadVertices[1].fX = (float)nLeft;
@@ -299,7 +299,7 @@ int __fastcall sub_006B83A0_DrawPerspective(D2PerspectiveSpriteStrc* pSprite,int
         if(IsVisible(rect,gaPerspectiveVertices[0]))
         {
 Draw:
-            sub_006BBA00_SelectTile(&pSprite->pTiles[i]);
+            D3D_BindTileTexture(&pSprite->pTiles[i]);
             const float fOffset=(float)nOffset;
             D2TLVertexStrc* pVertex=gaPerspectiveVertices;
             int nStartY=nDrawY;
@@ -339,7 +339,7 @@ Draw:
 // calling-convention shim (not game code)
 static int __stdcall sub_006B8DF0_DrawConfigured(void* pSurface, int nA, int nB, int nC, void* pImage, unsigned char nAlpha)
 {
-    if (!sub_005FDEA0_CheckSurface(pSurface, 1, 0)) return 0;
+    if (!D2CMPTileValidate(pSurface, 1, 0)) return 0;
     sub_006B1EA0_SetMode(1);
     D3D_SetAlphaBlendMode(nAlpha == 255 ? 1 : 4);
     D3D_SetTextureFilterMode(1);

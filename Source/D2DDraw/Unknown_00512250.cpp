@@ -19,10 +19,10 @@ struct D2CelContext00512250Strc
 int __stdcall sub_006001F0_Prepare(D2CelContext00512250Strc* pContext, int a2, int a3); // 0x006001F0
 int __fastcall DDRAW_GetDrawModePalette(int nArg, D2ClipRect00512250Strc** ppClip, int nY1, int nY2, int nFlags); // 0x00511D70
 void __stdcall D2CMP_CelDrawEx(D2CelContext00512250Strc* pContext, int nX, int nY, int nX1, int nX2, int a6, int a7, int a8, int a9, int a10); // 0x00601650
-int __stdcall sub_006018C0_CelGetWidth(D2CelFileStrc* pCelFile); // 0x006018C0
-int __stdcall sub_006018F0_CelGetHeight(D2CelFileStrc* pCelFile); // 0x006018F0
-int __stdcall sub_00601920_CelGetOffsetX(D2CelFileStrc* pCelFile); // 0x00601920
-int __stdcall sub_00601950_CelGetOffsetY(D2CelFileStrc* pCelFile); // 0x00601950
+int __stdcall CelGetWidth(D2CelFileStrc* pCelFile); // 0x006018C0
+int __stdcall CelGetHeight(D2CelFileStrc* pCelFile); // 0x006018F0
+int __stdcall CelGetOffsetX(D2CelFileStrc* pCelFile); // 0x00601920
+int __stdcall CelGetOffsetY(D2CelFileStrc* pCelFile); // 0x00601950
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern const char gszAssertExpr_006CC837[]; // 0x006CC837
@@ -35,8 +35,8 @@ static int __stdcall sub_00511E80_ClipCel(D2CelFileStrc* pCelFile, int nY, D2Cli
 // 0x00511E80
 static int __stdcall sub_00511E80_ClipCel(D2CelFileStrc* pCelFile, int nY, D2ClipRect00512250Strc* pClip, int nX, D2ClipRect00512250Strc* pOut)
 {
-    const int nWidth = sub_006018C0_CelGetWidth(pCelFile);
-    const int nHeight = sub_006018F0_CelGetHeight(pCelFile);
+    const int nWidth = CelGetWidth(pCelFile);
+    const int nHeight = CelGetHeight(pCelFile);
 
     const int nX1 = D2_MAX(pClip->nX1, 0);
     const int nX2 = D2_MIN(pClip->nX2, gnValue_007C9138);
@@ -45,7 +45,7 @@ static int __stdcall sub_00511E80_ClipCel(D2CelFileStrc* pCelFile, int nY, D2Cli
         return 1;
     }
 
-    nX += sub_00601920_CelGetOffsetX(pCelFile);
+    nX += CelGetOffsetX(pCelFile);
     if (nX >= nX2 || nWidth + nX < nX1)
     {
         return 1;
@@ -59,7 +59,7 @@ static int __stdcall sub_00511E80_ClipCel(D2CelFileStrc* pCelFile, int nY, D2Cli
         return 1;
     }
 
-    nY += sub_00601950_CelGetOffsetY(pCelFile);
+    nY += CelGetOffsetY(pCelFile);
     if (nY < nY1 || nY - nHeight > nY2)
     {
         return 1;

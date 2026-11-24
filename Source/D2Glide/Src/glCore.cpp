@@ -38,7 +38,7 @@ extern int gbIsMouseButtonPressed; // 0x007D55E0
 
 extern int gdwGlobal_007D55D4; // 0x007D55D4
 
-void __stdcall sub_004F9310(void* pArg); // 0x004F9310
+void __stdcall CONTROL_RemoveFromList(void* pArg); // 0x004F9310
 
 extern int gdwGlobal_0087E838; // 0x0087E838
 
@@ -167,7 +167,7 @@ void (__stdcall* gpfnGrSstSelect)(int a1); // 0x0087EB3C
 
 void __cdecl GLIDE_CreateDebugFont(); // 0x0050B9E0
 
-int __cdecl sub_00509670_GlideInitTextures();
+int __cdecl GLIDE_InitTextureMemory(); // 0x00509670
 
 int gnGlideRefresh640; // 0x0087EFAC
 
@@ -385,13 +385,13 @@ extern unsigned int gnTexCacheSize3; // 0x007C90E8
 
 extern const char gszInsufficientTextureMemory[]; // 0x006DD480
 
-void __fastcall sub_0050F7C0(D2GlideTexCacheStrc* pCache, int bFree); // 0x0050F7C0
+void __fastcall GLIDE_FloorCacheDestroy(D2GlideTexCacheStrc* pCache, int bFree); // 0x0050F7C0
 
-void __fastcall sub_0050F210(D2GlideTexCacheStrc* pCache, int bFree); // 0x0050F210
+void __fastcall GLIDE_TileCacheDestroy(D2GlideTexCacheStrc* pCache, int bFree); // 0x0050F210
 
 void __cdecl GLIDE_SmackFlush(); // 0x0050E030
 
-void __fastcall sub_0050ECB0(D2GlideTexCacheStrc* pCache, int bFree); // 0x0050ECB0
+void __fastcall GLIDE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFree); // 0x0050ECB0
 
 void __cdecl GLIDE_FreeSpriteBuffers(); // 0x0050A0C0
 
@@ -410,7 +410,7 @@ extern int gnGlideState_007C9140; // 0x007C9140
 // 0x00507EE0
 void __fastcall SCROLLBAR_Destroy(void* pArg)
 {
-    sub_004F9310(pArg);
+    CONTROL_RemoveFromList(pArg);
 }
 
 void __fastcall GLIDE_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush);                     // 0x0050ECB0
@@ -897,16 +897,16 @@ int __cdecl GLIDE_CloseSurface()
         gpfnGrFinish();
         if (gbFloorTiles_0087EFE8)
         {
-            sub_0050F7C0(&gTexCacheA_0087EB68, 1);
-            sub_0050F210(&gTexCacheB_0087EB48, 1);
+            GLIDE_FloorCacheDestroy(&gTexCacheA_0087EB68, 1);
+            GLIDE_TileCacheDestroy(&gTexCacheB_0087EB48, 1);
         }
         else
         {
             GLIDE_SmackFlush();
         }
-        sub_0050ECB0(&gaGlideTexCaches[1], 1);
-        sub_0050ECB0(&gaGlideTexCaches[2], 1);
-        sub_0050ECB0(&gaGlideTexCaches[3], 1);
+        GLIDE_TexCacheDestroy(&gaGlideTexCaches[1], 1);
+        GLIDE_TexCacheDestroy(&gaGlideTexCaches[2], 1);
+        GLIDE_TexCacheDestroy(&gaGlideTexCaches[3], 1);
         GLIDE_FreeSpriteBuffers();
         for (int i = 0; ; ++i)
         {
@@ -1031,7 +1031,7 @@ static int GLIDE_OpenDevice(int nResolution, void* hWnd)
             gpfnGrTexCombine(1, 1, 0, 1, 0, 0, 0);
         }
         gpfnGrChromakeyValue(0xFF);
-        if (sub_00509670_GlideInitTextures())
+        if (GLIDE_InitTextureMemory())
         {
             tQuery.bResult = 1;
         }

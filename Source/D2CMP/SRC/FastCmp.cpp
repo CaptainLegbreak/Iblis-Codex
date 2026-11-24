@@ -38,7 +38,7 @@ struct D2CmpCellListStrc;
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-int __stdcall sub_00600760_GetValue(void* pData); // 0x00600760
+int __stdcall D2CMPGetFindTile(void* pData); // 0x00600760
 
 void __fastcall sub_005179A4_FreeVirtualMemory(void* pMemory); // 0x005179A4
 

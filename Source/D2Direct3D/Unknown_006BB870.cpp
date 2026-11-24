@@ -113,9 +113,9 @@ extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 #define D2_ASSERT(expr,line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc*, int, int); // 0x005FDEA0
-int __fastcall sub_006BB520_AddCacheEntry(D2TextureCacheStrc*); // 0x006BB520
-void __fastcall sub_006BB2D0_TouchCacheEntry(D2TextureCacheStrc*, int); // 0x006BB2D0
-void __stdcall sub_006BB720_DecodeTile(D2TileLibraryEntryStrc*, void*, int); // 0x006BB720
+int __fastcall D3D_FloorCacheAdd(D2TextureCacheStrc*); // 0x006BB520
+void __fastcall D3D_FloorCacheTouch(D2TextureCacheStrc*, int); // 0x006BB2D0
+void __stdcall D3D_RenderTile(D2TileLibraryEntryStrc*, void*, int); // 0x006BB720
 void __fastcall sub_006B20E0_DDrawLogError(const char*, int); // 0x006B20E0
 void __fastcall sub_006B38A0_CopySurface(D2SurfaceStrc*, D2SurfaceStrc*, void*); // 0x006B38A0
 extern D2TextureCacheStrc gTextureCache; // 0x0096FC9C
@@ -137,7 +137,7 @@ int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile)
         D2_ASSERT(pTile->nCacheIndex >= 0, 0x191);
         if (pTile->nCacheIndex == 0)
         {
-            pTile->nCacheIndex = sub_006BB520_AddCacheEntry(&gTextureCache);
+            pTile->nCacheIndex = D3D_FloorCacheAdd(&gTextureCache);
             const int nIndex = pTile->nCacheIndex - 1;
             D2_ASSERT(nIndex >= 0, 0x19C);
             D2_ASSERT(nIndex < gTextureCache.nCount, 0x19D);
@@ -148,7 +148,7 @@ int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile)
                 int nError = gpMemorySurface->Lock(0, &desc, 0x21, 0);
                 if (nError) sub_006B20E0_DDrawLogError(gszLockError, nError);
                 D2_ASSERT(desc.dwFlags & 8, 0x1AD);
-                sub_006BB720_DecodeTile(pTile, desc.lpSurface, desc.lPitch >> 1);
+                D3D_RenderTile(pTile, desc.lpSurface, desc.lPitch >> 1);
                 nError = gpMemorySurface->Unlock(0);
                 if (nError) sub_006B20E0_DDrawLogError(gszUnlockError, nError);
             }
@@ -161,7 +161,7 @@ int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile)
         else
         {
             D2TextureCacheEntryStrc* pEntry = &gTextureCache.pEntries[pTile->nCacheIndex - 1];
-            sub_006BB2D0_TouchCacheEntry(&gTextureCache, pTile->nCacheIndex);
+            D3D_FloorCacheTouch(&gTextureCache, pTile->nCacheIndex);
             gpDevice->SetTexture(0, pEntry->pTexture);
         }
         nResult = 1;

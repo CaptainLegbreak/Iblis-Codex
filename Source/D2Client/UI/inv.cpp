@@ -525,7 +525,7 @@ extern void* gResourceB;
 
 void __cdecl InitializePalette();
 
-void __fastcall sub_004F6300(int x, int y, int width, int height, int color, int mode);
+void __fastcall D2GFX_DrawBox(int x, int y, int width, int height, int color, int mode); // 0x004F6300
 
 int __stdcall ReleaseResource(void* resource);
 
@@ -5261,7 +5261,8 @@ int __cdecl INV_IsSellMode()
     return gnInvPanelMode == 4;
 }
 
-extern "C" RangeNode* __fastcall sub_0040BCB0_FindRange(unsigned int address, RangeNode* node)
+// build: symbol @EXCEPTIONS_FindModuleByAddress@* 0x0040BCB0
+extern "C" RangeNode* __fastcall EXCEPTIONS_FindModuleByAddress(unsigned int address, RangeNode* node)
 {
     while (node)
     {
@@ -5851,7 +5852,7 @@ void __cdecl INV_LoadCubePanelCel()
 void __cdecl sub_00494EB0_DrawUiRectangle()
 {
     InitializePalette();
-    sub_004F6300(0, 0, gScreenWidth, gScreenHeight - 49, gColor, 1);
+    D2GFX_DrawBox(0, 0, gScreenWidth, gScreenHeight - 49, gColor, 1);
 }
 
 // 0x0048A500
@@ -5973,7 +5974,8 @@ void __cdecl INV_ClearTradeFlag()
     gbTradeFlag = 0;
 }
 
-void __cdecl sub_005239C0_ReleaseResources()
+// build: symbol ?GRID_UnlockCDKeys@* 0x005239C0
+void __cdecl GRID_UnlockCDKeys()
 {
     if (gResourceA)
     {

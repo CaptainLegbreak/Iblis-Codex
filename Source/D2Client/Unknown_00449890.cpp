@@ -3,7 +3,7 @@
 struct D2LaunchAddressStrc;
 
 void* __stdcall sub_006BC810_LookupHandle(int nKey); // 0x006BC810
-int __fastcall sub_0040DEE0_QueryAddress(void* pHandle, D2LaunchAddressStrc* pAddress, int* pSize); // 0x0040DEE0
+int __fastcall FOG_SOCKET_GetPeerName(void* pHandle, D2LaunchAddressStrc* pAddress, int* pSize); // 0x0040DEE0
 extern int gnLaunchKey_00798FB4; // 0x00798FB4
 
 // build: symbol ?COMCALLBACK_NibbleToHex@* 0x00449840
@@ -26,5 +26,5 @@ int __cdecl sub_00449B30_QueryAddress()
         return 0;
     D2LaunchAddressStrc tAddress;
     int nSize = sizeof(tAddress);
-    return sub_0040DEE0_QueryAddress(pHandle, &tAddress, &nSize);
+    return FOG_SOCKET_GetPeerName(pHandle, &tAddress, &nSize);
 }

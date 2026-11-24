@@ -68,13 +68,13 @@ extern void* ghClientConnectToHostThreadHandle; // 0x00882CE0
 
 extern unsigned long gdwThreadId; // 0x00882B30
 
-int __stdcall sub_006BE4E0(void* pObject, int nArg1); // 0x006BE4E0
+int __stdcall FOG_WaitForSingleObject(void* pObject, int nArg1); // 0x006BE4E0
 
 int __stdcall sub_006BE390(void* pObject, int nArg1, int nArg2); // 0x006BE390
 
 int __fastcall sub_006BF610(void* pObject, int nArg1, int nArg2); // 0x006BF610
 
-void __stdcall sub_006BE4A0(void* pObject, int nArg1); // 0x006BE4A0
+void __stdcall FOG_SetMaxClientsPerGame(void* pObject, int nArg1); // 0x006BE4A0
 
 int __stdcall FOG_SetHackListEnabled(void* pObject, int nArg1); // 0x006BF4E0
 
@@ -88,13 +88,13 @@ int __stdcall sub_006BEE20(void* pObject, int nArg1); // 0x006BEE20
 
 int __stdcall sub_006BEF40(void* pObject, int nArg1); // 0x006BEF40
 
-int __stdcall sub_006C0530(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C0530
+int __stdcall QSERVER_HackListClient(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C0530
 
-int __stdcall sub_006C0600(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C0600
+int __stdcall QSERVER_HackListIP(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C0600
 
-int __stdcall sub_006BEFB0(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006BEFB0
+int __stdcall QSERVER_HackUnlistIP(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006BEFB0
 
-int __stdcall sub_006C06D0(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C06D0
+int __stdcall QSERVER_DisconnectIP(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C06D0
 
 static inline void CLIENT_StartConnectThread(const char* szIpAddress); // 0x0052A730
 
@@ -640,7 +640,7 @@ void __stdcall CLIENT_GetLocalIpAddressString(char* szBuffer)
 // 0x0052B1F0
 int __stdcall SERVER_WaitForSingleObject(int nArg1)
 {
-    return sub_006BE4E0(gpServer, nArg1);
+    return FOG_WaitForSingleObject(gpServer, nArg1);
 }
 
 // 0x0052B210
@@ -658,7 +658,7 @@ int __stdcall SERVER_AddKeyValuePair(int nArg1, int nArg2)
 // 0x0052B250
 void __stdcall SERVER_SetMaxClientsPerGame(int nArg1)
 {
-    sub_006BE4A0(gpServer, nArg1);
+    FOG_SetMaxClientsPerGame(gpServer, nArg1);
 }
 
 // 0x0052B490

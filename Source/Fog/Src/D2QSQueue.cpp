@@ -69,7 +69,7 @@ void D2QSQueueStrc::Destroy()
 }
 
 // 0x006C1FD0
-int __fastcall sub_006C1FD0_GetOverflow(D2QSQueueStrc* pQueue)
+int __fastcall D2QSQUEUE_GetOverflow(D2QSQueueStrc* pQueue)
 {
     EnterCriticalSection(&pQueue->tLock);
     int bOverflow = pQueue->bOverflow;

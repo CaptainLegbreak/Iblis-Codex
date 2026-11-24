@@ -58,14 +58,14 @@ void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* 
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback);                                          // 0x004FA590
 void __fastcall CHATDLG_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x0043FB50
 void __fastcall CHATDLG_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x004401C0
-int __stdcall sub_0043D9A0(int nArg);                                                                       // 0x0043D9A0
+int __stdcall CHATDLG_OnRealmConnectCancel(int nArg);                                                                       // 0x0043D9A0
 int __stdcall sub_0043DBC0(int nArg);                                                                       // 0x0043DBC0
 int __stdcall sub_0043DBF0(int nArg);                                                                       // 0x0043DBF0
 void __cdecl sub_00443630_UpdateCreateButton();                                                                                // 0x00443630
 int __stdcall CHATDLG_RequestCharLogon(const char* szName);                                                    // 0x00449E10
 void __stdcall sub_00449E50_SetValue(int nValue);                                                           // 0x00449E50
 void __stdcall CHATDLG_StartThread(D2LaunchThreadRecordStrc* pRecord);                                 // 0x0044A130
-int __fastcall sub_0044A400_SendLogin(D2LaunchLoginStrc* pLogin, unsigned short wRequestId);                // 0x0044A400
+int __fastcall WINMAIN_SendMcpCreateGame(D2LaunchLoginStrc* pLogin, unsigned short wRequestId);                // 0x0044A400
 int __fastcall WINMAIN_SendMcpGameInfoRequest(char* szText, unsigned short wRequestId);                              // 0x0044A610
 void __stdcall sub_006BC780(void* pConnection);                                                             // 0x006BC780
 extern "C" const char gszPassword[];                                                               // 0x006D423C
@@ -192,7 +192,7 @@ int __fastcall CHATDLG_SetupLogin(D2LaunchLoginStrc* pLogin, const char* szText0
             {
             }
             sub_00449E50_SetValue(0);
-            sub_0044A400_SendLogin(pLogin, gnRequestId_0070CD60);
+            WINMAIN_SendMcpCreateGame(pLogin, gnRequestId_0070CD60);
             gwSavedRequestId = gnRequestId_0070CD60;
             return 1;
         }

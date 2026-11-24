@@ -1742,7 +1742,7 @@
     "extern \"C\" void __cdecl D3D_GetBackBuffer(); // 0x006B3610",
     "extern \"C\" void __cdecl sub_006B4E80_LoadVideoConfiguration(); // 0x006B4E80",
     "extern \"C\" void __cdecl D3D_Close(); // 0x006B5550",
-    "extern \"C\" void __cdecl sub_006B55E0_InitializeWindow(); // 0x006B55E0",
+    "extern \"C\" void __cdecl D3D_CreateSurface(); // 0x006B55E0",
     "extern \"C\" void __cdecl D3D_PauseSurface(); // 0x006B5630",
     "extern \"C\" void __cdecl D3D_OpenSmackCutscene(); // 0x006B56C0",
     "extern \"C\" void __cdecl D3D_StartDraw(); // 0x006B5720",
@@ -75355,7 +75355,7 @@
      12,
      "0x006B55E0",
      "source",
-     "sub_006B55E0_InitializeWindow",
+     "D3D_CreateSurface",
      0,
      "func"
     ],

@@ -1506,7 +1506,8 @@ char* __fastcall FOG_inet_ntoa(int nAddress)
     return strcpy(gszAddressText, inet_ntoa(tAddress));
 }
 
-extern "C" void __cdecl sub_0043F800_FreeList()
+// build: symbol _CHATDLG_FreeNameList 0x0043F800
+extern "C" void __cdecl CHATDLG_FreeNameList()
 {
     List204* node = gList_0077BDB4;
     while (node)

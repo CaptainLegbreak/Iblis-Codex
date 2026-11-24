@@ -169,11 +169,11 @@ int __fastcall sub_0051E370_SetText(const char* szText, int nLength); // 0x0051E
 
 void __fastcall BNDOWNLOAD_SetStatus(int nStatus); // 0x0051EA40
 
-int __fastcall sub_0051EA80_SetName(const char* szName); // 0x0051EA80
+int __fastcall BNDOWNLOAD_SetArchiveName(const char* szName); // 0x0051EA80
 
 int __cdecl BNDOWNLOAD_HasArchiveName(); // 0x0051EAA0
 
-int __fastcall sub_0051E6D0_ParseLogon(int* pArg1, int* pArg2, char* szText); // 0x0051E6D0
+int __fastcall BNDOWNLOAD_RunCheckRevision(int* pArg1, int* pArg2, char* szText); // 0x0051E6D0
 
 int __fastcall BNMESSQUEUE_SetError(int nError); // 0x005204A0
 
@@ -1080,7 +1080,7 @@ int __fastcall BNSEND_SendReportVersion(unsigned int dwExeVersion, unsigned int 
 int __cdecl BNSEND_SendStartVersioning()
 {
     sub_00520C00_ClearReply(7);
-    sub_0051EA80_SetName(&gszEmptyAssertText);
+    BNDOWNLOAD_SetArchiveName(&gszEmptyAssertText);
     D2BnLogonRequestStrc tRequest;
     memset(&tRequest, 0, sizeof(tRequest));
     tRequest.dwPlatform = 0x49583836;
@@ -1105,7 +1105,7 @@ int __cdecl BNSEND_SendStartVersioning()
     char szText[0x100] = { 0 };
     int nArg2;
     int nArg1;
-    if (!sub_0051E6D0_ParseLogon(&nArg1, &nArg2, szText))
+    if (!BNDOWNLOAD_RunCheckRevision(&nArg1, &nArg2, szText))
     {
         BNMESSQUEUE_SetError(1);
         return 0;

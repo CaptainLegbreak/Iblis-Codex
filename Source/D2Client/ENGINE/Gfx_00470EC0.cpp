@@ -260,7 +260,7 @@ unsigned char* __fastcall GFXUTIL_GetBodyLocItemShift(D2UnitStrc*, int, unsigned
 void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int bForce); // 0x004DC7B0
 int __cdecl D2GFX_CheckUnitPerspective(); // 0x004F5170
 void __stdcall sub_004F5190_SetTownMode(int); // 0x004F5190
-void __stdcall sub_004F6450_DrawPerspective(D2CelContextStrc*, int, int, unsigned int, int, int, unsigned char*); // 0x004F6450
+void __stdcall TEXTURE_CelFlatSpriteDraw(D2CelContextStrc*, int, int, unsigned int, int, int, unsigned char*); // 0x004F6450
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc*); // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc*); // 0x00620410
 int __stdcall STATES_CheckState(D2UnitStrc*, int); // 0x00639DF0
@@ -404,7 +404,7 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
             {
                 int nPrecX = UNITS_GetPrecisionX(pUnit);
                 int nPrecY = UNITS_GetPrecisionY(pUnit);
-                sub_004F6450_DrawPerspective(&tCel, nPrecX, nPrecY, dwColor, nDrawMode, nBorder, pPalette);
+                TEXTURE_CelFlatSpriteDraw(&tCel, nPrecX, nPrecY, dwColor, nDrawMode, nBorder, pPalette);
             }
             else TEXTURE_CelDraw(&tCel, nDrawX, nDrawY, dwColor, nDrawMode, pPalette);
         }
@@ -414,7 +414,7 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
             {
                 int nPrecX = UNITS_GetPrecisionX(pUnit);
                 int nPrecY = UNITS_GetPrecisionY(pUnit);
-                sub_004F6450_DrawPerspective(&tCel, nPrecX, nPrecY, dwColor, 5, nBorder, pPalette);
+                TEXTURE_CelFlatSpriteDraw(&tCel, nPrecX, nPrecY, dwColor, 5, nBorder, pPalette);
             }
             else TEXTURE_CelDraw(&tCel, nDrawX, nDrawY, dwColor, 5, pPalette);
         }

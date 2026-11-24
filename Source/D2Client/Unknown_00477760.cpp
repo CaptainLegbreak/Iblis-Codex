@@ -28,7 +28,7 @@ struct D2CacheStatsStrc
 };
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
-void __stdcall sub_005FE010_GetTileCacheStats(unsigned int* pSize, int* pMisses, int* pTotal, int* pUtilized); // 0x005FE010
+void __stdcall D2CMPGetTileCacheHits(unsigned int* pSize, int* pMisses, int* pTotal, int* pUtilized); // 0x005FE010
 
 struct D2ClientPacket67Strc
 {

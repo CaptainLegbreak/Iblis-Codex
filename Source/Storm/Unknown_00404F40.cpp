@@ -432,7 +432,8 @@ void __fastcall sub_00405550(Character* text)
     }
 }
 
-static int sub_004055D0_IsCmdSeparator_Inl(char c)
+// build: symbol ?ERRORMANAGER_IsCmdSeparator@* 0x004055D0
+static int ERRORMANAGER_IsCmdSeparator(char c)
 {
     const char aSeparators[4] = { ' ', '\t', '\n', ':' };
     for (int i = 0; i < 4; i++)
@@ -466,7 +467,7 @@ static void ParseCmdValue(char* s)
     int i = 0;
     for (; i < nLen; i++)
     {
-        if (!sub_004055D0_IsCmdSeparator_Inl(s[i]))
+        if (!ERRORMANAGER_IsCmdSeparator(s[i]))
         {
             break;
         }
@@ -474,7 +475,7 @@ static void ParseCmdValue(char* s)
     int nOut = 0;
     for (; i < nLen; i++)
     {
-        if (sub_004055D0_IsCmdSeparator_Inl(szBuf[i]))
+        if (ERRORMANAGER_IsCmdSeparator(szBuf[i]))
         {
             break;
         }

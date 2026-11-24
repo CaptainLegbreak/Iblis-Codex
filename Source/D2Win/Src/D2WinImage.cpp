@@ -196,18 +196,18 @@ int __stdcall IMAGE2_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg);                 
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 
-void __stdcall sub_004F9310(void* pArg); // 0x004F9310
+void __stdcall CONTROL_RemoveFromList(void* pArg); // 0x004F9310
 
 // 0x004FD0F0
 void __fastcall IMAGE_Destroy(void* pArg)
 {
-    sub_004F9310(pArg);
+    CONTROL_RemoveFromList(pArg);
 }
 
 // 0x004FD100
 void __fastcall IMAGE2_Destroy(void* pArg)
 {
-    sub_004F9310(pArg);
+    CONTROL_RemoveFromList(pArg);
 }
 
 // build: symbol ?IMAGE_Draw@@YIHPAUD2WinControlStrc@@@Z 0x004FD470

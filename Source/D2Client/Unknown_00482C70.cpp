@@ -513,7 +513,7 @@ extern void* gResourceB;
 
 void __cdecl InitializePalette();
 
-void __fastcall sub_004F6300(int x, int y, int width, int height, int color, int mode);
+void __fastcall D2GFX_DrawBox(int x, int y, int width, int height, int color, int mode); // 0x004F6300
 
 int __stdcall ReleaseResource(void* resource);
 

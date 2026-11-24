@@ -813,7 +813,7 @@ void __fastcall D2Win_10133(const Unicode* wszText, int nX, int nY, int nColor, 
     sub_00501A80_DrawTextLine(nTop - 2, nRectWidth, nTextColor, 1, wszText, nLeft);
 }
 
-static int sub_00501840_IsColorCode(unsigned short wChar)
+static int FONT_GetMaxLineWidth(unsigned short wChar)
 {
     return wChar == 0xFF;
 }

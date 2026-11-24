@@ -86,13 +86,13 @@ int __stdcall sub_006BEE20(void* pObject, int nArg1); // 0x006BEE20
 
 int __stdcall sub_006BEF40(void* pObject, int nArg1); // 0x006BEF40
 
-int __stdcall sub_006C0530(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C0530
+int __stdcall QSERVER_HackListClient(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C0530
 
-int __stdcall sub_006C0600(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C0600
+int __stdcall QSERVER_HackListIP(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C0600
 
-int __stdcall sub_006BEFB0(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006BEFB0
+int __stdcall QSERVER_HackUnlistIP(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006BEFB0
 
-int __stdcall sub_006C06D0(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C06D0
+int __stdcall QSERVER_DisconnectIP(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006C06D0
 
 QServer* gpServer; // 0x00882D08
 
@@ -181,25 +181,25 @@ int __stdcall SERVER_GetSocketFromClientId(int nArg1)
 // 0x0052B4F0
 int __stdcall SERVER_HackListClient(int nArg1, int nArg2, int nArg3)
 {
-    return sub_006C0530(gpServer, nArg1, nArg2, nArg3);
+    return QSERVER_HackListClient(gpServer, nArg1, nArg2, nArg3);
 }
 
 // 0x0052B510
 int __stdcall SERVER_HackListIP(int nArg1, int nArg2, int nArg3)
 {
-    return sub_006C0600(gpServer, nArg1, nArg2, nArg3);
+    return QSERVER_HackListIP(gpServer, nArg1, nArg2, nArg3);
 }
 
 // 0x0052B530
 int __stdcall SERVER_HackUnlistIP(int nArg1, int nArg2, int nArg3)
 {
-    return sub_006BEFB0(gpServer, nArg1, nArg2, nArg3);
+    return QSERVER_HackUnlistIP(gpServer, nArg1, nArg2, nArg3);
 }
 
 // 0x0052B550
 int __stdcall SERVER_DisconnectIP(int nArg1, int nArg2, int nArg3)
 {
-    return sub_006C06D0(gpServer, nArg1, nArg2, nArg3);
+    return QSERVER_DisconnectIP(gpServer, nArg1, nArg2, nArg3);
 }
 
 // 0x0052B570

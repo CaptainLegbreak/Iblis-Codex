@@ -650,7 +650,7 @@ extern "C" const char* const gaszChestNames[3]; // 0x00745A10
 
 extern "C" const char* const gaszDifficultySuffixes[3]; // 0x00745A1C
 
-void __stdcall sub_006BD500_LinkerInsertKey(D2TxtLinkStrc* pLinker, const char* szKey); // 0x006BD500
+void __stdcall FOG_10216_AddRecordToLinkingTable(D2TxtLinkStrc* pLinker, const char* szKey); // 0x006BD500
 
 void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 
@@ -1591,7 +1591,7 @@ const Unicode* __fastcall DATATBLS_RollRandomUniqueTitleString(D2UnitStrc* pUnit
 // 0x00653F90
 D2TCExShortStrc* __fastcall DATATBLS_NewTreasureClassEx(const char* szTreasureClass)
 {
-    sub_006BD500_LinkerInsertKey(gpTreasureClassExLinker, szTreasureClass);
+    FOG_10216_AddRecordToLinkingTable(gpTreasureClassExLinker, szTreasureClass);
 
     if (!(gnTreasureClassEx % 16))
     {

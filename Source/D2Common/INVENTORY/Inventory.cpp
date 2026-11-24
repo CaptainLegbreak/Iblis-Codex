@@ -372,7 +372,7 @@ struct D2BeltsTxtLayout
     D2InvRectStrc beltBoxes[16];
 };
 
-void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0);
+void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 
 #define BODYLOC_LAST (13 - 1)
 

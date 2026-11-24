@@ -398,7 +398,7 @@ struct D2CmpCacheStrc
     D2CriticalSectionStrc tLock;
 };
 
-D2CmpCacheNodeStrc* __fastcall sub_005FF4A0_EvictCacheNode(D2CmpCacheStrc* pCache, D2CmpCacheNodeStrc* pNode, int nArg); // 0x005FF4A0
+D2CmpCacheNodeStrc* __fastcall D2CMPSpriteCacheEvict(D2CmpCacheStrc* pCache, D2CmpCacheNodeStrc* pNode, int nArg); // 0x005FF4A0
 
 extern D2TileRecordStrc* gpTileRecords; // 0x008ADBB4
 
@@ -1850,7 +1850,7 @@ void __fastcall LRUCacheTouch(D2CmpPoolStrc* pPool, D2LRUNodeStrc* pNode); // 0x
 
 D2LRUNodeStrc* __fastcall LRUCacheAlloc(D2CmpPoolStrc* pPool, unsigned int nSize, D2TileLibraryEntryStrc* pOwner); // 0x00609420
 
-void __stdcall sub_0060A4C0_TileEntryLoaded(D2TileLibraryEntryStrc* pEntry); // 0x0060A4C0
+void __stdcall TileNormalizeSubTiles(D2TileLibraryEntryStrc* pEntry); // 0x0060A4C0
 
 struct Config;
 
@@ -4459,7 +4459,7 @@ void __fastcall D2CMPSpriteCacheResize(D2CmpCacheStrc* pCache, D2CmpCacheNodeStr
 
     while (nTotalSize > pCache->nMaxSize)
     {
-        D2CmpCacheNodeStrc* pEvicted = sub_005FF4A0_EvictCacheNode(pCache, 0, nArg);
+        D2CmpCacheNodeStrc* pEvicted = D2CMPSpriteCacheEvict(pCache, 0, nArg);
         if (!pEvicted)
         {
             break;
@@ -4542,7 +4542,7 @@ int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pEntry, int a2, int a3)
     ARCHIVE_SetFilePointer(0, hFile, pEntry->nFileOffset, 0, 0);
     ARCHIVE_ReadFileToBuffer(0, hFile, pEntry->pBlocks, pEntry->nSize);
     ARCHIVE_CloseFile(0, hFile);
-    sub_0060A4C0_TileEntryLoaded(pEntry);
+    TileNormalizeSubTiles(pEntry);
     return 1;
 }
 

@@ -28,7 +28,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();
 int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
-int __fastcall sub_006BCB40(D2WeatherStrc* pArray);
+int __fastcall DATAARRAYS_AllocateHandle(D2WeatherStrc* pArray); // 0x006BCB40
 
 struct D2WeatherLineStrc
 {
@@ -90,7 +90,7 @@ void __fastcall sub_00472DA0_CreateSplash(int nX, int nY, int nFixX, int nFixY)
     D2_ASSERT(pPlayer, 0x2D2);
 
     D2SeedStrc* pSeed = &pPlayer->pSeed;
-    const int nRecord = sub_006BCB40(gpWeatherSplashes);
+    const int nRecord = DATAARRAYS_AllocateHandle(gpWeatherSplashes);
     if (nRecord == -1)
         return;
 
@@ -128,7 +128,7 @@ void __fastcall sub_00472EC0_CreateBubble(int nX, int nY, int nFixX, int nFixY)
     D2_ASSERT(pPlayer, 0x2FC);
 
     D2SeedStrc* pSeed = &pPlayer->pSeed;
-    const int nRecord = sub_006BCB40(gpWeatherBubbles);
+    const int nRecord = DATAARRAYS_AllocateHandle(gpWeatherBubbles);
     if (nRecord == -1)
         return;
 
@@ -425,7 +425,7 @@ static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nVal
 
 static void sub_00473090_InitParticle(D2SeedStrc* pSeed)
 {
-    const int nRecord = sub_006BCB40(gpWeatherParticles);
+    const int nRecord = DATAARRAYS_AllocateHandle(gpWeatherParticles);
     if (nRecord == -1)
     {
         return;

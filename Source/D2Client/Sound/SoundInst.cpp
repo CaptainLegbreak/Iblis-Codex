@@ -111,7 +111,7 @@ void __fastcall D2SOUND_ListAddHead(void* ppList, void* pData); // 0x00516950
 
 void __fastcall D2SOUND_ListRemove(D2SoundNodeStrc** ppList, D2ClientSoundStrc* pSound); // 0x00516980
 
-int __fastcall sub_005169D0_ListHasKey(D2SoundUnitNodeStrc* pList, D2UnitStrc* pUnit); // 0x005169D0
+int __fastcall D2SOUND_ListContains(D2SoundUnitNodeStrc* pList, D2UnitStrc* pUnit); // 0x005169D0
 
 void __fastcall D2SOUND_ListFree(void* ppList); // 0x00516A10
 
@@ -240,7 +240,7 @@ D2ClientSoundStrc* __stdcall sub_004B9690_FindOldestEntry(int nGroup, D2UnitStrc
         {
             D2ClientSoundStrc* pEntry = pNode->pSound;
             if (SOUNDHDR_GetSoundRecord(pEntry->nSoundId)->nGroupStart == nGroup && pEntry != pExclude && pEntry->nType == 1
-                && (!pUnit || sub_005169D0_ListHasKey(pEntry->pUnitList, pUnit)) && (!pOldest || pEntry->f_34 < pOldest->f_34))
+                && (!pUnit || D2SOUND_ListContains(pEntry->pUnitList, pUnit)) && (!pOldest || pEntry->f_34 < pOldest->f_34))
             {
                 pOldest = pEntry;
             }
@@ -687,7 +687,7 @@ static D2ClientSoundStrc* __stdcall sub_004B9700_FindUnitSound(D2ClientSoundStrc
         D2ClientSoundStrc* pSound = pNode->pSound;
         if (pSound != pExclude && pSound->nType == 1)
         {
-            if (!pUnit || sub_005169D0_ListHasKey(pSound->pUnitList, pUnit))
+            if (!pUnit || D2SOUND_ListContains(pSound->pUnitList, pUnit))
             {
                 if (pSound->nSoundId >= 0xB76 && pSound->nSoundId <= 0x1230)
                     return pSound;

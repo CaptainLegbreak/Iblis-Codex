@@ -86,7 +86,7 @@ typedef char check_root[OFFSET(LinkerView,root)==0xC?1:-1];
 
 typedef char check_linker_size[sizeof(LinkerView)==0x10?1:-1];
 
-extern "C" void __fastcall sub_006BD070_FreeNodes(LinkNode* node);
+extern "C" void __fastcall EXCEL_FreeLinkTree(LinkNode* node); // 0x006BD070
 
 extern "C" int __fastcall sub_0040B480_FreePool(void* pool,void* block,const char* file,int line,int unused);
 
@@ -129,7 +129,7 @@ extern "C" int __fastcall sub_00457490_MonsterFlag(int classId,int flag);
 
 extern "C" int __fastcall sub_0040B3C0_Free(void* block,const char* file,int line,int flags);
 
-extern "C" ClientNode* __fastcall sub_006BE540_FindClient(Server* server,int clientId);
+extern "C" ClientNode* __fastcall QSERVER_FindClient(Server* server,int clientId); // 0x006BE540
 
 // build: symbol _gaCollisionPatternsFromSize 0x006EB3DC
 extern "C" const int gaCollisionPatternsFromSize[4];
@@ -310,7 +310,7 @@ struct D2StringTableStrc { int count; int unk4; int unk8; void* data; };
 
 extern const char* gszFallback_0074C3D8; // 0x0074C3D8
 
-const char* __fastcall sub_006BD330_GetString(void*, int); // 0x006BD330
+const char* __fastcall EXCEL_FindLinkNode(void*, int); // 0x006BD330
 
 struct D2TxtLinkNodeStrc
 {
@@ -385,15 +385,15 @@ struct D2Object006BE390Strc;
 
 struct D2BinFieldStrc { const char* name; unsigned type; int length,offset; void* link; };
 
-int __stdcall sub_006BCE20_MapColumns(unsigned short*,D2BinFileStrc*,D2BinFieldStrc*); // 0x006BCE20
+int __stdcall EXCEL_MapColumns(unsigned short*,D2BinFileStrc*,D2BinFieldStrc*); // 0x006BCE20
 
 int __stdcall sub_006BD230_AddCode(void*,unsigned); // 0x006BD230
 
-void __stdcall sub_006BD500_AddName(void*,const char*); // 0x006BD500
+void __stdcall FOG_10216_AddRecordToLinkingTable(void*,const char*); // 0x006BD500
 
-int __fastcall sub_006BD5A0_AddIndex(void*,const char*); // 0x006BD5A0
+int __fastcall EXCEL_GetOrAddLinkIndex(void*,const char*); // 0x006BD5A0
 
-int __stdcall sub_006BD130_FindCode(void*,unsigned,int); // 0x006BD130
+int __stdcall FOG_GetLinkIndexByCode(void*,unsigned,int); // 0x006BD130
 
 int __stdcall FOG_GetRowFromTxt(void*,const char*,int); // 0x006BD3C0
 
@@ -628,7 +628,7 @@ void __stdcall FOG_10207(D2BinFileStrc* bin,D2BinFieldStrc* fields,char* output,
  char code[4];
  D2_ASSERT(records>0,0x112);
  D2_ASSERT(stride>0,0x113);
- int total=sub_006BCE20_MapColumns(columns,bin,fields);
+ int total=EXCEL_MapColumns(columns,bin,fields);
  int firstPass=0;
  for(int c=0;c<(int)bin->nColumns;++c) if(columns[c]!=0x7fff) {
   switch(fields[columns[c]].type) {case 10:case 12:case 14:case 16:case 17:case 18:firstPass=1;break;}
@@ -653,9 +653,9 @@ void __stdcall FOG_10207(D2BinFileStrc* bin,D2BinFieldStrc* fields,char* output,
       case 14:D2_ASSERT(index<=65535,0x15a);*(unsigned short*)dst=*(unsigned short*)code;break;
      }break;
     }
-    case 16:{char* start=dst;char* end=dst+field->length-1;while(*input&&dst<end)*dst++=*input++;*dst=0;while(*input)++input;++input;sub_006BD500_AddName(*(void**)field->link,start);break;}
+    case 16:{char* start=dst;char* end=dst+field->length-1;while(*input&&dst<end)*dst++=*input++;*dst=0;while(*input)++input;++input;FOG_10216_AddRecordToLinkingTable(*(void**)field->link,start);break;}
     case 17:case 18:{char name[32];char* p=name;while(*input&&p<name+31)*p++=*input++;*p=0;while(*input)++input;++input;void* const tArg4 = *(void**)field->link;
-    int index=sub_006BD5A0_AddIndex(tArg4,name);char* rec=output+field->offset;if(field->type==17)*(unsigned short*)rec=(unsigned short)index;else *(int*)rec=index;break;}
+    int index=EXCEL_GetOrAddLinkIndex(tArg4,name);char* rec=output+field->offset;if(field->type==17)*(unsigned short*)rec=(unsigned short)index;else *(int*)rec=index;break;}
     default:SKIP_CELL();break;
     }
    }
@@ -677,7 +677,7 @@ void __stdcall FOG_10207(D2BinFileStrc* bin,D2BinFieldStrc* fields,char* output,
    case 1:case 7:{while(*input){if(dst>=end){while(*input)++input;break;}*dst++=*input++;}++input;*dst=0;break;}
    case 9:{READ_CODE();PAD9(dst);break;}
    case 10:case 12:case 14:case 16:case 17:case 18:SKIP_CELL();break;
-   case 11:case 13:case 15:{READ_CODE();PAD_CODE(code);int index=sub_006BD130_FindCode(*(void**)field->link,*(unsigned*)code,1);switch(field->type){case 11:*(int*)dst=index;break;case 13:*dst=(char)index;break;case 15:*(unsigned short*)dst=(unsigned short)index;break;}break;}
+   case 11:case 13:case 15:{READ_CODE();PAD_CODE(code);int index=FOG_GetLinkIndexByCode(*(void**)field->link,*(unsigned*)code,1);switch(field->type){case 11:*(int*)dst=index;break;case 13:*dst=(char)index;break;case 15:*(unsigned short*)dst=(unsigned short)index;break;}break;}
    case 19:case 20:case 21:{char* p=small;while(*input&&p<small+31)*p++=*input++;*p=0;while(*input)++input;++input;int index=FOG_GetRowFromTxt(*(void**)field->link,small,1);switch(field->type){case 19:*(int*)dst=index;break;case 20:*(unsigned short*)dst=(unsigned short)index;break;case 21:*dst=(char)index;break;}break;}
    case 2:case 3:case 4:case 5:case 6:case 8:case 26:{if(*input=='-')++input;int value=0;while(*input)value=value*10+*input++-'0';if(*start=='-')value=-value;++input;switch(type){case 2:case 8:*(int*)dst=value;break;case 3:*(unsigned short*)dst=(unsigned short)value;break;case 4:case 6:*dst=(char)value;break;case 5:if(start+1!=input)*dst=(char)value;break;case 26:if(value)sub_00410B10(dst,length);else sub_00410B50(dst,length);break;}break;}
    case 22:{char callbackText[256];char* p=callbackText;while(*input){if(p>=callbackText+256){while(*input)++input;break;}*p++=*input++;}++input;*p=0;if(field->link)*(unsigned short*)dst=(unsigned short)((KeyCallback)field->link)(callbackText);break;}
@@ -877,7 +877,7 @@ int __fastcall EXCEL_GetOrAddLinkIndex(D2TxtLinkStrc* pLinker, const char* szTex
 const char* __stdcall FOG_10255(D2StringTableStrc* pTable, int index, int useFallback)
 {
  if (!pTable || index < 0 || index >= pTable->count) return gszFallback_0074C3D8;
- const char* result = sub_006BD330_GetString(pTable->data, index);
+ const char* result = EXCEL_FindLinkNode(pTable->data, index);
  if ((!result || result == gszFallback_0074C3D8) && useFallback) return gszFallback_0074C3D8;
  return result;
 }
@@ -989,9 +989,9 @@ extern "C" void __stdcall FOG_FreeLinker(LinkerView* linker)
         if (root)
         {
             if (root->firstChild)
-                sub_006BD070_FreeNodes(root->firstChild);
+                EXCEL_FreeLinkTree(root->firstChild);
             if (root->secondChild)
-                sub_006BD070_FreeNodes(root->secondChild);
+                EXCEL_FreeLinkTree(root->secondChild);
             sub_0040B480_FreePool(0,root,".\\Src\\Excel\\Excel.cpp",0x346,0);
         }
         if (linker->entries)

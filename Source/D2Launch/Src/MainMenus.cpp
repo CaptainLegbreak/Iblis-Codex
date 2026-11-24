@@ -117,7 +117,7 @@ int __stdcall SErrDisplayError(unsigned int nErrorCode, const char* szFile, int 
 
 void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 
-int __stdcall sub_004269C0_RegisterHandler(unsigned long dwId, void* pContext); // 0x004269C0
+int __stdcall SEvtPopState(unsigned long dwId, void* pContext); // 0x004269C0
 
 int __fastcall MAINMENUS_ShowOptionDescription(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
 
@@ -346,7 +346,7 @@ int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsi
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long nValue); // 0x004150E0
 
-void __fastcall sub_005009D0_SetValue(D2WinControlStrc* pControl, int nMode, unsigned short* pText, int nArg); // 0x005009D0
+void __fastcall BUTTON_SetText(D2WinControlStrc* pControl, int nMode, unsigned short* pText, int nArg); // 0x005009D0
 
 int __stdcall CHARSEL_IsRestrictedChar(void* pControl, int nUnused, const char* pChar); // 0x0042FDE0
 
@@ -1140,7 +1140,7 @@ int gnLaunchState; // 0x007795E8
 
 static void MAINMENUS_SetModeFlags(char nMode); // 0x00431E70
 
-int __stdcall sub_0042FDE0_KeyFilter(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x0042FDE0
+int __stdcall CHARSEL_IsRestrictedChar(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x0042FDE0
 
 int __stdcall sub_0042FE60_KeyFilter(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x0042FE60
 
@@ -1369,7 +1369,7 @@ void __cdecl MAINMENUS_FreeFrontEndCells();                                     
 
 int __cdecl sub_004309B0_ClearState();                                                                      // 0x004309B0
 
-void __stdcall sub_00430BB0_LoopCallback(unsigned long nArg);                                               // 0x00430BB0
+void __stdcall MAINMENUS_IdleLoopCallback(unsigned long nArg);                                               // 0x00430BB0
 
 void __cdecl MAINMENUS_PlayIntroVideos();                                                                // 0x00435230
 
@@ -1393,7 +1393,7 @@ void __fastcall D2SOUND_PreloadWave(const char* szFile);                        
 
 int __cdecl D2SOUND_IsAnyWavePlaying();                                                                // 0x00514FB0
 
-void __cdecl sub_00515070();                                                                                // 0x00515070
+void __cdecl D2SOUND_FreeWaveSlots();                                                                                // 0x00515070
 
 void __stdcall D2Win_10029(int a1); // 0x004FA410
 
@@ -2556,22 +2556,22 @@ void __stdcall MAINMENUS_CreateLevelScreen(int nLevel)
     default:
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
         CONTROL_SetEnabled(pField1, 0);
-        sub_005009D0_SetValue(pField1, 10, wszEmpty, 0);
+        BUTTON_SetText(pField1, 10, wszEmpty, 0);
     case 2:
         CONTROL_SetEnabled(pField2, 0);
-        sub_005009D0_SetValue(pField2, 10, wszEmpty, 0);
+        BUTTON_SetText(pField2, 10, wszEmpty, 0);
     case 3:
         CONTROL_SetEnabled(pField3, 0);
-        sub_005009D0_SetValue(pField3, 10, wszEmpty, 0);
+        BUTTON_SetText(pField3, 10, wszEmpty, 0);
     case 4:
         CONTROL_SetEnabled(pField4, 0);
-        sub_005009D0_SetValue(pField4, 10, wszEmpty, 0);
+        BUTTON_SetText(pField4, 10, wszEmpty, 0);
     case 5:
         CONTROL_SetEnabled(pField5, 0);
-        sub_005009D0_SetValue(pField5, 10, wszEmpty, 0);
+        BUTTON_SetText(pField5, 10, wszEmpty, 0);
     case 6:
         CONTROL_SetEnabled(pField6, 0);
-        sub_005009D0_SetValue(pField6, 10, wszEmpty, 0);
+        BUTTON_SetText(pField6, 10, wszEmpty, 0);
     case 7:
         break;
     }
@@ -4239,7 +4239,7 @@ create:
     gpAccountEdit = MAINMENUS_CreateControl(0x22);
     sub_004FDD50_SetMaxLength(gpAccountEdit, 0x10);
     sub_004FDB00_SetEnterCallback(gpAccountEdit, MAINMENUS_OnLoginChanged);
-    sub_004FDAD0_SetKeyCallback(gpAccountEdit, sub_0042FDE0_KeyFilter);
+    sub_004FDAD0_SetKeyCallback(gpAccountEdit, CHARSEL_IsRestrictedChar);
     gpPasswordEdit = MAINMENUS_CreateControl(0x23);
     sub_004FDD50_SetMaxLength(gpPasswordEdit, 0xD);
     sub_004FDB00_SetEnterCallback(gpPasswordEdit, MAINMENUS_OnLoginChanged);
@@ -4501,11 +4501,11 @@ int __fastcall sub_004359D0_RunFrontEnd(D2ConfigStrc* pRecord)
         }
     }
     D2Win_SetQuitCallback(sub_004309B0_ClearState);
-    D2Win_RunMessageLoop(sub_00430BB0_LoopCallback);
+    D2Win_RunMessageLoop(MAINMENUS_IdleLoopCallback);
     sub_00515020();
     while (D2SOUND_IsAnyWavePlaying())
         Sleep(0);
-    sub_00515070();
+    D2SOUND_FreeWaveSlots();
 // build: symbol ?MAINMENUS_Reset@* 0x0042F480
     MAINMENUS_Reset();
     MAINMENUS_FreeFrontEndCells();

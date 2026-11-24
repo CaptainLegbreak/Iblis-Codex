@@ -55,7 +55,7 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 void __fastcall sub_006C1F60_InitLockedList(void* pList); // 0x006C1F60
 void __fastcall sub_006C1F80(void* pQueue); // 0x006C1F80
-void __fastcall sub_006C1FF0_QueuePacket(void* pQueue, unsigned char* pData, unsigned short nLength); // 0x006C1FF0
+void __fastcall D2QSQUEUE_Push(void* pQueue, unsigned char* pData, unsigned short nLength); // 0x006C1FF0
 extern const char gszSocketFile[]; // 0x006FC418
 extern const char gszUnknown_006CCED8[]; // 0x006CCED8
 
@@ -207,15 +207,15 @@ static int __stdcall sub_006BC150_SplitPackets(unsigned char* pBuffer, int nLeng
             if (!bHandled)
             {
                 if (pRecord->nLengthOffset > 0)
-                    sub_006C1FF0_QueuePacket(pRecord->tQueue, pCursor, nPacketSize);
+                    D2QSQUEUE_Push(pRecord->tQueue, pCursor, nPacketSize);
                 else
-                    sub_006C1FF0_QueuePacket(pRecord->tQueue, pPayload, nPayloadSize);
+                    D2QSQUEUE_Push(pRecord->tQueue, pPayload, nPayloadSize);
                 SetEvent(pRecord->hEvent);
             }
         }
         else
         {
-            sub_006C1FF0_QueuePacket(pRecord->tQueue, pPayload, nPayloadSize);
+            D2QSQUEUE_Push(pRecord->tQueue, pPayload, nPayloadSize);
             SetEvent(pRecord->hEvent);
         }
 

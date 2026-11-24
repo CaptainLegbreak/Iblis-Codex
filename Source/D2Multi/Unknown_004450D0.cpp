@@ -8,7 +8,7 @@ extern "C" unsigned int __cdecl strlen(const char* szString);
 int __stdcall CONTROL_SetFocusedEditBox(void* pEditBox);                                                                  // 0x004F91C0
 const Unicode* __fastcall sub_004FBB30_GetText(D2WinControlStrc* pControl);                                 // 0x004FBB30
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount);                     // 0x00526F70
-void __fastcall sub_004FF5A0_SetEditText(D2WinControlStrc* pControl, const Unicode* pText);                 // 0x004FF5A0
+void __fastcall EDITBOX_SetText(D2WinControlStrc* pControl, const Unicode* pText);                 // 0x004FF5A0
 int __stdcall CHARSEL_JoinByName(int nArg);                                                            // 0x004439F0
 void __fastcall CHATDLG_SetPendingText(const char* szText, unsigned short wRequestId);                 // 0x00442DD0
 
@@ -75,7 +75,7 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
                 {
                 }
                 CHATDLG_SetPendingText(szText, gwRequestId);
-                sub_004FF5A0_SetEditText(gpJoinName, pText);
+                EDITBOX_SetText(gpJoinName, pText);
                 CONTROL_SetFocusedEditBox(0);
             }
         }

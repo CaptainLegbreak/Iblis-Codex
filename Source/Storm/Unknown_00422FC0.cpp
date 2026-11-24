@@ -66,7 +66,7 @@ static void __stdcall sub_00422FC0_SubFromBig(D2StormArrayAStrc* pSrc, D2StormAr
 }
 
 // 0x00423800
-void __stdcall sub_00423800_Caller(D2StormArrayAStrc* pDst, D2StormArrayAStrc* pSrc)
+void __stdcall SBigDec(D2StormArrayAStrc* pDst, D2StormArrayAStrc* pSrc)
 {
     sub_00422FC0_SubFromBig(pSrc, pDst, 1);
 }

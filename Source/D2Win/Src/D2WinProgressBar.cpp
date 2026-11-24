@@ -43,12 +43,12 @@ int __stdcall PROGRESSBAR_SetProgress(D2WinProgressBarStrc* pProgressBar, float 
     return 1;
 }
 
-void __stdcall sub_004F9310(void* pArg); // 0x004F9310
+void __stdcall CONTROL_RemoveFromList(void* pArg); // 0x004F9310
 
 // 0x00507DB0
 void __fastcall PROGRESSBAR_Destroy(void* pArg)
 {
-    sub_004F9310(pArg);
+    CONTROL_RemoveFromList(pArg);
 }
 
 // 0x00507DC0

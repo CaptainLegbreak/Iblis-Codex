@@ -14,9 +14,9 @@ struct D2StormList0074C48CStrc
 
     ~D2StormList0074C48CStrc()
     {
-        sub_006C43F0_UnlinkAll();
+        UnlinkAll();
     }
-    void sub_006C43F0_UnlinkAll(); // 0x006C43F0
+    void UnlinkAll(); // 0x006C43F0
 };
 
 extern D2StormList0074C48CStrc gList_0074C48C; // 0x0074C48C
@@ -28,9 +28,9 @@ struct D2StormList0074C498Strc
 
     ~D2StormList0074C498Strc()
     {
-        sub_006C43F0_UnlinkAll();
+        UnlinkAll();
     }
-    void sub_006C43F0_UnlinkAll(); // 0x006C43F0
+    void UnlinkAll(); // 0x006C43F0
 };
 
 extern D2StormList0074C498Strc gList_0074C498; // 0x0074C498

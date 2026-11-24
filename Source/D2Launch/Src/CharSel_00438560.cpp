@@ -122,7 +122,7 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 void __stdcall SMemCopy(void*,const void*,unsigned int); // 0x0041D2A0
 void __fastcall CONTROL_SetEnabled(D2WinControlStrc*,int); // 0x004F96F0
 void __fastcall CONTROL_SetVisible(D2WinControlStrc*,int); // 0x004F9740
-void __stdcall sub_004FD0B0_SetSprite(D2WinControlStrc*,int,void*); // 0x004FD0B0
+void __stdcall IMAGE_SetCoordinates(D2WinControlStrc*,int,void*); // 0x004FD0B0
 void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc*); // 0x004FB6A0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc*,const Unicode*,int,int,int); // 0x004FC9B0
 void __fastcall D2Win_10046(D2WinControlStrc*,const char*,int); // 0x004FCFF0
@@ -196,7 +196,7 @@ void __cdecl sub_00438560_Refresh()
             sub_005052F0_SetAnimY(entry->pAnim,y);
             if(entry->nState==1) {
                 sub_00505360_SetAnimFlags(entry->pAnim,0);
-                sub_004FD0B0_SetSprite(gpControl_00779D90,0x200,(void*)(gaSlotY_007799FC[row]-3));
+                IMAGE_SetCoordinates(gpControl_00779D90,0x200,(void*)(gaSlotY_007799FC[row]-3));
                 CONTROL_SetVisible(gpControl_00779D90,1);
                 sub_004FC9B0_SetText(gaRowControls_00779A20[row],D2LANG_GetStringFromTblIndex(0x1419),1,0,0);
                 if(gnLaunchMode==1 && gbFlag_00779DD8) {

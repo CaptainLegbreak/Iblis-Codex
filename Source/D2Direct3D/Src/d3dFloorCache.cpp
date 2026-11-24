@@ -36,7 +36,7 @@ D2FloorPoolEntryStrc* __fastcall D3D_FloorCacheUnlink(D2FloorPoolStrc* pList); /
 
 static __declspec(noinline) void sub_006BB150_AppendTail(D2FloorPoolStrc* pList, D2FloorPoolEntryStrc* pNode);
 
-D2FloorPoolEntryStrc* __fastcall sub_006BB1F0_Unlink(D2FloorPoolStrc* pList, int nIndex);
+D2FloorPoolEntryStrc* __fastcall D3D_FloorCacheUnlink(D2FloorPoolStrc* pList, int nIndex); // 0x006BB1F0
 
 #define RELEASE(p) if (p) { p->lpVtbl->Release((D2ComObject006BB640Strc*)p); p = 0; }
 
@@ -107,7 +107,7 @@ void __fastcall D3D_BlitIndexedToHighColor(const unsigned char* pSource, unsigne
 
 void __fastcall sub_006B38A0_Copy(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, unsigned int nRows); // 0x006B38A0
 
-void __fastcall sub_006BACB0_TouchCacheNode(D2CacheListStrc* pList, int nSlot); // 0x006BACB0
+void __fastcall D3D_SubtileCacheTouch(D2CacheListStrc* pList, int nSlot); // 0x006BACB0
 
 int __fastcall D3D_SubtileCacheAdd(D2CacheListStrc* pList); // 0x006BAF00
 
@@ -159,7 +159,7 @@ unsigned char gabTileBuffer[0x400]; // 0x009897F8
 
 D2DDSurfaceStrc* gpMemorySurface32; // 0x00989C00
 
-int __fastcall sub_006B3730_CreateSurface(void** ppSurface, void** ppTexture, int nWidth, int nHeight); // 0x006B3730
+int __fastcall D3D_CreateMemoryTexture(void** ppSurface, void** ppTexture, int nWidth, int nHeight); // 0x006B3730
 
 extern int gnWidth_0096F4DC; // 0x0096F4DC
 
@@ -395,7 +395,7 @@ void __fastcall D3D_FloorCacheTouch(D2FloorPoolStrc* pList, int nIndex)
         LRU_ASSERT(nIndex, 199);
         LRU_ASSERT(nIndex <= pList->nCapacity, 200);
         LRU_ASSERT(nIndex >= 1, 201);
-        sub_006BB150_AppendTail(pList, sub_006BB1F0_Unlink(pList, nIndex - 1));
+        sub_006BB150_AppendTail(pList, D3D_FloorCacheUnlink(pList, nIndex - 1));
     }
 }
 
@@ -505,8 +505,8 @@ int __fastcall D3D_FloorCacheAdd(D2FloorPoolStrc* pPool)
 // 0x006BB5E0
 void __cdecl D3D_CreateTileSurfaces()
 {
-    D2_ASSERT(sub_006B3730_CreateSurface((void**)&gpMemorySurface, (void**)&gpMemoryTexture, gnWidth_0096F4DC, gnHeight_009702B8), 0x27);
-    D2_ASSERT(sub_006B3730_CreateSurface((void**)&gpSurface_00989C00, (void**)&gpMemoryTexture32, 0x20, 0x20), 0x2A);
+    D2_ASSERT(D3D_CreateMemoryTexture((void**)&gpMemorySurface, (void**)&gpMemoryTexture, gnWidth_0096F4DC, gnHeight_009702B8), 0x27);
+    D2_ASSERT(D3D_CreateMemoryTexture((void**)&gpSurface_00989C00, (void**)&gpMemoryTexture32, 0x20, 0x20), 0x2A);
 }
 
 // 0x006BB640
@@ -648,7 +648,7 @@ void __fastcall D3D_BindTileTexture(D2CacheBindingStrc* pTile)
     else
     {
         D2CacheNodeStrc* pNode = &gtSubtileCache.pNodes[pTile->wSlot - 1];
-        sub_006BACB0_TouchCacheNode(&gtSubtileCache, pTile->wSlot);
+        D3D_SubtileCacheTouch(&gtSubtileCache, pTile->wSlot);
         gpD3DDevice_00970E78->lpVtbl->SetTexture(gpD3DDevice_00970E78, 0, pNode->pTexture);
     }
 }

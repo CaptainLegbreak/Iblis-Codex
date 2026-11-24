@@ -112,7 +112,7 @@ void __stdcall TileAddAddFloorTile(D2CmpTileStrc* pTile, const unsigned char* pP
 
 static int TileProjectGetSerializedSize(D2CmpTileLibraryStrc* pLibrary);
 
-void __fastcall sub_005FE080_ReleaseBlockCaches(D2CmpTileLibraryStrc* pLibrary); // 0x005FE080
+void __fastcall D2CMPTileCacheFreeProject(D2CmpTileLibraryStrc* pLibrary); // 0x005FE080
 
 
 void __stdcall TileProjectConvert24To8(D2CmpTileLibraryStrc* pSrc, D2CmpTileLibraryStrc** ppLibrary, D2CmpMapColorFn pfnMapColor);
@@ -507,7 +507,7 @@ void __stdcall TileProjectDestroy(D2CmpTileLibraryStrc* pLibrary, int bKeep)
     if (bKeep)
         return;
     D2_ASSERT(pLibrary, 0x25A);
-    sub_005FE080_ReleaseBlockCaches(pLibrary);
+    D2CMPTileCacheFreeProject(pLibrary);
     if (pLibrary->dwFlags & 4)
     {
         FOG_Free(pLibrary, ".\\SRC\\Tilecmp.cpp", 0x262, 0);

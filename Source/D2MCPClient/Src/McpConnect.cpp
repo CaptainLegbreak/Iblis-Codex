@@ -83,7 +83,7 @@ int __fastcall FOG_SOCKET_GetError(FSafeSock* pSafeSock, unsigned long* pFogErro
 
 int __fastcall WINMAIN_SendMcpStartup(D2LaunchThreadRecordStrc* pRecord);                                // 0x0044A1D0
 
-int __fastcall sub_0044B1C0_HandlePacket(const unsigned char* pData, unsigned int nSize, int nArg);         // 0x0044B1C0
+int __fastcall WINMAIN_DispatchConnectPacket(const unsigned char* pData, unsigned int nSize, int nArg);         // 0x0044B1C0
 
 void __stdcall sub_006BC010_SetHandler(void* pConnection, D2LaunchPacketHandler pfnHandler, int nArg);      // 0x006BC010
 
@@ -153,7 +153,7 @@ int __cdecl MCPCONNECT_ConnectThread()
     gnValue_0079929C = 0;
     void* pConnection = sub_006BC6A0_AllocSocketRecord(szAddress, gnServerPort_00798FCC, "clt->mcp");
     gpMcpConnection = pConnection;
-    sub_006BC010_SetHandler(pConnection, sub_0044B1C0_HandlePacket, 0);
+    sub_006BC010_SetHandler(pConnection, WINMAIN_DispatchConnectPacket, 0);
     sub_006BC5A0_Start(pConnection);
     unsigned long nFogError = 0;
     unsigned long nWSALastError;

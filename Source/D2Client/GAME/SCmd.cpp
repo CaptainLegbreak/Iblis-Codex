@@ -474,7 +474,7 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 
 Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940
 
-void __stdcall sub_005022F0_ShowPopUpText(const Unicode* wszText, int nX, int nY, int nArg); // 0x005022F0
+void __stdcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int nY, int nArg); // 0x005022F0
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
@@ -2433,7 +2433,7 @@ void __fastcall SCMD_SetPopUpText(const Unicode* wszText, int nA, int nB, int nC
 // 0x00452510
 void __stdcall SCMD_ShowPopUpText(const Unicode* wszText, int nX, int nY, int nArg)
 {
-    sub_005022F0_ShowPopUpText(wszText, nX, nY, nArg);
+    D2Win_10130_DrawFramedTextEx(wszText, nX, nY, nArg);
 }
 
 // 0x0045C300

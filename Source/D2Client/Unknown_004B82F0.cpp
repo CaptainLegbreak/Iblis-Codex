@@ -266,7 +266,7 @@ struct D2TimedHintEntryStrc
 };
 
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
-int __fastcall sub_005169D0_ListHasKey(void* pKeyList, int nKey); // 0x005169D0
+int __fastcall D2SOUND_ListContains(void* pKeyList, int nKey); // 0x005169D0
 extern D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
 
 struct D2ValueNodeStrc
@@ -746,14 +746,16 @@ extern "C" void __cdecl sub_004B90B0_SendState()
     gPacketState = 3;
 }
 
-extern "C" int __fastcall sub_0043E5F0_AppendText(const U16* text, int style)
+// build: symbol @CHATDLG_PrintMessage@* 0x0043E5F0
+extern "C" int __fastcall CHATDLG_PrintMessage(const U16* text, int style)
 {
     if (gTextControl)
         sub_004FC9B0_AppendText(gTextControl, text, style, 0, 1);
     return 1;
 }
 
-extern "C" int __fastcall sub_0043E610_AppendText(const U16* text, int style)
+// build: symbol @CHATDLG_PrintText@* 0x0043E610
+extern "C" int __fastcall CHATDLG_PrintText(const U16* text, int style)
 {
     if (gTextControl)
         sub_004FC9B0_AppendText(gTextControl, text, style, 0, 1);
