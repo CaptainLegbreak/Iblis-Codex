@@ -1,4 +1,5 @@
 #include "Bnclient.h"
+#include "D2BnCryptTypes.h"
 
 struct D2CDKeyInfoStrc;
 
