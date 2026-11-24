@@ -17,6 +17,7 @@
 #include "D2ClientTypes.h"
 #include "D2MsgRecord.h"
 #include "D2MultiTypes.h"
+#include "D2Win32Message.h"
 
 struct D2ActiveRoomStrc;
 
@@ -236,16 +237,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 typedef void (__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
 
-struct D2WinMsgStrc
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    int lParam;
-    unsigned int dwTime;
-    int f_14;
-    int nPointY;
-};
 
 struct D2UnitFlagsStrc
 {
