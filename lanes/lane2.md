@@ -16,7 +16,9 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
   - On 89693ff5. All 54 includers and changed units build equal. Merges cleanly onto #338.
   - Outside lane 2: 11 D2Client units (lanes 1 and 4).
 
-- `lane2/small-records-d-2`: rebased onto #338, verify running; posted here when it passes. It replaces `lane2/small-records-d`.
+- lane2/small-records-d-2 55410626 562->562 Replaces `lane2/small-records-d` (rebased onto #339; namesync has nothing to rename). Two small headers, each included only by the units that had identical private copies: D2UnitDropPacket.h (the 10-byte drop-items packet SCMD_DropUnitItems reads; SCmd, CharSel_0042E600) and D2DrlgDelete.h (the deletion node an active room keeps in pDrlgDelete; Dungeon, Level, PlrSave). CharSel.cpp now keeps its own drop-packet copy: with #336's D2LaunchRequest.h also included there, 0x439210 swaps the operands of one add (either header alone is equal, both are not); VERIFIED c2ab76bf23b4af2eb144967e426ecf093f045090
+  - Verified on 55b20d70 (#338), rebased onto b28fd264 (#339). Precheck is equal there.
+  - Outside lane 2: SCmd (lane 4), CharSel_0042E600 (lane 6), Dungeon (lane 8), Level and PlrSave (lane 5).
 
 ## Working on
 
