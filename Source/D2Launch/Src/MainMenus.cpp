@@ -107,12 +107,6 @@ extern "C" void* __cdecl realloc(void* pMemory, size_t nSize); // 0x00683BA5
 
 void __stdcall D2ServerServiceHandlerProc(unsigned long dwCtrlCode); // 0x00406410
 
-int __fastcall GameInit(int argc, const char** argv); // 0x004064C0
-
-int __cdecl ERRORMANAGER_StartServiceDispatcher(); // 0x00406650
-
-int __cdecl ERRORMANAGER_DenyProcessAccess(); // 0x004061C0
-
 void __fastcall LOGMANAGER_WriteLogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args); // 0x00410340
 
 void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...); // 0x00410660
@@ -152,8 +146,6 @@ extern char gszServiceName[]; // 0x007065DC
 extern D2ServiceStatusStrc gD2ServerServiceStatus; // 0x007065FC
 
 extern void* ghD2ServerServiceStatus; // 0x0074C714
-
-extern void* ghCurrentProcess_0074C718; // 0x0074C718
 
 extern int gbRunningAsService; // 0x0074C720
 
@@ -344,8 +336,6 @@ void __cdecl MAINMENUS_ShowConnectingPopup(); // 0x0042F6E0
 int __stdcall MAINMENUS_OnWait(int nArg); // 0x00432450
 
 void __stdcall CHATDLG_StartThread(D2LaunchThreadRecordStrc* pRecord); // 0x0044A130
-
-int gnCmdShow; // 0x0074C71C
 
 struct D2LaunchControlTemplateStrc;
 
@@ -1419,22 +1409,6 @@ extern D2WinControlStrc* gpControl_007795A4; // 0x007795A4
 void __cdecl sub_0042F800(); // 0x0042F800
 
 void __cdecl sub_0042FA20(); // 0x0042FA20
-
-// 0x004066E0
-extern "C" int __stdcall WinMain(void* hInstance, void* hPrevInstance, char* lpCmdLine, int nShowCmd)
-{
-    ghCurrentProcess_0074C718 = hInstance;
-    gnCmdShow = nShowCmd;
-    if (!ERRORMANAGER_StartServiceDispatcher())
-    {
-        const char* argv[2];
-        argv[0] = "d2server";
-        argv[1] = lpCmdLine;
-        ERRORMANAGER_DenyProcessAccess();
-        GameInit(2, argv);
-    }
-    return 0;
-}
 
 // 0x00406870
 void __fastcall MAINMENUS_InitStorm(int nDirectFlags, int nValue)
