@@ -65269,17 +65269,17 @@
     {
      "va": "0x0060B2B0",
      "length": 451,
-     "name": "?sub_0060B2B0_DccNextCell@@YAHPAUD2DccDirStrc@@PAUD2DccIterStrc@@@Z"
+     "name": "?CodecDccNextCell@@YAHPAUD2DccDirStrc@@PAUD2DccIterStrc@@@Z"
     },
     {
      "va": "0x0060B480",
      "length": 37,
-     "name": "?sub_0060B480_DccFirstCell@@YAHPAUD2DccDirStrc@@PAUD2DccIterStrc@@@Z"
+     "name": "?CodecDccFirstCell@@YAHPAUD2DccDirStrc@@PAUD2DccIterStrc@@@Z"
     },
     {
      "va": "0x0060B4B0",
      "length": 119,
-     "name": "?sub_0060B4B0_DccCountCells@@YAXPAUD2DccDirStrc@@@Z"
+     "name": "?CodecDccCountCells@@YAXPAUD2DccDirStrc@@@Z"
     },
     {
      "va": "0x0060B530",
@@ -65292,12 +65292,12 @@
     {
      "va": "0x0060B640",
      "length": 318,
-     "name": "?sub_0060B640_BuildColorMaps@@YIXPAUD2CmpByteMapStrc@@PBI0@Z"
+     "name": "?CodecBuildColorMapsFromBits@@YIXPAUD2CmpByteMapStrc@@PBI0@Z"
     },
     {
      "va": "0x0060B780",
      "length": 37,
-     "name": "?sub_0060B780_GetRunBits@@YAHPBE@Z"
+     "name": "?CodecGetRunBits@@YAHPBE@Z"
     },
     {
      "va": "0x0060B9A0",
@@ -65306,7 +65306,7 @@
     {
      "va": "0x0060BD90",
      "length": 29,
-     "name": "?sub_0060BD90_RemapRun@@YAXPAUD2CmpByteRunStrc@@PBE@Z"
+     "name": "?CodecRemapRun@@YAXPAUD2CmpByteRunStrc@@PBE@Z"
     },
     {
      "va": "0x0060BDB0",
