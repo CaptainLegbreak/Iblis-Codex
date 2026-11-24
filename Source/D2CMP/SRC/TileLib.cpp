@@ -1,5 +1,6 @@
 #include "D2CMP.h"
 #include "D2CmpTypes.h"
+#include "D2CelDataHash.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -9,7 +10,7 @@ struct D2CmpTileBlockStrc;
 struct D2CmpTileLibraryStrc;
 struct D2CmpGfxHashEntryStrc;
 struct D2CmpGfxHashStrc;
-struct T00604AE0;
+struct D2CelDataHashEntryStrc;
 struct D2CelDataHashStrc;
 struct D2CmpFindTilesSubStrc;
 struct D2CmpFindTilesNodeStrc;
@@ -32,21 +33,6 @@ void __fastcall D2CMPTileCacheFreeProject(D2CmpTileLibraryStrc* pLibrary); // 0x
 struct D2CmpGfxHashStrc
 {
     void GfxHashFreeEntry(void* pMemPool, D2CmpGfxHashEntryStrc* pEntry);                               // 0x0060A9D0
-};
-
-struct T00604AE0
-{
-    unsigned int nKey;
-    char szName[0x20];
-    int nValue;
-    T00604AE0* pPrev;
-    T00604AE0* pNext;
-};
-
-struct D2CelDataHashStrc
-{
-    int nCheck[0x200];
-    T00604AE0* pBuckets[0x200];
 };
 
 
