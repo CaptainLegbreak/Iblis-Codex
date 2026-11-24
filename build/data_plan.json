@@ -4337,15 +4337,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp": {
-   "bytes": 24,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Direct3D/Src/d3dSprite_006B5D40.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Direct3D/Unknown_006B7250.cpp": {
    "bytes": 12,
    "definitions": 3,
@@ -5544,6 +5535,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_00640F20.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Direct3D/Src/d3dSprite.cpp": {
+   "bytes": 24,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Direct3D/Src/d3dSprite.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -151591,7 +151591,7 @@
    "cname": "gData_006FC26C",
    "declared": true,
    "decorated": "_gszSetTextureFailed",
-   "file": "Source/D2Direct3D/Src/d3dSprite_006B5D40.cpp",
+   "file": "Source/D2Direct3D/Src/d3dSprite.cpp",
    "fill": 24,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006FC26C[24]; // 0x006FC26C",
