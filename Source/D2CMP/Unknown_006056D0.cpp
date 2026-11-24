@@ -46,9 +46,9 @@ void __stdcall sub_00605E60_BuildLightenTables(unsigned char* pData); // 0x00605
 
 void* __fastcall sub_00517993_VirtualAlloc(unsigned int nSize);
 
-void __stdcall sub_00605880_BuildTablesA(unsigned char* pTables);
+void __stdcall PaletteBuildAlphaTables(unsigned char* pTables); // 0x00605880
 
-void __stdcall sub_006059B0_BuildTable(unsigned char* pData);
+void __stdcall PaletteBuildAdditiveTable(unsigned char* pData); // 0x006059B0
 
 void __stdcall sub_00605AA0_BuildTablesC(unsigned char* pTables);
 
@@ -409,10 +409,10 @@ void* __stdcall CreateD2Palette(void* pSource)
     unsigned char* pTables = (unsigned char*)sub_00517993_VirtualAlloc(0x6C327);
     memcpy(pTables, pSource, 0x400);
     sub_00604DF0_RgbToHsl(pTables, tHsl);
-    sub_00605880_BuildTablesA(pTables);
+    PaletteBuildAlphaTables(pTables);
     sub_00605DE0_BuildDarkenTables(pTables);
     sub_00605E60_BuildLightenTables(pTables);
-    sub_006059B0_BuildTable(pTables);
+    PaletteBuildAdditiveTable(pTables);
     sub_00605AA0_BuildTablesC(pTables);
     sub_00605F00_BuildTablesE(pTables, tHsl);
     sub_00606890_BuildBrightnessTable(pTables, tHsl);

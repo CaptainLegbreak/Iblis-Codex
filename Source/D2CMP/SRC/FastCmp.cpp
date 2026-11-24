@@ -42,7 +42,7 @@ int __stdcall D2CMPGetFindTile(void* pData); // 0x00600760
 
 void __fastcall sub_005179A4_FreeVirtualMemory(void* pMemory); // 0x005179A4
 
-void __stdcall sub_006059B0_BuildAdditiveTable(unsigned char* pData); // 0x006059B0
+void __stdcall PaletteBuildAdditiveTable(unsigned char* pData); // 0x006059B0
 
 extern unsigned int gdwSwappedColor; // 0x008E9D38
 
@@ -224,9 +224,9 @@ void __stdcall sub_00605E60_BuildLightenTables(unsigned char* pData); // 0x00605
 
 void* __fastcall sub_00517993_VirtualAlloc(unsigned int nSize);
 
-void __stdcall sub_00605880_BuildTablesA(unsigned char* pTables);
+void __stdcall PaletteBuildAlphaTables(unsigned char* pTables); // 0x00605880
 
-void __stdcall sub_006059B0_BuildTable(unsigned char* pData);
+void __stdcall PaletteBuildAdditiveTable(unsigned char* pData); // 0x006059B0
 
 void __stdcall sub_00605AA0_BuildTablesC(unsigned char* pTables);
 
@@ -367,7 +367,7 @@ void __stdcall PaletteSetMask(const unsigned char* pTable)
 }
 
 // 0x00605880
-void __stdcall sub_00605880_BuildTablesA(unsigned char* pTables)
+void __stdcall PaletteBuildAlphaTables(unsigned char* pTables)
 {
     unsigned int n = 0;
     if (3 > n)
@@ -409,7 +409,7 @@ void __stdcall sub_00605880_BuildTablesA(unsigned char* pTables)
 }
 
 // 0x006059B0
-void __stdcall sub_006059B0_BuildAdditiveTable(unsigned char* pTables)
+void __stdcall PaletteBuildAdditiveTable(unsigned char* pTables)
 {
     const D2PalRgbaStrc* pPalette = (const D2PalRgbaStrc*)pTables;
     for (int i = 0; i < 256; ++i)
@@ -427,7 +427,7 @@ void __stdcall sub_006059B0_BuildAdditiveTable(unsigned char* pTables)
 // 0x00605A90
 void __stdcall UpdateD2TransparencyTable(unsigned char* pData, int nUnused)
 {
-    sub_006059B0_BuildAdditiveTable(pData);
+    PaletteBuildAdditiveTable(pData);
 }
 
 // 0x00606A10

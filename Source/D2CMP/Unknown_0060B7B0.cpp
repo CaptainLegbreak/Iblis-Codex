@@ -13,8 +13,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                         // 0x006829C0
 extern unsigned int gdwBitMasks_006E6030[];                                                                 // 0x006E6030
 
-static unsigned int sub_0060B200(int nBits, D2CmpBitCursorStrc* pCursor);
-static unsigned int sub_0060B200(int nBits, D2CmpBitCursorStrc* pCursor); // 0x0060B200
+static unsigned int CodecReadBits(int nBits, D2CmpBitCursorStrc* pCursor); // 0x0060B200
+static unsigned int CodecReadBits(int nBits, D2CmpBitCursorStrc* pCursor); // 0x0060B200
 static void __fastcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pPixelCodes, D2CmpBitCursorStrc* pEqualCells, D2CmpCellBufStrc* pPrev, unsigned char** ppValues, D2CmpCellBufStrc* pCell);
 
 // build: symbol ?ganDccFieldWidths@* 0x006E5F70
@@ -27,7 +27,7 @@ extern const unsigned int gadwDccSignExtend[33];
 int __fastcall sub_Emit_0060B280(int nIndex, D2CmpBitCursorStrc* pCursor, int bSigned)
 {
     const int nBits = ganDccFieldWidths[nIndex];
-    unsigned int nValue = sub_0060B200(nBits, pCursor);
+    unsigned int nValue = CodecReadBits(nBits, pCursor);
     if (nBits && bSigned && (nValue & gadwDccSignBits[nBits - 1]))
     {
         nValue |= gadwDccSignExtend[nBits];
@@ -35,7 +35,8 @@ int __fastcall sub_Emit_0060B280(int nIndex, D2CmpBitCursorStrc* pCursor, int bS
     return nValue;
 }
 
-static inline int sub_0060B780_GetRunBits(const unsigned char* pBytes)
+// build: symbol ?CodecGetRunBits@* 0x0060B780
+static inline int CodecGetRunBits(const unsigned char* pBytes)
 {
     int nBits;
     for (nBits = 0; (1 << nBits) + 1 <= 4 && pBytes[1 << nBits] != pBytes[(1 << nBits) - 1]; ++nBits)
@@ -47,7 +48,7 @@ static inline int sub_0060B780_GetRunBits(const unsigned char* pBytes)
 // 0x0060B7B0
 static void __fastcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pPixelCodes, D2CmpBitCursorStrc* pEqualCells, D2CmpCellBufStrc* pPrev, unsigned char** ppValues, D2CmpCellBufStrc* pCell)
 {
-    if (pEqualCells && pPrev->pValues && sub_0060B200(1, pEqualCells))
+    if (pEqualCells && pPrev->pValues && CodecReadBits(1, pEqualCells))
     {
         if (pCell->nWidth == pPrev->nWidth && pCell->nHeight == pPrev->nHeight)
         {
@@ -85,7 +86,7 @@ static void __fastcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pPixelCodes, 
     }
 
     unsigned char* pRow = pCell->pData;
-    const int nBits = sub_0060B780_GetRunBits(pCell->pValues);
+    const int nBits = CodecGetRunBits(pCell->pValues);
     if (!nBits)
     {
         const int nColor = **ppValues;
@@ -101,7 +102,7 @@ static void __fastcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pPixelCodes, 
         {
             for (int x = 0; x < pCell->nWidth; ++x)
             {
-                pRow[x] = (*ppValues)[sub_0060B200(nBits, pPixelCodes)];
+                pRow[x] = (*ppValues)[CodecReadBits(nBits, pPixelCodes)];
             }
             pRow += pCell->nPitch;
         }
@@ -133,7 +134,7 @@ static __forceinline unsigned int DccReadBits(D2CmpBitCursorStrc* pCursor, int n
     return nValue;
 }
 
-static unsigned int sub_0060B200(int nBits, D2CmpBitCursorStrc* pCursor)
+static unsigned int CodecReadBits(int nBits, D2CmpBitCursorStrc* pCursor)
 {
     if (!nBits)
     {
