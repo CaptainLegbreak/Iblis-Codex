@@ -8,7 +8,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-(none)
+- **lane3/fog-shims** (Fog shims and placeholders from my queues.md row): Excel.cpp's 0x6BCE20 and QServer.cpp's 0x6BF180 shims go (one definition per function, called directly), and the stack-frame printer's three placeholders (Unknown_00402D60/00403100/00405250) join Unknown_00401DF0.cpp, which already carried them; 400 -> 397 placeholders, 3 shims fewer. Full verify running.
 
 ## Questions
 
