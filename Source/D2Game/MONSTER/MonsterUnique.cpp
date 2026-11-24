@@ -577,15 +577,6 @@ static inline unsigned char* UModsOf(D2UnitStrc* pUnit)
     return 0;
 }
 
-// build: context HasMonTypeFlag
-static inline int HasMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
-{
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
-    {
-        return pUnit->pMonsterData->nTypeFlag & nFlag;
-    }
-    return 0;
-}
 
 // build: context SetMonTypeFlag
 static inline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
@@ -681,16 +672,6 @@ static inline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-// build: context CheckMonStatsFlag
-static inline unsigned int CheckMonStatsFlag(int nMonsterId, int nFlag)
-{
-    D2MonStatsTxt* pMonStatsTxtRecord = MonStatsTxtRecord(nMonsterId);
-    if (pMonStatsTxtRecord)
-    {
-        return pMonStatsTxtRecord->nMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
-    }
-    return 0;
-}
 
 // build: context MonStatsTxtRecordOrNull
 static inline D2MonStatsTxt* MonStatsTxtRecordOrNull(int nMonsterId)
@@ -721,15 +702,6 @@ static inline D2MonUModTxt* MonUModTxtRecord(int nUMod)
     return &sgptDataTables->pMonUModTxt[nUMod];
 }
 
-// build: context SuperUniqueHcIdx
-static inline int SuperUniqueHcIdx(int nSuperUnique)
-{
-    if (nSuperUnique >= 0 && nSuperUnique < sgptDataTables->nSuperUniquesTxtRecordCount)
-    {
-        return sgptDataTables->pSuperUniquesTxt[nSuperUnique].dwHcIdx;
-    }
-    return -1;
-}
 
 // build: context RollRandomInline
 static inline unsigned int RollRandomInline(D2SeedStrc* pSeed)

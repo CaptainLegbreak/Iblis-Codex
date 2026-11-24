@@ -836,12 +836,6 @@ D2TreeNode006BD330Strc* __fastcall EXCEL_FindLinkNode(D2TreeNode006BD330Strc* pN
     return gpszFallback;
 }
 
-// build: context sub_006BD490_Shim
-// calling-convention shim (not game code)
-void __cdecl sub_006BD490_Shim(D2TxtLinkNodeStrc** ppRoot, D2TxtLinkNodeStrc* pNode)
-{
-    EXCEL_InsertLinkNode(ppRoot, pNode);
-}
 
 // 0x006BD500
 int __stdcall FOG_10216_AddRecordToLinkingTable(D2BinLinker006BD500Strc* pLinker, const char* szCode)

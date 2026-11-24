@@ -1877,9 +1877,4 @@ int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage
     return 1;
 }
 
-// build: context ApplyPercent
-// build: context ApplyRatio_Inline
-// build: context AddPoisonDamage_Inline
-// build: context AddPoisonDamageAndClamp_Inline
-
 #include "gen/data/Source/D2Client/Unknown_004E89A0.inc"

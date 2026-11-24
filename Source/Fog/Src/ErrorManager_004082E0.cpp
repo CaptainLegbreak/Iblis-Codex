@@ -1139,9 +1139,6 @@ D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
     return &f_8[f_4++];
 }
 
-// build: context sub_00406BA0_GetModuleDirectoryAndSave
-
-
 int sgfAsyncDataEnabled; // 0x0075AF94
 
 // build: symbol ?strrchr@@YAPADPADH@Z 0x00401A30

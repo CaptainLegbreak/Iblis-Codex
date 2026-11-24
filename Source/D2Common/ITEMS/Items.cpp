@@ -2785,16 +2785,6 @@ unsigned int __stdcall ITEMS_GetTransmogrifyFromItemId(int nItemId)
     return pItemsTxtRecord->nTransmogrify != 0;
 }
 
-// build: context sub_006292F0_Shim
-// calling-convention shim (not game code)
-int __fastcall sub_006292F0_Shim(D2UnitStrc* pItem, int nDivisor)
-{
-    int nSellCost = nDivisor;
-    int nBuyCost = nDivisor * 2;
-    int nRepCost = nDivisor * 3;
-    ITEMS_CalculateAdditionalCostsForSocketables(pItem, &nSellCost, &nBuyCost, &nRepCost);
-    return nSellCost + nBuyCost + nRepCost;
-}
 
 // 0x0062A370
 unsigned int __stdcall ITEMS_GetSetItemsMask(D2UnitStrc* pPlayer, D2UnitStrc* pSetItem, int bDontIgnoreInputItem)

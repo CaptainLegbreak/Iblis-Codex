@@ -1969,17 +1969,6 @@ static int PLAYER_PrepareCommand(D2PlayerCmdStrc* pCmd)
     return 1;
 }
 
-// build: context sub_00461DC0_Shim
-// calling-convention shim (not game code)
-void __stdcall sub_00461DC0_Shim(int nTargetType, int nTargetId, D2PlayerCmdStrc* pCmd)
-{
-    if (nTargetType != 1)
-    {
-        PLAYER_InteractWithUnit(nTargetType, nTargetId, pCmd);
-        return;
-    }
-    PLAYER_InteractWithUnit(1, nTargetId, pCmd);
-}
 
 // build: context ClampTarget_GetX
 inline int ClampTarget_GetX(D2UnitStrc* pUnit)
@@ -2086,14 +2075,6 @@ static int __stdcall PLAYER_ClampTarget(D2UnitStrc* pUnit, D2PlayerCmdStrc* pCmd
     return 1;
 }
 
-// build: context sub_004623C0_Shim
-// calling-convention shim (not game code)
-int __stdcall sub_004623C0_Shim(D2PlayerCmdStrc* pCmd)
-{
-    if (!PLAYER_ClampTarget(pCmd->pPlayer, pCmd))
-        return 0;
-    return pCmd->nX + pCmd->nArg;
-}
 
 // 0x00462560
 static int PLAYER_IsSkillFlagSet(D2SkillStrc* pSkill)

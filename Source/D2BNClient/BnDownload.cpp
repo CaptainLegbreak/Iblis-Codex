@@ -837,12 +837,6 @@ static int __stdcall BNDOWNLOAD_RecvAll(unsigned int nSocket, char* pBuffer, uns
     return 1;
 }
 
-// build: context sub_0051E920_Shim
-// calling-convention shim (not game code)
-void __fastcall sub_0051E920_Shim(const char* member, void* archive, const char* destination)
-{
-    BNDOWNLOAD_ExtractFile(member, archive, destination);
-}
 
 unsigned long __fastcall sub_H04_Emit_0051E640(const char* szFile, const __int64* pFileTime)
 {

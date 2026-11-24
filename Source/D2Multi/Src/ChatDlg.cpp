@@ -3104,13 +3104,6 @@ int __fastcall sub_00442180_Shim(char* szText)
     return 0;
 }
 
-// build: context sub_004438E0_HasProgress
-static inline int sub_004438E0_HasProgress(unsigned short wFlags, unsigned int nClassic, unsigned int nExpansion)
-{
-    if (wFlags & 0x20)
-        return (wFlags & 0x1F00u) >= nExpansion;
-    return (wFlags & 0x1F00u) >= nClassic;
-}
 
 int __fastcall sub_004438E0_Lookup(const char* szName, const char* szPassword, D2LaunchGameRecStrc* pRecord); // 0x004438E0
 

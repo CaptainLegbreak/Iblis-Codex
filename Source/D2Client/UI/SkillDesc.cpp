@@ -3938,8 +3938,6 @@ extern "C" int __stdcall sub_D05_Emit_4E80F0(Unicode* p, int f, int b, unsigned 
 
 extern "C" int __stdcall sub_D05_Emit_4E81C0(unsigned short w1, unsigned short w2, unsigned short w3, int b, Unicode* p, int n) { return SKILLDESC_AppendLabelValueLabels(w1, w2, w3, b, p, n); }
 
-// build: context sub_D05_Emit_4E83B0
-extern "C" int __stdcall sub_D05_Emit_4E83B0(Unicode* p, int n) { return SKILLDESC_AppendSkillDescStrLong(p, n); }
 
 extern "C" int __stdcall sub_D05_Emit_4E85C0(Unicode* p, int s, int l, int m, D2SkillsTxt* t, int v) { return sub_004E85C0_AppendManaCost(p, s, l, m, t, v); }
 

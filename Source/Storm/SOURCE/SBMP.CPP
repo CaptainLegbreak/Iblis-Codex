@@ -824,12 +824,6 @@ static void __stdcall FlipImage(unsigned char* pDst, int nRows, const unsigned c
     }
 }
 
-// build: context sub_006C60F0_Shim
-// calling-convention shim (not game code)
-int __stdcall sub_006C60F0_Shim(const unsigned char* pData, unsigned char* pPalette, unsigned char* pPixels, int nSize, int* pWidth, int* pHeight, unsigned int* pBitCount)
-{
-    return DecodeBmpMem(pWidth, pHeight, pBitCount, pData, pPalette, pPixels, nSize) + 2;
-}
 
 // 0x006C5A60
 static void sub_006C5A60_FlushBlock(D2BitOutputStrc* pState, unsigned char** ppOutput)
@@ -1324,12 +1318,6 @@ static int __stdcall EncodeBmp256File(void* file, const D2PaletteEntry* palette,
     return 1;
 }
 
-// build: context sub_006C61C0_Shim
-// calling-convention shim (not game code)
-int __stdcall sub_006C61C0_Shim(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height)
-{
-    return EncodeBmp256File(file, palette, pixels, width, height);
-}
 
 // 0x006C6330
 static void __stdcall ClearBlock(unsigned char** ppOutput, D2BitOutputStrc* pState)
@@ -1405,19 +1393,7 @@ lNotFound:
     pState->unknown14[0] = nChar;
 }
 
-// build: context sub_006C5B60_Shim
-// calling-convention shim (not game code)
-int __stdcall sub_006C5B60_Shim(int nHeight, int nWidth, void* hFile, D2PaletteStrc* pPalette, unsigned char* pPixels)
-{
-    return EncodePcx256File(nWidth, nHeight, hFile, pPalette, pPixels);
-}
 
-// build: context sub_006C5B10_Shim
-// calling-convention shim (not game code)
-void __cdecl sub_006C5B10_Shim(unsigned char** ppDest, unsigned char** ppSource, int nCount)
-{
-    CompressPcxRow(ppDest, ppSource, nCount);
-}
 
 // 0x006C6470
 int __fastcall CompressGifImage(int nSize, const unsigned char* pData, unsigned char* pOutput)
@@ -1585,12 +1561,6 @@ static int __stdcall DecodePcxFile(void* hFile, unsigned char* pPalette, unsigne
     return 1;
 }
 
-// build: context sub_006C6370_Shim
-// calling-convention shim (not game code)
-extern "C" void __stdcall sub_006C6370_Shim(D2BitOutputStrc* pState, unsigned char** ppOutput, int nChar)
-{
-    sub_006C6370_AddChar(ppOutput, nChar, pState);
-}
 
 // 0x006C6990
 static int __stdcall DecodePcxMem(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth)

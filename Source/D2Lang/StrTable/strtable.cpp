@@ -1054,11 +1054,5 @@ static D2TblHeaderStrc* STRTABLE_LoadTblFile(const char* szPath)
     return pHeader;
 }
 
-// build: context sub_00524C60_Shim
-// calling-convention shim (not game code)
-unsigned short __stdcall sub_00524C60_Shim(D2TblHeaderStrc* pTable, void** ppSlots, const char* szKey, void** ppOut)
-{
-	return STRTABLE_FindKey(ppSlots, szKey, ppOut, pTable);
-}
 
 #include "gen/data/Source/D2Lang/StrTable/strtable.inc"

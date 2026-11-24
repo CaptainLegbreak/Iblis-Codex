@@ -82,16 +82,6 @@ static inline D2SkillDescTxt* SKILLTREE_GetSkillDescTxtRecord(int nSkillDesc)
     return 0;
 }
 
-// build: context SKILLTREE_GetSkillDescRec
-static inline D2SkillDescTxt* SKILLTREE_GetSkillDescRec(int nSkillId)
-{
-    D2SkillsTxt* pSkillsTxt = SKILLTREE_GetSkillsTxtRecord(nSkillId);
-    if (pSkillsTxt)
-    {
-        return SKILLTREE_GetSkillDescTxtRecord(pSkillsTxt->wSkillDesc);
-    }
-    return 0;
-}
 
 // 0x004AA9C0
 static int sub_004AA9C0_GetSkillRowY(unsigned char nRow)

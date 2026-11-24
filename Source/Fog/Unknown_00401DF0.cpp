@@ -190,16 +190,6 @@ static bool __stdcall sub_00401DF0_GetModuleFromAddr(unsigned long dwAddress, un
     return false;
 }
 
-// build: context sub_00401DF0_Shim
-// calling-convention shim (not game code)
-unsigned long __stdcall sub_00401DF0_Shim(unsigned long dwAddress, char* szOut)
-{
-    __declspec(align(8)) char szName[0x104];
-    unsigned long dwBase = 0;
-    if (sub_00401DF0_GetModuleFromAddr(dwAddress, &dwBase, szName))
-        strncpy_s(szOut, 0x40, szName, (unsigned int)-1);
-    return dwBase;
-}
 
 static unsigned char __stdcall ERRORMANAGER_GetStackRange(void** ppBase, unsigned long* pEnd, const void* pAddress)
 {
@@ -478,14 +468,6 @@ static bool __stdcall sub_004020D0_GetLineFromAddr(unsigned long dwAddress, char
     return false;
 }
 
-// build: context sub_004020D0_Shim
-// calling-convention shim (not game code)
-void __stdcall sub_004020D0_Shim(unsigned long dwAddress, char* szOut, unsigned long* pLineNumber)
-{
-    __declspec(align(8)) char szName[0x104];
-    sub_004020D0_GetLineFromAddr(dwAddress, szName, pLineNumber);
-    strncpy_s(szOut, 0x100, szName, (unsigned int)-1);
-}
 
 // build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
@@ -521,15 +503,6 @@ bool __stdcall sub_004021D0_EnumerateModules(void* pfnCallback, void* pContext)
 unsigned __int64 __stdcall sub_00402460_LoadModule(void* hFile, const char* szImageName,
     const char* szModuleName, unsigned __int64 qwBaseOfDll, unsigned long dwSizeOfDll); // 0x00402460
 
-// build: context sub_00402460_Shim
-// calling-convention shim (not game code)
-unsigned long __stdcall sub_00402460_Shim(void* hFile, const char* szImageName, const char* szModuleName,
-    unsigned __int64 qwBaseOfDll, unsigned long dwSizeOfDll)
-{
-    __declspec(align(8)) char szName[0x104];
-    strncpy_s(szName, 0x104, szModuleName, (unsigned int)-1);
-    return (unsigned long)sub_00402460_LoadModule(hFile, szImageName, szName, qwBaseOfDll, dwSizeOfDll);
-}
 
 // build: context D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc

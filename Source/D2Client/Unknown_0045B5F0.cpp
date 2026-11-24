@@ -251,10 +251,5 @@ D2ClientAllocRecStrc* D2ClientAllocRecListStrc::sub_0045BE90_DeleteNode(D2Client
     return pNext;
 }
 
-// build: context sub_W10_EmitDeleteAllocRec
-void sub_W10_EmitDeleteAllocRec(D2ClientAllocRecStrc* pNode)
-{
-    delete pNode;
-}
 
 #include "gen/data/Source/D2Client/Unknown_0045B5F0.inc"

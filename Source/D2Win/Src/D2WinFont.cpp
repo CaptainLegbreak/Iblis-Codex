@@ -567,12 +567,6 @@ static void __stdcall FONT_DrawString(const Unicode* wszText, int nX, int nY, in
     }
 }
 
-// build: context sub_00501A80_Shim
-// calling-convention shim (not game code)
-void __stdcall sub_00501A80_Shim(const Unicode* wszText, int nX, int nY, int nWidth, int nShift, int bCentered)
-{
-    FONT_DrawString(wszText, nX, nY - 2, nWidth, nShift, bCentered);
-}
 
 // 0x00501C30
 static void __stdcall FONT_DrawTextLineWithDrawMode(const Unicode* wszText, int nX, int nY, int nWidth, int nColor, int bCentered, int eDrawMode)

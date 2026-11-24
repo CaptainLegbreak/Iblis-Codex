@@ -1251,12 +1251,6 @@ int __fastcall sub_005B31B0_SpawnMinionsAt(D2GameStrc* pGame, D2UnitStrc* pOwner
     return nResult;
 }
 
-// build: context sub_005B2830_Shim
-// calling-convention shim (not game code)
-void __fastcall sub_005B2830_Shim(D2UnkMonCreateStrc* pMonCreate, D2UnitStrc* pUnit)
-{
-    MONSTERSPAWN_SpawnMinionParty(pMonCreate, pUnit);
-}
 
 // 0x005B3270
 int __fastcall MONSTERSPAWN_SpawnFormation(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitStrc* pOwner, int nClassId, int nAnimMode, D2UnkMonCreateStrc2* pInfo, short nFlags)

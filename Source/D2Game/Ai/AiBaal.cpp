@@ -868,12 +868,6 @@ int __stdcall sub_005FC630_Shim(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiContro
     return AIBAAL_RollRandomAiParam(pGame, pUnit, pAiControl, pTarget, nMax, nCount, pAiCmd);
 }
 
-// build: context sub_005FC450_Shim
-// calling-convention shim (not game code)
-int __stdcall sub_005FC450_Shim(D2GameStrc* pGame, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nCount, int bMedium, int bFar, int bClose, int nMax, D2UnitStrc* pUnit)
-{
-    return AIBAAL_RollRandomAiParamForNonCollidingUnit(pGame, pAiControl, pUnit, pTarget, nCount, bMedium, bFar, bClose, nMax);
-}
 
 // 0x005FC630
 static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nMax, int nCount, D2AiCmdStrc* pAiCmd)

@@ -1601,39 +1601,6 @@ void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText)
 }
 
 // build: symbol ?IMAGE_DrawTiled@* 0x004FD340
-// build: context IMAGE_DrawTiled
-static void __stdcall IMAGE_DrawTiled(const D2CropRectStrc* pDst, const D2CropRectStrc* pSrc, D2CelContextStrc* pGfxData)
-{
-    const int nSrcWidth = pSrc->nX1 - pSrc->nX0;
-    const int nDstWidth = pDst->nX1 - pDst->nX0;
-    const int nSrcHeight = pSrc->nY1 - pSrc->nY0;
-    const int nDstHeight = pDst->nY1 - pDst->nY0;
-    if (nSrcWidth == nDstWidth && nSrcHeight == nDstHeight)
-    {
-        TEXTURE_CelDrawClipped(pGfxData, pDst->nX0 - pSrc->nX0, pDst->nY1 - pSrc->nY1 + 256, (void*)pDst, DRAWMODE_NORMAL);
-        return;
-    }
-
-    const int nColumns = (nDstWidth + nSrcWidth - 1) / nSrcWidth;
-    const int nRows = (nDstHeight + nSrcHeight - 1) / nSrcHeight;
-    int nY = pDst->nY0 - pSrc->nY0 + 256;
-    D2CropRectStrc tRect;
-    for (int j = 0; j < nRows; ++j, nY += nSrcHeight)
-    {
-        for (int i = 0, nX = pDst->nX0 - pSrc->nX0; i < nColumns; ++i, nX += nSrcWidth)
-        {
-            tRect.nX0 = pDst->nX0 > pSrc->nX0 + nX ? pDst->nX0 : pSrc->nX0 + nX;
-            tRect.nX1 = pDst->nX1;
-            if (tRect.nX1 >= tRect.nX0 + nSrcWidth)
-                tRect.nX1 = tRect.nX0 + nSrcWidth;
-            tRect.nY0 = pDst->nY0 > pSrc->nY0 + nY - 256 ? pDst->nY0 : pSrc->nY0 + nY - 256;
-            tRect.nY1 = pDst->nY1;
-            if (tRect.nY1 >= tRect.nY0 + nSrcHeight)
-                tRect.nY1 = tRect.nY0 + nSrcHeight;
-            TEXTURE_CelDrawClipped(pGfxData, nX, nY, &tRect, DRAWMODE_NORMAL);
-        }
-    }
-}
 
 // 0x004FFE10
 int __fastcall D2Win_10076(D2WinControlStrc* pControl, const char* szText)
