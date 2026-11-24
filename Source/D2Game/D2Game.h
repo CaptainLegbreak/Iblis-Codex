@@ -79,7 +79,6 @@ struct ShrineRecord;
 struct Skill;
 struct SkillRecord;
 struct StaticPath;
-struct T005C40D0;
 struct Tables;
 struct Text;
 struct Unit;
@@ -139,8 +138,8 @@ char* __stdcall ITEMS_GetEarName(D2UnitStrc* pItem); // 0x00628340
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 extern "C" DataTables* gVar_00744304; // 0x00744304
 extern "C" ItemRecord* __stdcall sub_006335F0_Record(int); // 0x006335F0
-extern "C" T005C40D0* __fastcall sub_0056E970_Apply(AuraRequest*); // 0x0056E970
-extern "C" T005C40D0* __stdcall sub_006251F0_Allocate(void*, int, int, int, int); // 0x006251F0
+extern "C" D2StatListStrc* __fastcall sub_0056E970_Apply(AuraRequest*); // 0x0056E970
+extern "C" D2StatListStrc* __stdcall sub_006251F0_Allocate(void*, int, int, int, int); // 0x006251F0
 extern "C" Unit* __stdcall sub_00553540_Target(Game*, Unit*); // 0x00553540
 extern "C" Unit* __stdcall sub_0063AD90_Remove(void*, Unit*); // 0x0063AD90
 extern "C" Unit* __stdcall sub_0063B2C0_First(void*); // 0x0063B2C0
@@ -187,14 +186,14 @@ extern "C" unsigned int __security_cookie; // 0x00749DE0
 extern "C" void __cdecl _chkstk(); // 0x006831B0
 extern "C" void __fastcall sub_005A4850_Effect(Game*, Unit*, int, int); // 0x005A4850
 extern "C" void __fastcall sub_005B0E00_Ai(Game*, Unit*, AiState*, int); // 0x005B0E00
-extern "C" void __fastcall sub_005C6CC0_Configure(Unit*, T005C40D0*, SkillRecord*, int, int); // 0x005C6CC0
+extern "C" void __fastcall sub_005C6CC0_Configure(Unit*, D2StatListStrc*, SkillRecord*, int, int); // 0x005C6CC0
 extern "C" void __stdcall sub_005A7E60_FillMode(Unit*, int, ModeRequest*); // 0x005A7E60
 extern "C" void __stdcall sub_00620870_Position(Unit*, Point*); // 0x00620870
 extern "C" void __stdcall sub_00621000_SetFlag(Unit*, int); // 0x00621000
 extern "C" void __stdcall sub_00624690_Mode(Unit*, int); // 0x00624690
-extern "C" void __stdcall sub_006252D0_State(T005C40D0*, int); // 0x006252D0
-extern "C" void __stdcall sub_00626E10_Attach(Unit*, T005C40D0*, int); // 0x00626E10
-extern "C" void __stdcall sub_00627150_Stat(T005C40D0*, int, int, int); // 0x00627150
+extern "C" void __stdcall sub_006252D0_State(D2StatListStrc*, int); // 0x006252D0
+extern "C" void __stdcall sub_00626E10_Attach(Unit*, D2StatListStrc*, int); // 0x00626E10
+extern "C" void __stdcall sub_00627150_Stat(D2StatListStrc*, int, int, int); // 0x00627150
 extern "C" void __stdcall sub_00639DB0_SetState(Unit*, int, int); // 0x00639DB0
 extern "C" void __stdcall sub_0063C180_Cursor(void*, Unit*); // 0x0063C180
 extern "C" void __stdcall sub_0063CC70_Refresh(void*, Unit*); // 0x0063CC70

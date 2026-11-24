@@ -29,7 +29,7 @@ static inline unsigned int RollLimited(D2SeedStrc* pSeed, int nMax)
  return RollRandom(pSeed) & (nMax - 1);
 }
 // 0x005BDB20
-void __stdcall sub_005BDB20_RollComponentVariants(D2SeedStrc* pSeed, D2MonPresetStrc* pPreset, int nCount)
+void __stdcall MONSTERCHOOSE_GenerateComponentVariants(D2SeedStrc* pSeed, D2MonPresetStrc* pPreset, int nCount)
 {
  D2_ASSERT(pSeed, 0xa0);
  D2_ASSERT(pPreset, 0xa1);
@@ -199,7 +199,7 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 }
 
 // 0x005BDFF0
-void* __fastcall sub_005BDFF0_RollSeedGetTable(D2SeedOwnerStrc* pOwner)
+void* __fastcall MONSTERCHOOSE_RollFormation(D2SeedOwnerStrc* pOwner)
 {
     D2SeedStrc* pSeed = pOwner ? &pOwner->pSeed : 0;
     SEED_RollRandomNumber(pSeed);

@@ -174,7 +174,7 @@ static inline int GetCharType(D2LaunchCharEntryStrc* entry)
     return entry ? entry->nType : 0;
 }
 // 0x00438560
-void __cdecl sub_00438560_Refresh()
+void __cdecl CHARSEL_RefreshCharList()
 {
     if(FOG_IsExpansion()) {CHARSEL_UpdateCharList();return;}
     D2LaunchCharEntryStrc* entry=gpCharList;

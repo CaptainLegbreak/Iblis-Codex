@@ -32,6 +32,7 @@
 #include "D2DrlgRooms.h"
 
 #include "D2ItemModes.h"
+#include "D2DrlgWarp.h"
 
 unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed);
 
@@ -190,13 +191,6 @@ typedef unsigned int size_t;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 
-struct D2DrlgWarpStrc
-{
-    int nLevel;
-    int nVis[8];
-    int nWarp[8];
-    D2DrlgWarpStrc* pNext;
-};
 
 struct D2DrlgTableEntryStrc
 {

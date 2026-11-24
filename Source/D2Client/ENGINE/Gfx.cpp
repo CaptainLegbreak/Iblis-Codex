@@ -13,6 +13,7 @@
 #include "D2ClientGame.h"
 #include "D2Path.h"
 #include "D2LevelIds.h"
+#include "D2ClientGfxState.h"
 
 struct D2UnitStrc;
 
@@ -143,24 +144,6 @@ int __fastcall sub_004DBE20(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOverlay); // 
 
 int __stdcall UNITS_GetOverlayHeight(D2UnitStrc* pUnit); // 0x006223A0
 
-struct D2StateNodeStrc
-{
-    int dwType;
-    int unk0x04;
-    int nCurrent;
-    char unk0x0C[0x2C];
-    int nStateId;
-    int bSelected;
-    char unk0x40[0x64];
-    D2StateNodeStrc* pNext;
-};
-
-struct D2StateOwnerStrc
-{
-    char unk0x00[0x2C];
-    D2StateNodeStrc* pFirst;
-};
-
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
@@ -193,7 +176,7 @@ int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
-int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
+int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 
 void __stdcall TEXTURE_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, unsigned char nColor); // 0x004F6570
 
@@ -304,11 +287,11 @@ struct D2Unk004760C0Strc
 
 extern "C" int __cdecl strcmp(const char* szA, const char* szB);
 
-extern "C" T0046E1B0* __stdcall ImmGetContext(int hWnd); // 0x006B00C6
+extern "C" HIMC__* __stdcall ImmGetContext(int hWnd); // 0x006B00C6
 
-extern "C" int __stdcall ImmReleaseContext(int hWnd, T0046E1B0* hImc); // 0x006B00B4
+extern "C" int __stdcall ImmReleaseContext(int hWnd, HIMC__* hImc); // 0x006B00B4
 
-extern "C" int __stdcall ImmGetConversionStatus(T0046E1B0* hImc, unsigned long* pConversion, unsigned long* pSentence); // 0x006B00DE
+extern "C" int __stdcall ImmGetConversionStatus(HIMC__* hImc, unsigned long* pConversion, unsigned long* pSentence); // 0x006B00DE
 
 void* __stdcall SMemAlloc(int nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
 
@@ -2501,7 +2484,7 @@ int __fastcall GFX_DrawSimpleUnitShadow(D2UnitStrc* pUnit)
         }
         nY += 16;
     }
-    if (!sub_004709A0_IsOnScreen(pUnit, nX, nY, 0, 1))
+    if (!GFX_IsUnitOnScreen(pUnit, nX, nY, 0, 1))
     {
         return 0;
     }
@@ -2564,7 +2547,7 @@ int __fastcall GFX_GetHealthBarOffset(D2UnitStrc* pUnit)
             break;
         }
     }
-    if (!sub_004709A0_IsOnScreen(pUnit, nX, nY, 0, 0))
+    if (!GFX_IsUnitOnScreen(pUnit, nX, nY, 0, 0))
     {
         return 0;
     }
@@ -2615,7 +2598,7 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
             nY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY() + ITEM_GetGfxClientY(pUnit);
             nY += sub_004DA0F0_GetUnitGfxOffsetZ(pUnit);
         }
-        if (!sub_004709A0_IsOnScreen(pUnit, nX, nY, 0, 0))
+        if (!GFX_IsUnitOnScreen(pUnit, nX, nY, 0, 0))
         {
             return 0;
         }

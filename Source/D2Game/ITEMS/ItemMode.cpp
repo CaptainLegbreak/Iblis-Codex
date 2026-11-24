@@ -16,6 +16,7 @@
 #include "D2TxtTables.h"
 #include "D2ItemsWorld.h"
 #include "D2ItemModes.h"
+#include "D2LanguageNames.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 

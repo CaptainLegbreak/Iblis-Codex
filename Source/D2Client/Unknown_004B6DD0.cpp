@@ -62,7 +62,7 @@ void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsign
 void __cdecl INV_ResetHover();                                                                     // 0x00487990
 void __fastcall TEXT_SetTextCallback(D2TextCallback pfnCallback, void* pContext);                   // 0x0049E7E0
 D2TextHeaderStrc* __cdecl DLIGHTMAP_GetTextHeader();                                                                   // 0x0049F900
-void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, int nArg);                         // 0x004A10E0
+void __fastcall TEXT_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, int nArg);                         // 0x004A10E0
 D2UnitStrc* __cdecl NPCMENU_GetInteractNpc();                                                          // 0x004B1620
 unsigned short __fastcall NPCMENU_GetFreeStringId(unsigned short wStringId);                           // 0x004B1830
 int __cdecl NPCMENU_ResurrectMercWait();                                                               // 0x004B1DD0
@@ -74,7 +74,7 @@ void __cdecl sub_004B3DE0_CloseNpc();                                           
 void __cdecl NPCMENU_BuildNpcMenu();                                                                        // 0x004B4830
 void __cdecl NPCMENU_OpenGreetingDialog();                                                             // 0x004B4DB0
 void __stdcall sub_004B4FD0_OpenNpcWindow(D2UnitStrc* pUnit);                                                             // 0x004B4FD0
-int __cdecl sub_004B5C60_Handler();                                                                         // 0x004B5C60
+int __cdecl NPCMENU_ShowMainMenu();                                                                         // 0x004B5C60
 int __cdecl NPCMENU_InitHireHandler();                                                                     // 0x004B6410
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
 void __fastcall sub_004BA840(int nHandle);                                                                  // 0x004BA840
@@ -208,7 +208,7 @@ static int __stdcall sub_004B6440_ToggleNpcHandler(int bAdd, int nIndex)
 
         for (int i = 0; i < nCount; ++i)
         {
-            if (gaNpcIndex[nIndex].apfHandlers[i] == sub_004B5C60_Handler)
+            if (gaNpcIndex[nIndex].apfHandlers[i] == NPCMENU_ShowMainMenu)
             {
                 for (int j = nCount - 1; j >= i; --j)
                 {
@@ -417,7 +417,7 @@ int __fastcall NPCMENU_NpcTextCallback(void* pContext, int nArg, int nValue)
         if (gwNpcMessageString != 0xFFFF && (gbNpcInteracting ? CUNIT_FindClientUnit(gnInteractNpcId, 1) : 0))
         {
             gwNpcLastString = gwNpcMessageString;
-            sub_004A10E0_ShowNpcMessage(gbNpcInteracting ? CUNIT_FindClientUnit(gnInteractNpcId, 1) : 0, gwNpcLastString, 1);
+            TEXT_ShowNpcMessage(gbNpcInteracting ? CUNIT_FindClientUnit(gnInteractNpcId, 1) : 0, gwNpcLastString, 1);
             NPCMENU_AddUsedString(gwNpcLastString);
             TEXT_SetTextCallback(NPCMENU_NpcTextCallback, 0);
             gwNpcGreetingString = gwNpcLastString;
@@ -528,7 +528,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
     {
         UI_CloseUIVars(0, 0);
         gwNpcGreetingString = wString;
-        sub_004A10E0_ShowNpcMessage(pUnit, wString, 1);
+        TEXT_ShowNpcMessage(pUnit, wString, 1);
         NPCMENU_AddUsedString(wString);
         gwNpcMessageString = NPCMENU_GetFreeStringId(wString);
         MSG_SendTwoDwords(0x31, pUnit->dwUnitId, wString);

@@ -421,7 +421,7 @@ done:
 }
 
 // 0x006C7790
-static int sub_006C7790_SkipUtf8Continuation(const unsigned char* text, int index, int step)
+static int SkipUtf8Continuation(const unsigned char* text, int index, int step)
 {
     while (index > 0)
     {
@@ -436,13 +436,13 @@ static int sub_006C7790_SkipUtf8Continuation(const unsigned char* text, int inde
 // 0x006C77B0
 int __stdcall SUniFindUTF8ChrStart(const unsigned char* text, int index)
 {
-    return sub_006C7790_SkipUtf8Continuation(text, index, -1);
+    return SkipUtf8Continuation(text, index, -1);
 }
 
 // 0x006C77D0
 int __stdcall SUniFindAfterUTF8Chr(const unsigned char* text, int index)
 {
-    return sub_006C7790_SkipUtf8Continuation(text, index + 1, 1);
+    return SkipUtf8Continuation(text, index + 1, 1);
 }
 
 // table stands for the original's register choice (count, source and the index in ebx/edi/esi); with a plain parameter they rotate
@@ -512,7 +512,7 @@ static int __stdcall SUniConvertUTF16ToCP(const unsigned short* source, unsigned
 }
 
 // 0x006C78C0
-static int sub_006C78C0_Translate(unsigned short* pDest, const unsigned char* pSource, unsigned int nCount, const unsigned short* pTable)
+static int TranslateToUnicode(unsigned short* pDest, const unsigned char* pSource, unsigned int nCount, const unsigned short* pTable)
 {
     if (!nCount)
     {
@@ -561,17 +561,17 @@ int __stdcall SUniConvertUTF16ToDos(char* pDest, const unsigned short* pSource, 
 // 0x006C7960
 int __stdcall SUniConvertWinToUTF16(unsigned short* pDest, const unsigned char* pSource, unsigned int nCount)
 {
-    return sub_006C78C0_Translate(pDest, pSource, nCount, gWideTable_006FCDC0);
+    return TranslateToUnicode(pDest, pSource, nCount, gWideTable_006FCDC0);
 }
 
 // 0x006C7980
 int __stdcall SUniConvertMacToUTF16(unsigned short* pDest, const unsigned char* pSource, unsigned int nCount)
 {
-    return sub_006C78C0_Translate(pDest, pSource, nCount, gWideTable_006FCFC0);
+    return TranslateToUnicode(pDest, pSource, nCount, gWideTable_006FCFC0);
 }
 
 // 0x006C79A0
 int __stdcall SUniConvertDosToUTF16(unsigned short* pDest, const unsigned char* pSource, unsigned int nCount)
 {
-    return sub_006C78C0_Translate(pDest, pSource, nCount, gWideTable_006FD1C0);
+    return TranslateToUnicode(pDest, pSource, nCount, gWideTable_006FD1C0);
 }

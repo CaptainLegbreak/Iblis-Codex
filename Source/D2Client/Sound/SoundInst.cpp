@@ -9,6 +9,7 @@
 #include "D2Path.h"
 #include "D2ClientSound.h"
 #include "D2ClientDialogWidget.h"
+#include "D2SoundEnvironTxt.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -22,7 +23,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 int __fastcall sub_004DF900_GetSoundPosition(void* pSound);                                                 // 0x004DF900
 
-void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount);               // 0x004B9EF0
+void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount);               // 0x004B9EF0
 
 int __cdecl sub_004817F0();                                                                                 // 0x004817F0
 
@@ -64,12 +65,6 @@ struct D2ClientSoundStrc
 
 #pragma pack(pop)
 
-struct T00481920
-{
-    char unk0x00[0x18];
-    unsigned char bFlag;
-};
-
 int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
 int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
@@ -80,7 +75,7 @@ unsigned int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
 
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 
-T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
+D2SoundEnvironTxtStrc* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 
 float __fastcall SOUNDHDR_GetFalloffRange(int nSoundId); // 0x00482610
 
@@ -88,7 +83,7 @@ void __fastcall SOUNDHDR_TouchCacheEntry(int nSoundId); // 0x00482860
 
 float __fastcall sub_004B93A0_ClampFloat(float fValue, float fMin, float fMax); // 0x004B93A0
 
-D2ClientSoundStrc* __stdcall sub_004B9690_FindOldestEntry(int nGroup, D2UnitStrc* pUnit, D2ClientSoundStrc* pExclude); // 0x004B9690
+D2ClientSoundStrc* __stdcall SOUNDINST_FindOldestEntry(int nGroup, D2UnitStrc* pUnit, D2ClientSoundStrc* pExclude); // 0x004B9690
 
 void __fastcall UNITSND_RemoveUnitHint(D2UnitStrc* pUnit, int nHandle); // 0x004CA8D0
 
@@ -133,7 +128,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 D2ClientSoundStrc gaHintEntries[200];                                                           // 0x007C0ED0
 
 // 0x004B93F0
-D2ClientSoundStrc* __cdecl sub_004B93F0_AllocHintEntry()
+D2ClientSoundStrc* __cdecl SOUNDINST_AllocSoundEntry()
 {
     for (int i = 0; i < 200; ++i)
     {
@@ -153,7 +148,7 @@ D2ClientSoundStrc* __cdecl sub_004B93F0_AllocHintEntry()
 }
 
 // 0x004B9440
-D2ClientSoundStrc* __fastcall sub_004B9440_FindSoundByHandle(int nHandle)
+D2ClientSoundStrc* __fastcall SOUNDINST_FindSoundByHandle(int nHandle)
 {
     if (nHandle)
     {
@@ -170,7 +165,7 @@ D2ClientSoundStrc* __fastcall sub_004B9440_FindSoundByHandle(int nHandle)
 }
 
 // 0x004B9470
-static inline void sub_004B9470_ReleaseUnits(D2ClientSoundStrc* pSound)
+static inline void SOUNDINST_ReleaseUnits(D2ClientSoundStrc* pSound)
 {
     for (D2SoundUnitNodeStrc* pNode = pSound->pUnitList; pNode; pNode = pNode->pNext)
     {
@@ -180,7 +175,7 @@ static inline void sub_004B9470_ReleaseUnits(D2ClientSoundStrc* pSound)
 }
 
 // 0x004B94A0
-static inline void sub_004B94A0_StopStream(D2ClientSoundStrc* pSound)
+static inline void SOUNDINST_StopStream(D2ClientSoundStrc* pSound)
 {
     if (pSound->nType == 1)
     {
@@ -190,9 +185,9 @@ static inline void sub_004B94A0_StopStream(D2ClientSoundStrc* pSound)
 }
 
 // 0x004B9560
-int __fastcall sub_004B9560_HasSoundHandle(int nHandle)
+int __fastcall SOUNDINST_HasSoundHandle(int nHandle)
 {
-    return sub_004B9440_FindSoundByHandle(nHandle) != 0;
+    return SOUNDINST_FindSoundByHandle(nHandle) != 0;
 }
 
 // 0x004B9590
@@ -227,7 +222,7 @@ void* __fastcall sub_004B9610(int nHintId)
 }
 
 // 0x004B9690
-D2ClientSoundStrc* __stdcall sub_004B9690_FindOldestEntry(int nGroup, D2UnitStrc* pUnit, D2ClientSoundStrc* pExclude)
+D2ClientSoundStrc* __stdcall SOUNDINST_FindOldestEntry(int nGroup, D2UnitStrc* pUnit, D2ClientSoundStrc* pExclude)
 {
     D2ClientSoundStrc* pOldest = 0;
     D2SoundNodeStrc* pNode = gpSoundList_007C5458;
@@ -248,7 +243,7 @@ D2ClientSoundStrc* __stdcall sub_004B9690_FindOldestEntry(int nGroup, D2UnitStrc
 }
 
 // 0x004B9760
-static D2ClientSoundStrc* __stdcall sub_004B9760_FindGroupSound(D2ClientSoundStrc* pExclude, int nSoundId)
+static D2ClientSoundStrc* __stdcall SOUNDINST_FindGroupSound(D2ClientSoundStrc* pExclude, int nSoundId)
 {
     D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(nSoundId);
     for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
@@ -264,7 +259,7 @@ static D2ClientSoundStrc* __stdcall sub_004B9760_FindGroupSound(D2ClientSoundStr
 }
 
 // 0x004B98F0
-static void sub_004B98F0_SetSoundPosition(D2ClientSoundStrc* pSound, D2SoundVecStrc* pPos)
+static void SOUNDINST_SetSoundPosition(D2ClientSoundStrc* pSound, D2SoundVecStrc* pPos)
 {
     D2_ASSERT(pSound && pPos, 0x1A6);
 
@@ -275,7 +270,7 @@ static void sub_004B98F0_SetSoundPosition(D2ClientSoundStrc* pSound, D2SoundVecS
 }
 
 // 0x004B99A0
-void __fastcall sub_004B99A0_MoveSound(int nHandle, int nX, int nY, int nZ)
+void __fastcall SOUNDINST_MoveSound(int nHandle, int nX, int nY, int nZ)
 {
     if (!nHandle)
         return;
@@ -289,7 +284,7 @@ void __fastcall sub_004B99A0_MoveSound(int nHandle, int nX, int nY, int nZ)
             tPos.fX = (float)nX;
             tPos.fY = (float)nY;
             tPos.fZ = (float)(nZ + 640.0);
-            sub_004B98F0_SetSoundPosition(pSound, &tPos);
+            SOUNDINST_SetSoundPosition(pSound, &tPos);
             return;
         }
     }
@@ -307,7 +302,7 @@ struct D2DialogWidget
 
 
 // 0x004B97D0
-static void __stdcall sub_004B97D0_GetSoundOffset(D2UnitStrc* pUnit, int nSoundId, D2SoundVecStrc* pPos)
+static void __stdcall SOUNDINST_GetSoundOffset(D2UnitStrc* pUnit, int nSoundId, D2SoundVecStrc* pPos)
 {
     D2CoordStrc tPlayer;
     D2CoordStrc tUnit;
@@ -339,7 +334,7 @@ static void __stdcall sub_004B97D0_GetSoundOffset(D2UnitStrc* pUnit, int nSoundI
 }
 
 // 0x004B9890
-static float __stdcall sub_004B9890_GetSoundPan(D2UnitStrc* pUnit, int nSoundId)
+static float __stdcall SOUNDINST_GetSoundPan(D2UnitStrc* pUnit, int nSoundId)
 {
     D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(nSoundId);
     if (pTxt)
@@ -349,8 +344,8 @@ static float __stdcall sub_004B9890_GetSoundPan(D2UnitStrc* pUnit, int nSoundId)
 
         if (pTxt->nGroupStart == 0xCA)
         {
-            T00481920* pEnviron = sub_00481920_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
-            if (pEnviron && pEnviron->bFlag)
+            D2SoundEnvironTxtStrc* pEnviron = sub_00481920_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
+            if (pEnviron && pEnviron->bIndoors)
                 return 0.5f;
 
             return 0.0f;
@@ -380,11 +375,11 @@ int __fastcall sub_004B9A00_PlaySound(int nSoundId, D2UnitStrc* pUnit, int nDela
 
     D2ClientSoundStrc* pSound = NULL;
     if (pTxt->nCompound)
-        pSound = sub_004B9760_FindGroupSound(NULL, nSoundId);
+        pSound = SOUNDINST_FindGroupSound(NULL, nSoundId);
 
     if (!pSound)
     {
-        pSound = sub_004B93F0_AllocHintEntry();
+        pSound = SOUNDINST_AllocSoundEntry();
         if (!pSound)
             return 0;
 
@@ -398,16 +393,16 @@ int __fastcall sub_004B9A00_PlaySound(int nSoundId, D2UnitStrc* pUnit, int nDela
         D2SoundVecStrc tPos;
         if (pUnit)
         {
-            sub_004B97D0_GetSoundOffset(pUnit, nSoundId, &tPos);
-            sub_004B98F0_SetSoundPosition(pSound, &tPos);
-            pSound->fPan = sub_004B9890_GetSoundPan(pUnit, nSoundId);
+            SOUNDINST_GetSoundOffset(pUnit, nSoundId, &tPos);
+            SOUNDINST_SetSoundPosition(pSound, &tPos);
+            pSound->fPan = SOUNDINST_GetSoundPan(pUnit, nSoundId);
         }
         else
         {
             tPos.fX = 0.0f;
             tPos.fY = 0.0f;
             tPos.fZ = 320.0f;
-            sub_004B98F0_SetSoundPosition(pSound, &tPos);
+            SOUNDINST_SetSoundPosition(pSound, &tPos);
         }
     }
 
@@ -441,7 +436,7 @@ int __fastcall sub_004B9B20(int nKey)
 }
 
 // 0x004B9B80
-void __fastcall sub_004B9B80_SetFields(D2ClientSoundStrc* pSound, int nValue, int nBase, int nOffset)
+void __fastcall SOUNDINST_StartFade(D2ClientSoundStrc* pSound, int nValue, int nBase, int nOffset)
 {
     pSound->nFadeFrom = pSound->f_1C;
     pSound->nFadeTo = nValue;
@@ -457,7 +452,7 @@ static inline int sub_004B9BB0_GetStreamValue(D2ClientSoundStrc* pSound)
 }
 
 // 0x004B9BE0
-int __fastcall sub_004B9BE0_HasActiveHint(int nKey)
+int __fastcall SOUNDINST_HasActiveHint(int nKey)
 {
     if (nKey)
     {
@@ -479,7 +474,7 @@ int __fastcall sub_004B9BE0_HasActiveHint(int nKey)
 }
 
 // 0x004B9C20
-int __cdecl sub_004B9C20_IsSpeechPlaying()
+int __cdecl SOUNDINST_IsSpeechPlaying()
 {
     for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
@@ -493,7 +488,7 @@ int __cdecl sub_004B9C20_IsSpeechPlaying()
 }
 
 // 0x004B9C60
-int __cdecl sub_004B9C60_IsSongPlaying()
+int __cdecl SOUNDINST_IsSongPlaying()
 {
     for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
@@ -507,7 +502,7 @@ int __cdecl sub_004B9C60_IsSongPlaying()
 }
 
 // 0x004B9CA0
-int __fastcall sub_004B9CA0_GetHintIdByKey(int nKey)
+int __fastcall SOUNDINST_GetSoundIdByHandle(int nKey)
 {
     if (nKey)
     {
@@ -546,7 +541,7 @@ void __fastcall sub_004B9CD0_SetEntryByte(int nId, unsigned char nValue)
 }
 
 // 0x004B9D00
-extern "C" void __cdecl sub_004B9D00_ResetSoundState()
+extern "C" void __cdecl SOUNDINST_ResetSoundState()
 {
     gnSoundFlag_007C545C = 1;
     gnSoundSerial = 0;
@@ -554,7 +549,7 @@ extern "C" void __cdecl sub_004B9D00_ResetSoundState()
 }
 
 // 0x004B94E0
-static void sub_004B94E0_FreeSound(D2ClientSoundStrc* pSound)
+static void SOUNDINST_FreeSound(D2ClientSoundStrc* pSound)
 {
     if (!pSound)
         return;
@@ -572,17 +567,17 @@ static void sub_004B94E0_FreeSound(D2ClientSoundStrc* pSound)
 }
 
 // 0x004B9D20
-void __cdecl sub_004B9D20_FreeAllSounds()
+void __cdecl SOUNDINST_FreeAllSounds()
 {
     sub_004E4280();
     while (gpSoundList_007C5458)
-        sub_004B94E0_FreeSound(gpSoundList_007C5458->pSound);
+        SOUNDINST_FreeSound(gpSoundList_007C5458->pSound);
 
     gbClientSoundReady = 1;
 }
 
 // 0x004B9D50
-int __fastcall sub_004B9D50_GetPosition(int nKey)
+int __fastcall SOUNDINST_GetPosition(int nKey)
 {
     if (nKey)
     {
@@ -610,7 +605,7 @@ struct D2Vector3FStrc
 };
 
 // 0x004B9DA0
-int __fastcall sub_004B9DA0_CompareItems(D2ClientSoundStrc* pA, D2ClientSoundStrc* pB, int bCompareFloat,
+int __fastcall SOUNDINST_CompareSounds(D2ClientSoundStrc* pA, D2ClientSoundStrc* pB, int bCompareFloat,
                                          int bCompareValue)
 {
     if (pA->nPriority > pB->nPriority)
@@ -672,7 +667,7 @@ int __fastcall MONSTER_IsNearPlayer(D2UnitStrc* pUnit)
 }
 
 // 0x004B9700
-static D2ClientSoundStrc* __stdcall sub_004B9700_FindUnitSound(D2ClientSoundStrc* pExclude, D2UnitStrc* pUnit)
+static D2ClientSoundStrc* __stdcall SOUNDINST_FindUnitSound(D2ClientSoundStrc* pExclude, D2UnitStrc* pUnit)
 {
     for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
@@ -690,13 +685,13 @@ static D2ClientSoundStrc* __stdcall sub_004B9700_FindUnitSound(D2ClientSoundStrc
 }
 
 // 0x004B9E90
-int __fastcall sub_004B9E90_HasUnitSound(D2UnitStrc* pUnit)
+int __fastcall SOUNDINST_HasUnitSound(D2UnitStrc* pUnit)
 {
-    return sub_004B9700_FindUnitSound(0, pUnit) != 0;
+    return SOUNDINST_FindUnitSound(0, pUnit) != 0;
 }
 
 // 0x004B9EF0
-void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount)
+void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount)
 {
     if (!nKey)
     {
@@ -793,7 +788,7 @@ static inline int sub_004B9BC0_IsOnAndNotHeld(D2ClientSoundStrc* pSound)
 }
 
 // 0x004B9EB0
-void __cdecl sub_004B9EB0_PlayRandomSound()
+void __cdecl SOUNDINST_PlayRandomSpeech()
 {
     if (DLIGHTMAP_GetSoundTick() % 3 == 0)
     {
@@ -804,12 +799,12 @@ void __cdecl sub_004B9EB0_PlayRandomSound()
 
 void __fastcall sub_M112_Emit_004B9470(D2ClientSoundStrc* pSound)
 {
-    sub_004B9470_ReleaseUnits(pSound);
+    SOUNDINST_ReleaseUnits(pSound);
 }
 
 void __fastcall sub_M112_Emit_004B94A0(D2ClientSoundStrc* pSound)
 {
-    sub_004B94A0_StopStream(pSound);
+    SOUNDINST_StopStream(pSound);
 }
 
 int __fastcall sub_M112_Emit_004B9BB0(D2ClientSoundStrc* pSound)
@@ -852,7 +847,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
 
     D2SoundNodeStrc* pFreeList = NULL;
     if (gbAmbientSound_007C5468)
-        sub_004B9EB0_PlayRandomSound();
+        SOUNDINST_PlayRandomSpeech();
 
     D2SoundNodeStrc* pNode;
     int bSorted;
@@ -937,7 +932,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
             {
                 D2UnitStrc* pUnit = pUnitNode->pUnit;
                 D2_ASSERT(pUnit, 0x36C);
-                sub_004B97D0_GetSoundOffset(pUnit, pSound->nSoundId, &tPos);
+                SOUNDINST_GetSoundOffset(pUnit, pSound->nSoundId, &tPos);
                 const float fDist = GFXUTIL_VectorLengthSquared(tPos.fX, tPos.fY);
                 if (!pBest || fDist < fBestDist)
                 {
@@ -946,11 +941,11 @@ void __fastcall sub_004BA020(unsigned int nTick)
                     fBestDist = fDist;
                 }
 
-                fPanSum += sub_004B9890_GetSoundPan(pUnit, pSound->nSoundId);
+                fPanSum += SOUNDINST_GetSoundPan(pUnit, pSound->nSoundId);
                 ++nCount;
             }
 
-            sub_004B98F0_SetSoundPosition(pSound, &tBest);
+            SOUNDINST_SetSoundPosition(pSound, &tBest);
             const float fTarget = fPanSum / nCount;
             if (fTarget > pSound->fPan)
                 pSound->fPan = sub_004BA020_MinF(pSound->fPan + 0.05000000074505806, fTarget);
@@ -990,10 +985,10 @@ void __fastcall sub_004BA020(unsigned int nTick)
                 const int bHasPos = pSound->vPos.fX != 0.0f || pSound->vPos.fY != 0.0f || pSound->vPos.fZ != 0.0f;
 
                 if (pTxt->bDeferInst || pTxt->bStopInst)
-                    pOther = sub_004B9690_FindOldestEntry(pTxt->nGroupStart, pUnit, pSound);
+                    pOther = SOUNDINST_FindOldestEntry(pTxt->nGroupStart, pUnit, pSound);
 
                 if (pUnit && pSound->nSoundId >= 0xB76 && pSound->nSoundId <= 0x1230)
-                    pOther = sub_004B9700_FindUnitSound(pSound, pUnit);
+                    pOther = SOUNDINST_FindUnitSound(pSound, pUnit);
 
                 if (!(pTxt->bDeferInst && !pSound->pUnitList && bHasPos) && pOther)
                 {
@@ -1072,7 +1067,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
     }
 
     for (D2SoundNodeStrc* pFree = pFreeList; pFree; pFree = pFree->pNext)
-        sub_004B94E0_FreeSound(pFree->pSound);
+        SOUNDINST_FreeSound(pFree->pSound);
 
     D2SOUND_ListFree(&pFreeList);
 
@@ -1136,7 +1131,7 @@ void __fastcall sub_004BA840(int nHandle)
                 unsigned char nCount = pTxt->nFadeOut;
                 if (nCount && pEntry->nType == 1)
                 {
-                    sub_004B9EF0_ArmHint(pEntry->f_8, 0, 0, nCount);
+                    SOUNDINST_ArmHint(pEntry->f_8, 0, 0, nCount);
                 }
 
                 return;
@@ -1146,7 +1141,7 @@ void __fastcall sub_004BA840(int nHandle)
 }
 
 // 0x004BA890
-void __fastcall sub_004BA890_RefreshHintsById(int nHintId)
+void __fastcall SOUNDINST_LockSoundsById(int nHintId)
 {
     for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
@@ -1158,7 +1153,7 @@ void __fastcall sub_004BA890_RefreshHintsById(int nHintId)
             unsigned char nCount = pTxt->nFadeOut;
             if (nCount && pEntry->nType == 1)
             {
-                sub_004B9EF0_ArmHint(pEntry->f_8, 0, 0, nCount);
+                SOUNDINST_ArmHint(pEntry->f_8, 0, 0, nCount);
             }
         }
     }
@@ -1183,7 +1178,7 @@ void __cdecl sub_004BA8F0()
             unsigned char nCount = pTxt->nFadeOut;
             if (nCount && pEntry->nType == 1)
             {
-                sub_004B9EF0_ArmHint(pEntry->f_8, 0, 0, nCount);
+                SOUNDINST_ArmHint(pEntry->f_8, 0, 0, nCount);
             }
         }
     }
@@ -1209,7 +1204,7 @@ void __fastcall sub_004BA950_RefreshHintsInRangeA(int nGroupA, int nGroupB)
             unsigned char nCount = pTxt->nFadeOut;
             if (nCount && pEntry->nType == 1)
             {
-                sub_004B9EF0_ArmHint(pEntry->f_8, 0, 0, nCount);
+                SOUNDINST_ArmHint(pEntry->f_8, 0, 0, nCount);
             }
         }
     }
@@ -1235,14 +1230,14 @@ void __fastcall sub_004BA9D0_RefreshHintsInRangeB(int nGroupA, int nGroupB)
             unsigned char nCount = pTxt->nFadeOut;
             if (nCount && pEntry->nType == 1)
             {
-                sub_004B9EF0_ArmHint(pEntry->f_8, 0, 0, nCount);
+                SOUNDINST_ArmHint(pEntry->f_8, 0, 0, nCount);
             }
         }
     }
 }
 
 // 0x004BAA50
-void __cdecl sub_004BAA50_RefreshHintRange()
+void __cdecl SOUNDINST_LockSpeechSounds()
 {
     for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
@@ -1254,7 +1249,7 @@ void __cdecl sub_004BAA50_RefreshHintRange()
             unsigned char nCount = pTxt->nFadeOut;
             if (nCount && pEntry->nType == 1)
             {
-                sub_004B9EF0_ArmHint(pEntry->f_8, 0, 0, nCount);
+                SOUNDINST_ArmHint(pEntry->f_8, 0, 0, nCount);
             }
         }
     }

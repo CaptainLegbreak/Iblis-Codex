@@ -153,11 +153,11 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                               
 int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
 void __fastcall sub_004B9B50_SetValue(int nKey, int nValue);                                            // 0x004B9B50
-int __fastcall sub_004B9BE0_HasActiveHint(int nKey); // 0x004B9BE0
-int __fastcall sub_004B9CA0_GetHintIdByKey(int nKey); // 0x004B9CA0
+int __fastcall SOUNDINST_HasActiveHint(int nKey); // 0x004B9BE0
+int __fastcall SOUNDINST_GetSoundIdByHandle(int nKey); // 0x004B9CA0
 int __fastcall MONSTER_IsNearPlayer(D2UnitStrc* pUnit);                                                // 0x004B9E10
-int __fastcall sub_004B9E90_HasUnitSound(D2UnitStrc* pUnit);                                                // 0x004B9E90
-void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
+int __fastcall SOUNDINST_HasUnitSound(D2UnitStrc* pUnit);                                                // 0x004B9E90
+void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 void __fastcall sub_004BA790_UpdateUnitHint(D2UnitStrc* pUnit, D2UnitStrc* pOther, int bForce); // 0x004BA790
 int __fastcall SOUNDHDR_GetGroupStart(int nId);                                                          // 0x00481890
 void __fastcall SOUNDHDR_AddVariantRefs(int nIndex, int nDelta);                                        // 0x004822B0

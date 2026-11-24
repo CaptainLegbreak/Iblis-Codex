@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Records.h"
 #include "D2ClientSound.h"
+#include "D2SoundEnvironTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -28,7 +29,7 @@ void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* s
 
 void __cdecl sub_004DF800(); // 0x004DF800
 
-void __cdecl sub_004B9D20_FreeAllSounds(); // 0x004B9D20
+void __cdecl SOUNDINST_FreeAllSounds(); // 0x004B9D20
 
 void __cdecl sub_004E00C0_CloseSoundChannels(); // 0x004E00C0
 
@@ -39,12 +40,6 @@ extern int gdwSoundTick; // 0x007BC9BC
 unsigned int gnCacheMax; // 0x007BC9CC
 
 unsigned int gdwCacheUsed; // 0x007BC9D0
-
-struct D2SoundEnvironTxtStrc
-{
-    int f_0;
-    char unk0x04[0x54];
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -90,7 +85,7 @@ void __cdecl SOUNDHDR_LoadSoundTables(); // 0x00481950
 
 void __fastcall sub_004E0050_RestartSound(int nArg); // 0x004E0050
 
-extern "C" void __cdecl sub_004B9D00_ResetSoundState(); // 0x004B9D00
+extern "C" void __cdecl SOUNDINST_ResetSoundState(); // 0x004B9D00
 
 void __cdecl SKILLS_ResetLevelSpeech(); // 0x004CA280
 
@@ -318,7 +313,7 @@ void __cdecl SOUNDHDR_LoadSoundTables()
     gnSongMax = 0;
     for (int j = 0; j < gnSoundEnvironTxtRecordCount; ++j, ++pEnv)
     {
-        const int nSong = pEnv->f_0;
+        const int nSong = pEnv->nSong;
         if (nSong > 0)
         {
             if (nSong < gnSongMin)
@@ -382,7 +377,7 @@ void __fastcall SOUNDHDR_UpdateSoundSystem(int nArg)
         return;
     SOUNDHDR_LoadSoundTables();
     sub_004E0050_RestartSound(nArg);
-    sub_004B9D00_ResetSoundState();
+    SOUNDINST_ResetSoundState();
     sub_004DCA30();
     SKILLS_ResetLevelSpeech();
 // build: symbol ?D2SOUND_SetMasterVolume@* 0x00515CE0
@@ -400,7 +395,7 @@ void __cdecl SOUNDHDR_ShutdownSound()
         return;
     sub_004DF800();
     sub_004BAAB0();
-    sub_004B9D20_FreeAllSounds();
+    SOUNDINST_FreeAllSounds();
     sub_004E00C0_CloseSoundChannels();
     SOUNDHDR_ReleaseSoundTables();
 }

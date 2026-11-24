@@ -13,6 +13,7 @@
 #include "D2Txt.h"
 #include "D2TxtItems.h"
 #include "D2Path.h"
+#include "D2SoundEnvironTxt.h"
 
 #define UNIT_ITEM 4
 
@@ -34,7 +35,7 @@ union D2SeedStrc;
 
 struct D2MonsterDataStrc;
 
-struct T00481920;
+struct D2SoundEnvironTxtStrc;
 
 struct D2MonTypeTxt;
 
@@ -188,19 +189,6 @@ typedef char check_int_width[sizeof(int)==4?1:-1];
 
 typedef char check_uint_width[sizeof(unsigned int)==4?1:-1];
 
-struct T00481920
-{
-    char unk0x00[0x4];
-    int nDaySound;
-    int nNightSound;
-    int nDayAmbient;
-    int nNightAmbient;
-    unsigned int nAmbientDelay;
-    char unk0x18[0x4];
-    int nEntryA;
-    int nEntryB;
-};
-
 extern int gnEnvironLevelId; // 0x007C8C7C
 
 extern int gnEnvironSoundHandle; // 0x007C8C80
@@ -221,9 +209,9 @@ int __cdecl sub_004DF870(); // 0x004DF870
 
 int __cdecl UNITMODE_GetPlayerLevelId(); // 0x00481780
 
-T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
+D2SoundEnvironTxtStrc* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
 
-void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
+void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 
 void __fastcall sub_004BA950_RefreshHintsInRangeA(int nGroupA, int nGroupB); // 0x004BA950
 
@@ -1116,18 +1104,18 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
     int nVolume = 0;
     const int bNight = 2 < (unsigned int)(ENVIRONMENT_GetCycleIndexFromAct(gpAct) - 1);
     const int nEnviron = sub_004817A0_GetPlayerSoundEnviron();
-    T00481920* pEnv = sub_00481920_GetSoundEnvironTxtRecord(nEnviron);
+    D2SoundEnvironTxtStrc* pEnv = sub_00481920_GetSoundEnvironTxtRecord(nEnviron);
     if (pEnv)
     {
         if (bNight)
         {
-            nAmbient = pEnv->nNightAmbient;
-            nSound = pEnv->nNightSound;
+            nAmbient = pEnv->nNightEvent;
+            nSound = pEnv->nNightAmbience;
         }
         else
         {
-            nAmbient = pEnv->nDayAmbient;
-            nSound = pEnv->nDaySound;
+            nAmbient = pEnv->nDayEvent;
+            nSound = pEnv->nDayAmbience;
         }
     }
     int nSecond = sub_00473C40() ? 0x40 : 0;
@@ -1139,13 +1127,13 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
     if (nSound != gnEnvironSoundId)
     {
         int bCross = 0;
-        if (nSound == pEnv->nDaySound && gnEnvironSoundId == pEnv->nNightSound)
+        if (nSound == pEnv->nDayAmbience && gnEnvironSoundId == pEnv->nNightAmbience)
             bCross = 1;
-        if (nSound == pEnv->nNightSound && gnEnvironSoundId == pEnv->nDaySound)
+        if (nSound == pEnv->nNightAmbience && gnEnvironSoundId == pEnv->nDayAmbience)
             bCross = 1;
         if (bCross)
         {
-            sub_004B9EF0_ArmHint(gnEnvironSoundHandle, 0, 0, 0xFA);
+            SOUNDINST_ArmHint(gnEnvironSoundHandle, 0, 0, 0xFA);
         }
         else
         {
@@ -1160,7 +1148,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
                 if (bCross)
                 {
                     sub_004B9B50_SetValue(gnEnvironSoundHandle, 0);
-                    sub_004B9EF0_ArmHint(gnEnvironSoundHandle, 0xFF, 0, 0xFA);
+                    SOUNDINST_ArmHint(gnEnvironSoundHandle, 0xFF, 0, 0xFA);
                 }
                 gnEnvironSoundId = nSound;
             }
@@ -1218,7 +1206,7 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
     {
         if (nAmbient != gnEnvironAmbientId)
         {
-            gnAmbientDelay = sub_004E4120(pEnv->nAmbientDelay / 3) + pEnv->nAmbientDelay;
+            gnAmbientDelay = sub_004E4120(pEnv->nEventDelay / 3) + pEnv->nEventDelay;
             gnAmbientTick = dwTick - sub_004E40A0(gnAmbientDelay);
             gnEnvironAmbientId = nAmbient;
         }
@@ -1230,16 +1218,17 @@ void __fastcall SKILLDESC_UpdateEnvironSounds(unsigned int dwTick)
                 const int nSign = sub_004E40A0(2) ? 1 : -1;
                 const int nPan = SKILLDESC_RandomInRange(0x1C2, 0x2EE) * nSign;
                 const int nPanVolume = sub_004E4120(0x64);
-                sub_004B99A0(nHandle, nPan, nPanVolume, 0);
+// build: symbol ?SOUNDINST_MoveSound@* 0x004B99A0
+                SOUNDINST_MoveSound(nHandle, nPan, nPanVolume, 0);
                 gnAmbientTick = dwTick;
-                gnAmbientDelay = sub_004E4120(pEnv->nAmbientDelay / 3) + pEnv->nAmbientDelay;
+                gnAmbientDelay = sub_004E4120(pEnv->nEventDelay / 3) + pEnv->nEventDelay;
             }
         }
     }
     if (nLevelId != gnEnvironLevelId)
     {
-        const int nEntryA = pEnv->nEntryA;
-        const int nEntryB = pEnv->nEntryB;
+        const int nEntryA = pEnv->nMaterial1;
+        const int nEntryB = pEnv->nMaterial2;
         for (int nId = 0xAA0; nId < 0xB3D; nId += 4)
             sub_00482370(nId);
         if (nEntryA)
@@ -1609,7 +1598,8 @@ static inline int sub_I05_ETypeColor(int nEType)
     return 0;
 }
 
-static void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel)
+// build: symbol ?SKILLDESC_GetElemDamage@* 0x004E72D0
+static void __stdcall SKILLDESC_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel)
 {
     int nMin;
     int nMax;
@@ -1971,7 +1961,8 @@ void __fastcall SKILLDESC_DrawSkillWeaponLine(D2UnitStrc* pUnit, D2SkillStrc* pS
     SKILLDESC_DrawDamageRange(nColor, nY, nMin, nMax, nLeft, nRight);
 }
 
-void __fastcall sub_004EAE70_DrawPhysWeaponElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
+// build: symbol ?SKILLDESC_DrawPhysWeaponElemDamage@* 0x004EAE70
+void __fastcall SKILLDESC_DrawPhysWeaponElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
 {
     if (!pSkill)
     {
@@ -2018,7 +2009,7 @@ void __fastcall SKILLDESC_DrawWeaponAndElemDamage(D2UnitStrc* pUnit, D2SkillStrc
     int nMin = 0;
     int nMax = 0;
     int nColor = 0;
-    sub_004E72D0_GetElemDamage(pUnit, &nMin, &nMax, &nColor, pSkillsTxt, nSkillLevel);
+    SKILLDESC_GetElemDamage(pUnit, &nMin, &nMax, &nColor, pSkillsTxt, nSkillLevel);
 
     if (!nWeaponMin && !nWeaponMax)
     {

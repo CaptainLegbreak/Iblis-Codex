@@ -56,7 +56,7 @@ D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDiff
 
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int); // 0x0061DB70
 
-void __stdcall sub_005BDB20_GenerateComponentVariants(D2SeedStrc*,D2MonRegDataStrc*,int); // 0x005BDB20
+void __stdcall MONSTERCHOOSE_GenerateComponentVariants(D2SeedStrc*,D2MonRegDataStrc*,int); // 0x005BDB20
 
 static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc* pSeed, int bHigher, D2LevelsTxt* pLevels, D2MonsterRegionStrc* pRegion);
 
@@ -711,7 +711,7 @@ void __fastcall MONSTERREGION_InitializeAll(void* pool,D2MonsterRegionStrc** reg
   else {region->nDungeonLevel=(short)levels->wMonLvl[difficulty];region->nDungeonLevelEx=(short)levels->wMonLvl[difficulty];}
   sub_005475E0_SelectMonsters(seed,difficulty>0,levels,region);
   D2MonRegDataStrc* entry=region->pMonData;
-  for(int i=0;i<region->nMonCount;++i){sub_005BDB20_GenerateComponentVariants(seed,entry,3);++entry;}
+  for(int i=0;i<region->nMonCount;++i){MONSTERCHOOSE_GenerateComponentVariants(seed,entry,3);++entry;}
   *regions=region;++regions;
  }
 }

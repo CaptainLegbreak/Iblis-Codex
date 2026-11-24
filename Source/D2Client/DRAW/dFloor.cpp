@@ -164,7 +164,7 @@ void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, i
 }
 
 // 0x004DEA70
-void __fastcall sub_004DEA70(D2ViewStrc* pView)
+void __fastcall DFLOOR_UpdateFloorView(D2ViewStrc* pView)
 {
     const unsigned int nTick = GetTickCount();
     const int nDetail = DLIGHTMAP_GetRenderMode();

@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2CelContext.h"
 #include "D2ClientGfx.h"
+#include "D2ClientGfxState.h"
 struct D2GfxListNodeStrc;
 struct D2UnitStrc;
 
@@ -30,25 +31,6 @@ extern int gnCofMemoryUsed; // 0x007A8918
 extern D2HashedFileStrc gtGlobalHashedFile;
 void __stdcall sub_M274_EmitBuildPath(char* szPath, int nMode);
 
-struct D2StateNodeStrc
-{
-    int dwType;
-    int unk0x04;
-    int nCurrent;
-    char unk0x0C[0x2C];
-    int nStateId;
-    int bSelected;
-    void* pResource;
-    char unk0x44[0x60];
-    D2StateNodeStrc* pNext;
-};
-
-struct D2StateOwnerStrc
-{
-    char unk0x00[0x2C];
-    D2StateNodeStrc* pFirst;
-};
-
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
@@ -64,7 +46,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void* __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
 D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
 void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
-int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
+int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit); // 0x004DA0B0
 int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit); // 0x004DA0D0
 int __stdcall ITEM_GetGfxClientZ(D2UnitStrc* pUnit); // 0x004DA0F0
@@ -391,7 +373,7 @@ int __fastcall GFX_DrawUnitShadow(D2UnitStrc* pUnit)
         }
     }
 
-    if (!sub_004709A0_IsOnScreen(pUnit, nDrawX, nDrawY, 0, 1))
+    if (!GFX_IsUnitOnScreen(pUnit, nDrawX, nDrawY, 0, 1))
     {
         if (bTownMode)
             D2GFX_SetTownMode(nPrevMode);

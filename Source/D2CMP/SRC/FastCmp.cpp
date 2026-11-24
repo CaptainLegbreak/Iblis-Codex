@@ -1,6 +1,7 @@
 #include "D2CMP.h"
 #include "D2CmpTypes.h"
 #include "D2CmpTiles.h"
+#include "D2CelDataHash.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -16,7 +17,7 @@ struct D2CmpTileStrc;
 
 struct D2CmpTileListStrc;
 
-struct T00604AE0;
+struct D2CelDataHashEntryStrc;
 
 struct D2CelDataHashStrc;
 
@@ -65,19 +66,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
 D2CmpTileStrc* __cdecl TileAlloc(); // 0x00609550
-
-struct T00604AE0
-{
-    unsigned int nKey;
-    char unk0x04[0x28];
-    T00604AE0* pNext;
-};
-
-struct D2CelDataHashStrc
-{
-    int nCheck[0x200];
-    T00604AE0* pBuckets[0x200];
-};
 
 struct D2CmpSubTileBlockStrc
 {

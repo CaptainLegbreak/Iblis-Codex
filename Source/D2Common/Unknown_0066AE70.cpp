@@ -2,16 +2,10 @@
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
 #include "D2DrlgTiles.h"
+#include "D2DrlgWarp.h"
 struct D2ActiveRoomStrc;
 
 
-struct D2DrlgWarpStrc
-{
-    int nLevel;
-    int nVis[8];
-    int nWarp[8];
-    D2DrlgWarpStrc* pNext;
-};
 
 struct D2DrlgStrc
 {

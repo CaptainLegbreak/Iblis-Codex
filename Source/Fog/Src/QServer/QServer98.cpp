@@ -14,7 +14,7 @@ struct D2QAddressArg
     unsigned int nAddress;
 };
 
-static void __stdcall sub_006C3440_AddClient(D2QueueServerStrc* pServer, unsigned int s, D2QAddressArg tAddress);
+static void __stdcall QSERVER98_AddClient(D2QueueServerStrc* pServer, unsigned int s, D2QAddressArg tAddress); // 0x006C3440
 
 #include "D2SysTypes.h"
 #include "D2NetTypes.h"
@@ -73,7 +73,7 @@ extern const char gszFatal[]; // 0x006FCB38
 extern const char gszStopped[]; // 0x006FCBA8
 
 // 0x006C33D0
-void __fastcall sub_006C33D0_Stop(D2QueueServerStrc* pServer)
+void __fastcall QSERVER98_Stop(D2QueueServerStrc* pServer)
 {
     EnterCriticalSection(&pServer->tLock);
     pServer->bStop = 1;
@@ -82,7 +82,7 @@ void __fastcall sub_006C33D0_Stop(D2QueueServerStrc* pServer)
 }
 
 // 0x006C3410
-int __fastcall sub_006C3410_Send(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize)
+int __fastcall QSERVER98_Send(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize)
 {
     if (sub_006B017A_Send(pClient->iSocket, pData, nSize, 0) == -1)
     {
@@ -93,7 +93,7 @@ int __fastcall sub_006C3410_Send(D2QueueServerStrc* pServer, D2QClientStrc* pCli
 }
 
 // 0x006C3440
-static void __stdcall sub_006C3440_AddClient(D2QueueServerStrc* pServer, unsigned int s, D2QAddressArg tAddress)
+static void __stdcall QSERVER98_AddClient(D2QueueServerStrc* pServer, unsigned int s, D2QAddressArg tAddress)
 {
     D2QClientStrc* pClient = QSrvAddClient(pServer, s, tAddress.nAddress);
     if (pServer->pfnOnAccept)
@@ -104,12 +104,12 @@ void __fastcall sub_Emit_006C3440(D2QueueServerStrc* pServer, unsigned int s, un
 {
     D2QAddressArg tAddress;
     tAddress.nAddress = nAddress;
-    sub_006C3440_AddClient(pServer, s, tAddress);
-    sub_006C3440_AddClient(pServer, s + 1, tAddress);
+    QSERVER98_AddClient(pServer, s, tAddress);
+    QSERVER98_AddClient(pServer, s + 1, tAddress);
 }
 
 // 0x006C3470
-void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
+void __cdecl QSERVER98_ServerThread(D2QueueServerStrc* server)
 {
     D2QClientStrc* nodes[64];
     D2SocketSetStrc readSet, errorSet;
@@ -264,7 +264,7 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
 #include "gen/data/Source/Fog/Src/QServer/QServer98.inc"
 
 // 0x006C3B50
-int __fastcall sub_006C3B50_StartServer(D2QueueServerStrc* pServer, int nPort)
+int __fastcall QSERVER98_StartServer(D2QueueServerStrc* pServer, int nPort)
 {
     pServer->bRunning = 1;
     unsigned int s = sub_006B016E_Socket(2, 1, 0);
@@ -292,7 +292,7 @@ int __fastcall sub_006C3B50_StartServer(D2QueueServerStrc* pServer, int nPort)
     if (sub_006C9B70_Listen(s, 25) == -1)
         FOG_SOCKET_CloseSocket(s);
     pServer->hEvent = CreateEventA(0, 0, 0, 0);
-    pServer->hAcceptThreads[0] = CreateThread(0, 0, (unsigned long (__stdcall*)(void*))sub_006C3470_ServerThread, pServer, 0, &pServer->aThreadIds[0]);
+    pServer->hAcceptThreads[0] = CreateThread(0, 0, (unsigned long (__stdcall*)(void*))QSERVER98_ServerThread, pServer, 0, &pServer->aThreadIds[0]);
     ERRORMANAGER_RegisterThread(pServer->aThreadIds[0], pServer->hAcceptThreads[0]);
     return 1;
 }

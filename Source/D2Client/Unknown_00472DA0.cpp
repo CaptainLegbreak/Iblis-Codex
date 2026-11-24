@@ -53,7 +53,7 @@ extern D2WeatherStrc* gpWeatherBubbles; // 0x007A8A00
 extern D2WeatherLayerStateStrc gtSplashCels; // 0x007A89B0
 extern D2WeatherLayerStateStrc gtBubbleCels; // 0x007A893C
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);
-void __fastcall sub_004B99A0_MoveSound(int a1, int a2, int a3, int a4); // 0x004B99A0
+void __fastcall SOUNDINST_MoveSound(int a1, int a2, int a3, int a4); // 0x004B99A0
 extern "C" void __cdecl sub_004736C0_DrawPanelShade(); // 0x004736C0
 void __cdecl sub_00473470(); // 0x00473470
 extern int gbLightningEnabled; // 0x007A8A08
@@ -334,7 +334,7 @@ void __cdecl sub_00473910_UpdateWeather()
                     const int hSound = sub_004B9A00(0xCA, 0, nDelay, 0, 0);
                     if (hSound)
                     {
-                        sub_004B99A0_MoveSound(hSound, sub_00472280(pSeed, -200, 400), sub_00472280(pSeed, -200, 400), 0);
+                        SOUNDINST_MoveSound(hSound, sub_00472280(pSeed, -200, 400), sub_00472280(pSeed, -200, 400), 0);
                     }
                 }
                 else

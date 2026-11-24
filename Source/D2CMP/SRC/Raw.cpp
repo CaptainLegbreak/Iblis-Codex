@@ -26,7 +26,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);   
 int __stdcall CelGameDirToFileDir(int nDirection, unsigned int nDirections);                   // 0x00600C90
 
 // 0x0060D190
-void __fastcall sub_0060D190_BuildDC6FromRaw(D2CmpRawStrc* pRaw, D2CmpDC6HeaderStrc* pDC6)
+void __fastcall RawBuildCelFile(D2CmpRawStrc* pRaw, D2CmpDC6HeaderStrc* pDC6)
 {
     unsigned int nPerDir = pRaw->nFrames / pRaw->nDirections;
     unsigned int nFrame = 0;

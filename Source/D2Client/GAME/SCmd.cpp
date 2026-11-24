@@ -18,6 +18,7 @@
 #include "D2MsgRecord.h"
 #include "D2MultiTypes.h"
 #include "D2UnitDropPacket.h"
+#include "D2Win32Message.h"
 
 struct D2ActiveRoomStrc;
 
@@ -237,16 +238,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 typedef void (__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
 
-struct D2WinMsgStrc
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    int lParam;
-    unsigned int dwTime;
-    int f_14;
-    int nPointY;
-};
 
 struct D2UnitFlagsStrc
 {
@@ -997,7 +988,7 @@ void __fastcall NPCMENU_OnUnitRemoved(unsigned char nUnitType, int nUnitId); // 
 
 void __fastcall sub_004B2620(const unsigned char* pData); // 0x004B2620
 
-void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
+void __fastcall GFX_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
 
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 
@@ -3299,7 +3290,7 @@ void __fastcall SCMD_HandlePreloadMonster(const D2GSPacketSrvA4* pPacket)
     const unsigned short wMonsterId = pPacket->wMonsterId;
     if (wMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
-        sub_0046F870_LoadMonsterCofs(wMonsterId, 0);
+        GFX_LoadMonsterCofs(wMonsterId, 0);
     }
 }
 

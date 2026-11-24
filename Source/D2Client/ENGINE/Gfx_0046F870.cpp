@@ -274,7 +274,7 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
 }
 
 // 0x0046F870
-void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow)
+void __fastcall GFX_LoadMonsterCofs(int nMonsterId, int bLoadNow)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInl(nMonsterId);
     if (!pMonStatsTxtRecord)
@@ -332,7 +332,7 @@ static inline void* GetModeGfx(D2UnitStrc* unit,int mode) {
 }
 
 // 0x004709A0
-int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc* unit,int x,int y,int unused,int centered)
+int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* unit,int x,int y,int unused,int centered)
 {
  int weapon;
  int weaponClass=COMPOSIT_GetWeaponClassId(unit,GetInventory(unit),&weapon,-1,1);

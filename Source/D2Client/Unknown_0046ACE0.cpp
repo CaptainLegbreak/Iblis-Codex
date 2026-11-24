@@ -667,7 +667,8 @@ void __cdecl sub_0046B100_EventObject98Request()
         MISSILE_SetMotionFlagMask(pMissile, 1);
     }
     GFX_AddUnitOverlay(pObject, 0xB5, 2, 0, 0, 0, 0, 0);
-    sub_0046F870(0xD3, 1);
+// build: symbol ?GFX_LoadMonsterCofs@* 0x0046F870
+    GFX_LoadMonsterCofs(0xD3, 1);
 }
 
 // 0x0046B290
@@ -688,7 +689,7 @@ void __cdecl sub_0046B290_EventLevel108Request()
     const int nX = CLIENTS_GetUnitX(pPlayer);
     const int nY = CLIENTS_GetUnitY(pPlayer);
     GFXUTIL_SubmitMissileRequest(pPlayer, 0x174, nX, nY, 0, 1);
-    sub_0046F870(0xF3, 1);
+    GFX_LoadMonsterCofs(0xF3, 1);
 }
 
 // 0x0046B300

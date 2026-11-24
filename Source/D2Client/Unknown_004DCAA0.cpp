@@ -1,13 +1,7 @@
 #include "D2Client.h"
 #include "D2ClientUi.h"
 #include "D2ClientSound.h"
-
-struct T00481920
-{
-    int f_0;
-    char unk0x04[0x20];
-    int nEAXEnviron;
-};
+#include "D2SoundEnvironTxt.h"
 
 struct D2TimedHintStrc
 {
@@ -37,13 +31,13 @@ int __cdecl sub_004817F0();                                                     
 int __cdecl sub_00481800();                                                                                 // 0x00481800
 int __cdecl sub_00481810();                                                                                 // 0x00481810
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId);                                                         // 0x00481860
-T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId);                        // 0x00481920
+D2SoundEnvironTxtStrc* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId);                        // 0x00481920
 int __fastcall sub_004B9590(void* pEntry);                                                                  // 0x004B9590
 void* __fastcall sub_004B9610(int nId);                                                                     // 0x004B9610
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
-int __cdecl sub_004B9C60_IsSongPlaying();                                                                   // 0x004B9C60
-int __fastcall sub_004B9D50_GetPosition(void* pEntry);                                                      // 0x004B9D50
-void __fastcall sub_004BA890_RefreshHintsById(int nHintId);                                                 // 0x004BA890
+int __cdecl SOUNDINST_IsSongPlaying();                                                                   // 0x004B9C60
+int __fastcall SOUNDINST_GetPosition(void* pEntry);                                                      // 0x004B9D50
+void __fastcall SOUNDINST_LockSoundsById(int nHintId);                                                 // 0x004BA890
 void __cdecl MISSILE_CheckLevelSpeech();                                                               // 0x004CC270
 int __cdecl D2SOUND_GetMasterVolumeOption();                                                                                 // 0x00514CC0
 int __cdecl D2SOUND_GetMusicVolumeOption();                                                                                 // 0x00514CF0
@@ -64,10 +58,10 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
     }
 
     int nSong = 0;
-    T00481920* pSoundEnvironTxtRecord = sub_00481920_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
+    D2SoundEnvironTxtStrc* pSoundEnvironTxtRecord = sub_00481920_GetSoundEnvironTxtRecord(sub_004817A0_GetPlayerSoundEnviron());
     if (pSoundEnvironTxtRecord)
     {
-        nSong = pSoundEnvironTxtRecord->f_0;
+        nSong = pSoundEnvironTxtRecord->nSong;
         if (nSong && (nSong < sub_004817F0() || nSong > sub_00481800()))
         {
             nSong = 0;
@@ -134,7 +128,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
         gtTimedHint.bActive = 0;
         if (bEnabled)
         {
-            sub_004BA890_RefreshHintsById((int)gtTimedHint.pOwner);
+            SOUNDINST_LockSoundsById((int)gtTimedHint.pOwner);
         }
     }
 
@@ -142,7 +136,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
     {
         const int nOffset = 4 * (gnCurrentSongId - sub_004817F0());
         int nValue = *(int*)(sub_00481810() + nOffset);
-        int nMode = !sub_004B9C60_IsSongPlaying() && !nValue ? 2 : 0;
+        int nMode = !SOUNDINST_IsSongPlaying() && !nValue ? 2 : 0;
         sub_004BA8F0();
         sub_004B9A00(gnCurrentSongId, 0, 0, nMode, nValue);
         gdwSongStartTick = dwTick;
@@ -166,7 +160,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
         return;
     }
 
-    int nPosition = sub_004B9D50_GetPosition(pEntry);
+    int nPosition = SOUNDINST_GetPosition(pEntry);
     int nValue = 0;
     if (nPosition >= 0 && nPosition < pSoundTxt->nBlock[0])
     {

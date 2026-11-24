@@ -210,7 +210,7 @@ void __stdcall STATLIST_UpdateStatListsExpiration(D2UnitStrc* unit, int value); 
 
 void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* unit); // 0x004DA350
 
-void __fastcall sub_00470C30_UpdateStateOverlays(D2UnitStrc* unit); // 0x00470C30
+void __fastcall GFX_UpdateStateOverlays(D2UnitStrc* unit); // 0x00470C30
 
 void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* unit); // 0x00463390
 
@@ -494,7 +494,7 @@ void __fastcall UNITMODE_UpdateUnit(D2UnitStrc* unit)
         id = unit->dwUnitId;
         server &= 1;
     }
-    sub_00470C30_UpdateStateOverlays(unit);
+    GFX_UpdateStateOverlays(unit);
     switch (unit->dwUnitType)
     {
     case UNIT_PLAYER: sub_00463390_UpdatePlayerMode(unit); break;
