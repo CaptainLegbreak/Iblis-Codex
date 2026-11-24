@@ -41,138 +41,9 @@
    "state": "included"
   },
   "Source/D2Client/UI/automap.cpp": {
-   "bytes": 2872,
-   "definitions": 15,
-   "externs": [
-    "extern \"C\" char gapWardenServices[]; // 0x006D8E68",
-    "extern \"C\" void __cdecl SCMD_HandleTriggerSkillAtPosition(); // 0x0045DEC0",
-    "extern \"C\" void __cdecl SCMD_HandleGameFlags(); // 0x0045C8B0",
-    "extern \"C\" void __cdecl SCMD_HandleLoadAct(); // 0x0045C8E0",
-    "extern \"C\" void __cdecl SCMD_IgnorePacket(); // 0x0045C900",
-    "extern \"C\" void __cdecl SCMD_HandleLoadSuccessful(); // 0x0045C910",
-    "extern \"C\" void __cdecl SCMD_HandleLoadComplete(); // 0x0045C9A0",
-    "extern \"C\" void __cdecl SCMD_HandleUnloadComplete(); // 0x0045CA30",
-    "extern \"C\" void __cdecl SCMD_HandleLogoutComplete(); // 0x0045CA60",
-    "extern \"C\" void __cdecl SCMD_HandleSetClientInSight(); // 0x0045CAB0",
-    "extern \"C\" void __cdecl SCMD_HandleUnsetClientInSight(); // 0x0045CB20",
-    "extern \"C\" void __cdecl SCMD_HandleAssignWarp(); // 0x0045CB90",
-    "extern \"C\" void __cdecl SCMD_HandleAssignObject(); // 0x0045CBD0",
-    "extern \"C\" void __cdecl SCMD_HandleQuestLog(); // 0x0045CC00",
-    "extern \"C\" void __cdecl SCMD_HandleRemoveObject(); // 0x0045CC10",
-    "extern \"C\" void __cdecl SCMD_HandleGameHandshake(); // 0x0045CC50",
-    "extern \"C\" void __cdecl SCMD_HandleUnitHit(); // 0x0045CC70",
-    "extern \"C\" void __cdecl SCMD_HandlePlayerStop(); // 0x0045CCC0",
-    "extern \"C\" void __cdecl SCMD_HandleObjectState(); // 0x0045CD10",
-    "extern \"C\" void __cdecl SCMD_HandlePlayerMove(); // 0x0045CD40",
-    "extern \"C\" void __cdecl SCMD_HandlePlayerMoveToTarget(); // 0x0045CD90",
-    "extern \"C\" void __cdecl SCMD_HandleMonsterMove(); // 0x0045CDE0",
-    "extern \"C\" void __cdecl SCMD_HandleMonsterMoveToTarget(); // 0x0045CE30",
-    "extern \"C\" void __cdecl SCMD_HandleMonsterState(); // 0x0045CEA0",
-    "extern \"C\" void __cdecl SCMD_HandleMonsterTargetEvent(); // 0x0045CEF0",
-    "extern \"C\" void __cdecl SCMD_HandleMonsterAction(); // 0x0045CF40",
-    "extern \"C\" void __cdecl SCMD_HandleMonsterAttack(); // 0x0045CFB0",
-    "extern \"C\" void __cdecl SCMD_HandleMonsterStop(); // 0x0045D010",
-    "extern \"C\" void __cdecl sub_0045D0A0_UnitPacketNop(); // 0x0045D0A0",
-    "extern \"C\" void __cdecl sub_0045D0B0_UnitPacketNop(); // 0x0045D0B0",
-    "extern \"C\" void __cdecl sub_0045D0C0_UnitPacketNop(); // 0x0045D0C0",
-    "extern \"C\" void __cdecl sub_0045D0D0_UnitPacketNop(); // 0x0045D0D0",
-    "extern \"C\" void __cdecl sub_0045D0E0_UnitPacketNop(); // 0x0045D0E0",
-    "extern \"C\" void __cdecl SCMD_HandleSetOverlay(); // 0x0045D0F0",
-    "extern \"C\" void __cdecl sub_0045D130_PacketNop(); // 0x0045D130",
-    "extern \"C\" void __cdecl sub_0045D140_PacketNop(); // 0x0045D140",
-    "extern \"C\" void __cdecl sub_0045D150_PacketNop(); // 0x0045D150",
-    "extern \"C\" void __cdecl SCMD_HandleReassignUnit(); // 0x0045D160",
-    "extern \"C\" void __cdecl SCMD_HandleUnitEventAtPosition(); // 0x0045D260",
-    "extern \"C\" void __cdecl SCMD_HandleUnitsUpdate(); // 0x0045D2E0",
-    "extern \"C\" void __cdecl SCMD_HandleNpcInteract(); // 0x0045D370",
-    "extern \"C\" void __cdecl SCMD_HandleUnitRemoved(); // 0x0045D390",
-    "extern \"C\" void __cdecl SCMD_HandleGameQuestInfo(); // 0x0045D3A0",
-    "extern \"C\" void __cdecl SCMD_HandleMercStatUpdate(); // 0x0045D540",
-    "extern \"C\" void __cdecl SCMD_HandleUnitSkill(); // 0x0045D5E0",
-    "extern \"C\" void __cdecl SCMD_HandleSkillEnd(); // 0x0045D6A0",
-    "extern \"C\" void __cdecl SCMD_HandlePreloadMonster(); // 0x0045D760",
-    "extern \"C\" void __cdecl SCMD_HandlePlayerStatUpdate(); // 0x0045D780",
-    "extern \"C\" void __cdecl SCMD_HandleAttributeUpdate(); // 0x0045D880",
-    "extern \"C\" void __cdecl SCMD_HandleVitalsUpdate(); // 0x0045D9B0",
-    "extern \"C\" void __cdecl SCMD_HandleVitalsAndPosition(); // 0x0045DB20",
-    "extern \"C\" void __cdecl SCMD_HandleWalkVerify(); // 0x0045DC50",
-    "extern \"C\" void __cdecl SCMD_HandleAssignSkill(); // 0x0045DCD0",
-    "extern \"C\" void __cdecl SCMD_HandleSkillLevelBonus(); // 0x0045DD10",
-    "extern \"C\" void __cdecl SCMD_HandleAssignSkills(); // 0x0045DD60",
-    "extern \"C\" void __cdecl SCMD_HandleSetSkillQuantity(); // 0x0045DDB0",
-    "extern \"C\" void __cdecl SCMD_HandleSetActiveSkill(); // 0x0045DE10",
-    "extern \"C\" void __cdecl SCMD_HandleSetMinionClass(); // 0x0045DE50",
-    "extern \"C\" void __cdecl SCMD_HandleTriggerSkillOnUnit(); // 0x0045DE80",
-    "extern \"C\" void __cdecl SCMD_HandleUnitCastOnTarget(); // 0x0045DF00",
-    "extern \"C\" void __cdecl SCMD_HandleUnitCastAtPosition(); // 0x0045DF60",
-    "extern \"C\" void __cdecl SCMD_HandleChatMessage(); // 0x0045DFC0",
-    "extern \"C\" void __cdecl SCMD_HandleClearHoverText(); // 0x0045E050",
-    "extern \"C\" void __cdecl SCMD_HandleEventMessage(); // 0x0045E070",
-    "extern \"C\" void __cdecl SCMD_HandleHoverText(); // 0x0045E0A0",
-    "extern \"C\" void __cdecl SCMD_HandleNpcTransaction(); // 0x0045E0D0",
-    "extern \"C\" void __cdecl SCMD_HandlePlaySound(); // 0x0045E110",
-    "extern \"C\" void __cdecl SCMD_HandleItemStatUpdate(); // 0x0045E130",
-    "extern \"C\" void __cdecl SCMD_HandleUseStackableItem(); // 0x0045E220",
-    "extern \"C\" void __cdecl SCMD_HandleSetItemFlag(); // 0x0045E240",
-    "extern \"C\" void __cdecl SCMD_HandleClearCursor(); // 0x0045E270",
-    "extern \"C\" void __cdecl sub_0045E290_Packet45(); // 0x0045E290",
-    "extern \"C\" void __cdecl SCMD_HandleRefreshItems(); // 0x0045E2A0",
-    "extern \"C\" void __cdecl sub_0045E2D0_Packet48(); // 0x0045E2D0",
-    "extern \"C\" void __cdecl SCMD_HandleInitEnvironment(); // 0x0045E300",
-    "extern \"C\" void __cdecl SCMD_HandleUiPacket(); // 0x0045E370",
-    "extern \"C\" void __cdecl sub_0045E3B0_Packet54(); // 0x0045E3B0",
-    "extern \"C\" void __cdecl SCMD_HandleClearMercList(); // 0x0045E3C0",
-    "extern \"C\" void __cdecl SCMD_HandleMercForHire(); // 0x0045E3D0",
-    "extern \"C\" void __cdecl SCMD_HandleMonsterEnchants(); // 0x0045E400",
-    "extern \"C\" void __cdecl SCMD_HandleOpenPanel(); // 0x0045E490",
-    "extern \"C\" void __cdecl SCMD_HandleAssignPlayer(); // 0x0045E4C0",
-    "extern \"C\" void __cdecl SCMD_HandlePlayerJoined(); // 0x0045E4E0",
-    "extern \"C\" void __cdecl SCMD_HandlePlayerLeft(); // 0x0045E530",
-    "extern \"C\" void __cdecl SCMD_HandleQuestEvent(); // 0x0045E540",
-    "extern \"C\" void __cdecl SCMD_HandleStoreText(); // 0x0045E570",
-    "extern \"C\" void __cdecl SCMD_HandleNpcGossipList(); // 0x0045E580",
-    "extern \"C\" void __cdecl SCMD_HandleRemoveEquippedItems(); // 0x0045E5B0",
-    "extern \"C\" void __cdecl SCMD_HandleSetPortalFlags(); // 0x0045E5D0",
-    "extern \"C\" void __cdecl SCMD_HandleTownPortalState(); // 0x0045E610",
-    "extern \"C\" void __cdecl SCMD_HandlePlayCinematic(); // 0x0045E660",
-    "extern \"C\" void __cdecl SCMD_HandleWaypointMenu(); // 0x0045E670",
-    "extern \"C\" void __cdecl SCMD_HandleKillCount(); // 0x0045E6B0",
-    "extern \"C\" void __cdecl sub_0045E6C0_Packet66(); // 0x0045E6C0",
-    "extern \"C\" void __cdecl SCMD_HandleCreateMissile(); // 0x0045E6D0",
-    "extern \"C\" void __cdecl SCMD_HandlePlayerCorpse(); // 0x0045E7B0",
-    "extern \"C\" void __cdecl SCMD_HandleRosterUpdate(); // 0x0045E7E0",
-    "extern \"C\" void __cdecl SCMD_HandleTradeAction(); // 0x0045E800",
-    "extern \"C\" void __cdecl SCMD_HandleTradePartnerName(); // 0x0045E810",
-    "extern \"C\" void __cdecl SCMD_HandleGoldInTrade(); // 0x0045E850",
-    "extern \"C\" void __cdecl SCMD_HandlePetAction(); // 0x0045E860",
-    "extern \"C\" void __cdecl SCMD_HandleAssignMerc(); // 0x0045E890",
-    "extern \"C\" void __cdecl SCMD_HandleAssignHotkey(); // 0x0045E8D0",
-    "extern \"C\" void __cdecl SCMD_HandleUseScroll(); // 0x0045E910",
-    "extern \"C\" void __cdecl SCMD_HandleSetItemState(); // 0x0045E930",
-    "extern \"C\" void __cdecl SCMD_HandleLoadCommonCof(); // 0x0045E970",
-    "extern \"C\" void __cdecl SCMD_HandleAllyInfo(); // 0x0045E990",
-    "extern \"C\" void __cdecl SCMD_HandlePartyPosition(); // 0x0045E9C0",
-    "extern \"C\" void __cdecl SCMD_HandlePortalOwnership(); // 0x0045E9D0",
-    "extern \"C\" void __cdecl SCMD_HandleUniqueEvent(); // 0x0045EA30",
-    "extern \"C\" void __cdecl SCMD_HandleNpcWantsInteract(); // 0x0045EA40",
-    "extern \"C\" void __cdecl SCMD_HandlePartyRelationship(); // 0x0045EA60",
-    "extern \"C\" void __cdecl SCMD_HandlePvpRelationship(); // 0x0045EA70",
-    "extern \"C\" void __cdecl SCMD_HandleAssignParty(); // 0x0045EA90",
-    "extern \"C\" void __cdecl SCMD_HandleCorpseAssign(); // 0x0045EAA0",
-    "extern \"C\" void __cdecl SCMD_HandleNpcMenuState(); // 0x0045EAC0",
-    "extern \"C\" void __cdecl SCMD_HandleWeaponSwitch(); // 0x0045EAD0",
-    "extern \"C\" void __cdecl SCMD_HandlePong(); // 0x0045EB00",
-    "extern \"C\" void __cdecl SCMD_HandleItemActionWorld(); // 0x0045EB10",
-    "extern \"C\" void __cdecl SCMD_HandleItemActionOwned(); // 0x0045EC70",
-    "extern \"C\" void __cdecl SCMD_HandleRunesRecord(); // 0x0045EDC0",
-    "extern \"C\" void __cdecl SCMD_HandleDelayedState(); // 0x0045EDE0",
-    "extern \"C\" void __cdecl SCMD_HandleSetState(); // 0x0045EE20",
-    "extern \"C\" void __cdecl SCMD_HandleEndState(); // 0x0045EF60",
-    "extern \"C\" void __cdecl SCMD_HandleAddUnitStates(); // 0x0045EFA0",
-    "extern \"C\" void __cdecl SCMD_HandleUnitLife(); // 0x0045F120",
-    "extern \"C\" void __cdecl sub_0045F190(); // 0x0045F190",
-    "extern \"C\" void __cdecl SCMD_HandleWardenRequest(); // 0x0045F5F0"
-   ],
+   "bytes": 644,
+   "definitions": 11,
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/automap.inc",
    "lang": "cpp",
@@ -507,8 +378,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Game.cpp": {
-   "bytes": 256,
-   "definitions": 7,
+   "bytes": 252,
+   "definitions": 6,
    "externs": [
     "extern \"C\" void __cdecl GAME_DrawGameView(); // 0x0044C990",
     "extern \"C\" void __cdecl sub_0045FDE0_DrawLoadingScreen(); // 0x0045FDE0",
@@ -1074,8 +945,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_0045B5F0.cpp": {
-   "bytes": 80,
-   "definitions": 1,
+   "bytes": 96,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0045B5F0.inc",
@@ -1083,8 +954,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_00460420.cpp": {
-   "bytes": 156,
-   "definitions": 2,
+   "bytes": 216,
+   "definitions": 3,
    "externs": [
     "extern \"C\" void __cdecl AUTOMAP_PopupButtonDownMsg(); // 0x0045FE30",
     "extern \"C\" void __cdecl ROSTERPETS_HandlePopupButtonUp(); // 0x0045FED0",
@@ -1359,8 +1230,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/inv_0048DD90.cpp": {
-   "bytes": 82,
-   "definitions": 19,
+   "bytes": 78,
+   "definitions": 18,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0048EDF0.inc",
@@ -1368,8 +1239,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/text.cpp": {
-   "bytes": 4504,
-   "definitions": 48,
+   "bytes": 4500,
+   "definitions": 47,
    "externs": [
     "extern \"C\" void __cdecl D2CLIENT_CloseNPCTalk(); // 0x004A17D0",
     "extern \"C\" void __cdecl TEXT_EatMsg(); // 0x0049DA10",
@@ -5323,6 +5194,17 @@
    "include": "gen/data/Source/D2Common/Unknown_0067B9C0.inc",
    "lang": "cpp",
    "state": "included"
+  },
+  "Source/D2Client/GAME/SCmd.cpp": {
+   "bytes": 2164,
+   "definitions": 2,
+   "externs": [
+    "extern \"C\" void __cdecl sub_0045F190(); // 0x0045F190"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/GAME/SCmd.inc",
+   "lang": "cpp",
+   "state": "included"
   }
  },
  "definitions": [
@@ -6398,7 +6280,7 @@
    "cname": "gData_00711430",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UI/automap.cpp",
+   "file": "Source/D2Client/Unknown_0045B5F0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00711430_t gData_00711430; // 0x00711430",
    "head": "extern \"C\" struct d2data_00711430_t gData_00711430 = ",
@@ -32221,7 +32103,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/GAME/Game.cpp",
+   "file": "Source/D2Client/Unknown_0045B5F0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnSavedScreenWidth = ",
@@ -37194,11 +37076,11 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/automap.cpp",
-   "fill": 180,
+   "file": "Source/D2Client/GAME/SCmd.cpp",
+   "fill": 175,
    "form": "declared",
    "fwd": null,
-   "head": "extern D2PacketTableEntryStrc gaPacketTable[180] = ",
+   "head": "extern D2PacketTableEntryStrc gaPacketTable[175] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -37207,9 +37089,10 @@
        "pfnHandler",
        0,
        {
+        "fn": true,
         "k": "ptr",
         "size": 4,
-        "spell": "void*"
+        "spell": "void (__fastcall *)(unsigned char*)"
        }
       ],
       [
@@ -37223,13 +37106,12 @@
        }
       ],
       [
-       "f_8",
+       "pfnAltHandler",
        8,
        {
-        "fn": true,
         "k": "ptr",
         "size": 4,
-        "spell": "void (__fastcall *)(void*, unsigned char*)"
+        "spell": "void*"
        }
       ]
      ],
@@ -37237,8 +37119,8 @@
      "size": 12
     },
     "k": "arr",
-    "n": 180,
-    "size": 2160
+    "n": 175,
+    "size": 2100
    },
    "name": "gaPacketTable",
    "pointers": [
@@ -38793,9 +38675,29 @@
      "SCMD_HandleWardenRequest",
      0,
      "func"
-    ],
+    ]
+   ],
+   "region": "data",
+   "size": 2100,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007114D0",
+   "type": "D2PacketTableEntryStrc",
+   "va": "0x007114D0"
+  },
+  {
+   "alias": false,
+   "cname": "gData_00711490",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/GAME/SCmd.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_00711490_t gData_00711490; // 0x00711490",
+   "head": "extern \"C\" struct d2data_00711490_t gData_00711490 = ",
+   "name": "gData_00711490",
+   "pointers": [
     [
-     2100,
+     0,
      "0x006CC81C",
      "literal",
      null,
@@ -38803,7 +38705,7 @@
      "string"
     ],
     [
-     2104,
+     4,
      "0x006CC814",
      "literal",
      null,
@@ -38811,7 +38713,7 @@
      "string"
     ],
     [
-     2108,
+     8,
      "0x006CC80C",
      "literal",
      null,
@@ -38819,7 +38721,7 @@
      "string"
     ],
     [
-     2112,
+     12,
      "0x006CC804",
      "literal",
      null,
@@ -38827,7 +38729,7 @@
      "string"
     ],
     [
-     2116,
+     16,
      "0x006CC7F8",
      "literal",
      null,
@@ -38835,7 +38737,7 @@
      "string"
     ],
     [
-     2120,
+     20,
      "0x006CC7F0",
      "literal",
      null,
@@ -38843,7 +38745,7 @@
      "string"
     ],
     [
-     2124,
+     24,
      "0x006CC7E4",
      "literal",
      null,
@@ -38851,7 +38753,7 @@
      "string"
     ],
     [
-     2128,
+     28,
      "0x006CC7DC",
      "literal",
      null,
@@ -38859,7 +38761,7 @@
      "string"
     ],
     [
-     2132,
+     32,
      "0x006CC7C8",
      "literal",
      null,
@@ -38867,7 +38769,7 @@
      "string"
     ],
     [
-     2136,
+     36,
      "0x006CC7B4",
      "literal",
      null,
@@ -38875,7 +38777,7 @@
      "string"
     ],
     [
-     2140,
+     40,
      "0x006CC7AC",
      "literal",
      null,
@@ -38883,7 +38785,7 @@
      "string"
     ],
     [
-     2144,
+     44,
      "0x006CC7A4",
      "literal",
      null,
@@ -38891,7 +38793,7 @@
      "string"
     ],
     [
-     2148,
+     48,
      "0x006CC788",
      "literal",
      null,
@@ -38899,7 +38801,7 @@
      "string"
     ],
     [
-     2152,
+     52,
      "0x006CC780",
      "literal",
      null,
@@ -38907,7 +38809,7 @@
      "string"
     ],
     [
-     2156,
+     56,
      "0x006CC77C",
      "literal",
      null,
@@ -38916,12 +38818,10 @@
     ]
    ],
    "region": "data",
-   "size": 2160,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x007114D0",
-   "type": "D2PacketTableEntryStrc",
-   "va": "0x007114D0"
+   "size": 64,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00711490_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    unsigned char b15[4];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00711490",
+   "va": "0x00711490"
   },
   {
    "alias": false,
@@ -41114,122 +41014,29 @@
    "fwd": "extern \"C\" struct d2data_00711480_t gData_00711480; // 0x00711480",
    "head": "extern \"C\" struct d2data_00711480_t gData_00711480 = ",
    "name": "gszTypeNameAllocRec",
+   "pointers": [],
+   "region": "data",
+   "size": 16,
+   "stars": 0,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00711480_t\n{\n    unsigned char b0[16];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00711480\n#pragma comment(linker, \"/alternatename:_gszTypeNameAllocRec=_gData_00711480\")",
+   "type": "char",
+   "va": "0x00711480"
+  },
+  {
+   "alias": false,
+   "cname": "gData_00711478",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/Unknown_0045B5F0.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_00711478_t gData_00711478; // 0x00711478",
+   "head": "extern \"C\" struct d2data_00711478_t gData_00711478 = ",
+   "name": "gData_00711478",
    "pointers": [
     [
-     16,
-     "0x006CC81C",
-     "literal",
-     null,
      0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     60,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     64,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     68,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     72,
-     "0x006CC77C",
+     "0x006F28F8",
      "literal",
      null,
      0,
@@ -41237,12 +41044,10 @@
     ]
    ],
    "region": "data",
-   "size": 80,
-   "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00711480_t\n{\n    unsigned char b0[16];\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    const void* p15;\n    unsigned char b16[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00711480\n#pragma comment(linker, \"/alternatename:_gszTypeNameAllocRec=_gData_00711480\")",
-   "type": "char",
-   "va": "0x00711480"
+   "size": 8,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00711478_t\n{\n    const void* p0;\n    unsigned char b1[4];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00711478",
+   "va": "0x00711478"
   },
   {
    "alias": true,
@@ -41731,6 +41536,144 @@
    "tail": "; // 0x00711D70",
    "type": "D2MsgHandlerEntryStrc",
    "va": "0x00711D70"
+  },
+  {
+   "alias": false,
+   "cname": "gData_00711D04",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/Unknown_00460420.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_00711D04_t gData_00711D04; // 0x00711D04",
+   "head": "extern \"C\" struct d2data_00711D04_t gData_00711D04 = ",
+   "name": "gData_00711D04",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00711D04_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00711D04",
+   "va": "0x00711D04"
   },
   {
    "alias": false,
@@ -50141,7 +50084,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/inv_0048DD90.cpp",
+   "file": "Source/D2Client/Unknown_0045B5F0.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern int gnScreenHeight = ",
@@ -54887,7 +54830,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/text.cpp",
+   "file": "Source/D2Client/Unknown_0045B5F0.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern int gnScreenWidth_0071146C = ",
