@@ -46,7 +46,7 @@ How far the sources are from reading like the original source tree. Byte matchin
 | … in a file with its original name, whole | 293 |
 | … pieces of an original file still split (in 32 files) | 97 |
 | … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 428 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2725 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2713 |
 | Unnamed fields (`unk0x..`) in the shared headers | 693 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
 | Calling-convention shims | 73 |
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 4060 functions are compiled with `/GS-` and 1001 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 104 times and `__declspec(dllexport)` 154 times to keep a body out of line or emitted.
+Not listed one by one: 4068 functions are compiled with `/GS-` and 996 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 104 times and `__declspec(dllexport)` 154 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -149,21 +149,10 @@ Not listed one by one: 4060 functions are compiled with `/GS-` and 1001 with `/E
 | 0x00405710 | sub_00405710_ParseCmdArgument | `Storm/Unknown_00405710.cpp` | compiler option /Ob2 |
 | 0x004058A0 | sub_004058A0_ParseCmdArgs | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
 | 0x004059A0 | ParseCmdLine | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
-| 0x004059D0 | ERRORMANAGER_RunModeInterface | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x00405A50 | sub_00405A50_Nop | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
 | 0x00405A60 | sub_00405A60_Nop | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
 | 0x00405A70 | sub_00405A70_WriteSurveyLocale | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
 | 0x00405C30 | GameStart | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
-| 0x00405EF0 | sub_00405EF0 | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x00405F00 | SaveCmdLine | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x00406040 | MoveBetaSettingsToRelease | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x00406190 | sub_00406190_GetProc | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
-| 0x004061C0 | ERRORMANAGER_DenyProcessAccess | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x00406340 | sub_00406340_SelectModule | `Storm/Unknown_00405710.cpp` | compiler option /Ob2 |
-| 0x00406410 | D2ServerServiceHandlerProc | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x00406470 | sub_00406470_OpenServiceHandles | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
-| 0x004064C0 | GameInit | `Storm/Unknown_00405710.cpp` | compiler option /Ob2 |
-| 0x00406650 | ERRORMANAGER_StartServiceDispatcher | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004067C0 | ERRORMANAGER_SetBasePathToCurrent | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004067D0 | ERRORMANAGER_GetKnownFolderPathA | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004068E0 | FOG_FOpenFile | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
@@ -530,7 +519,7 @@ Not listed one by one: 4060 functions are compiled with `/GS-` and 1001 with `/E
 | 0x004FA860 | D2Win_COMMANDS_MouseButton_6F8AE070 | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FBF30 | TEXTBOX_Draw | `D2Win/Src/D2WinTextBox.cpp` | volatile read or qualifier |
 | 0x00502550 | D2Win_10128 | `D2Win/Src/D2WinFont.cpp` | __assume |
-| 0x0050A450 | GLIDE_UploadTexInfo | `D2Glide/Src/glSprite.cpp` | calling-convention shim |
+| 0x0050A450 | GLSPRITE_UploadTexInfo | `D2Glide/Src/glSprite.cpp` | calling-convention shim |
 | 0x0050CA00 | sub_0050CA00_GlideShadowTileDrawPerspective | `D2Glide/Unknown_0050BD30.cpp` | volatile read or qualifier |
 | 0x00516830 | D2SOUND_GetPositionalVolumePan | `D2Sound/Src/D2SoundSmp.cpp` | volatile read or qualifier |
 | 0x005170E7 | ARCHIVE_GetModuleDirectory | `D2Hell/SRC/Archive.cpp` | calling-convention shim |
