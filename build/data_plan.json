@@ -1406,8 +1406,8 @@
    "static_definitions": 1
   },
   "Source/D2Client/Unknown_00499500.cpp": {
-   "bytes": 156,
-   "definitions": 4,
+   "bytes": 8,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_00499500.inc",
@@ -1478,8 +1478,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_004A76C0.cpp": {
-   "bytes": 580,
-   "definitions": 4,
+   "bytes": 348,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004A76C0.inc",
@@ -1487,8 +1487,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_004AA9C0.cpp": {
-   "bytes": 4,
-   "definitions": 1,
+   "bytes": 384,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004AA9C0.inc",
@@ -52775,7 +52775,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00499500.cpp",
+   "file": "Source/D2Client/Unknown_004AA9C0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnTabSelection = ",
@@ -52800,7 +52800,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00499500.cpp",
+   "file": "Source/D2Client/Unknown_004AA9C0.cpp",
    "fill": 12,
    "form": "declared",
    "fwd": null,
@@ -57173,7 +57173,7 @@
    "cname": "gData_00724BF0",
    "declared": true,
    "decorated": "?gaPanelCels@@3PAUD2UiCelFileStrc@@A",
-   "file": "Source/D2Client/Unknown_004A76C0.cpp",
+   "file": "Source/D2Client/Unknown_004AA9C0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00724BF0_t gData_00724BF0; // 0x00724BF0",
    "head": "extern \"C\" struct d2data_00724BF0_t gData_00724BF0 = ",

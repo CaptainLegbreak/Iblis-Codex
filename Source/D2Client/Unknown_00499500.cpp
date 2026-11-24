@@ -99,7 +99,6 @@ static int __cdecl sub_00497780_Bounds(int nX,int nY)
 
 #include "gen/data/Source/D2Client/Unknown_00499500.inc"
 
-int gbSkillTabPressed; // 0x007C0C38
 
 static int sub_004977C0_IsInButtonRect(int nX, int nY)
 {
@@ -124,57 +123,7 @@ void __cdecl sub_00499E50_DrawPanelQuad()
 }
 
 
-// 0x004AAAE0
-void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage)
-{
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = pCellFile;
-    tContext.nDirection = 0;
-    tContext.nFrame = 0;
-    sub_004F6480(&tContext, gnScreenWidth - gnPanelOffsetX - 320, gnScreenHeight + gnPanelOffsetY - 224, -1, 5, 0);
-    tContext.nFrame = 1;
-    sub_004F6480(&tContext, gnScreenWidth - gnPanelOffsetX - 64, gnScreenHeight + gnPanelOffsetY - 224, -1, 5, 0);
-    tContext.nFrame = 2;
-    sub_004F6480(&tContext, gnScreenWidth - gnPanelOffsetX - 320, gnScreenHeight + gnPanelOffsetY - 48, -1, 5, 0);
-    tContext.nFrame = 3;
-    sub_004F6480(&tContext, gnScreenWidth - gnPanelOffsetX - 64, gnScreenHeight + gnPanelOffsetY - 48, -1, 5, 0);
-    tContext.nFrame = 4 * nPage;
-    sub_004F6480(&tContext, gnScreenWidth - gnPanelOffsetX - 320, gnScreenHeight + gnPanelOffsetY - 224, -1, 5, 0);
-    tContext.nFrame = 4 * nPage + 1;
-    sub_004F6480(&tContext, gnScreenWidth - gnPanelOffsetX - 64, gnScreenHeight + gnPanelOffsetY - 224, -1, 5, 0);
-    tContext.nFrame = 4 * nPage + 2;
-    sub_004F6480(&tContext, gnScreenWidth - gnPanelOffsetX - 320, gnScreenHeight + gnPanelOffsetY - 48, -1, 5, 0);
-    tContext.nFrame = 4 * nPage + 3;
-    sub_004F6480(&tContext, gnScreenWidth - gnPanelOffsetX - 64, gnScreenHeight + gnPanelOffsetY - 48, -1, 5, 0);
-}
 
-// 0x004AB530
-void __cdecl sub_004AB530_DrawTabCel()
-{
-// build: symbol ?gaSkillTabX@* 0x00724CE4
-    int nX = gaSkillTabX[gnCharClass][gnSkillPage];
-    if (nX == -149)
-    {
-        gnTabSelection = 1;
-    }
-    else if (nX == -220)
-    {
-        gnTabSelection = 2;
-    }
-    else if (nX == -305)
-    {
-        gnTabSelection = 3;
-    }
-    nX += gnScreenWidth - gnPanelOffsetX;
-
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = sub_00454600();
-    tContext.nFrame = (gbSkillTabPressed != 0) + 10;
-    tContext.nDirection = 0;
-    sub_004F6480(&tContext, nX, gnScreenHeight + gnPanelOffsetY - 63, -1, 5, 0);
-}
 
 int gaRosterIndex[8]; // 0x007BEFF4
 
