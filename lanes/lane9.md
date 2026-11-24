@@ -11,11 +11,11 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 
 ## Status
 - Setup done; baseline VERIFIED on #325.
-- lane9/atl-d3dcore: ready (below).
+- lane9/atl-d3dcore: ready (below). Next: D2Hell object map; renderer-run strays wait on the question below.
 
 ## Ready
 - lane9/atl-d3dcore 7581b2b5 1->0 placeholders (D2Direct3D/Unknown_006B1A00.cpp joined into d3dCore.cpp). Base main c4ce2baa (#331).
-  Precheck: 0 not all equal. Full verify: VERIFIED tree e86c1e6e on #329 (same commit, 3d6515aa); rebased onto #331, which touches none of its files, re-verify running.
+  Precheck: 0 not all equal. Full verify on #331: VERIFIED tree 48d58fc0 (borrowed data 2,380 B on the branch; see the 2 B note below).
   The ATL object is the head of d3dCore.cpp, as lane 3 thought: d3dCore includes atlbase.h, so atldef.h's Thank_you,
   CAtlException, CRegKey come first in its object, then d3dCore's own code from 0x6B1B60 (the texture-format callback,
   which reads d3dCore's gtWantedFormat). The merged unit builds equal under d3dCore's /GS-, all 47 functions. Joined by
