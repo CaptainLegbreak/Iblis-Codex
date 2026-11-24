@@ -6,11 +6,15 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 `Source/D2DDraw/**`, `Source/D2Gdi/**`, `Source/D2Glide/**`, `Source/D2Hell/**`, taking over from lane 6.
 
 ## Claimed
-- Lane 9 placeholders (queues.md): looking for object evidence (file statics, data contiguity, bss order). Code
-  adjacency doesn't count here (renderer objects interleave), and string sharing doesn't either (identical literals are
-  pooled across objects, e.g. the DDERR_ name strings read by both DDrawLogError and d3dCore's LogDDrawError).
-- Inline asm (3, D2Hell Unknown_005173EF.cpp: rep movsd copy, repe cmpsd compare, bsf): Storm-style hand assembly the
-  original very likely had; leaving it.
+- The three unpadded placeholder runs as one file each (lane 10's object map): D2Hell 0x516D8B-0x5179A4 (25
+  placeholders, plus the gFaultHandlerList init/fini 0x6CAE5F/0x6CB401; the two /O2 list-ctor units stay out), D2Gdi
+  0x6C8A50-0x6C95D0, D2DDraw 0x511DF0-0x512D90. Starting with D2Hell (lane9/hell-run).
+- **Coordinator, a blocker on the D2Gdi and D2DDraw runs:** each run holds a static line helper (0x6C8DA0, 0x512A50)
+  that two rectangle drawers of the same run call through a register convention only a static gets. With all three in
+  one file, either the callers or the helper's own body come out differently: in 24 signature/order/body variants the
+  best has every caller equal and the helper differing in one register choice (ebx vs edx for the second point's y).
+  Separately compiled, the helper and the callers each match. Until that gives, I'll post the two runs without the
+  helper's file (helper + its file-mates stay where they are) unless you'd rather wait.
 
 ## Status
 - Setup done; baseline VERIFIED on #325.
