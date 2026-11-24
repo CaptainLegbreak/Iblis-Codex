@@ -7804,36 +7804,6 @@
      "va": "0x00426160",
      "length": 23,
      "name": "?sub_00426160_GetTableSize@@YIII@Z"
-    },
-    {
-     "va": "0x0044FBB0",
-     "length": 43,
-     "name": "?_GD2GameStrc"
-    },
-    {
-     "va": "0x0044FCF0",
-     "length": 96,
-     "name": "?_GD2StormListAStrc"
-    },
-    {
-     "va": "0x004500A0",
-     "length": 98,
-     "name": "?_GD2StormHashObjectChunkStrc"
-    },
-    {
-     "va": "0x004504D0",
-     "length": 43,
-     "name": "?_GD2StormListArrayStrc"
-    },
-    {
-     "va": "0x00450E70",
-     "length": 70,
-     "name": "sub_00450E70_Reserve"
-    },
-    {
-     "va": "0x00450F50",
-     "length": 23,
-     "name": "sub_00450F50_ReserveExact"
     }
    ]
   },
@@ -8492,18 +8462,7 @@
   {
    "file": "Source/Storm/Unknown_00426910.cpp",
    "rank": 0,
-   "functions": [
-    {
-     "va": "0x00450390",
-     "length": 85,
-     "name": "sub_00450390_NewNode"
-    },
-    {
-     "va": "0x00450FA0",
-     "length": 87,
-     "name": "sub_00450FA0_NewNode"
-    }
-   ],
+   "functions": [],
    "flags": [
     "/nologo",
     "/c",
@@ -14993,9 +14952,19 @@
      "name": "??0D2ChatStormListEStrc@@QAE@XZ"
     },
     {
+     "va": "0x0044FBB0",
+     "length": 43,
+     "name": "?_GD2GameStrc"
+    },
+    {
      "va": "0x0044FC60",
      "length": 135,
      "name": "sub_0044FC60_DeleteAll"
+    },
+    {
+     "va": "0x0044FCF0",
+     "length": 96,
+     "name": "?_GD2StormListAStrc"
     },
     {
      "va": "0x0044FE10",
@@ -15008,9 +14977,19 @@
      "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
     },
     {
+     "va": "0x004500A0",
+     "length": 98,
+     "name": "?_GD2StormHashObjectChunkStrc"
+    },
+    {
      "va": "0x00450350",
      "length": 17,
      "name": "??0D2Storm603530Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x00450390",
+     "length": 85,
+     "name": "sub_00450390_NewNode"
     },
     {
      "va": "0x004503F0",
@@ -15021,6 +15000,11 @@
      "va": "0x00450420",
      "length": 170,
      "name": "InternalNew"
+    },
+    {
+     "va": "0x004504D0",
+     "length": 43,
+     "name": "?_GD2StormListArrayStrc"
     },
     {
      "va": "0x00450580",
@@ -15046,6 +15030,11 @@
      "va": "0x00450F80",
      "length": 22,
      "name": "??0D2Storm604470Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x00450FA0",
+     "length": 87,
+     "name": "sub_00450FA0_NewNode"
     },
     {
      "va": "0x00451000",
@@ -15280,6 +15269,16 @@
      "va": "0x00450D90",
      "length": 209,
      "name": "?sub_00450D90_ReallocData@D2StormGameDataArrayStrc@@QAEXI@Z"
+    },
+    {
+     "va": "0x00450E70",
+     "length": 70,
+     "name": "sub_00450E70_Reserve"
+    },
+    {
+     "va": "0x00450F50",
+     "length": 23,
+     "name": "sub_00450F50_ReserveExact"
     },
     {
      "va": "0x004510B0",

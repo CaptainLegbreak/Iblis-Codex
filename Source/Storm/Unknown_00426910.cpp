@@ -114,24 +114,4 @@ inline void* operator new(unsigned int nSize, void* pWhere) throw()
     return pWhere;
 }
 
-// 0x00450390
-D2GameStrc* D2GameListStrc::sub_00450390_NewNode(unsigned int nLocation, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(D2GameStrc) + nExtraBytes, gszSGameDataTypeName, -2, nFlags | 8);
-    D2GameStrc* pNode = pMemory ? new (pMemory) D2GameStrc : 0;
-    if (nLocation)
-        sub_004502A0_LinkNode(pNode, nLocation, 0);
-    return pNode;
-}
-
-// 0x00450FA0
-D2StormHashObjectChunkStrc* D2StormChunkListStrc::sub_00450FA0_NewNode(unsigned int nLocation, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(D2StormHashObjectChunkStrc) + nExtraBytes, gszTypeNameHashObjectChunk_0070F5F4, -2, nFlags | 8);
-    D2StormHashObjectChunkStrc* pNode = pMemory ? new (pMemory) D2StormHashObjectChunkStrc : 0;
-    if (nLocation)
-        sub_004508A0_LinkNode(pNode, nLocation, 0);
-    return pNode;
-}
-
 #include "gen/data/Source/Storm/Unknown_00426910.inc"
