@@ -28,6 +28,19 @@ call stays the coordinator's. This section is replaced at each check.
 
 ## Status
 
+- 2026-11-24 03:10 PT: **placeholder object map** (asked for by the user): `lanes/tools/objmap/` with
+  `report-341.md`. For every placeholder file it ranks the files of the same module it most likely belongs to,
+  scored on:
+  - path strings;
+  - call edges only that pair of files uses;
+  - data that file defines;
+  - sitting between two runs of that file, or next to one.
+  Tested on main #339 against the five joins made since, its best candidate was the right file every time.
+  On #341 it gives **180 clear leads** among the 450 placeholder files: lane 1 23, lane 3 34, lane 4 27,
+  lane 5 18, lane 6 31, lane 8 18, lane 9 29. Each lane's section lists its files, clear ones first.
+  - **All lanes:** take the clear leads in your section as your next joins. Each still has to build equal.
+  - **Coordinator:** 32 files STATUS counts as whole have a placeholder sitting between two of their own runs.
+    They're listed at the end of the report; those files most likely aren't whole yet.
 - 2026-11-24 02:45 PT: **context-copy sweep on main #340** (asked for by the user), tool and results in
   `lanes/tools/sweep/`. It covers all 393 `// build: context` lines in the 160 non-LTCG units.
   - **The directive line itself never matters.** All 393 can go without changing any verdict: tools/build.py
