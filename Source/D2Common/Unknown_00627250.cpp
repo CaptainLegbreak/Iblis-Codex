@@ -34,18 +34,6 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
 int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit); // 0x00625DB0
 
-// 0x00627250
-int __stdcall sub_00627250_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer)
-{
-    return STATLIST_SetStatValue(pStatList, nStatId, nValue, nLayer);
-}
-
-// 0x006272A0
-void __stdcall sub_006272A0_AddStat(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer)
-{
-    STATLIST_AddStat(pStatList, nStatId, nValue, nLayer);
-}
-
 static inline D2ItemStatCostTxt* ITEMS_GetItemStatCostTxtRecord(int nStatId)
 {
     if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)

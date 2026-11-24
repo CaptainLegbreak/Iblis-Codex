@@ -2542,6 +2542,12 @@ void __stdcall STATLIST_SetBaseStat2(D2StatListStrc* pStatList, int nStatId, int
     }
 }
 
+// 0x00627250
+int __stdcall sub_00627250_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer)
+{
+    return STATLIST_SetStatValue(pStatList, nStatId, nValue, nLayer);
+}
+
 // 0x00627260
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer)
 {
@@ -2549,6 +2555,12 @@ void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
     {
         STATLIST_InsertStatModOrFail(pUnit->pStatListEx, STAT_MAKE(nStatId, nLayer));
     }
+}
+
+// 0x006272A0
+void __stdcall sub_006272A0_AddStat(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer)
+{
+    STATLIST_AddStat(pStatList, nStatId, nValue, nLayer);
 }
 
 // 0x006272B0
