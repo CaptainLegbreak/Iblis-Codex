@@ -369,10 +369,8 @@ int __stdcall D2GFX_Release()
 }
 
 extern int gdwGlobal_007C8CB0; // 0x007C8CB0
+
 extern int gdwGlobal_007C8CB4; // 0x007C8CB4
-extern int gbInTown; // 0x0072DA4C
-extern int gdwGlobal_0072DA5C; // 0x0072DA5C
-extern int gdwGlobal_0072DA50; // 0x0072DA50
 
 // 0x004F5140
 int __cdecl sub_004F5140()
@@ -395,13 +393,21 @@ int __stdcall D2GFX_GetResolutionMode()
 // 0x004F5170
 int __cdecl D2GFX_CheckUnitPerspective()
 {
-    return gbInTown;
+    return gGfxSettings.bPerspectiveCapable;
 }
 
 // 0x004F5180
 int __cdecl D2GFX_IsFixedAspectRatio()
 {
     return gdwGlobal_0072DA7C;
+}
+
+// 0x004F5190
+void __stdcall sub_004F5190_SetTownMode(int bTown)
+{
+    if (gnDisplayType < 4)
+        bTown = 0;
+    gGfxSettings.bPerspectiveCapable = bTown;
 }
 
 // 0x004F51C0
@@ -425,7 +431,7 @@ void __stdcall D2GFX_SetPerspective(int bPerspective)
 // 0x004F51F0
 int __cdecl D2GFX_CheckBlendedShadows()
 {
-    return gdwGlobal_0072DA5C;
+    return gGfxSettings.bBlendedShadows;
 }
 
 // 0x004F5200
@@ -437,7 +443,7 @@ void __stdcall D2GFX_SetBlendShadows(int bBlendedShadows)
 // 0x004F5210
 int __cdecl D2GFX_CheckLowQuality()
 {
-    return gdwGlobal_0072DA50;
+    return gGfxSettings.bLowQuality;
 }
 
 // 0x004F5220
@@ -2111,7 +2117,7 @@ void __fastcall sub_004F8120_TileDrawLit(unsigned char* pSrc, int nX, int nY, in
     const int nDiff1 = D2_ABS(nLightDelta);
     const int nDiff2 = D2_ABS(nLightXStep);
     const int nDiff3 = D2_ABS(nLightYStep);
-    if (!gdwGlobal_0072DA50 && nDiff3 + nDiff2 + nDiff1 >= 10)
+    if (!gGfxSettings.bLowQuality && nDiff3 + nDiff2 + nDiff1 >= 10)
     {
         if (nY < gnClipTop || nY >= gnClipBottom || nX < gnClipLeft || nX >= gnClipRight)
         {
