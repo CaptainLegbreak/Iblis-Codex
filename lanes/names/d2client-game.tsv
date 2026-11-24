@@ -1,0 +1,64 @@
+va	old_name	new_name	source	file	confidence	reason
+0x00449890	sub_00449890_CdKeyChecksum	GAME_CalcCdKeyChecksum	inferred	Source/D2Client/GAME/Game.cpp	high	computes the CD-key checksum through the key-character map
+0x00451AB0	sub_00451AB0	SCMD_OnActivateApp	inferred	Source/D2Client/GAME/SCmd.cpp	medium	window-message handler: records whether the client application is active (wParam) and claims the message; in data_plan.json
+0x00451F30	sub_00451F30	GAME_TestUnitFlags	inferred	Source/D2Client/GAME/Game.cpp	medium	tells whether a unit has any of the given flag bits (field 0xC4); (also spelled Obj00451F30, Pad40_00451F30, sub_00451F30_HasFlags, sub_00451F30_TestUnitFlag)
+0x00451F70	sub_00451F70	GAME_GetUnitAnimMode	inferred	Source/D2Client/GAME/Game.cpp	medium	returns a unit's field 0x10 (its animation mode), 0 for no unit; (also spelled Obj00451F70, sub_00451F70_GetUnitMode)
+0x00451FB0	sub_00451FB0	GAME_GetMonStats2TxtRecord	inferred	Source/D2Client/GAME/Game.cpp	high	returns the MonStats2.txt record for an id, or null when out of range
+0x00452020	sub_00452020_GetOverlayTxtRecordCount	GAME_GetOverlayTxtRecordCount	inferred	Source/D2Client/GAME/Game.cpp	high	returns the Overlay.txt record count
+0x00452030	sub_00452030_GetItemStatCostTxtRecordCount	GAME_GetItemStatCostTxtRecordCount	inferred	Source/D2Client/GAME/Game.cpp	high	returns the ItemStatCost.txt record count
+0x00452040	sub_00452040_GetStatesTxtRecord	GAME_GetStatesTxtRecord	inferred	Source/D2Client/GAME/Game.cpp	high	returns the States.txt record for a state id, or null; D2Client's copy of what D2MOO calls DATATBLS_GetStatesTxtRecord
+0x004520C0	sub_004520C0_LoadUiCelFile	GAME_LoadUiCelFile	inferred	Source/D2Client/GAME/Game.cpp	high	loads a cel file from the data UI folder
+0x004523A0	sub_004523A0_FormatRangeText	SCMD_FormatRangeText	inferred	Source/D2Client/GAME/SCmd.cpp	medium	formats a text with two numbers into a Unicode buffer
+0x0045E2D0	sub_0045E2D0_Packet48	SCMD_HandleRefreshItemsRecord	inferred	Source/D2Client/GAME/SCmd.cpp	medium	packet handler: copies the item record and refreshes the unit's items from it; next to SCMD_HandleRefreshItems; in data_plan.json
+0x00466DC0	sub_00466DC0	SELECT_GetHoverMonClassId	inferred	Source/D2Client/GAME/Select.cpp	high	returns the hovered monster's class id
+0x00466DE0	sub_00466DE0_SetHoverUnit	SELECT_SetHoverUnit	inferred	Source/D2Client/GAME/Select.cpp	high	sets the hovered unit and its hover text unless hover is locked
+0x00466FE0	sub_00466FE0	SELECT_ClearSelection	inferred	Source/D2Client/GAME/Select.cpp	high	clears the hover lock and the selected unit
+0x00466FF0	sub_00466FF0	SELECT_UnlockHover	inferred	Source/D2Client/GAME/Select.cpp	high	clears the hover lock
+0x00467000	sub_00467000_CheckWarpTileHover	SELECT_CheckWarpTileHover	inferred	Source/D2Client/GAME/Select.cpp	high	tells whether the moving player holding the button is over a warp tile, throttled by the interact deadline
+0x004670A0	sub_004670A0_AdjustCursorPerspective	SELECT_AdjustCursorPerspective	inferred	Source/D2Client/GAME/Select.cpp	high	adjusts cursor coordinates for perspective mode and the screen offset
+0x00467130	sub_00467130_GetHoverCursorPos	SELECT_GetHoverCursorPos	inferred	Source/D2Client/GAME/Select.cpp	high	returns the cursor position to test for hover in the current mode
+0x00467250	sub_00467250_CheckDoorSideA	SELECT_CheckDoorSideA	inferred	Source/D2Client/GAME/Select.cpp	medium	door-side test used when choosing between overlapping hover candidates (first of two variants)
+0x00467310	sub_00467310_CheckDoorSideB	SELECT_CheckDoorSideB	inferred	Source/D2Client/GAME/Select.cpp	medium	door-side test used when choosing between overlapping hover candidates (second variant, uses the object's Objects.txt record)
+0x004673C0	sub_004673C0_GetDistanceSquared	SELECT_GetDistanceSquared	inferred	Source/D2Client/GAME/Select.cpp	high	squared distance between two units' client coordinates
+0x00467430	sub_00467430_SetSelectionRect	SELECT_SetSelectionRect	inferred	Source/D2Client/GAME/Select.cpp	high	sets or clears the selection rectangle; (also spelled sub_00467430)
+0x00467470	sub_00467470_UnitFindTest	SELECT_IsMetalItemUnit	inferred	Source/D2Client/GAME/Select.cpp	medium	unit-find test: the unit is an item of a metal item type
+0x00467640	sub_00467640_UnitIsOfTypeMonster	SELECT_IsMonsterUnit	inferred	Source/D2Client/GAME/Select.cpp	high	unit-find test: the unit is a monster; (also spelled sub_00467640_UnitFindTest)
+0x00467660	sub_00467660_FindAdjacentTarget	SELECT_FindAdjacentTarget	inferred	Source/D2Client/GAME/Select.cpp	high	finds a target in the five cells ahead of the unit's direction; (also spelled sub_807B_Emit_00467660)
+0x004677B0	sub_004677B0_FindFreeTargetCoords	SELECT_FindFreeTargetCoords	inferred	Source/D2Client/GAME/Select.cpp	medium	finds free coordinates near a unit or point for a skill target
+0x00467880	sub_00467880_GetSkillTarget	SELECT_GetSkillTarget	inferred	Source/D2Client/GAME/Select.cpp	high	returns the target unit for a skill (dead players, corpses, adjacent targets…); (also spelled sub_00467880_FindSkillTarget)
+0x00467A00	sub_00467A00	SELECT_ResetHoverClassIds	inferred	Source/D2Client/GAME/Select.cpp	medium	sets the hovered monster and unit class ids back to 0x13
+0x00467A10	sub_00467A10	SELECT_GetSelectedUnit	inferred	Source/D2Client/GAME/Select.cpp	high	returns the selected unit if it still exists and is selectable, else clears the selection
+0x00467A70	sub_00467A70_RefreshHoverUnit	SELECT_RefreshHoverUnit	inferred	Source/D2Client/GAME/Select.cpp	high	re-applies the hover to a unit if selectable, else clears it; (also spelled sub_00467A70)
+0x00467AC0	sub_00467AC0_UpdateHoverUnit	SELECT_UpdateHoverUnit	inferred	Source/D2Client/GAME/Select.cpp	high	finds the unit under the cursor and sets it as the hovered unit; (also spelled sub_662F_Emit_00467AC0, sub_E01_Emit_00467AC0)
+0x0046B850	sub_0046B850_SpawnMissileAtObject182	VIEW_SpawnMissileNearObject	inferred	Source/D2Client/GAME/View.cpp	medium	spawns a missile at the nearest object of class 0x182 (or near the unit when there is none) and shows a hint
+0x00478350	sub_00478350_SendToServer	MSG_SendToServer	inferred	Source/D2Client/GAME/Msg.cpp	high	sends a client packet to the game server (asserts its size, throttles some commands)
+0x004785B0	sub_004785B0_SendPacket3	MSG_SendWord	inferred	Source/D2Client/GAME/Msg.cpp	high	sends a 3-byte packet: command and one word; MSG_SendHeaderOnly/MSG_SendTwoDwords are its neighbours
+0x004785D0	sub_004785D0_SendShortShort	MSG_SendTwoWords	inferred	Source/D2Client/GAME/Msg.cpp	high	sends a 5-byte packet: command and two words
+0x00478600	sub_00478600_SendShorts	MSG_SendThreeWords	inferred	Source/D2Client/GAME/Msg.cpp	high	sends a 7-byte packet: command and three words; (also spelled sub_00478600, sub_00478600_SendPacket)
+0x00478640	sub_00478640_SendShorts4	MSG_SendFourWords	inferred	Source/D2Client/GAME/Msg.cpp	high	sends a 9-byte packet: command and four words
+0x00478680	sub_00478680_SendPacket5	MSG_SendDword	inferred	Source/D2Client/GAME/Msg.cpp	high	sends a 5-byte packet: command and one dword
+0x004786D0	sub_004786D0_SendDwords3	MSG_SendThreeDwords	inferred	Source/D2Client/GAME/Msg.cpp	high	sends a 13-byte packet: command and three dwords; (also spelled sub_004786D0_SendPacket)
+0x00478700	sub_00478700_SendCommand	MSG_SendFourDwords	inferred	Source/D2Client/GAME/Msg.cpp	high	sends a 17-byte packet: command and four dwords
+0x00478740	sub_00478740_SendPvpCommand	MSG_SendPvpCommand	inferred	Source/D2Client/GAME/Msg.cpp	high	sends packet 0x5D (relation command, unit id, flag)
+0x00478780	sub_00478780_SendPartyCommand	MSG_SendPartyCommand	inferred	Source/D2Client/GAME/Msg.cpp	high	sends packet 0x5E (party command, unit id)
+0x004787B0	sub_004787B0_SendStrings	MSG_SendStrings	inferred	Source/D2Client/GAME/Msg.cpp	medium	packs a 3-byte header and two strings into a packet and sends it
+0x00478830	sub_00478830_SendPacket66	MSG_SendWardenPacket	inferred	Source/D2Client/GAME/Msg.cpp	medium	sends packet 0x66 (length-prefixed payload) to the server
+0x00478D10	sub_00478D10_GetPetOwnerRelation	ROSTERPETS_GetPetOwnerRelation	inferred	Source/D2Client/GAME/RosterPets.cpp	medium	for a pet unit id, whether its owner is the player (else the owner's relation)
+0x00478D90	sub_00478D90_GetPetRelation	ROSTERPETS_GetPetRelation	inferred	Source/D2Client/GAME/RosterPets.cpp	medium	returns a pet's relation to the player by its PetType.txt record
+0x004945F0	sub_00494EB0	VIEW_DrawHelpShade	inferred	Source/D2Client/GAME/View.cpp	medium	shades the screen above the panel bar with the help shade colour
+0x004DCF70	sub_004DCF70_Inside	WALL2_IsInsideGrid	inferred	Source/D2Client/GAME/Wall2.cpp	medium	tells whether a subtile lies inside the context's square grid; (also spelled sub_004DCF70_Inside_inl)
+0x004DCFA0	sub_004DCFA0_AddUnit	WALL2_AddUnitNode	inferred	Source/D2Client/GAME/Wall2.cpp	high	adds a unit node to a cell's draw list
+0x004DD060	sub_004DD060_Occludes	WALL2_TileOccludes	inferred	Source/D2Client/GAME/Wall2.cpp	medium	tells whether a tile is in front of the player
+0x004DD180	sub_004DD180_AddWall	WALL2_AddWall	inferred	Source/D2Client/GAME/Wall2.cpp	high	adds a wall tile node to a cell's draw list
+0x004DD350	sub_004DD350_AddUpper	WALL2_AddUpperWall	inferred	Source/D2Client/GAME/Wall2.cpp	medium	adds an upper-wall tile node (types 16-19)
+0x004DD460	sub_004DD460_AddRoof	WALL2_AddRoof	inferred	Source/D2Client/GAME/Wall2.cpp	high	adds a roof tile node (type 15); (also spelled sub_004DD460_InsertSorted)
+0x004DD550	sub_004DD550_AddFloor	WALL2_AddFloor	inferred	Source/D2Client/GAME/Wall2.cpp	high	adds a floor tile node; (also spelled sub_004DD550_Emit)
+0x004DD600	sub_004DD600_AddSpecial	WALL2_AddSpecialUnit	inferred	Source/D2Client/GAME/Wall2.cpp	medium	adds a unit node for specially drawn units
+0x004DD6E0	sub_004DD6E0_AddOverlay	WALL2_AddOverlay	inferred	Source/D2Client/GAME/Wall2.cpp	high	adds a unit overlay node
+0x004DDB70	sub_004DDB70_PrepareWallCells	WALL2_PrepareWallCells	inferred	Source/D2Client/GAME/Wall2.cpp	high	resizes the wall cells and fills them from the rooms in view
+0x004DDE40	sub_004DDE40_IsPointInRect	WALL2_IsPointInRect	inferred	Source/D2Client/GAME/Wall2.cpp	high	tells whether a point lies in a grid rectangle; (also spelled sub_M131_Emit_004DDE40)
+0x004DDEC0	sub_004DDEC0_FillCells	WALL2_ClearGridCells	inferred	Source/D2Client/GAME/Wall2.cpp	medium	sets an 8x8 block of grid cells to 0xFF
+0x004DDEF0	sub_004DDEF0_BuildLargeGrid	WALL2_BuildLargeGrid	inferred	Source/D2Client/GAME/Wall2.cpp	medium	fills an 8x8 grid block, flat or from light
+0x004DDFD0	sub_004DDFD0_BuildSmallFlatGrid	WALL2_BuildSmallFlatGrid	inferred	Source/D2Client/GAME/Wall2.cpp	medium	fills a small grid block in flat mode, shifted by mode
+0x004DE190	sub_004DE190_BuildSmallGrid	WALL2_BuildSmallGrid	inferred	Source/D2Client/GAME/Wall2.cpp	medium	fills a small grid block from light, shifted by mode
+0x004DED10	sub_004DED10	WALL2_UpdateFloorView	inferred	Source/D2Client/GAME/Wall2.cpp	medium	updates the global floor tile view

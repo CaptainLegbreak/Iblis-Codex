@@ -1,0 +1,112 @@
+va	old_name	file	reason
+0x0042F6D0	sub_0042F6D0	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00437D10	sub_00437D10	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0043F840	sub_0043F840	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004473F0	sub_004473F0	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004476F0	sub_004476F0	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00447730	sub_00447730	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x00449CA0	sub_00449CA0	Source/D2Client/GAME/Game.cpp	returns a "MCP packet 0x0B received" flag; the packet's meaning is not known, and a name would need its number
+0x00449CB0	sub_00449CB0	Source/D2Client/GAME/Game.cpp	returns a "MCP packet 0x0C received" flag; the packet's meaning is not known, and a name would need its number
+0x00449D80	sub_00449D80	Source/D2Client/GAME/Game.cpp	returns a "MCP packet 0x0D received" flag; the packet's meaning is not known, and a name would need its number
+0x00449DA0	sub_00449DA0	Source/D2Client/GAME/Game.cpp	returns a "MCP packet 0x0F received" flag; the packet's meaning is not known, and a name would need its number
+0x00449E60	sub_00449E60	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044BDD0	sub_00416800_LinkRawNext	Source/D2Client/GAME/Game_0044E5A0.cpp	TSLink raw-next copy, defined in the source as DRLGPRESET_GetLinkRawNext; template member
+0x0044BDE0	sub_0044BDE0	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044BDF0	sub_0044BDF0_Set	Source/D2Client/GAME/Game.cpp	D2TickValueStrc member (set value and tick); member names, see the member-function question
+0x0044BE20	sub_0044BE20	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044C6A0	sub_0044C6A0_Nothing	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044CE70	sub_0044CE70	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044CE80	sub_0044CE80	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044D730	sub_0044D730_ApplyConfigNop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0044D740	sub_0044D740_ApplyConfigNop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0044D750	sub_0044D750_ApplyConfigNop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0044D7C0	sub_0044D7C0_ApplyConfigNop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0044D7F0	sub_0044D7F0_ApplyConfigNop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0044D800	sub_0044D800_ApplyConfigNop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0044D810	sub_0044D810_ApplyConfigNop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0044D820	sub_0044D820_ApplyConfigNop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0044D830	sub_0044D830_ApplyConfigNop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0044D880	sub_0044D880_ApplyConfigNop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0044D930	sub_0044D930_ApplyConfigNop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0044D940	sub_0044D940_ApplyConfigNop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0044D950	sub_0044D950_ApplyConfigNop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0044D980	sub_0044D980_ApplyConfigNop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0044D990	sub_0044D990_ApplyConfigNop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0044D9E0	sub_0044D9E0_ApplyConfigNop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0044DA90	sub_0044DA90	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0044DA90_GetTick)
+0x0044DAB0	sub_0044DAB0	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044DB00	sub_0044DB00	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044DB20	sub_0044DB20	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044DD90	sub_0044DD90_NextLink	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044DDC0	sub_0044DDC0_LinkNext	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044DDD0	~sub_0044DDD0	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0044DDD0)
+0x0044DE10	sub_0044DE10_At	Source/D2Client/GAME/Game.cpp	growable-array template member (element at index)
+0x0044DE30	sub_0044DE30_LinkNext	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044DE40	sub_0044DE40	Source/D2Client/GAME/Game.cpp	returns 4; purpose unknown
+0x0044DE50	sub_0044DE50	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044DE60	sub_0044DE60_NextLink	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044DE90	~sub_0044DE90	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0044DE90)
+0x0044DED0	sub_0060E280_AddLinkOffset	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044DEE0	sub_0044DEE0	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044DEF0	sub_0060E280_AddLinkOffset	Source/D2Client/GAME/Game_0044D080.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044DF00	sub_0044DF00_InitTerminator	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044DF10	D2Warden47F930Strc	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044DF20	sub_0044DF20_InitTerminator	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044DF30	sub_0044DF30_CalcChunkSize	Source/D2Client/GAME/Game.cpp	growable-array template member (chunk size); one copy per element type
+0x0044DF90	sub_0044DF90_CopyLinkOffset	Source/D2Client/GAME/Game.cpp	TSList member (copy link offset); template member
+0x0044DFB0	sub_0044DFB0_GetRemaining	Source/D2Client/GAME/Game.cpp	D2TickTimerStrc member (remaining time); member names, see the member-function question
+0x0044ECC0	~sub_0044ECC0	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0044ECC0)
+0x0044ED00	sub_0060E440_Head	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044ED10	sub_0060E440_Head	Source/D2Client/GAME/Game_0044D080.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044ED20	sub_0044ED20_Link	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044ED40	sub_0044ED40	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044ED50	~sub_0044ED50	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0044ED50)
+0x0044ED90	sub_0044ED90	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044EDA0	sub_0044EDA0_Link	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044EDC0	sub_0044EDC0_UnlinkNode	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044EE10	sub_0044EE10_InitLinkField	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044EE30	sub_0044EE30_InitLinkField	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044EE50	sub_0060E5F0_Reset	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044EE70	sub_0060E5F0_Reset	Source/D2Client/GAME/Game_0044D080.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044EE90	D2StormListAStrc	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol
+0x0044F820	~D2SGameDataStrc	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044F890	sub_0044F890_UnlinkNode	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044F980	sub_0044F980_ChangeLinkOffset	Source/D2Client/GAME/Game.cpp	TSList member (change link offset); template member
+0x0044FA00	sub_0044FA00_InternalClear	Source/D2Client/GAME/Game.cpp	TSHashTable InternalClear instance; template member
+0x0044FB80	D2StormListBStrc	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0044FD50	sub_0044FD50_DestroyGameData	Source/D2Client/GAME/Game.cpp	calls D2SGameDataStrc's destructor (destroy helper of the array template)
+0x004502A0	sub_004502A0_LinkNode	Source/D2Client/GAME/View.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00450680	sub_00450680_SetCount	Source/D2Client/GAME/View.cpp	growable-array template member (set count)
+0x00450870	D2Warden47F930Strc	Source/D2Client/GAME/View.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004508A0	sub_004508A0_LinkNode	Source/D2Client/GAME/View.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00450ED0	sub_00450ED0_New	Source/D2Client/GAME/Game.cpp	growable-array template member (new element)
+0x00451170	TSExportTableSimple	Source/D2Client/GAME/Game.cpp	TSExportTableSimple constructor; named by its class; in // build: symbol
+0x004511F0	TSExportTableSync	Source/D2Client/GAME/Game.cpp	TSExportTableSync constructor; named by its class; in // build: symbol
+0x00452070	sub_00452070_ClearBlock	Source/D2Client/GAME/Game.cpp	clears a 0x200-byte block and returns it: a record constructor body; named by its class
+0x00452160	sub_00452160_Nop	Source/D2Client/GAME/Game.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00452170	sub_00452170	Source/D2Client/GAME/Game.cpp	identity on a Unicode pointer (an inline conversion)
+0x0045BB30	sub_0045BB30_Link	Source/D2Client/GAME/View.cpp	client node-list member (link of a node); template-style list member
+0x0045BB50	sub_0045BB50_Next	Source/D2Client/GAME/View.cpp	client node-list member (next node); template-style list member
+0x0045BBE0	sub_0045BBE0_LinkNode	Source/D2Client/GAME/View.cpp	client node-list member (link node); template-style list member
+0x0045D0A0	sub_0045D0A0_UnitPacketNop	Source/D2Client/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0045D0B0	sub_0045D0B0_UnitPacketNop	Source/D2Client/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0045D0C0	sub_0045D0C0_UnitPacketNop	Source/D2Client/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0045D0D0	sub_0045D0D0_UnitPacketNop	Source/D2Client/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0045D0E0	sub_0045D0E0_UnitPacketNop	Source/D2Client/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0045D130	sub_0045D130_PacketNop	Source/D2Client/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0045D140	sub_0045D140_PacketNop	Source/D2Client/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0045D150	sub_0045D150_PacketNop	Source/D2Client/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0045E290	sub_0045E290_Packet45	Source/D2Client/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0045E3B0	sub_0045E3B0_Packet54	Source/D2Client/GAME/SCmd.cpp	packet handler that only calls an empty function; purpose unknown; in data_plan.json
+0x0045E6C0	sub_0045E6C0_Packet66	Source/D2Client/GAME/SCmd.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x004790F0	sub_004790F0	Source/D2Client/GAME/Roster.cpp	returns an unnamed field (0x10) of a roster pet by unit id
+0x0047A9E0	sub_0047A9E0_GetClientFlag40	Source/D2Client/GAME/Roster.cpp	tests client flag 0x40, whose meaning is unknown
+0x0047A9F0	sub_0047A9F0_GetClientFlag80	Source/D2Client/GAME/Roster.cpp	tests client flag 0x80, whose meaning is unknown
+0x0047AA00	sub_0047AA00_GetClientFlag200	Source/D2Client/GAME/Roster.cpp	tests client flag 0x200, whose meaning is unknown
+0x004DDDD0	D2ClearPairStrc	Source/D2Client/GAME/Wall2.cpp	constructor/destructor/operator; named by its class
+0x004DDDE0	sub_004DDDE0_Nop	Source/D2Client/GAME/Wall2.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004DE260	sub_004DE260	Source/D2Client/GAME/Wall2.cpp	fills grid cells from ambient light by mode and corners; differs from the Build*Grid siblings in a way not clear enough to name
+0x004DE410	sub_004DE410_ApplyUnitLight	Source/D2Client/GAME/Wall2.cpp	D2GridLightStrc member (apply a unit's light); member names, see the member-function question; (also spelled sub_004DE410_DrawFloorTile)
+0x004DE630	sub_004DE630_DrawTileAt	Source/D2Client/GAME/Wall2.cpp	D2FloorTileViewStrc member (draw a tile); member names, see the member-function question
+0x004DE6C0	sub_004DE6C0_DrawTileTriple	Source/D2Client/GAME/Wall2.cpp	D2FloorTileViewStrc member (draw three tiles); member names, see the member-function question
+0x004DE730	sub_004DE730_UpdateView	Source/D2Client/GAME/Wall2.cpp	D2FloorTileViewStrc member (update the view); member names, see the member-function question
