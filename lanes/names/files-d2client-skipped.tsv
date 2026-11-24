@@ -1,9 +1,4 @@
 placeholder	reason
-D2Client/Unknown_00450210.cpp	object map: best D2Client/Unknown_00450040.cpp (score 2; next to it); runner-up D2Client/GAME/View.cpp 2
-D2Client/Unknown_00450520.cpp	object map: best D2Client/Unknown_0044F9D0.cpp (score 2; next to it); runner-up D2Client/Unknown_00450550.cpp 2
-D2Client/Unknown_00450550.cpp	object map: best D2Client/GAME/Game.cpp (score 4, clear lead; next to it x2); runner-up D2Client/Unknown_00450520.cpp 2
-D2Client/Unknown_00450950.cpp	object map: best D2Client/GAME/Game.cpp (score 4, clear lead; next to it x2); runner-up D2Client/GAME/View.cpp 2
-D2Client/Unknown_00450D90.cpp	object map: best D2Client/Unknown_0044F9B0.cpp (score 9; next to it x3; data # (only these two use it); data #); runner-up D2Client/GAME/Game.cpp 5
 D2Client/Unknown_00451290.cpp	object map: best D2Client/CORE/WINMAIN.CPP (score 6, clear lead; # called only from it x2); runner-up D2Client/GAME/Game.cpp 2 | 1 of 4 function names carry RECORD_ (file D2Client/GAME/Record.cpp exists)
 D2Client/Unknown_00451E70.cpp	object map: best D2Client/UI/automap.cpp (score 4; next to it x2); runner-up D2Client/GAME/Game.cpp 4
 D2Client/Unknown_00452270.cpp	object map: best D2Client/UI/inv.cpp (score 2; next to it); runner-up D2Client/GAME/SCmd.cpp 2
@@ -27,15 +22,12 @@ D2Client/Unknown_0047CC90.cpp	object map: best D2Client/UI/ui.cpp (score 39; # c
 D2Client/Unknown_004804A0.cpp	object map: best D2Client/UNIT/UnitMode.cpp (score 2; next to it); runner-up D2Client/GAME/View.cpp 2
 D2Client/Unknown_004815A0.cpp	object map: best D2Client/UNIT/UnitMode.cpp (score 8; calls #, used only by the two x2; next to it); runner-up D2Client/Unknown_00481600.cpp 5
 D2Client/Unknown_00481600.cpp	object map: best D2Client/UNIT/UnitMode.cpp (score 6; calls #, used only by the two x2); runner-up D2Client/Unknown_004815A0.cpp 5
-D2Client/Unknown_00493CE0.cpp	object map: best D2Client/Unknown_00493E10.cpp (score 7; data # x5; next to it); runner-up D2Client/Unknown_00493B50.cpp 5
-D2Client/Unknown_00493E10.cpp	object map: best D2Client/UI/Hireables.cpp (score 12; calls #, used only by the two x4); runner-up D2Client/Unknown_00493B50.cpp 11
 D2Client/Unknown_0049B030.cpp	object map: best D2Client/GAME/Roster.cpp (score 12; calls #, used only by the two x4); runner-up D2Client/UI/Party.cpp 7 | language-table copy at 0x722414 starts its data, so it is an object of its own
 D2Client/Unknown_004A9BD0.cpp	object map: best D2Client/UNIT/Monster.cpp (score 10; next to it; sits between two runs of it); runner-up D2Client/UI/npcmenu.cpp 8
 D2Client/Unknown_004AA9C0.cpp	object map: best D2Client/UI/inv_0048DD90.cpp (score 23; data # x23); runner-up D2Client/Unknown_0045B5F0.cpp 21 | language-table copy at 0x724BB0 starts its data, so it is an object of its own
 D2Client/Unknown_004B6390.cpp	object map: best D2Client/UI/npcmenu.cpp (score 7, clear lead; calls #, used only by the two; data # (only these two use it); next to it); runner-up D2Client/Unknown_004A9BD0.cpp 3
 D2Client/Unknown_004B8720.cpp	object map: best D2Client/UI/inv.cpp (score 33; calls #, used only by the two x9; # called only from it x2); runner-up D2Client/UI/ui.cpp 21 | 3 of 24 function names carry MONSTER_ (file D2Client/UNIT/Monster.cpp exists)
 D2Client/Unknown_004BA890.cpp	object map: best D2Client/Sound/SoundInst.cpp (score 3; data #; next to it); runner-up D2Client/Unknown_004B82F0.cpp 2
-D2Client/Unknown_004BABF0.cpp	object map: best D2Client/UI/ui.cpp (score 3; # called only from it); runner-up D2Client/Unknown_004BA760.cpp 2
 D2Client/Unknown_004BBE10.cpp	object map: best D2Client/UI/ui.cpp (score 3; # called only from it); runner-up D2Client/UI/editbox.cpp 2 | 1 of 32 function names carry EDITBOX_ (file D2Client/UI/editbox.cpp exists)
 D2Client/Unknown_004BC1B0.cpp	object map: best D2Client/Unknown_004BC1B0_004BE770.cpp (score 16; calls #, used only by the two x4; next to it x2); runner-up D2Client/UI/text.cpp 10 | 1 of 45 function names carry TEXT_ (file D2Client/UI/text.cpp exists)
 D2Client/Unknown_004BC500.cpp	object map: best D2Client/Unknown_004BBE10.cpp (score 2; next to it); runner-up D2Client/UNIT/Object.cpp 2 | 1 of 1 function names carry OBJECTS_
@@ -50,15 +42,5 @@ D2Client/Unknown_004E12D0.cpp	object map: best D2Client/Unknown_004DF1C0.cpp (sc
 D2Client/Unknown_004E1320.cpp	object map: best D2Client/UNIT/Missile.cpp (score 3; calls #, used only by the two); runner-up D2Client/ENGINE/GfxUtil.cpp 2
 D2Client/Unknown_004E1770.cpp	object map: best D2Client/Unknown_004E12D0.cpp (score 2; next to it); runner-up D2Client/UNIT/Missile.cpp 2
 D2Client/Unknown_004E40A0.cpp	object map: best D2Client/ENGINE/GfxUtil.cpp (score 2; next to it); runner-up D2Client/UI/SkillDesc_004E1FF0.cpp 2
-D2Client/Unknown_004E4670.cpp	object map: best D2Client/UI/SkillDesc_004E1FF0.cpp (score 3; data #; next to it); runner-up D2Client/UI/text.cpp 2
-D2Client/Unknown_004E6E30.cpp	object map: best D2Client/UI/SkillDesc.cpp (score 5; # called only from it; next to it); runner-up D2Client/UI/SkillDesc_004E1FF0.cpp 3
-D2Client/Unknown_004E89A0.cpp	object map: best D2Client/UI/SkillDesc.cpp (score 6, clear lead; calls #, used only by the two; data #; next to it); runner-up D2Client/Unknown_004E2320.cpp 2
-D2Client/Unknown_004EDCA0.cpp	object map: best D2Client/UI/SkillDesc.cpp (score 3; calls #, used only by the two); runner-up D2Client/UI/SkillDesc_004F30A0.cpp 3
-D2Client/Unknown_004EDDD0.cpp	object map: best D2Client/UI/SkillDesc_004F30A0.cpp (score 5; # called only from it; next to it); runner-up D2Client/UI/spellsel.cpp 3
 D2Client/Unknown_004F0650.cpp	object map: best D2Client/Unknown_004EDA80.cpp (score 5, clear lead; calls #, used only by the two; next to it); runner-up D2Client/SKILLS/SkillsMon.cpp 2
-D2Client/Unknown_004F3FB0.cpp	object map: best D2Client/UI/SkillDesc_004E1FF0.cpp (score 2; next to it); runner-up D2Client/Unknown_004F4170.cpp 2
-D2Client/Unknown_004F4170.cpp	object map: best D2Client/Unknown_004F3FB0.cpp (score 2; next to it); runner-up D2Client/Unknown_004F42E0.cpp 2
-D2Client/Unknown_004F42E0.cpp	object map: best D2Client/Unknown_004F4170.cpp (score 2; next to it); runner-up D2Client/Unknown_004F4450.cpp 2
-D2Client/Unknown_004F4450.cpp	object map: best D2Client/Unknown_004F42E0.cpp (score 2; next to it); runner-up D2Client/Unknown_004F4590.cpp 2
-D2Client/Unknown_004F4590.cpp	object map: best D2Client/Unknown_004F4450.cpp (score 2; next to it); runner-up D2Client/SKILLS/SkillsMon.cpp 2
 D2Client/Unknown_006CB3E0.cpp	no path string, no assert lines, no language copy, no object-map lead, no name prefix, nothing in D2MOO
