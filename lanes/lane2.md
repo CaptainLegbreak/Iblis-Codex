@@ -4,16 +4,20 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane2/sets-txt 3d42f692 562->562 D2SetsTxt.h: one shared sets.txt record (0x128) instead of nine private copies (BnSend, inv, CUnit, ItemMods, Items, Unknown_005C2740 include it; text.cpp and ddDebugFont drop an unused copy); VERIFIED 36e2333234abc46b207e52806e0bf76ceecdb72a
-  - Verified on #301. Rebased onto #302 (e5714a07) right before the push; #302 touches none of the changed files, and precheck of the 8 changed units is equal on #302 (D2Client.h moved).
-  - Outside lane 2: private-copy removal and field renames in D2Client units (lanes 1 and 4), D2Common, D2Game (lane 5), D2BNClient and D2DDraw (lane 6).
-  - Its own header, not D2Records.h. Adding the record to D2Records.h flipped 6 of its 161 includers.
+- lane2/lang-names e7b077c1 562->562 D2LanguageNames.h: the 15-entry language-name table, defined once as a static array of non-const string pointers so each includer keeps its own .data copy; nothing includes it yet; VERIFIED 8645efc339552b4f7d4a99ae75ba23ed6f57aca9
+  - Verified on #305, rebased onto #306 (no Source overlap: the header is new and unincluded).
+  - Tested locally on a3q7.cpp. I swapped its planned copy (0x00741578) in the generated .inc for `#include "D2LanguageNames.h"` at the same place: the full build stayed identical. So the static is emitted unread, its pointers land on the shared literals at 0x006CC77C-0x006CC81C, and the copy sits where the include sits in definition order.
+- lane2/party-row 4e40655f 562->562 D2ClientParty.h: the party panel row (0xD1, packed) and its button slot (0x20), shared, instead of seven private copies under the name D2RosterUnitStrc. The row becomes D2PartyRowStrc, so the name no longer clashes with Gfx/Roster's real roster unit. The "aButtons" view 4 bytes in is the same slot fields; VERIFIED bebc4c9c9aa4b33896a2d3bfc7365b0280f59a6e
+  - Verified on #303, rebased onto #304. panel.cpp moved on #304 and precheck of the 7 units is still equal there.
+  - Outside lane 2: Party, panel and Unknown_0049AAF0/AF60/B030/B330/BB40 (lane 4). Renames and private-copy removal only. D2RosterButtonStrc in D2Client.h (lane 1) has no users left.
 
 ## Questions
 
 - The client's D2ClientNotifyStrc (D2ClientUi.h, used by GAME_GetClientNotify and its callers) is the same table, but I left it as a separate view. Any change to D2ClientUi.h flips gnScreenHeight/gnPanelOffsetY operand order in inv_0048BC10 and inv_0048DD90 (lane 4). Nothing natural I tried fixed it, about 60 combinations: where the include goes, how the gaps are written, where the declarations sit in D2Client.h, and using one name for 0x711470 in those units. Main's D2ClientUi.h keeps them equal. Should it stay a view until those units change for other reasons, or do you want the merge forced some other way?
 
 ## Notes for other lanes
+
+- All lanes, language-name copies: to turn a planned copy into the include, drop the copy's definition from build/data_plan.json and add `#include "D2LanguageNames.h"` to the unit. Put the include before the unit's other data definitions: a top-of-file include goes before everything in the gen/data .inc, which comes last. That only matches when the copy is the unit's first data. A copy in the middle or at the end of a planned file starts the next original unit, so split the file first. The header has `#pragma once`, so one file can hold only one copy through it. Fog's ErrorManager declares `extern const char* const gaszLanguageNames[]`; drop that when it takes the include.
 
 - Lanes 1 and 4: the 0x225 table, and the pointer the client keeps at 0x007A05F4, is D2ComInterfaceStrc (D2ComInterface.h). 0xC4 is `pfnClose`. D2ClientNotifyStrc is a temporary view of the same table.
 - Lane 1: 0x711470 has two names, `gnScreenHeight_00711470` in D2Client.h and `gnScreenHeight` declared privately in about 60 units. Left alone; your header.
