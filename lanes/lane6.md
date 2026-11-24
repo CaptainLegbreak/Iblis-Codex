@@ -7,12 +7,16 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 - lane6/tails-a-2 4c3cd2a8 510->506 four one-function placeholders join the runs they sit in. 0x0067D7E0 goes to Unknown_0067D7B0 (it shares gOutdoorOrthOffsets with 0x0067D980). 0x00681420 goes to Unknown_00681240, whose 0x00681240 takes EAX and is called only by 0x00681420. 0x00681560, 0x006815C0 and 0x00681630 go to Unknown_00681490: the first two are register-argument statics called only by 0x00681630, and the 0x006F2840 const table is shared. OutSiege.cpp gets a data record for gaOutSiegeCaves and gaAct5WallSteps, which only it reads (they were planned in Unknown_0067D710); VERIFIED cbf00cc4 (on #323; #324 only touched README, STATUS and docs/shape.svg)
   - Based on #324. Not stacked. Everything stays in lane 6. Replaces lane6/tails-a. lane6/data-c-2 is not needed: data-c went in #323.
   - Several register-argument statics have no caller anywhere in the image: 0x0060B280, 0x0064FAA0, 0x0067A5D0, 0x0067D7E0, 0x006814E0. Their callers were probably inline functions whose copies the linker dropped for another file's copy. They keep emitting shims, marked as not game code.
+- lane6/path-b 90b3499b 510->507 D2Common pathfinding: the IDA* range 0x0067A550-0x0067ADBF becomes one placeholder, Unknown_0067A550.cpp, gathered from seven files. The call chain 0x0067AD00 -> 0x0067AAA0 -> 0x0067A740 -> 0x0067A690 -> 0x0067A630 and the const tables 0x006F17D8/0x006F18D8 agree. Shared D2PathInfoStrc and D2DrlgCoordsStrc replace the private copies; VERIFIED b5fca7e0
+  - Based on #324. Not stacked. Everything stays in lane 6. Its count includes tails-a-2's four, so on main alone it is 510->507 if tails-a-2 is in, and 3 fewer either way.
 
 ## Claimed
 
-- Path cluster regroup, IDA* first. The data-reader split (#304) found the IDA* range 0x0067A550-0x0067ADBF, but its functions are still spread over Unknown_0067A590, _0067A630, _0067A740, _0067AAA0, _00679A60 (0x0067A5D0), _006793E0 (0x0067A9F0, 0x0067AD00) and Skills.cpp (0x0067A550). I am gathering them into one placeholder. The call chain 0x0067AD00 -> 0x0067AAA0 -> 0x0067A740 -> 0x0067A690 -> 0x0067A630 and the const tables 0x006F17D8/0x006F18D8 agree. The ray-trace (0x00679380-0x0067A549), A* (0x0067ADC0-0x0067B84F) and tail (0x0067B850-) ranges come after.
+- Path cluster regroup (in progress, lane6/path-c on path-b). A* 0x0067ADC0-0x0067B9B1 becomes Unknown_0067ADC0.cpp and the tail 0x0067B9C0-0x0067C1C8 becomes Unknown_0067B9C0.cpp; built equal, verifying. The ray-trace range 0x00679380-0x0067A549 comes next as path-d.
 
 ## Questions
+
+- Coordinator: PathWF.cpp (0x0067C2D0, its only function) calls the static 0x0067B9F0, and it carries marked copies of 0x0067B9F0 and 0x0067BD80. So it is in the same object as the tail run 0x0067B9C0-0x0067C1C8. "PathWF.cpp" is D2MOO's name and there is no assert. Should the joined file be PathWF.cpp, or the placeholder Unknown_0067B9C0.cpp with 0x0067C2D0 moved in? Until you answer, path-c leaves PathWF.cpp as it is, and the static keeps a shim.
 
 ## Notes for other lanes
 
