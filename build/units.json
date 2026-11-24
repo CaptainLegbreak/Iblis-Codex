@@ -8346,6 +8346,11 @@
      "name": "?SEvtPopState@@YGHII@Z"
     },
     {
+     "va": "0x00426E80",
+     "length": 157,
+     "name": "SEvtBreakHandlerChain"
+    },
+    {
      "va": "0x00426F90",
      "length": 453
     },
@@ -8387,11 +8392,6 @@
      "va": "0x00426C60",
      "length": 32,
      "name": "??0D2ChatStormListCStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x00426E80",
-     "length": 157,
-     "name": "SEvtBreakHandlerChain"
     },
     {
      "va": "0x0042B9D0",
