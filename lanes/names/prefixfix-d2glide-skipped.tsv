@@ -1,0 +1,9 @@
+va	old_name	file	reason
+0x00509210	GLIDE_GetBackBuffer	Source/D2Glide/Src/glCore.cpp	GLIDE prefix fits neither glCore.cpp nor its sourced names; GLCORE_GetBackBuffer is already taken
+0x00509B60	GLIDE_OpenSmackCutscene	Source/D2Glide/Src/glCore.cpp	GLIDE prefix fits neither glCore.cpp nor its sourced names; GLCORE_OpenSmackCutscene is already taken
+0x00511660	DDRAW_OpenSmackCutscene	Source/D2Glide/Src/glCore.cpp	DDRAW prefix fits neither glCore.cpp nor its sourced names; but DDRAW is mostly D2DDraw's prefix, so the function may be filed in the wrong module; left for the file owner
+0x00511970	DDRAW_GetBackBuffer	Source/D2Glide/Src/glCore.cpp	DDRAW prefix fits neither glCore.cpp nor its sourced names; but DDRAW is mostly D2DDraw's prefix, so the function may be filed in the wrong module; left for the file owner
+0x005123A0	DDRAW_CelDrawHilight	Source/D2Glide/Src/glCore.cpp	DDRAW prefix fits neither glCore.cpp nor its sourced names; but DDRAW is mostly D2DDraw's prefix, so the function may be filed in the wrong module; left for the file owner
+0x00518C10	BNCLIENT_GetInterfaceTable	Source/D2Glide/Src/glCore.cpp	BNCLIENT prefix fits neither glCore.cpp nor its sourced names; but BNCLIENT is mostly D2Game's prefix, so the function may be filed in the wrong module; left for the file owner
+0x0051A570	BNCLIENT_GetLogonType	Source/D2Glide/Src/glCore.cpp	BNCLIENT prefix fits neither glCore.cpp nor its sourced names; but BNCLIENT is mostly D2Game's prefix, so the function may be filed in the wrong module; left for the file owner
+0x0051CA70	BNCLIENT_IsSetEmailRequested	Source/D2Glide/Src/glCore.cpp	BNCLIENT prefix fits neither glCore.cpp nor its sourced names; but BNCLIENT is mostly D2Game's prefix, so the function may be filed in the wrong module; left for the file owner

@@ -1,0 +1,5 @@
+va	old_name	file	reason
+0x0050BEF0	GLIDE_DebugDraw	Source/D2DDraw/Src/ddCore.cpp	GLIDE prefix fits neither ddCore.cpp nor its sourced names; but GLIDE is mostly D2Glide's prefix, so the function may be filed in the wrong module; left for the file owner
+0x0050FD10	GLIDE_DrawVideoFrame	Source/D2DDraw/Src/ddCore.cpp	GLIDE prefix fits neither ddCore.cpp nor its sourced names; but GLIDE is mostly D2Glide's prefix, so the function may be filed in the wrong module; left for the file owner
+0x005126F0	DDRAW_DebugDraw	Source/D2DDraw/Src/ddCore.cpp	DDRAW prefix fits neither ddCore.cpp nor its sourced names; DDCORE_DebugDraw is already taken
+0x005136F0	DDRAW_DrawVideoFrame	Source/D2DDraw/Src/ddCore.cpp	DDRAW prefix fits neither ddCore.cpp nor its sourced names; DDCORE_DrawVideoFrame is already taken
