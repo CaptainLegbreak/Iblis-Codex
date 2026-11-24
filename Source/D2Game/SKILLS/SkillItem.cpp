@@ -2348,35 +2348,6 @@ int __fastcall SKILLS_SrvSt20_IronGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 
 int __fastcall SKILLS_SrvSt22_PsychicHammer(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D30F0
 
-// 0x005C72F0
-int __fastcall SKILLS_SrvDo118_Twister_Tornado(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    const int nMissileId = SKILLS_GetProgressiveSkillMissileId(pUnit, nSkillId);
-    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
-    }
-
-    const int nParam = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
-    if (nParam <= 0)
-    {
-        return 0;
-    }
-
-    return SKILLS_CreateMissileSpread(pGame, pUnit, nParam, nMissileId, nSkillId, nSkillLevel, 0);
-}
-
 static inline D2MonStatsTxt* GetMonStatsTxtRecord(int nId)
 {
     if (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount)
