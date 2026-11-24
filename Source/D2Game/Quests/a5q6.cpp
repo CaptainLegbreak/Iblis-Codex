@@ -971,4 +971,3 @@ void __fastcall ACT5Q6_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
     }
 }
 
-#include "gen/data/Source/D2Game/Quests/a5q6.inc"
