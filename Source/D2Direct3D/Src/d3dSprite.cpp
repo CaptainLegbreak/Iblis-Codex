@@ -55,10 +55,6 @@ extern void* gpSpriteBuffer; // 0x00970F34
 
 extern void* gpSpriteOutlineBuffer; // 0x00970F38
 
-extern void* gpVertexBuffer; // 0x00970F3C
-
-extern int gnVertexCount_00970F40; // 0x00970F40
-
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 extern D2D3DObjStrc* gapSpriteTextures[3]; // 0x00970F1C
@@ -79,21 +75,161 @@ int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 
 void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
-int __stdcall shim_7(D2CelStrc* pCel, int nWidth, int nHeight, int nMode, int* pArg1, int* pArg2);
-
-int __stdcall shim_6(int nOffsetX, int nOffsetY, int nTextureWidth, int* pX, int* pY, int* pArg3, int* pArg4, int* pArg5, int* pArg6);
-
 static int __stdcall sub_006B5C80_LoadCelInfo(D2CelContextStrc* pContext, D2SpriteInfoStrc* pInfo);
 
 static void __stdcall sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo);
 
-static __declspec(noinline) int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg1, int nArg2);
-
-static __declspec(noinline) int __stdcall sub_006B63F0_DrawTexture(D2SpriteInfoStrc* pInfo, int nX, int nY, int nArg3, int nArg4, int nArg5, int nArg6);
-
 void* gpSpriteBuffer; // 0x00970F34
 
 void* gpSpriteOutlineBuffer; // 0x00970F38
+
+#include "D2GfxTypes.h"
+#include "D2DDrawTypes.h"
+#include "D2ClientTypes.h"
+
+struct D2CelStrc;
+
+extern D2PaletteTableStrc* gpGlideState_007C9150; // 0x007C9150
+
+struct D2TexturePoolEntryStrc
+{
+    int unk0x00;
+    int* pSlots;
+    int nMode;
+    int nArg;
+    void* pTarget;
+    D2D3DTextureStrc* pTexture;
+    int unk0x18;
+    int unk0x1C;
+};
+
+struct D2TexturePoolStrc
+{
+    int nCount;
+    int unk0x04[5];
+    D2TexturePoolEntryStrc* pEntries;
+};
+
+typedef char check_desc_size[(sizeof(D2DDSurfaceDesc2Strc) == 0x7C) ? 1 : -1];
+
+typedef char check_pool_size[(sizeof(D2TexturePoolStrc) == 0x1C) ? 1 : -1];
+
+typedef char check_entry_size[(sizeof(D2TexturePoolEntryStrc) == 0x20) ? 1 : -1];
+
+extern "C" const char gszEmptyAssertText;                                                   // 0x006CC837
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                // 0x00681EF0
+
+
+void __stdcall CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
+
+void __fastcall D3D_BlitIndexedToHighColor(const unsigned char* pSource, unsigned short* pDest, int nWidth, int nHeight, int nPitch, int nUnused); // 0x006B1DC0
+
+void __fastcall D3D_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
+
+void __fastcall D3D_CopySurface(void* pTarget, D2DDSurfaceStrc* pSurface, int nRows); // 0x006B38A0
+
+void __fastcall sub_006BA760_TouchEntry(D2TexturePoolStrc* pPool, int nIndex); // 0x006BA760
+
+int __fastcall sub_006BA920_AllocEntry(D2TexturePoolStrc* pPool); // 0x006BA920
+
+extern unsigned int gnRenderFlags_0096F3A8; // 0x0096F3A8
+
+extern const unsigned int gnRenderFlag; // 0x006CE290
+
+extern D2TexturePoolStrc gaTexturePools[]; // 0x00970EAC
+
+extern D2D3DTextureStrc* gapTextures[]; // 0x00970F18
+
+extern D2DDSurfaceStrc* gapSurfaces_00970F24[]; // 0x00970F24
+
+extern unsigned char* gpBuffer_00970F34; // 0x00970F34
+
+extern unsigned char* gpBuffer_00970F38; // 0x00970F38
+
+extern "C" const char gszSetTextureFailed[]; // 0x006FC26C
+
+extern "C" const char gszFailedToUnlockMemorySurface[]; // 0x006FC284
+
+extern "C" const char gszFailedToLockMemorySurface[]; // 0x006FC2A4
+
+extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
+
+D2VertexBufferStrc* gpVertexBuffer;        // 0x00970F3C
+
+int gnPerspectiveScale;        // 0x00989748
+
+extern const char gszSpriteError[]; // 0x006FC238
+
+int __stdcall sub_006001F0(D2CelContextStrc* context, int a2, int a3); // 0x006001F0
+
+int __stdcall CelGetWidth(D2CelStrc* cel); // 0x006018C0
+
+int __stdcall CelGetHeight(D2CelStrc* cel); // 0x006018F0
+
+int __stdcall CelGetOffsetX(D2CelStrc* cel); // 0x00601920
+
+int __stdcall CelGetOffsetY(D2CelStrc* cel); // 0x00601950
+
+int* __stdcall sub_00601B10_GetCelTextureSlots(D2CelStrc* cel); // 0x00601B10
+
+void __fastcall D3D_SetColorCombineMode(int nState); // 0x006B1EA0
+
+void __fastcall D3D_SetTextureFilterMode(int nMode); // 0x006B2030
+
+void __fastcall sub_006B9780_SetColor(D2TLVertexStrc* pVertex, unsigned int nPacked, unsigned char nAlpha); // 0x006B9780
+
+int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
+
+static int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, unsigned char nColor); // 0x006B5D40
+
+static int __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette);
+
+struct D2TexLocationStrc
+{
+    int nCache;
+    int nIndex;
+};
+
+struct D2SpriteQuad006B61A0Strc
+{
+    int unk_00[3];
+    int nX;
+    int nHalf;
+    int nWidth;
+    int nHeight;
+    int unk_1C;
+    float fU0;
+    float fU1;
+    float fV0;
+    float fV1;
+};
+
+static void __stdcall sub_006B61A0_DrawQuad(int nOffsetX, int nOffsetY, unsigned char nAlpha, D2SpriteQuad006B61A0Strc* pQuad);
+
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
+
+int __stdcall CelGetHardwareData(D2CelStrc* pCel);                                                  // 0x00601B10
+
+void __fastcall sub_006B9860_Project(int nX, int nY, int nZ, int* pScreenX, int* pScreenY);                  // 0x006B9860
+
+extern int gnRenderWidth; // 0x007C9138
+
+extern int gnRenderHeight; // 0x007C913C
+
+void __fastcall sub_006BA760_Touch(int* pValue, int nValue); // 0x006BA760
+
+extern const char gszEmptyString[]; // 0x006CC837
+
+static int __stdcall sub_006B6D70_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, const D2BoundsStrc* pBounds, D2ClipStrc* pClip);
+
+int __cdecl sub_006B77A0_GetBlendedShadows(); // 0x006B77A0
+
+void __fastcall sub_006B6C90_DrawSpriteRows(D2CelContextStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nBlendMode);
+
+void __fastcall sub_006B6EE0_DrawSpriteClipped(D2CelContextStrc* pContext, int nX, int nY, const D2BoundsStrc* pBounds, int nBlendMode);
+
+static int gnVertexCount_00970F40; // 0x00970F40
 
 // 0x006B5B10
 void __cdecl D3D_ReleaseSprites()
@@ -201,6 +337,327 @@ done:
     pInfo->fV1 = 1.0f;
 }
 
+// 0x006B5D40
+static int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, int nArg3, unsigned char nColor)
+{
+    D2_ASSERT(ptInfo->pContext->pCel, 0x11E);
+    int* pSlots = sub_00601B10_GetCelTextureSlots(ptInfo->pContext->pCel);
+    const int nOrigMode = nMode;
+    if (nMode == 4)
+    {
+        nMode = 1;
+    }
+
+    D2TexLocationStrc* tLocation = &((D2TexLocationStrc*)pSlots)[nMode];
+    if (!tLocation->nCache)
+    {
+        if (ptInfo->nWidth <= 32 && ptInfo->nHeight <= 32)
+        {
+            tLocation->nCache = 3;
+        }
+        else if (ptInfo->nWidth <= 128 && ptInfo->nHeight <= 128)
+        {
+            tLocation->nCache = 2;
+        }
+        else if (ptInfo->nWidth <= 256 && ptInfo->nHeight <= 256)
+        {
+            tLocation->nCache = 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    D2TexturePoolStrc* pPool = &gaTexturePools[tLocation->nCache];
+    long hResult;
+    if (((D2TexLocationStrc*)pSlots)[nMode].nIndex && (pPool->pEntries[((D2TexLocationStrc*)pSlots)[nMode].nIndex - 1].nArg == nArg3 || nOrigMode == 4))
+    {
+        sub_006BA760_TouchEntry(pPool, tLocation->nIndex);
+        D2TexturePoolEntryStrc* pHit = &pPool->pEntries[tLocation->nIndex - 1];
+        hResult = gpDevice_00970E78->lpVtbl->SetTexture(gpDevice_00970E78, 0, pHit->pTexture);
+        if (hResult)
+        {
+            sub_006B39B0_ShowD3DError(gszSetTextureFailed, hResult);
+        }
+        return 1;
+    }
+
+    {
+    D2DDSurfaceStrc* pSurface = gapSurfaces_00970F24[tLocation->nCache];
+    D2D3DTextureStrc* pSource = gapTextures[tLocation->nCache];
+    if (!((D2TexLocationStrc*)pSlots)[nMode].nIndex)
+    {
+        tLocation->nIndex = sub_006BA920_AllocEntry(pPool);
+    }
+    D2_ASSERT(tLocation->nIndex - 1 >= 0, 0x164);
+    D2_ASSERT(tLocation->nIndex - 1 < pPool->nCount, 0x165);
+
+    unsigned char* pBuffer = gpBuffer_00970F34;
+    unsigned char* pData = gpBuffer_00970F34;
+    D2TexturePoolEntryStrc* pEntry = &pPool->pEntries[tLocation->nIndex - 1];
+    pEntry->pSlots = pSlots;
+    pEntry->nMode = nMode;
+    pEntry->nArg = nArg3;
+    D2_ASSERT(pEntry->pTarget, 0x16D);
+    D2_ASSERT(pEntry->pTexture, 0x16E);
+    D2_ASSERT(pBuffer, 0x171);
+    D2_ASSERT(ptInfo->nTexSize <= 0x10000, 0x172);
+    memset(pBuffer, 0, ptInfo->nTexSize);
+
+    switch (nMode)
+    {
+    case 1:
+    case 4:
+        CelDraw(ptInfo->pContext, -ptInfo->nOffsetX, ptInfo->nTexHeight - ptInfo->nOffsetY - 1, 0, 0, pBuffer,
+            ptInfo->nTexHeight, ptInfo->nTexWidth, 0, 0, nArg3);
+        break;
+
+    case 2:
+    {
+        CelDraw(ptInfo->pContext, -ptInfo->nOffsetX, ptInfo->nTexHeight - ptInfo->nOffsetY - 1, 0, 0, pBuffer,
+            ptInfo->nTexHeight, ptInfo->nTexWidth, 0, 0, nArg3);
+        unsigned char* pPixel = gpBuffer_00970F34;
+        unsigned char* pRemap = gpGlideState_007C9150->pRemap;
+        for (int i = 0; i < ptInfo->nTexSize; ++i)
+        {
+            if (*pPixel)
+            {
+                *pPixel = pRemap[*pPixel];
+            }
+            ++pPixel;
+        }
+        break;
+    }
+
+    case 3:
+    {
+        CelDraw(ptInfo->pContext, 1 - ptInfo->nOffsetX, ptInfo->nTexHeight - ptInfo->nOffsetY - 2, 0, 0, pBuffer,
+            ptInfo->nTexHeight, ptInfo->nTexWidth, 0, 0, 0);
+        unsigned char* pOutline = gpBuffer_00970F38;
+        D2_ASSERT(pOutline, 0x19A);
+        D2_ASSERT(ptInfo->nTexSize <= 0x10000, 0x19B);
+        memset(pOutline, 0, ptInfo->nTexSize);
+        unsigned char* pSrc = gpBuffer_00970F34 + ptInfo->nTexWidth;
+        unsigned char* pDst = pOutline + ptInfo->nTexWidth;
+        const int nPitch = ptInfo->nTexWidth;
+        const int nCount = ptInfo->nTexSize - 2 * nPitch;
+        for (int i = 0; i < nCount; ++i)
+        {
+            if (*pSrc++)
+            {
+                pDst[-ptInfo->nTexWidth] = nColor;
+                pDst[-1] = nColor;
+                pDst[1] = nColor;
+                pDst[ptInfo->nTexWidth] = nColor;
+            }
+            ++pDst;
+        }
+        pData = pOutline;
+        break;
+    }
+    }
+
+    D2_ASSERT(pSurface, 0x1B4);
+    D2_ASSERT(pSource, 0x1B5);
+
+    D2DDSurfaceDesc2Strc tDesc = { sizeof(tDesc) };
+    hResult = pSurface->lpVtbl->Lock(pSurface, 0, &tDesc, 0x21, 0);
+    if (hResult)
+    {
+        D3D_LogDDrawError(gszFailedToLockMemorySurface, hResult);
+    }
+    D2_ASSERT(tDesc.dwFlags & 8, 0x1C0);
+    D3D_BlitIndexedToHighColor(pData, (unsigned short*)tDesc.lpSurface, ptInfo->nTexWidth, ptInfo->nTexHeight, tDesc.lPitch >> 1,
+        ptInfo->nTexHeight);
+    hResult = pSurface->lpVtbl->Unlock(pSurface, 0);
+    if (hResult)
+    {
+        D3D_LogDDrawError(gszFailedToUnlockMemorySurface, hResult);
+    }
+
+    if (gnRenderFlags_0096F3A8 & gnRenderFlag)
+    {
+        D3D_CopySurface(pEntry->pTarget, pSurface, ptInfo->nTexHeight);
+    }
+    else
+    {
+        pEntry->pTexture->lpVtbl->Load(pEntry->pTexture, pSource);
+    }
+
+    hResult = gpDevice_00970E78->lpVtbl->SetTexture(gpDevice_00970E78, 0, pEntry->pTexture);
+    }
+    if (hResult)
+    {
+        sub_006B39B0_ShowD3DError(gszSetTextureFailed, hResult);
+    }
+    return 1;
+}
+
+// 0x006B61A0
+static void __stdcall sub_006B61A0_DrawQuad(int nOffsetX, int nOffsetY, unsigned char nAlpha, D2SpriteQuad006B61A0Strc* pQuad)
+{
+    float fU0 = pQuad->fU0;
+    float fU1 = pQuad->fU1;
+    float fV0 = pQuad->fV0;
+    float fV1 = pQuad->fV1;
+    int bPerspective = sub_006B9830_GetPerspective();
+
+    D2QuadRectStrc tRect;
+    tRect.nHeight = pQuad->nHeight >> 1;
+    pQuad->nHalf >>= 1;
+    tRect.nWidth = pQuad->nWidth;
+    tRect.nX = pQuad->nX + pQuad->nHalf;
+    tRect.nY = pQuad->nHalf - tRect.nHeight;
+
+    if (bPerspective && gnPerspectiveScale != 256)
+    {
+        tRect.nX = gnPerspectiveScale * tRect.nX / 256;
+        tRect.nY = gnPerspectiveScale * tRect.nY / 256;
+        tRect.nWidth = gnPerspectiveScale * tRect.nWidth / 256;
+        tRect.nHeight = gnPerspectiveScale * tRect.nHeight / 256;
+    }
+
+    int nX = tRect.nX + nOffsetX;
+    int nY = tRect.nY + nOffsetY;
+    int nWidth = tRect.nWidth;
+    int nHeight = tRect.nHeight;
+    float fTop = (float)nY;
+    float fBottom = (float)(nY + nHeight);
+
+    D2TLVertexStrc* pVertices;
+    if (gpVertexBuffer->lpVtbl->Lock(gpVertexBuffer, 0x21, (void**)&pVertices, 0))
+        return;
+
+    pVertices += gnVertexCount_00970F40;
+    int nLeft = nX - nHeight;
+    pVertices[0].fX = (float)nLeft;
+    pVertices[0].fY = fTop;
+    pVertices[0].fZ = 0.5f;
+    pVertices[0].fRhw = 1.0f;
+    pVertices[0].fU = fU0;
+    pVertices[0].fV = fV0;
+    pVertices[1].fX = (float)nX;
+    pVertices[1].fY = fBottom;
+    pVertices[1].fZ = 0.5f;
+    pVertices[1].fRhw = 1.0f;
+    pVertices[1].fU = fU0;
+    pVertices[1].fV = fV1;
+    pVertices[2].fX = (float)(nX + nWidth);
+    pVertices[2].fY = fBottom;
+    pVertices[2].fZ = 0.5f;
+    pVertices[2].fRhw = 1.0f;
+    pVertices[2].fU = fU1;
+    pVertices[2].fV = fV1;
+    pVertices[3].fX = (float)(nLeft + nWidth);
+    pVertices[3].fY = fTop;
+    pVertices[3].fZ = 0.5f;
+    pVertices[3].fRhw = 1.0f;
+    pVertices[3].fU = fU1;
+    pVertices[3].fV = fV0;
+    pVertices[0].dwColor = (unsigned int)nAlpha << 24;
+    pVertices[1].dwColor = pVertices[0].dwColor;
+    pVertices[2].dwColor = pVertices[1].dwColor;
+    pVertices[3].dwColor = pVertices[2].dwColor;
+
+    gpVertexBuffer->lpVtbl->Unlock(gpVertexBuffer);
+    gpDevice_00970E78->lpVtbl->DrawPrimitiveVB(gpDevice_00970E78, 6, gpVertexBuffer, gnVertexCount_00970F40, 4, 0x1C);
+
+    gnVertexCount_00970F40 += 4;
+    if (gnVertexCount_00970F40 > 0x2B)
+        gnVertexCount_00970F40 = 0;
+}
+
+// 0x006B63F0
+static int __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette)
+{
+    D3D_SetColorCombineMode(1);
+    D3D_SetTextureFilterMode(1);
+
+    D2QuadRectStrc tRect;
+    tRect.nX = pSprite->nOffsetX;
+    float fU0 = pSprite->fU0;
+    float fU1 = pSprite->fU1;
+    float fV0 = pSprite->fV0;
+    float fV1 = pSprite->fV1;
+
+    int bPerspective = sub_006B9830_GetPerspective();
+    tRect.nWidth = pSprite->nTexWidth;
+    tRect.nHeight = pSprite->nTexHeight;
+    tRect.nY = pSprite->nOffsetY - tRect.nHeight;
+    if (bPerspective && gnPerspectiveScale != 256)
+    {
+        tRect.nX = gnPerspectiveScale * tRect.nX / 256;
+        tRect.nY = gnPerspectiveScale * tRect.nY / 256;
+        tRect.nWidth = gnPerspectiveScale * tRect.nWidth / 256;
+        tRect.nHeight = gnPerspectiveScale * tRect.nHeight / 256;
+    }
+
+    int nLeft = tRect.nX + nX;
+    float fX0 = (float)nLeft;
+    float fX1 = (float)(nLeft + tRect.nWidth);
+    int nTop = tRect.nY + nY;
+    float fY0 = (float)nTop;
+    float fY1 = (float)(nTop + tRect.nHeight);
+
+    D2TLVertexStrc* pVertices;
+    const long hResult = gpVertexBuffer->lpVtbl->Lock(gpVertexBuffer, 0x21, (void**)&pVertices, 0);
+    if (hResult)
+    {
+        return hResult;
+    }
+
+    pVertices += gnVertexCount_00970F40;
+    if (!nPaletteIndex && !bPalette)
+    {
+        sub_006B9780_SetColor(pVertices, nColor, nAlpha);
+    }
+    else
+    {
+        pVertices->dwColor = (((unsigned int)nAlpha << 8 | gpGlideState_007C9150->pStandardColorsPalette[nPaletteIndex * 3]) << 8 | gpGlideState_007C9150->pStandardColorsPalette[nPaletteIndex * 3 + 1]) << 8 | gpGlideState_007C9150->pStandardColorsPalette[nPaletteIndex * 3 + 2];
+    }
+
+    pVertices[1].dwColor = pVertices[0].dwColor;
+    pVertices[2].dwColor = pVertices[1].dwColor;
+    pVertices[3].dwColor = pVertices[2].dwColor;
+
+    pVertices[0].fX = fX0;
+    pVertices[0].fY = fY0;
+    pVertices[0].fZ = 0.5f;
+    pVertices[0].fRhw = 1.0f;
+    pVertices[0].fU = fU0;
+    pVertices[0].fV = fV0;
+
+    pVertices[1].fX = fX0;
+    pVertices[1].fY = fY1;
+    pVertices[1].fZ = 0.5f;
+    pVertices[1].fRhw = 1.0f;
+    pVertices[1].fU = fU0;
+    pVertices[1].fV = fV1;
+
+    pVertices[2].fX = fX1;
+    pVertices[2].fY = fY1;
+    pVertices[2].fZ = 0.5f;
+    pVertices[2].fRhw = 1.0f;
+    pVertices[2].fU = fU1;
+    pVertices[2].fV = fV1;
+
+    pVertices[3].fX = fX1;
+    pVertices[3].fY = fY0;
+    pVertices[3].fZ = 0.5f;
+    pVertices[3].fRhw = 1.0f;
+    pVertices[3].fU = fU1;
+    pVertices[3].fV = fV0;
+
+    gpVertexBuffer->lpVtbl->Unlock(gpVertexBuffer);
+    gpDevice_00970E78->lpVtbl->DrawPrimitiveVB(gpDevice_00970E78, 6, gpVertexBuffer, gnVertexCount_00970F40, 4, 0x1C);
+    gnVertexCount_00970F40 += 4;
+    if (gnVertexCount_00970F40 > 43)
+    {
+        gnVertexCount_00970F40 = 0;
+    }
+}
+
 static
 // 0x006B6680
 unsigned char D3D_SetBlendAndAlpha(int mode)
@@ -231,11 +688,6 @@ unsigned char D3D_SetBlendAndAlpha(int mode)
     return alpha;
 }
 
-unsigned char __fastcall EmitSetBlendAndAlpha(int mode)
-{
-    return D3D_SetBlendAndAlpha(mode + 1);
-}
-
 // 0x006B6700
 static inline int D3D_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc* pRect)
 {
@@ -247,18 +699,378 @@ static inline int D3D_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc* pRect
     return 0;
 }
 
-// build: context sub_006B5D40_UploadTexture
-// calling-convention shim (not game code)
-static int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg1, int nArg2)
+// 0x006B6730
+int __fastcall sub_006B6730_DrawFlatSprite(D2CelContextStrc* pData, int nX, int nY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)
 {
-    return shim_7(pInfo->pContext->pCel, pInfo->nWidth, pInfo->nHeight, nMode == 4 ? 1 : nMode, &nArg1, &nArg2);
+	D2SpriteInfoStrc tInfo;
+	D2TLVertexStrc pVertices[4];
+	int nScreenX;
+	int nScreenY;
+
+	if (!sub_006B5C80_LoadCelInfo(pData, &tInfo))
+	{
+		return 0;
+	}
+
+	sub_006B5CF0_SetTextureSize(&tInfo);
+
+	const int nOffsetX = tInfo.nOffsetX << 11;
+	const int nOffsetY = tInfo.nOffsetY << 12;
+	nX += nOffsetY + nOffsetX;
+	nY += nOffsetY - nOffsetX;
+	const int nHeight = tInfo.nTexHeight << 12;
+	const int nWidth = tInfo.nTexWidth << 11;
+	const int nTopY = nY - nHeight;
+
+	sub_006B9860_Project(nX - nHeight, nTopY, 0, &nScreenX, &nScreenY);
+	pVertices[0].fX = (float)nScreenX;
+	pVertices[0].fY = (float)nScreenY;
+	pVertices[0].fZ = 0.5f;
+	pVertices[0].fRhw = 1.0f;
+	pVertices[0].fU = tInfo.fU0;
+	pVertices[0].fV = tInfo.fV0;
+
+	sub_006B9860_Project(nX, nY, 0, &nScreenX, &nScreenY);
+	pVertices[1].fX = (float)nScreenX;
+	pVertices[1].fY = (float)nScreenY;
+	pVertices[1].fZ = 0.5f;
+	pVertices[1].fRhw = 1.0f;
+	pVertices[1].fU = tInfo.fU0;
+	pVertices[1].fV = tInfo.fV1;
+
+	sub_006B9860_Project(nX + nWidth, nY - nWidth, 0, &nScreenX, &nScreenY);
+	pVertices[2].fX = (float)nScreenX;
+	pVertices[2].fY = (float)nScreenY;
+	pVertices[2].fZ = 0.5f;
+	pVertices[2].fRhw = 1.0f;
+	pVertices[2].fU = tInfo.fU1;
+	pVertices[2].fV = tInfo.fV1;
+
+	sub_006B9860_Project(nX + nWidth - nHeight, nTopY - nWidth, 0, &nScreenX, &nScreenY);
+	pVertices[3].fX = (float)nScreenX;
+	pVertices[3].fY = (float)nScreenY;
+	pVertices[3].fZ = 0.5f;
+	pVertices[3].fRhw = 1.0f;
+	pVertices[3].fU = tInfo.fU1;
+	pVertices[3].fV = tInfo.fV0;
+
+	switch (nScreenMode)
+	{
+	case 1:
+	{
+		const float fShift = (float)(gnRenderWidth / 4);
+		pVertices[0].fX -= fShift;
+		pVertices[1].fX -= fShift;
+		pVertices[2].fX -= fShift;
+		pVertices[3].fX -= fShift;
+		break;
+	}
+	case 2:
+	{
+		const float fShift = (float)(gnRenderWidth / 4);
+		pVertices[0].fX += fShift;
+		pVertices[1].fX += fShift;
+		pVertices[2].fX += fShift;
+		pVertices[3].fX += fShift;
+		break;
+	}
+	}
+
+	const int nScreenWidth = gnRenderWidth;
+	const int nScreenHeight = gnRenderHeight - 47;
+	if ((pVertices[0].fX >= 0.0f && pVertices[0].fX < nScreenWidth && pVertices[0].fY >= 0.0f && pVertices[0].fY < nScreenHeight)
+		|| (pVertices[1].fX >= 0.0f && pVertices[1].fX < nScreenWidth && pVertices[1].fY >= 0.0f && pVertices[1].fY < nScreenHeight)
+		|| (pVertices[2].fX >= 0.0f && pVertices[2].fX < nScreenWidth && pVertices[2].fY >= 0.0f && pVertices[2].fY < nScreenHeight)
+		|| (pVertices[3].fX >= 0.0f && pVertices[3].fX < nScreenWidth && pVertices[3].fY >= 0.0f && pVertices[3].fY < nScreenHeight))
+	{
+		const unsigned char nAlpha = D3D_SetBlendAndAlpha(eDrawMode);
+		if (!sub_006B5D40_UploadTexture(&tInfo, 1, (int)pPalette, 0))
+		{
+			return 1;
+		}
+
+		D3D_SetColorCombineMode(1);
+		D3D_SetTextureFilterMode(1);
+		sub_006B9780_SetColor(pVertices, dwGamma, nAlpha);
+		pVertices[1].dwColor = pVertices[0].dwColor;
+		pVertices[2].dwColor = pVertices[0].dwColor;
+		pVertices[3].dwColor = pVertices[0].dwColor;
+
+		D2TLVertexStrc* pLocked;
+		if (gpVertexBuffer->lpVtbl->Lock(gpVertexBuffer, 0x21, (void**)&pLocked, 0))
+		{
+			return 1;
+		}
+
+		pLocked += gnVertexCount_00970F40;
+		memcpy(pLocked, pVertices, sizeof(pVertices));
+		gpVertexBuffer->lpVtbl->Unlock(gpVertexBuffer);
+		gpD3DDevice_00970E78->lpVtbl->DrawPrimitiveVB(gpD3DDevice_00970E78, 6, gpVertexBuffer, gnVertexCount_00970F40, 4, 0x1C);
+
+		gnVertexCount_00970F40 += 4;
+		if (gnVertexCount_00970F40 > 43)
+		{
+			gnVertexCount_00970F40 = 0;
+			return 1;
+		}
+	}
+
+	return 1;
 }
 
-// build: context sub_006B63F0_DrawTexture
-// calling-convention shim (not game code)
-static int __stdcall sub_006B63F0_DrawTexture(D2SpriteInfoStrc* pInfo, int nX, int nY, int nArg3, int nArg4, int nArg5, int nArg6)
+// 0x006B6B40
+int __fastcall sub_006B6B40_DrawSprite(D2CelContextStrc* pContext, int nX, int nY, unsigned int nColor, int nBlendMode, int nArg)
 {
-    return shim_6(pInfo->nOffsetX, pInfo->nOffsetY, pInfo->nTexWidth, &nX, &nY, &nArg3, &nArg4, &nArg5, &nArg6);
+    D2SpriteInfoStrc tInfo;
+
+    if (!sub_006B5C80_LoadCelInfo(pContext, &tInfo))
+    {
+        return 0;
+    }
+
+    const int nLeft = nX + tInfo.nOffsetX;
+    if (nLeft > gnRenderWidth)
+        return 0;
+    if (nLeft + tInfo.nWidth < 0)
+        return 0;
+    const int nBottom = nY + tInfo.nOffsetY;
+    if (nBottom < 0)
+        return 0;
+    if (nBottom - tInfo.nHeight >= gnRenderHeight)
+        return 0;
+
+    sub_006B5CF0_SetTextureSize(&tInfo);
+    unsigned char nAlpha = D3D_SetBlendAndAlpha(nBlendMode);
+    if (nBlendMode == 7)
+    {
+        if (sub_006B5D40_UploadTexture(&tInfo, 2, nArg, 0))
+        {
+            sub_006B63F0_DrawQuad(&tInfo, nX, nY, nColor, 0, nAlpha, 0);
+        }
+    }
+    else
+    {
+        if (sub_006B5D40_UploadTexture(&tInfo, 1, nArg, 0))
+        {
+            sub_006B63F0_DrawQuad(&tInfo, nX, nY, nColor, 0, nAlpha, 0);
+        }
+    }
+    return 1;
+}
+
+static int D3D_IsOnScreen(D2SpriteInfoStrc* pInfo, int nX, int nY)
+{
+    nX += pInfo->nOffsetX;
+    if (nX > gnRenderWidth || nX + pInfo->nWidth < 0)
+    {
+        return 0;
+    }
+
+    nY += pInfo->nOffsetY;
+    if (nY < 0 || nY - pInfo->nHeight >= gnRenderHeight)
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
+// 0x006B6BF0
+int __fastcall sub_006B6BF0_DrawSprite(D2CelContextStrc* pContext, int nX, int nY, unsigned int nColor, int nBlendMode, int nPaletteIndex)
+{
+    D2SpriteInfoStrc tInfo;
+
+    if (!sub_006B5C80_LoadCelInfo(pContext, &tInfo))
+    {
+        return 0;
+    }
+
+    if (!D3D_IsOnScreen(&tInfo, nX, nY))
+    {
+        return 0;
+    }
+
+    sub_006B5CF0_SetTextureSize(&tInfo);
+    if (sub_006B5D40_UploadTexture(&tInfo, 1, 0, 0))
+    {
+        const unsigned char nAlpha = D3D_SetBlendAndAlpha(nBlendMode);
+        sub_006B63F0_DrawQuad(&tInfo, nX, nY, nColor, nPaletteIndex, nAlpha, 0);
+    }
+
+    return 1;
+}
+
+// 0x006B6C90
+void __fastcall sub_006B6C90_DrawSpriteRows(D2CelContextStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nBlendMode)
+{
+    D2SpriteInfoStrc tInfo;
+
+    unsigned char nAlpha = D3D_SetBlendAndAlpha(nBlendMode);
+    if (!sub_006B5C80_LoadCelInfo(pContext, &tInfo))
+    {
+        return;
+    }
+
+    sub_006B5CF0_SetTextureSize(&tInfo);
+    if (!sub_006B5D40_UploadTexture(&tInfo, 1, 0, 0))
+    {
+        return;
+    }
+
+    float fScale = 1.0f / (float)tInfo.nTexHeight;
+    int nTexHeight = tInfo.nTexHeight;
+    if (nSkip)
+    {
+        nY -= nSkip;
+        unsigned int nBottom = nTexHeight - nSkip;
+        tInfo.fV0 = (float)(nBottom - nRows) * fScale;
+        tInfo.fV1 = (float)nBottom * fScale;
+    }
+    else
+    {
+        tInfo.fV0 = (float)(nTexHeight - nRows) * fScale;
+    }
+
+    tInfo.nTexHeight = nRows;
+    sub_006B63F0_DrawQuad(&tInfo, nX, nY, 0xFFFFFFFF, 0, nAlpha, 0);
+}
+
+// 0x006B6D70
+int __stdcall sub_006B6D70_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, const D2BoundsStrc* pBounds, D2ClipStrc* pClip)
+{
+    nX += pInfo->nOffsetX;
+    int nWidth = pInfo->nWidth;
+    int nHeight = pInfo->nHeight;
+    nY += pInfo->nOffsetY;
+
+    pClip->nLeft = 0;
+    pClip->nWidth = nWidth;
+    pClip->nTop = 0;
+    pClip->nHeight = nHeight;
+
+    int nLeft = pBounds->nLeft > 0 ? pBounds->nLeft : 0;
+    int nRight = pBounds->nRight < gnRenderWidth ? pBounds->nRight : gnRenderWidth;
+    if (nLeft > nRight || nX >= nRight || nX + nWidth < nLeft)
+    {
+        return 1;
+    }
+
+    int nTop = pBounds->nTop + 2 > 0 ? pBounds->nTop + 2 : 0;
+    int nBottom = pBounds->nBottom < gnRenderHeight ? pBounds->nBottom : gnRenderHeight;
+    if (nTop > nBottom || nY < nTop || nY - nHeight > nBottom)
+    {
+        return 1;
+    }
+
+    if (nX >= nLeft)
+        pClip->nLeft = 0;
+    else
+        pClip->nLeft = nLeft - nX;
+
+    if (nX + nWidth < nRight)
+        pClip->nWidth = nWidth - pClip->nLeft;
+    else
+        pClip->nWidth = nRight - pClip->nLeft - nX;
+
+    if (nY <= nBottom)
+        pClip->nTop = 0;
+    else
+        pClip->nTop = nY - nBottom - 1;
+
+    if (nY - nHeight >= nTop)
+        pClip->nHeight = nHeight - pClip->nTop;
+    else
+        pClip->nHeight = nY - pClip->nTop - nTop + 1;
+
+    if (pClip->nHeight <= 0)
+    {
+        FOG_DisplayHalt(gszEmptyString, sub_00408090(), 1114);
+        exit(-1);
+    }
+    return 0;
+}
+
+// 0x006B6EE0
+void __fastcall sub_006B6EE0_DrawSpriteClipped(D2CelContextStrc* pContext, int nX, int nY, const D2BoundsStrc* pBounds, int nBlendMode)
+{
+    D2SpriteInfoStrc tInfo;
+    D2ClipStrc tClip;
+
+    unsigned char nAlpha = D3D_SetBlendAndAlpha(nBlendMode);
+    if (!sub_006B5C80_LoadCelInfo(pContext, &tInfo))
+    {
+        return;
+    }
+
+    sub_006B5CF0_SetTextureSize(&tInfo);
+    if (!sub_006B5D40_UploadTexture(&tInfo, 1, 0, 0))
+    {
+        return;
+    }
+
+    if (sub_006B6D70_ClipSprite(&tInfo, nX, nY, pBounds, &tClip))
+    {
+        return;
+    }
+
+    float fScaleV = 1.0f / (float)tInfo.nTexHeight;
+    float fScaleU = 1.0f / (float)tInfo.nTexWidth;
+    if (tClip.nTop)
+    {
+        tInfo.fV0 = (float)(tInfo.nTexHeight - tClip.nHeight - tClip.nTop) * fScaleV;
+        nY -= tClip.nTop;
+        tInfo.fV1 = (float)(tInfo.nTexHeight - tClip.nTop) * fScaleV;
+    }
+    else
+    {
+        tInfo.fV0 = (float)(tInfo.nTexHeight - tClip.nHeight) * fScaleV;
+    }
+    tInfo.nTexHeight = tClip.nHeight;
+
+    if (tClip.nLeft)
+    {
+        nX += tClip.nLeft;
+        tInfo.fU0 = (float)tClip.nLeft * fScaleU;
+        tInfo.fU1 = (float)(tClip.nLeft + tClip.nWidth) * fScaleU;
+    }
+    else
+    {
+        tInfo.fU1 = (float)tClip.nWidth * fScaleU;
+    }
+    tInfo.nTexWidth = tClip.nWidth;
+
+    sub_006B63F0_DrawQuad(&tInfo, nX, nY, 0xFFFFFFFF, 0, nAlpha, 0);
+}
+
+// 0x006B7000
+void __fastcall sub_006B7000_DrawSpriteShadow(D2CelContextStrc* pContext, int nX, int nY)
+{
+    D2SpriteInfoStrc tInfo;
+    unsigned char nAlpha = 255;
+
+    if (!sub_006B5C80_LoadCelInfo(pContext, &tInfo))
+    {
+        return;
+    }
+
+    sub_006B5CF0_SetTextureSize(&tInfo);
+    if (!sub_006B5D40_UploadTexture(&tInfo, 4, 0, 0))
+    {
+        return;
+    }
+
+    D3D_SetColorCombineMode(1);
+    if (sub_006B77A0_GetBlendedShadows())
+    {
+        D3D_SetAlphaBlendMode(4);
+        nAlpha = 192;
+    }
+    else
+    {
+        D3D_SetAlphaBlendMode(1);
+    }
+    D3D_SetTextureFilterMode(1);
+    sub_006B61A0_DrawQuad(nX, nY, nAlpha, (D2SpriteQuad006B61A0Strc*)&tInfo);
 }
 
 // 0x006B7090
@@ -276,7 +1088,7 @@ int __fastcall D3D_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, in
         nResult = sub_006B5D40_UploadTexture(&tInfo, 3, 0, nArg);
         if (nResult)
         {
-            nResult = sub_006B63F0_DrawTexture(&tInfo, nX - 1, nY + 1, -1, 0, 0x40, 1);
+            nResult = sub_006B63F0_DrawQuad(&tInfo, nX - 1, nY + 1, 0xFFFFFFFF, 0, 0x40, 1);
         }
     }
     return nResult;
@@ -322,7 +1134,7 @@ void __cdecl D3D_InitSprites()
     tDesc.dwCaps = 0x10800;
     tDesc.dwFVF = 0x1C4;
     tDesc.dwNumVertices = 0x30;
-    const long nResult = gpDirect3D_00970E64->lpVtbl->CreateVertexBuffer(gpDirect3D_00970E64, &tDesc, &gpVertexBuffer, 4, 0);
+    const long nResult = gpDirect3D_00970E64->lpVtbl->CreateVertexBuffer(gpDirect3D_00970E64, &tDesc, (void**)&gpVertexBuffer, 4, 0);
     if (nResult)
     {
         sub_006B39B0_ShowD3DError("CreateVertexBuffer failed!", nResult);
@@ -332,3 +1144,4 @@ void __cdecl D3D_InitSprites()
     gnVertexCount_00970F40 = 0;
     CelSetHardwareFreeCallback(D3D_ClearResourceEntries);
 }
+#include "gen/data/Source/D2Direct3D/Src/d3dSprite.inc"
