@@ -197,6 +197,12 @@ struct TSBaseArray
     unsigned int m_count;                                   // 0x04
     T* m_data;                                              // 0x08
 
+    TSBaseArray()
+    {
+        m_alloc = 0;
+        m_count = 0;
+        m_data = 0;
+    }
     unsigned int Count() const
     {
         return m_count;
