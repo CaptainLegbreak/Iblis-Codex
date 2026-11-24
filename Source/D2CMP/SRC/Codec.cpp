@@ -1,8 +1,18 @@
 #include "D2CMP.h"
+
 #include "D2CmpTypes.h"
+
 #include "D2CmpCache.h"
+
 #include "D2GameTypes.h"
+
 #include "D2CmpTiles.h"
+
+static int DccTestBit(const unsigned int* pBits, int nBit);
+
+static unsigned int __stdcall sub_0060B200_ReadBits(int nNumBits, D2CmpBitCursorStrc* pBitState);
+
+static int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt);
 
 struct D2CmpBitCursorStrc;
 
@@ -123,6 +133,415 @@ extern unsigned int gdwBitMasks_006CE268[];                                     
 
 void __stdcall sub_0060B9A0_DecodeStage1(D2DccDirStrc* pDir, D2DccCellStrc* pCells, D2CmpBitCursorStrc* pEqual, D2CmpBitCursorStrc* pMask, D2CmpBitCursorStrc* pEncoding, D2CmpBitCursorStrc* pRaw, D2CmpBitCursorStrc* pCode, D2CmpByteRunStrc* pRun, int* pnBitsUsed); // 0x0060B9A0
 
+static inline int DccGetBitPos(D2CmpBitCursorStrc* pCursor)
+{
+    return (int)(pCursor->pData - pCursor->pStart) * 32 + pCursor->nBitPos;
+}
+
+// 0x0060B200
+static unsigned int __stdcall sub_0060B200_ReadBits(int nNumBits, D2CmpBitCursorStrc* pBitState)
+{
+    if (!nNumBits)
+        return 0;
+
+    const int nRemain = 32 - pBitState->nBitPos;
+    unsigned int nBits;
+    if (nNumBits <= nRemain)
+    {
+        nBits = gData_006E6030[nNumBits] & (*pBitState->pData >> pBitState->nBitPos);
+        pBitState->nBitPos += nNumBits;
+        if (pBitState->nBitPos == 32)
+        {
+            ++pBitState->pData;
+            pBitState->nBitPos = 0;
+        }
+    }
+    else
+    {
+        nBits = gData_006E6030[nRemain] & (*pBitState->pData++ >> pBitState->nBitPos);
+        pBitState->nBitPos = nNumBits - nRemain;
+        nBits |= (gData_006E6030[pBitState->nBitPos] & *pBitState->pData) << nRemain;
+    }
+    return nBits;
+}
+
+extern unsigned int gaCodecBitWidthTable_006E5F70[48]; // 0x006E5F70
+
+extern unsigned int gaCodecSignExtendTable_006E60B8[32]; // 0x006E60B8
+
+static unsigned int __fastcall sub_0060B280_ReadBitsSigned(int nBitWidthCode, D2CmpBitCursorStrc* pBitState, int bSigned);
+
+// 0x0060B280
+static unsigned int __fastcall sub_0060B280_ReadBitsSigned(int nBitWidthCode, D2CmpBitCursorStrc* pBitState, int bSigned)
+{
+    const int nNumBits = gaCodecBitWidthTable_006E5F70[nBitWidthCode];
+    unsigned int nBitsRead = sub_0060B200_ReadBits(nNumBits, pBitState);
+    if (nNumBits && bSigned && (gaCodecBitWidthTable_006E5F70[nNumBits + 15] & nBitsRead))
+        nBitsRead |= gaCodecSignExtendTable_006E60B8[nNumBits];
+
+    return nBitsRead;
+}
+
+// build: context sub_0060B280_Shim
+// calling-convention shim (not game code)
+unsigned int __fastcall sub_0060B280_Shim(int nBitWidthCode, D2CmpBitCursorStrc* pBitState, int bSigned)
+{
+    return sub_0060B280_ReadBitsSigned(nBitWidthCode, pBitState, bSigned);
+}
+
+struct D2DccDirIndexStrc
+{
+    int nDir;
+};
+
+// 0x0060B2B0
+static int sub_0060B2B0_DccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
+{
+    pIt->nX += pIt->nStepX;
+    if (pIt->nX < pIt->nWidth)
+    {
+        pIt->nPixel += pIt->nStepX;
+        ++pIt->nCell;
+        pIt->nStepX = pIt->nX + 5 < pIt->nWidth ? 4 : pIt->nWidth - pIt->nX;
+        return 1;
+    }
+
+    pIt->nY += pIt->nStepY;
+    if (pIt->nY < pIt->nHeight)
+    {
+        const int nRemX = -(pIt->nX0 % 4);
+        pIt->nX = 0;
+        pIt->nStepX = nRemX + 5 < pIt->nWidth ? nRemX + 4 : pIt->nWidth;
+        pIt->nPixelRow += pIt->nCellsY * pIt->nStepY;
+        pIt->nPixel = pIt->nPixelRow;
+        pIt->nCellRow += pDir->nCellsPerRow;
+        pIt->nCell = pIt->nCellRow;
+        pIt->nStepY = pIt->nY + 5 < pIt->nHeight ? 4 : pIt->nHeight - pIt->nY;
+        return 1;
+    }
+
+    ++pIt->nFrame;
+    D2DccFrameStrc* pFrame = &pDir->pFrames[pIt->nFrame];
+    for (; pIt->nFrame < pDir->nFrames; ++pIt->nFrame, ++pFrame)
+    {
+        if (pFrame->nWidth && pFrame->nHeight)
+        {
+            pIt->nWidth = pFrame->nWidth;
+            pIt->nHeight = pFrame->nHeight;
+            pIt->nX0 = pFrame->nXOffset - pDir->nMinX;
+            pIt->nY0 = pFrame->nYOffset - pDir->nMinY - (pFrame->bBottomUp ? 0 : pFrame->nHeight);
+            pIt->nCellsX = pFrame->nCellsX;
+            pIt->nCellsY = pFrame->nCellsY;
+            pIt->nCellRow = pIt->nY0 / 4 * pDir->nCellsPerRow + pIt->nX0 / 4;
+            pIt->nCell = pIt->nCellRow;
+            pIt->nX = 0;
+            pIt->nY = 0;
+            pIt->nPixelRow = 0;
+            pIt->nPixel = 0;
+            const int nRemX = -(pIt->nX0 % 4);
+            const int nRemY = -(pIt->nY0 % 4);
+            pIt->nStepX = nRemX + 5 < pIt->nWidth ? nRemX + 4 : pIt->nWidth;
+            pIt->nStepY = nRemY + 5 < pIt->nHeight ? nRemY + 4 : pIt->nHeight;
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+// 0x0060B480
+static inline int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
+{
+    if (!pDir->nFrames)
+    {
+        return 0;
+    }
+    memset(pIt, 0, sizeof(*pIt));
+    pIt->nFrame = -1;
+    return sub_0060B2B0_DccNextCell(pDir, pIt);
+}
+
+// 0x0060B4B0
+static void sub_0060B4B0_DccCountCells(D2DccDirStrc* pDir)
+{
+    const int nCellsX = (pDir->nBoxWidth + 3) / 4;
+    const int nCellsY = (pDir->nBoxHeight + 3) / 4;
+    pDir->nCellsPerRow = nCellsX;
+    pDir->nCellsTotal = nCellsY * nCellsX;
+    pDir->nCells = 0;
+    if (pDir->nFrames)
+    {
+        D2DccIterStrc iter;
+        memset(&iter, 0, sizeof(iter));
+        iter.nFrame = -1;
+        if (sub_0060B2B0_DccNextCell(pDir, &iter))
+        {
+            do
+            {
+                ++pDir->nCells;
+            }
+            while (sub_0060B2B0_DccNextCell(pDir, &iter));
+        }
+    }
+}
+
+// 0x0060B530
+static void __stdcall sub_0060B530_DccInitDir(D2DccHeaderStrc* pHeader, D2DccFrameStrc* pFrames, D2DccDirStrc* pDir, D2DccDirIndexStrc tDirIndex)
+{
+    pDir->pHeader = pHeader;
+    pDir->pFrames = pFrames;
+    pDir->nFrames = pHeader->nFrames;
+    pDir->nDir = tDirIndex.nDir;
+
+    int nMinX = 0x7FFFFFFF;
+    int nMaxX = (int)0x80000000;
+    int nMinY = 0x7FFFFFFF;
+    int nMaxY = (int)0x80000000;
+
+    D2DccFrameStrc* pEnd = &pFrames[pDir->nFrames];
+    for (D2DccFrameStrc* pFrame = pFrames; pFrame < pEnd; ++pFrame)
+    {
+        int nX = pFrame->nXOffset;
+        int nY = pFrame->nYOffset - (pFrame->bBottomUp ? 0 : pFrame->nHeight);
+        if (nX < nMinX)
+        {
+            nMinX = nX;
+        }
+        if (nX + pFrame->nWidth > nMaxX)
+        {
+            nMaxX = nX + pFrame->nWidth;
+        }
+        if (nY < nMinY)
+        {
+            nMinY = nY;
+        }
+        if (nY + pFrame->nHeight > nMaxY)
+        {
+            nMaxY = nY + pFrame->nHeight;
+        }
+    }
+
+    pDir->nMinY = nMinY;
+    pDir->nMinX = nMinX;
+    pDir->nBoxWidth = nMaxX - nMinX;
+    pDir->nBoxHeight = nMaxY - nMinY;
+}
+
+struct D2CmpByteMapArgStrc
+{
+    D2CmpByteMapStrc* p;
+};
+
+// 0x0060B5F0
+static void __stdcall sub_0060B5F0_BuildColorMaps(D2CmpByteMapArgStrc tInverse, const unsigned char* pFlags, D2CmpByteMapStrc* pForward)
+{
+    int i;
+    int n;
+    for (i = 0, n = 0; i < 0x100; ++i)
+    {
+        if (pFlags[i])
+        {
+            pForward->ab[i] = (unsigned char)n;
+            tInverse.p->ab[n] = (unsigned char)i;
+            ++n;
+        }
+    }
+    pForward->nCount = 0x100;
+    tInverse.p->nCount = n;
+}
+
+// 0x0060B640
+static void __fastcall sub_0060B640_BuildColorMaps(D2CmpByteMapStrc* pForward, const unsigned int* pBits, D2CmpByteMapStrc* pInverse)
+{
+    unsigned char abFlags[0x100];
+    for (int i = 0; i < 0x100; ++i)
+    {
+        abFlags[i] = (pBits[i >> 5] & gdwBitMasks_006CE268[i & 0x1F]) != 0;
+    }
+    sub_0060B5F0_BuildColorMaps(*(D2CmpByteMapArgStrc*)&pInverse, abFlags, pForward);
+}
+
+// 0x0060B780
+static inline int sub_0060B780_GetRunBits(const unsigned char* pBytes)
+{
+    int nBits;
+    for (nBits = 0; (1 << nBits) + 1 <= 4 && pBytes[1 << nBits] != pBytes[(1 << nBits) - 1]; ++nBits)
+    {
+    }
+    return nBits;
+}
+
+// 0x0060B9A0
+void __stdcall sub_0060B9A0_DecodeStage1(D2DccDirStrc* pDir, D2DccCellStrc* pCells, D2CmpBitCursorStrc* pEqual, D2CmpBitCursorStrc* pMask, D2CmpBitCursorStrc* pEncoding, D2CmpBitCursorStrc* pRaw, D2CmpBitCursorStrc* pCode, D2CmpByteRunStrc* pRun, int* pnBitsUsed)
+{
+    D2DccIterStrc tIt;
+    unsigned char* pData = pRun->pData;
+    const int nStart = DccGetBitPos(pCode);
+    if (sub_0060B480_DccFirstCell(pDir, &tIt))
+    {
+        do
+        {
+            unsigned int dwMask = 0xF;
+            unsigned char* pPrev = pCells[tIt.nCell].pColors;
+            if (pPrev)
+            {
+                if (pEqual && sub_0060B200_ReadBits(1, pEqual))
+                {
+                    continue;
+                }
+                dwMask = sub_0060B200_ReadBits(4, pMask);
+            }
+
+            int bRaw = 0;
+            if (dwMask && pEncoding)
+            {
+                bRaw = sub_0060B200_ReadBits(1, pEncoding);
+            }
+
+            dwMask |= 0xFFFFFFF0;
+            int i = 4;
+            unsigned char nLast = 0;
+            while (i--)
+            {
+                if (DccTestBit(&dwMask, i))
+                {
+                    unsigned char nColor;
+                    if (bRaw)
+                    {
+                        nColor = (unsigned char)sub_0060B200_ReadBits(8, pRaw);
+                        pData[i] = nColor;
+                    }
+                    else
+                    {
+                        nColor = nLast;
+                        unsigned int nStep = 0xF;
+                        while (nStep == 0xF)
+                        {
+                            nStep = sub_0060B200_ReadBits(4, pCode);
+                            nColor += nStep;
+                        }
+                        pData[i] = nColor;
+                    }
+
+                    if (nLast == nColor)
+                    {
+                        int nSrc = i;
+                        int nDst = -1;
+                        for (;;)
+                        {
+                            ++nSrc;
+                            while (!DccTestBit(&dwMask, nSrc))
+                            {
+                                ++nSrc;
+                            }
+                            if (nSrc >= 4)
+                            {
+                                break;
+                            }
+                            ++nDst;
+                            while (!DccTestBit(&dwMask, nDst))
+                            {
+                                ++nDst;
+                            }
+                            pData[nDst] = pData[nSrc];
+                        }
+                        for (;;)
+                        {
+                            ++nDst;
+                            while (!DccTestBit(&dwMask, nDst))
+                            {
+                                ++nDst;
+                            }
+                            if (nDst >= 4)
+                            {
+                                break;
+                            }
+                            pData[nDst] = 0;
+                        }
+                        while (i--)
+                        {
+                            if (!DccTestBit(&dwMask, i))
+                            {
+                                pData[i] = pPrev[i];
+                            }
+                        }
+                        break;
+                    }
+                    nLast = nColor;
+                }
+                else
+                {
+                    pData[i] = pPrev[i];
+                }
+            }
+
+            pCells[tIt.nCell].pColors = pData;
+            pData += 4;
+        }
+        while (sub_0060B2B0_DccNextCell(pDir, &tIt));
+    }
+    *pnBitsUsed = DccGetBitPos(pCode) - nStart;
+    pRun->nCount = (int)(pData - pRun->pData);
+}
+
+// 0x0060BD90
+static inline void sub_0060BD90_RemapRun(D2CmpByteRunStrc* pRun, const unsigned char* pTable)
+{
+    for (int i = 0; i < pRun->nCount; ++i)
+    {
+        pRun->pData[i] = pTable[pRun->pData[i]];
+    }
+}
+
+// build: context sub_M123_Emit_0060BD90
+// emits the static RemapRun (not game code)
+void sub_M123_Emit_0060BD90(D2CmpByteRunStrc* pRun, const unsigned char* pTable)
+{
+    sub_0060BD90_RemapRun(pRun, pTable);
+}
+
+// 0x0060BDB0
+int __fastcall sub_0060BDB0_EncodeSprite(D2SpritePixelsStrc* sprite,D2SpriteCelStrc* cel,unsigned char* output)
+{
+ unsigned char* dest=output;
+ unsigned char* row=sprite->pixels;
+ int y;
+ int step=sprite->topDown?sprite->pitch:-sprite->pitch;
+ if(!sprite->topDown) row+=(sprite->height-1)*sprite->pitch;
+ for(y=0;y<sprite->height;) {
+  int x=0;
+  while(x<sprite->width) {
+   int start=x;
+   while(x<sprite->width && !row[x]) ++x;
+   if(x>=sprite->width) break;
+   if(x>start) do {
+    int count=x-start;
+    if(count>127) count=127;
+    *dest++=(unsigned char)(count|0x80);
+    start+=count;
+   } while(start<x);
+   start=x;
+   while(x<sprite->width && row[x]) ++x;
+   if(x>start) do {
+    int count=x-start;
+    if(count>127) count=127;
+    *dest++=(unsigned char)count;
+    sub_006829C0_Copy(dest,row+start,count);
+    dest+=count;
+    start+=count;
+   } while(start<x);
+  }
+  *dest++=0x80;
+  ++y;
+  row+=step;
+ }
+ if(dest!=(unsigned char*)cel+32+cel->dataSize) {
+  LOGMANAGER_WriteLogLine("Sprite Decompression Error");
+  return 0;
+ }
+ return 1;
+}
+
 // 0x0060BF20
 int __fastcall CodecLoadTileHeader(const char* szFile, D2CmpTileHeaderTargetStrc* pTarget)
 {
@@ -191,33 +610,6 @@ static inline unsigned int DccReadBits(D2CmpBitCursorStrc* pCursor, int nCount)
     return nValue;
 }
 
-static unsigned int __stdcall sub_0060B200_ReadBits(int nNumBits, D2CmpBitCursorStrc* pBitState)
-{
-    if (!nNumBits)
-        return 0;
-
-    const int nRemain = 32 - pBitState->nBitPos;
-    unsigned int nBits;
-    if (nNumBits <= nRemain)
-    {
-        nBits = gData_006E6030[nNumBits] & (*pBitState->pData >> pBitState->nBitPos);
-        pBitState->nBitPos += nNumBits;
-        if (pBitState->nBitPos == 32)
-        {
-            ++pBitState->pData;
-            pBitState->nBitPos = 0;
-        }
-    }
-    else
-    {
-        nBits = gData_006E6030[nRemain] & (*pBitState->pData++ >> pBitState->nBitPos);
-        pBitState->nBitPos = nNumBits - nRemain;
-        nBits |= (gData_006E6030[pBitState->nBitPos] & *pBitState->pData) << nRemain;
-    }
-
-    return nBits;
-}
-
 static inline int DccReadSigned(int nCount, D2CmpBitCursorStrc* pCursor)
 {
     int nValue = sub_0060B200_ReadBits(nCount, pCursor);
@@ -226,145 +618,6 @@ static inline int DccReadSigned(int nCount, D2CmpBitCursorStrc* pCursor)
         nValue |= gadwDccSignExtend[nCount];
     }
     return nValue;
-}
-
-static int sub_0060B2B0_DccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
-{
-    pIt->nX += pIt->nStepX;
-    if (pIt->nX < pIt->nWidth)
-    {
-        pIt->nPixel += pIt->nStepX;
-        ++pIt->nCell;
-        pIt->nStepX = pIt->nX + 5 < pIt->nWidth ? 4 : pIt->nWidth - pIt->nX;
-        return 1;
-    }
-
-    pIt->nY += pIt->nStepY;
-    if (pIt->nY < pIt->nHeight)
-    {
-        const int nRemX = -(pIt->nX0 % 4);
-        pIt->nX = 0;
-        pIt->nStepX = nRemX + 5 < pIt->nWidth ? nRemX + 4 : pIt->nWidth;
-        pIt->nPixelRow += pIt->nCellsY * pIt->nStepY;
-        pIt->nPixel = pIt->nPixelRow;
-        pIt->nCellRow += pDir->nCellsPerRow;
-        pIt->nCell = pIt->nCellRow;
-        pIt->nStepY = pIt->nY + 5 < pIt->nHeight ? 4 : pIt->nHeight - pIt->nY;
-        return 1;
-    }
-
-    ++pIt->nFrame;
-    D2DccFrameStrc* pFrame = &pDir->pFrames[pIt->nFrame];
-    for (; pIt->nFrame < pDir->nFrames; ++pIt->nFrame, ++pFrame)
-    {
-        if (pFrame->nWidth && pFrame->nHeight)
-        {
-            pIt->nWidth = pFrame->nWidth;
-            pIt->nHeight = pFrame->nHeight;
-            pIt->nX0 = pFrame->nXOffset - pDir->nMinX;
-            pIt->nY0 = pFrame->nYOffset - pDir->nMinY - (pFrame->bBottomUp ? 0 : pFrame->nHeight);
-            pIt->nCellsX = pFrame->nCellsX;
-            pIt->nCellsY = pFrame->nCellsY;
-            pIt->nCellRow = pIt->nY0 / 4 * pDir->nCellsPerRow + pIt->nX0 / 4;
-            pIt->nCell = pIt->nCellRow;
-            pIt->nX = 0;
-            pIt->nY = 0;
-            pIt->nPixelRow = 0;
-            pIt->nPixel = 0;
-            const int nRemX = -(pIt->nX0 % 4);
-            const int nRemY = -(pIt->nY0 % 4);
-            pIt->nStepX = nRemX + 5 < pIt->nWidth ? nRemX + 4 : pIt->nWidth;
-            pIt->nStepY = nRemY + 5 < pIt->nHeight ? nRemY + 4 : pIt->nHeight;
-            return 1;
-        }
-    }
-
-    return 0;
-}
-
-static inline int sub_0060B480_DccFirstCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt)
-{
-    if (!pDir->nFrames)
-    {
-        return 0;
-    }
-    memset(pIt, 0, sizeof(*pIt));
-    pIt->nFrame = -1;
-    return sub_0060B2B0_DccNextCell(pDir, pIt);
-}
-
-static void sub_0060B4B0_DccCountCells(D2DccDirStrc* pDir)
-{
-    const int nCellsX = (pDir->nBoxWidth + 3) / 4;
-    const int nCellsY = (pDir->nBoxHeight + 3) / 4;
-    pDir->nCellsPerRow = nCellsX;
-    pDir->nCellsTotal = nCellsY * nCellsX;
-    pDir->nCells = 0;
-    if (pDir->nFrames)
-    {
-        D2DccIterStrc iter;
-        memset(&iter, 0, sizeof(iter));
-        iter.nFrame = -1;
-        if (sub_0060B2B0_DccNextCell(pDir, &iter))
-        {
-            do
-            {
-                ++pDir->nCells;
-            }
-            while (sub_0060B2B0_DccNextCell(pDir, &iter));
-        }
-    }
-}
-
-// build: context sub_0060B530_DccInitDir
-static void __stdcall sub_0060B530_DccInitDir(D2DccHeaderStrc* pHeader, D2DccFrameStrc* pFrames, D2DccDirStrc* pDir, int nDir)
-{
-    pDir->pHeader = pHeader;
-    pDir->pFrames = pFrames;
-    pDir->nFrames = pHeader->nFrames;
-    pDir->nDir = nDir;
-
-    int nMinX = 0x7FFFFFFF;
-    int nMaxX = (int)0x80000000;
-    int nMinY = 0x7FFFFFFF;
-    int nMaxY = (int)0x80000000;
-    for (D2DccFrameStrc* pFrame = pFrames; pFrame < &pFrames[pHeader->nFrames]; ++pFrame)
-    {
-        int nX = pFrame->nXOffset;
-        int nY = pFrame->nYOffset - (pFrame->bBottomUp ? 0 : pFrame->nHeight);
-        if (nX < nMinX)
-        {
-            nMinX = nX;
-        }
-        nX += pFrame->nWidth;
-        if (nX > nMaxX)
-        {
-            nMaxX = nX;
-        }
-        if (nY < nMinY)
-        {
-            nMinY = nY;
-        }
-        nY += pFrame->nHeight;
-        if (nY > nMaxY)
-        {
-            nMaxY = nY;
-        }
-    }
-
-    pDir->nMinY = nMinY;
-    pDir->nBoxHeight = nMaxY - nMinY;
-    pDir->nMinX = nMinX;
-    pDir->nBoxWidth = nMaxX - nMinX;
-}
-
-static inline int sub_0060B780_GetRunBits(const unsigned char* pBytes)
-{
-    int nBits;
-    for (nBits = 0; (1 << nBits) + 1 <= 4 && pBytes[1 << nBits] != pBytes[(1 << nBits) - 1]; ++nBits)
-    {
-    }
-    return nBits;
 }
 
 // build: context sub_0060B7B0_DecodeCell
@@ -432,159 +685,9 @@ static void __stdcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pCursor, D2Cmp
     *ppRun += 4;
 }
 
-// build: context sub_0060B5F0_BuildColorMaps
-static inline void __stdcall sub_0060B5F0_BuildColorMaps(D2CmpByteMapStrc* pInverse, const unsigned char* pFlags, D2CmpByteMapStrc* pForward)
-{
-    int i;
-    int n;
-    for (i = 0, n = 0; i < 0x100; ++i)
-    {
-        if (pFlags[i])
-        {
-            pForward->ab[i] = (unsigned char)n;
-            pInverse->ab[n] = (unsigned char)i;
-            ++n;
-        }
-    }
-    pForward->nCount = 0x100;
-    pInverse->nCount = n;
-}
-
-static void __fastcall sub_0060B640_BuildColorMaps(D2CmpByteMapStrc* pForward, const unsigned int* pBits, D2CmpByteMapStrc* pInverse)
-{
-    unsigned char abFlags[0x100];
-    for (int i = 0; i < 0x100; ++i)
-    {
-        abFlags[i] = (pBits[i >> 5] & gdwBitMasks_006CE268[i & 0x1F]) != 0;
-    }
-    sub_0060B5F0_BuildColorMaps(pInverse, abFlags, pForward);
-}
-
 static inline int DccTestBit(const unsigned int* pBits, int nBit)
 {
     return pBits[nBit >> 5] & gdwBitMasks_006CE268[nBit & 0x1F];
-}
-
-// build: context sub_0060B9A0_DecodeStage1
-void __stdcall sub_0060B9A0_DecodeStage1(D2DccDirStrc* pDir, D2DccCellStrc* pCells, D2CmpBitCursorStrc* pEqual, D2CmpBitCursorStrc* pMask, D2CmpBitCursorStrc* pEncoding, D2CmpBitCursorStrc* pRaw, D2CmpBitCursorStrc* pCode, D2CmpByteRunStrc* pRun, int* pnBitsUsed)
-{
-    D2DccIterStrc tIt;
-    const int nStart = (int)(pCode->pData - pCode->pStart) * 32 + pCode->nBitPos;
-    unsigned char* pData = pRun->pData;
-    if (sub_0060B480_DccFirstCell(pDir, &tIt))
-    {
-        do
-        {
-            D2DccCellStrc* pCell = &pCells[tIt.nCell];
-            unsigned char* pPrev = pCell->pColors;
-            unsigned int nPixelMask = 0xF;
-            if (pPrev)
-            {
-                if (pEqual && sub_0060B200_ReadBits(1, pEqual))
-                {
-                    continue;
-                }
-                nPixelMask = DccReadBits(pMask, 4);
-            }
-
-            int bRaw = 0;
-            if (nPixelMask && pEncoding)
-            {
-                bRaw = sub_0060B200_ReadBits(1, pEncoding);
-            }
-
-            unsigned int dwMask = nPixelMask | 0xFFFFFFF0;
-            unsigned char nLast = 0;
-            int i = 4;
-            int bDone = 0;
-            do
-            {
-                --i;
-                if (DccTestBit(&dwMask, i))
-                {
-                    unsigned char nColor;
-                    if (bRaw)
-                    {
-                        nColor = (unsigned char)DccReadBits(pRaw, 8);
-                    }
-                    else
-                    {
-                        unsigned int nStep;
-                        nColor = nLast;
-                        do
-                        {
-                            nStep = DccReadBits(pCode, 4);
-                            nColor += (unsigned char)nStep;
-                        }
-                        while (nStep == 0xF);
-                    }
-                    pData[i] = nColor;
-                    if (nLast == nColor)
-                    {
-                        bDone = 1;
-                        break;
-                    }
-                    nLast = nColor;
-                }
-                else
-                {
-                    pData[i] = pPrev[i];
-                }
-            }
-            while (i);
-
-            if (bDone)
-            {
-                int nSrc = i;
-                int nDst = -1;
-                for (;;)
-                {
-                    do
-                    {
-                        ++nSrc;
-                    }
-                    while (!DccTestBit(&dwMask, nSrc));
-                    if (nSrc >= 4)
-                    {
-                        break;
-                    }
-                    do
-                    {
-                        ++nDst;
-                    }
-                    while (!DccTestBit(&dwMask, nDst));
-                    pData[nDst] = pData[nSrc];
-                }
-                for (;;)
-                {
-                    do
-                    {
-                        ++nDst;
-                    }
-                    while (!DccTestBit(&dwMask, nDst));
-                    if (nDst >= 4)
-                    {
-                        break;
-                    }
-                    pData[nDst] = 0;
-                }
-                while (i)
-                {
-                    --i;
-                    if (!DccTestBit(&dwMask, i))
-                    {
-                        pData[i] = pPrev[i];
-                    }
-                }
-            }
-
-            pCell->pColors = pData;
-            pData += 4;
-        }
-        while (sub_0060B2B0_DccNextCell(pDir, &tIt));
-    }
-    *pnBitsUsed = (int)(pCode->pData - pCode->pStart) * 32 - nStart + pCode->nBitPos;
-    pRun->nCount = (int)(pData - pRun->pData);
 }
 
 static inline const D2DccFileStrc* DccGetFile(unsigned int dwFile)
@@ -688,7 +791,7 @@ int __fastcall CodecDecodeDccData(unsigned char* pData, void* pMemPool, int nSiz
             tCursor.AdvanceBits(nOptSum * 8);
         }
 
-        sub_0060B530_DccInitDir(&tHeader, gatDccFrames, &tDir, nDir);
+        sub_0060B530_DccInitDir(&tHeader, gatDccFrames, &tDir, *(D2DccDirIndexStrc*)&nDir);
         sub_0060B4B0_DccCountCells(&tDir);
         memset(gatDccCells, 0, tDir.nCellsTotal * sizeof(D2DccCellStrc));
 
@@ -802,7 +905,5 @@ int __fastcall CodecDecodeDccData(unsigned char* pData, void* pMemPool, int nSiz
     LeaveCriticalSection(&gtCodecLock_008F03CC);
     return (int)pResult;
 }
-
-#include "gen/data/Source/D2CMP/Unknown_0060B200.inc"
 
 #include "gen/data/Source/D2CMP/SRC/Codec.inc"
