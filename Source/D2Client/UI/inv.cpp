@@ -1937,7 +1937,6 @@ static void INV_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor)
     }
 }
 
-// calling-convention shim (not game code)
 
 // 0x00483AE0
 static int INV_IsInTradeOtherGrid(int nX, int nY)

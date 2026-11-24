@@ -1313,11 +1313,6 @@ static int __stdcall sub_004815A0_TryUnitAction(D2UnitStrc* pUnit, D2UnitStrc* p
     return 1;
 }
 
-// calling-convention shim (not game code)
-int __stdcall sub_004812E0_Shim(D2UnitStrc* pUnit, int nAction, D2UnitStrc* pPlayer, int nArg2)
-{
-    return sub_004815A0_TryUnitAction(pUnit, pPlayer, 2, nArg2, nAction);
-}
 
 // 0x00481400
 static int __stdcall UNITMODE_ActOnPlayer(int nAction, int nType, int nId, D2UnitStrc* pPlayer, D2UnitStrc* pUnit)

@@ -101,8 +101,6 @@ static int GLSPRITE_InitTexInfo(D2CelContextStrc* pData, D2GlideTexInfoStrc* pIn
 
 static void GLSPRITE_SetupTexInfoSize(D2GlideTexInfoStrc* pInfo);             // 0x0050A2D0
 
-static int __declspec(noinline) __stdcall sub_0050A450_UploadSprite(D2GlideTexInfoStrc* pInfo, unsigned char* pPalette, int nArg2, int nArg3); // 0x0050A450
-
 static int __stdcall GLSPRITE_ClipSprite(D2GlideTexInfoStrc* pInfo, int nY, const D2BoundsStrc* pBounds, int nX, D2ClipStrc* pClip); // 0x0050B390
 
 typedef void (__fastcall* PixelDataFreeCallback)(void* pData);
@@ -619,14 +617,6 @@ static inline int GLSPRITE_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc* 
     return 0;
 }
 
-// calling-convention shim (not game code)
-static int __stdcall sub_0050A450_UploadSprite(D2GlideTexInfoStrc* pInfo, unsigned char* pPalette, int nArg2, int nArg3)
-{
-	int nResult = (int)CelGetHardwareData(pInfo->pContext->pCel);
-	pInfo->nTexSize = nResult;
-	return nResult + (int)pPalette + nArg2 + nArg3 + pInfo->nWidth;
-}
-
 // 0x0050ACC0
 int __fastcall GLSPRITE_CelFlatSpriteDraw(D2CelContextStrc* pData, int nX, int nY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)
 {
@@ -719,7 +709,7 @@ int __fastcall GLSPRITE_CelFlatSpriteDraw(D2CelContextStrc* pData, int nX, int n
 		|| (gGlideVertices_0087EFF8[2].x >= 0.0f && gGlideVertices_0087EFF8[2].x < nScreenWidth && gGlideVertices_0087EFF8[2].y >= 0.0f && gGlideVertices_0087EFF8[2].y < nScreenHeight)
 		|| (gGlideVertices_0087EFF8[3].x >= 0.0f && gGlideVertices_0087EFF8[3].x < nScreenWidth && gGlideVertices_0087EFF8[3].y >= 0.0f && gGlideVertices_0087EFF8[3].y < nScreenHeight))
 	{
-		if (!sub_0050A450_UploadSprite(&tInfo, pPalette, 0, 1))
+		if (!GLSPRITE_UploadTexInfo((int)pPalette, 0, 1, &tInfo))
 		{
 			return 1;
 		}

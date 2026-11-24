@@ -14,6 +14,8 @@
 #include "D2Path.h"
 #include "D2LevelIds.h"
 #include "D2ClientGfxState.h"
+#include "D2PlayerModes.h"
+#include "D2MonModes.h"
 
 struct D2UnitStrc;
 
@@ -423,6 +425,62 @@ void __fastcall GFX_ClearPendingAction(D2UnitStrc* pUnit)
     }
 }
 
+#define UNIT_TYPES_COUNT 6
+
+#define UNITFLAGEX_ISSHAPESHIFTED 0x00000008
+
+#define LINE_ENGINE_TYPE 242
+
+#define LINE_ENGINE_CLASS 278
+
+#define LINE_ENGINE_MODE 260
+
+static inline int UNITS_IsShapeshifted_Inline(D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        return (pUnit->dwFlagEx & UNITFLAGEX_ISSHAPESHIFTED) != 0;
+    }
+
+    return 0;
+}
+
+int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+
+unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
+
+// 0x0046C660
+int __fastcall sub_0046C660_FindCorpseCallback(D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2UnitStrc** ppTarget, int* pDistance)
+{
+    if (!pTarget)
+        return 0;
+
+    const int nType = pTarget->dwUnitType;
+    if (nType != UNIT_PLAYER && nType != UNIT_MONSTER)
+        return 0;
+
+    const int nMode = pTarget->dwAnimMode;
+    if (nType == UNIT_PLAYER)
+    {
+        if (nMode != PLRMODE_DEATH && nMode != PLRMODE_DEAD)
+            return 0;
+    }
+    else
+    {
+        if (nMode != MONMODE_DEATH && nMode != MONMODE_DEAD)
+            return 0;
+    }
+
+    const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
+    if (nDistance >= 3 && nDistance <= 25 && sub_006416D0_UnitEdgeDistance(pTarget, sub_00463DD0_GetPlayerUnit()) > 7 && SEED_RollLimitedRandomNumber(&pUnit->pSeed, 2))
+    {
+        *pDistance = nDistance;
+        *ppTarget = pTarget;
+    }
+
+    return 0;
+}
+
 // 0x0046C6E0
 void __fastcall GFX_AddAiTargetUnit(D2UnitStrc* pUnit)
 {
@@ -474,8 +532,6 @@ int* __fastcall MONSTER_GetAiValuePtr(D2UnitStrc* pUnit); // 0x004AE170
 void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pTarget); // 0x004AFF60
 
 void __fastcall CUNIT_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
-
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
@@ -625,8 +681,6 @@ void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet);         
 
 void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit);                                                // 0x004DA350
 
-unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
-
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster);                                                        // 0x0063EA40
 
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask);         // 0x00648C30
@@ -685,18 +739,20 @@ static inline void AI_SetTimer_Inline(D2UnitStrc* pUnit, int nTicks)
     }
 }
 
+// 0x0046C720
 static D2UnitStrc* __stdcall sub_0046C720_FindNearestTarget(D2UnitStrc* pUnit, int* pDistance)
 {
     D2UnitStrc* pNearest = 0;
-    for (int i = 0; i < 8; ++i)
+    D2UnitStrc** ppSlot = gapAiTargets;
+    for (int i = 0; i < 8; ++i, ++ppSlot)
     {
-        D2UnitStrc* pTarget = gapAiTargets[i];
+        D2UnitStrc* pTarget = *ppSlot;
         if (pTarget && pTarget->dwAnimMode && pTarget->dwAnimMode != 12)
         {
             const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
             if (nDistance < *pDistance)
             {
-                pNearest = gapAiTargets[i];
+                pNearest = *ppSlot;
                 *pDistance = nDistance;
             }
         }
@@ -1282,6 +1338,77 @@ void __fastcall sub_0046D780(D2UnitStrc* pUnit)
 }
 
 
+
+// 0x0046D9C0
+D2OverlayTxt* __fastcall sub_0046D9C0_GetTxtRecord(int nIndex)
+{
+    if (nIndex >= 0 && nIndex < sgptDataTables->nOverlayTxtRecordCount)
+    {
+        return &sgptDataTables->pOverlayTxt[nIndex];
+    }
+    return 0;
+}
+
+// 0x0046D9F0
+int __fastcall sub_0046D9F0_GetConvertedUnitType(D2UnitStrc* pUnit)
+{
+    if (pUnit && !UNITS_IsShapeshifted_Inline(pUnit))
+    {
+        return pUnit->dwUnitType;
+    }
+
+    if (!pUnit)
+    {
+        return UNIT_TYPES_COUNT;
+    }
+
+    int nType = pUnit->dwUnitType;
+    int nClass = pUnit->dwClassId;
+    int nMode = UNITS_GetAnimOrSeqMode(pUnit);
+    D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nMode, "d:\\diablo2\\Diablo2\\Source\\D2Client/Engine.h", LINE_ENGINE_TYPE);
+    return nType;
+}
+
+// 0x0046DA60
+int __fastcall sub_0046DA60_GetConvertedUnitMode(D2UnitStrc* pUnit)
+{
+    if (pUnit && !UNITS_IsShapeshifted_Inline(pUnit))
+    {
+    lDefault:
+        return UNITS_GetAnimOrSeqMode(pUnit);
+    }
+
+    if (!pUnit)
+    {
+        goto lDefault;
+    }
+
+    int nType = pUnit->dwUnitType;
+    int nClass = pUnit->dwClassId;
+    int nMode = UNITS_GetAnimOrSeqMode(pUnit);
+    D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nMode, "d:\\diablo2\\Diablo2\\Source\\D2Client/Engine.h", LINE_ENGINE_MODE);
+    return nMode;
+}
+
+// 0x0046DAC0
+int __fastcall sub_0046DAC0_GetConvertedClassId(D2UnitStrc* pUnit)
+{
+    if (pUnit && !UNITS_IsShapeshifted_Inline(pUnit))
+    {
+        return pUnit->dwClassId;
+    }
+
+    if (!pUnit)
+    {
+        return -1;
+    }
+
+    int nType = pUnit->dwUnitType;
+    int nClass = pUnit->dwClassId;
+    int nMode = UNITS_GetAnimOrSeqMode(pUnit);
+    D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nMode, "d:\\diablo2\\Diablo2\\Source\\D2Client/Engine.h", LINE_ENGINE_CLASS);
+    return nClass;
+}
 
 // 0x0046DB30
 D2InventoryStrc* __fastcall sub_0046DB30_GetCompInventory(D2UnitStrc* pUnit, int* pOut)
@@ -2665,11 +2792,6 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
 
 static D2WeatherStrc* gpWeatherParticles;                                                                   // 0x007A8A04
 
-// 0x004723F0
-int __cdecl sub_004723F0_GetPhase()
-{
-    return gnPhase;
-}
 
 struct D2WeatherSplashStrc;
 
@@ -2710,62 +2832,7 @@ static inline unsigned int sub_00472400_SeedStep(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-// 0x00472400
-void __cdecl sub_00472400_ResetPhaseState()
-{
-    int nLevelId = DUNGEON_GetLevelIdFromRoom(CUNIT_GetPlayerRoom());
-    D2SeedStrc* pSeed = &sub_00463DE0_GetPlayerUnit()->pSeed;
-
-    switch (nLevelId)
-    {
-    case LEVEL_HARROGATH:
-    case LEVEL_BLOODYFOOTHILLS:
-    case LEVEL_ID_ACT5_BARRICADE_1:
-    case LEVEL_ARREATPLATEAU:
-        gnBaseWindAngleMin = 42;
-// build: symbol ?gnWindAngleMin@* 0x007A89D8
-        gnWindAngleMin = 42;
-        gnBaseWindAngleMax = 170;
-// build: symbol ?gnWindAngleMax@* 0x007A8998
-        gnWindAngleMax = 170;
-// build: symbol ?gnPhaseLevel@* 0x007A89E0
-        gnPhaseLevel = gnPhaseMax = sub_00472280(pSeed, 0x20, 0x38);
-        return;
-
-    case LEVEL_TUNDRAWASTELANDS:
-        gnWindAngleMin = 170;
-        gnWindAngleMax = 56;
-        gnBaseWindAngleMin = 28;
-        gnBaseWindAngleMax = 56;
-        gnPhaseLevel = gnPhaseMax = sub_00472280(pSeed, 0x20, 0x70);
-        return;
-
-    case LEVEL_ROCKYSUMMIT:
-    case LEVEL_NIHLATHAKSTEMPLE:
-        gnWindAngleMin = 28;
-        gnWindAngleMax = 28;
-        gnBaseWindAngleMin = 28;
-        gnBaseWindAngleMax = 28;
-// build: symbol ?gnTargetAngle@* 0x007A89F8
-        gnTargetAngle = 28;
-// build: symbol ?gnWeatherAngle@* 0x007A89C4
-        gnWeatherAngle = 28;
-        gnPhaseMax = 0x100;
-        gnPhaseLevel = 0x100;
-        return;
-    }
-
-    gnPhaseLevel = gnPhaseMax;
-    if (!gbWeatherSplash)
-    {
-        sub_00472400_SeedStep(pSeed);
-        gbLightningEnabled = 0;
-    }
-    else
-    {
-        gbLightningEnabled = 0;
-    }
-}
+void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
 
 // 0x00472530
 static inline void sub_00472530_SetPhaseActive(int bValue)
@@ -2775,13 +2842,6 @@ static inline void sub_00472530_SetPhaseActive(int bValue)
         sub_00473D00_SetPhase(2);
 }
 
-// 0x00472550
-void __cdecl sub_00472550_ResetWeather()
-{
-// build: symbol ?DATAARRAYS_Reset@* 0x006BCAC0
-    DATAARRAYS_Reset(gpWeatherParticles);
-    D2_ASSERT(!gpWeatherParticles->nCount, 0x15B);
-}
 
 void __fastcall sub_M110_Emit_00472530(int bValue)
 {
@@ -2940,71 +3000,6 @@ static void sub_00473090_InitParticle(D2SeedStrc* pSeed)
 
 
 
-// 0x00473A70
-void __fastcall sub_00473A70(D2WeatherStrc* pWeather, D2WeatherLayerStateStrc* pState)
-{
-    const int bPerspective = D2GFX_CheckPerspective();
-    int nOffset = 0;
-    int nLeft = 0;
-    int nRight = gnScreenWidth;
-    int nBottom = gnScreenHeight - 47;
-    switch (sub_0045AE90())
-    {
-    case 1:
-    {
-        const int nQuarter = gnScreenWidth / 4;
-        nOffset = -nQuarter;
-        nRight -= nQuarter * 2;
-        break;
-    }
-    case 2:
-        nOffset = gnScreenWidth / 4;
-        nLeft = gnScreenWidth / 4 * 2;
-        break;
-    }
-
-    D2CelContextStrc tGfxData = {};
-    D2WeatherSplashStrc* pRecord = pWeather->pRecords;
-    for (int i = 0; i <= pWeather->nLastParticle; ++i, ++pRecord)
-    {
-        if (!pRecord->bActive)
-        {
-            continue;
-        }
-
-        if (bPerspective)
-        {
-            if (SCALE_CheckPerspectivePosition(pRecord->nX, pRecord->nY))
-            {
-                int nX;
-                int nY;
-                SCALE_AdjustPerspectivePosition(pRecord->nX, pRecord->nY, 0, &nX, &nY);
-                nX += nOffset;
-                if (nX >= nLeft && nX < nRight && nY >= 0 && nY < nBottom)
-                {
-                    tGfxData.pCellFile = pState->pCelFiles[pRecord->nType];
-                    tGfxData.nFrame = pRecord->nFrame;
-                    if (((D2CelDrawRetFn)&TEXTURE_CelDraw)(&tGfxData, nX, nY, -1, 3, 0))
-                    {
-                        continue;
-                    }
-                }
-            }
-            sub_006BCCD0_FreeDataArraySlot(pWeather, i << 16);
-        }
-        else
-        {
-            const int nX = pRecord->nX + nOffset;
-            const int nY = pRecord->nY;
-            if (nX >= nLeft && nX < nRight && nY >= 0 && nY < nBottom)
-            {
-                tGfxData.pCellFile = pState->pCelFiles[pRecord->nType];
-                tGfxData.nFrame = pRecord->nFrame;
-                TEXTURE_CelDraw(&tGfxData, nX, nY, -1, 3, 0);
-            }
-        }
-    }
-}
 
 
 
