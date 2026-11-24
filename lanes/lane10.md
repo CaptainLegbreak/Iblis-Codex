@@ -5,9 +5,10 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Claimed
-- D2CMP (next), then D2Common, the rest.
+- D2Common (next), then D2Launch, D2BNClient, D2Multi, D2Gfx, D2Sound, SRP, D2Direct3D and the rest.
 
 ## Plans
+- plan d2cmp: 12 high, 3 medium, 119 skipped (d2moo 0, inferred 15). D2CMP's own bare style (CodecDcc…, Palette…, SubTile…). Nearly all skips are template members, constructors and the 19-copy empty stub.
 - plan d2game: 77 high, 14 medium, 87 skipped (d2moo 49, inferred 42). All of D2Game in named files. The d2moo names come from D2MOO's own 1.14d address notes, each checked against the body; where D2MOO's name is already used for another address (TASK_ProcessGame, ACT2Q4_IsJerhynPalaceActivated, AIUTIL_FindTargetInAdjacentActiveRooms) I kept the existing one and named or skipped the other.
 - plan d2client-editbox: 0 high, 0 medium, 96 skipped. editbox.cpp holds only virtual members of the Button/EditBox/Spinner control classes (vtable slots, wrappers, ctors/dtors) plus identical forwarders; all wait on the member-function question. Only the skipped list is posted (no plan file).
 - plan d2client-ui: 60 high, 26 medium, 96 skipped (d2moo 0, inferred 86). D2Client UI/ except editbox.cpp (ui, automap, CmdTbl, inv, chat, Hireables, panel, text, spellsel, npcmenu, useitem, SkillDesc). Point-in-rect tests on unnamed rectangles, numbered panel-mode tests and near-identical callback pairs are skipped.

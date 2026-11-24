@@ -1,0 +1,16 @@
+va	old_name	new_name	source	file	confidence	reason
+0x00605880	sub_00605880_BuildTablesA	PaletteBuildAlphaTables	inferred	Source/D2CMP/SRC/FastCmp.cpp	high	builds the three alpha-blend lookup tables (alpha 0xBF, 0x7F, 0x3F) with GetClosestColor; FastCmp.cpp's Palette* names
+0x006059B0	sub_006059B0_BuildAdditiveTable	PaletteBuildAdditiveTable	inferred	Source/D2CMP/SRC/FastCmp.cpp	high	builds the saturating additive-blend lookup table; (also spelled sub_006059B0_BuildTable)
+0x0060B200	sub_0060B200_ReadBits	CodecReadBits	inferred	Source/D2CMP/SRC/Codec.cpp	high	reads n bits from a DCC bit cursor; (also spelled sub_0060B200)
+0x0060B280	sub_0060B280_ReadBitsSigned	CodecReadBitsSigned	inferred	Source/D2CMP/SRC/Codec.cpp	high	reads a bit-width-coded field, sign-extending when asked; (also spelled sub_0060B280_Shim, sub_Emit_0060B280)
+0x0060B2B0	sub_0060B2B0_DccNextCell	CodecDccNextCell	inferred	Source/D2CMP/SRC/Codec.cpp	high	advances a DCC cell iterator to the next 4x4 cell or frame
+0x0060B480	sub_0060B480_DccFirstCell	CodecDccFirstCell	inferred	Source/D2CMP/SRC/Codec.cpp	high	starts a DCC cell iterator at the first cell
+0x0060B4B0	sub_0060B4B0_DccCountCells	CodecDccCountCells	inferred	Source/D2CMP/SRC/Codec.cpp	high	computes a DCC direction's cell grid and counts its cells
+0x0060B530	sub_0060B530_DccInitDir	CodecDccInitDir	inferred	Source/D2CMP/SRC/Codec.cpp	high	sets up a DCC direction from its header and frames (bounding box…)
+0x0060B5F0	sub_0060B5F0_BuildColorMaps	CodecBuildColorMaps	inferred	Source/D2CMP/SRC/Codec.cpp	high	builds the forward and inverse colour maps from per-colour flags
+0x0060B640	sub_0060B640_BuildColorMaps	CodecBuildColorMapsFromBits	inferred	Source/D2CMP/SRC/Codec.cpp	high	expands a 256-bit colour mask to flags and builds the colour maps
+0x0060B780	sub_0060B780_GetRunBits	CodecGetRunBits	inferred	Source/D2CMP/SRC/Codec.cpp	medium	returns how many bits a cell's run of distinct pixel values needs
+0x0060B9A0	sub_0060B9A0_DecodeStage1	CodecDccDecodeCells	inferred	Source/D2CMP/SRC/Codec.cpp	medium	first DCC decoding pass over the cells (equal-cell, mask, encoding, raw and code streams)
+0x0060BD90	sub_0060BD90_RemapRun	CodecRemapRun	inferred	Source/D2CMP/SRC/Codec.cpp	high	remaps a byte run through a table; (also spelled sub_M123_Emit_0060BD90)
+0x0060BDB0	sub_0060BDB0_EncodeSprite	CodecEncodeSprite	inferred	Source/D2CMP/SRC/Codec.cpp	medium	run-length encodes a sprite's pixels into a cel frame; (also spelled sub_0060BDB0_EncodeFrame)
+0x0060DB60	sub_0060DB60_MapBlock	SubTileMapBlock	inferred	Source/D2CMP/SRC/SubTile.cpp	high	maps a 24-bit tile block's subtiles to 8-bit through a quantize function

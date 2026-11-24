@@ -1,0 +1,120 @@
+va	old_name	file	reason
+0x005FF390	sub_005FF390_Nop	Source/D2CMP/SRC/SpriteCache.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00600C60	sub_00600C60_CallFree	Source/D2CMP/SRC/CelCmp.cpp	forwards to a bit-scan helper (the hint says CallFree, the body does not); purpose unclear
+0x00601B40	sub_00601B40_Empty	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601B50	sub_00601B50_Empty	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601B60	sub_00601B60_LinkNext	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601B70	sub_00416800_LinkRawNext	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601BB0	sub_00601BB0	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601BC0	sub_00601BC0_NextLink	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601BF0	~sub_00601BF0	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00601BF0)
+0x00601C30	sub_00601C30_NextLink	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601C60	sub_00601C60_LinkNext	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601C70	~sub_00601C70	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00601C70)
+0x00601CC0	sub_00601CC0_At	Source/D2CMP/SRC/CelCmp.cpp	slot-array template member (element at index)
+0x00601CE0	sub_00601CE0_LinkNext	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601CF0	sub_00601CF0	Source/D2CMP/SRC/CelCmp.cpp	identity helper (returns its argument)
+0x00601D10	sub_00601D10	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601D20	sub_00601D20	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601D30	sub_00601D30_NextLink	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601D60	~sub_00601D60	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00601D60)
+0x00601DA0	sub_0060E280_AddLinkOffset	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601DB0	sub_00601DB0	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601DC0	sub_00601DC0_IsOpen	Source/D2CMP/SRC/CelCmp.cpp	record member (file is open); member names, see the member-function question; (also spelled R00601DC0)
+0x00601DD0	sub_00416800_LinkRawNext	Source/D2CMP/SRC/CelCmp_005FF2A0.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601DE0	sub_0060E280_AddLinkOffset	Source/D2CMP/SRC/CelCmp_005FF2A0.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601DF0	sub_00601DF0_InitTerminator	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601E00	D2Warden47F930Strc	Source/D2CMP/SRC/CelCmp.cpp	constructor/destructor/operator; named by its class
+0x00601E10	sub_00601E10_InitTerminator	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601E60	sub_00601E60_RoundUp	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601E80	sub_00601E80_InitCopy	Source/D2CMP/SRC/CelCmp.cpp	TSList copy-initialiser member; template member
+0x00601F00	sub_0060E440_Head	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601F10	sub_00601F10	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00601F20	~sub_00601F20	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00601F20)
+0x00601F60	~sub_00601F60	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00601F60)
+0x00602090	sub_00602090	Source/D2CMP/SRC/CelCmp.cpp	lock-guard member (leaves the critical section if acquired); member names
+0x006020B0	sub_0060E440_Head	Source/D2CMP/SRC/CelCmp_005FF2A0.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006020C0	sub_0060E440_Head	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_006020C0_Head)
+0x006020D0	~sub_006020D0	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_006020D0)
+0x00602110	sub_00602110_Link	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00602130	sub_00602130	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00602140	~sub_00602140	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00602140)
+0x00602180	sub_00602180	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00602280	sub_00602280_Link	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006022A0	sub_006022A0_UnlinkNode	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006022F0	sub_006022F0_InitLinkField	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00602310	sub_00602310_Next	Source/D2CMP/SRC/CelCmp.cpp	TSList Next member copy; template member
+0x00602350	sub_00602350_InitLinkField	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00602370	sub_0060E5F0_Reset	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00602390	sub_0060E5F0_Reset	Source/D2CMP/SRC/CelCmp_005FF2A0.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006023B0	D2StormListCStrc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006023E0	sub_006023E0_RawNext	Source/D2CMP/SRC/CelCmp.cpp	TSList RawNext member copy; template member
+0x00602420	sub_00602420	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00602430	??1D2StormHashObjectStrc@@QAE@XZ	Source/D2CMP/SRC/CelCmp.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??1D2StormHashObjectStrc@@QAE@XZ]; named by its template; in // build: symbol
+0x006024A0	~sub_006024A0	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_006024A0)
+0x00602590	sub_00602590_UnlinkNode	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00602710	D2ChatStormListCStrc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00602730	D2ChatStormListCStrc	Source/D2CMP/SRC/CelCmp_005FF2A0.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00602750	sub_00602750	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00602760	~sub_00602760	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00602760)
+0x006027A0	~D2StormNodeList006027A0Strc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006027E0	sub_006027E0_Delete	Source/D2CMP/SRC/CelCmp.cpp	TSHashTable Delete member instance; template member
+0x00602890	~D2StormSlotList00602890Strc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006028D0	~D2StormListE006028D0Strc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00602910	D2ChatStormListEStrc	Source/D2CMP/SRC/CelCmp.cpp	constructor/destructor/operator; named by its class
+0x00602930	D2StormList0044FB30Strc	Source/D2CMP/SRC/CelCmp.cpp	constructor/destructor/operator; named by its class
+0x00602950	sub_0044FB50_ConstructDeadList	Source/D2CMP/SRC/CelCmp.cpp	placement-new of a dead list: constructor wrapper
+0x00602980	D2StormListDStrc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00602AA0	~D2StormSlotList00602AA0Strc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol
+0x00602AE0	~D2StormListE00602AE0Strc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00602B20	~D2StormEntry00602B20Strc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00602BD0	sub_00602BD0	Source/D2CMP/SRC/CelCmp.cpp	placement copy-construct of a slot list: constructor wrapper
+0x00602DF0	~D2StormSlotList00602DF0Strc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00602EC0	~D2StormEntry00602EC0Strc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00603060	~D2StormSlotArrayStrc	Source/D2CMP/SRC/CelCmp.cpp	constructor/destructor/operator; named by its class; in // build: symbol
+0x00603140	~D2StormEntryArrayStrc	Source/D2CMP/SRC/CelCmp.cpp	constructor/destructor/operator; named by its class
+0x006031E0	sub_0051D690_Init	Source/D2CMP/SRC/CelCmp.cpp	record initialiser returning this: constructor-shaped
+0x00603240	~D2StormSlotGrowArrayStrc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol
+0x00603270	~D2StormEntryGrowArrayStrc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006032C0	~D2StormHashChunkStrc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00603500	sub_00603500_InitTerminator	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00603510	sub_0060E5F0_Reset	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00603510_Reset)
+0x00603530	D2Storm603530Strc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00603550	D2ChatStormListCStrc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00603570	D2Storm603570Strc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00603730	sub_00603730	Source/D2CMP/SRC/CelCmp.cpp	SlotArray scalar deleting destructor (destroy, then free): named by its class
+0x00603780	Destroy	Source/D2CMP/SRC/CelCmp.cpp	TSHashTable Destroy member (old name "Destroy", in // build: symbol and data_plan.json); member names, see the member-function question; in // build: symbol; in data_plan.json
+0x00603850	sub_00603850_SetCount	Source/D2CMP/SRC/CelCmp.cpp	slot-array template member (set count)
+0x00603E70	TSHashTableReuse	Source/D2CMP/SRC/CelCmp_00603E70.cpp	TSHashTableReuse constructor; named by its class; in // build: symbol
+0x00603ED0	sub_00603ED0_GetDifference	Source/D2CMP/SRC/CelCmp.cpp	record member (difference of two fields); member names
+0x00603F20	sub_00603F20_RoundUp	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00603F50	sub_00603F50_CopyLinkOffset	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00603F70	D2Storm603F70Strc	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00603F90	D2StormEntryListStrc	Source/D2CMP/SRC/CelCmp.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??0D2StormNodeListStrc@@QAE@ABU0@@Z]; named by its template; in // build: symbol
+0x006040B0	D2StormEntry38Strc	Source/D2CMP/SRC/CelCmp.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??0D2StormEntry38Strc@@QAE@ABU0@@Z]; named by its template; in // build: symbol; in data_plan.json
+0x00604730	TSExportTableSimple	Source/D2CMP/SRC/CelCmp_00604730.cpp	TSExportTableSimple constructor; named by its class; in // build: symbol
+0x00604810	TSExportTableSync	Source/D2CMP/SRC/CelCmp_00604730.cpp	TSExportTableSync constructor; named by its class; in // build: symbol
+0x0060AC50	sub_0060AC50_Nop	Source/D2CMP/SRC/GfxHash.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E0D0	sub_0060E0D0	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E0E0	sub_0060E0E0_At	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E100	sub_0060E100	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E110	sub_0060E110_At	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E170	sub_0060E170_NextLink	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E1B0	sub_0060E1B0	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E1C0	sub_0060E1C0_NextLink	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E1F0	sub_0060E1F0_SlotIndex	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E210	sub_0060E210_SlotIndex	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E290	sub_0060E290	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E2A0	sub_0060E2A0_CalcChunkSize	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E2E0	sub_0060E2E0_RoundUp	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E300	sub_0060E300_CalcChunkSize	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E340	sub_0060E340_RoundUp	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E370	sub_0060E370_CopyLinkOffset	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E390	sub_0060E390_CopyLinkOffset	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00611610	sub_00611610	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00611640	sub_00611640	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0066A210	sub_0066A210	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0066A220	sub_0066A220	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled DATATBLS_EmptyStub_0066A220, sub_0066A220_Stub)
+0x0066A230	sub_0066A230	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0066A240	sub_0066A240	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0066A250	sub_0066A250	Source/D2CMP/SRC/CelCmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled DATATBLS_EmptyStub_0066A250)
