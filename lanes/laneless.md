@@ -24,6 +24,35 @@ call stays the coordinator's. This section is replaced at each check.
 
 ## Status
 
+- 2026-11-24 14:53 PT: **Review of what landed on main from #352 to #368** (16 rounds, 566 files). From now
+  on the laneless chat reviews each round instead of keeping join branches; see the next item.
+  - **Rule checks pass:**
+    - no new `volatile` or `#pragma optimize`;
+    - no banned words anywhere in the tree;
+    - no workflow chatter in Source/, README.md, docs/ or STATUS.md;
+    - borrowed data down every round (1,114 -> 844 B).
+  - **Coordinator, one judgment to confirm:** 15 `__assume` uses now sit behind `STORM_ASSUME` and
+    `FOG_ASSUME` module macros (d0a47f83a), and status.py no longer counts a body that uses them as forcing.
+    So part of STATUS's drop from 43 to 38 is a change of counting, not a removal. That's fine if those
+    macros are believed to be the original's (release-build asserts and unreachable switch defaults).
+    If they're only a home for the construct, the count should still show them.
+  - **New `__forceinline` copies (net 218 -> 220):** lane 5's AiThink4.cpp split copied SKILLS_GetSkillsTxtRecord,
+    AI_RollPercentage_005F0CD0 and MONSTERS_ValidateMonsterIdInline into Unknown_005EFB80.cpp. Each is now in
+    two files: copies, not new constructs, but a header inline would serve both (lane 2's records work).
+    InitFaultHandlerListInline (lane 9's D2Hell join) replaced an older `__forceinline`, so it's not new.
+  - **104 functions moved across modules.** I spot-checked the biggest: the MCP connect object into
+    D2MCPClient; Storm SCMD.CPP's 13 stubs at 0x6C7A60-0x6C8A40, which are D2Gdi addresses, into gdiCore.cpp;
+    the end-of-.text static initializers in Storm placeholders into their D2Client owners. All are consistent
+    with the addresses.
+  - **Readability trend:**
+    - `sub_<addr>` names 25,413 -> 24,270;
+    - `_Shim` 60 -> 38;
+    - address-named types (`T00xxxxxx`) 156 -> 34;
+    - `unk0x` 2,830 -> 2,743;
+    - `goto` unchanged at 600 (worth a look some time).
+- 2026-11-24 14:53 PT: **Laneless join branches stop.** The lanes are doing these joins themselves (nine of mine
+  landed through them), so `laneless/objmap-joins-7` won't be replayed again. If the coordinator doesn't take
+  it, owner lanes can take these from it: Unknown_004B6DD0, Unknown_006C7CF0, Unknown_00462D00, Unknown_0060D280, Unknown_005271A0, Unknown_004C51D0, Unknown_005241A0, Unknown_00475C30, Unknown_0050CD40, Unknown_006BE190, Unknown_005C8BF0, Unknown_0051C7E0, Unknown_00477760, Unknown_0050C890, Unknown_00664530. `lanes/tools/objmap/join.py` still works for anyone.
 - 2026-11-24 14:21 PT: **Ready: `laneless/objmap-joins-7` 4e73ed04b**, on main #367 (7de5c518c). It replaces
   objmap-joins-6, which conflicted with #367. 15 placeholders -> 0. Full build: 0 not all equal; Game.exe
   identical (VERIFIED tree e98822ff622e5e02bb4b5b7e65121cddee55244c); borrowed data 844 B (main's).
