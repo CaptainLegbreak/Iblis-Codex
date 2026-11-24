@@ -59,6 +59,17 @@ class UIWidget
 {
 public:
     virtual ~UIWidget() = 0;
+    virtual void Slot01() = 0;
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int Slot11() = 0;
 
     static void* operator new(unsigned int nSize)
     {
@@ -115,16 +126,16 @@ public:
 
     virtual ~ListBoxImplementation();
     virtual void Slot01();
-    virtual int sub_004BE860_WheelMsg(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BF430_MouseDownMsg(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BF530(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BEB70_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BEBC0_KeyMsg(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BE910_ScrollUp(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BE990_ScrollDown(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BEC30_GetSelectedIndex();
+    virtual int Slot11();
     virtual void sub_004BE110_UpdateScrollBar();
     virtual int sub_004BE0A0_GetLineCount();
     virtual void sub_004BE0B0_Clear();
@@ -180,15 +191,15 @@ public:
     virtual ~ListBoxWrapper();
 
     virtual void Slot01();
-    virtual int sub_004BEE20_ForwardSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BED80_ForwardSlot0C(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BED90_ForwardSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BEDA0_ForwardSlot14(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BEDB0_ForwardSlot18(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BED50_ForwardSlot1C(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BED40_ForwardSlot20(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BED60_ForwardSlot24(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BED70_ForwardSlot28(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
     virtual int Slot11();
     virtual void sub_004BEDE0_ForwardSlot3C(const Unicode* wszText0, const Unicode* wszText1,
         const Unicode* wszText2, const Unicode* wszText3, const Unicode* wszText4, const Unicode* wszText5,
