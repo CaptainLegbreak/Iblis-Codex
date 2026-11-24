@@ -4,6 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/run-joins 3f5a6a6f 2 placeholders fewer; MonsterUnique.cpp takes in Unknown_005A1230.cpp (MONSTERUNIQUE_UMod38_Possessed) and Unknown_005A1280.cpp (sub_005A1280_UModChampion), both inside its run among its UMod handlers. VERIFIED 68091d6e81ef7d4485f2a775976d96a2483a2db7, borrowed data 1,041 B (= main). Based on main 9ec68ba8 (#354), not stacked.
 
 ## Claimed
 
@@ -32,6 +33,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Left in place (and why)
 
+- Tried and left (placeholders inside a named run): Unknown_005A03E0.cpp (MonsterUnique.cpp's own unmarked copy of 0x5A03E0 builds differently), Unknown_005A3D20.cpp, MonsterUnique_005A49B0.cpp (0x5A49B0), AiThink4_005E17E0.cpp (0x5EC6C0), AiThink4_005ED2A0.cpp (0x5ED2A0): change bytes when joined; SCmd_0053E2C0.cpp: a record clash (SCMD_WriteBitBufferBool); Task_005645E0.cpp: Task.cpp keeps an unmarked older copy of 0x5645E0, and the placeholder's version builds differently inside Task.cpp.
 - The item-affix placeholders next to Unknown_005C0D00.cpp (Items_005C2970, Items_005C2AD0, Unknown_005C2AF0, Unknown_005C2740, Unknown_005C0F90, SkillItem_005C1560) still change bytes when joined into it. Lead: the image calls static 0x5C2970 with the item in ecx and one stacked argument (a custom convention for a local function), which the placeholders reproduce with __stdcall copies; that looks like a /GL (LTCG) unit, which tools/ltcg.py supports. Not tried yet.
 - MissMode_005ADF10 (MISSMODE_SrvDmgHitHandler, inside MissMode.cpp's run): its four tables (0x73C83C-0x73C9DC) end MissMode.cpp's data, and MissMode.cpp already holds an unmarked noinline copy of the function. Joined without the noinline, the compiler inlines it into MissMode.cpp's callers (0x5AF540 and others) where the image calls it. /Ob1 for the whole file breaks many others, so MissMode.cpp is /Ob2; left until the inline decision is understood.
 - Items_00558110 (0x559CE0): the image inlines ITEMS_GetItemLevelForNewItem (0x558200) into it, and no Items.cpp function calls 0x558200 out of line (its 12 callers are in other files). Without __forceinline the compiler's decision turns on the callee's source size: the current form (shared level-id tail, three `nLevel > 1 ? nLevel : 1` returns) is never inlined, but a form with a separate room-level local and one `if (nLevel <= 1)` clamp is, matching 0x559CE0 except the null-unit path; that form changes 0x558200 itself (SUNIT_GetGameFromUnit(NULL) folds to xor ecx,ecx). No form found yet that gives both; parked, tried 12 shapes.
