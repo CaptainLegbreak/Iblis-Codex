@@ -406,8 +406,8 @@
    "state": "included"
   },
   "Source/D2Multi/Src/ComCallback.cpp": {
-   "bytes": 4004,
-   "definitions": 72,
+   "bytes": 4000,
+   "definitions": 71,
    "externs": [
     "extern \"C\" char gData_0070CD94[]; // 0x0070CD94",
     "extern \"C\" char gpBnetCancelButtonBlankCelFileB[]; // 0x0077BD2C",
@@ -5487,6 +5487,24 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DATATBLS/BeltTbls.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/GAME/Record.cpp": {
+   "bytes": 64,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/GAME/Record.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/Unknown_00451290.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/Unknown_00451290.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -27624,7 +27642,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Multi/Src/ComCallback.cpp",
+   "file": "Source/D2Client/GAME/Record.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2MsgRecordChunkStrc* gpMsgRecordChunk_0070F7A0 = ",
@@ -27652,6 +27670,144 @@
    "tail": "; // 0x0070F7A0",
    "type": "D2MsgRecordChunkStrc",
    "va": "0x0070F7A0"
+  },
+  {
+   "alias": false,
+   "cname": "gData_0070F764",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/GAME/Record.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_0070F764_t gData_0070F764; // 0x0070F764",
+   "head": "extern \"C\" struct d2data_0070F764_t gData_0070F764 = ",
+   "name": "gData_0070F764",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0070F764_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x0070F764",
+   "va": "0x0070F764"
   },
   {
    "alias": false,
@@ -163653,6 +163809,144 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_007463E4_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
    "tail": "; // 0x007463E4",
    "va": "0x007463E4"
+  },
+  {
+   "alias": false,
+   "cname": "gData_0070F728",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/Unknown_00451290.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_0070F728_t gData_0070F728; // 0x0070F728",
+   "head": "extern \"C\" struct d2data_0070F728_t gData_0070F728 = ",
+   "name": "gData_0070F728",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0070F728_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x0070F728",
+   "va": "0x0070F728"
   }
  ]
 }
