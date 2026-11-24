@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/fog-em-nops 00dd2f54 453->453 ErrorManager.cpp takes three uncalled functions that sit between its own: 0x4016B0 (empty; from Fog/Unknown_00401010.cpp), 0x407F70 (log forwarder; from Fog/Unknown_00401070.cpp), 0x40A030 (empty; from Fog/Src/AsyncData.cpp). VERIFIED 8d0fdbc8 on base 0b750228 (#341; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 1,175 B). Not stacked; independent of scomp-flush-2.
+- lane3/link-member-names 266e7f4f 449->449 Names only: the list link of the placeholder node types in SFILE.CPP, SEVT.CPP, SSignature.cpp, SCOMP.CPP, SERR.CPP and LogManager.cpp is `tLink` instead of `f_0`, as the named node types (REQUEST, ARCHIVEREC, AUDIOSTREAM) already have it. VERIFIED dde3a737 on base 9aa9a65e (#342; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 1,175 B), then rebased onto 7cb8a86b (#343) without conflicts and prechecked. Not stacked.
 
 ## Claimed
 
