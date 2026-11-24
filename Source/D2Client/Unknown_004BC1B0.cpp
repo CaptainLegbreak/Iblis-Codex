@@ -89,6 +89,8 @@ public:
     int unk0x04;
 };
 
+void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
+
 // build: symbol ??_7UIWidget@@6B@ 0x006DA6C0
 // build: symbol ??_7ListBoxImplementation@@6B@ 0x006DAAEC
 // build: symbol ??_7ListBoxWrapper@@6B@ 0x006DAAA4
@@ -236,6 +238,17 @@ void __cdecl TEXT_LoadTextSliderCel()
     sprintf(szPath, "%s\\ui\\menu\\textslid", gszDataGlobal);
     gpListBoxSliderCel = ARCHIVE_LoadClientCellFile(szPath, 0);
 }
+
+// 0x004BE060
+void __cdecl sub_004BE060()
+{
+    if (gpListBoxSliderCel)
+    {
+        ARCHIVE_FreeClientCellFile(gpListBoxSliderCel);
+        gpListBoxSliderCel = 0;
+    }
+}
+
 
 // 0x004BE090
 ListBoxImplementation::~ListBoxImplementation()
