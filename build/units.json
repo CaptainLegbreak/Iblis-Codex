@@ -40734,6 +40734,31 @@
      "length": 156
     },
     {
+     "va": "0x005241A0",
+     "length": 21,
+     "name": "?sub_005241A0_ClearHashContexts@@YAXXZ"
+    },
+    {
+     "va": "0x005241C0",
+     "length": 54,
+     "name": "?sub_005241C0_GetDigest@@YIXHPAI@Z"
+    },
+    {
+     "va": "0x00524200",
+     "length": 119,
+     "name": "?sub_00524200_HashBlock@@YIXHPBXPAI@Z"
+    },
+    {
+     "va": "0x00524280",
+     "length": 53,
+     "name": "?sub_00524280_InitHashContext@@YIXH@Z"
+    },
+    {
+     "va": "0x005242C0",
+     "length": 48,
+     "name": "?sub_005242C0_IdeaMul@@YIIII@Z"
+    },
+    {
      "va": "0x005242F0",
      "length": 103,
      "name": "?sub_005242F0_MulInv@@YIII@Z"
@@ -40742,6 +40767,16 @@
      "va": "0x00524360",
      "length": 125,
      "name": "?sub_00524360_ExpandKey@@YIXPBUD2IdeaUserKeyStrc@@PAUD2IdeaKeyScheduleStrc@@@Z"
+    },
+    {
+     "va": "0x005243E0",
+     "length": 349,
+     "name": "sub_005243E0_InvertKey"
+    },
+    {
+     "va": "0x00524540",
+     "length": 506,
+     "name": "sub_00524540_Cipher"
     },
     {
      "va": "0x00524740",
@@ -40831,47 +40866,6 @@
     {
      "va": "0x00524140",
      "length": 85
-    }
-   ]
-  },
-  {
-   "file": "Source/Bnclient/Unknown_005241A0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005241A0",
-     "length": 21,
-     "name": "?sub_005241A0_ClearHashContexts@@YAXXZ"
-    },
-    {
-     "va": "0x005241C0",
-     "length": 54,
-     "name": "?sub_005241C0_GetDigest@@YIXHPAI@Z"
-    },
-    {
-     "va": "0x00524200",
-     "length": 119,
-     "name": "?sub_00524200_HashBlock@@YIXHPBXPAI@Z"
-    },
-    {
-     "va": "0x00524280",
-     "length": 53,
-     "name": "?sub_00524280_InitHashContext@@YIXH@Z"
-    },
-    {
-     "va": "0x005242C0",
-     "length": 48,
-     "name": "?sub_005242C0_IdeaMul@@YIIII@Z"
-    },
-    {
-     "va": "0x005243E0",
-     "length": 349,
-     "name": "sub_005243E0_InvertKey"
-    },
-    {
-     "va": "0x00524540",
-     "length": 506,
-     "name": "sub_00524540_Cipher"
     }
    ]
   },
