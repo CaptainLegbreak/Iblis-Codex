@@ -7732,42 +7732,6 @@ static int ITEMS_IsQuantityRepairable(D2UnitStrc* pItem)
     return 0;
 }
 
-// 0x006314A0
-int __fastcall ITEMS_ResolveItemCalcKeyword(char* szText, int* a2, int a3, int nKeywordNumber)
-{
-    int nRow = 0;
-
-    if (a3 == 1 && nKeywordNumber == 3)
-    {
-        if (gpItemStatCostLinker)
-        {
-            nRow = FOG_GetRowFromTxt(gpItemStatCostLinker, szText, 0);
-            if (nRow >= 0)
-            {
-                *a2 = 1;
-                return nRow;
-            }
-        }
-
-        if (!SStrCmpI(szText, "base", 32))
-        {
-            *a2 = 0;
-            return 1;
-        }
-
-        if (!SStrCmpI(szText, "mod", 32))
-        {
-            *a2 = 0;
-            return 2;
-        }
-
-        SStrCmpI(szText, "accr", 32);
-        *a2 = 0;
-    }
-
-    return 0;
-}
-
 // 0x00639D60
 D2RunesTxt* __stdcall DATATBLS_GetRunesTxtRecord(int nRunewordId)
 {
