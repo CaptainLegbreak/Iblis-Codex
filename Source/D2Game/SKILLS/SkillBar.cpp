@@ -512,6 +512,48 @@ int __fastcall SKILLS_SrvDo069_FindPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     return 1;
 }
 
+void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame); // 0x006260B0
+
+// 0x005D8290
+int __fastcall SKILLS_ApplyWarcryStats(D2GameStrc* pGame, D2UnitStrc* a2, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    if (pSkillsTxtRecord->nAuraState < 0 || pSkillsTxtRecord->nAuraState >= sgptDataTables->nStatesTxtRecordCount)
+    {
+        return 0;
+    }
+
+    const int nExpireFrame = pGame->dwGameFrame + SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, nSkillId, nSkillLevel);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(a2, pSkillsTxtRecord->nAuraState);
+    if (!pStatList)
+    {
+        const int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
+        const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
+        pStatList = STATLIST_AllocStatList(pGame->pMemoryPool, 2, nExpireFrame, nUnitType, nUnitGUID);
+        if (!pStatList)
+        {
+            return 0;
+        }
+
+        STATLIST_SetState(pStatList, pSkillsTxtRecord->nAuraState);
+        STATLIST_SetStatRemoveCallback(pStatList, (unsigned int)SKILLS_RemoveStateAndRefreshPassives);
+        D2COMMON_10475_PostStatToStatList(a2, pStatList, 1);
+        STATES_ToggleState(a2, pSkillsTxtRecord->nAuraState, 1);
+    }
+
+    STATES_ToggleGfxStateFlag(a2, pSkillsTxtRecord->nAuraState, 1);
+    D2COMMON_10476(pStatList, nExpireFrame);
+    EVENT_SetEvent(pGame, a2, 12, nExpireFrame, 0, 0);
+    SKILLS_ApplyAuraStatsToStatList(pUnit, pStatList, pSkillsTxtRecord, nSkillId, nSkillLevel);
+    sub_6FD14C30(a2);
+    return 1;
+}
+
 int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x005D3CF0
 
 void __fastcall SKILLS_CreateMissileRing(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOrigin, int nMissileId, int nSkillId, int nSkillLevel, int nVelocity); // 0x0056D400

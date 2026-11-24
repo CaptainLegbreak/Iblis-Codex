@@ -60273,21 +60273,6 @@
      "name": "SKILLS_SrvDo118_Twister_Tornado"
     },
     {
-     "va": "0x005C8FA0",
-     "length": 141,
-     "name": "SKILLS_SrvSt11_Inferno_ArcticBlast"
-    },
-    {
-     "va": "0x005C91C0",
-     "length": 87,
-     "name": "SKILLS_SrvSt13_ThunderStorm"
-    },
-    {
-     "va": "0x005C9640",
-     "length": 83,
-     "name": "SKILLS_SrvDo019_Inferno_ArcticBlast"
-    },
-    {
      "va": "0x005CAF30",
      "length": 78,
      "name": "SKILLS_SrvDo083_FireHit"
@@ -60722,31 +60707,6 @@
      "name": "?SKILLS_SrvDo121_Rabies@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x005C8E30",
-     "length": 359,
-     "name": "SKILLS_StartInferno"
-    },
-    {
-     "va": "0x005C9030",
-     "length": 398,
-     "name": "SKILLS_SrvSt12_Telekinesis_DragonFlight"
-    },
-    {
-     "va": "0x005C9300",
-     "length": 288,
-     "name": "?SKILLS_SrvDo017_ChargedBolt_BoltSentry@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x005C9480",
-     "length": 441,
-     "name": "SKILLS_SrvDo018_DefensiveBuff"
-    },
-    {
-     "va": "0x005C96A0",
-     "length": 346,
-     "name": "SKILLS_AuraCallback_StaticField"
-    },
-    {
      "va": "0x005CAF80",
      "length": 27,
      "name": "?SKILLS_SrvSt43_MaggotEgg@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
@@ -60785,11 +60745,6 @@
      "va": "0x005D2F80",
      "length": 273,
      "name": "SKILLS_FindUseableCorpse"
-    },
-    {
-     "va": "0x005D8290",
-     "length": 330,
-     "name": "SKILLS_ApplyWarcryStats"
     },
     {
      "va": "0x005E52D0",
@@ -60904,19 +60859,9 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x005C8BF0",
-     "length": 27,
-     "name": "?SKILLS_StatRemoveCallback_RemoveState@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
-    },
-    {
      "va": "0x005C8C10",
      "length": 132,
      "name": "?sub_005C8C10_StopInferno@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005C9290",
-     "length": 101,
-     "name": "?SKILLDESC_InitCappedChargedPath@@YIXPAUD2UnitStrc@@H@Z"
     }
    ]
   },
@@ -60949,12 +60894,62 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x005C8BF0",
+     "length": 27,
+     "name": "?SKILLS_StatRemoveCallback_RemoveState@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+    },
+    {
+     "va": "0x005C8E30",
+     "length": 359,
+     "name": "SKILLS_StartInferno"
+    },
+    {
+     "va": "0x005C8FA0",
+     "length": 141,
+     "name": "SKILLS_SrvSt11_Inferno_ArcticBlast"
+    },
+    {
+     "va": "0x005C9030",
+     "length": 398,
+     "name": "SKILLS_SrvSt12_Telekinesis_DragonFlight"
+    },
+    {
+     "va": "0x005C91C0",
+     "length": 87,
+     "name": "SKILLS_SrvSt13_ThunderStorm"
+    },
+    {
      "va": "0x005C9220",
      "length": 97
     },
     {
+     "va": "0x005C9290",
+     "length": 101,
+     "name": "?SKILLDESC_InitCappedChargedPath@@YIXPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x005C9300",
+     "length": 288,
+     "name": "?SKILLS_SrvDo017_ChargedBolt_BoltSentry@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x005C9420",
      "length": 82
+    },
+    {
+     "va": "0x005C9480",
+     "length": 441,
+     "name": "SKILLS_SrvDo018_DefensiveBuff"
+    },
+    {
+     "va": "0x005C9640",
+     "length": 83,
+     "name": "SKILLS_SrvDo019_Inferno_ArcticBlast"
+    },
+    {
+     "va": "0x005C96A0",
+     "length": 346,
+     "name": "SKILLS_AuraCallback_StaticField"
     },
     {
      "va": "0x005C9800",
@@ -61874,6 +61869,11 @@
     {
      "va": "0x005D81C0",
      "length": 199
+    },
+    {
+     "va": "0x005D8290",
+     "length": 330,
+     "name": "SKILLS_ApplyWarcryStats"
     },
     {
      "va": "0x005D83E0",
