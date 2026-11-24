@@ -1290,7 +1290,7 @@ D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc* server,unsigned int s
  client->nId=id;
  client->nSocket=socket;
  client->nAddress=address;
- client->nPending24=0;client->nQueued=0;client->nValue74=0;
+ client->nPending24=0;client->nQueued=0;client->pWriteQueue=0;
  client->tRead.nFlags=1;client->tWrite.nFlags=2;
  unsigned int tick=SYSTEM_GetSyncTime();
  client->nCreateTime=tick;client->nLastTick=tick;client->nTick3=tick;client->nTick4=tick;

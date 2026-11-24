@@ -105,11 +105,7 @@ struct D2QClientStrc
         };
         char cs[0x48];                                      // 0x02C
     };
-    union
-    {
-        D2QWriteNodeStrc* pWriteQueue;                      // 0x074
-        int nValue74;
-    };
+    D2QWriteNodeStrc* pWriteQueue;                          // 0x074
     D2SockAddrInStrc tLocalAddr;                            // 0x078
     D2SockAddrInStrc tPeerAddr;                             // 0x088
     unsigned int nCreateTime;                               // 0x098
