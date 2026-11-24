@@ -4,10 +4,10 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #345 (round j101). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 1,175 B (was 15,691 B at #297). Placeholder files 451; shims 78; context copies 345. Names: blizzard 472, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
+- `main`: #346 (round j102). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 1,175 B (was 15,691 B at #297). Placeholder files 447; shims 73; context copies 220. Names: blizzard 472, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
 - In progress: nothing; next round as branches are posted ready.
 - **Renames are landing on main.** After a rebase, run `python3 tools/namesync.py`: it renames the old spellings in your branch, so your branch stops conflicting with the renamed lines.
-- **Rebase onto #345, run namesync, and repost:** `lane8/strays-a` (d0fbb5bb still conflicts in D2Common/SKILLS/Skills.cpp: rebase onto #345 itself, not #342), `lane2/split-text-2` (D2Client/D2Client.h), `lane2/small-records-g-3` (ddCore.cpp and Unknown_00510020.cpp, joined in #344; ErrorManager.cpp and ErrorManager_004082E0.cpp, changed in #343; Safesock.cpp). `lane4/session-object-3` is posted ready but not pushed: push it. `lane8/join-missile-4` 6bf506c9 needs nothing: its two commits are on main from #343.
+- **Rebase onto #346, run namesync, and repost:** `lane8/strays-b` (D2Common/SKILLS/Skills.cpp, after strays-a merged in #346), `lane2/small-records-g-4` (D2Client/SKILLS/Skills.cpp, changed in #346). Lane 9's `join-d3dcore-2`, `join-gdicore-8250` and `d2hell-o1`: post them ready once they're rebased (onto #346 now). `lane6/mainmenus-object-2` and `lane4/session-object-3`: post when pushed.
 - Earlier rebase requests are done: their new versions were merged in #340, #341 and #342.
 - **`lane2/path-records` (done in #332) needed a rebase onto #328:** it conflicts in D2Common/Unknown_00679380.cpp with lane 6's path regroup (#327). Lane 8 owns D2Common now, so tell lane 8 if the records change its files.
 - **`lane2/game-records` is held: precheck NOT_ALL_EQUAL on #321** in two includers of D2GameTypes.h that the branch doesn't touch, `Source/D2Win/Src/D2Comp.cpp` and `Source/D2Game/Ai/AiThink4.cpp`. It looks like the declaration-count effect. Lane 2: rebuild every includer of D2GameTypes.h on current main. If those two can't be kept equal, put the two callback records in a small header that only their users include, as you did with D2ClientTimer.h.
@@ -282,6 +282,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #346 j102: act1-data, act2-data, act34-data (lane 5), necama-copies-2 (lane 1), cursor-object, copy-shift (lane 4), ctx-trim (lane 3), strays-a (lane 8), storm-array, split-text-3 (lane 2), names-d2common, names-d2game (lane 10; 77 renames). Placeholders 451 -> 447, shims 78 -> 73, context copies 345 -> 220, placeholder names 3,455 -> 3,382.
 - #345 j101: act1-intro-data (lane 5), spellsel-data, roster-run (lane 4), charsel-tail-2 (lane 6), link-member-names (lane 3), header-fields, mcp-fields (lane 2), names-d2cmp (lane 10, 18 renames). Placeholders 448 -> 451 (three objects split out); placeholder names 3,470 -> 3,455.
 - #344 j100: place-ddcore-10160 (lane 9), itemmode-copy (lane 5), wall2-copies (lane 1), sound-environ, small-records-f-3 (lane 2), names-rank1 (lane 10, 106 renames). Placeholders 449 -> 448; placeholder names 3,562 -> 3,470. Rebase requested: strays-a, split-text-2, small-records-g-3.
 - #343 j99: fog-em-nops (lane 3), lang-copies (lane 6), join-missile-3, join-missile-4 (lane 8), keycfg-handover-2 (lane 1). Placeholders 450 -> 449.
