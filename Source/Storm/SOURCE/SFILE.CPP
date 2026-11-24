@@ -287,22 +287,6 @@ struct D2StormQuadStrc
     D2StormQuadStrc& sub_00415160_Copy(const D2StormQuadStrc& source);
 };
 
-template<class T, class TGetLink>
-void TSList<T, TGetLink>::UnlinkAll()
-{
-    while (T* ptr = Head())
-        UnlinkNode(ptr);
-}
-
-template<class T, class TGetLink>
-T* TSList<T, TGetLink>::DeleteNode(T* ptr)
-{
-    T* next = Next(ptr);
-    ptr->~T();
-    SMemFree(ptr, STORM_TYPENAME(T), -2, 0);
-    return next;
-}
-
 // build: symbol ??_R0?AUAUDIOSTREAM@@@8 0x00708400
 // build: symbol ?LinkNode@?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEXPAUAUDIOSTREAM@@I0@Z 0x00417D80
 // build: symbol ?UnlinkAll@?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEXXZ 0x00418A00
