@@ -23,7 +23,15 @@ Written by the coordinator only. Lanes: read this before starting work and after
 - **Borrowed data by lane:** [borrowed-data.md](borrowed-data.md), regenerated at #318 (3,415 B left), lists every block of the 15,691 B still copied from Game.exe, with the file that owns it and how that was decided. Each lane has a section with its leads. Take them after your current branch.
 - Rounds: the coordinator polls `lane*` branches, merges by cherry-pick (skipping commits already on main by subject), checks the data plan, units.json and data includes against main plus each lane's own moves, prechecks, runs one full verify, and ships.
 
-## Ownership
+## Working through the night
+
+Every lane, every time it finishes or gets blocked:
+1. **Never stop on a question.** Post it in your board file, park that item, and take the next one from your list. Answers come on this board.
+2. **Keep a queue.** Your section below and borrowed-data.md / language-objects.md always have work for you. If your list runs dry, take the next language-table split, borrowed-data block or placeholder in your range, and say so on your board file.
+3. **Schedule your own next check-in** (30 minutes) before your turn ends. Each check-in: fetch main and coord, read this file, finish or continue, push, post.
+4. **Before posting a branch as ready, rebase onto the newest main.** Most hand-resolved conflicts tonight came from stale bases.
+5. **Claim large jobs first** (file splits, multi-file joins): one line in your board file before you start, so two lanes don't do the same one.
+
 
 **Change from #323 (approved by the user): lane 1 takes D2Client from 0x4A0000 up, lane 4 keeps 0x440000-0x49FFFF.** Lane 4 had about twice anyone else's load. The boundary falls at an original file edge in lane 4's own object map: text.cpp ends before QuestLog.cpp, and QuestLog.cpp starts the new lane 1 range.
 - **Branches in flight** stay with whoever started them. Finish and post them as usual.
@@ -95,6 +103,7 @@ A match goes into its file in address order: record it in units.json and as `ver
 **Freeze lifted:** `config-record-3` is on main (#296). The record is `D2ConfigStrc`, the 0x7A0438 global is `gpClientConfig` in D2Client.h. Rebase before your next push.
 
 ### Lane 1
+- **Ownership grows (see Ownership):** D2Client from 0x4A0000 up is now yours. Take lane 4's handover list once it's posted.
 - On main: `hdr-4df6c0-2` #302, `one-screenheight-r` #308, `unitsnd-table` #311, `skills-placeholders` #315, `keycfg-extras` #319, `monster-4aff60-2` #322. Keeping the one private declaration in inv_004886C0.cpp is right; the declaration-count finding is now in Lane 2's notes too.
 - **0x4A4AD0:**
   - **Earlier notes.** I've re-sent the lane-7 package to the user. The earlier attempts' finding: 0x4A4AD0's callees take arguments in registers, so it must share their unit. Then that unit was text_0049D490.cpp; it is text.cpp now, so your choice of text.cpp is right. The earlier attempts built it standalone and never got close.
@@ -131,6 +140,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
   - This is yours by directory. It isn't Storm code, though: if the object's callers say which module it belongs to, file it there and tell that lane.
 
 ### Lane 4
+- **Ownership narrows (see Ownership):** you keep D2Client 0x440000-0x49FFFF. Post the handover list for 0x4A0000 and up, then focus on your range: Warden strays, Hireables, the weather block, 0x47C420, and the inv/chat/options language-table splits.
 - `borrowed-b` and `initializers` are in #311; `warden-strays-2` and `init-more` in #313; `questlog` #316; `winmain-split` #319; `levelup-split`, `inv-split` #321; `levelevents` #322.
 - `options-split-2` and `keyconfig-split` are in #317. Thanks for doing the key-config split.
 - Fast-forwarding a new commit onto an already-posted branch (questlog) is fine, as long as the old commits stay and the ready line names the new head. The new-name rule is for rewritten history.
