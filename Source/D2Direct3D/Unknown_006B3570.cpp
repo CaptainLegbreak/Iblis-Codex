@@ -1,6 +1,7 @@
 #include "D2Direct3D.h"
 #include "D2DDrawTypes.h"
 #include "D2Win32Types.h"
+#include "D2FogSystemInfo.h"
 
 struct D2GammaControlStrc;
 
@@ -109,8 +110,6 @@ extern D2SurfaceStrc* gpPrimarySurface_00970E68; // 0x00970E68
 
 extern D2SurfaceStrc* gpRenderSurface_00970E6C; // 0x00970E6C
 
-
-struct T004013C0 { int unk00; int mode; };
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
@@ -390,10 +389,10 @@ static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance)
 // 0x006B4E80
 int __fastcall sub_006B4E80_LoadVideoConfiguration(void* window) {
 // build: symbol ?FOG_GetSystemInfo@* 0x00407360
-    T004013C0* info=FOG_GetSystemInfo();
+    D2FogSystemInfoStrc* info=FOG_GetSystemInfo();
 // build: symbol ?gszEmptyString@* 0x006CC837
     if (!info) { FOG_DisplayHalt(gszEmptyString,sub_00408090(),1032); exit(-1); }
-    if (info->mode==1) return 0;
+    if (info->nOsKind==1) return 0;
     D2VideoKeyStrc key=gtVideoKey;
     if (gbSeen && !gbConfigured) {
         sub_006B4C90_DetectDirect3D(window);
