@@ -37618,16 +37618,201 @@
      "va": "0x00516D8B",
      "length": 86,
      "name": "?sub_00516D8B_RunSurvey@@YI_NPBD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_00516DE1.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00516DE1",
      "length": 101
+    },
+    {
+     "va": "0x005173D3",
+     "length": 12,
+     "name": "@sub_005173D3_ExchangeRecordHandler@4"
+    },
+    {
+     "va": "0x005173DF",
+     "length": 16,
+     "name": "?sub_005173DF_TerminateCurrentProcess@@YAXXZ"
+    },
+    {
+     "va": "0x005173EF",
+     "length": 28,
+     "name": "?sub_005173EF_FatalBox@@YIHPBD@Z"
+    },
+    {
+     "va": "0x0051740B",
+     "length": 24,
+     "name": "?sub_0051740B_ErrorBox@@YIHPBD@Z"
+    },
+    {
+     "va": "0x00517423",
+     "length": 135
+    },
+    {
+     "va": "0x005174AA",
+     "length": 10
+    },
+    {
+     "va": "0x005174B4",
+     "length": 4
+    },
+    {
+     "va": "0x005174B8",
+     "length": 8
+    },
+    {
+     "va": "0x005174C0",
+     "length": 34
+    },
+    {
+     "va": "0x005174E2",
+     "length": 37
+    },
+    {
+     "va": "0x00517507",
+     "length": 11
+    },
+    {
+     "va": "0x00517512",
+     "length": 4
+    },
+    {
+     "va": "0x00517516",
+     "length": 10
+    },
+    {
+     "va": "0x00517520",
+     "length": 10,
+     "name": "??0D2StormRecordStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0051752A",
+     "length": 5
+    },
+    {
+     "va": "0x0051752F",
+     "length": 23,
+     "name": "?sub_0051752F_GetLink@D2StormListStrc@@QAEPAUD2StormLinkStrc@@PAD@Z"
+    },
+    {
+     "va": "0x00517546",
+     "length": 22,
+     "name": "?sub_00517546_Initialize@D2StormListStrc@@QAEXH@Z"
+    },
+    {
+     "va": "0x0051755C",
+     "length": 111
+    },
+    {
+     "va": "0x005175CB",
+     "length": 24,
+     "name": "?sub_005175CB_Next@D2StormListStrc@@QAEPADPAD@Z"
+    },
+    {
+     "va": "0x005175E3",
+     "length": 14
+    },
+    {
+     "va": "0x005175F1",
+     "length": 22
+    },
+    {
+     "va": "0x00517607",
+     "length": 18,
+     "name": "?sub_00517607_RawNext@D2StormListStrc@@QAEPADPAD@Z"
+    },
+    {
+     "va": "0x00517619",
+     "length": 10
+    },
+    {
+     "va": "0x0051763C",
+     "length": 28
+    },
+    {
+     "va": "0x00517669",
+     "length": 75,
+     "name": "?sub_00517669_NewNode@D2StormListStrc@@QAEPADIII@Z"
+    },
+    {
+     "va": "0x005176B4",
+     "length": 31
+    },
+    {
+     "va": "0x005176F8",
+     "length": 50
+    },
+    {
+     "va": "0x0051772A",
+     "length": 48,
+     "name": "?sub_0051772A_DeleteNode@D2StormListStrc@@QAEPADPAD@Z"
+    },
+    {
+     "va": "0x0051775A",
+     "length": 46
+    },
+    {
+     "va": "0x00517788",
+     "length": 42
+    },
+    {
+     "va": "0x005177B2",
+     "length": 82
+    },
+    {
+     "va": "0x00517804",
+     "length": 112,
+     "name": "?sub_00517804_GetMessage@@YIXIPADI@Z"
+    },
+    {
+     "va": "0x00517874",
+     "length": 117
+    },
+    {
+     "va": "0x005178E9",
+     "length": 85,
+     "name": "?sub_005178E9_Format@@YAXIZZ"
+    },
+    {
+     "va": "0x0051793E",
+     "length": 85
+    },
+    {
+     "va": "0x00517993",
+     "length": 17,
+     "name": "?sub_00517993_AllocateVirtualMemory@@YIPAXI@Z"
+    },
+    {
+     "va": "0x005179A4",
+     "length": 15,
+     "name": "?sub_005179A4_FreeVirtualMemory@@YIXPAX@Z"
+    },
+    {
+     "va": "0x005179B3",
+     "length": 131
+    },
+    {
+     "va": "0x00517A36",
+     "length": 133
+    },
+    {
+     "va": "0x00517ABB",
+     "length": 27
+    },
+    {
+     "va": "0x00517AD6",
+     "length": 346
+    },
+    {
+     "va": "0x00517C30",
+     "length": 521
+    },
+    {
+     "va": "0x006CAE5F",
+     "length": 24
+    },
+    {
+     "va": "0x006CB401",
+     "length": 20
     }
    ]
   },
@@ -37688,215 +37873,6 @@
    ]
   },
   {
-   "file": "Source/D2Hell/Unknown_005173D3.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005173D3",
-     "length": 12,
-     "name": "@sub_005173D3_ExchangeRecordHandler@4"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_005173DF.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005173DF",
-     "length": 16,
-     "name": "?sub_005173DF_TerminateCurrentProcess@@YAXXZ"
-    },
-    {
-     "va": "0x005174AA",
-     "length": 10
-    },
-    {
-     "va": "0x005174B4",
-     "length": 4
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_005173EF.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005173EF",
-     "length": 28,
-     "name": "?sub_005173EF_FatalBox@@YIHPBD@Z"
-    },
-    {
-     "va": "0x0051740B",
-     "length": 24,
-     "name": "?sub_0051740B_ErrorBox@@YIHPBD@Z"
-    },
-    {
-     "va": "0x00517423",
-     "length": 135
-    },
-    {
-     "va": "0x005174B8",
-     "length": 8
-    },
-    {
-     "va": "0x00517874",
-     "length": 117
-    },
-    {
-     "va": "0x005179B3",
-     "length": 131
-    },
-    {
-     "va": "0x00517A36",
-     "length": 133
-    },
-    {
-     "va": "0x00517ABB",
-     "length": 27
-    },
-    {
-     "va": "0x00517AD6",
-     "length": 346
-    },
-    {
-     "va": "0x00517C30",
-     "length": 521
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_005174C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005174C0",
-     "length": 34
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_005174E2.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005174E2",
-     "length": 37
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_00517507.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00517507",
-     "length": 11
-    },
-    {
-     "va": "0x00517512",
-     "length": 4
-    },
-    {
-     "va": "0x00517516",
-     "length": 10
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_00517520.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00517520",
-     "length": 10,
-     "name": "??0D2StormRecordStrc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_0051752A.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0051752A",
-     "length": 5
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_0051752F.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0051752F",
-     "length": 23,
-     "name": "?sub_0051752F_GetLink@D2StormListStrc@@QAEPAUD2StormLinkStrc@@PAD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_00517546.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00517546",
-     "length": 22,
-     "name": "?sub_00517546_Initialize@D2StormListStrc@@QAEXH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_0051755C.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0051755C",
-     "length": 111
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_005175CB.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005175CB",
-     "length": 24,
-     "name": "?sub_005175CB_Next@D2StormListStrc@@QAEPADPAD@Z"
-    },
-    {
-     "va": "0x00517607",
-     "length": 18,
-     "name": "?sub_00517607_RawNext@D2StormListStrc@@QAEPADPAD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_005175E3.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005175E3",
-     "length": 14
-    },
-    {
-     "va": "0x00517619",
-     "length": 10
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_005175F1.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005175F1",
-     "length": 22
-    }
-   ]
-  },
-  {
    "file": "Source/D2Hell/Unknown_00517623.cpp",
    "rank": 1,
    "functions": [
@@ -37928,37 +37904,6 @@
    ]
   },
   {
-   "file": "Source/D2Hell/Unknown_0051763C.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0051763C",
-     "length": 28
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_00517669.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00517669",
-     "length": 75,
-     "name": "?sub_00517669_NewNode@D2StormListStrc@@QAEPADIII@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_005176B4.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005176B4",
-     "length": 31
-    }
-   ]
-  },
-  {
    "file": "Source/D2Hell/Unknown_005176D3.cpp",
    "rank": 1,
    "functions": [
@@ -37983,99 +37928,6 @@
     "/Oy-",
     "/Ob2",
     "/Gd"
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_005176F8.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005176F8",
-     "length": 50
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_0051772A.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0051772A",
-     "length": 48,
-     "name": "?sub_0051772A_DeleteNode@D2StormListStrc@@QAEPADPAD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_0051775A.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0051775A",
-     "length": 46
-    },
-    {
-     "va": "0x00517788",
-     "length": 42
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_005177B2.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005177B2",
-     "length": 82
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_00517804.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00517804",
-     "length": 112,
-     "name": "?sub_00517804_GetMessage@@YIXIPADI@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_005178E9.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005178E9",
-     "length": 85,
-     "name": "?sub_005178E9_Format@@YAXIZZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_0051793E.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0051793E",
-     "length": 85
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_00517993.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00517993",
-     "length": 17,
-     "name": "?sub_00517993_AllocateVirtualMemory@@YIPAXI@Z"
-    },
-    {
-     "va": "0x005179A4",
-     "length": 15,
-     "name": "?sub_005179A4_FreeVirtualMemory@@YIXPAX@Z"
-    }
    ]
   },
   {
@@ -79981,16 +79833,6 @@
    ]
   },
   {
-   "file": "Source/D2Hell/Unknown_006CAE5F.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CAE5F",
-     "length": 24
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/Unknown_006CAE80.cpp",
    "rank": 0,
    "functions": [
@@ -80047,16 +79889,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Hell/Unknown_006CB401.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CB401",
-     "length": 20
-    }
    ]
   },
   {
