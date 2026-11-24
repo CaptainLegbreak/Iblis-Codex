@@ -4,6 +4,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/qserver-views 60014fd4 447->447 QServer.cpp's stand-in views of the server and client go, all of them (about thirty view types: QServer, D2QSrvServerStrc/ConnectionStrc, D2ConnectionTableStrc, the hash, socket, record, hack-list, mask-pair and queue views, the one-field guard): every function in the file takes D2QueueServerStrc and D2QClientStrc (D2QServerNodeStrc, D2MessageStrc, D2QIpCountStrc, D2QAcceptStatsStrc for the lists), and calls its callees by their own names instead of overloads declared on views. D2QServer.h gets the fields the views had: the masked-address list (0x48, D2QMaskEntryStrc) and its count, 0x24, 0x44, 0x888, the client's in_addr view, the statistics' last word, and the server's full size (0xC4C). ExpireEntries and HasMaskedKey are the server's members (QServerNT.cpp and QServer98.cpp call them so, not through casts or second names); 0x6BE510 is D2QSrvAutoLock's constructor; FOG_10180, FOG_10171 and FOG_SetHackListEnabled lose dllexport. QServer98.cpp's D2QAddressArg is D2InAddrStrc. names.csv: 0x6BE510 D2QSrvAutoLock (inferred). VERIFIED 0448756b on base 88003a4d (#346; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 1,175 B). Not stacked; touches QServerNT.cpp in other places than qsnt-client.
+
 - lane3/qsnt-client 6cd23d7e 447->447 QServerNT.cpp's stand-in views of the client and its write queue go: T006BFAD0 and D2QConn006C23B0Strc are D2QClientStrc, T006C23B0 (Fog.h) and D2QMsg006C23B0Strc are D2QWriteNodeStrc. sQSNTWriteFromQueue (0x6C2760), sub_006C23B0_QueueMessage and sub_006C2C70_SendLocal use them, without casts; SendLocal is rewritten in the file's style; second declarations of QSERVER_AddReference and 0x6C0360 on the stand-in go. VERIFIED 213919a0 on base 88003a4d (#346; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 1,175 B). Not stacked.
 
 - lane3/standin-types 9fd8bb13 447->447 Decompiler stand-in types and dllexport functions in Storm and Fog files go: 0x41D880, 0x41D920 and 0x41D940 are CBitInput's constructor, CBitOutput's constructor (D2StormBitOutput.h already declared it) and CBitOutput::sub_0041D940_GetSize, written as members instead of extern "C" dllexport fastcall functions over Obj0041D880/Obj0041D920/Obj0041D940; SSignature.cpp's D2StormHuffInputStrc, CBitInput's layout with the same constructor, is folded into its CBitInput. FOG_SOCKET_GetError (0x40E0B0) takes FSafeSock, with McpConnect.cpp's signature, instead of a dllexport over a type named after itself. 0x6C43A0 (SCMD.CPP) is a link constructor on a placeholder link type instead of a fastcall over T0051755C. SBMP.CPP calls SMemAlloc/SMemFree and passes its own file-name literal instead of second declarations and two externs for 0x6FCC58. Exceptions.cpp's T0040D1C0 is D2CrashDumpRecordStrc. names.csv: 0x41D880 CBitInput, 0x41D920 CBitOutput (inferred); 0x41D940 sub_0041D940_GetSize, 0x6C43A0 D2SCmdLink006C43A0Strc (placeholder). VERIFIED e77ca0d2 on base 900824d3 (#345; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 1,175 B), then rebased onto 88003a4d (#346) without conflicts and prechecked. Not stacked; independent of bitmanip-clean.
@@ -13,7 +15,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- **QServer.cpp / QServer98.cpp views → D2QueueServerStrc / D2QClientStrc** (lane3/qserver-views, in verify): every stand-in view of the server and client in QServer.cpp goes, function by function.
+(none)
 
 ## Questions
 
