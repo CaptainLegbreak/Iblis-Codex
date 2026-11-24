@@ -106,6 +106,7 @@ In your own files, whenever your current list allows:
   - **Robust units stay equal.** Item.cpp: all 82 functions.
   - **Every declaration-sensitive function flips.** inv_0048DD90 0x48DD90 and useitem 0x4BFDD0 differ in exactly the commutative operand order lane 2 saw (`lea edi,[ecx+edx-0x3f]` versus `[edx+ecx-0x3f]`, 4 bytes), whether windows.h comes first or after the project headers.
   - **Reading:** these functions depend on the compiler's symbol-table state (how many and which identifiers precede them), not on any particular declaration. The real headers alone don't fix that.
+  - **DirectX:** the VS2005 disc has windows.h, winsock2.h, mmsystem.h, dbghelp.h, imagehlp.h, wininet.h and the C runtime headers, but no DirectX headers (ddraw.h, d3d.h, dsound.h). Real headers for the renderers and D2Sound would also need a DirectX SDK.
   - **Consequence:** the declaration and rename work goes ahead on our own headers. Adopting windows.h later means re-checking every sensitive function, which is a per-module project, not a global switch.
 - **Redivivus:** not used. Nothing from it goes into the repo or to the lanes.
 
