@@ -82710,10 +82710,6 @@
      "length": 12
     },
     {
-     "va": "0x006CAF70",
-     "length": 23
-    },
-    {
      "va": "0x006CB030",
      "length": 24,
      "name": "?sub_006CB030_InitializeList@@YAXXZ"
@@ -82840,10 +82836,6 @@
     {
      "va": "0x006CB480",
      "length": 10
-    },
-    {
-     "va": "0x006CB490",
-     "length": 12
     }
    ]
   },
