@@ -805,6 +805,26 @@ int __fastcall SKILLS_GetConvertedMode(D2UnitStrc* pUnit, int nMode)
     return nNewMode;
 }
 
+// 0x005C6C50
+void __fastcall SKILLS_RemoveStateAndRestoreSkillMode(D2UnitStrc* pUnit, int nStateId, D2StatListStrc* pStatList)
+{
+    SKILLS_RemoveStatesInGroup(pUnit, nStateId, 1);
+
+    if (!pStatList)
+    {
+        return;
+    }
+
+    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0));
+    if (!pSkill)
+    {
+        return;
+    }
+
+    SKILLS_SetSkillMode(pSkill, SKILLS_GetConvertedMode(pUnit, 10));
+    STATES_ToggleState(pUnit, nStateId, 0);
+}
+
 // 0x005C6CB0
 void __fastcall SKILLS_RemoveAllStatesInGroup(D2UnitStrc* pUnit, int nState)
 {
