@@ -81713,31 +81713,11 @@
     {
      "va": "0x006C9710",
      "length": 495
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C9900.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006C9900",
      "length": 246
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
