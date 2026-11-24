@@ -328,3 +328,6 @@ struct D2QueueServerStrc
     int __thiscall RefreshRecord(unsigned int nKey);                                                 // 0x006BE980
     int __thiscall HasMaskedKey(unsigned int nKey);                                                  // 0x006BF660
 };
+
+void __fastcall QSERVER_ReleaseClient(D2QueueServerStrc* pServer, D2QClientStrc* pClient);                    // 0x006C0360
+void __fastcall QSrvCloseRemoteConnection(D2QueueServerStrc* pServer, int nKey, const char* szFile, int nLine); // 0x006C0420

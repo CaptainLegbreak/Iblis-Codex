@@ -70,7 +70,6 @@ void __stdcall QSERVER_LogHackListSize(int nSize); // 0x006BE6C0
 
 const char* __stdcall sub_006B013E_FormatIP(unsigned int nIP); // 0x006B013E
 
-void __fastcall sub_006C0420_CloseClient(D2QueueServerStrc* table, int client, const char* file, int line); // 0x006C0420
 
 void __fastcall QSERVER_HackListAddress(D2QueueServerStrc* table, const char* file, unsigned int address, int line); // 0x006BFEA0
 
@@ -186,7 +185,6 @@ void __stdcall QSERVER_BanClient(D2QueueServerStrc* table, int client, const cha
 
 unsigned int gnLastHackListLog_00989C34; // 0x00989C34
 
-void __fastcall QSERVER_ReleaseClient(D2QueueServerStrc* pServer, D2QClientStrc* pClient); // 0x006C0360
 
 static void QSERVER_FreeRecords(D2QueueServerStrc* pServer); // 0x006BF0F0
 
@@ -1219,7 +1217,7 @@ void __stdcall QSERVER_BanClient(D2QueueServerStrc* table, int client, const cha
         node = node->pNext;
     }
     LeaveCriticalSection(&table->pLocks[bucket]);
-    sub_006C0420_CloseClient(table, client, file, line);
+    QSrvCloseRemoteConnection(table, client, file, line);
     if (address)
         QSERVER_HackListAddress(table, file, address, line);
 }
@@ -1745,7 +1743,7 @@ void __stdcall QSERVER_HackListClient(D2QueueServerStrc* pTable, int nClient, co
     }
     unsigned int nAddress = pNode->nAddress;
     LOGMANAGER_LogWritePrefixedLine(gszLogTag_006FC4A8, "[HACKLIST]  IP:%s  QSHackList() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(nAddress), szFile, nLine);
-    sub_006C0420_CloseClient(pTable, nClient, szFile, nLine);
+    QSrvCloseRemoteConnection(pTable, nClient, szFile, nLine);
     QSERVER_HackListAddress(pTable, szFile, nAddress, nLine);
 }
 
@@ -1758,7 +1756,7 @@ void __stdcall QSERVER_HackListIP(D2QueueServerStrc* table, unsigned int ip, con
     D2QClientStrc* node = table->ppAddressBuckets[bucket];
     while (node && node->nAddress != ip) node = node->pNextByAddress;
     LeaveCriticalSection(&table->tAddressLock);
-    if (node) sub_006C0420_CloseClient(table, node->iId, file, line);
+    if (node) QSrvCloseRemoteConnection(table, node->iId, file, line);
     else LOGMANAGER_LogWritePrefixedLine(gszLogTag_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_InetNtoa(ip));
     LOGMANAGER_LogWritePrefixedLine(gszLogTag_006FC4A8, "[HACKLIST]  IP:%s  QSHackListIP() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(ip), file, line);
     QSERVER_HackListAddress(table, file, ip, line);

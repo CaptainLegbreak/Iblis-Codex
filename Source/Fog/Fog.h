@@ -87,9 +87,6 @@ void __cdecl LOGMANAGER_LogWritePrefixed(const char* szPrefix, const char* szFor
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 bool __fastcall ERRORMANAGER_ShowErrorReport(const char* szSummary, const char* szUnused, const char** ppszFiles, int nFiles, unsigned int nLine, bool bFlag); // 0x00408660
 void __fastcall sub_00409810_FreeLarge(D2PoolSystemStrc* pSystem, void* pMemory, const char* szFile, int nLine); // 0x00409810
-void __fastcall sub_006C0360_Release(D2QueueServerStrc* pServer, D2QClientStrc* pClient); // 0x006C0360
-void __fastcall sub_006C0420_CloseRemote(D2QueueServerStrc*, int token, const char* file, int line); // 0x006C0420
-void __fastcall sub_006C0420_Disconnect(D2QueueServerStrc* pServer, unsigned int nId, const char* szFile, int nLine); // 0x006C0420
 void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc* pServer, D2QClientStrc* pClient); // 0x006C08A0
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 void* __fastcall sub_004098B0_ReallocLarge(D2PoolSystemStrc* pSystem, void* pMemory, int nSize, const char* szFile, int nLine); // 0x004098B0

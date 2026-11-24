@@ -185,7 +185,7 @@ static int sub_006C2280_PostRead(D2QueueServerStrc* pServer, D2QClientStrc* ptCl
     if (!nRoom)
     {
 // build: symbol ?gszQServerNTFile@* 0x006FC8A0
-        sub_006C0420_Disconnect(pServer, ptClient->nId, gszQServerNTFile, 0x3ED);
+        QSrvCloseRemoteConnection(pServer, ptClient->nId, gszQServerNTFile, 0x3ED);
         LeaveCriticalSection(pLock);
         return 0;
     }
@@ -196,8 +196,8 @@ static int sub_006C2280_PostRead(D2QueueServerStrc* pServer, D2QClientStrc* ptCl
     {
         unsigned int nId = ptClient->nId;
         LeaveCriticalSection(pLock);
-        sub_006C0420_Disconnect(pServer, nId, gszQServerNTFile, 0x408);
-        sub_006C0360_Release(pServer, ptClient);
+        QSrvCloseRemoteConnection(pServer, nId, gszQServerNTFile, 0x408);
+        QSERVER_ReleaseClient(pServer, ptClient);
         return 0;
     }
     QSERVER_AddReference(pServer, ptClient);
@@ -210,8 +210,8 @@ static int sub_006C2280_PostRead(D2QueueServerStrc* pServer, D2QClientStrc* ptCl
         }
         else
         {
-            sub_006C0360_Release(pServer, ptClient);
-            sub_006C0420_Disconnect(pServer, ptClient->nId, gszQServerNTFile, 0x430);
+            QSERVER_ReleaseClient(pServer, ptClient);
+            QSrvCloseRemoteConnection(pServer, ptClient->nId, gszQServerNTFile, 0x430);
             return 0;
         }
     }
@@ -353,8 +353,8 @@ static int sQSNTWriteFromQueue(D2QueueServerStrc* pServer, D2QClientStrc* ptClie
     const unsigned long nError = GetLastError();
     if (!bWritten && nError != 0x3E5)
     {
-        sub_006C0360_Release(pServer, ptClient);
-        sub_006C0420_CloseRemote(pServer, ptClient->iId, gszQServerNT_006FC8A0, 0x527);
+        QSERVER_ReleaseClient(pServer, ptClient);
+        QSrvCloseRemoteConnection(pServer, ptClient->iId, gszQServerNT_006FC8A0, 0x527);
         return 0;
     }
 
@@ -386,7 +386,7 @@ void __fastcall sub_Emit_006C2810(D2QueueServerStrc* pServer, D2QClientStrc* pCl
     sub_006C2810_PopWrite(pClient);
     EnterCriticalSection(&pClient->tLock);
     LeaveCriticalSection(&pClient->tLock);
-    sub_006C0360_Release(pServer, pClient);
+    QSERVER_ReleaseClient(pServer, pClient);
 }
 
 // 0x006C2860
@@ -590,8 +590,8 @@ int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, u
                     sub_006BE300_Log("QSRV", "[NTRdQ]          0 bytes on client %d refcount=%d %s", pClient->nId, pClient->nRefCount,
                                      bRead ? "READ" : (bWrite ? "WRITE" : "*UNKNOWN*"));
                     if (pClient->hSocket != (void*)-1)
-                        sub_006C0420_Disconnect(pServer, pClient->nId, gszQServerNTFile, 0x35D);
-                    sub_006C0360_Release(pServer, pClient);
+                        QSrvCloseRemoteConnection(pServer, pClient->nId, gszQServerNTFile, 0x35D);
+                    QSERVER_ReleaseClient(pServer, pClient);
                 }
                 else if (bWrite)
                 {
@@ -607,7 +607,7 @@ int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, u
                     if (!pClient->bClosing)
                         sQSNTWriteFromQueue(pServer, pClient);
                     LeaveCriticalSection(&pClient->tLock);
-                    sub_006C0360_Release(pServer, pClient);
+                    QSERVER_ReleaseClient(pServer, pClient);
                 }
                 else if (bRead)
                 {
@@ -621,7 +621,7 @@ int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, u
                     nResult = 1;
                     if (!pClient->bClosing)
                         sub_006C2280_PostRead(pServer, pClient);
-                    sub_006C0360_Release(pServer, pClient);
+                    QSERVER_ReleaseClient(pServer, pClient);
                 }
                 else
                 {
@@ -635,8 +635,8 @@ int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, u
                 if (pOverlapped && pClient)
                 {
                     sub_006BE300_Log("QSRV", "[NTRdQ]          I/O err %d on client %d refcount=%d", nError, pClient->nId, pClient->nRefCount);
-                    sub_006C0420_Disconnect(pServer, pClient->nId, gszQServerNTFile, 0x3BD);
-                    sub_006C0360_Release(pServer, pClient);
+                    QSrvCloseRemoteConnection(pServer, pClient->nId, gszQServerNTFile, 0x3BD);
+                    QSERVER_ReleaseClient(pServer, pClient);
                 }
                 else
                 {
@@ -707,8 +707,8 @@ int __fastcall sub_006C2C70_SendLocal(D2QueueServerStrc* pServer, D2QClientStrc*
         {
             nError = pClient->iId;
             LeaveCriticalSection(pLock);
-            sub_006C0420_CloseRemote(pServer, nError, gszQServerNT_006FC8A0, 0x220);
-            sub_006C0360_Release(pServer, pClient);
+            QSrvCloseRemoteConnection(pServer, nError, gszQServerNT_006FC8A0, 0x220);
+            QSERVER_ReleaseClient(pServer, pClient);
             return 0;
         }
 
@@ -720,7 +720,7 @@ int __fastcall sub_006C2C70_SendLocal(D2QueueServerStrc* pServer, D2QClientStrc*
             {
                 nError = pClient->iId;
                 LeaveCriticalSection(pLock);
-                sub_006C0420_CloseRemote(pServer, nError, gszQServerNT_006FC8A0, 0x234);
+                QSrvCloseRemoteConnection(pServer, nError, gszQServerNT_006FC8A0, 0x234);
                 return 0;
             }
             nBytesSent = 0;
