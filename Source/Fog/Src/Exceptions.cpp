@@ -1493,7 +1493,7 @@ int __fastcall EXCEPTIONS_ReadCrashDump(char* pBuffer, unsigned int* pnSize)
             int i;
             for (i = 0; i < nEntries; ++i)
             {
-                if (pEntry->f_2 == dwHeader0 && pEntry->f_6 == dwHeader1 && pEntry->dwType == dwType
+                if (pEntry->dwHeader0 == dwHeader0 && pEntry->dwHeader1 == dwHeader1 && pEntry->dwType == dwType
                     && pEntry->nCount == (unsigned char)nCount && !SMemCmp(pEntry->adwData, adwData, nDataSize))
                 {
                     ++pEntry->nHits;
@@ -1510,8 +1510,8 @@ int __fastcall EXCEPTIONS_ReadCrashDump(char* pBuffer, unsigned int* pnSize)
                 }
 
                 pEntry->nHits = 1;
-                pEntry->f_2 = dwHeader0;
-                pEntry->f_6 = dwHeader1;
+                pEntry->dwHeader0 = dwHeader0;
+                pEntry->dwHeader1 = dwHeader1;
                 pEntry->dwType = dwType;
                 pEntry->nCount = (unsigned char)nCount;
                 SMemCopy(pEntry->adwData, adwData, nDataSize);

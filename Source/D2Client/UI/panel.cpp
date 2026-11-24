@@ -2197,7 +2197,7 @@ void __cdecl PANEL_DrawPartyPanel()
 // 0x004BE340
 int __fastcall PANEL_CountLinesInView(D2TextPanelStrc* pPanel)
 {
-    const int nLineCount = pPanel->f_180748;
+    const int nLineCount = pPanel->nLineCount;
     int nTotal = 0;
     for (int i = 0; i < nLineCount; ++i)
     {
