@@ -4,6 +4,9 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/useitem-hotspots 7ba5fce0d 0->0 0x727900-0x72794F (three plan pieces: 2 B in useitem.cpp, gaUseItemHotspotRects at 0x727902 and 38 B in Unknown_004C0440.cpp) is useitem.cpp's gaUseItemHotspots, two 40-byte D2HotspotStrc as useitem.cpp's own pack(2) record reads them; Item.cpp's and Unknown_004C0440.cpp's record was the same one seen 2 bytes in. Now one declared definition in useitem.cpp; ITEM_HitTestHotspots (0x4BFBC0, inside useitem.cpp's run, uses only that array and gnHotspotCount) moves there from Item.cpp; the shifted record goes from both files, and Unknown_004C0440.cpp has no data left; VERIFIED 9438f7f3965f6c48b536416e185a90c1cd773a6e
+  - based on main #345. 0x4C0550 itself stays in Unknown_004C0440.cpp (still the static/stack-slot problem noted below).
+
 - lane1/lob-velocity 125a9cb3e 0->0 Skills.cpp's 0x4C8670 (SKILLS_SetLobVelocity, inside SkillsBar.cpp's code run) and gaLobBrackets (0x6DAE70, in .rdata between SkillsBar.cpp's table at 0x6DAE58 and the 0x4C9420 object's) join SkillsBar.cpp; its second argument is the skill (both callers pass pSkill; it reads SKILLS_GetParam1/2), so it is typed D2SkillStrc* and uses D2Client.h's names instead of two private sub_006444A0/D0 prototypes; VERIFIED 1432656532dd503e1619d5fb9b4485c99bebf1bd
   - based on main #345. Closes the item left from skills-objects.
 
@@ -39,7 +42,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Left in place (and why)
 
-- Unknown_004C0440 (0x4C0550, handed back): in useitem.cpp it needs gnUseItemPanelMode (0x7C5470) static (the original loads pPacket->nValue before storing 0 to it, which needs the no-alias a static gives), and then 0x4BFDD0 swaps the stack slots of mouseX/mouseY; same instruction stream otherwise. Not a declaration-count effect (+1..+3 externs do not change it); moving/scoping the mouse and lineCount locals and dropping the `mode` local do not either. Also found: Item.cpp's 0x4BFBC0/0x4C01E0 (inside useitem.cpp's run) use gaUseItemHotspotRects, which is gaUseItemHotspots[2] (0x727900, two 40-byte D2HotspotStrc) seen 2 bytes in; 0x727900 (Item.cpp), 0x727902 and 0x72792A are that one array split in three. Worth doing together with this placement.
+- Unknown_004C0440 (0x4C0550, handed back): in useitem.cpp it needs gnUseItemPanelMode (0x7C5470) static (the original loads pPacket->nValue before storing 0 to it, which needs the no-alias a static gives), and then 0x4BFDD0 swaps the stack slots of mouseX/mouseY; same instruction stream otherwise. Not a declaration-count effect (+1..+3 externs do not change it); moving/scoping the mouse and lineCount locals and dropping the `mode` local do not either. The hotspot array part is done in lane1/useitem-hotspots.
 
 - UNIT borrowed-data rows other than UnitSnd: 0x7277A0 (80 B) is an int[17] {1..9..1} plus {0x727748, 0x7277A0, 0}; nothing in code or defined data points at it, and 0x727748 itself is undefined (lane 4's editbox gap). 0x6DA6C4 (44 B) is part of a vtable at 0x6DA6C0 written by Unknown_004BA760 / Unknown_004BC1B0 (lane 4's range): it needs those classes' virtual functions declared, not a data definition. 0x7278BC (64 B) is a table of 16 string pointers into 0x6CC77C-0x6CC81C with no code reference found. Left for now.
 
