@@ -10,6 +10,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- **SMSG.CPP object join (started).** The run 0x4203C0-0x420DA0 is SMSG.CPP's object: its TSList<WNDREC>/TSLink<WNDREC> instantiations (Next, RawNext, Unlink, Head, the TSLink/TSLinkedNode/WNDREC constructors and destructors, UnlinkAll, NewNode, ??_GWNDREC, DeleteNode) and the small list helpers between them, now filed in Storm/Unknown_0041E9C0.cpp, Unknown_0041F6A0.cpp, Unknown_00420220.cpp, SFILE.CPP and Fog's LogManager.cpp. They move into SMSG.CPP, the template ones as the instantiations SMSG.obj already emits (same pattern as SCMD.CPP's TSList<CMDDEF>).
 - **SFILE.CPP list types onto stpl.h's TSList<T> (big job, started).** Goal: SFILE.CPP's lists (requests, files, archives, streams, events and the ignore-list chat lists) as TSList<T> for their own T, so the five TSList constructors at 0x418470/0x418640/0x4186B0/0x418CA0/0x418D80 and the other SFILE_0041xxxx pieces can join SFILE.CPP. Touches Storm/D2SFileTypes.h (mine) and the SFILE pieces only.
 
 ## Questions
