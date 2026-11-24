@@ -223,7 +223,6 @@ void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 
 int __stdcall D2Common_11016(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00645460
 
-int gnPanelSlideOffsetX; // 0x007A5214
 
 int gbCinematicExpansion; // 0x007A5238
 
@@ -584,127 +583,13 @@ int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOthe
 
 int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
 
-// 0x0045AD60
-void __cdecl PLAYER_DrawAutomap()
-{
-    if (!gpGlobal_007A0634)
-    {
-        return;
-    }
-    if (!sub_00463DE0_GetPlayerUnit())
-    {
-        return;
-    }
-    if (!UNITS_GetRoom(sub_00463DE0_GetPlayerUnit()))
-    {
-        return;
-    }
-    AUTOMAP_UpdateAutomapLayout();
-    AUTOMAP_PaintAutomap();
-    sub_0045AC90_DrawAutomapUnits();
-    gnAutomapTextY = 0x18;
-    const int nAct = GAME_GetConnectionType();
-    const int nPrevious = D2Win_10127_SetFont(1);
-    AUTOMAP_DrawGameInfoLines();
-    AUTOMAP_DrawLevelName();
-    AUTOMAP_DrawVersionLine();
-    AUTOMAP_DrawDifficultyLine();
-    if (nAct == 6 || nAct == 8)
-    {
-        AUTOMAP_DrawLocalIpLine();
-    }
-    if (GAME_IsExpansion())
-    {
-        AUTOMAP_DrawStringLine();
-    }
-    D2Win_10127_SetFont(nPrevious);
-}
 
-// 0x0045ADF0
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            return PATH_GetXPosition(pUnit->pDynamicPath);
-        }
-        return 0;
-    }
-}
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
-// 0x0045AE20
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            return PATH_GetYPosition(pUnit->pDynamicPath);
-        }
-        return 0;
-    }
-}
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-// 0x0045AEA0
-void __fastcall PLAYER_SetPanelSlide(int nMode)
-{
-    switch (nMode)
-    {
-    case 0:
-    case 3:
-        gnPanelSlideOffsetX = 0;
-        break;
-    case 1:
-        gnPanelSlideOffsetX = -(gnScreenWidth / 4);
-        break;
-    case 2:
-        gnPanelSlideOffsetX = gnScreenWidth / 4;
-        break;
-    }
-    gnPanelSlideMode = nMode;
-    D2GFX_SetViewMatrixAdjust(gnPanelSlideOffsetX);
-    const int nWidth = gnAutomapWidth;
-    const int nQuarter = nWidth / 4;
-    switch (nMode)
-    {
-    case 0:
-        sub_00476000_SetViewRect(gpClientView, 0, 0, nWidth, gnAutomapHeight_007A521C);
-        break;
-    case 1:
-        sub_00476000_SetViewRect(gpClientView, -nQuarter, 0, nWidth - nQuarter, gnAutomapHeight_007A521C);
-        break;
-    case 2:
-        sub_00476000_SetViewRect(gpClientView, nQuarter, 0, nWidth + nQuarter, gnAutomapHeight_007A521C);
-        break;
-    case 3:
-        sub_00476000_SetViewRect(gpClientView, 0, 0, nWidth, gnAutomapHeight_007A521C);
-        GAME_ResetMouseButtons();
-        break;
-    }
-}
 
-// 0x0045AFC0
-extern "C" int __cdecl PLAYER_GetScreenOffsetX()
-{
-    return gnAutomapOriginX - gnPanelSlideOffsetX;
-}
 
-// 0x0045AFD0
-extern "C" int __cdecl PLAYER_GetScreenOffsetY()
-{
-    return gnAutomapOriginY - 8;
-}
 
 // 0x0045BD00
 void D2StormExplicitListStrc::UnlinkAll()

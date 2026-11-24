@@ -779,16 +779,6 @@ void __cdecl CUNIT_ReplayRecords()
     }
 }
 
-// 0x0045B1A0
-void __fastcall CUNIT_DrawAutomapDiamond(int nX, int nY, unsigned char nColor)
-{
-    tagRECT tRect;
-    tRect.left = nX - gnAutomapOriginX - 0x10;
-    tRect.right = nX - gnAutomapOriginX + 0x10;
-    tRect.top = nY - gnAutomapOriginY;
-    tRect.bottom = nY - gnAutomapOriginY + 0x10;
-    D2GFX_UtilDiamond(&tRect, nColor);
-}
 
 // 0x004637F0
 unsigned char* __fastcall CUNIT_GetMonsterComponents(D2UnitStrc* pUnit)
