@@ -3845,3 +3845,5 @@ extern "C" __declspec(dllexport) void __fastcall CLIENTS_GetClientInfo(D2ClientS
 {
     *ppClientInfo = pClient->pClientInfo;
 }
+
+#include "gen/data/Source/D2Game/GAME/Clients.inc"

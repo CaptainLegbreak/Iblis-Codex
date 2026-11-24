@@ -353,3 +353,5 @@ void __fastcall PLAYERLIST_SetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPl
         pPlayerData->dwHostileDelay = GetTickCount();
     }
 }
+
+#include "gen/data/Source/D2Game/UNIT/PlayerList.inc"
