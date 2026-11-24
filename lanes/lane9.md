@@ -6,7 +6,6 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 `Source/D2DDraw/**`, `Source/D2Gdi/**`, `Source/D2Glide/**`, `Source/D2Hell/**`, taking over from lane 6.
 
 ## Claimed
-- From queues.md: the DrawLine context copies. D2Gdi Unknown_006C8F70 + Unknown_006C9030 into Unknown_006C8DA0 (lane9/join-gdi-line); D2DDraw Unknown_00512C20 + Unknown_00512CE0 into Unknown_005125E0 (lane9/join-ddraw-line). Each pair calls its home file's static DrawLine.
 - Renderer functions filed in D2Win: Unknown_0050F910.cpp (Glide 0x50F910, 0x50FBD0, 0x50FDF0; DDraw 0x510130-0x5103B0,
   0x5137E0) and Unknown_00508970.cpp (0x508970 GlideLoadLibrary, 0x508F60 GlideCheckBoards). Lane 6: please don't edit
   these meanwhile. Then Storm SCMD.CPP's stubs in gdiCore's run and the Bnclient units in the D2Hell run.
@@ -35,6 +34,12 @@ All on main bc489a89 (#359), namesync run, precheck 0 not all equal on each head
   equal under D2Hell's /O1 module default, so their own flag sets go. Full verify: VERIFIED tree 743065d5, borrowed
   data 906 B. (Lane 6: three Bnclient placeholders leave.)
 
+- lane9/renderer-module-flags 38a78a7f, on main ef7b4a19 (#361) (queues.md: per-file options 23 -> 4 in lane 9). Every
+  unit of D2Gfx, D2Direct3D, D2DDraw, D2Gdi and D2Glide builds equal under base + /GS-, including the units that
+  carried /Ob1, so config.json gets that as each module's default (as for D2Hell's /O1) and 19 per-unit flag sets go.
+  gdiCore.cpp keeps /GS- /Ob1 (0x6C7CF0 needs /Ob1) and d3dCore.cpp keeps /EHsc /GS-. 64 units equal. Full verify on
+  #361: VERIFIED tree 81188cc4, borrowed data 898 B (main's).
+
 In #357: take-win-strays, renderer-tables (thanks). In #350: drawquad-note, move-d3d-bink, take-renderer-strays (thanks). In #347: join-d3dcore-2, join-gdicore-8250, d2hell-o1. In #344: place-ddcore-10160. In #341: join-d3d-3570, join-d3dsprite-2. In #340: join-d3d-7530, join-ddraw-11df0, join-glide-bd30, join-glide-d410 (thanks). Earlier: place-gdismack #338,
 join-d3dsprite #336, atl-d3dcore #332 (its 2 B note stands).
 
@@ -42,6 +47,13 @@ join-d3dsprite #336, atl-d3dcore #332 (its 2 B note stands).
 (none open; thanks for the #341 answers.)
 
 ## Notes for other lanes
+- **Coordinator, on queues.md's lane 9 context copies:** the four DrawLine copies (D2Gdi Unknown_006C8F70/006C9030 of
+  0x6C8DA0; D2DDraw Unknown_00512C20/00512CE0 of 0x512A50) don't look like join candidates. Joining 006C8F70 and
+  006C9030 into Unknown_006C8DA0.cpp breaks the callers or 0x6C8DA0 itself under every signature I tried (static
+  stdcall/fastcall/cdecl, the home file's fastcall, swapped argument order): the callers want a register convention
+  that only the per-file static copy produces. That fits a header-defined static line helper compiled into each file
+  and folded into one body by the linker's identical-code folding, so the copies may be the original's shape. I've
+  dropped the claim. Likewise 0x5170E7 (Archive.cpp's shim): it takes its argument in eax but nothing calls it.
 - **Lane 1:** D2Client/Unknown_004F4EC0.cpp (0x4F4FF0 SetVideoMode and five data blocks) is D2Gfx's: the selector and
   its table gapGraphicsInterfaces (0x72DA80) sit inside Window.cpp's code and data, and the other four blocks are the
   renderers' function tables, each right where its renderer's core .data starts. Lane 9 moves them on
