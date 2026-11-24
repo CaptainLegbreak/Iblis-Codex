@@ -9,6 +9,8 @@
 #include "D2QuestData.h"
 #include "D2GameObjs.h"
 #include "D2Packets.h"
+#include "D2Txt.h"
+#include "D2DataTbls.h"
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
@@ -561,6 +563,84 @@ int __fastcall OBJECTS_OperateFunction72_LastPortal(D2ObjOperateFnStrc* pOp, int
     }
 
     return 0;
+}
+
+struct D2MonStatsTxt;
+
+extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
+extern unsigned int gdwBitMasks[]; // 0x006CE268
+
+static D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordInline(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    return 0;
+}
+
+int __fastcall ACT5Q6_UnitIterate_SendZooMonsterIdToClient(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0058E180
+
+// 0x0058E830
+void __fastcall OBJECTS_InitFunction79_Zoo(D2ObjInitFnStrc* pOp)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A5Q6_BAAL);
+    D2Act5Quest6Strc* pQuestDataEx = (D2Act5Quest6Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bZooInitialized)
+    {
+        return;
+    }
+
+    int i = 0;
+    const int nRecordCount = sgptDataTables->nMonStatsTxtRecordCount;
+    while (!pQuestDataEx->bZooInitialized)
+    {
+        if (i >= 10)
+        {
+            break;
+        }
+
+        pQuestDataEx->nZooMonsterId = OBJECTS_RollRandomNumber(QUESTS_GetGlobalSeed(pQuestData->pGame), 1, nRecordCount);
+        ++i;
+        D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecordInline(pQuestDataEx->nZooMonsterId);
+        int bZoo = 0;
+        if (pMonStatsTxtRecord)
+        {
+            bZoo = pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_ZOO >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_ZOO & 7];
+        }
+
+        if (bZoo)
+        {
+            pQuestDataEx->bZooInitialized = 1;
+        }
+    }
+
+    if (!pQuestDataEx->bZooInitialized)
+    {
+        pQuestDataEx->bZooInitialized = 1;
+        pQuestDataEx->nZooMonsterId = 0;
+    }
+
+    if (pQuestDataEx->bZooInitialized)
+    {
+        SUNIT_IterateUnitsOfType(pOp->pGame, UNIT_PLAYER, 0, ACT5Q6_UnitIterate_SendZooMonsterIdToClient);
+    }
+}
+
+D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
+
+// 0x0058E920
+void __fastcall ACT5Q6_SpawnTyrael(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit)
+{
+    D2CoordStrc coord;
+    D2ActiveRoomStrc* pFreeRoom = 0;
+    UNITS_GetCoords(pUnit, &coord);
+    coord.nX -= 5;
+    coord.nY -= 5;
+    QUESTS_GetFreePosition(pRoom, &coord, 5, 0x400, &pFreeRoom, 19, 100);
+    if (pFreeRoom)
+    {
+        D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, coord.nX, coord.nY, MONSTER_TYRAEL3, MONMODE_NEUTRAL, 4, 66);
+    }
 }
 
 // 0x0058E180

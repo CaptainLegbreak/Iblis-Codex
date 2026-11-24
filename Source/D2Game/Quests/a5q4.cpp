@@ -991,67 +991,6 @@ struct D2GameStrc;
 
 struct D2UnitStrc;
 
-// 0x0058E830
-void __fastcall OBJECTS_InitFunction79_Zoo(D2ObjInitFnStrc* pOp)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A5Q6_BAAL);
-    D2Act5Quest6Strc* pQuestDataEx = (D2Act5Quest6Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->bZooInitialized)
-    {
-        return;
-    }
-
-    int i = 0;
-    const int nRecordCount = sgptDataTables->nMonStatsTxtRecordCount;
-    while (!pQuestDataEx->bZooInitialized)
-    {
-        if (i >= 10)
-        {
-            break;
-        }
-
-        pQuestDataEx->nZooMonsterId = OBJECTS_RollRandomNumber(QUESTS_GetGlobalSeed(pQuestData->pGame), 1, nRecordCount);
-        ++i;
-        D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecordInline(pQuestDataEx->nZooMonsterId);
-        int bZoo = 0;
-        if (pMonStatsTxtRecord)
-        {
-            bZoo = pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_ZOO >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_ZOO & 7];
-        }
-
-        if (bZoo)
-        {
-            pQuestDataEx->bZooInitialized = 1;
-        }
-    }
-
-    if (!pQuestDataEx->bZooInitialized)
-    {
-        pQuestDataEx->bZooInitialized = 1;
-        pQuestDataEx->nZooMonsterId = 0;
-    }
-
-    if (pQuestDataEx->bZooInitialized)
-    {
-        SUNIT_IterateUnitsOfType(pOp->pGame, UNIT_PLAYER, 0, ACT5Q6_UnitIterate_SendZooMonsterIdToClient);
-    }
-}
-
-// 0x0058E920
-void __fastcall ACT5Q6_SpawnTyrael(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit)
-{
-    D2CoordStrc coord;
-    D2ActiveRoomStrc* pFreeRoom = 0;
-    UNITS_GetCoords(pUnit, &coord);
-    coord.nX -= 5;
-    coord.nY -= 5;
-    QUESTS_GetFreePosition(pRoom, &coord, 5, 0x400, &pFreeRoom, 19, 100);
-    if (pFreeRoom)
-    {
-        D2GAME_SpawnMonster_6FC69F10(pGame, pFreeRoom, coord.nX, coord.nY, MONSTER_TYRAEL3, MONMODE_NEUTRAL, 4, 66);
-    }
-}
-
 // 0x00592D50
 bool __fastcall ACT1Q4_OpenPortalToTristram(D2GameStrc* pGame, D2QuestDataStrc* pQuestData)
 {
