@@ -9,7 +9,11 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## In progress
 
-- **Strays in 0x4A0000-0x4F5000 (main #364):** trying each one- or two-function run that sits inside another file's run, by compile. So far dialog.cpp takes 0x4B76D0 (ROSTERPETS_HandleDialogEscape, called only by dialog.cpp). Not moved: 0x4A5980 (RosterPets.cpp, inside Unknown_004A43E0.cpp's run): there it inlines sub_004A4AD0_Press, the borrowed function, and stops matching.
+- **Claimed: the QuestLog.cpp join**, 0x4A1760-0x4A3E40. The text_0049A950.cpp and text.cpp functions inside QuestLog.cpp's run (lane 4's handover list plus text.cpp's 0x4A1950, 0x4A2220, 0x4A2CB0, 0x4A3050, 0x4A3220, 0x4A3E40) don't move one at a time: they share statics and declare the quest records under other types. Doing it as one group move.
+- **Strays, tried and left (main #365):**
+  - 0x4DEA70 (dFloor.cpp, inside Wall2.cpp's run): Wall2.cpp needs D2Client.h's D2GridInfoStrc to gain the word at +4 that 0x4DEA70 reads (the tile's height; wFlags at +6 stays). Any new name in D2Client.h, even an unused struct, turns lane 4's inv_004886C0.cpp 0x488B00 unequal (two loads swap: gnPanelOffsetY/gnScreenHeight). Lane 4: that unit is fragile to D2Client.h; a fix there would free the header.
+  - 0x4B5C60 (npcmenu_004B5C60.cpp): the piece builds with /EHsc and npcmenu.cpp without. With /EHsc on npcmenu.cpp everything else there stays equal, but 0x4B5C60 is still off by one push/xor order.
+  - 0x4A5980 (RosterPets.cpp, inside Unknown_004A43E0.cpp's run): there it inlines sub_004A4AD0_Press, the borrowed function, and stops matching.
 
 - **Claimed (analysis first, no branch yet): the SkillsMon/SkillDesc object map, code 0x4E1D30-0x4F2004.** Filed today across SkillsMon.cpp, SkillDesc.cpp, six SkillDesc_*.cpp pieces, SkillsEMon.cpp and a dozen placeholders, all interleaved. Path strings in .rdata: .\SKILLS\SkillsMon.cpp (0x6DBB4C), .\UI\SkillDesc.cpp (0x6DBF24), .\SKILLS\SkillsEMon.cpp (0x6DBF90). SkillDesc.cpp's plan holds 4 language copies and SkillDesc_004E1FF0.cpp's 3 (lane 4's note), so this is about 7 objects plus SkillsMon and SkillsEMon. I'll post the object map before moving anything. Waiting on lane4/spellsel-data before the spellsel strays (it touches spellsel.cpp).
 
