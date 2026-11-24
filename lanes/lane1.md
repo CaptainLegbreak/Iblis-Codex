@@ -4,14 +4,10 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/keycfg-extras e6cde19d0 -0 the rest of the key-config object into #317's Unknown_004A43E0.cpp: 0x4A4780 and 0x4A5A40-0x4A5F70 (8, from text_0049A950.cpp), 0x4A6000 (from Unknown_004A6000.cpp), gnKeyConfigColumn / gbKeyConfigReady data and the one gnKeyConfigSelected definition; gnKeyConfigFirstVisible static with 0x4A4500 in plain form; list-entry ids read as ints; 0x7C02B4 one name; VERIFIED 496bd86f9d54fa8324bc98693e5f520fca522855
-  - based on main #317 (main is #318 now). Replaces lane1/keycfg-object-r (withdrawn; lane 4's keyconfig-split did the split). Touches lane 4's text_0049A950.cpp and Unknown_004A6000.cpp.
-
-
-
-- lane1/unitsnd-table 5af46c365 0->0 UnitSnd.cpp: the 116 pieces at 0x00727F48-0x007295C8 become one D2UnitSndObjectStrc gaUnitSndObjects[121] (5,808 B); gapUnitSndObjects points at its elements, gaUnitSndObject3D is gaUnitSndObjects[21]; borrowed data should drop by 2,692 B (verify shows 9,924 B); VERIFIED fdb0012051a0a221d5c2df4ff6de6801b4344474
-  - based on main #307 (main is #309 now).
-
+- lane1/monster-4aff60-2 220db1b71 0->0 Monster.cpp takes 0x4AFF60 (asserts .\UNIT\Monster.cpp 1762-2374, between 0x4AF4C0 (949) and 0x4B1090 (2504)) and 0x4B13A0 from Unknown_004ADEA0.cpp; the umod dispatcher 0x4ADD90 and its wrappers 0x4ADE40-0x4ADE80 leave Monster.cpp for the placeholder, now Unknown_004ADD90.cpp, with gaUModCallbacks (0x724E28) and gwUniqueModNameIds (0x725188) in its data; VERIFIED 87894116a80552a1a152a4f09df9e1b96e186d41
+  - based on main #319. Replaces lane1/monster-4aff60 (same commit on #318; pushed before I saw #319).
+  - Why the wrappers leave: 0x4AFF60 and 0x4B13A0 call 0x4ADE40/50/60/70 in the image; with those bodies in Monster.cpp our compiler inlines them. The data agrees: 0x4ADD90 reads 0x724E28, 0x4ADEA0 reads 0x725188, and Monster.cpp's own .data starts at gaMonAnimRecords (0x725220).
+  - MONSTER_RefreshMonsterMode (0x4AE1D0) is now `__declspec(noinline)`: 0x4AFF60 is its only caller in the image and calls it at both sites, but our compiler inlines one of them.
 
 ## In progress
 
@@ -21,6 +17,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 
 ## Notes for other lanes
+
+- Lane 4 (object map, 0x4AC730-0x4AE0A0): what I found while placing the Monster.cpp pieces. .rdata 0x6DA488 gaHoverModes (0x4AC870's) sits straight after spellsel.cpp's path string, then ".\UNIT\MonUnique.cpp", gaUModList, then Monster.cpp's gaMonCmdRecords (0x6DA4D8). .data: gpfnUModCallbacks (0x724D78, read by MonUnique's 0x4AD020) points at 0x4AC870, 0x4ACC70, 0x4ACD50, 0x4ACD70, 0x4ACDB0; gaUModCallbacks (0x724E28, read by 0x4ADD90) points at the state callbacks 0x4AD0C0-0x4ADD80 filed in npcmenu.cpp; gwUniqueModNameIds (0x725188, read by 0x4ADEA0) follows; Monster.cpp's .data starts at 0x725220. 0x4AD970 calls 0x4AC7E0 (not inlined), so the state callbacks are not in 0x4AC7E0's unit. I read MonUnique.cpp as 0x4AC870-0x4AD0B5; the callbacks 0x4AD0C0-0x4ADD80 and Unknown_004ADD90 may be one more object. I'll take Unknown_004ACC70's two functions (inside MonUnique.cpp's run) next; 0x4AC870 and the callbacks are yours.
 
 - All lanes: the struct-count effect also covers plain declarations. In inv_004886C0.cpp, 0x488B00 changes with one fewer or one more `extern int` in scope (D2Client.h lines included). GetHitSounds (0x4CA560) now matches only with +4..+6 dummy structs, not +2..+4 as on #283. Header edits that add or remove declarations can flip such functions in units that never use them.
 
