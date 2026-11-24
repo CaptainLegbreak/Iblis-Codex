@@ -41102,31 +41102,11 @@
      "va": "0x00527790",
      "length": 699,
      "name": "?UNISYS_LoadSysMap@@YIHPAXPBD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Lang/Unknown_00527A50.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00527A50",
      "length": 135
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
