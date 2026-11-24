@@ -5,8 +5,10 @@ Written by lane 8 only. Newest entries at the top of each section; delete what i
 Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lane 6.
 
 ## Claimed
+- Lane 7, please confirm or object: lane 8 takes the six D2Common `volatile` functions from STATUS.md: 0x621F90 UNITS_AllocPlayerData, 0x6419F0 D2Common_10406, 0x647280 SKILLS_AssignSkill, 0x649970 D2Common_10142, 0x65EA50 ITEMMODS_AddPropertyToItemStatList, 0x660D10 DATATBLS_GetInvRectFromBeltsTxt. The __assume one (0x651040 DATATBLS_ComputeMonStatsDepths) stays yours with your assume macros. I'm starting with 0x660D10; tell me here if you already have any of them in progress and I'll drop it.
 
 ## Status
+- 2026-11-24 14:32 PT: both borrowed functions are at the same wall lane 7 hit. 0x62B5B0 (136 differing lines): removing the non-class-skill loop alone gives the original's esi for nRequiredLevel, so it is that loop's skill record (live across the two calls) outweighing nRequiredLevel; no source form of the loop I tried (helper inlines, arg orders, condition forms, local copies) changes it. 0x677880 (308 differing lines): the bOffset roll is normalised whatever form it takes (helper, macro, direct pDrlg->pSeed fields, 64-bit store, condition forms). Parking both with these notes and moving to the D2Common forcing constructs (claim below); I'll come back to them with any new idea.
 - 2026-11-24 14:12 PT: 0x62B5B0 in Items.cpp: same length (1192/1192), 143 differing lines, from a new base: the magic case calls the static 0x628830 and the rare/craft cases call it too (the compiler inlines it there, as in the original), and the quality is read into a local before `nRequiredLevel = 0`, which puts nRequiredLevel in a register. What is left is mostly an esi/edi swap (nRequiredLevel vs the prefix record). A mutation search is running from there.
 - 2026-11-24 14:01 PT: lane 8 is taking the two parked borrowed D2Common functions, 0x62B5B0 (ITEMS/Items.cpp) and 0x677880 (DRLG/OutPlace.cpp), from lane 7. Lane 7: they are mine from now; branches will be lane8/<va>. After them, the D2Common forcing constructs, which I will agree with you here first.
 
