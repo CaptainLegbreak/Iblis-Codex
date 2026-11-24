@@ -92,6 +92,11 @@ A function belongs to the lane whose address range or file run it sits in, whate
 - **Pathfinding cluster 0x00678B10-0x0067BE00 (lane 6):** the strays filed in Skills.cpp and Drlg.cpp move out either way. To choose between one placeholder and several, test the shared data block 0x006F1798-0x006F1D9C. Split it by which functions read each part. If it divides into consecutive pieces, each read by a consecutive group of functions, make one placeholder per group: one object's data is contiguous, so a clean partition marks file boundaries. If the readers cross the whole block, make one placeholder, `Unknown_006793E0.cpp`. Either way, names stay placeholders: there's no assert and the names are d2moo.
 - **Language-name table (from lane 4):** the 15-entry table of language-name pointers is a header-level static array, so each object file that includes the header gets one copy. 308 copies are in .data. This is placement evidence: **a planned file holding N copies spans N original units**, and a copy marks where a unit's data starts. It sits next to the assert-path rule; it beats adjacency and names. Lane 2: find the header (Fog's ErrorManager.cpp reads its copy as `gaszLanguageNames`) and define the table there once, as `static`. Then each lane turns the copies in its own files into that include, unit by unit. Only units whose original had a copy may include it: a unit that gains a copy the image doesn't have breaks the build.
 - **Shared const tables (from lane 6):** a namespace-scope `const` table has internal linkage in C++, so two functions that read the same one were in one file, unless the table is declared extern. Ignore pooled strings, floating-point constants and selectany GUIDs. This ranks with the language-table rule.
+- **Real Windows headers (tested 2026-11-24 by the coordinator; not adopted for now).** The VC 8.0 and Platform SDK headers come out of the cached VS2005 disc (1,174 files). Adding `#include <windows.h>` to a unit means dropping the hand-written declarations it clashes with, and renaming our struct `Rectangle`, which clashes with GDI's function.
+  - **Robust units stay equal.** Item.cpp: all 82 functions.
+  - **Every declaration-sensitive function flips.** inv_0048DD90 0x48DD90 and useitem 0x4BFDD0 differ in exactly the commutative operand order lane 2 saw (`lea edi,[ecx+edx-0x3f]` versus `[edx+ecx-0x3f]`, 4 bytes), whether windows.h comes first or after the project headers.
+  - **Reading:** these functions depend on the compiler's symbol-table state (how many and which identifiers precede them), not on any particular declaration. The real headers alone don't fix that.
+  - **Consequence:** the declaration and rename work goes ahead on our own headers. Adopting windows.h later means re-checking every sensitive function, which is a per-module project, not a global switch.
 - **Redivivus:** not used. Nothing from it goes into the repo or to the lanes.
 
 ## Per lane
@@ -217,6 +222,9 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #331: names.csv labels: 186 ordinals are placeholders; 12 names on our own class names are inferred; 16 Storm template names are blizzard. README explains all four sources.
+- #330 j91: MonUnique.cpp object, D2Win joins, act 4 tables, language-table starts, SCmd packet table, Fog log strays.
+- #329 n1: 137 Storm function names (storm-sfile, storm-rest plans).
 - #328 j90: skill-do-table (lane 5), sfile-openpath-2 (lane 3). `lane2/path-records` was not applied (conflict with #327's path regroup).
 - #327 j89: view-chat-run (lane 4), unitmode-copy, casetable-to-d2lang-2 (lane 1), lang-00404f40, sfile-unlinkall (lane 3), one-copy-2, data-nonconst-2 (lane 5), path-d-2 (lane 6), multi-records, d3d-records, bn-messages (lane 2). Borrowed data 2,507 → 2,382 B.
 - #326 j88: atl-data (lane 3, −728 B), fog-records-c (lane 2), path-b (lane 6), copies-start (lane 4), unit-strays (lane 1). Borrowed data 3,359 → 2,507 B.
