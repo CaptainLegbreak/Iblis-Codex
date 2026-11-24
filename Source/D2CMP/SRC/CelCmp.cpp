@@ -2362,7 +2362,7 @@ char* __fastcall DRLGPRESET_GetLinkRawNext(D2StormLinkStrc* pLink)
 // 0x00601B80
 void D2GameDataTableStrc::CelListTableSyncEnterLock(int* pLockHandle, int bForWriting)
 {
-    EnterCriticalSection(&m_sync.f_0);
+    EnterCriticalSection(&m_sync.m_critsect);
     *pLockHandle = bForWriting ? 1 : -1;
 }
 
@@ -3019,7 +3019,7 @@ char* D2StormListBStrc::sub_006023E0_RawNext(D2StormLinkStrc* pLink)
 void D2GameDataTableStrc::CelListTableSyncLeaveLock(int nLockHandle)
 {
     if (nLockHandle)
-        LeaveCriticalSection(&m_sync.f_0);
+        LeaveCriticalSection(&m_sync.m_critsect);
 }
 
 // 0x00602420

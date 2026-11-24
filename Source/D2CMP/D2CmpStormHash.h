@@ -47,11 +47,11 @@ struct D2StormHashChunkStrc
 
 struct D2StormCritSectStrc
 {
-    D2CriticalSectionStrc f_0;                              // 0x00
+    D2CriticalSectionStrc m_critsect;                              // 0x00
 
     ~D2StormCritSectStrc()
     {
-        DeleteCriticalSection(&f_0);
+        DeleteCriticalSection(&m_critsect);
     }
 };
 
@@ -140,13 +140,13 @@ public:
     }
     void SyncEnterLock(int* pLockHandle, int bForWriting)
     {
-        EnterCriticalSection(&m_sync.f_0);
+        EnterCriticalSection(&m_sync.m_critsect);
         *pLockHandle = bForWriting ? 1 : -1;
     }
     void SyncLeaveLock(int nLockHandle)
     {
         if (nLockHandle)
-            LeaveCriticalSection(&m_sync.f_0);
+            LeaveCriticalSection(&m_sync.m_critsect);
     }
     D2StormEntry38Strc* Ptr(unsigned int hHandle)
     {
