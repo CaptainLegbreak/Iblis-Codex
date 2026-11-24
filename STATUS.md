@@ -17,8 +17,8 @@ Bytes of the built Game.exe by origin:
 
 | Origin | Bytes |
 |---|---:|
-| game code and data compiled from Source/ | 2,694,166 |
-| initialised data generated from your Game.exe (build/data_plan.json) | 370,368 |
+| game code and data compiled from Source/ | 2,694,346 |
+| initialised data generated from your Game.exe (build/data_plan.json) | 370,188 |
 | C runtime (libcmt.lib, placed by identity) | 239,696 |
 | import thunks and the import address table | 3,782 |
 | headers, import and export tables, relocations, checksum | 163,407 |
@@ -42,16 +42,17 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 769 |
+| Compilation units | 731 |
 | … in a file with its original name, whole | 292 |
-| … pieces of an original file still split (in 33 files) | 111 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 366 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2580 |
+| … pieces of an original file still split (in 33 files) | 112 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 327 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2555 |
 | Unnamed fields (`unk0x..`) in the shared headers | 717 |
-| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 42 |
+| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 38 |
+| Functions relying on a module assumption macro (`STORM_ASSUME`, `FOG_ASSUME`: the original's release-build assert or unreachable default) | 4 |
 | Calling-convention shims | 68 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
-| `__declspec(noinline)` / `__forceinline` | 106 / 220 |
+| `__declspec(noinline)` / `__forceinline` | 107 / 220 |
 | Function names: blizzard / library / d2moo / inferred / placeholder | 478 / 85 / 5268 / 6022 / 3074 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -78,7 +79,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3932 functions are compiled with `/GS-` and 1012 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 106 times and `__declspec(dllexport)` 153 times to keep a body out of line or emitted.
+Not listed one by one: 3913 functions are compiled with `/GS-` and 1007 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 107 times and `__declspec(dllexport)` 153 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -333,9 +334,6 @@ Not listed one by one: 3932 functions are compiled with `/GS-` and 1012 with `/E
 | 0x00410740 | LOGMANAGER_LogWritePrefixed | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x004107B0 | SYSTEM_AtomicStore64 | `Fog/Src/System/system.cpp` | inline assembly |
 | 0x004107D0 | SYSTEM_AtomicRead64 | `Fog/Src/System/system.cpp` | inline assembly |
-| 0x004157C0 | FillStreamBuffer | `Storm/SOURCE/SFILE.CPP` | __assume |
-| 0x00423DC0 | Div | `Storm/SOURCE/SBig_00423DC0.cpp` | __assume |
-| 0x00424B00 | sub_00424B00_BigSquare | `Storm/SOURCE/SBig_00424B00.cpp` | __assume |
 | 0x00425720 | sub_00425720_Rotl | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
 | 0x00425730 | sub_00425730_Sha1Round0 | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
 | 0x00425770 | sub_00425770_Sha1Round1 | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
@@ -513,9 +511,9 @@ Not listed one by one: 3932 functions are compiled with `/GS-` and 1012 with `/E
 | 0x00502550 | D2Win_10128 | `D2Win/Src/D2WinFont.cpp` | __assume |
 | 0x0050CA00 | sub_0050CA00_GlideShadowTileDrawPerspective | `D2Glide/Unknown_0050BD30.cpp` | volatile read or qualifier |
 | 0x00516830 | D2SOUNDSMP_GetPositionalVolumePan | `D2Sound/Src/D2SoundSmp.cpp` | volatile read or qualifier |
-| 0x005179B3 | sub_005179B3_CopyRect | `D2Hell/Unknown_005173EF.cpp` | inline assembly |
-| 0x00517A36 | sub_00517A36_CompareMemory | `D2Hell/Unknown_005173EF.cpp` | inline assembly |
-| 0x00517ABB | sub_00517ABB_FindLowestSetBit | `D2Hell/Unknown_005173EF.cpp` | inline assembly |
+| 0x005179B3 | sub_005179B3_CopyRect | `D2Hell/Unknown_00516D8B.cpp` | inline assembly |
+| 0x00517A36 | sub_00517A36_CompareMemory | `D2Hell/Unknown_00516D8B.cpp` | inline assembly |
+| 0x00517ABB | sub_00517ABB_FindLowestSetBit | `D2Hell/Unknown_00516D8B.cpp` | inline assembly |
 | 0x00518300 | BNETGW_LoadGatewayFile | `D2BNClient/BNetGW.cpp` | volatile read or qualifier |
 | 0x0051D260 | BNNEWS_SelectNewsFile | `D2BNClient/BNNews.cpp` | compiler option /Ob1 |
 | 0x0051D2A0 | sub_0051D2A0_At | `D2BNClient/BNNews.cpp` | compiler option /Ob1 |
@@ -632,7 +630,6 @@ Not listed one by one: 3932 functions are compiled with `/GS-` and 1012 with `/E
 | 0x0065EA50 | ITEMMODS_AddPropertyToItemStatList | `D2Common/ITEMS/ItemMods.cpp` | volatile read or qualifier |
 | 0x00660D10 | DATATBLS_GetInvRectFromBeltsTxt | `D2Common/DATATBLS/BeltTbls.cpp` | volatile read or qualifier |
 | 0x006B83A0 | sub_006B83A0_DrawPerspective | `D2Direct3D/Unknown_006B7530.cpp` | volatile read or qualifier |
-| 0x006BD780 | FOG_10207 | `Fog/Src/Excel/Excel.cpp` | __assume |
 | 0x006BE310 | FOG_SetServerConfig | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006BE350 | FOG_StartServer | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006BE390 | FOG_10186 | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
@@ -717,6 +714,7 @@ Not listed one by one: 3932 functions are compiled with `/GS-` and 1012 with `/E
 | 0x006C7AF0 | sub_006C7AF0_Nop | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7B00 | GDICORE_CreateBackBuffer | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7C10 | GDICORE_CreateSurface | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
+| 0x006C7C90 | sub_006C7C90_Release | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7CC0 | sub_006C7CC0 | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7CD0 | sub_006C7CD0 | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7CE0 | sub_006C7CE0 | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
