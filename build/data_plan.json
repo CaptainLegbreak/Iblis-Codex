@@ -1884,15 +1884,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Win/Unknown_0050F910.cpp": {
-   "bytes": 20,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Win/Unknown_0050F910.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2DDraw/Src/ddSmack.cpp": {
    "bytes": 452,
    "definitions": 1,
@@ -4679,15 +4670,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Win/Unknown_00508970.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Win/Unknown_00508970.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Common/DRLG/OutPlace.cpp": {
    "bytes": 3216,
    "definitions": 18,
@@ -5311,6 +5293,24 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkilPal.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Glide/Unknown_0050F910.cpp": {
+   "bytes": 20,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Glide/Unknown_0050F910.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Glide/Unknown_00508970.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Glide/Unknown_00508970.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -79713,7 +79713,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Win/Unknown_0050F910.cpp",
+   "file": "Source/D2Glide/Unknown_0050F910.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2GrTexInfoStrc gtGlideTileTexInfo = ",
@@ -79769,7 +79769,7 @@
    "cname": "gData_0072F6B4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Win/Unknown_0050F910.cpp",
+   "file": "Source/D2Glide/Unknown_0050F910.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072F6B4_t gData_0072F6B4; // 0x0072F6B4",
    "head": "extern \"C\" struct d2data_0072F6B4_t gData_0072F6B4 = ",
@@ -149458,7 +149458,7 @@
    "cname": "gData_0072F13C",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Win/Unknown_00508970.cpp",
+   "file": "Source/D2Glide/Unknown_00508970.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072F13C_t gData_0072F13C; // 0x0072F13C",
    "head": "extern \"C\" struct d2data_0072F13C_t gData_0072F13C = ",
