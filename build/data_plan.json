@@ -107,8 +107,8 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SFILE.CPP": {
-   "bytes": 348,
-   "definitions": 10,
+   "bytes": 324,
+   "definitions": 9,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -3913,8 +3913,8 @@
    "state": "included"
   },
   "Source/Storm/Unknown_006C9A68.cpp": {
-   "bytes": 276,
-   "definitions": 5,
+   "bytes": 272,
+   "definitions": 4,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -8221,25 +8221,16 @@
    "declared": true,
    "decorated": "?gszTypeNameArchiveRec_00708398@@3PADA",
    "file": "Source/Storm/SOURCE/SFILE.CPP",
-   "fill": 40,
+   "fill": 32,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00708398_t gData_00708398; // 0x00708398",
    "head": "extern \"C\" struct d2data_00708398_t gData_00708398 = ",
    "name": "gszTypeNameArchiveRec_00708398",
-   "pointers": [
-    [
-     32,
-     "0x006F28F8",
-     "address",
-     "gData_006F28F8",
-     0,
-     "data"
-    ]
-   ],
+   "pointers": [],
    "region": "data",
-   "size": 40,
+   "size": 32,
    "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00708398_t\n{\n    unsigned char b0[32];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00708398_t\n{\n    unsigned char b0[32];\n};\n#pragma pack(pop)",
    "tail": "; // 0x00708398\n#pragma comment(linker, \"/alternatename:?gszTypeNameArchiveRec_00708398@@3PADA=_gData_00708398\")",
    "type": "char",
    "va": "0x00708398"
@@ -8692,26 +8683,6 @@
    "tail": "; // 0x006CEDCC\n#pragma comment(linker, \"/alternatename:_szSMemAlloc_006CEDCC=_gData_006CEDCC\")",
    "type": "char",
    "va": "0x006CEDCC"
-  },
-  {
-   "alias": true,
-   "cname": "gData_007083C0",
-   "declared": true,
-   "decorated": "_gszStormFileRecTypeName",
-   "file": "Source/Storm/SOURCE/SFILE.CPP",
-   "fill": 16,
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007083C0_t gData_007083C0; // 0x007083C0",
-   "head": "extern \"C\" struct d2data_007083C0_t gData_007083C0 = ",
-   "name": "gszStormFileRecTypeName",
-   "pointers": [],
-   "region": "data",
-   "size": 16,
-   "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007083C0_t\n{\n    unsigned char b0[16];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007083C0\n#pragma comment(linker, \"/alternatename:_gszStormFileRecTypeName=_gData_007083C0\")",
-   "type": "char",
-   "va": "0x007083C0"
   },
   {
    "alias": true,
@@ -145287,40 +145258,6 @@
    "tail": "; // 0x00708358",
    "type": "unsigned int",
    "va": "0x00708358"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006C9A68.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern unsigned int gnListTerminator_00708370 = ",
-   "model": {
-    "k": "prim",
-    "kind": "u",
-    "name": "unsigned int",
-    "size": 4
-   },
-   "name": "gnListTerminator_00708370",
-   "pointers": [
-    [
-     0,
-     "0x00708370",
-     "owner",
-     "gnListTerminator_00708370",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00708370",
-   "type": "unsigned int",
-   "va": "0x00708370"
   },
   {
    "alias": false,

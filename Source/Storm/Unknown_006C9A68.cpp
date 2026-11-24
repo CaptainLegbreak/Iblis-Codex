@@ -9,9 +9,6 @@ int __cdecl sub_00683824_RegisterExit(void (__cdecl* callback)()); // 0x00683824
 extern unsigned int gnListTerminator_00708358; // 0x00708358
 extern void* gpListHead_0070835C; // 0x0070835C
 void __cdecl sub_006CB0C0_DestroyList(); // 0x006CB0C0
-extern unsigned int gnListTerminator_00708370; // 0x00708370
-extern void* gpListHead_00708374; // 0x00708374
-void __cdecl sub_006CB180_DestroyList(); // 0x006CB180
 extern unsigned int gnListTerminator_007088EC; // 0x007088EC
 extern void* gpListHead_007088F0; // 0x007088F0
 void __cdecl sub_006CB380_DestroyList(); // 0x006CB380
@@ -100,13 +97,6 @@ void __cdecl sub_006CA7B0_InitializeList()
 {
     gpListHead_0070835C = (void*)~(unsigned int)&gnListTerminator_00708358;
     atexit(sub_006CB0C0_DestroyList);
-}
-
-// 0x006CA810
-void __cdecl sub_006CA810_InitializeList()
-{
-    gpListHead_00708374 = (void*)~(unsigned int)&gnListTerminator_00708370;
-    atexit(sub_006CB180_DestroyList);
 }
 
 // 0x006CA900

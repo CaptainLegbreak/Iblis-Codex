@@ -136,9 +136,8 @@ struct ARCHIVEREC
 }
 
 // An open file (0x158 bytes).
-struct FILEREC
+struct FILEREC : TSLinkedNode<FILEREC>
 {
-    D2StormLinkStrc tLink;                      // 0x000
     union
     {
         char szName[0x108];                     // 0x008
@@ -350,7 +349,6 @@ struct D2StormFixedListStrc
     D2StormLinkStrc* sub_00417C50_Link(char* pNode);
     D2StormLinkStrc* sub_00417D60_Link(char* pNode);
     D2StormLinkStrc* sub_0041C560_Link(char* pNode);
-    void sub_00417B80_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
     void sub_004184B0_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
     void sub_0041C580_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
     char* sub_00417B20_Next(char* pNode);
@@ -370,7 +368,6 @@ struct D2StormFixedListStrc
     char* sub_00418EC0_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
     char* sub_0041C840_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
     char* sub_0041CA10_DeleteNode(char* pNode);
-    char* sub_00418F20_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
 };
 
 struct D2StormListBaseStrc
@@ -423,10 +420,4 @@ struct D2StormList00708354Strc : D2StormListBaseStrc
 {
     void sub_00418900_UnlinkAll();
     ~D2StormList00708354Strc();
-};
-
-struct D2StormList0070836CStrc : D2StormListBaseStrc
-{
-    void sub_00418980_UnlinkAll();
-    ~D2StormList0070836CStrc();
 };
