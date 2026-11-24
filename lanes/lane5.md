@@ -4,10 +4,11 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/skill-runs-2 101d5c51a 2 placeholders fewer (Unknown_005CAE40.cpp, Unknown_005D3BA0.cpp); replaces skill-runs and skill-runs-b (their first commit merged as strays-3 in #361), rebased onto #361, three commits: (1) SkillSor.cpp takes the sorceress code inside its run (10 functions from SkillDruid, SkillItem, Unknown_005C8BF0; .rdata: SkillDruid path, then SkillSor's) and SKILLS_ApplyWarcryStats goes to SkillBar.cpp; (2) SkillMonst.cpp takes the monster skills inside its run (11 functions) and the .rdata between SkillSor's and SkillMonst's paths goes by reader (gnHydraOffsetX/Y to SkillSor; maggot/Andrial tables to SkillMonst); (3) seven strays to SkilPal, SkillAss (incl. Blade Shield from MissMode), SkillAma (Jab from MissMode). VERIFIED 613aa22f94fe4f43fced15d88e445b126c971cc2, borrowed data 898 B (= main #361). Based on main ef7b4a195 (#361), not stacked.
+- lane5/strays-6 284fde4bd 0 placeholders; SkillAma.cpp takes SKILLS_SrvSt06_PowerStrike_ChargedStrike (0x5DA940, from SkillAss.cpp; it sits among the Amazon skills in SkillAma's run) and SkillMonst.cpp takes sub_005CDF00_HasTarget (0x5CDF00, from Unknown_005CD910.cpp, inside SkillMonst's run). VERIFIED f584e608f8ae8253b73a7149ac2fe772ed1b6313, borrowed data 880 B (= main #362). Based on main 90638cd18 (#362).
 
 ## Claimed
 
+- Split of Ai/AiThink4.cpp at 0x5EFB80 (the classic AI functions Fn002-Fn087, 0x5EFB80-0x5FBA60, which no function in 0x5E0160-0x5EFB80 shares a helper with) into its own object, with the first of the six no-data copies after AiThink4's data (0x741D90).
 
 ## Questions
 
