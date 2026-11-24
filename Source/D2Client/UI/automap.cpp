@@ -19,6 +19,7 @@
 #include "D2StateIds.h"
 #include "D2UnitData.h"
 #include "D2CelContext.h"
+#include "D2ClientUiRecords.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 
@@ -2029,10 +2030,6 @@ int __fastcall AUTOMAP_SetAutomapFade(int nFade)
     return nFade;
 }
 
-struct D2UIVarRecordStrc
-{
-    int anCloseKind[0x26];
-};
 
 struct T0044CB60
 {

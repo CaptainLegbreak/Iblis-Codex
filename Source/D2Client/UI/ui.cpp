@@ -14,6 +14,7 @@
 #include "D2GameObjs.h"
 #include "D2LevelTxt.h"
 #include "D2ItemsWorld.h"
+#include "D2ClientUiRecords.h"
 
 struct D2CelFileStrc;
 
@@ -576,10 +577,6 @@ void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
 void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
-struct D2UIVarRecordStrc
-{
-    int anCloseKind[0x26];
-};
 
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 

@@ -4,6 +4,7 @@
 #include "D2UnitData.h"
 #include "D2ClientMenus.h"
 #include "D2StormTypes.h"
+#include "D2ClientUiRecords.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
@@ -46,14 +47,6 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern D2SkillIconStateStrc gtHotkeySlots; // 0x007C0300
 void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLeft, int bNoSlots, int bNoDraw); // 0x004AA3A0
 
-#pragma pack(push, 1)
-struct D2UiCelFileStrc
-{
-    void* pCelFile;
-    char szPath[0x1E];
-};
-
-#pragma pack(pop)
 struct D2WeatherLayerStateStrc
 {
     void* apCelFiles[4];
