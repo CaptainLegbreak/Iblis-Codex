@@ -222,7 +222,27 @@ void __fastcall sub_006C8970_GdiDebugPrintf(int nX, int nY, const char* szFormat
 int __fastcall sub_006C88B0_DrawAt(int nX, int nY); // 0x006C88B0
 void __cdecl sub_006C7AF0_Nop(); // 0x006C7AF0
 
+extern int gpTileDrawFunctions; // 0x007C914C
+int __cdecl sub_006C7A60(); // 0x006C7A60
+int __cdecl sub_006C7CC0(); // 0x006C7CC0
+void __stdcall sub_006C7CD0(int nUnused1); // 0x006C7CD0
+int __cdecl sub_006C7CE0(); // 0x006C7CE0
+int __cdecl sub_006C8050(); // 0x006C8050
+void __stdcall sub_006C8060(int nUnused1); // 0x006C8060
+int __cdecl sub_006C80F0(); // 0x006C80F0
+int __cdecl sub_006C8100(); // 0x006C8100
+int __cdecl sub_006C8190(); // 0x006C8190
+int __cdecl sub_006C8240(); // 0x006C8240
+void __stdcall sub_006C88A0(int nUnused1, int nUnused2); // 0x006C88A0
+void __stdcall sub_006C8A40(int nUnused1, int nUnused2); // 0x006C8A40
+
 #include "gen/data/Source/D2Gdi/Src/gdiCore.inc"
+
+// 0x006C7A60
+int __cdecl sub_006C7A60()
+{
+    return 1;
+}
 
 // 0x006C7A70
 int __fastcall GDICORE_Init(void* pArg1, void* pArg2)
@@ -316,6 +336,23 @@ int __fastcall GDICORE_CreateSurface(int nValue, int nArg)
 }
 
 
+// 0x006C7CC0
+int __cdecl sub_006C7CC0()
+{
+    return 0;
+}
+
+// 0x006C7CD0
+void __stdcall sub_006C7CD0(int nUnused1)
+{
+}
+
+// 0x006C7CE0
+int __cdecl sub_006C7CE0()
+{
+    return 0;
+}
+
 // 0x006C7CF0
 int __cdecl GDICORE_CloseSurface()
 {
@@ -399,6 +436,23 @@ void __fastcall GDICORE_SetPalette(D2PaletteEntry006C7C10Strc* pEntries)
     memcpy(gaPalette_007C8CC8, pEntries, sizeof(gaPalette_007C8CC8));
 }
 
+// 0x006C8020
+void* __cdecl sub_006C8020()
+{
+    return ghBufferBitmap;
+}
+
+// 0x006C8050
+int __cdecl sub_006C8050()
+{
+    return 0;
+}
+
+// 0x006C8060
+void __stdcall sub_006C8060(int nUnused1)
+{
+}
+
 // 0x006C80B0
 int __fastcall GDICORE_ChangeRes(int nUnused, int nMode)
 {
@@ -408,6 +462,24 @@ int __fastcall GDICORE_ChangeRes(int nUnused, int nMode)
     GDICORE_CreateBackBuffer(nMode);
     sub_006C82D0_Apply(nMode);
     return 1;
+}
+
+// 0x006C80F0
+int __cdecl sub_006C80F0()
+{
+    return 0;
+}
+
+// 0x006C8100
+int __cdecl sub_006C8100()
+{
+    return 0;
+}
+
+// 0x006C8190
+int __cdecl sub_006C8190()
+{
+    return 0;
 }
 
 // 0x006C81A0
@@ -428,6 +500,12 @@ void __fastcall sub_006C81E0_GetValues(int* pA, int* pB, int* pC)
     *pA = gnValue_007C9154;
     *pB = gnValue_007C913C;
     *pC = gnValue_007C9138;
+}
+
+// 0x006C8240
+int __cdecl sub_006C8240()
+{
+    return gpTileDrawFunctions;
 }
 
 // 0x006C8250
@@ -565,7 +643,6 @@ static inline int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX,
     return 1;
 }
 
-
 // 0x006C84B0
 int __fastcall GDICORE_DrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, void* pPalette)
 {
@@ -663,6 +740,11 @@ void __fastcall GDICORE_DrawCelClipped(D2CelContextStrc* pContext, int nX, int n
     CelDrawEx(pContext, nX, nY, tClip.left, tClip.right, gpScreenBuffer_007C9154, gnRenderHeight, gnRenderWidth, 0,
         (unsigned char*)sub_006C8250_GetSetting(nDrawMode, (int*)&pClip), tClip.skipRows, tClip.rowCount, 0);
 }
+// 0x006C88A0
+void __stdcall sub_006C88A0(int nUnused1, int nUnused2)
+{
+}
+
 // 0x006C88B0
 int __fastcall sub_006C88B0_DrawAt(int nX, int nY)
 {
@@ -710,6 +792,11 @@ void __fastcall sub_006C8970_GdiDebugPrintf(int nX, int nY, const char* szFormat
     DrawTextA(hDC, (char*)anText, -1, &tRect, 0);
     DeleteDC(hDC);
     ReleaseDC(0, hScreenDC);
+}
+
+// 0x006C8A40
+void __stdcall sub_006C8A40(int nUnused1, int nUnused2)
+{
 }
 
 // 0x006C8C00
