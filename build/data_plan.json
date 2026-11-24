@@ -643,7 +643,9 @@
     "extern \"C\" void __cdecl RECORD_RegisterLngArgument(); // 0x00451260",
     "extern \"C\" void __cdecl GAME_RunGameSession(); // 0x0044F360",
     "extern \"C\" void __cdecl GAME_PushState(); // 0x0044D080",
-    "extern \"C\" void __cdecl GAME_ShutdownClient(); // 0x0044D550"
+    "extern \"C\" void __cdecl GAME_ShutdownClient(); // 0x0044D550",
+    "extern \"C\" void __cdecl WINMAIN_StartSession(); // 0x0044BC30",
+    "extern \"C\" void __cdecl WINMAIN_StopSession(); // 0x0044BD90"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/CORE/WINMAIN.inc",
