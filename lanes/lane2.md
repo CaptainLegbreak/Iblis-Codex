@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/storm-bytearray 4d4eaf1d 562->562 Two commits, each a small header for units whose copies became identical once the Storm array members got Storm's names (#348): D2StormArrayC.h, the big-number code's growable byte array (SBig, Unknown_004225C0/00422D00/00423600/00424180), and D2StormListArray.h, a TSHashTable's m_slotlistarray (CelCmp, Unknown_0044F9D0/0044FD80/00450950/00450D90). Copies that differ keep their own; VERIFIED 3a6dd2fce0935340e1bb96ca43155c609c16b841
+  - Verified on 7c1cb42a (#351), pushed on 7c1cb42a. All 10 changed units build equal.
+  - Outside lane 2: five Storm units (lane 3), CelCmp (lane 6), four D2Client units (lanes 1 and 4).
+
 - lane2/client-fields 1573217f 562->562 One commit. D2Client.h: D2WeatherSplashStrc's 0x14 counts down per update, and at zero the splash moves to its next frame and the count resets to 2 (its start value), so nFrameDelay. D2ItemPacket9C/9DStrc's first byte is the packet id, nHeader as D2Packets.h names it; VERIFIED 32a59f1f7f5e10dd69d93468f2b04731963f370b
   - Verified on 39eacd0f (#350), pushed on 39eacd0f. All 182 includers of D2Client.h build equal. Merges cleanly with more-fields.
   - Outside lane 2: Gfx, Unknown_00472210, Unknown_00472DA0 (lanes 1 and 4), member names in D2Client.h.
