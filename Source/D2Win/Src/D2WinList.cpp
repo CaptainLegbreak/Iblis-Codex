@@ -21,6 +21,7 @@
 #include "D2Unicode.h"
 
 #include "D2WinControls.h"
+#include "D2WinListData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -52,22 +53,6 @@ typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
-struct D2WinListDataStrc
-{
-    Unicode wszText[256];
-    int field_200;
-    D2WinMsgHandler field_204;
-    int field_208;
-    int field_20C;
-    int field_210;
-    int field_214;
-    char field_218;
-    char field_219;
-    char field_21A;
-    char field_21B;
-    int field_21C;
-    D2WinListDataStrc* pNext;
-};
 
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 

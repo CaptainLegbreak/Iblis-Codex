@@ -3139,6 +3139,14 @@ void __cdecl CHATDLG_FreeNameList()
     gpNameList = 0;
 }
 
+// 0x0043F850
+__declspec(noinline) int __cdecl CHARSEL_CancelGameCreate()
+{
+    VIEW_SendMcpCancelGameCreate();
+    sub_00449E50_SetValue(0);
+    return 1;
+}
+
 // 0x0043F870
 static void __stdcall CHATDLG_GetArgument(int nSize, char* szDest, const char* szText)
 {
@@ -6225,13 +6233,21 @@ void __cdecl CHATDLG_LoadLevelRestriction()
 }
 
 int __cdecl GAME_GetMcpCharLevel(); // 0x00449E20
+
 extern D2WinControlInitStrc gtPanelTitleInit; // 0x0070EAA0
+
 extern D2WinControlInitStrc gtPanelTextInit; // 0x0070EAD0
+
 extern D2WinControlInitStrc gtPanelCancelButtonInit; // 0x0070EB30
+
 extern D2WinControlInitStrc gtResetBuildPanelTimerInit; // 0x0070EB60
+
 D2WinControlStrc* gpPanelBackground; // 0x00798BEC
+
 D2WinControlStrc* gpPanelTitle; // 0x00798BF0
+
 D2WinControlStrc* gpPanelText; // 0x00798BF4
+
 D2WinControlStrc* gpPanelCancelButton; // 0x00798C48
 
 // 0x004453B0

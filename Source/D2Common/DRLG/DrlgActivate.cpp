@@ -16,6 +16,7 @@
 #include "D2Structs.h"
 
 #include "D2DrlgRooms.h"
+#include "D2CommonLevelNode.h"
 
 struct D2DrlgStrc;
 
@@ -319,15 +320,6 @@ static bool RoomExHasRefCount(D2DrlgRoomStrc* pDrlgRoom, int nMaxStatus)
     return false;
 }
 
-struct D2CommonLevelNodeStrc
-{
-    char unk0x00[0x8];
-    D2CommonLevelNodeStrc** ppChildren;
-    unsigned short wLevelCounts[16];
-    int nChildren;
-    char unk0x30[0x14];
-    unsigned char nMaxLevel;
-};
 typedef void (__fastcall* LEVELNODEFN)(D2CommonLevelNodeStrc* pNode);
 extern const LEVELNODEFN gpfnRoomExSetStatus[]; // 0x00744384
 void __fastcall sub_0066C370_OnChildlessNode(void* pContext, D2CommonLevelNodeStrc* pNode); // 0x0066C370

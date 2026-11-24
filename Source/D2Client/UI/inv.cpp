@@ -1780,11 +1780,6 @@ void __cdecl sub_00478010()
 
 
 
-// 0x0047EC40
-int __cdecl sub_0047EC40_IsSet()
-{
-    return gdwGlobal_007BC974 != 0;
-}
 
 
 

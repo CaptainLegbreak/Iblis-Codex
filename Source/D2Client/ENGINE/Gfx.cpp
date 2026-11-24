@@ -2938,87 +2938,6 @@ static void sub_00473090_InitParticle(D2SeedStrc* pSeed)
     pParticle->nType = 3;
 }
 
-// 0x004732C0
-void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed)
-{
-    float fScale;
-    if (gbWeatherSplash)
-    {
-// build: symbol ?gnWeatherAngle@* 0x007A89C4
-// build: symbol ?FOG_10083_Cos_LUT@* 0x0040B330
-        const float fAbs = (float)fabs(FOG_10083_Cos_LUT(gnWeatherAngle));
-        // volatile: the original stores the absolute value and reloads it as a float
-        fScale = *(float volatile*)&fAbs;
-        fScale = fScale < 0.25f ? 0.25f : fScale;
-    }
-    else
-    {
-// build: symbol ?gfPhaseLevel@* 0x007A89A0
-        fScale = (float)(gfPhaseLevel * (double)0.15f + (double)0.85f);
-    }
-
-    D2WeatherParticleStrc* pParticle = gpWeatherParticles->pParticles;
-    for (int i = 0; i <= gpWeatherParticles->nLastParticle; ++i, ++pParticle)
-    {
-        if (!pParticle->bActive)
-        {
-            continue;
-        }
-
-        const int nSpeed = (int)(pParticle->nParam2 * fScale);
-        const float fSpeed = (float)nSpeed;
-        int nDeltaX = (int)(FOG_10083_Cos_LUT(gnWeatherAngle) * fSpeed);
-// build: symbol ?FOG_10084_Sin_LUT@* 0x0040B350
-        const int nDeltaY = (int)(FOG_10084_Sin_LUT(gnWeatherAngle) * fSpeed);
-        pParticle->nY += nDeltaY - gnViewDeltaY;
-        if (pParticle->nY > pParticle->nYEnd)
-        {
-            pParticle->bDrop = 1;
-        }
-
-        if (pParticle->bDrop)
-        {
-            if (!pParticle->nType)
-            {
-                sub_006BCCD0_FreeDataArraySlot(gpWeatherParticles, i << 16);
-// build: symbol ?gnPhaseLevel@* 0x007A89E0
-                if (gpWeatherParticles->nCount < gnPhaseLevel)
-                {
-                    sub_00473090_InitParticle(pSeed);
-                }
-            }
-            else
-            {
-                pParticle->nParam2 = 0;
-                nDeltaX = 0;
-                --pParticle->nType;
-            }
-        }
-
-        if (!pParticle->bActive)
-        {
-            continue;
-        }
-
-        if (gbWeatherSplash && !pParticle->bDrop)
-        {
-            nDeltaX += (int)(2 * FOG_10084_Sin_LUT((pParticle->nFrame + (gnWeatherTick << 9) / 25) & 0x1FF));
-        }
-
-        pParticle->nX += nDeltaX - gnViewDeltaX;
-        if (pParticle->nX >= gnScreenWidth)
-        {
-            pParticle->nX -= gnScreenWidth;
-        }
-
-        if (pParticle->nX < 0)
-        {
-            pParticle->nX += gnScreenWidth;
-        }
-    }
-
-    ++gnWeatherTick;
-}
 
 
 // 0x00473A70
@@ -3088,44 +3007,6 @@ void __fastcall sub_00473A70(D2WeatherStrc* pWeather, D2WeatherLayerStateStrc* p
 }
 
 
-// 0x00473E50
-void __stdcall GFX_StepWeatherPhase(D2SeedStrc* pSeed)
-{
-    int nPhase = gnPhase;
-    if (gbPhaseActive && nPhase != 2)
-    {
-        if (!gbPhaseBusy)
-        {
-            gnPhase = 2;
-            D2_ASSERT(sub_00463DD0_GetPlayerUnit(), 0x137);
-            sub_00472400_ResetPhaseState();
-        }
-        return;
-    }
-    if (!gnPhaseLeft)
-    {
-        ++nPhase;
-        if (nPhase == 4)
-        {
-            nPhase = 0;
-        }
-        gnPhaseTotal = sub_00472280(pSeed, gaWeatherPhaseOffset[nPhase], gaWeatherPhaseRange[nPhase]);
-        gnPhaseLeft = gnPhaseTotal;
-        sub_00473D00_SetPhase(nPhase);
-    }
-    --gnPhaseLeft;
-    if (nPhase == 1)
-    {
-// build: symbol ?gnPhaseLevel@* 0x007A89E0
-        gnPhaseLevel = (gnPhaseTotal - gnPhaseLeft) * gnPhaseMax / gnPhaseTotal;
-    }
-    else if (nPhase == 3)
-    {
-        gnPhaseLevel = gnPhaseMax * gnPhaseLeft / gnPhaseTotal;
-    }
-// build: symbol ?gfPhaseLevel@* 0x007A89A0
-    gfPhaseLevel = gnPhaseLevel * (1.0 / 256.0);
-}
 
 // 0x00475B80
 unsigned char* __stdcall GFX_BuildLerpTable(unsigned int nCount, int nSteps)
@@ -3148,29 +3029,6 @@ unsigned char* __stdcall GFX_BuildLerpTable(unsigned int nCount, int nSteps)
     return pTable;
 }
 
-// 0x00475C40
-unsigned char** __stdcall GFX_BuildLerpRowTable(unsigned int nCount, int nSteps)
-{
-    unsigned char** pTable = (unsigned char**)sub_00517993_VirtualAlloc((nSteps + 1) * nCount * nCount * sizeof(unsigned char*));
-    unsigned char** pOut = pTable;
-    unsigned char nIndex;
-    for (int i = 0; i < nCount; ++i)
-    {
-        for (int j = 0; j < nCount; ++j)
-        {
-            int nStep = ((j - i) << 16) / nSteps;
-            int nValue = i << 16;
-            for (unsigned int k = 0; k < nSteps; ++k)
-            {
-                nIndex = nValue / 65536;
-                *pOut++ = gabRowTable[nIndex];
-                nValue += nStep;
-            }
-            *pOut++ = gabRowTable[nIndex];
-        }
-    }
-    return pTable;
-}
 
 
 // 0x004795F0

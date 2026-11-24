@@ -3632,11 +3632,6 @@ extern int gbAutomapLeftPrev; // 0x007A51E4
 int gbAutomapLeftSaved; // 0x007A51E8
 
 
-// 0x0045A710
-int __cdecl UI_GetAutomapMode()
-{
-    return gnAutomapMode;
-}
 
 
 // 0x0045BA70
@@ -3646,10 +3641,6 @@ void __fastcall UI_ClearPair(UI_ClearPair* pPair)
     pPair->nSecond = 0;
 }
 
-// 0x0045F7A0
-void __stdcall sub_0045F7A0(int nUnused1, int nUnused2)
-{
-}
 
 // 0x0045FBC0
 void __stdcall UI_DrawCelPair(int bFirst)

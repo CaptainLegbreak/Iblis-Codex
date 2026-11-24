@@ -82,27 +82,6 @@ static void sub_004AA0F0_AssignFreeHotkey(int nSlot, int nIndex); // 0x004AA0F0
 unsigned char gbNpcEntriesProcessed; // 0x007C0C6A
 
 
-// 0x00472BD0
-void __cdecl sub_00472BD0()
-{
-    for (int i = 0; i < 4; ++i)
-    {
-        if (gtSplashCels.apCelFiles[i])
-        {
-            ARCHIVE_FreeClientCellFile(gtSplashCels.apCelFiles[i]);
-            gtSplashCels.apCelFiles[i] = 0;
-        }
-    }
-
-    for (int i = 0; i < 4; ++i)
-    {
-        if (gtBubbleCels.apCelFiles[i])
-        {
-            ARCHIVE_FreeClientCellFile(gtBubbleCels.apCelFiles[i]);
-            gtBubbleCels.apCelFiles[i] = 0;
-        }
-    }
-}
 
 // 0x004B17A0
 void __cdecl sub_004B17A0()

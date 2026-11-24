@@ -94,12 +94,9 @@ extern ARCHIVEREC* gpArchiveHead_0070835C; // 0x0070835C
 extern bool gbSymInitialized; // 0x0098A6B0
 extern char gszTypeNameArchiveRec_00708398[]; // 0x00708398
 extern char gszTypeNameChar_0070888C[]; // 0x0070888C
-extern char gszTypeNameCmdDef_0074C47C[]; // 0x0074C47C
-extern char gszTypeNameHandler_00708434[]; // 0x00708434
 extern char gszTypeNameRequest_007083F0[]; // 0x007083F0
 extern char gszTypeNameUChar_00708880[]; // 0x00708880
 extern char gszTypeNameUInt_00708874[]; // 0x00708874
-extern char gszTypeNameWndRec_00708850[]; // 0x00708850
 extern char* gpEventHead_00708380; // 0x00708380
 extern const char gszEmptyString[]; // 0x006CC837
 extern const char gszSBmpSource[]; // 0x006FCC58

@@ -35,6 +35,7 @@
 
 #include "D2Path.h"
 #include "D2SetsTxt.h"
+#include "D2InventoryPair.h"
 
 #define STAT_ITEM_INDESCTRUCTIBLE 152
 
@@ -855,11 +856,6 @@ struct D2InventoryGridStrc;
 
 void __stdcall STATES_UpdateGfxFlagsWithMask(D2UnitStrc* pUnit, unsigned int* pMask); // 0x0063A180
 
-struct D2InventoryPairStrc
-{
-    D2UnitStrc* pFirstItem;
-    D2UnitStrc* pLastItem;
-};
 
 extern "C" int __fastcall sub_0045ADF0_GetX(D2UnitStrc* pItem);
 

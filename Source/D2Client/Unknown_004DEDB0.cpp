@@ -5,19 +5,9 @@
 #include "D2ClientUi.h"
 
 #include "D2ClientSound.h"
+#include "D2ClientTileLight.h"
 
-#pragma pack(push, 1)
 
-#pragma pack(pop)
-
-struct D2TileLightNodeStrc
-{
-    int unk0x00;
-    int nX;
-    int nY;
-    D2DrlgTileDataStrc* pTileData;
-    D2TileLightNodeStrc* pNext;
-};
 
 struct D2TileLightEntryStrc
 {

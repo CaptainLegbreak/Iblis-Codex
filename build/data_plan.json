@@ -107,8 +107,8 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SFILE.CPP": {
-   "bytes": 456,
-   "definitions": 15,
+   "bytes": 424,
+   "definitions": 13,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -3065,8 +3065,6 @@
     "extern \"C\" void __cdecl PARTYSCREEN_ToggleSquelch(); // 0x005A58A0",
     "extern \"C\" void __cdecl PARTYSCREEN_AcceptInvitation(); // 0x005A5A30",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod26_Teleport(); // 0x005A1600",
-    "extern \"C\" void __cdecl MONSTERUNIQUE_UMod38_Possessed(); // 0x005A1230",
-    "extern \"C\" void __cdecl sub_005A1280_UModChampion(); // 0x005A1280",
     "extern \"C\" void __cdecl MONSTERUNIQUE_ApplyCorpseFireDamage(); // 0x005A3D20"
    ],
    "fn_types": {},
@@ -3658,12 +3656,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_0063E6B0.cpp": {
+  "Source/D2Common/Unknown_006647C0.cpp": {
    "bytes": 472,
    "definitions": 13,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_0063E6B0.inc",
+   "include": "gen/data/Source/D2Common/Unknown_006647C0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3688,20 +3686,11 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/Drlg.cpp": {
-   "bytes": 188,
-   "definitions": 3,
+   "bytes": 444,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/Drlg_006412F0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/Unknown_00641320.cpp": {
-   "bytes": 256,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_00641320.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -4105,8 +4094,8 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SCMD.CPP": {
-   "bytes": 40,
-   "definitions": 3,
+   "bytes": 24,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/SOURCE/SCMD.inc",
@@ -4141,8 +4130,8 @@
    "state": "included"
   },
   "Source/Storm/Unknown_006C9A68.cpp": {
-   "bytes": 304,
-   "definitions": 11,
+   "bytes": 288,
+   "definitions": 8,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -4161,8 +4150,8 @@
    "state": "included"
   },
   "Source/Storm/Unknown_006CAE80.cpp": {
-   "bytes": 8,
-   "definitions": 2,
+   "bytes": 0,
+   "definitions": 0,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/Unknown_006CAE80.inc",
@@ -8471,68 +8460,6 @@
    "tail": "; // 0x007083F0\n#pragma comment(linker, \"/alternatename:?gszTypeNameRequest_007083F0@@3PADA=_gData_007083F0\")",
    "type": "char",
    "va": "0x007083F0"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/SOURCE/SFILE.CPP",
-   "fill": 16,
-   "form": "declared",
-   "fwd": null,
-   "head": "extern char gszTypeNameHandler_00708434[16] = ",
-   "model": {
-    "elem": {
-     "k": "prim",
-     "kind": "c",
-     "name": "char",
-     "size": 1
-    },
-    "k": "arr",
-    "n": 16,
-    "size": 16
-   },
-   "name": "gszTypeNameHandler_00708434",
-   "pointers": [],
-   "region": "data",
-   "size": 16,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00708434",
-   "type": "char",
-   "va": "0x00708434"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/SOURCE/SFILE.CPP",
-   "fill": 16,
-   "form": "declared",
-   "fwd": null,
-   "head": "extern char gszTypeNameWndRec_00708850[16] = ",
-   "model": {
-    "elem": {
-     "k": "prim",
-     "kind": "c",
-     "name": "char",
-     "size": 1
-    },
-    "k": "arr",
-    "n": 16,
-    "size": 16
-   },
-   "name": "gszTypeNameWndRec_00708850",
-   "pointers": [],
-   "region": "data",
-   "size": 16,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00708850",
-   "type": "char",
-   "va": "0x00708850"
   },
   {
    "alias": true,
@@ -114677,7 +114604,7 @@
    "cname": "gData_006EA938",
    "declared": true,
    "decorated": "?gnMonStatsMissileOffsets@@3PAHA",
-   "file": "Source/D2Common/Unknown_0063E6B0.cpp",
+   "file": "Source/D2Common/Unknown_006647C0.cpp",
    "fill": 16,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006EA938[16]; // 0x006EA938",
@@ -114708,7 +114635,7 @@
    "cname": "gdwSkeletonHeadCodes",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0063E6B0.cpp",
+   "file": "Source/D2Common/Unknown_006647C0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007488FC_t gdwSkeletonHeadCodes; // 0x007488FC",
    "head": "extern \"C\" struct d2data_007488FC_t gdwSkeletonHeadCodes = ",
@@ -114725,7 +114652,7 @@
    "cname": "gdwSkeletonLimbCodes",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0063E6B0.cpp",
+   "file": "Source/D2Common/Unknown_006647C0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00748918_t gdwSkeletonLimbCodes; // 0x00748918",
    "head": "extern \"C\" struct d2data_00748918_t gdwSkeletonLimbCodes = ",
@@ -114742,7 +114669,7 @@
    "cname": "gdwSkeletonWeaponCodes",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0063E6B0.cpp",
+   "file": "Source/D2Common/Unknown_006647C0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00748924_t gdwSkeletonWeaponCodes; // 0x00748924",
    "head": "extern \"C\" struct d2data_00748924_t gdwSkeletonWeaponCodes = ",
@@ -114759,7 +114686,7 @@
    "cname": "gdwSkeletonShieldCodes",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0063E6B0.cpp",
+   "file": "Source/D2Common/Unknown_006647C0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0074894C_t gdwSkeletonShieldCodes; // 0x0074894C",
    "head": "extern \"C\" struct d2data_0074894C_t gdwSkeletonShieldCodes = ",
@@ -114776,7 +114703,7 @@
    "cname": "gdwSkeletonSpecialCodes",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0063E6B0.cpp",
+   "file": "Source/D2Common/Unknown_006647C0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00748960_t gdwSkeletonSpecialCodes; // 0x00748960",
    "head": "extern \"C\" struct d2data_00748960_t gdwSkeletonSpecialCodes = ",
@@ -114793,7 +114720,7 @@
    "cname": "gdwSkeletonTorsoCodes",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0063E6B0.cpp",
+   "file": "Source/D2Common/Unknown_006647C0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00748990_t gdwSkeletonTorsoCodes; // 0x00748990",
    "head": "extern \"C\" struct d2data_00748990_t gdwSkeletonTorsoCodes = ",
@@ -114810,7 +114737,7 @@
    "cname": "gdwArcherArmorCodes",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0063E6B0.cpp",
+   "file": "Source/D2Common/Unknown_006647C0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0074899C_t gdwArcherArmorCodes; // 0x0074899C",
    "head": "extern \"C\" struct d2data_0074899C_t gdwArcherArmorCodes = ",
@@ -114827,7 +114754,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0063E6B0.cpp",
+   "file": "Source/D2Common/Unknown_006647C0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern const unsigned int* gpSkeletonComponentCodes[16] = ",
@@ -114930,7 +114857,7 @@
    "cname": "gdwArcherSpecialCodes",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0063E6B0.cpp",
+   "file": "Source/D2Common/Unknown_006647C0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007489E8_t gdwArcherSpecialCodes; // 0x007489E8",
    "head": "extern \"C\" struct d2data_007489E8_t gdwArcherSpecialCodes = ",
@@ -114947,7 +114874,7 @@
    "cname": "gdwArcherBowCodes",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0063E6B0.cpp",
+   "file": "Source/D2Common/Unknown_006647C0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00748A14_t gdwArcherBowCodes; // 0x00748A14",
    "head": "extern \"C\" struct d2data_00748A14_t gdwArcherBowCodes = ",
@@ -114964,7 +114891,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0063E6B0.cpp",
+   "file": "Source/D2Common/Unknown_006647C0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern const unsigned int* gpArcherComponentCodes[16] = ",
@@ -118351,7 +118278,7 @@
    "cname": "gData_006EB180",
    "declared": true,
    "decorated": "?gnUnitDistanceTable@@3PAHA",
-   "file": "Source/D2Common/Unknown_00641320.cpp",
+   "file": "Source/D2Common/DRLG/Drlg.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006EB180[64]; // 0x006EB180",
    "head": "extern \"C\" const int gData_006EB180[64] = ",
@@ -146515,37 +146442,6 @@
    "va": "0x006FCC24"
   },
   {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/SOURCE/SCMD.CPP",
-   "fill": 16,
-   "form": "declared_owner",
-   "fwd": null,
-   "head": "extern char gszTypeNameCmdDef_0074C47C[16] = ",
-   "model": {
-    "elem": {
-     "k": "prim",
-     "kind": "c",
-     "name": "char",
-     "size": 1
-    },
-    "k": "arr",
-    "n": 16,
-    "size": 16
-   },
-   "name": "gszTypeNameCmdDef_0074C47C",
-   "pointers": [],
-   "region": "data",
-   "size": 16,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0074C47C",
-   "type": "char",
-   "va": "0x0074C47C"
-  },
-  {
    "alias": true,
    "cname": "gData_006FCC4C",
    "declared": true,
@@ -147145,100 +147041,6 @@
   },
   {
    "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006C9A68.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern unsigned int gnListTerminator_00708424 = ",
-   "model": {
-    "k": "prim",
-    "kind": "u",
-    "name": "unsigned int",
-    "size": 4
-   },
-   "name": "gnListTerminator_00708424",
-   "pointers": [
-    [
-     0,
-     "0x00708424",
-     "owner",
-     "gnListTerminator_00708424",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00708424",
-   "type": "unsigned int",
-   "va": "0x00708424"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0070842C",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006C9A68.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070842C_t gData_0070842C; // 0x0070842C",
-   "head": "extern \"C\" struct d2data_0070842C_t gData_0070842C = ",
-   "name": "gData_0070842C",
-   "pointers": [
-    [
-     0,
-     "0x006F28F8",
-     "address",
-     "gData_006F28F8",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 8,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070842C_t\n{\n    const void* p0;\n    unsigned char b1[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070842C",
-   "va": "0x0070842C"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006C9A68.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern unsigned int gnListTerminator_00708864 = ",
-   "model": {
-    "k": "prim",
-    "kind": "u",
-    "name": "unsigned int",
-    "size": 4
-   },
-   "name": "gnListTerminator_00708864",
-   "pointers": [
-    [
-     0,
-     "0x00708864",
-     "owner",
-     "gnListTerminator_00708864",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00708864",
-   "type": "unsigned int",
-   "va": "0x00708864"
-  },
-  {
-   "alias": false,
    "cname": "gData_0070886C",
    "declared": false,
    "decorated": null,
@@ -147524,74 +147326,6 @@
    "tail": "; // 0x00731E60",
    "type": "int",
    "va": "0x00731E60"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006CAE80.cpp",
-   "form": "declared_owner",
-   "fwd": null,
-   "head": "extern unsigned int gnListTerminator_0074C490 = ",
-   "model": {
-    "k": "prim",
-    "kind": "u",
-    "name": "unsigned int",
-    "size": 4
-   },
-   "name": "gnListTerminator_0074C490",
-   "pointers": [
-    [
-     0,
-     "0x0074C490",
-     "owner",
-     "gnListTerminator_0074C490",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0074C490",
-   "type": "unsigned int",
-   "va": "0x0074C490"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/Storm/Unknown_006CAE80.cpp",
-   "form": "declared_owner",
-   "fwd": null,
-   "head": "extern unsigned int gnListTerminator_0074C49C = ",
-   "model": {
-    "k": "prim",
-    "kind": "u",
-    "name": "unsigned int",
-    "size": 4
-   },
-   "name": "gnListTerminator_0074C49C",
-   "pointers": [
-    [
-     0,
-     "0x0074C49C",
-     "owner",
-     "gnListTerminator_0074C49C",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0074C49C",
-   "type": "unsigned int",
-   "va": "0x0074C49C"
   },
   {
    "alias": false,
@@ -156644,7 +156378,7 @@
    "cname": "gData_007488C0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0063E6B0.cpp",
+   "file": "Source/D2Common/Unknown_006647C0.cpp",
    "form": "bytes",
    "name": "gData_007488C0",
    "pointers": [

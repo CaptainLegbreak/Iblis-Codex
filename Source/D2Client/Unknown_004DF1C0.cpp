@@ -13,6 +13,7 @@
 #include "D2ClientUi.h"
 
 #include "D2ClientSound.h"
+#include "D2ClientTileLight.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -31,14 +32,6 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2TileLightNodeStrc
-{
-    int unk0x00;
-    int nX;
-    int nY;
-    D2DrlgTileDataStrc* pTileData;
-    D2TileLightNodeStrc* pNext;
-};
 
 struct D2UnitLightNodeStrc
 {
@@ -88,9 +81,6 @@ int __stdcall TILE_TileDrawTrans(D2TileLibraryEntryStrc* pTile, int nXPos, int n
 
 int __stdcall TILE_TileDrawLit(D2TileLibraryEntryStrc* pTile, int nXPos, int nYPos, D2GfxLightStrc* pLight, int nScreenPanels); // 0x004F6920
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
