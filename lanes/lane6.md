@@ -5,7 +5,7 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 ## Ready
 
 - lane6/locks-a a53078d6 535->535 four long-lived locks become CCritSect objects in their files (BnDownload.cpp x2, CACHE.CPP, Preset.cpp), per lane 3's crt-locks pattern; VERIFIED a64fc1f1
-  - On origin/main #304; not stacked. Takes eight init/destroy functions out of Storm/Unknown_006CAE80.cpp, Bnclient/Unknown_006CB420.cpp and Storm/Unknown_006CB4E0.cpp (Storm-dir placeholders, as the coordinator assigned).
+  - Based on main #306 (no source file in common with #307-#308); not stacked. Takes eight init/destroy functions out of Storm/Unknown_006CAE80.cpp, Bnclient/Unknown_006CB420.cpp and Storm/Unknown_006CB4E0.cpp (Storm-dir placeholders, as the coordinator assigned).
 - lane6/data-b 690dbcf7 535->535 borrowed data: 23 definitions in 10 files, about 6,200 B on main #301; VERIFIED 087a3f2a (borrowed data 8,247 B on #304)
   - On origin/main #304; not stacked. Data plan and two source lines only.
   - 0x007420D8: five int[256] tables (four rising ramps, one falling) go to Unknown_006056D0.cpp. They end exactly at its gtColorBlock, and CelCmp.cpp's strings end at 0x007420D0 before a pad to 8 bytes. -5,120 B.
