@@ -1,0 +1,3 @@
+header	struct	offset	old	new	confidence	reason
+D2Client/D2Client.h	D2MonModeTxt	0x00	unk0x00	szName	high	D2MOO names D2MonModeTxt+0x00 szName (source/D2Common/include/DataTbls/TokenTbls.h)
+D2Client/D2Client.h	D2RosterButtonStrc	0x18	unk0x18	nPartyFlags	medium	D2MOO names D2RosterButtonStrc+0x18 nPartyFlags (source/D2Common/include/D2Roster.h); a runtime struct, so check the offset still holds in 1.14d
