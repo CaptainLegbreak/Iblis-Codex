@@ -4,17 +4,21 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/sbig-pieces 0058e3e6 397->381 Storm placeholders, borrowed data unchanged. SBig.cpp's sixteen /GS- pieces leave Storm/Unknown_*.cpp as Source/Storm/SOURCE/SBig_<address>.cpp, the `<File>_<address>.cpp` form for a file's functions that need another option (SBig.cpp builds with /GS, these without): Shl, Sub, ToStr, Div, Gcd, Rand, InvMod, PowMod and IsPrime (names.csv's own SBig names), DivUInt, SubFromBig, BigOp and BigSquare, and three helpers only SBig's functions call (0x421470, lowest set bit, for IsPrime; 0x421BD0 EncodeDataBytes with 0x423380, the byte reader, for ToStream/FromStream; 0x421CB0, the digit appender, for ToBinary/ToStream). Three join a piece that already carried their code: 0x4225C0 and 0x422FC0 into SBig_00425350.cpp, 0x422D00 into SBig_00424700.cpp. Every unit stays equal. VERIFIED 23fe0c31 on base ef7b4a19 (#361); borrowed data 898 B (main then 898 B); rebased onto 90638cd1 (#362) with only docs/index.html conflicting (file fields follow units.json); namesync had nothing to rename; prechecked. Not stacked.
+
 - lane3/fog-shims 4755fc90 397->394 Fog shims and placeholders, borrowed data unchanged. (1) Excel.cpp: EXCEL_MapColumns (0x6BCE20) takes the bin file's own types (D2BinFileStrc, D2BinFieldStrc; D2SNameListStrc/D2SNameEntryStrc were the same two records under other names and leave Fog.h), FOG_10207 calls it directly, and its shim goes. (2) QServer.cpp: QSrvAddClient calls QSERVER_IncrementPerIpConnCount (0x6BF180) instead of an unplaced second copy of it, and its cdecl shim goes. (3) The stack-frame printer: Unknown_00403100.cpp and Unknown_00405250.cpp were the same file placing one function each, and Unknown_00402D60.cpp placed the frame formatter through a shim; Unknown_00401DF0.cpp already carried all of them, so it now places 0x402D60, 0x403100 and 0x405250 beside its own four (0x401DF0 takes the module buffer before the base, as its caller passes them; the formatter writes its format strings as literals, as the old file did, so they stay placed), and the three files go. Shims 3 fewer. VERIFIED 106668a6 on base ef7b4a19 (#361); borrowed data 898 B (main then 898 B); rebased onto 90638cd1 (#362) with only docs/index.html conflicting (file fields follow units.json); namesync had nothing to rename; prechecked. Not stacked.
 
 ## Claimed
 
-- **lane3/sbig-pieces** (Storm placeholders, my queues.md row): SBig.cpp's sixteen /GS- pieces (Shl, Sub, ToStr, Div, Gcd, Rand, InvMod, PowMod, IsPrime and seven helpers that only SBig's functions call) leave Storm/Unknown_*.cpp as Source/Storm/SOURCE/SBig_<address>.cpp, the `<File>_<address>.cpp` form for pieces that need another option; three join a piece that already carried their code. 400 -> 384 placeholders. Full verify next, after fog-shims'.
+- **lane3/homes** (Storm/Fog placeholders): SMemCmp/SMemCopy/SMemFill/SMemMove/SMemZero (Unknown_0041D200.cpp) into SMEM.CPP; 0x6BCD50, the four-character code padder (Unknown_006BCD50.cpp), into Excel.cpp at the head of its run. 2 placeholders fewer. Full verify running.
 
 ## Questions
 
 (none)
 
 ## Notes for other lanes
+
+- **Lanes 4 and 6:** two more Storm placeholders hold your modules' static initializers: Storm/Unknown_006CA9C0.cpp (0x6CA9C0) builds D2Client's SGAMEDATA export table (TSExportTableSync<SGAMEDATA,…>, the game list's; lane 4) and Storm/Unknown_006CAFC0.cpp (0x6CAFC0) builds D2CMP's CELLIST table (TSExportTableSync<CELLIST,…>; lane 6). Each belongs with its table's definition as a `??__E<name>@@YAXXZ` symbol line, as lane3/crt-locks did for the locks. Yours to take; I've left them.
 
 - **All lanes, the Storm containers (stpl.h): how the Storm lists went, for your own D2Storm…Strc list views.** On main after smem-c: `TSLink<T>` (with Storm's destructor and `Prev`), `TSLinkedNode<T>` (a node's `m_link`), `TSList<T>` (constructor, `Head`, `Link`, `LinkNode`, `Next`, `RawNext`, `UnlinkNode`, `NewNode`, `UnlinkAll`, `DeleteNode`, `Clear`), and SMemAlloc/SMemFree as C functions. The recipe that kept every unit equal:
   - The record derives from `TSLinkedNode<T>` (its link at offset 0 is `m_link`); drop hand-written link zeroing in its constructor and `Unlink()` at the end of its destructor. If that destructor gains an unwind state the original doesn't have, the record's destructor calls something that may throw: with SMemFree a C function that usually goes away.
