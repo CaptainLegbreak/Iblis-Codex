@@ -70,12 +70,12 @@ int __stdcall SKILLS_GetPlayerSkillCount(int nClassId); // 0x00646140
 
 int gnSelectedHotkey; // 0x007C0708
 
-static int sub_004A9FC0_IsHotkeyUsable(int nSlot); // 0x004A9FC0
+static int SPELLSEL_IsHotkeyUsable(int nSlot); // 0x004A9FC0
 
-void __fastcall sub_004AA030_SelectHotkey(int nSlot); // 0x004AA030
+void __fastcall SPELLSEL_SelectHotkey(int nSlot); // 0x004AA030
 
 
-static void sub_004AA0F0_AssignFreeHotkey(int nSlot, int nIndex); // 0x004AA0F0
+static void SPELLSEL_AssignFreeHotkey(int nSlot, int nIndex); // 0x004AA0F0
 
 
 

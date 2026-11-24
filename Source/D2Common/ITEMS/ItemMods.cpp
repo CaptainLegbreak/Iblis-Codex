@@ -324,7 +324,7 @@ void __stdcall sub_00627150(D2StatListStrc* pStatList, int nStatId, int nValue, 
 
 int __fastcall ITEMMODS_AssignByTimeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
 
-int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
+int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 
 int __fastcall ITEMMODS_AssignRangeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9);
 
@@ -1335,7 +1335,7 @@ int __fastcall ITEMMODS_AssignChargedSkill(int nType, D2UnitStrc* pUnit, D2UnitS
     if (!nSkillLevel)
     {
         nSkillLevel = (ITEMS_GetItemLevel(pItem) - SKILLS_GetRequiredLevel(nSkillId)) / 4 + 1;
-        nSkillLevel = D2_MIN(D2_MAX(nSkillLevel, 1), sub_004AA8B0_GetSkillMaxLevel(nSkillId));
+        nSkillLevel = D2_MIN(D2_MAX(nSkillLevel, 1), SPELLSEL_GetSkillMaxLevel(nSkillId));
     }
     else if (nSkillLevel < 0)
     {
@@ -2409,7 +2409,7 @@ int __fastcall ITEMMODS_PropertyFunc11(int nType, D2UnitStrc* pUnit, D2UnitStrc*
         {
             const int nRequiredLevel = SKILLS_GetRequiredLevel(nSkillId);
             nValue = (ITEMS_GetItemLevel(pItem) - nRequiredLevel) / 4 + 1;
-            nValue = D2_MIN(D2_MAX(nValue, 1), sub_004AA8B0_GetSkillMaxLevel(nSkillId));
+            nValue = D2_MIN(D2_MAX(nValue, 1), SPELLSEL_GetSkillMaxLevel(nSkillId));
         }
         else if (nValue < 0)
         {
@@ -2513,7 +2513,7 @@ int __fastcall ITEMMODS_PropertyFunc19(int nType, D2UnitStrc* pUnit, D2UnitStrc*
     if (nSkillLevel == 0)
     {
         nSkillLevel = (ITEMS_GetItemLevel(pItem) - (SKILLS_GetRequiredLevel(nSkillId))) / 4 + 1;
-        nSkillLevel = D2_MIN(D2_MAX(nSkillLevel, 1), sub_004AA8B0_GetSkillMaxLevel(nSkillId));
+        nSkillLevel = D2_MIN(D2_MAX(nSkillLevel, 1), SPELLSEL_GetSkillMaxLevel(nSkillId));
     }
     else if (nSkillLevel < 0)
     {

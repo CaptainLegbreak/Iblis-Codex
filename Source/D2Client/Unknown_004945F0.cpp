@@ -17,7 +17,8 @@ extern int gbHelpButtonVisible; // 0x007BEF08
 unsigned char gnHelpShadeColor; // 0x007BEEF8
 
 
-void __cdecl sub_00494FC0()
+// build: symbol ?HIREABLES_CloseHelpUi@* 0x00494FC0
+void __cdecl HIREABLES_CloseHelpUi()
 {
     if (gbHelpUiOpened)
     {

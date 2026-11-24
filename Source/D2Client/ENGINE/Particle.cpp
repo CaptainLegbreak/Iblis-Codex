@@ -178,7 +178,8 @@ extern "C" void __cdecl sub_00497250_SetPalette()
     gB28Palette = (U8)sub_004FB180_Palette(255, 0, 0);
 }
 
-extern "C" void __cdecl sub_0049C6A0_InitWaypoint()
+// build: symbol _TEXT_InitWaypointData 0x0049C6A0
+extern "C" void __cdecl TEXT_InitWaypointData()
 {
     gB28Waypoint = sub_00660F30_AllocWaypoint(0);
     gB28WaypointFlag = 0;

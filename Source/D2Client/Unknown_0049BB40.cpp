@@ -423,7 +423,8 @@ void __fastcall sub_0049CF90(D2PacketRecord21Strc* pPacket)
     }
 }
 
-void __stdcall sub_0049D010_WaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
+// build: symbol ?TEXT_OnWaypointMouseUp@* 0x0049D010
+void __stdcall TEXT_OnWaypointMouseUp(SMSGHANDLER_PARAMS* pMsg)
 {
     int nX = (unsigned short)pMsg->lParam;
     int nY = (unsigned short)((unsigned int)pMsg->lParam >> 16);

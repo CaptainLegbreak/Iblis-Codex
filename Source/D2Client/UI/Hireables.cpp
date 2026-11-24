@@ -365,7 +365,7 @@ int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 
 // 0x00493840
-void __cdecl sub_00493840_TogglePopup()
+void __cdecl HIREABLES_TogglePetIconPopup()
 {
     switch (gnPetIconPopupState)
     {
@@ -466,7 +466,7 @@ void __cdecl HIREABLES_FreeHelpCels()
 extern int gbHelpUiOpened;                                                                         // 0x007BEF00
 
 // 0x00494FC0
-void __cdecl sub_00494FC0()
+void __cdecl HIREABLES_CloseHelpUi()
 {
     if (gbHelpUiOpened)
     {
@@ -477,7 +477,7 @@ void __cdecl sub_00494FC0()
 
 
 // 0x00495030
-void __cdecl sub_00495030_DrawKeyHelp()
+void __cdecl HIREABLES_DrawKeyHelp()
 {
     Unicode wszText[200];
     Unicode wszKey[30];

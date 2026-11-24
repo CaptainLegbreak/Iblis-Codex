@@ -138,7 +138,7 @@ void __cdecl PANEL_SetBlackColour(); // 0x00499E30
 int __stdcall TEXT_GetChanceToHit(int nAttackRating); // 0x004A7340
 int __cdecl MONSTER_GetPlayerDefensePercent(); // 0x004A74A0
 void __fastcall SKILLDESC_RefreshSkills(D2UnitStrc* pUnit); // 0x004EDA20
-int __fastcall sub_004EDA80_CallSkillDescFunc(D2UnitStrc* pUnit, int bLeft); // 0x004EDA80
+int __fastcall SKILLDESC_CallSkillDescFunc(D2UnitStrc* pUnit, int bLeft); // 0x004EDA80
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign); // 0x00502280
@@ -174,7 +174,7 @@ extern int gaHotkeyLeft[16]; // 0x007C07B8
 extern "C" int gbSkillPointsHighlight; // 0x007C0C3C
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
-void __stdcall sub_004A9D70_ClearSkillHotkeys(D2SkillsTxt* pSkillsTxt, int nQuantity); // 0x004A9D70
+void __stdcall SPELLSEL_ClearChargedSkillHotkeys(D2SkillsTxt* pSkillsTxt, int nQuantity); // 0x004A9D70
 void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nX, int nArg3, int nArg4, int nArg5); // 0x004AA3A0
 void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage); // 0x004AAAE0
 void __cdecl sub_004AACE0_DrawSkillTreeTexts(); // 0x004AACE0
