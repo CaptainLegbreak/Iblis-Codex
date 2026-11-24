@@ -9,8 +9,6 @@
 
 struct D2FileStrc;
 
-struct D2StormFileSubStrc;
-
 struct D2CriticalSectionStrc;
 
 struct D2StormBufferInfoStrc;
@@ -293,18 +291,6 @@ struct D2StormQuadStrc
     D2StormQuadStrc& sub_00415160_Copy(const D2StormQuadStrc& source);
 };
 
-struct D2StormFileSubStrc
-{
-    int pad00;
-    int nSizeLow;
-    unsigned int nSize;
-    unsigned char unk_0C[0x4];
-    __int64 nFileTime;
-    int nValue;
-    D2StormQuadStrc tQuad;
-    unsigned char unk_2C[0x4];
-};
-
 template<class T, class TGetLink>
 void TSList<T, TGetLink>::UnlinkAll()
 {
@@ -352,7 +338,7 @@ template TSList<AUDIOSTREAM>::~TSList();
 template AUDIOSTREAM* TSList<AUDIOSTREAM>::DeleteNode(AUDIOSTREAM*);
 extern TSList<AUDIOSTREAM> gDdaList_00708384; // 0x00708384
 
-extern "C" __declspec(dllimport) int __stdcall GetFileTime(void* hFile, __int64* pCreation, __int64* pAccess, __int64* pWrite);
+extern "C" __declspec(dllimport) int __stdcall GetFileTime(void* hFile, D2FileTimeStrc* pCreation, D2FileTimeStrc* pAccess, D2FileTimeStrc* pWrite);
 
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
@@ -1430,7 +1416,7 @@ void D2StormBlockStrc::ExpandBlockEntries(unsigned int nCount)
     D2StormBlockStrc* pRec = this + nCount - 1;
     if (nCount > 1)
     {
-        unsigned int* pClear = &pRec->unk0x1C[2];
+        unsigned int* pClear = &pRec->aMd5[2];
         unsigned int nLeft = nCount - 1;
         do
         {
@@ -1449,13 +1435,13 @@ void D2StormBlockStrc::ExpandBlockEntries(unsigned int nCount)
     }
     if (nCount)
     {
-        pRec->unk0x14 = 0;
-        pRec->unk0x10 = 0;
+        pRec->tFileTime.dwHighDateTime = 0;
+        pRec->tFileTime.dwLowDateTime = 0;
         pRec->nCrc = 0;
-        pRec->unk0x1C[0] = 0;
-        pRec->unk0x1C[1] = 0;
-        pRec->unk0x1C[2] = 0;
-        pRec->unk0x1C[3] = 0;
+        pRec->aMd5[0] = 0;
+        pRec->aMd5[1] = 0;
+        pRec->aMd5[2] = 0;
+        pRec->aMd5[3] = 0;
     }
 }
 
@@ -1525,7 +1511,7 @@ int __stdcall sub_00416160_GetFileSubValue(void* hFile)
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 0;
     }
-    const int nValue = pRec->f_118->nValue;
+    const int nValue = pRec->pBlock->nCrc;
     LeaveCriticalSection(&gBasePathLock_00779068);
     return nValue;
 }
@@ -1545,7 +1531,7 @@ int __stdcall sub_004161C0_GetFileSubQuad(void* hFile, D2StormQuadStrc* pQuad)
         LeaveCriticalSection(&gBasePathLock_00779068);
         return 0;
     }
-    *pQuad = pRec->f_118->tQuad;
+    *pQuad = *(D2StormQuadStrc*)pRec->pBlock->aMd5;
     LeaveCriticalSection(&gBasePathLock_00779068);
     return 1;
 }
@@ -1559,7 +1545,7 @@ int __stdcall SFileGetFileCompressedSize(void* hFile, int* pnSizeHigh)
     EnterCriticalSection(&gBasePathLock_00779068);
     FILEREC* pRec;
     if (GetFileRec(hFile, &pRec) && pRec->nKind == -1)
-        nResult = pRec->f_118->nSizeLow;
+        nResult = pRec->pBlock->nPackedSize;
     LeaveCriticalSection(&gBasePathLock_00779068);
     return nResult;
 }
@@ -1719,7 +1705,7 @@ int __stdcall SFileGetFileName(void* hFile, char* dest, unsigned int size)
 }
 
 // 0x00416400
-int __stdcall SFileGetFileTime(void* hFile, __int64* pFileTime)
+int __stdcall SFileGetFileTime(void* hFile, D2FileTimeStrc* pFileTime)
 {
     VALIDATEBEGIN;
     VALIDATE(pFileTime);
@@ -1739,7 +1725,7 @@ int __stdcall SFileGetFileTime(void* hFile, __int64* pFileTime)
         return GetFileTime((void*)pRec->nKind, 0, 0, pFileTime);
     }
 
-    *pFileTime = pRec->f_118->nFileTime;
+    *pFileTime = pRec->pBlock->tFileTime;
     LeaveCriticalSection(&gBasePathLock_00779068);
     return nValid ? 1 : 0;
 }
@@ -1835,13 +1821,13 @@ unsigned long __stdcall SFileSetFilePointer(void* hFile, long nDistance, long* p
         break;
 
     case 2:
-        if (nDistance < 0 && pRec->f_118->nSize < (unsigned long)-nDistance)
+        if (nDistance < 0 && pRec->pBlock->nFileSize < (unsigned long)-nDistance)
         {
             pRec->nPosition = 0;
         }
         else
         {
-            pRec->nPosition = pRec->f_118->nSize + nDistance;
+            pRec->nPosition = pRec->pBlock->nFileSize + nDistance;
         }
         break;
     }
@@ -2992,7 +2978,7 @@ static int __stdcall ReadAdditionalAttributes(ARCHIVEREC* pArchive, D2StormBlock
                     {
                         for (unsigned int i = 0; i < nCount; ++i, pCursor += 16)
                         {
-                            unsigned int* pDigest = pBlockTable[i].unk0x1C;
+                            unsigned int* pDigest = pBlockTable[i].aMd5;
                             const unsigned int* pSource = (const unsigned int*)pCursor;
                             pDigest[0] = pSource[0];
                             pDigest[1] = pSource[1];

@@ -4105,7 +4105,7 @@
     {
      "va": "0x00416400",
      "length": 155,
-     "name": "?SFileGetFileTime@@YGHPAXPA_J@Z"
+     "name": "?SFileGetFileTime@@YGHPAXPAUD2FileTimeStrc@@@Z"
     },
     {
      "va": "0x004164A0",
