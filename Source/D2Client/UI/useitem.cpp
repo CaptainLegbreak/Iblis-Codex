@@ -149,7 +149,6 @@ void __stdcall USEITEM_ClickMsg(SMSGHANDLER_PARAMS* pMsg);
 
 struct D2RectStrc;
 
-
 void __cdecl USEITEM_CloseUseItemPanel(); // 0x004C0090
 
 typedef void(__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
@@ -162,6 +161,23 @@ void __cdecl INV_SetNpcStateTrade(); // 0x00487B80
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+struct D2PacketRecord7Strc;
+
+#pragma pack(push, 1)
+struct D2PacketRecord7Strc
+{
+    unsigned char nHeader;
+    int nValue;
+    unsigned char nType;
+    unsigned char bFlag;
+};
+
+void __cdecl sub_004B3FB0_CloseNpc2(); // 0x004B3FB0
+
+static int gnFlag_007C5470; // 0x007C5470
+
+static int gnValue_007C547C; // 0x007C547C
 
 // 0x004BF9D0
 void __cdecl USEITEM_InitUseItemPanel()
@@ -237,7 +253,6 @@ void __fastcall ITEM_HitTestHotspots(int nX, int nY)
         }
     }
 }
-
 
 // 0x004C0100
 void __cdecl USEITEM_FreeUseItemPanel()
@@ -698,6 +713,57 @@ void __stdcall USEITEM_OnHotspotClick(SMSGHANDLER_PARAMS* pMsg)
     if (ROSTERPETS_HandleRectClick(pMsg))
         return;
     USEITEM_ClickHotspots(nX, nY);
+}
+
+// 0x004C0550
+void __fastcall sub_004C0550(D2PacketRecord7Strc* pPacket)
+{
+    switch (pPacket->nType)
+    {
+    case 0:
+        gnFlag_007C5470 = 0;
+        gnValue_007C547C = pPacket->nValue;
+        USEITEM_OpenPanel();
+        return;
+
+    case 1:
+        sub_004C0090();
+        return;
+
+    case 4:
+        gnUseItemDialogState = 2;
+        if (gpUseItemConfirmDialog)
+        {
+            DIALOG_DestroyDialog(gpUseItemConfirmDialog);
+            gpUseItemConfirmDialog = 0;
+        }
+        return;
+
+    case 5:
+    {
+        D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
+        INVENTORY_SetCursorItem(pInventory, 0);
+    }
+        if (pPacket->bFlag)
+        {
+            sub_004B9A00(5, 0, 0, 0, 0);
+        }
+        else
+        {
+            sub_004B9A00(3, 0, 0, 0, 0);
+        }
+        sub_004C0090();
+        return;
+
+    case 6:
+    case 7:
+        sub_004C0090();
+        sub_004B3FB0_CloseNpc2();
+        return;
+
+    default:
+        D2_ASSERT(0, 0x354);
+    }
 }
 
 // 0x004C0620

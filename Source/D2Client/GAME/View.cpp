@@ -18,6 +18,8 @@
 #include "D2Path.h"
 #include "D2Txt.h"
 #include "D2QuestLookupEntry.h"
+#include "D2LanguageNames.h"
+#include "D2Win32System.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -75,8 +77,6 @@ struct D2PresetUnitStrc;
 
 struct D2ViewStrc;
 
-
-
 struct D2ClientListLinkStrc
 {
     D2ClientListLinkStrc* pPrevLink;
@@ -115,7 +115,6 @@ struct D2ClientNodeListStrc
     D2ClientListNodeStrc* sub_0045BB50_Next(D2ClientListNodeStrc* pNode);
     void sub_0045BBE0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting);
 };
-
 
 struct D2ClientRecordStrc
 {
@@ -214,7 +213,6 @@ extern void* gpGlobal_007BC964; // 0x007BC964
 
 extern void* gpHelpBorderCel; // 0x007BEEEC
 
-
 extern int gbRunButtonDown; // 0x007BEFD8
 
 extern void* gpLevelCel; // 0x007C02DC
@@ -238,7 +236,6 @@ enum D2C_W10Constants
     WEAPON_CLASS_7 = 7,
     DRAW_MODE_5 = 5,
 };
-
 
 struct D2TimedHintEntryStrc
 {
@@ -320,7 +317,6 @@ struct D2PalShiftNodeStrc
     char unk0x04[0x1000];
     D2PalShiftNodeStrc* pNext;
 };
-
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
@@ -437,7 +433,6 @@ int gbHelpButtonVisible; // 0x007BEF08
 
 struct D2QuestLookupEntryStrc;
 
-
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
@@ -445,8 +440,6 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0
 int __fastcall SEED_GetRandomValue(int nValue); // 0x00650DE0
 
 void __stdcall VIEW_ResetStar(int nStar, int bRespawn); // 0x00476190
-
-
 
 extern D2QuestLookupEntryStrc gaQuestLookup_00723F38[0x29]; // 0x00723F38
 
@@ -586,6 +579,84 @@ static int gnPopupX; // 0x007BEED4
 
 void __fastcall VIEW_AdjustViewPos(int* pX, int* pY); // 0x00476D40
 
+void* gpCel_007B9554;                                                                                       // 0x007B9554
+void* gpCel_007B9558;                                                                                       // 0x007B9558
+
+struct D2GridCellStrc;
+
+extern int gdwGlobal_007BB384; // 0x007BB384
+
+struct D2GridCellStrc
+{
+    unsigned int nFlag;
+    unsigned char nValue0;
+    unsigned char nValue1;
+    unsigned char f_6;
+    unsigned char nValue3;
+};
+
+struct D2ChatMessageStrc
+{
+    char* szText;
+    int nColor;
+    int bClear;
+    D2ChatMessageStrc* pNext;
+};
+int __stdcall D2GFX_TogglePerspective();                                                                    // 0x004F54B0
+int __stdcall D2GFX_ToggleBlendedShadows();                                                                 // 0x004F54D0
+int __stdcall D2GFX_ToggleLowQuality();                                                                     // 0x004F54F0
+void __stdcall D2GFX_SetGamma(void* pArg); // 0x004F5230
+
+extern "C" { int gnFlag_007BB3A8; }                                                                         // 0x007BB3A8
+
+extern int gdwGlobal_007BB38C; // 0x007BB38C
+
+struct D2CacheStatsStrc;
+
+struct D2CacheStatsStrc
+{
+    unsigned int nFloorSize;
+    int unk0x04;
+    int nFloorMisses;
+    unsigned int nSubtileSize;
+    int unk0x10;
+    int nSubtileMisses;
+    unsigned int nSpriteSize[3];
+    int unk0x24[3];
+    int nSpriteMisses[3];
+    int unk0x3C[3];
+    int nSpriteAccesses[3];
+    int unk0x54[3];
+    int unk0x60[3];
+};
+void __cdecl VIEW_ToggleCacheStats();                                                               // 0x00477C00
+
+int gbCacheStatsChecked;                                                                                      // 0x007BB3AC
+
+void __stdcall D2CMPGetTileCacheHits(unsigned int* pSize, int* pMisses, int* pTotal, int* pUtilized); // 0x005FE010
+
+extern "C" __declspec(dllimport) void __stdcall GlobalMemoryStatus(D2MemoryStatusStrc* pStatus);            // 0x006CC1F4
+
+int gdwGlobal_007BB388; // 0x007BB388
+
+inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return lSeed;
+}
+
+static inline int sub_00623C60(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+
+    return pUnit->dwClassId;
+}
+
 static inline D2ClientListLinkStrc* ListNextLink(D2ClientListLinkStrc* pLink, int nLinkOffset)
 {
     int nOffset = (int)pLink->pNext;
@@ -595,13 +666,6 @@ static inline D2ClientListLinkStrc* ListNextLink(D2ClientListLinkStrc* pLink, in
         nLinkOffset = (int)pLink - (int)pLink->pPrevLink->pNext;
     return (D2ClientListLinkStrc*)(nOffset + nLinkOffset);
 }
-
-
-
-
-
-
-
 
 // 0x004502A0
 void D2ClientOffsetListAStrc::sub_004502A0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting)
@@ -692,7 +756,6 @@ void D2ClientOffsetListBStrc::sub_004508A0_LinkNode(D2ClientListNodeStrc* pNode,
     }
 }
 
-
 // 0x0045BB30
 D2ClientListLinkStrc* D2ClientNodeListStrc::sub_0045BB30_Link(D2ClientListNodeStrc* pNode)
 {
@@ -739,8 +802,6 @@ void D2ClientNodeListStrc::sub_0045BBE0_LinkNode(D2ClientListNodeStrc* pNode, un
     }
 }
 
-
-
 // 0x00466820
 void __fastcall VIEW_SpawnRoomPresets(D2ActiveRoomStrc* pRoom)
 {
@@ -769,8 +830,6 @@ typedef void (__cdecl* LEVELEVENT_Fn)();
 extern LEVELEVENT_Fn gpfnLevelEvents[];                                                            // 0x007129D8
 
 unsigned int gdwLevelEventBits;                                                                    // 0x007A7458
-
-
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
@@ -812,8 +871,6 @@ static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     return nResult;
 }
 
-
-
 void __fastcall D2Win_10178_CopyGammaTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
 
 unsigned char* __stdcall GFX_BuildLerpTable(unsigned int nCount, int nSteps); // 0x00475B80
@@ -825,7 +882,6 @@ unsigned char** __stdcall SCMD_BuildRampTable(unsigned int nSize, int nSteps); /
 extern unsigned char gabRowTable[][0x100]; // 0x007B5C10
 
 extern unsigned char** gppRampTable_007B954C; // 0x007B954C
-
 
 unsigned char** __stdcall GFX_BuildLerpRowTable(unsigned int nCount, int nSteps)
 {
@@ -871,6 +927,15 @@ unsigned char** __stdcall SCMD_BuildRampTable(unsigned int nSize, int nSteps)
     return ppTable;
 }
 
+// 0x00475C30
+void __fastcall sub_00475C30_FreeIfSet(void* pMemory)
+{
+    if (pMemory)
+    {
+        sub_005179A4_VirtualFree(pMemory);
+    }
+}
+
 // 0x00475DF0
 void __cdecl DLIGHTMAP_BuildLerpTables()
 {
@@ -885,6 +950,21 @@ void __cdecl DLIGHTMAP_BuildLerpTables()
     gpLerpTable32 = GFX_BuildLerpTable(0x20, 0x20);
     gppRampTable_007B954C = SCMD_BuildRampTable(0x20, 0x20);
     gpLerpTable40 = GFX_BuildLerpTable(0x20, 0x28);
+}
+
+// 0x00475EB0
+void __cdecl sub_00475EB0_FreeCels()
+{
+    if (gpCel_007B9554)
+    {
+        ARCHIVE_FreeClientCellFile(gpCel_007B9554);
+        gpCel_007B9554 = 0;
+    }
+    if (gpCel_007B9558)
+    {
+        ARCHIVE_FreeClientCellFile(gpCel_007B9558);
+        gpCel_007B9558 = 0;
+    }
 }
 
 // 0x00475EF0
@@ -914,10 +994,6 @@ void __cdecl VIEW_FreeLerpTables()
     ghShakeSound = 0;
     sub_00475EB0_FreeCels();
 }
-
-
-
-
 
 class D2SquelchListStrc
 {
@@ -1498,8 +1574,6 @@ void __fastcall VIEW_AdjustViewPos(int* pX, int* pY)
     VIEW_UpdateShakeSound(nMagnitude);
 }
 
-
-
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 
 void __cdecl D2GFX_OutputString(int nXPos, int nYPos, const char* szFormat, ...);                           // 0x004F6890
@@ -1554,7 +1628,238 @@ extern int g_007BB3AC; // 0x007BB3AC
 
 #define MEMORY_SHIFT 20
 
+// 0x00477620
+int __fastcall sub_00477620_RollUnitValue(D2UnitStrc* pUnit, unsigned short nOffset)
+{
+    if (!pUnit)
+    {
+        return 9;
+    }
 
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    SEED_InitLowSeed(pSeed, sub_00623C60(pUnit) + nOffset);
+    return (unsigned int)SEED_RollRandomNumber(pSeed) % 30 + 9;
+}
+
+// 0x00477680
+int __cdecl DLIGHTMAP_GetLocalBloodPalette()
+{
+    return gdwGlobal_007BB384;
+}
+
+// 0x00477690
+int __cdecl sub_00477690_TogglePerspective()
+{
+    return D2GFX_TogglePerspective();
+}
+
+// 0x004776A0
+int __cdecl sub_004776A0_ToggleBlendedShadows()
+{
+    return D2GFX_ToggleBlendedShadows();
+}
+
+// 0x004776B0
+int __cdecl sub_004776B0_ToggleLowQuality()
+{
+    return D2GFX_ToggleLowQuality();
+}
+
+// 0x004776C0
+void __fastcall sub_004776C0(void* pArg)
+{
+    D2GFX_SetGamma(pArg);
+}
+
+// 0x004776D0
+void __fastcall sub_004776D0_SetModeValues(int nModeValue, int nValue)
+{
+    gnLightmapRenderMode = nModeValue;
+    gdwGlobal_007BB38C = nValue;
+}
+
+// 0x004776E0
+void __cdecl sub_004776E0_SetModeValuesOne()
+{
+    gnLightmapRenderMode = 1;
+    gdwGlobal_007BB38C = 1;
+}
+
+// 0x004776F0
+extern "C" void __cdecl INV_SetRenderModeGlide()
+{
+    gnLightmapRenderMode = 4;
+}
+
+// 0x00477700
+extern "C" void __cdecl INV_SetRenderModeOpenGL()
+{
+    gnLightmapRenderMode = 5;
+}
+
+// 0x00477710
+extern "C" void __cdecl INV_SetRenderModeDirect3D()
+{
+    gnLightmapRenderMode = 6;
+}
+
+// 0x00477720
+extern "C" void __cdecl INV_SetRenderModeRave()
+{
+    gnLightmapRenderMode = 7;
+}
+
+// 0x00477730
+int __cdecl DLIGHTMAP_GetRenderMode()
+{
+    return gnLightmapRenderMode;
+}
+
+// 0x00477740
+int __cdecl sub_00477740()
+{
+    return gdwGlobal_007BB38C;
+}
+
+// 0x00477750
+int __cdecl VIEW_IsAcceleratedRenderMode()
+{
+    return gnLightmapRenderMode >= 4;
+}
+
+// 0x00477760
+void __cdecl sub_00477760_DrawCacheStats()
+{
+    char szText[0x400];
+    int nTotal;
+    int nMisses;
+    int nUtilized;
+    unsigned int nSize;
+    D2CMPGetTileCacheHits(&nSize, &nMisses, &nTotal, &nUtilized);
+    if (nTotal > 0)
+    {
+        const float fPercent = (float)(nMisses * 100.0 / nTotal);
+        sprintf(szText, "Tile Cache: (%.2fK) %3.2f%%, Misses: %d, %d percent utilized\n", (float)nSize * 0.0009765625, fPercent, nMisses, nUtilized);
+        D2GFX_OutputString(10, 0x30, szText);
+    }
+// build: symbol ?D2GFX_GetCacheResults@* 0x004F5290
+    D2CacheStatsStrc* pStats = D2GFX_GetCacheResults();
+    if (!pStats)
+        return;
+    if (pStats->nFloorSize)
+    {
+        sprintf(szText, "Floor Cache: (%.2fK) Misses: %d\n", (float)pStats->nFloorSize * 0.0009765625, pStats->nFloorMisses);
+        D2GFX_OutputString(10, 0x3C, szText);
+    }
+    if (pStats->nSubtileSize)
+    {
+        sprintf(szText, "Subtile Cache: (%.2fK) Misses: %d\n", (float)pStats->nSubtileSize * 0.0009765625, pStats->nSubtileMisses);
+        D2GFX_OutputString(10, 0x48, szText);
+    }
+    if (pStats->nSpriteSize[0])
+    {
+        sprintf(szText, "Sprite Cache 1: (%.2fK) Misses: %d, Accesses Per Frame: %d\n", (float)pStats->nSpriteSize[0] * 0.0009765625, pStats->nSpriteMisses[0], pStats->nSpriteAccesses[0]);
+        D2GFX_OutputString(10, 0x54, szText);
+    }
+    if (pStats->nSpriteSize[1])
+    {
+        sprintf(szText, "Sprite Cache 2: (%.2fK) Misses: %d, Accesses Per Frame: %d\n", (float)pStats->nSpriteSize[1] * 0.0009765625, pStats->nSpriteMisses[1], pStats->nSpriteAccesses[1]);
+        D2GFX_OutputString(10, 0x60, szText);
+    }
+    if (pStats->nSpriteSize[2])
+    {
+        sprintf(szText, "Sprite Cache 3: (%.2fK) Misses: %d, Accesses Per Frame: %d\n", (float)pStats->nSpriteSize[2] * 0.0009765625, pStats->nSpriteMisses[2], pStats->nSpriteAccesses[2]);
+        D2GFX_OutputString(10, 0x6C, szText);
+    }
+}
+
+// 0x00477970
+void __cdecl sub_00477970_Empty()
+{
+}
+
+// 0x00477980
+void __fastcall sub_00477980()
+{
+    unsigned int nNow=GetTickCount();
+    unsigned int nElapsed=nNow-gdwFpsCounterTick;
+    if(g_007BB3A4 && !gdwCacheStatsStart){gdwCacheStatsStart=nNow;gnCacheStatsFrames=0;}
+    if(nElapsed<=FRAME_INTERVAL){++gnFpsCounterFrames;++gnCacheStatsFrames;}
+    else {gdwFpsCounterTick=nNow;gnDisplayFps=gnFpsCounterFrames;gnFpsCounterFrames=0;}
+    if(!g_007BB3A4){gdwCacheStatsStart=0;return;}
+    D2GFX_OutputString(SCREEN_X,2,"%d FPS  %d Skip",gnDisplayFps,GAME_GetSkippedFrames());
+    D2GFX_OutputString(SCREEN_RIGHT,2,"Ping: %d",GAME_GetPing());
+    D2MemoryStatusStrc memory;
+    memory.dwLength=sizeof(memory);
+    GlobalMemoryStatus(&memory);
+    D2GFX_OutputString(SCREEN_X,16,"Phys:%d/%dm",((memory.dwTotalPhys-memory.dwAvailPhys)>>MEMORY_SHIFT)+1,(memory.dwTotalPhys>>MEMORY_SHIFT)+1);
+    D2GFX_OutputString(SCREEN_RIGHT,16,"Page:%d/%dm",((memory.dwTotalPageFile-memory.dwAvailPageFile)>>MEMORY_SHIFT)+1,(memory.dwTotalPageFile>>MEMORY_SHIFT)+1);
+    char text[32];
+    switch(sub_004F5140()){
+    case 1:sprintf(text,"Software");break;
+    case 3:sprintf(text,"DirectDraw");break;
+    case 4:sprintf(text,"Glide");break;
+    case 5:sprintf(text,"OpenGL");break;
+    case 6:sprintf(text,"Direct3D");break;
+    case 2:sprintf(text,"Software");break;
+    case 7:sprintf(text,"RAVE");break;
+    default:sprintf(text,gszUnknownText);break;
+    }
+    D2GFX_OutputString(500,2,"Video: %s",text);
+    if(!g_007BB3AC){
+        D2GFX_OutputString(SCREEN_X,120,"GFX Memory->%i",UI_GetGfxMemory());
+        D2GFX_OutputString(SCREEN_X,132,"COF Memory->%i of %i",UI_GetCofMemoryUsed(),UI_GetCofMemoryLimit());
+        D2GFX_OutputString(SCREEN_X,144,"Sprite Cache Memory->%i of %i",D2CMPSpriteCacheGetUsedMemory(),D2CMPSpriteCacheGetMaxMemory());
+        D2GFX_OutputString(SCREEN_X,156,"Async Files->%i",sub_0040ABE0());
+        D2GFX_OutputString(SCREEN_X,168,"CelData Cache Memory->%i of %i",D2CMPCelDataCacheGetUsedMemory(),D2CMPCelDataCacheGetMaxMemory());
+        sub_00481850();
+        sub_00477760_DrawCacheStats();
+    }
+}
+
+// 0x00477BE0
+void __cdecl sub_00477BE0_ToggleFlag7BB3A8()
+{
+    gnFlag_007BB3A8 = gnFlag_007BB3A8 == 0;
+}
+
+// 0x00477C00
+void __cdecl VIEW_ToggleCacheStats()
+{
+    gbCacheStatsChecked = 0;
+    gbCacheStats = !gbCacheStats;
+    if (!gbCacheStats)
+        return;
+
+// build: symbol ?D2GFX_GetCacheResults@* 0x004F5290
+    D2CacheStatsStrc* pStats = D2GFX_GetCacheResults();
+    if (pStats)
+    {
+        pStats->unk0x04 = 0;
+        pStats->nFloorMisses = 0;
+        pStats->unk0x10 = 0;
+        pStats->nSubtileMisses = 0;
+        memset(pStats->unk0x24, 0, sizeof(pStats->unk0x24));
+        memset(pStats->nSpriteMisses, 0, sizeof(pStats->nSpriteMisses));
+        memset(pStats->nSpriteAccesses, 0, sizeof(pStats->nSpriteAccesses));
+        memset(pStats->unk0x60, 0, sizeof(pStats->unk0x60));
+    }
+    D2CMPResetTileCacheHits();
+}
+
+// 0x00477C60
+void __cdecl sub_00477C60_CheckCacheStats()
+{
+    if (gbCacheStatsChecked || !gbCacheStats)
+        VIEW_ToggleCacheStats();
+    gbCacheStatsChecked = 1;
+}
+
+// 0x00477C90
+int __cdecl sub_00477C90()
+{
+    return gdwGlobal_007BB388;
+}
 
 // 0x0047E860
 void __stdcall VIEW_DrawCelFrame(int nFrame, int nX, int nY)
@@ -1581,7 +1886,6 @@ unsigned int __cdecl VIEW_GetPingScaled()
 {
     return (sub_0044CE60_GetPing() + 0x32) >> 7;
 }
-
 
 // 0x004879D0
 void __fastcall VIEW_ResetSelectionForUnit(D2UnitStrc* pUnit)
@@ -1610,41 +1914,22 @@ int __cdecl VIEW_SetNpcMenuMode()
     return 1;
 }
 
-
-
-
-
-
 void __cdecl sub_00499E30();
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
 unsigned char gnHelpShadeColor; // 0x007BEEF8
 
-
-
-
 static inline int InBox(int nX, int nY, int nLeft, int nRight, int nTop, int nBottom)
 {
     return nX >= nLeft && nX <= nRight && nY >= nTop && nY <= nBottom;
 }
-
 
 void __stdcall sub_M114_Emit_00492BD0(int nMode, int nPopupX)
 {
     gnPetIconPopupState = nMode;
     gnPopupX = nPopupX;
 }
-
-
-
-
-
-
-
-
-
-
 
 // 0x004B9640
 int __fastcall VIEW_CountHintsForOwner(int nOwnerId)
@@ -1665,7 +1950,6 @@ static int ButtonHitTest_00497480(int nX, int nY)
     int nWidth = gnScreenWidth;
     return nX >= nWidth / 2 - 0x91 && nX <= nWidth / 2 - 0x80 && nY >= nHeight - 0x1C && nY <= nHeight - 8;
 }
-
 
 // 0x004C76A0
 int __fastcall VIEW_GetWeaponClassMask(D2UnitStrc* pUnit)
@@ -1715,11 +1999,6 @@ void __fastcall VIEW_DrawUnitClickCross(D2UnitStrc* pUnit)
     const int nBoxY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY();
     D2GFX_DrawBox(nBoxX, nBoxY, nBoxX + 4, nBoxY + 4, 0xFF, DRAW_MODE_5);
 }
-
-
-
-
-
 
 void __stdcall LIST_UnloadPentspinCellfile()
 {

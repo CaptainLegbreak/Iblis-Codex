@@ -27,7 +27,6 @@ struct D2McpPacket06Strc;
 
 struct D2McpInfoStrc;
 
-
 struct D2ClientNotifyStrc;
 
 struct Unicode;
@@ -284,7 +283,6 @@ extern int gdwMcpGameHash; // 0x00798F88
 
 extern int gdwGlobal_007992F4; // 0x007992F4
 
-
 extern int gbConnectFailed; // 0x007A0460
 
 struct PairStrc_0044BE20
@@ -386,8 +384,6 @@ struct D2McpInfoStrc
     unsigned short aSecond[16];
     char aNames[16][0x10];
 };
-
-
 
 int __stdcall GAME_GetPlayerUnitsCount(unsigned short nGameId); // 0x0052EFF0
 
@@ -502,7 +498,6 @@ int __stdcall sub_00420290_BreakHandlerChain(void* pMsg); // 0x00420290
 extern int gnGlobal_007A0608; // 0x007A0608
 
 void __fastcall ROSTER_SetPrimaryClientFlag(int bClear); // 0x0047A9B0
-
 
 extern char gszRealm_007A0500[]; // 0x007A0500
 
@@ -1100,7 +1095,6 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
-
 unsigned char gnClientDifficulty;                                                                        // 0x007A060C
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);
@@ -1203,7 +1197,6 @@ int gnPathFrame; // 0x007A04C4
 
 struct D2RangeStrc;
 
-
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 void __fastcall PLAYER_SetPanelSlide(int nMode); // 0x0045AEA0
@@ -1232,8 +1225,6 @@ extern int gnBeltUiRecordRow; // 0x007A5218
 
 extern int gnAutomapWidth; // 0x007A5220
 
-
-
 void __stdcall WINDOW_ShowAll(); // 0x004F5F60
 
 void __stdcall CLIENT_Initialize(int nArg, const char* szAddress); // 0x0052A750
@@ -1249,10 +1240,6 @@ extern D2McpCallbackFn gpfnMcpPacket09Callback; // 0x007992FC
 int gbLeftClickRepeating; // 0x007A066C
 
 struct D2PoolSystemStrc;
-
-
-
-
 
 typedef void (__fastcall* D2InitHandlerFn)(void* pArg);
 
@@ -1405,8 +1392,6 @@ int gtLoadingTimer;                                                             
 int gdwGlobal_007A0688;                                                                                     // 0x007A0688
 
 extern void* ghAccelerators;                                                                             // 0x007A0708
-
-
 
 extern D2RecordHandlerFn gpfnPrevHandler;                                                          // 0x007A2764
 
@@ -1627,6 +1612,47 @@ public:
     static void operator delete(void* pMemory);
 };
 
+extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
+
+extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
+
+struct D2LaunchAddressStrc;
+
+void* __stdcall D2QSSOCKET_GetSafeSock(int nKey); // 0x006BC810
+
+int __fastcall FOG_SOCKET_GetPeerName(void* pHandle, D2LaunchAddressStrc* pAddress, int* pSize); // 0x0040DEE0
+
+extern int gnLaunchKey_00798FB4; // 0x00798FB4
+
+int __fastcall WINMAIN_SendMcpCharCreate(int nA, int nB, int nC); // 0x0044A2E0
+int __fastcall WINMAIN_SendMcpCharLogon(int nA); // 0x0044A380
+extern int gnValue_00798F5C; // 0x00798F5C
+extern int gnValue_00798F7C; // 0x00798F7C
+extern int gnValue_00798F84; // 0x00798F84
+extern int gnValue_00799100; // 0x00799100
+extern int gnValue_00799104; // 0x00799104
+extern int gnValue_00799298; // 0x00799298
+extern int gnValue_0079929C; // 0x0079929C
+extern int gnValue_007992A0; // 0x007992A0
+void* ghThread;                                                                                    // 0x007992A4
+extern int gnValue_007992A8; // 0x007992A8
+extern int gnValue_007992E0; // 0x007992E0
+extern int gnValue_007992E8; // 0x007992E8
+extern int gnValue_007992F0; // 0x007992F0
+int gnResult_00798F58; // 0x00798F58
+char gszText_00798F60[28]; // 0x00798F60
+char gszText_00799294[4]; // 0x00799294
+unsigned short __cdecl CHATDLG_GetRequestId();                                                         // 0x00449BD0
+void __cdecl CHATDLG_ClearReply();                                                                     // 0x00449D60
+void __stdcall sub_00449E50_SetValue(int nValue); // 0x00449E50
+void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
+void __stdcall CHATDLG_SetCharLogonReceived(int nValue); // 0x00449C40
+int __stdcall CHATDLG_RequestCharLogon(const char* szName);                                                    // 0x00449E10
+void __stdcall D2QSSOCKET_DestroyRecord(void* pConnection);                                                             // 0x006BC780
+extern unsigned short gwMcpReplyRequestId;                                                                 // 0x00798F80
+extern void* gpMcpConnection;                                                                         // 0x00798FB4
+extern void* ghConnectEvent;                                                                       // 0x007992EC
+
 inline void D2StormExportTableSimpleStrc::operator delete(void* pMemory)
 {
     if (pMemory)
@@ -1652,7 +1678,6 @@ int gbQServerRestart; // 0x007A064C
 int gnWheelDelta; // 0x007A06F8
 
 int gnClientState; // 0x007A0480
-
 
 void __cdecl sub_00451290(); // 0x00451290
 
@@ -2057,11 +2082,42 @@ void __fastcall GAME_CalcCdKeyChecksum(char* szKey, unsigned int* pChecksum)
     }
 }
 
-
 // 0x00449AC0
 int __cdecl GAME_GetWaitHandle()
 {
     return gdwGlobal_007992A4;
+}
+
+// 0x00449AD0
+void __cdecl D2MCPClientCloseMCP()
+{
+    if (gpMcpConnection)
+    {
+        D2QSSOCKET_DestroyRecord(gpMcpConnection);
+        gpMcpConnection = 0;
+    }
+    if (ghThread)
+    {
+        WaitForSingleObject(ghThread, 0xFFFFFFFF);
+        CloseHandle(ghThread);
+        ghThread = 0;
+    }
+    if (ghConnectEvent)
+    {
+        CloseHandle(ghConnectEvent);
+        ghConnectEvent = 0;
+    }
+}
+
+// 0x00449B30
+int __cdecl sub_00449B30_QueryAddress()
+{
+    void* pHandle = D2QSSOCKET_GetSafeSock(gnLaunchKey_00798FB4);
+    if (!pHandle)
+        return 0;
+    D2LaunchAddressStrc tAddress;
+    int nSize = sizeof(tAddress);
+    return FOG_SOCKET_GetPeerName(pHandle, &tAddress, &nSize);
 }
 
 // 0x00449BC0
@@ -2070,10 +2126,22 @@ void* __cdecl GAME_GetMcpGameServerIP()
     return gszMcpGameServerIP;
 }
 
+// 0x00449BD0
+unsigned short __cdecl CHATDLG_GetRequestId()
+{
+    return gwMcpReplyRequestId;
+}
+
 // 0x00449BE0
 int __cdecl GAME_GetMcpGameToken()
 {
     return gnMcpGameToken;
+}
+
+// 0x00449BF0
+void __stdcall CHATDLG_SetMcpResult(int nValue)
+{
+    gnValue_0079929C = nValue;
 }
 
 // 0x00449C00
@@ -2088,10 +2156,22 @@ int __cdecl GAME_IsMcpCharCreateReceived()
     return gbMcpCharCreateReceived;
 }
 
+// 0x00449C20
+void __stdcall CHATDLG_SetCharCreateReceived(int nValue)
+{
+    gnValue_007992E8 = nValue;
+}
+
 // 0x00449C30
 int __cdecl GAME_IsMcpCharLogonReceived()
 {
     return gbMcpCharLogonReceived;
+}
+
+// 0x00449C40
+void __stdcall CHATDLG_SetCharLogonReceived(int nValue)
+{
+    gnValue_007992E0 = nValue;
 }
 
 // 0x00449C50
@@ -2100,10 +2180,28 @@ int __cdecl GAME_IsMcpCharDeleteReceived()
     return gbMcpCharDeleteReceived;
 }
 
+// 0x00449C60
+void __stdcall CHATDLG_SetCharDeleteReceived(int nValue)
+{
+    gnValue_00799298 = nValue;
+}
+
 // 0x00449C70
 int __cdecl GAME_IsMcpCharUpgradeReceived()
 {
     return gbMcpCharUpgradeReceived;
+}
+
+// 0x00449C80
+void __stdcall CHATDLG_SetCharUpgradeReceived(int nValue)
+{
+    gnValue_007992F0 = nValue;
+}
+
+// 0x00449C90
+void __stdcall sub_00449C90_SetValue(int nValue)
+{
+    gnValue_00799100 = nValue;
 }
 
 // 0x00449CA0
@@ -2118,10 +2216,38 @@ int __cdecl sub_00449CB0()
     return gbMcpPacket0CReceived;
 }
 
+// 0x00449CC0
+void __stdcall sub_00449CC0_SetValue(int nValue)
+{
+    gnValue_007992A0 = nValue;
+}
+
+// 0x00449CD0
+int __stdcall CHATDLG_GetMcpTexts(char* szText1, char* szText2)
+{
+    strcpy(szText1, gszText_00799294);
+    strcpy(szText2, gszText_00798F60);
+    return gnResult_00798F58;
+}
+
+// 0x00449D10
+void __stdcall CHATDLG_SetMcpTexts(int nResult, const char* szText1, const char* szText2)
+{
+    strcpy(gszText_00799294, szText1);
+    strcpy(gszText_00798F60, szText2);
+    gnResult_00798F58 = nResult;
+}
+
 // 0x00449D50
 void* __cdecl GAME_GetMcpReply()
 {
     return gabMcpReply;
+}
+
+// 0x00449D60
+void __cdecl CHATDLG_ClearReply()
+{
+    memset(gabMcpReply, 0, 0x18C);
 }
 
 // 0x00449D80
@@ -2130,10 +2256,22 @@ int __cdecl sub_00449D80()
     return gbMcpPacket0DReceived;
 }
 
+// 0x00449D90
+void __stdcall sub_00449D90_SetValue(int nValue)
+{
+    gnValue_007992A8 = nValue;
+}
+
 // 0x00449DA0
 int __cdecl sub_00449DA0()
 {
     return gbMcpPacket0FReceived;
+}
+
+// 0x00449DB0
+void __stdcall sub_00449DB0_SetValue(int nValue)
+{
+    gnValue_00798F5C = nValue;
 }
 
 // 0x00449DC0
@@ -2142,10 +2280,28 @@ int __cdecl GAME_IsMcpServerAddressReceived()
     return gbMcpServerAddressReceived;
 }
 
+// 0x00449DD0
+void __stdcall sub_00449DD0_SetValue(int nValue)
+{
+    gnValue_00798F84 = nValue;
+}
+
 // 0x00449DE0
 int __cdecl GAME_GetMcpGameHash()
 {
     return gdwMcpGameHash;
+}
+
+// 0x00449DF0
+int __stdcall CHATDLG_RequestCharCreate(int nA, int nB, int nC)
+{
+    return WINMAIN_SendMcpCharCreate(nA, nB, nC);
+}
+
+// 0x00449E10
+int __stdcall CHATDLG_RequestCharLogon(int nA)
+{
+    return WINMAIN_SendMcpCharLogon(nA);
 }
 
 // 0x00449E20
@@ -2154,10 +2310,22 @@ int __cdecl GAME_GetMcpCharLevel()
     return gnMcpCreateQueuePosition;
 }
 
+// 0x00449E30
+void __stdcall sub_00449E30_SetValue(int nValue)
+{
+    gnValue_00799104 = nValue;
+}
+
 // 0x00449E40
 int __cdecl GAME_IsMcpCreateQueued()
 {
     return gbMcpCreateQueued;
+}
+
+// 0x00449E50
+void __stdcall sub_00449E50_SetValue(int nValue)
+{
+    gnValue_00798F7C = nValue;
 }
 
 // 0x00449E60
@@ -2168,37 +2336,13 @@ int __cdecl sub_00449E60()
 
 struct D2ActiveRoomStrc;
 
-
-
-
-
 extern "C" { U32 gSlotFirst; } // 0x00799300
 
 extern "C" { U32 gSlotSecond; } // 0x00799304
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
 
-
-
-
-
 int __cdecl GAME_GetConnectFailed(); // 0x0044BBA0
-
 
 // 0x0044BDE0
 sub_0044BDE0::sub_0044BDE0()
@@ -3940,7 +4084,6 @@ D2StormListAStrc::D2StormListAStrc(const D2StormListAStrc& source)
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
-
 // 0x0044F820
 D2SGameDataStrc::~D2SGameDataStrc()
 {
@@ -4021,10 +4164,6 @@ D2StormExportTableSyncStrc::TSExportTableSync()
     InitializeCriticalSection(&m_cs);
 }
 
-
-
-
-
 // build: symbol ?WARDENCLIENT_SwapBytes@* 0x0047F8B0
 void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
 {
@@ -4032,7 +4171,6 @@ void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
     *pA = *pB;
     *pB = nTemp;
 }
-
 
 // 0x00451F10
 int __cdecl GAME_PushRegisterState()
@@ -4223,12 +4361,10 @@ void* __fastcall GAME_LoadUiCelFile(const char* szFile)
     return ARCHIVE_LoadClientCellFile(szPath, 0);
 }
 
-
 // 0x00452160
 void __cdecl sub_00452160_Nop()
 {
 }
-
 
 // 0x00452170
 Unicode* __fastcall sub_00452170(Unicode* pText)
@@ -4308,8 +4444,5 @@ extern "C" int __cdecl INV_GetPanelY()
         return gCoordinateOffset+gCoordinateBase-65;
     return gCoordinateOffset+gCoordinateBase-64;
 }
-
-
-
 
 #include "gen/data/Source/D2Client/GAME/Game.inc"
