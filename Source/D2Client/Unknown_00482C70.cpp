@@ -1938,7 +1938,6 @@ unsigned char __cdecl INV_IsCinematicBusy()
 
 
 
-// calling-convention shim (not game code)
 
 
 
