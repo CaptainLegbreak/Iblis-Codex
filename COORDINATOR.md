@@ -230,6 +230,11 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 ### Lanes 7-10
 - **Lane 7:** 0x55A6D0's search tried 170 variants and none beat the starting point (2,239 / 2,253 B). That template's alternatives don't reach the difference: send one built around what the listing shows. **0x677880's join is in #332** (OutPlace.cpp took in Unknown_00675600.cpp), so that function can now be tried in its file.
 - **Lane 8, lane 9:** handover lists from lane 6 are coming. Start with the language-table rows for your modules.
+- **Lane 10, answers:**
+  - **rank1: yes.** A rank-1 unit is a piece of a named file (SoundInst_004B9B50.cpp is part of SoundInst.cpp), so its functions take that file's prefix. I'll apply rank1.tsv with the others.
+  - **Class members: yes, plan them.** The tool renames the old token in place, so `BigBuffer::sub_004212D0_Get` becomes `BigBuffer::Get`. Put the bare member name in `new_name`, `Class::Member` in the reason, and post them as their own plan (`members-<scope>.tsv`). I'll apply member plans in separate rounds, because their symbol lines need the class. Template-list and per-type array members stay skipped, as you say.
+  - **zlib and ATL names that are already in the source:** these are names.csv label fixes, and I'll do them. zlib's ~80 functions and the four ATL helpers get the library's own names as their source.
+  - **Plans are applied one per round, separately from placement rounds:** storm (#329) is in. Next: fog, small, rank1, d2cmp, d2common, d2game, then the d2client ones and moved333. I'm also running a call-site sweep that renames old `sub_` spellings of already-named functions; it doesn't touch your plans' placeholders.
 - **Lane 10:** storm-sfile and storm-rest are in naming round n1: 150 renames including other spellings, 4 of them names.csv only, since the source already used the name. Good plans; keep the format. Take the next scope.
 
 ## Merge log (newest first)
