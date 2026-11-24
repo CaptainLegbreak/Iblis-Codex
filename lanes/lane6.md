@@ -4,15 +4,16 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/tails-a-2 4c3cd2a8 510->506 four one-function placeholders join the runs they sit in. 0x0067D7E0 goes to Unknown_0067D7B0 (it shares gOutdoorOrthOffsets with 0x0067D980). 0x00681420 goes to Unknown_00681240, whose 0x00681240 takes EAX and is called only by 0x00681420. 0x00681560, 0x006815C0 and 0x00681630 go to Unknown_00681490: the first two are register-argument statics called only by 0x00681630, and the 0x006F2840 const table is shared. OutSiege.cpp gets a data record for gaOutSiegeCaves and gaAct5WallSteps, which only it reads (they were planned in Unknown_0067D710); VERIFIED cbf00cc4 (on #323; #324 only touched README, STATUS and docs/shape.svg)
-  - Based on #324. Not stacked. Everything stays in lane 6. Replaces lane6/tails-a. lane6/data-c-2 is not needed: data-c went in #323.
-  - Several register-argument statics have no caller anywhere in the image: 0x0060B280, 0x0064FAA0, 0x0067A5D0, 0x0067D7E0, 0x006814E0. Their callers were probably inline functions whose copies the linker dropped for another file's copy. They keep emitting shims, marked as not game code.
-- lane6/path-b 90b3499b 510->507 D2Common pathfinding: the IDA* range 0x0067A550-0x0067ADBF becomes one placeholder, Unknown_0067A550.cpp, gathered from seven files. The call chain 0x0067AD00 -> 0x0067AAA0 -> 0x0067A740 -> 0x0067A690 -> 0x0067A630 and the const tables 0x006F17D8/0x006F18D8 agree. Shared D2PathInfoStrc and D2DrlgCoordsStrc replace the private copies; VERIFIED b5fca7e0
-  - Based on #324. Not stacked, and independent of tails-a-2. Everything stays in lane 6.
+- (verifying) The path cluster regroup rebased onto #325, as a stack of three:
+  - lane6/path-b-2 (replaces path-b; IDA* -> Unknown_0067A550.cpp)
+  - lane6/path-c-2 (A* -> Unknown_0067ADC0.cpp, tail -> Unknown_0067B9C0.cpp)
+  - lane6/path-d-2 (ray trace -> Unknown_00679380.cpp)
+  - Each is built equal. The path-c tree verified on #324 (294dce3a). Ready lines follow once path-b-2 and path-d-2 verify on #325.
+  - After the stack the cluster reads as clean runs: Unknown_00675600 | PathUtil.cpp | Unknown_00679380 | Unknown_0067A550 | Unknown_0067ADC0 | Unknown_0067B9C0 | PathWF.cpp. Placeholders 510->506 on #324's count.
 
 ## Claimed
 
-- Path cluster regroup (in progress, lane6/path-c on path-b). A* 0x0067ADC0-0x0067B9B1 becomes Unknown_0067ADC0.cpp and the tail 0x0067B9C0-0x0067C1C8 becomes Unknown_0067B9C0.cpp; built equal, verifying. The ray-trace range 0x00679380-0x0067A549 comes next as path-d.
+- D2Win: D2Comp.cpp's run 0x005031D0-0x005075DF has D2WinImage, D2WinMain, D2WinSmack and D2WinList pieces inside it. Its language block gData_0072EFD4 holds seven back-to-back copies, which matches the seven data-less objects after it in code order: D2WinList, D2WinAccountList, D2WinProgressBar, D2WinAnimImage, D2WinScrollbar, D2WinPopup and Unknown_00508970. Next I gather the run, then split the block, one copy per object through D2LanguageNames.h. Started after the path stack.
 
 ## Questions
 
