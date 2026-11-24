@@ -19,10 +19,10 @@ struct D2StormHashKeyNoneStrc
 
 struct D2StormHashObjectStrc
 {
-    unsigned int f_0;
+    unsigned int m_hashval;
     D2StormLinkStrc m_linktoslot;
-    D2StormLinkStrc f_C;
-    D2StormHashKeyNoneStrc f_14;
+    D2StormLinkStrc m_linktofull;
+    D2StormHashKeyNoneStrc m_key;
 
     D2StormHashObjectStrc()
     {

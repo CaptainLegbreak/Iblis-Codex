@@ -2769,7 +2769,7 @@ D2ChatStormLinkBStrc::D2ChatStormLinkBStrc()
 
 char* D2ChatStormNodeStrc::IGNORELIST_GetStringEntryKey()
 {
-    return f_14;
+    return m_key;
 }
 
 D2ChatStormBaseArrayAStrc::D2ChatStormBaseArrayAStrc()
@@ -2958,7 +2958,7 @@ void D2GameDataTableStrc::CelListTableUnlinkNode(D2StormEntry38Strc* pNode)
     if (pNode->m_linktoslot.m_next)
     {
         pNode->m_linktoslot.Unlink();
-        pNode->f_C.Unlink();
+        pNode->m_linktofull.Unlink();
     }
 }
 
@@ -3235,7 +3235,7 @@ char* D2StormHashTable006030E0Strc::CelListTableInternalFind(unsigned int nHashV
 {
     for (char* pNode = m_slotlistarray.m_data[nHashVal & m_slotmask].Head(); _ReadWriteBarrier(), (int)pNode > 0; pNode = m_slotlistarray.m_data[nHashVal & m_slotmask].RawNext(pNode))
     {
-        if (((D2StormEntry38Strc*)pNode)->f_0 == nHashVal)
+        if (((D2StormEntry38Strc*)pNode)->m_hashval == nHashVal)
         {
             return pNode;
         }
@@ -3581,7 +3581,7 @@ void D2GameHashTableStrc::CelListTableGrowListArray()
 
     char* pNode;
     while ((pNode = tTempList.Head()) != 0)
-        m_slotlistarray.f_8[((D2StormEntry38Strc*)pNode)->f_0 & m_slotmask].LinkToTail(pNode);
+        m_slotlistarray.f_8[((D2StormEntry38Strc*)pNode)->m_hashval & m_slotmask].LinkToTail(pNode);
 }
 
 // build: symbol ?InternalDelete@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEXPAUD2StormEntry38Strc@@@Z 0x00604150
@@ -3881,7 +3881,7 @@ char* D2GameDataTableStrc::CelListTableNew(unsigned int nHashVal, const int& tKe
     D2StormSlotListStrc* pSlotList = &m_slotlistarray.f_8[nSlot];
     D2StormEntry38Strc* pNode = InternalNew(pSlotList, nExtraBytes, nFlags);
     m_fulllist.LinkNode((char*)pNode, 2, 0);
-    pNode->f_0 = nHashVal;
+    pNode->m_hashval = nHashVal;
     return (char*)pNode;
 }
 
