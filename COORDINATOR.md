@@ -4,11 +4,11 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #341 (round j97). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 1,175 B (was 15,691 B at #297). Placeholder files 453; shims 78; context copies 346. Names: blizzard 472, library 84, d2moo 5,234, inferred 5,574, placeholder 3,563.
+- `main`: #342 (round j98). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 1,175 B (was 15,691 B at #297). Placeholder files 450; shims 78; context copies 345. Names: blizzard 472, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
 - In progress: nothing; next round as branches are posted ready.
 - **Renames are landing on main.** After a rebase, run `python3 tools/namesync.py`: it renames the old spellings in your branch, so your branch stops conflicting with the renamed lines.
-- **Rebase onto #341, run namesync, and repost:** `lane2/small-records-g` (Fog/Unknown_0040E300.cpp), `lane2/split-text` (UI/text_0049D5A0.cpp), `lane4/session-object` (the MCP packet records it copies privately are now in D2McpPackets.h), `lane4/winmain-object` (WINMAIN.CPP: three rounds now).
-- Earlier rebase requests are done: their new versions were merged in #340 and #341.
+- **Rebase onto #342, run namesync, and repost:** `lane2/split-text` (D2Client/UI/text_0049D5A0.cpp), `lane2/small-records-f-2` (D2Client/GAME/SCmd.cpp), `lane2/small-records-g-2` (D2Direct3D/Unknown_006B3570.cpp and Unknown_006B4C90.cpp, which lane 9's join-d3d-3570 merged into one unit). Lane 4's two from the last list are done: `winmain-object-2` is in #342; `session-object-3` goes in once it's posted.
+- Earlier rebase requests are done: their new versions were merged in #340, #341 and #342.
 - **`lane2/path-records` (done in #332) needed a rebase onto #328:** it conflicts in D2Common/Unknown_00679380.cpp with lane 6's path regroup (#327). Lane 8 owns D2Common now, so tell lane 8 if the records change its files.
 - **`lane2/game-records` is held: precheck NOT_ALL_EQUAL on #321** in two includers of D2GameTypes.h that the branch doesn't touch, `Source/D2Win/Src/D2Comp.cpp` and `Source/D2Game/Ai/AiThink4.cpp`. It looks like the declaration-count effect. Lane 2: rebuild every includer of D2GameTypes.h on current main. If those two can't be kept equal, put the two callback records in a small header that only their users include, as you did with D2ClientTimer.h.
 - **`lane1/keycfg-object-r` needs a rebase onto #317.** Lane 4's `keyconfig-split` (#317) already made `Unknown_004A43E0.cpp` from the same text.cpp range, so the two branches collide. The two splits also disagree on the range: lane 4's runs to 0x4A63B0, yours to 0x4A61A0, and lane 4's object map ends this object at 0x4A61A0. Rebase onto main and keep what yours adds: the 8 functions from text_0049A950.cpp, the 1 from Unknown_004A6000.cpp, the data 0x724264-0x72480F, the bss, and gnKeyConfigFirstVisible static. Send 0x4A61A0-0x4A63B0 back to the next object's placeholder, unless something in it ties it to this object.
@@ -280,6 +280,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - **Lane 10:** storm-sfile and storm-rest are in naming round n1: 150 renames including other spellings, 4 of them names.csv only, since the source already used the name. Good plans; keep the format. Take the next scope.
 
 ## Merge log (newest first)
+
+- #342 j98: net-copies, launch-copies-2 (lane 6); plrmodes-copy, missmode-join-2 (lane 5); scomp-flush-2 (lane 3); place-c, join-missile, join-missile-2 (lane 8); lang-include, winmain-object-2 (lane 4). Placeholders 453 -> 450, context copies 346 -> 345. Rebase requested: lane 2's split-text, small-records-f-2, small-records-g-2.
 
 - #341 j97: lane 4's context sweep (481 → 346 copies), borrowed data −402 B, ItemMods/Skills/SEVT/d3dSprite joins, editbox split, two records.
 - #340 j96: ChatDlg.cpp object, renderer joins, SERR/LogManager, Record.cpp, five records.
