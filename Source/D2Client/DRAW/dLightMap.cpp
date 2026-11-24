@@ -1378,11 +1378,6 @@ void __cdecl DLIGHTMAP_BuildLerpTables()
     gpLerpTable40 = GFX_BuildLerpTable(0x20, 0x28);
 }
 
-// 0x00477680
-int __cdecl DLIGHTMAP_GetLocalBloodPalette()
-{
-    return gdwGlobal_007BB384;
-}
 
 int __stdcall D2GFX_TogglePerspective();                                                                    // 0x004F54B0
 
@@ -1390,42 +1385,12 @@ int __stdcall D2GFX_ToggleBlendedShadows();                                     
 
 int __stdcall D2GFX_ToggleLowQuality();                                                                     // 0x004F54F0
 
-// 0x00477690
-int __cdecl sub_00477690_TogglePerspective()
-{
-    return D2GFX_TogglePerspective();
-}
-
-// 0x004776A0
-int __cdecl sub_004776A0_ToggleBlendedShadows()
-{
-    return D2GFX_ToggleBlendedShadows();
-}
-
-// 0x004776B0
-int __cdecl sub_004776B0_ToggleLowQuality()
-{
-    return D2GFX_ToggleLowQuality();
-}
 
 
-// 0x004776C0
-void __fastcall sub_004776C0(void* pArg)
-{
-    sub_004F5230(pArg);
-}
 
-// 0x00477730
-int __cdecl DLIGHTMAP_GetRenderMode()
-{
-    return gdwGlobal_00712CCC;
-}
 
-// 0x00477740
-int __cdecl sub_00477740()
-{
-    return gdwGlobal_007BB38C;
-}
+
+
 
 void __cdecl VIEW_ToggleCacheStats();                                                               // 0x00477C00
 
@@ -1433,19 +1398,7 @@ extern int gbCacheStats;                                                        
 
 int gbCacheStatsChecked;                                                                                      // 0x007BB3AC
 
-// 0x00477C60
-void __cdecl sub_00477C60_CheckCacheStats()
-{
-    if (gbCacheStatsChecked || !gbCacheStats)
-        VIEW_ToggleCacheStats();
-    gbCacheStatsChecked = 1;
-}
 
-// 0x00477C90
-int __cdecl sub_00477C90()
-{
-    return gdwGlobal_007BB388;
-}
 
 // 0x00478150
 int __cdecl sub_00478150()

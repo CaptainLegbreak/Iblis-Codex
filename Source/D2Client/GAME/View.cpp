@@ -1538,36 +1538,7 @@ void __fastcall VIEW_AdjustViewPos(int* pX, int* pY)
     VIEW_UpdateShakeSound(nMagnitude);
 }
 
-// 0x00477030
-D2PalShiftNodeStrc* __fastcall VIEW_FindPalShiftNode(int nId)
-{
-    for (D2PalShiftNodeStrc* pNode = gpPalShiftList; pNode; pNode = pNode->pNext)
-    {
-        if (pNode->nId == nId)
-            return pNode;
-    }
-    return 0;
-}
 
-// 0x00477750
-int __cdecl VIEW_IsAcceleratedRenderMode()
-{
-    return gnLightmapRenderMode >= 4;
-}
-
-struct D2MemoryStatusStrc
-{
-    unsigned long dwLength;
-    unsigned long dwMemoryLoad;
-    unsigned long dwTotalPhys;
-    unsigned long dwAvailPhys;
-    unsigned long dwTotalPageFile;
-    unsigned long dwAvailPageFile;
-    unsigned long dwTotalVirtual;
-    unsigned long dwAvailVirtual;
-};
-
-extern "C" __declspec(dllimport) void __stdcall GlobalMemoryStatus(D2MemoryStatusStrc* pStatus);            // 0x006CC1F4
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 
@@ -1623,44 +1594,6 @@ extern int g_007BB3AC; // 0x007BB3AC
 
 #define MEMORY_SHIFT 20
 
-// 0x00477980
-void __fastcall sub_00477980()
-{
-    unsigned int nNow=GetTickCount();
-    unsigned int nElapsed=nNow-gdwFpsCounterTick;
-    if(g_007BB3A4 && !gdwCacheStatsStart){gdwCacheStatsStart=nNow;gnCacheStatsFrames=0;}
-    if(nElapsed<=FRAME_INTERVAL){++gnFpsCounterFrames;++gnCacheStatsFrames;}
-    else {gdwFpsCounterTick=nNow;gnDisplayFps=gnFpsCounterFrames;gnFpsCounterFrames=0;}
-    if(!g_007BB3A4){gdwCacheStatsStart=0;return;}
-    D2GFX_OutputString(SCREEN_X,2,"%d FPS  %d Skip",gnDisplayFps,GAME_GetSkippedFrames());
-    D2GFX_OutputString(SCREEN_RIGHT,2,"Ping: %d",GAME_GetPing());
-    D2MemoryStatusStrc memory;
-    memory.dwLength=sizeof(memory);
-    GlobalMemoryStatus(&memory);
-    D2GFX_OutputString(SCREEN_X,16,"Phys:%d/%dm",((memory.dwTotalPhys-memory.dwAvailPhys)>>MEMORY_SHIFT)+1,(memory.dwTotalPhys>>MEMORY_SHIFT)+1);
-    D2GFX_OutputString(SCREEN_RIGHT,16,"Page:%d/%dm",((memory.dwTotalPageFile-memory.dwAvailPageFile)>>MEMORY_SHIFT)+1,(memory.dwTotalPageFile>>MEMORY_SHIFT)+1);
-    char text[32];
-    switch(sub_004F5140()){
-    case 1:sprintf(text,"Software");break;
-    case 3:sprintf(text,"DirectDraw");break;
-    case 4:sprintf(text,"Glide");break;
-    case 5:sprintf(text,"OpenGL");break;
-    case 6:sprintf(text,"Direct3D");break;
-    case 2:sprintf(text,"Software");break;
-    case 7:sprintf(text,"RAVE");break;
-    default:sprintf(text,gszUnknownText);break;
-    }
-    D2GFX_OutputString(500,2,"Video: %s",text);
-    if(!g_007BB3AC){
-        D2GFX_OutputString(SCREEN_X,120,"GFX Memory->%i",UI_GetGfxMemory());
-        D2GFX_OutputString(SCREEN_X,132,"COF Memory->%i of %i",UI_GetCofMemoryUsed(),UI_GetCofMemoryLimit());
-        D2GFX_OutputString(SCREEN_X,144,"Sprite Cache Memory->%i of %i",D2CMPSpriteCacheGetUsedMemory(),D2CMPSpriteCacheGetMaxMemory());
-        D2GFX_OutputString(SCREEN_X,156,"Async Files->%i",sub_0040ABE0());
-        D2GFX_OutputString(SCREEN_X,168,"CelData Cache Memory->%i of %i",D2CMPCelDataCacheGetUsedMemory(),D2CMPCelDataCacheGetMaxMemory());
-        sub_00481850();
-        sub_00477760_DrawCacheStats();
-    }
-}
 
 // 0x00479010
 void __fastcall VIEW_UpdatePetLife(int nUnitId, int nLifePercent, unsigned short nArg)
@@ -1708,29 +1641,6 @@ unsigned int __cdecl VIEW_GetPingScaled()
     return (sub_0044CE60_GetPing() + 0x32) >> 7;
 }
 
-// 0x00477C00
-void __cdecl VIEW_ToggleCacheStats()
-{
-    gbCacheStatsChecked = 0;
-    gbCacheStats = !gbCacheStats;
-    if (!gbCacheStats)
-        return;
-
-// build: symbol ?D2GFX_GetCacheResults@* 0x004F5290
-    D2CacheStatsStrc* pStats = D2GFX_GetCacheResults();
-    if (pStats)
-    {
-        pStats->unk0x04 = 0;
-        pStats->nFloorMisses = 0;
-        pStats->unk0x10 = 0;
-        pStats->nSubtileMisses = 0;
-        memset(pStats->unk0x24, 0, sizeof(pStats->unk0x24));
-        memset(pStats->nSpriteMisses, 0, sizeof(pStats->nSpriteMisses));
-        memset(pStats->nSpriteAccesses, 0, sizeof(pStats->nSpriteAccesses));
-        memset(pStats->unk0x60, 0, sizeof(pStats->unk0x60));
-    }
-    D2CMPResetTileCacheHits();
-}
 
 // 0x004879D0
 void __fastcall VIEW_ResetSelectionForUnit(D2UnitStrc* pUnit)
