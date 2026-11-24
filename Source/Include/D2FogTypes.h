@@ -10,6 +10,7 @@
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
+struct D2ConfigStrc;
 struct D2MemPoolBlockStrc;
 struct D2MemPoolRecStrc;
 struct D2PoolRecordStrc;
@@ -276,7 +277,7 @@ struct D2ThreadNameInfoStrc
 
 struct D2ModeIfaceStrc
 {
-    int (__fastcall* pfnRun)(int nArg); // 0x00
+    int (__fastcall* pfnRun)(D2ConfigStrc* pCfg); // 0x00
 };
 
 struct D2ModeEntryStrc

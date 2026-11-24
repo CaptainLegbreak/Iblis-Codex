@@ -109,9 +109,9 @@ void __stdcall D2ServerServiceHandlerProc(unsigned long dwCtrlCode); // 0x004064
 
 int __fastcall GameInit(int argc, const char** argv); // 0x004064C0
 
-int __cdecl ERRORMANAGER_StartServiceDispatcher(); // 0x00406650
+int __cdecl MAIN_StartServiceDispatcher(); // 0x00406650
 
-int __cdecl ERRORMANAGER_DenyProcessAccess(); // 0x004061C0
+int __cdecl MAIN_DenyProcessAccess(); // 0x004061C0
 
 void __fastcall LOGMANAGER_WriteLogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args); // 0x00410340
 
@@ -1425,12 +1425,12 @@ extern "C" int __stdcall WinMain(void* hInstance, void* hPrevInstance, char* lpC
 {
     ghCurrentProcess_0074C718 = hInstance;
     gnCmdShow = nShowCmd;
-    if (!ERRORMANAGER_StartServiceDispatcher())
+    if (!MAIN_StartServiceDispatcher())
     {
         const char* argv[2];
         argv[0] = "d2server";
         argv[1] = lpCmdLine;
-        ERRORMANAGER_DenyProcessAccess();
+        MAIN_DenyProcessAccess();
         GameInit(2, argv);
     }
     return 0;
