@@ -30,14 +30,12 @@ extern "C" __declspec(dllimport) void* __stdcall CreateEventA(void* pAttributes,
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfStart)(void*), void* pParameter, unsigned long nFlags, unsigned long* pThreadId);
 extern unsigned int __security_cookie; // 0x00749DE0
 void __fastcall QSERVER_AddReference(D2QueueServerStrc*,D2QClientStrc*); // 0x006BE640
-void __fastcall sub_006C0360_ReleaseReference(D2QueueServerStrc*,D2QClientStrc*); // 0x006C0360
 D2QClientStrc* __fastcall QSERVER_FindNodeInAnyBucket(D2QueueServerStrc*,int); // 0x006BE5B0
 int __fastcall QSERVER_CheckRecordThreshold(D2QueueServerStrc*,unsigned int*); // 0x006BE9F0
 int __fastcall QSERVER_BanAddress(D2QueueServerStrc*,unsigned int*,const char*,int); // 0x006C0800
 int __fastcall sub_006BFFA0_CheckAddress(D2QueueServerStrc*,unsigned int*); // 0x006BFFA0
 void __fastcall QSERVER_HackListAddress(D2QueueServerStrc*,const char*,unsigned int,int); // 0x006BFEA0
 D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc*,int,unsigned int); // 0x006BFB70
-void __fastcall sub_006C0420_CloseClient(D2QueueServerStrc*,int,const char*,int); // 0x006C0420
 void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc*,D2QClientStrc*); // 0x006C08A0
 int __fastcall FOG_SOCKET_CloseSocket(unsigned int s); // 0x0040D880
 void __fastcall ERRORMANAGER_UnregisterThread(unsigned int nId); // 0x00407F90
@@ -172,7 +170,7 @@ void __cdecl QSERVER98_ServerThread(D2QueueServerStrc* server)
         int selected=sub_006B0186_Select(64,&readSet,0,&errorSet,&timeout);
         for(int j=0;j<count;++j) {
             node=nodes[j]; LeaveCriticalSection(&node->tLock);
-            sub_006C0360_ReleaseReference(server,node);
+            QSERVER_ReleaseClient(server,node);
         }
         if(!selected) {
             EnterCriticalSection(&server->tLock);
@@ -243,9 +241,9 @@ void __cdecl QSERVER98_ServerThread(D2QueueServerStrc* server)
                             EnterCriticalSection(&node->tLock); node->nReadBytes+=received; LeaveCriticalSection(&node->tLock);
                             QSERVER_ProcessReceived(server,node); SetEvent(server->hEvent);
                         }
-                        else sub_006C0420_CloseClient(server,node->iId,gszSource,0x192);
+                        else QSrvCloseRemoteConnection(server,node->iId,gszSource,0x192);
                     }
-                    else sub_006C0420_CloseClient(server,node->iId,gszSource,0x192);
+                    else QSrvCloseRemoteConnection(server,node->iId,gszSource,0x192);
                 }
                 else sub_006B0174_Receive(socket,buffers.discard,0x5b4,0);
                 LeaveCriticalSection(&server->tLock);
