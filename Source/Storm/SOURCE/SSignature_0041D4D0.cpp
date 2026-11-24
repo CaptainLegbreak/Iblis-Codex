@@ -56,12 +56,3 @@ Crypt::RSA::~RSA()
 {
 }
 
-// 0x004260A0
-void Crypt::RSA::Process(void* pBuffer, unsigned int nSize)
-{
-    BigNum tInput;
-    sub_00423850(tInput.hHandle, pBuffer, nSize);
-    BigNum tOutput;
-    SBigPowMod(tOutput.hHandle, tInput.hHandle, hSecond.hHandle, hFirst.hHandle);
-    tOutput.ReadFill(pBuffer, nSize);
-}
