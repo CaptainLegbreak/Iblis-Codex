@@ -958,8 +958,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/ui.cpp": {
-   "bytes": 7812,
-   "definitions": 79,
+   "bytes": 7808,
+   "definitions": 78,
    "externs": [
     "extern \"C\" void __cdecl TEXT_QuestButtonDownMsg(); // 0x004A2A20",
     "extern \"C\" void __cdecl SCMD_HandleResetMessage(); // 0x00452090",
@@ -1204,31 +1204,11 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_0046ACE0.cpp": {
-   "bytes": 4,
-   "definitions": 1,
+   "bytes": 208,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0046ACE0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/Unknown_0046B630.cpp": {
-   "bytes": 200,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl sub_0046AEE0_ObjectMissileTimedBox(); // 0x0046AEE0",
-    "extern \"C\" void __cdecl sub_0046B0C0_ResetPulseTick(); // 0x0046B0C0",
-    "extern \"C\" void __cdecl sub_0046B100_EventObject98Request(); // 0x0046B100",
-    "extern \"C\" void __cdecl sub_0046B1E0_EventObject95Request(); // 0x0046B1E0",
-    "extern \"C\" void __cdecl sub_0046B290_EventLevel108Request(); // 0x0046B290",
-    "extern \"C\" void __cdecl sub_0046B300_EventObject178Request(); // 0x0046B300",
-    "extern \"C\" void __cdecl sub_0046B3A0_StartTimer(); // 0x0046B3A0",
-    "extern \"C\" void __cdecl sub_0046B440_EventObject1CCRequest(); // 0x0046B440",
-    "extern \"C\" void __cdecl SCMD_TriggerNearbyMonsterEffect(); // 0x0046B4A0",
-    "extern \"C\" void __cdecl sub_0046B520_SetFlag7A7468(); // 0x0046B520"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_0046B630.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -37140,7 +37120,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/ui.cpp",
+   "file": "Source/D2Client/Unknown_0046ACE0.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnTimerUnitId = ",
@@ -44244,7 +44224,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_0046B630.cpp",
+   "file": "Source/D2Client/Unknown_0046ACE0.cpp",
    "fill": 50,
    "form": "declared",
    "fwd": null,

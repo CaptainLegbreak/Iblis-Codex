@@ -3894,14 +3894,6 @@ int __cdecl sub_00468830()
     return gdwGlobal_007A6AF0;
 }
 
-// 0x0046BC70
-int __fastcall UI_SetTimerUnitId(D2UnitStrc* pUnit)
-{
-    const int nUnitId = !pUnit ? -1 : pUnit->dwUnitId;
-// build: symbol ?gnTimerUnitId@* 0x007129D4
-    gnTimerUnitId = nUnitId;
-    return nUnitId;
-}
 
 // 0x0046F980
 int __cdecl UI_GetGfxMemory()

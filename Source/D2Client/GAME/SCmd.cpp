@@ -4939,25 +4939,6 @@ void __fastcall SCMD_StartTimedEffect(int nArg0, int nArg1, int nArg2, int nArg3
     }
 }
 
-// 0x0046B4A0
-void __cdecl SCMD_TriggerNearbyMonsterEffect()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (!pPlayer)
-        return;
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    if (!pRoom)
-        return;
-    D2UnitStrc* pMonster = UNITFINDS_FindUnitInNeighboredRooms(pRoom, UNIT_MONSTER, 0x20E);
-    if (!pMonster)
-        return;
-
-    const int nX = CLIENTS_GetUnitX(pMonster);
-    const int nY = CLIENTS_GetUnitY(pMonster);
-    GFXUTIL_SubmitMissileRequest(pPlayer, 0x25E, nX, nY, 0, 1);
-    GFXUTIL_SubmitMissileRequest(pPlayer, 0x25B, nX, nY, 0, 1);
-    pMonster->dwFlagEx |= 0x40000;
-}
 
 // 0x0046BDD0
 int __fastcall SCMD_GetLevelLight(D2ActiveRoomStrc* pRoom, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue)
