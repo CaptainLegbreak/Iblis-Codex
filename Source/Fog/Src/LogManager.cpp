@@ -32,9 +32,7 @@ namespace LogManager { struct Message; }
 
 struct D2StormLinkStrc;
 
-struct sub_0040F530;
 
-struct sub_0040F810;
 
 struct D2ChatStormLinkStrc;
 
@@ -178,18 +176,6 @@ void CCritSect::Leave()
 CCritSect gtLogQueueLock; // 0x0075E838
 
 _iobuf* __fastcall LOGMANAGER_GetLogFile(const char* szName, int* pnSlot); // 0x0040EDE0
-
-struct sub_0040F530
-{
-    D2StormLinkStrc tLink;
-    ~sub_0040F530();
-};
-
-struct sub_0040F810
-{
-    D2StormLinkStrc tLink;
-    sub_0040F810();
-};
 
 // build: symbol _SMemAlloc@16 0x00413020
 // build: symbol ??3Message@LogManager@@SAXPAX0@Z 0x0040EB30
@@ -498,6 +484,11 @@ int gnLogQueued; // 0x0075D140
 // build: symbol ??__EgtLogMsgQueue_0075E868@@YAXXZ 0x006CA740
 // build: symbol ??__FgtLogMsgQueue_0075E868@@YAXXZ 0x006CB090
 TSList<LogManager::Message> gtLogMsgQueue_0075E868; // 0x0075E868
+// build: symbol ?Next@?$TSLink@UMessage@LogManager@@@@QAEPAUMessage@LogManager@@XZ 0x0040F520
+// build: symbol ?Unlink@?$TSLink@UMessage@LogManager@@@@QAEXXZ 0x0040F530
+// build: symbol ?InitializeTerminator@?$TSList@UMessage@LogManager@@U?$TSGetLink@UMessage@LogManager@@@@@@QAEXXZ 0x0040F580
+// build: symbol ?Head@?$TSList@UMessage@LogManager@@U?$TSGetLink@UMessage@LogManager@@@@@@QAEPAUMessage@LogManager@@XZ 0x0040F7C0
+// build: symbol ??0?$TSLink@UMessage@LogManager@@@@QAE@XZ 0x0040F810
 // build: symbol ?NextLink@?$TSLink@UMessage@LogManager@@@@QAEPAU1@H@Z 0x0040F4F0
 // build: symbol ??1?$TSLink@UMessage@LogManager@@@@QAE@XZ 0x0040F820
 // build: symbol ?Link@?$TSList@UMessage@LogManager@@U?$TSGetLink@UMessage@LogManager@@@@@@QAEPAU?$TSLink@UMessage@LogManager@@@@PBUMessage@LogManager@@@Z 0x0040F880
@@ -511,6 +502,11 @@ TSList<LogManager::Message> gtLogMsgQueue_0075E868; // 0x0075E868
 // build: symbol ?Clear@?$TSList@UMessage@LogManager@@U?$TSGetLink@UMessage@LogManager@@@@@@QAEXXZ 0x0040FED0
 // build: symbol ?NewNode@?$TSList@UMessage@LogManager@@U?$TSGetLink@UMessage@LogManager@@@@@@QAEPAUMessage@LogManager@@III@Z 0x0040FF40
 // build: symbol ??_R0?AUMessage@LogManager@@@8 0x0070811C
+template LogManager::Message* TSLink<LogManager::Message>::Next();
+template void TSLink<LogManager::Message>::Unlink();
+template void TSList<LogManager::Message>::InitializeTerminator();
+template LogManager::Message* TSList<LogManager::Message>::Head();
+template TSLink<LogManager::Message>::TSLink();
 template TSLink<LogManager::Message>* TSLink<LogManager::Message>::NextLink(int);
 template TSLink<LogManager::Message>::~TSLink();
 template TSLink<LogManager::Message>* TSList<LogManager::Message>::Link(const LogManager::Message*);
@@ -524,7 +520,6 @@ extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* s
 
 struct D2LogDumpStrc;
 
-struct D2StormListStrc;
 
 struct D2LogDumpStrc
 {
@@ -609,12 +604,6 @@ extern "C" const char gszLogDumpByteSpaced[]; // 0x006CE1A4
 
 extern "C" const char gszLogLineFormat_006CD90C[]; // 0x006CD90C
 
-struct D2StormListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-};
-
 // 0x004027C0
 unsigned long __stdcall LOGMANAGER_DbgHelpThreadProc(void* pParam)
 {
@@ -693,12 +682,6 @@ void __fastcall LOGMANAGER_SweepLogFile(const D2FileTimeStrc* pNow, const char* 
         if (pNow->dwHighDateTime >= tFileTime.dwHighDateTime && pNow->dwHighDateTime - tFileTime.dwHighDateTime >= 0x4B7)
             DeleteFileA(szFile);
     }
-}
-
-// 0x0040F530
-sub_0040F530::~sub_0040F530()
-{
-    tLink.Unlink();
 }
 
 // 0x0040F5A0
@@ -1186,23 +1169,10 @@ void __fastcall LOGMANAGER_WriteMessage(LogManager::Message* pMessage)
     }
 }
 
-// 0x0040F7C0
-char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
-{
-    return m_terminator.MaskNext();
-}
-
 // 0x0040F7D0
 sub_0040F7D0::~sub_0040F7D0()
 {
     tLink.Unlink();
-}
-
-// 0x0040F810
-sub_0040F810::sub_0040F810()
-{
-    tLink.m_prevlink = 0;
-    tLink.m_next = 0;
 }
 
 // 0x0040F860
@@ -1457,19 +1427,6 @@ void __fastcall LOGMANAGER_WriteDumpMessage(LogManager::Message* pMessage)
         pCur += nLine;
         nRemain -= nLine;
     }
-}
-
-// 0x0040F520
-char* __fastcall sub_0040F520_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-// 0x0040F580
-void __fastcall sub_0040F580_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
 }
 
 // 0x0040F350
