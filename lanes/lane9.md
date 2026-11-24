@@ -18,20 +18,13 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-Both on main c2f64d25 (#340), rebased with namesync; precheck on each head: 0 not all equal.
+On main 0b750228 (#341), namesync run, precheck 0 not all equal on each head.
 
-- lane9/join-d3d-3570 7439747e placeholders 1->0 (D2Direct3D/Unknown_006B4C90.cpp into Unknown_006B3570.cpp). Full verify on
-  #340: VERIFIED tree c099ac89. DetectDirect3D 0x6B4C90 is a file static whose only caller is
-  0x6B4E80. The unit is /EHsc /GS-, as its try/catch blocks need; LOGMANAGER_WriteLogLine keeps its throw() declaration.
-- lane9/join-d3dsprite-2 e4999e3b pieces 2->1 (d3dSprite_006B5D40.cpp joins d3dSprite.cpp; 19 functions). Full verify on
-  #340: VERIFIED tree fc81f3b6. The piece's functions call d3dSprite.cpp's statics 0x6B5C80, 0x6B5CF0,
-  0x6B6680, and d3dSprite.cpp's 0x6B7090 calls the piece's statics 0x6B5D40 and 0x6B63F0. Shims, context copies,
-  emitters and the two noinline prototypes go; the three names for the 0x00970F40 counter become one static.
-  **Please look at one point:** DrawQuad 0x6B63F0 returns what its exits leave in eax (the failed Lock's result; on the
-  normal path there is no return statement, a C4715 warning), and 0x6B7090 returns that value, as the image does. It
-  adds no instructions. If you'd rather not have a missing return, say so and I'll look for another form.
+- lane9/place-ddcore-10160 19aa324f placeholders 1->0 (D2DDraw/Unknown_00510020.cpp into Src/ddCore.cpp: 0x510160
+  DDrawSetPalette and its bss). Full verify on #341: VERIFIED tree 4e3648c0. 26 functions equal under ddCore's flags;
+  the piece's second gbPaletteDirty declaration goes, as ddCore.cpp has the static.
 
-In #340: join-d3d-7530, join-ddraw-11df0, join-glide-bd30, join-glide-d410 (thanks). Earlier: place-gdismack #338,
+In #341: join-d3d-3570, join-d3dsprite-2 (thanks). In #340: join-d3d-7530, join-ddraw-11df0, join-glide-bd30, join-glide-d410 (thanks). Earlier: place-gdismack #338,
 join-d3dsprite #336, atl-d3dcore #332 (its 2 B note stands).
 
 ## Questions
