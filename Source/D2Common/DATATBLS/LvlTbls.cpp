@@ -1384,23 +1384,3 @@ void __fastcall DATATBLS_FreeAutomap()
     gpAutomapRecords = 0;
 }
 
-// 0x00673FF0
-int __fastcall DATATBLS_GetVisFlagToLevel(D2DrlgLevelStrc* pLevel, D2DrlgLevelStrc* pOtherLevel)
-{
-    int* pLevelIds = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, pLevel->eLevelId);
-    int i = 0;
-    for (; i < 8; ++i)
-    {
-        if (pLevelIds[i] == pOtherLevel->eLevelId)
-        {
-            break;
-        }
-    }
-
-    if (i == 8)
-    {
-        return 0;
-    }
-
-    return 1 << (i + 4);
-}

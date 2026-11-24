@@ -243,30 +243,6 @@ static void __stdcall DRLGROOM_AddWarpRoomTile(D2DrlgRoomStrc* pDrlgRoom1, D2Drl
     pDrlgRoom1->pRoomTiles = pRoomTile;
 }
 
-// 0x00674160
-void __fastcall DRLGOUTDOORS_AlterAdjacentPresetGridCells(D2DrlgLevelStrc* pLevel, int nX, int nY)
-{
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
-    DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[0], nX, nY, 0, 3);
-    DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0, 3);
-}
-
-// 0x006741A0
-void __fastcall DRLGOUTDOORS_SetBlankGridCell(D2DrlgLevelStrc* pLevel, int nX, int nY)
-{
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
-    DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[0], nX, nY, 0, 3);
-    DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0x100, 3);
-}
-
-// 0x006741E0
-unsigned int __fastcall DRLGOUTDOORS_TestGridCellNonLvlLink(D2DrlgLevelStrc* pLevel, int nX, int nY)
-{
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
-    const unsigned int nPackedValue = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], nX, nY);
-    return ((nPackedValue >> 10) & 1) == 0;
-}
-
 // 0x0066B560
 void __fastcall DRLGROOM_AllocDrlgOrthForRoom(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, int nDirection)
 {

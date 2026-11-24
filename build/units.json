@@ -67164,11 +67164,6 @@
      "va": "0x006200D0",
      "length": 40,
      "name": "?DATATBLS_FreeAutomap@@YIXXZ"
-    },
-    {
-     "va": "0x00673FF0",
-     "length": 65,
-     "name": "?DATATBLS_GetVisFlagToLevel@@YIHPAUD2DrlgLevelStrc@@0@Z"
     }
    ]
   },
@@ -75809,21 +75804,6 @@
      "va": "0x006706A0",
      "length": 164,
      "name": "?DRLGTILESUB_PickSubThemes@@YIHPAUD2DrlgRoomStrc@@HH@Z"
-    },
-    {
-     "va": "0x00674160",
-     "length": 49,
-     "name": "DRLGOUTDOORS_AlterAdjacentPresetGridCells"
-    },
-    {
-     "va": "0x006741A0",
-     "length": 52,
-     "name": "DRLGOUTDOORS_SetBlankGridCell"
-    },
-    {
-     "va": "0x006741E0",
-     "length": 30,
-     "name": "DRLGOUTDOORS_TestGridCellNonLvlLink"
     }
    ]
   },
@@ -76354,11 +76334,36 @@
   },
   {
    "file": "Source/D2Common/Unknown_00674040.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
+    {
+     "va": "0x00673FF0",
+     "length": 65,
+     "name": "?DATATBLS_GetVisFlagToLevel@@YIHPAUD2DrlgLevelStrc@@0@Z"
+    },
     {
      "va": "0x00674040",
      "length": 210
+    },
+    {
+     "va": "0x00674120",
+     "length": 57,
+     "name": "?DRLGOUTDOORS_GetPresetIndexFromGridCell@@YIHPAUD2DrlgLevelStrc@@HH@Z"
+    },
+    {
+     "va": "0x00674160",
+     "length": 49,
+     "name": "DRLGOUTDOORS_AlterAdjacentPresetGridCells"
+    },
+    {
+     "va": "0x006741A0",
+     "length": 52,
+     "name": "DRLGOUTDOORS_SetBlankGridCell"
+    },
+    {
+     "va": "0x006741E0",
+     "length": 30,
+     "name": "DRLGOUTDOORS_TestGridCellNonLvlLink"
     },
     {
      "va": "0x00674230",
@@ -76617,17 +76622,6 @@
      "va": "0x00673FE0",
      "length": 8,
      "name": "?DRLGMAZE_ResetMazeRecord@@YIXPAUD2DrlgLevelStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00674120.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00674120",
-     "length": 57,
-     "name": "?DRLGOUTDOORS_GetPresetIndexFromGridCell@@YIHPAUD2DrlgLevelStrc@@HH@Z"
     }
    ]
   },
