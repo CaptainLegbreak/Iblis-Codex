@@ -16,7 +16,7 @@ The second grid tracks how close the sources are to the original tree in form, n
 
 ## Names
 
-Structs and most game-logic names come from D2MOO by ThePhrozenKeep (https://github.com/ThePhrozenKeep/D2MOO, MIT; see NOTICE-D2MOO.txt). Only names marked `blizzard` in names.csv are Blizzard's own (from exports, symbols or the game's diagnostics); `d2moo` names are community names; `inferred` names were given here, in Blizzard's naming format for their file, from what the function does; `placeholder` names are addresses or export ordinals awaiting a name.
+Structs and most game-logic names come from D2MOO by ThePhrozenKeep (https://github.com/ThePhrozenKeep/D2MOO, MIT; see NOTICE-D2MOO.txt). Only names marked `blizzard` in names.csv are Blizzard's own (from exports, symbols or the game's diagnostics); `library` names are those of a library the code comes from (zlib, ATL); `d2moo` names are community names; `inferred` names were given here, in Blizzard's naming format for their file, from what the function does; `placeholder` names are addresses or export ordinals awaiting a name.
 
 ## What is here
 

@@ -145,7 +145,7 @@ if rep:
     L.append('| Game.exe bytes built from source (code, generated data, runtime, imports, linker output, padding) | %s of %s (%.2f %%) |' % (format(built, ','), format(total, ','), 100.0 * built / total))
     L.append('| Game.exe bytes taken from your Game.exe (unmatched code, undefined data, resources, stamps, signature) | %s |' % format(rep['borrowed'], ','))
     L.append('| Output SHA-256 equals the original | %s |' % ('yes' if rep['identical'] else 'no'))
-    L.append('| Names: blizzard / d2moo / inferred / placeholder | %d / %d / %d / %d |' % (name_src['blizzard'], name_src['d2moo'], name_src['inferred'], name_src['placeholder']))
+    L.append('| Names: blizzard / library / d2moo / inferred / placeholder | %d / %d / %d / %d / %d |' % (name_src['blizzard'], name_src['library'], name_src['d2moo'], name_src['inferred'], name_src['placeholder']))
     L.append('\nBytes of the built Game.exe by origin:\n\n| Origin | Bytes |\n|---|---:|')
     lab = [('built_from_game_source', 'game code and data compiled from Source/'), ('generated_data', 'initialised data generated from your Game.exe (build/data_plan.json)'),
            ('runtime_library', 'C runtime (libcmt.lib, placed by identity)'), ('imports', 'import thunks and the import address table'),
@@ -172,7 +172,7 @@ L.append('| Functions with a construct that only forces code generation (volatil
 L.append('| Calling-convention shims | %d |' % count(r'calling-convention shim'))
 L.append('| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | %d |' % count(r'// build: context'))
 L.append('| `__declspec(noinline)` / `__forceinline` | %d / %d |' % (count(r'__declspec\(noinline\)'), count(r'__forceinline')))
-L.append('| Function names: blizzard / d2moo / inferred / placeholder | %d / %d / %d / %d |' % (name_src['blizzard'], name_src['d2moo'], name_src['inferred'], name_src['placeholder']))
+L.append('| Function names: blizzard / library / d2moo / inferred / placeholder | %d / %d / %d / %d / %d |' % (name_src['blizzard'], name_src['library'], name_src['d2moo'], name_src['inferred'], name_src['placeholder']))
 L.append('\n`docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.')
 
 um = re.search(r'## Unmatched functions.*?(?=\n## )', old, re.S)
@@ -188,7 +188,7 @@ for f in sorted(GAME, key=lambda f: int(f[0], 16)):
     if c:
         a = int(f[0], 16)
         L.append('| 0x%08X | %s | `%s` | %s |' % (a, NAMES.get(a, ('sub_%08X' % a, ''))[0], OWNER[a]['file'].replace('Source/', ''), ', '.join(c)))
-L.append('\n## Names\n\n`names.csv` gives the source of every function name: %d `blizzard` (Blizzard\'s own name, from exports, symbols or diagnostics), %d `d2moo`, %d `inferred` (named here in Blizzard\'s format for its file), %d `placeholder`. Placeholder names (mostly `sub_<address>_<Verb>`) are waiting for a real name.' % (name_src['blizzard'], name_src['d2moo'], name_src['inferred'], name_src['placeholder']))
+L.append('\n## Names\n\n`names.csv` gives the source of every function name: %d `blizzard` (Blizzard\'s own name, from exports, symbols or diagnostics), %d `library` (the name in the library the code comes from: zlib, ATL), %d `d2moo`, %d `inferred` (named here in Blizzard\'s format for its file), %d `placeholder`. Placeholder names (mostly `sub_<address>_<Verb>`) are waiting for a real name.' % (name_src['blizzard'], name_src['library'], name_src['d2moo'], name_src['inferred'], name_src['placeholder']))
 open(os.path.join(ROOT, 'STATUS.md'), 'w').write('\n'.join(L).rstrip() + '\n')
 
 
