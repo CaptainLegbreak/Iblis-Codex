@@ -3032,26 +3032,6 @@ static int sub_004A76C0_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
 
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey);
 
-// 0x004A4110
-void __stdcall TEXT_QuestButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    int nX = pMsg->nXpos;
-    int nY = pMsg->nYpos;
-    if (sub_004A2970(nX, nY) && gbGlobal_007BF2B0)
-    {
-        UI_SetUIVar(17, 1, 0);
-        TEXT_ToggleQuestLog(0);
-        gbGlobal_007BF2B0 = 0;
-        pMsg->bReturn = 1;
-        pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
-        return;
-    }
-
-    gbGlobal_007BF2B0 = 0;
-    pMsg->bReturn = 0;
-}
-
 
 
 

@@ -23255,46 +23255,6 @@
      "name": "?CUNIT_ClearTextPanel@@YAXXZ"
     },
     {
-     "va": "0x004A1950",
-     "length": 2250
-    },
-    {
-     "va": "0x004A2220",
-     "length": 224
-    },
-    {
-     "va": "0x004A2CB0",
-     "length": 833
-    },
-    {
-     "va": "0x004A3050",
-     "length": 29,
-     "name": "?sub_004A3050@@YAXXZ"
-    },
-    {
-     "va": "0x004A3220",
-     "length": 491
-    },
-    {
-     "va": "0x004A3E40",
-     "length": 406
-    },
-    {
-     "va": "0x004A4180",
-     "length": 219,
-     "name": "?TEXT_TestQuestCondition@@YIHH@Z"
-    },
-    {
-     "va": "0x004A4260",
-     "length": 51,
-     "name": "??0D2QuestTextBufferStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x004A42A0",
-     "length": 320,
-     "name": "?TEXT_QuestLButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
      "va": "0x004BF2F0",
      "length": 306
     },
@@ -23312,10 +23272,6 @@
      "va": "0x004ED3F0",
      "length": 142,
      "name": "?TEXT_DrawHintText@@YGXHH@Z"
-    },
-    {
-     "va": "0x006CACD0",
-     "length": 10
     }
    ],
    "flags": [
@@ -23522,11 +23478,6 @@
    "file": "Source/D2Client/Unknown_004A43E0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004A4110",
-     "length": 99,
-     "name": "TEXT_QuestButtonUpMsg"
-    },
     {
      "va": "0x004A43E0",
      "length": 220
@@ -24669,66 +24620,6 @@
      "name": "TEXT_KeyDownMsg"
     },
     {
-     "va": "0x004A18E0",
-     "length": 6,
-     "name": "?TEXT_SetQuestIndex@@YAXH@Z"
-    },
-    {
-     "va": "0x004A1910",
-     "length": 29,
-     "name": "?TEXT_FindQuestIndex@@YAHH@Z"
-    },
-    {
-     "va": "0x004A1930",
-     "length": 29,
-     "name": "?TEXT_FindEntryIndex@@YAHH@Z"
-    },
-    {
-     "va": "0x004A2610",
-     "length": 27,
-     "name": "?sub_004A2610_HitTestButtonA@@YAEHH@Z"
-    },
-    {
-     "va": "0x004A2630",
-     "length": 96,
-     "name": "?TEXT_GetQuestSlotAtPoint@@YAHHH@Z"
-    },
-    {
-     "va": "0x004A2690",
-     "length": 27,
-     "name": "?TEXT_HitTestQuestCloseButton@@YAEHH@Z"
-    },
-    {
-     "va": "0x004A26F0",
-     "length": 112,
-     "name": "?TEXT_GetQuestTabAtPoint@@YGHHH@Z"
-    },
-    {
-     "va": "0x004A27D0",
-     "length": 105,
-     "name": "?TEXT_OpenQuestDescription@@YAXH@Z"
-    },
-    {
-     "va": "0x004A2840",
-     "length": 88,
-     "name": "TEXT_CloseQuestPanelMsg"
-    },
-    {
-     "va": "0x004A2A20",
-     "length": 93,
-     "name": "?TEXT_QuestButtonDownMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004A3020",
-     "length": 37,
-     "name": "?TEXT_ClearQuestFlags@@YAXXZ"
-    },
-    {
-     "va": "0x004A3410",
-     "length": 221,
-     "name": "?TEXT_ResetQuestPanel@@YAXXZ"
-    },
-    {
      "va": "0x004A6310",
      "length": 63,
      "name": "TEXT_WheelCaptureMsg"
@@ -25025,9 +24916,32 @@
    "rank": 1,
    "functions": [
     {
+     "va": "0x004A18E0",
+     "length": 6,
+     "name": "?TEXT_SetQuestIndex@@YAXH@Z"
+    },
+    {
      "va": "0x004A18F0",
      "length": 29,
      "name": "?sub_004A3050@@YAXXZ"
+    },
+    {
+     "va": "0x004A1910",
+     "length": 29,
+     "name": "?TEXT_FindQuestIndex@@YAHH@Z"
+    },
+    {
+     "va": "0x004A1930",
+     "length": 29,
+     "name": "?TEXT_FindEntryIndex@@YAHH@Z"
+    },
+    {
+     "va": "0x004A1950",
+     "length": 2250
+    },
+    {
+     "va": "0x004A2220",
+     "length": 224
     },
     {
      "va": "0x004A2300",
@@ -25055,9 +24969,29 @@
      "name": "?TEXT_FreeQuestPanel@@YAXXZ"
     },
     {
+     "va": "0x004A2610",
+     "length": 27,
+     "name": "?sub_004A2610_HitTestButtonA@@YAEHH@Z"
+    },
+    {
+     "va": "0x004A2630",
+     "length": 96,
+     "name": "?TEXT_GetQuestSlotAtPoint@@YAHHH@Z"
+    },
+    {
+     "va": "0x004A2690",
+     "length": 27,
+     "name": "?TEXT_HitTestQuestCloseButton@@YAEHH@Z"
+    },
+    {
      "va": "0x004A26B0",
      "length": 60,
      "name": "TEXT_OpenQuestPanel"
+    },
+    {
+     "va": "0x004A26F0",
+     "length": 112,
+     "name": "?TEXT_GetQuestTabAtPoint@@YGHHH@Z"
     },
     {
      "va": "0x004A2760",
@@ -25068,6 +25002,16 @@
      "va": "0x004A27B0",
      "length": 21,
      "name": "?TEXT_CloseQuestText@@YIHPAXHH@Z"
+    },
+    {
+     "va": "0x004A27D0",
+     "length": 105,
+     "name": "?TEXT_OpenQuestDescription@@YAXH@Z"
+    },
+    {
+     "va": "0x004A2840",
+     "length": 88,
+     "name": "TEXT_CloseQuestPanelMsg"
     },
     {
      "va": "0x004A28A0",
@@ -25090,6 +25034,11 @@
      "name": "?TEXT_IsMouseOnQuestButton@@YGHHH@Z"
     },
     {
+     "va": "0x004A2A20",
+     "length": 93,
+     "name": "?TEXT_QuestButtonDownMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x004A2A80",
      "length": 429,
      "name": "?TEXT_DrawQuestButton@@YAXXZ"
@@ -25110,9 +25059,23 @@
      "name": "?TEXT_ClearNihlathakFlag@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x004A2CB0",
+     "length": 833
+    },
+    {
      "va": "0x004A3000",
      "length": 20,
      "name": "_TEXT_ResetQuestButtonState"
+    },
+    {
+     "va": "0x004A3020",
+     "length": 37,
+     "name": "?TEXT_ClearQuestFlags@@YAXXZ"
+    },
+    {
+     "va": "0x004A3050",
+     "length": 29,
+     "name": "?sub_004A3050@@YAXXZ"
     },
     {
      "va": "0x004A3070",
@@ -25155,8 +25118,21 @@
      "name": "?VIEW_ClearQuestPanelValues@@YIPAUD2QuestPanelValuesStrc@@PAU1@@Z"
     },
     {
+     "va": "0x004A3220",
+     "length": 491
+    },
+    {
+     "va": "0x004A3410",
+     "length": 221,
+     "name": "?TEXT_ResetQuestPanel@@YAXXZ"
+    },
+    {
      "va": "0x004A34F0",
      "length": 2376
+    },
+    {
+     "va": "0x004A3E40",
+     "length": 406
     },
     {
      "va": "0x004A3FE0",
@@ -25169,8 +25145,32 @@
      "name": "?TEXT_SetQuestRecord@@YIXPBUD2Record42Strc@@@Z"
     },
     {
+     "va": "0x004A4110",
+     "length": 99,
+     "name": "TEXT_QuestButtonUpMsg"
+    },
+    {
+     "va": "0x004A4180",
+     "length": 219,
+     "name": "?TEXT_TestQuestCondition@@YIHH@Z"
+    },
+    {
+     "va": "0x004A4260",
+     "length": 51,
+     "name": "??0D2QuestTextBufferStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x004A42A0",
+     "length": 320,
+     "name": "?TEXT_QuestLButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x006CAC30",
      "length": 156
+    },
+    {
+     "va": "0x006CACD0",
+     "length": 10
     }
    ],
    "flags": [
