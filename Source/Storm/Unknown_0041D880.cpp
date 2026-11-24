@@ -1,19 +1,14 @@
 #include "Storm.h"
 #include "D2StormLink.h"
 
-struct Obj0041D880;
 struct BigNum;
 struct CBitInput;
-struct Obj0041D920;
-struct Obj0041D940;
 struct D2StormHuffInputStrc;
 struct D2StormLinkStrc;
 struct D2StormNodeListStrc;
 struct HUFFNODE;
 struct CHuffman;
 struct D2AdpcmHeaderStrc;
-
-struct Obj0041D880 { const unsigned int* pCur00; unsigned int dwBits04; int nBitCount08; };
 
 void __stdcall SBigNew(void** phBig); // 0x00423950
 void __stdcall SBigDel(void* hBig); // 0x00424E40
@@ -32,12 +27,9 @@ struct CBitInput
     unsigned int dwBits;
     int nBitsLeft;
 
+    CBitInput(void* pInputBuffer);
     int sub_0041D8A0_ReadBit();
 };
-
-struct Obj0041D920 { unsigned int dwCur00; unsigned int dwValue04; unsigned int dwBase08; unsigned int dwValue0C; unsigned int dwValue10; };
-
-struct Obj0041D940 { int nValue00; int nUnknown04; int nValue08; };
 
 struct D2StormHuffInputStrc
 {
@@ -109,11 +101,11 @@ struct CHuffman
 };
 
 // 0x0041D880
-extern "C" __declspec(dllexport) Obj0041D880* __fastcall sub_0041D880(Obj0041D880* pObj, int nUnusedEdx, const unsigned int* pBuffer) {
-    pObj->pCur00 = pBuffer;
-    pObj->dwBits04 = *pObj->pCur00++;
-    pObj->nBitCount08 = 32;
-    return pObj;
+CBitInput::CBitInput(void* pInputBuffer)
+{
+    pData = (unsigned int*)pInputBuffer;
+    dwBits = *pData++;
+    nBitsLeft = 32;
 }
 
 // 0x0041D320
@@ -142,18 +134,19 @@ int CBitInput::sub_0041D8A0_ReadBit()
 }
 
 // 0x0041D920
-extern "C" __declspec(dllexport) Obj0041D920* __fastcall sub_0041D920(Obj0041D920* pObj, int nUnusedEdx, unsigned int dwFirst, unsigned int dwSecond) {
-    pObj->dwBase08 = dwFirst;
-    pObj->dwCur00 = dwFirst;
-    pObj->dwValue04 = dwSecond;
-    pObj->dwValue0C = 0;
-    pObj->dwValue10 = 0;
-    return pObj;
+CBitOutput::CBitOutput(void* pOutputBuffer, unsigned int nOutputSize)
+{
+    pOutput = (unsigned char*)pOutputBuffer;
+    pOutputStart = (unsigned char*)pOutputBuffer;
+    f_4 = nOutputSize;
+    nBitBuffer = 0;
+    nBitCount = 0;
 }
 
 // 0x0041D940
-extern "C" __declspec(dllexport) int __fastcall sub_0041D940(Obj0041D940* pObj) {
-    return pObj->nValue08 - pObj->nValue00;
+unsigned int CBitOutput::sub_0041D940_GetSize()
+{
+    return pOutput - pOutputStart;
 }
 
 // 0x0041D950
