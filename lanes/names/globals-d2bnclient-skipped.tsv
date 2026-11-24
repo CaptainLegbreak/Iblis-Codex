@@ -1,0 +1,6 @@
+va	old_name	file	reason
+0x00882318	gdwGlobal_00882318	Source/D2BNClient/BnDownload.cpp	only set, in BNDOWNLOAD_HandleStartAdvex
+0x00882350	gdwGlobal_00882350	Source/D2BNClient/BnDownload.cpp	only set, in BNDOWNLOAD_HandleCreateAccount (first byte of the reply)
+0x008823EC	gnGlobal_008823EC	Source/D2BNClient/BnDownload.cpp	set to 0 or 1 in BNDOWNLOAD_HandleAuthCheck; meaning unclear
+0x008823F0	gdwGlobal_008823F0	Source/D2BNClient/BnDownload.cpp	only set, in BNDOWNLOAD_HandleAuthAccountCreate
+0x008823FC	gdwGlobal_008823FC	Source/D2BNClient/BnDownload.cpp	set in BNDOWNLOAD_HandleAuthAccountChangeProof; meaning unclear
