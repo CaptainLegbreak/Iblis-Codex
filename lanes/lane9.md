@@ -25,13 +25,6 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-- lane9/glide-run 18fdace8, on main 5ed199a4 (#368), precheck 0 not all equal; full verify VERIFIED, borrowed data 844 B
-  (main's). Placeholders -4: D2Glide's debug-drawing run (Unknown_0050BD30.cpp's pieces 0x50BD30-0x50D540 with
-  0x50BF40, 0x50BF50, 0x50C890, 0x50CD40 between them) is one file; 24 equal. The original's 0x50CD40 calls the
-  blended-shadow getter 0x50BF40 instead of inlining it, so the unit takes /Ob1 (like gdiCore.cpp) with the draw-rect
-  helper 0x50C690 marked inline. **Coordinator:** a per-unit option; the module as a whole doesn't build under /Ob1
-  (glDebugFont, glSmack, glTextureCache, glSubtileCache break). The same uninlined getter call is what keeps 0x6C8A50 out
-  of the D2Gdi run and 0x6B7530 out of 0x6B7250's object; Tried there: it doesn't carry over. In D2Gdi under /Ob1, 0x6C9290 still differs with 0x6C8A50 in the file, so the getter's case there is something else.
 - lane9/ddcore-strays cb8b3c79, on main eb850b12 (#369), precheck 0 not all equal; full verify VERIFIED, borrowed data 844 B
   (main's). Placeholders -2, two of files-d2ddraw/d2gdi.tsv's medium rows: ddCore.cpp takes Unknown_00510130's 17
   functions (between two runs of ddCore, five data items only ddCore also uses; they are entries of ddCore's function
@@ -40,6 +33,12 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   Unknown_005125E0.cpp's row doesn't hold: in ddCore its wall-tile drawer 0x512F90 inlines the blended-shadow getter,
   which the original calls. Unknown_0050F910 (D2Glide) I leave on its own: its planned data is the tile TexInfo
   0x72F6A8, the twin of glTextureCache's floor TexInfo 0x72F6BC, so it reads as glTextureCache's tile counterpart.
+- lane9/glide-noinline 23108e76, on main 2da823bd (#370), precheck 0 not all equal; full verify VERIFIED, borrowed data 844 B
+  (main's). Follows your Gfx.cpp ruling: D2Glide/Unknown_0050BD30.cpp drops its per-file /Ob1, the blended-shadow getter
+  0x50BF40 takes one __declspec(noinline) with a comment, the draw-rect helper 0x50C690 loses its inline. 24 equal.
+  The same route doesn't join the other getters: D2Gdi 0x6C9290 still differs with a noinline 0x6C8A50 in its file
+  (register choice, not inlining), and 0x6B7530 into 0x6B7250 with both getters noinline still leaves 0x6B83A0 and
+  0x6B8950 different (float scheduling). So those stay separate objects.
 - Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
