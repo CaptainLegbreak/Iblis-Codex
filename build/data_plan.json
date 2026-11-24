@@ -4662,8 +4662,8 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/Object.cpp": {
-   "bytes": 540,
-   "definitions": 3,
+   "bytes": 768,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UNIT/Object.inc",
@@ -59530,6 +59530,161 @@
   },
   {
    "alias": false,
+   "cname": "gData_00727708",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/UNIT/Object.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_00727708_t gData_00727708; // 0x00727708",
+   "head": "extern \"C\" struct d2data_00727708_t gData_00727708 = ",
+   "name": "gData_00727708",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00727708_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00727708",
+   "va": "0x00727708"
+  },
+  {
+   "alias": false,
+   "cname": "gData_00727744",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/UNIT/Object.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_00727744_t gData_00727744; // 0x00727744",
+   "head": "extern \"C\" struct d2data_00727744_t gData_00727744 = ",
+   "name": "gData_00727744",
+   "pointers": [],
+   "region": "data",
+   "size": 88,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00727744_t\n{\n    unsigned char b0[88];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00727744",
+   "va": "0x00727744"
+  },
+  {
+   "alias": false,
    "cname": null,
    "declared": true,
    "decorated": null,
@@ -59552,6 +59707,40 @@
    "tail": "; // 0x0072779C",
    "type": "int",
    "va": "0x0072779C"
+  },
+  {
+   "alias": false,
+   "cname": "gData_007277A0",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/UNIT/Object.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_007277A0_t gData_007277A0; // 0x007277A0",
+   "head": "extern \"C\" struct d2data_007277A0_t gData_007277A0 = ",
+   "name": "gData_007277A0",
+   "pointers": [
+    [
+     68,
+     "0x00727748",
+     "inside_generated",
+     "gData_00727744",
+     4,
+     "data"
+    ],
+    [
+     72,
+     "0x007277A0",
+     "generated_same_file",
+     "gData_007277A0",
+     0,
+     "data"
+    ]
+   ],
+   "region": "data",
+   "size": 80,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_007277A0_t\n{\n    unsigned char b0[68];\n    const void* p1;\n    const void* p2;\n    unsigned char b3[4];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x007277A0",
+   "va": "0x007277A0"
   },
   {
    "alias": false,
