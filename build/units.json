@@ -60427,20 +60427,14 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005C8BF0.cpp",
-   "rank": 0,
+   "file": "Source/D2Game/Unknown_005C8CA0.cpp",
+   "rank": 1,
    "functions": [
     {
      "va": "0x005C8C10",
      "length": 132,
      "name": "?sub_005C8C10_StopInferno@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005C8CA0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x005C8CA0",
      "length": 397
