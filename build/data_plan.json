@@ -4758,8 +4758,8 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/OverlayTbls.cpp": {
-   "bytes": 60,
-   "definitions": 1,
+   "bytes": 120,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DATATBLS/OverlayTbls.inc",
@@ -4781,15 +4781,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DATATBLS/Arena.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/Unknown_00664530.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_00664530.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -153768,7 +153759,7 @@
    "cname": "gData_00748884",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_00664530.cpp",
+   "file": "Source/D2Common/DATATBLS/OverlayTbls.cpp",
    "form": "bytes",
    "name": "gData_00748884",
    "pointers": [
