@@ -1804,51 +1804,6 @@ int __cdecl sub_0047EC40_IsSet()
 
 
 
-// 0x004824A0
-int __stdcall INV_FreeCacheEntries(unsigned int nFree, int bTwoPasses, int bCheckAge)
-{
-    const unsigned int nTarget = gdwCacheUsed - nFree;
-    const unsigned int dwNow = gdwSoundTick;
-    while (gdwCacheUsed > nTarget)
-    {
-        int bFreed = 0;
-        int nPass = 0;
-        do
-        {
-            for (D2ClientCacheNodeStrc* pNode = gpCacheList; pNode; pNode = pNode->pNext)
-            {
-                const int nId = pNode->nId;
-                D2ClientCacheEntryStrc* pEntry = (sgptSoundHeaderTable && nId >= 0 && nId < gnCacheEntries_007BC9A4) ? &sgptSoundHeaderTable[nId] : 0;
-                if (nPass == 0 && (*(int*)pEntry->nRefCount || pEntry->bLocked))
-                {
-                    continue;
-                }
-                if (bCheckAge && dwNow - *(unsigned int*)pEntry->dwLastUse < 750)
-                {
-                    continue;
-                }
-                if (!sub_004DF9D0_CheckCacheEntry(nId))
-                {
-                    SOUNDHDR_ReleaseCacheEntry(nId);
-                    bFreed = 1;
-                    break;
-                }
-            }
-            if (!bTwoPasses)
-            {
-                break;
-            }
-            ++nPass;
-        }
-        while (nPass <= 1);
-
-        if (!bFreed)
-        {
-            return 0;
-        }
-    }
-    return 1;
-}
 
 
 

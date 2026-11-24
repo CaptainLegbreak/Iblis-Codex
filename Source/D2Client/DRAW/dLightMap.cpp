@@ -1410,41 +1410,11 @@ int __cdecl sub_00478150()
 
 
 
-// 0x004817D0
-int __cdecl sub_004817D0()
-{
-    return gdwGlobal_007BC9A4;
-}
 
-// 0x004817E0
-int __cdecl sub_004817E0()
-{
-    return gdwGlobal_007BC9AC;
-}
 
-// 0x004817F0
-int __cdecl sub_004817F0()
-{
-    return gdwGlobal_007BC9B0;
-}
 
-// 0x00481800
-int __cdecl sub_00481800()
-{
-    return gdwGlobal_007BC9B4;
-}
 
-// 0x00481810
-int __cdecl sub_00481810()
-{
-    return gdwGlobal_007BC99C;
-}
 
-// 0x00481820
-int __cdecl DLIGHTMAP_GetSoundTick()
-{
-    return gdwSoundTick;
-}
 
 // 0x00486E00
 int __cdecl sub_00486E00()
