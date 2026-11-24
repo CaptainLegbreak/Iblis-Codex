@@ -4,7 +4,6 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/static-data-marker-2 ddc0f7f2 0 placeholders; replaces static-data-marker (rebased onto #353, same two commits); touches tools/link_exe.py (as you asked) and D2Game. Commit 1 (f50b305f), the tool alone: exact `// build: symbol <name> 0xVA` lines anchor class 2/3 symbols in initialised writable data sections; a marker disagreeing with a section's other anchors stops the link. Scoped to .data because existing markers for $SG literals and .bss globals already disagree with their sections' relocation anchors (their placement goes another way); with .data only, the full verify is identical with borrowed data unchanged. Commit 2: 28 no-data objects take their copy from D2LanguageNames.h with a marker (the 20 of copy-owners, SUnitEvent's and the affix object's, the five SkillBar.cpp held for SkillAma, AiUtil, AiTatics, OBJEVAL, QuestsFX, and AiTatics.cpp's two for Debug.cpp and Player.cpp). Borrowed data stays at main's figure, since those copies were planned records already (not borrowed) after #352; copied runs unchanged (compared PROVENANCE before/after: no new runs, none gone); the 4 B after each 64 B record is now linker padding. VERIFIED 2edd48a5a39f07555c27877c139ec4ca8bd9d94e, borrowed data 1,048 B (= main #353); tool commit alone (f50b305f) VERIFIED c3f3b24e7ee72dd89fe77935bbb14a981c8f169f, 1,048 B. Based on main 1a435442 (#353), not stacked.
 
 ## Claimed
 
