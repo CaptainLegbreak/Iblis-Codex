@@ -2,7 +2,7 @@
 #include "D2Unicode.h"
 #include "D2McpPackets.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CmdParamsStrc;
 
@@ -86,7 +86,7 @@ int __stdcall SCmdRegisterArgList(const D2CmdArgStrc* pArgList, unsigned int nCo
 
 int __stdcall SCmdProcess(const char* szCmdLine, int bSkipProgName, int (__stdcall* pfnExtra)(const char*), int (__stdcall* pfnError)(const char*)); // 0x006C4FB0
 
-unsigned short __stdcall sub_006BC120_Receive(void* pConnection, char* pBuffer, int nSize); // 0x006BC120
+unsigned short __stdcall FOG_ConnectionReceive(void* pConnection, char* pBuffer, int nSize); // 0x006BC120
 
 int __fastcall GAME_DispatchMcpPacket(const char* pPacket, unsigned int nSize); // 0x0044B190
 
@@ -126,7 +126,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -268,17 +268,6 @@ struct D2McpCreateGameStrc;
 
 
 
-struct D2McpCreateGameStrc
-{
-    char szName[0x10];
-    char szPassword[0x10];
-    char szDescription[0x20];
-    int nValue40;
-    unsigned char nByte44;
-    unsigned char nByte45;
-    unsigned char nByte46;
-};
-
 extern int gnGlobal_00798FB0; // 0x00798FB0
 
 
@@ -321,69 +310,24 @@ extern unsigned char gabChunkBuffer[]; // 0x00799318
 
 
 #pragma pack(push, 1)
-struct D2McpPacketValueStrc
-{
-    unsigned char f_0;
-    int nValue;
-};
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-struct D2McpIncoming03Strc
-{
-    unsigned char f_0;
-    unsigned short f_1;
-    int nValueB0;
-    int nCode;
-};
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-struct D2McpIncoming04Strc
-{
-    unsigned char f_0;
-    unsigned short f_1;
-    int nValueB0;
-    int f_7;
-    int nValue88;
-    int nCode;
-};
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-struct D2McpIncoming0AStrc
-{
-    unsigned char f_0;
-    unsigned short f_1;
-    int nCode;
-};
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-struct D2McpIncoming08Strc
-{
-    unsigned char f_0;
-    unsigned short f_1;
-    unsigned char aData[1];
-};
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-struct D2McpIncoming09Strc
-{
-    unsigned char f_0;
-    unsigned short f_1;
-    unsigned char nByte03;
-    unsigned char aData[1];
-};
 #pragma pack(pop)
 
 #pragma pack(push, 1)
-struct D2McpIncoming0EStrc
-{
-    unsigned char f_0;
-    char szText[1];
-};
 #pragma pack(pop)
 
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent);                                      // 0x006CC130
