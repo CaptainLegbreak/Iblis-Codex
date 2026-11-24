@@ -25,6 +25,7 @@
 #include "D2Win32Types.h"
 
 #include "D2Win32System.h"
+#include "D2Win32StartupInfo.h"
 
 static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
 
@@ -672,27 +673,6 @@ struct D2StartupInfoAStrc;
 
 struct D2ProcessInformationStrc;
 
-struct D2StartupInfoAStrc
-{
-    unsigned long cb;
-    char* lpReserved;
-    char* lpDesktop;
-    char* lpTitle;
-    unsigned long dwX;
-    unsigned long dwY;
-    unsigned long dwXSize;
-    unsigned long dwYSize;
-    unsigned long dwXCountChars;
-    unsigned long dwYCountChars;
-    unsigned long dwFillAttribute;
-    unsigned long dwFlags;
-    unsigned short wShowWindow;
-    unsigned short cbReserved2;
-    unsigned char* lpReserved2;
-    void* hStdInput;
-    void* hStdOutput;
-    void* hStdError;
-};
 
 extern "C" __declspec(dllimport) long __stdcall RegOpenKeyExA(void* hKey, const char* szSubKey, unsigned long ulOptions, unsigned long samDesired, void** phkResult); // 0x006CC010
 
