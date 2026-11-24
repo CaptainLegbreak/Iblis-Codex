@@ -30,6 +30,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
+- **Cursor object join (claimed):** ENGINE/Cursor.cpp takes its object, 0x467DF0-0x46893F: one bss block (0x7A6AA8-0x7A6B0C) is read by every function in the run and by nothing else, and the run's data is 0x711FB0-0x7121DF (the copy at 0x711FB0, then gaCursorMsgHandlers, gaCursorAnim, gaPanelAnim and the anim counts). It gathers Unknown_00467DF0.cpp, Unknown_00467E40.cpp, Unknown_004681C0.cpp, Unknown_00468730.cpp, Unknown_00468750.cpp, ROSTERPETS_HandleButtonDown/Up (RosterPets.cpp) and three ui.cpp functions.
+- **Copy shift at 0x711DA0-0x711FB0 (claimed, plan only):** each copy there starts the data of the object after the one whose file holds it: 0x711DA0 (inside gaOkCancelHandlers) starts Player.cpp's data, 0x711EF4 (Player.cpp's record) CUnit.cpp's, 0x711F54 (CUnit.cpp's) Select.cpp's, and 0x711FB0 (inside gaUnitHoverPriority) the cursor object's. The readers agree: Player reads 0x711DDC, CUnit 0x711F30-0x711F50, Select 0x711F90-0x711F98, Cursor 0x711FEC. Lane 1: this moves two records between your Player.cpp and CUnit.cpp, plan only.
 - Verifying: lane4/spellsel-data (gaSkillIconCels to spellsel.cpp; in flight from before the ownership change), then the session-object-3 stack.
 
 ## Questions
