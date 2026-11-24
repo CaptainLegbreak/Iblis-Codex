@@ -91,6 +91,12 @@ D2StatesTxt* gpStatesTxt; // 0x0096BCEC
 
 
 extern D2ExperienceDataTbl* gpExperienceTxt; // 0x0096C8A8
+struct D2CompCodeTxt
+{
+    unsigned int dwCode;
+};
+extern D2CompCodeTxt* gpCompCodeTxt; // 0x0096BCAC
+extern int gnCompCodeTxtRecordCount; // 0x0096BCB4
 
 char* gpSkillsCode_0096BC70; // 0x0096BC70
 
@@ -670,6 +676,30 @@ static int DATATBLS_GetMaxLevelFromTable(D2ExperienceDataTbl* pExperienceTxt, in
     return pExperienceTxt->tMax.dwClass[nClass];
 }
 
+// 0x006117D0
+unsigned int __stdcall DATATBLS_GetCodeFromCompCodeTxt(int nCompCode)
+{
+    if (nCompCode >= gnCompCodeTxtRecordCount)
+        return 0;
+    return gpCompCodeTxt[nCompCode].dwCode;
+}
+
+// 0x00611800
+unsigned int __stdcall DATATBLS_GetLevelThreshold(int nClass, unsigned int dwLevel)
+{
+    if (nClass < 0 || nClass >= 7)
+        nClass = 0;
+    return gpExperienceTxt->aLevels[dwLevel].dwClass[nClass];
+}
+
+// 0x00611830
+int __stdcall DATATBLS_GetMaxLevel(int nClass)
+{
+    if (nClass < 0 || nClass >= 7)
+        nClass = 0;
+    return gpExperienceTxt->tMax.dwClass[nClass];
+}
+
 // 0x00611860
 unsigned int __stdcall DATATBLS_GetCurrentLevelFromExp(int nClass, unsigned int dwExperience)
 {
@@ -748,6 +778,7 @@ int __fastcall DATATBLS_GetSkillsCalcParamCount(int nValue)
     return (nValue == 6) + 2;
 }
 
+// 0x00611760
 static void sub_00611760_MakeCalcCode(const char* szText, char* szCode)
 {
     if (!szText[0])

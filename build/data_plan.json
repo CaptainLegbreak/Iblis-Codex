@@ -3331,8 +3331,8 @@
    "state": "included"
   },
   "Source/D2Common/Unknown_006115F0.cpp": {
-   "bytes": 16,
-   "definitions": 1,
+   "bytes": 0,
+   "definitions": 0,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_006115F0.inc",
@@ -3340,8 +3340,8 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/DataTbls.cpp": {
-   "bytes": 108,
-   "definitions": 3,
+   "bytes": 124,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DATATBLS/DataTbls.inc",
@@ -146576,7 +146576,7 @@
    "cname": "gData_00744338",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_006115F0.cpp",
+   "file": "Source/D2Common/DATATBLS/DataTbls.cpp",
    "form": "bytes",
    "name": "gData_00744338",
    "pointers": [

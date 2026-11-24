@@ -2620,30 +2620,6 @@ D2CommonIgnoreListStrc* IGNORELIST_GetOrCreateIgnoreList()
     return gpIgnoreList;
 }
 
-// 0x006117D0
-unsigned int __stdcall DATATBLS_GetCodeFromCompCodeTxt(int nCompCode)
-{
-    if (nCompCode >= gnCompCodeTxtRecordCount)
-        return 0;
-    return gpCompCodeTxt[nCompCode].dwCode;
-}
-
-// 0x00611800
-unsigned int __stdcall DATATBLS_GetLevelThreshold(int nClass, unsigned int dwLevel)
-{
-    if (nClass < 0 || nClass >= 7)
-        nClass = 0;
-    return gpExperienceTxt->aLevels[dwLevel].dwClass[nClass];
-}
-
-// 0x00611830
-int __stdcall DATATBLS_GetMaxLevel(int nClass)
-{
-    if (nClass < 0 || nClass >= 7)
-        nClass = 0;
-    return gpExperienceTxt->tMax.dwClass[nClass];
-}
-
 // build: symbol ??3@YAXPAX0@Z 0x0040EB30
 // 0x006125A0
 void __stdcall DATATBLS_ToggleCompileTxtFlag(int bSilent)

@@ -65688,21 +65688,6 @@
      "name": "?IGNORELIST_GetOrCreateIgnoreList@@YAPAUD2CommonIgnoreListStrc@@XZ"
     },
     {
-     "va": "0x006117D0",
-     "length": 33,
-     "name": "DATATBLS_GetCodeFromCompCodeTxt"
-    },
-    {
-     "va": "0x00611800",
-     "length": 36,
-     "name": "DATATBLS_GetLevelThreshold"
-    },
-    {
-     "va": "0x00611830",
-     "length": 43,
-     "name": "DATATBLS_GetMaxLevel"
-    },
-    {
      "va": "0x006125A0",
      "length": 20,
      "name": "DATATBLS_ToggleCompileTxtFlag"
@@ -65722,11 +65707,6 @@
      "va": "0x006115F0",
      "length": 1,
      "name": "?sub_006115F0_Empty@@YAXXZ"
-    },
-    {
-     "va": "0x00611760",
-     "length": 75,
-     "name": "?sub_00611760_MakeCalcCode@@YAXPBDPAD@Z"
     }
    ]
   },
@@ -65771,9 +65751,29 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00611760",
+     "length": 75,
+     "name": "?sub_00611760_MakeCalcCode@@YAXPBDPAD@Z"
+    },
+    {
      "va": "0x006117B0",
      "length": 31,
      "name": "DATATBLS_GetStringIdFromReferenceString"
+    },
+    {
+     "va": "0x006117D0",
+     "length": 33,
+     "name": "DATATBLS_GetCodeFromCompCodeTxt"
+    },
+    {
+     "va": "0x00611800",
+     "length": 36,
+     "name": "DATATBLS_GetLevelThreshold"
+    },
+    {
+     "va": "0x00611830",
+     "length": 43,
+     "name": "DATATBLS_GetMaxLevel"
     },
     {
      "va": "0x00611860",
