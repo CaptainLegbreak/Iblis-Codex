@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2CelContext.h"
 #include "D2ClientGfx.h"
+#include "D2ClientGfxState.h"
 struct D2GfxListNodeStrc;
 struct D2UnitStrc;
 
@@ -29,25 +30,6 @@ extern int gnCofMemoryUsed; // 0x007A8918
 // build: symbol ?gtGlobalHashedFile@* 0x007A78F0
 extern D2HashedFileStrc gtGlobalHashedFile;
 void __stdcall sub_M274_EmitBuildPath(char* szPath, int nMode);
-
-struct D2StateNodeStrc
-{
-    int dwType;
-    int unk0x04;
-    int nCurrent;
-    char unk0x0C[0x2C];
-    int nStateId;
-    int bSelected;
-    void* pResource;
-    char unk0x44[0x60];
-    D2StateNodeStrc* pNext;
-};
-
-struct D2StateOwnerStrc
-{
-    char unk0x00[0x2C];
-    D2StateNodeStrc* pFirst;
-};
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
