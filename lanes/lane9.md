@@ -9,7 +9,7 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - Renderer functions filed in D2Win: Unknown_0050F910.cpp (Glide 0x50F910, 0x50FBD0, 0x50FDF0; DDraw 0x510130-0x5103B0,
   0x5137E0) and Unknown_00508970.cpp (0x508970 GlideLoadLibrary, 0x508F60 GlideCheckBoards). Lane 6: please don't edit
   these meanwhile. Then Storm SCMD.CPP's stubs in gdiCore's run and the Bnclient units in the D2Hell run.
-- D2Hell object map (0x00516D8B-0x00517E39 and its data 0x0072F9B4-0x0072FA20).
+- D2Hell object map (0x00516D8B-0x00517E39 and its data 0x0072F9F0-0x0072FA1F).
 
 ## Status
 - Setup done; baseline VERIFIED on #325.
@@ -76,9 +76,11 @@ join-d3dsprite #336, atl-d3dcore #332 (its 2 B note stands).
     BNCLIENT_GetLogonType 0x0051A570, sub_0051CA10, BNCLIENT_IsSetEmailRequested 0x0051CA70 (D2BNClient run).
   - D2Gfx `Window.cpp`: CMNSUBTILE_SetPaletteTables 0x004F8E40, inside D2Win's Unknown_004F6F60.cpp run.
   - Language table: the copy 0x0072F7F4 is planned in ddCore.cpp (gData_0072F7F4) but starts D2Sound's
-    Unknown_00513A20.cpp data; it belongs to that object. The reverse at the D2Hell edge: the copy 0x0072F9B4
-    (gData_0072F9B4, planned in D2SoundSmp.cpp) starts D2Hell's data (gpReference 0x0072F9F0 onward); I'd like to take
-    it for D2Hell/Unknown_00516DE1.cpp's object.
+    Unknown_00513A20.cpp data; it belongs to that object. **Correction:** the copy 0x0072F9B4 (now planned in
+    D2SoundUtil.cpp) stays there. D2SoundUtil.cpp (0x516950-) is the last D2Sound object, right before D2Hell's first
+    code (0x516D8B), and has no other data, so this is its own copy; D2Hell is a Storm-style library that doesn't include
+    D2's language header. (language-objects.md lists the copy as starting D2Hell/Unknown_00516DE1.cpp because the next
+    planned data is D2Hell's; a data-less object's copy reads that way.) I've dropped that request.
   - After D2Hell's data, the copies 0x0072FA20 and 0x0072FA60 (each followed by 4 zero bytes, both inside
     gData_0072FA20 in D2Hell/Unknown_00517804.cpp's plan) precede gtBnClientInterface. They are two objects' copies,
     not D2Hell's: probably BNetGW.cpp's and the next D2BNClient object's. I'll take them out of D2Hell's plan when I do
