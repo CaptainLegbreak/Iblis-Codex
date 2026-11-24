@@ -1,5 +1,6 @@
 #include "D2Win32System.h"
 #include "D2Win32SystemInfo.h"
+#include "D2Win32OsVersion.h"
 struct _iobuf;
 
 extern "C" int __cdecl fclose(_iobuf* pFile);                                                               // 0x00681FDC
@@ -94,15 +95,6 @@ int __fastcall FOG_CreatePathHierarchy(const char* szPath);                     
 void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* szFormat, ...);                // 0x00410660
 
 
-struct D2OsVersionInfoStrc
-{
-    unsigned long dwOSVersionInfoSize;
-    unsigned long dwMajorVersion;
-    unsigned long dwMinorVersion;
-    unsigned long dwBuildNumber;
-    unsigned long dwPlatformId;
-    char szCSDVersion[128];
-};
 
 
 

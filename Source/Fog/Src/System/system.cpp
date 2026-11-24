@@ -1,6 +1,7 @@
 #include "Fog.h"
 #include "D2GameTypes.h"
 #include "D2Win32System.h"
+#include "D2Win32OsVersion.h"
 
 
 struct D2TimeStampStrc
@@ -74,15 +75,6 @@ long __cdecl FOG_GetSyncTime()
 }
 
 
-struct D2OsVersionInfoStrc
-{
-    unsigned long dwOSVersionInfoSize;
-    unsigned long dwMajorVersion;
-    unsigned long dwMinorVersion;
-    unsigned long dwBuildNumber;
-    unsigned long dwPlatformId;
-    char szCSDVersion[128];
-};
 
 extern "C" __declspec(dllimport) void __stdcall GlobalMemoryStatus(D2MemoryStatusStrc* pStatus); // 0x006CC1F4
 extern "C" __declspec(dllimport) int __stdcall GetVersionExA(D2OsVersionInfoStrc* pInfo); // 0x006CC1F8
