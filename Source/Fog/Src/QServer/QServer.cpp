@@ -12,8 +12,6 @@ struct D2PacketBufferStrc;
 
 struct D2CriticalSectionStrc;
 
-struct D2ReferenceStrc;
-
 struct D2RecordTableStrc;
 
 struct D2HashNodeStrc;
@@ -25,14 +23,6 @@ struct D2SocketTableStrc;
 struct D2HashNode006BEF40Strc;
 
 struct D2HashTable006BEF40Strc;
-
-struct D2Server006BEFB0Strc;
-
-struct D2Object006BF040Strc;
-
-struct Obj006BF080;
-
-struct Obj006BF4E0;
 
 struct D2PairEntry006BF610Strc;
 
@@ -55,13 +45,6 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds);
-
-struct D2ReferenceStrc
-{
-    int unk_00;
-    int unk_04;
-    volatile long nReferences;
-};
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(volatile long* value); // 0x006CC208
 
@@ -151,31 +134,14 @@ struct D2HashTable006BEF40Strc
     D2CriticalSectionStrc* pLocks;
 };
 
-struct D2Server006BEFB0Strc
-{
-    unsigned char unk_000[0xBD0];
-    int bHackListBD0;
-};
-
 char* __stdcall sub_006B013E_InetNtoa(unsigned long dwAddress); // 0x006B013E
 
-void __fastcall QSERVER_UnlistIP(D2Server006BEFB0Strc* pServer, const char* szFile, unsigned long dwAddress, int nLine); // 0x006BE890
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
-
-struct D2Object006BF040Strc
-{
-    unsigned char unk_000[0xBB8];
-    int nValueBB8;
-};
-
-struct Obj006BF080 { unsigned char bUnknown00[0xBBC]; unsigned int dwValueBBC; };
-
-struct Obj006BF4E0 { unsigned char bUnknown00[0xBD0]; unsigned int dwValueBD0; };
 
 struct D2PairEntry006BF610Strc
 {
@@ -372,12 +338,6 @@ struct D2HashTable006BE5B0Strc
 	D2CriticalSectionStrc* pLocks;
 };
 
-struct D2HackListStrc;
-
-struct D2HackNode006BE890Strc;
-
-struct D2Server006BE890Strc;
-
 struct D2MaskKeyStrc;
 
 struct D2MaskPairStrc;
@@ -388,38 +348,7 @@ extern const char gszHackCategory_006FC4A8[]; // 0x006FC4A8
 
 extern const char gszHackListSize_006FC4B0[]; // 0x006FC4B0
 
-struct D2HackListStrc
-{
-    unsigned char unk_000[0x888];
-    unsigned int lastTick;
-    D2QServerNodeStrc* freeEntries;
-    unsigned int entryCount;
-    D2CriticalSectionStrc section;
-    D2QServerNodeStrc** buckets;
-    unsigned int bucketCount;
-
-    void __thiscall ExpireEntries(); // 0x006BE700
-};
-
 extern unsigned long gdwLastHackListLog; // 0x00989C34
-
-struct D2HackNode006BE890Strc
-{
-    unsigned int f_0;
-    unsigned char f_4[8];
-    D2HackNode006BE890Strc* pNext;
-};
-
-struct D2Server006BE890Strc
-{
-    unsigned char unk_000[0x890];
-    int nHackListSize;
-    D2CriticalSectionStrc tLock;
-    D2HackNode006BE890Strc** ppBuckets;
-    unsigned int f_8B0;
-    unsigned char unk_8B4[0xBD0 - 0x8B4];
-    int bHackList;
-};
 
 static int __cdecl QSERVER_IncrementPerIpConnCount(D2QueueServerStrc* pServer, D2InAddrStrc* pAddress); // 0x006BF180
 
@@ -672,9 +601,9 @@ Done:
 }
 
 // 0x006BE640
-long __fastcall QSERVER_AddReference(void* unusedContext, D2ReferenceStrc* object)
+long __fastcall QSERVER_AddReference(D2QueueServerStrc* pServer, D2QClientStrc* pClient)
 {
-    return InterlockedIncrement(&object->nReferences);
+    return InterlockedIncrement(&pClient->nRefCount);
 }
 
 // 0x006BE650
@@ -708,22 +637,22 @@ void __stdcall QSERVER_LogHackListSize(int nSize)
 }
 
 // 0x006BE700
-void __thiscall D2HackListStrc::ExpireEntries()
+void D2QueueServerStrc::ExpireEntries()
 {
-    if (lastTick == ~0u)
-        lastTick = GetTickCount();
+    if (dwLastExpireTick == ~0u)
+        dwLastExpireTick = GetTickCount();
 
     unsigned int now = GetTickCount();
-    unsigned int elapsed = now - lastTick;
+    unsigned int elapsed = now - dwLastExpireTick;
     if (elapsed >= 1000)
     {
         unsigned int seconds = elapsed / 1000;
         int changed = 0;
-        EnterCriticalSection(&section);
-        lastTick = now;
-        for (unsigned int i = 0; i < bucketCount; ++i)
+        EnterCriticalSection(&tRecordLock);
+        dwLastExpireTick = now;
+        for (unsigned int i = 0; i < nRecordBuckets; ++i)
         {
-            D2QServerNodeStrc* current = buckets[i];
+            D2QServerNodeStrc* current = ppRecords[i];
             D2QServerNodeStrc* previous = 0;
             while (current)
             {
@@ -751,18 +680,18 @@ void __thiscall D2HackListStrc::ExpireEntries()
                         if (previous)
                         {
                             previous->pNext = next;
-                            current->pNext = freeEntries;
-                            freeEntries = current;
+                            current->pNext = pFreeRecords;
+                            pFreeRecords = current;
                             current = previous;
                         }
                         else
                         {
-                            buckets[i] = buckets[i]->pNext;
-                            current->pNext = freeEntries;
-                            freeEntries = current;
+                            ppRecords[i] = ppRecords[i]->pNext;
+                            current->pNext = pFreeRecords;
+                            pFreeRecords = current;
                             current = 0;
                         }
-                        --entryCount;
+                        --nRecordCount;
                         changed = 1;
                     }
                 }
@@ -770,10 +699,10 @@ void __thiscall D2HackListStrc::ExpireEntries()
                 current = next;
             }
         }
-        LeaveCriticalSection(&section);
+        LeaveCriticalSection(&tRecordLock);
         if (changed)
         {
-            unsigned int count = entryCount;
+            unsigned int count = nRecordCount;
             unsigned int logTick = GetTickCount();
             if (logTick - gnLastHackListLog_00989C34 > 2000)
             {
@@ -785,19 +714,19 @@ void __thiscall D2HackListStrc::ExpireEntries()
 }
 
 // 0x006BE890
-void __fastcall QSERVER_UnlistIP(D2Server006BE890Strc* pServer, const char* szFile, unsigned int dwAddress, int nLine)
+void __fastcall QSERVER_UnlistIP(D2QueueServerStrc* pServer, const char* szFile, unsigned int dwAddress, int nLine)
 {
-    if (!pServer->bHackList)
+    if (!pServer->bEnabled)
         return;
 
-    EnterCriticalSection(&pServer->tLock);
-    unsigned int nBucket = dwAddress % pServer->f_8B0;
-    D2HackNode006BE890Strc* pPrev = 0;
-    D2HackNode006BE890Strc* pNode = pServer->ppBuckets[nBucket];
+    EnterCriticalSection(&pServer->tRecordLock);
+    unsigned int nBucket = dwAddress % pServer->nRecordBuckets;
+    D2QServerNodeStrc* pPrev = 0;
+    D2QServerNodeStrc* pNode = pServer->ppRecords[nBucket];
     while (pNode)
     {
-        D2HackNode006BE890Strc* pNext = pNode->pNext;
-        if (pNode->f_0 == dwAddress)
+        D2QServerNodeStrc* pNext = pNode->pNext;
+        if (pNode->nKey == dwAddress)
         {
             if (pPrev)
             {
@@ -807,18 +736,18 @@ void __fastcall QSERVER_UnlistIP(D2Server006BE890Strc* pServer, const char* szFi
             }
             else
             {
-                pServer->ppBuckets[nBucket] = pServer->ppBuckets[nBucket]->pNext;
+                pServer->ppRecords[nBucket] = pServer->ppRecords[nBucket]->pNext;
                 FOG_Free(pNode, ".\\Src\\QServer\\QServer.cpp", 0x4D7, 0);
                 pNode = 0;
             }
-            --pServer->nHackListSize;
+            --pServer->nRecordCount;
         }
         pPrev = pNode;
         pNode = pNext;
     }
-    LeaveCriticalSection(&pServer->tLock);
+    LeaveCriticalSection(&pServer->tRecordLock);
 
-    int nSize = pServer->nHackListSize;
+    int nSize = pServer->nRecordCount;
     unsigned long dwTick = GetTickCount();
     if (dwTick - gdwLastHackListLog > 2000)
     {
@@ -1097,9 +1026,9 @@ int __stdcall FOG_10161(D2HashTable006BEF40Strc* pTable, unsigned int nKey)
 }
 
 // 0x006BEFB0
-void __stdcall QSERVER_HackUnlistIP(D2Server006BEFB0Strc* pServer, unsigned long dwAddress, const char* szFile, int nLine)
+void __stdcall QSERVER_HackUnlistIP(D2QueueServerStrc* pServer, unsigned long dwAddress, const char* szFile, int nLine)
 {
-    if (pServer->bHackListBD0)
+    if (pServer->bEnabled)
     {
         LOGMANAGER_LogWritePrefixedLine(gszHackChannel_006FC4A8, "[HACKLIST]  IP:%s  QSHackUnlistIP() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(dwAddress), szFile, nLine);
         QSERVER_UnlistIP(pServer, szFile, dwAddress, nLine);
@@ -1116,15 +1045,16 @@ void __stdcall QSERVER_HackListSize(D2QueueServerStrc* pServer, unsigned int nFi
 }
 
 // 0x006BF040
-void __stdcall FOG_10170(D2Object006BF040Strc* pObject, int nValue)
+void __stdcall FOG_10170(D2QueueServerStrc* pServer, D2AddressCallback pfnCallback)
 {
-    D2_ASSERT(pObject, 0x842);
-    pObject->nValueBB8 = nValue;
+    D2_ASSERT(pServer, 0x842);
+    pServer->pfnAddressCallback = pfnCallback;
 }
 
 // 0x006BF080
-extern "C" __declspec(dllexport) void __stdcall FOG_10171(Obj006BF080* pObj, unsigned int dwValue) {
-    pObj->dwValueBBC = dwValue;
+void __stdcall FOG_10171(D2QueueServerStrc* pServer, int nValue)
+{
+    pServer->unk0xBBC = nValue;
 }
 
 // 0x006BF0A0
@@ -1337,8 +1267,9 @@ int __stdcall FOG_10175(D2QueueServerStrc* server,const unsigned char* buffer,in
 }
 
 // 0x006BF4E0
-extern "C" __declspec(dllexport) void __stdcall FOG_SetHackListEnabled(Obj006BF4E0* pObj, unsigned int dwValue) {
-    pObj->dwValueBD0 = dwValue;
+void __stdcall FOG_SetHackListEnabled(D2QueueServerStrc* pServer, int bEnabled)
+{
+    pServer->bEnabled = bEnabled;
 }
 
 // 0x006BF500
