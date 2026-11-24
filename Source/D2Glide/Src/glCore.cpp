@@ -24,13 +24,7 @@ extern int gdwGlobal_007C8CB0; // 0x007C8CB0
 
 extern int gdwGlobal_007C8CB4; // 0x007C8CB4
 
-extern int gbInTown; // 0x0072DA4C
-
 extern int gdwGlobal_0072DA7C; // 0x0072DA7C
-
-extern int gdwGlobal_0072DA5C; // 0x0072DA5C
-
-extern int gdwGlobal_0072DA50; // 0x0072DA50
 
 extern int gdwGlobal_007C8CBC; // 0x007C8CBC
 
