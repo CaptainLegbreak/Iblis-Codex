@@ -32,7 +32,7 @@ struct Unicode;
 
 struct D2RectStrc;
 
-struct T00479230;
+struct D2TextBoxStrc;
 
 struct D2WaypointMenuEntryStrc;
 
@@ -76,7 +76,7 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct T00479230
+struct D2TextBoxStrc
 {
     char unk0x00[0x16];
     char nScroll[4];
@@ -178,7 +178,7 @@ void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 
-T00479230* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode); // 0x004A05E0
+D2TextBoxStrc* __fastcall TEXT_CreateTextBox(const Unicode* wszText, int nMode); // 0x004A05E0
 
 void __fastcall SKILLS_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
 
@@ -301,7 +301,7 @@ extern int gnWaypointCount; // 0x007BF08A
 
 extern int gnWaypointEnabledCount; // 0x007BF08E
 
-extern T00479230* gpTextBox; // 0x007BF0A4
+extern D2TextBoxStrc* gpTextBox; // 0x007BF0A4
 
 extern int gbTextBoxDone; // 0x007BF1BC
 

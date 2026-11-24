@@ -129,10 +129,10 @@ D2TextCallback gpfnTextCallback; // 0x007BF258
 
 void* gpTextCallbackContext; // 0x007BF25C
 
-struct T00479230;
+struct D2TextBoxStrc;
 
 
-extern T00479230* gpTextBox;                                                                   // 0x007BF0A4
+extern D2TextBoxStrc* gpTextBox;                                                                   // 0x007BF0A4
 
 extern D2ClientDialogStrc* gpListDialog;                                                           // 0x007BF1B0
 

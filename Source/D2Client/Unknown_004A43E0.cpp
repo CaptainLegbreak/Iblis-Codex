@@ -18,6 +18,7 @@
 #include "D2ClientQuestLog.h"
 #include "D2ClientStatButton.h"
 #include "D2WinSplitText.h"
+#include "D2ClientTextBox.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -43,7 +44,7 @@ struct D2GSPacketSrv26;
 
 struct D2CommonChatIgnoreListStrc;
 
-struct T00479230;
+struct D2TextBoxStrc;
 
 class D2ListBoxViewStrc;
 
@@ -209,26 +210,6 @@ extern int gnGameFrame; // 0x007BF20E
 
 static bool TEXT_IsLanguageCompatible(int nLangId);
 
-#pragma pack(push, 2)
-
-struct T00479230
-{
-    D2SplittedTextStrc* pFirst;
-    int nLines;
-    int nTextTop;
-    int nTextBottom;
-    unsigned short nWidth;
-    unsigned short nHeight;
-    unsigned short f_14;
-    int nScroll;
-    int nField1A;
-    int nField1E;
-    int nField22;
-    int nField26;
-    unsigned short nField2A;
-};
-
-#pragma pack(pop)
 
 class D2ListBoxViewStrc
 {
@@ -258,7 +239,7 @@ D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* pText, int*
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
-T00479230* __stdcall CHAT_GetUsedFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x00661200
+D2TextBoxStrc* __stdcall CHAT_GetUsedFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x00661200
 
 void __stdcall CHAT_SetUsedInHoverMsg(D2HoverTextStrc* pHoverMsg, int bUsed); // 0x00661210
 
@@ -542,7 +523,7 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 
 
 
 
-extern T00479230* gpTextBox; // 0x007BF0A4
+extern D2TextBoxStrc* gpTextBox; // 0x007BF0A4
 
 
 
@@ -611,7 +592,7 @@ extern "C" int __cdecl atoi(const char* szString); // 0x00681EBB
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
-void __fastcall TEXT_DrawTextList(T00479230* pTextBox, int nX, int nY); // 0x0049D8E0
+void __fastcall TEXT_DrawTextList(D2TextBoxStrc* pTextBox, int nX, int nY); // 0x0049D8E0
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
@@ -1157,13 +1138,13 @@ void __stdcall WAYPOINTS_FreeWaypointData(void* pMemPool, D2WaypointDataStrc* pD
 
 extern "C" void __cdecl TEXT_FreeWaypointCels(); // 0x0049C650
 
-static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect); // 0x0049D9A0
+static int TEXT_DrawTextBoxAt(D2TextBoxStrc* pTextBox, D2RectStrc* pRect); // 0x0049D9A0
 
 static void TEXT_FreeTextLines(D2SplittedTextStrc* pLine);
 
-void __stdcall TEXT_FreeTextBox(T00479230* pTextBox); // 0x0049D410
+void __stdcall TEXT_FreeTextBox(D2TextBoxStrc* pTextBox); // 0x0049D410
 
-static void TEXT_MeasureTextBox(T00479230* pBox);
+static void TEXT_MeasureTextBox(D2TextBoxStrc* pBox);
 
 struct D2ActiveRoomStrc;
 
@@ -1249,7 +1230,7 @@ void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTo
 
 void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
 
-static __declspec(noinline) int __cdecl sub_0049D5A0_UpdateTextBox(T00479230* pTextBox);
+static __declspec(noinline) int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc* pTextBox);
 
 void __cdecl TEXT_DrawMessageList(); // 0x0049DC40
 
@@ -1277,7 +1258,7 @@ extern void* gpTextCallbackContext; // 0x007BF25C
 
 extern int gnTextLeft; // 0x007BF278
 
-static int __stdcall TEXT_AdvanceTextBox(int bIgnore, T00479230* pTextBox); // 0x004A0770
+static int __stdcall TEXT_AdvanceTextBox(int bIgnore, D2TextBoxStrc* pTextBox); // 0x004A0770
 
 
 inline void* operator new(unsigned int, void* pWhere) { return pWhere; }
@@ -1799,7 +1780,7 @@ static __forceinline const unsigned short* TEXT_ReadLine(Unicode* pLine, const u
 
 
 // calling-convention shim (not game code)
-static int __cdecl sub_0049D5A0_UpdateTextBox(T00479230* pTextBox)
+static int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc* pTextBox)
 {
     int nA = WINDOW_GetWindow();
     int nB = WINDOW_GetWindow();
