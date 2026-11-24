@@ -14407,11 +14407,6 @@
      "name": "sub_00498A20_CheckState"
     },
     {
-     "va": "0x004A17D0",
-     "length": 151,
-     "name": "sub_004A17D0"
-    },
-    {
      "va": "0x006CABF0",
      "length": 17
     }
@@ -23251,10 +23246,6 @@
      "name": "?CUNIT_ClearTextPanel@@YAXXZ"
     },
     {
-     "va": "0x004BF2F0",
-     "length": 306
-    },
-    {
      "va": "0x004E48B0",
      "length": 268,
      "name": "?TEXT_AppendUndeadDamageBonus@@YIXPAUD2UnitStrc@@PAUUnicode@@H@Z"
@@ -24608,6 +24599,11 @@
      "va": "0x004A1770",
      "length": 92,
      "name": "TEXT_KeyUpMsg"
+    },
+    {
+     "va": "0x004A17D0",
+     "length": 151,
+     "name": "sub_004A17D0"
     },
     {
      "va": "0x004A1870",
@@ -28097,6 +28093,10 @@
     {
      "va": "0x004BEE90",
      "length": 1107
+    },
+    {
+     "va": "0x004BF2F0",
+     "length": 306
     },
     {
      "va": "0x004BF430",

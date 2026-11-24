@@ -1607,6 +1607,7 @@ static inline int sub_KEYCFG_IsOnDownArrow(int nX, int nY)
 void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket); // 0x004A2CB0
 
 
+
 // 0x00491940
 void __cdecl TEXT_ResetNpcPanel()
 {
@@ -4385,65 +4386,6 @@ extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey);
 
 
 
-
-// 0x004BF2F0
-int ListBoxView::ClickScrollTrack(SMSGHANDLER_PARAMS* pMsg)
-{
-    const int nMouseY = pMsg->nYpos;
-    const unsigned short nCount = nEntryCount;
-    const int nTop = nY;
-
-    if (nCount && nVisibleRows <= nCount && nMouseY - nTop > 0)
-    {
-        if (nThumbStart != nThumbEnd)
-        {
-            if (nMouseY < nTop + 12 * nThumbStart + 13)
-            {
-                if (nSelectedIndex - nVisibleRows > 0)
-                    nSelectedIndex = nSelectedIndex - nVisibleRows;
-                else
-                    nSelectedIndex = 0;
-            }
-            else
-            {
-                if (nMouseY <= nY + 12 * nThumbEnd + 13)
-                {
-                    return 0;
-                }
-
-                if (nSelectedIndex + nVisibleRows >= nCount)
-                    nSelectedIndex = nCount - 1;
-                else
-                    nSelectedIndex = nSelectedIndex + nVisibleRows;
-                if (nCount - nSelectedIndex < nVisibleRows)
-                {
-                    if (nCount >= nVisibleRows)
-                    {
-                        nSelectedIndex = nCount - nVisibleRows;
-                    }
-                    else
-                    {
-                        nSelectedIndex = 0;
-                    }
-                }
-            }
-
-            if (nSelectedIndex >= 0x80)
-            {
-                nSelectedIndex = D2_MAX(0, nCount - 1);
-            }
-
-            nTopIndex = nSelectedIndex;
-            sub_004B9A00(1, 0, 0, 0, 0);
-            sub_004BE8D0_Refresh();
-            return 1;
-        }
-
-        return 0;
-    }
-
-    return 0;
-}
 
 // 0x004E48B0
 void __fastcall TEXT_AppendUndeadDamageBonus(D2UnitStrc* pUnused, Unicode* wszOut, int nUnused)

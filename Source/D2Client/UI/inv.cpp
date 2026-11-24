@@ -8597,32 +8597,6 @@ int __fastcall sub_00498A20_CheckState(int nUnused, D2ClientStateStrc* pState, D
     return 0;
 }
 
-// 0x004A17D0
-void __stdcall sub_004A17D0(SMSGHANDLER_PARAMS* pMsg)
-{
-    gdwGlobal_007BF23F = 1;
-    if (SELECT_GetSelectedUnit())
-    {
-// build: symbol ?gnTextNpcId@* 0x007BF202
-// build: symbol ?gbTextFromObject@* 0x007BF20A
-        if (gbTextFromObject && CUNIT_FindClientUnit(gnTextNpcId, 1) == SELECT_GetSelectedUnit())
-            return;
-    }
-    else if (!SELECT_GetSelectedUnit() && gbTextHoverSet)
-    {
-// build: symbol ?gnTextHoverUnitId@* 0x007BF23B
-        D2UnitStrc* pUnit = CUNIT_FindClientUnit(gnTextHoverUnitId, 1);
-        if (pUnit && pUnit == CUNIT_FindClientUnit(gnTextNpcId, 1))
-        {
-            pMsg->bReturn = 1;
-            pMsg->lResult = 0;
-            sub_00420290_HandleMsg(pMsg);
-        }
-        return;
-    }
-    sub_004A1770(pMsg);
-}
-
 
 
 extern D2SkillIconStateStrc gtHotkeySlots;                                                      // 0x007C0300
