@@ -4,11 +4,12 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/main-cpp dc73d7bd 427->426 The coordinator's answer of 2026-11-24 on the main-module run: Source/D2Launch/Unknown_00406410.cpp becomes Source/D2Launch/Main.cpp (SelectModule's `.\Main.cpp`), and its two inferred names take the file prefix: MAIN_DenyProcessAccess (0x4061C0), MAIN_StartServiceDispatcher (0x406650; MainMenus.cpp's caller follows). 0x405A50-0x405C30 (sub_00405A50_Nop, sub_00405A60_Nop, sub_00405A70_WriteSurveyLocale, GameStart) and the mode globals they set (gnMode_0074C704, gbUseKeyhook_0074C708, ghModKeyhook_0074C70C) go from Storm/Unknown_00404F40.cpp into the mode object's file, Unknown_004059D0.cpp, after its run function. GameStart passes the configuration record to ERRORMANAGER_RunModeInterface, so the run function and the mode interface's run slot (D2FogTypes.h) take D2ConfigStrc* instead of int. The mode object keeps its placeholder name: its asserts at lines 307-308 print the file string through sub_00408090, which returns the hidden empty name, so it shows no file name of its own. After the merge both files are lane 6's. VERIFIED 6e03f79a on base 1a435442 (#353); borrowed data 1,048 B (main 1,048 B). Not stacked.
+
 - lane3/names2 1f289883 430->430 Names only: SBMP.CPP's GIF encoder state fields at 0x00/0x28 are nCodeWidth and pHashTable (were f_0/f_28); SFILE.CPP's compression buffer info's output position is nOutPos (was f_C). VERIFIED 0b74cd65 on base 7c1cb42a (#351). Its two lower commits are sbig-fields, merged; the top commit cherry-picks onto 1a435442 (#353) without conflicts.
 
 ## Claimed
 
-- **lane3/main-cpp** (the coordinator's answer of 2026-11-24): Unknown_00406410.cpp becomes Source/D2Launch/Main.cpp, its two inferred names take MAIN_, and 0x405A50-0x405C30 (two nops, WriteSurveyLocale, GameStart) with the mode globals 0x74C704-0x74C70C go from Storm/Unknown_00404F40.cpp into Unknown_004059D0.cpp. All units equal and prechecked on #353; full verify running.
 - **lane3/qserver-head-2** replaces qserver-head: the top commit alone on #353 (log-nop and qserver-names are merged). Lane 9 has taken the five renderer stubs, so QServer.cpp's context copy of FOG_SetServerConfig is just replaced by the function. Units equal, prechecked; full verify queued after main-cpp's.
 
 ## Questions
