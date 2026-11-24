@@ -2621,24 +2621,6 @@ D2CommonIgnoreListStrc* IGNORELIST_GetOrCreateIgnoreList()
 }
 
 // build: symbol ??3@YAXPAX0@Z 0x0040EB30
-// 0x006125A0
-void __stdcall DATATBLS_ToggleCompileTxtFlag(int bSilent)
-{
-    gbCompileTxt = !bSilent;
-}
-
-// 0x00613E60
-unsigned int __stdcall DATATBLS_GetExpRatio(int nLevel)
-{
-    if (!gpExperienceTxt)
-        return 0;
-    if (nLevel <= 0)
-        return gpExperienceTxt->tMax.dwExpRatio;
-    if (nLevel > (int)gpExperienceTxt->tMax.dwClass[0])
-        return 0;
-    return gpExperienceTxt->aLevels[nLevel].dwExpRatio;
-}
-
 // 0x00610F90
 int D2CommonIgnoreListStrc::IGNORELIST_AddAlias(const char* szName)
 {

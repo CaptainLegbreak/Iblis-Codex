@@ -65692,16 +65692,6 @@
      "va": "0x00611560",
      "length": 130,
      "name": "?IGNORELIST_GetOrCreateIgnoreList@@YAPAUD2CommonIgnoreListStrc@@XZ"
-    },
-    {
-     "va": "0x006125A0",
-     "length": 20,
-     "name": "DATATBLS_ToggleCompileTxtFlag"
-    },
-    {
-     "va": "0x00613E60",
-     "length": 48,
-     "name": "DATATBLS_GetExpRatio"
     }
    ]
   },
@@ -65887,6 +65877,11 @@
      "name": "?DATATBLS_CompileTxt@@YGPAXPAXPBDPAUD2BinFieldStrc@@PAHH@Z"
     },
     {
+     "va": "0x006125A0",
+     "length": 20,
+     "name": "DATATBLS_ToggleCompileTxtFlag"
+    },
+    {
      "va": "0x006125C0",
      "length": 63,
      "name": "DATATBLS_UnloadBin"
@@ -65915,6 +65910,11 @@
      "va": "0x00613D30",
      "length": 289,
      "name": "DATATBLS_LoadExperienceTxt"
+    },
+    {
+     "va": "0x00613E60",
+     "length": 48,
+     "name": "DATATBLS_GetExpRatio"
     },
     {
      "va": "0x00613E90",
@@ -69382,6 +69382,11 @@
      "name": "D2COMMON_10494_STATES_GetStatFlags"
     },
     {
+     "va": "0x0063A110",
+     "length": 24,
+     "name": "?STATES_GetNumberOfStateFlags@@YIHXZ"
+    },
+    {
      "va": "0x0063A130",
      "length": 80,
      "name": "?STATES_CheckStateMaskFlagsOnUnit@@YAHPAUD2UnitStrc@@PBI@Z"
@@ -69480,6 +69485,11 @@
      "va": "0x0063A510",
      "length": 22,
      "name": "?STATES_CheckStateMaskRestrictOnUnit@@YIHPAUD2UnitStrc@@PAUD2SkillStrc@@@Z"
+    },
+    {
+     "va": "0x0063A530",
+     "length": 28,
+     "name": "?STATES_CheckStateMaskBlueOnUnit@@YGHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x0063A550",
@@ -69905,16 +69915,6 @@
    "file": "Source/D2Common/INVENTORY/Inventory.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x0063A110",
-     "length": 24,
-     "name": "?STATES_GetNumberOfStateFlags@@YIHXZ"
-    },
-    {
-     "va": "0x0063A530",
-     "length": 28,
-     "name": "?STATES_CheckStateMaskBlueOnUnit@@YGHPAUD2UnitStrc@@@Z"
-    },
     {
      "va": "0x0063A810",
      "length": 129,
@@ -71324,11 +71324,6 @@
      "name": "DUNGEON_GameToClientTileDrawPositionCoords"
     },
     {
-     "va": "0x0066D7F0",
-     "length": 8,
-     "name": "?DRLGPRESET_MapTileType@@YIHH@Z"
-    },
-    {
      "va": "0x00674200",
      "length": 34,
      "name": "?DRLGOUTDOORS_TestGridCellSpawnValid@@YIHPAUD2DrlgLevelStrc@@HH@Z"
@@ -72127,16 +72122,6 @@
      "va": "0x0064EFE0",
      "length": 63,
      "name": "SKILLS_FixThrowWeaponClassCode"
-    },
-    {
-     "va": "0x0066B800",
-     "length": 92,
-     "name": "DRLG_GetRectanglesManhattanDistanceAndCheckNotOverlapping"
-    },
-    {
-     "va": "0x0066B880",
-     "length": 116,
-     "name": "DRLG_CheckOverlappingWithOrthogonalMargin"
     }
    ]
   },
@@ -75399,9 +75384,19 @@
      "length": 91
     },
     {
+     "va": "0x0066B800",
+     "length": 92,
+     "name": "DRLG_GetRectanglesManhattanDistanceAndCheckNotOverlapping"
+    },
+    {
      "va": "0x0066B860",
      "length": 27,
      "name": "DRLG_CheckNotOverlappingUsingManhattanDistance"
+    },
+    {
+     "va": "0x0066B880",
+     "length": 116,
+     "name": "DRLG_CheckOverlappingWithOrthogonalMargin"
     },
     {
      "va": "0x0066B900",
@@ -75758,6 +75753,11 @@
      "va": "0x0066D7E0",
      "length": 8,
      "name": "?sub_0066D7E0_MapTileType@@YIHH@Z"
+    },
+    {
+     "va": "0x0066D7F0",
+     "length": 8,
+     "name": "?DRLGPRESET_MapTileType@@YIHH@Z"
     },
     {
      "va": "0x0066D800",
