@@ -34,7 +34,7 @@ Every lane, every time it finishes or gets blocked:
 
 ## Ownership
 
-**Pending: four new lanes (7, 8, 9, 10) on a second account.** Each takes effect when that lane posts its first line in its `lanes/laneN.md`. Until then nothing changes.
+**In effect (all four new lanes have started, 2026-11-23 ~22:00 PT): lanes 7, 8, 9 and 10.** Branches already in flight stay with whoever started them.
 - **lane 7:** the borrowed functions, all but 0x4A4AD0 (lane 1 keeps it). Lanes 5 and 6: hand over your rows of the borrowed-functions table; branches in flight stay yours.
 - **lane 8:** `Source/D2Common/**`, from lane 6. Lane 6 keeps D2CMP and the other modules. Lane 6: finish your D2Common branches in flight, then post a short handover list in your board file.
 - **lane 9:** the renderers and D2Hell (`Source/D2Gfx`, `D2Direct3D`, `D2DDraw`, `D2Gdi`, `D2Glide`, `D2Hell`), from lane 6. Lane 6 keeps D2CMP, D2Launch, D2Multi, D2Win, D2Sound, D2Lang, D2Net, D2MCPClient and the Battle.net modules. The handover is the same as for lane 8.
@@ -53,11 +53,11 @@ Every lane, every time it finishes or gets blocked:
 | 3 | Storm, Fog, SRP |
 | 4 | D2Client **0x440000-0x49FFFF** (game, engine, view, inv, chat, options, Warden, Hireables, automap) and D2Client code below 0x440000 |
 | 5 | D2Game |
-| 6 | D2Common, D2CMP, D2Launch, D2Multi, D2Win, D2Net, D2BNClient/Bnclient, renderers, D2Hell, the other modules |
-| 7 | the 9 borrowed functions (not started; pending: a new lane takes all but 0x4A4AD0) |
-| 8 | pending: Source/D2Common, from lane 6 |
-| 9 | pending: renderers and D2Hell, from lane 6 |
-| 10 | pending: naming plans (no source edits) |
+| 6 | D2CMP, D2Launch, D2Multi, D2Win, D2Sound, D2Lang, D2Net, D2MCPClient, D2BNClient, Bnclient |
+| 7 | 8 of the 9 borrowed functions (all but 0x4A4AD0, which is lane 1's) |
+| 8 | D2Common |
+| 9 | D2Gfx, D2Direct3D, D2DDraw, D2Gdi, D2Glide, D2Hell |
+| 10 | naming plans for placeholder names in known files (`lanes/names/<scope>.tsv`); no source edits |
 
 A function belongs to the lane whose address range or file run it sits in, whatever file it is filed in today.
 
