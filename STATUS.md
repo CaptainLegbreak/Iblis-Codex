@@ -17,8 +17,8 @@ Bytes of the built Game.exe by origin:
 
 | Origin | Bytes |
 |---|---:|
-| game code and data compiled from Source/ | 2,689,532 |
-| initialised data generated from your Game.exe (build/data_plan.json) | 372,577 |
+| game code and data compiled from Source/ | 2,689,712 |
+| initialised data generated from your Game.exe (build/data_plan.json) | 372,397 |
 | C runtime (libcmt.lib, placed by identity) | 239,696 |
 | import thunks and the import address table | 3,782 |
 | headers, import and export tables, relocations, checksum | 163,407 |
@@ -42,16 +42,16 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 918 |
+| Compilation units | 915 |
 | … in a file with its original name, whole | 287 |
 | … pieces of an original file still split (in 36 files) | 114 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 517 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3047 |
-| Unnamed fields (`unk0x..`) in the shared headers | 671 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 514 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3110 |
+| Unnamed fields (`unk0x..`) in the shared headers | 673 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
-| Calling-convention shims | 86 |
-| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 502 |
-| `__declspec(noinline)` / `__forceinline` | 100 / 212 |
+| Calling-convention shims | 87 |
+| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 503 |
+| `__declspec(noinline)` / `__forceinline` | 101 / 219 |
 | Function names: blizzard / d2moo / inferred / placeholder | 460 / 5409 / 5292 / 3766 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3875 functions are compiled with `/GS-` and 921 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 100 times and `__declspec(dllexport)` 172 times to keep a body out of line or emitted.
+Not listed one by one: 3880 functions are compiled with `/GS-` and 931 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 101 times and `__declspec(dllexport)` 172 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -754,7 +754,7 @@ Not listed one by one: 3875 functions are compiled with `/GS-` and 921 with `/EH
 | 0x005EB970 | AITHINK_Fn106_143_ShadowMaster | `D2Game/Ai/AiThink4.cpp` | volatile read or qualifier |
 | 0x005EEDA0 | AITHINK_AncientBarb2SkillHandler | `D2Game/Unknown_005EEDA0.cpp` | compiler option /Ob1 |
 | 0x006009C0 | sub_006009C0 | `D2CMP/Unknown_006009C0.cpp` | compiler option /Od, compiler option /Oi, compiler option /Oy, without /Oy- |
-| 0x0060B280 | sub_0060B280_ReadBitsSigned | `D2CMP/Unknown_0060B280.cpp` | calling-convention shim, compiler option /Ob1 |
+| 0x0060B280 | sub_0060B280_ReadBitsSigned | `D2CMP/SRC/Codec.cpp` | calling-convention shim |
 | 0x0060D6F0 | SubTileConvertPixels24To8 | `D2CMP/SRC/SubTile.cpp` | calling-convention shim |
 | 0x00621F90 | UNITS_AllocPlayerData | `D2Common/UNITS/Units.cpp` | volatile read or qualifier |
 | 0x00628830 | ITEMS_ApplyAffixLevelRequirement | `D2Common/ITEMS/Items.cpp` | calling-convention shim |
