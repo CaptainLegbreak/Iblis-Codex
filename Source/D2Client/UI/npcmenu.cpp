@@ -928,6 +928,12 @@ static D2MonStatsTxt* GetMonStatsTxtRecord(int nMonsterId)
 
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 
+extern int gnGlobal_00726C4C;                                                                               // 0x00726C4C
+
+extern int (__cdecl* gpfnGlobal_00726C62)();                                                                // 0x00726C62
+
+extern short gwGlobal_00726C54;                                                                             // 0x00726C54
+
 // 0x004AD0C0
 void __fastcall NPCMENU_StateOverlayBurst(D2UnitStrc* pUnit, int nState, int bFlag)
 {
@@ -4794,5 +4800,67 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
 }
 
 struct D2TextHeaderStrc;
+
+// 0x004B6C70
+int __cdecl sub_004B6C70_OpenNpcMenu()
+{
+    if (!NPC_GET_INTERACT_UNIT())
+    {
+        gnNpcMenuState = 0;
+        INV_ResetHover();
+// build: symbol ?gnInteractNpcId@* 0x007C0D25
+        NPCMENU_EndNpcInteraction(gnInteractNpcId);
+        UI_SetUIVar(8, 1, 0);
+        return 0;
+    }
+
+// build: symbol ?gpNpcMainMenuDialog@* 0x007C0D6B
+    if (gpNpcMainMenuDialog)
+    {
+        DIALOG_DestroyDialog(gpNpcMainMenuDialog);
+        gpNpcMainMenuDialog = 0;
+    }
+
+    gnNpcMenuState = 1;
+    int nEntry = sub_004B1D70_FindNpcEntry();
+// build: symbol ?gpNpcEntry@* 0x007C0C7D
+    gpNpcEntry = &gaNpcEntries[nEntry];
+    NPCMENU_OpenNpcPanel(0xD35, nEntry);
+    return 1;
+}
+
+// 0x004B6D10
+int __cdecl sub_004B6D10_OpenConfirm()
+{
+    if (!NPC_GET_INTERACT_UNIT())
+    {
+        gnNpcMenuState = 0;
+        INV_ResetHover();
+        NPCMENU_EndNpcInteraction(gnInteractNpcId);
+        UI_SetUIVar(8, 1, 0);
+        return 0;
+    }
+
+    if (gpNpcMainMenuDialog)
+    {
+        DIALOG_DestroyDialog(gpNpcMainMenuDialog);
+        gpNpcMainMenuDialog = 0;
+    }
+
+    gnNpcMenuState = 1;
+    sub_004B1D70_FindNpcEntry();
+    NPCMENU_OpenConfirmDialog(0x2BA0);
+    return 1;
+}
+
+// 0x004B6DA0
+int __cdecl sub_004B6DA0_InitHandler()
+{
+    gnGlobal_00726C4C = 4;
+    gpfnGlobal_00726C62 = sub_004B6D10_OpenConfirm;
+    gwGlobal_00726C54 = 0x2BA0;
+    return 1;
+}
+
 
 #include "gen/data/Source/D2Client/UI/npcmenu.inc"
