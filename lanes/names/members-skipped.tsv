@@ -1,0 +1,20 @@
+va	old_name	file	reason
+0x004BAD70	sub_00646000_AlwaysZero	Source/D2Client/UI/editbox.cpp	vtable slot 5 is a stub (returns 0) in every class here; its message is unknown
+0x004BB950	sub_00646000_AlwaysZero	Source/D2Client/UI/editbox.cpp	vtable slot 5 stub; message unknown
+0x004BC1A0	sub_00646000_AlwaysZero	Source/D2Client/UI/editbox.cpp	vtable slot 5 stub; message unknown
+0x004BAE90	MsgSlot05	Source/D2Client/UI/editbox.cpp	forwards slot 5; message unknown
+0x004BBAB0	MsgSlot05	Source/D2Client/UI/editbox.cpp	forwards slot 5; message unknown
+0x004BC2B0	sub_004BC2B0_ForwardSlot14	Source/D2Client/UI/editbox.cpp	forwards slot 5; message unknown
+0x004BAD80	sub_00646000_AlwaysZero	Source/D2Client/UI/editbox.cpp	vtable slot 7 stub in every class here; message unknown
+0x004BB960	sub_00646000_AlwaysZero	Source/D2Client/UI/editbox.cpp	vtable slot 7 stub; message unknown
+0x004BC1B0	sub_00646000_AlwaysZero	Source/D2Client/UI/editbox.cpp	vtable slot 7 stub; message unknown
+0x004BAED0	MsgSlot07	Source/D2Client/UI/editbox.cpp	forwards slot 7; message unknown
+0x004BBAF0	MsgSlot07	Source/D2Client/UI/editbox.cpp	forwards slot 7; message unknown
+0x004BC2F0	sub_004BC2F0_ForwardSlot1C	Source/D2Client/UI/editbox.cpp	forwards slot 7; message unknown
+0x004BAD90	sub_00646000_AlwaysZero	Source/D2Client/UI/editbox.cpp	vtable slot 8 stub in every class here; message unknown
+0x004BB970	sub_00646000_AlwaysZero	Source/D2Client/UI/editbox.cpp	vtable slot 8 stub; message unknown
+0x004BC1C0	sub_00646000_AlwaysZero	Source/D2Client/UI/editbox.cpp	vtable slot 8 stub; message unknown
+0x004BAEC0	MsgSlot08	Source/D2Client/UI/editbox.cpp	forwards slot 8; message unknown
+0x004BBAE0	MsgSlot08	Source/D2Client/UI/editbox.cpp	forwards slot 8; message unknown
+0x004BC2E0	sub_004BC2E0_ForwardSlot20	Source/D2Client/UI/editbox.cpp	forwards slot 8; message unknown
+0x004BBB30	sub_004BBB30_Slot12	Source/D2Client/UI/editbox.cpp	forwards to the implementation's Slot13, which has no body in editbox.cpp; purpose unknown
