@@ -1,24 +1,14 @@
 #include "D2LevelIds.h"
 #include "D2ItemsWorld.h"
-
 #include "D2Common.h"
-
 #include "D2Structs.h"
-
 #include "D2DataTbls.h"
-
 #include "D2Drlg.h"
-
 #include "D2DrlgMaps.h"
-
 #include "D2DrlgPresets.h"
-
 #include "D2DrlgTiles.h"
-
 #include "D2DrlgRooms.h"
-
 #include "D2Path.h"
-
 #include "D2TxtTables.h"
 
 #pragma function(memset)
@@ -194,6 +184,88 @@ static void __stdcall DRLGROOMTILE_LoadInitRoomTile(void* pMemPool, int nX, int 
 
 static void __stdcall DRLGROOMTILE_SetTileDataPosition(D2DrlgTileDataStrc* pTileData, D2DrlgRoomStrc* pDrlgRoom, int nX, int nY);
 
+struct D2DrlgDrlgStrc
+{
+    char unk0x000[0x464];
+    void* hArchive;
+};
+
+struct D2UnkOutdoorStrc
+{
+    D2DrlgLevelStrc* pLevel;
+    int* field_4;
+    D2DrlgGridStrc* pGrid1;
+    D2DrlgGridStrc* pGrid2;
+    int nLevelPrestId;
+    int field_14;
+    int nLvlSubId;
+    unsigned int(__fastcall* field_1C)(D2DrlgLevelStrc* pLevel, int nX, int nY);
+    int(__fastcall* field_20)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nId, int nOffset, char nFlags);
+    int(__fastcall* field_24)(D2DrlgLevelStrc* pLevel, int nX, int nY, int a4, int a5, unsigned int a6);
+    int(__fastcall* field_28)(D2DrlgLevelStrc* pLevel, int nStyle, int a3);
+    void(__fastcall* field_2C)(D2DrlgLevelStrc* pLevel, int nX, int nY);
+    void(__fastcall* field_30)(D2DrlgLevelStrc* pLevel, int nX, int nY);
+    void(__fastcall* field_34)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nRand, int a6);
+};
+
+struct D2UnkOutdoorStrc2
+{
+    D2DrlgRoomStrc* pDrlgRoom;
+    D2DrlgOutdoorRoomStrc* pOutdoorRooms[4];
+    D2DrlgGridStrc* pWallsGrids[4];
+    D2DrlgGridStrc* pFloorGrid;
+    int field_28;
+    int nLayers;
+    int nSubWaypoint_Shrine;
+    int nSubTheme;
+    int nSubThemePicked;
+};
+
+D2LvlSubTxt* __fastcall DATATBLS_GetLvlSubTxtRecord(int nId);                                                 // 0x0061FA90
+
+void __fastcall DRLGTILESUB_InitializeDrlgFile(void* hArchive, D2LvlSubTxt* pLvlSubTxtRecord);                    // 0x006704E0
+
+void __stdcall sub_0066FF50(D2UnkOutdoorStrc2* pOutdoor, D2LvlSubTxt* pLvlSubTxtRecord); // 0x0066FF50
+
+int __stdcall DRLGTILESUB_DoSubstitutions(D2UnkOutdoorStrc2* pOutdoor, D2LvlSubTxt* pLvlSubTxtRecord);         // 0x00670170
+
+void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlags, int nOperation); // 0x0067C4F0
+
+struct D2DrlgSubstGroupStrc;
+
+struct D2LvlSubTxt;
+
+struct D2UnkOutdoorStrc;
+
+struct D2DrlgOutdoorInfoStrc;
+
+struct D2CoordStrc;
+
+struct D2DrlgOutdoorRoomStrc;
+
+struct D2UnkOutdoorStrc2;
+
+void __stdcall DRLGTILESUB_ReplaceSubPreset(int nX, int nY, D2UnkOutdoorStrc* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, int nOffset); // 0x0066F520
+
+static int __stdcall DRLGTILESUB_TestReplaceSubPreset(int nX, int nY, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, D2UnkOutdoorStrc* pOutdoor); // 0x0066F3B0
+
+extern int __fastcall sub_0045C3E0_RollLimited(D2SeedStrc* pSeed, int nLimit); // 0x0045C3E0
+
+extern int __stdcall sub_0066F690_ApplySubstGroup(D2UnkOutdoorStrc* pOutdoor, D2LvlSubTxt* pRecord, D2DrlgSubstGroupStrc* pGroup); // 0x0066F690
+
+static int __stdcall sub_0066F350(D2LvlSubTxt* pLvlSubTxtRecord, int nX, int nY);
+
+static int __stdcall sub_0066F380(D2LvlSubTxt* pLvlSubTxtRecord, int nX, int nY);
+
+static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, D2DrlgTileDataStrc* pTileData, int nTileType, unsigned int nPackedTileInformation, int nX, int nY);
+
+extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
+
+
+int __stdcall sub_0066FCF0(int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord);
+
+void __fastcall sub_006707A0(D2UnkOutdoorStrc2* pOutdoor);
+
 static inline unsigned int SEED_RollRandomNumberHighFirst(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
@@ -309,7 +381,6 @@ inline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-// 0x0045C390
 inline unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
@@ -321,7 +392,6 @@ inline unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, i
     return SEED_RollRandomNumberInline(pSeed) & (nMax - 1);
 }
 
-// 0x004E6C50
 inline int __fastcall SKILLDESC_ValidateMonsterId(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -904,6 +974,111 @@ static D2DrlgTileDataStrc* __stdcall DRLGROOMTILE_AddLinkedTileData(void* pMemPo
     return pTileData;
 }
 
+static inline bool TileTypeIsAWallWithDoor(int nTileType)
+{
+    return nTileType == 9 || nTileType == 8;
+}
+
+// 0x0066E740
+static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, D2DrlgTileDataStrc* pTileData, int nTileType, unsigned int nPackedTileInformation, int nX, int nY)
+{
+    int nNewTileType;
+// build: symbol ?gnWallRemapIndices@* 0x006EF620
+    const int nRemapIndex = gnWallRemapIndices[nTileType];
+
+    if (pTileData->dwFlags & 1)
+    {
+        if (TileTypeIsAWallWithDoor(pTileData->nTileType))
+        {
+            DRLGROOMTILE_InitializeTileDataFlags(nPackedTileInformation, nY, pDrlgRoom1, pTileData, pTileData->nTileType, nX);
+        }
+
+        return;
+    }
+
+    if (!(nPackedTileInformation & 0x80))
+    {
+        int bRemap = 0;
+        if (!TileTypeIsAWallWithDoor(nTileType))
+        {
+            if (TileTypeIsAWallWithDoor(pTileData->nTileType) && (nX - pDrlgRoom2->pDrlgCoord.nPosX == 0 || nY - pDrlgRoom2->pDrlgCoord.nPosY == 0))
+            {
+                return;
+            }
+
+            bRemap = 1;
+        }
+
+        if (bRemap || nX - pDrlgRoom1->pDrlgCoord.nPosX != 0 && nY - pDrlgRoom1->pDrlgCoord.nPosY != 0)
+        {
+            const bool bIsTileTypeANormalWallOrFloor = pTileData->nTileType <= 7;
+            if (nRemapIndex < 0 || !bIsTileTypeANormalWallOrFloor)
+            {
+                if (nRemapIndex != -1)
+                {
+                    return;
+                }
+            }
+            else
+            {
+                const int nWallIdx = pTileData->nTileType - 1;
+// build: symbol ?gnWallTileTypeRemap@* 0x006EF578
+                nNewTileType = gnWallTileTypeRemap[nRemapIndex][nWallIdx];
+                goto TileTypeChosen;
+            }
+        }
+    }
+
+    nNewTileType = nTileType;
+
+TileTypeChosen:
+    if (pTileData->nTileType != 3)
+    {
+        if (nNewTileType == 3)
+        {
+            pTileData->dwFlags |= 0xC008;
+            COLLISION_ReplaceTileCollision(pDrlgRoom2->pRoom, pTileData, 0);
+            DRLGROOMTILE_AddLinkedTileData(pMemPool, nPackedTileInformation, nX, nY, pDrlgRoom1, 3);
+        }
+    }
+    else if (nNewTileType != 3)
+    {
+        pTileData->pNext->dwFlags |= 8;
+        COLLISION_ReplaceTileCollision(pDrlgRoom2->pRoom, pTileData->pNext, 0);
+    }
+
+    const int bBlankFloor = pTileData->nTileType == 0 && sub_00604B90_GetTileStyle(pTileData->pTile) == 30 && sub_00604C50_GetTileSequence(pTileData->pTile) == 0;
+    if (nNewTileType != pTileData->nTileType || bBlankFloor)
+    {
+        D2TileLibraryEntryStrc* pTileCache = DRLGROOMTILE_GetTileCache(pDrlgRoom2, nNewTileType, nPackedTileInformation);
+        pTileData->nTileType = nNewTileType;
+
+        if (pTileCache != pTileData->pTile && pDrlgRoom2->pRoom)
+        {
+            COLLISION_ReplaceTileCollision(pDrlgRoom2->pRoom, pTileData, pTileCache);
+        }
+
+        pTileData->pTile = pTileCache;
+    }
+
+    DRLGROOMTILE_InitializeTileDataFlags(nPackedTileInformation, nY, pDrlgRoom1, pTileData, pTileData->nTileType, nX);
+}
+
+// 0x0066E940
+static void __stdcall DRLGROOMTILE_GetCreateLinkedTileData(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom, int nTileType, unsigned int nPackedTileInformation, int nX, int nY)
+{
+    D2DrlgRoomStrc* pLinkedRoom = 0;
+    D2DrlgTileDataStrc* pLinkedTileData = DRLGROOMTILE_GetLinkedTileData(nTileType == 0, nX, nY, &pLinkedRoom, pDrlgRoom, nPackedTileInformation);
+    if (pLinkedTileData)
+    {
+        DRLGROOMTILE_LinkedTileDataManager(pMemPool, pDrlgRoom, pLinkedRoom, pLinkedTileData, nTileType, nPackedTileInformation, nX, nY);
+    }
+    else
+    {
+        DRLGROOMTILE_AddLinkedTileData(pMemPool, nPackedTileInformation, nX, nY, pDrlgRoom, nTileType);
+    }
+}
+
 // 0x0066E9B0
 static void __stdcall DRLGROOMTILE_LoadInitRoomTile(void* pMemPool, int nX, int nY, int bFillBlanks, D2DrlgRoomStrc* pDrlgRoom, unsigned int nPackedTileInformation, int nTileType)
 {
@@ -1015,113 +1190,6 @@ static void __stdcall DRLGROOMTILE_LoadInitRoomTile(void* pMemPool, int nX, int 
     if (nPackedTileInformation & 0x8000000)
     {
         DRLGROOMTILE_InitShadowTileData(pDrlgRoom, 0, nX, nY, nPackedTileInformation, DRLGROOMTILE_GetTileCache(pDrlgRoom, 13, nPackedTileInformation));
-    }
-}
-
-static inline bool TileTypeIsAWallWithDoor(int nTileType)
-{
-    return nTileType == 9 || nTileType == 8;
-}
-
-static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, D2DrlgTileDataStrc* pTileData, int nTileType, unsigned int nPackedTileInformation, int nX, int nY);
-
-// 0x0066E740
-static void __stdcall DRLGROOMTILE_LinkedTileDataManager(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, D2DrlgTileDataStrc* pTileData, int nTileType, unsigned int nPackedTileInformation, int nX, int nY)
-{
-    int nNewTileType;
-// build: symbol ?gnWallRemapIndices@* 0x006EF620
-    const int nRemapIndex = gnWallRemapIndices[nTileType];
-
-    if (pTileData->dwFlags & 1)
-    {
-        if (TileTypeIsAWallWithDoor(pTileData->nTileType))
-        {
-            DRLGROOMTILE_InitializeTileDataFlags(nPackedTileInformation, nY, pDrlgRoom1, pTileData, pTileData->nTileType, nX);
-        }
-
-        return;
-    }
-
-    if (!(nPackedTileInformation & 0x80))
-    {
-        int bRemap = 0;
-        if (!TileTypeIsAWallWithDoor(nTileType))
-        {
-            if (TileTypeIsAWallWithDoor(pTileData->nTileType) && (nX - pDrlgRoom2->pDrlgCoord.nPosX == 0 || nY - pDrlgRoom2->pDrlgCoord.nPosY == 0))
-            {
-                return;
-            }
-
-            bRemap = 1;
-        }
-
-        if (bRemap || nX - pDrlgRoom1->pDrlgCoord.nPosX != 0 && nY - pDrlgRoom1->pDrlgCoord.nPosY != 0)
-        {
-            const bool bIsTileTypeANormalWallOrFloor = pTileData->nTileType <= 7;
-            if (nRemapIndex < 0 || !bIsTileTypeANormalWallOrFloor)
-            {
-                if (nRemapIndex != -1)
-                {
-                    return;
-                }
-            }
-            else
-            {
-                const int nWallIdx = pTileData->nTileType - 1;
-// build: symbol ?gnWallTileTypeRemap@* 0x006EF578
-                nNewTileType = gnWallTileTypeRemap[nRemapIndex][nWallIdx];
-                goto TileTypeChosen;
-            }
-        }
-    }
-
-    nNewTileType = nTileType;
-
-TileTypeChosen:
-    if (pTileData->nTileType != 3)
-    {
-        if (nNewTileType == 3)
-        {
-            pTileData->dwFlags |= 0xC008;
-            COLLISION_ReplaceTileCollision(pDrlgRoom2->pRoom, pTileData, 0);
-            DRLGROOMTILE_AddLinkedTileData(pMemPool, nPackedTileInformation, nX, nY, pDrlgRoom1, 3);
-        }
-    }
-    else if (nNewTileType != 3)
-    {
-        pTileData->pNext->dwFlags |= 8;
-        COLLISION_ReplaceTileCollision(pDrlgRoom2->pRoom, pTileData->pNext, 0);
-    }
-
-    const int bBlankFloor = pTileData->nTileType == 0 && sub_00604B90_GetTileStyle(pTileData->pTile) == 30 && sub_00604C50_GetTileSequence(pTileData->pTile) == 0;
-    if (nNewTileType != pTileData->nTileType || bBlankFloor)
-    {
-        D2TileLibraryEntryStrc* pTileCache = DRLGROOMTILE_GetTileCache(pDrlgRoom2, nNewTileType, nPackedTileInformation);
-        pTileData->nTileType = nNewTileType;
-
-        if (pTileCache != pTileData->pTile && pDrlgRoom2->pRoom)
-        {
-            COLLISION_ReplaceTileCollision(pDrlgRoom2->pRoom, pTileData, pTileCache);
-        }
-
-        pTileData->pTile = pTileCache;
-    }
-
-    DRLGROOMTILE_InitializeTileDataFlags(nPackedTileInformation, nY, pDrlgRoom1, pTileData, pTileData->nTileType, nX);
-}
-
-// 0x0066E940
-static void __stdcall DRLGROOMTILE_GetCreateLinkedTileData(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom, int nTileType, unsigned int nPackedTileInformation, int nX, int nY)
-{
-    D2DrlgRoomStrc* pLinkedRoom = 0;
-    D2DrlgTileDataStrc* pLinkedTileData = DRLGROOMTILE_GetLinkedTileData(nTileType == 0, nX, nY, &pLinkedRoom, pDrlgRoom, nPackedTileInformation);
-    if (pLinkedTileData)
-    {
-        DRLGROOMTILE_LinkedTileDataManager(pMemPool, pDrlgRoom, pLinkedRoom, pLinkedTileData, nTileType, nPackedTileInformation, nX, nY);
-    }
-    else
-    {
-        DRLGROOMTILE_AddLinkedTileData(pMemPool, nPackedTileInformation, nX, nY, pDrlgRoom, nTileType);
     }
 }
 
@@ -1429,7 +1497,6 @@ struct D2LvlTypesTxt
 {
     char szFile[32][60];
 };
-extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
 
 // 0x0066F240
 void __fastcall DRLGROOMTILE_LoadDT1FilesForRoom(D2DrlgRoomStrc* pDrlgRoom)
@@ -1458,6 +1525,441 @@ void __fastcall DRLGROOMTILE_LoadDT1FilesForRoom(D2DrlgRoomStrc* pDrlgRoom)
     TileLibraryAddProject(&pDrlgRoom->pTiles, szPath);
 
     pDrlgRoom->dwFlags |= 0x1000000;
+}
+
+// 0x0066F350
+static int __stdcall sub_0066F350(D2LvlSubTxt* pLvlSubTxtRecord, int nX, int nY)
+{
+    if (pLvlSubTxtRecord->pDrlgFile->nFloorLayers)
+    {
+        return DRLGGRID_GetGridEntry(&pLvlSubTxtRecord->pFloorGrid, nX, nY);
+    }
+
+    return 0;
+}
+
+// 0x0066F380
+static int __stdcall sub_0066F380(D2LvlSubTxt* pLvlSubTxtRecord, int nX, int nY)
+{
+    if (pLvlSubTxtRecord->pDrlgFile->nWallLayers)
+    {
+        return DRLGGRID_GetGridEntry(pLvlSubTxtRecord->pWallGrid, nX, nY);
+    }
+
+    return 0;
+}
+
+// 0x0066F3B0
+static int __stdcall DRLGTILESUB_TestReplaceSubPreset(int nX, int nY, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, D2UnkOutdoorStrc* pOutdoor)
+{
+    nX -= nX % pLvlSubTxtRecord->dwGridSize;
+    nY -= nY % pLvlSubTxtRecord->dwGridSize;
+
+    for (int j = 0; j < pSubstGroup->tBox.nHeight; ++j)
+    {
+        for (int i = 0; i < pSubstGroup->tBox.nWidth; ++i)
+        {
+            const int nFloorFlags = sub_0066F350(pLvlSubTxtRecord, i + pSubstGroup->tBox.nPosX, j + pSubstGroup->tBox.nPosY);
+            const int nWallFlags = sub_0066F380(pLvlSubTxtRecord, i + pSubstGroup->tBox.nPosX, j + pSubstGroup->tBox.nPosY);
+            const int nPosX = nX + i * pLvlSubTxtRecord->dwGridSize;
+            const int nPosY = nY + j * pLvlSubTxtRecord->dwGridSize;
+
+            const int nEntry = DRLGGRID_GetGridEntry(pOutdoor->pGrid1, nPosX, nPosY);
+            if (pOutdoor->field_24)
+            {
+                if (!pOutdoor->field_24(pOutdoor->pLevel, nPosX, nPosY, nEntry, nFloorFlags, nWallFlags))
+                {
+                    return 0;
+                }
+            }
+            else if (nWallFlags & 1)
+            {
+                const int nStyle = ((nWallFlags >> 8) & 0xFF) - 1;
+                if (nStyle != pOutdoor->field_14 && nStyle + pOutdoor->nLevelPrestId != nEntry)
+                {
+                    return 0;
+                }
+
+                if (!pOutdoor->field_1C(pOutdoor->pLevel, nPosX, nPosY))
+                {
+                    return 0;
+                }
+            }
+            else if (nFloorFlags & 2)
+            {
+                if (!pOutdoor->field_20(pOutdoor->pLevel, nPosX, nPosY, 0, 0, 0))
+                {
+                    return 0;
+                }
+            }
+        }
+    }
+
+    return 1;
+}
+
+// 0x0066F520
+void __stdcall DRLGTILESUB_ReplaceSubPreset(int nX, int nY, D2UnkOutdoorStrc* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, int nOffset)
+{
+    D2DrlgLevelStrc* pLevel = pOutdoor->pLevel;
+    const int nBaseX = pSubstGroup->tBox.nPosX + nOffset;
+    const int nBaseY = pSubstGroup->tBox.nPosY;
+
+    nX -= nX % pLvlSubTxtRecord->dwGridSize;
+    nY -= nY % pLvlSubTxtRecord->dwGridSize;
+
+    for (int j = 0; j < pSubstGroup->tBox.nHeight; ++j)
+    {
+        for (int i = 0; i < pSubstGroup->tBox.nWidth; ++i)
+        {
+            const int nWallFlags = sub_0066F380(pLvlSubTxtRecord, nBaseX + i, nBaseY + j);
+            const int nFloorFlags = sub_0066F350(pLvlSubTxtRecord, nBaseX + i, nBaseY + j);
+            const int nPosX = nX + i * pLvlSubTxtRecord->dwGridSize;
+            const int nPosY = nY + j * pLvlSubTxtRecord->dwGridSize;
+            if (nWallFlags & 1)
+            {
+                const int nStyle = (nWallFlags >> 8) & 0xFF;
+                const int nSubStyle = nStyle - 1;
+                int nPresetId = 0;
+                if (pOutdoor->field_28)
+                {
+                    nPresetId = pOutdoor->field_28(pLevel, ((unsigned int)nWallFlags >> 20) & 0x3F, nStyle);
+                }
+                else
+                {
+                    nPresetId = nSubStyle + pOutdoor->nLevelPrestId;
+                }
+
+                if (nPresetId != -5 && nSubStyle != pOutdoor->field_14)
+                {
+                    pOutdoor->field_34(pLevel, nPosX, nPosY, nPresetId, 0, 1);
+                }
+            }
+            else if (nFloorFlags & 2)
+            {
+                pOutdoor->field_2C(pLevel, nPosX, nPosY);
+            }
+            else
+            {
+                pOutdoor->field_30(pLevel, nPosX, nPosY);
+            }
+        }
+    }
+}
+
+int __stdcall sub_M16_EmitTestReplaceSubPreset(D2UnkOutdoorStrc* pOutdoor, D2LvlSubTxt* pLvlSubTxtRecord, D2DrlgSubstGroupStrc* pSubstGroup, int* pPos)
+{
+    return DRLGTILESUB_TestReplaceSubPreset(pPos[0], pPos[1], pSubstGroup, pLvlSubTxtRecord, pOutdoor);
+}
+
+static inline unsigned int DRLGTILESUB_RollRandomNumberInline(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static inline unsigned int DRLGTILESUB_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+        return 0;
+    if ((nMax - 1) & nMax)
+        return DRLGTILESUB_RollRandomNumberInline(pSeed) % nMax;
+    return DRLGTILESUB_RollRandomNumberInline(pSeed) & (nMax - 1);
+}
+
+// 0x0066F690
+int __stdcall sub_0066F690_ApplySubstGroup(D2UnkOutdoorStrc* pOutdoor, D2LvlSubTxt* pLvlSubTxtRecord, D2DrlgSubstGroupStrc* pSubstGroup)
+{
+    D2CoordStrc pCoord[256];
+    int bWilderness;
+    int bSmallWilderness;
+    int* pBox = pOutdoor->field_4;
+    D2DrlgLevelStrc* pLevel = pOutdoor->pLevel;
+    const int bSubType1 = pOutdoor->nLvlSubId == 1;
+    const int nFlags = pLevel->pOutdoors->dwFlags & 12;
+
+    if (pLevel->eLevelId >= 2 && pLevel->eLevelId <= 7)
+        bWilderness = 1;
+    else
+        bWilderness = 0;
+
+    const int nOffset = bSubType1 && nFlags ? -1 : 1;
+    const int nWidth = pBox[2] - pSubstGroup->tBox.nWidth * pLvlSubTxtRecord->dwGridSize + nOffset;
+    const int nHeight = pBox[3] - pSubstGroup->tBox.nHeight * pLvlSubTxtRecord->dwGridSize + 1;
+    const int nArea = nWidth * nHeight;
+    if (nArea)
+    {
+        if (bSubType1 && bWilderness && nWidth < 6 && nHeight < 6)
+            bSmallWilderness = 1;
+        else
+            bSmallWilderness = 0;
+
+        for (int i = 0; i < nArea; ++i)
+        {
+            pCoord[i].nX = i % nWidth;
+            pCoord[i].nY = i / nWidth;
+        }
+
+        for (int i = 0; i < nArea; ++i)
+        {
+            const int nRand1 = DRLGTILESUB_RollLimitedRandomNumberInline(&pLevel->pSeed, nArea);
+            const int nRand2 = DRLGTILESUB_RollLimitedRandomNumberInline(&pLevel->pSeed, nArea);
+            const D2CoordStrc tTemp = pCoord[nRand1];
+            pCoord[nRand1] = pCoord[nRand2];
+            pCoord[nRand2] = tTemp;
+        }
+
+        for (int i = 0; i < nArea; ++i)
+        {
+            const int nX = pCoord[i].nX;
+            const int nY = pCoord[i].nY;
+            if (!bSmallWilderness || nX != 2 || nY != 2)
+            {
+                if (DRLGTILESUB_TestReplaceSubPreset(nX, nY, pSubstGroup, pLvlSubTxtRecord, pOutdoor))
+                {
+                    DRLGTILESUB_ReplaceSubPreset(nX, nY, pOutdoor, pSubstGroup, pLvlSubTxtRecord, (DRLGTILESUB_RollLimitedRandomNumberInline(&pLevel->pSeed, pSubstGroup->nSubstGroup) + 1) * (pSubstGroup->tBox.nWidth + 1));
+                    if (pLvlSubTxtRecord->dwBordType == 0)
+                        return 1;
+                    else if (pLvlSubTxtRecord->dwBordType == 1)
+                        return 1;
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+// 0x0066F990
+static void __stdcall sub_0066F990_ApplySecondaryGroups(D2UnkOutdoorStrc* pOutdoor, D2LvlSubTxt* pRecord)
+{
+    D2DrlgFileStrc* pFile = pRecord->pDrlgFile;
+    D2DrlgLevelStrc* pLevel = pOutdoor->pLevel;
+    const int nGroups = pFile->nSubstGroups;
+    int nStart = 0;
+    if (nGroups)
+    {
+        if (pOutdoor->field_14 == -1)
+            pOutdoor->field_14 = 62;
+        if (!pRecord->dwBordType)
+            nStart = sub_0045C3E0_RollLimited(&pLevel->pSeed, nGroups);
+        for (int i = 0; i < nGroups; ++i)
+        {
+            if (sub_0066F690_ApplySubstGroup(pOutdoor, pRecord, &pFile->pSubstGroups[(nStart + i) % nGroups])
+                && !pRecord->dwBordType)
+                break;
+        }
+    }
+}
+
+// 0x0066FA10
+static void __stdcall sub_0066FA10(int nX, int nY, D2DrlgSubstGroupStrc* pSubstGroup, D2UnkOutdoorStrc2* pOutdoor, void* pMemPool, D2LvlSubTxt* pLvlSubTxtRecord)
+{
+    int nSubX = nX;
+    int nSubY = nY;
+    int nMinX = pSubstGroup->tBox.nPosX;
+    int nMinY = pSubstGroup->tBox.nPosY;
+    int nSizeX = pSubstGroup->tBox.nWidth;
+    int nSizeY = pSubstGroup->tBox.nHeight;
+
+    DUNGEON_GameTileToSubtileCoords(&nSubX, &nSubY);
+    DUNGEON_GameTileToSubtileCoords(&nMinX, &nMinY);
+    DUNGEON_GameTileToSubtileCoords(&nSizeX, &nSizeY);
+
+    for (D2PresetUnitStrc* pPresetUnit = pLvlSubTxtRecord->pDrlgFile->pPresetUnit; pPresetUnit; pPresetUnit = pPresetUnit->pNext)
+    {
+        if (pPresetUnit->nXpos > nMinX && pPresetUnit->nYpos > nMinY && pPresetUnit->nXpos < nMinX + nSizeX && pPresetUnit->nYpos < nMinY + nSizeY)
+        {
+            DRLGROOM_AllocPresetUnit(pOutdoor->pDrlgRoom, pMemPool, pPresetUnit->nUnitType, pPresetUnit->nIndex, pPresetUnit->nMode, nSubX + pPresetUnit->nXpos - nMinX, nSubY + pPresetUnit->nYpos - nMinY);
+        }
+    }
+}
+
+void __stdcall sub_0066FAD0(void* pMemPool, int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, int nOffset)
+{
+    const int nBaseX = pSubstGroup->tBox.nPosX + nOffset;
+    const int nWallLayers = pLvlSubTxtRecord->pDrlgFile->nWallLayers;
+    D2DrlgRoomStrc* pDrlgRoom = pOutdoor->pDrlgRoom;
+    D2DrlgTileGridStrc* pTileGrid = pDrlgRoom->ptDrlgTiles;
+    const int nBaseY = pSubstGroup->tBox.nPosY;
+    int nCounter = 0;
+
+    for (int j = 0; j < pSubstGroup->tBox.nHeight; ++j)
+    {
+        for (int i = 0; i < pSubstGroup->tBox.nWidth; ++i)
+        {
+            if (DRLGGRID_GetGridEntry(&pLvlSubTxtRecord->pShadowGrid, nBaseX + i, nBaseY + j) & 0x8000000)
+            {
+                ++nCounter;
+            }
+        }
+    }
+
+    DRLGROOMTILE_ReallocRoofTileGrid(pMemPool, pTileGrid, nCounter);
+
+    for (int j = 0; j < pSubstGroup->tBox.nHeight; ++j)
+    {
+        for (int i = 0; i < pSubstGroup->tBox.nWidth; ++i)
+        {
+            int nFlags = sub_0066F350(pLvlSubTxtRecord, nBaseX + i, nBaseY + j);
+            if (nFlags & 2)
+            {
+                DRLGGRID_AlterGridFlag(pOutdoor->pFloorGrid, nX + i, nY + j, nFlags | 0x80, 3);
+            }
+
+            for (int nLayer = 0; nLayer < nWallLayers; ++nLayer)
+            {
+                nFlags = DRLGGRID_GetGridEntry(&pLvlSubTxtRecord->pWallGrid[nLayer], nBaseX + i, nBaseY + j);
+                if (nFlags & 1 && pOutdoor->pWallsGrids[nLayer])
+                {
+                    DRLGGRID_AlterGridFlag(pOutdoor->pWallsGrids[nLayer], nX + i, nY + j, nFlags, 3);
+                }
+
+                nFlags = DRLGGRID_GetGridEntry(&pLvlSubTxtRecord->pTileTypeGrid[nLayer], nBaseX + i, nBaseY + j);
+                if (nFlags && pOutdoor->pOutdoorRooms[nLayer])
+                {
+                    DRLGGRID_AlterGridFlag(&pOutdoor->pOutdoorRooms[nLayer]->pTileTypeGrid, nX + i, nY + j, nFlags, 3);
+                }
+            }
+
+            nFlags = DRLGGRID_GetGridEntry(&pLvlSubTxtRecord->pShadowGrid, nBaseX + i, nBaseY + j);
+            if (nFlags & 0x8000000)
+            {
+                DRLGROOMTILE_InitTileShadow(pDrlgRoom, pDrlgRoom->pDrlgCoord.nPosX + i + nX, pDrlgRoom->pDrlgCoord.nPosY + j + nY, nFlags);
+            }
+        }
+    }
+
+    sub_0066FA10(nX, nY, pSubstGroup, pOutdoor, pMemPool, pLvlSubTxtRecord);
+}
+
+// 0x0066FCF0
+int __stdcall sub_0066FCF0(int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord)
+{
+    const int nLayers = pOutdoor->nLayers;
+
+    for (int j = 0; j < pSubstGroup->tBox.nHeight; ++j)
+    {
+        for (int i = 0; i < pSubstGroup->tBox.nWidth; ++i)
+        {
+            if (DRLGGRID_GetGridEntry(&pLvlSubTxtRecord->pFloorGrid, i + pSubstGroup->tBox.nPosX, j + pSubstGroup->tBox.nPosY) & 2
+                || pLvlSubTxtRecord->pWallGrid[0].nWidth && DRLGGRID_GetGridEntry(pLvlSubTxtRecord->pWallGrid, i + pSubstGroup->tBox.nPosX, j + pSubstGroup->tBox.nPosY) & 1)
+            {
+                const int nFlags = DRLGGRID_GetGridEntry(pOutdoor->pFloorGrid, nX + i, nY + j);
+                if (nFlags & 0x3F0FF00 || !(nFlags & 2))
+                {
+                    return 0;
+                }
+
+                for (int nLayer = 0; nLayer < nLayers; ++nLayer)
+                {
+                    if (pOutdoor->pWallsGrids[nLayer] && DRLGGRID_GetGridEntry(pOutdoor->pWallsGrids[nLayer], nX + i, nY + j) & 1)
+                    {
+                        return 0;
+                    }
+                }
+            }
+        }
+    }
+
+    return 1;
+}
+
+// 0x0066FE00
+static int __stdcall sub_0066FE00_TestSubstGroupTiles(int nX, int nY, D2UnkOutdoorStrc2* pOutdoor, D2LvlSubTxt* pLvlSubTxtRecord, D2DrlgSubstGroupStrc* pSubstGroup)
+{
+    for (int j = 0; j < pSubstGroup->tBox.nHeight; ++j)
+    {
+        for (int i = 0; i < pSubstGroup->tBox.nWidth; ++i)
+        {
+            const int nTileType = DRLGGRID_GetGridEntry(pLvlSubTxtRecord->pTileTypeGrid, i + pSubstGroup->tBox.nPosX, j + pSubstGroup->tBox.nPosY);
+            if (nTileType != DRLGGRID_GetGridEntry(&pOutdoor->pOutdoorRooms[0]->pTileTypeGrid, i + nX, j + nY))
+            {
+                return 0;
+            }
+
+            const int nFloorFlags1 = sub_0066F350(pLvlSubTxtRecord, i + pSubstGroup->tBox.nPosX, j + pSubstGroup->tBox.nPosY);
+            if (nFloorFlags1 & 2)
+            {
+                const int nFloorFlags2 = DRLGGRID_GetGridEntry(pOutdoor->pFloorGrid, i + nX, j + nY);
+                if (!(nFloorFlags2 & 2))
+                {
+                    return 0;
+                }
+
+                if ((nFloorFlags1 ^ nFloorFlags2) & 0x3F0FF00)
+                {
+                    return 0;
+                }
+            }
+
+            const int nWallFlags1 = sub_0066F380(pLvlSubTxtRecord, i + pSubstGroup->tBox.nPosX, j + pSubstGroup->tBox.nPosY);
+            if (nWallFlags1 & 1)
+            {
+                const int nWallFlags2 = DRLGGRID_GetGridEntry(pOutdoor->pWallsGrids[0], i + nX, j + nY);
+                if (!(nWallFlags2 & 1))
+                {
+                    return 0;
+                }
+
+                if ((nWallFlags1 ^ nWallFlags2) & 0x3F0FF00)
+                {
+                    return 0;
+                }
+            }
+        }
+    }
+
+    return 1;
+}
+
+int __stdcall sub_M16_EmitTestSubstGroupTiles(D2DrlgSubstGroupStrc* pSubstGroup, D2UnkOutdoorStrc2* pOutdoor, D2LvlSubTxt* pLvlSubTxtRecord, int nX, int nY)
+{
+    return sub_0066FE00_TestSubstGroupTiles(nX, nY, pOutdoor, pLvlSubTxtRecord, pSubstGroup);
+}
+
+// 0x00670750
+void __fastcall sub_00670750_ApplySubstitutionBorder(D2UnkOutdoorStrc* pOutdoor)
+{
+    D2LvlSubTxt* pRecord = DATATBLS_GetLvlSubTxtRecord(pOutdoor->nLvlSubId);
+    void* hArchive = pOutdoor->pLevel->pDrlg->hArchive;
+    while (pRecord->dwType == pOutdoor->nLvlSubId)
+    {
+        DRLGTILESUB_InitializeDrlgFile(hArchive, pRecord);
+        sub_0066F990_ApplySecondaryGroups(pOutdoor, pRecord);
+        ++pRecord;
+    }
+}
+
+// 0x006707A0
+void __fastcall sub_006707A0(D2UnkOutdoorStrc2* pOutdoor)
+{
+    if (pOutdoor->nSubWaypoint_Shrine != -1)
+    {
+        D2LvlSubTxt* pLvlSubTxtRecord = DATATBLS_GetLvlSubTxtRecord(pOutdoor->nSubWaypoint_Shrine);
+        unsigned int nThemeFlag = pOutdoor->nSubThemePicked;
+        void* hArchive = pOutdoor->pDrlgRoom->ptDrlgLevel->pDrlg->hArchive;
+        while (nThemeFlag)
+        {
+            if (nThemeFlag & 1)
+            {
+                DRLGTILESUB_InitializeDrlgFile(hArchive, pLvlSubTxtRecord);
+
+                if (pLvlSubTxtRecord->dwCheckAll)
+                {
+                    sub_0066FF50(pOutdoor, pLvlSubTxtRecord);
+                }
+                else
+                {
+                    DRLGTILESUB_DoSubstitutions(pOutdoor, pLvlSubTxtRecord);
+                }
+            }
+
+            nThemeFlag >>= 1;
+            ++pLvlSubTxtRecord;
+        }
+    }
 }
 
 #include "gen/data/Source/D2Common/DRLG/RoomTile.inc"
