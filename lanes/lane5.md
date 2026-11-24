@@ -4,6 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/prime-nova b8dd60e3 0 placeholders; defines borrowed data: 0x6E31E8 (SkillMonst.cpp: gnPrimePoisonNovaX/Y as whole const int[16] tables, replacing a split 4 B + 60 B), 0x7314CC and 0x73D52C (int + unread language list closing SUnitInactive.cpp's and Unknown_005B24E0.cpp's data); borrowed data 14,319 B on this branch (expected -132 B); VERIFIED 3bab3cd3ac7a70c4d0a49994046ce8bbacfe8cd7. Based on main #303, not stacked, D2Game only.
 - lane5/monsterchoose 1161446b 542->540 MonsterChoose.cpp takes in the three MONSTERCHOOSE_ functions after it (0x5BDE80/0x5BDFF0/0x5BE020) and their data, including the borrowed 0x7415F4 block (component codes + self pointer tables, 348 B, as gData_007415F4) and the unread language list at 0x741750 (60 B); borrowed data 15,283 B on this branch (-408 B); VERIFIED 7a06ba5fdb344019c625b5fb03463583d28c0b90. Based on main #301, not stacked, D2Game only.
 
 ## Questions
@@ -20,6 +21,8 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Left in place (and why)
 
+- Borrowed 0x745580 (64 B: 0x11B + another language list) between D2Common Inventory.cpp and ItemMode.cpp data: the leading int is not 0 like the others, and the previous neighbour is lane 6's; left for now.
+- Borrowed 0x731EB8 (4 B, gnUnitInitSeed set by the dynamic initializer 0x6CAF60 in Storm/Unknown_006CAE80.cpp, read by Objects.cpp): same cross-lane question as the Task.cpp locks.
 - Act 1 and Act 5 intro clusters (Unknown_0058F870.cpp 0x58F870-0x58FB80 before a1q1.cpp; 0x586B50/0x586C40/0x586C50 before a5q1.cpp): the Act 2/3 intros open a2q0.cpp/a3q0.cpp, but there is no a1q0.cpp or a5q0.cpp and nothing names the file; left until evidence turns up.
 - 0x5985C0 (Unknown_00598220.cpp): Act 2 intro's empty status filter, named ACT3Q7_StatusFilterCallback like a2q0.cpp's own stub; needs its own name before it can join a2q0.cpp.
 - 0x59F820 (Unknown_0059F440.cpp): memsets 0x7A00 bytes at game+0x1920, past the end of the shared D2GameStrc; needs a look at what that pointer really is.
