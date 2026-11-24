@@ -59,6 +59,17 @@ class UIWidget
 {
 public:
     virtual ~UIWidget() = 0;
+    virtual void Slot01() = 0;
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int Slot11() = 0;
 
     static void* operator new(unsigned int nSize)
     {
@@ -127,16 +138,16 @@ public:
 
     virtual ~ListBoxImplementation();
     virtual void Slot01();
-    virtual int sub_004BE860_WheelMsg(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BF430_MouseDownMsg(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BF530(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BEB70_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BEBC0_KeyMsg(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BE910_ScrollUp(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BE990_ScrollDown(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BEC30_GetSelectedIndex();
+    virtual int Slot11();
     virtual void sub_004BE110_UpdateScrollBar();
     virtual int sub_004BE0A0_GetLineCount();
     virtual void sub_004BE0B0_Clear();
@@ -192,15 +203,15 @@ public:
     virtual ~ListBoxWrapper();
 
     virtual void Slot01();
-    virtual int sub_004BEE20_ForwardSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BED80_ForwardSlot0C(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BED90_ForwardSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BEDA0_ForwardSlot14(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BEDB0_ForwardSlot18(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BED50_ForwardSlot1C(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BED40_ForwardSlot20(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BED60_ForwardSlot24(SMSGHANDLER_PARAMS* pMsg);
-    virtual int sub_004BED70_ForwardSlot28(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
     virtual int Slot11();
     virtual void sub_004BEDE0_ForwardSlot3C(const Unicode* wszText0, const Unicode* wszText1,
         const Unicode* wszText2, const Unicode* wszText3, const Unicode* wszText4, const Unicode* wszText5,
@@ -461,18 +472,19 @@ int ListBoxImplementation::sub_004BE810_HitTestRect(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
+// build: symbol ?MsgSlot02@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BE860
 // 0x004BE860
-int ListBoxImplementation::sub_004BE860_WheelMsg(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
 {
     if ((short)pMsg->wParamHigh > 0)
     {
         nSelectedIndex = f_180730;
-        sub_004BE910_ScrollUp(pMsg);
+        MsgSlot07(pMsg);
     }
     else if ((short)pMsg->wParamHigh < 0)
     {
         nSelectedIndex = f_180730 + f_18074E - 1;
-        sub_004BE990_ScrollDown(pMsg);
+        MsgSlot08(pMsg);
     }
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
@@ -493,8 +505,9 @@ void ListBoxImplementation::sub_004BE8D0_ClampTopToSelection()
     }
 }
 
+// build: symbol ?MsgSlot07@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BE910
 // 0x004BE910
-int ListBoxImplementation::sub_004BE910_ScrollUp(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxImplementation::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
 {
     if (!pfnCallback)
         nSelectedIndex = f_180730;
@@ -510,8 +523,9 @@ int ListBoxImplementation::sub_004BE910_ScrollUp(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
+// build: symbol ?MsgSlot08@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BE990
 // 0x004BE990
-int ListBoxImplementation::sub_004BE990_ScrollDown(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxImplementation::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
 {
     if (!pfnCallback)
     {
@@ -592,8 +606,9 @@ int ListBoxImplementation::sub_004BEA50_HitTestEntry(SMSGHANDLER_PARAMS* pMsg)
     return -1;
 }
 
+// build: symbol ?MsgSlot05@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BEB70
 // 0x004BEB70
-int ListBoxImplementation::sub_004BEB70_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxImplementation::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_004BE810_HitTestRect(pMsg))
     {
@@ -602,8 +617,9 @@ int ListBoxImplementation::sub_004BEB70_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
+// build: symbol ?MsgSlot06@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BEBC0
 // 0x004BEBC0
-int ListBoxImplementation::sub_004BEBC0_KeyMsg(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
 {
     if (pfnCallback)
     {
@@ -623,8 +639,9 @@ int ListBoxImplementation::sub_004BEBC0_KeyMsg(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
+// build: symbol ?Slot11@ListBoxImplementation@@UAEHXZ 0x004BEC30
 // 0x004BEC30
-int ListBoxImplementation::sub_004BEC30_GetSelectedIndex()
+int ListBoxImplementation::Slot11()
 {
     return nSelectedIndex;
 }
@@ -650,59 +667,67 @@ ListBoxWrapper::~ListBoxWrapper()
     delete pImpl;
 }
 
+// build: symbol ?MsgSlot08@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BED40
 // 0x004BED40
-int ListBoxWrapper::sub_004BED40_ForwardSlot20(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxWrapper::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->sub_004BE990_ScrollDown(pMsg);
+    return pImpl->MsgSlot08(pMsg);
 }
 
+// build: symbol ?MsgSlot07@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BED50
 // 0x004BED50
-int ListBoxWrapper::sub_004BED50_ForwardSlot1C(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxWrapper::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->sub_004BE910_ScrollUp(pMsg);
+    return pImpl->MsgSlot07(pMsg);
 }
 
+// build: symbol ?MsgSlot09@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BED60
 // 0x004BED60
-int ListBoxWrapper::sub_004BED60_ForwardSlot24(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxWrapper::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
 {
     return pImpl->MsgSlot09(pMsg);
 }
 
+// build: symbol ?MsgSlot10@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BED70
 // 0x004BED70
-int ListBoxWrapper::sub_004BED70_ForwardSlot28(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxWrapper::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
 {
     return pImpl->MsgSlot10(pMsg);
 }
 
+// build: symbol ?MsgSlot03@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BED80
 // 0x004BED80
-int ListBoxWrapper::sub_004BED80_ForwardSlot0C(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxWrapper::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->sub_004BF430_MouseDownMsg(pMsg);
+    return pImpl->MsgSlot03(pMsg);
 }
 
+// build: symbol ?MsgSlot04@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BED90
 // 0x004BED90
-int ListBoxWrapper::sub_004BED90_ForwardSlot10(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxWrapper::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->sub_004BF530(pMsg);
+    return pImpl->MsgSlot04(pMsg);
 }
 
+// build: symbol ?MsgSlot05@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BEDA0
 // 0x004BEDA0
-int ListBoxWrapper::sub_004BEDA0_ForwardSlot14(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxWrapper::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->sub_004BEB70_MouseMoveMsg(pMsg);
+    return pImpl->MsgSlot05(pMsg);
 }
 
+// build: symbol ?MsgSlot06@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BEDB0
 // 0x004BEDB0
-int ListBoxWrapper::sub_004BEDB0_ForwardSlot18(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxWrapper::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->sub_004BEBC0_KeyMsg(pMsg);
+    return pImpl->MsgSlot06(pMsg);
 }
 
 // build: symbol ?Slot11@ListBoxWrapper@@UAEHXZ 0x004BEDC0
 // 0x004BEDC0
 int ListBoxWrapper::Slot11()
 {
-    return pImpl->sub_004BEC30_GetSelectedIndex();
+    return pImpl->Slot11();
 }
 
 // build: symbol ?Slot01@ListBoxWrapper@@UAEXXZ 0x004BEDD0
@@ -751,10 +776,11 @@ void ListBoxWrapper::sub_004BEE10_Slot15()
     pImpl->sub_004BE0B0_Clear();
 }
 
+// build: symbol ?MsgSlot02@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BEE20
 // 0x004BEE20
-int ListBoxWrapper::sub_004BEE20_ForwardSlot08(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxWrapper::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->sub_004BE860_WheelMsg(pMsg);
+    return pImpl->MsgSlot02(pMsg);
 }
 
 // build: symbol ?Slot01@ListBoxImplementation@@UAEXXZ 0x004BEE90
@@ -844,7 +870,7 @@ void ListBoxImplementation::Slot01()
     {
         if (++nRepeatTicks && nRepeatTicks % 10)
         {
-            sub_004BE910_ScrollUp(&tMsg);
+            MsgSlot07(&tMsg);
         }
     }
     else if (nMouseX > tBar.nX && nMouseX < tBar.nX + 16 && nMouseY > tBar.nY + 12 * tBar.nRows - 12 && nMouseY < tBar.nY + 12 * tBar.nRows
@@ -852,15 +878,16 @@ void ListBoxImplementation::Slot01()
     {
         if (++nRepeatTicks && nRepeatTicks % 10)
         {
-            sub_004BE990_ScrollDown(&tMsg);
+            MsgSlot08(&tMsg);
         }
     }
 
     D2Win_10127_SetFont(nOldFont);
 }
 
+// build: symbol ?MsgSlot03@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BF430
 // 0x004BF430
-int ListBoxImplementation::sub_004BF430_MouseDownMsg(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxImplementation::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
 {
     if (!sub_004BE810_HitTestRect(pMsg))
     {
@@ -896,8 +923,9 @@ int ListBoxImplementation::sub_004BF430_MouseDownMsg(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
+// build: symbol ?MsgSlot04@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BF530
 // 0x004BF530
-int ListBoxImplementation::sub_004BF530(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxImplementation::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
 {
     if (!f_18071C)
     {
@@ -909,7 +937,7 @@ int ListBoxImplementation::sub_004BF530(SMSGHANDLER_PARAMS* pMsg)
     {
         bTopPressed = 0;
         if (HitTestScrollUp(pMsg) == 1)
-            sub_004BE910_ScrollUp(pMsg);
+            MsgSlot07(pMsg);
         nCallbackRow = -1;
         return 0;
     }
@@ -917,7 +945,7 @@ int ListBoxImplementation::sub_004BF530(SMSGHANDLER_PARAMS* pMsg)
     {
         bBottomPressed = 0;
         if (HitTestScrollDown(pMsg) == 1)
-            sub_004BE990_ScrollDown(pMsg);
+            MsgSlot08(pMsg);
         nCallbackRow = -1;
         return 0;
     }

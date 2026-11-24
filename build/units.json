@@ -28526,7 +28526,7 @@
     {
      "va": "0x004BE860",
      "length": 100,
-     "name": "sub_004BE860_WheelMsg"
+     "name": "?MsgSlot02@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BE8D0",
@@ -28536,12 +28536,12 @@
     {
      "va": "0x004BE910",
      "length": 123,
-     "name": "?sub_004BE910_ScrollUp@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?MsgSlot07@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BE990",
      "length": 159,
-     "name": "?sub_004BE990_ScrollDown@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?MsgSlot08@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BEA30",
@@ -28561,17 +28561,17 @@
     {
      "va": "0x004BEB70",
      "length": 76,
-     "name": "sub_004BEB70_MouseMoveMsg"
+     "name": "?MsgSlot05@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BEBC0",
      "length": 97,
-     "name": "sub_004BEBC0_KeyMsg"
+     "name": "?MsgSlot06@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BEC30",
      "length": 7,
-     "name": "?sub_004BEC30_GetSelectedIndex@ListBoxImplementation@@UAEHXZ"
+     "name": "?Slot11@ListBoxImplementation@@UAEHXZ"
     },
     {
      "va": "0x004BEC40",
@@ -28591,42 +28591,42 @@
     {
      "va": "0x004BED40",
      "length": 14,
-     "name": "sub_004BED40_ForwardSlot20"
+     "name": "?MsgSlot08@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BED50",
      "length": 14,
-     "name": "sub_004BED50_ForwardSlot1C"
+     "name": "?MsgSlot07@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BED60",
      "length": 14,
-     "name": "sub_004BED60_ForwardSlot24"
+     "name": "?MsgSlot09@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BED70",
      "length": 14,
-     "name": "sub_004BED70_ForwardSlot28"
+     "name": "?MsgSlot10@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BED80",
      "length": 14,
-     "name": "sub_004BED80_ForwardSlot0C"
+     "name": "?MsgSlot03@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BED90",
      "length": 14,
-     "name": "sub_004BED90_ForwardSlot10"
+     "name": "?MsgSlot04@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BEDA0",
      "length": 14,
-     "name": "sub_004BEDA0_ForwardSlot14"
+     "name": "?MsgSlot05@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BEDB0",
      "length": 14,
-     "name": "sub_004BEDB0_ForwardSlot18"
+     "name": "?MsgSlot06@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BEDC0",
@@ -28661,7 +28661,7 @@
     {
      "va": "0x004BEE20",
      "length": 14,
-     "name": "sub_004BEE20_ForwardSlot08"
+     "name": "?MsgSlot02@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BEE30",
@@ -28675,12 +28675,12 @@
     {
      "va": "0x004BF430",
      "length": 256,
-     "name": "sub_004BF430_MouseDownMsg"
+     "name": "?MsgSlot03@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BF530",
      "length": 281,
-     "name": "?sub_004BF530@ListBox@@QAEHPAUMessage@@@Z"
+     "name": "?MsgSlot04@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x004BF650",
