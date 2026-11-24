@@ -78329,6 +78329,19 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x006BE310",
+     "length": 53
+    },
+    {
+     "va": "0x006BE350",
+     "length": 55
+    },
+    {
+     "va": "0x006BE390",
+     "length": 36,
+     "name": "?FOG_10186@@YGHPAUD2Object006BE390Strc@@HH@Z"
+    },
+    {
      "va": "0x006BE3C0",
      "length": 132
     },
@@ -79421,19 +79434,6 @@
      "va": "0x006BE300",
      "length": 1,
      "name": "?sub_006BE300_Nop@@YAXPBD0H@Z"
-    },
-    {
-     "va": "0x006BE310",
-     "length": 53
-    },
-    {
-     "va": "0x006BE350",
-     "length": 55
-    },
-    {
-     "va": "0x006BE390",
-     "length": 36,
-     "name": "?FOG_10186@@YGHPAUD2Object006BE390Strc@@HH@Z"
     }
    ]
   },
