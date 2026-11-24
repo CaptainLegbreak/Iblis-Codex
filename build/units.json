@@ -36824,43 +36824,47 @@
      "name": "?sub_00511FB0_DrawImage@@YIHPAXHHIH0@Z"
     },
     {
+     "va": "0x005120A0",
+     "length": 245
+    },
+    {
+     "va": "0x005121A0",
+     "length": 171
+    },
+    {
      "va": "0x00512250",
      "length": 133
+    },
+    {
+     "va": "0x005122E0",
+     "length": 188
     },
     {
      "va": "0x005123B0",
      "length": 92,
      "name": "?sub_005123B0_DDrawDebugFillBackBuffer@@YIXHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_005120A0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
-     "va": "0x005120A0",
-     "length": 245
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_005121A0.cpp",
-   "rank": 1,
-   "functions": [
+     "va": "0x00512710",
+     "length": 408,
+     "name": "?sub_00512710_DDrawDrawBox@@YIXHHHHIH@Z"
+    },
     {
-     "va": "0x005121A0",
-     "length": 171
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_005122E0.cpp",
-   "rank": 1,
-   "functions": [
+     "va": "0x00512930",
+     "length": 281
+    },
     {
-     "va": "0x005122E0",
-     "length": 188
+     "va": "0x00512C20",
+     "length": 179
+    },
+    {
+     "va": "0x00512CE0",
+     "length": 163
+    },
+    {
+     "va": "0x00512D90",
+     "length": 232,
+     "name": "?sub_00512D90_DDrawUtilFilledRect@@YIXPAUtagRECT@@E@Z"
     }
    ]
   },
@@ -36913,52 +36917,6 @@
     {
      "va": "0x005131B0",
      "length": 262
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_00512710.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00512710",
-     "length": 408,
-     "name": "?sub_00512710_DDrawDrawBox@@YIXHHHHIH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_00512930.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00512930",
-     "length": 281
-    },
-    {
-     "va": "0x00512D90",
-     "length": 232,
-     "name": "?sub_00512D90_DDrawUtilFilledRect@@YIXPAUtagRECT@@E@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_00512C20.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00512C20",
-     "length": 179
-    }
-   ]
-  },
-  {
-   "file": "Source/D2DDraw/Unknown_00512CE0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00512CE0",
-     "length": 163
     }
    ]
   },
