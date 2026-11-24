@@ -3,6 +3,8 @@
 #include "D2GameStrc.h"
 #include "D2EventTimer.h"
 #include "D2Structs.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00731448
 
 #define EVENTROW_PLAYER 0
 

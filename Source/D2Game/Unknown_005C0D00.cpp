@@ -22,6 +22,8 @@
 #include "D2ItemModes.h"
 #include "D2Records.h"
 #include "D2GameAux.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x007418C4
 
 #define IFLAG_TARGETING 4
 

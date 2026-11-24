@@ -14,6 +14,8 @@
 #include "D2GameRecords.h"
 #include "D2GameObjs.h"
 #include "D2Packets.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x007326B8
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -1137,4 +1139,3 @@ void __fastcall sub_M120_Emit_00571790(D2UnitStrc* pUnit, D2UnitPacketListStrc* 
 }
 
 
-#include "gen/data/Source/D2Game/UNIT/SUnitMsg.inc"

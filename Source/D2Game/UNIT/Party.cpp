@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x0073140C
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -664,4 +666,3 @@ int __fastcall PARTY_ShareGoldDrop(D2GameStrc* pGame, D2UnitStrc* pUnit, int nGo
     return nGoldToDrop;
 }
 
-#include "gen/data/Source/D2Game/UNIT/Party.inc"
