@@ -30,16 +30,6 @@ extern "C" unsigned int __cdecl _rotl(unsigned int nValue, int nShift);
 
 #define R4(v,w,x,y,z,i) z+=(w^x^y)+blk(i)+0xCA62C1D6+rol(v,5);w=rol(w,30);
 
-struct Context00529F50 {
-    unsigned int dwH0;
-    unsigned int dwH1;
-    unsigned int dwH2;
-    unsigned int dwH3;
-    unsigned int dwH4;
-    unsigned int dwCountLow;
-    unsigned int dwCountHigh;
-};
-
 struct D2SrpSha1ContextStrc
 {
     unsigned int aState[5];
@@ -118,13 +108,14 @@ void __fastcall sub_00529F80_SHA1Update(FindSignatureTag* context, unsigned char
 }
 
 // 0x00529F50
-extern "C" __declspec(dllexport) __declspec(noinline) void __fastcall sub_00529F50(Context00529F50* pContext) {
-    pContext->dwH0 = 0x67452301;
-    pContext->dwH1 = 0xEFCDAB89;
-    pContext->dwH2 = 0x98BADCFE;
-    pContext->dwH3 = 0x10325476;
-    pContext->dwH4 = 0xC3D2E1F0;
-    pContext->dwCountLow = pContext->dwCountHigh = 0;
+void __fastcall sub_00529F50_Sha1Init(FindSignatureTag* context)
+{
+    context->state[0] = 0x67452301;
+    context->state[1] = 0xEFCDAB89;
+    context->state[2] = 0x98BADCFE;
+    context->state[3] = 0x10325476;
+    context->state[4] = 0xC3D2E1F0;
+    context->count[0] = context->count[1] = 0;
 }
 
 // 0x0052A120
@@ -156,7 +147,7 @@ unsigned char* __fastcall SHA_Interleave(unsigned char* key, const unsigned char
 
     for (i = 0; i < klen; ++i)
         hbuf[i] = sk[i * 2];
-    sub_00529F50((Context00529F50*)&ctxt);
+    sub_00529F50_Sha1Init(&ctxt);
     sub_00529F80_SHA1Update(&ctxt, hbuf, klen);
     sub_0052A040_Sha1Final(hout, (D2SrpSha1ContextStrc*)&ctxt);
     for (i = 0; i < sizeof(hout); ++i)
@@ -164,7 +155,7 @@ unsigned char* __fastcall SHA_Interleave(unsigned char* key, const unsigned char
 
     for (i = 0; i < klen; ++i)
         hbuf[i] = sk[i * 2 + 1];
-    sub_00529F50((Context00529F50*)&ctxt);
+    sub_00529F50_Sha1Init(&ctxt);
     sub_00529F80_SHA1Update(&ctxt, hbuf, klen);
     sub_0052A040_Sha1Final(hout, (D2SrpSha1ContextStrc*)&ctxt);
     for (i = 0; i < sizeof(hout); ++i)

@@ -23,7 +23,6 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 
 #define R4(v,w,x,y,z,i) z+=(w^x^y)+blk(i)+0xCA62C1D6+rol(v,5);w=rol(w,30);
 
-struct Obj005284F0;
 
 struct D2BigServerRecordStrc;
 
@@ -35,7 +34,6 @@ struct Context00529F50;
 
 struct D2SrpSha1ContextStrc;
 
-struct Obj005284F0 { unsigned int dwValue00; };
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
@@ -146,7 +144,8 @@ D2BigPairStrc::D2BigPairStrc()
     pState = pMemory ? new (pMemory) D2BigPowModStrc : 0;
 }
 
-static __declspec(noinline) int sub_005284F0_IsValid(D2BigPowModStrc* pState)
+// 0x005284F0
+int __fastcall sub_005284F0_IsValid(D2BigPowModStrc* pState)
 {
     return pState->bValid != 0;
 }
@@ -190,11 +189,6 @@ void D2BigPairStrc::sub_00528660_MakeVerifier(const char* szName, const char* sz
 inline void D2BigPowModStrc::operator delete(void* pMemory)
 {
     SMemFree(pMemory, "delete", -1, 0);
-}
-
-// 0x005284F0
-extern "C" __declspec(dllexport) int __fastcall sub_005284F0(Obj005284F0* pObj) {
-    return pObj->dwValue00 != 0;
 }
 
 // 0x00528620
