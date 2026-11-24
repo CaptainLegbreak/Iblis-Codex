@@ -111,7 +111,7 @@ struct D2PixelFormat006B1B60Strc
 extern D2PixelFormat006B1B60Strc gtWantedFormat_0074C024; // 0x0074C024
 extern const unsigned long gnFormatCap_006CE28C; // 0x006CE28C
 
-#define DD_CHECK(expr,message) { error=(expr); if(error) { D3D_LogDDrawError(message,error); goto Fail; } }
+#define DD_CHECK(expr,message) { error=(expr); if(error) { D3DCORE_LogDDrawError(message,error); goto Fail; } }
 
 #define D3D_CHECK(expr,message) { error=(expr); if(error) { msg=message; goto D3DFail; } }
 
@@ -384,21 +384,21 @@ extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
 
 extern "C" __declspec(dllimport) int __stdcall MoveWindow(void*,int,int,int,int,int); // 0x006CC444
 
-void __fastcall D3D_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
+void __fastcall D3DCORE_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
 
 void __fastcall sub_006B39B0_ShowD3DError(const char*,long); // 0x006B39B0
 
-void __cdecl D3D_ReleaseResources(); // 0x006B3320
+void __cdecl D3DCORE_ReleaseResources(); // 0x006B3320
 
 void __cdecl sub_006B3080(); // 0x006B3080
 
-void __cdecl D3D_CreateTileSurfaces(); // 0x006BB5E0
+void __cdecl D3DFLOORCACHE_CreateTileSurfaces(); // 0x006BB5E0
 
 void __cdecl sub_006B8F10(); // 0x006B8F10
 
-void __fastcall D3D_SetTextureFilterMode(int); // 0x006B2030
+void __fastcall D3DCORE_SetTextureFilterMode(int); // 0x006B2030
 
-static int D3D_InitFullscreen(void*,int); // 0x006B4FD0
+static int D3DCORE_InitFullscreen(void*,int); // 0x006B4FD0
 
 struct D2DDSurfaceDesc006B58A0Strc
 {
@@ -455,7 +455,7 @@ extern "C" int __cdecl atexit(void (__cdecl* pfnExit)()); // 0x00683824
 
 int __stdcall sub_006B1350_DirectDrawCreate(D2GuidStrc* pGuid, D2ComObjectStrc** ppDD, void* pUnkOuter); // 0x006B1350
 
-void __cdecl D3D_CloseAtExit(); // 0x006B5990
+void __cdecl D3DCORE_CloseAtExit(); // 0x006B5990
 
 void __cdecl sub_006B80A0_InitializeDrawingGeometry(); // 0x006B80A0
 
@@ -463,7 +463,7 @@ void __cdecl sub_006B96C0_BuildScaleTable(); // 0x006B96C0
 
 void __cdecl sub_006B97D0_BuildScaleTable(); // 0x006B97D0
 
-void __cdecl D3D_SmackInit(); // 0x006B9A10
+void __cdecl D3DSMACK_SmackInit(); // 0x006B9A10
 
 extern const unsigned int gnDeviceFlagMask_006CE268; // 0x006CE268
 
@@ -491,7 +491,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 
 D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
 
-int __cdecl D3D_Close(); // 0x006B5550
+int __cdecl D3DCORE_Close(); // 0x006B5550
 
 struct D2ComObject006B5550Strc;
 
@@ -519,7 +519,7 @@ extern int gn_007C9140; // 0x007C9140
 
 extern D2ComObject006B5550Strc* gpObject_00970E60; // 0x00970E60
 
-extern "C" void __cdecl D3D_SmackFree(); // 0x006B9B00
+extern "C" void __cdecl D3DSMACK_SmackFree(); // 0x006B9B00
 
 extern D2CriticalSectionStrc* gpCriticalSection_007C9134; // 0x007C9134
 
@@ -527,7 +527,7 @@ extern int gnPaused_007C9144; // 0x007C9144
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc*);
 
-void __fastcall D3D_CreateSurface(int, int); // 0x006B55E0
+void __fastcall D3DCORE_CreateSurface(int, int); // 0x006B55E0
 
 int gnState_00970E54; // 0x00970E54
 
@@ -545,7 +545,7 @@ void __cdecl sub_006B32B0_ReleaseRenderer(); // 0x006B32B0
 
 void __cdecl sub_006B9150_ReleaseResource(); // 0x006B9150
 
-void __cdecl D3D_ReleaseTileSurfaces(); // 0x006BB640
+void __cdecl D3DFLOORCACHE_ReleaseTileSurfaces(); // 0x006BB640
 
 unsigned int gadwColors[256]; // 0x009702C0
 
@@ -622,7 +622,7 @@ int gbD3DInitialized_00970E48; // 0x00970E48
 
 D2ComObjectStrc* gpDirectDraw4_00970E60; // 0x00970E60
 
-int __cdecl D3D_InitCutsceneMode(); // 0x006B3420
+int __cdecl D3DCORE_InitCutsceneMode(); // 0x006B3420
 
 extern unsigned int gnRenderFlags_0096F3A8; // 0x0096F3A8
 
@@ -714,17 +714,17 @@ struct D2Cache006BA830Strc
     int unk0x00[7];
 };
 
-void __cdecl D3D_ReleaseSprites(); // 0x006B5B10
+void __cdecl D3DSPRITE_ReleaseSprites(); // 0x006B5B10
 
 void __cdecl sub_006B7250_ReleaseAll(); // 0x006B7250
 
-void __cdecl D3D_ReleaseSmackSurfaces(); // 0x006B9B30
+void __cdecl D3DSMACK_ReleaseSmackSurfaces(); // 0x006B9B30
 
 void __fastcall sub_006BA830_FreeCache(D2Cache006BA830Strc* pCache, int bFree); // 0x006BA830
 
-void __fastcall D3D_SubtileCacheDestroy(D2Object006BADC0Strc* pObject, int bFree); // 0x006BADC0
+void __fastcall D3DSUBTILECACHE_SubtileCacheDestroy(D2Object006BADC0Strc* pObject, int bFree); // 0x006BADC0
 
-void __fastcall D3D_FloorCacheDestroy(D2Object006BB3E0Strc* pObject, int bFree); // 0x006BB3E0
+void __fastcall D3DFLOORCACHE_FloorCacheDestroy(D2Object006BB3E0Strc* pObject, int bFree); // 0x006BB3E0
 
 extern int gdwGlobal_00970E8C; // 0x00970E8C
 
@@ -829,7 +829,7 @@ extern D2GammaControlStrc* gpGammaControl_00970E74; // 0x00970E74
 
 void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dScale, int nStride, int nEntries, int nMask); // 0x006BE190
 
-void __fastcall D3D_LogDDrawError(const char* szMessage, int nResult); // 0x006B20E0
+void __fastcall D3DCORE_LogDDrawError(const char* szMessage, int nResult); // 0x006B20E0
 
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nBytes);
 
@@ -964,7 +964,7 @@ void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...) throw();        
 
 void __cdecl sub_0051793E_FormatAndRaise(unsigned long dwError, ...); // 0x0051793E
 
-void __fastcall D3D_LogDDrawError(const char* szMessage, long hResult) throw();                      // 0x006B20E0
+void __fastcall D3DCORE_LogDDrawError(const char* szMessage, long hResult) throw();                      // 0x006B20E0
 
 void __fastcall sub_006B2F60_SaveVideoConfig(int nRender, int nDevice);                                     // 0x006B2F60
 
@@ -1064,9 +1064,9 @@ typedef char CheckD3DCapsSize[sizeof(D3DDEVICEDESC)==0xfc?1:-1];
 typedef char CheckIdentifierSize[sizeof(DDDEVICEIDENTIFIER)==0x428?1:-1];
 typedef char CheckRendererSize[sizeof(D2RendererInfoStrc)==0x3c0?1:-1];
 extern "C" char* __cdecl sub_00687330_Strncpy(char*,const char*,unsigned int); // 0x00687330
-void __fastcall D3D_LogDDrawError(const char*,HRESULT) throw(); // 0x006B20E0
+void __fastcall D3DCORE_LogDDrawError(const char*,HRESULT) throw(); // 0x006B20E0
 void __fastcall sub_006B39B0_ShowD3DError(const char* text,long result); // 0x006B39B0
-int __stdcall D3D_EnumerateDisplayMode(DDSURFACEDESC2*,void*); // 0x006B3FD0
+int __stdcall D3DCORE_EnumerateDisplayMode(DDSURFACEDESC2*,void*); // 0x006B3FD0
 int __stdcall sub_006B1B60_EnumTextureFormat(void*,void*); // 0x006B1B60
 extern IDirectDraw4* gpIDirectDraw4_00970E60; // 0x00970E60
 extern IDirect3D3* gpIDirect3D3_00970E64; // 0x00970E64
@@ -1143,8 +1143,8 @@ struct D2FloorCacheStrc;
 struct D2SubtileCacheStrc;
 struct D2TextureCacheStrc;
 
-void __fastcall D3D_FloorCacheDestroy(D2FloorCacheStrc* pCache, int bFree); // 0x006BB3E0
-void __fastcall D3D_SubtileCacheDestroy(D2SubtileCacheStrc* pCache, int bFree); // 0x006BADC0
+void __fastcall D3DFLOORCACHE_FloorCacheDestroy(D2FloorCacheStrc* pCache, int bFree); // 0x006BB3E0
+void __fastcall D3DSUBTILECACHE_SubtileCacheDestroy(D2SubtileCacheStrc* pCache, int bFree); // 0x006BADC0
 void __fastcall sub_006BA830_FreeTextureCache(D2TextureCacheStrc* pCache, int bFree); // 0x006BA830
 
 extern D2FloorCacheStrc gtFloorCache; // 0x0096FC9C
@@ -1265,8 +1265,8 @@ int __stdcall sub_006B1B60_EnumTextureFormat(D2PixelFormat006B1B60Strc* pFormat,
 // 0x006B1BC0
 void __fastcall sub_006B1BC0_ClearCaches()
 {
-    D3D_FloorCacheDestroy(&gtFloorCache, 0);
-    D3D_SubtileCacheDestroy(&gSubtileCache_0096FC80, 0);
+    D3DFLOORCACHE_FloorCacheDestroy(&gtFloorCache, 0);
+    D3DSUBTILECACHE_SubtileCacheDestroy(&gSubtileCache_0096FC80, 0);
     sub_006BA830_FreeTextureCache(&gTextureCache_00970EC8, 0);
     sub_006BA830_FreeTextureCache(&gTextureCache_00970EE4, 0);
     sub_006BA830_FreeTextureCache(&gTextureCache_00970F00, 0);
@@ -1291,7 +1291,7 @@ unsigned int __cdecl sub_006B1C20_GetMaskedFlags()
 }
 
 // 0x006B1C30
-int __cdecl D3D_FlipPrimary()
+int __cdecl D3DCORE_FlipPrimary()
 {
     if (gpConfig_007C9148->bVSync)
         ((D2DDFlipFn)gpPrimarySurface->lpVtbl[11])(gpPrimarySurface, 0, 1);
@@ -1301,14 +1301,14 @@ int __cdecl D3D_FlipPrimary()
 }
 
 // 0x006B1C60
-void __fastcall D3D_GetScreenSize(int* pWidth, int* pHeight)
+void __fastcall D3DCORE_GetScreenSize(int* pWidth, int* pHeight)
 {
     *pWidth = gnRenderWidth;
     *pHeight = gnRenderHeight;
 }
 
 // 0x006B1C70
-void __fastcall D3D_SetPalette(tagPALETTEENTRY* pPalette)
+void __fastcall D3DCORE_SetPalette(tagPALETTEENTRY* pPalette)
 {
     for (int i = 0; i < 256; ++i)
     {
@@ -1334,20 +1334,20 @@ void __fastcall D3D_SetPalette(tagPALETTEENTRY* pPalette)
 }
 
 // 0x006B1D50
-unsigned int __fastcall D3D_GetColor(unsigned int nIndex)
+unsigned int __fastcall D3DCORE_GetColor(unsigned int nIndex)
 {
     return gadwColors[nIndex];
 }
 
 // 0x006B1D60
-void __fastcall D3D_SetPaletteView(const D2PaletteTableStrc* pSource)
+void __fastcall D3DCORE_SetPaletteView(const D2PaletteTableStrc* pSource)
 {
     gPaletteView_0096F280 = *pSource;
     gpGfxPaletteView_007C9150 = &gPaletteView_0096F280;
 }
 
 // 0x006B1D80
-void __fastcall D3D_CopyRows(char* pSrc, char* pDst, int nBytes, int nRows, int nDstPitch, int nUnused)
+void __fastcall D3DCORE_CopyRows(char* pSrc, char* pDst, int nBytes, int nRows, int nDstPitch, int nUnused)
 {
     for (int i = 0; i < nRows; ++i)
     {
@@ -1358,7 +1358,7 @@ void __fastcall D3D_CopyRows(char* pSrc, char* pDst, int nBytes, int nRows, int 
 }
 
 // 0x006B1DC0
-void __fastcall D3D_BlitIndexedToHighColor(const unsigned char* pSrc, unsigned short* pDst, int nWidth, int nHeight, int nDstPitch, int nUnused)
+void __fastcall D3DCORE_BlitIndexedToHighColor(const unsigned char* pSrc, unsigned short* pDst, int nWidth, int nHeight, int nDstPitch, int nUnused)
 {
     unsigned short* pRowDst = pDst;
     const unsigned char* pRowSrc = pSrc;
@@ -1376,7 +1376,7 @@ void __fastcall D3D_BlitIndexedToHighColor(const unsigned char* pSrc, unsigned s
 }
 
 // 0x006B1E30
-void __fastcall D3D_Blit8To32(const unsigned char* pSource, unsigned int* pDest, int nWidth, int nHeight, int nPitch, int nUnused)
+void __fastcall D3DCORE_Blit8To32(const unsigned char* pSource, unsigned int* pDest, int nWidth, int nHeight, int nPitch, int nUnused)
 {
     unsigned int* pDRow = pDest;
     const unsigned char* pRow = pSource;
@@ -1405,7 +1405,7 @@ void __fastcall D3D_Blit8To32(const unsigned char* pSource, unsigned int* pDest,
 }
 
 // 0x006B1EA0
-void __fastcall D3D_SetColorCombineMode(int nState)
+void __fastcall D3DCORE_SetColorCombineMode(int nState)
 {
     if (gnState_00970E54 && nState == gnState_00970E54)
         return;
@@ -1426,7 +1426,7 @@ void __fastcall D3D_SetColorCombineMode(int nState)
 }
 
 // 0x006B1F40
-void __fastcall D3D_SetAlphaBlendMode(int nState)
+void __fastcall D3DCORE_SetAlphaBlendMode(int nState)
 {
     if (gnState_00970E58 && nState == gnState_00970E58)
         return;
@@ -1457,7 +1457,7 @@ void __fastcall D3D_SetAlphaBlendMode(int nState)
 }
 
 // 0x006B2030
-void __fastcall D3D_SetTextureFilterMode(int nMode)
+void __fastcall D3DCORE_SetTextureFilterMode(int nMode)
 {
     if (gnFilterMode && nMode == gnFilterMode)
     {
@@ -1490,7 +1490,7 @@ int __cdecl sub_006B20B0()
 }
 
 // 0x006B3320
-void __cdecl D3D_ReleaseResources()
+void __cdecl D3DCORE_ReleaseResources()
 {
     if (!gbVideoUp)
     {
@@ -1498,7 +1498,7 @@ void __cdecl D3D_ReleaseResources()
     }
 
     sub_006B9150_ReleaseResource();
-    D3D_ReleaseTileSurfaces();
+    D3DFLOORCACHE_ReleaseTileSurfaces();
     sub_006B32B0_ReleaseRenderer();
 
     if (gpViewport)
@@ -1518,7 +1518,7 @@ void __cdecl D3D_ReleaseResources()
         const long hResult = ((D2DDSetGammaRampFn)gpGammaControl->lpVtbl[4])(gpGammaControl, 0, gabGammaRamp);
         if (hResult && hResult != (long)0x887601C2)
         {
-            D3D_LogDDrawError("Failed to restore original gamma ramp", hResult);
+            D3DCORE_LogDDrawError("Failed to restore original gamma ramp", hResult);
         }
         ((D2ComReleaseFn)gpGammaControl->lpVtbl[2])(gpGammaControl);
         gpGammaControl = 0;
@@ -1547,15 +1547,15 @@ void __cdecl D3D_ReleaseResources()
 }
 
 // 0x006B3400
-int __cdecl D3D_ReleaseWindow()
+int __cdecl D3DCORE_ReleaseWindow()
 {
-    D3D_ReleaseResources();
+    D3DCORE_ReleaseResources();
     ghDDrawWindow_007C9140 = 0;
     return 1;
 }
 
 // 0x006B3420
-int __cdecl D3D_InitCutsceneMode()
+int __cdecl D3DCORE_InitCutsceneMode()
 {
     D2_ASSERT(!gbVideoUp, 0x7CB);
 
@@ -1592,7 +1592,7 @@ int __cdecl D3D_InitCutsceneMode()
     {
         szError = "Failed to create primary surface for cutscenes";
 fail:
-        D3D_LogDDrawError(szError, hResult);
+        D3DCORE_LogDDrawError(szError, hResult);
         LOGMANAGER_WriteLogLine("Opening Direct3D window for cutscenes failed!");
         return 0;
     }
@@ -1603,7 +1603,7 @@ fail:
 }
 
 // 0x006B3530
-int __cdecl D3D_BeginCutScene()
+int __cdecl D3DCORE_BeginCutScene()
 {
 // build: symbol ?gbRenderPaused@* 0x007C9144
     if (gbRenderPaused)
@@ -1616,8 +1616,8 @@ int __cdecl D3D_BeginCutScene()
         return 1;
     }
 
-    D3D_ReleaseResources();
-    return D3D_InitCutsceneMode();
+    D3DCORE_ReleaseResources();
+    return D3DCORE_InitCutsceneMode();
 }
 
 struct D2GammaRampStrc
@@ -1628,7 +1628,7 @@ struct D2GammaRampStrc
 };
 
 // 0x006B3570
-void __fastcall D3D_SetGamma(int nGamma)
+void __fastcall D3DCORE_SetGamma(int nGamma)
 {
     D2GammaRampStrc ramp;
     if (gnCapabilities_0096F3A8 & gnGammaMask_006CE278)
@@ -1640,13 +1640,13 @@ void __fastcall D3D_SetGamma(int nGamma)
         {
             int nResult = ((D2DDSetGammaRampFn)gpGammaControl->lpVtbl[4])(gpGammaControl, 0, &ramp);
             if (nResult)
-                D3D_LogDDrawError("Failed to set gamma ramp", nResult);
+                D3DCORE_LogDDrawError("Failed to set gamma ramp", nResult);
         }
     }
 }
 
 // 0x006B3610
-int __fastcall D3D_GetBackBuffer(unsigned char* pDst)
+int __fastcall D3DCORE_GetBackBuffer(unsigned char* pDst)
 {
     D2DDSurfaceDesc2Strc tDesc = { sizeof(D2DDSurfaceDesc2Strc) };
     if (!gpSurface_00970E6C)
@@ -1657,7 +1657,7 @@ int __fastcall D3D_GetBackBuffer(unsigned char* pDst)
     long hResult = gpSurface_00970E6C->lpVtbl->Lock(gpSurface_00970E6C, 0, &tDesc, 0x11, 0);
     if (hResult)
     {
-        D3D_LogDDrawError("Lock failed!", hResult);
+        D3DCORE_LogDDrawError("Lock failed!", hResult);
         return 0;
     }
 
@@ -1682,14 +1682,14 @@ int __fastcall D3D_GetBackBuffer(unsigned char* pDst)
     hResult = gpSurface_00970E6C->lpVtbl->Unlock(gpSurface_00970E6C, 0);
     if (hResult)
     {
-        D3D_LogDDrawError("Unlock failed!", hResult);
+        D3DCORE_LogDDrawError("Unlock failed!", hResult);
         return 0;
     }
     return 1;
 }
 
 // 0x006B3730
-int __fastcall D3D_CreateMemoryTexture(D2ComObject006B58A0Strc** ppSurface, D2ComObject006B58A0Strc** ppTexture, unsigned int nWidth, unsigned int nHeight)
+int __fastcall D3DCORE_CreateMemoryTexture(D2ComObject006B58A0Strc** ppSurface, D2ComObject006B58A0Strc** ppTexture, unsigned int nWidth, unsigned int nHeight)
 {
     D2DDSurfaceDesc006B58A0Strc tDesc = { sizeof(tDesc) };
     tDesc.dwFlags = 0x1007;
@@ -1700,13 +1700,13 @@ int __fastcall D3D_CreateMemoryTexture(D2ComObject006B58A0Strc** ppSurface, D2Co
     long hResult = gpDirectDraw4->lpVtbl->CreateSurface(gpDirectDraw4, &tDesc, ppSurface, 0);
     if (hResult)
     {
-        D3D_LogDDrawError("CreateSurface (memory surface)", hResult);
+        D3DCORE_LogDDrawError("CreateSurface (memory surface)", hResult);
         return 0;
     }
     hResult = (*ppSurface)->lpVtbl->QueryInterface(*ppSurface, gabIidTexture, (void**)ppTexture);
     if (hResult)
     {
-        D3D_LogDDrawError("Failed to get texture interface for memory surface", hResult);
+        D3DCORE_LogDDrawError("Failed to get texture interface for memory surface", hResult);
         (*ppSurface)->lpVtbl->Release(*ppSurface);
         return 0;
     }
@@ -1723,7 +1723,7 @@ void __cdecl sub_006B3800_Flush()
     int nResult = pSurface->f_0->Lock(pSurface, 0, &desc, 0x21, 0);
     if (nResult)
     {
-        D3D_LogDDrawError("Failed to lock render surface for clear", nResult);
+        D3DCORE_LogDDrawError("Failed to lock render surface for clear", nResult);
         return;
     }
     int nHeight = gnRenderHeight;
@@ -1739,7 +1739,7 @@ void __cdecl sub_006B3800_Flush()
 }
 
 // 0x006B38A0
-void __fastcall D3D_CopySurface(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, unsigned int nRows)
+void __fastcall D3DCORE_CopySurface(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, unsigned int nRows)
 {
     unsigned char* pSrcBits;
     unsigned char* pDstBits;
@@ -1749,7 +1749,7 @@ void __fastcall D3D_CopySurface(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, un
     long hResult = pSrc->lpVtbl->Lock(pSrc, 0, &tSrcDesc, 0x21, 0);
     if (hResult)
     {
-        D3D_LogDDrawError(gszFailedToLockSource, hResult);
+        D3DCORE_LogDDrawError(gszFailedToLockSource, hResult);
     }
     else
     {
@@ -1758,7 +1758,7 @@ void __fastcall D3D_CopySurface(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, un
         hResult = pDst->lpVtbl->Lock(pDst, 0, &tDstDesc, 0x21, 0);
         if (hResult)
         {
-            D3D_LogDDrawError(gszFailedToLockDest, hResult);
+            D3DCORE_LogDDrawError(gszFailedToLockDest, hResult);
         }
         else
         {
@@ -1919,13 +1919,13 @@ void __fastcall sub_006B39B0_ShowD3DError(const char* text,long result)
     case (long)0x88760306: name="D3DERR_VIEWPORTHASNODEVICE"; break;
     case (long)0x88760307: name="D3DERR_NOCURRENTVIEWPORT"; break;
     case 0: name="D3D_OK"; break;
-    default: D3D_LogDDrawError(text,result); return;
+    default: D3DCORE_LogDDrawError(text,result); return; // 0x006B20E0
     }
     LOGMANAGER_WriteLogLine("***** Direct3D error: %s - %s (0x%x)",text,name,result);
 }
 
 // 0x006B3FD0
-int __stdcall D3D_EnumerateDisplayMode(D2SurfaceDescStrc* mode,D2DisplayContextStrc* context)
+int __stdcall D3DCORE_EnumerateDisplayMode(D2SurfaceDescStrc* mode,D2DisplayContextStrc* context)
 {
     D2SurfaceStrc* primary=0;
     D2SurfaceStrc* attached=0;
@@ -1949,21 +1949,21 @@ int __stdcall D3D_EnumerateDisplayMode(D2SurfaceDescStrc* mode,D2DisplayContextS
     if(mode->bits==32 && mode->width==ganWidths[1] && mode->height==ganHeights[1]) flags|=gdwBitMasks_006CE268[0];
     if(!flags) goto done;
     result=gpDraw_00970E60->SetCooperativeLevel(ghWindow_00970E84,0x11);
-    if(result && result!=(long)0x88760245) { D3D_LogDDrawError(gszCoop,result); goto cleanup; }
+    if(result && result!=(long)0x88760245) { D3DCORE_LogDDrawError(gszCoop,result); goto cleanup; }
     result=gpDraw_00970E60->SetDisplayMode(mode->width,mode->height,mode->bits,mode->refresh,0);
-    if(result) { D3D_LogDDrawError(gszSetDisplayModeFailed,result); goto cleanup; }
+    if(result) { D3DCORE_LogDDrawError(gszSetDisplayModeFailed,result); goto cleanup; }
     if(!(flags&gdwBitMasks_006CE268[0]) && !(flags&gdwBitMasks_006CE268[1])) {
         desc.size=sizeof(desc); memset(&desc.flags,0,sizeof(desc)-4); desc.flags=1; desc.caps=0x4200;
         result=gpDraw_00970E60->CreateSurface(&desc,&primary,0);
-        if(result) { D3D_LogDDrawError(gszCutscene,result); goto cleanup; }
+        if(result) { D3DCORE_LogDDrawError(gszCutscene,result); goto cleanup; }
     }
     else {
         desc.size=sizeof(desc); memset(&desc.flags,0,sizeof(desc)-4); desc.flags=0x21; desc.caps=0x6218; desc.backBuffers=1;
         result=gpDraw_00970E60->CreateSurface(&desc,&primary,0);
-        if(result) { D3D_LogDDrawError(gszPrimary,result); goto cleanup; }
+        if(result) { D3DCORE_LogDDrawError(gszPrimary,result); goto cleanup; }
         memset(&caps,0,sizeof(caps)); caps.caps=4;
         result=primary->GetAttachedSurface(&caps,&attached);
-        if(result) { D3D_LogDDrawError(gszAttached,result); goto cleanup; }
+        if(result) { D3DCORE_LogDDrawError(gszAttached,result); goto cleanup; }
         gpD3D_00970E64->CreateDevice(gadwHalGuid,attached,&device,0);
         if(!device) { sub_006B39B0_ShowD3DError(gszCreateHalDeviceFailed,0); goto cleanup; }
     }
@@ -2000,9 +2000,9 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(D2DDGuidStrc* guid,char* descript
   if(!guid) display->flags|=gFlag_006CE268;
   else { display->flags&=gFlag_006CE2E8; display->guid=*guid; }
   HRESULT hr=sub_006B1350_DirectDrawCreate((D2GuidStrc*)guid,(D2ComObjectStrc**)&dd,0);
-  if(hr) { D3D_LogDDrawError(gszEnumDirectDrawCreateFailed,hr); goto Cleanup; }
+  if(hr) { D3DCORE_LogDDrawError(gszEnumDirectDrawCreateFailed,hr); goto Cleanup; }
   hr=dd->vtbl->QueryInterface(dd,&gIIDDirectDraw4,(void**)&gpIDirectDraw4_00970E60);
-  if(hr) { D3D_LogDDrawError(gszEnumGetDirectDraw4Failed,hr); goto Cleanup; }
+  if(hr) { D3DCORE_LogDDrawError(gszEnumGetDirectDraw4Failed,hr); goto Cleanup; }
   dd->vtbl->Release(dd); dd=0;
 
   DDDEVICEIDENTIFIER aIdentifier[2];
@@ -2015,11 +2015,11 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(D2DDGuidStrc* guid,char* descript
    LOGMANAGER_WriteLogLine(gszVendorDeviceIdFormat,display->vendor,display->device);
   }
   hr=gpIDirectDraw4_00970E60->vtbl->QueryInterface(gpIDirectDraw4_00970E60,&gIIDDirect3D3,(void**)&gpIDirect3D3_00970E64);
-  if(hr) { D3D_LogDDrawError(gszGetD3DInterfaceFailed,hr); goto Cleanup; }
+  if(hr) { D3DCORE_LogDDrawError(gszGetD3DInterfaceFailed,hr); goto Cleanup; }
   hr=gpIDirectDraw4_00970E60->vtbl->SetCooperativeLevel(gpIDirectDraw4_00970E60,ghEnumerationWindow,0x11);
-  if(hr) { D3D_LogDDrawError(gszSetCooperativeLevelFailed,hr); goto Cleanup; }
-  hr=gpIDirectDraw4_00970E60->vtbl->EnumDisplayModes(gpIDirectDraw4_00970E60,0,0,display,D3D_EnumerateDisplayMode);
-  if(hr) { D3D_LogDDrawError(gszEnumDisplayModesCall,hr); goto Cleanup; }
+  if(hr) { D3DCORE_LogDDrawError(gszSetCooperativeLevelFailed,hr); goto Cleanup; }
+  hr=gpIDirectDraw4_00970E60->vtbl->EnumDisplayModes(gpIDirectDraw4_00970E60,0,0,display,D3DCORE_EnumerateDisplayMode);
+  if(hr) { D3DCORE_LogDDrawError(gszEnumDisplayModesCall,hr); goto Cleanup; }
   if(!display->modeCount) { LOGMANAGER_WriteLogLine(gszNoValidDisplayModes); goto Cleanup; }
   int hasUI=0,hasGame=0,has32=0,has24=0;
   int invalid=0;
@@ -2036,16 +2036,16 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(D2DDGuidStrc* guid,char* descript
   if(invalid) goto Cleanup;
   D2DisplayMode006B42F0Strc* mode=&display->modes[display->modeCount-1];
   hr=gpIDirectDraw4_00970E60->vtbl->SetDisplayMode(gpIDirectDraw4_00970E60,mode->width,mode->height,mode->bpp,mode->refresh,0);
-  if(hr) { D3D_LogDDrawError(gszSetDisplayModeCall,hr); goto Cleanup; }
+  if(hr) { D3DCORE_LogDDrawError(gszSetDisplayModeCall,hr); goto Cleanup; }
   DDSURFACEDESC2 surface={sizeof(surface)};
   surface.flags=0x21;surface.caps.caps=0x6218;surface.backCount=1;
   hr=gpIDirectDraw4_00970E60->vtbl->CreateSurface(gpIDirectDraw4_00970E60,&surface,&primary,0);
-  if(hr) { D3D_LogDDrawError(gszCreatePrimarySurfaceFailed,hr); goto Cleanup; }
+  if(hr) { D3DCORE_LogDDrawError(gszCreatePrimarySurfaceFailed,hr); goto Cleanup; }
   DDSCAPS2 attachCaps;memset(&attachCaps,0,sizeof(attachCaps));attachCaps.caps=4;
   hr=primary->vtbl->GetAttachedSurface(primary,&attachCaps,&back);
-  if(hr) { D3D_LogDDrawError(gszGetBackbufferFailed,hr); goto Cleanup; }
+  if(hr) { D3DCORE_LogDDrawError(gszGetBackbufferFailed,hr); goto Cleanup; }
   hr=gpIDirectDraw4_00970E60->vtbl->GetCaps(gpIDirectDraw4_00970E60,&caps,0);
-  if(hr) { D3D_LogDDrawError(gszGetDD4CapsFailed,hr); goto Cleanup; }
+  if(hr) { D3DCORE_LogDDrawError(gszGetDD4CapsFailed,hr); goto Cleanup; }
   if(!(caps.caps&1)) { LOGMANAGER_WriteLogLine(gszNo3DSupport); goto Cleanup; }
   if(caps.caps2&0x20000) display->flags|=gFlag_006CE278;
   else LOGMANAGER_WriteLogLine(gszNoGammaControl);
@@ -2067,17 +2067,17 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(D2DDGuidStrc* guid,char* descript
   LOGMANAGER_WriteLogLine(gszVideoMemoryFormat,display->videoTotal/1048576.0f,display->videoFree/1048576.0f);
   DDSCAPS2 memoryCaps;memset(&memoryCaps,0,sizeof(memoryCaps));memoryCaps.caps=0x5000;
   hr=gpIDirectDraw4_00970E60->vtbl->GetAvailableVidMem(gpIDirectDraw4_00970E60,&memoryCaps,&display->textureTotal,&display->textureFree);
-  if(hr) { D3D_LogDDrawError(gszTextureMemoryFailed,hr); goto Cleanup; }
+  if(hr) { D3DCORE_LogDDrawError(gszTextureMemoryFailed,hr); goto Cleanup; }
   LOGMANAGER_WriteLogLine(gszTextureMemoryFormat,display->textureTotal/1048576.0f,display->textureFree/1048576.0f);
   memset(&memoryCaps,0,sizeof(memoryCaps));memoryCaps.caps=0x10005000;
   hr=gpIDirectDraw4_00970E60->vtbl->GetAvailableVidMem(gpIDirectDraw4_00970E60,&memoryCaps,&display->localTotal,&display->localFree);
-  if(hr) { D3D_LogDDrawError(gszLocalMemoryFailed,hr); goto Cleanup; }
+  if(hr) { D3DCORE_LogDDrawError(gszLocalMemoryFailed,hr); goto Cleanup; }
   LOGMANAGER_WriteLogLine(gszLocalMemoryFormat,display->localTotal/1048576.0f,display->localFree/1048576.0f);
   if((caps.caps2&0x200)&&(hardware.devCaps&0x1000)) {
    display->flags|=gdwBitMask1;
    memset(&memoryCaps,0,sizeof(memoryCaps));memoryCaps.caps=0x20005000;
    hr=gpIDirectDraw4_00970E60->vtbl->GetAvailableVidMem(gpIDirectDraw4_00970E60,&memoryCaps,&display->agpTotal,&display->agpFree);
-   if(hr) D3D_LogDDrawError(gszAgpMemoryFailed,hr);
+   if(hr) D3DCORE_LogDDrawError(gszAgpMemoryFailed,hr);
    else LOGMANAGER_WriteLogLine(gszAgpMemoryFormat,display->agpTotal/1048576.0f,display->agpFree/1048576.0f);
   } else LOGMANAGER_WriteLogLine(gszNoAgpTexturing);
   hr=device->vtbl->EnumTextureFormats(device,sub_006B1B60_EnumTextureFormat,display);
@@ -2153,7 +2153,7 @@ static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance)
         const HRESULT hResult = DirectDrawEnumerateA(sub_006B42F0_DDrawEnumCallback, 0);
         if (hResult)
         {
-            D3D_LogDDrawError("DirectDrawEnumerate", hResult);
+            D3DCORE_LogDDrawError("DirectDrawEnumerate", hResult);
         }
     }
     catch (...)
@@ -2230,7 +2230,7 @@ int __fastcall sub_006B4E80_LoadVideoConfiguration(void* window) {
 }
 
 // 0x006B4FD0
-static int D3D_InitFullscreen(void* window,int mode)
+static int D3DCORE_InitFullscreen(void* window,int mode)
 {
     if(gnInitialized) { FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),0x50F); exit(-1); }
     long error;
@@ -2240,7 +2240,7 @@ static int D3D_InitFullscreen(void* window,int mode)
     switch(mode) { case 0: case 2: gnModeFlag=1; break; default: gnModeFlag=0; break; }
     DD_CHECK(gpDraw->SetCooperativeLevel(window,0x411),gCoopError);
     error=gpDraw->SetDisplayMode(gnWidth,gnHeight,32,0,0);
-    if(error) { D3D_LogDDrawError(gDisplayError,error); return 0; }
+    if(error) { D3DCORE_LogDDrawError(gDisplayError,error); return 0; }
     MoveWindow(window,0,0,gnWidth,gnHeight,1);
     gnInitialized=1; gnState=0;
     SurfaceDesc desc;
@@ -2270,15 +2270,15 @@ static int D3D_InitFullscreen(void* window,int mode)
     D3D_CHECK(gpDevice->SetCurrentViewport(gpView),gCurrentViewError);
     memset(&caps,0,sizeof(caps)); caps.flags=0x5000;
     error=gpDraw->GetAvailableMemory(&caps,&gnTextureTotal,&gnTextureFree);
-    if(error) D3D_LogDDrawError(gTextureError,error);
+    if(error) D3DCORE_LogDDrawError(gTextureError,error);
     memset(&caps,0,sizeof(caps)); caps.flags=0x10005000;
     error=gpDraw->GetAvailableMemory(&caps,&gnLocalTotal,&gnLocalFree);
-    if(error) D3D_LogDDrawError(gLocalError,error);
+    if(error) D3DCORE_LogDDrawError(gLocalError,error);
     if(gnFlags & gdwAgpMask)
     {
         memset(&caps,0,sizeof(caps)); caps.flags=0x20005000;
         error=gpDraw->GetAvailableMemory(&caps,&gnAgpTotal,&gnAgpFree);
-        if(error) D3D_LogDDrawError(gAgpError,error);
+        if(error) D3DCORE_LogDDrawError(gAgpError,error);
     }
     gpDevice->SetRenderState(29,0);
     gpDevice->SetRenderState(22,1);
@@ -2289,21 +2289,21 @@ static int D3D_InitFullscreen(void* window,int mode)
     gpDevice->SetRenderState(25,6);
     gpDevice->SetRenderState(24,0);
     gpDevice->SetTextureStageState(0,12,3);
-    D3D_SetTextureFilterMode(1);
+    D3DCORE_SetTextureFilterMode(1);
     gpDevice->SetTextureStageState(0,2,2);
     gpDevice->SetTextureStageState(0,3,0);
     gpDevice->SetTextureStageState(0,5,2);
     gpDevice->SetTextureStageState(0,6,0);
-    sub_006B3080(); D3D_CreateTileSurfaces(); sub_006B8F10();
+    sub_006B3080(); D3DFLOORCACHE_CreateTileSurfaces(); sub_006B8F10();
     return 1;
 D3DFail:
     sub_006B39B0_ShowD3DError(msg,error);
 Fail:
-    D3D_ReleaseResources(); ghWindow=0; return 0;
+    D3DCORE_ReleaseResources(); ghWindow=0; return 0;
 }
 
 // 0x006B5520
-void __cdecl D3D_FlushAndFlip()
+void __cdecl D3DCORE_FlushAndFlip()
 {
     sub_006B3800_Flush();
     if (gpConfig_007C9148->bVSync)
@@ -2317,12 +2317,12 @@ void __cdecl D3D_FlushAndFlip()
 }
 
 // 0x006B5550
-int __cdecl D3D_Close()
+int __cdecl D3DCORE_Close()
 {
     if (gbD3DInitialized)
     {
-        D3D_SmackFree();
-        D3D_ReleaseResources();
+        D3DSMACK_SmackFree();
+        D3DCORE_ReleaseResources();
         gn_007C9140 = 0;
         RELEASE(gpObject_00970E64);
         RELEASE(gpObject_00970E60);
@@ -2338,12 +2338,12 @@ int __cdecl D3D_Close()
 }
 
 // 0x006B55E0
-int __fastcall D3D_CreateSurface(void* window,int mode)
+int __fastcall D3DCORE_CreateSurface(void* window,int mode)
 {
     if (gnInitialized)
         return 1;
 
-    if (!D3D_InitFullscreen(window, mode))
+    if (!D3DCORE_InitFullscreen(window, mode))
         return 0;
 
     sub_006B3800_Flush();
@@ -2355,24 +2355,24 @@ int __fastcall D3D_CreateSurface(void* window,int mode)
 }
 
 // 0x006B5630
-void __fastcall D3D_PauseSurface(int window, int mode, int paused)
+void __fastcall D3DCORE_PauseSurface(int window, int mode, int paused)
 {
     if (!gpCriticalSection_007C9134) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x7b0); exit(-1); }
     EnterCriticalSection(gpCriticalSection_007C9134);
     if (paused) {
         gnPaused_007C9144 = 1;
-        D3D_ReleaseResources();
+        D3DCORE_ReleaseResources();
         gn_007C9140 = 0;
     }
     else {
         gnPaused_007C9144 = 0;
-        D3D_CreateSurface(window, mode);
+        D3DCORE_CreateSurface(window, mode);
     }
     LeaveCriticalSection(gpCriticalSection_007C9134);
 }
 
 // 0x006B56C0
-void __fastcall D3D_OpenSmackCutscene(int a, int b, int c)
+void __fastcall D3DCORE_OpenSmackCutscene(int a, int b, int c)
 {
     if (!gnWindowed)
     {
@@ -2392,7 +2392,7 @@ void __fastcall D3D_OpenSmackCutscene(int a, int b, int c)
 }
 
 // 0x006B5720
-int __fastcall D3D_StartDraw(int clear, int unused, int unusedA, int unusedB)
+int __fastcall D3DCORE_StartDraw(int clear, int unused, int unusedA, int unusedB)
 {
     if (gnPaused_007C9144) return 0;
     if (!gpCriticalSection_007C9134) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x842); exit(-1); }
@@ -2408,7 +2408,7 @@ int __fastcall D3D_StartDraw(int clear, int unused, int unusedA, int unusedB)
 }
 
 // 0x006B57D0
-int __cdecl D3D_EndDraw()
+int __cdecl D3DCORE_EndDraw()
 {
     const long nResult = gpDevice_00970E78->lpVtbl->EndScene(gpDevice_00970E78);
     if (nResult)
@@ -2421,14 +2421,14 @@ int __cdecl D3D_EndDraw()
 }
 
 // 0x006B5830
-int __fastcall D3D_ChangeRes(void* window,int mode)
+int __fastcall D3DCORE_ChangeRes(void* window,int mode)
 {
     if (gnWindowed)
         return 1;
 
-    D3D_ReleaseResources();
+    D3DCORE_ReleaseResources();
     ghWindow = 0;
-    if (!D3D_InitFullscreen(window, mode))
+    if (!D3DCORE_InitFullscreen(window, mode))
         return 0;
 
     sub_006B3800_Flush();
@@ -2440,7 +2440,7 @@ int __fastcall D3D_ChangeRes(void* window,int mode)
 }
 
 // 0x006B58A0
-int __fastcall D3D_CreateDeviceTexture(D2ComObject006B58A0Strc** ppSurface, D2ComObject006B58A0Strc** ppTexture, unsigned int nWidth, unsigned int nHeight)
+int __fastcall D3DCORE_CreateDeviceTexture(D2ComObject006B58A0Strc** ppSurface, D2ComObject006B58A0Strc** ppTexture, unsigned int nWidth, unsigned int nHeight)
 {
     D2DDSurfaceDesc006B58A0Strc tDesc = { sizeof(tDesc) };
     tDesc.dwFlags = 0x1007;
@@ -2454,7 +2454,7 @@ int __fastcall D3D_CreateDeviceTexture(D2ComObject006B58A0Strc** ppSurface, D2Co
     {
         if (hResult != (long)0x8876017C)
         {
-            D3D_LogDDrawError("CreateSurface (device surface)", hResult);
+            D3DCORE_LogDDrawError("CreateSurface (device surface)", hResult);
         }
         return 0;
     }
@@ -2469,13 +2469,13 @@ int __fastcall D3D_CreateDeviceTexture(D2ComObject006B58A0Strc** ppSurface, D2Co
 }
 
 // 0x006B5990
-void __cdecl D3D_CloseAtExit()
+void __cdecl D3DCORE_CloseAtExit()
 {
-    D3D_Close();
+    D3DCORE_Close();
 }
 
 // 0x006B59A0
-int __fastcall D3D_Init(int nArg1, int nArg2)
+int __fastcall D3DCORE_Init(int nArg1, int nArg2)
 {
     D2ComObjectStrc* pDirectDraw = 0;
     char tIdentifier[0x850];
@@ -2497,14 +2497,14 @@ int __fastcall D3D_Init(int nArg1, int nArg2)
 
     if (hResult)
     {
-        D3D_LogDDrawError("DirectDrawCreate failed!", hResult);
+        D3DCORE_LogDDrawError("DirectDrawCreate failed!", hResult);
         return 0;
     }
 
     hResult = ((D2ComQueryInterfaceFn)pDirectDraw->lpVtbl[0])(pDirectDraw, &gtIidDirectDraw4, &gpDirectDraw4_00970E60);
     if (hResult)
     {
-        D3D_LogDDrawError("Failed to get DirectDraw4 interface!", hResult);
+        D3DCORE_LogDDrawError("Failed to get DirectDraw4 interface!", hResult);
         return 0;
     }
 
@@ -2514,29 +2514,29 @@ int __fastcall D3D_Init(int nArg1, int nArg2)
     hResult = ((D2ComQueryInterfaceFn)gpDirectDraw4_00970E60->lpVtbl[0])(gpDirectDraw4_00970E60, &gtIidDirect3D3, &gpDirect3D3);
     if (hResult)
     {
-        D3D_LogDDrawError("Failed to get D3D interface!", hResult);
+        D3DCORE_LogDDrawError("Failed to get D3D interface!", hResult);
         return 0;
     }
 
     hResult = ((D2DDGetDeviceIdentifierFn)gpDirectDraw4_00970E60->lpVtbl[0x1B])(gpDirectDraw4_00970E60, tIdentifier, 0);
     if (hResult)
     {
-        D3D_LogDDrawError("Failed to get device identifier interface!", hResult);
+        D3DCORE_LogDDrawError("Failed to get device identifier interface!", hResult);
     }
 
-    atexit(D3D_CloseAtExit);
+    atexit(D3DCORE_CloseAtExit);
     gbD3DInitialized_00970E48 = 1;
     sub_006B96C0_BuildScaleTable();
     sub_006B97D0_BuildScaleTable();
     sub_006B80A0_InitializeDrawingGeometry();
-    D3D_SmackInit();
+    D3DSMACK_SmackInit();
     gpCriticalSection_007C9134 = (D2CriticalSectionStrc*)FOG_Alloc(0x18, gszD3DCoreFile, 0x6EA, 0);
     InitializeCriticalSection(gpCriticalSection_007C9134);
     return 1;
 }
 
 // 0x006B20C0
-int __fastcall D3D_SetOption(int nId, int nValue)
+int __fastcall D3DCORE_SetOption(int nId, int nValue)
 {
     if (nId != 11)
         return 0;
@@ -2545,7 +2545,7 @@ int __fastcall D3D_SetOption(int nId, int nValue)
 }
 
 // 0x006B20E0
-void __fastcall D3D_LogDDrawError(const char* szWhere, int hResult)
+void __fastcall D3DCORE_LogDDrawError(const char* szWhere, int hResult)
 {
     const char* szError;
     switch (hResult)

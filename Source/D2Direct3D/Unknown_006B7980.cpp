@@ -39,9 +39,9 @@ extern D2DeviceStrc* gpDevice_00970E78; // 0x00970E78
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl FOG_DisplayHalt(const char*, const char*, int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-void __fastcall D3D_SetColorCombineMode(int state); // 0x006B1EA0
-void __fastcall D3D_SetAlphaBlendMode(int mode); // 0x006B1F40
-void __fastcall D3D_SetTextureFilterMode(int mode); // 0x006B2030
+void __fastcall D3DCORE_SetColorCombineMode(int state); // 0x006B1EA0
+void __fastcall D3DCORE_SetAlphaBlendMode(int mode); // 0x006B1F40
+void __fastcall D3DCORE_SetTextureFilterMode(int mode); // 0x006B2030
 
 int __fastcall sub_006B77B0_Call(int nLeft, int nTop, int nRight, int nBottom, int nValue, int nMode); // 0x006B77B0
 
@@ -75,9 +75,9 @@ void __fastcall sub_006B7980_DrawRectangle(int left, int top, int right, int bot
         FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x68);
         exit(-1);
     }
-    D3D_SetColorCombineMode(2);
-    D3D_SetAlphaBlendMode(4);
-    D3D_SetTextureFilterMode(1);
+    D3DCORE_SetColorCombineMode(2);
+    D3DCORE_SetAlphaBlendMode(4);
+    D3DCORE_SetTextureFilterMode(1);
 
     D2TLVertexStrc vertices[4];
     vertices[0].fX = (float)left;
@@ -104,8 +104,8 @@ void __fastcall sub_006B7980_DrawRectangle(int left, int top, int right, int bot
     vertices[3].fRhw = 1.0f;
     vertices[3].fU = 0.0f;
     vertices[3].fV = 0.0f;
-// build: symbol ?D3D_GetColor@* 0x006B1D50
-    unsigned int diffuse = (D3D_GetColor(color) & 0x00FFFFFF) | ((unsigned int)alpha << 24);
+// build: symbol ?D3DCORE_GetColor@* 0x006B1D50
+    unsigned int diffuse = (D3DCORE_GetColor(color) & 0x00FFFFFF) | ((unsigned int)alpha << 24);
     vertices[0].dwColor = diffuse;
     vertices[1].dwColor = diffuse;
     vertices[2].dwColor = diffuse;

@@ -59,16 +59,16 @@ extern unsigned long gdwFontTextColor; // 0x0074C0CC
 extern unsigned int gdwRenderFlags_0096F3A8; // 0x0096F3A8
 extern void* gapFontGlyphA_00971150[]; // 0x00971150
 extern D2D3DTextureStrc* gapFontGlyphB_009712D0[]; // 0x009712D0
-void __fastcall D3D_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
-int __fastcall D3D_CreateMemoryTexture(D2DDSurfaceStrc** ppSurface, D2D3DTextureStrc** ppTexture, int nWidth, int nHeight); // 0x006B3730
+void __fastcall D3DCORE_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
+int __fastcall D3DCORE_CreateMemoryTexture(D2DDSurfaceStrc** ppSurface, D2D3DTextureStrc** ppTexture, int nWidth, int nHeight); // 0x006B3730
 int __fastcall sub_006B58A0_CreateGlyphTexture(void** ppGlyphA, D2D3DTextureStrc** ppGlyphB, int nWidth, int nHeight); // 0x006B58A0
-void __fastcall D3D_CopySurface(void* pGlyphA, D2DDSurfaceStrc* pSurface, int nHeight); // 0x006B38A0
+void __fastcall D3DCORE_CopySurface(void* pGlyphA, D2DDSurfaceStrc* pSurface, int nHeight); // 0x006B38A0
 
 struct D2SurfaceVtableStrc { void* unk[31]; int (__stdcall *SetPalette)(D2SurfaceStrc*, void*); };
 
 struct D2SurfaceStrc { D2SurfaceVtableStrc* vtable; };
 
-void __fastcall D3D_LogDDrawError(const char*, int); // 0x006B20E0
+void __fastcall D3DCORE_LogDDrawError(const char*, int); // 0x006B20E0
 
 void __cdecl sub_006B72A0_CreateFontTextures(); // 0x006B72A0
 
@@ -85,9 +85,9 @@ struct D2Device006B77B0Strc
     D2DeviceVtbl006B77B0Strc* lpVtbl;
 };
 extern D2Device006B77B0Strc* gpDevice_00970E78; // 0x00970E78
-void __fastcall D3D_SetColorCombineMode(int nState); // 0x006B1EA0
-void __fastcall D3D_SetAlphaBlendMode(int nBlend); // 0x006B1F40
-void __fastcall D3D_SetTextureFilterMode(int nMode); // 0x006B2030
+void __fastcall D3DCORE_SetColorCombineMode(int nState); // 0x006B1EA0
+void __fastcall D3DCORE_SetAlphaBlendMode(int nBlend); // 0x006B1F40
+void __fastcall D3DCORE_SetTextureFilterMode(int nMode); // 0x006B2030
 
 void __fastcall sub_006B7B30_DrawLine(int x1,int y1,int x2,int y2,unsigned char index,unsigned char alpha); // 0x006B7B30
 extern const char gszEmptyString[]; // 0x006CC837
@@ -184,7 +184,7 @@ void __cdecl sub_006B72A0_CreateFontTextures()
 
     D2DDSurfaceStrc* pSurface = 0;
     D2D3DTextureStrc* pTexture = 0;
-    D3D_CreateMemoryTexture(&pSurface, &pTexture, 8, 16);
+    D3DCORE_CreateMemoryTexture(&pSurface, &pTexture, 8, 16);
 
     for (int nChar = ' '; nChar <= 0x7F; ++nChar)
     {
@@ -195,7 +195,7 @@ void __cdecl sub_006B72A0_CreateFontTextures()
         long hResult = pSurface->lpVtbl->Lock(pSurface, 0, &tDesc, 0x21, 0);
         if (hResult)
         {
-            D3D_LogDDrawError("Failed to lock memory surface", hResult);
+            D3DCORE_LogDDrawError("Failed to lock memory surface", hResult);
         }
 
         unsigned short* pPixel = (unsigned short*)tDesc.lpSurface;
@@ -217,13 +217,13 @@ void __cdecl sub_006B72A0_CreateFontTextures()
         hResult = pSurface->lpVtbl->Unlock(pSurface, 0);
         if (hResult)
         {
-            D3D_LogDDrawError("Failed to unlock memory surface", hResult);
+            D3DCORE_LogDDrawError("Failed to unlock memory surface", hResult);
         }
 
         D2_ASSERT(sub_006B58A0_CreateGlyphTexture(&gapFontGlyphA_00971150[nChar - ' '], &gapFontGlyphB_009712D0[nChar - ' '], 8, 16), 0xBF);
         if (gdwRenderFlags_0096F3A8 & gdwBitMasks[10])
         {
-            D3D_CopySurface(gapFontGlyphA_00971150[nChar - ' '], pSurface, 16);
+            D3DCORE_CopySurface(gapFontGlyphA_00971150[nChar - ' '], pSurface, 16);
         }
         else
         {
@@ -252,7 +252,7 @@ void __fastcall sub_006B74F0_SetPalette(void* pPalette)
   D2SurfaceStrc* s = *p;
   if (s) {
    int result = s->vtable->SetPalette(s, pPalette);
-   if (result) { D3D_LogDDrawError("SetPalette (debug font surface)", result); return; }
+   if (result) { D3DCORE_LogDDrawError("SetPalette (debug font surface)", result); return; }
   }
   ++p;
  } while ((int)p < (int)(gaSurfaces_00971150 + 96));
@@ -324,9 +324,9 @@ void __fastcall sub_006B77B0_Call(int nX1, int nY1, int nX2, int nY2, unsigned c
 
     D2_ASSERT(nY2 > nY1, 0x2B);
 
-    D3D_SetColorCombineMode(2);
-    D3D_SetAlphaBlendMode(4);
-    D3D_SetTextureFilterMode(1);
+    D3DCORE_SetColorCombineMode(2);
+    D3DCORE_SetAlphaBlendMode(4);
+    D3DCORE_SetTextureFilterMode(1);
 
     D2TLVertexStrc tVertices[4];
     tVertices[0].fX = (float)nX1;
@@ -354,8 +354,8 @@ void __fastcall sub_006B77B0_Call(int nX1, int nY1, int nX2, int nY2, unsigned c
     tVertices[3].fU = 0.0f;
     tVertices[3].fV = 0.0f;
 
-// build: symbol ?D3D_GetColor@* 0x006B1D50
-    unsigned int dwColor = D3D_GetColor(nColor) & 0xFFFFFF;
+// build: symbol ?D3DCORE_GetColor@* 0x006B1D50
+    unsigned int dwColor = D3DCORE_GetColor(nColor) & 0xFFFFFF;
     switch (nMode)
     {
     case 0:

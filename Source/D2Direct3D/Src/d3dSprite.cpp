@@ -12,7 +12,7 @@ struct D2Direct3DVtbl006B7110Strc;
 
 struct D2CelFileStrc;
 
-void __fastcall D3D_SetAlphaBlendMode(int mode); // 0x006B1F40
+void __fastcall D3DCORE_SetAlphaBlendMode(int mode); // 0x006B1F40
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
@@ -43,11 +43,11 @@ typedef void (__fastcall* PixelDataFreeCallback)(void* pData);
 
 void __stdcall CelSetHardwareFreeCallback(PixelDataFreeCallback pfnCallback); // 0x00601A30
 
-int __fastcall D3D_CreateMemoryTexture(void** ppSurface, void** ppTexture, int nWidth, int nHeight); // 0x006B3730
+int __fastcall D3DCORE_CreateMemoryTexture(void** ppSurface, void** ppTexture, int nWidth, int nHeight); // 0x006B3730
 
 void __fastcall sub_006B39B0_ShowD3DError(const char* szText, long nResult); // 0x006B39B0
 
-void __fastcall D3D_ClearResourceEntries(void* pData); // 0x006B5BB0
+void __fastcall D3DSPRITE_ClearResourceEntries(void* pData); // 0x006B5BB0
 
 extern D2Direct3D006B7110Strc* gpDirect3D_00970E64; // 0x00970E64
 
@@ -77,7 +77,7 @@ void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 static int __stdcall sub_006B5C80_LoadCelInfo(D2CelContextStrc* pContext, D2SpriteInfoStrc* pInfo);
 
-static void __stdcall D3D_SetTextureSize(D2SpriteInfoStrc* pInfo); // 0x006B5CF0
+static void __stdcall D3DSPRITE_SetTextureSize(D2SpriteInfoStrc* pInfo); // 0x006B5CF0
 
 void* gpSpriteBuffer; // 0x00970F34
 
@@ -123,11 +123,11 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 void __stdcall CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
 
-void __fastcall D3D_BlitIndexedToHighColor(const unsigned char* pSource, unsigned short* pDest, int nWidth, int nHeight, int nPitch, int nUnused); // 0x006B1DC0
+void __fastcall D3DCORE_BlitIndexedToHighColor(const unsigned char* pSource, unsigned short* pDest, int nWidth, int nHeight, int nPitch, int nUnused); // 0x006B1DC0
 
-void __fastcall D3D_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
+void __fastcall D3DCORE_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
 
-void __fastcall D3D_CopySurface(void* pTarget, D2DDSurfaceStrc* pSurface, int nRows); // 0x006B38A0
+void __fastcall D3DCORE_CopySurface(void* pTarget, D2DDSurfaceStrc* pSurface, int nRows); // 0x006B38A0
 
 void __fastcall sub_006BA760_TouchEntry(D2TexturePoolStrc* pPool, int nIndex); // 0x006BA760
 
@@ -173,17 +173,17 @@ int __stdcall CelGetOffsetY(D2CelStrc* cel); // 0x00601950
 
 int* __stdcall sub_00601B10_GetCelTextureSlots(D2CelStrc* cel); // 0x00601B10
 
-void __fastcall D3D_SetColorCombineMode(int nState); // 0x006B1EA0
+void __fastcall D3DCORE_SetColorCombineMode(int nState); // 0x006B1EA0
 
-void __fastcall D3D_SetTextureFilterMode(int nMode); // 0x006B2030
+void __fastcall D3DCORE_SetTextureFilterMode(int nMode); // 0x006B2030
 
 void __fastcall sub_006B9780_SetColor(D2TLVertexStrc* pVertex, unsigned int nPacked, unsigned char nAlpha); // 0x006B9780
 
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 
-static int __stdcall D3D_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, unsigned char nColor); // 0x006B5D40
+static int __stdcall D3DSPRITE_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, unsigned char nColor); // 0x006B5D40
 
-static int __stdcall D3D_DrawSpriteQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette); // 0x006B63F0
+static int __stdcall D3DSPRITE_DrawSpriteQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette); // 0x006B63F0
 
 struct D2TexLocationStrc
 {
@@ -205,7 +205,7 @@ struct D2SpriteQuad006B61A0Strc
     float fV1;
 };
 
-static void __stdcall D3D_DrawTexturedQuad(int nOffsetX, int nOffsetY, unsigned char nAlpha, D2SpriteQuad006B61A0Strc* pQuad); // 0x006B61A0
+static void __stdcall D3DSPRITE_DrawTexturedQuad(int nOffsetX, int nOffsetY, unsigned char nAlpha, D2SpriteQuad006B61A0Strc* pQuad); // 0x006B61A0
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 
@@ -221,18 +221,18 @@ void __fastcall sub_006BA760_Touch(int* pValue, int nValue); // 0x006BA760
 
 extern const char gszEmptyString[]; // 0x006CC837
 
-static int __stdcall D3D_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, const D2BoundsStrc* pBounds, D2ClipStrc* pClip); // 0x006B6D70
+static int __stdcall D3DSPRITE_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, const D2BoundsStrc* pBounds, D2ClipStrc* pClip); // 0x006B6D70
 
 int __cdecl sub_006B77A0_GetBlendedShadows(); // 0x006B77A0
 
-void __fastcall D3D_DrawSpriteRows(D2CelContextStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nBlendMode); // 0x006B6C90
+void __fastcall D3DSPRITE_DrawSpriteRows(D2CelContextStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nBlendMode); // 0x006B6C90
 
-void __fastcall D3D_DrawSpriteClipped(D2CelContextStrc* pContext, int nX, int nY, const D2BoundsStrc* pBounds, int nBlendMode); // 0x006B6EE0
+void __fastcall D3DSPRITE_DrawSpriteClipped(D2CelContextStrc* pContext, int nX, int nY, const D2BoundsStrc* pBounds, int nBlendMode); // 0x006B6EE0
 
 static int gnVertexCount_00970F40; // 0x00970F40
 
 // 0x006B5B10
-void __cdecl D3D_ReleaseSprites()
+void __cdecl D3DSPRITE_ReleaseSprites()
 {
     if (gpSpriteObject_00970F3C)
     {
@@ -275,7 +275,7 @@ struct D2ResourceSetStrc { D2ResourcePairStrc pairs[5]; };
 extern D2ResourceGroupStrc gaResourceGroups[]; // 0x00970EE0
 
 // 0x006B5BB0
-void __fastcall D3D_ClearResourceEntries(D2ResourceSetStrc* set)
+void __fastcall D3DSPRITE_ClearResourceEntries(D2ResourceSetStrc* set)
 {
     for (int i = 0; i < 5; ++i)
     {
@@ -312,7 +312,7 @@ static int __stdcall sub_006B5C80_LoadCelInfo(D2CelContextStrc* pContext, D2Spri
 }
 
 // 0x006B5CF0
-static void __stdcall D3D_SetTextureSize(D2SpriteInfoStrc* pInfo)
+static void __stdcall D3DSPRITE_SetTextureSize(D2SpriteInfoStrc* pInfo)
 {
     int nSize = 0x20;
     if (pInfo->nWidth > nSize || pInfo->nHeight > nSize)
@@ -338,7 +338,7 @@ done:
 }
 
 // 0x006B5D40
-static int __stdcall D3D_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, int nArg3, unsigned char nColor)
+static int __stdcall D3DSPRITE_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, int nArg3, unsigned char nColor)
 {
     D2_ASSERT(ptInfo->pContext->pCel, 0x11E);
     int* pSlots = sub_00601B10_GetCelTextureSlots(ptInfo->pContext->pCel);
@@ -465,20 +465,20 @@ static int __stdcall D3D_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, int 
     hResult = pSurface->lpVtbl->Lock(pSurface, 0, &tDesc, 0x21, 0);
     if (hResult)
     {
-        D3D_LogDDrawError(gszFailedToLockMemorySurface, hResult);
+        D3DCORE_LogDDrawError(gszFailedToLockMemorySurface, hResult);
     }
     D2_ASSERT(tDesc.dwFlags & 8, 0x1C0);
-    D3D_BlitIndexedToHighColor(pData, (unsigned short*)tDesc.lpSurface, ptInfo->nTexWidth, ptInfo->nTexHeight, tDesc.lPitch >> 1,
+    D3DCORE_BlitIndexedToHighColor(pData, (unsigned short*)tDesc.lpSurface, ptInfo->nTexWidth, ptInfo->nTexHeight, tDesc.lPitch >> 1,
         ptInfo->nTexHeight);
     hResult = pSurface->lpVtbl->Unlock(pSurface, 0);
     if (hResult)
     {
-        D3D_LogDDrawError(gszFailedToUnlockMemorySurface, hResult);
+        D3DCORE_LogDDrawError(gszFailedToUnlockMemorySurface, hResult);
     }
 
     if (gnRenderFlags_0096F3A8 & gnRenderFlag)
     {
-        D3D_CopySurface(pEntry->pTarget, pSurface, ptInfo->nTexHeight);
+        D3DCORE_CopySurface(pEntry->pTarget, pSurface, ptInfo->nTexHeight);
     }
     else
     {
@@ -495,7 +495,7 @@ static int __stdcall D3D_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, int 
 }
 
 // 0x006B61A0
-static void __stdcall D3D_DrawTexturedQuad(int nOffsetX, int nOffsetY, unsigned char nAlpha, D2SpriteQuad006B61A0Strc* pQuad)
+static void __stdcall D3DSPRITE_DrawTexturedQuad(int nOffsetX, int nOffsetY, unsigned char nAlpha, D2SpriteQuad006B61A0Strc* pQuad)
 {
     float fU0 = pQuad->fU0;
     float fU1 = pQuad->fU1;
@@ -569,10 +569,10 @@ static void __stdcall D3D_DrawTexturedQuad(int nOffsetX, int nOffsetY, unsigned 
 }
 
 // 0x006B63F0
-static int __stdcall D3D_DrawSpriteQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette)
+static int __stdcall D3DSPRITE_DrawSpriteQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette)
 {
-    D3D_SetColorCombineMode(1);
-    D3D_SetTextureFilterMode(1);
+    D3DCORE_SetColorCombineMode(1);
+    D3DCORE_SetTextureFilterMode(1);
 
     D2QuadRectStrc tRect;
     tRect.nX = pSprite->nOffsetX;
@@ -660,23 +660,23 @@ static int __stdcall D3D_DrawSpriteQuad(D2SpriteInfoStrc* pSprite, int nX, int n
 
 static
 // 0x006B6680
-unsigned char D3D_SetBlendAndAlpha(int mode)
+unsigned char D3DSPRITE_SetBlendAndAlpha(int mode)
 {
     unsigned char alpha = 255;
     switch (mode)
     {
     case 5:
     case 7:
-        D3D_SetAlphaBlendMode(1);
+        D3DCORE_SetAlphaBlendMode(1);
         break;
     case 3:
-        D3D_SetAlphaBlendMode(2);
+        D3DCORE_SetAlphaBlendMode(2);
         break;
     case 4:
-        D3D_SetAlphaBlendMode(3);
+        D3DCORE_SetAlphaBlendMode(3);
         break;
     default:
-        D3D_SetAlphaBlendMode(4);
+        D3DCORE_SetAlphaBlendMode(4);
         if (mode == 0)
             alpha = 64;
         else if (mode == 1)
@@ -689,7 +689,7 @@ unsigned char D3D_SetBlendAndAlpha(int mode)
 }
 
 // 0x006B6700
-static inline int D3D_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc* pRect)
+static inline int D3DSPRITE_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc* pRect)
 {
     nX += pRect->nOffsetX;
 // build: symbol ?gnRenderWidth@* 0x007C9138
@@ -700,7 +700,7 @@ static inline int D3D_IsOutsideScreen(int nX, int nY, D2GlideRectViewStrc* pRect
 }
 
 // 0x006B6730
-int __fastcall D3D_DrawFlatSprite(D2CelContextStrc* pData, int nX, int nY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)
+int __fastcall D3DSPRITE_DrawFlatSprite(D2CelContextStrc* pData, int nX, int nY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)
 {
 	D2SpriteInfoStrc tInfo;
 	D2TLVertexStrc pVertices[4];
@@ -712,7 +712,7 @@ int __fastcall D3D_DrawFlatSprite(D2CelContextStrc* pData, int nX, int nY, unsig
 		return 0;
 	}
 
-	D3D_SetTextureSize(&tInfo);
+	D3DSPRITE_SetTextureSize(&tInfo);
 
 	const int nOffsetX = tInfo.nOffsetX << 11;
 	const int nOffsetY = tInfo.nOffsetY << 12;
@@ -783,14 +783,14 @@ int __fastcall D3D_DrawFlatSprite(D2CelContextStrc* pData, int nX, int nY, unsig
 		|| (pVertices[2].fX >= 0.0f && pVertices[2].fX < nScreenWidth && pVertices[2].fY >= 0.0f && pVertices[2].fY < nScreenHeight)
 		|| (pVertices[3].fX >= 0.0f && pVertices[3].fX < nScreenWidth && pVertices[3].fY >= 0.0f && pVertices[3].fY < nScreenHeight))
 	{
-		const unsigned char nAlpha = D3D_SetBlendAndAlpha(eDrawMode);
-		if (!D3D_UploadTexture(&tInfo, 1, (int)pPalette, 0))
+		const unsigned char nAlpha = D3DSPRITE_SetBlendAndAlpha(eDrawMode);
+		if (!D3DSPRITE_UploadTexture(&tInfo, 1, (int)pPalette, 0))
 		{
 			return 1;
 		}
 
-		D3D_SetColorCombineMode(1);
-		D3D_SetTextureFilterMode(1);
+		D3DCORE_SetColorCombineMode(1);
+		D3DCORE_SetTextureFilterMode(1);
 		sub_006B9780_SetColor(pVertices, dwGamma, nAlpha);
 		pVertices[1].dwColor = pVertices[0].dwColor;
 		pVertices[2].dwColor = pVertices[0].dwColor;
@@ -839,20 +839,20 @@ int __fastcall sub_006B6B40_DrawSprite(D2CelContextStrc* pContext, int nX, int n
     if (nBottom - tInfo.nHeight >= gnRenderHeight)
         return 0;
 
-    D3D_SetTextureSize(&tInfo);
-    unsigned char nAlpha = D3D_SetBlendAndAlpha(nBlendMode);
+    D3DSPRITE_SetTextureSize(&tInfo);
+    unsigned char nAlpha = D3DSPRITE_SetBlendAndAlpha(nBlendMode);
     if (nBlendMode == 7)
     {
-        if (D3D_UploadTexture(&tInfo, 2, nArg, 0))
+        if (D3DSPRITE_UploadTexture(&tInfo, 2, nArg, 0))
         {
-            D3D_DrawSpriteQuad(&tInfo, nX, nY, nColor, 0, nAlpha, 0);
+            D3DSPRITE_DrawSpriteQuad(&tInfo, nX, nY, nColor, 0, nAlpha, 0);
         }
     }
     else
     {
-        if (D3D_UploadTexture(&tInfo, 1, nArg, 0))
+        if (D3DSPRITE_UploadTexture(&tInfo, 1, nArg, 0))
         {
-            D3D_DrawSpriteQuad(&tInfo, nX, nY, nColor, 0, nAlpha, 0);
+            D3DSPRITE_DrawSpriteQuad(&tInfo, nX, nY, nColor, 0, nAlpha, 0);
         }
     }
     return 1;
@@ -890,29 +890,29 @@ int __fastcall sub_006B6BF0_DrawSprite(D2CelContextStrc* pContext, int nX, int n
         return 0;
     }
 
-    D3D_SetTextureSize(&tInfo);
-    if (D3D_UploadTexture(&tInfo, 1, 0, 0))
+    D3DSPRITE_SetTextureSize(&tInfo);
+    if (D3DSPRITE_UploadTexture(&tInfo, 1, 0, 0))
     {
-        const unsigned char nAlpha = D3D_SetBlendAndAlpha(nBlendMode);
-        D3D_DrawSpriteQuad(&tInfo, nX, nY, nColor, nPaletteIndex, nAlpha, 0);
+        const unsigned char nAlpha = D3DSPRITE_SetBlendAndAlpha(nBlendMode);
+        D3DSPRITE_DrawSpriteQuad(&tInfo, nX, nY, nColor, nPaletteIndex, nAlpha, 0);
     }
 
     return 1;
 }
 
 // 0x006B6C90
-void __fastcall D3D_DrawSpriteRows(D2CelContextStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nBlendMode)
+void __fastcall D3DSPRITE_DrawSpriteRows(D2CelContextStrc* pContext, int nX, int nY, unsigned int nSkip, unsigned int nRows, int nBlendMode)
 {
     D2SpriteInfoStrc tInfo;
 
-    unsigned char nAlpha = D3D_SetBlendAndAlpha(nBlendMode);
+    unsigned char nAlpha = D3DSPRITE_SetBlendAndAlpha(nBlendMode);
     if (!sub_006B5C80_LoadCelInfo(pContext, &tInfo))
     {
         return;
     }
 
-    D3D_SetTextureSize(&tInfo);
-    if (!D3D_UploadTexture(&tInfo, 1, 0, 0))
+    D3DSPRITE_SetTextureSize(&tInfo);
+    if (!D3DSPRITE_UploadTexture(&tInfo, 1, 0, 0))
     {
         return;
     }
@@ -932,11 +932,11 @@ void __fastcall D3D_DrawSpriteRows(D2CelContextStrc* pContext, int nX, int nY, u
     }
 
     tInfo.nTexHeight = nRows;
-    D3D_DrawSpriteQuad(&tInfo, nX, nY, 0xFFFFFFFF, 0, nAlpha, 0);
+    D3DSPRITE_DrawSpriteQuad(&tInfo, nX, nY, 0xFFFFFFFF, 0, nAlpha, 0);
 }
 
 // 0x006B6D70
-int __stdcall D3D_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, const D2BoundsStrc* pBounds, D2ClipStrc* pClip)
+int __stdcall D3DSPRITE_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, const D2BoundsStrc* pBounds, D2ClipStrc* pClip)
 {
     nX += pInfo->nOffsetX;
     int nWidth = pInfo->nWidth;
@@ -991,24 +991,24 @@ int __stdcall D3D_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, const D2Bo
 }
 
 // 0x006B6EE0
-void __fastcall D3D_DrawSpriteClipped(D2CelContextStrc* pContext, int nX, int nY, const D2BoundsStrc* pBounds, int nBlendMode)
+void __fastcall D3DSPRITE_DrawSpriteClipped(D2CelContextStrc* pContext, int nX, int nY, const D2BoundsStrc* pBounds, int nBlendMode)
 {
     D2SpriteInfoStrc tInfo;
     D2ClipStrc tClip;
 
-    unsigned char nAlpha = D3D_SetBlendAndAlpha(nBlendMode);
+    unsigned char nAlpha = D3DSPRITE_SetBlendAndAlpha(nBlendMode);
     if (!sub_006B5C80_LoadCelInfo(pContext, &tInfo))
     {
         return;
     }
 
-    D3D_SetTextureSize(&tInfo);
-    if (!D3D_UploadTexture(&tInfo, 1, 0, 0))
+    D3DSPRITE_SetTextureSize(&tInfo);
+    if (!D3DSPRITE_UploadTexture(&tInfo, 1, 0, 0))
     {
         return;
     }
 
-    if (D3D_ClipSprite(&tInfo, nX, nY, pBounds, &tClip))
+    if (D3DSPRITE_ClipSprite(&tInfo, nX, nY, pBounds, &tClip))
     {
         return;
     }
@@ -1039,11 +1039,11 @@ void __fastcall D3D_DrawSpriteClipped(D2CelContextStrc* pContext, int nX, int nY
     }
     tInfo.nTexWidth = tClip.nWidth;
 
-    D3D_DrawSpriteQuad(&tInfo, nX, nY, 0xFFFFFFFF, 0, nAlpha, 0);
+    D3DSPRITE_DrawSpriteQuad(&tInfo, nX, nY, 0xFFFFFFFF, 0, nAlpha, 0);
 }
 
 // 0x006B7000
-void __fastcall D3D_DrawSpriteShadow(D2CelContextStrc* pContext, int nX, int nY)
+void __fastcall D3DSPRITE_DrawSpriteShadow(D2CelContextStrc* pContext, int nX, int nY)
 {
     D2SpriteInfoStrc tInfo;
     unsigned char nAlpha = 255;
@@ -1053,42 +1053,42 @@ void __fastcall D3D_DrawSpriteShadow(D2CelContextStrc* pContext, int nX, int nY)
         return;
     }
 
-    D3D_SetTextureSize(&tInfo);
-    if (!D3D_UploadTexture(&tInfo, 4, 0, 0))
+    D3DSPRITE_SetTextureSize(&tInfo);
+    if (!D3DSPRITE_UploadTexture(&tInfo, 4, 0, 0))
     {
         return;
     }
 
-    D3D_SetColorCombineMode(1);
+    D3DCORE_SetColorCombineMode(1);
     if (sub_006B77A0_GetBlendedShadows())
     {
-        D3D_SetAlphaBlendMode(4);
+        D3DCORE_SetAlphaBlendMode(4);
         nAlpha = 192;
     }
     else
     {
-        D3D_SetAlphaBlendMode(1);
+        D3DCORE_SetAlphaBlendMode(1);
     }
-    D3D_SetTextureFilterMode(1);
-    D3D_DrawTexturedQuad(nX, nY, nAlpha, (D2SpriteQuad006B61A0Strc*)&tInfo);
+    D3DCORE_SetTextureFilterMode(1);
+    D3DSPRITE_DrawTexturedQuad(nX, nY, nAlpha, (D2SpriteQuad006B61A0Strc*)&tInfo);
 }
 
 // 0x006B7090
-int __fastcall D3D_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, int nArg)
+int __fastcall D3DSPRITE_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, int nArg)
 {
     D2SpriteInfoStrc tInfo;
 
-    D3D_SetAlphaBlendMode(4);
+    D3DCORE_SetAlphaBlendMode(4);
     int nResult = sub_006B5C80_LoadCelInfo(pContext, &tInfo);
     if (nResult)
     {
         tInfo.nWidth += 2;
         tInfo.nHeight += 2;
-        D3D_SetTextureSize(&tInfo);
-        nResult = D3D_UploadTexture(&tInfo, 3, 0, nArg);
+        D3DSPRITE_SetTextureSize(&tInfo);
+        nResult = D3DSPRITE_UploadTexture(&tInfo, 3, 0, nArg);
         if (nResult)
         {
-            nResult = D3D_DrawSpriteQuad(&tInfo, nX - 1, nY + 1, 0xFFFFFFFF, 0, 0x40, 1);
+            nResult = D3DSPRITE_DrawSpriteQuad(&tInfo, nX - 1, nY + 1, 0xFFFFFFFF, 0, 0x40, 1);
         }
     }
     return nResult;
@@ -1098,12 +1098,12 @@ int __fastcall D3D_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, in
 int __fastcall sub_006B6700_Shim(D2GlideRectViewStrc* pRect, int nA, int nB)
 {
     int n = nA * 3;
-    n += D3D_IsOutsideScreen(nA, nB, pRect);
+    n += D3DSPRITE_IsOutsideScreen(nA, nB, pRect);
     return n;
 }
 
 // 0x006B7100
-void __cdecl D3D_DebugFillBackBuffer()
+void __cdecl D3DSPRITE_DebugFillBackBuffer()
 {
 }
 
@@ -1120,15 +1120,15 @@ void* gpSpriteSurface128; // 0x00970F2C
 void* gpSpriteSurface32; // 0x00970F30
 
 // 0x006B7110
-void __cdecl D3D_InitSprites()
+void __cdecl D3DSPRITE_InitSprites()
 {
     D2_ASSERT(!gpSpriteBuffer, 0x55);
     D2_ASSERT(!gpSpriteOutlineBuffer, 0x56);
     gpSpriteBuffer = FOG_Alloc(0x10000, ".\\Src\\d3dSprite.cpp", 0x57, 0);
     gpSpriteOutlineBuffer = FOG_Alloc(0x10000, ".\\Src\\d3dSprite.cpp", 0x58, 0);
-    D2_ASSERT(D3D_CreateMemoryTexture(&gpSurface_00970F28, &gpTexture_00970F1C, 0x100, 0x100), 0x5E);
-    D2_ASSERT(D3D_CreateMemoryTexture(&gpSpriteSurface128, &gpSpriteTexture128, 0x80, 0x80), 0x61);
-    D2_ASSERT(D3D_CreateMemoryTexture(&gpSpriteSurface32, &gpSpriteTexture32, 0x20, 0x20), 0x64);
+    D2_ASSERT(D3DCORE_CreateMemoryTexture(&gpSurface_00970F28, &gpTexture_00970F1C, 0x100, 0x100), 0x5E);
+    D2_ASSERT(D3DCORE_CreateMemoryTexture(&gpSpriteSurface128, &gpSpriteTexture128, 0x80, 0x80), 0x61);
+    D2_ASSERT(D3DCORE_CreateMemoryTexture(&gpSpriteSurface32, &gpSpriteTexture32, 0x20, 0x20), 0x64);
 
     D2VertexBufferDescStrc tDesc = { sizeof(tDesc) };
     tDesc.dwCaps = 0x10800;
@@ -1142,6 +1142,6 @@ void __cdecl D3D_InitSprites()
     }
 
     gnVertexCount_00970F40 = 0;
-    CelSetHardwareFreeCallback(D3D_ClearResourceEntries);
+    CelSetHardwareFreeCallback(D3DSPRITE_ClearResourceEntries);
 }
 #include "gen/data/Source/D2Direct3D/Src/d3dSprite.inc"
