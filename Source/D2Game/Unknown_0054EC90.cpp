@@ -36,7 +36,6 @@ D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2Mons
 int __stdcall DUNGEON_GetNumberOfPopulatedRoomsInLevel(D2DrlgActStrc* pAct, int nLevelId); // 0x0061ABF0
 int __fastcall sub_005B5210(D2GameStrc* pGame);                                                             // 0x005B5210
 
-// build: context SEED_RollRandomNumber
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;

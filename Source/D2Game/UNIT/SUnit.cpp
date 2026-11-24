@@ -65,7 +65,6 @@ union D2SeedStrc;
 
 struct D2PlayerDataStrc;
 
-struct T00552FD0;
 
 struct D2ItemDataStrc;
 
@@ -125,12 +124,6 @@ void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 D2UnitStrc* __stdcall sub_K11_EmitUse(D2UnitStrc** ppList);
 
 typedef int (__stdcall* FARPROC)();
-
-struct T00552FD0
-{
-    char unk0x00[0x10];
-    unsigned char pFrameFlags[0x90];
-};
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
@@ -912,7 +905,6 @@ void __fastcall SUNIT_InitializeAnimation(D2UnitStrc* ptUnit)
     ptUnit->dwFrameCountPrecise = ptUnit->pAnimData->dwFrames << 8;
 }
 
-// build: context UNIT_HasFlag
 __forceinline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit)
@@ -1479,7 +1471,7 @@ void __fastcall SUNIT_RewindAnimationByPercentage(D2GameStrc* pGame, D2UnitStrc*
     }
 
     {
-        T00552FD0* pAnimData = (T00552FD0*)pUnit->pAnimData;
+        D2AnimDataRecordStrc* pAnimData = (D2AnimDataRecordStrc*)pUnit->pAnimData;
         int nIndex = nCalc - 1;
         int nAnimFrame = nCalc << 8;
         while (nAnimFrame + nAnimSpeed < nFrameCount)
@@ -1557,7 +1549,7 @@ void __fastcall SUNIT_RewindAnimationByFrames(D2GameStrc* pGame, D2UnitStrc* pUn
     }
 
     {
-        T00552FD0* pAnimData = (T00552FD0*)pUnit->pAnimData;
+        D2AnimDataRecordStrc* pAnimData = (D2AnimDataRecordStrc*)pUnit->pAnimData;
         int nIndex = nCalc - 1;
         int nAnimFrame = nCalc << 8;
         while (nAnimFrame + nAnimSpeed < nFrameCount)
@@ -1629,7 +1621,7 @@ void __fastcall D2GAME_SKILLS_RewindSkillEx_6FCBD260(D2GameStrc* pGame, D2UnitSt
     }
 
     {
-        T00552FD0* pAnimData = (T00552FD0*)pUnit->pAnimData;
+        D2AnimDataRecordStrc* pAnimData = (D2AnimDataRecordStrc*)pUnit->pAnimData;
         int nIndex = a3 - 1;
         int nAnimFrame = a3 << 8;
         while (nAnimFrame + nAnimSpeed < nFrameCount)
@@ -1779,7 +1771,6 @@ void __fastcall D2GAME_SetSparkChest_6FCBD7C0(D2UnitStrc* pUnit, unsigned char n
     pUnit->bSparkChest = nSparkChest;
 }
 
-// build: context sub_0044BE50
 inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
     return pUnit ? pUnit->dwUnitType : UNIT_INVALID;

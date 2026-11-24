@@ -1508,7 +1508,6 @@ int __fastcall OBJECTS_OperateFunction09_Monolith(D2ObjOperateFnStrc* pOp,int nO
  return 0;
 }
 
-// build: context sub_00593AF0_GetPlayerQuestFlags
 static inline D2BitBufferStrc* sub_00593AF0_GetPlayerQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];

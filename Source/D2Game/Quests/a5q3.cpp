@@ -437,7 +437,6 @@ static inline int CLIENTS_GetUnitY_A5Q3(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-// build: context sub_005891D0_SpawnDrehyaInTown
 static void __stdcall sub_005891D0_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData, D2Act5Quest3Strc* pQuestDataEx)
 {
     if (pQuestDataEx->bDrehyaInTownInitialized != 1)

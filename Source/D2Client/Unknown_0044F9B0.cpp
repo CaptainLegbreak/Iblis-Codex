@@ -1,6 +1,21 @@
 #include "D2Client.h"
 #include "D2StormAutoLink.h"
 #include "D2GameTypes.h"
+class type_info;
+struct SGAMEDATA;
+class HASHKEY_NONE;
+template <class T, int FILL> class TSExplicitList;
+template <class T, class KEY> class TSHashObjectChunk;
+
+// The decorated name of T's type descriptor, which the Storm templates pass to the allocator as the file name.
+#define STORM_TYPENAME(T) ((const char*)&typeid(T) + 8)
+
+// build: symbol ??_R0?AUSGAMEDATA@@@8 0x0070F564
+// build: symbol ??_R0?AV?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@8 0x0070F57C
+// build: symbol ??_R0?AV?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@8 0x0070F5EC
+typedef TSExplicitList<SGAMEDATA, 0xDDDDDDDD> D2SGameDataExplicitList;
+typedef TSHashObjectChunk<SGAMEDATA, HASHKEY_NONE> D2SGameDataHashObjectChunk;
+
 
 struct D2StormSlotListStrc;
 struct D2StormEntry38Strc;
@@ -70,7 +85,6 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
 void* __stdcall SMemAlloc(unsigned int nAmount, const char* szLogFileName, int nLogLine, unsigned int nFlags); // 0x00413020
-extern const char gszTypeHashObjectChunk[]; // 0x0070F5F4
 
 struct D2SGameDataStrc
 {
@@ -733,8 +747,7 @@ void D2StormListAStrc::sub_0044FC60_DeleteAll()
     {
         pNode->m_linktofull.Unlink();
         pNode->m_linktoslot.Unlink();
-// build: symbol ?gszTypeSGameData@* 0x0070F56C
-        SMemFree(pNode, gszTypeSGameData, -2, 0);
+        SMemFree(pNode, STORM_TYPENAME(SGAMEDATA), -2, 0);
     }
 }
 
@@ -745,12 +758,11 @@ void D2StormListArrayStrc::sub_0044FE10_ReallocData(unsigned int nAlloc)
     for (unsigned int i = nAlloc; i < m_count; i++)
         pOld[i].~D2StormListAStrc();
     m_alloc = nAlloc;
-// build: symbol ?gszTypeExplicitList@* 0x0070F584
-    void* pNew = SMemReAlloc(pOld, nAlloc * sizeof(D2StormListAStrc), gszTypeExplicitList, -2, 0x10);
+    void* pNew = SMemReAlloc(pOld, nAlloc * sizeof(D2StormListAStrc), STORM_TYPENAME(D2SGameDataExplicitList), -2, 0x10);
     m_data = (D2StormListAStrc*)pNew;
     if (!pNew)
     {
-        m_data = (D2StormListAStrc*)SMemAlloc(nAlloc * sizeof(D2StormListAStrc), gszTypeExplicitList, -2, 0);
+        m_data = (D2StormListAStrc*)SMemAlloc(nAlloc * sizeof(D2StormListAStrc), STORM_TYPENAME(D2SGameDataExplicitList), -2, 0);
         if (pOld)
         {
             unsigned int nCopy = nAlloc >= m_count ? m_count : nAlloc;
@@ -759,7 +771,7 @@ void D2StormListArrayStrc::sub_0044FE10_ReallocData(unsigned int nAlloc)
                 new (&m_data[i]) D2StormListAStrc(pOld[i]);
                 pOld[i].~D2StormListAStrc();
             }
-            SMemFree(pOld, gszTypeExplicitList, -2, 0);
+            SMemFree(pOld, STORM_TYPENAME(D2SGameDataExplicitList), -2, 0);
         }
     }
 }
@@ -767,7 +779,7 @@ void D2StormListArrayStrc::sub_0044FE10_ReallocData(unsigned int nAlloc)
 // 0x00450390
 D2SGameDataStrc* D2StormListAStrc::sub_00450390_NewNode(unsigned int nLocation, unsigned int nExtraBytes, unsigned int nFlags)
 {
-    void* pMemory = SMemAlloc(sizeof(D2SGameDataStrc) + nExtraBytes, gszTypeSGameData, -2, nFlags | 8);
+    void* pMemory = SMemAlloc(sizeof(D2SGameDataStrc) + nExtraBytes, STORM_TYPENAME(SGAMEDATA), -2, nFlags | 8);
     D2SGameDataStrc* pNode = pMemory ? new (pMemory) D2SGameDataStrc : 0;
     if (nLocation)
         sub_004502A0_LinkNode(pNode, nLocation, 0);
@@ -778,13 +790,13 @@ D2SGameDataStrc* D2StormListAStrc::sub_00450390_NewNode(unsigned int nLocation, 
 void D2StormHashTableStrc::InternalDelete(D2SGameDataStrc* pNode)
 {
     pNode->~D2SGameDataStrc();
-    SMemFree(pNode, gszTypeSGameData, -2, 0);
+    SMemFree(pNode, STORM_TYPENAME(SGAMEDATA), -2, 0);
 }
 
 // build: symbol ?InternalNew@D2StormHashTableStrc@@UAEPAUD2SGameDataStrc@@PAUD2StormListAStrc@@II@Z 0x00450420
 D2SGameDataStrc* D2StormHashTableStrc::InternalNew(D2StormListAStrc* pList, unsigned int nExtraBytes, unsigned int nFlags)
 {
-    void* pMemory = SMemAlloc(sizeof(D2SGameDataStrc) + nExtraBytes, gszTypeSGameData, -2, nFlags | 8);
+    void* pMemory = SMemAlloc(sizeof(D2SGameDataStrc) + nExtraBytes, STORM_TYPENAME(SGAMEDATA), -2, nFlags | 8);
     D2SGameDataStrc* pNode = new (pMemory) D2SGameDataStrc;
     pList->LinkNode((char*)pNode, 1, 0);
     return pNode;
@@ -804,8 +816,8 @@ void D2StormChunkListStrc::sub_00450580_DeleteAll()
             pNode->m_linktoslot.Unlink();
         }
         if (pChunk->m_array.m_data)
-            SMemFree(pChunk->m_array.m_data, gszTypeSGameData, -2, 0);
-        SMemFree(pChunk, gszTypeHashObjectChunk, -2, 0);
+            SMemFree(pChunk->m_array.m_data, STORM_TYPENAME(SGAMEDATA), -2, 0);
+        SMemFree(pChunk, STORM_TYPENAME(D2SGameDataHashObjectChunk), -2, 0);
     }
 }
 
@@ -813,13 +825,13 @@ void D2StormChunkListStrc::sub_00450580_DeleteAll()
 void D2StormHashTableReuseStrc::InternalDelete(D2SGameDataStrc* pNode)
 {
     pNode->~D2SGameDataStrc();
-    SMemFree(pNode, gszTypeSGameData, -2, 0);
+    SMemFree(pNode, STORM_TYPENAME(SGAMEDATA), -2, 0);
 }
 
 // build: symbol ?InternalNew@D2StormHashTableReuseStrc@@UAEPAUD2SGameDataStrc@@PAUD2StormListAStrc@@II@Z 0x00451000
 D2SGameDataStrc* D2StormHashTableReuseStrc::InternalNew(D2StormListAStrc* pList, unsigned int nExtraBytes, unsigned int nFlags)
 {
-    void* pMemory = SMemAlloc(sizeof(D2SGameDataStrc) + nExtraBytes, gszTypeSGameData, -2, nFlags | 8);
+    void* pMemory = SMemAlloc(sizeof(D2SGameDataStrc) + nExtraBytes, STORM_TYPENAME(SGAMEDATA), -2, nFlags | 8);
     D2SGameDataStrc* pNode = new (pMemory) D2SGameDataStrc;
     pList->LinkNode((char*)pNode, 1, 0);
     return pNode;
@@ -1071,7 +1083,7 @@ D2Storm604470Strc::D2Storm604470Strc()
 // 0x00450FA0
 D2StormHashObjectChunkStrc* D2StormChunkListStrc::sub_00450FA0_NewNode(unsigned int nLocation, unsigned int nExtraBytes, unsigned int nFlags)
 {
-    void* pMemory = SMemAlloc(sizeof(D2StormHashObjectChunkStrc) + nExtraBytes, gszTypeHashObjectChunk, -2, nFlags | 8);
+    void* pMemory = SMemAlloc(sizeof(D2StormHashObjectChunkStrc) + nExtraBytes, STORM_TYPENAME(D2SGameDataHashObjectChunk), -2, nFlags | 8);
     D2StormHashObjectChunkStrc* pNode = pMemory ? new (pMemory) D2StormHashObjectChunkStrc : 0;
     if (nLocation)
         sub_004508A0_LinkNode(pNode, nLocation, 0);

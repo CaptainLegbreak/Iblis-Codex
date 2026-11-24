@@ -1,7 +1,7 @@
 #include "D2Sound.h"
 #include "D2SoundTypes.h"
 
-struct T00516950;
+struct D2SoundListNodeStrc;
 struct D2SoundNode00516980Strc;
 struct Node005169D0;
 struct D2SoundNodeStrc;
@@ -13,10 +13,10 @@ struct D2DosHeaderStrc;
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" const char gszD2SoundUtilFile[]; // 0x006DEB68
 
-struct T00516950
+struct D2SoundListNodeStrc
 {
     void* pData;
-    T00516950* pNext;
+    D2SoundListNodeStrc* pNext;
 };
 
 struct D2SoundNode00516980Strc
@@ -67,11 +67,11 @@ struct D2DosHeaderStrc
 };
 
 // 0x00516950
-void __fastcall D2SOUNDUTIL_ListAddHead(T00516950** ppList, void* pData)
+void __fastcall D2SOUNDUTIL_ListAddHead(D2SoundListNodeStrc** ppList, void* pData)
 {
-    T00516950* pNode = (T00516950*)FOG_Alloc(sizeof(T00516950), gszD2SoundUtilFile, 0xD5, 0);
-    memset(pNode, 0, sizeof(T00516950));
-    T00516950* pHead = *ppList;
+    D2SoundListNodeStrc* pNode = (D2SoundListNodeStrc*)FOG_Alloc(sizeof(D2SoundListNodeStrc), gszD2SoundUtilFile, 0xD5, 0);
+    memset(pNode, 0, sizeof(D2SoundListNodeStrc));
+    D2SoundListNodeStrc* pHead = *ppList;
     pNode->pData = pData;
     pNode->pNext = pHead;
     *ppList = pNode;
@@ -111,7 +111,7 @@ extern "C" __declspec(dllexport) int __fastcall D2SOUNDUTIL_ListContains(Node005
 }
 
 // 0x005169F0
-int __fastcall D2SOUNDUTIL_ListCount(T00516950* pNode)
+int __fastcall D2SOUNDUTIL_ListCount(D2SoundListNodeStrc* pNode)
 {
     int nCount = 0;
     while (pNode)

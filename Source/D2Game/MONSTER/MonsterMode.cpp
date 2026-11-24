@@ -1336,7 +1336,6 @@ void __fastcall MONSTERMODE_DropTreasureForFindItem(D2GameStrc* pGame, D2UnitStr
     MONSTERMODE_DropTreasure(pGame, pUnit, 1, &modeChange);
 }
 
-// build: context sub_6FC63FD0
 static void __stdcall sub_6FC63FD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2UnitStrc* pTarget = UNITS_GetRoom(pUnit)->pUnitFirst;
@@ -2299,7 +2298,6 @@ static inline int MONSTERS_ValidateMonsterIdInline(int nMonsterId)
     return -1;
 }
 
-// build: context MONSTERMODE_AiThinkUnlessFrozen
 static __forceinline void MONSTERMODE_AiThinkUnlessFrozen(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     if (STATES_CheckState(pUnit, STATE_FREEZE) && !SUNIT_IsDead(pUnit)) return;

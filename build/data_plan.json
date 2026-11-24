@@ -694,8 +694,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_0044F9B0.cpp": {
-   "bytes": 128,
-   "definitions": 3,
+   "bytes": 0,
+   "definitions": 0,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -1215,28 +1215,14 @@
    "state": "included"
   },
   "Source/D2Client/UI/npcmenu.cpp": {
-   "bytes": 7949,
-   "definitions": 104,
-   "externs": [
-    "extern \"C\" void __cdecl sub_004B6C70_OpenNpcMenu(); // 0x004B6C70",
-    "extern \"C\" void __cdecl sub_004B6DA0_InitHandler(); // 0x004B6DA0"
-   ],
+   "bytes": 7973,
+   "definitions": 105,
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/npcmenu.inc",
    "lang": "cpp",
    "state": "included",
    "static_definitions": 1
-  },
-  "Source/D2Client/Unknown_004B6390.cpp": {
-   "bytes": 24,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl NPCMENU_OpenTradeShop(); // 0x004B42B0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004B6390.inc",
-   "lang": "cpp",
-   "state": "included"
   },
   "Source/D2Client/UI/dialog.cpp": {
    "bytes": 264,
@@ -3597,15 +3583,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_0066AC40.cpp": {
-   "bytes": 112,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_0066AC40.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Common/DRLG/DrlgLogic.cpp": {
    "bytes": 276,
    "definitions": 4,
@@ -4610,15 +4587,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_0066AB70.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_0066AB70.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/Unknown_0045AE90.cpp": {
    "bytes": 68,
    "definitions": 3,
@@ -5132,6 +5100,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0046C570.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Common/DRLG/DrlgWarp.cpp": {
+   "bytes": 172,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Common/DRLG/DrlgWarp.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -32923,97 +32900,6 @@
    "va": "0x0070F418"
   },
   {
-   "alias": true,
-   "cname": "gData_0070F56C",
-   "declared": true,
-   "decorated": "?gszTypeSGameData@@3QBDB",
-   "file": "Source/D2Client/Unknown_0044F9B0.cpp",
-   "fill": 24,
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0070F56C_t gData_0070F56C; // 0x0070F56C",
-   "head": "extern \"C\" struct d2data_0070F56C_t gData_0070F56C = ",
-   "name": "gszTypeSGameData",
-   "pointers": [
-    [
-     16,
-     "0x006F28F8",
-     "address",
-     "gData_006F28F8",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 24,
-   "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0070F56C_t\n{\n    unsigned char b0[16];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0070F56C\n#pragma comment(linker, \"/alternatename:?gszTypeSGameData@@3QBDB=_gData_0070F56C\")",
-   "type": "char",
-   "va": "0x0070F56C"
-  },
-  {
-   "alias": true,
-   "cname": "gData_0070F584",
-   "declared": true,
-   "decorated": "?gszTypeExplicitList@@3QBDB",
-   "file": "Source/D2Client/Unknown_0044F9B0.cpp",
-   "fill": 48,
-   "form": "declared",
-   "fwd": "extern \"C\" const char gData_0070F584[48]; // 0x0070F584",
-   "head": "extern \"C\" const char gData_0070F584[48] = ",
-   "model": {
-    "elem": {
-     "k": "prim",
-     "kind": "c",
-     "name": "char",
-     "size": 1
-    },
-    "k": "arr",
-    "n": 48,
-    "size": 48
-   },
-   "name": "gszTypeExplicitList",
-   "pointers": [],
-   "region": "data",
-   "size": 48,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070F584\n#pragma comment(linker, \"/alternatename:?gszTypeExplicitList@@3QBDB=_gData_0070F584\")",
-   "type": "char",
-   "va": "0x0070F584"
-  },
-  {
-   "alias": true,
-   "cname": "gData_0070F5F4",
-   "declared": true,
-   "decorated": "?gszTypeHashObjectChunk@@3QBDB",
-   "file": "Source/D2Client/Unknown_0044F9B0.cpp",
-   "fill": 56,
-   "form": "declared_owner",
-   "fwd": "extern \"C\" const char gData_0070F5F4[56]; // 0x0070F5F4",
-   "head": "extern \"C\" const char gData_0070F5F4[56] = ",
-   "model": {
-    "elem": {
-     "k": "prim",
-     "kind": "c",
-     "name": "char",
-     "size": 1
-    },
-    "k": "arr",
-    "n": 56,
-    "size": 56
-   },
-   "name": "gszTypeHashObjectChunk",
-   "pointers": [],
-   "region": "data",
-   "size": 56,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0070F5F4\n#pragma comment(linker, \"/alternatename:?gszTypeHashObjectChunk@@3QBDB=_gData_0070F5F4\")",
-   "type": "char",
-   "va": "0x0070F5F4"
-  },
-  {
    "alias": false,
    "cname": null,
    "declared": true,
@@ -57523,7 +57409,7 @@
    "cname": "gData_00726C56",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004B6390.cpp",
+   "file": "Source/D2Client/UI/npcmenu.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00726C56_t gData_00726C56; // 0x00726C56",
    "head": "extern \"C\" struct d2data_00726C56_t gData_00726C56 = ",
@@ -57540,7 +57426,7 @@
     [
      8,
      "0x004B42B0",
-     "names.json",
+     "owner",
      "NPCMENU_OpenTradeShop",
      0,
      "func"
@@ -130201,7 +130087,7 @@
    "cname": "gData_00749804",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0066AB70.cpp",
+   "file": "Source/D2Common/DRLG/DrlgWarp.cpp",
    "form": "bytes",
    "name": "gData_00749804",
    "pointers": [
@@ -132150,7 +132036,7 @@
    "cname": "gData_006EED88",
    "declared": true,
    "decorated": "?gaTileGroups@@3PAUD2TileGroupStrc@@A",
-   "file": "Source/D2Common/Unknown_0066AC40.cpp",
+   "file": "Source/D2Common/DRLG/DrlgWarp.cpp",
    "fill": 14,
    "form": "declared",
    "fwd": "extern \"C\" const D2TileGroupStrc gData_006EED88[14]; // 0x006EED88",

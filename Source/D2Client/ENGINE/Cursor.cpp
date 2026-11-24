@@ -6,6 +6,7 @@
 #include "D2Constants.h"
 #include "D2StormTypes.h"
 #include "D2Win32Types.h"
+#include "D2WinSplitText.h"
 
 struct D2MsgHandlerEntryStrc;
 
@@ -225,12 +226,6 @@ struct D2TileRectStrc
 };
 
 void __fastcall UI_SetCursorPosition(int nA, int nB);                                                               // 0x00468770
-
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
-};
 
 extern "C" void _ReadWriteBarrier(void);
 

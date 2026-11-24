@@ -580,7 +580,6 @@ D2UnitStrc* __fastcall MONSTERSPAWN_SpawnInCoordList(D2GameStrc* pGame, D2Active
     return D2GAME_SpawnNormalMonster(&monCreate);
 }
 
-// build: context MONSTERREGION_SanitizeMonsterId_Inline
 static inline int MONSTERREGION_SanitizeMonsterId_Inline(int nMonsterId)
 {
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
@@ -672,7 +671,6 @@ static void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc* pUnit)
 	while (nCount);
 }
 
-// build: context MONSTERS_GetMonStatsTxtRecord_Inline
 static inline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecord_Inline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -682,7 +680,6 @@ static inline D2MonStatsTxt* MONSTERS_GetMonStatsTxtRecord_Inline(int nMonsterId
     return 0;
 }
 
-// build: context MONSTERS_ValidateMonsterId_Inline
 static inline int MONSTERS_ValidateMonsterId_Inline(int nMonsterId)
 {
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
@@ -692,7 +689,6 @@ static inline int MONSTERS_ValidateMonsterId_Inline(int nMonsterId)
     return nMonsterId;
 }
 
-// build: context MONSTERUNIQUE_ToggleUnitFlag_Inline
 static inline void MONSTERUNIQUE_ToggleUnitFlag_Inline(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit)
@@ -848,7 +844,6 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStr
     }
 }
 
-// build: context GetMonStats2
 static inline D2MonStats2Txt* GetMonStats2(int nId)
 {
     if(nId<0 || nId>=sgptDataTables->nMonStatsTxtRecordCount) return 0;
@@ -857,7 +852,6 @@ static inline D2MonStats2Txt* GetMonStats2(int nId)
     return &sgptDataTables->pMonStats2Txt[nIndex];
 }
 
-// build: context SEED_RollRandomNumber
 static inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
@@ -866,7 +860,6 @@ static inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
     return lSeed;
 }
 
-// build: context ITEMS_RollRandomNumber
 static inline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
 {
     return (unsigned int)SEED_RollRandomNumber(pSeed);

@@ -1107,7 +1107,6 @@ static int __stdcall PLRMODE_FreeStaleCorpses(D2GameStrc* pGame, D2UnitStrc* pUn
     return nCount;
 }
 
-// build: context ApplyRatio
 static inline int ApplyRatio(int nValue,int nMultiplier,int nDivisor)
 {
  if(!nDivisor) return 0;

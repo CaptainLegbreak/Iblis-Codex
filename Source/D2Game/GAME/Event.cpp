@@ -401,7 +401,6 @@ void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc* pGame, D2UnitStrc
     SUNIT_SetTimerOnUnit(pUnit, 0);
 }
 
-// build: context EVENT_ExecuteEventsImpl5
 static __forceinline void EVENT_ExecuteEventsImpl5(EventTimerCallback pDefaultCallback, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer, int a4)
 {
     pTimerQueue->pCurrent = 0;
@@ -452,7 +451,6 @@ static __forceinline void EVENT_ExecuteEventsImpl5(EventTimerCallback pDefaultCa
     }
 }
 
-// build: context EVENT_ExecuteEventsImpl3
 static __forceinline void EVENT_ExecuteEventsImpl3(EventDefault3 pDefaultCallback, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer, int a4)
 {
     pTimerQueue->pCurrent = 0;

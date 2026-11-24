@@ -1,6 +1,21 @@
 #include "D2Client.h"
 #include "D2StormAutoLink.h"
 #include "D2StormListArray.h"
+class type_info;
+struct SGAMEDATA;
+class HASHKEY_NONE;
+template <class T, int FILL> class TSExplicitList;
+template <class T, class KEY> class TSHashObjectChunk;
+
+// The decorated name of T's type descriptor, which the Storm templates pass to the allocator as the file name.
+#define STORM_TYPENAME(T) ((const char*)&typeid(T) + 8)
+
+// build: symbol ??_R0?AUSGAMEDATA@@@8 0x0070F564
+// build: symbol ??_R0?AV?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@8 0x0070F57C
+// build: symbol ??_R0?AV?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@8 0x0070F5EC
+typedef TSExplicitList<SGAMEDATA, 0xDDDDDDDD> D2SGameDataExplicitList;
+typedef TSHashObjectChunk<SGAMEDATA, HASHKEY_NONE> D2SGameDataHashObjectChunk;
+
 
 struct D2SGameDataStrc;
 struct D2StormLinkStrc;
@@ -134,8 +149,7 @@ D2StormListFixedArrayStrc::~D2StormListFixedArrayStrc()
     for (unsigned int i = 0; i < m_count; i++)
         m_data[i].~D2StormListAStrc();
     if (m_data)
-// build: symbol ?gszTypeExplicitList@* 0x0070F584
-        SMemFree(m_data, gszTypeExplicitList, -2, 0);
+        SMemFree(m_data, STORM_TYPENAME(D2SGameDataExplicitList), -2, 0);
 }
 
 // 0x00450D90
@@ -145,12 +159,11 @@ void D2StormGameDataArrayStrc::sub_00450D90_ReallocData(unsigned int nAlloc)
     for (unsigned int i = nAlloc; i < m_count; i++)
         pOld[i].~D2SGameDataStrc();
     m_alloc = nAlloc;
-// build: symbol ?gszTypeSGameData@* 0x0070F56C
-    void* pNew = SMemReAlloc(pOld, nAlloc * sizeof(D2SGameDataStrc), gszTypeSGameData, -2, 0x10);
+    void* pNew = SMemReAlloc(pOld, nAlloc * sizeof(D2SGameDataStrc), STORM_TYPENAME(SGAMEDATA), -2, 0x10);
     m_data = (D2SGameDataStrc*)pNew;
     if (!pNew)
     {
-        m_data = (D2SGameDataStrc*)SMemAlloc(nAlloc * sizeof(D2SGameDataStrc), gszTypeSGameData, -2, 0);
+        m_data = (D2SGameDataStrc*)SMemAlloc(nAlloc * sizeof(D2SGameDataStrc), STORM_TYPENAME(SGAMEDATA), -2, 0);
         if (pOld)
         {
             unsigned int nCopy = nAlloc >= m_count ? m_count : nAlloc;
@@ -159,7 +172,7 @@ void D2StormGameDataArrayStrc::sub_00450D90_ReallocData(unsigned int nAlloc)
                 new (&m_data[i]) D2SGameDataStrc(pOld[i]);
                 pOld[i].~D2SGameDataStrc();
             }
-            SMemFree(pOld, gszTypeSGameData, -2, 0);
+            SMemFree(pOld, STORM_TYPENAME(SGAMEDATA), -2, 0);
         }
     }
 }

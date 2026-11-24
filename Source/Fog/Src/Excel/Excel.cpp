@@ -18,10 +18,6 @@ struct ClientNode;
 
 struct PaletteTables;
 
-struct D2SNameEntryStrc;
-
-struct D2SNameListStrc;
-
 struct D2SNameNodeStrc;
 
 struct RoomFlags;
@@ -287,8 +283,6 @@ int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChar
 
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 
-static int __stdcall EXCEL_MapColumns(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries); // 0x006BCE20
-
 extern "C" const char gszEmptyAssertText;                                                    // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090();                                       // 0x00408090
@@ -307,7 +301,7 @@ struct D2BinFieldStrc;
 
 struct D2BinFieldStrc { const char* name; unsigned type; int length,offset; void* link; };
 
-int __stdcall EXCEL_MapColumns(unsigned short*,D2BinFileStrc*,D2BinFieldStrc*); // 0x006BCE20
+static int __stdcall EXCEL_MapColumns(unsigned short* pOut, D2BinFileStrc* pList, D2BinFieldStrc* pEntries); // 0x006BCE20
 
 int __stdcall sub_006BD230_AddCode(void*,unsigned); // 0x006BD230
 
@@ -366,8 +360,6 @@ unsigned int __stdcall sub_E01_Emit_006BCDF0(const char* szName)
     return EXCEL_HashName(szName);
 }
 
-int __stdcall EXCEL_MapColumns(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries); // 0x006BCE20
-
 // 0x006BCE00
 unsigned int __fastcall EXCEL_XorFoldBytes(int nUnused, unsigned int dwValue)
 {
@@ -375,34 +367,34 @@ unsigned int __fastcall EXCEL_XorFoldBytes(int nUnused, unsigned int dwValue)
 }
 
 // 0x006BCE20
-static int __stdcall EXCEL_MapColumns(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries)
+static int __stdcall EXCEL_MapColumns(unsigned short* pOut, D2BinFileStrc* pList, D2BinFieldStrc* pEntries)
 {
     D2SNameNodeStrc* aBuckets[256];
     D2SNameNodeStrc aNodes[0x118];
     unsigned int nNodes = 0;
     int nOut = 0;
 
-    D2SNameEntryStrc* pCheck = pEntries;
-    if (pCheck->nType)
+    D2BinFieldStrc* pCheck = pEntries;
+    if (pCheck->type)
     {
         do
         {
-            if (pCheck->nType == 5)
+            if (pCheck->type == 5)
             {
-                for (unsigned int i = 1; i < pCheck->nCount; ++i)
+                for (unsigned int i = 1; i < pCheck->length; ++i)
                 {
                     ++pCheck;
-                    S_ASSERT(pCheck->nType == 5, 0xC4);
+                    S_ASSERT(pCheck->type == 5, 0xC4);
                 }
             }
             ++pCheck;
-        } while (pCheck->nType);
+        } while (pCheck->type);
     }
 
     SMemZero(aBuckets, sizeof(aBuckets));
 
-    D2SNameEntryStrc* pEntry = pEntries;
-    if (pEntry->nType)
+    D2BinFieldStrc* pEntry = pEntries;
+    if (pEntry->type)
     {
         D2SNameNodeStrc* pCursor = aNodes;
         do
@@ -410,7 +402,7 @@ static int __stdcall EXCEL_MapColumns(unsigned short* pOut, D2SNameListStrc* pLi
         S_ASSERT(nNodes < 0x118, 0xCC);
         ++nNodes;
         D2SNameNodeStrc* pNode = pCursor++;
-        const char* szName = pEntry->szName;
+        const char* szName = pEntry->name;
         unsigned int nHash = SStrHash(szName, 0, 0);
         unsigned int nBucket = ((((nHash >> 8) ^ nHash) >> 16) ^ (nHash >> 8) ^ nHash) & 0xFF;
         pNode->nHash = nHash;
@@ -418,17 +410,17 @@ static int __stdcall EXCEL_MapColumns(unsigned short* pOut, D2SNameListStrc* pLi
         pNode->pNext = aBuckets[nBucket];
         aBuckets[nBucket] = pNode;
             ++pEntry;
-        } while (pEntry->nType);
+        } while (pEntry->type);
     }
 
-    const char* szString = pList->pStrings;
-    for (unsigned int i = 0; i < pList->nCount; ++i)
+    const char* szString = pList->pDataBuffer;
+    for (unsigned int i = 0; i < pList->nColumns; ++i)
     {
         unsigned int nHash = SStrHash(szString, 0, 0);
         unsigned int nBucket = ((((((nHash >> 8) ^ nHash) >> 8) ^ nHash) >> 8) ^ nHash) & 0xFF;
         for (D2SNameNodeStrc* pNode = aBuckets[nBucket]; pNode; pNode = pNode->pNext)
         {
-            if (pNode->nHash == nHash && !SStrCmpI(szString, pNode->pEntry->szName, 0x7FFFFFFF))
+            if (pNode->nHash == nHash && !SStrCmpI(szString, pNode->pEntry->name, 0x7FFFFFFF))
             {
                 pNode->nHash = 0;
                 pOut[nOut++] = (unsigned short)(pNode->pEntry - pEntries);
@@ -671,13 +663,6 @@ int __stdcall FOG_GetStringFromLinkIndex(D2TxtLinkStrc* linker, int index, char*
         }
     }
     return 0;
-}
-
-// build: context sub_006BCE20_Shim
-// calling-convention shim (not game code)
-int __stdcall sub_006BCE20_Shim(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries)
-{
-    return EXCEL_MapColumns(pOut, pList, pEntries);
 }
 
 // 0x006BD330

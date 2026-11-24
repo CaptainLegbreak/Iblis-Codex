@@ -1,8 +1,22 @@
 #include "D2StormAutoLink.h"
 #include "D2StormListArray.h"
+class type_info;
+struct SGAMEDATA;
+class HASHKEY_NONE;
+template <class T, int FILL> class TSExplicitList;
+template <class T, class KEY> class TSHashObjectChunk;
+
+// The decorated name of T's type descriptor, which the Storm templates pass to the allocator as the file name.
+#define STORM_TYPENAME(T) ((const char*)&typeid(T) + 8)
+
+// build: symbol ??_R0?AUSGAMEDATA@@@8 0x0070F564
+// build: symbol ??_R0?AV?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@8 0x0070F57C
+// build: symbol ??_R0?AV?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@8 0x0070F5EC
+typedef TSExplicitList<SGAMEDATA, 0xDDDDDDDD> D2SGameDataExplicitList;
+typedef TSHashObjectChunk<SGAMEDATA, HASHKEY_NONE> D2SGameDataHashObjectChunk;
+
 int __stdcall SMemFree(void* pLocation, const char* szLogFileName, int nLogLine, unsigned int nFlags);       // 0x00412650
 
-extern const char gszTypeSGameData[];                                                              // 0x0070F56C
 
 struct D2SGameDataStrc
 {
@@ -109,7 +123,7 @@ D2StormGameArrayStrc::~D2StormGameArrayStrc()
     for (unsigned int i = 0; i < m_count; i++)
         m_data[i].~D2SGameDataStrc();
     if (m_data)
-        SMemFree(m_data, gszTypeSGameData, -2, 0);
+        SMemFree(m_data, STORM_TYPENAME(SGAMEDATA), -2, 0);
 }
 
 // 0x00451100

@@ -214,7 +214,6 @@ static void __stdcall PLAYER_ApplyDeathExperienceLoss(D2GameStrc* pGame, D2UnitS
 
 void __fastcall PLAYER_ApplyDeathPenalty(D2GameStrc* pGame, D2UnitStrc* pDefender, D2UnitStrc* pAttacker);
 
-// build: context sub_M08_PlaceStartItemInBelt
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 void __fastcall CLIENTS_SetSkillHotKey(D2ClientStrc* pClient, int nHotkeyId, short nSkillId, unsigned char nHand, int nItemGUID); // 0x005390A0
@@ -1001,7 +1000,6 @@ int __fastcall PLAYER_GetPlayerCount(D2GameStrc* pGame)
     return nLivingPlayers;
 }
 
-// build: context PLAYER_SetStatOrResetGold
 static inline void PLAYER_SetStatOrResetGold(D2UnitStrc* pUnit, int nStat, int nValue)
 {
     if (!pUnit)

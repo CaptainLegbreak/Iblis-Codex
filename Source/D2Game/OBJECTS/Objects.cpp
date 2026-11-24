@@ -763,7 +763,6 @@ D2UnitStrc* __fastcall OBJECTS_SpawnPresetObject(D2GameStrc* pGame, D2ActiveRoom
     return gpfnPresetObjectSpawners[nIndex](pGame, pRoom, nClassId, nX, nY, nMode);
 }
 
-// build: context SEED_RollRandomNumber
 inline unsigned __int64 __fastcall SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
@@ -2120,7 +2119,6 @@ int __fastcall OBJECTS_SpawnBarrel(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D
     return 1;
 }
 
-// build: context OBJECTS_RollObjectIndex_Inline
 static __forceinline unsigned int OBJECTS_RollObjectIndex_Inline(D2SeedStrc* pSeed)
 {
     if (gnUrnClusterIdCount <= 0) return 0;
