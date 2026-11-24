@@ -3523,15 +3523,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005D8100.cpp": {
-   "bytes": 184,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005D8100.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/Ai/AiUtil.cpp": {
    "bytes": 104,
    "definitions": 1,
@@ -5437,6 +5428,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/ENGINE/Cursor.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/SKILLS/SkillBar.cpp": {
+   "bytes": 184,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/SKILLS/SkillBar.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -109798,7 +109798,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005D8100.cpp",
+   "file": "Source/D2Game/SKILLS/SkillBar.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnPotionTableMax = ",
@@ -109823,7 +109823,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005D8100.cpp",
+   "file": "Source/D2Game/SKILLS/SkillBar.cpp",
    "fill": 15,
    "form": "declared",
    "fwd": null,
