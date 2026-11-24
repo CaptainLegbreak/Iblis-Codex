@@ -349,3 +349,5 @@ int __stdcall UNITROOM_IsUnitInRoom(D2ActiveRoomStrc* pRoom, D2UnitStrc* hUnit)
 
     return 1;
 }
+
+#include "gen/data/Source/D2Common/UNITS/UnitRoom.inc"

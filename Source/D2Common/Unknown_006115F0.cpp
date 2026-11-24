@@ -1,15 +1,9 @@
 #include "D2Common.h"
+#include "D2ProfileCounter.h"
 
 struct D2GameStrc;
 struct D2ProfileCounterStrc;
 
-struct D2ProfileCounterStrc
-{
-    char szName[0x68];
-    __int64 nTotal;
-    int nCount;
-    int f_74;
-};
 
 typedef int (__cdecl* PROFHOOK0096BC24FN)();
 

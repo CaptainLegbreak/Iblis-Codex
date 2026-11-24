@@ -1126,3 +1126,5 @@ void __stdcall MISSILE_CalculateDamageData(Damage* pMissileDamageData, Unit* pOw
         sub_0064AA60_ScaleElements(pMissileDamageData, originDamage);
     }
 }
+
+#include "gen/data/Source/D2Common/UNITS/Missile.inc"

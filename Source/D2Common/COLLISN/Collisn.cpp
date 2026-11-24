@@ -1908,3 +1908,5 @@ void __fastcall COLLISION_SetUnitCollisionMask(D2ActiveRoomStrc* pRoom1, int nX1
         COLLISION_SetMaskWithPattern(pRoom2, nX2, nY2, nCollisionPattern, nCollisionMask);
     }
 }
+
+#include "gen/data/Source/D2Common/COLLISN/Collisn.inc"

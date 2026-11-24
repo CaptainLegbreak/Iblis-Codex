@@ -11,6 +11,7 @@
 #include "D2StormLink.h"
 
 #include "D2CmpCache.h"
+#include "D2ProfileCounter.h"
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags) throw(); // 0x00412650
 
@@ -653,13 +654,6 @@ struct D2CommonRecord610610Strc
     D2CommonRecord610610Strc(int nValue);
 };
 
-struct D2ProfileCounterStrc
-{
-    char szName[0x68];
-    __int64 nTotal;
-    int nCount;
-    int f_74;
-};
 
 struct D2CompCodeTxt
 {
