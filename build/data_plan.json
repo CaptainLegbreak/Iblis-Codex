@@ -480,8 +480,8 @@
    "state": "included"
   },
   "Source/D2Launch/Src/MainMenus.cpp": {
-   "bytes": 15432,
-   "definitions": 64,
+   "bytes": 15436,
+   "definitions": 65,
    "externs": [
     "extern \"C\" void __cdecl MAINMENUS_OnConnectCancel(); // 0x00436CD0",
     "extern \"C\" void __cdecl sub_004371B0_OnLoginScreen(); // 0x004371B0",
@@ -876,8 +876,8 @@
    "state": "included"
   },
   "Source/D2Multi/Unknown_00444020.cpp": {
-   "bytes": 204,
-   "definitions": 5,
+   "bytes": 222,
+   "definitions": 6,
    "externs": [
     "extern \"C\" char gData_0070CD84[]; // 0x0070CD84",
     "extern \"C\" char gData_0070CD94[]; // 0x0070CD94",
@@ -2113,8 +2113,8 @@
    "state": "included"
   },
   "Source/D2Win/Src/D2Comp.cpp": {
-   "bytes": 4936,
-   "definitions": 21,
+   "bytes": 4938,
+   "definitions": 22,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Win/Src/D2Comp.inc",
@@ -2131,8 +2131,8 @@
    "state": "included"
   },
   "Source/D2Win/Src/D2WinFont.cpp": {
-   "bytes": 136,
-   "definitions": 6,
+   "bytes": 168,
+   "definitions": 7,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Win/Src/D2WinFont_005013A0.inc",
@@ -2276,8 +2276,8 @@
    "state": "included"
   },
   "Source/D2Hell/Unknown_00516DE1.cpp": {
-   "bytes": 4,
-   "definitions": 1,
+   "bytes": 12,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Hell/Unknown_00516DE1.inc",
@@ -2431,8 +2431,8 @@
    "state": "included"
   },
   "Source/D2BNClient/BNNews.cpp": {
-   "bytes": 28,
-   "definitions": 2,
+   "bytes": 36,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2BNClient/BNNews.inc",
@@ -4114,8 +4114,8 @@
    "state": "included"
   },
   "Source/D2CMP/SRC/Codec.cpp": {
-   "bytes": 192,
-   "definitions": 2,
+   "bytes": 320,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2CMP/SRC/Codec.inc",
@@ -4494,8 +4494,8 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/RoomTile.cpp": {
-   "bytes": 1512,
-   "definitions": 5,
+   "bytes": 1684,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/RoomTile_0066D960.inc",
@@ -18406,6 +18406,23 @@
    "va": "0x006D4D88"
   },
   {
+   "alias": false,
+   "cname": "gData_0070C234",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Launch/Src/MainMenus.cpp",
+   "form": "bytes",
+   "name": "gData_0070C234",
+   "pointers": [],
+   "region": "data",
+   "size": 4,
+   "va": "0x0070C234",
+   "fwd": "extern \"C\" struct d2data_0070C234_t gData_0070C234; // 0x0070C234",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0070C234_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" struct d2data_0070C234_t gData_0070C234 = ",
+   "tail": "; // 0x0070C234"
+  },
+  {
    "alias": true,
    "cname": "gData_006DADC0",
    "declared": true,
@@ -26965,6 +26982,23 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_0070EB94_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
    "tail": "; // 0x0070EB94",
    "va": "0x0070EB94"
+  },
+  {
+   "alias": false,
+   "cname": "gData_006FFC46",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Multi/Unknown_00444020.cpp",
+   "form": "bytes",
+   "name": "gData_006FFC46",
+   "pointers": [],
+   "region": "rdata",
+   "size": 18,
+   "va": "0x006FFC46",
+   "fwd": "extern \"C\" const struct d2data_006FFC46_t gData_006FFC46; // 0x006FFC46",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006FFC46_t\n{\n    unsigned char b0[18];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" const struct d2data_006FFC46_t gData_006FFC46 = ",
+   "tail": "; // 0x006FFC46"
   },
   {
    "alias": false,
@@ -84886,6 +84920,36 @@
    "va": "0x006DC980"
   },
   {
+   "alias": true,
+   "cname": "gData_006DC9B8",
+   "declared": true,
+   "decorated": "?gaFontCharValidBits@@3PAIA",
+   "file": "Source/D2Win/Src/D2WinFont.cpp",
+   "form": "declared",
+   "fwd": "extern \"C\" const unsigned int gData_006DC9B8[8]; // 0x006DC9B8",
+   "head": "extern \"C\" const unsigned int gData_006DC9B8[8] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "u",
+     "name": "unsigned int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 8,
+    "size": 32
+   },
+   "name": "gaFontCharValidBits",
+   "pointers": [],
+   "region": "rdata",
+   "size": 32,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006DC9B8\n#pragma comment(linker, \"/alternatename:?gaFontCharValidBits@@3PAIA=_gData_006DC9B8\")",
+   "type": "unsigned int",
+   "va": "0x006DC9B8"
+  },
+  {
    "alias": false,
    "cname": null,
    "declared": true,
@@ -85623,6 +85687,23 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_006CE29C_t\n{\n    unsigned char b0[76];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006CE29C",
    "va": "0x006CE29C"
+  },
+  {
+   "alias": false,
+   "cname": "gData_0072E1BA",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Win/Src/D2Comp.cpp",
+   "form": "bytes",
+   "name": "gData_0072E1BA",
+   "pointers": [],
+   "region": "data",
+   "size": 2,
+   "va": "0x0072E1BA",
+   "fwd": "extern \"C\" struct d2data_0072E1BA_t gData_0072E1BA; // 0x0072E1BA",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0072E1BA_t\n{\n    unsigned char b0[2];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" struct d2data_0072E1BA_t gData_0072E1BA = ",
+   "tail": "; // 0x0072E1BA"
   },
   {
    "alias": true,
@@ -88400,6 +88481,32 @@
    "va": "0x0072F9F0"
   },
   {
+   "alias": false,
+   "cname": "gData_0072F9F4",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Hell/Unknown_00516DE1.cpp",
+   "form": "bytes",
+   "name": "gData_0072F9F4",
+   "pointers": [
+    [
+     0,
+     "0x006F28F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 8,
+   "va": "0x0072F9F4",
+   "fwd": "extern \"C\" struct d2data_0072F9F4_t gData_0072F9F4; // 0x0072F9F4",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0072F9F4_t\n{\n    const void* p0;\n    unsigned char b1[4];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" struct d2data_0072F9F4_t gData_0072F9F4 = ",
+   "tail": "; // 0x0072F9F4"
+  },
+  {
    "alias": true,
    "cname": "gData_006CC848",
    "declared": true,
@@ -89862,6 +89969,32 @@
    "tail": "; // 0x0072FF80",
    "type": "char",
    "va": "0x0072FF80"
+  },
+  {
+   "alias": false,
+   "cname": "gData_0072FF84",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2BNClient/BNNews.cpp",
+   "form": "bytes",
+   "name": "gData_0072FF84",
+   "pointers": [
+    [
+     0,
+     "0x006F28F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 8,
+   "va": "0x0072FF84",
+   "fwd": "extern \"C\" struct d2data_0072FF84_t gData_0072FF84; // 0x0072FF84",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0072FF84_t\n{\n    const void* p0;\n    unsigned char b1[4];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" struct d2data_0072FF84_t gData_0072FF84 = ",
+   "tail": "; // 0x0072FF84"
   },
   {
    "alias": true,
@@ -121953,6 +122086,36 @@
    "va": "0x006E5F70"
   },
   {
+   "alias": true,
+   "cname": "gData_006E5FB0",
+   "declared": true,
+   "decorated": "?gadwDccSignBits@@3QBIB",
+   "file": "Source/D2CMP/SRC/Codec.cpp",
+   "form": "declared",
+   "fwd": "extern \"C\" const unsigned int gData_006E5FB0[32]; // 0x006E5FB0",
+   "head": "extern \"C\" const unsigned int gData_006E5FB0[32] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "u",
+     "name": "unsigned int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 32,
+    "size": 128
+   },
+   "name": "gadwDccSignBits",
+   "pointers": [],
+   "region": "rdata",
+   "size": 128,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E5FB0\n#pragma comment(linker, \"/alternatename:?gadwDccSignBits@@3QBIB=_gData_006E5FB0\")",
+   "type": "unsigned int",
+   "va": "0x006E5FB0"
+  },
+  {
    "alias": false,
    "cname": "gData_006E60B8",
    "declared": true,
@@ -148593,6 +148756,23 @@
    "tail": "; // 0x006EF554\n#pragma comment(linker, \"/alternatename:?gaWarpTileOffsets@@3QBUD2CoordStrc@@B=_gData_006EF554\")",
    "type": "D2CoordStrc",
    "va": "0x006EF554"
+  },
+  {
+   "alias": false,
+   "cname": "gData_006EF574",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/DRLG/RoomTile.cpp",
+   "form": "bytes",
+   "name": "gData_006EF574",
+   "pointers": [],
+   "region": "rdata",
+   "size": 172,
+   "va": "0x006EF574",
+   "fwd": "extern \"C\" const struct d2data_006EF574_t gData_006EF574; // 0x006EF574",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006EF574_t\n{\n    unsigned char b0[172];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" const struct d2data_006EF574_t gData_006EF574 = ",
+   "tail": "; // 0x006EF574"
   },
   {
    "alias": true,
