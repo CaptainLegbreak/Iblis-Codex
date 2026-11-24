@@ -111,7 +111,7 @@ typedef int (__stdcall *CodePointer)();
 
 struct Quest { int number; Game* game; unsigned char act,notIntro,active,lastState,state; char padD[3]; int sequenceId; char pad14[0xDC]; Sequence sequence; };
 
-Quest* __fastcall sub_00543640(Game*,int); // 0x00543640
+Quest* __fastcall QUESTS_GetQuestData(Game*,int); // 0x00543640
 
 enum { FINAL_STATE = 5 };
 
@@ -716,7 +716,7 @@ void __fastcall ACT3Q1_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 bool __fastcall ACT3Q1_SeqCallback(Quest* quest)
 {
     if (quest->state != FINAL_STATE && quest->notIntro) return true;
-    Quest* next = sub_00543640(quest->game,quest->sequenceId);
+    Quest* next = QUESTS_GetQuestData(quest->game,quest->sequenceId);
     if (next) {
         if (IsBadCodePtr((CodePointer)quest->sequence)) {
             FOG_DisplayHalt(&empty_assert,sub_00408090(),808);

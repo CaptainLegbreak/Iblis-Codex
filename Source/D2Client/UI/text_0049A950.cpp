@@ -1190,7 +1190,8 @@ extern "C" void __cdecl sub_004B2250_InitializeControls()
     gB27_00727216 = 3;
 }
 
-extern "C" void __fastcall sub_00535780_SetPlayers(unsigned int count)
+// build: symbol @PLAYER_SetVirtualPlayerCount@* 0x00535780
+extern "C" void __fastcall PLAYER_SetVirtualPlayerCount(unsigned int count)
 {
     if (count <= 8)
         gB27_00883D70 = count;

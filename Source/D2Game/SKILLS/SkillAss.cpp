@@ -531,7 +531,7 @@ int __stdcall sub_00644530(Skill*); // 0x00644530
 
 Room* __fastcall sub_00463740(Room*,int,int); // 0x00463740
 
-Unit* __fastcall sub_005B2F20(Game*,Room*,int,int,int,int,int,int); // 0x005B2F20
+Unit* __fastcall D2GAME_SpawnMonster_6FC69F10(Game*,Room*,int,int,int,int,int,int); // 0x005B2F20
 
 void __stdcall sub_00621CE0(Unit*,Unit*); // 0x00621CE0
 
@@ -568,7 +568,7 @@ D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* p
 
 int __stdcall STATLIST_GetSkillId(D2StatListStrc* pStatList); // 0x006260E0
 
-void __stdcall sub_005D3970_ProgressiveElementalConversion(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage); // 0x005D3970
+void __stdcall SKILLS_ApplyProgressiveElementalConversion(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage); // 0x005D3970
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
@@ -799,9 +799,9 @@ int __fastcall SKILLS_SrvDo135_MinionSpawner(Game* game,Unit* unit,int skillId,i
     int mode=sub_00644530(skill);
     Room* room=sub_00463740(sub_00620BB0(unit),x,y);
     if(!room) return 0;
-    Unit* monster=sub_005B2F20(game,room,x,y,monsterId,mode,-1,0);
+    Unit* monster=D2GAME_SpawnMonster_6FC69F10(game,room,x,y,monsterId,mode,-1,0);
     if(!monster) {
-        monster=sub_005B2F20(game,room,x,y,monsterId,mode,4,0);
+        monster=D2GAME_SpawnMonster_6FC69F10(game,room,x,y,monsterId,mode,4,0);
         if(!monster) return 0;
     }
     monster->flags |= MINION_FLAGS;

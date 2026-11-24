@@ -21,7 +21,7 @@ struct D2QuestData00596C40Strc
     void* pfActiveFilterEC;
 };
 extern unsigned char gaAct1Q7NpcMessages[]; // 0x00738778
-void __fastcall sub_00596A90_Callback(); // 0x00596A90
+void __fastcall ACT1Q7_Callback00_NpcActivate(); // 0x00596A90
 void __fastcall sub_00596BA0_EmptyCallback(); // 0x00596BA0
 void __fastcall ACT3Q7_StatusFilterCallback(); // 0x00596BB0
 void __fastcall ACT1Q7_ActiveFilterCallback(); // 0x00596BC0
@@ -30,7 +30,7 @@ void __fastcall ACT1Q7_ActiveFilterCallback(); // 0x00596BC0
 void __fastcall sub_00596C40_InitQuestCallbacks(D2QuestData00596C40Strc* pQuestData)
 {
     memset(&pQuestData->tCallbacks, 0, sizeof(pQuestData->tCallbacks));
-    pQuestData->tCallbacks.pfCallbackA0 = (void*)sub_00596A90_Callback;
+    pQuestData->tCallbacks.pfCallbackA0 = (void*)ACT1Q7_Callback00_NpcActivate;
     pQuestData->tCallbacks.pfCallbackC0 = (void*)sub_00596BA0_EmptyCallback;
     pQuestData->pRecordDC = gaAct1Q7NpcMessages;
     pQuestData->nA = 1;

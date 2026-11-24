@@ -656,7 +656,7 @@ static int __stdcall D3D_DrawSpriteQuad(D2SpriteInfoStrc* pSprite, int nX, int n
     {
         gnVertexCount_00970F40 = 0;
     }
-}
+} // the normal path has no return statement, as in the original; callers use what eax holds
 
 static
 // 0x006B6680

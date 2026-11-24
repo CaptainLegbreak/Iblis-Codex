@@ -1,4 +1,5 @@
-#include "Storm.h"
+#include "D2Direct3D.h"
+#include "D2Win32Types.h"
 #include "D2DDrawTypes.h"
 #include "D2GfxTypes.h"
 
@@ -10,7 +11,6 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-#include "D2SysTypes.h"
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC218
@@ -22,6 +22,7 @@ extern D2DDSurfaceStrc* gpSurface_00970E68; // 0x00970E68
 extern unsigned int gnBinkX_00989C0C; // 0x00989C0C
 extern D2BinkStrc* gpBink_00989C10; // 0x00989C10
 extern int gbBinkDone_00989C1C; // 0x00989C1C
+extern int gbSurfaceActive_007C9140; // 0x007C9140
 
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258

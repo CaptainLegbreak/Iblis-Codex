@@ -49,10 +49,10 @@ struct Unit
     unsigned int flags;
 };
 Unit* __stdcall sub_00553540(Game*, Unit*); // 0x00553540
-void __fastcall sub_0057C9F0(Game*, Unit*, Unit*); // 0x0057C9F0
-int __fastcall sub_005CDD30(Unit*); // 0x005CDD30
-int __fastcall sub_0056F640(Game*, Unit*, int, int, int); // 0x0056F640
-int __fastcall sub_005CDDD0(Game*, Unit*, Unit*, int, int); // 0x005CDDD0
+void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(Game*, Unit*, Unit*); // 0x0057C9F0
+int __fastcall SKILLS_GetMonFrenzySequenceFrame(Unit*); // 0x005CDD30
+int __fastcall SKILLS_StartSkill(Game*, Unit*, int, int, int); // 0x0056F640
+int __fastcall SKILLS_RollMonFrenzyDamage(Game*, Unit*, Unit*, int, int); // 0x005CDDD0
 int __stdcall sub_006444A0(Skill*); // 0x006444A0
 int __fastcall SKILLS_ApplyFrenzyStats(Game*, Unit*, int, int); // 0x005D8C70
 
@@ -65,8 +65,8 @@ struct Skills { char pad0[4]; unsigned char flags[4]; char pad8[0x40]; short mis
 struct Tables { char pad0[0xB6C]; int missileCount; char padB70[0x28]; Skills* skills; void* linker; int skillCount; };
 extern unsigned bitMasks[]; // 0x006CE268
 D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
-Unit* __fastcall sub_0056EE90(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056EE90
-Unit* __fastcall sub_0056ECB0(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056ECB0
+Unit* __fastcall SKILLS_CreateMissileFromOrigin(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056EE90
+Unit* __fastcall SKILLS_CreateMissileAtOffset(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056ECB0
 
 
 typedef char D2SkillsTxtSizeCheck[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
@@ -112,10 +112,10 @@ int __fastcall sub_005CDF10(Game* game, Unit* unit, int skillId, int skillLevel)
     if (!skill) return 0;
     Unit* target = sub_00553540(game, unit);
     if (!target) return 0;
-    sub_0057C9F0(game, unit, target);
+    SUNITDMG_FreeAttackerDefenderCombatList(game, unit, target);
     if (unit) unit->flags |= UNIT_FLAG;
-    if (sub_005CDD30(unit)) sub_0056F640(game, unit, skillId, skillLevel, 0);
-    sub_005CDDD0(game, unit, target, skillId, skillLevel);
+    if (SKILLS_GetMonFrenzySequenceFrame(unit)) SKILLS_StartSkill(game, unit, skillId, skillLevel, 0);
+    SKILLS_RollMonFrenzyDamage(game, unit, target, skillId, skillLevel);
     if (sub_006444A0(skill)) SKILLS_ApplyFrenzyStats(game, unit, skillId, skillLevel);
     return 1;
 }
@@ -140,8 +140,8 @@ int __fastcall sub_005CDFB0(Game* game,Unit* unit,int id,int level)
     if(missile>=tables->missileCount) return 0;
     if(!sub_0046ACE0(missile)) return 0;
     if(unit) unit->flags|=UNIT_FLAG;
-    if(record->flags[0]&bitMasks[1]) sub_0056EE90(game,missile,unit,id,level,0,0,0,0,0);
-    else sub_0056ECB0(game,missile,unit,id,level,0,0,0,0,0);
+    if(record->flags[0]&bitMasks[1]) SKILLS_CreateMissileFromOrigin(game,missile,unit,id,level,0,0,0,0,0);
+    else SKILLS_CreateMissileAtOffset(game,missile,unit,id,level,0,0,0,0,0); // 0x0056ECB0
     return 1;
 }
 

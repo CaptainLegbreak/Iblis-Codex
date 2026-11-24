@@ -322,7 +322,7 @@ D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDiff
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
-void __stdcall sub_0055C2C0(D2UnitStrc* pItem, int nArg); // 0x0055C2C0
+void __stdcall sITEMSAddStatsList(D2UnitStrc* pItem, int nArg); // 0x0055C2C0
 
 void __stdcall sub_0055A2A0(D2UnitStrc* pUnit, int nArg); // 0x0055A2A0
 
@@ -713,25 +713,25 @@ struct Game
     int expansion;
 };
 
-extern "C" void __fastcall sub_0053D010_Notify(void*, Unit*, Unit*, U32); // 0x0053D010
+extern "C" void __fastcall D2GAME_UpdateClientItem_6FC3E9D0(void*, Unit*, Unit*, U32); // 0x0053D010
 
-Unit* __fastcall sub_00552F60_Find(Game*, int, int); // 0x00552F60
+Unit* __fastcall SUNIT_GetServerUnit(Game*, int, int); // 0x00552F60
 
 void* __fastcall sub_005531C0_Client(Unit*, const char*, int); // 0x005531C0
 
-void* __fastcall sub_00555DA0_FreeSpot(void*, Point*, Point*, int, U8); // 0x00555DA0
+void* __fastcall D2GAME_GetFreeSpaceEx_6FC4BF00(void*, Point*, Point*, int, U8); // 0x00555DA0
 
-void __fastcall sub_00558AA0_Drop(Game*, Unit*, Unit*, void*, int, int); // 0x00558AA0
+void __fastcall D2GAME_DropItem_6FC52260(Game*, Unit*, Unit*, void*, int, int); // 0x00558AA0
 
-void __fastcall sub_0055BF50_Check(Unit*, const char*, int); // 0x0055BF50
+void __fastcall ITEMMODE_ClearTargetingFlags(Unit*, const char*, int); // 0x0055BF50
 
-void __fastcall sub_0055C270_Update(Unit*, Unit*); // 0x0055C270
+void __fastcall ITEMMODE_AddItemScrollSkillQuantity(Unit*, Unit*); // 0x0055C270
 
-void __fastcall sub_0055C2C0_Apply(Game*, Unit*, Unit*, int); // 0x0055C2C0
+void __fastcall sITEMSAddStatsList(Game*, Unit*, Unit*, int); // 0x0055C2C0
 
 void __fastcall sub_0055DBC0_Refresh(Game*, Unit*, int); // 0x0055DBC0
 
-void __fastcall sub_00568770_Special(Game*, Unit*, Unit*); // 0x00568770
+void __fastcall PLRTRADE_AddItemToTrade(Game*, Unit*, Unit*); // 0x00568770
 
 extern "C" int __stdcall sub_00621050_Grid(Unit*, U8, int); // 0x00621050
 
@@ -757,7 +757,7 @@ static void ITEMMODE_BuildEquipmentTraits(D2UnitStrc* pUnit, D2UnitStrc* pItem, 
 
 static int ITEMMODE_AreEquipmentTraitsCompatible(D2ItemModeArgStrc* pArg1, D2ItemModeArgStrc* pArg2);
 
-void __fastcall sub_0053C520_SendToClient(D2ClientStrc* pClient, char nUnitType);                           // 0x0053C520
+void __fastcall D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(D2ClientStrc* pClient, char nUnitType);                           // 0x0053C520
 
 D2ClientStrc* __fastcall sub_005531C0_MakeQuantityPacket(D2UnitStrc* pUnit, const char* szFile, int nLine, int nUnitId, int nSkillId, int nQuantity); // 0x005531C0
 
@@ -777,9 +777,9 @@ extern "C" int __stdcall UNITS_GetBeltType(Unit*); // 0x00621ED0
 
 extern "C" Unit* __stdcall sub_0063C7F0_Belt(void*, int); // 0x0063C7F0
 
-void __fastcall sub_0053EED0_RemoveBelt(void*, Unit*, Unit*, U32); // 0x0053EED0
+void __fastcall D2GAME_SendP0x9C_ItemAction_RemoveFromBelt_6FC3EBE0(void*, Unit*, Unit*, U32); // 0x0053EED0
 
-void __fastcall sub_0055C730_UpdateProperties(Game*, Unit*, Unit*, int, int); // 0x0055C730
+void __fastcall D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(Game*, Unit*, Unit*, int, int); // 0x0055C730
 
 int __stdcall ITEMS_IsBodyItem(D2UnitStrc* pItem);                                                          // 0x0062FDF0
 
@@ -2612,7 +2612,7 @@ void __fastcall ITEMMODE_IdentifyItemAndApplyCharmProperties(D2GameStrc* pGame, 
 // 0x0055FE60
 void __stdcall D2GAME_ITEMS_UpdateStatList(D2UnitStrc* pItem)
 {
-    sub_0055C2C0(pItem, 0);
+    sITEMSAddStatsList(pItem, 0);
 }
 
 // 0x00560020
@@ -3259,7 +3259,7 @@ static void __stdcall ITEMMODE_DecrementBookScrollSkillQuantity(D2UnitStrc* pUni
         SKILLS_SetQuantity(pSkill, nQuantity);
         const int nUnitId = UNITS_GetUnitId(pUnit);
         const int nUnitType = sub_0044BE50_Inline(pUnit);
-        sub_0053C520_SendToClient(sub_005531C0_MakeQuantityPacket(pUnit, ".\\ITEMS\\ItemMode.cpp", 0xFC2, nUnitId, nSkillId, nQuantity), nUnitType);
+        D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(sub_005531C0_MakeQuantityPacket(pUnit, ".\\ITEMS\\ItemMode.cpp", 0xFC2, nUnitId, nSkillId, nQuantity), nUnitType);
     }
     else
     {
@@ -4166,8 +4166,8 @@ static __forceinline int PlaceIntoInventory(Game* game, Unit* player, int itemId
 {
         if (!game) return 0;
         {
-            sub_0055BF50_Check(player, ".\\ITEMS\\ItemMode.cpp", 0x87B);
-            Unit* placed = sub_00552F60_Find(game, 4, itemId);
+            ITEMMODE_ClearTargetingFlags(player, ".\\ITEMS\\ItemMode.cpp", 0x87B);
+            Unit* placed = SUNIT_GetServerUnit(game, 4, itemId);
             if (!placed || placed->type != 4 || placed->mode != 4) return 0;
             {
                 U8 targetPage = sub_00628250_Page(placed);
@@ -4184,9 +4184,9 @@ static __forceinline int PlaceIntoInventory(Game* game, Unit* player, int itemId
                 }
                 if (!sub_0063B950_Place(targetInventory, placed, targetGrid, 0, targetPage, ".\\ITEMS\\ItemMode.cpp", line)) return 0;
                 if (!sub_0063B210_Add(targetInventory, placed, 1)) return 0;
-                if (sub_00628250_Page(placed) != 4) sub_0055C270_Update(player, placed);
+                if (sub_00628250_Page(placed) != 4) ITEMMODE_AddItemScrollSkillQuantity(player, placed);
                 placed->flags &= -3;
-                if (sub_0062FF70_Check(placed, player)) sub_0055C2C0_Apply(game, placed, player, 0);
+                if (sub_0062FF70_Check(placed, player)) sITEMSAddStatsList(game, placed, player, 0);
                 if (clearCursor) sub_0063C180_Cursor(targetInventory, 0);
                 sub_00624690_Mode(placed, 0);
                 sub_00628170_CommandFlag(placed, 2, 1);
@@ -4194,7 +4194,7 @@ static __forceinline int PlaceIntoInventory(Game* game, Unit* player, int itemId
                 if (sub_006280A0_TestFlag(placed, 0x4000, 0x8EE, ".\\ITEMS\\ItemMode.cpp")) sub_006280D0_SetFlag(placed, 0x4000, 0);
                 sub_00621000_SetFlag(player, 1);
                 sub_0063CC70_Refresh(targetInventory, placed);
-                if (special == 1) sub_00568770_Special(game, player, placed);
+                if (special == 1) PLRTRADE_AddItemToTrade(game, player, placed);
                 if (sub_0062FF70_Check(placed, player)) {
                     sub_0055DBC0_Refresh(game, player, 0);
                     sub_00621000_SetFlag(player, 1);
@@ -4222,7 +4222,7 @@ static void __stdcall ITEMMODE_MoveCubeContentsToInventory(Game* game, Unit* box
             U32 flags = 0;
             sub_006287B0_Flags(&flags, 32, 1);
             sub_00628320_SavePage(box, 3);
-            sub_0053D010_Notify(sub_005531C0_Client(player, ".\\ITEMS\\ItemMode.cpp", 0x80D), player, item, flags);
+            D2GAME_UpdateClientItem_6FC3E9D0(sub_005531C0_Client(player, ".\\ITEMS\\ItemMode.cpp", 0x80D), player, item, flags);
             Unit* removed = sub_0063AD90_Remove(inventory, item);
             D2_ASSERT(removed, 0x80F);
             D2_ASSERT(item == removed, 0x810);
@@ -4242,8 +4242,8 @@ static void __stdcall ITEMMODE_MoveCubeContentsToInventory(Game* game, Unit* box
             sub_00624690_Mode(removed, 4);
             sub_00628280_SetPage(item, 0);
             int itemId = item->id;
-            sub_0055BF50_Check(player, ".\\ITEMS\\ItemMode.cpp", 0x87B);
-            Unit* placed = sub_00552F60_Find(game, 4, itemId);
+            ITEMMODE_ClearTargetingFlags(player, ".\\ITEMS\\ItemMode.cpp", 0x87B);
+            Unit* placed = SUNIT_GetServerUnit(game, 4, itemId);
             if (!placed || placed->type != 4 || placed->mode != 4) goto dropFailure;
             {
                 U8 targetPage = sub_00628250_Page(placed);
@@ -4260,9 +4260,9 @@ static void __stdcall ITEMMODE_MoveCubeContentsToInventory(Game* game, Unit* box
                 }
                 if (!sub_0063B950_Place(targetInventory, placed, targetGrid, 0, targetPage, ".\\ITEMS\\ItemMode.cpp", 0x817)) goto dropFailure;
                 if (!sub_0063B210_Add(targetInventory, placed, 1)) goto dropFailure;
-                if (sub_00628250_Page(placed) != 4) sub_0055C270_Update(player, placed);
+                if (sub_00628250_Page(placed) != 4) ITEMMODE_AddItemScrollSkillQuantity(player, placed);
                 placed->flags &= -3;
-                if (sub_0062FF70_Check(placed, player)) sub_0055C2C0_Apply(game, placed, player, 0);
+                if (sub_0062FF70_Check(placed, player)) sITEMSAddStatsList(game, placed, player, 0);
                 if (clearCursor) sub_0063C180_Cursor(targetInventory, 0);
                 sub_00624690_Mode(placed, 0);
                 sub_00628170_CommandFlag(placed, 2, 1);
@@ -4270,7 +4270,7 @@ static void __stdcall ITEMMODE_MoveCubeContentsToInventory(Game* game, Unit* box
                 if (sub_006280A0_TestFlag(placed, 0x4000, 0x8EE, ".\\ITEMS\\ItemMode.cpp")) sub_006280D0_SetFlag(placed, 0x4000, 0);
                 sub_00621000_SetFlag(player, 1);
                 sub_0063CC70_Refresh(targetInventory, placed);
-                if (special == 1) sub_00568770_Special(game, player, placed);
+                if (special == 1) PLRTRADE_AddItemToTrade(game, player, placed);
                 if (sub_0062FF70_Check(placed, player)) {
                     sub_0055DBC0_Refresh(game, player, 0);
                     sub_00621000_SetFlag(player, 1);
@@ -4282,9 +4282,9 @@ static void __stdcall ITEMMODE_MoveCubeContentsToInventory(Game* game, Unit* box
             Point playerPosition;
             Point dropPosition;
             sub_00620870_Position(player, &playerPosition);
-            void* room = sub_00555DA0_FreeSpot(sub_00620BB0_Room(player), &playerPosition, &dropPosition, 1, 1);
+            void* room = D2GAME_GetFreeSpaceEx_6FC4BF00(sub_00620BB0_Room(player), &playerPosition, &dropPosition, 1, 1);
             if (!room) continue;
-            sub_00558AA0_Drop(game, player, item, room, dropPosition.x, dropPosition.y);
+            D2GAME_DropItem_6FC52260(game, player, item, room, dropPosition.x, dropPosition.y);
         }
     nextItem:
         node = next;
@@ -4296,15 +4296,15 @@ extern "C" void __fastcall ITEMMODE_DropCursorItem(Game* ptGame, Unit* hUnit, in
 {
     D2_ASSERT(ptGame, 0x833);
     D2_ASSERT(hUnit, 0x834);
-    sub_0055BF50_Check(hUnit, ".\\ITEMS\\ItemMode.cpp", 0x837);
-    Unit* item = sub_00552F60_Find(ptGame, 4, itemId);
+    ITEMMODE_ClearTargetingFlags(hUnit, ".\\ITEMS\\ItemMode.cpp", 0x837);
+    Unit* item = SUNIT_GetServerUnit(ptGame, 4, itemId);
     if (!item || item->type != 4 || item->mode != 4) return;
     Point playerPosition;
     Point dropPosition;
     sub_00620870_Position(hUnit, &playerPosition);
-    void* room = sub_00555DA0_FreeSpot(sub_00620BB0_Room(hUnit), &playerPosition, &dropPosition, 1, 1);
+    void* room = D2GAME_GetFreeSpaceEx_6FC4BF00(sub_00620BB0_Room(hUnit), &playerPosition, &dropPosition, 1, 1);
     if (!room) return;
-    sub_00558AA0_Drop(ptGame, hUnit, item, room, dropPosition.x, dropPosition.y);
+    D2GAME_DropItem_6FC52260(ptGame, hUnit, item, room, dropPosition.x, dropPosition.y);
     sub_0063C180_Cursor(hUnit->inventory, 0);
     if (D2GAME_CheckHasFilledSockets((D2UnitStrc*)item, ".\\ITEMS\\ItemMode.cpp", 0x85B)) sub_006280D0_SetFlag(item, 1, 1);
     if (sub_006280A0_TestFlag(item, 0x4000, 0x85E, ".\\ITEMS\\ItemMode.cpp")) sub_006280D0_SetFlag(item, 0x4000, 0);
@@ -4950,7 +4950,7 @@ void __fastcall ITEMMODE_MoveExcessBeltItems(Game* game, Unit* player, Unit* bel
         if (index < record.nBoxes || !hItem) continue;
         U32 flags = 0;
         sub_006287B0_Flags(&flags, 32, 1);
-        sub_0053EED0_RemoveBelt(sub_005531C0_Client(player, ".\\ITEMS\\ItemMode.cpp", 0xC1F), player, hItem, flags);
+        D2GAME_SendP0x9C_ItemAction_RemoveFromBelt_6FC3EBE0(sub_005531C0_Client(player, ".\\ITEMS\\ItemMode.cpp", 0xC1F), player, hItem, flags);
         Unit* removed = sub_0063AD90_Remove(hInventory, hItem);
         D2_ASSERT(removed, 0xC22);
         D2_ASSERT(hItem == removed, 0xC23);
@@ -4968,10 +4968,10 @@ void __fastcall ITEMMODE_MoveExcessBeltItems(Game* game, Unit* player, Unit* bel
             Point playerPosition;
             Point dropPosition;
             sub_00620870_Position(player, &playerPosition);
-            void* room = sub_00555DA0_FreeSpot(sub_00620BB0_Room(player), &playerPosition, &dropPosition, 1, 1);
+            void* room = D2GAME_GetFreeSpaceEx_6FC4BF00(sub_00620BB0_Room(player), &playerPosition, &dropPosition, 1, 1);
             if (room) {
-                sub_0055C730_UpdateProperties(game, hItem, player, 0, 1);
-                sub_00558AA0_Drop(game, player, hItem, room, dropPosition.x, dropPosition.y);
+                D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(game, hItem, player, 0, 1);
+                D2GAME_DropItem_6FC52260(game, player, hItem, room, dropPosition.x, dropPosition.y);
             }
         }
     }

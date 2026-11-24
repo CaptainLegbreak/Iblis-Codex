@@ -70,7 +70,6 @@ extern unsigned long gadwLogWriteTick[20]; // 0x0075D2F0
 extern void* ghDbgHelpDoneEvent; // 0x0098A6BC
 extern void* ghDbgHelpWorkEvent; // 0x0098A6C0
 int __fastcall FOG_SOCKET_WSACleanup(); // 0x0040D8D0
-int __fastcall sub_006BFFA0_CheckReconnects(D2QueueServerStrc* pServer, unsigned int* pAddress); // 0x006BFFA0
 int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned int nBufferSize); // 0x00414E50
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
@@ -87,9 +86,6 @@ void __cdecl LOGMANAGER_LogWritePrefixed(const char* szPrefix, const char* szFor
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 bool __fastcall ERRORMANAGER_ShowErrorReport(const char* szSummary, const char* szUnused, const char** ppszFiles, int nFiles, unsigned int nLine, bool bFlag); // 0x00408660
 void __fastcall sub_00409810_FreeLarge(D2PoolSystemStrc* pSystem, void* pMemory, const char* szFile, int nLine); // 0x00409810
-void __fastcall sub_006C0360_Release(D2QueueServerStrc* pServer, D2QClientStrc* pClient); // 0x006C0360
-void __fastcall sub_006C0420_CloseRemote(D2QueueServerStrc*, int token, const char* file, int line); // 0x006C0420
-void __fastcall sub_006C0420_Disconnect(D2QueueServerStrc* pServer, unsigned int nId, const char* szFile, int nLine); // 0x006C0420
 void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc* pServer, D2QClientStrc* pClient); // 0x006C08A0
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 void* __fastcall sub_004098B0_ReallocLarge(D2PoolSystemStrc* pSystem, void* pMemory, int nSize, const char* szFile, int nLine); // 0x004098B0

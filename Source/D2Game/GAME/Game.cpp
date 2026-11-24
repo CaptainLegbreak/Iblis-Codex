@@ -272,7 +272,7 @@ void __fastcall CLIENTS_CopyAccountNameToBuffer(D2ClientStrc* pClient, char* szB
 
 void __fastcall ClientRemoveFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave); // 0x00539DA0
 
-void __fastcall sub_0053B1B0_SendGameInfo(void* pClientId, unsigned short nGameId, int nClients, const char* szGameName); // 0x0053B1B0
+void __fastcall D2GAME_PACKETS_SendGameListEntry(void* pClientId, unsigned short nGameId, int nClients, const char* szGameName); // 0x0053B1B0
 
 void __fastcall SCMD_SendSkillList(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053C5D0
 
@@ -835,7 +835,7 @@ void __fastcall GAME_ClientEnterAct(D2GameStrc* pGame, D2ClientStrc* pClient);  
 
 void __fastcall CLIENTS_SpawnPlayer(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x005394A0
 
-int __fastcall sub_00539760(D2ClientStrc* pClient, D2GameStrc* pGame, int a3, D2ActiveRoomStrc* pRoom, int nX, int nY);
+int __fastcall ClientAddPlayerToGame(D2ClientStrc* pClient, D2GameStrc* pGame, int a3, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00539760
 
 void __fastcall D2GAME_PACKETS_SendSystemError(int nClientId, unsigned int nReason);           // 0x0053B260
 
@@ -907,7 +907,7 @@ void __stdcall D2NET_10016(int);  // 0x0052B570
 
 extern "C" int __cdecl strncmp(const char*,const char*,unsigned int);
 
-void __fastcall sub_0054A9B0(D2GameStrc*,const char*,unsigned char);  // 0x0054A9B0
+void __fastcall PLRMSG_BroadcastSystemMessage(D2GameStrc*,const char*,unsigned char);  // 0x0054A9B0
 
 enum { MODE_MASK = 15 };
 
@@ -1132,7 +1132,7 @@ typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
 extern int gnVirtualPlayerCount; // 0x00883D70
 
-void __fastcall sub_0056DEB0(int a1, int a2, int a3, int a4); // 0x0056DEB0
+void __fastcall D2GAME_SetSkills_6FD14C60(int a1, int a2, int a3, int a4); // 0x0056DEB0
 
 void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit); // 0x00620C10
 
@@ -1261,7 +1261,7 @@ void __fastcall PARTY_AllocPartyControl(D2GameStrc* pGame);                     
 
 void __fastcall EVENT_AllocEventQueue(D2GameStrc* pGame);                                            // 0x00541470
 
-void __fastcall sub_00545D80_QuestInit(D2GameStrc* pGame);
+void __fastcall QUESTS_QuestInit(D2GameStrc* pGame); // 0x00545D80
 
 int __fastcall OBJRGN_AllocObjectControl(D2GameStrc* pGame); // 0x00546C60
 
@@ -2814,7 +2814,7 @@ void __fastcall SrvJoinAct(int nClientId)
         else
         {
             pClient = CLIENTS_GetClientFromClientId(pGame, nClientId);
-            const int nErrorCode = sub_00539760(pClient, pGame, 1, 0, 0, 0);
+            const int nErrorCode = ClientAddPlayerToGame(pClient, pGame, 1, 0, 0, 0);
             if (nErrorCode)
             {
                 D2GAME_PACKETS_SendSystemError(nClientId, nErrorCode);
@@ -4167,7 +4167,7 @@ int __stdcall SrvCreateNewEmptyGame(char* szGameName, const char* szPassword, co
     MONSTERREGION_InitializeForGame(pGame);
     pGame->dwObjSeed = OBJRGN_AllocObjectControl(pGame);
     SUNITPROXY_InitializeNpcControl(pGame);
-    sub_00545D80_QuestInit(pGame);
+    QUESTS_QuestInit(pGame);
 
     GAME_SetReservedGameGUID(hGame, nGameId);
 
@@ -4259,7 +4259,7 @@ void __fastcall sSrvSendGameInit(int nClientId, char* szGameName, unsigned char 
     MONSTERREGION_InitializeForGame(pGame);
     pGame->dwObjSeed = OBJRGN_AllocObjectControl(pGame);
     SUNITPROXY_InitializeNpcControl(pGame);
-    sub_00545D80_QuestInit(pGame);
+    QUESTS_QuestInit(pGame);
 
     GAME_SetReservedGameGUID(hGame, pGame->nGameId);
 
@@ -4370,12 +4370,12 @@ void __stdcall GAME_SendGameList(void* pArg)
                 D2_ASSERT(ptGame->lpCriticalSection, 0x1064);
                 LeaveCriticalSection(ptGame->lpCriticalSection);
 
-                sub_0053B1B0_SendGameInfo(pArg, nGameId, nClients, szGameName);
+                D2GAME_PACKETS_SendGameListEntry(pArg, nGameId, nClients, szGameName);
             }
         }
     }
 
-    sub_0053B1B0_SendGameInfo(pArg, 0xFFFF, 0, &gszEmptyAssertText);
+    D2GAME_PACKETS_SendGameListEntry(pArg, 0xFFFF, 0, &gszEmptyAssertText);
 }
 
 // 0x0052E9B0
@@ -4854,7 +4854,7 @@ void __stdcall GAME_SendMessageToGameClients(unsigned short gameId,unsigned char
     D2_ASSERT(ptGame,0x1564);
     message[255] = 0;
     if (!strncmp("<ABEND> ",(const char*)message,8)) ptGame->nDebugBreakTrigger = message[8] & MODE_MASK;
-    sub_0054A9B0(ptGame,(const char*)message,1);
+    PLRMSG_BroadcastSystemMessage(ptGame,(const char*)message,1);
     D2_ASSERT(ptGame->lpCriticalSection,0x1064);
     LeaveCriticalSection(ptGame->lpCriticalSection);
 }

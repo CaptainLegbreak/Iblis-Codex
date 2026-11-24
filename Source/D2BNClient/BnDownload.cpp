@@ -2882,7 +2882,7 @@ void __cdecl GRID_LockCDKeys(); // 0x005234D0
 
 void __cdecl GRID_UnlockCDKeys(); // 0x005239C0
 
-const char* __cdecl sub_00523AA0_GetExeInfo(); // 0x00523AA0
+const char* __cdecl BNCLIENT_GetExeInfo(); // 0x00523AA0
 
 struct D2CipherKeyStringView
 {

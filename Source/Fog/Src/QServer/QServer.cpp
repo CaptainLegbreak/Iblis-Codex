@@ -10,12 +10,6 @@ struct D2CriticalSectionStrc;
 
 struct D2QServerConfigStrc;
 
-extern int gdwGlobal_00970E50; // 0x00970E50
-
-extern char gnFloorCacheSize[]; // 0x007C90C8
-
-extern int gdwGlobal_00970E8C; // 0x00970E8C
-
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
@@ -40,7 +34,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-int __fastcall sub_006C30D0_Wait(D2QueueServerStrc* pServer, unsigned long dwMilliseconds); // 0x006C30D0
 
 extern "C" char* __stdcall inet_ntoa(D2InAddrStrc); // 0x006B013E
 
@@ -49,7 +42,6 @@ unsigned int __stdcall SStrCopy(char*, const char*, unsigned int); // 0x004135D0
 extern "C" int __stdcall getpeername(unsigned int, void*, int*); // 0x006B018C
 
 char* __stdcall sub_006B013E_InetNtoa(unsigned long dwAddress); // 0x006B013E
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -77,11 +69,9 @@ void __stdcall QSERVER_LogHackListSize(int nSize); // 0x006BE6C0
 
 const char* __stdcall sub_006B013E_FormatIP(unsigned int nIP); // 0x006B013E
 
-void __fastcall sub_006C0420_CloseClient(D2QueueServerStrc* table, int client, const char* file, int line); // 0x006C0420
 
 void __fastcall QSERVER_HackListAddress(D2QueueServerStrc* table, const char* file, unsigned int address, int line); // 0x006BFEA0
 
-int __fastcall sub_006C2C70(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize); // 0x006C2C70
 
 int __fastcall QSERVER98_Send(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize); // 0x006C3410
 
@@ -97,7 +87,6 @@ extern const char gszQServerPrefix[]; // 0x006FC47C
 
 long __cdecl FOG_GetSyncTime(); // 0x00410A80
 
-void __cdecl sub_006BE300_Log(const char* prefix,const char* format,...); // 0x006BE300
 
 static int __stdcall sub_006BF180_ReferenceAddress(D2QueueServerStrc* server,const unsigned int* address); // 0x006BF180
 
@@ -107,9 +96,7 @@ int __fastcall FOG_SOCKET_CloseSocket(unsigned int s); // 0x0040D880
 
 extern "C" int __stdcall WSACleanup(void); // 0x006B0138
 
-void __stdcall sub_006BE3C0_Shutdown(D2QueueServerStrc* pServer); // 0x006BE3C0
 
-void __stdcall sub_006BFAD0_Notify(D2QueueServerStrc* pServer, int a2, int a3); // 0x006BFAD0
 
 void __fastcall sub_006C2110_StopServerThreads(D2QueueServerStrc* pServer); // 0x006C2110
 
@@ -193,7 +180,6 @@ void __stdcall QSERVER_BanClient(D2QueueServerStrc* table, int client, const cha
 
 unsigned int gnLastHackListLog_00989C34; // 0x00989C34
 
-void __fastcall QSERVER_ReleaseClient(D2QueueServerStrc* pServer, D2QClientStrc* pClient); // 0x006C0360
 
 static void QSERVER_FreeRecords(D2QueueServerStrc* pServer); // 0x006BF0F0
 
@@ -215,35 +201,6 @@ struct D2QSrvAutoLock
         LeaveCriticalSection(m_pLock);
     }
 };
-
-// 0x006B1C00
-int __cdecl sub_006B1C00()
-{
-    return gdwGlobal_00970E50;
-}
-
-// 0x006B20A0
-void* __cdecl QSERVER_GetFloorCacheSize()
-{
-    return gnFloorCacheSize;
-}
-
-// 0x006B20B0
-int __cdecl sub_006B20B0()
-{
-    return 0;
-}
-
-// 0x006B2F20
-int __cdecl sub_006B2F20()
-{
-    return gdwGlobal_00970E8C;
-}
-
-// 0x006B76C0
-void __stdcall sub_006B76C0(int nUnused1, int nUnused2)
-{
-}
 
 // build: symbol ?FOG_SetServerConfig@* 0x006BE310
 void __stdcall FOG_SetServerConfig(D2QServerConfigStrc* pConfig)
@@ -371,7 +328,7 @@ static void sub_006BE650_DestroyClient(D2QClientStrc* pClient)
 {
     if (pClient->pNext)
     {
-        sub_006BE300_Log("QSRV", "  ptClient->ptNextClient =  %08X", pClient->pNext);
+        sub_006BE300_Nop("QSRV", "  ptClient->ptNextClient =  %08X", pClient->pNext);
     }
     D2QWriteNodeStrc* pNode = pClient->pWriteQueue;
     while (pNode)
@@ -625,7 +582,7 @@ static inline int sub_006BEBC0_WaitHandle(D2QueueServerStrc* pServer, unsigned l
 int __stdcall FOG_10177(D2QueueServerStrc* pServer, unsigned long dwMilliseconds)
 {
     if (pServer->bAltSend)
-        return sub_006C30D0_Wait(pServer, dwMilliseconds);
+        return sub_006C30D0_ServiceSlots(pServer, dwMilliseconds);
     return !sub_006BEBC0_WaitHandle(pServer, dwMilliseconds);
 }
 
@@ -1031,7 +988,7 @@ void __stdcall FOG_SetHackListEnabled(D2QueueServerStrc* pServer, int bEnabled)
 static int __fastcall QSERVER_SendToClient(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize)
 {
     if (!pClient || pClient->bClosing) return 0;
-    if (pServer->bAltSend) return sub_006C2C70(pServer, pClient, pData, nSize);
+    if (pServer->bAltSend) return sub_006C2C70_SendLocal(pServer, pClient, pData, nSize);
     return QSERVER98_Send(pServer, pClient, pData, nSize);
 }
 
@@ -1190,7 +1147,7 @@ D2QueueServerStrc* __stdcall QSInit(int nState, int nSlots, int nPort, int bDisa
     pServer->nRecordBuckets = gnQServerBucketCount;
     pServer->ppRecords = (D2QServerNodeStrc**)FOG_Alloc(gnQServerBucketCount * sizeof(D2QServerNodeStrc*), gszQServerCppFile, 180, 0);
     memset(pServer->ppRecords, 0, gnQServerBucketCount * sizeof(D2QServerNodeStrc*));
-    sub_006BE300_Log(gszQServerTag, gszQServerAllocated, pServer);
+    sub_006BE300_Nop(gszQServerTag, gszQServerAllocated, pServer);
     pServer->nClients = 0;
     pServer->pHead = 0;
     pServer->pTail = 0;
@@ -1255,7 +1212,7 @@ void __stdcall QSERVER_BanClient(D2QueueServerStrc* table, int client, const cha
         node = node->pNext;
     }
     LeaveCriticalSection(&table->pLocks[bucket]);
-    sub_006C0420_CloseClient(table, client, file, line);
+    QSrvCloseRemoteConnection(table, client, file, line);
     if (address)
         QSERVER_HackListAddress(table, file, address, line);
 }
@@ -1283,7 +1240,7 @@ int __stdcall QSERVER_BroadcastToAllClients(D2QueueServerStrc* pServer, char* pD
             {
                 if (pServer->bAltSend)
                 {
-                    sub_006C2C70(pServer, pClient, pData, nSize);
+                    sub_006C2C70_SendLocal(pServer, pClient, pData, nSize);
                 }
                 else
                 {
@@ -1338,7 +1295,7 @@ D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc* server,unsigned int s
  InterlockedIncrement(&client->nRefCount);
  ++server->nClients;
  LeaveCriticalSection(&server->tLock);
- sub_006BE300_Log(gszQServerPrefix,"[QSrvAddClient]  Added client %d %s on socket %d",client->nId,sub_006B013E_InetNtoa(client->nAddress),client->nSocket);
+ sub_006BE300_Nop(gszQServerPrefix,"[QSrvAddClient]  Added client %d %s on socket %d",client->nId,sub_006B013E_InetNtoa(client->nAddress),client->nSocket);
  return client;
 }
 
@@ -1363,7 +1320,7 @@ static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nCl
     if (!pClient)
     {
         sub_006BE2F0_Nop(&gszEmptyAssertText, "[sRemoveClient]  Couldn't remove TCLIENT id = %d", nClientId);
-        sub_006BE300_Log("QSRV", "[sRemoveClient]  Couldn't remove TCLIENT id = %d", nClientId);
+        sub_006BE300_Nop("QSRV", "[sRemoveClient]  Couldn't remove TCLIENT id = %d", nClientId);
         LeaveCriticalSection((D2CriticalSectionStrc*)&pServer->pClientLocks[nBucket]);
         return;
     }
@@ -1386,7 +1343,7 @@ static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nCl
     D2_ASSERT(nClientId == pClient->nId, 0x3E0);
 
     unsigned int* pAddress = &pClient->nAddress;
-    sub_006BE300_Log("QSRV", "[sRemoveClient]  Remove client %d %s refcount=%d life=%d", nClientId,
+    sub_006BE300_Nop("QSRV", "[sRemoveClient]  Remove client %d %s refcount=%d life=%d", nClientId,
         sub_006B013E_FormatAddress(*pAddress), pClient->nRefCount, FOG_GetSyncTime() - pClient->nCreateTime);
 
     D2CriticalSectionStrc* pLock = (D2CriticalSectionStrc*)&pServer->tAddressLock;
@@ -1577,7 +1534,7 @@ static int QSERVER_SendToClientId(D2QueueServerStrc* pServer, unsigned int nKey,
     }
     if (pServer->bAltSend)
     {
-        return sub_006C2C70(pServer, pConnection, pData, nSize);
+        return sub_006C2C70_SendLocal(pServer, pConnection, pData, nSize);
     }
     return QSERVER98_Send(pServer, pConnection, pData, nSize);
 }
@@ -1615,13 +1572,13 @@ static void sub_006BF0F0_FreeBuckets(D2QueueServerStrc* pServer)
 }
 
 // 0x006C0170
-int __stdcall FOG_10152(D2QueueServerStrc* pServer, int a2, int a3)
+int __stdcall FOG_10152(D2QueueServerStrc* pServer, char* pData, int nSize)
 {
     if (!pServer)
         return 1;
 
-    if (a2)
-        sub_006BFAD0_Notify(pServer, a2, a3);
+    if (pData)
+        QSERVER_BroadcastToAllClients(pServer, pData, nSize);
 
     if (pServer->nState != 1 && pServer->nState != 2)
     {
@@ -1633,7 +1590,7 @@ int __stdcall FOG_10152(D2QueueServerStrc* pServer, int a2, int a3)
 
     sub_006BF320_FreeChain(pServer);
     sub_006BF0F0_FreeBuckets(pServer);
-    sub_006BE3C0_Shutdown(pServer);
+    QSERVER_FreeAllSlots(pServer);
 
     for (int i = 0; i < 4; ++i)
     {
@@ -1730,7 +1687,7 @@ int __stdcall FOG_10157(D2QueueServerStrc* pServer, unsigned int nKey, char* pDa
     }
     if (pServer->bAltSend)
     {
-        return sub_006C2C70(pServer, pConnection, pData, nSize);
+        return sub_006C2C70_SendLocal(pServer, pConnection, pData, nSize);
     }
     return QSERVER98_Send(pServer, pConnection, pData, nSize);
 }
@@ -1781,7 +1738,7 @@ void __stdcall QSERVER_HackListClient(D2QueueServerStrc* pTable, int nClient, co
     }
     unsigned int nAddress = pNode->nAddress;
     LOGMANAGER_LogWritePrefixedLine(gszLogTag_006FC4A8, "[HACKLIST]  IP:%s  QSHackList() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(nAddress), szFile, nLine);
-    sub_006C0420_CloseClient(pTable, nClient, szFile, nLine);
+    QSrvCloseRemoteConnection(pTable, nClient, szFile, nLine);
     QSERVER_HackListAddress(pTable, szFile, nAddress, nLine);
 }
 
@@ -1794,7 +1751,7 @@ void __stdcall QSERVER_HackListIP(D2QueueServerStrc* table, unsigned int ip, con
     D2QClientStrc* node = table->ppAddressBuckets[bucket];
     while (node && node->nAddress != ip) node = node->pNextByAddress;
     LeaveCriticalSection(&table->tAddressLock);
-    if (node) sub_006C0420_CloseClient(table, node->iId, file, line);
+    if (node) QSrvCloseRemoteConnection(table, node->iId, file, line);
     else LOGMANAGER_LogWritePrefixedLine(gszLogTag_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_InetNtoa(ip));
     LOGMANAGER_LogWritePrefixedLine(gszLogTag_006FC4A8, "[HACKLIST]  IP:%s  QSHackListIP() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(ip), file, line);
     QSERVER_HackListAddress(table, file, ip, line);

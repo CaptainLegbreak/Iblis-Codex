@@ -41,7 +41,6 @@ extern int gbKeyCaptureActive;                                                  
 extern unsigned long gdwMessageTick;                                                                     // 0x007C02C8
 extern void* gpLevelCel;                                                                             // 0x007C02DC
 
-// build: symbol ?$S1@?4??sub_004A8DF0_DrawKeyLabel@@YIXHHHH@Z@4IA 0x007C0830
 // 0x004A63B0
 void __stdcall sub_004A63B0_WheelMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -74,36 +73,3 @@ void __stdcall sub_004A63B0_WheelMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 }
 
 
-
-// 0x004A8DF0
-void __fastcall sub_004A8DF0_DrawKeyLabel(int nKeyId, int nX, int nY, int nColor)
-{
-    if (CUNIT_GetHotkeyBinding(nKeyId, 1) == 0xFFFF)
-    {
-        return;
-    }
-
-    static Unicode wszBuf[16]; // 0x007C0810
-    const Unicode* wszText = CMDTBL_GetKeyName(nKeyId, 1);
-    int nWidth = D2Win_10121_GetTextWidth(wszText);
-    if (nWidth > 40)
-    {
-        Unicode::strncpy(wszBuf, wszText, 16);
-        wszText = wszBuf;
-        Unicode* pEnd = &wszBuf[sub_00526800(wszText)];
-        do
-        {
-            --pEnd;
-            pEnd->wChar = 0;
-            nWidth = D2Win_10121_GetTextWidth(wszBuf);
-        }
-        while (nWidth > 40);
-    }
-
-    if (nWidth > 13)
-    {
-        nX += 13 - nWidth;
-    }
-
-    D2Win_10117_DrawText(wszText, nX, nY, nColor, 0);
-}
