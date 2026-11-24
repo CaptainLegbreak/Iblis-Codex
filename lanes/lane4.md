@@ -18,9 +18,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 15:07:22 PST 2026: join-player-2d00 ready; join-cmdtbl-3 (join-cmdtbl-2 plus Unknown_00467DF0's four belt hotkeys) verifying. Tried and parked: Unknown_00462CA0 into Player.cpp/CUnit.cpp (struct views; 0x462CA0-0x4637F0 mixes four placeholders with automap.cpp and SCmd.cpp strays, so I want its data before choosing).
+- Tue Nov 24 15:20:34 PST 2026: ready on #369: join-belt-hotkeys, join-party-b030-2, join-player-2d00-3. Remaining lane 4 leads are parked with reasons in Questions; next I look at the medium ones again after this round lands.
 
 ## Ready
+
+- lane4/join-belt-hotkeys 7742c361d no placeholder change: CmdTbl.cpp takes Unknown_00467DF0.cpp's four belt hotkey commands 0x468F40-0x468F70 (they sit among the hotkey commands CmdTbl.cpp took in #369, and its action table points at them; pointers `owner`, plan externs dropped). The placeholder keeps 0x468B20: nothing calls it and it takes its argument in esi, so only its emitting context there reproduces it. Borrowed data 844 B (main 844). VERIFIED 49f0a1ef6096 on #368 (with join-cmdtbl-2 below it, merged in #369); rebased onto #369 (precheck equal). Not stacked now.
 
 - lane4/join-player-2d00-3 1d329676c placeholders -1 (Unknown_00462D00.cpp): Player.cpp takes in 0x462D00 (map: clear lead, calls only functions Player.cpp uses), with its global gbPlayerCommandPending; join.py dropped 38 copies Player.cpp already has. Touches lane 1's Player.cpp (the function is in lane 4's range). Borrowed data 844 B (main 844). VERIFIED b0583422d7ee on #368; rebased onto #369 (precheck equal; replaces lane4/join-player-2d00). Not stacked.
 
