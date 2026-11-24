@@ -42,7 +42,6 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
   - **0x55A6D0** (D2Game Items.cpp, 2,253 B): Items.cpp already holds an unmarked body of D2GAME_DropTC_6FC51360. With a `// 0x0055A6D0` marker it builds 2,239/2,253 with the rest of Items.cpp equal. Next up.
 
 ## Ready
-- lane7/storm-bigbuffer-assign dbc1e3aa (on #358), VERIFIED 0b426e0e. Storm Unknown_00425150.cpp: BigBuffer::operator= reads the source array through a D2StormArrayViewStrc, as CopyFrom in the same struct does, instead of two volatile reads; same bytes. (This volatile isn't on STATUS.md's list, but it is one.) Touches Storm Unknown_00425150.cpp only.
 
 ## Questions
 
@@ -66,3 +65,4 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 - 2026-11-24 09:49 PT: first forcing construct removed (0x62A370, Ready above). 0x679C80: a 12-group variant search from 4 starts always lands on the form that still has the cast (13 lines, +2 B); I'm treating it as a wall for now and working the volatile list.
 - 2026-11-24 10:23 PT: 0062A370 merged in #358, thanks. Working the rest of the volatile list and the neg-then-add __assume group (FrozenOrbNova, Missile.cpp's twin, Window.cpp): a negated local used twice keeps the neg without __assume, 6 instructions still differ in register roles.
 - 2026-11-24 11:00 PT: triaged the 33 volatile rows by how far the plain form is from the original (1 to 1,750 differing bytes); working the closest: Units 0x621F90 (1 B, address-operand order), BNetGW 0x518300 (3), Fog 0x402A90 (6), useitem 0x4C0450 (11, one instruction's position), SkillItem 0x5C09E0 (12).
+- 2026-11-24 11:33 PT: storm-bigbuffer-assign merged (#361), dropped from Ready. Working queues.md's 42 forcing constructs; moving to the __assume group (Storm BigStack bounds, Excel jump tables, the neg-then-add trio).
