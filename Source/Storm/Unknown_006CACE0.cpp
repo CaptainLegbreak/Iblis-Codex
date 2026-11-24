@@ -2,7 +2,6 @@
 
 extern int gnKeyConfigThumbY; // 0x007C02CC
 
-extern int gnValue_007C0E84; // 0x007C0E84
 void __cdecl sub_006CB400_Nop(); // 0x006CB400
 int __cdecl sub_00683824_RegisterExit(void (__cdecl* callback)()); // 0x00683824
 extern const char* gszDefaultClass_0072DAA0; // 0x0072DAA0
@@ -11,33 +10,6 @@ extern const char* gszDefaultWindow_0072DB3C; // 0x0072DB3C
 extern const char* gszWindowClass; // 0x007C9344
 extern const char* gszWindowTitle; // 0x007C9348
 extern unsigned int gaTable_00841EC8[0x200]; // 0x00841EC8
-
-int gnValue_007C0E88; // 0x007C0E88
-
-int gnValue_007C0E8C; // 0x007C0E8C
-
-int gnValue_007C0E90; // 0x007C0E90
-
-int gnValue_007C0E94; // 0x007C0E94
-
-int gnValue_007C0E98; // 0x007C0E98
-
-int gnValue_007C0E9C; // 0x007C0E9C
-
-int gnValue_007C0EA0; // 0x007C0EA0
-
-// 0x006CAD80
-void __cdecl sub_006CAD80_ClearValues()
-{
-    gnValue_007C0E84 = 0;
-    gnValue_007C0E88 = 0;
-    gnValue_007C0E8C = 0;
-    gnValue_007C0E90 = 0;
-    gnValue_007C0E94 = 0;
-    gnValue_007C0E98 = 0;
-    gnValue_007C0E9C = 0;
-    gnValue_007C0EA0 = 0;
-}
 
 // 0x006CADE0
 void __cdecl sub_006CADE0_RegisterCleanup()

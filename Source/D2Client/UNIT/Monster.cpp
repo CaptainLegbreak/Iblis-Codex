@@ -552,8 +552,6 @@ int gpEventUnit; // 0x007C0C5C
 
 int gdwGlobal_007C0E5C; // 0x007C0E5C
 
-char gwszTradePartnerName[4]; // 0x007C0E84
-
 void* __cdecl sub_004E03B0(); // 0x004E03B0
 
 void* __cdecl sub_004E03E0(); // 0x004E03E0
@@ -3377,24 +3375,6 @@ int __cdecl sub_004B70F0()
 int __cdecl sub_004B85E0()
 {
     return gdwGlobal_007C0E5C;
-}
-
-// 0x004B9060
-void* __cdecl MONSTER_GetTradePartnerName()
-{
-    return gwszTradePartnerName;
-}
-
-// 0x004B90F0
-int __cdecl MONSTER_GetSecondaryTradeGold()
-{
-    return gdwSecondaryTradeGold;
-}
-
-// 0x004B9100
-int __cdecl MONSTER_GetPrimaryTradeGold()
-{
-    return gdwPrimaryTradeGold;
 }
 
 

@@ -1193,8 +1193,6 @@ void __stdcall D2Common_10474(D2UnitStrc* pUnused, D2StatListStrc* pStatList); /
 
 void __stdcall sub_0065FEC0_ItemApplyProps(int nPass, int nArg1, D2UnitStrc* pItem, int nArg, int nArg2, int nArg5); // 0x0065FEC0
 
-extern Unicode gwszName_007C0E84[]; // 0x007C0E84
-
 #pragma pack(push, 1)
 
 struct D2GSPacketSrv5A
@@ -5266,16 +5264,6 @@ void __cdecl TEXT_InitNpcMenu()
     gdwLastTradeSendTick = 0;
 // build: symbol ?gdwTradeRequestTick@* 0x007C0DE9
     gdwTradeRequestTick = 0;
-}
-
-// 0x004B9010
-void __fastcall TEXT_SetNameFromPacket(D2NamePacketStrc* pPacket)
-{
-    char szName[16];
-    memcpy(szName, pPacket->szName, 16);
-    szName[15] = 0;
-    sub_00526F20_ToUnicode(gwszName_007C0E84, szName, 16);
-    gnTradePartnerUnitId = *(int*)pPacket->nValue;
 }
 
 // 0x004BF2F0
