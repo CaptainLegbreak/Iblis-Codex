@@ -285,8 +285,4 @@ void __fastcall sub_0059F820_ClearGameBlock(D2GameStrc* pGame)
     memset(pGame->unk0x1920, 0, sizeof(pGame->unk0x1920));
 }
 
-// 0x0059FFF0
-unsigned short __fastcall sub_0059FFF0_ToWord(unsigned short nValue)
-{
-    return nValue;
-}
+unsigned short __fastcall sub_0059FFF0_ToWord(unsigned short nValue); // 0x0059FFF0

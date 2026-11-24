@@ -54627,11 +54627,6 @@
      "va": "0x0059F820",
      "length": 23,
      "name": "?sub_0059F820_ClearGameBlock@@YIXPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0059FFF0",
-     "length": 4,
-     "name": "?sub_0059FFF0_ToWord@@YIGG@Z"
     }
    ]
   },
@@ -55836,22 +55831,16 @@
     {
      "va": "0x0059FEE0",
      "length": 271
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005A0000.cpp",
-   "rank": 0,
-   "functions": [
+    },
+    {
+     "va": "0x0059FFF0",
+     "length": 4,
+     "name": "?sub_0059FFF0_ToWord@@YIGG@Z"
+    },
     {
      "va": "0x005A0000",
      "length": 37,
      "name": "@sub_005A0000_GetMonLvlTxtRecord@4"
-    },
-    {
-     "va": "0x005C8BC0",
-     "length": 43,
-     "name": "@sub_005C8BC0_GetSkillsTxtParam7@4"
     }
    ]
   },
@@ -60042,6 +60031,11 @@
      "va": "0x005C8AD0",
      "length": 239,
      "name": "?SKILLS_SrvDo121_Rabies@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005C8BC0",
+     "length": 43,
+     "name": "@sub_005C8BC0_GetSkillsTxtParam7@4"
     },
     {
      "va": "0x005E52D0",

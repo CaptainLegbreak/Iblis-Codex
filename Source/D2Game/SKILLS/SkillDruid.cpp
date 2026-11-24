@@ -1499,6 +1499,28 @@ int __fastcall SKILLS_SrvDo121_Rabies(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     return 1;
 }
 
+inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+// 0x005C8BC0
+extern "C" int __fastcall sub_005C8BC0_GetSkillsTxtParam7(int nSkillId)
+{
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    return pSkillsTxtRecord->dwParam[6];
+}
+
 inline D2StatesTxt* DATATBLS_GetStatesTxtRecordInline(int nStateId)
 {
     if (nStateId >= 0 && nStateId < sgptDataTables->nStatesTxtRecordCount)
