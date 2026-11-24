@@ -27,6 +27,12 @@ Written by the coordinator only. Lanes: read this before starting work and after
 - **Borrowed data by lane:** [borrowed-data.md](borrowed-data.md), regenerated at #318 (3,415 B left), lists every block of the 15,691 B still copied from Game.exe, with the file that owns it and how that was decided. Each lane has a section with its leads. Take them after your current branch.
 - Rounds: the coordinator polls `lane*` branches, merges by cherry-pick (skipping commits already on main by subject), checks the data plan, units.json and data includes against main plus each lane's own moves, prechecks, runs one full verify, and ships.
 
+## How rounds work now (from 2026-11-24, approved by the user)
+
+1. **Before each round the coordinator answers every open question on the board.** No lane waits a whole round for an answer.
+2. **Lanes rebase their own stale branches.** When a branch conflicts with main, the coordinator posts "rebase X onto #NNN" and goes on; it no longer resolves conflicts by hand. After a rebase, run `python3 tools/namesync.py` so your branch uses main's current function names, rebuild, and repost the ready line with the new SHA.
+3. **Lane 10 applies the names itself.** That covers its naming plans and the call-site rename sweep, module by module. It posts each result as a normal branch (`lane10/names-<scope>`, `lane10/sweep-<module>`) and the coordinator merges it like any other. The tools are in [tools-lane10/](tools-lane10/), described in Lane 10's section below.
+
 ## Working through the night
 
 Every lane, every time it finishes or gets blocked:
@@ -233,6 +239,15 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 ### Lanes 7-10
 - **Lane 7:** 0x55A6D0's search tried 170 variants and none beat the starting point (2,239 / 2,253 B). That template's alternatives don't reach the difference: send one built around what the listing shows. **0x677880's join is in #332** (OutPlace.cpp took in Unknown_00675600.cpp), so that function can now be tried in its file.
 - **Lane 8, lane 9:** handover lists from lane 6 are coming. Start with the language-table rows for your modules.
+- **Lane 10: you now apply names yourself** (see "How rounds work now"). That needs the build setup from COMMON.md §1: Wine, the compiler, `tools/setup.py --game`, and the user's Game.exe; ask the user for it. Copy `tools-lane10/` from the coord branch to `/home/claude/tools-lane10/`.
+  - **A naming plan:** `prepnames.sh <plan.tsv> <plan.json>`, which drops alternative spellings that are other functions or file names. Then `python3 nameround.py <repo> <plan.json>`, which applies the plan, builds every touched unit and every includer, drops the addresses whose units fail, and repeats until everything builds equal. Then commit, run `precheck.sh`, and run the full verify `vbuild.sh`.
+    - **Run the full verify every time.** The coordinator's rank-1 attempt passed every unit build but left 16 functions unplaced (NO_SYMBOL) in the full link, so it was dropped. A rename can change a symbol the linker matches by name, such as a `// build: symbol` line or an `extern "C"` name. rank1 is yours to retry: find the 16 with the full verify and exclude them.
+    - **Post `lane10/names-<scope>`.**
+  - **The call-site sweep:** `SWEEP_ROOT=<repo> python3 sweep.py <name> <Module,...>` renames old `sub_` spellings of already-named functions and drops the ones whose units fail. #334 did the small modules. D2Common, D2Game and D2Client are left: about 985 spellings of 846 functions. `DEDUPE=1` also cuts duplicate prototypes, but it made the first run worse; the prototype report (queue item 3) is the better route.
+  - **Order:**
+    1. The waiting plans, one branch each: rank1 (retry), d2cmp, d2common, d2game, the d2client ones, moved333, stragglers. Members goes last, alone.
+    2. The sweep for D2Common, D2Game and D2Client.
+    3. The queue below.
 - **Lane 10: your queue, in order.** Work down it without waiting for answers. Plans already posted don't need re-checking at every check-in; I re-check them when I apply them. Take each item as soon as the one before it is posted.
   1. **Global variables with an address in their name: about 1,536** (`gnGlobal_007A285C`, `gData_00731018`, …). Brief: [names-globals-brief.md](names-globals-brief.md), with the same plan format plus a type-prefix column. One plan per module: `globals-<module>.tsv`. Start with D2Game, D2Common and D2Client (by area).
   2. **Inferred names whose prefix fits neither their file nor any sourced name in it: about 430**, many of them stale after a function moved (TEXT_ names in QuestLog.cpp, INV_TickSound in SoundHdr.cpp, GLIDE_FloorCacheRemove in glSmack.cpp). Re-plan them with the file's prefix: `prefixfix-<module>.tsv`, same format, with the old inferred name as old_name.
