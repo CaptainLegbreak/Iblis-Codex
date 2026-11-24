@@ -60163,41 +60163,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005C8BF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005C8C10",
-     "length": 132,
-     "name": "?sub_005C8C10_StopInferno@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005C8CA0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005C8CA0",
-     "length": 397
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Game/SKILLS/SkillSor.cpp",
    "rank": 0,
    "functions": [
@@ -60205,6 +60170,15 @@
      "va": "0x005C8BF0",
      "length": 27,
      "name": "?SKILLS_StatRemoveCallback_RemoveState@@YIXPAUD2UnitStrc@@HPAUD2StatListStrc@@@Z"
+    },
+    {
+     "va": "0x005C8C10",
+     "length": 132,
+     "name": "?sub_005C8C10_StopInferno@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005C8CA0",
+     "length": 397
     },
     {
      "va": "0x005C8E30",

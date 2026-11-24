@@ -236,6 +236,83 @@ void __fastcall SKILLS_StatRemoveCallback_RemoveState(D2UnitStrc* pUnit, int nSt
     }
 }
 
+// 0x005C8C10
+static void sub_005C8C10_StopInferno(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    int nInfernoLength = 1;
+    STATES_ToggleState(pUnit, 12, 0);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 0, 0);
+
+    D2MonStats2Txt* pMonStats2TxtRecord = MONSTERREGION_GetMonStats2TxtRecord(!pUnit ? -1 : pUnit->dwClassId);
+    if (pMonStats2TxtRecord)
+    {
+        nInfernoLength = pMonStats2TxtRecord->nInfernoLen;
+    }
+
+    EVENT_SetEvent(pGame, pUnit, 1, pGame->dwGameFrame + nInfernoLength, 0, 0);
+}
+
+// 0x005C8CA0
+int __fastcall SKILLS_DoInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+
+    int nX;
+    int nY;
+    if (!pSkillsTxtRecord || nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount || !D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY))
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    if (SKILLS_GetParam1(pSkill))
+    {
+        int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+        if (nRange < 1)
+        {
+            nRange = 1;
+        }
+
+        D2MissileStrc missileParams;
+        memset(&missileParams, 0, sizeof(missileParams));
+        missileParams.nMissile = nMissileId;
+        missileParams.nSkill = nSkillId;
+        missileParams.nSkillLevel = nSkillLevel;
+        missileParams.dwFlags = 0x8020;
+        missileParams.pOwner = pUnit;
+        missileParams.pOrigin = pUnit;
+        missileParams.nTargetX = nX;
+        missileParams.nTargetY = nY;
+        missileParams.nRange = nRange;
+        MISSILES_CreateMissileFromParams(pGame, &missileParams);
+    }
+
+    SKILLS_SetParam1(pSkill, 1);
+
+    const bool bIsMonster = pUnit && pUnit->dwUnitType == UNIT_MONSTER;
+    if (!bIsMonster)
+    {
+        SUNIT_RewindAnimationByFrames(pGame, pUnit, 1);
+        return 1;
+    }
+
+    pUnit->nSeqCurrentFramePrecise = 0xB00;
+    if (pGame->dwGameFrame < SKILLS_GetParam1(pSkill) && STATES_CheckState(pUnit, STATE_INFERNO))
+    {
+        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
+        EVENT_SetEvent(pGame, pUnit, 0, pGame->dwGameFrame + 2, 4, 0);
+        return 1;
+    }
+
+    sub_005C8C10_StopInferno(pGame, pUnit);
+    return 1;
+}
+
 // 0x005C8E30
 int __fastcall SKILLS_StartInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5)
 {
