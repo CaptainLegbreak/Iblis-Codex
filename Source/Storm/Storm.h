@@ -7,7 +7,7 @@ struct D2ModuleEntry32Strc;
 struct ARCHIVEREC;
 struct D2SystemTimeStrc;
 struct D2ThreadContextStrc;
-struct T004013C0;
+struct D2SystemInfoStrc;
 struct _iobuf;
 struct z_stream;
 
