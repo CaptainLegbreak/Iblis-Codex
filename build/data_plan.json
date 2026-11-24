@@ -4018,17 +4018,15 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_0064A2B0.cpp": {
-   "bytes": 36,
-   "definitions": 2,
+  "Source/D2Common/UNITS/Missile.cpp": {
+   "bytes": 96,
+   "definitions": 3,
    "externs": [
-    "extern \"C\" void __cdecl MISSILE_GetRandomNumberInRange(); // 0x0064B720",
-    "extern \"C\" void __cdecl MISSILE_GetSpecialParamValueForSkillMissile(); // 0x0064B760",
     "extern \"C\" void __cdecl MISSILE_GetMinimum(); // 0x0064B700",
     "extern \"C\" void __cdecl MISSILE_GetMaximum(); // 0x0064B710"
    ],
    "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_0064A2B0.inc",
+   "include": "gen/data/Source/D2Common/UNITS/Missile.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -5418,15 +5416,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_00624740.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/UNITS/Missile.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/UNITS/Missile.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -124838,7 +124827,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0064A2B0.cpp",
+   "file": "Source/D2Common/UNITS/Missile.cpp",
    "fill": 8,
    "form": "declared",
    "fwd": null,
@@ -124902,7 +124891,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Common/Unknown_0064A2B0.cpp",
+   "file": "Source/D2Common/UNITS/Missile.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnMissileCalcFunctionCount = ",
