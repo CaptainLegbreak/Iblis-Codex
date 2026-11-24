@@ -42,14 +42,13 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 679 |
+| Compilation units | 670 |
 | … in a file with its original name, whole | 292 |
 | … pieces of an original file still split (in 33 files) | 114 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 273 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2519 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 264 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2488 |
 | Unnamed fields (`unk0x..`) in the shared headers | 717 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 38 |
-| Functions relying on a module assumption macro (`STORM_ASSUME`, `FOG_ASSUME`: the original's release-build assert or unreachable default) | 4 |
 | Calling-convention shims | 62 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
 | `__declspec(noinline)` / `__forceinline` | 106 / 221 |
@@ -77,7 +76,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 ## Non-original constructs
 
-Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
+Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original's release-build asserts and unreachable switch defaults) are listed for completeness.
 
 Not listed one by one: 4079 functions are compiled with `/GS-` and 1002 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 106 times and `__declspec(dllexport)` 153 times to keep a body out of line or emitted.
 
@@ -334,6 +333,9 @@ Not listed one by one: 4079 functions are compiled with `/GS-` and 1002 with `/E
 | 0x00410740 | LOGMANAGER_LogWritePrefixed | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x004107B0 | SYSTEM_AtomicStore64 | `Fog/Src/System/system.cpp` | inline assembly |
 | 0x004107D0 | SYSTEM_AtomicRead64 | `Fog/Src/System/system.cpp` | inline assembly |
+| 0x004157C0 | FillStreamBuffer | `Storm/SOURCE/SFILE.CPP` | __assume through a header macro (original) |
+| 0x00423DC0 | Div | `Storm/SOURCE/SBig_00423DC0.cpp` | __assume through a header macro (original) |
+| 0x00424B00 | sub_00424B00_BigSquare | `Storm/SOURCE/SBig_00424B00.cpp` | __assume through a header macro (original) |
 | 0x00425720 | sub_00425720_Rotl | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
 | 0x00425730 | sub_00425730_Sha1Round0 | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
 | 0x00425770 | sub_00425770_Sha1Round1 | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
@@ -572,7 +574,6 @@ Not listed one by one: 4079 functions are compiled with `/GS-` and 1002 with `/E
 | 0x00588E10 | sub_00588E10_IsMonsterNearby | `D2Game/Unknown_00588E10.cpp` | compiler option /Ob1 |
 | 0x005A48C0 | MONSTERUNIQUE_PromoteToChampion | `D2Game/MONSTER/MonsterUnique_005A49B0.cpp` | compiler option /Ob1 |
 | 0x005A49B0 | D2GAME_SpawnSuperUnique_6FC6F690 | `D2Game/MONSTER/MonsterUnique_005A49B0.cpp` | compiler option /Ob1 |
-| 0x005A5650 | MONSTERMODE_GetHpPercent128 | `D2Game/MONSTER/MonsterMode.cpp` | compiler option /Ob1 |
 | 0x005A5690 | PARTYSCREEN_SendEventUpdateToClient | `D2Game/PLAYER/PartyScreen.cpp` | volatile read or qualifier |
 | 0x005A6190 | MONSTERMODE_GetAiParamFromUnit | `D2Game/MONSTER/MonsterMode.cpp` | compiler option /Ob1 |
 | 0x005A61B0 | MONSTERMODE_TakeVelocityParams | `D2Game/MONSTER/MonsterMode.cpp` | compiler option /Ob1 |
@@ -653,6 +654,7 @@ Not listed one by one: 4079 functions are compiled with `/GS-` and 1002 with `/E
 | 0x0065EA50 | ITEMMODS_AddPropertyToItemStatList | `D2Common/ITEMS/ItemMods.cpp` | volatile read or qualifier |
 | 0x00660D10 | DATATBLS_GetInvRectFromBeltsTxt | `D2Common/DATATBLS/BeltTbls.cpp` | volatile read or qualifier |
 | 0x006B83A0 | sub_006B83A0_DrawPerspective | `D2Direct3D/Unknown_006B7530.cpp` | volatile read or qualifier |
+| 0x006BD780 | FOG_10207 | `Fog/Src/Excel/Excel.cpp` | __assume through a header macro (original) |
 | 0x006BE310 | FOG_SetServerConfig | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006BE350 | FOG_StartServer | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006BE390 | FOG_10186 | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
@@ -746,6 +748,7 @@ Not listed one by one: 4079 functions are compiled with `/GS-` and 1002 with `/E
 | 0x006C7D80 | sub_006C7D80_LockAndSend | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7DF0 | GDICORE_EndDraw | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7E30 | GDICORE_BlitWindow | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
+| 0x006C7EF0 | sub_006C7EF0_ConvertPalette | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7F90 | GDICORE_GetScreenSize | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7FA0 | GDICORE_SetPalette | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C8020 | sub_006C8020 | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
@@ -754,6 +757,7 @@ Not listed one by one: 4079 functions are compiled with `/GS-` and 1002 with `/E
 | 0x006C80B0 | GDICORE_ChangeRes | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C80F0 | sub_006C80F0 | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C8100 | sub_006C8100 | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
+| 0x006C8110 | sub_006C8110_FindNearestColor | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C8190 | sub_006C8190 | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C81A0 | GDICORE_GetPalette | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C81E0 | sub_006C81E0_GetValues | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
@@ -782,7 +786,6 @@ Not listed one by one: 4079 functions are compiled with `/GS-` and 1002 with `/E
 | 0x006CB070 | sub_006CB070_DeleteCriticalSection | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x006CB080 | sub_006CB080_DeleteCriticalSection | `Fog/Src/LogManager.cpp` | compiler option /EHa |
 | 0x006CB090 | sub_006CB090_DestroyLogMsgList | `Fog/Src/LogManager.cpp` | compiler option /EHa |
-| 0x006CB400 | sub_006CB400_Nop | `D2Client/Unknown_006CB3E0.cpp` | compiler option /Ob1 |
 | 0x006CB4C0 | sub_006CB4C0_DestroyTable | `D2CMP/Unknown_006CB4C0.cpp` | compiler option /Ob1 |
 
 ## Names
