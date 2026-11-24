@@ -77,7 +77,6 @@ extern "C" const char gszSEvtCpp[]; // 0x006D0224
 extern "C" const char gszSLogNewline_006CFF08[]; // 0x006CFF08
 extern "C" const char gszSignatureName_006CF18C[]; // 0x006CF18C
 extern "C" const char gszSpace[]; // 0x006FFC44
-extern "C" const char gszStormAudioStreamTypeName[]; // 0x00708408
 extern "C" const char gszUncPrefix_006CF098[]; // 0x006CF098
 extern "C" int __cdecl _snprintf_s(char* szBuffer, unsigned int nSizeOfBuffer, unsigned int nCount, const char* szFormat, ...); // 0x006824CB
 extern "C" int __cdecl _strnicmp(const char* szString1, const char* szString2, unsigned int nCount); // 0x00686040
@@ -94,7 +93,6 @@ extern ARCHIVEREC* gpArchiveHead_0070835C; // 0x0070835C
 extern bool gbSymInitialized; // 0x0098A6B0
 extern char gszTypeNameArchiveRec_00708398[]; // 0x00708398
 extern char gszTypeNameChar_0070888C[]; // 0x0070888C
-extern char gszTypeNameRequest_007083F0[]; // 0x007083F0
 extern char gszTypeNameUChar_00708880[]; // 0x00708880
 extern char gszTypeNameUInt_00708874[]; // 0x00708874
 extern const char gszEmptyString[]; // 0x006CC837

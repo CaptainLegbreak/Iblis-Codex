@@ -107,8 +107,8 @@
    "state": "included"
   },
   "Source/Storm/SOURCE/SFILE.CPP": {
-   "bytes": 424,
-   "definitions": 13,
+   "bytes": 348,
+   "definitions": 10,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -8245,64 +8245,6 @@
   },
   {
    "alias": true,
-   "cname": "gData_007083D8",
-   "declared": true,
-   "decorated": "_gszStormEventRecTypeName",
-   "file": "Source/Storm/SOURCE/SFILE.CPP",
-   "fill": 24,
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007083D8_t gData_007083D8; // 0x007083D8",
-   "head": "extern \"C\" struct d2data_007083D8_t gData_007083D8 = ",
-   "name": "gszStormEventRecTypeName",
-   "pointers": [
-    [
-     16,
-     "0x006F28F8",
-     "address",
-     "gData_006F28F8",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 24,
-   "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007083D8_t\n{\n    unsigned char b0[16];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007083D8\n#pragma comment(linker, \"/alternatename:_gszStormEventRecTypeName=_gData_007083D8\")",
-   "type": "char",
-   "va": "0x007083D8"
-  },
-  {
-   "alias": true,
-   "cname": "gData_007083F0",
-   "declared": true,
-   "decorated": "?gszTypeNameRequest_007083F0@@3PADA",
-   "file": "Source/Storm/SOURCE/SFILE.CPP",
-   "fill": 24,
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007083F0_t gData_007083F0; // 0x007083F0",
-   "head": "extern \"C\" struct d2data_007083F0_t gData_007083F0 = ",
-   "name": "gszTypeNameRequest_007083F0",
-   "pointers": [
-    [
-     16,
-     "0x006F28F8",
-     "address",
-     "gData_006F28F8",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 24,
-   "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007083F0_t\n{\n    unsigned char b0[16];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007083F0\n#pragma comment(linker, \"/alternatename:?gszTypeNameRequest_007083F0@@3PADA=_gData_007083F0\")",
-   "type": "char",
-   "va": "0x007083F0"
-  },
-  {
-   "alias": true,
    "cname": "gData_00708124",
    "declared": true,
    "decorated": "_gszLogMessageTypeName",
@@ -8756,59 +8698,19 @@
    "declared": true,
    "decorated": "_gszStormFileRecTypeName",
    "file": "Source/Storm/SOURCE/SFILE.CPP",
-   "fill": 24,
+   "fill": 16,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007083C0_t gData_007083C0; // 0x007083C0",
    "head": "extern \"C\" struct d2data_007083C0_t gData_007083C0 = ",
    "name": "gszStormFileRecTypeName",
-   "pointers": [
-    [
-     16,
-     "0x006F28F8",
-     "address",
-     "gData_006F28F8",
-     0,
-     "data"
-    ]
-   ],
+   "pointers": [],
    "region": "data",
-   "size": 24,
+   "size": 16,
    "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007083C0_t\n{\n    unsigned char b0[16];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_007083C0_t\n{\n    unsigned char b0[16];\n};\n#pragma pack(pop)",
    "tail": "; // 0x007083C0\n#pragma comment(linker, \"/alternatename:_gszStormFileRecTypeName=_gData_007083C0\")",
    "type": "char",
    "va": "0x007083C0"
-  },
-  {
-   "alias": true,
-   "cname": "gData_00708408",
-   "declared": true,
-   "decorated": "_gszStormAudioStreamTypeName",
-   "file": "Source/Storm/SOURCE/SFILE.CPP",
-   "fill": 20,
-   "form": "declared",
-   "fwd": "extern \"C\" const char gData_00708408[20]; // 0x00708408",
-   "head": "extern \"C\" const char gData_00708408[20] = ",
-   "model": {
-    "elem": {
-     "k": "prim",
-     "kind": "c",
-     "name": "char",
-     "size": 1
-    },
-    "k": "arr",
-    "n": 20,
-    "size": 20
-   },
-   "name": "gszStormAudioStreamTypeName",
-   "pointers": [],
-   "region": "data",
-   "size": 20,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00708408\n#pragma comment(linker, \"/alternatename:_gszStormAudioStreamTypeName=_gData_00708408\")",
-   "type": "char",
-   "va": "0x00708408"
   },
   {
    "alias": true,
