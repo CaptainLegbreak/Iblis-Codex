@@ -1450,6 +1450,33 @@ void __cdecl DLIGHTMAP_InitLightTables()
     }
 }
 
+struct D2GfxLightStrc;
+
+
+// 0x00475C40
+unsigned char** __stdcall GFX_BuildLerpRowTable(unsigned int nCount, int nSteps)
+{
+    unsigned char** pTable = (unsigned char**)sub_00517993_VirtualAlloc((nSteps + 1) * nCount * nCount * sizeof(unsigned char*));
+    unsigned char** pOut = pTable;
+    unsigned char nIndex;
+    for (int i = 0; i < nCount; ++i)
+    {
+        for (int j = 0; j < nCount; ++j)
+        {
+            int nStep = ((j - i) << 16) / nSteps;
+            int nValue = i << 16;
+            for (unsigned int k = 0; k < nSteps; ++k)
+            {
+                nIndex = nValue / 65536;
+                *pOut++ = gabRowTable[nIndex];
+                nValue += nStep;
+            }
+            *pOut++ = gabRowTable[nIndex];
+        }
+    }
+    return pTable;
+}
+
 // 0x00475D20
 void __fastcall sub_00475D20_FreeIfSet(void* pMemory)
 {
@@ -1457,6 +1484,30 @@ void __fastcall sub_00475D20_FreeIfSet(void* pMemory)
     {
         sub_005179A4_VirtualFree(pMemory);
     }
+}
+
+
+
+// 0x00475D30
+unsigned char** __stdcall SCMD_BuildRampTable(unsigned int nSize, int nSteps)
+{
+    unsigned char** ppTable = (unsigned char**)sub_00517993_VirtualAlloc(nSize * nSize * nSteps * sizeof(unsigned char*));
+    unsigned char** ppEntry = ppTable;
+    for (int i = 0; i < nSize; ++i)
+    {
+        for (int j = 0; j < nSize; ++j)
+        {
+            const int nStep = ((j - i) << 16) / nSteps;
+            int nValue = i << 16;
+            for (unsigned int k = 0; k < nSteps; ++k)
+            {
+                *ppEntry = gabRowTable[(unsigned char)(nValue / 0x10000)];
+                ++ppEntry;
+                nValue += nStep;
+            }
+        }
+    }
+    return ppTable;
 }
 
 // 0x00475DE0
@@ -1469,21 +1520,6 @@ void __fastcall sub_00475DE0_FreeIfSet(void* pMemory)
 }
 
 
-// 0x00475DF0
-void __cdecl DLIGHTMAP_BuildLerpTables()
-{
-    D2_ASSERT(!gppLerpRows, 0xCA);
-    D2_ASSERT(!gpLerpTable16, 0xCB);
-    D2_ASSERT(!gpLerpTable32, 0xCC);
-    D2_ASSERT(!gppRampTable_007B954C, 0xCD);
-    D2_ASSERT(!gpLerpTable40, 0xCE);
-    D2Win_10178_CopyGammaTable(gabRowTable);
-    gppLerpRows = GFX_BuildLerpRowTable(0x20, 8);
-    gpLerpTable16 = GFX_BuildLerpTable(0x20, 0x10);
-    gpLerpTable32 = GFX_BuildLerpTable(0x20, 0x20);
-    gppRampTable_007B954C = SCMD_BuildRampTable(0x20, 0x20);
-    gpLerpTable40 = GFX_BuildLerpTable(0x20, 0x28);
-}
 
 
 int __stdcall D2GFX_TogglePerspective();                                                                    // 0x004F54B0

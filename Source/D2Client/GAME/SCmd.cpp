@@ -1596,8 +1596,6 @@ struct D2MonsterDataStrc;
 
 struct D2UnitOverlayStrc;
 
-struct D2SortEntryStrc;
-
 struct D2HotkeyStrc;
 
 struct D2HotkeyCommandStrc;
@@ -1649,21 +1647,7 @@ struct D2UnitOverlayStrc
 };
 
 
-struct D2TileRectStrc
-{
-    int unk0x00;
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2SortEntryStrc
-{
-    int nKey;
-    unsigned char unk0x04[2];
-    unsigned char nFlag[4];
-};
 
 struct D2HotkeyCommandStrc
 {
@@ -1929,8 +1913,6 @@ struct D2UnitSpawnExtraStrc;
 
 struct D2UnitSpawnStrc;
 
-struct D2GSPacketSrv0DStrc;
-
 extern "C"
 __declspec(noreturn)
 void __cdecl exit(int nCode); // 0x00681E09
@@ -2097,17 +2079,6 @@ void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc*, int, int, int); //
 int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc*); // 0x0063EE90
 
 #pragma pack(push, 1)
-struct D2GSPacketSrv0DStrc
-{
-    unsigned char nHeader;
-    unsigned char nUnitType;
-    int dwUnitId;
-    unsigned char unk0x06;
-    unsigned short nX;
-    unsigned short nY;
-    unsigned char unk0x0B;
-    unsigned char nLife;
-};
 #pragma pack(pop)
 
 void __fastcall AUTOMAP_RefreshItemStats(D2UnitStrc* pUnit);                                                            // 0x0045D3E0
@@ -3427,6 +3398,11 @@ void __fastcall SCMD_HandleAssignSkill(const D2GSPacketSrv21* pPacket)
         SKILLS_AssignSkill(pUnit, wSkillId, pPacket->nSkillLevel, pPacket->bRemove, ".\\GAME\\SCmd.cpp", 2700);
         INV_ClearSkillPointsHighlight();
     }
+}
+
+// 0x0045F7A0
+void __stdcall sub_0045F7A0(int nUnused1, int nUnused2)
+{
 }
 
 // 0x0045F9F0
@@ -4862,27 +4838,6 @@ void __fastcall SCMD_SetLightColorBytes(D2ByteRecordStrc* pRecord, unsigned char
 
 
 
-// 0x00475D30
-unsigned char** __stdcall SCMD_BuildRampTable(unsigned int nSize, int nSteps)
-{
-    unsigned char** ppTable = (unsigned char**)sub_00517993_VirtualAlloc(nSize * nSize * nSteps * sizeof(unsigned char*));
-    unsigned char** ppEntry = ppTable;
-    for (int i = 0; i < nSize; ++i)
-    {
-        for (int j = 0; j < nSize; ++j)
-        {
-            const int nStep = ((j - i) << 16) / nSteps;
-            int nValue = i << 16;
-            for (unsigned int k = 0; k < nSteps; ++k)
-            {
-                *ppEntry = gabRowTable[(unsigned char)(nValue / 0x10000)];
-                ++ppEntry;
-                nValue += nStep;
-            }
-        }
-    }
-    return ppTable;
-}
 
 
 #include "gen/data/Source/D2Client/GAME/SCmd.inc"
