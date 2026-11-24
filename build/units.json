@@ -55082,7 +55082,13 @@
      "va": "0x00597B00",
      "length": 368,
      "name": "?D2GAME_INVMODE_Last_6FC416D0@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/MONSTER/MonsterMsg.cpp",
+   "rank": 1,
+   "functions": [
     {
      "va": "0x00597C70",
      "length": 118,
@@ -55092,13 +55098,7 @@
      "va": "0x00597CF0",
      "length": 115,
      "name": "?MONSTERMSG_SendLifeUpdate@@YGXPAUD2UnitStrc@@PAUD2ClientStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/MonsterMsg.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00597D70",
      "length": 172
@@ -55106,18 +55106,18 @@
     {
      "va": "0x00597E20",
      "length": 1014
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00598220.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00598220",
      "length": 435,
      "name": "?MONSTERMSG_SendMonsterUpdates@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2ClientStrc@@H@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Game/Unknown_005985C0.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x005985C0",
      "length": 5,
