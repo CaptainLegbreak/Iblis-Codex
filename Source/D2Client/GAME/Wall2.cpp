@@ -125,7 +125,7 @@ extern u32 gVar_006CE26C_Flags; // 0x006CE26C
 
 extern u32 gVar_006CE274_Flags; // 0x006CE274
 
-extern s32 __fastcall sub_00464860_Classify(Unit*); // 0x00464860
+extern s32 __fastcall CUNIT_IsUnitDead(Unit*); // 0x00464860
 
 extern s32 __stdcall TileGetTotalHeight(TileRecord*); // 0x00604CB0
 
@@ -679,7 +679,7 @@ s32 __stdcall WALL2_VisitRoom(D2ActiveRoomStrc* room,View* view)
         D2_ASSERT(x>=0 && x<FIELD(s32,context,0xEA78),768);
         D2_ASSERT(y>=0 && y<FIELD(s32,context,0xEA78),769);
         Cell* cell=(Cell*)&FIELD(Cell36*,context,0xEA70)[x+FIELD(s32,context,0xEA78)*y];
-        if(sub_00464860_Classify(unit)) sub_004DD600_AddSpecial(cell,context,unit);
+        if(CUNIT_IsUnitDead(unit)) sub_004DD600_AddSpecial(cell,context,unit);
         else if(UNIT_GetFlagC4_20(unit)) sub_004DD600_AddSpecial(cell,context,unit);
         else
         {
@@ -802,7 +802,7 @@ struct D2GridLightStrc
     D2GridOwnerStrc* pOwner;
 
     void __thiscall ApplyUnitLight(D2GridUnitStrc* pUnit, int nArg, int nX, int nY, int nSubX, int nSubY); // 0x004DE410
-    void __thiscall sub_004DDE80_UpdateBounds(D2GridUnitStrc* pUnit, int nSubX, int nSubY);     // 0x004DDE80
+    void __thiscall ExtendBounds(D2GridUnitStrc* pUnit, int nSubX, int nSubY);     // 0x004DDE80
 };
 
 extern int gnScreenWidth; // 0x0071146C
@@ -1128,7 +1128,7 @@ void __thiscall D2GridLightStrc::ApplyUnitLight(D2GridUnitStrc* pUnit, int nArg,
         }
     }
 
-    sub_004DDE80_UpdateBounds(pUnit, nSubX, nSubY);
+    ExtendBounds(pUnit, nSubX, nSubY);
 }
 
 D2TileStrc* __stdcall DUNGEON_GetTileDataFromAct(void* pAct); // 0x00619720

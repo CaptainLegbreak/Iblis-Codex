@@ -123,7 +123,7 @@ extern "C" U8 __stdcall GetClosestColor(const U8* palette,U32 count,int c0,int c
 
 extern "C" int __fastcall sub_0063E860_UnitPredicate(Unit* unit);
 
-extern "C" int __fastcall sub_00457490_MonsterFlag(int classId,int flag);
+extern "C" int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int classId,int flag); // 0x00457490
 
 extern "C" int __fastcall sub_0040B3C0_Free(void* block,const char* file,int line,int flags);
 

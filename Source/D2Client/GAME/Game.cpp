@@ -509,13 +509,13 @@ void __cdecl sub_004776E0_SetModeValuesOne(); // 0x004776E0
 
 void __cdecl D2GFX_DisableFixedAspectRatio(); // 0x004F5280
 
-void __cdecl sub_004776F0(); // 0x004776F0
+void __cdecl INV_SetRenderModeGlide(); // 0x004776F0
 
-void __cdecl sub_00477700(); // 0x00477700
+void __cdecl INV_SetRenderModeOpenGL(); // 0x00477700
 
-void __cdecl sub_00477710(); // 0x00477710
+void __cdecl INV_SetRenderModeDirect3D(); // 0x00477710
 
-void __cdecl sub_00477720(); // 0x00477720
+void __cdecl INV_SetRenderModeRave(); // 0x00477720
 
 void __fastcall sub_004776C0(int nGamma); // 0x004776C0
 
@@ -1209,7 +1209,7 @@ void __fastcall PLAYER_SetPanelSlide(int nMode); // 0x0045AEA0
 
 void __fastcall sub_00457440_Nop(int nResolution); // 0x00457440
 
-void __fastcall sub_004549B0(int nResolution); // 0x004549B0
+void __fastcall UI_ToggleListDialog(int nResolution); // 0x004549B0
 
 void __fastcall sub_0046C460_PopulateRoom(D2ActiveRoomStrc* pRoom); // 0x0046C460
 
@@ -1284,7 +1284,7 @@ int __cdecl GAME_GetConnectFailed();                                            
 
 void __stdcall GAME_DestroyWindowAndGfx(int nArg1, int nArg2, int nArg3);                                               // 0x0044C850
 
-void __fastcall sub_0044C990(void* pArg);                                                                   // 0x0044C990
+void __fastcall GAME_DrawGameView(void* pArg);                                                                   // 0x0044C990
 
 void __cdecl GAME_ReadColorFlag();                                                                  // 0x0044DBE0
 
@@ -1334,7 +1334,7 @@ void __fastcall VIEW_FreeView(D2ViewStrc* pView);                               
 
 void __fastcall VIEW_SetViewPos(D2ViewStrc* pView, int nX, int nY);                                 // 0x004760A0
 
-D2ViewStrc* __cdecl sub_00476B10();                                                                         // 0x00476B10
+D2ViewStrc* __cdecl VIEW_CreateView();                                                                         // 0x00476B10
 
 void __cdecl PALSHIFT_AllocPalShiftEntries();                                                                   // 0x00476EA0
 
@@ -1478,19 +1478,19 @@ struct UnitPrefix { U32 prefix0; U32 prefix4; U32 prefix8; U32 identifier; };
 
 typedef char check_UnitPrefix_identifier[OFFSET(UnitPrefix,identifier)==12?1:-1];
 
-extern "C" UnitPrefix* __cdecl sub_004680A0_GetSelected();
+extern "C" UnitPrefix* __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
-extern "C" void __fastcall sub_004786A0_SendPacket(U8 command,U32 first,U32 second);
+extern "C" void __fastcall MSG_SendTwoDwords(U8 command,U32 first,U32 second); // 0x004786A0
 
 extern "C" Auxiliary* __cdecl sub_004646A0_GetAuxiliary();
 
 extern "C" void __stdcall sub_0061C240_Configure(Context* context,Auxiliary* auxiliary,int mode,int angle,int flag);
 
-extern "C" void __cdecl sub_0049F960_Cleanup();
+extern "C" void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
 extern "C" void __stdcall sub_006612A0_Release(Allocation* allocation);
 
-extern "C" int __cdecl sub_0044DCC0_Mode();
+extern "C" int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 extern "C" Context* gContext; // 0x007A0634
 
@@ -2199,7 +2199,7 @@ void __fastcall GAME_SetResolution(int nResolution)
     PLAYER_SetPanelSlide(sub_0045AE90());
     sub_00457640(1);
     sub_00457440_Nop(nResolution);
-    sub_004549B0(nResolution);
+    UI_ToggleListDialog(nResolution);
 }
 
 // 0x0044BB70
@@ -3035,28 +3035,28 @@ void __fastcall GAME_ApplyConfigNoFixAspect(D2ConfigStrc* pConfig)
 void __fastcall GAME_ApplyConfigGlide(D2ConfigStrc* pConfig)
 {
     if (pConfig->b3DFX)
-        sub_004776F0();
+        INV_SetRenderModeGlide();
 }
 
 // 0x0044D790
 void __fastcall GAME_ApplyConfigOpenGL(D2ConfigStrc* pConfig)
 {
     if (pConfig->bOpenGL)
-        sub_00477700();
+        INV_SetRenderModeOpenGL();
 }
 
 // 0x0044D7A0
 void __fastcall GAME_ApplyConfigDirectX(D2ConfigStrc* pConfig)
 {
     if (pConfig->bD3D)
-        sub_00477710();
+        INV_SetRenderModeDirect3D();
 }
 
 // 0x0044D7B0
 void __fastcall GAME_ApplyConfigRave(D2ConfigStrc* pConfig)
 {
     if (pConfig->bRave)
-        sub_00477720();
+        INV_SetRenderModeRave();
 }
 
 // 0x0044D7C0
@@ -4322,9 +4322,10 @@ int __fastcall GAME_GetUIVarState(unsigned int nUIVar)
     return gaUIVarStates[nUIVar];
 }
 
-extern "C" void __cdecl sub_004A1730_ClearAllocation()
+// build: symbol _CUNIT_ClearTextPanel 0x004A1730
+extern "C" void __cdecl CUNIT_ClearTextPanel()
 {
-    sub_0049F960_Cleanup();
+    TEXT_ResetTextBox();
     Allocation* allocation=gAllocation;
     gCleanupState=0;
     if(allocation) {
@@ -4333,9 +4334,10 @@ extern "C" void __cdecl sub_004A1730_ClearAllocation()
     }
 }
 
-extern "C" int __cdecl sub_00486B00_Coordinate()
+// build: symbol _INV_GetPanelY 0x00486B00
+extern "C" int __cdecl INV_GetPanelY()
 {
-    if(!sub_0044DCC0_Mode())
+    if(!GAME_IsExpansion())
         return gCoordinateOffset+gCoordinateBase-65;
     return gCoordinateOffset+gCoordinateBase-64;
 }

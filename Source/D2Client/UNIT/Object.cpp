@@ -16,7 +16,7 @@
 
 struct D2AutomapCellStrc;
 
-struct Pad40_00457460;
+struct OBJECT_SetUnitFlag;
 
 struct Obj00457460;
 
@@ -28,7 +28,7 @@ extern int gbAutomapLeft; // 0x007A51E0
 
 extern int gbAutomapPartyNames; // 0x007113E8
 
-struct Pad40_00457460 {
+struct OBJECT_SetUnitFlag {
     unsigned int dw00;
     unsigned int dw04;
     unsigned int dw08;
@@ -48,9 +48,9 @@ struct Pad40_00457460 {
 };
 
 struct Obj00457460 {
-    Pad40_00457460 tPad000;
-    Pad40_00457460 tPad040;
-    Pad40_00457460 tPad080;
+    OBJECT_SetUnitFlag tPad000;
+    OBJECT_SetUnitFlag tPad040;
+    OBJECT_SetUnitFlag tPad080;
     unsigned int dwUnknownC0;
     unsigned int dwFlagsC4;
 };
@@ -197,7 +197,7 @@ struct D2MissileStrc;
 // build: symbol _gszUnitSourceFile 0x006DAA8C
 extern "C" const char gszUnitSourceFile[];
 
-void __fastcall sub_004CB460(D2UnitStrc* pUnit);
+void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit); // 0x004CB460
 
 int __stdcall sub_00621B00_IsShrine(D2UnitStrc* pUnit);
 
@@ -1057,7 +1057,7 @@ char __fastcall OBJECT_AnimCycleUpdate(D2UnitStrc* pUnit)
         UNITS_SetAnimStartFrame(pUnit);
     }
 
-    sub_004CB460(pUnit);
+    UNITSND_UpdateModeSound(pUnit);
     return 1;
 }
 
@@ -1080,7 +1080,7 @@ char __fastcall OBJECT_TimedSpecial(D2UnitStrc* pUnit)
         GFX_RefreshUnitGfx(pUnit, 0);
     }
 
-    sub_004CB460(pUnit);
+    UNITSND_UpdateModeSound(pUnit);
     return 0;
 }
 
@@ -1114,7 +1114,7 @@ char __fastcall OBJECT_TimedSpecialRandom(D2UnitStrc* pUnit)
         GFX_RefreshUnitGfx(pUnit, 0);
     }
 
-    sub_004CB460(pUnit);
+    UNITSND_UpdateModeSound(pUnit);
     return 0;
 }
 
@@ -1138,7 +1138,7 @@ char __fastcall OBJECT_TimedSpecialExact(D2UnitStrc* pUnit)
         GFX_RefreshUnitGfx(pUnit, 0);
     }
 
-    sub_004CB460(pUnit);
+    UNITSND_UpdateModeSound(pUnit);
     return 0;
 }
 

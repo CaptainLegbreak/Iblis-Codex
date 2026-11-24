@@ -506,7 +506,7 @@ D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, 
 
 void __fastcall SKILLS_StartSkillOnUnit(D2UnitStrc* pUnit, D2MonCommandStrc* pCommand);              // 0x004C6EB0
 
-void __fastcall sub_004C6F40(D2UnitStrc* pUnit, D2MonCommandStrc* pCommand);                                // 0x004C6F40
+void __fastcall SKILLS_StartSkillAtPos(D2UnitStrc* pUnit, D2MonCommandStrc* pCommand);                                // 0x004C6F40
 
 int __stdcall ITEM_GetGfxClientZ(D2UnitStrc* pUnit);                                          // 0x004DA0F0
 
@@ -2757,7 +2757,7 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
 
         pCommand->nY = -1;
         UNITMODE_SetUnitMode(pUnit, nValue);
-        sub_004C6F40(pUnit, pCommand);
+        SKILLS_StartSkillAtPos(pUnit, pCommand);
         break;
     }
 

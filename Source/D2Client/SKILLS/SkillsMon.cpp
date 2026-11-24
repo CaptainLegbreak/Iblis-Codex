@@ -89,7 +89,7 @@ void __fastcall sub_004E1C80_CltMissileInitDiabWall(D2UnitStrc* pMissile, int nA
 
 D2UnitStrc* __fastcall SKILLDESC_CltDoRandomMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);               // 0x004E31C0
 
-void __fastcall sub_004EA010_SkillDescLine(D2UnitStrc* pUnit, void* pArg, D2SkillsTxt* pSkillsTxtRecord, int nArg3, int nArg4, int nArg5, int nArg6); // 0x004EA010
+void __fastcall SKILLDESC_DrawSkillWeaponLine(D2UnitStrc* pUnit, void* pArg, D2SkillsTxt* pSkillsTxtRecord, int nArg3, int nArg4, int nArg5, int nArg6); // 0x004EA010
 
 void __fastcall sub_004F2440_OnStateRemove(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);       // 0x004F2440
 
@@ -742,7 +742,7 @@ void __fastcall SKILLSMON_DescIfRecord(D2UnitStrc* pUnit, void* pArg, D2SkillsTx
 {
     if (pArg && pSkillsTxtRecord && sub_004A89D0_SkillDescRec(pSkillsTxtRecord->nSkillId))
     {
-        sub_004EA010_SkillDescLine(pUnit, pArg, pSkillsTxtRecord, nArg3, nArg4, nArg5, nArg6);
+        SKILLDESC_DrawSkillWeaponLine(pUnit, pArg, pSkillsTxtRecord, nArg3, nArg4, nArg5, nArg6);
     }
 }
 

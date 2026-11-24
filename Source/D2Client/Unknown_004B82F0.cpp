@@ -116,8 +116,8 @@ extern unsigned long gdwSecondaryTradeGold; // 0x007C0E78
 
 extern "C" void __fastcall sub_00478600_SendPacket(U8 command, U16 value, U16 first, U16 second);
 extern "C" int __fastcall sub_004FC9B0_AppendText(UiControl* control, const U16* text, int style, U8 metadata, int mode);
-extern "C" int __fastcall sub_00455F20_SetUiState(int id, int state, int flag);
-extern "C" int __cdecl sub_0044DCC0_Mode();
+extern "C" int __fastcall UI_SetUIVar(int id, int state, int flag); // 0x00455F20
+extern "C" int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 extern "C" int gPacketState; // 0x007C0E7C
 extern "C" UiControl* gTextControl;
 extern "C" int gPendingClear;
@@ -180,10 +180,10 @@ struct D2UiPacketStrc_004B9210
 
 #pragma pack(pop)
 
-void __fastcall sub_004A28A0_OnUiPacket1(D2UiPacketStrc_004B9210* pPacket); // 0x004A28A0
+void __fastcall TEXT_AcceptShortPacket(D2UiPacketStrc_004B9210* pPacket); // 0x004A28A0
 void __fastcall NPCMENU_ReloadHirelingPopup(unsigned short nArg); // 0x004B3340
-void __fastcall sub_004B25C0_OnUiPacket3(D2UiPacketStrc_004B9210* pPacket); // 0x004B25C0
-void __fastcall sub_0049FF60_OnUiPacket4(D2UiPacketStrc_004B9210* pPacket); // 0x0049FF60
+void __fastcall NPCMENU_OnNpcPacketStoreSubId(D2UiPacketStrc_004B9210* pPacket); // 0x004B25C0
+void __fastcall TEXT_AcceptWordPacket(D2UiPacketStrc_004B9210* pPacket); // 0x0049FF60
 extern "C" void __fastcall TEXT_SetQuestPacketValue(unsigned int value); // 0x004A3100
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
@@ -761,7 +761,7 @@ extern "C" void __cdecl sub_00494FC0_ClearUi()
 {
     if (gPendingClear != 0)
     {
-        sub_00455F20_SetUiState(21, 1, 0);
+        UI_SetUIVar(21, 1, 0);
         gPendingClear = 0;
     }
 }
@@ -771,7 +771,7 @@ extern "C" void __cdecl sub_004898A0_OpenUi()
     gOpenFlag = 1;
     if (gUiPhase == 13)
         gUiPhase = 12;
-    sub_00455F20_SetUiState(5, 1, 0);
+    UI_SetUIVar(5, 1, 0);
 }
 
 unsigned long gdwSecondaryTradeGold; // 0x007C0E78
@@ -889,17 +889,17 @@ void __fastcall sub_004B9210_DispatchUiPacket(D2UiPacketStrc_004B9210* pPacket)
         return;
 
     case 1:
-        sub_004A28A0_OnUiPacket1(pPacket);
+        TEXT_AcceptShortPacket(pPacket);
         return;
 
     case 3:
     case 6:
-        sub_004B25C0_OnUiPacket3(pPacket);
+        NPCMENU_OnNpcPacketStoreSubId(pPacket);
         return;
 
     case 4:
     case 13:
-        sub_0049FF60_OnUiPacket4(pPacket);
+        TEXT_AcceptWordPacket(pPacket);
         return;
 
     case 23:

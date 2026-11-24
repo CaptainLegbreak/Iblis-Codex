@@ -125,7 +125,7 @@ D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonster
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
-void __fastcall sub_004C7480_CreateSpread(D2UnitStrc* pUnit, D2MissileStrc* pMissileParams, int nArg1, int nArg2);
+void __fastcall SKILLS_SpawnMissileRing(D2UnitStrc* pUnit, D2MissileStrc* pMissileParams, int nArg1, int nArg2); // 0x004C7480
 
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
@@ -1966,26 +1966,26 @@ int __fastcall SKILLDESC_CreateCorpseExplosionMissiles(D2UnitStrc* pUnit, int nS
 
     if (pMonStats2TxtRecord->nFlags[1] & gdwBitMasks[2])
     {
-        sub_004C7480_CreateSpread(pUnit, &tMissileParams, 0, 1);
+        SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 0, 1);
     }
     else if (pMonStats2TxtRecord->nFlags[1] & gdwBitMasks[3])
     {
-        sub_004C7480_CreateSpread(pUnit, &tMissileParams, 3, 3);
+        SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 3, 3);
         const short nSubMissile = sub_0046ACE0(nMissile)->wSubMissile[0];
         if (nSubMissile > 0 && nSubMissile < sgptDataTables->nMissilesTxtRecordCount)
         {
             tMissileParams.nMissile = nSubMissile;
-            sub_004C7480_CreateSpread(pUnit, &tMissileParams, 2, 4);
+            SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 2, 4);
         }
     }
     else
     {
-        sub_004C7480_CreateSpread(pUnit, &tMissileParams, 2, 2);
+        SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 2, 2);
         const short nSubMissile = sub_0046ACE0(nMissile)->wSubMissile[1];
         if (nSubMissile > 0 && nSubMissile < sgptDataTables->nMissilesTxtRecordCount)
         {
             tMissileParams.nMissile = nSubMissile;
-            sub_004C7480_CreateSpread(pUnit, &tMissileParams, 1, 3);
+            SKILLS_SpawnMissileRing(pUnit, &tMissileParams, 1, 3);
         }
     }
 

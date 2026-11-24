@@ -245,7 +245,7 @@ static int __stdcall sub_004E7E70_AddValueTwoTexts(unsigned short nString1, unsi
 }
 
 // 0x004E79E0
-static int __stdcall sub_004E79E0_AddValueText(unsigned short nString, int bPlus, int nValue, Unicode* wszText)
+static int __stdcall SKILLDESC_AppendLabelValue(unsigned short nString, int bPlus, int nValue, Unicode* wszText)
 {
     Unicode wszNumber[32];
     char szNumber[32];
@@ -274,7 +274,7 @@ static int __stdcall sub_004E80F0_AddRangeText(Unicode* wszText, int bSeparator,
 {
     if (nMin == nMax)
     {
-        return sub_004E79E0_AddValueText(nString, bPlus, nMin, wszText);
+        return SKILLDESC_AppendLabelValue(nString, bPlus, nMin, wszText);
     }
 
     Unicode wszNumber[32];

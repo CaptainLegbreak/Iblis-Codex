@@ -1,7 +1,7 @@
 typedef void (__stdcall* B27RecordHandler)(int, int, int);
 typedef int (__cdecl* B27UIAction)();
-extern "C" int __cdecl sub_004B1DD0_Action();
-extern "C" int __cdecl sub_004B2020_Action();
+extern "C" int __cdecl NPCMENU_ResurrectMercWait(); // 0x004B1DD0
+extern "C" int __cdecl NPCMENU_IdentifyItemsWait(); // 0x004B2020
 extern "C" unsigned int gB27_00726CC1;
 extern "C" unsigned short gB27_00726CCB;
 extern "C" unsigned int gB27_00726CDB;
@@ -51,7 +51,8 @@ extern "C" unsigned int gB27_007C0265;
 extern "C" { B27RecordHandler gpfnRecordHandler; } // 0x00881834
 extern "C" unsigned int gB27_00883D70;
 
-extern "C" int __cdecl sub_00489840_ModeInGroup()
+// build: symbol _CUNIT_IsInvPanelTradeMode 0x00489840
+extern "C" int __cdecl CUNIT_IsInvPanelTradeMode()
 {
     int mode = gB27_007BCBF0;
     if (mode == 1 || mode == 2 || mode == 3)
@@ -63,9 +64,10 @@ extern "C" void __cdecl TEXT_ResetQuestButtonState(); // 0x004A3000
 
 extern "C" void __fastcall TEXT_SetQuestPacketValue(unsigned int value); // 0x004A3100
 
-extern "C" void __cdecl sub_004B2250_InitializeControls()
+// build: symbol _NPCMENU_ResetHandlers 0x004B2250
+extern "C" void __cdecl NPCMENU_ResetHandlers()
 {
-    bool oldAction = (gB27_007272EB == sub_004B1DD0_Action);
+    bool oldAction = (gB27_007272EB == NPCMENU_ResurrectMercWait);
     gB27_00726DF9 = 2;
     gB27_00726E01 = 0;
     gB27_00726E0F = 0;
@@ -95,19 +97,19 @@ extern "C" void __cdecl sub_004B2250_InitializeControls()
     gB27_0072723D = 3;
     gB27_0072728B = 4;
     gB27_00726EC2 = 0xfb4;
-    gB27_00726ECE = sub_004B2020_Action;
+    gB27_00726ECE = NPCMENU_IdentifyItemsWait;
     gB27_00726EBC = 3;
     gB27_00726EE9 = 0xfb4;
-    gB27_00726EF5 = sub_004B2020_Action;
+    gB27_00726EF5 = NPCMENU_IdentifyItemsWait;
     gB27_00726EE3 = 3;
     gB27_00726F10 = 0xfb4;
-    gB27_00726F1C = sub_004B2020_Action;
+    gB27_00726F1C = NPCMENU_IdentifyItemsWait;
     gB27_00726F0A = 3;
     gB27_00726F37 = 0xfb4;
-    gB27_00726F43 = sub_004B2020_Action;
+    gB27_00726F43 = NPCMENU_IdentifyItemsWait;
     gB27_00726F31 = 3;
     gB27_0072721C = 0xfb4;
-    gB27_00727228 = sub_004B2020_Action;
+    gB27_00727228 = NPCMENU_IdentifyItemsWait;
     gB27_00727216 = 3;
 }
 

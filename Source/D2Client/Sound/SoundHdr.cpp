@@ -109,7 +109,7 @@ extern int gTextY;
 
 extern int gTextRight;
 
-PlayerListHead* __fastcall sub_0047A310(int playerId);
+PlayerListHead* __fastcall ROSTER_GetRosterInfoList(int playerId); // 0x0047A310
 
 void* __fastcall Allocate(U32 bytes, const char* file, int line, U32 flags);
 
@@ -119,7 +119,7 @@ void* __cdecl sub_004646A0();
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(void* room);
 
-const U16* __fastcall sub_00453E70(int levelId);
+const U16* __fastcall UI_GetLevelName(int levelId); // 0x00453E70
 
 int __fastcall D2Win_10121_GetTextWidth(const U16* text); // 0x00501820
 

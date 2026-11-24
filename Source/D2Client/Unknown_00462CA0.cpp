@@ -56,10 +56,10 @@ void __fastcall GAME_SetInteractDeadline(unsigned int nValue); // 0x0044DAD0
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);
 void __cdecl UI_CancelCursorItemUse();
 int __fastcall GAME_GetUIVarState(int nUIVar); // 0x004538D0
-void __fastcall sub_0045AFF0(int* pX, int* pY);
+void __fastcall AUTOMAP_ScreenToMap(int* pX, int* pY); // 0x0045AFF0
 void __fastcall GFX_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
-int __stdcall sub_00461D60_IsPendingMode(int nArg1, int nArg2);
-int __fastcall sub_00464600(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
+int __stdcall PLAYER_IsPendingMode(int nArg1, int nArg2); // 0x00461D60
+int __fastcall CUNIT_CanUseSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00464600
 int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 void __cdecl SELECT_ClearSelection(); // 0x00466FE0
@@ -70,7 +70,7 @@ int __cdecl sub_00468830();
 int __fastcall sub_00474080_GetDistance(int nDX, int nDY);
 void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 void __fastcall MSG_SendFourDwords(char nCommand, int nUnitType, int nUnitId, int nX, int nY); // 0x00478700
-int __cdecl sub_00454970();
+int __cdecl INV_GetScreenHeightMinusPanel(); // 0x00454970
 int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);
@@ -81,11 +81,11 @@ D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 void __fastcall sub_00463D90(int nArg);
 D2UnitStrc* __cdecl sub_00463DD0();
 D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit();
-void __fastcall sub_00464810(D2UnitStrc* pUnit);
+void __fastcall CUNIT_MarkUnitDead(D2UnitStrc* pUnit); // 0x00464810
 D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit);
 void __fastcall CUNIT_FreeLight(D2UnitStrc* pUnit); // 0x00464930
 void __fastcall CUNIT_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int nFlags); // 0x004654C0
-void __fastcall sub_00466CB0(D2UnitStrc* pUnit, int nArg);
+void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg); // 0x00466CB0
 void __fastcall VIEW_SetPetEntryValue(D2UnitStrc* pOwner, D2UnitStrc* pRecord, int nValue); // 0x00467410
 int __cdecl sub_00468740();
 
@@ -93,19 +93,19 @@ struct D2ActiveRoomStrc { char unknown0[76]; int x, y, width, height; };
 
 void __fastcall sub_0046BF30_CheckThroneLevel(D2ActiveRoomStrc* pRoom);
 void __fastcall GFX_RemoveAiTargetUnit(D2UnitStrc* pUnit); // 0x0046C700
-void __fastcall sub_0046EC10(D2UnitStrc* pUnit);
+void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit); // 0x0046EC10
 void __fastcall GFX_PruneGfxNodes(D2UnitStrc* pUnit); // 0x0046ECE0
 void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, char nValue); // 0x0046F020
 void __fastcall sub_00473C90_SetGlobal(int nValue);
 void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey); // 0x00478E40
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny);
-void __fastcall sub_00480E70_SetState(D2UnitStrc* pUnit, int nArg);
+void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
-void __fastcall sub_00481030(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3);
-void __fastcall sub_004B3E10(D2UnitStrc* pUnit);
+void __fastcall UNITMODE_DoUnitAction(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00481030
+void __fastcall NPCMENU_RefreshNpcEntries(D2UnitStrc* pUnit); // 0x004B3E10
 void __cdecl ITEM_ResetWeaponClasses(); // 0x004C1E30
-void __fastcall sub_004C68F0(D2UnitStrc* pUnit);
+void __fastcall SKILLS_DoUsedSkill(D2UnitStrc* pUnit); // 0x004C68F0
 void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill);
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);
@@ -161,7 +161,7 @@ void __stdcall sub_00649F70(D2UnitStrc* pUnit, int nArg);
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);
 unsigned short __stdcall COLLISION_CheckMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask);
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms);
-void __cdecl sub_004608C0();
+void __cdecl PLAYER_RefreshAdjacentPlayers(); // 0x004608C0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc*, D2ActiveRoomStrc***, int*); // 0x00619790
 extern D2UnitStrc* gapClientUnitTable[6 * 0x80]; // 0x007A5E70
 extern D2UnitStrc* gapServerUnitTable[6 * 0x80]; // 0x007A5270
@@ -169,7 +169,7 @@ extern D2UnitStrc* gapServerUnitTable[6 * 0x80]; // 0x007A5270
 // build: symbol ?PLAYER_SetModeAndSync@* 0x00460830
 static void __stdcall PLAYER_SetModeAndSync(int bSync, int nState, D2UnitStrc* pUnit)
 {
-    sub_00480E70_SetState(pUnit, nState);
+    UNITMODE_SetUnitMode(pUnit, nState);
     if (!bSync)
         return;
 
@@ -188,7 +188,7 @@ static void __stdcall PLAYER_SetModeAndSync(int bSync, int nState, D2UnitStrc* p
 void __fastcall PLAYER_FreeClientPlayer(D2UnitStrc* pUnit)
 {
     GFX_RemoveAiTargetUnit(pUnit);
-    sub_0046EC10(pUnit);
+    GFX_FreeGfxData(pUnit);
     if (gpDrlgAct_007A0634)
     {
         D2Common_10228(pUnit);
@@ -196,7 +196,7 @@ void __fastcall PLAYER_FreeClientPlayer(D2UnitStrc* pUnit)
     }
     PATH_FreeDynamicPath(0, pUnit->pDynamicPath);
     pUnit->pDynamicPath = 0;
-    sub_00466CB0(pUnit, 0);
+    CUNIT_RemoveInventoryUnits(pUnit, 0);
     INVENTORY_FreeInventory(pUnit->pInventory);
     pUnit->pInventory = 0;
     void* pResource = D2Common_10958(pUnit, 0);
@@ -206,7 +206,7 @@ void __fastcall PLAYER_FreeClientPlayer(D2UnitStrc* pUnit)
     if (pUnit == sub_00463DD0())
         sub_00463D90(0);
     UNITS_FreePlayerData(0, pUnit);
-    sub_004608C0();
+    PLAYER_RefreshAdjacentPlayers();
 }
 
 // build: symbol ?PLAYER_UpdateRoomPosition@* 0x00460DE0
@@ -234,7 +234,7 @@ static void PLAYER_UpdateRoomState(D2UnitStrc* pUnit)
     sub_0061AF10(gpDrlgAct_007A0634, PATH_GetNextRoom(pUnit->pDynamicPath), UNITS_GetRoom(pUnit));
     const int bInTown = DUNGEON_IsRoomInTown(pRoom) != 0;
     if (gnInTown != bInTown && !bInTown)
-        sub_004B3E10(pUnit);
+        NPCMENU_RefreshNpcEntries(pUnit);
     gnInTown = bInTown;
     sub_00473C90_SetGlobal(sub_0061AA40(pRoom));
     sub_0046BF30_CheckThroneLevel(pRoom);
@@ -337,7 +337,7 @@ void __stdcall PLAYER_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit); // 0x00461
 // build: symbol ?PLAYER_SendCommand@* 0x00461700
 static void __stdcall PLAYER_SendCommand(int bTarget, D2PlayerCmdStrc* pCmd)
 {
-    if (sub_00468740() > sub_00454970())
+    if (sub_00468740() > INV_GetScreenHeightMinusPanel())
         return;
 
     if (bTarget == 1)
@@ -359,16 +359,16 @@ static void __stdcall PLAYER_SendCommand(int bTarget, D2PlayerCmdStrc* pCmd)
             if (pCmd->dwFlags & 0x20)
             {
                 if (pCmd->dwFlags & 8)
-                    sub_00481030(0xA, pCmd->pPlayer, nType, nId, 0);
+                    UNITMODE_DoUnitAction(0xA, pCmd->pPlayer, nType, nId, 0);
                 else
-                    sub_00481030(7, pCmd->pPlayer, nType, nId, 0);
+                    UNITMODE_DoUnitAction(7, pCmd->pPlayer, nType, nId, 0);
             }
             else
             {
                 if (pCmd->dwFlags & 8)
-                    sub_00481030(9, pCmd->pPlayer, nType, nId, 0);
+                    UNITMODE_DoUnitAction(9, pCmd->pPlayer, nType, nId, 0);
                 else
-                    sub_00481030(6, pCmd->pPlayer, nType, nId, 0);
+                    UNITMODE_DoUnitAction(6, pCmd->pPlayer, nType, nId, 0);
             }
         }
         if (pCmd->dwFlags & 2)
@@ -376,16 +376,16 @@ static void __stdcall PLAYER_SendCommand(int bTarget, D2PlayerCmdStrc* pCmd)
             if (pCmd->dwFlags & 0x20)
             {
                 if (pCmd->dwFlags & 8)
-                    sub_00481030(0x11, pCmd->pPlayer, nType, nId, 0);
+                    UNITMODE_DoUnitAction(0x11, pCmd->pPlayer, nType, nId, 0);
                 else
-                    sub_00481030(0xE, pCmd->pPlayer, nType, nId, 0);
+                    UNITMODE_DoUnitAction(0xE, pCmd->pPlayer, nType, nId, 0);
             }
             else
             {
                 if (pCmd->dwFlags & 8)
-                    sub_00481030(0x10, pCmd->pPlayer, nType, nId, 0);
+                    UNITMODE_DoUnitAction(0x10, pCmd->pPlayer, nType, nId, 0);
                 else
-                    sub_00481030(0xD, pCmd->pPlayer, nType, nId, 0);
+                    UNITMODE_DoUnitAction(0xD, pCmd->pPlayer, nType, nId, 0);
             }
         }
         return;
@@ -394,16 +394,16 @@ static void __stdcall PLAYER_SendCommand(int bTarget, D2PlayerCmdStrc* pCmd)
     if (pCmd->dwFlags & 1)
     {
         if (pCmd->dwFlags & 8)
-            sub_00481030(8, pCmd->pPlayer, pCmd->nX, pCmd->nY, 0);
+            UNITMODE_DoUnitAction(8, pCmd->pPlayer, pCmd->nX, pCmd->nY, 0);
         else
-            sub_00481030(5, pCmd->pPlayer, pCmd->nX, pCmd->nY, 0);
+            UNITMODE_DoUnitAction(5, pCmd->pPlayer, pCmd->nX, pCmd->nY, 0);
     }
     if (pCmd->dwFlags & 2)
     {
         if (pCmd->dwFlags & 8)
-            sub_00481030(0xF, pCmd->pPlayer, pCmd->nX, pCmd->nY, 0);
+            UNITMODE_DoUnitAction(0xF, pCmd->pPlayer, pCmd->nX, pCmd->nY, 0);
         else
-            sub_00481030(0xC, pCmd->pPlayer, pCmd->nX, pCmd->nY, 0);
+            UNITMODE_DoUnitAction(0xC, pCmd->pPlayer, pCmd->nX, pCmd->nY, 0);
     }
 }
 
@@ -417,7 +417,7 @@ static int __stdcall PLAYER_WalkTo(int nMode, D2UnitStrc* pUnit, int nX, int nY)
 
     const int nTargetX = sub_00648A40_GetTargetX(pPath);
     const int nTargetY = sub_00648A60_GetTargetY(pPath);
-    sub_00481030(nMode, pUnit, nTargetX, nTargetY, 0);
+    UNITMODE_DoUnitAction(nMode, pUnit, nTargetX, nTargetY, 0);
     return 1;
 }
 
@@ -436,7 +436,7 @@ static void __stdcall PLAYER_OperateObject(int nObjectId, D2PlayerCmdStrc* pCmd)
     if (UNITS_IsObjectInInteractRange(pCmd->pPlayer, pCmd->pTarget) && !sub_00622B50_TestInteractCollision(pCmd->pPlayer, pCmd->pTarget, 0x804))
     {
         if (bSetMode)
-            sub_00481030(0x13, pCmd->pPlayer, 2, nObjectId, 0);
+            UNITMODE_DoUnitAction(0x13, pCmd->pPlayer, 2, nObjectId, 0);
         return;
     }
 
@@ -459,13 +459,13 @@ static void PLAYER_InteractWithTarget(D2PlayerCmdStrc* pCmd, int nTargetId)
     case 2:
         if (!sub_00622B50_TestInteractCollision(pCmd->pTarget, pCmd->pPlayer, 0x804))
         {
-            sub_00481030(0x13, pCmd->pPlayer, 0, nTargetId, 0);
+            UNITMODE_DoUnitAction(0x13, pCmd->pPlayer, 0, nTargetId, 0);
             return;
         }
         break;
     }
 
-    sub_00481030(pCmd->nMode, pCmd->pPlayer, 0, nTargetId, 0);
+    UNITMODE_DoUnitAction(pCmd->nMode, pCmd->pPlayer, 0, nTargetId, 0);
     D2UnitStrc* pPlayer = pCmd->pPlayer;
     if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData)
     {
@@ -556,7 +556,7 @@ static void __stdcall PLAYER_UseSkillOnTarget(int nArg1, int nArg2, D2PlayerCmdS
         case 4:
             if (!(pCmd->dwFlags & 0x20))
             {
-                sub_00481030(pCmd->nMode, pCmd->pPlayer, nArg1, nArg2, 0);
+                UNITMODE_DoUnitAction(pCmd->nMode, pCmd->pPlayer, nArg1, nArg2, 0);
                 if (pCmd->dwFlags & 1)
                     VIEW_SetPlayerMode(6, pCmd->pPlayer, nArg1, nArg2);
                 if (pCmd->dwFlags & 2)
@@ -605,12 +605,12 @@ static void __stdcall PLAYER_InteractWithUnit(int nUnitType, int nUnitId, D2Play
             {
                 if (bSetMode)
                 {
-                    sub_00481030(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
+                    UNITMODE_DoUnitAction(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
                     GAME_SetClickHandled();
                 }
                 return;
             }
-            if (sub_00461D60_IsPendingMode(nUnitType, nUnitId))
+            if (PLAYER_IsPendingMode(nUnitType, nUnitId))
                 return;
             const int nY = CLIENTS_GetUnitY(pCmd->pTarget);
             PLAYER_WalkTo(pCmd->nArg, pCmd->pPlayer, CLIENTS_GetUnitX(pCmd->pTarget), nY);
@@ -627,13 +627,13 @@ static void __stdcall PLAYER_InteractWithUnit(int nUnitType, int nUnitId, D2Play
                 return;
             if (D2Common_10399(pTarget, pCmd->pPlayer) <= 4 && !sub_00622B50_TestInteractCollision(pCmd->pPlayer, pCmd->pTarget, 0x804))
             {
-                sub_00481030(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
+                UNITMODE_DoUnitAction(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
                 GAME_SetClickHandled();
                 return;
             }
-            if (sub_00461D60_IsPendingMode(nUnitType, nUnitId))
+            if (PLAYER_IsPendingMode(nUnitType, nUnitId))
                 return;
-            sub_00481030(pCmd->nMode, pCmd->pPlayer, nUnitType, nUnitId, 0);
+            UNITMODE_DoUnitAction(pCmd->nMode, pCmd->pPlayer, nUnitType, nUnitId, 0);
             VIEW_SetPlayerMode(0x13, pCmd->pPlayer, nUnitType, nUnitId);
             GAME_SetClickHandled();
             return;
@@ -642,10 +642,10 @@ static void __stdcall PLAYER_InteractWithUnit(int nUnitType, int nUnitId, D2Play
         {
             if (D2Common_10399(pTarget, pCmd->pPlayer) <= 4 && !sub_00622B50_TestInteractCollision(pCmd->pPlayer, pCmd->pTarget, 0x804))
             {
-                sub_00481030(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
+                UNITMODE_DoUnitAction(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
                 return;
             }
-            sub_00481030(pCmd->nMode, pCmd->pPlayer, nUnitType, nUnitId, 0);
+            UNITMODE_DoUnitAction(pCmd->nMode, pCmd->pPlayer, nUnitType, nUnitId, 0);
             VIEW_SetPlayerMode(0x13, pCmd->pPlayer, nUnitType, nUnitId);
             return;
         }
@@ -655,12 +655,12 @@ static void __stdcall PLAYER_InteractWithUnit(int nUnitType, int nUnitId, D2Play
                 return;
             if (D2Common_10399(pCmd->pTarget, pCmd->pPlayer) > 4)
             {
-                sub_00481030(pCmd->nMode, pCmd->pPlayer, nUnitType, nUnitId, 0);
+                UNITMODE_DoUnitAction(pCmd->nMode, pCmd->pPlayer, nUnitType, nUnitId, 0);
                 VIEW_SetPlayerMode(0x13, pCmd->pPlayer, nUnitType, nUnitId);
             }
             else
             {
-                sub_00481030(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
+                UNITMODE_DoUnitAction(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
             }
             GAME_SetInteractDeadline(GAME_GetCurrentTime() + 0x1F4);
             return;
@@ -695,17 +695,17 @@ check_range:
             pUnit = pCmd->pTarget;
             if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
                 pUnit->pMonsterData->nClientFlags |= 1;
-            sub_00480E70_SetState(pCmd->pTarget, 1);
+            UNITMODE_SetUnitMode(pCmd->pTarget, 1);
         }
     }
 
     if (D2Common_10399(pCmd->pTarget, pCmd->pPlayer) <= nRange)
     {
-        sub_00481030(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
+        UNITMODE_DoUnitAction(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
         return;
     }
 
-    sub_00481030(pCmd->nMode, pCmd->pPlayer, nUnitType, nUnitId, 0);
+    UNITMODE_DoUnitAction(pCmd->nMode, pCmd->pPlayer, nUnitType, nUnitId, 0);
     D2UnitStrc* pPlayer = pCmd->pPlayer;
     if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && pPlayer->pPlayerData)
     {
@@ -1061,7 +1061,7 @@ with_target:
             return;
         }
 
-        sub_00481030(pCmd->nMode, pPlayer, 1, nTargetId, 0);
+        UNITMODE_DoUnitAction(pCmd->nMode, pPlayer, 1, nTargetId, 0);
     }
 }
 
@@ -1072,7 +1072,7 @@ static int PLAYER_CmdLeftSkill(D2PlayerCmdStrc* pCmd)
         return 1;
 
     pCmd->pSkill = UNITS_GetLeftSkill(pCmd->pPlayer);
-    if (sub_00464600(pCmd->pPlayer, pCmd->pSkill))
+    if (CUNIT_CanUseSkill(pCmd->pPlayer, pCmd->pSkill))
     {
         pCmd->dwFlags |= 0x80;
         PLAYER_ExecuteCommand(pCmd);
@@ -1100,7 +1100,7 @@ static int PLAYER_CmdLeftSkillMove(D2PlayerCmdStrc* pCmd)
         return 1;
 
     pCmd->pSkill = UNITS_GetLeftSkill(pCmd->pPlayer);
-    if (!sub_00464600(pCmd->pPlayer, pCmd->pSkill))
+    if (!CUNIT_CanUseSkill(pCmd->pPlayer, pCmd->pSkill))
         return 1;
 
     D2UnitStrc* pPlayer = pCmd->pPlayer;
@@ -1165,7 +1165,7 @@ static int PLAYER_CmdRightSkill(D2PlayerCmdStrc* pCmd)
         return 1;
 
     pCmd->pSkill = UNITS_GetRightSkill(pCmd->pPlayer);
-    if (!sub_00464600(pCmd->pPlayer, pCmd->pSkill))
+    if (!CUNIT_CanUseSkill(pCmd->pPlayer, pCmd->pSkill))
         return 1;
 
     const int nSkillId = SKILLS_GetSkillIdFromSkill(pCmd->pSkill, gszPlayerCpp, 0x9DD);
@@ -1188,7 +1188,7 @@ static int PLAYER_CmdRightSkillMove(D2PlayerCmdStrc* pCmd)
         return 1;
 
     pCmd->pSkill = UNITS_GetRightSkill(pCmd->pPlayer);
-    if (!sub_00464600(pCmd->pPlayer, pCmd->pSkill))
+    if (!CUNIT_CanUseSkill(pCmd->pPlayer, pCmd->pSkill))
         return 1;
 
     const int nSkillId = SKILLS_GetSkillIdFromSkill(pCmd->pSkill, gszPlayerCpp, 0x9FD);
@@ -1227,7 +1227,7 @@ int __fastcall sub_00462D00_PlayerCommand(int nCommand, int nX, int nY, unsigned
         return 0;
 
     gbPlayerCommandPending = 1;
-    sub_0045AFF0(&nX, &nY);
+    AUTOMAP_ScreenToMap(&nX, &nY);
     D2PlayerCmdStrc tCmd = {};
     tCmd.dwFlags = 0;
     tCmd.pPlayer = sub_00463DD0();

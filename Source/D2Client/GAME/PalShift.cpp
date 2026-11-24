@@ -27,7 +27,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern unsigned char* gpBloodRemap_007BB384; // 0x007BB384
 
-void __fastcall sub_00477060_EmitSink(D2PalShiftNodeStrc* pShift);
+void __fastcall PALSHIFT_BuildBloodShift(D2PalShiftNodeStrc* pShift); // 0x00477060
 
 static void PALSHIFT_BuildBloodShift(int nMonsterId, D2PalShiftNodeStrc* pShift); // 0x00477060
 

@@ -34,9 +34,9 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc*); // 0x004648F0
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc*); // 0x00648A00
 int __stdcall sub_00648A10_GetPathTargetY(D2DynamicPathStrc*); // 0x00648A10
-void __fastcall sub_00461250_ApplyUnitAction(int, D2UnitStrc*, int*, int); // 0x00461250
+void __fastcall PLAYER_ApplyUnitCommand(int, D2UnitStrc*, int*, int); // 0x00461250
 D2UnitStrc* __stdcall sub_00643A00_GetRelatedUnit(D2UnitStrc*, int); // 0x00643A00
-void __fastcall sub_004743D0_UpdateRelatedUnit(D2UnitStrc*); // 0x004743D0
+void __fastcall DLIGHTMAP_ReleaseLight(D2UnitStrc*); // 0x004743D0
 void __stdcall sub_00620210_SetUnitAction(D2UnitStrc*, int); // 0x00620210
 void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc*); // 0x00648DC0
 D2RoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
@@ -140,14 +140,14 @@ static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
     {
         args[0] = UNITS_GetUnitTypeInline(target);
         args[1] = UNITS_GetUnitIdInline(target);
-        sub_00461250_ApplyUnitAction(0, unit, args, 0);
+        PLAYER_ApplyUnitCommand(0, unit, args, 0);
         return;
     }
     args[0] = D2COMMON_10175_PathGetFirstPointX(path);
     args[1] = sub_00648A10_GetPathTargetY(path);
     D2UnitStrc* related = sub_00643A00_GetRelatedUnit(unit, 0);
     if (related)
-        sub_004743D0_UpdateRelatedUnit(related);
+        DLIGHTMAP_ReleaseLight(related);
     int const tArg1 = unit == sub_00463DD0_GetPlayerUnit();
     PLAYER_ReleaseUsedSkill(tArg1, unit);
     sub_00620210_SetUnitAction(unit, 0);

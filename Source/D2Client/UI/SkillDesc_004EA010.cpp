@@ -987,7 +987,8 @@ static int __stdcall sub_004E7430_FormatDecimal(Unicode* pDest, int bPlus, int n
     return 1;
 }
 
-static int __stdcall sub_004E79E0_AddValueText(unsigned short nString, int bPlus, int nValue, Unicode* wszText)
+// build: symbol ?SKILLDESC_AppendLabelValue@* 0x004E79E0
+static int __stdcall SKILLDESC_AppendLabelValue(unsigned short nString, int bPlus, int nValue, Unicode* wszText)
 {
     Unicode wszNumber[32];
     char szNumber[32];
@@ -1064,7 +1065,7 @@ static int __stdcall sub_004E80F0_AddRangeText(Unicode* wszText, int bSeparator,
 {
     if (nMin == nMax)
     {
-        return sub_004E79E0_AddValueText(nString, bPlus, nMin, wszText);
+        return SKILLDESC_AppendLabelValue(nString, bPlus, nMin, wszText);
     }
 
     Unicode wszNumber[32];
@@ -1116,7 +1117,7 @@ static void __stdcall SKILLDESC_AddSummonLife(Unicode* wszText, int nPercent, in
     nLife += nLife * nPercent / 100 + nBonus;
     if (nLife)
     {
-        sub_004E79E0_AddValueText(0x10C6, 0, nLife, wszText);
+        SKILLDESC_AppendLabelValue(0x10C6, 0, nLife, wszText);
     }
 }
 
@@ -1782,7 +1783,7 @@ int __fastcall sub_D06_Emit_004EDEA0(D2UnitStrc* pUnit, Unicode* wszText, D2Skil
         sub_004E7E70_AddValueTwoTexts(nStringA, nStringB, 1, nCalcA, wszText);
         return 1;
     case 28:
-        sub_004E79E0_AddValueText(nStringA, 1, nCalcA, wszText);
+        SKILLDESC_AppendLabelValue(nStringA, 1, nCalcA, wszText);
         return 1;
     case 29:
         sub_004E7C30_AddValueTextAfter(nStringA, 1, nCalcA, wszText);

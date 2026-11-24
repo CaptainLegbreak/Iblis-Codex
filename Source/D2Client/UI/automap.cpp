@@ -1016,13 +1016,13 @@ extern int gTextY; // 0x007A51BC
 
 extern int gTextRight; // 0x007A5220
 
-PlayerListHead* __fastcall sub_0047A310(int playerId);
+PlayerListHead* __fastcall ROSTER_GetRosterInfoList(int playerId); // 0x0047A310
 
 void* __fastcall Allocate(U32 bytes, const char* file, int line, U32 flags);
 
 int __fastcall Release(void* allocation, const char* file, int line, U32 flags);
 
-void __fastcall sub_004823E0(int index);
+void __fastcall SOUNDHDR_ReleaseCacheEntry(int index); // 0x004823E0
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
@@ -1266,7 +1266,7 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 
-void __fastcall sub_004742D0(D2GfxLightStrc* pLight, int nRadius); // 0x004742D0
+void __fastcall DLIGHTMAP_ResetLightSize(D2GfxLightStrc* pLight, int nRadius); // 0x004742D0
 
 void __fastcall SCMD_SetLightColorBytes(D2GfxLightStrc* pLight, unsigned char nValue0, unsigned char nValue1, unsigned char nValue2); // 0x00474390
 
@@ -1546,7 +1546,7 @@ int __fastcall ROSTER_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord); // 0x004
 
 int __fastcall ROSTER_GetLevelId(D2StoredUnitRecordStrc* pEntry); // 0x0047A1E0
 
-void __fastcall sub_0047A1B0_GetEntryPosition(D2StoredUnitRecordStrc* pEntry, int* pX, int* pY); // 0x0047A1B0
+void __fastcall ROSTER_GetPosition(D2StoredUnitRecordStrc* pEntry, int* pX, int* pY); // 0x0047A1B0
 
 extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 
@@ -1842,11 +1842,11 @@ void __fastcall sub_00457440_Nop(int nUnused)
 {
 }
 
-struct Pad40_00457460;
+struct OBJECT_SetUnitFlag;
 
 struct Obj00457460;
 
-struct Pad40_00457460 {
+struct OBJECT_SetUnitFlag {
     unsigned int dw00;
     unsigned int dw04;
     unsigned int dw08;
@@ -1866,9 +1866,9 @@ struct Pad40_00457460 {
 };
 
 struct Obj00457460 {
-    Pad40_00457460 tPad000;
-    Pad40_00457460 tPad040;
-    Pad40_00457460 tPad080;
+    OBJECT_SetUnitFlag tPad000;
+    OBJECT_SetUnitFlag tPad040;
+    OBJECT_SetUnitFlag tPad080;
     unsigned int dwUnknownC0;
     unsigned int dwFlagsC4;
 };
@@ -4098,7 +4098,7 @@ static void AUTOMAP_DrawAutomapPartyMember(D2StoredUnitRecordStrc* pEntry)
         return;
     }
 
-    sub_0047A1B0_GetEntryPosition(pEntry, &nX, &nY);
+    ROSTER_GetPosition(pEntry, &nX, &nY);
     DUNGEON_GameSubtileToClientCoords(&nX, &nY);
     nX = nX / gnAutomapScale - gnAutomapOffsetX + 8;
     nY = nY / gnAutomapScale - gnAutomapOffsetY - 8;
@@ -4316,7 +4316,7 @@ void __fastcall AUTOMAP_SetUnitLightRadius(D2UnitStrc* pUnit, int nDelta)
         }
     }
     nRadius += nDelta;
-    sub_004742D0(pLight, nRadius > 0 ? nRadius : 0);
+    DLIGHTMAP_ResetLightSize(pLight, nRadius > 0 ? nRadius : 0);
 }
 
 // 0x004609A0
