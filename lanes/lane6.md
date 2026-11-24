@@ -44,6 +44,7 @@ Nothing of mine in flight. Open items:
 
 ## Left in place (and why)
 
+- ChatDlg.cpp's second language copy (0x0070EB94) doesn't mark a separate object I can cut out: the data after it (gszLevelDiffText, gszMaxPlayersText, gnPendingId, gnGameListLastSelection, 0x0070EBD0-0x0070EBDF) is read by 0x00442DD0, 0x00442E00, 0x004433C0-0x004434E0, 0x004450D0 and 0x00445FF0, interleaved with readers of ChatDlg's own data before the copy (0x00443D50, 0x00444020, 0x004453B0, 0x00445A80). Left as one object until something else separates them.
 - 0x006FFF80 (64 B) is the linker's RSDS debug record (Game.pdb path), counted as stamp, not borrowed data. 0x00700A6C (4 zero B after ___rtc_tzz) and 0x0070244C (8 zero B before the import descriptors) are CRT/linker tail bytes, not lane 6 objects. 0x0072FFA4 (4 zero B between BNNews.cpp's type name and BnDownload.cpp's gnLastStatus) has no reader; most likely BnDownload's .data alignment, so no record.
 - MainMenus.cpp 0x0070C204 (4 B, the start of gatControlTemplates[0x11A], written by 0x0042F540): a 4-B planned record there, like entry 0x11B's gData_0070C234, verifies but does not place; the bytes stay copied.
 - D2WinFont_00501DF0.cpp (0x00501DF0, 0x00501FE0, 0x00502970): inside D2WinFont.cpp's run, but it builds equal only with a POD Unicode; in D2WinFont.cpp (D2Unicode.h) the frame grows by 4 B and registers change. Same case as MainMenus_00431AF0.
