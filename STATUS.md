@@ -42,15 +42,15 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 913 |
+| Compilation units | 900 |
 | … in a file with its original name, whole | 288 |
 | … pieces of an original file still split (in 36 files) | 114 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 511 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3123 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 498 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 3070 |
 | Unnamed fields (`unk0x..`) in the shared headers | 673 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 43 |
-| Calling-convention shims | 87 |
-| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 501 |
+| Calling-convention shims | 86 |
+| Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 494 |
 | `__declspec(noinline)` / `__forceinline` | 100 / 218 |
 | Function names: blizzard / d2moo / inferred / placeholder | 460 / 5409 / 5292 / 3766 |
 
@@ -78,7 +78,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3921 functions are compiled with `/GS-` and 929 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 100 times and `__declspec(dllexport)` 172 times to keep a body out of line or emitted.
+Not listed one by one: 3928 functions are compiled with `/GS-` and 929 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 100 times and `__declspec(dllexport)` 172 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -770,7 +770,6 @@ Not listed one by one: 3921 functions are compiled with `/GS-` and 929 with `/EH
 | 0x006769A0 | sub_6FD81B30 | `D2Common/Unknown_006769A0.cpp` | compiler option /Ob1 |
 | 0x0067AF40 | PATH_AStar_PopBestScoreForVisit | `D2Common/Unknown_006793E0.cpp` | calling-convention shim |
 | 0x0067B9F0 | PATH_BresenhamLine | `D2Common/Unknown_006793E0.cpp` | calling-convention shim |
-| 0x00681560 | sub_00681560 | `D2Common/Unknown_00681000.cpp` | calling-convention shim |
 | 0x006B1C00 | sub_006B1C00 | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006B20A0 | QSERVER_GetFloorCacheSize | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006B20B0 | sub_006B20B0 | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
