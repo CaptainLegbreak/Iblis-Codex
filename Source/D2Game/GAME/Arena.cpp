@@ -431,3 +431,5 @@ int __fastcall ARENA_IsActive(D2GameStrc* pGame)
 {
     return ARENA_TestFlag_Inlined(pGame, GAMEFLAG_ARENA_ACTIVE);
 }
+
+#include "gen/data/Source/D2Game/GAME/Arena.inc"

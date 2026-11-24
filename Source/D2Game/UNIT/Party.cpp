@@ -663,3 +663,5 @@ int __fastcall PARTY_ShareGoldDrop(D2GameStrc* pGame, D2UnitStrc* pUnit, int nGo
     PLRTRADE_AddGold(pUnit, STAT_GOLD, nGoldToPick);
     return nGoldToDrop;
 }
+
+#include "gen/data/Source/D2Game/UNIT/Party.inc"

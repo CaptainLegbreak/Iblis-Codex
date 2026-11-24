@@ -1521,3 +1521,5 @@ int __fastcall PLAYERPETS_HasLivingHireling(D2GameStrc* pGame, D2UnitStrc* pPlay
     }
     return 0;
 }
+
+#include "gen/data/Source/D2Game/PLAYER/PlayerPets.inc"
