@@ -64633,6 +64633,10 @@
      "name": "?CodecGetRunBits@@YAHPBE@Z"
     },
     {
+     "va": "0x0060B7B0",
+     "length": 483
+    },
+    {
      "va": "0x0060B9A0",
      "length": 999
     },
@@ -64664,16 +64668,6 @@
      "va": "0x0060B160",
      "length": 23,
      "name": "?sub_0060B160_Copy@@YGXPAUD2BitBufferInitStrc@@PBU1@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_0060B7B0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060B7B0",
-     "length": 483
     }
    ]
   },
