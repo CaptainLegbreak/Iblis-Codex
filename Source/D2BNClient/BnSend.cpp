@@ -80,8 +80,6 @@ struct D2BnAdClickStrc;
 
 struct D2BnChangeProofStrc;
 
-struct D2PacketBufferStrc;
-
 struct D2BnKeyValuePacketStrc;
 
 struct D2BnReadUserDataReplyStrc;
@@ -359,12 +357,6 @@ struct D2BnChangeProofStrc
 {
     unsigned char abProof[0x14];
     unsigned char abVerifier[0x40];
-};
-
-struct D2PacketBufferStrc
-{
-    unsigned char data[1976];
-    int nUsedBytes;
 };
 
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pThreadAttributes, unsigned long nStackSize, unsigned long (__stdcall* pStartAddress)(void*), void* pParameter, unsigned long nCreationFlags, unsigned long* pThreadId); // 0x006CC250
@@ -721,15 +713,6 @@ long volatile gnSendBusy; // 0x00881C00
 struct D2BnCheckAdReplyStrc;
 
 struct D2BnStateStrc;
-
-struct D2BnServerEntryStrc;
-
-struct D2BnServerEntryStrc
-{
-    char szAddress[0x100];
-    FSafeSock* pSafeSock;
-    int nUnused;
-};
 
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
