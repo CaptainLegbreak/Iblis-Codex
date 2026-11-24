@@ -22,6 +22,7 @@
 #include "D2ItemModes.h"
 #include "D2Records.h"
 #include "D2GameAux.h"
+#include "D2BookDataTbl.h"
 #include "D2LanguageNames.h"
 // build: symbol _gaszLanguageNames 0x007418C4
 
@@ -1549,11 +1550,6 @@ int __fastcall ITEMS_FindBookRecordIndex(D2UnitStrc* pItem, int bScroll); // 0x0
 
 struct D2BookDataTbl;
 
-struct D2BookDataTbl
-{
-    int nBooksTxtRecordCount;
-    D2BooksTxt* pBooksTxt;
-};
 
 D2BookDataTbl* __fastcall DATATBLS_GetBookDataTables(); // 0x006374A0
 
