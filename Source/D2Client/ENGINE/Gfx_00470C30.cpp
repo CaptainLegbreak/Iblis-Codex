@@ -105,7 +105,7 @@ static void __stdcall GFX_RecalcStateOverlays(D2StateOwnerStrc* pOwner, D2UnitSt
 }
 
 // 0x00470C30
-void __fastcall sub_00470C30_UpdateStateOverlays(D2UnitStrc* pUnit)
+void __fastcall GFX_UpdateStateOverlays(D2UnitStrc* pUnit)
 {
     D2StateNodeStrc* pNode;
     int nNextOverlay;

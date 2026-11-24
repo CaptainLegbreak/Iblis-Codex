@@ -109,7 +109,7 @@ extern "C" void __cdecl sub_004F8DC0_InitLookupTable()
     gnBufferBase_007D5448 = 0;
 }
 
-extern "C" void __cdecl sub_004B9D00_ResetSoundState(); // 0x004B9D00
+extern "C" void __cdecl SOUNDINST_ResetSoundState(); // 0x004B9D00
 
 extern "C" int __cdecl GAME_ShutdownIfActive(); // 0x0044BB80
 

@@ -100,7 +100,7 @@ extern ListBoxWrapper* gpListBox_007C0D83;                                      
 // build: symbol ??0ListBoxWrapper@@QAE@HHHHHHHHH@Z 0x004BF8F0
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004B5C60
-int __cdecl sub_004B5C60_Handler()
+int __cdecl NPCMENU_ShowMainMenu()
 {
 // build: symbol ?gpNpcMainMenuDialog@* 0x007C0D6B
     if (gpNpcMainMenuDialog)

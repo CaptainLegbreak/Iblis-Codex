@@ -28,7 +28,7 @@ void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* s
 
 void __cdecl sub_004DF800(); // 0x004DF800
 
-void __cdecl sub_004B9D20_FreeAllSounds(); // 0x004B9D20
+void __cdecl SOUNDINST_FreeAllSounds(); // 0x004B9D20
 
 void __cdecl sub_004E00C0_CloseSoundChannels(); // 0x004E00C0
 
@@ -90,7 +90,7 @@ void __cdecl SOUNDHDR_LoadSoundTables(); // 0x00481950
 
 void __fastcall sub_004E0050_RestartSound(int nArg); // 0x004E0050
 
-extern "C" void __cdecl sub_004B9D00_ResetSoundState(); // 0x004B9D00
+extern "C" void __cdecl SOUNDINST_ResetSoundState(); // 0x004B9D00
 
 void __cdecl SKILLS_ResetLevelSpeech(); // 0x004CA280
 
@@ -382,7 +382,7 @@ void __fastcall SOUNDHDR_UpdateSoundSystem(int nArg)
         return;
     SOUNDHDR_LoadSoundTables();
     sub_004E0050_RestartSound(nArg);
-    sub_004B9D00_ResetSoundState();
+    SOUNDINST_ResetSoundState();
     sub_004DCA30();
     SKILLS_ResetLevelSpeech();
 // build: symbol ?D2SOUND_SetMasterVolume@* 0x00515CE0
@@ -400,7 +400,7 @@ void __cdecl SOUNDHDR_ShutdownSound()
         return;
     sub_004DF800();
     sub_004BAAB0();
-    sub_004B9D20_FreeAllSounds();
+    SOUNDINST_FreeAllSounds();
     sub_004E00C0_CloseSoundChannels();
     SOUNDHDR_ReleaseSoundTables();
 }

@@ -718,7 +718,8 @@ void __fastcall SKILLDESC_ThrowDamageCallback(D2UnitStrc* pUnit, int* pMin, int*
 }
 
 
-static void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel)
+// build: symbol ?SKILLDESC_GetElemDamage@* 0x004E72D0
+static void __stdcall SKILLDESC_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel)
 {
     int nMin;
     int nMax;
@@ -782,7 +783,7 @@ void __fastcall SKILLDESC_DrawThrowAndElemDamage(D2UnitStrc* pUnit, D2SkillStrc*
     nElemMin = 0;
     nElemMax = 0;
     nElemColor = 0;
-    sub_004E72D0_GetElemDamage(pUnit, &nElemMin, &nElemMax, &nElemColor, pSkillsTxt, nSkillLevel);
+    SKILLDESC_GetElemDamage(pUnit, &nElemMin, &nElemMax, &nElemColor, pSkillsTxt, nSkillLevel);
 
     if (!nMin && !nMax)
     {
@@ -1131,7 +1132,8 @@ static int __stdcall SKILLDESC_AddSkillElemDamage(D2UnitStrc* pUnit, Unicode* ws
     return SKILLDESC_AddElemRange(pSkillsTxt->nEType, nString, nMax >> 8, nMin >> 8, wszText);
 }
 
-static int __stdcall sub_004EC280_AddMissileElemDamage(D2UnitStrc* pUnit, Unicode* wszText, unsigned short nString, int nMissileId, int nSkillLevel)
+// build: symbol ?SKILLDESC_AddMissileElemDamage@* 0x004EC280
+static int __stdcall SKILLDESC_AddMissileElemDamage(D2UnitStrc* pUnit, Unicode* wszText, unsigned short nString, int nMissileId, int nSkillLevel)
 {
     const int nMin = MISSILE_GetMinElemDamage(0, pUnit, nMissileId, nSkillLevel) >> 8;
     const int nMax = MISSILE_GetMaxElemDamage(0, pUnit, nMissileId, nSkillLevel) >> 8;
@@ -1251,7 +1253,8 @@ static int __stdcall SKILLDESC_AddMissileElemRate(D2UnitStrc* pUnit, Unicode* ws
     return SKILLDESC_AddElemRatePerSecond(nString, nMinRate, nMaxRate, wszText);
 }
 
-static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel)
+// build: symbol ?SKILLDESC_AddSkillElemRate@* 0x004EC6F0
+static int __stdcall SKILLDESC_AddSkillElemRate(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel)
 {
     const int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1) * 0x4B >> 8;
     const int nMax = SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1) * 0x4B >> 8;
@@ -1480,7 +1483,8 @@ static int SKILLDESC_AddNextLevelParam(int nSkillLevel, int nSkillId, Unicode* w
     return 1;
 }
 
-int __stdcall sub_004ED150_AddSummonDamageBonus(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel)
+// build: symbol ?SKILLDESC_AddSummonDamageBonus@* 0x004ED150
+int __stdcall SKILLDESC_AddSummonDamageBonus(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel)
 {
     D2MonStatsTxt* pMonStatsTxt = MonStatsTxtRecord(pSkillsTxt->wSummon);
     if (!pMonStatsTxt)
@@ -1603,7 +1607,7 @@ static int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, 
     int nMin = 0;
     int nMax = 0;
     int nType;
-    sub_004E72D0_GetElemDamage(pUnit, &nMin, &nMax, &nType, pSkillsTxt, nSkillLevel);
+    SKILLDESC_GetElemDamage(pUnit, &nMin, &nMax, &nType, pSkillsTxt, nSkillLevel);
     sub_004E80F0_AddRangeText(wszText, 0, nMin, nMax, 0x10A0, 0);
     return 1;
 }
@@ -1656,7 +1660,7 @@ int __fastcall sub_D06_Emit_004EDEA0(D2UnitStrc* pUnit, Unicode* wszText, D2Skil
         SKILLDESC_AddSkillElemDamage(pUnit, wszText, pSkillsTxt, nStringA, nSkillId, nSkillLevel);
         return 1;
     case 5:
-        sub_004EC280_AddMissileElemDamage(pUnit, wszText, nStringA, pSkillDescTxt->wDescMissile[0], nSkillLevel);
+        SKILLDESC_AddMissileElemDamage(pUnit, wszText, nStringA, pSkillDescTxt->wDescMissile[0], nSkillLevel);
         return 1;
     case 6:
         if (nStringA != 0x1506)
@@ -1692,7 +1696,7 @@ int __fastcall sub_D06_Emit_004EDEA0(D2UnitStrc* pUnit, Unicode* wszText, D2Skil
         {
             sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringB));
         }
-        sub_004EC6F0_AddSkillElemRate(pUnit, wszText, nSkillId, nSkillLevel);
+        SKILLDESC_AddSkillElemRate(pUnit, wszText, nSkillId, nSkillLevel);
         return 1;
     case 10:
         if (nStringA != 0x1506)
@@ -1736,7 +1740,7 @@ int __fastcall sub_D06_Emit_004EDEA0(D2UnitStrc* pUnit, Unicode* wszText, D2Skil
         SKILLDESC_AddNextLevelParam(nSkillLevel, nSkillId, wszText);
         return 1;
     case 21:
-        sub_004ED150_AddSummonDamageBonus(pUnit, wszText, nSkillId, pSkillsTxt, nSkillLevel);
+        SKILLDESC_AddSummonDamageBonus(pUnit, wszText, nSkillId, pSkillsTxt, nSkillLevel);
         return 1;
     case 22:
         if (nStringB != 0x1506)

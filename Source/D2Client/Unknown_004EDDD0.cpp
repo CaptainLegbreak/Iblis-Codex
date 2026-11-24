@@ -176,7 +176,8 @@ static int __stdcall SKILLDESC_AddSkillElemDamage(D2UnitStrc* pUnit, Unicode* ws
     return SKILLDESC_AddElemRange(nMin >> 8, nString, nMax >> 8, wszText, pSkillsTxt->nEType);
 }
 
-static void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel)
+// build: symbol ?SKILLDESC_GetElemDamage@* 0x004E72D0
+static void __stdcall SKILLDESC_GetElemDamage(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, D2SkillsTxt* pSkillsTxt, int nSkillLevel)
 {
     int nMin;
     int nMax;
@@ -380,7 +381,7 @@ static int __stdcall sub_004EDDD0_AddAttackInfo(Unicode* wszText, int nSkillId, 
     int nMin = 0;
     int nMax = 0;
     int nType;
-    sub_004E72D0_GetElemDamage(pUnit, &nMin, &nMax, &nType, pSkillsTxt, nSkillLevel);
+    SKILLDESC_GetElemDamage(pUnit, &nMin, &nMax, &nType, pSkillsTxt, nSkillLevel);
     sub_004E80F0_AddRangeText(wszText, 0, nMin, nMax, 0x10A0, 0);
     return 1;
 }

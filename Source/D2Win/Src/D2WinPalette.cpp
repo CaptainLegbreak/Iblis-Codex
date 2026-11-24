@@ -171,13 +171,13 @@ void __cdecl PALETTE_ApplyScreenPalette()
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
 
 // 0x004FB1C0
-void __fastcall sub_004FB1C0_CopyRowTable(unsigned char (*pRows)[0x100])
+void __fastcall D2Win_10178_CopyGammaTable(unsigned char (*pRows)[0x100])
 {
     memcpy(pRows, gatShadowsLightGammaPalette, sizeof(gatShadowsLightGammaPalette));
 }
 
 // 0x004FB1E0
-int __stdcall sub_004FB1E0_LoadPaletteFiles(const char* szDatFileName, const char* szPL2FileName)
+int __stdcall PALETTE_LoadPaletteFiles(const char* szDatFileName, const char* szPL2FileName)
 {
     tagPALETTEENTRY tPalette[256];
     unsigned char* pDat = (unsigned char*)sub_00517079_LoadFile(D2Win_GetArchive(), szDatFileName, 0, gszD2WinPaletteSourceFile, 99);

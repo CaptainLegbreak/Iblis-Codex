@@ -30,7 +30,7 @@ void __cdecl NPCMENU_OnTransactionResult();                                     
 void __cdecl sub_004B5640_OpenNpcMenu();                                                                                // 0x004B5640
 int __cdecl NPCMENU_TravelToKurastDocks();                                                                                 // 0x004B51A0
 int __cdecl NPCMENU_TravelToHarrogath();                                                                                 // 0x004B5200
-int __cdecl sub_004B5C60_Handler();                                                                         // 0x004B5C60
+int __cdecl NPCMENU_ShowMainMenu();                                                                         // 0x004B5C60
 int __cdecl sub_004B6D10_OpenConfirm();
 
 extern D2GSPacketSrv2A gtPacket2A;                                                                  // 0x007C0D87

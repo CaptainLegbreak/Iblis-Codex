@@ -93,7 +93,7 @@ int __fastcall sub_004E40A0(int nRange);                                        
 
 int __cdecl sub_0044DB00();                                                                                 // 0x0044DB00
 
-int __fastcall sub_004B9DA0_CompareItems(D2SlotObjectStrc* pA, D2SlotObjectStrc* pB, int bCompareFloat, int bCompareValue); // 0x004B9DA0
+int __fastcall SOUNDINST_CompareSounds(D2SlotObjectStrc* pA, D2SlotObjectStrc* pB, int bCompareFloat, int bCompareValue); // 0x004B9DA0
 
 void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot); // 0x004DFC20
 
@@ -467,11 +467,11 @@ static D2SlotStrc* __stdcall sub_004DFB50_GetFreeSlot(D2SlotObjectStrc* pObject,
     {
         if (gaSlots[i].nType == nType && gaSlots[i].pObject)
         {
-            if (!pBest || sub_004B9DA0_CompareItems(pBest->pObject, gaSlots[i].pObject, 1, 1))
+            if (!pBest || SOUNDINST_CompareSounds(pBest->pObject, gaSlots[i].pObject, 1, 1))
                 pBest = &gaSlots[i];
         }
     }
-    if (!pBest || !sub_004B9DA0_CompareItems(pObject, pBest->pObject, 0, 0))
+    if (!pBest || !SOUNDINST_CompareSounds(pObject, pBest->pObject, 0, 0))
         return 0;
     if (pBest->pSound)
     {

@@ -206,7 +206,8 @@ void __fastcall PLRSKILLS_SkillSeqDoForward(D2UnitStrc* pUnit, int nArg)
         break;
     case 0x43:
         if (SKILLS_GetFlags(pSkill) & 1)
-            sub_004C9990(pUnit, nArg, 1);
+// build: symbol ?SKILLSPAL_DrawMotionTrail@* 0x004C9990
+            SKILLSPAL_DrawMotionTrail(pUnit, nArg, 1);
         break;
     }
 }
@@ -239,7 +240,7 @@ void __fastcall PLRSKILLS_SkillSeqDoBackward(D2UnitStrc* pUnit, int nArg)
         break;
     case 0x43:
         if (SKILLS_GetFlags(pSkill) & 1)
-            sub_004C9990(pUnit, nArg, 0);
+            SKILLSPAL_DrawMotionTrail(pUnit, nArg, 0);
         break;
     }
 }

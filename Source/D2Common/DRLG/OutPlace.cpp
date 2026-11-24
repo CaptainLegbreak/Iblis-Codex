@@ -849,11 +849,11 @@ static inline unsigned int SEED_RollRandomNumber_Links(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LINKFN pfLink, FLAGFN pfFlag, D2DrlgStrc* pDrlg); // 0x006772C0
+void __stdcall DRLGOUTPLACE_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LINKFN pfLink, FLAGFN pfFlag, D2DrlgStrc* pDrlg); // 0x006772C0
 
-static void __stdcall sub_006775C0_SetOverlapWarps(int nStartId, int nEndId, D2DrlgStrc* pDrlg); // 0x006775C0
+static void __stdcall DRLGOUTPLACE_SetOverlapWarps(int nStartId, int nEndId, D2DrlgStrc* pDrlg); // 0x006775C0
 // 0x006772C0
-static void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LINKFN pfLink, FLAGFN pfFlag, D2DrlgStrc* pDrlg)
+static void __stdcall DRLGOUTPLACE_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LINKFN pfLink, FLAGFN pfFlag, D2DrlgStrc* pDrlg)
 {
     D2DrlgLevelLinkDataStrc pLevelLinkData = {};
     D2LevelDefBin* pLevelDefBinRecord = 0;
@@ -995,7 +995,7 @@ static void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LIN
 }
 
 // 0x006775C0
-static void __stdcall sub_006775C0_SetOverlapWarps(int nStartId, int nEndId, D2DrlgStrc* pDrlg)
+static void __stdcall DRLGOUTPLACE_SetOverlapWarps(int nStartId, int nEndId, D2DrlgStrc* pDrlg)
 {
     for (int i = nStartId; i <= nEndId; ++i)
     {
@@ -1056,16 +1056,16 @@ static void __stdcall sub_00677680_AddLevelOrths(D2DrlgStrc* pDrlg, int nEndId, 
 // 0x00677750
 static void sub_00677750_CreateAct1LevelConnections(D2DrlgStrc* pDrlg)
 {
-    sub_006772C0_InitLevelLinks(gAct1WildernessDrlgLink, sub_00676DD0_LinkAct1Wilderness, sub_00677180_SetAct1OutdoorFlags, pDrlg);
-    sub_006772C0_InitLevelLinks(gAct1MonasteryDrlgLink, sub_6FD82130, sub_00677180_SetAct1OutdoorFlags, pDrlg);
+    DRLGOUTPLACE_InitLevelLinks(gAct1WildernessDrlgLink, sub_00676DD0_LinkAct1Wilderness, sub_00677180_SetAct1OutdoorFlags, pDrlg);
+    DRLGOUTPLACE_InitLevelLinks(gAct1MonasteryDrlgLink, sub_6FD82130, sub_00677180_SetAct1OutdoorFlags, pDrlg);
     sub_00677680_AddLevelOrths(pDrlg, 0x11, 1);
 }
 
 // 0x00677790
 static void sub_00677790_CreateAct2LevelConnections(D2DrlgStrc* pDrlg)
 {
-    sub_006772C0_InitLevelLinks(gAct2OutdoorDrlgLink, DRLGOUTPLACE_LinkAct2Outdoors, 0, pDrlg);
-    sub_006772C0_InitLevelLinks(gAct2CanyonDrlgLink, DRLGOUTPLACE_LinkAct2Canyon, 0, pDrlg);
+    DRLGOUTPLACE_InitLevelLinks(gAct2OutdoorDrlgLink, DRLGOUTPLACE_LinkAct2Outdoors, 0, pDrlg);
+    DRLGOUTPLACE_InitLevelLinks(gAct2CanyonDrlgLink, DRLGOUTPLACE_LinkAct2Canyon, 0, pDrlg);
     sub_00677680_AddLevelOrths(pDrlg, 0x2E, 0x28);
 }
 
@@ -1750,9 +1750,9 @@ D2DrlgLevelStrc* __stdcall sub_00678910(D2DrlgLevelStrc* pLevel)
 }
 
 
-static void sub_006789B0_CreateAct3LevelConnections(D2DrlgStrc* pDrlg);
+static void DRLGOUTPLACE_CreateAct3LevelConnections(D2DrlgStrc* pDrlg); // 0x006789B0
 // 0x006789B0
-static void sub_006789B0_CreateAct3LevelConnections(D2DrlgStrc* pDrlg)
+static void DRLGOUTPLACE_CreateAct3LevelConnections(D2DrlgStrc* pDrlg)
 {
     D2DrlgLevelStrc* pLevel = DRLG_GetLevel(pDrlg, LEVEL_KURASTDOCKTOWN);
     D2LevelDefBin* pDef = DATATBLS_GetLevelDefRecord(LEVEL_KURASTDOCKTOWN);
@@ -1762,15 +1762,15 @@ static void sub_006789B0_CreateAct3LevelConnections(D2DrlgStrc* pDrlg)
     pLevel->nHeight = pDef->dwSizeY[pDrlg->nDifficulty];
     pLevel = DRLG_GenerateJungles(pLevel);
     sub_00678910(pLevel);
-    sub_006775C0_SetOverlapWarps(75, 83, pDrlg);
+    DRLGOUTPLACE_SetOverlapWarps(75, 83, pDrlg);
     sub_00677680_AddLevelOrths(pDrlg, 83, 75);
 }
 
 // 0x00678A20
 static void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg)
 {
-    sub_006772C0_InitLevelLinks(gAct4OutdoorDrlgLink, DRLGOUTPLACE_LinkAct4Outdoors, 0, pDrlg);
-    sub_006772C0_InitLevelLinks(gAct4ChaosSanctumDrlgLink, DRLGOUTPLACE_LinkAct4ChaosSanctum, 0, pDrlg);
+    DRLGOUTPLACE_InitLevelLinks(gAct4OutdoorDrlgLink, DRLGOUTPLACE_LinkAct4Outdoors, 0, pDrlg);
+    DRLGOUTPLACE_InitLevelLinks(gAct4ChaosSanctumDrlgLink, DRLGOUTPLACE_LinkAct4ChaosSanctum, 0, pDrlg);
 
     DRLG_GetLevel(pDrlg, LEVEL_OUTERSTEPPES)->pOutdoors->dwFlags |= gnDrlgLinkFlags_0096D66C;
 
@@ -1780,16 +1780,16 @@ static void sub_00678A20_CreateAct4LevelConnections(D2DrlgStrc* pDrlg)
 // 0x00678A70
 static void sub_00678A70_CreateAct5LevelConnections(D2DrlgStrc* pDrlg)
 {
-    sub_006772C0_InitLevelLinks(gAct5OutdoorDrlgLink, 0, 0, pDrlg);
-    sub_006772C0_InitLevelLinks(gAct5TundraDrlgLink, 0, 0, pDrlg);
+    DRLGOUTPLACE_InitLevelLinks(gAct5OutdoorDrlgLink, 0, 0, pDrlg);
+    DRLGOUTPLACE_InitLevelLinks(gAct5TundraDrlgLink, 0, 0, pDrlg);
 
-    sub_006775C0_SetOverlapWarps(0x6F, 0x70, pDrlg);
+    DRLGOUTPLACE_SetOverlapWarps(0x6F, 0x70, pDrlg);
     sub_00677680_AddLevelOrths(pDrlg, 0x70, 0x6F);
 
-    sub_006775C0_SetOverlapWarps(0x6E, 0x6F, pDrlg);
-    sub_006775C0_SetOverlapWarps(0x6D, 0x6E, pDrlg);
+    DRLGOUTPLACE_SetOverlapWarps(0x6E, 0x6F, pDrlg);
+    DRLGOUTPLACE_SetOverlapWarps(0x6D, 0x6E, pDrlg);
 
-    sub_006772C0_InitLevelLinks(gAct5UbersDrlgLink, DRLGOUTPLACE_LinkAct5Ubers, 0, pDrlg);
+    DRLGOUTPLACE_InitLevelLinks(gAct5UbersDrlgLink, DRLGOUTPLACE_LinkAct5Ubers, 0, pDrlg);
 }
 // 0x00678AD0
 void __fastcall DRLGOUTPLACE_CreateLevelConnections(D2DrlgStrc* pDrlg, unsigned char nAct)
@@ -1803,7 +1803,7 @@ void __fastcall DRLGOUTPLACE_CreateLevelConnections(D2DrlgStrc* pDrlg, unsigned 
         sub_00677790_CreateAct2LevelConnections(pDrlg);
         break;
     case 2:
-        sub_006789B0_CreateAct3LevelConnections(pDrlg);
+        DRLGOUTPLACE_CreateAct3LevelConnections(pDrlg);
         break;
     case 3:
         sub_00678A20_CreateAct4LevelConnections(pDrlg);

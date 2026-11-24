@@ -1157,7 +1157,7 @@ typedef void (__fastcall* CelFileBuildFn)(D2StormEntry38Strc* pList, D2CelFileSt
 
 extern CelFileBuildFn gapfnCelFileBuilders[]; // 0x006E3680
 
-void __fastcall sub_0060D190_BuildCelFileWithData(D2StormEntry38Strc* pList, D2CelFileStrc* pCelFile); // 0x0060D190
+void __fastcall RawBuildCelFile(D2StormEntry38Strc* pList, D2CelFileStrc* pCelFile); // 0x0060D190
 
 extern D2GameDataTableStrc gCelListTable; // 0x008E8CC0
 
@@ -3698,7 +3698,7 @@ unsigned int __stdcall CelCompressCreateCelFile(unsigned int hCelList, D2CelFile
     pCelFile->nCelsPerDirection = pList->nCount / pList->nDirections;
     if (pList->dwFlags & 4)
     {
-        sub_0060D190_BuildCelFileWithData(pList, pCelFile);
+        RawBuildCelFile(pList, pCelFile);
         pCelFile->nTermination = pList->nData;
     }
     else

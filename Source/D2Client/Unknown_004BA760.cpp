@@ -39,7 +39,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
-void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
+void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 void __fastcall UNITSND_RemoveUnitHint(D2UnitStrc* pOther, D2UnitStrc* pUnit); // 0x004CA8D0
 void __fastcall D2SOUND_ListRemove(D2HintTimerStrc* pTimer, D2UnitStrc* pOther); // 0x00516980
 extern D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
@@ -72,7 +72,7 @@ static __declspec(noinline) void sub_004BA760_RefreshHint(D2TimedHintEntryStrc* 
     unsigned char nCount = pSoundTxt->nFadeOut;
     if (nCount && pEntry->nState == 1)
     {
-        sub_004B9EF0_ArmHint(pEntry->nKey, 0, 0, nCount);
+        SOUNDINST_ArmHint(pEntry->nKey, 0, 0, nCount);
     }
 }
 

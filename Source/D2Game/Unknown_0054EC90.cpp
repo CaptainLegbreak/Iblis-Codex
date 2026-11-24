@@ -158,7 +158,7 @@ void __stdcall sub_00643560_GameTileToSubtileCoords(int*,int*); // 0x00643560
 int __fastcall MONSTERCHOOSE_GetPresetMonsterId(D2GameStrc* pGame, D2MonsterRegionStrc* pMonsterRegion, D2ActiveRoomStrc* pRoom, D2MonStatsTxt** ppMonStatsTxtRecord, unsigned char nChance, int bSpawnUMon); // 0x005BDE80
 int __fastcall MONSTERCHOOSE_GetBossSpawnType(D2MonsterRegionStrc*,D2ActiveRoomStrc*); // 0x005BE020
 int __fastcall sub_0054EC40_IsSpecialBaseMonster(int); // 0x0054EC40
-D2UnkMonCreateStrc2* __fastcall sub_005BDFF0_RollSeedGetTable(D2ActiveRoomStrc*); // 0x005BDFF0
+D2UnkMonCreateStrc2* __fastcall MONSTERCHOOSE_RollFormation(D2ActiveRoomStrc*); // 0x005BDFF0
 // 0x0054EC90
 void __fastcall D2GAME_PopulateRoom_6FC67190(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
 {
@@ -220,7 +220,7 @@ void __fastcall D2GAME_PopulateRoom_6FC67190(D2GameStrc* pGame, D2ActiveRoomStrc
                             break;
                         }
                         case 1:
-                            bSpawned = sub_0054E190_SpawnMonsterAtFreePosition(pGame, pRoom, nMonsterId, sub_005BDFF0_RollSeedGetTable(pRoom));
+                            bSpawned = sub_0054E190_SpawnMonsterAtFreePosition(pGame, pRoom, nMonsterId, MONSTERCHOOSE_RollFormation(pRoom));
                             break;
                         default:
                         {

@@ -331,7 +331,7 @@ void __cdecl INV_DrawNpcShopPanel();                                            
 
 void __cdecl INV_DrawButtonHoverText();                                                            // 0x004886C0
 
-void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int bOther);                                   // 0x0048DD90
+void __stdcall INV_DrawItemTooltip(D2UnitStrc* pUnit, int bOther);                                   // 0x0048DD90
 
 int __fastcall NPCMENU_GetInteractNpcId(int* pLow);                                                         // 0x004B3230
 
@@ -1128,7 +1128,7 @@ static int sub_00623C60(D2UnitStrc* pUnit)
 }
 
 // 0x0048DD90
-void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
+void __stdcall INV_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
 {
     UBuf wszText[0x200];
     UBuf wszTooltip[0x200];
@@ -1585,7 +1585,7 @@ static int INV_IsOverCubeButton(int nX, int nY)
 }
 
 // 0x0048EDF0
-void __cdecl sub_0048EDF0_DrawInventoryPanel()
+void __cdecl INV_DrawInventoryPanel()
 {
     int nMouseX = sub_00468730();
     int nMouseY = sub_00468740();
@@ -2032,7 +2032,7 @@ timer_done:
             }
         }
     }
-    sub_0048DD90_DrawItemTooltip(pPanelUnit, bOther);
+    INV_DrawItemTooltip(pPanelUnit, bOther);
 }
 
 static __declspec(noinline) int INV_IsInTradeGrid(int nX, int nY)
@@ -2079,7 +2079,7 @@ static int INV_IsOverTradeButtonRight(int nX, int nY)
 }
 
 // 0x00492310
-void __stdcall sub_00492310_StashButtonUp(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall INV_OnStashButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gnGlobal_007BCBF0 != 0xB)
         return;
@@ -2487,7 +2487,7 @@ static void INV_DrawUnitEquippedItems(D2UnitStrc* pUnit)
 }
 
 // 0x004929F0
-void __cdecl sub_004929F0_DrawMercPanel()
+void __cdecl INV_DrawMercPanel()
 {
     if (!GAME_IsExpansion())
     {
@@ -2533,7 +2533,7 @@ void __cdecl sub_004929F0_DrawMercPanel()
     sub_0048B0A0(pMerc);
     INV_DrawUnitEquippedItems(pMerc);
     INV_DrawMercEquipHighlights(pMerc);
-    sub_0048DD90_DrawItemTooltip(pMerc, 0);
+    INV_DrawItemTooltip(pMerc, 0);
 }
 
 #include "gen/data/Source/D2Client/UI/inv_0048DD90.inc"

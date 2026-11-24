@@ -77,10 +77,10 @@ int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
 extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
-int __fastcall sub_00471EC0_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0
+int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0
 
 // 0x004C9990
-void __fastcall sub_004C9990_DrawMotionTrail(D2UnitStrc* pUnit, int nArg, int bReverse)
+void __fastcall SKILLSPAL_DrawMotionTrail(D2UnitStrc* pUnit, int nArg, int bReverse)
 {
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill)
@@ -162,14 +162,14 @@ void __fastcall sub_004C9990_DrawMotionTrail(D2UnitStrc* pUnit, int nArg, int bR
             nY -= (i + 1) * nStepY;
         }
 
-        sub_00471EC0_DrawUnit(pUnit, nArg, nX, nY, 1, 0);
+        GFX_DrawUnit(pUnit, nArg, nX, nY, 1, 0);
     }
 
     pUnit->nSeqCurrentFramePrecise = nStartFrame << 8;
 }
 
 // 0x004C9B40
-int __fastcall sub_004C9B40_StartCharge(D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
+int __fastcall SKILLSPAL_StartCharge(D2UnitStrc* pUnit,int nSkillId,int nSkillLevel)
 {
  D2SkillStrc* pSkill=UNITS_GetUsedSkill(pUnit);
  if(!pSkill)return 0;

@@ -192,7 +192,7 @@ int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
-int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
+int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 
 void __stdcall TEXTURE_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, unsigned char nColor); // 0x004F6570
 
@@ -2500,7 +2500,7 @@ int __fastcall GFX_DrawSimpleUnitShadow(D2UnitStrc* pUnit)
         }
         nY += 16;
     }
-    if (!sub_004709A0_IsOnScreen(pUnit, nX, nY, 0, 1))
+    if (!GFX_IsUnitOnScreen(pUnit, nX, nY, 0, 1))
     {
         return 0;
     }
@@ -2563,7 +2563,7 @@ int __fastcall GFX_GetHealthBarOffset(D2UnitStrc* pUnit)
             break;
         }
     }
-    if (!sub_004709A0_IsOnScreen(pUnit, nX, nY, 0, 0))
+    if (!GFX_IsUnitOnScreen(pUnit, nX, nY, 0, 0))
     {
         return 0;
     }
@@ -2614,7 +2614,7 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
             nY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY() + ITEM_GetGfxClientY(pUnit);
             nY += sub_004DA0F0_GetUnitGfxOffsetZ(pUnit);
         }
-        if (!sub_004709A0_IsOnScreen(pUnit, nX, nY, 0, 0))
+        if (!GFX_IsUnitOnScreen(pUnit, nX, nY, 0, 0))
         {
             return 0;
         }

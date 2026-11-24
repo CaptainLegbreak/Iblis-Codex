@@ -91,7 +91,7 @@ void __stdcall DUNGEON_SetActCallbackFunc(D2DrlgActStrc* pAct, ACTCALLBACKFN pAc
 
 void __fastcall DLIGHTMAP_ActRoomCallback(D2ActiveRoomStrc* pRoom); // 0x00475930
 
-void __fastcall sub_004FB1C0_CopyRowTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
+void __fastcall D2Win_10178_CopyGammaTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
 
 unsigned char* __stdcall GFX_BuildLerpTable(unsigned int nCount, int nSteps); // 0x00475B80
 
@@ -1370,7 +1370,7 @@ void __cdecl DLIGHTMAP_BuildLerpTables()
     D2_ASSERT(!gpLerpTable32, 0xCC);
     D2_ASSERT(!gppRampTable_007B954C, 0xCD);
     D2_ASSERT(!gpLerpTable40, 0xCE);
-    sub_004FB1C0_CopyRowTable(gabRowTable);
+    D2Win_10178_CopyGammaTable(gabRowTable);
     gppLerpRows = GFX_BuildLerpRowTable(0x20, 8);
     gpLerpTable16 = GFX_BuildLerpTable(0x20, 0x10);
     gpLerpTable32 = GFX_BuildLerpTable(0x20, 0x20);

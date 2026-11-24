@@ -441,7 +441,7 @@ extern int gnValue_007992F0; // 0x007992F0
 
 D2WinControlStrc* gpControl_0077BD98; // 0x0077BD98
 
-void __fastcall sub_004423B0_RunCommand(char* szText); // 0x004423B0
+void __fastcall CHATDLG_RunCommand(char* szText); // 0x004423B0
 
 void __fastcall COMCALLBACK_PrintOwnLine(const char* szText); // 0x004481F0
 
@@ -2632,7 +2632,7 @@ void __fastcall CHATDLG_SelectEntry(const char* szName, int nB, int nC)
     gdwSelectTime = GetTickCount() + 1000;
 }
 
-void __fastcall sub_004423B0_RunCommand(char* szText)
+void __fastcall CHATDLG_RunCommand(char* szText)
 {
     CHATDLG_PushHistory(szText);
 // build: symbol ?gszCmdR@* 0x006D56D4
@@ -4272,7 +4272,7 @@ int __cdecl CHATDLG_SendChatBuffer()
 {
     if (gszChatBuffer[0] == '/')
     {
-        sub_004423B0_RunCommand(gszChatBuffer);
+        CHATDLG_RunCommand(gszChatBuffer);
     }
     else
     {

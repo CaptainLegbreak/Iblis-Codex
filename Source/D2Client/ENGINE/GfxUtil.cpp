@@ -426,7 +426,7 @@ extern "C" int __cdecl PLAYER_GetScreenOffsetX();                               
 
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit);                                                     // 0x006206B0
 
-int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2);            // 0x004709A0
+int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2);            // 0x004709A0
 
 struct D2GfxCodeRecordStrc;
 
@@ -989,7 +989,7 @@ int __fastcall WARDENCLIENT_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
         nY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY();
     }
 
-    if (!sub_004709A0_IsOnScreen(pUnit, nX, nY, 0, 0))
+    if (!GFX_IsUnitOnScreen(pUnit, nX, nY, 0, 0))
     {
         return 0;
     }
@@ -1046,7 +1046,7 @@ int __fastcall GFXUTIL_HitTestUnitCel(D2UnitStrc* pUnit, int nX, int nY)
     int nFrameCount;
     const int nScreenX = nX - PLAYER_GetScreenOffsetX();
     nScreenY = nY - PLAYER_GetScreenOffsetY();
-    if (sub_004709A0_IsOnScreen(pUnit, nScreenX, nScreenY, 0, 0))
+    if (GFX_IsUnitOnScreen(pUnit, nScreenX, nScreenY, 0, 0))
     {
         UNITS_GetShiftedFrameMetrics(pUnit, &nFrameNo, &nFrameCount);
         D2CelContextStrc tToken;

@@ -596,7 +596,7 @@ void __stdcall D2Win_10151(D2CompositeUnitStrc* pCompositeUnit, int nFrame);    
 
 int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode);                                // 0x005042F0
 
-void __cdecl sub_00438560_Refresh();
+void __cdecl CHARSEL_RefreshCharList(); // 0x00438560
 
 char* gpszName; // 0x00779DB0
 
@@ -2000,7 +2000,7 @@ static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStat
     }
 
     gnGlobal_00779DC4 += 1;
-    sub_00438560_Refresh();
+    CHARSEL_RefreshCharList();
     gdwGlobal_00779DA4 = 1;
     return 1;
 }
@@ -2490,7 +2490,7 @@ int __stdcall CHARSEL_ScrollUp(SMSGHANDLER_PARAMS* pMsg)
         gnTopRow -= 1;
     if (gnSelected > 0)
         gnSelected -= 1;
-    sub_00438560_Refresh();
+    CHARSEL_RefreshCharList();
 // build: symbol ?CHARSEL_Redraw@* 0x00439210
     CHARSEL_Redraw();
     return 1;
@@ -2504,7 +2504,7 @@ int __stdcall CHARSEL_ScrollDown(SMSGHANDLER_PARAMS* pMsg)
         if (gnSelected < gnCharEntryCount - 1)
             gnSelected += 1;
         gnTopRow += 1;
-        sub_00438560_Refresh();
+        CHARSEL_RefreshCharList();
         CHARSEL_Redraw();
     }
     return 1;
@@ -2522,7 +2522,7 @@ int __stdcall CHARSEL_OnScroll(SMSGHANDLER_PARAMS* pMsg)
     if (gnTopRow >= gnCharEntryCount)
         gnTopRow = gnCharEntryCount - 1;
     gnLastValue = nValue;
-    sub_00438560_Refresh();
+    CHARSEL_RefreshCharList();
     CHARSEL_Redraw();
     return 1;
 }
@@ -2639,7 +2639,7 @@ int __stdcall CHARSEL_HandleListKey(SMSGHANDLER_PARAMS* pMsg)
         break;
     }
 
-    sub_00438560_Refresh();
+    CHARSEL_RefreshCharList();
 // build: symbol ?CHARSEL_Redraw@* 0x00439210
     CHARSEL_Redraw();
     return 1;
@@ -2693,7 +2693,7 @@ int __stdcall CHARSEL_OnListKeyDown(SMSGHANDLER_PARAMS* pMsg)
             break;
         }
 
-        sub_00438560_Refresh();
+        CHARSEL_RefreshCharList();
         CHARSEL_Redraw();
         return 1;
     }
@@ -2780,7 +2780,7 @@ extern "C" int __stdcall CHARSEL_CreateNotice(const Unicode* pTitle, const Unico
         pLast->pNext = pEntry;
     }
     ++gnCharEntryCount;
-    sub_00438560_Refresh();
+    CHARSEL_RefreshCharList();
     return 1;
 }
 

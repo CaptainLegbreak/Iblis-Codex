@@ -220,7 +220,7 @@ int __fastcall sub_004C0640_AdjustLabel(int* pLeft, int* pTop, int* pRight, int*
 }
 
 // 0x004C0810
-void __cdecl sub_004C0810_DrawUnitNames()
+void __cdecl SHOWITEMS_DrawUnitNames()
 {
     int bPerspective=D2GFX_CheckPerspective();
     D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();

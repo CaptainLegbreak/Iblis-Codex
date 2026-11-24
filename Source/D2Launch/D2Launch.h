@@ -176,7 +176,7 @@ void __cdecl sub_00434060(); // 0x00434060
 void __cdecl sub_00435580(); // 0x00435580
 void __cdecl MAINMENUS_CreateRealmCharacter(); // 0x00435E10
 void __cdecl sub_004370C0(); // 0x004370C0
-void __cdecl sub_00438560_Refresh(); // 0x00438560
+void __cdecl CHARSEL_RefreshCharList(); // 0x00438560
 int __cdecl CHARSEL_Redraw(); // 0x00439210
 void __cdecl CHATDLG_DestroyJoinControls(); // 0x00443130
 void __cdecl CHATDLG_DestroyProfileControls(); // 0x00443E10

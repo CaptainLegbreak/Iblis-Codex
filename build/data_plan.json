@@ -556,12 +556,12 @@
     "extern \"C\" void __cdecl SKILLDESC_CltDoTargetedMissile(); // 0x004F47B0",
     "extern \"C\" void __cdecl SKILLDESC_CltDoMirrorMissiles(); // 0x004F48F0",
     "extern \"C\" void __cdecl sub_004F4A30_CltDoChargedMissile(); // 0x004F4A30",
-    "extern \"C\" void __cdecl sub_004F4C20_CltDoRepeatAttack(); // 0x004F4C20",
+    "extern \"C\" void __cdecl SKILLSAMA_CltDoRepeatAttack(); // 0x004F4C20",
     "extern \"C\" void __cdecl sub_004F4D90_MissileAtTarget(); // 0x004F4D90",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartPosition(); // 0x004C83C0",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartLeap(); // 0x004C8D90",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartRun(); // 0x004C9120",
-    "extern \"C\" void __cdecl sub_004C9B40_StartCharge(); // 0x004C9B40",
+    "extern \"C\" void __cdecl SKILLSPAL_StartCharge(); // 0x004C9B40",
     "extern \"C\" void __cdecl MISSILE_SkillStartPlace(); // 0x004E0A40",
     "extern \"C\" void __cdecl sub_004E0BD0_CltStartClearCollision(); // 0x004E0BD0",
     "extern \"C\" void __cdecl sub_004E0EB0_CltStartPathToTarget(); // 0x004E0EB0",
@@ -1465,7 +1465,7 @@
    "definitions": 14,
    "externs": [
     "extern \"C\" void __cdecl SKILLDESC_DrawThrowAndElemDamage(); // 0x004EAAA0",
-    "extern \"C\" void __cdecl sub_004EB290_DrawElemDamage(); // 0x004EB290",
+    "extern \"C\" void __cdecl SKILLDESC_DrawElemDamage(); // 0x004EB290",
     "extern \"C\" void __cdecl SKILLSMON_DescIfRecord(); // 0x004EC040"
    ],
    "fn_types": {},
@@ -1654,9 +1654,9 @@
     "extern \"C\" void __cdecl sub_006B6730_DrawPerspectiveSprite(); // 0x006B6730",
     "extern \"C\" void __cdecl sub_006B6B40(); // 0x006B6B40",
     "extern \"C\" void __cdecl sub_006B6BF0(); // 0x006B6BF0",
-    "extern \"C\" void __cdecl sub_006B6C90_DrawSpriteRows(); // 0x006B6C90",
-    "extern \"C\" void __cdecl sub_006B6EE0_DrawSpriteClipped(); // 0x006B6EE0",
-    "extern \"C\" void __cdecl sub_006B7000_DrawSpriteShadow(); // 0x006B7000",
+    "extern \"C\" void __cdecl D3D_DrawSpriteRows(); // 0x006B6C90",
+    "extern \"C\" void __cdecl D3D_DrawSpriteClipped(); // 0x006B6EE0",
+    "extern \"C\" void __cdecl D3D_DrawSpriteShadow(); // 0x006B7000",
     "extern \"C\" void __cdecl D3D_CelDrawHilight(); // 0x006B7090",
     "extern \"C\" void __cdecl D3D_DebugFillBackBuffer(); // 0x006B7100",
     "extern \"C\" void __cdecl sub_006B7630_DrawTextV(); // 0x006B7630",
@@ -55914,7 +55914,7 @@
      183,
      "0x004B5C60",
      "source",
-     "sub_004B5C60_Handler",
+     "NPCMENU_ShowMainMenu",
      0,
      "func"
     ],
@@ -56938,7 +56938,7 @@
      109,
      "0x004B5C60",
      "source",
-     "sub_004B5C60_Handler",
+     "NPCMENU_ShowMainMenu",
      0,
      "func"
     ],
@@ -61875,7 +61875,7 @@
      84,
      "0x004F4C20",
      "source",
-     "sub_004F4C20_CltDoRepeatAttack",
+     "SKILLSAMA_CltDoRepeatAttack",
      0,
      "func"
     ],
@@ -62870,7 +62870,7 @@
      100,
      "0x004C9B40",
      "source",
-     "sub_004C9B40_StartCharge",
+     "SKILLSPAL_StartCharge",
      0,
      "func"
     ],
@@ -74322,7 +74322,7 @@
      32,
      "0x004EB290",
      "source",
-     "sub_004EB290_DrawElemDamage",
+     "SKILLDESC_DrawElemDamage",
      0,
      "func"
     ],
@@ -74450,7 +74450,7 @@
      96,
      "0x004EAE70",
      "source",
-     "sub_004EAE70_DrawPhysWeaponElemDamage",
+     "SKILLDESC_DrawPhysWeaponElemDamage",
      0,
      "func"
     ]
@@ -76626,7 +76626,7 @@
      140,
      "0x006B6C90",
      "source",
-     "sub_006B6C90_DrawSpriteRows",
+     "D3D_DrawSpriteRows",
      0,
      "func"
     ],
@@ -76634,7 +76634,7 @@
      144,
      "0x006B7000",
      "source",
-     "sub_006B7000_DrawSpriteShadow",
+     "D3D_DrawSpriteShadow",
      0,
      "func"
     ],
@@ -76650,7 +76650,7 @@
      152,
      "0x006B6EE0",
      "source",
-     "sub_006B6EE0_DrawSpriteClipped",
+     "D3D_DrawSpriteClipped",
      0,
      "func"
     ],
