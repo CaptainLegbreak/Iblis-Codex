@@ -26,6 +26,7 @@
 
 #include "D2Win32System.h"
 #include "D2Win32StartupInfo.h"
+#include "D2MultiCharSave.h"
 
 static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
 
@@ -47,27 +48,7 @@ struct D2LaunchFuncsStrc;
 
 struct SMSGHANDLER_PARAMS;
 
-struct D2CharSaveHeaderStrc
-{
-    unsigned int dwMagic;
-    unsigned int dwVersion;
-    unsigned int dwSize;
-    unsigned int dwChecksum;
-    char unk0x10[0x13F];
-};
 
-struct D2CharSaveFileStrc
-{
-    unsigned int dwMagic;
-    unsigned int dwVersion;
-    unsigned int dwSize;
-    unsigned int dwChecksum;
-    char unk0x10[0x08];
-    unsigned int dwOldFlags;
-    char unk0x1C[0x08];
-    unsigned int dwFlags;
-    char unk0x28[0x1FD8];
-};
 
 int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
