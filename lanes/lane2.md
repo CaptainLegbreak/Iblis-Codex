@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/path-records 7090f593 562->562 D2PathFind.h: the wall-following move state (0x348: direction, points, current/target, 201 points) and the collision test argument. PathWF, Unknown_006793E0, Unknown_00679A60 and Unknown_0067A000 each had private copies with the same text; VERIFIED 87598fa5186031a313e0cd32393c8d26f9cf3312
+  - On #326. All 9 includers of D2PathFind.h build equal.
+  - Outside lane 2: the four pathfinding units (lane 6). Each loses a private struct and gains an include. If lane 6's pathfinding split moves these units first, I'll redo it on top.
+
 - lane2/bn-messages 128c2743 562->562 D2BnMessages.h: four Battle.net server message bodies (client id reply, versioning start, logon info, ad check reply). BnDownload, BnDownload_00520CB0, BnSend and Unknown_0051C7E0 each had private copies with the same text; VERIFIED 17f63803f2be99051365a87b074478f1dd294589
   - Verified on #325, rebased onto #326. Precheck of the 4 units is equal on #326.
   - Outside lane 2: the four D2BNClient units (lane 6).
@@ -32,7 +36,7 @@ Records that two or more units define privately with the same text, moved into t
 2. (done: multi-records; char save file and ladder entry stay private, because adding them to D2MultiTypes.h flips CharSel)
 3. (done: d3d-records)
 4. (done: bn-messages)
-5. D2Common path: D2PathMovStrc and D2CollisionTestStrc (PathWF, Unknown_006793E0/00679A60/0067A000), into D2PathFind.h.
+5. (done: path-records)
 6. Win32 process info and memory status (Fog, D2Multi, D2Hell, D2Launch, D2Client).
 7. D2WinPopUpLineStrc (five D2Win units).
 No borrowed-data block or language split is in lane 2's range: the coord block is runtime-library data.
