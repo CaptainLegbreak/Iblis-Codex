@@ -11,8 +11,6 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 
 ## Ready
 - lane8/join-drlgwarp 2fd4fd28 (on #358), VERIFIED 6fb2069b. DrlgWarp.cpp takes in Unknown_0066AB70 (holds the object's copy 0x749804), 0066AC40, 0066AE70 and DrlgRoom's 0x66AE30, all inside DrlgWarp's run. The header clash is solved by compiling the pieces against DrlgWarp's local structs (a minimal D2DrlgTileDataStrc; the level struct names pTileInfo/nTileInfo for the member 0x66AC40). Units -3.
-- lane8/place-s 4729ee22 (on #358), VERIFIED ced85bd7. DataTbls.cpp takes 0x611760 (MakeCalcCode, called only by its 0x6119F0; the marker goes on DataTbls' own copy, and the piece's duplicate of 0x6119F0 is dropped) and three strays from Ignorelist.cpp inside its run (0x6117D0/0x611800/0x611830). The 16-byte record 0x744338 is the tail of DataTbls' second language copy (0x74430C, 44 B) and moves too. Unknown_006115F0 keeps only the empty 0x6115F0. Units 0.
-- lane8/place-r cea1a1f9 (on #357), VERIFIED 1dd2482a. StatsEx.cpp takes in Unknown_00627BB0 and Dungeon's 0x627B70: both are item-calc callbacks in StatsEx's gpItemsCalcFunctions (0x74463C), inside StatsEx's run; the table now points at the source functions. Units -1.
 
 ## Questions
 
