@@ -181,11 +181,6 @@ static void* GRID_LoadKeyFile(const char* szFileName, unsigned int* pSize)
     return 0;
 }
 
-// calling-convention shim (not game code)
-void* __fastcall sub_00523480_Shim(const char* szFileName, unsigned int* pSize)
-{
-    return GRID_LoadKeyFile(szFileName, pSize);
-}
 
 // 0x005234D0
 void __cdecl GRID_LockCDKeys()
