@@ -2,11 +2,10 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 11:23:33 PST 2026): six joins build equal on #360 (CelCmp, Codec, FastCmp x2, BnSend, SpriteCache, BnMessQueue); their full verifies are queued, posting each when it passes.
+Status (Tue Nov 24 11:37:47 PST 2026): mcp-startthread-2 merged (#361). The six join branches are rebased on #361 without docs/index.html (the round regenerates it; it made every branch conflict), full verifies queued; posting each as it passes. ChatDlg three retried: still unequal (left in place).
 
 ## Ready
 
-- lane6/mcp-startthread-2 79d65947 0 placeholders. CHATDLG_StartThread (0x0044A130) moves from ChatDlg.cpp to D2MCPClient/Src/McpConnect.cpp: it follows MCPCONNECT_ConnectThread, starts it, and uses the MCP connect object's .bss (ghThread 0x007992A4, gtThreadRecord 0x00798FB8). The thread proc is cdecl in the original (plain `ret`), so the CreateThread argument is cast. ChatDlg.cpp's unused ghThread definition and three declarations go. Not stacked (the old lane6/mcp-startthread was stacked on mcp-copies and is not posted). VERIFIED 8674aead (on #358; borrowed data 922 B, unchanged).
 
 
 ## Claimed
