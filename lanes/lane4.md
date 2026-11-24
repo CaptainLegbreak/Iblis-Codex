@@ -18,9 +18,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 14:41:01 PST 2026: gamedata-table and join-cmdtbl-2 ready on #368 (weather and Gfx/0046C660 merged in #368). Template placeholder group parked (Questions). Next: remaining medium leads in report-360 (Unknown_00463390 -> Player.cpp, Unknown_004815A0 -> UnitMode.cpp, Unknown_0049B030 -> Roster.cpp).
+- Tue Nov 24 14:53:23 PST 2026: join-party-b030 ready (with gamedata-table, join-cmdtbl-2). Also tried and parked: Player.cpp <- Unknown_00463390 (D2UnitTargetStrc views), UnitMode.cpp <- Unknown_004815A0 + Unknown_00481600 (they sit inside UnitMode.cpp's run; joined, 0x481600 differs in structure). Next: the remaining medium leads.
 
 ## Ready
+
+- lane4/join-party-b030 6299da2ce placeholders -1 (Unknown_0049B030.cpp): Party.cpp takes 0x49B030 (roster tooltip), a static helper of Party.cpp's 0x49B330, its only caller (the map's first pick, Roster.cpp, drops it as an uncalled static). Its planned data, the language-table copy 0x722414 and the four roster icon tables after it, start Party.cpp's object data (between panel.cpp's and the waypoint panel's, matching the code order), so Party.cpp gets its data include; its .data is in the original order. Borrowed data 844 B (main 844). VERIFIED e5f6a8c1e3cd on #368. Not stacked.
 
 - lane4/gamedata-table 0f7ab5865 placeholders -1 (Storm/Unknown_006CA9C0.cpp, lane 3's note): the SGAMEDATA export table 0x7A0690 is Game.cpp's constructed global `gtGameDataTable` (Game.cpp's bss neighbours). Its dynamic initializer 0x6CA9C0 (from the Storm placeholder) and atexit destructor 0x6CB3E0 (from Unknown_006CB3E0.cpp, which keeps 0x6CB400) are the compiler's `??__E`/`??__F` for it, marked in Game.cpp. The Sync class's critical section is a member with its own destructor (as in the template placeholders), so the class destructor stays implicit and doesn't reset the vtable, as the original's doesn't. Borrowed data 844 B (main 844). VERIFIED 869a9c44a3eb on #366; rebased onto #368 (precheck equal). Not stacked.
 
