@@ -4987,4 +4987,17 @@ char* __fastcall DRLGPRESET_GetLinkRawNext(D2StormLinkStrc* pLink)
     return pLink->m_next;
 }
 
+struct R0052E0F0
+{
+    void* pUnk0x00;
+    void* m_pFile;
+    bool sub_0052E0F0_IsOpen();
+};
+
+// 0x0052E0F0
+bool R0052E0F0::sub_0052E0F0_IsOpen()
+{
+    return m_pFile != 0;
+}
+
 #include "gen/data/Source/D2Game/GAME/Game.inc"
