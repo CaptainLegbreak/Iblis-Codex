@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/fog-records-b 6bb9df3e 562->562 Stacked on records-a (two commits on top of it). (1) The minidump request had two views, flat D2DbgHelpRequestStrc and nested D2MiniDumpRequestStrc, of the same 0x14 bytes. It is now one record, D2MiniDumpRequestStrc, with the nested info block the writer takes by address. The pointer at 0x0098A6E4 had two names and two types (void*); it is now `D2MiniDumpRequestStrc* gpMiniDumpRequest` everywhere, its LogManager definition included. The dbghelp exception/user-stream records and the toolhelp process/thread entries and STARTUPINFOW move into D2FogTypes.h from their identical private copies. (2) The TEB/PEB/loader-data records ErrorManager walks to reach the module list; VERIFIED 6e39ce48efaef83287da8e1489f3f75095cddbd7
+  - On #317 plus records-a. All includers of D2FogTypes.h, D2MultiTypes.h and D2WinControls.h build equal.
+  - Outside lane 2: Fog only (lane 3): ErrorManager, ErrorManager_004082E0, Safesock, LogManager, Unknown_00401DF0/00402380/004025F0/00402820/00404AB0. Unknown_004025F0's comment local becomes `const char*`, with a `(void*)` on the stream buffer store, because the request's comment is const like the caller's parameter.
+
 - lane2/records-a 22808344 562->562 Three commits; each moves records that units defined privately with the same text into the shared header that owns the area: D2LaunchMsgStrc (0x120) and D2LaunchRecord3Strc (0xC) in D2MultiTypes.h, which only forward-declared them. D2FogTypes.h gets the loader list records ErrorManager walks (list link, counted unicode string, loader entry 0x2C). D2WinControls.h gets the timer control (0x48) and the IMAGE2_Create image control (0x4C); VERIFIED 22cdd7752bad0d037e48dcac046da328fc0f5d0b
   - On #317, not stacked. All 64 includers of the three headers build equal.
   - Outside lane 2: Game_0044D080, SCmd (lane 4); MainMenus, ChatDlg, ChatDlg_00441B70, ComCallback, D2Comp, D2WinImage, D2WinMain, D2WinTimer (lane 6); ErrorManager, ErrorManager_004082E0, Unknown_00404AB0 (lane 3). Private-copy removal only.
