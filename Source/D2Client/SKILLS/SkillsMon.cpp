@@ -71,7 +71,7 @@ int __fastcall SKILLS_IsTargetPosClear(D2UnitStrc* pUnit, int nMissile);        
 
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams);                          // 0x004CD540
 
-D2UnitStrc* __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
+D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
 void __stdcall PARTICLE_ResetGfxMotion(D2UnitStrc* pUnit);                                              // 0x004DA000
 
@@ -83,7 +83,7 @@ void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int n
 
 void __stdcall sub_004DA690_ReplaceMotionFlag1With8(D2UnitStrc* pUnit);                                     // 0x004DA690
 
-void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
+void __fastcall GFXUTIL_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet);                                  // 0x004DA6E0
 
 void __fastcall sub_004E1C80_CltMissileInitDiabWall(D2UnitStrc* pMissile, int nArg);                                   // 0x004E1C80
 
@@ -95,7 +95,7 @@ void __fastcall SKILLDESC_ToggleStateOff(D2UnitStrc* pUnit, int nState, D2StatLi
 
 int __fastcall SKILLDESC_CreateCorpseExplosionMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nParam1, int nParam2, int nParam3); // 0x004F3A60
 
-int __fastcall WARDENCLIENT_CreateSkillMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nParam1, int nParam2, int nParam3); // 0x004F3CE0
+int __fastcall SKILLSMON_CreateSkillMissiles(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nParam1, int nParam2, int nParam3); // 0x004F3CE0
 
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
 
@@ -391,7 +391,7 @@ int __fastcall SKILLSMON_MissileRing(D2UnitStrc* pUnit, int nSkillId, int nSkill
         if (pMissile)
         {
             sub_004DA690_ReplaceMotionFlag1With8(pMissile);
-            MISSILE_SetMotionFlagMask(pMissile, 0);
+            GFXUTIL_SetMotionFlagMask(pMissile, 0);
             GFXUTIL_SetMotionVectorB(pMissile, 0, 0, -6, 1);
             GFXUTIL_SetMotionVectorC(pMissile, 0, 0, 0, 0);
             GFXUTIL_SetMotionVectorA(pMissile, 0, 0, 0x78);
@@ -758,7 +758,7 @@ int __fastcall SKILLSMON_RequestMissile(D2UnitStrc* pUnit, int nSkillId, int nAr
     const int nMissile = pSkillsTxtRecord->wCltMissileA;
     if (nMissile >= 0 && nMissile < sgptDataTables->nMissilesTxtRecordCount)
     {
-        GFXUTIL_SubmitMissileRequest(pUnit, nMissile, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), nSkillId, nArg);
+        MISSILE_SubmitMissileRequest(pUnit, nMissile, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), nSkillId, nArg);
     }
     return 1;
 }
@@ -818,7 +818,7 @@ int __fastcall SKILLSMON_CreateTimedMissileLine(D2UnitStrc* pUnit, int nSkillId,
     int nCount = 0;
     while (nPos < nDistance)
     {
-        D2UnitStrc* pMissile = GFXUTIL_SubmitMissileRequest(pUnit, nMissileId, nX + nPos * nDeltaX / 100, nY + nPos * nDeltaY / 100, nSkillId, nSkillLevel);
+        D2UnitStrc* pMissile = MISSILE_SubmitMissileRequest(pUnit, nMissileId, nX + nPos * nDeltaX / 100, nY + nPos * nDeltaY / 100, nSkillId, nSkillLevel);
         if (pMissile)
         {
             D2COMMON_10160_PathUpdateDirection(pMissile->pDynamicPath, UNITS_GetDirection(pUnit));
@@ -910,7 +910,7 @@ int __fastcall SKILLSMON_TimedMissile(D2UnitStrc* pUnit, int nSkillId, int nSkil
 
     PARTICLE_ResetGfxMotion(pMissile);
     GFXUTIL_SetMotionVectorA(pMissile, 0, 0, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[0], nSkillId, nSkillLevel));
-    MISSILE_SetMotionFlagMask(pMissile, 1);
+    GFXUTIL_SetMotionFlagMask(pMissile, 1);
     if (pUnit)
     {
         pUnit->dwFlags &= ~0x40;
@@ -943,7 +943,7 @@ int __fastcall SKILLSMON_RequestAtSkillPos(D2UnitStrc* pUnit, int nSkillId, int 
     const int nMissileA = pSkillsTxtRecord->wCltMissileA;
     if (nMissileA >= 0 && nMissileA < sgptDataTables->nMissilesTxtRecordCount)
     {
-        D2UnitStrc* pMissile = GFXUTIL_SubmitMissileRequest(pUnit, nMissileA, nX, nY, nSkillId, nSkillLevel);
+        D2UnitStrc* pMissile = MISSILE_SubmitMissileRequest(pUnit, nMissileA, nX, nY, nSkillId, nSkillLevel);
         if (!pMissile)
         {
             return 0;
@@ -959,7 +959,7 @@ int __fastcall SKILLSMON_RequestAtSkillPos(D2UnitStrc* pUnit, int nSkillId, int 
     const int nMissileB = pSkillsTxtRecord->wCltMissileB;
     if (nMissileB >= 0 && nMissileB < sgptDataTables->nMissilesTxtRecordCount)
     {
-        GFXUTIL_SubmitMissileRequest(pUnit, nMissileB, nX, nY, nSkillId, nSkillLevel);
+        MISSILE_SubmitMissileRequest(pUnit, nMissileB, nX, nY, nSkillId, nSkillLevel);
     }
     return 1;
 }
@@ -990,7 +990,7 @@ int __fastcall SKILLSMON_MoveToSkillPos(D2UnitStrc* pUnit, int nSkillId, int nSk
     const int nMissile = pSkillsTxtRecord->wCltMissileA;
     if (nMissile >= 0 && nMissile < sgptDataTables->nMissilesTxtRecordCount)
     {
-        GFXUTIL_SubmitMissileRequest(pUnit, nMissile, nX, nY, nSkillId, nSkillLevel);
+        MISSILE_SubmitMissileRequest(pUnit, nMissile, nX, nY, nSkillId, nSkillLevel);
     }
     return 1;
 }
@@ -1270,7 +1270,7 @@ static D2MonStatsTxt* MONSTATS_GetTxtRecord(int nMonsterId)
 }
 
 // 0x004F3CE0
-int __fastcall WARDENCLIENT_CreateSkillMissiles(D2UnitStrc* pUnit, int nSkillId, int nArg4, int nX, int nY, int nMonsterId)
+int __fastcall SKILLSMON_CreateSkillMissiles(D2UnitStrc* pUnit, int nSkillId, int nArg4, int nX, int nY, int nMonsterId)
 {
     D2SkillsTxt* pSkillsTxt = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxt)
@@ -1347,7 +1347,7 @@ int __fastcall SKILLSMON_UseSkillParamsB(D2UnitStrc* pUnit, int nSkillId, int nS
     const int nParam1 = SKILLS_GetParam1(pSkill);
     const int nParam2 = SKILLS_GetParam2(pSkill);
     const int nParam3 = SKILLS_GetParam3(pSkill);
-    return WARDENCLIENT_CreateSkillMissiles(pUnit, nSkillId, nSkillLevel, nParam1, nParam2, nParam3);
+    return SKILLSMON_CreateSkillMissiles(pUnit, nSkillId, nSkillLevel, nParam1, nParam2, nParam3);
 }
 
 // 0x004F3EB0

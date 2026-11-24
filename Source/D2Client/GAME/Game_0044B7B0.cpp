@@ -175,7 +175,7 @@ void __cdecl GAME_ReadColorFlag();                                              
 
 int __stdcall COMCALLBACK_LoadLngString(int nId, char* szBuffer, unsigned int nSize);                         // 0x004512C0
 
-void __stdcall CHARSEL_RecordHandler(int nArg1, int nArg2, int nArg3);                                 // 0x00451920
+void __stdcall RECORD_RecordHandler(int nArg1, int nArg2, int nArg3);                                 // 0x00451920
 
 void __cdecl GAME_LoadLoadingScreen();                                                              // 0x00456550
 
@@ -233,7 +233,7 @@ void __cdecl CHAT_ResetChatHistory();                                           
 
 void __cdecl sub_0047F1D0_LoadResolution();                                                                 // 0x0047F1D0
 
-void __cdecl CUNIT_InitColorTable();                                                                                // 0x00483960
+void __cdecl INV_InitColorTable();                                                                                // 0x00483960
 
 void __cdecl PANEL_SetBlackColour();                                                                                // 0x00499E30
 
@@ -562,24 +562,24 @@ extern "C" void __fastcall sub_0044B210_StoreSlots(U32 first, U32 second); // 0x
 
 void __fastcall GAME_SetMcpChatCallback(void (__fastcall* pfnCallback)(void* pArg)); // 0x0044B220
 
-void __fastcall GAME_PushStateValue(int nValue); // 0x0044B440
+void __fastcall WINMAIN_PushStateValue(int nValue); // 0x0044B440
 
-int __cdecl GAME_PopStateValue(); // 0x0044B480
+int __cdecl WINMAIN_PopStateValue(); // 0x0044B480
 
-void __cdecl GAME_RaiseGameWindow(); // 0x0044B780
+void __cdecl WINMAIN_RaiseGameWindow(); // 0x0044B780
 
 
-const char* __cdecl GAME_GetGameName(); // 0x0044B7C0
+const char* __cdecl WINMAIN_GetGameName(); // 0x0044B7C0
 
-const char* __cdecl GAME_GetGameDescription(); // 0x0044B7F0
+const char* __cdecl WINMAIN_GetGameDescription(); // 0x0044B7F0
 
-const char* __cdecl GAME_GetGamePassword(); // 0x0044B820
+const char* __cdecl WINMAIN_GetGamePassword(); // 0x0044B820
 
-int __cdecl GAME_IsHardcore(); // 0x0044B850
+int __cdecl WINMAIN_IsHardcore(); // 0x0044B850
 
-void __cdecl GAME_SetCharDiedFlag(); // 0x0044B860
+void __cdecl WINMAIN_SetCharDiedFlag(); // 0x0044B860
 
-void __cdecl GAME_SetLaunchStateOne(); // 0x0044B870
+void __cdecl WINMAIN_SetLaunchStateOne(); // 0x0044B870
 
 
 void __fastcall GAME_SetResolution(int nResolution); // 0x0044BA20
@@ -707,9 +707,9 @@ void __cdecl GAME_InitGameState()
 
 int __cdecl GAME_LoadLngModule(); // 0x00451330
 
-void __cdecl GAME_InstallRecordHandler(); // 0x00451940
+void __cdecl RECORD_InstallRecordHandler(); // 0x00451940
 
-void __cdecl GAME_SetRecordPlaying(); // 0x00451970
+void __cdecl RECORD_SetRecordPlaying(); // 0x00451970
 
 int __cdecl GAME_PushRegisterState(); // 0x00451F10
 
@@ -722,7 +722,7 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00
 // 0x00452130
 void __cdecl GAME_InitColors()
 {
-    CUNIT_InitColorTable();
+    INV_InitColorTable();
     sub_00499E10();
     PANEL_SetBlackColour();
     sub_004AB2F0();
@@ -787,7 +787,7 @@ void __cdecl GAME_UpdateGameState(); // 0x0044C790
 struct D2UnitStrc;
 
 // build: symbol _CUNIT_ClearTextPanel 0x004A1730
-extern "C" void __cdecl CUNIT_ClearTextPanel()
+extern "C" void __cdecl TEXT_ClearTextPanel()
 {
     TEXT_ResetTextBox();
     Allocation* allocation=gAllocation;

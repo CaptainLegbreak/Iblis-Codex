@@ -1330,7 +1330,7 @@ void __fastcall sub_004DED10(void* pArg)
 }
 
 // 0x004DED20
-void __cdecl MISSILE_UpdateRoomColor()
+void __cdecl WALL2_UpdateRoomColor()
 {
     sub_0061C0B0(gpGlobal_007A0634, &gnRoomColorRed, &gnRoomColorGreen, &gnRoomColorBlue);
     gnRoomColorIntensity = sub_0061C0E0(gpGlobal_007A0634);

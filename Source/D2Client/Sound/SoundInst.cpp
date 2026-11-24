@@ -675,7 +675,7 @@ int __fastcall SOUNDINST_CompareSounds(D2ClientSoundStrc* pA, D2ClientSoundStrc*
 }
 
 // 0x004B9E10
-int __fastcall MONSTER_IsNearPlayer(D2UnitStrc* pUnit)
+int __fastcall SOUNDINST_IsNearPlayer(D2UnitStrc* pUnit)
 {
     D2Vector3FStrc tDelta;
     D2CoordStrc tPlayerCoords;

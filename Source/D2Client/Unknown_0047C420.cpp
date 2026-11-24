@@ -151,7 +151,7 @@ static int CHAT_HandleHelpCommand(char* szInput, const char* szCommand)
                 sub_0049F490_PrintChatMessage(&tMessage);
                 return 1;
             }
-            D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
+            D2ClientNotifyStrc* pNotify = WINMAIN_GetClientNotify();
             if (pNotify)
                 pNotify->pfnResign(szInput);
             return 1;
@@ -220,7 +220,7 @@ static int __stdcall CHAT_HandleWhisperCommand(int bCheckStored, char* szInput, 
                 }
             }
             sprintf(szInput, "%s %s %s", szCommand, szName, szMessage);
-            D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
+            D2ClientNotifyStrc* pNotify = WINMAIN_GetClientNotify();
             if (pNotify)
                 pNotify->pfnResign(szInput);
             return 1;
@@ -371,7 +371,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
                 && !CHAT_HandleHelpCommand(pText, "/help")
                 && !CHAT_HandleHelpCommand(pText, "/?"))
             {
-                D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
+                D2ClientNotifyStrc* pNotify = WINMAIN_GetClientNotify();
                 if (pNotify)
                     pNotify->pfnResign(pText);
             }

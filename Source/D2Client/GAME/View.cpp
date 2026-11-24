@@ -523,7 +523,7 @@ int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                           
 
 int __cdecl sub_0044DB00();                                                                                  // 0x0044DB00
 
-void __cdecl MISSILE_UpdateRoomColor();                                                                 // 0x004DED20
+void __cdecl WALL2_UpdateRoomColor();                                                                 // 0x004DED20
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0
 
@@ -1004,7 +1004,7 @@ void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView)
         DLIGHTMAP_RunLightPass();
     }
 
-    MISSILE_UpdateRoomColor();
+    WALL2_UpdateRoomColor();
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
     if (DUNGEON_GetLevelIdFromRoom(pRoom) == LEVEL_ARCANESANCTUARY)
@@ -1444,7 +1444,7 @@ static void VIEW_DrawSummitBackdrop(D2UnitStrc* pPlayer)
 }
 
 // 0x00476AF0
-void __cdecl UI_ClearGlobals()
+void __cdecl VIEW_ClearGlobals()
 {
     gnViewEffectMagnitude = 0;
     gnViewShiftX = 0;

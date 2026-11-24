@@ -44,17 +44,17 @@ int gbQuestIntroFlagsReady; // 0x007C0ECC
 
 D2GSPacketText5EStrc gaQuestIntroFlags; // 0x007C0EA4
 
-extern "C" void __fastcall TEXT_SetQuestPacketValue(unsigned int value); // 0x004A3100
+extern "C" void __fastcall QUESTLOG_SetQuestPacketValue(unsigned int value); // 0x004A3100
 
 void __fastcall NPCMENU_ReloadHirelingPopup(unsigned short nArg); // 0x004B3340
 
-void __fastcall TEXT_AcceptShortPacket(D2UiPacketStrc_004B9210* pPacket); // 0x004A28A0
+void __fastcall QUESTLOG_AcceptShortPacket(D2UiPacketStrc_004B9210* pPacket); // 0x004A28A0
 
 void __fastcall NPCMENU_OnNpcPacketStoreSubId(D2UiPacketStrc_004B9210* pPacket); // 0x004B25C0
 
 void __fastcall TEXT_AcceptWordPacket(D2UiPacketStrc_004B9210* pPacket); // 0x0049FF60
 
-void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
+void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
 void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 
@@ -81,7 +81,7 @@ void __fastcall sub_004B9210_DispatchUiPacket(D2UiPacketStrc_004B9210* pPacket)
     switch (pPacket->nType)
     {
     case 36:
-        TEXT_SetQuestPacketValue(pPacket->nArg);
+        QUESTLOG_SetQuestPacketValue(pPacket->nArg);
         return;
 
     case 2:
@@ -89,7 +89,7 @@ void __fastcall sub_004B9210_DispatchUiPacket(D2UiPacketStrc_004B9210* pPacket)
         return;
 
     case 1:
-        TEXT_AcceptShortPacket(pPacket);
+        QUESTLOG_AcceptShortPacket(pPacket);
         return;
 
     case 3:
@@ -104,7 +104,7 @@ void __fastcall sub_004B9210_DispatchUiPacket(D2UiPacketStrc_004B9210* pPacket)
 
     case 23:
         sub_00477EE0();
-        GAME_SetExitApplication(0);
+        WINMAIN_SetExitApplication(0);
         GAME_SetCinematicExit(1);
         GAME_RequestExit();
         return;

@@ -65,7 +65,7 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 
 int __stdcall WARDENCLIENT_HandlePanelAreaClick(SMSGHANDLER_PARAMS* pMsg); // 0x004922A0
 
-void __fastcall ITEM_HitTestHotspots(int nX, int nY); // 0x004BFBC0
+void __fastcall USEITEM_HitTestHotspots(int nX, int nY); // 0x004BFBC0
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
@@ -75,7 +75,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
-int __cdecl MONSTER_GetUseItemMode(); // 0x004B1670
+int __cdecl NPCMENU_GetUseItemMode(); // 0x004B1670
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
@@ -153,7 +153,7 @@ typedef void(__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
 
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
-void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 void __cdecl INV_SetNpcStateTrade(); // 0x00487B80
 
@@ -215,7 +215,7 @@ int __cdecl USEITEM_ShowConfirmation()
 }
 
 // 0x004BFBC0
-void __fastcall ITEM_HitTestHotspots(int nX, int nY)
+void __fastcall USEITEM_HitTestHotspots(int nX, int nY)
 {
 // build: symbol ?gnHotspotCount@* 0x007278FC
     for (int i = 0; i < gnHotspotCount; i++)
@@ -382,8 +382,8 @@ void __cdecl USEITEM_DrawUseItemPanel()
      unsigned short textIndex=spot->textIndex;
      if(textIndex==4017){
       if(gnUseItemPanelMode==0)textIndex=3401;
-      if(MONSTER_GetUseItemMode()==511)textIndex=22748;
-      else if(MONSTER_GetUseItemMode()==512)textIndex=22749;
+      if(NPCMENU_GetUseItemMode()==511)textIndex=22748;
+      else if(NPCMENU_GetUseItemMode()==512)textIndex=22749;
      }
      const Unicode* text=D2LANG_GetStringFromTblIndex(textIndex);
      int width=D2Win_10121_GetTextWidth(text);
@@ -394,8 +394,8 @@ void __cdecl USEITEM_DrawUseItemPanel()
   }
   if(gnUseItemPanelMode==1){
    unsigned short textIndex=10076;
-   if(MONSTER_GetUseItemMode()==511)textIndex=22750;
-   else if(MONSTER_GetUseItemMode()==512)textIndex=22747;
+   if(NPCMENU_GetUseItemMode()==511)textIndex=22750;
+   else if(NPCMENU_GetUseItemMode()==512)textIndex=22747;
    const Unicode* panelText=D2LANG_GetStringFromTblIndex(textIndex);
    int lineCount;
    D2SplittedTextStrc* line=sub_00502970_SplitText(panelText,&lineCount,300);
@@ -417,7 +417,7 @@ void __cdecl USEITEM_DrawUseItemPanel()
 }
 
 // 0x004C01E0
-void __cdecl ITEM_DrawPanelUnit()
+void __cdecl USEITEM_DrawPanelUnit()
 {
     if (gnUseItemDialogState)
     {
@@ -510,7 +510,7 @@ void __stdcall USEITEM_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
     }
     if (bHandled)
         return;
-    ITEM_HitTestHotspots(nX, nY);
+    USEITEM_HitTestHotspots(nX, nY);
 check_item:
     D2UnitStrc* pItem = GetCursorItem_Inline();
     if (!pItem)
@@ -525,11 +525,11 @@ check_item:
     {
         if (gnUseItemPanelMode == 1)
         {
-            if (MONSTER_GetUseItemMode() == 0x9A && ITEMS_CanBeImbued(pItem))
+            if (NPCMENU_GetUseItemMode() == 0x9A && ITEMS_CanBeImbued(pItem))
                 goto use_item;
-            if (MONSTER_GetUseItemMode() == 0x1FF && sub_0062C770(pItem))
+            if (NPCMENU_GetUseItemMode() == 0x1FF && sub_0062C770(pItem))
                 goto use_item;
-            if (MONSTER_GetUseItemMode() == 0x200 && sub_0062C6A0(pItem))
+            if (NPCMENU_GetUseItemMode() == 0x200 && sub_0062C6A0(pItem))
                 goto use_item;
         }
         else if (!gnUseItemPanelMode && pTxt->dwCode == 0x20747368)
@@ -612,7 +612,7 @@ void __cdecl USEITEM_OpenPanel()
     UI_CloseUIVars(0, 0);
     gnUseItemDialogState = 1;
     gdwUseItemClickTick = GetTickCount();
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaUseItemHandlers, 8);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaUseItemHandlers, 8);
     INV_SetNpcStateTrade();
     if (!UI_SetUIVar(14, 0, 0))
     {

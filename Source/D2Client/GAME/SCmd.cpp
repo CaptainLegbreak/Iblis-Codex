@@ -472,7 +472,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
 
-void __fastcall NPCMENU_SetMinionSpawnClass(D2ClientPacket7Strc* pPacket); // 0x004B1240
+void __fastcall MONSTER_SetMinionSpawnClass(D2ClientPacket7Strc* pPacket); // 0x004B1240
 
 void __fastcall sub_0049F8C0_UsePacket6(D2ClientPacket6Strc* pPacket); // 0x0049F8C0
 
@@ -814,7 +814,7 @@ void __fastcall ITEM_HandleItemStatePacket(D2GSPacketSrv7DStrc* pPacket); // 0x0
 
 void __fastcall SKILLS_ApplySkillLevelBonus(D2UnitStrc* pUnit, int nA, int nB, unsigned char nC); // 0x004C7990
 
-int __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
+int __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
 void __fastcall PLRSKILLS_BeginState(D2UnitStrc* pUnit, int nState); // 0x004D9B20
 
@@ -869,7 +869,7 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLaye
 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
-unsigned char* __fastcall MONSTER_GetMonUmods(D2UnitStrc* pUnit); // 0x004AC740
+unsigned char* __fastcall MONUNIQUE_GetMonUmods(D2UnitStrc* pUnit); // 0x004AC740
 
 void __fastcall QUESTS_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005449E0
 
@@ -1463,7 +1463,7 @@ void __fastcall ROSTERPETS_SetRosterEntry(int nKey, int nArg, int nType, int nVa
 
 void __fastcall ROSTERPETS_DropPetEntry(int nKey); // 0x00478C90
 
-void __fastcall INV_SetHotkeySkillSlot(int nSlot, int nValueA, int nValueB, int nValueC); // 0x004AA0C0
+void __fastcall SPELLSEL_SetHotkeySkillSlot(int nSlot, int nValueA, int nValueB, int nValueC); // 0x004AA0C0
 
 void __fastcall GFX_LoadGlobalHashedFile(unsigned char nAct); // 0x0046F310
 
@@ -2190,17 +2190,17 @@ struct D2MsgRecordChunkStrc;
 
 int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam, int* pUseResult, int* pResult); // 0x00420B00
 
-int __cdecl UI_IsReplayActive(); // 0x00451990
+int __cdecl RECORD_IsReplayActive(); // 0x00451990
 
 void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x004514B0
 
 // 0x00451B30
-int __stdcall COMCALLBACK_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam)
+int __stdcall SCMD_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam)
 {
     int bUseResult = 0;
     int lResult = 0;
     RECORD_RecordInputMessage(uMessage, wParam, lParam);
-    if (!UI_IsReplayActive() || uMessage == 0x10)
+    if (!RECORD_IsReplayActive() || uMessage == 0x10)
     {
         if (SMsgDispatchMessage(hWnd, uMessage, wParam, lParam, &bUseResult, &lResult) && bUseResult)
             return lResult;
@@ -2299,7 +2299,7 @@ void __fastcall SCMD_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHA
 struct D2MsgHandlerEntryStrc;
 
 // 0x00451DB0
-void __fastcall COMCALLBACK_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount)
+void __fastcall SCMD_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount)
 {
     D2_ASSERT(hWnd, 0x153);
     for (unsigned int i = 0; i < nCount; i++)
@@ -3524,7 +3524,7 @@ void __fastcall SCMD_HandleSetActiveSkill(const D2GSPacketSrv23* pPacket)
 void __fastcall SCMD_HandleSetMinionClass(const D2ClientPacket7Strc* pPacket)
 {
     D2ClientPacket7Strc tPacket = *pPacket;
-    NPCMENU_SetMinionSpawnClass(&tPacket);
+    MONSTER_SetMinionSpawnClass(&tPacket);
 }
 
 // 0x0045DE80
@@ -3754,7 +3754,7 @@ void __fastcall SCMD_HandleMonsterEnchants(const unsigned char* p)
         if (pUnit)
         {
             sub_004AC780_SetMonsterWord(pUnit, n6);
-            unsigned char* pBytes = MONSTER_GetMonUmods(pUnit);
+            unsigned char* pBytes = MONUNIQUE_GetMonUmods(pUnit);
             pBytes[0] = (unsigned char)n8;
             pBytes[1] = (unsigned char)(n8 >> 8);
             pBytes[2] = (unsigned char)nA;
@@ -4052,7 +4052,7 @@ void __fastcall SCMD_HandleAssignHotkey(const D2GSPacketSrv7B* pPacket)
     {
         nSkillId = -1;
     }
-    INV_SetHotkeySkillSlot(pPacket->nSlot, nSkillId, nHand != 0, pPacket->nItemGUID);
+    SPELLSEL_SetHotkeySkillSlot(pPacket->nSlot, nSkillId, nHand != 0, pPacket->nItemGUID);
 }
 
 // 0x0045E910

@@ -49,7 +49,7 @@ int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
 
-void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
+void* __fastcall UNITSND_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
 
 void __fastcall sub_004BA840(void* pUnitSfx); // 0x004BA840
 
@@ -103,7 +103,7 @@ void __fastcall SKILLS_EndLoopSoundSkill(D2UnitStrc* pUnit, int nSkillId)
         if (nFlags & 1)
             SKILLS_SetFlags(pSkill, nFlags | 2);
     }
-    sub_004BA840(MISSILE_FindUnitSfxInRange(pUnit, 0x9E3));
+    sub_004BA840(UNITSND_FindUnitSfxInRange(pUnit, 0x9E3));
 }
 
 // 0x004C9460
