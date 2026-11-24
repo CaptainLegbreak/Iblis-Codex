@@ -4,6 +4,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/sbig-copy 777970b3 520->520 SBigCopy (0x4237D0, from SSignature.cpp) and SBigIsEven (0x421540, from Unknown_0041F6A0) join SBig.cpp; both sit inside its run and have Storm's SBig names. VERIFIED 7e30b84d on base 0af72138 (j80; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). **Stacked on lane3/sbig-arrays** (rebased onto j80; same content as 58ac47ac).
+
 - lane3/sbig-arrays 58ac47ac 520->520 Twelve more SBig functions join SBig.cpp (59 -> 71): SBigToUnsigned and its two helpers (0x421510-0x421550), ToBinary and the six SBigToBinary*/SBigToStream* exports (0x4235F0, 0x423AE0-0x423D30), IsOdd and SBigIsOdd (0x422710, 0x4238F0). ToStream (0x423770) and SBigFromStream stay in Unknown_00421EA0 (reasons in the commit). VERIFIED 1b2331b7 on base 5a0da74b (j78; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). **Stacked on lane3/sbig-exports.**
 
 ## Questions
