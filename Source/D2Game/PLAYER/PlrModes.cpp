@@ -11,6 +11,7 @@
 #include "D2PlayerModes.h"
 #include "D2ItemModes.h"
 #include "D2SkillIds.h"
+#include "D2LanguageNames.h"
 
 #define EVENTTYPE_ENDANIM 1
 
