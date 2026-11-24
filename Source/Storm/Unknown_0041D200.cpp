@@ -24,7 +24,7 @@ struct D2StormInit0041C0C0Strc
 };
 extern "C" __declspec(dllimport) int __stdcall HeapFree(void* hHeap, unsigned long dwFlags, void* lpMem); // 0x006CC320
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
-void __cdecl sub_0041BEE0_InitStorm(); // 0x0041BEE0
+void __cdecl StormInitialize(); // 0x0041BEE0
 extern D2StormList00708420Strc gHandlerList_00708420; // 0x00708420
 extern D2CriticalSectionStrc gErrorStateLock_007790CC; // 0x007790CC
 extern D2StormMsgSourceStrc* gpStormMsgSources_007790E8; // 0x007790E8

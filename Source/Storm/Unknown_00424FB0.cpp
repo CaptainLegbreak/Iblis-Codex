@@ -170,7 +170,7 @@ struct D2StormBigStrc
     BigStack tStack;
 };
 
-unsigned int __stdcall sub_004213B0_FindLastSetBit(BigBuffer* pQueue);                              // 0x004213B0
+unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue);                              // 0x004213B0
 int __stdcall sub_004212F0_Compare(BigBuffer* pLeft, BigBuffer* pRight);                      // 0x004212F0
 int __stdcall sub_004242C0_BigOp(BigBuffer* pResult, BigBuffer* pA, BigBuffer* pB, BigStack* pStack); // 0x004242C0
 
@@ -195,8 +195,8 @@ inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
     return nLow;
 }
 
-static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00422300
-static void __stdcall sub_00422300_Add(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
+static void __stdcall BigAdd(BigBuffer& a, const BigBuffer& b, const BigBuffer& c); // 0x00422300
+static void __stdcall BigAdd(BigBuffer& a, const BigBuffer& b, const BigBuffer& c)
 {
     unsigned __int64 nCarry = 0;
     unsigned int i = 0;
@@ -216,8 +216,8 @@ static int IsZero(BigBuffer& a)
     return a.Count() == 0;
 }
 
-static void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c); // 0x004227A0
-static void __stdcall sub_004227A0_MulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c)
+static void __stdcall BigMulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c); // 0x004227A0
+static void __stdcall BigMulUInt(BigBuffer& a, const BigBuffer& b, unsigned __int64 c)
 {
     unsigned __int64 nCarry = 0;
     unsigned int i = 0;
@@ -318,7 +318,7 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
     BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
     BigBuffer& tDiv = tStack.f_0[tStack.nUsed++];
     BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
-    unsigned int nShift = 31 - (sub_004213B0_FindLastSetBit(&d) & 31);
+    unsigned int nShift = 31 - (BigHighBitIndex(&d) & 31);
     Shl(tRem, c, nShift);
     Shl(tDiv, d, nShift);
     unsigned int nTop = tDiv.Ref(nDCount - 1) + 1;
@@ -335,7 +335,7 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
             a.Ref(0) = (unsigned int)(MakeLarge(tRem.Ref(nDCount - 1), tRem.Ref(nDCount)) / nTop);
         if (a.Ref(0))
         {
-            sub_004227A0_MulUInt(tProduct, tDiv, a.Ref(0));
+            BigMulUInt(tProduct, tDiv, a.Ref(0));
             sub_00423100_Sub(tRem, tRem, tProduct);
         }
         while (tRem.At(nDCount) || sub_004212F0_Compare(&tRem, &tDiv) >= 0)
@@ -366,7 +366,7 @@ static void __stdcall InvMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack&
     {
         Div(tQuot, tRem, tNum, tDen, tStack);
         sub_004242C0_BigOp(&tQuot, &tQuot, &tPrev, &tStack);
-        sub_00422300_Add(tQuot, a, tQuot);
+        BigAdd(tQuot, a, tQuot);
         a.CopyFrom(tPrev);
         tPrev.CopyFrom(tQuot);
         tNum.CopyFrom(tDen);

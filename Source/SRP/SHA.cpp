@@ -5,7 +5,7 @@ struct D2Sha1BlockStrc
     unsigned int l[16];
 };
 
-struct T0041D340
+struct FindSignatureTag
 {
     unsigned int state[5];
     unsigned int count[2];
@@ -51,7 +51,7 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags);                 // 0x00412650
 
-void __fastcall sub_00529F80_SHA1Update(T0041D340* context, unsigned char* data, unsigned int len); // 0x00529F80
+void __fastcall sub_00529F80_SHA1Update(FindSignatureTag* context, unsigned char* data, unsigned int len); // 0x00529F80
 
 void __fastcall sub_0052A040_Sha1Final(unsigned char* pDigest, D2SrpSha1ContextStrc* pContext);            // 0x0052A040
 
@@ -99,7 +99,7 @@ static void sub_00528C90_SHA1Transform(unsigned int state[5], unsigned char buff
 }
 
 // 0x00529F80
-void __fastcall sub_00529F80_SHA1Update(T0041D340* context, unsigned char* data, unsigned int len)
+void __fastcall sub_00529F80_SHA1Update(FindSignatureTag* context, unsigned char* data, unsigned int len)
 {
     unsigned int i, j;
     j = (context->count[0] >> 3) & 63;
@@ -134,7 +134,7 @@ unsigned char* __fastcall SHA_Interleave(unsigned char* key, const unsigned char
     unsigned int klen;
     unsigned char* hbuf;
     unsigned char hout[20];
-    T0041D340 ctxt;
+    FindSignatureTag ctxt;
 
     do
     {
@@ -187,12 +187,12 @@ void __fastcall sub_0052A040_Sha1Final(unsigned char* pDigest, D2SrpSha1ContextS
     {
         abFinalCount[i] = (unsigned char)((pContext->aCount[(i >= 4 ? 0 : 1)] >> ((3 - (i & 3)) * 8)) & 255);
     }
-    sub_00529F80_SHA1Update((T0041D340*)pContext, (unsigned char*)gabSha1Pad80, 1);
+    sub_00529F80_SHA1Update((FindSignatureTag*)pContext, (unsigned char*)gabSha1Pad80, 1);
     while ((pContext->aCount[0] & 504) != 448)
     {
-        sub_00529F80_SHA1Update((T0041D340*)pContext, (unsigned char*)gabSha1Pad00, 1);
+        sub_00529F80_SHA1Update((FindSignatureTag*)pContext, (unsigned char*)gabSha1Pad00, 1);
     }
-    sub_00529F80_SHA1Update((T0041D340*)pContext, abFinalCount, 8);
+    sub_00529F80_SHA1Update((FindSignatureTag*)pContext, abFinalCount, 8);
     for (i = 0; i < 20; i++)
     {
         pDigest[i] = (unsigned char)((pContext->aState[i >> 2] >> ((3 - (i & 3)) * 8)) & 255);

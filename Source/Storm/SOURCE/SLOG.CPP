@@ -61,7 +61,7 @@ void __stdcall SErrReportResourceLeak(const char* szName);                      
 static unsigned long gnSLogLastHandle_00779230; // 0x00779230
 
 // 0x0041FA40
-static void sub_0041FA40_FlushLog(D2SLogStrc* pLog)
+static void FlushLog(D2SLogStrc* pLog)
 {
     unsigned long dwWritten;
     if (pLog->nUsed)
@@ -114,7 +114,7 @@ static D2SLogStrc* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* h
 }
 
 // 0x0041FB40
-static void sub_0041FB40_AppendIndent(D2SLogStrc* pLog)
+static void AppendIndent(D2SLogStrc* pLog)
 {
     int nIndent = pLog->indent;
     if (nIndent > 0)
@@ -128,14 +128,14 @@ static void sub_0041FB40_AppendIndent(D2SLogStrc* pLog)
 }
 
 // 0x0041FB80
-static void sub_0041FB80_AppendNewline(D2SLogStrc* pLog)
+static void AppendNewline(D2SLogStrc* pLog)
 {
     SMemCopy(pLog->szBuffer + pLog->nUsed, gszSLogNewline_006CFF08, 3);
     pLog->nUsed += 2;
 }
 
 // 0x0041FBA0
-static void __stdcall sub_0041FBA0_AppendTimestamp(int bText, D2SLogStrc* pLog)
+static void __stdcall AppendTimestamp(int bText, D2SLogStrc* pLog)
 {
     if (!pLog->f_18)
         return;
@@ -158,11 +158,11 @@ static void __stdcall sub_0041FBA0_AppendTimestamp(int bText, D2SLogStrc* pLog)
         pLog->szBuffer[pLog->nUsed + gnSLogTimeLength_007792A8] = 0;
     }
     pLog->nUsed += gnSLogTimeLength_007792A8;
-    sub_0041FB40_AppendIndent(pLog);
+    AppendIndent(pLog);
 }
 
 // 0x0041FC80
-static void sub_0041FC80_UnlinkLog(D2SLogStrc* pLog, unsigned long nIndex)
+static void FreeLog(D2SLogStrc* pLog, unsigned long nIndex)
 {
     D2SLogStrc** ppNext = &gapSLogBuckets_00779298[nIndex];
     for (D2SLogStrc* p = *ppNext; p; p = *ppNext)
@@ -179,7 +179,7 @@ static void sub_0041FC80_UnlinkLog(D2SLogStrc* pLog, unsigned long nIndex)
 }
 
 // 0x0041FCE0
-static void sub_0041FCE0_UnlockLog(unsigned long nIndex)
+static void UnlockLog(unsigned long nIndex)
 {
     LeaveCriticalSection(&gaSLogLocks_00779238[nIndex]);
 }
@@ -191,9 +191,9 @@ void __stdcall SLogClose(void* hLog)
     D2SLogStrc* pLog = LockLog(&nIndex, 0, hLog);
     if (pLog)
     {
-        sub_0041FA40_FlushLog(pLog);
+        FlushLog(pLog);
         CloseHandle(pLog->hFile);
-        sub_0041FC80_UnlinkLog(pLog, nIndex);
+        FreeLog(pLog, nIndex);
     }
 }
 
@@ -223,7 +223,7 @@ int __stdcall SLogCreate(const char* szFileName, unsigned long dwFlags, void** p
     pLog->hFile = hFile;
     pLog->f_18 = 1;
     pLog->indent = 0;
-    sub_0041FCE0_UnlockLog(nIndex);
+    UnlockLog(nIndex);
     return 1;
 }
 
@@ -236,7 +236,7 @@ void __stdcall SLogDump(void* hLog, const void* pData, unsigned long nSize)
         return;
     for (unsigned long nOffset = 0; nOffset < nSize; nOffset += 8)
     {
-        sub_0041FBA0_AppendTimestamp(0, pLog);
+        AppendTimestamp(0, pLog);
         wsprintfA(pLog->szBuffer + pLog->nUsed, "%04x: ", nOffset);
         pLog->nUsed += SStrLen(pLog->szBuffer + pLog->nUsed);
         for (unsigned long i = nOffset; i < nOffset + 8; ++i)
@@ -269,14 +269,14 @@ void __stdcall SLogDump(void* hLog, const void* pData, unsigned long nSize)
             if ((i & 7) == 3)
                 pLog->nUsed += SStrCopy(pLog->szBuffer + pLog->nUsed, gszSpace, 0x7FFFFFFF);
         }
-        sub_0041FB80_AppendNewline(pLog);
+        AppendNewline(pLog);
     }
     if (gbSLogDebugOutput_007790AC)
         OutputDebugStringA(pLog->szBuffer + pLog->nPended);
     pLog->nPended = pLog->nUsed;
     if (pLog->nUsed >= 0xC000)
-        sub_0041FA40_FlushLog(pLog);
-    sub_0041FCE0_UnlockLog(nIndex);
+        FlushLog(pLog);
+    UnlockLog(nIndex);
 }
 
 // 0x0041FFC0
@@ -286,8 +286,8 @@ void __stdcall SLogFlush(void* hLog)
     D2SLogStrc* pLog = LockLog(&nIndex, 0, hLog);
     if (pLog)
     {
-        sub_0041FA40_FlushLog(pLog);
-        sub_0041FCE0_UnlockLog(nIndex);
+        FlushLog(pLog);
+        UnlockLog(nIndex);
     }
 }
 
@@ -298,7 +298,7 @@ void __cdecl SLogFlushAll()
     {
         EnterCriticalSection(&gaSLogLocks_00779238[i]);
         for (D2SLogStrc* p = gapSLogBuckets_00779298[i]; p; p = p->pNext)
-            sub_0041FA40_FlushLog(p);
+            FlushLog(p);
         LeaveCriticalSection(&gaSLogLocks_00779238[i]);
     }
 }
@@ -324,13 +324,13 @@ void __cdecl SLogPend(void* hLog, const char* szFormat, ...)
     if (!pLog)
         return;
     pLog->nUsed = pLog->nPended;
-    sub_0041FBA0_AppendTimestamp(1, pLog);
+    AppendTimestamp(1, pLog);
     va_list args;
     va_start(args, szFormat);
     vsprintf(pLog->szBuffer + pLog->nUsed, szFormat, args);
     pLog->nUsed += SStrLen(pLog->szBuffer + pLog->nUsed);
-    sub_0041FB80_AppendNewline(pLog);
-    sub_0041FCE0_UnlockLog(nIndex);
+    AppendNewline(pLog);
+    UnlockLog(nIndex);
 }
 
 // 0x004200E0
@@ -342,7 +342,7 @@ int __stdcall SLogSetAbsIndent(void* hLog, int nIndent)
         return 0;
     int nOld = pLog->indent;
     pLog->indent = nIndent;
-    sub_0041FCE0_UnlockLog(nIndex);
+    UnlockLog(nIndex);
     return nOld;
 }
 
@@ -355,7 +355,7 @@ int __stdcall SLogSetIndent(void* hLog, int nDelta)
         return 0;
     int nOld = pLog->indent;
     pLog->indent = nOld + nDelta;
-    sub_0041FCE0_UnlockLog(nIndex);
+    UnlockLog(nIndex);
     return nOld;
 }
 
@@ -367,7 +367,7 @@ void __stdcall SLogSetTimestamp(void* hLog, int bTimestamp)
     if (pLog)
     {
         pLog->f_18 = bTimestamp;
-        sub_0041FCE0_UnlockLog(nIndex);
+        UnlockLog(nIndex);
     }
 }
 
@@ -378,18 +378,18 @@ void __cdecl SLogWrite(void* hLog, const char* szFormat, ...)
     D2SLogStrc* pLog = LockLog(&nIndex, 0, hLog);
     if (!pLog)
         return;
-    sub_0041FBA0_AppendTimestamp(1, pLog);
+    AppendTimestamp(1, pLog);
     va_list args;
     va_start(args, szFormat);
     vsprintf(pLog->szBuffer + pLog->nUsed, szFormat, args);
     pLog->nUsed += SStrLen(pLog->szBuffer + pLog->nUsed);
-    sub_0041FB80_AppendNewline(pLog);
+    AppendNewline(pLog);
     if (gbSLogDebugOutput_007790AC)
         OutputDebugStringA(pLog->szBuffer + pLog->nPended);
     pLog->nPended = pLog->nUsed;
     if (pLog->nUsed >= 0xC000)
-        sub_0041FA40_FlushLog(pLog);
-    sub_0041FCE0_UnlockLog(nIndex);
+        FlushLog(pLog);
+    UnlockLog(nIndex);
 }
 
 // 0x00420220

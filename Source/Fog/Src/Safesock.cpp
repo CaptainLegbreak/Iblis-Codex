@@ -419,7 +419,7 @@ void __cdecl SYSTEM_InitTimeBase(); // 0x004109D0
 
 void __cdecl sub_00411210_InitTimer(); // 0x00411210
 
-void __fastcall sub_0041C0E0_SetCallback(void* pfnHandler); // 0x0041C0E0
+void __fastcall SetErrorReportCallback(void* pfnHandler); // 0x0041C0E0
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 

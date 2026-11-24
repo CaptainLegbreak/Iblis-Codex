@@ -242,11 +242,11 @@ int __stdcall SFileSetBasePath(const char* szPath); // 0x004164B0
 
 extern int gnGenericRle; // 0x008F03C8
 
-int __stdcall sub_00419980(const char* szFileName, void** phFile); // 0x00419980
+int __stdcall SFileOpenFile(const char* szFileName, void** phFile); // 0x00419980
 
 int __stdcall SFileReadFileEx2(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg6, int nArg7); // 0x0041AAD0
 
-int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00416370
+int __stdcall SFileGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00416370
 
 struct D2FindDataStrc
 {
@@ -836,7 +836,7 @@ void __cdecl SYSTEM_InitTimeBase(); // 0x004109D0
 
 void __cdecl sub_00411210_InitTimer(); // 0x00411210
 
-void __fastcall sub_0041C0E0_SetCallback(void* pfnHandler); // 0x0041C0E0
+void __fastcall SetErrorReportCallback(void* pfnHandler); // 0x0041C0E0
 
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 
@@ -1913,7 +1913,7 @@ bool crashy::Report::WriteInspectorHeader()
 // 0x004068E0
 int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile)
 {
-    return sub_00419980(szFileName, phFile);
+    return SFileOpenFile(szFileName, phFile);
 }
 
 // 0x00406900
@@ -1955,7 +1955,7 @@ D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
 // 0x00406930
 int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh)
 {
-    return sub_00416370_StormGetFileSize(hFile, pnSizeHigh);
+    return SFileGetFileSize(hFile, pnSizeHigh);
 }
 
 // 0x00406940

@@ -181,9 +181,9 @@ extern int gdwGlobal_007C914C; // 0x007C914C
 static void __stdcall GenerateError(D2ErrorCallback callback, unsigned int error, const char* context);
 static int __stdcall ProcessFlags(const char* szString, OptionContextStrc* pContext, D2ErrorCallback pfnError);
 static int __stdcall ProcessToken(const char* szToken, OptionContextStrc* pContext, CMDDEF** ppOption, int nQuoted, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError);
-static int __stdcall sub_006C3F50_ReadCommandFile(const char* file, OptionContextStrc* arg1, CMDDEF** arg2, OptionCallbackToken arg3, D2ErrorCallback callback);
-int __fastcall sub_006C4EC0_ParseCommandLine(const char** ppszCmdLine, OptionContextStrc* pContext, CMDDEF** ppOption, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError);
-int __stdcall sub_006C4D70_FindValue(int nId);
+static int __stdcall ProcessFile(const char* file, OptionContextStrc* arg1, CMDDEF** arg2, OptionCallbackToken arg3, D2ErrorCallback callback); // 0x006C3F50
+int __fastcall ProcessCommandLine(const char** ppszCmdLine, OptionContextStrc* pContext, CMDDEF** ppOption, OptionCallbackToken pfnCallback, D2ErrorCallback pfnError); // 0x006C4EC0
+int __stdcall SCmdGetNum(int nId); // 0x006C4D70
 int __stdcall SCmdProcess(const char* szCommandLine, int bSkipFirst, OptionCallbackToken pfnExtra, D2ErrorCallback pfnError);
 int __stdcall SCmdRegisterArgument(unsigned int dwFlags, unsigned int dwId, const char* szName, void* pVariable, unsigned int nBytes, int nSetValue, int nSetMask, OptionCallback pfnCallback);
 
@@ -298,7 +298,7 @@ static void __stdcall ConvertBool(int* pLength, CMDDEF* pOption, const char* szS
 }
 
 // 0x006C3D20
-static void __stdcall sub_006C3D20_ParseInteger(CMDDEF* pOption, const char* szString, int* pLength)
+static void __stdcall ConvertInteger(CMDDEF* pOption, const char* szString, int* pLength)
 {
     char* pEnd = 0;
     if (pOption->dwFlags & 1)
@@ -321,7 +321,7 @@ static void __stdcall sub_006C3D20_ParseInteger(CMDDEF* pOption, const char* szS
 }
 
 // 0x006C3DA0
-static void __stdcall sub_006C3DA0_ParseString(CMDDEF* pOption, const char* szString, int* pLength)
+static void __stdcall ConvertString(CMDDEF* pOption, const char* szString, int* pLength)
 {
     *pLength = SStrLen(szString);
     if (pOption->szValue)
@@ -376,7 +376,7 @@ static void __stdcall GenerateError(D2ErrorCallback callback, unsigned int error
 }
 
 // 0x006C3F50
-static int __stdcall sub_006C3F50_ReadCommandFile(const char* file, OptionContextStrc* arg1, CMDDEF** arg2, OptionCallbackToken arg3, D2ErrorCallback callback)
+static int __stdcall ProcessFile(const char* file, OptionContextStrc* arg1, CMDDEF** arg2, OptionCallbackToken arg3, D2ErrorCallback callback)
 {
     void* handle = CreateFileA(file, 0x80000000, 1, 0, 3, 0x08000000, 0);
     if (handle == (void*)-1)
@@ -392,7 +392,7 @@ static int __stdcall sub_006C3F50_ReadCommandFile(const char* file, OptionContex
     CloseHandle(handle);
     buffer[read] = 0;
     const char* cursor = buffer;
-    int result = sub_006C4EC0_ParseCommandLine(&cursor, arg1, arg2, arg3, callback);
+    int result = ProcessCommandLine(&cursor, arg1, arg2, arg3, callback);
     SMemFree(buffer, gszSCmdFile_006FCC30, 356, 0);
     return result;
 }
@@ -436,7 +436,7 @@ void __fastcall sub_006C4140_InitList(sub_006C4140_List* pList)
 }
 
 // 0x006C42E0
-static CMDDEF* __stdcall sub_006C42E0_FindLongestPrefix(const char* szString, int nMinLength, CMDDEF* pHead)
+static CMDDEF* __stdcall FindLongestPrefix(const char* szString, int nMinLength, CMDDEF* pHead)
 {
     int nStringLength = SStrLen(szString);
     int nBestLength = nMinLength - 1;
@@ -540,10 +540,10 @@ static int __stdcall PerformConversion(const char* szString, int* pLength, CMDDE
         ConvertBool(pLength, pOption, szString);
         break;
     case 0x10000:
-        sub_006C3D20_ParseInteger(pOption, szString, pLength);
+        ConvertInteger(pOption, szString, pLength);
         break;
     case 0x20000:
-        sub_006C3DA0_ParseString(pOption, szString, pLength);
+        ConvertString(pOption, szString, pLength);
         break;
     default:
         return 0;
@@ -594,7 +594,7 @@ static int __stdcall PerformConversion(const char* szString, int* pLength, CMDDE
 }
 
 // 0x006C4980
-static int __stdcall sub_006C4980_ApplyOptions(OptionContextStrc* pContext, const char* szString, int* pLength)
+static int __stdcall ConvertPendingOptions(OptionContextStrc* pContext, const char* szString, int* pLength)
 {
     *pLength = 0;
     CMDDEF* pOption = pContext->pCurrent;
@@ -607,7 +607,7 @@ static int __stdcall sub_006C4980_ApplyOptions(OptionContextStrc* pContext, cons
 
         *pLength = *pLength > nLength ? *pLength : nLength;
 
-        pOption = sub_006C42E0_FindLongestPrefix(pContext->szBuffer, pContext->nMinLength, OPTION_Next(pOption->m_link.m_next));
+        pOption = FindLongestPrefix(pContext->szBuffer, pContext->nMinLength, OPTION_Next(pOption->m_link.m_next));
     }
     return 1;
 }
@@ -627,7 +627,7 @@ static int __stdcall ProcessFlags(const char* szString, OptionContextStrc* pCont
             if ((int)(nPos + nStringLength) < 0x100)
             {
                 SStrCopy(&szBuffer[nPos], szString, 0x100);
-                pFound = sub_006C42E0_FindLongestPrefix(szBuffer, 0, OPTION_Next(gOptionList_0074C498.m_terminator.m_next));
+                pFound = FindLongestPrefix(szBuffer, 0, OPTION_Next(gOptionList_0074C498.m_terminator.m_next));
                 if (pFound)
                 {
                     nPos = pFound->nNameLength;
@@ -662,7 +662,7 @@ static int __stdcall ProcessFlags(const char* szString, OptionContextStrc* pCont
         }
 
         int nLength;
-        if (!sub_006C4980_ApplyOptions(pContext, szString, &nLength))
+        if (!ConvertPendingOptions(pContext, szString, &nLength))
         {
             return 0;
         }
@@ -678,7 +678,7 @@ static int __stdcall ProcessToken(const char* szToken, OptionContextStrc* pConte
 {
     if (*szToken == '@' && !nQuoted)
     {
-        return sub_006C3F50_ReadCommandFile(szToken + 1, pContext, ppOption, pfnCallback, pfnError);
+        return ProcessFile(szToken + 1, pContext, ppOption, pfnCallback, pfnError);
     }
 
     if (SStrChr("-/", *szToken) && !nQuoted)
@@ -690,7 +690,7 @@ static int __stdcall ProcessToken(const char* szToken, OptionContextStrc* pConte
     int nLength;
     if (pContext->pCurrent)
     {
-        return sub_006C4980_ApplyOptions(pContext, szToken, &nLength);
+        return ConvertPendingOptions(pContext, szToken, &nLength);
     }
 
     CMDDEF* pOption = *ppOption;
@@ -719,7 +719,7 @@ static int __stdcall ProcessToken(const char* szToken, OptionContextStrc* pConte
 }
 
 // 0x006C4CA0
-int __stdcall sub_006C4CA0_FindValue(int nId)
+int __stdcall SCmdIsArgumentSet(int nId)
 {
     for (int i = 0; i <= 1; ++i)
     {
@@ -755,7 +755,7 @@ int __cdecl SCmdDestroy()
 }
 
 // 0x006C4D70
-int __stdcall sub_006C4D70_FindValue(int nId)
+int __stdcall SCmdGetNum(int nId)
 {
     for (int i = 0; i <= 1; ++i)
     {
@@ -803,7 +803,7 @@ int __stdcall SCmdGetString(int nId, char* szBuffer, unsigned int nBufferSize)
 }
 
 // 0x006C4E50
-int __stdcall sub_006C4E50_RegisterArgList(D2CmdArg006C4E50Strc* pArgs, unsigned int nCount)
+int __stdcall SCmdRegisterArgList(D2CmdArg006C4E50Strc* pArgs, unsigned int nCount)
 {
     VALIDATEBEGIN;
     VALIDATE(pArgs);
@@ -819,7 +819,7 @@ int __stdcall sub_006C4E50_RegisterArgList(D2CmdArg006C4E50Strc* pArgs, unsigned
 }
 
 // 0x006C4EC0
-int __fastcall sub_006C4EC0_ParseCommandLine(const char** ppszCmdLine, OptionContextStrc* pnState, CMDDEF** pnContext, OptionCallbackToken pfnCallback, D2ErrorCallback pUserData)
+int __fastcall ProcessCommandLine(const char** ppszCmdLine, OptionContextStrc* pnState, CMDDEF** pnContext, OptionCallbackToken pfnCallback, D2ErrorCallback pUserData)
 {
     while (**ppszCmdLine)
     {
@@ -839,7 +839,7 @@ int __fastcall sub_006C4EC0_ParseCommandLine(const char** ppszCmdLine, OptionCon
 // 0x006C4F90
 int __stdcall SCmdGetBool(int nKey)
 {
-    return sub_006C4D70_FindValue(nKey) != 0;
+    return SCmdGetNum(nKey) != 0;
 }
 
 // 0x006C4FB0
@@ -857,7 +857,7 @@ int __stdcall SCmdProcess(const char* szCommandLine, int bSkipFirst, OptionCallb
     OptionContextStrc tState;
     SMemZero(&tState, sizeof(tState));
     CMDDEF* pCmd = gOptionList_0074C48C.Head();
-    if (!sub_006C4EC0_ParseCommandLine(&szCommandLine, &tState, &pCmd, pfnExtra, pfnError))
+    if (!ProcessCommandLine(&szCommandLine, &tState, &pCmd, pfnExtra, pfnError))
     {
         return 0;
     }

@@ -107,8 +107,8 @@ struct D2StormListStrc
 typedef int (__stdcall* SMSGHANDLER)(void* pParams);
 
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
-void __stdcall sub_004208E0_AddWndRec(int nValue);
-int __stdcall sub_00420CF0_WindowProc(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam);
+void __stdcall AddWindow(int nValue); // 0x004208E0
+int __stdcall DispatcherWindowProc(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam); // 0x00420CF0
 int __fastcall sub_004209E0_FindWndRec(HWND__* hWnd);
 int __stdcall SEvtRegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, int nFlags, SMSGHANDLER pHandler); // 0x00426420
 
@@ -312,7 +312,8 @@ void __cdecl sub_004212B0_Empty()
 {
 }
 
-static int sub_00421440_IsEven(const BigBuffer& a)
+// build: symbol ?BigIsEven@* 0x00421440
+static int BigIsEven(const BigBuffer& a)
 {
     return !a.Count() || !(a[0] & 1);
 }

@@ -4203,7 +4203,8 @@ int __cdecl GAME_PushRegisterState()
 // 0x00451F20
 void __cdecl GAME_RegisterWindowHandlers()
 {
-    sub_00420320_RegisterHandlers(WINDOW_GetWindow());
+// build: symbol ?SMsgPopRegisterState@* 0x00420320
+    SMsgPopRegisterState(WINDOW_GetWindow());
 }
 
 struct Pad40_00451F30;

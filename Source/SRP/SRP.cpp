@@ -29,7 +29,7 @@ struct D2BigServerRecordStrc;
 
 struct D2BigServerHandlesStrc;
 
-struct T0041D340;
+struct FindSignatureTag;
 
 struct Context00529F50;
 
@@ -72,7 +72,7 @@ struct D2BigServerHandlesStrc
 
 unsigned char* __fastcall SHA_Interleave(unsigned char* pDest, const unsigned char* pData, unsigned int nSize); // 0x0052A120
 
-struct T0041D340
+struct FindSignatureTag
 {
     unsigned long state[5];
     unsigned int count[2];

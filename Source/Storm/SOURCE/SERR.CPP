@@ -49,20 +49,20 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
-void* __cdecl sub_00420310_GetWindow(); // 0x00420310
+void* __cdecl SMsgGetDefaultWindow(); // 0x00420310
 
-void __cdecl sub_0041C1A0_LockErrorState();
-void __cdecl sub_0041C1E0_UnlockErrorState();
-void __stdcall sub_0041C0F0_AppendExeMsgSource(unsigned short wFacility);
-void __cdecl sub_0041C140_AppendExeMsgSources();
-void __cdecl sub_0041C160_DebugBreak();
+void __cdecl LockErrorState(); // 0x0041C1A0
+void __cdecl UnlockErrorState(); // 0x0041C1E0
+void __stdcall AddMessageSource(unsigned short wFacility); // 0x0041C0F0
+void __cdecl AddDefaultMessageSources(); // 0x0041C140
+void __cdecl BreakIntoDebugger(); // 0x0041C160
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
-void __stdcall sub_0041C360_SetSuppress(int bSuppress);
+void __stdcall SErrSuppressErrors(int bSuppress); // 0x0041C360
 int __stdcall SErrGetErrorStr(unsigned long error, char* buffer, unsigned long size);
 int __stdcall SErrDisplayError(unsigned int nErrorCode, const char* szFile, int nLine, const char* szDescription, int bRecoverable, unsigned int nExitCode);
 void __stdcall SErrReportNamedResourceLeak(const char* szName, const char* szDetail);
-static const char* sub_0041C170_GetMessageText(int nIndex);
-static int __stdcall sub_0041C1F0_FormatTypeName(const char* szName, char* szOut, unsigned int nSize);
+static const char* GetMessageText(int nIndex); // 0x0041C170
+static int __stdcall FormatTypeName(const char* szName, char* szOut, unsigned int nSize); // 0x0041C1F0
 
 extern "C" const char gszCloseParen_006CF324[]; // 0x006CF324
 extern "C" const char gszTypeNameEnd_006CF32C[];                                                           // 0x006CF32C
@@ -191,13 +191,13 @@ char* __cdecl sub_0041C0D0_StrPbrk(const char* szString, const char* szCharSet)
 }
 
 // 0x0041C0E0
-void __fastcall sub_0041C0E0_SetCallback(void* pCallback)
+void __fastcall SetErrorReportCallback(void* pCallback)
 {
     gpErrorReport_007790F8 = (D2ErrorReportFn)pCallback;
 }
 
 // 0x0041C0F0
-void __stdcall sub_0041C0F0_AppendExeMsgSource(unsigned short wFacility)
+void __stdcall AddMessageSource(unsigned short wFacility)
 {
     D2StormMsgSourceStrc** ppSource = &gpStormMsgSources_007790E8;
     while (*ppSource)
@@ -209,21 +209,21 @@ void __stdcall sub_0041C0F0_AppendExeMsgSource(unsigned short wFacility)
 }
 
 // 0x0041C140
-void __cdecl sub_0041C140_AppendExeMsgSources()
+void __cdecl AddDefaultMessageSources()
 {
-    sub_0041C0F0_AppendExeMsgSource(0x510);
-    sub_0041C0F0_AppendExeMsgSource(0x876);
-    sub_0041C0F0_AppendExeMsgSource(0x878);
+    AddMessageSource(0x510);
+    AddMessageSource(0x876);
+    AddMessageSource(0x878);
 }
 
 // 0x0041C160
-void __cdecl sub_0041C160_DebugBreak()
+void __cdecl BreakIntoDebugger()
 {
     __debugbreak();
 }
 
 // 0x0041C170
-static const char* sub_0041C170_GetMessageText(int nIndex)
+static const char* GetMessageText(int nIndex)
 {
     if (LoadStringA(StormGetInstance(), nIndex + 0x5100, gszMessageBuffer_00779100, 256))
         return gszMessageBuffer_00779100;
@@ -231,7 +231,7 @@ static const char* sub_0041C170_GetMessageText(int nIndex)
 }
 
 // 0x0041C1A0
-void __cdecl sub_0041C1A0_LockErrorState()
+void __cdecl LockErrorState()
 {
     if (!InterlockedIncrement(&gnErrorLockUsers_0070841C))
         InitializeCriticalSection(&gErrorStateLock_007790CC);
@@ -241,13 +241,13 @@ void __cdecl sub_0041C1A0_LockErrorState()
 }
 
 // 0x0041C1E0
-void __cdecl sub_0041C1E0_UnlockErrorState()
+void __cdecl UnlockErrorState()
 {
     LeaveCriticalSection(&gErrorStateLock_007790CC);
 }
 
 // 0x0041C1F0
-static int __stdcall sub_0041C1F0_FormatTypeName(const char* szName, char* szOut, unsigned int nSize)
+static int __stdcall FormatTypeName(const char* szName, char* szOut, unsigned int nSize)
 {
     if (SStrLen(szName) < 6)
         return 0;
@@ -270,13 +270,13 @@ static int __stdcall sub_0041C1F0_FormatTypeName(const char* szName, char* szOut
 }
 
 // 0x0041C2A0
-int __cdecl sub_0041C2A0()
+int __cdecl SErrGetLastError()
 {
     return gdwStormLastError_007790F4;
 }
 
 // 0x0041C2B0
-int __cdecl sub_0041C2B0()
+int __cdecl SErrIsDisplayingError()
 {
     return gbErrorActive_007790E4;
 }
@@ -284,23 +284,23 @@ int __cdecl sub_0041C2B0()
 // 0x0041C2C0
 void __stdcall SErrPrepareAppFatal(void* pOwnerA, void* pOwnerB)
 {
-    sub_0041C1A0_LockErrorState();
+    LockErrorState();
     gpStormOwnerA_007790C0 = pOwnerA;
     gpStormOwnerB_007790C4 = pOwnerB;
     gdwStormOwnerThread_007790C8 = GetCurrentThreadId();
-    sub_0041C1E0_UnlockErrorState();
+    UnlockErrorState();
 }
 
 // 0x0041C2F0
 int __stdcall SErrRegisterMessageSource(unsigned short wFacility, void* hModule, void* pReserved)
 {
-    sub_0041C1A0_LockErrorState();
+    LockErrorState();
     D2StormMsgSourceStrc* pSource = (D2StormMsgSourceStrc*)HeapAlloc(GetProcessHeap(), 4, sizeof(D2StormMsgSourceStrc));
     pSource->wFacility = wFacility;
     pSource->hModule = hModule;
     pSource->pNext = gpStormMsgSources_007790E8;
     gpStormMsgSources_007790E8 = pSource;
-    sub_0041C1E0_UnlockErrorState();
+    UnlockErrorState();
     return 1;
 }
 
@@ -312,7 +312,7 @@ void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode)
 }
 
 // 0x0041C360
-void __stdcall sub_0041C360_SetSuppress(int bSuppress)
+void __stdcall SErrSuppressErrors(int bSuppress)
 {
     gbErrorSuppress_007790F0 = bSuppress;
 }
@@ -353,8 +353,8 @@ int __stdcall SErrGetErrorStr(unsigned long error, char* buffer, unsigned long s
     VALIDATE(buffer);
     VALIDATE(size);
     VALIDATEEND;
-    sub_0041C1A0_LockErrorState();
-    if (!gnInitialized_007790EC) { gnInitialized_007790EC = 1; sub_0041C140_AppendExeMsgSources(); }
+    LockErrorState();
+    if (!gnInitialized_007790EC) { gnInitialized_007790EC = 1; AddDefaultMessageSources(); }
     D2StormMsgSourceStrc* const head = gpStormMsgSources_007790E8;
     unsigned int facility = (error >> 16) & 0xfff;
     void* module = 0;
@@ -365,7 +365,7 @@ int __stdcall SErrGetErrorStr(unsigned long error, char* buffer, unsigned long s
             source = source->pNext;
         } while (source);
     }
-    sub_0041C1E0_UnlockErrorState();
+    UnlockErrorState();
     buffer[0] = 0;
     return FormatMessageA(module ? 0x800 : 0x1000, module, error, 0x400, buffer, size, 0) != 0;
 }
@@ -400,10 +400,10 @@ D2ChatStormListCStrc::D2ChatStormListCStrc()
 // 0x0041C900
 void __stdcall SErrRegisterHandler(SERRHANDLERPROC pfnHandler)
 {
-    sub_0041C1A0_LockErrorState();
+    LockErrorState();
     HANDLER* pNode = gHandlerList_00708420.NewNode(1, 0, 0x8000000);
     pNode->pfnHandler = pfnHandler;
-    sub_0041C1E0_UnlockErrorState();
+    UnlockErrorState();
 }
 
 // 0x0041CA80
@@ -431,7 +431,7 @@ int __stdcall SErrDisplayError(unsigned int nErrorCode,const char* szFile,int nL
     if(gbErrorSuppress_007790F0) return 0;
     if(gbErrorActive_007790E4) return 0;
     gbErrorActive_007790E4=1;
-    sub_0041C1A0_LockErrorState();
+    LockErrorState();
     char szModulePath[0x104];
     char szModuleName[0x104];
     szModulePath[0]=0;
@@ -448,10 +448,10 @@ int __stdcall SErrDisplayError(unsigned int nErrorCode,const char* szFile,int nL
     char szError[0x100];
     szError[0]=0;
     SErrGetErrorStr(nErrorCode,szError,0x100);
-    if(!szError[0]) wsprintfA(szError,sub_0041C170_GetMessageText(0),(unsigned short)nErrorCode,nErrorCode);
+    if(!szError[0]) wsprintfA(szError,GetMessageText(0),(unsigned short)nErrorCode,nErrorCode);
     const char* szName=szFile;
     char szTypeName[0x100];
-    if(szName && *szName && (nLine==-2 || nLine==-3) && sub_0041C1F0_FormatTypeName(szName,szTypeName,0x100)) szName=szTypeName;
+    if(szName && *szName && (nLine==-2 || nLine==-3) && FormatTypeName(szName,szTypeName,0x100)) szName=szTypeName;
     char szMessage[0x400];
     char* p=szMessage;
     if(szName) p+=SStrCopy(p,szName,0x7fffffff);
@@ -459,26 +459,26 @@ int __stdcall SErrDisplayError(unsigned int nErrorCode,const char* szFile,int nL
     wsprintfA(p,gszErrorFormat_006CF33C,(unsigned short)nErrorCode);p+=SStrLen(p);
     SStrCopy(p,szError,0x7fffffff);
     OutputDebugStringA(szMessage);
-    wsprintfA(szMessage,sub_0041C170_GetMessageText(1),szError);
+    wsprintfA(szMessage,GetMessageText(1),szError);
     p=szMessage+SStrLen(szMessage);
-    wsprintfA(p,sub_0041C170_GetMessageText(2),szModulePath);p+=SStrLen(p);
+    wsprintfA(p,GetMessageText(2),szModulePath);p+=SStrLen(p);
     if(szName && *szName)
     {
         switch(nLine)
         {
-        case -1: wsprintfA(p,sub_0041C170_GetMessageText(4),szName);break;
-        case -2: wsprintfA(p,sub_0041C170_GetMessageText(5),szName);break;
-        case -3: wsprintfA(p,sub_0041C170_GetMessageText(6),szName);break;
-        case -4: wsprintfA(p,sub_0041C170_GetMessageText(11),szName);break;
-        default: wsprintfA(p,sub_0041C170_GetMessageText(3),szName,nLine);break;
+        case -1: wsprintfA(p,GetMessageText(4),szName);break;
+        case -2: wsprintfA(p,GetMessageText(5),szName);break;
+        case -3: wsprintfA(p,GetMessageText(6),szName);break;
+        case -4: wsprintfA(p,GetMessageText(11),szName);break;
+        default: wsprintfA(p,GetMessageText(3),szName,nLine);break;
         }
         p+=SStrLen(p);
     }
-    if(nErrorCode==0x85100000) wsprintfA(p,sub_0041C170_GetMessageText(7),szDescription?szDescription:&gszEmptyAssertText);
-    else wsprintfA(p,sub_0041C170_GetMessageText(8),szDescription?szDescription:&gszEmptyAssertText);
+    if(nErrorCode==0x85100000) wsprintfA(p,GetMessageText(7),szDescription?szDescription:&gszEmptyAssertText);
+    else wsprintfA(p,GetMessageText(8),szDescription?szDescription:&gszEmptyAssertText);
     p+=SStrLen(p);
-    if(bRecoverable) SStrCopy(p,sub_0041C170_GetMessageText(10),0x7fffffff);
-    else SStrCopy(p,sub_0041C170_GetMessageText(9),0x7fffffff);
+    if(bRecoverable) SStrCopy(p,GetMessageText(10),0x7fffffff);
+    else SStrCopy(p,GetMessageText(9),0x7fffffff);
     if(gpErrorReport_007790F8)
     {
         char szDiagnostic[0x104];
@@ -495,19 +495,19 @@ int __stdcall SErrDisplayError(unsigned int nErrorCode,const char* szFile,int nL
     }
     if(!gpErrorReport_007790F8)
     {
-        void* hWindow=sub_00420310_GetWindow();
+        void* hWindow=SMsgGetDefaultWindow();
         if(!IsWindow(hWindow) || !IsWindowVisible(hWindow)) hWindow=0;
         nChoice=MessageBoxA(hWindow,szMessage,szModuleName,nFlags);
     }
 DialogDone:
-    sub_0041C1E0_UnlockErrorState();
+    UnlockErrorState();
     if(bRecoverable && nChoice==7)
     {
         gbErrorActive_007790E4=0;
         return 1;
     }
-    if(nChoice==2) sub_0041C160_DebugBreak();
-    sub_0041C360_SetSuppress(1);
+    if(nChoice==2) BreakIntoDebugger();
+    SErrSuppressErrors(1);
     {
         unsigned long dwProcessExitCode;
         if(!(GetVersion()&0x80000000) || !GetExitCodeProcess(GetCurrentProcess(),&dwProcessExitCode) || dwProcessExitCode==0x103)
@@ -556,7 +556,7 @@ void __stdcall SErrReportNamedResourceLeak(const char* szName, const char* szDet
 // 0x0041D110
 void __stdcall SErrUnregisterHandler(SERRHANDLERPROC pfnHandler)
 {
-    sub_0041C1A0_LockErrorState();
+    LockErrorState();
     HANDLER* pHead = gHandlerList_00708420.Head();
     HANDLER* pNode = pHead;
     while ((int)pNode > 0)
@@ -566,22 +566,22 @@ void __stdcall SErrUnregisterHandler(SERRHANDLERPROC pfnHandler)
         else
             pNode = pNode->m_link.m_next;
     }
-    sub_0041C1E0_UnlockErrorState();
+    UnlockErrorState();
 }
 
 // 0x0041D160
-void __cdecl sub_0041D160_DisplayAppFatal(const char* szFormat, ...)
+void __cdecl SErrDisplayAppFatal(const char* szFormat, ...)
 {
     const char* szFile = 0;
     int nLine = 0;
-    sub_0041C1A0_LockErrorState();
+    LockErrorState();
     if (gdwStormOwnerThread_007790C8 == GetCurrentThreadId())
     {
         szFile = (const char*)gpStormOwnerA_007790C0;
         nLine = (int)gpStormOwnerB_007790C4;
         SMemZero(&gpStormOwnerA_007790C0, 12);
     }
-    sub_0041C1E0_UnlockErrorState();
+    UnlockErrorState();
     char szText[0x400];
     va_list args;
     va_start(args, szFormat);

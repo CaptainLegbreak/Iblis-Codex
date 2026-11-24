@@ -40,9 +40,9 @@ extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(voi
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-void __stdcall sub_004164A0_SetValue(int nValue); // 0x004164A0
+void __stdcall SFileSetAsyncBudget(int nValue); // 0x004164A0
 void __stdcall SFileSetDataChunkSize(int nValue); // 0x00416570
-void __stdcall sub_0041A930_CancelRead(void* pBuffer); // 0x0041A930
+void __stdcall SFileCancelRequest(void* pBuffer); // 0x0041A930
 void __fastcall ASYNCDATA_Finish(AsyncData* pAsyncData); // 0x0040A4C0
 int __fastcall FOG_AsyncDataTestLoaded(AsyncData* pAsyncData); // 0x0040A7F0
 void __fastcall FOG_AsyncDataWaitAndGetBuffer(AsyncData* pAsyncData); // 0x0040A960
@@ -144,7 +144,7 @@ static AsyncDataEventSlot* sgptAsyncEventArray; // 0x0075AF9C
 void __fastcall FOG_AsyncDataInitialize(int bEnable, int nUnused)
 {
     D2_ASSERT(!sgfAsyncDataEnabled, 123);
-    sub_004164A0_SetValue(0x40000);
+    SFileSetAsyncBudget(0x40000);
     SFileSetDataChunkSize(0x4000);
     if (bEnable)
     {
@@ -400,7 +400,7 @@ void __fastcall FOG_AsyncDataFree(AsyncData* ptAsyncData)
     }
     if (!FOG_AsyncDataTestLoaded(ptAsyncData))
     {
-        sub_0041A930_CancelRead(ptAsyncData->ptBuffer);
+        SFileCancelRequest(ptAsyncData->ptBuffer);
         WaitForSingleObject(ptAsyncData->pEventSlot->hEvent, (unsigned long)-1);
         ASYNCDATA_Finish(ptAsyncData);
     }

@@ -162,7 +162,7 @@ void __cdecl sub_0051A480_DebugLog(const char* szFormat, ...); // 0x0051A480
 
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
-int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00416370
+int __stdcall SFileGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00416370
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 
@@ -172,7 +172,7 @@ int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead
 
 int __stdcall SFileCloseFile(void* pArg); // 0x004198D0
 
-int __stdcall sub_00419980(const char* szFileName, void** phFile); // 0x00419980
+int __stdcall SFileOpenFile(const char* szFileName, void** phFile); // 0x00419980
 
 void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
 
@@ -771,7 +771,7 @@ static int __stdcall BNDOWNLOAD_ExtractArchiveDll(void* hArchive, char* szPath, 
         SStrPack(szPath, ".dll", 0x104);
         if (SFileOpenFileEx(hArchive, szPath + nLength, 0, &hFile))
         {
-            unsigned int nSize = sub_00416370_StormGetFileSize(hFile, 0);
+            unsigned int nSize = SFileGetFileSize(hFile, 0);
             void* pBuffer = SMemAlloc(nSize, gszBnDownloadFile, 0xF7, 0);
             if (pBuffer)
             {
@@ -913,7 +913,7 @@ static void __fastcall BNDOWNLOAD_ExtractFile(const char* member, void* archive,
     void* output;
     void* source;
     if (!sub_004192F0_OpenArchiveFile(archive, member, 0, &source)) return;
-    unsigned int size = sub_00416370_StormGetFileSize(source, 0);
+    unsigned int size = SFileGetFileSize(source, 0);
     void* data = sub_00413020_Alloc(size, gszBnDownloadFile, 0x583, 0);
     if (SFileReadFile(source, data, size, 0, 0)) {
         output = FOG_CreateFileA(destination, 0x40000000, 3, 0, 2, 0x80, 0);
@@ -1111,7 +1111,7 @@ int __fastcall BNDOWNLOAD_ApplyPatches(int* pResult)
         void* hFile;
         if (SFileOpenFileEx(hArchive, "Prepatch.lst", 0, &hFile))
         {
-            unsigned int nSize = sub_00416370_StormGetFileSize(hFile, 0);
+            unsigned int nSize = SFileGetFileSize(hFile, 0);
             char* pBuffer = (char*)SMemAlloc(nSize, ".\\BnDownload.cpp", 1267, 0);
             if (SFileReadFile(hFile, pBuffer, nSize, 0, 0))
             {
@@ -1599,7 +1599,7 @@ void __fastcall BNDOWNLOAD_HandleDownloadEvent(int nType, int nSubType, unsigned
                 sub_0051A480_DebugLog("<ERROR: Failed to load ExtraWork DLL!>");
             else if (!(pfnExtraWork = (D2ExtraWorkFn)GetProcAddress(hDll, "ExtraWork")))
                 sub_0051A480_DebugLog("<ERROR: Failed to get address of ExtraWork function!>");
-            else if (!sub_00419980("data\\local\\use", &hFile))
+            else if (!SFileOpenFile("data\\local\\use", &hFile))
                 sub_0051A480_DebugLog("<ERROR: Failed to open game locale file!>");
             else if (!SFileReadFile(hFile, &nLocale, 1, &nRead, 0))
                 sub_0051A480_DebugLog("<ERROR: Failed to read game locale file!>");
@@ -1708,11 +1708,11 @@ int __fastcall BNDOWNLOAD_HandleChatEvent(const void* pData, unsigned int nSize)
     return 1;
 }
 
-struct T0041D340;
+struct FindSignatureTag;
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 
-struct T0041D340
+struct FindSignatureTag
 {
     unsigned int dwState[5];
 };
@@ -1739,7 +1739,7 @@ int __fastcall sub_M119_Emit_00520A80(int nPos, int nCount, int nSize)
 }
 
 // 0x00520680
-void __fastcall sub_00520680_SHA1Init(T0041D340* pContext)
+void __fastcall sub_00520680_SHA1Init(FindSignatureTag* pContext)
 {
     pContext->dwState[0] = 0x67452301;
     pContext->dwState[1] = 0xEFCDAB89;

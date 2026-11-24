@@ -206,7 +206,7 @@ extern "C" unsigned int __security_cookie; // 0x00749DE0
 
 extern "C" void __fastcall __security_check_cookie(unsigned int nCookie); // 0x00681A48
 
-int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pdwFileSizeHigh); // 0x00416370
+int __stdcall SFileGetFileSize(void* hFile, unsigned int* pdwFileSizeHigh); // 0x00416370
 
 int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped); // 0x0041B050
 
@@ -247,7 +247,7 @@ typedef void* (__stdcall* SBMPALLOCPROC)(unsigned int nSize);
 
 int __stdcall SFileCloseFile(void* pArg); // 0x004198D0
 
-int __stdcall sub_00419980(const char* szFileName, void** phFile); // 0x00419980
+int __stdcall SFileOpenFile(const char* szFileName, void** phFile); // 0x00419980
 
 
 // build: base-profile
@@ -604,7 +604,7 @@ static int __stdcall DecodeTgaFile(void* hFile, D2PaletteColorStrc* pPalette, un
     }
 
     const unsigned int nIdLength = tHeader.bytes[0];
-    if (nIdLength + nImageSize + nPaletteSize + sizeof(tHeader) > sub_00416370_StormGetFileSize(hFile, 0))
+    if (nIdLength + nImageSize + nPaletteSize + sizeof(tHeader) > SFileGetFileSize(hFile, 0))
     {
         return 0;
     }
@@ -636,7 +636,7 @@ static int __stdcall DecodeTgaFile(void* hFile, D2PaletteColorStrc* pPalette, un
 
     if (pBuffer)
     {
-        const int nDataSize = sub_00416370_StormGetFileSize(hFile, 0) - sizeof(tHeader) - tHeader.bytes[0] - nPaletteSize;
+        const int nDataSize = SFileGetFileSize(hFile, 0) - sizeof(tHeader) - tHeader.bytes[0] - nPaletteSize;
         unsigned char* pData = (unsigned char*)SMemAlloc(nDataSize, ".\\SOURCE\\SBMP.CPP", 0x116, 0);
         SFileReadFile(hFile, pData, nDataSize, 0, 0);
         if (!sub_006C5210_DecodeTgaPixels(&tHeader, pData, nDataSize, pBuffer, nBufferSize))
@@ -1534,7 +1534,7 @@ static int __stdcall DecodePcxFile(void* hFile, unsigned char* pPalette, unsigne
 
     if (pPixels)
     {
-        const int nDataSize = sub_00416370_StormGetFileSize(hFile, 0) - (nBits == 8 ? 0x300 : 0) - SFileSetFilePointer(hFile, 0, 0, 1);
+        const int nDataSize = SFileGetFileSize(hFile, 0) - (nBits == 8 ? 0x300 : 0) - SFileSetFilePointer(hFile, 0, 0, 1);
         unsigned char* pData = (unsigned char*)SMemAlloc(nDataSize, ".\\SOURCE\\SBMP.CPP", 1131, 0);
         SFileReadFile(hFile, pData, nDataSize, 0, 0);
         UncompressPcxImage(pPixels, nPixelsSize, pData, nDataSize - (nBits == 8 ? 1 : 0), nWidth, header.nBytesPerLine, header.nPlanes);
@@ -1661,7 +1661,7 @@ int __stdcall sub_006C6B70_LoadImage(const char* filename,unsigned char* palette
  valid &= (capacity||!pixels)?-1:0;
  if(!valid){sub_0041C340_SetLastError(87);return 0;}
  void* hFile;
- if(!sub_00419980(filename,&hFile))return 0;
+ if(!SFileOpenFile(filename,&hFile))return 0;
  int type=0;
  if(SFileReadFile(hFile,&bufferSize,2,0,0))
  {
@@ -1763,10 +1763,10 @@ int __stdcall SBmpAllocLoadImage(const char* szFileName, D2PaletteColorStrc* pPa
     VALIDATEEND;
 
     void* hFile;
-    if (!nValid || !sub_00419980(szFileName, &hFile))
+    if (!nValid || !SFileOpenFile(szFileName, &hFile))
         return 0;
 
-    unsigned int nFileSize = sub_00416370_StormGetFileSize(hFile, 0);
+    unsigned int nFileSize = SFileGetFileSize(hFile, 0);
     unsigned char* pFileData = (unsigned char*)SMemAlloc(nFileSize, gszSBmpSource, 0x5B6, 0);
     SFileReadFile(hFile, pFileData, nFileSize, 0, 0);
     SFileCloseFile(hFile);

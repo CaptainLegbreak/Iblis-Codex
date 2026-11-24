@@ -154,7 +154,7 @@ extern "C" long __cdecl _time32(long* pTime); // 0x006850E6
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
-void __fastcall sub_00411A80_ReleaseBlock(D2FogBlockStrc** ppLink); // 0x00411A80
+void __fastcall UnlinkAndFreeHeap(D2FogBlockStrc** ppLink); // 0x00411A80
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
@@ -906,7 +906,7 @@ void __cdecl AUTOMAP_ReleaseFreeBlocks()
             {
                 D2FogBlockStrc* pBlock = *ppLink;
                 if (!pBlock->bInUse && pBlock->dwSize < 0x80000000)
-                    sub_00411A80_ReleaseBlock(ppLink);
+                    UnlinkAndFreeHeap(ppLink);
                 else
                     ppLink = &pBlock->pNext;
             }

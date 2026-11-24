@@ -53,9 +53,9 @@ void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFi
 
 void __stdcall SErrReportNamedResourceLeak(const char* szName, const char* szDetail); // 0x0041D010
 
-void __cdecl sub_0041C1A0_LockErrorState(); // 0x0041C1A0
+void __cdecl LockErrorState(); // 0x0041C1A0
 
-void __cdecl sub_0041C1E0_UnlockErrorState(); // 0x0041C1E0
+void __cdecl UnlockErrorState(); // 0x0041C1E0
 
 int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam, int* pbUseResult, int* plResult); // 0x00420B00
 
@@ -397,7 +397,7 @@ inline void* operator new(unsigned int, void* pPlace) throw()
 
 
 // 0x0041D340
-static int __stdcall sub_0041D340_FindSignatureTag(const char* pData, unsigned int nSize, unsigned int nSignSize, unsigned int* pOffset)
+static int __stdcall FindSignatureTag(const char* pData, unsigned int nSize, unsigned int nSignSize, unsigned int* pOffset)
 {
     *pOffset = nSize - nSignSize - 4;
     if (nSize >= nSignSize + 4 && *(const int*)(pData + *pOffset) == 0x5349474E)
@@ -406,7 +406,7 @@ static int __stdcall sub_0041D340_FindSignatureTag(const char* pData, unsigned i
 }
 
 // 0x0041D370
-static void __stdcall sub_0041D370_HashData(unsigned int nLen, const unsigned char* pData, unsigned char* pDigest)
+static void __stdcall HashSignatureData(unsigned int nLen, const unsigned char* pData, unsigned char* pDigest)
 {
     Sha1 tHash;
     tHash.Initialize();
@@ -427,13 +427,13 @@ void __fastcall SSignatureVerifyStream_Begin(D2StormHashBufferStrc** ppBuffer, u
 }
 
 // 0x0041D410
-unsigned int __fastcall sub_0041D410_GetWindow(D2StormHashBufferStrc* pBuffer)
+unsigned int __fastcall GetHashWindowSize(D2StormHashBufferStrc* pBuffer)
 {
     return pBuffer->nWindow;
 }
 
 // 0x0041D420
-void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const char* pData, int nSize)
+void __fastcall HashBufferedData(D2StormHashBufferStrc* pBuffer, const char* pData, int nSize)
 {
     int nExtra = nSize - pBuffer->nWindow;
     if (nExtra >= 0)
@@ -463,12 +463,12 @@ void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const 
 int __fastcall SSignatureGenerate(char* pData, unsigned int* pnSize, const void* pExponent, unsigned int nSignSize, const void* pModulus1, int nModulusSize1, const void* pModulus2, int nModulusSize2)
 {
     unsigned int nOffset;
-    if (!sub_0041D340_FindSignatureTag(pData, *pnSize, nSignSize, &nOffset))
+    if (!FindSignatureTag(pData, *pnSize, nSignSize, &nOffset))
         nOffset = *pnSize;
     unsigned char* pDigest = (unsigned char*)_alloca(nSignSize);
     SMemFill(pDigest, nSignSize, 0xBB);
     pDigest[nSignSize - 1] = 0x0B;
-    sub_0041D370_HashData(nOffset, (const unsigned char*)pData, pDigest);
+    HashSignatureData(nOffset, (const unsigned char*)pData, pDigest);
     unsigned char* pSign = (unsigned char*)_alloca(nSignSize);
     SMemCopy(pSign, pDigest, nSignSize);
     D2StormRsaKeyStrc tKey1;
@@ -515,7 +515,7 @@ int __fastcall SSignatureVerify(const void* pData, int nSize, const void* pExpon
 {
     D2StormHashBufferStrc* pBuffer;
     SSignatureVerifyStream_Begin(&pBuffer, nSignSize, nModulusSize);
-    sub_0041D420_HashBuffered(pBuffer, (const char*)pData, nSize);
+    HashBufferedData(pBuffer, (const char*)pData, nSize);
     return SSignatureVerifyStream_Finish(pBuffer, pExponent, pModulus);
 }
 
@@ -761,7 +761,7 @@ int BigBuffer::sub_004212D0_Get(unsigned int nIndex)
 }
 
 // 0x004213B0
-unsigned int __stdcall sub_004213B0_FindLastSetBit(BigBuffer* pQueue)
+unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue)
 {
     unsigned int nCount = pQueue->m_array.f_4;
     unsigned int nStart = pQueue->m_start;

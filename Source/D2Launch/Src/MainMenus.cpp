@@ -109,9 +109,9 @@ void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* s
 
 char* __fastcall Int64ToString(char* szBuffer, unsigned int nBufferSize, __int64 nValue); // 0x00411540
 
-int __stdcall sub_00415F70(int nFlags); // 0x00415F70
+int __stdcall SFileEnableDirectAccess(int nFlags); // 0x00415F70
 
-void __stdcall sub_00415F90_SetValue(int nValue); // 0x00415F90
+void __stdcall SFileEnableSeekOptimization(int nValue); // 0x00415F90
 
 int __stdcall SFileSetBasePath(const char* szPath); // 0x004164B0
 
@@ -119,9 +119,9 @@ int __stdcall SFileSetIoErrorMode(int nValueA, int nValueB); // 0x004166B0
 
 int __stdcall StormGetOption(unsigned int nOption, const void* pInput, unsigned int nSize); // 0x0041BFC0
 
-void __cdecl sub_0041C1A0_LockErrorState(); // 0x0041C1A0
+void __cdecl LockErrorState(); // 0x0041C1A0
 
-void __cdecl sub_0041C1E0_UnlockErrorState(); // 0x0041C1E0
+void __cdecl UnlockErrorState(); // 0x0041C1E0
 
 int __stdcall SErrDisplayError(unsigned int nErrorCode, const char* szFile, int nLine, const char* szDescription, int bRecoverable, unsigned int nExitCode); // 0x0041CAF0
 
@@ -1453,9 +1453,9 @@ extern "C" int __stdcall WinMain(void* hInstance, void* hPrevInstance, char* lpC
 void __fastcall MAINMENUS_InitStorm(int nDirectFlags, int nValue)
 {
     SFileSetBasePath(".\\");
-    sub_00415F70(nDirectFlags);
+    SFileEnableDirectAccess(nDirectFlags);
     SFileSetIoErrorMode(0, 0);
-    sub_00415F90_SetValue(nValue);
+    SFileEnableSeekOptimization(nValue);
     gnStormDirectFlags_0074C82C = nDirectFlags;
     int nChunkSize = 0x8000;
     StormGetOption(2, &nChunkSize, 4);
