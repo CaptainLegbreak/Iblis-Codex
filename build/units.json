@@ -4439,7 +4439,7 @@
     {
      "va": "0x00417B20",
      "length": 32,
-     "name": "sub_00417B20_Next"
+     "name": "?Next@?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEPAUFILEREC@@PBU2@@Z"
     },
     {
      "va": "0x00417B40",
@@ -4472,7 +4472,7 @@
     {
      "va": "0x00417D20",
      "length": 32,
-     "name": "sub_00417D20_Next"
+     "name": "?Next@?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEPAUAUDIOSTREAM@@PBU2@@Z"
     },
     {
      "va": "0x00417D40",

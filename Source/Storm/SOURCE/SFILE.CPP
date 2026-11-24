@@ -325,6 +325,10 @@ template TSLink<REQUEST>* TSList<REQUEST>::Link(const REQUEST*);
 template TSLink<FILEREC>* TSList<FILEREC>::Link(const FILEREC*);
 template TSLink<EVENTREC>* TSList<EVENTREC>::Link(const EVENTREC*);
 template TSLink<AUDIOSTREAM>* TSList<AUDIOSTREAM>::Link(const AUDIOSTREAM*);
+// build: symbol ?Next@?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEPAUFILEREC@@PBU2@@Z 0x00417B20
+// build: symbol ?Next@?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEPAUAUDIOSTREAM@@PBU2@@Z 0x00417D20
+template FILEREC* TSList<FILEREC>::Next(const FILEREC*);
+template AUDIOSTREAM* TSList<AUDIOSTREAM>::Next(const AUDIOSTREAM*);
 template TSList<FILEREC>::~TSList();
 template TSList<EVENTREC>::~TSList();
 template TSList<REQUEST>::~TSList();
@@ -2004,18 +2008,6 @@ D2StormLinkStrc* D2StormLinkStrc::sub_004169B0_NextLink(int nLinkOffset)
     if (nLinkOffset < 0)
         nLinkOffset = (char*)this - m_prevlink->m_next;
     return (D2StormLinkStrc*)(m_next + nLinkOffset);
-}
-
-// 0x00417B20
-char* D2StormFixedListStrc::sub_00417B20_Next(char* pNode)
-{
-    return Link(pNode)->Next();
-}
-
-// 0x00417D20
-char* D2StormFixedListStrc::sub_00417D20_Next(char* pNode)
-{
-    return Link(pNode)->Next();
 }
 
 // 0x00417E30

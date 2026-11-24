@@ -291,8 +291,6 @@ struct D2StormFixedListStrc
     }
     D2StormLinkStrc* sub_0041C560_Link(char* pNode);
     void sub_0041C580_LinkNode(char* pNode, unsigned int nLinkType, char* pExistingNode);
-    char* sub_00417B20_Next(char* pNode);
-    char* sub_00417D20_Next(char* pNode);
     char* sub_00417E30_Next(char* pNode);
     char* sub_0041C630_Next(char* pNode);
     void sub_00417E90_UnlinkNode(char* pNode);
