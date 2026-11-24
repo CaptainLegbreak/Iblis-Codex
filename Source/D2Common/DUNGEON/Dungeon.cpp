@@ -1537,22 +1537,6 @@ static inline void sub_F45_VisitChild(D2CommonLevelNodeStrc* pChild, int nLevel)
     ++pChild->wLevelCounts[nLevel];
 }
 
-// 0x00627B70
-int __fastcall DUNGEON_ItemCalcGetRandomNumberInRange(int nMin, int nMax, int nUnused, void* pUserData)
-{
-    D2ItemCalcStrc* pItemCalc = (D2ItemCalcStrc*)pUserData;
-    if (!pItemCalc)
-    {
-        return 0;
-    }
-    D2SeedStrc* pSeed = &pItemCalc->pUnit->pSeed;
-    if (nMin >= nMax)
-    {
-        return nMin;
-    }
-    return nMin + ITEMS_RollLimitedRandomNumber(pSeed, nMax - nMin + 1);
-}
-
 // 0x00653ED0
 const Unicode* __fastcall DATATBLS_RollRandomUniquePrefixString(D2UnitStrc* pUnit)
 {

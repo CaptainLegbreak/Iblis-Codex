@@ -3404,8 +3404,6 @@
    "bytes": 96,
    "definitions": 3,
    "externs": [
-    "extern \"C\" void __cdecl sub_00627B70(); // 0x00627B70",
-    "extern \"C\" void __cdecl sub_00627BB0_ItemCalcGetStatValue(); // 0x00627BB0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Stats/StatsEx.inc",
@@ -110943,15 +110941,15 @@
     [
      16,
      "0x00627B70",
-     "queue_function",
-     "sub_00627B70",
+     "source",
+     "DUNGEON_ItemCalcGetRandomNumberInRange",
      0,
      "func"
     ],
     [
      24,
      "0x00627BB0",
-     "names.json",
+     "source",
      "sub_00627BB0_ItemCalcGetStatValue",
      0,
      "func"
