@@ -28,6 +28,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
+- **Verifying (more):** `lane4/waypoint-strays` (Unknown_0049BB40.cpp takes text.cpp's waypoint panel cel and close functions 0x49C580-0x49C756, the readers of its bss 0x7BF071-0x7BF085; built /GS- now). `lane4/run-strays` (CmdTbl.cpp, dLightMap.cpp and View.cpp take the CUnit.cpp/SCmd.cpp strays in their runs that read only their bss).
 - **Verifying (more):** `lane4/soundhdr-strays` (SoundHdr.cpp takes its six accessors from dLightMap.cpp and its cache trim from inv.cpp; its bss 0x7BC99C-0x7BC9D0 is read only in its run); `lane4/panel-strays` (stacked on hireables-object: panel.cpp takes the View/Hireables/automap/inv strays in its run 0x497250-0x498E7F, all readers of its bss and data); `lane4/party-object` (Party.cpp takes most of 0x499DE0-0x49C46F; Unknown_0049AF60.cpp, Unknown_0049B030.cpp and 0x49BB40/0x49BB60 stay, they compile unequal there).
 - **Level-event object (claimed):** `lane4/level-events`: Unknown_0046ACE0.cpp takes 0x46ACE0-0x46C56F; its bss 0x7A742C-0x7A746C and data 0x7129CC-0x712A27 are read only there, including by the strays filed in RosterPets.cpp, SCmd.cpp and View.cpp. Verifying.
 - **RosterPets object (claimed):** `lane4/rosterpets-object`: RosterPets.cpp takes 0x478A50-0x4792BF, the readers of the pet roster head 0x7BB5BC (Unknown_00478D10.cpp, three Roster.cpp queries, and strays from Gfx, View, inv and WardenClient). Verifying.
