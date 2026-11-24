@@ -1,5 +1,6 @@
 #include "D2CMP.h"
 #include "D2CmpTypes.h"
+#include "D2CelDataHash.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -7,23 +8,8 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
-struct T00604AE0
-{
-    unsigned int nKey;
-    char szName[0x20];
-    int nValue;
-    T00604AE0* pPrev;
-    T00604AE0* pNext;
-};
-
-struct D2CelDataHashStrc
-{
-    int nCheck[0x200];
-    T00604AE0* pBuckets[0x200];
-};
-
 // 0x0060AEB0
-void __fastcall CelDataHashFreeEntry(D2CelDataHashStrc* pHash, T00604AE0* pEntry, void* pMemPool)
+void __fastcall CelDataHashFreeEntry(D2CelDataHashStrc* pHash, D2CelDataHashEntryStrc* pEntry, void* pMemPool)
 {
     if (pHash->pBuckets[pEntry->nKey] == pEntry)
         pHash->pBuckets[pEntry->nKey] = pEntry->pNext;
@@ -40,14 +26,14 @@ void __fastcall CelDataHashInit(D2CelDataHashStrc* pHash)
 }
 
 // 0x0060AF90
-T00604AE0* __fastcall CelDataHashFind(D2CelDataHashStrc* pHash, const char* szName)
+D2CelDataHashEntryStrc* __fastcall CelDataHashFind(D2CelDataHashStrc* pHash, const char* szName)
 {
     if (!*szName)
         return 0;
 
     unsigned int nHash = SStrHash(szName, 1, 0);
     unsigned int nKey = ((((((nHash >> 8) ^ nHash) >> 8) ^ nHash) >> 8) ^ nHash) & 0x1FF;
-    for (T00604AE0* pEntry = pHash->pBuckets[nKey]; pEntry; pEntry = pEntry->pNext)
+    for (D2CelDataHashEntryStrc* pEntry = pHash->pBuckets[nKey]; pEntry; pEntry = pEntry->pNext)
     {
         if (!strcmp(szName, pEntry->szName))
             return pEntry;
@@ -60,10 +46,10 @@ void __fastcall CelDataHashFreeAll(void* pMemPool, D2CelDataHashStrc* pHash)
 {
     for (unsigned int i = 0; i < 0x200; i++)
     {
-        T00604AE0* pEntry = pHash->pBuckets[i];
+        D2CelDataHashEntryStrc* pEntry = pHash->pBuckets[i];
         while (pEntry)
         {
-            T00604AE0* pNext = pEntry->pNext;
+            D2CelDataHashEntryStrc* pNext = pEntry->pNext;
             CelDataHashFreeEntry(pHash, pEntry, pMemPool);
             pEntry = pNext;
         }
@@ -72,9 +58,9 @@ void __fastcall CelDataHashFreeAll(void* pMemPool, D2CelDataHashStrc* pHash)
 }
 
 // 0x0060B010
-T00604AE0* __fastcall CelDataHashAdd(void* pMemPool, D2CelDataHashStrc* pHash, int nValue, const char* szName)
+D2CelDataHashEntryStrc* __fastcall CelDataHashAdd(void* pMemPool, D2CelDataHashStrc* pHash, int nValue, const char* szName)
 {
-    T00604AE0* pEntry = (T00604AE0*)FOG_AllocPool(pMemPool, sizeof(T00604AE0), ".\\SRC\\CelDataHash.cpp", 0x88, 0);
+    D2CelDataHashEntryStrc* pEntry = (D2CelDataHashEntryStrc*)FOG_AllocPool(pMemPool, sizeof(D2CelDataHashEntryStrc), ".\\SRC\\CelDataHash.cpp", 0x88, 0);
     pEntry->nValue = nValue;
     unsigned int nHash = SStrHash(szName, 1, 0);
     unsigned int nKey = ((nHash ^ (nHash >> 8)) ^ ((nHash ^ (nHash >> 8)) >> 16)) & 0x1FF;
@@ -89,7 +75,7 @@ T00604AE0* __fastcall CelDataHashAdd(void* pMemPool, D2CelDataHashStrc* pHash, i
 }
 
 // 0x0060B0B0
-void __fastcall CelDataHashRemove(void* pMemPool, D2CelDataHashStrc* pHash, T00604AE0* pEntry)
+void __fastcall CelDataHashRemove(void* pMemPool, D2CelDataHashStrc* pHash, D2CelDataHashEntryStrc* pEntry)
 {
     D2_ASSERT(pEntry, 0xB2);
     if (pEntry->pPrev)
