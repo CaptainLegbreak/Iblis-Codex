@@ -1,19 +1,7 @@
 #include "D2Client.h"
 #include "D2Unicode.h"
+#include "D2ClientParty.h"
 
-#pragma pack(push, 1)
-struct D2RosterUnitStrc
-{
-    char unk0x00[4];
-    D2RosterButtonStrc aButtons[5];
-    char unk0xA4[0x19];
-    int nLevel;
-    int nLevelId;
-    char unk0xC5[4];
-    int nY;
-    D2RosterUnitStrc* pNext;
-};
-#pragma pack(pop)
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
@@ -45,7 +33,7 @@ int __fastcall ROSTER_TestSquelchFlag(D2StoredUnitRecordStrc* pEntry);          
 extern int gnPanelOffsetX;                                                                               // 0x007A2858
 extern int gnPanelOffsetY;                                                                               // 0x007A285C
 extern unsigned char gnBoxColor;                                                                     // 0x007BF034
-extern D2RosterUnitStrc* gpRosterUnits;                                                            // 0x007BF014
+extern D2PartyRowStrc* gpRosterUnits;                                                            // 0x007BF014
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 static inline int GetCenteredStringXInline(unsigned short nStringIndex, int nCenterX)
@@ -82,7 +70,7 @@ static void __stdcall sub_0049AAF0_DrawTextFrame(unsigned short nAltString, unsi
 
 void __cdecl sub_0049ABD0_DrawRosterHoverHints()
 {
-    D2RosterUnitStrc* pRow = gpRosterUnits;
+    D2PartyRowStrc* pRow = gpRosterUnits;
     D2StoredUnitRecordStrc* pFirst = ROSTER_GetNextStoredUnit(0);
     gnBoxColor = D2Win_10034_MixRGB(0, 0, 0);
     if (ROSTER_GetEntryIndex(pFirst) != 0xFFFF)
@@ -101,15 +89,15 @@ void __cdecl sub_0049ABD0_DrawRosterHoverHints()
     D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(pFirst);
     while (pRow)
     {
-        const int nY = pRow->aButtons[0].nY;
-        const int nX = pRow->aButtons[0].nX;
+        const int nY = pRow->aSlots[0].nY;
+        const int nX = pRow->aSlots[0].nX;
         const int nMouseX = sub_00468730();
         const int nMouseY = sub_00468740();
         if (nMouseX >= gnPanelOffsetX + nX && nMouseX <= gnPanelOffsetX + nX + 0x35 && nMouseY >= nY - gnPanelOffsetY - 0x14 && nMouseY <= nY - gnPanelOffsetY)
         {
-            if (!pRow->aButtons[0].nType)
+            if (!pRow->aSlots[0].nType)
             {
-                const int nState = pRow->aButtons[0].nState;
+                const int nState = pRow->aSlots[0].nState;
                 if (nState == 0)
                 {
                     sub_0049AAF0_DrawTextFrame(0x1005, 0x1004, 0xDA, 1);
@@ -251,7 +239,7 @@ static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
 
 void __cdecl sub_0049B330_DrawRosterButtonHints()
 {
-    D2RosterUnitStrc* pRow = gpRosterUnits;
+    D2PartyRowStrc* pRow = gpRosterUnits;
     D2StoredUnitRecordStrc* pFirst = ROSTER_GetNextStoredUnit(0);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(sub_00463DD0_GetPlayerUnit());
     int bInTown = 0;
@@ -270,13 +258,13 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
         {
             for (int k = 1; k < 5; ++k)
             {
-                const int nY = pRow->aButtons[k].nY;
-                const int nX = pRow->aButtons[k].nX;
+                const int nY = pRow->aSlots[k].nY;
+                const int nX = pRow->aSlots[k].nX;
                 const int nBX = sub_00468730();
                 const int nBY = sub_00468740();
                 if (nBX >= gnPanelOffsetX + nX && nBX <= gnPanelOffsetX + nX + 0x14 && nBY >= nY - gnPanelOffsetY - 0x14 && nBY <= nY - gnPanelOffsetY)
                 {
-                    if (pRow->aButtons[k].nType == 1)
+                    if (pRow->aSlots[k].nType == 1)
                     {
                         if (ROSTER_GetLevel(ROSTER_GetNextStoredUnit(0)) >= 9)
                         {
@@ -319,7 +307,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                         }
                         return;
                     }
-                    else if (pRow->aButtons[k].nType == 2)
+                    else if (pRow->aSlots[k].nType == 2)
                     {
                         if (GAME_IsHardcore())
                         {
@@ -348,7 +336,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                             return;
                         }
                     }
-                    else if (pRow->aButtons[k].nType == 3)
+                    else if (pRow->aSlots[k].nType == 3)
                     {
                         if (ROSTER_TestMuteFlag(pEntry))
                         {
@@ -374,7 +362,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
                         }
                         return;
                     }
-                    else if (pRow->aButtons[k].nType == 4)
+                    else if (pRow->aSlots[k].nType == 4)
                     {
                         if (ROSTER_TestSquelchFlag(pEntry))
                         {

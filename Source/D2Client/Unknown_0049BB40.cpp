@@ -1,36 +1,14 @@
 #include "D2Client.h"
 #include "D2Primitives.h"
 #include "D2StormTypes.h"
+#include "D2ClientParty.h"
 
-struct D2RosterSlotStrc;
-struct D2RosterUnitStrc;
+struct D2PartyRowStrc;
 struct D2PacketRecord21Strc;
 struct D2WaypointMenuEntryStrc;
 struct D2WaypointRowRectStrc;
 
-struct D2RosterSlotStrc
-{
-    int bFlag;
-    int nX;
-    int nY;
-    int unk0x0C;
-    int nCount;
-    int nType;
-    int nState;
-    int bActive;
-};
 
-#pragma pack(push, 1)
-struct D2RosterUnitStrc
-{
-    D2RosterSlotStrc f_0[5];
-    char unkA0[0x25];
-    int nId;
-    char unkC9[4];
-    D2RosterUnitStrc* pNext;
-};
-
-#pragma pack(pop)
 
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
@@ -43,7 +21,7 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 extern int gnScreenWidth; // 0x0071146C
 extern int gnPanelOffsetX; // 0x007A2858
 extern int gnPanelOffsetY; // 0x007A285C
-extern D2RosterUnitStrc* gpRosterUnits; // 0x007BF014
+extern D2PartyRowStrc* gpRosterUnits; // 0x007BF014
 extern int gnWaypointSelected; // 0x007BF06D
 
 struct D2PacketRecord21Strc
@@ -70,13 +48,13 @@ extern D2WaypointMenuEntryStrc gaWaypointEntries[9]; // 0x007BF03C
 extern bool gbWaypointClosePressed; // 0x007BF06C
 extern char gbSent; // 0x007BF085
 // 0x0049BB40
-static inline void sub_0049BB40_SetSlotCount(D2RosterUnitStrc* pRow, int nSlot)
+static inline void sub_0049BB40_SetSlotCount(D2PartyRowStrc* pRow, int nSlot)
 {
-    if (pRow->f_0[nSlot].nState != 1)
-        pRow->f_0[nSlot].nCount = 1;
+    if (pRow->aSlots[nSlot].nState != 1)
+        pRow->aSlots[nSlot].nFrame = 1;
 }
 
-void __fastcall sub_M110_Emit_0049BB40(D2RosterUnitStrc* pRow, int nSlot)
+void __fastcall sub_M110_Emit_0049BB40(D2PartyRowStrc* pRow, int nSlot)
 {
     sub_0049BB40_SetSlotCount(pRow, nSlot + 1);
 }
@@ -98,7 +76,7 @@ void __stdcall sub_0049BB60_OnRosterMouseDown(SMSGHANDLER_PARAMS* pMsg)
     const int nX = sub_00468730();
     D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(0);
     pEntry = ROSTER_GetNextStoredUnit(pEntry);
-    D2RosterUnitStrc* pRow = gpRosterUnits;
+    D2PartyRowStrc* pRow = gpRosterUnits;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     int nCursorX = sub_00468730();
     int nCursorY = sub_00468740();
@@ -117,11 +95,11 @@ void __stdcall sub_0049BB60_OnRosterMouseDown(SMSGHANDLER_PARAMS* pMsg)
         {
             for (int i = 0; i < 5; ++i)
             {
-                if (!pRow->f_0[i].bFlag)
+                if (!pRow->aSlots[i].bFlag)
                 {
-                    if (sub_M165_InSlot(pRow->f_0[i].nX, pRow->f_0[i].nY, 0x14))
+                    if (sub_M165_InSlot(pRow->aSlots[i].nX, pRow->aSlots[i].nY, 0x14))
                     {
-                        if (pRow->f_0[i].nType == 1 && ROSTER_GetLevel(ROSTER_GetNextStoredUnit(0)) < 9)
+                        if (pRow->aSlots[i].nType == 1 && ROSTER_GetLevel(ROSTER_GetNextStoredUnit(0)) < 9)
                         {
                             pMsg->bReturn = 1;
                             pMsg->lResult = 0;
@@ -129,18 +107,18 @@ void __stdcall sub_0049BB60_OnRosterMouseDown(SMSGHANDLER_PARAMS* pMsg)
                             return;
                         }
 
-                        if (pRow->f_0[i].nType == 1)
+                        if (pRow->aSlots[i].nType == 1)
                         {
                             D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
                             if (!pRoom || !DUNGEON_IsRoomInTown(pRoom))
                                 continue;
                         }
 
-                        const int nCount = pRow->f_0[i].nCount;
-                        if (pRow->f_0[i].bActive)
+                        const int nCount = pRow->aSlots[i].nFrame;
+                        if (pRow->aSlots[i].bActive)
                             continue;
-                        pRow->f_0[i].nCount = nCount + 1;
-                        pRow->f_0[i].bActive = 1;
+                        pRow->aSlots[i].nFrame = nCount + 1;
+                        pRow->aSlots[i].bActive = 1;
                         gbRosterMode = 1;
 
                         pMsg->bReturn = 1;
@@ -149,11 +127,11 @@ void __stdcall sub_0049BB60_OnRosterMouseDown(SMSGHANDLER_PARAMS* pMsg)
                         return;
                     }
                 }
-                else if (sub_M165_InSlot(pRow->f_0[i].nX, pRow->f_0[i].nY, 0x35))
+                else if (sub_M165_InSlot(pRow->aSlots[i].nX, pRow->aSlots[i].nY, 0x35))
                 {
-                    if (pRow->f_0[i].nState != 1)
-                        pRow->f_0[i].nCount = 1;
-                    pRow->f_0[i].bActive = 1;
+                    if (pRow->aSlots[i].nState != 1)
+                        pRow->aSlots[i].nFrame = 1;
+                    pRow->aSlots[i].bActive = 1;
                     gbRosterMode = 1;
                     pMsg->bReturn = 1;
                     pMsg->lResult = 0;
