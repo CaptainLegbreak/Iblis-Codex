@@ -1741,7 +1741,6 @@ static int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc* pTextBox)
 
 
 
-// calling-convention shim (not game code)
 
 static inline int sub_00623C60(D2UnitStrc* pUnit)
 {
