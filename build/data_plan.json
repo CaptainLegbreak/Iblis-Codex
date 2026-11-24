@@ -663,8 +663,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/inv.cpp": {
-   "bytes": 3520,
-   "definitions": 24,
+   "bytes": 3466,
+   "definitions": 21,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/inv.inc",
@@ -878,8 +878,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/CmdTbl.cpp": {
-   "bytes": 812,
-   "definitions": 5,
+   "bytes": 820,
+   "definitions": 4,
    "externs": [
     "extern \"C\" void __cdecl sub_00468940_SetUIVar2(); // 0x00468940",
     "extern \"C\" void __cdecl SCMD_HandleHotkeyMessage(); // 0x0046A840",
@@ -1088,8 +1088,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/inv_004886C0.cpp": {
-   "bytes": 76,
-   "definitions": 4,
+   "bytes": 148,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/inv_004886C0.inc",
@@ -1097,8 +1097,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/inv_0048DD90.cpp": {
-   "bytes": 82,
-   "definitions": 18,
+   "bytes": 96,
+   "definitions": 12,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_0048EDF0.inc",
@@ -4173,8 +4173,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/inv_00491D20.cpp": {
-   "bytes": 4,
-   "definitions": 1,
+   "bytes": 0,
+   "definitions": 0,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/inv_00491D20.inc",
@@ -4209,8 +4209,8 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_0047CC90.cpp": {
-   "bytes": 60492,
-   "definitions": 23,
+   "bytes": 60496,
+   "definitions": 22,
    "externs": [
     "extern \"C\" void __cdecl ROSTERPETS_HandleImeStartComposition(); // 0x0047ACA0",
     "extern \"C\" void __cdecl INV_ResetImeCompositionMsg(); // 0x0047AD10",
@@ -41625,32 +41625,6 @@
   },
   {
    "alias": false,
-   "cname": "gData_00712698",
-   "declared": true,
-   "decorated": "?gaHotkeyCommands@@3PAUD2HotkeyCommandStrc@@A",
-   "file": "Source/D2Client/UI/CmdTbl.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00712698_t gData_00712698; // 0x00712698",
-   "head": "extern \"C\" struct d2data_00712698_t gData_00712698 = ",
-   "name": "gaHotkeyCommands",
-   "pointers": [
-    [
-     0,
-     "0x00468940",
-     "names.json",
-     "sub_00468940_SetUIVar2",
-     0,
-     "func"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00712698_t\n{\n    const void* p0;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00712698\n#pragma comment(linker, \"/alternatename:?gaHotkeyCommands@@3PAUD2HotkeyCommandStrc@@A=_gData_00712698\")",
-   "va": "0x00712698"
-  },
-  {
-   "alias": false,
    "cname": null,
    "declared": true,
    "decorated": null,
@@ -41827,16 +41801,16 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Client/UI/CmdTbl.cpp",
-   "fill": 56,
+   "fill": 57,
    "form": "declared",
    "fwd": null,
-   "head": "extern D2HotkeyActionStrc gaActions[56] = ",
+   "head": "extern D2HotkeyCommandStrc gaHotkeyCommands[57] = ",
    "model": {
     "elem": {
      "k": "struct",
      "members": [
       [
-       "pfnCallback",
+       "pfnCommand",
        0,
        {
         "fn": true,
@@ -41846,17 +41820,17 @@
        }
       ],
       [
-       "bAllowed",
+       "pfnUnk0x04",
        4,
        {
-        "k": "prim",
-        "kind": "s",
-        "name": "int",
-        "size": 4
+        "fn": true,
+        "k": "ptr",
+        "size": 4,
+        "spell": "void (__cdecl *)()"
        }
       ],
       [
-       "f_8",
+       "nModeFlag",
        8,
        {
         "k": "prim",
@@ -41866,17 +41840,25 @@
        }
       ]
      ],
-     "name": "D2HotkeyActionStrc",
+     "name": "D2HotkeyCommandStrc",
      "size": 12
     },
     "k": "arr",
-    "n": 56,
-    "size": 672
+    "n": 57,
+    "size": 684
    },
-   "name": "gaActions",
+   "name": "gaHotkeyCommands",
    "pointers": [
     [
-     8,
+     0,
+     "0x00468940",
+     "names.json",
+     "sub_00468940_SetUIVar2",
+     0,
+     "func"
+    ],
+    [
+     12,
      "0x00468950",
      "names.json",
      "sub_00468950_SetUIVar1",
@@ -41884,7 +41866,7 @@
      "func"
     ],
     [
-     20,
+     24,
      "0x00468960",
      "names.json",
      "sub_00468960_SetUIVar22",
@@ -41892,7 +41874,7 @@
      "func"
     ],
     [
-     32,
+     36,
      "0x00468980",
      "names.json",
      "sub_00468980_SetUIVar24",
@@ -41900,7 +41882,7 @@
      "func"
     ],
     [
-     44,
+     48,
      "0x00468990",
      "names.json",
      "sub_00468990_OpenMode1",
@@ -41908,7 +41890,7 @@
      "func"
     ],
     [
-     56,
+     60,
      "0x004689B0",
      "names.json",
      "sub_004689B0_SetUIVar5",
@@ -41916,7 +41898,7 @@
      "func"
     ],
     [
-     68,
+     72,
      "0x004689D0",
      "names.json",
      "SCMD_ShowHelpOnce",
@@ -41924,7 +41906,7 @@
      "func"
     ],
     [
-     80,
+     84,
      "0x00468A30",
      "names.json",
      "sub_00468A30_SetUIVar10",
@@ -41932,7 +41914,7 @@
      "func"
     ],
     [
-     92,
+     96,
      "0x00468A60",
      "names.json",
      "sub_00468A60_Force",
@@ -41940,7 +41922,7 @@
      "func"
     ],
     [
-     104,
+     108,
      "0x00468A70",
      "names.json",
      "sub_00468A70_CycleSetting",
@@ -41948,7 +41930,7 @@
      "func"
     ],
     [
-     116,
+     120,
      "0x00468A90",
      "names.json",
      "sub_00468A90_ToggleSetting",
@@ -41956,7 +41938,7 @@
      "func"
     ],
     [
-     128,
+     132,
      "0x00468AB0",
      "names.json",
      "sub_00468AB0_ToggleSetting",
@@ -41964,7 +41946,7 @@
      "func"
     ],
     [
-     140,
+     144,
      "0x00468AF0",
      "names.json",
      "sub_00468AF0_SetUIVar4",
@@ -41972,7 +41954,7 @@
      "func"
     ],
     [
-     152,
+     156,
      "0x00468B00",
      "names.json",
      "sub_00468B00_SetUIVar3",
@@ -41980,7 +41962,7 @@
      "func"
     ],
     [
-     164,
+     168,
      "0x00468B90",
      "names.json",
      "sub_00468B90_Hotkey0",
@@ -41988,7 +41970,7 @@
      "func"
     ],
     [
-     176,
+     180,
      "0x00468BC0",
      "names.json",
      "sub_00468BC0_Hotkey1",
@@ -41996,7 +41978,7 @@
      "func"
     ],
     [
-     188,
+     192,
      "0x00468BF0",
      "names.json",
      "sub_00468BF0_Hotkey2",
@@ -42004,7 +41986,7 @@
      "func"
     ],
     [
-     200,
+     204,
      "0x00468C20",
      "names.json",
      "sub_00468C20_Hotkey3",
@@ -42012,7 +41994,7 @@
      "func"
     ],
     [
-     212,
+     216,
      "0x00468C50",
      "names.json",
      "sub_00468C50_Hotkey4",
@@ -42020,7 +42002,7 @@
      "func"
     ],
     [
-     224,
+     228,
      "0x00468C80",
      "names.json",
      "sub_00468C80_Hotkey5",
@@ -42028,7 +42010,7 @@
      "func"
     ],
     [
-     236,
+     240,
      "0x00468CB0",
      "names.json",
      "sub_00468CB0_Hotkey6",
@@ -42036,7 +42018,7 @@
      "func"
     ],
     [
-     248,
+     252,
      "0x00468CE0",
      "names.json",
      "sub_00468CE0_Hotkey7",
@@ -42044,7 +42026,7 @@
      "func"
     ],
     [
-     260,
+     264,
      "0x00468F00",
      "names.json",
      "sub_00468F00",
@@ -42052,7 +42034,7 @@
      "func"
     ],
     [
-     272,
+     276,
      "0x00468F40",
      "names.json",
      "sub_00468F40_BeltHotkey0",
@@ -42060,7 +42042,7 @@
      "func"
     ],
     [
-     284,
+     288,
      "0x00468F50",
      "names.json",
      "sub_00468F50_BeltHotkey1",
@@ -42068,7 +42050,7 @@
      "func"
     ],
     [
-     296,
+     300,
      "0x00468F60",
      "names.json",
      "sub_00468F60_BeltHotkey2",
@@ -42076,7 +42058,7 @@
      "func"
     ],
     [
-     308,
+     312,
      "0x00468F70",
      "names.json",
      "sub_00468F70_BeltHotkey3",
@@ -42084,7 +42066,7 @@
      "func"
     ],
     [
-     320,
+     324,
      "0x00468F80",
      "names.json",
      "sub_00468F80_Phrase19",
@@ -42092,7 +42074,7 @@
      "func"
     ],
     [
-     332,
+     336,
      "0x00468F90",
      "names.json",
      "sub_00468F90_Phrase1A",
@@ -42100,7 +42082,7 @@
      "func"
     ],
     [
-     344,
+     348,
      "0x00468FA0",
      "names.json",
      "sub_00468FA0_Phrase1B",
@@ -42108,7 +42090,7 @@
      "func"
     ],
     [
-     356,
+     360,
      "0x00468FB0",
      "names.json",
      "sub_00468FB0_Phrase1C",
@@ -42116,7 +42098,7 @@
      "func"
     ],
     [
-     368,
+     372,
      "0x00468FC0",
      "names.json",
      "sub_00468FC0_Phrase1D",
@@ -42124,7 +42106,7 @@
      "func"
     ],
     [
-     380,
+     384,
      "0x00468FD0",
      "names.json",
      "sub_00468FD0_Phrase1E",
@@ -42132,7 +42114,7 @@
      "func"
     ],
     [
-     392,
+     396,
      "0x00468FE0",
      "names.json",
      "sub_00468FE0_Phrase1F",
@@ -42140,7 +42122,7 @@
      "func"
     ],
     [
-     404,
+     408,
      "0x00469000",
      "names.json",
      "sub_00469000_HotkeyRunOn",
@@ -42148,7 +42130,7 @@
      "func"
     ],
     [
-     408,
+     412,
      "0x004691C0",
      "names.json",
      "sub_004691C0_HotkeyRunOff",
@@ -42156,7 +42138,7 @@
      "func"
     ],
     [
-     416,
+     420,
      "0x00469060",
      "names.json",
      "sub_00469060_ToggleAlwaysRun",
@@ -42164,7 +42146,7 @@
      "func"
     ],
     [
-     428,
+     432,
      "0x00469080",
      "names.json",
      "sub_00469080_HotkeySetValue",
@@ -42172,7 +42154,7 @@
      "func"
     ],
     [
-     432,
+     436,
      "0x00469200",
      "owner",
      "CMDTBL_HotkeyStandStillRelease",
@@ -42180,7 +42162,7 @@
      "func"
     ],
     [
-     440,
+     444,
      "0x00469090",
      "names.json",
      "sub_00469090_HotkeyUiVarOff",
@@ -42188,7 +42170,7 @@
      "func"
     ],
     [
-     444,
+     448,
      "0x00469210",
      "names.json",
      "sub_00469210_HotkeyUiVarOn",
@@ -42196,7 +42178,7 @@
      "func"
     ],
     [
-     452,
+     456,
      "0x004690A0",
      "owner",
      "CMDTBL_HotkeyClearScreen",
@@ -42204,7 +42186,7 @@
      "func"
     ],
     [
-     464,
+     468,
      "0x00469100",
      "names.json",
      "sub_00469100_HotkeyPrevSkill",
@@ -42212,7 +42194,7 @@
      "func"
     ],
     [
-     476,
+     480,
      "0x00469120",
      "names.json",
      "sub_00469120_HotkeyNextSkill",
@@ -42220,7 +42202,7 @@
      "func"
     ],
     [
-     488,
+     492,
      "0x004691B0",
      "owner",
      "CMDTBL_HotkeyClearMessages",
@@ -42228,7 +42210,7 @@
      "func"
     ],
     [
-     504,
+     508,
      "0x004FA7A0",
      "names.json",
      "D2Win_10168_WINMAIN_CreateScreenshot",
@@ -42236,7 +42218,7 @@
      "func"
     ],
     [
-     512,
+     516,
      "0x00493840",
      "source",
      "HIREABLES_TogglePetIconPopup",
@@ -42244,7 +42226,7 @@
      "func"
     ],
     [
-     524,
+     528,
      "0x00469140",
      "names.json",
      "sub_00469140_HotkeyResetSounds",
@@ -42252,7 +42234,7 @@
      "func"
     ],
     [
-     536,
+     540,
      "0x00468AD0",
      "names.json",
      "sub_00468AD0_ToggleSetting",
@@ -42260,7 +42242,7 @@
      "func"
     ],
     [
-     548,
+     552,
      "0x00468D10",
      "names.json",
      "sub_00468D10_Hotkey8",
@@ -42268,7 +42250,7 @@
      "func"
     ],
     [
-     560,
+     564,
      "0x00468D40",
      "names.json",
      "sub_00468D40_Hotkey9",
@@ -42276,7 +42258,7 @@
      "func"
     ],
     [
-     572,
+     576,
      "0x00468D80",
      "names.json",
      "sub_00468D80_Hotkey10",
@@ -42284,7 +42266,7 @@
      "func"
     ],
     [
-     584,
+     588,
      "0x00468DC0",
      "names.json",
      "sub_00468DC0_Hotkey11",
@@ -42292,7 +42274,7 @@
      "func"
     ],
     [
-     596,
+     600,
      "0x00468E00",
      "names.json",
      "sub_00468E00_Hotkey12",
@@ -42300,7 +42282,7 @@
      "func"
     ],
     [
-     608,
+     612,
      "0x00468E40",
      "names.json",
      "sub_00468E40_Hotkey13",
@@ -42308,7 +42290,7 @@
      "func"
     ],
     [
-     620,
+     624,
      "0x00468E80",
      "names.json",
      "sub_00468E80_Hotkey14",
@@ -42316,7 +42298,7 @@
      "func"
     ],
     [
-     632,
+     636,
      "0x00468EC0",
      "names.json",
      "sub_00468EC0_Hotkey15",
@@ -42324,7 +42306,7 @@
      "func"
     ],
     [
-     644,
+     648,
      "0x00469170",
      "names.json",
      "sub_00469170_HotkeyPetUi",
@@ -42332,7 +42314,7 @@
      "func"
     ],
     [
-     656,
+     660,
      "0x00468FF0",
      "names.json",
      "sub_00468FF0_Phrase20",
@@ -42340,7 +42322,7 @@
      "func"
     ],
     [
-     668,
+     672,
      "0x004690B0",
      "names.json",
      "sub_004690B0_HotkeyEscape",
@@ -42349,13 +42331,12 @@
     ]
    ],
    "region": "data",
-   "size": 672,
+   "size": 684,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x0071269C",
-   "type": "D2HotkeyActionStrc",
-   "va": "0x0071269C",
-   "zero_tail": 8
+   "tail": "; // 0x00712698",
+   "type": "D2HotkeyCommandStrc",
+   "va": "0x00712698"
   },
   {
    "alias": false,
@@ -44855,21 +44836,30 @@
        "name": "int",
        "size": 4
       }
+     ],
+     [
+      "nY",
+      16,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
      ]
     ],
     "name": "D2OptionHeaderStrc",
-    "size": 16
+    "size": 20
    },
    "name": "gtOptionsHeader",
    "pointers": [],
    "region": "data",
-   "size": 16,
+   "size": 20,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x00714210",
    "type": "D2OptionHeaderStrc",
-   "va": "0x00714210",
-   "zero_tail": 4
+   "va": "0x00714210"
   },
   {
    "alias": false,
@@ -44922,37 +44912,30 @@
        "name": "int",
        "size": 4
       }
+     ],
+     [
+      "nY",
+      16,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
      ]
     ],
     "name": "D2OptionHeaderStrc",
-    "size": 16
+    "size": 20
    },
    "name": "gtSoundOptionHeader",
    "pointers": [],
    "region": "data",
-   "size": 16,
+   "size": 20,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x00714224",
    "type": "D2OptionHeaderStrc",
    "va": "0x00714224"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00714234",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/Unknown_0047CC90.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00714234_t gData_00714234; // 0x00714234",
-   "head": "extern \"C\" struct d2data_00714234_t gData_00714234 = ",
-   "name": "gData_00714234",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00714234_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00714234",
-   "va": "0x00714234"
   },
   {
    "alias": false,
@@ -45336,8 +45319,8 @@
    "file": "Source/D2Client/UI/chat.cpp",
    "fill": 4,
    "form": "declared",
-   "fwd": "extern \"C\" const char gData_00712FFC[4]; // 0x00712FFC",
-   "head": "extern \"C\" const char gData_00712FFC[4] = ",
+   "fwd": "extern \"C\" char gData_00712FFC[4]; // 0x00712FFC",
+   "head": "extern \"C\" char gData_00712FFC[4] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -47959,54 +47942,85 @@
   },
   {
    "alias": false,
-   "cname": "gData_0072211E",
-   "declared": false,
+   "cname": null,
+   "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/inv.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072211E_t gData_0072211E; // 0x0072211E",
-   "head": "extern \"C\" struct d2data_0072211E_t gData_0072211E = ",
-   "name": "gData_0072211E",
+   "file": "Source/D2Client/UI/inv_004886C0.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2PanelTabStrc gaNpcTabs[4] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "nX",
+       0,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nY",
+       4,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nString",
+       8,
+       {
+        "k": "prim",
+        "kind": "u",
+        "name": "unsigned short",
+        "size": 2
+       }
+      ],
+      [
+       "bSelected",
+       10,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "bEnabled",
+       14,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ]
+     ],
+     "name": "D2PanelTabStrc",
+     "size": 18
+    },
+    "k": "arr",
+    "n": 4,
+    "size": 72
+   },
+   "name": "gaNpcTabs",
    "pointers": [],
    "region": "data",
-   "size": 18,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072211E_t\n{\n    unsigned char b0[18];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072211E",
-   "va": "0x0072211E"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00722130",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/inv.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00722130_t gData_00722130; // 0x00722130",
-   "head": "extern \"C\" struct d2data_00722130_t gData_00722130 = ",
-   "name": "gData_00722130",
-   "pointers": [],
-   "region": "data",
-   "size": 18,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00722130_t\n{\n    unsigned char b0[18];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00722130",
-   "va": "0x00722130"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00722142",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/inv.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00722142_t gData_00722142; // 0x00722142",
-   "head": "extern \"C\" struct d2data_00722142_t gData_00722142 = ",
-   "name": "gData_00722142",
-   "pointers": [],
-   "region": "data",
-   "size": 18,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00722142_t\n{\n    unsigned char b0[18];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00722142",
-   "va": "0x00722142"
+   "size": 72,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x00722110",
+   "type": "D2PanelTabStrc",
+   "va": "0x00722110",
+   "fill": 4
   },
   {
    "alias": false,
@@ -49023,21 +49037,42 @@
    "file": "Source/D2Client/UI/inv_0048DD90.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnOffsetTorsoX = ",
+   "head": "extern D2CoordStrc gtOffsetTorso = ",
    "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
+    "k": "struct",
+    "members": [
+     [
+      "nX",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2CoordStrc",
+    "size": 8
    },
-   "name": "gnOffsetTorsoX",
+   "name": "gtOffsetTorso",
    "pointers": [],
    "region": "data",
-   "size": 4,
+   "size": 8,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x007220B0",
-   "type": "int",
+   "type": "D2CoordStrc",
    "va": "0x007220B0"
   },
   {
@@ -49048,22 +49083,43 @@
    "file": "Source/D2Client/UI/inv_0048DD90.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnOffsetTorsoY = ",
+   "head": "extern D2CoordStrc gtOffsetBelt = ",
    "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
+    "k": "struct",
+    "members": [
+     [
+      "nX",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2CoordStrc",
+    "size": 8
    },
-   "name": "gnOffsetTorsoY",
+   "name": "gtOffsetBelt",
    "pointers": [],
    "region": "data",
-   "size": 4,
+   "size": 8,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x007220B4",
-   "type": "int",
-   "va": "0x007220B4"
+   "tail": "; // 0x007220B8",
+   "type": "D2CoordStrc",
+   "va": "0x007220B8"
   },
   {
    "alias": false,
@@ -49073,46 +49129,42 @@
    "file": "Source/D2Client/UI/inv_0048DD90.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnOffsetBeltY = ",
+   "head": "extern D2CoordStrc gtOffsetFeet = ",
    "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
+    "k": "struct",
+    "members": [
+     [
+      "nX",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2CoordStrc",
+    "size": 8
    },
-   "name": "gnOffsetBeltY",
+   "name": "gtOffsetFeet",
    "pointers": [],
    "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x007220BC",
-   "type": "int",
-   "va": "0x007220BC"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/inv_0048DD90.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnOffsetFeetX = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnOffsetFeetX",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
+   "size": 8,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x007220C0",
-   "type": "int",
+   "type": "D2CoordStrc",
    "va": "0x007220C0"
   },
   {
@@ -49123,22 +49175,43 @@
    "file": "Source/D2Client/UI/inv_0048DD90.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnOffsetFeetY = ",
+   "head": "extern D2CoordStrc gtOffsetHead = ",
    "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
+    "k": "struct",
+    "members": [
+     [
+      "nX",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2CoordStrc",
+    "size": 8
    },
-   "name": "gnOffsetFeetY",
+   "name": "gtOffsetHead",
    "pointers": [],
    "region": "data",
-   "size": 4,
+   "size": 8,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x007220C4",
-   "type": "int",
-   "va": "0x007220C4"
+   "tail": "; // 0x007220C8",
+   "type": "D2CoordStrc",
+   "va": "0x007220C8"
   },
   {
    "alias": false,
@@ -49148,46 +49221,42 @@
    "file": "Source/D2Client/UI/inv_0048DD90.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnOffsetHeadY = ",
+   "head": "extern D2CoordStrc gtOffsetGloves = ",
    "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
+    "k": "struct",
+    "members": [
+     [
+      "nX",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2CoordStrc",
+    "size": 8
    },
-   "name": "gnOffsetHeadY",
+   "name": "gtOffsetGloves",
    "pointers": [],
    "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x007220CC",
-   "type": "int",
-   "va": "0x007220CC"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/inv_0048DD90.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnOffsetGlovesX = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnOffsetGlovesX",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
+   "size": 8,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x007220D0",
-   "type": "int",
+   "type": "D2CoordStrc",
    "va": "0x007220D0"
   },
   {
@@ -49198,22 +49267,43 @@
    "file": "Source/D2Client/UI/inv_0048DD90.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnOffsetGlovesY = ",
+   "head": "extern D2CoordStrc gtOffsetNeck = ",
    "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
+    "k": "struct",
+    "members": [
+     [
+      "nX",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2CoordStrc",
+    "size": 8
    },
-   "name": "gnOffsetGlovesY",
+   "name": "gtOffsetNeck",
    "pointers": [],
    "region": "data",
-   "size": 4,
+   "size": 8,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x007220D4",
-   "type": "int",
-   "va": "0x007220D4"
+   "tail": "; // 0x007220D8",
+   "type": "D2CoordStrc",
+   "va": "0x007220D8"
   },
   {
    "alias": false,
@@ -49223,22 +49313,43 @@
    "file": "Source/D2Client/UI/inv_0048DD90.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnOffsetNeckY = ",
+   "head": "extern D2CoordStrc gtOffsetLRing = ",
    "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
+    "k": "struct",
+    "members": [
+     [
+      "nX",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2CoordStrc",
+    "size": 8
    },
-   "name": "gnOffsetNeckY",
+   "name": "gtOffsetLRing",
    "pointers": [],
    "region": "data",
-   "size": 4,
+   "size": 8,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x007220DC",
-   "type": "int",
-   "va": "0x007220DC"
+   "tail": "; // 0x007220E0",
+   "type": "D2CoordStrc",
+   "va": "0x007220E0"
   },
   {
    "alias": false,
@@ -49248,22 +49359,43 @@
    "file": "Source/D2Client/UI/inv_0048DD90.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnOffsetLRingY = ",
+   "head": "extern D2CoordStrc gtOffsetRRing = ",
    "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
+    "k": "struct",
+    "members": [
+     [
+      "nX",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2CoordStrc",
+    "size": 8
    },
-   "name": "gnOffsetLRingY",
+   "name": "gtOffsetRRing",
    "pointers": [],
    "region": "data",
-   "size": 4,
+   "size": 8,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x007220E4",
-   "type": "int",
-   "va": "0x007220E4"
+   "tail": "; // 0x007220E8",
+   "type": "D2CoordStrc",
+   "va": "0x007220E8"
   },
   {
    "alias": false,
@@ -49273,22 +49405,43 @@
    "file": "Source/D2Client/UI/inv_0048DD90.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnOffsetRRingY = ",
+   "head": "extern D2CoordStrc gtOffsetRArm = ",
    "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
+    "k": "struct",
+    "members": [
+     [
+      "nX",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2CoordStrc",
+    "size": 8
    },
-   "name": "gnOffsetRRingY",
+   "name": "gtOffsetRArm",
    "pointers": [],
    "region": "data",
-   "size": 4,
+   "size": 8,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x007220EC",
-   "type": "int",
-   "va": "0x007220EC"
+   "tail": "; // 0x007220F0",
+   "type": "D2CoordStrc",
+   "va": "0x007220F0"
   },
   {
    "alias": false,
@@ -49298,22 +49451,43 @@
    "file": "Source/D2Client/UI/inv_0048DD90.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnOffsetRArmY = ",
+   "head": "extern D2CoordStrc gtOffsetLArm = ",
    "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
+    "k": "struct",
+    "members": [
+     [
+      "nX",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2CoordStrc",
+    "size": 8
    },
-   "name": "gnOffsetRArmY",
+   "name": "gtOffsetLArm",
    "pointers": [],
    "region": "data",
-   "size": 4,
+   "size": 8,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x007220F4",
-   "type": "int",
-   "va": "0x007220F4"
+   "tail": "; // 0x007220F8",
+   "type": "D2CoordStrc",
+   "va": "0x007220F8"
   },
   {
    "alias": false,
@@ -49323,46 +49497,42 @@
    "file": "Source/D2Client/UI/inv_0048DD90.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnOffsetLArmY = ",
+   "head": "extern D2CoordStrc gtOffsetRArmTab = ",
    "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
+    "k": "struct",
+    "members": [
+     [
+      "nX",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2CoordStrc",
+    "size": 8
    },
-   "name": "gnOffsetLArmY",
+   "name": "gtOffsetRArmTab",
    "pointers": [],
    "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x007220FC",
-   "type": "int",
-   "va": "0x007220FC"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/inv_0048DD90.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnOffsetRArmTabX = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnOffsetRArmTabX",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
+   "size": 8,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x00722100",
-   "type": "int",
+   "type": "D2CoordStrc",
    "va": "0x00722100"
   },
   {
@@ -49373,89 +49543,43 @@
    "file": "Source/D2Client/UI/inv_0048DD90.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gnOffsetRArmTabY = ",
+   "head": "extern D2CoordStrc gtOffsetLArmTab = ",
    "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
+    "k": "struct",
+    "members": [
+     [
+      "nX",
+      0,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ],
+     [
+      "nY",
+      4,
+      {
+       "k": "prim",
+       "kind": "s",
+       "name": "int",
+       "size": 4
+      }
+     ]
+    ],
+    "name": "D2CoordStrc",
+    "size": 8
    },
-   "name": "gnOffsetRArmTabY",
+   "name": "gtOffsetLArmTab",
    "pointers": [],
    "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00722104",
-   "type": "int",
-   "va": "0x00722104"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/inv_0048DD90.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnOffsetLArmTabX = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnOffsetLArmTabX",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
+   "size": 8,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x00722108",
-   "type": "int",
+   "type": "D2CoordStrc",
    "va": "0x00722108"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/inv_0048DD90.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnOffsetLArmTabY = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnOffsetLArmTabY",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0072210C",
-   "type": "int",
-   "va": "0x0072210C"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00722110",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/UI/inv_0048DD90.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00722110_t gData_00722110; // 0x00722110",
-   "head": "extern \"C\" struct d2data_00722110_t gData_00722110 = ",
-   "name": "gData_00722110",
-   "pointers": [],
-   "region": "data",
-   "size": 14,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00722110_t\n{\n    unsigned char b0[14];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00722110",
-   "va": "0x00722110"
   },
   {
    "alias": false,
@@ -146152,31 +146276,6 @@
    "tail": "; // 0x00711254",
    "type": "int",
    "va": "0x00711254"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Client/UI/inv_00491D20.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gnTabEnabled3 = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gnTabEnabled3",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00722154",
-   "type": "int",
-   "va": "0x00722154"
   },
   {
    "alias": false,
