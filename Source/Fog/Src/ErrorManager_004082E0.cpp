@@ -83,17 +83,11 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);      
 
 struct D2HostentStrc;
 
-struct D2ThreadNameInfoStrc;
 
-struct D2UnicodeStringStrc;
 
-struct D2ListEntryStrc;
 
-struct D2LdrEntryStrc;
 
-struct D2LdrDataStrc;
 
-struct D2PebStrc;
 
 struct D2TebStrc;
 
@@ -624,20 +618,6 @@ int gnSourcePrefixLength; // 0x0074F0D4
 #define va_start(ap, v) (ap = (va_list)&v + _INTSIZEOF(v))
 
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
-
-struct FSafeSock
-{
-    int bConnected;
-    int bConnecting;
-    unsigned int nSocket;
-    D2CriticalSectionStrc tCriticalSection;
-    void* hThread;
-    unsigned long nThreadId;
-    int bStopping;
-    unsigned long nFogErrorCode;
-    unsigned long nWSALastError;
-    char szName[64];
-};
 
 extern "C" int __cdecl vsprintf(char* szDest, const char* szFormat, va_list args);                          // 0x00682DA1
 

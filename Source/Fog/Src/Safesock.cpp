@@ -524,13 +524,9 @@ public:
 
 struct D2ImageHlpLineStrc;
 
-struct D2PeDosHeaderStrc;
 
-struct D2PeNtHeadersStrc;
 
-struct D2PeSectionStrc;
 
-struct D2ImageHlpAddressStrc;
 
 struct D2ImageHlpStackFrameStrc;
 
@@ -538,13 +534,11 @@ struct D2ImageHlpSymbolStrc;
 
 struct D2ImageHlpModuleStrc;
 
-struct D2CrashDumpEntryStrc;
 
 struct D2SystemTimeStrc;
 
 struct D2ModuleInfoStrc;
 
-struct D2MemoryBasicInfoStrc;
 
 unsigned long __stdcall sub_004101C0_LogThreadProc(void* pParam); // 0x004101C0
 
