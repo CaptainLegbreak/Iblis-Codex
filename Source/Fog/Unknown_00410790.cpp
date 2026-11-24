@@ -81,9 +81,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 
 
 void __fastcall LOGMANAGER_WriteLogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args); // 0x00410340
 
-extern int gnBitMasks_006CE268[8]; // 0x006CE268
-
-extern int gnBitClearMasks_006CE2E8[8]; // 0x006CE2E8
+extern unsigned int gdwInvBitMasks[]; // 0x006CE2E8
 
 extern int ganByteTable[256]; // 0x006CE398
 
@@ -98,25 +96,11 @@ extern "C" int __cdecl tolower(int nChar);
 // build: symbol ?gacCDKeyMap@* 0x006DF238
 extern const char gacCDKeyMap[];
 
-struct T00410B70;
-
 struct D2BitBufferStrc;
 
 struct D2BitCodeStrc;
 
-struct Obj00410E90;
-
 struct D2TimedRecordStrc;
-
-struct T00410B70 { unsigned char bytes[1]; };
-
-enum { BIT_MASK = 7 };
-
-typedef unsigned char Byte;
-
-typedef unsigned int Word;
-
-enum { ROUND_BITS = 7, TAIL_HIGH = 2 };
 
 struct D2BitCodeStrc
 {
@@ -129,13 +113,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern unsigned int gdwLowMasks_006CE368[]; // 0x006CE368
 
 unsigned int __stdcall sub_00410F60_ReadBits(D2BitBufferStrc* pBuffer, int nBits); // 0x00410F60
-
-struct Obj00410E90 {
-    unsigned int dwUnknown00;
-    unsigned int dwUnknown04;
-    int nValue08;
-    int nFlag0C;
-};
 
 struct D2TimedRecordStrc
 {
@@ -307,8 +284,6 @@ struct D2FogBlockStrc
     int bInUse;
 };
 
-extern const unsigned int gdwBitMasks_006CE368[9]; // 0x006CE368
-
 extern const unsigned char gabOffsetMasks[9]; // 0x006CE38C
 
 extern unsigned short gawStringCrcTable[256]; // 0x00708140
@@ -363,38 +338,45 @@ int __stdcall sub_M106_Emit_0051DD40(int n)
 // 0x00410B10
 void __stdcall sub_00410B10(unsigned char* pBits, int nBit)
 {
-    pBits[nBit >> 3] |= gnBitMasks_006CE268[nBit & 7];
+    pBits[nBit >> 3] |= gdwBitMasks[nBit & 7];
 }
 
 // 0x00410B30
 int __stdcall sub_00410B30(unsigned char* pBits, int nBit)
 {
-    return pBits[nBit >> 3] & gnBitMasks_006CE268[nBit & 7];
+    return pBits[nBit >> 3] & gdwBitMasks[nBit & 7];
 }
 
 // 0x00410B50
 void __stdcall sub_00410B50(unsigned char* pBits, int nBit)
 {
-    pBits[nBit >> 3] &= gnBitClearMasks_006CE2E8[nBit & 7];
+    pBits[nBit >> 3] &= gdwInvBitMasks[nBit & 7];
 }
 
 // 0x00410B70
-void __stdcall sub_00410B70(T00410B70* buffer,int bit)
+void __stdcall sub_00410B70(unsigned char* pBits, int nBit)
 {
-    buffer->bytes[bit >> 3] ^= (unsigned char)gdwBitMasks[bit & BIT_MASK];
+    pBits[nBit >> 3] ^= gdwBitMasks[nBit & 7];
 }
 
 // 0x00410B90
-void __stdcall sub_00410B90(const Byte* first,const Byte* second,Byte* output,int bitCount)
+void __stdcall sub_00410B90(const unsigned char* pA, const unsigned char* pB, unsigned char* pOut, int nBits)
 {
-    bitCount=(bitCount+ROUND_BITS)/8;
-    int wholeBytes=(bitCount/4)*4;
-    int i=0;
-    for (;i<wholeBytes;i+=4) *(Word*)(output+i)=*(const Word*)(first+i)&*(const Word*)(second+i);
-    switch (bitCount-wholeBytes) {
-    case 3: output[i+TAIL_HIGH]=first[i+TAIL_HIGH]&second[i+TAIL_HIGH];
-    case 2: output[i+1]=first[i+1]&second[i+1];
-    case 1: output[i]=first[i]&second[i];
+    nBits = (nBits + 7) / 8;
+    const int nAligned = 4 * (nBits / 4);
+    int i;
+    for (i = 0; i < nAligned; i += 4)
+    {
+        *(int*)&pOut[i] = *(const int*)&pA[i] & *(const int*)&pB[i];
+    }
+    switch (nBits - nAligned)
+    {
+    case 3:
+        pOut[i + 2] = pA[i + 2] & pB[i + 2];
+    case 2:
+        pOut[i + 1] = pA[i + 1] & pB[i + 1];
+    case 1:
+        pOut[i] = pA[i] & pB[i];
     }
 }
 
@@ -473,8 +455,9 @@ void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBit
 }
 
 // 0x00410E90
-extern "C" __declspec(dllexport) int __stdcall sub_00410E90(Obj00410E90* pObj) {
-    return pObj->nFlag0C ? pObj->nValue08 + 1 : pObj->nValue08;
+extern "C" int __stdcall sub_00410E90(D2BitBufferStrc* pBuffer)
+{
+    return pBuffer->nPosBits ? pBuffer->nPos + 1 : pBuffer->nPos;
 }
 
 // 0x00410EB0
@@ -547,7 +530,7 @@ unsigned int __stdcall sub_00410F60_ReadBits(D2BitBufferStrc* pBuffer, int nBits
             }
             const int nPosBits = pBuffer->nPosBits;
 
-            dwValue += (gdwBitMasks_006CE368[i] & ((unsigned char)(*pBuffer->pBuffer & gabOffsetMasks[nPosBits]) >> nPosBits)) << dw;
+            dwValue += (gdwLowMasks_006CE368[i] & ((unsigned char)(*pBuffer->pBuffer & gabOffsetMasks[nPosBits]) >> nPosBits)) << dw;
             dwBitsLeft -= i;
             dw += i;
             pBuffer->nPosBits += i;
