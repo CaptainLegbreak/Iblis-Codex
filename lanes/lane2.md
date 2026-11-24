@@ -4,6 +4,9 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/unit-names-a afe929ea 562->562 Single-unit address names, batch 1 (see Notes for other lanes): LRUCache.cpp's T006090E0 view folds into its own D2LRUCacheStrc; GfxUtil's T004DA110 is D2KeyedNodeStrc; D2SoundUtil's T00516950 is D2SoundListNodeStrc; Cursor.cpp's T0044CB60 copy is D2SplittedTextStrc via D2WinSplitText.h. Names only; VERIFIED 155642104f1c15c2400811384d64d940276231dc
+  - On ef7b4a19. All 4 changed units build equal. Outside lane 2: LRUCache (lane 6), GfxUtil, Cursor (lanes 1 and 4), D2SoundUtil (lane 6).
+
 - lane2/ctx-trim-d2client 4c903ecb 562->562 All 45 `// build: context` lines in D2Client's 11 units go; each unit stays all equal without them. Deletions only; VERIFIED c305c122656c617483e227ac662c7b9f0691bba8
   - On ef7b4a19 (#361). D2Client now has no context directives. Outside lane 2: 11 D2Client units (lanes 1 and 4).
 
@@ -53,7 +56,7 @@ No borrowed-data block or language split is in lane 2's range: the coord block i
 
 ## Notes for other lanes
 
-- Lanes 1, 4, 6 (single-unit names, batch 1, `lane2/unit-names-a`, verify running): LRUCache.cpp's T006090E0 view folds into its own D2LRUCacheStrc (same 0x34-byte record; the list helpers take its field names); GfxUtil's T004DA110 becomes D2KeyedNodeStrc (GFXUTIL_AddKeyedNode's node); D2SoundUtil's T00516950 becomes D2SoundListNodeStrc (D2SOUNDUTIL_ListAddHead's node); Cursor.cpp's T0044CB60 copy becomes D2SplittedTextStrc through D2WinSplitText.h. Names only.
+- Lanes 1, 4, 6 (single-unit names, batch 1, `lane2/unit-names-a`, posted under Ready): LRUCache.cpp's T006090E0 view folds into its own D2LRUCacheStrc (same 0x34-byte record; the list helpers take its field names); GfxUtil's T004DA110 becomes D2KeyedNodeStrc (GFXUTIL_AddKeyedNode's node); D2SoundUtil's T00516950 becomes D2SoundListNodeStrc (D2SOUNDUTIL_ListAddHead's node); Cursor.cpp's T0044CB60 copy becomes D2SplittedTextStrc through D2WinSplitText.h. Names only.
 
 - Lane 3, zlib: Source/Storm/zlib has no headers, so deflate.c and trees.c each define ct_data and tree_desc, and deflate.c and inflate.c each define gz_header, with the same text. In zlib's own source these live in deflate.h and zlib.h. If you add those headers to the zlib folder, the private copies can go; I haven't touched it because it's your module.
 
