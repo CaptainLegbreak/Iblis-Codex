@@ -448,6 +448,10 @@ struct D2StormFixedListStrc
 {
     int m_linkoffset;
     D2StormLinkStrc m_terminator;
+    char* Head()
+    {
+        return (int)m_terminator.m_next > 0 ? m_terminator.m_next : 0;
+    }
     D2StormLinkStrc* Link(char* pNode)
     {
         return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;

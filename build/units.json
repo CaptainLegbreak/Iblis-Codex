@@ -4762,6 +4762,11 @@
      "name": "?_GREQUEST"
     },
     {
+     "va": "0x0041A110",
+     "length": 423,
+     "name": "?SFileDestroy@@YAHXZ"
+    },
+    {
      "va": "0x0041A2C0",
      "length": 64,
      "name": "sub_0041A2C0_DeleteNode"
@@ -5111,6 +5116,16 @@
    "file": "Source/Storm/SOURCE/SCOMP.CPP",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0041DEC0",
+     "length": 52,
+     "name": "PkwareBufferRead"
+    },
+    {
+     "va": "0x0041DF00",
+     "length": 49,
+     "name": "PkwareBufferWrite"
+    },
     {
      "va": "0x0041DF40",
      "length": 186,
@@ -5996,11 +6011,6 @@
      "va": "0x00418F90",
      "length": 82,
      "name": "?sub_00418F90@List@@QAEPAUNode@@III@Z"
-    },
-    {
-     "va": "0x0041A110",
-     "length": 423,
-     "name": "?SFileDestroy@@YAHXZ"
     }
    ]
   },
@@ -6153,16 +6163,6 @@
      "va": "0x0041D900",
      "length": 18,
      "name": "sub_0041D900_Skip"
-    },
-    {
-     "va": "0x0041DEC0",
-     "length": 52,
-     "name": "PkwareBufferRead"
-    },
-    {
-     "va": "0x0041DF00",
-     "length": 49,
-     "name": "PkwareBufferWrite"
     },
     {
      "va": "0x0041E900",
@@ -8275,6 +8275,11 @@
      "name": "SEvtBreakHandlerChain"
     },
     {
+     "va": "0x00426F20",
+     "length": 106,
+     "name": "?sub_00426F20_DeleteNode@D2StormBreakCmdListStrc@@QAEPADPAD@Z"
+    },
+    {
      "va": "0x00426F90",
      "length": 453
     },
@@ -8394,17 +8399,6 @@
     "/Oy-",
     "/Ob2",
     "/Gd"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00426F20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00426F20",
-     "length": 106,
-     "name": "?sub_00426F20_DeleteNode@D2StormBreakCmdListStrc@@QAEPADPAD@Z"
-    }
    ]
   },
   {
@@ -14167,54 +14161,6 @@
      "name": "INV_FreeCacheEntries"
     },
     {
-     "va": "0x00482C20",
-     "length": 74,
-     "name": "?INV_TickSound@@YAXXZ"
-    },
-    {
-     "va": "0x00482C70",
-     "length": 43
-    },
-    {
-     "va": "0x00482CA0",
-     "length": 348,
-     "name": "?INV_UpdateAuxBattleNetAddress@@YIXH@Z"
-    },
-    {
-     "va": "0x00482E00",
-     "length": 44,
-     "name": "?INV_ArchiveFilePresent@@YAHPBD@Z"
-    },
-    {
-     "va": "0x00482E30",
-     "length": 180,
-     "name": "?INV_BuildLocalizedVideoPath@@YAXPADPBD1@Z"
-    },
-    {
-     "va": "0x00482EF0",
-     "length": 1033
-    },
-    {
-     "va": "0x00483300",
-     "length": 8,
-     "name": "_INV_StopCinematic"
-    },
-    {
-     "va": "0x00483310",
-     "length": 37,
-     "name": "?INV_ResetCinematicFlags@@YAXXZ"
-    },
-    {
-     "va": "0x00483340",
-     "length": 8,
-     "name": "_INV_ChainCinematic"
-    },
-    {
-     "va": "0x00483350",
-     "length": 6,
-     "name": "?INV_IsCinematicBusy@@YAEXZ"
-    },
-    {
      "va": "0x004834A0",
      "length": 58,
      "name": "?INV_SkipBracketTag@@YIPBUUnicode@@PBU1@@Z"
@@ -15081,11 +15027,6 @@
      "name": "sub_004A17D0"
     },
     {
-     "va": "0x004A7A80",
-     "length": 11,
-     "name": "_INV_ClearGoldDialogFlag"
-    },
-    {
      "va": "0x004AA0C0",
      "length": 34,
      "name": "INV_SetHotkeySkillSlot"
@@ -15133,6 +15074,69 @@
     {
      "va": "0x006CABF0",
      "length": 17
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_00482C70.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00482C70",
+     "length": 43
+    },
+    {
+     "va": "0x00482CA0",
+     "length": 348,
+     "name": "?INV_UpdateAuxBattleNetAddress@@YIXH@Z"
+    },
+    {
+     "va": "0x00482E00",
+     "length": 44,
+     "name": "?INV_ArchiveFilePresent@@YAHPBD@Z"
+    },
+    {
+     "va": "0x00482E30",
+     "length": 180,
+     "name": "?INV_BuildLocalizedVideoPath@@YAXPADPBD1@Z"
+    },
+    {
+     "va": "0x00482EF0",
+     "length": 1033
+    },
+    {
+     "va": "0x00483300",
+     "length": 8,
+     "name": "_INV_StopCinematic"
+    },
+    {
+     "va": "0x00483310",
+     "length": 37,
+     "name": "?INV_ResetCinematicFlags@@YAXXZ"
+    },
+    {
+     "va": "0x00483340",
+     "length": 8,
+     "name": "_INV_ChainCinematic"
+    },
+    {
+     "va": "0x00483350",
+     "length": 6,
+     "name": "?INV_IsCinematicBusy@@YAEXZ"
     }
    ],
    "flags": [
@@ -23532,6 +23536,11 @@
      "va": "0x00482B40",
      "length": 214,
      "name": "?SOUNDHDR_UpdateCache@@YIXI@Z"
+    },
+    {
+     "va": "0x00482C20",
+     "length": 74,
+     "name": "?INV_TickSound@@YAXXZ"
     }
    ]
   },
@@ -23987,6 +23996,60 @@
      "name": "?TEXT_QuestLButtonUpMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x004B23E0",
+     "length": 192,
+     "name": "?TEXT_InitNpcMenu@@YAXXZ"
+    },
+    {
+     "va": "0x004B9010",
+     "length": 66,
+     "name": "?TEXT_SetNameFromPacket@@YIXPAUD2NamePacketStrc@@@Z"
+    },
+    {
+     "va": "0x004BF2F0",
+     "length": 306
+    },
+    {
+     "va": "0x004E48B0",
+     "length": 268,
+     "name": "?TEXT_AppendUndeadDamageBonus@@YIXPAUD2UnitStrc@@PAUUnicode@@H@Z"
+    },
+    {
+     "va": "0x004E6720",
+     "length": 163,
+     "name": "?TEXT_BuildItemPropTextB@@YIXPAUD2UnitStrc@@HHPAUUnicode@@HH@Z"
+    },
+    {
+     "va": "0x004ED3F0",
+     "length": 142,
+     "name": "?TEXT_DrawHintText@@YGXHH@Z"
+    },
+    {
+     "va": "0x006CACD0",
+     "length": 10
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_004A6460.cpp",
+   "rank": 0,
+   "functions": [
+    {
      "va": "0x004A6460",
      "length": 31,
      "name": "?TEXT_LoadLevelCels@@YAXXZ"
@@ -24000,6 +24063,11 @@
      "va": "0x004A64C0",
      "length": 177,
      "name": "?TEXT_UpdateLevelUpButtons@@YAXXZ"
+    },
+    {
+     "va": "0x004A6580",
+     "length": 85,
+     "name": "TEXT_IsInPanelButton"
     },
     {
      "va": "0x004A65E0",
@@ -24039,6 +24107,11 @@
      "name": "?TEXT_IsStatButtonHidden@@YG_NH@Z"
     },
     {
+     "va": "0x004A6A70",
+     "length": 178,
+     "name": "sub_004A6A70_DrawLeftPanelButton"
+    },
+    {
      "va": "0x004A6B30",
      "length": 537,
      "name": "?TEXT_DrawStatButton@@YAXXZ"
@@ -24049,9 +24122,19 @@
      "name": "?TEXT_IsSkillButtonHidden@@YG_NH@Z"
     },
     {
+     "va": "0x004A6DA0",
+     "length": 178,
+     "name": "sub_004A6DA0_DrawRightPanelButton"
+    },
+    {
      "va": "0x004A6E60",
      "length": 538,
      "name": "?TEXT_DrawSkillButton@@YAXXZ"
+    },
+    {
+     "va": "0x004A7080",
+     "length": 60,
+     "name": "TEXT_DrawCenteredText"
     },
     {
      "va": "0x004A70C0",
@@ -24082,6 +24165,11 @@
      "name": "?TEXT_SplitAtNewline@@YIHPAUUnicode@@PAPAU1@@Z"
     },
     {
+     "va": "0x004A76C0",
+     "length": 92,
+     "name": "?sub_004A76C0_ClaimLeftPanelClick@@YAHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x004A7720",
      "length": 411,
      "name": "?sub_004A7720_OnLButtonDown@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
@@ -24092,9 +24180,19 @@
      "name": "?sub_004A78C0_OnLButtonUp@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x004A7A80",
+     "length": 11,
+     "name": "_INV_ClearGoldDialogFlag"
+    },
+    {
      "va": "0x004A7A90",
      "length": 11,
      "name": "?TEXT_SetGoldDialogFlag@@YAXXZ"
+    },
+    {
+     "va": "0x004A7AA0",
+     "length": 41,
+     "name": "?sub_004A7AA0_InitTextEntryLengths@@YAXXZ"
     },
     {
      "va": "0x004A7AD0",
@@ -24102,37 +24200,13 @@
      "name": "?sub_004A7AD0@@YAXXZ"
     },
     {
-     "va": "0x004B23E0",
-     "length": 192,
-     "name": "?TEXT_InitNpcMenu@@YAXXZ"
+     "va": "0x004A7D00",
+     "length": 3272
     },
     {
-     "va": "0x004B9010",
-     "length": 66,
-     "name": "?TEXT_SetNameFromPacket@@YIXPAUD2NamePacketStrc@@@Z"
-    },
-    {
-     "va": "0x004BF2F0",
-     "length": 306
-    },
-    {
-     "va": "0x004E48B0",
-     "length": 268,
-     "name": "?TEXT_AppendUndeadDamageBonus@@YIXPAUD2UnitStrc@@PAUUnicode@@H@Z"
-    },
-    {
-     "va": "0x004E6720",
-     "length": 163,
-     "name": "?TEXT_BuildItemPropTextB@@YIXPAUD2UnitStrc@@HHPAUUnicode@@HH@Z"
-    },
-    {
-     "va": "0x004ED3F0",
-     "length": 142,
-     "name": "?TEXT_DrawHintText@@YGXHH@Z"
-    },
-    {
-     "va": "0x006CACD0",
-     "length": 10
+     "va": "0x004A89D0",
+     "length": 69,
+     "name": "?sub_004A89D0_SkillDescRec@@YIPAUD2SkillDescTxt@@H@Z"
     }
    ],
    "flags": [
@@ -25272,16 +25346,6 @@
      "name": "TEXT_ButtonCaptureMsg"
     },
     {
-     "va": "0x004A6580",
-     "length": 85,
-     "name": "TEXT_IsInPanelButton"
-    },
-    {
-     "va": "0x004A7080",
-     "length": 60,
-     "name": "TEXT_DrawCenteredText"
-    },
-    {
      "va": "0x004A8D50",
      "length": 153,
      "name": "TEXT_UpdateSkillButtonHover"
@@ -25752,16 +25816,6 @@
      "name": "sub_004A63B0_WheelMsgHandler"
     },
     {
-     "va": "0x004A6A70",
-     "length": 178,
-     "name": "sub_004A6A70_DrawLeftPanelButton"
-    },
-    {
-     "va": "0x004A6DA0",
-     "length": 178,
-     "name": "sub_004A6DA0_DrawRightPanelButton"
-    },
-    {
      "va": "0x004A8DF0",
      "length": 210,
      "name": "sub_004A8DF0_DrawKeyLabel"
@@ -26131,25 +26185,6 @@
    "file": "Source/D2Client/Unknown_004A76C0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004A76C0",
-     "length": 92,
-     "name": "?sub_004A76C0_ClaimLeftPanelClick@@YAHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x004A7AA0",
-     "length": 41,
-     "name": "?sub_004A7AA0_InitTextEntryLengths@@YAXXZ"
-    },
-    {
-     "va": "0x004A7D00",
-     "length": 3272
-    },
-    {
-     "va": "0x004A89D0",
-     "length": 69,
-     "name": "?sub_004A89D0_SkillDescRec@@YIPAUD2SkillDescTxt@@H@Z"
-    },
     {
      "va": "0x004A8A30",
      "length": 452,
@@ -65719,6 +65754,20 @@
      "va": "0x0060B1F0",
      "length": 15,
      "name": "?sub_0060B1F0_GetBitPos@D2CmpBitCursorStrc@@QAEHXZ"
+    }
+   ]
+  },
+  {
+   "file": "Source/D2CMP/SRC/Codec.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0060B200",
+     "length": 128
+    },
+    {
+     "va": "0x0060B280",
+     "length": 47
     },
     {
      "va": "0x0060B2B0",
@@ -65736,6 +65785,14 @@
      "name": "?sub_0060B4B0_DccCountCells@@YAXPAUD2DccDirStrc@@@Z"
     },
     {
+     "va": "0x0060B530",
+     "length": 182
+    },
+    {
+     "va": "0x0060B5F0",
+     "length": 65
+    },
+    {
      "va": "0x0060B640",
      "length": 318,
      "name": "?sub_0060B640_BuildColorMaps@@YIXPAUD2CmpByteMapStrc@@PBI0@Z"
@@ -65746,6 +65803,10 @@
      "name": "?sub_0060B780_GetRunBits@@YAHPBE@Z"
     },
     {
+     "va": "0x0060B9A0",
+     "length": 999
+    },
+    {
      "va": "0x0060BD90",
      "length": 29,
      "name": "?sub_0060BD90_RemapRun@@YAXPAUD2CmpByteRunStrc@@PBE@Z"
@@ -65753,13 +65814,7 @@
     {
      "va": "0x0060BDB0",
      "length": 356
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/Codec.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0060BF20",
      "length": 206,
@@ -65779,83 +65834,7 @@
      "va": "0x0060B160",
      "length": 23,
      "name": "?sub_0060B160_Copy@@YGXPAUD2BitBufferInitStrc@@PBU1@@Z"
-    },
-    {
-     "va": "0x0060B5F0",
-     "length": 65
     }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_0060B200.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060B200",
-     "length": 128
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_0060B280.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060B280",
-     "length": 47
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_0060B530.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060B530",
-     "length": 182
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -65866,30 +65845,6 @@
      "va": "0x0060B7B0",
      "length": 483
     }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_0060B9A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0060B9A0",
-     "length": 999
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

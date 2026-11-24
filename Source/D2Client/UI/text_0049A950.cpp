@@ -1317,42 +1317,7 @@ void __stdcall TEXT_ButtonCaptureMsg(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
-// 0x004A6580
-int __fastcall TEXT_IsInPanelButton(int nMode, int nX, int nY)
-{
-    if (nMode == 2)
-    {
-        int nHalf = gnScreenWidth / 2;
-        if (nX <= nHalf + 40 || nX >= nHalf + 74)
-        {
-            return 0;
-        }
-    }
-    else if (nX < 41 || nX > 41 + 32)
-    {
-        return 0;
-    }
 
-    if (nY <= gnScreenHeight - 139 || nY >= gnScreenHeight - 102)
-    {
-        return 0;
-    }
-
-    return 1;
-}
-
-// 0x004A7080
-void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor)
-{
-    int nSpan = nRight - nLeft + 1;
-    int nWidth = D2Win_10121_GetTextWidth(wszText);
-    if (nWidth < nSpan)
-    {
-        nLeft += (nSpan - nWidth) >> 1;
-    }
-
-    D2Win_10117_DrawText(wszText, nLeft, nY, nColor, 0);
-}
 
 // 0x004A8D50
 void __fastcall TEXT_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY)
