@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/storm-critsect f8331af8 562->562 Stacked on `lane2/storm-arrays` (which is stacked on `lane2/storm-hash`); its own commit is the top one. D2StormCritSectStrc is Storm's CCritSect: one CRITICAL_SECTION that its destructor deletes and the export table's lock and unlock enter and leave through m_sync. Its only member f_0 is now Storm's m_critsect, in D2CmpStormHash.h and the private copies in CelCmp_00604730, Unknown_00604070 and Unknown_0044F9B0; VERIFIED 339351e7713737a11e6728733123f606e1cbf517
+  - On 88003a4d (#346), with the two branches below it. All 302 includers build equal.
+  - Outside lane 2: D2CMP units (lane 6), Unknown_0044F9B0 (lanes 1 and 4).
+
 - lane2/storm-arrays bcdaba7c 562->562 Stacked on `lane2/storm-hash` (its first commit is storm-hash's, rebased; post them together or storm-hash first). Storm's growable and fixed arrays are viewed under about 30 names (D2StormSlotArrayStrc and D2StormEntryArrayStrc in D2CmpStormList.h, D2StormArray408Strc in D2CMP.h/Fog.h/Storm.h, and private copies such as D2StormArrayB/CStrc, D2StormListArrayStrc, D2StormGameArrayStrc, D2CommonStormSlotArrayA/BStrc and the other D2StormArrayAStrc copies), all capacity/count/data/chunk at 0x00/0x04/0x08/0x0C. Their f_0/f_4/f_8/f_C are now m_alloc/m_count/m_data/m_chunk, as #346's D2StormArrayA.h names them, with the derived types, member functions and callers (43 files); VERIFIED 158afb8970e26b72915ee328c30e884633a953b7
   - Verified on 900824d3 (#345), rebased onto 88003a4d (#346). Merges cleanly with storm-bitoutput and small-records-g-5. Precheck of all 308 includers was equal on #345.
   - Outside lane 2: Storm, Fog and LogManager units (lane 3), D2CMP units (lane 6), D2Client units (lanes 1 and 4), D2BNClient BnSend/BNNews (lane 6), Ignorelist and Unknown_0066D7E0 (lane 8), member names in D2CMP.h, D2CmpStormList.h, Fog.h, Storm.h.
