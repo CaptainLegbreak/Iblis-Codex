@@ -12,12 +12,6 @@ struct D2PacketBufferStrc;
 
 struct D2CriticalSectionStrc;
 
-struct Obj006BE450;
-
-struct D2Worker006BE4A0Strc;
-
-struct D2Object006BE4E0Strc;
-
 struct D2ReferenceStrc;
 
 struct D2RecordTableStrc;
@@ -60,24 +54,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-struct Obj006BE450 { unsigned char bUnknown00[0x880]; unsigned int dwValue880; };
-
-struct D2Worker006BE4A0Strc
-{
-    unsigned char unk_000[0x854];
-    D2CriticalSectionStrc tLock854;
-    unsigned char unk_86C[0x884 - 0x86C];
-    unsigned int nCount884;
-};
-
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds);
-
-struct D2Object006BE4E0Strc
-{
-    int nClosed00;
-    unsigned char unk_004[0xBD0];
-    void* hEventBD4;
-};
 
 struct D2ReferenceStrc
 {
@@ -113,7 +90,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-int __fastcall sub_006C30D0_Wait(D2Object006BE4E0Strc* pObject, unsigned long dwMilliseconds); // 0x006C30D0
+int __fastcall sub_006C30D0_Wait(D2QueueServerStrc* pServer, unsigned long dwMilliseconds); // 0x006C30D0
 
 struct D2HashNodeStrc
 {
@@ -602,11 +579,13 @@ int __stdcall QSERVER_FreeAllSlots(D2QueueServerStrc* pServer)
 }
 
 // 0x006BE450
-extern "C" __declspec(dllexport) unsigned int __stdcall FOG_10180(Obj006BE450* pObj) {
-    if (!pObj) {
+unsigned int __stdcall FOG_10180(D2QueueServerStrc* pServer)
+{
+    if (!pServer)
+    {
         return 0;
     }
-    return pObj->dwValue880;
+    return pServer->nClients;
 }
 
 // 0x006BE470
@@ -618,24 +597,24 @@ int __stdcall QSERVER_IsActive(D2QueueServerStrc* pServer)
 }
 
 // 0x006BE4A0
-void __stdcall FOG_SetMaxClientsPerGame(D2Worker006BE4A0Strc* pWorker, unsigned int nCount)
+void __stdcall FOG_SetMaxClientsPerGame(D2QueueServerStrc* pServer, unsigned int nCount)
 {
-    if (pWorker)
+    if (pServer)
     {
         if (nCount <= 0)
             nCount = 1;
-        EnterCriticalSection(&pWorker->tLock854);
-        pWorker->nCount884 = nCount;
-        LeaveCriticalSection(&pWorker->tLock854);
+        EnterCriticalSection(&pServer->tLock);
+        pServer->nLimit = nCount;
+        LeaveCriticalSection(&pServer->tLock);
     }
 }
 
 // 0x006BE4E0
-unsigned long __stdcall FOG_WaitForSingleObject(D2Object006BE4E0Strc* pObject, unsigned long dwMilliseconds)
+unsigned long __stdcall FOG_WaitForSingleObject(D2QueueServerStrc* pServer, unsigned long dwMilliseconds)
 {
-    if (pObject->nClosed00)
+    if (pServer->bAltSend)
         return 0;
-    return WaitForSingleObject(pObject->hEventBD4, dwMilliseconds);
+    return WaitForSingleObject(pServer->hEvent, dwMilliseconds);
 }
 
 // 0x006BE510
@@ -946,19 +925,19 @@ int __stdcall FOG_10156(D2QueueServerStrc* pQueue, int nIndex, void* pDst, unsig
     return nResult;
 }
 
-static inline int sub_006BEBC0_WaitHandle(D2Object006BE4E0Strc* pObject, unsigned long dwMilliseconds)
+static inline int sub_006BEBC0_WaitHandle(D2QueueServerStrc* pServer, unsigned long dwMilliseconds)
 {
-    if (!pObject->nClosed00)
-        return WaitForSingleObject(pObject->hEventBD4, dwMilliseconds);
+    if (!pServer->bAltSend)
+        return WaitForSingleObject(pServer->hEvent, dwMilliseconds);
     return 0;
 }
 
 // 0x006BEBC0
-int __stdcall FOG_10177(D2Object006BE4E0Strc* pObject, unsigned long dwMilliseconds)
+int __stdcall FOG_10177(D2QueueServerStrc* pServer, unsigned long dwMilliseconds)
 {
-    if (pObject->nClosed00)
-        return sub_006C30D0_Wait(pObject, dwMilliseconds);
-    return !sub_006BEBC0_WaitHandle(pObject, dwMilliseconds);
+    if (pServer->bAltSend)
+        return sub_006C30D0_Wait(pServer, dwMilliseconds);
+    return !sub_006BEBC0_WaitHandle(pServer, dwMilliseconds);
 }
 
 // 0x006BEC00
