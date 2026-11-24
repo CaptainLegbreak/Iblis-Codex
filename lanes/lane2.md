@@ -56,6 +56,8 @@ No borrowed-data block or language split is in lane 2's range: the coord block i
 
 ## Notes for other lanes
 
+- Lanes 5 and 8 (single-unit names, batch 2, `lane2/unit-names-b`, verify running): SUnit's T00552FD0 view of pAnimData becomes D2AnimData.h's D2AnimDataRecordStrc; SUnitDmg's T0057E5A0 becomes D2PartyExperienceStrc (SUNITDMG_PartyCallback_ComputePartyExperience's data); MonsterTbls' T006510C0 becomes D2UniqueNameTablesStrc (gUniqueNameTables). Names only. Left alone for lack of evidence: Path.cpp's T00648730, Drlg.cpp's T00642010, PlrSave2's T0056A6F0, RosterPets' T0045FED0 and the R0052E0F0/R00601DC0 file holders.
+
 - Lanes 1, 4, 6 (single-unit names, batch 1, `lane2/unit-names-a`, posted under Ready): LRUCache.cpp's T006090E0 view folds into its own D2LRUCacheStrc (same 0x34-byte record; the list helpers take its field names); GfxUtil's T004DA110 becomes D2KeyedNodeStrc (GFXUTIL_AddKeyedNode's node); D2SoundUtil's T00516950 becomes D2SoundListNodeStrc (D2SOUNDUTIL_ListAddHead's node); Cursor.cpp's T0044CB60 copy becomes D2SplittedTextStrc through D2WinSplitText.h. Names only.
 
 - Lane 3, zlib: Source/Storm/zlib has no headers, so deflate.c and trees.c each define ct_data and tree_desc, and deflate.c and inflate.c each define gz_header, with the same text. In zlib's own source these live in deflate.h and zlib.h. If you add those headers to the zlib folder, the private copies can go; I haven't touched it because it's your module.
