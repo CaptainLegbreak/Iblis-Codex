@@ -4,6 +4,9 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/particle-strays debdf4d47 563->562 Particle.cpp takes 0x4DA0D0/0x4DA0F0 (Item.cpp; GfxUtil's 0x4DA350 calls them and their sibling 0x4DA0B0 without inlining); GfxUtil.cpp takes the strays in its run: 0x4DA5B0 (Skills.cpp), 0x4DA700/0x4DA790/0x4DAD20 (Particle.cpp), 0x4DA770 (Unknown_004DA770.cpp, which goes), 0x4DC0A0/0x4DC0B0 (PlayerList.cpp; 0x4DC0A0 clears GfxUtil's gdwFadeTick, and CUnitEvent calls the 11-byte 0x4DC0B0 out of line); the .bss token tables 0x7C88D0-0x7C89C0 that 0x4DA790 resets move from Particle.cpp to GfxUtil.cpp (they sit right before gdwFadeTick); VERIFIED f1b997fa2558c6c94a4f77b82b76ba2ae67d61fd
+  - verified on #328, rebased clean onto #329 (tree eca0fb1edd007bae8f773c1878ccf34266f5e23f; #329 is names only).
+
 - lane1/monunique-object 4631a3c4f 562->560 MonUnique.cpp becomes its object 0x4AC730-0x4AD0B5: the accessors and setters 0x4AC730-0x4AC840 (from Unknown_004A9BD0, Monster.cpp's GetMonUmods, GfxUtil.cpp's type-flag toggle, and Unknown_004AC780.cpp, which goes) and the hover-name builder 0x4AC870 (Unknown_004AC870.cpp, which goes; it inlines the accessors, its gaHoverModes rdata sits right before the MonUnique.cpp path string, and gpfnUModCallbacks points at it); MonUnique.cpp builds /GS- like 0x4AC870 did. Data: the copy at 0x724D3C that starts MonUnique's data is planned in it; gaSkillTabX shrinks to int[7][3] with the int after it as gData_00724D38 (lane 4's note); VERIFIED e278896e0ba3a2be0c7778c30a9510272cb2d38f
   - based on main #327. Touches lane 4's Unknown_004A9BD0.cpp, Unknown_00499500.cpp's plan, GfxUtil.cpp.
 
