@@ -386,7 +386,7 @@
     "extern \"C\" char gpJoinGameBckgCelFile[]; // 0x0077BC50",
     "extern \"C\" char gpGameButtonBlankCelFile[]; // 0x0077BC5C",
     "extern \"C\" char gpJoinGameClickBoxCelFile[]; // 0x0077BC60",
-    "extern \"C\" void __cdecl CHARSEL_JoinByName(); // 0x004439F0",
+    "extern \"C\" void __cdecl CHATDLG_JoinByName(); // 0x004439F0",
     "extern \"C\" void __cdecl sub_00443C10_AlwaysOne(); // 0x00443C10",
     "extern \"C\" void __cdecl sub_004450D0_OnGameListEvent(); // 0x004450D0",
     "extern \"C\" char gpGreyLevelBoxCelFile[]; // 0x0077BC64",
@@ -404,10 +404,10 @@
     "extern \"C\" void __cdecl CHATDLG_ShowExpansionLadder(); // 0x00440C40",
     "extern \"C\" void __cdecl CHATDLG_ShowExpansionHardcoreLadder(); // 0x00440C70",
     "extern \"C\" void __cdecl CHATDLG_OpenLadderScreen(); // 0x00442350",
-    "extern \"C\" void __cdecl CHARSEL_IncrementMaxPlayers(); // 0x004433C0",
-    "extern \"C\" void __cdecl CHARSEL_DecrementMaxPlayers(); // 0x00443420",
-    "extern \"C\" void __cdecl CHARSEL_IncrementLevelRange(); // 0x00443480",
-    "extern \"C\" void __cdecl CHARSEL_DecrementLevelRange(); // 0x004434E0",
+    "extern \"C\" void __cdecl CHATDLG_IncrementMaxPlayers(); // 0x004433C0",
+    "extern \"C\" void __cdecl CHATDLG_DecrementMaxPlayers(); // 0x00443420",
+    "extern \"C\" void __cdecl CHATDLG_IncrementLevelRange(); // 0x00443480",
+    "extern \"C\" void __cdecl CHATDLG_DecrementLevelRange(); // 0x004434E0",
     "extern \"C\" void __cdecl sub_00443C20_SelectNormal(); // 0x00443C20",
     "extern \"C\" void __cdecl sub_00443C70_SelectNightmare(); // 0x00443C70",
     "extern \"C\" void __cdecl sub_00443CC0_SelectHell(); // 0x00443CC0",
@@ -20198,7 +20198,7 @@
      36,
      "0x004429A0",
      "names.json",
-     "CHARSEL_OnChatLine",
+     "CHATDLG_OnChatLine",
      0,
      "func"
     ],
@@ -22420,7 +22420,7 @@
      32,
      "0x004412A0",
      "names.json",
-     "CHARSEL_UseRegistryChannel",
+     "CHATDLG_UseRegistryChannel",
      0,
      "func"
     ],
@@ -26091,7 +26091,7 @@
      36,
      "0x00441240",
      "names.json",
-     "CHARSEL_UseEditText",
+     "CHATDLG_UseEditText",
      0,
      "func"
     ],
@@ -26191,7 +26191,7 @@
      32,
      "0x00441240",
      "names.json",
-     "CHARSEL_UseEditText",
+     "CHATDLG_UseEditText",
      0,
      "func"
     ]
@@ -28573,7 +28573,7 @@
      36,
      "0x004439F0",
      "names.json",
-     "CHARSEL_JoinByName",
+     "CHATDLG_JoinByName",
      0,
      "func"
     ],
@@ -28735,7 +28735,7 @@
      36,
      "0x004439F0",
      "names.json",
-     "CHARSEL_JoinByName",
+     "CHATDLG_JoinByName",
      0,
      "func"
     ],
@@ -29083,7 +29083,7 @@
      32,
      "0x004439F0",
      "names.json",
-     "CHARSEL_JoinByName",
+     "CHATDLG_JoinByName",
      0,
      "func"
     ]
@@ -30040,7 +30040,7 @@
      32,
      "0x004433C0",
      "names.json",
-     "CHARSEL_IncrementMaxPlayers",
+     "CHATDLG_IncrementMaxPlayers",
      0,
      "func"
     ]
@@ -30074,7 +30074,7 @@
      32,
      "0x00443420",
      "names.json",
-     "CHARSEL_DecrementMaxPlayers",
+     "CHATDLG_DecrementMaxPlayers",
      0,
      "func"
     ]
@@ -30108,7 +30108,7 @@
      32,
      "0x00443480",
      "names.json",
-     "CHARSEL_IncrementLevelRange",
+     "CHATDLG_IncrementLevelRange",
      0,
      "func"
     ]
@@ -30142,7 +30142,7 @@
      32,
      "0x004434E0",
      "names.json",
-     "CHARSEL_DecrementLevelRange",
+     "CHATDLG_DecrementLevelRange",
      0,
      "func"
     ]

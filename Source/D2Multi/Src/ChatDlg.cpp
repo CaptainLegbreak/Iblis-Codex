@@ -92,7 +92,7 @@ void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__s
 
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int)); // 0x004FDB00
 
-void __cdecl CHARSEL_ResetChatControls(); // 0x0043E130
+void __cdecl CHATDLG_ResetChatControls(); // 0x0043E130
 
 void __cdecl COMCALLBACK_RefreshChatButtons(); // 0x004477A0
 
@@ -478,7 +478,7 @@ struct D2LaunchNameNodeStrc
 
 D2LaunchNameNodeStrc* gpNameList; // 0x0077BDB4
 
-void __cdecl COMCALLBACK_UpdateNameListText(); // 0x0043F730
+void __cdecl CHATDLG_UpdateNameListText(); // 0x0043F730
 
 D2WinControlStrc* gpControlMain_0077BC4C; // 0x0077BC4C
 
@@ -502,7 +502,7 @@ void __stdcall SMemZero(void* pDest, unsigned int nSize);                       
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 
-const char* __fastcall CHATDLG_SkipNamePrefix(const char* szName); // 0x00446820
+const char* __fastcall COMCALLBACK_SkipNamePrefix(const char* szName); // 0x00446820
 
 void __fastcall CHATDLG_ShowMessage(const Unicode* pTitle, const Unicode* pText);                      // 0x0043EA70
 
@@ -565,7 +565,7 @@ void __cdecl CHATDLG_ReleaseClassButtons();                                     
 
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
 
-void __fastcall CHATDLG_CopyNamePrefix(const char* szName, char* szOut);                               // 0x00446840
+void __fastcall COMCALLBACK_CopyNamePrefix(const char* szName, char* szOut);                               // 0x00446840
 
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl);                             // 0x004FDD90
 
@@ -718,7 +718,7 @@ void __cdecl CHATDLG_LoadFrontEndCels(); // 0x0043CC30
 
 void __cdecl sub_0043DDD0_CreateCharControls(); // 0x0043DDD0
 
-void __cdecl CHARSEL_ClearHistory(); // 0x0043F4D0
+void __cdecl CHATDLG_ClearHistory(); // 0x0043F4D0
 
 void __fastcall GAME_SetMcpChatCallback(void (__fastcall* pfnCallback)(void* pArg)); // 0x0044B220
 
@@ -836,7 +836,7 @@ struct D2GameDetailsStrc;
 
 const Unicode* __fastcall sub_004FBB30_GetText(D2WinControlStrc* pControl); // 0x004FBB30
 
-int __stdcall CHARSEL_JoinByName(int nArg); // 0x004439F0
+int __stdcall CHATDLG_JoinByName(int nArg); // 0x004439F0
 
 void __fastcall CHATDLG_SetPendingText(const char* szText, unsigned short wRequestId); // 0x00442DD0
 
@@ -1766,7 +1766,7 @@ void __cdecl sub_0043D510_FreeCellFiles()
 }
 
 // 0x0043D990
-void __cdecl CHARSEL_ActivateChatEdit()
+void __cdecl CHATDLG_ActivateChatEdit()
 {
 // build: symbol ?gpChatEdit@* 0x0077BD94
     if (gpChatEdit)
@@ -1865,7 +1865,7 @@ extern D2WinControlStrc* gpChannelOkButton; // 0x0077BCEC
 extern D2WinControlStrc* gpControl_0077BCF0; // 0x0077BCF0
 
 // 0x0043DB20
-void __cdecl CHARSEL_DestroyDialogControls()
+void __cdecl CHATDLG_DestroyDialogControls()
 {
     sub_004F95C0_ControlDestroy(&gpCreateJoinBckgImage);
     sub_004F95C0_ControlDestroy(&gpChannelScreenTitle);
@@ -1915,7 +1915,7 @@ int __stdcall sub_0043DBF0_OnReceiveTick(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0043DC30
-__declspec(noinline) int __cdecl CHARSEL_GetConnectStatus()
+__declspec(noinline) int __cdecl CHATDLG_GetConnectStatus()
 {
 // build: symbol ?gpCharInfo@* 0x0077BBD8
     if (gpCharInfo->nByte22D && !sub_00449B30_QueryAddress())
@@ -2088,7 +2088,7 @@ void __cdecl sub_0043DDD0_CreateCharControls()
 }
 
 // 0x0043E130
-void __cdecl CHARSEL_ResetChatControls()
+void __cdecl CHATDLG_ResetChatControls()
 {
     for (int i = 0; i <= 1; i++)
     {
@@ -2364,7 +2364,7 @@ void __fastcall CONTROL_SetEnabled(D2WinControlStrc* pControl, int nFlags);     
 D2WinControlStrc* gpChannelOkButton; // 0x0077BCEC
 
 // 0x0043E660
-void __cdecl CHARSEL_UpdateOkEnabled()
+void __cdecl CHATDLG_UpdateOkEnabled()
 {
     char szText[0x20];
 
@@ -2505,7 +2505,7 @@ static D2WinControlStrc* CHATDLG_CreateControl(int nIndex)
 }
 
 // 0x0043EA20
-void __cdecl CHARSEL_DestroyPopupControls()
+void __cdecl CHATDLG_DestroyPopupControls()
 {
     for (int i = 0; i < gnControlCount; i++)
         sub_004F95C0_ControlDestroy(&gapControls[i]);
@@ -2517,8 +2517,8 @@ void __cdecl CHARSEL_DestroyPopupControls()
 // 0x0043EA70
 void __fastcall CHATDLG_ShowMessage(const Unicode* pTitle, const Unicode* pText)
 {
-// build: symbol ?CHARSEL_DestroyPopupControls@* 0x0043EA20
-    CHARSEL_DestroyPopupControls();
+// build: symbol ?CHATDLG_DestroyPopupControls@* 0x0043EA20
+    CHATDLG_DestroyPopupControls();
     D2WinControlStrc* pControl = CHATDLG_CreateControl(0x25);
     D2Win_10033(pControl, 0);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
@@ -2535,8 +2535,8 @@ void __fastcall CHATDLG_ShowMessage(const Unicode* pTitle, const Unicode* pText)
 // 0x0043EB00
 int __stdcall CHATDLG_OnWait(SMSGHANDLER_PARAMS* pMsg)
 {
-// build: symbol ?CHARSEL_DestroyPopupControls@* 0x0043EA20
-    CHARSEL_DestroyPopupControls();
+// build: symbol ?CHATDLG_DestroyPopupControls@* 0x0043EA20
+    CHATDLG_DestroyPopupControls();
     return 1;
 }
 
@@ -2992,7 +2992,7 @@ int __stdcall CHATDLG_OnAssassinLadderButton(D2WinMsgStrc* pMsg)
 extern int gdwGlobal_0077BD50;                                                                              // 0x0077BD50
 
 // 0x0043F4D0
-void __cdecl CHARSEL_ClearHistory()
+void __cdecl CHATDLG_ClearHistory()
 {
     for (int i = 0; i < 10; i++)
         gaszHistory[i][0] = 0;
@@ -3026,7 +3026,7 @@ void __fastcall sub_A09_Emit_004423B0(char* szText)
 int __stdcall CONTROL_SetCellFile(D2WinControlStrc* pControl, D2CelFileStrc* pCellFile);                          // 0x004F91A0
 
 // 0x0043F560
-void __fastcall CHARSEL_DisableControl(D2WinControlStrc* pControl)
+void __fastcall CHATDLG_DisableControl(D2WinControlStrc* pControl)
 {
     CONTROL_SetCellFile(pControl, gpRadioButtonGreyCelFile);
     CONTROL_SetEnabled(pControl, 0);
@@ -3118,7 +3118,7 @@ int __stdcall CHATDLG_OnProfileClose(int nArg)
 // build: symbol ?MAINMENUS_JoinGame@* 0x00434A00
 
 // 0x0043F730
-void __cdecl COMCALLBACK_UpdateNameListText()
+void __cdecl CHATDLG_UpdateNameListText()
 {
     char szText[0x200];
 
@@ -3175,22 +3175,22 @@ static inline void CHATDLG_SaveDefaultChannel(const char* szChannel)
     SRegSaveString("Diablo II", "Default Channel", 0, szChannel);
 }
 
-void __cdecl CHARSEL_DestroyDialogControls();                                                                // 0x0043DB20
+void __cdecl CHATDLG_DestroyDialogControls();                                                                // 0x0043DB20
 
 D2WinControlStrc* gpControl_0077BD90;                                                                       // 0x0077BD90
 
 extern int gdwGlobal_00798CC0;                                                                              // 0x00798CC0
 
-void __cdecl CHARSEL_DestroyDialogControls(); // 0x0043DB20
+void __cdecl CHATDLG_DestroyDialogControls(); // 0x0043DB20
 
 // 0x0043F8C0
-void __cdecl CHARSEL_ResetLaunchState()
+void __cdecl CHATDLG_ResetLaunchState()
 {
     CHATDLG_DestroyCreateControls();
 // build: symbol ?CHATDLG_DestroyJoinControls@* 0x00443130
     CHATDLG_DestroyJoinControls();
-    CHARSEL_DestroyDialogControls();
-    CHARSEL_DestroyPopupControls();
+    CHATDLG_DestroyDialogControls();
+    CHATDLG_DestroyPopupControls();
 // build: symbol ?CHATDLG_DestroyProfileControls@* 0x00443E10
     CHATDLG_DestroyProfileControls();
     gbSelectActive = 0;
@@ -3209,8 +3209,8 @@ void __cdecl CHARSEL_ResetLaunchState()
 int __stdcall CHATDLG_SetCallback(int nUnused, D2LaunchCallback pfnCallback)
 {
     D2_ASSERT(pfnCallback, 0x559);
-// build: symbol ?CHARSEL_ResetLaunchState@* 0x0043F8C0
-    CHARSEL_ResetLaunchState();
+// build: symbol ?CHATDLG_ResetLaunchState@* 0x0043F8C0
+    CHATDLG_ResetLaunchState();
     gpfnLaunchCallback = pfnCallback;
     return 1;
 }
@@ -3221,8 +3221,8 @@ int __stdcall CHATDLG_ReleaseAndRecreate(int nArg)
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
-// build: symbol ?CHARSEL_ResetLaunchState@* 0x0043F8C0
-    CHARSEL_ResetLaunchState();
+// build: symbol ?CHATDLG_ResetLaunchState@* 0x0043F8C0
+    CHATDLG_ResetLaunchState();
     CHATDLG_CreateControls();
     return 1;
 }
@@ -3242,7 +3242,7 @@ int __stdcall CHATDLG_ChatEditKeyCallback(void* pArg, int nCursor, const char* p
         const Unicode* pEditText = sub_004FDD90_GetEditText(gpChatEdit);
         if (pEditText && gpSelectedChannelUser)
         {
-            CHATDLG_CopyNamePrefix(gpSelectedChannelUser->szName, szName);
+            COMCALLBACK_CopyNamePrefix(gpSelectedChannelUser->szName, szName);
             Unicode wszText[0x100];
             sub_00526F70(szText, pEditText, 0x100);
             const int nTextLength = strlen(szText);
@@ -3283,7 +3283,7 @@ int __stdcall CHATDLG_ChatEditKeyCallback(void* pArg, int nCursor, const char* p
 // 0x0043FB50
 int __fastcall CHATDLG_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone)
 {
-    CHARSEL_ResetLaunchState();
+    CHATDLG_ResetLaunchState();
     if (gpControlMain_0077BC4C)
         sub_004F9740_ControlSetState(gpControlMain_0077BC4C, 0);
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
@@ -3299,7 +3299,7 @@ int __fastcall CHATDLG_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone)
 // 0x0043FBD0
 void __cdecl CHATDLG_RefreshChatScreen()
 {
-    CHARSEL_ResetLaunchState();
+    CHATDLG_ResetLaunchState();
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
@@ -3317,7 +3317,7 @@ void __cdecl CHATDLG_CreateChatScreen()
 
     gbChatSetup = 0;
     sprintf(szText, "%s,%s", gpCharInfo->szRealm0x22D, gpCharInfo->szCharName);
-    CHARSEL_ResetChatControls();
+    CHATDLG_ResetChatControls();
 
     if (gpChatCellFile)
         sub_005041B0_Destroy(gpChatCellFile, 1);
@@ -3364,8 +3364,8 @@ void __cdecl CHATDLG_CreateChatScreen()
 static inline int LAUNCH_SetCallback_inl(int nUnused, D2LaunchCallback pfnCallback)
 {
     D2_ASSERT(pfnCallback, 0x559);
-// build: symbol ?CHARSEL_ResetLaunchState@* 0x0043F8C0
-    CHARSEL_ResetLaunchState();
+// build: symbol ?CHATDLG_ResetLaunchState@* 0x0043F8C0
+    CHATDLG_ResetLaunchState();
     gpfnLaunchCallback = pfnCallback;
     return 1;
 }
@@ -3440,8 +3440,8 @@ int __fastcall CHATDLG_SetupCharacter(unsigned short wValue, const char* szText0
 // 0x00440110
 int __stdcall CHATDLG_OnEditChange(SMSGHANDLER_PARAMS* pMsg)
 {
-// build: symbol ?CHARSEL_UpdateOkEnabled@* 0x0043E660
-    CHARSEL_UpdateOkEnabled();
+// build: symbol ?CHATDLG_UpdateOkEnabled@* 0x0043E660
+    CHATDLG_UpdateOkEnabled();
     return 1;
 }
 
@@ -3449,14 +3449,14 @@ int __stdcall CHATDLG_OnEditChange(SMSGHANDLER_PARAMS* pMsg)
 int __stdcall CHATDLG_OnClearEdit(SMSGHANDLER_PARAMS* pMsg)
 {
     EDITBOX_SetText(gpChatEdit, 0);
-    CHARSEL_DestroyPopupControls();
+    CHATDLG_DestroyPopupControls();
     return 1;
 }
 
 // 0x00440140
 void __fastcall CHATDLG_ShowError(const Unicode* pText, D2LaunchCallback pfnDone)
 {
-    CHARSEL_DestroyPopupControls();
+    CHATDLG_DestroyPopupControls();
     D2WinControlStrc* pControl = CHATDLG_CreateControl(0x21);
     D2Win_10033(pControl, 0);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
@@ -3471,7 +3471,7 @@ void __fastcall CHATDLG_ShowError(const Unicode* pText, D2LaunchCallback pfnDone
 // 0x004401C0
 void __fastcall CHATDLG_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone)
 {
-    CHARSEL_DestroyPopupControls();
+    CHATDLG_DestroyPopupControls();
     D2WinControlStrc* pControl = CHATDLG_CreateControl(0x21);
     D2Win_10033(pControl, 0);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
@@ -3488,7 +3488,7 @@ void __fastcall CHATDLG_ShowTimedMessage(const Unicode* pText, D2LaunchCallback 
 int __stdcall CHATDLG_OnReset(SMSGHANDLER_PARAMS* pMsg)
 {
     CHATDLG_ResetControls();
-    CHARSEL_ResetLaunchState();
+    CHATDLG_ResetLaunchState();
     return 1;
 }
 
@@ -3498,7 +3498,7 @@ int __stdcall CHATDLG_OnBack(SMSGHANDLER_PARAMS* pMsg)
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
-    CHARSEL_ResetLaunchState();
+    CHATDLG_ResetLaunchState();
     CHATDLG_CreateControls();
     return 1;
 }
@@ -3559,7 +3559,7 @@ static inline void ResetClassSelectState(int bExpansionClasses)
 // 0x004403E0
 int __stdcall CHATDLG_OnResetCallback(int nArg)
 {
-    CHARSEL_ResetLaunchState();
+    CHATDLG_ResetLaunchState();
     return 1;
 }
 
@@ -3793,7 +3793,7 @@ void __cdecl CHATDLG_OpenExpansionHardcoreLadder()
 // 0x00440C10
 int __stdcall CHATDLG_ShowStandardLadder(int nArg)
 {
-    CHARSEL_ResetLaunchState();
+    CHATDLG_ResetLaunchState();
     CHATDLG_OpenStandardLadder();
     gnSelectModeA = 9;
     gnSelectIdA_0070CD7C = 0;
@@ -3803,7 +3803,7 @@ int __stdcall CHATDLG_ShowStandardLadder(int nArg)
 // 0x00440C40
 int __stdcall CHATDLG_ShowExpansionLadder(int nArg)
 {
-    CHARSEL_ResetLaunchState();
+    CHATDLG_ResetLaunchState();
     CHATDLG_OpenExpansionLadder();
     gnSelectModeA = 0x1B;
     gnSelectIdA_0070CD7C = 0;
@@ -3813,14 +3813,14 @@ int __stdcall CHATDLG_ShowExpansionLadder(int nArg)
 // 0x00440C70
 int __stdcall CHATDLG_ShowExpansionHardcoreLadder(int nArg)
 {
-    CHARSEL_ResetLaunchState();
+    CHATDLG_ResetLaunchState();
     CHATDLG_OpenExpansionHardcoreLadder();
     gnSelectModeA = 0x13;
     gnSelectIdA_0070CD7C = 0;
     return 1;
 }
 
-void __cdecl CHARSEL_DestroyPopupControls(); // 0x0043EA20
+void __cdecl CHATDLG_DestroyPopupControls(); // 0x0043EA20
 
 int gbFlag_0077ADA4; // 0x0077ADA4
 
@@ -3837,7 +3837,7 @@ int __fastcall MAINMENUS_RequestProfile(int nA, int nB, int nC, int nD)
     gbFlag_0077ADA4 = 0;
     CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), CHATDLG_SetUserDataFlag);
     sub_004FA590_RunLoop(CHATDLG_GetUserDataReply);
-    CHARSEL_DestroyPopupControls();
+    CHATDLG_DestroyPopupControls();
     return gbFlag_0077ADA4 == 0;
 }
 
@@ -3878,7 +3878,7 @@ void __fastcall CHATDLG_SetPlayerName(int nPlayerId, int nDataLength, const char
     }
 
     SStrCopy(pNode->szName, szName, sizeof(pNode->szName));
-    COMCALLBACK_UpdateNameListText();
+    CHATDLG_UpdateNameListText();
 }
 
 void __stdcall sub_M113_Emit_0043F8A0(const char* szFirst, const char* szSecond)
@@ -4051,15 +4051,15 @@ void __cdecl CHATDLG_CreateGatewayControls()
     CONTROL_SetFocusedEditBox(gpChannelNameEdit);
     D2Win_10082(gpChannelNameEdit);
     D2Win_10053(gpChannelListBox, 0);
-// build: symbol ?CHARSEL_UpdateOkEnabled@* 0x0043E660
-    CHARSEL_UpdateOkEnabled();
+// build: symbol ?CHATDLG_UpdateOkEnabled@* 0x0043E660
+    CHATDLG_UpdateOkEnabled();
 }
 
 // 0x004411E0
 void __fastcall CHATDLG_JoinChannel(const char* szText)
 {
     gpLaunchFuncs->pfn0x1C((int)szText, 0, 0);
-    CHARSEL_ResetLaunchState();
+    CHATDLG_ResetLaunchState();
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
@@ -4093,7 +4093,7 @@ static __forceinline int DoubleClick()
 // build: symbol ?gnChatLaunchMode@* 0x0077BBE4
 
 // 0x00441240
-int __stdcall CHARSEL_UseEditText(int nArg)
+int __stdcall CHATDLG_UseEditText(int nArg)
 {
     char szText[0x100];
 
@@ -4116,7 +4116,7 @@ int __stdcall sub_0043E6C0_OnError(int nArg); // 0x0043E6C0
 // build: symbol ?gnChatLaunchMode@* 0x0077BBE4
 
 // 0x004412A0
-int __stdcall CHARSEL_UseRegistryChannel(int nArg)
+int __stdcall CHATDLG_UseRegistryChannel(int nArg)
 {
     char szText[0x20];
 
@@ -4189,7 +4189,7 @@ void __stdcall CHATDLG_EnableConnection(int bEnable)
         return;
     }
     if (!gnChatLaunchMode && gpWaitText)
-        CHARSEL_ResetLaunchState();
+        CHATDLG_ResetLaunchState();
     const unsigned short wFlags = gpCharInfo->wFlags1EF;
     if (!(wFlags & 8) || !(wFlags & 4))
     {
@@ -4261,8 +4261,8 @@ int __stdcall CHATDLG_OnTick(int nUnused)
                         const int nResult = GAME_GetConnectError();
                         if (nResult == 0x33)
                         {
-// build: symbol ?CHARSEL_FillGameListControl@* 0x00442C20
-                            CHARSEL_FillGameListControl();
+// build: symbol ?CHATDLG_FillGameListControl@* 0x00442C20
+                            CHATDLG_FillGameListControl();
                             CHATDLG_ClearReply();
                         }
                         else if (nResult == 0x32)
@@ -4273,7 +4273,7 @@ int __stdcall CHATDLG_OnTick(int nUnused)
                         }
                         else if (pReply->nStatus)
                         {
-                            CHARSEL_FillGameListControl();
+                            CHATDLG_FillGameListControl();
                             CHATDLG_ClearReply();
                         }
                         else
@@ -4482,17 +4482,17 @@ int __cdecl CHATDLG_ConnectRealm()
         return 0;
     CHATDLG_StartThread(&pPayload->tRecord);
     sub_004FA590_RunLoop(sub_0043DBC0);
-// build: symbol ?CHARSEL_DestroyPopupControls@* 0x0043EA20
-    CHARSEL_DestroyPopupControls();
+// build: symbol ?CHATDLG_DestroyPopupControls@* 0x0043EA20
+    CHATDLG_DestroyPopupControls();
 // build: symbol ?GAME_GetConnectError@* 0x00449C00
     if (gnFlag_0077BD60 || !sub_00449B30_QueryAddress() || GAME_GetConnectError())
     {
-        CHARSEL_DestroyPopupControls();
+        CHATDLG_DestroyPopupControls();
         return 0;
     }
     CHATDLG_RequestCharLogon(gpCharInfo->szCharName);
     sub_004FA590_RunLoop(sub_0043DBF0);
-    CHARSEL_DestroyPopupControls();
+    CHATDLG_DestroyPopupControls();
     return GAME_GetConnectError() == 0;
 }
 
@@ -4556,9 +4556,9 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
         if (gbGemToggle)
             sub_00500B20_SetValue(gpGemButton, 2);
     }
-    CHARSEL_ClearHistory();
-// build: symbol ?CHARSEL_ResetLaunchState@* 0x0043F8C0
-    CHARSEL_ResetLaunchState();
+    CHATDLG_ClearHistory();
+// build: symbol ?CHATDLG_ResetLaunchState@* 0x0043F8C0
+    CHATDLG_ResetLaunchState();
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
@@ -4569,7 +4569,7 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
     gpControlMain_0077BC4C = CONTROL_Create(&gtControlInit_0070D330);
     GAME_SetMcpChatCallback(CHATDLG_SetPlayerName);
     VIEW_SendMcpMotdRequest();
-    COMCALLBACK_UpdateNameListText();
+    CHATDLG_UpdateNameListText();
     pControl4 = CONTROL_Create(&gtControlInit_0070D360);
     const unsigned short wFlags = gpCharInfo->wFlags1EF;
     if ((wFlags & 8) && (wFlags & 4))
@@ -4630,7 +4630,7 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
     D2SOUND_FreeWaveSlots();
     COMCALLBACK_ClearChannel();
     D2Win_10146();
-    CHARSEL_ResetLaunchState();
+    CHATDLG_ResetLaunchState();
     CHATDLG_FreeNameList();
     sub_004F95C0_ControlDestroy(&gpChatTextBox);
     if (gpControl_0077BD98)
@@ -4744,7 +4744,7 @@ static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand)
 // 0x00442350
 int __stdcall CHATDLG_OpenLadderScreen(int nArg)
 {
-    CHARSEL_ResetLaunchState();
+    CHATDLG_ResetLaunchState();
     CHATDLG_OpenHardcoreLadder();
     gnSelectModeA = 0;
     gnSelectIdA_0070CD7C = 0;
@@ -4757,7 +4757,7 @@ int __stdcall CHATDLG_ReleaseAndCreate(int nArg)
     BUTTON_SetIsPressed(gpJoinScreenButton, 0);
     BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
-    CHARSEL_ResetLaunchState();
+    CHATDLG_ResetLaunchState();
     CHATDLG_CreateGatewayControls();
     return 1;
 }
@@ -4791,7 +4791,7 @@ int __cdecl CHATDLG_SendChatBuffer()
 int __stdcall CHATDLG_SendChat(int nArg)
 {
     CHATDLG_SendChatBuffer();
-    CHARSEL_DestroyPopupControls();
+    CHATDLG_DestroyPopupControls();
     return 1;
 }
 
@@ -4805,7 +4805,7 @@ int __fastcall CHATDLG_SendChatText(char* szText, int bWhisper)
     const int bCommand = szText[0] == '/';
     SMemZero(gszChatBuffer, sizeof(gszChatBuffer));
     if (bWhisper && !bCommand && gpSelectedChannelUser)
-        sprintf(gszChatBuffer, "/whisper *%s %s", CHATDLG_SkipNamePrefix(gpSelectedChannelUser->szName), szText);
+        sprintf(gszChatBuffer, "/whisper *%s %s", COMCALLBACK_SkipNamePrefix(gpSelectedChannelUser->szName), szText);
     else
         strcpy(gszChatBuffer, szText);
 
@@ -4830,7 +4830,7 @@ int __fastcall CHATDLG_SendChatText(char* szText, int bWhisper)
 // build: symbol ?gpLaunchFuncs@* 0x0077B09C
 
 // 0x004429A0
-int __stdcall CHARSEL_OnChatLine(const Unicode* pText)
+int __stdcall CHATDLG_OnChatLine(const Unicode* pText)
 {
     char szCopy[0x100];
     char szText[0x100];
@@ -4942,7 +4942,7 @@ void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc* pControl);             
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x00442C20
-void __cdecl CHARSEL_FillGameListControl()
+void __cdecl CHATDLG_FillGameListControl()
 {
     char szSel[0x100];
     char szNumber[0x10];
@@ -5048,7 +5048,7 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
 // build: symbol ?gnGameListLastSelection@* 0x0070EBDC
             if (nSelection == gnGameListLastSelection && dwTick - gdwGameListLastClickTick <= 500)
             {
-                CHARSEL_JoinByName(0);
+                CHATDLG_JoinByName(0);
                 return 0;
             }
             gnGameListLastSelection = nSelection;
@@ -5266,7 +5266,7 @@ extern "C" int __cdecl atoi(const char* szString); // 0x00681EBB
 extern D2WinControlStrc* gpEditBox_00798C3C; // 0x00798C3C
 
 // 0x00443360
-int __cdecl CHARSEL_GetMaxPlayers()
+int __cdecl CHATDLG_GetMaxPlayers()
 {
     char szText[5];
     const Unicode* pText = sub_004FDD90_GetEditText(gpMaxPlayerControl_00798C38);
@@ -5275,7 +5275,7 @@ int __cdecl CHARSEL_GetMaxPlayers()
 }
 
 // 0x00443390
-int __cdecl CHARSEL_GetLevelRange()
+int __cdecl CHATDLG_GetLevelRange()
 {
     char szText[5];
     const Unicode* pText = sub_004FDD90_GetEditText(gpEditBox_00798C3C);
@@ -5284,7 +5284,7 @@ int __cdecl CHARSEL_GetLevelRange()
 }
 
 // 0x004433C0
-int __stdcall CHARSEL_IncrementMaxPlayers(int nArg)
+int __stdcall CHATDLG_IncrementMaxPlayers(int nArg)
 {
     char szText[5];
     const Unicode* pText = sub_004FDD90_GetEditText(gpMaxPlayerControl_00798C38);
@@ -5299,7 +5299,7 @@ int __stdcall CHARSEL_IncrementMaxPlayers(int nArg)
 }
 
 // 0x00443420
-int __stdcall CHARSEL_DecrementMaxPlayers(int nArg)
+int __stdcall CHATDLG_DecrementMaxPlayers(int nArg)
 {
     char szText[5];
     const Unicode* pText = sub_004FDD90_GetEditText(gpMaxPlayerControl_00798C38);
@@ -5313,7 +5313,7 @@ int __stdcall CHARSEL_DecrementMaxPlayers(int nArg)
 }
 
 // 0x00443480
-int __stdcall CHARSEL_IncrementLevelRange(int nArg)
+int __stdcall CHATDLG_IncrementLevelRange(int nArg)
 {
     char szText[5];
     const Unicode* pText = sub_004FDD90_GetEditText(gpEditBox_00798C3C);
@@ -5327,7 +5327,7 @@ int __stdcall CHARSEL_IncrementLevelRange(int nArg)
 }
 
 // 0x004434E0
-int __stdcall CHARSEL_DecrementLevelRange(int nArg)
+int __stdcall CHATDLG_DecrementLevelRange(int nArg)
 {
     char szText[5];
     const Unicode* pText = sub_004FDD90_GetEditText(gpEditBox_00798C3C);
@@ -5448,7 +5448,7 @@ void __cdecl sub_00443630_UpdateCreateButton()
 D2WinControlStrc* gpJoinButton; // 0x00798BCC
 
 // 0x004437E0
-void __cdecl CHARSEL_UpdateJoinButtonState()
+void __cdecl CHATDLG_UpdateJoinButtonState()
 {
     char szText[0x100];
 
@@ -5574,7 +5574,7 @@ char* __fastcall FOG_inet_ntoa(int nAddress); // 0x0040E080
 extern D2WinControlStrc* gpJoinPassword_00798BD8; // 0x00798BD8
 
 // 0x004439F0
-int __stdcall CHARSEL_JoinByName(int nArg)
+int __stdcall CHATDLG_JoinByName(int nArg)
 {
     char szPassword[0x100];
     char szName[0x100];
@@ -5716,11 +5716,11 @@ D2WinControlStrc* gpSubmitButton; // 0x00798CA0
 
 D2WinControlStrc* gpSelectButton; // 0x00798CA4
 
-void __fastcall COMCALLBACK_ShowProfileDialog(const char*,int,int); // 0x00445A80
+void __fastcall CHATDLG_ShowProfileDialog(const char*,int,int); // 0x00445A80
 
-void __fastcall COMCALLBACK_ShowUserInfoDialog(const char*,const char*,int,int); // 0x00445C70
+void __fastcall CHATDLG_ShowUserInfoDialog(const char*,const char*,int,int); // 0x00445C70
 
-const char* __fastcall CHATDLG_SkipNamePrefix(const char* szName); // 0x00446820
+const char* __fastcall COMCALLBACK_SkipNamePrefix(const char* szName); // 0x00446820
 
 // build: symbol ?gbCharSelBusy@* 0x00779DA0
 // build: symbol ?gpCharList@* 0x00779DBC
@@ -5729,7 +5729,7 @@ const char* __fastcall CHATDLG_SkipNamePrefix(const char* szName); // 0x00446820
 // build: symbol ?MAINMENUS_JoinGame@* 0x00434A00
 
 // 0x00443D10
-static void __stdcall COMCALLBACK_SetPendingName(int nA, int nB, const char* szText)
+static void __stdcall CHATDLG_SetPendingName(int nA, int nB, const char* szText)
 {
     strcpy(gszPendingEntryName, szText);
     gnPendingValueA = nA;
@@ -5914,8 +5914,8 @@ int __stdcall CHARSEL_SubmitProfile(int nArg)
 // 0x00444020
 int __cdecl sub_00444020_CreateControls()
 {
-// build: symbol ?CHARSEL_ResetLaunchState@* 0x0043F8C0
-    CHARSEL_ResetLaunchState();
+// build: symbol ?CHATDLG_ResetLaunchState@* 0x0043F8C0
+    CHATDLG_ResetLaunchState();
 // build: symbol ?GAME_IsLaunchExpansion@* 0x0043DB10
     int bExpansion = GAME_IsLaunchExpansion();
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
@@ -6164,8 +6164,8 @@ void __cdecl sub_00444E70_FillGameList()
         }
     }
 
-// build: symbol ?CHARSEL_FillGameListControl@* 0x00442C20
-    CHARSEL_FillGameListControl();
+// build: symbol ?CHATDLG_FillGameListControl@* 0x00442C20
+    CHATDLG_FillGameListControl();
 }
 
 // 0x004450A0
@@ -6178,8 +6178,8 @@ int __stdcall sub_004450A0_JoinNameKey(D2WinControlStrc* pControl, int nArg, con
 // 0x004450C0
 int __stdcall sub_004450C0_JoinNameEnter(int nArg)
 {
-// build: symbol ?CHARSEL_UpdateJoinButtonState@* 0x004437E0
-    CHARSEL_UpdateJoinButtonState();
+// build: symbol ?CHATDLG_UpdateJoinButtonState@* 0x004437E0
+    CHATDLG_UpdateJoinButtonState();
     return 1;
 }
 
@@ -6223,7 +6223,7 @@ extern const char gszFormatInt_006D57BC[]; // 0x006D57BC
 D2WinControlStrc* gpLevelDiffCheck; // 0x00798C40
 
 // 0x00445300
-void __cdecl COMCALLBACK_LoadLevelRestriction()
+void __cdecl CHATDLG_LoadLevelRestriction()
 {
     unsigned long nValue = 4;
     if (!SRegLoadValue("Diablo II", "LVL_REST", 0, &nValue))
@@ -6292,7 +6292,7 @@ void __cdecl COMCALLBACK_BuildCreateGamePanel()
 // 0x00445530
 int __stdcall sub_00445530_ResetBuildPanel(int nArg)
 {
-    CHARSEL_ResetLaunchState();
+    CHATDLG_ResetLaunchState();
     COMCALLBACK_BuildCreateGamePanel();
     return 1;
 }
@@ -6351,7 +6351,7 @@ int __stdcall sub_004456C0_OnEnter(int nArg)
 }
 
 // 0x00445A80
-void __fastcall COMCALLBACK_ShowProfileDialog(const char* szText, int nA, int nB)
+void __fastcall CHATDLG_ShowProfileDialog(const char* szText, int nA, int nB)
 {
     const char* szName = gpCharInfo->szAccount;
     char szA[12];
@@ -6367,8 +6367,8 @@ void __fastcall COMCALLBACK_ShowProfileDialog(const char* szText, int nA, int nB
         return;
     }
 
-// build: symbol ?CHARSEL_ResetLaunchState@* 0x0043F8C0
-    CHARSEL_ResetLaunchState();
+// build: symbol ?CHATDLG_ResetLaunchState@* 0x0043F8C0
+    CHATDLG_ResetLaunchState();
     gnSubmitMode = 2;
     gpProfileEditBckg = CONTROL_Create(&gtProfileEditBckgInit);
     gpControl_00798C7C = CONTROL_Create(&gtControlInit_0070E6B0);
@@ -6402,13 +6402,13 @@ void __fastcall COMCALLBACK_ShowProfileDialog(const char* szText, int nA, int nB
         CONTROL_SetFocusedEditBox(gpSubmitEditC);
         D2Win_10082(gpSubmitEditC);
     }
-    COMCALLBACK_SetPendingName(nA, nB, szText);
+    CHATDLG_SetPendingName(nA, nB, szText);
 }
 
 // 0x00445C70
-void __fastcall COMCALLBACK_ShowUserInfoDialog(const char* szUser, const char* szText, int nA, int nB)
+void __fastcall CHATDLG_ShowUserInfoDialog(const char* szUser, const char* szText, int nA, int nB)
 {
-    const char* szName = CHATDLG_SkipNamePrefix(szUser);
+    const char* szName = COMCALLBACK_SkipNamePrefix(szUser);
     char szA[12];
     char szB[44];
     char szC[204];
@@ -6422,7 +6422,7 @@ void __fastcall COMCALLBACK_ShowUserInfoDialog(const char* szUser, const char* s
         return;
     }
 
-    CHARSEL_ResetLaunchState();
+    CHATDLG_ResetLaunchState();
     gnSubmitMode = 1;
     gpProfileViewBckg = CONTROL_Create(&gtProfileViewBckgInit);
     gpControl_00798C68 = CONTROL_Create(&gtControlInit_0070E7A0);
@@ -6447,10 +6447,10 @@ void __fastcall COMCALLBACK_ShowUserInfoDialog(const char* szUser, const char* s
     }
     CHATDLG_CreateProfileControls();
     sub_0043D990();
-    COMCALLBACK_SetPendingName(nA, nB, szText);
+    CHATDLG_SetPendingName(nA, nB, szText);
 }
 
-void __cdecl COMCALLBACK_CreateJoinScreen();                                                               // 0x00445DF0
+void __cdecl CHATDLG_CreateJoinScreen();                                                               // 0x00445DF0
 
 extern D2WinControlInitStrc gtJoinGameBckgImageInit;                                                         // 0x0070D630
 
@@ -6487,10 +6487,10 @@ D2WinControlStrc* gpControl_00798BE8;                                           
 unsigned long gdwLastRefresh;                                                                      // 0x00798CF0
 
 // 0x00445DF0
-void __cdecl COMCALLBACK_CreateJoinScreen()
+void __cdecl CHATDLG_CreateJoinScreen()
 {
-// build: symbol ?CHARSEL_GetConnectStatus@* 0x0043DC30
-    if (CHARSEL_GetConnectStatus() == -1)
+// build: symbol ?CHATDLG_GetConnectStatus@* 0x0043DC30
+    if (CHATDLG_GetConnectStatus() == -1)
     {
         CHATDLG_ShowWait(D2LANG_GetStringFromTblIndex(0x1413), 0);
         return;
@@ -6535,8 +6535,8 @@ void __cdecl COMCALLBACK_CreateJoinScreen()
 // build: symbol ?gnLastGameCount@* 0x00798CC8
     gnLastGameCount = 0;
     gnValue_00798CCC = 0;
-// build: symbol ?CHARSEL_UpdateJoinButtonState@* 0x004437E0
-    CHARSEL_UpdateJoinButtonState();
+// build: symbol ?CHATDLG_UpdateJoinButtonState@* 0x004437E0
+    CHATDLG_UpdateJoinButtonState();
 }
 
 // 0x00448BD0

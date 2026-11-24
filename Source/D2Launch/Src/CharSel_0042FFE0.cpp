@@ -12,8 +12,8 @@ void __cdecl MAINMENUS_UpdateTwoEditOk();                                       
 int __stdcall MAINMENUS_OnTwoEditChange(int nArg);                                                                       // 0x00436D40
 void __cdecl CHARSEL_DisconnectBattleNet();                                                                                // 0x0043B9A0
 void __cdecl CHARSEL_CreateBaseScreen();                                                                                // 0x0043C4F0
-void __cdecl CHARSEL_DestroyDialogControls();                                                                // 0x0043DB20
-void __cdecl CHARSEL_DestroyPopupControls();                                                                           // 0x0043EA20
+void __cdecl CHATDLG_DestroyDialogControls();                                                                // 0x0043DB20
+void __cdecl CHATDLG_DestroyPopupControls();                                                                           // 0x0043EA20
 void __cdecl CHATDLG_DestroyCreateControls();                                                                                // 0x00443220
 int __cdecl CHATDLG_DestroyGameListControls();                                                                                 // 0x00444E20
 int __stdcall CONTROL_SetFocusedEditBox(void* pEditBox);                                                                  // 0x004F91C0
@@ -340,7 +340,7 @@ static long BNDOWNLOAD_GetTime(long* pTime)
 {
     return _time32(pTime);
 }
-void __cdecl CHARSEL_ResetLaunchState(); // 0x0043F8C0
+void __cdecl CHATDLG_ResetLaunchState(); // 0x0043F8C0
 static unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
 {
     nValue &= 0xF;

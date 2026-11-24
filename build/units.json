@@ -10820,17 +10820,17 @@
     {
      "va": "0x00446810",
      "length": 9,
-     "name": "CHATDLG_StrChr"
+     "name": "COMCALLBACK_StrChr"
     },
     {
      "va": "0x00446820",
      "length": 27,
-     "name": "?CHATDLG_SkipNamePrefix@@YIPBDPBD@Z"
+     "name": "?COMCALLBACK_SkipNamePrefix@@YIPBDPBD@Z"
     },
     {
      "va": "0x00446840",
      "length": 62,
-     "name": "?CHATDLG_CopyNamePrefix@@YIXPBDPAD@Z"
+     "name": "?COMCALLBACK_CopyNamePrefix@@YIXPBDPAD@Z"
     },
     {
      "va": "0x004468F0",
@@ -10855,7 +10855,7 @@
     {
      "va": "0x00446A90",
      "length": 152,
-     "name": "CHATDLG_RemoveTableString"
+     "name": "COMCALLBACK_RemoveTableString"
     },
     {
      "va": "0x00446B70",
@@ -11832,7 +11832,7 @@
     {
      "va": "0x0043D990",
      "length": 16,
-     "name": "?CHARSEL_ActivateChatEdit@@YAXXZ"
+     "name": "?CHATDLG_ActivateChatEdit@@YAXXZ"
     },
     {
      "va": "0x0043D9A0",
@@ -11882,7 +11882,7 @@
     {
      "va": "0x0043DB20",
      "length": 107,
-     "name": "?CHARSEL_DestroyDialogControls@@YAXXZ"
+     "name": "?CHATDLG_DestroyDialogControls@@YAXXZ"
     },
     {
      "va": "0x0043DB90",
@@ -11907,7 +11907,7 @@
     {
      "va": "0x0043DC30",
      "length": 30,
-     "name": "?CHARSEL_GetConnectStatus@@YAHXZ"
+     "name": "?CHATDLG_GetConnectStatus@@YAHXZ"
     },
     {
      "va": "0x0043DC50",
@@ -11931,7 +11931,7 @@
     {
      "va": "0x0043E130",
      "length": 65,
-     "name": "?CHARSEL_ResetChatControls@@YAXXZ"
+     "name": "?CHATDLG_ResetChatControls@@YAXXZ"
     },
     {
      "va": "0x0043E180",
@@ -12011,7 +12011,7 @@
     {
      "va": "0x0043E660",
      "length": 87,
-     "name": "?CHARSEL_UpdateOkEnabled@@YAXXZ"
+     "name": "?CHATDLG_UpdateOkEnabled@@YAXXZ"
     },
     {
      "va": "0x0043E6C0",
@@ -12045,7 +12045,7 @@
     {
      "va": "0x0043EA20",
      "length": 71,
-     "name": "?CHARSEL_DestroyPopupControls@@YAXXZ"
+     "name": "?CHATDLG_DestroyPopupControls@@YAXXZ"
     },
     {
      "va": "0x0043EA70",
@@ -12159,7 +12159,7 @@
     {
      "va": "0x0043F4D0",
      "length": 52,
-     "name": "?CHARSEL_ClearHistory@@YAXXZ"
+     "name": "?CHATDLG_ClearHistory@@YAXXZ"
     },
     {
      "va": "0x0043F510",
@@ -12169,7 +12169,7 @@
     {
      "va": "0x0043F560",
      "length": 25,
-     "name": "?CHARSEL_DisableControl@@YIXPAUD2WinControlStrc@@@Z"
+     "name": "?CHATDLG_DisableControl@@YIXPAUD2WinControlStrc@@@Z"
     },
     {
      "va": "0x0043F580",
@@ -12199,7 +12199,7 @@
     {
      "va": "0x0043F730",
      "length": 196,
-     "name": "?COMCALLBACK_UpdateNameListText@@YAXXZ"
+     "name": "?CHATDLG_UpdateNameListText@@YAXXZ"
     },
     {
      "va": "0x0043F800",
@@ -12219,7 +12219,7 @@
     {
      "va": "0x0043F8C0",
      "length": 109,
-     "name": "?CHARSEL_ResetLaunchState@@YAXXZ"
+     "name": "?CHATDLG_ResetLaunchState@@YAXXZ"
     },
     {
      "va": "0x0043F930",
@@ -12381,12 +12381,12 @@
     {
      "va": "0x00441240",
      "length": 85,
-     "name": "?CHARSEL_UseEditText@@YGHH@Z"
+     "name": "?CHATDLG_UseEditText@@YGHH@Z"
     },
     {
      "va": "0x004412A0",
      "length": 128,
-     "name": "?CHARSEL_UseRegistryChannel@@YGHH@Z"
+     "name": "?CHATDLG_UseRegistryChannel@@YGHH@Z"
     },
     {
      "va": "0x00441320",
@@ -12454,7 +12454,7 @@
     {
      "va": "0x004429A0",
      "length": 205,
-     "name": "?CHARSEL_OnChatLine@@YGHPBUUnicode@@@Z"
+     "name": "?CHATDLG_OnChatLine@@YGHPBUUnicode@@@Z"
     },
     {
      "va": "0x00442A70",
@@ -12489,7 +12489,7 @@
     {
      "va": "0x00442C20",
      "length": 422,
-     "name": "?CHARSEL_FillGameListControl@@YAXXZ"
+     "name": "?CHATDLG_FillGameListControl@@YAXXZ"
     },
     {
      "va": "0x00442DD0",
@@ -12528,32 +12528,32 @@
     {
      "va": "0x00443360",
      "length": 45,
-     "name": "?CHARSEL_GetMaxPlayers@@YAHXZ"
+     "name": "?CHATDLG_GetMaxPlayers@@YAHXZ"
     },
     {
      "va": "0x00443390",
      "length": 45,
-     "name": "?CHARSEL_GetLevelRange@@YAHXZ"
+     "name": "?CHATDLG_GetLevelRange@@YAHXZ"
     },
     {
      "va": "0x004433C0",
      "length": 95,
-     "name": "?CHARSEL_IncrementMaxPlayers@@YGHH@Z"
+     "name": "?CHATDLG_IncrementMaxPlayers@@YGHH@Z"
     },
     {
      "va": "0x00443420",
      "length": 95,
-     "name": "?CHARSEL_DecrementMaxPlayers@@YGHH@Z"
+     "name": "?CHATDLG_DecrementMaxPlayers@@YGHH@Z"
     },
     {
      "va": "0x00443480",
      "length": 95,
-     "name": "?CHARSEL_IncrementLevelRange@@YGHH@Z"
+     "name": "?CHATDLG_IncrementLevelRange@@YGHH@Z"
     },
     {
      "va": "0x004434E0",
      "length": 94,
-     "name": "?CHARSEL_DecrementLevelRange@@YGHH@Z"
+     "name": "?CHATDLG_DecrementLevelRange@@YGHH@Z"
     },
     {
      "va": "0x00443540",
@@ -12578,7 +12578,7 @@
     {
      "va": "0x004437E0",
      "length": 93,
-     "name": "?CHARSEL_UpdateJoinButtonState@@YAXXZ"
+     "name": "?CHATDLG_UpdateJoinButtonState@@YAXXZ"
     },
     {
      "va": "0x00443840",
@@ -12607,7 +12607,7 @@
     {
      "va": "0x004439F0",
      "length": 537,
-     "name": "?CHARSEL_JoinByName@@YGHH@Z"
+     "name": "?CHATDLG_JoinByName@@YGHH@Z"
     },
     {
      "va": "0x00443C10",
@@ -12632,7 +12632,7 @@
     {
      "va": "0x00443D10",
      "length": 49,
-     "name": "?COMCALLBACK_SetPendingName@@YGXHHPBD@Z"
+     "name": "?CHATDLG_SetPendingName@@YGXHHPBD@Z"
     },
     {
      "va": "0x00443D50",
@@ -12695,7 +12695,7 @@
     {
      "va": "0x00445300",
      "length": 165,
-     "name": "COMCALLBACK_LoadLevelRestriction"
+     "name": "CHATDLG_LoadLevelRestriction"
     },
     {
      "va": "0x004453B0",
@@ -12730,17 +12730,17 @@
     {
      "va": "0x00445A80",
      "length": 483,
-     "name": "?COMCALLBACK_ShowProfileDialog@@YIXPBDHH@Z"
+     "name": "?CHATDLG_ShowProfileDialog@@YIXPBDHH@Z"
     },
     {
      "va": "0x00445C70",
      "length": 381,
-     "name": "?COMCALLBACK_ShowUserInfoDialog@@YIXPBD0HH@Z"
+     "name": "?CHATDLG_ShowUserInfoDialog@@YIXPBD0HH@Z"
     },
     {
      "va": "0x00445DF0",
      "length": 502,
-     "name": "?COMCALLBACK_CreateJoinScreen@@YAXXZ"
+     "name": "?CHATDLG_CreateJoinScreen@@YAXXZ"
     },
     {
      "va": "0x00448BD0",

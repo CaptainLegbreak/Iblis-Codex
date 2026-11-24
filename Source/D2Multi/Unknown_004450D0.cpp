@@ -9,7 +9,7 @@ int __stdcall CONTROL_SetFocusedEditBox(void* pEditBox);                        
 const Unicode* __fastcall sub_004FBB30_GetText(D2WinControlStrc* pControl);                                 // 0x004FBB30
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount);                     // 0x00526F70
 void __fastcall EDITBOX_SetText(D2WinControlStrc* pControl, const Unicode* pText);                 // 0x004FF5A0
-int __stdcall CHARSEL_JoinByName(int nArg);                                                            // 0x004439F0
+int __stdcall CHATDLG_JoinByName(int nArg);                                                            // 0x004439F0
 void __fastcall CHATDLG_SetPendingText(const char* szText, unsigned short wRequestId);                 // 0x00442DD0
 
 extern D2LaunchGameRecStrc gaNewGames[];                                                           // 0x0077BDC8
@@ -59,7 +59,7 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
     {
         if (pMsg->uMessage == 0x201 && sub_004450D0_IsDoubleClick(nSelection))
         {
-            CHARSEL_JoinByName(0);
+            CHATDLG_JoinByName(0);
             return 0;
         }
 

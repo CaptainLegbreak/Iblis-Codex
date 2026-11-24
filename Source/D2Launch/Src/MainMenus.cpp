@@ -369,7 +369,7 @@ int __stdcall CHARSEL_OnRealmChosen(SMSGHANDLER_PARAMS* pMsg); // 0x0043A950
 
 void __fastcall CHARSEL_UseName(char* szName); // 0x0043ADB0
 
-void __cdecl CHARSEL_DestroyPopupControls(); // 0x0043EA20
+void __cdecl CHATDLG_DestroyPopupControls(); // 0x0043EA20
 
 int __stdcall CHATDLG_SetUserDataFlag(int nArg); // 0x0043F580
 
