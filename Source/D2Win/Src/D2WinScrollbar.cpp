@@ -14,6 +14,7 @@
 #include "D2Win32Types.h"
 
 #include "D2StormTypes.h"
+#include "D2WinPopupLine.h"
 
 #define WM_LBUTTONDOWN 0x201
 
@@ -61,11 +62,6 @@ enum D2C_WinControlTypes
     D2WIN_POPUP = 11,
 };
 
-struct D2WinPopUpLineStrc
-{
-    Unicode wszText[64];
-    void (__stdcall* pfHandleMouseInput)();
-};
 
 struct D2WinPopUpStrc
 {

@@ -1032,3 +1032,5 @@ ListBoxWrapper::ListBoxWrapper(int nX, int nY, int nWidth, int nHeight, int nArg
 {
     pImpl = new ListBoxImplementation(nX, nY, nWidth, nHeight, nArg10, nArg14, nArg18, nCallback, bLargeFont);
 }
+
+#include "gen/data/Source/D2Client/Unknown_004BC1B0.inc"

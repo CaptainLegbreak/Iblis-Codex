@@ -160,6 +160,11 @@ char* __stdcall SStrDup(const char* szString)
     return nValid ? szResult : 0;
 }
 
+// 0x00413740
+void __cdecl sub_00413740_Nop()
+{
+}
+
 // 0x00413750
 unsigned int __stdcall SStrLen(const char* szString)
 {

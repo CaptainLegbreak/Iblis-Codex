@@ -230,12 +230,6 @@ void __fastcall HuffmanCompress(void* pvOutBuffer, int* pcbOutBuffer, void* pvIn
     *pcbOutBuffer = ht.sub_0041F850(&os, pvInBuffer, cbInBuffer, *pCmpType);
 }
 
-// 0x004204F0
-char* __fastcall sub_00601B60_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
 // 0x00420E70
 int* __fastcall MONSTERMODE_GetTargetTimerPtr(D2Field14Strc* pRecord)
 {

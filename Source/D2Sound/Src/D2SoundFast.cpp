@@ -120,120 +120,7 @@ int gbChannelFlag; // 0x0088179C
 
 void __fastcall D2SOUND_DestroySound(D2SoundStrc* pSound); // 0x005160D0
 
-// 0x00514040
-void __cdecl sub_00514040_Nothing()
-{
-}
-
-// 0x00514050
-void __cdecl sub_00514050_Nothing()
-{
-}
-
-// 0x00514060
-void __cdecl D2SOUND_CloseSoundSystem()
-{
-    gnSoundState_00881764 = 0;
-    D2SOUND_SetMasterVolume(0);
-    D2SOUND_DestroyStreamChannel();
-    D2SOUND_StopSoundThread();
-    D2SOUND_ReleaseSoundObjects();
-    if (gpSoundObject)
-    {
-        gpSoundObject->Release();
-        gpSoundObject = 0;
-    }
-    if (gpDirectSound)
-    {
-        gpDirectSound->Release();
-        gpDirectSound = 0;
-    }
-    if (gbSoundLockInit)
-    {
-        DeleteCriticalSection(&gtSoundLock);
-        gbSoundLockInit = 0;
-    }
-}
-
-// 0x005147D0
-int __fastcall D2SOUND_PlayStreamChannel(const char* szFile, int bLoop)
-{
-    if (gpSoundChannel && D2SOUND_GetMasterVolume() && !D2SOUND_IsSoundStreaming(gpSoundChannel) && szFile)
-    {
-        D2SOUND_ResetSound(gpSoundChannel);
-        D2SOUND_SetSoundVolume(gpSoundChannel, 0x6E);
-        if (D2SOUND_StartSoundStream(gpSoundChannel, szFile, 0, bLoop))
-        {
-            return 1;
-        }
-    }
-    return 0;
-}
-
-// 0x00514840
-int __cdecl D2SOUND_IsStreamChannelPlaying()
-{
-    if (gpSoundChannel && D2SOUND_IsSoundStreaming(gpSoundChannel))
-        return 1;
-    return 0;
-}
-
-// 0x005148F0
-void __fastcall D2SOUND_10034(int nValue)
-{
-    if (nValue && !gnChannelValue)
-    {
-        D2SOUND_ClearChannelTable();
-        gbChannelFlag = 1;
-    }
-    gnChannelValue = nValue;
-}
-
 extern int gdwGlobal_00881798; // 0x00881798
-
-// 0x00514920
-int __cdecl D2SOUND_GetStreamChannelValue()
-{
-    return gdwGlobal_00881798;
-}
-
-// 0x00514930
-void __cdecl sub_00514930_StopChannel()
-{
-    if (gpSoundChannel)
-    {
-        gnChannelValue = 0;
-        if (D2SOUND_IsSoundStreaming(gpSoundChannel))
-            D2SOUND_StopSound(gpSoundChannel);
-    }
-}
-
-// 0x00514960
-void __cdecl D2SOUND_FadeOutStreamChannel()
-{
-    if (gpSoundChannel)
-    {
-        gnChannelValue = 0;
-        if (D2SOUND_IsSoundStreaming(gpSoundChannel))
-            D2SOUND_StartSoundFade(gpSoundChannel, 0, 200);
-    }
-}
-
-// 0x00514CD0
-int __fastcall D2SOUND_SetMasterVolumeOption(int nValue)
-{
-    SRegSaveValue("Diablo II", "Master Volume", 0, nValue);
-    gnMasterVolume = nValue;
-    return nValue;
-}
-
-// 0x00514D30
-int __fastcall D2SOUND_SetPositionalBiasOption(int nValue)
-{
-    SRegSaveValue("Diablo II", "Positional Bias", 0, nValue);
-    gnPositionalBias = nValue;
-    return nValue;
-}
 
 // 0x00514DB0
 void __cdecl D2SOUND_InitWaveSlots()
@@ -385,3 +272,5 @@ void __cdecl D2SOUND_FadeOutWaves()
         }
     }
 }
+
+#include "gen/data/Source/D2Sound/Src/D2SoundFast.inc"

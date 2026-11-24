@@ -28,6 +28,7 @@
 #include "D2StormTypes.h"
 
 #include "D2TxtTables.h"
+#include "D2WinPopupLine.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -429,11 +430,6 @@ struct D2FontStrc;
 
 struct D2CharStrc;
 
-struct D2WinPopUpLineStrc
-{
-    Unicode wszText[64];
-    void (__stdcall* pfHandleMouseInput)();
-};
 
 struct D2WinPopUpStrc
 {

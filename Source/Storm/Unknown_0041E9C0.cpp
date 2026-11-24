@@ -42,11 +42,6 @@ struct D2CommonMappingEntryNodeBaseStrc;
 struct D2CommonMappingEntryNodeStrc;
 struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
-struct D2TSLinkStrc;
-struct D2TSListStrc;
-struct D2StormNodeListBStrc;
-struct WNDREC;
-struct SMSGHANDLER_PARAMS;
 struct Entry;
 struct SlotArray;
 struct D2Field14Strc;
@@ -80,7 +75,6 @@ struct D2StormLinkStrc
         }
     }
     D2StormLinkStrc();
-    void sub_00420610();
     char* Next()
     {
         return (int)m_next <= 0 ? 0 : m_next;
@@ -160,8 +154,6 @@ struct CHuffman
     unsigned int Compress(CBitOutput* pOutput, void* pvIn, int cbIn, unsigned char nCmpType); // 0x0041F850
 };
 
-
-
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) int __stdcall WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x006CC1A8
@@ -204,73 +196,6 @@ struct D2Storm4168F0Strc
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
-
-struct D2TSLinkStrc
-{
-    D2TSLinkStrc* pPrevLink;
-    D2TSLinkStrc* pNext;
-
-    D2TSLinkStrc* NextLink(int nLinkOffset)
-    {
-        const int nNext = (int)pNext;
-        if (nNext < 0)
-        {
-            return (D2TSLinkStrc*)~nNext;
-        }
-        if (nLinkOffset < 0)
-        {
-            nLinkOffset = (int)this - (int)pPrevLink->pNext;
-        }
-        return (D2TSLinkStrc*)(nNext + nLinkOffset);
-    }
-
-    void Unlink()
-    {
-        if (pPrevLink)
-        {
-            NextLink(-1)->pPrevLink = pPrevLink;
-            pPrevLink->pNext = pNext;
-            pPrevLink = 0;
-            pNext = 0;
-        }
-    }
-};
-
-struct D2TSListStrc
-{
-    int nLinkOffset;
-    D2TSLinkStrc tTerminator;
-
-    D2TSLinkStrc* Head()
-    {
-        return (int)tTerminator.pNext > 0 ? tTerminator.pNext : 0;
-    }
-
-    void sub_00420750_UnlinkAll();
-};
-
-struct D2StormNodeListBStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* Head()
-    {
-        return m_terminator.Next();
-    }
-    char* sub_00420970_DeleteNode(char* pNode);                                                            // 0x00420970
-};
-
-struct WNDREC
-{
-    D2StormLinkStrc f_0;
-    void* hWnd;
-};
-
-char* __fastcall sub_004209E0_FindWndRec(void* hWnd); // 0x004209E0
-int __stdcall SEvtUnregisterType(unsigned int nType, void* hWnd); // 0x00426810
-int __stdcall SEvtDispatch(unsigned int nType, void* hWnd, unsigned int nId, SMSGHANDLER_PARAMS* pParams); // 0x00426F90
-extern D2StormNodeListBStrc gWndRecList_00708860; // 0x00708860
 
 struct Entry { unsigned char data[20]; };
 
@@ -406,7 +331,6 @@ struct BigStack
     BigBuffer f_0[16];
     unsigned int nUsed;
 };
-
 
 typedef unsigned int U32;
 
@@ -582,12 +506,6 @@ D2StormLinkStrc::D2StormLinkStrc() : m_prevlink(0), m_next(0)
 {
 }
 
-// 0x004203C0
-char* __fastcall sub_00601B60_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
 unsigned short __stdcall SFileGetLocale()
 {
     return gwValue_0077905C;
@@ -598,29 +516,10 @@ D2Storm4167B0Strc::~D2Storm4167B0Strc()
     f_0.Unlink();
 }
 
-// 0x004203D0
-char* __fastcall DRLGPRESET_GetLinkRawNext(D2StormLinkStrc* pLink)
-{
-    return pLink->m_next;
-}
-
 D2Storm4168F0Strc::~D2Storm4168F0Strc()
 {
     f_0.Unlink();
 }
-
-// 0x00420420
-D2StormLinkStrc* __fastcall sub_00420420_Identity(D2IdentityView* value) {return &value->link;}
-
-// 0x00420470
-void __fastcall sub_00601DF0_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-// 0x00420480
-D2StormLinkStrc* __fastcall sub_00420480_Identity(D2IdentityView* value) {return &value->link;}
 
 bool D2ChatStormLinkStrc::IGNORELIST_IsLinkLinked()
 {
@@ -703,12 +602,6 @@ void D2ChatStormListAStrc::IGNORELIST_InitStringListTerminator()
     InitializeTerminator();
 }
 
-// 0x00420490
-char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
-{
-    return m_terminator.MaskNext();
-}
-
 void D2ChatStormListBStrc::IGNORELIST_InitMappingListTerminator()
 {
     InitializeTerminator();
@@ -768,37 +661,6 @@ void D2CommonStringEntryNodeStrc::IGNORELIST_DestroyStringEntryNode()
 void D2CommonStormHashTableAStrc::IGNORELIST_ClearStringTable()
 {
     IGNORELIST_InternalClearStringTable(0);
-}
-
-// 0x00420500
-void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
-{
-    m_linkoffset = 0;
-    InitializeTerminator();
-}
-
-// 0x00420610
-void D2StormLinkStrc::sub_00420610()
-{
-    Unlink();
-}
-
-// 0x004206A0
-D2ChatStormListCStrc::D2ChatStormListCStrc()
-{
-    m_linkoffset = 0;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
-// 0x00420750
-void D2TSListStrc::sub_00420750_UnlinkAll()
-{
-    D2TSLinkStrc* pNode;
-    while ((pNode = Head()) != 0)
-    {
-        pNode->Unlink();
-    }
 }
 
 // 0x00420E10

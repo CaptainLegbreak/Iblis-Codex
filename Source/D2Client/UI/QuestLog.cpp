@@ -2,6 +2,7 @@
 #include "D2Primitives.h"
 #include "D2CelContext.h"
 #include "D2Unicode.h"
+#include "D2ClientQuestLog.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -26,16 +27,6 @@ struct D2QuestTextMsgStrc
 };
 #pragma pack(pop)
 
-struct D2QuestTableStrc
-{
-    unsigned char bEnabled;
-    unsigned char nCelId;
-    unsigned char nCelId2;
-    unsigned char nPage;
-    D2QuestTextsStrc* pTexts;
-    int nCondition;
-    int nQuestId;
-};
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
@@ -869,20 +860,6 @@ int __fastcall TEXT_CloseQuestText(void* pContext, int nArg, int nValue); // 0x0
 
 struct D2QuestPanelEntryStrc;
 
-#pragma pack(push, 1)
-struct D2QuestPanelEntryStrc
-{
-    int nQuestId;
-    char unk0x004[0x25E - 0x004];
-    unsigned short wTextId;
-    unsigned char nSlot;
-    char unk0x261[0x263 - 0x261];
-    unsigned char bEnabled;
-    char unk0x264[0x265 - 0x264];
-    int bDone;
-    char unk0x269[0x26A - 0x269];
-};
-#pragma pack(pop)
 
 int gnQuestCount; // 0x007BF2A0
 
@@ -961,14 +938,6 @@ struct D2ButtonLayoutStrc;
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
-struct D2ButtonLayoutStrc
-{
-    int nTextX;
-    int nRight;
-    int nTop;
-    int nBottom;
-    int nTextY;
-};
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 
