@@ -17,30 +17,6 @@ class CHuffmanDecoder;
 struct D2StormHuffInputStrc;
 struct CHuffman;
 struct D2CriticalSectionStrc;
-struct D2SLogStrc;
-struct D2Storm4167B0Strc;
-struct D2Storm4168F0Strc;
-struct D2Storm416A90Strc;
-struct D2ChatStormLinkStrc;
-struct D2ChatStormLinkAStrc;
-struct D2ChatStormLinkBStrc;
-struct D2ChatStormNodeStrc;
-struct D2ChatStormBaseArrayAStrc;
-struct D2ChatStormBaseArrayBStrc;
-struct D2ChatStormListAStrc;
-struct D2ChatStormListBStrc;
-struct D2ChatStormHashTableStrc;
-struct D2ChatStormCtorLinkStrc;
-struct D2ChatStormListCStrc;
-struct D2ChatStormListDStrc;
-struct D2ChatStormListEStrc;
-struct D2CommonStormSlotLinkStrc;
-struct D2CommonStormSlotListAStrc;
-struct D2CommonStormSlotListBStrc;
-struct D2CommonMappingEntryNodeBaseStrc;
-struct D2CommonMappingEntryNodeStrc;
-struct D2CommonStringEntryNodeStrc;
-struct D2CommonStormHashTableAStrc;
 struct Entry;
 struct SlotArray;
 struct D2Field14Strc;
@@ -171,20 +147,6 @@ extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2Crit
 extern D2CriticalSectionStrc gaSLogLocks_00779238[4]; // 0x00779238
 
 extern unsigned short gwValue_0077905C;
-
-struct D2Storm4167B0Strc
-{
-    D2StormLinkStrc m_link;
-
-    ~D2Storm4167B0Strc();
-};
-
-struct D2Storm4168F0Strc
-{
-    D2StormLinkStrc m_link;
-
-    ~D2Storm4168F0Strc();
-};
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
 extern "C" const char gszIgnoreListSourceFile_006E6290[];

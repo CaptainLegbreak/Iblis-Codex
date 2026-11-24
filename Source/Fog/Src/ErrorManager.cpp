@@ -85,7 +85,6 @@ struct D2HostentStrc;
 
 struct D2ThreadNameInfoStrc;
 
-struct D2UnicodeStringStrc;
 
 struct D2ListEntryStrc;
 
@@ -93,7 +92,6 @@ struct D2LdrEntryStrc;
 
 struct D2LdrDataStrc;
 
-struct D2PebStrc;
 
 struct D2TebStrc;
 

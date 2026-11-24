@@ -2,26 +2,6 @@
 #include "D2GameTypes.h"
 
 struct SEvtBreakCmdStrc;
-struct D2ChatStormLinkStrc;
-struct D2ChatStormLinkAStrc;
-struct D2ChatStormLinkBStrc;
-struct D2ChatStormNodeStrc;
-struct D2ChatStormBaseArrayAStrc;
-struct D2ChatStormBaseArrayBStrc;
-struct D2ChatStormListAStrc;
-struct D2ChatStormListBStrc;
-struct D2ChatStormHashTableStrc;
-struct D2ChatStormCtorLinkStrc;
-struct D2ChatStormListCStrc;
-struct D2ChatStormListDStrc;
-struct D2ChatStormListEStrc;
-struct D2CommonStormSlotLinkStrc;
-struct D2CommonStormSlotListAStrc;
-struct D2CommonStormSlotListBStrc;
-struct D2CommonMappingEntryNodeBaseStrc;
-struct D2CommonMappingEntryNodeStrc;
-struct D2CommonStringEntryNodeStrc;
-struct D2CommonStormHashTableAStrc;
 struct D2CriticalSectionStrc;
 struct SEvtLinkStrc;
 
