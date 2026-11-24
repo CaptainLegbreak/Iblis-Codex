@@ -15,6 +15,7 @@
 #include "D2CmpStormHash.h"
 
 #include "D2LRUNode.h"
+#include "D2StormListArray.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1287,13 +1288,6 @@ extern "C" void _ReadWriteBarrier(void);
 
 #pragma intrinsic(_ReadWriteBarrier)
 
-struct D2StormListArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    D2StormListAStrc* m_data;
-    unsigned int m_chunk;
-};
 
 struct D2StormHashTable006030E0Strc
 {
