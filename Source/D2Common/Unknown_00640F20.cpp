@@ -41,3 +41,5 @@ void __fastcall DATATBLS_LoadObjGroupTxt(void* hArchive)
 
     gpObjgroupTxt = DATATBLS_CompileTxt(hArchive, "objgroup", pTbl, &gnObjgroupTxtRecordCount, 52);
 }
+
+#include "gen/data/Source/D2Common/Unknown_00640F20.inc"

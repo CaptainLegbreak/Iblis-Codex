@@ -249,7 +249,9 @@ BOOL __stdcall INVENTORY_GetFreePosition(D2InventoryStrc* pInventory, D2UnitStrc
 
 void __stdcall sub_0065C1F0(int nInventoryRecordId, int nUnused, D2InventoryGridInfoStrc* pInventoryGridInfo); // 0x0065C1F0
 
+extern unsigned char gabDirection64To16[64]; // 0x007455C0
 extern unsigned char gabDirection64To8[256]; // 0x00745600
+extern unsigned char gabDirection8To64[8]; // 0x00745640
 
 extern const signed char gaDirectionDeltaX[32]; // 0x006EA998
 
@@ -3865,10 +3867,22 @@ void __stdcall INVENTORY_GetSecondWieldingWeapon(D2UnitStrc* pPlayer, D2Inventor
     }
 }
 
+// 0x0063E780
+unsigned char __stdcall D2Common_11052(unsigned char nIndex)
+{
+    return gabDirection64To16[nIndex];
+}
+
 // 0x0063E7A0
 unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex)
 {
     return gabDirection64To8[nIndex];
+}
+
+// 0x0063E7C0
+unsigned char __stdcall D2Common_11054(unsigned char nIndex)
+{
+    return gabDirection8To64[nIndex];
 }
 
 // 0x0063E7E0

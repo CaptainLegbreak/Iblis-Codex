@@ -42847,16 +42847,6 @@
      "va": "0x00604A30",
      "length": 15,
      "name": "TileSetHardwareFreeCallback"
-    },
-    {
-     "va": "0x0063E780",
-     "length": 17,
-     "name": "D2Common_11052"
-    },
-    {
-     "va": "0x0063E7C0",
-     "length": 17,
-     "name": "D2Common_11054"
     }
    ]
   },
@@ -71096,9 +71086,19 @@
      "length": 412
     },
     {
+     "va": "0x0063E780",
+     "length": 17,
+     "name": "D2Common_11052"
+    },
+    {
      "va": "0x0063E7A0",
      "length": 17,
      "name": "INVENTORY_GetEightWayDirection"
+    },
+    {
+     "va": "0x0063E7C0",
+     "length": 17,
+     "name": "D2Common_11054"
     },
     {
      "va": "0x0063E7E0",
