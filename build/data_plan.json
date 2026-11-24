@@ -221,8 +221,8 @@
    "state": "included"
   },
   "Source/Storm/Unknown_00426900.cpp": {
-   "bytes": 20,
-   "definitions": 2,
+   "bytes": 16,
+   "definitions": 1,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Storm/Unknown_00426900.inc",
@@ -9592,32 +9592,6 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_007088D8_t\n{\n    unsigned char b0[16];\n};\n#pragma pack(pop)",
    "tail": "; // 0x007088D8",
    "va": "0x007088D8"
-  },
-  {
-   "alias": false,
-   "cname": "gData_007088EC",
-   "declared": true,
-   "decorated": "?gtSEvtBreakCmdTerminator@@3USEvtLinkStrc@@A",
-   "file": "Source/Storm/Unknown_00426900.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_007088EC_t gData_007088EC; // 0x007088EC",
-   "head": "extern \"C\" struct d2data_007088EC_t gData_007088EC = ",
-   "name": "gtSEvtBreakCmdTerminator",
-   "pointers": [
-    [
-     0,
-     "0x007088EC",
-     "owner",
-     "gtSEvtBreakCmdTerminator",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_007088EC_t\n{\n    const void* p0;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x007088EC\n#pragma comment(linker, \"/alternatename:?gtSEvtBreakCmdTerminator@@3USEvtLinkStrc@@A=_gData_007088EC\")",
-   "va": "0x007088EC"
   },
   {
    "alias": true,
