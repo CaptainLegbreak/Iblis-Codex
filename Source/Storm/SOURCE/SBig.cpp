@@ -86,7 +86,15 @@ struct D2StormArrayBStrc
         Reserve(1, 1);
         return &f_8[f_4++];
     }
+    void Push(unsigned char nByte)
+    {
+        Reserve(1, 1);
+        f_8[f_4] = nByte;
+        f_4 += 1;
+    }
     void sub_004211C0_ReallocData(unsigned int nAlloc);                                                     // 0x004211C0
+    unsigned int sub_004218B0_Add(unsigned int nCount, const unsigned char* pData);                         // 0x004218B0
+    void sub_004219F0_Set(unsigned int nCount, const unsigned char* pData);                                 // 0x004219F0
 };
 
 struct D2StormArrayCStrc
@@ -118,6 +126,8 @@ int __stdcall sub_004242C0_BigOp(BigBuffer* pResult, BigBuffer* pA, BigBuffer* p
 unsigned int __stdcall sub_00421470_FindLowestSetBit(BigBuffer* pQueue);                            // 0x00421470
 extern const unsigned int gaSBigFermatBases[1];                                                         // 0x006CFF70
 extern const unsigned int gaSBigSmallPrimes[171];                                                        // 0x006CFF78
+void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize);                            // 0x0041D2A0
+void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, BigBuffer* pIn);                         // 0x00421CB0
 int __stdcall sub_00424700_BigOp(BigBuffer* pResult, BigBuffer* pA, BigBuffer* pB, BigStack* pStack); // 0x00424700
 int __stdcall sub_00424B00_Square(BigBuffer* pResult, BigBuffer* pA, BigStack* pStack); // 0x00424B00
 
@@ -140,6 +150,25 @@ inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
     if (nValue >= 0x80000000)
         nValue |= 0xFFFFFFFF00000000ui64;
     return nLow;
+}
+
+// 0x00421510
+static void __cdecl sub_00421510_ToUnsigned(unsigned int* pnResult, const BigBuffer& tBuffer)
+{
+    *pnResult = 0;
+    *pnResult = tBuffer[0];
+}
+
+// 0x00421530
+int __stdcall sub_00421530(D2StormBigStrc* pA, D2StormBigStrc* pB)
+{
+    return sub_004212F0_Compare(&pA->tPrimary, &pB->tPrimary);
+}
+
+// 0x00421550
+void __stdcall SBigToUnsigned(D2StormBigStrc* pBig, unsigned int* pnResult)
+{
+    sub_00421510_ToUnsigned(pnResult, pBig->tPrimary);
 }
 
 // build: symbol ??3@YAXPAX0@Z 0x0040EB30
@@ -914,6 +943,105 @@ static void __stdcall InvMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack&
 void __stdcall SBigInvMod(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     InvMod(pResult->tPrimary, pA->tPrimary, pB->tPrimary, pResult->tStack);
+}
+
+static void EncodeDataBytes(unsigned int nValue, D2StormArrayBStrc* pArray) // 0x00421BD0
+{
+    while (nValue)
+    {
+        pArray->Push((unsigned char)(nValue % 255));
+        nValue /= 255;
+    }
+    pArray->Push(0xFF);
+}
+
+// 0x004235F0
+static void ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn)
+{
+    pOut->f_4 = 0;
+    sub_00421CB0_AppendDigits(pOut, pIn);
+}
+
+static void ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn) // 0x00423770
+{
+    ToBinary(pOut, pIn);
+    EncodeDataBytes(pOut->f_4, pOut);
+    sub_00421CB0_AppendDigits(pOut, pIn);
+}
+
+// 0x00423AE0
+void __stdcall SBigToBinaryArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray, int bAppend)
+{
+    ToBinary(&pBig->tOutput, &pBig->tPrimary);
+    if (bAppend)
+        pArray->sub_004218B0_Add(pBig->tOutput.f_4, pBig->tOutput.f_8);
+    else
+        pArray->sub_004219F0_Set(pBig->tOutput.f_4, pBig->tOutput.f_8);
+}
+
+// 0x00423B30
+void __stdcall SBigToBinaryBuffer(D2StormBigStrc* pBig, void* pBuffer, unsigned int nSize, unsigned int* pRead)
+{
+    ToBinary(&pBig->tOutput, &pBig->tPrimary);
+    unsigned int nCopy = pBig->tOutput.f_4 < nSize ? pBig->tOutput.f_4 : nSize;
+    SMemCopy(pBuffer, pBig->tOutput.f_8, nCopy);
+    if (pRead)
+        *pRead = nCopy;
+}
+
+// 0x00423B80
+void __stdcall SBigToBinaryPtr(D2StormBigStrc* pBig, unsigned char** ppData, unsigned int* pSize)
+{
+    ToBinary(&pBig->tOutput, &pBig->tPrimary);
+    *ppData = pBig->tOutput.f_8;
+    if (pSize)
+        *pSize = pBig->tOutput.f_4;
+}
+
+// 0x00423C90
+void __stdcall SBigToStreamArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray, int bAppend)
+{
+    ToStream(&pBig->tOutput, &pBig->tPrimary);
+    if (bAppend)
+        pArray->sub_004218B0_Add(pBig->tOutput.f_4, pBig->tOutput.f_8);
+    else
+        pArray->sub_004219F0_Set(pBig->tOutput.f_4, pBig->tOutput.f_8);
+}
+
+// 0x00423CE0
+void __stdcall SBigToStreamBuffer(D2StormBigStrc* pBig, void* pBuffer, unsigned int nSize, unsigned int* pWritten)
+{
+    ToStream(&pBig->tOutput, &pBig->tPrimary);
+    unsigned int nCopy = pBig->tOutput.f_4 < nSize ? pBig->tOutput.f_4 : nSize;
+    SMemCopy(pBuffer, pBig->tOutput.f_8, nCopy);
+    if (pWritten)
+        *pWritten = nCopy;
+}
+
+// 0x00423D30
+void __stdcall SBigToStreamPtr(D2StormBigStrc* pBig, unsigned char** ppData, unsigned int* pSize)
+{
+    ToStream(&pBig->tOutput, &pBig->tPrimary);
+    *ppData = pBig->tOutput.f_8;
+    *pSize = pBig->tOutput.f_4;
+}
+
+// 0x00422710
+static int IsOdd(BigBuffer* pQueue)
+{
+    pQueue->sub_00422140_Trim();
+    const BigBuffer& tQueue = *pQueue;
+    if (tQueue.Count() >= 1 && (tQueue[0] & 1))
+    {
+        return 1;
+    }
+    return 0;
+}
+
+// 0x004238F0
+int __stdcall SBigIsOdd(D2StormBigStrc* pBig)
+{
+    return IsOdd(&pBig->tPrimary);
 }
 
 #include "gen/data/Source/Storm/SOURCE/SBig.inc"
