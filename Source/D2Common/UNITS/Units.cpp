@@ -451,7 +451,7 @@ struct D2RosterInfoStrc;
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
 
-D2RosterInfoStrc* __fastcall PLAYERLIST_GetNextRosterInfo(D2RosterInfoStrc* pRosterInfo); // 0x004DC0B0
+D2RosterInfoStrc* __fastcall GFXUTIL_GetNextRosterInfo(D2RosterInfoStrc* pRosterInfo); // 0x004DC0B0
 
 int __stdcall DUNGEON_GetPortalFlagFromLevelId(int nLevelId);                                               // 0x0061AE30
 
@@ -2381,10 +2381,10 @@ void __stdcall UNITS_AllocPlayerData(D2UnitStrc* ptUnit)
 
     for (int i = 0; i < 3; ++i)
     {
-        D2BitBufferStrc* const pQuestRecord = QUESTRECORD_AllocRecord(PLAYERLIST_GetNextRosterInfo((D2RosterInfoStrc*)ptUnit));
+        D2BitBufferStrc* const pQuestRecord = QUESTRECORD_AllocRecord(GFXUTIL_GetNextRosterInfo((D2RosterInfoStrc*)ptUnit));
         // volatile: stands in for the reload of pPlayerData after the call (the original indexes it as [loop + record])
         (*(D2PlayerDataStrc* volatile*)&ptUnit->pPlayerData)->pQuestData[i] = pQuestRecord;
-        ptUnit->pPlayerData->pWaypointData[i] = WAYPOINTS_AllocWaypointData(PLAYERLIST_GetNextRosterInfo((D2RosterInfoStrc*)ptUnit));
+        ptUnit->pPlayerData->pWaypointData[i] = WAYPOINTS_AllocWaypointData(GFXUTIL_GetNextRosterInfo((D2RosterInfoStrc*)ptUnit));
     }
 
     ptUnit->pPlayerData->nPortalFlags = DUNGEON_GetPortalFlagFromLevelId(1);

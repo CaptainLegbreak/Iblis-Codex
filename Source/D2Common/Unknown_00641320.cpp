@@ -82,7 +82,7 @@ static int SKILLS_IsPointNearRoom(D2ActiveRoomStrc*,int,int,int); // 0x00641930
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 
 
-void __fastcall VIEW_SetPlayerMode(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2); // 0x00460780
+void __fastcall PLAYER_SetPlayerMode(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2); // 0x00460780
 
 // 0x00641320
 void __fastcall DATATBLS_LoadShrinesTxt(void* hArchive)
@@ -429,7 +429,7 @@ void __fastcall UNITS_SetInteractData(D2UnitStrc* pUnit, int nMode, int nArg1, i
             pPlayerData->nState = 1;
         }
 
-        VIEW_SetPlayerMode(nMode, pUnit, nArg1, nArg2);
+        PLAYER_SetPlayerMode(nMode, pUnit, nArg1, nArg2);
     }
 }
 

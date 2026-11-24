@@ -10,12 +10,12 @@ void __cdecl SCMD_DrawLoadingTexts();                                           
 void __stdcall VIEW_DrawPanelCel(int nFrame);                                                       // 0x0045FD20
 void __cdecl UI_DrawCenteredString();                                                             // 0x0045FD80
 void __cdecl CURSOR_DrawCursor(); // 0x004684C0
-void __cdecl INV_TickSound();                                                                           // 0x00482C20
+void __cdecl SOUNDHDR_TickSound();                                                                           // 0x00482C20
 void __fastcall sub_00460190_DrawFrame(int nUnused);                                                        // 0x00460190
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType);                             // 0x004788B0
 void __fastcall GAME_SetClientState(int nState);                                                    // 0x0044C930
 int __cdecl WINDOW_GetWindow();                                                                                // 0x004F59A0
-void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int));                                     // 0x00451BB0
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount);     // 0x00451E10
 void __cdecl UI_FreeCels();                                                                       // 0x00460430
@@ -51,7 +51,7 @@ int __stdcall sub_00460490_DrawPopup(int nArg)
         CURSOR_DrawCursor();
         D2GFX_EndScene();
     }
-    INV_TickSound();
+    SOUNDHDR_TickSound();
     return gbPopupDismissed != 0;
 }
 
@@ -65,7 +65,7 @@ int __cdecl sub_00460500_RunPopup()
     gpOkCancelButtonCel = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Menu\\okcancelbtn", 0);
     sub_004FB480_SetActA(0);
     GAME_SetClientState(1);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaPopupHandlers, 4);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaPopupHandlers, 4);
     SCMD_RunMessageLoop(sub_00460490_DrawPopup);
     sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaPopupHandlers, 4);
     GAME_SetClientState(0);
@@ -83,7 +83,7 @@ int __cdecl sub_004605A0_RunPopup()
     gpOkCancelButtonCel = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Menu\\okcancelbtn", 0);
     sub_004FB480_SetActA(0);
     GAME_SetClientState(1);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaPopupHandlers, 4);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaPopupHandlers, 4);
     SCMD_RunMessageLoop(sub_00460490_DrawPopup);
     sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaPopupHandlers, 4);
     GAME_SetClientState(0);
@@ -96,7 +96,7 @@ int __stdcall sub_00460640_PaintConfirmFrame(int nArg)
 {
     sub_00477DD0();
     sub_00460190_DrawFrame(1);
-    INV_TickSound();
+    SOUNDHDR_TickSound();
     if (!gbOkCancelAccepted && !gbOkCancelCancelled)
         return 0;
     return 1;
@@ -114,7 +114,7 @@ int __cdecl sub_00460680_RunOkCancel()
     gpOkCancelButtonCel = ARCHIVE_LoadClientCellFile("Data\\Global\\UI\\Menu\\okcancelbtn", 0);
     sub_004FB480_SetActA(0);
     GAME_SetClientState(2);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaOkCancelHandlers, 4);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaOkCancelHandlers, 4);
     SCMD_RunMessageLoop(sub_00460640_PaintConfirmFrame);
     if (gbOkCancelCancelled)
         nResult = 0;

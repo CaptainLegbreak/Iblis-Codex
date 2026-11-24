@@ -16,7 +16,7 @@
 
 struct D2AutomapCellStrc;
 
-struct OBJECT_SetUnitFlag;
+struct AUTOMAP_SetUnitFlag;
 
 struct Obj00457460;
 
@@ -28,7 +28,7 @@ extern int gbAutomapLeft; // 0x007A51E0
 
 extern int gbAutomapPartyNames; // 0x007113E8
 
-struct OBJECT_SetUnitFlag {
+struct AUTOMAP_SetUnitFlag {
     unsigned int dw00;
     unsigned int dw04;
     unsigned int dw08;
@@ -48,9 +48,9 @@ struct OBJECT_SetUnitFlag {
 };
 
 struct Obj00457460 {
-    OBJECT_SetUnitFlag tPad000;
-    OBJECT_SetUnitFlag tPad040;
-    OBJECT_SetUnitFlag tPad080;
+    AUTOMAP_SetUnitFlag tPad000;
+    AUTOMAP_SetUnitFlag tPad040;
+    AUTOMAP_SetUnitFlag tPad080;
     unsigned int dwUnknownC0;
     unsigned int dwFlagsC4;
 };
@@ -96,7 +96,7 @@ extern int gnShrineHandlerCount;                                                
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 
-void __fastcall OBJECT_SetUnitFlag(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x00457460
+void __fastcall AUTOMAP_SetUnitFlag(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x00457460
 
 void __fastcall sub_0046C320_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, int nCount);               // 0x0046C320
 
@@ -211,9 +211,9 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 void __fastcall UNITMODE_DoUnitAction(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00481030
 
-void __cdecl TEXT_LoadDurielCofsOnce(); // 0x004A30A0
+void __cdecl QUESTLOG_LoadDurielCofsOnce(); // 0x004A30A0
 
-void __cdecl TEXT_LoadAncientsCofsOnce(); // 0x004A30C0
+void __cdecl QUESTLOG_LoadAncientsCofsOnce(); // 0x004A30C0
 
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
 
@@ -237,11 +237,11 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
-char __cdecl TEXT_HasQuestPacketValue(); // 0x004A3110
+char __cdecl QUESTLOG_HasQuestPacketValue(); // 0x004A3110
 
-char __cdecl TEXT_IsQuestUnitPresent(); // 0x004A3120
+char __cdecl QUESTLOG_IsQuestUnitPresent(); // 0x004A3120
 
-void __fastcall TEXT_SpawnQuestUnits(int nX, int nY); // 0x004A3150
+void __fastcall QUESTLOG_SpawnQuestUnits(int nX, int nY); // 0x004A3150
 
 static void OBJECT_FinishDoorMode(D2UnitStrc* pUnit); // 0x004BCA90
 
@@ -275,7 +275,7 @@ static void OBJECT_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); 
 static void __stdcall OBJECT_OperateShrine(D2UnitTargetStrc* pTarget, D2UnitStrc* pUnit); // 0x004BD5C0
 
 
-extern "C" __declspec(dllexport) void __fastcall OBJECT_SetUnitFlag(Obj00457460* pObj, unsigned int dwMask, int bSet); // 0x00457460
+extern "C" __declspec(dllexport) void __fastcall AUTOMAP_SetUnitFlag(Obj00457460* pObj, unsigned int dwMask, int bSet); // 0x00457460
 
 
 
@@ -367,7 +367,7 @@ int __fastcall OBJECT_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh)
                 GFX_RefreshUnitGfx(pUnit, 0);
 
             UNITS_SetAnimStartFrame(pUnit);
-            OBJECT_SetUnitFlag(pUnit, 2, pTxt->nSelectable[pUnit->dwAnimMode]);
+            AUTOMAP_SetUnitFlag(pUnit, 2, pTxt->nSelectable[pUnit->dwAnimMode]);
         }
         OBJECT_UpdateObjectLight(pUnit, pTxt->nLit[pUnit->dwAnimMode], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
         return 1;
@@ -614,7 +614,7 @@ static void OBJECT_UpdateObjectFrame(D2UnitStrc* pUnit)
                     AUTOMAP_RemoveUnitOverlay(pUnit, 0, 0x47);
             }
 
-            OBJECT_SetUnitFlag(pUnit, 2, pTxt->nSelectable[pUnit->dwAnimMode]);
+            AUTOMAP_SetUnitFlag(pUnit, 2, pTxt->nSelectable[pUnit->dwAnimMode]);
             OBJECT_UpdateObjectLight(pUnit, pTxt->nLit[2], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
             if (!pTxt->nHasCollision[pUnit->dwAnimMode] && pTxt->nHasCollision[1])
                 UNITS_FreeCollisionPath(pUnit);
@@ -1231,7 +1231,7 @@ char __fastcall OBJECT_PreloadMonsterTrioOnce(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwAnimMode)
     {
-        TEXT_LoadAncientsCofsOnce();
+        QUESTLOG_LoadAncientsCofsOnce();
     }
 
     return 1;
@@ -1265,7 +1265,7 @@ char __fastcall OBJECT_PreloadSingleMonsterOnce(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwAnimMode)
     {
-        TEXT_LoadDurielCofsOnce();
+        QUESTLOG_LoadDurielCofsOnce();
     }
 
     return 1;
@@ -1359,9 +1359,9 @@ char __fastcall OBJECT_FinishOperate(D2UnitStrc* pUnit)
 // 0x004BDE40
 char __fastcall OBJECT_ReportPosition(D2UnitStrc* pUnit)
 {
-    if (TEXT_HasQuestPacketValue() && !TEXT_IsQuestUnitPresent())
+    if (QUESTLOG_HasQuestPacketValue() && !QUESTLOG_IsQuestUnitPresent())
     {
-        TEXT_SpawnQuestUnits(CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit));
+        QUESTLOG_SpawnQuestUnits(CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit));
     }
     return 1;
 }

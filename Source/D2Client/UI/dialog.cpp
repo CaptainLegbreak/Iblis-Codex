@@ -117,7 +117,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
-void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 void __fastcall CUNIT_SetDialogState(int nState); // 0x004898D0
 
@@ -716,8 +716,8 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialogFromFile(int nArg1, int nArg2,
     pDialog->nY = nArg2;
     gbDialogHandlersRegistered = 1;
     DIALOG_LoadDialogHotkeys();
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaDialogHandlers, 0xE);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaDialogWheelHandlers, 1);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaDialogHandlers, 0xE);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaDialogWheelHandlers, 1);
     gnDialogHandlerRegCount += 1;
     D2_ASSERT(gnDialogCount == 1, 0x3C8);
     return pDialog;
@@ -789,8 +789,8 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int nAr
     pDialog->bKeepKeys = nArg28;
     gbDialogHandlersRegistered = 1;
     DIALOG_LoadDialogHotkeys();
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaDialogHandlers, 0xE);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaDialogWheelHandlers, 1);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaDialogHandlers, 0xE);
+    SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaDialogWheelHandlers, 1);
     gnDialogHandlerRegCount += 1;
     D2_ASSERT(gnDialogCount == 1, 0x408);
     return pDialog;

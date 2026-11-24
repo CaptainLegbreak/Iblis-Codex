@@ -691,7 +691,7 @@ int __stdcall ITEMS_IsSocketable(D2UnitStrc* pItem);
 
 int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit);                                                 // 0x00451F50
 
-void* __fastcall PLAYERLIST_GetNextRosterInfo(D2UnitStrc* pUnit);                                         // 0x004DC0B0
+void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc* pUnit);                                         // 0x004DC0B0
 
 void __stdcall UNITS_SetXForStaticUnit(D2UnitStrc* pUnit, int nX);                                          // 0x00620470
 
@@ -5357,7 +5357,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
         pStatList = STATLIST_GetStatListFromUnitStateOrFlag(pItem, nState, nFlag);
         if (!pStatList)
         {
-            pStatList = STATLIST_AllocStatList(PLAYERLIST_GetNextRosterInfo(pItem), nFlag, 0, UNIT_ITEM, GAME_GetUnitGUID(pItem));
+            pStatList = STATLIST_AllocStatList(GFXUTIL_GetNextRosterInfo(pItem), nFlag, 0, UNIT_ITEM, GAME_GetUnitGUID(pItem));
             D2COMMON_10475_PostStatToStatList(pItem, pStatList, 1);
             STATLIST_SetState(pStatList, nState);
         }

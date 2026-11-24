@@ -346,7 +346,7 @@ void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFie
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
-void __fastcall VIEW_SetPlayerMode(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2); // 0x00460780
+void __fastcall PLAYER_SetPlayerMode(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2); // 0x00460780
 static inline int U04_IsNearRoomY(const D2DrlgCoordsStrc* pCoords, int nY, int nRadius)
 {
     return nY + nRadius >= pCoords->nSubtileY || nY - nRadius <= pCoords->nSubtileHeight + pCoords->nSubtileY;
@@ -590,7 +590,7 @@ void __fastcall UNITS_SetInteractData(D2UnitStrc* pUnit, int nMode, int nArg1, i
             pPlayerData->nState = 1;
         }
 
-        VIEW_SetPlayerMode(nMode, pUnit, nArg1, nArg2);
+        PLAYER_SetPlayerMode(nMode, pUnit, nArg1, nArg2);
     }
 }
 
