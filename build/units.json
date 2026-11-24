@@ -57075,6 +57075,16 @@
      "length": 496
     },
     {
+     "va": "0x005FEB80",
+     "length": 195,
+     "name": "?sub_005FEB80_FindDC6Frame@@YGPAXPAXPAUD2CmpSpriteContextStrc@@PAUD2CmpDC6HeaderStrc@@@Z"
+    },
+    {
+     "va": "0x005FEC50",
+     "length": 58,
+     "name": "?sub_005FEC50_GetCachedDC6Frame@@YAPAXPAUD2CmpSpriteContextStrc@@PAUD2CmpDC6CacheEntryStrc@@@Z"
+    },
+    {
      "va": "0x005FEC90",
      "length": 366,
      "name": "?D2CMPSpriteInitFrames@@YGXPAUD2CmpSpriteFileStrc@@PAUD2CmpSpriteContextStrc@@PAUD2CmpSpriteEntryStrc@@@Z"
@@ -63500,22 +63510,6 @@
      "va": "0x005FE170",
      "length": 83,
      "name": "?sub_005FE170_SpriteCacheFreeCallback@@YIXPAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_005FE210.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FEB80",
-     "length": 195,
-     "name": "?sub_005FEB80_FindDC6Frame@@YGPAXPAXPAUD2CmpSpriteContextStrc@@PAUD2CmpDC6HeaderStrc@@@Z"
-    },
-    {
-     "va": "0x005FEC50",
-     "length": 58,
-     "name": "?sub_005FEC50_GetCachedDC6Frame@@YAPAXPAUD2CmpSpriteContextStrc@@PAUD2CmpDC6CacheEntryStrc@@@Z"
     }
    ]
   },
