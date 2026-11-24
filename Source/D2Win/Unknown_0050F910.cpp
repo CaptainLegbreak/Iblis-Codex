@@ -1,6 +1,9 @@
 #include "D2Win.h"
+
 #include "D2GfxTypes.h"
+
 #include "D2GlideTypes.h"
+
 #include "D2Win32Types.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -8,36 +11,63 @@
 struct D2DDrawSurfaceStrc;
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 void __fastcall GLIDE_SetTextureCombineMode(int nTmu); // 0x00509460
+
 void __fastcall GLIDE_TileCacheTouch(D2GlideTileCacheStrc* pCache, int nIndex); // 0x0050F0F0
+
 short __fastcall GLIDE_TileCacheAdd(D2GlideTileCacheStrc* pCache); // 0x0050F2B0
+
 extern D2GrTexInfoStrc gtGlideTileTexInfo; // 0x0072F6A8
+
 extern D2GlideTileCacheStrc gtGlideTileCache; // 0x0087EB48
+
 extern int gnGlideTileTmu; // 0x00880BF8
+
 extern unsigned char* gpGlideTileDecodeBuffer; // 0x00880BFC
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+
 extern "C" __declspec(dllimport) D2BinkStrc* __stdcall BinkOpen(void* hFile, unsigned int nFlags); // 0x006CC5B8
+
 extern "C" __declspec(dllimport) int __stdcall BinkWait(D2BinkStrc* pBink); // 0x006CC5C8
+
 extern "C" __declspec(dllimport) void __stdcall BinkClose(D2BinkStrc* pBink); // 0x006CC5CC
+
 extern "C" __declspec(dllimport) unsigned int __stdcall BinkDDSurfaceType(D2DDrawSurfaceStrc* pSurface); // 0x006CC5D0
+
 extern "C" __declspec(dllimport) int __stdcall BinkSetSoundSystem(void* pfOpen, unsigned long nParam); // 0x006CC5D4
+
 extern "C" __declspec(dllimport) void* __stdcall BinkOpenDirectSound(unsigned long nParam); // 0x006CC5D8
+
 int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
+
 void __cdecl GLIDE_DrawVideoFrame(); // 0x0050FD10
+
 void __cdecl DDRAW_DrawVideoFrame(); // 0x005136F0
+
 void __fastcall D2SOUND_SetMasterVolume(int nVolume); // 0x00515CE0
+
 extern int gnRenderHeight; // 0x007C913C
+
 extern unsigned int gnGlideBinkY; // 0x00880C04
+
 extern unsigned int gnGlideBinkFlags; // 0x00880C14
+
 extern D2DDrawSurfaceStrc* gpDDrawPrimarySurface; // 0x00881278
+
 extern unsigned int gnDDrawBinkY; // 0x008816B8
+
 extern unsigned int gnDDrawBinkFlags; // 0x008816C8
 
 void __fastcall sub_00510160_DDrawSetPalette(tagPALETTEENTRY* pPalette); // 0x00510160
+
 extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
+
 extern tagPALETTEENTRY gaDDrawSavedPalette[256]; // 0x00880D40
 
 // 0x0050F910
@@ -247,6 +277,31 @@ LABEL_FAIL:
         D2SOUND_SetMasterVolume(0xFF);
         gpGlideBink = 0;
     }
+}
+
+extern int gdwGlobal_0088126C; // 0x0088126C
+
+// 0x00510140
+int __cdecl DDRAW_CheckCutScene()
+{
+    return gdwGlobal_0088126C;
+}
+
+// 0x00510320
+void __stdcall DDRAW_SetAmbientColor(int nUnused1)
+{
+}
+
+// 0x00510370
+int __cdecl DDRAW_GetCacheResults()
+{
+    return 0;
+}
+
+// 0x00510380
+int __cdecl DDRAW_ActivateWindow()
+{
+    return 0;
 }
 
 // 0x005137E0

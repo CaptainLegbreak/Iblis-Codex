@@ -3,16 +3,27 @@
 struct D2GlideDebugCellStrc;
 
 extern void (__stdcall* gpfnGrColorCombine)(int nFunction, int nFactor, int nLocal, int nOther, int bInvert); // 0x0087EB2C
+
 extern void (__stdcall* gpfnGrChromakeyMode)(int bEnable); // 0x0087EB8C
+
 extern void (__stdcall* gpfnGrConstantColorValue)(unsigned int dwColor); // 0x0087EFA0
+
 extern D2GlideDebugCellStrc** gppGlideDebugBuffer; // 0x00880454
+
 unsigned int __fastcall GLIDE_GetPaletteColor(int nPaletteIndex); // 0x005093F0
+
 void __fastcall GLIDE_SetColorCombineMode(int nState); // 0x005094B0
+
 void __fastcall GLIDE_SetAlphaBlendMode(int nMode); // 0x00509500
+
 extern int gnRenderWidth; // 0x007C9138
+
 extern void (__stdcall* gpfnGrDrawLine)(const D2GlideSpriteVertexStrc* pStart, const D2GlideSpriteVertexStrc* pEnd); // 0x0087E978
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x0050BF50
+
 extern void (__stdcall* gpfnGrBufferClear)(unsigned int color, unsigned int alpha, unsigned int depth); // 0x0087EB88
 
 typedef char cc_M439_D2GlideSpriteVertexStrc_size[sizeof(D2GlideSpriteVertexStrc) == 0x1C ? 1 : -1];
@@ -153,12 +164,89 @@ void __fastcall sub_0050C270_GlideDrawLine(int nXStart, int nYStart, int nXEnd, 
     gpfnGrChromakeyMode(1);
 }
 
+int gnRenderWidth;                                                                                 // 0x007C9138
+#define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
+#define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
+
+// 0x0050C3A0
+void __fastcall GLIDE_UtilDiamond(tagRECT* pRect, int nPaletteIndex)
+{
+    const int nX = pRect->left;
+    const int nRight = pRect->right;
+    D2_ASSERT(nX <= nRight, 0xB9);
+
+    const int nY = pRect->top;
+    const int nBottom = pRect->bottom;
+    D2_ASSERT(nY <= nBottom, 0xBA);
+
+    const unsigned int nWidth = nRight - nX;
+    const unsigned int nHeight = nBottom - nY;
+    if (!nWidth || !nHeight)
+    {
+        return;
+    }
+
+    const int nCenterX = nX + (nWidth >> 1);
+    const int nCenterY = nY + (nHeight >> 1);
+    const int nX2 = nX + nWidth;
+    const int nY2 = nY + nHeight;
+    if (nX2 < 0 || nX > gnRenderWidth || nY2 < 0 || nY > gnRenderHeight)
+    {
+        return;
+    }
+
+    sub_0050C270_GlideDrawLine(nCenterX, nY, nX2, nCenterY, nPaletteIndex, 0xFF);
+    sub_0050C270_GlideDrawLine(nX2, nCenterY, nCenterX, nY2, nPaletteIndex, 0xFF);
+    sub_0050C270_GlideDrawLine(nCenterX, nY2, nX, nCenterY, nPaletteIndex, 0xFF);
+    sub_0050C270_GlideDrawLine(nX, nCenterY, nCenterX, nY, nPaletteIndex, 0xFF);
+}
+
+// 0x0050C490
+void __fastcall GLIDE_UtilRect(tagRECT* pRect, int nPaletteIndex)
+{
+    D2_ASSERT(pRect->left <= pRect->right, 0xDF);
+    D2_ASSERT(pRect->top <= pRect->bottom, 0xE0);
+
+    const int nX1 = D2_MIN(D2_MAX(pRect->left, 0), gnRenderWidth - 1);
+    const int nX2 = D2_MIN(D2_MAX(pRect->right, 0), gnRenderWidth - 1);
+    if (nX1 == nX2)
+    {
+        return;
+    }
+
+    const int nY1 = D2_MIN(D2_MAX(pRect->top, 0), gnRenderHeight - 1);
+    const int nY2 = D2_MIN(D2_MAX(pRect->bottom, 0), gnRenderHeight - 1);
+    if (nY1 == nY2)
+    {
+        return;
+    }
+
+    D2_ASSERT(nY2 > nY1, 0xF0);
+
+    sub_0050C270_GlideDrawLine(nX1, nY1, nX2, nY1, nPaletteIndex, 0xFF);
+    sub_0050C270_GlideDrawLine(nX2, nY1, nX2, nY2, nPaletteIndex, 0xFF);
+    sub_0050C270_GlideDrawLine(nX2, nY2, nX1, nY2, nPaletteIndex, 0xFF);
+    sub_0050C270_GlideDrawLine(nX1, nY2, nX1, nY1, nPaletteIndex, 0xFF);
+}
+
 // 0x0050C5E0
 void __fastcall sub_0050C5E0_GlideUtilFilledRect(tagRECT* pRect, int nPaletteIndex)
 {
     D2_ASSERT(pRect->left <= pRect->right, 0x100);
     D2_ASSERT(pRect->top <= pRect->bottom, 0x101);
     sub_0050BF50_GlideDrawBox(pRect->left, pRect->top, pRect->right, pRect->bottom, nPaletteIndex, 5);
+}
+
+// 0x0050C630
+void __fastcall GLIDE_UtilPoint(tagPOINT* pPoint, unsigned char nSize, int nPaletteIndex)
+{
+    if (nSize)
+    {
+        --nSize;
+        tagRECT tRect;
+        SetRect(&tRect, pPoint->x - nSize, pPoint->y - nSize, pPoint->x + nSize + 1, pPoint->y + nSize + 1);
+        sub_0050BF50_GlideDrawBox(tRect.left, tRect.top, tRect.right, tRect.bottom, nPaletteIndex, 5);
+    }
 }
 
 // 0x0050C680
