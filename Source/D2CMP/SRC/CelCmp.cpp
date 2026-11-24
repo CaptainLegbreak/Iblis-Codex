@@ -55,7 +55,6 @@ struct Cell;
 
 struct CellTable;
 
-struct Unit;
 
 struct D2StormListStrc;
 
@@ -438,7 +437,6 @@ struct Cell { int unk0; int width; int height; char pad[0x14]; unsigned char dat
 
 struct CellTable { int type; unsigned char flags; char pad[0xB]; int nDirections; int stride; Cell* cells[1]; };
 
-struct Unit { int type; char pad4[0xC]; int mode; };
 
 extern "C" const char emptyAssert; // 0x006CC837
 
@@ -2353,13 +2351,13 @@ char* __stdcall CelGetControlData(D2CelStrc* pCel)
 }
 
 // 0x006019B0
-int __stdcall CelFileGetNumDirections(Unit* unit)
+int __stdcall CelFileGetNumDirections(D2UnitStrc* unit)
 {
-    if(unit->type!=REQUIRED_TYPE) {
+    if(unit->dwUnitType!=REQUIRED_TYPE) {
         FOG_DisplayHalt(&emptyAssert,sub_00408090(),0x5C2);
         exit(-1);
     }
-    return unit->mode;
+    return unit->dwAnimMode;
 }
 
 // 0x00601B40

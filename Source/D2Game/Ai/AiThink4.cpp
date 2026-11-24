@@ -1120,11 +1120,6 @@ enum D2C_MegademonAIParams
     MEGADEMON_AI_PARAM_INFERNO_TIMER = 5,
 };
 
-struct Unit
-{
-    char seedPad[0x20];
-    D2SeedStrc seed;
-};
 
 struct Control
 {
@@ -1147,7 +1142,7 @@ struct Tick
 
 extern const int skill_choices[2][2]; // 0x006E34E0
 
-Skill* __fastcall sub_006439B0(Unit*,int,int); // 0x006439B0
+Skill* __fastcall sub_006439B0(D2UnitStrc*,int,int); // 0x006439B0
 
 #define PATHTYPE_TOWARD 2
 
@@ -3013,9 +3008,9 @@ void __fastcall AITHINK_Fn121_MinionSpawner(D2GameStrc* pGame, D2UnitStrc* pUnit
 }
 
 // 0x005E2CD0
-void __fastcall AITHINK_InitializeMountedImpSkills(void* game,Unit* unit,Tick* tick)
+void __fastcall AITHINK_InitializeMountedImpSkills(void* game,D2UnitStrc* unit,Tick* tick)
 {
-    int choice=SEED_RollRandomNumber_005E0C80(&unit->seed)&1;
+    int choice=SEED_RollRandomNumber_005E0C80(&unit->pSeed)&1;
     for (int i=0;i<2;++i) {
         choice=(choice+1)%2;
         if (sub_006439B0(unit,tick->stats->skills[skill_choices[choice][0]],-1)) {

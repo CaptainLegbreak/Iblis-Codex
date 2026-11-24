@@ -442,11 +442,6 @@ int __fastcall SUNIT_CanPetBeTargetedBySkill(D2GameStrc* pGame, D2UnitStrc* pOwn
 
 int __fastcall SUNIT_CanAllyBeTargetedBySkill(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nSkillId); // 0x00554D20
 
-struct Unit
-{
-    char type[4];
-    int classId;
-};
 
 struct Damage {
     unsigned int hitFlags; unsigned short resultFlags,extra;
@@ -1433,10 +1428,10 @@ void __fastcall MISSMODE_AddDamageValue(D2GameStrc* pGame, D2UnitStrc* pMissile,
     }
 }
 
-static inline int GetClassId(Unit* unit) { return unit->classId; }
+static inline int GetClassId(D2UnitStrc* unit) { return unit->dwClassId; }
 
 // 0x005A8FB0
-void __fastcall MISSMODE_SetDamageValue(Game* game,Unit* missile,Unit* owner,Damage* damage,int value)
+void __fastcall MISSMODE_SetDamageValue(Game* game,D2UnitStrc* missile,D2UnitStrc* owner,Damage* damage,int value)
 {
     if (!missile) return;
     switch (MISSILE_GetElemTypeFromMissileId(GetClassId(missile))) {
