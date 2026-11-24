@@ -3942,17 +3942,6 @@ D2WinControlStrc* gpChannelListBox; // 0x0077BCFC
 
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-// calling-convention shim (not game code)
-int __fastcall sub_00442180_Shim(char* szText)
-{
-// build: symbol ?gszCmdR@* 0x006D56D4
-    if (CHATDLG_ReplyCommand(szText, gszCmdR))
-        return 1;
-// build: symbol ?gszCmdReply@* 0x006D56CC
-    if (CHATDLG_ReplyCommand(szText, gszCmdReply))
-        return 1;
-    return 0;
-}
 
 int __fastcall CHATDLG_Lookup(const char* szName, const char* szPassword, D2LaunchGameRecStrc* pRecord); // 0x004438E0
 

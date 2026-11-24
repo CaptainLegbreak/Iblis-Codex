@@ -2657,11 +2657,6 @@ void __stdcall COMCALLBACK_RemoveChannelUser(const char* szName)
     COMCALLBACK_RefreshChannelList();
 }
 
-// calling-convention shim (not game code)
-void __fastcall Caller_00447FD0(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat)
-{
-    COMCALLBACK_UpdateUser(pUser, pStat, nFlags, szName);
-}
 
 // 0x004495A0
 void __cdecl COMCALLBACK_ClearChannel()
