@@ -29,12 +29,12 @@ inline void operator delete(void* pMemory)
 
 struct D2StormArrayBStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned char* m_data;
+    unsigned int m_chunk;
 
-    D2StormArrayBStrc() : f_0(0), f_4(0), f_8(0), f_C(0)
+    D2StormArrayBStrc() : m_alloc(0), m_count(0), m_data(0), m_chunk(0)
     {
     }
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
@@ -53,17 +53,17 @@ struct D2StormArrayBStrc
                 nResult &= nResult - 1;
             return nResult < 1 ? 1 : nResult;
         }
-        f_C = 0x100;
+        m_chunk = 0x100;
         return 0x100;
     }
     void Reserve(unsigned int nCount, int bRound)
     {
-        nCount += f_4;
-        if (nCount > f_0)
+        nCount += m_count;
+        if (nCount > m_alloc)
         {
             if (bRound)
             {
-                unsigned int nChunk = f_C ? f_C : CalcChunkSize(nCount);
+                unsigned int nChunk = m_chunk ? m_chunk : CalcChunkSize(nCount);
                 nCount = RoundUp(nCount, nChunk);
             }
             sub_004211C0_ReallocData(nCount);
@@ -73,20 +73,20 @@ struct D2StormArrayBStrc
     {
         Reserve(nCount, 1);
         for (unsigned int i = 0; i < nCount; i++, pData++)
-            new (&f_8[f_4 + i]) unsigned char(*pData);
-        f_4 += nCount;
+            new (&m_data[m_count + i]) unsigned char(*pData);
+        m_count += nCount;
     }
 
     unsigned char* New()
     {
         Reserve(1, 1);
-        return &f_8[f_4++];
+        return &m_data[m_count++];
     }
     void Push(unsigned char nByte)
     {
         Reserve(1, 1);
-        f_8[f_4] = nByte;
-        f_4 += 1;
+        m_data[m_count] = nByte;
+        m_count += 1;
     }
     void sub_004211C0_ReallocData(unsigned int nAlloc);                                                     // 0x004211C0
     unsigned int sub_004218B0_Add(unsigned int nCount, const unsigned char* pData);                         // 0x004218B0
@@ -95,10 +95,10 @@ struct D2StormArrayBStrc
 
 struct D2StormArrayCStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    char* m_data;
+    unsigned int m_chunk;
 
     void sub_00421A50_Set(unsigned int nCount, const char* pData);                                          // 0x00421A50
     unsigned int sub_00421F60_Add(unsigned int nCount, const char* pData);                                  // 0x00421F60
@@ -455,7 +455,7 @@ static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput
 {
     BigBuffer& tBuffer = tStack.pRecords[tStack.nUsed++];
     tBuffer.CopyFrom(tNumber);
-    tOutput.f_4 = 0;
+    tOutput.m_count = 0;
     do
     {
         unsigned int nDigit;
@@ -463,12 +463,12 @@ static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput
         unsigned char nChar = (unsigned char)(nDigit + '0');
         tOutput.Add(1, &nChar);
     } while (BigCompareUInt(tBuffer, 0));
-    unsigned int nCount = tOutput.f_4;
+    unsigned int nCount = tOutput.m_count;
     for (unsigned int i = 0; i < nCount / 2; i++)
     {
-        unsigned char nSwap = tOutput.f_8[i];
-        tOutput.f_8[i] = tOutput.f_8[nCount - 1 - i];
-        tOutput.f_8[nCount - 1 - i] = nSwap;
+        unsigned char nSwap = tOutput.m_data[i];
+        tOutput.m_data[i] = tOutput.m_data[nCount - 1 - i];
+        tOutput.m_data[nCount - 1 - i] = nSwap;
     }
     *tOutput.New() = 0;
     tStack.nUsed--;
@@ -551,23 +551,23 @@ void __stdcall SBigToStrArray(D2StormBigStrc* pBig, D2StormArrayCStrc* pArray, i
 {
     ToStr(pBig->tPrimary, pBig->tOutput, pBig->tStack);
     if (bAppend)
-        pArray->sub_00421F60_Add(pBig->tOutput.f_4, (const char*)pBig->tOutput.f_8);
+        pArray->sub_00421F60_Add(pBig->tOutput.m_count, (const char*)pBig->tOutput.m_data);
     else
-        pArray->sub_00421A50_Set(pBig->tOutput.f_4, (const char*)pBig->tOutput.f_8);
+        pArray->sub_00421A50_Set(pBig->tOutput.m_count, (const char*)pBig->tOutput.m_data);
 }
 
 // 0x00423C20
 void __stdcall SBigToStrBuffer(D2StormBigStrc* pBig, char* szBuffer, unsigned int nSize)
 {
     ToStr(pBig->tPrimary, pBig->tOutput, pBig->tStack);
-    SStrCopy(szBuffer, (const char*)pBig->tOutput.f_8, nSize);
+    SStrCopy(szBuffer, (const char*)pBig->tOutput.m_data, nSize);
 }
 
 // 0x00423C60
 void __stdcall SBigToStrPtr(D2StormBigStrc* pBig, const char** pszString)
 {
     ToStr(pBig->tPrimary, pBig->tOutput, pBig->tStack);
-    *pszString = (const char*)pBig->tOutput.f_8;
+    *pszString = (const char*)pBig->tOutput.m_data;
 }
 
 static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack) // 0x00423DC0
@@ -950,14 +950,14 @@ static void EncodeDataBytes(unsigned int nValue, D2StormArrayBStrc* pArray) // 0
 // 0x004235F0
 static void ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
-    pOut->f_4 = 0;
+    pOut->m_count = 0;
     sub_00421CB0_AppendDigits(pOut, pIn);
 }
 
 static void ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn) // 0x00423770
 {
     ToBinary(pOut, pIn);
-    EncodeDataBytes(pOut->f_4, pOut);
+    EncodeDataBytes(pOut->m_count, pOut);
     sub_00421CB0_AppendDigits(pOut, pIn);
 }
 
@@ -966,17 +966,17 @@ void __stdcall SBigToBinaryArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray
 {
     ToBinary(&pBig->tOutput, &pBig->tPrimary);
     if (bAppend)
-        pArray->sub_004218B0_Add(pBig->tOutput.f_4, pBig->tOutput.f_8);
+        pArray->sub_004218B0_Add(pBig->tOutput.m_count, pBig->tOutput.m_data);
     else
-        pArray->sub_004219F0_Set(pBig->tOutput.f_4, pBig->tOutput.f_8);
+        pArray->sub_004219F0_Set(pBig->tOutput.m_count, pBig->tOutput.m_data);
 }
 
 // 0x00423B30
 void __stdcall SBigToBinaryBuffer(D2StormBigStrc* pBig, void* pBuffer, unsigned int nSize, unsigned int* pRead)
 {
     ToBinary(&pBig->tOutput, &pBig->tPrimary);
-    unsigned int nCopy = pBig->tOutput.f_4 < nSize ? pBig->tOutput.f_4 : nSize;
-    SMemCopy(pBuffer, pBig->tOutput.f_8, nCopy);
+    unsigned int nCopy = pBig->tOutput.m_count < nSize ? pBig->tOutput.m_count : nSize;
+    SMemCopy(pBuffer, pBig->tOutput.m_data, nCopy);
     if (pRead)
         *pRead = nCopy;
 }
@@ -985,9 +985,9 @@ void __stdcall SBigToBinaryBuffer(D2StormBigStrc* pBig, void* pBuffer, unsigned 
 void __stdcall SBigToBinaryPtr(D2StormBigStrc* pBig, unsigned char** ppData, unsigned int* pSize)
 {
     ToBinary(&pBig->tOutput, &pBig->tPrimary);
-    *ppData = pBig->tOutput.f_8;
+    *ppData = pBig->tOutput.m_data;
     if (pSize)
-        *pSize = pBig->tOutput.f_4;
+        *pSize = pBig->tOutput.m_count;
 }
 
 // 0x00423C90
@@ -995,17 +995,17 @@ void __stdcall SBigToStreamArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray
 {
     ToStream(&pBig->tOutput, &pBig->tPrimary);
     if (bAppend)
-        pArray->sub_004218B0_Add(pBig->tOutput.f_4, pBig->tOutput.f_8);
+        pArray->sub_004218B0_Add(pBig->tOutput.m_count, pBig->tOutput.m_data);
     else
-        pArray->sub_004219F0_Set(pBig->tOutput.f_4, pBig->tOutput.f_8);
+        pArray->sub_004219F0_Set(pBig->tOutput.m_count, pBig->tOutput.m_data);
 }
 
 // 0x00423CE0
 void __stdcall SBigToStreamBuffer(D2StormBigStrc* pBig, void* pBuffer, unsigned int nSize, unsigned int* pWritten)
 {
     ToStream(&pBig->tOutput, &pBig->tPrimary);
-    unsigned int nCopy = pBig->tOutput.f_4 < nSize ? pBig->tOutput.f_4 : nSize;
-    SMemCopy(pBuffer, pBig->tOutput.f_8, nCopy);
+    unsigned int nCopy = pBig->tOutput.m_count < nSize ? pBig->tOutput.m_count : nSize;
+    SMemCopy(pBuffer, pBig->tOutput.m_data, nCopy);
     if (pWritten)
         *pWritten = nCopy;
 }
@@ -1014,8 +1014,8 @@ void __stdcall SBigToStreamBuffer(D2StormBigStrc* pBig, void* pBuffer, unsigned 
 void __stdcall SBigToStreamPtr(D2StormBigStrc* pBig, unsigned char** ppData, unsigned int* pSize)
 {
     ToStream(&pBig->tOutput, &pBig->tPrimary);
-    *ppData = pBig->tOutput.f_8;
-    *pSize = pBig->tOutput.f_4;
+    *ppData = pBig->tOutput.m_data;
+    *pSize = pBig->tOutput.m_count;
 }
 
 // 0x00422710

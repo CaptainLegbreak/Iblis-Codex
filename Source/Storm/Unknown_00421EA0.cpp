@@ -21,10 +21,10 @@ void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 
 struct D2StormArrayAStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned int* m_data;
+    unsigned int m_chunk;
     unsigned int sub_004210A0_CalcChunkSize(unsigned int nCount);                                           // 0x004210A0
     void sub_004215C0_Set(unsigned int nCount, const unsigned int* pData);                                  // 0x004215C0
     void sub_004216E0_ReallocData(unsigned int nAlloc);                                                     // 0x004216E0
@@ -39,12 +39,12 @@ struct D2StormArrayAStrc
     }
     void Reserve(unsigned int nCount, int bRound)
     {
-        nCount += f_4;
-        if (nCount > f_0)
+        nCount += m_count;
+        if (nCount > m_alloc)
         {
             if (bRound)
             {
-                unsigned int nChunk = f_C ? f_C : sub_004210A0_CalcChunkSize(nCount);
+                unsigned int nChunk = m_chunk ? m_chunk : sub_004210A0_CalcChunkSize(nCount);
                 nCount = RoundUp(nCount, nChunk);
             }
             sub_004216E0_ReallocData(nCount);
@@ -52,18 +52,18 @@ struct D2StormArrayAStrc
     }
     void SetCountReserve(unsigned int nCount)
     {
-        if (nCount > f_4)
-            Reserve(nCount - f_4, 1);
-        f_4 = nCount;
+        if (nCount > m_count)
+            Reserve(nCount - m_count, 1);
+        m_count = nCount;
     }
 };
 
 struct D2StormArray2Strc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    void* m_data;
+    unsigned int m_chunk;
 
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
@@ -89,15 +89,15 @@ struct BigBuffer
     void sub_00422080_TrimToStart();
     unsigned int Count() const
     {
-        return m_array.f_4 - m_start;
+        return m_array.m_count - m_start;
     }
     int IsUsed(unsigned int nIndex) const
     {
-        return nIndex + m_start < m_array.f_4;
+        return nIndex + m_start < m_array.m_count;
     }
     unsigned int operator[](unsigned int nIndex) const
     {
-        return IsUsed(nIndex) ? m_array.f_8[m_start + nIndex] : 0;
+        return IsUsed(nIndex) ? m_array.m_data[m_start + nIndex] : 0;
     }
     void sub_00422140_Trim();                                                                               // 0x00422140
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
@@ -109,9 +109,9 @@ struct BigBuffer
     }
     void InlineSetCount(unsigned int nCount)
     {
-        if (nCount > m_array.f_4 && nCount > m_array.f_0)
+        if (nCount > m_array.m_count && nCount > m_array.m_alloc)
         {
-            unsigned int nChunk = m_array.f_C;
+            unsigned int nChunk = m_array.m_chunk;
             if (!nChunk)
                 nChunk = m_array.sub_004210A0_CalcChunkSize(nCount);
             unsigned int nAlloc = nCount;
@@ -120,32 +120,32 @@ struct BigBuffer
                 nAlloc = nCount + nChunk - nRemainder;
             m_array.sub_004216E0_ReallocData(nAlloc);
         }
-        m_array.f_4 = nCount;
+        m_array.m_count = nCount;
     }
     void InlineGrowToFit(int nIndex)
     {
         unsigned int nPosition = m_start + nIndex;
-        if (nPosition >= m_array.f_4)
+        if (nPosition >= m_array.m_count)
         {
             unsigned int nNewCount = nPosition + 1;
-            if (nNewCount > m_array.f_0)
+            if (nNewCount > m_array.m_alloc)
             {
-                unsigned int nChunk = m_array.f_C ? m_array.f_C : m_array.sub_004210A0_CalcChunkSize(nNewCount);
+                unsigned int nChunk = m_array.m_chunk ? m_array.m_chunk : m_array.sub_004210A0_CalcChunkSize(nNewCount);
                 m_array.sub_004216E0_ReallocData(RoundUp(nNewCount, nChunk));
             }
-            SMemZero(&m_array.f_8[m_array.f_4], (nPosition - m_array.f_4 + 1) * sizeof(unsigned int));
-            m_array.f_4 = nNewCount;
+            SMemZero(&m_array.m_data[m_array.m_count], (nPosition - m_array.m_count + 1) * sizeof(unsigned int));
+            m_array.m_count = nNewCount;
         }
     }
     unsigned int& Get(unsigned int nIndex)
     {
         GrowToFit(nIndex);
-        return m_array.f_8[m_start + nIndex];
+        return m_array.m_data[m_start + nIndex];
     }
     unsigned int& At(unsigned int nIndex)
     {
         InlineGrowToFit(nIndex);
-        return m_array.f_8[m_start + nIndex];
+        return m_array.m_data[m_start + nIndex];
     }
 };
 
@@ -157,10 +157,10 @@ struct BigStack
 
 struct D2StormArrayBStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned char* m_data;
+    unsigned int m_chunk;
 
     unsigned int sub_00421160_CalcChunkSize(unsigned int nCount);
     void sub_004211C0_ReallocData(unsigned int nAlloc);                                                     // 0x004211C0
@@ -169,10 +169,10 @@ struct D2StormArrayBStrc
 
     void Reserve(unsigned int nCount)
     {
-        nCount += f_4;
-        if (nCount > f_0)
+        nCount += m_count;
+        if (nCount > m_alloc)
         {
-            unsigned int nChunk = f_C ? f_C : sub_00421160_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_00421160_CalcChunkSize(nCount);
             unsigned int nRemainder = nCount % nChunk;
             if (nRemainder)
                 nCount += nChunk - nRemainder;
@@ -182,15 +182,15 @@ struct D2StormArrayBStrc
     unsigned char* New()
     {
         Reserve(1);
-        unsigned char* pSlot = f_8 + f_4;
-        f_4 += 1;
+        unsigned char* pSlot = m_data + m_count;
+        m_count += 1;
         return pSlot;
     }
     void Push(const unsigned char& nByte)
     {
         Reserve(1);
-        f_8[f_4] = nByte;
-        f_4 += 1;
+        m_data[m_count] = nByte;
+        m_count += 1;
     }
     unsigned int sub_004219D0_AddOne(const unsigned char* pData);
 };
@@ -237,10 +237,10 @@ struct D2StormListAStrc
 
 struct D2StormGameArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2GameStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2GameStrc* m_data;
+    unsigned int m_chunk;
 
     ~D2StormGameArrayStrc();                                                                                // 0x0044FD80
 };
@@ -255,10 +255,10 @@ struct D2StormHashObjectChunkStrc
 
 struct D2StormListArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormListAStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2StormListAStrc* m_data;
+    unsigned int m_chunk;
 
     ~D2StormListArrayStrc();                                                                                // 0x0044FF60
     static void operator delete(void* pMemory);
@@ -275,12 +275,12 @@ static void __stdcall FromStream(BigBuffer* pBuf, unsigned int* pnUsed, unsigned
 // 0x00421EA0
 void D2StormArrayAStrc::sub_00421EA0_GrowToFit(unsigned int nIndex, int bZero)
 {
-    if (nIndex >= f_4)
+    if (nIndex >= m_count)
     {
         unsigned int nCount = nIndex + 1;
-        if (nCount > f_0)
+        if (nCount > m_alloc)
         {
-            unsigned int nChunk = f_C;
+            unsigned int nChunk = m_chunk;
             if (!nChunk)
                 nChunk = sub_004210A0_CalcChunkSize(nCount);
             unsigned int nAlloc = nCount;
@@ -290,17 +290,17 @@ void D2StormArrayAStrc::sub_00421EA0_GrowToFit(unsigned int nIndex, int bZero)
             sub_004216E0_ReallocData(nAlloc);
         }
         if (bZero)
-            SMemZero(&f_8[f_4], (nIndex - f_4 + 1) * sizeof(unsigned int));
-        f_4 = nCount;
+            SMemZero(&m_data[m_count], (nIndex - m_count + 1) * sizeof(unsigned int));
+        m_count = nCount;
     }
 }
 
 // 0x00421F10
 void D2StormArrayAStrc::SetCount(unsigned int nCount)
 {
-    if (nCount > f_4 && nCount > f_0)
+    if (nCount > m_count && nCount > m_alloc)
     {
-        unsigned int nChunk = f_C;
+        unsigned int nChunk = m_chunk;
         if (!nChunk)
             nChunk = sub_004210A0_CalcChunkSize(nCount);
         unsigned int nAlloc = nCount;
@@ -309,14 +309,14 @@ void D2StormArrayAStrc::SetCount(unsigned int nCount)
             nAlloc = nCount + nChunk - nRemainder;
         sub_004216E0_ReallocData(nAlloc);
     }
-    f_4 = nCount;
+    m_count = nCount;
 }
 
 // 0x00422050
 unsigned int* BigBuffer::sub_00422050_At(unsigned int nIndex)
 {
     GrowToFit(nIndex);
-    return &m_array.f_8[m_start + nIndex];
+    return &m_array.m_data[m_start + nIndex];
 }
 
 // 0x00422120
@@ -331,8 +331,8 @@ void BigBuffer::sub_00422120_SetStart(unsigned int nStart)
 BigBuffer& BigBuffer::operator=(const BigBuffer& tSource)
 {
     if (this != &tSource)
-        m_array.sub_004215C0_Set(tSource.m_array.f_4, tSource.m_array.f_8);
-    m_array.f_C = tSource.m_array.f_C;
+        m_array.sub_004215C0_Set(tSource.m_array.m_count, tSource.m_array.m_data);
+    m_array.m_chunk = tSource.m_array.m_chunk;
     m_start = tSource.m_start;
     return *this;
 }
@@ -340,12 +340,12 @@ BigBuffer& BigBuffer::operator=(const BigBuffer& tSource)
 // 0x00450E70
 void D2StormArray2Strc::sub_00450E70_Reserve(unsigned int nCount, int bRound)
 {
-    nCount += f_4;
-    if (nCount > f_0)
+    nCount += m_count;
+    if (nCount > m_alloc)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : sub_00450810_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_00450810_CalcChunkSize(nCount);
             nCount = RoundUp(nCount, nChunk);
         }
         sub_00450D90_ReallocData(nCount);
@@ -355,8 +355,8 @@ void D2StormArray2Strc::sub_00450E70_Reserve(unsigned int nCount, int bRound)
 // 0x00450F50
 void D2StormArray2Strc::sub_00450F50_ReserveExact(unsigned int nCount)
 {
-    const unsigned int nNewCount = f_4 + nCount;
-    if (nNewCount > f_0)
+    const unsigned int nNewCount = m_count + nCount;
+    if (nNewCount > m_alloc)
         sub_00450D90_ReallocData(nNewCount);
 }
 
@@ -375,7 +375,7 @@ inline unsigned int D2StormArrayBStrc::sub_00421160_CalcChunkSize(unsigned int n
             nResult &= nResult - 1;
         return nResult < 1 ? 1 : nResult;
     }
-    f_C = 0x100;
+    m_chunk = 0x100;
     return 0x100;
 }
 
@@ -397,7 +397,7 @@ static void EncodeDataBytes(D2StormArrayBStrc* pArray, unsigned int nValue) // 0
 
 static void ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn) // 0x004235F0
 {
-    pOut->f_4 = 0;
+    pOut->m_count = 0;
     sub_00421CB0_AppendDigits(pOut, pIn);
 }
 
@@ -405,7 +405,7 @@ static void ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn) // 0x004235F0
 static void ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
     ToBinary(pOut, pIn);
-    EncodeDataBytes(pOut, pOut->f_4);
+    EncodeDataBytes(pOut, pOut->m_count);
     sub_00421CB0_AppendDigits(pOut, pIn);
 }
 
@@ -413,17 +413,17 @@ void __stdcall SBigToBinaryArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray
 {
     ToBinary(&pBig->tBuffer, &pBig->tQueue);
     if (bAppend)
-        pArray->sub_004218B0_Add(pBig->tBuffer.f_4, pBig->tBuffer.f_8);
+        pArray->sub_004218B0_Add(pBig->tBuffer.m_count, pBig->tBuffer.m_data);
     else
-        pArray->sub_004219F0_Set(pBig->tBuffer.f_4, pBig->tBuffer.f_8);
+        pArray->sub_004219F0_Set(pBig->tBuffer.m_count, pBig->tBuffer.m_data);
 }
 
 void __stdcall SBigToBinaryBuffer(void* hBig, void* pBuffer, unsigned int nSize, unsigned int* pRead)
 {
     D2StormBigStrc* pBig = (D2StormBigStrc*)hBig;
     ToBinary(&pBig->tBuffer, &pBig->tQueue);
-    unsigned int nCopy = pBig->tBuffer.f_4 < nSize ? pBig->tBuffer.f_4 : nSize;
-    SMemCopy(pBuffer, pBig->tBuffer.f_8, nCopy);
+    unsigned int nCopy = pBig->tBuffer.m_count < nSize ? pBig->tBuffer.m_count : nSize;
+    SMemCopy(pBuffer, pBig->tBuffer.m_data, nCopy);
     if (pRead)
         *pRead = nCopy;
 }
@@ -431,25 +431,25 @@ void __stdcall SBigToBinaryBuffer(void* hBig, void* pBuffer, unsigned int nSize,
 void __stdcall SBigToBinaryPtr(D2StormBigStrc* pBig, unsigned char** ppData, unsigned int* pSize)
 {
     ToBinary(&pBig->tBuffer, &pBig->tQueue);
-    *ppData = pBig->tBuffer.f_8;
+    *ppData = pBig->tBuffer.m_data;
     if (pSize)
-        *pSize = pBig->tBuffer.f_4;
+        *pSize = pBig->tBuffer.m_count;
 }
 
 void __stdcall SBigToStreamArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray, int bAppend)
 {
     ToStream(&pBig->tBuffer, &pBig->tQueue);
     if (bAppend)
-        pArray->sub_004218B0_Add(pBig->tBuffer.f_4, pBig->tBuffer.f_8);
+        pArray->sub_004218B0_Add(pBig->tBuffer.m_count, pBig->tBuffer.m_data);
     else
-        pArray->sub_004219F0_Set(pBig->tBuffer.f_4, pBig->tBuffer.f_8);
+        pArray->sub_004219F0_Set(pBig->tBuffer.m_count, pBig->tBuffer.m_data);
 }
 
 void __stdcall SBigToStreamBuffer(D2StormBigStrc* pBig, void* pBuffer, unsigned int nSize, unsigned int* pWritten)
 {
     ToStream(&pBig->tBuffer, &pBig->tQueue);
-    unsigned int nCopy = pBig->tBuffer.f_4 < nSize ? pBig->tBuffer.f_4 : nSize;
-    SMemCopy(pBuffer, pBig->tBuffer.f_8, nCopy);
+    unsigned int nCopy = pBig->tBuffer.m_count < nSize ? pBig->tBuffer.m_count : nSize;
+    SMemCopy(pBuffer, pBig->tBuffer.m_data, nCopy);
     if (pWritten)
         *pWritten = nCopy;
 }
@@ -457,8 +457,8 @@ void __stdcall SBigToStreamBuffer(D2StormBigStrc* pBig, void* pBuffer, unsigned 
 void __stdcall SBigToStreamPtr(D2StormBigStrc* pBig, unsigned char** ppData, unsigned int* pSize)
 {
     ToStream(&pBig->tBuffer, &pBig->tQueue);
-    *ppData = pBig->tBuffer.f_8;
-    *pSize = pBig->tBuffer.f_4;
+    *ppData = pBig->tBuffer.m_data;
+    *pSize = pBig->tBuffer.m_count;
 }
 
 // build: symbol ??_GD2GameStrc@@QAEPAXI@Z 0x0044FBB0

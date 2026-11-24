@@ -7,10 +7,10 @@ struct D2StormCountStrc
 
 struct D2StormArrayAStrc
 {
-    unsigned int f_0;
-    D2StormCountStrc f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    D2StormCountStrc m_count;
+    unsigned int* m_data;
+    unsigned int m_chunk;
 
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
@@ -21,12 +21,12 @@ struct D2StormArrayAStrc
     }
     void Reserve(unsigned int nCount, int bRound)
     {
-        nCount += f_4.n;
-        if (nCount > f_0)
+        nCount += m_count.n;
+        if (nCount > m_alloc)
         {
             if (bRound)
             {
-                unsigned int nChunk = f_C;
+                unsigned int nChunk = m_chunk;
                 if (!nChunk)
                     nChunk = sub_004210A0_CalcChunkSize(nCount);
                 nCount = RoundUp(nCount, nChunk);
@@ -36,18 +36,18 @@ struct D2StormArrayAStrc
     }
     void SetCount(unsigned int nCount)
     {
-        if (nCount > f_4.n)
-            Reserve(nCount - f_4.n, 1);
-        f_4.n = nCount;
+        if (nCount > m_count.n)
+            Reserve(nCount - m_count.n, 1);
+        m_count.n = nCount;
     }
     void GrowToFit(unsigned int nIndex, int bZero)
     {
-        if (nIndex < f_4.n)
+        if (nIndex < m_count.n)
             return;
-        Reserve(nIndex - f_4.n + 1, 1);
+        Reserve(nIndex - m_count.n + 1, 1);
         if (bZero)
-            SMemZero(&f_8[f_4.n], (nIndex - f_4.n + 1) * sizeof(unsigned int));
-        f_4.n = nIndex + 1;
+            SMemZero(&m_data[m_count.n], (nIndex - m_count.n + 1) * sizeof(unsigned int));
+        m_count.n = nIndex + 1;
     }
     unsigned int sub_004210A0_CalcChunkSize(unsigned int nCount);                                           // 0x004210A0
     void sub_004216E0_ReallocData(unsigned int nAlloc);                                                     // 0x004216E0
@@ -60,17 +60,17 @@ struct BigBuffer
 
     int IsUsed(unsigned int nIndex) const
     {
-        const D2StormCountStrc tCount = m_array.f_4;
+        const D2StormCountStrc tCount = m_array.m_count;
         return nIndex + m_start < tCount.n;
     }
     unsigned int operator[](unsigned int nIndex) const
     {
-        return nIndex + m_start < m_array.f_4.n ? m_array.f_8[m_start + nIndex] : 0;
+        return nIndex + m_start < m_array.m_count.n ? m_array.m_data[m_start + nIndex] : 0;
     }
     __forceinline unsigned int& operator[](unsigned int nIndex)
     {
         m_array.GrowToFit(m_start + nIndex, 1);
-        return m_array.f_8[m_start + nIndex];
+        return m_array.m_data[m_start + nIndex];
     }
     void SetCount(unsigned int nCount)
     {

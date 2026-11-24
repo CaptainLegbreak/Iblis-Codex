@@ -28,10 +28,10 @@ extern "C" const char gszNewsItemTypeName_0072FF8C[]; // 0x0072FF8C
 
 struct D2StormArray408Strc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2Storm408ElemStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2Storm408ElemStrc* m_data;
+    unsigned int m_chunk;
     D2Storm408ElemStrc* sub_0051D2A0_At(unsigned int nIndex);
     unsigned int sub_0051D2F0_CalcChunkSize(unsigned int nCount);                                           // 0x0051D2F0
     void sub_0051D5D0_ReallocData(unsigned int nCount);                                                     // 0x0051D5D0
@@ -48,8 +48,8 @@ struct D2StormArray408Strc
     void ReserveInline(unsigned int nCount, int bRound);
     ~D2StormArray408Strc()
     {
-        if (f_8)
-            SMemFree(f_8, gszNewsItemTypeName_0072FF8C, -2, 0);
+        if (m_data)
+            SMemFree(m_data, gszNewsItemTypeName_0072FF8C, -2, 0);
     }
     static void operator delete(void* pMemory);
     void sub_0051D810_SetCount(unsigned int nCount);
@@ -118,7 +118,7 @@ inline unsigned int RoundUp(unsigned int nValue, unsigned int nAlign)
 // 0x0051D2A0
 D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D2A0_At(unsigned int nIndex)
 {
-    return &f_8[nIndex];
+    return &m_data[nIndex];
 }
 
 inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
@@ -131,12 +131,12 @@ inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
 
 inline void D2StormArray408Strc::ReserveInline(unsigned int nCount, int bRound)
 {
-    nCount += f_4;
-    if (nCount > f_0)
+    nCount += m_count;
+    if (nCount > m_alloc)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : sub_0051D2F0_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_0051D2F0_CalcChunkSize(nCount);
             nCount = RoundUpInline(nCount, nChunk);
         }
         sub_0051D5D0_ReallocData(nCount);
@@ -146,9 +146,9 @@ inline void D2StormArray408Strc::ReserveInline(unsigned int nCount, int bRound)
 // 0x0051D2C0
 D2StormArray408Strc* D2StormArray408Strc::sub_0051D2C0_InitBase()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
     return this;
 }
 
@@ -172,7 +172,7 @@ unsigned int D2StormArray408Strc::sub_0051D2F0_CalcChunkSize(unsigned int nCount
             nResult &= nResult - 1;
         return nResult < 1 ? 1 : nResult;
     }
-    f_C = 8;
+    m_chunk = 8;
     return 8;
 }
 
@@ -205,9 +205,9 @@ static inline bool AddItemSize(const D2Storm408ElemStrc* pItem, int* pnSize)
 // 0x0051D370
 int __cdecl BNNEWS_SaveNews()
 {
-    unsigned int nEnd = gtNewsItems.f_4;
+    unsigned int nEnd = gtNewsItems.m_count;
     unsigned int nFirst = gnNewsFirstIndex;
-    unsigned int nCount = gtNewsItems.f_4;
+    unsigned int nCount = gtNewsItems.m_count;
     unsigned int nNew = nCount - nFirst;
     D2_ASSERT(nNew < 0x100, 0x13B);
 
@@ -215,7 +215,7 @@ int __cdecl BNNEWS_SaveNews()
     int nLen;
     for (unsigned int i = nFirst; i < nCount; ++i)
     {
-        if (!AddItemSize(&gtNewsItems.f_8[i], &nSize))
+        if (!AddItemSize(&gtNewsItems.m_data[i], &nSize))
             return 0;
     }
 
@@ -228,7 +228,7 @@ int __cdecl BNNEWS_SaveNews()
         pOut += 4;
         for (unsigned int i = gnNewsFirstIndex; i < nEnd; ++i)
         {
-            D2Storm408ElemStrc* pItem = &gtNewsItems.f_8[i];
+            D2Storm408ElemStrc* pItem = &gtNewsItems.m_data[i];
             *(unsigned int*)pOut = pItem->nStamp;
             pOut += 4;
             nLen = strlen(pItem->szText);
@@ -254,11 +254,11 @@ void __cdecl BNNEWS_ReportNews()
         gpfnNewsRefresh();
     if (!gpfnNewsMessage)
         return;
-    unsigned int nIndex = gtNewsItems.f_4;
+    unsigned int nIndex = gtNewsItems.m_count;
     const int nCount = nIndex - gnNewsFirstIndex;
     for (int i = 0; i < nCount; ++i)
     {
-        gpfnNewsMessage(gtNewsItems.f_8[nIndex - 1].nStamp, gtNewsItems.f_8[nIndex - 1].szText);
+        gpfnNewsMessage(gtNewsItems.m_data[nIndex - 1].nStamp, gtNewsItems.m_data[nIndex - 1].szText);
         --nIndex;
     }
 }
@@ -277,24 +277,24 @@ inline void* operator new(unsigned int, void* pPlace) throw()
 // 0x0051D570
 void D2StormArray408Strc::sub_0051D570_FreeData()
 {
-    if (f_8)
-        SMemFree(f_8, gszNewsItemTypeName_0072FF8C, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszNewsItemTypeName_0072FF8C, -2, 0);
 }
 
 // 0x0051D5D0
 void D2StormArray408Strc::sub_0051D5D0_ReallocData(unsigned int nAlloc)
 {
-    D2Storm408ElemStrc* pOld = f_8;
-    f_0 = nAlloc;
-    f_8 = (D2Storm408ElemStrc*)SMemReAlloc(pOld, nAlloc * sizeof(D2Storm408ElemStrc), gszNewsItemTypeName_0072FF8C, -2, 0x10);
-    if (!f_8)
+    D2Storm408ElemStrc* pOld = m_data;
+    m_alloc = nAlloc;
+    m_data = (D2Storm408ElemStrc*)SMemReAlloc(pOld, nAlloc * sizeof(D2Storm408ElemStrc), gszNewsItemTypeName_0072FF8C, -2, 0x10);
+    if (!m_data)
     {
-        f_8 = (D2Storm408ElemStrc*)SMemAlloc(nAlloc * sizeof(D2Storm408ElemStrc), gszNewsItemTypeName_0072FF8C, -2, 0);
+        m_data = (D2Storm408ElemStrc*)SMemAlloc(nAlloc * sizeof(D2Storm408ElemStrc), gszNewsItemTypeName_0072FF8C, -2, 0);
         if (pOld)
         {
-            unsigned int nCount = nAlloc < f_4 ? nAlloc : f_4;
+            unsigned int nCount = nAlloc < m_count ? nAlloc : m_count;
             for (unsigned int i = 0; i < nCount; i++)
-                new (&f_8[i]) D2Storm408ElemStrc(pOld[i]);
+                new (&m_data[i]) D2Storm408ElemStrc(pOld[i]);
             SMemFree(pOld, gszNewsItemTypeName_0072FF8C, -2, 0);
         }
     }
@@ -303,39 +303,39 @@ void D2StormArray408Strc::sub_0051D5D0_ReallocData(unsigned int nAlloc)
 // 0x0051D670
 void D2StormArray408Strc::sub_0051D670_FreeData()
 {
-    if (f_8)
-        SMemFree(f_8, gszNewsItemTypeName_0072FF8C, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszNewsItemTypeName_0072FF8C, -2, 0);
 }
 
 // 0x0051D690
 D2StormArray408Strc* D2StormArray408Strc::sub_0051D690_Init()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-    f_C = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
+    m_chunk = 0;
     return this;
 }
 
 // 0x0051D6A0
 void D2StormArray408Strc::sub_0051D6A0_Clear()
 {
-    if (f_8)
-        SMemFree(f_8, gszNewsItemTypeName_0072FF8C, -2, 0);
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    if (m_data)
+        SMemFree(m_data, gszNewsItemTypeName_0072FF8C, -2, 0);
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 // 0x0051D6D0
 void D2StormArray408Strc::sub_0051D6D0_Reserve(unsigned int nCount, int bRound)
 {
-    nCount += f_4;
-    if (nCount > f_0)
+    nCount += m_count;
+    if (nCount > m_alloc)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : sub_0051D2F0_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_0051D2F0_CalcChunkSize(nCount);
             nCount = RoundUp(nCount, nChunk);
         }
         sub_0051D5D0_ReallocData(nCount);
@@ -345,18 +345,18 @@ void D2StormArray408Strc::sub_0051D6D0_Reserve(unsigned int nCount, int bRound)
 // 0x0051D720
 D2StormArray408Strc* D2StormArray408Strc::sub_0051D720_Init()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-    f_C = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
+    m_chunk = 0;
     return this;
 }
 
 // 0x0051D730
 void D2StormArray408Strc::sub_0051D730_FreeData()
 {
-    if (f_8)
-        SMemFree(f_8, gszNewsItemTypeName_0072FF8C, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszNewsItemTypeName_0072FF8C, -2, 0);
 }
 
 // 0x0051D750
@@ -364,11 +364,11 @@ int __cdecl BNNEWS_UnloadBNetNews()
 {
     gpfnNewsMessage = 0;
     gpfnNewsRefresh = 0;
-    if (gtNewsItems.f_8)
-        SMemFree(gtNewsItems.f_8, gszNewsItemTypeName_0072FF8C, -2, 0);
-    gtNewsItems.f_0 = 0;
-    gtNewsItems.f_4 = 0;
-    gtNewsItems.f_8 = 0;
+    if (gtNewsItems.m_data)
+        SMemFree(gtNewsItems.m_data, gszNewsItemTypeName_0072FF8C, -2, 0);
+    gtNewsItems.m_alloc = 0;
+    gtNewsItems.m_count = 0;
+    gtNewsItems.m_data = 0;
     gbNewsActive = 0;
     return 1;
 }
@@ -377,23 +377,23 @@ int __cdecl BNNEWS_UnloadBNetNews()
 D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
 {
     ReserveInline(1, 1);
-    return &f_8[f_4++];
+    return &m_data[m_count++];
 }
 
 // 0x0051D7F0
 void D2StormArray408Strc::sub_0051D7F0_Grow(unsigned int nCount)
 {
-    const unsigned int nNewCount = f_4 + nCount;
-    if (nNewCount > f_0)
+    const unsigned int nNewCount = m_count + nCount;
+    if (nNewCount > m_alloc)
         sub_0051D5D0_ReallocData(nNewCount);
 }
 
 // 0x0051D810
 void D2StormArray408Strc::sub_0051D810_SetCount(unsigned int nCount)
 {
-    if (nCount > f_4 && nCount > f_0)
+    if (nCount > m_count && nCount > m_alloc)
     {
-        unsigned int nChunk = f_C;
+        unsigned int nChunk = m_chunk;
         if (!nChunk)
             nChunk = sub_0051D2F0_CalcChunkSize(nCount);
         unsigned int nAlloc = nCount;
@@ -402,7 +402,7 @@ void D2StormArray408Strc::sub_0051D810_SetCount(unsigned int nCount)
             nAlloc = nCount + nChunk - nRemainder;
         sub_0051D5D0_ReallocData(nAlloc);
     }
-    f_4 = nCount;
+    m_count = nCount;
 }
 
 // 0x0051D860
@@ -418,10 +418,10 @@ int __fastcall BNNEWS_ParseNewsInfo(const char* data)
   const char* text=cursor;
   while(*cursor++);
   if(stamp) {
-   unsigned index=gtNewsItems.f_4;
+   unsigned index=gtNewsItems.m_count;
    unsigned* entry=0;
-   if(gtNewsItems.f_4) {
-    entry=&gtNewsItems.f_8[gtNewsItems.f_4].nStamp;
+   if(gtNewsItems.m_count) {
+    entry=&gtNewsItems.m_data[gtNewsItems.m_count].nStamp;
     do {
      entry=(unsigned*)((char*)entry-0x408);
      --index;
@@ -437,17 +437,17 @@ update:
    goto next;
 insert:
    ++index;
-   gtNewsItems.sub_0051D810_SetCount(gtNewsItems.f_4+1);
-   for(unsigned j=gtNewsItems.f_4-1;j>index;--j)gtNewsItems.f_8[j]=gtNewsItems.f_8[j-1];
-   gtNewsItems.f_8[index].nFlags=0;
-   gtNewsItems.f_8[index].nStamp=stamp;
-   strncpy(gtNewsItems.f_8[index].szText,text,1024);
+   gtNewsItems.sub_0051D810_SetCount(gtNewsItems.m_count+1);
+   for(unsigned j=gtNewsItems.m_count-1;j>index;--j)gtNewsItems.m_data[j]=gtNewsItems.m_data[j-1];
+   gtNewsItems.m_data[index].nFlags=0;
+   gtNewsItems.m_data[index].nStamp=stamp;
+   strncpy(gtNewsItems.m_data[index].szText,text,1024);
   } else if(gpfnNewsMessage)gpfnNewsMessage(0,text);
 next:;
  }
  gnNewsLastStamp_00881C44=last;
  unsigned index=0;
- while(index<gtNewsItems.f_4 && gtNewsItems.f_8[index].nStamp<first)++index;
+ while(index<gtNewsItems.m_count && gtNewsItems.m_data[index].nStamp<first)++index;
  gnNewsFirstIndex=index;
  BNNEWS_SaveNews();BNNEWS_ReportNews();return 1;
 }
@@ -470,24 +470,24 @@ int __cdecl BNNEWS_LoadNews()
         if (nCount <= 256)
         {
             gtNewsItems.sub_0051D810_SetCount(0);
-            if (gtNewsItems.f_4 + nCount > gtNewsItems.f_0)
-                gtNewsItems.sub_0051D5D0_ReallocData(gtNewsItems.f_4 + nCount);
+            if (gtNewsItems.m_count + nCount > gtNewsItems.m_alloc)
+                gtNewsItems.sub_0051D5D0_ReallocData(gtNewsItems.m_count + nCount);
             gnNewsFirstIndex = 0;
             unsigned int nLastStamp = 0;
             unsigned int i;
             for (i = 0; i < nCount; ++i)
             {
-                unsigned int nNewCount = gtNewsItems.f_4 + 1;
-                if (nNewCount > gtNewsItems.f_0)
+                unsigned int nNewCount = gtNewsItems.m_count + 1;
+                if (nNewCount > gtNewsItems.m_alloc)
                 {
-                    unsigned int nChunk = gtNewsItems.f_C;
+                    unsigned int nChunk = gtNewsItems.m_chunk;
                     if (!nChunk) nChunk = gtNewsItems.sub_0051D2F0_CalcChunkSize(nNewCount);
                     unsigned int nAlloc = nNewCount;
                     const unsigned int nRemainder = nNewCount % nChunk;
                     if (nRemainder) nAlloc = nNewCount + nChunk - nRemainder;
                     gtNewsItems.sub_0051D5D0_ReallocData(nAlloc);
                 }
-                D2Storm408ElemStrc* pItem = &gtNewsItems.f_8[gtNewsItems.f_4++];
+                D2Storm408ElemStrc* pItem = &gtNewsItems.m_data[gtNewsItems.m_count++];
                 pItem->nFlags = 0;
                 pItem->nStamp = *(const unsigned int*)p;
                 p += sizeof(unsigned int);
@@ -504,11 +504,11 @@ int __cdecl BNNEWS_LoadNews()
 Cleanup:
     if (!bResult)
     {
-        if (gtNewsItems.f_8)
-            SMemFree(gtNewsItems.f_8, gszNewsItemTypeName_0072FF8C, -2, 0);
-        gtNewsItems.f_0 = 0;
-        gtNewsItems.f_4 = 0;
-        gtNewsItems.f_8 = 0;
+        if (gtNewsItems.m_data)
+            SMemFree(gtNewsItems.m_data, gszNewsItemTypeName_0072FF8C, -2, 0);
+        gtNewsItems.m_alloc = 0;
+        gtNewsItems.m_count = 0;
+        gtNewsItems.m_data = 0;
         gnNewsFirstIndex = 0;
         gnNewsNewest = 0;
     }

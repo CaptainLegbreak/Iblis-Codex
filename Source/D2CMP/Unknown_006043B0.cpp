@@ -13,17 +13,17 @@ struct D2GameHashTableReuseStrc;
 
 struct D2StormEntryArray604080Strc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    void* m_data;
+    unsigned int m_chunk;
 
     D2StormEntryArray604080Strc()
     {
-        f_0 = 0;
-        f_4 = 0;
-        f_8 = 0;
-        f_C = 0;
+        m_alloc = 0;
+        m_count = 0;
+        m_data = 0;
+        m_chunk = 0;
     }
 };
 
@@ -71,10 +71,10 @@ struct D2StormEntry604080Strc
 
 struct D2StormEntryGrowArray604460Strc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormEntry604080Strc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2StormEntry604080Strc* m_data;
+    unsigned int m_chunk;
 
     unsigned int CelListArrayCalcChunkSize(unsigned int nCount);                                           // 0x00603EE0
     void sub_006041B0_ReallocData(unsigned int nAlloc);                                                     // 0x006041B0
@@ -136,12 +136,12 @@ inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
 
 inline void D2StormEntryGrowArray604460Strc::ReserveInline(unsigned int nCount, int bRound)
 {
-    nCount += f_4;
-    if (nCount > f_0)
+    nCount += m_count;
+    if (nCount > m_alloc)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : CelListArrayCalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : CelListArrayCalcChunkSize(nCount);
             nCount = RoundUpInline(nCount, nChunk);
         }
         sub_006041B0_ReallocData(nCount);
@@ -152,8 +152,8 @@ inline void D2StormEntryGrowArray604460Strc::ReserveInline(unsigned int nCount, 
 D2StormEntry604080Strc* D2StormEntryGrowArray604460Strc::sub_006043B0_New()
 {
     ReserveInline(1, 1);
-    new (&f_8[f_4]) D2StormEntry604080Strc;
-    return &f_8[f_4++];
+    new (&m_data[m_count]) D2StormEntry604080Strc;
+    return &m_data[m_count++];
 }
 
 // build: symbol ?Destroy@D2GameHashTableReuseStrc@@UAEXXZ 0x006046E0

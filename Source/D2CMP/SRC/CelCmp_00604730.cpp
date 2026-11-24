@@ -55,10 +55,10 @@ struct D2StormEntry38Strc;
 
 struct D2StormSlotArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormSlotListStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2StormSlotListStrc* m_data;
+    unsigned int m_chunk;
 };
 
 struct CELLIST;

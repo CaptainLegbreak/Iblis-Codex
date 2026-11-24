@@ -116,76 +116,76 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 struct D2StormByteArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    char* m_data;
+    unsigned int m_chunk;
 
     char* sub_00421010_Ptr();
 };
 
 struct D2StormFixedArrayAStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned int* m_data;
 
     unsigned int* sub_00421150_Ptr();
 };
 
 struct D2StormFixedArrayBStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned char* f_8;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned char* m_data;
 
     unsigned char* sub_004215B0_Ptr();
 };
 
 struct D2StormFixedUIntArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned int* m_data;
 
     ~D2StormFixedUIntArrayStrc();
 };
 
 struct D2StormFixedUCharArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned char* f_8;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned char* m_data;
 
     ~D2StormFixedUCharArrayStrc();
 };
 
 struct D2StormGrowUIntArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned int* m_data;
+    unsigned int m_chunk;
 
     ~D2StormGrowUIntArrayStrc();
 };
 
 struct D2StormGrowUCharArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned char* m_data;
+    unsigned int m_chunk;
 
     ~D2StormGrowUCharArrayStrc();
 };
 
 struct D2StormArrayBStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned char* m_data;
+    unsigned int m_chunk;
 
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
@@ -201,10 +201,10 @@ struct D2StormArrayBStrc
 
 struct D2StormQueueArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned int* m_data;
+    unsigned int m_chunk;
 };
 
 #include "D2StormBigBuffer.h"
@@ -251,7 +251,7 @@ void __fastcall sub_M111_Emit_005A64F0(D2UnitStrc* pUnit, int* pResult)
 // 0x00421010
 char* D2StormByteArrayStrc::sub_00421010_Ptr()
 {
-    return f_8;
+    return m_data;
 }
 
 // 0x00421040
@@ -291,7 +291,7 @@ void __fastcall sub_00421090_Construct(char* pDest, const char* pValue)
 // 0x00421150
 unsigned int* D2StormFixedArrayAStrc::sub_00421150_Ptr()
 {
-    return f_8;
+    return m_data;
 }
 
 // 0x004212A0
@@ -315,45 +315,45 @@ static int BigIsEven(const BigBuffer& a)
 // 0x00421570
 D2StormFixedUIntArrayStrc::~D2StormFixedUIntArrayStrc()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNameUInt_00708874, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszTypeNameUInt_00708874, -2, 0);
 }
 
 // 0x00421590
 D2StormFixedUCharArrayStrc::~D2StormFixedUCharArrayStrc()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNameUChar_00708880, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszTypeNameUChar_00708880, -2, 0);
 }
 
 // 0x004215B0
 unsigned char* D2StormFixedArrayBStrc::sub_004215B0_Ptr()
 {
-    return f_8;
+    return m_data;
 }
 
 // 0x004217F0
 D2StormGrowUIntArrayStrc::~D2StormGrowUIntArrayStrc()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNameUInt_00708874, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszTypeNameUInt_00708874, -2, 0);
 }
 
 // 0x00421840
 D2StormGrowUCharArrayStrc::~D2StormGrowUCharArrayStrc()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNameUChar_00708880, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszTypeNameUChar_00708880, -2, 0);
 }
 
 // 0x00421930
 unsigned char* D2StormArrayBStrc::sub_00421930_New()
 {
-    unsigned int nCount = f_4 + 1;
-    if (nCount > f_0)
+    unsigned int nCount = m_count + 1;
+    if (nCount > m_alloc)
     {
-        unsigned int nChunk = f_C ? f_C : sub_00421160_CalcChunkSize(nCount);
+        unsigned int nChunk = m_chunk ? m_chunk : sub_00421160_CalcChunkSize(nCount);
         sub_004211C0_ReallocData(RoundUp(nCount, nChunk));
     }
-    return &f_8[f_4++];
+    return &m_data[m_count++];
 }
