@@ -793,16 +793,6 @@ struct D2CmdArgStrc
     int nDefault;
 };
 
-struct D2ServiceStatusStrc
-{
-    unsigned long dwServiceType;
-    unsigned long dwCurrentState;
-    unsigned long dwControlsAccepted;
-    unsigned long dwWin32ExitCode;
-    unsigned long dwServiceExitCode;
-    unsigned long dwCheckPoint;
-    unsigned long dwWaitHint;
-};
 
 struct FSafeSock
 {
@@ -1231,14 +1221,6 @@ D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
 
 // build: context sub_00406BA0_GetModuleDirectoryAndSave
 
-struct D2DbgHelpRequestStrc
-{
-    void* hFile;
-    void* pExceptionPointers;
-    unsigned long dwThreadId;
-    const char* szComment;
-    bool bResult;
-};
 
 int sgfAsyncDataEnabled; // 0x0075AF94
 

@@ -797,16 +797,6 @@ struct D2CmdArgStrc
     int nDefault;
 };
 
-struct D2ServiceStatusStrc
-{
-    unsigned long dwServiceType;
-    unsigned long dwCurrentState;
-    unsigned long dwControlsAccepted;
-    unsigned long dwWin32ExitCode;
-    unsigned long dwServiceExitCode;
-    unsigned long dwCheckPoint;
-    unsigned long dwWaitHint;
-};
 
 struct FSafeSock
 {
@@ -2356,14 +2346,6 @@ void __cdecl sub_00413740_Nop()
 
 // build: context sub_00406BA0_GetModuleDirectoryAndSave
 
-struct D2DbgHelpRequestStrc
-{
-    void* hFile;
-    void* pExceptionPointers;
-    unsigned long dwThreadId;
-    const char* szComment;
-    bool bResult;
-};
 
 // 0x004013C0
 void __fastcall ERRORMANAGER_TerminateCurrentProcess(unsigned int nExitCode)
