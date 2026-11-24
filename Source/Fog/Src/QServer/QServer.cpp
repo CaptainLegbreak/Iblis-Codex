@@ -12,10 +12,6 @@ struct D2PacketBufferStrc;
 
 struct D2CriticalSectionStrc;
 
-struct D2PairEntry006BF610Strc;
-
-struct D2PairTable006BF610Strc;
-
 struct D2RecordStrc;
 
 struct D2QServerConfigStrc;
@@ -66,19 +62,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
-
-struct D2PairEntry006BF610Strc
-{
-    int nKey;
-    int nValue;
-};
-
-struct D2PairTable006BF610Strc
-{
-    unsigned char unk_000[0x48];
-    D2PairEntry006BF610Strc pEntries[256];
-    int nCount;
-};
 
 struct D2RecordStrc { unsigned char data[0xac]; int value; };
 
@@ -262,12 +245,6 @@ struct D2HashTable006BE5B0Strc
 	D2CriticalSectionStrc* pLocks;
 };
 
-struct D2MaskKeyStrc;
-
-struct D2MaskPairStrc;
-
-struct D2MaskPairListStrc;
-
 extern const char gszHackCategory_006FC4A8[]; // 0x006FC4A8
 
 extern const char gszHackListSize_006FC4B0[]; // 0x006FC4B0
@@ -279,26 +256,6 @@ static int __cdecl QSERVER_IncrementPerIpConnCount(D2QueueServerStrc* pServer, D
 static int QSERVER_DecrementPerIpConnCount(D2QueueServerStrc* pTable, unsigned int* pKey); // 0x006BF1F0
 
 extern unsigned int gaMaskTable[]; // 0x0074C3F0
-
-struct D2MaskKeyStrc
-{
-    unsigned int nValue;
-};
-
-struct D2MaskPairStrc
-{
-    D2MaskKeyStrc tKey;
-    unsigned int nMaskIndex;
-};
-
-struct D2MaskPairListStrc
-{
-    char unk0x00[0x48];
-    D2MaskPairStrc aPairs[0x100];
-    int nCount;
-
-    int __thiscall HasMaskedKey(unsigned int nMask); // 0x006BF660
-};
 
 static int __stdcall QSERVER_AccountTraffic(D2QueueServerStrc* pTable, unsigned int nBytes, D2QClientStrc* pClient); // 0x006C00A0
 
@@ -1271,31 +1228,31 @@ void __stdcall FOG_10183_Return(int nUnused1, int nUnused2)
 }
 
 // 0x006BF610
-void __fastcall FOG_10187(D2PairTable006BF610Strc* pTable, int nValue, int nKey)
+void __fastcall FOG_10187(D2QueueServerStrc* pServer, int nMaskIndex, unsigned int nKey)
 {
-    if (pTable->nCount < 256)
+    if (pServer->nMasks < 256)
     {
-        for (int i = 0; i < pTable->nCount; ++i)
+        for (int i = 0; i < pServer->nMasks; ++i)
         {
-            if (pTable->pEntries[i].nKey == nKey)
+            if (pServer->aMasks[i].tAddress.s_addr == nKey)
             {
                 return;
             }
         }
-        pTable->pEntries[pTable->nCount].nKey = nKey;
-        pTable->pEntries[pTable->nCount].nValue = nValue;
-        ++pTable->nCount;
+        pServer->aMasks[pServer->nMasks].tAddress.s_addr = nKey;
+        pServer->aMasks[pServer->nMasks].nMaskIndex = nMaskIndex;
+        ++pServer->nMasks;
     }
 }
 
 // 0x006BF660
-int __thiscall D2MaskPairListStrc::HasMaskedKey(unsigned int nMask)
+int D2QueueServerStrc::HasMaskedKey(unsigned int nMask)
 {
-    const int n = nCount;
+    const int n = nMasks;
     for (int i = 0; i < n; ++i)
     {
-        const D2MaskKeyStrc tKey = aPairs[i].tKey;
-        if ((gaMaskTable[aPairs[i].nMaskIndex] & nMask) == tKey.nValue)
+        const D2InAddrStrc tAddress = aMasks[i].tAddress;
+        if ((gaMaskTable[aMasks[i].nMaskIndex] & nMask) == tAddress.s_addr)
             return 1;
     }
     return 0;
@@ -1304,7 +1261,7 @@ int __thiscall D2MaskPairListStrc::HasMaskedKey(unsigned int nMask)
 // 0x006BF6C0
 int __fastcall QSERVER_CheckClientMask(D2QueueServerStrc* server, int clientId)
 {
-    return server->sub_006BF660_CheckClient(clientId);
+    return server->HasMaskedKey(clientId);
 }
 
 // 0x006BF6D0
@@ -1600,7 +1557,7 @@ void __fastcall QSERVER_HackListAddress(D2QueueServerStrc* pTable, const char* s
 {
     if (!pTable->bEnabled)
         return;
-    if (pTable->sub_006BF660_CheckAddress(nAddress))
+    if (pTable->HasMaskedKey(nAddress))
         return;
     if (pTable->pfnAddressCallback)
         pTable->pfnAddressCallback(nAddress, szFile, nLine);
@@ -1695,7 +1652,7 @@ static int __stdcall QSERVER_AccountTraffic(D2QueueServerStrc* pTable, unsigned 
     LeaveCriticalSection(pLock);
     if (pClient->nPending > 1000)
     {
-        return pTable->sub_006BF660_CheckAddress(pClient->nAddress) != 0;
+        return pTable->HasMaskedKey(pClient->nAddress) != 0;
     }
 
     if (dwTick - pClient->nTick24 > 1000)
@@ -2013,7 +1970,7 @@ int __fastcall QSERVER_BanAddress(D2QueueServerStrc* pServer, unsigned int* pAdd
     while (pNode && pNode->nAddress != nAddress)
         pNode = pNode->pNextByAddress;
     LeaveCriticalSection(&pServer->tAddressLock);
-    if (pNode && !pServer->sub_006BF660_CheckAddress(pNode->nAddress))
+    if (pNode && !pServer->HasMaskedKey(pNode->nAddress))
     {
         LOGMANAGER_LogWritePrefixedLine(gszHack, "[HACKLIST]  Client %d at %s banned via QSBanByAddr()", pNode->iId, sub_006B013E_FormatAddress(*pAddress));
         QSERVER_BanClient(pNode->iId, gszServerFile_006FC460, 0x584);

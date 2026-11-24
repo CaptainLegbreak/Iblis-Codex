@@ -330,7 +330,7 @@ static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, D2QueueServe
     }
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[3]);
 
-    if (!nReason && !sub_006BFFA0_CheckReconnects(pServer, (unsigned int*)&pAddr->sin_addr.s_addr) && !pServer->sub_006BF660_CheckAddress(pAddr->sin_addr.s_addr))
+    if (!nReason && !sub_006BFFA0_CheckReconnects(pServer, (unsigned int*)&pAddr->sin_addr.s_addr) && !pServer->HasMaskedKey(pAddr->sin_addr.s_addr))
     {
         QSERVER_HackListAddress(pServer, gszQServerNTFile, pAddr->sin_addr.s_addr, 0x4B2);
         nReason = 3;
