@@ -2690,64 +2690,6 @@ int __fastcall SKILLITEM_CastSkillOnTarget(D2UnitStrc* pUnit, int nSkillId, int 
 }
 
 
-// 0x005CAF30
-int __fastcall SKILLS_SrvDo083_FireHit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
-    SUNITDMG_FreeAttackerDefenderCombatList(pGame, pUnit, pTarget);
-    return SKILLS_StartSkill(pGame, pUnit, nSkillId, nSkillLevel, 0);
-}
-
-// 0x005CBF30
-int __fastcall SKILLS_SrvSt50_QuickStrike(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    if (!pTarget)
-    {
-        return 0;
-    }
-
-    D2DamageStrc damage;
-    memset(&damage, 0x00, sizeof(damage));
-    SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, 128);
-    return 1;
-}
-
-// 0x005CD870
-int __fastcall SKILLS_SrvDo106_ArcaneTower(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    const int nMissileId = pSkillsTxtRecord->wSrvMissileA;
-    if (nMissileId < 0 || nMissileId >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return 0;
-    }
-
-    if (pUnit)
-    {
-        pUnit->dwFlags |= UNITFLAG_SKSRVDOFUNC;
-    }
-
-    if (!SUNIT_GetTargetUnit(pGame, pUnit))
-    {
-        return 0;
-    }
-
-    SKILLS_CreateMissileRing(pGame, pUnit, pUnit, nMissileId, nSkillId, nSkillLevel, DATATBLS_GetMissileVelocityFromMissilesTxt(nMissileId, nSkillLevel));
-    return 1;
-}
-
 // 0x005CDD30
 int __fastcall SKILLS_GetMonFrenzySequenceFrame(D2UnitStrc* pUnit)
 {
