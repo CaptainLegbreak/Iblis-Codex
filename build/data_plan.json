@@ -4099,7 +4099,7 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_0047C420.cpp": {
-   "bytes": 12,
+   "bytes": 14,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
@@ -47505,10 +47505,10 @@
    "declared": true,
    "decorated": "_gszBattleNetPrefix",
    "file": "Source/D2Client/Unknown_0047C420.cpp",
-   "fill": 12,
+   "fill": 14,
    "form": "declared",
-   "fwd": "extern \"C\" const char gData_006D72B0[12]; // 0x006D72B0",
-   "head": "extern \"C\" const char gData_006D72B0[12] = ",
+   "fwd": "extern \"C\" const char gData_006D72B0[14]; // 0x006D72B0",
+   "head": "extern \"C\" const char gData_006D72B0[14] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -47517,13 +47517,13 @@
      "size": 1
     },
     "k": "arr",
-    "n": 12,
-    "size": 12
+    "n": 14,
+    "size": 14
    },
    "name": "gszBattleNetPrefix",
    "pointers": [],
    "region": "rdata",
-   "size": 12,
+   "size": 14,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x006D72B0\n#pragma comment(linker, \"/alternatename:_gszBattleNetPrefix=_gData_006D72B0\")",
