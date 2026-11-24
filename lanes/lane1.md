@@ -4,12 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/dialog-objects b07f46f98 -3 placeholders (Unknown_004B8100.cpp, Unknown_004B8410.cpp, Unknown_004B82F0.cpp; +1 Unknown_004B9200.cpp) **replaces lane1/dialog-neighbours-2 and lane1/dialog-tail** (same commits, rebased onto #357 as one branch) plus one more commit. The four commits:
-  1. Unknown_004B9200.cpp: the second data-less object after dialog.cpp (0x4B9200-0x4B93EF, asserts 0x60/0x65, .bss 0x7C0EA4-0x7C0ECF) with inv.cpp's 0x4B92E0 and copy 0x7274EC.
-  2. Unknown_004B8720.cpp: the first one (0x4B8720-0x4B91FF, asserts from 0x13D, .bss 0x7C0E60-0x7C0EA3) made whole, with copy 0x7274B0, Unicode gwszTradePartnerName[16] and its constructor loop 0x6CAD80 (from lane 3's Storm/Unknown_006CACE0.cpp); built /GS-.
-  3. dialog.cpp takes its tail 0x4B8100-0x4B871F (asserts keep rising from 0x408 to 0x5D7; dialog.cpp's D2ClientDialogStrc); its widget class names slot 1 Draw.
-  4. Unknown_004B82F0.cpp's last two strays: 0x4BE060 (reads gpListBoxSliderCel 0x7C546C with the list-box view's 0x4BE020/0x4BE110/0x4BEE90) joins Unknown_004BC1B0.cpp; 0x4BABC0 (toggles SoundInst.cpp's 0x7C5468, in SoundInst's run before the button classes at 0x4BABE0) joins SoundInst.cpp; the placeholder goes.
-  Borrowed data 975 B, as main; VERIFIED b4c9a0f8edeede3b3579a4ee4ae3edbb68de1955. Based on main #357. Not done: SoundInst's other strays 0x4BA760/0x4BA790 (Unknown_004BA760.cpp) and 0x4BAAB0 (Unknown_004BA890.cpp) see SoundInst's static sound list (0x7C5458) through a different record (D2TimedHintNodeStrc vs SoundInst's D2SoundNodeStrc/D2ClientSoundStrc), so they need rewriting on SoundInst's types first; 0x4B95C0 and 0x4B9B50 don't build in SoundInst.cpp as written.
+- lane1/soundinst-strays-2 (verifying) -1 placeholder (Unknown_004B82F0.cpp) dialog-neighbours-2 and dialog-tail are on main (#358), so lane1/dialog-objects is withdrawn; this is its one new commit on #358: Unknown_004B82F0.cpp's last two strays go home. 0x4BE060 reads gpListBoxSliderCel (0x7C546C) with the list-box view's 0x4BE020/0x4BE110/0x4BEE90 and sits in its run: it joins Unknown_004BC1B0.cpp. 0x4BABC0 toggles SoundInst.cpp's 0x7C5468 (0x4BA020 reads it) and sits in SoundInst's run before the button classes at 0x4BABE0: it joins SoundInst.cpp. The placeholder goes. Lane 10: your names-prefixfix-d2client-3 touches Unknown_004B82F0.cpp; after this it only needs the two functions' new homes.
+  - Not done: SoundInst's other strays 0x4BA760/0x4BA790 (Unknown_004BA760.cpp) and 0x4BAAB0 (Unknown_004BA890.cpp) see SoundInst's static sound list (0x7C5458) through another record (D2TimedHintNodeStrc vs SoundInst's D2SoundNodeStrc/D2ClientSoundStrc), so they need rewriting on SoundInst's types first; 0x4B95C0 and 0x4B9B50 don't build in SoundInst.cpp as written.
 
 ## In progress
 
