@@ -7,11 +7,11 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 07:45 PT: place-f and join-roomtile are in. place-g is posted. Next: the 0x6808F0-0x681A48 group.
+- 2026-11-24 08:40 PT: place-g is in. place-h is rebased and place-j is posted. Next: Unknown_00641320 into Drlg.cpp (inside its run, no copy of its own).
 
 ## Ready
-- lane8/place-h f9558815 (on #352), VERIFIED bf6223d0. DrlgAnim.cpp takes in Unknown_0066D290 (on both sides of DrlgAnim's 0x66D440) and Unknown_0066D7E0 (reads DrlgAnim's .rdata). The calls from 0x66D700 now use the static's own argument order. Units -2.
-- lane8/place-g a5a634b3 (on #352), VERIFIED e614d4d6. Unknown_00674040.cpp is the object between Maze and Outdoors (its own language copy and .rdata sit between theirs). It takes in Unknown_00674120.cpp and four strays from inside its run: 0x673FF0 (LvlTbls) and 0x674160/0x6741A0/0x6741E0 (DrlgRoom). 0x674200 (Drlg) stays, because its prototype of DRLGOUTDOORS_TestGridCellSpawnValid clashes. Units -1.
+- lane8/place-j 5c37b9f4 (on #354), VERIFIED 98a9fa99. InvTbls.cpp takes in Unknown_0065C130.cpp (inside InvTbls' object; no language copy of its own). Units -1.
+- lane8/place-h 326896fb (rebased on #354), VERIFIED e9b4fd0d. DrlgAnim.cpp takes in Unknown_0066D290 (on both sides of DrlgAnim's 0x66D440) and Unknown_0066D7E0 (reads DrlgAnim's .rdata). The calls from 0x66D700 now use the static's own argument order. Units -2.
 
 ## Questions
 
