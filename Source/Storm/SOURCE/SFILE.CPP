@@ -315,6 +315,16 @@ struct D2StormQuadStrc
 // build: symbol ?UnlinkAll@?$TSList@UARCHIVEREC@SFile@Storm@@U?$TSGetLink@UARCHIVEREC@SFile@Storm@@@@@@QAEXXZ 0x00418900
 // build: symbol ??1?$TSList@UARCHIVEREC@SFile@Storm@@U?$TSGetLink@UARCHIVEREC@SFile@Storm@@@@@@QAE@XZ 0x00418C60
 // build: symbol ?NewNode@?$TSList@UARCHIVEREC@SFile@Storm@@U?$TSGetLink@UARCHIVEREC@SFile@Storm@@@@@@QAEPAUARCHIVEREC@SFile@Storm@@III@Z 0x00418EC0
+// build: symbol ?Link@?$TSList@UARCHIVEREC@SFile@Storm@@U?$TSGetLink@UARCHIVEREC@SFile@Storm@@@@@@QAEPAU?$TSLink@UARCHIVEREC@SFile@Storm@@@@PBUARCHIVEREC@SFile@Storm@@@Z 0x00417A10
+// build: symbol ?Link@?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAEPAU?$TSLink@UREQUEST@@@@PBUREQUEST@@@Z 0x00417A50
+// build: symbol ?Link@?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEPAU?$TSLink@UFILEREC@@@@PBUFILEREC@@@Z 0x00417B60
+// build: symbol ?Link@?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAEPAU?$TSLink@UEVENTREC@@@@PBUEVENTREC@@@Z 0x00417C50
+// build: symbol ?Link@?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEPAU?$TSLink@UAUDIOSTREAM@@@@PBUAUDIOSTREAM@@@Z 0x00417D60
+template TSLink<ARCHIVEREC>* TSList<ARCHIVEREC>::Link(const ARCHIVEREC*);
+template TSLink<REQUEST>* TSList<REQUEST>::Link(const REQUEST*);
+template TSLink<FILEREC>* TSList<FILEREC>::Link(const FILEREC*);
+template TSLink<EVENTREC>* TSList<EVENTREC>::Link(const EVENTREC*);
+template TSLink<AUDIOSTREAM>* TSList<AUDIOSTREAM>::Link(const AUDIOSTREAM*);
 template TSList<FILEREC>::~TSList();
 template TSList<EVENTREC>::~TSList();
 template TSList<REQUEST>::~TSList();
@@ -1996,46 +2006,16 @@ D2StormLinkStrc* D2StormLinkStrc::sub_004169B0_NextLink(int nLinkOffset)
     return (D2StormLinkStrc*)(m_next + nLinkOffset);
 }
 
-// 0x00417A10
-D2StormLinkStrc* D2StormFixedListStrc::sub_00417A10_Link(char* pNode)
-{
-    return Link(pNode);
-}
-
-// 0x00417A50
-D2StormLinkStrc* D2StormFixedListStrc::sub_00417A50_Link(char* pNode)
-{
-    return Link(pNode);
-}
-
 // 0x00417B20
 char* D2StormFixedListStrc::sub_00417B20_Next(char* pNode)
 {
     return Link(pNode)->Next();
 }
 
-// 0x00417B60
-D2StormLinkStrc* D2StormFixedListStrc::sub_00417B60_Link(char* pNode)
-{
-    return Link(pNode);
-}
-
-// 0x00417C50
-D2StormLinkStrc* D2StormFixedListStrc::sub_00417C50_Link(char* pNode)
-{
-    return Link(pNode);
-}
-
 // 0x00417D20
 char* D2StormFixedListStrc::sub_00417D20_Next(char* pNode)
 {
     return Link(pNode)->Next();
-}
-
-// 0x00417D60
-D2StormLinkStrc* D2StormFixedListStrc::sub_00417D60_Link(char* pNode)
-{
-    return Link(pNode);
 }
 
 // 0x00417E30
