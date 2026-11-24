@@ -3643,71 +3643,10 @@ void __fastcall UI_ClearPair(UI_ClearPair* pPair)
 }
 
 
-// 0x0045FBC0
-void __stdcall UI_DrawCelPair(int bFirst)
-{
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    if (bFirst)
-        tContext.pCellFile = gpPopupOkCelA;
-    else
-        tContext.pCellFile = gpPopupOkCelB;
-    tContext.nDirection = 0;
-    tContext.nFrame = 0;
-    sub_004F6480(&tContext, gnPanelOffsetX + 0xBC, 0x148 - gnPanelOffsetY, -1, 5, 0);
-    tContext.nFrame = 1;
-    sub_004F6480(&tContext, gnPanelOffsetX + 0x1BC, 0x148 - gnPanelOffsetY, -1, 5, 0);
-}
 
-// 0x0045FD80
-void __cdecl UI_DrawCenteredString()
-{
-    const int nOldFont = D2Win_10127_SetFont(1);
-    TEXT_DrawCenteredText(gnPanelOffsetX + 0x110, 0x136 - gnPanelOffsetY, gnPanelOffsetX + 0x170, D2LANG_GetStringFromTblIndex(0x13EE), 0);
-    D2Win_10127_SetFont(nOldFont);
-}
 
-// 0x0045FFC0
-void __cdecl UI_DrawCenteredStrings()
-{
-    const int nOldFont = D2Win_10127_SetFont(1);
-    TEXT_DrawCenteredText(gnScreenWidth / 2 - 0x84, 0xBE - gnPanelOffsetY, gnPanelOffsetX + 0x1C4, D2LANG_GetStringFromTblIndex(0x1430), 0);
-    unsigned short nString = 0x1432;
-    if (gbCinematicExpansion)
-        nString = 0x5578;
-    TEXT_DrawCenteredText(gnScreenWidth / 2 - 0x84, 0xCD - gnPanelOffsetY, gnPanelOffsetX + 0x1C4, D2LANG_GetStringFromTblIndex(nString), 0);
-    D2Win_10127_SetFont(nOldFont);
-}
 
-// 0x004600F0
-void __cdecl UI_DrawCenteredStringPair()
-{
-    const int nOldFont = D2Win_10127_SetFont(1);
-    TEXT_DrawCenteredText(gnPanelOffsetX + 0xCE, 0x136 - gnPanelOffsetY, gnPanelOffsetX + 0x12E, D2LANG_GetStringFromTblIndex(0x13EE), 0);
-    TEXT_DrawCenteredText(gnPanelOffsetX + 0x152, 0x136 - gnPanelOffsetY, gnPanelOffsetX + 0x1B2, D2LANG_GetStringFromTblIndex(0x13EF), 0);
-    D2Win_10127_SetFont(nOldFont);
-}
 
-// 0x00460430
-void __cdecl UI_FreeCels()
-{
-    if (gpPopupOkCelA)
-    {
-        ARCHIVE_FreeClientCellFile(gpPopupOkCelA);
-        gpPopupOkCelA = 0;
-    }
-    if (gpPopupOkCelB)
-    {
-        ARCHIVE_FreeClientCellFile(gpPopupOkCelB);
-        gpPopupOkCelB = 0;
-    }
-    if (gpOkCancelButtonCel)
-    {
-        ARCHIVE_FreeClientCellFile(gpOkCancelButtonCel);
-        gpOkCancelButtonCel = 0;
-    }
-    GAME_LoadLoadingPalette();
-}
 
 
 int __cdecl CURSOR_GetCursorItem(); // 0x004680A0

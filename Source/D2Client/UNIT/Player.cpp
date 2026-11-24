@@ -224,8 +224,6 @@ void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 int __stdcall D2Common_11016(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00645460
 
 
-int gbCinematicExpansion; // 0x007A5238
-
 int gnFilterMsgState; // 0x007A526C
 
 extern void* gpDrlgAct_007A0634;                                                                            // 0x007A0634
@@ -621,19 +619,7 @@ D2ItemStatCostTxt* __fastcall PLAYER_GetItemStatCostTxtRecord(int nStatId)
     return 0;
 }
 
-// 0x00460170
-int __cdecl PLAYER_IsOkCancelDone()
-{
-    if (gbOkCancelAccepted || gbOkCancelCancelled)
-        return 1;
-    return 0;
-}
 
-// 0x00460480
-void __fastcall PLAYER_SetCinematicExpansion(int bExpansion)
-{
-    gbCinematicExpansion = bExpansion;
-}
 
 // 0x00460760
 void __fastcall PLAYER_SetInteractState(D2ClientUnitViewStrc* pUnit, int nState)

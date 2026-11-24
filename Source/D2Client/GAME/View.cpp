@@ -739,29 +739,7 @@ void D2ClientNodeListStrc::sub_0045BBE0_LinkNode(D2ClientListNodeStrc* pNode, un
     }
 }
 
-// 0x0045FD20
-void __stdcall VIEW_DrawPanelCel(int nFrame)
-{
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpOkCancelButtonCel;
-    tContext.nFrame = nFrame;
-    tContext.nDirection = 0;
-    sub_004F6480(&tContext, gnPanelOffsetX + 0x110, 0x13E - gnPanelOffsetY, -1, 5, 0);
-}
 
-// 0x00460060
-void __stdcall VIEW_DrawPanelCels(int nFrame1, int nFrame2)
-{
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpOkCancelButtonCel;
-    tContext.nFrame = nFrame1;
-    tContext.nDirection = 0;
-    sub_004F6480(&tContext, gnPanelOffsetX + 0xCE, 0x13E - gnPanelOffsetY, -1, 5, 0);
-    tContext.nFrame = nFrame2;
-    sub_004F6480(&tContext, gnPanelOffsetX + 0x152, 0x13E - gnPanelOffsetY, -1, 5, 0);
-}
 
 // 0x00466820
 void __fastcall VIEW_SpawnRoomPresets(D2ActiveRoomStrc* pRoom)
