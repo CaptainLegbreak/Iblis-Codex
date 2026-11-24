@@ -4435,9 +4435,34 @@
      "name": "?sub_00417790_Next@D2SFileStormLinkM114Strc@@QAEPADXZ"
     },
     {
+     "va": "0x004177A0",
+     "length": 20,
+     "name": "?sub_004177A0_LinkPrev@@YIPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
      "va": "0x004177C0",
      "length": 16,
      "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
+    },
+    {
+     "va": "0x004177D0",
+     "length": 16,
+     "name": "?sub_004177D0_Head@D2SFileList004177D0Strc@@QAEPADXZ"
+    },
+    {
+     "va": "0x004177E0",
+     "length": 16,
+     "name": "?sub_004177E0_Head@D2SFileList004177E0Strc@@QAEPADXZ"
+    },
+    {
+     "va": "0x004177F0",
+     "length": 16,
+     "name": "?sub_004177F0_Head@D2SFileList004177F0Strc@@QAEPADXZ"
+    },
+    {
+     "va": "0x00417800",
+     "length": 16,
+     "name": "?sub_00417800_Head@D2SFileList00417800Strc@@QAEPADXZ"
     },
     {
      "va": "0x004178A0",
@@ -4460,6 +4485,11 @@
      "name": "sub_00417A10_Link"
     },
     {
+     "va": "0x00417A30",
+     "length": 17,
+     "name": "?sub_00417A30_Reset@D2SFileList004177D0Strc@@QAEXXZ"
+    },
+    {
      "va": "0x00417A50",
      "length": 17,
      "name": "sub_00417A50_Link"
@@ -4475,6 +4505,11 @@
      "name": "sub_00417B20_Next"
     },
     {
+     "va": "0x00417B40",
+     "length": 17,
+     "name": "?sub_00417B40_Initialize@D2StormListBaseStrc@@QAEXXZ"
+    },
+    {
      "va": "0x00417B60",
      "length": 17,
      "name": "sub_00417B60_Link"
@@ -4485,6 +4520,11 @@
      "name": "sub_00417B80_LinkNode"
     },
     {
+     "va": "0x00417C30",
+     "length": 17,
+     "name": "?sub_00417C30_Reset@D2SFileList004177E0Strc@@QAEXXZ"
+    },
+    {
      "va": "0x00417C50",
      "length": 17,
      "name": "sub_00417C50_Link"
@@ -4492,12 +4532,17 @@
     {
      "va": "0x00417C70",
      "length": 161,
-     "name": "sub_00417C70_LinkNode"
+     "name": "?LinkNode@D2StormEventListStrc@@QAEXPADI0@Z"
     },
     {
      "va": "0x00417D20",
      "length": 32,
      "name": "sub_00417D20_Next"
+    },
+    {
+     "va": "0x00417D40",
+     "length": 17,
+     "name": "?sub_00417D40_Initialize@D2StormListBaseStrc@@QAEXXZ"
     },
     {
      "va": "0x00417D60",
@@ -4589,9 +4634,19 @@
      "name": "sub_004185F0_sub_006C4290"
     },
     {
+     "va": "0x00418640",
+     "length": 32,
+     "name": "??0D2SFileList004177D0Strc@@QAE@XZ"
+    },
+    {
      "va": "0x00418660",
      "length": 66,
      "name": "sub_00418660_sub_006C4290"
+    },
+    {
+     "va": "0x004186B0",
+     "length": 32,
+     "name": "??0D2SFileList004177E0Strc@@QAE@XZ"
     },
     {
      "va": "0x004186D0",
@@ -4659,6 +4714,11 @@
      "name": "??1D2StormList00708354Strc@@QAE@XZ"
     },
     {
+     "va": "0x00418CA0",
+     "length": 32,
+     "name": "??0D2SFileList004177F0Strc@@QAE@XZ"
+    },
+    {
      "va": "0x00418CC0",
      "length": 60,
      "name": "??1D2StormList00708360Strc@@QAE@XZ"
@@ -4672,6 +4732,11 @@
      "va": "0x00418D40",
      "length": 60,
      "name": "??1D2StormList00708378Strc@@QAE@XZ"
+    },
+    {
+     "va": "0x00418D80",
+     "length": 32,
+     "name": "??0D2SFileList00417800Strc@@QAE@XZ"
     },
     {
      "va": "0x00418DA0",
@@ -4692,6 +4757,16 @@
      "va": "0x00418EC0",
      "length": 85,
      "name": "sub_00418EC0_NewNode"
+    },
+    {
+     "va": "0x00418F20",
+     "length": 112,
+     "name": "sub_00418F20_NewNode"
+    },
+    {
+     "va": "0x00418F90",
+     "length": 82,
+     "name": "?NewNode@D2StormEventListStrc@@QAEPAUEVENTREC@@III@Z"
     },
     {
      "va": "0x00419000",
@@ -4972,17 +5047,6 @@
    ]
   },
   {
-   "file": "Source/Storm/SOURCE/SFILE_00418F20.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00418F20",
-     "length": 112,
-     "name": "sub_00418F20_NewNode"
-    }
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_0040EB50.cpp",
    "rank": 0,
    "functions": [
@@ -5064,32 +5128,6 @@
      "va": "0x00410A80",
      "length": 132,
      "name": "?FOG_GetSyncTime@@YAJXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_004177D0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004177A0",
-     "length": 20,
-     "name": "?sub_00416860_LinkPrev@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x004177D0",
-     "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x00417A30",
-     "length": 17,
-     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00418640",
-     "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
     }
    ]
   },
@@ -5966,74 +6004,6 @@
      "va": "0x0041D1E0",
      "length": 18,
      "name": "SErrReportResourceLeak"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_004177E0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004177E0",
-     "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x00417B40",
-     "length": 17,
-     "name": "?sub_00417B40_Initialize@D2StormListBaseStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00417C30",
-     "length": 17,
-     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x004186B0",
-     "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x00418F90",
-     "length": 82,
-     "name": "?sub_00418F90@List@@QAEPAUNode@@III@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_004177F0.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004177F0",
-     "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x00417D40",
-     "length": 17,
-     "name": "?sub_00417D40_Initialize@D2StormListBaseStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00418CA0",
-     "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/SOURCE/SFILE_00417800.CPP",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00417800",
-     "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x00418D80",
-     "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
     }
    ]
   },
