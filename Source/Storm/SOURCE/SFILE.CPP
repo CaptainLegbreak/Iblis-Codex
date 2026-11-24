@@ -612,7 +612,6 @@ struct D2StormRecord419000Strc
 
 extern "C" const char gszStormFileRecTypeName[]; // 0x007083C0
 
-extern "C" const char gszStormEventRecTypeName[]; // 0x007083D8
 
 extern "C" __declspec(dllimport) int __stdcall GetDiskFreeSpaceA(const char* lpRootPathName, unsigned long* lpSectorsPerCluster, unsigned long* lpBytesPerSector, unsigned long* lpNumberOfFreeClusters, unsigned long* lpTotalNumberOfClusters); // 0x006CC270
 
@@ -3342,7 +3341,7 @@ int __stdcall CancelRequest(void* pBuffer, void* pOther)
             }
             REQUEST* pNext = pRequest->m_link.Next();
             pRequest->~REQUEST();
-            SMemFree(pRequest, gszTypeNameRequest_007083F0, -2, 0);
+            SMemFree(pRequest, STORM_TYPENAME(REQUEST), -2, 0);
             pRequest = pNext;
         }
         else
