@@ -15,6 +15,7 @@
 #include "D2LevelTxt.h"
 #include "D2ItemsWorld.h"
 #include "D2ClientUiRecords.h"
+#include "D2WinSplitText.h"
 
 struct D2CelFileStrc;
 
@@ -889,12 +890,6 @@ unsigned long gdwUILastTick; // 0x007A313C
 
 struct D2InventoryStrc;
 
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
-};
-
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 
 extern "C" const char gszNew[];                                                                    // 0x006CC82C
@@ -984,7 +979,7 @@ void* __fastcall sub_004B7CD0_CreatePanel(int nX, int nY, int (__cdecl* pfnCallb
 
 void __fastcall sub_004B8370(void* pPanel, int nValue);                                                     // 0x004B8370
 
-T0044CB60* __fastcall sub_00502970_SplitText(Unicode* pText, int* pLineCount, int nWidth);             // 0x00502970
+D2SplittedTextStrc* __fastcall sub_00502970_SplitText(Unicode* pText, int* pLineCount, int nWidth);             // 0x00502970
 
 void __fastcall sub_004B85F0_AddTextLine(void* pPanel, Unicode* pText, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x004B85F0
 
@@ -2121,12 +2116,12 @@ void __fastcall UI_OpenGoldPanel(int nMode)
     }
 
     int nLineCount;
-    T0044CB60* pLine = sub_00502970_SplitText(wszText, &nLineCount, 0xC8);
+    D2SplittedTextStrc* pLine = sub_00502970_SplitText(wszText, &nLineCount, 0xC8);
     while (pLine)
     {
-        sub_004B85F0_AddTextLine(gpGoldPanel, pLine->pText, 0x18, 0, 4, 1, 0, 0);
-        T0044CB60* pNext = pLine->pNext;
-        FOG_Free(pLine->pText, ".\\UI\\ui.cpp", 0x1827, 0);
+        sub_004B85F0_AddTextLine(gpGoldPanel, pLine->wszLine, 0x18, 0, 4, 1, 0, 0);
+        D2SplittedTextStrc* pNext = pLine->pNextLine;
+        FOG_Free(pLine->wszLine, ".\\UI\\ui.cpp", 0x1827, 0);
         FOG_Free(pLine, ".\\UI\\ui.cpp", 0x1828, 0);
         pLine = pNext;
     }

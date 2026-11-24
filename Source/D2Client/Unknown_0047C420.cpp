@@ -3,14 +3,9 @@
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
 #include "D2MultiTypes.h"
+#include "D2WinSplitText.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
-
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
-};
 
 struct D2ChatMessageStrc
 {
@@ -65,7 +60,7 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
 unsigned int __fastcall D2Win_10128(unsigned char nChar);                                                   // 0x00502550
 int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
-T0044CB60* __fastcall sub_00502970_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970
+D2SplittedTextStrc* __fastcall sub_00502970_SplitText(Unicode* pText, unsigned int* pLineCount, int nWidth);    // 0x00502970
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 extern int gnLanguageId;                                                                           // 0x007BB5DC
 extern unsigned char gbChatInputOpen;                                                              // 0x007BB5E1
@@ -429,12 +424,12 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
             break;
         const int nOldFont = D2Win_10127_SetFont(0xD);
         unsigned int nLines;
-        T0044CB60* pLines = sub_00502970_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
+        D2SplittedTextStrc* pLines = sub_00502970_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
         int nWidth = 0;
-        for (T0044CB60* pLine = pLines; pLine; )
+        for (D2SplittedTextStrc* pLine = pLines; pLine; )
         {
-            T0044CB60* pNext = pLine->pNext;
-            nWidth = D2Win_10121_GetTextWidth(pLine->pText);
+            D2SplittedTextStrc* pNext = pLine->pNextLine;
+            nWidth = D2Win_10121_GetTextWidth(pLine->wszLine);
             pLine = pNext;
         }
 // build: symbol ?D2Win_10200@* 0x005028A0
@@ -444,10 +439,10 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
             gwszChatLine_007BB638[nLength].wChar = pMsg->wParam;
             pLines = sub_00502970_SplitText(gwszChatLine_007BB638, &nLines, gnScreenWidth - 0x109);
             nWidth = 0;
-            for (T0044CB60* pLine = pLines; pLine; )
+            for (D2SplittedTextStrc* pLine = pLines; pLine; )
             {
-                T0044CB60* pNext = pLine->pNext;
-                nWidth = D2Win_10121_GetTextWidth(pLine->pText);
+                D2SplittedTextStrc* pNext = pLine->pNextLine;
+                nWidth = D2Win_10121_GetTextWidth(pLine->wszLine);
                 pLine = pNext;
             }
             D2Win_10200(pLines);

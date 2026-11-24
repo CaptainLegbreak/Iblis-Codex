@@ -3,6 +3,7 @@
 #include "D2CelContext.h"
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
+#include "D2WinSplitText.h"
 
 struct Unicode;
 struct D2ButtonStringStrc;
@@ -524,15 +525,9 @@ extern "C" int __cdecl atoi(const char* szString);                              
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 
-struct T0044CB60
-{
-    Unicode* pText;
-    T0044CB60* pNext;
-};
-
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
-T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);
+D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
