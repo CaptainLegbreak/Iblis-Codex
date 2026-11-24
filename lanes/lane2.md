@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/small-records-h 9ec68ba8 562->562 One commit, four small headers, each included only by the units that had identical private copies: D2BookDataTbl.h (the books.txt table D2Game's item code reads; Items, Unknown_005C0D00, Unknown_005C0F90), D2WinListData.h (a D2Win list control's line; D2WinImage, D2WinList, D2WinMain), D2CommonLevelNode.h (a node of the level tree; DrlgActivate, Dungeon), D2InventoryPair.h (an item list's first and last item; Inventory, Items). D2QuestInfoStrc and D2QuestIntroTableStrc (MonsterRegion, objrgn, QUESTS) stay private: as one header they don't build there; VERIFIED 1cb5c9d15a3eb98a60533e1175f7841983935978
+  - Verified on 1a435442 (#353), pushed on 9ec68ba8. All 10 changed units build equal.
+  - Outside lane 2: Items, Unknown_005C0D00/005C0F90 (lane 5), the D2Win units (lane 6), DrlgActivate, Dungeon, Inventory, D2Common Items (lane 8).
+
 - lane2/missile-data d9258055 562->562 Four commits, each a small header included only by the units that had identical private copies: D2MissileData.h (D2UnitStrc::pMissileData's 0x34-byte record; D2Common Skills, Missile, Missile_0064B860), D2Win32OsVersion.h (OSVERSIONINFOA; Fog system.cpp, Unknown_00401070), D2Win32StartupInfo.h (STARTUPINFOA; D2Hell Unknown_00516D8B, D2Multi ChatDlg), D2ExperienceTxt.h (experience.txt's row and table; Ignorelist, DataTbls). D2SavedItemStrc stays private: Clients and PlrSave differ; VERIFIED f58b63861d94a982756454b207a8a4ed1f948ce4
   - Verified on 25eea120 (#352), rebased onto 1a435442 (#353) without conflicts. Precheck of all 9 changed units is equal there.
   - Outside lane 2: Skills, Missile x2, Ignorelist, DataTbls (lane 8), system.cpp, Unknown_00401070 (lane 3), Unknown_00516D8B, ChatDlg (lane 6).
