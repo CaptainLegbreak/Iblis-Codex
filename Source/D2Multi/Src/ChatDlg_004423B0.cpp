@@ -110,7 +110,6 @@ static void __stdcall CHATDLG_GetArgument(int nSize, const char* szText, char* s
 
 static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
 
-// calling-convention shim (not game code)
 static __forceinline int CONSOLE_FindSecondTokenInline(const char* szText, char* szCopy, const char** ppArg)
 {
     strcpy(szCopy, szText);
