@@ -15,6 +15,8 @@
 #include "D2GameTypes.h"
 #include "D2LevelTxt.h"
 #include "D2MonModes.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00741A58
 
 struct D2ActiveRoomStrc;
 
@@ -1966,3 +1968,5 @@ int __fastcall SKILLS_SrvDo082_Redemption(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
     return 1;
 }
+
+#include "gen/data/Source/D2Game/SKILLS/SkilPal.inc"
