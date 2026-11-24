@@ -77009,27 +77009,7 @@
     {
      "va": "0x00681000",
      "length": 576
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00681240.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00681240",
      "length": 472
