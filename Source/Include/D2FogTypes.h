@@ -1,6 +1,6 @@
 #pragma once
 // Fog: the memory pool system, the thread context and stack frame records of the crash handler, its dump
-// request, and the service status it sets.
+// request, the service status it sets, and the loader records it walks for the module list.
 
 #include "D2Check.h"
 #include "D2SysTypes.h"
@@ -15,6 +15,7 @@ struct D2PoolDirectoryStrc;
 struct D2FloatSaveStrc;
 struct D2ThreadContextStrc;
 struct D2StackFrameStrc;
+struct D2ModuleStrc;
 
 struct D2MemPoolBlockStrc
 {
@@ -146,6 +147,30 @@ struct D2DbgHelpRequestStrc
     bool bResult; // 0x10
 };
 
+struct D2ListEntryStrc
+{
+    D2ListEntryStrc* Flink; // 0x00
+    D2ListEntryStrc* Blink; // 0x04
+};
+
+struct D2UnicodeStringStrc
+{
+    unsigned short Length; // 0x00
+    unsigned short MaximumLength; // 0x02
+    wchar_t* Buffer; // 0x04
+};
+
+struct D2LdrEntryStrc
+{
+    D2ListEntryStrc InLoadOrderLinks; // 0x00
+    D2ListEntryStrc InMemoryOrderLinks; // 0x08
+    D2ListEntryStrc InInitializationOrderLinks; // 0x10
+    D2ModuleStrc* DllBase; // 0x18
+    void* EntryPoint; // 0x1C
+    unsigned long SizeOfImage; // 0x20
+    D2UnicodeStringStrc FullDllName; // 0x24
+};
+
 D2_CHECK_SIZE(D2MemPoolBlockStrc, 0x18);
 D2_CHECK_SIZE(D2MemPoolRecStrc, 0x30);
 D2_CHECK_SIZE(D2PoolRecordStrc, 0x8);
@@ -156,3 +181,6 @@ D2_CHECK_SIZE(D2ThreadContextStrc, 0x2CC);
 D2_CHECK_SIZE(D2StackFrameStrc, 0x24);
 D2_CHECK_SIZE(D2ServiceStatusStrc, 0x1C);
 D2_CHECK_SIZE(D2DbgHelpRequestStrc, 0x14);
+D2_CHECK_SIZE(D2ListEntryStrc, 0x8);
+D2_CHECK_SIZE(D2UnicodeStringStrc, 0x8);
+D2_CHECK_SIZE(D2LdrEntryStrc, 0x2C);
