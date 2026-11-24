@@ -4,10 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane2/com-interface 5ba0cf48 581->581 D2ComInterfaceStrc: one record for the 0x225 interface table (D2Launch's D2FuncTable_0077ABF0Strc, MainMenus_00431AF0's private D2FuncTable, the private copies in Storm Unknown_00404F40 and Game_0044E5A0), in its own header D2ComInterface.h; D2ConfigStrc::pComInterface takes that type; VERIFIED 864dca04b8728bdfeefb473f17bf66c847764da6
-  - Based on main #297 (34ce356b), not stacked.
-  - Outside lane 2: type renames in D2Launch, D2Multi and D2Win units (lane 6). Private copies are dropped in Storm Unknown_00404F40 (lane 3), which now reads the shared D2ConfigStrc, and in Game_0044E5A0 (lane 4). MainMenus_00431AF0 uses `gpFuncTable_0077ABF0` instead of its second name `gpFuncTable` for 0x0077ABF0.
-  - Precheck: all includers of D2MultiTypes.h, D2Launch.h and D2Multi.h plus the changed units build equal.
+- lane2/sets-txt 3d42f692 562->562 D2SetsTxt.h: one shared sets.txt record (0x128) instead of nine private copies (BnSend, inv, CUnit, ItemMods, Items, Unknown_005C2740 include it; text.cpp and ddDebugFont drop an unused copy); VERIFIED 36e2333234abc46b207e52806e0bf76ceecdb72a
+  - Verified on #301. Rebased onto #302 (e5714a07) right before the push; #302 touches none of the changed files, and precheck of the 8 changed units is equal on #302 (D2Client.h moved).
+  - Outside lane 2: private-copy removal and field renames in D2Client units (lanes 1 and 4), D2Common, D2Game (lane 5), D2BNClient and D2DDraw (lane 6).
+  - Its own header, not D2Records.h. Adding the record to D2Records.h flipped 6 of its 161 includers.
 
 ## Questions
 
