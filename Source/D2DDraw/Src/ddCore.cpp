@@ -297,7 +297,7 @@ int __fastcall DDRAW_Blit();                                                    
 
 void __fastcall sub_00512ED0_ClearScreen(int bPartial);                                                     // 0x00512ED0
 
-extern int gaDDrawCapsTypes[7];                                                                    // 0x0072F7D0
+extern int gaDDrawCapsTypes[8];                                                                    // 0x0072F7D0
 
 D2PaletteTableStrc* gpGfxPaletteView;                                                                      // 0x007C9150
 

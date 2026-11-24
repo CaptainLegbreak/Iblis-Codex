@@ -60,8 +60,6 @@ void __fastcall sub_004F7EA0_DrawVisTile(unsigned char* pSrc, int nX, int nY);
 
 void __fastcall sub_004F8050_DrawRleVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nLight); // 0x004F8050
 
-extern int gdwGlobal_0072DA50; // 0x0072DA50
-
 extern "C" int gnFlag_007788DC;
 
 extern "C" int gnBufferBase_007D5448; // 0x007D5448

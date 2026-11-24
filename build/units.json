@@ -33904,30 +33904,6 @@
    ]
   },
   {
-   "file": "Source/D2Win/Unknown_004F5190.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004F5190",
-     "length": 35
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Gfx/SRC/Window.cpp",
    "rank": 0,
    "functions": [
@@ -33975,6 +33951,10 @@
      "va": "0x004F5180",
      "length": 6,
      "name": "D2GFX_IsFixedAspectRatio"
+    },
+    {
+     "va": "0x004F5190",
+     "length": 35
     },
     {
      "va": "0x004F51C0",

@@ -2020,8 +2020,8 @@
    "state": "included"
   },
   "Source/D2Glide/Src/glCore.cpp": {
-   "bytes": 92,
-   "definitions": 5,
+   "bytes": 88,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Glide/Src/glCore.inc",
@@ -2029,7 +2029,7 @@
    "state": "included"
   },
   "Source/D2Gfx/SRC/Window.cpp": {
-   "bytes": 188,
+   "bytes": 208,
    "definitions": 7,
    "externs": [
     "extern \"C\" void __cdecl sub_004F8B80(); // 0x004F8B80",
@@ -2040,15 +2040,6 @@
    "lang": "cpp",
    "state": "included",
    "static_definitions": 2
-  },
-  "Source/D2Win/Unknown_004F5190.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Win/Unknown_004F5190.inc",
-   "lang": "cpp",
-   "state": "included"
   },
   "Source/D2Win/Unknown_004F6F60.cpp": {
    "bytes": 4,
@@ -2134,7 +2125,7 @@
    "state": "included"
   },
   "Source/D2DDraw/Src/ddCore.cpp": {
-   "bytes": 124,
+   "bytes": 128,
    "definitions": 5,
    "externs": [],
    "fn_types": {},
@@ -4160,7 +4151,7 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/LvlTbls.cpp": {
-   "bytes": 968,
+   "bytes": 980,
    "definitions": 25,
    "externs": [
     "extern \"C\" char gData_0096C8C8[]; // 0x0096C8C8"
@@ -4330,8 +4321,8 @@
    "state": "included"
   },
   "Source/D2Common/Unknown_0064FAD0.cpp": {
-   "bytes": 1536,
-   "definitions": 1,
+   "bytes": 1560,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_0064FAD0.inc",
@@ -79690,31 +79681,6 @@
    "file": "Source/D2Glide/Src/glCore.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gdwGlobal_0072DA5C = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gdwGlobal_0072DA5C",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0072DA5C",
-   "type": "int",
-   "va": "0x0072DA5C"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Glide/Src/glCore.cpp",
-   "form": "declared",
-   "fwd": null,
    "head": "extern int gdwGlobal_0072DA7C = ",
    "model": {
     "k": "prim",
@@ -79783,46 +79749,21 @@
    "va": "0x0072F250"
   },
   {
-   "alias": false,
-   "cname": "gData_0072DA58",
-   "declared": false,
-   "decorated": null,
+   "alias": true,
+   "cname": "gData_0072DA48",
+   "declared": true,
+   "decorated": "?gGfxSettings@@3UD2GfxSettingsStrc@@A",
    "file": "Source/D2Gfx/SRC/Window.cpp",
    "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_0072DA58_t gData_0072DA58; // 0x0072DA58",
-   "head": "extern \"C\" struct d2data_0072DA58_t gData_0072DA58 = ",
-   "name": "gData_0072DA58",
+   "name": "gGfxSettings",
    "pointers": [],
    "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0072DA58_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x0072DA58",
-   "va": "0x0072DA58"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Win/Unknown_004F5190.cpp",
-   "form": "declared",
-   "fwd": null,
-   "head": "extern int gbInTown = ",
-   "model": {
-    "k": "prim",
-    "kind": "s",
-    "name": "int",
-    "size": 4
-   },
-   "name": "gbInTown",
-   "pointers": [],
-   "region": "data",
-   "size": 4,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0072DA4C",
-   "type": "int",
-   "va": "0x0072DA4C"
+   "size": 24,
+   "va": "0x0072DA48",
+   "fwd": "extern \"C\" struct d2data_0072DA48_t gData_0072DA48; // 0x0072DA48",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_0072DA48_t\n{\n    unsigned char b0[24];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" struct d2data_0072DA48_t gData_0072DA48 = ",
+   "tail": "; // 0x0072DA48\n#pragma comment(linker, \"/alternatename:?gGfxSettings@@3UD2GfxSettingsStrc@@A=_gData_0072DA48\")"
   },
   {
    "alias": false,
@@ -85302,7 +85243,7 @@
    "file": "Source/D2DDraw/Src/ddCore.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern int gaDDrawCapsTypes[7] = ",
+   "head": "extern int gaDDrawCapsTypes[8] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -85311,13 +85252,13 @@
      "size": 4
     },
     "k": "arr",
-    "n": 7,
-    "size": 28
+    "n": 8,
+    "size": 32
    },
    "name": "gaDDrawCapsTypes",
    "pointers": [],
    "region": "data",
-   "size": 28,
+   "size": 32,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x0072F7D0",
@@ -120954,8 +120895,8 @@
    "name": "gszAutomapLevelNames",
    "pointers": [],
    "region": "rdata",
-   "size": 568,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006E7D50_t\n{\n    unsigned char b0[568];\n};\n#pragma pack(pop)",
+   "size": 576,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006E7D50_t\n{\n    unsigned char b0[576];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006E7D50\n#pragma comment(linker, \"/alternatename:?gszAutomapLevelNames@@3QAY0BA@$$CBDA=_gData_006E7D50\")",
    "va": "0x006E7D50"
   },
@@ -120971,8 +120912,8 @@
    "name": "gszAutomapTileNames",
    "pointers": [],
    "region": "rdata",
-   "size": 156,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006E7F90_t\n{\n    unsigned char b0[156];\n};\n#pragma pack(pop)",
+   "size": 160,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006E7F90_t\n{\n    unsigned char b0[160];\n};\n#pragma pack(pop)",
    "tail": "; // 0x006E7F90\n#pragma comment(linker, \"/alternatename:?gszAutomapTileNames@@3QAY07$$CBDA=_gData_006E7F90\")",
    "va": "0x006E7F90"
   },
@@ -130995,6 +130936,91 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_00745920_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    const void* p15;\n    const void* p16;\n    const void* p17;\n    const void* p18;\n    const void* p19;\n    const void* p20;\n    const void* p21;\n    const void* p22;\n    const void* p23;\n    const void* p24;\n    const void* p25;\n    const void* p26;\n    const void* p27;\n    const void* p28;\n    const void* p29;\n    const void* p30;\n    const void* p31;\n    const void* p32;\n    const void* p33;\n    const void* p34;\n    const void* p35;\n    const void* p36;\n    const void* p37;\n    const void* p38;\n    const void* p39;\n    const void* p40;\n    const void* p41;\n    const void* p42;\n    const void* p43;\n    const void* p44;\n};\n#pragma pack(pop)",
    "head": "extern \"C\" struct d2data_00745920_t gData_00745920 = ",
    "tail": "; // 0x00745920"
+  },
+  {
+   "alias": true,
+   "cname": "gData_006EB7C8",
+   "declared": true,
+   "decorated": "?gnPathResetPrecisionX@@3HA",
+   "file": "Source/D2Common/Unknown_0064FAD0.cpp",
+   "form": "bytes",
+   "name": "gnPathResetPrecisionX",
+   "pointers": [],
+   "region": "rdata",
+   "size": 4,
+   "va": "0x006EB7C8",
+   "fwd": "extern \"C\" const struct d2data_006EB7C8_t gData_006EB7C8; // 0x006EB7C8",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006EB7C8_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" const struct d2data_006EB7C8_t gData_006EB7C8 = ",
+   "tail": "; // 0x006EB7C8\n#pragma comment(linker, \"/alternatename:?gnPathResetPrecisionX@@3HA=_gData_006EB7C8\")"
+  },
+  {
+   "alias": true,
+   "cname": "gData_006EB7CC",
+   "declared": true,
+   "decorated": "?gnPathResetPrecisionY@@3HA",
+   "file": "Source/D2Common/Unknown_0064FAD0.cpp",
+   "form": "bytes",
+   "name": "gnPathResetPrecisionY",
+   "pointers": [],
+   "region": "rdata",
+   "size": 4,
+   "va": "0x006EB7CC",
+   "fwd": "extern \"C\" const struct d2data_006EB7CC_t gData_006EB7CC; // 0x006EB7CC",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006EB7CC_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" const struct d2data_006EB7CC_t gData_006EB7CC = ",
+   "tail": "; // 0x006EB7CC\n#pragma comment(linker, \"/alternatename:?gnPathResetPrecisionY@@3HA=_gData_006EB7CC\")"
+  },
+  {
+   "alias": false,
+   "cname": "gData_006EB7D0",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/Unknown_0064FAD0.cpp",
+   "form": "bytes",
+   "name": "gData_006EB7D0",
+   "pointers": [],
+   "region": "rdata",
+   "size": 4,
+   "va": "0x006EB7D0",
+   "fwd": "extern \"C\" const struct d2data_006EB7D0_t gData_006EB7D0; // 0x006EB7D0",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006EB7D0_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" const struct d2data_006EB7D0_t gData_006EB7D0 = ",
+   "tail": "; // 0x006EB7D0"
+  },
+  {
+   "alias": true,
+   "cname": "gData_006EB7D4",
+   "declared": true,
+   "decorated": "?gtPathZeroVelocity@@3UD2CoordStrc@@B",
+   "file": "Source/D2Common/Unknown_0064FAD0.cpp",
+   "form": "bytes",
+   "name": "gtPathZeroVelocity",
+   "pointers": [],
+   "region": "rdata",
+   "size": 8,
+   "va": "0x006EB7D4",
+   "fwd": "extern \"C\" const struct d2data_006EB7D4_t gData_006EB7D4; // 0x006EB7D4",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006EB7D4_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" const struct d2data_006EB7D4_t gData_006EB7D4 = ",
+   "tail": "; // 0x006EB7D4\n#pragma comment(linker, \"/alternatename:?gtPathZeroVelocity@@3UD2CoordStrc@@B=_gData_006EB7D4\")"
+  },
+  {
+   "alias": false,
+   "cname": "gData_006EB7DC",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/Unknown_0064FAD0.cpp",
+   "form": "bytes",
+   "name": "gData_006EB7DC",
+   "pointers": [],
+   "region": "rdata",
+   "size": 4,
+   "va": "0x006EB7DC",
+   "fwd": "extern \"C\" const struct d2data_006EB7DC_t gData_006EB7DC; // 0x006EB7DC",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006EB7DC_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" const struct d2data_006EB7DC_t gData_006EB7DC = ",
+   "tail": "; // 0x006EB7DC"
   },
   {
    "alias": true,
