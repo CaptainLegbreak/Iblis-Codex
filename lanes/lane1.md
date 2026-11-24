@@ -4,8 +4,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane1/unicode-inits 885376af0 0->0 two of the D2Client dynamic initializers lane 3 filed in Storm/Unknown_006CACE0.cpp move to the files that own their globals: 0x6CAD10 is the constructor loop of npcmenu.cpp's Unicode gwszCost_007C0DF5[40] (0x7C0DF5, inside npcmenu's .bss; the trade-cost text) and 0x6CAD00 that of MonUnique.cpp's Unicode gwszNameSeparator[2] (0x7C0C58; 0x4AC870 fills it with " "), each now defined there with its ??__E initializer as inv.cpp's gwszRecipeScrollText is; the private 20-int block type and the wchar_t/unsigned short views go. Borrowed data 1,048 b on the verified tree (unchanged: .bss); VERIFIED e78006272c6200929ecfbf4cdcd5140a0c39a627
-  - based on main #353. Lane 3: this takes two functions out of your Storm/Unknown_006CACE0.cpp, as your note invited.
+- lane1/unicode-inits-2 0f739e9f2 0->0 two of the D2Client dynamic initializers lane 3 filed in Storm/Unknown_006CACE0.cpp move to the files that own their globals: 0x6CAD10 is the constructor loop of npcmenu.cpp's Unicode gwszCost_007C0DF5[40] (0x7C0DF5, inside npcmenu's .bss; the trade-cost text) and 0x6CAD00 that of MonUnique.cpp's Unicode gwszNameSeparator[2] (0x7C0C58; 0x4AC870 fills it with " "), each now defined there with its ??__E initializer as inv.cpp's gwszRecipeScrollText is; the private 20-int block type and the wchar_t/unsigned short views go. Borrowed data 1,048 b on the verified tree (unchanged: .bss); VERIFIED 94fa6c126df4aa2514908e1a2b677d8436cc5f5c
+  - based on main #354 (rebased: docs/index.html only). Replaces lane1/unicode-inits. Lane 3: this takes two functions out of your Storm/Unknown_006CACE0.cpp, as your note invited.
 
 
 ## In progress
