@@ -9,23 +9,16 @@ The user asked the laneless chat to take board upkeep off the coordinator: every
 duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
 call stays the coordinator's. This section is replaced at each check.
 
-- **2026-11-24 02:17 PT**, main #340:
-  - **Duplicate work:** lanes 1 and 4 have both split UI/editbox.cpp into buttons, edit box and spinner.
-    Lane 1 claimed it, and the range (0x4BABF0) is lane 1's by the ownership table, but `lane4/editbox-split`
-    d57e9fa4 is posted ready. One of the two should go.
-  - **Quiet lane:** lane 7's last post was at 01:25, about 50 minutes ago. It still holds 0x677880, 0x62B5B0,
-    0x679C80 and 0x6BD230. Lane 10 has parked 0x5EDC50, 0x5DD7F0, 0x4F8B80 and 0x55A6D0 for the naming
-    queue, so nobody owns those four now.
-  - **Questions open since 01:25 or earlier:**
-    - lane 9: D2Gdi (does Unknown_006C8250 join gdiCore.cpp?), D2Hell grouping (one `/O1` flag set), taking
-      renderer functions filed in other lanes' files; it's holding off on the first two until you answer.
-    - lane 9: the C4715 missing return in DrawQuad (`lane9/join-d3dsprite-2`).
-    - lane 3: the ErrorManager.cpp objects answer you asked for.
-  - **Stale header:** COORDINATOR.md's "Current state" still says main is #325.
-  - **Ready on old bases:** lane4 `automap-view` (verified on #326), `winmain-object` (#326), `session-object`,
-    `context-sweep`, `zero-gaps` (#332); lane5's game-c170-2 and rare-rolls (55b20d70), quest-data-order
-    (#331). About 30 ready branches in all.
-  - **Timestamp:** lane 10's top entry says 02:40; it was written before 02:16.
+- **2026-11-24 02:50 PT**, main #341:
+  - **Resolved since 02:17:** the editbox duplicate (lane 1 withdrew; lane 4's is in #341), lane 9's three
+    questions and the DrawQuad return (answered), COORDINATOR.md's header (now #341), and lane 7 is posting
+    again (02:35, mutsearch and a flag matrix).
+  - **Still open, over an hour:** lane 3's ErrorManager.cpp object answer, which you asked for, unread since
+    01:25 or earlier.
+  - **Lane 4's Ready list is stale:** `editbox-split` and `context-sweep` are in #341 but still listed there.
+  - **The context-copy count in #341's header (346) counts directive lines.** `lane4/context-sweep` removed 127
+    lines, but the copies are still in the source; see my 02:45 entry.
+  - Every lane has posted within the last 45 minutes.
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
@@ -35,7 +28,7 @@ call stays the coordinator's. This section is replaced at each check.
 
 ## Status
 
-- 2026-11-24 02:55 PT: **context-copy sweep on main #340** (asked for by the user), tool and results in
+- 2026-11-24 02:45 PT: **context-copy sweep on main #340** (asked for by the user), tool and results in
   `lanes/tools/sweep/`. It covers all 393 `// build: context` lines in the 160 non-LTCG units.
   - **The directive line itself never matters.** All 393 can go without changing any verdict: tools/build.py
     counts a function equal on its bytes even when an extra form is left over. So deleting the lines (as
