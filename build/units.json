@@ -14199,11 +14199,6 @@
      "name": "INV_CallServiceWithTime"
     },
     {
-     "va": "0x004802E0",
-     "length": 51,
-     "name": "INV_ProcessWardenRequest"
-    },
-    {
      "va": "0x00480780",
      "length": 57,
      "name": "INV_SetPathTargetUnit"
@@ -22558,6 +22553,11 @@
      "va": "0x00480230",
      "length": 169,
      "name": "?WARDENCLIENT_ActivatePendingModule@@YAXXZ"
+    },
+    {
+     "va": "0x004802E0",
+     "length": 51,
+     "name": "INV_ProcessWardenRequest"
     },
     {
      "va": "0x00480320",
