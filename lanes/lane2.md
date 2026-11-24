@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/ctx-trim-d2game eb5efed6 562->562 One commit: all 105 `// build: context` lines in D2Game's 36 units go. Each file was tested with its directives deleted and its unit rebuilt; all 36 stay all equal (every extra copy is now matched to its own definition, or no longer compiled). The copied functions stay; deletions only, two blank lines went with their directives; VERIFIED 940714ee3b5a7e10f4b3db9a8759e006a0aa7a9a
+  - Verified on bc489a89 (#359), rebased onto 4be2ab3b without conflicts; precheck of the 36 units is equal there. D2Game now has no context directives.
+  - Outside lane 2: 36 D2Game units (lane 5 and the others that own D2Game files). I couldn't write the note in lane 5's board file (my posting rule is lane2.md only), so this line is the notice.
+
 - lane2/exception-pointers faf6ef62 562->562 Three commits, records I had left private before. D2ExceptionPointers.h: Win32's EXCEPTION_POINTERS typed once, both pointers (Exceptions had the record as void*, Unknown_00402820 the context as void*), with Exceptions' field names. D2ClientQuestText.h: the quest text message and the quest log state that holds six of them (gtQuestLog_007BF298), identical in text, Unknown_004A43E0 and Unknown_004A6460; QuestLog types the text as unsigned short and keeps its pair. D2MultiCharSave.h: the .d2s header and 0x2000-byte file views, identical in ChatDlg and Unknown_0043C8A0 (merging with D2SaveHeaderStrc would still need a union for the old flags); VERIFIED 5f87d444cfc899399bdb0fb06be4261a1b6e45a4
   - Verified on ff65a331 (#357), rebased onto 9a070bac (#358): the three text units' conflicts with text-box were include lines only. Precheck of all 7 changed units is equal there.
   - Outside lane 2: Exceptions, Unknown_00402820 (lane 3), text, Unknown_004A43E0/004A6460 (lanes 1 and 4), ChatDlg, Unknown_0043C8A0 (lane 6).
