@@ -25712,11 +25712,6 @@
      "name": "MONSTER_GetGameQuestFlags"
     },
     {
-     "va": "0x004B70F0",
-     "length": 6,
-     "name": "sub_004B70F0"
-    },
-    {
      "va": "0x004BF9B0",
      "length": 3,
      "name": "sub_004BF9B0"
@@ -26827,11 +26822,6 @@
      "va": "0x004B5BC0",
      "length": 49,
      "name": "?sub_004B5BC0_SelectNpcEntry@@YAHXZ"
-    },
-    {
-     "va": "0x004B7100",
-     "length": 72,
-     "name": "?sub_004B7100_Select@@YAXHPAUSelectionState@@@Z"
     }
    ]
   },
@@ -26902,6 +26892,16 @@
     "/GS-"
    ],
    "functions": [
+    {
+     "va": "0x004B70F0",
+     "length": 6,
+     "name": "sub_004B70F0"
+    },
+    {
+     "va": "0x004B7100",
+     "length": 72,
+     "name": "?sub_004B7100_Select@@YAXHPAUSelectionState@@@Z"
+    },
     {
      "va": "0x004B7150",
      "length": 40,
