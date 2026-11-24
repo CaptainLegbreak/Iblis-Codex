@@ -989,7 +989,17 @@ void __fastcall ACT4Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
-extern int gnAct4Q1NpcMessageIndices[]; // 0x0073DBA0
+int gnAct4Q2NpcMessageIndices[] = // 0x0073D56C
+{
+    -1, 0, 1, -1, -1
+};
+
+#include "gen/data/Source/D2Game/Quests/a4q1.inc"
+
+static int gnAct4Q1NpcMessageIndices[] = // 0x0073DBA0
+{
+    -1, 0, 1, 2, 3, 4
+};
 
 // 0x005B3BB0
 void __fastcall ACT4Q1_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
@@ -1617,10 +1627,3 @@ void __fastcall ACT3Q0_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
         QUESTS_SetGlobalState(pQuestData->pGame, 16, 13);
     }
 }
-
-int gnAct4Q2NpcMessageIndices[] = // 0x0073D56C
-{
-    -1, 0, 1, -1, -1
-};
-
-#include "gen/data/Source/D2Game/Quests/a4q1.inc"
