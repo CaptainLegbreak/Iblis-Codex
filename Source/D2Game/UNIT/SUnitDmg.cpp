@@ -326,7 +326,7 @@ D2UnitStrc* __fastcall PLAYERPETS_GetFirstPetByType(D2GameStrc* pGame, D2UnitStr
 
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 
-struct T0057E5A0 {
+struct D2PartyExperienceStrc {
     D2UnitStrc* pReference;
     D2UnitStrc* players[8];
     int levels[8];
@@ -3989,7 +3989,7 @@ void __fastcall SUNITDMG_SetExperienceForTargetLevel(D2GameStrc* pGame, D2UnitSt
 }
 
 // 0x0057E5A0
-void __fastcall SUNITDMG_PartyCallback_ComputePartyExperience(D2GameStrc* game, D2UnitStrc* unit, T0057E5A0* data)
+void __fastcall SUNITDMG_PartyCallback_ComputePartyExperience(D2GameStrc* game, D2UnitStrc* unit, D2PartyExperienceStrc* data)
 {
     if (SUNIT_IsDead(unit))
         return;
