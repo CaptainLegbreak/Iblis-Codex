@@ -7,9 +7,10 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 10:05 PT: place-m/n/o/p posted. Next: Unknown_00627BB0, 006115F0, 00665810.
+- 2026-11-24 10:20 PT: place-m/n/o/p/q posted. Next: Unknown_00627BB0, 006115F0.
 
 ## Ready
+- lane8/place-q d3680c6a (on #356), VERIFIED 730ac3e9. Preset.cpp takes in Unknown_00665810 (0x665810-0x665940 run straight into Preset's 0x665950; their table gnPresetObjectIndices 0x748AD8 follows Preset's copy 0x748A98 directly and moves with them). Units -1.
 - lane8/place-p b6c8a0fb (on #356), VERIFIED 97831dfb. Path.cpp takes in Unknown_00647FB0 (rank 1) and Unknown_00648020: Skills' copy and tables run straight into Path's copy, Path's first assert is line 199, and D2MOO's Path.cpp opens with sub_6FDA8220 (0x647FB0, called under that name by D2Common_10142; now defined under it). gnOrthogonalStepTable (0x6EB490) moves with 0x648020. Units -2.
 - lane8/place-o 6d600a9d (on #356), VERIFIED a9687348. Two commits: Unknown_0066A1A0 takes in Unknown_0066A260 (two empty hooks after the cube-main getters; they replace the unit's own unmarked stand-ins for 0x66A260/0x66A270), and Unknown_00668510 takes in the rank-1 Unknown_006685C0 (its functions sit between 00668510's; MakeCode keeps __declspec(noinline); builds equal without /GS-). Units -2.
 - lane8/place-n 5ebd3d58 (on #356), VERIFIED 56bab2bf. ItemTbls.cpp takes in Unknown_00631430 (0x631430/0x631490/0x631530, the calc callbacks ItemCalcLinker hands to CompileExpression) and 0x6314A0 (ITEMS_ResolveItemCalcKeyword, from Items.cpp, sitting between them). Joined, 0x633F40 swapped two locals' stack slots; renaming the locals fixed it. Units -1.
