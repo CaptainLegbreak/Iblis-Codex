@@ -7,7 +7,7 @@ int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
 int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
-int __cdecl DDRAW_GetBlendedShadows(); // 0x00512700
+int __cdecl DDCORE_GetBlendedShadows(); // 0x00512700
 void __stdcall CelDrawShadow(D2CmpCelContextStrc* pContext, int nX, int nY, int nClipLeft, int nClipRight, unsigned char* pBuffer, int nHeightLimit, int nPitch, int nTable, int nColor); // 0x00601730
 extern int* gpShadowTable_007C9150; // 0x007C9150
 extern unsigned char* gpSurface_007C9154; // 0x007C9154
@@ -48,7 +48,7 @@ void __fastcall sub_005122E0_DrawShadow(D2CmpCelContextStrc* pContext, int nX, i
         return;
 
     int nTable = 0;
-    if (DDRAW_GetBlendedShadows())
+    if (DDCORE_GetBlendedShadows())
         nTable = *gpShadowTable_007C9150;
     CelDrawShadow(pContext, nX, nY, gnClipLeft_0088129C, gnClipRight_008812A0, gpSurface_007C9154, gnRenderHeight, gnRenderWidth, nTable, 0);
 }

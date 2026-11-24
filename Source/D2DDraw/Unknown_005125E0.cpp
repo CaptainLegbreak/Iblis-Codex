@@ -147,7 +147,7 @@ void __fastcall sub_00512ED0_ClearScreen(int bPartial)
     }
 }
 
-int __cdecl DDRAW_GetBlendedShadows(); // 0x00512700
+int __cdecl DDCORE_GetBlendedShadows(); // 0x00512700
 
 // 0x00512F90
 int __fastcall sub_00512F90_DrawWallTile(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, void* pLight, int nScreenPanels)
@@ -180,7 +180,7 @@ int __fastcall sub_00512F90_DrawWallTile(D2TileLibraryEntryStrc* pTile, int nPos
             if (nX >= nMinX && nX < nMaxX && nY >= -32 && nY < nMaxY)
             {
                 bDrawn = 1;
-                if (DDRAW_GetBlendedShadows())
+                if (DDCORE_GetBlendedShadows())
                     gpTileDrawFunctions_007C914C->pfDrawShadowBlock(pTile->pBlocks[i].pData, nX, nY, 0xC0);
                 else
                     gpTileDrawFunctions_007C914C->pfDrawWallBlock(pTile->pBlocks[i].pData, nX, nY);

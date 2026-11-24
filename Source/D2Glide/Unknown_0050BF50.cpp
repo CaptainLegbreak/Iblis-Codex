@@ -17,8 +17,8 @@ void __fastcall GLCORE_SetColorCombineMode(int nState);                         
 void __fastcall GLCORE_SetAlphaBlendMode(int nMode);                                                     // 0x00509500
 void __cdecl sub_0050BE20_GlideDebugRefresh();                                                               // 0x0050BE20
 void __fastcall GLVERTEX_SetAmbientColor(int nRed, int nGreen, int nBlue);                         // 0x0050DBC0
-void __cdecl DDRAW_ReleaseSurfaces();                                                           // 0x00511A80
-int __fastcall DDRAW_CreateSurface(void* hWnd, int nResolutionMode);                           // 0x005115E0
+void __cdecl DDCORE_ReleaseSurfaces();                                                           // 0x00511A80
+int __fastcall DDCORE_CreateSurface(void* hWnd, int nResolutionMode);                           // 0x005115E0
 void __fastcall sub_00512710_DDrawDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x00512710
 extern "C" const char gszDisplay[];                                                                // 0x006DE1E8
 extern "C" const char gszDdDebugFontSourceFile[];                                                  // 0x006DE1D0
