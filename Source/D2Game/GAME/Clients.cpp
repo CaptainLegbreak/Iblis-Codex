@@ -34,6 +34,7 @@
 #include "D2InactiveUnits.h"
 #include "D2Packets.h"
 #include "D2SaveHeader.h"
+#include "D2LanguageNames.h"
 
 #pragma intrinsic(strcpy)
 

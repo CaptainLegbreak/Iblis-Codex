@@ -8,6 +8,7 @@
 #include "D2DrlgRooms.h"
 #include "D2GameClient.h"
 #include "D2DrlgDelete.h"
+#include "D2LanguageNames.h"
 struct D2DrlgActStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }

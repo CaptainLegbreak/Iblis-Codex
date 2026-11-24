@@ -14,6 +14,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Packets.h"
+#include "D2LanguageNames.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 

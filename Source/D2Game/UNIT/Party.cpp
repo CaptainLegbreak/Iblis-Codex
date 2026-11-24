@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2LanguageNames.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 

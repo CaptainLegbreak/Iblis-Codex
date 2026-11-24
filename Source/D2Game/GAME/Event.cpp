@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2EventTimer.h"
 #include "D2Structs.h"
+#include "D2LanguageNames.h"
 
 #define EVENTROW_PLAYER 0
 
