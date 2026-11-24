@@ -164,14 +164,6 @@ void __fastcall DRLGROOM_AddOrth(D2DrlgOrthStrc** ppDrlgOrth, D2DrlgLevelStrc* p
 
 int __fastcall DRLGMAZE_CheckRoomNotOverlaping(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pIgnoredRoom, int nMargin);
 
-// 0x0066AE30
-D2DrlgRoomStrc* __fastcall DRLGROOM_GetRoomExAtLevelCenterOffset(D2DrlgLevelStrc* pLevel, int nUnused, int nOffsetX, int nOffsetY)
-{
-    const int nX = pLevel->pLevelCoords.nWidth / 2 + pLevel->pLevelCoords.nPosX + nOffsetX - 2;
-    const int nY = pLevel->pLevelCoords.nHeight / 2 + pLevel->pLevelCoords.nPosY + nOffsetY - 2;
-    return DRLG_GetRoomExFromLevelAndCoordinates(pLevel, nX, nY);
-}
-
 inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
