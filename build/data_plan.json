@@ -3823,15 +3823,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Unknown_005BDE80.cpp": {
-   "bytes": 64,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Unknown_005BDE80.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/SKILLS/SkillItem.cpp": {
    "bytes": 436,
    "definitions": 2,
@@ -5196,6 +5187,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a3q7.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Game/MONSTER/MonsterChoose.cpp": {
+   "bytes": 472,
+   "definitions": 4,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/MONSTER/MonsterChoose.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -113164,7 +113164,7 @@
    "cname": "gtDiamondMonsterFormation",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005BDE80.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterChoose.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007415B4_t gtDiamondMonsterFormation; // 0x007415B4",
    "head": "extern \"C\" struct d2data_007415B4_t gtDiamondMonsterFormation = ",
@@ -113181,7 +113181,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Game/Unknown_005BDE80.cpp",
+   "file": "Source/D2Game/MONSTER/MonsterChoose.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern void* gpDiamondMonsterFormation = ",
@@ -157321,6 +157321,311 @@
    "tail": "; // 0x0074C020",
    "type": "int",
    "va": "0x0074C020"
+  },
+  {
+   "alias": false,
+   "cname": "gData_007415F4",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Game/MONSTER/MonsterChoose.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_007415F4_t gData_007415F4; // 0x007415F4",
+   "head": "extern \"C\" struct d2data_007415F4_t gData_007415F4 = ",
+   "name": "gData_007415F4",
+   "pointers": [
+    [
+     172,
+     "0x007415F4",
+     "owner",
+     "gData_007415F4",
+     0,
+     "data"
+    ],
+    [
+     176,
+     "0x00741688",
+     "owner",
+     "gData_007415F4",
+     148,
+     "data"
+    ],
+    [
+     180,
+     "0x00741610",
+     "owner",
+     "gData_007415F4",
+     28,
+     "data"
+    ],
+    [
+     184,
+     "0x00741610",
+     "owner",
+     "gData_007415F4",
+     28,
+     "data"
+    ],
+    [
+     188,
+     "0x00741610",
+     "owner",
+     "gData_007415F4",
+     28,
+     "data"
+    ],
+    [
+     192,
+     "0x0074161C",
+     "owner",
+     "gData_007415F4",
+     40,
+     "data"
+    ],
+    [
+     200,
+     "0x00741644",
+     "owner",
+     "gData_007415F4",
+     80,
+     "data"
+    ],
+    [
+     204,
+     "0x00741658",
+     "owner",
+     "gData_007415F4",
+     100,
+     "data"
+    ],
+    [
+     208,
+     "0x00741658",
+     "owner",
+     "gData_007415F4",
+     100,
+     "data"
+    ],
+    [
+     284,
+     "0x00741694",
+     "owner",
+     "gData_007415F4",
+     160,
+     "data"
+    ],
+    [
+     288,
+     "0x00741688",
+     "owner",
+     "gData_007415F4",
+     148,
+     "data"
+    ],
+    [
+     292,
+     "0x00741694",
+     "owner",
+     "gData_007415F4",
+     160,
+     "data"
+    ],
+    [
+     296,
+     "0x00741694",
+     "owner",
+     "gData_007415F4",
+     160,
+     "data"
+    ],
+    [
+     300,
+     "0x00741694",
+     "owner",
+     "gData_007415F4",
+     160,
+     "data"
+    ],
+    [
+     308,
+     "0x0074170C",
+     "owner",
+     "gData_007415F4",
+     280,
+     "data"
+    ],
+    [
+     316,
+     "0x007416E0",
+     "owner",
+     "gData_007415F4",
+     236,
+     "data"
+    ],
+    [
+     320,
+     "0x007416E0",
+     "owner",
+     "gData_007415F4",
+     236,
+     "data"
+    ]
+   ],
+   "region": "data",
+   "size": 348,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_007415F4_t\n{\n    unsigned char b0[172];\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    unsigned char b7[4];\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    unsigned char b11[72];\n    const void* p12;\n    const void* p13;\n    const void* p14;\n    const void* p15;\n    const void* p16;\n    unsigned char b17[4];\n    const void* p18;\n    unsigned char b19[4];\n    const void* p20;\n    const void* p21;\n    unsigned char b22[24];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x007415F4",
+   "va": "0x007415F4"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Game/MONSTER/MonsterChoose.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const char* gaszLanguageNames_00741750[15] = ",
+   "model": {
+    "elem": {
+     "fn": false,
+     "k": "ptr",
+     "size": 4,
+     "spell": "const char*"
+    },
+    "k": "arr",
+    "n": 15,
+    "size": 60
+   },
+   "name": "gaszLanguageNames_00741750",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "stars": 1,
+   "struct": null,
+   "tail": "; // 0x00741750",
+   "type": "char",
+   "va": "0x00741750"
   }
  ]
 }
