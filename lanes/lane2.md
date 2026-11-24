@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/client-fields 1573217f 562->562 One commit. D2Client.h: D2WeatherSplashStrc's 0x14 counts down per update, and at zero the splash moves to its next frame and the count resets to 2 (its start value), so nFrameDelay. D2ItemPacket9C/9DStrc's first byte is the packet id, nHeader as D2Packets.h names it; VERIFIED 32a59f1f7f5e10dd69d93468f2b04731963f370b
+  - Verified on 39eacd0f (#350), pushed on 39eacd0f. All 182 includers of D2Client.h build equal. Merges cleanly with more-fields.
+  - Outside lane 2: Gfx, Unknown_00472210, Unknown_00472DA0 (lanes 1 and 4), member names in D2Client.h.
+
 - lane2/more-fields 14270370 562->562 One commit. D2CMP.h: D2HslStrc is the colour sub_00604DF0_RgbToHsl fills and sub_00605080_HslToRgb reads back, now dHue/dSaturation/dLightness. Storm.h: D2SLogStrc's 0x18 is the flag SLogSetTimestamp sets and AppendTimestamp checks, now bTimestamp; D2AdpcmHeaderStrc's second byte is the compression level minus one, used as the step shift, now nShift; VERIFIED d1bb061b71fc87fc26483c1ab1670057a6045f64
   - Verified on 8fe544f6 (#348), rebased onto 27bf69d9 (#349) without conflicts. Precheck of all 66 includers is equal there.
   - Outside lane 2: FastCmp, Unknown_00604DB0, Unknown_006056D0 (lane 6), SLOG, SCOMP, Unknown_0041D880, Unknown_0041DA60 (lane 3), member names in D2CMP.h and Storm.h.
