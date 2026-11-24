@@ -7,9 +7,11 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 08:40 PT: place-g is in. place-h is rebased and place-j is posted. Next: Unknown_00641320 into Drlg.cpp (inside its run, no copy of its own).
+- 2026-11-24 08:55 PT: place-k and place-l posted. Note for whoever splits Inventory.cpp: it owns two language copies (0x744760, 0x7447CC). Next: the OutPlace-run pieces (0x675850/0x6768C0/0x6769A0; 0x675DE0 has no direct callers).
 
 ## Ready
+- lane8/place-l 0bf7ebd2 (on #354), VERIFIED 1c76d096. Unknown_0063E6B0 held two objects' functions. 0x63E6B0 (D2Common_11050) goes into Inventory.cpp (inside its run, 0x63E510..0x63E780). 0x664860 (11069) is one object with 0x6647C0/0x664800/0x664930 (11068, 11070) out of Unknown_00664530: copy 0x7488C0 and the skeleton/archer code tables come right after 00664530's copy 0x748884, so overlay getters and component functions are two objects. The file is renamed Unknown_006647C0.cpp. Units unchanged (one placeholder renamed).
+- lane8/place-k 9183f405 (on #354), VERIFIED 70250030. Drlg.cpp takes in Unknown_00641320 (0x641530-0x6417F0, 0x6432C0; inside Drlg's run, no copy) and 0x641510 (UnloadShrinesTxt, MonsterTbls). Unknown_0063F690 (LoadObjectsTxt, copy 0x745684) takes 0x640E90 (DataTbls) and 0x640EE0/0x640F00 (MonsterTbls), which sit between it and LoadObjGroupTxt's copy 0x7456C0. Units -1.
 - lane8/place-j 5c37b9f4 (on #354), VERIFIED 98a9fa99. InvTbls.cpp takes in Unknown_0065C130.cpp (inside InvTbls' object; no language copy of its own). Units -1.
 - lane8/place-h 326896fb (rebased on #354), VERIFIED e9b4fd0d. DrlgAnim.cpp takes in Unknown_0066D290 (on both sides of DrlgAnim's 0x66D440) and Unknown_0066D7E0 (reads DrlgAnim's .rdata). The calls from 0x66D700 now use the static's own argument order. Units -2.
 
