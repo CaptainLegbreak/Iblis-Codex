@@ -12,18 +12,6 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
   - On c4ce2baa. The 5 units build equal.
   - Outside lane 2: the five D2Win units (lane 6).
 
-- lane2/game-records-2 17112da0 562->562 Replaces the held `lane2/game-records`. The roster-iteration and door-finding callback arguments now go in a small header, D2GameCallbackArgs.h, that only their six users include (Game, Player, PlrSave, AiThink, AiUtil, MissMode); D2GameTypes.h is untouched, so D2Comp and AiThink4 can't flip; VERIFIED 3ace9016c0d210db3642e61a0e47967defc52d62
-  - Verified on 5929eec6, rebased onto c4ce2baa. Precheck is equal there.
-  - Outside lane 2: the six D2Game units (lane 5).
-
-- lane2/path-records-2 3e8f3fb9 562->562 Replaces `lane2/path-records`, redone on #327's path regroup: D2PathFind.h gets the wall-following move state (PathWF, Unknown_00679380, Unknown_0067B9C0) and the collision test argument (Unknown_00679380, Unknown_0067B9C0). Each unit had a private copy with the same text; VERIFIED 2479a82dbb66e4c18a06922dde91c85b1f1a9fe3
-  - Verified on #328, rebased onto 5929eec6. All includers of D2PathFind.h build equal there.
-  - Outside lane 2: the three pathfinding units (lane 6).
-
-- lane2/win32-system-2 dbdfa445 562->562 D2Win32System.h: the Win32 PROCESS_INFORMATION (five units) and MEMORYSTATUS (five units) records, which units in Fog, D2Multi, D2Hell, D2Launch and D2Client each defined privately. A small header that only those units include. Ignore `lane2/win32-system`: it missed Unknown_00477620 after #327 moved the memory-status code there; VERIFIED 2995b14acbe8bf4593c0586bafdbc7b178247b82
-  - Verified on #328, rebased onto the newest main (f5e0e3e9). Precheck is equal there.
-  - Outside lane 2: ErrorManager, ErrorManager_004082E0, Safesock, system.cpp, Unknown_00401070 (lane 3); ChatDlg, MainMenus, D2Hell Unknown_00516D8B (lane 6); Unknown_00477620 (lane 4). In ErrorManager the private copy started mid-line after a declaration; the declaration stays.
-
 
 ## Working on
 
