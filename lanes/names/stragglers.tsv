@@ -1,0 +1,5 @@
+va	old_name	new_name	source	file	confidence	reason
+0x004F04F0	sub_004F04F0_CreateMissileFan	SKILLSEMON_CreateMissileFan	inferred	Source/D2Client/SKILLS/SkillsEMon.cpp	high	creates N client missiles fanned over the eight fan offsets toward the target
+0x004F0590	sub_004F0590_CreateCltMissileRequest	SKILLSEMON_CreateMissileRequest	inferred	Source/D2Client/SKILLS/SkillsEMon.cpp	medium	submits a missile request at the unit, faces it the unit's way, optionally marks it dead
+0x006B5C80	sub_006B5C80_LoadSpriteInfo	D3D_LoadSpriteInfo	inferred	Source/D2Direct3D/Src/d3dSprite.cpp	high	prepares a cel context and fills the sprite size and offsets; the source also spells it sub_006B5C80_LoadCelInfo
+0x006C9900	sub_006C9900_GdiPlaySmacker	GDI_PlaySmacker	inferred	Source/D2Gdi/Src/gdiSmack.cpp	high	advances a Smacker record one frame (palette remap, close at the end) and copies it to the screen; in data_plan.json
