@@ -351,15 +351,6 @@ static inline void MONSTER_SetNpcMenuValue(unsigned short wValue); // 0x004B17F0
 static inline bool MONSTER_IsStringUnused(unsigned short wString); // 0x004B1800
 
 
-typedef void (__fastcall* UMODCALLBACK)(void* pTarget, int nUMod, int bUnique);
-
-struct D2UModCallbacksStrc
-{
-    UMODCALLBACK pCallbacks[5];
-};
-
-extern D2UModCallbacksStrc gaUModCallbacks[]; // 0x00724E28
-
 struct D2RoomStrc;
 
 struct D2DifficultyLevelsTxt;
@@ -424,7 +415,6 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, int nLowSeed); // 0x00650E40
 
 void __fastcall MONSTER_UpdateMonsterClient(D2UnitStrc* pUnit); // 0x004B13A0
 
-extern "C" const unsigned short gwUniqueModNameIds[];                                                       // 0x00725188
 
 extern "C" { Unicode gwszNameSeparator[1]; }                                                                // 0x007C0C58
 
@@ -440,15 +430,13 @@ extern "C" int __fastcall sub_00526800(const unsigned short* pText);            
 
 struct D2SeqModeStrc;
 
-struct D2UnitTargetStrc;
-
 struct D2SeqModeStrc
 {
     int unk0x00;
     int nMode;
 };
 
-void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004AFF60
+void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pCommand); // 0x004AFF60
 
 void __stdcall UNITS_StopSequence(D2UnitStrc* pUnit); // 0x00623E00
 
@@ -618,95 +606,6 @@ static int sub_0044BE50(D2UnitStrc* pUnit)
     return nType;
 }
 
-// build: context MONSTERS_CheckMonTypeFlag
-static int MONSTERS_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
-{
-    D2MonsterDataStrc* pMonsterData = sub_0044BE50(pUnit) == 1 ? pUnit->pMonsterData : 0;
-    if (!pMonsterData)
-        return 0;
-    if (pMonsterData->nTypeFlag & nFlag)
-        return 1;
-    return 0;
-}
-
-// build: context MONSTERUNIQUE_GetUMods
-static unsigned char* MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit)
-{
-    D2MonsterDataStrc* pMonsterData = sub_0044BE50(pUnit) == 1 ? pUnit->pMonsterData : 0;
-    if (pMonsterData)
-        return pMonsterData->nMonUmod;
-    return 0;
-}
-
-// 0x004ADD90
-void __stdcall MONSTER_RunUModCallbacks(D2UnitStrc* pUnit, void* pArgument, int nMode)
-{
-    unsigned char* pUMods = MONSTERUNIQUE_GetUMods(pUnit);
-    if (!pUMods)
-    {
-        return;
-    }
-
-    const int bUnique = MONSTERS_CheckMonTypeFlag(pUnit, 8);
-    if (nMode != 4)
-    {
-        for (int i = 0; i < 9; ++i)
-        {
-            const int nUMod = pUMods[i];
-            UMODCALLBACK pfnCallback = gaUModCallbacks[nUMod].pCallbacks[nMode];
-            if (pfnCallback)
-            {
-                pfnCallback(pUnit, nUMod, bUnique);
-            }
-        }
-    }
-    else
-    {
-        for (int i = 0; i < 9; ++i)
-        {
-            const int nUMod = pUMods[i];
-            UMODCALLBACK pfnCallback = gaUModCallbacks[nUMod].pCallbacks[nMode];
-            if (pfnCallback)
-            {
-                pfnCallback(pArgument, nUMod, bUnique);
-            }
-        }
-    }
-}
-
-// 0x004ADE40
-void __fastcall MONSTER_RunUModCommandCallbacks(D2UnitStrc* pUnit)
-{
-    MONSTER_RunUModCallbacks(pUnit, 0, 0);
-}
-
-// 0x004ADE50
-void __fastcall MONSTER_RunUModUpdateCallbacks(D2UnitStrc* pUnit)
-{
-    MONSTER_RunUModCallbacks(pUnit, 0, 1);
-}
-
-// 0x004ADE60
-void __fastcall MONSTER_RunUModFrameCallbacks(D2UnitStrc* pUnit)
-{
-    MONSTER_RunUModCallbacks(pUnit, 0, 2);
-}
-
-// 0x004ADE70
-void __fastcall MONSTER_RunUModHitCallbacks(D2UnitStrc* pUnit)
-{
-    MONSTER_RunUModCallbacks(pUnit, 0, 3);
-}
-
-// 0x004ADE80
-void __fastcall MONSTER_RunUModMissileCallbacks(D2UnitStrc* pUnit, void* pArg)
-{
-    if (pUnit && pArg && pUnit->dwUnitType == UNIT_MONSTER)
-    {
-        MONSTER_RunUModCallbacks(pUnit, pArg, 4);
-    }
-}
-
 void __fastcall MONSTER_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName, int nLength, unsigned short nNameId); // 0x004ADEA0
 
 static inline D2MonStatsTxt* CLIENT_GetMonStatsTxtRecord(int nMonsterId)
@@ -817,7 +716,7 @@ int __fastcall MONSTER_GetMinionSpawnClassId(D2UnitStrc* pUnit)
 }
 
 // 0x004AE1D0
-static void MONSTER_RefreshMonsterMode(D2UnitStrc* pUnit)
+static __declspec(noinline) void MONSTER_RefreshMonsterMode(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -2260,6 +2159,635 @@ static void MONSTER_UpdateCollisionForMode(D2UnitStrc* pUnit, int nMode)
     }
 }
 
+int __fastcall MONSTER_HandleSequenceStop(D2UnitStrc* pUnit, D2SeqModeStrc* pMode); // 0x004B1280
+
+// 0x004AFF60
+void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pCommand)
+{
+    int nMonId;
+    D2MonStats2Txt* pMonStats2Txt;
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+    if (pUnit->dwAnimMode == 0xD)
+    {
+        PATH_RecacheRoomIfNeeded(pPath);
+        PATH_ResetToPreviousType(pPath);
+    }
+
+    if (!CUNIT_IsDeadOrDying(pUnit))
+    {
+        PATH_AddCollisionFootprintForOptionalUnit(pUnit);
+    }
+    else if (nCommand != 8 && nCommand != 9)
+    {
+        sub_00649FF0(pUnit, 0);
+        MONSTER_SetMonsterLight(pUnit);
+        pUnit->dwFlagEx &= ~0x40000;
+    }
+
+    int bUpdateVelocity = 0;
+    if (nCommand != 0x13 && nCommand != 0x16 && nCommand != 0x15 && pCommand)
+    {
+        bUpdateVelocity = 1;
+        if (pCommand->nPathValue > 0)
+        {
+            PATH_SetType(pPath, pCommand->nPathValue);
+            if (nCommand == 0x14)
+            {
+                PATH_SetNewDistance(pPath, (unsigned char)pCommand->nPathByte);
+                PATH_SetStepNum(pPath, (unsigned char)pCommand->nZero);
+            }
+        }
+        UNITS_SetUsedSkill(pUnit, 0);
+        MONSTER_RunUModCommandCallbacks(pUnit);
+    }
+
+    if (!sub_n5b_GetMonStatsTxtRecord(pUnit->dwClassId))
+        return;
+
+    pMonStats2Txt = sub_n5b_GetMonStats2TxtRecord(pUnit->dwClassId);
+    if (!pMonStats2Txt)
+        return;
+
+    const int nMonStatsCount = sgptDataTables->nMonStatsTxtRecordCount;
+    const int nBaseId = CUNIT_GetMonsterBaseId(pUnit);
+    if (nBaseId >= 0 && nBaseId < nMonStatsCount)
+        nMonId = nBaseId;
+    else
+        nMonId = -1;
+
+    int nValue;
+    D2MonCmdRecordStrc* pRecord = &gaMonCmdRecords[nCommand];
+    switch (nCommand)
+    {
+    case 1:
+    case 0x17:
+        D2_ASSERT(pCommand, 0x6E2);
+        D2COMMON_10212_PATH_SetMoveFlags(pUnit, 1);
+        if (sub_004AE080(pUnit, 1) || !sub_004804A0_SetPathTargetPos(pUnit, pCommand->nX, pCommand->nY))
+        {
+            MONSTER_RefreshMonsterMode(pUnit);
+            break;
+        }
+
+        if (nCommand == 1)
+            UNITMODE_SetUnitMode(pUnit, 2);
+        else
+            UNITMODE_SetUnitMode(pUnit, 0xF);
+        break;
+
+    case 0:
+    case 0x18:
+    {
+        D2_ASSERT(pCommand, 0x6F7);
+        D2COMMON_10212_PATH_SetMoveFlags(pUnit, 1);
+        nValue = pCommand->nX;
+        CUNIT_SetTargetByGUID(pUnit, nValue, pCommand->nY);
+        if (sub_004AE080(pUnit, 1) || !INV_SetPathTargetUnit(pUnit, nValue, pCommand->nY))
+        {
+            MONSTER_RefreshMonsterMode(pUnit);
+            break;
+        }
+
+        if (nCommand == 0)
+            UNITMODE_SetUnitMode(pUnit, 2);
+        else
+            UNITMODE_SetUnitMode(pUnit, 0xF);
+        break;
+    }
+
+    case 5:
+    case 0xA:
+    case 0xD:
+    case 0xF:
+    case 0x10:
+    case 0x1B:
+    case 0x1D:
+    {
+        D2_ASSERT(pCommand, 0x70F);
+        D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
+        nValue = pCommand->nX;
+        if (nMonId == MONSTER_ICEGLOBE)
+            break;
+
+        CUNIT_SetTargetByGUID(pUnit, nValue, pCommand->nY);
+        if (nMonId == MONSTER_FINGERMAGE1 && nCommand == 0xA)
+        {
+            D2UnitStrc* pTargetUnit = CUNIT_GetPathTargetUnit(pUnit);
+            CUNIT_SetOverlayWithSound(pTargetUnit, 0xA9, 0);
+        }
+
+        CUNIT_SetPathTargetToTargetUnit(pUnit, 0);
+        if (nMonId == MONSTER_VULTURE1)
+            MONSTER_UpdateCollisionForMode(pUnit, nCommand);
+        else if (nMonId == MONSTER_CHARSI && nCommand == 0xD)
+            D2COMMON_10160_PathUpdateDirection(pUnit->pDynamicPath, 0x38);
+
+        if ((!pUnit ? -1 : pUnit->dwClassId) == 0x195 && nCommand == 0xD)
+            D2COMMON_10160_PathUpdateDirection(pUnit->pDynamicPath, 0x34);
+
+        if (pUnit->dwClassId == 0x195 && nCommand == 0xF)
+            D2COMMON_10160_PathUpdateDirection(pUnit->pDynamicPath, 0x30);
+
+        if (nMonId == MONSTER_WARRIV1)
+        {
+            if (nCommand == 0xD)
+                D2COMMON_10160_PathUpdateDirection(pUnit->pDynamicPath, 0x34);
+        }
+        else if (nMonId == MONSTER_FARA && nCommand == 0xD)
+        {
+            D2COMMON_10160_PathUpdateDirection(pUnit->pDynamicPath, 4);
+        }
+
+        UNITMODE_SetUnitMode(pUnit, pRecord->nIndex);
+        if (MONSTER_HasMonStatsFlag(pUnit, pRecord))
+            INV_SetPathTargetUnit(pUnit, nValue, pCommand->nY);
+        break;
+    }
+
+    case 4:
+    case 0xB:
+    case 0xC:
+    case 0xE:
+    case 0x11:
+    case 0x1A:
+    case 0x1C:
+        D2_ASSERT(pCommand, 0x741);
+        D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
+        UNITS_SetTargetUnitForDynamicUnit(pUnit, 0);
+        if ((pCommand->nX || pCommand->nY)
+            && (pCommand->nX != CLIENTS_GetUnitX(pUnit) || pCommand->nY != CLIENTS_GetUnitY(pUnit)))
+        {
+            UNITS_UpdateDirectionAndSpeed(pUnit, pCommand->nX, pCommand->nY);
+        }
+
+        UNITMODE_SetUnitMode(pUnit, pRecord->nIndex);
+        if (MONSTER_HasMonStatsFlag(pUnit, pRecord))
+            sub_004804A0_SetPathTargetPos(pUnit, pCommand->nX, pCommand->nY);
+
+        if (nMonId == MONSTER_VULTURE1)
+            MONSTER_UpdateCollisionForMode(pUnit, nCommand);
+        break;
+
+    case 6:
+    {
+        if (!pCommand)
+            break;
+
+        sub_004AC840(pUnit, pCommand->nZero & 0x80);
+        pCommand->nZero &= 0x7F;
+        if (pCommand->nZero > 1)
+            ++pCommand->nZero;
+
+        int bBlood = 1;
+        if (pCommand->nZero)
+        {
+            const int nOldValue = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0) >> 8;
+            if (nOldValue == pCommand->nZero)
+                bBlood = 0;
+            else
+                STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, pCommand->nZero << 8, 0);
+        }
+
+        D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
+        pUnit->dwLastHitClass = pCommand->nParam18;
+        PATH_RecacheRoomIfNeeded(pPath);
+        UNITMODE_SetUnitMode(pUnit, 3);
+        if (bBlood)
+            MONSTER_SpawnBloodMissiles(pUnit, 1, 0);
+
+        CUNIT_SetDrawDelay(pUnit);
+        MONSTER_RunUModHitCallbacks(pUnit);
+        break;
+    }
+
+    case 0x13:
+        D2_ASSERT(pCommand, 0x781);
+        sub_004AC840(pUnit, pCommand->nY & 0x80);
+        pCommand->nY &= 0x7F;
+        if (pCommand->nY > 1)
+            ++pCommand->nY;
+
+        if (pCommand->nY)
+            STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, pCommand->nY << 8, 0);
+
+        pUnit->dwLastHitClass = pCommand->nX;
+        MONSTER_SpawnBloodMissiles(pUnit, 1, 1);
+        CUNIT_SetDrawDelay(pUnit);
+        UNITMODE_SetModeOverlay(pUnit, 0xD);
+        sub_004CC5B0_RequestMode(pUnit, 0xD, 1);
+        MONSTER_RunUModHitCallbacks(pUnit);
+        break;
+
+    case 0x14:
+        D2_ASSERT(pCommand, 0x79A);
+        if (pCommand->nPathByte)
+            STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, pCommand->nPathByte << 8, 0);
+
+        pUnit->dwLastHitClass = pCommand->nParam18;
+        D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
+        PATH_RecacheRoomIfNeeded(pPath);
+        PATH_SetType(pPath, 0xB);
+        D2COMMON_10190_PATH_SetDistance(pPath, (unsigned char)pCommand->nZero);
+        D2COMMON_10170_PathSetTargetPos(pPath, (unsigned short)pCommand->nX, (unsigned short)pCommand->nY);
+        D2Common_10142(pPath, pUnit, 0);
+        UNITMODE_SetUnitMode(pUnit, 0xD);
+        break;
+
+    case 0x12:
+        D2_ASSERT(pCommand, 0x7B0);
+        D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
+        PATH_RecacheRoomIfNeeded(pPath);
+        CUNIT_SetTargetByGUID(pUnit, pCommand->nX, pCommand->nY);
+        CUNIT_SetPathTargetToTargetUnit(pUnit, 0);
+        UNITMODE_SetUnitMode(pUnit, 6);
+        break;
+
+    case 8:
+    {
+        D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
+        pUnit->dwLastHitClass = pCommand->nParam18;
+        if (sub_00467A10() == pUnit)
+        {
+            if (!(GAME_GetLeftClickState() & 8) && !(GAME_GetRightClickState() & 8))
+            {
+                sub_00466FE0();
+            }
+            else
+            {
+                GAME_ResetMouseState();
+                sub_00467A70_RefreshHoverUnit(0);
+            }
+        }
+
+        STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, 0, 0);
+        if (STATES_CheckStateMaskHideOnUnit(pUnit))
+        {
+            pUnit->dwFlagEx |= 0x40000;
+            pUnit->dwFlags &= ~2;
+            pUnit->dwFlags |= 0x20;
+        }
+
+        if (STATES_CheckStateMaskShatterOnUnit(pUnit))
+        {
+            MONSTER_CreateDeathMissiles(pUnit);
+            pUnit->dwLastHitClass = (pUnit->dwLastHitClass & 0xF) | 0xA0;
+        }
+
+        if (!(pMonStats2Txt->nFlags[2] & gdwBitMasks[3]))
+            PATH_SetUnitDeadCollision(pUnit, 0);
+
+        nValue = pUnit->dwClassId;
+        D2MonStatsTxt* pDeadMonStatsTxt = DATATBLS_GetMonStatsTxtRecord(nValue);
+        if (!pDeadMonStatsTxt)
+            return;
+
+        switch (pDeadMonStatsTxt->nSplEndDeath)
+        {
+        case 1:
+            if (pDeadMonStatsTxt->wMinion[0] >= 0 && pDeadMonStatsTxt->wMinion[0] < sgptDataTables->nMonStatsTxtRecordCount)
+            {
+                D2UnitStrc* pSpawned = CUNIT_SpawnPresetUnit(nValue, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 1, 0);
+                if (pSpawned)
+                    pSpawned->dwFlags &= ~2;
+
+                pSpawned->dwLastHitClass = pUnit->dwLastHitClass;
+                UNITMODE_SetUnitMode(pSpawned, 0);
+                sub_004AEDD0(pUnit, pDeadMonStatsTxt->wMinion[0]);
+            }
+            break;
+        }
+
+        switch (nMonId)
+        {
+        case MONSTER_THORNHULK1:
+            CUNIT_SetOverlayWithSound(pUnit, 0x4F, 0);
+        LABEL_MODE0:
+            UNITMODE_SetUnitMode(pUnit, 0);
+        LABEL_CLEAR:
+            pUnit->dwFlags &= ~2;
+            CUNIT_FreeLight(pUnit);
+            break;
+
+        case MONSTER_MAGGOTEGG1:
+            if (pUnit->dwAnimMode == 0xE)
+            {
+                UNITMODE_SetUnitModeNoOverlay(pUnit, 0);
+                pUnit->dwFlags &= ~2;
+                pUnit->nSeqCurrentFramePrecise = 0xE00;
+                CUNIT_FreeLight(pUnit);
+            }
+            else
+            {
+                UNITMODE_SetUnitMode(pUnit, 0);
+                pUnit->dwFlags &= ~2;
+                CUNIT_FreeLight(pUnit);
+            }
+            break;
+
+        case MONSTER_CANTOR1:
+            CUNIT_SetOverlayWithSound(pUnit, 0x4E, 0);
+            goto LABEL_MODE0;
+
+        case MONSTER_FROGDEMON1:
+            CUNIT_SetOverlayWithSound(pUnit, 0x52, 0);
+            goto LABEL_MODE0;
+
+        case MONSTER_VULTURE1:
+            CUNIT_SetOverlayWithSound(pUnit, 0x92, 0);
+            UNITMODE_SetUnitMode(pUnit, 0);
+            if (!ITEM_GetGfxClientZ(pUnit))
+                goto LABEL_CLEAR;
+
+            sub_004DA690_ReplaceMotionFlag1With8(pUnit);
+            MISSILE_SetMotionFlagMask(pUnit, 0);
+            GFXUTIL_SetMotionVectorB(pUnit, 0, 0, -0x10, 1);
+            GFXUTIL_SetMotionVectorC(pUnit, 0, 0, 0, 0);
+            pUnit->dwFlags &= ~2;
+            CUNIT_FreeLight(pUnit);
+            break;
+
+        case MONSTER_TENTACLE1:
+        case MONSTER_TENTACLEHEAD1:
+            CUNIT_SetOverlayWithSound(pUnit, 0x9D, 0);
+            goto LABEL_MODE0;
+
+        case MONSTER_DOPPLEZON:
+            AUTOMAP_RequestAtTarget(pUnit, 0x148, 0, 1);
+            goto LABEL_MODE0;
+
+        case MONSTER_HYDRA1:
+        case MONSTER_HYDRA2:
+        case MONSTER_HYDRA3:
+            GFX_RemoveOverlays(pUnit);
+            CUNIT_SetOverlayWithSound(pUnit, (!pUnit ? -1 : pUnit->dwClassId) - 0xAD, 0);
+            goto LABEL_MODE0;
+
+        case MONSTER_MAGGOTQUEEN1:
+        {
+            D2MonCommandStrc tCommand = {};
+            tCommand.nX = 0xD8;
+            tCommand.nArg = 1;
+            MONSTER_HandleMonsterCommand(0x15, pUnit, &tCommand);
+            pUnit->dwFlags &= ~2;
+            CUNIT_FreeLight(pUnit);
+            break;
+        }
+
+        case MONSTER_WILLOWISP1:
+            CUNIT_SetOverlayWithSound(pUnit, 0xB8, 0);
+            goto LABEL_MODE0;
+
+        case MONSTER_DOOMKNIGHT1:
+        case MONSTER_DOOMKNIGHT2:
+        case MONSTER_DOOMKNIGHT3:
+            CUNIT_SetOverlayWithSound(pUnit, 0xBB, 0);
+            goto LABEL_MODE0;
+
+        case MONSTER_BONEFETISH1:
+            CUNIT_SetOverlayWithSound(pUnit, 0xBC, 0);
+            CUNIT_SetOverlayWithSound(pUnit, 0xBD, 0);
+            goto LABEL_MODE0;
+
+        case MONSTER_SHADOWWARRIOR:
+        case MONSTER_SHADOWMASTER:
+            CUNIT_SetOverlayWithSound(pUnit, 0x10F, 0);
+            goto LABEL_MODE0;
+
+        case MONSTER_MEGADEMON1:
+        case MONSTER_VENOMLORD:
+            CUNIT_SetOverlayWithSound(pUnit, 0xB9, 0);
+            goto LABEL_MODE0;
+
+        case MONSTER_MINION1:
+        {
+            unsigned char nDirection = UNITS_GetDirection(pUnit);
+            switch (INVENTORY_GetEightWayDirection(nDirection) % 4)
+            {
+            case 0:
+                sub_004B9A00(0x51C, pUnit, 0, 0, 0);
+                break;
+            case 1:
+                sub_004B9A00(0x51F, pUnit, 0, 0, 0);
+                break;
+            case 2:
+                sub_004B9A00(0x522, pUnit, 0, 0, 0);
+                break;
+            case 3:
+                sub_004B9A00(0x525, pUnit, 0, 0, 0);
+                break;
+            }
+            UNITMODE_SetUnitMode(pUnit, 0);
+            pUnit->dwFlags &= ~2;
+            CUNIT_FreeLight(pUnit);
+            break;
+        }
+
+        case MONSTER_SUICIDEMINION1:
+            CUNIT_SetOverlayWithSound(pUnit, 0xCC, 0);
+            sub_004B9A00(0x973, pUnit, 0, 0, 0);
+            goto LABEL_MODE0;
+
+        case MONSTER_PLAGUEPOPPY:
+        case MONSTER_CYCLEOFLIFE:
+        case MONSTER_VINECREATURE:
+            GFXUTIL_SubmitMissileRequest(pUnit, 0x1D6, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
+            UNITMODE_SetUnitMode(pUnit, 0);
+            sub_004B9A00(0x316, pUnit, 0, 0, 0);
+            pUnit->dwFlags &= ~2;
+            CUNIT_FreeLight(pUnit);
+            break;
+
+        case MONSTER_CATAPULT1:
+        {
+            int nOverlay;
+            switch (pUnit->dwClassId)
+            {
+            case 0x1F1:
+            case 0x1F3:
+                nOverlay = 0xE1;
+                break;
+            case 0x1F2:
+                nOverlay = 0xE2;
+                break;
+            default:
+                goto LABEL_MODE0;
+            }
+            CUNIT_SetOverlayWithSound(pUnit, nOverlay, 0);
+            goto LABEL_MODE0;
+        }
+
+        case MONSTER_SUCCUBUS1:
+        case MONSTER_SUCCUBUSWITCH1:
+            CUNIT_SetOverlayWithSound(pUnit, 0xE5, 0);
+            goto LABEL_MODE0;
+
+        case MONSTER_SIEGEBEAST1:
+        {
+            D2DynamicPathStrc* pDeadPath = pPath;
+            D2COMMON_10160_PathUpdateDirection(pDeadPath, (PATH_GetDirection(pDeadPath) + 0x20) % 0x40);
+            goto LABEL_MODE0;
+        }
+
+        case MONSTER_BAALCLONE:
+            GFXUTIL_SubmitMissileRequest(pUnit, 0x266, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
+        case MONSTER_BAALCRABSTAIRS:
+            pUnit->dwFlagEx |= 0x40000;
+            pUnit->dwFlags |= 0x20;
+            UNITMODE_SetUnitMode(pUnit, 0xC);
+            pUnit->dwFlags &= ~2;
+            CUNIT_FreeLight(pUnit);
+            break;
+
+        default:
+            goto LABEL_MODE0;
+        }
+        break;
+    }
+
+    case 9:
+    {
+        D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        if (!(pMonStats2Txt->nFlags[2] & gdwBitMasks[3]))
+            PATH_SetUnitDeadCollision(pUnit, 0);
+
+        STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, 0, 0);
+        if (CUNIT_GetPathTargetUnit(pPlayer) == pUnit)
+            UNITS_SetTargetUnitForDynamicUnit(pPlayer, 0);
+
+        if (nMonId == MONSTER_MAGGOTQUEEN1 && pUnit->dwAnimMode == 0xE)
+        {
+            UNITS_SetUsedSkill(pUnit, SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, SKILL_QUEENDEATH));
+        }
+        else
+        {
+            UNITMODE_SetUnitMode(pUnit, 0xC);
+            CUNIT_MarkUnitDead(pUnit);
+        }
+
+        if (pUnit->dwClassId != 0xD3 && nMonId != MONSTER_CATAPULT1 && nMonId != MONSTER_SHADOWWARRIOR && nMonId != MONSTER_SHADOWMASTER)
+            GFX_RemoveOverlays(pUnit);
+
+        if (nMonId == MONSTER_BARRICADETOWER)
+            CUNIT_MarkUnitDead(GFXUTIL_SubmitMissileRequest(pUnit, 0x1A8, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1));
+
+        switch (nMonId)
+        {
+        case MONSTER_BONEWALL:
+        case MONSTER_BAALCRABSTAIRS:
+        case MONSTER_BAALCLONE:
+            pUnit->dwFlagEx |= 0x40000;
+            break;
+        }
+
+        pUnit->dwFlags &= ~2;
+        pUnit->dwFlags |= 0x20;
+        if (STATES_CheckStateMaskHideOnUnit(pUnit))
+        {
+            pUnit->dwFlagEx |= 0x40000;
+            pUnit->dwFlags &= ~4;
+            pUnit->dwFlags |= 0x20;
+        }
+
+        CUNIT_FreeLight(pUnit);
+        break;
+    }
+
+    case 7:
+    {
+        D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
+        if (pCommand && pCommand->nZero)
+            STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, pCommand->nZero << 8, 0);
+
+        if (sub_00451F30_TestUnitFlag(pUnit, 0x200))
+            pUnit->dwFlags |= 2;
+        else
+            OBJECT_SetUnitFlag(pUnit, 2, pMonStats2Txt->nFlags[0] & gdwBitMasks[3]);
+
+        OBJECT_SetUnitFlag(pUnit, 0x20, !(pMonStats2Txt->nFlags[1] & gdwBitMasks[6]));
+        CUNIT_UpdateAttackableFlag(pUnit);
+        if (!pCommand)
+        {
+            MONSTER_RefreshMonsterMode(pUnit);
+            break;
+        }
+
+        UNITMODE_SetPosition(pUnit, (unsigned short)pCommand->nX, (unsigned short)pCommand->nY, 0, 0, 0);
+        if (sub_n5b_Distance(CLIENTS_GetUnitX(pUnit) - pCommand->nX) <= 1 && sub_n5b_Distance(CLIENTS_GetUnitY(pUnit) - pCommand->nY) <= 1)
+        {
+            MONSTER_RefreshMonsterMode(pUnit);
+            break;
+        }
+
+        sub_b1_WalkTo(pUnit, pCommand, 2);
+        break;
+    }
+
+    case 0x16:
+    {
+        D2_ASSERT(pCommand, 0x911);
+        D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
+        nValue = pCommand->nX;
+        SKILLS_AssignSkill(pUnit, nValue, pCommand->nArg, 0, gszMonsterSourceFile, 0x914);
+        D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nValue);
+        UNITS_SetUsedSkill(pUnit, pSkill);
+        nValue = SKILLS_GetSkillModeFromUnit(pUnit, pSkill);
+        if (nValue == 0xE)
+            MONSTER_ReplaySequence(pUnit);
+
+        pCommand->nY = -1;
+        UNITMODE_SetUnitMode(pUnit, nValue);
+        SKILLS_StartSkillOnUnit(pUnit, pCommand);
+        break;
+    }
+
+    case 0x15:
+    {
+        D2_ASSERT(pCommand, 0x924);
+        D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
+        UNITS_SetTargetUnitForDynamicUnit(pUnit, 0);
+        nValue = pCommand->nX;
+        SKILLS_AssignSkill(pUnit, nValue, pCommand->nArg, 0, gszMonsterSourceFile, 0x929);
+        D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nValue);
+        UNITS_SetUsedSkill(pUnit, pSkill);
+        nValue = SKILLS_GetSkillModeFromUnit(pUnit, pSkill);
+        if (nValue == 0xE)
+            MONSTER_ReplaySequence(pUnit);
+
+        pCommand->nY = -1;
+        UNITMODE_SetUnitMode(pUnit, nValue);
+        sub_004C6F40(pUnit, pCommand);
+        break;
+    }
+
+    default:
+        D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
+        MONSTER_RefreshMonsterMode(pUnit);
+        break;
+    }
+
+    if (bUpdateVelocity && pCommand && pCommand->nArg)
+    {
+        const int nVelocity = STATLIST_UnitGetStatValue(pUnit, STAT_VELOCITYPERCENT, 0);
+        if (nVelocity != pCommand->nArg)
+        {
+            STATLIST_DeactivateTemporaryStates(pUnit);
+            STATLIST_AddUnitStat(pUnit, STAT_VELOCITYPERCENT, pCommand->nArg - nVelocity, 0);
+            UnitUpdateAnimRateAndVel(pUnit, gszMonsterSourceFile, 0x946);
+        }
+    }
+
+    MONSTER_RunUModUpdateCallbacks(pUnit);
+    if (sub_n5b_IsTypeFlag1(pUnit))
+    {
+        if (pUnit->dwAnimMode != 1)
+            MONSTER_RefreshMonsterMode(pUnit);
+
+        if (pPath)
+            PATH_ClearPathingFlagAndPoints(pPath);
+    }
+}
+
 static inline unsigned int sub_I20_SeedStep(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
@@ -2321,7 +2849,6 @@ static inline int sub_I20_UnitY(D2UnitStrc* pUnit)
     }
 }
 
-void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pCommand); // 0x004AFF60
 
 void __fastcall sub_J10_Emit_004AFCE0(D2UnitStrc* pUnit, int nMode, int nOtherMode)
 {
@@ -2560,8 +3087,8 @@ int __fastcall MONSTER_HandleSequenceStop(D2UnitStrc* pUnit, D2SeqModeStrc* pMod
         case 1:
             if (!pUnit->dwAnimMode && UNITS_IsAtEndOfFrameCycle(pUnit))
             {
-                D2UnitTargetStrc tTarget = {};
-                MONSTER_HandleMonsterCommand(9, pUnit, &tTarget);
+                D2MonCommandStrc tCommand = {};
+                MONSTER_HandleMonsterCommand(9, pUnit, &tCommand);
             }
             break;
         }
@@ -2606,8 +3133,7 @@ int __fastcall MONSTER_HandleSequenceStop(D2UnitStrc* pUnit, D2SeqModeStrc* pMod
     return nResult;
 }
 
-// build: symbol ?MONSTER_UpdateMonsterClient@* 0x004B13A0
-// build: context MONSTER_UpdateMonsterClient
+// 0x004B13A0
 void __fastcall MONSTER_UpdateMonsterClient(D2UnitStrc* pUnit)
 {
     const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;

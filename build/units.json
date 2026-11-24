@@ -25802,35 +25802,6 @@
      "name": "?MONSTER_GetMonUmods@@YIPAEPAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x004ADD90",
-     "length": 167
-    },
-    {
-     "va": "0x004ADE40",
-     "length": 11,
-     "name": "?MONSTER_RunUModCommandCallbacks@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADE50",
-     "length": 11,
-     "name": "?MONSTER_RunUModUpdateCallbacks@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADE60",
-     "length": 11,
-     "name": "?MONSTER_RunUModFrameCallbacks@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADE70",
-     "length": 11,
-     "name": "?MONSTER_RunUModHitCallbacks@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADE80",
-     "length": 23,
-     "name": "?MONSTER_RunUModMissileCallbacks@@YIXPAUD2UnitStrc@@PAX@Z"
-    },
-    {
      "va": "0x004AE0A0",
      "length": 64,
      "name": "?MONSTER_SetClientFlags@@YIXPAUD2UnitStrc@@G@Z"
@@ -25987,6 +25958,10 @@
      "name": "?MONSTER_UpdateCollisionForMode@@YAXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x004AFF60",
+     "length": 4280
+    },
+    {
      "va": "0x004B1020",
      "length": 6,
      "name": "MONSTER_GetEventUnit"
@@ -26010,6 +25985,11 @@
      "va": "0x004B1280",
      "length": 280,
      "name": "?MONSTER_HandleSequenceStop@@YIHPAUD2UnitStrc@@PAUD2SeqModeStrc@@@Z"
+    },
+    {
+     "va": "0x004B13A0",
+     "length": 592,
+     "name": "?MONSTER_UpdateMonsterClient@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004B15F0",
@@ -26108,22 +26088,42 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004ADEA0.cpp",
+   "file": "Source/D2Client/Unknown_004ADD90.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004ADD90",
+     "length": 167
+    },
+    {
+     "va": "0x004ADE40",
+     "length": 11,
+     "name": "?MONSTER_RunUModCommandCallbacks@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADE50",
+     "length": 11,
+     "name": "?MONSTER_RunUModUpdateCallbacks@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADE60",
+     "length": 11,
+     "name": "?MONSTER_RunUModFrameCallbacks@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADE70",
+     "length": 11,
+     "name": "?MONSTER_RunUModHitCallbacks@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADE80",
+     "length": 23,
+     "name": "?MONSTER_RunUModMissileCallbacks@@YIXPAUD2UnitStrc@@PAX@Z"
+    },
     {
      "va": "0x004ADEA0",
      "length": 480,
      "name": "?MONSTER_GetMonsterName@@YIXPAUD2UnitStrc@@PAUUnicode@@HG@Z"
-    },
-    {
-     "va": "0x004AFF60",
-     "length": 4280
-    },
-    {
-     "va": "0x004B13A0",
-     "length": 592,
-     "name": "?MONSTER_UpdateMonsterClient@@YIXPAUD2UnitStrc@@@Z"
     }
    ]
   },
