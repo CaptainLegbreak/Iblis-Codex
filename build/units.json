@@ -2832,6 +2832,31 @@
      "name": "?MAINMENUS_ShowCantConnect@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x0042F800",
+     "length": 122,
+     "name": "?sub_0042F800@@YAXXZ"
+    },
+    {
+     "va": "0x0042F880",
+     "length": 5,
+     "name": "?sub_0042F880_DestroyControls@@YAXXZ"
+    },
+    {
+     "va": "0x0042F890",
+     "length": 253,
+     "name": "?COMCALLBACK_ShowProgressScreen@@YAXXZ"
+    },
+    {
+     "va": "0x0042F990",
+     "length": 129,
+     "name": "?COMCALLBACK_UpdateProgress@@YAXXZ"
+    },
+    {
+     "va": "0x0042FA20",
+     "length": 11,
+     "name": "?sub_0042FA20@@YAXXZ"
+    },
+    {
      "va": "0x0042FA40",
      "length": 103,
      "name": "?MAINMENUS_InitAuxBattleNet@@YAHXZ"
@@ -2857,9 +2882,19 @@
      "name": "?MAINMENUS_ReturnToCharSelect@@YAXXZ"
     },
     {
+     "va": "0x0042FDE0",
+     "length": 123,
+     "name": "CHARSEL_IsRestrictedChar"
+    },
+    {
      "va": "0x0042FE60",
      "length": 8,
      "name": "?sub_0042FE60_FilterChar@@YGHPAXHPBD@Z"
+    },
+    {
+     "va": "0x0042FE70",
+     "length": 123,
+     "name": "CHARSEL_FilterLoginChar"
     },
     {
      "va": "0x0042FEF0",
@@ -2887,6 +2922,21 @@
      "name": "?MAINMENUS_ShowAddress@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
+     "va": "0x0042FFE0",
+     "length": 317,
+     "name": "?CHARSEL_CreateTcpIpScreen@@YAXXZ"
+    },
+    {
+     "va": "0x00430120",
+     "length": 53,
+     "name": "sub_00430120_OnToggle"
+    },
+    {
+     "va": "0x00430160",
+     "length": 53,
+     "name": "sub_00430160_OnToggle"
+    },
+    {
      "va": "0x004301A0",
      "length": 493,
      "name": "?MAINMENUS_CreateMultiplayerScreen@@YAXXZ"
@@ -2895,6 +2945,11 @@
      "va": "0x00430390",
      "length": 66,
      "name": "?MAINMENUS_CreateTermsControls@@YAXXZ"
+    },
+    {
+     "va": "0x004303E0",
+     "length": 31,
+     "name": "CHARSEL_IsLineBreak"
     },
     {
      "va": "0x00430400",
@@ -2917,6 +2972,16 @@
      "name": "?MAINMENUS_ScrollDown@@YGHH@Z"
     },
     {
+     "va": "0x00430520",
+     "length": 112,
+     "name": "?sub_00430520@@YAXXZ"
+    },
+    {
+     "va": "0x00430590",
+     "length": 108,
+     "name": "?COMCALLBACK_FilterNameChar@@YGHPAUD2WinControlStrc@@HPBD@Z"
+    },
+    {
      "va": "0x00430600",
      "length": 32,
      "name": "?MAINMENUS_CountNameSeparators@@YAHPBDH@Z"
@@ -2925,6 +2990,11 @@
      "va": "0x00430620",
      "length": 150,
      "name": "?MAINMENUS_UpdateNameOk@@YAXXZ"
+    },
+    {
+     "va": "0x004306C0",
+     "length": 98,
+     "name": "?CHARSEL_UpdateLoginOk@@YAXXZ"
     },
     {
      "va": "0x00430730",
@@ -2947,6 +3017,16 @@
      "name": "MAINMENUS_ShowOptionDescription"
     },
     {
+     "va": "0x00430840",
+     "length": 38,
+     "name": "CHARSEL_OnHoverSorceress"
+    },
+    {
+     "va": "0x00430870",
+     "length": 35,
+     "name": "CHARSEL_OnHoverAmazon"
+    },
+    {
      "va": "0x004308A0",
      "length": 51,
      "name": "MAINMENUS_OnSelectAssassin"
@@ -2957,14 +3037,44 @@
      "name": "MAINMENUS_OnSelectDruid"
     },
     {
+     "va": "0x00430920",
+     "length": 38,
+     "name": "CHARSEL_OnHoverNecromancer"
+    },
+    {
+     "va": "0x00430950",
+     "length": 38,
+     "name": "CHARSEL_OnHoverBarbarian"
+    },
+    {
+     "va": "0x00430980",
+     "length": 38,
+     "name": "CHARSEL_OnHoverPaladin"
+    },
+    {
      "va": "0x004309B0",
      "length": 11,
      "name": "?MAINMENUS_ClearLaunchState@@YAXXZ"
     },
     {
+     "va": "0x004309C0",
+     "length": 90,
+     "name": "CHARSEL_AddToSlots"
+    },
+    {
      "va": "0x00430A20",
      "length": 210,
      "name": "?MAINMENUS_FreeSlots@@YAHXZ"
+    },
+    {
+     "va": "0x00430B00",
+     "length": 56,
+     "name": "CHARSEL_CompareNames"
+    },
+    {
+     "va": "0x00430B50",
+     "length": 46,
+     "name": "?CHARSEL_GetSlotName@@YIPADH@Z"
     },
     {
      "va": "0x00430B80",
@@ -2992,8 +3102,18 @@
      "name": "?MAINMENUS_OnCreate@@YGHH@Z"
     },
     {
+     "va": "0x00430C80",
+     "length": 71,
+     "name": "?CHARSEL_FillCreditsList@@YAXXZ"
+    },
+    {
      "va": "0x00430CD0",
      "length": 536
+    },
+    {
+     "va": "0x00430EF0",
+     "length": 290,
+     "name": "?CHARSEL_SyncCreditsLists@@YAXXZ"
     },
     {
      "va": "0x00431020",
@@ -3023,6 +3143,11 @@
      "va": "0x004313D0",
      "length": 408,
      "name": "MAINMENUS_CreateLevelScreen"
+    },
+    {
+     "va": "0x00431570",
+     "length": 137,
+     "name": "?CHARSEL_CreateExpansionDiscPopup@@YIXH@Z"
     },
     {
      "va": "0x00431600",
@@ -3088,6 +3213,11 @@
      "va": "0x00431C60",
      "length": 37,
      "name": "?MAINMENUS_HandleCompressionMessage@@YIXPAEH@Z"
+    },
+    {
+     "va": "0x00431C90",
+     "length": 117,
+     "name": "?MAINMENUS_PollSystemPacket@@YGHH@Z"
     },
     {
      "va": "0x00431D10",
@@ -3181,6 +3311,11 @@
     {
      "va": "0x00432480",
      "length": 295
+    },
+    {
+     "va": "0x004325B0",
+     "length": 316,
+     "name": "?sub_004325B0_CreateScreen@@YAXXZ"
     },
     {
      "va": "0x004326F0",
@@ -3322,6 +3457,11 @@
      "name": "?MAINMENUS_CreateGatewayScreen@@YGHH@Z"
     },
     {
+     "va": "0x00434700",
+     "length": 90,
+     "name": "?CHARSEL_OnRealmSelected@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
      "va": "0x00434760",
      "length": 37,
      "name": "?MAINMENUS_ResetAndLeave@@YGHH@Z"
@@ -3330,6 +3470,16 @@
      "va": "0x00434790",
      "length": 452,
      "name": "?MAINMENUS_JoinTcpIp@@YGHH@Z"
+    },
+    {
+     "va": "0x00434960",
+     "length": 74,
+     "name": "?CHARSEL_DeleteCharacter@@YIHPAUD2LaunchCharEntryStrc@@PBD@Z"
+    },
+    {
+     "va": "0x004349B0",
+     "length": 79,
+     "name": "?CHARSEL_UpgradeCharacter@@YIHPAUD2LaunchCharEntryStrc@@PBD@Z"
     },
     {
      "va": "0x00434A00",
@@ -8963,116 +9113,6 @@
      "name": "@CHARSEL_SwapUnicodeBytes@8"
     },
     {
-     "va": "0x0042FDE0",
-     "length": 123,
-     "name": "CHARSEL_IsRestrictedChar"
-    },
-    {
-     "va": "0x0042FE70",
-     "length": 123,
-     "name": "CHARSEL_FilterLoginChar"
-    },
-    {
-     "va": "0x00430120",
-     "length": 53,
-     "name": "sub_00430120_OnToggle"
-    },
-    {
-     "va": "0x00430160",
-     "length": 53,
-     "name": "sub_00430160_OnToggle"
-    },
-    {
-     "va": "0x004303E0",
-     "length": 31,
-     "name": "CHARSEL_IsLineBreak"
-    },
-    {
-     "va": "0x00430520",
-     "length": 112,
-     "name": "?sub_00430520@@YAXXZ"
-    },
-    {
-     "va": "0x004306C0",
-     "length": 98,
-     "name": "?CHARSEL_UpdateLoginOk@@YAXXZ"
-    },
-    {
-     "va": "0x00430840",
-     "length": 38,
-     "name": "CHARSEL_OnHoverSorceress"
-    },
-    {
-     "va": "0x00430870",
-     "length": 35,
-     "name": "CHARSEL_OnHoverAmazon"
-    },
-    {
-     "va": "0x00430920",
-     "length": 38,
-     "name": "CHARSEL_OnHoverNecromancer"
-    },
-    {
-     "va": "0x00430950",
-     "length": 38,
-     "name": "CHARSEL_OnHoverBarbarian"
-    },
-    {
-     "va": "0x00430980",
-     "length": 38,
-     "name": "CHARSEL_OnHoverPaladin"
-    },
-    {
-     "va": "0x004309C0",
-     "length": 90,
-     "name": "CHARSEL_AddToSlots"
-    },
-    {
-     "va": "0x00430B00",
-     "length": 56,
-     "name": "CHARSEL_CompareNames"
-    },
-    {
-     "va": "0x00430B50",
-     "length": 46,
-     "name": "?CHARSEL_GetSlotName@@YIPADH@Z"
-    },
-    {
-     "va": "0x00430C80",
-     "length": 71,
-     "name": "?CHARSEL_FillCreditsList@@YAXXZ"
-    },
-    {
-     "va": "0x00430EF0",
-     "length": 290,
-     "name": "?CHARSEL_SyncCreditsLists@@YAXXZ"
-    },
-    {
-     "va": "0x00431570",
-     "length": 137,
-     "name": "?CHARSEL_CreateExpansionDiscPopup@@YIXH@Z"
-    },
-    {
-     "va": "0x004325B0",
-     "length": 316,
-     "name": "?sub_004325B0_CreateScreen@@YAXXZ"
-    },
-    {
-     "va": "0x00434700",
-     "length": 90,
-     "name": "?CHARSEL_OnRealmSelected@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
-     "va": "0x00434960",
-     "length": 74,
-     "name": "?CHARSEL_DeleteCharacter@@YIHPAUD2LaunchCharEntryStrc@@PBD@Z"
-    },
-    {
-     "va": "0x004349B0",
-     "length": 79,
-     "name": "?CHARSEL_UpgradeCharacter@@YIHPAUD2LaunchCharEntryStrc@@PBD@Z"
-    },
-    {
      "va": "0x004379C0",
      "length": 10,
      "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
@@ -9545,11 +9585,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0042FFE0",
-     "length": 317,
-     "name": "?CHARSEL_CreateTcpIpScreen@@YAXXZ"
-    },
-    {
      "va": "0x0043AD10",
      "length": 155,
      "name": "?CHARSEL_RequestCharList@@YAXPAD@Z"
@@ -9615,27 +9650,6 @@
      "va": "0x0042E690",
      "length": 13,
      "name": "CurGateway"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Unknown_0042F370.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0042F800",
-     "length": 122,
-     "name": "?sub_0042F800@@YAXXZ"
-    },
-    {
-     "va": "0x0042F880",
-     "length": 5,
-     "name": "?sub_0042F880_DestroyControls@@YAXXZ"
-    },
-    {
-     "va": "0x0042FA20",
-     "length": 11,
-     "name": "?sub_0042FA20@@YAXXZ"
     }
    ]
   },
@@ -10799,21 +10813,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0042F890",
-     "length": 253,
-     "name": "?COMCALLBACK_ShowProgressScreen@@YAXXZ"
-    },
-    {
-     "va": "0x0042F990",
-     "length": 129,
-     "name": "?COMCALLBACK_UpdateProgress@@YAXXZ"
-    },
-    {
-     "va": "0x00430590",
-     "length": 108,
-     "name": "?COMCALLBACK_FilterNameChar@@YGHPAUD2WinControlStrc@@HPBD@Z"
-    },
-    {
      "va": "0x004453B0",
      "length": 379,
      "name": "?COMCALLBACK_BuildCreateGamePanel@@YAXXZ"
@@ -11154,11 +11153,6 @@
      "va": "0x00431AF0",
      "length": 311,
      "name": "?MAINMENUS_ShowCurrentGateway@@YAXXZ"
-    },
-    {
-     "va": "0x00431C90",
-     "length": 117,
-     "name": "?MAINMENUS_PollSystemPacket@@YGHH@Z"
     },
     {
      "va": "0x004330A0",
