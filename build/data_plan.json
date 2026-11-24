@@ -85629,7 +85629,7 @@
      4,
      "0x0052BE40",
      "names.json",
-     "GAME_DefaultLeaveGame",
+     "NET_DefaultLeaveGame",
      0,
      "func"
     ],
@@ -85645,7 +85645,7 @@
      12,
      "0x0052BE60",
      "names.json",
-     "GAME_DefaultSaveDatabaseCharacter",
+     "NET_DefaultSaveDatabaseCharacter",
      0,
      "func"
     ],
@@ -85653,7 +85653,7 @@
      16,
      "0x0052BE70",
      "names.json",
-     "GAME_DefaultServerLogMessage",
+     "NET_DefaultServerLogMessage",
      0,
      "func"
     ],
@@ -85661,7 +85661,7 @@
      20,
      "0x0052BE80",
      "names.json",
-     "GAME_DefaultEnterGame",
+     "NET_DefaultEnterGame",
      0,
      "func"
     ],
@@ -85669,7 +85669,7 @@
      24,
      "0x0052BE90",
      "names.json",
-     "GAME_DefaultFindPlayerToken",
+     "NET_DefaultFindPlayerToken",
      0,
      "func"
     ],
@@ -85701,7 +85701,7 @@
      40,
      "0x0052BED0",
      "names.json",
-     "GAME_DefaultUpdateCharacterLadder",
+     "NET_DefaultUpdateCharacterLadder",
      0,
      "func"
     ],

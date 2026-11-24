@@ -42720,32 +42720,32 @@
     {
      "va": "0x0052BE40",
      "length": 3,
-     "name": "?GAME_DefaultLeaveGame@@YGXHHHHHHHHHHHHHHHHHH@Z"
+     "name": "?NET_DefaultLeaveGame@@YGXHHHHHHHHHHHHHHHHHH@Z"
     },
     {
      "va": "0x0052BE60",
      "length": 3,
-     "name": "?GAME_DefaultSaveDatabaseCharacter@@YGXHHHH@Z"
+     "name": "?NET_DefaultSaveDatabaseCharacter@@YGXHHHH@Z"
     },
     {
      "va": "0x0052BE70",
      "length": 1,
-     "name": "?GAME_DefaultServerLogMessage@@YAXXZ"
+     "name": "?NET_DefaultServerLogMessage@@YAXXZ"
     },
     {
      "va": "0x0052BE80",
      "length": 3,
-     "name": "?GAME_DefaultEnterGame@@YGXHHH@Z"
+     "name": "?NET_DefaultEnterGame@@YGXHHH@Z"
     },
     {
      "va": "0x0052BE90",
      "length": 5,
-     "name": "?GAME_DefaultFindPlayerToken@@YGHHHHHHHH@Z"
+     "name": "?NET_DefaultFindPlayerToken@@YGHHHHHHHH@Z"
     },
     {
      "va": "0x0052BED0",
      "length": 3,
-     "name": "?GAME_DefaultUpdateCharacterLadder@@YGXHHHHH@Z"
+     "name": "?NET_DefaultUpdateCharacterLadder@@YGXHHHHH@Z"
     },
     {
      "va": "0x0052BFE0",
