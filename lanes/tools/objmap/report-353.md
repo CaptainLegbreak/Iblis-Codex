@@ -43,7 +43,7 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 3 `GAME/SCmd.cpp`: # called only from it
 - `Unknown_004A43E0.cpp` (44 functions, 0x004A4110)
   - 24 `UI/text.cpp`: data # (only these two use it) x9; next to it x3
-  - 18 `UI/CmdTbl.cpp`: calls #, used only by the two x6
+  - 21 `UI/CmdTbl.cpp`: calls #, used only by the two x7
   - 18 `UI/ui.cpp`: # called only from it x5; calls #, used only by the two
 - `Unknown_004AA9C0.cpp` (21 functions, 0x004AA900)
   - 23 `UI/inv_0048DD90.cpp`: data # x23
@@ -58,7 +58,7 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 3 `UI/npcmenu.cpp`: calls #, used only by the two
   - 3 `GAME/SCmd.cpp`: # called only from it
 - **clear** `Unknown_004A6260.cpp` (1 functions, 0x004A6260)
-  - 17 `Unknown_004A43E0.cpp`: data # x5; data # (only these two use it) x5; next to it
+  - 17 `Unknown_004A43E0.cpp`: data # (only these two use it) x5; data # x5; next to it
   - 5 `UI/text_0049A950.cpp`: # called only from it; next to it
 - **clear** `Unknown_004C9D50.cpp` (10 functions, 0x004C9D50)
   - 17 `UNIT/UnitSnd.cpp`: data # (only these two use it) x6; calls #, used only by the two; next to it
@@ -76,7 +76,7 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
 - **clear** `Unknown_004BC1B0_004BE770.cpp` (2 functions, 0x004BE770)
   - 14 `Unknown_004BC1B0.cpp`: # called only from it x2; sits between two runs of it
 - **clear** `Unknown_004DC710.cpp` (3 functions, 0x004DC710)
-  - 14 `Unknown_004DCAA0.cpp`: data # x4; data # (only these two use it) x4; next to it
+  - 14 `Unknown_004DCAA0.cpp`: data # (only these two use it) x4; data # x4; next to it
   - 5 `Unknown_004DC7B0.cpp`: # called only from it; next to it
   - 3 `UNIT/UnitSnd.cpp`: # called only from it
 - `Unknown_004ADD90.cpp` (7 functions, 0x004ADD90)
@@ -215,7 +215,7 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
 - `Unknown_004F4EC0.cpp` (1 functions, 0x004F4FF0)
   - 2 `UI/SkillDesc_004E1FF0.cpp`: next to it
 
-## Lane 3: 71 placeholder files, 34 with a clear lead
+## Lane 3: 70 placeholder files, 34 with a clear lead
 
 - **clear** `Unknown_00401070.cpp` (20 functions, 0x00401070)
   - 41 `Src/ErrorManager.cpp`: sits between two runs of it x4; next to it x2; # called only from it; data # (only these two use it)
@@ -229,8 +229,6 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 23 `Unknown_00401010.cpp`: data # x11; data # (only these two use it) x5; next to it
   - 9 `Unknown_00405250.cpp`: # called only from it x3
   - 4 `Unknown_00402820.cpp`: data # x4
-- **clear** `Unknown_00405710.cpp` (3 functions, 0x00405710), path strings: main.cpp x1 (no file of that name yet)
-  - 22 `Unknown_00404F40.cpp`: calls #, used only by the two x3; # called only from it; sits between two runs of it; next to it
 - **clear** `Unknown_00421EA0.cpp` (16 functions, 0x00421EA0)
   - 22 `SOURCE/SBig.cpp`: next to it x4; calls #, used only by the two; # called only from it; sits between two runs of it
   - 6 `SOURCE/SSignature.cpp`: next to it x3
@@ -242,8 +240,6 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
 - **clear** `Unknown_00425350.cpp` (1 functions, 0x00425350)
   - 21 `SOURCE/SBig.cpp`: calls #, used only by the two x2; data # (only these two use it) x2; # called only from it; sits between two runs of it
   - 3 `Unknown_00421470.cpp`: calls #, used only by the two
-- **clear** `Unknown_00404F40.cpp` (17 functions, 0x00404F40)
-  - 18 `Unknown_00405710.cpp`: # called only from it x3; next to it x3; calls #, used only by the two
 - **clear** `Unknown_006CAE80.cpp` (13 functions, 0x006CAEC0)
   - 17 `SOURCE/SFILE.CPP`: calls #, used only by the two x5; next to it
   - 8 `Unknown_006C9A68.cpp`: data # x6; data # (only these two use it)
@@ -263,6 +259,8 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 14 `Unknown_00401010.cpp`: data # x6; data # (only these two use it) x4
   - 12 `Unknown_00402820.cpp`: data # x4; sits between two runs of it
   - 6 `Src/LogManager.cpp`: # called only from it; data #; next to it
+- **clear** `Unknown_00405710.cpp` (1 functions, 0x00405710)
+  - 14 `Unknown_00404F40.cpp`: calls #, used only by the two; # called only from it; sits between two runs of it
 - **clear** `Unknown_00421110.cpp` (7 functions, 0x00421110)
   - 14 `Unknown_004211C0.cpp`: data # x2; next to it x2; sits between two runs of it
   - 6 `Unknown_0041F6A0.cpp`: next to it x3
@@ -290,6 +288,8 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 10 `Src/ErrorManager.cpp`: sits between two runs of it; next to it
   - 6 `Unknown_00402C60.cpp`: # called only from it x2
   - 3 `Unknown_00402820.cpp`: # called only from it
+- **clear** `Unknown_00404F40.cpp` (15 functions, 0x00404F40)
+  - 10 `Unknown_00405710.cpp`: next to it x2; # called only from it; calls #, used only by the two
 - `Unknown_0041EBC0.cpp` (2 functions, 0x0041EBC0)
   - 10 `SOURCE/SCOMP.CPP`: sits between two runs of it; next to it
   - 6 `Unknown_0041E9C0.cpp`: # called only from it x2
@@ -440,8 +440,6 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
 - `Unknown_00426900.cpp` (1 functions, 0x0042B9D0)
   - 2 `zlib/adler32.c`: next to it
   - 2 `zlib/trees.c`: next to it
-- `Unknown_006CAA30.cpp` (1 functions, 0x006CAC30)
-  - 2 `Unknown_006C9A68.cpp`: next to it
 
 ## Lane 4: 66 placeholder files, 25 with a clear lead
 
@@ -475,10 +473,10 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 32 `Unknown_00472210.cpp`: calls #, used only by the two x3; next to it x3; sits between two runs of it x2; data #
   - 17 `ENGINE/Gfx.cpp`: next to it x4; calls #, used only by the two x3
   - 12 `Unknown_004737B0.cpp`: data # x5; next to it x2; calls #, used only by the two
-- **clear** `Unknown_0049BB40.cpp` (11 functions, 0x0049BB40)
-  - 32 `UI/text.cpp`: data # x9; next to it x2; sits between two runs of it x2; # called only from it
-  - 4 `UI/inv_0048DD90.cpp`: data # x4
-  - 3 `GAME/SCmd.cpp`: # called only from it
+- **clear** `Unknown_0049BB40.cpp` (18 functions, 0x0049BB40)
+  - 30 `UI/text.cpp`: data # x14; # called only from it x2; next to it; sits between two runs of it
+  - 9 `UI/ui.cpp`: # called only from it x3
+  - 7 `UI/text_0049C9C0.cpp`: next to it x2; # called only from it
 - `Unknown_00468940.cpp` (55 functions, 0x00468940)
   - 26 `UI/CmdTbl.cpp`: sits between two runs of it x3; next to it
   - 21 `GAME/Game.cpp`: # called only from it x5; calls #, used only by the two x2
@@ -514,6 +512,8 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 14 `Unknown_0044FB50.cpp`: next to it x3; sits between two runs of it
   - 12 `GAME/View.cpp`: next to it x2; sits between two runs of it
   - 8 `Unknown_0044F9D0.cpp`: next to it x4
+- **clear** `Unknown_00469420.cpp` (1 functions, 0x00469420)
+  - 13 `UI/CmdTbl.cpp`: # called only from it; data # (only these two use it); sits between two runs of it
 - **clear** `Unknown_004737B0.cpp` (1 functions, 0x004737B0)
   - 13 `Unknown_00472DA0.cpp`: data # x2; # called only from it; sits between two runs of it
   - 1 `Unknown_00472210.cpp`: data #
@@ -594,7 +594,7 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 3 `GAME/Roster.cpp`: calls #, used only by the two
 - `Unknown_0049AF60.cpp` (2 functions, 0x0049AF60)
   - 8 `Unknown_0049AAF0.cpp`: calls #, used only by the two x2; next to it
-  - 5 `Unknown_0049BB40.cpp`: data # (only these two use it); data #; next to it
+  - 5 `Unknown_0049BB40.cpp`: data #; data # (only these two use it); next to it
   - 4 `UI/inv_0048DD90.cpp`: data # x4
 - `Unknown_00462CA0.cpp` (4 functions, 0x00462CA0)
   - 7 `UNIT/Player.cpp`: next to it x2; calls #, used only by the two
@@ -610,7 +610,7 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 2 `Unknown_00450550.cpp`: next to it
 - `Unknown_00460190.cpp` (1 functions, 0x00460190)
   - 6 `UI/ui.cpp`: calls #, used only by the two x2
-  - 5 `UI/automap.cpp`: data #; data # (only these two use it); next to it
+  - 5 `UI/automap.cpp`: data # (only these two use it); data #; next to it
   - 3 `GAME/View.cpp`: calls #, used only by the two
 - **clear** `Unknown_004726F0.cpp` (1 functions, 0x004726F0)
   - 6 `Unknown_00472210.cpp`: calls #, used only by the two; data #; next to it
@@ -654,10 +654,6 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 4 `UI/automap.cpp`: next to it x2
   - 4 `GAME/Game.cpp`: next to it x2
   - 2 `UI/ui.cpp`: data # (only these two use it)
-- **clear** `Unknown_00469420.cpp` (1 functions, 0x00469420)
-  - 4 `UI/CmdTbl.cpp`: # called only from it; data #
-  - 2 `UNIT/CUnit.cpp`: next to it
-  - 2 `GAME/SCmd.cpp`: next to it
 - `Unknown_0045B960.cpp` (1 functions, 0x0045B960)
   - 3 `Unknown_0045BF00.cpp`: # called only from it
   - 2 `Unknown_0045B5F0.cpp`: next to it
@@ -697,12 +693,16 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 2 `UNIT/UnitMode.cpp`: next to it
   - 2 `GAME/View.cpp`: next to it
 
-## Lane 5: 48 placeholder files, 19 with a clear lead
+## Lane 5: 49 placeholder files, 20 with a clear lead
 
 - **clear** `Unknown_0056B180.cpp` (2 functions, 0x0056B180)
   - 41 `PLAYER/PlrSave2.cpp`: calls #, used only by the two x13; next to it
   - 3 `PLAYER/PlrSave.cpp`: # called only from it
   - 2 `SKILLS/Skills.cpp`: next to it
+- `Unknown_005C0D00.cpp` (22 functions, 0x005C0D00)
+  - 25 `SKILLS/SkillItem_005C1560.cpp`: calls #, used only by the two x5; # called only from it x2; next to it x2
+  - 21 `ITEMS/Items.cpp`: # called only from it x7
+  - 11 `Unknown_005C2AF0.cpp`: calls #, used only by the two x2; # called only from it; next to it
 - **clear** `Unknown_0054EC90.cpp` (1 functions, 0x0054EC90)
   - 23 `Unknown_0054DAC0.cpp`: calls #, used only by the two x5; sits between two runs of it
   - 6 `MONSTER/MonsterChoose.cpp`: calls #, used only by the two x2
@@ -714,7 +714,7 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
 - **clear** `Unknown_005A03E0.cpp` (1 functions, 0x005A03E0)
   - 14 `MONSTER/MonsterUnique.cpp`: calls #, used only by the two; # called only from it; sits between two runs of it
 - **clear** `Unknown_005C2AF0.cpp` (2 functions, 0x005C2AF0)
-  - 14 `SKILLS/SkillItem.cpp`: calls #, used only by the two x2; # called only from it x2; next to it
+  - 14 `Unknown_005C0D00.cpp`: calls #, used only by the two x2; # called only from it x2; next to it
   - 2 `ITEMS/Items_005C2AD0.cpp`: next to it
 - **clear** `Unknown_005EEDA0.cpp` (1 functions, 0x005EEDA0)
   - 14 `Ai/AiThink4.cpp`: calls #, used only by the two; # called only from it; sits between two runs of it
@@ -760,8 +760,11 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
 - **clear** `Unknown_005A1230.cpp` (1 functions, 0x005A1230)
   - 5 `MONSTER/MonsterUnique.cpp`: calls #, used only by the two; next to it
   - 2 `Unknown_005A1280.cpp`: next to it
+- **clear** `Unknown_005C0F90.cpp` (1 functions, 0x005C25C0)
+  - 5 `Unknown_005C0D00.cpp`: # called only from it; next to it
+  - 2 `Unknown_005C2740.cpp`: next to it
 - **clear** `Unknown_005C2740.cpp` (1 functions, 0x005C2740)
-  - 5 `SKILLS/SkillItem.cpp`: # called only from it; next to it
+  - 5 `Unknown_005C0D00.cpp`: # called only from it; next to it
   - 2 `Unknown_005C0F90.cpp`: next to it
 - **clear** `Unknown_005C8BF0.cpp` (3 functions, 0x005C8BF0)
   - 5 `Unknown_005C8CA0.cpp`: # called only from it; next to it
@@ -809,10 +812,6 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 3 `UNIT/SUnit.cpp`: calls #, used only by the two
   - 2 `MISSILES/MissMode.cpp`: next to it
   - 2 `MONSTER/MonsterMode.cpp`: next to it
-- `Unknown_005C0F90.cpp` (1 functions, 0x005C25C0)
-  - 3 `SKILLS/SkillItem.cpp`: # called only from it
-  - 2 `ITEMS/Items.cpp`: next to it
-  - 2 `Unknown_005C2740.cpp`: next to it
 - `Unknown_005CAE40.cpp` (1 functions, 0x005CAE40)
   - 3 `SKILLS/SkillBar.cpp`: calls #, used only by the two
   - 2 `SKILLS/SkillSor.cpp`: next to it
@@ -861,7 +860,7 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 2 `SKILLS/SkillMonst.cpp`: next to it
   - 2 `SKILLS/SkillItem.cpp`: next to it
 
-## Lane 6: 70 placeholder files, 32 with a clear lead
+## Lane 6: 72 placeholder files, 33 with a clear lead
 
 - **clear** `Unknown_00604070.cpp` (10 functions, 0x00604070)
   - 51 `SRC/CelCmp.cpp`: sits between two runs of it x5; next to it x3; calls #, used only by the two; data # (only these two use it)
@@ -925,6 +924,8 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 11 `Unknown_00604DB0.cpp`: calls #, used only by the two x3; next to it
   - 8 `SRC/FastCmp.cpp`: calls #, used only by the two x2; next to it
   - 5 `SRC/Tilecmp.cpp`: calls #, used only by the two; next to it
+- **clear** `Unknown_00406410.cpp` (11 functions, 0x00405EF0), path strings: main.cpp x1 (no file of that name yet)
+  - 11 `Src/MainMenus.cpp`: # called only from it x3; next to it
 - `Unknown_00518C30.cpp` (2 functions, 0x00518EC0)
   - 10 `CACHE.CPP`: # called only from it x2; data # x2; next to it
   - 10 `Unknown_00518C00.cpp`: sits between two runs of it; next to it
@@ -1066,7 +1067,7 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
 - `Unknown_00508970.cpp` (2 functions, 0x00508970)
   - 2 `Src/D2WinPopup.cpp`: next to it
 
-## Lane 8: 47 placeholder files, 15 with a clear lead
+## Lane 8: 44 placeholder files, 14 with a clear lead
 
 - `Unknown_0064FAD0.cpp` (29 functions, 0x0064FAD0)
   - 24 `COLLISN/Collisn.cpp`: calls #, used only by the two x8
@@ -1076,18 +1077,12 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 20 `SKILLS/Skills.cpp`: data # (only these two use it) x10
   - 3 `Unknown_00679380.cpp`: # called only from it
   - 2 `Unknown_0067A550.cpp`: next to it
-- **clear** `Unknown_0066F350.cpp` (5 functions, 0x0066F350)
-  - 17 `Unknown_0066F3B0.cpp`: next to it x3; # called only from it; sits between two runs of it
-  - 3 `Unknown_0066FF50.cpp`: calls #, used only by the two
-  - 3 `Unknown_00670170.cpp`: calls #, used only by the two
-- **clear** `Unknown_0066F3B0.cpp` (5 functions, 0x0066F3B0)
-  - 17 `Unknown_0066F350.cpp`: next to it x3; calls #, used only by the two; sits between two runs of it
-  - 5 `Unknown_0066FF50.cpp`: # called only from it; next to it
-  - 2 `Unknown_0066FA10.cpp`: next to it
+- **clear** `Unknown_0066FAD0.cpp` (1 functions, 0x0066FAD0)
+  - 17 `DRLG/RoomTile.cpp`: calls #, used only by the two x3; sits between two runs of it
 - **clear** `Unknown_006685C0.cpp` (5 functions, 0x006685C0)
   - 14 `Unknown_00668510.cpp`: calls #, used only by the two x2; sits between two runs of it
-  - 4 `DATATBLS/ItemTbls.cpp`: data # x4
   - 4 `DATATBLS/MonsterTbls.cpp`: data # x4
+  - 4 `DATATBLS/ItemTbls.cpp`: data # x4
 - **clear** `Unknown_00627250.cpp` (1 functions, 0x006275B0)
   - 11 `Stats/StatsEx.cpp`: calls #, used only by the two; sits between two runs of it
 - **clear** `Unknown_0066AC40.cpp` (1 functions, 0x0066AC40)
@@ -1109,6 +1104,9 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 8 `INVENTORY/Inventory.cpp`: sits between two runs of it
   - 8 `Unknown_00664530.cpp`: sits between two runs of it
   - 6 `UNITS/Units.cpp`: calls #, used only by the two x2
+- **clear** `Unknown_0066FF50.cpp` (1 functions, 0x0066FF50)
+  - 8 `DRLG/RoomTile.cpp`: calls #, used only by the two; # called only from it; next to it
+  - 2 `Unknown_00670170.cpp`: next to it
 - `Unknown_00679380.cpp` (17 functions, 0x00679380)
   - 8 `PATH/PathUtil.cpp`: calls #, used only by the two x2; next to it
   - 6 `PATH/Path.cpp`: # called only from it x2
@@ -1132,10 +1130,6 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
 - **clear** `Unknown_00665810.cpp` (6 functions, 0x00665810)
   - 6 `DRLG/Preset.cpp`: data # (only these two use it) x2; next to it
   - 2 `DATATBLS/Arena.cpp`: next to it
-- `Unknown_0066FAD0.cpp` (1 functions, 0x0066FAD0)
-  - 6 `DRLG/RoomTile.cpp`: calls #, used only by the two x2
-  - 5 `Unknown_0066FA10.cpp`: calls #, used only by the two; next to it
-  - 2 `Unknown_0066F350.cpp`: next to it
 - `Unknown_00681490.cpp` (8 functions, 0x00681490)
   - 6 `PATH/PathUtil.cpp`: calls #, used only by the two x2
   - 5 `Unknown_00681240.cpp`: # called only from it; next to it
@@ -1153,13 +1147,6 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
 - **clear** `Unknown_0066AE70.cpp` (1 functions, 0x0066AE70)
   - 5 `DRLG/DrlgWarp.cpp`: # called only from it; next to it
   - 2 `DRLG/DrlgRoom.cpp`: next to it
-- **clear** `Unknown_0066FA10.cpp` (1 functions, 0x0066FA10)
-  - 5 `Unknown_0066FAD0.cpp`: # called only from it; next to it
-  - 2 `Unknown_0066F3B0.cpp`: next to it
-- `Unknown_0066FF50.cpp` (1 functions, 0x0066FF50)
-  - 5 `Unknown_0066F3B0.cpp`: calls #, used only by the two; next to it
-  - 3 `Unknown_0066F350.cpp`: # called only from it
-  - 2 `Unknown_00670170.cpp`: next to it
 - `Unknown_00674040.cpp` (2 functions, 0x00674040)
   - 5 `DATATBLS/LvlTbls.cpp`: calls #, used only by the two; next to it
   - 5 `DRLG/Drlg.cpp`: # called only from it; next to it
@@ -1186,8 +1173,8 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 2 `DRLG/RoomTile.cpp`: next to it
 - `Unknown_00640F20.cpp` (1 functions, 0x00640F20)
   - 3 `DATATBLS/DataTbls.cpp`: # called only from it
-  - 3 `DRLG/Drlg.cpp`: data #; next to it
   - 3 `DATATBLS/MonsterTbls.cpp`: data #; next to it
+  - 3 `DRLG/Drlg.cpp`: data #; next to it
 - `Unknown_00647FB0.cpp` (1 functions, 0x00647FB0)
   - 3 `PATH/Path.cpp`: # called only from it
   - 2 `SKILLS/Skills.cpp`: next to it
@@ -1204,7 +1191,7 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 3 `DATATBLS/DataTbls.cpp`: # called only from it
   - 2 `PATH/Path.cpp`: next to it
 - `Unknown_00670170.cpp` (1 functions, 0x00670170)
-  - 3 `Unknown_0066F350.cpp`: # called only from it
+  - 3 `DRLG/RoomTile.cpp`: # called only from it
   - 2 `Unknown_0066FF50.cpp`: next to it
   - 2 `DRLG/TileSub.cpp`: next to it
 - `Unknown_00674120.cpp` (1 functions, 0x00674120)
@@ -1351,8 +1338,8 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
   - 2 `Unknown_006B2F60.cpp`: data # x2
   - 2 `Src/d3dFloorCache.cpp`: next to it
 - `Unknown_006C8C50.cpp` (1 functions, 0x006C8C50)
-  - 3 `Src/gdiCore.cpp`: data #; next to it
   - 3 `Unknown_006C8C80.cpp`: data #; next to it
+  - 3 `Src/gdiCore.cpp`: data #; next to it
 - `Unknown_006C9290.cpp` (1 functions, 0x006C9290)
   - 3 `Unknown_006C8C80.cpp`: data #; next to it
   - 2 `Unknown_006C8DA0.cpp`: next to it
@@ -1463,7 +1450,7 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
 - `Unknown_006CB401.cpp` (1 functions, 0x006CB401)
   - 1 `Unknown_00517804.cpp`: data #
 
-## Whole named files with placeholder code sitting between two of their runs (29)
+## Whole named files with placeholder code sitting between two of their runs (30)
 
 - `CACHE.CPP`: `Unknown_00518C00.cpp`
 - `SRC/Codec.cpp`: `Unknown_0060B7B0.cpp`
@@ -1473,12 +1460,13 @@ next to it 2. Only files of the same module are candidates. A candidate is a lea
 - `GAME/Roster.cpp`: `Unknown_0047A980.cpp`
 - `GAME/View.cpp`: `Unknown_0044F9B0.cpp`
 - `SKILLS/SkillsMon.cpp`: `Unknown_004E2320.cpp`, `Unknown_004EDA80.cpp`
-- `UI/CmdTbl.cpp`: `Unknown_00468940.cpp`
+- `UI/CmdTbl.cpp`: `Unknown_00468940.cpp`, `Unknown_00469420.cpp`
 - `UI/Hireables.cpp`: `Unknown_00493A00.cpp`
 - `UI/useitem.cpp`: `Unknown_004C0440.cpp`
 - `UNIT/UnitSnd.cpp`: `Unknown_004CA560.cpp`
 - `DRLG/Drlg.cpp`: `Unknown_00641320.cpp`
 - `DRLG/DrlgWarp.cpp`: `Unknown_0066AB70.cpp`, `Unknown_0066AC40.cpp`
+- `DRLG/RoomTile.cpp`: `Unknown_0066FAD0.cpp`
 - `INVENTORY/Inventory.cpp`: `Unknown_0063E6B0.cpp`
 - `Stats/StatsEx.cpp`: `Unknown_00627250.cpp`
 - `Src/ddCore.cpp`: `Unknown_005125E0.cpp`, `Unknown_00512710.cpp`, `Unknown_0050F910.cpp`
