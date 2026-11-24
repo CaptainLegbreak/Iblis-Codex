@@ -1215,28 +1215,14 @@
    "state": "included"
   },
   "Source/D2Client/UI/npcmenu.cpp": {
-   "bytes": 7949,
-   "definitions": 104,
-   "externs": [
-    "extern \"C\" void __cdecl sub_004B6C70_OpenNpcMenu(); // 0x004B6C70",
-    "extern \"C\" void __cdecl sub_004B6DA0_InitHandler(); // 0x004B6DA0"
-   ],
+   "bytes": 7973,
+   "definitions": 105,
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/npcmenu.inc",
    "lang": "cpp",
    "state": "included",
    "static_definitions": 1
-  },
-  "Source/D2Client/Unknown_004B6390.cpp": {
-   "bytes": 24,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl NPCMENU_OpenTradeShop(); // 0x004B42B0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004B6390.inc",
-   "lang": "cpp",
-   "state": "included"
   },
   "Source/D2Client/UI/dialog.cpp": {
    "bytes": 264,
@@ -57423,7 +57409,7 @@
    "cname": "gData_00726C56",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004B6390.cpp",
+   "file": "Source/D2Client/UI/npcmenu.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00726C56_t gData_00726C56; // 0x00726C56",
    "head": "extern \"C\" struct d2data_00726C56_t gData_00726C56 = ",
@@ -57440,7 +57426,7 @@
     [
      8,
      "0x004B42B0",
-     "names.json",
+     "owner",
      "NPCMENU_OpenTradeShop",
      0,
      "func"
