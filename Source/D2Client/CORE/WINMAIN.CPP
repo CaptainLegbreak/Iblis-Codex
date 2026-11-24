@@ -2034,40 +2034,6 @@ void __cdecl WINMAIN_DrainPacketQueues()
     while (nLength != -1);
 }
 
-// 0x00449B70
-int __cdecl WINMAIN_PollMcpConnection()
-{
-    char szBuffer[0x400];
-    if (!gpMcpConnection)
-    {
-        return 0;
-    }
-
-    const unsigned short nLength = FOG_ConnectionReceive(gpMcpConnection, szBuffer, sizeof(szBuffer));
-    if (nLength)
-    {
-        GAME_DispatchMcpPacket(szBuffer, nLength);
-    }
-    return 1;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // 0x0044B4E0
 int __stdcall WINMAIN_ShowCommandLineHelp(const D2CmdParamsStrc* pParams, int nUnused)
 {
