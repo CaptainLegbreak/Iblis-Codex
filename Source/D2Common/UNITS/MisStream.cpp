@@ -174,3 +174,5 @@ void __stdcall MISSTREAM_Update(D2UnitStrc* pUnit, D2UnitStrc* pMissile, int nAm
         }
     }
 }
+
+#include "gen/data/Source/D2Common/UNITS/MisStream.inc"

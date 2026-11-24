@@ -224,3 +224,5 @@ int __fastcall DATATBLS_GetClassFromCharTemplateTxtRecord(int nTemplate, int nLe
 {
     return DATATBLS_GetCharTemplateTxtRecord(nTemplate, nLevel)->nClass;
 }
+
+#include "gen/data/Source/D2Common/DATATBLS/Arena.inc"
