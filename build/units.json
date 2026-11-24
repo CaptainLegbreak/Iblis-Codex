@@ -23241,11 +23241,6 @@
      "name": "TEXT_ResetNpcPanel"
     },
     {
-     "va": "0x004939B0",
-     "length": 71,
-     "name": "TEXT_LoadPopupHireling"
-    },
-    {
      "va": "0x0049AAA0",
      "length": 78,
      "name": "?TEXT_GetCenteredStringX@@YIHGH@Z"
@@ -23295,9 +23290,19 @@
      "name": "?TEXT_FreeTextBox@@YGXPAUD2TextBoxStrc@@@Z"
     },
     {
+     "va": "0x0049D440",
+     "length": 76,
+     "name": "TEXT_LoadTextSettings"
+    },
+    {
      "va": "0x0049D490",
      "length": 56,
      "name": "?TEXT_FreeTextNode@@YAXPAUD2TextNodeStrc@@@Z"
+    },
+    {
+     "va": "0x0049D4D0",
+     "length": 152,
+     "name": "TEXT_FreeTextList"
     },
     {
      "va": "0x0049D570",
@@ -23320,9 +23325,19 @@
      "name": "?TEXT_DrawTextBoxAt@@YAHPAUD2TextBoxStrc@@PAUD2RectStrc@@@Z"
     },
     {
+     "va": "0x0049DA10",
+     "length": 30,
+     "name": "TEXT_EatMsg"
+    },
+    {
      "va": "0x0049DA30",
      "length": 28,
      "name": "?TEXT_SetHoverUnit@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0049DA50",
+     "length": 8,
+     "name": "?TEXT_ClearHoverUnit@@YAXXZ"
     },
     {
      "va": "0x0049DA60",
@@ -23343,6 +23358,11 @@
      "va": "0x0049DB10",
      "length": 170,
      "name": "TEXT_CloneStringList"
+    },
+    {
+     "va": "0x0049DBC0",
+     "length": 113,
+     "name": "?TEXT_AddToHistory@@YIXPAUD2TextNodeStrc@@@Z"
     },
     {
      "va": "0x0049DC40",
@@ -23385,6 +23405,11 @@
      "length": 537
     },
     {
+     "va": "0x0049E7E0",
+     "length": 13,
+     "name": "?TEXT_SetTextCallback@@YIXP6IHPAXHH@Z0@Z"
+    },
+    {
      "va": "0x0049E7F0",
      "length": 1,
      "name": "?sub_0049E7F0_Nop@@YGXXZ"
@@ -23395,9 +23420,19 @@
      "name": "?sub_0049E800_Nop@@YGXXZ"
     },
     {
+     "va": "0x0049E810",
+     "length": 74,
+     "name": "TEXT_SetPanelRect"
+    },
+    {
      "va": "0x0049E860",
      "length": 53,
      "name": "?TEXT_ClearHint@@YAXXZ"
+    },
+    {
+     "va": "0x0049E8B0",
+     "length": 53,
+     "name": "?TEXT_GetTextUnit@@YAPAUD2UnitStrc@@XZ"
     },
     {
      "va": "0x0049E8F0",
@@ -23424,6 +23459,11 @@
      "name": "?TEXT_HandleChatPacket@@YIXPAUD2GSPacketSrv26@@@Z"
     },
     {
+     "va": "0x0049F910",
+     "length": 72,
+     "name": "?TEXT_GetTextString@@YIPBUUnicode@@G@Z"
+    },
+    {
      "va": "0x0049F960",
      "length": 165,
      "name": "?TEXT_ResetTextBox@@YAXXZ"
@@ -23443,9 +23483,19 @@
      "name": "?TEXT_FreeTextPanelCels@@YAXXZ"
     },
     {
+     "va": "0x0049FE60",
+     "length": 50,
+     "name": "TEXT_CloseTextPanelMsg"
+    },
+    {
      "va": "0x0049FEA0",
      "length": 92,
      "name": "?TEXT_PanelClickMsg@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0049FF00",
+     "length": 1,
+     "name": "?sub_0049FF00@@YAXXZ"
     },
     {
      "va": "0x0049FF10",
@@ -23456,6 +23506,11 @@
      "va": "0x0049FF60",
      "length": 43,
      "name": "@TEXT_AcceptWordPacket@4"
+    },
+    {
+     "va": "0x0049FF90",
+     "length": 109,
+     "name": "?TEXT_OpenTextData@@YIXPAUD2UnitStrc@@PAUD2ClientTextDataStrc@@@Z"
     },
     {
      "va": "0x004A0030",
@@ -24933,31 +24988,6 @@
      "va": "0x0049AA50",
      "length": 79,
      "name": "TEXT_IsMouseInRect"
-    },
-    {
-     "va": "0x0049D440",
-     "length": 76,
-     "name": "TEXT_LoadTextSettings"
-    },
-    {
-     "va": "0x0049D4D0",
-     "length": 152,
-     "name": "TEXT_FreeTextList"
-    },
-    {
-     "va": "0x0049DA10",
-     "length": 30,
-     "name": "TEXT_EatMsg"
-    },
-    {
-     "va": "0x0049E810",
-     "length": 74,
-     "name": "TEXT_SetPanelRect"
-    },
-    {
-     "va": "0x0049FE60",
-     "length": 50,
-     "name": "TEXT_CloseTextPanelMsg"
     },
     {
      "va": "0x004A01A0",
