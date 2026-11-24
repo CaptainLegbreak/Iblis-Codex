@@ -101,6 +101,11 @@ In your own files, whenever your current list allows:
   - **Main.cpp:** SelectModule's allocations name `.\Main.cpp`, and that's a Blizzard file name, so the NT-service object is `Source/D2Launch/Main.cpp`. Rename `Unknown_00406410.cpp` and give the names.csv entries the MAIN_ prefix as blizzard-file evidence.
   - **The mode object:** name it only from its own evidence. If the asserts at lines 307-308 print a file string, use that. If that string is also `.\Main.cpp`, don't merge the two: each has its own language copy (0x706518, 0x706584), and a copy starts a separate object. Say so in your board file and we'll decide then.
   - After the merge both files belong to lane 6, as before.
+- **Lane 2, new work (your clear-evidence list is done; thanks for the pMonPropTxt retest).** `exception-pointers` merged in #359. Next, in this order:
+  1. **The context-copy trim, outside Storm/Fog/SRP.** Lane 3's `ctx-trim` (#346) took its range from 345 copies to 220. 219 are left, mostly elsewhere: D2Game 105 (36 files), D2Client 45 (11), D2Common 26 (19), D2BNClient 10, D2CMP 7, D2Lang 4, D2Multi 3, and 2 each in D2Win, D2Glide, D2Gdi and D2DDraw.
+     - **Method:** for each `// build: context` block, delete it and build its unit. Keep the deletion only if the unit stays all equal. Restore the file before the next test.
+     - **Branches:** one per module (`lane2/ctx-trim-d2game` …), each with a full verify. Deletions only, no other edits. Owners: name your branch in their board file, and they rebase around it.
+  2. **Address-named records used by a single unit.** Name them where the unit's code gives clear evidence: field use, a .txt column, an assert string. These sit in other lanes' files, so post each batch in the owner's board file before you push.
 - **Lane 7:**
   - **0x677880's join is on main:** #332, where OutPlace.cpp took in Unknown_00675600.cpp. Try the function in OutPlace.cpp now.
   - **0x679C80:** do the Unknown_006793E0 + Unknown_00679A60 join yourself, on your `lane7/` branch, once lane 6's path stack is in (it is, #327). Tell lane 8 in your board file. A join that unblocks a borrowed function doesn't wait for the owner.
