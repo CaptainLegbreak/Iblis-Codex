@@ -3417,33 +3417,8 @@ void __fastcall SCMD_FreePacketBuffer(D2UnitStrc* pUnit)
     }
 }
 
-// 0x0045FF70
-void __stdcall SCMD_ConfirmPopup(SMSGHANDLER_PARAMS* pMsg)
-{
-    gbPopupDismissed = 1;
-    gbPopupMouseDown = 0;
-    GAME_ResetMouseButtons();
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
 
-// 0x0045FFB0
-void __stdcall SCMD_HandlePopupEscape(SMSGHANDLER_PARAMS* pMsg)
-{
-    gbPopupDismissed = 0;
-}
 
-// 0x004603E0
-void __stdcall SCMD_ConfirmOkCancelPopup(SMSGHANDLER_PARAMS* pMsg)
-{
-    gbOkCancelAccepted = 1;
-    gbPopupMouseDown = 0;
-    GAME_ResetMouseButtons();
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
 
 // 0x00462F60
 void __fastcall SCMD_DropUnitItems(D2UnitDropItemsPacketStrc* pPacket)
@@ -4423,18 +4398,6 @@ void __fastcall SCMD_HandleEndState(const D2GSPacketSrvA9* pPacket)
     }
 }
 
-// 0x0045FC60
-void __cdecl SCMD_DrawLoadingTexts()
-{
-    const int nOldFont = D2Win_10127_SetFont(1);
-    TEXT_DrawCenteredText(gnScreenWidth / 2 - 0x84, 0xBE - gnPanelOffsetY, gnPanelOffsetX + 0x1C4, D2LANG_GetStringFromTblIndex(0x1430), 0);
-// build: symbol ?FOG_IsExpansion@* 0x00408F20
-    if (FOG_IsExpansion())
-        TEXT_DrawCenteredText(gnScreenWidth / 2 - 0x84, 0xCD - gnPanelOffsetY, gnPanelOffsetX + 0x1C4, D2LANG_GetStringFromTblIndex(0x5578), 0);
-    else
-        TEXT_DrawCenteredText(gnScreenWidth / 2 - 0x84, 0xCD - gnPanelOffsetY, gnPanelOffsetX + 0x1C4, D2LANG_GetStringFromTblIndex(0x1431), 0);
-    D2Win_10127_SetFont(nOldFont);
-}
 
 // 0x00460730
 void __fastcall SCMD_SetMonsterClientFlags(D2UnitStrc* pUnit, unsigned short nFlags, int bSet)

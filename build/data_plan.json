@@ -836,15 +836,7 @@
   "Source/D2Client/Unknown_00460420.cpp": {
    "bytes": 156,
    "definitions": 3,
-   "externs": [
-    "extern \"C\" void __cdecl AUTOMAP_PopupButtonDownMsg(); // 0x0045FE30",
-    "extern \"C\" void __cdecl ROSTERPETS_HandlePopupButtonUp(); // 0x0045FED0",
-    "extern \"C\" void __cdecl SCMD_ConfirmPopup(); // 0x0045FF70",
-    "extern \"C\" void __cdecl SCMD_HandlePopupEscape(); // 0x0045FFB0",
-    "extern \"C\" void __cdecl AUTOMAP_PopupTwoButtonDownMsg(); // 0x004601F0",
-    "extern \"C\" void __cdecl AUTOMAP_PopupTwoButtonUpMsg(); // 0x004602E0",
-    "extern \"C\" void __cdecl SCMD_ConfirmOkCancelPopup(); // 0x004603E0"
-   ],
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_00460420.inc",
    "lang": "cpp",
@@ -1685,33 +1677,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Sound/Src/D2SoundSmp.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Hell/Unknown_00516DE1.cpp": {
-   "bytes": 12,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Hell/Unknown_00516DE1.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Hell/Unknown_00517669.cpp": {
-   "bytes": 24,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Hell/Unknown_00517669.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Hell/Unknown_00517804.cpp": {
-   "bytes": 140,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Hell/Unknown_00517804.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -2819,8 +2784,8 @@
    "state": "included"
   },
   "Source/D2Game/MONSTER/MonsterUnique.cpp": {
-   "bytes": 1668,
-   "definitions": 11,
+   "bytes": 1488,
+   "definitions": 8,
    "externs": [
     "extern \"C\" void __cdecl PARTYSCREEN_InvitationCancelled(); // 0x005A5B30",
     "extern \"C\" void __cdecl PARTYSCREEN_PlayerLeftParty(); // 0x005A5D20",
@@ -4047,7 +4012,7 @@
    "state": "included"
   },
   "Source/D2Game/PLAYER/PartyScreen.cpp": {
-   "bytes": 484,
+   "bytes": 40,
    "definitions": 1,
    "externs": [
     "extern \"C\" void __cdecl PARTYSCREEN_InvitationCancelled(); // 0x005A5B30",
@@ -5007,15 +4972,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Hell/Unknown_005173EF.cpp": {
-   "bytes": 124,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Hell/Unknown_005173EF.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/SKILLS/SkillBar.cpp": {
    "bytes": 184,
    "definitions": 2,
@@ -5118,6 +5074,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_005EFB80.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Hell/Unknown_00516D8B.cpp": {
+   "bytes": 300,
+   "definitions": 7,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Hell/Unknown_00516D8B.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -39920,7 +39885,7 @@
     [
      8,
      "0x0045FE30",
-     "names.json",
+     "owner",
      "AUTOMAP_PopupButtonDownMsg",
      0,
      "func"
@@ -39928,7 +39893,7 @@
     [
      20,
      "0x0045FED0",
-     "names.json",
+     "owner",
      "ROSTERPETS_HandlePopupButtonUp",
      0,
      "func"
@@ -39936,7 +39901,7 @@
     [
      32,
      "0x0045FFB0",
-     "names.json",
+     "owner",
      "SCMD_HandlePopupEscape",
      0,
      "func"
@@ -39944,7 +39909,7 @@
     [
      44,
      "0x0045FF70",
-     "names.json",
+     "owner",
      "SCMD_ConfirmPopup",
      0,
      "func"
@@ -40014,7 +39979,7 @@
     [
      8,
      "0x004601F0",
-     "names.json",
+     "owner",
      "AUTOMAP_PopupTwoButtonDownMsg",
      0,
      "func"
@@ -40022,7 +39987,7 @@
     [
      20,
      "0x004602E0",
-     "names.json",
+     "owner",
      "AUTOMAP_PopupTwoButtonUpMsg",
      0,
      "func"
@@ -40038,7 +40003,7 @@
     [
      44,
      "0x004603E0",
-     "names.json",
+     "owner",
      "SCMD_ConfirmOkCancelPopup",
      0,
      "func"
@@ -80434,7 +80399,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Hell/Unknown_00516DE1.cpp",
+   "file": "Source/D2Hell/Unknown_00516D8B.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern const char* gpReference = ",
@@ -80468,7 +80433,7 @@
    "cname": "gData_0072F9F4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Hell/Unknown_00516DE1.cpp",
+   "file": "Source/D2Hell/Unknown_00516D8B.cpp",
    "form": "bytes",
    "name": "gData_0072F9F4",
    "pointers": [
@@ -80494,7 +80459,7 @@
    "cname": "gData_006CC848",
    "declared": true,
    "decorated": "?gpszModuleName@@3QBDB",
-   "file": "Source/D2Hell/Unknown_005173EF.cpp",
+   "file": "Source/D2Hell/Unknown_00516D8B.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const char* const gData_006CC848; // 0x006CC848",
    "head": "extern \"C\" const char* const gData_006CC848 = ",
@@ -80528,7 +80493,7 @@
    "cname": "gData_006DEBE8",
    "declared": true,
    "decorated": "?sgszAssertFormatString@@3QBDB",
-   "file": "Source/D2Hell/Unknown_005173EF.cpp",
+   "file": "Source/D2Hell/Unknown_00516D8B.cpp",
    "fill": 120,
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006DEBE8_t gData_006DEBE8; // 0x006DEBE8",
@@ -80565,7 +80530,7 @@
    "cname": "gData_0072F9FC",
    "declared": true,
    "decorated": "?gszRecordType@@3QBDB",
-   "file": "Source/D2Hell/Unknown_00517669.cpp",
+   "file": "Source/D2Hell/Unknown_00516D8B.cpp",
    "fill": 24,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_0072F9FC[24]; // 0x0072F9FC",
@@ -80596,7 +80561,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Hell/Unknown_00517804.cpp",
+   "file": "Source/D2Hell/Unknown_00516D8B.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern D2MessageList gtMessages = ",
@@ -80672,7 +80637,7 @@
    "cname": "gData_0072FA20",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Hell/Unknown_00517804.cpp",
+   "file": "Source/D2Hell/Unknown_00516D8B.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_0072FA20_t gData_0072FA20; // 0x0072FA20",
    "head": "extern \"C\" struct d2data_0072FA20_t gData_0072FA20 = ",
@@ -96655,420 +96620,6 @@
    "tail": "; // 0x0073C0B8",
    "type": "MONUMODFUNC",
    "va": "0x0073C0B8"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0073C4C0",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
-   "form": "bytes",
-   "name": "gData_0073C4C0",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "va": "0x0073C4C0",
-   "fwd": "extern \"C\" struct d2data_0073C4C0_t gData_0073C4C0; // 0x0073C4C0",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0073C4C0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_0073C4C0_t gData_0073C4C0 = ",
-   "tail": "; // 0x0073C4C0"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0073C4FC",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
-   "form": "bytes",
-   "name": "gData_0073C4FC",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "va": "0x0073C4FC",
-   "fwd": "extern \"C\" struct d2data_0073C4FC_t gData_0073C4FC; // 0x0073C4FC",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0073C4FC_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_0073C4FC_t gData_0073C4FC = ",
-   "tail": "; // 0x0073C4FC"
-  },
-  {
-   "alias": false,
-   "cname": "gData_0073C538",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/MONSTER/MonsterUnique.cpp",
-   "form": "bytes",
-   "name": "gData_0073C538",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "va": "0x0073C538",
-   "fwd": "extern \"C\" struct d2data_0073C538_t gData_0073C538; // 0x0073C538",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_0073C538_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_0073C538_t gData_0073C538 = ",
-   "tail": "; // 0x0073C538"
   },
   {
    "alias": false,

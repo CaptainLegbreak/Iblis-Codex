@@ -18,9 +18,13 @@ extern "C" const char gszTypeNewsTableItem_0072FF8C[];
 // build: symbol ?Set@?$TSFixedArray@IU?$TSCD@I@@@@QAEXIPBI@Z 0x004215C0
 // build: symbol ?CalcChunkSize@?$TSGrowableArray@EU?$TSCD@E@@@@QAEII@Z 0x00421160
 // build: symbol ?ReallocData@?$TSGrowableArray@EU?$TSCD@E@@@@QAEXI@Z 0x004211C0
+// build: symbol ??0?$TSBaseArray@I@@QAE@XZ 0x00421020
+// build: symbol ??0?$TSBaseArray@E@@QAE@XZ 0x00421030
 // build: symbol ??_R0I@8 0x0070886C
 // build: symbol ??_R0E@8 0x00708878
 // build: symbol ??_R0D@8 0x00708884
+template TSBaseArray<unsigned int>::TSBaseArray();
+template TSBaseArray<unsigned char>::TSBaseArray();
 template void TSFixedArray<unsigned int>::ReallocData(unsigned int);
 template void TSFixedArray<unsigned char>::ReallocData(unsigned int);
 template void TSFixedArray<char>::ReallocData(unsigned int);

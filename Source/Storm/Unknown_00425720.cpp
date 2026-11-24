@@ -32,8 +32,8 @@ namespace Crypt
 
 struct RSA
 {
-    BigNum hFirst;
-    BigNum hSecond;
+    BigNum hExponent;
+    BigNum hModulus;
 
     void Prepare(const void* pExponent, unsigned int nExponentSize, const void* pModulus, unsigned int nModulusSize);
     void Process(void* pBuffer, unsigned int nSize);
@@ -277,8 +277,8 @@ int BigNum::sub_00426050_Call(const void* pData, unsigned int nSize)
 // 0x00426070
 void Crypt::RSA::Prepare(const void* pExponent, unsigned int nExponentSize, const void* pModulus, unsigned int nModulusSize)
 {
-    hFirst.sub_00426050_Call(pExponent, nExponentSize);
-    hSecond.sub_00426050_Call(pModulus, nModulusSize);
+    hExponent.sub_00426050_Call(pExponent, nExponentSize);
+    hModulus.sub_00426050_Call(pModulus, nModulusSize);
 }
 
 // 0x004260A0
@@ -287,7 +287,7 @@ void Crypt::RSA::Process(void* pBuffer, unsigned int nSize)
     BigNum tInput;
     tInput.sub_00426050_Call(pBuffer, nSize);
     BigNum tOutput;
-    tOutput.sub_00425FE0_Apply(tInput, hSecond, hFirst);
+    tOutput.sub_00425FE0_Apply(tInput, hModulus, hExponent);
     tOutput.sub_00426010_ReadFill(pBuffer, nSize);
 }
 

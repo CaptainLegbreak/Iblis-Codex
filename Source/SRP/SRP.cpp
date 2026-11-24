@@ -23,13 +23,11 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 
 #define R4(v,w,x,y,z,i) z+=(w^x^y)+blk(i)+0xCA62C1D6+rol(v,5);w=rol(w,30);
 
-
 struct D2BigServerRecordStrc;
 
 struct D2BigServerHandlesStrc;
 
 struct D2SrpSha1ContextStrc;
-
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
@@ -72,7 +70,7 @@ struct D2SrpSha1ContextStrc
 {
     unsigned int aState[5];
     unsigned int aCount[2];
-    unsigned char f_1C[64];
+    unsigned char aBuffer[64];
 };
 
 extern "C" const unsigned char gabSha1Pad80[]; // 0x006E03F0
@@ -81,9 +79,34 @@ extern "C" const unsigned char gabSha1Pad00[]; // 0x006DEF80
 
 void __fastcall sub_00529F80_Sha1Update(D2SrpSha1ContextStrc* pContext, const unsigned char* pData, unsigned int nLength); // 0x00529F80
 
+struct D2Blob32Strc
+{
+    unsigned char abData[0x20];
+};
+
+struct D2BigRecordStrc
+{
+    D2Blob32Strc tFirst;
+    D2Blob32Strc tSecond;
+    char szName[0x20];
+    D2Blob32Strc tThird;
+};
+
+void __fastcall sub_0052A590_BigOp_425330(void* hResult, void* hArg1, void* hArg2, void* hArg3);           // 0x0052A590
+unsigned int __fastcall sub_0052A2A0_BigToBinary(void* hBig, void* pBuffer, unsigned int nSize);            // 0x0052A2A0
+void* __fastcall sub_0052A270_BigFromBinary(const void* pData, unsigned int nSize);                         // 0x0052A270
+int __fastcall sub_0052A2F0_BigCompareUnsigned(void* hBig, unsigned int nValue);                            // 0x0052A2F0
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
+
 inline void* operator new(unsigned int nSize, void* pWhere) throw()
 {
     return pWhere;
+}
+
+// 0x00528010
+void D2BigPowModStrc::sub_00528010_PowMod(void* const& hExp, void* const& hResult)
+{
+    sub_0052A590_BigOp_425330(hResult, hBase, hExp, hModulus);
 }
 
 // 0x005281D0
@@ -127,6 +150,16 @@ D2BigPairStrc::D2BigPairStrc()
 int __fastcall sub_005284F0_IsValid(D2BigPowModStrc* pState)
 {
     return pState->bValid != 0;
+}
+
+// 0x00528550
+int D2BigPairStrc::sub_00528550_ReadBoth(unsigned int* pnFirst, void* pFirst, unsigned int* pnSecond, void* pSecond)
+{
+    if (!pState->bValid)
+        return 0;
+    *pnFirst = sub_0052A2A0_BigToBinary(pState->hBase, pFirst, 0x20);
+    *pnSecond = sub_0052A2A0_BigToBinary(pState->hModulus, pSecond, 0x20);
+    return 1;
 }
 
 // 0x005285A0
@@ -196,6 +229,19 @@ void D2BigPairStrc::sub_00528630_Release()
     pState->bValid = 0;
 }
 
+// 0x00528970
+int __stdcall sub_00528970_FillRecord(D2BigRecordStrc* pRecord, const char* szName, const D2Blob32Strc* pFirst, const D2Blob32Strc* pSecond, const D2Blob32Strc* pThird)
+{
+    SStrCopy(pRecord->szName, szName, 0x7FFFFFFF);
+    pRecord->tFirst = *pFirst;
+    pRecord->tSecond = *pSecond;
+    pRecord->tThird = *pThird;
+    void* hBig = sub_0052A270_BigFromBinary(pThird, 0x20);
+    const int nResult = sub_0052A2F0_BigCompareUnsigned(hBig, 0);
+    GAME_DeleteBigNum(hBig);
+    return nResult == 1;
+}
+
 // 0x005289F0
 void D2BigPairStrc::sub_005289F0_ComputeServerPublic(D2BigServerRecordStrc* pRecord)
 {
@@ -218,7 +264,6 @@ void D2BigPairStrc::sub_00528C60_ComputeServerProof(D2BigServerRecordStrc* pReco
 {
     pState->sub_00528480_HashThreeBlocks(pRecord->abClientPublic, pRecord->abClientProof, pRecord->abKey, pRecord->abServerProof);
 }
-
 
 // 0x00528AC0
 int D2BigPairStrc::sub_00528AC0_VerifyClientProof(D2BigServerRecordStrc* pRecord, const unsigned char* pClientProof)

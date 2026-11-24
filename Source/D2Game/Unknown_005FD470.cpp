@@ -26,11 +26,6 @@ int __stdcall MONSTERS_IsDead(D2UnitStrc* pUnit); // 0x0063EA40
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit); // 0x00649180
 int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nPattern, unsigned short nMask); // 0x0064D910
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
-D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
-int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
-int __fastcall SKILLITEM_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int nX, int nY, int* pUnitType, int* pUnitGUID, int* pX, int* pY, int a7); // 0x005FDA80
-void __fastcall SUNITMSG_QueueItemSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, short nX, short nY, unsigned char a6); // 0x00571840
-
 static inline D2SkillsTxt* GetSkillsRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -124,38 +119,3 @@ reflectionFailed:
         }
         return sub_00645910_TestLine(nUnitX, nUnitY, nTargetX, nTargetY, pRoom, 0xC01) != 0;
     }
-
-// 0x005FDD60
-int __fastcall SKILLITEM_CastSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int a6)
-{
-    if (!pUnit)
-        return 0;
-    D2GameStrc* pGame = SUNIT_GetGameFromUnit(pUnit);
-    if (!pGame)
-    {
-        return 0;
-    }
-    if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
-    {
-        return 0;
-    }
-    int nUnitType;
-    int nUnitGUID;
-    int nNewX = 0;
-    int nNewY = 0;
-    if (!SKILLITEM_HandleItemEffectSkill(pGame, pUnit, nSkillId, nSkillLevel, 0, nX, nY, &nUnitType, &nUnitGUID, &nNewX, &nNewY, a6))
-        return 0;
-    int nFinalX = nNewX;
-    int nFinalY;
-    if (!nFinalX)
-    {
-        nFinalX = nX;
-        nFinalY = nY;
-    }
-    else
-    {
-        nFinalY = nNewY;
-    }
-    SUNITMSG_QueueItemSkillOnPosition(pUnit, nSkillId, nSkillLevel, nFinalX, nFinalY, a6);
-    return 1;
-}

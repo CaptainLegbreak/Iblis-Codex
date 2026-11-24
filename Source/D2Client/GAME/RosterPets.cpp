@@ -154,31 +154,6 @@ enum D2C_RosterPetsConstants
     PET_TYPE_LIFE = 7,
 };
 
-// 0x0045FED0
-void __stdcall ROSTERPETS_HandlePopupButtonUp(SMSGHANDLER_PARAMS* pMsg)
-{
-    gbPopupOkPressed = 0;
-    if (gbPopupMouseDown)
-    {
-        int nLeft = gnPanelOffsetX + 0x110;
-        int nBottom = 0x136 - gnPanelOffsetY;
-        int nX = sub_00468730();
-        int nY = sub_00468740();
-        if (nX >= nLeft && nX <= nLeft + 0x60 && nY >= nBottom - 0x20 && nY <= nBottom)
-        {
-            gbPopupDismissed = 1;
-            gbPopupMouseDown = 0;
-            pMsg->bReturn = 1;
-            pMsg->lResult = 0;
-            sub_00420290_BreakHandlerChain(pMsg);
-            return;
-        }
-    }
-    GAME_ResetMouseButtons();
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
 
 
 

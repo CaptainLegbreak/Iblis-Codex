@@ -676,22 +676,6 @@ sub_00426D80::~sub_00426D80()
     tLink.Unlink();
 }
 
-template<class T, class TGetLink>
-void TSList<T, TGetLink>::UnlinkAll()
-{
-    while (T* ptr = Head())
-        UnlinkNode(ptr);
-}
-
-template<class T, class TGetLink>
-T* TSList<T, TGetLink>::DeleteNode(T* ptr)
-{
-    T* next = Next(ptr);
-    ptr->~T();
-    SMemFree(ptr, STORM_TYPENAME(T), -2, 0);
-    return next;
-}
-
 // build: symbol ??_R0?AUBREAKCMD@@@8 0x007088D0
 // build: symbol _SMemAlloc@16 0x00413020
 // build: symbol _SMemFree@16 0x00412650
