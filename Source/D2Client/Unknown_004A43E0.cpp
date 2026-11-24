@@ -15,6 +15,7 @@
 #include "D2StatIds.h"
 #include "D2MsgRecord.h"
 #include "D2ClientQuestLog.h"
+#include "D2ClientStatButton.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -3084,15 +3085,6 @@ inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 
 
 
-#pragma pack(push, 2)
-struct D2BeltSlotStrc
-{
-    int nX;
-    int nY;
-    int bActive;
-    unsigned short wCode;
-};
-#pragma pack(pop)
 
 
 extern D2BeltSlotStrc gaStatButtons[4];                                                                  // 0x00724A48
