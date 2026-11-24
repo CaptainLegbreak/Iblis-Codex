@@ -5,6 +5,7 @@
 #include "D2GameTypes.h"
 #include "D2Win32Types.h"
 #include "D2Win32System.h"
+#include "D2FogSystemInfo.h"
 
 typedef unsigned int size_t;
 
@@ -498,7 +499,7 @@ struct D2CriticalSectionStrc;
 
 struct D2MiniDumpRequestStrc;
 
-struct T004013C0;
+struct D2FogSystemInfoStrc;
 
 struct D2ProcessEntryWStrc;
 
@@ -515,14 +516,6 @@ struct AsyncData;
 struct D2InspectorInfoStrc;
 
 struct D2CrashSubmitInfoStrc;
-
-struct T004013C0
-{
-    int f_0;
-    int nOsKind;
-    float fOsVersion;
-    unsigned int nTotalMemory;
-};
 
 typedef long (__stdcall* D2ExceptionFilterFn)(void* pExceptionPointers);
 
@@ -566,7 +559,7 @@ extern D2MiniDumpRequestStrc* gpMiniDumpRequest; // 0x0098A6E4
 
 extern void* gpfnCrashHandler; // 0x00992B10
 
-extern T004013C0 gtSystemInfo_0074D88C; // 0x0074D88C
+extern D2FogSystemInfoStrc gtSystemInfo_0074D88C; // 0x0074D88C
 
 
 

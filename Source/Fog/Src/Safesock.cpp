@@ -6,6 +6,7 @@
 #include "D2Primitives.h"
 #include "D2StormLink.h"
 #include "D2Win32System.h"
+#include "D2FogSystemInfo.h"
 
 int __stdcall SFileCloseFile(void* pArg);    // 0x004198D0
 
@@ -17,7 +18,7 @@ struct D2CriticalSectionStrc;
 
 struct D2MiniDumpRequestStrc;
 
-struct T004013C0;
+struct D2FogSystemInfoStrc;
 
 struct D2ProcessEntryWStrc;
 
@@ -36,14 +37,6 @@ struct _iobuf;
 struct D2InspectorInfoStrc;
 
 struct D2CrashSubmitInfoStrc;
-
-struct T004013C0
-{
-    int f_0;
-    int nOsKind;
-    float fOsVersion;
-    unsigned int nTotalMemory;
-};
 
 typedef long (__stdcall* D2ExceptionFilterFn)(void* pExceptionPointers);
 
@@ -95,7 +88,7 @@ extern D2MiniDumpRequestStrc* gpMiniDumpRequest; // 0x0098A6E4
 
 extern void* gpfnCrashHandler; // 0x00992B10
 
-extern T004013C0 gtSystemInfo_0074D88C; // 0x0074D88C
+extern D2FogSystemInfoStrc gtSystemInfo_0074D88C; // 0x0074D88C
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 

@@ -1,21 +1,15 @@
 #include "D2DDraw.h"
 #include "D2Win32Types.h"
+#include "D2FogSystemInfo.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct T004013C0;
+struct D2FogSystemInfoStrc;
 
-struct T004013C0
-{
-    int unk0x00;
-    int nPlatform;
-    char unk0x08[0x04];
-    unsigned int nTotalMemory;
-};
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
-T004013C0* __cdecl FOG_GetSystemInfo(); // 0x00407360
+D2FogSystemInfoStrc* __cdecl FOG_GetSystemInfo(); // 0x00407360
 int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsigned int nFlags, void* pBuffer, unsigned int nBufferSize, unsigned int* pnBytesRead); // 0x00414DE0
 int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 extern unsigned char gabDDrawDeviceGuid[16]; // 0x00881144

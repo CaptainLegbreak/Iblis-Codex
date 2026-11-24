@@ -1,5 +1,6 @@
 #include "D2Direct3D.h"
 #include "D2Win32Types.h"
+#include "D2FogSystemInfo.h"
 
 typedef void* HINSTANCE;
 typedef void* HWND;
@@ -40,7 +41,6 @@ extern int gnD3DDeviceCount;                                                    
 extern int gnDeviceStatus2;                                                                        // 0x0096F83C
 extern int gnDeviceStatus3;                                                                        // 0x0096F95C
 
-struct T004013C0 { int unk00; int mode; };
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
@@ -142,10 +142,10 @@ static int __stdcall sub_006B4C90_DetectDirect3D(HINSTANCE hInstance)
 // build: context sub_006B4E80_LoadVideoConfiguration
 int __fastcall sub_006B4E80_LoadVideoConfiguration(void* window) {
 // build: symbol ?FOG_GetSystemInfo@* 0x00407360
-    T004013C0* info=FOG_GetSystemInfo();
+    D2FogSystemInfoStrc* info=FOG_GetSystemInfo();
 // build: symbol ?gszEmptyString@* 0x006CC837
     if (!info) { FOG_DisplayHalt(gszEmptyString,sub_00408090(),1032); exit(-1); }
-    if (info->mode==1) return 0;
+    if (info->nOsKind==1) return 0;
     D2VideoKeyStrc key=gtVideoKey;
     if (gbSeen && !gbConfigured) {
         sub_006B4C90_DetectDirect3D(window);
