@@ -4,7 +4,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #315 (round j78). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
+- `main`: #316 (round j79). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
 - Units 963, placeholder files 562.
 - In progress: nothing; next round as branches are posted ready. Waiting: `lane4/options-split` (rebase).
 - **Rounds now also check plan `files` entries** (`planfiles.py`): j74's first verify failed because a stale whole entry dropped one lane's externs. The precheck also builds every file whose data plan changed. If you edit a file's plan entry, keep your branch on a recent main.
@@ -48,6 +48,7 @@ A function belongs to the lane whose address range or file run it sits in, whate
 - **D2ClientNotifyStrc stays a view** of D2ComInterfaceStrc for now. Don't force the merge: the inv_0048BC10/inv_0048DD90 operand order says those units' original headers differ from ours in a way we can't see yet. Lane 4 retries when those units change for other reasons.
 - **Pathfinding cluster 0x00678B10-0x0067BE00 (lane 6):** the strays filed in Skills.cpp and Drlg.cpp move out either way. To choose between one placeholder and several, test the shared data block 0x006F1798-0x006F1D9C. Split it by which functions read each part. If it divides into consecutive pieces, each read by a consecutive group of functions, make one placeholder per group: one object's data is contiguous, so a clean partition marks file boundaries. If the readers cross the whole block, make one placeholder, `Unknown_006793E0.cpp`. Either way, names stay placeholders: there's no assert and the names are d2moo.
 - **Language-name table (from lane 4):** the 15-entry table of language-name pointers is a header-level static array, so each object file that includes the header gets one copy. 308 copies are in .data. This is placement evidence: **a planned file holding N copies spans N original units**, and a copy marks where a unit's data starts. It sits next to the assert-path rule; it beats adjacency and names. Lane 2: find the header (Fog's ErrorManager.cpp reads its copy as `gaszLanguageNames`) and define the table there once, as `static`. Then each lane turns the copies in its own files into that include, unit by unit. Only units whose original had a copy may include it: a unit that gains a copy the image doesn't have breaks the build.
+- **Shared const tables (from lane 6):** a namespace-scope `const` table has internal linkage in C++, so two functions that read the same one were in one file, unless the table is declared extern. Ignore pooled strings, floating-point constants and selectany GUIDs. This ranks with the language-table rule.
 - **Redivivus:** not used. Nothing from it goes into the repo or to the lanes.
 
 ## Per lane
@@ -71,6 +72,7 @@ Work list, in order of value:
 Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the gnScreenHeight/gnPanelOffsetY operand order flips when D2ClientUi.h changes. Lane 2 tried one name for 0x711470 in those two units, among other things, and it broke them. Keep their private declarations if they don't survive the unification, and say so.
 
 ### Lane 2
+- `fog-records` is in #316. pMonPropTxt staying `void*`: agreed, because every typed form flips inv_0048DD90 and the table units.
 - `party-row`, `msg-record`, `save-header` and `lang-names` are in #310; `quest-timer` and `shared-copies` are in j76. D2LanguageNames.h is on main: lanes can now include it where a unit's original had a copy.
 - Language-name table: yours to start (see Decisions). Lane 5 reports copies at the ends of AiThink.cpp (twice: so it spans two original units), a3q7.cpp and MonsterChoose.cpp.
 - `sets-txt` is in #306.
@@ -111,6 +113,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 ### Lane 6
 - `data-b` is in #309: borrowed data fell to 6,376 B in that round.
 - **Language-table runs as an object count:** yes, go ahead. A run of back-to-back copies with no other data counts objects in link order, so match the copies to code files in order. Two cautions. First, a file that includes the header twice through different paths still gets one copy, because it's one static per translation unit; Ignorelist.cpp's two copies therefore mean two units. Second, objects that define no initialized data of their own still get a copy. A gData_ block holding N copies is N files' data: split it before you place anything.
+- `seg-a` is in #316. The const-table rule is now in Decisions. Leaving 0x00648020 and 0x0043B080 is right.
 - `cands-d` is in #299, `bss-a` in #302; `bss-a-2` and `path-a-2` are in j67. The path split by data reader is the right call.
 - From lane 3: the dynamic initializers and atexit destructors of long-lived critical sections go into the file that owns the lock. `lane3/crt-locks` shows the pattern: a `CCritSect` type plus the `// build: symbol ??__E…`/`??__F…` lines. Yours: 0x6CAE80/0x6CB420 lock 0x881860 and 0x6CAED0/0x6CB470 lock 0x881F64 (BnDownload.cpp); 0x6CAEA0/0x6CB440 lock 0x881894 (CACHE.CPP); 0x6CB010/0x6CB4E0 lock 0x96D610 (Preset.cpp). Wait for crt-locks to merge (j66) and build on its type. CharSel.cpp taking sub_0043B830/0x43B840 from Game.cpp is fine: the run and the globals settle it.
 - Pathfinding cluster: answered in Decisions. DUNGEON_ 0x00643260-0x00643560, the D2DDraw renderer, and Items.cpp 0x006313E0: leaving them is right.
@@ -122,6 +125,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #316 j79: questlog (lane 4), seg-a (lane 6), fog-records (lane 2).
 - #315 j78: skills-placeholders (lane 1), sbig-names (lane 3), questlog (lane 4), lang-a-2 (lane 6).
 - #314 j77: unit-init-seed-2 and coord-init (lane 5); Storm conflict resolved by the coordinator.
 - #313 j76: warden-strays-2, init-more (lane 4), sstr-strays, sevt-strays (lane 3), quest-timer, shared-copies (lane 2).
