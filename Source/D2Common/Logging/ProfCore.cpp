@@ -84,3 +84,5 @@ void __cdecl PROFCORE_DumpAndResetProfile()
         gaProfEntries[i].nCount = 0;
     }
 }
+
+#include "gen/data/Source/D2Common/Logging/ProfCore.inc"

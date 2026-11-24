@@ -3907,8 +3907,8 @@
    "state": "included"
   },
   "Source/D2Common/Chat/Ignorelist.cpp": {
-   "bytes": 3132,
-   "definitions": 9,
+   "bytes": 256,
+   "definitions": 7,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -3927,8 +3927,8 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/DataTbls.cpp": {
-   "bytes": 48,
-   "definitions": 2,
+   "bytes": 108,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DATATBLS/DataTbls.inc",
@@ -5604,6 +5604,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_0066A1A0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Common/Logging/ProfCore.cpp": {
+   "bytes": 2820,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Common/Logging/ProfCore.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -114697,7 +114706,7 @@
    "cname": "gData_007437C0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Chat/Ignorelist.cpp",
+   "file": "Source/D2Common/Logging/ProfCore.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007437C0_t gData_007437C0; // 0x007437C0",
    "head": "extern \"C\" struct d2data_007437C0_t gData_007437C0 = ",
@@ -114835,7 +114844,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Common/Chat/Ignorelist.cpp",
+   "file": "Source/D2Common/Logging/ProfCore.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2ProfileCounterStrc gaProfEntries[23] = ",
@@ -114911,7 +114920,7 @@
    "cname": "gData_007442C8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Common/Chat/Ignorelist.cpp",
+   "file": "Source/D2Common/DATATBLS/DataTbls.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007442C8_t gData_007442C8; // 0x007442C8",
    "head": "extern \"C\" struct d2data_007442C8_t gData_007442C8 = ",
@@ -163983,6 +163992,23 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_007484C4_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
    "tail": "; // 0x007484C4",
    "va": "0x007484C4"
+  },
+  {
+   "alias": false,
+   "cname": "gData_007437BC",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/Chat/Ignorelist.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_007437BC_t gData_007437BC; // 0x007437BC",
+   "head": "extern \"C\" struct d2data_007437BC_t gData_007437BC = ",
+   "name": "gData_007437BC",
+   "pointers": [],
+   "region": "data",
+   "size": 4,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_007437BC_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x007437BC",
+   "va": "0x007437BC"
   }
  ]
 }
