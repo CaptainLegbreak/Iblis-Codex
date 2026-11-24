@@ -4,6 +4,13 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- 2026-11-24 04:45 PT: **0x679C80 is now 450/450 with 28 unaligned instructions** (it was 456 B at 123), and from +0xE2 to the end everything matches except a 3-byte offset shift. What did it:
+  - the verified sibling 0x679B30's frame map: its tLastSegmentEndCoord has no frame slot and tCurCoords sits at -4, which is exactly the original 0x679C80 layout;
+  - the start-coordinate test going through a const copy of tPoint, so tPoint loses its slot;
+  - `return nNewPointsCount;` at the end instead of re-reading pPath->dwPathPoints, which removes our store-and-reload of the count;
+  - bNotStraightLine as int.
+
+  Two things are left, both in the block before the loop. The original sets bNotStraightLine = 0 before the loop (7 bytes); our compiler drops that store in every form I tried (initialiser, assignment just before the loop, function scope). And the original copies tPoint into ecx for the `.Y` shift, then reloads pPathInfo from its slot. The mutation search is running from this base.
 - 2026-11-24 04:05 PT: **0x679C80: the first 0x91 bytes now match the original exactly**, and it is down to 251 differing bytes (from 294). Two changes, both semantics-preserving because tPoint == tCurCoords at the top of every iteration: the pre-loop test reads `tCurCoords` and the loop-top test reads `tPoint`. With them pPathInfo gets its frame home at entry and ebx takes nNextPoint, as in the original. Still different: our frame is 0x34 against 0x30. Ours gives tPoint a home slot, while the original keeps it only in edi and stores nothing but tCurCoords, at -4. The verified sibling 0x679B30 (same loop, same unit) is the obvious style model, but its shape (for loop, separate end flag) moves the early part off again (455 B). The mutation search continues from the new base.
 - 2026-11-24 03:45 PT:
   - **0x6BD230, a scan of the whole image** (`scanslot.py`): it looked for every function whose prologue is `push ebp; mov ebp,esp; push ecx` and which never touches [ebp-1..-4]. There are 50 such functions besides 0x6BD230, and every verified one I checked is a register-convention function: a `static` with a custom convention (e.g. SBig FromUnsigned 0x423540, Codec 0x60B200, AiUtil 0x5DCA20, MonsterMode 0x5A8730) or a __fastcall (MissMode 0x5AD3A0). 0x6BD230 is the only external __stdcall function with the slot, and its nine call sites set nothing in ecx/edx. So the slot is a register-parameter home, which points to the original having been a static with a custom convention. But static code can't be called from D2Common/D2Win. My guess is a linker-folded or wrapper arrangement we can't reproduce in one unit; I'm parking it.
