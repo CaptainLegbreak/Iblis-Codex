@@ -64,43 +64,6 @@ public:
     int unk0x04;
 };
 
-// 0x004BA760
-static __declspec(noinline) void sub_004BA760_RefreshHint(D2TimedHintEntryStrc* pEntry)
-{
-    D2SoundsTxt* pSoundTxt = SOUNDHDR_GetSoundRecord(pEntry->nHintId);
-    pEntry->f_3D = 1;
-    unsigned char nCount = pSoundTxt->nFadeOut;
-    if (nCount && pEntry->nState == 1)
-    {
-        SOUNDINST_ArmHint(pEntry->nKey, 0, 0, nCount);
-    }
-}
-
-// 0x004BA790
-void __fastcall sub_004BA790_UpdateUnitHint(D2UnitStrc* pUnit, D2UnitStrc* pOther, int bForce)
-{
-    D2_ASSERT(pUnit && pOther, 0xCE);
-    UNITSND_RemoveUnitHint(pOther, pUnit);
-    D2TimedHintNodeStrc* pNode;
-    D2TimedHintEntryStrc* pEntry;
-    for (pNode = gpClientSoundList; pNode; pNode = pNode->pNext)
-    {
-        pEntry = pNode->pEntry;
-        if (pEntry->nKey == (int)pUnit)
-            break;
-    }
-    if (!pNode)
-        return;
-    D2SoundsTxt* pSoundTxt = SOUNDHDR_GetSoundRecord(pEntry->nHintId);
-    D2SOUNDUTIL_ListRemove(&pEntry->tTimer, pOther);
-    const int bReady = !pSoundTxt->nLoop || (pEntry->nArg45 && !pEntry->nArg4D) ? 1 : 0;
-    if (pEntry->tTimer.f_0)
-        return;
-    if (!bForce && bReady)
-        return;
-    sub_004BA760_RefreshHint(pEntry);
-}
-
 // build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
 // build: symbol ??_7UIWidget@@6B@ 0x006DA6C0
 // 0x004BABE0
