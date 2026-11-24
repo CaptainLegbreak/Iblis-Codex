@@ -501,7 +501,17 @@ extern int gnPopUpTextY;                                                        
 
 extern int gnPopUpTextMode;                                                                              // 0x007A2D28
 
+// build: symbol ??__EgwszPopUpText@@YAXXZ 0x006CAA10
+Unicode gwszPopUpText[80]; // 0x007A2C80
+
+// build: symbol ??__EgwszHoverLine@@YAXXZ 0x006CAA30
 Unicode gwszHoverLine[256]; // 0x007A2D30
+
+// build: symbol ??__EgwszHoverText@@YAXXZ 0x006CAA50
+Unicode gwszHoverText[256]; // 0x007A2A78
+
+// build: symbol ??__EgwszHoverName@@YAXXZ 0x006CAA70
+Unicode gwszHoverName[256]; // 0x007A2F38
 
 extern D2MsgHandlerEntryStrc gaKeyConfigWheelHandlers[];                                                    // 0x006D6024
 

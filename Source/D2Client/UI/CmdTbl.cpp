@@ -116,7 +116,8 @@ struct Unicode;
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-extern Unicode gwszKeyText_007A741C[4]; // 0x007A741C
+// build: symbol ??__EgwszKeyText_007A741C@@YAXXZ 0x006CAAD0
+Unicode gwszKeyText_007A741C[4]; // 0x007A741C
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 

@@ -2645,6 +2645,14 @@
     {
      "va": "0x004C5470",
      "length": 121
+    },
+    {
+     "va": "0x006CAA90",
+     "length": 11
+    },
+    {
+     "va": "0x006CAAA0",
+     "length": 14
     }
    ],
    "flags": [
@@ -13647,6 +13655,14 @@
      "va": "0x0044C6E0",
      "length": 111,
      "name": "?WINMAIN_DrainPacketQueues@@YAXXZ"
+    },
+    {
+     "va": "0x006CA9A0",
+     "length": 11
+    },
+    {
+     "va": "0x006CA9B0",
+     "length": 11
     }
    ],
    "flags": [
@@ -15152,6 +15168,10 @@
      "va": "0x004B92E0",
      "length": 63,
      "name": "INV_GetTableByte"
+    },
+    {
+     "va": "0x006CABF0",
+     "length": 17
     }
    ],
    "flags": [
@@ -16406,6 +16426,22 @@
      "va": "0x0046F9A0",
      "length": 6,
      "name": "UI_GetCofMemoryLimit"
+    },
+    {
+     "va": "0x006CAA10",
+     "length": 17
+    },
+    {
+     "va": "0x006CAA30",
+     "length": 17
+    },
+    {
+     "va": "0x006CAA50",
+     "length": 17
+    },
+    {
+     "va": "0x006CAA70",
+     "length": 17
     }
    ],
    "flags": [
@@ -19917,6 +19953,10 @@
      "va": "0x0046ACB0",
      "length": 41,
      "name": "?CMDTBL_DisableHotkeyHandlers@@YAXXZ"
+    },
+    {
+     "va": "0x006CAAD0",
+     "length": 27
     }
    ]
   },
@@ -23199,6 +23239,22 @@
      "va": "0x004BF9C0",
      "length": 1,
      "name": "?sub_004BF9C0_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x006CAAF0",
+     "length": 19
+    },
+    {
+     "va": "0x006CAB10",
+     "length": 17
+    },
+    {
+     "va": "0x006CAB30",
+     "length": 83
+    },
+    {
+     "va": "0x006CAB90",
+     "length": 83
     }
    ],
    "flags": [
@@ -24277,6 +24333,10 @@
     {
      "va": "0x006CACD0",
      "length": 10
+    },
+    {
+     "va": "0x006CACE0",
+     "length": 24
     }
    ],
    "flags": [
@@ -82426,57 +82486,13 @@
      "name": "?sub_006CA980_InitializeGameTimeHash@@YAXXZ"
     },
     {
-     "va": "0x006CA9A0",
-     "length": 11,
-     "name": "?sub_006CA9A0_Initialize@@YAXXZ"
-    },
-    {
-     "va": "0x006CA9B0",
-     "length": 11,
-     "name": "?sub_006CA9B0_Initialize@@YAXXZ"
-    },
-    {
-     "va": "0x006CAA10",
-     "length": 17
-    },
-    {
-     "va": "0x006CAA90",
-     "length": 11,
-     "name": "?sub_006CAA90_Initialize@@YAXXZ"
-    },
-    {
-     "va": "0x006CAAA0",
-     "length": 14,
-     "name": "?sub_006CAAA0_InitializeHeight@@YAXXZ"
-    },
-    {
      "va": "0x006CAAB0",
      "length": 18,
      "name": "?sub_006CAAB0_SetPerSecond@@YAXXZ"
     },
     {
-     "va": "0x006CAAD0",
-     "length": 27,
-     "name": "?sub_006CAAD0_ClearCharacterBuffer@@YAXXZ"
-    },
-    {
-     "va": "0x006CAAF0",
-     "length": 19
-    },
-    {
-     "va": "0x006CAB30",
-     "length": 83,
-     "name": "?sub_006CAB30_InitBlock@@YAXXZ"
-    },
-    {
-     "va": "0x006CAB90",
-     "length": 83,
-     "name": "?sub_006CAB90_InitBlock@@YAXXZ"
-    },
-    {
      "va": "0x006CAC10",
-     "length": 21,
-     "name": "?sub_006CAC10_InitializeHorizontalPosition@@YAXXZ"
+     "length": 21
     }
    ]
   },
@@ -82494,26 +82510,6 @@
    "file": "Source/Storm/Unknown_006CAA30.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x006CAA30",
-     "length": 17
-    },
-    {
-     "va": "0x006CAA50",
-     "length": 17
-    },
-    {
-     "va": "0x006CAA70",
-     "length": 17
-    },
-    {
-     "va": "0x006CAB10",
-     "length": 17
-    },
-    {
-     "va": "0x006CABF0",
-     "length": 17
-    },
     {
      "va": "0x006CAC30",
      "length": 156
@@ -82538,11 +82534,6 @@
    "file": "Source/Storm/Unknown_006CACE0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x006CACE0",
-     "length": 24,
-     "name": "?sub_006CACE0_InitializeThumbY@@YAXXZ"
-    },
     {
      "va": "0x006CAD00",
      "length": 15,

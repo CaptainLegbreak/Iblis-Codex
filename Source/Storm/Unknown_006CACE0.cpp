@@ -39,12 +39,6 @@ extern const char* gszWindowClass; // 0x007C9344
 extern const char* gszWindowTitle; // 0x007C9348
 extern unsigned int gaTable_00841EC8[0x200]; // 0x00841EC8
 
-// 0x006CACE0
-void __cdecl sub_006CACE0_InitializeThumbY()
-{
-    gnKeyConfigThumbY = (gnAutomapHeight_007A521C - 420) / 2 + 47;
-}
-
 unsigned short gwNameSeparatorSecond_007C0C5A; // 0x007C0C5A
 
 // 0x006CAD00

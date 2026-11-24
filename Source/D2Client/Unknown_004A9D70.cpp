@@ -130,7 +130,7 @@ void __fastcall sub_004AA1F0_DrawSkillQuantity(short* pId, int nState, int nQuan
     D2Win_10129_DrawFramedText(wszText, nX, nY - 0x32, nState, 1);
 }
 
-int gnAutomapWidth; // 0x007A5220
+extern int gnAutomapWidth; // 0x007A5220
 
 // 0x004AAAA0
 static void __stdcall sub_004AAAA0_DrawSkillTreeText(const Unicode* wszText, int nY)

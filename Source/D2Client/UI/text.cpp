@@ -840,7 +840,10 @@ int gnKeyConfigThumbScale; // 0x007C0278
 
 int gnKeyConfigFirstVisible; // 0x007C02AC
 
-int gnKeyConfigThumbY; // 0x007C02CC
+extern int gnAutomapHeight; // 0x007A521C
+
+// build: symbol ??__EgnKeyConfigThumbY@@YAXXZ 0x006CACE0
+int gnKeyConfigThumbY = (gnAutomapHeight - 420) / 2 + 47; // 0x007C02CC
 
 #pragma pack(push, 2)
 
@@ -1372,7 +1375,7 @@ struct D2KeyConfigButtonStrc;
 
 #pragma pack(pop)
 
-int gnAutomapHeight; // 0x007A521C
+
 
 #pragma pack(push, 2)
 
