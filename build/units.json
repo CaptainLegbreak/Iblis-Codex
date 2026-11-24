@@ -10871,6 +10871,17 @@
    ]
   },
   {
+   "file": "Source/D2Multi/Unknown_0043CBE0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0043CBE0",
+     "length": 12,
+     "name": "?CHATDLG_GetModuleInterface@@YIPAUD2ModuleInterfaceStrc@@PAX@Z"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Multi/Src/ComCallback.cpp",
    "rank": 0,
    "functions": [
@@ -10890,29 +10901,9 @@
      "name": "?COMCALLBACK_FilterNameChar@@YGHPAUD2WinControlStrc@@HPBD@Z"
     },
     {
-     "va": "0x00443D10",
-     "length": 49,
-     "name": "?COMCALLBACK_SetPendingName@@YGXHHPBD@Z"
-    },
-    {
      "va": "0x004453B0",
      "length": 379,
      "name": "?COMCALLBACK_BuildCreateGamePanel@@YAXXZ"
-    },
-    {
-     "va": "0x00445A80",
-     "length": 483,
-     "name": "?COMCALLBACK_ShowProfileDialog@@YIXPBDHH@Z"
-    },
-    {
-     "va": "0x00445C70",
-     "length": 381,
-     "name": "?COMCALLBACK_ShowUserInfoDialog@@YIXPBD0HH@Z"
-    },
-    {
-     "va": "0x00445DF0",
-     "length": 502,
-     "name": "?COMCALLBACK_CreateJoinScreen@@YAXXZ"
     },
     {
      "va": "0x00445FF0",
@@ -10928,6 +10919,21 @@
      "va": "0x004467D0",
      "length": 57,
      "name": "?COMCALLBACK_OpenCreateScreen@@YGHH@Z"
+    },
+    {
+     "va": "0x00446810",
+     "length": 9,
+     "name": "CHATDLG_StrChr"
+    },
+    {
+     "va": "0x00446820",
+     "length": 27,
+     "name": "?CHATDLG_SkipNamePrefix@@YIPBDPBD@Z"
+    },
+    {
+     "va": "0x00446840",
+     "length": 62,
+     "name": "?CHATDLG_CopyNamePrefix@@YIXPBDPAD@Z"
     },
     {
      "va": "0x004468F0",
@@ -10948,6 +10954,11 @@
      "va": "0x00446A00",
      "length": 141,
      "name": "?COMCALLBACK_SendAwayCommand@@YGHH@Z"
+    },
+    {
+     "va": "0x00446A90",
+     "length": 152,
+     "name": "CHATDLG_RemoveTableString"
     },
     {
      "va": "0x00446B70",
@@ -11895,21 +11906,6 @@
    ],
    "functions": [
     {
-     "va": "0x0043C6B0",
-     "length": 156,
-     "name": "?CHATDLG_WriteSaveHeader@@YIHPBD@Z"
-    },
-    {
-     "va": "0x0043CAA0",
-     "length": 308,
-     "name": "?CHATDLG_UpdateSaveFlags@@YIHPBD@Z"
-    },
-    {
-     "va": "0x0043CBE0",
-     "length": 12,
-     "name": "?CHATDLG_GetModuleInterface@@YIPAUD2ModuleInterfaceStrc@@PAX@Z"
-    },
-    {
      "va": "0x0043CBF0",
      "length": 1,
      "name": "?sub_0043CBF0_Nop@@YAXXZ"
@@ -12702,6 +12698,11 @@
      "name": "?sub_00443CC0_SelectHell@@YGHH@Z"
     },
     {
+     "va": "0x00443D10",
+     "length": 49,
+     "name": "?COMCALLBACK_SetPendingName@@YGXHHPBD@Z"
+    },
+    {
      "va": "0x00443D50",
      "length": 190,
      "name": "?CHATDLG_CreateProfileControls@@YAXXZ"
@@ -12785,24 +12786,19 @@
      "name": "?sub_004456C0_OnEnter@@YGHH@Z"
     },
     {
-     "va": "0x00446810",
-     "length": 9,
-     "name": "CHATDLG_StrChr"
+     "va": "0x00445A80",
+     "length": 483,
+     "name": "?COMCALLBACK_ShowProfileDialog@@YIXPBDHH@Z"
     },
     {
-     "va": "0x00446820",
-     "length": 27,
-     "name": "?CHATDLG_SkipNamePrefix@@YIPBDPBD@Z"
+     "va": "0x00445C70",
+     "length": 381,
+     "name": "?COMCALLBACK_ShowUserInfoDialog@@YIXPBD0HH@Z"
     },
     {
-     "va": "0x00446840",
-     "length": 62,
-     "name": "?CHATDLG_CopyNamePrefix@@YIXPBDPAD@Z"
-    },
-    {
-     "va": "0x00446A90",
-     "length": 152,
-     "name": "CHATDLG_RemoveTableString"
+     "va": "0x00445DF0",
+     "length": 502,
+     "name": "?COMCALLBACK_CreateJoinScreen@@YAXXZ"
     },
     {
      "va": "0x00448BD0",
@@ -12889,8 +12885,18 @@
    "rank": 1,
    "functions": [
     {
+     "va": "0x0043C6B0",
+     "length": 156,
+     "name": "?CHATDLG_WriteSaveHeader@@YIHPBD@Z"
+    },
+    {
      "va": "0x0043C8A0",
      "length": 497
+    },
+    {
+     "va": "0x0043CAA0",
+     "length": 308,
+     "name": "?CHATDLG_UpdateSaveFlags@@YIHPBD@Z"
     }
    ],
    "flags": [
