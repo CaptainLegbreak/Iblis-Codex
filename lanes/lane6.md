@@ -4,17 +4,10 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/pathmisc-a 4675bf14 518->513 the interleaved path-step code between Composit.cpp and MonsterTbls.cpp becomes one placeholder, Unknown_0064FAD0.cpp (29 functions from seven placeholders and strays in Path.cpp, Skills.cpp and Dungeon.cpp); MonsterTbls.cpp takes 0x00650EB0, 0x00650F00 and 0x00651040; the stretch 0x00650D70-0x00650EA0 gets its own placeholder; VERIFIED ca1c41a1
-  - Based on #318. Not stacked. Everything stays in lane 6.
-  - Evidence: 0x0064FB90 takes pPath in EAX. MSVC chooses a register convention only for a static function, and all seven of its callers are in the run, so 0x0064FB90-0x00650CA0 is one file. 0x0064FE40 and 0x006507B0 share the const 0x006EB7D4. 0x00650EB0 is static (ECX/EAX) and is called from MonsterTbls.cpp in three places. 0x00650F00 and 0x00651040 are called only by DATATBLS_LoadMonStatsTxt and use its globals.
-  - Nine stray copies drop out. Also fixed in my pins_try.sh: an explicit VA list was not normalized before unstray, so a partial move could leave the moved body behind as a stray. This branch removes the two strays that bug left in Skills.cpp and Dungeon.cpp; strays.py shows none on glcore-a.
-
-- lane6/glcore-a 3e5c8958 518->518 twenty foreign getters leave D2Glide's glCore.cpp for the files whose runs they sit in (D2Gfx Window.cpp, D2WinMain.cpp, D2WinImage.cpp, D2WinProgressBar.cpp, D2Glide Unknown_0050BD30.cpp, D2DDraw Unknown_0050F910.cpp, D2BNClient Unknown_00518C00.cpp); VERIFIED 16fb3b44
-  - Stacked on lane6/sound-a-2. Everything stays in lane 6.
-  - Each target file holds both neighbours; the names are inferred or d2moo, so the run decides. Still in glCore.cpp, with reasons in the commit message: 0x00507EE0, 0x005123A0, 0x00518C10, 0x0051A570, 0x0051CA10, 0x0051CA70 (neighbours in two files) and ddCore's 0x00511660/0x00511970 (needs ddCore's private surface types unified).
-- lane6/sound-a-2 c6514959 518->518 fourteen D2SOUND_ functions leave glCore.cpp for D2Sound placeholders (getters 0x00513AE0-0x00513BB0 into Unknown_00513A20, option getters into Unknown_00514D60); VERIFIED 0bc3070c
-  - Replaces lane6/sound-a (same change on #317). Not stacked. Everything stays in lane 6.
-  - Evidence: the getters are called un-inlined across D2Sound, so they are a separate unit; they share 0x0072F830 with Unknown_00513A20. 0x00513BC0's const tables, shared with 0x00513C50, set the boundary.
+- lane6/codec-a fa7a174b 518->514 Codec.cpp takes twelve DCC helpers from five D2CMP placeholders (Unknown_0060B200, _0060B280, _0060B530 and _0060B9A0 go; seven functions from Unknown_0060AE80, one from Unknown_0060B160); VERIFIED 61641d09
+  - Based on #319. Not stacked. Everything stays in lane 6.
+  - Evidence: 0x0060B200 (EDI), 0x0060B4B0 (ESI), 0x0060B530 (EDI/EAX/ECX) and 0x0060B640 (EAX) take register arguments, so they are static, and their callers are 0x0060B280, 0x0060B7B0, 0x0060B9A0 and Codec.cpp's 0x0060BFF0. Contiguous code then makes 0x0060B200 through the end of 0x0060BFF0 one object. Codec.cpp's .rdata block, which ends with its path string between CelDataHash.cpp's and FindTiles.cpp's, holds the tables those helpers read.
+  - 0x0060B7B0 stays in Unknown_0060B7B0.cpp, though it is in the run: its true body changes how 0x0060BFF0 assigns stack slots (MSVC uses a static callee's register use), so the two need tuning together.
 
 ## Questions
 
@@ -26,6 +19,8 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 - Lane 5: D2Game-range functions in SpriteCache.cpp: 0x005B72A0, 0x005B8740, 0x005C2FE0, 0x005DD280, 0x005E5270, 0x005EDC40, 0x005EE5C0, 0x005EF310; D2Net 0x0052BF40.
 
 ## Left in place (and why)
+
+- D2CMP 0x0060AE80 and 0x0060B130-0x0060B1F0 (bit-buffer helpers, FastCmp.cpp's CodecSkipBits): between CelDataHash.cpp and the Codec run, no callers. CodecInitLock/CodecReleaseLock 0x0060CD30/0x0060CD50 (in GfxHash.cpp) and FindTileHash 0x0060CD70 (in FastCmp.cpp): between Codec.cpp and FindTiles.cpp, inferred names. Both sides weak.
 
 - PATHMISC_SetRoom 0x0064FAA0 (Unknown_0064FAA0.cpp): it is static (pPath in ESI), but nothing in the image calls it. It sits between Composit.cpp and the new Unknown_0064FAD0.cpp run.
 - Unknown_00650D70.cpp (0x00650D70-0x00650EA0): it lies between the 0x0064FB90 run and MonsterTbls.cpp, and nothing ties it to either.
