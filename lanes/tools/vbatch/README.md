@@ -24,5 +24,9 @@ compiles every one-group change of the current best plus N random two-group chan
 the best. A variant that fails to compile fails its whole batch, so keep every alternative compilable. `PRO=1`
 adds a penalty when the frame setup differs. Writes TEMPLATE.best.cpp.
 
+`--seed N` starts from a random choice of every group (run several seeds for restarts); INTO `-` compiles the
+template's preamble alone (a minimal unit) instead of inserting into a real one. Each run uses its own scratch
+file, so two searches can run at once.
+
 A variant search ranks by listing difference only; a candidate still has to be marked and built in its unit
 (tools/build.py --files) before it counts.

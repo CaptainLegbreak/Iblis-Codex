@@ -16,9 +16,10 @@ def render(ch, name):
     return s.replace('FNAME', name)
 def score_batch(choices):
     src = pre + '\n' + '\n'.join(render(c, 'V_%04d' % k) for k, c in enumerate(choices))
-    open('/tmp/greedy_batch.cpp', 'w').write(src)
+    open('/tmp/greedy_batch_%d.cpp' % os.getpid(), 'w').write(src)
     env = dict(os.environ, INTO=into, ANCHOR=anchor, WINEDEBUG='-all'); env.pop('TMPDIR', None)
-    r = subprocess.run(['python3', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'multi.py'), rel, '/tmp/greedy_batch.cpp', va], capture_output=True, text=True, env=env)
+    if into == '-': env.pop('INTO', None)
+    r = subprocess.run(['python3', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'multi.py'), rel, '/tmp/greedy_batch_%d.cpp' % os.getpid(), va], capture_output=True, text=True, env=env)
     res = {}
     for l in r.stdout.splitlines():
         m = re.search(r'V_(\d+)\s+len\s+(\d+)/(\d+) slot (\d) difflines\s+(\d+)', l)
@@ -26,6 +27,8 @@ def score_batch(choices):
     if not res: print(r.stdout[-1500:], r.stderr[-1500:])
     return [res.get(k, 10**6) for k in range(len(choices))]
 cur = [int(x) for x in opt('--start').split(',')] if opt('--start') else [0] * len(groups)
+if opt('--seed'):
+    random.seed(int(opt('--seed'))); cur = [random.randrange(len(g)) for g in groups]
 best = score_batch([cur])[0]; print('start', cur, best, flush=True)
 for rnd in range(int(opt('--rounds', '20'))):
     neigh = []

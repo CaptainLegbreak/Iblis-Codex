@@ -5,6 +5,16 @@ Nothing here is ready to merge yet.
 
 ## Status
 
+- 2026-11-24 03:20 PT: still no match. Tried and ruled out, so nobody repeats them:
+  - **0x679C80:** 5 random-restart greedy runs over 14 groups all end at the same 447/450 (one scratch-register
+    tie: eax vs ecx for the first Y shift). Not moved by comparison forms, union layouts, a start-point pointer,
+    point-advance helpers, C-style declarations in any of 41 orders, compiler options (/Ox /Ot /Ob1 /G7 /arch /fp
+    /GF /Gs), or 0-15 extra declarations in the unit.
+  - **0x6BD230:** no slot from cached-count locals, found-flag helpers by pointer or reference, null-checking
+    accessors (VC8 won't inline them in this function), memmove declared noalias/restrict, or 4-byte local aggregates
+    (VC8 removes those entirely). The slot appears only when a value really is spilled.
+  - **0x4F8B80 (lane 7's WIP, 580/561):** VC8 rematerialises the nL21/nL12 loads where the original spills them;
+    moving aLight to function scope doesn't change that. The original's frame is 8 bytes larger.
 - 2026-11-24 02:40 PT: **0x679C80** is at 447/450 with the original's frame and stack layout
   (`lanes/vsearch/00679C80-near.cpp`, lane 7's was 456/450). The key was reading tPoint through a 32-bit
   view (`(unsigned short)(dw >> 16)` for Y): with a plain struct VC8 keeps an extra stack copy just to read .Y.
