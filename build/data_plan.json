@@ -738,8 +738,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/ui.cpp": {
-   "bytes": 7868,
-   "definitions": 79,
+   "bytes": 7864,
+   "definitions": 78,
    "externs": [
     "extern \"C\" void __cdecl TEXT_QuestButtonDownMsg(); // 0x004A2A20",
     "extern \"C\" void __cdecl SCMD_HandleResetMessage(); // 0x00452090",
@@ -864,7 +864,7 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_00460420.cpp": {
-   "bytes": 216,
+   "bytes": 156,
    "definitions": 3,
    "externs": [
     "extern \"C\" void __cdecl AUTOMAP_PopupButtonDownMsg(); // 0x0045FE30",
@@ -899,8 +899,8 @@
    "state": "included"
   },
   "Source/D2Client/UNIT/CUnit.cpp": {
-   "bytes": 1324,
-   "definitions": 7,
+   "bytes": 1260,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004642B0.inc",
@@ -908,8 +908,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/CmdTbl.cpp": {
-   "bytes": 748,
-   "definitions": 4,
+   "bytes": 812,
+   "definitions": 5,
    "externs": [
     "extern \"C\" void __cdecl sub_00468940_SetUIVar2(); // 0x00468940",
     "extern \"C\" void __cdecl SCMD_HandleHotkeyMessage(); // 0x0046A840",
@@ -4695,8 +4695,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Select.cpp": {
-   "bytes": 120,
-   "definitions": 5,
+   "bytes": 184,
+   "definitions": 7,
    "externs": [
     "extern \"C\" void __cdecl sub_00467EF0_MsgHandler(); // 0x00467EF0",
     "extern \"C\" void __cdecl ROSTERPETS_HandleButtonUp(); // 0x00467FA0",
@@ -34152,7 +34152,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/ui.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnHoverClassId = ",
@@ -41090,10 +41090,10 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Client/Unknown_00460420.cpp",
-   "fill": 9,
+   "fill": 4,
    "form": "declared",
    "fwd": null,
-   "head": "extern D2MsgHandlerEntryStrc gaOkCancelHandlers[9] = ",
+   "head": "extern D2MsgHandlerEntryStrc gaOkCancelHandlers[4] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -41132,8 +41132,8 @@
      "size": 12
     },
     "k": "arr",
-    "n": 9,
-    "size": 108
+    "n": 4,
+    "size": 48
    },
    "name": "gaOkCancelHandlers",
    "pointers": [
@@ -41168,9 +41168,29 @@
      "SCMD_ConfirmOkCancelPopup",
      0,
      "func"
-    ],
+    ]
+   ],
+   "region": "data",
+   "size": 48,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x00711D70",
+   "type": "D2MsgHandlerEntryStrc",
+   "va": "0x00711D70"
+  },
+  {
+   "alias": false,
+   "cname": "gData_00711DA0",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/UNIT/Player.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" struct d2data_00711DA0_t gData_00711DA0; // 0x00711DA0",
+   "head": "extern \"C\" struct d2data_00711DA0_t gData_00711DA0 = ",
+   "name": "gData_00711DA0",
+   "pointers": [
     [
-     48,
+     0,
      "0x006CC81C",
      "literal",
      null,
@@ -41178,7 +41198,7 @@
      "string"
     ],
     [
-     52,
+     4,
      "0x006CC814",
      "literal",
      null,
@@ -41186,7 +41206,7 @@
      "string"
     ],
     [
-     56,
+     8,
      "0x006CC80C",
      "literal",
      null,
@@ -41194,7 +41214,7 @@
      "string"
     ],
     [
-     60,
+     12,
      "0x006CC804",
      "literal",
      null,
@@ -41202,7 +41222,7 @@
      "string"
     ],
     [
-     64,
+     16,
      "0x006CC7F8",
      "literal",
      null,
@@ -41210,7 +41230,7 @@
      "string"
     ],
     [
-     68,
+     20,
      "0x006CC7F0",
      "literal",
      null,
@@ -41218,7 +41238,7 @@
      "string"
     ],
     [
-     72,
+     24,
      "0x006CC7E4",
      "literal",
      null,
@@ -41226,7 +41246,7 @@
      "string"
     ],
     [
-     76,
+     28,
      "0x006CC7DC",
      "literal",
      null,
@@ -41234,7 +41254,7 @@
      "string"
     ],
     [
-     80,
+     32,
      "0x006CC7C8",
      "literal",
      null,
@@ -41242,7 +41262,7 @@
      "string"
     ],
     [
-     84,
+     36,
      "0x006CC7B4",
      "literal",
      null,
@@ -41250,7 +41270,7 @@
      "string"
     ],
     [
-     88,
+     40,
      "0x006CC7AC",
      "literal",
      null,
@@ -41258,7 +41278,7 @@
      "string"
     ],
     [
-     92,
+     44,
      "0x006CC7A4",
      "literal",
      null,
@@ -41266,7 +41286,7 @@
      "string"
     ],
     [
-     96,
+     48,
      "0x006CC788",
      "literal",
      null,
@@ -41274,7 +41294,7 @@
      "string"
     ],
     [
-     100,
+     52,
      "0x006CC780",
      "literal",
      null,
@@ -41282,7 +41302,7 @@
      "string"
     ],
     [
-     104,
+     56,
      "0x006CC77C",
      "literal",
      null,
@@ -41291,12 +41311,10 @@
     ]
    ],
    "region": "data",
-   "size": 108,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00711D70",
-   "type": "D2MsgHandlerEntryStrc",
-   "va": "0x00711D70"
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00711DA0_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00711DA0",
+   "va": "0x00711DA0"
   },
   {
    "alias": false,
@@ -41518,7 +41536,7 @@
    "cname": "gData_00711EF4",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/Player.cpp",
+   "file": "Source/D2Client/UNIT/CUnit.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00711EF4_t gData_00711EF4; // 0x00711EF4",
    "head": "extern \"C\" struct d2data_00711EF4_t gData_00711EF4 = ",
@@ -41848,7 +41866,7 @@
    "cname": "gData_00711F54",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/CUnit.cpp",
+   "file": "Source/D2Client/GAME/Select.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00711F54_t gData_00711F54; // 0x00711F54",
    "head": "extern \"C\" struct d2data_00711F54_t gData_00711F54 = ",
@@ -41986,7 +42004,7 @@
    "cname": "gData_007121E0",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/CUnit.cpp",
+   "file": "Source/D2Client/UI/CmdTbl.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007121E0_t gData_007121E0; // 0x007121E0",
    "head": "extern \"C\" struct d2data_007121E0_t gData_007121E0 = ",
