@@ -4501,8 +4501,7 @@
     },
     {
      "va": "0x00417B80",
-     "length": 161,
-     "name": "sub_00417B80_LinkNode"
+     "length": 161
     },
     {
      "va": "0x00417C30",
@@ -4707,8 +4706,7 @@
     },
     {
      "va": "0x00418980",
-     "length": 61,
-     "name": "?sub_00418980_UnlinkAll@D2StormList0070836CStrc@@QAEXXZ"
+     "length": 61
     },
     {
      "va": "0x004189C0",
@@ -4772,8 +4770,7 @@
     },
     {
      "va": "0x00418D00",
-     "length": 60,
-     "name": "??1D2StormList0070836CStrc@@QAE@XZ"
+     "length": 60
     },
     {
      "va": "0x00418D40",
@@ -4830,8 +4827,7 @@
     },
     {
      "va": "0x00418F20",
-     "length": 112,
-     "name": "sub_00418F20_NewNode"
+     "length": 112
     },
     {
      "va": "0x00418F90",
@@ -5077,6 +5073,10 @@
      "length": 23
     },
     {
+     "va": "0x006CA810",
+     "length": 24
+    },
+    {
      "va": "0x006CA830",
      "length": 24
     },
@@ -5098,6 +5098,10 @@
     },
     {
      "va": "0x006CB120",
+     "length": 81
+    },
+    {
+     "va": "0x006CB180",
      "length": 81
     },
     {
@@ -5595,7 +5599,7 @@
     {
      "va": "0x00412650",
      "length": 179,
-     "name": "?SMemFree@@YGHPAXPBDHI@Z"
+     "name": "_SMemFree@16"
     },
     {
      "va": "0x00412710",
@@ -8371,8 +8375,7 @@
     },
     {
      "va": "0x00426B00",
-     "length": 161,
-     "name": "?sub_00426B00_LinkNode@D2StormBreakCmdListStrc@@QAEXPADI0@Z"
+     "length": 161
     },
     {
      "va": "0x00426BB0",
@@ -8396,8 +8399,7 @@
     },
     {
      "va": "0x00426C80",
-     "length": 24,
-     "name": "?sub_00426C80_RawNext@D2StormBreakCmdListStrc@@QAEPADPAUD2StormLinkStrc@@@Z"
+     "length": 24
     },
     {
      "va": "0x00426CA0",
@@ -8411,13 +8413,11 @@
     },
     {
      "va": "0x00426CF0",
-     "length": 61,
-     "name": "?sub_00426CF0_UnlinkAll@D2SEvtTSListStrc@@QAEXXZ"
+     "length": 61
     },
     {
      "va": "0x00426D30",
-     "length": 60,
-     "name": "??1D2SEvtTSListStrc@@QAE@XZ"
+     "length": 60
     },
     {
      "va": "0x00426D70",
@@ -8431,8 +8431,7 @@
     },
     {
      "va": "0x00426DC0",
-     "length": 82,
-     "name": "?sub_00426DC0_NewNode@D2StormBreakCmdListStrc@@QAEPAUBREAKCMD@@III@Z"
+     "length": 82
     },
     {
      "va": "0x00426E20",
@@ -8446,12 +8445,15 @@
     },
     {
      "va": "0x00426F20",
-     "length": 106,
-     "name": "?sub_00426F20_DeleteNode@D2StormBreakCmdListStrc@@QAEPADPAD@Z"
+     "length": 106
     },
     {
      "va": "0x00426F90",
      "length": 453
+    },
+    {
+     "va": "0x006CA900",
+     "length": 24
     },
     {
      "va": "0x006CA920",
@@ -8460,6 +8462,10 @@
     {
      "va": "0x006CB370",
      "length": 12
+    },
+    {
+     "va": "0x006CB380",
+     "length": 81
     }
    ]
   },
@@ -41968,6 +41974,11 @@
      "name": "?ITEMMODE_DropBackToGround@@YGXHPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x0055CA00",
+     "length": 57,
+     "name": "OBJECTS_MatchFieldPair"
+    },
+    {
      "va": "0x0055CA40",
      "length": 579
     },
@@ -42997,16 +43008,6 @@
      "va": "0x00555CD0",
      "length": 34,
      "name": "OBJECTS_AppendPair"
-    },
-    {
-     "va": "0x0055CA00",
-     "length": 57,
-     "name": "OBJECTS_MatchFieldPair"
-    },
-    {
-     "va": "0x00564F00",
-     "length": 33,
-     "name": "OBJECTS_CompareDescending"
     },
     {
      "va": "0x0056CD50",
@@ -48421,11 +48422,6 @@
      "name": "?TASK_ProcessGame@@YIXHPAUD2TaskStrc@@@Z"
     },
     {
-     "va": "0x00564CC0",
-     "length": 8,
-     "name": "?TASK_SetType@@YIXPAUD2TaskStrc@@H@Z"
-    },
-    {
      "va": "0x006CAF70",
      "length": 23
     },
@@ -48477,6 +48473,11 @@
      "name": "?sub_00564CB0_Nop@@YIXPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00564CC0",
+     "length": 8,
+     "name": "?TASK_SetType@@YIXPAUD2TaskStrc@@H@Z"
+    },
+    {
      "va": "0x00564CD0",
      "length": 123,
      "name": "?OBJECTS_OperateFunction32_Bank@@YIHPAUD2ObjOperateFnStrc@@H@Z"
@@ -48485,6 +48486,11 @@
      "va": "0x00564D50",
      "length": 423,
      "name": "?PLRTRADE_HandleStashButton@@YGXPAUD2GameStrc@@GPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x00564F00",
+     "length": 33,
+     "name": "OBJECTS_CompareDescending"
     },
     {
      "va": "0x00564F30",
@@ -50739,11 +50745,6 @@
      "va": "0x0057ED50",
      "length": 23,
      "name": "?SUNITDMG_SetPlayerDataMode@@YIXPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x0057F390",
-     "length": 128,
-     "name": "SUNITDMG_DropCorpseGold"
     }
    ]
   },
@@ -50814,6 +50815,11 @@
      "va": "0x005C3420",
      "length": 131,
      "name": "?SKILLS_CanApplyCurseToTarget@@YIHPAUGame@@PAUUnit@@1@Z"
+    },
+    {
+     "va": "0x005C34B0",
+     "length": 136,
+     "name": "SKILLS_ExecuteCurseTargetAi"
     },
     {
      "va": "0x005C35C0",
@@ -50923,6 +50929,11 @@
      "va": "0x005C50B0",
      "length": 9,
      "name": "?SKILLS_SrvDo055_CorpseExplosion@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005C50C0",
+     "length": 61,
+     "name": "SKILLS_SetGolemStats"
     },
     {
      "va": "0x005C5100",
@@ -51069,6 +51080,11 @@
      "va": "0x0057F330",
      "length": 95,
      "name": "?PLRMODE_FinalizeDeath@@YAXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0057F390",
+     "length": 128,
+     "name": "SUNITDMG_DropCorpseGold"
     },
     {
      "va": "0x0057F410",
@@ -60255,24 +60271,9 @@
      "length": 167
     },
     {
-     "va": "0x005C34B0",
-     "length": 136,
-     "name": "SKILLS_ExecuteCurseTargetAi"
-    },
-    {
      "va": "0x005C3540",
      "length": 122,
      "name": "SKILLS_ApplyResistanceImmunityPenalty"
-    },
-    {
-     "va": "0x005C50C0",
-     "length": 61,
-     "name": "SKILLS_SetGolemStats"
-    },
-    {
-     "va": "0x005C6C50",
-     "length": 87,
-     "name": "SKILLS_RemoveStateAndRestoreSkillMode"
     },
     {
      "va": "0x005C72F0",
@@ -60300,29 +60301,9 @@
      "name": "SKILLS_SrvDo083_FireHit"
     },
     {
-     "va": "0x005CBC80",
-     "length": 138,
-     "name": "SKILLS_SrvDo090_SwarmMove"
-    },
-    {
      "va": "0x005CBF30",
      "length": 84,
      "name": "SKILLS_SrvSt50_QuickStrike"
-    },
-    {
-     "va": "0x005CC1F0",
-     "length": 48,
-     "name": "SKILLS_SrvDo094_Submerge"
-    },
-    {
-     "va": "0x005CC240",
-     "length": 157,
-     "name": "SKILLS_SrvSt53_MonInferno"
-    },
-    {
-     "va": "0x005CCC80",
-     "length": 143,
-     "name": "SKILLS_SrvDo098_MonTeleport"
     },
     {
      "va": "0x005CD870",
@@ -60333,21 +60314,6 @@
      "va": "0x005CDD30",
      "length": 158,
      "name": "SKILLS_GetMonFrenzySequenceFrame"
-    },
-    {
-     "va": "0x005CF8C0",
-     "length": 57,
-     "name": "?SKILLS_GetSequenceEventFrame@@YIHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005D1280",
-     "length": 157,
-     "name": "SKILLS_SrvSt59_ImpInferno"
-    },
-    {
-     "va": "0x005D2140",
-     "length": 97,
-     "name": "?SKILLS_CanImpregnateTarget@@YIHPAUD2UnitStrc@@0@Z"
     },
     {
      "va": "0x005D30A0",
@@ -60642,6 +60608,11 @@
      "name": "SKILLS_GetConvertedMode"
     },
     {
+     "va": "0x005C6C50",
+     "length": 87,
+     "name": "SKILLS_RemoveStateAndRestoreSkillMode"
+    },
+    {
      "va": "0x005C6CB0",
      "length": 8,
      "name": "?SKILLS_RemoveAllStatesInGroup@@YIXPAUD2UnitStrc@@H@Z"
@@ -60861,24 +60832,9 @@
      "name": "SKILLS_SrvDo149_NecromageMissile"
     },
     {
-     "va": "0x005D25B0",
-     "length": 317,
-     "name": "SKILLS_SrvDo136_DeathMaul"
-    },
-    {
      "va": "0x005D2F80",
      "length": 273,
      "name": "SKILLS_FindUseableCorpse"
-    },
-    {
-     "va": "0x005D6410",
-     "length": 264,
-     "name": "SKILLS_RemoveStatesOnHit"
-    },
-    {
-     "va": "0x005D7C40",
-     "length": 147,
-     "name": "SKILLS_AuraCallback_AllocSkillCombat"
     },
     {
      "va": "0x005D8290",
@@ -60914,6 +60870,11 @@
      "va": "0x005D1170",
      "length": 269,
      "name": "?SKILLS_SrvDo125_WakeOfDestruction@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005D1280",
+     "length": 157,
+     "name": "SKILLS_SrvSt59_ImpInferno"
     },
     {
      "va": "0x005D1320",
@@ -60985,6 +60946,11 @@
      "va": "0x005D2090",
      "length": 161,
      "name": "SKILLS_SrvDo132_ImpFireMissile"
+    },
+    {
+     "va": "0x005D2140",
+     "length": 97,
+     "name": "?SKILLS_CanImpregnateTarget@@YIHPAUD2UnitStrc@@0@Z"
     }
    ]
   },
@@ -61167,6 +61133,11 @@
      "name": "?SKILLS_SrvSt48_SwarmMove@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005CBC80",
+     "length": 138,
+     "name": "SKILLS_SrvDo090_SwarmMove"
+    },
+    {
      "va": "0x005CBD10",
      "length": 235,
      "name": "SKILLS_SrvSt49_Nest_EvilHutSpawner"
@@ -61186,9 +61157,19 @@
      "name": "?SKILLS_SrvSt51_Submerge@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005CC1F0",
+     "length": 48,
+     "name": "SKILLS_SrvDo094_Submerge"
+    },
+    {
      "va": "0x005CC220",
      "length": 19,
      "name": "?SKILLS_SrvSt52_Emerge@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CC240",
+     "length": 157,
+     "name": "SKILLS_SrvSt53_MonInferno"
     },
     {
      "va": "0x005CC2E0",
@@ -61228,6 +61209,11 @@
      "va": "0x005CCB10",
      "length": 356,
      "name": "?SKILLS_SrvDo097_Resurrect@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005CCC80",
+     "length": 143,
+     "name": "SKILLS_SrvDo098_MonTeleport"
     },
     {
      "va": "0x005CCD10",
@@ -61383,6 +61369,11 @@
      "name": "?SKILLS_FindMeleeTarget@@YAPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@H@Z"
     },
     {
+     "va": "0x005CF8C0",
+     "length": 57,
+     "name": "?SKILLS_GetSequenceEventFrame@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x005CF900",
      "length": 1052
     },
@@ -61481,6 +61472,11 @@
      "va": "0x005D2490",
      "length": 287,
      "name": "?SKILLS_SrvDo135_MinionSpawner@@YIHPAUGame@@PAUUnit@@HH@Z"
+    },
+    {
+     "va": "0x005D25B0",
+     "length": 317,
+     "name": "SKILLS_SrvDo136_DeathMaul"
     },
     {
      "va": "0x005D26F0",
@@ -61712,6 +61708,11 @@
      "name": "?SKILLS_SrvDo046_DragonClaw@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
+     "va": "0x005D6410",
+     "length": 264,
+     "name": "SKILLS_RemoveStatesOnHit"
+    },
+    {
      "va": "0x005D6520",
      "length": 259,
      "name": "SKILLS_AuraCallback_CloakOfShadows"
@@ -61801,6 +61802,11 @@
      "name": "SKILLS_SrvDo053_ApplyAreaDamage"
     },
     {
+     "va": "0x005D7C40",
+     "length": 147,
+     "name": "SKILLS_AuraCallback_AllocSkillCombat"
+    },
+    {
      "va": "0x005D7CE0",
      "length": 298,
      "name": "SKILLS_SrvDo142_ApplyAreaCombat"
@@ -61819,11 +61825,6 @@
      "va": "0x005DA940",
      "length": 243,
      "name": "SKILLS_SrvSt06_PowerStrike_ChargedStrike"
-    },
-    {
-     "va": "0x005DAF40",
-     "length": 219,
-     "name": "SKILLS_SrvSt37_Zeal_Fury_BloodLordFrenzy"
     }
    ]
   },
@@ -62055,6 +62056,11 @@
     {
      "va": "0x005DAE30",
      "length": 259
+    },
+    {
+     "va": "0x005DAF40",
+     "length": 219,
+     "name": "SKILLS_SrvSt37_Zeal_Fury_BloodLordFrenzy"
     },
     {
      "va": "0x005DB020",
@@ -65688,21 +65694,6 @@
      "name": "?IGNORELIST_GetOrCreateIgnoreList@@YAPAUD2CommonIgnoreListStrc@@XZ"
     },
     {
-     "va": "0x006117D0",
-     "length": 33,
-     "name": "DATATBLS_GetCodeFromCompCodeTxt"
-    },
-    {
-     "va": "0x00611800",
-     "length": 36,
-     "name": "DATATBLS_GetLevelThreshold"
-    },
-    {
-     "va": "0x00611830",
-     "length": 43,
-     "name": "DATATBLS_GetMaxLevel"
-    },
-    {
      "va": "0x006125A0",
      "length": 20,
      "name": "DATATBLS_ToggleCompileTxtFlag"
@@ -65722,11 +65713,6 @@
      "va": "0x006115F0",
      "length": 1,
      "name": "?sub_006115F0_Empty@@YAXXZ"
-    },
-    {
-     "va": "0x00611760",
-     "length": 75,
-     "name": "?sub_00611760_MakeCalcCode@@YAXPBDPAD@Z"
     }
    ]
   },
@@ -65771,9 +65757,29 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00611760",
+     "length": 75,
+     "name": "?sub_00611760_MakeCalcCode@@YAXPBDPAD@Z"
+    },
+    {
      "va": "0x006117B0",
      "length": 31,
      "name": "DATATBLS_GetStringIdFromReferenceString"
+    },
+    {
+     "va": "0x006117D0",
+     "length": 33,
+     "name": "DATATBLS_GetCodeFromCompCodeTxt"
+    },
+    {
+     "va": "0x00611800",
+     "length": 36,
+     "name": "DATATBLS_GetLevelThreshold"
+    },
+    {
+     "va": "0x00611830",
+     "length": 43,
+     "name": "DATATBLS_GetMaxLevel"
     },
     {
      "va": "0x00611860",
@@ -66463,11 +66469,6 @@
      "va": "0x0061B130",
      "length": 49,
      "name": "D2Common_10095"
-    },
-    {
-     "va": "0x00627B70",
-     "length": 51,
-     "name": "?DUNGEON_ItemCalcGetRandomNumberInRange@@YIHHHHPAX@Z"
     },
     {
      "va": "0x00653ED0",
@@ -68389,6 +68390,16 @@
      "name": "STATLIST_GetMaximum"
     },
     {
+     "va": "0x00627B70",
+     "length": 51,
+     "name": "?DUNGEON_ItemCalcGetRandomNumberInRange@@YIHHHHPAX@Z"
+    },
+    {
+     "va": "0x00627BB0",
+     "length": 98,
+     "name": "sub_00627BB0_ItemCalcGetStatValue"
+    },
+    {
      "va": "0x00627C20",
      "length": 101,
      "name": "ITEMMODS_EvaluateItemFormula"
@@ -68403,17 +68414,6 @@
      "va": "0x006275B0",
      "length": 264,
      "name": "?sub_006275B0@@YGXPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00627BB0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00627BB0",
-     "length": 98,
-     "name": "sub_00627BB0_ItemCalcGetStatValue"
     }
    ]
   },
@@ -80532,16 +80532,6 @@
      "name": "?sub_006CA7B0_InitializeList@@YAXXZ"
     },
     {
-     "va": "0x006CA810",
-     "length": 24,
-     "name": "?sub_006CA810_InitializeList@@YAXXZ"
-    },
-    {
-     "va": "0x006CA900",
-     "length": 24,
-     "name": "?sub_006CA900_InitializeList@@YAXXZ"
-    },
-    {
      "va": "0x006CA940",
      "length": 17
     },
@@ -80649,16 +80639,6 @@
      "va": "0x006CB0C0",
      "length": 81,
      "name": "?sub_006CB0C0_DestroyList@@YAXXZ"
-    },
-    {
-     "va": "0x006CB180",
-     "length": 81,
-     "name": "?sub_006CB180_DestroyList@@YAXXZ"
-    },
-    {
-     "va": "0x006CB380",
-     "length": 81,
-     "name": "?sub_006CB380_DestroyList@@YAXXZ"
     }
    ]
   },

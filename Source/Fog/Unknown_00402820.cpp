@@ -2,6 +2,7 @@
 
 #include "D2GameTypes.h"
 #include "D2FogTypes.h"
+#include "D2ExceptionPointers.h"
 
 struct D2CriticalSectionStrc;
 struct D2MiniDumpRequestStrc;
@@ -51,7 +52,7 @@ struct D2CrashGuidStrc
 
 struct D2CrashModuleStrc
 {
-    void* f_0;
+    void* pBase;
     unsigned long nSize;
     char szName[0x100];
     char szPath[0x100];
@@ -115,12 +116,6 @@ struct D2ExceptionRecordStrc
     unsigned long ExceptionCode;
 };
 
-struct D2ExceptionPointersStrc
-{
-    D2ExceptionRecordStrc* ExceptionRecord;
-    void* ContextRecord;
-};
-
 struct T00403AC0
 {
     const char* szName;
@@ -143,7 +138,7 @@ struct D2CrashSubmitInfoStrc
 {
     const char* szName;
     const char* szLocale;
-    const char* f_8;
+    const char* szFrom;
     unsigned int dwFlags;
     const char* apszLines[16];
     unsigned int nLines;
@@ -307,7 +302,7 @@ static inline void sub_00402BA0_ClearGuidB(D2CrashGuidStrc* pGuid)
 // 0x00402BC0
 D2CrashModuleStrc::D2CrashModuleStrc()
 {
-    f_0 = 0;
+    pBase = 0;
     nSize = 0;
     nTimeStamp = 0;
     tGuid.Data1 = 0;
@@ -395,7 +390,7 @@ static D2CrashModuleListStrc* sub_00402FE0_InitModuleList(D2CrashModuleListStrc*
     int nLeft = 0x100 - 1;
     do
     {
-        pModule->f_0 = 0; pModule->nSize = 0; pModule->nTimeStamp = 0;
+        pModule->pBase = 0; pModule->nSize = 0; pModule->nTimeStamp = 0;
         D2CrashGuidStrc* const pGuid = &pModule->tGuid;
         pGuid->Data1 = 0; pGuid->Data2 = 0; pGuid->Data3 = 0; pGuid->Data4[0] = 0; pGuid->Data4[1] = 0;
         pModule->nAge = 0; pModule->nTimeDateStamp = 0; pModule->nVersion = 0; pModule->szName[0] = 0; pModule->szPath[0] = 0;
@@ -574,7 +569,7 @@ long __stdcall sub_00403E90_UnhandledExceptionFilter(void* pExceptionPointers)
         return 0;
     D2ExceptionPointersStrc* pPointers = (D2ExceptionPointersStrc*)pExceptionPointers;
     char szName[0x100];
-    sub_00403AC0_GetExceptionName(szName, pPointers->ExceptionRecord->ExceptionCode);
+    sub_00403AC0_GetExceptionName(szName, pPointers->pExceptionRecord->ExceptionCode);
     T00403AC0 tReport;
     tReport.szBuffer[0] = 0;
     tReport.szName = szName;
@@ -660,10 +655,10 @@ bool __fastcall sub_00401790_SubmitReport(const char* szText, D2CrashSubmitInfoS
         sub_00404150_StrlCat(" -nocancel", szCommand, 0x1000);
     if (pInfo->dwFlags & 4)
         sub_00404150_StrlCat(" -simple", szCommand, 0x1000);
-    if (pInfo->f_8)
+    if (pInfo->szFrom)
     {
         sub_00404150_StrlCat(" -from ", szCommand, 0x1000);
-        sub_00404150_StrlCat(pInfo->f_8, szCommand, 0x1000);
+        sub_00404150_StrlCat(pInfo->szFrom, szCommand, 0x1000);
     }
     if (pInfo->szLocale)
     {
@@ -864,7 +859,7 @@ static bool __stdcall sub_00404900_FindCodeView(const D2ImageDosHeaderStrc* pIma
 
 static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, const D2ImageDosHeaderStrc* pImage)
 {
-    pModule->f_0 = (void*)pImage;
+    pModule->pBase = (void*)pImage;
     if (!sub_00404760_IsDosHeaderValid(pImage))
     {
         return false;
@@ -900,7 +895,7 @@ static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, con
 bool D2ModuleStrc::sub_00404AB0_VisitModule(void* pContext, const wchar_t* wszName, int nNameLength)
 {
     D2CrashModuleStrc tModule;
-    tModule.f_0 = 0;
+    tModule.pBase = 0;
     tModule.nSize = 0;
     tModule.nTimeStamp = 0;
     memset(&tModule.tGuid, 0, sizeof(tModule.tGuid));

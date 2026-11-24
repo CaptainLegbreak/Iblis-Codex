@@ -253,7 +253,7 @@ static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, D2QueueServe
 
     D2CriticalSectionStrc* pLock = &pServer->tStatsLock;
     EnterCriticalSection(pLock);
-    ++pServer->aStats[nSlot].f_48;
+    ++pServer->aStats[nSlot].nAcceptAttempts;
     LeaveCriticalSection(pLock);
 
     pAddrLen = (int*)accept(pServer->hListenSockets[nSlot], pAddr, pAddrLen);

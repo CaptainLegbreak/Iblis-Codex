@@ -82,8 +82,8 @@ TSList<WNDREC> gWndRecList_00708860; // 0x00708860
 void* gdwGlobal_007792F4; // 0x007792F4
 
 // build: symbol ??_R0?AUWNDREC@@@8 0x00708848
-// build: symbol ?SMemAlloc@@YGPAXIPBDHI@Z 0x00413020
-// build: symbol ?SMemFree@@YGHPAXPBDHI@Z 0x00412650
+// build: symbol _SMemAlloc@16 0x00413020
+// build: symbol _SMemFree@16 0x00412650
 // build: symbol ?Next@?$TSLink@UWNDREC@@@@QAEPAUWNDREC@@XZ 0x004203C0
 // build: symbol ?RawNext@?$TSLink@UWNDREC@@@@QAEPAUWNDREC@@XZ 0x004203D0
 // build: symbol ?NextLink@?$TSLink@UWNDREC@@@@QAEPAU1@H@Z 0x004203F0

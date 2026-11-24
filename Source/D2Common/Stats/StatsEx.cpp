@@ -83,6 +83,8 @@ int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseT
 int __stdcall ITEMMODS_GetByTimeAdjustment(int nAmount, int nPeriodOfDay, int nBaseTime, int* pItemModPeriodOfDay, int* pItemModMin, int* pItemModMax); // 0x0065CA30
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
+unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
+int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker); // 0x00622560
 
 static inline int STATLIST_GetTotalStatValue_Inl(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer);
 
@@ -2997,6 +2999,47 @@ int __fastcall STATLIST_GetMinimum(int nA, int nB, int nUnused1, int nUnused2)
 int __fastcall STATLIST_GetMaximum(int nA, int nB, int nUnused1, int nUnused2)
 {
     return nA > nB ? nA : nB;
+}
+
+// 0x00627B70
+int __fastcall DUNGEON_ItemCalcGetRandomNumberInRange(int nMin, int nMax, int nUnused, void* pUserData)
+{
+    D2ItemCalcStrc* pItemCalc = (D2ItemCalcStrc*)pUserData;
+    if (!pItemCalc)
+    {
+        return 0;
+    }
+    D2SeedStrc* pSeed = &pItemCalc->pUnit->pSeed;
+    if (nMin >= nMax)
+    {
+        return nMin;
+    }
+    return nMin + ITEMS_RollLimitedRandomNumber(pSeed, nMax - nMin + 1);
+}
+
+// 0x00627BB0
+int __fastcall sub_00627BB0_ItemCalcGetStatValue(int nStatId, int nType, int nUnused, void* pUserData)
+{
+    int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
+    int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
+    D2ItemCalcStrc* pItemCalc = (D2ItemCalcStrc*)pUserData;
+    if (pItemCalc && pItemCalc->pUnit && nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
+    {
+        if (nStatId == 19)
+        {
+            return UNITS_GetAttackRate(pItemCalc->pUnit);
+        }
+        switch (nType)
+        {
+        case 1:
+            return STATLIST_GetUnitBaseStat(pItemCalc->pUnit, nStatId, 0);
+        case 2:
+            return STATLIST_UnitGetItemStatOrSkillStatValue(pItemCalc->pUnit, nStatId, 0);
+        default:
+            return STATLIST_UnitGetStatValue(pItemCalc->pUnit, nStatId, 0);
+        }
+    }
+    return 0;
 }
 
 // 0x00627C20

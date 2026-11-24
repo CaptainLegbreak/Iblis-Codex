@@ -2,9 +2,9 @@
 // Storm's list and array templates: an intrusive doubly linked list whose terminator link carries the complemented
 // address of the list head, and the base/fixed/growable arrays.
 
-void* __stdcall SMemAlloc(unsigned int nBytes, const char* szFile, int nLine, unsigned int nFlags);
-void* __stdcall SMemReAlloc(void* pLocation, unsigned int nBytes, const char* szFile, int nLine, unsigned int nFlags);
-int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned int nFlags);
+extern "C" void* __stdcall SMemAlloc(unsigned int nBytes, const char* szFile, int nLine, unsigned int nFlags);
+extern "C" void* __stdcall SMemReAlloc(void* pLocation, unsigned int nBytes, const char* szFile, int nLine, unsigned int nFlags);
+extern "C" int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned int nFlags);
 
 // The compiler's type descriptor (typeid); only its address is used here.
 class type_info
@@ -167,10 +167,7 @@ struct TSList
     {
         return Link(ptr)->Next();
     }
-    T* RawNext(const T* ptr)
-    {
-        return ptr ? TGetLink::Link(ptr, m_linkoffset)->m_next : m_terminator.m_next;
-    }
+    T* RawNext(const T* ptr);
     void UnlinkNode(T* ptr)
     {
         Link(ptr)->Unlink();
@@ -259,3 +256,9 @@ struct TSGrowableArray : TSFixedArray<T, TCD>
         return *this;
     }
 };
+
+template<class T, class TGetLink>
+T* TSList<T, TGetLink>::RawNext(const T* ptr)
+{
+    return ptr ? TGetLink::Link(ptr, m_linkoffset)->m_next : m_terminator.m_next;
+}

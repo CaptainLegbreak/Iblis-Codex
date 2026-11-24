@@ -1221,35 +1221,6 @@ inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* pUnit)
     return 0;
 }
 
-// 0x005D2140
-int __fastcall SKILLS_CanImpregnateTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget)
-{
-    if (!pTarget || pTarget->dwUnitType != UNIT_MONSTER || SUNIT_IsDead(pTarget))
-    {
-        return 0;
-    }
-
-    int nBaseId = CUNIT_GetMonsterBaseId(pTarget);
-    if (nBaseId < 0 || nBaseId >= sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        nBaseId = -1;
-    }
-
-    switch (nBaseId)
-    {
-    case MONSTER_PUTRIDDEFILER1:
-    case MONSTER_PAINWORM1:
-        return 0;
-    }
-
-    if (STATES_CheckState(pTarget, STATE_PREGNANT))
-    {
-        return 0;
-    }
-
-    return STATLIST_GetUnitAlignment(pTarget) != 2;
-}
-
 // 0x005BF5D0
 void __fastcall SKILLITEM_DeactivateAura(D2GameStrc* pGame, D2UnitStrc* pUnit, int a4, int nSkillId)
 {
@@ -2733,34 +2704,6 @@ int __fastcall SKILLS_SrvDo083_FireHit(D2GameStrc* pGame, D2UnitStrc* pUnit, int
     return SKILLS_StartSkill(pGame, pUnit, nSkillId, nSkillLevel, 0);
 }
 
-// 0x005CBC80
-int __fastcall SKILLS_SrvDo090_SwarmMove(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    if (SKILLS_GetFlags(pSkill) & 2)
-    {
-        SKILLS_SetFlags(pSkill, 0);
-        UNITS_SetAnimationFrame(pUnit, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel));
-    }
-    else
-    {
-        UNITS_SetAnimationFrame(pUnit, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel));
-    }
-
-    return 1;
-}
-
 // 0x005CBF30
 int __fastcall SKILLS_SrvSt50_QuickStrike(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -2773,80 +2716,6 @@ int __fastcall SKILLS_SrvSt50_QuickStrike(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     D2DamageStrc damage;
     memset(&damage, 0x00, sizeof(damage));
     SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, 128);
-    return 1;
-}
-
-// 0x005CC1F0
-int __fastcall SKILLS_SrvDo094_Submerge(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    int nFrameNo;
-    int nFrameCount;
-
-    UNITS_GetShiftedFrameMetrics(pUnit, &nFrameNo, &nFrameCount);
-    pUnit->nActionFrame = 0;
-    if (nFrameNo <= 0)
-    {
-        pUnit->dwSeqSpeed = 0;
-    }
-
-    return 1;
-}
-
-// 0x005CC240
-int __fastcall SKILLS_SrvSt53_MonInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    int nDelay = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
-    if (nDelay < 1)
-    {
-        nDelay = 1;
-    }
-
-    SKILLS_SetParam1(pSkill, nDelay + pGame->dwGameFrame);
-
-    if (!STATES_CheckState(pUnit, STATE_INFERNO))
-    {
-        STATES_ToggleState(pUnit, STATE_INFERNO, 1);
-    }
-
-    return 1;
-}
-
-// 0x005CCC80
-int __fastcall SKILLS_SrvDo098_MonTeleport(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    const int nX = D2COMMON_10175_PathGetFirstPointX(pUnit->pDynamicPath);
-    const int nY = D2COMMON_10176_PathGetFirstPointY(pUnit->pDynamicPath);
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
-    if (!pRoom)
-    {
-        D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
-        if (pOwner)
-        {
-            pRoom = UNITS_GetRoom(pOwner);
-        }
-    }
-
-    if (!SUNIT_TeleportUnit(pGame, pUnit, pRoom, nX, nY, 0, 0))
-    {
-        return 0;
-    }
-
-    UNITROOM_RefreshUnit(pUnit);
-    pUnit->dwFlagEx |= UNITFLAGEX_TELEPORTED;
     return 1;
 }
 
@@ -2917,56 +2786,6 @@ int __fastcall SKILLS_GetMonFrenzySequenceFrame(D2UnitStrc* pUnit)
     return 0;
 }
 
-// 0x005CF8C0
-int __fastcall SKILLS_GetSequenceEventFrame(D2UnitStrc* pUnit)
-{
-    D2AnimSeqTxt* pMonSeqTxtRecord = DATATBLS_GetMonSeqTxtRecordFromUnit(pUnit);
-    if (pMonSeqTxtRecord)
-    {
-        const int nSequenceFrameCount = DATATBLS_GetSeqFrameCount(pUnit);
-        for (int i = 0; i < nSequenceFrameCount; ++i)
-        {
-            if (!pMonSeqTxtRecord->nEvent)
-            {
-                return i - 1;
-            }
-        }
-    }
-
-    return 7;
-}
-
-// 0x005D1280
-int __fastcall SKILLS_SrvSt59_ImpInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill)
-    {
-        return 0;
-    }
-
-    int nTimeout = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
-    if (nTimeout < 1)
-    {
-        nTimeout = 1;
-    }
-
-    SKILLS_SetParam1(pSkill, nTimeout + pGame->dwGameFrame);
-
-    if (!STATES_CheckState(pUnit, STATE_INFERNO))
-    {
-        STATES_ToggleState(pUnit, STATE_INFERNO, 1);
-    }
-
-    return 1;
-}
-
 // 0x005C32A0
 int __fastcall SKILLS_SrvSt20_IronGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -2999,16 +2818,6 @@ int __fastcall SKILLS_SrvSt20_IronGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     return !STATLIST_GetOwner(pTarget, 0);
 }
 
-// 0x005C34B0
-void __fastcall SKILLS_ExecuteCurseTargetAi(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (pSkillsTxtRecord)
-    {
-        AITHINK_ExecuteAiFn(pGame, pTarget, AIGENERAL_GetAiControlFromUnitInline(pTarget), AiSpecialStateFromAuraState(pSkillsTxtRecord->wAuraTargetState));
-    }
-}
-
 // 0x005C3540
 int __fastcall SKILLS_ApplyResistanceImmunityPenalty(D2UnitStrc* pUnit, int nStatId, int nResist)
 {
@@ -3035,34 +2844,6 @@ int __fastcall SKILLS_ApplyResistanceImmunityPenalty(D2UnitStrc* pUnit, int nSta
 }
 
 int __fastcall SKILLS_SrvSt22_PsychicHammer(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D30F0
-
-// 0x005C50C0
-void __fastcall SKILLS_SetGolemStats(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel)
-{
-    D2GAME_SKILLS_SetSummonBaseStats_6FD0CB10(pGame, pUnit, pPet, 0, nSkillLevel);
-    D2GAME_SetSummonPassiveStats_6FD0C530(pGame, pUnit, pPet, nSkillId, nSkillLevel, 0);
-    D2GAME_SetSummonResistance_6FD0C2E0(pUnit, pPet);
-}
-
-// 0x005C6C50
-void __fastcall SKILLS_RemoveStateAndRestoreSkillMode(D2UnitStrc* pUnit, int nStateId, D2StatListStrc* pStatList)
-{
-    SKILLS_RemoveStatesInGroup(pUnit, nStateId, 1);
-
-    if (!pStatList)
-    {
-        return;
-    }
-
-    D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0));
-    if (!pSkill)
-    {
-        return;
-    }
-
-    SKILLS_SetSkillMode(pSkill, SKILLS_GetConvertedMode(pUnit, 10));
-    STATES_ToggleState(pUnit, nStateId, 0);
-}
 
 // 0x005C72F0
 int __fastcall SKILLS_SrvDo118_Twister_Tornado(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)

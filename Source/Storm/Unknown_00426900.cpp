@@ -64,7 +64,6 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szLogName, int nLogLine, unsigned int nFlags); // 0x00413020
 extern "C" const char gszBREAKCMDTypeName[]; // 0x007088D8
-extern SEvtLinkStrc gtSEvtBreakCmdTerminator; // 0x007088EC
 extern D2CriticalSectionStrc gtSEvtLock; // 0x0077930C
 
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere);

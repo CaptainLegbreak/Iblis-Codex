@@ -3197,24 +3197,6 @@ void __fastcall SUNITDMG_SetPlayerDataMode(D2UnitStrc* pUnit, int nValue)
     }
 }
 
-// 0x0057F390
-void __fastcall SUNITDMG_DropCorpseGold(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pDeadBody, int nGold, int nUnused)
-{
-    if (nGold > 0)
-    {
-        D2UnitStrc* pGoldPiles[GOLD_PILE_COUNT];
-        int nCount = 0;
-        ITEMS_DropGoldPiles(pGame, pDeadBody, nGold, pGoldPiles, &nCount, GOLD_PILE_COUNT);
-
-        for (int i = 0; i < nCount; ++i)
-        {
-            D2UnitStrc* pGold = pGoldPiles[i];
-            D2_ASSERT(ITEMS_GetItemType(pGold) == ITEMTYPE_GOLD, 588);
-            ITEMS_SetOwnerId(pGold, GAME_GetUnitGUID(pPlayer));
-        }
-    }
-}
-
 int __fastcall sub_0057DCA0_Emit(int nArg, D2UnitStrc* pUnit)
 {
     int nValue = sub_0057DCA0_GetWieldedTypeStatMax(pUnit);
