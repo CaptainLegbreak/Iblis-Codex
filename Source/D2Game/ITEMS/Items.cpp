@@ -15,6 +15,7 @@
 #include "D2LevelTxt.h"
 #include "D2GameRecords.h"
 #include "D2ItemsWorld.h"
+#include "D2SaveHeader.h"
 
 struct D2ItemDataTbl
 {
@@ -279,11 +280,6 @@ D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D
 
 int __fastcall ITEMS_GetDiminishedMagicFind(int nMagicFind, int nFactor, int nFactor2); // 0x00558610
 
-struct D2SaveHeaderStrc
-{
-    unsigned int dwHeaderMagic;
-    unsigned int dwVersion;
-};
 
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned short wUnitInitFlags, int nMode, unsigned int a9); // 0x00555230
 
