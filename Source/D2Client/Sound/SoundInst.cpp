@@ -101,7 +101,7 @@ int __cdecl D2SOUND_GetMusicVolumeOption(); // 0x00514CF0
 
 void __fastcall D2SOUNDUTIL_ListAddHead(void* ppList, void* pData); // 0x00516950
 
-void __fastcall D2SOUNDUTIL_ListRemove(D2SoundNodeStrc** ppList, D2ClientSoundStrc* pSound); // 0x00516980
+void __fastcall D2SOUNDUTIL_ListRemove(void* ppList, void* pData); // 0x00516980
 
 int __fastcall D2SOUNDUTIL_ListContains(D2SoundUnitNodeStrc* pList, D2UnitStrc* pUnit); // 0x005169D0
 
@@ -1118,6 +1118,43 @@ void __fastcall sub_004BA020(unsigned int nTick)
     gdwLastVolumeTick = nTick;
 }
 
+// 0x004BA760
+static __declspec(noinline) void sub_004BA760_RefreshHint(D2ClientSoundStrc* pSound)
+{
+    D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pSound->nSoundId);
+    pSound->bLocked = 1;
+    unsigned char nCount = pTxt->nFadeOut;
+    if (nCount && pSound->nType == 1)
+    {
+        SOUNDINST_ArmHint(pSound->f_8, 0, 0, nCount);
+    }
+}
+
+// 0x004BA790
+void __fastcall sub_004BA790_UpdateUnitHint(D2UnitStrc* pUnit, D2UnitStrc* pOther, int bForce)
+{
+    D2_ASSERT(pUnit && pOther, 0xCE);
+    UNITSND_RemoveUnitHint(pOther, (int)pUnit);
+    D2SoundNodeStrc* pNode;
+    D2ClientSoundStrc* pSound;
+    for (pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
+    {
+        pSound = pNode->pSound;
+        if (pSound->f_8 == (int)pUnit)
+            break;
+    }
+    if (!pNode)
+        return;
+    D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pSound->nSoundId);
+    D2SOUNDUTIL_ListRemove(&pSound->pUnitList, pOther);
+    const int bReady = !pTxt->nLoop || (pSound->f_45 && !pSound->nFadeTo) ? 1 : 0;
+    if (pSound->pUnitList)
+        return;
+    if (!bForce && bReady)
+        return;
+    sub_004BA760_RefreshHint(pSound);
+}
+
 // 0x004BA840
 void __fastcall sub_004BA840(int nHandle)
 {
@@ -1253,6 +1290,22 @@ void __cdecl SOUNDINST_LockSpeechSounds()
             {
                 SOUNDINST_ArmHint(pEntry->f_8, 0, 0, nCount);
             }
+        }
+    }
+}
+
+// 0x004BAAB0
+void __cdecl sub_004BAAB0_RefreshGroupTimers()
+{
+    for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
+    {
+        D2ClientSoundStrc* pSound = pNode->pSound;
+        D2SoundsTxt* pTxt = SOUNDHDR_GetSoundRecord(pSound->nSoundId);
+        pSound->bLocked = 1;
+        unsigned char nCount = pTxt->nFadeOut;
+        if (nCount && pSound->nType == 1)
+        {
+            SOUNDINST_ArmHint(pSound->f_8, 0, 0, nCount);
         }
     }
 }
