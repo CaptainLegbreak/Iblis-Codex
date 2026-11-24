@@ -12,10 +12,10 @@ struct D2SGameDataStrc
 
 struct D2StormGameArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2SGameDataStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2SGameDataStrc* m_data;
+    unsigned int m_chunk;
 
     ~D2StormGameArrayStrc();
 };
@@ -66,10 +66,10 @@ struct D2StormChunkListStrc
 
 struct D2StormListArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormListAStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2StormListAStrc* m_data;
+    unsigned int m_chunk;
 };
 
 struct SGAMEDATA;
@@ -112,10 +112,10 @@ public:
 // 0x0044FD80
 D2StormGameArrayStrc::~D2StormGameArrayStrc()
 {
-    for (unsigned int i = 0; i < f_4; i++)
-        f_8[i].~D2SGameDataStrc();
-    if (f_8)
-        SMemFree(f_8, gszTypeSGameData, -2, 0);
+    for (unsigned int i = 0; i < m_count; i++)
+        m_data[i].~D2SGameDataStrc();
+    if (m_data)
+        SMemFree(m_data, gszTypeSGameData, -2, 0);
 }
 
 // 0x00451100

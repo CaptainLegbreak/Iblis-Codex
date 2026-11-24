@@ -189,16 +189,16 @@ struct CHuffman
 
 struct D2StormArrayBStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned char* m_data;
+    unsigned int m_chunk;
 
     void ReallocAndClear(unsigned int nCount)
     {
-        f_0 = nCount;
-        if (f_8 || nCount)
-            f_8 = (unsigned char*)SMemReAlloc(f_8, nCount, gszTypeNameUChar_00708880, -2, 0);
+        m_alloc = nCount;
+        if (m_data || nCount)
+            m_data = (unsigned char*)SMemReAlloc(m_data, nCount, gszTypeNameUChar_00708880, -2, 0);
     }
     void sub_004219F0_Set(unsigned int nCount, const unsigned char* pData);
     unsigned int sub_00421160_CalcChunkSize(unsigned int nCount);
@@ -206,10 +206,10 @@ struct D2StormArrayBStrc
 
 struct D2StormArrayCStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    char* m_data;
+    unsigned int m_chunk;
 
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
@@ -220,12 +220,12 @@ struct D2StormArrayCStrc
     }
     void Reserve(unsigned int nCount, int bRound)
     {
-        nCount += f_4;
-        if (nCount > f_0)
+        nCount += m_count;
+        if (nCount > m_alloc)
         {
             if (bRound)
             {
-                unsigned int nChunk = f_C ? f_C : sub_00421240_CalcChunkSize(nCount);
+                unsigned int nChunk = m_chunk ? m_chunk : sub_00421240_CalcChunkSize(nCount);
                 nCount = RoundUp(nCount, nChunk);
             }
             sub_00421770_ReallocData(nCount);
@@ -233,9 +233,9 @@ struct D2StormArrayCStrc
     }
     void ReallocAndClear(unsigned int nCount)
     {
-        f_0 = nCount;
-        if (f_8 || nCount)
-            f_8 = (char*)SMemReAlloc(f_8, nCount, gszTypeNameChar_0070888C, -2, 0);
+        m_alloc = nCount;
+        if (m_data || nCount)
+            m_data = (char*)SMemReAlloc(m_data, nCount, gszTypeNameChar_0070888C, -2, 0);
     }
     unsigned int sub_00421240_CalcChunkSize(unsigned int nCount);                                           // 0x00421240
     void sub_00421770_ReallocData(unsigned int nAlloc);                                                     // 0x00421770
@@ -366,20 +366,20 @@ struct D2StormNodeListBStrc
 
 struct D2StormPtrArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    int* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    int* m_data;
+    unsigned int m_chunk;
 
     int* sub_00420FD0_At(unsigned int nIndex);
 };
 
 struct D2StormByteArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    char* m_data;
+    unsigned int m_chunk;
 
     char* sub_00421000_At(unsigned int nIndex);
 };
@@ -617,13 +617,13 @@ void BigStack::sub_00420E00_Drop(unsigned int nCount)
 // 0x00420FD0
 int* D2StormPtrArrayStrc::sub_00420FD0_At(unsigned int nIndex)
 {
-    return &f_8[nIndex];
+    return &m_data[nIndex];
 }
 
 // 0x00421000
 char* D2StormByteArrayStrc::sub_00421000_At(unsigned int nIndex)
 {
-    return &f_8[nIndex];
+    return &m_data[nIndex];
 }
 
 // 0x004210A0
@@ -659,7 +659,7 @@ unsigned int D2StormArrayBStrc::sub_00421160_CalcChunkSize(unsigned int nCount)
             nResult &= nResult - 1;
         return nResult < 1 ? 1 : nResult;
     }
-    f_C = 0x100;
+    m_chunk = 0x100;
     return 0x100;
 }
 
@@ -682,7 +682,7 @@ unsigned int D2StormArrayCStrc::sub_00421240_CalcChunkSize(unsigned int nCount)
             nResult &= nResult - 1;
         return nResult < 1 ? 1 : nResult;
     }
-    f_C = 0x100;
+    m_chunk = 0x100;
     return 0x100;
 }
 
@@ -730,8 +730,8 @@ void D2StormArrayBStrc::sub_004219F0_Set(unsigned int nCount, const unsigned cha
 {
     ReallocAndClear(nCount);
     for (unsigned int i = 0; i < nCount; i++, pData++)
-        new (&f_8[i]) unsigned char(*pData);
-    f_4 = nCount;
+        new (&m_data[i]) unsigned char(*pData);
+    m_count = nCount;
 }
 
 // 0x00421A50
@@ -739,8 +739,8 @@ void D2StormArrayCStrc::sub_00421A50_Set(unsigned int nCount, const char* pData)
 {
     ReallocAndClear(nCount);
     for (unsigned int i = 0; i < nCount; i++, pData++)
-        new (&f_8[i]) char(*pData);
-    f_4 = nCount;
+        new (&m_data[i]) char(*pData);
+    m_count = nCount;
 }
 
 // 0x00421F60
@@ -748,9 +748,9 @@ unsigned int D2StormArrayCStrc::sub_00421F60_Add(unsigned int nCount, const char
 {
     Reserve(nCount, 1);
     for (unsigned int i = 0; i < nCount; i++, pData++)
-        new (&f_8[f_4 + i]) char(*pData);
-    f_4 += nCount;
-    return f_4 - nCount;
+        new (&m_data[m_count + i]) char(*pData);
+    m_count += nCount;
+    return m_count - nCount;
 }
 
 // 0x004220D0

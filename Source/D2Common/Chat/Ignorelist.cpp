@@ -491,23 +491,23 @@ struct Link { Link* previous; char* next; Link() { previous=0; next=0; } };
 
 struct D2CommonStormSlotArrayAStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2CommonStormSlotListAStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2CommonStormSlotListAStrc* m_data;
+    unsigned int m_chunk;
 
     D2CommonStormSlotArrayAStrc()
     {
-        f_0 = 0;
-        f_4 = 0;
-        f_8 = 0;
-        f_C = 0;
+        m_alloc = 0;
+        m_count = 0;
+        m_data = 0;
+        m_chunk = 0;
     }
     ~D2CommonStormSlotArrayAStrc();                                                                         // 0x0060F610
     void IGNORELIST_ClearStringSlotArray();
     D2CommonStormSlotListAStrc& operator[](unsigned int nIndex)
     {
-        return f_8[nIndex];
+        return m_data[nIndex];
     }
 unsigned int sub_0060E2A0_CalcChunkSize(unsigned int nCount);
     void IGNORELIST_ReallocStringSlotArray(unsigned int nAlloc);                                                     // 0x0060F390
@@ -531,10 +531,10 @@ struct D2Storm408ElemStrc
 
 struct D2StormArray408Strc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2Storm408ElemStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2Storm408ElemStrc* m_data;
+    unsigned int m_chunk;
 
     D2StormArray408Strc* sub_0051D2C0_InitBase();
     unsigned int sub_0051D2F0_CalcChunkSize(unsigned int nCount);
@@ -552,17 +552,17 @@ struct D2StormArray408Strc
 
 struct D2CommonStormSlotArrayBStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2CommonStormSlotListBStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2CommonStormSlotListBStrc* m_data;
+    unsigned int m_chunk;
 
     D2CommonStormSlotArrayBStrc()
     {
-        f_0 = 0;
-        f_4 = 0;
-        f_8 = 0;
-        f_C = 0;
+        m_alloc = 0;
+        m_count = 0;
+        m_data = 0;
+        m_chunk = 0;
     }
     ~D2CommonStormSlotArrayBStrc();                                                                         // 0x0060F950
 // build: symbol ??1D2CommonStormSlotArrayBStrc@@QAE@XZ 0x0060F950
@@ -570,13 +570,13 @@ struct D2CommonStormSlotArrayBStrc
     void Clear()
     {
         this->~D2CommonStormSlotArrayBStrc();
-        f_0 = 0;
-        f_4 = 0;
-        f_8 = 0;
+        m_alloc = 0;
+        m_count = 0;
+        m_data = 0;
     }
     D2CommonStormSlotListBStrc& operator[](unsigned int nIndex)
     {
-        return f_8[nIndex];
+        return m_data[nIndex];
     }
 unsigned int sub_0060E300_CalcChunkSize(unsigned int nCount);
     void IGNORELIST_ReallocMappingSlotArray(unsigned int nAlloc);                                                     // 0x0060F720
@@ -799,7 +799,7 @@ public:
     int sub_00610840(unsigned int nSlot);                                                                   // 0x00610840
     void InternalLinkNode(D2CommonStringEntryNodeStrc* pNode, unsigned int nHashVal)
     {
-        m_slotlistarray.f_8[nHashVal & m_slotmask].LinkNode((char*)pNode, 2, 0);
+        m_slotlistarray.m_data[nHashVal & m_slotmask].LinkNode((char*)pNode, 2, 0);
     }
     void IGNORELIST_GrowStringTableSlots();
     D2CommonStringEntryNodeStrc* IGNORELIST_InternalNewStringTableNode(unsigned int nHashVal, const D2StormHashKeyStrIStrc& key, unsigned int nExtraBytes, unsigned int nFlags);
@@ -830,7 +830,7 @@ public:
     D2CommonMappingEntryNodeStrc* IGNORELIST_FindMappingTableNode(const char* szKey);                                      // 0x0060F510
     void InternalLinkNode(D2CommonMappingEntryNodeStrc* pNode, unsigned int nHashVal)
     {
-        m_slotlistarray.f_8[nHashVal & m_slotmask].LinkNode((char*)pNode, 2, 0);
+        m_slotlistarray.m_data[nHashVal & m_slotmask].LinkNode((char*)pNode, 2, 0);
     }
     void IGNORELIST_GrowMappingTableSlots();
     D2CommonMappingEntryNodeStrc* IGNORELIST_NewMappingTableNode(const char* szKey, unsigned int nExtraBytes, unsigned int nFlags); // 0x00611170
@@ -1227,7 +1227,7 @@ inline unsigned int D2CommonStormSlotArrayAStrc::sub_0060E2A0_CalcChunkSize(unsi
             nResult &= nResult - 1;
         return nResult < 1 ? 1 : nResult;
     }
-    f_C = 0x15;
+    m_chunk = 0x15;
     return 0x15;
 }
 
@@ -1240,7 +1240,7 @@ inline unsigned int D2CommonStormSlotArrayBStrc::sub_0060E300_CalcChunkSize(unsi
             nResult &= nResult - 1;
         return nResult < 1 ? 1 : nResult;
     }
-    f_C = 0x15;
+    m_chunk = 0x15;
     return 0x15;
 }
 
@@ -1534,7 +1534,7 @@ void D2CommonStormHashTableAStrc::IGNORELIST_InternalClearStringTable(int bWarn)
 {
     m_fullnessIndicator = 0;
     m_fulllist.UnlinkAll();
-    for (unsigned int i = 0; i < m_slotlistarray.f_4; i++)
+    for (unsigned int i = 0; i < m_slotlistarray.m_count; i++)
     {
         while (char* pNode = m_slotlistarray[i].Head())
         {
@@ -1637,7 +1637,7 @@ void D2CommonStormHashTableBStrc::IGNORELIST_InternalClearMappingTable(int bWarn
 {
     m_fullnessIndicator = 0;
     m_fulllist.UnlinkAll();
-    for (unsigned int i = 0; i < m_slotlistarray.f_4; i++)
+    for (unsigned int i = 0; i < m_slotlistarray.m_count; i++)
     {
         while (char* pNode = m_slotlistarray[i].Head())
         {
@@ -1790,20 +1790,20 @@ void __fastcall sub_0060F360_ConstructDeadList(D2StormDeadListStrc* pList) {
 // 0x0060F390
 void D2CommonStormSlotArrayAStrc::IGNORELIST_ReallocStringSlotArray(unsigned int nAlloc)
 {
-    D2CommonStormSlotListAStrc* pOldData = f_8;
-    for (unsigned int i = nAlloc; i < f_4; i++)
+    D2CommonStormSlotListAStrc* pOldData = m_data;
+    for (unsigned int i = nAlloc; i < m_count; i++)
         pOldData[i].~D2CommonStormSlotListAStrc();
-    f_0 = nAlloc;
-    f_8 = (D2CommonStormSlotListAStrc*)SMemReAlloc(pOldData, nAlloc * sizeof(D2CommonStormSlotListAStrc), gszTypeNameStringEntryList_0074366C, -2, 0x10);
-    if (!f_8)
+    m_alloc = nAlloc;
+    m_data = (D2CommonStormSlotListAStrc*)SMemReAlloc(pOldData, nAlloc * sizeof(D2CommonStormSlotListAStrc), gszTypeNameStringEntryList_0074366C, -2, 0x10);
+    if (!m_data)
     {
-        f_8 = (D2CommonStormSlotListAStrc*)SMemAlloc(nAlloc * sizeof(D2CommonStormSlotListAStrc), gszTypeNameStringEntryList_0074366C, -2, 0);
+        m_data = (D2CommonStormSlotListAStrc*)SMemAlloc(nAlloc * sizeof(D2CommonStormSlotListAStrc), gszTypeNameStringEntryList_0074366C, -2, 0);
         if (pOldData)
         {
-            unsigned int nCount = nAlloc < f_4 ? nAlloc : f_4;
+            unsigned int nCount = nAlloc < m_count ? nAlloc : m_count;
             for (unsigned int i = 0; i < nCount; i++)
             {
-                new (&f_8[i]) D2CommonStormSlotListAStrc(pOldData[i]);
+                new (&m_data[i]) D2CommonStormSlotListAStrc(pOldData[i]);
                 pOldData[i].~D2CommonStormSlotListAStrc();
             }
             SMemFree(pOldData, gszTypeNameStringEntryList_0074366C, -2, 0);
@@ -1852,10 +1852,10 @@ D2CommonStringEntryNodeStrc* D2CommonStormHashTableAStrc::IGNORELIST_InternalFin
 // 0x0060F610
 D2CommonStormSlotArrayAStrc::~D2CommonStormSlotArrayAStrc()
 {
-    for (unsigned int i = 0; i < f_4; i++)
-        f_8[i].~D2CommonStormSlotListAStrc();
-    if (f_8)
-        SMemFree(f_8, gszTypeNameStringEntryList_0074366C, -2, 0);
+    for (unsigned int i = 0; i < m_count; i++)
+        m_data[i].~D2CommonStormSlotListAStrc();
+    if (m_data)
+        SMemFree(m_data, gszTypeNameStringEntryList_0074366C, -2, 0);
 }
 
 // 0x0060F690
@@ -1866,12 +1866,12 @@ D2CommonStormSlotListEStrc::~D2CommonStormSlotListEStrc()
 // 0x0060F6D0
 void D2CommonStormSlotArrayAStrc::IGNORELIST_ReserveStringSlotArray(unsigned int nCount, int bRound)
 {
-    nCount += f_4;
-    if (nCount > f_0)
+    nCount += m_count;
+    if (nCount > m_alloc)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : sub_0060E2A0_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_0060E2A0_CalcChunkSize(nCount);
             nCount = STORM_RoundUp(nCount, nChunk);
         }
         IGNORELIST_ReallocStringSlotArray(nCount);
@@ -1881,20 +1881,20 @@ void D2CommonStormSlotArrayAStrc::IGNORELIST_ReserveStringSlotArray(unsigned int
 // 0x0060F720
 void D2CommonStormSlotArrayBStrc::IGNORELIST_ReallocMappingSlotArray(unsigned int nAlloc)
 {
-    D2CommonStormSlotListBStrc* pOldData = f_8;
-    for (unsigned int i = nAlloc; i < f_4; i++)
+    D2CommonStormSlotListBStrc* pOldData = m_data;
+    for (unsigned int i = nAlloc; i < m_count; i++)
         pOldData[i].~D2CommonStormSlotListBStrc();
-    f_0 = nAlloc;
-    f_8 = (D2CommonStormSlotListBStrc*)SMemReAlloc(pOldData, nAlloc * sizeof(D2CommonStormSlotListBStrc), gszTypeNameMappingEntryList_007436AC, -2, 0x10);
-    if (!f_8)
+    m_alloc = nAlloc;
+    m_data = (D2CommonStormSlotListBStrc*)SMemReAlloc(pOldData, nAlloc * sizeof(D2CommonStormSlotListBStrc), gszTypeNameMappingEntryList_007436AC, -2, 0x10);
+    if (!m_data)
     {
-        f_8 = (D2CommonStormSlotListBStrc*)SMemAlloc(nAlloc * sizeof(D2CommonStormSlotListBStrc), gszTypeNameMappingEntryList_007436AC, -2, 0);
+        m_data = (D2CommonStormSlotListBStrc*)SMemAlloc(nAlloc * sizeof(D2CommonStormSlotListBStrc), gszTypeNameMappingEntryList_007436AC, -2, 0);
         if (pOldData)
         {
-            unsigned int nCount = nAlloc < f_4 ? nAlloc : f_4;
+            unsigned int nCount = nAlloc < m_count ? nAlloc : m_count;
             for (unsigned int i = 0; i < nCount; i++)
             {
-                new (&f_8[i]) D2CommonStormSlotListBStrc(pOldData[i]);
+                new (&m_data[i]) D2CommonStormSlotListBStrc(pOldData[i]);
                 pOldData[i].~D2CommonStormSlotListBStrc();
             }
             SMemFree(pOldData, gszTypeNameMappingEntryList_007436AC, -2, 0);
@@ -1985,12 +1985,12 @@ inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
 
 inline void D2StormArray408Strc::ReserveInline(unsigned int nCount, int bRound)
 {
-    nCount += f_4;
-    if (nCount > f_0)
+    nCount += m_count;
+    if (nCount > m_alloc)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : sub_0051D2F0_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_0051D2F0_CalcChunkSize(nCount);
             nCount = RoundUpInline(nCount, nChunk);
         }
         sub_0051D5D0_ReallocData(nCount);
@@ -1999,9 +1999,9 @@ inline void D2StormArray408Strc::ReserveInline(unsigned int nCount, int bRound)
 
 D2StormArray408Strc* D2StormArray408Strc::sub_0051D2C0_InitBase()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
     return this;
 }
 
@@ -2022,14 +2022,14 @@ void __fastcall BNNEWS_CopyNewsItem(D2Storm408ElemStrc* pDst, const D2Storm408El
 
 void D2StormArray408Strc::sub_0051D570_FreeData()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
 }
 
 void D2StormArray408Strc::sub_0051D670_FreeData()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
 }
 
 // 0x0060F930
@@ -2040,52 +2040,52 @@ D2CommonStormSlotArrayAViewStrc::~D2CommonStormSlotArrayAViewStrc()
 // 0x0060F940
 D2StormArray408Strc* D2StormArray408Strc::sub_0051D690_Init()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-    f_C = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
+    m_chunk = 0;
     return this;
 }
 
 // 0x0060F950
 D2CommonStormSlotArrayBStrc::~D2CommonStormSlotArrayBStrc()
 {
-    for (unsigned int i = 0; i < f_4; i++)
-        f_8[i].~D2CommonStormSlotListBStrc();
-    if (f_8)
-        SMemFree(f_8, gszTypeNameMappingEntryList_007436AC, -2, 0);
+    for (unsigned int i = 0; i < m_count; i++)
+        m_data[i].~D2CommonStormSlotListBStrc();
+    if (m_data)
+        SMemFree(m_data, gszTypeNameMappingEntryList_007436AC, -2, 0);
 }
 
 // 0x0060F9D0
 void D2CommonStormSlotArrayAStrc::IGNORELIST_SetStringSlotArrayCount(unsigned int nCount)
 {
-    if (nCount > f_4)
+    if (nCount > m_count)
     {
-        if (nCount > f_0)
+        if (nCount > m_alloc)
         {
-            unsigned int nChunk = f_C ? f_C : sub_0060E2A0_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_0060E2A0_CalcChunkSize(nCount);
             IGNORELIST_ReallocStringSlotArray(STORM_RoundUp(nCount, nChunk));
         }
-        for (unsigned int i = f_4; i < nCount; i++)
-            new (&f_8[i]) D2CommonStormSlotListAStrc;
+        for (unsigned int i = m_count; i < nCount; i++)
+            new (&m_data[i]) D2CommonStormSlotListAStrc;
     }
-    else if (nCount < f_4)
+    else if (nCount < m_count)
     {
-        for (unsigned int i = nCount; i < f_4; i++)
-            f_8[i].~D2CommonStormSlotListAStrc();
+        for (unsigned int i = nCount; i < m_count; i++)
+            m_data[i].~D2CommonStormSlotListAStrc();
     }
-    f_4 = nCount;
+    m_count = nCount;
 }
 
 // 0x0060FAD0
 void D2CommonStormSlotArrayBStrc::IGNORELIST_ReserveMappingSlotArray(unsigned int nCount, int bRound)
 {
-    nCount += f_4;
-    if (nCount > f_0)
+    nCount += m_count;
+    if (nCount > m_alloc)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : sub_0060E300_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_0060E300_CalcChunkSize(nCount);
             nCount = STORM_RoundUp(nCount, nChunk);
         }
         IGNORELIST_ReallocMappingSlotArray(nCount);
@@ -2180,32 +2180,32 @@ D2CommonStormZeroAStrc::D2CommonStormZeroAStrc()
 
 void D2StormArray408Strc::sub_0051D6A0_Clear()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    if (m_data)
+        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 D2StormArray408Strc* D2StormArray408Strc::sub_0051D720_Init()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-    f_C = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
+    m_chunk = 0;
     return this;
 }
 
 void D2StormArray408Strc::sub_0051D730_FreeData()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
 }
 
 D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
 {
     ReserveInline(1, 1);
-    return &f_8[f_4++];
+    return &m_data[m_count++];
 }
 
 // 0x0060FE40
@@ -2276,9 +2276,9 @@ inline void D2CommonStormSlotArrayAStrc::operator delete(void* pMemory)
 void D2CommonStormSlotArrayAStrc::IGNORELIST_ClearStringSlotArray()
 {
     this->~D2CommonStormSlotArrayAStrc();
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 // 0x00610020
@@ -2311,32 +2311,32 @@ void D2CommonStormSlotArrayAStrc::IGNORELIST_ForwardSetStringSlotArrayCount(unsi
 // 0x006100A0
 D2StormArray408Strc* D2StormArray408Strc::sub_006100A0_Init()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-    f_C = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
+    m_chunk = 0;
     return this;
 }
 
 // 0x006100B0
 void D2CommonStormSlotArrayBStrc::IGNORELIST_SetMappingSlotArrayCount(unsigned int nCount)
 {
-    if (nCount > f_4)
+    if (nCount > m_count)
     {
-        if (nCount > f_0)
+        if (nCount > m_alloc)
         {
-            unsigned int nChunk = f_C ? f_C : sub_0060E300_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_0060E300_CalcChunkSize(nCount);
             IGNORELIST_ReallocMappingSlotArray(STORM_RoundUp(nCount, nChunk));
         }
-        for (unsigned int i = f_4; i < nCount; i++)
-            new (&f_8[i]) D2CommonStormSlotListBStrc;
+        for (unsigned int i = m_count; i < nCount; i++)
+            new (&m_data[i]) D2CommonStormSlotListBStrc;
     }
-    else if (nCount < f_4)
+    else if (nCount < m_count)
     {
-        for (unsigned int i = nCount; i < f_4; i++)
-            f_8[i].~D2CommonStormSlotListBStrc();
+        for (unsigned int i = nCount; i < m_count; i++)
+            m_data[i].~D2CommonStormSlotListBStrc();
     }
-    f_4 = nCount;
+    m_count = nCount;
 }
 
 // 0x006101B0
@@ -2349,12 +2349,12 @@ void D2CommonStormHashTableAStrc::IGNORELIST_GrowStringTableSlots()
     for (unsigned int i = 0; i < nOldCount; i++)
     {
         char* pNode;
-        while ((pNode = m_slotlistarray.f_8[i].Head()) != 0)
+        while ((pNode = m_slotlistarray.m_data[i].Head()) != 0)
             tTemp.LinkNode(pNode, 2, 0);
     }
     m_slotlistarray.IGNORELIST_SetStringSlotArrayCount(nNewCount);
     for (unsigned int j = 0; j < nNewCount; j++)
-        m_slotlistarray.f_8[j].ChangeLinkOffset(4);
+        m_slotlistarray.m_data[j].ChangeLinkOffset(4);
     m_slotmask = nNewCount - 1;
     D2CommonStringEntryNodeStrc* pNode;
     while ((pNode = (D2CommonStringEntryNodeStrc*)tTemp.Head()) != 0)
@@ -2388,7 +2388,7 @@ D2CommonStormHashTableAStrc::TSHashTable()
     m_slotmask = 3;
     m_slotlistarray.IGNORELIST_SetStringSlotArrayCount(4);
     for (unsigned int i = 0; i <= m_slotmask; i++)
-        m_slotlistarray.f_8[i].ChangeLinkOffset(4);
+        m_slotlistarray.m_data[i].ChangeLinkOffset(4);
 }
 
 // 0x00610550
@@ -2478,7 +2478,7 @@ void D2CommonStormSlotArrayBStrc::IGNORELIST_ForwardSetMappingSlotArrayCount(uns
 // 0x00610840
 int D2CommonStormHashTableAStrc::sub_00610840(unsigned int nSlot)
 {
-    D2CommonStormSlotListAStrc* const& pListArray = m_slotlistarray.f_8;
+    D2CommonStormSlotListAStrc* const& pListArray = m_slotlistarray.m_data;
     if (m_slotmask >= 0x3FF)
         return 0;
     if (m_fullnessIndicator > 3)
@@ -2513,12 +2513,12 @@ void D2CommonStormHashTableBStrc::IGNORELIST_GrowMappingTableSlots()
     for (unsigned int i = 0; i < nOldCount; i++)
     {
         char* pNode;
-        while ((pNode = m_slotlistarray.f_8[i].Head()) != 0)
+        while ((pNode = m_slotlistarray.m_data[i].Head()) != 0)
             tTemp.LinkNode(pNode, 2, 0);
     }
     m_slotlistarray.IGNORELIST_SetMappingSlotArrayCount(nNewCount);
     for (unsigned int j = 0; j < nNewCount; j++)
-        m_slotlistarray.f_8[j].ChangeLinkOffset(4);
+        m_slotlistarray.m_data[j].ChangeLinkOffset(4);
     m_slotmask = nNewCount - 1;
     D2CommonMappingEntryNodeStrc* pNode;
     while ((pNode = (D2CommonMappingEntryNodeStrc*)tTemp.Head()) != 0)
@@ -2540,7 +2540,7 @@ D2CommonStormHashTableBStrc::TSHashTable()
     m_slotmask = 3;
     m_slotlistarray.IGNORELIST_SetMappingSlotArrayCount(4);
     for (unsigned int i = 0; i <= m_slotmask; i++)
-        m_slotlistarray.f_8[i].ChangeLinkOffset(4);
+        m_slotlistarray.m_data[i].ChangeLinkOffset(4);
 }
 
 // 0x00610BE0
@@ -2559,7 +2559,7 @@ D2CommonStringEntryNodeStrc* D2CommonStormHashTableAStrc::IGNORELIST_InternalNew
 // 0x00610CA0
 int D2CommonStormHashTableBStrc::sub_00610CA0(unsigned int nSlot)
 {
-    D2CommonStormSlotListBStrc* const& pListArray = m_slotlistarray.f_8;
+    D2CommonStormSlotListBStrc* const& pListArray = m_slotlistarray.m_data;
     if (m_slotmask >= 0x3FF)
         return 0;
     if (m_fullnessIndicator > 3)

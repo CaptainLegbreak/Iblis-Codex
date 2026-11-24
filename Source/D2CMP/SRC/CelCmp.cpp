@@ -978,10 +978,10 @@ int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile); // 0x00601A50
 
 struct D2StormListEArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormListEStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2StormListEStrc* m_data;
+    unsigned int m_chunk;
 
     D2StormListEStrc* sub_0060E0E0_At(unsigned int nIndex);
     D2StormListEStrc* sub_0060E110_At(unsigned int nIndex);
@@ -1050,10 +1050,10 @@ struct D2SGameDataStrc
 
 struct D2StormGameArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2SGameDataStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2SGameDataStrc* m_data;
+    unsigned int m_chunk;
 
     ~D2StormGameArrayStrc();
 };
@@ -1317,10 +1317,10 @@ struct D2StormEntryGrowArrayStrc
 
 struct D2Storm603530ArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    void* m_data;
+    unsigned int m_chunk;
 };
 
 struct D2Storm603530Strc
@@ -1333,17 +1333,17 @@ struct D2Storm603530Strc
 
 struct D2Storm603570ArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    void* m_data;
+    unsigned int m_chunk;
 
     D2Storm603570ArrayStrc()
     {
-        f_0 = 0;
-        f_4 = 0;
-        f_8 = 0;
-        f_C = 0;
+        m_alloc = 0;
+        m_count = 0;
+        m_data = 0;
+        m_chunk = 0;
     }
 };
 
@@ -2185,7 +2185,7 @@ unsigned int D2StormSlotArrayStrc::CelSlotArrayCalcChunkSize(unsigned int nCount
             nResult &= nResult - 1;
         return nResult < 1 ? 1 : nResult;
     }
-    f_C = 0x15;
+    m_chunk = 0x15;
     return 0x15;
 }
 
@@ -2275,21 +2275,21 @@ char* D2StormListEStrc::CelReuseListDeleteNode(char* pNode)
 // 0x00602F10
 void D2StormSlotArrayStrc::CelSlotArrayReallocData(unsigned int nAlloc)
 {
-    D2StormSlotListStrc* pOld = f_8;
-    for (unsigned int i = nAlloc; i < f_4; i++)
+    D2StormSlotListStrc* pOld = m_data;
+    for (unsigned int i = nAlloc; i < m_count; i++)
         pOld[i].~D2StormSlotListStrc();
-    f_0 = nAlloc;
+    m_alloc = nAlloc;
     void* pNew = SMemReAlloc(pOld, nAlloc * sizeof(D2StormSlotListStrc), gszTypeNameCelSlotList, -2, 0x10);
-    f_8 = (D2StormSlotListStrc*)pNew;
+    m_data = (D2StormSlotListStrc*)pNew;
     if (!pNew)
     {
-        f_8 = (D2StormSlotListStrc*)SMemAlloc(nAlloc * sizeof(D2StormSlotListStrc), gszTypeNameCelSlotList, -2, 0);
+        m_data = (D2StormSlotListStrc*)SMemAlloc(nAlloc * sizeof(D2StormSlotListStrc), gszTypeNameCelSlotList, -2, 0);
         if (pOld)
         {
-            unsigned int nCopy = nAlloc >= f_4 ? f_4 : nAlloc;
+            unsigned int nCopy = nAlloc >= m_count ? m_count : nAlloc;
             for (unsigned int i = 0; i < nCopy; i++)
             {
-                new (&f_8[i]) D2StormSlotListStrc(pOld[i]);
+                new (&m_data[i]) D2StormSlotListStrc(pOld[i]);
                 pOld[i].~D2StormSlotListStrc();
             }
             SMemFree(pOld, gszTypeNameCelSlotList, -2, 0);
@@ -2300,10 +2300,10 @@ void D2StormSlotArrayStrc::CelSlotArrayReallocData(unsigned int nAlloc)
 // 0x00603060
 D2StormSlotArrayStrc::~D2StormSlotArrayStrc() throw()
 {
-    for (unsigned int i = 0; i < f_4; ++i)
-        f_8[i].~D2StormSlotListStrc();
-    if (f_8)
-        SMemFree(f_8, gszTypeNameCelSlotList, -2, 0);
+    for (unsigned int i = 0; i < m_count; ++i)
+        m_data[i].~D2StormSlotListStrc();
+    if (m_data)
+        SMemFree(m_data, gszTypeNameCelSlotList, -2, 0);
 }
 
 // 0x005FDE50
@@ -3116,15 +3116,15 @@ void D2GameHashTableStrc::CelListTableInternalClear(int bWarn)
 {
     m_fullnessIndicator = 0;
     m_fulllist.UnlinkAll();
-    for (unsigned int i = 0; i < m_slotlistarray.f_4; ++i)
+    for (unsigned int i = 0; i < m_slotlistarray.m_count; ++i)
     {
         for (;;)
         {
-            char* pNode = m_slotlistarray.f_8[i].Head();
+            char* pNode = m_slotlistarray.m_data[i].Head();
             if (!pNode)
                 break;
             if (bWarn)
-                m_slotlistarray.f_8[i].sub_006C4290(pNode);
+                m_slotlistarray.m_data[i].sub_006C4290(pNode);
             else
                 InternalDelete((D2StormEntry38Strc*)pNode);
         }
@@ -3272,19 +3272,19 @@ D2StormGameHashChunkStrc::~D2StormGameHashChunkStrc()
 // 0x00603140
 D2StormEntryArrayStrc::~D2StormEntryArrayStrc()
 {
-    for (unsigned int i = 0; i < f_4; ++i)
-        f_8[i].~D2StormEntry38Strc();
-    if (f_8)
-        SMemFree(f_8, gszTypeNameCelList, -2, 0);
+    for (unsigned int i = 0; i < m_count; ++i)
+        m_data[i].~D2StormEntry38Strc();
+    if (m_data)
+        SMemFree(m_data, gszTypeNameCelList, -2, 0);
 }
 
 // 0x006031E0
 D2StormArray408Strc* D2StormArray408Strc::sub_0051D690_Init()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-    f_C = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
+    m_chunk = 0;
     return this;
 }
 
@@ -3339,10 +3339,10 @@ void D2ChatStormListAStrc::sub_00603510_Reset()
 // 0x00603530
 D2Storm603530Strc::D2Storm603530Strc()
 {
-    tArray.f_0 = 0;
-    tArray.f_4 = 0;
-    tArray.f_8 = 0;
-    tArray.f_C = 0;
+    tArray.m_alloc = 0;
+    tArray.m_count = 0;
+    tArray.m_data = 0;
+    tArray.m_chunk = 0;
 }
 
 // 0x00603550
@@ -3383,9 +3383,9 @@ SlotArray* SlotArray::sub_00603730(DeleteFlags flags)
 void D2StormSlotArrayStrc::CelSlotArrayClear()
 {
     this->D2StormSlotArrayStrc::~D2StormSlotArrayStrc();
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 // 0x00603780
@@ -3407,12 +3407,12 @@ inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
 
 inline void D2StormArray408Strc::ReserveInline(unsigned int nCount, int bRound)
 {
-    nCount += f_4;
-    if (nCount > f_0)
+    nCount += m_count;
+    if (nCount > m_alloc)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : sub_0051D2F0_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_0051D2F0_CalcChunkSize(nCount);
             nCount = RoundUpInline(nCount, nChunk);
         }
         sub_0051D5D0_ReallocData(nCount);
@@ -3421,9 +3421,9 @@ inline void D2StormArray408Strc::ReserveInline(unsigned int nCount, int bRound)
 
 D2StormArray408Strc* D2StormArray408Strc::sub_0051D2C0_InitBase()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
     return this;
 }
 
@@ -3444,35 +3444,35 @@ void __fastcall BNNEWS_CopyNewsItem(D2Storm408ElemStrc* pDst, const D2Storm408El
 
 void D2StormArray408Strc::sub_0051D570_FreeData()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
 }
 
 void D2StormArray408Strc::sub_0051D670_FreeData()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
 }
 
 // 0x00603300
 void D2StormSlotArrayStrc::CelSlotArraySetCount(unsigned int nCount)
 {
-    if (nCount > f_4)
+    if (nCount > m_count)
     {
-        if (nCount > f_0)
+        if (nCount > m_alloc)
         {
-            unsigned int nChunk = f_C ? f_C : CelSlotArrayCalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : CelSlotArrayCalcChunkSize(nCount);
             CelSlotArrayReallocData(STORM_RoundUp(nCount, nChunk));
         }
-        for (unsigned int i = f_4; i < nCount; i++)
-            new (&f_8[i]) D2StormSlotListStrc;
+        for (unsigned int i = m_count; i < nCount; i++)
+            new (&m_data[i]) D2StormSlotListStrc;
     }
-    else if (nCount < f_4)
+    else if (nCount < m_count)
     {
-        for (unsigned int i = nCount; i < f_4; i++)
-            f_8[i].~D2StormSlotListStrc();
+        for (unsigned int i = nCount; i < m_count; i++)
+            m_data[i].~D2StormSlotListStrc();
     }
-    f_4 = nCount;
+    m_count = nCount;
 }
 
 // build: symbol ?InternalNew@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEPAUD2StormEntry38Strc@@PAUD2StormSlotListStrc@@II@Z 0x00603610
@@ -3556,7 +3556,7 @@ D2GameHashTableStrc::TSHashTable()
     m_slotmask = 3;
     m_slotlistarray.CelSlotArraySetCount(4);
     for (unsigned int i = 0; i <= m_slotmask; i++)
-        m_slotlistarray.f_8[i].ChangeLinkOffset(4);
+        m_slotlistarray.m_data[i].ChangeLinkOffset(4);
 }
 
 // 0x00603C80
@@ -3570,18 +3570,18 @@ void D2GameHashTableStrc::CelListTableGrowListArray()
     for (unsigned int i = 0; i < nOldCount; i++)
     {
         char* pNode;
-        while ((pNode = m_slotlistarray.f_8[i].Head()) != 0)
+        while ((pNode = m_slotlistarray.m_data[i].Head()) != 0)
             tTempList.LinkToTail(pNode);
     }
 
     m_slotlistarray.CelSlotArraySetCount(nNewCount);
     for (unsigned int i = 0; i < nNewCount; i++)
-        m_slotlistarray.f_8[i].ChangeLinkOffset(4);
+        m_slotlistarray.m_data[i].ChangeLinkOffset(4);
     m_slotmask = nNewCount - 1;
 
     char* pNode;
     while ((pNode = tTempList.Head()) != 0)
-        m_slotlistarray.f_8[((D2StormEntry38Strc*)pNode)->m_hashval & m_slotmask].LinkToTail(pNode);
+        m_slotlistarray.m_data[((D2StormEntry38Strc*)pNode)->m_hashval & m_slotmask].LinkToTail(pNode);
 }
 
 // build: symbol ?InternalDelete@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEXPAUD2StormEntry38Strc@@@Z 0x00604150
@@ -3604,7 +3604,7 @@ D2StormHashChunkStrc* D2StormListEStrc::CelChunkListNewNode(int nLinkType, unsig
 // 0x006045B0
 int TSHashTable<CELLIST, HASHKEY_NONE>::sub_006045B0(unsigned int nSlot)
 {
-    D2StormSlotListStrc* const& pListArray = m_slotlistarray.f_8;
+    D2StormSlotListStrc* const& pListArray = m_slotlistarray.m_data;
     if (m_slotmask >= 0x3FF)
     {
         return 0;
@@ -3640,12 +3640,12 @@ int TSHashTable<CELLIST, HASHKEY_NONE>::sub_006045B0(unsigned int nSlot)
 // 0x006031F0
 void D2StormSlotArrayStrc::CelSlotArrayReserve(unsigned int nCount, int bRound)
 {
-    nCount += f_4;
-    if (nCount > f_0)
+    nCount += m_count;
+    if (nCount > m_alloc)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : CelSlotArrayCalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : CelSlotArrayCalcChunkSize(nCount);
             nCount = STORM_RoundUp(nCount, nChunk);
         }
         CelSlotArrayReallocData(nCount);
@@ -3734,38 +3734,38 @@ unsigned int D2StormEntryArrayStrc::CelListArrayCalcChunkSize(unsigned int nCoun
             nResult &= nResult - 1;
         return nResult < 1 ? 1 : nResult;
     }
-    f_C = 8;
+    m_chunk = 8;
     return 8;
 }
 
 void D2StormArray408Strc::sub_0051D6A0_Clear()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    if (m_data)
+        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 D2StormArray408Strc* D2StormArray408Strc::sub_0051D720_Init()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-    f_C = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
+    m_chunk = 0;
     return this;
 }
 
 void D2StormArray408Strc::sub_0051D730_FreeData()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
 }
 
 D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
 {
     ReserveInline(1, 1);
-    return &f_8[f_4++];
+    return &m_data[m_count++];
 }
 
 // 0x00603F20
@@ -3787,10 +3787,10 @@ void D2StormListEStrc::sub_00603F50_CopyLinkOffset(const D2StormListEStrc* pSour
 // 0x00603F70
 D2Storm603F70Strc::D2Storm603F70Strc(int nUnused)
 {
-    tArray.f_0 = 0;
-    tArray.f_4 = 0;
-    tArray.f_8 = 0;
-    tArray.f_C = 0;
+    tArray.m_alloc = 0;
+    tArray.m_count = 0;
+    tArray.m_data = 0;
+    tArray.m_chunk = 0;
 }
 
 // build: symbol ??0D2StormNodeListStrc@@QAE@ABU0@@Z 0x00603F90
@@ -3836,12 +3836,12 @@ D2StormEntry38Strc::D2StormEntry38Strc(const D2StormEntry38Strc& source)
 // 0x00604350
 void D2StormEntryArrayStrc::CelListArrayReserve(unsigned int nCount, int bRound)
 {
-    nCount += f_4;
-    if (nCount > f_0)
+    nCount += m_count;
+    if (nCount > m_alloc)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : CelListArrayCalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : CelListArrayCalcChunkSize(nCount);
             nCount = STORM_RoundUp(nCount, nChunk);
         }
         sub_006041B0_ReallocData(nCount);
@@ -3851,8 +3851,8 @@ void D2StormEntryArrayStrc::CelListArrayReserve(unsigned int nCount, int bRound)
 // 0x00604440
 void D2StormEntryArrayStrc::CelListArrayGrow(unsigned int nCount)
 {
-    unsigned int nNewCount = f_4 + nCount;
-    if (nNewCount > f_0)
+    unsigned int nNewCount = m_count + nCount;
+    if (nNewCount > m_alloc)
         sub_006041B0_ReallocData(nNewCount);
 }
 
@@ -3878,7 +3878,7 @@ char* D2GameDataTableStrc::CelListTableNew(unsigned int nHashVal, const int& tKe
     unsigned int nSlot = nHashVal & m_slotmask;
     if (sub_006045B0(nSlot))
         nSlot = nHashVal & m_slotmask;
-    D2StormSlotListStrc* pSlotList = &m_slotlistarray.f_8[nSlot];
+    D2StormSlotListStrc* pSlotList = &m_slotlistarray.m_data[nSlot];
     D2StormEntry38Strc* pNode = InternalNew(pSlotList, nExtraBytes, nFlags);
     m_fulllist.LinkNode((char*)pNode, 2, 0);
     pNode->m_hashval = nHashVal;
@@ -4015,7 +4015,7 @@ int __cdecl sub_0060E0D0()
 // 0x0060E0E0
 D2StormListEStrc* D2StormListEArrayStrc::sub_0060E0E0_At(unsigned int nIndex)
 {
-    return &f_8[nIndex];
+    return &m_data[nIndex];
 }
 
 // 0x0060E100
@@ -4027,7 +4027,7 @@ int __cdecl sub_0060E100()
 // 0x0060E110
 D2StormListEStrc* D2StormListEArrayStrc::sub_0060E110_At(unsigned int nIndex)
 {
-    return &f_8[nIndex];
+    return &m_data[nIndex];
 }
 
 // 0x0060E170
@@ -4086,7 +4086,7 @@ unsigned int D2StormListEArrayStrc::sub_0060E2A0_CalcChunkSize(unsigned int nCou
             nResult &= nResult - 1;
         return nResult < 1 ? 1 : nResult;
     }
-    f_C = 0x15;
+    m_chunk = 0x15;
     return 0x15;
 }
 
@@ -4109,7 +4109,7 @@ unsigned int D2StormListEArrayStrc::sub_0060E300_CalcChunkSize(unsigned int nCou
             nResult &= nResult - 1;
         return nResult < 1 ? 1 : nResult;
     }
-    f_C = 0x15;
+    m_chunk = 0x15;
     return 0x15;
 }
 

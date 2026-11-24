@@ -42,9 +42,9 @@ struct D2StormListAStrc
 
 struct D2StormListFixedArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormListAStrc* f_8;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2StormListAStrc* m_data;
 
     ~D2StormListFixedArrayStrc();
 };
@@ -59,10 +59,10 @@ struct D2SGameDataStrc
 
 struct D2StormGameDataArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2SGameDataStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2SGameDataStrc* m_data;
+    unsigned int m_chunk;
 
     void sub_00450D90_ReallocData(unsigned int nAlloc);
 };
@@ -77,10 +77,10 @@ struct D2StormChunkListStrc
 
 struct D2StormListArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormListAStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2StormListAStrc* m_data;
+    unsigned int m_chunk;
 };
 
 struct D2StormHashTableStrc
@@ -127,32 +127,32 @@ char* D2StormBreakCmdListStrc::sub_00426F20_DeleteNode(char* pNode)
 // 0x0044FF60
 D2StormListFixedArrayStrc::~D2StormListFixedArrayStrc()
 {
-    for (unsigned int i = 0; i < f_4; i++)
-        f_8[i].~D2StormListAStrc();
-    if (f_8)
+    for (unsigned int i = 0; i < m_count; i++)
+        m_data[i].~D2StormListAStrc();
+    if (m_data)
 // build: symbol ?gszTypeExplicitList@* 0x0070F584
-        SMemFree(f_8, gszTypeExplicitList, -2, 0);
+        SMemFree(m_data, gszTypeExplicitList, -2, 0);
 }
 
 // 0x00450D90
 void D2StormGameDataArrayStrc::sub_00450D90_ReallocData(unsigned int nAlloc)
 {
-    D2SGameDataStrc* pOld = f_8;
-    for (unsigned int i = nAlloc; i < f_4; i++)
+    D2SGameDataStrc* pOld = m_data;
+    for (unsigned int i = nAlloc; i < m_count; i++)
         pOld[i].~D2SGameDataStrc();
-    f_0 = nAlloc;
+    m_alloc = nAlloc;
 // build: symbol ?gszTypeSGameData@* 0x0070F56C
     void* pNew = SMemReAlloc(pOld, nAlloc * sizeof(D2SGameDataStrc), gszTypeSGameData, -2, 0x10);
-    f_8 = (D2SGameDataStrc*)pNew;
+    m_data = (D2SGameDataStrc*)pNew;
     if (!pNew)
     {
-        f_8 = (D2SGameDataStrc*)SMemAlloc(nAlloc * sizeof(D2SGameDataStrc), gszTypeSGameData, -2, 0);
+        m_data = (D2SGameDataStrc*)SMemAlloc(nAlloc * sizeof(D2SGameDataStrc), gszTypeSGameData, -2, 0);
         if (pOld)
         {
-            unsigned int nCopy = nAlloc >= f_4 ? f_4 : nAlloc;
+            unsigned int nCopy = nAlloc >= m_count ? m_count : nAlloc;
             for (unsigned int i = 0; i < nCopy; i++)
             {
-                new (&f_8[i]) D2SGameDataStrc(pOld[i]);
+                new (&m_data[i]) D2SGameDataStrc(pOld[i]);
                 pOld[i].~D2SGameDataStrc();
             }
             SMemFree(pOld, gszTypeSGameData, -2, 0);

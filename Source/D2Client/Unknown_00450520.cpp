@@ -31,18 +31,18 @@ struct D2StormChunkListStrc
 
 struct D2StormListFixedArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormListAStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2StormListAStrc* m_data;
+    unsigned int m_chunk;
 
     ~D2StormListFixedArrayStrc();                                                                           // 0x0044FF60
     void Clear()
     {
         this->~D2StormListFixedArrayStrc();
-        f_0 = 0;
-        f_4 = 0;
-        f_8 = 0;
+        m_alloc = 0;
+        m_count = 0;
+        m_data = 0;
     }
 };
 

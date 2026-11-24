@@ -445,10 +445,10 @@ struct D2SGameDataStrc
 
 struct D2StormGameDataArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2SGameDataStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2SGameDataStrc* m_data;
+    unsigned int m_chunk;
 
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
@@ -461,12 +461,12 @@ struct D2StormGameDataArrayStrc
     void sub_00450D90_ReallocData(unsigned int nAlloc);                                                     // 0x00450D90
     void Reserve(unsigned int nCount, int bRound)
     {
-        nCount += f_4;
-        if (nCount > f_0)
+        nCount += m_count;
+        if (nCount > m_alloc)
         {
             if (bRound)
             {
-                unsigned int nChunk = f_C ? f_C : sub_00450810_CalcChunkSize(nCount);
+                unsigned int nChunk = m_chunk ? m_chunk : sub_00450810_CalcChunkSize(nCount);
                 nCount = RoundUp(nCount, nChunk);
             }
             sub_00450D90_ReallocData(nCount);

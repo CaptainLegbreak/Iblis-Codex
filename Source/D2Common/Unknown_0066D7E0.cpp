@@ -2,10 +2,10 @@ struct D2CommonStormSlotListBStrc;
 
 struct D2CommonStormSlotArrayBStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2CommonStormSlotListBStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2CommonStormSlotListBStrc* m_data;
+    unsigned int m_chunk;
 
     ~D2CommonStormSlotArrayBStrc();                                                                         // 0x0060F950
 };

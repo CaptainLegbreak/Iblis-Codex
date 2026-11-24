@@ -16,10 +16,10 @@ struct D2StormListAStrc
 
 struct D2StormListFixedArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormListAStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2StormListAStrc* m_data;
+    unsigned int m_chunk;
 
     ~D2StormListFixedArrayStrc() throw(); // 0x0044FF60
 };

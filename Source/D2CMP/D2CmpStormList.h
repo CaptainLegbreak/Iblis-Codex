@@ -272,25 +272,25 @@ struct D2StormListAStrc
 
 struct D2StormSlotArrayStrc
 {
-    unsigned int f_0;                                       // 0x00
-    unsigned int f_4;                                       // 0x04
-    D2StormSlotListStrc* f_8;                               // 0x08
-    unsigned int f_C;                                       // 0x0C
+    unsigned int m_alloc;                                       // 0x00
+    unsigned int m_count;                                       // 0x04
+    D2StormSlotListStrc* m_data;                               // 0x08
+    unsigned int m_chunk;                                       // 0x0C
 
     D2StormSlotArrayStrc()
     {
-        f_0 = 0;
-        f_4 = 0;
-        f_8 = 0;
-        f_C = 0;
+        m_alloc = 0;
+        m_count = 0;
+        m_data = 0;
+        m_chunk = 0;
     }
     ~D2StormSlotArrayStrc() throw();                                                                        // 0x00603060
     void Clear()
     {
         this->~D2StormSlotArrayStrc();
-        f_0 = 0;
-        f_4 = 0;
-        f_8 = 0;
+        m_alloc = 0;
+        m_count = 0;
+        m_data = 0;
     }
     unsigned int CelSlotArrayCalcChunkSize(unsigned int nCount);
     void CelSlotArrayReallocData(unsigned int nAlloc);                                                     // 0x00602F10
@@ -309,17 +309,17 @@ struct D2StormSlotGrowArrayStrc : D2StormSlotArrayStrc
 
 struct D2StormEntryArrayStrc
 {
-    unsigned int f_0;                                       // 0x00
-    unsigned int f_4;                                       // 0x04
-    D2StormEntry38Strc* f_8;                                // 0x08
-    unsigned int f_C;                                       // 0x0C
+    unsigned int m_alloc;                                       // 0x00
+    unsigned int m_count;                                       // 0x04
+    D2StormEntry38Strc* m_data;                                // 0x08
+    unsigned int m_chunk;                                       // 0x0C
 
     D2StormEntryArrayStrc()
     {
-        f_0 = 0;
-        f_4 = 0;
-        f_8 = 0;
-        f_C = 0;
+        m_alloc = 0;
+        m_count = 0;
+        m_data = 0;
+        m_chunk = 0;
     }
     ~D2StormEntryArrayStrc();                                                                               // 0x00603140
     unsigned int CelListArrayCalcChunkSize(unsigned int nCount);

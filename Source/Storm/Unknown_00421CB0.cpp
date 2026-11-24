@@ -2,14 +2,14 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize);  
 
 struct D2StormArrayAStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned int* m_data;
+    unsigned int m_chunk;
 
     unsigned int Count() const
     {
-        return f_4;
+        return m_count;
     }
 };
 
@@ -25,7 +25,7 @@ struct BigBuffer
     unsigned int operator[](unsigned int nIndex) const
     {
         nIndex += m_start;
-        return nIndex < m_array.Count() ? m_array.f_8[nIndex] : 0;
+        return nIndex < m_array.Count() ? m_array.m_data[nIndex] : 0;
     }
 };
 
@@ -37,10 +37,10 @@ struct BigStack
 
 struct D2StormArrayBStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned char* m_data;
+    unsigned int m_chunk;
 
     unsigned int sub_00421160_CalcChunkSize(unsigned int nCount);                                           // 0x00421160
     void sub_004211C0_ReallocData(unsigned int nAlloc);                                                     // 0x004211C0
@@ -56,12 +56,12 @@ struct D2StormArrayBStrc
     }
     void InlineReserve(unsigned int nCount, int bRound)
     {
-        nCount += f_4;
-        if (nCount > f_0)
+        nCount += m_count;
+        if (nCount > m_alloc)
         {
             if (bRound)
             {
-                unsigned int nChunk = f_C;
+                unsigned int nChunk = m_chunk;
                 if (!nChunk)
                     nChunk = sub_00421160_CalcChunkSize(nCount);
                 nCount = RoundUp(nCount, nChunk);
@@ -72,7 +72,7 @@ struct D2StormArrayBStrc
     unsigned char* New()
     {
         InlineReserve(1, 1);
-        return &f_8[f_4++];
+        return &m_data[m_count++];
     }
     unsigned int sub_004219D0_AddOne(const unsigned char* pData);
 };
@@ -86,7 +86,7 @@ inline unsigned int D2StormArrayBStrc::sub_00421160_CalcChunkSize(unsigned int n
             nCount &= nCount - 1;
         return nCount < 1 ? 1 : nCount;
     }
-    f_C = 0x100;
+    m_chunk = 0x100;
     return 0x100;
 }
 
@@ -126,7 +126,7 @@ void ToBinary(D2StormArrayBStrc* pOut, BigBuffer* pIn); // 0x004235F0
 static void ToStream(D2StormArrayBStrc* pOut, BigBuffer* pIn)
 {
     ToBinary(pOut, pIn);
-    EncodeDataBytes(pOut->f_4, pOut);
+    EncodeDataBytes(pOut->m_count, pOut);
     sub_00421CB0_AppendDigits(pOut, pIn);
 }
 
@@ -135,9 +135,9 @@ void __stdcall SBigToBinaryArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray
 {
     ToBinary(&pBig->tBuffer, &pBig->tQueue);
     if (bAppend)
-        pArray->sub_004218B0_Add(pBig->tBuffer.f_4, pBig->tBuffer.f_8);
+        pArray->sub_004218B0_Add(pBig->tBuffer.m_count, pBig->tBuffer.m_data);
     else
-        pArray->sub_004219F0_Set(pBig->tBuffer.f_4, pBig->tBuffer.f_8);
+        pArray->sub_004219F0_Set(pBig->tBuffer.m_count, pBig->tBuffer.m_data);
 }
 
 // 0x00423B30
@@ -145,8 +145,8 @@ void __stdcall SBigToBinaryBuffer(void* hBig, void* pBuffer, unsigned int nSize,
 {
     D2StormBigStrc* pBig = (D2StormBigStrc*)hBig;
     ToBinary(&pBig->tBuffer, &pBig->tQueue);
-    unsigned int nCopy = pBig->tBuffer.f_4 < nSize ? pBig->tBuffer.f_4 : nSize;
-    SMemCopy(pBuffer, pBig->tBuffer.f_8, nCopy);
+    unsigned int nCopy = pBig->tBuffer.m_count < nSize ? pBig->tBuffer.m_count : nSize;
+    SMemCopy(pBuffer, pBig->tBuffer.m_data, nCopy);
     if (pRead)
         *pRead = nCopy;
 }
@@ -155,9 +155,9 @@ void __stdcall SBigToBinaryBuffer(void* hBig, void* pBuffer, unsigned int nSize,
 void __stdcall SBigToBinaryPtr(D2StormBigStrc* pBig, unsigned char** ppData, unsigned int* pSize)
 {
     ToBinary(&pBig->tBuffer, &pBig->tQueue);
-    *ppData = pBig->tBuffer.f_8;
+    *ppData = pBig->tBuffer.m_data;
     if (pSize)
-        *pSize = pBig->tBuffer.f_4;
+        *pSize = pBig->tBuffer.m_count;
 }
 
 // 0x00423C90
@@ -165,17 +165,17 @@ void __stdcall SBigToStreamArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray
 {
     ToStream(&pBig->tBuffer, &pBig->tQueue);
     if (bAppend)
-        pArray->sub_004218B0_Add(pBig->tBuffer.f_4, pBig->tBuffer.f_8);
+        pArray->sub_004218B0_Add(pBig->tBuffer.m_count, pBig->tBuffer.m_data);
     else
-        pArray->sub_004219F0_Set(pBig->tBuffer.f_4, pBig->tBuffer.f_8);
+        pArray->sub_004219F0_Set(pBig->tBuffer.m_count, pBig->tBuffer.m_data);
 }
 
 // 0x00423CE0
 void __stdcall SBigToStreamBuffer(D2StormBigStrc* pBig, void* pBuffer, unsigned int nSize, unsigned int* pWritten)
 {
     ToStream(&pBig->tBuffer, &pBig->tQueue);
-    unsigned int nCopy = pBig->tBuffer.f_4 < nSize ? pBig->tBuffer.f_4 : nSize;
-    SMemCopy(pBuffer, pBig->tBuffer.f_8, nCopy);
+    unsigned int nCopy = pBig->tBuffer.m_count < nSize ? pBig->tBuffer.m_count : nSize;
+    SMemCopy(pBuffer, pBig->tBuffer.m_data, nCopy);
     if (pWritten)
         *pWritten = nCopy;
 }
@@ -184,6 +184,6 @@ void __stdcall SBigToStreamBuffer(D2StormBigStrc* pBig, void* pBuffer, unsigned 
 void __stdcall SBigToStreamPtr(D2StormBigStrc* pBig, unsigned char** ppData, unsigned int* pSize)
 {
     ToStream(&pBig->tBuffer, &pBig->tQueue);
-    *ppData = pBig->tBuffer.f_8;
-    *pSize = pBig->tBuffer.f_4;
+    *ppData = pBig->tBuffer.m_data;
+    *pSize = pBig->tBuffer.m_count;
 }

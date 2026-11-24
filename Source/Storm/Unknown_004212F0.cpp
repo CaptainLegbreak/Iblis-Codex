@@ -14,10 +14,10 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 
 struct D2StormArrayCStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    char* m_data;
+    unsigned int m_chunk;
 
     void sub_00421770_ReallocData(unsigned int nAlloc);
 };
@@ -47,25 +47,25 @@ void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 
 struct D2StormFixedArrayAStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned int* m_data;
 
     void InlineReallocData(unsigned int nAlloc)
     {
-        f_0 = nAlloc;
-        if (f_8 || nAlloc)
-            f_8 = (unsigned int*)SMemReAlloc(f_8, nAlloc * sizeof(unsigned int), gszTypeNameUInt_00708874, -2, 0);
+        m_alloc = nAlloc;
+        if (m_data || nAlloc)
+            m_data = (unsigned int*)SMemReAlloc(m_data, nAlloc * sizeof(unsigned int), gszTypeNameUInt_00708874, -2, 0);
     }
     void sub_004215C0_Set(unsigned int nCount, const unsigned int* pData);
 };
 
 struct D2StormArrayBStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned char* m_data;
+    unsigned int m_chunk;
 
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
@@ -78,12 +78,12 @@ struct D2StormArrayBStrc
     void sub_004211C0_ReallocData(unsigned int nAlloc);                                                     // 0x004211C0
     void InlineReserve(unsigned int nCount, int bRound)
     {
-        nCount += f_4;
-        if (nCount > f_0)
+        nCount += m_count;
+        if (nCount > m_alloc)
         {
             if (bRound)
             {
-                unsigned int nChunk = f_C ? f_C : sub_00421160_CalcChunkSize(nCount);
+                unsigned int nChunk = m_chunk ? m_chunk : sub_00421160_CalcChunkSize(nCount);
                 nCount = RoundUp(nCount, nChunk);
             }
             sub_004211C0_ReallocData(nCount);
@@ -114,18 +114,18 @@ int __stdcall sub_004212F0_Compare(BigBuffer* pLeft, BigBuffer* pRight)
 // 0x00421770
 void D2StormArrayCStrc::sub_00421770_ReallocData(unsigned int nAlloc)
 {
-    char* pOld = f_8;
-    f_0 = nAlloc;
-    f_8 = (char*)SMemReAlloc(pOld, nAlloc, gszTypeNameChar_0070888C, -2, 0x10);
-    if (!f_8)
+    char* pOld = m_data;
+    m_alloc = nAlloc;
+    m_data = (char*)SMemReAlloc(pOld, nAlloc, gszTypeNameChar_0070888C, -2, 0x10);
+    if (!m_data)
     {
-        f_8 = (char*)SMemAlloc(nAlloc, gszTypeNameChar_0070888C, -2, 0);
+        m_data = (char*)SMemAlloc(nAlloc, gszTypeNameChar_0070888C, -2, 0);
         if (pOld)
         {
-            if (nAlloc >= f_4)
-                nAlloc = f_4;
+            if (nAlloc >= m_count)
+                nAlloc = m_count;
             for (unsigned int i = 0; i < nAlloc; ++i)
-                new (&f_8[i]) char(pOld[i]);
+                new (&m_data[i]) char(pOld[i]);
             SMemFree(pOld, gszTypeNameChar_0070888C, -2, 0);
         }
     }
@@ -149,8 +149,8 @@ void D2StormFixedArrayAStrc::sub_004215C0_Set(unsigned int nCount, const unsigne
 {
     InlineReallocData(nCount);
     for (unsigned int i = 0; i < nCount; i++, pData++)
-        new (&f_8[i]) unsigned int(*pData);
-    f_4 = nCount;
+        new (&m_data[i]) unsigned int(*pData);
+    m_count = nCount;
 }
 
 // 0x004218B0
@@ -158,9 +158,9 @@ unsigned int D2StormArrayBStrc::sub_004218B0_Add(unsigned int nCount, const unsi
 {
     InlineReserve(nCount, 1);
     for (unsigned int i = 0; i < nCount; i++, pData++)
-        new (&f_8[f_4 + i]) unsigned char(*pData);
-    f_4 += nCount;
-    return f_4 - nCount;
+        new (&m_data[m_count + i]) unsigned char(*pData);
+    m_count += nCount;
+    return m_count - nCount;
 }
 
 // 0x00421FE0
