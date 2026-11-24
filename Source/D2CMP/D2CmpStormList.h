@@ -334,6 +334,7 @@ struct D2StormEntryArrayStrc
     unsigned int CelListArrayCalcChunkSize(unsigned int nCount);
     void sub_006041B0_ReallocData(unsigned int nAlloc);                                                     // 0x006041B0
     D2StormEntryArrayStrc* sub_006043A0_Init();                                                             // 0x006043A0
+    D2StormEntry38Strc* sub_006043B0_New();                                                                 // 0x006043B0
     void CelListArrayReserve(unsigned int nCount, int bRound);
     void CelListArrayGrow(unsigned int nCount);
 };
