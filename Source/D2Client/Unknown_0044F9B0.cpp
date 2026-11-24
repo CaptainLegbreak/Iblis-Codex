@@ -494,11 +494,11 @@ struct D2Storm604470Strc
 
 struct D2StormCritSectStrc
 {
-    D2CriticalSectionStrc f_0;
+    D2CriticalSectionStrc m_critsect;
 
     ~D2StormCritSectStrc()
     {
-        DeleteCriticalSection(&f_0);
+        DeleteCriticalSection(&m_critsect);
     }
 };
 
