@@ -8573,36 +8573,6 @@ void __cdecl sub_00495DC0_DrawHelpText(); // 0x00495DC0
 
 
 
-// 0x00497300
-void __cdecl INV_DrawKeyBindingPopup()
-{
-    unsigned short wszTextBuf[200];
-    Unicode* wszText = (Unicode*)wszTextBuf;
-    for (int i = 0; i < 200; ++i)
-    {
-        wszText[i].wChar = 0;
-    }
-    unsigned short wszKeyBuf[30];
-    Unicode* wszKey = (Unicode*)wszKeyBuf;
-    for (int i = 0; i < 30; ++i)
-    {
-        wszKey[i].wChar = 0;
-    }
-    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x1053));
-    if (CUNIT_GetHotkeyBinding(0x23, 1) != 0xFFFF)
-    {
-        memset(wszKey, 0, sizeof(wszKeyBuf));
-        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(0x23, 1));
-        sub_00526700(wszText, wszKey);
-    }
-    if (CUNIT_GetHotkeyBinding(0x23, 0) != 0xFFFF)
-    {
-        memset(wszKey, 0, sizeof(wszKeyBuf));
-        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(0x23, 0));
-        sub_00526700(wszText, wszKey);
-    }
-    D2Win_10129_DrawFramedText(wszText, gnScreenWidth / 2 - 0x91, gnScreenHeight - 0x17, 0, 1);
-}
 
 // 0x00497C50
 void __stdcall INV_DrawWarningIcon(int nFrame)

@@ -727,6 +727,83 @@ void __cdecl PANEL_DrawManaOrb()
     sub_004F6480(&tContext, gnScreenWidth - 0x6E, gnScreenHeight - 9, -1, 5, 0);
 }
 
+void __cdecl sub_00497300(); // 0x00497300
+
+
+
+
+static int ButtonHitTest_00497480(int nX, int nY)
+{
+    int nHeight = gnScreenHeight;
+    int nWidth = gnScreenWidth;
+    return nX >= nWidth / 2 - 0x91 && nX <= nWidth / 2 - 0x80 && nY >= nHeight - 0x1C && nY <= nHeight - 8;
+}
+
+// 0x00497250
+void __cdecl VIEW_InitTextColorRed()
+{
+    gnTextColorRed = D2Win_10034_MixRGB(0xFF, 0, 0);
+}
+
+
+
+class D2SquelchListStrc
+{
+public:
+    virtual void Squelch(const char* szName);
+    virtual void Unsquelch(const char* szName);
+    virtual int IsNameSquelched(const char* szName);
+    virtual void Unknown0C();
+    virtual void Unknown10();
+    virtual int IsTextSquelched(const char* szText);
+    virtual void AddName(const char* szName, int nSize);
+};
+
+// 0x00497270
+void __cdecl HIREABLES_InitTextColorA()
+{
+    gnTextColorA = D2Win_10034_MixRGB(0xF4, 0xC0, 0x4C);
+}
+
+// 0x00497290
+void __cdecl HIREABLES_InitTextColorB()
+{
+    gnTextColorB = D2Win_10034_MixRGB(0, 0, 0xFF);
+}
+
+
+
+// 0x00497300
+void __cdecl INV_DrawKeyBindingPopup()
+{
+    unsigned short wszTextBuf[200];
+    Unicode* wszText = (Unicode*)wszTextBuf;
+    for (int i = 0; i < 200; ++i)
+    {
+        wszText[i].wChar = 0;
+    }
+    unsigned short wszKeyBuf[30];
+    Unicode* wszKey = (Unicode*)wszKeyBuf;
+    for (int i = 0; i < 30; ++i)
+    {
+        wszKey[i].wChar = 0;
+    }
+    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(0x1053));
+    if (CUNIT_GetHotkeyBinding(0x23, 1) != 0xFFFF)
+    {
+        memset(wszKey, 0, sizeof(wszKeyBuf));
+        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(0x23, 1));
+        sub_00526700(wszText, wszKey);
+    }
+    if (CUNIT_GetHotkeyBinding(0x23, 0) != 0xFFFF)
+    {
+        memset(wszKey, 0, sizeof(wszKeyBuf));
+        sub_005269D0(30, wszKey, D2LANG_GetStringFromTblIndex(0x1052), CMDTBL_GetKeyName(0x23, 0));
+        sub_00526700(wszText, wszKey);
+    }
+    D2Win_10129_DrawFramedText(wszText, gnScreenWidth / 2 - 0x91, gnScreenHeight - 0x17, 0, 1);
+}
+
 // 0x00497440
 static int __cdecl sub_00497440_Bounds(int nX,int nY)
 {
@@ -735,6 +812,45 @@ static int __cdecl sub_00497440_Bounds(int nX,int nY)
         && nY >= gnScreenHeight + -28 && nY <= gnScreenHeight + -8)
         return 1;
     return 0;
+}
+
+// 0x00497480
+void __cdecl VIEW_DrawRunButton()
+{
+    int nX = sub_00468730();
+    int nY = sub_00468740();
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = gpGlobal_007BEF0C;
+    tContext.nDirection = 0;
+    if (GAME_GetAlwaysRun())
+    {
+        if (gbRunButtonDown && ButtonHitTest_00497480(nX, nY))
+        {
+            tContext.nFrame = 3;
+        }
+        else
+        {
+            tContext.nFrame = 2;
+        }
+    }
+    else
+    {
+        if (gbRunButtonDown && ButtonHitTest_00497480(nX, nY))
+        {
+            tContext.nFrame = 1;
+        }
+        else
+        {
+            tContext.nFrame = 0;
+        }
+    }
+    sub_004F6480(&tContext, gnScreenWidth / 2 - 0x91, gnScreenHeight - 0xA, -1, 5, 0);
+    if (nX >= gnScreenWidth / 2 - 0x91 && nX <= gnScreenWidth / 2 - 0x80
+        && nY >= gnScreenHeight - 0x1C && nY <= gnScreenHeight - 8)
+    {
+        sub_00497300();
+    }
 }
 
 // 0x004975B0
@@ -798,6 +914,80 @@ static int __cdecl sub_00497780_Bounds(int nX,int nY)
 }
 
 // @ref 0x00499500
+// 0x004979E0
+int __cdecl HIREABLES_AreBeltRowsShown()
+{
+    return gbBeltRowsShown != 0;
+}
+
+// 0x004979F0
+int __cdecl HIREABLES_GetBeltRowCount()
+{
+// build: symbol ?gnUiRecordIndex@* 0x00722354
+    switch (gnUiRecordIndex)
+    {
+    case 2:
+        return 1;
+    case 1:
+    case 4:
+        return 2;
+    case 0:
+    case 5:
+        return 3;
+    default:
+        return 4;
+    }
+}
+
+// 0x00498D50
+void __fastcall VIEW_SetBeltSlotValue(int nX, int nArg)
+{
+    if ((unsigned int)nX < 4)
+        gabBeltHotkey[nX] = (unsigned char)nArg;
+}
+
+// 0x00498D60
+void __cdecl VIEW_ResetBeltHover()
+{
+// build: symbol ?gnBeltBox@* 0x0072235C
+    gnBeltBox = -1;
+// build: symbol ?gnBeltRectX@* 0x00722360
+    gnBeltRectX = -1;
+// build: symbol ?gnBeltRectY@* 0x00722364
+    gnBeltRectY = -1;
+    gnBeltHover = 0;
+    gpBeltItemA = 0;
+    gpBeltItemB = 0;
+}
+
+
+
+
+
+// 0x00498DC0
+int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nX = pMsg->nXpos;
+    const int nY = pMsg->nYpos;
+    D2UiRecordStrc tRecord;
+// build: symbol ?gnUiRecordIndex@* 0x00722354
+    sub_00660CB0_GetUiRecord(gnUiRecordIndex, gnBeltUiRecordRow, &tRecord);
+    if (gbUiRecordMode)
+    {
+        const D2UiRectStrc* pRect = &tRecord.aRects[tRecord.nBoxes - 4];
+        if (nX >= pRect->nLeft && nX <= tRecord.aRects[3].nRight && nY >= pRect->nTop && nY <= tRecord.aRects[3].nBottom)
+        {
+            return 1;
+        }
+    }
+    else if (nY > gnScreenHeight - 0x30 && nX >= gnScreenWidth / 2 + 0x17 && nX <= gnScreenWidth / 2 + 0x91
+        && nY >= gnScreenHeight - 0x27 && nY <= gnScreenHeight - 0xA)
+    {
+        return 1;
+    }
+    return 0;
+}
+
 // 0x00499500
 void __stdcall sub_00499500_Click(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -1711,6 +1901,7 @@ void __cdecl PANEL_DrawExperienceBar()
     }
 }
 
+// 0x004972B0
 void __cdecl VIEW_InitBeltColors()
 {
     gabBeltColors[0] = D2Win_10034_MixRGB(0x80, 0, 0);

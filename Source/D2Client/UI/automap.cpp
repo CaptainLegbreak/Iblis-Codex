@@ -4408,29 +4408,6 @@ void __fastcall AUTOMAP_RemoveUnitOverlay(D2UnitStrc* pUnit, int nArg, int nValu
     }
 }
 
-// 0x00498DC0
-int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg)
-{
-    const int nX = pMsg->nXpos;
-    const int nY = pMsg->nYpos;
-    D2UiRecordStrc tRecord;
-// build: symbol ?gnUiRecordIndex@* 0x00722354
-    sub_00660CB0_GetUiRecord(gnUiRecordIndex, gnBeltUiRecordRow, &tRecord);
-    if (gbUiRecordMode)
-    {
-        const D2UiRectStrc* pRect = &tRecord.aRects[tRecord.nBoxes - 4];
-        if (nX >= pRect->nLeft && nX <= tRecord.aRects[3].nRight && nY >= pRect->nTop && nY <= tRecord.aRects[3].nBottom)
-        {
-            return 1;
-        }
-    }
-    else if (nY > gnScreenHeight - 0x30 && nX >= gnScreenWidth / 2 + 0x17 && nX <= gnScreenWidth / 2 + 0x91
-        && nY >= gnScreenHeight - 0x27 && nY <= gnScreenHeight - 0xA)
-    {
-        return 1;
-    }
-    return 0;
-}
 
 // 0x004C5420
 D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, int nArg3, int nArg4)

@@ -1656,41 +1656,9 @@ void __stdcall sub_M114_Emit_00492BD0(int nMode, int nPopupX)
 
 
 
-// 0x00497250
-void __cdecl VIEW_InitTextColorRed()
-{
-    gnTextColorRed = D2Win_10034_MixRGB(0xFF, 0, 0);
-}
 
-// 0x004972B0
-void __cdecl VIEW_InitBeltColors()
-{
-    gabBeltColors[0] = D2Win_10034_MixRGB(0x80, 0, 0);
-    gabBeltColors[1] = D2Win_10034_MixRGB(0, 0x80, 0);
-    gabBeltColors[2] = D2Win_10034_MixRGB(0, 0, 0x80);
-    gabBeltColors[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
-}
 
-// 0x00498D50
-void __fastcall VIEW_SetBeltSlotValue(int nX, int nArg)
-{
-    if ((unsigned int)nX < 4)
-        gabBeltHotkey[nX] = (unsigned char)nArg;
-}
 
-// 0x00498D60
-void __cdecl VIEW_ResetBeltHover()
-{
-// build: symbol ?gnBeltBox@* 0x0072235C
-    gnBeltBox = -1;
-// build: symbol ?gnBeltRectX@* 0x00722360
-    gnBeltRectX = -1;
-// build: symbol ?gnBeltRectY@* 0x00722364
-    gnBeltRectY = -1;
-    gnBeltHover = 0;
-    gpBeltItemA = 0;
-    gpBeltItemB = 0;
-}
 
 
 
@@ -1714,44 +1682,6 @@ static int ButtonHitTest_00497480(int nX, int nY)
     return nX >= nWidth / 2 - 0x91 && nX <= nWidth / 2 - 0x80 && nY >= nHeight - 0x1C && nY <= nHeight - 8;
 }
 
-// 0x00497480
-void __cdecl VIEW_DrawRunButton()
-{
-    int nX = sub_00468730();
-    int nY = sub_00468740();
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = gpGlobal_007BEF0C;
-    tContext.nDirection = 0;
-    if (GAME_GetAlwaysRun())
-    {
-        if (gbRunButtonDown && ButtonHitTest_00497480(nX, nY))
-        {
-            tContext.nFrame = 3;
-        }
-        else
-        {
-            tContext.nFrame = 2;
-        }
-    }
-    else
-    {
-        if (gbRunButtonDown && ButtonHitTest_00497480(nX, nY))
-        {
-            tContext.nFrame = 1;
-        }
-        else
-        {
-            tContext.nFrame = 0;
-        }
-    }
-    sub_004F6480(&tContext, gnScreenWidth / 2 - 0x91, gnScreenHeight - 0xA, -1, 5, 0);
-    if (nX >= gnScreenWidth / 2 - 0x91 && nX <= gnScreenWidth / 2 - 0x80
-        && nY >= gnScreenHeight - 0x1C && nY <= gnScreenHeight - 8)
-    {
-        sub_00497300();
-    }
-}
 
 // 0x004C76A0
 int __fastcall VIEW_GetWeaponClassMask(D2UnitStrc* pUnit)

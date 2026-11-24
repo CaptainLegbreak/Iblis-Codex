@@ -2501,11 +2501,6 @@
      "name": "?AUTOMAP_RemoveUnitOverlay@@YIXPAUD2UnitStrc@@HH@Z"
     },
     {
-     "va": "0x00498DC0",
-     "length": 187,
-     "name": "?AUTOMAP_IsCursorOverMiniPanelButton@@YIHPAUSMSGHANDLER_PARAMS@@@Z"
-    },
-    {
      "va": "0x004C5420",
      "length": 79,
      "name": "?AUTOMAP_RequestAtTarget@@YIPAUD2UnitStrc@@PAU1@HHH@Z"
@@ -13738,31 +13733,6 @@
      "name": "?VIEW_SetNpcMenuMode@@YAHXZ"
     },
     {
-     "va": "0x00497250",
-     "length": 20,
-     "name": "?VIEW_InitTextColorRed@@YAXXZ"
-    },
-    {
-     "va": "0x004972B0",
-     "length": 80,
-     "name": "?VIEW_InitBeltColors@@YAXXZ"
-    },
-    {
-     "va": "0x00497480",
-     "length": 292,
-     "name": "VIEW_DrawRunButton"
-    },
-    {
-     "va": "0x00498D50",
-     "length": 12,
-     "name": "?VIEW_SetBeltSlotValue@@YIXHH@Z"
-    },
-    {
-     "va": "0x00498D60",
-     "length": 36,
-     "name": "?VIEW_ResetBeltHover@@YAXXZ"
-    },
-    {
      "va": "0x004B9640",
      "length": 77,
      "name": "?VIEW_CountHintsForOwner@@YIHH@Z"
@@ -14633,11 +14603,6 @@
      "va": "0x00492770",
      "length": 69,
      "name": "INV_WeaponSwapKeyMsg"
-    },
-    {
-     "va": "0x00497300",
-     "length": 311,
-     "name": "?INV_DrawKeyBindingPopup@@YAXXZ"
     },
     {
      "va": "0x00497C50",
@@ -24394,26 +24359,6 @@
      "va": "0x00496BE0",
      "length": 267,
      "name": "WARDENCLIENT_DrawSkillInfo"
-    },
-    {
-     "va": "0x00497270",
-     "length": 23,
-     "name": "?HIREABLES_InitTextColorA@@YAXXZ"
-    },
-    {
-     "va": "0x00497290",
-     "length": 20,
-     "name": "?HIREABLES_InitTextColorB@@YAXXZ"
-    },
-    {
-     "va": "0x004979E0",
-     "length": 12,
-     "name": "?HIREABLES_AreBeltRowsShown@@YAHXZ"
-    },
-    {
-     "va": "0x004979F0",
-     "length": 68,
-     "name": "?HIREABLES_GetBeltRowCount@@YAHXZ"
     }
    ]
   },
@@ -24557,9 +24502,39 @@
      "name": "?PANEL_DrawManaOrb@@YAXXZ"
     },
     {
+     "va": "0x00497250",
+     "length": 20,
+     "name": "?VIEW_InitTextColorRed@@YAXXZ"
+    },
+    {
+     "va": "0x00497270",
+     "length": 23,
+     "name": "?HIREABLES_InitTextColorA@@YAXXZ"
+    },
+    {
+     "va": "0x00497290",
+     "length": 20,
+     "name": "?HIREABLES_InitTextColorB@@YAXXZ"
+    },
+    {
+     "va": "0x004972B0",
+     "length": 80,
+     "name": "?VIEW_InitBeltColors@@YAXXZ"
+    },
+    {
+     "va": "0x00497300",
+     "length": 311,
+     "name": "?INV_DrawKeyBindingPopup@@YAXXZ"
+    },
+    {
      "va": "0x00497440",
      "length": 55,
      "name": "?sub_00497440_Bounds@@YAHHH@Z"
+    },
+    {
+     "va": "0x00497480",
+     "length": 292,
+     "name": "VIEW_DrawRunButton"
     },
     {
      "va": "0x004975B0",
@@ -24585,6 +24560,16 @@
      "va": "0x00497920",
      "length": 190,
      "name": "?PANEL_DrawCursorBeltBox@@YAXPAUD2InventoryStrc@@@Z"
+    },
+    {
+     "va": "0x004979E0",
+     "length": 12,
+     "name": "?HIREABLES_AreBeltRowsShown@@YAHXZ"
+    },
+    {
+     "va": "0x004979F0",
+     "length": 68,
+     "name": "?HIREABLES_GetBeltRowCount@@YAHXZ"
     },
     {
      "va": "0x00497A40",
@@ -24683,9 +24668,24 @@
      "name": "?PANEL_BeltHotkeyFourth@@YAXXZ"
     },
     {
+     "va": "0x00498D50",
+     "length": 12,
+     "name": "?VIEW_SetBeltSlotValue@@YIXHH@Z"
+    },
+    {
+     "va": "0x00498D60",
+     "length": 36,
+     "name": "?VIEW_ResetBeltHover@@YAXXZ"
+    },
+    {
      "va": "0x00498D90",
      "length": 43,
      "name": "?PANEL_SetBeltType@@YIXH@Z"
+    },
+    {
+     "va": "0x00498DC0",
+     "length": 187,
+     "name": "?AUTOMAP_IsCursorOverMiniPanelButton@@YIHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x00498E80",
