@@ -10,9 +10,7 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- SCmd.cpp's packet table and the 0x45B5F0 object's data, 0x711430-0x711D40 (lane4/scmd-data, verifying).
-
-- The automap object's head, 0x457420-0x457B00 (lane4/automap-join): the automap step, pivot, center/left/party save and point helpers now in Unknown_004574D0.cpp, ui.cpp, Object.cpp and two placeholders join automap.cpp, and its copy 0x711218 joins it from CharSel.cpp's record.
+- Verifying, to post when each passes on the newest main: lane4/scmd-data (SCmd.cpp's packet table, the 0x45B5F0 object's data), lane4/copies-start-b (nine more copies, dialog.cpp's data), lane4/automap-join (automap.cpp takes 0x457420-0x457B00), lane4/chat-head (chat.cpp starts at 0x47A980), lane4/text-data (waypoint panel and text.cpp globals), and lane4/copies-start rebased onto #325.
 
 ## Questions
 
