@@ -68,11 +68,7 @@ struct D2QClientStrc
         int iId;
         void* pKey;
     };
-    union
-    {
-        D2QClientStrc* pNext;                               // 0x004
-        int f_4;
-    };
+    D2QClientStrc* pNext;                                   // 0x004
     long nRefCount;                                         // 0x008
     int bClosing;                                           // 0x00C
     union
@@ -160,7 +156,7 @@ struct D2QAcceptStatsStrc
     __int64 tTotal;                                         // 0x00
     __int64 aStages[9];                                     // 0x08
     __int64 aTimes[9];                                      // 0x50
-    int f_48;                                               // 0x98
+    int nAcceptAttempts;                                    // 0x98
     int nAcceptErrors;                                      // 0x9C
     int nRejected;                                          // 0xA0
     int nPostErrors;                                        // 0xA4
@@ -197,11 +193,7 @@ struct D2QMaskEntryStrc
 struct D2QueueServerStrc
 {
     int bAltSend;                                           // 0x000
-    union
-    {
-        int unk0x004;                                       // 0x004
-        unsigned int nNextId;
-    };
+    unsigned int nNextId;                                   // 0x004
     unsigned int nBuckets;                                  // 0x008
     unsigned int nMask;                                     // 0x00C
     unsigned int nIpBuckets;                                // 0x010
