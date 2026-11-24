@@ -325,11 +325,6 @@ unsigned char gbChatInputOpen; // 0x007BB5E1
 
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 
-// 0x0047A980
-int __cdecl CHAT_IsNumberDisplayEnabled()
-{
-    return gtClientFlagsLow_00712EFC.bNumberDisplay;
-}
 
 struct D2GridCellStrc;
 
@@ -342,79 +337,17 @@ struct D2GridCellStrc
     unsigned char nValue3;
 };
 
-// 0x0047A990
-int __cdecl DLIGHTMAP_GetClientFlags()
-{
-// build: symbol ?gdwClientFlags@* 0x00712EFC
-    return gdwClientFlags;
-}
 
-// 0x0047A9A0
-void __fastcall CHAT_SetClientFlags(int nFlags)
-{
-// build: symbol ?gdwClientFlags@* 0x00712EFC
-    gdwClientFlags = nFlags;
-}
 
-// 0x0047A9B0
-void __fastcall ROSTER_SetPrimaryClientFlag(int bClear)
-{
-    if (bClear)
-    {
-// build: symbol ?gdwClientFlags@* 0x00712EFC
-        gdwClientFlags &= ~1;
-    }
-    else
-    {
-        gdwClientFlags |= 1;
-    }
-}
 
 extern int gdwGlobal_00712F04; // 0x00712F04
 
-// 0x0047A9D0
-int __cdecl sub_0047A9D0()
-{
-    return gdwGlobal_00712F04;
-}
 
-// 0x0047A9E0
-int __cdecl sub_0047A9E0_GetClientFlag40()
-{
-    return gdwClientFlags & 0x40;
-}
 
-// 0x0047A9F0
-int __cdecl sub_0047A9F0_GetClientFlag80()
-{
-    return gdwClientFlags & 0x80;
-}
 
-// 0x0047AA00
-int __cdecl sub_0047AA00_GetClientFlag200()
-{
-    return gdwClientFlags & 0x200;
-}
 
-// 0x0047AA10
-void __fastcall ROSTER_SetCTemp(int nValue)
-{
-// build: symbol ?gnCTemp@* 0x00712F00
-    gnCTemp = nValue;
-}
 
-// 0x0047AA20
-int __cdecl DLIGHTMAP_GetCTemp()
-{
-// build: symbol ?gnCTemp@* 0x00712F00
-    return gnCTemp;
-}
 
-// 0x0047AA30
-int __cdecl CHAT_HasClassOverride()
-{
-    return gtClientFlags_00712EFC.bClassOverride;
-}
 
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int nCodePage, unsigned long dwFlags, const char* szSource, int nSource, wchar_t* wszDest, int nDest); // 0x006CC29C
 
