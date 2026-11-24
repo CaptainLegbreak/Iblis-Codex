@@ -78018,26 +78018,6 @@
     {
      "va": "0x0067A240",
      "length": 326
-    },
-    {
-     "va": "0x0067AF40",
-     "length": 147
-    },
-    {
-     "va": "0x0067B690",
-     "length": 171
-    },
-    {
-     "va": "0x0067B9F0",
-     "length": 454
-    },
-    {
-     "va": "0x0067BBF0",
-     "length": 370
-    },
-    {
-     "va": "0x0067C1E0",
-     "length": 233
     }
    ],
    "flags": [
@@ -78105,31 +78085,30 @@
     {
      "va": "0x0067A4A0",
      "length": 169
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Common/Unknown_0067B9C0.cpp",
+   "rank": 1,
+   "functions": [
+    {
+     "va": "0x0067B9C0",
+     "length": 41,
+     "name": "PATH_GetSquaredDistanceBetweenPoints"
     },
     {
-     "va": "0x0067AEA0",
-     "length": 48,
-     "name": "?PATH_AStar_PushToVisitedCache@@YAXPAUD2PathFoWallContextStrc@@PAUD2PathFoWallNodeStrc@@@Z"
+     "va": "0x0067B9F0",
+     "length": 454
     },
     {
-     "va": "0x0067AED0",
-     "length": 102,
-     "name": "?PATH_AStar_MakeCandidate@@YAXPAUD2PathFoWallContextStrc@@PAUD2PathFoWallNodeStrc@@@Z"
+     "va": "0x0067BBC0",
+     "length": 47,
+     "name": "PATH_GetAdjacentPointDirection"
     },
     {
-     "va": "0x0067AFE0",
-     "length": 472,
-     "name": "?PATH_AStar_PropagateNewFScoreToChildren@@YAXPAUD2PathFoWallContextStrc@@PAUD2PathFoWallNodeStrc@@@Z"
-    },
-    {
-     "va": "0x0067B200",
-     "length": 568,
-     "name": "?PATH_AStar_EvaluateNeighbor@@YGHPAUD2PathFoWallContextStrc@@UD2PathPointStrc@@1PAUD2PathFoWallNodeStrc@@@Z"
-    },
-    {
-     "va": "0x0067B440",
-     "length": 589,
-     "name": "?PATH_AStar_ExploreChildren@@YGHPAUD2PathFoWallContextStrc@@UD2PathPointStrc@@PAUD2PathFoWallNodeStrc@@PAUD2PathInfoStrc@@@Z"
+     "va": "0x0067BBF0",
+     "length": 370
     },
     {
      "va": "0x0067BD70",
@@ -78140,30 +78119,14 @@
      "va": "0x0067BD80",
      "length": 108,
      "name": "?PATH_ReplaceSubpathPoints@@YGXPAUD2PathPointStrc@@PAHH1PAUD2PathMovStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0067A000.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0067B850",
-     "length": 353
-    },
-    {
-     "va": "0x0067B9C0",
-     "length": 41,
-     "name": "PATH_GetSquaredDistanceBetweenPoints"
-    },
-    {
-     "va": "0x0067BBC0",
-     "length": 47,
-     "name": "PATH_GetAdjacentPointDirection"
     },
     {
      "va": "0x0067BDF0",
      "length": 1008
+    },
+    {
+     "va": "0x0067C1E0",
+     "length": 233
     }
    ],
    "flags": [
@@ -78234,7 +78197,7 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0067B740.cpp",
+   "file": "Source/D2Common/Unknown_0067ADC0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -78253,13 +78216,50 @@
      "name": "PATH_AStar_FindPointInVisitedCache"
     },
     {
+     "va": "0x0067AEA0",
+     "length": 48,
+     "name": "?PATH_AStar_PushToVisitedCache@@YAXPAUD2PathFoWallContextStrc@@PAUD2PathFoWallNodeStrc@@@Z"
+    },
+    {
+     "va": "0x0067AED0",
+     "length": 102,
+     "name": "?PATH_AStar_MakeCandidate@@YAXPAUD2PathFoWallContextStrc@@PAUD2PathFoWallNodeStrc@@@Z"
+    },
+    {
+     "va": "0x0067AF40",
+     "length": 147
+    },
+    {
+     "va": "0x0067AFE0",
+     "length": 472,
+     "name": "?PATH_AStar_PropagateNewFScoreToChildren@@YAXPAUD2PathFoWallContextStrc@@PAUD2PathFoWallNodeStrc@@@Z"
+    },
+    {
      "va": "0x0067B1C0",
      "length": 59,
      "name": "?PATH_AStar_AllocNewNode@@YIPAUD2DrlgTableEntryStrc@@PAUD2DrlgEntryTableStrc@@@Z"
     },
     {
+     "va": "0x0067B200",
+     "length": 568,
+     "name": "?PATH_AStar_EvaluateNeighbor@@YGHPAUD2PathFoWallContextStrc@@UD2PathPointStrc@@1PAUD2PathFoWallNodeStrc@@@Z"
+    },
+    {
+     "va": "0x0067B440",
+     "length": 589,
+     "name": "?PATH_AStar_ExploreChildren@@YGHPAUD2PathFoWallContextStrc@@UD2PathPointStrc@@PAUD2PathFoWallNodeStrc@@PAUD2PathInfoStrc@@@Z"
+    },
+    {
+     "va": "0x0067B690",
+     "length": 171
+    },
+    {
      "va": "0x0067B740",
      "length": 263
+    },
+    {
+     "va": "0x0067B850",
+     "length": 353
     }
    ],
    "flags": [
