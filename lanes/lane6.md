@@ -2,10 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 12:07:23 PST 2026): withdrawn from Ready: join-celcmp (never pushed; main moved) and join-codec 918ac3a1 (conflicts with #362's context trim). Both are rebased on #362 (join-codec-2 replaces join-codec), with fastcmp, spritecache, bnmessqueue, bnsend and a new McpConnect accessor join (lane 4's handover); all seven are in the verify queue.
+Status (Tue Nov 24 12:17:56 PST 2026): join-codec-2 ready; six more joins in the verify queue on #362.
 
 ## Ready
 
+- lane6/join-codec-2 08f512d1 (replaces join-codec, which conflicted with #362's context trim) 397->396 placeholders. Codec.cpp takes Unknown_0060B7B0.cpp (sub_0060B7B0_DecodeCell): Codec's 0x60BFF0, its only caller, passes it arguments in ecx, edx and esi, the compiler's convention for a static function of the same unit. Codec's copy becomes the definition, with the placeholder's body in Codec's cell type (same layout). No docs/index.html change (left to the round). Not stacked; D2CMP only. VERIFIED ff2ce281 (on #362; borrowed data 880 B, unchanged).
 
 
 ## Claimed
