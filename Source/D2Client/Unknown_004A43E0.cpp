@@ -822,7 +822,7 @@ int __cdecl TEXT_GetMaxFirstEntry(); // 0x004A44C0
 
 extern int gnKeyConfigThumbScale; // 0x007C0278
 
-int gnKeyConfigFirstVisible; // 0x007C02AC
+static int gnKeyConfigFirstVisible; // 0x007C02AC
 
 extern int gnAutomapHeight; // 0x007A521C
 
@@ -856,7 +856,7 @@ void __cdecl TEXT_InitKeyConfigEntries(); // 0x004A43E0
 
 extern int gbRedraw; // 0x007C0280
 
-static int gnKeyConfigSelected; // 0x007C02B0
+int gnKeyConfigSelected; // 0x007C02B0
 
 int gbKeyCaptureActive; // 0x007C02B8
 
@@ -2044,6 +2044,12 @@ static void TEXT_OpenQuestDescription(int nSlot)
 }
 
 
+void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
+
+void __cdecl UI_RegisterKeyConfigHandlers(); // 0x00454980
+
+void __fastcall CUNIT_ClearHotkeyBinding(int nId, int nB); // 0x00469D70
+
 // 0x004A43E0
 void __cdecl TEXT_InitKeyConfigEntries()
 {
@@ -2093,26 +2099,19 @@ void __fastcall TEXT_ScrollKeyConfigList(int nStep)
     }
 
     const int nMax = TEXT_GetMaxFirstEntry();
-    int nFirst = gnKeyConfigFirstVisible;
     if (nStep < 0)
     {
-        const int nPrev = nFirst <= 0 ? nFirst : nFirst - 1;
-        if (nPrev < 0)
-            goto done;
-        nFirst = nPrev;
+        const int nPrev = gnKeyConfigFirstVisible <= 0 ? gnKeyConfigFirstVisible : gnKeyConfigFirstVisible - 1;
+        if (nPrev >= 0)
+            gnKeyConfigFirstVisible = nPrev;
     }
     else if (nStep > 0)
     {
-        const int nNext = nFirst >= nMax ? nFirst : nFirst + 1;
-        if (nNext > nMax)
-            goto done;
-        nFirst = nNext;
+        const int nNext = gnKeyConfigFirstVisible >= nMax ? gnKeyConfigFirstVisible : gnKeyConfigFirstVisible + 1;
+        if (nNext <= nMax)
+            gnKeyConfigFirstVisible = nNext;
     }
-    else
-        goto done;
-    gnKeyConfigFirstVisible = nFirst;
-done:
-    gnKeyConfigThumbY = sub_I18_TrackSpan() * nFirst / nMax + sub_I18_TrackTop();
+    gnKeyConfigThumbY = sub_I18_TrackSpan() * gnKeyConfigFirstVisible / nMax + sub_I18_TrackTop();
 }
 
 // 0x004A45C0
@@ -2200,6 +2199,14 @@ static int TEXT_GetKeyConfigLineAt(int nY)
     }
     return nCount < 0 ? nCount : nCount - 1;
 }
+
+// 0x004A4780
+int __stdcall TEXT_IsAbovePanelLine(int nY)
+{
+    int nHalf = (gnScreenWidth - 620) / 2;
+    return nY < nHalf + (gnScreenWidth - nHalf * 2 - 49) / 3 * 2 + 18;
+}
+
 
 
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
@@ -2323,7 +2330,7 @@ static int TEXT_IsOnSelectedLine(int nX, int nY)
 // 0x004A4A80
 static inline int TEXT_IsOnPressedButton(int nX, int nY)
 {
-    const int nButton = gnPressedButton_007C02B4;
+    const int nButton = gnKeyConfigPressedButton;
     if (nButton != 3 && TEXT_GetKeyConfigButtonAt(nX, nY) == nButton)
     {
         return 1;
@@ -2346,7 +2353,7 @@ int __fastcall TEXT_IsOnlyPressed(int nIndex)
 
 void __stdcall sub_004A4AD0_Press(int nX, int nY)
 {
-    gnPressedButton_007C02B4 = 3;
+    gnKeyConfigPressedButton = 3;
     if (gbKeyConfigPressRepeat)
         return;
 
@@ -2447,7 +2454,7 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
     if (sub_F08_NoOtherPressed(6) && bButton)
     {
         gaPressed[6] = gbRedraw;
-        gnPressedButton_007C02B4 = TEXT_GetKeyConfigButtonAt(nX, nY);
+        gnKeyConfigPressedButton = TEXT_GetKeyConfigButtonAt(nX, nY);
     }
 }
 
@@ -2696,6 +2703,131 @@ int __stdcall TEXT_KeyConfigWheelMsg(D2HotkeyActionStrc* pAction)
     return sub_00420290_HandleMsg(pAction);
 }
 
+// 0x004A5A40
+void __stdcall TEXT_PrevEntryMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (GAME_IsExitPending())
+    {
+        pMsg->bReturn = 0;
+        return;
+    }
+
+// build: symbol ?gpListEntries@* 0x00724264
+    D2ClientListEntryStrc* pEntries = gpListEntries;
+    int nOldIndex = gnKeyConfigSelected;
+    do
+    {
+        TEXT_MoveKeyConfigSelection(-1);
+    }
+    while (pEntries[gnKeyConfigSelected].nId == 0x39);
+
+    if (nOldIndex != gnKeyConfigSelected)
+    {
+        sub_004B9A00(1, 0, 0, 0, 0);
+    }
+
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// 0x004A5AB0
+void __stdcall TEXT_NextEntryMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (GAME_IsExitPending())
+    {
+        pMsg->bReturn = 0;
+        return;
+    }
+
+    D2ClientListEntryStrc* pEntries = gpListEntries;
+    int nOldIndex = gnKeyConfigSelected;
+    do
+    {
+        TEXT_MoveKeyConfigSelection(1);
+    }
+    while (pEntries[gnKeyConfigSelected].nId == 0x39);
+
+    if (nOldIndex != gnKeyConfigSelected)
+    {
+        sub_004B9A00(1, 0, 0, 0, 0);
+    }
+
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// 0x004A5B30
+void __stdcall TEXT_SelectSecondaryColumnMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (GAME_IsExitPending())
+    {
+        pMsg->bReturn = 0;
+        return;
+    }
+
+// build: symbol ?gnKeyConfigColumn@* 0x007246D4
+    if (gnKeyConfigColumn == 0)
+    {
+        gnKeyConfigColumn = 1;
+        sub_004B9A00(1, 0, 0, 0, 0);
+    }
+
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// 0x004A5B90
+void __stdcall TEXT_SelectPrimaryColumnMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (GAME_IsExitPending())
+    {
+        pMsg->bReturn = 0;
+        return;
+    }
+
+    if (gnKeyConfigColumn == 1)
+    {
+        gnKeyConfigColumn = 0;
+        sub_004B9A00(1, 0, 0, 0, 0);
+    }
+
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// 0x004A5BF0
+void __stdcall TEXT_ClearEntryKeyMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (GAME_IsExitPending())
+    {
+        pMsg->bReturn = 0;
+        return;
+    }
+
+// build: symbol ?gbKeyConfigReady@* 0x00724728
+    if (gbKeyConfigReady)
+    {
+        if (!(pMsg->lParam & 0x40000000))
+        {
+            CUNIT_ClearHotkeyBinding(gpListEntries[gnKeyConfigSelected].nId, gnKeyConfigColumn);
+            sub_004B9A00(2, 0, 0, 0, 0);
+        }
+    }
+    else
+    {
+        gbKeyConfigReady = 1;
+    }
+
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+
 // 0x004A5C70
 void __stdcall TEXT_CancelKeyConfigMsg(SMSGHANDLER_PARAMS* message)
 {
@@ -2723,6 +2855,21 @@ void __cdecl TEXT_RegisterKeyCaptureHandlers()
     COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureXButtonHandlers, 1);
     COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureWheelHandlers, 1);
 }
+
+// 0x004A5D70
+void __stdcall TEXT_UnregisterKeyConfigHandlers(int bReset)
+{
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureHandlers, 6);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureWheelHandlers, 1);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureXButtonHandlers, 1);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureMButtonHandlers, 1);
+    if (bReset)
+    {
+        UI_RegisterKeyConfigHandlers();
+        gbKeyCaptureActive = 0;
+    }
+}
+
 
 // 0x004A5DE0
 void __cdecl TEXT_CloseKeyCaptureHandlers()
@@ -2754,7 +2901,7 @@ static void TEXT_ReleaseKeyConfigPress(int nX, int nY)
     }
     if (gaPressed[6])
     {
-        const int nButton = gnPressedButton_007C02B4;
+        const int nButton = gnKeyConfigPressedButton;
         if (nButton != 3 && TEXT_GetKeyConfigButtonAt(nX, nY) == nButton)
         {
             gaKeyConfigButtons[nButton].pfnClick();
@@ -2789,6 +2936,60 @@ void __stdcall TEXT_KeyConfigButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
+
+// 0x004A5F70
+void __stdcall TEXT_ApplyEntryMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (GAME_IsExitPending())
+    {
+        pMsg->bReturn = 0;
+        return;
+    }
+
+    if (gbKeyConfigReady)
+    {
+        if (!(pMsg->lParam & 0x40000000) && gpListEntries[gnKeyConfigSelected].nId != 0x39)
+        {
+            sub_004A5D00();
+            sub_004B9A00(2, 0, 0, 0, 0);
+            gbKeyConfigReady = 0;
+        }
+    }
+    else
+    {
+        gbKeyConfigReady = 1;
+    }
+
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// 0x004A6000
+void __stdcall sub_004A6000_RegisterPressMsgHandler(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (GAME_IsExitPending())
+    {
+        pMsg->bReturn = 0;
+        return;
+    }
+
+    int nX = pMsg->nXpos;
+    int nY = pMsg->nYpos;
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureHandlers, 6);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureWheelHandlers, 1);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureXButtonHandlers, 1);
+    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureMButtonHandlers, 1);
+    UI_RegisterKeyConfigHandlers();
+    gbKeyCaptureActive = 0;
+    gbRedraw = 1;
+    sub_004A4AD0_Press(nX, nY);
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+
 
 int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, unsigned short* pKey);               // 0x00469C20
 
