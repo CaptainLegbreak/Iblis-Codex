@@ -4,7 +4,8 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/lang-more 7d0b818b 0 placeholders; stacked: act4-tables' commit rebased on #329 (take this instead of act4-tables: a4q1/a4q2 index tables become globals in the files whose data holds them; a4q1.cpp takes copy 0x73D530; padding 0x73D52C dropped and built, -4 B) plus Unknown_005B24E0.cpp taking its copy 0x73D4B4 (planned as AiThink.cpp's last) from D2LanguageNames.h. Borrowed data 2,378 B; VERIFIED 21dba7eb2b1d12f30860eb213b1e8c3e1cffb325. Based on main #329, D2Game only.
+- lane5/quest-data-order f652d4db 0 placeholders; a1q5.cpp, a2q3.cpp, a3q1.cpp, a3q3.cpp: the image has each object's NPC message tables first and its static index table right after (ending where the next object's data starts); the compiler lays an object's data out in definition order and the data include sat at the end of the file, so the index came out first. The include moves up to just before the index table; each object's data now comes out in the image's order in one piece. All four build equal; VERIFIED 87b68ddace4dfaaaffcfb10076630df2c223ebe4. Based on main #331, not stacked. (a2q1.cpp left: another file's data sits inside its range.)
+- lane5/lang-more-2 226127cc 0 placeholders; the second commit of lang-more (its first is in #330), rebased on #331: Unknown_005B24E0.cpp takes its copy 0x73D4B4 from D2LanguageNames.h. VERIFIED 08276c9d2b597d124739e38930cb45b62fe151c0. Not stacked.
 
 ## Questions
 
