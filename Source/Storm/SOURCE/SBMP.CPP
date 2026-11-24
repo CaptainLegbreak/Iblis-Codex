@@ -80,7 +80,7 @@ void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 
 struct D2BitOutputStrc
 {
-    int f_0;
+    int nCodeWidth;
     int nCodeMask;
     int nInitialCodeWidth;
     int nBits;
@@ -89,7 +89,7 @@ struct D2BitOutputStrc
     int nClearCode;
     int unknown20;
     int nNextCode;
-    void* f_28;
+    void* pHashTable;
     int unknown2C;
     int nBlockLength;
     unsigned char pBlock[256];
@@ -837,7 +837,7 @@ static void FlushOutputBlock(D2BitOutputStrc* pState, unsigned char** ppOutput)
 void __fastcall EmitCodeContext(unsigned char** ppOutput, D2BitOutputStrc* pState, int nCode)
 {
     pState->nBits |= nCode << pState->nBitCount;
-    pState->nBitCount += pState->f_0;
+    pState->nBitCount += pState->nCodeWidth;
     while (pState->nBitCount >= 8)
     {
         ++pState->nBlockLength;
@@ -849,8 +849,8 @@ void __fastcall EmitCodeContext(unsigned char** ppOutput, D2BitOutputStrc* pStat
     }
     if (pState->nNextCode > pState->nCodeMask)
     {
-        ++pState->f_0;
-        pState->nCodeMask = pState->f_0 == 12 ? 4096 : (1 << pState->f_0) - 1;
+        ++pState->nCodeWidth;
+        pState->nCodeMask = pState->nCodeWidth == 12 ? 4096 : (1 << pState->nCodeWidth) - 1;
     }
 }
 
@@ -858,7 +858,7 @@ void __fastcall EmitCodeContext(unsigned char** ppOutput, D2BitOutputStrc* pStat
 static void __fastcall Output(D2BitOutputStrc* pState, unsigned char** ppOutput, int nCode)
 {
     pState->nBits |= nCode << pState->nBitCount;
-    pState->nBitCount += pState->f_0;
+    pState->nBitCount += pState->nCodeWidth;
     while (pState->nBitCount >= 8)
     {
         ++pState->nBlockLength;
@@ -870,11 +870,11 @@ static void __fastcall Output(D2BitOutputStrc* pState, unsigned char** ppOutput,
     }
     if (pState->nNextCode > pState->nCodeMask)
     {
-        ++pState->f_0;
-        if (pState->f_0 == 12)
+        ++pState->nCodeWidth;
+        if (pState->nCodeWidth == 12)
             pState->nCodeMask = 4096;
         else
-            pState->nCodeMask = (1 << pState->f_0) - 1;
+            pState->nCodeMask = (1 << pState->nCodeWidth) - 1;
     }
 }
 
@@ -1311,12 +1311,12 @@ static int __stdcall EncodeBmp256File(void* file, const D2PaletteEntry* palette,
 // 0x006C6330
 static void __stdcall ClearBlock(unsigned char** ppOutput, D2BitOutputStrc* pState)
 {
-    SMemZero(pState->f_28, 0x4E2C);
+    SMemZero(pState->pHashTable, 0x4E2C);
     int nCode = pState->nClearCode;
     pState->nNextCode = nCode + 2;
     Output(pState, ppOutput, nCode);
     int nWidth = pState->nInitialCodeWidth;
-    pState->f_0 = nWidth;
+    pState->nCodeWidth = nWidth;
     pState->nCodeMask = (1 << nWidth) - 1;
 }
 
@@ -1338,11 +1338,11 @@ static void __stdcall AddOutputChar(unsigned char** ppOutput, int nChar, D2BitOu
     }
 
     const int nKey = (nPrefix << 8) | nChar;
-    if (((int*)pState->f_28)[nIndex])
+    if (((int*)pState->pHashTable)[nIndex])
     {
         if (((int*)pState->unknown2C)[nIndex] == nKey)
         {
-            pState->unknown14[0] = ((int*)pState->f_28)[nIndex];
+            pState->unknown14[0] = ((int*)pState->pHashTable)[nIndex];
             return;
         }
 
@@ -1355,14 +1355,14 @@ static void __stdcall AddOutputChar(unsigned char** ppOutput, int nChar, D2BitOu
                 nIndex += 5003;
             }
 
-            if (!((int*)pState->f_28)[nIndex])
+            if (!((int*)pState->pHashTable)[nIndex])
             {
                 goto lNotFound;
             }
         }
         while (((int*)pState->unknown2C)[nIndex] != nKey);
 
-        pState->unknown14[0] = ((int*)pState->f_28)[nIndex];
+        pState->unknown14[0] = ((int*)pState->pHashTable)[nIndex];
         return;
     }
 
@@ -1370,7 +1370,7 @@ lNotFound:
     Output(pState, ppOutput, pState->unknown14[0]);
     if (pState->nNextCode < 4096)
     {
-        ((int*)pState->f_28)[nIndex] = pState->nNextCode;
+        ((int*)pState->pHashTable)[nIndex] = pState->nNextCode;
         ++pState->nNextCode;
         ((int*)pState->unknown2C)[nIndex] = nKey;
     }
@@ -1392,14 +1392,14 @@ int __fastcall CompressGifImage(int nSize, const unsigned char* pData, unsigned 
     unsigned char* pStart = pOutput;
     D2BitOutputStrc tState;
     SMemZero(&tState, sizeof(tState));
-    tState.f_0 = 9;
+    tState.nCodeWidth = 9;
     tState.nInitialCodeWidth = 9;
     tState.nCodeMask = 0x1FF;
     tState.nClearCode = 0x100;
     tState.unknown20 = 0x101;
     tState.nNextCode = 0x102;
     tState.unknown14[1] = 1;
-    tState.f_28 = SMemAlloc(0x4E2C, ".\\SOURCE\\SBMP.CPP", 0x388, 8);
+    tState.pHashTable = SMemAlloc(0x4E2C, ".\\SOURCE\\SBMP.CPP", 0x388, 8);
     tState.unknown2C = (int)SMemAlloc(0x4E2C, ".\\SOURCE\\SBMP.CPP", 0x389, 8);
     Output(&tState, &pOutput, tState.nClearCode);
 
@@ -1423,7 +1423,7 @@ int __fastcall CompressGifImage(int nSize, const unsigned char* pData, unsigned 
     }
 
     FlushOutputBlock(&tState, &pOutput);
-    SMemFree(tState.f_28, ".\\SOURCE\\SBMP.CPP", 0x3A4, 0);
+    SMemFree(tState.pHashTable, ".\\SOURCE\\SBMP.CPP", 0x3A4, 0);
     SMemFree((void*)tState.unknown2C, ".\\SOURCE\\SBMP.CPP", 0x3A5, 0);
     return pOutput - pStart;
 }

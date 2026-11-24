@@ -121,7 +121,7 @@ struct D2StormBufferInfoStrc
     char* pbInBuffer;
     unsigned int nInPos;
     char* pbOutBuffer;
-    unsigned int f_C;
+    unsigned int nOutPos;
     unsigned int nInSize;
 };
 
@@ -669,8 +669,8 @@ unsigned int __cdecl DecompressLzw_BufferRead(char* pBuffer, unsigned int* pnSiz
 // 0x00415210
 void __cdecl DecompressLzw_BufferWrite(char* pBuffer, unsigned int* pnSize, D2StormBufferInfoStrc* pInfo)
 {
-    SMemCopy(pInfo->pbOutBuffer + pInfo->f_C, pBuffer, *pnSize);
-    pInfo->f_C += *pnSize;
+    SMemCopy(pInfo->pbOutBuffer + pInfo->nOutPos, pBuffer, *pnSize);
+    pInfo->nOutPos += *pnSize;
 }
 
 // 0x00415EC0
