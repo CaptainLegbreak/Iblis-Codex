@@ -48853,6 +48853,10 @@
      "va": "0x00555CC0",
      "length": 13,
      "name": "?SUNIT_GetItemsTxtCount@@YAHXZ"
+    },
+    {
+     "va": "0x006CAF60",
+     "length": 12
     }
    ]
   },
@@ -82704,10 +82708,6 @@
      "va": "0x006CAF30",
      "length": 45,
      "name": "?sub_006CAF30_SnapshotCounters@@YAXXZ"
-    },
-    {
-     "va": "0x006CAF60",
-     "length": 12
     },
     {
      "va": "0x006CB030",
