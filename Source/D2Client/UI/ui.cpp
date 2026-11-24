@@ -284,7 +284,7 @@ void __fastcall sub_004B8100(void* pObj); // 0x004B8100
 
 void __cdecl TEXT_ToggleListDialogUI(); // 0x004A02F0
 
-void __cdecl sub_004B69E0_CloseTrade(); // 0x004B69E0
+void __cdecl NPCMENU_CloseTrade(); // 0x004B69E0
 
 D2UiControlAStrc* gpGoldControlA; // 0x007A27A4
 
@@ -439,7 +439,7 @@ const Unicode* __fastcall UI_GetLevelName(int nLevelId); // 0x00453E70
 
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag);                                     // 0x00451F30
 
-void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit);                                          // 0x00454AD0
+void __fastcall UI_DrawUnitHoverName(D2UnitStrc* pUnit);                                          // 0x00454AD0
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
@@ -534,7 +534,7 @@ void __cdecl INV_CloseStashPanel(); // 0x00489EE0
 
 void __cdecl INV_ShutdownCubePanel(); // 0x0048A500
 
-void __cdecl sub_00494FC0(); // 0x00494FC0
+void __cdecl HIREABLES_CloseHelpUi(); // 0x00494FC0
 
 void __cdecl PARTY_FreeRosterUnits(); // 0x0049A020
 
@@ -643,7 +643,7 @@ void __cdecl sub_00494EB0(); // 0x00494EB0
 
 void __cdecl PANEL_DrawControlPanel(); // 0x00499450
 
-void __cdecl sub_004AA7E0_ResetSkillIcons(); // 0x004AA7E0
+void __cdecl SPELLSEL_ResetSkillIcons(); // 0x004AA7E0
 
 void __cdecl PANEL_SetBeltExpandedMode(); // 0x00498E90
 
@@ -665,9 +665,9 @@ void __cdecl PANEL_DrawLifeManaText(); // 0x00498120
 
 void __cdecl sub_0047F710_UpdateSlotBar(); // 0x0047F710
 
-void __cdecl sub_0047B720_DrawChatPanel(); // 0x0047B720
+void __cdecl CHAT_DrawChatPanel(); // 0x0047B720
 
-void __cdecl sub_004966C0_DrawHelpScreen(); // 0x004966C0
+void __cdecl INV_DrawHelpScreen(); // 0x004966C0
 
 void __cdecl SHOWITEMS_DrawUnitNames(); // 0x004C0810
 
@@ -679,11 +679,11 @@ void __cdecl WARDENCLIENT_DrawHostileIcon(); // 0x00496B10
 
 void __stdcall D2Win_10124(); // 0x00503000
 
-void __cdecl sub_00454A70_DrawHoverText(); // 0x00454A70
+void __cdecl UI_DrawHoverText(); // 0x00454A70
 
 void __cdecl GAME_DrawPopUpText(); // 0x00453060
 
-void __cdecl sub_004554B0_DrawHoverName(); // 0x004554B0
+void __cdecl UI_DrawHoverName(); // 0x004554B0
 
 void __cdecl UI_DrawStoredUnitNumber(); // 0x00453B30
 
@@ -821,7 +821,7 @@ void __cdecl PANEL_LoadPartyCels(); // 0x0049C0A0
 
 void __cdecl PANEL_FreePartyCels(); // 0x0049C0F0
 
-void __cdecl sub_0049C700_CloseWaypointPanel(); // 0x0049C700
+void __cdecl TEXT_CloseWaypointPanel(); // 0x0049C700
 
 void __cdecl TEXT_FreeTextLists(); // 0x004A0010
 
@@ -843,7 +843,7 @@ void __cdecl sub_004A7AD0(); // 0x004A7AD0
 
 void __cdecl sub_004A8A30_InitSkillIcons(); // 0x004A8A30
 
-void __cdecl sub_004A8C00_FreeSkillIcons(); // 0x004A8C00
+void __cdecl SPELLSEL_FreeSkillIcons(); // 0x004A8C00
 
 void __cdecl sub_004AA920_LoadPanelCel(); // 0x004AA920
 
@@ -1804,7 +1804,7 @@ void __cdecl UI_FreePlayerUI()
     PANEL_FreePartyCels();
     sub_004A7AD0();
     sub_004AA980();
-    sub_004A8C00_FreeSkillIcons();
+    SPELLSEL_FreeSkillIcons();
     TEXT_ClearQuestFlags();
     NPCMENU_ResetNpcMenu();
     sub_004B91F0();
@@ -2295,7 +2295,7 @@ void __cdecl UI_RegisterKeyConfigHandlers()
 void __cdecl UI_ToggleListDialog()
 {
     TEXT_ToggleListDialogUI();
-    sub_004B69E0_CloseTrade();
+    NPCMENU_CloseTrade();
 }
 
 // 0x004549C0
@@ -2363,7 +2363,7 @@ void __cdecl HIREABLES_LoadHirelingIcons(); // 0x00492C20
 
 void __cdecl INV_LoadPanelCels(); // 0x004967F0
 
-void __cdecl sub_0049C6A0(); // 0x0049C6A0
+void __cdecl TEXT_InitWaypointData(); // 0x0049C6A0
 
 void __cdecl TEXT_LoadTextSettings(); // 0x0049D440
 
@@ -2382,7 +2382,7 @@ void __cdecl TEXT_LoadTextSliderCel(); // 0x004BE020
 void __cdecl USEITEM_InitUseItemPanel(); // 0x004BF9D0
 
 // 0x004549F0
-static void __stdcall sub_004549F0_DrawCenteredText(const Unicode* wszText, int nFont, int nY, int nColor)
+static void __stdcall UI_DrawHoverCenteredText(const Unicode* wszText, int nFont, int nY, int nColor)
 {
     Unicode wszBuffer[0x100];
     for (int i = 0; i < 0x100; ++i)
@@ -2403,7 +2403,7 @@ static void __stdcall sub_004549F0_DrawCenteredText(const Unicode* wszText, int 
 }
 
 // 0x00454A70
-void __cdecl sub_00454A70_DrawHoverText()
+void __cdecl UI_DrawHoverText()
 {
     D2UnitStrc* pUnit = SELECT_GetSelectedUnit();
     if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
@@ -2411,12 +2411,12 @@ void __cdecl sub_00454A70_DrawHoverText()
         return;
     }
     int nY = D2Win_10125() + 0x27;
-    sub_004549F0_DrawCenteredText(gwszHoverLine, 6, nY, gnHoverTextColor);
+    UI_DrawHoverCenteredText(gwszHoverLine, 6, nY, gnHoverTextColor);
     if (gwszHoverLine[0].wChar || gwszHoverName[0].wChar)
     {
         nY += D2Win_10125();
     }
-    sub_004549F0_DrawCenteredText(gwszHoverText, 6, nY, gnHoverTextState);
+    UI_DrawHoverCenteredText(gwszHoverText, 6, nY, gnHoverTextState);
 }
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
@@ -2481,7 +2481,7 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
                         return;
                     }
                 }
-                sub_00454AD0_DrawUnitHoverName(pUnit);
+                UI_DrawUnitHoverName(pUnit);
                 return;
             }
             UI_ShowUnitHoverName(pUnit, 0);
@@ -2603,7 +2603,7 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
 }
 
 // 0x004554B0
-void __cdecl sub_004554B0_DrawHoverName()
+void __cdecl UI_DrawHoverName()
 {
     if (!sub_00526800(gwszHoverName))
     {
@@ -2624,7 +2624,7 @@ void __cdecl sub_004554B0_DrawHoverName()
         nColor = 3;
     }
     const int nY = D2Win_10125() + 0x27;
-    sub_004549F0_DrawCenteredText(gwszHoverName, 6, nY, nColor);
+    UI_DrawHoverCenteredText(gwszHoverName, 6, nY, nColor);
 }
 
 // 0x00455720
@@ -2874,7 +2874,7 @@ void __fastcall UI_ClearPanelHandlers(int nPanel)
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaBeltRowsHandlers, 0x2);
         return;
     case 0x21:
-        sub_00494FC0();
+        HIREABLES_CloseHelpUi();
         sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaHelpScreenHandlers, 0x5);
         return;
     case 0x22:
@@ -3227,7 +3227,7 @@ void __cdecl UI_ToggleMiniPanel()
 }
 
 // 0x00456970
-void __cdecl sub_00456970_InitUI()
+void __cdecl UI_InitUI()
 {
     char szPath[0x104];
     INV_LoadPanelCels();
@@ -3237,7 +3237,7 @@ void __cdecl sub_00456970_InitUI()
     HIREABLES_LoadHirelingIcons();
     TEXT_InitNpcMenu();
     AUTOMAP_InitAutomap();
-    sub_0049C6A0();
+    TEXT_InitWaypointData();
     sub_004B8720();
 // build: symbol ?gpGoldPanel@* 0x007A27A0
     gpGoldPanel = 0;
@@ -3396,7 +3396,7 @@ void __cdecl UI_ShutdownUI()
     HIREABLES_FreePanelCels();
     if (sub_00463DD0_GetPlayerUnit())
     {
-        sub_004A8C00_FreeSkillIcons();
+        SPELLSEL_FreeSkillIcons();
         sub_004AA980();
     }
     D2Win_10116();
@@ -3407,7 +3407,7 @@ void __cdecl UI_ShutdownUI()
     HIREABLES_FreeHirelingIcons();
     NPCMENU_FreeNpcMenu();
     AUTOMAP_FreeAutomap();
-    sub_0049C700_CloseWaypointPanel();
+    TEXT_CloseWaypointPanel();
     sub_004B91F0();
     UI_CloseGoldDialog();
     INV_FreeInvPanelCels();
@@ -3516,7 +3516,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     }
     PANEL_DrawControlPanel();
     if (gaUIVarStates[3])
-        sub_004AA7E0_ResetSkillIcons();
+        SPELLSEL_ResetSkillIcons();
     if (gaUIVarStates[31])
         PANEL_SetBeltExpandedMode();
     TEXT_UpdateLevelUpButtons();
@@ -3536,7 +3536,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     if (gaUIVarStates[21])
         sub_0047F710_UpdateSlotBar();
     if (gaUIVarStates[5])
-        sub_0047B720_DrawChatPanel();
+        CHAT_DrawChatPanel();
     if (gaUIVarStates[33])
     {
         UI_CloseUIVars(0, 0);
@@ -3592,7 +3592,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
             {
                 if (!gaUIVarStates[33])
                 {
-                    sub_00494FC0();
+                    HIREABLES_CloseHelpUi();
                     sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaHelpScreenHandlers, 5);
                 }
             }
@@ -3600,7 +3600,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
             sub_00468740();
         }
 done:
-        sub_004966C0_DrawHelpScreen();
+        INV_DrawHelpScreen();
     }
     if (gaUIVarStates[13] && sub_0045AE90() != 3)
     {
@@ -3615,9 +3615,9 @@ done:
     WARDENCLIENT_DrawHostileIcon();
     TEXT_UpdateTexts(pView);
     D2Win_10124();
-    sub_00454A70_DrawHoverText();
+    UI_DrawHoverText();
     GAME_DrawPopUpText();
-    sub_004554B0_DrawHoverName();
+    UI_DrawHoverName();
     UI_DrawStoredUnitNumber();
     UI_DrawDeathScreen();
     sub_0046C130_DrawCountdown();
@@ -3733,7 +3733,7 @@ int __cdecl UI_GetCofMemoryLimit()
 
 // build: symbol ??_H* 0x00403040
 // 0x00454AD0
-void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
+void __fastcall UI_DrawUnitHoverName(D2UnitStrc* pUnit)
 {
     const int nOld = D2Win_10127_SetFont(1);
     const int nClassId = !pUnit ? -1 : pUnit->dwClassId;

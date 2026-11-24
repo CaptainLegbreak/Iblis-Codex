@@ -529,7 +529,7 @@ void __stdcall sub_00493760_HirelingIconHoverMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00493840
-void __cdecl sub_00493840_TogglePopup()
+void __cdecl HIREABLES_TogglePetIconPopup()
 {
     switch (gnPetIconPopupState)
     {
@@ -942,7 +942,7 @@ void __stdcall sub_00494FB0(int nUnused1)
 }
 
 // 0x00494FC0
-void __cdecl sub_00494FC0()
+void __cdecl HIREABLES_CloseHelpUi()
 {
     if (gbHelpUiOpened)
     {
@@ -968,7 +968,7 @@ void __fastcall sub_K04_EmitIsMouseInBox(int nX, int nY)
 }
 
 // 0x00495030
-void __cdecl sub_00495030_DrawKeyHelp()
+void __cdecl HIREABLES_DrawKeyHelp()
 {
     Unicode wszText[200];
     Unicode wszKey[30];
@@ -1003,7 +1003,7 @@ void __cdecl VIEW_DrawHelpButtons()
     {
         D2CelContextStrc tContext;
         memset(&tContext, 0, sizeof(tContext));
-        sub_00495030_DrawKeyHelp();
+        HIREABLES_DrawKeyHelp();
         tContext.pCellFile = gpLevelSocketCel;
         tContext.nDirection = 0;
         tContext.nFrame = 0;
@@ -1330,7 +1330,7 @@ void __cdecl sub_00495DC0_DrawHelpText()
 }
 
 // 0x004966C0
-void __cdecl sub_004966C0_DrawHelpScreen()
+void __cdecl INV_DrawHelpScreen()
 {
     if (!GAME_GetUIVarState(0x15))
     {
@@ -1367,7 +1367,7 @@ void __stdcall INV_HelpCloseButtonMsg(SMSGHANDLER_PARAMS* pMsg)
             if (nX >= 0x2AD && nX <= 0x2CD && nY >= 0x18 && nY <= 0x38)
             {
                 UI_SetUIVar(0x21, 2, 0);
-                sub_00494FC0();
+                HIREABLES_CloseHelpUi();
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
                 sub_00420290_HandleMsg(pMsg);
@@ -1379,7 +1379,7 @@ void __stdcall INV_HelpCloseButtonMsg(SMSGHANDLER_PARAMS* pMsg)
             if (nX >= 0x20D && nX <= 0x22D && nY >= 0x18 && nY <= 0x38)
             {
                 UI_SetUIVar(0x21, 2, 0);
-                sub_00494FC0();
+                HIREABLES_CloseHelpUi();
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
                 sub_00420290_HandleMsg(pMsg);
@@ -1395,7 +1395,7 @@ void __stdcall INV_HelpCloseButtonMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x004967A0
-void __stdcall sub_004967A0_KeyCloseHelp(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall INV_OnKeyCloseHelp(SMSGHANDLER_PARAMS* pMsg)
 {
     UI_SetUIVar(0x21, 1, 0);
     if (gbHelpUiOpened)
@@ -1488,15 +1488,15 @@ int __cdecl ROSTER_IsAnyoneHostile(); // 0x0047A560
 
 int __cdecl CUNIT_IsTrading(); // 0x004B8A10
 
-int __fastcall sub_004A8C80_GetSkillValue(D2SkillsTxt* pSkillsTxt); // 0x004A8C80
+int __fastcall SPELLSEL_GetSkillIconCel(D2SkillsTxt* pSkillsTxt); // 0x004A8C80
 
-int __fastcall sub_004A8D30_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004A8D30
+int __fastcall SPELLSEL_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004A8D30
 
 void __fastcall sub_004A9690_DrawSkillInfoBase(int nValue, D2SkillsTxt* pSkillsTxt, int nOwnerGUID, int nCharges, int nState, int nX, int nY, int nArg); // 0x004A9690
 
 void __fastcall TEXT_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY); // 0x004A8D50
 
-void __fastcall sub_004AA1F0_DrawSkillQuantity(short* pId, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
+void __fastcall SPELLSEL_DrawSkillQuantity(short* pId, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
@@ -1551,8 +1551,8 @@ void __fastcall WARDENCLIENT_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkil
         return;
     }
 
-    const int nValue = sub_004A8C80_GetSkillValue(pSkillsTxt);
-    int nState = sub_004A8D30_GetSkillState(pUnit, pSkill);
+    const int nValue = SPELLSEL_GetSkillIconCel(pSkillsTxt);
+    int nState = SPELLSEL_GetSkillState(pUnit, pSkill);
     if (!(pSkillsTxt->nFlags[1] & gdwBitMasks[0]))
     {
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
@@ -1580,7 +1580,7 @@ void __fastcall WARDENCLIENT_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkil
     sub_004A9690_DrawSkillInfoBase(nValue, pSkillsTxt, nOwnerGUID, nCharges, nState, nX, nY, nArg);
     if (nQuantity)
     {
-        sub_004AA1F0_DrawSkillQuantity(&pSkillsTxt->nSkillId, nState, nQuantity, nX, nY);
+        SPELLSEL_DrawSkillQuantity(&pSkillsTxt->nSkillId, nState, nQuantity, nX, nY);
     }
     else
     {

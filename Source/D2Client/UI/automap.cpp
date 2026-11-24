@@ -4402,7 +4402,7 @@ D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, 
 }
 
 // 0x0045AC90
-void __cdecl sub_0045AC90_DrawAutomapUnits()
+void __cdecl AUTOMAP_DrawAutomapUnits()
 {
     D2StoredUnitRecordStrc* pEntry = ROSTER_GetNextStoredUnit(0);
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();

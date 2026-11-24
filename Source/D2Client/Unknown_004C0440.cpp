@@ -7,7 +7,7 @@ struct D2PacketRecord7Strc;
 
 extern int gnUseItemDialogState; // 0x007C5474
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-int __cdecl sub_004BFAF0_ShowConfirmation(); // 0x004BFAF0
+int __cdecl USEITEM_ShowConfirmation(); // 0x004BFAF0
 int __cdecl USEITEM_ClosePanel(); // 0x004C02F0
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __stdcall ROSTERPETS_HandleRectClick(SMSGHANDLER_PARAMS* pMsg); // 0x004890B0
@@ -33,11 +33,11 @@ void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 extern void* gpUseItemConfirmDialog; // 0x007C5484
 
-static int sub_004C0450_ClickHotspots(int nX, int nY);
+static int USEITEM_ClickHotspots(int nX, int nY); // 0x004C0450
 
 
 
-static int sub_004C0450_ClickHotspots(int nX, int nY); // 0x004C0450
+static int USEITEM_ClickHotspots(int nX, int nY); // 0x004C0450
 
 
 static int gnFlag_007C5470; // 0x007C5470

@@ -757,7 +757,8 @@ extern "C" int __fastcall CHATDLG_PrintText(const U16* text, int style)
     return 1;
 }
 
-extern "C" void __cdecl sub_00494FC0_ClearUi()
+// build: symbol _HIREABLES_CloseHelpUi 0x00494FC0
+extern "C" void __cdecl HIREABLES_CloseHelpUi()
 {
     if (gPendingClear != 0)
     {

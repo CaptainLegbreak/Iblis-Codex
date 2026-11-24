@@ -69,7 +69,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClass); // 0x004833E0
 D2MonTypeTxt* __fastcall SKILLDESC_GetMonTypeTxtRecord(int nMonType); // 0x004E4640
 void __fastcall TEXT_AppendUndeadDamageBonus(D2UnitStrc* pUnused, Unicode* wszOut, int nUnused); // 0x004E48B0
-unsigned short __fastcall sub_004E6CE0_GetStringId(int nId, int nIndex); // 0x004E6CE0
+unsigned short __fastcall SKILLDESC_GetSkillDescStringId(int nId, int nIndex); // 0x004E6CE0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526700
@@ -624,12 +624,12 @@ static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* 
         if (nSkillId <= 0 || nSkillId >= sgptDataTables->nSkillsTxtRecordCount)
             return 0;
 
-        sub_005269D0(256, pOut, D2LANG_GetStringFromTblIndex(pRecord->wDescStrPos), nDisplay, 0, nLevel, D2LANG_GetStringFromTblIndex(sub_004E6CE0_GetStringId(nSkillId, 0)));
+        sub_005269D0(256, pOut, D2LANG_GetStringFromTblIndex(pRecord->wDescStrPos), nDisplay, 0, nLevel, D2LANG_GetStringFromTblIndex(SKILLDESC_GetSkillDescStringId(nSkillId, 0)));
         break;
     }
     case 16:
     {
-        const Unicode* pSkillName = D2LANG_GetStringFromTblIndex(sub_004E6CE0_GetStringId(nLayer, 0));
+        const Unicode* pSkillName = D2LANG_GetStringFromTblIndex(SKILLDESC_GetSkillDescStringId(nLayer, 0));
         if (!pSkillName)
             return 0;
 
@@ -759,7 +759,7 @@ static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* 
     {
         const int nSkillId = nLayer >> sgptDataTables->nStuff;
         const int nLevel = nLayer & sgptDataTables->nShiftedStuff;
-        const Unicode* pSkillName = D2LANG_GetStringFromTblIndex(sub_004E6CE0_GetStringId(nSkillId, 0));
+        const Unicode* pSkillName = D2LANG_GetStringFromTblIndex(SKILLDESC_GetSkillDescStringId(nSkillId, 0));
         if (!pSkillName)
             break;
 
@@ -815,7 +815,7 @@ static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* 
         if (!nDisplay)
             break;
 
-        const Unicode* pSkillName = D2LANG_GetStringFromTblIndex(sub_004E6CE0_GetStringId(nLayer, 0));
+        const Unicode* pSkillName = D2LANG_GetStringFromTblIndex(SKILLDESC_GetSkillDescStringId(nLayer, 0));
         if (!pSkillName)
             break;
 
@@ -868,7 +868,7 @@ static int __stdcall SKILLDESC_BuildStatText(D2UnitStrc* pUnit, D2StatListStrc* 
         if (!pTo)
             break;
 
-        const Unicode* pSkillName = D2LANG_GetStringFromTblIndex(sub_004E6CE0_GetStringId(nLayer, 0));
+        const Unicode* pSkillName = D2LANG_GetStringFromTblIndex(SKILLDESC_GetSkillDescStringId(nLayer, 0));
         if (!pSkillName)
             break;
 

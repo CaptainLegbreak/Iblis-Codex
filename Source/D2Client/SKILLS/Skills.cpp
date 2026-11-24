@@ -256,7 +256,7 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, i
 
 void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 
-int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
+int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -1563,7 +1563,7 @@ static int __stdcall SKILLS_StartClientSkill(int nOwnerGUID, int nSkillLevel, D2
                 SKILLS_SetFlags(pSkill, 8);
             }
 
-            const int nMaxLevel = sub_004AA8B0_GetSkillMaxLevel(nSkillId);
+            const int nMaxLevel = SPELLSEL_GetSkillMaxLevel(nSkillId);
             if (nSkillLevel > nMaxLevel)
             {
                 SKILLS_AssignSkill(pUnit, nSkillId, nMaxLevel, 0, ".\\SKILLS\\Skills.cpp", 0x513);
@@ -1596,7 +1596,7 @@ static int __stdcall SKILLS_StartClientSkill(int nOwnerGUID, int nSkillLevel, D2
 
     if (pUnit != sub_00463DD0_GetPlayerUnit())
     {
-        const int nMaxLevel = sub_004AA8B0_GetSkillMaxLevel(nSkillId);
+        const int nMaxLevel = SPELLSEL_GetSkillMaxLevel(nSkillId);
         if (nSkillLevel > nMaxLevel)
         {
             SKILLS_AssignSkill(pUnit, nSkillId, nMaxLevel, 0, ".\\SKILLS\\Skills.cpp", 0x53A);

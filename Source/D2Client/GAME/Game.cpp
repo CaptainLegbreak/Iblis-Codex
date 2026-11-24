@@ -1340,7 +1340,7 @@ void __cdecl sub_00477DD0();                                                    
 
 void __fastcall MSG_UploadSaveFile(int bAnimate);                                                    // 0x004781D0
 
-void __cdecl sub_0047BD30_ResetChatHistory();                                                                                // 0x0047BD30
+void __cdecl CHAT_ResetChatHistory();                                                                                // 0x0047BD30
 
 void __cdecl sub_0047F1D0_LoadResolution();                                                                 // 0x0047F1D0
 

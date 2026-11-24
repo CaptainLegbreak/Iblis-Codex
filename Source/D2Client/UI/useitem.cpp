@@ -193,7 +193,7 @@ int __cdecl sub_004BF9B0(); // 0x004BF9B0
 void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nHeight, int nArg4, int nType, int nFont, int (__cdecl* pfnCallback)(), int bEnabled); // 0x004B85F0
 
 // 0x004BFAF0
-int __cdecl sub_004BFAF0_ShowConfirmation()
+int __cdecl USEITEM_ShowConfirmation()
 {
     if (gnUseItemDialogState == 2)
     {
@@ -644,7 +644,7 @@ void __cdecl USEITEM_OpenPanel()
 
 int __stdcall ROSTERPETS_HandleRectClick(SMSGHANDLER_PARAMS* pMsg); // 0x004890B0
 
-static int sub_004C0450_ClickHotspots(int nX, int nY);
+static int USEITEM_ClickHotspots(int nX, int nY); // 0x004C0450
 
 // 0x004C0440
 int __cdecl sub_004C0440_Thunk()
@@ -653,7 +653,7 @@ int __cdecl sub_004C0440_Thunk()
 }
 
 // 0x004C0450
-static int sub_004C0450_ClickHotspots(int nX, int nY)
+static int USEITEM_ClickHotspots(int nX, int nY)
 {
     int bHit = 0;
     int n;
@@ -665,7 +665,7 @@ static int sub_004C0450_ClickHotspots(int nX, int nY)
         {
             sub_004B9A00(1, 0, 0, 0, 0);
             if (!i)
-                sub_004BFAF0_ShowConfirmation();
+                USEITEM_ShowConfirmation();
             else
                 USEITEM_ClosePanel();
             bHit = 1;
@@ -680,7 +680,7 @@ static int sub_004C0450_ClickHotspots(int nX, int nY)
 }
 
 // 0x004C04E0
-void __stdcall sub_004C04E0_OnHotspotClick(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall USEITEM_OnHotspotClick(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
@@ -689,7 +689,7 @@ void __stdcall sub_004C04E0_OnHotspotClick(SMSGHANDLER_PARAMS* pMsg)
     const int nY = pMsg->nYpos;
     if (gnUseItemDialogState == 2)
     {
-        if (sub_004C0450_ClickHotspots(nX, nY))
+        if (USEITEM_ClickHotspots(nX, nY))
             return;
         if (sub_00489190(pMsg))
             USEITEM_ClosePanel();
@@ -697,7 +697,7 @@ void __stdcall sub_004C04E0_OnHotspotClick(SMSGHANDLER_PARAMS* pMsg)
     }
     if (ROSTERPETS_HandleRectClick(pMsg))
         return;
-    sub_004C0450_ClickHotspots(nX, nY);
+    USEITEM_ClickHotspots(nX, nY);
 }
 
 // 0x004C0620

@@ -164,7 +164,7 @@ void __cdecl SELECT_UpdateHoverUnit(); // 0x00467AC0
 
 void __cdecl sub_00477DD0(); // 0x00477DD0
 
-int __cdecl sub_0047BDF0_HandleBnetChatMessage(); // 0x0047BDF0
+int __cdecl CHAT_HandleBnetChatMessage(); // 0x0047BDF0
 
 void __fastcall WARDENCLIENT_TickModule(int nDelta); // 0x00480320
 
@@ -1302,7 +1302,7 @@ int __stdcall GAME_RunGameFrame(int nUnused)
     }
 
     WINMAIN_DrainPacketQueues();
-    sub_0047BDF0_HandleBnetChatMessage();
+    CHAT_HandleBnetChatMessage();
     WINMAIN_PollMcpConnection();
     GAME_CheckConnectionTimeouts();
 

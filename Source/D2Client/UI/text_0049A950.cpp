@@ -517,7 +517,7 @@ static void sub_004A2390_ResetQuestSelection();
 
 static int TEXT_GetQuestSlotAtPoint(int nX, int nY); // 0x004A2630
 
-static unsigned char sub_004A2690_HitTestButtonB(int nX, int nY);
+static unsigned char TEXT_HitTestQuestCloseButton(int nX, int nY); // 0x004A2690
 
 static unsigned char sub_004A2610_HitTestButtonA(int nX, int nY);
 
@@ -736,7 +736,7 @@ void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
             }
             else
             {
-                if (sub_004A2690_HitTestButtonB(nX, nY))
+                if (TEXT_HitTestQuestCloseButton(nX, nY))
                 {
                     gbGlobal_007BF2B2 = 1;
                     sub_004B9A00(4, 0, 0, 0, 0);
@@ -760,7 +760,7 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     int nY = D2_HIWORD(pMsg->lParam) + gnPanelOffsetY;
     if (gbGlobal_007BF2B2)
     {
-        if (sub_004A2690_HitTestButtonB(nX, nY)) TEXT_ToggleQuestLog(0);
+        if (TEXT_HitTestQuestCloseButton(nX, nY)) TEXT_ToggleQuestLog(0);
     }
     else if (!gbQuestDescriptionOpen)
     {
@@ -884,7 +884,7 @@ static int TEXT_GetQuestSlotAtPoint(int nX, int nY)
 }
 
 // 0x004A2690
-static unsigned char sub_004A2690_HitTestButtonB(int nX, int nY)
+static unsigned char TEXT_HitTestQuestCloseButton(int nX, int nY)
 {
     if (nX >= 0x116 && nX <= 0x116 + 0x23 && nY >= 0x188 && nY <= 0x188 + 0x21)
     {
@@ -1181,7 +1181,8 @@ extern "C" void __fastcall TEXT_SelectQuestPage(int key)
     }
 }
 
-extern "C" int __fastcall sub_004AA8B0_GetPositiveValue(int index)
+// build: symbol @SPELLSEL_GetSkillMaxLevel@* 0x004AA8B0
+extern "C" int __fastcall SPELLSEL_GetSkillMaxLevel(int index)
 {
     if (index >= 0 && index < gTables_00744304->inputCount)
     {

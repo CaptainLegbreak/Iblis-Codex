@@ -4242,7 +4242,8 @@ D2SkillStrc* __stdcall SKILLS_AddSkill(D2UnitStrc* pUnit, int nSkillId)
     }
 
     const int nSkillLevel = pSkill->nSkillLevel;
-    if (nSkillLevel < sub_004AA8B0_GetSkillMaxLevel(nSkillId) || pUnit->dwUnitType == UNIT_MONSTER)
+// build: symbol ?SPELLSEL_GetSkillMaxLevel@* 0x004AA8B0
+    if (nSkillLevel < SPELLSEL_GetSkillMaxLevel(nSkillId) || pUnit->dwUnitType == UNIT_MONSTER)
     {
         pSkill->nSkillLevel = nSkillLevel + 1;
     }

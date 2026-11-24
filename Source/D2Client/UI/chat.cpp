@@ -361,7 +361,7 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);       
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
 
 // 0x0047AA60
-void __stdcall sub_0047AA60_OnImeComposition(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall CHAT_OnImeComposition(SMSGHANDLER_PARAMS* pMsg)
 {
     char szComp[200];
     memset(szComp, 0, sizeof(szComp));
@@ -795,7 +795,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 unsigned long gdwBlinkTick; // 0x007BC890
 
 // 0x0047B450
-static void sub_0047B450_DrawBlinkingCaret(int nY, int nColor, int nX)
+static void CHAT_DrawBlinkingCaret(int nY, int nColor, int nX)
 {
 // build: symbol ?gnBlinkOn@* 0x00713004
     if (gnBlinkOn == 1)
@@ -1022,7 +1022,7 @@ struct D2CandidateListStrc
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 
 // 0x0047B5C0
-void __cdecl sub_0047B5C0_DrawImeCandidates()
+void __cdecl CHAT_DrawImeCandidates()
 {
     if (gpChatBuffer_007BB5F4)
     {
@@ -1091,7 +1091,7 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); 
 extern int gnScreenWidth;                                                                               // 0x0071146C
 
 // 0x0047B4F0
-void __stdcall sub_0047B4F0_DrawImeText(int nX, int nY)
+void __stdcall CHAT_DrawImeText(int nX, int nY)
 {
     int nWidth = 0;
     int nTextX = nX;
@@ -1118,13 +1118,13 @@ void __stdcall sub_0047B4F0_DrawImeText(int nX, int nY)
         D2Win_10117_DrawText(gwszImeComposition, nTextX + nWidth, nTextY, 4, 0);
     }
 
-    sub_0047B450_DrawBlinkingCaret(nTextY, 4, nWidth2 + nTextX + nWidth - 0x83);
+    CHAT_DrawBlinkingCaret(nTextY, 4, nWidth2 + nTextX + nWidth - 0x83);
 }
 
 D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth);       // 0x00502970
 
 // 0x0047B720
-void __cdecl sub_0047B720_DrawChatPanel()
+void __cdecl CHAT_DrawChatPanel()
 {
     const int nOldFont = D2Win_10127_SetFont(13);
     if (gbChatInputOpen)
@@ -1143,7 +1143,7 @@ void __cdecl sub_0047B720_DrawChatPanel()
             wszLanguage[1].wChar = 0x6F22;
             wszLanguage[2].wChar = 0;
             D2Win_10117_DrawText(wszLanguage, 0x14, gnScreenHeight - 0x80, 0, 0);
-            sub_0047B5C0_DrawImeCandidates();
+            CHAT_DrawImeCandidates();
             break;
 
         case 1:
@@ -1199,7 +1199,7 @@ void __cdecl sub_0047B720_DrawChatPanel()
             D2SplittedTextStrc* pNext = pLine->pNextLine;
             if (!pNext && gbChatInputOpen && gbImeOpen)
             {
-                sub_0047B4F0_DrawImeText(D2Win_10121_GetTextWidth(pLine->wszLine) + 0x83, 15 * nLine + gnScreenHeight - 0x58);
+                CHAT_DrawImeText(D2Win_10121_GetTextWidth(pLine->wszLine) + 0x83, 15 * nLine + gnScreenHeight - 0x58);
             }
 
             nLine += 1;
@@ -1215,12 +1215,12 @@ void __cdecl sub_0047B720_DrawChatPanel()
     }
     else if (gbChatInputOpen && gbImeOpen)
     {
-        sub_0047B4F0_DrawImeText(0x83, gnScreenHeight - 0x58);
+        CHAT_DrawImeText(0x83, gnScreenHeight - 0x58);
     }
 
     if (!gbChatInputOpen || !gbImeOpen)
     {
-        sub_0047B450_DrawBlinkingCaret(15 * nRow + gnScreenHeight - 0x58, 0, nWidth);
+        CHAT_DrawBlinkingCaret(15 * nRow + gnScreenHeight - 0x58, 0, nWidth);
     }
 
     D2Win_10127_SetFont(nOldFont);
@@ -1341,7 +1341,7 @@ void __stdcall INV_CloseChatOnPanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x0047BD60
-static const char* sub_0047BD60_GetAccountPart(const char* szName)
+static const char* CHAT_GetAccountPart(const char* szName)
 {
     const char* p = SStrChr(szName, 0x2A);
     if (p && *++p)
@@ -1423,7 +1423,7 @@ extern int gnScreenWidth; // 0x0071146C
 void __fastcall TEXT_PrintChatLine(const Unicode* pText, char nColor); // 0x0049E3A0
 
 
-static void sub_0047BD80_CopyCharPart(const char* szSource, char* szDest)
+static void CHAT_CopyCharacterPart(const char* szSource, char* szDest)
 {
     if (*szSource != 0x2A)
     {
@@ -1462,7 +1462,7 @@ public:
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 // 0x0047BDF0
-int __cdecl sub_0047BDF0_HandleBnetChatMessage()
+int __cdecl CHAT_HandleBnetChatMessage()
 {
     D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
     if (!pNotify)
@@ -1494,10 +1494,10 @@ int __cdecl sub_0047BDF0_HandleBnetChatMessage()
         {
             char szName[0x154];
             char szFormatted[0x154];
-            sub_0047BD80_CopyCharPart(szSender, szName);
-            if (szName[0] && (szName[0] != 0x2A || strcmp(sub_0047BD60_GetAccountPart(szName), sub_0047BD60_GetAccountPart(szSender))))
+            CHAT_CopyCharacterPart(szSender, szName);
+            if (szName[0] && (szName[0] != 0x2A || strcmp(CHAT_GetAccountPart(szName), CHAT_GetAccountPart(szSender))))
 // build: symbol ?gszNameAccountFormat@* 0x006D72C0
-                sprintf(szFormatted, gszNameAccountFormat, szName, sub_0047BD60_GetAccountPart(szSender));
+                sprintf(szFormatted, gszNameAccountFormat, szName, CHAT_GetAccountPart(szSender));
             else
 // build: symbol ?gszStringFormat@* 0x006FFC58
                 sprintf(szFormatted, gszStringFormat, szName);
@@ -1679,7 +1679,7 @@ extern unsigned short gwChatHistoryCount;                                       
 extern Unicode gawszChatHistory_007BB840[8][257];                                                           // 0x007BB840
 
 // 0x0047B3B0
-static int __stdcall sub_0047B3B0_CompareCommand(const char* szText, const char* szCommand)
+static int __stdcall CHAT_CompareCommand(const char* szText, const char* szCommand)
 {
     if (strlen(szText) < strlen(szCommand))
         return -1;
@@ -1697,7 +1697,7 @@ static int __stdcall sub_0047B3B0_CompareCommand(const char* szText, const char*
 }
 
 // 0x0047BA00
-static void sub_0047BA00_PushChatHistory(const Unicode* pText)
+static void CHAT_PushChatHistory(const Unicode* pText)
 {
     int nIndex;
     if (gwChatHistoryCount != 8)
@@ -1754,7 +1754,7 @@ struct D2StoredUnitRecordStrc;
 
 
 // 0x0047BD30
-void __cdecl sub_0047BD30_ResetChatHistory()
+void __cdecl CHAT_ResetChatHistory()
 {
     gnChatHistoryHead = 7;
     gnChatHistoryTail = 7;
@@ -1764,14 +1764,14 @@ void __cdecl sub_0047BD30_ResetChatHistory()
 }
 
 // 0x0047BD80
-static void sub_0047BD80_CopyCharPart(const char* szSource, char* szDest);
+static void CHAT_CopyCharacterPart(const char* szSource, char* szDest); // 0x0047BD80
 
 
 // 0x0047C100
-static int sub_0047C100(char* szInput, const char* szCommand)
+static int CHAT_HandleHelpCommand(char* szInput, const char* szCommand)
 {
     const size_t nLength = strlen(szCommand);
-    if (!sub_0047B3B0_CompareCommand(szInput, szCommand))
+    if (!CHAT_CompareCommand(szInput, szCommand))
     {
         const char c = szInput[nLength];
         if (c == 0x20 || !c)
@@ -1856,7 +1856,7 @@ bool __fastcall CHAT_IsNarrowText(const Unicode* pText)
 }
 
 // 0x0047C3F0
-static void __stdcall sub_0047C3F0_CopyCommandArgs(char* szDest, const char* szSource, unsigned int nSize)
+static void __stdcall CHAT_CopyCommandArgs(char* szDest, const char* szSource, unsigned int nSize)
 {
     const char* pArgs = SStrChr(szSource, ' ');
     if (pArgs)
@@ -1866,10 +1866,10 @@ static void __stdcall sub_0047C3F0_CopyCommandArgs(char* szDest, const char* szS
 }
 
 // 0x0047C1F0
-static int __stdcall sub_0047C1F0_HandleWhisperCommand(int bCheckStored, char* szInput, const char* szCommand)
+static int __stdcall CHAT_HandleWhisperCommand(int bCheckStored, char* szInput, const char* szCommand)
 {
     const size_t nLength = strlen(szCommand);
-    if (!sub_0047B3B0_CompareCommand(szInput, szCommand))
+    if (!CHAT_CompareCommand(szInput, szCommand))
     {
         const char c = szInput[nLength];
         if (c == ' ' || !c)
@@ -1983,7 +1983,7 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
                 tSend.nType = 0x14;
             pText = pCommand;
         }
-        if (!sub_0047B3B0_CompareCommand(pText, "/ignorepersist"))
+        if (!CHAT_CompareCommand(pText, "/ignorepersist"))
         {
             sub_00611560_GetSquelchList()->SetPersistent(!sub_00611560_GetSquelchList()->IsPersistent());
             Unicode wszText[0x104];
@@ -1996,13 +1996,13 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
             TEXT_PrintChatLine(wszText, 3);
         }
 // build: symbol ?gszCmdSquelch@* 0x006D5698
-        else if (!sub_0047B3B0_CompareCommand(pText, "/ignore ") || !sub_0047B3B0_CompareCommand(pText, gszCmdSquelch))
+        else if (!CHAT_CompareCommand(pText, "/ignore ") || !CHAT_CompareCommand(pText, gszCmdSquelch))
         {
             Unicode wszText[0x208];
             Unicode wszLine[0x208];
             Unicode wszName[0x22];
             char szName[0x11];
-            sub_0047C3F0_CopyCommandArgs(pText, szName, sizeof(szName));
+            CHAT_CopyCommandArgs(pText, szName, sizeof(szName));
             if (SStrCmpI(&szName[1], gpClientConfig->szAccount, 0x7FFFFFFF))
             {
                 sub_00526320_ToUnicode(wszLine, gszBattleNetPrefix, 0x208);
@@ -2016,13 +2016,13 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
             TEXT_PrintChatLine(wszLine, 3);
         }
 // build: symbol ?gszCmdUnsquelch@* 0x006D5680
-        else if (!sub_0047B3B0_CompareCommand(pText, "/unignore ") || !sub_0047B3B0_CompareCommand(pText, gszCmdUnsquelch))
+        else if (!CHAT_CompareCommand(pText, "/unignore ") || !CHAT_CompareCommand(pText, gszCmdUnsquelch))
         {
             Unicode wszText[0x208];
             Unicode wszLine[0x208];
             Unicode wszName[0x22];
             char szName[0x11];
-            sub_0047C3F0_CopyCommandArgs(pText, szName, sizeof(szName));
+            CHAT_CopyCommandArgs(pText, szName, sizeof(szName));
             sub_00526320_ToUnicode(wszLine, gszBattleNetPrefix, 0x208);
             sub_00526320_ToUnicode(wszName, szName, 0x22);
             if (sub_00611560_GetSquelchList()->Unsquelch(szName))
@@ -2032,11 +2032,11 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
             sub_00526700(wszLine, wszText);
             TEXT_PrintChatLine(wszLine, 3);
         }
-        else if (!sub_0047B3B0_CompareCommand(pText, "/filtermsg "))
+        else if (!CHAT_CompareCommand(pText, "/filtermsg "))
         {
             Unicode wszText[0x208];
             char szFilter[0x104];
-            sub_0047C3F0_CopyCommandArgs(pText, szFilter, sizeof(szFilter));
+            CHAT_CopyCommandArgs(pText, szFilter, sizeof(szFilter));
             sub_00526320_ToUnicode(wszText, gszBattleNetPrefix, 0x208);
             if (sub_00611560_GetSquelchList()->AddFilter(szFilter))
                 sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x2BA7));
@@ -2044,11 +2044,11 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
                 sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x2BA8));
             TEXT_PrintChatLine(wszText, 3);
         }
-        else if (!sub_0047B3B0_CompareCommand(pText, "/unfiltermsg "))
+        else if (!CHAT_CompareCommand(pText, "/unfiltermsg "))
         {
             Unicode wszText[0x104];
             char szFilter[0x104];
-            sub_0047C3F0_CopyCommandArgs(pText, szFilter, sizeof(szFilter));
+            CHAT_CopyCommandArgs(pText, szFilter, sizeof(szFilter));
             sub_00526320_ToUnicode(wszText, gszBattleNetPrefix, 0x208);
             if (sub_00611560_GetSquelchList()->RemoveFilter(szFilter))
                 sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x2BA9));
@@ -2058,12 +2058,12 @@ static void __stdcall sub_0047C420_HandleChatCommand(const Unicode* pLine, char*
         }
         else if (tSend.nCode == 3 && (!gbChatInputOpen || CHAT_IsNarrowText(pLine)))
         {
-            if (!sub_0047C1F0_HandleWhisperCommand(1, pText, "/msg")
-                && !sub_0047C1F0_HandleWhisperCommand(1, pText, "/m")
-                && !sub_0047C1F0_HandleWhisperCommand(1, pText, "/whisper")
-                && !sub_0047C1F0_HandleWhisperCommand(1, pText, "/w")
-                && !sub_0047C100(pText, "/help")
-                && !sub_0047C100(pText, "/?"))
+            if (!CHAT_HandleWhisperCommand(1, pText, "/msg")
+                && !CHAT_HandleWhisperCommand(1, pText, "/m")
+                && !CHAT_HandleWhisperCommand(1, pText, "/whisper")
+                && !CHAT_HandleWhisperCommand(1, pText, "/w")
+                && !CHAT_HandleHelpCommand(pText, "/help")
+                && !CHAT_HandleHelpCommand(pText, "/?"))
             {
                 D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
                 if (pNotify)
@@ -2114,7 +2114,7 @@ void __cdecl CHAT_ClearChatLine()
 }
 
 // 0x0047CA70
-void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
+void __stdcall CHAT_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gnChatDrawCount < 1)
         return;
@@ -2142,7 +2142,7 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
             UI_SetUIVar(5, 1, 0);
             break;
         }
-        sub_0047BA00_PushChatHistory(pText);
+        CHAT_PushChatHistory(pText);
         char szText[0x104];
         WideCharToMultiByte(0, 0x250, (const wchar_t*)gwszChatLine_007BB638, -1, szText, 0x100, 0, 0);
         sub_0047C420_HandleChatCommand(gwszChatLine_007BB638, szText, nSkip);
@@ -2240,14 +2240,14 @@ extern int gbPanelFlag; // 0x0071315C
 
 void __cdecl sub_M04_Emit_0047BD80(char* szDest, const char* szSource)
 {
-    sub_0047BD80_CopyCharPart(szSource, szDest);
+    CHAT_CopyCharacterPart(szSource, szDest);
 }
 
 int __fastcall sub_F07_Emit_0047C100(char* szInput)
 {
-    if (sub_0047C100(szInput, "/help"))
+    if (CHAT_HandleHelpCommand(szInput, "/help"))
         return 1;
-    if (sub_0047C100(szInput, "/?"))
+    if (CHAT_HandleHelpCommand(szInput, "/?"))
         return 1;
     return 0;
 }
@@ -2303,9 +2303,9 @@ void __stdcall sub_M134_Use(const char* szText);
 
 void __fastcall sub_M134_Emit_0047C100(const char* szText)
 {
-    if (!sub_0047B3B0_CompareCommand(szText, gszM134CmdA))
+    if (!CHAT_CompareCommand(szText, gszM134CmdA))
         return;
-    if (!sub_0047B3B0_CompareCommand(szText, gszM134CmdB))
+    if (!CHAT_CompareCommand(szText, gszM134CmdB))
         sub_M134_Use(szText);
 }
 
@@ -2313,7 +2313,7 @@ void sub_A23_Emit_0047BA00(int nSkip)
 {
     const Unicode* pText = &gwszChatLine_007BB638[nSkip];
     if (sub_00526800(pText))
-        sub_0047BA00_PushChatHistory(pText);
+        CHAT_PushChatHistory(pText);
 }
 
 

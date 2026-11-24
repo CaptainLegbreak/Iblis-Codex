@@ -31,10 +31,10 @@ void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 void __fastcall MSG_SendFourDwords(char nCommand, int nArg0, int nArg1, int nArg2, int nArg3); // 0x00478700
 int __cdecl INV_CheckTradeClickDelay(); // 0x00486D10
-void __cdecl sub_004A9DF0_UpdateSkillIcons(); // 0x004A9DF0
+void __cdecl SPELLSEL_UpdateSkillIcons(); // 0x004A9DF0
 int __fastcall NPCMENU_GetInteractNpcId(int* pUnitId); // 0x004B3230
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
-int __fastcall sub_004B3870(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x004B3870
+int __fastcall NPCMENU_HandleTradeClick(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x004B3870
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __fastcall ITEM_GetDropSound(D2UnitStrc* pItem); // 0x004C1D60
 void __fastcall ITEM_SetUninterruptableState(D2UnitStrc* pItem); // 0x004C21F0
@@ -189,7 +189,7 @@ static void __stdcall INV_ForwardTradeClick(int nArg1, int nArg2, int nArg3, int
 {
     if (!nArg2)
         return;
-    if (!sub_004B3870(nArg1, nArg2, nArg3, nArg4, nArg5, nArg6, nArg7, 0))
+    if (!NPCMENU_HandleTradeClick(nArg1, nArg2, nArg3, nArg4, nArg5, nArg6, nArg7, 0))
         return;
     if (!nArg7)
         gnInvPanelMode = 5;
@@ -348,7 +348,7 @@ static int __stdcall INV_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStrc* pInven
                     && ITEMS_GetSuffixId(pCursorItem, 0) == ITEMS_GetSuffixId(pHit, 0)
                     && !ITEM_IsItemActionBlocked(pCursorItem) && INV_CheckTradeClickDelay() && gnInvPanelMode != 0xB)
                 {
-                    sub_004A9DF0_UpdateSkillIcons();
+                    SPELLSEL_UpdateSkillIcons();
                     MSG_SendTwoDwords(0x29, (!pCursorItem ? -1 : pCursorItem->dwUnitId), !pHit ? -1 : pHit->dwUnitId);
                     ITEM_SetUninterruptableState(pCursorItem);
                     sub_004B9A00(ITEM_GetDropSound(pHit), 0, 0, 0, 0);
@@ -453,10 +453,10 @@ extern "C" void __cdecl sub_004B90B0_SendState(); // 0x004B90B0
 typedef int (__fastcall *D2BodyClickFn)(D2UnitStrc*,D2InventoryStrc*,int);
 extern D2BodyClickFn gaBodyClick[]; // 0x00721E58
 
-int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY);
-int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY); // 0x00483AB0
+int __fastcall INV_IsInPlayerInvRect(int nX, int nY); // 0x00483AB0
+int __fastcall INV_IsInPlayerInvRect(int nX, int nY); // 0x00483AB0
 // 0x00483AB0
-int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY)
+int __fastcall INV_IsInPlayerInvRect(int nX, int nY)
 {
     if (nX >= gtPlayerInvRect.nLeft && nX < gtPlayerInvRect.nRight && nY >= gtPlayerInvRect.nTop && nY <= gtPlayerInvRect.nBottom)
     {
@@ -581,7 +581,7 @@ void __stdcall INV_HandlePanelClick(SMSGHANDLER_PARAMS* pMsg)
             return;
         }
     }
-    if(!AUTOMAP_IsCursorOverMiniPanelButton(pMsg) && sub_00483AB0_IsInInvRect(x,y)) {
+    if(!AUTOMAP_IsCursorOverMiniPanelButton(pMsg) && INV_IsInPlayerInvRect(x,y)) {
         if(INV_IsInNpcPanelRect(x,y)) {
             gbPanelButtonDown=1;
             UI_SetUIVar(1,1,0);
@@ -759,7 +759,7 @@ void __stdcall INV_HandleNpcClick(SMSGHANDLER_PARAMS* msg)
         if(!NPCMENU_GetTradeCostText(CURSOR_GetCursorItem(),1,&cost,text,64)) return;
         const int arg=msg->wParam;
         D2UnitStrc* item=CURSOR_GetCursorItem();
-        if(item && sub_004B3870((int)player,(int)item,1,x,y,arg,1,0)) sub_00468070_SetCursorItemState(0);
+        if(item && NPCMENU_HandleTradeClick((int)player,(int)item,1,x,y,arg,1,0)) sub_00468070_SetCursorItemState(0);
         return;
     }
     if(AUTOMAP_IsCursorOverMiniPanelButton(msg)==1) {INV_ResetNpcButtons();return;}

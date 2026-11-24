@@ -1147,7 +1147,7 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 void __stdcall WAYPOINTS_FreeWaypointData(void* pMemPool, D2WaypointDataStrc* pData); // 0x00660FD0
 
-extern "C" void __cdecl sub_0049C650_CloseArchives(); // 0x0049C650
+extern "C" void __cdecl TEXT_FreeWaypointCels(); // 0x0049C650
 
 static int TEXT_DrawTextBoxAt(T00479230* pTextBox, D2RectStrc* pRect); // 0x0049D9A0
 
@@ -1906,7 +1906,8 @@ static int TEXT_GetQuestSlotAtPoint(int nX, int nY)
     return -1;
 }
 
-static unsigned char sub_004A2690_HitTestButtonB(int nX, int nY)
+// build: symbol ?TEXT_HitTestQuestCloseButton@* 0x004A2690
+static unsigned char TEXT_HitTestQuestCloseButton(int nX, int nY)
 {
     if (nX >= 0x116 && nX <= 0x116 + 0x23 && nY >= 0x188 && nY <= 0x188 + 0x21)
     {
@@ -3069,7 +3070,7 @@ void __cdecl PANEL_SetBlackColour(); // 0x00499E30
 
 void __fastcall SKILLDESC_RefreshSkills(D2UnitStrc* pUnit); // 0x004EDA20
 
-int __fastcall sub_004EDA80_CallSkillDescFunc(D2UnitStrc* pUnit, int bLeft); // 0x004EDA80
+int __fastcall SKILLDESC_CallSkillDescFunc(D2UnitStrc* pUnit, int bLeft); // 0x004EDA80
 
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 
@@ -3276,8 +3277,8 @@ NEXT_TEXT:;
 
     SKILLDESC_RefreshSkills(pPlayer);
     D2Win_10127_SetFont(0);
-    const int nLeftChance = TEXT_GetChanceToHit(sub_004EDA80_CallSkillDescFunc(pPlayer, 1));
-    const int nRightChance = TEXT_GetChanceToHit(sub_004EDA80_CallSkillDescFunc(pPlayer, 0));
+    const int nLeftChance = TEXT_GetChanceToHit(SKILLDESC_CallSkillDescFunc(pPlayer, 1));
+    const int nRightChance = TEXT_GetChanceToHit(SKILLDESC_CallSkillDescFunc(pPlayer, 0));
     const int nPercent = MONSTER_GetPlayerDefensePercent();
     sub_004A7AE0_DrawHoverValueBox(nLeftChance, nRightChance, nMouseX, nMouseY);
     TEXT_DrawBlockChanceHover(nMouseX, nMouseY, nPercent);
