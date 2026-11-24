@@ -7,12 +7,11 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 03:05 PT: #341/#342 took lang-split, small-data, place-a/b/c, dir-tables and join-missile 1-2. join-missile-4 and strays-a are rebased on #342. Next: the strays that need declarations moved with them, then more placeholders.
+- 2026-11-24 03:50 PT: join-missile-3/4 are in #343. strays-a is redone on #344, with strays-b stacked on it. Next: more placeholders.
 
 ## Ready
-- lane8/strays-b 05f0e2d5 (on #342), VERIFIED c9e7126e. Three more lone strays move: 0x654E80 Skills -> MonsterTbls (chest TC lookup, through MonsterTbls' [3][5][3] gpChestTreasureClasses), 0x667030 Skills -> Preset (with its three private records), and 0x643700 Dungeon -> Skills (Skills' calc table extern for it dropped). Touches Skills.cpp like strays-a and join-missile-4, in different places.
-- lane8/strays-a d0fbb5bb (on #342), VERIFIED 543ccd25. Six lone strays move into the run they sit in: four Skills.cpp functions go to Path.cpp (0x648390, 0x648640, 0x648770, 0x6487C0), 0x64C350 goes to UnitRoom.cpp, and 0x66E140 goes to RoomTile.cpp. Independent of the join-missile stack, though both touch Path.cpp and Skills.cpp in different places.
-- lane8/join-missile-4 6bf506c9 (2 commits: MISSILE_SetOwner from Unknown_0064A400, then the four strays; on #342), VERIFIED 04b1623a. First commit: Missile.cpp takes in Unknown_0064A400.cpp, written on Missile's types, so the piece's /Ob1 isn't needed. Second commit: Missile.cpp takes back four strays from inside its run. From Path.cpp: 0x64A730. From Skills.cpp: 0x64A7F0 MISSILE_GetHomeType, and 0x64B700/0x64B710 MISSILE_GetMinimum/Maximum, which are entries of Missile's own calc table.
+- lane8/strays-b c48bbb5c (stacked on strays-a; take that first), VERIFIED 503d0195. Three more lone strays move: 0x654E80 Skills -> MonsterTbls (chest TC lookup, through MonsterTbls' [3][5][3] gpChestTreasureClasses), 0x667030 Skills -> Preset (with its three private records), and 0x643700 Dungeon -> Skills (Skills' calc table extern for it dropped).
+- lane8/strays-a a929c396 (redone on #344, namesync clean), VERIFIED 1dbfc282. Six lone strays move into the run they sit in: four Skills.cpp functions go to Path.cpp (0x648390, 0x648640, 0x648770, 0x6487C0), 0x64C350 goes to UnitRoom.cpp, and 0x66E140 goes to RoomTile.cpp.
 
 ## Questions
 
