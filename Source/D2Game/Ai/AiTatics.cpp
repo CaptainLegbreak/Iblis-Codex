@@ -175,12 +175,6 @@ enum D2C_Y10UseSkillConstants
     UNITFLAG_SKSRVDOFUNC = 0x40,
 };
 
-// 0x00568D70
-int __cdecl AITACTICS_GetHighestClassSkillCount()
-{
-    return sgptDataTables->nHighestClassSkillCount;
-}
-
 int SUNITNPC_GetItemStorePage(D2UnitStrc* pItem); // 0x00576320
 
 inline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)

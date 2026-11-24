@@ -2313,44 +2313,6 @@ int __fastcall SKILLITEM_pSpell11_CastFireBallToCoordinates(D2GameStrc* pGame, D
 struct D2InventoryStrc;
 
 
-// 0x005CDD30
-int __fastcall SKILLS_GetMonFrenzySequenceFrame(D2UnitStrc* pUnit)
-{
-    if (DATATBLS_GetMonSeqTxtRecordFromUnit(pUnit))
-    {
-        const int nMax = DATATBLS_GetSeqFramePointsCount(pUnit) >> 8;
-        const int nCurrent = pUnit->dwSeqFrame >> 8;
-        for (int i = nCurrent + 1; i < nMax; ++i)
-        {
-            int nEvent;
-            DATATBLS_GetSequenceEvent(pUnit->pAnimSeq, nCurrent << 8, &nEvent);
-            if (nEvent)
-            {
-                return nEvent;
-            }
-        }
-    }
-    else
-    {
-        const int nMax = pUnit->dwFrameCountPrecise >> 8;
-        const int nCurrent = pUnit->nSeqCurrentFramePrecise >> 8;
-        if (nMax > pUnit->pAnimData->dwFrames)
-        {
-            return 0;
-        }
-
-        for (int i = nCurrent + 1; i < nMax; ++i)
-        {
-            if (pUnit->pAnimData->pFrameFlags[nCurrent])
-            {
-                return pUnit->pAnimData->pFrameFlags[nCurrent];
-            }
-        }
-    }
-
-    return 0;
-}
-
 // 0x005C32A0
 int __fastcall SKILLS_SrvSt20_IronGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {

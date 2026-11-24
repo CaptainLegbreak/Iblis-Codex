@@ -2836,6 +2836,12 @@ void __fastcall PLRTRADE_RefreshTradeSnapshot(D2GameStrc* pGame, D2UnitStrc* pPl
     EVENT_SetEvent(pGame, pPlayer, 0xD, pGame->dwGameFrame + 1, 0, 0);
 }
 
+// 0x00568D70
+int __cdecl AITACTICS_GetHighestClassSkillCount()
+{
+    return sgptDataTables->nHighestClassSkillCount;
+}
+
 // 0x00568D80
 int __fastcall PLRTRADE_FindTerminator(const char* szText, int nSize)
 {
