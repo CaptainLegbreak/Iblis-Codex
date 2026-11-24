@@ -142,4 +142,3 @@ void __fastcall ACT2Q8_InitQuestData(D2QuestDataStrc* pQuestData)
 }
 
 
-#include "gen/data/Source/D2Game/Quests/a2q8.inc"

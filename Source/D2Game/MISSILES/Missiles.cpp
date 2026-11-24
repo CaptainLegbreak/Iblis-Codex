@@ -9,6 +9,7 @@
 #include "D2UnitData.h"
 #include "D2TxtTables.h"
 #include "D2Packets.h"
+#include "D2LanguageNames.h"
 
 typedef void(__fastcall* MISSILEINITFUNC)(D2UnitStrc* pMissile, int nInitArg);
 
