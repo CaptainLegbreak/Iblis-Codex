@@ -682,3 +682,5 @@ int __stdcall CHARSEL_SubmitPasswordReset(int nArg)
     CHARSEL_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
     return 0;
 }
+
+#include "gen/data/Source/D2Launch/Unknown_004370B0.inc"
