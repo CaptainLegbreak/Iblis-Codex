@@ -4,8 +4,8 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/lang-more-3 15d0a126 0 placeholders; SUnitInactive.cpp (0x731484), Items.cpp (0x731F10) and MonsterUnique.cpp (0x73BF20) take their language copy from D2LanguageNames.h; each object's data comes out with the copy first and the rest in the image's order. VERIFIED 733e37aac86256bb56e187663212720be02530b1. Based on main #332, not stacked, D2Game only. (lang-more-2 is in #332.)
 - lane5/quest-data-order f652d4db 0 placeholders; a1q5.cpp, a2q3.cpp, a3q1.cpp, a3q3.cpp: the image has each object's NPC message tables first and its static index table right after (ending where the next object's data starts); the compiler lays an object's data out in definition order and the data include sat at the end of the file, so the index came out first. The include moves up to just before the index table; each object's data now comes out in the image's order in one piece. All four build equal; VERIFIED 87b68ddace4dfaaaffcfb10076630df2c223ebe4. Based on main #331, not stacked. (a2q1.cpp left: another file's data sits inside its range.)
-- lane5/lang-more-2 226127cc 0 placeholders; the second commit of lang-more (its first is in #330), rebased on #331: Unknown_005B24E0.cpp takes its copy 0x73D4B4 from D2LanguageNames.h. VERIFIED 08276c9d2b597d124739e38930cb45b62fe151c0. Not stacked.
 
 ## Questions
 
