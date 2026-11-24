@@ -4,6 +4,9 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/skilldesc-path ee690ca4b 0->0 gszSkillDescFile (0x6DBF24, SkillDesc.cpp) was planned as char[8], so the build copied the other 12 bytes of ".\UI\SkillDesc.cpp" and its pad byte (0x6DBF2C-0x6DBF37) from Game.exe; it is now the whole 19-byte string. Borrowed data -12 B; VERIFIED 753c70148438681cf1586d625320135b25e30bfd
+  - verified on main #346 (borrowed data 1,154 B there); rebased cleanly onto #348 (plan-only change), re-verifying.
+
 - lane1/spellsel-strays-2 fea0b0971 -2 placeholders (Unknown_004A76C0.cpp, Unknown_004A7AE0.cpp) from lane 4's handover: spellsel.cpp (code run 0x4A8A30-0x4AA8F0, .bss 0x7C0300-0x7C0833) takes 0x4A8A30 and 0x4A8CF0 (Unknown_004A76C0.cpp; nothing calls 0x4A8CF0, so its calling-convention shim comes along), 0x4A8ED0/0x4A9260/0x4A9300/0x4A9690/0x4A9870 with gaHotkeySkills/Owners/Left (Unknown_004A7AE0.cpp; rewritten on sgptDataTables, D2CelContextStrc, gaSkillIconCels and gpSkillIconCel instead of private overlays) and 0x4A8DF0 (Unknown_004A6000.cpp; its static buffer and guard 0x7C0810-0x7C0833 sit between spellsel's 0x7C07FC and the next object's 0x7C0838). 0x4A7AE0 is the levelup object's (its run; shares gnTextColor 0x7C02F8 with 0x4A7180; 0x4A7D00 calls it with register arguments): it replaces the context copy in Unknown_004A6460.cpp, with gaHoverBoxes (0x6DA430, .rdata between levelup's strings and spellsel's). Shims -2, context copies -1; VERIFIED 963c4d25bbe556e7298c6e78e088660c9ceceb7f
   - based on main #346. Replaces lane1/spellsel-strays (same commit on #345, verified dc59585c, never posted). Rebase onto #348 requested: done locally (b10b93b6; conflicts were lane 10's renames in the two deleted files; precheck equal), re-verifying; will post as -3.
 
