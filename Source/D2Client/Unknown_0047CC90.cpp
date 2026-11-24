@@ -330,16 +330,6 @@ extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned in
 
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 
-struct D2CandidateListStrc
-{
-    unsigned int dwSize;
-    unsigned int dwStyle;
-    unsigned int dwCount;
-    unsigned int dwSelection;
-    unsigned int dwPageStart;
-    unsigned int dwPageSize;
-    unsigned int dwOffset[1];
-};
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 
@@ -756,26 +746,10 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
-struct D2ClientServiceStrc
-{
-    char unk0x00[0xC8];
-    void (__fastcall* pfnFree)(void* pData, int nSize);
-    int (__fastcall* pfnFind)(char* szName, int* pArg, void** ppData, int* pSize);
-    void (__fastcall* pfnCall)(const char* szName, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
-};
 
 
 
 
-struct D2ChatMessageStrc
-{
-    unsigned char unk0x00;
-    unsigned char nType;
-    unsigned char unk0x02[6];
-    unsigned char nColor;
-    unsigned char unk0x09[0x11];
-    D2ChatTextStrc tText;
-};
 
 
 extern "C" size_t __cdecl strlen(const char* sz);
@@ -1896,6 +1870,13 @@ int __fastcall sub_0047EC20_IsPanelFreeForArg(int bArg)
         return 1;
     }
     return 0;
+}
+
+
+// 0x0047EC40
+int __cdecl sub_0047EC40_IsSet()
+{
+    return gdwGlobal_007BC974 != 0;
 }
 
 // 0x0047EC50

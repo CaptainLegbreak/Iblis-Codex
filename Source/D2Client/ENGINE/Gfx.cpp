@@ -3148,29 +3148,6 @@ unsigned char* __stdcall GFX_BuildLerpTable(unsigned int nCount, int nSteps)
     return pTable;
 }
 
-// 0x00475C40
-unsigned char** __stdcall GFX_BuildLerpRowTable(unsigned int nCount, int nSteps)
-{
-    unsigned char** pTable = (unsigned char**)sub_00517993_VirtualAlloc((nSteps + 1) * nCount * nCount * sizeof(unsigned char*));
-    unsigned char** pOut = pTable;
-    unsigned char nIndex;
-    for (int i = 0; i < nCount; ++i)
-    {
-        for (int j = 0; j < nCount; ++j)
-        {
-            int nStep = ((j - i) << 16) / nSteps;
-            int nValue = i << 16;
-            for (unsigned int k = 0; k < nSteps; ++k)
-            {
-                nIndex = nValue / 65536;
-                *pOut++ = gabRowTable[nIndex];
-                nValue += nStep;
-            }
-            *pOut++ = gabRowTable[nIndex];
-        }
-    }
-    return pTable;
-}
 
 
 // 0x004795F0

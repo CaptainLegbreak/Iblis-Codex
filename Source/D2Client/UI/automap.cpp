@@ -88,8 +88,6 @@ struct D2ActiveRoomStrc;
 
 struct D2DrlgCoordsStrc;
 
-struct D2TileRectStrc;
-
 struct D2PacketBufferStrc;
 
 struct D2PacketTableEntryStrc;
@@ -1178,16 +1176,6 @@ enum D2C_F06UiConstants
 
 typedef void (__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
 
-struct D2TileRectStrc
-{
-    int unk0x00;
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-    int nOffsetX;
-    int nOffsetY;
-};
 
 typedef void (__fastcall* D2PacketHandlerFn)(void* pArg, unsigned char* pPacket);
 
@@ -2796,21 +2784,7 @@ void __cdecl AUTOMAP_LoadAutomapLayer()
     FOG_CloseFile(hFile);
 }
 
-struct D2GridCellStrc;
 
-struct D2GridCellStrc
-{
-    int nFlag;
-    unsigned char nValue[4];
-};
-
-struct D2ChatMessageStrc
-{
-    char* szText;
-    int nColor;
-    int bClear;
-    D2ChatMessageStrc* pNext;
-};
 
 // 0x00458CD0
 void __stdcall CHARSEL_SetAutomapContext(D2AutomapLayerStrc* pContext)
@@ -3885,6 +3859,12 @@ void __cdecl AUTOMAP_InitAutomapColors()
     gabAutomapColors[8] = D2Win_10034_MixRGB(0xF4, 0xF4, 0);
     gabAutomapColors[9] = D2Win_10034_MixRGB(0, 0, 0xFF);
     gabAutomapColors[10] = D2Win_10034_MixRGB(0, 0xFF, 0);
+}
+
+// 0x0045A710
+int __cdecl UI_GetAutomapMode()
+{
+    return gnAutomapMode;
 }
 
 // 0x0045A720

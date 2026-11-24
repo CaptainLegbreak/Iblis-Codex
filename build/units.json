@@ -2464,6 +2464,11 @@
      "name": "?AUTOMAP_InitAutomapColors@@YAXXZ"
     },
     {
+     "va": "0x0045A710",
+     "length": 6,
+     "name": "UI_GetAutomapMode"
+    },
+    {
      "va": "0x0045A720",
      "length": 56
     },
@@ -13515,6 +13520,11 @@
      "name": "VIEW_SetPetEntryValue"
     },
     {
+     "va": "0x00475DF0",
+     "length": 185,
+     "name": "?DLIGHTMAP_BuildLerpTables@@YAXXZ"
+    },
+    {
      "va": "0x00475EF0",
      "length": 210,
      "name": "?VIEW_FreeLerpTables@@YAXXZ"
@@ -13696,11 +13706,6 @@
      "va": "0x00478010",
      "length": 39,
      "name": "sub_00478010"
-    },
-    {
-     "va": "0x0047EC40",
-     "length": 12,
-     "name": "?sub_0047EC40_IsSet@@YAHXZ"
     },
     {
      "va": "0x004834A0",
@@ -15854,19 +15859,9 @@
      "name": "?UI_DrawUIPanels@@YIXPAUD2ViewStrc@@@Z"
     },
     {
-     "va": "0x0045A710",
-     "length": 6,
-     "name": "UI_GetAutomapMode"
-    },
-    {
      "va": "0x0045BA70",
      "length": 14,
      "name": "UI_ClearPair"
-    },
-    {
-     "va": "0x0045F7A0",
-     "length": 3,
-     "name": "sub_0045F7A0"
     },
     {
      "va": "0x0045FBC0",
@@ -16889,6 +16884,11 @@
      "name": "?SCMD_QueuePacket@@YGXPAEHPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0045F7A0",
+     "length": 3,
+     "name": "sub_0045F7A0"
+    },
+    {
      "va": "0x0045F7B0",
      "length": 562
     },
@@ -16946,11 +16946,6 @@
      "va": "0x00474390",
      "length": 57,
      "name": "SCMD_SetLightColorBytes"
-    },
-    {
-     "va": "0x00475D30",
-     "length": 174,
-     "name": "SCMD_BuildRampTable"
     }
    ]
   },
@@ -17741,11 +17736,6 @@
      "va": "0x00475B80",
      "length": 161,
      "name": "GFX_BuildLerpTable"
-    },
-    {
-     "va": "0x00475C40",
-     "length": 219,
-     "name": "GFX_BuildLerpRowTable"
     },
     {
      "va": "0x004795F0",
@@ -20904,19 +20894,24 @@
      "name": "?DLIGHTMAP_InitLightTables@@YAXXZ"
     },
     {
+     "va": "0x00475C40",
+     "length": 219,
+     "name": "GFX_BuildLerpRowTable"
+    },
+    {
      "va": "0x00475D20",
      "length": 10,
      "name": "?sub_00475D20_FreeIfSet@@YIXPAX@Z"
     },
     {
+     "va": "0x00475D30",
+     "length": 174,
+     "name": "SCMD_BuildRampTable"
+    },
+    {
      "va": "0x00475DE0",
      "length": 10,
      "name": "?sub_00475DE0_FreeIfSet@@YIXPAX@Z"
-    },
-    {
-     "va": "0x00475DF0",
-     "length": 185,
-     "name": "?DLIGHTMAP_BuildLerpTables@@YAXXZ"
     },
     {
      "va": "0x00478150",
@@ -22574,6 +22569,11 @@
      "va": "0x0047EC20",
      "length": 27,
      "name": "?sub_0047EC20_IsPanelFreeForArg@@YIHH@Z"
+    },
+    {
+     "va": "0x0047EC40",
+     "length": 12,
+     "name": "?sub_0047EC40_IsSet@@YAHXZ"
     },
     {
      "va": "0x0047EC50",
