@@ -4,17 +4,13 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane2/fog-records-b 6bb9df3e 562->562 Stacked on records-a (two commits on top of it). (1) The minidump request had two views, flat D2DbgHelpRequestStrc and nested D2MiniDumpRequestStrc, of the same 0x14 bytes. It is now one record, D2MiniDumpRequestStrc, with the nested info block the writer takes by address. The pointer at 0x0098A6E4 had two names and two types (void*); it is now `D2MiniDumpRequestStrc* gpMiniDumpRequest` everywhere, its LogManager definition included. The dbghelp exception/user-stream records and the toolhelp process/thread entries and STARTUPINFOW move into D2FogTypes.h from their identical private copies. (2) The TEB/PEB/loader-data records ErrorManager walks to reach the module list; VERIFIED 6e39ce48efaef83287da8e1489f3f75095cddbd7
+- lane2/cmp-records-2 12d0f1a3 562->562 D2CmpTypes.h: the find-tiles node and its sub node, which FindTiles and TileLib each defined privately with the same text. Ignore `lane2/cmp-records`: it also moved the subtile block and flips D2Win's D2Comp on #318; VERIFIED 86c772d2bde5a0aa61c3bc01a7d4ae079770bfd9
+  - On #318. All 36 includers of D2CmpTypes.h build equal.
+  - Outside lane 2: FindTiles and TileLib (lane 6).
+
+- lane2/fog-records-b 6bb9df3e 562->562 Two commits on top of records-a, which is now in #318. (1) The minidump request had two views, flat D2DbgHelpRequestStrc and nested D2MiniDumpRequestStrc, of the same 0x14 bytes. It is now one record, D2MiniDumpRequestStrc, with the nested info block the writer takes by address. The pointer at 0x0098A6E4 had two names and two types (void*); it is now `D2MiniDumpRequestStrc* gpMiniDumpRequest` everywhere, its LogManager definition included. The dbghelp exception/user-stream records and the toolhelp process/thread entries and STARTUPINFOW move into D2FogTypes.h from their identical private copies. (2) The TEB/PEB/loader-data records ErrorManager walks to reach the module list; VERIFIED 6e39ce48efaef83287da8e1489f3f75095cddbd7
   - On #317 plus records-a. All includers of D2FogTypes.h, D2MultiTypes.h and D2WinControls.h build equal.
   - Outside lane 2: Fog only (lane 3): ErrorManager, ErrorManager_004082E0, Safesock, LogManager, Unknown_00401DF0/00402380/004025F0/00402820/00404AB0. Unknown_004025F0's comment local becomes `const char*`, with a `(void*)` on the stream buffer store, because the request's comment is const like the caller's parameter.
-
-- lane2/records-a 22808344 562->562 Three commits; each moves records that units defined privately with the same text into the shared header that owns the area: D2LaunchMsgStrc (0x120) and D2LaunchRecord3Strc (0xC) in D2MultiTypes.h, which only forward-declared them. D2FogTypes.h gets the loader list records ErrorManager walks (list link, counted unicode string, loader entry 0x2C). D2WinControls.h gets the timer control (0x48) and the IMAGE2_Create image control (0x4C); VERIFIED 22cdd7752bad0d037e48dcac046da328fc0f5d0b
-  - On #317, not stacked. All 64 includers of the three headers build equal.
-  - Outside lane 2: Game_0044D080, SCmd (lane 4); MainMenus, ChatDlg, ChatDlg_00441B70, ComCallback, D2Comp, D2WinImage, D2WinMain, D2WinTimer (lane 6); ErrorManager, ErrorManager_004082E0, Unknown_00404AB0 (lane 3). Private-copy removal only.
-
-- lane2/game-timer 058c52dd 562->562 D2ClientTimer.h: the 8-byte client timer (start tick, length) that GAME_IsTimerExpired/Running test. It was defined privately, with the same text, in Game, Game_0044B7B0, Game_0044D080 and Game_0044E5A0. It goes in a small header only these four include, because adding it to D2ClientTypes.h flipped inv and inv_004886C0; VERIFIED 4c999e9c6d63db058d31eb30fcb5386a69f7e0f0
-  - Verified on #314, rebased onto #317. None of #315-#317 touches the 4 units; precheck is equal on #317.
-  - Outside lane 2: the four D2Client GAME units (lane 4).
 
 
 ## Questions
