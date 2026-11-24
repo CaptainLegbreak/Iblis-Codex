@@ -4420,7 +4420,7 @@
     {
      "va": "0x00417A10",
      "length": 17,
-     "name": "sub_00417A10_Link"
+     "name": "?Link@?$TSList@UARCHIVEREC@SFile@Storm@@U?$TSGetLink@UARCHIVEREC@SFile@Storm@@@@@@QAEPAU?$TSLink@UARCHIVEREC@SFile@Storm@@@@PBUARCHIVEREC@SFile@Storm@@@Z"
     },
     {
      "va": "0x00417A30",
@@ -4430,7 +4430,7 @@
     {
      "va": "0x00417A50",
      "length": 17,
-     "name": "sub_00417A50_Link"
+     "name": "?Link@?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAEPAU?$TSLink@UREQUEST@@@@PBUREQUEST@@@Z"
     },
     {
      "va": "0x00417A70",
@@ -4449,7 +4449,7 @@
     {
      "va": "0x00417B60",
      "length": 17,
-     "name": "sub_00417B60_Link"
+     "name": "?Link@?$TSList@UFILEREC@@U?$TSGetLink@UFILEREC@@@@@@QAEPAU?$TSLink@UFILEREC@@@@PBUFILEREC@@@Z"
     },
     {
      "va": "0x00417B80",
@@ -4463,7 +4463,7 @@
     {
      "va": "0x00417C50",
      "length": 17,
-     "name": "sub_00417C50_Link"
+     "name": "?Link@?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAEPAU?$TSLink@UEVENTREC@@@@PBUEVENTREC@@@Z"
     },
     {
      "va": "0x00417C70",
@@ -4482,7 +4482,7 @@
     {
      "va": "0x00417D60",
      "length": 17,
-     "name": "sub_00417D60_Link"
+     "name": "?Link@?$TSList@UAUDIOSTREAM@@U?$TSGetLink@UAUDIOSTREAM@@@@@@QAEPAU?$TSLink@UAUDIOSTREAM@@@@PBUAUDIOSTREAM@@@Z"
     },
     {
      "va": "0x00417D80",
