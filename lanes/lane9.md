@@ -8,7 +8,7 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 ## Claimed
 - The three unpadded placeholder runs as one file each (lane 10's object map): D2Hell 0x516D8B-0x5179A4 (25
   placeholders, plus the gFaultHandlerList init/fini 0x6CAE5F/0x6CB401; the two /O2 list-ctor units stay out), D2Gdi
-  0x6C8A50-0x6C95D0, D2DDraw 0x511DF0-0x512D90. Starting with D2Hell (lane9/hell-run).
+  0x6C8A50-0x6C95D0, D2DDraw 0x511DF0-0x512D90. D2Hell posted (lane9/hell-run); D2Gdi next.
 - **Coordinator, a blocker on the D2Gdi and D2DDraw runs:** each run holds a static line helper (0x6C8DA0, 0x512A50)
   that two rectangle drawers of the same run call through a register convention only a static gets. With all three in
   one file, either the callers or the helper's own body come out differently: in 24 signature/order/body variants the
@@ -21,32 +21,15 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-All on main bc489a89 (#359), namesync run, precheck 0 not all equal on each head; borrowed data in each full verify:
-906 B, main's figure.
-
-- lane9/join-glcore-8970 de4efb47 (placeholders -1): D2Glide/Unknown_00508970.cpp joins glCore.cpp. The language
-  copy 0x72F13C (planned there) is the only copy in front of glCore's .data and is followed directly by the Glide
-  function table 0x72F178 (glCore's since #357) and glCore's own data from 0x72F250. The table's first entry is
-  GlideCheckBoards 0x508F60, whose only callee is GlideLoadLibrary 0x508970. 45 functions equal. Full verify: VERIFIED
-  tree 411a179d, borrowed data 906 B.
-- lane9/gdi-stubs a574fada, STACKED on join-glcore-8970: 13 small functions filed in Storm/SOURCE/SCMD.CPP sit inside
-  gdiCore's code run (0x6C7A60-0x6C8A40). Eleven are entries of the GDI function table (gdiCore's since #357); 0x6C8020
-  returns gdiCore's ghBufferBitmap and is called by gdiCore's 0x6C8970; 0x6C8240 returns 0x7C914C like its neighbours.
-  All join gdiCore.cpp; gdiCore (43) and SCMD.CPP (53) stay equal. Full verify: VERIFIED tree 9bd3cc7e, borrowed data
-  906 B. (Storm's lane: SCMD.CPP loses these 13; please don't edit them meanwhile.)
-- lane9/hell-bnclient-pieces 1d957e5b: Bnclient/Unknown_00517520.cpp, Unknown_0051752A.cpp, Unknown_005175E3.cpp
-  (0x517520-0x517619, storm-list members) sit inside D2Hell's unpadded code run; they move to Source/D2Hell and build
-  equal under D2Hell's /O1 module default, so their own flag sets go. Full verify: VERIFIED tree 743065d5, borrowed
-  data 906 B. (Lane 6: three Bnclient placeholders leave.)
-
-- lane9/renderer-module-flags 38a78a7f, on main ef7b4a19 (#361) (queues.md: per-file options 23 -> 4 in lane 9). Every
-  unit of D2Gfx, D2Direct3D, D2DDraw, D2Gdi and D2Glide builds equal under base + /GS-, including the units that
-  carried /Ob1, so config.json gets that as each module's default (as for D2Hell's /O1) and 19 per-unit flag sets go.
-  gdiCore.cpp keeps /GS- /Ob1 (0x6C7CF0 needs /Ob1) and d3dCore.cpp keeps /EHsc /GS-. 64 units equal. Full verify on
-  #361: VERIFIED tree 81188cc4, borrowed data 898 B (main's).
-
-In #357: take-win-strays, renderer-tables (thanks). In #350: drawquad-note, move-d3d-bink, take-renderer-strays (thanks). In #347: join-d3dcore-2, join-gdicore-8250, d2hell-o1. In #344: place-ddcore-10160. In #341: join-d3d-3570, join-d3dsprite-2. In #340: join-d3d-7530, join-ddraw-11df0, join-glide-bd30, join-glide-d410 (thanks). Earlier: place-gdismack #338,
-join-d3dsprite #336, atl-d3dcore #332 (its 2 B note stands).
+- lane9/hell-run f56379e5, on main 4f01d396 (#364), precheck 0 not all equal; full verify VERIFIED, borrowed code
+  12,041 B in 9 functions, borrowed data 848 B (main's figure). Placeholders -28: D2Hell's back-to-back run
+  0x516D8B-0x5179A4 (lane 10's object map, no padding between pieces) plus its init/fini 0x6CAE5F/0x6CB401 is now one
+  file, Source/D2Hell/Unknown_00516D8B.cpp (name unknown; kept the first piece's). The two /O2 list-ctor units
+  (0x517628, 0x5176E4) stay apart. One definition per list/link type; copies of NewNode, operator new and the 0x517788
+  body removed. 0x5177B2 has 0x517788 inlined, so the forceinline that piece already had now carries both (count
+  unchanged; lane 7's to settle). 46 functions equal. The global 0x72FA14 still goes by two extern names/types
+  (gFaultHandlerList_0072FA14, gtFaultHandlerRecords_0072FA14) inside the file; left for a names pass.
+- Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util (they fold into the D2DDraw/D2Gdi runs).
 
 ## Questions
 (none open; thanks for the #341 answers.)
