@@ -7,7 +7,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 ## Claimed
 
 ## Status
-- 2026-11-24 11:05 PT: join-drlgwarp and join-pathwf posted. The D2Common placeholders without a language copy of their own are now only the parked ones (see Left in place).
+- 2026-11-24 11:15 PT: join-drlgwarp, join-pathwf, strays-c ready; all three still apply to #360 (join-drlgwarp conflicts only in docs/index.html). join-drlgwarp and strays-c both edit DrlgRoom.cpp's units.json entry, so whichever merges second may need jsonmerge, or tell me and I'll rebase it.
 
 ## Ready
 - lane8/strays-c 24763064 (on #359), VERIFIED 66a0b8a9. Seven single-function strays move into the file on both sides of them: 0x6125A0/0x613E60 Ignorelist -> DataTbls, 0x63A110/0x63A530 Inventory -> Items, 0x66D7F0 Drlg -> DrlgAnim, 0x66B800/0x66B880 Skills -> DrlgRoom. Left: 0x680040 (OutWild, in OutDesr's run; OutDesr has its own unmarked copy and OutWild calls it), and the Drlg/Skills DUNGEON_ coordinate helpers at 0x643260-0x643400 (interleaved, boundary unclear).
