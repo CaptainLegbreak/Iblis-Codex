@@ -1092,7 +1092,6 @@ void __fastcall QUESTS_ItemPickedUp(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2Un
     QUESTS_StatusCycler(0, &pArgs);
 }
 
-// build: context QUESTS_GetQuestData_Inlined
 static D2QuestDataStrc* QUESTS_GetQuestData_Inlined(D2GameStrc* pGame, int nId)
 {
     D2QuestInfoStrc* pQuestControl = pGame->pQuestControl;
@@ -1145,7 +1144,6 @@ void __fastcall QUESTS_ItemDropped(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2Uni
     QUESTS_StatusCycler(0, &pArgs);
 }
 
-// build: context QUESTS_GetQuestData_Inl
 static inline D2QuestDataStrc* QUESTS_GetQuestData_Inl(D2GameStrc* pGame, int nId)
 {
     D2_ASSERT(nId >= 0, 119);

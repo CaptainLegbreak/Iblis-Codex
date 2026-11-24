@@ -2578,7 +2578,6 @@ static inline int sub_0055DBC0_GetUnitType(D2UnitStrc* pUnit)
     return !pUnit ? 6 : pUnit->dwUnitType;
 }
 
-// build: context sub_0055DBC0_UnitFlag9
 static inline int sub_0055DBC0_UnitFlag9(D2UnitStrc* pUnit)
 {
     if (!pUnit)
@@ -2703,7 +2702,6 @@ void __fastcall sub_BF69_Emit_0055E0D0(D2UnitStrc* pUnit, int nSkillId)
     }
 }
 
-// build: context sub_0055E0D0_DecrementBook
 static void __stdcall sub_0055E0D0_DecrementBook(D2UnitStrc* player, int skillId)
 {
     D2SkillStrc* skill = SKILLS_GetSkillById(player, skillId, -1);

@@ -1073,7 +1073,6 @@ static inline D2AiControlStrc* AIGENERAL_GetAiControlFromUnitInline(D2UnitStrc* 
     return 0;
 }
 
-// build: context SKILLS_CreateSubMissilesInline
 static inline int SKILLS_CreateSubMissilesInline(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSubMissiles, int nMissileId, int nSkillId, int nSkillLevel, int a7)
 {
     if (a7)
@@ -2054,7 +2053,6 @@ int __fastcall SKILLS_ApplyWarcryStats(D2GameStrc* pGame, D2UnitStrc* a2, D2Unit
 int __fastcall SKILLS_SrvDo071_Taunt(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D8570
 struct D2ActiveRoomStrc;
 
-// build: context HIRELING_StepAside
 static __forceinline void HIRELING_StepAside(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, unsigned char nSteps)
 {
     D2DynamicPathStrc* pPath = pOwner->pDynamicPath;

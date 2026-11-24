@@ -912,7 +912,6 @@ void __fastcall SUNIT_InitializeAnimation(D2UnitStrc* ptUnit)
     ptUnit->dwFrameCountPrecise = ptUnit->pAnimData->dwFrames << 8;
 }
 
-// build: context UNIT_HasFlag
 __forceinline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit)
@@ -1779,7 +1778,6 @@ void __fastcall D2GAME_SetSparkChest_6FCBD7C0(D2UnitStrc* pUnit, unsigned char n
     pUnit->bSparkChest = nSparkChest;
 }
 
-// build: context sub_0044BE50
 inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
     return pUnit ? pUnit->dwUnitType : UNIT_INVALID;

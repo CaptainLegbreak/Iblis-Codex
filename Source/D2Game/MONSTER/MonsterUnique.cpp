@@ -558,7 +558,6 @@ struct Unit005A0200 {
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 
 
-// build: context MonsterDataOf
 static inline D2MonsterDataStrc* MonsterDataOf(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
@@ -568,7 +567,6 @@ static inline D2MonsterDataStrc* MonsterDataOf(D2UnitStrc* pUnit)
     return 0;
 }
 
-// build: context UModsOf
 static inline unsigned char* UModsOf(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
@@ -579,7 +577,6 @@ static inline unsigned char* UModsOf(D2UnitStrc* pUnit)
 }
 
 
-// build: context SetMonTypeFlag
 static inline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
 {
     if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
@@ -603,7 +600,6 @@ static inline void SetMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int b
     }
 }
 
-// build: context CountUMods
 static inline int CountUMods(unsigned char* pUMods)
 {
     int nIndex = 0;
@@ -614,7 +610,6 @@ static inline int CountUMods(unsigned char* pUMods)
     return nIndex;
 }
 
-// build: context CountUModsTo
 static inline int CountUModsTo(unsigned char* pUMods)
 {
     for (int i = 0; i < 9; ++i)
@@ -627,7 +622,6 @@ static inline int CountUModsTo(unsigned char* pUMods)
     return 9;
 }
 
-// build: context TestMonTypeFlag
 static inline int TestMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData && (pUnit->pMonsterData->nTypeFlag & nFlag))
@@ -637,7 +631,6 @@ static inline int TestMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
     return 0;
 }
 
-// build: context UModsOfData
 static inline unsigned char* UModsOfData(D2UnitStrc* pUnit)
 {
     D2MonsterDataStrc* pMonsterData = 0;
@@ -653,7 +646,6 @@ static inline unsigned char* UModsOfData(D2UnitStrc* pUnit)
     return pMonsterData->nMonUmod;
 }
 
-// build: context InitUMod
 static inline void InitUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
     UModInitFunc pfnInit = gpfnUModInitFunctions[nUMod];
@@ -663,7 +655,6 @@ static inline void InitUMod(D2UnitStrc* pUnit, int nUMod, int bUnique)
     }
 }
 
-// build: context MonStatsTxtRecord
 static inline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -674,7 +665,6 @@ static inline D2MonStatsTxt* MonStatsTxtRecord(int nMonsterId)
 }
 
 
-// build: context MonStatsTxtRecordOrNull
 static inline D2MonStatsTxt* MonStatsTxtRecordOrNull(int nMonsterId)
 {
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
@@ -684,7 +674,6 @@ static inline D2MonStatsTxt* MonStatsTxtRecordOrNull(int nMonsterId)
     return &sgptDataTables->pMonStatsTxt[nMonsterId];
 }
 
-// build: context TestMonStatsFlag
 static inline unsigned int TestMonStatsFlag(int nMonsterId, int nFlag)
 {
     D2MonStatsTxt* pMonStatsTxtRecord = MonStatsTxtRecordOrNull(nMonsterId);
@@ -695,7 +684,6 @@ static inline unsigned int TestMonStatsFlag(int nMonsterId, int nFlag)
     return pMonStatsTxtRecord->nMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
 }
 
-// build: context MonUModTxtRecord
 static inline D2MonUModTxt* MonUModTxtRecord(int nUMod)
 {
     if (!(nUMod < sgptDataTables->nMonUModTxtRecordCount))
@@ -704,7 +692,6 @@ static inline D2MonUModTxt* MonUModTxtRecord(int nUMod)
 }
 
 
-// build: context RollRandomInline
 static inline unsigned int RollRandomInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
@@ -713,7 +700,6 @@ static inline unsigned int RollRandomInline(D2SeedStrc* pSeed)
     return (unsigned int)lSeed;
 }
 
-// build: context RollLimitedInline
 static inline int RollLimitedInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
@@ -2567,7 +2553,6 @@ extern MONUMODFUNC gpfnSrvUModCallbacks[][6]; // 0x0073C0B8
 
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag); // 0x005A0180
 
-// build: context MONSTERUNIQUE_CheckMonTypeFlag
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
     D2MonsterDataStrc* pMonsterData = (pUnit && pUnit->dwUnitType == UNIT_MONSTER) ? pUnit->pMonsterData : 0;
@@ -3604,7 +3589,6 @@ void __fastcall MONSTERUNIQUE_MinionCallback_KillMinion(D2UnitStrc* pUnit, void*
     }
 }
 
-// build: context SetBossIndex
 static inline void SetBossIndex(D2UnitStrc* pUnit, short nIndex)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
@@ -3806,7 +3790,6 @@ void __fastcall MONSTERUNIQUE_PromoteToChampion(D2GameStrc* pGame, D2UnitStrc* p
     }
 }
 
-// build: context PromoteGetUMods
 static inline unsigned char* PromoteGetUMods(D2UnitStrc* pUnit)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
@@ -3818,7 +3801,6 @@ static inline unsigned char* PromoteGetUMods(D2UnitStrc* pUnit)
     return 0;
 }
 
-// build: context PromoteSetTypeFlag
 static inline void PromoteSetTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;

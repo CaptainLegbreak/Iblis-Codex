@@ -466,7 +466,6 @@ int __cdecl TASK_CreateQueue()
     return nIndex;
 }
 
-// build: context TASK_LinkList_InsertInline
 static __forceinline void TASK_LinkList_InsertInline(D2LinkStrc* pPrev, D2LinkStrc* pLink)
 {
     D2_ASSERT(pPrev, 0x6C);
@@ -477,7 +476,6 @@ static __forceinline void TASK_LinkList_InsertInline(D2LinkStrc* pPrev, D2LinkSt
     pPrev->pNext = pLink;
 }
 
-// build: context TASK_LinkList_PushFrontInline
 static __forceinline void TASK_LinkList_PushFrontInline(D2LinkStrc* pList, D2LinkStrc* pLink)
 {
     D2_ASSERT(pList, 0x77);

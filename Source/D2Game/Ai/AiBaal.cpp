@@ -1291,7 +1291,6 @@ void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Uni
 
 int __stdcall shim_1(void* p1, void* p2);
 
-// build: context sub_005FC630
 static int __stdcall sub_005FC630(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nMax, int nCount, D2AiCmdStrc* pAiCmd)
 {
 

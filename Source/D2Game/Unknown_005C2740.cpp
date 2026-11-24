@@ -32,7 +32,6 @@ static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed,
     return (nMax - 1) & (unsigned int)SEED_RollRandomNumberInline(pSeed);
 }
 
-// build: context ITEMS_RollLimitedRandomNumber
 static inline unsigned int ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
 {
     return SEED_RollLimitedRandomNumberInline(pSeed, nMax);

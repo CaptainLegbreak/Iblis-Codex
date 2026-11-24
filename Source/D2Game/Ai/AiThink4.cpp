@@ -3399,7 +3399,6 @@ void __fastcall AITHINK_Fn123_Catapult(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
 }
 
-// build: context SEED_RollRandomNumber_005E3530
 static inline unsigned int SEED_RollRandomNumber_005E3530(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
@@ -11492,13 +11491,11 @@ void __fastcall AITHINK_Fn069_VileDog(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
 }
 
-// build: context CLIENTS_GetUnitXInline_005F3170
 static __forceinline int CLIENTS_GetUnitXInline_005F3170(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) { case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return pUnit->pStaticPath->nXPos; default: return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0; }
 }
 
-// build: context CLIENTS_GetUnitYInline_005F3170
 static __forceinline int CLIENTS_GetUnitYInline_005F3170(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) { case UNIT_OBJECT: case UNIT_ITEM: case UNIT_TILE: return pUnit->pStaticPath->nYPos; default: return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0; }
@@ -14908,7 +14905,6 @@ int __fastcall AITHINK_AreUnitsInSameLevel(D2UnitStrc* pUnit, D2UnitStrc* pTarge
     return DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pTarget));
 }
 
-// build: context AI_RollPercentage_005F9490
 static int AI_RollPercentage_005F9490(D2UnitStrc* pUnit)
 {
     const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
