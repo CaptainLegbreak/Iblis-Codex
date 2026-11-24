@@ -5648,6 +5648,31 @@
      "va": "0x004133D0",
      "length": 180,
      "name": "?SMemReAlloc@@YGPAXPAXIPBDHI@Z"
+    },
+    {
+     "va": "0x0041D200",
+     "length": 148,
+     "name": "SMemCmp"
+    },
+    {
+     "va": "0x0041D2A0",
+     "length": 27,
+     "name": "SMemCopy"
+    },
+    {
+     "va": "0x0041D2C0",
+     "length": 28,
+     "name": "SMemFill"
+    },
+    {
+     "va": "0x0041D2E0",
+     "length": 27,
+     "name": "SMemMove"
+    },
+    {
+     "va": "0x0041D300",
+     "length": 25,
+     "name": "SMemZero"
     }
    ]
   },
@@ -6141,37 +6166,6 @@
     "/Ob1",
     "/Gd",
     "/EHsc"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_0041D200.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0041D200",
-     "length": 148,
-     "name": "SMemCmp"
-    },
-    {
-     "va": "0x0041D2A0",
-     "length": 27,
-     "name": "SMemCopy"
-    },
-    {
-     "va": "0x0041D2C0",
-     "length": 28,
-     "name": "SMemFill"
-    },
-    {
-     "va": "0x0041D2E0",
-     "length": 27,
-     "name": "SMemMove"
-    },
-    {
-     "va": "0x0041D300",
-     "length": 25,
-     "name": "SMemZero"
-    }
    ]
   },
   {
