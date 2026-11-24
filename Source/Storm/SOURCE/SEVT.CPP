@@ -45,7 +45,18 @@ struct BREAKCMD
         f_0.m_prevlink = 0;
         f_0.m_next = 0;
     }
+    ~BREAKCMD()
+    {
+        f_0.Unlink();
+    }
+    static void operator delete(void* pMemory)
+    {
+        if (pMemory)
+            SMemFree(pMemory, "delete", -1, 0);
+    }
 };
+
+// build: symbol ??_GBREAKCMD@@QAEPAXI@Z 0x00426E20
 
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
 {
@@ -66,7 +77,9 @@ struct D2StormBreakCmdListStrc
     {
         return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
     }
-    char* sub_00426C80_RawNext(D2StormLinkStrc* pNode);                                                    // 0x00426C80
+    char* sub_00426C80_RawNext(D2StormLinkStrc* pNode);
+    void sub_00426B00_LinkNode(char* pNode, unsigned int nLinkType, char* pExisting);
+    BREAKCMD* sub_00426DC0_NewNode(unsigned int nLocation, unsigned int nExtraBytes, unsigned int nFlags);
     char* sub_00426F20_DeleteNode(char* pNode);
     char* DeleteNode(char* pNode);
 };
@@ -385,6 +398,209 @@ inline char* D2StormBreakCmdListStrc::DeleteNode(char* pNode)
     return pNext;
 }
 
+// The break-command list's other pieces. Their own types are not known yet, so they sit on placeholder
+// list and link types.
+struct D2SEvtPairStrc
+{
+    int nFirst;
+    int nSecond;
+};
+
+struct D2SEvtListStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+
+    D2StormLinkStrc* Link(D2StormLinkStrc* pNode)
+    {
+        return pNode ? pNode : &m_terminator;
+    }
+    D2StormLinkStrc* sub_00426AE0_Link(D2StormLinkStrc* pNode);
+    char* sub_00426BB0_Next(D2StormLinkStrc* pNode);
+    void sub_00426C10_UnlinkNode(D2StormLinkStrc* pNode);
+};
+
+struct D2SEvtUnlinkStrc : D2StormLinkStrc
+{
+    void sub_00426BD0();
+};
+
+struct D2SEvtCtorLinkStrc
+{
+    D2SEvtCtorLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2SEvtCtorLinkStrc();
+};
+
+struct D2SEvtAutoLinkStrc : D2StormLinkStrc
+{
+    ~D2SEvtAutoLinkStrc()
+    {
+        Unlink();
+    }
+};
+
+struct D2SEvtTSListStrc
+{
+    int m_linkoffset;
+    D2SEvtAutoLinkStrc m_terminator;
+
+    ~D2SEvtTSListStrc();
+    char* Head()
+    {
+        return (int)m_terminator.m_next > 0 ? m_terminator.m_next : 0;
+    }
+    void sub_00426CF0_UnlinkAll();
+};
+
+// 0x00426900
+char* __fastcall sub_00426900_Next(D2StormLinkStrc* pLink)
+{
+    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
+}
+
+// 0x00426910
+char* __fastcall sub_00426910_LinkRawNext(D2StormLinkStrc* pLink)
+{
+    return pLink->m_next;
+}
+
+// 0x00426920
+void __fastcall sub_00426920(D2SEvtPairStrc* pPair)
+{
+    pPair->nFirst = 0;
+    pPair->nSecond = 0;
+}
+
+// 0x00426930
+D2StormLinkStrc* D2StormLinkStrc::sub_00426930_NextLink(int nLinkOffset)
+{
+    if ((int)m_next < 0)
+        return (D2StormLinkStrc*)~(unsigned int)m_next;
+    if (nLinkOffset < 0)
+        nLinkOffset = (char*)this - m_prevlink->m_next;
+    return (D2StormLinkStrc*)(m_next + nLinkOffset);
+}
+
+// 0x004269A0
+void __fastcall sub_004269A0_InitTerminator(D2SEvtListStrc* pList)
+{
+    pList->m_terminator.m_prevlink = &pList->m_terminator;
+    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
+}
+
+// 0x004269B0
+extern "C" void* __fastcall sub_004269B0(void* value)
+{
+    return value;
+}
+
+// 0x00426A60
+char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
+{
+    return m_terminator.MaskNext();
+}
+
+// 0x00426A70
+D2SEvtCtorLinkStrc::D2SEvtCtorLinkStrc() : m_prevlink(0), m_next(0)
+{
+}
+
+// 0x00426AC0
+void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
+{
+    m_linkoffset = 0;
+    InitializeTerminator();
+}
+
+// 0x00426AE0
+D2StormLinkStrc* D2SEvtListStrc::sub_00426AE0_Link(D2StormLinkStrc* pNode)
+{
+    return Link(pNode);
+}
+
+// 0x00426B00
+void D2StormBreakCmdListStrc::sub_00426B00_LinkNode(char* pNode, unsigned int nLinkType, char* pExisting)
+{
+    D2StormLinkStrc* pLink = Link(pNode);
+    pLink->Unlink();
+    D2StormLinkStrc* pExistingLink = Link(pExisting);
+    switch (nLinkType)
+    {
+    case 1:
+        pLink->m_prevlink = pExistingLink;
+        pLink->m_next = pExistingLink->m_next;
+        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
+        pExistingLink->m_next = pNode;
+        break;
+    default:
+        {
+            D2StormLinkStrc* pPrev = pExistingLink->m_prevlink;
+            pLink->m_prevlink = pPrev;
+            pLink->m_next = pPrev->m_next;
+            pPrev->m_next = pNode;
+            pExistingLink->m_prevlink = pLink;
+        }
+        break;
+    }
+}
+
+// 0x00426BB0
+char* D2SEvtListStrc::sub_00426BB0_Next(D2StormLinkStrc* pNode)
+{
+    return Link(pNode)->Next();
+}
+
+// 0x00426BD0
+void D2SEvtUnlinkStrc::sub_00426BD0()
+{
+    Unlink();
+}
+
+// 0x00426C10
+void D2SEvtListStrc::sub_00426C10_UnlinkNode(D2StormLinkStrc* pNode)
+{
+    Link(pNode)->Unlink();
+}
+
+// 0x00426C60
+D2ChatStormListCStrc::D2ChatStormListCStrc()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x00426C80
+char* D2StormBreakCmdListStrc::sub_00426C80_RawNext(D2StormLinkStrc* pNode)
+{
+    return pNode ? pNode->m_next : m_terminator.m_next;
+}
+
+// 0x00426CF0
+inline void D2SEvtTSListStrc::sub_00426CF0_UnlinkAll()
+{
+    while (char* pNode = Head())
+        ((D2StormLinkStrc*)pNode)->Unlink();
+}
+
+// 0x00426D30
+D2SEvtTSListStrc::~D2SEvtTSListStrc()
+{
+    sub_00426CF0_UnlinkAll();
+}
+
+// 0x00426DC0
+BREAKCMD* D2StormBreakCmdListStrc::sub_00426DC0_NewNode(unsigned int nLocation, unsigned int nExtraBytes, unsigned int nFlags)
+{
+    void* pMemory = SMemAlloc(sizeof(BREAKCMD) + nExtraBytes, gszTypeBreakCmd_007088D8, -2, nFlags | 8);
+    BREAKCMD* pNode = pMemory ? new (pMemory) BREAKCMD : 0;
+    if (nLocation)
+        sub_00426B00_LinkNode((char*)pNode, nLocation, 0);
+    return pNode;
+}
+
 // 0x00426E80
 int __stdcall SEvtBreakHandlerChain(void* pData)
 {
@@ -406,7 +622,7 @@ int __stdcall SEvtBreakHandlerChain(void* pData)
 char* D2StormBreakCmdListStrc::sub_00426F20_DeleteNode(char* pNode)
 {
     char* pNext = Link(pNode)->Next();
-    ((D2StormLinkStrc*)pNode)->Unlink();
+    ((BREAKCMD*)pNode)->~BREAKCMD();
     SMemFree(pNode, gszTypeBreakCmd_007088D8, -2, 0);
     return pNext;
 }

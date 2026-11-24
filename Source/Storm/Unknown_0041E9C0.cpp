@@ -501,11 +501,6 @@ unsigned int CHuffman::Compress(CBitOutput* pOutput, void* pvIn, int cbIn, unsig
     return pOutput->sub_0041D940_GetSize();
 }
 
-// 0x00426A70
-D2StormLinkStrc::D2StormLinkStrc() : m_prevlink(0), m_next(0)
-{
-}
-
 unsigned short __stdcall SFileGetLocale()
 {
     return gwValue_0077905C;
