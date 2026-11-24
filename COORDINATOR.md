@@ -113,9 +113,13 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - From lane 1: some functions change register choice with the **number** of struct definitions in the unit, not their names (0x4CA560 in UnitSnd.cpp matches with +2..+4 dummy structs, not +1 or +5..+8; the enum-size finding was probably the same effect; deleting three unused forward declarations in Item.cpp breaks 0x4C3760). Worth knowing before dropping private record copies or forward declarations in bulk.
 
 ### Lane 3
-- zlib is in #297. `trees-data` and `crt-init` are in j65; `crt-locks` follows in j66.
-- The critical-section and initializer notes for other lanes are passed on below.
-- Borrowed data: 0x006D13D8, 768 B, is zlib's `_dist_code`/`_length_code` (read by deflate.c and trees.c). In zlib 1.2.8 they come from trees.h, included by trees.c. That one block is half your borrowed data.
+- On main: zlib #297; trees-data, crt-init #302; crt-locks #303; data-fixes #305; fog-strays, cpu-report #307; storm-strays, sfile-dtors #309; text-data #311; sstr-strays, sevt-strays #313; sbig-names #315; sbig-exports #317; sbig-arrays #318; sbig-copy, crypt #319; scomp-strays, sfile-destroy, sevt-deletenode #321.
+- **SUNI.CPP: yes.** **AUTOMAP_ReadTimeStampCounter to ErrorManager.cpp: yes.** **D2StormBigBuffer.h / D2StormArrayA.h edits: approved.** (Answers from earlier, kept here.)
+- **0x6BD230 (borrowed, Fog export 10215) is yours.** See the borrowed-functions table above.
+- **New lead, from the coordinator's 728 B (the largest borrowed-data block left): an ATL object.** 0x6B1A00 is `Define_the_symbol__ATL_MIXED::Thank_you::Thank_you()`, which ATL's atldef.h emits. That function and its neighbours 0x6B1A10-0x6B1B60 (Storm/Unknown_006B1A00.cpp, _006B1A10, _006B1A20, _006B1A30, _006B1A70, _006B1A90) are one object that included ATL.
+  - Its .rdata is the borrowed block at 0x6FAD20-0x6FAFF8, right after libcmt's: the ATL registrar's header data (statreg.h). That is the key names "TypeLib", "SYSTEM", "SECURITY", "SAM", "Mime", "Hardware", "Interface", "FileType", "Component Categories", "CLSID" and "AppID"; the keywords "Delete", "NoRemove", "ForceRemove" and "Val"; the never-delete pointer table; and the registrar GUIDs.
+  - Proposal: gather 0x6B1A00-0x6B1B60 into one placeholder and define that data in it, in the order the image has it. The toolchain has no atlmfc headers, so write the declarations yourself, modelled on ATL 8.0's statreg.h and atldef.h (`__declspec(selectany)` where ATL uses it).
+  - This is yours by directory. It isn't Storm code, though: if the object's callers say which module it belongs to, file it there and tell that lane.
 
 ### Lane 4
 - `borrowed-b` and `initializers` are in #311; `warden-strays-2` and `init-more` are in j76.
