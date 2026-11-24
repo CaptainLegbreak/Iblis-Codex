@@ -11,13 +11,11 @@ struct BigBuffer;
 struct D2StormBigStrc;
 struct BigStack;
 struct D2StormArrayBStrc;
-struct BREAKCMD;
 struct D2GameLinkStrc;
 struct D2StormListAStrc;
 struct D2StormGameArrayStrc;
 struct D2StormHashObjectChunkStrc;
 struct D2StormListArrayStrc;
-struct D2StormTSListStrc;
 
 void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 
@@ -210,14 +208,6 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); /
 void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, BigBuffer* pIn); // 0x00421CB0
 int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
-struct BREAKCMD
-{
-    D2StormLinkStrc f_0;
-    int nData;
-
-    static void operator delete(void* pMemory);
-};
-
 struct D2GameLinkStrc
 {
     D2GameLinkStrc* pPrevLink;
@@ -274,20 +264,8 @@ struct D2StormListArrayStrc
     static void operator delete(void* pMemory);
 };
 
-
 extern "C" unsigned int __cdecl _rotl(unsigned int nValue, int nShift);
 void __fastcall sub_00425850_Sha1Transform(unsigned int* pState, const unsigned char* pBlock); // 0x00425850
-
-
-
-struct D2StormTSListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    ~D2StormTSListStrc();
-    void sub_00426CF0_UnlinkAll();                                                                          // 0x00426CF0
-};
 
 static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsigned int nSize, unsigned int* pnOffset, unsigned int* pnLength);
 static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, BigBuffer* pBuf);
@@ -485,18 +463,10 @@ void __stdcall SBigToStreamPtr(D2StormBigStrc* pBig, unsigned char** ppData, uns
 
 // build: symbol ??_GD2GameStrc@@QAEPAXI@Z 0x0044FBB0
 // build: symbol ??_GD2StormBigStrc@@QAEPAXI@Z 0x00423820
-// build: symbol ??_GBREAKCMD@@QAEPAXI@Z 0x00426E20
 // build: symbol ??_GD2StormHashObjectChunkStrc@@QAEPAXI@Z 0x004500A0
 // build: symbol ??_GD2StormListArrayStrc@@QAEPAXI@Z 0x004504D0
 // 0x00423820
 inline void D2StormBigStrc::operator delete(void* pMemory)
-{
-    if (pMemory)
-        SMemFree(pMemory, "delete", -1, 0);
-}
-
-// 0x00426E20
-inline void BREAKCMD::operator delete(void* pMemory)
 {
     if (pMemory)
         SMemFree(pMemory, "delete", -1, 0);
@@ -536,12 +506,6 @@ inline void D2StormListArrayStrc::operator delete(void* pMemory)
 }
 
 void sub_Emit_D2StormBigStrc(D2StormBigStrc* p)
-{
-    delete p;
-}
-
-// build: context sub_Emit_BREAKCMD
-void sub_Emit_BREAKCMD(BREAKCMD* p)
 {
     delete p;
 }
@@ -618,10 +582,4 @@ unsigned int __fastcall sub_00426160_GetTableSize(unsigned int nCount)
     while (nSize <= nLimit)
         nSize += nSize;
     return nSize;
-}
-
-// 0x00426D30
-D2StormTSListStrc::~D2StormTSListStrc()
-{
-    sub_00426CF0_UnlinkAll();
 }

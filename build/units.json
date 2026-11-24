@@ -4945,11 +4945,6 @@
      "name": "??0CHuffman@@QAE@XZ"
     },
     {
-     "va": "0x00426920",
-     "length": 14,
-     "name": "sub_00426920"
-    },
-    {
      "va": "0x006CA7F0",
      "length": 23
     },
@@ -6746,11 +6741,6 @@
      "va": "0x00423850",
      "length": 25,
      "name": "?sub_00423850@@YGXPAXPBXI@Z"
-    },
-    {
-     "va": "0x00426A70",
-     "length": 16,
-     "name": "??0D2StormLinkStrc@@QAE@XZ"
     }
    ]
   },
@@ -7700,16 +7690,6 @@
      "name": "?sub_00426160_GetTableSize@@YIII@Z"
     },
     {
-     "va": "0x00426D30",
-     "length": 60,
-     "name": "??1D2StormTSListStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x00426E20",
-     "length": 81,
-     "name": "?_GBREAKCMD"
-    },
-    {
      "va": "0x0044FBB0",
      "length": 43,
      "name": "?_GD2GameStrc"
@@ -7867,42 +7847,6 @@
     "/Ob1",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_004228C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00426930",
-     "length": 36,
-     "name": "sub_00426930_NextLink"
-    },
-    {
-     "va": "0x00426AE0",
-     "length": 17,
-     "name": "sub_00426AE0_Link"
-    },
-    {
-     "va": "0x00426B00",
-     "length": 161,
-     "name": "sub_00426B00_LinkNode"
-    },
-    {
-     "va": "0x00426BB0",
-     "length": 32,
-     "name": "sub_00426BB0_Next"
-    },
-    {
-     "va": "0x00426C10",
-     "length": 66,
-     "name": "sub_00426C10_UnlinkNode"
-    },
-    {
-     "va": "0x00426C80",
-     "length": 24,
-     "name": "sub_00426C80_RawNext"
-    }
    ]
   },
   {
@@ -8247,9 +8191,39 @@
      "name": "?SEvtUnregisterType@@YGHII@Z"
     },
     {
+     "va": "0x00426900",
+     "length": 16,
+     "name": "?sub_00426900_Next@@YIPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
+     "va": "0x00426910",
+     "length": 4,
+     "name": "?sub_00426910_LinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
+     "va": "0x00426920",
+     "length": 14,
+     "name": "?sub_00426920@@YIXPAUD2SEvtPairStrc@@@Z"
+    },
+    {
+     "va": "0x00426930",
+     "length": 36,
+     "name": "?sub_00426930_NextLink@D2StormLinkStrc@@QAEPAU1@H@Z"
+    },
+    {
      "va": "0x00426960",
      "length": 50,
      "name": "??1sub_00426960@@QAE@XZ"
+    },
+    {
+     "va": "0x004269A0",
+     "length": 11,
+     "name": "?sub_004269A0_InitTerminator@@YIXPAUD2SEvtListStrc@@@Z"
+    },
+    {
+     "va": "0x004269B0",
+     "length": 3,
+     "name": "@sub_004269B0@4"
     },
     {
      "va": "0x004269C0",
@@ -8257,9 +8231,59 @@
      "name": "?SEvtPopState@@YGHII@Z"
     },
     {
+     "va": "0x00426A60",
+     "length": 16,
+     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
+    },
+    {
+     "va": "0x00426A70",
+     "length": 16,
+     "name": "??0D2SEvtCtorLinkStrc@@QAE@XZ"
+    },
+    {
      "va": "0x00426A80",
      "length": 50,
      "name": "??1sub_00426A80@@QAE@XZ"
+    },
+    {
+     "va": "0x00426AC0",
+     "length": 17,
+     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00426AE0",
+     "length": 17,
+     "name": "?sub_00426AE0_Link@D2SEvtListStrc@@QAEPAUD2StormLinkStrc@@PAU2@@Z"
+    },
+    {
+     "va": "0x00426B00",
+     "length": 161,
+     "name": "?sub_00426B00_LinkNode@D2StormBreakCmdListStrc@@QAEXPADI0@Z"
+    },
+    {
+     "va": "0x00426BB0",
+     "length": 32,
+     "name": "?sub_00426BB0_Next@D2SEvtListStrc@@QAEPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
+     "va": "0x00426BD0",
+     "length": 50,
+     "name": "?sub_00426BD0@D2SEvtUnlinkStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00426C10",
+     "length": 66,
+     "name": "?sub_00426C10_UnlinkNode@D2SEvtListStrc@@QAEXPAUD2StormLinkStrc@@@Z"
+    },
+    {
+     "va": "0x00426C60",
+     "length": 32,
+     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x00426C80",
+     "length": 24,
+     "name": "?sub_00426C80_RawNext@D2StormBreakCmdListStrc@@QAEPADPAUD2StormLinkStrc@@@Z"
     },
     {
      "va": "0x00426CA0",
@@ -8272,6 +8296,16 @@
      "name": "??1sub_00426CB0@@QAE@XZ"
     },
     {
+     "va": "0x00426CF0",
+     "length": 61,
+     "name": "?sub_00426CF0_UnlinkAll@D2SEvtTSListStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x00426D30",
+     "length": 60,
+     "name": "??1D2SEvtTSListStrc@@QAE@XZ"
+    },
+    {
      "va": "0x00426D70",
      "length": 16,
      "name": "??0sub_00426D70@@QAE@XZ"
@@ -8280,6 +8314,16 @@
      "va": "0x00426D80",
      "length": 50,
      "name": "??1sub_00426D80@@QAE@XZ"
+    },
+    {
+     "va": "0x00426DC0",
+     "length": 82,
+     "name": "?sub_00426DC0_NewNode@D2StormBreakCmdListStrc@@QAEPAUBREAKCMD@@III@Z"
+    },
+    {
+     "va": "0x00426E20",
+     "length": 81,
+     "name": "??_GBREAKCMD@@QAEPAXI@Z"
     },
     {
      "va": "0x00426E80",
@@ -8310,31 +8354,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00426900",
-     "length": 16,
-     "name": "?sub_00426900_Next@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x004269B0",
-     "length": 3,
-     "name": "@sub_004269B0@4"
-    },
-    {
-     "va": "0x00426A60",
-     "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x00426AC0",
-     "length": 17,
-     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00426C60",
-     "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
-    },
-    {
      "va": "0x0042B9D0",
      "length": 1,
      "name": "?sub_0042B9D0_Nop@@YAXXZ"
@@ -8358,31 +8377,6 @@
    "file": "Source/Storm/Unknown_00426910.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00426910",
-     "length": 4,
-     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x004269A0",
-     "length": 11,
-     "name": "?sub_00601DF0_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
-    },
-    {
-     "va": "0x00426BD0",
-     "length": 50,
-     "name": "?sub_00426BD0@D2StormLinkStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00426CF0",
-     "length": 61,
-     "name": "?sub_00426CF0_UnlinkAll@D2StormTSListStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00426DC0",
-     "length": 82,
-     "name": "sub_00426DC0_NewNode"
-    },
     {
      "va": "0x00450390",
      "length": 85,
