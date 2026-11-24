@@ -23404,31 +23404,6 @@
      "name": "?TEXT_GetCenteredStringX@@YIHGH@Z"
     },
     {
-     "va": "0x0049C580",
-     "length": 206,
-     "name": "?TEXT_LoadWaypointPanelCels@@YAXXZ"
-    },
-    {
-     "va": "0x0049C650",
-     "length": 76,
-     "name": "_sub_0049C650_CloseArchives"
-    },
-    {
-     "va": "0x0049C6A0",
-     "length": 20,
-     "name": "?sub_0049C6A0@@YAXXZ"
-    },
-    {
-     "va": "0x0049C6C0",
-     "length": 56,
-     "name": "?sub_0049C6C0_SendWaypointClose@@YAXXZ"
-    },
-    {
-     "va": "0x0049C700",
-     "length": 87,
-     "name": "?sub_0049C700_CloseWaypointPanel@@YAXXZ"
-    },
-    {
      "va": "0x0049CF50",
      "length": 56,
      "name": "?sub_0049CF50_SendWaypointClose@@YAXXZ"
@@ -25203,6 +25178,31 @@
      "name": "?sub_0049C560_ResetSelection@@YAXXZ"
     },
     {
+     "va": "0x0049C580",
+     "length": 206,
+     "name": "?TEXT_LoadWaypointPanelCels@@YAXXZ"
+    },
+    {
+     "va": "0x0049C650",
+     "length": 76,
+     "name": "_sub_0049C650_CloseArchives"
+    },
+    {
+     "va": "0x0049C6A0",
+     "length": 20,
+     "name": "?sub_0049C6A0@@YAXXZ"
+    },
+    {
+     "va": "0x0049C6C0",
+     "length": 56,
+     "name": "?sub_0049C6C0_SendWaypointClose@@YAXXZ"
+    },
+    {
+     "va": "0x0049C700",
+     "length": 87,
+     "name": "?sub_0049C700_CloseWaypointPanel@@YAXXZ"
+    },
+    {
      "va": "0x0049C760",
      "length": 140,
      "name": "?sub_0049C760_SetWaypointAct@@YAXH@Z"
@@ -25227,6 +25227,20 @@
      "length": 377,
      "name": "?sub_0049D160_WaypointMouseDown@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
