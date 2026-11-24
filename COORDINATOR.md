@@ -4,9 +4,10 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #306 (round j69). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 12,878 B (was 15,691 B at #297).
+- `main`: #308 (round j71). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 12,616 B (was 15,691 B at #297).
 - Units 963, placeholder files 562.
-- In progress: round j70 = `lane3/fog-strays`, `lane3/cpu-report`, `lane4/warden-class`, `lane5/prime-nova`. Next: j71 = `lane1/one-screenheight-r` alone. `lane2/party-row`: post it on your board file when it's verified.
+- In progress: round j72 = `lane5/task-locks`, `lane3/storm-strays`, `lane3/sfile-dtors`, `lane4/uiwidget`, `lane6/data-b`. Next: j73 = lane 2's four headers (`party-row`, `msg-record`, `save-header`, `lang-names`) together.
+- **`lane4/options-split` needs a rebase onto #308:** it conflicts in chat.cpp with #308's gnScreenHeight change. A 94-function move is yours to redo, not mine.
 - **Borrowed data by lane:** [borrowed-data.md](borrowed-data.md), regenerated at #305, lists every block of the 15,691 B still copied from Game.exe, with the file that owns it and how that was decided. Each lane has a section with its leads. Take them after your current branch.
 - Rounds: the coordinator polls `lane*` branches, merges by cherry-pick (skipping commits already on main by subject), checks the data plan, units.json and data includes against main plus each lane's own moves, prechecks, runs one full verify, and ships.
 
@@ -51,7 +52,7 @@ A function belongs to the lane whose address range or file run it sits in, whate
 **Freeze lifted:** `config-record-3` is on main (#296). The record is `D2ConfigStrc`, the 0x7A0438 global is `gpClientConfig` in D2Client.h. Rebase before your next push.
 
 ### Lane 1
-- `hdr-4df6c0-2` is in #302. `one-screenheight-r` is next, as j71, alone. Keeping the one private declaration in inv_004886C0.cpp is right; the declaration-count finding is now in Lane 2's notes too.
+- `hdr-4df6c0-2` is in #302, `one-screenheight-r` in #308. Keeping the one private declaration in inv_004886C0.cpp is right; the declaration-count finding is now in Lane 2's notes too.
 - **0x4A4AD0:**
   - **Earlier notes.** I've re-sent the lane-7 package to the user. The earlier attempts' finding: 0x4A4AD0's callees take arguments in registers, so it must share their unit. Then that unit was text_0049D490.cpp; it is text.cpp now, so your choice of text.cpp is right. The earlier attempts built it standalone and never got close.
   - **Lead on the static.** text_0049A950.cpp still owns 0x4A4110 and 0x4A4780, inside text.cpp's 0x4A40D0-0x4A5270 run. It also defines `gnKeyConfigSelected`, which text.cpp has as its own static (lane 4's note). That's the key-config list's state split across two files. If 0x4A4110/0x4A4780 join text.cpp and the key-config globals are made text.cpp statics together, 0x4A4500 may match with `gnKeyConfigFirstVisible` static. Lane 4 owns text_0049A950.cpp: coordinate there, or do it on your branch and say so.
@@ -99,6 +100,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 - 0x5B9A30 and 0x5947E0: listing them is right; no forcing constructs.
 
 ### Lane 6
+- `data-b` is in j72 (about −4,300 B: the biggest single cut yet).
+- **Language-table runs as an object count:** yes, go ahead. A run of back-to-back copies with no other data counts objects in link order, so match the copies to code files in order. Two cautions. First, a file that includes the header twice through different paths still gets one copy, because it's one static per translation unit; Ignorelist.cpp's two copies therefore mean two units. Second, objects that define no initialized data of their own still get a copy. A gData_ block holding N copies is N files' data: split it before you place anything.
 - `cands-d` is in #299, `bss-a` in #302; `bss-a-2` and `path-a-2` are in j67. The path split by data reader is the right call.
 - From lane 3: the dynamic initializers and atexit destructors of long-lived critical sections go into the file that owns the lock. `lane3/crt-locks` shows the pattern: a `CCritSect` type plus the `// build: symbol ??__E…`/`??__F…` lines. Yours: 0x6CAE80/0x6CB420 lock 0x881860 and 0x6CAED0/0x6CB470 lock 0x881F64 (BnDownload.cpp); 0x6CAEA0/0x6CB440 lock 0x881894 (CACHE.CPP); 0x6CB010/0x6CB4E0 lock 0x96D610 (Preset.cpp). Wait for crt-locks to merge (j66) and build on its type. CharSel.cpp taking sub_0043B830/0x43B840 from Game.cpp is fine: the run and the globals settle it.
 - Pathfinding cluster: answered in Decisions. DUNGEON_ 0x00643260-0x00643560, the D2DDraw renderer, and Items.cpp 0x006313E0: leaving them is right.
@@ -110,6 +113,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #308 j71: one declaration of gnScreenHeight, in D2Client.h (lane 1), alone. automap.cpp conflict resolved by the coordinator.
+- #307 j70: fog-strays and cpu-report (lane 3), warden-class (lane 4), prime-nova (lane 5).
 - #306 j69: D2SetsTxt.h, one sets.txt record (lane 2), alone.
 - #305 j68: game-borrowed (lane 4), data-fixes (lane 3), monsterchoose (lane 5). Borrowed data −1,565 B.
 - #304 j67: 22 D2Client run placements (lane 4), small strays (lane 5), bss-a-2 and the pathfinding groups (lane 6).
