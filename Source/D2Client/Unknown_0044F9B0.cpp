@@ -113,7 +113,6 @@ struct D2StormListAStrc
     {
         return (int)m_terminator.m_next > 0 ? (D2SGameDataStrc*)m_terminator.m_next : 0;
     }
-    // build: context D2StormListAStrc::LinkNode
     void LinkNode(char* pNode, unsigned int nLinkType, char* pExisting)
     {
         D2StormLinkStrc* pLink = Link(pNode);
@@ -863,13 +862,11 @@ void sub_Emit_D2SGameDataStrc(D2SGameDataStrc* p)
     delete p;
 }
 
-// build: context sub_Emit_D2StormListAStrc
 void sub_Emit_D2StormListAStrc(D2StormListAStrc* p)
 {
     delete p;
 }
 
-// build: context sub_Emit_D2StormHashObjectChunkStrc
 void sub_Emit_D2StormHashObjectChunkStrc(D2StormHashObjectChunkStrc* p)
 {
     delete p;

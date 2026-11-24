@@ -595,7 +595,6 @@ struct D2ClientPacket7Strc
 
 #pragma pack(pop)
 
-// build: context sub_0044BE50
 static int sub_0044BE50(D2UnitStrc* pUnit)
 {
     int nType = 6;

@@ -3072,7 +3072,6 @@ int __fastcall sub_004C80D0_EmitTargetPosition(D2UnitStrc* pUnit, int nSkillId, 
     return sub_004C80D0_AdjustTargetPosition(nSkillId, pUnit, nSkillLevel, pX, pY);
 }
 
-// build: context sub_004C9D50_FindDestinationById
 static inline D2UnitStrc* sub_004C9D50_FindDestinationById(D2UnitStrc* pUnit, int nUnitId)
 {
     return sub_004C5EB0_FindDestination(pUnit, 0, 0, 3, 3, nUnitId, 0);

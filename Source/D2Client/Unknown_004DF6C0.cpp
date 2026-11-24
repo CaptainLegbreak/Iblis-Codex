@@ -880,7 +880,6 @@ void __fastcall sub_004E0690_SetSoundTableFlag(int nValue)
     gbNpcSpeechAudio = nValue;
 }
 
-// build: context sub_004DF770_Shim
 // calling-convention shim (not game code)
 void sub_004DF770_Shim(S* p, int x) { (void)sub_004DF770(p, 0, x); }
 

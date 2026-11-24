@@ -3522,12 +3522,6 @@ void __fastcall ITEM_HandleItemToSocket(D2GSPacketSrv9D* pPacket)
     ITEM_ClearUninterruptableState(pItem);
 }
 
-// build: context ?ITEMPKT_GetUnitX@@YAHPAUD2UnitStrc@@@Z
-// build: context ?ITEMPKT_GetUnitY@@YAHPAUD2UnitStrc@@@Z
-// build: context ?ITEMPKT_UnitFlag9@@YAHPAUD2UnitStrc@@@Z
-// build: context ?sub_0044BE50@@YAHPAUD2UnitStrc@@@Z
-// build: context ?ITEM_RemoveItemStats@@YAXPAUD2UnitStrc@@0@Z
-// build: context ?ITEM_HandleIndirectSwapBodyItem@@YIXPAUD2GSPacketSrv9D@@@Z
 
 // 0x004C4AA0
 void __fastcall ITEM_HandleGridItemToBody(D2GSPacketSrv9D* pPacket)
