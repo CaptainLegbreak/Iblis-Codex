@@ -100,9 +100,9 @@ struct Game
 
 typedef void (__fastcall *Callback)(Quest*,Arg*);
 
-typedef bool (__fastcall *Status)(Quest*,Unit*,Flags*,Flags*,unsigned char*);
+typedef bool (__fastcall *Status)(Quest*,D2UnitStrc*,Flags*,Flags*,unsigned char*);
 
-typedef bool (__fastcall *Active)(Quest*,int,Unit*,Flags*,Unit*);
+typedef bool (__fastcall *Active)(Quest*,int,D2UnitStrc*,Flags*,D2UnitStrc*);
 
 typedef bool (__fastcall *Sequence)(Quest*);
 
@@ -157,9 +157,9 @@ void __fastcall ACT2Q6_Callback14_PlayerJoinedGame(Quest*,Arg*); // 0x0059D4D0
 
 void __fastcall ACT2Q6_Callback08_MonsterKilled(Quest*,Arg*); // 0x0059D050
 
-bool __fastcall ACT2Q6_StatusFilterCallback(Quest*,Unit*,Flags*,Flags*,unsigned char*); // 0x0059CA50
+bool __fastcall ACT2Q6_StatusFilterCallback(Quest*,D2UnitStrc*,Flags*,Flags*,unsigned char*); // 0x0059CA50
 
-bool __fastcall ACT2Q6_ActiveFilterCallback(Quest*,int,Unit*,Flags*,Unit*); // 0x0059D300
+bool __fastcall ACT2Q6_ActiveFilterCallback(Quest*,int,D2UnitStrc*,Flags*,D2UnitStrc*); // 0x0059D300
 
 bool __fastcall ACT2Q6_SeqCallback(Quest*); // 0x0059D450
 

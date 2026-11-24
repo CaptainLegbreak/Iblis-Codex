@@ -253,7 +253,7 @@ void __fastcall SCMD_SendSkillList(D2ClientStrc* pClient, D2UnitStrc* pUnit); //
 
 struct T0056A6F0 { unsigned char value; };
 
-void __fastcall D2GAME_SetSkills_6FD14C60(Unit*,int,int,int); // 0x0056DEB0
+void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc*,int,int,int); // 0x0056DEB0
 
 enum { REMOVE_SKILL = 1 };
 
@@ -1677,7 +1677,7 @@ int __fastcall PLRSAVE2_ReadStats(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned
 }
 
 // 0x0056A6F0
-void __fastcall PLRSAVE2_SetSkillIfLevelSet(Game* unused,Unit* unit,int skill,T0056A6F0 level)
+void __fastcall PLRSAVE2_SetSkillIfLevelSet(Game* unused,D2UnitStrc* unit,int skill,T0056A6F0 level)
 {
     if(level.value) D2GAME_SetSkills_6FD14C60(unit,skill,level.value,REMOVE_SKILL);
 }
