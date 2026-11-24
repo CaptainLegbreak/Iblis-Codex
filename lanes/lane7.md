@@ -42,6 +42,7 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
   - **0x55A6D0** (D2Game Items.cpp, 2,253 B): Items.cpp already holds an unmarked body of D2GAME_DropTC_6FC51360. With a `// 0x0055A6D0` marker it builds 2,239/2,253 with the rest of Items.cpp equal. Next up.
 
 ## Ready
+- lane7/assume-macros-3 4d1454dc (on #369), VERIFIED 29420d2e. Follow-up to #366: renames STORM_ASSUME to `SASSERT` (Storm.h) and FOG_ASSUME to `DEFAULT_UNREACHABLE` (Fog.h, `default: DEFAULT_UNREACHABLE;`), and tools/status.py lists these for completeness like cpuid/bsr instead of its own count line. Forcing constructs stay 38. Touches lane 3's Storm/Fog files (Storm.h, Fog.h, SFILE.CPP, Excel.cpp, SBig_00423DC0/00424700/00424B00.cpp) and tools/status.py; precheck rebuilt the 65 includers, all equal. Replaces lane7/assume-macros-2.
 
 ## Questions
 
