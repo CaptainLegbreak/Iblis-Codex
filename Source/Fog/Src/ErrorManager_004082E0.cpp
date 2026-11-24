@@ -1135,14 +1135,14 @@ void __fastcall FOG_InitErrorMgr(const char* szProgramName, const char* szVersio
     {
         ERRORMANAGER_SetReportText(szPath);
     }
-    gtInspectorInfo.f_0 = 0x108;
+    gtInspectorInfo.nProjectId = 0x108;
     gtInspectorInfo.szUnused04 = "Diablo II";
     gtInspectorInfo.szApplication = "Diablo II";
     gtInspectorInfo.szModule = "Diablo II";
     sprintf(gszInspectorVersion, "D2 %i.%i%c", 1, 14, 'd');
     gtInspectorInfo.szMilestone = gszInspectorVersion;
     gtInspectorInfo.szBuildNumber = "77";
-    gtInspectorInfo.f_18 = "Windows";
+    gtInspectorInfo.szPlatform = "Windows";
     gtInspectorInfo.szPrimaryAssignment = ".ClassicErrorReporter";
     gtInspectorInfo.szAssignments = ".ClassicErrorReporter";
     if (szVersion)

@@ -1837,11 +1837,11 @@ bool crashy::Report::WriteInspectorHeader()
     }
 
     sub_00401380("<Application>%s\n", gtInspectorInfo.szApplication);
-    sub_00401380("<Inspector.ProjectId>%d\n", gtInspectorInfo.f_0);
+    sub_00401380("<Inspector.ProjectId>%d\n", gtInspectorInfo.nProjectId);
     sub_00401380("<Inspector.Module>%s\n", gtInspectorInfo.szModule);
     sub_00401380("<Inspector.Milestone>%s\n", gtInspectorInfo.szMilestone);
     sub_00401380("<Inspector.BuildNumber>%s\n", gtInspectorInfo.szBuildNumber);
-    sub_00401380("<Inspector.Platform>%s\n", gtInspectorInfo.f_18);
+    sub_00401380("<Inspector.Platform>%s\n", gtInspectorInfo.szPlatform);
     sub_00401380("<Inspector.IssueType>%s\n", "Exception");
     sub_00401380("<Inspector.Priority>%s\n", "1 - Critical");
     sub_00401380("<Inspector.PrimaryAssignment>%s\n", gtInspectorInfo.szPrimaryAssignment);

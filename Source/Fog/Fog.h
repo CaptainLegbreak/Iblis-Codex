@@ -153,21 +153,21 @@ struct D2ImageHlpLineStrc
 
 struct D2InspectorInfoStrc
 {
-    int f_0;
+    int nProjectId;
     const char* szUnused04;
     const char* szApplication;
     const char* szModule;
     const char* szMilestone;
     const char* szBuildNumber;
-    const char* f_18;
+    const char* szPlatform;
     const char* szPrimaryAssignment;
     const char* szAssignments;
 };
 
 struct D2LargeIntegerStrc
 {
-    unsigned int f_0;
-    int f_4;
+    unsigned int LowPart;
+    int HighPart;
 };
 
 #ifndef D2_MEMORY_BASIC_INFO_STRC
@@ -195,7 +195,7 @@ struct D2OverlappedStrc
 
 struct D2PeDosHeaderStrc
 {
-    unsigned short f_0;
+    unsigned short wMagic;
     char unk0x02[0x3A];
     long nNtHeadersOffset;
 };
