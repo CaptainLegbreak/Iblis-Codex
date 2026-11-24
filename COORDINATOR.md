@@ -4,11 +4,11 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #365 (round j120). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 844 B (was 15,691 B at #297). Placeholder files 366; shims 68; context copies 3. Names: blizzard 475, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
-- **New: [queues.md](queues.md), what's left per lane** (regenerated on #363): placeholder files, context copies, forcing constructs, shimmed functions, per-file options, with each lane's own list. When your current branch is done, take the next item from your row. The forcing constructs (42) are lane 7's job now: owners, leave them to lane 7 unless you settle it with lane 7 in its file. The context copies outside Storm/Fog/SRP are lane 2's trim first (see Answers), then the owners'. Also regenerated (regenerated on #363): [borrowed-data.md](borrowed-data.md) (906 B, by current owner) and [language-objects.md](language-objects.md) (14 files still hold more than one copy, each a split to make).
+- `main`: #366 (round j121). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 844 B (was 15,691 B at #297). Placeholder files 327; shims 68; context copies 3. Names: blizzard 475, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
+- **New: [queues.md](queues.md), what's left per lane** (regenerated on #366): placeholder files, context copies, forcing constructs, shimmed functions, per-file options, with each lane's own list. When your current branch is done, take the next item from your row. The forcing constructs (42) are lane 7's job now: owners, leave them to lane 7 unless you settle it with lane 7 in its file. The context copies outside Storm/Fog/SRP are lane 2's trim first (see Answers), then the owners'. Also regenerated (regenerated on #366): [borrowed-data.md](borrowed-data.md) (906 B, by current owner) and [language-objects.md](language-objects.md) (14 files still hold more than one copy, each a split to make).
 - In progress: nothing; next round as branches are posted ready.
 - **Renames are landing on main.** After a rebase, run `python3 tools/namesync.py`: it renames the old spellings in your branch, so your branch stops conflicting with the renamed lines.
-- **Rebase requests:** none open.
+- **Rebase onto #366, run namesync, and repost:** `lane10/files-d2bnclient` (D2BNClient/BnMessQueue.cpp: lane 6's join-bnmessqueue, in #366, took Unknown_005201E0.cpp into it; drop that row from your plan).
 - **Context copies: 3 left, all in Storm/Fog** (from 345 this morning). Shims are next: 68, most of them a register-argument call between two units. After any join, try removing the shim for that pair.
 - **Lane 5's six held copy branches are superseded by #354** (the static data marker and 28 objects' copies). Drop any whose copies #354 already covers. Repost the rest on #354 with markers, giving your verify's borrowed data figure (main: 844 B).
 - **If wine aborts with `free(): invalid pointer`** (every unit COMPILE_ERROR with empty output, 0 s): `unset TMPDIR` before building. A TMPDIR=/tmp in the session environment breaks wine 9.0 here.
@@ -295,6 +295,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #366 j121: assume-macros (lane 7), join-tilesub (lane 8), hell-run (lane 9), join-bnmessqueue, join-spritecache (lane 6), monunique-copies-2, skillitem-tail (lane 5), popup-object (lane 4), storm-arrays-ctor, storm-fields, stpl-members (lane 3), files-bnclient, files-d2gdi, files-d2glide (lane 10). **Placeholders 366 -> 327**, forcing-construct functions 42 -> 38.
 - #365 j120: join-fastcmp (lane 6), aithink4-split-2 (lane 5), bnet-prefix-2 (lane 4), sbig-pieces-2 (lane 3), unit-views-a, unit-views-b (lane 2). Placeholders 383 -> 366, borrowed data 848 -> 844 B.
 - #364 j119: join-celcmp, join-codec-2 (lane 6), singles-2 (lane 4), object-strays (lane 1), homes-2 (lane 3), ctx-trim-d2lang (lane 2). Placeholders 390 -> 383, context copies 4 -> 3.
 - #363 j118: strays-d, join-drlgwarp (lane 8), strays-6 (lane 5), export-vtables-2 (lane 4), npcmenu-strays-2 (lane 1), renderer-module-flags (lane 9), fog-shims (lane 3), ctx-trim-d2game-2, unit-names-a, unit-names-b (lane 2). Placeholders 397 -> 390, shims 73 -> 68, **context copies 114 -> 4**, borrowed data 880 -> 848 B.
