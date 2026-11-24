@@ -1,4 +1,12 @@
 #include "D2Win32Types.h"
+
+
+
+
+
+
+
+
 #include "D2GameTypes.h"
 
 #include "D2Win.h"
@@ -285,7 +293,7 @@ extern int gnItemsTxtRecordCount_008426EC; // 0x008426EC
 
 static void D2COMP_CopyTokenPadded(char* pDst, const char* pSrc);
 
-static D2CofDataStrc* __stdcall D2COMP_LoadCofFile(const char* szPath, unsigned int* pnSize);
+static __declspec(noinline) D2CofDataStrc* __stdcall D2COMP_LoadCofFile(const char* szPath, unsigned int* pnSize);
 
 struct D2WinEditBoxStrc;
 
@@ -421,7 +429,6 @@ struct D2FontStrc;
 
 struct D2CharStrc;
 
-
 struct D2WinPopUpLineStrc
 {
     Unicode wszText[64];
@@ -474,7 +481,6 @@ extern D2EmblemColorStrc gaEmblemColorRGB2[10];                                 
 struct D2CelStrc;
 
 struct D2WinImageClickRectStrc;
-
 
 struct D2AnimatedImageDescriptor;
 
@@ -608,8 +614,28 @@ static unsigned char* __stdcall D2COMP_GetLayerOrder(int nDirection, int nFrame,
     return pOrder;
 }
 
-// build: symbol ?D2COMP_GetCofNode@* 0x00503340
-// build: context D2COMP_GetCofNode
+// 0x00503310
+static inline D2CofNodeStrc* D2COMP_FindCofNode(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
+{
+    for (D2CofNodeStrc* pNode = gpCofNodeList; pNode; pNode = pNode->pNext)
+    {
+        if (pNode->nMode == nMode && pNode->nClass == nClass && pNode->dwWeaponClass == dwWeaponClass)
+        {
+            ++pNode->nRefCount;
+            return pNode;
+        }
+    }
+    return 0;
+}
+
+// build: context sub_M118_Emit_00503310
+// emits the static 0x00503310 (not game code)
+D2CofNodeStrc* __stdcall sub_M118_Emit_00503310(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
+{
+    return D2COMP_FindCofNode(nClass, nMode, dwWeaponClass);
+}
+
+// 0x00503340
 static D2CofNodeStrc* __stdcall D2COMP_GetCofNode(unsigned int nClass, const char* szPath, unsigned int nMode, unsigned int dwWeaponClass)
 {
     for (D2CofNodeStrc* pNode = gpCofNodeList; pNode; pNode = pNode->pNext)
@@ -1122,6 +1148,19 @@ static inline int sub_00503F70(unsigned int selector)
 int __stdcall emit_selector_00503F70(unsigned int selector)
 {
     return sub_00503F70(selector);
+}
+
+// 0x00503FA0
+void __stdcall D2COMP_AddHoverTextLine(const Unicode* wszText, D2HoverLineStrc* pLines, int* pCount, int* pMaxWidth, int* pTotalHeight)
+{
+    D2HoverLineStrc* pLine = &pLines[*pCount];
+    D2_ASSERT(*pCount < 7, 0x738);
+
+    sub_005267E0(pLine->wszText, wszText);
+    D2Win_10131_GetTextDimensions(pLine->wszText, &pLine->nWidth, &pLine->nHeight);
+    *pMaxWidth = *pMaxWidth > pLine->nWidth + 6 ? *pMaxWidth : pLine->nWidth + 6;
+    *pTotalHeight += pLine->nHeight;
+    ++*pCount;
 }
 
 // 0x00504020
@@ -2003,18 +2042,6 @@ int __fastcall D2COMP_DrawCompositeLabel(D2CompositeUnitStrc* unit)
 }
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-void __stdcall D2COMP_AddHoverTextLine(const Unicode* wszText, D2HoverLineStrc* pLines, int* pCount, int* pMaxWidth, int* pTotalHeight)
-{
-    D2HoverLineStrc* pLine = &pLines[*pCount];
-    D2_ASSERT(*pCount < 7, 0x738);
-
-    sub_005267E0(pLine->wszText, wszText);
-    D2Win_10131_GetTextDimensions(pLine->wszText, &pLine->nWidth, &pLine->nHeight);
-    *pMaxWidth = *pMaxWidth > pLine->nWidth + 6 ? *pMaxWidth : pLine->nWidth + 6;
-    *pTotalHeight += pLine->nHeight;
-    ++*pCount;
-}
-
 // 0x00505A80
 int __fastcall D2COMP_DrawCompositeHover(D2CompositeUnitStrc* pCompositeUnit)
 {
@@ -2475,16 +2502,6 @@ int __stdcall SMACK_SetCoordinates(D2WinSmackStrc* pSmack, int nX, int nY)
     return 1;
 }
 
-// 0x00506B10
-int __stdcall SMACK_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
-{
-    D2WinSmackStrc* pSmack = (D2WinSmackStrc*)pMsg->hWnd;
-    D2_ASSERT(pSmack->controlHeader.eType == D2WIN_SMACK, 0xC0);
-    if (!(pSmack->controlHeader.dwFlags & gdwBitMasks[2]) || !(pSmack->controlHeader.dwFlags & gdwBitMasks[0]) || !pSmack->controlHeader.field_34)
-        return 0;
-    return pSmack->controlHeader.field_34(pMsg);
-}
-
 // 0x00506C40
 void __fastcall WREGISTER_RegisterCommand(void* hWnd, int nType, int nId, D2WinMsgHandler pCallback)
 {
@@ -2535,83 +2552,6 @@ void __fastcall WREGISTER_UnregisterCommand(void* hWnd, int nType, int nId, D2Wi
     default:
         return;
     }
-}
-
-// 0x005070D0
-void __stdcall LIST_LoadPentspinCellfile()
-{
-    D2_ASSERT(sghPentagram == 0, 0x103);
-
-    char szFile[260];
-    wsprintfA(szFile, "%s\\UI\\CURSOR\\Pentspin", gszDataGlobal);
-    sghPentagram = ARCHIVE_LoadCellFile(szFile, 0);
-}
-
-// 0x00507420
-int __stdcall LIST_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
-{
-    D2WinListStrc* pList = (D2WinListStrc*)pMsg->hWnd;
-    D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x18F);
-    if (pMsg->uMessage == 0x102)
-        return 0;
-    switch (pMsg->wParam)
-    {
-    case 0x0D:
-        CONTROL_SetFocusedEditBox(0);
-        if (pList->pSelectedDataEntry->field_204)
-            return pList->pSelectedDataEntry->field_204(pMsg);
-        break;
-    case 0x26:
-    {
-        D2WinListDataStrc* pTemp = pList->pDataList;
-        if (pList->pDataList == pList->pSelectedDataEntry)
-        {
-            while (pTemp->pNext)
-                pTemp = pTemp->pNext;
-        }
-        else
-        {
-            while (pTemp->pNext != pList->pSelectedDataEntry)
-                pTemp = pTemp->pNext;
-        }
-        pList->pSelectedDataEntry = pTemp;
-        pList->field_54 = 0;
-        for (D2WinListDataStrc* pData = pList->pDataList; pData != pTemp; pData = pData->pNext)
-            ++pList->field_54;
-        const int nIndex = pList->field_54;
-        if (pList->field_4C > nIndex)
-            pList->field_4C = nIndex;
-        else
-            for (int n = nIndex - pList->field_4C; n > pList->field_58; --n)
-                ++pList->field_4C;
-        CONTROL_SetFocusedEditBox(0);
-        return 1;
-    }
-    case 0x28:
-    {
-        D2WinListDataStrc* pNext = pList->pSelectedDataEntry->pNext;
-        if (!pNext)
-            pNext = pList->pDataList;
-        pList->pSelectedDataEntry = pNext;
-        pList->field_54 = 0;
-        for (D2WinListDataStrc* pData = pList->pDataList; pData != pNext; pData = pData->pNext)
-            ++pList->field_54;
-        const int nIndex = pList->field_54;
-        if (pList->field_4C > nIndex)
-            pList->field_4C = nIndex;
-        else
-            for (int n = nIndex - pList->field_4C; n > pList->field_58; --n)
-                ++pList->field_4C;
-        CONTROL_SetFocusedEditBox(0);
-        return 1;
-    }
-    }
-    for (D2WinListDataStrc* pData = pList->pDataList; pData; pData = pData->pNext)
-    {
-        if (pData->field_21C == pMsg->wParam && pData->field_204)
-            return pData->field_204(pMsg);
-    }
-    return 0;
 }
 
 #include "gen/data/Source/D2Win/Src/D2Comp.inc"

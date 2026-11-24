@@ -1,5 +1,5 @@
 #include "D2Win.h"
-
+#include "D2CelContext.h"
 #include "D2Win32Types.h"
 
 #include "D2Records.h"
@@ -174,6 +174,8 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);    
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                   // 0x00526F20
 
+extern D2CelFileStrc* sghPentagram; // 0x0087E96C
+
 // 0x00507000
 int __fastcall LIST_GetSelectedDataIndex(D2WinListStrc* ptListData)
 {
@@ -231,6 +233,96 @@ extern tagPOINT gtMousePosition; // 0x007D55A4
 
 unsigned long gdwListLastClickTick; // 0x0087E970
 
+D2CelFileStrc* __fastcall ARCHIVE_LoadCellFile(const char* szFile, int nType); // 0x004FA9B0
+
+int __stdcall CONTROL_SetFocusedEditBox(D2WinEditBoxStrc* pEditBox); // 0x004F91C0
+
+// 0x005070D0
+void __stdcall LIST_LoadPentspinCellfile()
+{
+    D2_ASSERT(sghPentagram == 0, 0x103);
+
+    char szFile[260];
+    wsprintfA(szFile, "%s\\UI\\CURSOR\\Pentspin", gszDataGlobal);
+    sghPentagram = ARCHIVE_LoadCellFile(szFile, 0);
+}
+
+int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
+
+// 0x00507160
+int __fastcall LIST_Draw(D2WinControlStrc* pControl)
+{
+    D2WinListStrc* pList = (D2WinListStrc*)pControl;
+
+    D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x119);
+
+    D2Win_10127_SetFont(pList->eFont);
+
+    int nTextY = pList->controlHeader.nImageY - pList->controlHeader.nHeight + pList->field_48 + pList->field_44;
+
+    D2WinListDataStrc* pData = pList->pDataList;
+    for (int i = 0; i < pList->field_4C; ++i)
+    {
+        if (pData)
+        {
+            pData = pData->pNext;
+        }
+    }
+
+    D2CelContextStrc tContext;
+    memset(&tContext, 0, sizeof(tContext));
+    tContext.pCellFile = sghPentagram;
+    tContext.nDirection = 0;
+    tContext.nFrame = pList->field_5C;
+
+    while (pData)
+    {
+        if (nTextY >= pList->controlHeader.nImageY)
+        {
+            break;
+        }
+
+        const int nTextX = pList->controlHeader.nImageX + ((pList->controlHeader.nWidth - pData->field_200) >> 1);
+
+        if (pData == pList->pSelectedDataEntry)
+        {
+            int nImageY = nTextY + 3;
+            if (pList->eFont == 2)
+            {
+                nImageY += 6;
+            }
+
+            const int nOffsetX = (pList->controlHeader.nWidth - pList->nWidestEntry) >> 2;
+            const int nImageX1 = pList->controlHeader.nImageX + nOffsetX - 25;
+            const int nImageX2 = pList->controlHeader.nImageX - nOffsetX + pList->controlHeader.nWidth - 25;
+            sub_004F6480(&tContext, nImageX1, nImageY, -1, 5, 0);
+            sub_004F6480(&tContext, nImageX2, nImageY, -1, 5, 0);
+        }
+
+        D2Win_10117_DrawText(pData->wszText, nTextX, nTextY, 0, 0);
+
+        pData->field_208 = pList->controlHeader.nImageX;
+        pData->field_20C = pData->field_208 + pList->controlHeader.nWidth;
+        pData->field_210 = nTextY - pList->field_44 - pList->field_48;
+        pData->field_214 = nTextY + pList->field_48;
+
+        nTextY += pList->field_44 + 2 * pList->field_48;
+
+        pData = pData->pNext;
+    }
+
+    ++pList->field_5C;
+    if (pList->field_5C >= 8)
+    {
+        pList->field_5C = 0;
+    }
+
+    D2Win_10127_SetFont(1);
+
+    return 1;
+}
+
 // 0x005072F0
 int __stdcall LIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -269,6 +361,73 @@ int __stdcall LIST_HandleCharInput(SMSGHANDLER_PARAMS* pMsg)
 }
 
 D2CelFileStrc* sghPentagram; // 0x0087E96C
+
+// 0x00507420
+int __stdcall LIST_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinListStrc* pList = (D2WinListStrc*)pMsg->hWnd;
+    D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x18F);
+    if (pMsg->uMessage == 0x102)
+        return 0;
+    switch (pMsg->wParam)
+    {
+    case 0x0D:
+        CONTROL_SetFocusedEditBox(0);
+        if (pList->pSelectedDataEntry->field_204)
+            return pList->pSelectedDataEntry->field_204(pMsg);
+        break;
+    case 0x26:
+    {
+        D2WinListDataStrc* pTemp = pList->pDataList;
+        if (pList->pDataList == pList->pSelectedDataEntry)
+        {
+            while (pTemp->pNext)
+                pTemp = pTemp->pNext;
+        }
+        else
+        {
+            while (pTemp->pNext != pList->pSelectedDataEntry)
+                pTemp = pTemp->pNext;
+        }
+        pList->pSelectedDataEntry = pTemp;
+        pList->field_54 = 0;
+        for (D2WinListDataStrc* pData = pList->pDataList; pData != pTemp; pData = pData->pNext)
+            ++pList->field_54;
+        const int nIndex = pList->field_54;
+        if (pList->field_4C > nIndex)
+            pList->field_4C = nIndex;
+        else
+            for (int n = nIndex - pList->field_4C; n > pList->field_58; --n)
+                ++pList->field_4C;
+        CONTROL_SetFocusedEditBox(0);
+        return 1;
+    }
+    case 0x28:
+    {
+        D2WinListDataStrc* pNext = pList->pSelectedDataEntry->pNext;
+        if (!pNext)
+            pNext = pList->pDataList;
+        pList->pSelectedDataEntry = pNext;
+        pList->field_54 = 0;
+        for (D2WinListDataStrc* pData = pList->pDataList; pData != pNext; pData = pData->pNext)
+            ++pList->field_54;
+        const int nIndex = pList->field_54;
+        if (pList->field_4C > nIndex)
+            pList->field_4C = nIndex;
+        else
+            for (int n = nIndex - pList->field_4C; n > pList->field_58; --n)
+                ++pList->field_4C;
+        CONTROL_SetFocusedEditBox(0);
+        return 1;
+    }
+    }
+    for (D2WinListDataStrc* pData = pList->pDataList; pData; pData = pData->pNext)
+    {
+        if ((unsigned short)pData->field_21C == pMsg->wParam && pData->field_204)
+            return pData->field_204(pMsg);
+    }
+    return 0;
+}
 
 // 0x005075E0
 D2WinListStrc* __fastcall LIST_Create(int nX, int nY, int nWidth, int nHeight, D2WinListInitStrc* pInit, int* pFont)

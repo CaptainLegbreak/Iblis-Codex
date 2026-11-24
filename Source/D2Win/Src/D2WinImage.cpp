@@ -403,19 +403,6 @@ static inline int IMAGE_IsInClickRect(const D2WinImageClickRectStrc* pClickRect,
     return 0;
 }
 
-// 0x00503310
-static inline D2CofNodeStrc* D2COMP_FindCofNode(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
-{
-    for (D2CofNodeStrc* pNode = gpCofNodeList; pNode; pNode = pNode->pNext)
-    {
-        if (pNode->nMode == nMode && pNode->nClass == nClass && pNode->dwWeaponClass == dwWeaponClass)
-        {
-            ++pNode->nRefCount;
-            return pNode;
-        }
-    }
-    return 0;
-}
 
 static inline void SUNITDMG_ApplyDamageTargetAc(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
 {
@@ -444,11 +431,6 @@ int __stdcall sub_M118_Emit_004FD5A0(const D2WinImageClickRectStrc* pClickRect, 
     return 0;
 }
 
-D2CofNodeStrc* __stdcall sub_M118_Emit_00503310(unsigned int nClass, unsigned int nMode, unsigned int dwWeaponClass)
-{
-    return D2COMP_FindCofNode(nClass, nMode, dwWeaponClass);
-}
-
 void __stdcall sub_M118_Emit_0057B7A0(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
 {
     SUNITDMG_ApplyDamageTargetAc(pAttacker, pDefender);
@@ -474,79 +456,6 @@ void __fastcall WREGISTER_UnregisterCommands(void* hWnd, D2WinCommandRegisterStr
     {
         WREGISTER_UnregisterCommand(hWnd, pCommandRegister[i].nType, pCommandRegister[i].nId, pCommandRegister[i].pCallback);
     }
-}
-
-// 0x00507160
-int __fastcall LIST_Draw(D2WinControlStrc* pControl)
-{
-    D2WinListStrc* pList = (D2WinListStrc*)pControl;
-
-    D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x119);
-
-    D2Win_10127_SetFont(pList->eFont);
-
-    int nTextY = pList->controlHeader.nImageY - pList->controlHeader.nHeight + pList->field_48 + pList->field_44;
-
-    D2WinListDataStrc* pData = pList->pDataList;
-    for (int i = 0; i < pList->field_4C; ++i)
-    {
-        if (pData)
-        {
-            pData = pData->pNext;
-        }
-    }
-
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = sghPentagram;
-    tContext.nDirection = 0;
-    tContext.nFrame = pList->field_5C;
-
-    while (pData)
-    {
-        if (nTextY >= pList->controlHeader.nImageY)
-        {
-            break;
-        }
-
-        const int nTextX = pList->controlHeader.nImageX + ((pList->controlHeader.nWidth - pData->field_200) >> 1);
-
-        if (pData == pList->pSelectedDataEntry)
-        {
-            int nImageY = nTextY + 3;
-            if (pList->eFont == 2)
-            {
-                nImageY += 6;
-            }
-
-            const int nOffsetX = (pList->controlHeader.nWidth - pList->nWidestEntry) >> 2;
-            const int nImageX1 = pList->controlHeader.nImageX + nOffsetX - 25;
-            const int nImageX2 = pList->controlHeader.nImageX - nOffsetX + pList->controlHeader.nWidth - 25;
-            sub_004F6480(&tContext, nImageX1, nImageY, -1, 5, 0);
-            sub_004F6480(&tContext, nImageX2, nImageY, -1, 5, 0);
-        }
-
-        D2Win_10117_DrawText(pData->wszText, nTextX, nTextY, 0, 0);
-
-        pData->field_208 = pList->controlHeader.nImageX;
-        pData->field_20C = pData->field_208 + pList->controlHeader.nWidth;
-        pData->field_210 = nTextY - pList->field_44 - pList->field_48;
-        pData->field_214 = nTextY + pList->field_48;
-
-        nTextY += pList->field_44 + 2 * pList->field_48;
-
-        pData = pData->pNext;
-    }
-
-    ++pList->field_5C;
-    if (pList->field_5C >= 8)
-    {
-        pList->field_5C = 0;
-    }
-
-    D2Win_10127_SetFont(1);
-
-    return 1;
 }
 
 // 0x004FD070

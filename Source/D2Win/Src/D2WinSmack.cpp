@@ -1,5 +1,7 @@
 #include "D2Win.h"
+#include "D2StormTypes.h"
 #include "D2WinTypes.h"
+
 #include "D2WinControls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -77,6 +79,16 @@ int __fastcall SMACK_Draw(D2WinControlStrc* pControl)
     return 1;
 }
 
+// 0x00506B10
+int __stdcall SMACK_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2WinSmackStrc* pSmack = (D2WinSmackStrc*)pMsg->hWnd;
+    D2_ASSERT(pSmack->controlHeader.eType == D2WIN_SMACK, 0xC0);
+    if (!(pSmack->controlHeader.dwFlags & gdwBitMasks[2]) || !(pSmack->controlHeader.dwFlags & gdwBitMasks[0]) || !pSmack->controlHeader.field_34)
+        return 0;
+    return pSmack->controlHeader.field_34(pMsg);
+}
+
 // 0x00506B70
 D2WinSmackStrc* __fastcall SMACK_Create(int nX, int nY, int nWidth, int nHeight, D2WinMsgHandler pfHandler)
 {
@@ -109,3 +121,5 @@ int __fastcall SMACK_Destroy(D2WinSmackStrc* pSmack)
     SMACK_DeleteFile(pSmack);
     return CONTROL_RemoveFromList(&pSmack->controlHeader);
 }
+
+#include "gen/data/Source/D2Win/Src/D2WinSmack.inc"

@@ -162,3 +162,5 @@ int __cdecl sub_00508F60_GlideCheckBoards()
     return gnGlideNumBoards > 0;
 }
 
+
+#include "gen/data/Source/D2Win/Unknown_00508970.inc"
