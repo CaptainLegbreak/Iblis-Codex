@@ -75053,17 +75053,6 @@
      "name": "?sub_00668590_NextSetToken@@YAPADPAPADPBD@Z"
     },
     {
-     "va": "0x006690E0",
-     "length": 76,
-     "name": "?DATATBLS_CubeMainParamLinker@@YIXPADPAXHHHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_006685C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
      "va": "0x006685C0",
      "length": 56
     },
@@ -75082,21 +75071,12 @@
     {
      "va": "0x006690B0",
      "length": 38
+    },
+    {
+     "va": "0x006690E0",
+     "length": 76,
+     "name": "?DATATBLS_CubeMainParamLinker@@YIXPADPAXHHHH@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

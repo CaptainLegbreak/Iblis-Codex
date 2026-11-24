@@ -3612,12 +3612,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_006685C0.cpp": {
-   "bytes": 60,
-   "definitions": 3,
+  "Source/D2Common/Unknown_00668510.cpp": {
+   "bytes": 120,
+   "definitions": 4,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_006685C0.inc",
+   "include": "gen/data/Source/D2Common/Unknown_00668510.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -4865,15 +4865,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_00664530.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Common/Unknown_00668510.cpp": {
-   "bytes": 60,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_00668510.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -130317,7 +130308,7 @@
    "cname": "gData_006EE85C",
    "declared": true,
    "decorated": "_gszPandemoniumFinalePortal",
-   "file": "Source/D2Common/Unknown_006685C0.cpp",
+   "file": "Source/D2Common/Unknown_00668510.cpp",
    "fill": 28,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006EE85C[28]; // 0x006EE85C",
@@ -130348,7 +130339,7 @@
    "cname": "gData_006EE878",
    "declared": true,
    "decorated": "_gszPandemoniumPortal",
-   "file": "Source/D2Common/Unknown_006685C0.cpp",
+   "file": "Source/D2Common/Unknown_00668510.cpp",
    "fill": 20,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006EE878[20]; // 0x006EE878",
@@ -130379,7 +130370,7 @@
    "cname": "gData_006EE88C",
    "declared": true,
    "decorated": "_gszCowPortal",
-   "file": "Source/D2Common/Unknown_006685C0.cpp",
+   "file": "Source/D2Common/Unknown_00668510.cpp",
    "fill": 12,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006EE88C[12]; // 0x006EE88C",
