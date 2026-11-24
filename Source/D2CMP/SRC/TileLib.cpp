@@ -49,18 +49,7 @@ struct D2CelDataHashStrc
     T00604AE0* pBuckets[0x200];
 };
 
-struct D2CmpFindTilesSubStrc
-{
-    int unk0x00;
-    D2CmpFindTilesSubStrc* pNext;
-};
 
-struct D2CmpFindTilesNodeStrc
-{
-    int unk0x00[3];
-    D2CmpFindTilesSubStrc* pSubs;
-    D2CmpFindTilesNodeStrc* pNext;
-};
 
 struct D2CmpRGBImageStrc
 {
