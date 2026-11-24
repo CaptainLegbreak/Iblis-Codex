@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "gen/data/Source/D2Client/CORE/ARCHIVE.inc"
 
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);

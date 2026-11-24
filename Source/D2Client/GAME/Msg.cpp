@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "gen/data/Source/D2Client/GAME/Msg.inc"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
