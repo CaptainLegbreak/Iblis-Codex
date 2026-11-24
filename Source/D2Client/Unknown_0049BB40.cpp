@@ -3,6 +3,7 @@
 #include "D2StormTypes.h"
 #include "D2ClientParty.h"
 #include "D2WinSplitText.h"
+#include "D2WaypointActRange.h"
 
 struct D2PartyRowStrc;
 struct D2PacketRecord21Strc;
@@ -351,14 +352,6 @@ struct Unicode;
 
 struct D2WaypointActRangeStrc;
 
-struct D2WaypointActRangeStrc
-{
-    char bInit;
-    char nFirstLevelId[4];
-    char nLastLevelId[4];
-    unsigned char nMinWaypoint;
-    unsigned char nMaxWaypoint;
-};
 
 int __stdcall WAYPOINTS_GetLevelIdFromWaypointNo(unsigned short wWaypointNo, int* pLevelId); // 0x00660D90
 

@@ -6,6 +6,7 @@
 
 #include "D2GfxTypes.h"
 #include "D2CelContext.h"
+#include "D2Win32RgbQuad.h"
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 
@@ -293,13 +294,6 @@ int __fastcall GDICORE_CreateSurface(int nValue, int nArg)
     return 1;
 }
 
-struct D2RgbQuad006C7FA0Strc
-{
-    unsigned char rgbBlue;
-    unsigned char rgbGreen;
-    unsigned char rgbRed;
-    unsigned char rgbReserved;
-};
 
 // 0x006C7CF0
 int __cdecl GDICORE_CloseSurface()

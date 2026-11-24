@@ -17,6 +17,7 @@
 #include "D2ClientQuestLog.h"
 #include "D2ClientStatButton.h"
 #include "D2WinSplitText.h"
+#include "D2TextIdEntry.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -2071,11 +2072,6 @@ void __fastcall TEXT_SetHoverUnit(D2UnitStrc* pUnit)
 
 struct D2TextIdEntryStrc;
 
-struct D2TextIdEntryStrc
-{
-    unsigned short wId;
-    unsigned short wStringId;
-};
 
 void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 

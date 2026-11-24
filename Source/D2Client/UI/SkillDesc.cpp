@@ -12,6 +12,7 @@
 #include "D2GameTypes.h"
 #include "D2SkillIds.h"
 #include "D2SoundEnvironTxt.h"
+#include "D2MonTypeTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -63,11 +64,6 @@ extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E
 
 static void SKILLDESC_AddEnvironSoundRefs(int nIndex); // 0x004E4240
 
-struct D2MonTypeTxt
-{
-    char unk0x00[0x0A];
-    unsigned short wStrPlur;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 

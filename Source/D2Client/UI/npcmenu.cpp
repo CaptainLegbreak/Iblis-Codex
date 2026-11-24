@@ -14,6 +14,7 @@
 #include "D2MonsterIds.h"
 #include "D2MonModes.h"
 #include "D2GameTypes.h"
+#include "D2NpcIndex.h"
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 #include <D2UnitData.h>
@@ -219,18 +220,6 @@ void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
 void __stdcall QUESTRECORD_FreeRecord(void* pMemPool, D2BitBufferStrc* pQuestRecord); // 0x0065C490
 
-#pragma pack(push, 1)
-
-struct D2NpcIndexStrc
-{
-    int nId;
-    int nCount;
-    unsigned short awIds[5];
-    int (__cdecl* apfHandlers[5])();
-    char bEnabled;
-};
-
-#pragma pack(pop)
 
 extern D2NpcQuestHandlerStrc gaNpcHandlers[]; // 0x007253E0
 
@@ -555,9 +544,6 @@ extern int (__cdecl* gpfnGlobal_00726E0B)();                                    
 
 extern short gwGlobal_00726DFF;                                                                             // 0x00726DFF
 
-#pragma pack(push, 1)
-
-#pragma pack(pop)
 
 typedef char check_size_npcindex[(sizeof(D2NpcIndexStrc) == 0x27) ? 1 : -1];
 

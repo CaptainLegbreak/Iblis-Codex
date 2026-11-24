@@ -16,6 +16,7 @@
 #include "D2AnimData.h"
 #include "D2WinSplitText.h"
 #include "D2FogSystemInfo.h"
+#include "D2ClientBallistic.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -299,20 +300,6 @@ struct D2CltMissileModeStrc
     int nCollisionMask;
 };
 
-struct D2BallisticStrc
-{
-    unsigned int dwFlags;
-    int f_4;
-    int f_8;
-    int nVelocity;
-    int nVelA;
-    int nVelB;
-    int nStartVelocity;
-    int unk0x1C[2];
-    int f_24;
-    int unk0x28[8];
-    int nFrames;
-};
 
 extern const int gaSpiralOuterY[7]; // 0x006DADC0
 

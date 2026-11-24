@@ -11,6 +11,7 @@
 #include "D2GameTypes.h"
 #include "D2Unicode.h"
 #include "D2Txt.h"
+#include "D2MonTypeTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GemsTxt;
@@ -56,11 +57,6 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 
 
-struct D2MonTypeTxt
-{
-    char unk0x00[0x0A];
-    unsigned short wStrPlur;
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

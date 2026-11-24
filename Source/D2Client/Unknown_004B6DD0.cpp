@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2UnitData.h"
 #include "D2ClientMenus.h"
+#include "D2NpcIndex.h"
 struct D2BitBufferStrc;
 struct D2TextHeaderStrc;
 struct D2InventoryStrc;
@@ -22,17 +23,6 @@ struct D2ClientStringListStrc
     unsigned short wCount;
 };
 
-#pragma pack(push, 1)
-struct D2NpcIndexStrc
-{
-    int nId;
-    int nCount;
-    unsigned short awIds[5];
-    int (__cdecl* apfHandlers[5])();
-    char bEnabled;
-};
-
-#pragma pack(pop)
 
 typedef char check_size_npcindex[(sizeof(D2NpcIndexStrc) == 0x27) ? 1 : -1];
 typedef char check_size_npcentry[(sizeof(D2NpcEntryStrc) == 0x16) ? 1 : -1];
