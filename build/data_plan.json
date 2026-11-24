@@ -2655,11 +2655,11 @@
    "state": "included"
   },
   "Source/D2Game/UNIT/SUnitInactive.cpp": {
-   "bytes": 12,
-   "definitions": 3,
+   "bytes": 76,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
-   "include": null,
+   "include": "gen/data/Source/D2Game/UNIT/SUnitInactive.inc",
    "lang": "cpp",
    "state": "included",
    "static_definitions": 3
@@ -3875,7 +3875,7 @@
    "state": "included"
   },
   "Source/D2Game/SKILLS/SkillMonst.cpp": {
-   "bytes": 80,
+   "bytes": 84,
    "definitions": 3,
    "externs": [],
    "fn_types": {},
@@ -5036,8 +5036,8 @@
    "state": "included"
   },
   "Source/D2Game/Unknown_005B24E0.cpp": {
-   "bytes": 216,
-   "definitions": 4,
+   "bytes": 280,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Unknown_005B24E0.inc",
@@ -114777,23 +114777,6 @@
    "va": "0x006E30E0"
   },
   {
-   "alias": false,
-   "cname": "gData_006E31EC",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Game/SKILLS/SkillMonst.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" const struct d2data_006E31EC_t gData_006E31EC; // 0x006E31EC",
-   "head": "extern \"C\" const struct d2data_006E31EC_t gData_006E31EC = ",
-   "name": "gData_006E31EC",
-   "pointers": [],
-   "region": "rdata",
-   "size": 60,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_006E31EC_t\n{\n    unsigned char b0[60];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x006E31EC",
-   "va": "0x006E31EC"
-  },
-  {
    "alias": true,
    "cname": "gData_006E3228",
    "declared": true,
@@ -114884,14 +114867,14 @@
    "va": "0x006E3264"
   },
   {
-   "alias": true,
-   "cname": "gData_006E31A8",
+   "alias": false,
+   "cname": null,
    "declared": true,
    "decorated": null,
    "file": "Source/D2Game/SKILLS/SkillMonst.cpp",
    "form": "declared",
-   "fwd": "extern \"C\" const int gData_006E31A8[16]; // 0x006E31A8",
-   "head": "extern \"C\" const int gData_006E31A8[16] = ",
+   "fwd": null,
+   "head": "extern const int gnPrimePoisonNovaY[16] = ",
    "model": {
     "elem": {
      "k": "prim",
@@ -114912,6 +114895,36 @@
    "tail": "; // 0x006E31A8",
    "type": "int",
    "va": "0x006E31A8"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Game/SKILLS/SkillMonst.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const int gnPrimePoisonNovaX[16] = ",
+   "model": {
+    "elem": {
+     "k": "prim",
+     "kind": "s",
+     "name": "int",
+     "size": 4
+    },
+    "k": "arr",
+    "n": 16,
+    "size": 64
+   },
+   "name": "gnPrimePoisonNovaX",
+   "pointers": [],
+   "region": "rdata",
+   "size": 64,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x006E31E8",
+   "type": "int",
+   "va": "0x006E31E8"
   },
   {
    "alias": true,
@@ -157411,6 +157424,358 @@
    "tail": "; // 0x006E0568",
    "type": "char",
    "va": "0x006E0568"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Game/UNIT/SUnitInactive.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int gData_007314CC = ",
+   "model": {
+    "k": "prim",
+    "kind": "s",
+    "name": "int",
+    "size": 4
+   },
+   "name": "gData_007314CC",
+   "pointers": [],
+   "region": "data",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x007314CC",
+   "type": "int",
+   "va": "0x007314CC"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Game/UNIT/SUnitInactive.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const char* gaszLanguageNames_007314D0[15] = ",
+   "model": {
+    "elem": {
+     "fn": false,
+     "k": "ptr",
+     "size": 4,
+     "spell": "const char*"
+    },
+    "k": "arr",
+    "n": 15,
+    "size": 60
+   },
+   "name": "gaszLanguageNames_007314D0",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "stars": 1,
+   "struct": null,
+   "tail": "; // 0x007314D0",
+   "type": "char",
+   "va": "0x007314D0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Game/Unknown_005B24E0.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int gData_0073D52C = ",
+   "model": {
+    "k": "prim",
+    "kind": "s",
+    "name": "int",
+    "size": 4
+   },
+   "name": "gData_0073D52C",
+   "pointers": [],
+   "region": "data",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0073D52C",
+   "type": "int",
+   "va": "0x0073D52C"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Game/Unknown_005B24E0.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern const char* gaszLanguageNames_0073D530[15] = ",
+   "model": {
+    "elem": {
+     "fn": false,
+     "k": "ptr",
+     "size": 4,
+     "spell": "const char*"
+    },
+    "k": "arr",
+    "n": 15,
+    "size": 60
+   },
+   "name": "gaszLanguageNames_0073D530",
+   "pointers": [
+    [
+     0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
+     "0x006CC77C",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 60,
+   "stars": 1,
+   "struct": null,
+   "tail": "; // 0x0073D530",
+   "type": "char",
+   "va": "0x0073D530"
   }
  ]
 }
