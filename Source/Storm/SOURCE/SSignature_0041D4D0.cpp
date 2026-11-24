@@ -36,8 +36,8 @@ namespace Crypt
 
 struct RSA
 {
-    BigNum hFirst;
-    BigNum hSecond;
+    BigNum hExponent;
+    BigNum hModulus;
 
     RSA();
     ~RSA();

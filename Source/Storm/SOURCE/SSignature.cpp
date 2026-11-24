@@ -9,7 +9,7 @@ struct D2StormNodeListStrc;
 
 struct D2StormHashBufferStrc;
 
-struct D2StormRsaKeyStrc;
+namespace Crypt { struct RSA; }
 
 struct CBitInput;
 
@@ -123,16 +123,21 @@ struct D2StormHashBufferStrc
     }
 };
 
-struct D2StormRsaKeyStrc
+namespace Crypt
 {
-    void* f_0;
-    void* f_4;
 
-    D2StormRsaKeyStrc();                                                                                    // 0x0041D4D0
-    ~D2StormRsaKeyStrc();                                                                                   // 0x0041D530
+struct RSA
+{
+    void* hExponent;
+    void* hModulus;
+
+    RSA();                                                                                                  // 0x0041D4D0
+    ~RSA();                                                                                                 // 0x0041D530
     void Prepare(const void* pExponent, unsigned int nExponentSize, const void* pModulus, int nModulusSize); // 0x00426070
     void Process(unsigned char* pData, unsigned int nSize);                                    // 0x004260A0
 };
+
+}
 
 struct HUFFNODE
 {
@@ -411,12 +416,12 @@ int __fastcall SSignatureGenerate(char* pData, unsigned int* pnSize, const void*
     HashSignatureData(nOffset, (const unsigned char*)pData, pDigest);
     unsigned char* pSign = (unsigned char*)_alloca(nSignSize);
     SMemCopy(pSign, pDigest, nSignSize);
-    D2StormRsaKeyStrc tKey1;
+    Crypt::RSA tKey1;
     tKey1.Prepare(pExponent, nSignSize, pModulus1, nModulusSize1);
     tKey1.Process(pSign, nSignSize);
     unsigned char* pCheck = (unsigned char*)_alloca(nSignSize);
     SMemCopy(pCheck, pSign, nSignSize);
-    D2StormRsaKeyStrc tKey2;
+    Crypt::RSA tKey2;
     tKey2.Prepare(pExponent, nSignSize, pModulus2, nModulusSize2);
     tKey2.Process(pCheck, nSignSize);
     if (SMemCmp(pCheck, pDigest, nSignSize))
@@ -440,7 +445,7 @@ int __fastcall SSignatureVerifyStream_Finish(D2StormHashBufferStrc* pBuffer, con
         pBuffer->tHash.sub_00425F00_Final(pDigest);
         unsigned char* pSign = (unsigned char*)_alloca(pBuffer->nSignSize);
         SMemCopy(pSign, pBuffer->pBuffer + 4, pBuffer->nSignSize);
-        D2StormRsaKeyStrc tKey;
+        Crypt::RSA tKey;
         tKey.Prepare(pExponent, pBuffer->nSignSize, pModulus, pBuffer->nModulusSize);
         tKey.Process(pSign, pBuffer->nSignSize);
         bResult = !SMemCmp(pSign, pDigest, pBuffer->nSignSize);
