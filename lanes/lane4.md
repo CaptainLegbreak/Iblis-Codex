@@ -4,6 +4,8 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane4/context-sweep 7cb8458b no placeholder change: each of the 127 `// build: context` lines in lane 4's files (46 files; lane 1's two placeholders at 0x4DF1C0/0x4DF6C0 left alone) was tried alone and its unit still builds equal without it, so all go; the copies themselves stay. VERIFIED 5b86859e22ab on #332; rebased onto #339 cleanly (all 46 units build equal). Not stacked; nothing outside lane 4.
+
 - lane4/record-object-2 017e3371 +0 placeholders (Unknown_00451290.cpp grows to the lng object): two objects sit between Game.cpp's template code and SCmd.cpp's, each with its own borrowed copy. (1) 0x451260-0x4513FF, the lng module (register the lng argument, free/load the lng module, load a string with its "Stupid Lng.cpp error." fallback; bss 0x7A0708-0x7A0710; copy 0x70F728): Unknown_00451290.cpp takes 0x451260 from Record.cpp, COMCALLBACK_LoadLngString from ComCallback.cpp and GAME_LoadLngModule from Game.cpp. The error string suggests the original was Lng.cpp; I kept a placeholder since no path names its directory. (2) 0x451400-0x4519CF, Record.cpp: its functions read its bss (0x7A0818-0x7A2788) and gpMsgRecordChunk, which follows its copy at 0x70F764. Record.cpp takes COMCALLBACK_RecordMessage (ComCallback.cpp), five record/playback queries from ui.cpp, three from Game.cpp and CUNIT_ReplayRecords (CUnit.cpp). VERIFIED 19e209068362 on #332; rebased onto #337 (precheck equal). lane4/record-object (071fa3fa) is the same commit on the old base; use -2. Touches ComCallback.cpp (D2Multi, lane 6's file; its two functions sit in lane 4's range) and CUnit.cpp (lane 1's).
 
 - lane4/zero-gaps d062e7b0 no placeholder change: borrowed zero runs right after an opaque record join that record: gaEscMenuUIState (+4), the inventory record at 0x722110 (+4), gaPanelCels (+8), gaNpcEntries (+4), gaNpcMenuEntries (+2), the 0x726C56 record (+12) and fifteen of npcmenu.cpp's NPC menu pieces (+4/+8). A zero-only record of its own compiles into .bss (that is why they were borrowed), so each run joins the non-zero record in front. The zero dwords at 0x70F814, 0x71298C and 0x722314 are not data but padding to 8 bytes in front of ui.cpp's, the level events' and panel.cpp's copies (0x70F818, 0x712990, 0x722318), so their records go. Borrowed data 2,250 B on the verified tree. VERIFIED 9f97ef94248c on #332; rebased onto #335 cleanly (the owners build equal). Not stacked; nothing outside lane 4.
@@ -14,7 +16,7 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- Verifying, to post when each passes: lane4/editbox-split (now with the header include for all three copies), lane4/lang-include (22 units take their copy from D2LanguageNames.h), lane4/context-sweep (127 context directives that no unit needs), lane4/session-object (Unknown_0044BA20.cpp, 0x44BA20-0x44BDCF between WINMAIN.CPP and Game.cpp).
+- Verifying, to post when each passes: lane4/editbox-split (now with the header include for all three copies), lane4/lang-include (10 units take their copy from D2LanguageNames.h; in 11 more the header copy did not place, because their data has no other anchor or does not follow the copy without a gap, so they keep their records), lane4/session-object (Unknown_0044BA20.cpp, 0x44BA20-0x44BDCF between WINMAIN.CPP and Game.cpp).
 
 ## Questions
 
