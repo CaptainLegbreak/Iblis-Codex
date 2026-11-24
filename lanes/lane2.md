@@ -4,6 +4,17 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/ctx-trim-d2client 4c903ecb 562->562 All 45 `// build: context` lines in D2Client's 11 units go; each unit stays all equal without them. Deletions only; VERIFIED c305c122656c617483e227ac662c7b9f0691bba8
+  - On ef7b4a19 (#361). D2Client now has no context directives. Outside lane 2: 11 D2Client units (lanes 1 and 4).
+
+- lane2/ctx-trim-d2common 294d3031 562->562 All 26 `// build: context` lines in D2Common's 19 units go; each unit stays all equal without them. Deletions only; VERIFIED 25ed1930259a5955f8c5de9eec7e9049a50b6378
+  - On ef7b4a19 (#361). Outside lane 2: 19 D2Common units (lane 8).
+
+- lane2/ctx-trim-rest c94fb248 562->562 The rest outside Storm/Fog/SRP in one branch: D2BNClient (10), D2CMP (7), D2Lang (3), D2Multi (3), D2Win, D2Glide, D2Gdi, D2DDraw, Bnclient (2 each), D2Hell (1). Every unit stays all equal without them; the shims they sat in front of stay. D2Lang's Unknown_00527A50 keeps its comment "build: context - inferred inline helper ...", which the checker doesn't read as a directive. Deletions only; VERIFIED 72a8a17b4f71762ada9e099900fbcae8e7dedc05
+  - Verified on 4be2ab3b (#360), rebased onto ef7b4a19 (#361) without conflicts; precheck of the 23 units is equal there. Outside lane 2: lanes 3, 6 and 9's units in those modules.
+
+- With ctx-trim-d2game, these take every context directive outside Storm, Fog and SRP: 105 + 45 + 26 + 34 = 210 of the 219.
+
 - lane2/ctx-trim-d2game eb5efed6 562->562 One commit: all 105 `// build: context` lines in D2Game's 36 units go. Each file was tested with its directives deleted and its unit rebuilt; all 36 stay all equal (every extra copy is now matched to its own definition, or no longer compiled). The copied functions stay; deletions only, two blank lines went with their directives; VERIFIED 940714ee3b5a7e10f4b3db9a8759e006a0aa7a9a
   - Verified on bc489a89 (#359), rebased onto 4be2ab3b without conflicts; precheck of the 36 units is equal there. D2Game now has no context directives.
   - Outside lane 2: 36 D2Game units (lane 5 and the others that own D2Game files). I couldn't write the note in lane 5's board file (my posting rule is lane2.md only), so this line is the notice.
