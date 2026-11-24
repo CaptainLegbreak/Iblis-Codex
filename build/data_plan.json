@@ -3425,8 +3425,8 @@
    "state": "included"
   },
   "Source/D2CMP/SRC/CelCmp.cpp": {
-   "bytes": 3132,
-   "definitions": 12,
+   "bytes": 3148,
+   "definitions": 14,
    "externs": [
     "extern \"C\" void __cdecl CelFileConvertRle24To8(); // 0x00606B50",
     "extern \"C\" void __cdecl sub_00608540(); // 0x00608540",
@@ -111996,6 +111996,32 @@
    "va": "0x00741EFC"
   },
   {
+   "alias": false,
+   "cname": "gData_00741F0C",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2CMP/SRC/CelCmp.cpp",
+   "form": "bytes",
+   "name": "gData_00741F0C",
+   "pointers": [
+    [
+     0,
+     "0x006F28F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 8,
+   "va": "0x00741F0C",
+   "fwd": "extern \"C\" struct d2data_00741F0C_t gData_00741F0C; // 0x00741F0C",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00741F0C_t\n{\n    const void* p0;\n    unsigned char b1[4];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" struct d2data_00741F0C_t gData_00741F0C = ",
+   "tail": "; // 0x00741F0C"
+  },
+  {
    "alias": true,
    "cname": "gData_006E45A0",
    "declared": true,
@@ -112243,6 +112269,32 @@
    "tail": "; // 0x00741F2C\n#pragma comment(linker, \"/alternatename:_gszTypeNameCelList=_gData_00741F2C\")",
    "type": "char",
    "va": "0x00741F2C"
+  },
+  {
+   "alias": false,
+   "cname": "gData_00741FAC",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2CMP/SRC/CelCmp.cpp",
+   "form": "bytes",
+   "name": "gData_00741FAC",
+   "pointers": [
+    [
+     0,
+     "0x006F28F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ]
+   ],
+   "region": "data",
+   "size": 8,
+   "va": "0x00741FAC",
+   "fwd": "extern \"C\" struct d2data_00741FAC_t gData_00741FAC; // 0x00741FAC",
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00741FAC_t\n{\n    const void* p0;\n    unsigned char b1[4];\n};\n#pragma pack(pop)",
+   "head": "extern \"C\" struct d2data_00741FAC_t gData_00741FAC = ",
+   "tail": "; // 0x00741FAC"
   },
   {
    "alias": true,
