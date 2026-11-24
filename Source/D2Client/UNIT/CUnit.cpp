@@ -3543,17 +3543,6 @@ void __fastcall CUNIT_SetDialogState(int nState)
 }
 
 
-// 0x004B8A10
-int __cdecl CUNIT_IsTrading()
-{
-    if (gnTradeState == 1 || gnTradeState == 2)
-    {
-        return 1;
-    }
-
-    return 0;
-}
-
 // build: symbol ?DDDEBUGFONT_FreeDebugFont@* 0x005125B0
 void __cdecl DDDEBUGFONT_FreeDebugFont()
 {
