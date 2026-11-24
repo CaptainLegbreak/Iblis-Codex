@@ -65,6 +65,11 @@ def flag_notes(u):
 
 
 FORCING = ('volatile read or qualifier', '#pragma optimize', '__assume')
+# `__assume` reached through a module header's macro (Storm.h SASSERT, Fog.h DEFAULT_UNREACHABLE): the original's own
+# release-build asserts and unreachable switch defaults, used only where no plain C form gives the original's code.
+# Listed for completeness, like cpuid/bsr inline assembly; not a forcing construct.
+ASSUME_MACROS = ('SASSERT', 'DEFAULT_UNREACHABLE')
+ASSUME_RE = re.compile(r'\b(%s)\b' % '|'.join(ASSUME_MACROS))
 
 
 def constructs(a):
@@ -82,6 +87,8 @@ def constructs(a):
         out.append(FORCING[1])
     if '__assume' in b:
         out.append(FORCING[2])
+    elif ASSUME_RE.search(b):
+        out.append('__assume through a header macro (original)')
     if '__asm' in b:
         out.append('inline assembly')
     return out
@@ -178,7 +185,7 @@ L.append('\n`docs/shape.svg` draws the same per function: whole original file, f
 um = re.search(r'## Unmatched functions.*?(?=\n## )', old, re.S)
 L.append('\n' + (um.group(0).rstrip() if um else ''))
 
-L.append('\n## Non-original constructs\n\nFunctions whose source needs something the original source very likely did not have: a per-file compiler option other than its module\'s default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.\n')
+L.append('\n## Non-original constructs\n\nFunctions whose source needs something the original source very likely did not have: a per-file compiler option other than its module\'s default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original\'s release-build asserts and unreachable switch defaults) are listed for completeness.\n')
 gs = sum(len(u['functions']) for u in UNITS if '/GS-' in (u.get('flags') or []))
 eh = sum(len(u['functions']) for u in UNITS if '/EHsc' in (u.get('flags') or []))
 L.append('Not listed one by one: %d functions are compiled with `/GS-` and %d with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` %d times and `__declspec(dllexport)` %d times to keep a body out of line or emitted.\n' % (gs, eh, count(r'__declspec\(noinline\)'), count(r'__declspec\(dllexport\)')))
