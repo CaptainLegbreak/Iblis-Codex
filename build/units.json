@@ -73392,6 +73392,10 @@
      "name": "_sub_0064A3E0@4"
     },
     {
+     "va": "0x0064A400",
+     "length": 103
+    },
+    {
      "va": "0x0064A470",
      "length": 110
     },
@@ -73555,31 +73559,6 @@
      "va": "0x0064B860",
      "length": 1780
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0064A400.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0064A400",
-     "length": 103
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
