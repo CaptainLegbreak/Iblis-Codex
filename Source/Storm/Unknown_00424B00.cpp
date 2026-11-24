@@ -8,14 +8,14 @@ struct D2StormCountStrc
 
 struct D2StormArrayAStrc
 {
-    unsigned int f_0;
-    D2StormCountStrc f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    D2StormCountStrc m_count;
+    unsigned int* m_data;
+    unsigned int m_chunk;
 
     unsigned int Count() const
     {
-        return f_4.n;
+        return m_count.n;
     }
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
@@ -38,23 +38,23 @@ struct BigBuffer
 
     int IsUsed(unsigned int nIndex) const
     {
-        const D2StormCountStrc tCount = m_array.f_4;
+        const D2StormCountStrc tCount = m_array.m_count;
         return nIndex + m_start < tCount.n;
     }
     unsigned int GetInline(unsigned int nIndex) const
     {
-        return IsUsed(nIndex) ? m_array.f_8[m_start + nIndex] : 0;
+        return IsUsed(nIndex) ? m_array.m_data[m_start + nIndex] : 0;
     }
     void SetCountInline(unsigned int nCount)
     {
-        if (nCount > m_array.f_4.n && nCount > m_array.f_0)
+        if (nCount > m_array.m_count.n && nCount > m_array.m_alloc)
         {
-            unsigned int nChunk = m_array.f_C;
+            unsigned int nChunk = m_array.m_chunk;
             if (!nChunk)
                 nChunk = m_array.sub_004210A0_CalcChunkSize(nCount);
             m_array.sub_004216E0_ReallocData(D2StormArrayAStrc::RoundUp(nCount, nChunk));
         }
-        m_array.f_4.n = nCount;
+        m_array.m_count.n = nCount;
     }
     unsigned int ChunkSizeInline(unsigned int nCount)
     {
@@ -65,32 +65,32 @@ struct BigBuffer
                 nResult &= nResult - 1;
             return nResult < 1 ? 1 : nResult;
         }
-        m_array.f_C = 0x40;
+        m_array.m_chunk = 0x40;
         return 0x40;
     }
     void GrowToFitInline(unsigned int nPosition)
     {
-        if (nPosition < m_array.f_4.n)
+        if (nPosition < m_array.m_count.n)
             return;
         const unsigned int nNewCount = nPosition + 1;
-        if (nNewCount > m_array.f_0)
+        if (nNewCount > m_array.m_alloc)
         {
-            const unsigned int nChunk = m_array.f_C ? m_array.f_C : ChunkSizeInline(nNewCount);
+            const unsigned int nChunk = m_array.m_chunk ? m_array.m_chunk : ChunkSizeInline(nNewCount);
             m_array.sub_004216E0_ReallocData(D2StormArrayAStrc::RoundUp(nNewCount, nChunk));
         }
-        SMemZero(&m_array.f_8[m_array.f_4.n], (nPosition - m_array.f_4.n + 1) * sizeof(unsigned int));
-        m_array.f_4.n = nPosition + 1;
+        SMemZero(&m_array.m_data[m_array.m_count.n], (nPosition - m_array.m_count.n + 1) * sizeof(unsigned int));
+        m_array.m_count.n = nPosition + 1;
     }
     inline unsigned int& AtInline(unsigned int nIndex)
     {
         GrowToFitInline(m_start + nIndex);
-        return m_array.f_8[m_start + nIndex];
+        return m_array.m_data[m_start + nIndex];
     }
 };
 
 struct BigStack
 {
-    BigBuffer f_0[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 };
 
@@ -113,7 +113,7 @@ void __stdcall sub_00424B00_BigSquare(BigBuffer* pResult, BigBuffer* pA, BigStac
     {
         // the original relies on the work-stack index staying below 16 here (its push/pop check); without it the frame and loads differ
         __assume(pStack->nUsed < 16);
-        pWork = &pStack->f_0[pStack->nUsed++];
+        pWork = &pStack->pRecords[pStack->nUsed++];
     }
     else
         pWork = pResult;
@@ -139,8 +139,8 @@ void __stdcall sub_00424B00_BigSquare(BigBuffer* pResult, BigBuffer* pA, BigStac
 
     if (pResult != pWork)
     {
-        pResult->m_array.sub_004215C0_Set(pWork->m_array.f_4.n, pWork->m_array.f_8);
-        pResult->m_array.f_C = pWork->m_array.f_C;
+        pResult->m_array.sub_004215C0_Set(pWork->m_array.m_count.n, pWork->m_array.m_data);
+        pResult->m_array.m_chunk = pWork->m_array.m_chunk;
         pResult->m_start = pWork->m_start;
         __assume(1 <= pStack->nUsed);
         pStack->nUsed--;

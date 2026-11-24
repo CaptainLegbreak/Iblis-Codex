@@ -87,7 +87,7 @@ struct BigBuffer
 
 struct BigStack
 {
-    BigBuffer f_0[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 };
 
@@ -230,9 +230,9 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
         b.sub_004220D0_SetCount(1);
         return;
     }
-    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tDiv = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tDiv = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tProduct = tStack.pRecords[tStack.nUsed++];
     unsigned int nShift = 31 - (BigHighBitIndex(&d) & 31);
     Shl(tRem, c, nShift);
     Shl(tDiv, d, nShift);
@@ -339,7 +339,7 @@ void __stdcall Gcd(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack); 
 // 0x004245F0
 static void __stdcall BigMulMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack)
 {
-    BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tProduct = tStack.pRecords[tStack.nUsed++];
     sub_004242C0_BigOp(&tProduct, &b, &c, &tStack);
     Div(tProduct, a, tProduct, d, tStack);
     tStack.nUsed--;
@@ -355,10 +355,10 @@ static void __stdcall PowMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer
         SetOne(a);
         return;
     }
-    BigBuffer& tQuot = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tSquare = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tCube = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tWork = (&a == &b || &a == &c || &a == &d) ? tStack.f_0[tStack.nUsed++] : a;
+    BigBuffer& tQuot = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tSquare = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tCube = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tWork = (&a == &b || &a == &c || &a == &d) ? tStack.pRecords[tStack.nUsed++] : a;
     BigMulMod(tSquare, b, b, d, tStack);
     BigMulMod(tCube, tSquare, b, d, tStack);
     BigBuffer* aPowers[3] = { &b, &tSquare, &tCube };
@@ -398,10 +398,10 @@ static void __stdcall PowMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer
 // 0x00425350
 static int __stdcall IsPrime(BigStack* pStack, BigBuffer& a)
 {
-    BigBuffer& tMinusOne = pStack->f_0[pStack->nUsed++];
-    BigBuffer& tOdd = pStack->f_0[pStack->nUsed++];
-    BigBuffer& tWork = pStack->f_0[pStack->nUsed++];
-    BigBuffer& tBase = pStack->f_0[pStack->nUsed++];
+    BigBuffer& tMinusOne = pStack->pRecords[pStack->nUsed++];
+    BigBuffer& tOdd = pStack->pRecords[pStack->nUsed++];
+    BigBuffer& tWork = pStack->pRecords[pStack->nUsed++];
+    BigBuffer& tBase = pStack->pRecords[pStack->nUsed++];
     int bPrime = 1;
     a.sub_00422140_Trim();
     const BigBuffer& tRead = a;
@@ -499,11 +499,11 @@ static void __stdcall InvMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack&
 
 static void __stdcall InvMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack) // 0x00424FB0
 {
-    BigBuffer& tPrev = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tNum = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tDen = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tQuot = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tPrev = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tNum = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tDen = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tQuot = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
     tNum.CopyFrom(b);
     tDen.CopyFrom(c);
     SetOne(a);

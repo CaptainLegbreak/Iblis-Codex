@@ -160,7 +160,7 @@ struct BigBuffer
 
 struct BigStack
 {
-    BigBuffer f_0[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 };
 
@@ -315,9 +315,9 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
         b.sub_004220D0_SetCount(1);
         return;
     }
-    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tDiv = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tDiv = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tProduct = tStack.pRecords[tStack.nUsed++];
     unsigned int nShift = 31 - (BigHighBitIndex(&d) & 31);
     Shl(tRem, c, nShift);
     Shl(tDiv, d, nShift);
@@ -352,11 +352,11 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
 // 0x00424FB0
 static void __stdcall InvMod(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigStack& tStack)
 {
-    BigBuffer& tPrev = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tNum = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tDen = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tQuot = tStack.f_0[tStack.nUsed++];
-    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tPrev = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tNum = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tDen = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tQuot = tStack.pRecords[tStack.nUsed++];
+    BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
     tNum.CopyFrom(b);
     tDen.CopyFrom(c);
     SetOne(a);

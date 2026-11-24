@@ -157,12 +157,12 @@ inline void BigBuffer::GrowToFit(int nIndex)
 
 struct BigStack
 {
-    union { BigBuffer aBuffers[16]; BigBuffer f_0[16]; };
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 
     BigBuffer& Alloc()
     {
-        return aBuffers[nUsed++];
+        return pRecords[nUsed++];
     }
     void Free()
     {
@@ -306,11 +306,11 @@ static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d
         return;
     }
     __assume(tStack.nUsed < 16);
-    BigBuffer& tRem = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tRem = tStack.pRecords[tStack.nUsed++];
     __assume(tStack.nUsed < 16);
-    BigBuffer& tDiv = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tDiv = tStack.pRecords[tStack.nUsed++];
     __assume(tStack.nUsed < 16);
-    BigBuffer& tProduct = tStack.f_0[tStack.nUsed++];
+    BigBuffer& tProduct = tStack.pRecords[tStack.nUsed++];
     unsigned int nShift = 31 - (BigHighBitIndex(&d) & 31);
     Shl(tRem, c, nShift);
     Shl(tDiv, d, nShift);

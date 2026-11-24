@@ -93,12 +93,12 @@ struct BigBuffer
 
 struct BigStack
 {
-    BigBuffer f_0[16];
+    BigBuffer pRecords[16];
     unsigned int nUsed;
 
     BigBuffer& Alloc()
     {
-        return f_0[nUsed++];
+        return pRecords[nUsed++];
     }
     void Free()
     {
