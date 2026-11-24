@@ -14030,21 +14030,6 @@
      "name": "INV_FindNodeValues"
     },
     {
-     "va": "0x0047AD10",
-     "length": 67,
-     "name": "INV_ResetImeCompositionMsg"
-    },
-    {
-     "va": "0x0047B070",
-     "length": 24,
-     "name": "INV_SetMsgHandled"
-    },
-    {
-     "va": "0x0047BC70",
-     "length": 42,
-     "name": "INV_CloseChatOnPanelClickMsg"
-    },
-    {
      "va": "0x0047EC40",
      "length": 12,
      "name": "?sub_0047EC40_IsSet@@YAHXZ"
@@ -18228,11 +18213,6 @@
      "name": "GFX_SortRosterByName"
     },
     {
-     "va": "0x0047BA80",
-     "length": 80,
-     "name": "GFX_StepChatIndex"
-    },
-    {
      "va": "0x00480420",
      "length": 112,
      "name": "GFX_RefreshPathTarget"
@@ -18347,11 +18327,6 @@
      "va": "0x00478E40",
      "length": 35,
      "name": "?ROSTERPETS_FindEntry@@YIPAUD2ClientEntryStrc@@H@Z"
-    },
-    {
-     "va": "0x0047ACA0",
-     "length": 103,
-     "name": "ROSTERPETS_HandleImeStartComposition"
     },
     {
      "va": "0x004890B0",
@@ -21348,21 +21323,6 @@
      "name": "sub_00478150"
     },
     {
-     "va": "0x0047A990",
-     "length": 6,
-     "name": "DLIGHTMAP_GetClientFlags"
-    },
-    {
-     "va": "0x0047A9D0",
-     "length": 6,
-     "name": "sub_0047A9D0"
-    },
-    {
-     "va": "0x0047AA20",
-     "length": 6,
-     "name": "DLIGHTMAP_GetCTemp"
-    },
-    {
      "va": "0x004817D0",
      "length": 6,
      "name": "sub_004817D0"
@@ -22271,31 +22231,6 @@
      "name": "?ROSTER_RemoveRosterUnit@@YIXH@Z"
     },
     {
-     "va": "0x0047A9B0",
-     "length": 20,
-     "name": "?ROSTER_SetPrimaryClientFlag@@YIXH@Z"
-    },
-    {
-     "va": "0x0047A9E0",
-     "length": 9,
-     "name": "?sub_0047A9E0_GetClientFlag40@@YAHXZ"
-    },
-    {
-     "va": "0x0047A9F0",
-     "length": 11,
-     "name": "?sub_0047A9F0_GetClientFlag80@@YAHXZ"
-    },
-    {
-     "va": "0x0047AA00",
-     "length": 11,
-     "name": "?sub_0047AA00_GetClientFlag200@@YAHXZ"
-    },
-    {
-     "va": "0x0047AA10",
-     "length": 7,
-     "name": "?ROSTER_SetCTemp@@YIXH@Z"
-    },
-    {
      "va": "0x0047AA40",
      "length": 25,
      "name": "?isWhitespace@Unicode@@QBEHXZ"
@@ -22522,9 +22457,49 @@
      "name": "?CHAT_IsNumberDisplayEnabled@@YAHXZ"
     },
     {
+     "va": "0x0047A990",
+     "length": 6,
+     "name": "DLIGHTMAP_GetClientFlags"
+    },
+    {
      "va": "0x0047A9A0",
      "length": 7,
      "name": "?CHAT_SetClientFlags@@YIXH@Z"
+    },
+    {
+     "va": "0x0047A9B0",
+     "length": 20,
+     "name": "?ROSTER_SetPrimaryClientFlag@@YIXH@Z"
+    },
+    {
+     "va": "0x0047A9D0",
+     "length": 6,
+     "name": "sub_0047A9D0"
+    },
+    {
+     "va": "0x0047A9E0",
+     "length": 9,
+     "name": "?sub_0047A9E0_GetClientFlag40@@YAHXZ"
+    },
+    {
+     "va": "0x0047A9F0",
+     "length": 11,
+     "name": "?sub_0047A9F0_GetClientFlag80@@YAHXZ"
+    },
+    {
+     "va": "0x0047AA00",
+     "length": 11,
+     "name": "?sub_0047AA00_GetClientFlag200@@YAHXZ"
+    },
+    {
+     "va": "0x0047AA10",
+     "length": 7,
+     "name": "?ROSTER_SetCTemp@@YIXH@Z"
+    },
+    {
+     "va": "0x0047AA20",
+     "length": 6,
+     "name": "DLIGHTMAP_GetCTemp"
     },
     {
      "va": "0x0047AA30",
@@ -22535,6 +22510,16 @@
      "va": "0x0047AA60",
      "length": 570,
      "name": "?sub_0047AA60_OnImeComposition@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x0047ACA0",
+     "length": 103,
+     "name": "ROSTERPETS_HandleImeStartComposition"
+    },
+    {
+     "va": "0x0047AD10",
+     "length": 67,
+     "name": "INV_ResetImeCompositionMsg"
     },
     {
      "va": "0x0047AD60",
@@ -22549,6 +22534,11 @@
      "va": "0x0047B010",
      "length": 86,
      "name": "?CHAT_IsImeLanguage@@YA_NXZ"
+    },
+    {
+     "va": "0x0047B070",
+     "length": 24,
+     "name": "INV_SetMsgHandled"
     },
     {
      "va": "0x0047B090",
@@ -22606,9 +22596,19 @@
      "name": "?sub_0047BA00_PushChatHistory@@YAXPBUUnicode@@@Z"
     },
     {
+     "va": "0x0047BA80",
+     "length": 80,
+     "name": "GFX_StepChatIndex"
+    },
+    {
      "va": "0x0047BAD0",
      "length": 408,
      "name": "?sub_0047BAD0_ParseChatCommand@@YGHPAPBDPAD1@Z"
+    },
+    {
+     "va": "0x0047BC70",
+     "length": 42,
+     "name": "INV_CloseChatOnPanelClickMsg"
     },
     {
      "va": "0x0047BCA0",

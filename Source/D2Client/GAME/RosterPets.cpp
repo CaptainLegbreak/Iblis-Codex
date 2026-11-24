@@ -469,20 +469,6 @@ D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey)
     return 0;
 }
 
-// 0x0047ACA0
-void __stdcall ROSTERPETS_HandleImeStartComposition(SMSGHANDLER_PARAMS* pMsg)
-{
-    gbGlobal_007BB5E0 = 1;
-    gwGlobal_007BC850 = 0;
-    gwGlobal_007BB5F8 = 0;
-    if (gnGlobal_007BB5DC == 9)
-        gnGlobal_007BB5F0 = 4;
-    else if (gnGlobal_007BB5DC == 8)
-        gnGlobal_007BB5F0 = 5;
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
 
 // 0x004890B0
 int __stdcall ROSTERPETS_HandleRectClick(SMSGHANDLER_PARAMS* pMsg)

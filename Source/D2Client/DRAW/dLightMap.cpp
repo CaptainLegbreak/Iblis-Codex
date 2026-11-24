@@ -1406,25 +1406,8 @@ int __cdecl sub_00478150()
     return gdwGlobal_007BB3B4;
 }
 
-// 0x0047A990
-int __cdecl DLIGHTMAP_GetClientFlags()
-{
-// build: symbol ?gdwClientFlags@* 0x00712EFC
-    return gdwClientFlags;
-}
 
-// 0x0047A9D0
-int __cdecl sub_0047A9D0()
-{
-    return gdwGlobal_00712F04;
-}
 
-// 0x0047AA20
-int __cdecl DLIGHTMAP_GetCTemp()
-{
-// build: symbol ?gnCTemp@* 0x00712F00
-    return gnCTemp;
-}
 
 // 0x004817D0
 int __cdecl sub_004817D0()
