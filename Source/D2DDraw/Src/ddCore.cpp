@@ -9,6 +9,7 @@
 #include "D2DDrawTypes.h"
 
 #include "D2GlideTypes.h"
+#include "D2FogSystemInfo.h"
 
 struct D2CriticalSectionStrc;
 
@@ -305,19 +306,11 @@ void* gpDDrawSmackBuffer;                                                       
 
 int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsigned int nFlags, void* pBuffer, unsigned int nBufferSize, unsigned int* pnBytesRead); // 0x00414DE0
 
-struct T004013C0
-{
-    int unk0x00;
-    int nPlatform;
-    char unk0x08[0x04];
-    unsigned int nTotalMemory;
-};
-
 extern int gbDDrawPlatformFlag; // 0x0088125C
 
 extern char gszDDrawDeviceName[256]; // 0x00881154
 
-T004013C0* __cdecl FOG_GetSystemInfo(); // 0x00407360
+D2FogSystemInfoStrc* __cdecl FOG_GetSystemInfo(); // 0x00407360
 
 void __fastcall GLIDE_SetPalette(const tagPALETTEENTRY* pPalette); // 0x00509300
 
@@ -365,10 +358,10 @@ int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, uns
 // 0x00510020
 int __fastcall DDRAW_Detect(void* hInstance)
 {
-    T004013C0* pSystemInfo = FOG_GetSystemInfo();
+    D2FogSystemInfoStrc* pSystemInfo = FOG_GetSystemInfo();
     D2_ASSERT(pSystemInfo, 0x6F);
 
-    if (pSystemInfo->nPlatform == 1)
+    if (pSystemInfo->nOsKind == 1)
     {
         gbDDrawPlatformFlag = 1;
     }
