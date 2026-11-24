@@ -78212,6 +78212,10 @@
      "length": 2576
     },
     {
+     "va": "0x006BE190",
+     "length": 352
+    },
+    {
      "va": "0x006BE2F0",
      "length": 1,
      "name": "?sub_006BE2F0_Nop@@YAXPBD0H@Z"
@@ -78381,16 +78385,6 @@
     {
      "va": "0x006BCCD0",
      "length": 121
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_006BE190.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BE190",
-     "length": 352
     }
    ]
   },
