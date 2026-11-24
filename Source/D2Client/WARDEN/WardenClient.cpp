@@ -1378,63 +1378,6 @@ void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, 
 }
 
 
-// 0x004DB670
-int __fastcall WARDENCLIENT_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
-{
-    int nX = 0;
-    int nY = 0;
-    if (sub_004F51D0_IsPerspective())
-    {
-        sub_004F6760_PrecisionToScreen(UNITS_GetPrecisionX(pUnit), UNITS_GetPrecisionY(pUnit), 0, &nX, &nY);
-        switch (sub_0045AE90())
-        {
-        case 1:
-            nX -= gnScreenWidth / 4;
-            break;
-
-        case 2:
-            nX += gnScreenWidth / 4;
-            break;
-        }
-    }
-    else
-    {
-        nX = UNITS_GetClientCoordX(pUnit) - PLAYER_GetScreenOffsetX();
-        nY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY();
-    }
-
-    if (!sub_004709A0_IsOnScreen(pUnit, nX, nY, 0, 0))
-    {
-        return 0;
-    }
-
-    D2InventoryStrc* pInventory;
-    D2UnitStrc* pOwner;
-    int bShapeshifted = pUnit ? (pUnit->dwFlagEx >> 3) & 1 : 0;
-    if (bShapeshifted && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = CUNIT_GetOwnerUnit(pUnit)) != 0)
-    {
-        pInventory = pOwner->pInventory;
-    }
-    else
-    {
-        pInventory = pUnit->pInventory;
-    }
-
-    int nWeaponClassId[2];
-    const int nId = COMPOSIT_GetWeaponClassId(pUnit, pInventory, nWeaponClassId, -1, 1);
-    if (!sub_0046E5A0_FindGfxNode(pUnit, nId, -1) && !GFX_LoadUnitGfxNode(pUnit, nId, -1))
-    {
-        return 0;
-    }
-
-    void* pEntry = sub_0046E570_GetGfxEntry(pUnit, sub_0046DA60_GetUnitMode(pUnit));
-    if (!pEntry)
-    {
-        return 0;
-    }
-
-    return GFXUTIL_GetCofLayerValue(pEntry, nArg);
-}
 
 // 0x004E6560
 void __fastcall WARDENCLIENT_SetItemPropTexts(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nArg1, int nArg2)

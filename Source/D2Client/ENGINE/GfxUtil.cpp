@@ -887,6 +887,115 @@ unsigned char __fastcall MISSILE_GetGfxEntryByte(D2UnitStrc* pUnit, int nIndex)
     return pGfxData->aEntries[nIndex][0];
 }
 
+struct Unicode;
+
+void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046E5A0
+
+int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
+
+int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
+
+int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
+
+struct D2ClientServiceStrc
+{
+    char unk0x00[0xC8];
+    void (__fastcall* pfnFree)(void* pData, int nSize);
+    int (__fastcall* pfnFind)(char* szName, int* pArg, void** ppData, int* pSize);
+    void (__fastcall* pfnCall)(const char* szName, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
+};
+
+struct T0044CB60
+{
+    Unicode* pText;
+    T0044CB60* pNext;
+};
+
+struct D2ChatMessageStrc
+{
+    unsigned char unk0x00;
+    unsigned char nType;
+    unsigned char unk0x02[6];
+    unsigned char nColor;
+    unsigned char unk0x09[0x11];
+    D2ChatTextStrc tText;
+};
+
+class D2SquelchListStrc
+{
+public:
+    virtual int Squelch(const char* szName);
+    virtual int Unsquelch(const char* szName);
+    virtual int IsSquelched(const char* szName);
+    virtual int AddFilter(const char* szText);
+    virtual int RemoveFilter(const char* szText);
+    virtual int IsFiltered(const char* szText);
+    virtual void VirtSlot6();
+    virtual void VirtSlot7();
+    virtual int IsPersistent();
+    virtual void SetPersistent(int bPersistent);
+};
+
+int __fastcall GFXUTIL_GetCofLayerValue(const unsigned char* pData, int nCode); // 0x004DB0D0
+
+// 0x004DB670
+int __fastcall WARDENCLIENT_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
+{
+    int nX = 0;
+    int nY = 0;
+    if (sub_004F51D0_IsPerspective())
+    {
+        sub_004F6760_PrecisionToScreen(UNITS_GetPrecisionX(pUnit), UNITS_GetPrecisionY(pUnit), 0, &nX, &nY);
+        switch (sub_0045AE90())
+        {
+        case 1:
+            nX -= gnScreenWidth / 4;
+            break;
+
+        case 2:
+            nX += gnScreenWidth / 4;
+            break;
+        }
+    }
+    else
+    {
+        nX = UNITS_GetClientCoordX(pUnit) - PLAYER_GetScreenOffsetX();
+        nY = UNITS_GetClientCoordY(pUnit) - PLAYER_GetScreenOffsetY();
+    }
+
+    if (!sub_004709A0_IsOnScreen(pUnit, nX, nY, 0, 0))
+    {
+        return 0;
+    }
+
+    D2InventoryStrc* pInventory;
+    D2UnitStrc* pOwner;
+    int bShapeshifted = pUnit ? (pUnit->dwFlagEx >> 3) & 1 : 0;
+    if (bShapeshifted && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = CUNIT_GetOwnerUnit(pUnit)) != 0)
+    {
+        pInventory = pOwner->pInventory;
+    }
+    else
+    {
+        pInventory = pUnit->pInventory;
+    }
+
+    int nWeaponClassId[2];
+    const int nId = COMPOSIT_GetWeaponClassId(pUnit, pInventory, nWeaponClassId, -1, 1);
+    if (!sub_0046E5A0_FindGfxNode(pUnit, nId, -1) && !GFX_LoadUnitGfxNode(pUnit, nId, -1))
+    {
+        return 0;
+    }
+
+    void* pEntry = sub_0046E570_GetGfxEntry(pUnit, sub_0046DA60_GetUnitMode(pUnit));
+    if (!pEntry)
+    {
+        return 0;
+    }
+
+    return GFXUTIL_GetCofLayerValue((const unsigned char*)pEntry, nArg);
+}
+
 // 0x004DBEA0
 void __fastcall GFXUTIL_GetUnitCelSize(D2UnitStrc* pUnit, int nArg40, int nArg0, int* pWidth, int* pHeight)
 {

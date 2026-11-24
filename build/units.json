@@ -20449,6 +20449,11 @@
      "name": "GFXUTIL_GetBodyLocItemShift"
     },
     {
+     "va": "0x004DB670",
+     "length": 318,
+     "name": "WARDENCLIENT_UpdateUnitGfx"
+    },
+    {
      "va": "0x004DB7B0",
      "length": 924
     },
@@ -22603,11 +22608,6 @@
      "va": "0x004A1320",
      "length": 481,
      "name": "WARDENCLIENT_OpenTextPanel"
-    },
-    {
-     "va": "0x004DB670",
-     "length": 318,
-     "name": "WARDENCLIENT_UpdateUnitGfx"
     },
     {
      "va": "0x004E6560",
