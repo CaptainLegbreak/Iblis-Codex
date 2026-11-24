@@ -141,27 +141,27 @@ void* __fastcall sub_0040B430(void*,int,const char*,int,int); // 0x0040B430
 
 extern char npc_messages[]; // 0x0073B288
 
-void __fastcall sub_0059D1C0(Quest*,Arg*); // 0x0059D1C0
+void __fastcall ACT2Q6_Callback03_ChangedLevel(Quest*,Arg*); // 0x0059D1C0
 
-void __fastcall sub_0059C3C0(Quest*,Arg*); // 0x0059C3C0
+void __fastcall ACT2Q6_Callback00_NpcActivate(Quest*,Arg*); // 0x0059C3C0
 
-void __fastcall sub_0059CB20(Quest*,Arg*); // 0x0059CB20
+void __fastcall ACT2Q6_Callback11_ScrollMessage(Quest*,Arg*); // 0x0059CB20
 
 void __fastcall ACT2Q6_RemovePlayerGUID(Quest*,Arg*); // 0x0059C6B0
 
-void __fastcall sub_0059C760(Quest*,Arg*); // 0x0059C760
+void __fastcall ACT2Q6_Callback02_NpcDeactivate(Quest*,Arg*); // 0x0059C760
 
-void __fastcall sub_0059D4F0(Quest*,Arg*); // 0x0059D4F0
+void __fastcall ACT2Q6_Callback13_PlayerStartedGame(Quest*,Arg*); // 0x0059D4F0
 
-void __fastcall sub_0059D4D0(Quest*,Arg*); // 0x0059D4D0
+void __fastcall ACT2Q6_Callback14_PlayerJoinedGame(Quest*,Arg*); // 0x0059D4D0
 
-void __fastcall sub_0059D050(Quest*,Arg*); // 0x0059D050
+void __fastcall ACT2Q6_Callback08_MonsterKilled(Quest*,Arg*); // 0x0059D050
 
-bool __fastcall sub_0059CA50(Quest*,Unit*,Flags*,Flags*,unsigned char*); // 0x0059CA50
+bool __fastcall ACT2Q6_StatusFilterCallback(Quest*,Unit*,Flags*,Flags*,unsigned char*); // 0x0059CA50
 
-bool __fastcall sub_0059D300(Quest*,int,Unit*,Flags*,Unit*); // 0x0059D300
+bool __fastcall ACT2Q6_ActiveFilterCallback(Quest*,int,Unit*,Flags*,Unit*); // 0x0059D300
 
-bool __fastcall sub_0059D450(Quest*); // 0x0059D450
+bool __fastcall ACT2Q6_SeqCallback(Quest*); // 0x0059D450
 
 enum { QUEST_FILTER = 14, ALLOC_LINE = 1090 };
 
@@ -512,24 +512,24 @@ bool __fastcall ACT2Q6_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
 void __fastcall ACT2Q6_InitQuestData(Quest* quest)
 {
     memset(quest->callbacks,0,sizeof(quest->callbacks));
-    quest->callbacks[3]=sub_0059D1C0;
-    quest->callbacks[0]=sub_0059C3C0;
-    quest->callbacks[11]=sub_0059CB20;
+    quest->callbacks[3]=ACT2Q6_Callback03_ChangedLevel;
+    quest->callbacks[0]=ACT2Q6_Callback00_NpcActivate;
+    quest->callbacks[11]=ACT2Q6_Callback11_ScrollMessage;
     quest->callbacks[10]=ACT2Q6_RemovePlayerGUID;
-    quest->callbacks[2]=sub_0059C760;
-    quest->callbacks[13]=sub_0059D4F0;
-    quest->callbacks[14]=sub_0059D4D0;
-    quest->callbacks[8]=sub_0059D050;
+    quest->callbacks[2]=ACT2Q6_Callback02_NpcDeactivate;
+    quest->callbacks[13]=ACT2Q6_Callback13_PlayerStartedGame;
+    quest->callbacks[14]=ACT2Q6_Callback14_PlayerJoinedGame;
+    quest->callbacks[8]=ACT2Q6_Callback08_MonsterKilled;
     quest->messages=npc_messages;
     quest->active=1;
     quest->state=0;
     Extra* extra=(Extra*)sub_0040B430(quest->game->pool,0x68,"d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp",ALLOC_LINE,0);
     quest->extra=extra;
     quest->filter=QUEST_FILTER;
-    quest->statusFilter=sub_0059CA50;
+    quest->statusFilter=ACT2Q6_StatusFilterCallback;
     quest->init=4;
-    quest->activeFilter=sub_0059D300;
-    quest->sequenceFilter=sub_0059D450;
+    quest->activeFilter=ACT2Q6_ActiveFilterCallback;
+    quest->sequenceFilter=ACT2Q6_SeqCallback;
     memset(extra,0,0x68);
     extra->f1=0;
     extra->f2=0;

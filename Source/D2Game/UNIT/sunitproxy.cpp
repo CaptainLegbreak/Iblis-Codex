@@ -138,7 +138,7 @@ void __stdcall ITEMS_SetInvPage(D2UnitStrc*,unsigned char); // 0x00628280
 
 void __fastcall SUNITNPC_SetItemTradeFlags(D2UnitStrc*,D2UnitStrc*,D2GameStrc*,int,int); // 0x005762C0
 
-int __fastcall sub_00579030(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x00579030
+int __fastcall SUNITNPC_RollTraderItems(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x00579030
 
 void __fastcall FOG_FreePool(void*,void*,const char*,int,int); // 0x0040B480
 
@@ -772,7 +772,7 @@ void __fastcall SUNITPROXY_ProcessNpcEvents(D2GameStrc* game,D2UnitStrc* npc)
    if(event==record->pEvent){record->pEvent=event->pNext;FOG_FreePool(game->pMemoryPool,event,".\\UNIT\\sunitproxy.cpp",0x3ea,0);event=record->pEvent;prev=0;}
    else{prev->pNext=event->pNext;FOG_FreePool(game->pMemoryPool,event,".\\UNIT\\sunitproxy.cpp",0x3f1,0);event=prev->pNext;}
   }else {
-   if(!sub_00579030(game,npc,event->pUnit,event->field_4)){prev=event;event=event->pNext;continue;}
+   if(!SUNITNPC_RollTraderItems(game,npc,event->pUnit,event->field_4)){prev=event;event=event->pNext;continue;}
    if(event==record->pEvent){record->pEvent=event->pNext;FOG_FreePool(game->pMemoryPool,event,".\\UNIT\\sunitproxy.cpp",0x403,0);event=record->pEvent;prev=0;}
    else{prev->pNext=event->pNext;FOG_FreePool(game->pMemoryPool,event,".\\UNIT\\sunitproxy.cpp",0x40a,0);event=prev->pNext;}
   }

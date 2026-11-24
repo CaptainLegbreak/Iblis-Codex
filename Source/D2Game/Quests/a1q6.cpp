@@ -233,7 +233,7 @@ void __fastcall ACT1Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 
 char __fastcall ACT1Q6_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x005967F0
 
-void __fastcall sub_00545310(D2QuestDataStrc*); // 0x00545310
+void __fastcall QUESTS_QuickRemovePlayerGUID(D2QuestDataStrc*); // 0x00545310
 
 void __fastcall CLIENTS_UpdateCharacterProgression(D2ClientStrc* pClient, int nAct, int nDifficulty); // 0x00538680
 
@@ -558,7 +558,7 @@ void __fastcall ACT1Q6_Callback03_ChangedLevel(D2QuestDataStrc* q,D2QuestArgStrc
   return;
  }
  if(oldLevel==1) {
-  sub_00545310(q);
+  QUESTS_QuickRemovePlayerGUID(q);
   if(q->fState==2) {
    D2BitBufferStrc* flags=PLAYER_GetQuestFlags(arg->pGame,arg->pPlayer);
    if(QUESTRECORD_GetQuestState(flags,q->eFilter,0)!=1 && QUESTRECORD_GetQuestState(flags,q->eFilter,1)!=1) {

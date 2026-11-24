@@ -320,7 +320,7 @@ void __fastcall PLAYER_Create(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPlaye
 }
 
 // 0x00534970
-static void sub_00534970_RemoveCorpseUnits(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+static void PLAYER_RemoveCorpseUnits(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     for (D2CorpseStrc* pCorpse = INVENTORY_GetFirstCorpse(pPlayer->pInventory); pCorpse; pCorpse = INVENTORY_GetNextCorpse(pCorpse))
     {
@@ -345,7 +345,7 @@ void __fastcall PLAYER_Destroy(D2GameStrc* pGame, D2UnitStrc* pPlayer)
     PARTY_LeaveParty(pGame, pPlayer);
     PLAYERLIST_FreePlayerLists(pGame, pPlayer);
     SUNITDMG_FreeAttackerCombatList(pGame, pPlayer);
-    sub_00534970_RemoveCorpseUnits(pGame, pPlayer);
+    PLAYER_RemoveCorpseUnits(pGame, pPlayer);
     SUNIT_RemoveAllItemsFromInventory(pGame, pPlayer);
     INVENTORY_FreeInventory(pPlayer->pInventory);
     ARENA_FreeArenaUnit(pGame, pPlayer);

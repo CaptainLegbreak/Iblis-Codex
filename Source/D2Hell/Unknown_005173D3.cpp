@@ -119,7 +119,8 @@ extern "C" B27RecordHandler __fastcall sub_005173D3_ExchangeRecordHandler(B27Rec
     return previous;
 }
 
-extern "C" void __fastcall sub_00535780_SetPlayers(unsigned int count)
+// build: symbol @PLAYER_SetVirtualPlayerCount@* 0x00535780
+extern "C" void __fastcall PLAYER_SetVirtualPlayerCount(unsigned int count)
 {
     if (count <= 8)
         gB27_00883D70 = count;

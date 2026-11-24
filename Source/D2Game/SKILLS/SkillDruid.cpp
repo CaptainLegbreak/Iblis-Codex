@@ -525,7 +525,7 @@ int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 
 int __stdcall PATH_GetNumberOfPathPoints(D2DynamicPathStrc* pDynamicPath); // 0x00648780
 
-int __fastcall sub_00554EA0(Game*,D2UnitStrc*,D2ActiveRoomStrc*,int,int,int,int); // 0x00554EA0
+int __fastcall SUNIT_TeleportUnit(Game*,D2UnitStrc*,D2ActiveRoomStrc*,int,int,int,int); // 0x00554EA0
 
 enum { UNIT_FLAGS = 0xE };
 
@@ -2660,7 +2660,7 @@ int __fastcall SKILLS_SrvDo085_UnholyBolt_ShamanFire(D2GameStrc* pGame, D2UnitSt
 // 0x005CB170
 int __fastcall SKILLS_SrvSt44_MaggotUp(Game* game,D2UnitStrc* unit,int skillId,int level)
 {
-    if(!sub_00554EA0(game,unit,UNITS_GetRoom(unit),UNITS_GetUnitXPosition(unit),UNITS_GetUnitYPosition(unit),0,0)) return 0;
+    if(!SUNIT_TeleportUnit(game,unit,UNITS_GetRoom(unit),UNITS_GetUnitXPosition(unit),UNITS_GetUnitYPosition(unit),0,0)) return 0;
     unit->dwFlags |= UNIT_FLAGS;
     COLLISION_SetMaskWithPattern(UNITS_GetRoom(unit),UNITS_GetUnitXPosition(unit),UNITS_GetUnitYPosition(unit),1,0x1000);
     return 1;

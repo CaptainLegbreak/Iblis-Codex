@@ -52,7 +52,7 @@ void __cdecl GRID_LockCDKeys(); // 0x005234D0
 
 void __cdecl GRID_UnlockCDKeys(); // 0x005239C0
 
-const char* __cdecl sub_00523AA0_GetExeInfo(); // 0x00523AA0
+const char* __cdecl BNCLIENT_GetExeInfo(); // 0x00523AA0
 
 extern "C" const char* __fastcall sub_00408090(); // 0x00408090
 
@@ -130,7 +130,7 @@ int __cdecl sub_00521DC0_SendAuthCheck()
         tPacket.nKeys = 2;
         sub_0051E340_BuildCDKeyInfoForSlot(&tPacket.pKeys[0], gdwBnClientToken, 0);
         sub_0051E340_BuildCDKeyInfoForSlot(&tPacket.pKeys[1], gdwBnClientToken, 1);
-        SStrCopy(pString, sub_00523AA0_GetExeInfo(), &tPacket.szData[0x200] - pString);
+        SStrCopy(pString, BNCLIENT_GetExeInfo(), &tPacket.szData[0x200] - pString);
     }
     else
     {
@@ -138,7 +138,7 @@ int __cdecl sub_00521DC0_SendAuthCheck()
         pString = &pData[SStrCopy(pData, szText, 0x200) + 1];
         tPacket.nKeys = 1;
         sub_0051E340_BuildCDKeyInfoForSlot(&tPacket.pKeys[0], gdwBnClientToken, 0);
-        SStrCopy(pString, sub_00523AA0_GetExeInfo(), &pData[0x200] - pString);
+        SStrCopy(pString, BNCLIENT_GetExeInfo(), &pData[0x200] - pString);
     }
 
     GRID_UnlockCDKeys();

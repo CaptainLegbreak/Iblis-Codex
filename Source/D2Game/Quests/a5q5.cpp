@@ -100,7 +100,7 @@ extern "C" const char gszA5Q6SourceFile[];
 
 int __fastcall PLAYER_GetUniqueIdFromPlayerData(D2UnitStrc* pPlayer); // 0x005353F0
 
-void __fastcall sub_00535430(D2GameStrc* pGame, D2UnitStrc* pPlayer);
+void __fastcall PLAYER_RemoveTownPortal(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00535430
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
@@ -1256,7 +1256,7 @@ int __fastcall ACT5Q5_UnitIterate_ClosePortals(D2GameStrc* pGame, D2UnitStrc* pU
 
     if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPortal)) == LEVEL_ROCKYSUMMIT)
     {
-        sub_00535430(pGame, pUnit);
+        PLAYER_RemoveTownPortal(pGame, pUnit);
     }
 
     return 0;

@@ -6,7 +6,7 @@ struct D2UnitStrc { int dwUnitType; char pad04[0x1C]; D2SeedStrc pSeed; int pad2
 struct D2GameStrc { char pad00[0x6D]; unsigned char nDifficulty; };
 struct D2MonStatsTxt { char pad00[0x56]; short wAiParam[8][3]; };
 struct D2AiTickParamStrc { void* pAiControl; int unk04; D2UnitStrc* pTarget; int unk0C[2]; int nTargetDistance,bCombat; D2MonStatsTxt* pMonstatsTxt; };
-void __fastcall sub_005B1990_AddTargetNode(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
+void __fastcall TARGETS_InsertUnitNode(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc*,D2UnitStrc*,int,D2UnitStrc*); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc*,D2UnitStrc*,int); // 0x005DE080
 void __fastcall AITACTICS_Idle(D2GameStrc*,D2UnitStrc*,int); // 0x005DE0F0
@@ -58,7 +58,7 @@ void __fastcall sub_005EDC50_ThinkWander(D2GameStrc* pGame,D2UnitStrc* pUnit,D2A
     D2UnitStrc* pTarget = pTick->pTarget;
     int nDistance = pTick->nTargetDistance;
     D2MonStatsTxt* pMonStatsTxt = pTick->pMonstatsTxt;
-    if (pUnit->nNodeIndex == 11) sub_005B1990_AddTargetNode(pGame,pUnit,0,8);
+    if (pUnit->nNodeIndex == 11) TARGETS_InsertUnitNode(pGame,pUnit,0,8);
     if (pTarget)
     {
         if (bCombat)

@@ -349,7 +349,7 @@ struct D2GameStrc { char unk00[0x6D]; unsigned char nDifficulty; char unk6E[0x10
 struct D2AiControlStrc { int unk00[2]; union { unsigned short nFlags; struct { unsigned short unkFlags:3; unsigned short bHadTarget:1; }; }; };
 int __stdcall sub_0061AA40_TestRoom(D2ActiveRoomStrc* pRoom); // 0x0061AA40
 int __stdcall sub_0061AB00_IsTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
-unsigned int __fastcall sub_005DC530_GetDistance(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC530
+unsigned int __fastcall AIUTIL_GetDistanceToCoordinates_NoUnitSize(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC530
 extern "C" const char* __cdecl ASSERT_GetSourceFile(); // 0x00408090
 extern "C" void __cdecl ASSERT_Report(const char*, const char*, int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
@@ -420,7 +420,7 @@ D2UnitStrc* __fastcall AIUTIL_FindAiTarget(D2GameStrc* pGame, D2UnitStrc* pUnit,
                     }
                     if (nAct == pCurrent->nAct && UNITS_GetRoom(pCurrent) && !sub_0061AB00_IsTown(UNITS_GetRoom(pCurrent)))
                     {
-                        unsigned int nCurrentDistance = sub_005DC530_GetDistance(pCurrent, nX, nY);
+                        unsigned int nCurrentDistance = AIUTIL_GetDistanceToCoordinates_NoUnitSize(pCurrent, nX, nY);
                         if (nCurrentDistance < nMinDistance)
                             nMinDistance = nCurrentDistance;
                         if (nCurrentDistance < 55)
@@ -438,7 +438,7 @@ D2UnitStrc* __fastcall AIUTIL_FindAiTarget(D2GameStrc* pGame, D2UnitStrc* pUnit,
                                 if (!pNode)
                                     break;
                                 pCurrent = pNode->pUnit;
-                                nCurrentDistance = sub_005DC530_GetDistance(pCurrent, nX, nY);
+                                nCurrentDistance = AIUTIL_GetDistanceToCoordinates_NoUnitSize(pCurrent, nX, nY);
                             }
                         }
                     }
@@ -450,7 +450,7 @@ D2UnitStrc* __fastcall AIUTIL_FindAiTarget(D2GameStrc* pGame, D2UnitStrc* pUnit,
                 D2UnitStrc* pCurrent = pNode->pUnit;
                 if (nAct == pCurrent->nAct)
                 {
-                    const unsigned int nCurrentDistance = sub_005DC530_GetDistance(pCurrent, nX, nY);
+                    const unsigned int nCurrentDistance = AIUTIL_GetDistanceToCoordinates_NoUnitSize(pCurrent, nX, nY);
                     if (nCurrentDistance < (unsigned int)nDistance && (!bCheckCollision || !UNITS_TestCollisionWithUnit(pUnit, pCurrent, 4)))
                     {
                         nDistance = nCurrentDistance;
@@ -467,7 +467,7 @@ D2UnitStrc* __fastcall AIUTIL_FindAiTarget(D2GameStrc* pGame, D2UnitStrc* pUnit,
                 D2UnitStrc* pCurrent = pNode->pUnit;
                 if (nAct == pCurrent->nAct)
                 {
-                    const unsigned int nCurrentDistance = sub_005DC530_GetDistance(pCurrent, nX, nY);
+                    const unsigned int nCurrentDistance = AIUTIL_GetDistanceToCoordinates_NoUnitSize(pCurrent, nX, nY);
                     if (nCurrentDistance < nAlternativeDistance && (!bCheckCollision || !UNITS_TestCollisionWithUnit(pUnit, pCurrent, 4)))
                     {
                         nAlternativeDistance = nCurrentDistance;

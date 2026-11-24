@@ -31,11 +31,11 @@ short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 void __fastcall PLAYERLIST_SetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int a3); // 0x0055B3A0
 void __fastcall SCMD_BroadcastPlayerParty(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x0053DEC0
 
-short __fastcall sub_0055B3F0(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B3F0
-void __fastcall sub_0055B440(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B440
-short __fastcall sub_00540100(D2GameStrc* pGame); // 0x00540100
+short __fastcall PLAYERLIST_GetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B3F0
+void __fastcall PLAYERLIST_SendPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0055B440
+short __fastcall PARTY_CreateParty(D2GameStrc* pGame); // 0x00540100
 int __fastcall sub_00540320(D2GameStrc* pGame, short nPartyId, D2UnitStrc* pPlayer); // 0x00540320
-void __fastcall sub_0055B650(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x0055B650
+void __fastcall PLAYERLIST_ResetPendingPartyInvitations(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x0055B650
 void __fastcall PARTYSCREEN_PlayerIterate_PartyJoined(D2GameStrc* pGame, D2UnitStrc* pLocalPlayer, void* a3); // 0x005A5970
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
@@ -273,26 +273,26 @@ void __fastcall PARTYSCREEN_AcceptInvitation(D2GameStrc* pGame, D2UnitStrc* pPla
     unsigned short nPartyId = SUNIT_GetPartyId(pTarget);
     PLAYERLIST_AllocPlayerList(pGame, pPlayer, pTarget);
     PLAYERLIST_AllocPlayerList(pGame, pTarget, pPlayer);
-    if (sub_0055B3F0(pPlayer, pTarget) != JOIN_RELATION)
+    if (PLAYERLIST_GetPartyState(pPlayer, pTarget) != JOIN_RELATION)
     {
-        sub_0055B440(pTarget, pPlayer);
-        sub_0055B440(pPlayer, pTarget);
+        PLAYERLIST_SendPartyState(pTarget, pPlayer);
+        PLAYERLIST_SendPartyState(pPlayer, pTarget);
         return;
     }
 
     if (nPartyId == 0xFFFF)
     {
-        nPartyId = sub_00540100(pGame);
+        nPartyId = PARTY_CreateParty(pGame);
         sub_00540320(pGame, nPartyId, pTarget);
         sub_00540320(pGame, nPartyId, pPlayer);
-        sub_0055B650(pGame, pTarget);
+        PLAYERLIST_ResetPendingPartyInvitations(pGame, pTarget);
     }
     else
     {
         sub_00540320(pGame, nPartyId, pPlayer);
     }
 
-    sub_0055B650(pGame, pPlayer);
+    PLAYERLIST_ResetPendingPartyInvitations(pGame, pPlayer);
     UnitGetClient(pPlayer, ".\\PLAYER\\PartyScreen.cpp", 233)->PARTYSCREEN_SendEventUpdateToClient(!pTarget ? -1 : pTarget->dwUnitId, 8);
     D2PartyScreenCallbackStrc tArgs = D2PartyScreenCallbackStrc();
     tArgs.pPlayer1 = pTarget;
