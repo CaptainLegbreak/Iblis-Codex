@@ -4,6 +4,11 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/shared-copies cdb9c9fd 562->562 Shared headers replace eight private record copies whose layout already agrees with the header: D2DataTablesStrc (inv_004886C0), D2GSPacketSrv73 (Missiles), D2GSPacketSrvAA (PlrEval, Unknown_00570420), D2GSPacketSrv5D (a5q3), D2RoomCoordListStrc (Unknown_0054DAC0), D2ObjInitFnStrc (Unknown_0059F440), D2StormArrayAStrc (Storm Unknown_004212F0); VERIFIED 4c77adfc7ff97a0aea2eca2579de942cd8382406
+  - Verified on #309, rebased onto #310. #310 touches none of the 8 units; precheck is equal on #310.
+  - Outside lane 2: lanes 3, 4 and 5 (one include replaces the private copy in each unit).
+  - Found by a sweep of every unit whose private struct shares its name with a shared-header struct (about 230 names). Only these build equal as they are. The rest fail to compile (different field names, or other private records in the unit that clash with the header) or change code (sizeof, or a different layout). Those need work unit by unit.
+
 - lane2/save-header 1a3dce75 562->562 D2SaveHeader.h: the .d2s character save header (0x14F, packed) and its skill-key record, shared from PlrSave2's layout, instead of private copies in Clients, PlrSave, PlrSave2, Unknown_0056B180 and an unused one in Items.cpp. PlrSave reads the map seed (0xAB) as the packed int instead of through `*(int*)`; VERIFIED 6c66aca732b4a5da6a53250a8fbb77a5431d209a
   - Verified on #307, rebased onto #308. #308 touches none of the 5 changed units; precheck is equal on #308.
   - Outside lane 2: all five units are lane 5's. The client's Game_0044E5A0 (lane 4) keeps its 8-byte view, because it copies the header by value.
