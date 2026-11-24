@@ -1,0 +1,105 @@
+va	old_name	file	reason
+0x0042FE60	sub_0042FE60_FilterChar	Source/D2Launch/Src/MainMenus.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0042FE60_KeyFilter)
+0x0042FF00	sub_0042FF00_FilterChar	Source/D2Launch/Src/MainMenus.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0042FF10	sub_0042FF10_SetValue	Source/D2Launch/Src/MainMenus.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00430120	sub_00430120_OnToggle	Source/D2Launch/Src/CharSel.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x00430160	sub_00430160_OnToggle	Source/D2Launch/Src/CharSel.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x00430520	sub_00430520	Source/D2Launch/Src/CharSel.cpp	creates front-end controls from templates 0xCD-0xCF…; which screen it builds is not clear
+0x00430C30	sub_00430C30_OnCancel	Source/D2Launch/Src/MainMenus.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x00431910	sub_00431910_SetFlagD4	Source/D2Launch/Src/MainMenus.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x00431920	sub_00431920_SetFlagD4	Source/D2Launch/Src/MainMenus.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x00431F50	sub_00432020_OnCancel	Source/D2Launch/Src/MainMenus.cpp	cancel callback that fades the sounds, resets the menus and calls an unnamed function; purpose too generic to name; (also spelled sub_00431F50_OnCancel)
+0x00432020	sub_00432020_OnCancel	Source/D2Launch/Src/MainMenus.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00432040	sub_00432040_OnCancel2	Source/D2Launch/Src/MainMenus.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00432350	sub_00432350_IsListedCode	Source/D2Launch/Src/MainMenus.cpp	tests a connect-error code against a list; the list's meaning is unknown; (also spelled sub_00432350_GetStatus)
+0x004325B0	sub_004325B0_CreateScreen	Source/D2Launch/Src/CharSel.cpp	builds a front-end screen (sky palette); which screen is not clear
+0x00434DC0	sub_00434DC0_Leave	Source/D2Launch/Src/MainMenus.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x00434DF0	sub_00434DF0_Leave	Source/D2Launch/Src/MainMenus.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x00435020	sub_00435020_Callback	Source/D2Launch/Src/MainMenus.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x004379C0	sub_0051DC70_GetTime	Source/D2Launch/Src/CharSel.cpp	copy of BNDOWNLOAD_GetTime (the source defines it under that name); _time32 wrapper
+0x00438030	sub_00438030_IsNotListedCode	Source/D2Launch/Src/CharSel.cpp	tests a value against a list of codes whose meaning is unknown; (also spelled sub_A15_Emit_00438030)
+0x00439CC0	sub_00439CC0_CreateControls	Source/D2Launch/Src/CharSel.cpp	creates front-end controls from templates 0xD6-0xD8…; which screen it builds is not clear
+0x00439D50	sub_00439D50_CreateControls	Source/D2Launch/Src/CharSel.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0043A610	sub_0043A610_ShowString	Source/D2Launch/Src/CharSel.cpp	shows a notice with string 0x2B3B; purpose too generic to name
+0x0043B830	sub_0043B830	Source/D2Launch/Src/CharSel.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0043BF60	sub_0043BF60	Source/D2Launch/Src/CharSel.cpp	starts a connection through the function table; its exact role next to CHARSEL_Connect is unclear
+0x0043C6A0	sub_0043C6A0	Source/D2Launch/Src/CharSel.cpp	sets an unnamed flag bit
+0x0043CBF0	sub_0043CBF0_Nop	Source/D2Multi/Src/ChatDlg.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x0043CC00	sub_0043CC00_StrChr	Source/D2Multi/Src/ChatDlg.cpp	SStrChr / SStrChrR by a direction flag (a local copy)
+0x0043CC20	sub_0043CC20_TestBit2	Source/D2Multi/Src/ChatDlg.cpp	tests bit 4 of a value; meaning unknown
+0x004414C0	sub_004414C0_UpdateEnable	Source/D2Multi/Src/ChatDlg.cpp	updates a control's enabled state from unnamed character flags
+0x00443C10	sub_00443C10_AlwaysOne	Source/D2Launch/Src/MainMenus.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x00446D60	sub_00446D60_Classify	Source/D2Multi/Src/ComCallback.cpp	tests a code against a list whose meaning is unknown
+0x00449C90	sub_00449C90_SetValue	Source/D2Multi/Src/ChatDlg.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00449CC0	sub_00449CC0_SetValue	Source/D2Multi/Src/ChatDlg.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00449D90	sub_00449D90_SetValue	Source/D2Multi/Src/ChatDlg.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00449DB0	sub_00449DB0_SetValue	Source/D2Multi/Src/ChatDlg.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00449DD0	sub_00449DD0_SetValue	Source/D2Multi/Src/ChatDlg.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00449E30	sub_00449E30_SetValue	Source/D2Multi/Src/ChatDlg.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00449E50	sub_00449E50_SetValue	Source/D2Multi/Src/ChatDlg.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004F5140	sub_004F5140	Source/D2Gfx/SRC/Window.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004F52C0	sub_004F52C0_Empty	Source/D2Gfx/SRC/Window.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x004F52D0	sub_004F52D0_Empty	Source/D2Gfx/SRC/Window.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00503F70	sub_00503F70	Source/D2Win/Src/D2Comp.cpp	tests a selector against a list of codes whose meaning is unknown; (also spelled emit_selector_00503F70)
+0x005043D0	sub_005043D0_Stub4	Source/D2Win/Src/D2Comp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0050EF80	sub_M117_TilePopHead	Source/D2Glide/Src/glSubtileCache.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0050EF80_TileCachePopUsed)
+0x0050F510	sub_M117_TilePopHead	Source/D2Glide/Src/glFloorCache.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00514040	sub_00514040_Nothing	Source/D2Sound/Src/D2SoundFast.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00514050	sub_00514050_Nothing	Source/D2Sound/Src/D2SoundFast.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00515110	sub_00515110_Nop	Source/D2Sound/Src/D2SoundSmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00515EC0	sub_00515EC0_Nop	Source/D2Sound/Src/D2SoundSmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00515ED0	sub_00515ED0_Nop	Source/D2Sound/Src/D2SoundSmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00516570	sub_00516570_Log	Source/D2Sound/Src/D2SoundSmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00516590	sub_00516590_Pow	Source/D2Sound/Src/D2SoundSmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x005165B0	sub_005165B0_Log	Source/D2Sound/Src/D2SoundSmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x005165D0	sub_005165D0_Pow	Source/D2Sound/Src/D2SoundSmp.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00518BA0	sub_00518BA0_LogWrite	Source/D2BNClient/BnDownload.cpp	log member (write); member names, see the member-function question
+0x0051CA10	sub_0051CA10	Source/D2Glide/Src/glCore.cpp	returns 14; purpose unknown; in data_plan.json
+0x0051D2A0	sub_0051D2A0_At	Source/D2BNClient/BNNews.cpp	growable-array template member (element at index)
+0x0051D2C0	sub_0051D2C0_InitBase	Source/D2BNClient/BNNews.cpp	growable-array template member (init)
+0x0051D2D0	sub_0051D2D0_Nop	Source/D2BNClient/BNNews.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0051D2E0	sub_0051D2E0_Nop	Source/D2BNClient/BNNews.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0051D2F0	sub_0051D2F0_CalcChunkSize	Source/D2BNClient/BNNews.cpp	growable-array template member (chunk size)
+0x0051D570	sub_0051D570_FreeData	Source/D2BNClient/BNNews.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0051D5D0	sub_0051D5D0_ReallocData	Source/D2BNClient/BNNews.cpp	growable-array template member (realloc)
+0x0051D670	sub_0051D670_FreeData	Source/D2BNClient/BNNews.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0051D690	sub_0051D690_Init	Source/D2BNClient/BNNews.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0051D6A0	sub_0051D6A0_Clear	Source/D2BNClient/BNNews.cpp	growable-array template member (clear)
+0x0051D6D0	sub_0051D6D0_Reserve	Source/D2BNClient/BNNews.cpp	growable-array template member (reserve)
+0x0051D720	sub_0051D720_Init	Source/D2BNClient/BNNews.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0051D730	sub_0051D730_FreeData	Source/D2BNClient/BNNews.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0051D7A0	sub_0051D7A0_New	Source/D2BNClient/BNNews.cpp	growable-array template member (new element)
+0x0051D7F0	sub_0051D7F0_Grow	Source/D2BNClient/BNNews.cpp	growable-array template member (grow)
+0x0051D810	sub_0051D810_SetCount	Source/D2BNClient/BNNews.cpp	growable-array template member (set count)
+0x00525010	sub_0059FFF0_ToWord	Source/D2Lang/StrTable/strtable.cpp	identity conversion to a word
+0x00527090	sub_00527090_ContainsChar	Source/D2Lang/StrTable/strtable.cpp	character-set member (contains char); member names
+0x005281D0	sub_005281D0_ComputeServerKey	Source/SRP/SRP.cpp	SRP big-number member (server key); member names, see the member-function question
+0x005284F0	sub_005284F0	Source/SRP/SRP.cpp	tests an unnamed field of a record; (also spelled Obj005284F0, sub_005284F0_IsValid)
+0x00528500	D2BigPairStrc	Source/SRP/SRP.cpp	constructor/destructor/operator; named by its class
+0x00528530	~D2BigPairStrc	Source/SRP/SRP.cpp	constructor/destructor/operator; named by its class; in // build: symbol
+0x005285A0	sub_005285A0_Init	Source/SRP/SRP.cpp	SRP big-number pair member (init); member names
+0x00528620	sub_00528620_InitRandom	Source/SRP/SRP.cpp	SRP big-number pair member (init random); member names
+0x00528630	sub_00528630_Release	Source/SRP/SRP.cpp	SRP big-number pair member (release); member names
+0x00528660	sub_00528660_MakeVerifier	Source/SRP/SRP.cpp	SRP big-number pair member (make verifier); member names
+0x00528890	sub_00528890_CompareServerProof	Source/D2BNClient/BnSend.cpp	SRP big-number pair member (compare server proof); member names
+0x005289F0	sub_005289F0_ComputeServerPublic	Source/SRP/SRP.cpp	SRP big-number pair member (server public); member names
+0x00528AC0	sub_00528AC0_VerifyClientProof	Source/SRP/SRP.cpp	SRP big-number pair member (verify client proof); member names
+0x00528C60	sub_00528C60_ComputeServerProof	Source/SRP/SRP.cpp	SRP big-number pair member (server proof); member names
+0x0052B490	sub_0052B490_ObjectCall_6BED90	Source/D2Net/SRC/Client.cpp	forwards to an unnamed server function
+0x0052B8F0	sub_0052B8F0_Nop	Source/D2Net/SRC/D2Net.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0052B900	sub_0052B900_Nop	Source/D2Net/SRC/D2Net.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0052BDD0	sub_0052BDD0_AlwaysTrue	Source/D2Net/SRC/D2Net.cpp	returns true; purpose unknown
+0x0052BE00	sub_0052BE00_GetBits12	Source/D2Net/SRC/D2Net.cpp	extracts bits 12-14 of a value; meaning unknown
+0x0052BE10	sub_0052BE10_GetField0D0	Source/D2Net/SRC/D2Net.cpp	returns an unnamed record field
+0x006B1C10	sub_006B1C10_SetGlobal	Source/D2Direct3D/Src/d3dCore.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x006B1C20	sub_006B1C20_GetMaskedFlags	Source/D2Direct3D/Src/d3dCore.cpp	returns the device flags masked by an unnamed mask; in data_plan.json
+0x006C7AF0	sub_006C7AF0_Nop	Source/D2Gdi/Src/gdiCore.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in data_plan.json
+0x006C7D80	sub_006C7D80_LockAndSend	Source/D2Gdi/Src/gdiCore.cpp	renderer entry that locks and calls through an object; purpose unclear; in data_plan.json
+0x006C81E0	sub_006C81E0_GetValues	Source/D2Gdi/Src/gdiCore.cpp	returns three unnamed globals
+0x006CAE80	sub_006CAE80_InitializeLock	Source/D2BNClient/BnDownload.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgtBnLogLock@@YAXXZ]; named by its template; in // build: symbol; (also spelled Unknown_006CAE80)
+0x006CAEA0	sub_006CAEA0_InitializeLock	Source/D2BNClient/CACHE.CPP	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgtCacheLock@@YAXXZ]; named by its template; in // build: symbol
+0x006CAED0	sub_006CAED0_InitializeLock	Source/D2BNClient/BnDownload.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgtDownloadLock@@YAXXZ]; named by its template; in // build: symbol
+0x006CB420	sub_006CB420_DestroyLock	Source/D2BNClient/BnDownload.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__FgtBnLogLock@@YAXXZ]; named by its template; in // build: symbol
+0x006CB430	??__FtLog_00881878@?1??sub_00518C30_GetLog@@YAAAUD2BnLogStrc@@XZ@YAXXZ	Source/D2BNClient/BnDownload.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__FtLog_00881878@?1??sub_00518C30_GetLog@@YAAAUD2BnLogStrc@@XZ@YAXXZ]; named by its template; in // build: symbol
+0x006CB440	sub_006CB440_DestroyLock	Source/D2BNClient/CACHE.CPP	template member instantiation, emitted from the class template (no body of its own in the unit) [??__FgtCacheLock@@YAXXZ]; named by its template; in // build: symbol
+0x006CB470	sub_006CB470_DestroyLock	Source/D2BNClient/BnDownload.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__FgtDownloadLock@@YAXXZ]; named by its template; in // build: symbol

@@ -1,0 +1,94 @@
+va	old_name	new_name	source	file	confidence	reason
+0x0042E5C0	sub_0042E5C0_SwapBytes	CHARSEL_SwapBytes	inferred	Source/D2Launch/Src/CharSel.cpp	medium	swaps the two bytes of a word
+0x0042E5D0	sub_0042E5D0	CHARSEL_SwapUnicodeBytes	inferred	Source/D2Launch/Src/CharSel.cpp	medium	byte-swaps an array of 16-bit characters; (also spelled sub_0042E5D0_SwapUnicode, sub_0042E5D0_SwapUnicodeBytes)
+0x0042E6C0	sub_0042E6C0_GetGatewayFlag	MAINMENUS_GetGatewayFlag	inferred	Source/D2Launch/Src/MainMenus.cpp	medium	returns the gateway flag
+0x0042F370	sub_0042F370_RestorePalette	MAINMENUS_RestorePalette	inferred	Source/D2Launch/Src/MainMenus.cpp	high	reloads the front-end character palette if it was replaced; (also spelled Unknown_0042F370)
+0x0042FCE0	sub_0042FCE0_ArchiveFilePresent	MAINMENUS_IsArchiveFilePresent	inferred	Source/D2Launch/Src/MainMenus.cpp	high	tells whether a file can be opened from the archives
+0x0042FF20	sub_0042FF20_ShowLocalAddress	MAINMENUS_ShowLocalAddress	inferred	Source/D2Launch/Src/MainMenus.cpp	high	shows the local IP address (or the no-network text) in the TCP/IP screen
+0x004359D0	sub_004359D0_RunFrontEnd	MAINMENUS_RunFrontEnd	inferred	Source/D2Launch/Src/MainMenus.cpp	high	runs the front end: loads its cels and drives the menu loop for a launch record; in data_plan.json
+0x0043B840	sub_0043B840	CHARSEL_IsBattleNetConnected	inferred	Source/D2Launch/Src/CharSel.cpp	high	returns whether Battle.net is connected
+0x0043BF40	sub_0043BF40_ReportStatus	CHARSEL_ReportStatus	inferred	Source/D2Launch/Src/CharSel.cpp	high	passes a status code and argument to CHARSEL_HandleStatus
+0x0043C180	sub_0043C180_Connect	CHARSEL_Connect	inferred	Source/D2Launch/Src/CharSel.cpp	high	connects to Battle.net/realm with the launch record
+0x0043CBE0	sub_0043CBE0_Init	CHATDLG_GetModuleInterface	inferred	Source/D2Multi/Src/ChatDlg.cpp	medium	stores the module instance and returns the module's interface table; in data_plan.json; (also spelled Unknown_0043CBE0)
+0x0043DA00	sub_0043DA00_ScrollPageDown	CHATDLG_OnScrollPageDown	inferred	Source/D2Multi/Src/ChatDlg.cpp	high	scrolls the chat 10 lines down; in data_plan.json
+0x0043DA20	sub_0043DA20_ScrollUp	CHATDLG_OnScrollUp	inferred	Source/D2Multi/Src/ChatDlg.cpp	high	scrolls the chat one line up; in data_plan.json
+0x0043DA30	sub_0043DA30_ScrollForward	CHATDLG_OnScrollDown	inferred	Source/D2Multi/Src/ChatDlg.cpp	high	scrolls the chat one line down; in data_plan.json
+0x0043DAD0	sub_0043DAD0_SetMainState	CHATDLG_SetMainControlState	inferred	Source/D2Multi/Src/ChatDlg.cpp	medium	sets the main control's state; (also spelled sub_0043DAD0_SetControlFlag)
+0x00440FC0	sub_00440FC0_CreateGatewayControls	CHATDLG_CreateGatewayControls	inferred	Source/D2Multi/Src/ChatDlg.cpp	medium	creates the channel screen's background, title and controls; (also spelled Unknown_00440FC0)
+0x00442E30	sub_00442E30_ShowGameInfo	CHATDLG_ShowGameInfo	inferred	Source/D2Multi/Src/ChatDlg.cpp	high	shows a listed game's name and info text
+0x00442EB0	sub_00442EB0_ShowGameDetails	CHATDLG_ShowGameDetails	inferred	Source/D2Multi/Src/ChatDlg.cpp	high	shows a game's details (description, players…); (also spelled sub_00442EB0_HandleOther)
+0x00443EF0	sub_00443EF0_OnSelect	CHATDLG_OnLadderSelect	inferred	Source/D2Multi/Src/ChatDlg.cpp	medium	ladder selection callback: opens the chosen ladder; in data_plan.json
+0x00445DF0	sub_00445DF0_CreateJoinScreen	COMCALLBACK_CreateJoinScreen	inferred	Source/D2Multi/Src/ComCallback.cpp	high	builds the join-game screen (or waits while connecting)
+0x00445FF0	sub_00445FF0_BuildCreateScreen	COMCALLBACK_BuildCreateScreen	inferred	Source/D2Multi/Src/ComCallback.cpp	high	builds the create-game screen (or waits while connecting)
+0x004F5190	sub_004F5190_SetTownMode	D2GFX_SetTownMode	inferred	Source/D2Gfx/SRC/Window.cpp	medium	sets whether perspective may be used (town mode), forced off on low display types
+0x004F6F60	sub_004F6F60_DrawRleRows	CMNSUBTILE_DrawRleRows	inferred	Source/D2Gfx/SRC/Window.cpp	high	draws RLE tile rows through a palette (CMNSUBTILE_ is the prefix of the tile drawers in Window.cpp); (also spelled Unknown_004F6F60)
+0x004F71A0	sub_004F71A0_DrawLitRleRows	CMNSUBTILE_DrawLitRleRows	inferred	Source/D2Gfx/SRC/Window.cpp	high	draws RLE tile rows through the light cube
+0x004F7580	sub_004F7580_DrawRleRowsClipped	CMNSUBTILE_DrawRleRowsClipped	inferred	Source/D2Gfx/SRC/Window.cpp	high	draws RLE tile rows through a palette, clipped
+0x004F7850	sub_004F7850_DrawLitRleRowsClipped	CMNSUBTILE_DrawLitRleRowsClipped	inferred	Source/D2Gfx/SRC/Window.cpp	high	draws RLE tile rows through the light cube, clipped
+0x004F7DA0	sub_004F7DA0_SetPanelCoords	WINDOW_SetPanelCoords	inferred	Source/D2Gfx/SRC/Window.cpp	medium	sets the view rectangle for the screen size and panel layout
+0x004F7EA0	sub_004F7EA0_DrawVisTile	CMNSUBTILE_DrawVisTile	inferred	Source/D2Gfx/SRC/Window.cpp	high	draws a visible-area tile; in data_plan.json
+0x004F8050	sub_004F8050_DrawRleVisTile	CMNSUBTILE_DrawRleVisTile	inferred	Source/D2Gfx/SRC/Window.cpp	high	draws a visible-area RLE tile with a light level; in data_plan.json
+0x004F8120	sub_004F8120_TileDrawLit	CMNSUBTILE_DrawLitVisTile	inferred	Source/D2Gfx/SRC/Window.cpp	medium	draws a visible-area tile with per-corner lighting; in data_plan.json
+0x004F82D0	sub_004F82D0_DrawBlendVisTile	CMNSUBTILE_DrawBlendVisTile	inferred	Source/D2Gfx/SRC/Window.cpp	high	draws a visible-area tile alpha-blended; in data_plan.json
+0x004F84F0	sub_004F84F0_TileDrawLitBlend	CMNSUBTILE_DrawLitBlendVisTile	inferred	Source/D2Gfx/SRC/Window.cpp	medium	draws a visible-area tile with lighting and alpha blending; in data_plan.json
+0x004F8810	sub_004F8810_DrawBlock	CMNSUBTILE_DrawBlock	inferred	Source/D2Gfx/SRC/Window.cpp	high	draws a tile-library block (RLE or flat iso) with a light level
+0x004F8850	sub_004F8850_DrawLitBlock	CMNSUBTILE_DrawLitBlock	inferred	Source/D2Gfx/SRC/Window.cpp	high	draws a tile-library block with corner lighting
+0x004F88B0	sub_004F88B0_DrawBlockClipped	CMNSUBTILE_DrawBlockClipped	inferred	Source/D2Gfx/SRC/Window.cpp	high	draws a tile-library block with a light level, clipped
+0x004F89F0	sub_004F89F0_DrawLitBlockClipped	CMNSUBTILE_DrawLitBlockClipped	inferred	Source/D2Gfx/SRC/Window.cpp	high	draws a tile-library block with corner lighting, clipped
+0x004FAB00	sub_004FAB00_ShowInsertExpansionDisc	ARCHIVE_ShowInsertExpansionDiscMessage	d2moo	Source/D2Win/Src/D2WinArchive.cpp	high	D2MOO 1.14d 0x004FAB00; "Insert Expansion Disc" box
+0x004FAB30	sub_004FAB30_ShowInsertPlayDisc	ARCHIVE_ShowInsertPlayDiscMessage	d2moo	Source/D2Win/Src/D2WinArchive.cpp	high	D2MOO 1.14d 0x004FAB30; "Insert Play Disc" box
+0x004FAB60	sub_004FAB60_ShowInsertDisc	ARCHIVE_ShowInsertCinematicsDisc	d2moo	Source/D2Win/Src/D2WinArchive.cpp	high	D2MOO 1.14d 0x004FAB60; "Insert Cinematics Disc" box
+0x004FAC90	sub_004FAC90_CheckCharArchive	D2Win_10185	d2moo	Source/D2Win/Src/D2WinArchive.cpp	high	D2MOO 1.14d 0x004FAC90 (an ordinal-style name, as D2WinArchive.cpp already has); checks for d2char.mpq in the install path; (also spelled sub_004FAC90)
+0x004FB590	sub_004FB590	TEXTBOX_SetSmallGap	inferred	Source/D2Win/Src/D2WinTextBox.cpp	medium	sets the text boxes' small line gap flag
+0x00507EF0	sub_00507EF0_GetScrollBarField48	SCROLLBAR_GetMaxSteps	d2moo	Source/D2Win/D2WinAnimImage.cpp	high	D2MOO 1.14d 0x00507EF0 (in its D2WinScrollBar.cpp; filed in D2WinAnimImage.cpp here)
+0x00507FA0	sub_00507FA0_GetScrollBarField4C	SCROLLBAR_GetCurrentStep	d2moo	Source/D2Win/D2WinAnimImage.cpp	high	D2MOO 1.14d 0x00507FA0 (in its D2WinScrollBar.cpp; filed in D2WinAnimImage.cpp here)
+0x0050BBA0	sub_0050BBA0_GlideDebugDrawChar	GLIDE_DebugDrawChar	inferred	Source/D2Glide/Src/glDebugFont.cpp	high	draws one debug-font character, returns its width
+0x0050BC90	sub_0050BC90_GlideDebugPrintf	GLIDE_DebugPrintf	inferred	Source/D2Glide/Src/glDebugFont.cpp	high	formats and draws a debug-font line; in data_plan.json
+0x0050DBC0	sub_0050DBC0_GlideSetAmbientColor	GLIDE_SetAmbientColor	inferred	Source/D2Glide/Src/glVertex.cpp	high	sets the ambient colour; in data_plan.json
+0x0050DD50	sub_0050DD50_SetProjectOrigin	GLIDE_SetProjectOrigin	inferred	Source/D2Glide/Src/glPerspective.cpp	high	sets the perspective projection origin; in data_plan.json
+0x0050DE10	sub_0050DE10_ProjectToScreenScaled	GLIDE_ProjectToScreenScaled	inferred	Source/D2Glide/Src/glPerspective.cpp	medium	projects a point to the screen through the perspective table
+0x005125E0	sub_005125E0_SoftDebugDrawChar	DDRAW_DebugDrawChar	inferred	Source/D2DDraw/Src/ddDebugFont.cpp	high	draws one debug-font character, returns its width
+0x00512680	sub_00512680_SoftDebugPrintf	DDRAW_DebugPrintf	inferred	Source/D2DDraw/Src/ddDebugFont.cpp	high	formats and draws a debug-font line; in data_plan.json
+0x005135F0	sub_005135F0_DDrawPlaySmacker	DDRAW_PlaySmacker	inferred	Source/D2DDraw/Src/ddSmack.cpp	high	plays a Smacker record's frames; in data_plan.json
+0x00514710	sub_00514710_GetChannelEntry	D2SOUND_GetChannelEntry	inferred	Source/D2Sound/Src/D2SoundSmp.cpp	high	returns a sound channel entry from the classic or expansion table; in // build: symbol
+0x00514930	sub_00514930_StopChannel	D2SOUND_StopChannel	inferred	Source/D2Sound/Src/D2SoundFast.cpp	medium	stops the current channel's sound if it is streaming; (also spelled sub_00514930)
+0x005153C0	sub_005153C0_CreateSoundBuffer	D2SOUND_CreateSoundBuffer	inferred	Source/D2Sound/Src/D2SoundSmp_005153C0.cpp	high	creates a DirectSound buffer for a sound
+0x00516250	sub_00516250_SoundThread	D2SOUND_SoundThreadProc	inferred	Source/D2Sound/Src/D2SoundSmp.cpp	high	sound thread: refills streams every 50 ms until stopped
+0x00516760	sub_00516760_ReadWaveHeader	D2SOUND_ReadWaveHeader	inferred	Source/D2Sound/Src/D2SoundSmp.cpp	high	parses a RIFF/WAVE header and returns the data; (also spelled sub_00516760, sub_00516760_ParseWave)
+0x00516830	sub_00516830_GetPositionalVolumePan	D2SOUND_GetPositionalVolumePan	inferred	Source/D2Sound/Src/D2SoundSmp.cpp	high	computes volume and pan from a position
+0x005170E7	sub_005170E7_GetModuleDirectory	ARCHIVE_GetModuleDirectory	inferred	Source/D2Hell/SRC/Archive.cpp	high	returns the executable's directory; (also spelled sub_005170E7_Shim)
+0x00517128	sub_00517128_FindArchive	ARCHIVE_FindArchive	inferred	Source/D2Hell/SRC/Archive.cpp	high	looks for an archive in the executable's directory and the CD drives
+0x00518C30	sub_00518C30_GetLog	BNDOWNLOAD_GetLog	inferred	Source/D2BNClient/BnDownload.cpp	high	returns the function-static Battle.net log record; in // build: symbol
+0x0051C570	sub_0051C570_SendLine	BNSEND_SendLine	inferred	Source/D2BNClient/BnSend.cpp	high	sends a text line and its terminator on the Battle.net socket
+0x00520680	sub_00520680_SHA1Init	BNDOWNLOAD_InitSha1Context	inferred	Source/D2BNClient/BnDownload.cpp	medium	sets a SHA-1 context's initial state (BnDownload.cpp's own copy)
+0x00520A80	sub_00520A80_CheckStringBlock	BNDOWNLOAD_CheckStringBlock	inferred	Source/D2BNClient/BnDownload.cpp	high	checks that a reply buffer holds a block of strings of the given count; (also spelled sub_M119_Emit_00520A80)
+0x00520DC0	sub_00520DC0_HandleStatus	BNDOWNLOAD_HandleStatus	inferred	Source/D2BNClient/BnDownload.cpp	medium	handles a reply's status code; in data_plan.json; (also spelled Unknown_00520DC0)
+0x00523060	sub_00523060_EncodeData	BNDOWNLOAD_EncodeData	inferred	Source/D2BNClient/BnDownload.cpp	medium	encodes a data buffer with a key through SHA-1 blocks
+0x00524D30	sub_00524D30_FindString	STRTABLE_FindString	inferred	Source/D2Lang/StrTable/strtable.cpp	high	finds a string by key in the string tables, returns its index and text
+0x00527720	sub_00527720_FreeCodePageTables	UNISYS_FreeCodePageTables	inferred	Source/D2Lang/Unicode/UNISYS.CPP	high	frees the lead-byte ranges and character map
+0x00528C90	sub_00528C90_SHA1Transform	SHA_Transform	inferred	Source/SRP/SHA.cpp	high	SHA-1 block transform
+0x00529F50	sub_00529F50	SHA_Init	inferred	Source/SRP/SHA.cpp	high	SHA-1 context initialisation; (also spelled Context00529F50, sub_00529F50_Sha1Init)
+0x00529F80	sub_00529F80_SHA1Update	SHA_Update	inferred	Source/SRP/SHA.cpp	high	SHA-1 update; (also spelled sub_00529F80_Sha1Update)
+0x0052A040	sub_0052A040_Sha1Final	SHA_Final	inferred	Source/SRP/SHA.cpp	high	SHA-1 final digest
+0x0052B780	sub_0052B780	SERVER_SendConnectionInfo	inferred	Source/D2Net/SRC/Server.cpp	medium	sends packet 0xAF (connection info, no compression) to the client
+0x0052BFE0	sub_0052BFE0_GetGamesCount	NET_GetGamesCount	inferred	Source/D2Net/SRC/D2Net.cpp	medium	counts the used game GUID slots; the source defines it as GAME_GetGamesCount, but names.csv gives that name to 0x0052DB30, so this copy takes D2Net.cpp's NET_ prefix
+0x006B1C30	sub_006B1C30_SetMode	D3D_FlipPrimary	inferred	Source/D2Direct3D/Src/d3dCore.cpp	medium	renderer entry: flips the primary surface (waiting for vsync when set); in data_plan.json
+0x006B1C60	sub_006B1C60_GetScreenSize	D3D_GetScreenSize	inferred	Source/D2Direct3D/Src/d3dCore.cpp	high	renderer entry: returns the render width and height; in data_plan.json
+0x006B1D50	sub_006B1D50_GetColor	D3D_GetColor	inferred	Source/D2Direct3D/Src/d3dCore.cpp	medium	returns a colour from the colour table
+0x006B1D60	sub_006B1D60_SetPaletteView	D3D_SetPaletteView	inferred	Source/D2Direct3D/Src/d3dCore.cpp	medium	renderer entry: copies a palette table view; in data_plan.json
+0x006B1D80	sub_006B1D80_CopyRows	D3D_CopyRows	inferred	Source/D2Direct3D/Src/d3dCore.cpp	high	copies rows between buffers with a destination pitch
+0x006B1E30	sub_006B1E30_Blit8To32	D3D_Blit8To32	inferred	Source/D2Direct3D/Src/d3dCore.cpp	high	converts 8-bit pixels to 32-bit through the palette
+0x006B20C0	sub_006B20C0_SetOption	D3D_SetOption	inferred	Source/D2Direct3D/Src/d3dCore.cpp	medium	renderer entry: sets option 11 (gamma scale); in data_plan.json
+0x006B20E0	sub_006B20E0_DDrawLogError	D3D_LogDDrawError	inferred	Source/D2Direct3D/Src/d3dCore.cpp	high	logs a DirectDraw error code by name; (also spelled sub_006B20E0, sub_006B20E0_ReportError)
+0x006B3400	sub_006B3400_ReleaseWindow	D3D_ReleaseWindow	inferred	Source/D2Direct3D/Src/d3dCore.cpp	high	renderer entry: releases the resources and the window; in data_plan.json
+0x006B3530	sub_006B3530_BeginCutScene	D3D_BeginCutScene	inferred	Source/D2Direct3D/Src/d3dCore.cpp	medium	renderer entry: starts a cut scene unless rendering is paused; in data_plan.json
+0x006B38A0	sub_006B38A0_Copy	D3D_CopySurface	inferred	Source/D2Direct3D/Src/d3dCore.cpp	medium	locks two surfaces and copies rows between them; (also spelled sub_006B38A0_CopySurface, sub_006B38A0_UploadGlyph)
+0x006B3FD0	sub_006B3FD0_EnumerateDisplayMode	D3D_EnumerateDisplayMode	inferred	Source/D2Direct3D/Src/d3dCore.cpp	high	display-mode enumeration callback; (also spelled sub_006B3FD0)
+0x006B5BB0	sub_006B5BB0_ClearResourceEntries	D3D_ClearResourceEntries	inferred	Source/D2Direct3D/Src/d3dSprite.cpp	medium	frees the five pixel-data entries of a resource set; (also spelled sub_006B5BB0_FreePixelData)
+0x006C7E30	sub_006C7E30_BlitWindow	GDI_BlitWindow	inferred	Source/D2Gdi/Src/gdiCore.cpp	high	blits the frame buffer to the window with the palette; in data_plan.json
+0x006C7F90	sub_006C7F90_GetScreenSize	GDI_GetScreenSize	inferred	Source/D2Gdi/Src/gdiCore.cpp	high	renderer entry: returns the render width and height; in data_plan.json
+0x006C81A0	sub_006C81A0_RENDERER_WINDOWED_GetPalette	GDI_GetPalette	inferred	Source/D2Gdi/Src/gdiCore.cpp	high	returns the palette handle and entries (the hint says RENDERER_WINDOWED_GetPalette)
+0x006C84B0	sub_006C84B0_Draw	GDI_DrawImage	inferred	Source/D2Gdi/Src/gdiCore.cpp	medium	renderer entry: draws a cel context at a position; in data_plan.json
+0x006C86A0	sub_006C86A0_DrawImageRows	GDI_DrawImageRows	inferred	Source/D2Gdi/Src/gdiCore.cpp	high	renderer entry: draws part of a cel's rows; in data_plan.json
+0x006C8750	sub_006C8750_DrawCel	GDI_DrawCelClipped	inferred	Source/D2Gdi/Src/gdiCore.cpp	medium	renderer entry: draws a cel clipped to a rectangle; in data_plan.json
+0x006C87E0	sub_006C87E0_DrawShadow	GDI_DrawShadow	inferred	Source/D2Gdi/Src/gdiCore.cpp	high	renderer entry: draws a cel's shadow; in data_plan.json

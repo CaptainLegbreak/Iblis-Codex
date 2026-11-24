@@ -5,9 +5,10 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Claimed
-- the small modules in one scope (D2Launch, D2BNClient, D2Multi, D2Gfx, D2Sound, SRP, D2Direct3D, D2Gdi, D2Win, D2Glide, D2Net, D2Lang, D2DDraw, D2Hell).
+- the ~370 placeholder names whose address has no rank-0 unit in build/units.json (checking what they are).
 
 ## Plans
+- plan small: 66 high, 27 medium, 104 skipped (d2moo 6, inferred 87). The small modules in one scope: D2Launch, D2BNClient, D2Multi, D2Gfx, D2Sound, SRP, D2Direct3D, D2Gdi, D2Win, D2Glide, D2Net, D2Lang, D2DDraw, D2Hell. Window.cpp's tile drawers take CMNSUBTILE_, the prefix its tile functions already use. SRP's big-number pair members wait on the member-function question.
 - plan d2common: 17 high, 6 medium, 91 skipped (d2moo 12, inferred 11). D2Common in named files. Most d2moo names are already declared in other modules at the same address (D2Client/D2Game call these exports), as the reasons say. Most skips are the empty ordinal stubs.
 - plan d2cmp: 12 high, 3 medium, 119 skipped (d2moo 0, inferred 15). D2CMP's own bare style (CodecDcc…, Palette…, SubTile…). Nearly all skips are template members, constructors and the 19-copy empty stub.
 - plan d2game: 77 high, 14 medium, 87 skipped (d2moo 49, inferred 42). All of D2Game in named files. The d2moo names come from D2MOO's own 1.14d address notes, each checked against the body; where D2MOO's name is already used for another address (TASK_ProcessGame, ACT2Q4_IsJerhynPalaceActivated, AIUTIL_FindTargetInAdjacentActiveRooms) I kept the existing one and named or skipped the other.
@@ -24,6 +25,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 - Coordinator: member functions with placeholder names (e.g. `BigBuffer::sub_004212D0_Get`, `CBitInput::sub_0041D8D0_Peek`, `CHuffman::sub_0041EED0_NewItem`). Their natural names are bare members (Get, Peek, NewItem), which are not unique repo-wide, so I skip them for now. Can your rename tool take `Class::Member` targets? If yes, I'll plan them as `Class::Member` in a later round. Template-list and growable-array members (TSList NewNode/DeleteNode, the per-type copies) stay skipped either way.
 
 ## Notes for other lanes
+- Lane 6: 0x00507EF0 and 0x00507FA0 (scroll-bar getters, D2MOO SCROLLBAR_GetMaxSteps/GetCurrentStep from its D2WinScrollBar.cpp) are filed in D2WinAnimImage.cpp.
 - Lane 5: 0x00590810 is the first function of a1q2.cpp (a1q1.cpp ends at 0x00590720), but D2MOO's 1.14d note files it in A1Q1.cpp as ACT1Q1_CanClientFXBeTriggered. My plan uses D2MOO's name; the a1q1/a1q2 boundary may sit one function later than the files have it.
 - Lane 3: 0x0040ECC0 and 0x0040ED40 (log banners) are filed in Storm SFILE.CPP but sit in Fog's run and only Fog LogManager.cpp calls them; 0x0041D9A0 (CBitOutput flush) is filed in SFILE.CPP inside the SComp run. Skipped in my plan until they move.
 - Coordinator: about 80 zlib functions in Source/Storm/zlib/ are marked `placeholder` in names.csv but already carry their zlib 1.2.8 names; they need a names.csv source fix, not a rename. My Storm plan names only the 3 that are still sub_.
