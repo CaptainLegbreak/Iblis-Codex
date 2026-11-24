@@ -913,8 +913,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/Game_0044E5A0.cpp": {
-   "bytes": 278,
-   "definitions": 8,
+   "bytes": 386,
+   "definitions": 9,
    "externs": [
     "extern \"C\" void __cdecl WINMAIN_StartSession(); // 0x0044BC30",
     "extern \"C\" void __cdecl WINMAIN_StopSession(); // 0x0044BD90",
@@ -923,7 +923,10 @@
     "extern \"C\" void __cdecl GAME_SwallowMessage(); // 0x0044C5C0",
     "extern \"C\" void __cdecl GAME_HandleActivateApp(); // 0x0044C5E0",
     "extern \"C\" void __cdecl GAME_AdvanceBetaScreen(); // 0x0044D0A0",
-    "extern \"C\" void __cdecl GAME_AdvanceBetaScreenNoRepeat(); // 0x0044D0D0"
+    "extern \"C\" void __cdecl GAME_AdvanceBetaScreenNoRepeat(); // 0x0044D0D0",
+    "extern \"C\" void __cdecl GAME_HandleKeyDown(); // 0x0044D360",
+    "extern \"C\" void __cdecl GAME_HandleEndScreenButtonDown(); // 0x0044E460",
+    "extern \"C\" void __cdecl GAME_HandleEndScreenButtonUp(); // 0x0044E4F0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/GAME/Game_0044B8A0.inc",
@@ -32097,6 +32100,140 @@
    "tail": "; // 0x0070F3C0",
    "type": "D2MsgHandlerEntryStrc",
    "va": "0x0070F3C0"
+  },
+  {
+   "alias": false,
+   "cname": null,
+   "declared": true,
+   "decorated": null,
+   "file": "Source/D2Client/GAME/Game_0044E5A0.cpp",
+   "fill": 9,
+   "form": "declared",
+   "fwd": null,
+   "head": "extern D2MsgHandlerEntryStrc gaEndScreenHandlers[9] = ",
+   "model": {
+    "elem": {
+     "k": "struct",
+     "members": [
+      [
+       "nType",
+       0,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "nId",
+       4,
+       {
+        "k": "prim",
+        "kind": "s",
+        "name": "int",
+        "size": 4
+       }
+      ],
+      [
+       "pfnHandler",
+       8,
+       {
+        "k": "ptr",
+        "size": 4,
+        "spell": "void*"
+       }
+      ]
+     ],
+     "name": "D2MsgHandlerEntryStrc",
+     "size": 12
+    },
+    "k": "arr",
+    "n": 9,
+    "size": 108
+   },
+   "name": "gaEndScreenHandlers",
+   "pointers": [
+    [
+     8,
+     "0x0044E460",
+     "names.json",
+     "GAME_HandleEndScreenButtonDown",
+     0,
+     "func"
+    ],
+    [
+     20,
+     "0x0044E460",
+     "names.json",
+     "GAME_HandleEndScreenButtonDown",
+     0,
+     "func"
+    ],
+    [
+     32,
+     "0x0044E4F0",
+     "names.json",
+     "GAME_HandleEndScreenButtonUp",
+     0,
+     "func"
+    ],
+    [
+     44,
+     "0x0044E4F0",
+     "names.json",
+     "GAME_HandleEndScreenButtonUp",
+     0,
+     "func"
+    ],
+    [
+     56,
+     "0x0044D360",
+     "names.json",
+     "GAME_HandleKeyDown",
+     0,
+     "func"
+    ],
+    [
+     68,
+     "0x0044C5E0",
+     "names.json",
+     "GAME_HandleActivateApp",
+     0,
+     "func"
+    ],
+    [
+     80,
+     "0x0044C5C0",
+     "names.json",
+     "GAME_SwallowMessage",
+     0,
+     "func"
+    ],
+    [
+     92,
+     "0x0044C5C0",
+     "names.json",
+     "GAME_SwallowMessage",
+     0,
+     "func"
+    ],
+    [
+     104,
+     "0x0044C5C0",
+     "names.json",
+     "GAME_SwallowMessage",
+     0,
+     "func"
+    ]
+   ],
+   "region": "data",
+   "size": 108,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x0070F418",
+   "type": "D2MsgHandlerEntryStrc",
+   "va": "0x0070F418"
   },
   {
    "alias": true,
