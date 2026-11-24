@@ -14,6 +14,12 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();        
 extern "C" __declspec(dllimport) int __stdcall GetThreadPriority(void* hThread);                            // 0x006CC268
 extern "C" __declspec(dllimport) int __stdcall SetThreadPriority(void* hThread, int nPriority);             // 0x006CC264
 extern "C" long __cdecl _time32(long* pTime);                                                               // 0x006850E6
+
+// 0x00410790
+static __inline long __cdecl time(long* pTime)
+{
+    return _time32(pTime);
+}
 void __fastcall SYSTEM_AtomicStore64(void* pDest, const void* pSource);                               // 0x004107B0
 void __fastcall SYSTEM_AtomicRead64(void* pDest, const void* pSource);                                // 0x004107D0
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);       // 0x006CC1FC
@@ -41,7 +47,7 @@ void __cdecl SYSTEM_InitTimeBase()
     SYSTEM_AtomicRead64(&nRead, &nShared);
     D2_ASSERT(nRead == 666, 0x3C);
     D2TimeStampStrc tNow;
-    tNow.nTime = _time32(0);
+    tNow.nTime = time(0);
     tNow.nTick = GetTickCount();
     SYSTEM_AtomicStore64(&gtTimeBase, &tNow);
 }
@@ -60,7 +66,7 @@ long __cdecl FOG_GetSyncTime()
             SetThreadPriority(GetCurrentThread(), nPriority);
         }
         D2TimeStampStrc tNow;
-        tNow.nTime = _time32(0);
+        tNow.nTime = time(0);
         tNow.nTick = GetTickCount();
         SYSTEM_AtomicStore64(&gtTimeBase, &tNow);
     }
