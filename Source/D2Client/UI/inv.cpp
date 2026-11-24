@@ -1864,15 +1864,6 @@ void D2RC4Strc::ApplyKeystream(unsigned char* pData, unsigned int nSize)
     }
 }
 
-// 0x0047FFB0
-int __stdcall INV_CallServiceWithTime(int nArg1, int nArg2, int nArg3)
-{
-    if (!gpService)
-        return 0;
-    _FILETIME tTime;
-    GetSystemTimeAsFileTime(&tTime);
-    return gpService->pfnCall(nArg1, nArg2, nArg3, &tTime, -1, -1);
-}
 
 
 // 0x00480780

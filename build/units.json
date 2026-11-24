@@ -14178,11 +14178,6 @@
      "name": "ApplyKeystream"
     },
     {
-     "va": "0x0047FFB0",
-     "length": 70,
-     "name": "INV_CallServiceWithTime"
-    },
-    {
      "va": "0x00480780",
      "length": 57,
      "name": "INV_SetPathTargetUnit"
@@ -22463,6 +22458,11 @@
      "va": "0x0047FEE0",
      "length": 202,
      "name": "?WARDENCLIENT_LoadModuleByKey@@YGHPBE0@Z"
+    },
+    {
+     "va": "0x0047FFB0",
+     "length": 70,
+     "name": "INV_CallServiceWithTime"
     },
     {
      "va": "0x00480000",
