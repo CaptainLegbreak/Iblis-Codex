@@ -64112,6 +64112,11 @@
      "name": "?sub_0060B140_BitBufferInit@@YGXHPAEPAUD2BitBufferInitStrc@@@Z"
     },
     {
+     "va": "0x0060B160",
+     "length": 23,
+     "name": "?sub_0060B160_Copy@@YGXPAUD2BitBufferInitStrc@@PBU1@@Z"
+    },
+    {
      "va": "0x0060B180",
      "length": 19,
      "name": "?sub_0060B180_GetBytePtr@D2CmpBitCursorStrc@@QAEPAEXZ"
@@ -64198,17 +64203,6 @@
     {
      "va": "0x0060BFF0",
      "length": 3380
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_0060B160.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0060B160",
-     "length": 23,
-     "name": "?sub_0060B160_Copy@@YGXPAUD2BitBufferInitStrc@@PBU1@@Z"
     }
    ]
   },

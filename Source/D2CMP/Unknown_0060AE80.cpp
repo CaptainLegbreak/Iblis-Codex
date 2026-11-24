@@ -1,17 +1,29 @@
 #include "D2CMP.h"
+
 #include "D2CmpTypes.h"
+
 #include "D2CmpCache.h"
 
 struct D2CmpBitCursorStrc;
+
 struct D2CmpByteMapStrc;
+
 struct D2CmpByteRunStrc;
+
 struct D2DccFrameStrc;
+
 struct D2DccDirStrc;
+
 struct D2DccIterStrc;
+
 struct D2BitBufferInitStrc;
+
 struct D2SpritePixelsStrc;
+
 struct D2SpriteCelStrc;
+
 struct D2CmpTileFileHeaderStrc;
+
 struct D2CmpTileHeaderTargetStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -29,9 +41,11 @@ struct D2SpritePixelsStrc { int unknown00,width,height; char unknown0C[0x14]; un
 struct D2SpriteCelStrc { int unknown00[7]; unsigned int dataSize; };
 
 void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
+
 void* __cdecl sub_006829C0_Copy(void* dest,const void* source,unsigned int size); // 0x006829C0
 
 #pragma pack(push, 1)
+
 struct D2CmpTileFileHeaderStrc
 {
     unsigned char nType;
@@ -43,6 +57,7 @@ struct D2CmpTileFileHeaderStrc
 };
 
 #pragma pack(pop)
+
 struct D2CmpTileHeaderTargetStrc
 {
     unsigned char bFlags;
@@ -57,8 +72,11 @@ struct D2CmpTileHeaderTargetStrc
 };
 
 int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
+
 int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
+
 int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
+
 int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 
 // 0x0060AE80
@@ -77,6 +95,16 @@ unsigned int __fastcall sub_M383_Emit_0060AE80(int nAdd, const char* szName)
 void __cdecl sub_0060B130_Nothing()
 {
 }
+
+// 0x0060B160
+static void __stdcall sub_0060B160_Copy(D2BitBufferInitStrc* dst,const D2BitBufferInitStrc* src) {
+ dst->pBuffer=src->pBuffer;
+ dst->pCurrent=src->pCurrent;
+ dst->nBits=src->nBits;
+ dst->nPos=src->nPos;
+}
+
+void __stdcall EmitCopy(D2BitBufferInitStrc* dst,const D2BitBufferInitStrc* src) {sub_0060B160_Copy(dst,src);}
 
 // 0x0060B180
 unsigned char* D2CmpBitCursorStrc::sub_0060B180_GetBytePtr()
@@ -111,4 +139,3 @@ void __stdcall sub_K13_Emit_0060B140(D2BitBufferInitStrc* pBitBuf, unsigned char
 {
     sub_0060B140_BitBufferInit(nSize, pBuffer, pBitBuf);
 }
-
