@@ -8,9 +8,13 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Questions
 
+- `Storm/Unknown_006C7000.cpp` (17 functions, 0x6C7030-0x6C79A0, right after SBMP.CPP) is Storm's Unicode module: SUniConvertUTF8to16(Len), SUniSGetUTF8, SUniSPutUTF8, SUniFindUTF8ChrStart, SUniFindAfterUTF8Chr and the code-page converters. names.csv has `blizzard` names for most of them. The image has no ".\SOURCE\SUNI.CPP" string (SUNI.CPP has no assert), so the file name would come from the SUni prefix alone, the same way SMEM/SREG/SSTR are named. May I rename it `Storm/SOURCE/SUNI.CPP`?
+
 - `AUTOMAP_ReadTimeStampCounter` at 0x40E850 is filed in D2Client/UI/automap.cpp (lane 4), but it sits in Fog's ErrorManager.cpp run, between the CPUID helpers at 0x40E250 and 0x40E870, and its only callers are 0x40E8AD and 0x40E8FE in ERRORMANAGER_MeasureCpuMHz. May I move it into ErrorManager.cpp (and rename it ERRORMANAGER_ReadTimeStampCounter)?
 
 ## Notes for other lanes
+
+- **Lane 4:** borrowed-data.md lists 0x700140-0x7001C0 (in my "between Fog/Unknown_00401010.cpp and Storm/Unknown_00404F40.cpp" block) as mine, but it is WardenClient's RTTI: the complete object locator, class hierarchy and base class descriptors of `.?AUWardenClient@@` (type descriptor 0x721CC0, which WardenClient.cpp already maps). It belongs with WardenClient.cpp's `??_R0` line.
 
 - **Lanes 5, 6 (and whoever owns D2BNClient):** the dynamic initializers and atexit destructors of long-lived critical sections can go into the file that owns the lock; `lane3/crt-locks` shows the pattern (a `CCritSect : D2CriticalSectionStrc` type plus `// build: symbol ??__E<name>@@YAXXZ` / `??__F<name>@@YAXXZ` lines on the definition). These are still in Storm placeholders but aren't Storm's:
   - 0x6CAE80 / 0x6CB420: lock 0x881860 (BnDownload.cpp uses it)
