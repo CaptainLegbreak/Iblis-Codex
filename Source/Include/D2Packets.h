@@ -1313,3 +1313,16 @@ D2_CHECK_SIZE(D2GSPacketClt1F, 0x11);
 D2_CHECK_SIZE(D2GSPacketSrv63, 0x15);
 D2_CHECK_SIZE(D2GSPacketSrvA8, 0xFC);
 D2_CHECK_SIZE(D2GSPacketSrvAA, 0xFB);
+
+struct D2GameLogonPacketStrc
+{
+    unsigned char nHeader;
+    unsigned char nServerHash[4];
+    unsigned char f_5[2];
+    unsigned char nClass;
+    unsigned char nVersion[4];
+    unsigned char nKey1[4];
+    unsigned char nKey2[4];
+    unsigned char f_14;
+    char szName[16];
+};
