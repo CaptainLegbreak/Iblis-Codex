@@ -12,6 +12,8 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 - The object after automap.cpp, 0x45AD60-0x45B4F0 (lane4/automap-view, stacked on automap-join): its own copy 0x7113EC with 0x711428/0x71142C after it, its bss 0x7A5204-0x7A5214; the automap draw, offset and screen-to-map functions now in automap.cpp, Player.cpp, ui.cpp, View.cpp and CUnit.cpp gather into Unknown_0045AE90.cpp.
 
+- editbox.cpp is three objects (lane4/editbox-split): the button classes 0x4BABF0-0x4BB16F (data: copy 0x72756C, gaButtonStrings, the UIWidget/Button type descriptors), editbox.cpp proper 0x4BB170-0x4BBE0F (the `.\UI\editbox.cpp` user; copy 0x727608 and the EditBox descriptors, now borrowed) and the spinner classes 0x4BBE10-0x4BC4F9 (copy 0x727688 and the Spinner descriptors, borrowed). The button and spinner runs become placeholders.
+
 ## Questions
 
 ## Notes for other lanes
