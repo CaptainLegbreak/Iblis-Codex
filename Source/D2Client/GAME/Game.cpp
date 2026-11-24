@@ -1410,9 +1410,7 @@ int gdwGlobal_007A0688;                                                         
 
 extern void* ghAccelerators;                                                                             // 0x007A0708
 
-void* ghLngModule;                                                                                 // 0x007A070C
 
-char gszLngPath[0x104];                                                                            // 0x007A0710
 
 extern D2RecordHandlerFn gpfnPrevHandler;                                                          // 0x007A2764
 
@@ -1635,7 +1633,6 @@ int gnWheelDelta; // 0x007A06F8
 
 int gnClientState; // 0x007A0480
 
-int gnRecordPos; // 0x007A2784
 
 void __cdecl sub_00451290(); // 0x00451290
 
@@ -4135,46 +4132,8 @@ D2StormExportTableSyncStrc::TSExportTableSync()
     InitializeCriticalSection(&m_cs);
 }
 
-// 0x00451330
-int __cdecl GAME_LoadLngModule()
-{
-    if (gszLngPath[0])
-    {
-        ghLngModule = LoadLibraryExA(gszLngPath, 0, 2);
-        SRegSaveString("Diablo II", "LNG File", 0, gszLngPath);
-    }
-    if (!ghLngModule)
-    {
-        if (SRegLoadString("Diablo II", "LNG File", 0, gszLngPath, sizeof(gszLngPath)))
-            ghLngModule = LoadLibraryExA(gszLngPath, 0, 2);
-        if (!ghLngModule)
-        {
-            ghLngModule = LoadLibraryExA(gszLngFileName, 0, 2);
-            if (!ghLngModule)
-            {
-                sub_0051740B_ErrorBox("Unable to start LNG manager.");
-                return 0;
-            }
-        }
-    }
-    ghAccelerators = LoadAcceleratorsA(ghLngModule, (const char*)0x64);
-    SErrRegisterMessageSource(0xFFF, ghLngModule, 0);
-    sub_005177B2_SetLoadStringFn(COMCALLBACK_LoadLngString);
-    return 1;
-}
 
-// 0x00451940
-void __cdecl GAME_InstallRecordHandler()
-{
-    gbRecordHandlerInstalled = 1;
-    gpfnPrevHandler = sub_005173D3_SetRecordHandler(CHARSEL_RecordHandler);
-}
 
-// 0x00451970
-void __cdecl GAME_SetRecordPlaying()
-{
-    gbRecordPlaying = 1;
-}
 
 
 // build: symbol ?WARDENCLIENT_SwapBytes@* 0x0047F8B0
@@ -4185,14 +4144,6 @@ void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
     *pB = nTemp;
 }
 
-// 0x004519A0
-void __cdecl GAME_ToggleRecordPlayback()
-{
-    if (gnRecordPos)
-        gnRecordPos = 0;
-    else
-        gbPlaybackRequested = 1;
-}
 
 // 0x00451F10
 int __cdecl GAME_PushRegisterState()
