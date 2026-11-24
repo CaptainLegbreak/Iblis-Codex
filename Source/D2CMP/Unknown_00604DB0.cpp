@@ -57,28 +57,28 @@ static void sub_00605080_HslToRgb(const D2HslStrc* pHsl, D2PalRgbaStrc* pRgb)
     for (int i = 0; i < 256; ++i)
     {
         unsigned char nRed, nGreen, nBlue;
-        if (pHsl->f_8 == 0.0)
+        if (pHsl->dSaturation == 0.0)
         {
-            nRed = (unsigned char)(pHsl->f_10 * 255.0);
+            nRed = (unsigned char)(pHsl->dLightness * 255.0);
             nGreen = nRed;
             nBlue = nRed;
         }
         else
         {
             double dM2;
-            if (pHsl->f_10 <= 0.5)
+            if (pHsl->dLightness <= 0.5)
             {
-                dM2 = (pHsl->f_8 + 1.0) * pHsl->f_10;
+                dM2 = (pHsl->dSaturation + 1.0) * pHsl->dLightness;
             }
             else
             {
-                dM2 = pHsl->f_10 + pHsl->f_8 - pHsl->f_10 * pHsl->f_8;
+                dM2 = pHsl->dLightness + pHsl->dSaturation - pHsl->dLightness * pHsl->dSaturation;
             }
 
-            const double dM1 = pHsl->f_10 + pHsl->f_10 - dM2;
-            nRed = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->f_0 + 120.0) * 255.0);
-            nGreen = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->f_0) * 255.0);
-            nBlue = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->f_0 - 120.0) * 255.0);
+            const double dM1 = pHsl->dLightness + pHsl->dLightness - dM2;
+            nRed = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->dHue + 120.0) * 255.0);
+            nGreen = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->dHue) * 255.0);
+            nBlue = (unsigned char)(PaletteHueToRgb(dM1, dM2, pHsl->dHue - 120.0) * 255.0);
         }
 
         pRgb->nRed = nRed;
@@ -95,12 +95,12 @@ static void sub_00606890_BuildBrightnessTable(unsigned char* pTables, D2HslStrc*
 
     for (int i = 0; i < 256; ++i)
     {
-        if (pHsl[i].f_10 != 0.0)
+        if (pHsl[i].dLightness != 0.0)
         {
-            pHsl[i].f_10 += 0.2f;
-            if (pHsl[i].f_10 > 1.0)
+            pHsl[i].dLightness += 0.2f;
+            if (pHsl[i].dLightness > 1.0)
             {
-                pHsl[i].f_10 = 1.0;
+                pHsl[i].dLightness = 1.0;
             }
         }
     }
