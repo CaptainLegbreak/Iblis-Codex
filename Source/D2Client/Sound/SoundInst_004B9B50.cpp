@@ -2,12 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2ClientGame.h"
+#include "D2ClientSound.h"
 
-struct D2SoundUnitNodeStrc
-{
-    D2UnitStrc* pUnit;
-    D2SoundUnitNodeStrc* pNext;
-};
 
 #pragma pack(push, 1)
 

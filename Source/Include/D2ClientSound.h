@@ -1,5 +1,6 @@
 #pragma once
-// Client: sounds.txt records (compiled columns plus the sound cache's runtime fields) and the SoundHdr API.
+// Client: sounds.txt records (compiled columns plus the sound cache's runtime fields), the SoundHdr API and the
+// sound units' unit list node.
 
 #include "D2Check.h"
 
@@ -44,6 +45,12 @@ struct D2SoundsTxt
 };
 
 #pragma pack(pop)
+
+struct D2SoundUnitNodeStrc
+{
+    D2UnitStrc* pUnit; // 0x00
+    D2SoundUnitNodeStrc* pNext; // 0x04
+};
 
 D2_CHECK_SIZE(D2SoundsTxt, 0x8E);
 
