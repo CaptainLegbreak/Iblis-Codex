@@ -34,3 +34,12 @@ struct D2BnCheckAdReplyStrc
     unsigned int nExtension; // 0x04
     unsigned char pData[1]; // 0x08
 };
+
+struct FSafeSock;
+
+struct D2BnServerEntryStrc
+{
+    char szAddress[0x100];
+    FSafeSock* pSafeSock;
+    int nUnused;
+};

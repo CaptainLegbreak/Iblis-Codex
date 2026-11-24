@@ -13,7 +13,6 @@ int __fastcall BNSEND_DispatchPacket(unsigned char nId, const void* pData, int n
 struct D2BnCheckAdReplyStrc;
 struct D2CriticalSectionStrc;
 struct D2BnStateStrc;
-struct D2BnServerEntryStrc;
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend); // 0x006CC204
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
@@ -21,13 +20,6 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedCompareExchange(long 
 int __fastcall BNSEND_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0
 extern long volatile gnConnected; // 0x00881BF0
 extern int gbReady; // 0x00881BF8
-
-struct D2BnServerEntryStrc
-{
-    char szAddress[0x100];
-    FSafeSock* pSafeSock;
-    int nUnused;
-};
 
 unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter); // 0x0051C7E0
 int __fastcall sub_005205F0_GetState(D2BnStateStrc* pState); // 0x005205F0

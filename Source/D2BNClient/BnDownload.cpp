@@ -2850,7 +2850,6 @@ struct D2AuthCheckPacketStrc;
 
 struct D2CipherKeyStringView;
 
-struct D2EncodedTrailerStrc;
 
 struct D2CDKeyInfoStrc
 {
@@ -2889,13 +2888,6 @@ struct D2CipherKeyStringView
     void __thiscall BNDOWNLOAD_InitCipherKeys(int bEncrypt); // 0x00522C30
 };
 
-struct D2EncodedTrailerStrc
-{
-    unsigned int nDigest;
-    unsigned char nReserved;
-    unsigned char nLastBlockSize;
-    unsigned short wReserved;
-};
 
 unsigned int __fastcall sub_00523020_GetAlignedData(unsigned int nSize); // 0x00523020
 

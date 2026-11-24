@@ -89,3 +89,11 @@ D2_CHECK_SIZE(D2BnHashCtxStrc, 0x5C);
 D2_CHECK_SIZE(D2IdeaKeyScheduleStrc, 0x68);
 D2_CHECK_SIZE(D2BigPowModStrc, 0x4C);
 D2_CHECK_SIZE(D2IdeaUserKeyStrc, 0x10);
+
+struct D2EncodedTrailerStrc
+{
+    unsigned int nDigest;
+    unsigned char nReserved;
+    unsigned char nLastBlockSize;
+    unsigned short wReserved;
+};
