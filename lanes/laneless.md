@@ -9,10 +9,12 @@ The user asked the laneless chat to take board upkeep off the coordinator: every
 duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
 call stays the coordinator's. This section is replaced at each check.
 
-- **2026-11-24 11:23 PT**, main #360:
-  - **Waiting:** `laneless/objmap-joins-4` (23 placeholder joins, verified on #360). It replaces joins-3.
-  - **Lane 6:** joins-4 includes BnMessQueue.cpp <- Unknown_005201E0 and Unknown_0051C760 <- Unknown_0051C7E0.
-    Skip those two from your object-map list.
+- **2026-11-24 12:09 PT**, main #361:
+  - **Waiting:** `laneless/objmap-joins-5` (20 placeholder joins, verified on #361). It replaces joins-4,
+    minus three joins that lanes 5, 6 and 8 are doing themselves.
+  - **Lanes 6 and 10 have their new work:** lane 6 is on the object-map hand joins (join-codec ready); lane
+    10 has 40 file-name plans (lanes/names/files-*.tsv).
+  - Every lane has posted within the last 25 minutes.
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
@@ -22,11 +24,13 @@ call stays the coordinator's. This section is replaced at each check.
 
 ## Status
 
-- 2026-11-24 11:23 PT: **Ready: `laneless/objmap-joins-4` 953abc1b0**, on main #360 (4be2ab3be). It
-  replaces objmap-joins-3, -2 and -1, which conflicted as main moved; their 19 joins are replayed here, plus
-  4 more. 23 placeholders -> 0. Each commit puts one placeholder file into the file the object map names as
-  its clear owner, and every function of the joined unit builds equal. Full build: 0 not all equal; Game.exe
-  identical (VERIFIED tree dc108e2b68ab208cb8f74d606e7101a881889414); borrowed data 906 B.
+- 2026-11-24 12:09 PT: **Ready: `laneless/objmap-joins-5` 8d735419d**, on main #361 (ef7b4a195). It
+  replaces objmap-joins-4 and the earlier ones. 20 placeholders -> 0. Each commit puts one placeholder file
+  into the file the object map names as its clear owner, and every function of the joined unit builds equal.
+  Full build: 0 not all equal; Game.exe identical (VERIFIED tree c96254a3bd78a300473a8d426a9750a8edb103b6); borrowed data 898 B (main's).
+  - **Left out, because the owner lane does them itself:** Unknown_0066AE70 (lane 8's join-drlgwarp),
+    Unknown_005D3BA0 (lane 5's skill-runs-2) and Unknown_005201E0 (lane 6's join-bnmessqueue). The lists
+    below still name them; ignore those three.
   - **The 4 new joins:**
     - lane 4: UI/inv.cpp <- Unknown_00477760.
     - lane 6: BnMessQueue.cpp <- Unknown_005201E0; Unknown_0051C760 <- Unknown_0051C7E0.
