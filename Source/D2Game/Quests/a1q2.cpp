@@ -353,7 +353,7 @@ void __fastcall ACT1Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
-extern "C" const unsigned int gnAct1Quest2NpcIndices[]; // 0x00737180
+extern "C" unsigned int gnAct1Quest2NpcIndices[]; // 0x00737180
 
 void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pTextControl, int nNPCID, int nIndex); // 0x00543790
 

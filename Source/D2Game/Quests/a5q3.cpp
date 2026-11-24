@@ -146,7 +146,7 @@ void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc*, D2TextHeaderStrc*, 
 
 int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc*, int); // 0x005452C0
 
-extern const unsigned int gnAct5Q3MessageIndices[]; // 0x00734304
+extern unsigned int gnAct5Q3MessageIndices[]; // 0x00734304
 
 static void ACT5Q3_RemoveTownNpcs(D2QuestDataStrc* pQuestData);
 
