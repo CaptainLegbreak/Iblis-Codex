@@ -18,9 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/bnet-prefix 9d6185ffd no placeholder change: "<BattleNet>: " (0x6D72B0) is 13 characters and its terminator, but its record stopped at 12, so 0x6D72BC came from the image. As char[14] the last two bytes before chat.cpp's name format at 0x6D72C0 are alignment padding (PROVENANCE `padding`). Borrowed data 844 B (main 848: -4). VERIFIED 41c023894c35 on #363. Not stacked.
-
-- lane4/singles-2 868870cf2 placeholders -2 (Unknown_00460190.cpp, Unknown_00474080.cpp): 0x460190 reads the popup OK/cancel flags 0x7A524C/0x7A5250 that automap.cpp defines and sits right before automap.cpp's 0x4601F0, which reads the same pair, so it goes to automap.cpp. 0x474080 (integer distance estimate) sits right before dLightMap.cpp's 0x4740D0 and is called from dLightMap.cpp's 0x475420, so it goes to dLightMap.cpp. Borrowed data 880 B (unchanged). VERIFIED 72ea23de6e35 on #362; rebased onto #363 (precheck equal; replaces lane4/singles). Not stacked.
+- lane4/bnet-prefix-2 282d453c7 no placeholder change: "<BattleNet>: " (0x6D72B0) is 13 characters and its terminator, but its record stopped at 12, so 0x6D72BC came from the image. As char[14] the last two bytes before chat.cpp's name format at 0x6D72C0 are alignment padding (PROVENANCE `padding`). Borrowed data 844 B (main 848: -4). VERIFIED 41c023894c35 on #363; rebased onto #364 (precheck equal; replaces lane4/bnet-prefix). Not stacked.
 
 ## Claimed
 
