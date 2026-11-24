@@ -15,7 +15,7 @@
 #include "D2Records.h"
 #include "D2AnimData.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 
