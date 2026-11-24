@@ -4,6 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/itemmode-run-copies 8a0d5827f 0 placeholders; the four copies 0x73200C-0x7320C0 (planned in ItemMode.cpp, between its data and Skills.cpp's own copy) are four no-data objects: Task.cpp, PlrTrade.cpp, PlrSave2.cpp and the PlayerCreate placeholder Unknown_0056B180.cpp, the four files between ItemMode.cpp's code (to 0x5641C0) and Skills.cpp's (.rdata: ItemMode, Task, PlrTrade, PlrSave2). Each takes its copy from D2LanguageNames.h with a marker. VERIFIED dc3c60afcedeed9badf7819887b4bae4505fcd45, borrowed data 1,041 B (= main #355). Based on main e40ccd0c7 (#355), not stacked.
 - lane5/run-joins 3f5a6a6f 2 placeholders fewer; MonsterUnique.cpp takes in Unknown_005A1230.cpp (MONSTERUNIQUE_UMod38_Possessed) and Unknown_005A1280.cpp (sub_005A1280_UModChampion), both inside its run among its UMod handlers. VERIFIED 68091d6e81ef7d4485f2a775976d96a2483a2db7, borrowed data 1,041 B (= main). Based on main 9ec68ba8 (#354), not stacked.
 
 ## Claimed
