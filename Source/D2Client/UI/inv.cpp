@@ -297,10 +297,6 @@ extern int gaHotkeyOwners[16]; // 0x007C0768
 
 extern int gaHotkeyLeft[16]; // 0x007C07B8
 
-extern unsigned char gaTable_007C0EA4[]; // 0x007C0EA4
-
-extern int gbQuestIntroFlagsReady; // 0x007C0ECC
-
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -8646,14 +8642,6 @@ void __fastcall SPELLSEL_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLef
 
 
 
-
-// 0x004B92E0
-int __stdcall INV_GetTableByte(int nUnused, int nIndex)
-{
-    D2_ASSERT(gbQuestIntroFlagsReady, 0x60);
-    D2_ASSERT(nIndex < 0x25, 0x65);
-    return gaTable_007C0EA4[nIndex];
-}
 
 int __cdecl sub_M133_Emit_00483C20(int nX, int nY)
 {

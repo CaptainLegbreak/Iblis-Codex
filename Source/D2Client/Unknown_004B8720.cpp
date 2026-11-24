@@ -181,3 +181,5 @@ void __cdecl sub_004B8BF0_OpenWait2()
     sub_004B85F0_AddTextLine(gpTradeWaitDialog, D2LANG_GetStringFromTblIndex(0xD48), 0xF, 0, 0, 1, sub_004B8BA0_OnClose2, 1);
     sub_004B82F0_Select(gpTradeWaitDialog, -1);
 }
+
+#include "gen/data/Source/D2Client/Unknown_004B8720.inc"

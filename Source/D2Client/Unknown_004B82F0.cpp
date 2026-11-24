@@ -308,6 +308,10 @@ unsigned int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
 extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax); // 0x004E4100
 extern D2EntryNode004B9CD0Strc* gpEntryNodes_007C5458; // 0x007C5458
 
+float __fastcall sub_004B9340_MaxFloat(float fA, float fB); // 0x004B9340
+
+float __fastcall sub_004B9370_MinFloat(float fA, float fB); // 0x004B9370
+
 // 0x004B82F0
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex)
 {
@@ -777,10 +781,6 @@ extern "C" void __cdecl sub_004898A0_OpenUi()
 
 unsigned long gdwSecondaryTradeGold; // 0x007C0E78
 
-D2GSPacketText5EStrc gaQuestIntroFlags; // 0x007C0EA4
-
-int gbQuestIntroFlagsReady; // 0x007C0ECC
-
 // 0x004B90D0
 void __fastcall sub_004B90D0_SetValue(unsigned long nValue, bool bFirst)
 {
@@ -792,31 +792,6 @@ void __fastcall sub_004B90D0_SetValue(unsigned long nValue, bool bFirst)
     {
         gdwSecondaryTradeGold = nValue;
     }
-}
-
-// 0x004B9200
-void __cdecl sub_004B9200_ResetTable()
-{
-    gbQuestIntroFlagsReady = 0;
-}
-
-// 0x004B92B0
-void __fastcall sub_004B92B0_StorePacketText(const D2GSPacketSrv5E* pPacket)
-{
-    gaQuestIntroFlags = pPacket->tText;
-    gbQuestIntroFlagsReady = 1;
-}
-
-// 0x004B92D0
-int __stdcall sub_004B92D0_IsTableReady(int nUnused)
-{
-    return gbQuestIntroFlagsReady;
-}
-
-// 0x004B9330
-void __fastcall sub_004B9330_ForwardByte(const unsigned char* pPacket)
-{
-    sub_0046B630_FireLevelEvent(pPacket[1]);
 }
 
 D2ClientSoundStrc* __fastcall SOUNDINST_FindSoundByHandle(int nHandle); // 0x004B9440
@@ -876,42 +851,6 @@ int gbRandomSoundTest; // 0x007C5468
 
 void* gpListBoxSliderCel; // 0x007C546C
 
-// 0x004B9210
-void __fastcall sub_004B9210_DispatchUiPacket(D2UiPacketStrc_004B9210* pPacket)
-{
-    switch (pPacket->nType)
-    {
-    case 36:
-        TEXT_SetQuestPacketValue(pPacket->nArg);
-        return;
-
-    case 2:
-        NPCMENU_ReloadHirelingPopup(pPacket->nArg);
-        return;
-
-    case 1:
-        TEXT_AcceptShortPacket(pPacket);
-        return;
-
-    case 3:
-    case 6:
-        NPCMENU_OnNpcPacketStoreSubId(pPacket);
-        return;
-
-    case 4:
-    case 13:
-        TEXT_AcceptWordPacket(pPacket);
-        return;
-
-    case 23:
-        sub_00477EE0();
-        GAME_SetExitApplication(0);
-        GAME_SetCinematicExit(1);
-        GAME_RequestExit();
-        return;
-    }
-}
-
 // 0x004BABC0
 void __cdecl sub_004BABC0_ToggleHints()
 {
@@ -931,30 +870,6 @@ void __cdecl sub_004BE060()
         ARCHIVE_FreeClientCellFile(gpListBoxSliderCel);
         gpListBoxSliderCel = 0;
     }
-}
-
-// 0x004B9320
-void __fastcall sub_004B9320_PlayCinematicFromPacket(const D2CinematicPacketStrc* pPacket)
-{
-    INV_PlayCinematic(pPacket->nCinematic);
-}
-
-// 0x004B9340
-float __fastcall sub_004B9340_MaxFloat(float fA, float fB)
-{
-    return fA > fB ? fA : fB;
-}
-
-// 0x004B9370
-float __fastcall sub_004B9370_MinFloat(float fA, float fB)
-{
-    return fA < fB ? fA : fB;
-}
-
-// 0x004B93A0
-float __fastcall sub_004B93A0_ClampFloat(float fValue, float fMin, float fMax)
-{
-    return sub_004B9370_MinFloat(sub_004B9340_MaxFloat(fValue, fMin), fMax);
 }
 
 D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
