@@ -10,6 +10,7 @@
 #include "D2Records.h"
 #include "D2ItemsWorld.h"
 #include "D2DataTbls.h"
+#include "D2ClientUiRecords.h"
 
 struct D2CelFileStrc;
 
@@ -21,19 +22,6 @@ struct Unicode;
 
 struct D2InventoryStrc;
 
-#pragma pack(push, 2)
-
-struct D2PanelButtonStrc
-{
-    int bActive;
-    int nValue;
-    unsigned short nString;
-    int nCel;
-    unsigned short nFrame;
-    int nType;
-};
-
-#pragma pack(pop)
 
 #pragma pack(push, 1)
 
@@ -111,9 +99,6 @@ extern int gdwGlobal_007A6AE0;                                                  
 
 extern int gdwGlobal_007A6AF0;                                                                              // 0x007A6AF0
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
 
 static int gnInvMouseX; // 0x007BCA4C
 
@@ -329,22 +314,8 @@ struct D2InventoryGridInfoStrc;
 
 struct D2InvCompGridStrc;
 
-struct D2NpcButtonStrc;
 
 
-#pragma pack(push, 2)
-
-struct D2NpcButtonStrc
-{
-    int nId;
-    int bActive;
-    unsigned short nTextId;
-    int nMode;
-    unsigned short nKey;
-    int nArg;
-};
-
-#pragma pack(pop)
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 

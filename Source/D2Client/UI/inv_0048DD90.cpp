@@ -11,6 +11,7 @@
 #include "D2CelContext.h"
 #include "D2LevelTxt.h"
 #include "D2StormTypes.h"
+#include "D2ClientUiRecords.h"
 
 struct D2SkillStrc;
 
@@ -22,21 +23,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 struct D2InventoryStrc;
 
-struct D2SpeedNameStrc
-{
-    unsigned short f_0;
-    unsigned short unk0x02[2];
-};
 
-#pragma pack(push, 2)
-
-struct D2ItemTypeNameStrc
-{
-    int nItemType;
-    unsigned short f_4;
-};
-
-#pragma pack(pop)
 
 struct UBuf
 {
