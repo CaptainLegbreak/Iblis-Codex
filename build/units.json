@@ -76175,13 +76175,7 @@
      "va": "0x0066F240",
      "length": 262,
      "name": "DRLGROOMTILE_LoadDT1FilesForRoom"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0066F350.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0066F350",
      "length": 37,
@@ -76193,30 +76187,14 @@
      "name": "sub_0066F380"
     },
     {
-     "va": "0x0066F520",
-     "length": 363,
-     "name": "DRLGTILESUB_ReplaceSubPreset"
-    },
-    {
-     "va": "0x0066FCF0",
-     "length": 262,
-     "name": "sub_0066FCF0"
-    },
-    {
-     "va": "0x006707A0",
-     "length": 105,
-     "name": "sub_006707A0"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0066F3B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x0066F3B0",
      "length": 355,
      "name": "?DRLGTILESUB_TestReplaceSubPreset@@YGHHHPAUD2DrlgSubstGroupStrc@@PAUD2LvlSubTxt@@PAUD2UnkOutdoorStrc@@@Z"
+    },
+    {
+     "va": "0x0066F520",
+     "length": 363,
+     "name": "DRLGTILESUB_ReplaceSubPreset"
     },
     {
      "va": "0x0066F690",
@@ -76229,6 +76207,16 @@
      "name": "?sub_0066F990_ApplySecondaryGroups@@YGXPAUD2UnkOutdoorStrc@@PAUD2LvlSubTxt@@@Z"
     },
     {
+     "va": "0x0066FA10",
+     "length": 186,
+     "name": "sub_0066FA10"
+    },
+    {
+     "va": "0x0066FCF0",
+     "length": 262,
+     "name": "sub_0066FCF0"
+    },
+    {
      "va": "0x0066FE00",
      "length": 323,
      "name": "?sub_0066FE00_TestSubstGroupTiles@@YGHHHPAUD2UnkOutdoorStrc2@@PAUD2LvlSubTxt@@PAUD2DrlgSubstGroupStrc@@@Z"
@@ -76237,17 +76225,11 @@
      "va": "0x00670750",
      "length": 72,
      "name": "?sub_00670750_ApplySubstitutionBorder@@YIXPAUD2UnkOutdoorStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0066FA10.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
-     "va": "0x0066FA10",
-     "length": 186,
-     "name": "sub_0066FA10"
+     "va": "0x006707A0",
+     "length": 105,
+     "name": "sub_006707A0"
     }
    ]
   },
