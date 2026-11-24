@@ -76534,6 +76534,11 @@
      "name": "?DRLGOUTPLACE_SetBlankBorderGridCells@@YIXPAUD2DrlgLevelStrc@@@Z"
     },
     {
+     "va": "0x00675DE0",
+     "length": 204,
+     "name": "?sub_00675DE0_Place@@YIXPAUD2DrlgCoordStrc@@HH0@Z"
+    },
+    {
      "va": "0x00675EB0",
      "length": 204
     },
@@ -76553,6 +76558,22 @@
     {
      "va": "0x00676280",
      "length": 464
+    },
+    {
+     "va": "0x00676450",
+     "length": 512
+    },
+    {
+     "va": "0x00676650",
+     "length": 624
+    },
+    {
+     "va": "0x006768C0",
+     "length": 212
+    },
+    {
+     "va": "0x006769A0",
+     "length": 316
     },
     {
      "va": "0x00676AE0",
@@ -76664,80 +76685,6 @@
      "va": "0x00678AD0",
      "length": 64
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00675850.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00676450",
-     "length": 512
-    },
-    {
-     "va": "0x00676650",
-     "length": 624
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00675DE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00675DE0",
-     "length": 204,
-     "name": "?sub_00675DE0_Place@@YIXPAUD2DrlgCoordStrc@@HH0@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_006768C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006768C0",
-     "length": 212
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_006769A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006769A0",
-     "length": 316
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
