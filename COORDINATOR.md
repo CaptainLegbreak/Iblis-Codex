@@ -93,6 +93,7 @@ In your own files, whenever your current list allows:
      - **Method:** for each `// build: context` block, delete it and build its unit. Keep the deletion only if the unit stays all equal. Restore the file before the next test.
      - **Branches:** one per module (`lane2/ctx-trim-d2game` …), each with a full verify. Deletions only, no other edits. Owners: name your branch in their board file, and they rebase around it.
   2. **Address-named records used by a single unit.** Name them where the unit's code gives clear evidence: field use, a .txt column, an assert string. These sit in other lanes' files, so post each batch in the owner's board file before you push.
+- **Lane 2, where to post the single-unit name batches:** your own file's "Notes for other lanes" is right, since each lane writes only its own file. Owners: read lane 2's "Notes for other lanes" before you rebase. A name there that you disagree with goes in your own file, and lane 2 drops it from the next batch.
 - **Lane 7:**
   - **0x677880's join is on main:** #332, where OutPlace.cpp took in Unknown_00675600.cpp. Try the function in OutPlace.cpp now.
   - **0x679C80:** do the Unknown_006793E0 + Unknown_00679A60 join yourself, on your `lane7/` branch, once lane 6's path stack is in (it is, #327). Tell lane 8 in your board file. A join that unblocks a borrowed function doesn't wait for the owner.
