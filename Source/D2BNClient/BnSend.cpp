@@ -18,6 +18,7 @@
 
 #include "D2StormSha1.h"
 #include "D2SetsTxt.h"
+#include "D2BnMessages.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -719,12 +720,6 @@ struct D2BnStateStrc;
 
 struct D2BnServerEntryStrc;
 
-struct D2BnCheckAdReplyStrc
-{
-    unsigned int nAdId;
-    unsigned int nExtension;
-    unsigned char pData[1];
-};
 
 struct D2BnServerEntryStrc
 {
