@@ -1035,4 +1035,3 @@ struct D2GameStrc;
 
 struct D2UnitStrc;
 
-#include "gen/data/Source/D2Game/Quests/a3q6.inc"

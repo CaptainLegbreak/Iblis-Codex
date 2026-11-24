@@ -996,10 +996,7 @@ int gnAct4Q2NpcMessageIndices[] = // 0x0073D56C
 
 #include "gen/data/Source/D2Game/Quests/a4q1.inc"
 
-static int gnAct4Q1NpcMessageIndices[] = // 0x0073DBA0
-{
-    -1, 0, 1, 2, 3, 4
-};
+extern int gnAct4Q1NpcMessageIndices[]; // 0x0073DBA0
 
 // 0x005B3BB0
 void __fastcall ACT4Q1_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)

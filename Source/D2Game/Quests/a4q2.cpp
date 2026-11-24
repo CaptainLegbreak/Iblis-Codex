@@ -1409,4 +1409,3 @@ int __fastcall OBJECTS_OperateFunction56_DiabloSeal(D2ObjOperateFnStrc* pOp, int
     return 0;
 }
 
-#include "gen/data/Source/D2Game/Quests/a4q2.inc"
