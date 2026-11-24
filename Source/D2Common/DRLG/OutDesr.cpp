@@ -1,23 +1,13 @@
 #include "D2LevelIds.h"
-
 #include "D2DrlgTiles.h"
-
 #include "D2TxtItems.h"
-
 #include "D2DrlgMaps.h"
-
 #include "D2DrlgRooms.h"
-
 #include "D2ItemModes.h"
-
 #include "D2Structs.h"
-
 #include "D2LevelTxt.h"
-
 #include "D2Drlg.h"
-
 #include "D2Common.h"
-
 #include "D2Path.h"
 
 struct D2DrlgStrc;
@@ -113,6 +103,20 @@ static int DRLGOUTWILD_TestSpawnRiver(int nX, D2DrlgLevelStrc* pLevel);
 static int __stdcall DRLGOUTWILD_SpawnCliffCaves(D2DrlgLevelStrc* pLevel, int nX, int nY);
 
 void __stdcall DRLGOUTDESR_SpawnRiverAndCliffCaves(D2DrlgLevelStrc* pLevel); // 0x00680200
+
+struct D2PresetPairStrc;
+
+struct D2PresetPairStrc
+{
+    int nFirst;
+    int nSecond;
+};
+
+extern D2PresetPairStrc gaPresetPairs_006F2680[]; // 0x006F2680
+
+void __stdcall sub_M127_EmitSink(int nValue);
+
+extern D2OutdoorColumnFilesStrc gaPresetPairs[]; // 0x006F2680
 
 static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
@@ -424,6 +428,134 @@ static int DRLGOUTWILD_TestSpawnRiver(int nX, D2DrlgLevelStrc* pLevel)
     }
 
     return 1;
+}
+
+// 0x0067FCD0
+static inline int __stdcall sub_0067FCD0_GetPresetPairValue(int bFirst, int nIndex, unsigned int nFlags)
+{
+    if (nIndex)
+    {
+        if (nIndex == 7 && (nFlags & 0xF0000) == 0x30000)
+        {
+            return nIndex - 4;
+        }
+        if (bFirst)
+        {
+            return gaPresetPairs_006F2680[nIndex].nFirst;
+        }
+        return gaPresetPairs_006F2680[nIndex].nSecond;
+    }
+    return (nFlags & 0x100) ? 0 : 3;
+}
+
+// 0x0067FFB0
+static inline int sub_0067FFB0_IsRectAdjacent(D2DrlgOutRectStrc* pRect, D2DrlgOutRectStrc* pOther)
+{
+    D2DrlgOutRectStrc* pBounds = pRect->pBounds;
+    if (pRect->nX < pBounds->nX && pOther->nY > pRect->nY && !(pRect->nFlags & 1) && !(pOther->nFlags & 1))
+    {
+        return 1;
+    }
+    if (pRect->nY > pBounds->nY && pOther->nX > pRect->nX && !(pRect->nFlags & 1) && !(pOther->nFlags & 1))
+    {
+        return 1;
+    }
+    return 0;
+}
+
+// 0x0067FD20
+static void __stdcall sub_0067FD20_PlacePair(int nColumn, D2DrlgLevelStrc* pLevel)
+{
+    D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoors;
+    const int bBridge = pOutdoor->dwFlags & 4;
+    const int nRowRange = pOutdoor->nGridHeight - 2;
+    const int nRand = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, nRowRange);
+    for (int i = 0; i < nRowRange; ++i)
+    {
+        const int nY = (nRand + i) % nRowRange + 1;
+        if (bBridge)
+        {
+            if (!sub_00674200_IsValid(pLevel, nColumn - 1, nY))
+                continue;
+        }
+        else
+        {
+            if (!sub_00674200_IsValid(pLevel, nColumn - 1, nY))
+                continue;
+            if (!sub_00674200_IsValid(pLevel, nColumn + 2, nY))
+                continue;
+        }
+        if ((sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn, nY) & 0xF0000) == 0x30000
+            && (sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn + 1, nY) & 0xF0000) == 0x30000)
+        {
+            sub_006743C0_PlacePreset(pLevel, nColumn, nY, 28, 1, 0);
+            sub_006743C0_PlacePreset(pLevel, nColumn + 1, nY, 28, bBridge ? 3 : 2, 0);
+            return;
+        }
+    }
+}
+
+void __fastcall sub_M127_Emit_0067FCD0(int nValue, D2DrlgOutRectStrc* pRect, D2DrlgOutRectStrc* pOther, unsigned int nFlags)
+{
+    sub_M127_EmitSink(sub_0067FCD0_GetPresetPairValue(nValue & 1, nValue, nFlags));
+    for (D2DrlgOutRectStrc* p = pOther; p; p = p->pBounds)
+    {
+        sub_M127_EmitSink(sub_0067FFB0_IsRectAdjacent(pRect, p));
+    }
+}
+
+static inline unsigned __int64 RollSeedInline(D2SeedStrc* pSeed)
+{
+    unsigned __int64 nSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(nSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)nSeed;
+    return nSeed;
+}
+
+static inline unsigned int RollLimitedInline(D2SeedStrc* pSeed, int nLimit)
+{
+    if (nLimit <= 0)
+        return 0;
+    if ((nLimit - 1) & nLimit)
+        return (unsigned int)RollSeedInline(pSeed) % nLimit;
+    return RollSeedInline(pSeed) & (nLimit - 1);
+}
+
+// 0x0067FE90
+void __stdcall sub_0067FE90_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn)
+{
+    D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoors;
+    for (int nRow = 0; nRow < pOutdoor->nGridHeight; ++nRow)
+    {
+        int nFlags = sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn, nRow);
+        int nType = sub_0067C570_GetGrid(&pOutdoor->pGrid[0], nColumn, nRow);
+        int nFile;
+        if (nType)
+        {
+            if (nType == 7 && (nFlags & 0xF0000) == 0x30000)
+                nFile = 3;
+            else
+                nFile = gaPresetPairs[nType].nLeft;
+        }
+        else
+            nFile = (nFlags & 0x100) ? 0 : 3;
+        sub_006743C0_PlacePreset(pLevel, nColumn, nRow, 26, nFile, 0);
+
+        nFlags = sub_0067C570_GetGrid(&pOutdoor->pGrid[2], nColumn + 1, nRow);
+        nType = sub_0067C570_GetGrid(&pOutdoor->pGrid[0], nColumn + 1, nRow);
+        if (nType)
+        {
+            if (nType == 7 && (nFlags & 0xF0000) == 0x30000)
+                nFile = 3;
+            else
+                nFile = gaPresetPairs[nType].nRight;
+        }
+        else
+            nFile = (nFlags & 0x100) ? 0 : 3;
+        sub_006743C0_PlacePreset(pLevel, nColumn + 1, nRow, 27, nFile, 0);
+    }
+    if (pOutdoor->dwFlags & 0x14)
+        sub_0067FD20_PlacePair(nColumn, pLevel);
 }
 
 // 0x006801A0
