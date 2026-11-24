@@ -105,39 +105,10 @@ extern void* gpfnSymGetModuleBase64;                                            
 
 extern StackWalk64Fn gpfnStackWalk64;                                                              // 0x0098A6A0
 
-struct D2MiniDumpExceptionInfoStrc
-{
-    unsigned long dwThreadId;
-    void* pExceptionPointers;
-    int bClientPointers;
-};
 
-struct D2MiniDumpUserStreamStrc
-{
-    unsigned long dwType;
-    unsigned long dwBufferSize;
-    void* pBuffer;
-};
 
-struct D2MiniDumpUserStreamInfoStrc
-{
-    unsigned long dwUserStreamCount;
-    D2MiniDumpUserStreamStrc* pUserStreamArray;
-};
 
-struct D2MiniDumpRequestInfoStrc
-{
-    void* pExceptionPointers;
-    unsigned long dwThreadId;
-    char* szComment;
-};
 
-struct D2MiniDumpRequestStrc
-{
-    void* hFile;
-    D2MiniDumpRequestInfoStrc tInfo;
-    bool bResult;
-};
 
 typedef int (__stdcall* D2MiniDumpWriteDumpFn)(void* hProcess, unsigned long dwProcessId, void* hFile, int nDumpType, D2MiniDumpExceptionInfoStrc* pExceptionParam, D2MiniDumpUserStreamInfoStrc* pUserStreamParam, void* pCallbackParam);
 
@@ -145,7 +116,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetCurrentProcessId(); 
 
 extern D2MiniDumpWriteDumpFn gpfnMiniDumpWriteDump; // 0x0098A6E0
 
-extern D2MiniDumpRequestStrc* gpMiniDumpRequest_0098A6E4; // 0x0098A6E4
+extern D2MiniDumpRequestStrc* gpMiniDumpRequest; // 0x0098A6E4
 
 typedef int (__stdcall* SymCleanupFn)(void* hProcess);
 
@@ -486,22 +457,22 @@ bool __stdcall sub_004025F0_StackWalk(void* hThread, void* pStackFrame, void* pC
 // 0x004026D0
 void __cdecl sub_004026D0_WriteMiniDump()
 {
-    D2MiniDumpRequestStrc* pRequest = gpMiniDumpRequest_0098A6E4;
-    D2MiniDumpRequestInfoStrc* pInfo = &gpMiniDumpRequest_0098A6E4->tInfo;
+    D2MiniDumpRequestStrc* pRequest = gpMiniDumpRequest;
+    D2MiniDumpRequestInfoStrc* pInfo = &gpMiniDumpRequest->tInfo;
     D2MiniDumpExceptionInfoStrc tExceptionInfo;
-    tExceptionInfo.dwThreadId = gpMiniDumpRequest_0098A6E4->tInfo.dwThreadId;
-    tExceptionInfo.pExceptionPointers = gpMiniDumpRequest_0098A6E4->tInfo.pExceptionPointers;
+    tExceptionInfo.dwThreadId = gpMiniDumpRequest->tInfo.dwThreadId;
+    tExceptionInfo.pExceptionPointers = gpMiniDumpRequest->tInfo.pExceptionPointers;
 
     D2MiniDumpUserStreamStrc tStream;
     D2MiniDumpUserStreamInfoStrc tStreamInfo;
     unsigned long dwCount = 0;
     tExceptionInfo.bClientPointers = 0;
-    char* szComment = gpMiniDumpRequest_0098A6E4->tInfo.szComment;
+    const char* szComment = gpMiniDumpRequest->tInfo.szComment;
     if (szComment)
     {
         tStream.dwType = 0x1000;
         tStream.dwBufferSize = strlen(szComment) + 1;
-        tStream.pBuffer = szComment;
+        tStream.pBuffer = (void*)szComment;
         dwCount = 1;
     }
     tStreamInfo.dwUserStreamCount = dwCount;
