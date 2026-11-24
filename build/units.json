@@ -79140,9 +79140,24 @@
      "name": "?GDICORE_SetPalette@@YIXPAUD2PaletteEntry006C7C10Strc@@@Z"
     },
     {
+     "va": "0x006C8000",
+     "length": 29,
+     "name": "?sub_006C8000_SetPaletteView@@YIXPBUD2GfxPaletteViewStrc@@@Z"
+    },
+    {
      "va": "0x006C8020",
      "length": 6,
      "name": "sub_006C8020"
+    },
+    {
+     "va": "0x006C8030",
+     "length": 1,
+     "name": "?sub_006C8030_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x006C8040",
+     "length": 1,
+     "name": "?sub_006C8040_Nop@@YAXXZ"
     },
     {
      "va": "0x006C8050",
@@ -79153,6 +79168,26 @@
      "va": "0x006C8060",
      "length": 3,
      "name": "sub_006C8060"
+    },
+    {
+     "va": "0x006C8070",
+     "length": 1,
+     "name": "?sub_006C8070_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x006C8080",
+     "length": 3,
+     "name": "?sub_006C8080_Nop@@YGXHHH@Z"
+    },
+    {
+     "va": "0x006C8090",
+     "length": 3,
+     "name": "?sub_006C8090_Nop@@YGXHHHH@Z"
+    },
+    {
+     "va": "0x006C80A0",
+     "length": 1,
+     "name": "?sub_006C80A0_Nop@@YAXXZ"
     },
     {
      "va": "0x006C80B0",
@@ -79275,47 +79310,6 @@
     "/Gd",
     "/GS-",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C7CF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006C8000",
-     "length": 29,
-     "name": "?sub_006C8000_SetPaletteView@@YIXPBUD2GfxPaletteViewStrc@@@Z"
-    },
-    {
-     "va": "0x006C8030",
-     "length": 1,
-     "name": "?sub_006C8030_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x006C8040",
-     "length": 1,
-     "name": "?sub_006C8040_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x006C8070",
-     "length": 1,
-     "name": "?sub_006C8070_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x006C8080",
-     "length": 3,
-     "name": "?sub_006C8080_Nop@@YGXHHH@Z"
-    },
-    {
-     "va": "0x006C8090",
-     "length": 3,
-     "name": "?sub_006C8090_Nop@@YGXHHHH@Z"
-    },
-    {
-     "va": "0x006C80A0",
-     "length": 1,
-     "name": "?sub_006C80A0_Nop@@YAXXZ"
-    }
    ]
   },
   {
