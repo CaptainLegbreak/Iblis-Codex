@@ -303,11 +303,11 @@ struct D2Unk004760C0Strc
 
 extern "C" int __cdecl strcmp(const char* szA, const char* szB);
 
-extern "C" T0046E1B0* __stdcall ImmGetContext(int hWnd); // 0x006B00C6
+extern "C" HIMC__* __stdcall ImmGetContext(int hWnd); // 0x006B00C6
 
-extern "C" int __stdcall ImmReleaseContext(int hWnd, T0046E1B0* hImc); // 0x006B00B4
+extern "C" int __stdcall ImmReleaseContext(int hWnd, HIMC__* hImc); // 0x006B00B4
 
-extern "C" int __stdcall ImmGetConversionStatus(T0046E1B0* hImc, unsigned long* pConversion, unsigned long* pSentence); // 0x006B00DE
+extern "C" int __stdcall ImmGetConversionStatus(HIMC__* hImc, unsigned long* pConversion, unsigned long* pSentence); // 0x006B00DE
 
 void* __stdcall SMemAlloc(int nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
 

@@ -67,7 +67,7 @@ struct RoomCoordinates;
 struct SMSGHANDLER_PARAMS;
 struct SelectionState;
 struct T0044CB60;
-struct T0046E1B0;
+struct HIMC__;
 struct T00481720;
 struct Unit;
 struct _FILETIME;
@@ -189,8 +189,8 @@ extern "C" int __cdecl isdigit(int c); // 0x00686F0F
 extern "C" int __cdecl isspace(int c); // 0x00687006
 extern "C" int __cdecl toupper(int nChar); // 0x00685385
 extern "C" int __fastcall sub_004B9A00_Notify(int, void*, int, int, int); // 0x004B9A00
-extern "C" int __stdcall ImmSetConversionStatus(T0046E1B0* hImc, unsigned long nConversion, unsigned long nSentence); // 0x006B00EA
-extern "C" int __stdcall ImmSetOpenStatus(T0046E1B0* hImc, int bOpen); // 0x006B00F0
+extern "C" int __stdcall ImmSetConversionStatus(HIMC__* hImc, unsigned long nConversion, unsigned long nSentence); // 0x006B00EA
+extern "C" int __stdcall ImmSetOpenStatus(HIMC__* hImc, int bOpen); // 0x006B00F0
 extern "C" int __stdcall sub_00420290_QueueMessage(Message*); // 0x00420290
 extern "C" int gnSubsystemActive; // 0x007A0458
 extern D2BitBufferStrc* gpPlayerQuestFlags; // 0x007C0D43
