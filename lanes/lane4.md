@@ -18,9 +18,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
+- lane4/small-gaps d31ded76a no placeholder change: six small borrowed data blocks are their records' own bytes. The hotkey command table at 0x712698 has 57 entries (the dispatcher's `gaActions` at 0x71269C was the same table read from its second field; it now uses `gaHotkeyCommands[i].pfnUnk0x04`/`.nModeFlag`), so the 8 B at 0x71293C are the last entry's fields. The option headers are D2OptionHeaderStrc's five fields (20 B; 0x714220 and the stray record 0x714234 are their nY). The token separator 0x712FFC is in .data, so its record is not const; that puts the blink delay's padding at 0x713002 in place. The inventory slot offsets 0x7220B0-0x72210F are twelve D2CoordStrc pairs (zero x offsets are in .data only as members). The NPC tabs 0x722110 are one `D2PanelTabStrc gaNpcTabs[4]` record in inv_004886C0.cpp (it was split over three files; 0x722154 is the last bEnabled). Borrowed data 953 B (main 999). VERIFIED 0ec817980320 on #356. Not stacked. Touches only lane 4 files.
+
 ## Claimed
 
-- lane4/small-gaps: the small borrowed data blocks in lane 4's range (0x70F814, 0x71293C, 0x713002, 0x714220, 0x722314, the seven zero x offsets at 0x7220B8-0x7220F8). Verifying.
+- lane4/small-gaps-b (stacked on small-gaps): ui.cpp and panel.cpp take their copies from D2LanguageNames.h with a build symbol marker, so 0x70F814 and 0x722314 become padding. Verifying.
 
 ## Questions
 
