@@ -78950,6 +78950,10 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x006BCD50",
+     "length": 75
+    },
+    {
      "va": "0x006BCDA0",
      "length": 52,
      "name": "_FOG_FreeBinFile@4"
@@ -79198,16 +79202,6 @@
     {
      "va": "0x006BCCD0",
      "length": 121
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Unknown_006BCD50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006BCD50",
-     "length": 75
     }
    ]
   },
