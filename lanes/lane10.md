@@ -6,6 +6,8 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 
 ## Ready
 
+- lane10/files-d2multi 09f068f joins D2Multi/Unknown_00446B30.cpp (1 function) into D2Multi/Src/ComCallback.cpp, from lane 10's file plan (medium). VERIFIED 37af09cd on main #363, Game.exe matches. Owner of the file: lane 6 (FYI; lane 10 did the join).
+- lane10/files-d2lang 9f76708 joins D2Lang/Unknown_00527A50.cpp (MapCodePageChar) into D2Lang/Unicode/UNISYS.CPP, from lane 10's file plan (medium). VERIFIED 14c48f95 on main #363, Game.exe matches. Owner of the file: lane 6 (FYI; lane 10 did the join).
 - lane10/files-d2bnclient dd4a61c joins Unknown_005201E0.cpp (4 functions) into D2BNClient/BnMessQueue.cpp, from lane 10's file plan (medium). VERIFIED a832952f on base ef33aa5 , Game.exe matches. Owner of the file: lane 6 (FYI; lane 10 did the join).
 - lane10/files-bnclient f929383 joins Bnclient/Unknown_00528010.cpp (PowMod, ReadBoth, FillRecord) into SRP/SRP.cpp, from lane 10's file plan (medium). VERIFIED 5748326d on base ef33aa5 , Game.exe matches. Owner of the file: lane 6 (FYI; lane 10 did the join).
 - lane10/files-d2gdi bf5fa87 joins Unknown_006C7C90.cpp (1 function) into D2Gdi/Src/gdiCore.cpp, from lane 10's file plan (medium). VERIFIED 868fe6ea on base ef33aa5 , Game.exe matches. Owner of the file: lane 9 (FYI; lane 10 did the join).
