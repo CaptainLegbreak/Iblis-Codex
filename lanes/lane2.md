@@ -20,6 +20,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
   - Verified on 55b20d70 (#338), rebased onto b28fd264 (#339). Precheck is equal there.
   - Outside lane 2: SCmd (lane 4), CharSel_0042E600 (lane 6), Dungeon (lane 8), Level and PlrSave (lane 5).
 
+- lane2/small-records-f 2017ad09 562->562 Five commits, each a small header included only by the units that had the private copies: D2Win32Message.h (the Win32 MSG record GetMessage/PeekMessage fill; SCmd, MainMenus, SMSG, Unknown_00420220), D2CmdArg.h (gaCmdArguments' entry; ErrorManager, ErrorManager_004082E0, Safesock, Unknown_00404F40), D2DrlgWarp.h (the level warp list entry at D2DrlgStrc+0x90; Drlg, DrlgWarp, Unknown_0066AE70), D2ClientGfxState.h (the state overlay node, three partial views merged into one record, and its owner; the three Gfx units), D2CelDataHash.h (the cel data name hash and its entry, which was T00604AE0 and is now D2CelDataHashEntryStrc; CelDataHash, FastCmp, GfxHash, TileLib, plus the rename in SpriteCache and Unknown_005FE010). Views that differ under the same name stay private (ChatDlg's 0x10-byte MSG, WINMAIN's other D2CmdArgStrc, DrlgRoom's 16-int warp arrays); VERIFIED 3438458b050fe709b1408e55e004d69a936291e8
+  - On b28fd264 (#339). All 20 changed units build equal.
+  - Outside lane 2: SCmd, Gfx x3 (lanes 1 and 4), MainMenus (lane 6), SMSG, Unknown_00420220, Unknown_00404F40, the Fog units (lane 3), Drlg x3 (lane 8), the D2CMP units (lane 6).
+
 ## Working on
 
 Records that two or more units define privately with the same text, moved into the shared header that owns their area. One branch per area; each is checked against all includers of the header before it is posted:
@@ -33,6 +37,7 @@ Records that two or more units define privately with the same text, moved into t
 8. (done: questlog-records)
 9, 10, 12. (done: client-records-b)
 11. Skipped: ChatDlg's D2CharSaveFileStrc is a 0x2000-byte view of the .d2s file that reads 0x18 as old flags; merging it with D2SaveHeaderStrc needs a union there. The ladder entry alone isn't worth a header.
+14. Rescan on #339: taken into small-records-f. Next: the T004013C0 split (it is two records: the Win32 SYSTEM_INFO in Fog/Storm, and Fog's captured system info at 0x0074D88C that FOG_GetSystemInfo returns), then the other `T<address>` names in shared headers (T00681490, T00481720, T00473470). Most remaining same-text groups (D2GridCellStrc, D2ChatMessageStrc, D2ClientServiceStrc) are unused context copies and stay for the unit work.
 13. Rescan on #332 done. Taken from it: records-c. Next from it: D2UIVarRecordStrc (Select, automap, ui, Unknown_0046ACE0); D2UiCelFileStrc (spellsel, Unknown_004A76C0/004A9BD0/004AA9C0); D2DrlgDeleteStrc (Dungeon, Level, PlrSave); D2UnitDropItemsPacketStrc (SCmd, CharSel, CharSel_0042E600); D2SoundUnitNodeStrc and D2DialogWidgetNodeStrc (sound and dialog units). The big clusters in text/Unknown_004A43E0/004A6460 and inv/Unknown_00482C70 look like context copies, so I'm leaving them to the unit work.
 No borrowed-data block or language split is in lane 2's range: the coord block is runtime-library data.
 
