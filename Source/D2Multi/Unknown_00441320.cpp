@@ -10,7 +10,7 @@ struct D2ListMessage00441320Strc
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 const Unicode* __fastcall sub_004FBB30_GetText(D2WinControlStrc* pControl); // 0x004FBB30
-void __fastcall sub_004FF5A0_SetEditText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
+void __fastcall EDITBOX_SetText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
 int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91C0
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
@@ -66,7 +66,7 @@ int __stdcall sub_00441320_ListClick(D2ListMessage00441320Strc* pMsg)
     {
         return 0;
     }
-    sub_004FF5A0_SetEditText(gpEdit_0077BCF4, pText);
+    EDITBOX_SetText(gpEdit_0077BCF4, pText);
     CONTROL_SetFocusedEditBox(0);
     return 0;
 }

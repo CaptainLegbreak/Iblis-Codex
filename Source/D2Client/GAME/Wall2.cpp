@@ -127,7 +127,7 @@ extern u32 gVar_006CE274_Flags; // 0x006CE274
 
 extern s32 __fastcall sub_00464860_Classify(Unit*); // 0x00464860
 
-extern s32 __stdcall sub_00604CB0_Height(TileRecord*); // 0x00604CB0
+extern s32 __stdcall TileGetTotalHeight(TileRecord*); // 0x00604CB0
 
 extern Tile* __stdcall sub_006196A0_WallTiles(D2ActiveRoomStrc*,u32*); // 0x006196A0
 
@@ -624,7 +624,7 @@ s32 __stdcall WALL2_VisitRoom(D2ActiveRoomStrc* room,View* view)
     {
         Tile* tile=(Tile*)((u8*)tiles+48*i);
         TileRecord* record=FIELD(TileRecord*,tile,24);
-        s32 height=sub_00604CB0_Height(record);
+        s32 height=TileGetTotalHeight(record);
         s32 y,x;
         DUNGEON_ClientTileDrawPositionToGameCoords(FIELD(s32,tile,0),FIELD(s32,tile,4),&x,&y);
         --y;
@@ -653,7 +653,7 @@ s32 __stdcall WALL2_VisitRoom(D2ActiveRoomStrc* room,View* view)
     for(i=0;i<count;++i)
     {
         Tile* tile=(Tile*)((u8*)tiles+48*i);
-        s32 height=sub_00604CB0_Height(FIELD(TileRecord*,tile,24));
+        s32 height=TileGetTotalHeight(FIELD(TileRecord*,tile,24));
         s32 y,x;
         DUNGEON_ClientTileDrawPositionToGameCoords(FIELD(s32,tile,0),FIELD(s32,tile,4),&x,&y);
         --y;

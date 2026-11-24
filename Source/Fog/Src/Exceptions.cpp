@@ -1754,7 +1754,8 @@ void __fastcall EXCEPTIONS_CloseNamedLog(const char* szName)
     }
 }
 
-extern "C" void __cdecl sub_0043F800_FreeList()
+// build: symbol _CHATDLG_FreeNameList 0x0043F800
+extern "C" void __cdecl CHATDLG_FreeNameList()
 {
     List204* node = gList_0077BDB4;
     while (node)

@@ -93,7 +93,7 @@ int __fastcall sub_004FBD20_GetLastRow(D2WinControlStrc* pControl); // 0x004FBD2
 int __fastcall D2Win_10057(D2WinControlStrc* pControl, const char* szText, int a3, int a4); // 0x004FCD40
 void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine); // 0x004FB9D0
 int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
-void __fastcall sub_004FF5A0_SetEditText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
+void __fastcall EDITBOX_SetText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
 int __fastcall sub_00500960_IsPressed(D2WinControlStrc* pButton); // 0x00500960
 void __fastcall MAINMENUS_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
 void __cdecl MAINMENUS_DestroyControls(); // 0x0042F3F0
@@ -104,7 +104,7 @@ int __fastcall CHARSEL_UpgradeCharacter(D2LaunchCharEntryStrc* pEntry, const cha
 void __fastcall MAINMENUS_ShowExpansionMessage(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg); // 0x00435180
 int __stdcall sub_004370B0_ShowLoginScreen(int nArg); // 0x004370B0
 void __cdecl CHARSEL_InitCharSelectScreen(); // 0x0043B080
-void __fastcall sub_0043C750_JoinEntry(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x0043C750
+void __fastcall MAINMENUS_DeleteCharFiles(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x0043C750
 int __fastcall CHATDLG_UpdateSaveFlags(const char* szName); // 0x0043CAA0
 int __stdcall sub_0043E6C0_OnError(int nArg); // 0x0043E6C0
 int __cdecl CHATDLG_PostClearMessage(); // 0x0043E570
@@ -225,7 +225,7 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 void __stdcall SMemCopy(void*,const void*,unsigned int); // 0x0041D2A0
 void __fastcall CONTROL_SetEnabled(D2WinControlStrc*,int); // 0x004F96F0
 void __fastcall CONTROL_SetVisible(D2WinControlStrc*,int); // 0x004F9740
-void __stdcall sub_004FD0B0_SetSprite(D2WinControlStrc*,int,void*); // 0x004FD0B0
+void __stdcall IMAGE_SetCoordinates(D2WinControlStrc*,int,void*); // 0x004FD0B0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc*,const Unicode*,int,int,int); // 0x004FC9B0
 void __stdcall sub_005041B0_FreeAnim(void*,int); // 0x005041B0
 void __stdcall sub_005051A0_SetAnimField(void*,int); // 0x005051A0
@@ -516,7 +516,7 @@ static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStat
     {
         char szText[0x100];
         Unicode::unicode2Win(szText, pText, 255);
-        sub_0043C750_JoinEntry(pEntry, szText);
+        MAINMENUS_DeleteCharFiles(pEntry, szText);
         return 0;
     }
 
@@ -1062,7 +1062,7 @@ int __stdcall CHARSEL_JoinSelected(int nArg)
             {
                 ++gnCounter_00779DDC;
                 gbFlag_00779DD8 = 0;
-                sub_0043C750_JoinEntry(pEntry, szName);
+                MAINMENUS_DeleteCharFiles(pEntry, szName);
             }
             else
             {
@@ -1073,7 +1073,7 @@ int __stdcall CHARSEL_JoinSelected(int nArg)
         }
         else
         {
-            sub_0043C750_JoinEntry(pEntry, &gszEmptyAssertText);
+            MAINMENUS_DeleteCharFiles(pEntry, &gszEmptyAssertText);
         }
 
         CHARSEL_InitCharSelectScreen();

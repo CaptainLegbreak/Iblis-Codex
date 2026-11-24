@@ -43,7 +43,7 @@ typedef void (__fastcall* PixelDataFreeCallback)(void* pData);
 
 void __stdcall CelSetHardwareFreeCallback(PixelDataFreeCallback pfnCallback); // 0x00601A30
 
-int __fastcall sub_006B3730_CreateSurface(void** ppSurface, void** ppTexture, int nWidth, int nHeight); // 0x006B3730
+int __fastcall D3D_CreateMemoryTexture(void** ppSurface, void** ppTexture, int nWidth, int nHeight); // 0x006B3730
 
 void __fastcall sub_006B39B0_ShowD3DError(const char* szText, long nResult); // 0x006B39B0
 
@@ -69,13 +69,13 @@ extern D2D3DObjStrc* gpSpriteObject_00970F3C; // 0x00970F3C
 
 int __stdcall sub_006001F0_Prepare(D2CelContextStrc* pContext, int a2, int a3); // 0x006001F0
 
-int __stdcall sub_006018C0_CelGetWidth(D2CelStrc* pCel); // 0x006018C0
+int __stdcall CelGetWidth(D2CelStrc* pCel); // 0x006018C0
 
-int __stdcall sub_006018F0_CelGetHeight(D2CelStrc* pCel); // 0x006018F0
+int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 
-int __stdcall sub_00601920_CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
+int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
 
-int __stdcall sub_00601950_CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
+int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 
 void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
@@ -168,10 +168,10 @@ static int __stdcall sub_006B5C80_LoadCelInfo(D2CelContextStrc* pContext, D2Spri
     }
 
     pInfo->pContext = pContext;
-    pInfo->nWidth = sub_006018C0_CelGetWidth(pContext->pCel);
-    pInfo->nOffsetX = sub_00601920_CelGetOffsetX(pContext->pCel);
-    pInfo->nHeight = sub_006018F0_CelGetHeight(pContext->pCel);
-    pInfo->nOffsetY = sub_00601950_CelGetOffsetY(pContext->pCel);
+    pInfo->nWidth = CelGetWidth(pContext->pCel);
+    pInfo->nOffsetX = CelGetOffsetX(pContext->pCel);
+    pInfo->nHeight = CelGetHeight(pContext->pCel);
+    pInfo->nOffsetY = CelGetOffsetY(pContext->pCel);
     return 1;
 }
 
@@ -314,9 +314,9 @@ void __cdecl D3D_InitSprites()
     D2_ASSERT(!gpSpriteOutlineBuffer, 0x56);
     gpSpriteBuffer = FOG_Alloc(0x10000, ".\\Src\\d3dSprite.cpp", 0x57, 0);
     gpSpriteOutlineBuffer = FOG_Alloc(0x10000, ".\\Src\\d3dSprite.cpp", 0x58, 0);
-    D2_ASSERT(sub_006B3730_CreateSurface(&gpSurface_00970F28, &gpTexture_00970F1C, 0x100, 0x100), 0x5E);
-    D2_ASSERT(sub_006B3730_CreateSurface(&gpSpriteSurface128, &gpSpriteTexture128, 0x80, 0x80), 0x61);
-    D2_ASSERT(sub_006B3730_CreateSurface(&gpSpriteSurface32, &gpSpriteTexture32, 0x20, 0x20), 0x64);
+    D2_ASSERT(D3D_CreateMemoryTexture(&gpSurface_00970F28, &gpTexture_00970F1C, 0x100, 0x100), 0x5E);
+    D2_ASSERT(D3D_CreateMemoryTexture(&gpSpriteSurface128, &gpSpriteTexture128, 0x80, 0x80), 0x61);
+    D2_ASSERT(D3D_CreateMemoryTexture(&gpSpriteSurface32, &gpSpriteTexture32, 0x20, 0x20), 0x64);
 
     D2VertexBufferDescStrc tDesc = { sizeof(tDesc) };
     tDesc.dwCaps = 0x10800;

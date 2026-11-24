@@ -24,7 +24,7 @@ __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
 
 int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue); // 0x006C8250
 extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
-int __stdcall sub_00608C00_Draw(unsigned char* pPixel, int nStride); // 0x00608C00
+int __stdcall CmpDoLensEffect(unsigned char* pPixel, int nStride); // 0x00608C00
 int __fastcall sub_006C84B0_Draw(void* context, int second, int third, int fourth, int fifth, int last); // 0x006C84B0
 extern "C" __declspec(dllimport) void* __stdcall CreateFontA(int height, int width, int escapement, int orientation, int weight, unsigned long italic, unsigned long underline, unsigned long strikeout, unsigned long charset, unsigned long outPrecision, unsigned long clipPrecision, unsigned long quality, unsigned long pitchAndFamily, const char* face); // 0x006CC0E0
 extern const char gszCourier[]; // 0x006DD52C
@@ -223,7 +223,7 @@ int __fastcall sub_006C88B0_DrawAt(int nX, int nY)
 {
     D2_ASSERT(nX > 0 && nX < gnStride_007C9138 - 80, 0x1AB);
     D2_ASSERT(nY > 0 && nY < gnHeight_007C913C - 80, 0x1AC);
-    return sub_00608C00_Draw(gpBuffer_007C9154 + nY * gnStride_007C9138 + nX, gnStride_007C9138);
+    return CmpDoLensEffect(gpBuffer_007C9154 + nY * gnStride_007C9138 + nX, gnStride_007C9138);
 }
 
 // 0x006C8910

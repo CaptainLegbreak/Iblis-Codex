@@ -20,7 +20,7 @@ struct D2StormBigStrc
     char unk0x14[0x154];
 };
 
-int __stdcall sub_00425330(void* hHandle, int nArg1, int nArg2, int nArg3); // 0x00425330
+int __stdcall SBigPowMod(void* hHandle, int nArg1, int nArg2, int nArg3); // 0x00425330
 void __stdcall SBigToBinaryBuffer(void* hHandle, void* pBuffer, unsigned int nSize, unsigned int* pRead); // 0x00423B30
 int __stdcall sub_00423850(void* hHandle, int nArg1, int nArg2); // 0x00423850
 

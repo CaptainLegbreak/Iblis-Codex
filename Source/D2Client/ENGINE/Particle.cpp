@@ -221,7 +221,8 @@ int __stdcall ITEM_GetGfxClientZ(D2UnitStrc* pUnit)
     return 0;
 }
 
-extern "C" void __cdecl sub_00507140_ClearArchive()
+// build: symbol _LIST_UnloadPentspinCellfile 0x00507140
+extern "C" void __cdecl LIST_UnloadPentspinCellfile()
 {
     sub_004FAAE0_FreeArchive(gB28Archive);
     gB28Archive = 0;

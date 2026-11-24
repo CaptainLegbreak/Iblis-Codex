@@ -263,7 +263,7 @@ extern D2CoordStrc g_006E2D50_offsets[4];  // 0x006E2D50
 
 D2DrlgTileDataStrc* __stdcall sub_00619660_GetFloorTiles(D2ActiveRoomStrc*,int*); // 0x00619660
 
-int __stdcall sub_00604BC0_GetTileFlags(D2TileLibraryEntryStrc*); // 0x00604BC0
+int __stdcall TileGetFlags(D2TileLibraryEntryStrc*); // 0x00604BC0
 
 unsigned short __stdcall sub_0064CB30_CheckMask(D2ActiveRoomStrc*,int,int,unsigned short); // 0x0064CB30
 
@@ -1002,7 +1002,7 @@ int __stdcall MONSTERSPAWN_FindFloorPosition(D2ActiveRoomStrc* room,int* outX,in
     unsigned stop=start-1;
     while (index!=stop) {
         D2DrlgTileDataStrc* tile=&tiles[index];
-        if (tile->pTile && (sub_00604BC0_GetTileFlags(tile->pTile)&2)) {
+        if (tile->pTile && (TileGetFlags(tile->pTile)&2)) {
             int x=5*(tile->nPosX+bounds.nTileXPos)+CENTER;
             int y=5*(tile->nPosY+bounds.nTileYPos)+CENTER;
             if (!sub_0064CB30_CheckMask(room,x,y,MASK_A)) {

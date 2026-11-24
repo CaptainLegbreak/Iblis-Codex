@@ -86,7 +86,7 @@ int __stdcall SCmdRegisterArgList(const D2CmdArgStrc* pArgList, unsigned int nCo
 
 int __stdcall SCmdProcess(const char* szCmdLine, int bSkipProgName, int (__stdcall* pfnExtra)(const char*), int (__stdcall* pfnError)(const char*)); // 0x006C4FB0
 
-unsigned short __stdcall sub_006BC120_Receive(void* pConnection, char* pBuffer, int nSize); // 0x006BC120
+unsigned short __stdcall FOG_ConnectionReceive(void* pConnection, char* pBuffer, int nSize); // 0x006BC120
 
 int __fastcall GAME_DispatchMcpPacket(const char* pPacket, unsigned int nSize); // 0x0044B190
 
@@ -533,7 +533,7 @@ int __cdecl WINMAIN_PollMcpConnection()
         return 0;
     }
 
-    const unsigned short nLength = sub_006BC120_Receive(gpMcpConnection, szBuffer, sizeof(szBuffer));
+    const unsigned short nLength = FOG_ConnectionReceive(gpMcpConnection, szBuffer, sizeof(szBuffer));
     if (nLength)
     {
         GAME_DispatchMcpPacket(szBuffer, nLength);

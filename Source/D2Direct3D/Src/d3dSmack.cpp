@@ -28,7 +28,7 @@ extern void* gpArray_009897DC[2]; // 0x009897DC
 
 extern void* gpArray_009897E4[2]; // 0x009897E4
 
-void __fastcall sub_006B3730_Allocate(void** ppFirst, void** ppSecond, int nCount, int nSize); // 0x006B3730
+void __fastcall D3D_CreateMemoryTexture(void** ppFirst, void** ppSecond, int nCount, int nSize); // 0x006B3730
 
 int __fastcall sub_006B58A0_Allocate(void** ppFirst, void** ppSecond, int nCount, int nSize); // 0x006B58A0
 
@@ -106,7 +106,7 @@ char* __fastcall D3D_CreateSmackSurfaces(char* pBuffer)
     {
         void** ppFirst = &gpArray_009897D4[i];
         void** ppSecond = &gpArray_009897DC[i];
-        sub_006B3730_Allocate(ppFirst, ppSecond, 256, 64);
+        D3D_CreateMemoryTexture(ppFirst, ppSecond, 256, 64);
         D2_ASSERT(*ppFirst, 0x4A);
         D2_ASSERT(*ppSecond, 0x4B);
         ppFirst = &gpArray_009897E4[i];

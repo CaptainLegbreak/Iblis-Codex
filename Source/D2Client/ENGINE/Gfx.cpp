@@ -194,7 +194,7 @@ int __cdecl sub_0045AE90(); // 0x0045AE90
 
 int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 
-void __stdcall sub_004F6570_DrawCelColored(D2CelContextStrc* pContext, int nX, int nY, unsigned char nColor); // 0x004F6570
+void __stdcall TEXTURE_CelDrawHilight(D2CelContextStrc* pContext, int nX, int nY, unsigned char nColor); // 0x004F6570
 
 int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit); // 0x004DA0D0
 
@@ -2581,7 +2581,7 @@ int __fastcall GFX_GetHealthBarOffset(D2UnitStrc* pUnit)
     {
         return 0;
     }
-    sub_004F6570_DrawCelColored(&tContext, nX, nY, nColor);
+    TEXTURE_CelDrawHilight(&tContext, nX, nY, nColor);
     return 1;
 }
 
@@ -2669,7 +2669,7 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
                     int nOut;
                     if (sub_004DBB50_InitCelContext(&tContext, pUnit, 0, nDirection, nFrameNo, &nOut, nLayer, -1))
                     {
-                        sub_004F6570_DrawCelColored(&tContext, nX, nY, nColor);
+                        TEXTURE_CelDrawHilight(&tContext, nX, nY, nColor);
                     }
                 }
             }
@@ -2812,7 +2812,7 @@ int __cdecl sub_004F5140();                                                     
 
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);                       // 0x0061C100
 
-int __fastcall sub_006BCB40(D2WeatherStrc* pArray);                                             // 0x006BCB40
+int __fastcall DATAARRAYS_AllocateHandle(D2WeatherStrc* pArray);                                             // 0x006BCB40
 
 extern D2DrlgActStrc* gpDrlgAct_007A0634;                                                                   // 0x007A0634
 
@@ -2898,7 +2898,7 @@ static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nVal
 
 static void sub_00473090_InitParticle(D2SeedStrc* pSeed)
 {
-    const int nRecord = sub_006BCB40(gpWeatherParticles);
+    const int nRecord = DATAARRAYS_AllocateHandle(gpWeatherParticles);
     if (nRecord == -1)
     {
         return;

@@ -318,7 +318,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 extern "C" int __cdecl strcmp(const char*, const char*);
 
-void __fastcall sub_004FF5A0_SetEditText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
+void __fastcall EDITBOX_SetText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
 
 int __cdecl CHATDLG_ResetControls(); // 0x0043EBA0
 
@@ -387,7 +387,7 @@ int __fastcall CHATDLG_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone);
 
 void* __stdcall COMCALLBACK_AddChannelUser(const char* szText, int nLength, int nA); // 0x00449050
 
-unsigned long __stdcall sub_0044A070_ThreadProc(void* pParameter); // 0x0044A070
+unsigned long __stdcall MCPCONNECT_ConnectThread(void* pParameter); // 0x0044A070
 
 extern char gKey_0070CD54; // 0x0070CD54
 
@@ -441,7 +441,7 @@ void __fastcall sub_004423B0_RunCommand(char* szText); // 0x004423B0
 
 void __fastcall COMCALLBACK_PrintOwnLine(const char* szText); // 0x004481F0
 
-int __fastcall sub_004FB910_GetLineCount(D2WinControlStrc* pTextBox); // 0x004FB910
+int __fastcall D2Win_10052_TEXTBOX_GetNumLines(D2WinControlStrc* pTextBox); // 0x004FB910
 
 D2WinButtonStrc* gapClassButtons[8]; // 0x0077BC98
 
@@ -591,7 +591,7 @@ int __fastcall D2Win_10058(D2WinControlStrc* pControl, const Unicode* pText, int
 
 const char* __stdcall D2Win_10161(int nA, int nB, int nC, int nD);                                         // 0x005068A0
 
-void __stdcall sub_005255C0_FormatDate(Unicode* wszOut, int nA, int nB, int nMaxLength);                   // 0x005255C0
+void __stdcall STR_GroupUint64DigitsWithSuffix(Unicode* wszOut, int nA, int nB, int nMaxLength);                   // 0x005255C0
 
 extern "C" const char* const gaszClassNames[];                                                     // 0x006D5524
 
@@ -737,7 +737,7 @@ void __cdecl VIEW_SendMcpCancelGameCreate(); // 0x0044AA80
 
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
 
-void __cdecl sub_00515070(); // 0x00515070
+void __cdecl D2SOUND_FreeWaveSlots(); // 0x00515070
 
 void __cdecl COMCALLBACK_ClearChannel(); // 0x004495A0
 
@@ -753,7 +753,7 @@ void __stdcall sub_005052B0(void* pObject, int nValue); // 0x005052B0
 
 void __fastcall CHATDLG_SetPlayerName(void* pArg); // 0x00440D10
 
-void __fastcall sub_0043E4C0(void* pA, void* pB); // 0x0043E4C0
+void __fastcall CHATDLG_OnChatTime(void* pA, void* pB); // 0x0043E4C0
 
 int __stdcall CHATDLG_OnTick(int nUnused); // 0x00441500
 
@@ -1007,7 +1007,7 @@ struct D2LaunchReplyEntryStrc
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);                                // 0x006829C0
 
-int __stdcall sub_0043D9A0(int nArg);                                                                       // 0x0043D9A0
+int __stdcall CHATDLG_OnRealmConnectCancel(int nArg);                                                                       // 0x0043D9A0
 
 int __stdcall sub_0043DBC0(int nArg);                                                                       // 0x0043DBC0
 
@@ -1019,7 +1019,7 @@ int __stdcall CHATDLG_RequestCharLogon(const char* szName);                     
 
 void __stdcall CHATDLG_StartThread(D2LaunchThreadRecordStrc* pRecord);                                 // 0x0044A130
 
-int __fastcall sub_0044A400_SendLogin(D2LaunchLoginStrc* pLogin, unsigned short wRequestId);                // 0x0044A400
+int __fastcall WINMAIN_SendMcpCreateGame(D2LaunchLoginStrc* pLogin, unsigned short wRequestId);                // 0x0044A400
 
 int __fastcall WINMAIN_SendMcpGameInfoRequest(char* szText, unsigned short wRequestId);                              // 0x0044A610
 
@@ -2462,7 +2462,7 @@ int __stdcall CHATDLG_ChatEditKeyCallback(void* pArg, int nCursor, const char* p
             szRight[nTextLength - nCursor] = 0;
             sprintf(szText, "%s%s%s", szLeft, szName, szRight);
             sub_00526F20(wszText, szText, 0x100);
-            sub_004FF5A0_SetEditText(gpChatEdit, wszText);
+            EDITBOX_SetText(gpChatEdit, wszText);
         }
         return 0;
     }
@@ -2620,7 +2620,7 @@ int __stdcall CHATDLG_OnEditChange(SMSGHANDLER_PARAMS* pMsg)
 // 0x00440120
 int __stdcall CHATDLG_OnClearEdit(SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_004FF5A0_SetEditText(gpChatEdit, 0);
+    EDITBOX_SetText(gpChatEdit, 0);
     CHARSEL_DestroyPopupControls();
     return 1;
 }
@@ -3219,7 +3219,7 @@ int __cdecl CHATDLG_ConnectRealm()
     if (sub_00449B30_QueryAddress())
         return 1;
     gnFlag_0077BD60 = 0;
-    CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), sub_0043D9A0);
+    CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), CHATDLG_OnRealmConnectCancel);
     D2LaunchPayloadStrc* pPayload = gpLaunchFuncs->pfn0x44(gpCharInfo->szRealm0x22D, gszPassword);
     if (!pPayload)
         return 0;
@@ -3340,9 +3340,9 @@ int __cdecl CHATDLG_SendChatBuffer()
         gpLaunchFuncs->pfn0x14(gszChatBuffer);
         COMCALLBACK_PrintOwnLine(gszChatBuffer);
     }
-    sub_004FF5A0_SetEditText(gpChatEdit, 0);
+    EDITBOX_SetText(gpChatEdit, 0);
     const int nFirst = D2Win_10055(gpChatTextBox);
-    const int nCount = sub_004FB910_GetLineCount(gpChatTextBox);
+    const int nCount = D2Win_10052_TEXTBOX_GetNumLines(gpChatTextBox);
     if (nCount > nFirst)
         D2Win_10053(gpChatTextBox, nCount - nFirst);
     return 1;
@@ -3536,7 +3536,7 @@ int __stdcall sub_004450D0_OnGameListEvent(SMSGHANDLER_PARAMS* pMsg)
                 {
                 }
                 CHATDLG_SetPendingText(szText, gwRequestId);
-                sub_004FF5A0_SetEditText(gpJoinName, pText);
+                EDITBOX_SetText(gpJoinName, pText);
                 CONTROL_SetFocusedEditBox(0);
             }
         }
@@ -4079,7 +4079,7 @@ void __stdcall CHATDLG_StartThread(D2LaunchThreadRecordStrc* pRecord)
     {
         gtThreadRecord = *pRecord;
         unsigned long nThreadId;
-        ghThread = CreateThread(0, 0, sub_0044A070_ThreadProc, 0, 0, &nThreadId);
+        ghThread = CreateThread(0, 0, MCPCONNECT_ConnectThread, 0, 0, &nThreadId);
     }
 }
 

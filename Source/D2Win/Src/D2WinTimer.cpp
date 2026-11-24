@@ -59,12 +59,12 @@ int __fastcall TIMER_UpdateDefault(D2WinControlStrc* pControl);                 
 
 int __fastcall TIMER_UpdateRepeating(D2WinControlStrc* pControl);                                                    // 0x004FD8F0
 
-void __stdcall sub_004F9310(void* pArg); // 0x004F9310
+void __stdcall CONTROL_RemoveFromList(void* pArg); // 0x004F9310
 
 // 0x004FD820
 void __fastcall TIMER_Destroy(void* pArg)
 {
-    sub_004F9310(pArg);
+    CONTROL_RemoveFromList(pArg);
 }
 
 // 0x004FD830

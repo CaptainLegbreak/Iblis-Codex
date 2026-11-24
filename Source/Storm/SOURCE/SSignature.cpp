@@ -146,8 +146,8 @@ struct D2StormRsaKeyStrc
 
     D2StormRsaKeyStrc();                                                                                    // 0x0041D4D0
     ~D2StormRsaKeyStrc();                                                                                   // 0x0041D530
-    void sub_00426070_SetKey(const void* pExponent, unsigned int nExponentSize, const void* pModulus, int nModulusSize); // 0x00426070
-    void sub_004260A0_Process(unsigned char* pData, unsigned int nSize);                                    // 0x004260A0
+    void Prepare(const void* pExponent, unsigned int nExponentSize, const void* pModulus, int nModulusSize); // 0x00426070
+    void Process(unsigned char* pData, unsigned int nSize);                                    // 0x004260A0
 };
 
 struct D2StormHuffInputStrc
@@ -281,7 +281,7 @@ struct D2StormBigStrc
 
 int __stdcall sub_004242C0_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, BigStack* pStack); // 0x004242C0
 
-int __stdcall sub_00424700_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, BigStack* pStack); // 0x00424700
+int __stdcall Rand(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, BigStack* pStack); // 0x00424700
 
 int __stdcall sub_00424B00_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, BigStack* pStack); // 0x00424B00
 
@@ -472,13 +472,13 @@ int __fastcall SSignatureGenerate(char* pData, unsigned int* pnSize, const void*
     unsigned char* pSign = (unsigned char*)_alloca(nSignSize);
     SMemCopy(pSign, pDigest, nSignSize);
     D2StormRsaKeyStrc tKey1;
-    tKey1.sub_00426070_SetKey(pExponent, nSignSize, pModulus1, nModulusSize1);
-    tKey1.sub_004260A0_Process(pSign, nSignSize);
+    tKey1.Prepare(pExponent, nSignSize, pModulus1, nModulusSize1);
+    tKey1.Process(pSign, nSignSize);
     unsigned char* pCheck = (unsigned char*)_alloca(nSignSize);
     SMemCopy(pCheck, pSign, nSignSize);
     D2StormRsaKeyStrc tKey2;
-    tKey2.sub_00426070_SetKey(pExponent, nSignSize, pModulus2, nModulusSize2);
-    tKey2.sub_004260A0_Process(pCheck, nSignSize);
+    tKey2.Prepare(pExponent, nSignSize, pModulus2, nModulusSize2);
+    tKey2.Process(pCheck, nSignSize);
     if (SMemCmp(pCheck, pDigest, nSignSize))
         return 0;
     *(int*)(pData + nOffset) = 0x5349474E;
@@ -501,8 +501,8 @@ int __fastcall SSignatureVerifyStream_Finish(D2StormHashBufferStrc* pBuffer, con
         unsigned char* pSign = (unsigned char*)_alloca(pBuffer->nSignSize);
         SMemCopy(pSign, pBuffer->pBuffer + 4, pBuffer->nSignSize);
         D2StormRsaKeyStrc tKey;
-        tKey.sub_00426070_SetKey(pExponent, pBuffer->nSignSize, pModulus, pBuffer->nModulusSize);
-        tKey.sub_004260A0_Process(pSign, pBuffer->nSignSize);
+        tKey.Prepare(pExponent, pBuffer->nSignSize, pModulus, pBuffer->nModulusSize);
+        tKey.Process(pSign, pBuffer->nSignSize);
         bResult = !SMemCmp(pSign, pDigest, pBuffer->nSignSize);
     }
     SMemFree(pBuffer->pBuffer, ".\\SOURCE\\SSignature.cpp", 0xD0, 0);

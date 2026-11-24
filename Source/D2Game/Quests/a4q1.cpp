@@ -263,7 +263,7 @@ extern D2CoordStrc g_006E2D50_offsets[4];  // 0x006E2D50
 
 D2DrlgTileDataStrc* __stdcall sub_00619660_GetFloorTiles(D2ActiveRoomStrc*,int*); // 0x00619660
 
-int __stdcall sub_00604BC0_GetTileFlags(D2TileLibraryEntryStrc*); // 0x00604BC0
+int __stdcall TileGetFlags(D2TileLibraryEntryStrc*); // 0x00604BC0
 
 unsigned short __stdcall sub_0064CB30_CheckMask(D2ActiveRoomStrc*,int,int,unsigned short); // 0x0064CB30
 

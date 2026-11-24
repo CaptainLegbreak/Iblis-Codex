@@ -91,7 +91,7 @@ int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxCha
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 int __cdecl GAME_GetSlotNameCount(); // 0x00430B40
 void __cdecl sub_00434060();
-void __cdecl sub_0043AE30_InitRealmList();
+void __cdecl CHARSEL_InitCharList(); // 0x0043AE30
 void __fastcall CHARSEL_UseName(char* szName); // 0x0043ADB0
 int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140
 void __fastcall CONTROL_SetVisible(D2WinControlStrc* pControl, int bSet); // 0x004F9740
@@ -214,7 +214,7 @@ void __cdecl CHARSEL_InitCharSelectScreen()
 {
     if (FOG_IsExpansion())
     {
-        sub_0043AE30_InitRealmList();
+        CHARSEL_InitCharList();
         return;
     }
 

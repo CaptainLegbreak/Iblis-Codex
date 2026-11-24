@@ -90,9 +90,9 @@ void __cdecl D3D_ReleaseSmackSurfaces(); // 0x006B9B30
 
 void __fastcall sub_006BA830_FreeCache(D2Cache006BA830Strc* pCache, int bFree); // 0x006BA830
 
-void __fastcall sub_006BADC0_Free(D2Object006BADC0Strc* pObject, int bFree); // 0x006BADC0
+void __fastcall D3D_SubtileCacheDestroy(D2Object006BADC0Strc* pObject, int bFree); // 0x006BADC0
 
-void __fastcall sub_006BB3E0_Free(D2Object006BB3E0Strc* pObject, int bFree); // 0x006BB3E0
+void __fastcall D3D_FloorCacheDestroy(D2Object006BB3E0Strc* pObject, int bFree); // 0x006BB3E0
 
 extern int gdwGlobal_00970E8C; // 0x00970E8C
 
@@ -228,8 +228,8 @@ extern BufferPool gMediumPool; // 0x00970EE4
 extern BufferPool gSmallPool; // 0x00970F00
 char* __fastcall sub_006B76D0_InitVertices(char*); // 0x006B76D0
 char* __fastcall D3D_CreateSmackSurfaces(char*); // 0x006B9A50
-char* __fastcall sub_006BAFC0(BufferPool*,char*,char*,unsigned int); // 0x006BAFC0
-char* __fastcall sub_006BA9A0(BufferPool*,char*,char*,unsigned int); // 0x006BA9A0
+char* __fastcall D3D_FloorCacheInit(BufferPool*,char*,char*,unsigned int); // 0x006BAFC0
+char* __fastcall D3D_SubtileCacheInit(BufferPool*,char*,char*,unsigned int); // 0x006BA9A0
 char* __fastcall sub_006BA420(BufferPool*,char*,char*,unsigned int,unsigned int); // 0x006BA420
 void __cdecl D3D_InitSprites(); // 0x006B7110
 void __fastcall D3D_InvalidateTileCaches(D2TileLibraryEntryStrc* pTile); // 0x006BBB90
@@ -284,10 +284,10 @@ void __cdecl sub_006B3080()
   current=sub_006B76D0_InitVertices(current);
   gPrimaryBudget=primary;
   primary+=(unsigned int)current;
-  current=sub_006BAFC0(&gTilePool,current,(char*)primary,tileSize);
+  current=D3D_FloorCacheInit(&gTilePool,current,(char*)primary,tileSize);
   gSecondaryBudget=secondary;
   secondary+=(unsigned int)current;
-  current=sub_006BA9A0(&gAuxiliaryPool,current,(char*)secondary,2048);
+  current=D3D_SubtileCacheInit(&gAuxiliaryPool,current,(char*)secondary,2048);
   start=current;remaining=memory-(unsigned int)current;
   current=sub_006BA420(&gLargePool,current,current+remaining*20/100,256,256);
   gLargeBudget=gLargePool.count*gBufferCopies*65536;
@@ -313,8 +313,8 @@ void __cdecl sub_006B32B0_ReleaseRenderer()
     if (gdwGlobal_00970E8C)
     {
         sub_006B7250_ReleaseAll();
-        sub_006BB3E0_Free(&gObject_0096FC9C, 1);
-        sub_006BADC0_Free(&gObject_0096FC80, 1);
+        D3D_FloorCacheDestroy(&gObject_0096FC9C, 1);
+        D3D_SubtileCacheDestroy(&gObject_0096FC80, 1);
     }
     else
     {

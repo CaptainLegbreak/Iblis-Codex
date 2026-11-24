@@ -19,7 +19,7 @@ D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);                       // 0x0061C100
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange);                                 // 0x00472280
-int __fastcall sub_006BCB40(D2WeatherStrc* pArray);                                             // 0x006BCB40
+int __fastcall DATAARRAYS_AllocateHandle(D2WeatherStrc* pArray);                                             // 0x006BCB40
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __cdecl sub_0044DB00(); // 0x0044DB00
@@ -115,7 +115,7 @@ static void sub_00473090_InitParticle(D2SeedStrc* pSeed);
 // 0x00473090
 static void sub_00473090_InitParticle(D2SeedStrc* pSeed)
 {
-    const int nRecord = sub_006BCB40(gpWeatherParticles);
+    const int nRecord = DATAARRAYS_AllocateHandle(gpWeatherParticles);
     if (nRecord == -1)
     {
         return;

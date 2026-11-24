@@ -83,13 +83,13 @@ void __cdecl sub_0043D510_FreeCellFiles(); // 0x0043D510
 
 void __cdecl sub_0043DDD0_CreateCharControls(); // 0x0043DDD0
 
-void __fastcall sub_0043E4C0(void* pA, void* pB); // 0x0043E4C0
+void __fastcall CHATDLG_OnChatTime(void* pA, void* pB); // 0x0043E4C0
 
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback); // 0x004FA590
 
 void* __stdcall sub_004FAC80(int nArg); // 0x004FAC80
 
-void __cdecl sub_00515070(); // 0x00515070
+void __cdecl D2SOUND_FreeWaveSlots(); // 0x00515070
 
 int __fastcall sub_005259C0(void* pArg, int nArg); // 0x005259C0
 
@@ -258,7 +258,7 @@ extern unsigned char gnSelectModeA; // 0x0070CD62
 extern int gnGlobal_0077B0A0;                                                                                      // 0x0077B0A0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" int __cdecl strcmp(const char*, const char*);
-void __fastcall sub_004FF5A0_SetEditText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
+void __fastcall EDITBOX_SetText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
 int __cdecl CHATDLG_ResetControls(); // 0x0043EBA0
 void __cdecl CHATDLG_CreateControls(); // 0x0043EB30
 void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed); // 0x005009A0
@@ -292,7 +292,7 @@ int __fastcall WINMAIN_SendMcpCharCreate(int nA, int nB, int nC); // 0x0044A2E0
 int __fastcall WINMAIN_SendMcpCharLogon(int nA); // 0x0044A380
 int __fastcall CHATDLG_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone); // 0x0043FB50
 void* __stdcall COMCALLBACK_AddChannelUser(const char* szText, int nLength, int nA); // 0x00449050
-unsigned long __stdcall sub_0044A070_ThreadProc(void* pParameter); // 0x0044A070
+unsigned long __stdcall MCPCONNECT_ConnectThread(void* pParameter); // 0x0044A070
 extern char gKey_0070CD54; // 0x0070CD54
 extern char gszSelectName[16];                                                                            // 0x0077B040
 extern D2WinControlStrc* gpControlC_0077B07C; // 0x0077B07C
@@ -319,7 +319,7 @@ extern int gnValue_007992F0; // 0x007992F0
 extern D2WinControlStrc* gpControl_0077BD98; // 0x0077BD98
 void __fastcall sub_004423B0_RunCommand(char* szText); // 0x004423B0
 void __fastcall COMCALLBACK_PrintOwnLine(const char* szText); // 0x004481F0
-int __fastcall sub_004FB910_GetLineCount(D2WinControlStrc* pTextBox); // 0x004FB910
+int __fastcall D2Win_10052_TEXTBOX_GetNumLines(D2WinControlStrc* pTextBox); // 0x004FB910
 extern D2WinButtonStrc* gapClassButtons[8]; // 0x0077BC98
 static int gbExpansionClasses; // 0x0070CD70
 extern char gszChatBuffer[0x200]; // 0x0077AE40
@@ -402,7 +402,7 @@ void __fastcall sub_004FB870_InsertRow(D2WinControlStrc* pControl, int nRow);   
 int __fastcall D2Win_10188(D2WinControlStrc* pTextBox, int nLineNum, int a3);                               // 0x004FBDE0
 int __fastcall D2Win_10058(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn); // 0x004FCD90
 const char* __stdcall D2Win_10161(int nA, int nB, int nC, int nD);                                         // 0x005068A0
-void __stdcall sub_005255C0_FormatDate(Unicode* wszOut, int nA, int nB, int nMaxLength);                   // 0x005255C0
+void __stdcall STR_GroupUint64DigitsWithSuffix(Unicode* wszOut, int nA, int nB, int nMaxLength);                   // 0x005255C0
 extern "C" const char* const gaszClassNames[];                                                     // 0x006D5524
 static D2CriticalSectionStrc gtChatLock; // 0x0077AE28
 static D2ChatMessageStrc* gpChatQueueHead; // 0x0077BDAC
@@ -937,7 +937,7 @@ void __fastcall CHATDLG_FillLadderList(int nStart, int nCount, int nNameLength, 
         sub_004FCD40_SetCell(gbSelectActive, szNumber, i, 3);
 
         Unicode wszDate[256];
-        sub_005255C0_FormatDate(wszDate, pEntry->nA, pEntry->nB, 0xFF);
+        STR_GroupUint64DigitsWithSuffix(wszDate, pEntry->nA, pEntry->nB, 0xFF);
         D2Win_10058(gbSelectActive, wszDate, i, 4);
 
         pEntry = (D2LadderEntryStrc*)((char*)pEntry + nNameLength + 0xC);
@@ -1302,7 +1302,7 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
         InitializeCriticalSection(&gtChatLock);
         if (!gpCharInfo->szRealm0x361[0])
 // build: symbol ?CHATDLG_PostClearMessage@* 0x0043E570
-            gpLaunchFuncs->pfn0xA8(sub_0043E4C0, (void (__cdecl*)())CHATDLG_PostClearMessage);
+            gpLaunchFuncs->pfn0xA8(CHATDLG_OnChatTime, (void (__cdecl*)())CHATDLG_PostClearMessage);
         sub_004FA590_RunLoop(CHATDLG_OnTick);
 // build: symbol ?GAME_IsMcpCreateQueued@* 0x00449E40
         if (GAME_IsMcpCreateQueued())
@@ -1321,7 +1321,7 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
         gbDone = 4;
 
     GetTickCount();
-    sub_00515070();
+    D2SOUND_FreeWaveSlots();
     COMCALLBACK_ClearChannel();
     D2Win_10146();
     CHARSEL_ResetLaunchState();

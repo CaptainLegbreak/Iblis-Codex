@@ -14,12 +14,12 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(cons
 extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileName); // 0x006CC1A0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-const char* __stdcall sub_005180A0_GetNthString(D2FuncRecordStrc* pRecord, int nIndex); // 0x005180A0
+const char* __stdcall Name(D2FuncRecordStrc* pRecord, int nIndex); // 0x005180A0
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
-void __fastcall sub_005009D0_SetValue(D2WinControlStrc* pControl, int nMode, Unicode* pText, int nArg); // 0x005009D0
+void __fastcall BUTTON_SetText(D2WinControlStrc* pControl, int nMode, Unicode* pText, int nArg); // 0x005009D0
 int __stdcall CLIENT_DequeueSystemPacket(unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052A8B0
 int __fastcall D2Win_StopMessageLoop(); // 0x004F9190
 int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
@@ -149,7 +149,7 @@ void __cdecl MAINMENUS_ShowCurrentGateway()
     D2FuncRecordStrc* pRecord = gpFuncTable_0077ABF0->pfnGetRecord();
     char szText[0x100];
     const int nIndex = pRecord->nIndex;
-    SStrCopy(szText, sub_005180A0_GetNthString(pRecord, nIndex), 0x100);
+    SStrCopy(szText, Name(pRecord, nIndex), 0x100);
 
     Unicode wszText[0x100];
     for (int i = 0; i < 0x100; ++i)
@@ -174,7 +174,7 @@ void __cdecl MAINMENUS_ShowCurrentGateway()
         wszOut[i].wChar = wChar < 0x100 ? gawToUpperTable[wChar] : wChar;
     }
 
-    sub_005009D0_SetValue(gpControl_007795AC, 10, wszOut, 0);
+    BUTTON_SetText(gpControl_007795AC, 10, wszOut, 0);
 }
 
 // 0x00431C90

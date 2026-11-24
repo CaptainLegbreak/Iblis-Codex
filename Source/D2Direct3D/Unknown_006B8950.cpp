@@ -27,8 +27,8 @@ __declspec(noreturn) void __cdecl sub_00681E09_Exit(int);
 void __cdecl sub_00681E09_Exit(int); // 0x00681E09
 void __fastcall sub_006B9860_Project(int,int,int,int*,int*); // 0x006B9860
 void __fastcall sub_006B9780_SetColor(D2TLVertexStrc*,U32,U8); // 0x006B9780
-void __fastcall sub_006BBA00_BindTile(D2TileBlockStrc*); // 0x006BBA00
-int __stdcall sub_005FDEA0_CheckTile(D2TileStrc*,int,int); // 0x005FDEA0
+void __fastcall D3D_BindTileTexture(D2TileBlockStrc*); // 0x006BBA00
+int __stdcall D2CMPTileValidate(D2TileStrc*,int,int); // 0x005FDEA0
 void __fastcall D3D_SetColorCombineMode(int); // 0x006B1EA0
 void __fastcall D3D_SetAlphaBlendMode(int); // 0x006B1F40
 void __fastcall D3D_SetTextureFilterMode(int); // 0x006B2030
@@ -141,7 +141,7 @@ static int __stdcall sub_006B8950_Lit(int nScreenPanels, D2TileStrc* pTile, int 
             const int nMixG = (unsigned char)(((unsigned char)(aColors[2] >> 8) + (unsigned char)(aColors[0] >> 8)) >> 1);
             const int nMixB = (unsigned char)(((unsigned char)aColors[2] + (unsigned char)aColors[0]) >> 1);
             aColors[1] = (((((nMixA << 8) + nMixR) << 8) + nMixG) << 8) + nMixB;
-            sub_006BBA00_BindTile(&pTile->blocks[i]);
+            D3D_BindTileTexture(&pTile->blocks[i]);
 
             for (int nGridRow = 0; nGridRow < 5; ++nGridRow)
             {
@@ -180,7 +180,7 @@ static int __stdcall sub_006B8DF0_AlphaWall(D2TileStrc*,int,int,U32*,int,U8); //
 // build: context sub_006B8DF0_AlphaWall
 static int __stdcall sub_006B8DF0_AlphaWall(D2TileStrc* t,int x,int y,U32* l,int panels,U8 alpha)
 {
- if(!sub_005FDEA0_CheckTile(t,1,0))return 0;
+ if(!D2CMPTileValidate(t,1,0))return 0;
  D3D_SetColorCombineMode(1);D3D_SetAlphaBlendMode(alpha==255?1:4);D3D_SetTextureFilterMode(1);
  if(sub_006B9830_GetPerspective())return sub_006B8950_Lit(panels,t,x,y,l,alpha);
  return sub_006B87A0_Flat(t,x,y,l,panels,alpha);

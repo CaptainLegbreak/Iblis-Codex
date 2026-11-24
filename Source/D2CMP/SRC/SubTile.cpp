@@ -42,7 +42,7 @@ int __fastcall FOG_Free(void*, const char*, int, int); // 0x0040B3C0
 
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int); // 0x006829C0
 
-unsigned char* __stdcall sub_0060D6F0_MapPixels(const unsigned char*, int, D2CmpColorStrc, D2CmpMapColorFn); // 0x0060D6F0
+unsigned char* __stdcall SubTileConvertPixels24To8(const unsigned char*, int, D2CmpColorStrc, D2CmpMapColorFn); // 0x0060D6F0
 
 void __stdcall SubTilePackFloor(D2CmpSubTileRecordStrc*, const unsigned char*); // 0x0060D9C0
 
@@ -410,7 +410,7 @@ static inline int SUBTILE_IsBlank(const unsigned char* pPixels)
 // 0x0060DA80
 static void __stdcall SubTileConvertFloor24To8(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc)
 {
-    unsigned char* pPixels = sub_0060D6F0_MapPixels(pSrc->ptData, pSrc->tHeader.nLength, tColor, pfnMap);
+    unsigned char* pPixels = SubTileConvertPixels24To8(pSrc->ptData, pSrc->tHeader.nLength, tColor, pfnMap);
 
     if (SUBTILE_IsBlank(pPixels))
     {

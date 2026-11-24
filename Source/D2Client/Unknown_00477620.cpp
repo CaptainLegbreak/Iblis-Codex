@@ -87,12 +87,12 @@ int __cdecl sub_004776B0_ToggleLowQuality()
     return D2GFX_ToggleLowQuality();
 }
 
-void __stdcall sub_004F5230(void* pArg); // 0x004F5230
+void __stdcall D2GFX_SetGamma(void* pArg); // 0x004F5230
 
 // 0x004776C0
 void __fastcall sub_004776C0(void* pArg)
 {
-    sub_004F5230(pArg);
+    D2GFX_SetGamma(pArg);
 }
 
 
@@ -199,7 +199,7 @@ int gbCacheStatsChecked;                                                        
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
-void __stdcall sub_005FE010_GetTileCacheStats(unsigned int* pSize, int* pMisses, int* pTotal, int* pUtilized); // 0x005FE010
+void __stdcall D2CMPGetTileCacheHits(unsigned int* pSize, int* pMisses, int* pTotal, int* pUtilized); // 0x005FE010
 
 // 0x00477760
 void __cdecl sub_00477760_DrawCacheStats()
@@ -209,7 +209,7 @@ void __cdecl sub_00477760_DrawCacheStats()
     int nMisses;
     int nUtilized;
     unsigned int nSize;
-    sub_005FE010_GetTileCacheStats(&nSize, &nMisses, &nTotal, &nUtilized);
+    D2CMPGetTileCacheHits(&nSize, &nMisses, &nTotal, &nUtilized);
     if (nTotal > 0)
     {
         const float fPercent = (float)(nMisses * 100.0 / nTotal);

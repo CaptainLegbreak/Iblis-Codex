@@ -208,7 +208,7 @@ extern int gaDirectionIndex64A[8][64]; // 0x006E4DA0
 
 extern int gaDirectionIndex64B[8][64]; // 0x006E55A0
 
-void __fastcall sub_0060D110_CelOp(D2CelStrc* pCel, int nArg, int nTermination); // 0x0060D110
+void __fastcall CelIterateRgbPixels(D2CelStrc* pCel, int nArg, int nTermination); // 0x0060D110
 
 typedef void(__fastcall* CELFILECELLOPFN)(D2CelStrc* pCel, int nArg);
 
@@ -1966,7 +1966,7 @@ void __stdcall CelFileIteratePixels(D2CelFileStrc* pCelFile, int nArg)
     {
         for (unsigned int nFrame = 0; nFrame < pCelFile->nCelsPerDirection; nFrame++)
         {
-            sub_0060D110_CelOp(pCelFile->pCels[nDirection * pCelFile->nCelsPerDirection + nFrame], nArg, pCelFile->nTermination);
+            CelIterateRgbPixels(pCelFile->pCels[nDirection * pCelFile->nCelsPerDirection + nFrame], nArg, pCelFile->nTermination);
         }
     }
 }

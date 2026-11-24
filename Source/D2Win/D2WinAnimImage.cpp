@@ -58,12 +58,12 @@ int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl);                 
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 
-void __stdcall sub_004F9310(void* pArg); // 0x004F9310
+void __stdcall CONTROL_RemoveFromList(void* pArg); // 0x004F9310
 
 // 0x00500300
 void __fastcall ANIMIMAGE_Destroy(void* pArg)
 {
-    sub_004F9310(pArg);
+    CONTROL_RemoveFromList(pArg);
 }
 
 // 0x00500310

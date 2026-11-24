@@ -130,7 +130,7 @@ int __fastcall SCROLLBAR_SetCurrentStep(D2WinScrollBarStrc* pScrollBar, int nCur
 
 extern "C" int __fastcall sub_00507FA0_GetScrollBarField4C(D2WinScrollBarStrc* pScrollBar); // 0x00507FA0
 
-int __fastcall sub_00508000_SetScrollCallback(D2WinScrollBarStrc* pScrollBar, void(__stdcall* pfScrollCallback)(SMSGHANDLER_PARAMS*)); // 0x00508000
+int __fastcall SCROLLBAR_SetScrollCallback(D2WinScrollBarStrc* pScrollBar, void(__stdcall* pfScrollCallback)(SMSGHANDLER_PARAMS*)); // 0x00508000
 
 extern "C" int __fastcall D2Win_10201(D2WinScrollBarStrc* pScrollBar); // 0x005080F0
 
@@ -192,7 +192,7 @@ int __fastcall D2Win_10122(const Unicode* wszText, int nTextLength); // 0x005017
 
 int __fastcall D2Win_10051(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
 
-int __fastcall sub_004FF5A0_SetEditText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
+int __fastcall EDITBOX_SetText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
@@ -1166,7 +1166,7 @@ int __fastcall D2Win_10195(D2WinTextBoxStrc* pTextBox, void(__stdcall* pfScrollC
     D2_ASSERT(pTextBox, 0x5AA);
     D2_ASSERT(pTextBox->controlHeader.eType == D2WIN_TEXTBOX, 0x5AB);
 
-    return sub_00508000_SetScrollCallback(pTextBox->pScrollBar, pfScrollCallback);
+    return SCROLLBAR_SetScrollCallback(pTextBox->pScrollBar, pfScrollCallback);
 }
 
 // 0x004FC720
@@ -1607,7 +1607,7 @@ int __fastcall D2Win_10076(D2WinControlStrc* pControl, const char* szText)
 {
     Unicode wszText[256];
     sub_00526F20_ToUnicode(wszText, szText, 256);
-    return sub_004FF5A0_SetEditText(pControl, wszText);
+    return EDITBOX_SetText(pControl, wszText);
 }
 
 #include "gen/data/Source/D2Win/Src/D2WinTextBox.inc"

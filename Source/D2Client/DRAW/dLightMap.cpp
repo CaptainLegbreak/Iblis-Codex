@@ -119,7 +119,7 @@ extern unsigned char* gpLerpTable40; // 0x007B9550
 
 extern int gdwGlobal_007BB384; // 0x007BB384
 
-void __stdcall sub_004F5230(void* pArg); // 0x004F5230
+void __stdcall D2GFX_SetGamma(void* pArg); // 0x004F5230
 
 extern int gdwGlobal_00712CCC; // 0x00712CCC
 

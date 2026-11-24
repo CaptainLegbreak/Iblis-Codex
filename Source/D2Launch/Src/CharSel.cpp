@@ -466,15 +466,15 @@ int __fastcall sub_004FB990_GetSelection(D2WinControlStrc* pControl);           
 
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText);                      // 0x004FCF80
 
-int __stdcall sub_004FD0B0_SetColor(D2WinControlStrc* pControl, int nColor, int nValue);                    // 0x004FD0B0
+int __stdcall IMAGE_SetCoordinates(D2WinControlStrc* pControl, int nColor, int nValue);                    // 0x004FD0B0
 
-int __stdcall sub_00500810(D2WinControlStrc* pControl, int nArg);                                           // 0x00500810
+int __stdcall ANIMIMAGE_SetIsRunning(D2WinControlStrc* pControl, int nArg);                                           // 0x00500810
 
 int __stdcall D2Win_10125();                                                                                // 0x00501A40
 
 int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
-int __stdcall sub_00518150(D2FuncRecordStrc* pRecord, int nIndex);                                          // 0x00518150
+int __stdcall SetCurGateway(D2FuncRecordStrc* pRecord, int nIndex);                                          // 0x00518150
 
 D2ComInterfaceStrc* __cdecl sub_00518C00();                                                           // 0x00518C00
 
@@ -708,7 +708,7 @@ int __cdecl GAME_GetSlotNameCount(); // 0x00430B40
 
 void __cdecl sub_00434060();
 
-void __cdecl sub_0043AE30_InitRealmList();
+void __cdecl CHARSEL_InitCharList(); // 0x0043AE30
 
 int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140
 
@@ -797,7 +797,7 @@ void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine); // 0
 
 int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
 
-void __fastcall sub_004FF5A0_SetEditText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
+void __fastcall EDITBOX_SetText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
 
 int __fastcall sub_00500960_IsPressed(D2WinControlStrc* pButton); // 0x00500960
 
@@ -815,7 +815,7 @@ int __stdcall sub_004370B0_ShowLoginScreen(int nArg); // 0x004370B0
 
 void __cdecl CHARSEL_InitCharSelectScreen(); // 0x0043B080
 
-void __fastcall sub_0043C750_JoinEntry(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x0043C750
+void __fastcall MAINMENUS_DeleteCharFiles(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x0043C750
 
 int __fastcall CHATDLG_UpdateSaveFlags(const char* szName); // 0x0043CAA0
 
@@ -981,7 +981,7 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 
 void __stdcall SMemCopy(void*,const void*,unsigned int); // 0x0041D2A0
 
-void __stdcall sub_004FD0B0_SetSprite(D2WinControlStrc*,int,void*); // 0x004FD0B0
+void __stdcall IMAGE_SetCoordinates(D2WinControlStrc*,int,void*); // 0x004FD0B0
 
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc*,const Unicode*,int,int,int); // 0x004FC9B0
 
@@ -1360,9 +1360,9 @@ void __cdecl sub_004325B0_CreateScreen()
 {
     MAINMENUS_Reset();
     D2WinControlStrc* pControl = MAINMENUS_CreateControl(6);
-    sub_00500810(pControl, 0);
+    ANIMIMAGE_SetIsRunning(pControl, 0);
     pControl = MAINMENUS_CreateControl(7);
-    sub_00500810(pControl, 0);
+    ANIMIMAGE_SetIsRunning(pControl, 0);
     MAINMENUS_CreateControl(8);
     MAINMENUS_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
     MAINMENUS_CreateFromTemplate(0x4D);
@@ -1391,7 +1391,7 @@ int __stdcall CHARSEL_OnRealmSelected(SMSGHANDLER_PARAMS* pMsg)
     if (nSelection != -1)
     {
         nSelection += 1;
-        sub_00518150(pRecord, nSelection);
+        SetCurGateway(pRecord, nSelection);
         SRegSaveString("Diablo II", "Preferred Realm", 0, sub_005180E0(pRecord, nSelection));
     }
     MAINMENUS_Reset();
@@ -1881,7 +1881,7 @@ static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStat
     {
         char szText[0x100];
         Unicode::unicode2Win(szText, pText, 255);
-        sub_0043C750_JoinEntry(pEntry, szText);
+        MAINMENUS_DeleteCharFiles(pEntry, szText);
         return 0;
     }
 
@@ -2102,7 +2102,7 @@ int __cdecl CHARSEL_UpdateSelection()
 // build: symbol ?gnVisibleRows@* 0x0070CC0C
     if (nRow >= 0 && nRow < gnVisibleRows)
     {
-        sub_004FD0B0_SetColor(gpControl_00779D94, (nRow % 2) ? 0x135 : 0x25, ganRowValues_007799FC[nRow]);
+        IMAGE_SetCoordinates(gpControl_00779D94, (nRow % 2) ? 0x135 : 0x25, ganRowValues_007799FC[nRow]);
         bShow = 1;
     }
     else
@@ -2155,11 +2155,11 @@ int __cdecl CHARSEL_Redraw()
     CONTROL_SetEnabled(gpControl_00779C68,1);
     if(row>=0 && row<gnVisibleRows) {
         if(gnSelected==gnSelectionA && gbFlag_00779DD8) {
-            sub_004FD0B0_SetSprite(gpControl_00779C78,0x202,ganSlotY[row]);
+            IMAGE_SetCoordinates(gpControl_00779C78,0x202,ganSlotY[row]);
             CONTROL_SetVisible(gpControl_00779C78,1);
             CONTROL_SetVisible(gpControl_00779D94,0);
         } else {
-            sub_004FD0B0_SetSprite(gpControl_00779D94,0x202,ganSlotY[row]);
+            IMAGE_SetCoordinates(gpControl_00779D94,0x202,ganSlotY[row]);
             CONTROL_SetVisible(gpControl_00779D94,1);
             CONTROL_SetVisible(gpControl_00779C78,0);
         }
@@ -3250,11 +3250,11 @@ int __stdcall sub_00436E90_AlwaysOne(int nArg); // 0x00436E90
 
 int __cdecl sub_00436EA0(); // 0x00436EA0
 
-int __stdcall sub_0043B890(int nArg); // 0x0043B890
+int __stdcall CHARSEL_OnLogonTick(int nArg); // 0x0043B890
 
-int __stdcall sub_0043B8E0(int nArg); // 0x0043B8E0
+int __stdcall CHARSEL_OnCreateAccountTick(int nArg); // 0x0043B8E0
 
-int __stdcall sub_0043B940(int nArg); // 0x0043B940
+int __stdcall CHARSEL_OnChangePasswordTick(int nArg); // 0x0043B940
 
 int __fastcall CHARSEL_HandleStatus(D2StatusStrc* pStatus); // 0x0043B9F0
 
@@ -3270,11 +3270,11 @@ int __stdcall sub_004374F0_UpdateStatusWait(int nArg); // 0x004374F0
 
 void __cdecl MAINMENUS_CreateStatusScreen(); // 0x00437550
 
-int __stdcall sub_0043B850_LogonCallback(int nArg); // 0x0043B850
+int __stdcall CHARSEL_OnDownloadTick(int nArg); // 0x0043B850
 
 int __stdcall D2Win_CloseSpriteCache(); // 0x004F9030
 
-void __stdcall sub_00517ED0(int nValue); // 0x00517ED0
+void __stdcall Unload(int nValue); // 0x00517ED0
 
 extern int gbConnectCancelled; // 0x007795F4
 
@@ -3327,7 +3327,7 @@ int __cdecl sub_0043BF60()
     if (gpFuncTable_0077ABF0->pfnSlot4C() != 0x66)
     {
         COMCALLBACK_ShowProgressScreen();
-        sub_004FA590_RunLoop(sub_0043B850_LogonCallback);
+        sub_004FA590_RunLoop(CHARSEL_OnDownloadTick);
 
         if (!GAME_GetStopMainLoop() && gpFuncTable_0077ABF0->pfnSlot4C() == 0x65)
         {
@@ -3345,7 +3345,7 @@ int __cdecl sub_0043BF60()
                 D2Win_CloseSpriteCache();
                 gpFuncTable_0077ABF0->pfnSlot10Result();
                 gbConnecting = 0;
-                sub_00517ED0(gpFuncTable_0077ABF0->pfnSlot98());
+                Unload(gpFuncTable_0077ABF0->pfnSlot98());
                 TerminateProcess(GetCurrentProcess(), 0);
                 return 0;
             }
@@ -3402,7 +3402,7 @@ int __fastcall sub_0043C180_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode)
     if (bFlag && !tStatus.nCode)
     {
         gpFuncTable_0077ABF0->pfnSlot60(pRecord->szAccount, pRecord->szPassword);
-        sub_004FA590_RunLoop(sub_0043B8E0);
+        sub_004FA590_RunLoop(CHARSEL_OnCreateAccountTick);
         if (gdwGlobal_0077AC04)
         {
             sub_0042F880_DestroyControls();
@@ -3449,7 +3449,7 @@ int __fastcall sub_0043C180_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode)
     {
 // build: symbol ?gszOldPassword@* 0x00779550
         gpFuncTable_0077ABF0->pfnSlot9C(pRecord->szAccount, gszOldPassword, pRecord->szPassword);
-        sub_004FA590_RunLoop(sub_0043B940);
+        sub_004FA590_RunLoop(CHARSEL_OnChangePasswordTick);
         if (gdwGlobal_0077AC04)
         {
             sub_0042F880_DestroyControls();
@@ -3468,7 +3468,7 @@ int __fastcall sub_0043C180_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode)
     {
         gpFuncTable_0077ABF0->pfnSlot08(pRecord->szAccount, pRecord->szPassword);
         memset(pRecord->szPassword, 0, 0x18);
-        sub_004FA590_RunLoop(sub_0043B890);
+        sub_004FA590_RunLoop(CHARSEL_OnLogonTick);
         if (gdwGlobal_0077AC04 || sub_0042F6D0())
         {
             sub_0042F880_DestroyControls();
@@ -3697,7 +3697,7 @@ int __stdcall CHARSEL_OnChatLine(const Unicode* pText)
     if (!strtok(szCopy, szDelim))
     {
 // build: symbol ?gpChatEdit@* 0x0077BD94
-        sub_004FF5A0_SetEditText(gpChatEdit, 0);
+        EDITBOX_SetText(gpChatEdit, 0);
         return 1;
     }
     return CHATDLG_SendChatText(szText, 0);

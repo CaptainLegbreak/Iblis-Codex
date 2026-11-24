@@ -50,7 +50,7 @@ int __stdcall SEvtPushState(unsigned int nType, unsigned int nSubtype); // 0x004
 int __stdcall SEvtRegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, int nFlags, SMSGHANDLER pHandler); // 0x00426420
 int __stdcall SEvtUnregisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler); // 0x00426720
 int __stdcall SEvtUnregisterType(unsigned int nType, void* hWnd); // 0x00426810
-int __stdcall sub_004269C0_RegisterHandler(unsigned long dwId, void* pContext); // 0x004269C0
+int __stdcall SEvtPopState(unsigned long dwId, void* pContext); // 0x004269C0
 
 int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam, int* pbUseResult, int* plResult);
 int __stdcall SMsgRegisterCommand(HWND__* hWnd, unsigned int nId, SMSGHANDLER pHandler);
@@ -306,10 +306,10 @@ void* __cdecl SMsgGetDefaultWindow()
 // 0x00420320
 int __stdcall SMsgPopRegisterState(void* pContext)
 {
-    sub_004269C0_RegisterHandler(0x534D5348, pContext);
-    sub_004269C0_RegisterHandler(0x534D5349, pContext);
-    sub_004269C0_RegisterHandler(0x534D534A, pContext);
-    sub_004269C0_RegisterHandler(0x534D5347, pContext);
+    SEvtPopState(0x534D5348, pContext);
+    SEvtPopState(0x534D5349, pContext);
+    SEvtPopState(0x534D534A, pContext);
+    SEvtPopState(0x534D5347, pContext);
     return 1;
 }
 

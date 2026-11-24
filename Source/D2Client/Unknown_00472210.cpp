@@ -14,7 +14,7 @@ extern "C" double __cdecl fabs(double x);
 
 D2WeatherStrc* __fastcall DATAARRAYS_Create(const char* szName, int nCount, int nRecordSize); // 0x006BCA10
 void __fastcall DATAARRAYS_Destroy(void* pBlock); // 0x006BCA90
-void __fastcall sub_006BCCC0(D2WeatherStrc* pArray); // 0x006BCCC0
+void __fastcall DATAARRAYS_Initialize(D2WeatherStrc* pArray); // 0x006BCCC0
 int __stdcall sub_004726F0(int nArg); // 0x004726F0
 extern int gbLightningFlash; // 0x007A896C
 extern int gnGlobal_007A8A0C; // 0x007A8A0C
@@ -53,7 +53,7 @@ extern CellResource* gHelpBorder;
 extern CellResource* gWhiteBullet;
 extern CellResource* gYellowBullet;
 int __cdecl sub_0045AE90(); // 0x0045AE90
-extern "C" void __stdcall sub_004F6300(int x1, int y1, int x2, int y2, int color, int mode); // 0x004F6300
+extern "C" void __stdcall D2GFX_DrawBox(int x1, int y1, int x2, int y2, int color, int mode); // 0x004F6300
 extern "C" int __cdecl ResolutionMode();
 extern "C" void __fastcall ReleaseCell(CellResource* resource);
 extern "C" CellResource* __fastcall LoadCell(const char* filename);
@@ -148,13 +148,13 @@ int gnViewDeltaY; // 0x007A067C
 void __cdecl sub_00472320()
 {
     gpWeatherParticles = DATAARRAYS_Create("Environment Particles", 0x100, 0x28);
-    sub_006BCCC0(gpWeatherParticles);
+    DATAARRAYS_Initialize(gpWeatherParticles);
 // build: symbol ?gnPhaseLevel@* 0x007A89E0
     gnPhaseLevel = 0;
     gpWeatherSplashes = DATAARRAYS_Create("Environment Splashes", 0x200, 0x18);
-    sub_006BCCC0(gpWeatherSplashes);
+    DATAARRAYS_Initialize(gpWeatherSplashes);
     gpWeatherBubbles = DATAARRAYS_Create("Environment Bubbles", 0x80, 0x18);
-    sub_006BCCC0(gpWeatherBubbles);
+    DATAARRAYS_Initialize(gpWeatherBubbles);
     gnBaseWindAngleMin = 0x2A;
 // build: symbol ?gnWindAngleMin@* 0x007A89D8
     gnWindAngleMin = 0x2A;
@@ -449,7 +449,7 @@ extern "C" void __cdecl sub_004736C0_DrawPanelShade()
         left = (gScreenWidth / 4) * 2;
         break;
     }
-    sub_004F6300(left, 0, right, bottom, 255, 5);
+    D2GFX_DrawBox(left, 0, right, bottom, 255, 5);
 }
 
 // 0x00473720

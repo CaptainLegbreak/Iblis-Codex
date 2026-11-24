@@ -174,13 +174,13 @@ int __fastcall sub_006C8250_GetSetting(int nArg, D2ClipRect006C8750Strc** ppClip
 
 void __stdcall D2CMP_CelDrawEx(D2CelContext006C8750Strc* pContext, int nX, int nY, int nX1, int nX2, int a6, int a7, int a8, int a9, int a10); // 0x00601650
 
-int __stdcall sub_006018C0_CelGetWidth(D2CelFileStrc* pCelFile); // 0x006018C0
+int __stdcall CelGetWidth(D2CelFileStrc* pCelFile); // 0x006018C0
 
-int __stdcall sub_006018F0_CelGetHeight(D2CelFileStrc* pCelFile); // 0x006018F0
+int __stdcall CelGetHeight(D2CelFileStrc* pCelFile); // 0x006018F0
 
-int __stdcall sub_00601920_CelGetOffsetX(D2CelFileStrc* pCelFile); // 0x00601920
+int __stdcall CelGetOffsetX(D2CelFileStrc* pCelFile); // 0x00601920
 
-int __stdcall sub_00601950_CelGetOffsetY(D2CelFileStrc* pCelFile); // 0x00601950
+int __stdcall CelGetOffsetY(D2CelFileStrc* pCelFile); // 0x00601950
 
 extern const char gszAssertExpr_006CC837[]; // 0x006CC837
 
@@ -503,8 +503,8 @@ void __fastcall sub_006C87E0_DrawShadow(void* pData, int nX, int nY)
 
 static int __stdcall sub_006C8380_Clip(D2CelFileStrc* pCelFile, int nY, D2ClipRect006C8750Strc* pClip, int nX, D2ClipRect006C8750Strc* pOut)
 {
-    const int nWidth = sub_006018C0_CelGetWidth(pCelFile);
-    const int nHeight = sub_006018F0_CelGetHeight(pCelFile);
+    const int nWidth = CelGetWidth(pCelFile);
+    const int nHeight = CelGetHeight(pCelFile);
 
     const int nX1 = D2_MAX(pClip->nX1, 0);
     const int nX2 = D2_MIN(pClip->nX2, gnValue_007C9138);
@@ -513,7 +513,7 @@ static int __stdcall sub_006C8380_Clip(D2CelFileStrc* pCelFile, int nY, D2ClipRe
         return 1;
     }
 
-    nX += sub_00601920_CelGetOffsetX(pCelFile);
+    nX += CelGetOffsetX(pCelFile);
     if (nX >= nX2 || nWidth + nX < nX1)
     {
         return 1;
@@ -527,7 +527,7 @@ static int __stdcall sub_006C8380_Clip(D2CelFileStrc* pCelFile, int nY, D2ClipRe
         return 1;
     }
 
-    nY += sub_00601950_CelGetOffsetY(pCelFile);
+    nY += CelGetOffsetY(pCelFile);
     if (nY < nY1 || nY - nHeight > nY2)
     {
         return 1;

@@ -35,17 +35,17 @@ extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(voi
 extern "C" __declspec(dllimport) void* __stdcall CreateEventA(void* pAttributes, int bManualReset, int bInitialState, const char* szName);
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfStart)(void*), void* pParameter, unsigned long nFlags, unsigned long* pThreadId);
 extern unsigned int __security_cookie; // 0x00749DE0
-void __fastcall sub_006BE700_UpdateServer(D2QueueServerStrc*); // 0x006BE700
+void __fastcall ExpireEntries(D2QueueServerStrc*); // 0x006BE700
 void __fastcall QSERVER_AddReference(D2QueueServerStrc*,D2QClientStrc*); // 0x006BE640
 void __fastcall sub_006C0360_ReleaseReference(D2QueueServerStrc*,D2QClientStrc*); // 0x006C0360
-D2QClientStrc* __fastcall sub_006BE5B0_FindSocket(D2QueueServerStrc*,int); // 0x006BE5B0
+D2QClientStrc* __fastcall QSERVER_FindNodeInAnyBucket(D2QueueServerStrc*,int); // 0x006BE5B0
 int __fastcall QSERVER_CheckRecordThreshold(D2QueueServerStrc*,unsigned int*); // 0x006BE9F0
 int __fastcall QSERVER_BanAddress(D2QueueServerStrc*,unsigned int*,const char*,int); // 0x006C0800
 int __fastcall sub_006BFFA0_CheckAddress(D2QueueServerStrc*,unsigned int*); // 0x006BFFA0
 void __fastcall QSERVER_HackListAddress(D2QueueServerStrc*,const char*,unsigned int,int); // 0x006BFEA0
-D2QClientStrc* __fastcall sub_006BFB70_AddSocket(D2QueueServerStrc*,int,unsigned int); // 0x006BFB70
+D2QClientStrc* __fastcall QSrvAddClient(D2QueueServerStrc*,int,unsigned int); // 0x006BFB70
 void __fastcall sub_006C0420_CloseClient(D2QueueServerStrc*,int,const char*,int); // 0x006C0420
-void __fastcall sub_006C08A0_ProcessReceived(D2QueueServerStrc*,D2QClientStrc*); // 0x006C08A0
+void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc*,D2QClientStrc*); // 0x006C08A0
 int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
 void __fastcall ERRORMANAGER_UnregisterThread(unsigned int nId); // 0x00407F90
 int __stdcall sub_006B0186_Select(int,D2SocketSetStrc*,void*,D2SocketSetStrc*,D2TimevalStrc*); // 0x006B0186
@@ -120,7 +120,7 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
     for (;;)
     {
         int count = 0;
-        sub_006BE700_UpdateServer(server);
+        ExpireEntries(server);
         EnterCriticalSection(&server->tLock);
         readSet.count = 0; errorSet.count = 0;
         D2QClientStrc* node = server->ppClients[bucket];
@@ -230,7 +230,7 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
                         sub_0040D880(accepted);
                     }
                     else {
-                        node=sub_006BFB70_AddSocket(server,accepted,buffers.address.address);
+                        node=QSrvAddClient(server,accepted,buffers.address.address);
                         if(server->pfnOnNewClient) server->pfnOnNewClient(server,node->iId,gszSource,0x91);
                     }
                     LeaveCriticalSection(&server->tLock);
@@ -239,7 +239,7 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
             }
             else {
                 EnterCriticalSection(&server->tLock);
-                node=sub_006BE5B0_FindSocket(server,socket);
+                node=QSERVER_FindNodeInAnyBucket(server,socket);
                 if(node) {
                     EnterCriticalSection(&node->tLock);
                     int received=0;
@@ -248,7 +248,7 @@ void __cdecl sub_006C3470_ServerThread(D2QueueServerStrc* server)
                     if(received!=-1) {
                         if(received) {
                             EnterCriticalSection(&node->tLock); node->nReadBytes+=received; LeaveCriticalSection(&node->tLock);
-                            sub_006C08A0_ProcessReceived(server,node); SetEvent(server->hEvent);
+                            QSERVER_ProcessReceived(server,node); SetEvent(server->hEvent);
                         }
                         else sub_006C0420_CloseClient(server,node->iId,gszSource,0x192);
                     }

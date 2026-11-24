@@ -60,7 +60,7 @@ extern unsigned int gdwRenderFlags_0096F3A8; // 0x0096F3A8
 extern void* gapFontGlyphA_00971150[]; // 0x00971150
 extern D2D3DTextureStrc* gapFontGlyphB_009712D0[]; // 0x009712D0
 void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
-int __fastcall sub_006B3730_CreateWorkSurface(D2DDSurfaceStrc** ppSurface, D2D3DTextureStrc** ppTexture, int nWidth, int nHeight); // 0x006B3730
+int __fastcall D3D_CreateMemoryTexture(D2DDSurfaceStrc** ppSurface, D2D3DTextureStrc** ppTexture, int nWidth, int nHeight); // 0x006B3730
 int __fastcall sub_006B58A0_CreateGlyphTexture(void** ppGlyphA, D2D3DTextureStrc** ppGlyphB, int nWidth, int nHeight); // 0x006B58A0
 void __fastcall sub_006B38A0_UploadGlyph(void* pGlyphA, D2DDSurfaceStrc* pSurface, int nHeight); // 0x006B38A0
 
@@ -184,7 +184,7 @@ void __cdecl sub_006B72A0_CreateFontTextures()
 
     D2DDSurfaceStrc* pSurface = 0;
     D2D3DTextureStrc* pTexture = 0;
-    sub_006B3730_CreateWorkSurface(&pSurface, &pTexture, 8, 16);
+    D3D_CreateMemoryTexture(&pSurface, &pTexture, 8, 16);
 
     for (int nChar = ' '; nChar <= 0x7F; ++nChar)
     {

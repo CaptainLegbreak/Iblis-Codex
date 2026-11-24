@@ -73,7 +73,7 @@ class THuffmannTree
 public:
     THuffmannTree();                                                                                        // 0x0041F4A0
     ~THuffmannTree();                                                                                       // 0x0041F6A0
-    unsigned int sub_0041F850(TOutputStream* os, void* pvInBuffer, int cbInBuffer, unsigned char nCmpType);    // 0x0041F850
+    unsigned int Compress(TOutputStream* os, void* pvInBuffer, int cbInBuffer, unsigned char nCmpType);    // 0x0041F850
 
     unsigned int adwData[0x3474 / 4];
 };
@@ -109,7 +109,7 @@ typedef int (__stdcall* SMSGHANDLER)(void* pParams);
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
 void __stdcall AddWindow(int nValue); // 0x004208E0
 int __stdcall DispatcherWindowProc(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam); // 0x00420CF0
-int __fastcall sub_004209E0_FindWndRec(HWND__* hWnd);
+int __fastcall FindWindow(HWND__* hWnd); // 0x004209E0
 int __stdcall SEvtRegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, int nFlags, SMSGHANDLER pHandler); // 0x00426420
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
@@ -227,7 +227,7 @@ void __fastcall HuffmanCompress(void* pvOutBuffer, int* pcbOutBuffer, void* pvIn
 {
     TOutputStream os(pvOutBuffer, *pcbOutBuffer);
     THuffmannTree ht;
-    *pcbOutBuffer = ht.sub_0041F850(&os, pvInBuffer, cbInBuffer, *pCmpType);
+    *pcbOutBuffer = ht.Compress(&os, pvInBuffer, cbInBuffer, *pCmpType);
 }
 
 // 0x00420E70
