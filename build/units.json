@@ -39486,14 +39486,68 @@
      "name": "BNSEND_LoadBNetNews"
     },
     {
+     "va": "0x0051DC70",
+     "length": 10,
+     "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
+    },
+    {
      "va": "0x0051DC80",
      "length": 70,
      "name": "BNSEND_ComputeShaDigest"
     },
     {
+     "va": "0x0051DCD0",
+     "length": 58,
+     "name": "?sub_0051DCD0_EncodeChar@@YGXPADPAIH@Z"
+    },
+    {
+     "va": "0x0051DD10",
+     "length": 16,
+     "name": "?sub_0051DD10_NibbleToHex@@YAII@Z"
+    },
+    {
+     "va": "0x0051DD20",
+     "length": 27,
+     "name": "?sub_0051DD20_HexToNibble@@YAHD@Z"
+    },
+    {
+     "va": "0x0051DD40",
+     "length": 11,
+     "name": "?sub_0051DD40_MapKeyChar@@YAHE@Z"
+    },
+    {
+     "va": "0x0051DD50",
+     "length": 114,
+     "name": "?sub_0051DD50_DecodeKeyPairs@@YAXPADPAI@Z"
+    },
+    {
+     "va": "0x0051DDD0",
+     "length": 446,
+     "name": "?sub_0051DDD0_DecodeCDKey16@@YIHPAH0PBD0@Z"
+    },
+    {
+     "va": "0x0051DFC0",
+     "length": 231
+    },
+    {
+     "va": "0x0051E0B0",
+     "length": 387,
+     "name": "?sub_0051E0B0_SendAuthCheck@@YGHXZ"
+    },
+    {
+     "va": "0x0051E240",
+     "length": 34,
+     "name": "?sub_0051E240_CheckAuth@@YAHXZ"
+    },
+    {
      "va": "0x0051E270",
      "length": 208,
      "name": "?BNSEND_CheckCDKeys@@YGHXZ"
+    },
+    {
+     "va": "0x0051E340",
+     "length": 40,
+     "name": "?sub_0051E340_BuildCDKeyInfoForSlot@@YIHPAUD2CDKeyInfoStrc@@IH@Z"
     },
     {
      "va": "0x0051F2D0",
@@ -39755,66 +39809,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/Unknown_0051DC70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0051DC70",
-     "length": 10,
-     "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
-    },
-    {
-     "va": "0x0051DCD0",
-     "length": 58,
-     "name": "?sub_0051DCD0_EncodeChar@@YGXPADPAIH@Z"
-    },
-    {
-     "va": "0x0051DD10",
-     "length": 16,
-     "name": "?sub_0051DD10_NibbleToHex@@YAII@Z"
-    },
-    {
-     "va": "0x0051DD20",
-     "length": 27,
-     "name": "?sub_0051DD20_HexToNibble@@YAHD@Z"
-    },
-    {
-     "va": "0x0051DD40",
-     "length": 11,
-     "name": "?sub_0051DD40_MapKeyChar@@YAHE@Z"
-    },
-    {
-     "va": "0x0051DD50",
-     "length": 114,
-     "name": "?sub_0051DD50_DecodeKeyPairs@@YAXPADPAI@Z"
-    },
-    {
-     "va": "0x0051DDD0",
-     "length": 446,
-     "name": "?sub_0051DDD0_DecodeCDKey16@@YIHPAH0PBD0@Z"
-    },
-    {
-     "va": "0x0051DFC0",
-     "length": 231
-    },
-    {
-     "va": "0x0051E0B0",
-     "length": 387,
-     "name": "?sub_0051E0B0_SendAuthCheck@@YGHXZ"
-    },
-    {
-     "va": "0x0051E240",
-     "length": 34,
-     "name": "?sub_0051E240_CheckAuth@@YAHXZ"
-    },
-    {
-     "va": "0x0051E340",
-     "length": 40,
-     "name": "?sub_0051E340_BuildCDKeyInfoForSlot@@YIHPAUD2CDKeyInfoStrc@@IH@Z"
-    }
    ]
   },
   {

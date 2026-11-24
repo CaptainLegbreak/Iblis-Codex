@@ -1800,8 +1800,8 @@
    "state": "included"
   },
   "Source/D2BNClient/BnSend.cpp": {
-   "bytes": 440,
-   "definitions": 2,
+   "bytes": 696,
+   "definitions": 3,
    "externs": [
     "extern \"C\" void __cdecl BNDOWNLOAD_HandleChatEvent(); // 0x00520660",
     "extern \"C\" void __cdecl sub_00520C40(); // 0x00520C40",
@@ -1854,15 +1854,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2BNClient/BNNews.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2BNClient/Unknown_0051DC70.cpp": {
-   "bytes": 256,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2BNClient/Unknown_0051DC70.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -82151,7 +82142,7 @@
    "cname": "gData_006DF238",
    "declared": true,
    "decorated": "?gacCDKeyMap@@3QBDB",
-   "file": "Source/D2BNClient/Unknown_0051DC70.cpp",
+   "file": "Source/D2BNClient/BnSend.cpp",
    "fill": 256,
    "form": "declared",
    "fwd": "extern \"C\" const char gData_006DF238[256]; // 0x006DF238",
