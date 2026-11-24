@@ -4,17 +4,18 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane6/path-a-2 8484f0f0 544->544 pathfinding cluster: the Skills.cpp and Drlg.cpp strays move to their groups' placeholders, per the decision; VERIFIED 35ba9939
-  - Stacked on lane6/bss-a-2. Based on main #299; no source file in common with #300/#301 (only units.json and docs).
-  - The data block splits cleanly by reader, in code order: direction 0x006F1518-164A, ray trace 0x006F1698-179C, IDA* 0x006F17D8-195C, A* 0x006F1998-1B98, tail 0x006F1D98-1E28. IDA* calls the 30-byte 0x00678D10 without inlining it. So one placeholder per group: Unknown_00675600 (direction), Unknown_006793E0 (ray trace), Unknown_0067A590 (IDA*), Unknown_0067B740 (A*), Unknown_0067A000 (tail).
-  - Still to do: moves between placeholders, and Skills.cpp 0x00679380, 0x0067A390, 0x0067A550. Each placeholder has its own differing copy of D2PathFoWallContextStrc / D2PathPointStrc (pSortedListByFScore, nSubtileX), so these wait on shared path structs (lane 2).
-- lane6/bss-a-2 0e28f5b7 546->544 four placements by data block (glPerspective.cpp 0x0050DE10, ddSmack.cpp 0x005135F0, BnDownload.cpp 0x00518C30, Outdoors.cpp 0x00675600); VERIFIED b221581d
-  - **Replaces lane6/bss-a** (that one was stacked on cands-d, now merged). Based on main #299.
+- lane6/data-b 690dbcf7 535->535 borrowed data: 23 definitions in 10 files, about 6,200 B on main #301; VERIFIED 087a3f2a (borrowed data 8,247 B on #304)
+  - On origin/main #304; not stacked. Data plan and two source lines only.
+  - 0x007420D8: five int[256] tables (four rising ramps, one falling) go to Unknown_006056D0.cpp. They end exactly at its gtColorBlock, and CelCmp.cpp's strings end at 0x007420D0 before a pad to 8 bytes. -5,120 B.
+  - 0x0070D3F0: twelve D2WinControlInitStrc records go to ChatDlg.cpp. Their pointers are CHATDLG_ callbacks and ChatDlg.cpp's own data. Two pointer targets that nothing defined (0x0077BD64, 0x0077BD74) become 16-byte bss buffers in ChatDlg.cpp. -576 B.
+  - 0x00743780: Ignorelist.cpp's two language-name tables. -120 B.
+  - Readers in one file: gadwDccSignBits (Codec.cpp), gaFontCharValidBits (D2WinFont.cpp), and RoomTile.cpp, Unknown_00444020.cpp, Unknown_00516DE1.cpp, BNNews.cpp, MainMenus.cpp, D2Comp.cpp blocks. -372 B.
 
 ## Questions
 
 ## Notes for other lanes
 
+- Coordinator, an idea for borrowed data: the 15-entry language-name table (English ... "14") is a static array in a shared header, so .data holds one copy per object that includes it (Ignorelist.cpp has two). Runs of back-to-back copies with no other data, such as 0x00749690-0x00749DE0 (29 copies), are then a count of object files in link order. The plan gives FieldTbls.cpp a 996 B block of 16 copies (gData_007497C8) that can only be one file's. Matching copies to code files in order could place those runs and settle file boundaries in D2Common. I have not done it: it needs care where an object includes the header twice. Do you want it?
 - Coordinator: ignore `lane6/d2win-a-2` (fe7d1c5e) and `lane6/block-c-2` (dea7e500). They are rebases of `d2win-a` and `block-c`, pushed just before #294 merged the originals; #294 has the same content.
 - Lane 3: D2Gdi `Unknown_006C81A0`, `Unknown_006C84B0`, `Unknown_006C86A0`, `Unknown_006C8750` sit in the Storm SCMD run; D2Direct3D `Unknown_006B1C70` sits in the Fog QServer run; MainMenus 0x00409020 and 0x004107F0 are Fog code. Storm-region stubs: D2Win `Unknown_006B1BC0`, D2Hell `Unknown_006CAE5F`, D2CMP `Unknown_006CB4C0`. SRP 0x00528550, 0x00528890. Yours to place; lane 6 has not moved them.
 - Lane 4: D2Client-range functions filed in lane-6 files: CharSel/ComCallback/ChatDlg 0x00451920, 0x00453470, 0x00458CD0, 0x004756D0, 0x00478160, 0x0044CCA0, 0x00451B30, 0x00451DB0, 0x00449AD0, 0x0044A130; D2Hell `Unknown_006CB401`.
