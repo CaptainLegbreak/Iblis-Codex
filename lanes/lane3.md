@@ -6,9 +6,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 - lane3/sfile-destroy 72495592 519->519 SFileDestroy (0x41A110, Storm name, inside SFILE.CPP's run) moves from SFILE_004177E0 to SFILE.CPP. The piece also defined five SFILE.CPP globals (gpCryptTable, gbThreadStop, ghStormEvent, gpStreamBuffer, gpStormExplodeWork; SFILE.CPP had them extern) plus duplicate copies of two SFILE.CPP statics; SFILE.CPP now defines the five and the piece drops all seven. Edits Storm/D2SFileTypes.h (D2StormFixedListStrc gets Head()). VERIFIED 557e0354 on base 39564cf8 (j81; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
 
-
 - lane3/scomp-strays 06856e95 519->519 PkwareBufferRead and PkwareBufferWrite (0x41DEC0, 0x41DF00, Storm names) move from SSignature.cpp to SCOMP.CPP: they sit right before PkwareCompress at the start of SCOMP.CPP's run, and SCOMP.CPP's PkwareCompress/PkwareDecompress are their only users. VERIFIED 10ecfa6f on base 39564cf8 (j81; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
-
 
 ## Questions
 
