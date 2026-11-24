@@ -4508,15 +4508,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_0067A630.cpp": {
-   "bytes": 192,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_0067A630.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Common/Unknown_0067D7B0.cpp": {
    "bytes": 32,
    "definitions": 1,
@@ -5269,6 +5260,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/OutSiege.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Common/Unknown_0067A550.cpp": {
+   "bytes": 192,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Common/Unknown_0067A550.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -151935,7 +151935,7 @@
    "cname": "gData_006F18D8",
    "declared": true,
    "decorated": "?gnIdaStarNeighborRandOffsets@@3QBHB",
-   "file": "Source/D2Common/Unknown_0067A630.cpp",
+   "file": "Source/D2Common/Unknown_0067A550.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006F18D8[32]; // 0x006F18D8",
    "head": "extern \"C\" const int gData_006F18D8[32] = ",
@@ -151965,7 +151965,7 @@
    "cname": "gData_006F1958",
    "declared": true,
    "decorated": "?aCoordOffsets@@3QBUD2CoordStrc@@B",
-   "file": "Source/D2Common/Unknown_0067A630.cpp",
+   "file": "Source/D2Common/Unknown_0067A550.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2CoordStrc gData_006F1958[8]; // 0x006F1958",
    "head": "extern \"C\" const D2CoordStrc gData_006F1958[8] = ",
