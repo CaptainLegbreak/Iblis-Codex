@@ -96,8 +96,6 @@ int gbPanelButtonDown;                                                          
 
 extern void* gpHelpYellowBulletCel;                                                                             // 0x007BEEF4
 
-// build: symbol ?gnPulseTick@* 0x007129CC
-#include "gen/data/Source/D2Client/GAME/RosterPets/gnPulseTick.inc"
 
 static int gbPopupMouseDown;                                                                               // 0x007A5248
 
@@ -183,23 +181,6 @@ void __stdcall ROSTERPETS_HandlePopupButtonUp(SMSGHANDLER_PARAMS* pMsg)
 }
 
 
-// 0x0046BD50
-int __stdcall ROSTERPETS_GetPulseColor(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue)
-{
-    if (gbPulseDone || !INV_GetTableByte(0, 1))
-    {
-        return 0;
-    }
-    *pRed = 0xFF;
-    *pGreen = 0x40;
-    *pBlue = 0x30;
-    if (gnPulseTick == -1)
-    {
-        return 0x50;
-    }
-// build: symbol ?FOG_10083_Cos_LUT@* 0x0040B330
-    return (int)(FOG_10083_Cos_LUT(gnPulseTick * 128 / 30) * 80.0);
-}
 
 // 0x00478A50
 void __cdecl ROSTERPETS_FreeRosterPets()

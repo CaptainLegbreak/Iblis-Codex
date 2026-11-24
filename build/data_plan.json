@@ -950,7 +950,7 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_0046ACE0.cpp": {
-   "bytes": 208,
+   "bytes": 152,
    "definitions": 5,
    "externs": [],
    "fn_types": {},
@@ -4232,8 +4232,8 @@
    "state": "included"
   },
   "Source/D2Client/GAME/RosterPets.cpp": {
-   "bytes": -116,
-   "definitions": 0,
+   "bytes": 60,
+   "definitions": 1,
    "externs": [
     "extern \"C\" void __cdecl CURSOR_DrawDefaultCursor(); // 0x004683C0",
     "extern \"C\" void __cdecl CURSOR_DrawCursorCel(); // 0x00468460"
@@ -40791,12 +40791,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Client/GAME/RosterPets.cpp",
+   "file": "Source/D2Client/Unknown_0046ACE0.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
    "head": "static int gnPulseTick = ",
-   "include": "gen/data/Source/D2Client/GAME/RosterPets/gnPulseTick.inc",
+   "include": "gen/data/Source/D2Client/Unknown_0046ACE0/gnPulseTick.inc",
    "linkage": "static",
    "model": {
     "k": "prim",
@@ -152722,144 +152722,6 @@
    "struct": "#pragma pack(push, 1)\nstruct d2data_00744338_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n};\n#pragma pack(pop)",
    "head": "extern \"C\" struct d2data_00744338_t gData_00744338 = ",
    "tail": "; // 0x00744338"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00712990",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2Client/Unknown_0046ACE0.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00712990_t gData_00712990; // 0x00712990",
-   "head": "extern \"C\" struct d2data_00712990_t gData_00712990 = ",
-   "name": "gData_00712990",
-   "pointers": [
-    [
-     0,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     4,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     8,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     12,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     16,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     20,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     24,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     28,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     32,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     36,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     40,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     44,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     48,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     52,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     56,
-     "0x006CC77C",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 60,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00712990_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00712990",
-   "va": "0x00712990"
   },
   {
    "alias": false,

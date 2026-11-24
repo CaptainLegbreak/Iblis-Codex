@@ -1,3 +1,4 @@
+#include "D2LanguageNames.h"
 #include "D2Unicode.h"
 #include "D2ObjectIds.h"
 #include "D2MissileIds.h"
@@ -64,7 +65,10 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
-extern int gnPulseTick; // 0x007129CC
+int gbPulseDone; // 0x007A745C
+
+// build: symbol ?gnPulseTick@* 0x007129CC
+#include "gen/data/Source/D2Client/Unknown_0046ACE0/gnPulseTick.inc"
 extern int gbChaosLightEvent; // 0x007A7460
 extern int gnTimerEnd; // 0x007A7464
 extern int gbThroneEventPending; // 0x007A7468
@@ -107,47 +111,9 @@ static inline D2MonStats2Txt* CLIENT_GetMonStats2TxtRecord(int nMonsterId)
     return 0;
 }
 
-struct D2UnitOverlayStrc;
 
-struct D2UnitOverlayStrc
-{
-    int nType;
-    int nId;
-    int nValue;
-    char unk0x0C[0x98];
-    D2UnitOverlayStrc* pNext;
-};
 
-struct D2TileRectStrc
-{
-    int unk0x00;
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2GridCellStrc
-{
-    unsigned char unk0x00[4];
-    unsigned char nValue0;
-    unsigned char nValue1;
-    unsigned char f_6;
-    unsigned char nValue3;
-};
-
-struct D2ChatMessageStrc
-{
-    unsigned char nHeader;
-    unsigned char nType;
-    unsigned char f_2;
-    unsigned char nUnitType;
-    int nUnitId;
-    unsigned char nColor;
-    unsigned char nSubType;
-    char szName[0x10];
-    char szText[0x100];
-};
 
 class D2SquelchListStrc
 {
@@ -160,37 +126,9 @@ public:
     virtual int IsFiltered(const char* szText);
 };
 
-struct D2TimedHintEntryStrc;
 
 
-struct D2CacheStatsStrc;
 
-struct D2TimedHintEntryStrc
-{
-    int unk0x00;
-    int nHintId;
-    int nKey;
-    char unk0x0C[0x24];
-    int nState;
-};
-
-
-struct D2CacheStatsStrc
-{
-    unsigned int nFloorSize;
-    int unk0x04;
-    int nFloorMisses;
-    unsigned int nSubtileSize;
-    int unk0x10;
-    int nSubtileMisses;
-    unsigned int nSpriteSize[3];
-    int unk0x24[3];
-    int nSpriteMisses[3];
-    int unk0x3C[3];
-    int nSpriteAccesses[3];
-    int unk0x54[3];
-    int unk0x60[3];
-};
 
 // 0x0046AE50
 void __fastcall VIEW_StartTimedBox(int nFadeIn, int nHold, int nFadeOut, int nLevelId, int bForce)
@@ -211,6 +149,61 @@ void __fastcall VIEW_StartTimedBox(int nFadeIn, int nHold, int nFadeOut, int nLe
     gtTimedBox.nFadeOut = nFadeOut;
     gtTimedBox.nTotal = nFadeIn + nHold + nFadeOut;
     gtTimedBox.nLevelId = nLevelId;
+}
+
+static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax)
+{
+    if (nMax <= 0)
+    {
+        return 0;
+    }
+    if ((nMax - 1) & nMax)
+    {
+        return SEED_RollRandomNumber(pSeed) % nMax;
+    }
+    return SEED_RollRandomNumber(pSeed) & (nMax - 1);
+}
+
+static inline D2MonStats2Txt* MONSTATS2_GetRecordInline(int nMonStatsEx)
+{
+    return (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount) ? &sgptDataTables->pMonStats2Txt[nMonStatsEx] : 0;
+}
+
+// 0x0046AF70
+void __stdcall sub_0046AF70(D2ActiveRoomStrc* pRoom)
+{
+    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
+    if (pPlayer)
+    {
+        D2MissileStrc tMissile;
+        D2DrlgCoordsStrc tCoords;
+        memset(&tMissile, 0, sizeof(tMissile));
+        tMissile.dwFlags = 0x2003;
+        tMissile.pOwner = pPlayer;
+        tMissile.nSkill = 0;
+        tMissile.nSkillLevel = 1;
+        tMissile.nMissile = MISSILE_DENOFEVILLIGHT;
+        DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
+        int nCount = 0;
+        int i = 0;
+        for (; nCount < 3; ++i)
+        {
+            if (i >= 25) break;
+            int nX = tCoords.nSubtileX + SEED_RollLimitedRandomNumber(&pPlayer->pSeed, tCoords.nSubtileWidth);
+            int nY = tCoords.nSubtileY + SEED_RollLimitedRandomNumber(&pPlayer->pSeed, tCoords.nSubtileHeight);
+            tMissile.nX = nX;
+            if (!COLLISION_CheckMask(pRoom, nX, tMissile.nY = nY, 5)) { MISSILE_CreateClientMissile(&tMissile); } else { --nCount; }
+            ++nCount;
+        }
+    }
 }
 
 // 0x0046B4A0
@@ -283,6 +276,102 @@ void __fastcall VIEW_SpawnBrDeathControl(D2UnitStrc* pUnit)
 
 
 
+static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+{
+    int nX;
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nX = pUnit->pStaticPath->nXPos;
+        break;
+    default:
+        nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+        break;
+    }
+    return nX;
+}
+
+static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+{
+    int nY;
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nY = pUnit->pStaticPath->nYPos;
+        break;
+    default:
+        nY = pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+        break;
+    }
+    return nY;
+}
+
+// 0x0046B710
+void __fastcall sub_0046B710_SpawnMissileAtObject173(D2UnitStrc* pUnit)
+{
+    D2UnitStrc* pObject = UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(pUnit), 2, 0x173);
+    int nX;
+    int nY;
+    if (pObject)
+    {
+        nX = CLIENTS_GetUnitXInline(pObject);
+        nY = CLIENTS_GetUnitYInline(pObject);
+    }
+    else
+    {
+        nX = CLIENTS_GetUnitXInline(pUnit) - 15;
+        nY = CLIENTS_GetUnitYInline(pUnit) - 15;
+    }
+
+    D2MissileStrc tMissileParams;
+    memset(&tMissileParams, 0, sizeof(tMissileParams));
+    tMissileParams.dwFlags = 0x420;
+    tMissileParams.nMissile = MISSILE_TOWERMIST;
+    tMissileParams.pOwner = pUnit;
+    tMissileParams.pOrigin = pUnit;
+    tMissileParams.nTargetX = nX;
+    tMissileParams.nTargetY = nY;
+    tMissileParams.nSkillLevel = 1;
+    MISSILE_CreateClientMissile(&tMissileParams);
+
+    D2UnitStrc* pMissile = GFXUTIL_SubmitMissileRequest(pUnit, 0x14C, nX, nY, 0, 1);
+    if (pMissile)
+    {
+        MISSILE_SetTargetY(pMissile, 0);
+    }
+}
+
+
+// 0x0046B850
+void __fastcall VIEW_SpawnMissileNearObject(D2UnitStrc* unit)
+{
+ D2UnitStrc* object=UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(unit),2,0x182);
+ int x,y;
+ if(object) {
+  ITEM_ShowTimedHint((void*)0x124F,0,0x15E,0,0,0,0);
+  x=CLIENTS_GetUnitXInline(object);
+  y=CLIENTS_GetUnitYInline(object);
+ } else {
+  x=CLIENTS_GetUnitXInline(unit)-15;
+  y=CLIENTS_GetUnitYInline(unit)-15;
+ }
+ D2MissileStrc params;
+ memset(&params,0,sizeof(params));
+ params.dwFlags=0x420;
+ params.nMissile=MISSILE_ORBMIST;
+ params.pOwner=unit;
+ params.pOrigin=unit;
+ params.nTargetX=x;
+ params.nTargetY=y;
+ params.nSkillLevel=1;
+ D2UnitStrc* missile=MISSILE_CreateClientMissile(&params);
+ if(missile&&object)MISSILE_SetTargetX(missile,object->dwUnitId);
+}
+
 // 0x0046B9A0
 void __fastcall VIEW_SpawnMephistoDeath(D2UnitStrc* pUnit)
 {
@@ -350,6 +439,62 @@ int __fastcall UI_SetTimerUnitId(D2UnitStrc* pUnit)
 // build: symbol ?gnTimerUnitId@* 0x007129D4
     gnTimerUnitId = nUnitId;
     return nUnitId;
+}
+
+int __stdcall INV_GetTableByte(int nUnused, int nIndex);                                           // 0x004B92E0
+
+// 0x0046BD50
+int __stdcall ROSTERPETS_GetPulseColor(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue)
+{
+    if (gbPulseDone || !INV_GetTableByte(0, 1))
+    {
+        return 0;
+    }
+    *pRed = 0xFF;
+    *pGreen = 0x40;
+    *pBlue = 0x30;
+    if (gnPulseTick == -1)
+    {
+        return 0x50;
+    }
+// build: symbol ?FOG_10083_Cos_LUT@* 0x0040B330
+    return (int)(FOG_10083_Cos_LUT(gnPulseTick * 128 / 30) * 80.0);
+}
+
+#define gnGlobal_007A7430 (gtTimedBox.nValue)
+
+#define gnGlobal_007A7434 (gtTimedBox.nColor[0])
+
+#define gnGlobal_007A7435 (gtTimedBox.nColor[1])
+
+#define gnGlobal_007A7436 (gtTimedBox.nColor[2])
+
+// 0x0046BDD0
+int __fastcall SCMD_GetLevelLight(D2ActiveRoomStrc* pRoom, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue)
+{
+    switch (DUNGEON_GetLevelIdFromRoom(pRoom))
+    {
+    case LEVEL_DENOFEVIL:
+        return ROSTERPETS_GetPulseColor(pRed, pGreen, pBlue);
+
+    case LEVEL_RIVEROFFLAME:
+    case LEVEL_CHAOSSANCTUM:
+// build: symbol ?gnLevelEffectTick@* 0x007129D0
+        if (gbChaosLightEvent && gnLevelEffectTick == -1)
+        {
+            *pRed = 0xFF;
+            *pGreen = 0x40;
+            *pBlue = 0x30;
+            return 0xA0;
+        }
+        return 0;
+
+    default:
+        *pRed = gnGlobal_007A7434;
+        *pGreen = gnGlobal_007A7435;
+        *pBlue = gnGlobal_007A7436;
+        return gnGlobal_007A7430;
+    }
 }
 
 // 0x0046BFD0
@@ -489,30 +634,6 @@ void __cdecl sub_0046B0D0_ApplyDenOfEvilRooms()
             sub_0046AF70(pRoom);
         }
     }
-}
-
-static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
-    }
-    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-}
-
-static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
-    }
-    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
 inline int sub_00451F50(D2UnitStrc* pUnit)
@@ -735,7 +856,6 @@ void __fastcall sub_0046B3C0_UnitRequest25A(D2UnitStrc* pUnit)
     }
 }
 
-int gbPulseDone; // 0x007A745C
 
 int gbChaosLightEvent; // 0x007A7460
 
@@ -895,17 +1015,18 @@ static inline unsigned __int64 SEED_RollRandomNumberForceInline(D2SeedStrc* pSee
     return lSeed;
 }
 
-static __forceinline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
+static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed, int nMax)
 {
     if (nMax <= 0)
         return 0;
 
-    if ((nMax - 1) & nMax)
+    if (((unsigned int)nMax - 1) & (unsigned int)nMax)
         return (unsigned int)SEED_RollRandomNumberForceInline(pSeed) % nMax;
 
     return SEED_RollRandomNumberForceInline(pSeed) & (nMax - 1);
 }
 
+// 0x0046C1A0
 static void __stdcall sub_0046C1A0_SpawnMonsterInRoom(D2ActiveRoomStrc* pRoom, int nMonsterId, D2SeedStrc* pSeed)
 {
     D2DrlgCoordsStrc tCoords;
@@ -919,10 +1040,7 @@ static void __stdcall sub_0046C1A0_SpawnMonsterInRoom(D2ActiveRoomStrc* pRoom, i
         return;
 
     const int nMonStatsEx = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
-    if (nMonStatsEx < 0 || nMonStatsEx >= sgptDataTables->nMonStats2TxtRecordCount)
-        return;
-
-    D2MonStats2Txt* pMonStats2 = &sgptDataTables->pMonStats2Txt[nMonStatsEx];
+    D2MonStats2Txt* pMonStats2 = MONSTATS2_GetRecordInline(nMonStatsEx);
     if (!pMonStats2)
         return;
 
@@ -940,6 +1058,50 @@ static void __stdcall sub_0046C1A0_SpawnMonsterInRoom(D2ActiveRoomStrc* pRoom, i
 
     if (nTry < 10)
         CUNIT_SpawnPresetUnit(nMonsterId, nPosX, nPosY, 1, 0);
+}
+
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* room, int x, int y); // 0x00463740
+
+static inline D2MonStats2Txt* GetMonStats2(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        const int nEx = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
+        if (nEx >= 0 && nEx < sgptDataTables->nMonStats2TxtRecordCount)
+            return &sgptDataTables->pMonStats2Txt[nEx];
+    }
+    return 0;
+}
+
+// 0x0046C320
+void __fastcall sub_0046C320_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, int nCount)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    D2MonStats2Txt* pTxt = GetMonStats2(nMonsterId);
+    if (!pTxt)
+        return;
+
+    D2CoordStrc tCoord;
+    UNITS_GetCoords(pUnit, &tCoord);
+    for (int i = 0; i < 10; ++i)
+    {
+        unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
+        pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
+        pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
+        const int nX = tCoord.nX + (unsigned int)lSeed % 5 - 2;
+        lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
+        pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
+        pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
+        const int nY = tCoord.nY + (unsigned int)lSeed % 5 - 2;
+        pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
+        if (!COLLISION_CheckMaskWithSize(pRoom, nX, nY, pTxt->nSizeX, 0x3F11))
+        {
+            CUNIT_SpawnPresetUnit(nMonsterId, nX, nY, 1, 0);
+            --nCount;
+        }
+        if (nCount <= 0)
+            break;
+    }
 }
 
 // 0x0046C460
