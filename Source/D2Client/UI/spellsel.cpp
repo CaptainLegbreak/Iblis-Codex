@@ -38,8 +38,6 @@ extern D2SpellSelSlotsStrc gtHotkeySlots_007C0300;                              
 
 int gaSkillRowY[4];                                                                                 // 0x007C070C
 
-extern int gnScreenHeight;                                                                                // 0x00711470
-
 extern unsigned int gdwBitMasks_006CE268[];                                                                  // 0x006CE268
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                               // 0x00681EF0

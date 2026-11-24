@@ -265,8 +265,6 @@ extern int gnQuestScreens; // 0x0070F92C
 
 extern int gnScreenWidth; // 0x0071146C
 
-extern int gnScreenHeight; // 0x00711470
-
 extern D2CelFileStrc* gpLoadingScreen; // 0x007A2888
 
 extern int gnLoadingFrame; // 0x007A2A6C

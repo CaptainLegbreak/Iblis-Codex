@@ -89,7 +89,8 @@ extern int gnPanelOffsetX;                                                      
 
 extern int gnPanelOffsetY;                                                                               // 0x007A285C
 
-extern int gnScreenHeight;                                                                               // 0x00711470
+// kept: the unit builds equal only with this second declaration of 0x00711470 in scope (0x488B00)
+extern int gnScreenHeight_00711470; // 0x00711470
 
 extern int gnButtonCount;                                                                          // 0x00722160
 

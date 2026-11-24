@@ -11,7 +11,6 @@ struct D2TextPanelLineStrc;
 struct D2TextPanelStrc;
 
 extern int gnScreenWidth; // 0x0071146C
-extern int gnScreenHeight; // 0x00711470
 extern int gbControlPanelClicked; // 0x007BEFA4
 extern int gbMiniPanelButtonDown; // 0x007BEFD0
 extern int gbRunButtonDown; // 0x007BEFD8

@@ -259,8 +259,6 @@ extern void* gpHelpWhiteBulletCel; // 0x007BEEF0
 
 extern int gnScreenWidth; // 0x0071146C
 
-extern int gnScreenHeight; // 0x00711470
-
 enum D2C_W10Constants
 {
     STAT_HITPOINTS = 6,

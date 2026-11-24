@@ -22,8 +22,6 @@ struct D2UiBlockRectStrc
     char unk0x10[0x110];
 };
 
-extern int gnScreenHeight;                                                                               // 0x00711470
-
 extern int gnBlockRectCount_007C54A0;                                                                       // 0x007C54A0
 
 extern D2UiBlockRectStrc gaBlockRects_007C54A8[32];                                                         // 0x007C54A8
@@ -182,7 +180,7 @@ static inline unsigned int UnitIsSelectable(D2UnitStrc* pUnit)
 
 int __fastcall sub_004C0640_AdjustLabel(int* pLeft, int* pTop, int* pRight, int* pBottom, int nMode, int nMaxX, int nMinX)
 {
-    int nMaxY = gnScreenHeight_00711470 - 48;
+    int nMaxY = gnScreenHeight - 48;
 
     sub_004C0640_ClampToScreen(pLeft, pTop, pRight, pBottom, nMaxX, nMinX, nMaxY);
 
@@ -277,7 +275,7 @@ void __cdecl sub_004C0810_DrawUnitNames()
             case 1:nMaxX=gnScreenWidth_0071146C/2-32;break;
             case 2:nMinX=gnScreenWidth_0071146C/2;break;
             }
-            if(nX<nMinX || nX>nMaxX || nY<-8 || nY>gnScreenHeight_00711470-16)continue;
+            if(nX<nMinX || nX>nMaxX || nY<-8 || nY>gnScreenHeight-16)continue;
             pLabel->wszText[0].wChar=0;
             UI_BuildItemHoverName(pItem,pLabel->wszText,256);
             int nWidth,nTop;

@@ -11,7 +11,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern D2CursorAnimStrc gaCursorAnim[CURSOR_ANIM_COUNT];                                           // 0x00712010
 extern int gbCursorVisible;                                                                               // 0x007A6B08
 extern int gnScreenWidth;                                                                               // 0x0071146C
-extern int gnScreenHeight;                                                                               // 0x00711470
 static int gnCursorY;                                                                               // 0x007A6AAC
 static int gnCursorX;                                                                               // 0x007A6AB0
 static int gnCursorAnim;                                                                               // 0x007A6ADC

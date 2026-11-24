@@ -112,7 +112,6 @@ extern "C" const char szFmtD_006D57BC[]; // 0x006D57BC
 extern "C" const char gszFmtRange[]; // 0x006D9D70
 extern "C" const char gszFmtRangeKK[]; // 0x006DBEAC
 extern "C" const char gszFmtRangeK[]; // 0x006DBEB8
-extern int gnScreenHeight; // 0x00711470
 extern int gnPanelOffsetX; // 0x007A2858
 extern int gnPanelOffsetY; // 0x007A285C
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268

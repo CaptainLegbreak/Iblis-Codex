@@ -2719,8 +2719,6 @@ void __stdcall SCALE_AdjustPerspectivePosition(int nXPos, int nYPos, int nBias, 
 
 typedef int (__stdcall* D2CelDrawRetFn)(D2CelContextStrc*, int, int, unsigned int, int, unsigned char*);
 
-extern int gnScreenHeight; // 0x00711470
-
 static int gbLightningEnabled; // 0x007A8A08
 
 static inline unsigned int sub_00472400_SeedStep(D2SeedStrc* pSeed)

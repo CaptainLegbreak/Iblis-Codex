@@ -96,8 +96,6 @@ void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
-extern int gnScreenHeight; // 0x00711470
-
 extern D2ClientTabStrc gaNpcTabStates[]; // 0x0072211A
 
 extern int gnGlobal_007BCAF0; // 0x007BCAF0

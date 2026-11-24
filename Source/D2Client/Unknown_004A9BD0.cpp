@@ -30,7 +30,6 @@ int __cdecl sub_00468740(); // 0x00468740
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill); // 0x00643AD0
-extern int gnScreenHeight; // 0x00711470
 extern D2HotkeySlotTableStrc gtHotkeySlots_007C0300; // 0x007C0300
 extern int gbSkillSelectRight; // 0x007C07FC
 extern int gaHotkeySkills[16]; // 0x007C06C8

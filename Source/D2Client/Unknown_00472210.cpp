@@ -49,7 +49,6 @@ struct D2B10EmitWeatherStrc
 };
 
 extern int gScreenWidth; // 0x0071146C
-extern int gScreenHeight; // 0x00711470
 extern CellResource* gHelpBorder;
 extern CellResource* gWhiteBullet;
 extern CellResource* gYellowBullet;
@@ -439,7 +438,7 @@ struct D2ActiveRoomStrc;
 extern "C" void __cdecl sub_004736C0_DrawPanelShade()
 {
     int left = 0;
-    int bottom = gScreenHeight - 47;
+    int bottom = gnScreenHeight - 47;
     int right = gScreenWidth;
     switch (sub_0045AE90())
     {

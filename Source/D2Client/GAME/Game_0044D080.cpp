@@ -335,8 +335,6 @@ void __cdecl CURSOR_DrawCursor(); // 0x004684C0
 
 void __fastcall sub_00477980(); // 0x00477980
 
-extern int gnScreenHeight; // 0x00711470
-
 int __cdecl sub_00468730(); // 0x00468730
 
 int __cdecl sub_00468740(); // 0x00468740

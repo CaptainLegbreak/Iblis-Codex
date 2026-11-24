@@ -134,8 +134,6 @@ extern const int gaEffectRingOffsetX[16]; // 0x006DAF48
 
 extern int gnScreenWidth; // 0x0071146C
 
-extern int gnScreenHeight; // 0x00711470
-
 extern void* gpGlobal_007A0634; // 0x007A0634
 
 extern unsigned int gdwFadeTick; // 0x007C89CC

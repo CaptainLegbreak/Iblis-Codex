@@ -34,7 +34,6 @@ static int gbHasSelectedUnit;                                                   
 static int gnSelectedUnitType;                                                                     // 0x007A6A8C
 static unsigned int gnSelectedUnitId;                                                              // 0x007A6A78
 extern int gnScreenWidth;                                                                               // 0x0071146C
-extern int gnScreenHeight;                                                                               // 0x00711470
 int gbSelectionRectValid;                                                                   // 0x007A6A9C
 int gnSelectionLeft;                                                                        // 0x007A6A7C
 int gnSelectionRight;                                                                       // 0x007A6A84

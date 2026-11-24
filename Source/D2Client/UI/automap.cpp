@@ -352,8 +352,6 @@ extern int gbAutomapPartyNames; // 0x007113E8
 
 extern int gnScreenWidth; // 0x0071146C
 
-extern int gnScreenHeight; // 0x00711470
-
 extern D2WardenIfaceStrc gtWardenIface; // 0x00721C98
 
 int gdwAutoMapFade; // 0x007A51A8
