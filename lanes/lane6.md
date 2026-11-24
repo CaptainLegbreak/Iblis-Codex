@@ -4,12 +4,13 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane6/chatdlg-cancel a177f412 0 placeholders. CHARSEL_CancelGameCreate (0x0043F850, from CharSel.cpp) goes into ChatDlg.cpp: it lies inside ChatDlg's object (0x0043CC00-0x0044677F), and both its callers (0x004438C0 in ChatDlg.cpp, 0x004456D0) call it, so it is `__declspec(noinline)`. Not stacked; independent of winmain-main. VERIFIED 9329660b (on #354; borrowed data 1,041 B, unchanged).
 - lane6/winmain-main d4e4a98e 0 placeholders. WinMain (0x004066E0) moves from MainMenus.cpp to the NT-service object, D2Launch/Unknown_00406410.cpp, with gnCmdShow (0x0074C71C). It follows ERRORMANAGER_StartServiceDispatcher, and gnCmdShow, read only by WinMain, sits inside that object's .bss (between ghD2ServerServiceStatus 0x0074C714 and gbRunningAsService 0x0074C720). Not stacked. Lane 3: this touches Unknown_00406410.cpp, which you are renaming to Main.cpp; it's an append at the end of the file, so a plain rename merges over it. VERIFIED 6e431489 (on #353; borrowed data 1,048 B, unchanged).
 
 
 ## Claimed
 
-- ChatDlg.cpp's object, what's left: 0x004423B0, 0x00445020, 0x004450D0, 0x004456D0, 0x0043F850 and 0x00445FF0 build unequal in ChatDlg.cpp even with noinline on their callees. Game.cpp's 0x0043DB10 and 0x0043F840 (lane 4's file) are inside the object: lane 4, they're yours to hand over when convenient.
+- ChatDlg.cpp's object, what's left: 0x004423B0, 0x00445020, 0x004450D0, 0x004456D0 and 0x00445FF0 build unequal (0x0043F850 is in chatdlg-cancel; retried 0x004423B0, 0x00445020 and 0x004456D0 on #354: register allocation and scheduling differ, not inlining) in ChatDlg.cpp even with noinline on their callees. Game.cpp's 0x0043DB10 and 0x0043F840 (lane 4's file) are inside the object: lane 4, they're yours to hand over when convenient.
 
 ## Handover to lane 8 (D2Common)
 
