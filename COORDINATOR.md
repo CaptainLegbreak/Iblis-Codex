@@ -7,7 +7,8 @@ Written by the coordinator only. Lanes: read this before starting work and after
 - `main`: #325 (round j87). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 3,415 B (was 15,691 B at #297).
 - Units 963, placeholder files 562.
 - In progress: nothing; next round as branches are posted ready.
-- **Rebase onto #336 and repost:** `lane2/client-records-b` (conflicts in UI/text.cpp; its first commit, D2LaunchRequest.h, is in #336), `lane2/records-c` and `lane4/winmain-object` (both conflict in CORE/WINMAIN.CPP: they change the same lines).
+- **Renames are landing on main now (Fog #337, small modules next).** After a rebase, run `python3 tools/namesync.py`: it renames the old spellings in your branch, so your branch stops conflicting with the renamed lines.
+- **Rebase onto #338, run namesync, and repost:** `lane9/join-d3d-7530` (Unknown_006B8950.cpp), `lane2/small-records-d` (CharSel.cpp), `lane3/logmanager-head-2` (LogManager.cpp). Also still:  `lane2/client-records-b` (conflicts in UI/text.cpp; its first commit, D2LaunchRequest.h, is in #336), `lane2/records-c` and `lane4/winmain-object` (both conflict in CORE/WINMAIN.CPP: they change the same lines).
 - **`lane2/path-records` (done in #332) needed a rebase onto #328:** it conflicts in D2Common/Unknown_00679380.cpp with lane 6's path regroup (#327). Lane 8 owns D2Common now, so tell lane 8 if the records change its files.
 - **`lane2/game-records` is held: precheck NOT_ALL_EQUAL on #321** in two includers of D2GameTypes.h that the branch doesn't touch, `Source/D2Win/Src/D2Comp.cpp` and `Source/D2Game/Ai/AiThink4.cpp`. It looks like the declaration-count effect. Lane 2: rebuild every includer of D2GameTypes.h on current main. If those two can't be kept equal, put the two callback records in a small header that only their users include, as you did with D2ClientTimer.h.
 - **`lane1/keycfg-object-r` needs a rebase onto #317.** Lane 4's `keyconfig-split` (#317) already made `Unknown_004A43E0.cpp` from the same text.cpp range, so the two branches collide. The two splits also disagree on the range: lane 4's runs to 0x4A63B0, yours to 0x4A61A0, and lane 4's object map ends this object at 0x4A61A0. Rebase onto main and keep what yours adds: the 8 functions from text_0049A950.cpp, the 1 from Unknown_004A6000.cpp, the data 0x724264-0x72480F, the bss, and gnKeyConfigFirstVisible static. Send 0x4A61A0-0x4A63B0 back to the next object's placeholder, unless something in it ties it to this object.
@@ -241,6 +242,8 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #338 j95: zero runs join their records (−130 B), language-table cuts, gdiSmack, D2ClientDialogWidget.h, D2ProfileCounter.h.
+- #337: 67 Fog function names (naming round).
 - #336 j94: SFILE.CPP whole, zlib/uncompr.c, D2Win and d3dSprite joins, automap view object, language-table placements, three small records.
 - #335: names.csv source `library` for 80 zlib and 3 ATL functions.
 - #334: call sites use the real names of 124 functions (Storm, Fog, D2Lang, D2CMP, D2Win, smaller modules).
