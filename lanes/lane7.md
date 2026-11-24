@@ -42,6 +42,7 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
   - **0x55A6D0** (D2Game Items.cpp, 2,253 B): Items.cpp already holds an unmarked body of D2GAME_DropTC_6FC51360. With a `// 0x0055A6D0` marker it builds 2,239/2,253 with the rest of Items.cpp equal. Next up.
 
 ## Ready
+- lane7/0062A370 5878e752 (on #356), VERIFIED 32878179. ITEMS_GetSetItemsMask (0x62A370) without its two volatile reads: the guard is written with a unit-type helper (null gives 6, as UnitFinds.cpp's) and ITEMS_GetItemQuality_Inl, and both values then load into eax before the compare as in the original. Touches D2Common ITEMS/Items.cpp only (adds the static inline helper above the function). Non-original constructs -1.
 
 ## Questions
 
@@ -62,3 +63,4 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 - **0x62B5B0** (Items.cpp): same length, about 820 differing bytes; register allocation: the original keeps nRequiredLevel in esi. Merging the per-site locals into function-scope ones gives identical bytes.
 - **0x6BD230** (Fog Excel.cpp, export 10215): every byte equal except one unused 4-byte frame slot (`push ecx` with nothing at [ebp-4]). In the whole image this slot only appears in statics with a register convention or fastcall functions; this is the only extern stdcall one. memcpy vs memmove and the flag matrix (22 variants) don't touch it. My guess: it was built from a register-convention static or a different declaration.
 - 2026-11-24 09:05 PT: started on the forcing constructs. Not fixed yet, but narrowed: FrozenOrbNova (0x5AF170, D2Game) needs neg/add that every plain form of x - y folds to mov/sub; BeltTbls 0x660D10 keeps the index-first order only when its inlined helper uses the index twice (+5 B so far); ItemMods 0x65EA50's volatile stops the nValue load being hoisted above the branch, and none of 5 restructurings keeps it below. Note for all lanes: Wine here crashes when TMPDIR is set; builds need `env -u TMPDIR`.
+- 2026-11-24 09:49 PT: first forcing construct removed (0x62A370, Ready above). 0x679C80: a 12-group variant search from 4 starts always lands on the form that still has the cast (13 lines, +2 B); I'm treating it as a wall for now and working the volatile list.
