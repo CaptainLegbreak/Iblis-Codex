@@ -4,6 +4,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/sbig-arrays 58ac47ac 520->520 Twelve more SBig functions join SBig.cpp (59 -> 71): SBigToUnsigned and its two helpers (0x421510-0x421550), ToBinary and the six SBigToBinary*/SBigToStream* exports (0x4235F0, 0x423AE0-0x423D30), IsOdd and SBigIsOdd (0x422710, 0x4238F0). ToStream (0x423770) and SBigFromStream stay in Unknown_00421EA0 (reasons in the commit). VERIFIED 1b2331b7 on base 5a0da74b (j78; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). **Stacked on lane3/sbig-exports.**
+
 - lane3/sbig-exports 950e9140 529->520 Nine SBig pieces join SBig.cpp (12 -> 59 functions): Unknown_004221F0 whole (SBigDec/Inc/Sub/Div/Gcd/Mod/MulMod, the string and unsigned conversions, shifts and their helpers), Unknown_00422300 (Add/And/Or/Xor and helpers), SBigNot with its helper, SBigPow/Pow, SBigPowMod/IsPrime/FindPrime/InvMod, the helpers at 0x421440 and 0x4255E0, and the BigStack ctor/dtor (Unknown_00421830). SBig.cpp now uses the shared BigBuffer/BigStack from D2StormBigBuffer.h. **It edits two headers in Source/Include**, D2StormBigBuffer.h and D2StormArrayA.h: BigBuffer gains its ctor, dtor and operator=, BigStack a ctor (the f_0/pRecords union goes), and Reserve reads the chunk size into a local first. Only Storm units include these two headers (I added them in an earlier SBig branch), and all 21 users stay equal. Lane 2: tell me if you want those changes done another way. VERIFIED ae8b042a on base 5a0da74b (j78; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
 
 ## Questions
