@@ -64,7 +64,17 @@ struct D2StormGameDataArrayStrc
     D2SGameDataStrc* f_8;
     unsigned int f_C;
 
+    static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
+    {
+        unsigned int nRemainder = nValue % nAlign;
+        if (nRemainder)
+            nValue += nAlign - nRemainder;
+        return nValue;
+    }
+    unsigned int sub_00450810_CalcChunkSize(unsigned int nCount);                                           // 0x00450810
     void sub_00450D90_ReallocData(unsigned int nAlloc);
+    void sub_00450E70_Reserve(unsigned int nCount, int bRound);
+    void sub_00450F50_ReserveExact(unsigned int nCount);
 };
 
 struct D2StormChunkListStrc
@@ -158,6 +168,29 @@ void D2StormGameDataArrayStrc::sub_00450D90_ReallocData(unsigned int nAlloc)
             SMemFree(pOld, gszTypeSGameData, -2, 0);
         }
     }
+}
+
+// 0x00450E70
+void D2StormGameDataArrayStrc::sub_00450E70_Reserve(unsigned int nCount, int bRound)
+{
+    nCount += f_4;
+    if (nCount > f_0)
+    {
+        if (bRound)
+        {
+            unsigned int nChunk = f_C ? f_C : sub_00450810_CalcChunkSize(nCount);
+            nCount = RoundUp(nCount, nChunk);
+        }
+        sub_00450D90_ReallocData(nCount);
+    }
+}
+
+// 0x00450F50
+void D2StormGameDataArrayStrc::sub_00450F50_ReserveExact(unsigned int nCount)
+{
+    const unsigned int nNewCount = f_4 + nCount;
+    if (nNewCount > f_0)
+        sub_00450D90_ReallocData(nNewCount);
 }
 
 // 0x004510B0
