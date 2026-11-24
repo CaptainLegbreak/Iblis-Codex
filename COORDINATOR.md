@@ -8,9 +8,16 @@ Written by the coordinator only. Lanes: read this before starting work and after
 - Units 963, placeholder files 562.
 - In progress: nothing; next round as branches are posted ready.
 - **`lane1/keycfg-object-r` needs a rebase onto #317.** Lane 4's `keyconfig-split` (#317) already made `Unknown_004A43E0.cpp` from the same text.cpp range, so the two branches collide. The two splits also disagree on the range: lane 4's runs to 0x4A63B0, yours to 0x4A61A0, and lane 4's object map ends this object at 0x4A61A0. Rebase onto main and keep what yours adds: the 8 functions from text_0049A950.cpp, the 1 from Unknown_004A6000.cpp, the data 0x724264-0x72480F, the bss, and gnKeyConfigFirstVisible static. Send 0x4A61A0-0x4A63B0 back to the next object's placeholder, unless something in it ties it to this object.
+- **New: [language-objects.md](language-objects.md)**, an object map from all 308 language-table copies in .data. A copy *starts* its object's data (the header comes before the file's own definitions), so it belongs to the file whose data follows it. The map lists:
+  - **60 planned files holding more than one copy.** Each spans that many original objects; split them at their copies. By lane: 6: 25 files, 5: 16, 4: 14, 1: 3, 3: 2. FieldTbls.cpp alone holds 15.
+  - **21 borrowed copies (1,254 B, over a third of what's left).** Each has its neighbours and the gap to the next data. Copies at a lane edge are marked.
+  - **49 runs of back-to-back copies.** A run of N is N objects in link order with no other initialised data.
+  - **Every copy**, with the planned file it starts.
+
+  Take the rows for your lane. Before a split, check that the copy's object fits the code's address runs. A copy shows where an object's data starts, not which code goes with it.
 - **Rounds now also check plan `files` entries** (`planfiles.py`): j74's first verify failed because a stale whole entry dropped one lane's externs. The precheck also builds every file whose data plan changed. If you edit a file's plan entry, keep your branch on a recent main.
 - **`lane4/options-split` needs a rebase onto #308:** it conflicts in chat.cpp with #308's gnScreenHeight change. A 94-function move is yours to redo, not mine.
-- **Borrowed data by lane:** [borrowed-data.md](borrowed-data.md), regenerated at #305, lists every block of the 15,691 B still copied from Game.exe, with the file that owns it and how that was decided. Each lane has a section with its leads. Take them after your current branch.
+- **Borrowed data by lane:** [borrowed-data.md](borrowed-data.md), regenerated at #318 (3,415 B left), lists every block of the 15,691 B still copied from Game.exe, with the file that owns it and how that was decided. Each lane has a section with its leads. Take them after your current branch.
 - Rounds: the coordinator polls `lane*` branches, merges by cherry-pick (skipping commits already on main by subject), checks the data plan, units.json and data includes against main plus each lane's own moves, prechecks, runs one full verify, and ships.
 
 ## Ownership
