@@ -10,12 +10,6 @@ struct D2CriticalSectionStrc;
 
 struct D2QServerConfigStrc;
 
-extern int gdwGlobal_00970E50; // 0x00970E50
-
-extern char gnFloorCacheSize[]; // 0x007C90C8
-
-extern int gdwGlobal_00970E8C; // 0x00970E8C
-
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
@@ -49,7 +43,6 @@ unsigned int __stdcall SStrCopy(char*, const char*, unsigned int); // 0x004135D0
 extern "C" int __stdcall getpeername(unsigned int, void*, int*); // 0x006B018C
 
 char* __stdcall sub_006B013E_InetNtoa(unsigned long dwAddress); // 0x006B013E
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -215,35 +208,6 @@ struct D2QSrvAutoLock
         LeaveCriticalSection(m_pLock);
     }
 };
-
-// 0x006B1C00
-int __cdecl sub_006B1C00()
-{
-    return gdwGlobal_00970E50;
-}
-
-// 0x006B20A0
-void* __cdecl QSERVER_GetFloorCacheSize()
-{
-    return gnFloorCacheSize;
-}
-
-// 0x006B20B0
-int __cdecl sub_006B20B0()
-{
-    return 0;
-}
-
-// 0x006B2F20
-int __cdecl sub_006B2F20()
-{
-    return gdwGlobal_00970E8C;
-}
-
-// 0x006B76C0
-void __stdcall sub_006B76C0(int nUnused1, int nUnused2)
-{
-}
 
 // build: symbol ?FOG_SetServerConfig@* 0x006BE310
 void __stdcall FOG_SetServerConfig(D2QServerConfigStrc* pConfig)
