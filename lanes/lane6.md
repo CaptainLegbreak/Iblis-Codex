@@ -4,7 +4,8 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(d2comp-a and d2win-b are verifying; ready lines follow.)
+- lane6/d2comp-a e55b3b5d 563->562 D2Comp.cpp, D2WinSmack, D2WinList, D2WinScrollbar and D2WinPopup take back the pieces inside their runs (D2Comp_00503340.cpp goes whole into D2Comp.cpp); gData_0072EFD4 (seven back-to-back language copies, D2Comp.cpp) splits into seven 60-B definitions for the seven data-less objects after D2Comp in link order: Smack, List, AccountList, ProgressBar, Scrollbar, Popup, Unknown_00508970. Not stacked; touches only D2Win. VERIFIED 113b39b6 (on #328). Borrowed data unchanged (2,382 B).
+- (lane6/d2win-b, stacked on d2comp-a, is verifying.)
 
 ## Claimed
 
