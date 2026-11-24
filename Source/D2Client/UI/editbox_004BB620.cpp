@@ -16,7 +16,7 @@ typedef void (*EDITBOX_CALLBACK)();
 class EditBoxImplementation
 {
 public:
-    int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
 
     void* f_0;
     EDITBOX_FILTER pfFilter;
@@ -59,7 +59,7 @@ extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);        
 extern "C" const char gszFmtDecimal_006D57BC[];                                                             // 0x006D57BC
 
 // 0x004BB620
-int EditBoxImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
+int EditBoxImplementation::OnKeyDown(SMSGHANDLER_PARAMS* pMsg)
 {
     if (!bAllowRepeat && (pMsg->lParam & 0x40000000))
         return 1;

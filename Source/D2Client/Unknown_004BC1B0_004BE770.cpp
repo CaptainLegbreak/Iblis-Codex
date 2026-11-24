@@ -59,17 +59,17 @@ class UIWidget
 {
 public:
     virtual ~UIWidget() = 0;
-    virtual void Slot01() = 0;
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual void Draw() = 0;
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int Slot11() = 0;
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int GetValue() = 0;
 
     static void* operator new(unsigned int nSize)
     {
@@ -125,17 +125,17 @@ public:
         int nCallback, bool bLargeFont);
 
     virtual ~ListBoxImplementation();
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual void Draw();
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
+    virtual int GetValue();
     virtual void sub_004BE110_UpdateScrollBar();
     virtual int sub_004BE0A0_GetLineCount();
     virtual void sub_004BE0B0_Clear();
@@ -190,17 +190,17 @@ public:
         bool bLargeFont);
     virtual ~ListBoxWrapper();
 
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual void Draw();
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
+    virtual int GetValue();
     virtual void sub_004BEDE0_ForwardSlot3C(const Unicode* wszText0, const Unicode* wszText1,
         const Unicode* wszText2, const Unicode* wszText3, const Unicode* wszText4, const Unicode* wszText5,
         int nArg20, int nData, int bUseDefault, int nArg2C);

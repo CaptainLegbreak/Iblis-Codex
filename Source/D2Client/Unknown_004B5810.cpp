@@ -25,7 +25,7 @@ class D2NpcTradeObjStrc
 {
 public:
     virtual ~D2NpcTradeObjStrc();
-    virtual void Slot01(); virtual void Slot02(); virtual void Slot03(); virtual void Slot04(); virtual void Slot05();
+    virtual void Draw(); virtual void Slot02(); virtual void Slot03(); virtual void Slot04(); virtual void Slot05();
     virtual void Slot06(); virtual void Slot07(); virtual void Slot08(); virtual void Slot09(); virtual void Slot10();
     virtual int GetCount();
     virtual void sub_004BBFB0();
