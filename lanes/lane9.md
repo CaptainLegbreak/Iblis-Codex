@@ -8,7 +8,7 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 ## Claimed
 - The three unpadded placeholder runs as one file each (lane 10's object map): D2Hell 0x516D8B-0x5179A4 (25
   placeholders, plus the gFaultHandlerList init/fini 0x6CAE5F/0x6CB401; the two /O2 list-ctor units stay out), D2Gdi
-  0x6C8A50-0x6C95D0, D2DDraw 0x511DF0-0x512D90. All three posted (hell-run, gdi-run, ddraw-run). Next: files-d2direct3d.tsv medium rows.
+  0x6C8A50-0x6C95D0, D2DDraw 0x511DF0-0x512D90. hell-run (#366), gdi-run and ddraw-run (#367) are in. Now: files-d2direct3d.tsv medium rows (2F60 into d3dCore, BB870 into d3dFloorCache).
 - **Coordinator, a blocker on the D2Gdi and D2DDraw runs:** each run holds a static line helper (0x6C8DA0, 0x512A50)
   that two rectangle drawers of the same run call through a register convention only a static gets. With all three in
   one file, either the callers or the helper's own body come out differently: in 24 signature/order/body variants the
@@ -21,23 +21,13 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-- lane9/hell-run f56379e5, on main 4f01d396 (#364), precheck 0 not all equal; full verify VERIFIED, borrowed code
-  12,041 B in 9 functions, borrowed data 848 B (main's figure). Placeholders -28: D2Hell's back-to-back run
-  0x516D8B-0x5179A4 (lane 10's object map, no padding between pieces) plus its init/fini 0x6CAE5F/0x6CB401 is now one
-  file, Source/D2Hell/Unknown_00516D8B.cpp (name unknown; kept the first piece's). The two /O2 list-ctor units
-  (0x517628, 0x5176E4) stay apart. One definition per list/link type; copies of NewNode, operator new and the 0x517788
-  body removed. 0x5177B2 has 0x517788 inlined, so the forceinline that piece already had now carries both (count
-  unchanged; lane 7's to settle). 46 functions equal. The global 0x72FA14 still goes by two extern names/types
-  (gFaultHandlerList_0072FA14, gtFaultHandlerRecords_0072FA14) inside the file; left for a names pass.
-- lane9/gdi-run 4fee5a7f, on main 4f01d396 (#364), precheck 0 not all equal; full verify VERIFIED, borrowed data
-  848 B (main's). Placeholders -7, context copies -1: seven of D2Gdi's back-to-back drawing placeholders join
-  Unknown_006C8A60.cpp, 13 functions equal. Two stay out: 0x6C8A50 (the shadow getter) is inlined into 0x6C9290 when it
-  shares the file, and /Ob1 breaks 0x6C8C80 instead; Unknown_006C8DA0.cpp holds the DrawLine helper (blocker below).
-- lane9/ddraw-run d10c0698, on main 4f01d396 (#364), precheck 0 not all equal; full verify VERIFIED, borrowed data
-  844 B (main's 848 less 4). Placeholders -7, context copies down by the four helper copies: seven of D2DDraw's run
-  join Unknown_00511DF0.cpp, 14 functions equal. Each global goes by one name in the file (0x5121A0 needs its inlined
-  screen-height read and its own read to be the same symbol). Unknown_005125E0.cpp (DrawLine helper 0x512A50) stays out.
-- Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util (they fold into the D2DDraw/D2Gdi runs).
+- lane9/d3d-7250 22f59f1d, on main 7de5c518 (#367), namesync run, precheck 0 not all equal; full verify VERIFIED,
+  borrowed code 12,041 B in 9 functions, borrowed data 844 B (main's). Placeholders -2 (files-d2direct3d.tsv medium
+  rows): 0x6B7980 joins Unknown_006B7250.cpp (23 equal), 0x6B86F0 joins Unknown_006B7530.cpp (14 equal); both use the
+  shared device global gpD3DDevice_00970E78. The row putting 0x6B7530 into 0x6B7250's object does not hold: in one file
+  the getters 0x6B77A0 and 0x6B9830 are inlined into 0x6B86F0/0x6B8DF0/0x6B8E90, where the original calls them, so they
+  are two objects (lane 10: please drop that row).
+- Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
 (none open; thanks for the #341 answers.)
