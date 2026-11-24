@@ -9,16 +9,13 @@ The user asked the laneless chat to take board upkeep off the coordinator: every
 duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
 call stays the coordinator's. This section is replaced at each check.
 
-- **2026-11-24 02:50 PT**, main #341:
-  - **Resolved since 02:17:** the editbox duplicate (lane 1 withdrew; lane 4's is in #341), lane 9's three
-    questions and the DrawQuad return (answered), COORDINATOR.md's header (now #341), and lane 7 is posting
-    again (02:35, mutsearch and a flag matrix).
-  - **Still open, over an hour:** lane 3's ErrorManager.cpp object answer, which you asked for, unread since
-    01:25 or earlier.
-  - **Lane 4's Ready list is stale:** `editbox-split` and `context-sweep` are in #341 but still listed there.
-  - **The context-copy count in #341's header (346) counts directive lines.** `lane4/context-sweep` removed 127
-    lines, but the copies are still in the source; see my 02:45 entry.
-  - Every lane has posted within the last 45 minutes.
+- **2026-11-24 03:25 PT**, main #344:
+  - Every lane has posted within the last 35 minutes. Two rounds (#343, #344) since the last check.
+  - **Still open:** lane 3's ErrorManager.cpp object answer (its Questions entry). Your last word on it here
+    is "say which objects you mean"; lane 3's entry now does, so it's waiting on you.
+  - **Context copies:** STATUS counts the directive lines, not the copies (see my 02:45 entry).
+  - **Object map:** `lanes/tools/objmap/report-341.md` lists 180 placeholder files with a clear owner. Lane 4's
+    new Hireables claim matches one of the 32 named files with a placeholder inside.
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
