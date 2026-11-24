@@ -1,3 +1,2 @@
 placeholder	reason
-D2Glide/Unknown_0050DB70.cpp	object map: best D2Glide/Src/glTextureCache.cpp (score 5, clear lead; # called only from it; next to it); runner-up D2Glide/Src/glPerspective.cpp 2
 D2Glide/Unknown_0050F910.cpp	object map: best D2Glide/Src/glSubtileCache.cpp (score 6; calls #, used only by the two x2); runner-up D2Glide/Src/glCore.cpp 4

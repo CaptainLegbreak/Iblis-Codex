@@ -1,4 +1,5 @@
 placeholder	proposal	evidence	confidence
+D2Gdi/Unknown_006C7CF0.cpp	piece of D2Gdi/Src/gdiCore.cpp	it uses globals that only D2Gdi/Src/gdiCore.cpp defines and nothing else (or one other file) touches: ghPalette | it uses globals that only D2Gdi/Src/gdiCore.cpp defines and nothing else (or one other file) touches: ghPalette | object map: best D2Gdi/Src/gdiCore.cpp (score 4, clear lead; next to it x2)	weak
 D2Gdi/Unknown_006C7EF0.cpp	piece of D2Gdi/Src/gdiCore.cpp	object map: best D2Gdi/Src/gdiCore.cpp (score 9, clear lead; data #; sits between two runs of it); runner-up D2Gdi/Unknown_006C8C80.cpp 1	medium
 D2Gdi/Unknown_006C8A50.cpp	piece of D2Gdi/Unknown_006C8C80.cpp (one object)	part of GDI's software drawing run 0x6C8A50-0x6C95D0 | part of GDI's software drawing run 0x6C8A50-0x6C95D0 | object map: best D2Gdi/Unknown_006C8A60.cpp (score 2; next to it)	weak
 D2Gdi/Unknown_006C8A60.cpp	piece of D2Gdi/Src/gdiCore.cpp	object map: best D2Gdi/Src/gdiCore.cpp (score 9, clear lead; calls #, used only by the two; # called only from it; data #; next to it); runner-up D2Gdi/Unknown_006C8A50.cpp 2	weak

@@ -1,4 +1,3 @@
 placeholder	reason
-D2CMP/Unknown_005FE010.cpp	object map: best D2CMP/SRC/SpriteCache.cpp (score 5; data # (only these two use it); data #; next to it); runner-up D2CMP/SRC/TileLib.cpp 3
 D2CMP/Unknown_006056D0.cpp	object map: best D2CMP/Unknown_00604DB0.cpp (score 11; calls #, used only by the two x3; next to it); runner-up D2CMP/SRC/FastCmp.cpp 8
 D2CMP/Unknown_0060AE80.cpp	object map: best D2CMP/SRC/CelDataHash.cpp (score 4; next to it x2); runner-up D2CMP/Unknown_0060B160.cpp 4

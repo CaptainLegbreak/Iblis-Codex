@@ -1,1 +1,2 @@
 placeholder	proposal	evidence	confidence
+D2Win/Unknown_004F6F60.cpp	piece of D2Gfx/SRC/Window.cpp	it uses globals that only D2Gfx/SRC/Window.cpp defines and nothing else (or one other file) touches: gnInnerTop, gnInnerRight, gnInnerBottom, gpScreenBuffer | object map: best D2Win/Src/D2WinMain.cpp (score 2; next to it) | it also uses globals only D2Gfx/SRC/Window.cpp defines (gnClipRight, ganRowOffsets, gtPaletteTables, gnClipBottom)	medium
