@@ -391,7 +391,7 @@ address,name,source,alias
 0x004106B0,LOGMANAGER_LogWritePrefixedNoNewline,inferred,
 0x00410700,LOGMANAGER_LogWrite,inferred,
 0x00410740,LOGMANAGER_LogWritePrefixed,inferred,
-0x00410790,sub_0051DC70_GetTime,placeholder,
+0x00410790,time,library,
 0x004107A0,SYSTEM_DeleteTimeLock,inferred,
 0x004107B0,SYSTEM_AtomicStore64,inferred,
 0x004107D0,SYSTEM_AtomicRead64,inferred,
