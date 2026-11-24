@@ -2,6 +2,7 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
 #include "stpl.h"
+#include "D2Win32Message.h"
 
 struct HWND__;
 
@@ -25,16 +26,6 @@ struct WNDREC : TSLinkedNode<WNDREC>
     }
 };
 
-struct D2WinMsgStrc
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    int lParam;
-    unsigned int dwTime;
-    int f_14;
-    int nPointY;
-};
 
 typedef int (__stdcall* SMSGIDLEPROC)(int nCount);
 

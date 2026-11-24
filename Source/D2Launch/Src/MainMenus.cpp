@@ -8,6 +8,7 @@
 
 #include "D2MultiTypes.h"
 #include "D2Win32System.h"
+#include "D2Win32Message.h"
 
 void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...); // 0x00409020
 
@@ -177,16 +178,6 @@ int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
 
 static unsigned char MAINMENUS_GetFlagIndex(unsigned char nFlags); // 0x004313A0
 
-struct D2WinMsgStrc
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    int lParam;
-    unsigned int dwTime;
-    int f_14;
-    int nPointY;
-};
 
 struct D2CoordPairStrc
 {
