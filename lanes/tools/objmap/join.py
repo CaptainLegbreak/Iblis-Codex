@@ -60,6 +60,9 @@ def top_level_functions(t):
 pf = top_level_functions(pt)
 if not pf: print('FAILED no functions found in placeholder'); sys.exit(1)
 pre = pt[:pf[0][0]]
+p_includes = [l.strip() for l in pre.split('\n') if l.startswith('#include') and 'gen/data/' not in l]
+f_includes = {l.strip() for l in ft_n.split('\n') if l.startswith('#include')}
+NEW_INCLUDES = [l for l in p_includes if l not in f_includes]
 pre = '\n'.join(l for l in pre.split('\n') if not l.startswith('#include')) + '\n'
 # anything between the placeholder's functions that isn't a function (declarations, statics, data) rides with pre
 mid = ''
@@ -87,14 +90,30 @@ def strip_owner_copies(t):
         if va is None and n in names:
             pre_ = t[:a]
             m = re.search(r'(?:\n// build: context [^\n]*)+\n?$', pre_)
+            body_ = t[a:b]; hdr_ = body_[:body_.index('{')].rstrip()
+            hdr_ = '\n'.join(l for l in hdr_.split('\n') if not l.startswith('//'))
             if m: a = m.start() + 1
-            t = t[:a] + t[b:].lstrip('\n')
+            # keep a prototype where the copy was, for callers above the moved definition
+            t = t[:a] + hdr_ + ';\n' + t[b:].lstrip('\n')
     t = re.sub(r'(?m)^// build: context (?:\?)?(%s)\b[^\n]*\n' % '|'.join(map(re.escape, names)), '', t) if names else t
     return t
 
 
+def add_includes(t):
+    # headers the placeholder used that the owner doesn't: after the owner's last #include line before its code
+    if not USE_INCLUDES[0] or not NEW_INCLUDES: return t
+    first = top_level_functions(t)[0][0]
+    lines = t[:first].split('\n')
+    idx = max((i for i, l in enumerate(lines) if l.startswith('#include') and 'gen/data/' not in l), default=-1)
+    lines[idx + 1:idx + 1] = NEW_INCLUDES
+    return '\n'.join(lines) + t[first:]
+
+
+USE_INCLUDES = [False]
+
+
 def build_text(pre_text):
-    t = strip_owner_copies(ft_n)
+    t = add_includes(strip_owner_copies(ft_n))
     ff_ = top_level_functions(t)
     # declarations and the placeholder's helper bodies go in front of the owner's first function
     ins = ff_[0][0]
@@ -123,6 +142,8 @@ def tidy_pre(lines):
     """Drop what the owner already declares, what nothing uses, and empty pack pairs."""
     owner = strip_owner_copies(ft_n)
     body_all = owner + '\n'.join(b for _, b in moves) + '\n'.join(k for _, k in keeps)
+    # macros and other declarations in the placeholder's own preamble count as uses too
+    body_all += '\n' + '\n'.join(x for x in lines if x.startswith('#define'))
     norm = lambda x: re.sub(r'\s+', ' ', re.sub(r'//.*$', '', x)).strip()
     owner_lines = {norm(x) for x in owner.split('\n')}
     out = []; i = 0
@@ -140,10 +161,11 @@ def tidy_pre(lines):
             i += 1; continue
         if l.startswith('// build:') and l.strip() in {x.strip() for x in owner.split('\n')}:
             i += 1; continue
-        m = re.search(r'\b([A-Za-z_]\w*)\s*\(', n) if n.endswith(';') and '(' in n and not n.startswith(('typedef', '#')) else None
+        n_ = re.sub(r'__declspec\([^)]*\)', '', n)
+        m = re.search(r'\b([A-Za-z_]\w*)\s*\(', n_) if n.endswith(';') and '(' in n_ and not n.startswith(('typedef', '#')) else None
         if m and not n.startswith('typedef'):
             nm = m.group(1)
-            if re.search(r'\b%s\s*\(' % nm, owner.split('// 0x')[0] if False else owner) and re.search(r'(?m)^[^/\n]*\b%s\s*\([^;{]*\)\s*(;|\n?\{)' % nm, owner):
+            if re.search(r'(?m)^[^\s/#][^/\n;{}]*\b%s\s*\([^;{]*\)\s*(;|\n?\{)' % nm, owner):
                 i += 1; continue
             if len(re.findall(r'\b%s\b' % nm, body_all)) == 0:
                 i += 1; continue
@@ -173,6 +195,8 @@ for rnd in range(12):
     if ob is not None: break
     errs = re.findall(r'unit\.cpp\((\d+)\) : error (C\d+): (.*)', log)
     if not errs: print('FAILED compile: ' + log[-400:].replace('\n', ' | ')); sys.exit(1)
+    if not USE_INCLUDES[0] and NEW_INCLUDES and any(c in ('C3861', 'C2065', 'C2027', 'C2146', 'C2144', 'C2079', 'C2061', 'C2143', 'C4430') for _, c, _ in errs):
+        USE_INCLUDES[0] = True; continue
     # map error lines back into the inserted declarations and drop those items
     tl = text.split('\n'); start = tl.index('// --- from %s' % os.path.basename(P)) + 1
     bad = set()

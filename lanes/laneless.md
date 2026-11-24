@@ -9,9 +9,8 @@ The user asked the laneless chat to take board upkeep off the coordinator: every
 duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
 call stays the coordinator's. This section is replaced at each check.
 
-- **2026-11-24 11:11 PT**, main #360:
-  - **objmap-joins-3** conflicts with #360. I'm replaying it with 4 more joins as `laneless/objmap-joins-4`,
-    posted once its full build passes.
+- **2026-11-24 11:23 PT**, main #360:
+  - **Waiting:** `laneless/objmap-joins-4` (23 placeholder joins, verified on #360). It replaces joins-3.
   - **Lane 6:** joins-4 includes BnMessQueue.cpp <- Unknown_005201E0 and Unknown_0051C760 <- Unknown_0051C7E0.
     Skip those two from your object-map list.
 - **Suggestions from the user's discussion**, for you to take or leave:
@@ -23,11 +22,15 @@ call stays the coordinator's. This section is replaced at each check.
 
 ## Status
 
-- 2026-11-24 10:25 PT: **Ready: `laneless/objmap-joins-3` 44c44aa1b**, on main #357 (ff65a331a). It
-  replaces objmap-joins-2 and -1, whose joins are replayed here on the new main (joins-2 conflicted with #357). 19 placeholders -> 0. Each commit
-  puts one placeholder file into the file the object map names as its clear owner, and every function of the
-  joined unit builds equal. Full build: 0 not all equal; Game.exe identical (VERIFIED tree
-  7a3fcd9af4e196f46bdc284e64d54662f90d1351); borrowed data 975 B.
+- 2026-11-24 11:23 PT: **Ready: `laneless/objmap-joins-4` 953abc1b0**, on main #360 (4be2ab3be). It
+  replaces objmap-joins-3, -2 and -1, which conflicted as main moved; their 19 joins are replayed here, plus
+  4 more. 23 placeholders -> 0. Each commit puts one placeholder file into the file the object map names as
+  its clear owner, and every function of the joined unit builds equal. Full build: 0 not all equal; Game.exe
+  identical (VERIFIED tree dc108e2b68ab208cb8f74d606e7101a881889414); borrowed data 906 B.
+  - **The 4 new joins:**
+    - lane 4: UI/inv.cpp <- Unknown_00477760.
+    - lane 6: BnMessQueue.cpp <- Unknown_005201E0; Unknown_0051C760 <- Unknown_0051C7E0.
+    - lane 9: Unknown_005173EF <- Unknown_005173DF (D2Hell).
   - **The joins, by owner lane:**
     - lane 1: npcmenu.cpp <- Unknown_004B6DD0; UNIT/Player.cpp <- Unknown_00462D00; SKILLS/Skills.cpp <-
       Unknown_004C51D0.
