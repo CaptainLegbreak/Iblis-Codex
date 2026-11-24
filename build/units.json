@@ -14167,54 +14167,6 @@
      "name": "INV_FreeCacheEntries"
     },
     {
-     "va": "0x00482C20",
-     "length": 74,
-     "name": "?INV_TickSound@@YAXXZ"
-    },
-    {
-     "va": "0x00482C70",
-     "length": 43
-    },
-    {
-     "va": "0x00482CA0",
-     "length": 348,
-     "name": "?INV_UpdateAuxBattleNetAddress@@YIXH@Z"
-    },
-    {
-     "va": "0x00482E00",
-     "length": 44,
-     "name": "?INV_ArchiveFilePresent@@YAHPBD@Z"
-    },
-    {
-     "va": "0x00482E30",
-     "length": 180,
-     "name": "?INV_BuildLocalizedVideoPath@@YAXPADPBD1@Z"
-    },
-    {
-     "va": "0x00482EF0",
-     "length": 1033
-    },
-    {
-     "va": "0x00483300",
-     "length": 8,
-     "name": "_INV_StopCinematic"
-    },
-    {
-     "va": "0x00483310",
-     "length": 37,
-     "name": "?INV_ResetCinematicFlags@@YAXXZ"
-    },
-    {
-     "va": "0x00483340",
-     "length": 8,
-     "name": "_INV_ChainCinematic"
-    },
-    {
-     "va": "0x00483350",
-     "length": 6,
-     "name": "?INV_IsCinematicBusy@@YAEXZ"
-    },
-    {
      "va": "0x004834A0",
      "length": 58,
      "name": "?INV_SkipBracketTag@@YIPBUUnicode@@PBU1@@Z"
@@ -15128,6 +15080,69 @@
     {
      "va": "0x006CABF0",
      "length": 17
+    }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Client/Unknown_00482C70.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00482C70",
+     "length": 43
+    },
+    {
+     "va": "0x00482CA0",
+     "length": 348,
+     "name": "?INV_UpdateAuxBattleNetAddress@@YIXH@Z"
+    },
+    {
+     "va": "0x00482E00",
+     "length": 44,
+     "name": "?INV_ArchiveFilePresent@@YAHPBD@Z"
+    },
+    {
+     "va": "0x00482E30",
+     "length": 180,
+     "name": "?INV_BuildLocalizedVideoPath@@YAXPADPBD1@Z"
+    },
+    {
+     "va": "0x00482EF0",
+     "length": 1033
+    },
+    {
+     "va": "0x00483300",
+     "length": 8,
+     "name": "_INV_StopCinematic"
+    },
+    {
+     "va": "0x00483310",
+     "length": 37,
+     "name": "?INV_ResetCinematicFlags@@YAXXZ"
+    },
+    {
+     "va": "0x00483340",
+     "length": 8,
+     "name": "_INV_ChainCinematic"
+    },
+    {
+     "va": "0x00483350",
+     "length": 6,
+     "name": "?INV_IsCinematicBusy@@YAEXZ"
     }
    ],
    "flags": [
@@ -23527,6 +23542,11 @@
      "va": "0x00482B40",
      "length": 214,
      "name": "?SOUNDHDR_UpdateCache@@YIXI@Z"
+    },
+    {
+     "va": "0x00482C20",
+     "length": 74,
+     "name": "?INV_TickSound@@YAXXZ"
     }
    ]
   },

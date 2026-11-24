@@ -916,8 +916,8 @@
    "state": "included"
   },
   "Source/D2Client/UI/inv.cpp": {
-   "bytes": 4240,
-   "definitions": 27,
+   "bytes": 4080,
+   "definitions": 25,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/UI/inv.inc",
@@ -5292,6 +5292,15 @@
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004A6460.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/Unknown_00482C70.cpp": {
+   "bytes": 160,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/Unknown_00482C70.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -50238,7 +50247,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/inv.cpp",
+   "file": "Source/D2Client/Unknown_00482C70.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnAuxLevelEntries = ",
@@ -50263,7 +50272,7 @@
    "cname": "gData_00721D98",
    "declared": true,
    "decorated": "?gaAuxLevelEntries@@3PAUD2AuxLevelEntryStrc@@A",
-   "file": "Source/D2Client/UI/inv.cpp",
+   "file": "Source/D2Client/Unknown_00482C70.cpp",
    "fill": 13,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00721D98_t gData_00721D98; // 0x00721D98",
