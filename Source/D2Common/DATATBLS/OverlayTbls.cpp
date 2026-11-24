@@ -44,3 +44,5 @@ void __fastcall DATATBLS_LoadOverlayTxt(void* hArchive)
     sgtDataTables.pOverlayLinker = FOG_AllocLinker(".\\DATATBLS\\OverlayTbls.cpp", 56);
     sgtDataTables.pOverlayTxt = (D2OverlayTxt*)DATATBLS_CompileTxt(hArchive, "overlay", pTbl, &sgtDataTables.nOverlayTxtRecordCount, 0x84);
 }
+
+#include "gen/data/Source/D2Common/DATATBLS/OverlayTbls.inc"
