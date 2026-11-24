@@ -8,6 +8,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- **lane3/sbig-pieces** (Storm placeholders, my queues.md row): SBig.cpp's sixteen /GS- pieces (Shl, Sub, ToStr, Div, Gcd, Rand, InvMod, PowMod, IsPrime and seven helpers that only SBig's functions call) leave Storm/Unknown_*.cpp as Source/Storm/SOURCE/SBig_<address>.cpp, the `<File>_<address>.cpp` form for pieces that need another option; three join a piece that already carried their code. 400 -> 384 placeholders. Full verify next, after fog-shims'.
 - **lane3/fog-shims** (Fog shims and placeholders from my queues.md row): Excel.cpp's 0x6BCE20 and QServer.cpp's 0x6BF180 shims go (one definition per function, called directly), and the stack-frame printer's three placeholders (Unknown_00402D60/00403100/00405250) join Unknown_00401DF0.cpp, which already carried them; 400 -> 397 placeholders, 3 shims fewer. Full verify running.
 
 ## Questions
