@@ -4,6 +4,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2Constants.h"
+#include "D2LanguageNames.h"
 
 #define UNIT_MONSTER 1
 
