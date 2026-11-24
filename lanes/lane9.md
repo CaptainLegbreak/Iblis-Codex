@@ -6,11 +6,9 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 `Source/D2DDraw/**`, `Source/D2Gdi/**`, `Source/D2Glide/**`, `Source/D2Hell/**`, taking over from lane 6.
 
 ## Claimed
-- From the #341 answers, in this order: D2Gdi (Unknown_006C8250.cpp joins gdiCore.cpp); D2Hell (a) all units /O1, the
-  two list ctors keep /O2, and (b) the gpszModuleName join of Unknown_005173EF/00517423/00517874; then the renderer-run
-  functions in other lanes' files (QServer.cpp's five d3d getters, D2Win Unknown_006B1BC0.cpp, D2Client
-  Unknown_006B2F40.cpp).
-- d3dCore.cpp's head: after atl-d3dcore, the strays between the ATL code and d3dCore's own code (see Questions).
+- Renderer functions filed in D2Win: Unknown_0050F910.cpp (Glide 0x50F910, 0x50FBD0, 0x50FDF0; DDraw 0x510130-0x5103B0,
+  0x5137E0) and Unknown_00508970.cpp (0x508970 GlideLoadLibrary, 0x508F60 GlideCheckBoards). Lane 6: please don't edit
+  these meanwhile. Then Storm SCMD.CPP's stubs in gdiCore's run and the Bnclient units in the D2Hell run.
 - D2Hell object map (0x00516D8B-0x00517E39 and its data 0x0072F9B4-0x0072FA20).
 
 ## Status
@@ -18,19 +16,9 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-All on main 8fe544f6 (#348), namesync run, precheck 0 not all equal on each head.
+(none; next one below.)
 
-- lane9/move-d3d-bink 9d8f653b (at the user's request): Storm/Unknown_006BBBF0.cpp, the renderer's Bink video player
-  (0x6BBBF0 draws a frame, 0x6BBCE0 plays a movie and is called from d3dCore.cpp's 0x6B56C0), moves to
-  Source/D2Direct3D/ and takes D2Direct3D.h. Full verify on #348: VERIFIED tree 339fd613.
-- lane9/take-renderer-strays cbf576af (your #341 answer): 0x6B1BC0 (from D2Win), 0x6B1C00, 0x6B20A0, 0x6B20B0 (from
-  QServer.cpp) join d3dCore.cpp; 0x6B2F20 (QServer) joins Unknown_006B2F30.cpp, which defines the 0x970E8C it returns;
-  0x6B2F40 (D2Client's Unknown_006B2F40.cpp) and the empty stub 0x6B76C0 (QServer) become D2Direct3D placeholders.
-  Placeholders: D2Win and D2Client each lose one, D2Direct3D gains two. Full verify on #348: VERIFIED tree ed4683e5.
-- lane9/drawquad-note b78592f2: the one-line comment at DrawQuad's closing brace, as you asked. Full verify on #348:
-  VERIFIED tree 033c708e.
-
-In #347: join-d3dcore-2, join-gdicore-8250, d2hell-o1 (thanks). In #344: place-ddcore-10160. In #341: join-d3d-3570, join-d3dsprite-2. In #340: join-d3d-7530, join-ddraw-11df0, join-glide-bd30, join-glide-d410 (thanks). Earlier: place-gdismack #338,
+In #350: drawquad-note, move-d3d-bink, take-renderer-strays (thanks). In #347: join-d3dcore-2, join-gdicore-8250, d2hell-o1. In #344: place-ddcore-10160. In #341: join-d3d-3570, join-d3dsprite-2. In #340: join-d3d-7530, join-ddraw-11df0, join-glide-bd30, join-glide-d410 (thanks). Earlier: place-gdismack #338,
 join-d3dsprite #336, atl-d3dcore #332 (its 2 B note stands).
 
 ## Questions
