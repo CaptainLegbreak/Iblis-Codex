@@ -27,7 +27,7 @@ int __stdcall SFileLoadFile(const char* szFileName, void** ppBuffer, unsigned in
 
 int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -196,7 +196,7 @@ void __cdecl GRID_LockCDKeys()
 
     if (gpGidFileData || gpClhFileData)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x213);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x213);
         exit(-1);
     }
 

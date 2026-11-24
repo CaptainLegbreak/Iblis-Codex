@@ -3,7 +3,7 @@
 #include "D2NetTypes.h"
 #include "D2FogTypes.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CriticalSectionStrc;
 
@@ -118,7 +118,7 @@ struct D2TSListStrc
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -595,7 +595,7 @@ int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext); // 0x00
 void __cdecl EXCEPTIONS_SETranslator(unsigned int nCode, D2ExceptionPointersStrc* pExceptionInfo); // 0x0040D540
 
 // 0x0040B500
-int __cdecl sub_0040B500_UnloadImageHlp()
+int __cdecl EXCEPTIONS_UnloadImageHlp()
 {
     gbImageHlpLoaded = 0;
     if (ghImageHlp)
@@ -1620,7 +1620,7 @@ int __fastcall EXCEPTIONS_ReadCrashDump(char* pBuffer, unsigned int* pnSize)
 
 
 // 0x0040D530
-int __cdecl sub_0040D530_Call0040C720()
+int __cdecl EXCEPTIONS_ReleaseAllSymbols()
 {
     return EXCEPTIONS_ReleaseSymbols(1);
 }
@@ -1640,7 +1640,7 @@ void __cdecl EXCEPTIONS_SETranslator(unsigned int nCode, D2ExceptionPointersStrc
 }
 
 // 0x0040D5B0
-int __cdecl sub_0040D5B0_LoadImageHlp()
+int __cdecl EXCEPTIONS_LoadImageHlp()
 {
     if (gbImageHlpLoaded)
     {
@@ -1691,7 +1691,7 @@ int __cdecl sub_0040D5B0_LoadImageHlp()
 }
 
 // 0x0040D7D0
-void __fastcall sub_0040D7D0_WalkCurrentStack(const char* szPrefix)
+void __fastcall EXCEPTIONS_WalkCurrentStack(const char* szPrefix)
 {
     void* hThread;
     {

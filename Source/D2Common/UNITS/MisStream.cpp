@@ -4,7 +4,7 @@
 #include "D2Structs.h"
 struct D2ActiveRoomStrc;
 
-#define MS_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define MS_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2UnitStrc;
 struct D2PathPointStrc;
@@ -42,7 +42,7 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(void* lpfn); // 0x00
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 typedef int (__fastcall* D2StreamCreate)(D2UnitStrc*, int, int, int, int, int, char);
@@ -119,7 +119,7 @@ void __stdcall MISSTREAM_Update(D2UnitStrc* pUnit, D2UnitStrc* pMissile, int nAm
     int nPathPoints = PATH_GetPathPoints(pPath, &pPathPoints);
     if (nPathPoints != 0 && nPathPoints != 1) {
         D2MissileStreamStrc* ptStream = MISSILE_GetStream(pMissile);
-        if (!ptStream) { sub_00408A60(gszAssertExpression_006CC837, sub_00408090(), 138); exit(-1); }
+        if (!ptStream) { FOG_DisplayHalt(gszAssertExpression_006CC837, sub_00408090(), 138); exit(-1); }
         int nRatio = nAmount / nStep;
         int bCreate = 0;
         int nTemp = nPathPoints - 1;
@@ -140,7 +140,7 @@ void __stdcall MISSTREAM_Update(D2UnitStrc* pUnit, D2UnitStrc* pMissile, int nAm
         if (bCreate) nExtra = 4 * (nRatio - nTemp) / nTemp;
         int nCurrent = nAmount;
         int nCycle = 4;
-        if (IsBadCodePtr((void*)pfCreate)) { sub_00408A60(gszAssertExpression_006CC837, sub_00408090(), 169); exit(-1); }
+        if (IsBadCodePtr((void*)pfCreate)) { FOG_DisplayHalt(gszAssertExpression_006CC837, sub_00408090(), 169); exit(-1); }
         int nCounter = 0;
         int nIndex = 0;
         while (nIndex < nTemp) {

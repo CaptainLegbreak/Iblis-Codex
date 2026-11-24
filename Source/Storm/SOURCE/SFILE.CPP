@@ -666,7 +666,7 @@ int __cdecl sub_0040EB20_ReturnSecond(int, int nValue)
 }
 
 // 0x0040ECC0
-void __fastcall sub_0040ECC0_LogWriteHeader(D2FileStrc* pFile, const D2SystemTimeStrc* pTime)
+void __fastcall LOGMANAGER_WriteDateBanner(D2FileStrc* pFile, const D2SystemTimeStrc* pTime)
 {
     char szComputerName[0x40];
     unsigned long nSize = sizeof(szComputerName);
@@ -678,7 +678,7 @@ void __fastcall sub_0040ECC0_LogWriteHeader(D2FileStrc* pFile, const D2SystemTim
 }
 
 // 0x0040ED40
-void __fastcall sub_0040ED40_LogWriteStartup(D2FileStrc* pFile)
+void __fastcall LOGMANAGER_WriteStartupBanner(D2FileStrc* pFile)
 {
     char szComputerName[0x40];
     unsigned long nSize = sizeof(szComputerName);

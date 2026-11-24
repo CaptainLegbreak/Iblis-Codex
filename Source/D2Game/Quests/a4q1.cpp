@@ -20,7 +20,7 @@
 #include "D2GameAux.h"
 #include "D2LanguageNames.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2StaticPathStrc;
 
@@ -99,7 +99,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -957,7 +957,7 @@ void __fastcall ACT4Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                     QUESTS_StateDebug(pQuestData, 5, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q1.cpp", 0xDE);
                     if (IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter))
                     {
-                        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xDF);
+                        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0xDF);
                         exit(-1);
                     }
                     pQuestData->pfSeqFilter(pQuestData);

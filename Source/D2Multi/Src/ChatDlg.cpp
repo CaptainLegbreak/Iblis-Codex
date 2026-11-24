@@ -23,7 +23,7 @@ static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0
 
 struct D2WinButtonStrc;
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CharSaveHeaderStrc;
 
@@ -229,7 +229,7 @@ extern D2CelFileStrc* gpD2LogoBlackBnetCelFile; // 0x0077BD48
 
 extern D2CelFileStrc* gpD2LogoBnetCelFile; // 0x0077BD4C
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -1023,7 +1023,7 @@ int __fastcall WINMAIN_SendMcpCreateGame(D2LaunchLoginStrc* pLogin, unsigned sho
 
 int __fastcall WINMAIN_SendMcpGameInfoRequest(char* szText, unsigned short wRequestId);                              // 0x0044A610
 
-void __stdcall sub_006BC780(void* pConnection);                                                             // 0x006BC780
+void __stdcall D2QSSOCKET_DestroyRecord(void* pConnection);                                                             // 0x006BC780
 
 extern "C" const char gszPassword[];                                                               // 0x006D423C
 
@@ -3944,7 +3944,7 @@ void __cdecl D2MCPClientCloseMCP()
 {
     if (gpMcpConnection)
     {
-        sub_006BC780(gpMcpConnection);
+        D2QSSOCKET_DestroyRecord(gpMcpConnection);
         gpMcpConnection = 0;
     }
     if (ghThread)

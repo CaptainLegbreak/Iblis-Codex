@@ -98,7 +98,7 @@ int __fastcall ACT1Q1_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, int(__fastcall* pfIterate)(D2GameStrc*, D2UnitStrc*, void*), bool bIterate); // 0x00544300
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2QuestGUIDStrc;
 
@@ -114,7 +114,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -717,7 +717,7 @@ bool __fastcall ACT1Q1_SeqCallback(D2QuestDataStrc* pQuestData)
     {
         if (IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter))
         {
-            sub_00408A60(&gszEmptyAssertText, sub_00408090(), ASSERT_LINE);
+            FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), ASSERT_LINE);
             exit(-1);
         }
         return pQuest->pfSeqFilter(pQuest);

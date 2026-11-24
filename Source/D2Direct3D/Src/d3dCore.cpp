@@ -375,7 +375,7 @@ extern const char gAgpError[]; // 0x006FBA1C
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char*, const char*, int); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 
@@ -1502,7 +1502,7 @@ done:
 // 0x006B4FD0
 static int D3D_InitFullscreen(void* window,int mode)
 {
-    if(gnInitialized) { sub_00408A60(&gszEmptyAssertText,sub_00408090(),0x50F); exit(-1); }
+    if(gnInitialized) { FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),0x50F); exit(-1); }
     long error;
     const char* msg;
     ghWindow=window;
@@ -1627,7 +1627,7 @@ int __fastcall D3D_CreateSurface(void* window,int mode)
 // 0x006B5630
 void __fastcall D3D_PauseSurface(int window, int mode, int paused)
 {
-    if (!gpCriticalSection_007C9134) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x7b0); exit(-1); }
+    if (!gpCriticalSection_007C9134) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x7b0); exit(-1); }
     EnterCriticalSection(gpCriticalSection_007C9134);
     if (paused) {
         gnPaused_007C9144 = 1;
@@ -1665,7 +1665,7 @@ void __fastcall D3D_OpenSmackCutscene(int a, int b, int c)
 int __fastcall D3D_StartDraw(int clear, int unused, int unusedA, int unusedB)
 {
     if (gnPaused_007C9144) return 0;
-    if (!gpCriticalSection_007C9134) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x842); exit(-1); }
+    if (!gpCriticalSection_007C9134) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x842); exit(-1); }
     EnterCriticalSection(gpCriticalSection_007C9134);
     if (clear) sub_006B7F70_ClearTarget(0);
     gnState_00970E54 = 0;

@@ -898,7 +898,8 @@ static int __stdcall GLIDE_ClipSprite(D2GlideTexInfoStrc* pInfo, int nY, const D
     if (pClip->nHeight <= 0)
     {
 // build: symbol ?gszEmptyString@* 0x006CC837
-        sub_00408A60(gszEmptyString, sub_00408090(), 1060);
+// build: symbol ?FOG_DisplayHalt@* 0x00408A60
+        FOG_DisplayHalt(gszEmptyString, sub_00408090(), 1060);
         exit(-1);
     }
     return 0;

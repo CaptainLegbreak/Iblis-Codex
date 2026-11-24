@@ -92,7 +92,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -563,20 +563,20 @@ int __fastcall DRLGROOM_GetWarpDestinationLevel(D2DrlgRoomStrc* pDrlgRoom, int n
     D2ActiveRoomStrc* pRoom = DRLGWARP_GetDestinationRoom(pDrlgRoom, nSourceLevel, &nDestinationLevel, &pLvlWarpTxtRecord);
     if (!pRoom)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 604);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 604);
         exit(-1);
     }
 
     pDrlgRoom = DUNGEON_GetRoomExFromRoom(pRoom);
     if (!pDrlgRoom)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 606);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 606);
         exit(-1);
     }
 
     if (!pDrlgRoom->ptDrlgLevel)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 607);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 607);
         exit(-1);
     }
 
@@ -588,7 +588,7 @@ int __fastcall DRLGROOM_GetLevelIdFromPopulatedRoom(D2DrlgRoomStrc* pDrlgRoom)
 {
     if (!pDrlgRoom)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 619);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 619);
         exit(-1);
     }
 
@@ -741,7 +741,7 @@ static void __stdcall DRLGROOM_AddNearRoom(void* pMemPool, D2DrlgRoomStrc* pDrlg
     pDrlgRoom1->ppRoomsNear = (D2DrlgRoomStrc**)FOG_ReallocPool(pMemPool, pDrlgRoom1->ppRoomsNear, sizeof(D2DrlgRoomStrc*) * pDrlgRoom1->nRoomsNear, ".\\DRLG\\DrlgRoom.cpp", 788, 0);
     if (!pDrlgRoom1->ppRoomsNear)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 789);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 789);
         exit(-1);
     }
 
@@ -790,7 +790,7 @@ static void __stdcall DRLGROOM_LinkRoomToWarpDestination(void* pMemPool, D2DrlgR
 {
     if (!pDrlgRoom || nWarpId >= 8)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 848);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 848);
         exit(-1);
     }
 
@@ -1007,7 +1007,7 @@ int __fastcall DRLGROOM_HasWaypoint(D2DrlgRoomStrc* ptRoom)
 {
     if (!ptRoom)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 630);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 630);
         exit(-1);
     }
 
@@ -1123,7 +1123,7 @@ int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId)
     {
         if (!pDrlgWarp->nLevel)
         {
-            sub_00408A60(&gszEmptyAssertText, sub_00408090(), 1040);
+            FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 1040);
             exit(-1);
         }
 
@@ -1147,19 +1147,19 @@ D2DrlgStrc* __fastcall DRLGROOM_GetDrlgFromRoomEx(D2DrlgRoomStrc* pRoom)
 {
     if (!pRoom)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 1067);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 1067);
         exit(-1);
     }
 
     if (!pRoom->ptDrlgLevel)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 1068);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 1068);
         exit(-1);
     }
 
     if (!pRoom->ptDrlgLevel->pDrlg)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 1069);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 1069);
         exit(-1);
     }
 

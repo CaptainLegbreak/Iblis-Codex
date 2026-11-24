@@ -8,7 +8,8 @@ unsigned int __fastcall CRC32_Compute(void* pData, unsigned int dwSize)
 {
     if (!dwSize)
     {
-        sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), 0x40);
+// build: symbol ?FOG_DisplayHalt@* 0x00408A60
+        FOG_DisplayHalt(&gszEmptyAssertText_006CC837, sub_00408090(), 0x40);
         exit(-1);
     }
 

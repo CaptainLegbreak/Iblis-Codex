@@ -16,7 +16,7 @@
 #include "D2Packets.h"
 #include "D2ObjectIds.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define QUEST_A1Q4_CAIN 4
 
@@ -80,7 +80,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -1670,7 +1670,7 @@ void __fastcall ACT1Q4_SendStoneOrderToClient(D2GameStrc* pGame, D2UnitStrc* pUn
                 packet.nParams[i] = pQuestDataEx->nStoneOrder[i] - 17;
                 if (packet.nParams[i] >= 5)
                 {
-                    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 2175);
+                    FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 2175);
                     exit(-1);
                 }
                 ++i;
@@ -1795,7 +1795,7 @@ int __fastcall sub_00593F80_GetCainNotCreated(D2GameStrc* pGame)
     {
         return ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->bCainNotCreated;
     }
-    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x99D);
+    FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x99D);
     exit(-1);
 }
 

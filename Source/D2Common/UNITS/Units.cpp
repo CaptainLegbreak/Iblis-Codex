@@ -73,7 +73,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -441,7 +441,7 @@ int __stdcall PATH_GetFootprintCollisionMask(D2DynamicPathStrc* pPath); // 0x006
 
 unsigned int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #pragma function(memset)
 
@@ -2047,7 +2047,7 @@ int __stdcall UNITS_GetEventFrameInfo(D2UnitStrc* ptUnit, int nFrame)
 {
     if (!ptUnit)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xDCC);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0xDCC);
         exit(-1);
     }
     if (nFrame >= 144)
@@ -2147,7 +2147,7 @@ D2ObjectsTxt* __stdcall UNITS_GetObjectTxtRecordFromObject(D2UnitStrc* pUnit)
         return pUnit->pObjectData->pObjectTxt;
     }
 
-    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 3651);
+    FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 3651);
     exit(-1);
 }
 
@@ -2161,7 +2161,7 @@ D2ShrinesTxt* __stdcall UNITS_GetShrineTxtRecordFromObject(D2UnitStrc* pUnit)
         return pUnit->pObjectData->pShrineTxt;
     }
 
-    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 3669);
+    FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 3669);
     exit(-1);
 }
 
@@ -2176,7 +2176,7 @@ void __stdcall UNITS_SetShrineTxtRecordInObjectData(D2UnitStrc* pUnit, D2Shrines
         return;
     }
 
-    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 3687);
+    FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 3687);
     exit(-1);
 }
 
@@ -2942,7 +2942,7 @@ static inline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
 // 0x00622870
 int __stdcall UNITS_GetMeleeRange(D2UnitStrc* hUnit)
 {
-    if (!hUnit) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x11be); exit(-1); }
+    if (!hUnit) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x11be); exit(-1); }
     int range;
     switch (hUnit->dwUnitType) {
     case UNIT_MONSTER: {
@@ -3079,8 +3079,8 @@ int __stdcall UNITS_TestCollisionByCoordinates(D2UnitStrc* pUnit, int nX, int nY
 // 0x00622AA0
 int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nCollisionMask)
 {
-    if (!pUnit1) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x1290); exit(-1); }
-    if (!pUnit2) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x1291); exit(-1); }
+    if (!pUnit1) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x1290); exit(-1); }
+    if (!pUnit2) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x1291); exit(-1); }
 
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit1);
     if (!pRoom)

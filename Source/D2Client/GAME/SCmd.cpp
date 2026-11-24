@@ -20,7 +20,7 @@
 
 struct D2ActiveRoomStrc;
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define SKILLSFLAGINDEX_PROGRESSIVE 2
 
@@ -230,7 +230,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -2605,7 +2605,7 @@ int __cdecl SCMD_GetPlayerActNo()
     D2ActiveRoomStrc* pRoom = CUNIT_GetPlayerRoom();
     if (pRoom)
         return DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
-    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x527);
+    FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x527);
     exit(-1);
 }
 
@@ -2615,7 +2615,7 @@ int __fastcall SCMD_GetUnitActNo(D2UnitStrc* pUnit)
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
     if (pRoom)
         return DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
-    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x538);
+    FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x538);
     exit(-1);
 }
 
@@ -2639,7 +2639,7 @@ void __fastcall SCMD_HandleLoadComplete(void* pPacket)
     }
     else
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x527);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x527);
         exit(-1);
     }
 }
@@ -2648,7 +2648,8 @@ void __fastcall SCMD_HandleLoadComplete(void* pPacket)
 void __fastcall SCMD_HandleUnloadComplete(void* pPacket)
 {
     GAME_FreeWeather();
-    sub_00409B80(0);
+// build: symbol ?ERRORMANAGER_FreeUnusedPoolBlocks@* 0x00409B80
+    ERRORMANAGER_FreeUnusedPoolBlocks(0);
     gbPositionalSound = 0;
     gbActUnloaded = 1;
     gdwUnloadCompleteTick = GetTickCount();
@@ -2674,7 +2675,7 @@ void __fastcall SCMD_HandleSetClientInSight(D2ClientSightPacketStrc* pPacket)
     unsigned short nY = pPacket->nY;
     if (!gpDrlgAct_007A0634)
     {
-        sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), 0x58A);
+        FOG_DisplayHalt(&gszEmptyAssertText_006CC837, sub_00408090(), 0x58A);
         exit(-1);
     }
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -2689,7 +2690,7 @@ void __fastcall SCMD_HandleUnsetClientInSight(D2ClientSightPacketStrc* pPacket)
     unsigned short nY = pPacket->nY;
     if (!gpDrlgAct_007A0634)
     {
-        sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), 0x59E);
+        FOG_DisplayHalt(&gszEmptyAssertText_006CC837, sub_00408090(), 0x59E);
         exit(-1);
     }
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -4332,7 +4333,7 @@ void __fastcall SCMD_HandleItemActionWorld(const D2GSPacketSrv9C* pPacket)
     case 0x15:
     case 0x16:
     case 0x17:
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xF6D);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0xF6D);
         exit(-1);
     case 0:
         sub_004C25B0(pCopy);
@@ -4394,7 +4395,7 @@ void __fastcall SCMD_HandleItemActionOwned(const D2GSPacketSrv9D* pPacket)
     case 0xF:
     case 0x10:
     case 0x12:
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xFB7);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0xFB7);
         exit(-1);
     case 5:
         ITEM_HandleItemFromStorage(pCopy);

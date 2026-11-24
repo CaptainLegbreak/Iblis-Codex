@@ -23,7 +23,7 @@
 
 #define MONSTATSFLAGINDEX_BOSS 6
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define UNITFLAG_INITSEEDSET 0x00000010
 
@@ -123,7 +123,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -1304,7 +1304,7 @@ static int __stdcall ITEMMODE_UpdateBookScrollSkillQuantity(int bAddQuantity, D2
                 }
                 else
                 {
-                    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x230);
+                    FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x230);
                     exit(-1);
                 }
             }
@@ -3264,7 +3264,7 @@ static void __stdcall ITEMMODE_DecrementBookScrollSkillQuantity(D2UnitStrc* pUni
     }
     else
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xFC4);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0xFC4);
         exit(-1);
     }
 }
@@ -3901,7 +3901,7 @@ int __fastcall ITEMMODE_AddScrollToBook(D2GameStrc* ptGame, D2UnitStrc* hUnit, i
         return 1;
     }
 
-    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x149C);
+    FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x149C);
     exit(-1);
 }
 
@@ -4835,7 +4835,7 @@ static void __stdcall sub_0055E0D0_DecrementBookScrollSkillQuantity(D2UnitStrc* 
     }
     else
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xFC4);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0xFC4);
         exit(-1);
     }
 }

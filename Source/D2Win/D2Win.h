@@ -61,7 +61,7 @@ extern unsigned int gnUnitTokens; // 0x0072E04C
 extern unsigned int gnWClassTokens; // 0x0072E198
 extern void (__stdcall* gpfnGrTexDownloadMipMap)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EAB8
 extern void (__stdcall* gpfnGrTexSource)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
-int __cdecl sub_00406D20(); // 0x00406D20
+int __cdecl FOG_UseDirect(); // 0x00406D20
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl CONTROL_GetFocusedEditBox(); // 0x004F9200
 int __cdecl D2Win_IsMouseButtonPressed(); // 0x004FA460

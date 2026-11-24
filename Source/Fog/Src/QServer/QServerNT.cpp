@@ -5,7 +5,7 @@
 
 extern "C" int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataStrc* pData); // 0x006B0132
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CriticalSectionStrc;
 
@@ -42,7 +42,7 @@ extern "C" __declspec(dllimport) int __stdcall ReadFile(void* hFile, void* pBuff
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -68,7 +68,7 @@ extern "C" int __stdcall WSAGetLastError(void); // 0x006B0168
 
 extern "C" char* __stdcall inet_ntoa(unsigned int nAddress); // 0x006B013E
 
-int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
+int __fastcall FOG_SOCKET_CloseSocket(unsigned int s); // 0x0040D880
 
 void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szChannel, const char* szFormat, ...); // 0x00410660
 
@@ -351,7 +351,7 @@ static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, D2QueueServe
         LeaveCriticalSection(pLock);
         const char* szReason = nReason == 1 ? "user on hack list" : (nReason == 2 ? "user logged on twice" : "user spamming with reconnects");
         LOGMANAGER_LogWritePrefixedLine(gszHack, "[sQSNTAccept]               *** Deleted socket %d (%s) - %s ***", (unsigned int)pAddrLen, inet_ntoa(pAddr->sin_addr.s_addr), szReason);
-        sub_0040D880((unsigned int)pAddrLen);
+        FOG_SOCKET_CloseSocket((unsigned int)pAddrLen);
         return (unsigned int)-1;
     }
 
@@ -564,14 +564,14 @@ unsigned int __fastcall sub_006C3120_Start(D2QueueServerStrc* pServer, int nPort
     if (bind(s, &tAddr, sizeof(tAddr)) == -1)
     {
         LOGMANAGER_WriteLogLine("[SERVER]  QSNTInit failed on bind() - err=%d", WSAGetLastError());
-        sub_0040D880(s);
+        FOG_SOCKET_CloseSocket(s);
         return 0;
     }
 
     if (listen(s, 0xFA) == -1)
     {
         LOGMANAGER_WriteLogLine("[SERVER]  QSNTInit failed on listen() - err=%d", WSAGetLastError());
-        sub_0040D880(s);
+        FOG_SOCKET_CloseSocket(s);
         return 0;
     }
 
@@ -701,7 +701,7 @@ int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, u
                 {
                     if (nError == 0x102)
                         break;
-                    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x3C8);
+                    FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x3C8);
                     exit(-1);
                 }
             }
@@ -734,7 +734,7 @@ int __stdcall sub_006C3030_ReleaseSlot(D2QServerReqStrc* pReq)
     FOG_Free(pReq, ".\\Src\\QServer\\QServerNT.cpp", 686, 0);
     if (!pServer->bInitialized)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 687);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 687);
         exit(-1);
     }
     while (!pServer->nSlots[nSlot])

@@ -51,8 +51,9 @@ extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 extern const char gszEmptyString[]; // 0x006CC837
 extern int gnHeight_009702B8; // 0x009702B8
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define LRU_ASSERT(expr, line) if (!(expr)) { sub_00408A60(gszAssertExpr_006CC837, sub_00408090(), line); exit(-1); }
+// build: symbol ?FOG_DisplayHalt@* 0x00408A60
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define LRU_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(gszAssertExpr_006CC837, sub_00408090(), line); exit(-1); }
 #define RELEASE(p) if (p) { p->lpVtbl->Release(p); p = 0; }
 
 struct D2CriticalSectionStrc { void* pDebugInfo; long nLockCount; long nRecursionCount; void* hOwningThread; void* hLockSemaphore; unsigned long nSpinCount; };

@@ -12,7 +12,7 @@ extern "C" const char gszEmptyAssertText;                                       
 
 extern "C" const char* __cdecl sub_00408090();                                        // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);     // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);     // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                 // 0x00681E09
 
@@ -126,7 +126,7 @@ D2DrlgRoomStrc* __fastcall DRLGMAZE_GetFreeLocationForRoomNorth(D2DrlgLevelStrc*
 
 void __fastcall DRLGMAZE_PlaceSummonerPreset(D2DrlgLevelStrc* pLevel);
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
@@ -300,13 +300,13 @@ static int DRLGMAZE_HasSingleRoomForDifficulty(D2DrlgLevelStrc* pLevel)
 {
     if (!pLevel)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 28);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 28);
         exit(-1);
     }
 
     if (!pLevel->pMaze)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 30);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 30);
         exit(-1);
     }
 
@@ -549,7 +549,7 @@ static D2DrlgRoomStrc* __stdcall sSetChamberPreset(int bResetFlag, D2DrlgRoomStr
         break;
 
     default:
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 352);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 352);
         exit(-1);
     }
 

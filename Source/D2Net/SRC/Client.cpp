@@ -22,7 +22,7 @@ extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2Critical
 
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 
-int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
+int __fastcall FOG_SOCKET_CloseSocket(unsigned int s); // 0x0040D880
 
 int __fastcall NET_FreePacketList(D2CriticalSectionStrc* pCriticalSection, D2NetPacketRecStrc** ppPacketList); // 0x0052B8B0
 
@@ -391,7 +391,7 @@ void __cdecl CLIENT_Release()
         return;
     }
 
-    const int nResult = sub_0040D880(gClientSocket);
+    const int nResult = FOG_SOCKET_CloseSocket(gClientSocket);
     gClientSocket = -1;
     if (nResult == -1)
     {

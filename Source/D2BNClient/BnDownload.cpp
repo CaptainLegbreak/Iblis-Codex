@@ -17,7 +17,7 @@
 
 static int sub_00520A80_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize);
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CriticalSectionStrc;
 
@@ -37,7 +37,7 @@ struct D2BnDownloadRecordStrc;
 
 struct D2BnDownloadReplyStrc;
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -277,7 +277,7 @@ extern "C" int __stdcall send(unsigned int nSocket, const char* pBuffer, int nLe
 
 unsigned long __fastcall FOG_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004069F0
 
-int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
+int __fastcall FOG_SOCKET_CloseSocket(unsigned int s); // 0x0040D880
 
 void __fastcall sub_00519DB0_HandOnDownload(const char* szFile, const void* pData, unsigned int nSize, const D2FileTimeStrc* pFileTime, int nArg5, int nArg6); // 0x00519DB0
 
@@ -446,7 +446,7 @@ extern "C" int __cdecl rand(); // 0x00687461
 
 extern "C" void __cdecl srand(unsigned int nSeed); // 0x00687454
 
-#define CHECK(p,line) if(!(p)){sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
+#define CHECK(p,line) if(!(p)){FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
 
 struct D2BigPowModStrc;
 
@@ -1251,7 +1251,7 @@ unsigned int __stdcall BNDOWNLOAD_DownloadThread(void* pArg)
                 break;
             }
 
-            sub_0040D880(nSocket);
+            FOG_SOCKET_CloseSocket(nSocket);
             nSocket = (unsigned int)-1;
             if (++nRetry > 3)
             {
@@ -1330,7 +1330,7 @@ unsigned int __stdcall BNDOWNLOAD_DownloadThread(void* pArg)
             if (nFileSize != pRecord->nOffset)
             {
                 pRecord->nOffset = nFileSize;
-                sub_0040D880(nSocket);
+                FOG_SOCKET_CloseSocket(nSocket);
                 SMemFree(pReply, gszBnDownloadFile, 785, 0);
                 pReply = 0;
                 goto next;
@@ -1353,7 +1353,7 @@ unsigned int __stdcall BNDOWNLOAD_DownloadThread(void* pArg)
                     break;
                 }
 
-                sub_0040D880(nSocket);
+                FOG_SOCKET_CloseSocket(nSocket);
                 SMemFree(pReply, gszBnDownloadFile, 817, 0);
                 pReply = 0;
                 sub_0051A480_DebugLog("WARNING: Failed to save to disk.");
@@ -1370,7 +1370,7 @@ unsigned int __stdcall BNDOWNLOAD_DownloadThread(void* pArg)
                     break;
                 }
 
-                sub_0040D880(nSocket);
+                FOG_SOCKET_CloseSocket(nSocket);
                 SMemFree(pReply, gszBnDownloadFile, 844, 0);
                 pReply = 0;
                 sub_0051A480_DebugLog("ERROR: Failed to copy file.");
@@ -1396,7 +1396,7 @@ next:
 done:
     const int nFinalType = pRecord->nType;
     if (nSocket != (unsigned int)-1)
-        sub_0040D880(nSocket);
+        FOG_SOCKET_CloseSocket(nSocket);
 
     if (pBuffer)
         SMemFree(pBuffer, gszBnDownloadFile, 870, 0);

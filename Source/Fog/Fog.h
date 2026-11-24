@@ -83,7 +83,7 @@ unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsig
 unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 unsigned short __stdcall sub_006B019E(unsigned short nValue); // 0x006B019E
 void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...); // 0x00409020
-void __cdecl sub_00409DD0_InitPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize); // 0x00409DD0
+void __cdecl FOG_CreateNewPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize); // 0x00409DD0
 void __cdecl LOGMANAGER_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410740
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 bool __fastcall ERRORMANAGER_ShowErrorReport(const char* szSummary, const char* szUnused, const char** ppszFiles, int nFiles, unsigned int nLine, bool bFlag); // 0x00408660
@@ -99,7 +99,8 @@ void* __fastcall sub_004098B0_ReallocLarge(D2PoolSystemStrc* pSystem, void* pMem
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 #define QS_IS_READ(f) (((f) & 1) == 1)
 #define QS_IS_WRITE(f) (((f) & 3) == 2)
-#define S_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), line); exit(-1); }
+// build: symbol ?FOG_DisplayHalt@* 0x00408A60
+#define S_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText_006CC837, sub_00408090(), line); exit(-1); }
 #define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
 // build: symbol ?gtPoolManager@* 0x0074F0E8
 #define gtDefaultPoolSystem_0074F104 (gtPoolManager.aSystems[0])
@@ -279,10 +280,10 @@ extern bool gbSymInitialized; // 0x0098A6B0
 extern const char* gaszCpuVendorNames[]; // 0x00708004
 extern void* ghDbgHelp; // 0x0098A680
 extern void* ghProcess; // 0x0074C6F0
-int __cdecl sub_0040E250_GetCpuVendor(); // 0x0040E250
+int __cdecl ERRORMANAGER_GetCpuVendor(); // 0x0040E250
 int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
-unsigned int __cdecl sub_0040E960_GetCpuSignature(); // 0x0040E960
-unsigned int __cdecl sub_0040E980_GetCpuBrand(); // 0x0040E980
+unsigned int __cdecl ERRORMANAGER_GetCpuSignature(); // 0x0040E960
+unsigned int __cdecl ERRORMANAGER_GetCpuBrandIndex(); // 0x0040E980
 extern "C" int __cdecl _snprintf_s(char* szBuffer, unsigned int nSizeOfBuffer, unsigned int nCount, const char* szFormat, ...); // 0x006824CB
 unsigned long __stdcall SFileSetFilePointer(void* hFile, long lDistanceToMove, long* plDistanceToMoveHigh, unsigned long dwMoveMethod); // 0x004165A0
 // build: symbol ?gtSystemInfo@* 0x0074D8A0

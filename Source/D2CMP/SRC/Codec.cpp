@@ -95,7 +95,7 @@ extern "C" const char gszEmptyAssertText;                                       
 
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
@@ -888,7 +888,7 @@ int __fastcall CodecDecodeDccData(unsigned char* pData, void* pMemPool, int nSiz
                             char szError[0x200];
                             LOGMANAGER_WriteLogLine("Sprite Decompression Error -- File:%s", szFile);
                             sprintf(szError, "Error decompressing sprite - Possible corruption in data file: %s", szFile);
-                            sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x660);
+                            FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x660);
                             exit(-1);
                         }
                         pOut += pHeader->nLength + pHeader->unk0x14 + 0x23;

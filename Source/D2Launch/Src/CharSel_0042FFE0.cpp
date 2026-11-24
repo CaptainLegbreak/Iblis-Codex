@@ -36,7 +36,7 @@ extern D2WinControlStrc* gbSelectActive;                                        
 extern D2WinControlStrc* gpControl_0077BD90;                                                                       // 0x0077BD90
 extern D2WinControlStrc* gpWaitText_0077BD9C;                                                               // 0x0077BD9C
 extern int gdwGlobal_00798CC0;                                                                              // 0x00798CC0
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
 struct D2WinTextBoxStrc;
 struct D2WinTimerStrc;
@@ -112,7 +112,7 @@ extern int gdwGlobal_0077AC04; // 0x0077AC04
 void __cdecl sub_00518C20_DeleteQueueLock(); // 0x00518C20
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 int __fastcall MAINMENUS_ShowOptionDescription(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0

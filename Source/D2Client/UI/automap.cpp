@@ -23,7 +23,7 @@
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2WardenIfaceStrc;
 
@@ -959,7 +959,7 @@ void __fastcall UnlinkAndFreeHeap(D2FogBlockStrc** ppLink); // 0x00411A80
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 
-void __stdcall sub_006BBF40_PutPackedWord(unsigned char* pStream, unsigned short nValue); // 0x006BBF40
+void __stdcall FOG_Encode14BitsToString(unsigned char* pStream, unsigned short nValue); // 0x006BBF40
 
 extern _iobuf* gapLogFiles[20]; // 0x0075E790
 
@@ -1091,7 +1091,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -1750,7 +1750,7 @@ void __fastcall AUTOMAP_InitCharSaveHeader(const char* szName, unsigned char nCl
     gtCharSaveHeader.nUnk0x2A = 0x1E;
     if (nClass == 6 || nClass == 5)
         gtCharSaveHeader.dwFlags |= 0x20;
-    sub_006BBF40_PutPackedWord(pStream, 0xE);
+    FOG_Encode14BitsToString(pStream, 0xE);
     pStream += 2;
     gtCharSaveHeader.tId = gtCharSaveId;
     for (int i = 0; i < 11; ++i)
@@ -1761,9 +1761,9 @@ void __fastcall AUTOMAP_InitCharSaveHeader(const char* szName, unsigned char nCl
     pStream += 11;
     const unsigned short wSavedFlags = (unsigned short)gtCharSaveHeader.dwFlags;
     *pStream++ = 1;
-    sub_006BBF40_PutPackedWord(pStream, wSavedFlags);
+    FOG_Encode14BitsToString(pStream, wSavedFlags);
     pStream += 2;
-    sub_006BBF40_PutPackedWord(pStream, 0);
+    FOG_Encode14BitsToString(pStream, 0);
     pStream += 2;
     *pStream++ = 0xFF;
     *pStream++ = 0xFF;

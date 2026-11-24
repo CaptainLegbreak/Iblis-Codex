@@ -6,11 +6,11 @@
 
 #include "D2Win32Types.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2DDrawSurfaceStrc;
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -172,7 +172,8 @@ void __fastcall sub_0050FDF0_GlidePlayVideoFile(const char* szFile, int nMode, v
     gnGlideBinkFlags = 2;
     BinkSetSoundSystem(BinkOpenDirectSound, 0);
     int nScope = 4;
-    if (sub_00406D20())
+// build: symbol ?FOG_UseDirect@* 0x00406D20
+    if (FOG_UseDirect())
     {
         nScope = 5;
     }
@@ -321,7 +322,7 @@ void __fastcall sub_005137E0_PlayBinkMovie(const char* szFile, int nMode, void (
     gnDDrawBinkFlags = BinkDDSurfaceType(gpDDrawPrimarySurface);
     BinkSetSoundSystem(BinkOpenDirectSound, 0);
     int nScope = 4;
-    if (sub_00406D20())
+    if (FOG_UseDirect())
     {
         nScope = 5;
     }

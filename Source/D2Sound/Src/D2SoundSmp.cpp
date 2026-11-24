@@ -53,7 +53,7 @@ struct D2EaxEnvironmentStrc;
 
 struct D2DSBufferDescStrc;
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -469,7 +469,7 @@ int __fastcall D2SOUND_FillSoundBuffer(D2SoundStrc* sound,unsigned int sourcePos
   LeaveCriticalSection(&gtSoundLock);
   return 1;
  }
- sub_00408A60(gszEmptyAssert,sub_00408090(),221);
+ FOG_DisplayHalt(gszEmptyAssert,sub_00408090(),221);
  exit(-1);
 }
 

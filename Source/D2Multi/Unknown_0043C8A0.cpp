@@ -3,7 +3,7 @@ typedef struct _iobuf FILE;
 
 extern "C" const char gszEmptyAssertText_006CC837; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" FILE* __cdecl fopen(const char* szFileName, const char* szMode); // 0x0068239A
@@ -13,7 +13,7 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 #pragma intrinsic(memcpy)
 
 int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
-void __stdcall sub_006BBF40_PutPackedWord(unsigned char* pStream, unsigned short nValue); // 0x006BBF40
+void __stdcall FOG_Encode14BitsToString(unsigned char* pStream, unsigned short nValue); // 0x006BBF40
 
 extern const char gszDefaultSaveName_0070CCC8[]; // 0x0070CCC8
 
@@ -23,7 +23,7 @@ int __fastcall sub_0043C8A0_ReadSaveSummary(const char* szName, unsigned char* p
     int bResult = 0;
     if (!szName[0])
     {
-        sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), 0xE9);
+        FOG_DisplayHalt(&gszEmptyAssertText_006CC837, sub_00408090(), 0xE9);
         exit(-1);
     }
 
@@ -68,7 +68,7 @@ int __fastcall sub_0043C8A0_ReadSaveSummary(const char* szName, unsigned char* p
             nFlags = *(unsigned short*)(aBuffer + 0x24);
         }
 
-        sub_006BBF40_PutPackedWord(pOut, 0xE);
+        FOG_Encode14BitsToString(pOut, 0xE);
         pOut += 2;
         if (!pCharName[0])
         {
@@ -84,9 +84,9 @@ int __fastcall sub_0043C8A0_ReadSaveSummary(const char* szName, unsigned char* p
         memcpy(pOut, pTitle, 11);
         pOut += 11;
         *pOut++ = nLevel;
-        sub_006BBF40_PutPackedWord(pOut, nFlags);
+        FOG_Encode14BitsToString(pOut, nFlags);
         pOut += 2;
-        sub_006BBF40_PutPackedWord(pOut, 0);
+        FOG_Encode14BitsToString(pOut, 0);
         pOut += 2;
         *pOut++ = 0xFF;
         *pOut++ = 0xFF;

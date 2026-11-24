@@ -1,6 +1,6 @@
 #include "D2Multi.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2ModuleInterfaceStrc;
 struct D2CelFileStrc;
@@ -8,7 +8,7 @@ struct D2WinMsgStrc;
 struct SMSGHANDLER_PARAMS;
 
 extern D2ModuleInterfaceStrc gtInterface; // 0x0070CD14
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0

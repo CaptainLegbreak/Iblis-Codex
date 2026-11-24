@@ -34,7 +34,7 @@ union D2SeedStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* text, const char* file, int line); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* text, const char* file, int line); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 
@@ -67,7 +67,7 @@ unsigned int __fastcall OBJRGN_AllocObjectControl(D2GameStrc* ptGame)
 {
     if (!ptGame)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 41);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 41);
         exit(-1);
     }
     D2ObjectControlStrc* pControl = (D2ObjectControlStrc*)FOG_AllocPool(ptGame->pMemoryPool, sizeof(D2ObjectControlStrc), ".\\OBJECTS\\objrgn.cpp", 42, 0);
@@ -120,7 +120,7 @@ unsigned int __fastcall OBJRGN_AllocObjectControl(D2GameStrc* ptGame)
 
 #pragma intrinsic(_ReadWriteBarrier)
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define MAX_MSG_SIZE 516
 
@@ -855,7 +855,7 @@ struct D2PoolSystemStrc;
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                              // 0x0040B380
 
-int __cdecl sub_0040A040_GetPoolSystemCount(D2PoolSystemStrc* pSystem);                                     // 0x0040A040
+int __cdecl FOG_GetMemoryUsage(D2PoolSystemStrc* pSystem);                                     // 0x0040A040
 
 void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);            // 0x00542B40
 
@@ -1094,7 +1094,7 @@ extern "C" const char gszSGameDataTypeName[];                                   
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags);                  // 0x00412650
 
-void __cdecl sub_00409DD0_InitPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize);
+void __cdecl FOG_CreateNewPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize); // 0x00409DD0
 
 void __stdcall GAME_SetReservedGameGUID(int hGame, unsigned short nGameId);                            // 0x0052C110
 

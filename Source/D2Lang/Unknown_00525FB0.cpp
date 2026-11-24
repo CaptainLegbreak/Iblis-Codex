@@ -4,7 +4,7 @@
 struct D2LangByteRangeStrc;
 struct D2UtfConvertSpecStrc;
 struct D2LangCharRangeStrc;
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" unsigned int __cdecl strlen(const char* szString);
 extern "C" char* __cdecl _itoa(int nValue, char* szOut, int nRadix); // 0x00687605

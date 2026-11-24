@@ -20,7 +20,7 @@ int __fastcall D2Win_10127_SetFont(int nFont); // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 D2TextBlockStrc* __fastcall TEXT_CreateTextBox(const Unicode* pText, int nMode); // 0x004A05E0
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall sub_004E0650_GetStringSound(unsigned short nString); // 0x004E0650
 void __fastcall UNITSND_ReleaseSkillSfx(D2UnitStrc* pUnit); // 0x004CB190
@@ -132,7 +132,7 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
         if (!gpTextBox)
         {
 // build: symbol ?gszEmptyString@* 0x006CC837
-            sub_00408A60(gszEmptyString, sub_00408090(), 0x1024);
+            FOG_DisplayHalt(gszEmptyString, sub_00408090(), 0x1024);
             exit(-1);
         }
         D2Win_10127_SetFont(nPreviousFont);

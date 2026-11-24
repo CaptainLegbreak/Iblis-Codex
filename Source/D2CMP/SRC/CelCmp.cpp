@@ -16,7 +16,7 @@
 
 #include "D2LRUNode.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CmpCellStrc;
 
@@ -359,7 +359,7 @@ void __fastcall D2CMPSpriteCacheFreeAll(D2CmpTileCacheStrc* pCache); // 0x005FFB
 
 void __cdecl CodecReleaseLock(); // 0x0060CD50
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -2154,12 +2154,12 @@ int __stdcall CelGetRawData(CellTable* p, int nDirection, int nIndex, void* pDst
 {
     if (p->type != 6)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x4a0);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x4a0);
         exit(-1);
     }
     if ((p->flags & 4) == 0)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x4a1);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x4a1);
         exit(-1);
     }
     int idx = CelGameDirToFileDir(nDirection, p->nDirections) * p->stride + nIndex;
@@ -2331,7 +2331,7 @@ char* __stdcall CelGetControlData(D2CelStrc* pCel)
 int __stdcall CelFileGetNumDirections(Unit* unit)
 {
     if(unit->type!=REQUIRED_TYPE) {
-        sub_00408A60(&emptyAssert,sub_00408090(),0x5C2);
+        FOG_DisplayHalt(&emptyAssert,sub_00408090(),0x5C2);
         exit(-1);
     }
     return unit->mode;

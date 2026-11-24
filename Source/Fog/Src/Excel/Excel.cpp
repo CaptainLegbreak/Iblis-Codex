@@ -1,6 +1,6 @@
 #include "Fog.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText_006CC837, sub_00408090(), line); exit(-1); }
 
 struct Server;
 
@@ -142,7 +142,7 @@ struct Obj006BCDE0 {
 
 extern "C" const char gszEmptyAssertText_006CC837; // 0x006CC837
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -740,7 +740,7 @@ void __stdcall FOG_StartServer(D2QueueServerStrc* pServer, unsigned int nValue)
     }
     else
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 297);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 297);
         exit(-1);
     }
 }
@@ -892,7 +892,7 @@ int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLink, const char* szText, int bLo
     D2TxtLinkNodeStrc* pNode = pLink->pFirstNode;
     if (pLink->count && !pNode)
     {
-        sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), 0x475);
+        FOG_DisplayHalt(&gszEmptyAssertText_006CC837, sub_00408090(), 0x475);
         exit(-1);
     }
 

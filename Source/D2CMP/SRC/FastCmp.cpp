@@ -2,7 +2,7 @@
 #include "D2CmpTypes.h"
 #include "D2CmpTiles.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -54,7 +54,7 @@ extern unsigned char gabPaletteMask[0x100]; // 0x008E9830
 
 extern int gbTableSet; // 0x008E9D40
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -1462,12 +1462,12 @@ void __fastcall CelDrawRle(D2CelStrc* pCel, unsigned char* pDest, int nX, int nL
     const int nWidth = pCel->width;
     if ((unsigned int)nPitch < (unsigned int)nWidth)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 1514);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 1514);
         exit(-1);
     }
     if ((unsigned int)(nSkipRows + nRows) > pCel->height)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 1515);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 1515);
         exit(-1);
     }
 
@@ -1776,7 +1776,7 @@ static inline const char* __fastcall SkipCelRows(const char* current,int rows)
 void __fastcall CelDrawRleShadow(const D2CelStrc* cel,unsigned char* dst,int x,int clipLeft,int clipRight,unsigned int pitch,int skip,int rows,const unsigned char* table,int color)
 {
  int startX=x;
- if(pitch<cel->width) { sub_00408A60(gszEmptyAssert,sub_00408090(),1871);exit(-1); }
+ if(pitch<cel->width) { FOG_DisplayHalt(gszEmptyAssert,sub_00408090(),1871);exit(-1); }
  const char* src=SkipCelRows((const char*)cel+32,skip*2);
  int step=-(int)pitch;
  unsigned char* nextRow=dst+step;

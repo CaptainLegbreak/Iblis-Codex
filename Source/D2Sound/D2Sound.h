@@ -44,4 +44,5 @@ struct D2GuidStrc
     unsigned char Data4[8];
 };
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+// build: symbol ?FOG_DisplayHalt@* 0x00408A60
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }

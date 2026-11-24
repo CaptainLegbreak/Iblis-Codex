@@ -4,7 +4,7 @@
 #include "D2NetTypes.h"
 #include "D2SysTypes.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct QServer;
 
@@ -236,7 +236,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 struct D2Object006BF040Strc
 {
@@ -385,7 +385,7 @@ static int __stdcall sub_006BF180_ReferenceAddress(D2QueueServerStrc* server,con
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC1FC
 
-int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
+int __fastcall FOG_SOCKET_CloseSocket(unsigned int s); // 0x0040D880
 
 extern "C" int __stdcall WSACleanup(void); // 0x006B0138
 
@@ -2091,7 +2091,7 @@ int __stdcall FOG_10152(D2QueueServerStrc* pServer, int a2, int a3)
     {
         if (pServer->aListenSockets[i] != -1)
         {
-            sub_0040D880(pServer->aListenSockets[i]);
+            FOG_SOCKET_CloseSocket(pServer->aListenSockets[i]);
             pServer->aListenSockets[i] = -1;
         }
     }
@@ -2205,7 +2205,7 @@ void __fastcall QSrvCloseRemoteConnection(D2QSrvServerStrc* pServer, int nKey, c
     }
 
     pConnection->bClosing = 1;
-    int nResult = sub_0040D880(pConnection->hSocket);
+    int nResult = FOG_SOCKET_CloseSocket(pConnection->hSocket);
     pConnection->hSocket = (unsigned int)-1;
     LeaveCriticalSection(&pConnection->tLock);
 

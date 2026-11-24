@@ -38,13 +38,13 @@ extern "C" const char gszEmptyAssertText;                                       
 
 extern "C" const char* __cdecl sub_00408090();                                      // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);   // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);   // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                               // 0x00681E09
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                // 0x00681EF0
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 void __stdcall CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
 
@@ -953,7 +953,7 @@ int __stdcall sub_006B6D70_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, c
 
     if (pClip->nHeight <= 0)
     {
-        sub_00408A60(gszEmptyString, sub_00408090(), 1114);
+        FOG_DisplayHalt(gszEmptyString, sub_00408090(), 1114);
         exit(-1);
     }
     return 0;

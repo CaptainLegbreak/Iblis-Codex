@@ -15,7 +15,7 @@
 
 struct D2ActiveRoomStrc;
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct BitStreamContext;
 
@@ -116,7 +116,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -986,7 +986,7 @@ void __cdecl PANEL_DrawBeltItemHoverText()
 
     if (!DATATBLS_GetItemsTxtRecord(!gpBeltItemA ? -1 : gpBeltItemA->dwClassId))
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x61D);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x61D);
         exit(-1);
     }
 
@@ -1647,7 +1647,7 @@ void __fastcall PANEL_SetBeltType(int nIndex)
         gnUiRecordIndex = nIndex;
         return;
     }
-    sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xB07);
+    FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0xB07);
     exit(-1);
 }
 
@@ -1753,7 +1753,7 @@ void __cdecl PANEL_DrawBelt()
             }
             else
             {
-                sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xB07);
+                FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0xB07);
                 exit(-1);
             }
         }

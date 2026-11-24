@@ -23,7 +23,7 @@ extern "C" __declspec(dllimport) int __stdcall FindNextFileA(void* hFindFile, D2
 
 unsigned long gdwLastLogSweep;                                                                     // 0x0075E874
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CriticalSectionStrc;
 
@@ -251,7 +251,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext); // 0x0040CC10
 
-_iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize); // 0x0040EBD0
+_iobuf* __fastcall LOGMANAGER_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize); // 0x0040EBD0
 
 void __fastcall LOGMANAGER_GetLogDirectory(char* szDirectory, int nSize); // 0x0040F000
 
@@ -265,7 +265,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern int gbImageHlpLoaded; // 0x0075D014
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -303,7 +303,7 @@ struct CCritSect : D2CriticalSectionStrc
 // build: symbol ??__FgtLogQueueLock@@YAXXZ 0x006CB070
 CCritSect gtLogQueueLock; // 0x0075E838
 
-_iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot); // 0x0040EDE0
+_iobuf* __fastcall LOGMANAGER_GetLogFile(const char* szName, int* pnSlot); // 0x0040EDE0
 
 struct sub_0040F530
 {
@@ -1059,7 +1059,7 @@ D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
 
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nSize); // 0x006829C0
 
-void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args); // 0x00410340
+void __fastcall LOGMANAGER_WriteLogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args); // 0x00410340
 
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
 
@@ -1083,9 +1083,9 @@ extern "C" int __cdecl strcmp(const char* szA, const char* szB);
 
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
-void __fastcall sub_0040ECC0_LogWriteHeader(_iobuf* pFile, const D2SystemTimeStrc* pTime); // 0x0040ECC0
+void __fastcall LOGMANAGER_WriteDateBanner(_iobuf* pFile, const D2SystemTimeStrc* pTime); // 0x0040ECC0
 
-void __fastcall sub_0040ED40_LogWriteStartup(_iobuf* pFile); // 0x0040ED40
+void __fastcall LOGMANAGER_WriteStartupBanner(_iobuf* pFile); // 0x0040ED40
 
 int ganLogNewFile[20]; // 0x0075D298
 
@@ -1135,7 +1135,7 @@ unsigned long __stdcall LOGMANAGER_DbgHelpThreadProc(void* pParam)
 }
 
 // 0x0040EBD0
-_iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize)
+_iobuf* __fastcall LOGMANAGER_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize)
 {
     char szPath[0x104];
     GetLocalTime(pTime);
@@ -1217,7 +1217,7 @@ long __fastcall LOGMANAGER_MeasureLogFile(const char* szName)
     EnterCriticalSection(&gtLogLock);
     EXCEPTIONS_CloseNamedLog(szName);
     long nSize = 0;
-    _iobuf* pFile = sub_0040EBD0_OpenDatedLogFile(szName, &tTime, "r", 0, 0, 0);
+    _iobuf* pFile = LOGMANAGER_OpenDatedLogFile(szName, &tTime, "r", 0, 0, 0);
     if (pFile)
     {
         fseek(pFile, 0, 2);
@@ -1237,7 +1237,7 @@ char* __fastcall LOGMANAGER_ReadLogRange(const char* szName, long nStart, long n
     memset(pBuffer, 0, nLength + 1);
     EnterCriticalSection(&gtLogLock);
     EXCEPTIONS_CloseNamedLog(szName);
-    _iobuf* pFile = sub_0040EBD0_OpenDatedLogFile(szName, &tTime, "r", 0, 0, 0);
+    _iobuf* pFile = LOGMANAGER_OpenDatedLogFile(szName, &tTime, "r", 0, 0, 0);
     if (pFile)
     {
         if (!fseek(pFile, nStart, 0))
@@ -1524,7 +1524,7 @@ int gbLogThreadStop; // 0x0075E830
 unsigned long gnLogThreadId; // 0x0075E834
 
 // 0x0040FFD0
-void __cdecl sub_0040FFD0_ShutdownLogSystem()
+void __cdecl LOGMANAGER_ShutdownLogSystem()
 {
     gbLogThreadStop = 1;
     WaitForSingleObject(ghLogThread, 30000);
@@ -1995,7 +1995,7 @@ void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle,
 extern "C" int __cdecl _vsnprintf(char* szDest, size_t nCount, const char* szFormat, va_list args); // 0x00682F22
 extern "C" int __cdecl _snprintf(char* szDest, size_t nCount, const char* szFormat, ...); // 0x006831DB
 // 0x00410340
-void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args)
+void __fastcall LOGMANAGER_WriteLogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args)
 {
 // build: symbol ?gbLogThreadStop@* 0x0075E830
     if (gbLogThreadStop || !gbLogInitialized)
@@ -2083,7 +2083,7 @@ void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...)
     D2_ASSERT(szFormat, 299);
     va_list args;
     va_start(args, szFormat);
-    sub_00410340_LogV(&gszEmptyAssertText, 1, 1, szFormat, args);
+    LOGMANAGER_WriteLogV(&gszEmptyAssertText, 1, 1, szFormat, args);
 }
 
 // 0x00410660
@@ -2096,7 +2096,7 @@ void __cdecl LOGMANAGER_LogWritePrefixedLine(const char* szPrefix, const char* s
     }
     va_list args;
     va_start(args, szFormat);
-    sub_00410340_LogV(szPrefix, 1, 1, szFormat, args);
+    LOGMANAGER_WriteLogV(szPrefix, 1, 1, szFormat, args);
 }
 
 // 0x004106B0
@@ -2109,7 +2109,7 @@ void __cdecl LOGMANAGER_LogWritePrefixedNoNewline(const char* szPrefix, const ch
     }
     va_list args;
     va_start(args, szFormat);
-    sub_00410340_LogV(szPrefix, 1, 0, szFormat, args);
+    LOGMANAGER_WriteLogV(szPrefix, 1, 0, szFormat, args);
 }
 
 // 0x00410700
@@ -2118,7 +2118,7 @@ void __cdecl LOGMANAGER_LogWrite(const char* szFormat, ...)
     D2_ASSERT(szFormat, 354);
     va_list args;
     va_start(args, szFormat);
-    sub_00410340_LogV(&gszEmptyAssertText, 0, 0, szFormat, args);
+    LOGMANAGER_WriteLogV(&gszEmptyAssertText, 0, 0, szFormat, args);
 }
 
 // 0x00410740
@@ -2131,7 +2131,7 @@ void __cdecl LOGMANAGER_LogWritePrefixed(const char* szPrefix, const char* szFor
     }
     va_list args;
     va_start(args, szFormat);
-    sub_00410340_LogV(szPrefix, 0, 0, szFormat, args);
+    LOGMANAGER_WriteLogV(szPrefix, 0, 0, szFormat, args);
 }
 
 // 0x0040F720
@@ -2141,7 +2141,7 @@ void __fastcall LOGMANAGER_WriteMessage(D2LogMessageStrc* pMessage)
     char* szName = pMessage->GetName();
     char* szText = szName + SStrLen(szName) + 1;
     int nSlot;
-    _iobuf* pFile = sub_0040EDE0_GetLogFile(szName, &nSlot);
+    _iobuf* pFile = LOGMANAGER_GetLogFile(szName, &nSlot);
     if (pFile)
     {
         if (pMessage->bTimeStamp)
@@ -2222,7 +2222,7 @@ unsigned long gadwLogWriteTick[20]; // 0x0075D2F0
 _iobuf* gapLogFiles[20]; // 0x0075E790
 
 // 0x0040EDE0
-_iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot)
+_iobuf* __fastcall LOGMANAGER_GetLogFile(const char* szName, int* pnSlot)
 {
     const unsigned long dwTick = GetTickCount();
     int nEmpty = -1;
@@ -2302,18 +2302,18 @@ _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot)
 
         D2SystemTimeStrc tTime;
         int bNew;
-        _iobuf* pNewFile = sub_0040EBD0_OpenDatedLogFile(szName, &tTime, "a", &bNew, gaszLogFilePaths[nSlot], 0x104);
+        _iobuf* pNewFile = LOGMANAGER_OpenDatedLogFile(szName, &tTime, "a", &bNew, gaszLogFilePaths[nSlot], 0x104);
         gapLogFiles[nSlot] = pNewFile;
         gadwLogOpenTick[nSlot] = dwTick;
         gadwLogWriteTick[nSlot] = dwTick;
         if (ganLogNewFile[nSlot] && pNewFile)
         {
-            sub_0040ED40_LogWriteStartup(pNewFile);
+            LOGMANAGER_WriteStartupBanner(pNewFile);
             ganLogNewFile[nSlot] = 0;
         }
         else if (bNew)
         {
-            sub_0040ECC0_LogWriteHeader(pNewFile, &tTime);
+            LOGMANAGER_WriteDateBanner(pNewFile, &tTime);
         }
     }
 
@@ -2329,7 +2329,7 @@ done:
 }
 
 // 0x0040F070
-void __fastcall sub_0040F070_WriteDumpMessage(D2LogMessageStrc* pMessage)
+void __fastcall LOGMANAGER_WriteDumpMessage(D2LogMessageStrc* pMessage)
 {
     D2SystemTimeStrc* const pStamp = &pMessage->f_14;
     D2_ASSERT(pMessage->nType == 2, 0x389);
@@ -2347,7 +2347,7 @@ void __fastcall sub_0040F070_WriteDumpMessage(D2LogMessageStrc* pMessage)
     }
 
     int nSlot;
-    _iobuf* pFile = sub_0040EDE0_GetLogFile(szName, &nSlot);
+    _iobuf* pFile = LOGMANAGER_GetLogFile(szName, &nSlot);
     if (!pFile)
     {
         return;

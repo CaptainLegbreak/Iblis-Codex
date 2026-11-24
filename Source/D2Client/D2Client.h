@@ -463,10 +463,10 @@ extern void* gpRes_007C0D6F; // 0x007C0D6F
 extern void* gpRes_007C0D77; // 0x007C0D77
 extern void* gpStateButtonCel_007BEF70; // 0x007BEF70
 float __cdecl sub_00473C80(); // 0x00473C80
-float __stdcall sub_0040B330_Cos(int nAngle); // 0x0040B330
-float __stdcall sub_0040B350_Sin(int nAngle); // 0x0040B350
+float __stdcall FOG_10083_Cos_LUT(int nAngle); // 0x0040B330
+float __stdcall FOG_10084_Sin_LUT(int nAngle); // 0x0040B350
 int __cdecl STRTABLE_GetLanguage(); // 0x00525150
-int __cdecl sub_00407FF0(); // 0x00407FF0
+int __cdecl FOG_IsHandlingError(); // 0x00407FF0
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl sub_0040EB10(); // 0x0040EB10
 int __cdecl sub_00410A80_GetTime(); // 0x00410A80
@@ -694,7 +694,7 @@ int __stdcall sub_0064F420_HasBodyLocFallback(int nBodyLoc); // 0x0064F420
 int __stdcall sub_0064F500_GetFallbackIndex(int nBodyLoc, unsigned char* pComponents); // 0x0064F500
 int __stdcall PATH_HasEnteredNewSubtile(D2DynamicPathStrc* pPath); // 0x006505C0
 int __stdcall sub_00650BE0_PlaceUnit(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
-int __stdcall sub_006BC8A0_SendBuffer(void* pConnection, const unsigned char* pBuffer, int nSize); // 0x006BC8A0
+int __stdcall D2QSSOCKET_SendPacket(void* pConnection, const unsigned char* pBuffer, int nSize); // 0x006BC8A0
 int* __fastcall sub_004AE110_GetAiTimer(D2UnitStrc* pUnit); // 0x004AE110
 short __stdcall TEXT_GetStringIdOfMenuType2Node(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x006613C0
 unsigned char __cdecl sub_0047AA20_GetClassOverride(); // 0x0047AA20
@@ -724,7 +724,7 @@ unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc* pRoom, in
 unsigned short __stdcall TEXT_GetStringIdOfMenuType0Node(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x00661400
 void __cdecl D2GFX_OutputString(int nXPos, int nYPos, const char* szFormat, ...); // 0x004F6890
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
-void __cdecl sub_00409B80(int nArg); // 0x00409B80
+void __cdecl ERRORMANAGER_FreeUnusedPoolBlocks(int nArg); // 0x00409B80
 void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void __cdecl MAINMENUS_Reset(); // 0x0042F480
 void __cdecl MAINMENUS_ShowConnectingPopup(); // 0x0042F6E0

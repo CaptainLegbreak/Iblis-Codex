@@ -40,9 +40,9 @@ struct D2LaunchReplyEntryStrc
     char unk0x3A[0x01];
 };
 #pragma pack(pop)
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, size_t nCount);                        // 0x00687330
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);                                // 0x006829C0
@@ -67,7 +67,7 @@ void __stdcall sub_00449E50_SetValue(int nValue);                               
 void __stdcall CHATDLG_StartThread(D2LaunchThreadRecordStrc* pRecord);                                 // 0x0044A130
 int __fastcall WINMAIN_SendMcpCreateGame(D2LaunchLoginStrc* pLogin, unsigned short wRequestId);                // 0x0044A400
 int __fastcall WINMAIN_SendMcpGameInfoRequest(char* szText, unsigned short wRequestId);                              // 0x0044A610
-void __stdcall sub_006BC780(void* pConnection);                                                             // 0x006BC780
+void __stdcall D2QSSOCKET_DestroyRecord(void* pConnection);                                                             // 0x006BC780
 extern "C" const char gszPassword[];                                                               // 0x006D423C
 extern int gnRequestId_0070CD60;                                                                            // 0x0070CD60
 extern int gnPendingId;                                                                            // 0x0070EBD8

@@ -9,7 +9,7 @@
 #include "D2ClientTypes.h"
 #include "D2MsgRecord.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CompositeUnitStrc;
 
@@ -69,7 +69,7 @@ struct D2LaunchCharSelectStrc
 
 #pragma pack(pop)
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -1475,7 +1475,8 @@ static unsigned char COMCALLBACK_ParseStatString(D2MultiChannelUserStrc* pUser, 
             ++pStat;
             *pDst = 0;
 
-            sub_006BBF20_ReadPackedWord(pStat);
+// build: symbol ?FOG_Decode14BitsFromString@* 0x006BBF20
+            FOG_Decode14BitsFromString(pStat);
             pStat += 2;
 
             int i;
@@ -1506,7 +1507,7 @@ static unsigned char COMCALLBACK_ParseStatString(D2MultiChannelUserStrc* pUser, 
 
             pUser->wLevel = *pStat++;
 
-            pUser->wFlags = sub_006BBF20_ReadPackedWord(pStat);
+            pUser->wFlags = FOG_Decode14BitsFromString(pStat);
             unsigned int wFlags = pUser->wFlags;
             pUser->bFlagA0 = (wFlags >> 2) & 1;
             pUser->bFlagA4 = (wFlags >> 3) & 1;
@@ -1526,7 +1527,7 @@ static unsigned char COMCALLBACK_ParseStatString(D2MultiChannelUserStrc* pUser, 
                 }
             }
 
-            pUser->wW8C = sub_006BBF20_ReadPackedWord(pStat);
+            pUser->wW8C = FOG_Decode14BitsFromString(pStat);
             pStat += 2;
 
             pUser->nB94 = *pStat++;

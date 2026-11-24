@@ -569,7 +569,7 @@ void* gpScroin2Cel; // 0x007BF270
 
 void* gpTextPanelFrameCel; // 0x007BF274
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2TextNodeStrc;
 
@@ -579,7 +579,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -3958,7 +3958,7 @@ void __fastcall TEXT_UpdateTexts(D2ViewStrc* pView)
 
     if (gbTextBoxPending)
     {
-        gbTextBoxShown ? (void)0 : (sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xD02), exit(-1));
+        gbTextBoxShown ? (void)0 : (FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0xD02), exit(-1));
         int nDrawn = 1;
         (gdwTextEndTick < GetTickCount()) ? (void)(nDrawn = 0) : (void)TEXT_DrawTextBoxAt(gpMainTextBox, &gtTextRect_007BF1D0);
         if (!nDrawn)
@@ -5060,7 +5060,8 @@ static int __stdcall sub_E10_IsAbovePanelLineCopy(int nY)
 
 
 
-int __cdecl sub_0040D530_Call0040C720()
+// build: symbol ?EXCEPTIONS_ReleaseAllSymbols@* 0x0040D530
+int __cdecl EXCEPTIONS_ReleaseAllSymbols()
 {
     return EXCEPTIONS_ReleaseSymbols(1);
 }

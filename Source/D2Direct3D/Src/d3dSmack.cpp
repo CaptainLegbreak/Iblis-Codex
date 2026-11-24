@@ -18,7 +18,7 @@ extern void* gpBuffer_009897D0; // 0x009897D0
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* pText, const char* pFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* pText, const char* pFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -344,7 +344,7 @@ void __cdecl D3D_UploadSmackFrameBuffer()
 
     if (!gpMemSurfaceB)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x1DB);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x1DB);
         exit(-1);
     }
 

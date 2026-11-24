@@ -24,13 +24,13 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-extern "C" void __cdecl sub_00408A60(const char* text, const char* file, int line); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* text, const char* file, int line); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-unsigned short* __fastcall sub_006BCC10_GetEntry(D2DataArrayStrc* pTable, int nHandle); // 0x006BCC10
+unsigned short* __fastcall DATAARRAYS_GetEntry(D2DataArrayStrc* pTable, int nHandle); // 0x006BCC10
 
 void __fastcall DATAARRAYS_Reset(D2DataArrayStrc* pOwner); // 0x006BCAC0
 
@@ -60,7 +60,7 @@ void __fastcall DATAARRAYS_Destroy(void* pBlock)
 void __fastcall DATAARRAYS_Reset(D2DataArrayStrc* array)
 {
     if (!array->bInitialized) {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x68);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x68);
         exit(-1);
     }
     array->nLastUsed = -1;
@@ -77,7 +77,7 @@ unsigned int __fastcall DATAARRAYS_AllocateHandle(D2DataArrayStrc* pPool)
     unsigned int nHandle = -1;
     if (!pPool->bInitialized)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x87);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x87);
         exit(-1);
     }
     unsigned short* pEntry = (unsigned short*)(pPool->pEntries + pPool->nStride * pPool->nFirstFree);
@@ -112,10 +112,10 @@ unsigned int __fastcall DATAARRAYS_AllocateHandle(D2DataArrayStrc* pPool)
 // 0x006BCC90
 short* __fastcall DATAARRAYS_GetEntryOrHalt(void* pDataArray, int nHandle)
 {
-    short* pEntry = (short*)sub_006BCC10_GetEntry((D2DataArrayStrc*)pDataArray, nHandle);
+    short* pEntry = (short*)DATAARRAYS_GetEntry((D2DataArrayStrc*)pDataArray, nHandle);
     if (!pEntry)
     {
-        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 253);
+        FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 253);
         exit(-1);
     }
     return pEntry;
@@ -131,7 +131,7 @@ void __fastcall DATAARRAYS_Initialize(D2DataArrayStrc* pOwner)
 // 0x006BCCD0
 void __fastcall DATAARRAYS_FreeEntry(D2DataArrayStrc* pTable, int nHandle)
 {
-    unsigned short* pEntry = sub_006BCC10_GetEntry(pTable, nHandle);
+    unsigned short* pEntry = DATAARRAYS_GetEntry(pTable, nHandle);
     D2_ASSERT(pEntry, 0xFD);
     const short nIndex = (short)(nHandle >> 16);
     unsigned short* pScan = pEntry;
@@ -150,7 +150,7 @@ void __fastcall DATAARRAYS_FreeEntry(D2DataArrayStrc* pTable, int nHandle)
 }
 
 // 0x006BCC10
-unsigned short* __fastcall sub_006BCC10_GetEntry(D2DataArrayStrc* pTable, int nHandle)
+unsigned short* __fastcall DATAARRAYS_GetEntry(D2DataArrayStrc* pTable, int nHandle)
 {
     unsigned short* pResult = 0;
     if (nHandle != -1)

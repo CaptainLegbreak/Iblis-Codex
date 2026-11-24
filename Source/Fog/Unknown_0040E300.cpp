@@ -5,7 +5,7 @@
 
 struct FSafeSock;
 struct D2CriticalSectionStrc;
-struct Obj0040E0B0;
+struct FOG_SOCKET_GetError;
 struct D2LogMsgListStrc;
 struct D2LogMsgNodeStrc;
 struct D2LogMessageStrc;
@@ -28,7 +28,7 @@ struct FSafeSock
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 
-struct Obj0040E0B0 { unsigned char bUnknown00[0x30]; unsigned int dwValue30; unsigned int dwValue34; };
+struct FOG_SOCKET_GetError { unsigned char bUnknown00[0x30]; unsigned int dwValue30; unsigned int dwValue34; };
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); // 0x00684BD5

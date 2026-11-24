@@ -18,9 +18,9 @@
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 #include <D2UnitData.h>
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-#define CHECK(c,line) if(!(c)) { sub_00408A60(&empty,sub_00408090(),line); exit(-1); }
+#define CHECK(c,line) if(!(c)) { FOG_DisplayHalt(&empty,sub_00408090(),line); exit(-1); }
 
 struct D2StaticPathStrc;
 
@@ -253,7 +253,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -3627,7 +3627,7 @@ static __forceinline int NPC_FindIndex_Inline(D2UnitStrc* pNpc)
 // 0x004B4830
 void __cdecl NPCMENU_BuildNpcMenu()
 {
-    if(gpNpcMainMenuDialog){sub_00408A60(&gszEmptyAssertText,sub_00408090(),0xC74);exit(-1);}
+    if(gpNpcMainMenuDialog){FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),0xC74);exit(-1);}
     if(!NPC_GetInteractUnit_Inline())
     {
         gnNpcMenuState=0;
@@ -4027,7 +4027,7 @@ void __cdecl NPCMENU_OnTransactionResult()
  ROSTER_SetCtrlState(gpRes_007C0D63,1);
  sub_004B85F0_AddTextLine(gpRes_007C0D63,D2LANG_GetStringFromTblIndex(text),0x15,0,1,1,0,0);
  sub_004B85F0_AddTextLine(gpRes_007C0D63,D2LANG_GetStringFromTblIndex(0xd4b),0xf,0,0,1,NPCMENU_NpcMenuReturn,1);
- } else { sub_00408A60(&empty,sub_00408090(),0x13ad);exit(-1); }
+ } else { FOG_DisplayHalt(&empty,sub_00408090(),0x13ad);exit(-1); }
 }
 
 static __forceinline void sub_004B5640_RefreshNpcMenu()

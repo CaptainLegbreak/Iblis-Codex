@@ -1,11 +1,11 @@
 #include "D2Win.h"
 #include "D2GlideTypes.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define GLIDE_GETPROC(pfn, szName, nLine) *(void**)&pfn = GetProcAddress(ghGlideLibrary, szName); D2_ASSERT(pfn, nLine)
 
 struct D2GrLfbInfoStrc;
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern "C" __declspec(dllimport) void* __stdcall LoadLibraryA(const char* szLibFileName);
 extern "C" __declspec(dllimport) void* __stdcall GetProcAddress(void* hModule, const char* szProcName);
