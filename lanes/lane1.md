@@ -5,7 +5,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 ## Ready
 
 - lane1/uiwidget-ctor 6b76d2978 -1 placeholder (Unknown_004BA760.cpp) soundinst-strays' first two commits are on main (#361); this is the third, alone on #361 (replaces soundinst-strays-5). UIWidget's constructor 0x4BABE0 (stores UIWidget's vtable 0x6DA6C0) joins the button object, Unknown_004BABF0.cpp. Nothing calls it, so it is the out-of-line copy from the one unit that defines it; it sits right before the button classes at 0x4BABF0, and with it declared and defined there the button constructors 0x4BAF20/0x4BB0F0 still inline it and match (declared only, they would call it). Unknown_004BA760.cpp, left with only this, goes. Borrowed data 898 b, as main; VERIFIED 7afd0feb28140593bf22578747cd9019c0c870c4
-- Left: 0x4B95C0 (Unknown_004B93F0.cpp) on SoundInst's types builds, but in SoundInst.cpp it inlines 0x4B9590, which the original calls; 0x4B9B50 in SoundInst.cpp turns 0x4B9EF0 unequal. Both may be what they look like: code outside SoundInst.cpp's unit.
+  - Left: 0x4B95C0 (Unknown_004B93F0.cpp) on SoundInst's types builds, but in SoundInst.cpp it inlines 0x4B9590, which the original calls; 0x4B9B50 in SoundInst.cpp turns 0x4B9EF0 unequal. Both may be what they look like: code outside SoundInst.cpp's unit.
 
 ## In progress
 
