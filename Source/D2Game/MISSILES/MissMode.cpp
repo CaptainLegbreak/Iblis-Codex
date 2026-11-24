@@ -1213,6 +1213,124 @@ void __stdcall MISSMODE_FillDamageParams(D2UnitStrc* pMissile, D2UnitStrc* pTarg
     }
 }
 
+// 0x005A8C70
+int __fastcall MISSMODE_GetDamageValue(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage)
+{
+    if (!pAttacker)
+    {
+        return 0;
+    }
+
+    switch (MISSILE_GetElemTypeFromMissileId(!pAttacker ? -1 : pAttacker->dwClassId))
+    {
+    case 0:
+    {
+        pDamage->dwPhysDamage = MISSMODE_RollDamageValue(pAttacker, STAT_MINDAMAGE, -1, STAT_MAXDAMAGE);
+
+        if (pDefender)
+        {
+            int nDamagePercent = STATLIST_UnitGetStatValue(pAttacker, STAT_DAMAGEPERCENT, 0);
+            if (MONSTERS_IsDemon(pDefender))
+            {
+                nDamagePercent += STATLIST_UnitGetStatValue(pAttacker, STAT_ITEM_DEMONDAMAGE_PERCENT, 0);
+            }
+
+            if (MONSTERS_IsUndead(pDefender))
+            {
+                nDamagePercent += STATLIST_UnitGetStatValue(pAttacker, STAT_ITEM_UNDEADDAMAGE_PERCENT, 0);
+            }
+
+            if (nDamagePercent <= -90)
+            {
+                nDamagePercent = -90;
+            }
+
+            int nPhysicalBase = pDamage->dwPhysDamage;
+            nDamagePercent = nPhysicalBase * nDamagePercent / 100;
+            nDamagePercent += nPhysicalBase;
+            pDamage->dwPhysDamage = nDamagePercent;
+        }
+
+        if (STATLIST_UnitGetStatValue(pAttacker, STAT_ITEM_DEADLYSTRIKE, 0))
+        {
+            pDamage->dwPhysDamage *= 2;
+            pDamage->wResultFlags |= DAMAGERESULTFLAG_CRITICALSTRIKE;
+        }
+
+        return pDamage->dwPhysDamage;
+    }
+    case 1:
+    {
+        pDamage->dwFireDamage = MISSMODE_RollDamageValue(pAttacker, STAT_FIREMINDAM, STAT_PASSIVE_FIRE_MASTERY, STAT_FIREMAXDAM);
+        return pDamage->dwFireDamage;
+    }
+    case 2:
+    {
+        pDamage->dwLtngDamage = MISSMODE_RollDamageValue(pAttacker, STAT_LIGHTMINDAM, STAT_PASSIVE_LTNG_MASTERY, STAT_LIGHTMAXDAM);
+        return pDamage->dwLtngDamage;
+    }
+    case 3:
+    {
+        pDamage->dwMagDamage = MISSMODE_RollDamageValue(pAttacker, STAT_MAGICMINDAM, STAT_PASSIVE_MAG_MASTERY, STAT_MAGICMAXDAM);
+        return pDamage->dwMagDamage;
+    }
+    case 4:
+    {
+        pDamage->dwColdDamage = MISSMODE_RollDamageValue(pAttacker, STAT_COLDMINDAM, STAT_PASSIVE_COLD_MASTERY, STAT_COLDMAXDAM);
+        pDamage->dwColdLen = STATLIST_UnitGetStatValue(pAttacker, STAT_COLDLENGTH, 0);
+        return pDamage->dwColdDamage;
+    }
+    case 5:
+    {
+        pDamage->dwPoisDamage = MISSMODE_RollDamageValue(pAttacker, STAT_POISONMINDAM, STAT_PASSIVE_POIS_MASTERY, STAT_POISONMAXDAM);
+        pDamage->dwPoisLen = STATLIST_UnitGetStatValue(pAttacker, STAT_POISONLENGTH, 0);
+
+        const int nPoisonCount = STATLIST_UnitGetStatValue(pAttacker, STAT_POISON_COUNT, 0);
+        if (nPoisonCount > 1)
+        {
+            pDamage->dwPoisLen /= nPoisonCount;
+        }
+        return 25 * pDamage->dwPoisDamage;
+    }
+    case 6:
+    {
+        pDamage->dwLifeLeech = STATLIST_UnitGetStatValue(pAttacker, STAT_LIFEDRAINMINDAM, 0);
+        return 0;
+    }
+    case 7:
+    {
+        pDamage->dwManaLeech = STATLIST_UnitGetStatValue(pAttacker, STAT_MANADRAINMINDAM, 0);
+        return 0;
+    }
+    case 8:
+    {
+        pDamage->dwStamLeech = STATLIST_UnitGetStatValue(pAttacker, STAT_STAMDRAINMINDAM, 0);
+        return 0;
+    }
+    case 9:
+    {
+        pDamage->dwStunLen = STATLIST_UnitGetStatValue(pAttacker, STAT_STUNLENGTH, 0);
+        return 0;
+    }
+    case 11:
+    {
+        pDamage->dwBurnDamage = MISSMODE_RollDamageValue(pAttacker, STAT_BURNINGMIN, STAT_PASSIVE_FIRE_MASTERY, STAT_BURNINGMAX);
+        pDamage->dwBurnLen = STATLIST_UnitGetStatValue(pAttacker, STAT_FIRELENGTH, 0);
+        return 25 * pDamage->dwBurnDamage;
+    }
+    case 12:
+    {
+        pDamage->dwColdDamage = MISSMODE_RollDamageValue(pAttacker, STAT_COLDMINDAM, STAT_PASSIVE_COLD_MASTERY, STAT_COLDMAXDAM);
+        pDamage->dwFrzLen = STATLIST_UnitGetStatValue(pAttacker, STAT_COLDLENGTH, 0);
+        return pDamage->dwColdDamage;
+    }
+    default:
+        break;
+    }
+
+    return 0;
+}
+
 // 0x005A91C0
 void __fastcall MISSMODE_ResetDamageParams(D2GameStrc* pGame, D2UnitStrc* pUnit, D2DamageStrc* pDamage)
 {
