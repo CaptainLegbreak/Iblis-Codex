@@ -1,83 +1,88 @@
 #include "D2Common.h"
-#include "D2Structs.h"
-#include "D2Path.h"
-#include "D2Structs.h"
-#include "D2Drlg.h"
-struct D2DynamicPathStrc;
+#include "D2StormLink.h"
 
-// build: context sub_6FD5DB70
+#include "D2Structs.h"
+
+#include "D2Path.h"
+
+#include "D2Structs.h"
+
+#include "D2Txt.h"
+
+#include "D2Drlg.h"
+
+#include "D2AnimData.h"
+
+#define D2_ABS(x) ((x) >= 0 ? (x) : -(x))
+
+#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+
+struct D2InventoryStrc;
+
+struct D2CoordStrc;
+
+union D2FP32_16;
+
+struct D2DrlgCoordsStrc;
+
+struct D2AnimDataRecordStrc;
+
+struct D2MonStatsTxt;
+
+extern int gaTanToDirectionTable[128 * 3]; // 0x006EB7E0
 
 typedef int BOOL;
 
+extern "C" const char gszEmptyAssertText; // 0x006CC837
 
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-
-
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
-extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-
-extern const D2CoordStrc gtPathZeroVelocity;                                                              // 0x006EB7D4
+extern const D2CoordStrc gtPathZeroVelocity; // 0x006EB7D4
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
-void __stdcall DUNGEON_GameToClientCoords(int* pX, int* pY);                                                // 0x00643290
-void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit);                                                     // 0x0064C040
-int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom);                           // 0x0064C350
-void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);                                              // 0x0064C370
+
+void __stdcall DUNGEON_GameToClientCoords(int* pX, int* pY); // 0x00643290
+
+void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
+
+int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x0064C350
+
+void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
+
 void __stdcall COLLISION_ResetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, int nMask); // 0x0064EBA0
+
 void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EC10
+
 unsigned short __fastcall COLLISION_TryMoveUnitCollisionMask(D2ActiveRoomStrc* pRoom, int nX1, int nY1, int nX2, int nY2, int nUnitSize, int nCollisionMask, int nMoveConditionMask); // 0x0064ED20
+
 unsigned short __fastcall COLLISION_TryTeleportUnitCollisionMask(D2ActiveRoomStrc* pRoom, int nX1, int nY1, int nX2, int nY2, int nCollisionPattern, int nFootprintCollisionMask, int nMoveConditionMask); // 0x0064EDA0
+
 unsigned short __fastcall COLLISION_ForceTeleportUnitCollisionMaskAndGetCollision(D2ActiveRoomStrc* pRoom1, int nX1, int nY1, D2ActiveRoomStrc* pRoom2, int nX2, int nY2, int nUnitSize, int nFootprintCollisionMask, int nMoveConditionMask); // 0x0064EE70
+
 unsigned short __fastcall COLLISION_TeleportUnitCollisionMask(D2ActiveRoomStrc* pRoom1, int nX1, int nY1, D2ActiveRoomStrc* pRoom2, int nX2, int nY2, int nUnitSize, int nMask); // 0x0064EED0
+
 int __fastcall COLLISION_TrySetUnitCollisionMask(D2ActiveRoomStrc* pRoom1, int nX1, int nY1, D2ActiveRoomStrc* pRoom2, int nX2, int nY2, int nCollisionPattern, int nFootprintCollisionMask, int nMoveConditionMask); // 0x0064EF10
+
 void __fastcall COLLISION_SetUnitCollisionMask(D2ActiveRoomStrc* pRoom1, int nX1, int nY1, D2ActiveRoomStrc* pRoom2, int nX2, int nY2, int nCollisionPattern, int nCollisionMask); // 0x0064EFA0
+
 int __fastcall PATH_ComputeVelocityAndDirectionVectorsToNextPoint(D2DynamicPathStrc* pPath, int bNormalizeDirectionIfSamePos, int bForceDirectionNormalization); // 0x0064FE40
-int __stdcall D2Common_10236(D2UnitStrc* pUnit, int a2);                                                     // 0x00650350
-void __fastcall sub_6FDAB810(int* a1, int* a2);                                                              // 0x00678F00
-void __fastcall sub_6FDAB940(D2PathPointStrc* pOutPathPoint, D2DynamicPathStrc* pPath);                     // 0x00679250
 
-#define D2_ABS(x) ((x) < 0 ? -(x) : (x))
-#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+int __stdcall D2Common_10236(D2UnitStrc* pUnit, int a2); // 0x00650350
 
-inline unsigned int PATH_ToFP16Center(unsigned int nValue)
-{
-    return (nValue << 16) + 0x8000;
-}
+void __fastcall sub_6FDAB810(int* a1, int* a2); // 0x00678F00
 
-inline unsigned int PATH_FP16FitToCenter(unsigned int nValue)
-{
-    return (nValue & 0xFFFF0000) + 0x8000;
-}
+void __fastcall sub_6FDAB940(D2PathPointStrc* pOutPathPoint, D2DynamicPathStrc* pPath); // 0x00679250
 
-inline D2FP32_16 PATH_MakeCoord(unsigned int nPrecisionX, unsigned int nPrecisionY)
-{
-    D2FP32_16 tCoord;
-    tCoord.dwPrecisionX = nPrecisionX;
-    tCoord.dwPrecisionY = nPrecisionY;
-    return tCoord;
-}
-
-inline int sub_0044BE50(D2UnitStrc* pUnit)
-{
-    return pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-}
-
-inline BOOL PATH_IsZeroPoint(D2PathPointStrc tPoint)
-{
-    return tPoint.X == 0 && tPoint.Y == 0;
-}
-
-inline BOOL DUNGEON_TestRoomGame(D2ActiveRoomStrc* pRoom, int nX, int nY)
+inline BOOL DUNGEON_TestRoomGame(D2ActiveRoomStrc* pRoom, unsigned short nX, unsigned short nY)
 {
     return nX >= pRoom->tCoords.nSubtileX && nX < pRoom->tCoords.nSubtileX + pRoom->tCoords.nSubtileWidth
         && nY >= pRoom->tCoords.nSubtileY && nY < pRoom->tCoords.nSubtileY + pRoom->tCoords.nSubtileHeight;
 }
 
-// build: context PATHMISC_SetRoom
 inline void PATHMISC_SetRoom(D2DynamicPathStrc* pPath, D2ActiveRoomStrc* pNewRoom)
 {
     D2UnitStrc* pUnit = pPath->pUnit;
@@ -96,9 +101,24 @@ inline void PATHMISC_SetRoom(D2DynamicPathStrc* pPath, D2ActiveRoomStrc* pNewRoo
     }
 }
 
-static void __stdcall PATH_RecacheRoom(D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath); // 0x0064FAD0
+BOOL __stdcall sub_00650090_GetStepToNextPoint(D2CoordStrc* pVelocity, D2DynamicPathStrc* pPath); // 0x00650090
 
-// build: context PATH_RecacheRoom
+static BOOL __stdcall sub_00650150_TraceSteps(D2CoordStrc tDelta, D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath);
+
+BOOL sub_6FD5DB70(D2DynamicPathStrc* pPath); // 0x006503F0
+
+static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath);
+
+BOOL __stdcall D2Common_10226(D2UnitStrc* pUnit, int nBaseVelocity); // 0x00650840
+
+static inline void SwapPrecision(unsigned int& a, unsigned int& b)
+{
+    unsigned int temp = a;
+    a = b;
+    b = temp;
+}
+
+// 0x0064FAD0
 static void __stdcall PATH_RecacheRoom(D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath)
 {
     unsigned short nX = pPath->tGameCoords.wPosX;
@@ -148,6 +168,239 @@ static void __stdcall PATH_RecacheRoomAtCoordIfNeeded(D2FP32_16 tCoord, D2Active
     }
 }
 
+#define PATH_CURRENT_ROOM_INVALID 2
+
+extern int gnPathResetPrecisionX; // 0x006EB7C8
+
+extern int gnPathResetPrecisionY; // 0x006EB7CC
+
+struct D2SkillFormulaCtxStrc { D2UnitStrc* pUnit; int nSkillId; int nSkillLevel; };
+
+// 0x0064FC20
+void __stdcall PATH_ResetDynamicPathRoom(D2DynamicPathStrc* pDynamicPath)
+{
+    const int nPrecisionX = gnPathResetPrecisionX;
+    const int nPrecisionY = gnPathResetPrecisionY;
+
+    pDynamicPath->tGameCoords.dwPrecisionX = nPrecisionX;
+    pDynamicPath->dwClientCoordX = nPrecisionX;
+    pDynamicPath->tGameCoords.dwPrecisionY = nPrecisionY;
+    pDynamicPath->dwClientCoordY = nPrecisionY;
+    pDynamicPath->dwPathPoints = 0;
+
+    if (pDynamicPath->pRoom)
+    {
+        pDynamicPath->pPreviousRoom = pDynamicPath->pRoom;
+        UNITROOM_RemoveUnitFromRoom(pDynamicPath->pUnit);
+        pDynamicPath->dwFlags |= PATH_CURRENT_ROOM_INVALID;
+    }
+}
+
+// 0x0064FC60
+void __fastcall PATH_GetDirectionVector(D2CoordStrc* pDirectionVector, int* pOutDirection, D2FP32_16 tStart, D2FP32_16 tTarget)
+{
+    int bPositiveX;
+    unsigned int dwMaxX;
+    unsigned int dwMinX;
+    if (tStart.dwPrecisionX <= tTarget.dwPrecisionX)
+    {
+        dwMaxX = tTarget.dwPrecisionX;
+        dwMinX = tStart.dwPrecisionX;
+        bPositiveX = 1;
+    }
+    else
+    {
+        dwMaxX = tStart.dwPrecisionX;
+        dwMinX = tTarget.dwPrecisionX;
+        bPositiveX = 0;
+    }
+    int bPositiveY;
+    unsigned int dwMaxY;
+    unsigned int dwMinY;
+    if (tStart.dwPrecisionY <= tTarget.dwPrecisionY)
+    {
+        dwMaxY = tTarget.dwPrecisionY;
+        dwMinY = tStart.dwPrecisionY;
+        bPositiveY = 1;
+    }
+    else
+    {
+        dwMaxY = tStart.dwPrecisionY;
+        dwMinY = tTarget.dwPrecisionY;
+        bPositiveY = 0;
+    }
+    int bSwapped;
+    if ((int)(dwMaxX - dwMinX) <= (int)(dwMaxY - dwMinY))
+    {
+        bSwapped = 0;
+    }
+    else
+    {
+        SwapPrecision(dwMaxX, dwMaxY);
+        bSwapped = 1;
+        SwapPrecision(dwMinX, dwMinY);
+    }
+    int nIndex;
+    if ((int)(dwMaxY - dwMinY) != 0)
+        nIndex = (int)(127 * (dwMaxX - dwMinX)) / (int)(dwMaxY - dwMinY);
+    else
+        nIndex = 0;
+    const int nEntry = 3 * nIndex;
+    int nDirection = gaTanToDirectionTable[nEntry + 2];
+    if (bSwapped)
+    {
+        pDirectionVector->nY = gaTanToDirectionTable[nEntry];
+        pDirectionVector->nX = gaTanToDirectionTable[nEntry + 1];
+        nDirection = (-1 - nDirection) & 0x0F;
+    }
+    else
+    {
+        pDirectionVector->nX = gaTanToDirectionTable[nEntry];
+        pDirectionVector->nY = gaTanToDirectionTable[nEntry + 1];
+    }
+    if (!bPositiveY)
+    {
+        pDirectionVector->nY = -pDirectionVector->nY;
+        nDirection = (-1 - nDirection) & 0x1F;
+    }
+    if (bPositiveX)
+    {
+        nDirection = (-1 - nDirection) & 0x3F;
+    }
+    else
+    {
+        pDirectionVector->nX = -pDirectionVector->nX;
+    }
+    *pOutDirection = (nDirection + 8) & 0x3F;
+}
+
+#include "gen/data/Source/D2Common/Unknown_0064FAD0.inc"
+
+inline unsigned int PATH_ToFP16Center(unsigned int nValue)
+{
+    return (nValue << 16) + 0x8000;
+}
+
+inline unsigned int PATH_FP16FitToCenter(unsigned int nValue)
+{
+    return (nValue & 0xFFFF0000) + 0x8000;
+}
+
+inline D2FP32_16 PATH_MakeCoord(unsigned int nPrecisionX, unsigned int nPrecisionY)
+{
+    D2FP32_16 tCoord;
+    tCoord.dwPrecisionX = nPrecisionX;
+    tCoord.dwPrecisionY = nPrecisionY;
+    return tCoord;
+}
+
+int sub_0044BE50(D2UnitStrc* pUnit); // 0x0044BE50
+
+void __stdcall PATH_RecacheRoomAtCoordIfNeeded(D2FP32_16 tCoord, D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath); // 0x0064FB90
+
+
+void __fastcall PATH_SetNewDirection(D2DynamicPathStrc*,unsigned char); // 0x006485F0
+
+static inline unsigned short PATH_FromFP16(unsigned int nValue)
+{
+    return (nValue >> 16) & 0xFFFF;
+}
+
+// 0x0064FD70
+void __fastcall PATH_GetDirectionVectorFromPoints(D2CoordStrc* pDirectionVector, int* pOutDirection, D2PathPointStrc tStartPoint, D2PathPointStrc tTargetPoint)
+{
+    D2CoordStrc tStart;
+    D2CoordStrc tTarget;
+    tStart.nX = (tStartPoint.X << 16) + 0x8000;
+    tStart.nY = (tStartPoint.Y << 16) + 0x8000;
+    tTarget.nX = (tTargetPoint.X << 16) + 0x8000;
+    tTarget.nY = (tTargetPoint.Y << 16) + 0x8000;
+    PATH_GetDirectionVector(pDirectionVector, pOutDirection, *(D2FP32_16*)&tStart, *(D2FP32_16*)&tTarget);
+}
+
+// 0x0064FDC0
+int __stdcall PATH_ComputeDirection(int nX1, int nY1, int nX2, int nY2)
+{
+    D2CoordStrc tCoords;
+    int nDirection;
+    D2CoordStrc tStart;
+    D2CoordStrc tTarget;
+    tStart.nX = (nX1 << 16) + 0x8000;
+    tStart.nY = (nY1 << 16) + 0x8000;
+    tTarget.nX = (nX2 << 16) + 0x8000;
+    tTarget.nY = (nY2 << 16) + 0x8000;
+    PATH_GetDirectionVector(&tCoords, &nDirection, *(D2FP32_16*)&tStart, *(D2FP32_16*)&tTarget);
+    return nDirection;
+}
+
+// 0x0064FE10
+int __stdcall PATH_ComputeDirectionFromPreciseCoords_6FDAC760(unsigned int dwStartPrecisionX, unsigned int dwStartPrecisionY, unsigned int dwTargetPrecisionX, unsigned int dwTargetPrecisionY)
+{
+
+    PATH_GetDirectionVector((D2CoordStrc*)&dwStartPrecisionX, (int*)&dwTargetPrecisionY, *(D2FP32_16*)&dwStartPrecisionX, *(D2FP32_16*)&dwTargetPrecisionX);
+
+    return (int)dwTargetPrecisionY;
+}
+
+// 0x0064FE40
+int __fastcall PATH_ComputeVelocityAndDirectionVectorsToNextPoint(D2DynamicPathStrc* pPath, int bNormalizeDirectionIfSamePos, int bForceDirectionNormalization)
+{
+    D2FP32_16* const ptGameCoords = &pPath->tGameCoords;
+    D2FP32_16 tTarget;
+    tTarget.dwPrecisionX = PATH_ToFP16Center(pPath->PathPoints[pPath->dwCurrentPointIdx].X);
+    tTarget.dwPrecisionY = PATH_ToFP16Center(pPath->PathPoints[pPath->dwCurrentPointIdx].Y);
+    while (tTarget.dwPrecisionX == ptGameCoords->dwPrecisionX && tTarget.dwPrecisionY == ptGameCoords->dwPrecisionY)
+    {
+        if (pPath->dwCurrentPointIdx >= pPath->dwPathPoints - 1)
+        {
+            const int nZeroX = gtPathZeroVelocity.nX;
+            const int nZeroY = gtPathZeroVelocity.nY;
+            pPath->tDirectionVector.nX = nZeroX;
+            pPath->tDirectionVector.nY = nZeroY;
+            pPath->tVelocityVector.nX = nZeroX;
+            pPath->tVelocityVector.nY = nZeroY;
+            pPath->dwCurrentPointIdx = pPath->dwPathPoints;
+            pPath->dwVelocity = 0;
+            return 1;
+        }
+
+        ++pPath->dwCurrentPointIdx;
+        tTarget.dwPrecisionX = PATH_ToFP16Center(pPath->PathPoints[pPath->dwCurrentPointIdx].X);
+        tTarget.dwPrecisionY = PATH_ToFP16Center(pPath->PathPoints[pPath->dwCurrentPointIdx].Y);
+    }
+
+    D2CoordStrc tDirectionVector;
+    int nDirection;
+    PATH_GetDirectionVector(&tDirectionVector, &nDirection, *ptGameCoords, tTarget);
+
+    pPath->tDirectionVector.nX = tDirectionVector.nX;
+    pPath->tDirectionVector.nY = tDirectionVector.nY;
+    if (pPath->dwFlags & 0x200)
+    {
+        nDirection = (nDirection - 32) & 63;
+    }
+
+    pPath->tVelocityVector.nX = (pPath->dwVelocity * tDirectionVector.nX) >> 8;
+    pPath->tVelocityVector.nY = (pPath->dwVelocity * tDirectionVector.nY) >> 8;
+
+    const int bSame = PATH_FromFP16(tTarget.dwPrecisionX) == PATH_FromFP16(ptGameCoords->dwPrecisionX + pPath->tVelocityVector.nX)
+        && PATH_FromFP16(tTarget.dwPrecisionY) == PATH_FromFP16(ptGameCoords->dwPrecisionY + pPath->tVelocityVector.nY);
+
+    if (bForceDirectionNormalization || bSame && bNormalizeDirectionIfSamePos)
+    {
+        PATH_SetNewDirection(pPath, (unsigned char)nDirection);
+    }
+
+    return bSame;
+}
+
+inline BOOL PATH_IsZeroPoint(D2PathPointStrc tPoint)
+{
+    return tPoint.X == 0 && tPoint.Y == 0;
+}
+
+static void __stdcall PATH_RecacheRoomAtCoordIfNeeded(D2FP32_16 tCoord, D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath); // 0x0064FB90
+
 // 0x0064FF90
 static BOOL __stdcall sub_0064FF90_TestStepCollision(D2PathPointStrc tNext, D2PathPointStrc tCurrent, D2DynamicPathStrc* pPath)
 {
@@ -188,40 +441,74 @@ static BOOL __stdcall sub_0064FF90_TestStepCollision(D2PathPointStrc tNext, D2Pa
     return 1;
 }
 
-BOOL __stdcall sub_00650090_GetStepToNextPoint(D2CoordStrc* pVelocity, D2DynamicPathStrc* pPath); // 0x00650090
 
-// build: context sub_00650150_TraceSteps
-static BOOL __stdcall sub_00650150_TraceSteps(int nDeltaX, int nDeltaY, D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath)
+
+static void __stdcall PATH_RecacheRoomAtCoordIfNeeded(D2FP32_16 tCoord, D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath); // 0x0064FB90
+
+
+// 0x00650090
+static BOOL __stdcall sub_00650090_GetStepToNextPoint(D2CoordStrc* pVelocity, D2DynamicPathStrc* pPath)
 {
-    D2PathPointStrc tNext;
+    *pVelocity = pPath->tVelocityVector;
+    if (pPath->eType == 4)
+    {
+        return FALSE;
+    }
+
+    D2CoordStrc tTarget;
+    tTarget.nX = PATH_ToFP16Center(pPath->PathPoints[pPath->dwCurrentPointIdx].X);
+    tTarget.nY = PATH_ToFP16Center(pPath->PathPoints[pPath->dwCurrentPointIdx].Y);
+    const int nDeltaX = tTarget.nX - pPath->tGameCoords.dwPrecisionX;
+    const int nAbsDeltaX = D2_ABS(nDeltaX);
+    const int nTargetDeltaY = tTarget.nY - pPath->tGameCoords.dwPrecisionY;
+    const int nAbsDeltaY = D2_ABS(nTargetDeltaY);
+    const int nMaxStep = D2_MAX(D2_ABS(pVelocity->nX), D2_ABS(pVelocity->nY));
+    if (nAbsDeltaX > nMaxStep || nAbsDeltaY > nMaxStep)
+    {
+        return FALSE;
+    }
+
+    pVelocity->nX = nDeltaX;
+    pVelocity->nY = tTarget.nY - pPath->tGameCoords.dwPrecisionY;
+    return 1;
+}
+
+// 0x00650150
+static BOOL __stdcall sub_00650150_TraceSteps(D2CoordStrc tDelta, D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath)
+{
     D2PathPointStrc tCurrent;
     D2PathPointStrc tEnd;
     unsigned int bSaveSteps;
-    int nStepY;
-    int nStepX;
+    D2CoordStrc tStep;
+    D2FP32_16 tEndCoord;
+    D2FP32_16 tNextCoord;
 
     pPath->nSavedStepsCount = 0;
-    nStepX = nDeltaX;
-    nStepY = nDeltaY;
-    sub_6FDAB810(&nStepX, &nStepY);
 
-    unsigned int dwX = pPath->tGameCoords.dwPrecisionX;
-    unsigned int dwY = pPath->tGameCoords.dwPrecisionY;
+    unsigned int dwX = tDelta.nX;
+    unsigned int dwY = tDelta.nY;
+    tStep.nX = dwX;
+    tStep.nY = dwY;
+    sub_6FDAB810(&tStep.nX, &tStep.nY);
+
+    dwX = pPath->tGameCoords.dwPrecisionX;
+    dwY = pPath->tGameCoords.dwPrecisionY;
     tCurrent.X = dwX >> 16;
     tCurrent.Y = dwY >> 16;
-
-    const unsigned int dwEndX = dwX + nDeltaX;
-    const unsigned int dwEndY = dwY + nDeltaY;
-    tEnd.X = dwEndX >> 16;
-    tEnd.Y = dwEndY >> 16;
-
+    tEndCoord = pPath->tGameCoords;
+    tEndCoord.dwPrecisionY += tDelta.nY;
+    tEndCoord.dwPrecisionX += tDelta.nX;
+    tEnd.X = tEndCoord.dwPrecisionX >> 16;
+    tEnd.Y = tEndCoord.dwPrecisionY >> 16;
     bSaveSteps = pPath->dwFlags & 0x20000;
+
     while (tCurrent.X != tEnd.X || tCurrent.Y != tEnd.Y)
     {
-        const unsigned int dwNextX = dwX + nStepX;
-        const unsigned int dwNextY = dwY + nStepY;
-        tNext.X = dwNextX >> 16;
-        tNext.Y = dwNextY >> 16;
+        tNextCoord.dwPrecisionX = dwX + tStep.nX;
+        tNextCoord.dwPrecisionY = dwY + tStep.nY;
+        D2PathPointStrc tNext;
+        tNext.X = tNextCoord.dwPrecisionX >> 16;
+        tNext.Y = tNextCoord.dwPrecisionY >> 16;
 
         if (tCurrent.X != tNext.X || tCurrent.Y != tNext.Y)
         {
@@ -245,8 +532,8 @@ static BOOL __stdcall sub_00650150_TraceSteps(int nDeltaX, int nDeltaY, D2FP32_1
             }
         }
 
-        dwX = dwNextX;
-        dwY = dwNextY;
+        dwX = tNextCoord.dwPrecisionX;
+        dwY = tNextCoord.dwPrecisionY;
         tCurrent = tNext;
     }
 
@@ -255,10 +542,36 @@ static BOOL __stdcall sub_00650150_TraceSteps(int nDeltaX, int nDeltaY, D2FP32_1
         pPath->dwFlags |= 8;
     }
 
-    pOutCoord->dwPrecisionX = dwEndX;
-    pOutCoord->dwPrecisionY = dwEndY;
+    *pOutCoord = tEndCoord;
     *pSteps = pPath->nSavedStepsCount;
     return FALSE;
+}
+
+void sub_6FD5CEB0(int nBaseVelocity, D2DynamicPathStrc* pPath); // 0x006502D0
+
+int __stdcall PATH_GetDistance(D2DynamicPathStrc* pDynamicPath); // 0x00649120
+
+void __stdcall PATH_AddToDistance(D2DynamicPathStrc* pDynamicPath, int nAddition); // 0x00649140
+
+int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
+
+static inline int UNITS_IsServerSide(D2UnitStrc* pUnit)
+{
+    int bResult = 0;
+    if (pUnit)
+    {
+        bResult = (pUnit->dwFlags >> 21) & 1;
+    }
+    return bResult;
+}
+
+static inline int sub_0044BE50(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 6;
+    }
+    return pUnit->dwUnitType;
 }
 
 // 0x006502D0
@@ -295,67 +608,184 @@ static void sub_6FD5CEB0(int nBaseVelocity, D2DynamicPathStrc* pPath)
     pPath->tVelocityVector.nY = (nVelocityMagnitude * pPath->tDirectionVector.nY) >> 12;
 }
 
-static BOOL sub_6FD5DB70(D2DynamicPathStrc* pPath)
+// 0x00650350
+int __stdcall D2Common_10236(D2UnitStrc* pUnit, int a2)
 {
-    switch (pPath->eType)
+    int nResult = 0;
+
+    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
+    if (!pDynamicPath)
+    {
+        return 0;
+    }
+
+    if (!(pDynamicPath->dwFlags & 0x10))
+    {
+        const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+        if (nType == 1 && !PATH_GetDistance(pUnit->pDynamicPath))
+        {
+            return 0;
+        }
+
+        UNITROOM_RefreshUnit(pUnit);
+        pUnit->dwFlags |= 1;
+
+        PATH_AddToDistance(pDynamicPath, -pDynamicPath->dwCurrentPointIdx);
+    }
+
+    switch (pDynamicPath->eType)
+    {
+    case 2:
+    case 13:
+    case 15:
+        break;
+
+    default:
+        return D2Common_10142(pDynamicPath, pUnit, 0);
+    }
+
+    if (a2)
+    {
+        pDynamicPath->eType = 13;
+    }
+    else
+    {
+        pDynamicPath->eType = 2;
+        pDynamicPath->tTargetCoord = pDynamicPath->tFinalTargetCoord;
+    }
+
+    nResult = D2Common_10142(pDynamicPath, pUnit, 0);
+    if (!nResult)
+    {
+        pDynamicPath->eType = 15;
+        nResult = D2Common_10142(pDynamicPath, pUnit, 0);
+    }
+
+    return nResult;
+}
+
+// 0x006503F0
+static BOOL sub_6FD5DB70(D2DynamicPathStrc* pDynamicPath)
+{
+    switch (pDynamicPath->eType)
     {
     case 5:
     case 6:
-        if (pPath->dwCurrentPointIdx >= pPath->dwPathPoints)
+        if (pDynamicPath->dwCurrentPointIdx >= pDynamicPath->dwPathPoints)
         {
             return TRUE;
         }
         break;
     }
 
-    D2UnitStrc* pTargetUnit = pPath->hTarget;
-    D2UnitStrc* pUnit = pPath->pUnit;
+    D2UnitStrc* pTargetUnit = pDynamicPath->hTarget;
+    D2UnitStrc* pUnit = pDynamicPath->pUnit;
     if (!pTargetUnit)
     {
-        D2PathPointStrc tPos;
-        tPos.X = pPath->tGameCoords.wPosX;
-        tPos.Y = pPath->tGameCoords.wPosY;
-        if (pPath->dwCurrentPointIdx >= pPath->dwPathPoints && (tPos.X != pPath->tFinalTargetCoord.X || tPos.Y != pPath->tFinalTargetCoord.Y))
+        const int bAtEnd = pDynamicPath->dwCurrentPointIdx >= pDynamicPath->dwPathPoints;
+        if (bAtEnd)
         {
-            return D2Common_10236(pUnit, FALSE);
+            D2PathPointStrc tCoord;
+            tCoord.X = pDynamicPath->tGameCoords.wPosX;
+            tCoord.Y = pDynamicPath->tGameCoords.wPosY;
+            if (tCoord.X != pDynamicPath->tFinalTargetCoord.X || tCoord.Y != pDynamicPath->tFinalTargetCoord.Y)
+            {
+                return D2Common_10236(pUnit, FALSE);
+            }
         }
-
         return TRUE;
     }
 
-    if (D2Common_10399(pTargetUnit, pUnit) <= pPath->nStepNum)
+    const int nDistance = D2Common_10399(pTargetUnit, pUnit);
+    if (nDistance <= pDynamicPath->nStepNum)
     {
         return FALSE;
     }
 
-    const unsigned short nPosX = pPath->tGameCoords.wPosX;
-    const unsigned short nPosY = pPath->tGameCoords.wPosY;
-    D2PathPointStrc tTargetPos;
-    sub_6FDAB940(&tTargetPos, pPath);
+    D2PathPointStrc tCoord;
+    tCoord.X = pDynamicPath->tGameCoords.wPosX;
+    tCoord.Y = pDynamicPath->tGameCoords.wPosY;
 
-    pTargetUnit = pPath->hTarget;
+    D2PathPointStrc a3;
+    sub_6FDAB940(&a3, pDynamicPath);
+
+    pTargetUnit = pDynamicPath->hTarget;
     if (pTargetUnit && pTargetUnit->dwUnitType >= 0 && pTargetUnit->dwUnitType <= 1)
     {
-        const int nDiffX = pPath->tPrevTargetCoord.X - tTargetPos.X;
-        const int nDiffY = pPath->tPrevTargetCoord.Y - tTargetPos.Y;
+        const int nDiffX = pDynamicPath->tPrevTargetCoord.X - a3.X;
+        const int nDiffY = pDynamicPath->tPrevTargetCoord.Y - a3.Y;
         if (D2_ABS(nDiffX) > 5 || D2_ABS(nDiffY) > 5)
         {
             return D2Common_10236(pUnit, TRUE);
         }
     }
 
-    if (pPath->dwCurrentPointIdx < pPath->dwPathPoints || (pPath->tFinalTargetCoord.X == nPosX && pPath->tFinalTargetCoord.Y == nPosY))
+    if (pDynamicPath->dwCurrentPointIdx < pDynamicPath->dwPathPoints
+        || (pDynamicPath->tFinalTargetCoord.X == tCoord.X && pDynamicPath->tFinalTargetCoord.Y == tCoord.Y))
     {
         return TRUE;
     }
-
     return D2Common_10236(pUnit, TRUE);
+}
+
+// 0x006504F0
+int __fastcall sub_006504F0_TestPathFlag10(D2UnitStrc* pUnit, D2DynamicPathStrc* pPath)
+{
+    switch (sub_0044BE50(pUnit))
+    {
+    case 0:
+        if (!(pPath->dwFlags & 0x10))
+        {
+            return 0;
+        }
+        break;
+
+    case 1:
+        if (pPath->dwFlags & 0x10)
+        {
+            if (!UNITS_IsServerSide(pUnit))
+            {
+                return 0;
+            }
+        }
+        break;
+    }
+
+    return 1;
+}
+
+// 0x00650540
+int __stdcall D2Common_10227(D2UnitStrc* pUnit)
+{
+    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
+    if (!pDynamicPath)
+    {
+        return 1;
+    }
+
+    if (pDynamicPath->hTarget && D2Common_10399(pDynamicPath->hTarget, pUnit) <= pDynamicPath->nStepNum)
+    {
+        return 1;
+    }
+
+    return pDynamicPath->tGameCoords.wPosX == pDynamicPath->tTargetCoord.X && pDynamicPath->tGameCoords.wPosY == pDynamicPath->tTargetCoord.Y;
 }
 
 // 0x00650590
 void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc* pPath)
 {
     PATH_RecacheRoomAtCoordIfNeeded(PATH_MakeCoord(PATH_FP16FitToCenter(pPath->tGameCoords.dwPrecisionX), PATH_FP16FitToCenter(pPath->tGameCoords.dwPrecisionY)), 0, pPath);
+}
+
+// 0x006505C0
+int __stdcall PATH_HasEnteredNewSubtile(D2DynamicPathStrc* pPath)
+{
+    if (!pPath)
+    {
+        return 0;
+    }
+
+    return pPath->dwFlags & 8;
 }
 
 // 0x006505E0
@@ -383,7 +813,7 @@ void __stdcall D2Common_10235_PATH_UpdateRiderPath(D2UnitStrc* pRiderUnit, D2Uni
     PATH_RecacheRoomAtCoordIfNeeded(pMountPath->tGameCoords, pMountPath->pRoom, pRiderPath);
 }
 
-// build: context sub_00650660_AdvanceOnPath
+// 0x00650660
 static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath)
 {
     D2UnitStrc* pUnit = pPath->pUnit;
@@ -402,12 +832,14 @@ static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSte
 
     D2CoordStrc tVelocity;
     const BOOL bReachedPoint = sub_00650090_GetStepToNextPoint(&tVelocity, pPath);
+    const unsigned int nPrecX = pPath->tGameCoords.dwPrecisionX;
+    const unsigned int nPrecY = pPath->tGameCoords.dwPrecisionY;
     D2FP32_16 tNewCoord;
-    tNewCoord.dwPrecisionX = pPath->tGameCoords.dwPrecisionX + tVelocity.nX;
-    tNewCoord.dwPrecisionY = pPath->tGameCoords.dwPrecisionY + tVelocity.nY;
+    tNewCoord.dwPrecisionX = tVelocity.nX + nPrecX;
+    tNewCoord.dwPrecisionY = tVelocity.nY + nPrecY;
     D2PathPointStrc tOld;
-    tOld.X = pPath->tGameCoords.dwPrecisionX >> 16;
-    tOld.Y = pPath->tGameCoords.dwPrecisionY >> 16;
+    tOld.X = nPrecX >> 16;
+    tOld.Y = nPrecY >> 16;
     D2PathPointStrc tNew;
     tNew.X = tNewCoord.dwPrecisionX >> 16;
     tNew.Y = tNewCoord.dwPrecisionY >> 16;
@@ -418,7 +850,7 @@ static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSte
             --pPath->nDist;
         }
 
-        if (sub_00650150_TraceSteps(tVelocity.nX, tVelocity.nY, pOutCoord, pSteps, pPath))
+        if (sub_00650150_TraceSteps(tVelocity, pOutCoord, pSteps, pPath))
         {
             if (bRepath)
             {
@@ -440,16 +872,21 @@ static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSte
     return FALSE;
 }
 
-static void PATH_ResetMovement(D2DynamicPathStrc* pPath); // 0x006507B0
+void PATH_ResetMovement(D2DynamicPathStrc* pPath); // 0x006507B0
 
-// build: context PATH_ResetMovement
+BOOL __stdcall sub_6FDAD5E0(D2ActiveRoomStrc* pDestRoom, D2PathPointStrc tDest, D2DynamicPathStrc* pPath); // 0x00650910
+
+BOOL __stdcall D2Common_10231_Impl(D2ActiveRoomStrc* pRoomDest, D2PathPointStrc tDest, D2DynamicPathStrc* pPath); // 0x00650AA0
+
+// 0x006507B0
 static void PATH_ResetMovement(D2DynamicPathStrc* pPath)
 {
     PATH_RecacheRoomAtCoordIfNeeded(PATH_MakeCoord(PATH_FP16FitToCenter(pPath->tGameCoords.dwPrecisionX), PATH_FP16FitToCenter(pPath->tGameCoords.dwPrecisionY)), 0, pPath);
+    const D2CoordStrc tZeroVelocity = gtPathZeroVelocity;
     pPath->dwFlags &= 0xFFFFFFDF;
     pPath->dwPathPoints = 0;
     pPath->dwCurrentPointIdx = 0;
-    pPath->tVelocityVector = gtPathZeroVelocity;
+    pPath->tVelocityVector = tZeroVelocity;
 }
 
 // 0x00650800
@@ -476,7 +913,7 @@ D2DynamicPathStrc* __fastcall sub_00650800_CheckPathMoving(D2UnitStrc* pUnit)
     return 0;
 }
 
-// build: context D2Common_10226
+// 0x00650840
 BOOL __stdcall D2Common_10226(D2UnitStrc* pUnit, int nBaseVelocity)
 {
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
@@ -486,15 +923,14 @@ BOOL __stdcall D2Common_10226(D2UnitStrc* pUnit, int nBaseVelocity)
     }
 
     pPath->dwFlags &= 0xFFFFFFF7;
-    const unsigned int dwFlags = pPath->dwFlags;
-    if (dwFlags & 0x40000)
+    if ((pPath->dwFlags & 0x40000) != 0)
     {
         pPath->nCollidedWithMask = 0;
     }
 
-    if ((dwFlags & 0x20) && pPath->dwPathPoints > 0 && pPath->dwVelocity)
+    if ((pPath->dwFlags & 0x20) != 0 && pPath->dwPathPoints > 0 && pPath->dwVelocity != 0)
     {
-        if (((dwFlags & 0x40000) || sub_6FD5DB70(pPath)) && pPath->dwCurrentPointIdx < pPath->dwPathPoints)
+        if ((((pPath->dwFlags >> 18) & 1) || sub_6FD5DB70(pPath)) && pPath->dwCurrentPointIdx < pPath->dwPathPoints)
         {
             sub_6FD5CEB0(nBaseVelocity, pPath);
             if (pPath->tVelocityVector.nX || pPath->tVelocityVector.nY)
@@ -680,3 +1116,4 @@ BOOL __stdcall D2Common_10232(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, D2Act
     PATH_ResetMovement(pPath);
     return 1;
 }
+

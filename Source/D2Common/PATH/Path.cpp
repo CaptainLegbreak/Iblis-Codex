@@ -2695,18 +2695,6 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pDynamicPath, int nX, int nY, i
     }
 }
 
-// 0x0064FD70
-void __fastcall PATH_GetDirectionVectorFromPoints(D2CoordStrc* pDirectionVector, int* pOutDirection, D2PathPointStrc tStartPoint, D2PathPointStrc tTargetPoint)
-{
-    D2CoordStrc tStart;
-    D2CoordStrc tTarget;
-    tStart.nX = (tStartPoint.X << 16) + 0x8000;
-    tStart.nY = (tStartPoint.Y << 16) + 0x8000;
-    tTarget.nX = (tTargetPoint.X << 16) + 0x8000;
-    tTarget.nY = (tTargetPoint.Y << 16) + 0x8000;
-    PATH_GetDirectionVector(pDirectionVector, pOutDirection, tStart.nX, tStart.nY, tTarget.nX, tTarget.nY);
-}
-
 // 0x00648CF0
 void __stdcall PATH_SetType(D2DynamicPathStrc* ptPath, int eType)
 {
@@ -2888,32 +2876,6 @@ static int PATH_ComputePathClassicMissile(D2DynamicPathStrc* pPath)
         pPath->dwFlags |= PATH_ONE;
     }
     return pPath->dwPathPoints;
-}
-
-// 0x0064FDC0
-int __stdcall PATH_ComputeDirection(int nX1, int nY1, int nX2, int nY2)
-{
-    D2CoordStrc tCoords;
-    int nDirection;
-    D2CoordStrc tStart;
-    D2CoordStrc tTarget;
-    tStart.nX = (nX1 << 16) + 0x8000;
-    tStart.nY = (nY1 << 16) + 0x8000;
-    tTarget.nX = (nX2 << 16) + 0x8000;
-    tTarget.nY = (nY2 << 16) + 0x8000;
-    PATH_GetDirectionVector(&tCoords, &nDirection, tStart.nX, tStart.nY, tTarget.nX, tTarget.nY);
-    return nDirection;
-}
-
-// 0x006505C0
-int __stdcall PATH_HasEnteredNewSubtile(D2DynamicPathStrc* pPath)
-{
-    if (!pPath)
-    {
-        return 0;
-    }
-
-    return pPath->dwFlags & 8;
 }
 
 // 0x0066A280

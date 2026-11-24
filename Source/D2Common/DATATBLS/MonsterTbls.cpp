@@ -22,7 +22,6 @@
 
 static void __declspec(noinline) sub_00650EB0_MakeCode(const char* szText, char* szCode);
 
-
 #pragma function(memset)
 
 #define MONSTATSFLAGINDEX_NORATIO 2
@@ -874,6 +873,119 @@ void __fastcall DATATBLS_UnloadShrinesTxt()
     gnShrinesTxtRecordCount = 0;
 }
 
+const D2AnimDataRecordStrc* __fastcall DATATBLS_GetAnimDataRecord(D2UnitStrc* pUnit, int nClassId, int nMode, int nUnitType, void* pInventory); // 0x0066A9B0
+struct D2ChainRecordStrc
+{
+    unsigned short wId;
+    unsigned short wParent;
+    unsigned short wNext;
+    char unk0x06[0x4A - 0x06];
+    unsigned char nDepth;
+    unsigned char nRoot;
+    char unk0x4C[0x1A8 - 0x4C];
+};
+
+// 0x00650EB0
+static void sub_00650EB0_MakeCode(const char* szText, char* szCode)
+{
+    if (!szText[0])
+    {
+        szCode[0] = ' ';
+        szCode[1] = ' ';
+        szCode[2] = ' ';
+        szCode[3] = ' ';
+        return;
+    }
+    szCode[0] = szText[0];
+    if (!szText[1])
+    {
+        szCode[1] = ' ';
+        szCode[2] = ' ';
+        szCode[3] = ' ';
+        return;
+    }
+    szCode[1] = szText[1];
+    if (!szText[2])
+    {
+        szCode[2] = ' ';
+        szCode[3] = ' ';
+        return;
+    }
+    szCode[2] = szText[2];
+    if (!szText[3])
+    {
+        szCode[3] = ' ';
+        return;
+    }
+    szCode[3] = szText[3];
+}
+
+// 0x00650F00
+void __stdcall sub_00650F00(int nRecordCount)
+{
+    int i = 0;
+    if (nRecordCount <= 0) return;
+    do
+    {
+        int base = gpMonstatsTxt[i].nBaseId;
+        if (base < 0 || base >= nRecordCount)
+        {
+            gpMonstatsTxt[i].nBaseId = i;
+            base = i;
+        }
+
+        const D2AnimDataRecordStrc* pAnimDataRecord = DATATBLS_GetAnimDataRecord(0, base, 2, 1, 0);
+        unsigned int speed = pAnimDataRecord->dwAnimSpeed;
+        if (base != i && gpMonstatsTxt[base].nVelocity > 0)
+            speed = gpMonstatsTxt[i].nVelocity * speed / gpMonstatsTxt[base].nVelocity;
+        speed = speed > 0 ? speed : 0;
+        gpMonstatsTxt[i].nWalkAnimSpeed = speed < 0x7FFF ? speed : 0x7FFF;
+
+        if (i >= 410)
+            speed = DATATBLS_GetAnimDataRecord(0, base, 15, 1, 0)->dwAnimSpeed;
+        else
+            speed = gpMonstatsTxt[base].nWalkAnimSpeed / 2;
+        if (base != i && gpMonstatsTxt[base].nRun > 0)
+            speed = gpMonstatsTxt[i].nRun * speed / gpMonstatsTxt[base].nRun;
+        speed = speed > 0 ? speed : 0;
+        gpMonstatsTxt[i].nRunAnimSpeed = speed < 0x7FFF ? speed : 0x7FFF;
+        ++i;
+    } while (i < nRecordCount);
+}
+
+// 0x00651040
+void __cdecl sub_00651040_ComputeDepths()
+{
+    for (short i = 0; i < gnMonstatsTxtRecordCount; ++i)
+    {
+        unsigned short nNext = ((D2ChainRecordStrc*)gpMonstatsTxt)[i].wParent;
+        int nDepth = 0;
+        unsigned int nId = nNext;
+        // __assume: stands in for the original zero-extending the parent id twice (movzx then movzx ax)
+        __assume(nId != 0x10000);
+        do
+        {
+            if ((short)nId == i)
+            {
+                ((D2ChainRecordStrc*)gpMonstatsTxt)[i].nRoot = nDepth;
+            }
+            nNext = ((D2ChainRecordStrc*)gpMonstatsTxt)[(short)nId].wNext;
+            ++nDepth;
+            if ((short)nId == (short)nNext)
+            {
+                break;
+            }
+            nId = nNext;
+            if (nDepth > 255)
+            {
+                break;
+            }
+        }
+        while ((short)nId >= 0);
+        ((D2ChainRecordStrc*)gpMonstatsTxt)[i].nDepth = nDepth;
+    }
+}
+
 // 0x006510C0
 int __stdcall DATATBLS_GetMonsterChainInfo(int nMonsterId, int* pMaxChainId, int* pChainId)
 {
@@ -1658,40 +1770,6 @@ static int DATATBLS_GetNextIntToken(char** ppString, char chSeparator)
         ++*ppString;
     }
     return atoi(szToken);
-}
-
-static void __declspec(noinline) sub_00650EB0_MakeCode(const char* szText, char* szCode)
-{
-    if (!szText[0])
-    {
-        szCode[0] = ' ';
-        szCode[1] = ' ';
-        szCode[2] = ' ';
-        szCode[3] = ' ';
-        return;
-    }
-    szCode[0] = szText[0];
-    if (!szText[1])
-    {
-        szCode[1] = ' ';
-        szCode[2] = ' ';
-        szCode[3] = ' ';
-        return;
-    }
-    szCode[1] = szText[1];
-    if (!szText[2])
-    {
-        szCode[2] = ' ';
-        szCode[3] = ' ';
-        return;
-    }
-    szCode[2] = szText[2];
-    if (!szText[3])
-    {
-        szCode[3] = ' ';
-        return;
-    }
-    szCode[3] = szText[3];
 }
 
 // 0x00654440
