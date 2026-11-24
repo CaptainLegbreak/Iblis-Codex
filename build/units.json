@@ -78666,12 +78666,32 @@
      "length": 197
     },
     {
+     "va": "0x006B3800",
+     "length": 159
+    },
+    {
      "va": "0x006B38A0",
      "length": 267
     },
     {
+     "va": "0x006B39B0",
+     "length": 1556
+    },
+    {
      "va": "0x006B3FD0",
      "length": 795
+    },
+    {
+     "va": "0x006B42F0",
+     "length": 2454
+    },
+    {
+     "va": "0x006B4C90",
+     "length": 486
+    },
+    {
+     "va": "0x006B4E80",
+     "length": 326
     },
     {
      "va": "0x006B4FD0",
@@ -78739,6 +78759,7 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
+    "/EHsc",
     "/GS-"
    ]
   },
@@ -79180,68 +79201,6 @@
      "va": "0x006B32B0",
      "length": 101
     }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B3570.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B3800",
-     "length": 159
-    },
-    {
-     "va": "0x006B39B0",
-     "length": 1556
-    },
-    {
-     "va": "0x006B4C90",
-     "length": 486
-    },
-    {
-     "va": "0x006B4E80",
-     "length": 326
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Unknown_006B42F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B42F0",
-     "length": 2454
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc",
-    "/GS-"
    ]
   },
   {
