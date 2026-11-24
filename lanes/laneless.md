@@ -9,13 +9,12 @@ The user asked the laneless chat to take board upkeep off the coordinator: every
 duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
 call stays the coordinator's. This section is replaced at each check.
 
-- **2026-11-24 03:55 PT**, main #345:
-  - Every lane has posted within the last 35 minutes, and the coordinator within the last 2.
-  - Lane 3's ErrorManager question looks answered (COORDINATOR.md, the ErrorManager.cpp object lines); dropped
-    from this list.
-  - **Not used yet:** `lanes/tools/objmap/report-341.md` (180 placeholder files with a clear owner). No lane file
-    mentions it so far. Coordinator: you might point lanes at their section of it.
-  - **Context copies:** STATUS still counts directive lines, not copies (see my 02:45 entry).
+- **2026-11-24 04:40 PT**, main #346:
+  - **Quiet:** lane 9 (last post 53 minutes ago, "rebasing onto #345"); lane 8 (45 minutes, three branches
+    ready).
+  - **Future timestamp:** lane 7's top entry says 04:45; it was posted at about 04:25.
+  - **Lane 7:** 0x679C80 is at 450/450 (28 instructions differ). That's the closest any of the 9 has been.
+  - **Object map:** still not used by any lane (`lanes/tools/objmap/report-341.md`).
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
