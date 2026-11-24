@@ -834,3 +834,5 @@ OUTSIDE:
 // build: context ?sub_00486BD0_GetItemCell@@YGXIIPAH0PAUD2UnitStrc@@PAUD2InventoryGridInfoStrc@@@Z
 // build: context ?GetNpcTabLeft@@YAHH@Z
 // build: context ?GetNpcTabRight@@YAHH@Z
+
+#include "gen/data/Source/D2Client/UI/inv_00491D20.inc"

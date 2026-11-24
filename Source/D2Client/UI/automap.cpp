@@ -367,7 +367,6 @@ extern int gbUiRecordMode; // 0x007BEF98
 
 extern int gnAutomapMode_007A5150; // 0x007A5150
 
-extern int gnAutomapStep_00711254; // 0x00711254
 
 void __fastcall sub_00457640(int force); // 0x00457640
 
@@ -693,7 +692,8 @@ const char* __cdecl GAME_GetGameDescription(); // 0x0044B7F0
 
 unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 
-extern int gnAutomapWidth; // 0x007A5220
+// build: symbol ??__EgnAutomapWidth@@YAXXZ 0x006CAA90
+int gnAutomapWidth = gnScreenWidth; // 0x007A5220
 
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, va_list args); // 0x006CC4AC
 
@@ -784,7 +784,8 @@ int __cdecl UI_GetAutomapOffsetY();                                             
 
 void __fastcall AUTOMAP_DrawAutomapCells(D2AutomapCellStrc* pCell, D2AutomapDrawStrc* pInfo);                  // 0x00459440
 
-extern int gnAutomapHeight_007A521C;                                                                        // 0x007A521C
+// build: symbol ??__EgnAutomapHeight_007A521C@@YAXXZ 0x006CAAA0
+int gnAutomapHeight_007A521C = gnScreenHeight - 40; // 0x007A521C
 
 int gnAutomapViewX;                                                                                // 0x007A5190
 
@@ -2788,11 +2789,11 @@ void __fastcall AUTOMAP_SetAutomapMode(int mode)
     if (mode != gnAutomapMode_007A5150)
     {
         gnAutomapMode_007A5150 = mode;
-        gnAutomapStep_00711254 = 10;
+        gnAutomapScale = 10;
         switch (mode)
         {
         case 1:
-            gnAutomapStep_00711254 = 20;
+            gnAutomapScale = 20;
             break;
         }
         AUTOMAP_ReloadAutomapCels();

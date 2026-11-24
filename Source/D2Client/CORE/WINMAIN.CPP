@@ -299,7 +299,13 @@ int __stdcall WINMAIN_ShowCommandLineHelp(const D2CmdParamsStrc* pParams, int nU
 
 int __stdcall WINMAIN_SetLaunchMode(const D2CmdParamsStrc* pParams, int nUnused); // 0x0044B600
 
-const char* gpszHelpCaption; // 0x007A0454
+extern const char* gpszDefaultCaption_0070EE50; // 0x0070EE50
+
+// build: symbol ??__EgpszHelpCaption@@YAXXZ 0x006CA9A0
+const char* gpszHelpCaption = gpszDefaultCaption_0070EE50; // 0x007A0454
+
+// build: symbol ??__EgpszCaption_007A0450@@YAXXZ 0x006CA9B0
+const char* gpszCaption_007A0450 = gpszDefaultCaption_0070EE50; // 0x007A0450
 
 int gbGameServerReady; // 0x007A0618
 

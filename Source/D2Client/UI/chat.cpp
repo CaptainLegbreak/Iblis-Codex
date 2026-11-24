@@ -56,7 +56,8 @@ unsigned int gnChatCaret; // 0x007BB5E8
 
 extern int gnChatDrawCount; // 0x007BB5EC
 
-extern Unicode gwszChatLine_007BB638[]; // 0x007BB638
+// build: symbol ??__EgwszChatLine_007BB638@@YAXXZ 0x006CAAF0
+Unicode gwszChatLine_007BB638[0x101]; // 0x007BB638
 
 void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
@@ -70,10 +71,13 @@ extern D2MsgHandlerEntryStrc gaChatHandlers[]; // 0x00712F4C
 
 extern D2MsgHandlerEntryStrc gaChatInputHandlers[]; // 0x00712FA8
 
-extern Unicode gwszImeResult[32]; // 0x007BB5F8
+// build: symbol ??__EgwszImeResult@@YAXXZ 0x006CAB90
+Unicode gwszImeResult[32]; // 0x007BB5F8
 
-extern Unicode gwszImeComposition[32]; // 0x007BC850
+// build: symbol ??__EgwszImeComposition@@YAXXZ 0x006CAB30
+Unicode gwszImeComposition[32]; // 0x007BC850
 
+// build: symbol ??__EgawszChatHistory@@YAXXZ 0x006CAB10
 Unicode gawszChatHistory[8][0x101]; // 0x007BB840
 
 struct HKL__;
