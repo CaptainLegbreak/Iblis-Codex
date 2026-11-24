@@ -1,0 +1,92 @@
+va	old_name	file	reason
+0x0060DC70	D2StormHashKeyStrIAStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060DC90	~D2StormHashKeyStrIAStrc	Source/D2Common/Chat/Ignorelist.cpp	constructor/destructor/operator; named by its class
+0x0060DCB0	??4D2StormHashKeyStrIAStrc@@QAEAAU0@ABU0@@Z	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol
+0x0060DD00	D2StormHashKeyStrIBStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060DD20	sub_0060DD20_EqualsNoCase	Source/D2Common/Chat/Ignorelist.cpp	string record member (case-insensitive equals); member names, see the member-function question
+0x0060DD50	~ChatIgnoreList	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060DD90	~D2StormHashKeyStrIBStrc	Source/D2Common/Chat/Ignorelist.cpp	constructor/destructor/operator; named by its class
+0x0060DDD0	ChatIgnoreList	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E130	??4D2StormHashKeyStrIBStrc@@QAEAAU0@ABU0@@Z	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; in // build: symbol
+0x0060E1A0	sub_0060E1A0_Next	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E200	D2ChatStormBaseArrayAStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E220	D2ChatStormBaseArrayBStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E240	sub_0060E240_Next	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E280	sub_0060E280_AddLinkOffset	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E360	sub_0060E360_AddLinkOffset	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E3B0	sub_0060E3B0_Unlink	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E3F0	D2ChatStormLinkAStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E400	sub_0060E400_Unlink	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E5E0	D2ChatStormLinkBStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E690	sub_0060E690_Unlink	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E760	sub_0060E760_Unlink	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E800	D2ChatStormListCStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E870	D2ChatStormListDStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E9B0	D2CommonStormListCStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060E9E0	D2CommonStormListDStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060EA10	~D2CommonMappingEntryNodeBaseStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060EAE0	~D2CommonStringEntryNodeStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060EC40	~D2CommonStormSlotListAStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060ED00	D2CommonStormListEStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060ED30	~D2CommonMappingEntryNodeStrc	Source/D2Common/Chat/Ignorelist.cpp	constructor/destructor/operator; named by its class
+0x0060EDB0	~D2StormSlotList0060EDB0Strc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060EE40	D2ChatStormListEStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060EEF0	~D2CommonStormSlotListBStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060F020	sub_0060F020_ConstructDeadList	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060F050	sub_0060F050_ConstructList	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060F070	D2CommonStormListFStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060F190	~D2CommonStormSlotListCStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060F250	D2ChatStormListEStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060F2C0	~D2CommonStormSlotListDStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060F360	sub_0060F360_ConstructDeadList	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060F4E0	sub_0060F4E0_ConstructList	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060F610	~D2CommonStormSlotArrayAStrc	Source/D2Common/Chat/Ignorelist.cpp	constructor/destructor/operator; named by its class
+0x0060F690	~D2CommonStormSlotListEStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060F930	~D2CommonStormSlotArrayAViewStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060F940	sub_0051D690_Init	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060F950	~D2CommonStormSlotArrayBStrc	Source/D2Common/Chat/Ignorelist.cpp	constructor/destructor/operator; named by its class; in // build: symbol
+0x0060FE30	D2CommonStormZeroAStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060FE40	D2CommonStormZeroBStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060FE50	D2CommonStormZero6105F0Strc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0060FE70	D2CommonStormZero6105F0Strc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00610080	~D2CommonStormSlotGrowArrayBStrc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006100A0	sub_0051D690_Init	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_006100A0_Init)
+0x006104A0	??0?$TSHashTable@UStringEntryNode@@VHASHKEY_STRI@@@@QAE@XZ	Source/D2Common/Chat/Ignorelist.cpp	constructor/destructor/operator; named by its class; in // build: symbol
+0x006105F0	D2CommonStormZero6105F0Strc	Source/D2Common/Chat/Ignorelist.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00610610	D2CommonRecord610610Strc	Source/D2Common/Chat/Ignorelist.cpp	constructor/destructor/operator; named by its class
+0x00610AA0	~IgnoreList	Source/D2Common/Chat/Ignorelist.cpp	constructor/destructor/operator; named by its class
+0x00610B30	??0?$TSHashTable@UMappingEntryNode@@VHASHKEY_STRI@@@@QAE@XZ	Source/D2Common/Chat/Ignorelist.cpp	constructor/destructor/operator; named by its class; in // build: symbol
+0x00610D30	sub_00610D30	Source/D2Common/Chat/Ignorelist.cpp	scalar deleting destructor; named by its class
+0x00611200	IgnoreList	Source/D2Common/Chat/Ignorelist.cpp	IgnoreList constructor; named by its class
+0x00624710	sub_00624710	Source/D2Common/Logging/Logging.cpp	returns an unnamed global
+0x0062A360	sub_0062A360	Source/D2Common/ITEMS/Items.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0063BE30	sub_0063BE30_Return	Source/D2Common/INVENTORY/Inventory.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0063BE30)
+0x0063C4B0	sub_00646000_AlwaysZero	Source/D2Common/INVENTORY/Inventory.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0063C4B0_AlwaysZero)
+0x0063DB80	sub_0063DB80	Source/D2Common/INVENTORY/Inventory.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0063E050	sub_0063E050	Source/D2Common/INVENTORY/Inventory.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0063E060	sub_00646000_AlwaysZero	Source/D2Common/INVENTORY/Inventory.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0063E060_AlwaysZero)
+0x0063EBC0	sub_0063EBC0	Source/D2Common/Monsters/MONSTERS.CPP	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_0063EBC0_SetSkillBonus)
+0x00642740	sub_00642740	Source/D2Common/DRLG/Drlg.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00643600	sub_00643600_ReturnZero	Source/D2Common/SKILLS/Skills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00643610	sub_00643610_Nop	Source/D2Common/SKILLS/Skills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00645FF0	sub_00646000_AlwaysZero	Source/D2Common/SKILLS/Skills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart; (also spelled sub_00645FF0_AlwaysZero)
+0x00646000	sub_00646000_AlwaysZero	Source/D2Common/SKILLS/Skills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00646010	sub_00646010_Empty	Source/D2Common/SKILLS/Skills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006460B0	sub_006460B0	Source/D2Common/SKILLS/Skills.cpp	empty function with three arguments
+0x006460C0	sub_006460C0_Empty	Source/D2Common/SKILLS/Skills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006460D0	sub_006460D0_Empty	Source/D2Common/SKILLS/Skills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x006460E0	sub_006460E0_Empty	Source/D2Common/SKILLS/Skills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00646260	sub_00646260_AlwaysOne	Source/D2Common/SKILLS/Skills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00646270	sub_00646270_AlwaysOne	Source/D2Common/SKILLS/Skills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00648370	sub_00648370_Nop	Source/D2Common/PATH/Path.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00648380	sub_00648380_Nop	Source/D2Common/PATH/Path.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00648390	sub_00648390_AlwaysZero	Source/D2Common/SKILLS/Skills.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00648430	sub_00648430_Nop	Source/D2Common/PATH/Path.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00648440	sub_00648440_Nop	Source/D2Common/PATH/Path.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00648450	sub_00648450_Nop	Source/D2Common/PATH/Path.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x0064DDB0	sub_0064DDB0	Source/D2Common/COLLISN/Collisn.cpp	second static copy of COLLISION_SetCollisionMask (named at 0x0064CAF0); D2MOO's 1.14d note gives this address the same name, so the two need sorting out first
+0x00654E70	sub_00654E70	Source/D2Common/DATATBLS/MonsterTbls.cpp	identical copy of another function in this scope (same body, no distinguishing callers); template/inline copies cannot be told apart
+0x00667420	sub_00667420_GetChainField20	Source/D2Common/DRLG/Preset.cpp	returns an unnamed field through a pointer chain
+0x0067FB90	?DRLGOUTWILD_FindBridgeInColumn@@YGXPAUD2DrlgLevelStrc@@HPAH1@Z	Source/D2Common/DRLG/OutDesr.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [?DRLGOUTWILD_FindBridgeInColumn@@YGXPAUD2DrlgLevelStrc@@HPAH1@Z]; named by its template; in // build: symbol; (also spelled Unknown_0067FB90)
+0x006CB010	sub_006CB010_InitializeLock	Source/D2Common/DRLG/Preset.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__EgLevelFilesCriticalSection@@YAXXZ]; named by its template; in // build: symbol
+0x006CB4E0	sub_006CB4E0_DestroyLock	Source/D2Common/DRLG/Preset.cpp	template member instantiation, emitted from the class template (no body of its own in the unit) [??__FgLevelFilesCriticalSection@@YAXXZ]; named by its template; in // build: symbol

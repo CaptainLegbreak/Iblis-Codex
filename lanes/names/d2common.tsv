@@ -1,0 +1,24 @@
+va	old_name	new_name	source	file	confidence	reason
+0x00624740	sub_00624740_FormatLocalTime	LOG_FormatLocalTime	inferred	Source/D2Common/Logging/Logging.cpp	high	formats the local time as "HH:MM:SS.mmm\t"
+0x00624C60	sub_00624C60_FindStat	STATLIST_FindStat	inferred	Source/D2Common/Stats/StatsEx.cpp	high	returns a stat array's entry for a layer/stat id, or null
+0x00627EF0	sub_00627EF0	ITEMS_AssignPrefix	d2moo	Source/D2Common/ITEMS/Items.cpp	high	D2MOO 1.14d 0x00627EF0; D2Game Items.cpp already declares ITEMS_AssignPrefix at this same address (0x00627EF0); (also spelled Unit00627EF0)
+0x00627FB0	sub_00627FB0	ITEMS_AssignSuffix	d2moo	Source/D2Common/ITEMS/Items.cpp	high	D2MOO 1.14d 0x00627FB0; D2Common Items.cpp already declares ITEMS_AssignSuffix at this same address (0x00627FB0); (also spelled Unit00627FB0)
+0x00628070	sub_00628070	ITEMS_AssignRareSuffix	d2moo	Source/D2Common/ITEMS/Items.cpp	high	D2MOO 1.14d 0x00628070; D2Game Items.cpp already declares it at this same address (0x00628070); (also spelled Unit00628070)
+0x006280A0	sub_006280A0	ITEMS_CheckItemFlag	d2moo	Source/D2Common/ITEMS/Items.cpp	high	D2MOO 1.14d 0x006280A0; the source already defines it under this name, and D2Client Gfx.cpp declares it at this same address; (also spelled sub_006280A0_TestFlag)
+0x00641930	sub_00641930_IsPointNearRoom	DRLG_IsPointNearRoom	inferred	Source/D2Common/DRLG/Drlg.cpp	high	tells whether a point lies within a radius of a room (the source defines it as SKILLS_IsPointNearRoom; Drlg.cpp's prefix is DRLG_); (also spelled sub_U04_Emit_00641930)
+0x006419A0	sub_006419A0_IsUnitAlive	DRLG_IsUnitAlive	inferred	Source/D2Common/DRLG/Drlg.cpp	high	tells whether a player or monster is not dying or dead
+0x00641F20	sub_00641F20_SetPlayerModeState	UNITS_SetInteractData	d2moo	Source/D2Common/DRLG/Drlg.cpp	medium	D2MOO 1.14d 0x00641F20; sets a player's interact state and data (Drlg.cpp already holds a UNITS_ name)
+0x006488A0	sub_006488A0	PATH_SetDirection	d2moo	Source/D2Common/PATH/Path.cpp	high	D2MOO 1.14d 0x006488A0; D2Client SCmd.cpp already declares it at this same address; (also spelled Obj006488A0, sub_006488A0_SetDirection)
+0x00648B90	sub_00648B90_SetPathTarget	PATH_SetTargetUnit	d2moo	Source/D2Common/PATH/Path.cpp	high	D2MOO 1.14d 0x00648B90; D2Client Gfx.cpp already declares it at this same address
+0x006492A0	sub_006492A0	PATH_ComputeSquaredDistance	d2moo	Source/D2Common/PATH/Path.cpp	high	D2MOO 1.14d 0x006492A0; D2Client.h already declares it at this same address
+0x0064A730	sub_0064A730_GetMissileTargetStatus	MISSILE_GetTargetX	d2moo	Source/D2Common/PATH/Path.cpp	high	D2MOO 1.14d 0x0064A730; D2Client.h already declares it at this same address; (also spelled sub_0064A730_GetTargetX, sub_0064A730_GetUnitId)
+0x0064B2A0	sub_0064B2A0_GetMissileElementLength	MISSILE_GetElementalLength	d2moo	Source/D2Common/UNITS/Missile.cpp	high	D2MOO 1.14d 0x0064B2A0; a missile's elemental length, scaled by level; (also spelled sub_0064B2A0)
+0x00650EB0	sub_00650EB0_MakeCode	DATATBLS_MakeCode	inferred	Source/D2Common/DATATBLS/MonsterTbls.cpp	medium	turns a text field into a space-padded four-character code
+0x00650F00	sub_00650F00	DATATBLS_InitMonStatsAnimSpeeds	inferred	Source/D2Common/DATATBLS/MonsterTbls.cpp	medium	fixes each MonStats record's base id and computes its walk/run animation speeds from AnimData
+0x00651040	sub_00651040_ComputeDepths	DATATBLS_ComputeMonStatsDepths	inferred	Source/D2Common/DATATBLS/MonsterTbls.cpp	medium	computes each MonStats record's depth along its parent chain
+0x00651150	sub_00651150	DATATBLS_MonStatsSkillModeLinker	d2moo	Source/D2Common/DATATBLS/MonsterTbls.cpp	high	D2MOO 1.14d 0x00651150; txt linker for MonStats skill modes
+0x00675600	sub_00675600_LookupTable	DRLGOUTDOORS_GetCornerPresetId	inferred	Source/D2Common/DRLG/Outdoors.cpp	medium	maps two direction pairs and a size to a corner preset id (OutSiege calls it for nCornerPresetId); D2MOO has it unnamed; (also spelled DRLGOUTDOOR_00675600, Unknown_00675600)
+0x0067C890	sub_0067C890	DRLGGRID_SetVertexGridFlags	d2moo	Source/D2Common/DRLG/DrlgGrid.cpp	high	D2MOO 1.14d 0x0067C890; sets grid flags along a vertex chain
+0x0067FC50	sub_0067FC50	DRLGOUTDESR_FindBridgeInLastColumn	inferred	Source/D2Common/DRLG/OutDesr.cpp	medium	finds a bridge in the grid's second-to-last column
+0x006801F0	sub_006801F0_GetCliffPresetId	DRLGOUTDESR_GetCliffPresetId	inferred	Source/D2Common/DRLG/OutDesr.cpp	high	returns the cliff preset id (one more in the Blood Moor)
+0x00680200	sub_00680200_SpawnRiverAndCliffCaves	DRLGOUTDESR_SpawnRiverAndCliffCaves	inferred	Source/D2Common/DRLG/OutDesr.cpp	high	places the river and cliff caves of a wilderness level (not the cow level)

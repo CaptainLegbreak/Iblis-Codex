@@ -5,9 +5,10 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Claimed
-- D2Common (next), then D2Launch, D2BNClient, D2Multi, D2Gfx, D2Sound, SRP, D2Direct3D and the rest.
+- the small modules in one scope (D2Launch, D2BNClient, D2Multi, D2Gfx, D2Sound, SRP, D2Direct3D, D2Gdi, D2Win, D2Glide, D2Net, D2Lang, D2DDraw, D2Hell).
 
 ## Plans
+- plan d2common: 17 high, 6 medium, 91 skipped (d2moo 12, inferred 11). D2Common in named files. Most d2moo names are already declared in other modules at the same address (D2Client/D2Game call these exports), as the reasons say. Most skips are the empty ordinal stubs.
 - plan d2cmp: 12 high, 3 medium, 119 skipped (d2moo 0, inferred 15). D2CMP's own bare style (CodecDcc…, Palette…, SubTile…). Nearly all skips are template members, constructors and the 19-copy empty stub.
 - plan d2game: 77 high, 14 medium, 87 skipped (d2moo 49, inferred 42). All of D2Game in named files. The d2moo names come from D2MOO's own 1.14d address notes, each checked against the body; where D2MOO's name is already used for another address (TASK_ProcessGame, ACT2Q4_IsJerhynPalaceActivated, AIUTIL_FindTargetInAdjacentActiveRooms) I kept the existing one and named or skipped the other.
 - plan d2client-editbox: 0 high, 0 medium, 96 skipped. editbox.cpp holds only virtual members of the Button/EditBox/Spinner control classes (vtable slots, wrappers, ctors/dtors) plus identical forwarders; all wait on the member-function question. Only the skipped list is posted (no plan file).
