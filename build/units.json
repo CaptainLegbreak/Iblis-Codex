@@ -8275,6 +8275,11 @@
      "name": "SEvtBreakHandlerChain"
     },
     {
+     "va": "0x00426F20",
+     "length": 106,
+     "name": "?sub_00426F20_DeleteNode@D2StormBreakCmdListStrc@@QAEPADPAD@Z"
+    },
+    {
      "va": "0x00426F90",
      "length": 453
     },
@@ -8394,17 +8399,6 @@
     "/Oy-",
     "/Ob2",
     "/Gd"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00426F20.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00426F20",
-     "length": 106,
-     "name": "?sub_00426F20_DeleteNode@D2StormBreakCmdListStrc@@QAEPADPAD@Z"
-    }
    ]
   },
   {

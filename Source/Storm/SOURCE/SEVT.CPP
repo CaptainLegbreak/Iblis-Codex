@@ -67,7 +67,7 @@ struct D2StormBreakCmdListStrc
         return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
     }
     char* sub_00426C80_RawNext(D2StormLinkStrc* pNode);                                                    // 0x00426C80
-    char* sub_00426F20_DeleteNode(char* pNode);                                                             // 0x00426F20
+    char* sub_00426F20_DeleteNode(char* pNode);
     char* DeleteNode(char* pNode);
 };
 
@@ -400,6 +400,15 @@ int __stdcall SEvtBreakHandlerChain(void* pData)
     pCmd->pData = pData;
     LeaveCriticalSection(&gtSEvtLock);
     return 1;
+}
+
+// 0x00426F20
+char* D2StormBreakCmdListStrc::sub_00426F20_DeleteNode(char* pNode)
+{
+    char* pNext = Link(pNode)->Next();
+    ((D2StormLinkStrc*)pNode)->Unlink();
+    SMemFree(pNode, gszTypeBreakCmd_007088D8, -2, 0);
+    return pNext;
 }
 
 // 0x00426F90
