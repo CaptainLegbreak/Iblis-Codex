@@ -36,6 +36,13 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   in d3dCore it builds equal, and d3dCore's inline copy class CRegKeyInline goes. 0x6B2F40 is CRegKey's out-of-line
   destructor (names.csv row now ~CRegKey, library); 0x6B2F20/0x6B2F30 get/set the tile-buffer flag 0x970E8C. 62 equal.
   Lane 10: files-d2direct3d.tsv's weak 2F30/2F40 rows were right.
+- lane9/glide-run 18fdace8, on main 5ed199a4 (#368), precheck 0 not all equal; full verify VERIFIED, borrowed data 844 B
+  (main's). Placeholders -4: D2Glide's debug-drawing run (Unknown_0050BD30.cpp's pieces 0x50BD30-0x50D540 with
+  0x50BF40, 0x50BF50, 0x50C890, 0x50CD40 between them) is one file; 24 equal. The original's 0x50CD40 calls the
+  blended-shadow getter 0x50BF40 instead of inlining it, so the unit takes /Ob1 (like gdiCore.cpp) with the draw-rect
+  helper 0x50C690 marked inline. **Coordinator:** a per-unit option; the module as a whole doesn't build under /Ob1
+  (glDebugFont, glSmack, glTextureCache, glSubtileCache break). The same uninlined getter call is what keeps 0x6C8A50 out
+  of the D2Gdi run and 0x6B7530 out of 0x6B7250's object; I'll try the same /Ob1 + inline route there next.
 - Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
