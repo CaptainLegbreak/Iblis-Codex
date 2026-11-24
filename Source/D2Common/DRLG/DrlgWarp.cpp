@@ -106,7 +106,6 @@ struct D2LvlWarpTxt
     int dwLevelId;
 };
 
-
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId); // 0x0061E470
 
 unsigned int __fastcall DRLGROOM_CheckWaypointFlags(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BAA0
@@ -128,6 +127,10 @@ static D2DrlgRoomStrc* __stdcall DRLGWARP_GetWaypointRoomExFromLevel(D2DrlgLevel
 static D2DrlgRoomStrc* DRLGWARP_GetFirstWarpRoom(D2DrlgLevelStrc* pLevel);
 
 D2ActiveRoomStrc* __fastcall DRLGWARP_GetLevelEntryRoom(D2DrlgStrc* pDrlg, int nLevelId, int nTileIndex, int* pX, int* pY);
+
+#define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+void __stdcall DRLG_InitLevel(D2DrlgLevelStrc* pLevel);                                                    // 0x006424A0
 
 // 0x0066A290
 void __cdecl DRLGWARP_ShouldNeverBeCalled()
@@ -233,6 +236,21 @@ static D2DrlgRoomStrc* __stdcall DRLGWARP_GetWaypointRoomExFromLevel(D2DrlgLevel
         }
     }
     return 0;
+}
+
+// 0x0066AE70
+static D2DrlgRoomStrc* sub_0066AE70_GetRandomRoom(D2DrlgLevelStrc* pLevel)
+{
+    D2_ASSERT(pLevel, 318);
+    D2_ASSERT(pLevel->ptRoomFirst, 319);
+    int nRand = ITEMS_RollLimitedRandomNumber(&pLevel->pSeed, pLevel->nRooms);
+    D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst;
+    while (nRand)
+    {
+        pDrlgRoom = pDrlgRoom->pDrlgRoomNext;
+        --nRand;
+    }
+    return pDrlgRoom;
 }
 
 // 0x0066AEC0
@@ -412,20 +430,7 @@ void __fastcall DRLGWARP_InitializeConnectedLevels(D2DrlgStrc* pDrlg,int unused,
  }
 }
 
-static D2DrlgRoomStrc* sub_0066AE70_GetRandomRoom(D2DrlgLevelStrc* pLevel)
-{
-    D2_ASSERT(pLevel, 318);
-    D2_ASSERT(pLevel->ptRoomFirst, 319);
-    int nRand = ITEMS_RollLimitedRandomNumber(&pLevel->pSeed, pLevel->nRooms);
-    D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst;
-    while (nRand)
-    {
-        pDrlgRoom = pDrlgRoom->pDrlgRoomNext;
-        --nRand;
-    }
-    return pDrlgRoom;
-}
-
+static D2DrlgRoomStrc* sub_0066AE70_GetRandomRoom(D2DrlgLevelStrc* pLevel);
 // 0x0066B1F0
 static D2DrlgRoomStrc* DRLGWARP_GetFirstWarpRoom(D2DrlgLevelStrc* pLevel)
 {
