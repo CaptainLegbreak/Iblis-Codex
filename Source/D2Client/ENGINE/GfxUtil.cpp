@@ -372,15 +372,15 @@ struct D2ArmorCompsStrc
     unsigned char n7;
 };
 
-extern unsigned int gaPlrModeTokens[];                                                             // 0x007C88D0
+unsigned int gaPlrModeTokens[20];                                                             // 0x007C88D0
 
-extern unsigned int gaCompTokens[];                                                                // 0x007C8920
+unsigned int gaCompTokens[16];                                                                // 0x007C8920
 
-extern unsigned int gaObjModeTokens[8];                                                            // 0x007C8960
+unsigned int gaObjModeTokens[8];                                                            // 0x007C8960
 
-extern unsigned int gaMonModeTokens[];                                                             // 0x007C8980
+unsigned int gaMonModeTokens[16];                                                             // 0x007C8980
 
-extern unsigned int gaClassTokens[3];                                                              // 0x007C89C0
+unsigned int gaClassTokens[3];                                                              // 0x007C89C0
 
 D2InventoryStrc* __fastcall sub_0046DB30_GetCompInventory(D2UnitStrc* pUnit, int* pOut);                    // 0x0046DB30
 
@@ -511,6 +511,29 @@ struct D2GfxNodeStrc
     D2GfxNodeStrc* pNext;
 };
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
+
+struct D2BallisticStrc
+{
+    unsigned int dwFlags;
+    int f_4;
+    int f_8;
+    int nVelocity;
+    int nVelA;
+    int nVelB;
+    int nStartVelocity;
+    int unk0x1C[2];
+    int f_24;
+    int unk0x28[8];
+    int nFrames;
+};
+
+D2BallisticStrc* __fastcall sub_0046F060(D2UnitStrc* pUnit); // 0x0046F060
+
+D2TokRecord* __stdcall DATATBLS_GetCompositTxtRecord(int nComposit);                                        // 0x0065B5E0
+
+D2TokRecord* __stdcall DATATBLS_GetMonModeTxtRecord(unsigned int nIndex, int bGetMode);                     // 0x0065B500
+
+D2TokRecord* __stdcall DATATBLS_GetArmTypeTxtRecord(int nId);                                               // 0x0065B620
 
 // 0x0046C570
 int __fastcall GFXUTIL_ForEachUnitInAdjacentRooms(D2UnitStrc* pUnit, void* pArg1, void* pArg2, UNITCALLBACKFN pfnCallback)
@@ -791,6 +814,37 @@ void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit)
     }
 }
 
+// 0x004DA5B0
+void __fastcall SKILLS_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames)
+{
+    D2BallisticStrc* pBallistic = sub_0046F060(pUnit);
+    if (!pBallistic)
+    {
+        return;
+    }
+
+    pBallistic->dwFlags |= 2;
+    pBallistic->nFrames = nFrames;
+    if (nFrames < 1)
+    {
+        pBallistic->nFrames = 1;
+    }
+
+    nSpeed <<= 0x0B;
+    pBallistic->f_4 = 0;
+    pBallistic->f_8 = 0;
+    pBallistic->nVelocity = nSpeed;
+    if (!pBallistic->f_24)
+    {
+        pBallistic->f_24 = -0x1000;
+    }
+
+    pBallistic->nVelA = 0;
+    pBallistic->nVelB = 0;
+    pBallistic->nStartVelocity = (-nSpeed - pBallistic->f_24 * pBallistic->nFrames * pBallistic->nFrames / 2) / pBallistic->nFrames;
+}
+
+
 // 0x004DA620
 void __fastcall sub_004DA620_SetMotionFlag10(D2UnitStrc* pUnit, int bSet)
 {
@@ -816,6 +870,18 @@ void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet)
             pMotion->dwFlags &= ~0x20;
     }
 }
+
+// 0x004DA700
+int __fastcall sub_004DA700_GetGfxMotionFlag5(D2UnitStrc* pUnit)
+{
+    D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
+    if (pMotion)
+    {
+        return pMotion->bFlag5;
+    }
+    return 0;
+}
+
 
 
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
@@ -1053,6 +1119,23 @@ void __cdecl GFXUTIL_DrawFadeBox()
 
     D2GFX_DrawBoxAlpha(nXStart, 0, nXEnd, nYEnd, 0, nRemaining * 255 / 500);
 }
+
+// 0x004DC0A0
+void __cdecl PLAYERLIST_ClearFadeTimer()
+{
+    gdwFadeTick = 0;
+}
+
+// 0x004DC0B0
+D2RosterInfoStrc* __fastcall PLAYERLIST_GetNextRosterInfo(D2RosterInfoStrc* pRosterInfo)
+{
+    if (!pRosterInfo)
+    {
+        return 0;
+    }
+    return pRosterInfo->pNext;
+}
+
 
 // 0x004DC3E0
 void __fastcall GFXUTIL_SetRelationFlag(int nUnitId1, int nUnitId2, unsigned int nFlags, int bSet)
@@ -2632,6 +2715,60 @@ static void GFXUTIL_CopyCompCode(D2CompCodeStrc* pDst, const char* pSrc)
     pDst->c3 = 0x20;
 }
 
+// 0x004DA770
+unsigned char __fastcall sub_004DA770_GetMonComponentIndex(D2UnitStrc* pUnit, unsigned char nComponent)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && nComponent < 16 && pUnit->pMonsterData)
+        return pUnit->pMonsterData->nComponent[nComponent];
+    return 0;
+}
+
+// 0x004DA790
+void __cdecl PARTICLE_InitModeTokens()
+{
+    memset(gaCompTokens, 0, sizeof(gaCompTokens));
+    for (unsigned int i = 0; i < 16; ++i)
+    {
+        D2TokRecord* pRecord = DATATBLS_GetCompositTxtRecord(i);
+        D2_ASSERT(pRecord, 0x36);
+        gaCompTokens[i] = pRecord->dwCode;
+    }
+
+    memset(gaPlrModeTokens, 0, sizeof(gaPlrModeTokens));
+    for (unsigned int i = 0; i < 20; ++i)
+    {
+        D2TokRecord* pRecord = DATATBLS_GetPlrModeTypeTxtRecord(i, 1);
+        D2_ASSERT(pRecord, 0x3F);
+        gaPlrModeTokens[i] = pRecord->dwCode;
+    }
+
+    memset(gaMonModeTokens, 0, sizeof(gaMonModeTokens));
+    for (unsigned int i = 0; i < 16; ++i)
+    {
+        D2TokRecord* pRecord = DATATBLS_GetMonModeTxtRecord(i, 1);
+        D2_ASSERT(pRecord, 0x48);
+        gaMonModeTokens[i] = pRecord->dwCode;
+    }
+
+    memset(gaObjModeTokens, 0, sizeof(gaObjModeTokens));
+    for (unsigned int i = 0; i < 8; ++i)
+    {
+        D2TokRecord* pRecord = DATATBLS_GetObjModeTypeTxtRecord(i, 1);
+        D2_ASSERT(pRecord, 0x51);
+        gaObjModeTokens[i] = pRecord->dwCode;
+    }
+
+    memset(gaClassTokens, 0, sizeof(gaClassTokens));
+    for (unsigned int i = 0; i < 3; ++i)
+    {
+        D2TokRecord* pRecord = DATATBLS_GetArmTypeTxtRecord(i);
+        D2_ASSERT(pRecord, 0x5A);
+        gaClassTokens[i] = pRecord->dwCode;
+    }
+}
+
+
+
 // 0x004DA8E0
 static void __stdcall GFXUTIL_SetMissileCelName(D2UnitStrc* pUnit, D2CelContextStrc* pToken)
 {
@@ -2856,6 +2993,16 @@ static void GFXUTIL_SetItemCelName(D2UnitStrc* pUnit, D2CelContextStrc* pToken)
         }
     }
 }
+
+// 0x004DAD20
+void __fastcall PARTICLE_SetOverlayCelName(D2UnitStrc* pUnit, D2CelContextStrc* pToken)
+{
+    const int nOverlay = pToken->nOverlay;
+    D2OverlayTxt* pRecord = (nOverlay >= 0 && nOverlay < sgptDataTables->nOverlayTxtRecordCount) ? &sgptDataTables->pOverlayTxt[nOverlay] : 0;
+    if (pRecord)
+        pToken->szName = pRecord->szFilename;
+}
+
 
 // 0x004DAD50
 static int GFXUTIL_GetOverlayDirections(int nOverlay)

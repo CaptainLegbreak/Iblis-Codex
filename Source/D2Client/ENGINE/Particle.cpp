@@ -24,16 +24,6 @@ struct D2GfxNodeStrc
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
-unsigned int gaPlrModeTokens[20];                                                                  // 0x007C88D0
-
-unsigned int gaCompTokens[16];                                                                     // 0x007C8920
-
-unsigned int gaObjModeTokens[8];                                                                   // 0x007C8960
-
-unsigned int gaMonModeTokens[16];                                                                  // 0x007C8980
-
-unsigned int gaClassTokens[3];                                                                     // 0x007C89C0
-
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 
 D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit);                                   // 0x0046F060
@@ -209,68 +199,26 @@ extern "C" int __stdcall PARTICLE_GetGfxOffsetX(B28Unit* unit)
     return 0;
 }
 
-// 0x004DA700
-int __fastcall sub_004DA700_GetGfxMotionFlag5(D2UnitStrc* pUnit)
+// 0x004DA0D0
+int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit)
 {
     D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
     if (pMotion)
     {
-        return pMotion->bFlag5;
+        return pMotion->nClientY;
     }
     return 0;
 }
 
-// 0x004DA790
-void __cdecl PARTICLE_InitModeTokens()
+// 0x004DA0F0
+int __stdcall ITEM_GetGfxClientZ(D2UnitStrc* pUnit)
 {
-    memset(gaCompTokens, 0, sizeof(gaCompTokens));
-    for (unsigned int i = 0; i < 16; ++i)
+    D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
+    if (pMotion)
     {
-        D2TokRecord* pRecord = DATATBLS_GetCompositTxtRecord(i);
-        D2_ASSERT(pRecord, 0x36);
-        gaCompTokens[i] = pRecord->dwCode;
+        return pMotion->nClientZ;
     }
-
-    memset(gaPlrModeTokens, 0, sizeof(gaPlrModeTokens));
-    for (unsigned int i = 0; i < 20; ++i)
-    {
-        D2TokRecord* pRecord = DATATBLS_GetPlrModeTypeTxtRecord(i, 1);
-        D2_ASSERT(pRecord, 0x3F);
-        gaPlrModeTokens[i] = pRecord->dwCode;
-    }
-
-    memset(gaMonModeTokens, 0, sizeof(gaMonModeTokens));
-    for (unsigned int i = 0; i < 16; ++i)
-    {
-        D2TokRecord* pRecord = DATATBLS_GetMonModeTxtRecord(i, 1);
-        D2_ASSERT(pRecord, 0x48);
-        gaMonModeTokens[i] = pRecord->dwCode;
-    }
-
-    memset(gaObjModeTokens, 0, sizeof(gaObjModeTokens));
-    for (unsigned int i = 0; i < 8; ++i)
-    {
-        D2TokRecord* pRecord = DATATBLS_GetObjModeTypeTxtRecord(i, 1);
-        D2_ASSERT(pRecord, 0x51);
-        gaObjModeTokens[i] = pRecord->dwCode;
-    }
-
-    memset(gaClassTokens, 0, sizeof(gaClassTokens));
-    for (unsigned int i = 0; i < 3; ++i)
-    {
-        D2TokRecord* pRecord = DATATBLS_GetArmTypeTxtRecord(i);
-        D2_ASSERT(pRecord, 0x5A);
-        gaClassTokens[i] = pRecord->dwCode;
-    }
-}
-
-// 0x004DAD20
-void __fastcall PARTICLE_SetOverlayCelName(D2UnitStrc* pUnit, D2CelContextStrc* pToken)
-{
-    const int nOverlay = pToken->nOverlay;
-    D2OverlayTxt* pRecord = (nOverlay >= 0 && nOverlay < sgptDataTables->nOverlayTxtRecordCount) ? &sgptDataTables->pOverlayTxt[nOverlay] : 0;
-    if (pRecord)
-        pToken->szName = pRecord->szFilename;
+    return 0;
 }
 
 extern "C" void __cdecl sub_00507140_ClearArchive()

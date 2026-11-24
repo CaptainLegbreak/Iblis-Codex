@@ -4026,28 +4026,6 @@ int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY)
 
 
 
-// 0x004DA0D0
-int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit)
-{
-    D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
-    if (pMotion)
-    {
-        return pMotion->nClientY;
-    }
-    return 0;
-}
-
-// 0x004DA0F0
-int __stdcall ITEM_GetGfxClientZ(D2UnitStrc* pUnit)
-{
-    D2GfxMotionStrc* pMotion = GFX_GetGfxMotion(pUnit);
-    if (pMotion)
-    {
-        return pMotion->nClientZ;
-    }
-    return 0;
-}
-
 // 0x004DCD40
 void __fastcall ITEM_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG)
 {

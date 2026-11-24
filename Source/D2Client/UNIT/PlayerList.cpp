@@ -39,12 +39,6 @@ void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
 D2RosterInfoStrc** __fastcall ROSTER_GetRosterInfoList(int nUnitId); // 0x0047A310
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-// 0x004DC0A0
-void __cdecl PLAYERLIST_ClearFadeTimer()
-{
-    gdwFadeTick = 0;
-}
-
 // 0x004DC270
 D2RosterInfoStrc** __cdecl PLAYERLIST_AllocRosterInfoList()
 {
@@ -146,16 +140,6 @@ void __fastcall PLAYERLIST_InitGfxData(D2UnitStrc* pUnit)
 // 0x004DDDF0
 void __cdecl sub_004DDDF0()
 {
-}
-
-// 0x004DC0B0
-D2RosterInfoStrc* __fastcall PLAYERLIST_GetNextRosterInfo(D2RosterInfoStrc* pRosterInfo)
-{
-    if (!pRosterInfo)
-    {
-        return 0;
-    }
-    return pRosterInfo->pNext;
 }
 
 D2RosterInfoStrc* __stdcall sub_M121_Emit_004DC2F0(int nUnitId1, int nUnitId2) { return PLAYERLIST_FindRosterInfo(nUnitId1, nUnitId2); }
