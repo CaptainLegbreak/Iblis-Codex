@@ -10,7 +10,7 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- Verifying on #326, to post when each passes: lane4/automap-join (automap.cpp takes 0x457420-0x457B00), lane4/chat-head (chat.cpp starts at 0x47A980), lane4/text-data (waypoint panel and text.cpp globals).
+- Verifying, to post when each passes: lane4/automap-join, lane4/chat-head, lane4/text-data, lane4/automap-view (stacked on automap-join), lane4/editbox-split and lane4/winmain-object (both stacked on copies-start-b), lane4/zero-gaps (opaque records take the zero runs after them; npcmenu.cpp's 112 B and more).
 
 - The object after automap.cpp, 0x45AD60-0x45B4F0 (lane4/automap-view, stacked on automap-join): its own copy 0x7113EC with 0x711428/0x71142C after it, its bss 0x7A5204-0x7A5214; the automap draw, offset and screen-to-map functions now in automap.cpp, Player.cpp, ui.cpp, View.cpp and CUnit.cpp gather into Unknown_0045AE90.cpp.
 
