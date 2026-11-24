@@ -42,6 +42,7 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
   - **0x55A6D0** (D2Game Items.cpp, 2,253 B): Items.cpp already holds an unmarked body of D2GAME_DropTC_6FC51360. With a `// 0x0055A6D0` marker it builds 2,239/2,253 with the rest of Items.cpp equal. Next up.
 
 ## Ready
+- lane7/storm-bigbuffer-assign dbc1e3aa (on #358), VERIFIED 0b426e0e. Storm Unknown_00425150.cpp: BigBuffer::operator= reads the source array through a D2StormArrayViewStrc, as CopyFrom in the same struct does, instead of two volatile reads; same bytes. (This volatile isn't on STATUS.md's list, but it is one.) Touches Storm Unknown_00425150.cpp only.
 - lane7/0062A370 5878e752 (on #356), VERIFIED 32878179. ITEMS_GetSetItemsMask (0x62A370) without its two volatile reads: the guard is written with a unit-type helper (null gives 6, as UnitFinds.cpp's) and ITEMS_GetItemQuality_Inl, and both values then load into eax before the compare as in the original. Touches D2Common ITEMS/Items.cpp only (adds the static inline helper above the function). Non-original constructs -1.
 
 ## Questions
