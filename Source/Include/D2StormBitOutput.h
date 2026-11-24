@@ -4,7 +4,7 @@
 struct CBitOutput
 {
     unsigned char* pOutputStart;
-    unsigned int f_4;
+    unsigned int nBytesLeft;
     unsigned char* pOutput;
     unsigned int nBitBuffer;
     unsigned int nBitCount;

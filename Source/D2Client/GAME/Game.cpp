@@ -3857,26 +3857,26 @@ char* D2ChatStormNodeStrc::IGNORELIST_GetStringEntryKey()
 
 D2ChatStormBaseArrayAStrc::D2ChatStormBaseArrayAStrc()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 unsigned int D2ChatStormBaseArrayAStrc::IGNORELIST_GetStringSlotArrayCount()
 {
-    return f_4;
+    return m_count;
 }
 
 D2ChatStormBaseArrayBStrc::D2ChatStormBaseArrayBStrc()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 unsigned int D2ChatStormBaseArrayBStrc::IGNORELIST_GetMappingSlotArrayCount()
 {
-    return f_4;
+    return m_count;
 }
 
 void D2ChatStormListAStrc::IGNORELIST_InitStringListTerminator()

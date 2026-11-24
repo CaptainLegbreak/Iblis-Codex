@@ -270,9 +270,9 @@ struct D2ChatStormNodeStrc
 
 struct D2ChatStormBaseArrayAStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    void* m_data;
 
     D2ChatStormBaseArrayAStrc();
     unsigned int IGNORELIST_GetStringSlotArrayCount();
@@ -280,9 +280,9 @@ struct D2ChatStormBaseArrayAStrc
 
 struct D2ChatStormBaseArrayBStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    void* m_data;
 
     D2ChatStormBaseArrayBStrc();
     unsigned int IGNORELIST_GetMappingSlotArrayCount();
@@ -884,26 +884,26 @@ char* D2ChatStormNodeStrc::IGNORELIST_GetStringEntryKey()
 
 D2ChatStormBaseArrayAStrc::D2ChatStormBaseArrayAStrc()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 unsigned int D2ChatStormBaseArrayAStrc::IGNORELIST_GetStringSlotArrayCount()
 {
-    return f_4;
+    return m_count;
 }
 
 D2ChatStormBaseArrayBStrc::D2ChatStormBaseArrayBStrc()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 unsigned int D2ChatStormBaseArrayBStrc::IGNORELIST_GetMappingSlotArrayCount()
 {
-    return f_4;
+    return m_count;
 }
 
 void D2ChatStormListAStrc::IGNORELIST_InitStringListTerminator()

@@ -202,9 +202,9 @@ struct D2ChatStormLinkBStrc
 
 struct D2ChatStormBaseArrayAStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    void* m_data;
 
     D2ChatStormBaseArrayAStrc();
     unsigned int IGNORELIST_GetStringSlotArrayCount();
@@ -212,9 +212,9 @@ struct D2ChatStormBaseArrayAStrc
 
 struct D2ChatStormBaseArrayBStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    void* m_data;
 
     D2ChatStormBaseArrayBStrc();
     unsigned int IGNORELIST_GetMappingSlotArrayCount();
@@ -1169,23 +1169,23 @@ char* D2CommonStormSlotLinkStrc::sub_0060E1A0_Next()
 // 0x0060E200
 D2ChatStormBaseArrayAStrc::D2ChatStormBaseArrayAStrc()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 // 0x0060E220
 D2ChatStormBaseArrayBStrc::D2ChatStormBaseArrayBStrc()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 // 0x0060E230
 unsigned int D2ChatStormBaseArrayAStrc::IGNORELIST_GetStringSlotArrayCount()
 {
-    return f_4;
+    return m_count;
 }
 
 // 0x0060E240
@@ -1197,7 +1197,7 @@ char* D2CommonStormSlotLinkStrc::sub_0060E240_Next()
 // 0x0060E250
 unsigned int D2ChatStormBaseArrayBStrc::IGNORELIST_GetMappingSlotArrayCount()
 {
-    return f_4;
+    return m_count;
 }
 
 // 0x0060E260
