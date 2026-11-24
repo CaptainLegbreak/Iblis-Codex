@@ -4,6 +4,8 @@ Written by lane 4 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane4/options-split 62777d01 +1 placeholder (Unknown_0047CC90.cpp) 0x47CC90-0x47F8AF leaves chat.cpp: the option entries and menus, the escape menu and the mini panel slots (94 functions). The language-name table marks object files (see the note below; the rule held for all 21 files whose functions name their own path): chat.cpp's initialised data ends with the copy at 0x713008, and the option tables 0x713044-0x721C58 end with another copy before WardenClient.cpp's data; the bss splits the same way (chat to 0x7BC890, options 0x7BC898-0x7BC97C). I had joined them on assert line numbers alone (1256-1612 after chat.cpp's 235-669), which a second file also fits. No name for it, so a placeholder. VERIFIED bc82d08e98eb on #304. Not stacked; nothing outside lane 4. Borrowed data unchanged.
+
 - lane4/warden-class 1b911034 541->541 the Warden service table at 0x6D8E68 is a vtable (a complete object locator precedes it; type descriptors `.?AUWardenClient@@` and `.?AULibrary@NWardenClient@@`), so `struct WardenClient : NWardenClient::Library` with seven overrides (0x480000-0x480150: __thiscall functions that ignore `this`); `gtWardenIface` (0x721C98) is a WardenClient object, statically initialised. The ctor 0x4801C0 comes from View.cpp (a one-member view) and 0x480000 from Gfx.cpp; the vtable, locator and type descriptor now come from the compiler. names.csv 0x4801C0 -> WardenClient (a constructor). Borrowed data 14,305 B. VERIFIED ada913279dd6 on #302; merge-tree onto #304 shows no conflicts. Not stacked; nothing outside lane 4.
 
 
