@@ -35,9 +35,10 @@ struct BigBuffer
     {
         if (this != &tSource)
         {
-            const unsigned int* const pData = *(const unsigned int* const volatile*)&tSource.m_array.m_data;
-            const unsigned int nCount = *(const volatile unsigned int*)&tSource.m_array.m_count;
-            m_array.sub_004215C0_Set(nCount, pData);
+            D2StormArrayViewStrc tView;
+            tView.pData = tSource.m_array.m_data;
+            tView.nCount = tSource.m_array.m_count;
+            m_array.sub_004215C0_Set(tView.nCount, tView.pData);
         }
         m_array.m_chunk = tSource.m_array.m_chunk;
         m_start = tSource.m_start;
