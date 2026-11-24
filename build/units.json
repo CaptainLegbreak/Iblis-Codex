@@ -33207,17 +33207,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004F4EC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004F4FF0",
-     "length": 39,
-     "name": "?sub_004F4FF0_SetVideoMode@@YIHH@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Glide/Src/glCore.cpp",
    "rank": 0,
    "functions": [
@@ -33467,6 +33456,11 @@
    "file": "Source/D2Gfx/SRC/Window.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004F4FF0",
+     "length": 39,
+     "name": "?sub_004F4FF0_SetVideoMode@@YIHH@Z"
+    },
     {
      "va": "0x004F5020",
      "length": 16,
@@ -77938,12 +77932,12 @@
     {
      "va": "0x006B1C30",
      "length": 47,
-     "name": "?D3DCORE_FlipPrimary@@YAHXZ"
+     "name": "?D3D_FlipPrimary@@YAHXZ"
     },
     {
      "va": "0x006B1C60",
      "length": 16,
-     "name": "?D3DCORE_GetScreenSize@@YIXPAH0@Z"
+     "name": "?D3D_GetScreenSize@@YIXPAH0@Z"
     },
     {
      "va": "0x006B1C70",
@@ -77952,12 +77946,12 @@
     {
      "va": "0x006B1D50",
      "length": 8,
-     "name": "?D3DCORE_GetColor@@YIII@Z"
+     "name": "?D3D_GetColor@@YIII@Z"
     },
     {
      "va": "0x006B1D60",
      "length": 29,
-     "name": "?D3DCORE_SetPaletteView@@YIXPBUD2GfxPaletteViewStrc@@@Z"
+     "name": "?D3D_SetPaletteView@@YIXPBUD2GfxPaletteViewStrc@@@Z"
     },
     {
      "va": "0x006B1D80",
@@ -77974,7 +77968,7 @@
     {
      "va": "0x006B1EA0",
      "length": 145,
-     "name": "?D3DCORE_SetColorCombineMode@@YIXH@Z"
+     "name": "?D3D_SetColorCombineMode@@YIXH@Z"
     },
     {
      "va": "0x006B1F40",
@@ -77983,7 +77977,7 @@
     {
      "va": "0x006B2030",
      "length": 106,
-     "name": "?D3DCORE_SetTextureFilterMode@@YIXH@Z"
+     "name": "?D3D_SetTextureFilterMode@@YIXH@Z"
     },
     {
      "va": "0x006B20A0",
@@ -77998,7 +77992,7 @@
     {
      "va": "0x006B20C0",
      "length": 20,
-     "name": "?D3DCORE_SetOption@@YIHHH@Z"
+     "name": "?D3D_SetOption@@YIHHH@Z"
     },
     {
      "va": "0x006B20E0",
@@ -78011,7 +78005,7 @@
     {
      "va": "0x006B3400",
      "length": 21,
-     "name": "?D3DCORE_ReleaseWindow@@YAHXZ"
+     "name": "?D3D_ReleaseWindow@@YAHXZ"
     },
     {
      "va": "0x006B3420",
@@ -78072,7 +78066,7 @@
     {
      "va": "0x006B5550",
      "length": 130,
-     "name": "?D3DCORE_Close@@YAHXZ"
+     "name": "?D3D_Close@@YAHXZ"
     },
     {
      "va": "0x006B55E0",
@@ -78081,22 +78075,22 @@
     {
      "va": "0x006B5630",
      "length": 142,
-     "name": "?D3DCORE_PauseSurface@@YIXHHH@Z"
+     "name": "?D3DCORE_PauseSurface@@YIXPAXHH@Z"
     },
     {
      "va": "0x006B56C0",
      "length": 94,
-     "name": "?D3DCORE_OpenSmackCutscene@@YIXHHH@Z"
+     "name": "?D3D_OpenSmackCutscene@@YIXHHH@Z"
     },
     {
      "va": "0x006B5720",
      "length": 161,
-     "name": "?D3DCORE_StartDraw@@YIHHHHH@Z"
+     "name": "?D3D_StartDraw@@YIHHHHH@Z"
     },
     {
      "va": "0x006B57D0",
      "length": 82,
-     "name": "?D3DCORE_EndDraw@@YAHXZ"
+     "name": "?D3D_EndDraw@@YAHXZ"
     },
     {
      "va": "0x006B5830",

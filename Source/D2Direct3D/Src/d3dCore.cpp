@@ -527,7 +527,7 @@ extern int gnPaused_007C9144; // 0x007C9144
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc*);
 
-void __fastcall D3DCORE_CreateSurface(int, int); // 0x006B55E0
+int __fastcall D3DCORE_CreateSurface(void* window,int mode); // 0x006B55E0
 
 int gnState_00970E54; // 0x00970E54
 
@@ -2355,7 +2355,7 @@ int __fastcall D3DCORE_CreateSurface(void* window,int mode)
 }
 
 // 0x006B5630
-void __fastcall D3DCORE_PauseSurface(int window, int mode, int paused)
+void __fastcall D3DCORE_PauseSurface(void* window, int mode, int paused)
 {
     if (!gpCriticalSection_007C9134) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 0x7b0); exit(-1); }
     EnterCriticalSection(gpCriticalSection_007C9134);
@@ -2662,5 +2662,7 @@ void __fastcall D3DCORE_LogDDrawError(const char* szWhere, int hResult)
 
     LOGMANAGER_WriteLogLine("***** DirectDraw error: %s - %s (0x%x)", szWhere, szError, hResult);
 }
+
+void __fastcall sub_006B1BC0_ClearCaches(); // 0x006B1BC0
 
 #include "gen/data/Source/D2Direct3D/Src/d3dCore.inc"

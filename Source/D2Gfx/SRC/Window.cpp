@@ -209,7 +209,6 @@ extern D2GraphicsInterfaceStrc* gapGraphicsInterfaces[]; // 0x0072DA80
 
 extern const unsigned char gabGraphicsHelpers[]; // 0x0072DA60
 
-extern const char gszUnsupportedMode[]; // 0x006DC458
 
 extern const char gszStringFormat[]; // 0x006FFC58
 
@@ -304,6 +303,18 @@ extern int ganSubtileRowSrcOffset[]; // 0x0072DBC0
 extern int ganSubtileRowWidth[]; // 0x0072DB84
 
 extern int ganSubtileRowXOffset[]; // 0x0072DB48
+
+// 0x004F4FF0
+int __fastcall sub_004F4FF0_SetVideoMode(int nMode)
+{
+    if (!gapGraphicsInterfaces[nMode])
+    {
+        LOGMANAGER_WriteLogLine("Unsupported video mode - %d", nMode);
+        return 0;
+    }
+    gpGraphicsInterface = gapGraphicsInterfaces[nMode];
+    return 1;
+}
 
 // 0x004F5020
 int __stdcall D2GFX_ClearGraphicsInterface()
@@ -1914,17 +1925,6 @@ void __fastcall CMNSUBTILE_DrawLitRleRowsClipped(int nX, int nY, unsigned char* 
             }
         } while (nRow < nRows);
     }
-}
-
-int __fastcall sub_004F4FF0_SetVideoMode(int nMode)
-{
-    if (!gapGraphicsInterfaces[nMode])
-    {
-        LOGMANAGER_WriteLogLine(gszUnsupportedMode, nMode);
-        return 0;
-    }
-    gpGraphicsInterface = gapGraphicsInterfaces[nMode];
-    return 1;
 }
 
 // 0x004F7CC0
