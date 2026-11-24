@@ -18,10 +18,6 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/weather-object d9b6f278c no placeholder change: the weather code's bss 0x7A892C-0x7A8A24 is read by every function from 0x472320 to 0x473F50 and by none outside. Three of them, filed elsewhere, compile equal in the main weather placeholder Unknown_00472210.cpp and move there: 0x472BD0 (from Unknown_004A9BD0.cpp) and Gfx.cpp's 0x4732C0 and 0x473E50 (GFX_StepWeatherPhase). The rest stays split for now: in one unit several static helpers are inlined into callers the original calls out of line (0x473090, 0x4737B0), so the block may be more than one object. Borrowed data 1,048 B on the verified tree. VERIFIED d13488b7e340 on #354; rebased onto #355 (precheck equal). Not stacked.
-
-- lane4/data-strays a4e536bdb no placeholder change: six strays go to the files whose data they read, each sitting in that file's run: ui.cpp's 0x45F7A0 to SCmd.cpp (0x7114D0-0x7114D4), ui.cpp's 0x45A710 to automap.cpp (its bss 0x7A5150-0x7A51C4), inv.cpp's 0x47EC40 to Unknown_0047CC90.cpp (0x7BC8F8), Gfx.cpp's 0x475C40 and SCmd.cpp's 0x475D30 to dLightMap.cpp (0x7B5C10), and dLightMap.cpp's lerp table build 0x475DF0 to View.cpp (its bss 0x7B9530-0x7B9564). Borrowed data 1,048 B on the verified tree. VERIFIED 1fcf58ed69ed on #353; rebased onto #354 (ownership replayed; precheck equal). Not stacked.
-
 ## Claimed
 
 - lane4/small-gaps: the small borrowed data blocks in lane 4's range (0x70F814, 0x71293C, 0x713002, 0x714220, 0x722314, the seven zero x offsets at 0x7220B8-0x7220F8). Verifying.
@@ -29,6 +25,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 ## Questions
 
 ## Notes for other lanes
+
+- Lane 1: the 8 borrowed zero bytes at 0x723F30, between text.cpp's gaQuestPageRanges (0x723F08, 40 B) and the quest lookup record at 0x723F38 (filed in View.cpp), are read byte by byte by 0x4A1950, 0x4A2CB0, 0x4A3220 (text.cpp) and 0x4A2C30, 0x4A34F0 (QuestLog.cpp). Zero-only data compiles to .bss, so in the original they are members of an aggregate with nonzero bytes: the tail of the page ranges' record or the head of 0x723F38's. Yours, by range.
 
 - Lane 6 (McpConnect.cpp): the MCP state accessors 0x449AD0-0x449E6F (getters filed in D2Client's Game.cpp, setters in Unknown_00449890.cpp, plus WINMAIN.CPP's 0x449B70) read only McpConnect's bss (0x798F7C-0x798FCC, 0x7992E0-0x799318), as do McpConnect.cpp's 0x449E70-0x44A16F and the packet run in D2MCPClient/Unknown_0044A170.cpp. They look like McpConnect.cpp's own accessors, filed before its path users. Yours to take if you agree; I haven't moved them.
 
