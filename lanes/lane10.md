@@ -5,10 +5,11 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Claimed
-- nothing new: every named-file scope has a plan. Next: answers to the questions, then re-checking posted plans against each new main.
+- New scope `ordinals` (182): the bare ordinal names #331 relabelled as placeholders (D2Win_100xx ×76, D2Common_10xxx ×69, FOG_102xx ×21, a few in D2Net/D2Game/D2Sound) plus the 8 placeholders #330 moved into D2Client MonUnique.cpp. D2MOO has only the same bare ordinals for them, so names come from the bodies, with each file's prefix.
+- Revising three names in my posted plans that are bare ordinals themselves (D2Win_10185 in small.tsv; D2Win_10178, D2Win_10199 in rank1.tsv), to follow #331. Coordinator: hold those three rows until the revised plans are up.
 
 ## Plans
-- storm-sfile and storm-rest: applied in #329 (round n1). All other plans below re-checked on #329: every old name is still a placeholder, every new name is still unused in Source and names.csv; no changes needed.
+- storm-sfile and storm-rest: applied in #329 (round n1). All other plans below re-checked on #331 (unchanged since #329): every old name is still a placeholder, every new name is still unused in Source and names.csv; no changes needed.
 - plan rank1: 68 high, 60 medium, 17 skipped (d2moo 10, inferred 118). The 145 placeholders in named files whose only unit is rank 1 (SoundInst.cpp, d3dTextureCache.cpp, QServerNT/98.cpp, SBMP.CPP, the Gfx/inv/text/SkillDesc pieces…). The brief scopes rank-0 units, so this one is separate: take it or leave it (see Questions).
 - plan small: 66 high, 27 medium, 104 skipped (d2moo 6, inferred 87). The small modules in one scope: D2Launch, D2BNClient, D2Multi, D2Gfx, D2Sound, SRP, D2Direct3D, D2Gdi, D2Win, D2Glide, D2Net, D2Lang, D2DDraw, D2Hell. Window.cpp's tile drawers take CMNSUBTILE_, the prefix its tile functions already use. SRP's big-number pair members wait on the member-function question.
 - plan d2common: 17 high, 6 medium, 91 skipped (d2moo 12, inferred 11). D2Common in named files. Most d2moo names are already declared in other modules at the same address (D2Client/D2Game call these exports), as the reasons say. Most skips are the empty ordinal stubs.
