@@ -88,15 +88,6 @@ static void sub_004AA0F0_AssignFreeHotkey(int nSlot, int nIndex); // 0x004AA0F0
 
 unsigned char gbNpcEntriesProcessed; // 0x007C0C6A
 
-// 0x004AA980
-void __cdecl sub_004AA980()
-{
-    if (gaPanelCels[gnCharClass].pCelFile)
-    {
-        ARCHIVE_FreeClientCellFile(gaPanelCels[gnCharClass].pCelFile);
-        gaPanelCels[gnCharClass].pCelFile = 0;
-    }
-}
 
 // 0x00472BD0
 void __cdecl sub_00472BD0()
@@ -150,53 +141,9 @@ int __cdecl sub_004B1D70_FindNpcEntry()
 
 #include "gen/data/Source/D2Client/Unknown_004A9BD0.inc"
 
-// 0x004AAAA0
-static void __stdcall sub_004AAAA0_DrawSkillTreeText(int nY, const Unicode* wszText)
-{
-    const int nRight = gnAutomapWidth - gnPanelOffsetX;
-    TEXT_DrawCenteredText(nRight - 0x5A, gnScreenHeight + gnPanelOffsetY + nY - 0x1E0, nRight, wszText, 0);
-}
 
-void __fastcall sub_M26_Emit_004AB090(char nMode)
-{
-    if (nMode == 2)
-    {
-        sub_004AAAA0_DrawSkillTreeText(0x9C, D2LANG_GetStringFromTblIndex(0x1092));
-        sub_004AAAA0_DrawSkillTreeText(0xA8, D2LANG_GetStringFromTblIndex(0x1087));
-    }
-}
 
-int gaSkillButtonState[128]; // 0x007C0A38
 
-unsigned long gdwSkillTreeClickTick; // 0x007C0C54
-
-// 0x004AB7B0
-int __cdecl sub_004AB7B0_CheckTickElapsed()
-{
-    unsigned long dwTick = GetTickCount();
-    if (dwTick - gdwSkillTreeClickTick > 1000)
-    {
-        gdwSkillTreeClickTick = dwTick;
-        return 1;
-    }
-    return 0;
-}
-
-// 0x004ABF10
-void __cdecl sub_004ABF10_ClearSkillStates()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (pPlayer)
-    {
-        for (int i = 0; i < SKILLS_GetPlayerSkillCount(GAME_GetUnitClassId(pPlayer)); ++i)
-        {
-            if (gaSkillButtonState[i] == 1)
-            {
-                gaSkillButtonState[i] = 0;
-            }
-        }
-    }
-}
 
 // 0x004AC730
 D2MonsterDataStrc* __fastcall sub_004AC730_MonsterDataOf(D2UnitStrc* pUnit)

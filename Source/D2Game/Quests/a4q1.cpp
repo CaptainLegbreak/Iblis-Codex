@@ -988,22 +988,7 @@ void __fastcall ACT4Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
-static int gnAct4Q2NpcMessageIndices[] =                                                                            // 0x0073D56C
-{
-    -1, 0, 1, -1, -1
-};
-
 static int gnAct4Q1NpcMessageIndices[] =                                                                            // 0x0073DBA0
-{
-    -1, 0, 1, 2, 3, 4
-};
-
-static int gnAct3Q1NpcMessageIndices[] =                                                                            // 0x0073F188
-{
-    -1, 0, 1, 2, 3, 4
-};
-
-static int gnAct3Q3NpcMessageIndices[] =                                                                            // 0x007401B8
 {
     -1, 0, 1, 2, 3, 4
 };

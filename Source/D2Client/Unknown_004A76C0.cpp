@@ -419,13 +419,9 @@ void* gpSkillIconCel; // 0x007C07F8
 
 int gbSkillSelectRight; // 0x007C07FC
 
-int gnGlobal_007C0C40; // 0x007C0C40
 
-int gbInSkillPanelDraw; // 0x007C0C44
 
-int gbSkillPanelDrawn; // 0x007C0C4C
 
-unsigned char gbColor; // 0x007C0C50
 
 static inline D2SkillsTxt* CLIENT_GetSkillsTxtRecord(int nSkillId)
 {
@@ -437,55 +433,9 @@ static inline D2SkillsTxt* CLIENT_GetSkillsTxtRecord(int nSkillId)
 }
 
 
-// 0x004AA900
-int __cdecl sub_004AA900_IsStateOrValue()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    if (pPlayer && STATES_CheckState(pPlayer, STATE_UNINTERRUPTABLE))
-    {
-        return 1;
-    }
-    return gbSkillPointsHighlight;
-}
 
-// 0x004AA920
-void __cdecl sub_004AA920_LoadPanelCel()
-{
-    char* szPath = gaPanelCels[gnCharClass].szPath;
-    D2_ASSERT(szPath, 136);
-    gaPanelCels[gnCharClass].pCelFile = sub_004520C0_LoadUiCelFile(szPath);
-}
 
-// 0x004AB2F0
-void __cdecl sub_004AB2F0_SetBlackColor()
-{
-    gbColor = D2Win_10034_MixRGB(0, 0, 0);
-}
 
-// 0x004AC690
-void __cdecl sub_004AC690_DrawSkillPanel()
-{
-    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-    D2Win_10127_SetFont(1);
-    gbSkillPanelDrawn = 1;
-    sub_004AAAE0_DrawPagedPanel(gaPanelCels[gnCharClass].pCelFile, gnSkillPage);
-    sub_004AACE0_DrawSkillTreeTexts();
-    if (STATLIST_GetUnitBaseStat(pPlayer, STAT_SKILLPTS, 0) > 0)
-    {
-        gnGlobal_007C0C40 = 1;
-        gbInSkillPanelDraw = 1;
-        sub_004AC200_RefreshSkillTree();
-    }
-    else
-    {
-        gnGlobal_007C0C40 = 0;
-        gbInSkillPanelDraw = 0;
-        sub_004AC4D0_DrawSkillTree();
-    }
-    sub_004AB530_DrawTabCel();
-    sub_004AB630_DrawTabHint();
-    sub_004AB310_DrawTabHoverText(gnSkillPage);
-}
 
 // 0x004A8CF0
 static int __stdcall sub_004A8CF0_IsMouseInRect(int nX, int nWidth, int nY, int nHeight)

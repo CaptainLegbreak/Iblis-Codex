@@ -15,7 +15,7 @@
 #include "D2ClientTypes.h"
 #include "D2ClientGame.h"
 
-extern "C" const unsigned short gwUniqueModNameIds[];                                                       // 0x00725188
+extern unsigned short gwUniqueModNameIds[];                                                       // 0x00725188
 
 extern "C" { Unicode gwszNameSeparator[1]; }                                                                // 0x007C0C58
 

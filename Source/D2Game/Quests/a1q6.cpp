@@ -259,19 +259,9 @@ bool __fastcall ACT1Q6_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQ
 
 void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
 
-static unsigned int gnAct1Q5NpcMessageIndices[] =                                                                   // 0x007382AC
-{
-    0xFFFFFFFF, 0xFFFFFFFF, 0, 1, 2, 3
-};
-
 static unsigned int gnAct1Q6NpcMessageIndices[] =                                                                   // 0x007382C4
 {
     0xFFFFFFFF, 0, 1, 2, 3, 4, 0
-};
-
-static int gnAct2Q1NpcMessageIndices[] =                                                                            // 0x007398FC
-{
-    -1, 0, 1, 2, 3, 4, 0
 };
 
 inline D2BitBufferStrc* QUESTS_GetPlayerQuestFlags_Inline(D2GameStrc* pGame, D2UnitStrc* pPlayer)
@@ -615,16 +605,6 @@ static void __stdcall ACT1Q6_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* p
     QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q6, QFLAG_REWARDPENDING);
     CLIENTS_UpdateCharacterProgression(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q6.cpp", 451), 1, pGame->nDifficulty);
 }
-
-static int gnAct2Q3NpcMessageIndices[] =                                                                            // 0x0073A620
-{
-    -1, 0, 1, 2, 3, 0
-};
-
-static int gnArcaneThingObjectIds[] =                                                               // 0x00738FAC
-{
-    313, 312, 308, 310, 311, 309, 307
-};
 
 // 0x00596260
 int __fastcall ACT1Q6_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
