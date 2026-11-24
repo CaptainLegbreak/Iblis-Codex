@@ -6476,7 +6476,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UI/automap.cpp",
+   "file": "Source/D2Client/WARDEN/WardenClient.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnWardenIfaceValue = ",
@@ -6495,32 +6495,6 @@
    "tail": "; // 0x00721C94",
    "type": "int",
    "va": "0x00721C94"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00721C98",
-   "declared": true,
-   "decorated": "?gtWardenIface@@3UD2WardenIfaceStrc@@A",
-   "file": "Source/D2Client/UI/automap.cpp",
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00721C98_t gData_00721C98; // 0x00721C98",
-   "head": "extern \"C\" struct d2data_00721C98_t gData_00721C98 = ",
-   "name": "gtWardenIface",
-   "pointers": [
-    [
-     0,
-     "0x006D8E68",
-     "source",
-     "gapWardenServices",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00721C98_t\n{\n    const void* p0;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00721C98\n#pragma comment(linker, \"/alternatename:?gtWardenIface@@3UD2WardenIfaceStrc@@A=_gData_00721C98\")",
-   "va": "0x00721C98"
   },
   {
    "alias": false,

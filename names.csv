@@ -3645,7 +3645,7 @@ address,name,source,alias
 0x004800E0,WARDENCLIENT_ServiceFree,inferred,
 0x00480100,WARDENCLIENT_SetWardenBuffer,inferred,
 0x00480150,WARDENCLIENT_TakeWardenBuffer,inferred,
-0x004801C0,D2WardenClientM114Strc,placeholder,
+0x004801C0,WardenClient,placeholder,
 0x004801D0,WARDENCLIENT_UnloadWarden,inferred,
 0x00480230,WARDENCLIENT_ActivatePendingModule,inferred,
 0x004802E0,INV_ProcessWardenRequest,inferred,

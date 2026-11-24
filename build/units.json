@@ -13939,11 +13939,6 @@
      "name": "VIEW_DrawCelFrame"
     },
     {
-     "va": "0x004801C0",
-     "length": 9,
-     "name": "??0D2WardenClientM114Strc@@QAE@XZ"
-    },
-    {
      "va": "0x00480400",
      "length": 26,
      "name": "?VIEW_GetPlayerInteractState@@YIHPAUD2UnitStrc@@@Z"
@@ -18325,11 +18320,6 @@
      "name": "GFX_StepChatIndex"
     },
     {
-     "va": "0x00480000",
-     "length": 18,
-     "name": "GFX_SendWardenPacket"
-    },
-    {
      "va": "0x00480420",
      "length": 112,
      "name": "GFX_RefreshPathTarget"
@@ -22472,34 +22462,44 @@
      "name": "?WARDENCLIENT_LoadModuleByKey@@YGHPBE0@Z"
     },
     {
+     "va": "0x00480000",
+     "length": 18,
+     "name": "?GFX_SendWardenPacket@WardenClient@@UAEHPBXH@Z"
+    },
+    {
      "va": "0x00480020",
      "length": 26,
-     "name": "?WARDENCLIENT_ServiceLoadModule@@YG_NPBE0@Z"
+     "name": "?WARDENCLIENT_ServiceLoadModule@WardenClient@@UAE_NPBE0@Z"
     },
     {
      "va": "0x00480040",
      "length": 122,
-     "name": "?WARDENCLIENT_CallServiceWithHashName@@YGXPBEHH@Z"
+     "name": "?WARDENCLIENT_CallServiceWithHashName@WardenClient@@UAEXPBEHH@Z"
     },
     {
      "va": "0x004800C0",
      "length": 28,
-     "name": "WARDENCLIENT_ServiceAlloc"
+     "name": "?WARDENCLIENT_ServiceAlloc@WardenClient@@UAEPAXH@Z"
     },
     {
      "va": "0x004800E0",
      "length": 28,
-     "name": "WARDENCLIENT_ServiceFree"
+     "name": "?WARDENCLIENT_ServiceFree@WardenClient@@UAEXPAX@Z"
     },
     {
      "va": "0x00480100",
      "length": 79,
-     "name": "WARDENCLIENT_SetWardenBuffer"
+     "name": "?WARDENCLIENT_SetWardenBuffer@WardenClient@@UAEXPBXI@Z"
     },
     {
      "va": "0x00480150",
      "length": 102,
-     "name": "WARDENCLIENT_TakeWardenBuffer"
+     "name": "?WARDENCLIENT_TakeWardenBuffer@WardenClient@@UAE_NPAXPAI@Z"
+    },
+    {
+     "va": "0x004801C0",
+     "length": 9,
+     "name": "??0WardenClient@@QAE@XZ"
     },
     {
      "va": "0x004801D0",
