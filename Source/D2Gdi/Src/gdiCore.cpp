@@ -238,6 +238,11 @@ void __stdcall sub_006C8A40(int nUnused1, int nUnused2); // 0x006C8A40
 
 #include "gen/data/Source/D2Gdi/Src/gdiCore.inc"
 
+struct D2RendererCallbacksStrc
+{
+    void (__fastcall* pfnCallback00)(int a, int b, int c, int d);
+};
+
 // 0x006C7A60
 int __cdecl sub_006C7A60()
 {
@@ -335,6 +340,13 @@ int __fastcall GDICORE_CreateSurface(int nValue, int nArg)
     return 1;
 }
 
+// 0x006C7C90
+void __cdecl sub_006C7C90_Release()
+{
+    DeleteObject(ghObject_0098A164);
+    gnValue_007C9154 = 0;
+    gpCallbacks_007C914C->pfnCallback00(0, 0, 0, 0);
+}
 
 // 0x006C7CC0
 int __cdecl sub_006C7CC0()

@@ -79449,6 +79449,10 @@
      "length": 122
     },
     {
+     "va": "0x006C7C90",
+     "length": 40
+    },
+    {
      "va": "0x006C7CC0",
      "length": 3,
      "name": "sub_006C7CC0"
@@ -79633,16 +79637,6 @@
     "/Gd",
     "/GS-",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C7C90.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C7C90",
-     "length": 40
-    }
    ]
   },
   {
