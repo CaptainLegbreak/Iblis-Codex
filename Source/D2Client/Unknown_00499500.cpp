@@ -3,6 +3,7 @@
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
 #include "D2ClientGfx.h"
+#include "D2ClientTextPanel.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -17,26 +18,7 @@ extern int gbRunButtonDown; // 0x007BEFD8
 extern int __cdecl GAME_IsExitPending(); // 0x0044DA30
 extern int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS*); // 0x00420290
 
-struct D2TextPanelLineStrc
-{
-    unsigned short unk0x00[4];
-    Unicode wszText[6][0x400];
-    unsigned short unk0x3008[3];
-};
 
-struct D2TextPanelStrc
-{
-    D2TextPanelLineStrc pLines[128];
-    int unk0x180700[5];
-    int nHeight;
-    int unk0x180718[6];
-    int nFirstLine;
-    int unk0x180734[5];
-    unsigned short f_180748;
-    unsigned short unk0x18074A[14];
-    unsigned char nLineStep[4];
-    unsigned char nLineGap[4];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
