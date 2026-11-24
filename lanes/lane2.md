@@ -12,10 +12,6 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
   - On #324. All 17 includers of D2FogTypes.h build equal.
   - Outside lane 2: ErrorManager, ErrorManager_004082E0 (lane 3).
 
-- lane2/mcp-packets 91fc5231 562->562 D2McpPackets.h: the fifteen packed MCP protocol packets (0x01-0x0C, 0x10, 0x16, 0x18). WINMAIN, Unknown_0044B400 and D2MCPClient's Unknown_0044A170 each had a private copy with the same text; VERIFIED 31d699b117b57e1c794d42f97f55d70cab76871f
-  - Verified on #321, rebased onto #324. #322-#324 touch none of the 3 units; precheck is equal on #324.
-  - Outside lane 2: WINMAIN, Unknown_0044B400 (lane 4), Unknown_0044A170 (lane 6). Game.cpp keeps its own, different, unpacked view of packet 0x06.
-
 - lane2/game-records a56b9979 562->562 D2GameTypes.h: the roster-iteration callback argument (Game, Player, PlrSave) and the door-finding callback argument (AiThink, AiUtil, MissMode). Each unit had a private copy with the same text; VERIFIED 18754bec2b45ca97877cb09a77b98459f9cfe41b
   - Verified on #318, rebased onto #320. Precheck of all 202 includers of D2GameTypes.h is equal on #320.
   - Outside lane 2: the six D2Game units (lane 5). Private-copy removal only.
