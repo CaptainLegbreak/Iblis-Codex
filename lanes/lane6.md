@@ -2,10 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 13:53:59 PST 2026): two more report-360 joins verifying (Unknown_0051C760 <- Unknown_0051C7E0, Unknown_0060AE80 <- Unknown_0060B160); three more parked (Left in place).
+Status (Tue Nov 24 14:05:23 PST 2026): join-0051c760 ready; the rest of the object-map joins are still in the verify queue.
 
 ## Ready
 
+- lane6/join-0051c760 4612a4f2 327->326 placeholders. Unknown_0051C760.cpp takes Unknown_0051C7E0.cpp: 0x51C760 starts the receive thread 0x51C7E0 and the two sit side by side, called only from each other (report-360 clear lead). Not stacked; D2BNClient only. VERIFIED c70b98f2 (on #366, merges cleanly on #367; borrowed data 844 B, unchanged).
 - lane6/join-mcpconnect d20eb311 397->396 placeholders. McpConnect.cpp takes the MCP state accessors 0x449AC0-0x449E6F: all of D2Client/Unknown_00449890.cpp, Game.cpp's 18 getters and WINMAIN.CPP's 0x449B70 (lane 4 handed these over in lane4.md). One view of the .bss: McpConnect's names and types, aliases dropped, two getters cast their handle to int. WINMAIN_PollMcpConnection has a 1 KB stack buffer and no cookie, so McpConnect.cpp builds /GS- (its own functions are equal either way). The cd-key pair 0x449890/0x449920 stays. Touches lane 4's Game.cpp and WINMAIN.CPP (removals only). VERIFIED a462a178 (on #362, merges cleanly on #366; borrowed data 880 B, unchanged).
 - lane6/join-bnsend fc447297 397->396 placeholders. BnSend.cpp takes Unknown_0051DC70.cpp (the CD-key helpers 0x51DC70-0x51E340, between BnSend's runs) with gacCDKeyMap (.rdata 0x6DF238) in the plan. They move as they were, with the small wrappers that keep the uncalled static helpers emitted (they use the static-function register convention, so they are statics of this object). Not stacked; D2BNClient only. VERIFIED 31c69b68 (on #362, merges cleanly on #365; borrowed data 880 B, unchanged).
 
