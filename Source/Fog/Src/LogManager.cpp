@@ -299,7 +299,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
 
-extern int gbLogInitialized; // 0x0075D2EC
+int gbLogInitialized; // 0x0075D2EC
 
 extern int gnLogQueueCount; // 0x0075E870
 
@@ -1088,7 +1088,7 @@ struct D2LogMsgListStrc
 
     D2LogMsgListStrc();
     ~D2LogMsgListStrc();
-    void sub_0040FD00_UnlinkAll(); // 0x0040FD00
+    void sub_0040FD00_UnlinkAll();
     void sub_0040FBB0_LinkNode(char* pNode, int nLinkType, char* pExistingNode); // 0x0040FBB0
     void sub_0040FED0_DeleteAll();
     char* sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
@@ -1145,9 +1145,9 @@ void __fastcall sub_0040ECC0_LogWriteHeader(_iobuf* pFile, const D2SystemTimeStr
 
 void __fastcall sub_0040ED40_LogWriteStartup(_iobuf* pFile); // 0x0040ED40
 
-extern int ganLogNewFile[20]; // 0x0075D298
+int ganLogNewFile[20]; // 0x0075D298
 
-extern char gaszLogFilePaths[20][0x104]; // 0x0075D340
+char gaszLogFilePaths[20][0x104]; // 0x0075D340
 
 unsigned long gadwLogOpenTick[20]; // 0x0075E7E0
 
@@ -1524,6 +1524,14 @@ D2LogMsgListStrc::D2LogMsgListStrc()
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
 }
 
+// 0x0040FD00
+inline void D2LogMsgListStrc::sub_0040FD00_UnlinkAll()
+{
+    char* pNode;
+    while ((pNode = (int)m_terminator.m_next > 0 ? m_terminator.m_next : 0) != 0)
+        ((D2LogMsgLinkStrc*)pNode)->Unlink();
+}
+
 // 0x0040FD90
 D2LogMsgListStrc::~D2LogMsgListStrc()
 {
@@ -1572,7 +1580,7 @@ void* ghLogThread; // 0x0075D2E8
 
 int gbLogThreadStop; // 0x0075E830
 
-extern unsigned long gnLogThreadId; // 0x0075E834
+unsigned long gnLogThreadId; // 0x0075E834
 
 // 0x0040FFD0
 void __cdecl sub_0040FFD0_ShutdownLogSystem()
@@ -2149,6 +2157,28 @@ void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, co
     ++gnLogQueued;
     gnLogQueuedBytes += pMessage->nSize;
     LeaveCriticalSection(&gtLogQueueLock);
+}
+
+extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfnStart)(void* pParam), void* pParam, unsigned long dwFlags, unsigned long* pnThreadId); // 0x006CC250
+extern D2SystemTimeStrc gLogStartTime_0075D288; // 0x0075D288
+unsigned long __stdcall sub_004101C0_LogThreadProc(void* pParam); // 0x004101C0
+
+// 0x00410540
+void __cdecl LOGMANAGER_InitLogSystem()
+{
+// build: symbol ?gbLogThreadStop@* 0x0075E830
+    gbLogThreadStop = 0;
+    ghLogThread = CreateThread(0, 0, sub_004101C0_LogThreadProc, 0, 0, &gnLogThreadId);
+    gbLogInitialized = 1;
+    GetLocalTime(&gLogStartTime_0075D288);
+    for (unsigned int i = 0; i < 20; i++)
+    {
+        ganLogNewFile[i] = 1;
+    }
+    for (unsigned int i = 0; i < 20; i++)
+    {
+        gaszLogFilePaths[i][0] = 0;
+    }
 }
 
 // 0x00410610
