@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/d3d-records 962c446b 562->562 D2D3DTypes.h: the 0x120-byte DirectDraw device record behind gaDDrawDevices. d3dCore and Unknown_006B2F60 each had a private copy with the same text; VERIFIED 6836df2bf449d7b821f5f7c42edebc2c52f0611d
+  - On #325. All 21 includers of D2D3DTypes.h build equal.
+  - Outside lane 2: d3dCore, Unknown_006B2F60 (lane 6). The same two units keep private views of DDSURFACEDESC2, DDSCAPS2 and IDirectDraw7 (`*006B3420Strc`) that nothing reads. D2DDrawTypes.h already defines the surface description; folding those views in belongs with the renderer work.
+
 - lane2/multi-records f8f453e0 562->562 D2MultiTypes.h: the launch game list that pfQueryGames returns, and its entry. The header only forward-declared them; ChatDlg and Unknown_00440FC0 each defined them privately with the same text. No size checks: the extra typedefs flip CharSel; VERIFIED b894d9a9ae0994c55cfbab30b77b856db9d8404d
   - Verified on #324, rebased onto #325. Precheck of all 41 includers of D2MultiTypes.h is equal on #325.
   - Outside lane 2: ChatDlg, Unknown_00440FC0 (lane 6).
@@ -22,7 +26,7 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 Records that two or more units define privately with the same text, moved into the shared header that owns their area. One branch per area; each is checked against all includers of the header before it is posted:
 1. (done: fog-records-c)
 2. (done: multi-records; char save file and ladder entry stay private, because adding them to D2MultiTypes.h flips CharSel)
-3. Direct3D: d3dCore/Unknown_006B2F60 device and caps records -> D2D3DTypes.h.
+3. (done: d3d-records)
 4. BNClient: the BnDownload login/versioning/auth records.
 After that: the coordinator's borrowed-data blocks, if no lane has them.
 
