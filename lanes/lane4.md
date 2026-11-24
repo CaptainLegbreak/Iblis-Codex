@@ -18,6 +18,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
+- lane4/roster-copy 7b40a515f no placeholder change: Roster.cpp included D2LanguageNames.h and also defines the copy record 0x712E84, so its .data held two copies and was placed whole over RosterPets.cpp's copy at 0x712E48. Since copy-shift 0x712E84 is Roster.cpp's only copy, so the header include goes. Borrowed data 906 B (unchanged; the bytes were already source, now from the right object). VERIFIED 41a83ca80de2 on #359. Not stacked.
+
 ## Claimed
 
 ## Questions
@@ -43,7 +45,6 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 ## Left in place (and why)
 
 - Language-table copies, two leads (next on my list):
-  - Roster.cpp includes D2LanguageNames.h and also holds the record copy 0x712E84, so its .data is two copies (placed whole at 0x712E48, over RosterPets.cpp's record). Since copy-shift, 0x712E48 is RosterPets.cpp's and 0x712E84 Roster.cpp's: Roster.cpp's header include should go.
   - Unknown_0046ACE0.cpp's second copy 0x712A28 starts a data-less object between the level-event object (0x46ACE0-0x46C56F) and Gfx.cpp's copy 0x712A64. The likely object is the two unit-iteration helpers 0x46C570/0x46C600 filed in GfxUtil.cpp (called from Gfx.cpp's 0x46CCD0/0x46D110), possibly with Unknown_0046C660's 0x46C660.
 - WardenClient.cpp: of the strays listed earlier, 0x479230, 0x4936E0 and 0x496B10-0x496BE0 have gone to RosterPets.cpp and Hireables.cpp, and 0x4922A0 is on `warden-4922a0`. 0x4E6560 and the text panel opener 0x4A1320 are in lane 1's range now (0x4A1320 belongs to the text unit by its data, gnTextTop 0x7225FC, but brings the text panel globals WardenClient.cpp defines under other types).
 - 0x70F814 and 0x722314 (4 zero bytes before ui.cpp's and panel.cpp's language table copies): alignment padding, but only once the copy is the first data of its unit. D2LanguageNames.h with a build symbol marker stops the link ("static data marker disagrees with the section's other anchors"): neither unit's .data is in the original order (panel.cpp defines gbControlPanelMouseDown before gnUiRecordIndex; ui.cpp's data has another file's 32 bytes at 0x70F858). Parked until those units' data are in order.
