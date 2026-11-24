@@ -1440,8 +1440,8 @@
    "state": "included"
   },
   "Source/D2Glide/Src/glCore.cpp": {
-   "bytes": 364,
-   "definitions": 6,
+   "bytes": 424,
+   "definitions": 7,
    "externs": [
     "extern \"C\" void __cdecl GLDEBUGFONT_DebugPrintf(); // 0x0050BC90",
     "extern \"C\" void __cdecl GLIDE_DebugDraw(); // 0x0050BEF0",
@@ -3204,8 +3204,8 @@
    "state": "included"
   },
   "Source/D2Game/SKILLS/SkillMonst.cpp": {
-   "bytes": 236,
-   "definitions": 6,
+   "bytes": 324,
+   "definitions": 9,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillMonst_005CCD10.inc",
@@ -4016,8 +4016,8 @@
    "static_definitions": 2
   },
   "Source/D2Game/SKILLS/SkillSor.cpp": {
-   "bytes": 88,
-   "definitions": 3,
+   "bytes": 112,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/SkillSor.inc",
