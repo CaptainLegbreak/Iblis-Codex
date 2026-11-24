@@ -59,17 +59,17 @@ class UIWidget
 {
 public:
     virtual ~UIWidget() = 0;
-    virtual void Slot01() = 0;
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual void Draw() = 0;
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int Slot11() = 0;
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int GetValue() = 0;
 
     static void* operator new(unsigned int nSize)
     {
@@ -137,17 +137,17 @@ public:
         int nCallback, bool bLargeFont);
 
     virtual ~ListBoxImplementation();
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual void Draw();
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
+    virtual int GetValue();
     virtual void sub_004BE110_UpdateScrollBar();
     virtual int sub_004BE0A0_GetLineCount();
     virtual void sub_004BE0B0_Clear();
@@ -202,17 +202,17 @@ public:
         bool bLargeFont);
     virtual ~ListBoxWrapper();
 
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual void Draw();
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
+    virtual int GetValue();
     virtual void sub_004BEDE0_ForwardSlot3C(const Unicode* wszText0, const Unicode* wszText1,
         const Unicode* wszText2, const Unicode* wszText3, const Unicode* wszText4, const Unicode* wszText5,
         int nArg20, int nData, int bUseDefault, int nArg2C);
@@ -472,9 +472,9 @@ int ListBoxImplementation::sub_004BE810_HitTestRect(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
-// build: symbol ?MsgSlot02@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BE860
+// build: symbol ?OnMouseWheel@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BE860
 // 0x004BE860
-int ListBoxImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxImplementation::OnMouseWheel(SMSGHANDLER_PARAMS* pMsg)
 {
     if ((short)pMsg->wParamHigh > 0)
     {
@@ -545,16 +545,16 @@ int ListBoxImplementation::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
-// build: symbol ?MsgSlot10@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BEA30
+// build: symbol ?OnKeyLeft@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BEA30
 // 0x004BEA30
-int ListBoxImplementation::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxImplementation::OnKeyLeft(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }
 
-// build: symbol ?MsgSlot09@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BEA40
+// build: symbol ?OnKeyRight@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BEA40
 // 0x004BEA40
-int ListBoxImplementation::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxImplementation::OnKeyRight(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }
@@ -617,9 +617,9 @@ int ListBoxImplementation::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
-// build: symbol ?MsgSlot06@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BEBC0
+// build: symbol ?OnKeyDown@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BEBC0
 // 0x004BEBC0
-int ListBoxImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxImplementation::OnKeyDown(SMSGHANDLER_PARAMS* pMsg)
 {
     if (pfnCallback)
     {
@@ -639,9 +639,9 @@ int ListBoxImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
-// build: symbol ?Slot11@ListBoxImplementation@@UAEHXZ 0x004BEC30
+// build: symbol ?GetValue@ListBoxImplementation@@UAEHXZ 0x004BEC30
 // 0x004BEC30
-int ListBoxImplementation::Slot11()
+int ListBoxImplementation::GetValue()
 {
     return nSelectedIndex;
 }
@@ -681,32 +681,32 @@ int ListBoxWrapper::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
     return pImpl->MsgSlot07(pMsg);
 }
 
-// build: symbol ?MsgSlot09@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BED60
+// build: symbol ?OnKeyRight@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BED60
 // 0x004BED60
-int ListBoxWrapper::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxWrapper::OnKeyRight(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot09(pMsg);
+    return pImpl->OnKeyRight(pMsg);
 }
 
-// build: symbol ?MsgSlot10@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BED70
+// build: symbol ?OnKeyLeft@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BED70
 // 0x004BED70
-int ListBoxWrapper::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxWrapper::OnKeyLeft(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot10(pMsg);
+    return pImpl->OnKeyLeft(pMsg);
 }
 
-// build: symbol ?MsgSlot03@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BED80
+// build: symbol ?OnLButtonDown@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BED80
 // 0x004BED80
-int ListBoxWrapper::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxWrapper::OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot03(pMsg);
+    return pImpl->OnLButtonDown(pMsg);
 }
 
-// build: symbol ?MsgSlot04@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BED90
+// build: symbol ?OnLButtonUp@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BED90
 // 0x004BED90
-int ListBoxWrapper::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxWrapper::OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot04(pMsg);
+    return pImpl->OnLButtonUp(pMsg);
 }
 
 // build: symbol ?MsgSlot05@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BEDA0
@@ -716,25 +716,25 @@ int ListBoxWrapper::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
     return pImpl->MsgSlot05(pMsg);
 }
 
-// build: symbol ?MsgSlot06@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BEDB0
+// build: symbol ?OnKeyDown@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BEDB0
 // 0x004BEDB0
-int ListBoxWrapper::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxWrapper::OnKeyDown(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot06(pMsg);
+    return pImpl->OnKeyDown(pMsg);
 }
 
-// build: symbol ?Slot11@ListBoxWrapper@@UAEHXZ 0x004BEDC0
+// build: symbol ?GetValue@ListBoxWrapper@@UAEHXZ 0x004BEDC0
 // 0x004BEDC0
-int ListBoxWrapper::Slot11()
+int ListBoxWrapper::GetValue()
 {
-    return pImpl->Slot11();
+    return pImpl->GetValue();
 }
 
-// build: symbol ?Slot01@ListBoxWrapper@@UAEXXZ 0x004BEDD0
+// build: symbol ?Draw@ListBoxWrapper@@UAEXXZ 0x004BEDD0
 // 0x004BEDD0
-void ListBoxWrapper::Slot01()
+void ListBoxWrapper::Draw()
 {
-    pImpl->Slot01();
+    pImpl->Draw();
 }
 
 // 0x004BEDE0
@@ -775,16 +775,16 @@ void ListBoxWrapper::sub_004BEE10_Slot15()
     pImpl->sub_004BE0B0_Clear();
 }
 
-// build: symbol ?MsgSlot02@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BEE20
+// build: symbol ?OnMouseWheel@ListBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BEE20
 // 0x004BEE20
-int ListBoxWrapper::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxWrapper::OnMouseWheel(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot02(pMsg);
+    return pImpl->OnMouseWheel(pMsg);
 }
 
-// build: symbol ?Slot01@ListBoxImplementation@@UAEXXZ 0x004BEE90
+// build: symbol ?Draw@ListBoxImplementation@@UAEXXZ 0x004BEE90
 // 0x004BEE90
-void ListBoxImplementation::Slot01()
+void ListBoxImplementation::Draw()
 {
     D2RectStrc tRect;
     tRect.nTop = f_18070C;
@@ -884,9 +884,9 @@ void ListBoxImplementation::Slot01()
     D2Win_10127_SetFont(nOldFont);
 }
 
-// build: symbol ?MsgSlot03@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BF430
+// build: symbol ?OnLButtonDown@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BF430
 // 0x004BF430
-int ListBoxImplementation::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxImplementation::OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
     if (!sub_004BE810_HitTestRect(pMsg))
     {
@@ -922,9 +922,9 @@ int ListBoxImplementation::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
-// build: symbol ?MsgSlot04@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BF530
+// build: symbol ?OnLButtonUp@ListBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BF530
 // 0x004BF530
-int ListBoxImplementation::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
+int ListBoxImplementation::OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
     if (!f_18071C)
     {

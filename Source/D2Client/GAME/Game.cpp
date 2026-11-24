@@ -3546,7 +3546,7 @@ struct Library
 {
     Library();
     virtual void Slot00() = 0;
-    virtual void Slot01() = 0;
+    virtual void Draw() = 0;
     virtual void Slot02() = 0;
     virtual void Slot03() = 0;
     virtual void Slot04() = 0;

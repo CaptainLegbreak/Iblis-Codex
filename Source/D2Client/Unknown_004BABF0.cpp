@@ -52,17 +52,17 @@ public:
     }
 
     virtual ~UIWidget() = 0;
-    virtual void Slot01() = 0;
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual void Draw() = 0;
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int Slot11() = 0;
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int GetValue() = 0;
 
     int unk0x04;
 };
@@ -73,17 +73,17 @@ class ButtonImplementation : public UIWidget
 public:
     ButtonImplementation(int nX, int nY, int nStringSlot, int (__cdecl* pfnCallback)());
     virtual ~ButtonImplementation();
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual void Draw();
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
+    virtual int GetValue();
     virtual void sub_004BAC60_SetUnk24(int nValue);
 
     int HitTestButton(SMSGHANDLER_PARAMS* pMsg);
@@ -107,17 +107,17 @@ class ButtonWrapper : public UIWidget
 public:
     ButtonWrapper(int nX, int nY, int nStringSlot, int (__cdecl* pfnCallback)());
     virtual ~ButtonWrapper();
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual void Draw();
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
+    virtual int GetValue();
     virtual void sub_004BAF10_SetUnk24(int nValue);
 
     ButtonImplementation* pImpl;
@@ -131,17 +131,17 @@ class SpinnerImplementation : public UIWidget
 public:
     SpinnerImplementation(int nX, int nY, int bHorizontal, int nArg0C);
     virtual ~SpinnerImplementation();
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual void Draw();
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
+    virtual int GetValue();
     virtual int sub_004BBFB0();
 
     int HitTestUpArrow(SMSGHANDLER_PARAMS* pMsg);
@@ -173,17 +173,17 @@ class SpinnerWrapper : public UIWidget
 public:
     SpinnerWrapper(int nX, int nY, int bHorizontal, int nArg0C);
     virtual ~SpinnerWrapper();
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual void Draw();
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
+    virtual int GetValue();
     virtual int sub_004BC330_ForwardSlot30(int nArg);
 
     SpinnerImplementation* pImpl;
@@ -223,9 +223,9 @@ int ButtonImplementation::HitTestButton(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
-// build: symbol ?Slot11@ButtonImplementation@@UAEHXZ 0x004BAC50
+// build: symbol ?GetValue@ButtonImplementation@@UAEHXZ 0x004BAC50
 // 0x004BAC50
-int ButtonImplementation::Slot11()
+int ButtonImplementation::GetValue()
 {
     return 0;
 }
@@ -236,9 +236,9 @@ void ButtonImplementation::sub_004BAC60_SetUnk24(int nValue)
     unk0x24 = nValue;
 }
 
-// build: symbol ?MsgSlot03@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAC70
+// build: symbol ?OnLButtonDown@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAC70
 // 0x004BAC70
-int ButtonImplementation::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
+int ButtonImplementation::OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
     if (HitTestButton(pMsg))
     {
@@ -249,9 +249,9 @@ int ButtonImplementation::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
-// build: symbol ?MsgSlot04@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BACD0
+// build: symbol ?OnLButtonUp@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BACD0
 // 0x004BACD0
-int ButtonImplementation::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
+int ButtonImplementation::OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
     if (!f_20)
     {
@@ -310,9 +310,9 @@ void __fastcall ARCHIVE_FreeClientCellFile(void* pCel);                         
 
 struct SMSGHANDLER_PARAMS;
 
-// build: symbol ?MsgSlot06@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAD40
+// build: symbol ?OnKeyDown@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAD40
 // 0x004BAD40
-int ButtonImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
+int ButtonImplementation::OnKeyDown(SMSGHANDLER_PARAMS* pMsg)
 {
     if (unk0x24 && !(pMsg->lParam & 0x40000000) && pMsg->wParam == 0x0D)
     {
@@ -343,23 +343,23 @@ int ButtonImplementation::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
-// build: symbol ?MsgSlot09@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BADA0
+// build: symbol ?OnKeyRight@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BADA0
 // 0x004BADA0
-int ButtonImplementation::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
+int ButtonImplementation::OnKeyRight(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }
 
-// build: symbol ?MsgSlot10@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BADB0
+// build: symbol ?OnKeyLeft@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BADB0
 // 0x004BADB0
-int ButtonImplementation::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
+int ButtonImplementation::OnKeyLeft(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }
 
-// build: symbol ?MsgSlot02@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BADC0
+// build: symbol ?OnMouseWheel@ButtonImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BADC0
 // 0x004BADC0
-int ButtonImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
+int ButtonImplementation::OnMouseWheel(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }
@@ -371,25 +371,25 @@ ButtonWrapper::~ButtonWrapper()
     delete pImpl;
 }
 
-// build: symbol ?MsgSlot02@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAE60
+// build: symbol ?OnMouseWheel@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAE60
 // 0x004BAE60
-int ButtonWrapper::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
+int ButtonWrapper::OnMouseWheel(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot02(pMsg);
+    return pImpl->OnMouseWheel(pMsg);
 }
 
-// build: symbol ?MsgSlot03@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAE70
+// build: symbol ?OnLButtonDown@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAE70
 // 0x004BAE70
-int ButtonWrapper::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
+int ButtonWrapper::OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot03(pMsg);
+    return pImpl->OnLButtonDown(pMsg);
 }
 
-// build: symbol ?MsgSlot04@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAE80
+// build: symbol ?OnLButtonUp@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAE80
 // 0x004BAE80
-int ButtonWrapper::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
+int ButtonWrapper::OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot04(pMsg);
+    return pImpl->OnLButtonUp(pMsg);
 }
 
 // build: symbol ?MsgSlot05@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAE90
@@ -399,18 +399,18 @@ int ButtonWrapper::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
     return pImpl->MsgSlot05(pMsg);
 }
 
-// build: symbol ?Slot01@ButtonWrapper@@UAEXXZ 0x004BAEA0
+// build: symbol ?Draw@ButtonWrapper@@UAEXXZ 0x004BAEA0
 // 0x004BAEA0
-void ButtonWrapper::Slot01()
+void ButtonWrapper::Draw()
 {
-    pImpl->Slot01();
+    pImpl->Draw();
 }
 
-// build: symbol ?MsgSlot06@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAEB0
+// build: symbol ?OnKeyDown@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAEB0
 // 0x004BAEB0
-int ButtonWrapper::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
+int ButtonWrapper::OnKeyDown(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot06(pMsg);
+    return pImpl->OnKeyDown(pMsg);
 }
 
 // build: symbol ?MsgSlot08@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAEC0
@@ -427,25 +427,25 @@ int ButtonWrapper::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
     return pImpl->MsgSlot07(pMsg);
 }
 
-// build: symbol ?MsgSlot09@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAEE0
+// build: symbol ?OnKeyRight@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAEE0
 // 0x004BAEE0
-int ButtonWrapper::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
+int ButtonWrapper::OnKeyRight(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot09(pMsg);
+    return pImpl->OnKeyRight(pMsg);
 }
 
-// build: symbol ?MsgSlot10@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAEF0
+// build: symbol ?OnKeyLeft@ButtonWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BAEF0
 // 0x004BAEF0
-int ButtonWrapper::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
+int ButtonWrapper::OnKeyLeft(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot10(pMsg);
+    return pImpl->OnKeyLeft(pMsg);
 }
 
-// build: symbol ?Slot11@ButtonWrapper@@UAEHXZ 0x004BAF00
+// build: symbol ?GetValue@ButtonWrapper@@UAEHXZ 0x004BAF00
 // 0x004BAF00
-int ButtonWrapper::Slot11()
+int ButtonWrapper::GetValue()
 {
-    return pImpl->Slot11();
+    return pImpl->GetValue();
 }
 
 // 0x004BAF10
@@ -486,9 +486,9 @@ ButtonImplementation::ButtonImplementation(int nX, int nY, int nStringSlot, int 
     nWidth = CelGetWidth(pCel);
 }
 
-// build: symbol ?Slot01@ButtonImplementation@@UAEXXZ 0x004BB000
+// build: symbol ?Draw@ButtonImplementation@@UAEXXZ 0x004BB000
 // 0x004BB000
-void ButtonImplementation::Slot01()
+void ButtonImplementation::Draw()
 {
     D2CelContextStrc tCelContext;
     memset(&tCelContext, 0, sizeof(tCelContext));

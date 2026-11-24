@@ -52,17 +52,17 @@ public:
     }
 
     virtual ~UIWidget() = 0;
-    virtual void Slot01() = 0;
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual void Draw() = 0;
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int Slot11() = 0;
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int GetValue() = 0;
 
     int unk0x04;
 };
@@ -82,17 +82,17 @@ public:
     EditBoxImplementation(int nX, int nY, int nTextWidth, int nHeight, int nArg10, unsigned short nMaxLength, int nArg18,
         int nFont);
     virtual ~EditBoxImplementation();
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual void Draw();
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
+    virtual int GetValue();
     virtual void sub_004BB5B0_Slot12(char* szBuffer);
     virtual void Slot13();
     virtual void sub_004BB530_Slot14(const char* szText);
@@ -133,17 +133,17 @@ public:
     EditBoxWrapper(int nX, int nY, int nTextWidth, int nHeight, int nArg10, unsigned short nMaxLength, int nArg18,
         int nFont);
     virtual ~EditBoxWrapper();
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual void Draw();
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
+    virtual int GetValue();
     virtual void sub_004BBB30_Slot12(int nValue);
     virtual void sub_004BBB50_Slot13(const char* szText);
     virtual void sub_004BBB40_Slot14(int nValue);
@@ -162,17 +162,17 @@ class SpinnerImplementation : public UIWidget
 public:
     SpinnerImplementation(int nX, int nY, int bHorizontal, int nArg0C);
     virtual ~SpinnerImplementation();
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual void Draw();
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
+    virtual int GetValue();
     virtual int sub_004BBFB0();
 
     int HitTestUpArrow(SMSGHANDLER_PARAMS* pMsg);
@@ -204,17 +204,17 @@ class SpinnerWrapper : public UIWidget
 public:
     SpinnerWrapper(int nX, int nY, int bHorizontal, int nArg0C);
     virtual ~SpinnerWrapper();
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual void Draw();
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
+    virtual int GetValue();
     virtual int sub_004BC330_ForwardSlot30(int nArg);
 
     SpinnerImplementation* pImpl;
@@ -352,9 +352,9 @@ D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* pText, int*
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
-// build: symbol ?Slot01@EditBoxImplementation@@UAEXXZ 0x004BB210
+// build: symbol ?Draw@EditBoxImplementation@@UAEXXZ 0x004BB210
 // 0x004BB210
-void EditBoxImplementation::Slot01()
+void EditBoxImplementation::Draw()
 {
     ++unk0x46;
     if (unk0x56)
@@ -476,9 +476,9 @@ void EditBoxImplementation::sub_004BB530_Slot14(const char* szText)
     unk0x3A = nLength;
 }
 
-// build: symbol ?Slot11@EditBoxImplementation@@UAEHXZ 0x004BB560
+// build: symbol ?GetValue@EditBoxImplementation@@UAEHXZ 0x004BB560
 // 0x004BB560
-int EditBoxImplementation::Slot11()
+int EditBoxImplementation::GetValue()
 {
     if (!sub_00526800(pText))
     {
@@ -502,17 +502,17 @@ void EditBoxImplementation::sub_004BB5B0_Slot12(char* szBuffer)
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 
-// build: symbol ?MsgSlot03@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB5E0
+// build: symbol ?OnLButtonDown@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB5E0
 // 0x004BB5E0
-int EditBoxImplementation::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
+int EditBoxImplementation::OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
     unk0x3E = 1;
     return 0;
 }
 
-// build: symbol ?MsgSlot04@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB600
+// build: symbol ?OnLButtonUp@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB600
 // 0x004BB600
-int EditBoxImplementation::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
+int EditBoxImplementation::OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
     if (unk0x3E)
     {
@@ -561,18 +561,18 @@ void EditBoxImplementation::sub_004BB9A0_SetUnk24(int nValue)
     unk0x24 = nValue;
 }
 
-// build: symbol ?MsgSlot09@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB9B0
+// build: symbol ?OnKeyRight@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB9B0
 // 0x004BB9B0
-int EditBoxImplementation::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
+int EditBoxImplementation::OnKeyRight(SMSGHANDLER_PARAMS* pMsg)
 {
     if (unk0x36 < unk0x3A)
         unk0x36 += 1;
     return 1;
 }
 
-// build: symbol ?MsgSlot10@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB9D0
+// build: symbol ?OnKeyLeft@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB9D0
 // 0x004BB9D0
-int EditBoxImplementation::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
+int EditBoxImplementation::OnKeyLeft(SMSGHANDLER_PARAMS* pMsg)
 {
     if (unk0x36 > 0)
         unk0x36 -= 1;
@@ -585,25 +585,25 @@ EditBoxWrapper::~EditBoxWrapper()
     delete pImpl;
 }
 
-// build: symbol ?MsgSlot02@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBA80
+// build: symbol ?OnMouseWheel@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBA80
 // 0x004BBA80
-int EditBoxWrapper::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
+int EditBoxWrapper::OnMouseWheel(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot02(pMsg);
+    return pImpl->OnMouseWheel(pMsg);
 }
 
-// build: symbol ?MsgSlot03@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBA90
+// build: symbol ?OnLButtonDown@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBA90
 // 0x004BBA90
-int EditBoxWrapper::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
+int EditBoxWrapper::OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot03(pMsg);
+    return pImpl->OnLButtonDown(pMsg);
 }
 
-// build: symbol ?MsgSlot04@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBAA0
+// build: symbol ?OnLButtonUp@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBAA0
 // 0x004BBAA0
-int EditBoxWrapper::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
+int EditBoxWrapper::OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot04(pMsg);
+    return pImpl->OnLButtonUp(pMsg);
 }
 
 // build: symbol ?MsgSlot05@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBAB0
@@ -613,24 +613,24 @@ int EditBoxWrapper::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
     return pImpl->MsgSlot05(pMsg);
 }
 
-// build: symbol ?Slot01@EditBoxWrapper@@UAEXXZ 0x004BBAC0
+// build: symbol ?Draw@EditBoxWrapper@@UAEXXZ 0x004BBAC0
 // 0x004BBAC0
-void EditBoxWrapper::Slot01()
+void EditBoxWrapper::Draw()
 {
-    pImpl->Slot01();
+    pImpl->Draw();
 }
 
-// build: symbol ?Slot11@EditBoxWrapper@@UAEHXZ 0x004BBB20
-int EditBoxWrapper::Slot11()
+// build: symbol ?GetValue@EditBoxWrapper@@UAEHXZ 0x004BBB20
+int EditBoxWrapper::GetValue()
 {
-    return pImpl->Slot11();
+    return pImpl->GetValue();
 }
 
-// build: symbol ?MsgSlot06@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBAD0
+// build: symbol ?OnKeyDown@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBAD0
 // 0x004BBAD0
-int EditBoxWrapper::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
+int EditBoxWrapper::OnKeyDown(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot06(pMsg);
+    return pImpl->OnKeyDown(pMsg);
 }
 
 // build: symbol ?MsgSlot08@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBAE0
@@ -647,18 +647,18 @@ int EditBoxWrapper::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
     return pImpl->MsgSlot07(pMsg);
 }
 
-// build: symbol ?MsgSlot09@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBB00
+// build: symbol ?OnKeyRight@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBB00
 // 0x004BBB00
-int EditBoxWrapper::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
+int EditBoxWrapper::OnKeyRight(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot09(pMsg);
+    return pImpl->OnKeyRight(pMsg);
 }
 
-// build: symbol ?MsgSlot10@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBB10
+// build: symbol ?OnKeyLeft@EditBoxWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BBB10
 // 0x004BBB10
-int EditBoxWrapper::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
+int EditBoxWrapper::OnKeyLeft(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot10(pMsg);
+    return pImpl->OnKeyLeft(pMsg);
 }
 
 // 0x004BBB30
@@ -771,9 +771,9 @@ EditBoxWrapper::EditBoxWrapper(int nX, int nY, int nTextWidth, int nHeight, int 
 
 
 
-// build: symbol ?MsgSlot02@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB5F0
+// build: symbol ?OnMouseWheel@EditBoxImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BB5F0
 // 0x004BB5F0
-int EditBoxImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
+int EditBoxImplementation::OnMouseWheel(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }

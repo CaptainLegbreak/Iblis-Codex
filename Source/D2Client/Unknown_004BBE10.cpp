@@ -52,17 +52,17 @@ public:
     }
 
     virtual ~UIWidget() = 0;
-    virtual void Slot01() = 0;
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual void Draw() = 0;
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg) = 0;
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg) = 0;
-    virtual int Slot11() = 0;
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int GetValue() = 0;
 
     int unk0x04;
 };
@@ -77,17 +77,17 @@ class SpinnerImplementation : public UIWidget
 public:
     SpinnerImplementation(int nX, int nY, int bHorizontal, int nArg0C);
     virtual ~SpinnerImplementation();
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual void Draw();
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
+    virtual int GetValue();
     virtual int sub_004BBFB0();
 
     int HitTestUpArrow(SMSGHANDLER_PARAMS* pMsg);
@@ -119,17 +119,17 @@ class SpinnerWrapper : public UIWidget
 public:
     SpinnerWrapper(int nX, int nY, int bHorizontal, int nArg0C);
     virtual ~SpinnerWrapper();
-    virtual void Slot01();
-    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual void Draw();
+    virtual int OnMouseWheel(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
     virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
-    virtual int Slot11();
+    virtual int OnKeyRight(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyLeft(SMSGHANDLER_PARAMS* pMsg);
+    virtual int GetValue();
     virtual int sub_004BC330_ForwardSlot30(int nArg);
 
     SpinnerImplementation* pImpl;
@@ -291,9 +291,9 @@ SpinnerImplementation::~SpinnerImplementation()
     ARCHIVE_FreeClientCellFile(pCellFile);
 }
 
-// build: symbol ?Slot01@SpinnerImplementation@@UAEXXZ 0x004BBE70
+// build: symbol ?Draw@SpinnerImplementation@@UAEXXZ 0x004BBE70
 // 0x004BBE70
-void SpinnerImplementation::Slot01()
+void SpinnerImplementation::Draw()
 {
     if (unk0x38 || unk0x34)
     {
@@ -345,8 +345,8 @@ int SpinnerImplementation::HitTestDownArrow(SMSGHANDLER_PARAMS* pMsg)
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
-// build: symbol ?Slot11@SpinnerImplementation@@UAEHXZ 0x004BBF90
-int SpinnerImplementation::Slot11()
+// build: symbol ?GetValue@SpinnerImplementation@@UAEHXZ 0x004BBF90
+int SpinnerImplementation::GetValue()
 {
     if (unk0x34)
         return 1;
@@ -390,9 +390,9 @@ int SpinnerImplementation::sub_004BBFB0()
     return 1;
 }
 
-// build: symbol ?MsgSlot02@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC050
+// build: symbol ?OnMouseWheel@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC050
 // 0x004BC050
-int SpinnerImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
+int SpinnerImplementation::OnMouseWheel(SMSGHANDLER_PARAMS* pMsg)
 {
     if ((short)pMsg->wParamHigh > 0)
     {
@@ -454,9 +454,9 @@ int __fastcall EDITBOX_HandleSpinnerPress(D2ButtonPairStrc* pButtons, int nUnuse
     return 0;
 }
 
-// build: symbol ?MsgSlot04@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC160
+// build: symbol ?OnLButtonUp@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC160
 // 0x004BC160
-int SpinnerImplementation::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
+int SpinnerImplementation::OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
     if (!unk0x30)
     {
@@ -480,9 +480,9 @@ int SpinnerImplementation::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
     return 0;
 }
 
-// build: symbol ?MsgSlot06@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC190
+// build: symbol ?OnKeyDown@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC190
 // 0x004BC190
-int SpinnerImplementation::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
+int SpinnerImplementation::OnKeyDown(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }
@@ -504,15 +504,15 @@ int SpinnerImplementation::MsgSlot08(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }
-// build: symbol ?MsgSlot09@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC1D0
+// build: symbol ?OnKeyRight@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC1D0
 // 0x004BC1D0
-int SpinnerImplementation::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
+int SpinnerImplementation::OnKeyRight(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }
-// build: symbol ?MsgSlot10@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC1E0
+// build: symbol ?OnKeyLeft@SpinnerImplementation@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC1E0
 // 0x004BC1E0
-int SpinnerImplementation::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
+int SpinnerImplementation::OnKeyLeft(SMSGHANDLER_PARAMS* pMsg)
 {
     return 0;
 }
@@ -523,25 +523,25 @@ SpinnerWrapper::~SpinnerWrapper()
     delete pImpl;
 }
 
-// build: symbol ?MsgSlot02@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC280
+// build: symbol ?OnMouseWheel@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC280
 // 0x004BC280
-int SpinnerWrapper::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
+int SpinnerWrapper::OnMouseWheel(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot02(pMsg);
+    return pImpl->OnMouseWheel(pMsg);
 }
 
-// build: symbol ?MsgSlot03@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC290
+// build: symbol ?OnLButtonDown@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC290
 // 0x004BC290
-int SpinnerWrapper::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
+int SpinnerWrapper::OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot03(pMsg);
+    return pImpl->OnLButtonDown(pMsg);
 }
 
-// build: symbol ?MsgSlot04@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC2A0
+// build: symbol ?OnLButtonUp@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC2A0
 // 0x004BC2A0
-int SpinnerWrapper::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
+int SpinnerWrapper::OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot04(pMsg);
+    return pImpl->OnLButtonUp(pMsg);
 }
 
 // build: symbol ?MsgSlot05@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC2B0
@@ -551,18 +551,18 @@ int SpinnerWrapper::MsgSlot05(SMSGHANDLER_PARAMS* pMsg)
     return pImpl->MsgSlot05(pMsg);
 }
 
-// build: symbol ?Slot01@SpinnerWrapper@@UAEXXZ 0x004BC2C0
+// build: symbol ?Draw@SpinnerWrapper@@UAEXXZ 0x004BC2C0
 // 0x004BC2C0
-void SpinnerWrapper::Slot01()
+void SpinnerWrapper::Draw()
 {
-    pImpl->Slot01();
+    pImpl->Draw();
 }
 
-// build: symbol ?MsgSlot06@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC2D0
+// build: symbol ?OnKeyDown@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC2D0
 // 0x004BC2D0
-int SpinnerWrapper::MsgSlot06(SMSGHANDLER_PARAMS* pMsg)
+int SpinnerWrapper::OnKeyDown(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot06(pMsg);
+    return pImpl->OnKeyDown(pMsg);
 }
 
 // build: symbol ?MsgSlot08@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC2E0
@@ -579,25 +579,25 @@ int SpinnerWrapper::MsgSlot07(SMSGHANDLER_PARAMS* pMsg)
     return pImpl->MsgSlot07(pMsg);
 }
 
-// build: symbol ?MsgSlot09@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC300
+// build: symbol ?OnKeyRight@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC300
 // 0x004BC300
-int SpinnerWrapper::MsgSlot09(SMSGHANDLER_PARAMS* pMsg)
+int SpinnerWrapper::OnKeyRight(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot09(pMsg);
+    return pImpl->OnKeyRight(pMsg);
 }
 
-// build: symbol ?MsgSlot10@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC310
+// build: symbol ?OnKeyLeft@SpinnerWrapper@@UAEHPAUSMSGHANDLER_PARAMS@@@Z 0x004BC310
 // 0x004BC310
-int SpinnerWrapper::MsgSlot10(SMSGHANDLER_PARAMS* pMsg)
+int SpinnerWrapper::OnKeyLeft(SMSGHANDLER_PARAMS* pMsg)
 {
-    return pImpl->MsgSlot10(pMsg);
+    return pImpl->OnKeyLeft(pMsg);
 }
 
-// build: symbol ?Slot11@SpinnerWrapper@@UAEHXZ 0x004BC320
+// build: symbol ?GetValue@SpinnerWrapper@@UAEHXZ 0x004BC320
 // 0x004BC320
-int SpinnerWrapper::Slot11()
+int SpinnerWrapper::GetValue()
 {
-    return pImpl->Slot11();
+    return pImpl->GetValue();
 }
 
 // 0x004BC330

@@ -36,7 +36,7 @@ public:
     virtual int OnLButtonDown(SMSGHANDLER_PARAMS* pMsg);
     virtual int OnLButtonUp(SMSGHANDLER_PARAMS* pMsg);
     virtual int OnMouseMove(SMSGHANDLER_PARAMS* pMsg);
-    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int OnKeyDown(SMSGHANDLER_PARAMS* pMsg);
 };
 
 
@@ -580,7 +580,7 @@ void __stdcall DIALOG_KeyDownMsg(SMSGHANDLER_PARAMS* pMsg)
     D2_ASSERT(pDialog, 0x2EE);
     for (D2DialogWidgetNodeStrc* pNode = pDialog->pWidgets; pNode; pNode = pNode->pNext)
     {
-        if (pNode->pWidget && pNode->pWidget->MsgSlot06(pMsg))
+        if (pNode->pWidget && pNode->pWidget->OnKeyDown(pMsg))
             return;
     }
     if (DIALOG_IsChatKey(pDialog, pMsg->wParam))
