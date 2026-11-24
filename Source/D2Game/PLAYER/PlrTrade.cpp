@@ -444,6 +444,17 @@ void __fastcall sub_00564CB0_Nop(D2UnitStrc* pUnit)
 {
 }
 
+struct D2TaskStrc;
+
+// 0x00564CC0
+void __fastcall TASK_SetType(D2TaskStrc* pTask, int nType)
+{
+    if (pTask)
+    {
+        pTask->nType = nType;
+    }
+}
+
 // 0x00564CD0
 int __fastcall OBJECTS_OperateFunction32_Bank(D2ObjOperateFnStrc* pOp, int nOperate)
 {
@@ -538,6 +549,19 @@ static void __stdcall PLRTRADE_HandleStashButton(D2GameStrc* pGame, unsigned sho
         break;
     }
     }
+}
+
+// 0x00564F00
+int __cdecl OBJECTS_CompareDescending(const unsigned int* pValue1, const unsigned int* pValue2)
+{
+    const unsigned int nValue1 = *pValue1;
+    const unsigned int nValue2 = *pValue2;
+    if (nValue1 > nValue2)
+    {
+        return -1;
+    }
+
+    return nValue1 != nValue2;
 }
 
 // 0x00564F30
