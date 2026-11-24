@@ -22,7 +22,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
-- lane4/small-gaps-b (stacked on small-gaps): ui.cpp and panel.cpp take their copies from D2LanguageNames.h with a build symbol marker, so 0x70F814 and 0x722314 become padding. Verifying.
+- lane4/warden-4922a0: WardenClient.cpp's 0x4922A0 to inv_0048DD90.cpp. Verifying.
 
 ## Questions
 
@@ -46,14 +46,17 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Left in place (and why)
 
-- WardenClient.cpp still holds six strays whose neighbours are two different files: 0x479230 (Unknown_00478D10/Roster.cpp), 0x4922A0 (inv_00491D20/inv_0048DD90), 0x4936E0 (Hireables.cpp/Unknown_00493760), 0x496B10-0x496BE0 (Hireables.cpp/panel.cpp), 0x4E6560 (Unknown_004E2320/Missile.cpp). 0x4A1320 (the text panel opener) belongs to the text unit by its data (gnTextTop 0x7225FC), but it brings the text panel globals WardenClient.cpp defines (gnHintId, gpTextBox and others under different types); that move needs those globals sorted first.
+- WardenClient.cpp: of the strays listed earlier, 0x479230, 0x4936E0 and 0x496B10-0x496BE0 have gone to RosterPets.cpp and Hireables.cpp, and 0x4922A0 is on `warden-4922a0`. 0x4E6560 and the text panel opener 0x4A1320 are in lane 1's range now (0x4A1320 belongs to the text unit by its data, gnTextTop 0x7225FC, but brings the text panel globals WardenClient.cpp defines under other types).
+- 0x70F814 and 0x722314 (4 zero bytes before ui.cpp's and panel.cpp's language table copies): alignment padding, but only once the copy is the first data of its unit. D2LanguageNames.h with a build symbol marker stops the link ("static data marker disagrees with the section's other anchors"): neither unit's .data is in the original order (panel.cpp defines gbControlPanelMouseDown before gnUiRecordIndex; ui.cpp's data has another file's 32 bytes at 0x70F858). Parked until those units' data are in order.
+- 0x47C420: retried in chat.cpp. It differs only by an esi/edi swap throughout; turning each other chat.cpp function before or after it into a declaration does not change it, so the cause is in the declarations, not the code.
+- 0x70F564/0x70F5EC and 0x6D5E8C/0x6D5EA0: RTTI type descriptor headers (type_info vftable, spare) of SGAMEDATA and TSHashTable<SGAMEDATA,HASHKEY_NONE>, and slots 2-3 of the two hash table vtables at 0x6D5E80. They come with one definition of the Storm list and hash table templates (see the Game.cpp/Unknown_0044F9B0 item); the plan's gszType* char arrays are those descriptors' names.
+
 
 - Game.cpp subsets of Unknown_0044F9B0/Unknown_0044F9D0 (0x44F9D0-0x450F70): the placeholders define Storm list/hash-table template members that Game.cpp already declares differently; merging them needs one definition of those templates first.
 - Unknown_00469420 (CmdTbl.cpp's run): CmdTbl.cpp's 0x469C20 calls it in the original, and in CmdTbl.cpp it would be inlined.
 - Unknown_0045AE90 (ui.cpp's run): ui.cpp would inline it into a caller the original calls it from.
 - Unknown_004A6260 (text run): its callers 0x4A6310/0x4A6350 are in text_0049A950.cpp, which defines `gnKeyConfigSelected`; text.cpp has its own static one. The two definitions need sorting out first.
 - Unknown_00450520 (View.cpp's run): Storm hash table template destructors; not placing compiler-generated template code by run evidence.
-- Unknown_0047C420 (0x47C420): in chat.cpp it compiles with different registers; cause not found yet.
 - WardenClient.cpp 0x47F8B0-0x47F990 and Unknown_0047F950: no assert; they sit on the chat/Warden boundary just before 0x47FA20.
 - Weather block 0x472210-0x473F50: no assert path or data reference names its file yet.
 - Unknown_0046C7D0: Gfx.cpp would inline its functions into 0x46CE40 and 0x46D780.
