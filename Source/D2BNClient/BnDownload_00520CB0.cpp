@@ -3,6 +3,7 @@
 #include "D2BNClient.h"
 
 #include "D2BnCryptTypes.h"
+#include "D2BnMessages.h"
 
 typedef unsigned int size_t;
 
@@ -10,19 +11,7 @@ extern "C" size_t __cdecl strlen(const char* szString);
 
 #pragma intrinsic(strlen)
 
-struct D2BnClientIdReplyStrc
-{
-    unsigned int dwRegistrationVersion;
-    unsigned int dwRegistrationAuthority;
-    unsigned int dwClientId;
-    unsigned int f_C;
-};
 
-struct D2BnStartVersioningStrc
-{
-    D2FileTimeStrc tFileTime;
-    char szFileName[4];
-};
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 
@@ -42,14 +31,6 @@ unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
 struct D2BnAuthInfoStrc;
 
-struct D2BnAuthInfoStrc
-{
-    unsigned int dwLogonType;
-    unsigned int f_4;
-    unsigned int f_8;
-    D2FileTimeStrc tFileTime;
-    char szFileName[4];
-};
 
 void __fastcall sub_0051A560_SetValue(int nValue); // 0x0051A560
 

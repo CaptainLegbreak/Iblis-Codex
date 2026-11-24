@@ -1,6 +1,7 @@
 #include "D2BNClient.h"
 #include "D2Primitives.h"
 #include "D2NetTypes.h"
+#include "D2BnMessages.h"
 
 #define FD_ZERO(set) (((D2FdSetStrc*)(set))->fd_count = 0)
 #define FD_SET(fd, set) do { \
@@ -12,12 +13,6 @@ struct D2CriticalSectionStrc;
 struct D2BnStateStrc;
 struct D2BnServerEntryStrc;
 
-struct D2BnCheckAdReplyStrc
-{
-    unsigned int nAdId;
-    unsigned int nExtension;
-    unsigned char pData[1];
-};
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend); // 0x006CC204
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
