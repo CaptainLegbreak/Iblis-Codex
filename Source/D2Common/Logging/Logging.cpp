@@ -370,3 +370,5 @@ void __stdcall STATLIST_ToggleState(D2UnitStrc* pUnit, int nState, int bSet)
         }
     }
 }
+
+#include "gen/data/Source/D2Common/Logging/Logging.inc"

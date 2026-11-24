@@ -1928,3 +1928,5 @@ void __stdcall DATATBLS_AddOrChangeRunesTxtRecord(int nRecordId, D2RunesTxt* pRe
 
     sgtRuneWordsTblDesc.pRunesTxt[nRecordId] = *pRecord;
 }
+
+#include "gen/data/Source/D2Common/DATATBLS/ItemTbls.inc"
