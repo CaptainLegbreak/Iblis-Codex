@@ -926,11 +926,6 @@ void __fastcall CelDrawRleLightBlend(const unsigned char* pSrc, unsigned char* p
     }
 }
 
-// calling-convention shim (not game code)
-void __stdcall sub_00606A10_Shim(const unsigned char* pSrc, unsigned int nWidth, unsigned int nHeight, unsigned int dwFlags, unsigned char** ppOut, unsigned int* pnSize)
-{
-    CelEncodeRle(pSrc, nWidth, nHeight, dwFlags, ppOut, pnSize);
-}
 
 // 0x00607060
 void __fastcall CelDrawRleLightBlendClipped(const unsigned char* source,unsigned char* destination,int rows,int pitch,int x,int left,int right,const unsigned char* map,const unsigned char* blend)
