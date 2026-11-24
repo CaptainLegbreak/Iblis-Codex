@@ -264,7 +264,7 @@ extern const D2StormSignatureKeyStrc gaSignatureKeys_006CF07C[]; // 0x006CF07C
 
 extern D2StormArchiveListStrc gArchiveList_00708354; // 0x00708354
 
-extern D2StormEventListStrc gEventList_00708378; // 0x00708378
+extern TSList<EVENTREC> gEventList_00708378; // 0x00708378
 
 int gbThreadStop_00778F24; // 0x00778F24
 
@@ -333,6 +333,13 @@ T* TSList<T, TGetLink>::DeleteNode(T* ptr)
 // build: symbol ??1?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAE@XZ 0x00418CC0
 // build: symbol ?NewNode@?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAEPAUREQUEST@@III@Z 0x00419630
 // build: symbol ?DeleteNode@?$TSList@UREQUEST@@U?$TSGetLink@UREQUEST@@@@@@QAEPAUREQUEST@@PAU2@@Z 0x0041A2C0
+// build: symbol ??_R0?AUEVENTREC@@@8 0x007083D0
+// build: symbol ?LinkNode@?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAEXPAUEVENTREC@@I0@Z 0x00417C70
+// build: symbol ?UnlinkAll@?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAEXXZ 0x004189C0
+// build: symbol ??1?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAE@XZ 0x00418D40
+// build: symbol ?NewNode@?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAEPAUEVENTREC@@III@Z 0x00418F90
+// build: symbol ?DeleteNode@?$TSList@UEVENTREC@@U?$TSGetLink@UEVENTREC@@@@@@QAEPAUEVENTREC@@PAU2@@Z 0x00419690
+template TSList<EVENTREC>::~TSList();
 template TSList<REQUEST>::~TSList();
 template REQUEST* TSList<REQUEST>::DeleteNode(REQUEST*);
 template TSList<AUDIOSTREAM>::~TSList();
@@ -822,11 +829,6 @@ static inline ARCHIVEREC* ArchiveHead()
     return (int)gpArchiveHead_0070835C > 0 ? gpArchiveHead_0070835C : 0;
 }
 
-static inline char* EventHead()
-{
-    return (int)gpEventHead_00708380 > 0 ? gpEventHead_00708380 : 0;
-}
-
 // 0x004152D0
 static void DecryptBlock(unsigned int* pData, unsigned int nBytes, unsigned int nKey)
 {
@@ -1184,10 +1186,11 @@ unsigned long __stdcall CdThreadProc(void* pParam)
         if (gnReadRate_0077904C)
             nWait = gnReadUnit_00708348 * 1000 / gnReadRate_0077904C;
         EnterCriticalSection(&gBasePathLock_00779068);
-        for (char* pNode = EventHead(); (int)pNode > 0; )
+        EVENTREC* pHead = gEventList_00708378.Head();
+        for (EVENTREC* pNode = pHead; (int)pNode > 0; )
         {
-            SetEvent(((EVENTREC*)pNode)->hEvent);
-            pNode = gEventList_00708378.sub_00419690_DeleteNode(pNode);
+            SetEvent(pNode->hEvent);
+            pNode = gEventList_00708378.DeleteNode(pNode);
         }
         PumpStreams();
         REQUEST* pNear;
@@ -2607,13 +2610,6 @@ inline void D2StormList0070836CStrc::sub_00418980_UnlinkAll()
         ((D2StormLinkStrc*)pNode)->Unlink();
 }
 
-// 0x004189C0
-inline void D2StormList00708378Strc::sub_004189C0_UnlinkAll()
-{
-    while (char* pNode = m_terminator.Next())
-        ((D2StormLinkStrc*)pNode)->Unlink();
-}
-
 // 0x00418C60
 D2StormList00708354Strc::~D2StormList00708354Strc()
 {
@@ -2625,13 +2621,6 @@ D2StormList00708354Strc::~D2StormList00708354Strc()
 D2StormList0070836CStrc::~D2StormList0070836CStrc()
 {
     sub_00418980_UnlinkAll();
-    m_terminator.Unlink();
-}
-
-// 0x00418D40
-D2StormList00708378Strc::~D2StormList00708378Strc()
-{
-    sub_004189C0_UnlinkAll();
     m_terminator.Unlink();
 }
 
@@ -3332,17 +3321,6 @@ static void MarkRequestPriority(int nValue, void* pBuffer)
     LeaveCriticalSection(&gBasePathLock_00779068);
 }
 
-// build: symbol ?NewNode@D2StormEventListStrc@@QAEPAUEVENTREC@@III@Z 0x00418F90
-// build: symbol ?LinkNode@D2StormEventListStrc@@QAEXPADI0@Z 0x00417C70
-inline EVENTREC* D2StormEventListStrc::NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(EVENTREC) + nExtraBytes, gszStormEventRecTypeName, -2, nFlags | 8);
-    EVENTREC* pRecord = pMemory ? new (pMemory) EVENTREC : 0;
-    if (nLinkType)
-        LinkNode((char*)pRecord, nLinkType, 0);
-    return pRecord;
-}
-
 // 0x0041A300
 int __stdcall CancelRequest(void* pBuffer, void* pOther)
 {
@@ -3863,15 +3841,6 @@ void sub_F21_EmitScalarDeletingDestructors(ARCHIVEREC* pArchive, FILEREC* pFile,
     delete pArchive;
     delete pFile;
     delete pRecord;
-}
-
-// 0x00419690
-char* D2StormFixedListStrc::sub_00419690_DeleteNode(char* pNode)
-{
-    char* pNext = Link(pNode)->Next();
-    ((D2StormLinkStrc*)pNode)->Unlink();
-    SMemFree(pNode, gszStormEventRecTypeName, -2, 0);
-    return pNext;
 }
 
 static void DecryptBlock(unsigned int nKey, unsigned int* pData, unsigned int nBytes); // 0x004152D0
@@ -5005,3 +4974,7 @@ TSList<REQUEST> gRequestList_00708360; // 0x00708360
 // build: symbol ??__EgDdaList_00708384@@YAXXZ 0x006CA850
 // build: symbol ??__FgDdaList_00708384@@YAXXZ 0x006CB240
 TSList<AUDIOSTREAM> gDdaList_00708384; // 0x00708384
+
+// build: symbol ??__EgEventList_00708378@@YAXXZ 0x006CA830
+// build: symbol ??__FgEventList_00708378@@YAXXZ 0x006CB1E0
+TSList<EVENTREC> gEventList_00708378; // 0x00708378

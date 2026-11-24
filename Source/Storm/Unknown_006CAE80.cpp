@@ -46,8 +46,6 @@ extern TSList<ARCHIVEREC> gArchiveList_00708354; // 0x00708354
 
 extern TSList<FILEREC> gList_0070836C; // 0x0070836C
 
-extern TSList<EVENTREC> gList_00708378; // 0x00708378
-
 extern TSList<BREAKCMD> gList_007088E8; // 0x007088E8
 
 inline void* __cdecl operator new(unsigned int, void* location);
@@ -85,12 +83,6 @@ void __cdecl sub_006CB0C0_DestroyList()
 void __cdecl sub_006CB180_DestroyList()
 {
     gList_0070836C.~TSList();
-}
-
-// 0x006CB1E0
-void __cdecl sub_006CB1E0_DestroyList()
-{
-    gList_00708378.~TSList();
 }
 
 // 0x006CB380
