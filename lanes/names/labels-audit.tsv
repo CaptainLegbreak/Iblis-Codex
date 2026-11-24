@@ -1,0 +1,248 @@
+va	name	current source	proposed source	evidence
+0x00401090	??_GReport@crashy@@UAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00403040	??_H@YGXPAXIHP6EPAX0@Z@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00406A10	FOG_CreatePathHierarchy	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0040FE60	??_GD2LogMessageStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00411540	Int64ToString	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00413F30	bjhash	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00414990	InternalDeleteEntry	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00414C70	InternalSaveEntry	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x004151D0	DecompressLzw_BufferRead	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00415210	DecompressLzw_BufferWrite	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x004154B0	ReadFileChecked	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00416AD0	InternalReadAligned	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00417040	InternalReadUnaligned	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00417F10	GetFileBlockEntry	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00418B20	??_GD2StormArchiveRecStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00418E90	RemoveArchiveRef	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00419150	??_GD2StormFileRecStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00419760	RemoveFileRef	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00419790	IssueRequest	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00419A50	??_GD2StormAudioStreamStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00419BD0	RemoveStreamRef	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041A0E0	??_GD2StormRequestStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0041A300	CancelRequest	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041A450	CheckRequests	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041A550	CdThreadProc	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041A8F0	MarkRequestPriority	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041B0B0	ReadAdditionalAttributes	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041B6B0	s_OpenArchive	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041C8A0	??_GD2StormHandlerStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0041D3B0	SSignatureVerifyStream_Begin	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041D590	SSignatureGenerate	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041D6D0	SSignatureVerifyStream_Finish	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041D7D0	SSignatureVerify	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041D810	CrcBuffer	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041DA60	ImaAdpcmCompress	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041DCE0	ImaAdpcmDecompress	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041DEC0	PkwareBufferRead	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041DF00	PkwareBufferWrite	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041DF40	PkwareCompress	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041E000	PkwareDecompress	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041E1F0	ZlibCompress	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041E340	ZlibDecompress	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041E360	ImaAdpcmMonoCompress	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041E3A0	ImaAdpcmMonoDecompress	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041E3C0	ImaAdpcmStereoCompress	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041E400	ImaAdpcmStereoDecompress	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041E440	s_AllocDecompressBuffer	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041ED90	LinkNode	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041EF20	BuildTree	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041F510	AddSymbol	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041F740	Decompress	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041F850	Compress	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041F980	HuffmanCompress	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041F9E0	HuffmanDecompress	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0041FA80	LockLog	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00420880	??_GD2StormWndRecStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x004209E0	FindWindow	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00420A10	DeleteWindow	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00420A70	InternalRegister	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00420AB0	InternalUnregister	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00421BD0	EncodeDataBytes	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00421FE0	GrowToFit	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00422710	IsOdd	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00422750	IsOne	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00422780	IsZero	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00422B00	Set2Exp	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00422C60	SetOne	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00422CC0	SetZero	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00422D00	Shl	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00422E70	Shr	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x004234B0	FromStr	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x004234F0	FromStream	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00423540	FromUnsigned	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x004235F0	ToBinary	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00423600	ToStr	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00423770	ToStream	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00423820	??_GD2StormBigStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00423DC0	Div	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00424180	Gcd	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00424640	Pow	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00424700	Rand	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00424FB0	InvMod	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00425150	PowMod	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00425350	IsPrime	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x004255E0	FindPrime	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00426070	Prepare	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00426180	CopyIdHashTable	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00426E20	??_GD2StormBreakCmdStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0044FBB0	??_GD2GameStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0044FCF0	??_GD2StormListAStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x004500A0	??_GD2StormHashObjectChunkStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00450210	~TSHashTable	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x004504D0	??_GD2StormListArrayStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00450550	??_G?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@UAEPAXI@Z	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x004510D0	??_G?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@UAEPAXI@Z	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x004511A0	??_G?$TSExportTableSimple@USGAMEDATA@@PAUHSGAMEDATA__@@$0A@@@UAEPAXI@Z	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00451220	??_G?$TSExportTableSync@USGAMEDATA@@PAUHSGAMEDATA__@@PAUHSGAMEDATALOCK__@@VCCritSect@@$0A@@@UAEPAXI@Z	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0045BE30	??_GD2ClientAllocRecStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00463860	CUNIT_GetMonsterBaseId	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0047FC40	??_GWardenModule@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x004BAE30	??_GButtonWrapper@@UAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x004BAFD0	??_GButtonImplementation@@UAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x004BBA50	??_GEditBoxWrapper@@UAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x004BBD50	??_GEditBoxImplementation@@UAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x004BC250	??_GSpinnerWrapper@@UAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x004BC450	??_GSpinnerImplementation@@UAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x004BED10	??_GListBoxWrapper@@UAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x004BF8C0	??_GListBoxImplementation@@UAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x004DF9D0	SoundChannelFind	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x004F9CC0	D2Win_COMMANDS_SysCommand	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x004FA160	D2Win_COMMANDS_ToggleMusic	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x004FAC90	D2Win_10185_CheckCharMpq	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x004FB1C0	D2Win_10178_CopyGammaTable	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00517E40	??4BNGatewayAccess@@QAEAAV0@ABV0@@Z	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00517ED0	Unload	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00517FD0	Nth	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00518040	DNS	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00518060	GMT	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00518BD0	??_GD2BnLogStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0051D590	??_GD2StormArray408Strc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00527660	??_V@YAXPAX@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00527680	??_U@YAPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0052D440	GAME_UpdateAllClients	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0052E510	RawNext	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0052E600	DeleteNode	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00530F30	PLRSAVE_EnableSaveFileWriting	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x005317B0	PLRSAVE_WriteItems	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00531EB0	D2GAME_SAVE_WriteFileOnRealm	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x005335E0	PLRSAVE_ReadItems	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00539000	CLIENTS_SetGameOwner	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00539300	CLIENTS_GetCharSaveTransactionToken	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0053BDA0	D2GAME_PACKETS_SendPacket0x0A_RemoveObject	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0053BFD0	D2GAME_PACKETS_SendPacket0xA0_A1_A2	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0053D220	D2GAME_PACKETS_SendPacket0x3F	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0053D740	D2GAME_SendPacket0x2A	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0053D840	D2GAME_SendPacket0x52	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0053D8D0	D2GAME_SendPacket0x58	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0053D940	D2GAME_PACKETS_SendPacket0x61	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0053D960	D2GAME_PACKETS_SendPacket0x63_WaypointMenu	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0054A5D0	D2GAME_PACKETCALLBACK_Rcv0x15_HandleChatMessage	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0054B030	D2GAME_PACKETCALLBACK_Rcv0x1E_SwapTwo1HandedWithOne2HandedItem	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0054B0F0	D2GAME_PACKETCALLBACK_Rcv0x1F_SwapCursorBufferItems	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0054BAC0	D2GAME_PACKETCALLBACK_Rcv0x32_BuyItemFromNpcBuffer	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0054C070	D2GAME_PACKETCALLBACK_Rcv0x3F_PlayAudio	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0054C420	D2GAME_PACKETCALLBACK_Rcv0x45_ChangeTpLocation	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0054CED0	D2GAME_MERCS_EquipItem	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0054D430	D2GAME_PACKETCALLBACK_Rcv0x61_DropPickupMercItem	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x005531C0	UnitGetClient	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0055C850	D2GAME_PickupGold	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0055DF00	D2GAME_ITEMS_UpdateInventoryItems	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0055F500	D2GAME_UpdatePlayerVitals	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0055F590	D2GAME_CheckHasFilledSockets	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0055F900	D2GAME_RepairBrokenItem	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0055FE60	D2GAME_ITEMS_UpdateStatList	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0056BFE0	SKILLS_ConsumeSkillMana	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0056E620	D2GAME_GetSummonIdFromSkill	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00572EA0	MONSTERAI_SetInteractTrading	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00575BC0	D2GAME_KillPlayerPets	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00579180	D2GAME_NPC_AssignMercenary	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00582C40	D2GAME_SHRINES_Gem	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00582DA0	D2GAME_SHRINES_Storm	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00583BF0	D2GAME_SHRINES_SkillBoost	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0059CEE0	ACT2Q6_Timer_StatusCycler	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x005A4EE0	MONSTERMODE_IsMonster	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x005A6260	MONSTERMODE_SetVelocityParams	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x005A6490	MONSTERMODE_AllocParams	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x005A6920	MONSTERMODE_ApplyStatRegen	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x005B2A00	D2GAME_SpawnNormalMonster	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x005C1AB0	SKILLITEM_RollRareAffix	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x005C40D0	SKILLS_SetSummonResistance	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x005C61E0	SKILLS_EventFunc05_LifeTap	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x005C6690	SKILLS_EventFunc26_ShareDamageWithOwner	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x005C6760	SKILLS_EventFunc27_Slow	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x005E3930	AITHINK_PetMove	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x005E7C10	AITHINK_SpecialState06_HireableNonPlayerOwner	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x005E8020	AITHINK_SpecialState10_17_DimVision	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00602A40	??_GD2StormSlotLinkStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00602B70	??_GD2StormSlotListStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00602CB0	??_GD2StormEntry38Strc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00603460	~TSHashTable	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00603610	?InternalNew@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEPAUD2StormEntry38Strc@@PAUD2StormSlotListStrc@@II@Z	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006036D0	?InternalDelete@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEXPAUD2StormEntry38Strc@@@Z	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006037B0	??_G?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEPAXI@Z	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006037E0	??_GD2StormHashChunkStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00604150	?InternalDelete@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEXPAUD2StormEntry38Strc@@@Z	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006044F0	?InternalNew@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEPAUD2StormEntry38Strc@@PAUD2StormSlotListStrc@@II@Z	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00604700	??_G?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEPAXI@Z	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00604870	??_G?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@UAEPAXI@Z	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00604900	??_G?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@UAEPAXI@Z	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0060DD60	??_GChatIgnoreList@@UAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0060EDF0	??_GD2CommonMappingEntryNodeStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0060EFC0	??_GD2CommonStormSlotListAStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0060F160	??_GD2CommonStringEntryNodeStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0060F300	??_GD2CommonStormSlotListBStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0060FD90	~TSHashTable	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0060FFD0	??_GD2CommonStormSlotArrayAStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00610050	??_G?$TSHashTable@UStringEntryNode@@VHASHKEY_STRI@@@@UAEPAXI@Z	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00610550	~TSHashTable	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00610780	??_GD2CommonStormSlotArrayBStrc@@QAEPAXI@Z	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00610800	??_G?$TSHashTable@UMappingEntryNode@@VHASHKEY_STRI@@@@UAEPAXI@Z	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00621A70	UnitIsDoor	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x00624C80	STATLIST_InsertStatOrFail	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00624D10	STATLIST_RemoveStat	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00624DD0	STATLIST_InsertStatModOrFail	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00624ED0	STATLIST_GetBaseStat	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00624F60	STATLIST_GetTotalStat	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00625150	STATLIST_UpdateUnitStat	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00625A70	STATLIST_ToggleState	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00629BB0	ITEMSIsA	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x0063CBB0	INVENTORY_GetTradeInventory	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0063CBD0	INVENTORY_FreeTradeInventory	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0063CC30	INVENTORY_CheckForItemInTradeInventory	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0063CC70	INVENTORY_AddItemToTradeInventory	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00648750	PATH_SetPathingFlag	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00648A40	PATH_GetLastPointX	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00648A60	PATH_GetLastPointY	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00648AD0	PATH_SetTargetPos	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x00648C10	PATH_GetFootprintCollisionMaskExported	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0067C420	DRLGGRID_OverwriteFlag	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0067C430	DRLGGRID_OrFlag	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0067C440	DRLGGRID_AndFlag	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0067C450	DRLGGRID_XorFlag	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0067C460	DRLGGRID_OverwriteFlagIfZero	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0067C470	DRLGGRID_AndNegatedFlag	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x0067E0E0	DRLGOUTSIEGE_AddAct5SecondaryBorder	d2moo	inferred	not found in D2MOO (no identifier of that spelling anywhere in its tree)
+0x006C2760	sQSNTWriteFromQueue	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C3CB0	ConvertBool	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C3E10	GenerateError	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C4820	PerformConversion	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C4A00	ProcessFlags	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C4BC0	ProcessToken	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C54D0	DecodeTgaFile	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C5730	DecodeTgaMem	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C5830	EncodeTgaFile	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C59C0	FlipImage	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C5A90	Output	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C5B10	CompressPcxRow	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C5B60	EncodePcx256File	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C5CF0	UncompressPcxImage	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C5F70	DecodeBmpFile	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C60F0	DecodeBmpMem	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C61C0	EncodeBmp256File	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C6330	ClearBlock	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C6470	CompressGifImage	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C6620	EncodeGif256File	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C6790	DecodePcxFile	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
+0x006C6990	DecodePcxMem	blizzard	inferred	no string of this name in Game.exe (ASCII or UTF-16) and no identifier of this spelling in D2MOO; if it came from another Storm/Fog build's symbols, that file is not in the repo
