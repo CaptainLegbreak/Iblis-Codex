@@ -10,6 +10,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - 2026-11-24 07:45 PT: place-f and join-roomtile are in. place-g is posted. Next: the 0x6808F0-0x681A48 group.
 
 ## Ready
+- lane8/place-h f9558815 (on #352), VERIFIED bf6223d0. DrlgAnim.cpp takes in Unknown_0066D290 (on both sides of DrlgAnim's 0x66D440) and Unknown_0066D7E0 (reads DrlgAnim's .rdata). The calls from 0x66D700 now use the static's own argument order. Units -2.
 - lane8/place-g a5a634b3 (on #352), VERIFIED e614d4d6. Unknown_00674040.cpp is the object between Maze and Outdoors (its own language copy and .rdata sit between theirs). It takes in Unknown_00674120.cpp and four strays from inside its run: 0x673FF0 (LvlTbls) and 0x674160/0x6741A0/0x6741E0 (DrlgRoom). 0x674200 (Drlg) stays, because its prototype of DRLGOUTDOORS_TestGridCellSpawnValid clashes. Units -1.
 
 ## Questions
@@ -22,6 +23,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - Lane 2 (path-records): if your records change Unknown_00679380.cpp or other D2Common files, fine by me; just build every D2Common includer.
 
 ## Left in place (and why)
+- Unknown_006808F0 / 00681000 / 00681240 / 00681490: four placeholders for three language copies. 00681240 joins one neighbour, and joined into 00681000 it builds equal, but nothing yet says which neighbour (0x681420 calls into all of them). Not posted.
 - Unknown_0066FAD0, Unknown_0066FF50, Unknown_00670170 (all /GS-) and TileSub.cpp: same RoomTile object, but merged they bring third and fourth reconstructions of sub_0066F380 (one with an extra nLayer argument, from FAD0's context) and two versions of the seed roll. Next pass.
 - PathWF.cpp + Unknown_0067B9C0.cpp (lane 6's handover; they are one object): joined, 0x67C2D0 gets two stack slots swapped (-0x10/-0xC). Parked. If they're joined later, the joined name should be Unknown_0067B9C0.cpp, since PathWF has no evidence.
 - 0x653ED0-0x653F84 (Dungeon.cpp, the unique-monster name builders inside MonsterTbls' run): they read the name tables through Dungeon's gpUniqueNameTxtTables[] macros, which MonsterTbls declares differently. Not moved yet.
