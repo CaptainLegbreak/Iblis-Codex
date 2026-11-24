@@ -4215,8 +4215,8 @@
    "state": "included"
   },
   "Source/D2Common/SKILLS/Skills.cpp": {
-   "bytes": 2184,
-   "definitions": 12,
+   "bytes": 2160,
+   "definitions": 11,
    "externs": [
     "extern \"C\" void __cdecl DUNGEON_SkillCalcGetRandomNumberInRange(); // 0x00643700",
     "extern \"C\" void __cdecl sub_00646C00(); // 0x00646C00"
@@ -4500,8 +4500,8 @@
    "state": "included"
   },
   "Source/D2Common/Unknown_00679A60.cpp": {
-   "bytes": 640,
-   "definitions": 6,
+   "bytes": 512,
+   "definitions": 5,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_00679A60.inc",
@@ -5269,6 +5269,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/Unknown_0067A550.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Common/Unknown_0067B9C0.cpp": {
+   "bytes": 152,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Common/Unknown_0067B9C0.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -129197,7 +129206,7 @@
    "cname": "gData_006F1E28",
    "declared": true,
    "decorated": "?gaPathDeltaTable@@3QBHB",
-   "file": "Source/D2Common/SKILLS/Skills.cpp",
+   "file": "Source/D2Common/Unknown_0067B9C0.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006F1E28[6]; // 0x006F1E28",
@@ -151764,7 +151773,7 @@
    "cname": "gData_006F1D98",
    "declared": true,
    "decorated": "?gnDirectionsToAdjacentCellOffsets@@3QBUD2CoordStrc@@B",
-   "file": "Source/D2Common/Unknown_00679A60.cpp",
+   "file": "Source/D2Common/Unknown_0067B9C0.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const D2CoordStrc gData_006F1D98[16]; // 0x006F1D98",
    "head": "extern \"C\" const D2CoordStrc gData_006F1D98[16] = ",
