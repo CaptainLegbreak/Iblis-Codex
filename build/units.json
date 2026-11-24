@@ -7108,21 +7108,6 @@
      "name": "?ReallocData@?$TSFixedArray@IU?$TSCD@I@@@@QAEXI@Z"
     },
     {
-     "va": "0x00421510",
-     "length": 28,
-     "name": "?sub_00421510_ToUnsigned@@YAXPAIPAUBigBuffer@@@Z"
-    },
-    {
-     "va": "0x00421530",
-     "length": 9,
-     "name": "?sub_00421530@@YGHPAX0@Z"
-    },
-    {
-     "va": "0x00421550",
-     "length": 18,
-     "name": "?SBigToUnsigned@@YGXPAXPAI@Z"
-    },
-    {
      "va": "0x00421680",
      "length": 46,
      "name": "?ReallocData@?$TSFixedArray@EU?$TSCD@E@@@@QAEXI@Z"
@@ -7192,41 +7177,6 @@
      "va": "0x00421B00",
      "length": 70,
      "name": "sub_00421B00_Reserve"
-    },
-    {
-     "va": "0x004235F0",
-     "length": 15,
-     "name": "?ToBinary@@YAXPAUD2StormArrayBStrc@@PAUBigBuffer@@@Z"
-    },
-    {
-     "va": "0x00423AE0",
-     "length": 80,
-     "name": "?SBigToBinaryArray@@YGXPAUD2StormBigStrc@@PAUD2StormArrayBStrc@@H@Z"
-    },
-    {
-     "va": "0x00423B30",
-     "length": 68,
-     "name": "?SBigToBinaryBuffer@@YGXPAX0IPAI@Z"
-    },
-    {
-     "va": "0x00423B80",
-     "length": 51,
-     "name": "?SBigToBinaryPtr@@YGXPAUD2StormBigStrc@@PAPAEPAI@Z"
-    },
-    {
-     "va": "0x00423C90",
-     "length": 78,
-     "name": "?SBigToStreamArray@@YGXPAUD2StormBigStrc@@PAUD2StormArrayBStrc@@H@Z"
-    },
-    {
-     "va": "0x00423CE0",
-     "length": 66,
-     "name": "?SBigToStreamBuffer@@YGXPAUD2StormBigStrc@@PAXIPAI@Z"
-    },
-    {
-     "va": "0x00423D30",
-     "length": 45,
-     "name": "?SBigToStreamPtr@@YGXPAUD2StormBigStrc@@PAPAEPAI@Z"
     }
    ]
   },
@@ -7311,6 +7261,21 @@
      "name": "?sub_00421440_IsEven@@YAHABUBigBuffer@@@Z"
     },
     {
+     "va": "0x00421510",
+     "length": 28,
+     "name": "?sub_00421510_ToUnsigned@@YAXPAIPAUBigBuffer@@@Z"
+    },
+    {
+     "va": "0x00421530",
+     "length": 9,
+     "name": "?sub_00421530@@YGHPAX0@Z"
+    },
+    {
+     "va": "0x00421550",
+     "length": 18,
+     "name": "?SBigToUnsigned@@YGXPAXPAI@Z"
+    },
+    {
      "va": "0x00421810",
      "length": 23,
      "name": "??1BigBuffer@@QAE@XZ"
@@ -7352,6 +7317,11 @@
      "va": "0x00422570",
      "length": 69,
      "name": "?sub_00422570_CompareUInt@@YGHAAUBigBuffer@@I@Z"
+    },
+    {
+     "va": "0x00422710",
+     "length": 49,
+     "name": "?IsOdd@@YAHPAUBigBuffer@@@Z"
     },
     {
      "va": "0x00422750",
@@ -7412,6 +7382,11 @@
      "name": "?FromUnsigned@@YGXAAUBigBuffer@@I@Z"
     },
     {
+     "va": "0x004235F0",
+     "length": 15,
+     "name": "?ToBinary@@YAXPAUD2StormArrayBStrc@@PAUBigBuffer@@@Z"
+    },
+    {
      "va": "0x00423790",
      "length": 25,
      "name": "?SBigAdd@@YGXPAUD2StormBigStrc@@00@Z"
@@ -7440,6 +7415,11 @@
      "va": "0x004238D0",
      "length": 26,
      "name": "?SBigInc@@YGXPAUD2StormBigStrc@@0@Z"
+    },
+    {
+     "va": "0x004238F0",
+     "length": 17,
+     "name": "?SBigIsOdd@@YGHPAUD2StormBigStrc@@@Z"
     },
     {
      "va": "0x00423910",
@@ -7497,6 +7477,21 @@
      "name": "?SBigSub@@YGXPAUD2StormBigStrc@@00@Z"
     },
     {
+     "va": "0x00423AE0",
+     "length": 80,
+     "name": "?SBigToBinaryArray@@YGXPAUD2StormBigStrc@@PAUD2StormArrayBStrc@@H@Z"
+    },
+    {
+     "va": "0x00423B30",
+     "length": 68,
+     "name": "?SBigToBinaryBuffer@@YGXPAX0IPAI@Z"
+    },
+    {
+     "va": "0x00423B80",
+     "length": 51,
+     "name": "?SBigToBinaryPtr@@YGXPAUD2StormBigStrc@@PAPAEPAI@Z"
+    },
+    {
      "va": "0x00423BC0",
      "length": 87,
      "name": "?SBigToStrArray@@YGXPAUD2StormBigStrc@@PAUD2StormArrayCStrc@@H@Z"
@@ -7510,6 +7505,21 @@
      "va": "0x00423C60",
      "length": 42,
      "name": "?SBigToStrPtr@@YGXPAUD2StormBigStrc@@PAPBD@Z"
+    },
+    {
+     "va": "0x00423C90",
+     "length": 78,
+     "name": "?SBigToStreamArray@@YGXPAUD2StormBigStrc@@PAUD2StormArrayBStrc@@H@Z"
+    },
+    {
+     "va": "0x00423CE0",
+     "length": 66,
+     "name": "?SBigToStreamBuffer@@YGXPAUD2StormBigStrc@@PAXIPAI@Z"
+    },
+    {
+     "va": "0x00423D30",
+     "length": 45,
+     "name": "?SBigToStreamPtr@@YGXPAUD2StormBigStrc@@PAPAEPAI@Z"
     },
     {
      "va": "0x00423D60",
@@ -7702,11 +7712,6 @@
      "name": "?4BigBuffer"
     },
     {
-     "va": "0x00422710",
-     "length": 49,
-     "name": "?IsOdd@@YAHPAUBigBuffer@@@Z"
-    },
-    {
      "va": "0x00423770",
      "length": 27,
      "name": "?ToStream@@YAXPAUD2StormArrayBStrc@@PAUBigBuffer@@@Z"
@@ -7720,11 +7725,6 @@
      "va": "0x00423890",
      "length": 26,
      "name": "?SBigFromStream@@YGXPAXPBXIPAI@Z"
-    },
-    {
-     "va": "0x004238F0",
-     "length": 17,
-     "name": "?SBigIsOdd@@YGHPAUD2StormBigStrc@@@Z"
     },
     {
      "va": "0x00425720",

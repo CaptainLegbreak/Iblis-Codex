@@ -1,8 +1,6 @@
 #include "Storm.h"
 #include "stpl.h"
 
-#define TO_UNSIGNED sub_00421510_ToUnsigned
-
 struct BigBuffer;
 struct D2Storm408ElemStrc;
 struct D2StormArray408Strc;
@@ -23,11 +21,8 @@ struct BigBuffer
     }
 };
 
-int __stdcall sub_004212F0_Compare(void* hLeft, void* hRight); // 0x004212F0
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
 extern "C" const char gszTypeNewsTableItem_0072FF8C[];
-
-static void __cdecl sub_00421510_ToUnsigned(unsigned int* pnResult, BigBuffer* pBuf);
 
 // build: symbol ?ReallocData@?$TSFixedArray@IU?$TSCD@I@@@@QAEXI@Z 0x00421110
 // build: symbol ?ReallocData@?$TSFixedArray@EU?$TSCD@E@@@@QAEXI@Z 0x00421680
@@ -47,25 +42,6 @@ template void TSFixedArray<char>::ReallocData(unsigned int);
 template TSFixedArray<unsigned int>& TSFixedArray<unsigned int>::operator=(const TSFixedArray<unsigned int>&);
 template void TSGrowableArray<unsigned char>::SetCount(unsigned int);
 template TSGrowableArray<unsigned int>& TSGrowableArray<unsigned int>::operator=(const TSGrowableArray<unsigned int>&);
-
-// 0x00421510
-static void __cdecl sub_00421510_ToUnsigned(unsigned int* pnResult, BigBuffer* pBuf)
-{
-    *pnResult = 0;
-    *pnResult = pBuf->At(0);
-}
-
-// 0x00421530
-int __stdcall sub_00421530(void* hLeft, void* hRight)
-{
-    return sub_004212F0_Compare(hLeft, hRight);
-}
-
-// 0x00421550
-void __stdcall SBigToUnsigned(void* hBig, unsigned int* pnResult)
-{
-    TO_UNSIGNED(pnResult, (BigBuffer*)hBig);
-}
 
 inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
 {
