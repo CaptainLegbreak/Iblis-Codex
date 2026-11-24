@@ -15,6 +15,7 @@
 #include "D2GameAux.h"
 #include "D2GameRecords.h"
 #include "D2LevelTxt.h"
+#include "D2LanguageNames.h"
 
 struct D2StatListStrc;
 
