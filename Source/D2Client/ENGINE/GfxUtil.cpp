@@ -16,6 +16,7 @@
 #include "D2ItemsWorld.h"
 #include "D2MonModes.h"
 #include "D2WinSplitText.h"
+#include "D2ClientBallistic.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -513,20 +514,6 @@ struct D2GfxNodeStrc
 };
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 
-struct D2BallisticStrc
-{
-    unsigned int dwFlags;
-    int f_4;
-    int f_8;
-    int nVelocity;
-    int nVelA;
-    int nVelB;
-    int nStartVelocity;
-    int unk0x1C[2];
-    int f_24;
-    int unk0x28[8];
-    int nFrames;
-};
 
 D2BallisticStrc* __fastcall sub_0046F060(D2UnitStrc* pUnit); // 0x0046F060
 

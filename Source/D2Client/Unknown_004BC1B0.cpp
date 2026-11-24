@@ -2,6 +2,7 @@
 #include "D2Unicode.h"
 #include "D2CelContext.h"
 #include "D2StormTypes.h"
+#include "D2ListBoxLine.h"
 
 class UIWidget;
 class ListBoxImplementation;
@@ -102,23 +103,6 @@ UIWidget::~UIWidget()
 // build: symbol ??_GListBoxImplementation@@UAEPAXI@Z 0x004BF8C0
 // build: symbol ??_GListBoxWrapper@@UAEPAXI@Z 0x004BED10
 
-struct D2ListBoxLineStrc
-{
-    inline D2ListBoxLineStrc()
-    {
-    }
-
-    Unicode wszText0[0x400];
-    Unicode f_800[0x400];
-    Unicode f_1000[0x400];
-    Unicode f_1800[0x400];
-    Unicode f_2000[0x400];
-    Unicode wszText5[0x400];
-    short nFlags;
-    int unk0x3002;
-    int nData;
-    int nFont;
-};
 
 struct D2ListScrollStrc
 {

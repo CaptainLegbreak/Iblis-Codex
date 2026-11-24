@@ -3,6 +3,7 @@
 #include "D2CelContext.h"
 #include "D2Unicode.h"
 #include "D2ClientQuestLog.h"
+#include "D2QuestLookupEntry.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -1148,13 +1149,6 @@ struct D2QuestLookupEntryStrc;
 
 struct D2QuestPanelValuesStrc;
 
-struct D2QuestLookupEntryStrc
-{
-    int nKey;
-    int nValue;
-    int unk0x08;
-    int unk0x0C;
-};
 
 #pragma pack(push, 1)
 struct D2QuestPanelValuesStrc

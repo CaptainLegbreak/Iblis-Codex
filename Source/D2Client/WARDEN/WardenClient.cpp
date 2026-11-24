@@ -14,6 +14,7 @@
 #include "D2MultiTypes.h"
 #include "D2Unicode.h"
 #include "D2WinSplitText.h"
+#include "D2WaypointActRange.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -82,14 +83,6 @@ struct T00479230
     char unk0x1A[0x12];
 };
 
-struct D2WaypointActRangeStrc
-{
-    char bInit;
-    char nFirstLevelId[4];
-    char nLastLevelId[4];
-    unsigned char nMinWaypoint;
-    unsigned char nMaxWaypoint;
-};
 
 struct D2AreaScanFindStrc
 {
