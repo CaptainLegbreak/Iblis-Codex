@@ -9,6 +9,7 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- D2Sound regroup (lane6/sound-b, starting). The four language copies after the channel tables (gData_0072F8FC, 180 B, and gData_0072F9B4, both in D2SoundSmp.cpp) plus D2Sound's bss order give its objects in link order: A, the channel-table object (code 0x00514710-0x00514990, bss 0x00881794-0x008817A8, data: copy 0x0072F838 and the channel tables 0x0072F874-0x0072F8F8); the option block (0x00514B60-0x00514D90, bss 0x008817AC-0x008817C0, copy 0x0072F8FC); D2SoundFast.cpp (asserted at 0x00514E10 and 0x00515070, bss 0x008817C4-0x00881800, copy 0x0072F938); D2SoundSmp.cpp (asserted at 0x00515530 and 0x005160D0, bss 0x00881804-0x00881814, copy 0x0072F974 and gnSoundMasterVolume); D2SoundUtil.cpp (copy 0x0072F9B4). Functions filed against that order move to their object; the copies split to match.
 - D2Win (in progress). Two branches, stacked: lane6/d2comp-a (D2Comp, Smack, List, Scrollbar, Popup take their pieces; gData_0072EFD4's seven copies split over the seven data-less objects after D2Comp) and lane6/d2win-b on top of it (TextBox, EditBox, Image take their pieces; gData_0072DE94's six copies split over Image, Timer, Unknown_004FDA80, EditBox, AnimImage, Button). Next in D2Win: the WREGISTER run 0x00506C40-0x00506E5F and the rest of D2WinMain.cpp's strays.
 
 ## Handover to lane 8 (D2Common)
