@@ -10499,6 +10499,14 @@
      "va": "0x004538D0",
      "length": 44,
      "name": "?GAME_GetUIVarState@@YIHI@Z"
+    },
+    {
+     "va": "0x006CA9C0",
+     "length": 70
+    },
+    {
+     "va": "0x006CB3E0",
+     "length": 21
     }
    ],
    "flags": [
@@ -79371,16 +79379,6 @@
    ]
   },
   {
-   "file": "Source/Storm/Unknown_006CA9C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CA9C0",
-     "length": 70
-    }
-   ]
-  },
-  {
    "file": "Source/Storm/Unknown_006CACE0.cpp",
    "rank": 0,
    "functions": [
@@ -79455,10 +79453,6 @@
    "file": "Source/D2Client/Unknown_006CB3E0.cpp",
    "rank": 1,
    "functions": [
-    {
-     "va": "0x006CB3E0",
-     "length": 21
-    },
     {
      "va": "0x006CB400",
      "length": 1

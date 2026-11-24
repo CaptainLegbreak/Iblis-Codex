@@ -1614,16 +1614,22 @@ public:
     static void operator delete(void* pMemory);
 };
 
+struct D2StormCritSectStrc
+{
+    D2CriticalSectionStrc tLock;
+
+    ~D2StormCritSectStrc()
+    {
+        DeleteCriticalSection(&tLock);
+    }
+};
+
 template <> class TSExportTableSync<SGAMEDATA, HSGAMEDATA__*, HSGAMEDATALOCK__*, CCritSect, 0> : public D2StormExportTableSimpleStrc
 {
 public:
-    D2CriticalSectionStrc m_cs;
+    D2StormCritSectStrc m_cs;
 
     TSExportTableSync();
-    ~TSExportTableSync()
-    {
-        DeleteCriticalSection(&m_cs);
-    }
     static void operator delete(void* pMemory);
 };
 
@@ -1638,6 +1644,11 @@ inline void D2StormExportTableSyncStrc::operator delete(void* pMemory)
     if (pMemory)
         SMemFree(pMemory, "delete", -1, 0);
 }
+
+// build: symbol ??__EgtGameDataTable@@YAXXZ 0x006CA9C0
+// build: symbol ??__FgtGameDataTable@@YAXXZ 0x006CB3E0
+// build: symbol ??1?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@UAE@XZ 0x00450760
+D2StormExportTableSyncStrc gtGameDataTable; // 0x007A0690
 
 int __stdcall GAME_Shutdown(); // 0x0052C030
 
@@ -3909,7 +3920,7 @@ D2StormExportTableSimpleStrc::TSExportTableSimple()
 // 0x004511F0
 D2StormExportTableSyncStrc::TSExportTableSync()
 {
-    InitializeCriticalSection(&m_cs);
+    InitializeCriticalSection(&m_cs.tLock);
 }
 
 
