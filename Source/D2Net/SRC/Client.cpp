@@ -128,6 +128,11 @@ unsigned long gdwThreadId; // 0x00882B30
 
 void* ghClientConnectToHostThreadHandle; // 0x00882CE0
 
+extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
+extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214
+extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfnStart)(void*), void* pParameter, unsigned long nFlags, unsigned long* pThreadId); // 0x006CC250
+extern "C" __declspec(dllimport) int __stdcall SetThreadPriority(void* hThread, int nPriority);             // 0x006CC264
+
 // 0x0052A610
 void __fastcall CLIENT_SetConnected(int bConnected)
 {
@@ -637,6 +642,34 @@ void __stdcall CLIENT_GetLocalIpAddressString(char* szBuffer)
     SStrCopy(szBuffer, szLocalIpAddress, 0x7FFFFFFF);
 }
 
+// 0x0052B050
+int __cdecl CLIENT_GetConnectionStatus()
+{
+    if (NET_IsLocalConnection())
+    {
+        return 2;
+    }
+
+    if (!WaitForSingleObject(ghClientConnectToHostThreadHandle, 100))
+    {
+        if (gClientSocket != -1)
+        {
+            if (!NET_IsLocalConnection())
+            {
+                EnterCriticalSection(&gCriticalSection);
+                gbConnected = 1;
+                LeaveCriticalSection(&gCriticalSection);
+            }
+
+            ghReceiveThread = CreateThread(0, 0, CLIENT_ReceiveThreadProc, 0, 0, &gdwThreadId);
+            SetThreadPriority(ghReceiveThread, 1);
+            return 2;
+        }
+        return 0;
+    }
+    return 1;
+}
+
 // 0x0052B1F0
 int __stdcall SERVER_WaitForSingleObject(int nArg1)
 {
@@ -666,3 +699,12 @@ int __stdcall sub_0052B490_ObjectCall_6BED90(int nArg1, int nArg2, int nArg3)
 {
     return sub_006BED90(gpServer, nArg1, nArg2, nArg3);
 }
+// 0x0052BDA0
+void __cdecl sub_0052BDA0_Empty()
+{
+}
+// 0x0052BDB0
+void __cdecl sub_0052BDB0_Empty()
+{
+}
+

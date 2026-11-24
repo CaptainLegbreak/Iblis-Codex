@@ -789,4 +789,19 @@ void __fastcall ACT1Q3_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
         pQuestData->fLastState = 1;
     }
 }
+// 0x00592090
+void __fastcall sub_00592090_ACT1Q3_InitMalusObject(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
+{
+    if (pQuestData)
+    {
+        D2Act1Quest3Strc* pQuestDataEx = (D2Act1Quest3Strc*)pQuestData->pQuestDataEx;
+        pQuestDataEx->bMalusInitialized = 1;
+        pQuestDataEx->nMalusGUID = !pOp->pObject ? -1 : pOp->pObject->dwUnitId;
+        if (!pQuestData->bNotIntro)
+        {
+            pQuestDataEx->nMalusObjectMode = 2;
+        }
+        UNITS_ChangeAnimMode(pOp->pObject, pQuestDataEx->nMalusObjectMode);
+    }
+}
 

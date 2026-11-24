@@ -41281,6 +41281,11 @@
      "name": "?CLIENT_GetLocalIpAddressString@@YGXPAD@Z"
     },
     {
+     "va": "0x0052B050",
+     "length": 130,
+     "name": "?CLIENT_GetConnectionStatus@@YAHXZ"
+    },
+    {
      "va": "0x0052B1F0",
      "length": 23,
      "name": "SERVER_WaitForSingleObject"
@@ -41304,17 +41309,6 @@
      "va": "0x0052B490",
      "length": 30,
      "name": "sub_0052B490_ObjectCall_6BED90"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_0052B050.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052B050",
-     "length": 130,
-     "name": "?CLIENT_GetConnectionStatus@@YAHXZ"
     },
     {
      "va": "0x0052BDA0",
@@ -51890,13 +51884,7 @@
      "va": "0x00588880",
      "length": 75,
      "name": "?ACT5Q2_UpdateWussieCounters@@YIXPAUD2GameStrc@@HPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00588830.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00588CA0",
      "length": 178,
@@ -53264,13 +53252,7 @@
      "va": "0x00591F70",
      "length": 277,
      "name": "?ACT1Q3_InitQuestData@@YIXPAUD2QuestDataStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00592090.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00592090",
      "length": 64,
@@ -61070,6 +61052,10 @@
      "name": "?SKILLS_ApplyProgressiveElementalConversion@@YGXPAUD2UnitStrc@@PAUD2StatListStrc@@PAUD2DamageStrc@@@Z"
     },
     {
+     "va": "0x005D3AC0",
+     "length": 211
+    },
+    {
      "va": "0x005D3BA0",
      "length": 258
     },
@@ -61311,30 +61297,6 @@
      "length": 134,
      "name": "SKILLS_SrvDo054_BladeShield"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005D3AC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x005D3AC0",
-     "length": 211
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
