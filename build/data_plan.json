@@ -1487,7 +1487,7 @@
    "state": "included"
   },
   "Source/D2Client/Unknown_004AA9C0.cpp": {
-   "bytes": 444,
+   "bytes": 384,
    "definitions": 5,
    "externs": [],
    "fn_types": {},
@@ -1495,21 +1495,10 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004AC870.cpp": {
-   "bytes": 40,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004AC870.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/UNIT/MonUnique.cpp": {
-   "bytes": 192,
-   "definitions": 2,
-   "externs": [
-    "extern \"C\" void __cdecl sub_004AC870_SetMonsterHoverName(); // 0x004AC870"
-   ],
+   "bytes": 292,
+   "definitions": 4,
+   "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/Unknown_004AD020.inc",
    "lang": "cpp",
@@ -51530,10 +51519,10 @@
    "declared": true,
    "decorated": null,
    "file": "Source/D2Client/Unknown_004AA9C0.cpp",
-   "fill": 12,
+   "fill": 7,
    "form": "declared",
    "fwd": null,
-   "head": "extern int gaSkillTabX[12][3] = ",
+   "head": "extern int gaSkillTabX[7][3] = ",
    "model": {
     "elem": {
      "elem": {
@@ -51547,126 +51536,13 @@
      "size": 12
     },
     "k": "arr",
-    "n": 12,
-    "size": 144
+    "n": 7,
+    "size": 84
    },
    "name": "gaSkillTabX",
-   "pointers": [
-    [
-     88,
-     "0x006CC81C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     92,
-     "0x006CC814",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     96,
-     "0x006CC80C",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     100,
-     "0x006CC804",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     104,
-     "0x006CC7F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     108,
-     "0x006CC7F0",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     112,
-     "0x006CC7E4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     116,
-     "0x006CC7DC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     120,
-     "0x006CC7C8",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     124,
-     "0x006CC7B4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     128,
-     "0x006CC7AC",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     132,
-     "0x006CC7A4",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     136,
-     "0x006CC788",
-     "literal",
-     null,
-     0,
-     "string"
-    ],
-    [
-     140,
-     "0x006CC780",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
+   "pointers": [],
    "region": "data",
-   "size": 144,
+   "size": 84,
    "stars": 0,
    "struct": null,
    "tail": "; // 0x00724CE4",
@@ -51675,17 +51551,154 @@
   },
   {
    "alias": false,
-   "cname": "gData_00724D74",
+   "cname": null,
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_00499500.cpp",
+   "file": "Source/D2Client/Unknown_004AA9C0.cpp",
+   "form": "declared",
+   "fwd": null,
+   "head": "extern int gData_00724D38 = ",
+   "model": {
+    "k": "prim",
+    "kind": "s",
+    "name": "int",
+    "size": 4
+   },
+   "name": "gData_00724D38",
+   "pointers": [],
+   "region": "data",
+   "size": 4,
+   "stars": 0,
+   "struct": null,
+   "tail": "; // 0x00724D38",
+   "type": "int",
+   "va": "0x00724D38"
+  },
+  {
+   "alias": false,
+   "cname": "gData_00724D3C",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Client/UNIT/MonUnique.cpp",
    "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00724D74_t gData_00724D74; // 0x00724D74",
-   "head": "extern \"C\" struct d2data_00724D74_t gData_00724D74 = ",
-   "name": "gData_00724D74",
+   "fwd": "extern \"C\" struct d2data_00724D3C_t gData_00724D3C; // 0x00724D3C",
+   "head": "extern \"C\" struct d2data_00724D3C_t gData_00724D3C = ",
+   "name": "gData_00724D3C",
    "pointers": [
     [
      0,
+     "0x006CC81C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     4,
+     "0x006CC814",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     8,
+     "0x006CC80C",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     12,
+     "0x006CC804",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     16,
+     "0x006CC7F8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     20,
+     "0x006CC7F0",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     24,
+     "0x006CC7E4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     28,
+     "0x006CC7DC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     32,
+     "0x006CC7C8",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     36,
+     "0x006CC7B4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     40,
+     "0x006CC7AC",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     44,
+     "0x006CC7A4",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     48,
+     "0x006CC788",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     52,
+     "0x006CC780",
+     "literal",
+     null,
+     0,
+     "string"
+    ],
+    [
+     56,
      "0x006CC77C",
      "literal",
      null,
@@ -51694,10 +51707,10 @@
     ]
    ],
    "region": "data",
-   "size": 4,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00724D74_t\n{\n    const void* p0;\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00724D74",
-   "va": "0x00724D74"
+   "size": 60,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_00724D3C_t\n{\n    const void* p0;\n    const void* p1;\n    const void* p2;\n    const void* p3;\n    const void* p4;\n    const void* p5;\n    const void* p6;\n    const void* p7;\n    const void* p8;\n    const void* p9;\n    const void* p10;\n    const void* p11;\n    const void* p12;\n    const void* p13;\n    const void* p14;\n};\n#pragma pack(pop)",
+   "tail": "; // 0x00724D3C",
+   "va": "0x00724D3C"
   },
   {
    "alias": false,
@@ -55558,7 +55571,7 @@
    "cname": "gData_006DA488",
    "declared": true,
    "decorated": "?gaHoverModes@@3QBUD2HoverModeStrc@@B",
-   "file": "Source/D2Client/Unknown_004AC870.cpp",
+   "file": "Source/D2Client/UNIT/MonUnique.cpp",
    "fill": 5,
    "form": "declared",
    "fwd": "extern \"C\" const D2HoverModeStrc gData_006DA488[5]; // 0x006DA488",

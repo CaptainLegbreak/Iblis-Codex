@@ -144,20 +144,3 @@ int __cdecl sub_004B1D70_FindNpcEntry()
 
 
 
-
-// 0x004AC730
-D2MonsterDataStrc* __fastcall sub_004AC730_MonsterDataOf(D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
-        return pUnit->pMonsterData;
-    return 0;
-}
-
-// 0x004AC760
-short __fastcall sub_004AC760_GetMonsterDataWord14(D2UnitStrc* pUnit)
-{
-    D2MonsterDataStrc* pMonsterData = sub_004AC730_MonsterDataOf(pUnit);
-    if (!pMonsterData)
-        return 0;
-    return pMonsterData->wNameSeed;
-}
