@@ -42,17 +42,17 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 708 |
+| Compilation units | 699 |
 | … in a file with its original name, whole | 292 |
-| … pieces of an original file still split (in 33 files) | 112 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 304 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2536 |
+| … pieces of an original file still split (in 33 files) | 114 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 293 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2535 |
 | Unnamed fields (`unk0x..`) in the shared headers | 717 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 38 |
 | Functions relying on a module assumption macro (`STORM_ASSUME`, `FOG_ASSUME`: the original's release-build assert or unreachable default) | 4 |
-| Calling-convention shims | 68 |
+| Calling-convention shims | 62 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
-| `__declspec(noinline)` / `__forceinline` | 107 / 220 |
+| `__declspec(noinline)` / `__forceinline` | 106 / 220 |
 | Function names: blizzard / library / d2moo / inferred / placeholder | 478 / 85 / 5268 / 6022 / 3074 |
 
 `docs/shape.svg` draws the same per function: whole original file, file still in pieces, placeholder file, forcing construct, not reconstructed.
@@ -79,7 +79,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 3934 functions are compiled with `/GS-` and 1007 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 107 times and `__declspec(dllexport)` 153 times to keep a body out of line or emitted.
+Not listed one by one: 3975 functions are compiled with `/GS-` and 1007 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 106 times and `__declspec(dllexport)` 153 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
