@@ -12,6 +12,7 @@
 #include "D2ClientTypes.h"
 #include "D2TxtTables.h"
 #include "D2MsgRecord.h"
+#include "D2ClientTimer.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1254,14 +1255,6 @@ int gbLeftClickRepeating; // 0x007A066C
 struct D2PoolSystemStrc;
 
 
-struct D2LoadingTimerStrc
-{
-    unsigned long dwStart;
-    unsigned long dwLength;
-    D2LoadingTimerStrc() : dwStart(0), dwLength(0)
-    {
-    }
-};
 
 
 

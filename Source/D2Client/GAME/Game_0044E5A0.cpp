@@ -7,6 +7,7 @@
 #include "D2CelContext.h"
 #include "D2LevelTxt.h"
 #include "D2MultiTypes.h"
+#include "D2ClientTimer.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -166,14 +167,6 @@ struct D2QuestScreenStrc
     char szName[5];
 };
 
-struct D2LoadingTimerStrc
-{
-    unsigned long dwStart;
-    unsigned long dwLength;
-    D2LoadingTimerStrc() : dwStart(0), dwLength(0)
-    {
-    }
-};
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 
