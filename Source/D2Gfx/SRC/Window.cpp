@@ -325,8 +325,11 @@ int __stdcall D2GFX_ReturnFalse(int nArg1, int nArg2, int nArg3)
 }
 
 extern "C" __declspec(dllimport) int __stdcall UnregisterClassA(const char* lpClassName, void* hInstance);   // 0x006CC4C8
+
 void* ghInstance;                                                                                  // 0x007C8CA8
+
 const char* gszWindowClassName;                                                                    // 0x007C9158
+
 int gbNoWindowCreated;                                                                             // 0x007C9338
 
 // 0x004F5050
@@ -365,10 +368,40 @@ int __stdcall D2GFX_Release()
     return 1;
 }
 
+extern int gdwGlobal_007C8CB0; // 0x007C8CB0
+extern int gdwGlobal_007C8CB4; // 0x007C8CB4
+extern int gbInTown; // 0x0072DA4C
+extern int gdwGlobal_0072DA5C; // 0x0072DA5C
+extern int gdwGlobal_0072DA50; // 0x0072DA50
+
+// 0x004F5140
+int __cdecl sub_004F5140()
+{
+    return gdwGlobal_007C8CB0;
+}
+
+// 0x004F5150
+int __cdecl D2GFX_CheckWindowed()
+{
+    return gdwGlobal_007C8CB4;
+}
+
 // 0x004F5160
 int __stdcall D2GFX_GetResolutionMode()
 {
     return gnResolutionMode;
+}
+
+// 0x004F5170
+int __cdecl D2GFX_CheckUnitPerspective()
+{
+    return gbInTown;
+}
+
+// 0x004F5180
+int __cdecl D2GFX_IsFixedAspectRatio()
+{
+    return gdwGlobal_0072DA7C;
 }
 
 // 0x004F51C0
@@ -389,10 +422,22 @@ void __stdcall D2GFX_SetPerspective(int bPerspective)
     gGfxSettings.bPerspectiveEnabled = bPerspective;
 }
 
+// 0x004F51F0
+int __cdecl D2GFX_CheckBlendedShadows()
+{
+    return gdwGlobal_0072DA5C;
+}
+
 // 0x004F5200
 void __stdcall D2GFX_SetBlendShadows(int bBlendedShadows)
 {
     gGfxSettings.bBlendedShadows = bBlendedShadows;
+}
+
+// 0x004F5210
+int __cdecl D2GFX_CheckLowQuality()
+{
+    return gdwGlobal_0072DA50;
 }
 
 // 0x004F5220
@@ -1558,8 +1603,6 @@ void __fastcall D2GFX_DrawLitSubtileRows(unsigned char* pSrc, unsigned char* pDs
 void __fastcall CMNSUBTILE_DrawIsoBlockFlat(unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette); // 0x004F69B0
 
 void __fastcall sub_004F8050_DrawRleVisTile(unsigned char* pSrc, int nX, int nY, unsigned char nLight); // 0x004F8050
-
-extern int gdwGlobal_0072DA50; // 0x0072DA50
 
 unsigned char* gpScreenBuffer; // 0x007D5448
 

@@ -1,6 +1,7 @@
 #pragma once
-// Fog: the memory pool system, the thread context and stack frame records of the crash handler, its dump
-// request, the service status it sets, and the loader records it walks for the module list.
+// Fog: the memory pool system, the thread context and stack frame records of the crash handler, its minidump
+// request and the dbghelp records it fills, the service status it sets, the thread, process and loader records it walks
+// for the module list, and the toolhelp process and thread entries and startup info it uses.
 
 #include "D2Check.h"
 #include "D2SysTypes.h"
@@ -138,12 +139,85 @@ struct D2ServiceStatusStrc
     unsigned long dwWaitHint; // 0x18
 };
 
-struct D2DbgHelpRequestStrc
+
+struct D2ProcessEntryWStrc
+{
+    unsigned long dwSize; // 0x00
+    unsigned long cntUsage; // 0x04
+    unsigned long th32ProcessID; // 0x08
+    unsigned long th32DefaultHeapID; // 0x0C
+    unsigned long th32ModuleID; // 0x10
+    unsigned long cntThreads; // 0x14
+    unsigned long th32ParentProcessID; // 0x18
+    long pcPriClassBase; // 0x1C
+    unsigned long dwFlags; // 0x20
+    wchar_t szExeFile[260]; // 0x24
+};
+
+struct D2StartupInfoWStrc
+{
+    unsigned long cb; // 0x00
+    wchar_t* lpReserved; // 0x04
+    wchar_t* lpDesktop; // 0x08
+    wchar_t* lpTitle; // 0x0C
+    unsigned long dwX; // 0x10
+    unsigned long dwY; // 0x14
+    unsigned long dwXSize; // 0x18
+    unsigned long dwYSize; // 0x1C
+    unsigned long dwXCountChars; // 0x20
+    unsigned long dwYCountChars; // 0x24
+    unsigned long dwFillAttribute; // 0x28
+    unsigned long dwFlags; // 0x2C
+    unsigned short wShowWindow; // 0x30
+    unsigned short cbReserved2; // 0x32
+    unsigned char* lpReserved2; // 0x34
+    void* hStdInput; // 0x38
+    void* hStdOutput; // 0x3C
+    void* hStdError; // 0x40
+};
+
+struct D2ThreadEntryStrc
+{
+    unsigned long dwSize; // 0x00
+    unsigned long cntUsage; // 0x04
+    unsigned long th32ThreadID; // 0x08
+    unsigned long th32OwnerProcessID; // 0x0C
+    long tpBasePri; // 0x10
+    long tpDeltaPri; // 0x14
+    unsigned long dwFlags; // 0x18
+};
+
+struct D2MiniDumpExceptionInfoStrc
+{
+    unsigned long dwThreadId; // 0x00
+    void* pExceptionPointers; // 0x04
+    int bClientPointers; // 0x08
+};
+
+struct D2MiniDumpUserStreamStrc
+{
+    unsigned long dwType; // 0x00
+    unsigned long dwBufferSize; // 0x04
+    void* pBuffer; // 0x08
+};
+
+struct D2MiniDumpUserStreamInfoStrc
+{
+    unsigned long dwUserStreamCount; // 0x00
+    D2MiniDumpUserStreamStrc* pUserStreamArray; // 0x04
+};
+
+struct D2MiniDumpRequestInfoStrc
+{
+    void* pExceptionPointers; // 0x00
+    unsigned long dwThreadId; // 0x04
+    const char* szComment; // 0x08
+};
+
+struct D2MiniDumpRequestStrc
 {
     void* hFile; // 0x00
-    void* pExceptionPointers; // 0x04
-    unsigned long dwThreadId; // 0x08
-    const char* szComment; // 0x0C
+    D2MiniDumpRequestInfoStrc tInfo; // 0x04
     bool bResult; // 0x10
 };
 
@@ -171,6 +245,24 @@ struct D2LdrEntryStrc
     D2UnicodeStringStrc FullDllName; // 0x24
 };
 
+struct D2LdrDataStrc
+{
+    char unk0x00[0x14]; // 0x00
+    D2ListEntryStrc InMemoryOrderModuleList; // 0x14
+};
+
+struct D2PebStrc
+{
+    char unk0x00[0x0C]; // 0x00
+    D2LdrDataStrc* Ldr; // 0x0C
+};
+
+struct D2TebStrc
+{
+    char unk0x00[0x30]; // 0x00
+    D2PebStrc* ProcessEnvironmentBlock; // 0x30
+};
+
 D2_CHECK_SIZE(D2MemPoolBlockStrc, 0x18);
 D2_CHECK_SIZE(D2MemPoolRecStrc, 0x30);
 D2_CHECK_SIZE(D2PoolRecordStrc, 0x8);
@@ -180,7 +272,17 @@ D2_CHECK_SIZE(D2FloatSaveStrc, 0x70);
 D2_CHECK_SIZE(D2ThreadContextStrc, 0x2CC);
 D2_CHECK_SIZE(D2StackFrameStrc, 0x24);
 D2_CHECK_SIZE(D2ServiceStatusStrc, 0x1C);
-D2_CHECK_SIZE(D2DbgHelpRequestStrc, 0x14);
 D2_CHECK_SIZE(D2ListEntryStrc, 0x8);
 D2_CHECK_SIZE(D2UnicodeStringStrc, 0x8);
 D2_CHECK_SIZE(D2LdrEntryStrc, 0x2C);
+D2_CHECK_SIZE(D2LdrDataStrc, 0x1C);
+D2_CHECK_SIZE(D2PebStrc, 0x10);
+D2_CHECK_SIZE(D2TebStrc, 0x34);
+D2_CHECK_SIZE(D2ProcessEntryWStrc, 0x22C);
+D2_CHECK_SIZE(D2StartupInfoWStrc, 0x44);
+D2_CHECK_SIZE(D2ThreadEntryStrc, 0x1C);
+D2_CHECK_SIZE(D2MiniDumpExceptionInfoStrc, 0xC);
+D2_CHECK_SIZE(D2MiniDumpUserStreamStrc, 0xC);
+D2_CHECK_SIZE(D2MiniDumpUserStreamInfoStrc, 0x8);
+D2_CHECK_SIZE(D2MiniDumpRequestInfoStrc, 0xC);
+D2_CHECK_SIZE(D2MiniDumpRequestStrc, 0x14);

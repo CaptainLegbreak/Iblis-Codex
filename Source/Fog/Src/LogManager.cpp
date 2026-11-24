@@ -1079,7 +1079,7 @@ inline void* operator new(unsigned int, void* pWhere) throw()
 // build: symbol ??__FgtLogLock@@YAXXZ 0x006CB080
 CCritSect gtLogLock; // 0x0075E850
 
-void* gpMiniDumpRequest; // 0x0098A6E4
+D2MiniDumpRequestStrc* gpMiniDumpRequest; // 0x0098A6E4
 
 struct D2LogMsgListStrc
 {

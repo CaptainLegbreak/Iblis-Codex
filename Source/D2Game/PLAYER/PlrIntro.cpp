@@ -3,6 +3,7 @@
 #include "D2Primitives.h"
 #include "D2GameAux.h"
 #include "D2UnitData.h"
+#include "D2LanguageNames.h"
 
 #pragma intrinsic(memcpy)
 

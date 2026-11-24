@@ -793,12 +793,6 @@ int __stdcall D2Common_10095(D2ActiveRoomStrc* pRoom, int nX, int nY)
     return DRLGLOGIC_GetRoomCoordListIndex(pFoundRoom->pDrlgRoom, nX, nY);
 }
 
-// 0x00650E50
-unsigned int __fastcall SEED_GetLowSeed(D2SeedStrc* pSeed)
-{
-    return pSeed->nLowSeed;
-}
-
 // 0x00619EA0
 D2UnitStrc* __stdcall DUNGEON_GetFirstUnitInRoom(D2ActiveRoomStrc* ptRoom)
 {

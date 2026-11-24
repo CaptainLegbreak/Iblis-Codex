@@ -2829,17 +2829,6 @@ CHuffman::CHuffman()
         f_3474[i].nData[0] = 0;
 }
 
-// 0x00425D90
-void Sha1::Initialize()
-{
-    nBitCount = 0;
-    aState[0] = 0x67452301;
-    aState[1] = 0xEFCDAB89;
-    aState[2] = 0x98BADCFE;
-    aState[3] = 0x10325476;
-    aState[4] = 0xC3D2E1F0;
-}
-
 // build: symbol ??1?$TSLink@UAUDIOSTREAM@@@@QAE@XZ 0x00418BE0
 // 0x004199A0
 AUDIOSTREAM::~AUDIOSTREAM()

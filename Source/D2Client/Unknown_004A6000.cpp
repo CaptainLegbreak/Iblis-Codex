@@ -42,30 +42,6 @@ extern unsigned long gdwMessageTick;                                            
 extern void* gpLevelCel;                                                                             // 0x007C02DC
 
 // build: symbol ?$S1@?4??sub_004A8DF0_DrawKeyLabel@@YIXHHHH@Z@4IA 0x007C0830
-// 0x004A6000
-void __stdcall sub_004A6000_RegisterPressMsgHandler(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (GAME_IsExitPending())
-    {
-        pMsg->bReturn = 0;
-        return;
-    }
-
-    int nX = pMsg->nXpos;
-    int nY = pMsg->nYpos;
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureHandlers, 6);
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureWheelHandlers, 1);
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureXButtonHandlers, 1);
-    sub_00451E10_RegisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureMButtonHandlers, 1);
-    UI_RegisterKeyConfigHandlers();
-    gbKeyCaptureActive = 0;
-    gbRedraw = 1;
-    sub_004A4AD0_Press(nX, nY);
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
-
 // 0x004A63B0
 void __stdcall sub_004A63B0_WheelMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {

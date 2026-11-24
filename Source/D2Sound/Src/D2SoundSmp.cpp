@@ -405,26 +405,6 @@ extern "C" void* __fastcall ROSTER_GetLinkFirst(D2OwnerStrc_004CA990* pOwner)
     return 0;
 }
 
-// 0x00513AF0
-void __cdecl D2SOUND_ReleaseSoundObjects()
-{
-    if (gpSoundObject_008816D8)
-    {
-        gpSoundObject_008816D8->Release();
-        gpSoundObject_008816D8 = 0;
-    }
-    if (gpSoundObject_00881740)
-    {
-        gpSoundObject_00881740->Release();
-        gpSoundObject_00881740 = 0;
-    }
-    if (gpSoundObject_00881744)
-    {
-        gpSoundObject_00881744->Release();
-        gpSoundObject_00881744 = 0;
-    }
-}
-
 // 0x00513C50
 void __fastcall D2SOUND_SetEaxEnvironment(D2EaxEnvironmentStrc* pEnvironment)
 {
