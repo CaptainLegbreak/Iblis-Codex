@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/atl 3960510a 519->514 The ATL object 0x6B1A00-0x6B1BC0 (11 functions: Thank_you ctor and virtual, CAtlException ctor, the AtlThrow helper, CRegKey ctor/GetHKEY/Close/Create/SetDWORDValue/SetStringValue, and the DirectDraw texture-format callback 0x6B1B60) goes from six Storm placeholders into one, D2Direct3D/Unknown_006B1A00.cpp: the callback's only user is D2Direct3D (0x6B42F0) and d3dCore.cpp starts right after, at 0x6B1C10. Builds equal with D2Direct3D's default flags; CRegKey::Close is inline, as ATL has it. Code only; the 728 B of ATL data comes in a follow-up. VERIFIED fbe7f58f on base 5d726bb7 (j84; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
+- lane3/atl-data 689377cc 519->514 Replaces lane3/atl (same first commit, rebased) and adds the ATL object's .rdata: the 728 B at 0x6FAD20-0x6FAFF7 (statreg.h strings and CRegParser statics, atlbase.h AtlLimits, atlcomcli.h CVarTypeInfo, atliface.h GUIDs) defined in D2Direct3D/Unknown_006B1A00.cpp through 98 plan records, the GUIDs and CRegParser members as ATL's selectany definitions. Borrowed data 3,415 -> 2,687 B on its own (2,631 B on this base). VERIFIED 7a5eb650 on base dab5042f (#324; 14,918/14,918; borrowed code 12,041 B / 9 functions). Not stacked.
 
 - lane3/suni 30f43254 519->518 Storm/Unknown_006C7000.cpp (Storm's Unicode module, 17 functions) is renamed Storm/SOURCE/SUNI.CPP, as approved; its data include follows. VERIFIED 8c45fafc on base 53ae59fd (j84; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
 
