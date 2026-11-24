@@ -2,6 +2,7 @@
 #include "Storm.h"
 #include "D2StormTypes.h"
 #include "D2StormBigBuffer.h"
+#include "D2StormArrayC.h"
 
 void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                   // 0x0041D300
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
@@ -93,16 +94,6 @@ struct D2StormArrayBStrc
     void sub_004219F0_Set(unsigned int nCount, const unsigned char* pData);                                 // 0x004219F0
 };
 
-struct D2StormArrayCStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    char* m_data;
-    unsigned int m_chunk;
-
-    void sub_00421A50_Set(unsigned int nCount, const char* pData);                                          // 0x00421A50
-    unsigned int sub_00421F60_Add(unsigned int nCount, const char* pData);                                  // 0x00421F60
-};
 
 
 struct D2StormBigStrc
