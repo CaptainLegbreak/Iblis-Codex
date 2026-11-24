@@ -733,7 +733,6 @@ extern "C" const char gszD2CharMpq[]; // 0x006DC77C
 
 typedef int (__cdecl* DiscCallback)();
 
-
 void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
 
 extern void* ghXMusicMpq; // 0x007D5604
@@ -2087,6 +2086,14 @@ void __stdcall CONTROL_SetEscapeButton(void* a1)
     gpEscapeButton = a1;
 }
 
+extern int gdwGlobal_007D55D4; // 0x007D55D4
+
+// 0x004FA460
+int __cdecl D2Win_IsMouseButtonPressed()
+{
+    return gbIsMouseButtonPressed;
+}
+
 // 0x004FA470
 int __stdcall D2Win_10033(D2WinControlStrc* a1, int a2)
 {
@@ -2101,6 +2108,12 @@ extern "C" __declspec(dllexport) unsigned int __stdcall CONTROL_GetType(Obj004FA
         return 0;
     }
     return pObj->dwValue00;
+}
+
+// 0x004FA4B0
+int __cdecl CONTROL_GetActiveControlList()
+{
+    return gdwGlobal_007D55D4;
 }
 
 // 0x004FA4C0

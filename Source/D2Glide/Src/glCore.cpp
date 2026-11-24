@@ -413,72 +413,6 @@ extern D2GlideTexCacheStrc gTexCacheB_0087EB48; // 0x0087EB48
 
 extern int gnGlideState_007C9140; // 0x007C9140
 
-// 0x004F5140
-int __cdecl sub_004F5140()
-{
-    return gdwGlobal_007C8CB0;
-}
-
-// 0x004F5150
-int __cdecl D2GFX_CheckWindowed()
-{
-    return gdwGlobal_007C8CB4;
-}
-
-// 0x004F5170
-int __cdecl D2GFX_CheckUnitPerspective()
-{
-    return gbInTown;
-}
-
-// 0x004F5180
-int __cdecl D2GFX_IsFixedAspectRatio()
-{
-    return gdwGlobal_0072DA7C;
-}
-
-// 0x004F51F0
-int __cdecl D2GFX_CheckBlendedShadows()
-{
-    return gdwGlobal_0072DA5C;
-}
-
-// 0x004F5210
-int __cdecl D2GFX_CheckLowQuality()
-{
-    return gdwGlobal_0072DA50;
-}
-
-// 0x004FA460
-int __cdecl D2Win_IsMouseButtonPressed()
-{
-    return gbIsMouseButtonPressed;
-}
-
-// 0x004FA4B0
-int __cdecl CONTROL_GetActiveControlList()
-{
-    return gdwGlobal_007D55D4;
-}
-
-// 0x004FD0F0
-void __fastcall IMAGE_Destroy(void* pArg)
-{
-    sub_004F9310(pArg);
-}
-
-// 0x004FD100
-void __fastcall IMAGE2_Destroy(void* pArg)
-{
-    sub_004F9310(pArg);
-}
-
-// 0x00507DB0
-void __fastcall PROGRESSBAR_Destroy(void* pArg)
-{
-    sub_004F9310(pArg);
-}
-
 // 0x00507EE0
 void __fastcall SCROLLBAR_Destroy(void* pArg)
 {
@@ -1270,102 +1204,6 @@ void __fastcall GLIDE_ReleaseTexSlots(D2GlideTexSlotStrc* pSlots)
     }
 }
 
-// 0x0050C3A0
-void __fastcall GLIDE_UtilDiamond(tagRECT* pRect, int nPaletteIndex)
-{
-    const int nX = pRect->left;
-    const int nRight = pRect->right;
-    D2_ASSERT(nX <= nRight, 0xB9);
-
-    const int nY = pRect->top;
-    const int nBottom = pRect->bottom;
-    D2_ASSERT(nY <= nBottom, 0xBA);
-
-    const unsigned int nWidth = nRight - nX;
-    const unsigned int nHeight = nBottom - nY;
-    if (!nWidth || !nHeight)
-    {
-        return;
-    }
-
-    const int nCenterX = nX + (nWidth >> 1);
-    const int nCenterY = nY + (nHeight >> 1);
-    const int nX2 = nX + nWidth;
-    const int nY2 = nY + nHeight;
-    if (nX2 < 0 || nX > gnRenderWidth || nY2 < 0 || nY > gnRenderHeight)
-    {
-        return;
-    }
-
-    sub_0050C270_GlideDrawLine(nCenterX, nY, nX2, nCenterY, nPaletteIndex, 0xFF);
-    sub_0050C270_GlideDrawLine(nX2, nCenterY, nCenterX, nY2, nPaletteIndex, 0xFF);
-    sub_0050C270_GlideDrawLine(nCenterX, nY2, nX, nCenterY, nPaletteIndex, 0xFF);
-    sub_0050C270_GlideDrawLine(nX, nCenterY, nCenterX, nY, nPaletteIndex, 0xFF);
-}
-
-// 0x0050C490
-void __fastcall GLIDE_UtilRect(tagRECT* pRect, int nPaletteIndex)
-{
-    D2_ASSERT(pRect->left <= pRect->right, 0xDF);
-    D2_ASSERT(pRect->top <= pRect->bottom, 0xE0);
-
-    const int nX1 = D2_MIN(D2_MAX(pRect->left, 0), gnRenderWidth - 1);
-    const int nX2 = D2_MIN(D2_MAX(pRect->right, 0), gnRenderWidth - 1);
-    if (nX1 == nX2)
-    {
-        return;
-    }
-
-    const int nY1 = D2_MIN(D2_MAX(pRect->top, 0), gnRenderHeight - 1);
-    const int nY2 = D2_MIN(D2_MAX(pRect->bottom, 0), gnRenderHeight - 1);
-    if (nY1 == nY2)
-    {
-        return;
-    }
-
-    D2_ASSERT(nY2 > nY1, 0xF0);
-
-    sub_0050C270_GlideDrawLine(nX1, nY1, nX2, nY1, nPaletteIndex, 0xFF);
-    sub_0050C270_GlideDrawLine(nX2, nY1, nX2, nY2, nPaletteIndex, 0xFF);
-    sub_0050C270_GlideDrawLine(nX2, nY2, nX1, nY2, nPaletteIndex, 0xFF);
-    sub_0050C270_GlideDrawLine(nX1, nY2, nX1, nY1, nPaletteIndex, 0xFF);
-}
-
-// 0x0050C630
-void __fastcall GLIDE_UtilPoint(tagPOINT* pPoint, unsigned char nSize, int nPaletteIndex)
-{
-    if (nSize)
-    {
-        --nSize;
-        tagRECT tRect;
-        SetRect(&tRect, pPoint->x - nSize, pPoint->y - nSize, pPoint->x + nSize + 1, pPoint->y + nSize + 1);
-        sub_0050BF50_GlideDrawBox(tRect.left, tRect.top, tRect.right, tRect.bottom, nPaletteIndex, 5);
-    }
-}
-
-// 0x00510140
-int __cdecl DDRAW_CheckCutScene()
-{
-    return gdwGlobal_0088126C;
-}
-
-// 0x00510320
-void __stdcall DDRAW_SetAmbientColor(int nUnused1)
-{
-}
-
-// 0x00510370
-int __cdecl DDRAW_GetCacheResults()
-{
-    return 0;
-}
-
-// 0x00510380
-int __cdecl DDRAW_ActivateWindow()
-{
-    return 0;
-}
-
 // 0x00511660
 void __fastcall DDRAW_OpenSmackCutscene(const char* szFile, int nResolutionMode, void* pfFrame)
 {
@@ -1446,12 +1284,6 @@ void __stdcall DDRAW_CelDrawHilight(int nUnused1, int nUnused2)
 void* __cdecl BNCLIENT_GetInterfaceTable()
 {
     return gData_0072FAA0;
-}
-
-// 0x0051A550
-int __cdecl BNCLIENT_GetServerToken()
-{
-    return gdwGlobal_008818BC;
 }
 
 // 0x0051A570

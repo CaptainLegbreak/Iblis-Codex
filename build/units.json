@@ -33602,61 +33602,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x004F5140",
-     "length": 6,
-     "name": "sub_004F5140"
-    },
-    {
-     "va": "0x004F5150",
-     "length": 6,
-     "name": "D2GFX_CheckWindowed"
-    },
-    {
-     "va": "0x004F5170",
-     "length": 6,
-     "name": "D2GFX_CheckUnitPerspective"
-    },
-    {
-     "va": "0x004F5180",
-     "length": 6,
-     "name": "D2GFX_IsFixedAspectRatio"
-    },
-    {
-     "va": "0x004F51F0",
-     "length": 6,
-     "name": "D2GFX_CheckBlendedShadows"
-    },
-    {
-     "va": "0x004F5210",
-     "length": 6,
-     "name": "D2GFX_CheckLowQuality"
-    },
-    {
-     "va": "0x004FA460",
-     "length": 6,
-     "name": "D2Win_IsMouseButtonPressed"
-    },
-    {
-     "va": "0x004FA4B0",
-     "length": 6,
-     "name": "CONTROL_GetActiveControlList"
-    },
-    {
-     "va": "0x004FD0F0",
-     "length": 7,
-     "name": "IMAGE_Destroy"
-    },
-    {
-     "va": "0x004FD100",
-     "length": 7,
-     "name": "IMAGE2_Destroy"
-    },
-    {
-     "va": "0x00507DB0",
-     "length": 7,
-     "name": "PROGRESSBAR_Destroy"
-    },
-    {
      "va": "0x00507EE0",
      "length": 7,
      "name": "SCROLLBAR_Destroy"
@@ -33835,41 +33780,6 @@
      "name": "?GLIDE_ReleaseTexSlots@@YIXPAUD2GlideTexSlotStrc@@@Z"
     },
     {
-     "va": "0x0050C3A0",
-     "length": 233,
-     "name": "GLIDE_UtilDiamond"
-    },
-    {
-     "va": "0x0050C490",
-     "length": 328,
-     "name": "GLIDE_UtilRect"
-    },
-    {
-     "va": "0x0050C630",
-     "length": 80,
-     "name": "GLIDE_UtilPoint"
-    },
-    {
-     "va": "0x00510140",
-     "length": 6,
-     "name": "DDRAW_CheckCutScene"
-    },
-    {
-     "va": "0x00510320",
-     "length": 3,
-     "name": "DDRAW_SetAmbientColor"
-    },
-    {
-     "va": "0x00510370",
-     "length": 3,
-     "name": "DDRAW_GetCacheResults"
-    },
-    {
-     "va": "0x00510380",
-     "length": 3,
-     "name": "DDRAW_ActivateWindow"
-    },
-    {
      "va": "0x00511660",
      "length": 183,
      "name": "DDRAW_OpenSmackCutscene"
@@ -33888,11 +33798,6 @@
      "va": "0x00518C10",
      "length": 6,
      "name": "BNCLIENT_GetInterfaceTable"
-    },
-    {
-     "va": "0x0051A550",
-     "length": 6,
-     "name": "BNCLIENT_GetServerToken"
     },
     {
      "va": "0x0051A570",
@@ -33987,9 +33892,29 @@
      "name": "?D2GFX_Release@@YGHXZ"
     },
     {
+     "va": "0x004F5140",
+     "length": 6,
+     "name": "sub_004F5140"
+    },
+    {
+     "va": "0x004F5150",
+     "length": 6,
+     "name": "D2GFX_CheckWindowed"
+    },
+    {
      "va": "0x004F5160",
      "length": 6,
      "name": "D2GFX_GetResolutionMode"
+    },
+    {
+     "va": "0x004F5170",
+     "length": 6,
+     "name": "D2GFX_CheckUnitPerspective"
+    },
+    {
+     "va": "0x004F5180",
+     "length": 6,
+     "name": "D2GFX_IsFixedAspectRatio"
     },
     {
      "va": "0x004F51C0",
@@ -34007,9 +33932,19 @@
      "name": "D2GFX_SetPerspective"
     },
     {
+     "va": "0x004F51F0",
+     "length": 6,
+     "name": "D2GFX_CheckBlendedShadows"
+    },
+    {
      "va": "0x004F5200",
      "length": 15,
      "name": "D2GFX_SetBlendShadows"
+    },
+    {
+     "va": "0x004F5210",
+     "length": 6,
+     "name": "D2GFX_CheckLowQuality"
     },
     {
      "va": "0x004F5220",
@@ -34826,6 +34761,11 @@
      "name": "CONTROL_SetEscapeButton"
     },
     {
+     "va": "0x004FA460",
+     "length": 6,
+     "name": "D2Win_IsMouseButtonPressed"
+    },
+    {
      "va": "0x004FA470",
      "length": 29,
      "name": "D2Win_10033"
@@ -34834,6 +34774,11 @@
      "va": "0x004FA490",
      "length": 20,
      "name": "_CONTROL_GetType@4"
+    },
+    {
+     "va": "0x004FA4B0",
+     "length": 6,
+     "name": "CONTROL_GetActiveControlList"
     },
     {
      "va": "0x004FA4C0",
@@ -35328,6 +35273,16 @@
      "va": "0x004FD0B0",
      "length": 60,
      "name": "IMAGE_SetCoordinates"
+    },
+    {
+     "va": "0x004FD0F0",
+     "length": 7,
+     "name": "IMAGE_Destroy"
+    },
+    {
+     "va": "0x004FD100",
+     "length": 7,
+     "name": "IMAGE2_Destroy"
     },
     {
      "va": "0x004FD110",
@@ -36931,9 +36886,24 @@
      "name": "?sub_0050C270_GlideDrawLine@@YIXHHHHEE@Z"
     },
     {
+     "va": "0x0050C3A0",
+     "length": 233,
+     "name": "GLIDE_UtilDiamond"
+    },
+    {
+     "va": "0x0050C490",
+     "length": 328,
+     "name": "GLIDE_UtilRect"
+    },
+    {
      "va": "0x0050C5E0",
      "length": 76,
      "name": "?sub_0050C5E0_GlideUtilFilledRect@@YIXPAUtagRECT@@H@Z"
+    },
+    {
+     "va": "0x0050C630",
+     "length": 80,
+     "name": "GLIDE_UtilPoint"
     },
     {
      "va": "0x0050C680",
@@ -37454,6 +37424,11 @@
      "name": "?sub_00510130_DDrawNop@@YIXXZ"
     },
     {
+     "va": "0x00510140",
+     "length": 6,
+     "name": "DDRAW_CheckCutScene"
+    },
+    {
      "va": "0x00510150",
      "length": 16,
      "name": "?sub_00510150_DDrawGetScreenSize@@YIXPAH0@Z"
@@ -37479,6 +37454,11 @@
      "name": "?sub_00510310_ReturnOne@@YAHXZ"
     },
     {
+     "va": "0x00510320",
+     "length": 3,
+     "name": "DDRAW_SetAmbientColor"
+    },
+    {
      "va": "0x00510330",
      "length": 1,
      "name": "?sub_00510330_DDrawNop@@YIXXZ"
@@ -37497,6 +37477,16 @@
      "va": "0x00510360",
      "length": 1,
      "name": "?sub_00510360_DDrawNop@@YIXXZ"
+    },
+    {
+     "va": "0x00510370",
+     "length": 3,
+     "name": "DDRAW_GetCacheResults"
+    },
+    {
+     "va": "0x00510380",
+     "length": 3,
+     "name": "DDRAW_ActivateWindow"
     },
     {
      "va": "0x00510390",
@@ -39965,6 +39955,11 @@
      "va": "0x0051A540",
      "length": 7,
      "name": "?sub_0051A540_SetValue@@YIXH@Z"
+    },
+    {
+     "va": "0x0051A550",
+     "length": 6,
+     "name": "BNCLIENT_GetServerToken"
     },
     {
      "va": "0x0051A560",
@@ -82774,6 +82769,11 @@
      "va": "0x00507D70",
      "length": 54,
      "name": "PROGRESSBAR_SetProgress"
+    },
+    {
+     "va": "0x00507DB0",
+     "length": 7,
+     "name": "PROGRESSBAR_Destroy"
     },
     {
      "va": "0x00507DC0",
