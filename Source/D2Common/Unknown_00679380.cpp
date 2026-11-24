@@ -33,12 +33,6 @@ struct D2PathFoWallContextStrc;
 
 struct D2PathMovStrc;
 
-struct D2CollisionTestStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    unsigned int nCollisionPattern;
-    unsigned int nCollisionMask;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -86,19 +80,6 @@ extern const int gaIdaStar_PointCacheHashMaskX[128]; // 0x006F1998
 
 extern const int gaIdaStar_PointCacheHashMaskY[128]; // 0x006F1B98
 
-struct D2PathMovStrc
-{
-    int nDirectionIndex;
-    int nPoints;
-    D2PathPointStrc tCurrentCoord;
-    D2PathPointStrc tTargetCoord;
-    int bReachedDeadEnd;
-    const int* pPrevDirection;
-    const int* pNextDirection;
-    int nLastSyncPointWithOtherPathIndex;
-    int bPathFinished;
-    D2PathPointStrc pPoints[201];
-};
 
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 
