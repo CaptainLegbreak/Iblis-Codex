@@ -3,7 +3,7 @@
 #include "SValidate.h"
 #include "stpl.h"
 
-struct T0051755C;
+struct D2SCmdLink006C43A0Strc;
 struct PairStrc_006C4030;
 struct D2SCompLinkStrc;
 struct D2FogUnlinkStrc;
@@ -15,9 +15,14 @@ struct OptionContextStrc;
 typedef int (__stdcall* OptionCallback)(OptionInfoStrc* pInfo, const char* szString);
 typedef int (__stdcall* OptionCallbackToken)(const char* szToken);
 
-struct T0051755C { T0051755C* pPrevLink; int pNext; };
+struct D2SCmdLink006C43A0Strc
+{
+    D2SCmdLink006C43A0Strc* m_prevlink;
+    char* m_next;
 
-struct T0051755C_1 { int nLinkOffset; T0051755C head; };
+    D2SCmdLink006C43A0Strc();
+};
+
 
 struct PairStrc_006C4030
 {
@@ -471,11 +476,10 @@ D2ScmdListStrc::D2ScmdListStrc()
 }
 
 // 0x006C43A0
-T0051755C* __fastcall sub_006C43A0_ResetLink(T0051755C* pLink)
+D2SCmdLink006C43A0Strc::D2SCmdLink006C43A0Strc()
 {
-    pLink->pPrevLink = 0;
-    pLink->pNext = 0;
-    return pLink;
+    m_prevlink = 0;
+    m_next = 0;
 }
 
 // 0x006C43B0

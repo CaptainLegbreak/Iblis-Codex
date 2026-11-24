@@ -14674,7 +14674,7 @@ address,name,source,alias
 0x006C42E0,FindLongestPrefix,inferred,
 0x006C4360,D2StormListStrc,placeholder,
 0x006C4380,sub_006C4380_RawNext,placeholder,
-0x006C43A0,sub_006C43A0_ResetLink,placeholder,
+0x006C43A0,D2SCmdLink006C43A0Strc,placeholder,
 0x006C43B0,sub_006C43B0_Unlink,placeholder,
 0x006C43F0,UnlinkAll,d2moo,
 0x006C4430,~D2StormListStrc,placeholder,
