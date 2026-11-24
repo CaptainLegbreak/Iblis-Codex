@@ -1178,7 +1178,8 @@ void __cdecl TEXT_LoadDurielCofsOnce()
     if (!gbGlobal_007C025D)
     {
         gbGlobal_007C025D = 1;
-        sub_0046F870(0xD3, 1);
+// build: symbol ?GFX_LoadMonsterCofs@* 0x0046F870
+        GFX_LoadMonsterCofs(0xD3, 1);
     }
 }
 
@@ -1190,9 +1191,9 @@ void __cdecl TEXT_LoadAncientsCofsOnce()
     if (!gbGlobal_007C025E)
     {
         gbGlobal_007C025E = 1;
-        sub_0046F870(0x219, 0);
-        sub_0046F870(0x21A, 0);
-        sub_0046F870(0x21B, 0);
+        GFX_LoadMonsterCofs(0x219, 0);
+        GFX_LoadMonsterCofs(0x21A, 0);
+        GFX_LoadMonsterCofs(0x21B, 0);
     }
 }
 
@@ -1291,7 +1292,7 @@ D2QuestPanelValuesStrc* __fastcall VIEW_ClearQuestPanelValues(D2QuestPanelValues
 }
 
 // 0x004A34F0
-void __cdecl sub_004A34F0_DrawQuestPage()
+void __cdecl TEXT_DrawQuestPage()
 {
     int i = 0;
     D2CelContextStrc tDraw;

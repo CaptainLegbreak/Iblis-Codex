@@ -738,7 +738,8 @@ static void GFX_LoadMonsterModeGfx(D2UnitStrc* pUnit, int nIndex)
     GFX_LoadMonsterGfx(pUnit, nIndex);
 }
 
-void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow)
+// build: symbol ?GFX_LoadMonsterCofs@* 0x0046F870
+void __fastcall GFX_LoadMonsterCofs(int nMonsterId, int bLoadNow)
 {
     D2MonCofInfoStrc tInfo;
     int i;

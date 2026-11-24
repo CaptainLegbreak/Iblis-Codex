@@ -988,7 +988,7 @@ void __fastcall NPCMENU_OnUnitRemoved(unsigned char nUnitType, int nUnitId); // 
 
 void __fastcall sub_004B2620(const unsigned char* pData); // 0x004B2620
 
-void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
+void __fastcall GFX_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
 
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 
@@ -3290,7 +3290,7 @@ void __fastcall SCMD_HandlePreloadMonster(const D2GSPacketSrvA4* pPacket)
     const unsigned short wMonsterId = pPacket->wMonsterId;
     if (wMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
-        sub_0046F870_LoadMonsterCofs(wMonsterId, 0);
+        GFX_LoadMonsterCofs(wMonsterId, 0);
     }
 }
 

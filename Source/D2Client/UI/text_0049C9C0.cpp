@@ -46,7 +46,7 @@ void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, un
 static inline int GetWaypointPanelBottom() { return gnScreenHeight+gnOffsetY_007A285C; }
 
 // 0x0049C9C0
-void __cdecl sub_0049C9C0_DrawWaypointPanel()
+void __cdecl TEXT_DrawWaypointPanel()
 {
     TEXT_LoadWaypointPanelCels();
     if(CUNIT_IsPlayerDeadOrMissing())

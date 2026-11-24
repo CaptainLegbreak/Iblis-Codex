@@ -736,7 +736,7 @@ static inline int GetNpcTabRight(int tab)
     return GetNpcTabLeft(tab)+80;
 }
 // 0x00491D20
-void __stdcall sub_00491D20_HandleNpcClick(SMSGHANDLER_PARAMS* msg)
+void __stdcall INV_HandleNpcClick(SMSGHANDLER_PARAMS* msg)
 {
     const int x=msg->nXpos;
     const int y=msg->nYpos;

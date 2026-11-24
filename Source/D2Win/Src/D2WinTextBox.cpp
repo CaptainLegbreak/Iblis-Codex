@@ -165,7 +165,7 @@ void __fastcall TEXT_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, 
 
 void __fastcall SKILLDESC_BuildItemPropText(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E67D0
 
-int __stdcall sub_004FB1E0_LoadPaletteFiles(const char* szDatFileName, const char* szPL2FileName); // 0x004FB1E0
+int __stdcall PALETTE_LoadPaletteFiles(const char* szDatFileName, const char* szPL2FileName); // 0x004FB1E0
 
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 
@@ -302,7 +302,7 @@ extern D2ArchiveHandleStrc* gpD2ExpMPQ; // 0x007D5634
 
 int __cdecl ARCHIVE_LoadArchives(); // 0x004FAB90
 
-void __fastcall sub_004FB1C0_CopyRowTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
+void __fastcall D2Win_10178_CopyGammaTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
 
 extern int gnPaletteFlashCount; // 0x007D5638
 
@@ -402,7 +402,7 @@ int __fastcall D2Win_10177(unsigned char nAct)
 // build: symbol ?gszDataGlobal@* 0x006D4118
     sprintf(szDatFilename, "%s\\palette\\act%d\\%s", gszDataGlobal, nActNo, "pal.dat");
     sprintf(szPL2Filename, "%s\\palette\\act%d\\%s", gszDataGlobal, nActNo, "pal.pl2");
-    const int nResult = sub_004FB1E0_LoadPaletteFiles(szDatFilename, szPL2Filename);
+    const int nResult = PALETTE_LoadPaletteFiles(szDatFilename, szPL2Filename);
     D2GFX_SetPalette(gatRGBAPalette);
     return nResult;
 }
@@ -417,11 +417,11 @@ int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Fi
 // build: symbol ?gszDataGlobal@* 0x006D4118
         wsprintfA(szPalDatFilename, gszPathFormat_006D4124, gszDataGlobal, gszPalDat);
         wsprintfA(szPalPL2Filename, gszPathFormat_006D4124, gszDataGlobal, "palette\\act1\\pal.pl2");
-        sub_004FB1E0_LoadPaletteFiles(szPalDatFilename, szPalPL2Filename);
+        PALETTE_LoadPaletteFiles(szPalDatFilename, szPalPL2Filename);
     }
     else
     {
-        sub_004FB1E0_LoadPaletteFiles(pszPalDatFilename, pszPalPL2Filename);
+        PALETTE_LoadPaletteFiles(pszPalDatFilename, pszPalPL2Filename);
     }
 
     D2COMP_InitEmblemColorTables();

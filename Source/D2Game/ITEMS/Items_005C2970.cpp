@@ -34,10 +34,10 @@ static inline unsigned int ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int 
     return SEED_RollRandomNumber(pSeed) & (nMax - 1);
 }
 
-static int __stdcall sub_005C2970_RollSuperiorItemRecord(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop);
+static int __stdcall ITEMS_RollSuperiorItemRecord(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop); // 0x005C2970
 
 // 0x005C2970
-static int __stdcall sub_005C2970_RollSuperiorItemRecord(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
+static int __stdcall ITEMS_RollSuperiorItemRecord(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
 {
     D2QualityItemDataTbl* pQualityItemDataTbl = DATATBLS_GetQualityItemDataTables();
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
@@ -102,5 +102,5 @@ static int __stdcall sub_005C2970_RollSuperiorItemRecord(D2UnitStrc* pItem, D2It
 int __fastcall ITEMS_RollSuperiorItem(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop)
 {
     ITEMS_GetItemFormat(pItem);
-    return sub_005C2970_RollSuperiorItemRecord(pItem, pItemDrop);
+    return ITEMS_RollSuperiorItemRecord(pItem, pItemDrop);
 }

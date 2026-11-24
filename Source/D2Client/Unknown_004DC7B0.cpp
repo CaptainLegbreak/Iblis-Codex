@@ -19,7 +19,7 @@ extern "C" int __cdecl PLAYER_GetScreenOffsetY();                               
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit);                                                     // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit);                                                     // 0x006206B0
 D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                                    // 0x0046ACE0
-int __fastcall sub_00471EC0_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0
+int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0
 void __fastcall PLRSKILLS_CallSkillSeqDoForward(D2UnitStrc* pUnit, int nArg);                                 // 0x004D85B0
 void __fastcall MISSILE_CallSkillSeqDoBackward(D2UnitStrc* pUnit, int nArg);                                                  // 0x004D8650
 void __fastcall PLRSKILLS_SkillSeqDoForward(D2UnitStrc* pUnit, int nArg);                                      // 0x004D8520
@@ -125,7 +125,7 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
     {
     case 0:
         PLRSKILLS_SkillSeqDoForward(pUnit, nColor);
-        if (sub_00471EC0_DrawUnit(pUnit, nColor, nX, nTempY, 0, 1) && pUnit)
+        if (GFX_DrawUnit(pUnit, nColor, nX, nTempY, 0, 1) && pUnit)
             pUnit->dwFlags |= 0x10000000;
         PLRSKILLS_SkillSeqDoBackward(pUnit, nColor);
         break;
@@ -133,7 +133,7 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
         if (sub_004AE340(pUnit))
             bFlag = 1;
         PLRSKILLS_CallSkillSeqDoForward(pUnit, nColor);
-        if (sub_00471EC0_DrawUnit(pUnit, nColor, nX, nTempY, bFlag, 1) && pUnit)
+        if (GFX_DrawUnit(pUnit, nColor, nX, nTempY, bFlag, 1) && pUnit)
             pUnit->dwFlags |= 0x10000000;
         MISSILE_CallSkillSeqDoBackward(pUnit, nColor);
         break;
@@ -142,12 +142,12 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
         D2MissilesTxt* pMisTxt = sub_0046ACE0(!pUnit ? -1 : pUnit->dwClassId);
         if (!pMisTxt)
             break;
-        if (sub_00471EC0_DrawUnit(pUnit, nColor, nX + pMisTxt->nOffsetX, nY + pMisTxt->nOffsetY + pMisTxt->wYoffset, 0, 1) && pUnit)
+        if (GFX_DrawUnit(pUnit, nColor, nX + pMisTxt->nOffsetX, nY + pMisTxt->nOffsetY + pMisTxt->wYoffset, 0, 1) && pUnit)
             pUnit->dwFlags |= 0x10000000;
         break;
     }
     default:
-        if (sub_00471EC0_DrawUnit(pUnit, nColor, nX, nY, bFlag, 1) && pUnit)
+        if (GFX_DrawUnit(pUnit, nColor, nX, nY, bFlag, 1) && pUnit)
             pUnit->dwFlags |= 0x10000000;
         break;
     }

@@ -327,7 +327,7 @@ extern "C" int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataS
 
 int __fastcall sub_006C3360_Startup(D2QueueServerStrc* pServer, int nPort); // 0x006C3360
 
-int __fastcall sub_006C3B50_StartServer(D2QueueServerStrc* pServer, int nPort); // 0x006C3B50
+int __fastcall QSERVER98_StartServer(D2QueueServerStrc* pServer, int nPort); // 0x006C3B50
 
 extern "C" const char gszQServerTag[]; // 0x006FC47C
 
@@ -365,7 +365,7 @@ void __fastcall QSERVER_HackListAddress(D2QueueServerStrc* table, const char* fi
 
 int __fastcall sub_006C2C70(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize); // 0x006C2C70
 
-int __fastcall sub_006C3410_Send(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize); // 0x006C3410
+int __fastcall QSERVER98_Send(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pData, int nSize); // 0x006C3410
 
 struct D2QueueServerStrc;
 
@@ -395,7 +395,7 @@ void __stdcall sub_006BFAD0_Notify(D2QueueServerStrc* pServer, int a2, int a3); 
 
 void __fastcall sub_006C2110_StopServerThreads(D2QueueServerStrc* pServer); // 0x006C2110
 
-void __fastcall sub_006C33D0_Stop(D2QueueServerStrc* pServer); // 0x006C33D0
+void __fastcall QSERVER98_Stop(D2QueueServerStrc* pServer); // 0x006C33D0
 
 static void sub_006BF320_FreeChain(D2QueueServerStrc* pServer);
 
@@ -1304,7 +1304,7 @@ void __fastcall QSERVER_StopThreads(D2QueueServerStrc* pServer)
     if (pServer->bAltSend)
         sub_006C2110_StopServerThreads(pServer);
     else
-        sub_006C33D0_Stop(pServer);
+        QSERVER98_Stop(pServer);
 }
 
 // 0x006BF180
@@ -1476,7 +1476,7 @@ static int __fastcall QSERVER_SendToClient(D2QueueServerStrc* pServer, D2QClient
 {
     if (!pClient || pClient->bClosing) return 0;
     if (pServer->bAltSend) return sub_006C2C70(pServer, pClient, pData, nSize);
-    return sub_006C3410_Send(pServer, pClient, pData, nSize);
+    return QSERVER98_Send(pServer, pClient, pData, nSize);
 }
 
 // build: context sub_Emit_006BF500
@@ -1510,7 +1510,7 @@ static void QSERVER_StartServer(QServer* pServer, int nValue)
     }
     else
     {
-        sub_006C3B50_StartServer((D2QueueServerStrc*)pServer, nValue);
+        QSERVER98_StartServer((D2QueueServerStrc*)pServer, nValue);
     }
 }
 
@@ -1679,7 +1679,7 @@ QServer* __stdcall QSInit(int nState, int nSlots, int nPort, int bDisableNt, D2N
             if (pServer->bUseNt)
                 sub_006C3360_Startup((D2QueueServerStrc*)pServer, nPort);
             else
-                sub_006C3B50_StartServer((D2QueueServerStrc*)pServer, nPort);
+                QSERVER98_StartServer((D2QueueServerStrc*)pServer, nPort);
         }
     }
     return pServer;
@@ -1737,7 +1737,7 @@ int __stdcall QSERVER_BroadcastToAllClients(D2QueueServerStrc* pServer, char* pD
                 }
                 else
                 {
-                    sub_006C3410_Send(pServer, pClient, pData, nSize);
+                    QSERVER98_Send(pServer, pClient, pData, nSize);
                 }
             }
 
@@ -2029,7 +2029,7 @@ static int QSERVER_SendToClientId(D2QueueServerStrc* pServer, unsigned int nKey,
     {
         return sub_006C2C70(pServer, pConnection, pData, nSize);
     }
-    return sub_006C3410_Send(pServer, pConnection, pData, nSize);
+    return QSERVER98_Send(pServer, pConnection, pData, nSize);
 }
 
 // build: context sub_006BF320_FreeChain
@@ -2080,7 +2080,7 @@ int __stdcall FOG_10152(D2QueueServerStrc* pServer, int a2, int a3)
         if (pServer->bAltSend)
             sub_006C2110_StopServerThreads(pServer);
         else
-            sub_006C33D0_Stop(pServer);
+            QSERVER98_Stop(pServer);
     }
 
     sub_006BF320_FreeChain(pServer);
@@ -2185,7 +2185,7 @@ int __stdcall FOG_10157(D2QueueServerStrc* pServer, unsigned int nKey, char* pDa
     {
         return sub_006C2C70(pServer, pConnection, pData, nSize);
     }
-    return sub_006C3410_Send(pServer, pConnection, pData, nSize);
+    return QSERVER98_Send(pServer, pConnection, pData, nSize);
 }
 
 // 0x006C0420

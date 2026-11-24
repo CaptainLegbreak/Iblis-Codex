@@ -613,7 +613,7 @@ void __cdecl sub_00473C00_DrawWeatherLayers();                                  
 
 void __fastcall sub_004DF1C0(D2ViewStrc* pView);                                                             // 0x004DF1C0
 
-void __fastcall sub_004DEA70(D2ViewStrc* pView);                                                             // 0x004DEA70
+void __fastcall DFLOOR_UpdateFloorView(D2ViewStrc* pView);                                                             // 0x004DEA70
 
 void __cdecl DLIGHTMAP_DebugDrawLights();                                                                 // 0x00475B20
 
@@ -1061,7 +1061,7 @@ void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView)
     sub_004DF1C0(pView);
     if (pView->dwDrawFlags & gdwBitMasks[1])
     {
-        sub_004DEA70(pView);
+        DFLOOR_UpdateFloorView(pView);
     }
     if (gbDebugDrawLights)
     {

@@ -52,10 +52,11 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);            
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
-static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, int bOverlay, D2UnitStrc* pUnit, int nX, int nY);
-static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, int bOverlay, D2UnitStrc* pUnit, int nX, int nY); // 0x00470EC0
+static int __stdcall GFX_DrawGfxUnit(unsigned int dwColor, int nArg, int bOverlay, D2UnitStrc* pUnit, int nX, int nY); // 0x00470EC0
+static int __stdcall GFX_DrawGfxUnit(unsigned int dwColor, int nArg, int bOverlay, D2UnitStrc* pUnit, int nX, int nY); // 0x00470EC0
 
-int __fastcall sub_00471EC0(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay)
+// build: symbol ?GFX_DrawUnit@* 0x00471EC0
+int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay)
 {
     const int bPerspective = D2GFX_CheckPerspective();
     if (pUnit && pUnit->dwUnitType == UNIT_TILE)
@@ -102,7 +103,7 @@ int __fastcall sub_00471EC0(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int
 
     if (GFXUTIL_IsPlayerMonsterOrObject(pUnit))
     {
-        return sub_00470EC0_DrawGfxUnit(dwColor, nArg, bOverlay, pUnit, nX, nY);
+        return GFX_DrawGfxUnit(dwColor, nArg, bOverlay, pUnit, nX, nY);
     }
 
     const unsigned char nDirection = UNITS_GetDirection(pUnit);
@@ -246,7 +247,7 @@ D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc*); // 0x00463E10
 int __fastcall CUNIT_IsSelectedUnit(D2UnitStrc*); // 0x00464370
 D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
 void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc*, int, int); // 0x0046FA80
-int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc*, int, int, int, int); // 0x004709A0
+int __fastcall GFX_IsUnitOnScreen(D2UnitStrc*, int, int, int, int); // 0x004709A0
 unsigned char* __fastcall CUNIT_GetPalShift(D2UnitStrc*); // 0x00477530
 int __cdecl VIEW_IsAcceleratedRenderMode(); // 0x00477750
 D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void*); // 0x004DB040
@@ -289,7 +290,7 @@ static inline void* GetNodeLayer(D2UnitStrc* pUnit, int nMode)
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
 #define D2_MAX(a,b) ((a) > (b) ? (a) : (b))
 // 0x00470EC0
-static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, int bOverlay, D2UnitStrc* pUnit, int nX, int nY)
+static int __stdcall GFX_DrawGfxUnit(unsigned int dwColor, int nArg, int bOverlay, D2UnitStrc* pUnit, int nX, int nY)
 {
     int nTypeValue = UNIT_INVALID;
     if (pUnit) nTypeValue = pUnit->dwUnitType;
@@ -318,7 +319,7 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
         bRestoreTown = 1;
         bPerspective = 0;
     }
-    if (!sub_004709A0_IsOnScreen(pUnit, nDrawX, nDrawY, 1, 0))
+    if (!GFX_IsUnitOnScreen(pUnit, nDrawX, nDrawY, 1, 0))
     {
         if (bRestoreTown) D2GFX_SetTownMode(nTown);
         return 0;

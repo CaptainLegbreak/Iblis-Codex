@@ -75,7 +75,7 @@ int __stdcall D2Common_10236(D2UnitStrc* pUnit, int a2); // 0x00650350
 
 void __fastcall sub_6FDAB810(int* a1, int* a2); // 0x00678F00
 
-void __fastcall sub_6FDAB940(D2PathPointStrc* pOutPathPoint, D2DynamicPathStrc* pPath); // 0x00679250
+void __fastcall PATHUTIL_GetTargetPathPoint(D2PathPointStrc* pOutPathPoint, D2DynamicPathStrc* pPath); // 0x00679250
 
 inline BOOL DUNGEON_TestRoomGame(D2ActiveRoomStrc* pRoom, unsigned short nX, unsigned short nY)
 {
@@ -707,7 +707,7 @@ static BOOL sub_6FD5DB70(D2DynamicPathStrc* pDynamicPath)
     tCoord.Y = pDynamicPath->tGameCoords.wPosY;
 
     D2PathPointStrc a3;
-    sub_6FDAB940(&a3, pDynamicPath);
+    PATHUTIL_GetTargetPathPoint(&a3, pDynamicPath);
 
     pTargetUnit = pDynamicPath->hTarget;
     if (pTargetUnit && pTargetUnit->dwUnitType >= 0 && pTargetUnit->dwUnitType <= 1)

@@ -43,7 +43,7 @@ int __cdecl sub_0045AE90(); // 0x0045AE90
 
 void __fastcall SCMD_ReadGridCell(int nA, int nB, unsigned char* pByte0, unsigned char* pByte1, unsigned char* pByte2, unsigned char* pByte3); // 0x00475AA0
 
-void __stdcall sub_004DEF80_DrawCellTiles(D2GridCellStrc* pCell, int nArg, D2CellGridViewStrc* pView); // 0x004DEF80
+void __stdcall DWALL_DrawCellTiles(D2GridCellStrc* pCell, int nArg, D2CellGridViewStrc* pView); // 0x004DEF80
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -167,7 +167,7 @@ void __thiscall D2CellGridViewStrc::sub_004DF510_DrawCellNodes()
 
         if (pCell->f_14)
         {
-            sub_004DEF80_DrawCellTiles(pCell, 1, this);
+            DWALL_DrawCellTiles(pCell, 1, this);
         }
         ++pCell;
     }

@@ -38,7 +38,7 @@ static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 }
 
 // 0x004F4C20
-int __fastcall sub_004F4C20_CltDoRepeatAttack(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLSAMA_CltDoRepeatAttack(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     if (!SKILLS_GetSkillsTxtRecord(nSkillId))
     {

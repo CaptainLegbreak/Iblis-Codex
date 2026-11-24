@@ -27483,32 +27483,32 @@
     {
      "va": "0x004B93F0",
      "length": 77,
-     "name": "?sub_004B93F0_AllocHintEntry@@YAPAUD2TimedHintEntryStrc@@XZ"
+     "name": "?SOUNDINST_AllocSoundEntry@@YAPAUD2TimedHintEntryStrc@@XZ"
     },
     {
      "va": "0x004B9440",
      "length": 33,
-     "name": "?sub_004B9440_FindSoundByHandle@@YIPAUD2ClientSoundStrc@@H@Z"
+     "name": "?SOUNDINST_FindSoundByHandle@@YIPAUD2ClientSoundStrc@@H@Z"
     },
     {
      "va": "0x004B9470",
      "length": 42,
-     "name": "?sub_004B9470_ReleaseUnits@@YAXPAUD2ClientSoundStrc@@@Z"
+     "name": "?SOUNDINST_ReleaseUnits@@YAXPAUD2ClientSoundStrc@@@Z"
     },
     {
      "va": "0x004B94A0",
      "length": 52,
-     "name": "?sub_004B94A0_StopStream@@YAXPAUD2ClientSoundStrc@@@Z"
+     "name": "?SOUNDINST_StopStream@@YAXPAUD2ClientSoundStrc@@@Z"
     },
     {
      "va": "0x004B94E0",
      "length": 116,
-     "name": "?sub_004B94E0_FreeSound@@YAXPAUD2ClientSoundStrc@@@Z"
+     "name": "?SOUNDINST_FreeSound@@YAXPAUD2ClientSoundStrc@@@Z"
     },
     {
      "va": "0x004B9560",
      "length": 40,
-     "name": "?sub_004B9560_HasSoundHandle@@YIHH@Z"
+     "name": "?SOUNDINST_HasSoundHandle@@YIHH@Z"
     },
     {
      "va": "0x004B9590",
@@ -27523,37 +27523,37 @@
     {
      "va": "0x004B9690",
      "length": 97,
-     "name": "sub_004B9690_FindOldestEntry"
+     "name": "SOUNDINST_FindOldestEntry"
     },
     {
      "va": "0x004B9700",
      "length": 87,
-     "name": "?sub_004B9700_FindUnitSound@@YGPAUD2ClientSoundStrc@@PAU1@PAUD2UnitStrc@@@Z"
+     "name": "?SOUNDINST_FindUnitSound@@YGPAUD2ClientSoundStrc@@PAU1@PAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004B9760",
      "length": 106,
-     "name": "?sub_004B9760_FindGroupSound@@YGPAUD2ClientSoundStrc@@PAU1@H@Z"
+     "name": "?SOUNDINST_FindGroupSound@@YGPAUD2ClientSoundStrc@@PAU1@H@Z"
     },
     {
      "va": "0x004B97D0",
      "length": 177,
-     "name": "?sub_004B97D0_GetSoundOffset@@YGXPAUD2UnitStrc@@HPAUD2SoundVecStrc@@@Z"
+     "name": "?SOUNDINST_GetSoundOffset@@YGXPAUD2UnitStrc@@HPAUD2SoundVecStrc@@@Z"
     },
     {
      "va": "0x004B9890",
      "length": 86,
-     "name": "?sub_004B9890_GetSoundPan@@YGMPAUD2UnitStrc@@H@Z"
+     "name": "?SOUNDINST_GetSoundPan@@YGMPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x004B98F0",
      "length": 164,
-     "name": "?sub_004B98F0_SetSoundPosition@@YAXPAUD2ClientSoundStrc@@PAUD2SoundVecStrc@@@Z"
+     "name": "?SOUNDINST_SetSoundPosition@@YAXPAUD2ClientSoundStrc@@PAUD2SoundVecStrc@@@Z"
     },
     {
      "va": "0x004B99A0",
      "length": 85,
-     "name": "?sub_004B99A0_MoveSound@@YIXHHHH@Z"
+     "name": "?SOUNDINST_MoveSound@@YIXHHHH@Z"
     },
     {
      "va": "0x004B9A00",
@@ -27567,7 +27567,7 @@
     {
      "va": "0x004B9B80",
      "length": 37,
-     "name": "sub_004B9B80_SetFields"
+     "name": "SOUNDINST_StartFade"
     },
     {
      "va": "0x004B9BB0",
@@ -27582,22 +27582,22 @@
     {
      "va": "0x004B9BE0",
      "length": 52,
-     "name": "?sub_004B9BE0_HasActiveHint@@YIHH@Z"
+     "name": "?SOUNDINST_HasActiveHint@@YIHH@Z"
     },
     {
      "va": "0x004B9C20",
      "length": 56,
-     "name": "?sub_004B9C20_IsSpeechPlaying@@YAHXZ"
+     "name": "?SOUNDINST_IsSpeechPlaying@@YAHXZ"
     },
     {
      "va": "0x004B9C60",
      "length": 56,
-     "name": "?sub_004B9C60_IsSongPlaying@@YAHXZ"
+     "name": "?SOUNDINST_IsSongPlaying@@YAHXZ"
     },
     {
      "va": "0x004B9CA0",
      "length": 37,
-     "name": "?sub_004B9CA0_GetHintIdByKey@@YIHH@Z"
+     "name": "?SOUNDINST_GetSoundIdByHandle@@YIHH@Z"
     },
     {
      "va": "0x004B9CD0",
@@ -27607,22 +27607,22 @@
     {
      "va": "0x004B9D00",
      "length": 25,
-     "name": "_sub_004B9D00_ResetSoundState"
+     "name": "_SOUNDINST_ResetSoundState"
     },
     {
      "va": "0x004B9D20",
      "length": 44,
-     "name": "?sub_004B9D20_FreeAllSounds@@YAXXZ"
+     "name": "?SOUNDINST_FreeAllSounds@@YAXXZ"
     },
     {
      "va": "0x004B9D50",
      "length": 76,
-     "name": "?sub_004B9D50_GetPosition@@YIHH@Z"
+     "name": "?SOUNDINST_GetPosition@@YIHH@Z"
     },
     {
      "va": "0x004B9DA0",
      "length": 100,
-     "name": "sub_004B9DA0_CompareItems"
+     "name": "SOUNDINST_CompareSounds"
     },
     {
      "va": "0x004B9E10",
@@ -27632,17 +27632,17 @@
     {
      "va": "0x004B9E90",
      "length": 18,
-     "name": "?sub_004B9E90_HasUnitSound@@YIHPAUD2UnitStrc@@@Z"
+     "name": "?SOUNDINST_HasUnitSound@@YIHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004B9EB0",
      "length": 49,
-     "name": "?sub_004B9EB0_PlayRandomSound@@YAXXZ"
+     "name": "?SOUNDINST_PlayRandomSpeech@@YAXXZ"
     },
     {
      "va": "0x004B9EF0",
      "length": 304,
-     "name": "?sub_004B9EF0_ArmHint@@YIXHHHI@Z"
+     "name": "?SOUNDINST_ArmHint@@YIXHHHI@Z"
     },
     {
      "va": "0x004BA020",
@@ -27656,7 +27656,7 @@
     {
      "va": "0x004BA890",
      "length": 92,
-     "name": "sub_004BA890_RefreshHintsById"
+     "name": "SOUNDINST_LockSoundsById"
     },
     {
      "va": "0x004BA8F0",
@@ -27676,7 +27676,7 @@
     {
      "va": "0x004BAA50",
      "length": 86,
-     "name": "?sub_004BAA50_RefreshHintRange@@YAXXZ"
+     "name": "?SOUNDINST_LockSpeechSounds@@YAXXZ"
     }
    ]
   },
@@ -30362,7 +30362,7 @@
     {
      "va": "0x004C9990",
      "length": 422,
-     "name": "?sub_004C9990_DrawMotionTrail@@YIXPAUD2UnitStrc@@HH@Z"
+     "name": "?SKILLSPAL_DrawMotionTrail@@YIXPAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x004C9B40",
@@ -34734,7 +34734,7 @@
     {
      "va": "0x004FB1C0",
      "length": 20,
-     "name": "?sub_004FB1C0_CopyRowTable@@YIXPAY0BAA@E@Z"
+     "name": "?D2Win_10178_CopyGammaTable@@YIXPAY0BAA@E@Z"
     },
     {
      "va": "0x004FB1E0",
@@ -60576,7 +60576,7 @@
     {
      "va": "0x005BDFF0",
      "length": 44,
-     "name": "?sub_005BDFF0_RollSeedGetTable@@YIPAXPAUD2SeedOwnerStrc@@@Z"
+     "name": "?MONSTERCHOOSE_RollFormation@@YIPAXPAUD2SeedOwnerStrc@@@Z"
     },
     {
      "va": "0x005BE020",
@@ -77215,7 +77215,7 @@
     {
      "va": "0x006775C0",
      "length": 117,
-     "name": "?sub_006775C0_SetOverlapWarps@@YGXHHPAUD2DrlgStrc@@@Z"
+     "name": "?DRLGOUTPLACE_SetOverlapWarps@@YGXHHPAUD2DrlgStrc@@@Z"
     },
     {
      "va": "0x00677640",
@@ -80257,12 +80257,12 @@
     {
      "va": "0x006C33D0",
      "length": 55,
-     "name": "?sub_006C33D0_Stop@@YIXPAUD2QueueServerStrc@@@Z"
+     "name": "?QSERVER98_Stop@@YIXPAUD2QueueServerStrc@@@Z"
     },
     {
      "va": "0x006C3410",
      "length": 47,
-     "name": "?sub_006C3410_Send@@YIHPAUD2QueueServerStrc@@PAUD2QClientStrc@@PADH@Z"
+     "name": "?QSERVER98_Send@@YIHPAUD2QueueServerStrc@@PAUD2QClientStrc@@PADH@Z"
     },
     {
      "va": "0x006C3440",

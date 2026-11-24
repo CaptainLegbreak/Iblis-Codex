@@ -690,7 +690,7 @@ extern D2ArchiveHandleStrc* gpD2ExpMPQ; // 0x007D5634
 
 int __cdecl ARCHIVE_LoadArchives(); // 0x004FAB90
 
-void __fastcall sub_004FB1C0_CopyRowTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
+void __fastcall D2Win_10178_CopyGammaTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
 
 extern int gnPaletteFlashCount; // 0x007D5638
 

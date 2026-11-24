@@ -181,7 +181,7 @@ static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand)
 }
 
 // 0x004423B0
-void __fastcall sub_004423B0_RunCommand(char* szText)
+void __fastcall CHATDLG_RunCommand(char* szText)
 {
     CHATDLG_PushHistory(szText);
 // build: symbol ?gszCmdR@* 0x006D56D4

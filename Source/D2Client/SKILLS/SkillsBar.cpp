@@ -193,7 +193,7 @@ int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 
-int __fastcall sub_00471EC0_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0
+int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0
 
 // 0x004C8350
 static int __stdcall sub_004C8350_CanTargetRoom(int nSkillId, D2UnitStrc* pUnit, int nX, int nY)
@@ -709,7 +709,7 @@ void __fastcall SKILLS_RotateUnitDirection(D2UnitStrc* pUnit, int nArg, int bFor
     }
 
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    sub_00471EC0_DrawUnit(pUnit, nArg, nX, nY, nUnitType == 0, 0);
+    GFX_DrawUnit(pUnit, nArg, nX, nY, nUnitType == 0, 0);
     sub_006488A0_SetDirection(pPath, nDirection);
 }
 

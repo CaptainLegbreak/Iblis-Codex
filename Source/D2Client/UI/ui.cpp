@@ -621,13 +621,13 @@ void __cdecl HIREABLES_UpdateHirelingPanel(); // 0x00493340
 
 void __cdecl sub_00494020_DrawPetIcons(); // 0x00494020
 
-void __cdecl sub_004929F0_DrawMercPanel(); // 0x004929F0
+void __cdecl INV_DrawMercPanel(); // 0x004929F0
 
 void __stdcall INV_DrawRecipeScroll(); // 0x0048BC10
 
-void __cdecl sub_004A34F0_DrawQuestPage(); // 0x004A34F0
+void __cdecl TEXT_DrawQuestPage(); // 0x004A34F0
 
-void __cdecl sub_0048EDF0_DrawInventoryPanel(); // 0x0048EDF0
+void __cdecl INV_DrawInventoryPanel(); // 0x0048EDF0
 
 void __cdecl sub_004B8730_DrawDialogHover(); // 0x004B8730
 
@@ -641,7 +641,7 @@ void __cdecl PANEL_DrawPartyPanel(); // 0x0049C3D0
 
 void __cdecl TEXT_DispatchTextData(); // 0x0049FF10
 
-void __cdecl sub_0049C9C0_DrawWaypointPanel(); // 0x0049C9C0
+void __cdecl TEXT_DrawWaypointPanel(); // 0x0049C9C0
 
 void __cdecl HIREABLES_LoadHelpCels(); // 0x00494320
 
@@ -675,7 +675,7 @@ void __cdecl sub_0047B720_DrawChatPanel(); // 0x0047B720
 
 void __cdecl sub_004966C0_DrawHelpScreen(); // 0x004966C0
 
-void __cdecl sub_004C0810_DrawUnitNames(); // 0x004C0810
+void __cdecl SHOWITEMS_DrawUnitNames(); // 0x004C0810
 
 void __cdecl NPCMENU_UpdateNpcInteract(); // 0x004B4380
 
@@ -3503,18 +3503,18 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     if (gaUIVarStates[19])
         sub_00494020_DrawPetIcons();
     if (gaUIVarStates[36])
-        sub_004929F0_DrawMercPanel();
+        INV_DrawMercPanel();
     if (gaUIVarStates[37])
         INV_DrawRecipeScroll();
     if (gaUIVarStates[15])
-        sub_004A34F0_DrawQuestPage();
+        TEXT_DrawQuestPage();
     if (gaUIVarStates[1] || gaUIVarStates[12] || gaUIVarStates[14] || gaUIVarStates[25]
         || gaUIVarStates[26] || gaUIVarStates[28] || gaUIVarStates[29])
-        sub_0048EDF0_DrawInventoryPanel();
+        INV_DrawInventoryPanel();
     if (gaUIVarStates[23])
     {
         sub_004B8730_DrawDialogHover();
-        sub_0048EDF0_DrawInventoryPanel();
+        INV_DrawInventoryPanel();
     }
     CHARSEL_DrawProgressiveStates();
     if (gaUIVarStates[4])
@@ -3528,7 +3528,7 @@ void __fastcall UI_DrawUIPanels(D2ViewStrc* pView)
     if (gaUIVarStates[16])
         TEXT_DispatchTextData();
     if (gaUIVarStates[20])
-        sub_0049C9C0_DrawWaypointPanel();
+        TEXT_DrawWaypointPanel();
     if (gaUIVarStates[33])
     {
         HIREABLES_LoadHelpCels();
@@ -3624,7 +3624,7 @@ done:
     }
     if (gaUIVarStates[13] && sub_0045AE90() != 3)
     {
-        sub_004C0810_DrawUnitNames();
+        SHOWITEMS_DrawUnitNames();
         if (GAME_GetConnectionType())
             CUNIT_ForEachPlayer(UI_DrawPartyMemberText);
     }

@@ -157,9 +157,9 @@ int __fastcall TEXT_TestQuestCondition(int nCondition); // 0x004A4180
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-int __cdecl sub_004B9C20_IsSpeechPlaying(); // 0x004B9C20
+int __cdecl SOUNDINST_IsSpeechPlaying(); // 0x004B9C20
 
-int __fastcall sub_004B9CA0_GetHintIdByKey(void* pKey); // 0x004B9CA0
+int __fastcall SOUNDINST_GetSoundIdByHandle(void* pKey); // 0x004B9CA0
 
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce); // 0x004BA790
 

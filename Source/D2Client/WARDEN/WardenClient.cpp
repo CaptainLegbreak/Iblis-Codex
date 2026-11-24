@@ -148,7 +148,7 @@ void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc* pUnit, int nWeaponClassId,
 
 void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
 
-int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
+int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
@@ -192,7 +192,7 @@ int __fastcall SKILLS_ScanFindCallback(void* pArg, D2UnitStrc* pUnit); // 0x004C
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
+void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 
 int __fastcall sub_004E0650_GetStringSound(unsigned short nStringId); // 0x004E0650
 
@@ -1318,7 +1318,7 @@ void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, 
         const int nHint = sub_004B9610_FindHint(gnHintId);
         if (nHint)
         {
-            sub_004B9EF0_ArmHint(nHint, 0, 0, 4);
+            SOUNDINST_ArmHint(nHint, 0, 0, 4);
         }
         gnHintId = 0;
     }

@@ -255,7 +255,7 @@ T0044CB60* __stdcall TEXT_BuildTextLines(const Unicode* wszText, int* pLineCount
 
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
-void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
+void __fastcall SOUNDINST_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 
@@ -1085,7 +1085,7 @@ void __fastcall CUNIT_ForEachMonster(UNITFN pfnCallback); // 0x00464990
 
 void __fastcall sub_0046BFD0_StartTimer(int nDelay); // 0x0046BFD0
 
-void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
+void __fastcall GFX_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
 
 void __cdecl INV_StopCinematic(); // 0x00483300
 
@@ -1519,7 +1519,7 @@ int __fastcall TEXT_TestQuestCondition(int nCondition);
 
 void __stdcall TEXT_QuestLButtonDownMsg(SMSGHANDLER_PARAMS* pMsg);
 
-void __cdecl sub_004A34F0_DrawQuestPage(); // 0x004A34F0
+void __cdecl TEXT_DrawQuestPage(); // 0x004A34F0
 
 void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg);
 
@@ -2831,7 +2831,7 @@ void __cdecl TEXT_ClearHint()
     {
         const int nHint = sub_004B9610_FindHint(gnHintId);
         if (nHint)
-            sub_004B9EF0_ArmHint(nHint, 0, 0, 4);
+            SOUNDINST_ArmHint(nHint, 0, 0, 4);
         gnHintId = 0;
     }
     ghHintSound = 0;
@@ -3240,7 +3240,7 @@ void __cdecl TEXT_ResetTextBox()
     {
         const int nHint = sub_004B9610_FindHint(gnHintId);
         if (nHint)
-            sub_004B9EF0_ArmHint(nHint, 0, 0, 4);
+            SOUNDINST_ArmHint(nHint, 0, 0, 4);
         gnHintId = 0;
     }
     ghHintSound = 0;
@@ -4491,7 +4491,7 @@ void __fastcall TEXT_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket)
             switch (pPacket->nId)
             {
             case 13:
-                sub_0046F870_LoadMonsterCofs(MONSTER_DURIEL, 1);
+                GFX_LoadMonsterCofs(MONSTER_DURIEL, 1);
                 return;
             case 23:
                 GAME_RequestExit();

@@ -10,7 +10,7 @@ struct D2TextBlockStrc { D2TextRowStrc* pLines; unsigned char unknown04[0x12]; i
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall GAME_ResetMouseState(); // 0x0044DA40
 D2SoundStrc* __fastcall sub_004B9610(int nSound); // 0x004B9610
-void __fastcall sub_004B9EF0_ArmHint(D2SoundStrc* pSound, int nZero, int nZero2, int nMode); // 0x004B9EF0
+void __fastcall SOUNDINST_ArmHint(D2SoundStrc* pSound, int nZero, int nZero2, int nMode); // 0x004B9EF0
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nId, int nType); // 0x00463990
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int nType, unsigned int nId); // 0x004786A0
 extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
@@ -72,7 +72,7 @@ __forceinline void __stdcall TEXT_FreeTextBox(D2TextBlockStrc* pBox)
 }
 
 // 0x004A10E0
-void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, int nUnused)
+void __fastcall TEXT_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, int nUnused)
 {
     gnGlobal_007BF236 = 0;
     gnTextTop_007225FC = 12;
@@ -83,7 +83,7 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
     {
         D2SoundStrc* pSound = sub_004B9610(gnSound_007BF260);
         if (pSound)
-            sub_004B9EF0_ArmHint(pSound, 0, 0, 4);
+            SOUNDINST_ArmHint(pSound, 0, 0, 4);
         gnSound_007BF260 = 0;
     }
     gnSoundPlaying_007BF24B = 0;
@@ -136,7 +136,8 @@ void __fastcall sub_004A10E0_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nM
             exit(-1);
         }
         D2Win_10127_SetFont(nPreviousFont);
-        sub_004BAA50_RefreshHintRange();
+// build: symbol ?SOUNDINST_LockSpeechSounds@* 0x004BAA50
+        SOUNDINST_LockSpeechSounds();
         gnSoundPlaying_007BF24B = 0;
         int nSound = sub_004E0650_GetStringSound(nMessage);
         if (nSound)

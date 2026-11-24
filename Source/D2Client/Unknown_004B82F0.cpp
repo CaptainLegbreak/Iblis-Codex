@@ -818,7 +818,7 @@ void __fastcall sub_004B9330_ForwardByte(const unsigned char* pPacket)
     sub_0046B630_FireLevelEvent(pPacket[1]);
 }
 
-D2ClientSoundStrc* __fastcall sub_004B9440_FindSoundByHandle(int nHandle); // 0x004B9440
+D2ClientSoundStrc* __fastcall SOUNDINST_FindSoundByHandle(int nHandle); // 0x004B9440
 
 // 0x004B9110
 void __fastcall sub_004B9110_SendGoldRequest(unsigned long nGold)
@@ -917,7 +917,8 @@ void __cdecl sub_004BABC0_ToggleHints()
     gbRandomSoundTest = !gbRandomSoundTest;
     if (!gbRandomSoundTest)
     {
-        sub_004BAA50_RefreshHintRange();
+// build: symbol ?SOUNDINST_LockSpeechSounds@* 0x004BAA50
+        SOUNDINST_LockSpeechSounds();
     }
 }
 

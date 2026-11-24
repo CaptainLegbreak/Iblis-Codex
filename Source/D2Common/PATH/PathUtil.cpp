@@ -429,7 +429,7 @@ int __fastcall sub_00678F70_TestRay(D2PathTestStrc* pPath, D2PathRayStrc* pRay)
 
 
 // 0x00679190
-void __fastcall sub_00679190(D2DynamicPathStrc* ptPath)
+void __fastcall PATHUTIL_AdvanceTowardsTarget(D2DynamicPathStrc* ptPath)
 {
     if (ptPath == 0)
     {
@@ -479,7 +479,7 @@ inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 }
 
 // 0x00679250
-void __fastcall sub_6FDAB940(D2PathPointStrc* pOutPathPoint, D2DynamicPathStrc* ptPath)
+void __fastcall PATHUTIL_GetTargetPathPoint(D2PathPointStrc* pOutPathPoint, D2DynamicPathStrc* ptPath)
 {
     D2_ASSERT(ptPath, 0x201);
     D2_ASSERT(ptPath->hTarget, 0x202);

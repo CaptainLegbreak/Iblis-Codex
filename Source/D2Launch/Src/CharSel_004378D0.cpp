@@ -194,7 +194,7 @@ extern "C" const char gszCharSelFile[];                                         
 extern int gdwGlobal_00779DA4;                                                                              // 0x00779DA4
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
-void __cdecl sub_00438560_Refresh();                                                                        // 0x00438560
+void __cdecl CHARSEL_RefreshCharList();                                                                        // 0x00438560
 int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode);                                // 0x005042F0
 void __stdcall D2Win_10149(D2CompositeUnitStrc* pCompositeUnit, unsigned char nValue);                     // 0x005051A0
 void __stdcall D2Win_10151(D2CompositeUnitStrc* pCompositeUnit, int nFrame);                               // 0x00505260
@@ -639,7 +639,7 @@ static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStat
     }
 
     gnGlobal_00779DC4 += 1;
-    sub_00438560_Refresh();
+    CHARSEL_RefreshCharList();
     gdwGlobal_00779DA4 = 1;
     return 1;
 }
@@ -1025,7 +1025,7 @@ int __stdcall CHARSEL_OnCharSelect(int nArg)
             if (bOk)
             {
                 pEntry->wFlags |= 0x20;
-                sub_00438560_Refresh();
+                CHARSEL_RefreshCharList();
                 MAINMENUS_DestroyControls();
             }
             else

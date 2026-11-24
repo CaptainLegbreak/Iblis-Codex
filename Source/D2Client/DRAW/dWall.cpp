@@ -86,7 +86,7 @@ static D2LightPairStrc* __stdcall sub_004DEDB0_GetLightOffsets(D2TileGfxStrc* pT
 }
 
 // 0x004DEF80
-void __stdcall sub_004DEF80_DrawCellTiles(D2GridCellStrc* pCell, int nPass, D2CellGridViewStrc* pView)
+void __stdcall DWALL_DrawCellTiles(D2GridCellStrc* pCell, int nPass, D2CellGridViewStrc* pView)
 {
     const int nGamma = sub_0045AE90();
     const int bPerspective = D2GFX_CheckPerspective();

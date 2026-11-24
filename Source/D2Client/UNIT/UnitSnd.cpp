@@ -90,15 +90,15 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg
 
 void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
 
-int __fastcall sub_004B9BE0_HasActiveHint(void* pEntry); // 0x004B9BE0
+int __fastcall SOUNDINST_HasActiveHint(void* pEntry); // 0x004B9BE0
 
-int __fastcall sub_004B9CA0_GetHintIdByKey(int nKey); // 0x004B9CA0
+int __fastcall SOUNDINST_GetSoundIdByHandle(int nKey); // 0x004B9CA0
 
 int __fastcall MONSTER_IsNearPlayer(D2UnitStrc* pUnit); // 0x004B9E10
 
-int __fastcall sub_004B9E90_HasUnitSound(D2UnitStrc* pUnit); // 0x004B9E90
+int __fastcall SOUNDINST_HasUnitSound(D2UnitStrc* pUnit); // 0x004B9E90
 
-void __fastcall sub_004B9EF0_ArmHint(void* pEntry, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
+void __fastcall SOUNDINST_ArmHint(void* pEntry, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce); // 0x004BA790
 
@@ -260,7 +260,7 @@ extern D2LevelSpeechStrc* gapLevelSpeeches[15]; // 0x0072A2C4
 
 int __fastcall TEXT_TestQuestCondition(int nCondition); // 0x004A4180
 
-int __cdecl sub_004B9C20_IsSpeechPlaying(); // 0x004B9C20
+int __cdecl SOUNDINST_IsSpeechPlaying(); // 0x004B9C20
 
 int __cdecl sub_004DF880(); // 0x004DF880
 
@@ -542,7 +542,7 @@ void __fastcall UNITSND_PurgeUnitHints(D2UnitStrc* pUnit)
     {
         D2TimedHintEntryStrc* pEntry = pNode->pEntry;
         D2TimedHintNodeStrc* pNext = pNode->pNext;
-        if (SOUNDHDR_GetLoopFlag(sub_004B9CA0_GetHintIdByKey((int)pEntry)))
+        if (SOUNDHDR_GetLoopFlag(SOUNDINST_GetSoundIdByHandle((int)pEntry)))
             sub_004BA790_ReleaseUnitSfx(pEntry, pUnit, 0);
         pNode = pNext;
     }
@@ -916,7 +916,7 @@ void __fastcall UNITSND_ReleaseSkillSfx(D2UnitStrc* pUnit)
     {
         void* pEntry = pNode->pUnitSfx;
         D2UnitSfxNodeStrc* pNext = pNode->pNext;
-        const int nGroup = SOUNDHDR_GetGroupStart(sub_004B9CA0_GetHintIdByKey((int)pEntry));
+        const int nGroup = SOUNDHDR_GetGroupStart(SOUNDINST_GetSoundIdByHandle((int)pEntry));
         if (nGroup == pMonSoundsTxtRecord->dwSkill[0] || nGroup == pMonSoundsTxtRecord->dwSkill[1]
             || nGroup == pMonSoundsTxtRecord->dwSkill[2] || nGroup == pMonSoundsTxtRecord->dwSkill[3])
             sub_004BA790_ReleaseUnitSfx(pEntry, pUnit, 1);
@@ -935,10 +935,10 @@ void __stdcall UNITSND_ReleaseNeutralSfx(D2UnitStrc* pUnit, int bArm)
         void* pEntry = pNode->pUnitSfx;
         D2MonSoundsTxt* pMonSoundsTxtRecord = UNITSND_GetMonSoundsRecord(pUnit);
         const int nNeutral = !pMonSoundsTxtRecord ? 0 : pMonSoundsTxtRecord->dwNeutral;
-        if (SOUNDHDR_GetGroupStart(sub_004B9CA0_GetHintIdByKey((int)pEntry)) == nNeutral)
+        if (SOUNDHDR_GetGroupStart(SOUNDINST_GetSoundIdByHandle((int)pEntry)) == nNeutral)
         {
-            if (bArm && !sub_004B9BE0_HasActiveHint(pEntry))
-                sub_004B9EF0_ArmHint(pEntry, 0, 0, 6);
+            if (bArm && !SOUNDINST_HasActiveHint(pEntry))
+                SOUNDINST_ArmHint(pEntry, 0, 0, 6);
             else
                 sub_004BA790_ReleaseUnitSfx(pEntry, pUnit, 1);
         }
@@ -1196,7 +1196,7 @@ void __stdcall UNITSND_ReleaseMonsterSfx(D2UnitStrc* pUnit)
     {
         void* pEntry = pNode->pUnitSfx;
         D2UnitSfxNodeStrc* pNext = pNode->pNext;
-        const int nGroup = SOUNDHDR_GetGroupStart(sub_004B9CA0_GetHintIdByKey((int)pEntry));
+        const int nGroup = SOUNDHDR_GetGroupStart(SOUNDINST_GetSoundIdByHandle((int)pEntry));
         if (nGroup == pMonSoundsTxtRecord->dwAttack1 || nGroup == pMonSoundsTxtRecord->dwWeapon1
             || nGroup == pMonSoundsTxtRecord->dwHitSound || nGroup == pMonSoundsTxtRecord->dwNeutral
             || nGroup == pMonSoundsTxtRecord->dwSkill[0] || nGroup == pMonSoundsTxtRecord->dwSkill[1]
@@ -1393,7 +1393,7 @@ void __fastcall UNITSND_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int bDelay
     {
         if (sub_0044DB00() - gnSfxTick < 0xF)
             bPlay = 0;
-        if (sub_004B9E90_HasUnitSound(pUnit))
+        if (SOUNDINST_HasUnitSound(pUnit))
             goto second;
     }
 
@@ -1518,7 +1518,7 @@ void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStri
         return;
     }
 
-    if (nId >= 0x19 && nId <= 0x20 && !sub_004B9E90_HasUnitSound(pUnit))
+    if (nId >= 0x19 && nId <= 0x20 && !SOUNDINST_HasUnitSound(pUnit))
     {
         nSoundId = pRecord->anEventSounds[6] + 2 * (nId - 0x19);
     }
@@ -1613,7 +1613,7 @@ void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStri
             break;
         }
 
-        TEXT_SetSpeechHoverText(pUnit, sub_004B9CA0_GetHintIdByKey(sub_004B9A00(nHintSound, pUnit, nFlags, 0, 0)));
+        TEXT_SetSpeechHoverText(pUnit, SOUNDINST_GetSoundIdByHandle(sub_004B9A00(nHintSound, pUnit, nFlags, 0, 0)));
         return;
     }
 
@@ -1696,7 +1696,7 @@ void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStri
         break;
     }
 
-    if (bCheckRepeat && sub_004B9E90_HasUnitSound(pUnit))
+    if (bCheckRepeat && SOUNDINST_HasUnitSound(pUnit))
     {
         return;
     }
@@ -1718,7 +1718,7 @@ void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStri
         gnLastRequestSound = nSoundId;
     }
 
-    TEXT_SetSpeechHoverText(pUnit, sub_004B9CA0_GetHintIdByKey(sub_004B9A00(nSoundId, pSoundUnit, 0, 0, 0)));
+    TEXT_SetSpeechHoverText(pUnit, SOUNDINST_GetSoundIdByHandle(sub_004B9A00(nSoundId, pSoundUnit, 0, 0, 0)));
 }
 
 // 0x004CC160
@@ -1824,7 +1824,7 @@ static void __stdcall UNITSND_PlayHitSound(D2UnitStrc* pUnit, int nMode)
             int nDelay;
             if (nMode == 3 || nMode == 0xD)
             {
-                if (sub_004B9E90_HasUnitSound(pUnit))
+                if (SOUNDINST_HasUnitSound(pUnit))
                     goto done;
                 nSound = pMonSoundsTxtRecord->dwHitSound;
                 nDelay = pMonSoundsTxtRecord->dwHitDelay;
@@ -1853,7 +1853,7 @@ static void __stdcall UNITSND_PlayHitSound(D2UnitStrc* pUnit, int nMode)
             int nArg;
             if (nMode == 4 || nMode == 0x13)
             {
-                if (sub_004B9E90_HasUnitSound(pUnit))
+                if (SOUNDINST_HasUnitSound(pUnit))
                     goto done;
                 nSound = pRecord->f_0;
                 nArg = 2;
@@ -1924,7 +1924,7 @@ void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId)
     for (D2UnitSfxNodeStrc* pNode = (D2UnitSfxNodeStrc*)pUnit->pUnitSfxData; pNode; pNode = pNode->pNext)
     {
         void* pUnitSfx = pNode->pUnitSfx;
-        int nHintId = sub_004B9CA0_GetHintIdByKey((int)pUnitSfx);
+        int nHintId = SOUNDINST_GetSoundIdByHandle((int)pUnitSfx);
         if (nHintId >= nGroup && nHintId < nGroup + nCount)
         {
             return pUnitSfx;
@@ -2019,7 +2019,7 @@ found:
         return;
     }
 
-    if (sub_004B9C20_IsSpeechPlaying())
+    if (SOUNDINST_IsSpeechPlaying())
     {
         return;
     }

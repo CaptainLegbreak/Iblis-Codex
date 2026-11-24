@@ -83,7 +83,7 @@ D2BitBufferStrc* __cdecl sub_004B32E0_GetQuestHistory(); // 0x004B32E0
 D2CacheStatsStrc* __cdecl D2GFX_GetCacheResults(); // 0x004F5290
 D2ClientNotifyStrc* __cdecl GAME_GetClientNotify(); // 0x0044B7B0
 D2ClientServiceStrc* __cdecl BNCLIENT_GetInterfaceTable(); // 0x00518C10
-D2ClientSoundStrc* __cdecl sub_004B93F0_AllocHintEntry(); // 0x004B93F0
+D2ClientSoundStrc* __cdecl SOUNDINST_AllocSoundEntry(); // 0x004B93F0
 D2CommonIgnoreListStrc* IGNORELIST_GetOrCreateIgnoreList(); // 0x00611560
 D2DrlgTileDataStrc* __stdcall sub_00619660_GetFloorTiles(D2ActiveRoomStrc* pRoom, unsigned int* pCount); // 0x00619660
 D2HoverTextStrc* __stdcall CHAT_AllocHoverMsg(void* pMemoryPool, const char* szText, int nGameFrame); // 0x00661110
@@ -762,7 +762,7 @@ void __cdecl sub_004A5D00(); // 0x004A5D00
 void __cdecl sub_004AB2F0(); // 0x004AB2F0
 void __cdecl sub_004B2F50(); // 0x004B2F50
 void __cdecl sub_004BA8F0(); // 0x004BA8F0
-void __cdecl sub_004BAA50_RefreshHintRange(); // 0x004BAA50
+void __cdecl SOUNDINST_LockSpeechSounds(); // 0x004BAA50
 void __cdecl sub_004BAAB0(); // 0x004BAAB0
 void __cdecl sub_004C0090(); // 0x004C0090
 void __cdecl sub_004C0440(); // 0x004C0440
@@ -802,7 +802,7 @@ void __fastcall sub_0046BFF0(D2UnitStrc* pUnit); // 0x0046BFF0
 void __fastcall sub_0046F070_SetGfxMotion(D2UnitStrc* pUnit, D2GfxMotionStrc* pMotion); // 0x0046F070
 void __fastcall sub_0046F1C0(D2GfxDataStrc* pGfxData, int nValue); // 0x0046F1C0
 void __fastcall sub_0046F220(D2GfxDataStrc* pGfxData, int nValue); // 0x0046F220
-void __fastcall sub_0046F870(int nItemId, int nArg); // 0x0046F870
+void __fastcall GFX_LoadMonsterCofs(int nItemId, int nArg); // 0x0046F870
 void __fastcall sub_00471620(D2CellPosStrc* pPos); // 0x00471620
 void __fastcall sub_00472DA0(int nX, int nY, int nSubX, int nSubY); // 0x00472DA0
 void __fastcall sub_00472EC0(int nX, int nY, int nSubX, int nSubY); // 0x00472EC0
@@ -817,7 +817,7 @@ void __fastcall sub_00482370(int nId); // 0x00482370
 void __fastcall sub_00482710(int nIndex, char* szPath); // 0x00482710
 void __fastcall sub_0049F3D0(void* pSoundData); // 0x0049F3D0
 void __fastcall sub_0049F490_PrintChatMessage(D2ChatMessageStrc* pMessage); // 0x0049F490
-void __fastcall sub_004A10E0(D2UnitStrc* pUnit, unsigned short nMessage, int nArg); // 0x004A10E0
+void __fastcall TEXT_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, int nArg); // 0x004A10E0
 void __fastcall sub_004A2760(int nCount); // 0x004A2760
 void __fastcall sub_004AC780_SetMonsterWord(D2UnitStrc* pUnit, unsigned short nValue); // 0x004AC780
 void __fastcall sub_004AC810_ToggleMonsterFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet); // 0x004AC810
@@ -826,13 +826,13 @@ void __fastcall sub_004AE3C0(D2UnitStrc* pUnit); // 0x004AE3C0
 void __fastcall sub_004AEDD0(D2UnitStrc* pUnit, int nMonsterId); // 0x004AEDD0
 void __fastcall sub_004AF890(D2UnitStrc* pUnit, int nArg1, int nArg2); // 0x004AF890
 void __fastcall sub_004B3D10_ReleaseTextUnit(int nUnitId); // 0x004B3D10
-void __fastcall sub_004B99A0(int nHandle, int nPan, int nVolume, int nArg); // 0x004B99A0
+void __fastcall SOUNDINST_MoveSound(int nHandle, int nPan, int nVolume, int nArg); // 0x004B99A0
 void __fastcall sub_004BC720_InitObjectUnit(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nArg); // 0x004BC720
 void __fastcall sub_004BD6B0_InitShrine(D2UnitStrc* pUnit); // 0x004BD6B0
 void __fastcall sub_004C1910_InitItemUnit(D2UnitStrc* pItem, D2ActiveRoomStrc* pRoom, int nX, int nY, int nArg, int bFlag); // 0x004C1910
 void __fastcall sub_004C5390_ScaleUpDirection(int* pX, int* pY); // 0x004C5390
 void __fastcall sub_004C5680_StartAura(D2UnitStrc* pUnit, int nAuraFunc); // 0x004C5680
-void __fastcall sub_004C9990(D2UnitStrc* pUnit, int nArg, int bForward); // 0x004C9990
+void __fastcall SKILLSPAL_DrawMotionTrail(D2UnitStrc* pUnit, int nArg, int bForward); // 0x004C9990
 void __fastcall sub_004CA8A0_AddUnitSound(D2UnitStrc* pUnit, int nHandle); // 0x004CA8A0
 void __fastcall sub_004CAF60(D2UnitStrc* pUnit); // 0x004CAF60
 void __fastcall sub_004CBDE0_PetCommand(int nPetId, char bFlag, int nSkill); // 0x004CBDE0

@@ -131,7 +131,7 @@ extern "C" const char gszFormatD[];                                             
 static int __stdcall SKILLDESC_AddElemRatePerSecond(unsigned short nString, Unicode* wszText, int nMin, int nMax); // 0x004EC540
 
 
-static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel);
+static int __stdcall SKILLDESC_AddSkillElemRate(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel); // 0x004EC6F0
 
 static D2SkillsTxt* sub_I05_GetSkillsTxtRecord(int nSkillId)
 {
@@ -323,7 +323,7 @@ static void __stdcall SKILLDESC_DrawDamageRange(int nMin, int nMax, int nColor, 
 }
 
 // 0x004EAE70
-void __fastcall sub_004EAE70_DrawPhysWeaponElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
+void __fastcall SKILLDESC_DrawPhysWeaponElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
 {
     if (!pSkill || !pSkillsTxt)
     {
@@ -367,7 +367,7 @@ static int SKILLDESC_GetETypeColor(int nEType)
 }
 
 // 0x004EB290
-void __fastcall sub_004EB290_DrawElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
+void __fastcall SKILLDESC_DrawElemDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
 {
     if (!pSkill || !pSkillsTxt)
     {
@@ -430,7 +430,7 @@ static int __stdcall SKILLDESC_AddElemRatePerSecond(unsigned short nString, Unic
 }
 
 // 0x004EC6F0
-static int __stdcall sub_004EC6F0_AddSkillElemRate(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel)
+static int __stdcall SKILLDESC_AddSkillElemRate(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, int nSkillLevel)
 {
     const int nMin = SKILLS_GetMinElemDamage(pUnit, nSkillId, nSkillLevel, 1) * 0x4B >> 8;
     const int nMax = SKILLS_GetMaxElemDamage(pUnit, nSkillId, nSkillLevel, 1) * 0x4B >> 8;
@@ -596,7 +596,7 @@ static int __stdcall SKILLDESC_AddElemRange(int nMin, unsigned short nString, Un
 }
 
 // 0x004ED150
-int __stdcall sub_004ED150_AddSummonDamageBonus(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel)
+int __stdcall SKILLDESC_AddSummonDamageBonus(D2UnitStrc* pUnit, Unicode* wszText, int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel)
 {
     D2MonStatsTxt* pMonStatsTxt = MonStatsTxtRecord(pSkillsTxt->wSummon);
     if (!pMonStatsTxt)
@@ -656,7 +656,7 @@ int __fastcall sub_Emit_004EDEA0(D2UnitStrc* pUnit, Unicode* wszText, int nSkill
 {
     if (nLine == 2)
     {
-        sub_004EC6F0_AddSkillElemRate(pUnit, wszText, nSkillId, nSkillLevel);
+        SKILLDESC_AddSkillElemRate(pUnit, wszText, nSkillId, nSkillLevel);
         return 1;
     }
     return 0;

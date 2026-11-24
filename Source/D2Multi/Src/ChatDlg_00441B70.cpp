@@ -317,7 +317,7 @@ extern int gnValue_007992E0; // 0x007992E0
 extern int gnValue_007992E8; // 0x007992E8
 extern int gnValue_007992F0; // 0x007992F0
 extern D2WinControlStrc* gpControl_0077BD98; // 0x0077BD98
-void __fastcall sub_004423B0_RunCommand(char* szText); // 0x004423B0
+void __fastcall CHATDLG_RunCommand(char* szText); // 0x004423B0
 void __fastcall COMCALLBACK_PrintOwnLine(const char* szText); // 0x004481F0
 int __fastcall D2Win_10052_TEXTBOX_GetNumLines(D2WinControlStrc* pTextBox); // 0x004FB910
 extern D2WinButtonStrc* gapClassButtons[8]; // 0x0077BC98
@@ -640,7 +640,7 @@ static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand)
     }
     return 0;
 }
-void __fastcall sub_004423B0_RunCommand(char* szText)
+void __fastcall CHATDLG_RunCommand(char* szText)
 {
     CHATDLG_PushHistory(szText);
 // build: symbol ?gszCmdR@* 0x006D56D4
