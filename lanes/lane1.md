@@ -4,6 +4,9 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane1/copies-unitsnd-missile-plrskills 4ec7bf449 0->0 three planned tables ran into the copy that starts the next object's data: gapLevelSpeeches (UnitSnd.cpp) is 15 entries, not 20 (its scan stops at the null entry; UnitSnd.cpp's declaration follows), and the copy at 0x72A300 (which ran on into gData_0072A314) is Missile.cpp's; gpfnCltHitFuncs (Missile.cpp) is 82 entries, not 98, and 0x72A650 (+4 B) is PlrSkills.cpp's; gaLightOffsetsA (Unknown_004DEDB0.cpp) is 10 records, not 11, and 0x72ADA8 (which ran on into gData_0072ADD8) is Unknown_004DF6C0.cpp's; VERIFIED a445a4d66ee97ad683d39189c17a7c10a74dbfdb
+  - verified on #339, rebased onto #340 (tree d8c4cd17eb1850a2c561edfd07f94a372e1a0b21, re-verifying).
+
 - lane1/object-data 3bb2b07e1 0->0 Object.cpp's data start (lane 4's note): the borrowed copy at 0x727708, the 22-int table at 0x727744 and the 80-byte block at 0x7277A0 (17 ints, then pointers to 0x727748 and to itself) are planned in Object.cpp around gnShrineHandlerCount; borrowed data 1,830 -> 1,599 B; VERIFIED 6e79b82c1ff197a567a61c19f141ccffdfe6cb36
   - based on main #339. This takes lane 1's borrowed-data rows 0x7277A0 (80 B); 0x7278BC (64 B) was useitem's copy, done in #333.
 
@@ -11,6 +14,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
   - based on main #337. Left: Skills.cpp's 0x4C8670 (inside SkillsBar's run) needs gaLobBrackets' type in SkillsBar.cpp.
 
 ## In progress
+
+- **Claimed: the edit-box/spinner split of UI/editbox.cpp** (0x4BABF0-0x4BC4FA, 106 functions, mine since the ownership change). The data after editbox.cpp's (copy 0x72756C, gaButtonStrings) holds two more borrowed copies, each followed by RTTI: 0x727608 then EditBoxImplementation/EditBoxWrapper, 0x727688 then SpinnerImplementation/SpinnerWrapper, then Object.cpp's copy 0x727708. So editbox.cpp's code is three objects: editbox.cpp, the edit-box classes and the spinner classes. I'll split by the classes' vtables and plan each copy in its object.
 
 - **0x4A4AD0 variant-search template:** lanes/vsearch/0x4A4AD0.cpp (unit Source/D2Client/Unknown_004A43E0.cpp on #331, function marked; with the first alternatives it builds 1,202/1,232 like now). Groups, following the coordinator's listing note (bPageDown gets ebx in the original): const/plain for bInList and bPageDown; bButton as `GetKeyConfigButtonAt != 3` or `IsOnKeyConfigButton`; the all-clear condition with !bPageDown moved first or the pressed test last; block 0 as `bInList || gaPressed[0]`, reversed, or with the hit test called again instead of bInList; the page-down block's condition order, `gaPressed[5] = bPageDown && gbRedraw`, and its inner test as gbRedraw / `bPageDown && gbRedraw` / `gaPressed[5]`; the button block's condition order.
 - **PlrSkills.cpp-to-Wall2.cpp object map:** settled the Particle/GfxUtil question in favour of particle-strays (on main #332): with 0x4DA0B0/0x4DA0F0's bodies in GfxUtil.cpp, 0x4DA350 inlines them and stops matching, so they were not in 0x4DA350's unit. The line-only asserts there (425, 54, 129) don't rise with address, so I take them as coming from inlined header code. Still open: which four objects besides Particle, GfxUtil, CUnitEvent and PlayerList hold the other copies in gpfnClientStateRemFuncs (candidates: 0x4D9FC0, the 0x4DC3E0 relation-flag group, 0x4DC510 (line 22, after PlayerList's 39), 0x4DC580 (line 97), Unknown_004DC710/004DC7B0/004DCAA0, Item.cpp's 0x4DCD40). One group is certain: 0x4DCA30, 0x4DCAA0, 0x4DCD40 and 0x4DCE10 share the .bss block 0x7C89D0-0x7C8A04, which follows GfxUtil's gdwFadeTick (0x7C89CC) directly, so they are one object (timed hints / level sounds).
