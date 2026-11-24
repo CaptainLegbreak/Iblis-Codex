@@ -13889,11 +13889,6 @@
      "name": "?sub_0047EC40_IsSet@@YAHXZ"
     },
     {
-     "va": "0x004824A0",
-     "length": 259,
-     "name": "INV_FreeCacheEntries"
-    },
-    {
      "va": "0x004834A0",
      "length": 58,
      "name": "?INV_SkipBracketTag@@YIPBUUnicode@@PBU1@@Z"
@@ -21171,36 +21166,6 @@
      "name": "sub_00478150"
     },
     {
-     "va": "0x004817D0",
-     "length": 6,
-     "name": "sub_004817D0"
-    },
-    {
-     "va": "0x004817E0",
-     "length": 6,
-     "name": "sub_004817E0"
-    },
-    {
-     "va": "0x004817F0",
-     "length": 6,
-     "name": "sub_004817F0"
-    },
-    {
-     "va": "0x00481800",
-     "length": 6,
-     "name": "sub_00481800"
-    },
-    {
-     "va": "0x00481810",
-     "length": 6,
-     "name": "sub_00481810"
-    },
-    {
-     "va": "0x00481820",
-     "length": 6,
-     "name": "DLIGHTMAP_GetSoundTick"
-    },
-    {
      "va": "0x00486E00",
      "length": 3,
      "name": "sub_00486E00"
@@ -23186,6 +23151,36 @@
      "name": "?SOUNDHDR_FinishCacheLoad@@YAXPAUD2ClientCacheEntryStrc@@@Z"
     },
     {
+     "va": "0x004817D0",
+     "length": 6,
+     "name": "sub_004817D0"
+    },
+    {
+     "va": "0x004817E0",
+     "length": 6,
+     "name": "sub_004817E0"
+    },
+    {
+     "va": "0x004817F0",
+     "length": 6,
+     "name": "sub_004817F0"
+    },
+    {
+     "va": "0x00481800",
+     "length": 6,
+     "name": "sub_00481800"
+    },
+    {
+     "va": "0x00481810",
+     "length": 6,
+     "name": "sub_00481810"
+    },
+    {
+     "va": "0x00481820",
+     "length": 6,
+     "name": "DLIGHTMAP_GetSoundTick"
+    },
+    {
      "va": "0x00481840",
      "length": 7,
      "name": "?SOUNDHDR_SetCacheMax@@YIXI@Z"
@@ -23242,6 +23237,11 @@
     {
      "va": "0x004823E0",
      "length": 180
+    },
+    {
+     "va": "0x004824A0",
+     "length": 259,
+     "name": "INV_FreeCacheEntries"
     },
     {
      "va": "0x004825B0",
