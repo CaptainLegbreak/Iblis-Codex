@@ -82411,10 +82411,6 @@
      "length": 37
     },
     {
-     "va": "0x006CA6F0",
-     "length": 12
-    },
-    {
      "va": "0x006CA7B0",
      "length": 24,
      "name": "?sub_006CA7B0_InitializeList@@YAXXZ"
