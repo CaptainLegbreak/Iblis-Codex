@@ -67,7 +67,6 @@ int __stdcall sub_0065C310(void*,int,int); // 0x0065C310
 
 struct D2NPCMessageTableStrc;
 
-typedef bool(__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
 typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 

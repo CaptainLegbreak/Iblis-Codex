@@ -930,16 +930,7 @@ enum D2C_MonStatsTxtFlagIndices
     MONSTATSFLAGINDEX_INTERACT = 9,
 };
 
-typedef unsigned char (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuest);
 
-struct D2QuestTimerStrc
-{
-    QUESTUPDATE pfUpdate;
-    D2QuestDataStrc* pQuest;
-    unsigned int dwTicks;
-    unsigned int dwTimeout;
-    D2QuestTimerStrc* pNext;
-};
 
 struct D2QuestInfoStrc
 {

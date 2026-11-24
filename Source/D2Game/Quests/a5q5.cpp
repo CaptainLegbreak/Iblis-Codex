@@ -225,7 +225,6 @@ void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeader
 
 extern const unsigned int gnA5Q5NpcActivateIndices[];  // 0x007357E4
 
-typedef bool(__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
 #define UNIT_OBJECT 2
 

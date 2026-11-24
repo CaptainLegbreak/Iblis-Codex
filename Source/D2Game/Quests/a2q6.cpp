@@ -222,7 +222,6 @@ struct D2ObjInitFnStrc;
 
 typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
-typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
 extern "C" const char gszA2Q6DebugKilledDuriel[]; // 0x006E209C
 

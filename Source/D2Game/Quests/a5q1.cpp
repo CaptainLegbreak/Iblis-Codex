@@ -100,7 +100,6 @@ void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQues
 
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
-typedef bool(__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
 extern unsigned int gnA5Q1NpcIndices[]; // 0x00733928
 

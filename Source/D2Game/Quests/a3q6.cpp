@@ -177,7 +177,6 @@ extern "C" char gpAct3Q6NpcMessages[]; // 0x00740EF8
 
 struct D2QuestDataStrc;
 
-typedef bool(__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
 typedef int(__fastcall* SUNIT_ITERATEFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 

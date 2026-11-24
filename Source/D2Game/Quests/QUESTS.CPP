@@ -18,6 +18,7 @@
 #include "D2UnitData.h"
 #include "D2LevelTxt.h"
 #include "D2Packets.h"
+#include "D2QuestData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -184,16 +185,7 @@ int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 
 
 short __fastcall MONSTERUNIQUE_GetBossHcIdx(D2UnitStrc* pUnit); // 0x005A01E0
 
-typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
-struct D2QuestTimerStrc
-{
-    QUESTUPDATE pfUpdate;
-    D2QuestDataStrc* pQuest;
-    unsigned int dwTicks;
-    unsigned int dwTimeout;
-    D2QuestTimerStrc* pNext;
-};
 
 
 #pragma pack(push, 1)

@@ -2653,7 +2653,6 @@ enum D2C_MonStatsTxtFlagIndices
     MONSTATSFLAGINDEX_INTERACT = 9,
 };
 
-typedef unsigned char (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuest);
 
 
 
