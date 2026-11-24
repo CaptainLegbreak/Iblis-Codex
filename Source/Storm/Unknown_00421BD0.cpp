@@ -163,9 +163,9 @@ void __stdcall SBigToStreamPtr(D2StormBigStrc* pBig, unsigned char** ppData, uns
 
 static inline void ReserveCount(D2StormArrayAStrc* pArray, unsigned int nCount)
 {
-    if (nCount > pArray->f_0)
+    if (nCount > pArray->m_alloc)
     {
-        unsigned int nChunk = pArray->f_C;
+        unsigned int nChunk = pArray->m_chunk;
         if (!nChunk)
         {
             nChunk = pArray->sub_004210A0_CalcChunkSize(nCount);
@@ -184,11 +184,11 @@ static inline void ReserveCount(D2StormArrayAStrc* pArray, unsigned int nCount)
 static void __stdcall sub_00423380_FromBytes(BigBuffer* pThis, const unsigned char* pData, unsigned int nSize)
 {
     unsigned int nStart = pThis->m_start;
-    if (nStart > pThis->m_array.f_4)
+    if (nStart > pThis->m_array.m_count)
     {
         ReserveCount(&pThis->m_array, nStart);
     }
-    pThis->m_array.f_4 = nStart;
+    pThis->m_array.m_count = nStart;
 
     for (unsigned int i = 0; i < nSize; ++i)
     {
@@ -199,21 +199,21 @@ static void __stdcall sub_00423380_FromBytes(BigBuffer* pThis, const unsigned ch
         if (nShift)
         {
             pThis->GrowToFit(nIdx);
-            nCur = pThis->m_array.f_8[pThis->m_start + nIdx];
+            nCur = pThis->m_array.m_data[pThis->m_start + nIdx];
         }
         else
         {
             nCur = 0;
         }
         unsigned int nPos = pThis->m_start + nIdx;
-        if (nPos >= pThis->m_array.f_4)
+        if (nPos >= pThis->m_array.m_count)
         {
             unsigned int nNewCount = nPos + 1;
             ReserveCount(&pThis->m_array, nNewCount);
-            SMemZero(&pThis->m_array.f_8[pThis->m_array.f_4], (nPos - pThis->m_array.f_4) * 4 + 4);
-            pThis->m_array.f_4 = nNewCount;
+            SMemZero(&pThis->m_array.m_data[pThis->m_array.m_count], (nPos - pThis->m_array.m_count) * 4 + 4);
+            pThis->m_array.m_count = nNewCount;
         }
-        pThis->m_array.f_8[pThis->m_start + nIdx] = (nByte << (nShift * 8)) + nCur;
+        pThis->m_array.m_data[pThis->m_start + nIdx] = (nByte << (nShift * 8)) + nCur;
     }
 }
 

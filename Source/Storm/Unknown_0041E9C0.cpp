@@ -222,13 +222,13 @@ struct BigBuffer
     unsigned int GetInline(unsigned int nIndex)
     {
         const unsigned int nPosition = m_start + nIndex;
-        return nPosition < m_array.f_4 ? m_array.f_8[nPosition] : 0;
+        return nPosition < m_array.m_count ? m_array.m_data[nPosition] : 0;
     }
     void SetCountInline(unsigned int nCount)
     {
-        if (nCount > m_array.f_4 && nCount > m_array.f_0)
+        if (nCount > m_array.m_count && nCount > m_array.m_alloc)
         {
-            unsigned int nChunk = m_array.f_C;
+            unsigned int nChunk = m_array.m_chunk;
             if (!nChunk)
                 nChunk = m_array.sub_004210A0_CalcChunkSize(nCount);
             unsigned int nAlloc = nCount;
@@ -237,7 +237,7 @@ struct BigBuffer
                 nAlloc = nCount + nChunk - nRemainder;
             m_array.sub_004216E0_ReallocData(nAlloc);
         }
-        m_array.f_4 = nCount;
+        m_array.m_count = nCount;
     }
     unsigned int ChunkSizeInline(unsigned int nCount)
     {
@@ -248,32 +248,32 @@ struct BigBuffer
                 nResult &= nResult - 1;
             return nResult < 1 ? 1 : nResult;
         }
-        m_array.f_C = 0x40;
+        m_array.m_chunk = 0x40;
         return 0x40;
     }
     void GrowToFitInline(unsigned int nIndex)
     {
         const unsigned int nPosition = m_start + nIndex;
-        if (nPosition >= m_array.f_4)
+        if (nPosition >= m_array.m_count)
         {
             const unsigned int nNewCount = nPosition + 1;
-            if (nNewCount > m_array.f_0)
+            if (nNewCount > m_array.m_alloc)
             {
-                const unsigned int nChunk = m_array.f_C ? m_array.f_C : ChunkSizeInline(nNewCount);
+                const unsigned int nChunk = m_array.m_chunk ? m_array.m_chunk : ChunkSizeInline(nNewCount);
                 unsigned int nAlloc = nNewCount;
                 const unsigned int nRemainder = nNewCount % nChunk;
                 if (nRemainder)
                     nAlloc = nNewCount + nChunk - nRemainder;
                 m_array.sub_004216E0_ReallocData(nAlloc);
             }
-            SMemZero(&m_array.f_8[m_array.f_4], (nPosition - m_array.f_4 + 1) * sizeof(unsigned int));
-            m_array.f_4 = nNewCount;
+            SMemZero(&m_array.m_data[m_array.m_count], (nPosition - m_array.m_count + 1) * sizeof(unsigned int));
+            m_array.m_count = nNewCount;
         }
     }
     unsigned int& AtInline(unsigned int nIndex)
     {
         GrowToFitInline(nIndex);
-        return m_array.f_8[m_start + nIndex];
+        return m_array.m_data[m_start + nIndex];
     }
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
@@ -284,9 +284,9 @@ struct BigBuffer
     }
     void InlineSetCount(unsigned int nCount)
     {
-        if (nCount > m_array.f_4 && nCount > m_array.f_0)
+        if (nCount > m_array.m_count && nCount > m_array.m_alloc)
         {
-            unsigned int nChunk = m_array.f_C;
+            unsigned int nChunk = m_array.m_chunk;
             if (!nChunk)
                 nChunk = m_array.sub_004210A0_CalcChunkSize(nCount);
             unsigned int nAlloc = nCount;
@@ -295,32 +295,32 @@ struct BigBuffer
                 nAlloc = nCount + nChunk - nRemainder;
             m_array.sub_004216E0_ReallocData(nAlloc);
         }
-        m_array.f_4 = nCount;
+        m_array.m_count = nCount;
     }
     void InlineGrowToFit(int nIndex)
     {
         unsigned int nPosition = m_start + nIndex;
-        if (nPosition >= m_array.f_4)
+        if (nPosition >= m_array.m_count)
         {
             unsigned int nNewCount = nPosition + 1;
-            if (nNewCount > m_array.f_0)
+            if (nNewCount > m_array.m_alloc)
             {
-                unsigned int nChunk = m_array.f_C ? m_array.f_C : m_array.sub_004210A0_CalcChunkSize(nNewCount);
+                unsigned int nChunk = m_array.m_chunk ? m_array.m_chunk : m_array.sub_004210A0_CalcChunkSize(nNewCount);
                 m_array.sub_004216E0_ReallocData(RoundUp(nNewCount, nChunk));
             }
-            SMemZero(&m_array.f_8[m_array.f_4], (nPosition - m_array.f_4 + 1) * sizeof(unsigned int));
-            m_array.f_4 = nNewCount;
+            SMemZero(&m_array.m_data[m_array.m_count], (nPosition - m_array.m_count + 1) * sizeof(unsigned int));
+            m_array.m_count = nNewCount;
         }
     }
     unsigned int& Get(unsigned int nIndex)
     {
         GrowToFit(nIndex);
-        return m_array.f_8[m_start + nIndex];
+        return m_array.m_data[m_start + nIndex];
     }
     unsigned int& At(unsigned int nIndex)
     {
         InlineGrowToFit(nIndex);
-        return m_array.f_8[m_start + nIndex];
+        return m_array.m_data[m_start + nIndex];
     }
 };
 
@@ -699,7 +699,7 @@ void __stdcall sub_00424B00_BigSquare(BigBuffer* pResult, BigBuffer* pA, BigStac
 
     pWork->SetCountInline(pWork->m_start);
 
-    for (unsigned int i = 0; pA->m_start + i < pA->m_array.f_4; i++)
+    for (unsigned int i = 0; pA->m_start + i < pA->m_array.m_count; i++)
     {
         unsigned __int64 nCarry = 0;
         unsigned int j;
@@ -719,8 +719,8 @@ void __stdcall sub_00424B00_BigSquare(BigBuffer* pResult, BigBuffer* pA, BigStac
 
     if (pResult != pWork)
     {
-        pResult->m_array.sub_004215C0_Set(pWork->m_array.f_4, pWork->m_array.f_8);
-        pResult->m_array.f_C = pWork->m_array.f_C;
+        pResult->m_array.sub_004215C0_Set(pWork->m_array.m_count, pWork->m_array.m_data);
+        pResult->m_array.m_chunk = pWork->m_array.m_chunk;
         pResult->m_start = pWork->m_start;
         pStack->nUsed--;
     }
