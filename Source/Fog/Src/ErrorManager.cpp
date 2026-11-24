@@ -121,23 +121,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 
 
-struct D2LdrDataStrc
-{
-    char unk0x00[0x14];
-    D2ListEntryStrc InMemoryOrderModuleList;
-};
 
-struct D2PebStrc
-{
-    char unk0x00[0x0C];
-    D2LdrDataStrc* Ldr;
-};
 
-struct D2TebStrc
-{
-    char unk0x00[0x30];
-    D2PebStrc* ProcessEnvironmentBlock;
-};
 
 struct D2ModeIfaceStrc
 {

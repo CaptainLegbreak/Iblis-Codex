@@ -208,23 +208,8 @@ static bool __stdcall sub_00404AB0_VisitModule(void* pContext, const D2ImageDosH
 
 
 
-struct D2LdrDataStrc
-{
-    char unk0x00[0x14];
-    D2ListEntryStrc InMemoryOrderModuleList;
-};
 
-struct D2PebStrc
-{
-    char unk0x00[0x0C];
-    D2LdrDataStrc* Ldr;
-};
 
-struct D2TebStrc
-{
-    char unk0x00[0x30];
-    D2PebStrc* ProcessEnvironmentBlock;
-};
 
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);                                  // 0x006CC134
 
