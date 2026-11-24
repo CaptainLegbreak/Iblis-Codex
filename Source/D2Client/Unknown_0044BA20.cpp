@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Unicode.h"
 #include "D2McpPackets.h"
+#include "gen/data/Source/D2Client/Unknown_0044BA20.inc"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
