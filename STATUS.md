@@ -42,11 +42,11 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 686 |
+| Compilation units | 679 |
 | … in a file with its original name, whole | 292 |
 | … pieces of an original file still split (in 33 files) | 114 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 280 |
-| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2520 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 273 |
+| Record definitions private to a source file (`struct`/`union` in a .cpp) | 2519 |
 | Unnamed fields (`unk0x..`) in the shared headers | 717 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 38 |
 | Functions relying on a module assumption macro (`STORM_ASSUME`, `FOG_ASSUME`: the original's release-build assert or unreachable default) | 4 |
@@ -79,7 +79,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) is listed for completeness.
 
-Not listed one by one: 4048 functions are compiled with `/GS-` and 1002 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 106 times and `__declspec(dllexport)` 153 times to keep a body out of line or emitted.
+Not listed one by one: 4079 functions are compiled with `/GS-` and 1002 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 106 times and `__declspec(dllexport)` 153 times to keep a body out of line or emitted.
 
 | Address | Name | File | Construct |
 |---|---|---|---|
@@ -509,7 +509,30 @@ Not listed one by one: 4048 functions are compiled with `/GS-` and 1002 with `/E
 | 0x004FA860 | D2Win_COMMANDS_MouseButton_6F8AE070 | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FBF30 | TEXTBOX_Draw | `D2Win/Src/D2WinTextBox.cpp` | volatile read or qualifier |
 | 0x00502550 | D2Win_10128 | `D2Win/Src/D2WinFont.cpp` | __assume |
-| 0x0050CA00 | sub_0050CA00_GlideShadowTileDrawPerspective | `D2Glide/Unknown_0050BD30.cpp` | volatile read or qualifier |
+| 0x0050BD30 | sub_0050BD30_GlideDrawPointCross | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050BD80 | sub_0050BD80_GlideDebugDrawLights | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050BE20 | sub_0050BE20_GlideDebugRefresh | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050BF40 | sub_0050BF40_GlideGetBlendedShadows | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050BF50 | sub_0050BF50_GlideDrawBox | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050C0F0 | sub_0050C0F0_GlideDrawBoxAlpha | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050C270 | sub_0050C270_GlideDrawLine | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050C3A0 | GLIDE_UtilDiamond | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050C490 | GLIDE_UtilRect | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050C5E0 | sub_0050C5E0_GlideUtilFilledRect | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050C630 | GLIDE_UtilPoint | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050C680 | sub_0050C680_ClearBuffer | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050C690 | sub_0050C690_GlideGetDrawRect | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050C760 | sub_0050C760_GlideInitVertices | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050C890 | sub_0050C890_GlideTileDrawShaded | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050CA00 | sub_0050CA00_GlideShadowTileDrawPerspective | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1, volatile read or qualifier |
+| 0x0050CD40 | sub_0050CD40_GlideShadowTileDraw | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050CDD0 | sub_0050CDD0_GlideTileDrawFlat | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050CF70 | sub_0050CF70_GlideTileDrawPerspective | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050D410 | sub_0050D410_GlideTileDrawAlpha | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050D490 | sub_0050D490_GlideTileDrawTrans | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050D4C0 | sub_0050D4C0_GlideTileDrawLit | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050D540 | sub_0050D540_GlideInitD | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
+| 0x0050D6A0 | sub_0050D6A0_GlideDrawFloorTile | `D2Glide/Unknown_0050BD30.cpp` | compiler option /Ob1 |
 | 0x00516830 | D2SOUNDSMP_GetPositionalVolumePan | `D2Sound/Src/D2SoundSmp.cpp` | volatile read or qualifier |
 | 0x005179B3 | sub_005179B3_CopyRect | `D2Hell/Unknown_00516D8B.cpp` | inline assembly |
 | 0x00517A36 | sub_00517A36_CompareMemory | `D2Hell/Unknown_00516D8B.cpp` | inline assembly |
