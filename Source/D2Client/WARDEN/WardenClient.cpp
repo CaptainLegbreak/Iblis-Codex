@@ -457,7 +457,7 @@ struct D2ClientServiceStrc
     char unk0x00[0xC8];
     void (__fastcall* pfnFree)(void* pData, int nSize);
     int (__fastcall* pfnFind)(char* szName, int* pArg, void** ppData, int* pSize);
-    void (__fastcall* pfnCall)(const char* szName, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
+    int (__fastcall* pfnCall)(const char* szName, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
 };
 
 extern WardenModule* gpPendingWarden; // 0x007BC994
@@ -938,6 +938,16 @@ static int __stdcall WARDENCLIENT_LoadModuleByKey(const unsigned char* pRc4Key, 
     int nResult = WARDENCLIENT_LoadModule((const unsigned char*)pModule, pRc4Key, nModuleSize);
     gpService->pfnFree(pModule, nModuleSize);
     return nResult;
+}
+
+// 0x0047FFB0
+int __stdcall INV_CallServiceWithTime(const char* szName, int nArg2, int nArg3)
+{
+    if (!gpService)
+        return 0;
+    _FILETIME tTime;
+    GetSystemTimeAsFileTime(&tTime);
+    return gpService->pfnCall(szName, nArg2, nArg3, &tTime, -1, -1);
 }
 
 // 0x00480000
