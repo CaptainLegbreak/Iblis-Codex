@@ -496,7 +496,7 @@ void __cdecl BNSEND_ClearPassword(); // 0x005224F0
 
 int __fastcall BNSEND_SendAccountUpgradeProof(unsigned int nServerToken); // 0x005223F0
 
-int __cdecl BNCLIENT_GetLoginRetryCount(); // 0x005224E0
+int __cdecl GAME_GetLoginRetryCount(); // 0x005224E0
 
 int __fastcall sub_005223A0(int bFlag); // 0x005223A0
 
@@ -689,8 +689,8 @@ int __fastcall BNDOWNLOAD_EnterChat(const char* szArg1, const char* szArg2, int 
     if (nFlags & 2)
         BNSEND_JoinChannel(szText, 1, bAlternate);
     BNDOWNLOAD_WaitForReply(10);
-// build: symbol ?BNCLIENT_GetAbortFlag@* 0x00520AE0
-    if (BNCLIENT_GetAbortFlag())
+// build: symbol ?GAME_GetAbortFlag@* 0x00520AE0
+    if (GAME_GetAbortFlag())
     {
         BNMESSQUEUE_SetError(0xE);
         return 1;
@@ -704,7 +704,7 @@ int __cdecl BNDOWNLOAD_IsReady()
 {
     D2BnStateStrc tState;
     sub_005205F0_GetState(&tState);
-    if (!BNCLIENT_GetAbortFlag() && tState.nState == 0 && InterlockedCompareExchange(&gnConnected, 0, 0))
+    if (!GAME_GetAbortFlag() && tState.nState == 0 && InterlockedCompareExchange(&gnConnected, 0, 0))
         return 1;
     return 0;
 }
@@ -2503,7 +2503,7 @@ int __fastcall BNDOWNLOAD_HandleAuthAccountUpgradeProof(const void* pData, unsig
     switch (*(const int*)pData)
     {
     case 0:
-        if (BNCLIENT_GetLoginRetryCount())
+        if (GAME_GetLoginRetryCount())
         {
             sub_0051A480_DebugLog("Upgrade Proof success, logging in");
             return BNDOWNLOAD_ResendAccountLogon();
@@ -2514,7 +2514,7 @@ int __fastcall BNDOWNLOAD_HandleAuthAccountUpgradeProof(const void* pData, unsig
         gdwGlobal_008823FC = 1;
         return 1;
     case 2:
-        if (BNCLIENT_GetLoginRetryCount())
+        if (GAME_GetLoginRetryCount())
         {
             sub_0051A480_DebugLog("Upgrade Proof Failed: Invalid password during logon");
             BNSEND_ClearPassword();
@@ -2876,13 +2876,13 @@ int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
 
 int __fastcall sub_0051E340_BuildCDKeyInfoForSlot(D2CDKeyInfoStrc* pInfo, unsigned int dwClientToken, int nSlot); // 0x0051E340
 
-int __cdecl BNCLIENT_GetAbortFlag(); // 0x00520AE0
+int __cdecl GAME_GetAbortFlag(); // 0x00520AE0
 
 void __cdecl GRID_LockCDKeys(); // 0x005234D0
 
 void __cdecl GRID_UnlockCDKeys(); // 0x005239C0
 
-const char* __cdecl BNCLIENT_GetExeInfo(); // 0x00523AA0
+const char* __cdecl GAME_GetExeInfo(); // 0x00523AA0
 
 struct D2CipherKeyStringView
 {

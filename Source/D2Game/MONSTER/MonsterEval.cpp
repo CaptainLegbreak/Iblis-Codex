@@ -389,7 +389,7 @@ void __fastcall MONSTERMODE_AllocateTargetCombat(D2UnitStrc* pUnit, D2GameStrc* 
 
 
 void __fastcall SKILLS_FillMinionSkillDamage(D2UnitStrc* pUnit, int nUnused, D2MonSkillInfoStrc* pMonSkillInfo); // 0x0056E050
-int __fastcall MONSTEREVAL_GetDifficultyScaledBonus(D2GameStrc* pGame, int nCount); // 0x005A4F20
+int __fastcall SUNITPROXY_GetDifficultyScaledBonus(D2GameStrc* pGame, int nCount); // 0x005A4F20
 void __stdcall STATLIST_RemoveAllStats(D2StatListStrc* pStatList); // 0x00627340
 int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
@@ -425,7 +425,7 @@ void __fastcall MONSTERMODE_UpdateModeAttackStats(D2UnitStrc* pUnit, int nMode)
     if (!STATLIST_GetUnitAlignment(pUnit)) {
         int players = STATLIST_UnitGetStatValue(pUnit, STAT_MONSTER_PLAYERCOUNT, 0);
         if (players < 1) players = 1;
-        bonus = MONSTEREVAL_GetDifficultyScaledBonus(pGame, players);
+        bonus = SUNITPROXY_GetDifficultyScaledBonus(pGame, players);
     }
     int minDamage, maxDamage, toHit;
     switch (nMode) {

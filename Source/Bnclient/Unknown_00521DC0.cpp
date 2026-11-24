@@ -46,13 +46,13 @@ int __cdecl BNDOWNLOAD_HasArchiveName(); // 0x0051EAA0
 
 int __fastcall BNMESSQUEUE_SetError(int nError); // 0x005204A0
 
-int __cdecl BNCLIENT_GetAbortFlag(); // 0x00520AE0
+int __cdecl GAME_GetAbortFlag(); // 0x00520AE0
 
 void __cdecl GRID_LockCDKeys(); // 0x005234D0
 
 void __cdecl GRID_UnlockCDKeys(); // 0x005239C0
 
-const char* __cdecl BNCLIENT_GetExeInfo(); // 0x00523AA0
+const char* __cdecl GAME_GetExeInfo(); // 0x00523AA0
 
 extern "C" const char* __fastcall sub_00408090(); // 0x00408090
 
@@ -103,7 +103,7 @@ int __cdecl sub_00521DC0_SendAuthCheck()
     {
         do
         {
-            if (BNCLIENT_GetAbortFlag())
+            if (GAME_GetAbortFlag())
             {
                 return 0;
             }
@@ -130,7 +130,7 @@ int __cdecl sub_00521DC0_SendAuthCheck()
         tPacket.nKeys = 2;
         sub_0051E340_BuildCDKeyInfoForSlot(&tPacket.pKeys[0], gdwBnClientToken, 0);
         sub_0051E340_BuildCDKeyInfoForSlot(&tPacket.pKeys[1], gdwBnClientToken, 1);
-        SStrCopy(pString, BNCLIENT_GetExeInfo(), &tPacket.szData[0x200] - pString);
+        SStrCopy(pString, GAME_GetExeInfo(), &tPacket.szData[0x200] - pString);
     }
     else
     {
@@ -138,7 +138,7 @@ int __cdecl sub_00521DC0_SendAuthCheck()
         pString = &pData[SStrCopy(pData, szText, 0x200) + 1];
         tPacket.nKeys = 1;
         sub_0051E340_BuildCDKeyInfoForSlot(&tPacket.pKeys[0], gdwBnClientToken, 0);
-        SStrCopy(pString, BNCLIENT_GetExeInfo(), &pData[0x200] - pString);
+        SStrCopy(pString, GAME_GetExeInfo(), &pData[0x200] - pString);
     }
 
     GRID_UnlockCDKeys();

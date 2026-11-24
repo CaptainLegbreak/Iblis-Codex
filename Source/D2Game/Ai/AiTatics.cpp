@@ -174,7 +174,7 @@ enum D2C_Y10UseSkillConstants
 };
 
 // 0x00568D70
-int __cdecl PLRSAVE2_GetHighestClassSkillCount()
+int __cdecl AITACTICS_GetHighestClassSkillCount()
 {
     return sgptDataTables->nHighestClassSkillCount;
 }

@@ -415,7 +415,7 @@ int __stdcall D2Common_10142(D2DynamicPathStrc*, D2UnitStrc*, int); // 0x0064997
 
 void __fastcall SKILLS_CurseStateCallback_BasicAura(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x005CEC50
 
-int __stdcall SKILLS_ShortenPoisonAndCurses(D2GameStrc* pGame, D2UnitStrc* pUnit, int nPercent); // 0x005CEC90
+int __stdcall PLRSAVE_ShortenPoisonAndCurses(D2GameStrc* pGame, D2UnitStrc* pUnit, int nPercent); // 0x005CEC90
 
 int __fastcall SUNITDMG_GetColdEffect(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0057AF30
 
@@ -723,7 +723,7 @@ int __fastcall SKILLS_AuraCallback_BasicAura(D2AuraCallbackStrc* pAuraCallback, 
         if (nStat <= 0 || nStat >= sgptDataTables->nItemStatCostTxtRecordCount) continue;
         if (nStat == 110)
         {
-            if (SKILLS_ShortenPoisonAndCurses(pAuraCallback->pGame, pUnit, pAuraStat[6]))
+            if (PLRSAVE_ShortenPoisonAndCurses(pAuraCallback->pGame, pUnit, pAuraStat[6]))
                 ++pArgs->nAffectedUnits;
             continue;
         }

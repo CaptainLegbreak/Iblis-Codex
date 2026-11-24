@@ -52,13 +52,13 @@ static inline int sub_F05_MsgGetUnitId(D2UnitStrc* pUnit)
     return !pUnit ? -1 : pUnit->dwUnitId;
 }
 
-static void __stdcall MONSTERMSG_SendLifeUpdate(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00597CF0
+static void __stdcall INVMODE_SendLifeUpdate(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00597CF0
 unsigned short __fastcall MONSTERUNIQUE_GetNameSeed(D2UnitStrc* pUnit); // 0x005A0140
 unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit); // 0x005A0120
 void __fastcall SCMD_SendUniqueMonsterInfo(D2ClientStrc* pClient, int a2, unsigned char a3, unsigned short a4, unsigned short a5, unsigned short a6, unsigned short a7); // 0x0053D880
 
 // 0x00597C70
-static void __stdcall MONSTERMSG_SendSummonerInfo(D2ClientStrc* pClient, D2UnitStrc* pUnit)
+static void __stdcall INVMODE_SendSummonerInfo(D2ClientStrc* pClient, D2UnitStrc* pUnit)
 {
     if (!MONSTER_CheckSummonerFlag(pUnit, 1))
     {
@@ -81,7 +81,7 @@ static void __stdcall MONSTERMSG_SendSummonerInfo(D2ClientStrc* pClient, D2UnitS
 void __fastcall D2GAME_PACKETS_SendPacket0x0C_6FC3C8A0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned char a5, unsigned char nHitClass, unsigned char nLifePct); // 0x0053B430
 
 // 0x00597CF0
-static void __stdcall MONSTERMSG_SendLifeUpdate(D2UnitStrc* pUnit, D2ClientStrc* pClient)
+static void __stdcall INVMODE_SendLifeUpdate(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
     const unsigned char nHitClass = pUnit->dwLastHitClass;
     unsigned char nHpPct = MONSTERMODE_GetHpPercent128(pUnit);
@@ -365,7 +365,7 @@ void __fastcall MONSTERMSG_SendMonsterUpdates(D2GameStrc* pGame, D2UnitStrc* pUn
 
         if (sub_F05_UnitFlagBit(pUnit, 15))
         {
-            MONSTERMSG_SendLifeUpdate(pUnit, pClient);
+            INVMODE_SendLifeUpdate(pUnit, pClient);
         }
     }
 
@@ -381,7 +381,7 @@ void __fastcall MONSTERMSG_SendMonsterUpdates(D2GameStrc* pGame, D2UnitStrc* pUn
 
     if (pUnit && sub_F05_UnitFlagBit(pUnit, 11))
     {
-        MONSTERMSG_SendSummonerInfo(pClient, pUnit);
+        INVMODE_SendSummonerInfo(pClient, pUnit);
     }
 }
 
