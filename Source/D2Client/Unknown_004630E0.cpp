@@ -33,14 +33,14 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc*); // 0x004648F0
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc*); // 0x00648A00
-int __stdcall sub_00648A10_GetPathTargetY(D2DynamicPathStrc*); // 0x00648A10
+int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc*); // 0x00648A10
 void __fastcall PLAYER_ApplyUnitCommand(int, D2UnitStrc*, int*, int); // 0x00461250
 D2UnitStrc* __stdcall sub_00643A00_GetRelatedUnit(D2UnitStrc*, int); // 0x00643A00
 void __fastcall DLIGHTMAP_ReleaseLight(D2UnitStrc*); // 0x004743D0
-void __stdcall sub_00620210_SetUnitAction(D2UnitStrc*, int); // 0x00620210
+void __stdcall UNITS_SetUsedSkill(D2UnitStrc*, int); // 0x00620210
 void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc*); // 0x00648DC0
 D2RoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
-int __stdcall sub_0061AB00_IsTownRoom(D2RoomStrc*); // 0x0061AB00
+int __stdcall DUNGEON_IsRoomInTown(D2RoomStrc*); // 0x0061AB00
 int __fastcall sub_004804A0_SetPathTargetPos(D2UnitStrc*, int, int); // 0x004804A0
 void __fastcall UNITMODE_SetUnitMode(D2UnitStrc*, int); // 0x00480E70
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
@@ -144,13 +144,13 @@ static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
         return;
     }
     args[0] = D2COMMON_10175_PathGetFirstPointX(path);
-    args[1] = sub_00648A10_GetPathTargetY(path);
+    args[1] = D2COMMON_10176_PathGetFirstPointY(path);
     D2UnitStrc* related = sub_00643A00_GetRelatedUnit(unit, 0);
     if (related)
         DLIGHTMAP_ReleaseLight(related);
     int const tArg1 = unit == sub_00463DD0_GetPlayerUnit();
     PLAYER_ReleaseUsedSkill(tArg1, unit);
-    sub_00620210_SetUnitAction(unit, 0);
+    UNITS_SetUsedSkill(unit, 0);
     path = unit->pDynamicPath;
     if ((unit ? unit->dwAnimMode : 0) == 19)
         return;
@@ -159,7 +159,7 @@ static void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
 
         PATH_ResetToPreviousType(path);
         int idle, move;
-        if (sub_0061AB00_IsTownRoom(UNITS_GetRoom(unit)))
+        if (DUNGEON_IsRoomInTown(UNITS_GetRoom(unit)))
         {
             idle = 5;
             move = 6;

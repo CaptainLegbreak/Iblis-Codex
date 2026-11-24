@@ -122,11 +122,11 @@ extern "C" int __fastcall sub_0045ADF0_GetX(D2UnitStrc* pItem); // 0x0045ADF0
 
 extern "C" int __fastcall sub_0045AE20_GetY(D2UnitStrc* pItem); // 0x0045AE20
 
-extern "C" void __stdcall sub_006286C0_GetSize(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szSource, int nLine); // 0x006286C0
+extern "C" void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szSource, int nLine); // 0x006286C0
 
-extern "C" void __stdcall sub_00629ED0_SetItemCell(D2UnitStrc* pItem, int nCell); // 0x00629ED0
+extern "C" void __stdcall ITEMS_SetOwnerId(D2UnitStrc* pItem, int nCell); // 0x00629ED0
 
-extern "C" void __stdcall sub_006277F0_RemoveOwnerStat(D2UnitStrc* pOwner, D2UnitStrc* pItem); // 0x006277F0
+extern "C" void __stdcall STATLIST_ExpireUnitStatlist(D2UnitStrc* pOwner, D2UnitStrc* pItem); // 0x006277F0
 
 extern "C" const char gszInventorySource_006EA918; // 0x006EA918
 
@@ -185,9 +185,9 @@ extern CodeEntry gTable_0096CC68[]; // 0x0096CC68
 
 s32 __fastcall GAME_GetUnitClassId(D2UnitStrc*); // 0x00451F60
 
-u8 __stdcall sub_00627D40_Page(D2UnitStrc*); // 0x00627D40
+u8 __stdcall ITEMS_GetBodyLocation(D2UnitStrc*); // 0x00627D40
 
-u8 __stdcall sub_00628660_BodySlot(D2UnitStrc*); // 0x00628660
+u8 __stdcall ITEMS_GetComponent(D2UnitStrc*); // 0x00628660
 
 int __stdcall ITEMS_CheckType(int nItemType1, int nItemType2); // 0x00629B50
 
@@ -197,15 +197,15 @@ ItemRecord* __stdcall sub_006335F0_ItemRecord(s32); // 0x006335F0
 
 ItemRecord* __stdcall sub_00633640_RecordByCode(u32, s32*); // 0x00633640
 
-D2UnitStrc* __stdcall sub_0063C050_BodyItem(Inventory*, s32); // 0x0063C050
+D2UnitStrc* __stdcall INVENTORY_GetCompositItem(Inventory*, s32); // 0x0063C050
 
-u32 __stdcall sub_0064F380_WeaponCode(D2UnitStrc*, Inventory*, s32*, s32, s32); // 0x0064F380
+u32 __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc*, Inventory*, s32*, s32, s32); // 0x0064F380
 
 s32 __stdcall COMPOSIT_IsArmorComponent(s32); // 0x0064F420
 
 s32 __stdcall sub_0064F500_AppearanceIndex(s32, AppearanceSix*); // 0x0064F500
 
-AppearanceRecord* __stdcall sub_0065B620_AppearanceRecord(s32); // 0x0065B620
+AppearanceRecord* __stdcall DATATBLS_GetArmTypeTxtRecord(s32); // 0x0065B620
 
 struct D2ItemDataTbl
 {
@@ -645,7 +645,7 @@ static void __stdcall INVENTORY_UnlinkGridItem(D2InventoryGridStrc* pGrid, int b
             const int nY = sub_0045AE20_GetY(pItem);
             unsigned char nWidth;
             unsigned char nHeight;
-            sub_006286C0_GetSize(pItem, &nWidth, &nHeight, &gszInventorySource_006EA918, SIZE_LINE);
+            ITEMS_GetDimensions(pItem, &nWidth, &nHeight, &gszInventorySource_006EA918, SIZE_LINE);
             for (int nRow = nY; nRow < nY + nHeight; ++nRow)
             {
                 D2UnitStrc** ppRow = pGrid->ppItems + nRow * pGrid->nGridWidth;
@@ -717,10 +717,10 @@ int __fastcall sub_0063AAF0_RemoveItem(D2UnitStrc* pItem)
         pExtra->pParentInv = 0;
         pExtra->nNodePos = 0;
         pExtra->nNodePosOther = 0;
-        sub_00629ED0_SetItemCell(pItem, -1);
+        ITEMS_SetOwnerId(pItem, -1);
         if (pInventory->pOwner)
         {
-            sub_006277F0_RemoveOwnerStat(pInventory->pOwner, pItem);
+            STATLIST_ExpireUnitStatlist(pInventory->pOwner, pItem);
         }
         const int nItemId = pItem->dwUnitId;
         if (pInventory->dwLeftItemGUID == nItemId)
@@ -772,10 +772,10 @@ int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem)
         pExtra->pParentInv = 0;
         pExtra->nNodePos = 0;
         pExtra->nNodePosOther = 0;
-        sub_00629ED0_SetItemCell(pItem, -1);
+        ITEMS_SetOwnerId(pItem, -1);
         if (pInventory->pOwner)
         {
-            sub_006277F0_RemoveOwnerStat(pInventory->pOwner, pItem);
+            STATLIST_ExpireUnitStatlist(pInventory->pOwner, pItem);
         }
         if (pInventory->dwLeftItemGUID == (!pItem ? -1 : pItem->dwUnitId))
         {
@@ -3553,20 +3553,20 @@ static void __stdcall INVENTORY_SetBowHandComponents(u8* firstOutput, u8* second
 {
     D2_ASSERT(unit, 0x13B3);
     D2_ASSERT(hItem, 0x13B4);
-    const u8 page = sub_00627D40_Page(hItem);
+    const u8 page = ITEMS_GetBodyLocation(hItem);
     if (page == 4 || page == 5)
     {
         Inventory* inventory = FIELD(Inventory*, unit, 0x60);
         s32 mode;
-        const u32 weapon = sub_0064F380_WeaponCode(unit, inventory, &mode, -1, 1);
-        const u8 slot = sub_00628660_BodySlot(hItem);
+        const u32 weapon = COMPOSIT_GetWeaponClassId(unit, inventory, &mode, -1, 1);
+        const u8 slot = ITEMS_GetComponent(hItem);
         if (weapon == 0x20776278)
         {
             if (slot == 5 || slot == 6)
             {
                 if (inventory)
                 {
-                    D2UnitStrc* equipped = sub_0063C050_BodyItem(inventory, 5);
+                    D2UnitStrc* equipped = INVENTORY_GetCompositItem(inventory, 5);
                     if (equipped)
                     {
                         s32 equippedId = FIELD(s32, equipped, 4);
@@ -3620,11 +3620,11 @@ static void __stdcall INVENTORY_FillItemComponentGfxInfo(D2UnitStrc* unit, u8* f
     Inventory* inventory = FIELD(Inventory*, unit, 0x60);
     if (inventory)
     {
-        D2UnitStrc* firstHand = sub_0063C050_BodyItem(inventory, 5);
-        D2UnitStrc* secondHand = sub_0063C050_BodyItem(inventory, 6);
+        D2UnitStrc* firstHand = INVENTORY_GetCompositItem(inventory, 5);
+        D2UnitStrc* secondHand = INVENTORY_GetCompositItem(inventory, 6);
         ItemRecord* record = sub_006335F0_ItemRecord(!item ? -1 : FIELD(s32, item, 4));
         D2_ASSERT(record, 0x140C);
-        u8 slot = sub_00628660_BodySlot(item);
+        u8 slot = ITEMS_GetComponent(item);
         const u32 code1 = FIELD(u32, record, 0x80);
         const u32 code2 = FIELD(u32, record, 0x90);
         const s32 code = INVENTORY_FindComponentArrayIndex(code1, code2);
@@ -4272,7 +4272,7 @@ void __stdcall INVENTORY_GetItemSaveGfxInfo(D2UnitStrc* unit, u8* firstOutput, u
             {
                 ItemRecord* record = sub_006335F0_ItemRecord(!item ? -1 : FIELD(s32, item, 4));
                 D2_ASSERT(record, 0x1446);
-                const u8 page = sub_00627D40_Page(item);
+                const u8 page = ITEMS_GetBodyLocation(item);
                 if (page != 1 && page != 4 && page != 5)
                 {
                     if (page == 3)
@@ -4283,7 +4283,7 @@ void __stdcall INVENTORY_GetItemSaveGfxInfo(D2UnitStrc* unit, u8* firstOutput, u
                         {
                             if (COMPOSIT_IsArmorComponent(slot))
                             {
-                                AppearanceRecord* appearanceRecord = sub_0065B620_AppearanceRecord(sub_0064F500_AppearanceIndex(slot, &appearance));
+                                AppearanceRecord* appearanceRecord = DATATBLS_GetArmTypeTxtRecord(sub_0064F500_AppearanceIndex(slot, &appearance));
                                 if (GAME_GetUnitClassId(item) > 0)
                                 {
                                     const u32 appearanceCode = FIELD(u32, appearanceRecord, 0x20);

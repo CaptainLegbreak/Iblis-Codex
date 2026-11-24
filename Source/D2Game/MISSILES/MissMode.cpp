@@ -175,7 +175,7 @@ unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath);
 
 void __stdcall PATH_SetDirection(D2DynamicPathStrc* pPath, unsigned char nDirection);
 
-void __stdcall sub_00649030_SetPathFlag40(D2DynamicPathStrc* pPath, int bClear);
+void __stdcall D2COMMON_10203_PATH_SetRotateFlag(D2DynamicPathStrc* pPath, int bClear); // 0x00649030
 
 D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
@@ -568,7 +568,7 @@ struct D2SummonArgs
 
 int __stdcall sub_0064A780_GetCount(D2UnitStrc*); // 0x0064A780
 
-int __stdcall sub_006505C0_CheckPath(void*); // 0x006505C0
+int __stdcall PATH_HasEnteredNewSubtile(void*); // 0x006505C0
 
 int __stdcall sub_0064A280_GetSkill(D2UnitStrc*); // 0x0064A280
 
@@ -3285,7 +3285,7 @@ void __fastcall MISSILE_InitFromOwner(D2UnitStrc* pMissile, int nInitArg)
 
     GFXUTIL_SetMotionVectorA(pMissile, 0, 0, nOffset);
     PATH_SetDirection(pMissile->pDynamicPath, PATH_GetDirection(pOwner->pDynamicPath));
-    sub_00649030_SetPathFlag40(pMissile->pDynamicPath, 0);
+    D2COMMON_10203_PATH_SetRotateFlag(pMissile->pDynamicPath, 0);
     pMissile->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->nAnimLen) << 8;
 }
 
@@ -5186,7 +5186,7 @@ int __fastcall MISSMODE_SrvDo12_DiabWallMaker(D2GameStrc* pGame, D2UnitStrc* pMi
 int __fastcall MISSMODE_SrvDo13_BoneWallMaker(D2GameStrc* game,D2UnitStrc* unit)
 {
  if(!SUNIT_GetOwner(game,unit) || !sub_0064A780_GetCount(unit)) return 2;
- if(sub_006505C0_CheckPath(unit->pDynamicPath)) {
+ if(PATH_HasEnteredNewSubtile(unit->pDynamicPath)) {
   D2UnitStrc* owner=SUNIT_GetOwner(game,unit);
   int skillId,skillLevel;
   D2SkillsTxt* skill;

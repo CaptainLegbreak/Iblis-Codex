@@ -696,9 +696,9 @@ int __stdcall D2Common_10095(D2ActiveRoomStrc*, int, int); // 0x0061B130
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
 
-int __stdcall sub_00648A20_GetTargetX(D2DynamicPathStrc*); // 0x00648A20
+int __stdcall PATH_GetFinalTargetX(D2DynamicPathStrc*); // 0x00648A20
 
-int __stdcall sub_00648A30_GetTargetY(D2DynamicPathStrc*); // 0x00648A30
+int __stdcall PATH_GetFinalTargetY(D2DynamicPathStrc*); // 0x00648A30
 
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 
@@ -2649,7 +2649,7 @@ int __fastcall SKILLS_StartSkill(Game*, D2UnitStrc*, int, int, int); // 0x0056F6
 
 int __fastcall SKILLS_RollMonFrenzyDamage(Game*, D2UnitStrc*, D2UnitStrc*, int, int); // 0x005CDDD0
 
-int __stdcall sub_006444A0(Skill*); // 0x006444A0
+int __stdcall SKILLS_GetParam1(Skill*); // 0x006444A0
 
 int __fastcall SKILLS_ApplyFrenzyStats(Game*, D2UnitStrc*, int, int); // 0x005D8C70
 

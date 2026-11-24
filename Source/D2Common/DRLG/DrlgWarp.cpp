@@ -145,7 +145,7 @@ int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x
 
 D2PresetUnitStrc* __fastcall DRLGROOM_GetPresetUnits(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BFA0
 
-void __fastcall sub_00678AD0_CreateLevelConnections(D2DrlgStrc* pDrlg); // 0x00678AD0
+void __fastcall DRLGOUTPLACE_CreateLevelConnections(D2DrlgStrc* pDrlg); // 0x00678AD0
 
 static D2DrlgRoomStrc* __stdcall DRLGWARP_GetWaypointRoomExFromLevel(D2DrlgLevelStrc* pLevel, int* pX, int* pY);
 
@@ -552,7 +552,7 @@ static inline D2DrlgRoomStrc* FindRoom(D2DrlgLevelStrc* pLevel,int nIndex)
 // 0x0066B030
 void __fastcall DRLGWARP_InitializeConnectedLevels(D2DrlgStrc* pDrlg,int unused,int nLevel1,int nLevel2)
 {
- sub_00678AD0_CreateLevelConnections(pDrlg);
+ DRLGOUTPLACE_CreateLevelConnections(pDrlg);
  D2DrlgLevelStrc* pLevel1=DRLG_GetLevel(pDrlg,nLevel1);
  if(!pLevel1->ptRoomFirst)DRLG_InitLevel(pLevel1);
  D2DrlgLevelStrc* pLevel2=DRLG_GetLevel(pDrlg,nLevel2);

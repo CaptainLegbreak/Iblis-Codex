@@ -178,7 +178,7 @@ struct InitContext
 
 Unit* __stdcall sub_00550A30_Spawn(Game*,int,int,int,Room*,int,int,Permit); // 0x00550A30
 
-U32 __stdcall sub_0061A1B0_Level(Room*); // 0x0061A1B0
+U32 __stdcall DUNGEON_GetLevelIdFromRoom(Room*); // 0x0061A1B0
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
@@ -484,7 +484,7 @@ D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
-int __stdcall sub_0063EA70_GetMonsterId(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7); // 0x0063EA70
+int __stdcall MONSTERS_GetSpawnMode_XY(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7); // 0x0063EA70
 
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
@@ -1149,7 +1149,7 @@ static int __stdcall OBJECTS_CanPopulateRoom(D2GameStrc* pGame, D2LevelsTxt* pLe
 void __fastcall OBJECTS_InitFunction01_Shrine(InitContext* context)
 {
     int mode = context->record->selection;
-    U32 level = sub_0061A1B0_Level(context->room);
+    U32 level = DUNGEON_GetLevelIdFromRoom(context->room);
     int choice;
     if (mode)
     {
@@ -1169,7 +1169,7 @@ void __fastcall OBJECTS_InitFunction01_Shrine(InitContext* context)
     else
     {
         int retries = N8;
-        const U32 randomLevel = sub_0061A1B0_Level(context->room);
+        const U32 randomLevel = DUNGEON_GetLevelIdFromRoom(context->room);
         do
         {
             int count = sub_00641500_ShrineCount() - N1;

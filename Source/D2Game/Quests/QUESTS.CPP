@@ -3109,7 +3109,8 @@ static inline D2MonsterRegionStrc* MONSTERREGION_GetMonsterRegionFromLevelId(D2M
     return ppMonsterRegion[nLevelId];
 }
 
-static inline int sub_00623C60(D2UnitStrc* pUnit)
+// build: symbol ?UNITS_GetWeaponClass@* 0x00623C60
+static inline int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 {
     if (!pUnit)
     {

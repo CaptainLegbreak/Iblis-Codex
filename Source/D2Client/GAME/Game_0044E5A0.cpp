@@ -55,7 +55,7 @@ int __stdcall COMCALLBACK_WindowProc(void* hWnd, unsigned int uMessage, unsigned
 
 void* __stdcall sub_004FAC80(int nArg); // 0x004FAC80
 
-void __stdcall sub_00619300(void* pArg, int bArg); // 0x00619300
+void __stdcall DATATBLS_LoadAllTxts(void* pArg, int bArg); // 0x00619300
 
 void __stdcall DATATBLS_UnloadAllBins(); // 0x00619140
 

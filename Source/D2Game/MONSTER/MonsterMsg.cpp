@@ -33,7 +33,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc*); // 0x006487F0
 unsigned char __stdcall D2COMMON_10191_PATH_GetDistance(D2DynamicPathStrc*); // 0x00648E60
-unsigned char __stdcall sub_006490A0_GetPathStep(D2DynamicPathStrc*); // 0x006490A0
+unsigned char __stdcall PATH_GetStepNum(D2DynamicPathStrc*); // 0x006490A0
 unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc*); // 0x005A5650
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc*,int); // 0x005A0180
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
@@ -185,7 +185,7 @@ void __fastcall MONSTERMSG_SendMonsterModeUpdate(D2GameStrc* pGame,D2UnitStrc* p
   if(nDirection>1) --nDirection;
   if(MONSTERUNIQUE_CheckMonTypeFlag(pUnit,0x100)) nDirection|=0x80;
   nHitClass=pUnit->dwLastHitClass;break;
- default: nStep=sub_006490A0_GetPathStep(hPath);break;
+ default: nStep=PATH_GetStepNum(hPath);break;
  }
  if(nMode==1) {
   nDirection=MONSTERMODE_GetHpPercent128(pUnit);
