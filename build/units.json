@@ -1747,6 +1747,11 @@
      "name": "??0D2LogMsgNodeStrc@@QAE@XZ"
     },
     {
+     "va": "0x0040FD00",
+     "length": 61,
+     "name": "?sub_0040FD00_UnlinkAll@D2TSListStrc@@QAEXXZ"
+    },
+    {
      "va": "0x0040FD40",
      "length": 65,
      "name": "??1D2LogMessageStrc@@QAE@XZ"
@@ -1789,6 +1794,11 @@
      "va": "0x00410340",
      "length": 508,
      "name": "?sub_00410340_LogV@@YIXPBDHH0PAD@Z"
+    },
+    {
+     "va": "0x00410540",
+     "length": 196,
+     "name": "?LOGMANAGER_InitLogSystem@@YAXXZ"
     },
     {
      "va": "0x00410610",
@@ -3857,16 +3867,6 @@
      "va": "0x0040F470",
      "length": 123,
      "name": "?EXCEPTIONS_CloseNamedLog@@YIXPBD@Z"
-    },
-    {
-     "va": "0x0040FD00",
-     "length": 61,
-     "name": "?sub_0040FD00_UnlinkAll@D2TSListStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00410540",
-     "length": 196,
-     "name": "?EXCEPTIONS_InitLogSystem@@YAXXZ"
     }
    ]
   },

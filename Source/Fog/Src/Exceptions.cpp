@@ -114,7 +114,6 @@ struct D2TSListStrc
         return (int)tTerminator.pNext > 0 ? tTerminator.pNext : 0;
     }
 
-    void sub_0040FD00_UnlinkAll();
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -451,13 +450,13 @@ int gnSymInitCount; // 0x0075CFD4
 static void __stdcall EXCEPTIONS_GetLogicalAddress(char* szModule, unsigned long* pnSection, unsigned long* pnOffset, void* pAddress, unsigned int nSize); // 0x0040C520
 
 
-int ganLogNewFile[20]; // 0x0075D298
+extern int ganLogNewFile[20]; // 0x0075D298
 
-int gbLogInitialized; // 0x0075D2EC
+extern int gbLogInitialized; // 0x0075D2EC
 
-char gaszLogFilePaths[20][0x104]; // 0x0075D340
+extern char gaszLogFilePaths[20][0x104]; // 0x0075D340
 
-unsigned long gnLogThreadId; // 0x0075E834
+extern unsigned long gnLogThreadId; // 0x0075E834
 
 int gnLogQueueCount; // 0x0075E870
 
@@ -1757,34 +1756,6 @@ void __fastcall EXCEPTIONS_CloseNamedLog(const char* szName)
             }
             return;
         }
-    }
-}
-
-// 0x0040FD00
-void D2TSListStrc::sub_0040FD00_UnlinkAll()
-{
-    D2TSLinkStrc* pNode;
-    while ((pNode = Head()) != 0)
-    {
-        pNode->Unlink();
-    }
-}
-
-// 0x00410540
-void __cdecl EXCEPTIONS_InitLogSystem()
-{
-// build: symbol ?gbLogThreadStop@* 0x0075E830
-    gbLogThreadStop = 0;
-    ghLogThread = CreateThread(0, 0, sub_004101C0_LogThreadProc, 0, 0, &gnLogThreadId);
-    gbLogInitialized = 1;
-    GetLocalTime(&gLogStartTime_0075D288);
-    for (unsigned int i = 0; i < 20; i++)
-    {
-        ganLogNewFile[i] = 1;
-    }
-    for (unsigned int i = 0; i < 20; i++)
-    {
-        gaszLogFilePaths[i][0] = 0;
     }
 }
 
