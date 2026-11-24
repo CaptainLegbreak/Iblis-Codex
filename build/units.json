@@ -14730,6 +14730,11 @@
     {
      "va": "0x004AD020",
      "length": 150
+    },
+    {
+     "va": "0x006CAD00",
+     "length": 15,
+     "name": "?sub_006CAD00_InitializeNameSeparator@@YAXXZ"
     }
    ],
    "flags": [
@@ -80724,11 +80729,6 @@
    "file": "Source/Storm/Unknown_006CACE0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x006CAD00",
-     "length": 15,
-     "name": "?sub_006CAD00_InitializeNameSeparator@@YAXXZ"
-    },
     {
      "va": "0x006CAD80",
      "length": 43,
