@@ -90,6 +90,7 @@ In your own files, whenever your current list allows:
 | `lane1/monster-4aff60` | replaced by `-2` | nothing |
 | `lane6/tails-a`, `lane6/data-c-2` | replaced / not needed | nothing |
 | `lane2/game-records`, `lane2/path-records`, `lane2/win32-system` | replaced by their `-2` versions, in #332 | nothing |
+| `lane1/useitem-copies` | replaced by `-2`, in #333 | nothing |
 | `lane1/join-gethitsounds` | 0x4CA560 MISMATCH in UnitSnd.cpp on main | waits until UnitSnd.cpp's headers settle |
 
 ## Decisions in force
@@ -233,6 +234,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #333 j93: eight borrowed outdoor copies defined (−550 B), quest data order, D2Sound and SMSG objects, popup line and quest log records, more language-table copies.
 - #332 j92: OutPlace.cpp join (lane 7's 0x677880 prerequisite), ATL object into d3dCore.cpp, automap and chat objects, D2Launch entry object, act 4 tables, language-table copies, D2Win32System.h, D2PathFind.h, D2GameCallbackArgs.h. Shims 84, context copies 488.
 - #331: names.csv labels: 186 ordinals are placeholders; 12 names on our own class names are inferred; 16 Storm template names are blizzard. README explains all four sources.
 - #330 j91: MonUnique.cpp object, D2Win joins, act 4 tables, language-table starts, SCmd packet table, Fog log strays.
