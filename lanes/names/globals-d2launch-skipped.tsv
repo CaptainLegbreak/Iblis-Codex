@@ -1,0 +1,79 @@
+va	old_name	file	reason
+0x0070896C	gaTable_0070896C	Source/D2Launch/Unknown_0042E590.cpp	table returned by sub_0042E590_SetOwner; contents unclear
+0x007089C4	gaGlobal_007089C4	Source/D2Launch/Src/MainMenus.cpp	swapped into 0x70B738 around MAINMENUS_JoinGame; meaning unclear
+0x007091F8	gLayout_007091F8	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gLayout; which control each holds is unclear
+0x00709228	gLayout_00709228	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gLayout; which control each holds is unclear
+0x00709258	gLayout_00709258	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gLayout; which control each holds is unclear
+0x007092E8	gLayout_007092E8	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gLayout; which control each holds is unclear
+0x00709318	gLayout_00709318	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gLayout; which control each holds is unclear
+0x00709C48	gLayout_00709C48	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gLayout; which control each holds is unclear
+0x00709EE8	gLayout_00709EE8	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gLayout; which control each holds is unclear
+0x0070B088	gLayout_0070B088	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gLayout; which control each holds is unclear
+0x0070B0E8	gLayout_0070B0E8	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gLayout; which control each holds is unclear
+0x0070B148	gLayout_0070B148	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gLayout; which control each holds is unclear
+0x0070B1A8	gLayout_0070B1A8	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gLayout; which control each holds is unclear
+0x0070B2C8	gLayout_0070B2C8	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gLayout; which control each holds is unclear
+0x0070B2F8	gLayout_0070B2F8	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gLayout; which control each holds is unclear
+0x0070B4A8	gLayout_0070B4A8	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gLayout; which control each holds is unclear
+0x0070B738	gpGlobal_0070B738	Source/D2Launch/Src/MainMenus.cpp	saved and restored around MAINMENUS_JoinGame; meaning unclear
+0x0070BDA8	gLayout_0070BDA8	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gLayout; which control each holds is unclear
+0x0070BF58	gLayout_0070BF58	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gLayout; which control each holds is unclear
+0x00779338	gpControl_00779338	Source/D2Launch/Unknown_0042F370.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x0077933C	gpControl_0077933C	Source/D2Launch/Src/MainMenus.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779344	gpControl_00779344	Source/D2Launch/Src/MainMenus.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779348	gpControl_00779348	Source/D2Launch/Src/MainMenus_00431AF0.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779568	gpControl_00779568	Source/D2Launch/Src/MainMenus_00431AF0.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779570	gpControl_00779570	Source/D2Launch/Src/MainMenus.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779574	gpControl_00779574	Source/D2Launch/Src/MainMenus.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779578	gpControl_00779578	Source/D2Launch/Src/MainMenus.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x0077957C	gpControl_0077957C	Source/D2Launch/Src/MainMenus.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779580	gpControl_00779580	Source/D2Launch/Src/MainMenus.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779584	gpControl_00779584	Source/D2Launch/Src/MainMenus.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779588	gpControl_00779588	Source/D2Launch/Unknown_0042F370.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779594	gpControl_00779594	Source/D2Launch/Src/MainMenus.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779598	gpControl_00779598	Source/D2Launch/Src/MainMenus_00431AF0.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x007795A0	gpControl_007795A0	Source/D2Launch/Unknown_0042F370.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x007795A4	gpControl_007795A4	Source/D2Launch/Unknown_0042F370.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x007795AC	gpControl_007795AC	Source/D2Launch/Src/MainMenus.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x007795B0	gpControl_007795B0	Source/D2Launch/Src/MainMenus.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x007795B4	gpControl_007795B4	Source/D2Launch/Src/MainMenus_00431AF0.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x007795B8	gpControl_007795B8	Source/D2Launch/Src/MainMenus.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x007795C4	gpControl_007795C4	Source/D2Launch/Src/MainMenus.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x007795C8	gpControl_007795C8	Source/D2Launch/Src/MainMenus_00431AF0.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x007795CC	gpControl_007795CC	Source/D2Launch/Src/MainMenus.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x007795E0	gpControl_007795E0	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x007795E4	gpControl_007795E4	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x007798D0	gnFlag_007798D0	Source/D2Launch/Src/MainMenus.cpp	stops MAINMENUS_LoopCallback with 0x7798D4; which condition each flag stands for is unclear
+0x007798D4	gnFlag_007798D4	Source/D2Launch/Src/MainMenus.cpp	stops MAINMENUS_LoopCallback with 0x7798D0; set by sub_00431910_SetFlagD4, meaning unclear
+0x0077994C	gnValue_0077994C	Source/D2Launch/Src/MainMenus.cpp	only cleared, in MAINMENUS_Reset
+0x00779950	gnValue_00779950	Source/D2Launch/Src/MainMenus.cpp	only cleared, in MAINMENUS_Reset
+0x00779968	gpControl_00779968	Source/D2Launch/Src/MainMenus.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779980	gnValue_00779980	Source/D2Launch/Unknown_0042F370.cpp	set by sub_0042FF10_SetValue, tested in MAINMENUS_ShowLoginScreen; meaning unclear
+0x00779984	gbFlag_00779984	Source/D2Launch/Src/MainMenus.cpp	only set, in MAINMENUS_CreateCharacter
+0x00779990	gdwGlobal_00779990	Source/D2Launch/Src/MainMenus_00431AF0.cpp	set and cleared in MAINMENUS_HandleCompressionMessage; meaning unclear
+0x007799CC	gpEdit_007799CC	Source/D2Launch/Src/CharSel.cpp	one of several menu control slots whose descriptive part is only gpEdit; which control each holds is unclear
+0x007799D0	gpEdit_007799D0	Source/D2Launch/Src/CharSel.cpp	one of several menu control slots whose descriptive part is only gpEdit; which control each holds is unclear
+0x007799D4	gpControl_007799D4	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x007799DC	gpEdit_007799DC	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gpEdit; which control each holds is unclear
+0x007799E0	gpEdit_007799E0	Source/D2Launch/Src/MainMenus.cpp	one of several menu control slots whose descriptive part is only gpEdit; which control each holds is unclear
+0x007799EC	gpControl_007799EC	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x007799F4	gpControl_007799F4	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x007799F8	gpControl_007799F8	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779C68	gpControl_00779C68	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779C6C	gbFlag_00779C6C	Source/D2Launch/Src/CharSel.cpp	character list flag set in CHARSEL_CreateCharListControls; meaning unclear
+0x00779C70	gpControl_00779C70	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779C74	gpControl_00779C74	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779C78	gpControl_00779C78	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779C7C	gpControl_00779C7C	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779C80	gpControl_00779C80	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779C84	gpControl_00779C84	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779D88	gpControl_00779D88	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779D8C	gpControl_00779D8C	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779D90	gpControl_00779D90	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779D94	gpControl_00779D94	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779D98	gpControl_00779D98	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779D9C	gpControl_00779D9C	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779DD0	gpControl_00779DD0	Source/D2Launch/Src/CharSel.cpp	character-select control slot filled from different control ids or templates on different screens; no single role
+0x00779DD8	gbFlag_00779DD8	Source/D2Launch/Src/CharSel.cpp	set in COMCALLBACK_OnCharSelectOk, tested in launch mode 1; meaning unclear; (also spelled gnGlobal_00779DD8)
+0x0077ADA4	gbFlag_0077ADA4	Source/D2Launch/Src/MainMenus.cpp	set by CHATDLG_SetUserDataFlag; meaning unclear
+0x0077BD90	gpControl_0077BD90	Source/D2Launch/Src/CharSel.cpp	control only destroyed, in ChatDlg.cpp; role unclear
