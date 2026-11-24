@@ -29,6 +29,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Left in place (and why)
 
+- 0x40E850 (AUTOMAP_ReadTimeStampCounter, rdtsc): tried in ErrorManager.cpp as approved, and it doesn't fit there. ErrorManager.cpp builds /Ob2, so with the body in the unit the compiler inlines it into ERRORMANAGER_MeasureCpuMHz (0x40E870), wherever the definition sits; the original calls it. So in the original the reader wasn't visible to MeasureCpuMHz: either the CPU helpers 0x40E250-0x40EA00 are a separate object from the rest of ErrorManager.cpp, or the reader lived in another unit. It stays in automap.cpp (lane 4's) until that is settled; no forcing constructs.
+
 - 0x6CD5FC "unknown" (Exceptions.cpp, 8 B): written as a literal, it isn't placed ("duplicate_definition": another object's identical `??_C@_07CIFAGBMG@unknown?$AA@` wins). It stays a name mapped to the address.
 - 0x6CCBE8 "Unknown" (ErrorManager.cpp) is already a literal, but stays copied for the same reason.
 - The SFILE.CPP pieces (SFILE_004177D0 ... SFILE_00418F20, 22 functions): a trial merge needs one list type per list. 0x418470, 0x418640, 0x4186B0, 0x418CA0 and 0x418D80 are all written as `D2ChatStormListCStrc::D2ChatStormListCStrc()`, which one unit can define only once. They are really TSList<T> constructors for different T, so the merge waits for those types.
