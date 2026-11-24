@@ -8,9 +8,9 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 - lane3/sbig-pieces-2 44870edd 390->374 (replaces lane3/sbig-pieces, rebased onto 3bf574f2, #363, with only docs/index.html conflicting; the SBig_ units build equal, namesync had nothing to rename, prechecked; was 397->381 on #362) Storm placeholders, borrowed data unchanged. SBig.cpp's sixteen /GS- pieces leave Storm/Unknown_*.cpp as Source/Storm/SOURCE/SBig_<address>.cpp, the `<File>_<address>.cpp` form for a file's functions that need another option (SBig.cpp builds with /GS, these without): Shl, Sub, ToStr, Div, Gcd, Rand, InvMod, PowMod and IsPrime (names.csv's own SBig names), DivUInt, SubFromBig, BigOp and BigSquare, and three helpers only SBig's functions call (0x421470, lowest set bit, for IsPrime; 0x421BD0 EncodeDataBytes with 0x423380, the byte reader, for ToStream/FromStream; 0x421CB0, the digit appender, for ToBinary/ToStream). Three join a piece that already carried their code: 0x4225C0 and 0x422FC0 into SBig_00425350.cpp, 0x422D00 into SBig_00424700.cpp. Every unit stays equal. VERIFIED 23fe0c31 on base ef7b4a19 (#361); borrowed data 898 B (main then 898 B); rebased onto 90638cd1 (#362) with only docs/index.html conflicting (file fields follow units.json); namesync had nothing to rename; prechecked. Not stacked.
 
-
 ## Claimed
 
+(none)
 
 ## Questions
 
