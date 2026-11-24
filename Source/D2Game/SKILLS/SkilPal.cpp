@@ -698,6 +698,69 @@ int __fastcall SKILLS_SrvDo150_Smite(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     return 1;
 }
 
+void __fastcall D2GAME_RefreshPassiveSkills_6FD14CC0(D2UnitStrc* pUnit); // 0x0056DFA0
+
+void __fastcall SKILLS_ClampVitalsAndUpdateAnimRate(D2UnitStrc* pUnit); // 0x0056B6C0
+
+// 0x005CEC50
+void __fastcall SKILLS_CurseStateCallback_BasicAura(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
+{
+    STATES_ToggleState(pUnit, nState, 0);
+    if (STATES_CheckState(pUnit, STATE_NOMANAREGEN))
+    {
+        STATES_ToggleState(pUnit, 85, 0);
+    }
+
+    D2GAME_RefreshPassiveSkills_6FD14CC0(pUnit);
+    SKILLS_ClampVitalsAndUpdateAnimRate(pUnit);
+}
+
+#define EVENTTYPE_REMOVESTATE 12
+
+int __stdcall D2COMMON_10473(D2StatListStrc* pStatList); // 0x00626090
+
+// 0x005CEC90
+int __stdcall PLRSAVE_ShortenPoisonAndCurses(D2GameStrc* pGame, D2UnitStrc* pUnit, int nPercent)
+{
+    int bPoisonedOrCursed = 0;
+    if (STATES_CheckState(pUnit, STATE_POISON))
+    {
+        D2StatListStrc* pPoisonStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_POISON);
+        if (pPoisonStatList)
+        {
+            const int nFrame = pGame->dwGameFrame;
+            const int nRemaining = D2COMMON_10473(pPoisonStatList) - nFrame;
+            const int nExpireFrame = DATATBLS_ApplyRatio(nRemaining, nPercent, 100) + nFrame;
+            D2COMMON_10476(pPoisonStatList, nExpireFrame);
+            EVENT_SetEvent(pGame, pUnit, EVENTTYPE_REMOVESTATE, nExpireFrame, 0, 0);
+            bPoisonedOrCursed = 1;
+        }
+    }
+
+    for (int i = 0; i < sgptDataTables->nCurseStates; ++i)
+    {
+        const int nCurseStateId = sgptDataTables->pCurseStates[i];
+        if (STATES_CheckState(pUnit, nCurseStateId))
+        {
+            D2StatListStrc* pCurseStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nCurseStateId);
+            if (pCurseStatList)
+            {
+                if (STATES_CheckStateMaskCurableByStateId(nCurseStateId))
+                {
+                    const int nFrame = pGame->dwGameFrame;
+                    const int nRemaining = D2COMMON_10473(pCurseStatList) - nFrame;
+                    const int nExpireFrame = DATATBLS_ApplyRatio(nRemaining, nPercent, 100) + nFrame;
+                    D2COMMON_10476(pCurseStatList, nExpireFrame);
+                    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_REMOVESTATE, nExpireFrame, 0, 0);
+                }
+                bPoisonedOrCursed = 1;
+            }
+        }
+    }
+
+    return bPoisonedOrCursed;
+}
+
 // 0x005CEDC0
 int __fastcall SKILLS_AuraCallback_BasicAura(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit)
 {

@@ -1594,6 +1594,82 @@ int __fastcall SKILLS_SrvDo141_BaalCorpseExplode(D2GameStrc* pGame, D2UnitStrc* 
     return 1;
 }
 
+inline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    }
+
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+inline int UNITS_GetUnitYPositionInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    }
+
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x005D2F80
+D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nUnitSize)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    const int nX = UNITS_GetUnitXPositionInline(pUnit);
+    const int nY = UNITS_GetUnitYPositionInline(pUnit);
+
+    D2UnitFindArgStrc unitFindArg;
+    memset(&unitFindArg, 0, sizeof(unitFindArg));
+    unitFindArg.nFlags = 0x1002;
+    unitFindArg.pUnit = pUnit;
+    unitFindArg.nX = nX;
+    unitFindArg.nY = nY;
+    unitFindArg.nSize = nUnitSize;
+
+    D2UnitFindDataStrc unitFindData;
+    UNITFINDS_InitializeUnitFindData(pGame->pMemoryPool, &unitFindData, pRoom, nX, nY, nUnitSize, 0, &unitFindArg);
+    UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(&unitFindData);
+
+    for (int i = 0; i < unitFindData.nIndex; ++i)
+    {
+        D2UnitStrc* pResult = unitFindData.pUnitsArray[i];
+        if (UNITS_IsCorpseUseable(pResult) && SUNIT_AreUnitsHostile(pGame, pUnit, pResult))
+        {
+            UNITFINDS_FreeUnitFindData(&unitFindData);
+            return pResult;
+        }
+    }
+
+    UNITFINDS_FreeUnitFindData(&unitFindData);
+    return 0;
+}
+
+// 0x005D30A0
+D2MonEquipTxt* __fastcall SKILLITEM_GetMonEquipTxtRecord(int nMonsterId)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount) ? &sgptDataTables->pMonStatsTxt[nMonsterId] : 0;
+    if (!pMonStatsTxtRecord)
+    {
+        return 0;
+    }
+
+    if (pMonStatsTxtRecord->nMonEquipTxtRecordId < 0)
+    {
+        return 0;
+    }
+
+    return &sgptDataTables->pMonEquipTxt[pMonStatsTxtRecord->nMonEquipTxtRecordId];
+}
+
 void __fastcall sub_005D3AC0(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
 {
     if (!pDamage || !(pDamage->wResultFlags & 1))
@@ -1689,6 +1765,50 @@ static void __stdcall SKILLS_ApplyProgressiveElementalConversion(D2UnitStrc* pUn
 
         pDamage->dwPhysDamage = nBaseDamage - nDamage;
         SKILLS_AddElementalDamage(pUnit, pDamage, pSkillsTxtRecord->nEType, nDamage, 0, 0, 0);
+    }
+}
+
+// 0x005D3BA0
+void __fastcall SKILLS_ApplyProgressiveLeechAndElementalDamage(D2UnitStrc* pUnit, D2DamageStrc* pDamage)
+{
+    if (!pDamage || !(pDamage->wResultFlags & 1))
+    {
+        return;
+    }
+
+    for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
+    {
+
+        // volatile only reproduces the original reloading the table pointer here instead of reusing the loop test's load
+        if (STATES_CheckState(pUnit, (*(D2DataTablesStrc* volatile*)&sgptDataTables)->pProgressiveStates[i]))
+        {
+            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, SKILLS_GetProgressiveState(i));
+            if (pStatList)
+            {
+                const int nSkillId = STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0);
+                if (nSkillId > 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+                {
+                    D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
+                    if (pSkillsTxtRecord)
+                    {
+                        switch (pSkillsTxtRecord->nPrgDamage)
+                        {
+                        case 2:
+                            SKILLS_ApplyProgressiveLeech(pUnit, pStatList, pDamage);
+                            break;
+
+                        case 3:
+                            SKILLS_ApplyProgressiveElementalDamage(pUnit, pStatList, pDamage);
+                            break;
+
+                        case 4:
+                            SKILLS_ApplyProgressiveElementalConversion(pUnit, pStatList, pDamage);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -3960,6 +4080,23 @@ int __fastcall SKILLS_SrvDo142_ApplyAreaCombat(D2GameStrc* pGame, D2UnitStrc* pU
     }
 
     SKILLS_IterateAuraTargets(pGame, pUnit, 0, 0, nRange, pSkillsTxtRecord->dwAuraFilter, SKILLS_AuraCallback_AllocSkillCombat, &args, 0, ".\\SKILLS\\SkillAss.cpp", 3151);
+    return 1;
+}
+
+// 0x005D7E10
+int __fastcall SKILLS_SrvDo054_BladeShield(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord || pSkillsTxtRecord->nAuraState < 0 || pSkillsTxtRecord->nAuraState >= sgptDataTables->nStatesTxtRecordCount || !SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId))
+    {
+        return 0;
+    }
+
+    if (!DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
+    {
+        SKILLS_SrvDo142_ApplyAreaCombat(pGame, pUnit, nSkillId, nSkillLevel);
+    }
+
     return 1;
 }
 

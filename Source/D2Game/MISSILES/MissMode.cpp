@@ -6274,34 +6274,6 @@ struct D2AiCallback11ArgStrc
     int unk0x0C[7];
 };
 
-// 0x005D7E10
-int __fastcall SKILLS_SrvDo054_BladeShield(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord || pSkillsTxtRecord->nAuraState < 0 || pSkillsTxtRecord->nAuraState >= sgptDataTables->nStatesTxtRecordCount || !SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId))
-    {
-        return 0;
-    }
-
-    if (!DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
-    {
-        SKILLS_SrvDo142_ApplyAreaCombat(pGame, pUnit, nSkillId, nSkillLevel);
-    }
-
-    return 1;
-}
-
-// 0x005DA8F0
-int __fastcall SKILLS_SrvSt05_Jab(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    if (!DATATBLS_GetSkillsTxtRecord(nSkillId))
-    {
-        return 0;
-    }
-
-    return SUNIT_GetTargetUnit(pGame, pUnit) != 0;
-}
-
 static inline int synh_GetUnitX(SynUnit* pUnit)
 {
     switch (pUnit->dwUnitType)
