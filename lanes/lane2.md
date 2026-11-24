@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/game-timer 058c52dd 562->562 D2ClientTimer.h: the 8-byte client timer (start tick, length) that GAME_IsTimerExpired/Running test. It was defined privately, with the same text, in Game, Game_0044B7B0, Game_0044D080 and Game_0044E5A0. It goes in a small header only these four include, because adding it to D2ClientTypes.h flipped inv and inv_004886C0; VERIFIED 4c999e9c6d63db058d31eb30fcb5386a69f7e0f0
+  - Verified on #314, rebased onto #317. None of #315-#317 touches the 4 units; precheck is equal on #317.
+  - Outside lane 2: the four D2Client GAME units (lane 4).
+
 - lane2/fog-records c9defc5f 562->562 D2FogTypes.h: the D2Server service status (passed to SetServiceStatus) and the crash handler's minidump request, shared. Each was defined privately with the same text in four units (ErrorManager, ErrorManager_004082E0, Safesock, plus MainMenus or Unknown_00402820); VERIFIED 255cb65f887771557bc73a1af17a11e35d3349c2
   - Verified on #312, rebased onto #314. #313/#314 touch none of the 5 units; precheck of all 16 includers is equal on #314.
   - Outside lane 2: Fog (lane 3) and MainMenus (lane 6). Private-copy removal only.
