@@ -14,6 +14,10 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 - lane3/system-strays c1bd9dce 519->519 sub_004107B0_AtomicStore64 (between system.cpp's 0x4107A0 and 0x4107D0; only callers SYSTEM_InitTimeBase and FOG_GetSyncTime) moves from Fog/Unknown_00410790 to system.cpp, written __declspec(naked) like its neighbour Read64Locked (with a plain __asm body visible, both callers change). VERIFIED 31c9d75f on base 20f3e0fd (j82; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 3,415 B). Not stacked.
 
+## Claimed
+
+- **SFILE.CPP list types onto stpl.h's TSList<T> (big job, started).** Goal: SFILE.CPP's lists (requests, files, archives, streams, events and the ignore-list chat lists) as TSList<T> for their own T, so the five TSList constructors at 0x418470/0x418640/0x4186B0/0x418CA0/0x418D80 and the other SFILE_0041xxxx pieces can join SFILE.CPP. Touches Storm/D2SFileTypes.h (mine) and the SFILE pieces only.
+
 ## Questions
 
 ## Notes for other lanes
