@@ -43,6 +43,38 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** ppMonsterRegion, int nLevelId); // 0x00547BB0
 static int MONSTERREGION_CanRetryPresetSpawn(int nMonsterId); // 0x0054E3A0
 
+inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+    return 0;
+}
+
+// 0x0054DA60
+int __fastcall SKILLS_GetMonsterClassFromChain(int nMonsterId, int nNoInChain)
+{
+    D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(nMonsterId);
+    if (!pMonStatsTxtRecord)
+    {
+        return -1;
+    }
+
+    int nClassId = pMonStatsTxtRecord->nBaseId;
+    for (int i = 0; i < nNoInChain; ++i)
+    {
+        nClassId = pMonStatsTxtRecord->nNextInClass;
+        pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(nClassId);
+        if (!pMonStatsTxtRecord)
+        {
+            break;
+        }
+    }
+
+    return nClassId;
+}
+
 // 0x0054DAC0
 static void __stdcall sub_0054DAC0_GetSpawnBounds(D2ActiveRoomStrc* pRoom, int* pWidth, D2RoomCoordListStrc* pArea, int* pX, int* pY, int* pHeight)
 {

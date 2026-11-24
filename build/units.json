@@ -41912,11 +41912,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x0054DA60",
-     "length": 91,
-     "name": "?SKILLS_GetMonsterClassFromChain@@YIHHH@Z"
-    },
-    {
      "va": "0x0054F0D0",
      "length": 170,
      "name": "?OBJECTS_SpawnShrine@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAUD2ActiveRoomStrc@@HHHH@Z"
@@ -46575,6 +46570,11 @@
    "file": "Source/D2Game/Unknown_0054DAC0.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x0054DA60",
+     "length": 91,
+     "name": "?SKILLS_GetMonsterClassFromChain@@YIHHH@Z"
+    },
     {
      "va": "0x0054DAC0",
      "length": 143,

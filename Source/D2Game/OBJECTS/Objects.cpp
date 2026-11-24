@@ -655,29 +655,6 @@ inline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
     return 0;
 }
 
-// 0x0054DA60
-int __fastcall SKILLS_GetMonsterClassFromChain(int nMonsterId, int nNoInChain)
-{
-    D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(nMonsterId);
-    if (!pMonStatsTxtRecord)
-    {
-        return -1;
-    }
-
-    int nClassId = pMonStatsTxtRecord->nBaseId;
-    for (int i = 0; i < nNoInChain; ++i)
-    {
-        nClassId = pMonStatsTxtRecord->nNextInClass;
-        pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(nClassId);
-        if (!pMonStatsTxtRecord)
-        {
-            break;
-        }
-    }
-
-    return nClassId;
-}
-
 static inline unsigned __int64 ITEMS_RollRandomNumberForceInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
