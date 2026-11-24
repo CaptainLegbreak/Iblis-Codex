@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/records-c a2566fcc 562->562 Two commits. D2McpPackets.h gets the incoming MCP packets (0x03, 0x04, 0x08, 0x09, 0x0A, 0x0E), the packet value record and the create-game body, which WINMAIN, Unknown_0044B400 and Unknown_0044A170 each had private copies of. D2FogTypes.h gets the exception reporter's imagehlp address/stack-frame/symbol/module records, FPO data, toolhelp module entry, module list node and crash dump entry, which Exceptions and Safesock each had copies of; VERIFIED b36c3655546d2af2c5dac52a5512c1d89156ee48
+  - Verified on d4484343, rebased onto 89693ff5. Precheck of all includers of the two headers is equal there.
+  - Outside lane 2: WINMAIN, Unknown_0044B400 (lane 4), Unknown_0044A170 (lane 6), Exceptions, Safesock (lane 3).
+
 - lane2/client-records-b e7830e6d 562->562 Four commits, each a small header that only the units holding identical private copies include: D2LaunchRequest.h (the realm game-list request WINMAIN_SendMcpGameListRequest takes; 6 units in D2Client/D2Launch/D2MCPClient/D2Multi), D2ClientStatButton.h (gaStatButtons' 0xE-byte pack(2) record, still named D2BeltSlotStrc because the data plan names it; 4 units), D2ClientKeyConfig.h (the 0x47A-byte .key file; CmdTbl, CUnit), D2ClientTextPanel.h (the scrolling text panel and its line; panel, Unknown_00499500); VERIFIED eb6c179ea2512d03654fb1f487c8e4bd83942885
   - On d4484343. All 14 changed units build equal.
   - Outside lane 2: lanes 4 and 6 (private-copy removal plus one include per unit).
@@ -30,7 +34,7 @@ Records that two or more units define privately with the same text, moved into t
 8. (done: questlog-records)
 9, 10, 12. (done: client-records-b)
 11. Skipped: ChatDlg's D2CharSaveFileStrc is a 0x2000-byte view of the .d2s file that reads 0x18 as old flags; merging it with D2SaveHeaderStrc needs a union there. The ladder entry alone isn't worth a header.
-13. Next: a fresh scan for identical private copies on current main (the identical-text list is from #318).
+13. Rescan on #332 done. Taken from it: records-c. Next from it: D2UIVarRecordStrc (Select, automap, ui, Unknown_0046ACE0); D2UiCelFileStrc (spellsel, Unknown_004A76C0/004A9BD0/004AA9C0); D2DrlgDeleteStrc (Dungeon, Level, PlrSave); D2UnitDropItemsPacketStrc (SCmd, CharSel, CharSel_0042E600); D2SoundUnitNodeStrc and D2DialogWidgetNodeStrc (sound and dialog units). The big clusters in text/Unknown_004A43E0/004A6460 and inv/Unknown_00482C70 look like context copies, so I'm leaving them to the unit work.
 No borrowed-data block or language split is in lane 2's range: the coord block is runtime-library data.
 
 ## Questions
