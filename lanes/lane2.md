@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/bn-messages 128c2743 562->562 D2BnMessages.h: four Battle.net server message bodies (client id reply, versioning start, logon info, ad check reply). BnDownload, BnDownload_00520CB0, BnSend and Unknown_0051C7E0 each had private copies with the same text; VERIFIED 17f63803f2be99051365a87b074478f1dd294589
+  - Verified on #325, rebased onto #326. Precheck of the 4 units is equal on #326.
+  - Outside lane 2: the four D2BNClient units (lane 6).
+
 - lane2/d3d-records 962c446b 562->562 D2D3DTypes.h: the 0x120-byte DirectDraw device record behind gaDDrawDevices. d3dCore and Unknown_006B2F60 each had a private copy with the same text; VERIFIED 6836df2bf449d7b821f5f7c42edebc2c52f0611d
   - On #325. All 21 includers of D2D3DTypes.h build equal.
   - Outside lane 2: d3dCore, Unknown_006B2F60 (lane 6). The same two units keep private views of DDSURFACEDESC2, DDSCAPS2 and IDirectDraw7 (`*006B3420Strc`) that nothing reads. D2DDrawTypes.h already defines the surface description; folding those views in belongs with the renderer work.
@@ -27,8 +31,11 @@ Records that two or more units define privately with the same text, moved into t
 1. (done: fog-records-c)
 2. (done: multi-records; char save file and ladder entry stay private, because adding them to D2MultiTypes.h flips CharSel)
 3. (done: d3d-records)
-4. BNClient: the BnDownload login/versioning/auth records.
-After that: the coordinator's borrowed-data blocks, if no lane has them.
+4. (done: bn-messages)
+5. D2Common path: D2PathMovStrc and D2CollisionTestStrc (PathWF, Unknown_006793E0/00679A60/0067A000), into D2PathFind.h.
+6. Win32 process info and memory status (Fog, D2Multi, D2Hell, D2Launch, D2Client).
+7. D2WinPopUpLineStrc (five D2Win units).
+No borrowed-data block or language split is in lane 2's range: the coord block is runtime-library data.
 
 ## Questions
 
