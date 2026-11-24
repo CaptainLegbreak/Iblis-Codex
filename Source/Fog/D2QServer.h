@@ -213,7 +213,7 @@ struct D2QueueServerStrc
         D2QLockStrc* pClientLocks;
     };
     D2QClientStrc** ppAddressBuckets;                       // 0x020
-    int unk0x024;                                           // 0x024
+    int nAddressBuckets;                                    // 0x024
     D2CriticalSectionStrc tAddressLock;                     // 0x028
     D2QIpCountStrc** ppIpCounts;                            // 0x040
     int nIpCountBuckets;                                    // 0x044
@@ -322,7 +322,7 @@ struct D2QueueServerStrc
             unsigned long aThreadIds2[4];                   // 0xC2C
         };
     };
-    int nSlots[1];                                          // 0xC3C
+    int nSlots[4];                                          // 0xC3C
 
     void __thiscall ExpireEntries();                                                                 // 0x006BE700
     int __thiscall RefreshRecord(unsigned int nKey);                                                 // 0x006BE980
