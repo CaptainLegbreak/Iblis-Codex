@@ -18581,11 +18581,6 @@
      "va": "0x004898D0",
      "length": 70,
      "name": "?CUNIT_SetDialogState@@YIXH@Z"
-    },
-    {
-     "va": "0x004B8A10",
-     "length": 24,
-     "name": "?CUNIT_IsTrading@@YAHXZ"
     }
    ],
    "flags": [
@@ -23516,11 +23511,6 @@
      "name": "?TEXT_InitNpcMenu@@YAXXZ"
     },
     {
-     "va": "0x004B9010",
-     "length": 66,
-     "name": "?TEXT_SetNameFromPacket@@YIXPAUD2NamePacketStrc@@@Z"
-    },
-    {
      "va": "0x004BF2F0",
      "length": 306
     },
@@ -25714,21 +25704,6 @@
      "name": "sub_004B85E0"
     },
     {
-     "va": "0x004B9060",
-     "length": 6,
-     "name": "MONSTER_GetTradePartnerName"
-    },
-    {
-     "va": "0x004B90F0",
-     "length": 6,
-     "name": "MONSTER_GetSecondaryTradeGold"
-    },
-    {
-     "va": "0x004B9100",
-     "length": 6,
-     "name": "MONSTER_GetPrimaryTradeGold"
-    },
-    {
      "va": "0x004BF9B0",
      "length": 3,
      "name": "sub_004BF9B0"
@@ -27099,55 +27074,6 @@
      "name": "?sub_004B8730_DrawDialogHover@@YAXXZ"
     },
     {
-     "va": "0x004B8A00",
-     "length": 12,
-     "name": "?sub_004B8A00_IsGlobalClear@@YAHXZ"
-    },
-    {
-     "va": "0x004B8A30",
-     "length": 65,
-     "name": "?sub_004B8A30_OnCancel@@YAHXZ"
-    },
-    {
-     "va": "0x004B8A80",
-     "length": 80,
-     "name": "?sub_004B8A80_OnClose@@YAHXZ"
-    },
-    {
-     "va": "0x004B8BA0",
-     "length": 80,
-     "name": "?sub_004B8BA0_OnClose2@@YAHXZ"
-    },
-    {
-     "va": "0x004B8CF0",
-     "length": 788
-    },
-    {
-     "va": "0x004B90B0",
-     "length": 27,
-     "name": "_sub_004B90B0_SendState"
-    },
-    {
-     "va": "0x004B90D0",
-     "length": 18,
-     "name": "?sub_004B90D0_SetValue@@YIXK_N@Z"
-    },
-    {
-     "va": "0x004B9110",
-     "length": 112,
-     "name": "?sub_004B9110_SendGoldRequest@@YIXK@Z"
-    },
-    {
-     "va": "0x004B9180",
-     "length": 98,
-     "name": "?sub_004B9180_PollWait@@YAHXZ"
-    },
-    {
-     "va": "0x004B91F0",
-     "length": 7,
-     "name": "?sub_004B91F0@@YAXXZ"
-    },
-    {
      "va": "0x004BABC0",
      "length": 26,
      "name": "?sub_004BABC0_ToggleHints@@YAXXZ"
@@ -27246,9 +27172,34 @@
      "name": "?sub_004B8940_CloseWait@@YIXH@Z"
     },
     {
+     "va": "0x004B8A00",
+     "length": 12,
+     "name": "?sub_004B8A00_IsGlobalClear@@YAHXZ"
+    },
+    {
+     "va": "0x004B8A10",
+     "length": 24,
+     "name": "?CUNIT_IsTrading@@YAHXZ"
+    },
+    {
+     "va": "0x004B8A30",
+     "length": 65,
+     "name": "?sub_004B8A30_OnCancel@@YAHXZ"
+    },
+    {
+     "va": "0x004B8A80",
+     "length": 80,
+     "name": "?sub_004B8A80_OnClose@@YAHXZ"
+    },
+    {
      "va": "0x004B8AD0",
      "length": 199,
      "name": "?sub_004B8AD0_OpenWait@@YAHXZ"
+    },
+    {
+     "va": "0x004B8BA0",
+     "length": 80,
+     "name": "?sub_004B8BA0_OnClose2@@YAHXZ"
     },
     {
      "va": "0x004B8BF0",
@@ -27261,10 +27212,78 @@
      "name": "?sub_004B8CB0@@YAXXZ"
     },
     {
+     "va": "0x004B8CF0",
+     "length": 788
+    },
+    {
+     "va": "0x004B9010",
+     "length": 66,
+     "name": "?TEXT_SetNameFromPacket@@YIXPAUD2NamePacketStrc@@@Z"
+    },
+    {
+     "va": "0x004B9060",
+     "length": 6,
+     "name": "MONSTER_GetTradePartnerName"
+    },
+    {
      "va": "0x004B9070",
      "length": 49,
      "name": "?sub_004B9070_SendPosition@@YAXXZ"
+    },
+    {
+     "va": "0x004B90B0",
+     "length": 27,
+     "name": "_sub_004B90B0_SendState"
+    },
+    {
+     "va": "0x004B90D0",
+     "length": 18,
+     "name": "?sub_004B90D0_SetValue@@YIXK_N@Z"
+    },
+    {
+     "va": "0x004B90F0",
+     "length": 6,
+     "name": "MONSTER_GetSecondaryTradeGold"
+    },
+    {
+     "va": "0x004B9100",
+     "length": 6,
+     "name": "MONSTER_GetPrimaryTradeGold"
+    },
+    {
+     "va": "0x004B9110",
+     "length": 112,
+     "name": "?sub_004B9110_SendGoldRequest@@YIXK@Z"
+    },
+    {
+     "va": "0x004B9180",
+     "length": 98,
+     "name": "?sub_004B9180_PollWait@@YAHXZ"
+    },
+    {
+     "va": "0x004B91F0",
+     "length": 7,
+     "name": "?sub_004B91F0@@YAXXZ"
+    },
+    {
+     "va": "0x006CAD80",
+     "length": 43,
+     "name": "?sub_006CAD80_ClearValues@@YAXXZ"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -80705,11 +80724,6 @@
    "file": "Source/Storm/Unknown_006CACE0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x006CAD80",
-     "length": 43,
-     "name": "?sub_006CAD80_ClearValues@@YAXXZ"
-    },
     {
      "va": "0x006CADE0",
      "length": 12,
