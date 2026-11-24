@@ -1035,14 +1035,15 @@ static void __stdcall sub_0049AF60_DrawButtonHint(unsigned short nString1, unsig
     }
 }
 
+// 0x0049B030
 static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
 {
     Unicode wszLine1[0x80];
     Unicode wszLine2[0x80];
-    Unicode wszName[0x80];
     int nColor1 = 0;
     int nColor2 = 0;
     int nHeight = 0x10;
+    Unicode wszName[0x80];
     char szDefault[0x80];
     const char* szName = ROSTER_GetEntryName(pEntry);
     if (!szName)
@@ -1067,8 +1068,10 @@ static void sub_0049B030_DrawRosterTooltip(D2StoredUnitRecordStrc* pEntry)
     }
     else
     {
-        const unsigned short nFormat = bE ? gawRosterHostileMale[nA][nC] : gawRosterHostileFemale[nA][nC];
-        sub_005269D0(0x80, wszLine1, D2LANG_GetStringFromTblIndex(nFormat), wszName);
+        if (bE)
+            sub_005269D0(0x80, wszLine1, D2LANG_GetStringFromTblIndex(gawRosterHostileMale[nA][nC]), wszName);
+        else
+            sub_005269D0(0x80, wszLine1, D2LANG_GetStringFromTblIndex(gawRosterHostileFemale[nA][nC]), wszName);
     }
     if (GAME_IsHardcore())
     {
@@ -1404,3 +1407,5 @@ void __cdecl PANEL_DrawPartyPanel()
     if (nX >= gnPanelOffsetX + 0x116 && nX <= gnPanelOffsetX + 0x136 && nY >= 0x185 - gnPanelOffsetY && nY <= 0x1A5 - gnPanelOffsetY)
         D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x102F), gnPanelOffsetX + 0x125, 0x182 - gnPanelOffsetY, 0, 1);
 }
+
+#include "gen/data/Source/D2Client/UI/Party.inc"
