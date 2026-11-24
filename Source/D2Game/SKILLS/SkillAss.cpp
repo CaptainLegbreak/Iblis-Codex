@@ -345,7 +345,7 @@ typedef int (__fastcall *SkillDoFunc)(D2GameStrc*, D2UnitStrc*, int, int);
 
 extern const int gnSkillSrvDoFnCount; // 0x006E1274
 
-extern const SkillDoFunc gpfnSkillSrvDoFunctions[]; // 0x007322B0
+extern SkillDoFunc gpfnSkillSrvDoFunctions[]; // 0x007322B0
 
 unsigned __int64 __fastcall SEED_RollRandomNumber(D2SeedStrc*); // 0x0045C370
 

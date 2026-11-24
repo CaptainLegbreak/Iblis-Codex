@@ -4691,6 +4691,10 @@
      "name": "?_GFILEREC"
     },
     {
+     "va": "0x00419180",
+     "length": 364
+    },
+    {
      "va": "0x004192F0",
      "length": 818
     },
@@ -6027,10 +6031,6 @@
      "va": "0x00418D80",
      "length": 32,
      "name": "??0D2ChatStormListCStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x00419180",
-     "length": 364
     }
    ]
   },

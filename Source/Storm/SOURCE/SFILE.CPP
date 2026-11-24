@@ -4654,6 +4654,56 @@ static __forceinline int sub_004192F0_OpenDiskFile(const char* szFileName, unsig
     return 0;
 }
 
+// 0x00419180
+int __stdcall sub_00419180_OpenPathAsArchive(void* hArchive, const char* szPrefix, int nPriority, unsigned int nFlags, void** phArchive)
+{
+    VALIDATEBEGIN;
+    if (!phArchive)
+        nValid = 0;
+    else
+        *phArchive = 0;
+    VALIDATE(szPrefix);
+    VALIDATE(*szPrefix);
+    VALIDATEEND;
+    EnterCriticalSection(&gBasePathLock_00779068);
+    sub_00415B90_InitCryptTable();
+    ARCHIVEREC* pParent = (ARCHIVEREC*)hArchive;
+    if (!pParent)
+    {
+        sub_0041C340_SetLastError(0x57);
+        LeaveCriticalSection(&gBasePathLock_00779068);
+        return 0;
+    }
+    void* pMemory = SMemAlloc(sizeof(ARCHIVEREC), gszTypeNameArchiveRec_00708398, -2, 8);
+    ARCHIVEREC* pArchive = pMemory ? new (pMemory) ARCHIVEREC : 0;
+    SStrCopy(pArchive->szName, pParent->szName, 0x104);
+    pArchive->hFile = pParent->hFile;
+    pArchive->pParent = pParent;
+    pArchive->nPriority = nPriority;
+    pArchive->nRefs = 0;
+    SStrCopy(pArchive->szPrefix, szPrefix, 0x7FFFFFFF);
+    pArchive->nRefCount = 1;
+    ++pParent->nRefCount;
+    ARCHIVEREC* pExisting;
+    for (pExisting = gArchiveList_00708354.Head(); pExisting; pExisting = (ARCHIVEREC*)pExisting->tLink.Next())
+    {
+        if (pExisting->nPriority <= pArchive->nPriority)
+            break;
+    }
+    pArchive->tLink.Unlink();
+    D2StormLinkStrc* pExistingLink = &pExisting->tLink;
+    if (!pExisting)
+        pExistingLink = &gArchiveList_00708354.m_terminator;
+    D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
+    pArchive->tLink.m_prevlink = pPrevLink;
+    pArchive->tLink.m_next = pPrevLink->m_next;
+    pPrevLink->m_next = (char*)pArchive;
+    pExistingLink->m_prevlink = &pArchive->tLink;
+    *phArchive = pArchive;
+    LeaveCriticalSection(&gBasePathLock_00779068);
+    return 1;
+}
+
 // 0x004192F0
 int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, unsigned int dwFlags, void** phFile)
 {
