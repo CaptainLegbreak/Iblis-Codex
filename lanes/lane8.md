@@ -10,6 +10,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - 2026-11-24 04:35 PT: strays-a is in #346 (the coordinator's #345 note referred to the old d0fbb5bb). strays-b is rebased on #346. Next: more placeholders.
 
 ## Ready
+- lane8/place-e d845a588 (3 commits, on #346), VERIFIED ad1d9dbf. OutSiege.cpp takes in Unknown_0067E660, which reads OutSiege's table 0x6F22A4. OutDesr.cpp takes in Unknown_0067FB90 and Unknown_0067FFF0: OutDesr's assert lines rise through them, and FB90's table sits inside the span OutDesr reads. Units -3. Unknown_00680070 (/GS-) and the DRLGOUTWILD_-named functions inside OutDesr's run are next; their merge needs conflicts resolved.
 - lane8/place-d ee23d7c5 (on #346), VERIFIED 20b60d66. OutRoom.cpp takes in Unknown_0067D2D0 and Unknown_0067D7B0 (its object, 0x67D2D0-0x67DA6F: the first language copy after DrlgVer's, and its file-name string directly followed by 0x67D7B0's offset table). OutRoom's private level-def view becomes the shared D2LevelDefBin. Its dead stdcall orth-coords copy and that copy's private table go. Units -2.
 - lane8/strays-b ffbb5778 (on #346, namesync clean), VERIFIED fb51bdc2. Three more lone strays move: 0x654E80 Skills -> MonsterTbls (chest TC lookup, through MonsterTbls' [3][5][3] gpChestTreasureClasses), 0x667030 Skills -> Preset (with its three private records), and 0x643700 Dungeon -> Skills (Skills' calc table extern for it dropped).
 
