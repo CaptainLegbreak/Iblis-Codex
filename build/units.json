@@ -67573,11 +67573,6 @@
      "name": "?DUNGEON_SkillCalcGetRandomNumberInRange@@YIHHHHPAX@Z"
     },
     {
-     "va": "0x00650E50",
-     "length": 3,
-     "name": "?SEED_GetLowSeed@@YIIPATD2SeedStrc@@@Z"
-    },
-    {
      "va": "0x00653ED0",
      "length": 52,
      "name": "?DATATBLS_RollRandomUniquePrefixString@@YIPBUUnicode@@PAUD2UnitStrc@@@Z"
@@ -71761,6 +71756,19 @@
      "name": "?DATATBLS_UnloadShrinesTxt@@YIXXZ"
     },
     {
+     "va": "0x00650EB0",
+     "length": 75,
+     "name": "?sub_00650EB0_MakeCode@@YAXPBDPAD@Z"
+    },
+    {
+     "va": "0x00650F00",
+     "length": 312
+    },
+    {
+     "va": "0x00651040",
+     "length": 113
+    },
+    {
      "va": "0x006510C0",
      "length": 129,
      "name": "DATATBLS_GetMonsterChainInfo"
@@ -73262,16 +73270,6 @@
      "name": "SKILLS_FixThrowWeaponClassCode"
     },
     {
-     "va": "0x0064FC20",
-     "length": 64,
-     "name": "PATH_ResetDynamicPathRoom"
-    },
-    {
-     "va": "0x00650540",
-     "length": 76,
-     "name": "D2Common_10227"
-    },
-    {
      "va": "0x00654E80",
      "length": 107,
      "name": "DATATBLS_GetTreasureClassExRecordFromActAndDifficulty"
@@ -73878,21 +73876,6 @@
      "va": "0x0064A730",
      "length": 35,
      "name": "_sub_0064A730_GetMissileTargetStatus@4"
-    },
-    {
-     "va": "0x0064FD70",
-     "length": 75,
-     "name": "PATH_GetDirectionVectorFromPoints"
-    },
-    {
-     "va": "0x0064FDC0",
-     "length": 79,
-     "name": "PATH_ComputeDirection"
-    },
-    {
-     "va": "0x006505C0",
-     "length": 24,
-     "name": "?PATH_HasEnteredNewSubtile@@YGHPAUD2DynamicPathStrc@@@Z"
     },
     {
      "va": "0x0066A280",
@@ -74584,82 +74567,49 @@
      "va": "0x0064FAA0",
      "length": 46,
      "name": "?PATHMISC_SetRoom@@YAXPAUD2DynamicPathStrc@@PAUD2ActiveRoomStrc@@@Z"
-    },
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Common/Unknown_0064FAD0.cpp",
+   "rank": 1,
+   "functions": [
     {
      "va": "0x0064FAD0",
      "length": 183,
      "name": "?PATH_RecacheRoom@@YGXPAUD2ActiveRoomStrc@@PAUD2DynamicPathStrc@@@Z"
     },
     {
-     "va": "0x00650090",
-     "length": 186,
-     "name": "?sub_00650090_GetStepToNextPoint@@YGHPAUD2CoordStrc@@PAUD2DynamicPathStrc@@@Z"
-    },
-    {
-     "va": "0x006507B0",
-     "length": 74,
-     "name": "?PATH_ResetMovement@@YAXPAUD2DynamicPathStrc@@@Z"
-    },
-    {
-     "va": "0x00650D70",
-     "length": 91,
-     "name": "STATLIST_AreUnitsAligned"
-    },
-    {
-     "va": "0x00650DD0",
-     "length": 10,
-     "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
-    },
-    {
-     "va": "0x00650DE0",
-     "length": 67,
-     "name": "?SEED_GetRandomValue@@YIHH@Z"
-    },
-    {
-     "va": "0x00650E30",
-     "length": 14,
-     "name": "?SEED_InitSeed@@YIXPATD2SeedStrc@@@Z"
-    },
-    {
-     "va": "0x00650E40",
-     "length": 10,
-     "name": "?SEED_InitLowSeed@@YIXPATD2SeedStrc@@I@Z"
-    },
-    {
-     "va": "0x00650E60",
-     "length": 15,
-     "name": "@sub_00650E60@12"
-    },
-    {
-     "va": "0x00650E70",
-     "length": 19,
-     "name": "@sub_00650E70@12"
-    },
-    {
-     "va": "0x00650E90",
-     "length": 4,
-     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x00650EA0",
-     "length": 1,
-     "name": "?sub_00650EA0_Nop@@YAXXZ"
-    },
-    {
-     "va": "0x00650EB0",
-     "length": 75,
-     "name": "?sub_00650EB0_MakeCode@@YAXPBDPAD@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0064FB90.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x0064FB90",
      "length": 131,
      "name": "?PATH_RecacheRoomAtCoordIfNeeded@@YGXTD2FP32_16@@PAUD2ActiveRoomStrc@@PAUD2DynamicPathStrc@@@Z"
+    },
+    {
+     "va": "0x0064FC20",
+     "length": 64,
+     "name": "PATH_ResetDynamicPathRoom"
+    },
+    {
+     "va": "0x0064FC60",
+     "length": 268
+    },
+    {
+     "va": "0x0064FD70",
+     "length": 75,
+     "name": "PATH_GetDirectionVectorFromPoints"
+    },
+    {
+     "va": "0x0064FDC0",
+     "length": 79,
+     "name": "PATH_ComputeDirection"
+    },
+    {
+     "va": "0x0064FE10",
+     "length": 37
+    },
+    {
+     "va": "0x0064FE40",
+     "length": 332
     },
     {
      "va": "0x0064FF90",
@@ -74667,9 +74617,36 @@
      "name": "?sub_0064FF90_TestStepCollision@@YGHUD2PathPointStrc@@0PAUD2DynamicPathStrc@@@Z"
     },
     {
+     "va": "0x00650090",
+     "length": 186,
+     "name": "?sub_00650090_GetStepToNextPoint@@YGHPAUD2CoordStrc@@PAUD2DynamicPathStrc@@@Z"
+    },
+    {
+     "va": "0x00650150",
+     "length": 371
+    },
+    {
      "va": "0x006502D0",
      "length": 125,
      "name": "?sub_6FD5CEB0@@YAXHPAUD2DynamicPathStrc@@@Z"
+    },
+    {
+     "va": "0x00650350",
+     "length": 152,
+     "name": "D2Common_10236"
+    },
+    {
+     "va": "0x006503F0",
+     "length": 253
+    },
+    {
+     "va": "0x006504F0",
+     "length": 76
+    },
+    {
+     "va": "0x00650540",
+     "length": 76,
+     "name": "D2Common_10227"
     },
     {
      "va": "0x00650590",
@@ -74677,14 +74654,33 @@
      "name": "?PATH_RecacheRoomIfNeeded@@YGXPAUD2DynamicPathStrc@@@Z"
     },
     {
+     "va": "0x006505C0",
+     "length": 24,
+     "name": "?PATH_HasEnteredNewSubtile@@YGHPAUD2DynamicPathStrc@@@Z"
+    },
+    {
      "va": "0x006505E0",
      "length": 123,
      "name": "?D2Common_10235_PATH_UpdateRiderPath@@YGXPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x00650660",
+     "length": 328
+    },
+    {
+     "va": "0x006507B0",
+     "length": 74,
+     "name": "?PATH_ResetMovement@@YAXPAUD2DynamicPathStrc@@@Z"
+    },
+    {
      "va": "0x00650800",
      "length": 57,
      "name": "?sub_00650800_CheckPathMoving@@YIPAUD2DynamicPathStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x00650840",
+     "length": 205,
+     "name": "?D2Common_10226@@YGHPAUD2UnitStrc@@H@Z"
     },
     {
      "va": "0x00650910",
@@ -74716,28 +74712,6 @@
      "length": 195,
      "name": "?D2Common_10232@@YGHPAUD2DynamicPathStrc@@PAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0064FC60.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0064FC60",
-     "length": 268
-    },
-    {
-     "va": "0x00650150",
-     "length": 371
-    },
-    {
-     "va": "0x00650F00",
-     "length": 312
-    },
-    {
-     "va": "0x00651040",
-     "length": 113
-    }
    ],
    "flags": [
     "/nologo",
@@ -74755,79 +74729,58 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0064FE10.cpp",
+   "file": "Source/D2Common/Unknown_00650D70.cpp",
    "rank": 1,
    "functions": [
     {
-     "va": "0x0064FE10",
-     "length": 37
+     "va": "0x00650D70",
+     "length": 91,
+     "name": "STATLIST_AreUnitsAligned"
     },
     {
-     "va": "0x006503F0",
-     "length": 253
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0064FE40.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0064FE40",
-     "length": 332
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00650350.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00650350",
-     "length": 152,
-     "name": "D2Common_10236"
+     "va": "0x00650DD0",
+     "length": 10,
+     "name": "?BNDOWNLOAD_GetTime@@YAJPAJ@Z"
     },
     {
-     "va": "0x006504F0",
-     "length": 76
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00650660.cpp",
-   "rank": 1,
-   "functions": [
+     "va": "0x00650DE0",
+     "length": 67,
+     "name": "?SEED_GetRandomValue@@YIHH@Z"
+    },
     {
-     "va": "0x00650660",
-     "length": 328
+     "va": "0x00650E30",
+     "length": 14,
+     "name": "?SEED_InitSeed@@YIXPATD2SeedStrc@@@Z"
+    },
+    {
+     "va": "0x00650E40",
+     "length": 10,
+     "name": "?SEED_InitLowSeed@@YIXPATD2SeedStrc@@I@Z"
+    },
+    {
+     "va": "0x00650E50",
+     "length": 3,
+     "name": "?SEED_GetLowSeed@@YIIPATD2SeedStrc@@@Z"
+    },
+    {
+     "va": "0x00650E60",
+     "length": 15,
+     "name": "@sub_00650E60@12"
+    },
+    {
+     "va": "0x00650E70",
+     "length": 19,
+     "name": "@sub_00650E70@12"
+    },
+    {
+     "va": "0x00650E90",
+     "length": 4,
+     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+    },
+    {
+     "va": "0x00650EA0",
+     "length": 1,
+     "name": "?sub_00650EA0_Nop@@YAXXZ"
     }
    ],
    "flags": [
@@ -74843,17 +74796,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_00650840.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00650840",
-     "length": 205,
-     "name": "?D2Common_10226@@YGHPAUD2UnitStrc@@H@Z"
-    }
    ]
   },
   {

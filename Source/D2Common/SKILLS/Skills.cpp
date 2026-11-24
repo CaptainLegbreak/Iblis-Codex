@@ -2858,43 +2858,6 @@ static inline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-// 0x0064FC20
-void __stdcall PATH_ResetDynamicPathRoom(D2DynamicPathStrc* pDynamicPath)
-{
-    const int nPrecisionX = gnPathResetPrecisionX;
-    const int nPrecisionY = gnPathResetPrecisionY;
-
-    pDynamicPath->tGameCoords.dwPrecisionX = nPrecisionX;
-    pDynamicPath->dwClientCoordX = nPrecisionX;
-    pDynamicPath->tGameCoords.dwPrecisionY = nPrecisionY;
-    pDynamicPath->dwClientCoordY = nPrecisionY;
-    pDynamicPath->dwPathPoints = 0;
-
-    if (pDynamicPath->pRoom)
-    {
-        pDynamicPath->pPreviousRoom = pDynamicPath->pRoom;
-        UNITROOM_RemoveUnitFromRoom(pDynamicPath->pUnit);
-        pDynamicPath->dwFlags |= PATH_CURRENT_ROOM_INVALID;
-    }
-}
-
-// 0x00650540
-int __stdcall D2Common_10227(D2UnitStrc* pUnit)
-{
-    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
-    if (!pDynamicPath)
-    {
-        return 1;
-    }
-
-    if (pDynamicPath->hTarget && D2Common_10399(pDynamicPath->hTarget, pUnit) <= pDynamicPath->nStepNum)
-    {
-        return 1;
-    }
-
-    return pDynamicPath->tGameCoords.wPosX == pDynamicPath->tTargetCoord.X && pDynamicPath->tGameCoords.wPosY == pDynamicPath->tTargetCoord.Y;
-}
-
 // 0x00679380
 int __stdcall PATH_GetTableHeuristic(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2)
 {

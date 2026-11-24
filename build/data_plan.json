@@ -4329,12 +4329,12 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Common/Unknown_0064FC60.cpp": {
+  "Source/D2Common/Unknown_0064FAD0.cpp": {
    "bytes": 1536,
    "definitions": 1,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Common/Unknown_0064FC60.inc",
+   "include": "gen/data/Source/D2Common/Unknown_0064FAD0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -131767,7 +131767,7 @@
    "cname": "gData_006EB7E0",
    "declared": true,
    "decorated": "?gaTanToDirectionTable@@3PAHA",
-   "file": "Source/D2Common/Unknown_0064FC60.cpp",
+   "file": "Source/D2Common/Unknown_0064FAD0.cpp",
    "form": "declared",
    "fwd": "extern \"C\" const int gData_006EB7E0[128 * 3]; // 0x006EB7E0",
    "head": "extern \"C\" const int gData_006EB7E0[128 * 3] = ",
