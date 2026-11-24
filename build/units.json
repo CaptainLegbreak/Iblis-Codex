@@ -1783,12 +1783,12 @@
     {
      "va": "0x0040F520",
      "length": 16,
-     "name": "?sub_0040F520_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?Next@?$TSLink@UMessage@LogManager@@@@QAEPAUMessage@LogManager@@XZ"
     },
     {
      "va": "0x0040F530",
      "length": 50,
-     "name": "??1sub_0040F530@@QAE@XZ"
+     "name": "?Unlink@?$TSLink@UMessage@LogManager@@@@QAEXXZ"
     },
     {
      "va": "0x0040F570",
@@ -1798,7 +1798,7 @@
     {
      "va": "0x0040F580",
      "length": 11,
-     "name": "?sub_0040F580_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
+     "name": "?InitializeTerminator@?$TSList@UMessage@LogManager@@U?$TSGetLink@UMessage@LogManager@@@@@@QAEXXZ"
     },
     {
      "va": "0x0040F590",
@@ -1828,7 +1828,7 @@
     {
      "va": "0x0040F7C0",
      "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?Head@?$TSList@UMessage@LogManager@@U?$TSGetLink@UMessage@LogManager@@@@@@QAEPAUMessage@LogManager@@XZ"
     },
     {
      "va": "0x0040F7D0",
@@ -1838,7 +1838,7 @@
     {
      "va": "0x0040F810",
      "length": 16,
-     "name": "??0sub_0040F810@@QAE@XZ"
+     "name": "??0?$TSLink@UMessage@LogManager@@@@QAE@XZ"
     },
     {
      "va": "0x0040F820",
