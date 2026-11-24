@@ -8,10 +8,10 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 
 struct D2StormArrayAStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned int* m_data;
+    unsigned int m_chunk;
 
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
@@ -22,12 +22,12 @@ struct D2StormArrayAStrc
     }
     void Reserve(unsigned int nCount, int bRound)
     {
-        nCount += f_4;
-        if (nCount > f_0)
+        nCount += m_count;
+        if (nCount > m_alloc)
         {
             if (bRound)
             {
-                unsigned int nChunk = f_C ? f_C : sub_004210A0_CalcChunkSize(nCount);
+                unsigned int nChunk = m_chunk ? m_chunk : sub_004210A0_CalcChunkSize(nCount);
                 nCount = RoundUp(nCount, nChunk);
             }
             sub_004216E0_ReallocData(nCount);
@@ -35,18 +35,18 @@ struct D2StormArrayAStrc
     }
     void SetCount(unsigned int nCount)
     {
-        if (nCount > f_4)
-            Reserve(nCount - f_4, 1);
-        f_4 = nCount;
+        if (nCount > m_count)
+            Reserve(nCount - m_count, 1);
+        m_count = nCount;
     }
     void GrowToFit(unsigned int nIndex, int bZero)
     {
-        if (nIndex < f_4)
+        if (nIndex < m_count)
             return;
-        Reserve(nIndex - f_4 + 1, 1);
+        Reserve(nIndex - m_count + 1, 1);
         if (bZero)
-            SMemZero(&f_8[f_4], (nIndex - f_4 + 1) * sizeof(unsigned int));
-        f_4 = nIndex + 1;
+            SMemZero(&m_data[m_count], (nIndex - m_count + 1) * sizeof(unsigned int));
+        m_count = nIndex + 1;
     }
     unsigned int CalcChunkSizeInline(unsigned int nCount)
     {
@@ -56,21 +56,21 @@ struct D2StormArrayAStrc
                 nCount &= nCount - 1;
             return nCount < 1 ? 1 : nCount;
         }
-        f_C = 0x40;
+        m_chunk = 0x40;
         return 0x40;
     }
     void GrowToFitInline(unsigned int nIndex)
     {
-        if (nIndex < f_4)
+        if (nIndex < m_count)
             return;
         unsigned int nCount = nIndex + 1;
-        if (nCount > f_0)
+        if (nCount > m_alloc)
         {
-            unsigned int nChunk = f_C ? f_C : CalcChunkSizeInline(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : CalcChunkSizeInline(nCount);
             sub_004216E0_ReallocData(RoundUp(nCount, nChunk));
         }
-        SMemZero(&f_8[f_4], (nIndex - f_4 + 1) * sizeof(unsigned int));
-        f_4 = nIndex + 1;
+        SMemZero(&m_data[m_count], (nIndex - m_count + 1) * sizeof(unsigned int));
+        m_count = nIndex + 1;
     }
     unsigned int sub_004210A0_CalcChunkSize(unsigned int nCount);                                           // 0x004210A0
     void sub_004215C0_Set(unsigned int nCount, const unsigned int* pData);                                  // 0x004215C0
@@ -79,10 +79,10 @@ struct D2StormArrayAStrc
 
 struct D2StormArrayBStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned char* m_data;
+    unsigned int m_chunk;
 
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
@@ -100,17 +100,17 @@ struct D2StormArrayBStrc
                 nResult &= nResult - 1;
             return nResult < 1 ? 1 : nResult;
         }
-        f_C = 0x100;
+        m_chunk = 0x100;
         return 0x100;
     }
     void Reserve(unsigned int nCount, int bRound)
     {
-        nCount += f_4;
-        if (nCount > f_0)
+        nCount += m_count;
+        if (nCount > m_alloc)
         {
             if (bRound)
             {
-                unsigned int nChunk = f_C ? f_C : CalcChunkSize(nCount);
+                unsigned int nChunk = m_chunk ? m_chunk : CalcChunkSize(nCount);
                 nCount = RoundUp(nCount, nChunk);
             }
             sub_004211C0_ReallocData(nCount);
@@ -120,23 +120,23 @@ struct D2StormArrayBStrc
     {
         Reserve(nCount, 1);
         for (unsigned int i = 0; i < nCount; i++, pData++)
-            new (&f_8[f_4 + i]) unsigned char(*pData);
-        f_4 += nCount;
+            new (&m_data[m_count + i]) unsigned char(*pData);
+        m_count += nCount;
     }
     unsigned char* New()
     {
         Reserve(1, 1);
-        return &f_8[f_4++];
+        return &m_data[m_count++];
     }
     void sub_004211C0_ReallocData(unsigned int nAlloc);                                                     // 0x004211C0
 };
 
 struct D2StormArrayCStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    char* m_data;
+    unsigned int m_chunk;
 
     void sub_00421A50_Set(unsigned int nCount, const char* pData);                                          // 0x00421A50
     unsigned int sub_00421F60_Add(unsigned int nCount, const char* pData);                                  // 0x00421F60
@@ -149,20 +149,20 @@ struct BigBuffer
 
     unsigned int Count() const
     {
-        return m_array.f_4 - m_start;
+        return m_array.m_count - m_start;
     }
     int IsUsed(unsigned int nIndex) const
     {
-        return nIndex + m_start < m_array.f_4;
+        return nIndex + m_start < m_array.m_count;
     }
     unsigned int operator[](unsigned int nIndex) const
     {
-        return IsUsed(nIndex) ? m_array.f_8[m_start + nIndex] : 0;
+        return IsUsed(nIndex) ? m_array.m_data[m_start + nIndex] : 0;
     }
     __forceinline unsigned int& operator[](unsigned int nIndex)
     {
         m_array.GrowToFit(m_start + nIndex, 1);
-        return m_array.f_8[m_start + nIndex];
+        return m_array.m_data[m_start + nIndex];
     }
     void SetCount(unsigned int nCount)
     {
@@ -171,19 +171,19 @@ struct BigBuffer
     void CopyFrom(const BigBuffer& tSource)
     {
         if (this != &tSource)
-            m_array.sub_004215C0_Set(tSource.m_array.f_4, tSource.m_array.f_8);
-        m_array.f_C = tSource.m_array.f_C;
+            m_array.sub_004215C0_Set(tSource.m_array.m_count, tSource.m_array.m_data);
+        m_array.m_chunk = tSource.m_array.m_chunk;
         m_start = tSource.m_start;
     }
     unsigned int& Ref(int nIndex)
     {
         GrowToFit(nIndex);
-        return m_array.f_8[m_start + nIndex];
+        return m_array.m_data[m_start + nIndex];
     }
     inline unsigned int& At(unsigned int nIndex)
     {
         m_array.GrowToFitInline(m_start + nIndex);
-        return m_array.f_8[m_start + nIndex];
+        return m_array.m_data[m_start + nIndex];
     }
     void SetStart(unsigned int nStart)
     {
@@ -231,7 +231,7 @@ inline unsigned int ExtractLowPartSx(unsigned __int64& nValue)
 // 0x004225C0
 static void __stdcall sub_004225C0_DivUInt(unsigned int* pRemainder, const BigBuffer& b, unsigned __int64 c, BigBuffer& a)
 {
-    a.m_array.SetCount((int)a.m_start - (int)b.m_start + b.m_array.f_4);
+    a.m_array.SetCount((int)a.m_start - (int)b.m_start + b.m_array.m_count);
     unsigned __int64 nData = 0;
     unsigned int i = b.Count();
     while (i)

@@ -1781,12 +1781,12 @@ inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
 
 inline void D2StormArray408Strc::ReserveInline(unsigned int nCount, int bRound)
 {
-    nCount += f_4;
-    if (nCount > f_0)
+    nCount += m_count;
+    if (nCount > m_alloc)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : sub_0051D2F0_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_0051D2F0_CalcChunkSize(nCount);
             nCount = RoundUpInline(nCount, nChunk);
         }
         sub_0051D5D0_ReallocData(nCount);
@@ -1795,9 +1795,9 @@ inline void D2StormArray408Strc::ReserveInline(unsigned int nCount, int bRound)
 
 D2StormArray408Strc* D2StormArray408Strc::sub_0051D2C0_InitBase()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
     return this;
 }
 
@@ -1818,14 +1818,14 @@ void __fastcall BNNEWS_CopyNewsItem(D2Storm408ElemStrc* pDst, const D2Storm408El
 
 void D2StormArray408Strc::sub_0051D570_FreeData()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
 }
 
 void D2StormArray408Strc::sub_0051D670_FreeData()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
 }
 
 // 0x00407A80
@@ -1911,32 +1911,32 @@ int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRea
 
 void D2StormArray408Strc::sub_0051D6A0_Clear()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    if (m_data)
+        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 D2StormArray408Strc* D2StormArray408Strc::sub_0051D720_Init()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-    f_C = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
+    m_chunk = 0;
     return this;
 }
 
 void D2StormArray408Strc::sub_0051D730_FreeData()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
 }
 
 D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
 {
     ReserveInline(1, 1);
-    return &f_8[f_4++];
+    return &m_data[m_count++];
 }
 
 // 0x00406930
@@ -2129,10 +2129,10 @@ int __fastcall FOG_GetSavePath(char* szPath, int nSize)
 // 0x00407260
 D2StormArray408Strc* D2StormArray408Strc::sub_0051D690_Init()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-    f_C = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
+    m_chunk = 0;
     return this;
 }
 

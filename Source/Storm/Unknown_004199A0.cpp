@@ -84,29 +84,29 @@ struct AUDIOSTREAM
 
 struct D2StormUIntArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned int* m_data;
+    unsigned int m_chunk;
 
     ~D2StormUIntArrayStrc()
     {
-        if (f_8)
-            SMemFree(f_8, gszTypeNameUInt_00708874, -2, 0);
+        if (m_data)
+            SMemFree(m_data, gszTypeNameUInt_00708874, -2, 0);
     }
 };
 
 struct D2StormUCharArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned char* m_data;
+    unsigned int m_chunk;
 
     ~D2StormUCharArrayStrc()
     {
-        if (f_8)
-            SMemFree(f_8, gszTypeNameUChar_00708880, -2, 0);
+        if (m_data)
+            SMemFree(m_data, gszTypeNameUChar_00708880, -2, 0);
     }
 };
 

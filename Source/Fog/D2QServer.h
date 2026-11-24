@@ -82,7 +82,11 @@ struct D2QClientStrc
         int iSocket;
     };
     int nSlot;                                              // 0x014
-    unsigned int nAddress;                                  // 0x018
+    union
+    {
+        unsigned int nAddress;                              // 0x018
+        D2InAddrStrc tAddress;
+    };
     D2QClientStrc* pNextByAddress;                          // 0x01C
     int nContext;                                           // 0x020
     union
@@ -161,7 +165,7 @@ struct D2QAcceptStatsStrc
     int nRejected;                                          // 0xA0
     int nPostErrors;                                        // 0xA4
     int nAccepted;                                          // 0xA8
-    char unk_AC[0xB0 - 0xAC];                               // 0xAC
+    int nActive;                                            // 0xAC
 };
 #pragma pack(pop)
 
@@ -183,6 +187,13 @@ struct D2MessageStrc
     D2MessageStrc* pNext;                                   // 0x5BC
 };
 
+// A masked-address entry: an address matches when (address & gaMaskTable[nMaskIndex]) == tAddress.
+struct D2QMaskEntryStrc
+{
+    D2InAddrStrc tAddress;                                  // 0x00
+    int nMaskIndex;                                         // 0x04
+};
+
 struct D2QueueServerStrc
 {
     int bAltSend;                                           // 0x000
@@ -202,10 +213,12 @@ struct D2QueueServerStrc
         D2QLockStrc* pClientLocks;
     };
     D2QClientStrc** ppAddressBuckets;                       // 0x020
-    int unk0x024;                                           // 0x024
+    int nAddressBuckets;                                    // 0x024
     D2CriticalSectionStrc tAddressLock;                     // 0x028
     D2QIpCountStrc** ppIpCounts;                            // 0x040
-    int unk0x044[0x202];                                    // 0x044
+    int nIpCountBuckets;                                    // 0x044
+    D2QMaskEntryStrc aMasks[256];                           // 0x048
+    int nMasks;                                             // 0x848
     D2QServerNodeStrc* pHead;                               // 0x84C
     D2QServerNodeStrc* pTail;                               // 0x850
     D2CriticalSectionStrc tLock;                            // 0x854
@@ -224,7 +237,7 @@ struct D2QueueServerStrc
         int nLimit;                                         // 0x884
         int bRunning;
     };
-    int unk0x888;                                           // 0x888
+    unsigned int dwLastExpireTick;                          // 0x888
     D2QServerNodeStrc* pFreeRecords;                        // 0x88C
     int nRecordCount;                                       // 0x890
     D2CriticalSectionStrc tRecordLock;                      // 0x894
@@ -309,9 +322,9 @@ struct D2QueueServerStrc
             unsigned long aThreadIds2[4];                   // 0xC2C
         };
     };
-    int nSlots[1];                                          // 0xC3C
+    int nSlots[4];                                          // 0xC3C
 
+    void __thiscall ExpireEntries();                                                                 // 0x006BE700
     int __thiscall RefreshRecord(unsigned int nKey);                                                 // 0x006BE980
-    int __thiscall sub_006BF660_CheckClient(int nClientId);                                                 // 0x006BF660
-    int __thiscall sub_006BF660_CheckAddress(unsigned int nAddress);                                        // 0x006BF660
+    int __thiscall HasMaskedKey(unsigned int nKey);                                                  // 0x006BF660
 };

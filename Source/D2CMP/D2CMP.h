@@ -407,10 +407,10 @@ struct D2Storm416A90Strc
 
 struct D2StormArray408Strc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2Storm408ElemStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2Storm408ElemStrc* m_data;
+    unsigned int m_chunk;
 
     D2StormArray408Strc* sub_0051D2C0_InitBase();
     unsigned int sub_0051D2F0_CalcChunkSize(unsigned int nCount);

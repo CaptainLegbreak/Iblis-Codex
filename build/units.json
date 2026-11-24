@@ -32996,12 +32996,12 @@
     {
      "va": "0x004F04F0",
      "length": 154,
-     "name": "?sub_004F04F0_CreateMissileFan@@YGHHHHHPAUD2UnitStrc@@@Z"
+     "name": "?SKILLSEMON_CreateMissileFan@@YGHHHHHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004F0590",
      "length": 179,
-     "name": "?sub_004F0590_CreateCltMissileRequest@@YGHHHHHPAUD2UnitStrc@@@Z"
+     "name": "?SKILLSEMON_CreateMissileRequest@@YGHHHHHPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004F0C20",
@@ -77627,20 +77627,14 @@
    ]
   },
   {
-   "file": "Source/D2Common/Unknown_0067D2D0.cpp",
+   "file": "Source/D2Common/DRLG/OutRoom.cpp",
    "rank": 0,
    "functions": [
     {
      "va": "0x0067D2D0",
      "length": 616,
      "name": "DRLGOUTROOM_InitOutdoorRoomGrids"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/OutRoom.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0067D540",
      "length": 133,
@@ -77675,13 +77669,7 @@
      "va": "0x0067D7A0",
      "length": 12,
      "name": "DRLGOUTROOM_CheckOutdoorRoomFlag"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/Unknown_0067D7B0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0067D7B0",
      "length": 40,

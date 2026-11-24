@@ -55,10 +55,10 @@ struct D2StormEntry38Strc;
 
 struct D2StormSlotArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormSlotListStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2StormSlotListStrc* m_data;
+    unsigned int m_chunk;
 };
 
 struct CELLIST;
@@ -124,11 +124,11 @@ public:
 
 struct D2StormCritSectStrc
 {
-    D2CriticalSectionStrc f_0;
+    D2CriticalSectionStrc m_critsect;
 
     ~D2StormCritSectStrc()
     {
-        DeleteCriticalSection(&f_0);
+        DeleteCriticalSection(&m_critsect);
     }
 };
 
@@ -166,5 +166,5 @@ D2GameExportTableSimpleStrc::TSExportTableSimple()
 // 0x00604810
 D2GameDataTableStrc::TSExportTableSync()
 {
-    InitializeCriticalSection(&m_sync.f_0);
+    InitializeCriticalSection(&m_sync.m_critsect);
 }

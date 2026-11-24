@@ -11,10 +11,10 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 
 struct D2StormArrayBStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned char* m_data;
+    unsigned int m_chunk;
 
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
@@ -31,17 +31,17 @@ struct D2StormArrayBStrc
                 nCount &= nCount - 1;
             return nCount < 1 ? 1 : nCount;
         }
-        f_C = 0x100;
+        m_chunk = 0x100;
         return 0x100;
     }
     void Reserve(unsigned int nCount, int bRound)
     {
-        nCount += f_4;
-        if (nCount > f_0)
+        nCount += m_count;
+        if (nCount > m_alloc)
         {
             if (bRound)
             {
-                unsigned int nChunk = f_C ? f_C : CalcChunkSize(nCount);
+                unsigned int nChunk = m_chunk ? m_chunk : CalcChunkSize(nCount);
                 nCount = RoundUp(nCount, nChunk);
             }
             sub_004211C0_ReallocData(nCount);
@@ -51,17 +51,17 @@ struct D2StormArrayBStrc
     {
         Reserve(nCount, 1);
         for (unsigned int i = 0; i < nCount; i++, pData++)
-            new (&f_8[f_4 + i]) unsigned char(*pData);
-        f_4 += nCount;
+            new (&m_data[m_count + i]) unsigned char(*pData);
+        m_count += nCount;
     }
     void ReserveCall(unsigned int nCount, int bRound)
     {
-        nCount += f_4;
-        if (nCount > f_0)
+        nCount += m_count;
+        if (nCount > m_alloc)
         {
             if (bRound)
             {
-                unsigned int nChunk = f_C ? f_C : sub_00421160_CalcChunkSize(nCount);
+                unsigned int nChunk = m_chunk ? m_chunk : sub_00421160_CalcChunkSize(nCount);
                 nCount = RoundUp(nCount, nChunk);
             }
             sub_004211C0_ReallocData(nCount);
@@ -70,7 +70,7 @@ struct D2StormArrayBStrc
     unsigned char* New()
     {
         ReserveCall(1, 1);
-        return &f_8[f_4++];
+        return &m_data[m_count++];
     }
     unsigned int sub_00421160_CalcChunkSize(unsigned int nCount);                                           // 0x00421160
     void sub_004211C0_ReallocData(unsigned int nAlloc);                                                     // 0x004211C0
@@ -78,10 +78,10 @@ struct D2StormArrayBStrc
 
 struct D2StormArrayCStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    char* m_data;
+    unsigned int m_chunk;
 
     void sub_00421A50_Set(unsigned int nCount, const char* pData);                                          // 0x00421A50
     unsigned int sub_00421F60_Add(unsigned int nCount, const char* pData);                                  // 0x00421F60
@@ -239,7 +239,7 @@ static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput
 {
     BigBuffer& tBuffer = tStack.f_0[tStack.nUsed++];
     tBuffer.CopyFrom(tNumber);
-    tOutput.f_4 = 0;
+    tOutput.m_count = 0;
     do
     {
         unsigned int nDigit;
@@ -249,11 +249,11 @@ static void __stdcall ToStr(const BigBuffer& tNumber, D2StormArrayBStrc& tOutput
         *pChar = (unsigned char)(nDigit + '0');
         tOutput.Add(1, pChar);
     } while (BigCompareUInt(tBuffer, 0));
-    unsigned int nCount = tOutput.f_4;
+    unsigned int nCount = tOutput.m_count;
     for (unsigned int i = 0; i < nCount / 2; i++)
     {
-        unsigned char& nNear = tOutput.f_8[i];
-        unsigned char& nFar = tOutput.f_8[nCount - i - 1];
+        unsigned char& nNear = tOutput.m_data[i];
+        unsigned char& nFar = tOutput.m_data[nCount - i - 1];
         unsigned char nSwap = nNear;
         nNear = nFar;
         nFar = nSwap;
@@ -339,23 +339,23 @@ void __stdcall SBigToStrArray(D2StormBigStrc* pBig, D2StormArrayCStrc* pArray, i
 {
     ToStr(pBig->tPrimary, pBig->tOutput, pBig->tStack);
     if (bAppend)
-        pArray->sub_00421F60_Add(pBig->tOutput.f_4, (const char*)pBig->tOutput.f_8);
+        pArray->sub_00421F60_Add(pBig->tOutput.m_count, (const char*)pBig->tOutput.m_data);
     else
-        pArray->sub_00421A50_Set(pBig->tOutput.f_4, (const char*)pBig->tOutput.f_8);
+        pArray->sub_00421A50_Set(pBig->tOutput.m_count, (const char*)pBig->tOutput.m_data);
 }
 
 // 0x00423C20
 void __stdcall SBigToStrBuffer(D2StormBigStrc* pBig, char* szBuffer, unsigned int nSize)
 {
     ToStr(pBig->tPrimary, pBig->tOutput, pBig->tStack);
-    SStrCopy(szBuffer, (const char*)pBig->tOutput.f_8, nSize);
+    SStrCopy(szBuffer, (const char*)pBig->tOutput.m_data, nSize);
 }
 
 // 0x00423C60
 void __stdcall SBigToStrPtr(D2StormBigStrc* pBig, const char** pszString)
 {
     ToStr(pBig->tPrimary, pBig->tOutput, pBig->tStack);
-    *pszString = (const char*)pBig->tOutput.f_8;
+    *pszString = (const char*)pBig->tOutput.m_data;
 }
 
 static void __stdcall Div(BigBuffer& a, BigBuffer& b, BigBuffer& c, BigBuffer& d, BigStack& tStack) // 0x00423DC0

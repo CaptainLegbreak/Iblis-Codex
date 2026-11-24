@@ -15,10 +15,10 @@ void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szF
 
 struct D2StormArrayAStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned int* m_data;
+    unsigned int m_chunk;
     void sub_004216E0_ReallocData(unsigned int nAlloc);
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
@@ -33,10 +33,10 @@ struct D2StormArrayAStrc
 
 struct D2StormArrayBStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned char* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned char* m_data;
+    unsigned int m_chunk;
     void sub_004211C0_ReallocData(unsigned int nAlloc);
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
@@ -51,28 +51,28 @@ struct D2StormArrayBStrc
     void sub_004219F0_Set(unsigned int nCount, const unsigned char* pData);                                 // 0x004219F0
     void Reserve(unsigned int nCount)
     {
-        nCount += f_4;
-        if (nCount > f_0)
+        nCount += m_count;
+        if (nCount > m_alloc)
         {
-            unsigned int nChunk = f_C ? f_C : sub_00421160_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_00421160_CalcChunkSize(nCount);
             sub_004211C0_ReallocData(RoundUp(nCount, nChunk));
         }
     }
     void Push(unsigned char nByte)
     {
         Reserve(1);
-        f_8[f_4] = nByte;
-        f_4 += 1;
+        m_data[m_count] = nByte;
+        m_count += 1;
     }
     unsigned int sub_004219D0_AddOne(const unsigned char* pData);
 };
 
 struct D2StormArrayCStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    void* m_data;
+    unsigned int m_chunk;
 
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
@@ -120,17 +120,17 @@ inline void* operator new(unsigned int, void* pPlace) throw()
 // 0x004211C0
 void D2StormArrayBStrc::sub_004211C0_ReallocData(unsigned int nAlloc)
 {
-    unsigned char* pOld = f_8;
-    f_0 = nAlloc;
-    f_8 = (unsigned char*)SMemReAlloc(pOld, nAlloc, gszTypeNameUChar_00708880, -2, 0x10);
-    if (!f_8)
+    unsigned char* pOld = m_data;
+    m_alloc = nAlloc;
+    m_data = (unsigned char*)SMemReAlloc(pOld, nAlloc, gszTypeNameUChar_00708880, -2, 0x10);
+    if (!m_data)
     {
-        f_8 = (unsigned char*)SMemAlloc(nAlloc, gszTypeNameUChar_00708880, -2, 0);
+        m_data = (unsigned char*)SMemAlloc(nAlloc, gszTypeNameUChar_00708880, -2, 0);
         if (pOld)
         {
-            unsigned int nCount = nAlloc < f_4 ? nAlloc : f_4;
+            unsigned int nCount = nAlloc < m_count ? nAlloc : m_count;
             for (unsigned int i = 0; i < nCount; i++)
-                new (&f_8[i]) unsigned char(pOld[i]);
+                new (&m_data[i]) unsigned char(pOld[i]);
             SMemFree(pOld, gszTypeNameUChar_00708880, -2, 0);
         }
     }
@@ -139,17 +139,17 @@ void D2StormArrayBStrc::sub_004211C0_ReallocData(unsigned int nAlloc)
 // 0x004216E0
 void D2StormArrayAStrc::sub_004216E0_ReallocData(unsigned int nAlloc)
 {
-    unsigned int* pOld = f_8;
-    f_0 = nAlloc;
-    f_8 = (unsigned int*)SMemReAlloc(pOld, nAlloc * 4, gszTypeNameUInt_00708874, -2, 0x10);
-    if (!f_8)
+    unsigned int* pOld = m_data;
+    m_alloc = nAlloc;
+    m_data = (unsigned int*)SMemReAlloc(pOld, nAlloc * 4, gszTypeNameUInt_00708874, -2, 0x10);
+    if (!m_data)
     {
-        f_8 = (unsigned int*)SMemAlloc(nAlloc * 4, gszTypeNameUInt_00708874, -2, 0);
+        m_data = (unsigned int*)SMemAlloc(nAlloc * 4, gszTypeNameUInt_00708874, -2, 0);
         if (pOld)
         {
-            unsigned int nCount = nAlloc < f_4 ? nAlloc : f_4;
+            unsigned int nCount = nAlloc < m_count ? nAlloc : m_count;
             for (unsigned int i = 0; i < nCount; i++)
-                new (&f_8[i]) unsigned int(pOld[i]);
+                new (&m_data[i]) unsigned int(pOld[i]);
             SMemFree(pOld, gszTypeNameUInt_00708874, -2, 0);
         }
     }
@@ -160,12 +160,12 @@ void D2StormArrayAStrc::sub_004216E0_ReallocData(unsigned int nAlloc)
 // 0x00421630
 void D2StormArrayBStrc::sub_00421630_Reserve(unsigned int nCount, int bRound)
 {
-    nCount += f_4;
-    if (nCount > f_0)
+    nCount += m_count;
+    if (nCount > m_alloc)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : sub_00421160_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_00421160_CalcChunkSize(nCount);
             nCount = RoundUp(nCount, nChunk);
         }
         sub_004211C0_ReallocData(nCount);
@@ -175,12 +175,12 @@ void D2StormArrayBStrc::sub_00421630_Reserve(unsigned int nCount, int bRound)
 // 0x00421AB0
 void D2StormArrayAStrc::sub_00421AB0_Reserve(unsigned int nCount, int bRound)
 {
-    nCount += f_4;
-    if (nCount > f_0)
+    nCount += m_count;
+    if (nCount > m_alloc)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : sub_004210A0_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_004210A0_CalcChunkSize(nCount);
             nCount = RoundUp(nCount, nChunk);
         }
         sub_004216E0_ReallocData(nCount);
@@ -190,12 +190,12 @@ void D2StormArrayAStrc::sub_00421AB0_Reserve(unsigned int nCount, int bRound)
 // 0x00421B00
 void D2StormArrayCStrc::sub_00421B00_Reserve(unsigned int nCount, int bRound)
 {
-    nCount += f_4;
-    if (nCount > f_0)
+    nCount += m_count;
+    if (nCount > m_alloc)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : sub_00421240_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_00421240_CalcChunkSize(nCount);
             nCount = RoundUp(nCount, nChunk);
         }
         sub_00421770_ReallocData(nCount);
@@ -212,12 +212,12 @@ inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
 
 inline void D2StormArray408Strc::ReserveInline(unsigned int nCount, int bRound)
 {
-    nCount += f_4;
-    if (nCount > f_0)
+    nCount += m_count;
+    if (nCount > m_alloc)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : sub_0051D2F0_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_0051D2F0_CalcChunkSize(nCount);
             nCount = RoundUpInline(nCount, nChunk);
         }
         sub_0051D5D0_ReallocData(nCount);
@@ -226,9 +226,9 @@ inline void D2StormArray408Strc::ReserveInline(unsigned int nCount, int bRound)
 
 D2StormArray408Strc* D2StormArray408Strc::sub_0051D2C0_InitBase()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
     return this;
 }
 
@@ -241,54 +241,54 @@ void __fastcall BNNEWS_CopyNewsItem(D2Storm408ElemStrc* pDst, const D2Storm408El
 
 void D2StormArray408Strc::sub_0051D570_FreeData()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
 }
 
 void D2StormArray408Strc::sub_0051D670_FreeData()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
 }
 
 // 0x004218A0
 D2StormArray408Strc* D2StormArray408Strc::sub_0051D690_Init()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-    f_C = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
+    m_chunk = 0;
     return this;
 }
 
 void D2StormArray408Strc::sub_0051D6A0_Clear()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
+    if (m_data)
+        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
 }
 
 D2StormArray408Strc* D2StormArray408Strc::sub_0051D720_Init()
 {
-    f_0 = 0;
-    f_4 = 0;
-    f_8 = 0;
-    f_C = 0;
+    m_alloc = 0;
+    m_count = 0;
+    m_data = 0;
+    m_chunk = 0;
     return this;
 }
 
 void D2StormArray408Strc::sub_0051D730_FreeData()
 {
-    if (f_8)
-        SMemFree(f_8, gszTypeNewsTableItem_0072FF8C, -2, 0);
+    if (m_data)
+        SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
 }
 
 D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
 {
     ReserveInline(1, 1);
-    return &f_8[f_4++];
+    return &m_data[m_count++];
 }
 
 inline unsigned int D2StormArrayBStrc::sub_00421160_CalcChunkSize(unsigned int nCount)
@@ -300,7 +300,7 @@ inline unsigned int D2StormArrayBStrc::sub_00421160_CalcChunkSize(unsigned int n
             nResult &= nResult - 1;
         return nResult < 1 ? 1 : nResult;
     }
-    f_C = 0x100;
+    m_chunk = 0x100;
     return 0x100;
 }
 

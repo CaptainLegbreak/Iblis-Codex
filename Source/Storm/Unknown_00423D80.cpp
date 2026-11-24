@@ -10,23 +10,23 @@ void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szF
 
 struct D2StormFixedArrayAStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    unsigned int* f_8;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    unsigned int* m_data;
 
     D2StormFixedArrayAStrc& operator=(const D2StormFixedArrayAStrc& tSource)
     {
         if (this != &tSource)
         {
-            sub_004215C0_Set(tSource.f_4, tSource.f_8);
+            sub_004215C0_Set(tSource.m_count, tSource.m_data);
         }
         return *this;
     }
     void InlineReallocData(unsigned int nAlloc)
     {
-        f_0 = nAlloc;
-        if (f_8 || nAlloc)
-            f_8 = (unsigned int*)SMemReAlloc(f_8, nAlloc * sizeof(unsigned int), gszTypeNameUInt_00708874, -2, 0);
+        m_alloc = nAlloc;
+        if (m_data || nAlloc)
+            m_data = (unsigned int*)SMemReAlloc(m_data, nAlloc * sizeof(unsigned int), gszTypeNameUInt_00708874, -2, 0);
     }
     void sub_004215C0_Set(unsigned int nCount, const unsigned int* pData);
 };
@@ -36,8 +36,8 @@ void D2StormFixedArrayAStrc::sub_004215C0_Set(unsigned int nCount, const unsigne
 {
     InlineReallocData(nCount);
     for (unsigned int i = 0; i < nCount; i++, pData++)
-        new (&f_8[i]) unsigned int(*pData);
-    f_4 = nCount;
+        new (&m_data[i]) unsigned int(*pData);
+    m_count = nCount;
 }
 
 #include "D2StormArrayA.h"
