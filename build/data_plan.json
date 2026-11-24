@@ -3849,7 +3849,7 @@
    "definitions": 4,
    "externs": [],
    "fn_types": {},
-   "include": "gen/data/Source/D2Common/DRLG/DrlgActivate_0061B170.inc",
+   "include": "gen/data/Source/D2Common/DRLG/DrlgActivate.inc",
    "lang": "cpp",
    "state": "included"
   },

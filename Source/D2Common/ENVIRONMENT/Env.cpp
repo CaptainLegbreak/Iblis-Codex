@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2DrlgRooms.h"
+#include "D2DataTbls.h"
 
 struct D2DrlgActStrc;
 
@@ -515,6 +516,19 @@ void __stdcall ENVIRONMENT_GetStatistics(D2DrlgActStrc* pAct, float* pCos, float
     *a5 = 0;
 }
 
+struct Act;
+struct Environment { char pad[0x28]; int timeFields[2]; };
+
+Environment* __fastcall sub_0061AA60(Act*); // 0x0061AA60
+
+enum { TIME_RATE_FIELD = 0 };
+
+// 0x0061C390
+int __stdcall sub_0061C390(Act* act)
+{
+    return sub_0061AA60(act)->timeFields[TIME_RATE_FIELD];
+}
+
 // 0x0061C3B0
 void __stdcall ENVIRONMENT_SetNextTimeRate(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom)
 {
@@ -557,6 +571,14 @@ void __stdcall ENVIRONMENT_TaintedSunEnd(D2DrlgActStrc* pAct)
     pEnvironment->nTimeRateIndex = 0;
     pEnvironment->nTimeRate = gnTimeRates[0];
     ENVIRONMENT_InitializeEnvironment(pAct, 0, ENVCYCLE_NOON, 0, 0);
+}
+
+extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
+// 0x0061C530
+int __cdecl sub_0061C530_GetLvlPrestTxtRecordCount()
+{
+    return sgptDataTables->nLvlPrestTxtRecordCount;
 }
 
 #include "gen/data/Source/D2Common/ENVIRONMENT/Env.inc"
