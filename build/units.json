@@ -61121,6 +61121,21 @@
      "name": "?ITEMS_RollTemperedItemAffix@@YIGPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x005C1BF0",
+     "length": 651,
+     "name": "?sub_005C1BF0_RollRareItemNew@@YGHPAUD2ItemDropStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005C1E80",
+     "length": 799,
+     "name": "?ITEMS_RollLegacyRareItem@@YGHPAUD2ItemDropStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x005C21A0",
+     "length": 48,
+     "name": "?D2GAME_RollRareItem_6FC53360@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
+    },
+    {
      "va": "0x005C21D0",
      "length": 873,
      "name": "?ITEMS_RollCraftedItem@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
@@ -61341,24 +61356,9 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_005C1BF0.cpp",
+   "file": "Source/D2Game/Unknown_005C2AF0.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x005C1BF0",
-     "length": 651,
-     "name": "?sub_005C1BF0_RollRareItemNew@@YGHPAUD2ItemDropStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005C1E80",
-     "length": 799,
-     "name": "?ITEMS_RollLegacyRareItem@@YGHPAUD2ItemDropStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x005C21A0",
-     "length": 48,
-     "name": "?D2GAME_RollRareItem_6FC53360@@YIHPAUD2UnitStrc@@PAUD2ItemDropStrc@@@Z"
-    },
     {
      "va": "0x005C2AF0",
      "length": 581,
