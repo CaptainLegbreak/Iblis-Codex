@@ -875,10 +875,6 @@
    "externs": [
     "extern \"C\" void __cdecl D2Win_10168_WINMAIN_CreateScreenshot(); // 0x004FA7A0",
     "extern \"C\" void __cdecl SCMD_ShowHelpOnce(); // 0x004689D0",
-    "extern \"C\" void __cdecl sub_00468F40_BeltHotkey0(); // 0x00468F40",
-    "extern \"C\" void __cdecl sub_00468F50_BeltHotkey1(); // 0x00468F50",
-    "extern \"C\" void __cdecl sub_00468F60_BeltHotkey2(); // 0x00468F60",
-    "extern \"C\" void __cdecl sub_00468F70_BeltHotkey3(); // 0x00468F70",
     "extern \"C\" void __cdecl HIREABLES_TogglePetIconPopup(); // 0x00493840"
    ],
    "fn_types": {},
@@ -41624,7 +41620,7 @@
     [
      276,
      "0x00468F40",
-     "names.json",
+     "owner",
      "sub_00468F40_BeltHotkey0",
      0,
      "func"
@@ -41632,7 +41628,7 @@
     [
      288,
      "0x00468F50",
-     "names.json",
+     "owner",
      "sub_00468F50_BeltHotkey1",
      0,
      "func"
@@ -41640,7 +41636,7 @@
     [
      300,
      "0x00468F60",
-     "names.json",
+     "owner",
      "sub_00468F60_BeltHotkey2",
      0,
      "func"
@@ -41648,7 +41644,7 @@
     [
      312,
      "0x00468F70",
-     "names.json",
+     "owner",
      "sub_00468F70_BeltHotkey3",
      0,
      "func"

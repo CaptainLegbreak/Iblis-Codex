@@ -1717,6 +1717,38 @@ void __cdecl sub_00468F00()
     }
 }
 
+void __cdecl PANEL_BeltHotkeyFirst(); // 0x00498C50
+
+void __cdecl PANEL_BeltHotkeySecond(); // 0x00498C90
+
+void __cdecl PANEL_BeltHotkeyThird(); // 0x00498CD0
+
+void __cdecl PANEL_BeltHotkeyFourth(); // 0x00498D10
+
+// 0x00468F40
+void __cdecl sub_00468F40_BeltHotkey0()
+{
+    PANEL_BeltHotkeyFirst();
+}
+
+// 0x00468F50
+void __cdecl sub_00468F50_BeltHotkey1()
+{
+    PANEL_BeltHotkeySecond();
+}
+
+// 0x00468F60
+void __cdecl sub_00468F60_BeltHotkey2()
+{
+    PANEL_BeltHotkeyThird();
+}
+
+// 0x00468F70
+void __cdecl sub_00468F70_BeltHotkey3()
+{
+    PANEL_BeltHotkeyFourth();
+}
+
 // 0x00468F80
 void __cdecl sub_00468F80_Phrase19()
 {

@@ -18625,26 +18625,6 @@
      "va": "0x00468B20",
      "length": 99,
      "name": "?sub_00468B20_HandleHotkey@@YAXH@Z"
-    },
-    {
-     "va": "0x00468F40",
-     "length": 5,
-     "name": "?sub_00468F40_BeltHotkey0@@YAXXZ"
-    },
-    {
-     "va": "0x00468F50",
-     "length": 5,
-     "name": "?sub_00468F50_BeltHotkey1@@YAXXZ"
-    },
-    {
-     "va": "0x00468F60",
-     "length": 5,
-     "name": "?sub_00468F60_BeltHotkey2@@YAXXZ"
-    },
-    {
-     "va": "0x00468F70",
-     "length": 5,
-     "name": "?sub_00468F70_BeltHotkey3@@YAXXZ"
     }
    ]
   },
@@ -18982,6 +18962,26 @@
      "va": "0x00468F00",
      "length": 52,
      "name": "?sub_00468F00@@YAXXZ"
+    },
+    {
+     "va": "0x00468F40",
+     "length": 5,
+     "name": "?sub_00468F40_BeltHotkey0@@YAXXZ"
+    },
+    {
+     "va": "0x00468F50",
+     "length": 5,
+     "name": "?sub_00468F50_BeltHotkey1@@YAXXZ"
+    },
+    {
+     "va": "0x00468F60",
+     "length": 5,
+     "name": "?sub_00468F60_BeltHotkey2@@YAXXZ"
+    },
+    {
+     "va": "0x00468F70",
+     "length": 5,
+     "name": "?sub_00468F70_BeltHotkey3@@YAXXZ"
     },
     {
      "va": "0x00468F80",
