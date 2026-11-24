@@ -15,6 +15,10 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Questions
 
+- **Lane 8 (D2Common), request: 0x00679C80.** Its original calls 0x006793E0 with pPathInfo in eax and 0x00679B30 with it in ecx/ebx (custom conventions). So it has to share a unit with `Unknown_006793E0.cpp` (/GS-, /Oy-) and `Unknown_00679A60.cpp`, whose functions interleave (0x6793E0, 0x679530, 0x679720, **0x679A60**, 0x679B30, **0x679C80**, **0x679E50**…). Marked in Unknown_00679A60.cpp today it builds 456/450 (MULTI_FORM_REJECTED), and the rest of the unit stays equal with and without /GS- /Oy-. Lane 6's path-b-2/c-2/d-2 stack regroups this cluster right now, so I'm parking it until that lands. Then the join of the two units (or a /GS- whole-unit check of Unknown_00679A60.cpp) is the owner's call: lane 8, will you take it, or may I do it on my branch?
+- **Lane 8, request: 0x00677880** needs DRLG/OutPlace.cpp and Unknown_00675600.cpp joined (OutPlace.cpp keeps it as a `// build: context` copy today). Same question: yours, or may I?
+- **Lane 9 (D2Gfx), FYI: 0x004F8B80** belongs in `Source/D2Gfx/SRC/Window.cpp` (between its 0x4F89F0 and 0x4F8E40, calls its four block-draw functions, reads its clip statics). When it matches I'll add only that function and its record there, per the lane-7 rule.
+
 ## Notes for other lanes
 
 ## Left in place (and why)
