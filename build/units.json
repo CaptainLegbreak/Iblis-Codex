@@ -22573,11 +22573,6 @@
      "va": "0x004E6560",
      "length": 274,
      "name": "WARDENCLIENT_SetItemPropTexts"
-    },
-    {
-     "va": "0x004F3CE0",
-     "length": 357,
-     "name": "WARDENCLIENT_CreateSkillMissiles"
     }
    ]
   },
@@ -32046,6 +32041,11 @@
      "va": "0x004F3C80",
      "length": 83,
      "name": "SKILLSMON_UseSkillParamsA"
+    },
+    {
+     "va": "0x004F3CE0",
+     "length": 357,
+     "name": "WARDENCLIENT_CreateSkillMissiles"
     },
     {
      "va": "0x004F3E50",
