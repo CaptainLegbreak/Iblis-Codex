@@ -1545,11 +1545,6 @@ void __stdcall sub_0048BDF0(int nUnused1)
 }
 
 
-// 0x0049C160
-int __cdecl sub_0049C160()
-{
-    return gdwGlobal_007BF024;
-}
 
 // 0x0049E8A0
 int __cdecl sub_0049E8A0()

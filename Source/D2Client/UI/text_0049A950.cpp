@@ -523,34 +523,7 @@ static unsigned char sub_004A2610_HitTestButtonA(int nX, int nY);
 
 static void TEXT_OpenQuestDescription(int nSlot); // 0x004A27D0
 
-// 0x0049A950
-void __cdecl TEXT_DrawPanelCloseButton()
-{
-    D2CelContextStrc tContext;
-    memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = sub_00454600();
-    tContext.nFrame = (gbRosterButtonDown != 0) + 10;
-    tContext.nDirection = 0;
-    sub_004F6480(&tContext, gnPanelOffsetX + 278, 421 - gnPanelOffsetY, -1, 5, 0);
-}
 
-// 0x0049AA50
-int __stdcall TEXT_IsMouseInRect(int nX, int nY, int nWidth, int nHeight)
-{
-    int nMouseX = sub_00468730();
-    int nMouseY = sub_00468740();
-    int nLeft = nX + gnPanelOffsetX;
-    if (nMouseX >= nLeft && nMouseX <= nLeft + nWidth)
-    {
-        int nBottom = nY - gnPanelOffsetY;
-        if (nMouseY >= nBottom - nHeight && nMouseY <= nBottom)
-        {
-            return 1;
-        }
-    }
-
-    return 0;
-}
 
 
 

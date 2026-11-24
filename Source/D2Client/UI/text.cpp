@@ -1740,13 +1740,6 @@ void __cdecl TEXT_ResetNpcPanel()
 }
 
 
-// 0x0049AAA0
-int __fastcall TEXT_GetCenteredStringX(unsigned short nStringIndex, int nCenterX)
-{
-    Unicode wszText[100];
-    sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));
-    return nCenterX - D2Win_10121_GetTextWidth(wszText) / 2;
-}
 
 
 extern "C" void __cdecl sub_0049C650_CloseArchives(); // 0x0049C650

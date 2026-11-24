@@ -2306,85 +2306,12 @@ void __stdcall PANEL_BeltClickMsg(SMSGHANDLER_PARAMS* pMsg)
 
 extern D2PartyRowStrc* gpRosterUnits;  // 0x007BF014
 
-// 0x00499DE0
-D2PartyRowStrc* __fastcall sub_00499DE0_FindRoster(int nId) {
- D2PartyRowStrc* pFound=gpRosterUnits;
- while(pFound) {
-  if(pFound->nId == nId) return pFound;
-  pFound=pFound->pNext;
- }
- return 0;
-}
 
 
-// 0x00499E10
-void __cdecl PANEL_SetRedColour()
-{
-    gnBoxColor = D2Win_10034_MixRGB(0xFF, 0, 0);
-}
 
-// 0x00499E30
-void __cdecl PANEL_SetBlackColour()
-{
-    gnBoxColor = D2Win_10034_MixRGB(0, 0, 0);
-}
 
-// 0x0049C0A0
-void __cdecl PANEL_LoadPartyCels()
-{
-    gpPanelQuadCel = GAME_LoadUiCelFile("Menu\\party");
-    gpPartyButtonsCel = GAME_LoadUiCelFile("Menu\\partybuttons");
-    gpPartyBoxesCel = GAME_LoadUiCelFile("Menu\\partyboxes");
-    gpInvGoldBtnCel = GAME_LoadUiCelFile("Panel\\inv_goldbtn");
-    gpPartyBarCel = GAME_LoadUiCelFile("Menu\\partybar");
-}
 
-// 0x0049C0F0
-void __cdecl PANEL_FreePartyCels()
-{
-    if (gpPanelQuadCel)
-    {
-        ARCHIVE_FreeClientCellFile(gpPanelQuadCel);
-        gpPanelQuadCel = 0;
-    }
-    if (gpPartyButtonsCel)
-    {
-        ARCHIVE_FreeClientCellFile(gpPartyButtonsCel);
-        gpPartyButtonsCel = 0;
-    }
-    if (gpPartyBoxesCel)
-    {
-        ARCHIVE_FreeClientCellFile(gpPartyBoxesCel);
-        gpPartyBoxesCel = 0;
-    }
-    if (gpInvGoldBtnCel)
-    {
-        ARCHIVE_FreeClientCellFile(gpInvGoldBtnCel);
-        gpInvGoldBtnCel = 0;
-    }
-    if (gpPartyBarCel)
-    {
-        ARCHIVE_FreeClientCellFile(gpPartyBarCel);
-        gpPartyBarCel = 0;
-    }
-}
 
-// 0x0049C3D0
-void __cdecl PANEL_DrawPartyPanel()
-{
-    sub_00499E50_DrawPanelQuad();
-    PARTY_DrawPlayerName();
-    PARTY_DrawPartyRows();
-    PARTY_DrawPartyButtons();
-    TEXT_DrawPanelCloseButton();
-    sub_0049ABD0_DrawRosterHoverHints();
-    sub_0049B330_DrawRosterButtonHints();
-    sub_0049A9B0_RefreshRosterIndices();
-    int nX = sub_00468730();
-    int nY = sub_00468740();
-    if (nX >= gnPanelOffsetX + 0x116 && nX <= gnPanelOffsetX + 0x136 && nY >= 0x185 - gnPanelOffsetY && nY <= 0x1A5 - gnPanelOffsetY)
-        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x102F), gnPanelOffsetX + 0x125, 0x182 - gnPanelOffsetY, 0, 1);
-}
 
 // 0x004BE340
 int __fastcall PANEL_CountLinesInView(D2TextPanelStrc* pPanel)

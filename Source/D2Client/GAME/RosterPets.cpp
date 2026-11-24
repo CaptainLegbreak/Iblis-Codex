@@ -739,54 +739,6 @@ int __stdcall ROSTERPETS_HandleRectClick(SMSGHANDLER_PARAMS* pMsg)
 
 
 
-// 0x0049A460
-void __fastcall ROSTERPETS_DrawPanelLabel(int nType, int nUnused, int nY, int bAlt, unsigned short nFlag)
-{
-    int nStringId;
-    int nColor = 0;
-    int nX = 0xBE;
-    switch (nType)
-    {
-    case 1:
-        if (nFlag == 0xFFFF)
-        {
-            return;
-        }
-
-        if (bAlt)
-        {
-            nStringId = 0x1034;
-            nColor = 2;
-            nX = 0x9B;
-        }
-        else
-        {
-            nStringId = 0x1035;
-            nColor = 8;
-            nX = 0xAF;
-        }
-        break;
-    case 0:
-        nStringId = 0x1036;
-        break;
-    case 2:
-        nStringId = 0x1037;
-        break;
-    case 3:
-        nStringId = 0x1038;
-        break;
-    case 4:
-        nStringId = 0x13EF;
-        break;
-    default:
-        D2Win_10127_SetFont(0);
-        return;
-    }
-
-    int nLeft = gnPanelOffsetX + nX;
-    TEXT_DrawCenteredText(nLeft, nY - gnPanelOffsetY - 2, nLeft + 0x35, D2LANG_GetStringFromTblIndex(nStringId), nColor);
-}
-
 // 0x004A5980
 void __stdcall ROSTERPETS_HandlePanelButtonDown(SMSGHANDLER_PARAMS* pMsg)
 {
