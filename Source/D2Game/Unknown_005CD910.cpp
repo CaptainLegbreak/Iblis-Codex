@@ -99,12 +99,6 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-// 0x005CDF00
-int __fastcall sub_005CDF00_HasTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    return SUNIT_GetTargetUnit(pGame, pUnit) != 0;
-}
-
 // 0x005CDF10
 int __fastcall sub_005CDF10(Game* game, Unit* unit, int skillId, int skillLevel)
 {
