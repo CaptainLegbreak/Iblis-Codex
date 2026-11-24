@@ -4,6 +4,10 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane2/client-records-c da5dea13 562->562 Two commits. D2ClientSound.h gets the sound units' unit list node, which SoundInst, SoundInst_004B9B50 and Unknown_004B82F0 each defined. A new small D2ClientUiRecords.h holds the UI-variable close table (Select, automap, ui, Unknown_0046ACE0) and the UI cel file (spellsel, Unknown_004A76C0/004A9BD0/004AA9C0). One cel-file copy was pack 1 and the others pack 2; the layout is the same either way; VERIFIED bd01be9e53f1c71f67fd5d0c571ff223f8885be7
+  - On 89693ff5. All 54 includers and changed units build equal.
+  - Outside lane 2: 11 D2Client units (lanes 1 and 4).
+
 - lane2/records-c a2566fcc 562->562 Two commits. D2McpPackets.h gets the incoming MCP packets (0x03, 0x04, 0x08, 0x09, 0x0A, 0x0E), the packet value record and the create-game body, which WINMAIN, Unknown_0044B400 and Unknown_0044A170 each had private copies of. D2FogTypes.h gets the exception reporter's imagehlp address/stack-frame/symbol/module records, FPO data, toolhelp module entry, module list node and crash dump entry, which Exceptions and Safesock each had copies of; VERIFIED b36c3655546d2af2c5dac52a5512c1d89156ee48
   - Verified on d4484343, rebased onto 89693ff5. Precheck of all includers of the two headers is equal there.
   - Outside lane 2: WINMAIN, Unknown_0044B400 (lane 4), Unknown_0044A170 (lane 6), Exceptions, Safesock (lane 3).
