@@ -4,11 +4,11 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane6/mainmenus-object 9380ba99 -1 placeholder, stacked on lane6/charsel-tail-2 (taking it takes both). MainMenus.cpp's object (0x0042E6A0-0x004369F0, bss 0x0077932C-0x00779990) takes in 26 functions filed elsewhere inside its run that read only its bss: 21 from CharSel.cpp, 0x0042FFE0 (CharSel_0042FFE0.cpp), Unknown_0042F370.cpp whole, ComCallback.cpp's 0x0042F890/0x0042F990/0x00430590 and MainMenus_00431AF0.cpp's 0x00431C90. gpFuncTable_0077ABF0 is now defined once (Unknown_0043B7A0.cpp). Only lane 6 files. FYI lane 4: Game.cpp's 0x0042F6D0/0x0042FA30/0x00430B40 and npcmenu.cpp's 0x0042F530 sit inside MainMenus' run. VERIFIED 66a258b4 (on #343).
 - lane6/charsel-tail-2 d3056982 +2 placeholders. The two objects between CharSel.cpp and Unknown_0043C8A0.cpp get files: Unknown_0043B7A0.cpp, the Battle.net connect object (CHARSEL_InitFuncTable..CHARSEL_Connect, 14 from CharSel.cpp, plus CHARSEL_HandleStatus 0x0043B9F0 from CharSel_004378D0.cpp; its bss 0x0077ABF4-0x0077AC0C is read only by them; built /GS-), with the copy 0x0070CC10 and gnLogonRetries; and Unknown_0043C4F0.cpp (CHARSEL_CreateBaseScreen, the only code left before 0x0043C540) with the copy 0x0070CC50. Not stacked; only lane 6 files. VERIFIED 62b12dd3 (on #343). Borrowed data 1,175 B.
 
 ## Claimed
 
-- MainMenus.cpp's object (lane6/mainmenus-object, starting, stacked on charsel-tail-2): 0x0042E6A0-0x004369F0. MainMenus.cpp's code there reads bss 0x0077932C-0x00779990; the D2Launch bss that follows is Unknown_004370B0.cpp's (0x007799A4-0x007799E4) and then CharSel.cpp's (from 0x007799E8). About 40 functions inside the run are filed elsewhere, and the CharSel-named ones read only MainMenus' bss. The ones in lane 6 files (CharSel.cpp, CharSel_0042FFE0.cpp, MainMenus_00431AF0.cpp, Unknown_0042F370.cpp, ComCallback.cpp) join MainMenus.cpp. Game.cpp's 0x0042F6D0/0x0042FA30/0x00430B40 and npcmenu.cpp's 0x0042F530 (lane 4's files) are inside it too.
 - ChatDlg.cpp's object, what's left (next): ChatDlg_00441B70's seven, 0x004423B0, 0x00445020, 0x004450D0, 0x004456D0, 0x0043F850, 0x00443F80, 0x004453B0 and 0x00445FF0 each build unequal in ChatDlg.cpp (inline and register choices). Game.cpp's 0x0043DB10 and 0x0043F840 (lane 4's file) are inside the object: lane 4, they're yours to hand over when convenient.
 
 ## Handover to lane 8 (D2Common)
