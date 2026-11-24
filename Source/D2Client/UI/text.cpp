@@ -1352,7 +1352,8 @@ inline void* operator new(unsigned int, void* pWhere) { return pWhere; }
 
 // build: symbol ??0D2QuestTextBufferStrc@@QAE@XZ 0x004A4260
 
-extern D2QuestTextBufferStrc data_007BF298; // 0x007BF298
+// build: symbol ??__Edata_007BF298@@YAXXZ 0x006CACD0
+D2QuestTextBufferStrc data_007BF298; // 0x007BF298
 
 int gbTextBoxDone; // 0x007BF1BC
 
@@ -7099,12 +7100,6 @@ void __stdcall TEXT_DrawHintText(int nArg1, int nStringIndex)
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));
     D2Win_10129_DrawFramedText(wszText, gnScreenWidth - 0x80, gnScreenHeight - 0x34, 0, 1);
-}
-
-// 0x006CACD0
-void __cdecl TEXT_InitQuestTextBuffer()
-{
-    new (&data_007BF298) D2QuestTextBufferStrc;
 }
 
 #include "gen/data/Source/D2Client/UI/text.inc"
