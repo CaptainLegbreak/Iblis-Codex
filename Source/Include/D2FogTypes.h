@@ -1,7 +1,8 @@
 #pragma once
 // Fog: the memory pool system, the thread context and stack frame records of the crash handler, its minidump
 // request and the dbghelp records it fills, the service status it sets, the thread, process and loader records it walks
-// for the module list, and the toolhelp process and thread entries and startup info it uses.
+// for the module list, the toolhelp process and thread entries and startup info it uses, the crash report
+// input, the debugger thread-name record, the service table entry and the run-mode table.
 
 #include "D2Check.h"
 #include "D2SysTypes.h"
@@ -17,6 +18,7 @@ struct D2FloatSaveStrc;
 struct D2ThreadContextStrc;
 struct D2StackFrameStrc;
 struct D2ModuleStrc;
+struct D2ExceptionPointersStrc;
 
 struct D2MemPoolBlockStrc
 {
@@ -263,6 +265,61 @@ struct D2TebStrc
     D2PebStrc* ProcessEnvironmentBlock; // 0x30
 };
 
+struct D2ThreadNameInfoStrc
+{
+    unsigned long dwType; // 0x00
+    const char* szName; // 0x04
+    unsigned long dwThreadID; // 0x08
+    unsigned long dwFlags; // 0x0C
+};
+
+struct D2ModeIfaceStrc
+{
+    int (__fastcall* pfnRun)(int nArg); // 0x00
+};
+
+struct D2ModeEntryStrc
+{
+    D2ModeIfaceStrc* (__fastcall* pfnCreate)(void* pContext); // 0x00
+    void (__cdecl* pfnRelease)(); // 0x04
+};
+
+struct D2ServiceTableEntryStrc
+{
+    char* szServiceName; // 0x00
+    void (__stdcall* pfnServiceProc)(unsigned long dwArgc, char** argv); // 0x04
+};
+
+struct D2SidAuthorityStrc
+{
+    unsigned char Value[6]; // 0x00
+};
+
+struct D2ProcessEntryStrc
+{
+    unsigned long dwSize; // 0x00
+    unsigned long cntUsage; // 0x04
+    unsigned long th32ProcessID; // 0x08
+    unsigned long th32DefaultHeapID; // 0x0C
+    unsigned long th32ModuleID; // 0x10
+    unsigned long cntThreads; // 0x14
+    unsigned long th32ParentProcessID; // 0x18
+    long pcPriClassBase; // 0x1C
+    unsigned long dwFlags; // 0x20
+    char szExeFile[260]; // 0x24
+};
+
+struct D2CrashInputStrc
+{
+    const char* szSummary; // 0x00
+    const char* szDetail; // 0x04
+    D2StackFrameStrc* pFrames; // 0x08
+    int nFrames; // 0x0C
+    int nSkip; // 0x10
+    unsigned long dwThreadId; // 0x14
+    D2ExceptionPointersStrc* pException; // 0x18
+};
+
 D2_CHECK_SIZE(D2MemPoolBlockStrc, 0x18);
 D2_CHECK_SIZE(D2MemPoolRecStrc, 0x30);
 D2_CHECK_SIZE(D2PoolRecordStrc, 0x8);
@@ -286,3 +343,10 @@ D2_CHECK_SIZE(D2MiniDumpUserStreamStrc, 0xC);
 D2_CHECK_SIZE(D2MiniDumpUserStreamInfoStrc, 0x8);
 D2_CHECK_SIZE(D2MiniDumpRequestInfoStrc, 0xC);
 D2_CHECK_SIZE(D2MiniDumpRequestStrc, 0x14);
+D2_CHECK_SIZE(D2ThreadNameInfoStrc, 0x10);
+D2_CHECK_SIZE(D2ModeIfaceStrc, 0x4);
+D2_CHECK_SIZE(D2ModeEntryStrc, 0x8);
+D2_CHECK_SIZE(D2ServiceTableEntryStrc, 0x8);
+D2_CHECK_SIZE(D2SidAuthorityStrc, 0x6);
+D2_CHECK_SIZE(D2ProcessEntryStrc, 0x128);
+D2_CHECK_SIZE(D2CrashInputStrc, 0x1C);
