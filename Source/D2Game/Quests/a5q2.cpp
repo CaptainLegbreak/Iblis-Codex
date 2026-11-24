@@ -40,7 +40,6 @@ struct D2QuestGUIDStrc;
 
 struct D2Act5Quest2Strc;
 
-
 struct D2Act1Quest1Strc;
 
 struct D2ObjInitFnStrc;
@@ -56,7 +55,6 @@ struct D2QuestArgStrc;
 struct D2ActiveRoomStrc;
 
 typedef int (__stdcall* FARPROC)();
-
 
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
@@ -136,7 +134,6 @@ int __fastcall ACT1Q1_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 
 void __fastcall ACT1Q1_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern char gpAct5Q2NpcMessages[]; // 0x00733940
@@ -197,6 +194,15 @@ struct D2ActiveRoomUnitsStrc
 
 typedef int (__fastcall* QUESTUNITITERATEFN)(D2GameStrc*, D2UnitStrc*, void*);
 
+typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
+
+typedef bool (__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus);
+
+typedef bool (__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
+
+typedef bool (__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
+
+typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
 static inline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
@@ -970,5 +976,51 @@ void __fastcall ACT5Q2_UpdateWussieCounters(D2GameStrc* pGame, int nUnused, D2Un
             pQuestDataEx->bGroupDone[nIndex] = 1;
         }
     }
+}
+// 0x00588CA0
+void __fastcall ACT5Q2_UpdatePortalMode(D2QuestDataStrc* pQuestData, D2UnitStrc* pPortal)
+{
+    const int nUnitGUID = !pPortal ? -1 : pPortal->dwUnitId;
+    int nCounter = 0;
+    do
+    {
+        if (nUnitGUID == ((D2Act5Quest2Strc*)pQuestData->pQuestDataEx)->nPortalGUIDs[nCounter])
+        {
+            goto found;
+        }
+        ++nCounter;
+    }
+    while (nCounter < 3);
+    return;
+
+found:
+    D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
+    switch (!pPortal ? 0 : pPortal->dwAnimMode)
+    {
+    case 1:
+        UNITS_ChangeAnimMode(pPortal, 2);
+        break;
+
+    case 2:
+        if (pQuestDataEx->bGroupDone[nCounter] == 1)
+        {
+            ++pQuestDataEx->nPortalUpdateInvocations[nCounter];
+        }
+        if (pQuestDataEx->nPortalUpdateInvocations[nCounter] > 5)
+        {
+            pQuestDataEx->bChangeToSpecialObjectMode[nCounter] = 1;
+        }
+        if (pQuestDataEx->bChangeToSpecialObjectMode[nCounter])
+        {
+            UNITS_ChangeAnimMode(pPortal, 3);
+        }
+        break;
+
+    case 3:
+        UNITS_ChangeAnimMode(pPortal, 4);
+        break;
+    }
+
+    EVENT_SetEvent(pQuestData->pGame, pPortal, 7, pQuestData->pGame->dwGameFrame + 25, 0, 0);
 }
 
