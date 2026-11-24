@@ -255,7 +255,7 @@ _iobuf* __fastcall LOGMANAGER_OpenDatedLogFile(const char* szName, D2SystemTimeS
 
 void __fastcall LOGMANAGER_GetLogDirectory(char* szDirectory, int nSize); // 0x0040F000
 
-void __fastcall EXCEPTIONS_CloseNamedLog(const char* szName); // 0x0040F470
+void __fastcall LOGMANAGER_CloseNamedLog(const char* szName); // 0x0040F470
 
 void __cdecl LOGMANAGER_LogMemoryDump(const char* szPrefix, const char* szTitle, unsigned long dwAddress, unsigned int nSize, int nArg5, int nArg6, int nArg7); // 0x00410040
 
@@ -297,7 +297,24 @@ struct CCritSect : D2CriticalSectionStrc
 {
     CCritSect() { InitializeCriticalSection(this); }
     ~CCritSect() { DeleteCriticalSection(this); }
+    void Enter();
+    void Leave();
 };
+
+// build: symbol ??0CCritSect@@QAE@XZ 0x0040EB50
+// build: symbol ??1CCritSect@@QAE@XZ 0x0040EB60
+
+// 0x0040EB70
+void CCritSect::Enter()
+{
+    EnterCriticalSection(this);
+}
+
+// 0x0040EB80
+void CCritSect::Leave()
+{
+    LeaveCriticalSection(this);
+}
 
 // build: symbol ??__EgtLogQueueLock@@YAXXZ 0x006CA700
 // build: symbol ??__FgtLogQueueLock@@YAXXZ 0x006CB070
@@ -980,6 +997,12 @@ struct D2LogMsgLinkStrc
     {
         return (int)m_next <= 0 ? 0 : m_next;
     }
+    static char* NextOf(char* pNext)
+    {
+        if ((int)pNext > 0)
+            return pNext;
+        return 0;
+    }
     void Unlink()
     {
         if (m_prevlink)
@@ -1014,9 +1037,16 @@ struct D2LogMessageStrc : D2LogMsgNodeStrc
     static void operator delete(void*, void*) {}
 };
 
+// build: symbol ??2@YAPAXIPAX@Z 0x0040EB20
 inline void* operator new(unsigned int, void* pWhere) throw()
 {
     return pWhere;
+}
+
+// 0x0040EB40
+char* __fastcall sub_0040EB40_GetMessageData(D2LogMessageStrc* pMessage)
+{
+    return (char*)&pMessage->nSize;
 }
 
 // build: symbol ??__EgtLogLock@@YAXXZ 0x006CA720
@@ -1032,8 +1062,18 @@ struct D2LogMsgListStrc
 
     D2LogMsgListStrc();
     ~D2LogMsgListStrc();
+    D2LogMessageStrc* Head()
+    {
+        return (D2LogMessageStrc*)D2LogMsgLinkStrc::NextOf(m_terminator.m_next);
+    }
+    D2LogMsgLinkStrc* Link(char* pNode)
+    {
+        return pNode ? (D2LogMsgLinkStrc*)pNode : &m_terminator;
+    }
+    D2LogMsgLinkStrc* sub_0040F880_Link(char* pNode);
     void sub_0040FD00_UnlinkAll();
-    void sub_0040FBB0_LinkNode(char* pNode, int nLinkType, char* pExistingNode); // 0x0040FBB0
+    void sub_0040FBB0_LinkNode(char* pNode, int nLinkType, char* pExistingNode);
+    void sub_0040FC60_UnlinkNode(char* pNode);
     void sub_0040FED0_DeleteAll();
     char* sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);
 };
@@ -1083,13 +1123,54 @@ extern "C" int __cdecl strcmp(const char* szA, const char* szB);
 
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
-void __fastcall LOGMANAGER_WriteDateBanner(_iobuf* pFile, const D2SystemTimeStrc* pTime); // 0x0040ECC0
+extern "C" int __cdecl fprintf(_iobuf* pFile, const char* szFormat, ...); // 0x00684C94
 
-void __fastcall LOGMANAGER_WriteStartupBanner(_iobuf* pFile); // 0x0040ED40
+extern D2SystemTimeStrc gLogStartTime_0075D288; // 0x0075D288
+
+// 0x0040ECC0
+void __fastcall LOGMANAGER_WriteDateBanner(_iobuf* pFile, const D2SystemTimeStrc* pTime)
+{
+    char szComputerName[0x40];
+    unsigned long nSize = sizeof(szComputerName);
+    if (!GetComputerNameA(szComputerName, &nSize))
+        szComputerName[0] = 0;
+    fprintf(pFile, "---------------------------------------------------------------\n");
+    fprintf(pFile, "%s %04d-%02d-%02d\n", szComputerName, pTime->wYear, pTime->wMonth, pTime->wDay);
+    fprintf(pFile, "---------------------------------------------------------------\n");
+}
+
+// 0x0040ED40
+void __fastcall LOGMANAGER_WriteStartupBanner(_iobuf* pFile)
+{
+    char szComputerName[0x40];
+    unsigned long nSize = sizeof(szComputerName);
+    if (!GetComputerNameA(szComputerName, &nSize))
+        szComputerName[0] = 0;
+    fprintf(pFile, "---------------------------------------------------------------\n");
+    fprintf(pFile, "%s Realm startup at %04d-%02d-%02d %02d:%02d:%02d.%03u\n", szComputerName, gLogStartTime_0075D288.wYear,
+        gLogStartTime_0075D288.wMonth, gLogStartTime_0075D288.wDay, gLogStartTime_0075D288.wHour,
+        gLogStartTime_0075D288.wMinute, gLogStartTime_0075D288.wSecond, gLogStartTime_0075D288.wMilliseconds);
+    fprintf(pFile, "---------------------------------------------------------------\n");
+}
 
 int ganLogNewFile[20]; // 0x0075D298
 
 char gaszLogFilePaths[20][0x104]; // 0x0075D340
+
+// 0x0040EB90
+unsigned int __fastcall LOGMANAGER_GetLogFilePaths(char** apszFiles, unsigned int nCount)
+{
+    unsigned int i;
+    for (i = 0; i < nCount; i++)
+    {
+        if (i >= 20)
+        {
+            break;
+        }
+        apszFiles[i] = gaszLogFilePaths[i];
+    }
+    return i;
+}
 
 unsigned long gadwLogOpenTick[20]; // 0x0075E7E0
 
@@ -1215,7 +1296,7 @@ long __fastcall LOGMANAGER_MeasureLogFile(const char* szName)
 {
     D2SystemTimeStrc tTime;
     EnterCriticalSection(&gtLogLock);
-    EXCEPTIONS_CloseNamedLog(szName);
+    LOGMANAGER_CloseNamedLog(szName);
     long nSize = 0;
     _iobuf* pFile = LOGMANAGER_OpenDatedLogFile(szName, &tTime, "r", 0, 0, 0);
     if (pFile)
@@ -1236,7 +1317,7 @@ char* __fastcall LOGMANAGER_ReadLogRange(const char* szName, long nStart, long n
     char* pBuffer = (char*)FOG_Alloc(nLength + 1, ".\\Src\\LogManager.cpp", 0x10A, 0);
     memset(pBuffer, 0, nLength + 1);
     EnterCriticalSection(&gtLogLock);
-    EXCEPTIONS_CloseNamedLog(szName);
+    LOGMANAGER_CloseNamedLog(szName);
     _iobuf* pFile = LOGMANAGER_OpenDatedLogFile(szName, &tTime, "r", 0, 0, 0);
     if (pFile)
     {
@@ -1464,6 +1545,44 @@ D2LogMsgListStrc::D2LogMsgListStrc()
     m_linkoffset = 0;
     m_terminator.m_prevlink = &m_terminator;
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// build: symbol ?NextLink@D2LogMsgLinkStrc@@QAEPAU1@H@Z 0x0040F4F0
+
+// 0x0040F880
+D2LogMsgLinkStrc* D2LogMsgListStrc::sub_0040F880_Link(char* pNode)
+{
+    return Link(pNode);
+}
+
+// 0x0040FBB0
+void D2LogMsgListStrc::sub_0040FBB0_LinkNode(char* pNode, int nLinkType, char* pExistingNode)
+{
+    D2LogMsgLinkStrc* pLink = Link(pNode);
+    pLink->Unlink();
+    D2LogMsgLinkStrc* pExistingLink = Link(pExistingNode);
+    switch (nLinkType)
+    {
+    case 1:
+        pLink->m_prevlink = pExistingLink;
+        pLink->m_next = pExistingLink->m_next;
+        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
+        pExistingLink->m_next = pNode;
+        break;
+    default:
+        D2LogMsgLinkStrc* pPrevLink = pExistingLink->m_prevlink;
+        pLink->m_prevlink = pPrevLink;
+        pLink->m_next = pPrevLink->m_next;
+        pPrevLink->m_next = pNode;
+        pExistingLink->m_prevlink = pLink;
+        break;
+    }
+}
+
+// 0x0040FC60
+void D2LogMsgListStrc::sub_0040FC60_UnlinkNode(char* pNode)
+{
+    Link(pNode)->Unlink();
 }
 
 // 0x0040FD00
@@ -2057,7 +2176,68 @@ void __fastcall LOGMANAGER_WriteLogV(const char* szPrefix, int nArg2, int nArg3,
 
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfnStart)(void* pParam), void* pParam, unsigned long dwFlags, unsigned long* pnThreadId); // 0x006CC250
 extern D2SystemTimeStrc gLogStartTime_0075D288; // 0x0075D288
-unsigned long __stdcall sub_004101C0_LogThreadProc(void* pParam); // 0x004101C0
+
+void __fastcall LOGMANAGER_WriteMessage(D2LogMessageStrc* pMessage); // 0x0040F720
+void __fastcall LOGMANAGER_WriteDumpMessage(D2LogMessageStrc* pMessage); // 0x0040F070
+void __cdecl LOGMANAGER_CloseStaleLogs(); // 0x0040F350
+void __cdecl LOGMANAGER_SweepOldLogFiles(); // 0x0040F970
+
+// 0x004101C0
+unsigned long __stdcall sub_004101C0_LogThreadProc(void* pParam)
+{
+    unsigned long dwStopTime = 0;
+    for (;;)
+    {
+        EnterCriticalSection(&gtLogQueueLock);
+        D2LogMessageStrc* pMessage = gtLogMsgQueue_0075E868.Head();
+        if (pMessage)
+        {
+            ((D2LogMessageStrc*)gtLogMsgQueue_0075E868.m_terminator.m_next)->f_0.Unlink();
+            --gnLogQueued;
+            gnLogQueuedBytes -= pMessage->nSize;
+        }
+        LeaveCriticalSection(&gtLogQueueLock);
+
+// build: symbol ?gbLogThreadStop@* 0x0075E830
+        if (gbLogThreadStop)
+        {
+            if (!dwStopTime)
+                dwStopTime = GetTickCount();
+            if (!pMessage || GetTickCount() - dwStopTime >= 15000)
+                return 1;
+        }
+
+        unsigned long dwSleep = 0;
+        if (!pMessage)
+        {
+            dwSleep = 50;
+        }
+        else
+        {
+            EnterCriticalSection(&gtLogLock);
+            switch (pMessage->nType)
+            {
+            case 1:
+                LOGMANAGER_WriteMessage(pMessage);
+                break;
+            case 2:
+                LOGMANAGER_WriteDumpMessage(pMessage);
+                break;
+            }
+            LeaveCriticalSection(&gtLogLock);
+            delete pMessage;
+        }
+
+        if (!gbLogThreadStop)
+        {
+            Sleep(dwSleep);
+            EnterCriticalSection(&gtLogLock);
+            LOGMANAGER_CloseStaleLogs();
+            LOGMANAGER_SweepOldLogFiles();
+            LeaveCriticalSection(&gtLogLock);
+        }
+    }
+}
 
 // 0x00410540
 void __cdecl LOGMANAGER_InitLogSystem()
@@ -2220,6 +2400,23 @@ char gaszLogNames[20][0x10]; // 0x0075D148
 unsigned long gadwLogWriteTick[20]; // 0x0075D2F0
 
 _iobuf* gapLogFiles[20]; // 0x0075E790
+
+// 0x0040F470
+void __fastcall LOGMANAGER_CloseNamedLog(const char* szName)
+{
+    for (int i = 0; i < 20; i++)
+    {
+        if (gapLogFiles[i] && !strcmp(gaszLogNames[i], szName))
+        {
+            if (gapLogFiles[i])
+            {
+                fclose(gapLogFiles[i]);
+                gapLogFiles[i] = 0;
+            }
+            return;
+        }
+    }
+}
 
 // 0x0040EDE0
 _iobuf* __fastcall LOGMANAGER_GetLogFile(const char* szName, int* pnSlot)

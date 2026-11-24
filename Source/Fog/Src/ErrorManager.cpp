@@ -384,7 +384,7 @@ bool __fastcall ERRORMANAGER_GetProcessImageName(unsigned long dwProcessId, char
 
 unsigned long __fastcall ERRORMANAGER_FindParentProcessId(unsigned long dwProcessId);                         // 0x00407990
 
-unsigned int __fastcall EXCEPTIONS_GetLogFilePaths(char** apszFiles, unsigned int nCount);                     // 0x0040EB90
+unsigned int __fastcall LOGMANAGER_GetLogFilePaths(char** apszFiles, unsigned int nCount);                     // 0x0040EB90
 
 int __stdcall sub_00525150();                                                                       // 0x00525150
 
@@ -1883,7 +1883,7 @@ bool crashy::Report::WriteInspectorHeader()
 
     char* apszFiles[0x15];
     memset(apszFiles, 0, sizeof(apszFiles));
-    EXCEPTIONS_GetLogFilePaths(apszFiles, 0x15);
+    LOGMANAGER_GetLogFilePaths(apszFiles, 0x15);
     for (unsigned int i = 0; i < 0x15; ++i)
     {
         if (apszFiles[i] && *apszFiles[i])

@@ -1720,40 +1720,6 @@ void __fastcall EXCEPTIONS_WalkCurrentStack(const char* szPrefix)
     }
 }
 
-// 0x0040EB90
-unsigned int __fastcall EXCEPTIONS_GetLogFilePaths(char** apszFiles, unsigned int nCount)
-{
-    unsigned int i;
-    for (i = 0; i < nCount; i++)
-    {
-        if (i >= 20)
-        {
-            break;
-        }
-        apszFiles[i] = gaszLogFilePaths[i];
-    }
-    return i;
-}
-
-// 0x0040F470
-void __fastcall EXCEPTIONS_CloseNamedLog(const char* szName)
-{
-    for (int i = 0; i < 20; i++)
-    {
-// build: symbol ?gaszLogNames@* 0x0075D148
-// build: symbol ?gapLogFiles@* 0x0075E790
-        if (gapLogFiles[i] && !strcmp(gaszLogNames[i], szName))
-        {
-            if (gapLogFiles[i])
-            {
-                fclose(gapLogFiles[i]);
-                gapLogFiles[i] = 0;
-            }
-            return;
-        }
-    }
-}
-
 // build: symbol _CHATDLG_FreeNameList 0x0043F800
 extern "C" void __cdecl CHATDLG_FreeNameList()
 {
