@@ -6,7 +6,7 @@
 
 #include "D2DrlgRooms.h"
 
-static T00681490* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal);
+static D2DrlgPathNodeStrc* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
@@ -25,15 +25,15 @@ extern const char gPathStepY[4]; // 0x006F2850
 extern const char gPathStepX[4]; // 0x006F2854
 
 // 0x00681490
-static T00681490* sub_00681490(D2DrlgPathSearchStrc* pSearch)
+static D2DrlgPathNodeStrc* sub_00681490(D2DrlgPathSearchStrc* pSearch)
 {
     if (pSearch->nNodes == 900)
     {
         return 0;
     }
 
-    T00681490* pNode = &pSearch->tNodes[pSearch->nNodes++];
-    memset(pNode, 0, sizeof(T00681490));
+    D2DrlgPathNodeStrc* pNode = &pSearch->tNodes[pSearch->nNodes++];
+    memset(pNode, 0, sizeof(D2DrlgPathNodeStrc));
     return pNode;
 }
 
@@ -58,7 +58,7 @@ static int __stdcall sub_006814E0(int nX1, int nY1, int nX2, int nY2)
 }
 
 // 0x00681510
-static int __stdcall sub_00681510(T00681490* pNode, int nX, int nY)
+static int __stdcall sub_00681510(D2DrlgPathNodeStrc* pNode, int nX, int nY)
 {
     return (pNode->nX == nX || pNode->nY == nY) ? 2 : 3;
 }
@@ -71,7 +71,7 @@ static const unsigned char* __stdcall sub_00681540(unsigned char nDirection, uns
 
 
 // 0x00681560
-static T00681490* __stdcall sub_00681560(T00681490* pNode, T00681490** ppStart)
+static D2DrlgPathNodeStrc* __stdcall sub_00681560(D2DrlgPathNodeStrc* pNode, D2DrlgPathNodeStrc** ppStart)
 {
     if (pNode->nTried < 4)
     {
@@ -97,7 +97,7 @@ static T00681490* __stdcall sub_00681560(T00681490* pNode, T00681490** ppStart)
 }
 
 // 0x006815C0
-static int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2DrlgLevelStrc* pLevel, T00681490* pNode)
+static int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2DrlgLevelStrc* pLevel, D2DrlgPathNodeStrc* pNode)
 {
     if (nX == pGoal->nPosX && nY == pGoal->nPosY)
     {
@@ -110,7 +110,7 @@ static int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2Drl
         return 0;
     }
 
-    for (T00681490* pParent = pNode; pParent; pParent = pParent->pParent)
+    for (D2DrlgPathNodeStrc* pParent = pNode; pParent; pParent = pParent->pParent)
     {
         if (pParent->nX == nX && pParent->nY == nY)
         {
@@ -122,9 +122,9 @@ static int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2Drl
 }
 
 // 0x00681630
-static T00681490* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal)
+static D2DrlgPathNodeStrc* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal)
 {
-    T00681490* pNode = pSearch->pStart;
+    D2DrlgPathNodeStrc* pNode = pSearch->pStart;
     int nGoalX = pGoal->nPosX;
     int nGoalY = pGoal->nPosY;
 
@@ -197,9 +197,9 @@ static T00681490* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMax
 
 // build: context sub_M_Emit_006814E0
 // emits the static 0x006814E0, which the original inlines into 0x00681630 and also keeps (not game code)
-T00681490* __stdcall sub_M_Emit_006814E0(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal)
+D2DrlgPathNodeStrc* __stdcall sub_M_Emit_006814E0(D2DrlgPathSearchStrc* pSearch, int nMaxCost, D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pGoal)
 {
-    T00681490* pNode = pSearch->pStart;
+    D2DrlgPathNodeStrc* pNode = pSearch->pStart;
     int nGoalX = pGoal->nPosX;
     int nGoalY = pGoal->nPosY;
 
@@ -283,7 +283,7 @@ int __fastcall sub_006817D0(D2DrlgLevelStrc* pLevel, int nRoad)
     }
 
     D2DrlgPathSearchStrc tSearch;
-    T00681490 tStart;
+    D2DrlgPathNodeStrc tStart;
     int nDirection = sub_6FDAB750(tFrom.nPosX, tFrom.nPosY, tGoal.nPosX, tGoal.nPosY) / 2;
     tStart.nSpent = 0;
     int nDX = tFrom.nPosX - tGoal.nPosX;
@@ -300,7 +300,7 @@ int __fastcall sub_006817D0(D2DrlgLevelStrc* pLevel, int nRoad)
     int nEstimate = nMin + 2 * nMax;
     tStart.nY = tFrom.nPosY;
     tStart.nDirection = nDirection & 3;
-    memset(tSearch.tNodes, 0, sizeof(T00681490));
+    memset(tSearch.tNodes, 0, sizeof(D2DrlgPathNodeStrc));
     tSearch.pStart = tSearch.tNodes;
     tStart.nX = tFrom.nPosX;
     int nMaxCost = nEstimate + nEstimate / 2;
@@ -316,7 +316,7 @@ int __fastcall sub_006817D0(D2DrlgLevelStrc* pLevel, int nRoad)
     do
     {
         *tSearch.pStart = tStart;
-        T00681490* pNode = sub_00681630(&tSearch, nMaxCost, pLevel, &tGoal);
+        D2DrlgPathNodeStrc* pNode = sub_00681630(&tSearch, nMaxCost, pLevel, &tGoal);
         nMaxCost += 5;
         if (tSearch.nNodes >= 900)
         {
