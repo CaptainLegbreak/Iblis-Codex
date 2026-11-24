@@ -12,7 +12,7 @@ Written by lane 6 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
-- D2Win: D2Comp.cpp's run 0x005031D0-0x005075DF has D2WinImage, D2WinMain, D2WinSmack and D2WinList pieces inside it. Its language block gData_0072EFD4 holds seven back-to-back copies, which matches the seven data-less objects after it in code order: D2WinList, D2WinAccountList, D2WinProgressBar, D2WinAnimImage, D2WinScrollbar, D2WinPopup and Unknown_00508970. Next I gather the run, then split the block, one copy per object through D2LanguageNames.h. Started after the path stack.
+- D2Win (in progress, lane6/d2comp-a). D2Comp.cpp's run (0x005031D0-0x00506A3F), D2WinSmack's, D2WinList's and D2WinScrollbar's each hold pieces filed elsewhere. All the names are inferred or d2moo, so the runs decide. Then the language block gData_0072EFD4 (7 back-to-back copies) is split over the 7 data-less objects after D2Comp in code order: D2WinSmack, D2WinList, D2WinAccountList, D2WinProgressBar, D2WinScrollbar, D2WinPopup and Unknown_00508970. D2WinAnimImage's pieces there are scroll-bar getters. Each copy comes from D2LanguageNames.h.
 
 ## Questions
 
