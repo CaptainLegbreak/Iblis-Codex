@@ -274,33 +274,12 @@ static void OBJECT_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); 
 
 static void __stdcall OBJECT_OperateShrine(D2UnitTargetStrc* pTarget, D2UnitStrc* pUnit); // 0x004BD5C0
 
-// 0x00457450
-int __fastcall OBJECT_GetAbsValue(int nValue)
-{
-    return nValue < 0 ? -nValue : nValue;
-}
 
-// 0x00457460
-extern "C" __declspec(dllexport) void __fastcall OBJECT_SetUnitFlag(Obj00457460* pObj, unsigned int dwMask, int bSet) {
-    if (pObj) {
-        if (bSet) {
-            pObj->dwFlagsC4 |= dwMask;
-        } else {
-            pObj->dwFlagsC4 &= ~dwMask;
-        }
-    }
-}
+extern "C" __declspec(dllexport) void __fastcall OBJECT_SetUnitFlag(Obj00457460* pObj, unsigned int dwMask, int bSet); // 0x00457460
 
 
 
 
-// 0x004577F0
-int __fastcall OBJECT_SaveAutomapPartyNames(int nValue)
-{
-    SRegSaveValue("Diablo II", "AutoMap Party Names", 0, nValue);
-    gbAutomapPartyNames = nValue;
-    return nValue;
-}
 
 // 0x00457810
 static inline void OBJECT_SubtractAutomapOffset(int* pX, int* pY)
@@ -329,29 +308,6 @@ void __fastcall sub_M117_Emit_00457810(int* pX, int* pY, int nScale)
     gnAutomapOffsetY = *pY;
 }
 
-// 0x00457AC0
-int __fastcall OBJECT_CompareAutomapCells(const D2AutomapCellStrc* pA, const D2AutomapCellStrc* pB)
-{
-    int nResult = pA->yPixel - pB->yPixel;
-    if (!nResult)
-    {
-        nResult = pA->xPixel - pB->xPixel;
-        if (!nResult)
-        {
-            const int nCellA = pA->nCellNo;
-            if (gaAutomapCellTable[nCellA] != -1)
-            {
-                const int nCellB = pB->nCellNo;
-                if (gaAutomapCellTable[nCellA] != gaAutomapCellTable[nCellB])
-                {
-                    nResult = nCellA - nCellB;
-                }
-            }
-        }
-    }
-
-    return nResult;
-}
 
 // 0x004BC580
 static void __stdcall OBJECT_UpdateObjectLight(D2UnitStrc* pUnit, unsigned short nDiameter, int nRed, int nGreen, int nBlue)

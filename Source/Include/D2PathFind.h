@@ -1,5 +1,6 @@
 #pragma once
-// Path finding: the search nodes of the IDA* and wall-following path finders.
+// Path finding: the search nodes of the IDA* and wall-following path finders, the wall-following move state and
+// the collision test argument.
 
 #include "D2Check.h"
 #include "D2Path.h"
@@ -28,6 +29,27 @@ struct D2PathFoWallNodeStrc
     D2PathFoWallNodeStrc* pChildren[8]; // 0x10
     D2PathFoWallNodeStrc* pNextCachePoint; // 0x30
     D2PathFoWallNodeStrc* pNextSortedByFScore; // 0x34
+};
+
+struct D2PathMovStrc
+{
+    int nDirectionIndex; // 0x00
+    int nPoints; // 0x04
+    D2PathPointStrc tCurrentCoord; // 0x08
+    D2PathPointStrc tTargetCoord; // 0x0C
+    int bReachedDeadEnd; // 0x10
+    const int* pPrevDirection; // 0x14
+    const int* pNextDirection; // 0x18
+    int nLastSyncPointWithOtherPathIndex; // 0x1C
+    int bPathFinished; // 0x20
+    D2PathPointStrc pPoints[201]; // 0x24
+};
+
+struct D2CollisionTestStrc
+{
+    D2ActiveRoomStrc* pRoom; // 0x00
+    unsigned int nCollisionPattern; // 0x04
+    unsigned int nCollisionMask; // 0x08
 };
 
 D2_CHECK_SIZE(D2PathIDAStarNodeStrc, 0x1C);

@@ -15,6 +15,7 @@
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
 #include "D2ObjModes.h"
+#include "D2GameCallbackArgs.h"
 
 #define D2_ASSERT(expr,line) if(!(expr)) { sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1); }
 
@@ -1029,12 +1030,6 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHighThreatTargetWithClearAppr
 
 struct D2DoorObjectAiCallbackArgStrc;
 
-struct D2DoorObjectAiCallbackArgStrc
-{
-    D2UnitStrc* pDoor;
-    int nDistance;
-    int unk0x08[8];
-};
 
 int __stdcall UnitIsDoor(D2UnitStrc* pUnit); // 0x00621A70
 

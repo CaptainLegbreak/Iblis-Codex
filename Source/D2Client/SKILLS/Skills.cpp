@@ -3609,34 +3609,4 @@ void __fastcall SKILLS_SpawnOffsetMissile(int nUnitId, int nUnused, D2UnitStrc* 
     }
 }
 
-// 0x004DA5B0
-void __fastcall SKILLS_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames)
-{
-    D2BallisticStrc* pBallistic = sub_0046F060(pUnit);
-    if (!pBallistic)
-    {
-        return;
-    }
-
-    pBallistic->dwFlags |= 2;
-    pBallistic->nFrames = nFrames;
-    if (nFrames < 1)
-    {
-        pBallistic->nFrames = 1;
-    }
-
-    nSpeed <<= 0x0B;
-    pBallistic->f_4 = 0;
-    pBallistic->f_8 = 0;
-    pBallistic->nVelocity = nSpeed;
-    if (!pBallistic->f_24)
-    {
-        pBallistic->f_24 = -0x1000;
-    }
-
-    pBallistic->nVelA = 0;
-    pBallistic->nVelB = 0;
-    pBallistic->nStartVelocity = (-nSpeed - pBallistic->f_24 * pBallistic->nFrames * pBallistic->nFrames / 2) / pBallistic->nFrames;
-}
-
 #include "gen/data/Source/D2Client/SKILLS/Skills.inc"

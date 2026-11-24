@@ -4,6 +4,7 @@
 #include "D2Primitives.h"
 #include "D2GameTypes.h"
 #include "D2Win32Types.h"
+#include "D2Win32System.h"
 
 typedef unsigned int size_t;
 
@@ -578,13 +579,6 @@ extern "C" int __stdcall Process32FirstW(void* hSnapshot, D2ProcessEntryWStrc* p
 extern "C" int __stdcall Process32NextW(void* hSnapshot, D2ProcessEntryWStrc* pEntry); // 0x006B1530
 
 
-struct D2ProcessInformationStrc
-{
-    void* hProcess;
-    void* hThread;
-    unsigned long dwProcessId;
-    unsigned long dwThreadId;
-};
 
 extern "C" __declspec(dllimport) int __stdcall CreateProcessW(const wchar_t* wszApplicationName, wchar_t* wszCommandLine, void* pProcessAttributes, void* pThreadAttributes, int bInheritHandles, unsigned long dwCreationFlags, void* pEnvironment, const wchar_t* wszCurrentDirectory, D2StartupInfoWStrc* pStartupInfo, D2ProcessInformationStrc* pProcessInformation); // 0x006CC2C4
 
@@ -742,17 +736,7 @@ extern "C" int __stdcall getpeername(unsigned int nSocket, void* pAddress, int* 
 extern "C" int __stdcall ioctlsocket(unsigned int nSocket, long nCommand, unsigned long* pArgument);       // 0x006B015C
 
 
-void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...);                                          struct D2MemoryStatusStrc
-{
-    unsigned long dwLength;
-    unsigned long dwMemoryLoad;
-    unsigned long dwTotalPhys;
-    unsigned long dwAvailPhys;
-    unsigned long dwTotalPageFile;
-    unsigned long dwAvailPageFile;
-    unsigned long dwTotalVirtual;
-    unsigned long dwAvailVirtual;
-};
+void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...);
 
 extern "C" __declspec(dllimport) void __stdcall GlobalMemoryStatus(D2MemoryStatusStrc* pBuffer); // 0x006CC1F4
 

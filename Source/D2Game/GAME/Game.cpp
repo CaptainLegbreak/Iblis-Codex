@@ -23,6 +23,7 @@
 #include "D2ItemsWorld.h"
 #include "D2QuestData.h"
 #include "D2Packets.h"
+#include "D2GameCallbackArgs.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -1125,11 +1126,6 @@ struct D2NpcControlStrc
     D2NpcRecordStrc* pFirstRecord;
 };
 
-struct D2RosterIterateStrc
-{
-    int bFlag;
-    D2UnitStrc* pUnit;
-};
 
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);

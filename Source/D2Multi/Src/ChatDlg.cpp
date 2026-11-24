@@ -17,6 +17,7 @@
 #include "D2MultiTypes.h"
 
 #include "D2Win32Types.h"
+#include "D2Win32System.h"
 
 static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand); // 0x00442180
 
@@ -687,13 +688,6 @@ struct D2StartupInfoAStrc
     void* hStdError;
 };
 
-struct D2ProcessInformationStrc
-{
-    void* hProcess;
-    void* hThread;
-    unsigned long dwProcessId;
-    unsigned long dwThreadId;
-};
 
 extern "C" __declspec(dllimport) long __stdcall RegOpenKeyExA(void* hKey, const char* szSubKey, unsigned long ulOptions, unsigned long samDesired, void** phkResult); // 0x006CC010
 

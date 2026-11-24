@@ -429,44 +429,10 @@ int __fastcall sub_M119_Emit_004792C0(D2RosterUnitStrc* pRosterUnit, unsigned in
 }
 
 
-// 0x0047A9B0
-void __fastcall ROSTER_SetPrimaryClientFlag(int bClear)
-{
-    if (bClear)
-    {
-// build: symbol ?gdwClientFlags@* 0x00712EFC
-        gdwClientFlags &= ~1;
-    }
-    else
-    {
-        gdwClientFlags |= 1;
-    }
-}
 
-// 0x0047A9E0
-int __cdecl sub_0047A9E0_GetClientFlag40()
-{
-    return gdwClientFlags & 0x40;
-}
 
-// 0x0047A9F0
-int __cdecl sub_0047A9F0_GetClientFlag80()
-{
-    return gdwClientFlags & 0x80;
-}
 
-// 0x0047AA00
-int __cdecl sub_0047AA00_GetClientFlag200()
-{
-    return gdwClientFlags & 0x200;
-}
 
-// 0x0047AA10
-void __fastcall ROSTER_SetCTemp(int nValue)
-{
-// build: symbol ?gnCTemp@* 0x00712F00
-    gnCTemp = nValue;
-}
 
 // 0x0047AA40
 int Unicode::isWhitespace() const

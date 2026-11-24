@@ -38,6 +38,209 @@ struct D2ClientFlagsStrc
 
 extern "C" __declspec(dllimport) unsigned short __stdcall GetSystemDefaultLangID(); // 0x006CC354
 
+struct HKL__;
+
+extern "C" __declspec(dllimport) HKL__* __stdcall GetKeyboardLayout(unsigned long idThread); // 0x006CC4C0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
@@ -111,7 +314,6 @@ extern "C" int __stdcall ImmIsIME(HKL__* hKl); // 0x006B00D8
 
 extern "C" int __stdcall ImmGetConversionStatus(HIMC hImc, unsigned long* pConversion, unsigned long* pSentence); // 0x006B00DE
 
-extern "C" __declspec(dllimport) HKL__* __stdcall GetKeyboardLayout(unsigned long idThread); // 0x006CC4C0
 
 unsigned char gbImeOpen;        // 0x007BB5E0
 
@@ -129,11 +331,83 @@ int __cdecl CHAT_IsNumberDisplayEnabled()
     return gtClientFlagsLow_00712EFC.bNumberDisplay;
 }
 
+struct D2GridCellStrc;
+
+struct D2GridCellStrc
+{
+    unsigned int nFlag;
+    unsigned char nValue0;
+    unsigned char nValue1;
+    unsigned char f_6;
+    unsigned char nValue3;
+};
+
+// 0x0047A990
+int __cdecl DLIGHTMAP_GetClientFlags()
+{
+// build: symbol ?gdwClientFlags@* 0x00712EFC
+    return gdwClientFlags;
+}
+
 // 0x0047A9A0
 void __fastcall CHAT_SetClientFlags(int nFlags)
 {
 // build: symbol ?gdwClientFlags@* 0x00712EFC
     gdwClientFlags = nFlags;
+}
+
+// 0x0047A9B0
+void __fastcall ROSTER_SetPrimaryClientFlag(int bClear)
+{
+    if (bClear)
+    {
+// build: symbol ?gdwClientFlags@* 0x00712EFC
+        gdwClientFlags &= ~1;
+    }
+    else
+    {
+        gdwClientFlags |= 1;
+    }
+}
+
+extern int gdwGlobal_00712F04; // 0x00712F04
+
+// 0x0047A9D0
+int __cdecl sub_0047A9D0()
+{
+    return gdwGlobal_00712F04;
+}
+
+// 0x0047A9E0
+int __cdecl sub_0047A9E0_GetClientFlag40()
+{
+    return gdwClientFlags & 0x40;
+}
+
+// 0x0047A9F0
+int __cdecl sub_0047A9F0_GetClientFlag80()
+{
+    return gdwClientFlags & 0x80;
+}
+
+// 0x0047AA00
+int __cdecl sub_0047AA00_GetClientFlag200()
+{
+    return gdwClientFlags & 0x200;
+}
+
+// 0x0047AA10
+void __fastcall ROSTER_SetCTemp(int nValue)
+{
+// build: symbol ?gnCTemp@* 0x00712F00
+    gnCTemp = nValue;
+}
+
+// 0x0047AA20
+int __cdecl DLIGHTMAP_GetCTemp()
+{
+// build: symbol ?gnCTemp@* 0x00712F00
+    return gnCTemp;
 }
 
 // 0x0047AA30
@@ -224,6 +498,51 @@ void __stdcall sub_0047AA60_OnImeComposition(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
+
+void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+
+extern int gdwGlobal_007BB5DC; // 0x007BB5DC
+
+
+struct D2RareAffixTxt
+{
+    char unk0x00[0x0C];
+    unsigned short wStringId;
+    char unk0x0E[0x18];
+    char szName[0x20];
+};
+
+extern int gnGlobal_007BB5DC;                                                                               // 0x007BB5DC
+
+static int gnGlobal_007BB5F0;                                                                               // 0x007BB5F0
+
+// 0x0047ACA0
+void __stdcall ROSTERPETS_HandleImeStartComposition(SMSGHANDLER_PARAMS* pMsg)
+{
+    gbImeOpen = 1;
+    gwGlobal_007BC850 = 0;
+    gwGlobal_007BB5F8 = 0;
+    if (gnGlobal_007BB5DC == 9)
+        gnGlobal_007BB5F0 = 4;
+    else if (gnGlobal_007BB5DC == 8)
+        gnGlobal_007BB5F0 = 5;
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_BreakHandlerChain(pMsg);
+}
+
+// 0x0047AD10
+void __stdcall INV_ResetImeCompositionMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    gwGlobal_007BC850 = 0;
+    gwGlobal_007BB5F8 = 0;
+    gnChatDrawCount = -2;
+    if (gdwGlobal_007BB5DC == 6)
+        gbImeOpen = 0;
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_HandleMsg(pMsg);
+}
 
 // 0x0047AD60
 static void CHAT_RefreshCandidates(HIMC hImc)
@@ -407,6 +726,13 @@ bool __cdecl CHAT_IsImeLanguage()
         return false;
     }
     return ImmIsIME(GetKeyboardLayout(0));
+}
+
+// 0x0047B070
+void __stdcall INV_SetMsgHandled(SMSGHANDLER_PARAMS* pMsg)
+{
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
 }
 
 // 0x0047B090
@@ -819,7 +1145,6 @@ void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMa
 
 int __cdecl GAME_IsExitPending();                                                                                 // 0x0044DA30
 
-extern unsigned char gbGlobal_007BB5E0;                                                                     // 0x007BB5E0
 
 extern int gnImeLanguage_007BB5F0;                                                                          // 0x007BB5F0
 
@@ -944,7 +1269,7 @@ void __cdecl sub_0047B720_DrawChatPanel()
             }
 
             T0044CB60* pNext = pLine->pNext;
-            if (!pNext && gbChatInputOpen && gbGlobal_007BB5E0)
+            if (!pNext && gbChatInputOpen && gbImeOpen)
             {
                 sub_0047B4F0_DrawImeText(D2Win_10121_GetTextWidth(pLine->pText) + 0x83, 15 * nLine + gnScreenHeight - 0x58);
             }
@@ -960,12 +1285,12 @@ void __cdecl sub_0047B720_DrawChatPanel()
             nRow = (nLine - 1 > 2) ? 2 : nLine - 1;
         }
     }
-    else if (gbChatInputOpen && gbGlobal_007BB5E0)
+    else if (gbChatInputOpen && gbImeOpen)
     {
         sub_0047B4F0_DrawImeText(0x83, gnScreenHeight - 0x58);
     }
 
-    if (!gbChatInputOpen || !gbGlobal_007BB5E0)
+    if (!gbChatInputOpen || !gbImeOpen)
     {
         sub_0047B450_DrawBlinkingCaret(15 * nRow + gnScreenHeight - 0x58, 0, nWidth);
     }
@@ -973,6 +1298,58 @@ void __cdecl sub_0047B720_DrawChatPanel()
     D2Win_10127_SetFont(nOldFont);
 }
 
+
+struct D2GfxLightStrc;
+
+struct D2UnitOverlayStrc;
+
+struct D2UnitOverlayStrc
+{
+    int nType;
+    int nOverlay;
+    int n08;
+    int n0C;
+    int n10;
+    int n14;
+    int n18;
+    int n1C;
+    int n20;
+    int n24;
+    int n28;
+    int unk0x2C;
+    int unk0x30;
+    int n34;
+    int nState;
+    int nActive;
+    union
+    {
+        D2GfxLightStrc* pLight;
+        void* pResource;
+    };
+    char unk0x44[0x60];
+    D2UnitOverlayStrc* pNext;
+};
+
+extern unsigned short gwChatCount_007BB5E4; // 0x007BB5E4
+
+// 0x0047BA80
+void __stdcall GFX_StepChatIndex(int nDelta)
+{
+    int nOld = gnChatHistoryCursor;
+    gnChatHistoryCursor += nDelta;
+    if (gnChatHistoryCursor >= 8)
+    {
+        gnChatHistoryCursor = 0;
+    }
+    else if (gnChatHistoryCursor < 0)
+    {
+        gnChatHistoryCursor = 7;
+    }
+    if (gwChatCount_007BB5E4 < 7 && 8 - gnChatHistoryCursor > gwChatCount_007BB5E4)
+    {
+        gnChatHistoryCursor = nOld;
+    }
+}
 
 // 0x0047BAD0
 int __stdcall sub_0047BAD0_ParseChatCommand(const char** ppText, char* pCode, char* szArgument)
@@ -1026,6 +1403,13 @@ int __stdcall sub_0047BAD0_ParseChatCommand(const char** ppText, char* pCode, ch
         return 1;
     }
     return 0;
+}
+
+// 0x0047BC70
+void __stdcall INV_CloseChatOnPanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (pMsg->nYpos > gnScreenHeight - 0x31)
+        UI_SetUIVar(5, 1, 0);
 }
 
 // 0x0047BD60
