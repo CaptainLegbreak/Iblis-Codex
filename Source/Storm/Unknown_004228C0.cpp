@@ -105,36 +105,6 @@ static void __stdcall sub_00423250_Xor(BigBuffer& a, const BigBuffer& b, const B
     a.SetCount(i);
 }
 
-// 0x00425FE0
-D2StormHandleRefStrc& D2StormHandleRefStrc::sub_00425FE0_Apply(const int& nArg1, const int& nArg2, const int& nArg3)
-{
-    sub_00425330(hHandle, nArg1, nArg2, nArg3);
-    return *this;
-}
-
-// 0x00426010
-void* BigNum::sub_00426010_ReadFill(void* pBuffer, unsigned int nSize)
-{
-    unsigned int nRead;
-    SBigToBinaryBuffer(hHandle, pBuffer, nSize, &nRead);
-    if (nRead < nSize)
-        sub_0041D300_ZeroMemory((char*)pBuffer + nRead, nSize - nRead);
-    return pBuffer;
-}
-
-// 0x00426050
-int BigNum::sub_00426050_Call(int nArg1, int nArg2)
-{
-    return sub_00423850(hHandle, nArg1, nArg2);
-}
-
-// 0x00426070
-void Crypt::RSA::Prepare(int nArg1, int nArg2, int nArg3, int nArg4)
-{
-    sub_00423850(hFirst, nArg1, nArg2);
-    sub_00423850(hSecond, nArg3, nArg4);
-}
-
 // 0x00426930
 D2StormLinkStrc* D2StormLinkStrc::sub_00426930_NextLink(int nLinkOffset)
 {

@@ -1,6 +1,46 @@
 #include "Storm.h"
 #include "D2StormSha1.h"
 
+struct D2StormBigStrc;
+
+void __stdcall SBigNew(D2StormBigStrc** ppBig);                                                             // 0x00423950
+void __stdcall SBigDel(D2StormBigStrc* pBig);                                                               // 0x00424E40
+int __stdcall sub_00423850(D2StormBigStrc* pBig, const void* pData, unsigned int nSize);                    // 0x00423850
+void __stdcall SBigToBinaryBuffer(D2StormBigStrc* pBig, void* pBuffer, unsigned int nSize, unsigned int* pRead); // 0x00423B30
+void __stdcall SBigPowMod(D2StormBigStrc* pResult, D2StormBigStrc* pBase, D2StormBigStrc* pExponent, D2StormBigStrc* pModulus); // 0x00425330
+
+struct BigNum
+{
+    D2StormBigStrc* hHandle;
+
+    BigNum()
+    {
+        SBigNew(&hHandle);
+    }
+    // 0x0041D330
+    ~BigNum()
+    {
+        SBigDel(hHandle);
+    }
+    BigNum& sub_00425FE0_Apply(const BigNum& tBase, const BigNum& tExponent, const BigNum& tModulus);
+    void* sub_00426010_ReadFill(void* pBuffer, unsigned int nSize);
+    int sub_00426050_Call(const void* pData, unsigned int nSize);
+};
+
+namespace Crypt
+{
+
+struct RSA
+{
+    BigNum hFirst;
+    BigNum hSecond;
+
+    void Prepare(const void* pExponent, unsigned int nExponentSize, const void* pModulus, unsigned int nModulusSize);
+    void Process(void* pBuffer, unsigned int nSize);
+};
+
+}
+
 extern "C" unsigned int __cdecl _rotl(unsigned int nValue, int nShift);
 extern "C" const unsigned char gaSha1Padding_00708890[]; // 0x00708890
 
@@ -209,6 +249,46 @@ void Sha1::sub_00425F00_Final(unsigned char* pDigest)
             v >>= 8;
         }
     }
+}
+
+// 0x00425FE0
+BigNum& BigNum::sub_00425FE0_Apply(const BigNum& tBase, const BigNum& tExponent, const BigNum& tModulus)
+{
+    SBigPowMod(hHandle, tBase.hHandle, tExponent.hHandle, tModulus.hHandle);
+    return *this;
+}
+
+// 0x00426010
+void* BigNum::sub_00426010_ReadFill(void* pBuffer, unsigned int nSize)
+{
+    unsigned int nRead;
+    SBigToBinaryBuffer(hHandle, pBuffer, nSize, &nRead);
+    if (nRead < nSize)
+        sub_0041D300_ZeroMemory((char*)pBuffer + nRead, nSize - nRead);
+    return pBuffer;
+}
+
+// 0x00426050
+int BigNum::sub_00426050_Call(const void* pData, unsigned int nSize)
+{
+    return sub_00423850(hHandle, pData, nSize);
+}
+
+// 0x00426070
+void Crypt::RSA::Prepare(const void* pExponent, unsigned int nExponentSize, const void* pModulus, unsigned int nModulusSize)
+{
+    hFirst.sub_00426050_Call(pExponent, nExponentSize);
+    hSecond.sub_00426050_Call(pModulus, nModulusSize);
+}
+
+// 0x004260A0
+void Crypt::RSA::Process(void* pBuffer, unsigned int nSize)
+{
+    BigNum tInput;
+    tInput.sub_00426050_Call(pBuffer, nSize);
+    BigNum tOutput;
+    tOutput.sub_00425FE0_Apply(tInput, hSecond, hFirst);
+    tOutput.sub_00426010_ReadFill(pBuffer, nSize);
 }
 
 #include "gen/data/Source/Storm/Unknown_00425720.inc"
