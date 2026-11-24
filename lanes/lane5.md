@@ -4,13 +4,13 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/monskill-split 7ddb5e22c one placeholder more (Unknown_005D1080.cpp); stacked on skill-run-copies. SkillDruid.cpp's second run, the imp and monster skills 0x5D1080-0x5D2090 after SkilPal.cpp, is its own object (its gnVolleyOffsetX/Y sit between SkilPal's and SkillAss's .rdata paths; its own no-data copy 0x741A94 follows SkilPal's): eighteen functions move to the new placeholder with the two tables and the copy (header + marker). VERIFIED 65258fc2abca9e7759b765df747f29f7b1ddee84, borrowed data 1,038 B (main 1,041). Based on skill-run-copies.
 - lane5/skill-run-copies f778c59fd 0 placeholders; five copies 0x7419A4-0x741A94 (planned in SkillNec.cpp, between its data and SkillAss.cpp's copy) are five no-data objects: SkillDruid.cpp, SkillSor.cpp, SkillMonst.cpp, SkilPal.cpp (.rdata paths in that order) and a fifth after SkilPal.cpp, the monster-skill code at 0x5D1080-0x5D2090 now filed in SkillDruid.cpp, whose .rdata (0x6E3254, 0x6E3264) sits between SkilPal's and SkillAss's paths. The first four take their copy from the header with a marker; the fifth stays planned, held by SkilPal.cpp (next: split that run out as its own placeholder). VERIFIED b0aad71b64285b49b0ff02a165b620c504879bda, borrowed data 1,041 B (= main #355). Based on main e40ccd0c (#355), not stacked.
 - lane5/itemmode-run-copies 8a0d5827f 0 placeholders; the four copies 0x73200C-0x7320C0 (planned in ItemMode.cpp, between its data and Skills.cpp's own copy) are four no-data objects: Task.cpp, PlrTrade.cpp, PlrSave2.cpp and the PlayerCreate placeholder Unknown_0056B180.cpp, the four files between ItemMode.cpp's code (to 0x5641C0) and Skills.cpp's (.rdata: ItemMode, Task, PlrTrade, PlrSave2). Each takes its copy from D2LanguageNames.h with a marker. VERIFIED dc3c60afcedeed9badf7819887b4bae4505fcd45, borrowed data 1,041 B (= main #355). Based on main e40ccd0c7 (#355), not stacked.
 - lane5/run-joins 3f5a6a6f 2 placeholders fewer; MonsterUnique.cpp takes in Unknown_005A1230.cpp (MONSTERUNIQUE_UMod38_Possessed) and Unknown_005A1280.cpp (sub_005A1280_UModChampion), both inside its run among its UMod handlers. VERIFIED 68091d6e81ef7d4485f2a775976d96a2483a2db7, borrowed data 1,041 B (= main). Based on main 9ec68ba8 (#354), not stacked.
 
 ## Claimed
 
-- Split: SkillDruid.cpp's 0x5D1080-0x5D2090 (imp and monster skills) into Unknown_005D1080.cpp, stacked on skill-run-copies.
 
 ## Questions
 
