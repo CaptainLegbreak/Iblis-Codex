@@ -10,6 +10,7 @@
 #include "D2UnitData.h"
 #include "D2PlayerModes.h"
 #include "D2StateIds.h"
+#include "D2GameCallbackArgs.h"
 
 #define UNIT_PLAYER 0
 
@@ -1165,11 +1166,6 @@ void __fastcall PLAYER_ApplyDeathPenalty(D2GameStrc* pGame, D2UnitStrc* pDefende
 
 struct D2RosterIterateStrc;
 
-struct D2RosterIterateStrc
-{
-    int bFlag;
-    D2UnitStrc* pUnit;
-};
 
 int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags); // 0x0055B300
 
