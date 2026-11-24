@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00731F74
 
 struct D2PlayerListStrc;
 
@@ -354,4 +356,3 @@ void __fastcall PLAYERLIST_SetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPl
     }
 }
 
-#include "gen/data/Source/D2Game/UNIT/PlayerList.inc"

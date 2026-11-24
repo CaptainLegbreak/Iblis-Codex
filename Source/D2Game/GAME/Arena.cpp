@@ -4,6 +4,8 @@
 #include "D2UnitData.h"
 #include "D2GameServer.h"
 #include "D2GameClient.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x007313D0
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -432,4 +434,3 @@ int __fastcall ARENA_IsActive(D2GameStrc* pGame)
     return ARENA_TestFlag_Inlined(pGame, GAMEFLAG_ARENA_ACTIVE);
 }
 
-#include "gen/data/Source/D2Game/GAME/Arena.inc"

@@ -18,6 +18,8 @@
 #include "D2ItemsWorld.h"
 #include "D2TxtTables.h"
 #include "D2Packets.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00732904
 
 struct D2ClientStrc;
 
@@ -3588,4 +3590,3 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
     return 0;
 }
 
-#include "gen/data/Source/D2Game/UNIT/SUNITNPC.inc"

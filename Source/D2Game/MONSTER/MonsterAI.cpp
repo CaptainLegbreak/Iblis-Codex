@@ -9,6 +9,8 @@
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
 #include "D2GameAux.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00732850
 
 #define STAT_DEXTERITY 2
 
@@ -977,4 +979,3 @@ void __fastcall MONSTERAI_CloseNpcInteractions(D2GameStrc* pGame, D2UnitStrc* pM
     pMonInteract->pInteractInfo = 0;
 }
 
-#include "gen/data/Source/D2Game/MONSTER/MonsterAI.inc"

@@ -3,6 +3,8 @@
 #include "D2GameStrc.h"
 #include "D2GameClient.h"
 #include "D2Packets.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00731394
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -228,4 +230,3 @@ void __fastcall ProcessClientMessage(void* pData, int nPacketSize)
     GAME_LeaveGamesCriticalSection(pGame);
 }
 
-#include "gen/data/Source/D2Game/GAME/CCmd.inc"

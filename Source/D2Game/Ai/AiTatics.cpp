@@ -10,6 +10,8 @@
 #include "D2GameTypes.h"
 #include "D2MonModes.h"
 #include "D2PlayerModes.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00741C84
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1396,4 +1398,3 @@ void __fastcall AITACTICS_UseSkillInRange(D2UnitStrc* pUnit, int nRange, int nSk
 }
 
 
-#include "gen/data/Source/D2Game/Ai/AiTatics.inc"

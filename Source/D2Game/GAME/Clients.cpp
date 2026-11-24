@@ -34,6 +34,8 @@
 #include "D2InactiveUnits.h"
 #include "D2Packets.h"
 #include "D2SaveHeader.h"
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x007312E0
 
 #pragma intrinsic(strcpy)
 
@@ -3846,4 +3848,3 @@ extern "C" __declspec(dllexport) void __fastcall CLIENTS_GetClientInfo(D2ClientS
     *ppClientInfo = pClient->pClientInfo;
 }
 
-#include "gen/data/Source/D2Game/GAME/Clients.inc"
