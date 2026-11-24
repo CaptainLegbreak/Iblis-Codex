@@ -69140,9 +69140,19 @@
      "name": "STATLIST_SetBaseStat2"
     },
     {
+     "va": "0x00627250",
+     "length": 9,
+     "name": "?sub_00627250_SetStat@@YGHPAUD2StatListStrc@@HHH@Z"
+    },
+    {
      "va": "0x00627260",
      "length": 63,
      "name": "?STATLIST_SetUnitStat@@YGXPAUD2UnitStrc@@HHG@Z"
+    },
+    {
+     "va": "0x006272A0",
+     "length": 9,
+     "name": "?sub_006272A0_AddStat@@YGXPAUD2StatListStrc@@HHG@Z"
     },
     {
      "va": "0x006272B0",
@@ -69259,16 +69269,6 @@
    "file": "Source/D2Common/Unknown_00627250.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00627250",
-     "length": 9,
-     "name": "?sub_00627250_SetStat@@YGHPAUD2StatListStrc@@HHH@Z"
-    },
-    {
-     "va": "0x006272A0",
-     "length": 9,
-     "name": "?sub_006272A0_AddStat@@YGXPAUD2StatListStrc@@HHG@Z"
-    },
     {
      "va": "0x006275B0",
      "length": 264,
