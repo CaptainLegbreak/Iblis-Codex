@@ -131,33 +131,6 @@ extern D2WinControlStrc* gpControl_00779C70; // 0x00779C70
 extern D2WinControlStrc* gpControl_00779C78; // 0x00779C78
 extern D2WinControlStrc* gpControl_00779D98; // 0x00779D98
 extern D2WinControlStrc* gpControl_00779DD0; // 0x00779DD0
-// 0x0042FFE0
-void __cdecl CHARSEL_CreateTcpIpScreen()
-{
-    gbGatewayFlag = 1;
-    CHARSEL_DisconnectBattleNet();
-    MAINMENUS_Reset();
-    MAINMENUS_ReadPaletteFiles("palette\\sky\\pal.dat", "palette\\sky\\pal.pl2");
-    MAINMENUS_CreateControl(0x102);
-    D2WinControlStrc* pControl = MAINMENUS_CreateControl(0x103);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x13FD));
-    gpControl_00779338 = MAINMENUS_CreateControl(0x104);
-    sub_004FD060_SetText(gpControl_00779338, D2LANG_GetStringFromTblIndex(0x1401));
-    gpControl_007795A4 = MAINMENUS_CreateControl(0x106);
-    gpControl_007795A0 = MAINMENUS_CreateControl(0x107);
-    gpControl_007795E0 = MAINMENUS_CreateControl(0x108);
-    sub_004FD060_SetText(gpControl_007795E0, D2LANG_GetStringFromTblIndex(0x1402));
-    gpControl_007795E4 = MAINMENUS_CreateControl(0x109);
-    sub_004FD060_SetText(gpControl_007795E4, D2LANG_GetStringFromTblIndex(0x1403));
-    sub_004F9740_ControlSetState(gpControl_007795E0, 0);
-    sub_004F9740_ControlSetState(gpControl_007795E4, 0);
-    sub_004FA450_SetActive(MAINMENUS_CreateControl(0x10A));
-    gpControl_00779344 = MAINMENUS_CreateControl(0x10B);
-    sub_004FD830(gpControl_00779344);
-    sub_004FDA50(gpControl_00779344);
-    gpControl_00779588 = MAINMENUS_CreateControl(0x105);
-    MAINMENUS_ShowLocalAddress();
-}
 
 void __cdecl CHARSEL_FreeCache(); // 0x00437B90
 void __cdecl CHARSEL_UpdateButtons(); // 0x0043A730
