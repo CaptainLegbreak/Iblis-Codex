@@ -149828,16 +149828,16 @@
    "alias": true,
    "cname": "gData_0074C3D8",
    "declared": true,
-   "decorated": "?gpszFallback@@3QAUD2TreeNode006BD330Strc@@A",
+   "decorated": "?gpszFallback@@3QAUD2TxtLinkNodeStrc@@A",
    "file": "Source/Fog/Src/Excel/Excel.cpp",
    "form": "declared_owner",
-   "fwd": "extern \"C\" D2TreeNode006BD330Strc* const gData_0074C3D8; // 0x0074C3D8",
-   "head": "extern \"C\" D2TreeNode006BD330Strc* const gData_0074C3D8 = ",
+   "fwd": "extern \"C\" D2TxtLinkNodeStrc* const gData_0074C3D8; // 0x0074C3D8",
+   "head": "extern \"C\" D2TxtLinkNodeStrc* const gData_0074C3D8 = ",
    "model": {
     "fn": false,
     "k": "ptr",
     "size": 4,
-    "spell": "D2TreeNode006BD330Strc* const"
+    "spell": "D2TxtLinkNodeStrc* const"
    },
    "name": "gpszFallback",
    "pointers": [
@@ -149854,8 +149854,8 @@
    "size": 4,
    "stars": 1,
    "struct": null,
-   "tail": "; // 0x0074C3D8\n#pragma comment(linker, \"/alternatename:?gpszFallback@@3QAUD2TreeNode006BD330Strc@@A=_gData_0074C3D8\")",
-   "type": "D2TreeNode006BD330Strc",
+   "tail": "; // 0x0074C3D8\n#pragma comment(linker, \"/alternatename:?gpszFallback@@3QAUD2TxtLinkNodeStrc@@A=_gData_0074C3D8\")",
+   "type": "D2TxtLinkNodeStrc",
    "va": "0x0074C3D8",
    "zero_tail": 4
   },
