@@ -400,3 +400,5 @@ void __fastcall sub_C07_Emit_00680580(D2DrlgLevelStrc* pLevel)
     DRLGOUTDOORS_SpawnAct12Shrines(pLevel, 5);
     DRLGOUTWILD_SpawnSpecialPresets(pLevel);
 }
+
+#include "gen/data/Source/D2Common/DRLG/OutWild.inc"
