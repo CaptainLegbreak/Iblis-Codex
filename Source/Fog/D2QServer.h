@@ -331,3 +331,7 @@ struct D2QueueServerStrc
 
 void __fastcall QSERVER_ReleaseClient(D2QueueServerStrc* pServer, D2QClientStrc* pClient);                    // 0x006C0360
 void __fastcall QSrvCloseRemoteConnection(D2QueueServerStrc* pServer, int nKey, const char* szFile, int nLine); // 0x006C0420
+int __fastcall QSERVER_CheckReconnectFlood(D2QueueServerStrc* pServer, const int* pKey);                      // 0x006BFFA0
+int __fastcall sub_006C2C70_SendLocal(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pBytes, int nSize); // 0x006C2C70
+int __fastcall sub_006C2D70_ServiceSlot(D2QueueServerStrc* pServer, int nSlot, unsigned long nTimeout);        // 0x006C2D70
+int __fastcall sub_006C30D0_ServiceSlots(D2QueueServerStrc* pServer, int nTimeout);                          // 0x006C30D0

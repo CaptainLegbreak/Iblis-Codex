@@ -88,7 +88,6 @@ static void __stdcall sub_006C23B0_QueueMessage(D2QClientStrc* pConn, const void
 
 void __fastcall ERRORMANAGER_UnregisterThread(unsigned int nId); // 0x00407F90
 
-void __fastcall sub_006C2D70(D2QueueServerStrc* pServer, int nSlot, int nWait); // 0x006C2D70
 
 extern const char gszQServerFile[]; // 0x006FC8A0
 
@@ -283,7 +282,7 @@ static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, D2QueueServe
     }
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[3]);
 
-    if (!nReason && !sub_006BFFA0_CheckReconnects(pServer, (unsigned int*)&pAddr->sin_addr.s_addr) && !pServer->HasMaskedKey(pAddr->sin_addr.s_addr))
+    if (!nReason && !QSERVER_CheckReconnectFlood(pServer, (const int*)&pAddr->sin_addr.s_addr) && !pServer->HasMaskedKey(pAddr->sin_addr.s_addr))
     {
         QSERVER_HackListAddress(pServer, gszQServerNTFile, pAddr->sin_addr.s_addr, 0x4B2);
         nReason = 3;
@@ -365,7 +364,6 @@ static int sQSNTWriteFromQueue(D2QueueServerStrc* pServer, D2QClientStrc* ptClie
     return 1;
 }
 
-int __fastcall sub_006C2C70_SendLocal(D2QueueServerStrc* pServer, D2QClientStrc* pClient, char* pBytes, int nSize);
 
 // 0x006C2810
 static int sub_006C2810_PopWrite(D2QClientStrc* pClient)
@@ -660,7 +658,7 @@ int __fastcall sub_006C30D0_ServiceSlots(D2QueueServerStrc* pServer, int nTimeou
         {
             if (pServer->aListenSockets[i] != -1)
             {
-                sub_006C2D70(pServer, i, nTimeout);
+                sub_006C2D70_ServiceSlot(pServer, i, nTimeout);
             }
         }
     }
@@ -681,7 +679,7 @@ unsigned long __stdcall sub_006C3030_ReleaseSlot(void* pParam)
     }
     while (!pServer->nSlots[nSlot])
     {
-        sub_006C2D70(pServer, nSlot, 50);
+        sub_006C2D70_ServiceSlot(pServer, nSlot, 50);
     }
     EnterCriticalSection(&pServer->tLock);
     pServer->nSlots[nSlot] = 0;
