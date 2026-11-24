@@ -339,10 +339,10 @@ struct D2Storm408ElemStrc
 
 struct D2StormArray408Strc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2Storm408ElemStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2Storm408ElemStrc* m_data;
+    unsigned int m_chunk;
 };
 
 struct D2BnAdClickStrc
@@ -2251,11 +2251,11 @@ int __fastcall BNSEND_LoadBNetNews(int (__fastcall* pfnMessage)(unsigned int nSt
     gbNewsActive = 1;
     gpfnNewsMessage = pfnMessage;
     gpfnNewsRefresh = pfnRefresh;
-    if (gtNewsItems.f_8)
-        SMemFree(gtNewsItems.f_8, gszNewsItemTypeName_0072FF8C, -2, 0);
-    gtNewsItems.f_0 = 0;
-    gtNewsItems.f_4 = 0;
-    gtNewsItems.f_8 = 0;
+    if (gtNewsItems.m_data)
+        SMemFree(gtNewsItems.m_data, gszNewsItemTypeName_0072FF8C, -2, 0);
+    gtNewsItems.m_alloc = 0;
+    gtNewsItems.m_count = 0;
+    gtNewsItems.m_data = 0;
     gnNewsNewest = 0;
     gnNewsFirstIndex = 0;
     if (BNNEWS_LoadNews())

@@ -83,17 +83,17 @@ struct D2GameStrc
 
 struct D2StormGameArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2GameStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2GameStrc* m_data;
+    unsigned int m_chunk;
 
     D2StormGameArrayStrc()
     {
-        f_0 = 0;
-        f_4 = 0;
-        f_8 = 0;
-        f_C = 0;
+        m_alloc = 0;
+        m_count = 0;
+        m_data = 0;
+        m_chunk = 0;
     }
 };
 

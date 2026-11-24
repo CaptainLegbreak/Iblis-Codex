@@ -50,10 +50,10 @@ struct D2SGameDataStrc
 
 struct D2StormGameArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2SGameDataStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2SGameDataStrc* m_data;
+    unsigned int m_chunk;
 
     ~D2StormGameArrayStrc();                                                                                // 0x0044FD80
 };

@@ -72,17 +72,17 @@ struct D2StormListAStrc
 
 struct D2StormListArrayStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    D2StormListAStrc* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    D2StormListAStrc* m_data;
+    unsigned int m_chunk;
 
     D2StormListArrayStrc()
     {
-        f_0 = 0;
-        f_4 = 0;
-        f_8 = 0;
-        f_C = 0;
+        m_alloc = 0;
+        m_count = 0;
+        m_data = 0;
+        m_chunk = 0;
     }
     static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
     {
@@ -99,10 +99,10 @@ struct D2StormListArrayStrc
 
 struct D2StormArray2Strc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
-    unsigned int f_C;
+    unsigned int m_alloc;
+    unsigned int m_count;
+    void* m_data;
+    unsigned int m_chunk;
 
     unsigned int sub_00450810_CalcChunkSize(unsigned int nCount);
 };
@@ -133,12 +133,12 @@ public:
 // 0x00450040
 void D2StormListArrayStrc::sub_00450040_Reserve(unsigned int nCount, int bRound)
 {
-    nCount += f_4;
-    if (nCount > f_0)
+    nCount += m_count;
+    if (nCount > m_alloc)
     {
         if (bRound)
         {
-            unsigned int nChunk = f_C ? f_C : sub_0044DF30_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_0044DF30_CalcChunkSize(nCount);
             nCount = RoundUp(nCount, nChunk);
         }
         sub_0044FE10_ReallocData(nCount);
@@ -148,22 +148,22 @@ void D2StormListArrayStrc::sub_00450040_Reserve(unsigned int nCount, int bRound)
 // 0x00450110
 void D2StormListArrayStrc::sub_00450110_SetCount(unsigned int nCount)
 {
-    if (nCount > f_4)
+    if (nCount > m_count)
     {
-        if (nCount > f_0)
+        if (nCount > m_alloc)
         {
-            unsigned int nChunk = f_C ? f_C : sub_0044DF30_CalcChunkSize(nCount);
+            unsigned int nChunk = m_chunk ? m_chunk : sub_0044DF30_CalcChunkSize(nCount);
             sub_0044FE10_ReallocData(RoundUp(nCount, nChunk));
         }
-        for (unsigned int i = f_4; i < nCount; i++)
-            new (&f_8[i]) D2StormListAStrc;
+        for (unsigned int i = m_count; i < nCount; i++)
+            new (&m_data[i]) D2StormListAStrc;
     }
-    else if (nCount < f_4)
+    else if (nCount < m_count)
     {
-        for (unsigned int i = nCount; i < f_4; i++)
-            f_8[i].~D2StormListAStrc();
+        for (unsigned int i = nCount; i < m_count; i++)
+            m_data[i].~D2StormListAStrc();
     }
-    f_4 = nCount;
+    m_count = nCount;
 }
 
 // 0x004506B0
@@ -174,7 +174,7 @@ D2StormHashTableStrc::TSHashTable()
     m_slotmask = 3;
     m_slotlistarray.sub_00450110_SetCount(4);
     for (unsigned int i = 0; i <= m_slotmask; i++)
-        m_slotlistarray.f_8[i].ChangeLinkOffset(4);
+        m_slotlistarray.m_data[i].ChangeLinkOffset(4);
 }
 
 // 0x00450810
@@ -187,7 +187,7 @@ unsigned int D2StormArray2Strc::sub_00450810_CalcChunkSize(unsigned int nCount)
             nResult &= nResult - 1;
         return nResult < 1 ? 1 : nResult;
     }
-    f_C = 8;
+    m_chunk = 8;
     return 8;
 }
 
