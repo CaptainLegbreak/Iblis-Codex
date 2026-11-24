@@ -239,28 +239,13 @@ struct D2QWriteNodeStrc
     unsigned char pData[1];
 };
 
-struct D2SNameEntryStrc
-{
-    const char* szName;
-    int nType;
-    unsigned int nCount;
-    int unk0x0C;
-    int unk0x10;
-};
-
-struct D2SNameListStrc
-{
-    const char* pStrings;
-    int unk0x04;
-    int unk0x08;
-    unsigned int nCount;
-};
+struct D2BinFieldStrc;
 
 struct D2SNameNodeStrc
 {
     D2SNameNodeStrc* pNext;
     unsigned int nHash;
-    D2SNameEntryStrc* pEntry;
+    D2BinFieldStrc* pEntry;
 };
 
 #include "D2Win32Types.h"
