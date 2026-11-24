@@ -898,7 +898,7 @@ static void FillStreamBuffer(REQUEST* pRequest)
 {
     EnterCriticalSection(&gBasePathLock_00779068);
     // a whole chunk fits in the sound buffer
-    STORM_ASSUME(pRequest->stream->soundbuffersize - pRequest->soundbufferoffset >= gnStreamChunk_00779038);
+    SASSERT(pRequest->stream->soundbuffersize - pRequest->soundbufferoffset >= gnStreamChunk_00779038);
     unsigned long nLocked;
     unsigned char** const ppDest = &pRequest->pDest;
     if (pRequest->pBuffer->Lock(pRequest->soundbufferoffset, gnStreamChunk_00779038, (void**)ppDest, &nLocked, 0, 0, 0) < 0

@@ -113,7 +113,7 @@ void __stdcall sub_00424B00_BigSquare(BigBuffer* pResult, BigBuffer* pA, BigStac
     if (pResult == pA)
     {
         // the work stack holds 16 buffers
-        STORM_ASSUME(pStack->nUsed < 16);
+        SASSERT(pStack->nUsed < 16);
         pWork = &pStack->pRecords[pStack->nUsed++];
     }
     else
@@ -143,7 +143,7 @@ void __stdcall sub_00424B00_BigSquare(BigBuffer* pResult, BigBuffer* pA, BigStac
         pResult->m_array.sub_004215C0_Set(pWork->m_array.m_count.n, pWork->m_array.m_data);
         pResult->m_array.m_chunk = pWork->m_array.m_chunk;
         pResult->m_start = pWork->m_start;
-        STORM_ASSUME(1 <= pStack->nUsed);
+        SASSERT(1 <= pStack->nUsed);
         pStack->nUsed--;
     }
 }

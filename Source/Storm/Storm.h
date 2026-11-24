@@ -137,8 +137,8 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
-// Storm's release-build assertion: the condition is not checked, the compiler is told it holds
-#define STORM_ASSUME(expr) __assume(expr)
+// Storm's assertion in a release build: the condition is not checked, the compiler is told it holds
+#define SASSERT(expr) __assume(expr)
 #define DOLIT4 c ^= *buf4++; \
         c = crc_table[3][c & 0xff] ^ crc_table[2][(c >> 8) & 0xff] ^ \
             crc_table[1][(c >> 16) & 0xff] ^ crc_table[0][c >> 24]
