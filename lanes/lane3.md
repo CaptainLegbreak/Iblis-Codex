@@ -4,6 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/sstr-strays 03afb621 560->560 SStrHashHT (0x414150), SStrUpper (0x4141E0), SStrLower (0x414200) and bjhash (0x413F30, the lookup2 hash SStrHashHT calls) move from SFILE.CPP to SSTR.CPP: they have Storm's `blizzard` SStr names and sit inside SSTR.CPP's run (0x413DC0-0x4142A0). 0x414260 (StormPowInt<double> wrapper) stays in SFILE.CPP: defined in SSTR.CPP it changes register allocation in SSTR's two string-to-float functions, so it was not part of SSTR.CPP. VERIFIED aa63a12b on base ef2c6741 (j72; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 6,376 B), then rebased onto 29e8f760 (j73) without conflicts and prechecked. Not stacked.
 - lane3/text-data 0dc79067 560->560 two lane-3 borrowed-data leads from borrowed-data.md: 0x402D60 (stack-frame formatter) uses its eight format strings (0x6FFC14-0x6FFC5C, 79 B borrowed) as literals, and the SBig random multiplier at 0x6CFF60 is defined in Unknown_00424700, its only reader. Both are now built from source. VERIFIED 506f7eaa on base 983bd7b1 (j70; 14,918/14,918; borrowed code 12,041 B / 9 functions, data 12,527 B), then rebased onto ef2c6741 (j72) without conflicts and prechecked. Not stacked.
 
 ## Questions
@@ -13,6 +14,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 - `AUTOMAP_ReadTimeStampCounter` at 0x40E850 is filed in D2Client/UI/automap.cpp (lane 4), but it sits in Fog's ErrorManager.cpp run, between the CPUID helpers at 0x40E250 and 0x40E870, and its only callers are 0x40E8AD and 0x40E8FE in ERRORMANAGER_MeasureCpuMHz. May I move it into ErrorManager.cpp (and rename it ERRORMANAGER_ReadTimeStampCounter)?
 
 ## Notes for other lanes
+
+- **Lane 4:** `AUTOMAP_PowInt` (0x414220, D2Client/UI/automap.cpp) sits inside Storm's SSTR.CPP run, next to 0x414260, which is a StormPowInt<double> wrapper. It looks like one more StormPowInt instantiation rather than an automap function. I've left it alone.
 
 - **Lane 4:** borrowed-data.md lists 0x700140-0x7001C0 (in my "between Fog/Unknown_00401010.cpp and Storm/Unknown_00404F40.cpp" block) as mine, but it is WardenClient's RTTI: the complete object locator, class hierarchy and base class descriptors of `.?AUWardenClient@@` (type descriptor 0x721CC0, which WardenClient.cpp already maps). It belongs with WardenClient.cpp's `??_R0` line.
 
