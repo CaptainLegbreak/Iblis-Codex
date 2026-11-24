@@ -78915,6 +78915,11 @@
      "length": 190
     },
     {
+     "va": "0x006C7EF0",
+     "length": 146,
+     "name": "?sub_006C7EF0_ConvertPalette@@YIHPAE@Z"
+    },
+    {
      "va": "0x006C7F90",
      "length": 16,
      "name": "?GDICORE_GetScreenSize@@YIXPAH0@Z"
@@ -78952,6 +78957,10 @@
      "va": "0x006C8100",
      "length": 3,
      "name": "sub_006C8100"
+    },
+    {
+     "va": "0x006C8110",
+     "length": 115
     },
     {
      "va": "0x006C8190",
@@ -79100,21 +79109,6 @@
      "va": "0x006C80A0",
      "length": 1,
      "name": "?sub_006C80A0_Nop@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Unknown_006C7EF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006C7EF0",
-     "length": 146,
-     "name": "?sub_006C7EF0_ConvertPalette@@YIHPAE@Z"
-    },
-    {
-     "va": "0x006C8110",
-     "length": 115
     }
    ]
   },

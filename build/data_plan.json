@@ -4827,7 +4827,6 @@
    "definitions": 3,
    "externs": [
     "extern \"C\" void __cdecl GDISMACK_PlaySmacker(); // 0x006C9900",
-    "extern \"C\" void __cdecl sub_006C7EF0_ConvertPalette(); // 0x006C7EF0",
     "extern \"C\" void __cdecl sub_006C8C80_GdiDrawLine(); // 0x006C8C80",
     "extern \"C\" void __cdecl sub_006C8F70_RectDiamond(); // 0x006C8F70",
     "extern \"C\" void __cdecl sub_006C9030_DrawRect(); // 0x006C9030",
