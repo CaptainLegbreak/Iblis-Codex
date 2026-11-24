@@ -1,7 +1,6 @@
 #include "Fog.h"
 #include "D2CrashTypes.h"
 
-struct D2ModuleStrc;
 
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 bool __stdcall sub_00404C60_EnumModulesPsapi(void* pContext); // 0x00404C60

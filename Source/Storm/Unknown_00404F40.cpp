@@ -9,15 +9,12 @@
 #define CMD_INTEGER 1
 #define CMD_STRING 2
 struct D2ConfigStrc;
-struct D2PoolSystemStrc;
 struct D2ImageDataDirStrc;
 struct D2ImageOptionalHeader64Strc;
-struct D2FloatSaveStrc;
 struct D2StackFrameStrc;
 struct D2IniEntryStrc;
 struct Character;
 struct D2CmdArgStrc;
-struct D2ComInterfaceStrc;
 
 static void __stdcall sub_00404F60_GetDebugDirectory32(unsigned long* pSize, unsigned long* pRva, const D2ImageOptionalHeaderStrc* pHeader);
 
