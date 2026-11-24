@@ -11876,11 +11876,6 @@
      "va": "0x004D16C0",
      "length": 352,
      "name": "SKILLS_SpawnOffsetMissile"
-    },
-    {
-     "va": "0x004DA5B0",
-     "length": 108,
-     "name": "SKILLS_SetBallistic"
     }
    ]
   },
@@ -20157,6 +20152,11 @@
      "length": 596
     },
     {
+     "va": "0x004DA5B0",
+     "length": 108,
+     "name": "SKILLS_SetBallistic"
+    },
+    {
      "va": "0x004DA620",
      "length": 26,
      "name": "?sub_004DA620_SetMotionFlag10@@YIXPAUD2UnitStrc@@H@Z"
@@ -20187,9 +20187,24 @@
      "name": "?MISSILE_SetMotionFlagMask@@YIXPAUD2UnitStrc@@H@Z"
     },
     {
+     "va": "0x004DA700",
+     "length": 22,
+     "name": "?sub_004DA700_GetGfxMotionFlag5@@YIHPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004DA720",
      "length": 68,
      "name": "?GFXUTIL_CopyCompCode@@YAXPATD2CompCodeStrc@@PBD@Z"
+    },
+    {
+     "va": "0x004DA770",
+     "length": 32,
+     "name": "?sub_004DA770_GetMonComponentIndex@@YIEPAUD2UnitStrc@@E@Z"
+    },
+    {
+     "va": "0x004DA790",
+     "length": 331,
+     "name": "?PARTICLE_InitModeTokens@@YAXXZ"
     },
     {
      "va": "0x004DA8E0",
@@ -20235,6 +20250,11 @@
      "va": "0x004DABC0",
      "length": 345,
      "name": "?GFXUTIL_SetItemCelName@@YAXPAUD2UnitStrc@@PAUD2CelContextStrc@@@Z"
+    },
+    {
+     "va": "0x004DAD20",
+     "length": 44,
+     "name": "?PARTICLE_SetOverlayCelName@@YIXPAUD2UnitStrc@@PAUD2CelContextStrc@@@Z"
     },
     {
      "va": "0x004DAD50",
@@ -20375,6 +20395,16 @@
      "va": "0x004DC000",
      "length": 158,
      "name": "?GFXUTIL_DrawFadeBox@@YAXXZ"
+    },
+    {
+     "va": "0x004DC0A0",
+     "length": 11,
+     "name": "?PLAYERLIST_ClearFadeTimer@@YAXXZ"
+    },
+    {
+     "va": "0x004DC0B0",
+     "length": 11,
+     "name": "?PLAYERLIST_GetNextRosterInfo@@YIPAUD2RosterInfoStrc@@PAU1@@Z"
     },
     {
      "va": "0x004DC3E0",
@@ -29398,16 +29428,6 @@
      "name": "ITEM_GetTargetPosition"
     },
     {
-     "va": "0x004DA0D0",
-     "length": 28,
-     "name": "ITEM_GetGfxClientY"
-    },
-    {
-     "va": "0x004DA0F0",
-     "length": 28,
-     "name": "ITEM_GetGfxClientZ"
-    },
-    {
      "va": "0x004DCD40",
      "length": 200,
      "name": "ITEM_ShowTimedHint"
@@ -31070,30 +31090,14 @@
      "name": "_PARTICLE_GetGfxOffsetX@4"
     },
     {
-     "va": "0x004DA700",
-     "length": 22,
-     "name": "?sub_004DA700_GetGfxMotionFlag5@@YIHPAUD2UnitStrc@@@Z"
+     "va": "0x004DA0D0",
+     "length": 28,
+     "name": "ITEM_GetGfxClientY"
     },
     {
-     "va": "0x004DA790",
-     "length": 331,
-     "name": "?PARTICLE_InitModeTokens@@YAXXZ"
-    },
-    {
-     "va": "0x004DAD20",
-     "length": 44,
-     "name": "?PARTICLE_SetOverlayCelName@@YIXPAUD2UnitStrc@@PAUD2CelContextStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004DA770.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004DA770",
-     "length": 32,
-     "name": "?sub_004DA770_GetMonComponentIndex@@YIEPAUD2UnitStrc@@E@Z"
+     "va": "0x004DA0F0",
+     "length": 28,
+     "name": "ITEM_GetGfxClientZ"
     }
    ]
   },
@@ -31101,16 +31105,6 @@
    "file": "Source/D2Client/UNIT/PlayerList.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x004DC0A0",
-     "length": 11,
-     "name": "?PLAYERLIST_ClearFadeTimer@@YAXXZ"
-    },
-    {
-     "va": "0x004DC0B0",
-     "length": 11,
-     "name": "?PLAYERLIST_GetNextRosterInfo@@YIPAUD2RosterInfoStrc@@PAU1@@Z"
-    },
     {
      "va": "0x004DC270",
      "length": 58,
