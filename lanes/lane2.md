@@ -4,9 +4,9 @@ Written by lane 2 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane2/text-box c2d6fde2 562->562 Two commits, the last address-named records that more than one unit uses. T00479230 is the client's text box (gpTextBox, gpMainTextBox; TEXT_CreateTextBox, TEXT_FreeTextBox, TEXT_DrawTextList), now D2TextBoxStrc in its five units; text, Unknown_004A43E0 and Unknown_004A6460's identical copy (pack 2) is in D2ClientTextBox.h, WardenClient's differs and stays. T0047BAD0 is gaChatCommands' element (name, code, takes an argument, always allowed), now D2ChatCommandStrc in D2ClientChatCommand.h for chat and Unknown_0047CC90, with the data plan's entry for gaChatCommands following the name. T0044A980 is gpPalShiftEntries' element, which PalShift.cpp already calls D2PalShiftEntryStrc; View and CUnit now use that name (their views differ, so each keeps its own); VERIFIED e25792b88eb8903d669e2bf1a0ca6d0b46badbc1
-  - Verified on a6db6df9 (#356), rebased onto ff65a331 (#357): text.cpp's conflict with small-records-j was include lines only. Precheck of all 9 changed units is equal there.
-  - Outside lane 2: text, text_0049DA50, Unknown_004A43E0/004A6460, WardenClient, chat, Unknown_0047CC90, View, CUnit (lanes 1 and 4), build/data_plan.json (gaChatCommands' type name).
+- lane2/exception-pointers faf6ef62 562->562 Three commits, records I had left private before. D2ExceptionPointers.h: Win32's EXCEPTION_POINTERS typed once, both pointers (Exceptions had the record as void*, Unknown_00402820 the context as void*), with Exceptions' field names. D2ClientQuestText.h: the quest text message and the quest log state that holds six of them (gtQuestLog_007BF298), identical in text, Unknown_004A43E0 and Unknown_004A6460; QuestLog types the text as unsigned short and keeps its pair. D2MultiCharSave.h: the .d2s header and 0x2000-byte file views, identical in ChatDlg and Unknown_0043C8A0 (merging with D2SaveHeaderStrc would still need a union for the old flags); VERIFIED 5f87d444cfc899399bdb0fb06be4261a1b6e45a4
+  - Verified on ff65a331 (#357), rebased onto 9a070bac (#358): the three text units' conflicts with text-box were include lines only. Precheck of all 7 changed units is equal there.
+  - Outside lane 2: Exceptions, Unknown_00402820 (lane 3), text, Unknown_004A43E0/004A6460 (lanes 1 and 4), ChatDlg, Unknown_0043C8A0 (lane 6).
 
 ## Working on
 
@@ -45,8 +45,6 @@ No borrowed-data block or language split is in lane 2's range: the coord block i
 - Lane 1: 0x711470 has two names, `gnScreenHeight_00711470` in D2Client.h and `gnScreenHeight` declared privately in about 60 units. Left alone; your header.
 
 ## Left in place (and why)
-
-- D2ExceptionPointersStrc stays private in Exceptions, LogManager and Unknown_00402820. Two copies type the record as `void*` and the context as `D2ThreadContextStrc*`; the third types the record as `D2ExceptionRecordStrc*` and the context as `void*`. Sharing it needs one typing for both fields.
 
 - D2DataTablesStrc+0xC30 stays `void* pMonPropTxt`. It is monprop.txt (0x138-byte records, compiled by DATATBLS_LoadMonPropTxt), and Unknown_00573470 is its getter through D2MonStatsTxt+0x1A (wMonProp; that unit's private copy calls it wMonStatsEx). I retested on #314: typing it `D2MonPropTxt*`, with a forward declaration or an elaborated type, still flips inv_0048DD90, LvlTbls, ItemTbls and MonsterTbls. So 0x573470 stays alone with its private records. MonsterTbls also keeps `gpMonpropTxt`/`gnMonpropTxtRecordCount` (0x0096C860/64): these are sgtDataTables+0xC30/0xC34 under a second name.
 
