@@ -833,18 +833,14 @@ extern char gbGlobal_007C025F; // 0x007C025F
 
 extern char gbGlobal_007C0260; // 0x007C0260
 
-static int gnKeyConfigEntryCount; // 0x007C0274
 
 int __cdecl TEXT_GetMaxFirstEntry(); // 0x004A44C0
 
 int gnKeyConfigThumbScale; // 0x007C0278
 
-int gnKeyConfigFirstVisible; // 0x007C02AC
 
 extern int gnAutomapHeight; // 0x007A521C
 
-// build: symbol ??__EgnKeyConfigThumbY@@YAXXZ 0x006CACE0
-int gnKeyConfigThumbY = (gnAutomapHeight - 420) / 2 + 47; // 0x007C02CC
 
 #pragma pack(push, 2)
 
@@ -873,11 +869,8 @@ void __cdecl TEXT_InitKeyConfigEntries(); // 0x004A43E0
 
 extern int gbRedraw; // 0x007C0280
 
-static int gnKeyConfigSelected; // 0x007C02B0
 
-int gbKeyCaptureActive; // 0x007C02B8
 
-int gbKeyConfigPressRepeat; // 0x007C0284
 
 int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB); // 0x00469D90
 
@@ -928,13 +921,9 @@ int gtQuestLog; // 0x007BF298
 
 int __stdcall TEXT_IsAbovePanelLine(int nX); // 0x004A4780
 
-int gnThumbRange; // 0x007C027C
 
-int gnDragThumbY; // 0x007C02A4
 
-int gnDragMouseY; // 0x007C02A8
 
-unsigned long gdwKeyConfigRepeatTick; // 0x007C02C0
 
 int __fastcall TEXT_IsInPanelButton(int, int, int); // 0x004A6580
 
@@ -1020,7 +1009,6 @@ char gbGlobal_007BF2B2; // 0x007BF2B2
 
 char gbGlobal_007BF2B4; // 0x007BF2B4
 
-void* gpKeyConfigSliderCel; // 0x007C02BC
 
 static int TEXT_GetKeyConfigLineAt(int nY);
 
@@ -1400,15 +1388,10 @@ extern D2KeyConfigButtonStrc gaButtons_007246D8[3]; // 0x007246D8
 
 extern unsigned int gdwMessageTick_007C02C8; // 0x007C02C8
 
-int gnKeyConfigPressedButton; // 0x007C02B4
 
-int gnMessage; // 0x007C02C4
 
-unsigned int gnBlink; // 0x007C02D0
 
-int gnLastMouseY; // 0x007C02D4
 
-int gnLastMouseX; // 0x007C02D8
 
 void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket);
 
@@ -5135,186 +5118,12 @@ void __stdcall TEXT_QuestLButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
-// 0x004A43E0
-void __cdecl TEXT_InitKeyConfigEntries()
-{
-    if (GAME_IsExpansion())
-    {
-// build: symbol ?gpListEntries@* 0x00724264
-        gpListEntries = gaKeyConfigEntriesExp;
-        gnKeyConfigEntryCount = 62;
-        gnKeyConfigThumbScale = sub_KEYCFG_RowTrackCels() * sub_F08_VisibleLines() / gnKeyConfigEntryCount;
-        gnThumbRange = gnKeyConfigEntryCount - sub_F08_VisibleLines();
-    }
-    else
-    {
-        gpListEntries = gaKeyConfigEntries;
-        gnKeyConfigEntryCount = 51;
-        gnKeyConfigThumbScale = sub_KEYCFG_RowTrackCels() * sub_F08_VisibleLines() / gnKeyConfigEntryCount;
-        gnThumbRange = gnKeyConfigEntryCount - sub_F08_VisibleLines();
-    }
-}
 
-// 0x004A44C0
-int __cdecl TEXT_GetMaxFirstEntry()
-{
-    int nCount = gnKeyConfigEntryCount;
-    for (int i = 0; i < sub_F08_VisibleLines(); ++i)
-    {
-        if (--nCount <= 0)
-            return 0;
-    }
-    return nCount;
-}
 
-// 0x004A4500
-void __fastcall TEXT_ScrollKeyConfigList(int nStep)
-{
-    if (nStep < -1)
-    {
-        for (int i = nStep; i < 0; ++i)
-            TEXT_ScrollKeyConfigList(-1);
-        return;
-    }
-    if (nStep > 1)
-    {
-        for (int i = 0; i < nStep; ++i)
-            TEXT_ScrollKeyConfigList(1);
-        return;
-    }
 
-    const int nMax = TEXT_GetMaxFirstEntry();
-    int nFirst = gnKeyConfigFirstVisible;
-    if (nStep < 0)
-    {
-        const int nPrev = nFirst <= 0 ? nFirst : nFirst - 1;
-        if (nPrev < 0)
-            goto done;
-        nFirst = nPrev;
-    }
-    else if (nStep > 0)
-    {
-        const int nNext = nFirst >= nMax ? nFirst : nFirst + 1;
-        if (nNext > nMax)
-            goto done;
-        nFirst = nNext;
-    }
-    else
-        goto done;
-    gnKeyConfigFirstVisible = nFirst;
-done:
-    gnKeyConfigThumbY = sub_I18_TrackSpan() * nFirst / nMax + sub_I18_TrackTop();
-}
 
-// 0x004A45C0
-void __fastcall TEXT_MoveKeyConfigSelection(int nStep)
-{
-    if (!nStep)
-        return;
-    if (nStep < -1)
-    {
-        for (int i = nStep; i < 0; ++i)
-            TEXT_MoveKeyConfigSelection(-1);
-        return;
-    }
-    if (nStep > 1)
-    {
-        for (int i = 0; i < nStep; ++i)
-            TEXT_MoveKeyConfigSelection(1);
-        return;
-    }
 
-    const int nCount = gnKeyConfigEntryCount;
-    if (nStep < 0)
-    {
-        const int nOld = gnKeyConfigSelected;
-        const int nNew = nOld <= 0 ? nOld : nOld - 1;
-        if (nNew >= 0)
-            gnKeyConfigSelected = nNew;
-    }
-    else if (nStep > 0 && gnKeyConfigSelected < nCount)
-    {
-        const int nNew = gnKeyConfigSelected + 1;
-        if (nNew < nCount)
-            gnKeyConfigSelected = nNew;
-    }
 
-    const int nSelected = gnKeyConfigSelected;
-    int nFirst = gnKeyConfigFirstVisible;
-    if (nSelected < nFirst)
-    {
-        const int nTrackTop = sub_F08_TrackTop();
-        gnKeyConfigFirstVisible = nSelected;
-        gnKeyConfigThumbY = nSelected * sub_F08_TrackSpan() / TEXT_GetMaxFirstEntry() + nTrackTop;
-        return;
-    }
-
-    for (;;)
-    {
-        int nLast = nFirst;
-        for (int nLine = 0; nLast < nCount && nLine < 0x0F; ++nLine)
-            ++nLast;
-        if (gnKeyConfigSelected < nLast)
-            break;
-
-        const int nMax = TEXT_GetMaxFirstEntry();
-        const int nNew = nFirst >= nMax ? nFirst : nFirst + 1;
-        if (nNew <= nMax)
-            nFirst = nNew;
-        gnKeyConfigThumbY = sub_F08_TrackSpan() * nFirst / nMax + sub_F08_TrackTop();
-    }
-    gnKeyConfigFirstVisible = nFirst;
-}
-
-// 0x004A4720
-static int TEXT_GetKeyConfigLineAt(int nY)
-{
-    int nIndex = gnKeyConfigFirstVisible;
-    const int nCount = gnKeyConfigEntryCount;
-    int nLine = 0;
-    if (nIndex < nCount)
-    {
-        int nLineY = (gnAutomapHeight - 0x1A4) / 2 + 0x3A;
-        do
-        {
-            if (nLine >= 0x0F)
-                break;
-            if (nY <= nLineY)
-                return nIndex;
-            ++nIndex;
-            ++nLine;
-            nLineY += 0x12;
-        }
-        while (nIndex < nCount);
-        if (nIndex < nCount)
-            return nIndex;
-    }
-    return nCount < 0 ? nCount : nCount - 1;
-}
-
-int __stdcall sub_M119_Emit_004A4A00(int nX, int nY)
-{
-    if (TEXT_IsOnKeyConfigButton(nX, nY))
-    {
-        return TEXT_IsOnPressedButton(nX + 1, nY);
-    }
-    return 2;
-}
-
-// build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
-// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-// 0x004A47C0
-static int TEXT_GetKeyConfigButtonAt(int nX, int nY)
-{
-    unsigned int i;
-    for (i = 0; i < 3; ++i)
-    {
-        if (nX >= gaKeyConfigButtons[i].nLeft && nX <= gaKeyConfigButtons[i].nRight
-            && nY >= gaKeyConfigButtons[i].nTop && nY <= gaKeyConfigButtons[i].nBottom)
-            break;
-    }
-    return i;
-}
 
 static int __stdcall sub_E10_IsAbovePanelLineCopy(int nY)
 {
@@ -5322,551 +5131,48 @@ static int __stdcall sub_E10_IsAbovePanelLineCopy(int nY)
     return nY < nHalf + (gnScreenWidth - nHalf * 2 - 49) / 3 * 2 + 18;
 }
 
-// 0x004A47F0
-static int TEXT_IsInKeyConfigList(int nX, int nY)
-{
-    const int nHalf = (gnScreenWidth - 0x26C) / 2;
-    const int nLeft = nHalf + 0x12;
-    const int nRight = nHalf + (gnScreenWidth - nHalf * 2 - 0x31) / 3 * 3 + 0x12;
-    if (nX >= nLeft && nX <= nRight)
-    {
-        const int nTop = (gnAutomapHeight - 0x1A4) / 2;
-        if (nY >= nTop + 0x28 && nY <= nTop + 0x136)
-            return 1;
-    }
-    return 0;
-}
 
-// 0x004A4860
-static int TEXT_IsOnUpArrow(int nX, int nY)
-{
-    if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
-    {
-        const int nTop = sub_F08_ListTop();
-        if (nY >= nTop + 0x23 && nY <= nTop + 0x2F)
-            return 1;
-    }
-    return 0;
-}
 
-// 0x004A48B0
-static int TEXT_IsOnDownArrow(int nX, int nY)
-{
-    if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
-    {
-        const int nTop = sub_F08_ListTop();
-        if (nY >= nTop + 0x125 && nY <= nTop + 0x131)
-            return 1;
-    }
-    return 0;
-}
 
-// 0x004A4900
-static int TEXT_IsAboveThumb(int nX, int nY)
-{
-    if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
-    {
-        if (nY > sub_F08_ListTop() + 0x2F && nY < gnKeyConfigThumbY)
-            return 1;
-    }
-    return 0;
-}
 
-// 0x004A4950
-static int TEXT_IsOnThumb(int nX, int nY)
-{
-    if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
-    {
-        if (nY >= gnKeyConfigThumbY && nY <= gnKeyConfigThumbY + sub_F08_ThumbHeight())
-            return 1;
-    }
-    return 0;
-}
 
-// 0x004A49A0
-static int TEXT_IsBelowThumb(int nX, int nY)
-{
-    if (nX >= sub_F08_PanelRight() - 0x1F && nX <= sub_F08_PanelRight() - 0x12)
-    {
-        if (nY < sub_F08_ListTop() + 0x125 && nY > gnKeyConfigThumbY + sub_F08_ThumbHeight())
-            return 1;
-    }
-    return 0;
-}
 
-// 0x004A4A00
-static inline int TEXT_IsOnKeyConfigButton(int nX, int nY)
-{
-    return TEXT_GetKeyConfigButtonAt(nX, nY) != 3;
-}
 
-// 0x004A4A10
-static int TEXT_IsOnSelectedLine(int nX, int nY)
-{
-    if (TEXT_IsInKeyConfigList(nX, nY) && TEXT_GetKeyConfigLineAt(nY) == gnKeyConfigSelected
-// build: symbol ?gnKeyConfigColumn@* 0x007246D4
-        && sub_E10_IsAbovePanelLineCopy(nX) == gnKeyConfigColumn)
-        return 1;
-    return 0;
-}
 
-// 0x004A4A80
-static inline int TEXT_IsOnPressedButton(int nX, int nY)
-{
-    const int nButton = gnPressedButton_007C02B4;
-    if (nButton != 3 && TEXT_GetKeyConfigButtonAt(nX, nY) == nButton)
-    {
-        return 1;
-    }
-    return 0;
-}
 
-// 0x004A4AA0
-int __fastcall TEXT_IsOnlyPressed(int nIndex)
-{
-    for (int i = 0; i < 7; i++)
-    {
-        if (gaPressed[i] && i != nIndex)
-        {
-            return 0;
-        }
-    }
-    return 1;
-}
 
-// 0x004A4FA0
-static int TEXT_GetKeyConfigEntryState(int nIndex, int nFlag)
-{
-    if (nIndex == gnKeyConfigSelected && (gbKeyCaptureActive || nFlag == gnKeyConfigColumn))
-    {
-        return 3;
-    }
 
-// build: symbol ?gpListEntries@* 0x00724264
-    if (!CUNIT_HasHotkeyBinding(gpListEntries[nIndex].nId, 1) && !CUNIT_HasHotkeyBinding(gpListEntries[nIndex].nId, 0))
-    {
-        return 1;
-    }
-
-    return CUNIT_HasHotkeyBinding(gpListEntries[nIndex].nId, nFlag) ? 4 : 5;
-}
-
-int sub_B05_Emit_004A4FA0(int* pIndex)
-{
-    int nA = TEXT_GetKeyConfigEntryState(*pIndex, 1);
-    int nB = TEXT_GetKeyConfigEntryState(*pIndex, 0);
-    return sub_B05_Sink(nA, nB);
-}
 
 int __cdecl sub_0040D530_Call0040C720()
 {
     return EXCEPTIONS_ReleaseSymbols(1);
 }
 
-// 0x004A5010
-void __cdecl TEXT_ResetKeyConfigDefaults()
-{
-    CMDTBL_ResetKeyConfig(0);
-}
 
-// 0x004A5020
-void __cdecl TEXT_AcceptKeyConfig()
-{
-    CMDTBL_SaveAndBindHotkeys();
-    UI_SetUIVar(11, 1, 0);
-    sub_0047E200_CloseMenus(1);
-}
 
-// 0x004A5040
-void __cdecl TEXT_CancelKeyConfig()
-{
-    sub_00469D50();
-    UI_SetUIVar(11, 1, 0);
-    WARDENCLIENT_ToggleEscMenuUIState(0, 1);
-}
 
-// 0x004A5060
-void __cdecl TEXT_LayoutSlider()
-{
-    const int nOldFont = sub_00502EF0_SetFont(13);
-    for (unsigned int i = 0; i < 3; ++i)
-    {
-        const int nWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(gaKeyConfigButtons[i].nStringId));
-        const int nThird = (sub_F08_PanelRight() - sub_F08_PanelLeft()) / (sizeof(gaKeyConfigButtons) / sizeof(gaKeyConfigButtons[0]));
-        gaKeyConfigButtons[i].nLeft = nThird * i + sub_F08_PanelLeft() + nThird / 2 - nWidth / 2 - 10;
-        gaKeyConfigButtons[i].nRight = nThird * i + sub_F08_PanelLeft() + nThird / 2 + nWidth / 2 + 10;
-        gaKeyConfigButtons[i].nTop = sub_F08_ListTop() + 0x149;
-        gaKeyConfigButtons[i].nBottom = sub_F08_ListTop() + 0x16F;
-    }
-    sub_00502EF0_SetFont(nOldFont);
 
-    gnKeyConfigThumbY = sub_F08_TrackSpan() * gnKeyConfigFirstVisible / TEXT_GetMaxFirstEntry() + sub_F08_TrackTop();
-}
 
-// 0x004A5190
-void __cdecl TEXT_InitTextSlider()
-{
-    char szPath[0x104];
-    TEXT_InitKeyConfigEntries();
-    sprintf(szPath, "%s\\UI\\Menu\\TextSlid", gszDataGlobal);
-    gpKeyConfigSliderCel = ARCHIVE_LoadClientCellFile(szPath, 0);
-    sub_004A5060();
-    gnKeyConfigFirstVisible = 0;
-    gnKeyConfigSelected = 0;
-}
 
-// 0x004A51E0
-void __cdecl TEXT_FreeTextSliderCel()
-{
-    if (gpKeyConfigSliderCel)
-    {
-        ARCHIVE_FreeClientCellFile(gpKeyConfigSliderCel);
-        gpKeyConfigSliderCel = 0;
-    }
-}
 
-// 0x004A5200
-void __fastcall TEXT_ToggleKeyConfigPanel(int nArg)
-{
-    TEXT_InitKeyConfigEntries();
-    if (nArg)
-    {
-        if (gbKeyCaptureActive == 0)
-        {
-            CMDTBL_SaveHotkeys();
-            sub_0046AA20(0, 0);
-            GAME_UnregisterMouseHandlers();
-            sub_00467A70_RefreshHoverUnit(0);
-        }
-        gnKeyConfigFirstVisible = 0;
-        gnKeyConfigSelected = 0;
-    }
-    else if (gbKeyCaptureActive == 0)
-    {
-        sub_0046AA20(1, 0);
-        GAME_RegisterMouseHandlers();
-        sub_00466FE0();
-    }
-    sub_004A5060();
-}
-
-// 0x004A5270
-void __cdecl TEXT_DrawKeyConfigPanel()
-{
-    const int nMouseX = sub_00468730();
-    const int nMouseY = sub_00468740();
-    TEXT_InitKeyConfigEntries();
-    if (gnLastMouseX != nMouseX || gnLastMouseY != nMouseY || gbRedraw)
-    {
-        gnLastMouseX = nMouseX;
-        gnLastMouseY = nMouseY;
-        sub_004A4AD0_Press(nMouseX, nMouseY);
-    }
-
-    const int nOldFont = sub_00502EF0_SetFont(13);
-    AUTOMAP_DrawFramedBox(KEYCFG_X, KEYCFG_Y, gnScreenWidth_0071146C - 2 * KEYCFG_X, (KEYCFG_Y + 0x171) - KEYCFG_Y, 0, 1);
-
-    D2RectStrc tRect;
-    tRect.nLeft = KEYCFG_X;
-    tRect.nTop = KEYCFG_Y + 3;
-    tRect.nRight = gnScreenWidth_0071146C - KEYCFG_X - 3;
-    tRect.nBottom = KEYCFG_Y + 0x170;
-    UI_DrawRectangleBorder(&tRect);
-    tRect.nTop = KEYCFG_Y + 0x143;
-    UI_DrawRectangleBorder(&tRect);
-
-    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF51), KEYCFG_X + 0x12, KEYCFG_Y + 0x1E, 4, 0);
-    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF52), KEYCFG_X + 0x12 + (gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3, KEYCFG_Y + 0x1E, 4, 0);
-    D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(0xF53), KEYCFG_X + 0x12 + 2 * ((gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3), KEYCFG_Y + 0x1E, 4, 0);
-
-    int i = 0;
-    while (i < sub_KEYCFG_VisibleLines() && i < gnKeyConfigEntryCount)
-    {
-        int nY = i * 0x12 + KEYCFG_Y + 0x22;
-        int nIndex = gnKeyConfigFirstVisible + i;
-        int bVisible;
-        if (gbKeyCaptureActive && nIndex == gnKeyConfigSelected && (gnBlink & 0xF) <= 4)
-            bVisible = 0;
-        else
-            bVisible = 1;
-
-        ++i;
-
-        if (gpListEntries[nIndex].nId == 0x39)
-            continue;
-
-        if (nIndex == gnKeyConfigSelected)
-        {
-            AUTOMAP_DrawFramedBox(KEYCFG_X + 0x12, nY + 1, 3 * ((gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3), 0x12, 0, 1);
-            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gpListEntries[nIndex].nString), KEYCFG_X + 0x1E, nY + 0x12, gbKeyCaptureActive ? 3 : 0, 0);
-        }
-        else
-        {
-            D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gpListEntries[nIndex].nString), KEYCFG_X + 0x1E, nY + 0x12, 0, 0);
-        }
-
-        if (bVisible || !gnKeyConfigColumn)
-        {
-            D2Win_10117_DrawText(CMDTBL_GetKeyText(gpListEntries[nIndex].nId, 1), KEYCFG_X + 0x1E + (gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3, nY + 0x12, TEXT_GetKeyConfigEntryState(nIndex, 1), 0);
-        }
-
-        if (bVisible || gnKeyConfigColumn)
-        {
-            D2Win_10117_DrawText(CMDTBL_GetKeyText(gpListEntries[nIndex].nId, 0), KEYCFG_X + 0x1E + 2 * ((gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3), nY + 0x12, TEXT_GetKeyConfigEntryState(nIndex, 0), 0);
-        }
-    }
-
-    D2CelContextStrc tCel;
-    memset(&tCel, 0, sizeof(tCel));
-    tCel.pCellFile = gpKeyConfigSliderCel;
-    tCel.nFrame = 13;
-    for (int j = 0; j < sub_KEYCFG_TrackCels(); ++j)
-        TEXTURE_CelDraw(&tCel, sub_KEYCFG_PanelRight() - 0x1F, KEYCFG_Y + 0x3B + j * 0x0C, -1, 5, 0);
-
-    tCel.nFrame = 14;
-    for (int k = 0; k < gnKeyConfigThumbScale; ++k)
-        TEXTURE_CelDraw(&tCel, sub_KEYCFG_PanelRight() - 0x20, gnKeyConfigThumbY + 0x0C + k * 0x0C, -1, 5, 0);
-
-    if (gbUpPressed_007C028C && sub_KEYCFG_IsOnUpArrow(nMouseX, nMouseY))
-        tCel.nFrame = 9;
-    else
-        tCel.nFrame = 11;
-    TEXTURE_CelDraw(&tCel, sub_KEYCFG_PanelRight() - 0x1F, KEYCFG_Y + 0x2F, -1, 5, 0);
-
-    if (gbDownPressed_007C0290 && sub_KEYCFG_IsOnDownArrow(nMouseX, nMouseY))
-        tCel.nFrame = 8;
-    else
-        tCel.nFrame = 10;
-    TEXTURE_CelDraw(&tCel, sub_KEYCFG_PanelRight() - 0x1F, KEYCFG_Y + ((KEYCFG_Y + 0x171) - KEYCFG_Y) - 0x40, -1, 5, 0);
-
-    for (unsigned int m = 0; m < 3; ++m)
-    {
-        int nColor;
-        if (m == gnKeyConfigPressedButton)
-            nColor = gaButtons_007246D8[m].nColor;
-        else
-            nColor = 4;
-        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gaButtons_007246D8[m].nString), gaButtons_007246D8[m].nX + 10, KEYCFG_Y + ((KEYCFG_Y + 0x171) - KEYCFG_Y) - 0x12, nColor, 0);
-    }
-
-    if (GetTickCount() < gdwMessageTick_007C02C8 + 2000)
-    {
-        const int nCenterX = gnScreenWidth_0071146C / 2;
-        const int nTextY = KEYCFG_Y + ((KEYCFG_Y + 0x171) - KEYCFG_Y) + 0x1E;
-        const int nTextX = nCenterX - D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(gnMessage)) / 2;
-        D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gnMessage), nTextX, nTextY, 1, 1);
-    }
-
-    sub_00502EF0_SetFont(nOldFont);
-    ++gnBlink;
-}
 
 int __fastcall AITHINK_BaalThroneCheckAiParamFlag(D2AiTickParamStrc* pAiTickParam, int nFlag)
 {
     return pAiTickParam->pAiControl->dwAiParam[1] & nFlag;
 }
 
-// 0x004A59D0
-int __stdcall TEXT_KeyConfigWheelMsg(D2HotkeyActionStrc* pAction)
-{
-    if (GAME_IsExitPending())
-    {
-        pAction->nState18 = 0;
-        return (int)pAction;
-    }
 
-    int nDuration = pAction->nValue0A / 120;
-    if (nDuration)
-    {
-        TEXT_ScrollKeyConfigList(-nDuration * 2);
-        sub_004B9A00(1, 0, 0, 0, 0);
-    }
-    pAction->nState18 = 1;
-    pAction->nState1C = 0;
-    return sub_00420290_HandleMsg(pAction);
-}
 
-// 0x004A5C70
-void __stdcall TEXT_CancelKeyConfigMsg(SMSGHANDLER_PARAMS* message)
-{
-    if (GAME_IsExitPending()) { message->bReturn = 0; return; }
-    if (global_00724728) {
-        if (!(message->lParam & REPEAT_MASK)) {
-            sub_00469D50();
-            UI_SetUIVar(UI_VARIABLE, 1, 0);
-            WARDENCLIENT_ToggleEscMenuUIState(0, 1);
-            sub_004B9A00(1, 0, 0, 0, 0);
-        }
-    } else global_00724728 = 1;
-    message->bReturn = 1;
-    message->lResult = 0;
-    sub_00420290_BreakHandlerChain(message);
-}
 
-// 0x004A5D00
-void __cdecl TEXT_RegisterKeyCaptureHandlers()
-{
-    gbKeyCaptureActive = 1;
-    sub_00455AE0_CloseUIVar(0xB);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureHandlers, 6);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureMButtonHandlers, 1);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureXButtonHandlers, 1);
-    COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaKeyCaptureWheelHandlers, 1);
-}
 
-// 0x004A5DE0
-void __cdecl TEXT_CloseKeyCaptureHandlers()
-{
-    if (gbKeyCaptureActive)
-    {
-        AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureHandlers, 6);
-        AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureWheelHandlers, 1);
-        AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureXButtonHandlers, 1);
-        AUTOMAP_UnregisterHandlerTable(WINDOW_GetWindow(), gaKeyCaptureMButtonHandlers, 1);
-        sub_00469D50();
-        sub_0046AA20(1, 0);
-        GAME_RegisterMouseHandlers();
-        sub_00466FE0();
-        gbKeyCaptureActive = 0;
-    }
-}
 
-// 0x004A5E60
-static void TEXT_ReleaseKeyConfigPress(int nX, int nY)
-{
-    if (gaPressed[0])
-    {
-        if (TEXT_IsOnSelectedLine(nX, nY) && gpListEntries[gnKeyConfigSelected].nId != 0x39)
-        {
-            sub_004A5D00();
-            sub_004B9A00(2, 0, 0, 0, 0);
-        }
-    }
-    if (gaPressed[6])
-    {
-        const int nButton = gnPressedButton_007C02B4;
-        if (nButton != 3 && TEXT_GetKeyConfigButtonAt(nX, nY) == nButton)
-        {
-            gaKeyConfigButtons[nButton].pfnClick();
-            sub_004B9A00(2, 0, 0, 0, 0);
-        }
-    }
-    gbKeyConfigPressRepeat = 0;
-    gaPressed[0] = 0;
-    gaPressed[1] = 0;
-    gaPressed[2] = 0;
-    gaPressed[3] = 0;
-    gaPressed[4] = 0;
-    gaPressed[5] = 0;
-    gaPressed[6] = 0;
-}
-
-// 0x004A5F10
-void __stdcall TEXT_KeyConfigButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (GAME_IsExitPending())
-    {
-        pMsg->bReturn = 0;
-        return;
-    }
-
-    const int nX = pMsg->nXpos;
-    const int nY = pMsg->nYpos;
-    TEXT_ReleaseKeyConfigPress(nX, nY);
-    gbRedraw = 0;
-    sub_004A4AD0_Press(nX, nY);
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
 
 int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, unsigned short* pKey);               // 0x00469C20
 
 void __stdcall TEXT_UnregisterKeyConfigHandlers(int bReset);                                                // 0x004A5D70
 
-unsigned long gdwMessageTick;                                                                            // 0x007C02C8
 
-// 0x004A60B0
-void __stdcall sub_004A60B0_KeyDownMsgHandler(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (GAME_IsExitPending())
-    {
-        pMsg->bReturn = 0;
-        return;
-    }
 
-    unsigned short wKey = 0;
-    if (!(pMsg->lParam & 0x40000000))
-    {
-        if (pMsg->wParam == 0x1B)
-        {
-            TEXT_UnregisterKeyConfigHandlers(1);
-            sub_004B9A00(1, 0, 0, 0, 0);
-// build: symbol ?gbKeyConfigReady@* 0x00724728
-            gbKeyConfigReady = 0;
-        }
-        else
-        {
-// build: symbol ?gpListEntries@* 0x00724264
-// build: symbol ?gnKeyConfigColumn@* 0x007246D4
-            if (CMDTBL_QueryKey(gpListEntries[gnKeyConfigSelected].nId, gnKeyConfigColumn, (unsigned short)pMsg->wParam, &wKey))
-            {
-                TEXT_UnregisterKeyConfigHandlers(1);
-                sub_004B9A00(2, 0, 0, 0, 0);
-                if (pMsg->wParam == 0x0D || pMsg->wParam == 0x2E || pMsg->wParam == 0x08 || pMsg->wParam == 0x20)
-                {
-                    gbKeyConfigReady = 0;
-                    goto store_key;
-                }
-            }
-            gbKeyConfigReady = 1;
-        }
-store_key:
-        if (wKey)
-        {
-            gwGlobal_007C02C4 = wKey;
-            gdwMessageTick = GetTickCount();
-        }
-    }
-
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
-
-// 0x004A61A0
-void __stdcall sub_004A61A0_KeyUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
-{
-    if (GAME_IsExitPending())
-    {
-        pMsg->bReturn = 0;
-        return;
-    }
-
-    unsigned short wKey = 0;
-    if (gbKeyConfigReady)
-    {
-        if (CMDTBL_QueryKey(gpListEntries[gnKeyConfigSelected].nId, gnKeyConfigColumn, (unsigned short)pMsg->wParam, &wKey))
-        {
-            TEXT_UnregisterKeyConfigHandlers(1);
-            sub_004B9A00(2, 0, 0, 0, 0);
-        }
-    }
-    else
-    {
-        gbKeyConfigReady = 1;
-    }
-
-    if (wKey)
-    {
-        gwGlobal_007C02C4 = wKey;
-        gdwMessageTick = GetTickCount();
-    }
-
-    pMsg->bReturn = 1;
-    pMsg->lResult = 0;
-    sub_00420290_BreakHandlerChain(pMsg);
-}
 
 // 0x004A6460
 void __cdecl TEXT_LoadLevelCels()
@@ -5954,112 +5260,6 @@ int __cdecl TEXT_IsMouseOnSkillButton()
     return 0;
 }
 
-void __stdcall sub_004A4AD0_Press(int nX, int nY)
-{
-    gnPressedButton_007C02B4 = 3;
-    if (gbKeyConfigPressRepeat)
-        return;
-
-    const int bInList = TEXT_IsInKeyConfigList(nX, nY);
-    const int bUp = TEXT_IsOnUpArrow(nX, nY);
-    const int bDown = TEXT_IsOnDownArrow(nX, nY);
-    const int bPageUp = TEXT_IsAboveThumb(nX, nY);
-    const int bThumb = TEXT_IsOnThumb(nX, nY);
-    const int bPageDown = TEXT_IsBelowThumb(nX, nY);
-    const int bButton = TEXT_GetKeyConfigButtonAt(nX, nY) != 3;
-
-    if (sub_F08_NoOtherPressed(7) && !bInList && !bUp && !bDown && !bPageUp && !bThumb && !bPageDown && !bButton)
-    {
-        gbKeyConfigPressRepeat = gbRedraw;
-        return;
-    }
-
-    if (sub_F08_NoOtherPressed(0) && (bInList || gaPressed[0]))
-    {
-        gaPressed[0] = gbRedraw;
-        if (gbRedraw)
-        {
-            const int nTop = sub_F08_ListTop();
-            if (nY < nTop + 0x28)
-                TEXT_MoveKeyConfigSelection(-1);
-            if (nY > nTop + 0x136)
-                TEXT_MoveKeyConfigSelection(1);
-
-            const int nOldD4 = gnKeyConfigColumn;
-            const int nOldSelected = gnKeyConfigSelected;
-            const int nLine = TEXT_GetKeyConfigLineAt(nY);
-            gnKeyConfigSelected = nLine;
-            gnKeyConfigColumn = TEXT_IsAbovePanelLine(nX);
-            if (gpListEntries[nLine].nId == 0x39)
-            {
-                gnKeyConfigColumn = nOldD4;
-                gnKeyConfigSelected = nOldSelected;
-            }
-        }
-    }
-
-    if (sub_F08_NoOtherPressed(1) && bUp)
-    {
-        gaPressed[1] = gbRedraw;
-        if (gbRedraw && GetTickCount() > gdwKeyConfigRepeatTick + 0x32)
-        {
-            gdwKeyConfigRepeatTick = GetTickCount();
-            TEXT_ScrollKeyConfigList(-1);
-        }
-    }
-
-    if (sub_F08_NoOtherPressed(2) && bDown)
-    {
-        gaPressed[2] = gbRedraw;
-        if (gbRedraw && GetTickCount() > gdwKeyConfigRepeatTick + 0x32)
-        {
-            gdwKeyConfigRepeatTick = GetTickCount();
-            TEXT_ScrollKeyConfigList(1);
-        }
-    }
-
-    if (sub_F08_NoOtherPressed(3) && bPageUp)
-    {
-        gaPressed[3] = gbRedraw;
-        if (gbRedraw && GetTickCount() > gdwKeyConfigRepeatTick + 0x32)
-        {
-            gdwKeyConfigRepeatTick = GetTickCount();
-            TEXT_ScrollKeyConfigList(1 - sub_F08_VisibleLines());
-        }
-    }
-
-    if (sub_F08_NoOtherPressed(4) && (bThumb || gaPressed[4]))
-    {
-        if (bThumb && !gaPressed[4] && gbRedraw)
-        {
-            gnDragThumbY = gnKeyConfigThumbY;
-            gnDragMouseY = nY;
-        }
-        gaPressed[4] = gbRedraw;
-        if (gbRedraw)
-        {
-            const int nTop = sub_F08_ListTop();
-            TEXT_ScrollKeyConfigList((gnDragThumbY - nTop - gnDragMouseY + nY - 0x2F)
-                * (gnThumbRange + 1) / sub_F08_TrackSpan() - gnKeyConfigFirstVisible);
-        }
-    }
-
-    if (sub_F08_NoOtherPressed(5) && bPageDown)
-    {
-        gaPressed[5] = gbRedraw;
-        if (gbRedraw && GetTickCount() > gdwKeyConfigRepeatTick + 0x32)
-        {
-            gdwKeyConfigRepeatTick = GetTickCount();
-            TEXT_ScrollKeyConfigList(sub_F08_VisibleLines() - 1);
-        }
-    }
-
-    if (sub_F08_NoOtherPressed(6) && bButton)
-    {
-        gaPressed[6] = gbRedraw;
-        gnPressedButton_007C02B4 = TEXT_GetKeyConfigButtonAt(nX, nY);
-    }
-}
 
 // 0x004A66E0
 void __stdcall TEXT_StatButtonDownMsg(SMSGHANDLER_PARAMS* message)
