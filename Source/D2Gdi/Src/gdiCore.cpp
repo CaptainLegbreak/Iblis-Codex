@@ -139,7 +139,6 @@ int __stdcall CelGetOffsetX(D2CelStrc* pCel);                                   
 
 int __stdcall CelGetOffsetY(D2CelStrc* pCel);                                                               // 0x00601950
 
-int __fastcall GDICORE_GetSetting(unsigned int nSelector, int* pValue); // 0x006C8250
 
 extern D2PaletteTableStrc* gpGfxPaletteView;                                                               // 0x007C9150
 
@@ -147,7 +146,6 @@ void __stdcall CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, int nOrigin
 
 void __stdcall CelDrawShadow(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, unsigned char* pShadowTable, int nArg10); // 0x00601730
 
-int __cdecl sub_006C8A50_GetBlendedShadows(); // 0x006C8A50
 
 extern const char gszAssertExpr_006CC837[]; // 0x006CC837
 
@@ -171,7 +169,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
 
-int __fastcall GDICORE_GetSetting(unsigned int nSelector, int* pValue); // 0x006C8250
 extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 int __stdcall CmpDoLensEffect(unsigned char* pPixel, int nStride); // 0x00608C00
 int __fastcall GDICORE_DrawImage(void* context, int second, int third, int fourth, int fifth, int last); // 0x006C84B0

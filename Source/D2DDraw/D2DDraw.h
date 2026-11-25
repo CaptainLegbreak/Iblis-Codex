@@ -40,3 +40,8 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 extern int gnDDrawGammaScale; // 0x0072F7C8
 extern int gnDDrawGamma; // 0x0072F7CC
+
+struct D2SmackRecordStrc;
+
+int __cdecl DDCORE_GetBlendedShadows(); // 0x00512700
+void __fastcall DDSMACK_CloseSmacker(D2SmackRecordStrc* pRecord); // 0x00513330

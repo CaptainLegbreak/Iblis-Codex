@@ -52,11 +52,8 @@ void __cdecl D3DSMACK_UploadSmackTextures(); // 0x006B9BD0
 
 extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
 
-void __fastcall D3DCORE_SetColorCombineMode(int nState); // 0x006B1EA0
 
-void __fastcall D3DCORE_SetAlphaBlendMode(int nState); // 0x006B1F40
 
-void __fastcall D3DCORE_SetTextureFilterMode(int nMode); // 0x006B2030
 
 static void __stdcall D3DSMACK_CopySmackBlock(unsigned short* pSource, unsigned short* pDest, int nDestPitch); // 0x006B9EB0
 

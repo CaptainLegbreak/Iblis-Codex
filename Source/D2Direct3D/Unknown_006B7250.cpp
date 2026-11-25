@@ -85,9 +85,6 @@ struct D2Device006B77B0Strc
 {
     D2DeviceVtbl006B77B0Strc* lpVtbl;
 };
-void __fastcall D3DCORE_SetColorCombineMode(int nState); // 0x006B1EA0
-void __fastcall D3DCORE_SetAlphaBlendMode(int nBlend); // 0x006B1F40
-void __fastcall D3DCORE_SetTextureFilterMode(int nMode); // 0x006B2030
 
 void __fastcall sub_006B7B30_DrawLine(int x1,int y1,int x2,int y2,unsigned char index,unsigned char alpha); // 0x006B7B30
 extern const char gszEmptyString[]; // 0x006CC837
@@ -585,9 +582,6 @@ struct D2Point006B7F20Strc;
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl FOG_DisplayHalt(const char*, const char*, int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-void __fastcall D3DCORE_SetColorCombineMode(int state); // 0x006B1EA0
-void __fastcall D3DCORE_SetAlphaBlendMode(int mode); // 0x006B1F40
-void __fastcall D3DCORE_SetTextureFilterMode(int mode); // 0x006B2030
 
 int __fastcall sub_006B77B0_Call(int nLeft, int nTop, int nRight, int nBottom, int nValue, int nMode); // 0x006B77B0
 
@@ -679,9 +673,6 @@ void __fastcall sub_006B7F20_CallSquare(D2Point006B7F20Strc* pPoint, unsigned ch
     }
 }
 
-void __fastcall D3DCORE_SetColorCombineMode(int mode); // 0x006B1EA0
-void __fastcall D3DCORE_SetAlphaBlendMode(int mode); // 0x006B1F40
-void __fastcall D3DCORE_SetTextureFilterMode(int mode); // 0x006B2030
 // 0x006B7B30
 void __fastcall sub_006B7B30_DrawLine(int x1,int y1,int x2,int y2,unsigned char index,unsigned char alpha)
 {

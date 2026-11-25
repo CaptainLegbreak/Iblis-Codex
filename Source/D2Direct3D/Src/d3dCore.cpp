@@ -395,7 +395,6 @@ extern "C" __declspec(dllimport) int __stdcall MoveWindow(void*,int,int,int,int,
 
 void __fastcall D3DCORE_LogDDrawError(const char* szWhere, int hResult); // 0x006B20E0
 
-void __fastcall D3DCORE_ShowD3DError(const char*,long); // 0x006B39B0
 
 void __cdecl D3DCORE_ReleaseResources(); // 0x006B3320
 
@@ -405,7 +404,6 @@ void __cdecl D3DFLOORCACHE_CreateTileSurfaces(); // 0x006BB5E0
 
 void __cdecl sub_006B8F10(); // 0x006B8F10
 
-void __fastcall D3DCORE_SetTextureFilterMode(int); // 0x006B2030
 
 static int D3DCORE_InitFullscreen(void*,int); // 0x006B4FD0
 
@@ -1020,7 +1018,6 @@ typedef char CheckIdentifierSize[sizeof(DDDEVICEIDENTIFIER)==0x428?1:-1];
 typedef char CheckRendererSize[sizeof(D2RendererInfoStrc)==0x3c0?1:-1];
 extern "C" char* __cdecl sub_00687330_Strncpy(char*,const char*,unsigned int); // 0x00687330
 void __fastcall D3DCORE_LogDDrawError(const char*,HRESULT) throw(); // 0x006B20E0
-void __fastcall D3DCORE_ShowD3DError(const char* text,long result); // 0x006B39B0
 int __stdcall D3DCORE_EnumerateDisplayMode(DDSURFACEDESC2*,void*); // 0x006B3FD0
 int __stdcall D3D_EnumTextureFormatCallback(void*,void*); // 0x006B1B60
 extern IDirectDraw4* gpIDirectDraw4_00970E60; // 0x00970E60

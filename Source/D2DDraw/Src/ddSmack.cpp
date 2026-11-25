@@ -8,7 +8,6 @@ extern "C" __declspec(dllimport) void __stdcall SmackDoFrame(D2SmackStrc* hSmack
 
 extern "C" __declspec(dllimport) void __stdcall SmackNextFrame(D2SmackStrc* hSmack);                       // 0x006CC600
 
-void __fastcall DDSMACK_CloseSmacker(D2SmackRecordStrc* pRecord);                                      // 0x00513330
 
 unsigned char gabDDrawSmackRemap[256];                                                                  // 0x008815B0
 
