@@ -23229,6 +23229,11 @@
      "name": "?TEXT_IsOnlyPressed@@YIHH@Z"
     },
     {
+     "va": "0x004A4AD0",
+     "length": 1232,
+     "name": "?sub_004A4AD0_Press@@YGXHH@Z"
+    },
+    {
      "va": "0x004A4FA0",
      "length": 110,
      "name": "?TEXT_GetKeyConfigEntryState@@YAHHH@Z"
