@@ -91,7 +91,7 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg
 
 void __fastcall SKILLS_StartUnitEffect(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nEffect, int nArg4, int nArg5, int nStatValue, int nVelocity); // 0x004C70D0
 
-int __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
+int __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
 D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
 
@@ -532,7 +532,7 @@ struct D2NpcMonListPacketStrc
     unsigned short nMonIds[12];
 };
 
-void __cdecl CUNIT_ClearTextPanel();                                                                     // 0x004A1730
+void __cdecl TEXT_ClearTextPanel();                                                                     // 0x004A1730
 
 void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg);                                         // 0x00480E70
 
@@ -592,7 +592,7 @@ D2UnitStrc* gpNpcPlayerUnit; // 0x007C0DD4
 
 unsigned short gwGlobal_007C0DD8; // 0x007C0DD8
 
-void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
+void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
 void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 
@@ -1055,7 +1055,7 @@ static inline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int n
 }
 
 // 0x004B1670
-int __cdecl MONSTER_GetUseItemMode()
+int __cdecl NPCMENU_GetUseItemMode()
 {
 // build: symbol ?gnInteractNpcClassId@* 0x007C0D2D
     return gnInteractNpcClassId;
@@ -1166,7 +1166,7 @@ int __fastcall NPCMENU_NpcMessageCallback(void* pContext, int nArg, int nValue)
 }
 
 // 0x004B1970
-void __cdecl MONSTER_ResetUsedStrings()
+void __cdecl NPCMENU_ResetUsedStrings()
 {
     gtStringList.wCount = 0;
 }
@@ -1397,7 +1397,7 @@ void __cdecl NPCMENU_HireMercWait()
 }
 
 // 0x004B1F60
-static inline int MONSTER_IsItemIdentified(D2UnitStrc* pItem)
+static inline int NPCMENU_IsItemIdentified(D2UnitStrc* pItem)
 {
     return ITEMS_CheckItemFlag(pItem, 0x10, 0x999, ".\\UI\\npcmenu.cpp");
 }
@@ -1919,7 +1919,7 @@ int __fastcall NPCMENU_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pC
         case 0xF4:
         case 0xF5:
         case 0x109:
-            if (MONSTER_IsItemIdentified(pItem) == 1)
+            if (NPCMENU_IsItemIdentified(pItem) == 1)
             {
                 *(int*)pText = 0;
                 return 1;
@@ -2315,7 +2315,7 @@ int __cdecl NPCMENU_IsAnyDialogOpen()
 }
 
 // 0x004B3500
-int __cdecl MONSTER_IsGambleShop()
+int __cdecl NPCMENU_IsGambleShop()
 {
     return gbGambleShop;
 }
@@ -2659,7 +2659,7 @@ void __fastcall NPCMENU_EndNpcInteraction(int nValue)
     }
 
     MSG_SendTwoDwords(0x30, 1, nValue);
-    CUNIT_ClearTextPanel();
+    TEXT_ClearTextPanel();
     gbNpcInteracting = 0;
     UI_SetUIVar(8, 1, 0);
 
@@ -3037,7 +3037,7 @@ void __cdecl NPCMENU_UpdateNpcInteract()
         if (gdwNpcRequestTimeout < GetTickCount())
         {
             INV_SendLeaveGame();
-            GAME_SetExitApplication(0);
+            WINMAIN_SetExitApplication(0);
             GAME_SetCinematicExit(1);
             GAME_RequestExit();
         }

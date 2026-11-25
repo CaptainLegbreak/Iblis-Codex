@@ -210,11 +210,11 @@ void __cdecl sub_0052BDB0_Empty();                                              
 
 void __cdecl PROFCORE_CloseLog();                                                                                // 0x00611600
 
-int __stdcall GAME_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord);                   // 0x0044B8A0
+int __stdcall WINMAIN_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord);                   // 0x0044B8A0
 
-void __cdecl GAME_ToggleRecordPlayback();                                                                    // 0x004519A0
+void __cdecl RECORD_ToggleRecordPlayback();                                                                    // 0x004519A0
 
-void __cdecl WINMAIN_StartPlayback();                                                                  // 0x004518E0
+void __cdecl RECORD_StartPlayback();                                                                  // 0x004518E0
 
 int __cdecl CLIENT_GetConnectionStatus();                                                                   // 0x0052B050
 
@@ -238,7 +238,7 @@ void __cdecl CLIENT_Release();                                                  
 
 void __cdecl SERVER_Release();                                                              // 0x0052B2A0
 
-int __cdecl GAME_PopStateValue();                                                                        // 0x0044B480
+int __cdecl WINMAIN_PopStateValue();                                                                        // 0x0044B480
 
 void (__fastcall* gpfnMcpMotdCallback)(void* pArg);                                                       // 0x00799308
 
@@ -1106,6 +1106,6 @@ int __fastcall WINMAIN_HandleMcpMotd(const unsigned char* pPacket, unsigned int 
         ((D2McpCallback)gpfnMcpMotdCallback)(pPacket[1], nSize - 2, pPacket + 2);
     return 1;
 }
-void __cdecl WINMAIN_StartPlayback(); // 0x004518E0
+void __cdecl RECORD_StartPlayback(); // 0x004518E0
 
 #include "gen/data/Source/D2MCPClient/Unknown_0044A170.inc"

@@ -258,9 +258,9 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                             
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 
-void __fastcall VIEW_SetPlayerMode(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2);             // 0x00460780
+void __fastcall PLAYER_SetPlayerMode(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2);             // 0x00460780
 
-int __fastcall AUTOMAP_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance); // 0x00461AC0
+int __fastcall PLAYER_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance); // 0x00461AC0
 
 int __fastcall PLAYER_FilterCommandMessage(D2PlayerCmdStrc* pCmd);                                           // 0x00462930
 
@@ -448,7 +448,7 @@ void __fastcall CUNIT_UpdateAttackableFlag(D2UnitStrc*); // 0x004647D0
 
 int __fastcall sub_004804A0_SetPathTargetPos(D2UnitStrc*, int, int); // 0x004804A0
 
-int __fastcall INV_SetPathTargetUnit(D2UnitStrc*, int, int); // 0x00480780
+int __fastcall UNITMODE_SetPathTargetUnit(D2UnitStrc*, int, int); // 0x00480780
 
 void __fastcall UNITMODE_InteractWithUnit(unsigned short, int); // 0x00480930
 
@@ -595,7 +595,7 @@ void __fastcall PLAYER_SetInteractState(D2ClientUnitViewStrc* pUnit, int nState)
 }
 
 // 0x00460780
-void __fastcall VIEW_SetPlayerMode(int nMode, D2ClientUnitViewStrc* pUnit, int nArg1, int nArg2)
+void __fastcall PLAYER_SetPlayerMode(int nMode, D2ClientUnitViewStrc* pUnit, int nArg1, int nArg2)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
@@ -1072,7 +1072,7 @@ int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTa
         PLAYER_SetModeAndSync(1, pUnit, nNeutralMode);
         return 0;
     case 0:
-        if (INV_SetPathTargetUnit(pUnit, pTarget->nParam1, pTarget->nParam2))
+        if (UNITMODE_SetPathTargetUnit(pUnit, pTarget->nParam1, pTarget->nParam2))
         {
             UNITMODE_SetUnitMode(pUnit, nMoveMode);
             return 1;
@@ -1088,7 +1088,7 @@ int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTa
         PLAYER_SetModeAndSync(1, pUnit, nNeutralMode);
         return 0;
     case 24:
-        if (INV_SetPathTargetUnit(pUnit, pTarget->nParam1, pTarget->nParam2))
+        if (UNITMODE_SetPathTargetUnit(pUnit, pTarget->nParam1, pTarget->nParam2))
         {
             UNITMODE_SetUnitMode(pUnit, 3);
             return 1;
@@ -1329,7 +1329,7 @@ static void __stdcall PLAYER_OperateObject(int nObjectIdArg, D2PlayerCmdStrc* pC
     int nX = UNITS_GetXPosition(pCmd->pTarget);
     PLAYER_WalkTo(pCmd->nArg, pCmd->pPlayer, nX, nY);
     if (bSetMode)
-        VIEW_SetPlayerMode(0x13, pCmd->pPlayer, 2, nObjectId);
+        PLAYER_SetPlayerMode(0x13, pCmd->pPlayer, 2, nObjectId);
 }
 
 // 0x004619E0
@@ -1370,7 +1370,7 @@ void __fastcall PLAYER_InteractWithUnitTarget(D2UnitStrc* pUnit)
 }
 
 // 0x00461AC0
-int __fastcall AUTOMAP_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance)
+int __fastcall PLAYER_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance)
 {
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer || !pSkill || !pTarget)
@@ -1404,16 +1404,16 @@ static int PLAYER_ApproachForAura(D2PlayerCmdStrc* pCmd, int nArg1, int nArg2)
             return 1;
         }
 
-        if (AUTOMAP_IsInAuraRange(pCmd->pSkill, pCmd->pTarget, &nRange, &nDistance))
+        if (PLAYER_IsInAuraRange(pCmd->pSkill, pCmd->pTarget, &nRange, &nDistance))
         {
             PLAYER_SendCommand(1, pCmd);
             return 1;
         }
 
         if (pCmd->dwFlags & 1)
-            VIEW_SetPlayerMode(6, pCmd->pPlayer, nArg1, nArg2);
+            PLAYER_SetPlayerMode(6, pCmd->pPlayer, nArg1, nArg2);
         if (pCmd->dwFlags & 2)
-            VIEW_SetPlayerMode(0xD, pCmd->pPlayer, nArg1, nArg2);
+            PLAYER_SetPlayerMode(0xD, pCmd->pPlayer, nArg1, nArg2);
 
         nDelta = nDistance - nRange;
     }
@@ -1469,9 +1469,9 @@ static void __stdcall PLAYER_UseSkillOnTarget(int nArg1, int nArg2, D2PlayerCmdS
         {
             UNITMODE_DoUnitAction(pCmd->nMode, pCmd->pPlayer, nArg1, nArg2, 0);
             if (pCmd->dwFlags & 1)
-                VIEW_SetPlayerMode(6, pCmd->pPlayer, nArg1, nArg2);
+                PLAYER_SetPlayerMode(6, pCmd->pPlayer, nArg1, nArg2);
             if (pCmd->dwFlags & 2)
-                VIEW_SetPlayerMode(0xD, pCmd->pPlayer, nArg1, nArg2);
+                PLAYER_SetPlayerMode(0xD, pCmd->pPlayer, nArg1, nArg2);
             return;
         }
 
@@ -1562,7 +1562,7 @@ static void __stdcall PLAYER_InteractWithUnit(int nUnitType, int nUnitId, D2Play
                 PLAYER_WalkTo(pCmd->nArg, pCmd->pPlayer, CLIENTS_GetUnitX(pCmd->pTarget), nY);
                 if (bSetMode)
                 {
-                    VIEW_SetPlayerMode(0x13, pCmd->pPlayer, nUnitType, nUnitId);
+                    PLAYER_SetPlayerMode(0x13, pCmd->pPlayer, nUnitType, nUnitId);
                     GAME_SetClickHandled();
                 }
                 return;
@@ -1583,7 +1583,7 @@ static void __stdcall PLAYER_InteractWithUnit(int nUnitType, int nUnitId, D2Play
                 if (PLAYER_IsPendingMode(nUnitType, nUnitId))
                     return;
                 UNITMODE_DoUnitAction(pCmd->nMode, pCmd->pPlayer, nUnitType, nUnitId, 0);
-                VIEW_SetPlayerMode(0x13, pCmd->pPlayer, nUnitType, nUnitId);
+                PLAYER_SetPlayerMode(0x13, pCmd->pPlayer, nUnitType, nUnitId);
                 GAME_SetClickHandled();
                 return;
             }
@@ -1599,7 +1599,7 @@ static void __stdcall PLAYER_InteractWithUnit(int nUnitType, int nUnitId, D2Play
                 return;
             }
             UNITMODE_DoUnitAction(pCmd->nMode, pCmd->pPlayer, nUnitType, nUnitId, 0);
-            VIEW_SetPlayerMode(0x13, pCmd->pPlayer, nUnitType, nUnitId);
+            PLAYER_SetPlayerMode(0x13, pCmd->pPlayer, nUnitType, nUnitId);
             return;
         }
         case UNIT_TILE:
@@ -1609,7 +1609,7 @@ static void __stdcall PLAYER_InteractWithUnit(int nUnitType, int nUnitId, D2Play
             if (sub_00641530(pCmd->pTarget, pCmd->pPlayer) > 4)
             {
                 UNITMODE_DoUnitAction(pCmd->nMode, pCmd->pPlayer, nUnitType, nUnitId, 0);
-                VIEW_SetPlayerMode(0x13, pCmd->pPlayer, nUnitType, nUnitId);
+                PLAYER_SetPlayerMode(0x13, pCmd->pPlayer, nUnitType, nUnitId);
             }
             else
             {

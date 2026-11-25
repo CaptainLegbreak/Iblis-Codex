@@ -81,7 +81,7 @@ D2ActiveRoomStrc* __stdcall DUNGEON_GetRoomFromAct(D2DrlgActStrc* pAct); // 0x00
 D2AnimSeqTxt* __stdcall DATATBLS_GetMonSeqTxtRecordFromUnit(D2UnitStrc* pUnit); // 0x006633B0
 D2BitBufferStrc* __cdecl sub_004B32E0_GetQuestHistory(); // 0x004B32E0
 D2CacheStatsStrc* __cdecl D2GFX_GetCacheResults(); // 0x004F5290
-D2ClientNotifyStrc* __cdecl GAME_GetClientNotify(); // 0x0044B7B0
+D2ClientNotifyStrc* __cdecl WINMAIN_GetClientNotify(); // 0x0044B7B0
 D2ClientServiceStrc* __cdecl BNCLIENT_GetInterfaceTable(); // 0x00518C10
 D2ClientSoundStrc* __cdecl SOUNDINST_AllocSoundEntry(); // 0x004B93F0
 D2CommonIgnoreListStrc* IGNORELIST_GetOrCreateIgnoreList(); // 0x00611560

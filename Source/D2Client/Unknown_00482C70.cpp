@@ -391,7 +391,7 @@ int __fastcall NPCMENU_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
 
 void __cdecl sub_K04_EmitUse(int nValue);
 
-int __cdecl MONSTER_IsGambleShop(); // 0x004B3500
+int __cdecl NPCMENU_IsGambleShop(); // 0x004B3500
 
 
 struct RangeNode
@@ -1341,7 +1341,7 @@ void __cdecl sub_00477DD0(); // 0x00477DD0
 
 void __cdecl sub_00481830(); // 0x00481830
 
-void __cdecl PLAYERLIST_ClearFadeTimer(); // 0x004DC0A0
+void __cdecl GFXUTIL_ClearFadeTimer(); // 0x004DC0A0
 
 void __fastcall GAME_SetPlayCinematic(int nValue); // 0x0044D530
 
@@ -1754,7 +1754,7 @@ void __fastcall INV_PlayCinematic(int nIndex)
             sprintf(szFile, "%s\\video\\%s", gszDataGlobal, szName);
 
         gbCinematicPlaying = 1;
-        PLAYERLIST_ClearFadeTimer();
+        GFXUTIL_ClearFadeTimer();
         UI_SetUIVar(0x12, 0, 0);
 // build: symbol ?D2Win_10003@* 0x004F9050
         if (D2Win_10003())

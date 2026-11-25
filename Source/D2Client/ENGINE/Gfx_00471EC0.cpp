@@ -34,8 +34,8 @@ void __stdcall GFX_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int dwColor, int
 int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit);                                               // 0x00471BD0
 unsigned char* __cdecl DLIGHTMAP_GetLocalBloodPalette();                                                                      // 0x00477680
 extern "C" int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit);                                     // 0x004DA0B0
-int __stdcall ITEM_GetGfxClientY(D2UnitStrc* pUnit);                                          // 0x004DA0D0
-int __stdcall ITEM_GetGfxClientZ(D2UnitStrc* pUnit);                                          // 0x004DA0F0
+int __stdcall PARTICLE_GetGfxClientY(D2UnitStrc* pUnit);                                          // 0x004DA0D0
+int __stdcall PARTICLE_GetGfxClientZ(D2UnitStrc* pUnit);                                          // 0x004DA0F0
 int __fastcall GFXUTIL_IsPlayerMonsterOrObject(D2UnitStrc* pUnit);                                               // 0x004DB180
 int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
 int __stdcall D2GFX_CheckPerspective();                                                                     // 0x004F51D0
@@ -87,8 +87,8 @@ int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int
     int nOffsetX = 0;
     int nOffsetY = 0;
     nX += PARTICLE_GetGfxOffsetX(pUnit);
-    nY += ITEM_GetGfxClientY(pUnit);
-    nY += ITEM_GetGfxClientZ(pUnit);
+    nY += PARTICLE_GetGfxClientY(pUnit);
+    nY += PARTICLE_GetGfxClientZ(pUnit);
     if (nUnitType == UNIT_OBJECT)
     {
         D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nClassId);
@@ -241,7 +241,7 @@ int __fastcall CUNIT_IsSelectedUnit(D2UnitStrc*); // 0x00464370
 D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
 void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc*, int, int); // 0x0046FA80
 int __fastcall GFX_IsUnitOnScreen(D2UnitStrc*, int, int, int, int); // 0x004709A0
-unsigned char* __fastcall CUNIT_GetPalShift(D2UnitStrc*); // 0x00477530
+unsigned char* __fastcall PALSHIFT_GetPalShift(D2UnitStrc*); // 0x00477530
 int __cdecl VIEW_IsAcceleratedRenderMode(); // 0x00477750
 D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void*); // 0x004DB040
 int __fastcall GFXUTIL_GetCofLayerOverrideTransLvl(void*, int); // 0x004DB050
@@ -335,7 +335,7 @@ static int __stdcall GFX_DrawGfxUnit(unsigned int dwColor, int nArg, int bOverla
     void* pLayer = GetNodeLayer(pUnit, nMode);
     if (!pLayer) return 0;
     D2GfxLayerHeaderStrc* pHeader = sub_004DB040_GetLayerHeader(pLayer);
-    if (!pPalShift) pPalShift = CUNIT_GetPalShift(pUnit);
+    if (!pPalShift) pPalShift = PALSHIFT_GetPalShift(pUnit);
     int bTransparent = CUNIT_IsSelectedUnit(pUnit);
     int nDirection = UNITS_GetDirection(pUnit);
     int nDirectionIndex, nDirectionCount;

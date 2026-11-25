@@ -32,7 +32,7 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2MsgHandlerEntryStrc gaWindowMsgHandlers[4]; // 0x0070F7E4
 void __fastcall SCMD_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler); // 0x00451D10
-void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 struct Pad40_00451F30 {
     unsigned int dw00;
@@ -189,7 +189,7 @@ public:
 
 int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam, int* pUseResult, int* pResult); // 0x00420B00
 
-int __cdecl UI_IsReplayActive(); // 0x00451990
+int __cdecl RECORD_IsReplayActive(); // 0x00451990
 
 void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x004514B0
 
@@ -225,12 +225,12 @@ void __stdcall SCMD_HandleCloseMessage(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00451B30
-int __stdcall COMCALLBACK_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam)
+int __stdcall SCMD_WindowProc(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam)
 {
     int bUseResult = 0;
     int lResult = 0;
     RECORD_RecordInputMessage(uMessage, wParam, lParam);
-    if (!UI_IsReplayActive() || uMessage == 0x10)
+    if (!RECORD_IsReplayActive() || uMessage == 0x10)
     {
         if (SMsgDispatchMessage(hWnd, uMessage, wParam, lParam, &bUseResult, &lResult) && bUseResult)
             return lResult;
@@ -327,7 +327,7 @@ void __fastcall SCMD_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHA
 }
 
 // 0x00451DB0
-void __fastcall COMCALLBACK_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount)
+void __fastcall SCMD_RegisterMsgHandlers(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount)
 {
     D2_ASSERT(hWnd, 0x153);
     for (unsigned int i = 0; i < nCount; i++)
@@ -350,7 +350,7 @@ void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc
 int __fastcall sub_00451E70_RegisterWindowHandlers(void* hWnd)
 {
     D2_ASSERT(hWnd, 0x178);
-    COMCALLBACK_RegisterMsgHandlers((int)hWnd, gaWindowMsgHandlers, 4);
+    SCMD_RegisterMsgHandlers((int)hWnd, gaWindowMsgHandlers, 4);
     SMsgPushRegisterState((int)hWnd);
     return 1;
 }

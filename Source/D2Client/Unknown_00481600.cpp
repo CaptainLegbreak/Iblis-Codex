@@ -11,14 +11,14 @@ D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
-int __fastcall AUTOMAP_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance); // 0x00461AC0
+int __fastcall PLAYER_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance); // 0x00461AC0
 int __stdcall UNITS_IsObjectInInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x00623660
 int __stdcall UNITS_TestCollisionBetweenInteractingUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask); // 0x00622B50
 int __stdcall UNITS_IsInMovingModeEx(D2UnitStrc* pUnit); // 0x00622DC0
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nRangeBonus); // 0x00622C40
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 unsigned short __cdecl GAME_GetClickFlags(); // 0x0044BEC0
-int __fastcall AUTOMAP_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00480C10
+int __fastcall UNITMODE_DispatchUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00480C10
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __fastcall ROSTER_CanLoot(int nUnitId1, int nUnitId2); // 0x0047A4F0
@@ -101,7 +101,7 @@ static int UNITMODE_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, int 
         {
             int nRange;
             int nDistance;
-            return AUTOMAP_IsInAuraRange(pSkill, pUnit, &nRange, &nDistance) != 0;
+            return PLAYER_IsInAuraRange(pSkill, pUnit, &nRange, &nDistance) != 0;
         }
     }
 
@@ -148,7 +148,7 @@ static void __stdcall UNITMODE_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, 
             memset(&tTarget, 0, sizeof(tTarget));
             tTarget.nParam1 = nArg1;
             tTarget.nParam2 = nArg2;
-            if (AUTOMAP_DispatchUnitCommand(0x18, pPlayer, &tTarget, 0))
+            if (UNITMODE_DispatchUnitCommand(0x18, pPlayer, &tTarget, 0))
                 MSG_SendTwoDwords(4, nArg1, nArg2);
             sub_SetPlayerAction(pPlayer, 0, 0, 0, 0);
         }
@@ -158,7 +158,7 @@ static void __stdcall UNITMODE_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, 
         memset(&tTarget, 0, sizeof(tTarget));
         tTarget.nParam1 = nArg1;
         tTarget.nParam2 = nArg2;
-        if (AUTOMAP_DispatchUnitCommand(0, pPlayer, &tTarget, 0))
+        if (UNITMODE_DispatchUnitCommand(0, pPlayer, &tTarget, 0))
             MSG_SendTwoDwords(2, nArg1, nArg2);
         sub_SetPlayerAction(pPlayer, 0, 0, 0, 0);
     }

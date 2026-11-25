@@ -60,7 +60,7 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);  
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 
-int __cdecl MONSTER_IsGambleShop();                                                                                 // 0x004B3500
+int __cdecl NPCMENU_IsGambleShop();                                                                                 // 0x004B3500
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 
@@ -574,7 +574,7 @@ void __cdecl INV_DrawNpcShopPanel()
                 tContext.nFrame = i + 4;
             }
             sub_004F6480(&tContext, i * 0x50 + gnPanelOffsetX, gnScreenHeight + gnPanelOffsetY - 0x1C1, -1, 5, 0);
-            if (!MONSTER_IsGambleShop())
+            if (!NPCMENU_IsGambleShop())
             {
                 D2Win_10117_DrawText(wszText, gaNpcTabs[i].nX - nWidth / 2 + gnPanelOffsetX,
                     gaNpcTabs[i].nY + gnPanelOffsetY + gnScreenHeight - 0x1E0, nColor, 0);

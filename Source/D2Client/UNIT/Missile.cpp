@@ -169,7 +169,7 @@ int __fastcall SKILLS_DoClientSkill(D2UnitStrc* pUnit, int nSkillId, int nArg, i
 
 void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nId); // 0x004CB9C0
 
-D2UnitStrc* __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
+D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
 void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 
@@ -444,9 +444,9 @@ extern const int gaCltHitRingOffsetX[8];                                        
 
 void __stdcall GFXUTIL_SetMotionParams(D2UnitStrc* pUnit, int nParam0, int nParam1);                   // 0x004DA2F0
 
-void __fastcall MISSILE_ClearMotionFlagTwo(D2UnitStrc* pMissile);                                                         // 0x004DA340
+void __fastcall GFXUTIL_ClearMotionFlagTwo(D2UnitStrc* pMissile);                                                         // 0x004DA340
 
-void __fastcall SKILLS_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames);                      // 0x004DA5B0
+void __fastcall GFXUTIL_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames);                      // 0x004DA5B0
 
 void __fastcall sub_004E2ED0_VolleyCallback(D2UnitStrc* pMissile);                                          // 0x004E2ED0
 
@@ -631,7 +631,7 @@ static inline unsigned int SEED_RollLimitedRandomNumberInline(D2SeedStrc* pSeed,
 
 void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA2A0
 
-void __fastcall MISSILE_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet); // 0x004DA6E0
+void __fastcall GFXUTIL_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet); // 0x004DA6E0
 
 static inline unsigned __int64 SEED_RollRandomNumber64(D2SeedStrc* pSeed)
 {
@@ -648,7 +648,7 @@ static inline unsigned __int64 SEED_RollNextHL_Inline(D2SeedStrc* pSeed, unsigne
     return lSeed;
 }
 
-D2UnitStrc* __fastcall WARDENCLIENT_ScanFindUnit(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
+D2UnitStrc* __fastcall SKILLS_ScanFindUnit(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
 
 void __stdcall MISSILE_SetOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x0064A400
 
@@ -744,7 +744,7 @@ extern CLTHITFUNC gpfnCltHitFuncs[];                                            
 
 void __fastcall CUNIT_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
 
-void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId);                               // 0x004CA900
+void* __fastcall UNITSND_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId);                               // 0x004CA900
 
 void __fastcall MISSILE_StatRemoveToggleStateOff(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x004CD380
 
@@ -906,7 +906,7 @@ static inline int SKILLS_GetLevelBasedParam(int nSkillId, int nLevel)
 
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 
-void __fastcall SKILLS_RotateUnitDirection(D2UnitStrc* pUnit, int nArg, int bForward); // 0x004C9060
+void __fastcall SKILLSBAR_RotateUnitDirection(D2UnitStrc* pUnit, int nArg, int bForward); // 0x004C9060
 
 #define UNITFLAGEX_0x40000 0x40000
 
@@ -936,7 +936,7 @@ struct D2SoundEnvironTxtStrc;
 
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
 
-void __cdecl UI_ClearGlobals(); // 0x00476AF0
+void __cdecl VIEW_ClearGlobals(); // 0x00476AF0
 
 static inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordInline(int nSkillId)
 {
@@ -1333,7 +1333,7 @@ int __fastcall MISSILE_CltCanMissileDestroy(D2UnitStrc* pUnit, void* pArgument)
 }
 
 // 0x004CD0A0
-void __fastcall SKILLS_InitMissileUnit(D2UnitStrc* pMissile, int nArg, int nTargetX, int nTargetY, int nUnused)
+void __fastcall MISSILE_InitMissileUnit(D2UnitStrc* pMissile, int nArg, int nTargetX, int nTargetY, int nUnused)
 {
     if (!pMissile)
     {
@@ -1390,7 +1390,7 @@ extern "C" int __stdcall sub_0064A300(D2UnitStrc* pUnit); // 0x0064A300
 
 void __fastcall DLIGHTMAP_ResetLightSize(D2GfxLightStrc* pLight, int nSize); // 0x004742D0
 
-void* __fastcall ROSTER_GetLinkFirst(D2UnitStrc* pUnit); // 0x004CA990
+void* __fastcall UNITSND_GetLinkFirst(D2UnitStrc* pUnit); // 0x004CA990
 
 #define UNIT_INVALID 6
 
@@ -1973,7 +1973,7 @@ int __fastcall MISSILE_CltHitBurstSub(D2UnitStrc* pMissile, D2UnitStrc* pHitUnit
     {
         if (pMissilesTxtRecord->wCltHitSubMissile[0] >= 0)
         {
-            GFXUTIL_SubmitMissileRequest(CUNIT_GetOwnerUnit(pMissile), pMissilesTxtRecord->wCltHitSubMissile[0], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
+            MISSILE_SubmitMissileRequest(CUNIT_GetOwnerUnit(pMissile), pMissilesTxtRecord->wCltHitSubMissile[0], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
         }
 
         MISSILE_SpawnHitBurst(pMissilesTxtRecord->dwCltHitPar[0], pMissilesTxtRecord->dwCltHitPar[1], pMissilesTxtRecord->wCltHitSubMissile[1], pMissilesTxtRecord->wCltHitSubMissile[2], pMissile);
@@ -2206,7 +2206,7 @@ int __fastcall MISSILE_CltDoEightWaySpawn(D2UnitStrc* pMissile)
             D2DynamicPathStrc* pPath = pNew->pDynamicPath;
 // build: symbol ?gszMissileSourceFile@* 0x006DAEF4
             PATH_SetVelocity(pPath, SEED_RollLimitedRandomNumberInline(&pMissile->pSeed, PATH_GetVelocity(pPath)), gszMissileSourceFile, 0x1A6B);
-            SKILLS_SetBallistic(pNew, 0x1E, nFrames);
+            GFXUTIL_SetBallistic(pNew, 0x1E, nFrames);
         }
     }
 
@@ -2572,7 +2572,7 @@ void __fastcall MISSILE_CltDoDefault(D2UnitStrc* pMissile)
     D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile->dwClassId);
     if (pMissilesTxtRecord && (short)pMissilesTxtRecord->wTravelSound >= 0)
     {
-        void* pUnitSfx = MISSILE_FindUnitSfxInRange(pMissile, (short)pMissilesTxtRecord->wTravelSound);
+        void* pUnitSfx = UNITSND_FindUnitSfxInRange(pMissile, (short)pMissilesTxtRecord->wTravelSound);
         if (pUnitSfx)
         {
             sub_004BA790_ReleaseUnitSfx(pUnitSfx, pMissile, 0);
@@ -2698,7 +2698,7 @@ void __fastcall MISSILE_CltDoLightGrow(D2UnitStrc* pMissile)
 
     if (nFrames == nParam0 - 2)
     {
-        void* pHint = ROSTER_GetLinkFirst(pMissile);
+        void* pHint = UNITSND_GetLinkFirst(pMissile);
         if (pHint)
             sub_004BA790_ReleaseUnitSfx(pHint, pMissile, 1);
 
@@ -3232,17 +3232,17 @@ void __fastcall MISSILE_CltDoTimedRequests(D2UnitStrc* pMissile)
 
     if (pMissilesTxtRecord->wCltSubMissile[0] > 0 && sub_0064A3B0_GetElapsedFrames(pMissile) == pMissilesTxtRecord->dwCltParam[0])
     {
-        GFXUTIL_SubmitMissileRequest(CUNIT_GetOwnerUnit(pMissile), pMissilesTxtRecord->wCltSubMissile[0], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
+        MISSILE_SubmitMissileRequest(CUNIT_GetOwnerUnit(pMissile), pMissilesTxtRecord->wCltSubMissile[0], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
     }
 
     if (pMissilesTxtRecord->wCltSubMissile[1] > 0 && sub_0064A3B0_GetElapsedFrames(pMissile) == pMissilesTxtRecord->dwCltParam[1])
     {
-        GFXUTIL_SubmitMissileRequest(CUNIT_GetOwnerUnit(pMissile), pMissilesTxtRecord->wCltSubMissile[1], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
+        MISSILE_SubmitMissileRequest(CUNIT_GetOwnerUnit(pMissile), pMissilesTxtRecord->wCltSubMissile[1], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
     }
 
     if (pMissilesTxtRecord->wCltSubMissile[2] > 0 && sub_0064A3B0_GetElapsedFrames(pMissile) == pMissilesTxtRecord->dwCltParam[2])
     {
-        GFXUTIL_SubmitMissileRequest(CUNIT_GetOwnerUnit(pMissile), pMissilesTxtRecord->wCltSubMissile[2], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
+        MISSILE_SubmitMissileRequest(CUNIT_GetOwnerUnit(pMissile), pMissilesTxtRecord->wCltSubMissile[2], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
     }
 
     MISSILE_CltDoCommon(pMissile);
@@ -3643,7 +3643,7 @@ void __fastcall MISSILE_CltDoObjectSpawn(D2UnitStrc* pMissile)
                 if (pMissilesTxtRecord->wCltSubMissile[0] > 0)
                 {
                     const int nLevel = MISSILE_GetLevel(pMissile);
-                    D2UnitStrc* pNew = (D2UnitStrc*)GFXUTIL_SubmitMissileRequest(pOwner, pMissilesTxtRecord->wCltSubMissile[0], CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), MISSILE_GetSkill(pMissile), nLevel);
+                    D2UnitStrc* pNew = (D2UnitStrc*)MISSILE_SubmitMissileRequest(pOwner, pMissilesTxtRecord->wCltSubMissile[0], CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), MISSILE_GetSkill(pMissile), nLevel);
                     if (pNew)
                     {
                         MISSILE_InitMotion(pNew);
@@ -4490,7 +4490,7 @@ void __fastcall MISSILE_CltDoLinked(D2UnitStrc* pMissile)
                 GFXUTIL_ReplaceMotionFlag1With8(pMissile);
                 GFXUTIL_SetMotionVectorB(pMissile, 0, 0, 20, 1);
                 GFXUTIL_SetMotionVectorC(pMissile, 0, 0, 400, 0);
-                MISSILE_SetMotionFlagMask(pMissile, 1);
+                GFXUTIL_SetMotionFlagMask(pMissile, 1);
                 D2Common_10142(pPath, pMissile, 0);
                 MISSILE_CltDoCommon(pMissile);
                 return;
@@ -4499,7 +4499,7 @@ void __fastcall MISSILE_CltDoLinked(D2UnitStrc* pMissile)
                 GFXUTIL_ReplaceMotionFlag1With8(pMissile);
                 GFXUTIL_SetMotionVectorB(pMissile, 0, 0, -6, 1);
                 GFXUTIL_SetMotionVectorC(pMissile, 0, 0, SEED_RollLimitedRandomNumber(pSeed, 40), 0);
-                MISSILE_SetMotionFlagMask(pMissile, 0);
+                GFXUTIL_SetMotionFlagMask(pMissile, 0);
                 D2Common_10142(pPath, pMissile, 0);
                 MISSILE_CltDoCommon(pMissile);
                 return;
@@ -4510,7 +4510,7 @@ void __fastcall MISSILE_CltDoLinked(D2UnitStrc* pMissile)
                 GFXUTIL_ReplaceMotionFlag1With8(pMissile);
                 GFXUTIL_SetMotionVectorB(pMissile, 0, 0, 6, 1);
                 GFXUTIL_SetMotionVectorC(pMissile, 0, 0, SEED_RollLimitedRandomNumber(pSeed, 40) + 170, 0);
-                MISSILE_SetMotionFlagMask(pMissile, 1);
+                GFXUTIL_SetMotionFlagMask(pMissile, 1);
                 D2COMMON_10170_PathSetTargetPos(pPath, CLIENTS_GetUnitX(pLinked), CLIENTS_GetUnitY(pLinked));
                 PATH_SetVelocity(pPath, 0x300, gszMissileSourceFile, 6012);
                 D2Common_10142(pPath, pMissile, 0);
@@ -4719,10 +4719,10 @@ void __fastcall MISSILE_CltDoSpawner(D2UnitStrc* pMissile)
         {
             int nY = UNITS_GetUnitYPosition(pMissile);
             int nX = UNITS_GetUnitXPosition(pMissile);
-            GFXUTIL_SubmitMissileRequest(pOwner, 0x26A, nX + 2, nY + 2, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
+            MISSILE_SubmitMissileRequest(pOwner, 0x26A, nX + 2, nY + 2, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
             nY = UNITS_GetUnitYPosition(pMissile);
             nX = UNITS_GetUnitXPosition(pMissile);
-            GFXUTIL_SubmitMissileRequest(pOwner, 0x269, nX + 2, nY + 2, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
+            MISSILE_SubmitMissileRequest(pOwner, 0x269, nX + 2, nY + 2, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
         }
     }
 
@@ -4821,7 +4821,7 @@ void __fastcall MISSILE_CltDoEruption(D2UnitStrc* pMissile)
         int nCount;
         if (!nFrame)
         {
-            GFXUTIL_SubmitMissileRequest(pOwner, 0x214, nX, nY, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
+            MISSILE_SubmitMissileRequest(pOwner, 0x214, nX, nY, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
             nCount = nFrame + 8;
         }
         else if (nFrame < 50)
@@ -5173,10 +5173,10 @@ int __fastcall MISSILE_SkillStartSpawnRing(D2UnitStrc* pUnit, int nSkillId, int 
 {
     D2UnitStrc* pMissileA = sub_004C5470_CreateMissileToTarget(pUnit, MISSILE_HELLMETEORDOWN, nSkillId, nSkillLevel);
     D2UnitStrc* pMissileB = sub_004C5470_CreateMissileToTarget(pUnit, MISSILE_HELLMETEORBALL, nSkillId, nSkillLevel);
-    D2UnitStrc* pRequestA = GFXUTIL_SubmitMissileRequest(pUnit, 0x14F, UNITS_GetUnitXPosition(pUnit), UNITS_GetUnitYPosition(pUnit), nSkillId, nSkillLevel);
-    D2UnitStrc* pRequestB = GFXUTIL_SubmitMissileRequest(pUnit, 0x151, UNITS_GetUnitXPosition(pUnit), UNITS_GetUnitYPosition(pUnit), nSkillId, nSkillLevel);
-    D2UnitStrc* pRequestC = GFXUTIL_SubmitMissileRequest(pUnit, 0x14E, UNITS_GetUnitXPosition(pUnit), UNITS_GetUnitYPosition(pUnit), nSkillId, nSkillLevel);
-    D2UnitStrc* pRequestD = GFXUTIL_SubmitMissileRequest(pUnit, 0x14D, UNITS_GetUnitXPosition(pUnit), UNITS_GetUnitYPosition(pUnit), nSkillId, nSkillLevel);
+    D2UnitStrc* pRequestA = MISSILE_SubmitMissileRequest(pUnit, 0x14F, UNITS_GetUnitXPosition(pUnit), UNITS_GetUnitYPosition(pUnit), nSkillId, nSkillLevel);
+    D2UnitStrc* pRequestB = MISSILE_SubmitMissileRequest(pUnit, 0x151, UNITS_GetUnitXPosition(pUnit), UNITS_GetUnitYPosition(pUnit), nSkillId, nSkillLevel);
+    D2UnitStrc* pRequestC = MISSILE_SubmitMissileRequest(pUnit, 0x14E, UNITS_GetUnitXPosition(pUnit), UNITS_GetUnitYPosition(pUnit), nSkillId, nSkillLevel);
+    D2UnitStrc* pRequestD = MISSILE_SubmitMissileRequest(pUnit, 0x14D, UNITS_GetUnitXPosition(pUnit), UNITS_GetUnitYPosition(pUnit), nSkillId, nSkillLevel);
 
     if (pRequestA)
     {
@@ -5572,7 +5572,7 @@ int __fastcall MISSILE_CltHitFollowUp(D2UnitStrc* pMissile, D2UnitStrc* pHitUnit
         break;
     }
 
-    D2UnitStrc* pNewMissile = GFXUTIL_SubmitMissileRequest(CUNIT_GetOwnerUnit(pMissile), nFollowUp, UNITS_GetUnitXPosition(pMissile), UNITS_GetUnitYPosition(pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
+    D2UnitStrc* pNewMissile = MISSILE_SubmitMissileRequest(CUNIT_GetOwnerUnit(pMissile), nFollowUp, UNITS_GetUnitXPosition(pMissile), UNITS_GetUnitYPosition(pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
     if (pNewMissile)
     {
         D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
@@ -5758,8 +5758,8 @@ int __fastcall MISSILE_CltHitLob(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
     }
 
     GFXUTIL_SetMotionParams(pSubMissile, pMissilesTxtRecord->dwCltHitPar[0], pMissilesTxtRecord->dwCltHitPar[1]);
-    SKILLS_SetBallistic(pSubMissile, 0, pMissilesTxtRecord->dwCltHitPar[2]);
-    MISSILE_ClearMotionFlagTwo(pSubMissile);
+    GFXUTIL_SetBallistic(pSubMissile, 0, pMissilesTxtRecord->dwCltHitPar[2]);
+    GFXUTIL_ClearMotionFlagTwo(pSubMissile);
     return 1;
 }
 
@@ -6090,7 +6090,7 @@ int __fastcall MISSILE_CltHitChain(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
     }
 
     pPrevious = pUnit;
-    pUnit = WARDENCLIENT_ScanFindUnit(pOwner, nX, nY, nRange, 0x88583, !pUnit ? -1 : pUnit->dwUnitId, 0);
+    pUnit = SKILLS_ScanFindUnit(pOwner, nX, nY, nRange, 0x88583, !pUnit ? -1 : pUnit->dwUnitId, 0);
     if (!pUnit)
     {
         return 1;
@@ -6319,28 +6319,28 @@ void __fastcall MISSILE_CltDoBaalStormMissile(D2UnitStrc* pMissile)
     {
         int nY=UNITS_GetUnitYPosition(pMissile);
         int nX=UNITS_GetUnitXPosition(pMissile);
-        GFXUTIL_SubmitMissileRequest(pOwner,631,nX+1,nY+1,MISSILE_GetSkill(pMissile),MISSILE_GetLevel(pMissile));
+        MISSILE_SubmitMissileRequest(pOwner,631,nX+1,nY+1,MISSILE_GetSkill(pMissile),MISSILE_GetLevel(pMissile));
         break;
     }
     case 425:
     {
         int nY=UNITS_GetUnitYPosition(pMissile);
         int nX=UNITS_GetUnitXPosition(pMissile);
-        GFXUTIL_SubmitMissileRequest(pOwner,632,nX,nY,MISSILE_GetSkill(pMissile),MISSILE_GetLevel(pMissile));
+        MISSILE_SubmitMissileRequest(pOwner,632,nX,nY,MISSILE_GetSkill(pMissile),MISSILE_GetLevel(pMissile));
         break;
     }
     case 375:
     {
         int nY=UNITS_GetUnitYPosition(pMissile);
         int nX=UNITS_GetUnitXPosition(pMissile);
-        GFXUTIL_SubmitMissileRequest(pOwner,633,nX,nY,MISSILE_GetSkill(pMissile),MISSILE_GetLevel(pMissile));
+        MISSILE_SubmitMissileRequest(pOwner,633,nX,nY,MISSILE_GetSkill(pMissile),MISSILE_GetLevel(pMissile));
         break;
     }
     case 325:
     {
         int nY=UNITS_GetUnitYPosition(pMissile);
         int nX=UNITS_GetUnitXPosition(pMissile);
-        GFXUTIL_SubmitMissileRequest(pOwner,634,nX,nY,MISSILE_GetSkill(pMissile),MISSILE_GetLevel(pMissile));
+        MISSILE_SubmitMissileRequest(pOwner,634,nX,nY,MISSILE_GetSkill(pMissile),MISSILE_GetLevel(pMissile));
         break;
     }
     }
@@ -6448,7 +6448,7 @@ D2UnitStrc* __fastcall MISSILE_CltMissileHit(D2UnitStrc* pMissile, D2UnitStrc* p
         const short nProgSfx = pMissilesTxtRecord->wTravelSound;
         if (nProgSfx >= 0)
         {
-            void* pUnitSfx = MISSILE_FindUnitSfxInRange(pMissile, nProgSfx);
+            void* pUnitSfx = UNITSND_FindUnitSfxInRange(pMissile, nProgSfx);
             if (pUnitSfx)
                 sub_004BA790_ReleaseUnitSfx(pUnitSfx, pMissile, 0);
         }
@@ -6810,7 +6810,7 @@ D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams
 
     if (pMissileParams->dwFlags & 0x100)
     {
-        SKILLS_SetBallistic(pMissile, pMissileParams->nGfxArg, MISSILE_GetTotalFrames(pMissile));
+        GFXUTIL_SetBallistic(pMissile, pMissileParams->nGfxArg, MISSILE_GetTotalFrames(pMissile));
         GFXUTIL_UpdateMotion(pMissile);
         PATH_SetDirection(pPath, (unsigned char)(nTargetX + nTargetY) & ~0xC0);
         D2COMMON_10203_PATH_SetRotateFlag(pPath, 0);
@@ -6855,7 +6855,7 @@ D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams
             sub_004B9A00(nSound, pMissile, 0, 0, 0);
             if (pMissileParams->pOwner)
             {
-                void* pUnitSfx = MISSILE_FindUnitSfxInRange(pMissileParams->pOwner, 0x13A);
+                void* pUnitSfx = UNITSND_FindUnitSfxInRange(pMissileParams->pOwner, 0x13A);
                 if (pUnitSfx)
                 {
                     sub_004BA840(pUnitSfx);
@@ -6873,7 +6873,7 @@ D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams
 }
 
 // 0x004CDB40
-D2UnitStrc* __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB)
+D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB)
 {
     if (!pUnit)
     {
@@ -7991,7 +7991,7 @@ int __fastcall MISSILE_CltHitClearGlobals(D2UnitStrc* pMissile, D2UnitStrc* pUni
 {
     if (!pUnit)
     {
-        UI_ClearGlobals();
+        VIEW_ClearGlobals();
         return 1;
     }
     return 0;
