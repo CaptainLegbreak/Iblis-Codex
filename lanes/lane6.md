@@ -14,7 +14,9 @@ Status (Tue Nov 24 22:50 PST 2026): net-x-object-3 and lang-unisys merged in #38
 
 - lane6/decomp-labels 85d1d94b (on #381): audit-379's decompiler labels and types and a1 names in my files. ComCallback.cpp, Unknown_0043C8A0.cpp and D2WinEditBox.cpp lose the LABEL_ prefix on their goto labels; Unknown_0044A170.cpp's U32 typedef gives way to unsigned int; D2Net.cpp's five empty default callbacks leave their unused parameters unnamed (were a1..a18). No code changes. Applies cleanly with lane 9's crt-xcu-rest, which also touches Unknown_0043C8A0.cpp. Full build: Game.exe identical, tree 833524a6eed7ad6d179c9ba61bd40d533c2454e9, borrowed code / data 11,250 / 281 B; auditguard: types 216 -> 211, labels 74 -> 61, a1/v12 2,910 -> 2,873, no count rose.
 
-(emit-trim and data-only-units verifying, on #381)
+- lane6/emit-trim ea36615d (on #381): audit-379's emit helpers and noinline in my files. 25 emit helpers deleted where their unit stays all equal without them (CelCmp, SpriteCache, SubTile, Unknown_006008D0, CharSel_0042FFE0, CharSel_004378D0, MainMenus, ChatDlg, D2WinImage, D2BNClient Unknown_00518C00/Unknown_0051A470, Bnclient Unknown_00520DC0), with the statics only they called; one `__declspec(noinline)` (ChatDlg's CHATDLG_DestroyProfileControls). The other 16 noinlines are needed (listed under Left in place). It spans modules in one branch per kind, because each module's share is a few lines; say if you want it split. Full build: Game.exe identical, tree 2a538438ee1493476628254d282651accdf34cab, borrowed code / data 11,250 / 281 B; auditguard: emit helpers 559 -> 532, noinline 107 -> 106, no count rose.
+
+(data-only-units verifying, on #381)
 
 ## Questions
 
