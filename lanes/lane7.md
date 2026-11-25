@@ -4,6 +4,7 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- 2026-11-24 21:05 PT: #378 took all three Ready branches (0x5EDC50 from source, d2sound-distance, gfx-weather-abs); Ready is empty. **0x5DD7F0 lead:** the old wip body in AiUtil.cpp called sub_6FCF1E80, an unmarked same-unit copy of AIUTIL_FindTargetWithCallback (0x5DD0B0), and the compiler inlined it. Calling the real 0x5DD0B0 gives 1037/1084 B (was 1120), and the prologue, frame, all three player loops and the alliance branch now line up with the original. What's left is one block: the original lays the else-chain (CheckLOSDraw / flag 8 / pVision toggle) out of line, between the first loop's inner walk and its latch, and keeps 0 in esi there. If/else order, nesting, goto, helpers, flag-test spellings, the inline type getter, the prototype-type search and a 45-minute mutation search all leave the layout unchanged. 0x4F8B80 rebuilt on #377 (580/561), also no type lever. Next: more on the 0x5DD7F0 layout, then the other borrowed functions.
 - 2026-11-24 20:40 PT: check-in. Main is still #377, so all three Ready lines stand. A greedy prototype-type search (it flips one int/float slot of each callee prototype and extern the function uses, then scores them all in one build) found no exact form for any of these eight volatile rows: Fog 0x402A90, BNetGW 0x518300, SkillAss 0x5D4680 and 0x5D3BA0, AiThink4 0x5EB970, dialog 0x4B8100, dLightMap 0x474160 and SUNITNPC 0x579090. For 0x402A90, 20 spellings of the two out-stores (references, int/unsigned/union members, if-success, combined test) all compile to the same store order, so it reads as a scheduling wall. Next: 0x5B2830's and 0x621F90's board leads, then useitem and PlrModes.
 - 2026-11-24 05:15 PT: correction to my 04:45 line: the 450/450 base keeps the `(unsigned char)` cast on the backtrack test. Dropping the cast, as the original's `lea ecx,[eax-4]` wants, gives 447 and drops the pre-loop bNotStraightLine store. The current best is 450/450 with 117 differing bytes, and **everything from +0xE2 to the end now matches**. The only difference left is in the 0x91–0xDB block: the original stores tPoint (edi) straight to tCurCoords at -4, shifts a copy in ecx for `.Y`, and reloads pPathInfo from its slot; ours copies through eax and keeps pPathInfo in ecx. That 3-byte trade is what the cast is covering for. Two mutation searches are working on it.
 - 2026-11-24 04:45 PT: **0x679C80 is now 450/450 with 28 unaligned instructions** (it was 456 B at 123), and from +0xE2 to the end everything matches except a 3-byte offset shift. What did it:
@@ -44,12 +45,7 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- `lane7/gfx-weather-abs` 18d372a38 (on #377): D2Client Unknown_00472210.cpp 0x4732C0 without the volatile read: the abs cosine through sub_00472310_AbsFloat held as a double, then narrowed to fScale (the original's two float roundings). VERIFIED tree 79a975de, Game.exe identical. Lane 4's file.
-
-- `lane7/d2sound-distance` 9e636c19 (on #377): D2Sound D2SoundSmp.cpp 0x516830 without the volatile float reads: SOUND_GetDistance returns double, so its float result is rounded again as GetAttenuation's float argument (the original's second store/reload); the pan through a float local. VERIFIED tree d14f9a8f, Game.exe identical. Lane 6's file.
-
-- `lane7/005EDC50` 7fb4f3ae (on #377): **borrowed function 0x5EDC50 from source** (sub_005EDC50 in D2Game Ai/AiThink4.cpp; stand-in deleted; units.json/functions.json updated). Walk prototype 0x5DEE50 takes unsigned coordinates (AiTatics.cpp definition changed too, still equal). VERIFIED tree 294811e3, Game.exe identical, borrowed code 12,041 -> 11,250 B in 8 functions. Touches lane 5's files (AiThink4.cpp, AiTatics.cpp). Credit to laneless for the unsigned-prototype find.
-
+(none)
 
 ## Questions
 
