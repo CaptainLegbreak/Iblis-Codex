@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/audit-noinline-fog c3dfe7f4 (on #386): the audit's noinline row for lane 3. ErrorManager.cpp's StrLCopy (0x404110, nSize in ecx, szSource in edi) and DebugPrintV (0x4080B0, va_list in edi) keep __declspec(noinline) with the #368 evidence in a comment: register conventions only a same-unit static gets. Storm.h's D2StormMsgSourceStrc drops two explicit padding bytes. All 38 Storm.h includers and ErrorManager.cpp build equal. Full build: Game.exe identical, tree 9370e25220da6f3f5068d52b3e13610c44fc6564, borrowed code / data 11,250 / 261 B. The third noinline, GetCpuSignature (0x40E960), is a plain __cdecl with no register arguments: it's out of line in the original because the CPU helpers 0x40E250-0x40EA00 are probably a separate object (see Left in place, 0x40E850), so it needs that split, not a comment; left as is.
+(none: audit-noinline-fog merged in #388; next: lane3/audit-emit-fog-storm, the emit-helper trim)
 
 ## Claimed
 
