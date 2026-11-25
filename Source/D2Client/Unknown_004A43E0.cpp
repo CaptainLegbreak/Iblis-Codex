@@ -1191,7 +1191,7 @@ void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTo
 
 void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
 
-static __declspec(noinline) int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc* pTextBox);
+static int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc* pTextBox);
 
 void __cdecl TEXT_DrawMessageList(); // 0x0049DC40
 
