@@ -18,6 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 15:18 PST 2026: split-004df6c0 and copies-d2client-hi are in #411. copies-d2client-first rebased onto #411 and rebuilt (identical, no count rose).
 - Wed Nov 25 15:10 PST 2026: copies-d2client-first posted (stacked on copies-d2client-hi). Eight more conversions wait on link_exe.py (Left in place).
 - Wed Nov 25 14:33 PST 2026: copies-d2client-hi posted (stacked on split-004df6c0).
 - Wed Nov 25 14:25 PST 2026: the remaining copies in Unknown_004DF6C0/DF770 and PlrSkills.cpp can\'t be assigned to objects from the data yet (Left in place, with what fixes them). The inline asm in D2Client is original. Next: D2Client placeholder files.
@@ -28,9 +29,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Ready
 
-- lane4/split-004df6c0 a4716502f (on #410): language-objects.md, Unknown_004DF6C0.cpp. Its first two copies (0x72ADA8, 0x72ADE8) are two objects: Unknown_004DF6C0.cpp keeps GFXUTIL_ApplySoundEnviron and gnSoundEnvironId; the sound channels (0x4DF770-0x4E0360) and the NPC/string sound tables (0x4E0370-0x4E0690) go to the new Unknown_004DF770.cpp. Both copies come from D2LanguageNames.h with markers; their two plan records go. The channel code uses only .bss, so which object it belongs to is a judgement (put with the second). Both units equal; full build: Game.exe identical, tree 329ce9ad2c0fcf2fc5bc77d449b86e860716a221, placed 14,922 / 14,922, data sections 10,068, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
-- lane4/copies-d2client-hi 3144f664f (on #410, stacked on split-004df6c0; merge that first): language copies. Fifteen D2Client files whose only initialised data is their copy (ARCHIVE.CPP, Game_0044B7B0, Msg, PalShift, Roster, RosterPets, SkillsAma, SkillsNec, SkillsPal, editbox, Unknown_004B8720/004B9200/004BBE10/004BC1B0/004C9D50) include D2LanguageNames.h with a marker at the copy; their 15 plan records go (file entries kept at 0 bytes, as in 67c33fb8d). All 15 units equal; full build: Game.exe identical, tree 64cb042f12b24679fa3862874d5bd589c3affde6, placed 14,922 / 14,922, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
-- lane4/copies-d2client-first 39e9ea43f (on #410, stacked on copies-d2client-hi): five more D2Client files whose copy is their first initialised data, with the rest following it (Record, Party, useitem, Player, Unknown_0045AE90), take it from D2LanguageNames.h with a marker; 5 plan records go. All units equal; full build: Game.exe identical, tree 83377ed7dd08feee133666370136aab6396764fe, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
+- lane4/copies-d2client-first 9219ec411 (on #411): five more D2Client files whose copy is their first initialised data, with the rest following it (Record, Party, useitem, Player, Unknown_0045AE90), take it from D2LanguageNames.h with a marker; 5 plan records go. All units equal; full build: Game.exe identical, tree a12cccb38b40bf0c18c939888c4daf2bfea06d8c, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
 
 ## Claimed
 
