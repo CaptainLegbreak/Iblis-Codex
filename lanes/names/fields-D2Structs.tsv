@@ -1,0 +1,2 @@
+header	struct	offset	old	new	confidence	reason
+D2Structs.h	D2CorpseStrc	0x00	unk0x00	bCounted	medium	Inventory.cpp: INVENTORY_CreateCorpseForPlayer stores its 4th argument here and adds the corpse to nCorpseCount only when it is set; INVENTORY_FreeCorpse matches on it with nUnitId and takes the corpse off nCorpseCount the same way (PlrModes.cpp creates and frees with 1). 0x08 (the 3rd argument, always 0 at the one call) stays unnamed
