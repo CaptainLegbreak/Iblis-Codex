@@ -25,16 +25,6 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-- Both on main 70376fda (#372), namesync run, precheck 0 not all equal; each full verify VERIFIED, borrowed data 844 B (main's).
-- lane9/gdi-7cf0 33d151f5 (placeholders -1, per-file options -1): gdiCore.cpp takes Unknown_006C7CF0's seven functions
-  (0x6C8000-0x6C80A0, interleaved with gdiCore's own 0x6C8020/0x6C8050/0x6C8060; they set gdiCore's palette view and
-  render window and use its palette and palette handle). Second commit: gdiCore.cpp drops its per-file /Ob1. Under the
-  module default two calls the original makes get inlined (0x6C8960 from 0x6C7CF0, 0x6C8020 from 0x6C8970), so those
-  two callees take __declspec(noinline) with a comment, per your Gfx.cpp ruling. **Coordinator:** that's two noinlines
-  for one dropped option; say if you'd rather keep the /Ob1. 53 equal.
-- lane9/d3d-strays-2 12b8406d (placeholders -1): Unknown_006B7250.cpp takes the line drawer 0x6B7B30 (between its 0x6B7980
-  and 0x6B7C90; only callers are that file's rect and diamond drawers, plus d3dCore's function table). 25 equal. The
-  empty stub 0x6B76C0 stays: it sits between 0x6B7530's and 0x6B7250's code and builds equal anywhere.
 - Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
@@ -50,6 +40,8 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
     __fastcall helper with reference parameters matches the helper, but the two callers' point set-up is scheduled
     differently; every static form gets the callers and misses the helper.
   - d3dCore.cpp's /EHsc is needed (0x6B42F0 and 0x6B4C90 differ without it: ATL's exception throw).
+  - The coordinator's struct-count note (line 225) doesn't move the DDraw helper: 1-12 dummy structs, helper first or
+    last in the file, no change.
   If there's another lane's module that needs hands, or a tools job (the initializer table above), I can take it.
 - **Coordinator, the 264 + 32 B "between - and D2Hell" blocks (0x6CC618, 0x6CC75C) aren't D2Hell's.** 0x6CC618 is the
   C++ dynamic-initializer table (.CRT$XCU): 66 pointers, in order, to the initializer functions at 0x6CA6F0-0x6CB050
