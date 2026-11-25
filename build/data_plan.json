@@ -4904,8 +4904,8 @@
    "state": "included"
   },
   "Source/D2Hell/Unknown_00516D8B.cpp": {
-   "bytes": 300,
-   "definitions": 7,
+   "bytes": 288,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Hell/Unknown_00516D8B.inc",
@@ -80331,82 +80331,6 @@
    "tail": "; // 0x0072F9FC\n#pragma comment(linker, \"/alternatename:?gszRecordType@@3QBDB=_gData_0072F9FC\")",
    "type": "char",
    "va": "0x0072F9FC"
-  },
-  {
-   "alias": false,
-   "cname": null,
-   "declared": true,
-   "decorated": null,
-   "file": "Source/D2Hell/Unknown_00516D8B.cpp",
-   "form": "declared_owner",
-   "fwd": null,
-   "head": "extern D2MessageList gtMessages = ",
-   "model": {
-    "k": "struct",
-    "members": [
-     [
-      "m_linkoffset",
-      0,
-      {
-       "k": "prim",
-       "kind": "s",
-       "name": "int",
-       "size": 4
-      }
-     ],
-     [
-      "m_terminator",
-      4,
-      {
-       "k": "struct",
-       "members": [
-        [
-         "m_prevlink",
-         0,
-         {
-          "fn": false,
-          "k": "ptr",
-          "size": 4,
-          "spell": "D2MessageLink *"
-         }
-        ],
-        [
-         "m_next",
-         4,
-         {
-          "fn": false,
-          "k": "ptr",
-          "size": 4,
-          "spell": "D2MessageNode *"
-         }
-        ]
-       ],
-       "name": "D2MessageLink",
-       "size": 8
-      }
-     ]
-    ],
-    "name": "D2MessageList",
-    "size": 12
-   },
-   "name": "gtMessages",
-   "pointers": [
-    [
-     4,
-     "0x0072FA18",
-     "inside_generated",
-     "gtMessages",
-     4,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 12,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x0072FA14",
-   "type": "D2MessageList",
-   "va": "0x0072FA14"
   },
   {
    "alias": false,
