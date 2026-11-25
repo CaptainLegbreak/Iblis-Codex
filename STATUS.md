@@ -17,12 +17,12 @@ Bytes of the built Game.exe by origin:
 
 | Origin | Bytes |
 |---|---:|
-| game code and data compiled from Source/ | 2,697,278 |
+| game code and data compiled from Source/ | 2,697,274 |
 | initialised data generated from your Game.exe (build/data_plan.json) | 369,852 |
 | C runtime (libcmt.lib, placed by identity) | 239,696 |
 | import thunks and the import address table | 3,782 |
 | headers, import and export tables, relocations, checksum | 163,407 |
-| alignment padding | 122,210 |
+| alignment padding | 122,214 |
 | code taken from your Game.exe (unmatched functions) | 10,018 |
 | data no source defines yet, taken from your Game.exe | 261 |
 | resources (from your Game.exe) | 5,888 |
@@ -42,10 +42,10 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 604 |
+| Compilation units | 603 |
 | … in a file with its original name, whole | 294 |
 | … pieces of an original file still split (in 33 files) | 106 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 204 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 203 |
 | Record definitions private to a source file (`struct`/`union` in a .cpp) | 1910 |
 | Unnamed fields (`unk0x..`) in the shared headers | 647 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 44 |
@@ -134,21 +134,7 @@ Not listed one by one: 4170 functions are compiled with `/GS-` and 1565 with `/E
 | 0x00404C60 | sub_00404C60_EnumModulesPsapi | `Fog/Unknown_00404330.cpp` | compiler option /Oy, compiler option /Oy, without /Oy- |
 | 0x00404DC0 | sub_00404DC0_EnumModulesToolhelp | `Fog/Unknown_00404330.cpp` | compiler option /Oy, compiler option /Oy, without /Oy- |
 | 0x00404E60 | ERRORMANAGER_EnumLoadedModules | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x00404F40 | sub_00404F40_GetDebugDirectory64 | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
-| 0x00404F60 | sub_00404F60_GetDebugDirectory32 | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
-| 0x00405060 | sub_00405060_CaptureFrames | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
 | 0x00405250 | sub_00405250_DescribeAddress | `Fog/Unknown_00401DF0.cpp` | link-time code generation (/GL /LTCG) |
-| 0x004053F0 | ??3@YAXPAX@Z | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
-| 0x00405410 | ??2@YAPAXI@Z | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
-| 0x00405430 | sub_00405430_GetIniPath | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
-| 0x00405450 | sub_00405450_LoadIniSettings | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
-| 0x00405550 | sub_00405550 | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
-| 0x00405570 | GetCmdIndex | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x004055D0 | ERRORMANAGER_IsCmdSeparator | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
-| 0x00405610 | ParseCmdValue | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
-| 0x00405710 | sub_00405710_ParseCmdArgument | `Storm/Unknown_00405710.cpp` | compiler option /Ob2 |
-| 0x004058A0 | sub_004058A0_ParseCmdArgs | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
-| 0x004059A0 | ParseCmdLine | `Storm/Unknown_00404F40.cpp` | compiler option /Ob2 |
 | 0x004067C0 | ERRORMANAGER_SetBasePathToCurrent | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004067D0 | ERRORMANAGER_GetKnownFolderPathA | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |
 | 0x004068E0 | FOG_FOpenFile | `Fog/Src/ErrorManager.cpp` | compiler option /EHa |

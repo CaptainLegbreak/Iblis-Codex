@@ -119,8 +119,8 @@
 <rect x="678" y="64" width="5" height="5" fill="#d29922"/>
 <rect x="684" y="64" width="5" height="5" fill="#d29922"/>
 <rect x="690" y="64" width="5" height="5" fill="#d29922"/>
-<rect x="696" y="64" width="5" height="5" fill="#388bfd"/>
-<rect x="702" y="64" width="5" height="5" fill="#388bfd"/>
+<rect x="696" y="64" width="5" height="5" fill="#d29922"/>
+<rect x="702" y="64" width="5" height="5" fill="#d29922"/>
 <rect x="708" y="64" width="5" height="5" fill="#d29922"/>
 <rect x="714" y="64" width="5" height="5" fill="#d29922"/>
 <rect x="720" y="64" width="5" height="5" fill="#d29922"/>
@@ -5356,9 +5356,9 @@
 <rect x="12" y="687" width="10" height="10" fill="#39d353"/>
 <text x="28" y="696" fill="#c9d1d9">in its original file, whole · 9,713</text>
 <rect x="12" y="705" width="10" height="10" fill="#388bfd"/>
-<text x="28" y="714" fill="#c9d1d9">in its original file, but the file is still in pieces · 3,280</text>
+<text x="28" y="714" fill="#c9d1d9">in its original file, but the file is still in pieces · 3,278</text>
 <rect x="12" y="723" width="10" height="10" fill="#d29922"/>
-<text x="28" y="732" fill="#c9d1d9">in a placeholder file (original file not yet known) · 1,883</text>
+<text x="28" y="732" fill="#c9d1d9">in a placeholder file (original file not yet known) · 1,885</text>
 <rect x="12" y="741" width="10" height="10" fill="#a371f7"/>
 <text x="28" y="750" fill="#c9d1d9">needs a construct that forces code generation · 44</text>
 <rect x="12" y="759" width="10" height="10" fill="#f85149"/>
