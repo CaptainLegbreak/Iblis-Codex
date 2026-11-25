@@ -4,11 +4,13 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(QuestLog.cpp is on main #369, Unknown_004A6260.cpp on #370, the unique-mod callbacks on #372. lane1/umod-join-4 is a stray push of the same commits; ignore it.)
+(On main: QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
-- lane1/strays-5 e0de0d460 0->0 Two more strays go to the objects whose runs hold them: text_0049A950.cpp takes 0x4A17D0 (inv.cpp; it sits among text's last functions 0x4A1760-0x4A18C0 and reads the same text globals 0x7BF202-0x7BF23F), and Unknown_004BC1B0.cpp takes 0x4BF2F0, ListBoxView::ClickScrollTrack (text.cpp), inside the list box's run. Borrowed data 844 B, as main; VERIFIED d8f44882fa255c7867e69580489417135ae2de8a (based on main #372; lane1/strays-4 was an earlier push, never posted).
+- lane1/skills-tail 7e8df198c 0->0 SkillsAma.cpp takes the three functions after its own, 0x4F4D90-0x4F4FEF: 0x4F4D90 and 0x4F4EC0 from SkillDesc.cpp, 0x4F4F40 from SkillDesc_004E1FF0.cpp. The language copies run SkillsNec (0x72D994), SkillsAma (0x72D9D0), Window (0x72DA0C), and SkillsAma's path string (0x6DC440) follows SkillsNec's (0x6DC428) in .rdata, so SkillsAma.cpp is the last object before Window.cpp's 0x4F4FF0. Borrowed data 844 B, as main; VERIFIED 6168d8f49c49045250c09131f8fd564541802f93 (based on main #373).
 
 ## In progress
+
+- **Skill-callback tail, 0x4F0F30-0x4F4FEF (part of the parked SkillsMon/SkillDesc map):** the objects in link order are SkillsEMon (path 0x6DBF90; 0x4F0F30 asserts at lines 860/868), two data-less ones (copies 0x72D914, 0x72D950; the second holds gnChargedBoltTurnEvery/Base, read by 0x4F2BE0), SkillsNec (0x4F3F50 asserts at line 556) and SkillsAma (0x4F4C20 at line 592). The asserted lines in PlrSkills.cpp and SkillDesc.cpp give about 4.4 bytes of code per source line, so SkillsNec should start near 0x4F3680 and SkillsAma near 0x4F42E0. Both are too rough to move code on, so I have left those edges alone.
 
 - **0x4A4AD0, second search template (for the coordinator's unattended search):** `lanes/vsearch/0x4A4AD0-2.cpp`, unit `Source/D2Client/Unknown_004A43E0.cpp` (current main, function marked `// 0x004A4AD0`). It follows your register note (the original gives ebx to bPageDown, ours to bInList) with seven groups: bInList declared and assigned apart or not; bPageDown as is, as `!= 0`, or set by an if; the none-pressed test as now, as one negated `||`, or in reverse order (bPageDown first); block 0's condition in three orders; the page-down block's condition as now, with `|| gaPressed[5]` (like the thumb block), or reversed; its gaPressed[5] store as now or through bPageDown; its inner test as now, `gbRedraw && bPageDown`, or `gaPressed[5]`. Several are extra reads of bPageDown, to tip the allocator its way.
 
