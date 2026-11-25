@@ -532,6 +532,17 @@ class Link(object):
             if 0 <= add < ext:
                 continue
             iv.append((min(S, E), max(S + ext, E + 4), S))
+        if os.environ.get("D2_ORIGINAL_DATA_LAYOUT"):
+            # every global of .data keeps its original place: no layout the code relies on can break
+            for s in D.section_table(self.pe):
+                if s["name"].rstrip("\0") == ".data":
+                    lo = self.pe.image_base + s["va"]; mid = lo + min(s["rawsize"], max(s["vsize"], 1))
+                    hi = lo + max(s["vsize"], s["rawsize"])
+                    inside = [a for a in self.dstarts if lo <= a < hi]
+                    for a0, b0 in ((lo, mid), (mid, hi)):
+                        ms = [a for a in inside if a0 <= a < b0]
+                        if ms:
+                            iv.append((a0, b0, ms[0]))
         iv.sort()
         groups = []
         for lo, hi, S in iv:
@@ -1014,6 +1025,8 @@ def verify(K, exe, mapfile):
             u.home_sym = {}
         u.home_sym[(y["scn"], a)] = i
         n = min(K.dext[a], len(u.sec(y["scn"])["raw"]) - y["value"])
+        if n <= 0:
+            continue
         st["globals_ok" if check(u, y["scn"], a, n, known[a][0], False) else "globals_bad"] += 1
     return dict(st), bad
 
