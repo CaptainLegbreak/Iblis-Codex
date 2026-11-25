@@ -699,12 +699,3 @@ int __stdcall sub_0052B490_ObjectCall_6BED90(int nArg1, int nArg2, int nArg3)
 {
     return sub_006BED90(gpServer, nArg1, nArg2, nArg3);
 }
-// 0x0052BDA0
-void __cdecl sub_0052BDA0_Empty()
-{
-}
-// 0x0052BDB0
-void __cdecl sub_0052BDB0_Empty()
-{
-}
-

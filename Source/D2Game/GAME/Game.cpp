@@ -1369,12 +1369,6 @@ int __fastcall GAME_DeleteBigNum(void* pArg)
     return sub_00424E40(pArg);
 }
 
-// 0x0052BDC0
-int __cdecl sub_0052BDC0()
-{
-    return gdwGlobal_00882D14;
-}
-
 // 0x0052BE20
 void __cdecl GAME_LogMessage(int nLevel, const char* szFormat, ...)
 {
