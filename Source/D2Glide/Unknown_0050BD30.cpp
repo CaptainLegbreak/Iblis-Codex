@@ -468,12 +468,12 @@ int __fastcall sub_0050CA00_GlideShadowTileDrawPerspective(D2TileLibraryEntryStr
         const int nRow = (pTile->pBlocks[i].nPosY + 0x60) >> 5;
         const int nWorldX = ((nCol + nRow * 2) << 16) - 0x38000;
         const int nWorldY = (((nRow << nOne) - nCol) << 16) + 0x18000;
-        const int nY0 = nPosY + nWorldY;
-        const int nX0 = nPosX + nWorldX;
+        int nY = nPosY + nWorldY;
+        int nX = nPosX + nWorldX;
         int nScreenX;
         int nScreenY;
 
-        GLPERSPECTIVE_PerspectiveTransform(nX0, nY0, 0, &nScreenX, &nScreenY);
+        GLPERSPECTIVE_PerspectiveTransform(nX, nY, 0, &nScreenX, &nScreenY);
         gaGlideTileGrid[0].x = (float)nScreenX;
         gaGlideTileGrid[0].y = (float)nScreenY;
         GLPERSPECTIVE_PerspectiveTransform(nPosX + nWorldX + 0x20000, nPosY + nWorldY + 0x20000, 0, &nScreenX, &nScreenY);
@@ -493,14 +493,13 @@ DrawVisibleTile:
 
             const float fOffset = (float)nOffset;
             D2GlideSpriteVertexStrc* pVertex = gaGlideTileGrid;
-            int nStartY = nY0;
-            int nStartX = nX0;
+            int nStartY = nY;
+            int nStartX = nX;
             do
             {
-                int nX = nStartX;
-
-                // the original keeps both row starts in memory and steps them separately; with a plain copy the two counters merge into one register
-                int nY = *(volatile int*)&nStartY;
+                // The tile's origin variables walk each row of three vertices; the row starts keep the next row's origin.
+                nX = nStartX;
+                nY = nStartY;
                 for (int nGridCol = 0; nGridCol < 3; ++nGridCol)
                 {
                     GLPERSPECTIVE_PerspectiveTransform(nX, nY, 0, &nScreenX, &nScreenY);
