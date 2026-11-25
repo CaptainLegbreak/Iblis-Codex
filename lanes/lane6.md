@@ -2,11 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 09:10 PST 2026): comcallback-span merged (#401); nothing outstanding. Placeholder singles checked (Left in place). Next: the asserted-span leads for other lanes are on the board; my remaining placeholders need new evidence.
+Status (Wed Nov 25 2026): audit-fields-d2bnclient ready. Next: the same field pass on CelCmp.cpp, then D2Sound, ChatDlg and CharSel.
 
 ## Ready
 
-(nothing outstanding; comcallback-span merged in #401)
+- **lane6/audit-fields-d2bnclient** (1fad41832, on #402): BnSend.cpp's private packet and hash-input records get field names from the code that fills them (tokens, product code, language, local IP, time-zone bias, exe version/hash/info, CD-key length/product, 0xFF signature). D2BNClient.h's time-zone record gets nBias and the DNS-args record gets szHost (only BnSend, BNetGW and BnDownload use them). Seven fields that are only zeroed or copied keep their offsets. Full build identical, 14920/14920, 0 not all equal; borrowed code 10,018 B / data 261 B unchanged; auditguard no count rose.
 
 ## Questions
 
