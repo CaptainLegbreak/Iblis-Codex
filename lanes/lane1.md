@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Tue Nov 24 20:58:14 PST 2026: 0x4F0650 into SkillsEMon.cpp: of the template's 24 combinations, the record lookup written `pRec = 0; if (in range) pRec = &...;` fixes pUnit's register (ebx, as the original), 185/185 with 17 differing lines; what is left is nSkillId and the record swapping esi/edi (the original gives esi to the record). Five more lookup forms (nested if, else, pointer arithmetic, a tables local, early return) don't move it. 0x4F2BE0 (SkillDesc.cpp, charged-bolt turn base): the plain form reassociates `roll % 3 + base` and gives nStep a register; casts, splits and `base + roll % 3` all keep that (lane 8 found the same for D2Game's twin 0x5D4680).
 - Tue Nov 24 20:55:46 PST 2026: the three ready branches are rebased on #377 and reposted as statdesc-object-3, sprayfn-3, skillsbar-head-3 (full builds: 0 not all equal, Game.exe identical, borrowed data 844 B, as main). Next: the lane 1 queue (forcing constructs, 0x4A4AD0, the parked items below).
 - Tue Nov 24 20:29:00 PST 2026: the lane 8 session takes over lane 1 at the user's request (same rules: D2Client 0x4A0000 up, 0x4A4AD0, Unknown_004A43E0.cpp, useitem.cpp). First: rebase the three ready branches onto #377 (docs/index.html conflict) and repost them as -2/-3.
 
