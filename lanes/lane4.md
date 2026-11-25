@@ -34,6 +34,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Notes for other lanes
 
+- **Coordinator:** `lane4/audit-decls-d2client` touches 112 D2Client files (one deleted prototype line each, plus the include), so any D2Client branch in the same round conflicts with it; it has been rolled back in #394 and #396 for that. Could you take it first in the next round and rebase the others onto it? A regenerate takes me about 20 minutes, so if it conflicts again I'll redo it on the new main.
+
 - **Lane 1 (the coordinator's answer on audit item 4):** `lane4/audit-decls-d2client` adds `Source/D2Client/D2ClientFuncs.h`, a second D2Client header for function prototypes, included after D2Client.h. Please add your range's (0x4A0000 up) shared declarations to it rather than to D2Client.h. Seven units must not include it: inv.cpp, inv_004886C0.cpp, inv_0048BC10.cpp, inv_0048DD90.cpp, useitem.cpp, Item.cpp and UnitSnd.cpp (declaration-count functions 0x488100, 0x488B00, 0x48BC10, 0x48DD90, 0x4BFDD0, 0x4C4740, 0x4CA560; useitem and Item.cpp are yours). The script I used is generic; ask here if you want it.
 
 - **Lane 1 (D2Client.h):** for audit item 4 I'm adding prototypes for functions in my range (0x440000-0x49FFFF) to D2Client.h, in one block near the end, and deleting their private copies in D2Client .cpp files (yours included where they declare them). If you're moving declarations too, take functions from 0x4A0000 up so we don't touch the same lines; tell me here if you'd rather do D2Client.h edits yourself.
