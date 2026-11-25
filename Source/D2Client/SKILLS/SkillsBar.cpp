@@ -206,6 +206,10 @@ struct D2LobBracketStrc
 
 extern D2LobBracketStrc gaLobBrackets[2]; // 0x006DAE70
 
+#define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
+
+#define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
+
 // 0x004C8350
 static int __stdcall SKILLSBAR_CanTargetRoom(int nSkillId, D2UnitStrc* pUnit, int nX, int nY)
 {
@@ -223,14 +227,69 @@ static int __stdcall SKILLSBAR_CanTargetRoom(int nSkillId, D2UnitStrc* pUnit, in
     return 1;
 }
 
+// 0x004C80D0
 static int __stdcall SKILLS_AdjustTargetPosition(int nSkillId, D2UnitStrc* pUnit, int nSkillLevel, int* pX, int* pY)
 {
     D2SkillsTxt* pSkillsTxt = (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
     if (!pSkillsTxt)
         return 0;
-    if (!ITEM_GetTargetPosition((D2UnitStrc*)&pUnit, &nSkillLevel, (int*)&pX))
-        return 0;
-    return ITEM_GetTargetPosition((D2UnitStrc*)pSkillsTxt, (int*)&pY, (int*)&pUnit);
+
+    const int nUnitX = UNITS_GetXInline(pUnit);
+    const int nUnitY = UNITS_GetYInline(pUnit);
+    const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwAuraRangeCalc, nSkillId, nSkillLevel);
+// build: symbol ?DRLG_GetDistanceToXY@* 0x006417F0
+    int nDistance = DRLG_GetDistanceToXY(pUnit, *pX, *pY);
+    if (nDistance <= 1)
+        nDistance = 1;
+    if (nDistance > nRange)
+    {
+        const int nDeltaX = *pX - nUnitX;
+        const int nDeltaY = *pY - nUnitY;
+        *pX = nUnitX + nDeltaX * nRange / nDistance;
+        *pY = nUnitY + nDeltaY * nRange / nDistance;
+    }
+
+    nSkillLevel = *pY - nUnitY;
+    nSkillLevel = D2_MIN(D2_MAX(nSkillLevel, -2), 2);
+    int nOffsetY = nUnitX - *pX;
+    nOffsetY = D2_MIN(D2_MAX(nOffsetY, -2), 2);
+
+    D2CoordStrc tCoord;
+    tCoord.nX = *pX;
+    tCoord.nY = *pY;
+    int nTries = 3;
+    while (nTries)
+    {
+        D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), tCoord.nX, tCoord.nY);
+        pRoom = COLLISION_GetFreeCoordinates(pRoom, &tCoord, UNITS_GetUnitSizeX(pUnit), 0x1C09, 1);
+        const int nAdjustedX = tCoord.nX;
+        const int nAdjustedY = tCoord.nY;
+        if (pRoom
+            && !COLLISION_CheckAnyCollisionWithPattern(pRoom, nAdjustedX, nAdjustedY, PATH_GetUnitCollisionPattern(pUnit), 0x1C09)
+            && D2Common_11025(nUnitX, nUnitY, nAdjustedX, nAdjustedY, pRoom, 0x804)
+            && DRLG_GetDistanceToXY(pUnit, nAdjustedX, nAdjustedY) <= nRange)
+        {
+            *pX = nAdjustedX;
+            *pY = nAdjustedY;
+            return 1;
+        }
+
+        --nTries;
+        if (nTries == 2)
+        {
+            tCoord.nX = *pX + nSkillLevel;
+            tCoord.nY = *pY + nOffsetY;
+        }
+        else if (nTries == 1)
+        {
+            tCoord.nX = *pX - nSkillLevel;
+            tCoord.nY = *pY - nOffsetY;
+        }
+    }
+
+    if (pUnit->dwUnitType == UNIT_PLAYER)
+        UNITSND_PlayPlayerSpeech(pUnit, 19);
+    return 0;
 }
 
 void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900

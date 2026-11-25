@@ -11238,10 +11238,6 @@
      "name": "SKILLS_SpawnPairAtTarget"
     },
     {
-     "va": "0x004C80D0",
-     "length": 627
-    },
-    {
      "va": "0x004D16C0",
      "length": 352,
      "name": "SKILLS_SpawnOffsetMissile"
@@ -28809,6 +28805,10 @@
    "file": "Source/D2Client/SKILLS/SkillsBar.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004C80D0",
+     "length": 627
+    },
     {
      "va": "0x004C8350",
      "length": 107,
