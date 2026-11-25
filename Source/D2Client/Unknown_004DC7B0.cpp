@@ -93,7 +93,8 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
     const int bPerspective = sub_004F51D0_IsPerspective();
     const int nPrecisionX = UNITS_GetPrecisionX(pUnit);
     const int nPrecisionY = UNITS_GetPrecisionY(pUnit);
-    if (bPerspective && !sub_004F66E0_IsPrecisionOnScreen(nPrecisionX, nPrecisionY))
+// build: symbol ?SCALE_CheckPerspectivePosition@* 0x004F66E0
+    if (bPerspective && !SCALE_CheckPerspectivePosition(nPrecisionX, nPrecisionY))
         return;
     if (!sub_004DC710_UpdateUnitSightFlag(pUnit))
         return;
@@ -153,5 +154,6 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
         break;
     }
     if (bPerspective)
-        sub_004F6830();
+// build: symbol ?SCALE_SetDefaultFactorPerspectiveFactor@* 0x004F6830
+        SCALE_SetDefaultFactorPerspectiveFactor();
 }

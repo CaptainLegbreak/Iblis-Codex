@@ -24,7 +24,8 @@ struct BigNum
         unsigned int nRead;
         SBigToBinaryBuffer(hHandle, pBuffer, nSize, &nRead);
         if (nRead < nSize)
-            sub_0041D300_ZeroMemory((char*)pBuffer + nRead, nSize - nRead);
+// build: symbol ?SMemZero@* 0x0041D300
+            SMemZero((char*)pBuffer + nRead, nSize - nRead);
         return pBuffer;
     }
 };

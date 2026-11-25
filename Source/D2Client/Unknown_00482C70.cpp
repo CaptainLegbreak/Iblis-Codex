@@ -1607,7 +1607,8 @@ void __fastcall INV_PlayCinematic(int nIndex)
 
     sub_00481830();
     sub_004DCA30();
-    sub_004FAD70();
+// build: symbol ?ARCHIVE_UnloadExpansionArchives@* 0x004FAD70
+    ARCHIVE_UnloadExpansionArchives();
 
     bExpansion = 0;
     bPlayed = bLoaded = 0;
@@ -1667,7 +1668,7 @@ void __fastcall INV_PlayCinematic(int nIndex)
     if (gbCinematicChain)
     {
         if (bLoaded)
-            sub_004FAD70();
+            ARCHIVE_UnloadExpansionArchives();
         if (bPlayed)
             D2Win_10004(D2GFX_GetResolutionMode());
 
@@ -1719,7 +1720,7 @@ lMissing:
         GAME_ExitForCinematic();
     }
 
-    sub_004FAD70();
+    ARCHIVE_UnloadExpansionArchives();
     ARCHIVE_LoadExpansionArchives(sub_00460500_RunPopup, sub_004605A0_RunPopup, 0, gpClientConfig);
     gbCinematicBusy = 0;
 }

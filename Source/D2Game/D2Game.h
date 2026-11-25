@@ -271,7 +271,7 @@ extern void __fastcall EVENT_FreeEventQueue(D2GameStrc*); // 0x00541400
 extern void __fastcall sub_00553970_SetTimer(D2UnitStrc*, D2EventTimerStrc*); // 0x00553970
 extern void* __fastcall sub_0040B430_Alloc(void*, unsigned int, const char*, int, int); // 0x0040B430
 int __cdecl FOG_GetMemoryUsage(D2PoolSystemStrc* pSystem); // 0x0040A040
-int __cdecl sub_00641500_ShrineCount(); // 0x00641500
+int __cdecl DATATBLS_GetShrinesTxtRecordCount(); // 0x00641500
 int __fastcall ACT1Q2_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00590890
 int __fastcall ACT1Q3_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00591340
 int __fastcall ACT1Q4_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00592130

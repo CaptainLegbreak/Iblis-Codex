@@ -405,7 +405,8 @@ int __stdcall WINMAIN_PollSystemPackets(int nUnused)
             return 1;
         }
 
-        if (!sub_0052A640_IsConnected())
+// build: symbol ?CLIENT_IsConnected@* 0x0052A640
+        if (!CLIENT_IsConnected())
         {
             return 1;
         }

@@ -2162,7 +2162,8 @@ void __fastcall UI_FreeLoadingScreen()
         ARCHIVE_FreeClientCellFile(gpLoadingScreen);
         gpLoadingScreen = 0;
         sub_004FB480_SetActA(gnLoadingAct);
-        sub_00600C00_SetActB(gnLoadingAct);
+// build: symbol ?D2CMPPalShiftSetAct@* 0x00600C00
+        D2CMPPalShiftSetAct(gnLoadingAct);
         AUTOMAP_InitAutomapColors();
         INV_InitColorTable();
 // build: symbol ?PANEL_SetRedColour@* 0x00499E10
@@ -2260,13 +2261,15 @@ static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit)
     {
         const int nPrecisionX = UNITS_GetPrecisionX(pUnit);
         const int nPrecisionY = UNITS_GetPrecisionY(pUnit);
-        if (!sub_004F66E0_IsPrecisionOnScreen(nPrecisionX, nPrecisionY))
+// build: symbol ?SCALE_CheckPerspectivePosition@* 0x004F66E0
+        if (!SCALE_CheckPerspectivePosition(nPrecisionX, nPrecisionY))
         {
             return 0;
         }
         int nX;
         int nY;
-        sub_004F6760_PrecisionToScreen(nPrecisionX, nPrecisionY, 0, &nX, &nY);
+// build: symbol ?SCALE_AdjustPerspectivePosition@* 0x004F6760
+        SCALE_AdjustPerspectivePosition(nPrecisionX, nPrecisionY, 0, &nX, &nY);
         switch (sub_0045AE90())
         {
         case 1:

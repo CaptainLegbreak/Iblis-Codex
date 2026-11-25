@@ -155,7 +155,7 @@ void __cdecl sub_006BE2F0_Nop(const char* szTag, const char* szFormat, ...); // 
 
 static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nClientId);
 
-static void sub_006BE650_DestroyClient(D2QClientStrc* pClient);
+static void QSERVER_DestroyClient(D2QClientStrc* pClient); // 0x006BE650
 
 extern "C" void _ReadWriteBarrier(void);
 
@@ -341,7 +341,7 @@ long __fastcall QSERVER_AddReference(D2QueueServerStrc* pServer, D2QClientStrc* 
 }
 
 // 0x006BE650
-static void sub_006BE650_DestroyClient(D2QClientStrc* pClient)
+static void QSERVER_DestroyClient(D2QClientStrc* pClient)
 {
     if (pClient->pNext)
     {
@@ -1641,7 +1641,7 @@ void __fastcall QSERVER_ReleaseClient(D2QueueServerStrc* pServer, D2QClientStrc*
         if (pServer->pfnOnRemove)
             pServer->pfnOnRemove(pServer, pClient->nId, ".\\Src\\QServer\\QServer.cpp", 891);
         sRemoveClient(pServer, pClient->nId);
-        sub_006BE650_DestroyClient(pClient);
+        QSERVER_DestroyClient(pClient);
     }
 }
 

@@ -41,7 +41,7 @@ extern "C" B28Waypoint* __stdcall WAYPOINTS_AllocWaypointData(void* pool); // 0x
 
 extern "C" void __fastcall sub_004786D0_SendPacket(unsigned char command, unsigned int arg1, unsigned int arg2, unsigned int arg3);
 
-extern "C" void __fastcall sub_004FAAE0_FreeArchive(void* archive);
+extern "C" void __fastcall ARCHIVE_FreeCellFile(void* archive); // 0x004FAAE0
 
 extern "C" void* __fastcall sub_0040B380_Alloc(int size, const char* file, int line, int flags);
 
@@ -216,6 +216,6 @@ int __stdcall PARTICLE_GetGfxClientZ(D2UnitStrc* pUnit)
 // build: symbol _LIST_UnloadPentspinCellfile 0x00507140
 extern "C" void __cdecl LIST_UnloadPentspinCellfile()
 {
-    sub_004FAAE0_FreeArchive(gB28Archive);
+    ARCHIVE_FreeCellFile(gB28Archive);
     gB28Archive = 0;
 }

@@ -884,7 +884,8 @@ int __fastcall GFXUTIL_UpdateUnitGfx(D2UnitStrc* pUnit, int nArg)
     int nY = 0;
     if (sub_004F51D0_IsPerspective())
     {
-        sub_004F6760_PrecisionToScreen(UNITS_GetPrecisionX(pUnit), UNITS_GetPrecisionY(pUnit), 0, &nX, &nY);
+// build: symbol ?SCALE_AdjustPerspectivePosition@* 0x004F6760
+        SCALE_AdjustPerspectivePosition(UNITS_GetPrecisionX(pUnit), UNITS_GetPrecisionY(pUnit), 0, &nX, &nY);
         switch (sub_0045AE90())
         {
         case 1:

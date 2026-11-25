@@ -528,7 +528,8 @@ int __fastcall BNNEWS_TryDecodeCDKey(const char* szKey, void* pArg2, void* pArg3
 {
     if (!szKey)
         return 0;
-    sub_00522AE0_DecodeCDKey(szKey, pArg3, pArg2, pArg4);
+// build: symbol ?BNDOWNLOAD_DecodeCDKey@* 0x00522AE0
+    BNDOWNLOAD_DecodeCDKey(szKey, pArg3, pArg2, pArg4);
     return 1;
 }
 

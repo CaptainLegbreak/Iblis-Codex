@@ -979,7 +979,8 @@ static void __stdcall WALL2_BuildSmallGrid(int nSubX, int nSubY, int nZ, int bCo
         {
             if (!bCorners || (i == 0 && j == 0) || (i == 5 && j == 0) || (i == 5 && j == 5) || (i == 0 && j == 5))
             {
-                sub_004F6760((nSubX + i) << 16, nY << 16, nZ, &pCells->nX, &pCells->nY);
+// build: symbol ?SCALE_AdjustPerspectivePosition@* 0x004F6760
+                SCALE_AdjustPerspectivePosition((nSubX + i) << 16, nY << 16, nZ, &pCells->nX, &pCells->nY);
                 pCells->nX += nShift;
                 pCells->nB0 = 0xFF;
                 pCells->nB1 = 0xFF;
@@ -1055,7 +1056,7 @@ void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ
             {
                 if (!bCorners || (i == 0 && j == 0) || (i == 5 && j == 0) || (i == 5 && j == 5) || (i == 0 && j == 5))
                 {
-                    sub_004F6760((i + nSubX) << 16, nY << 16, nZ, &pCell->nX, &pCell->nY);
+                    SCALE_AdjustPerspectivePosition((i + nSubX) << 16, nY << 16, nZ, &pCell->nX, &pCell->nY);
                     pCell->nX += nOffset;
                     pCell->nB0 = nB0;
                     pCell->nB1 = nB1;
@@ -1077,7 +1078,7 @@ void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ
                 if (!bCorners || (i == 0 && j == 0) || (i == 5 && j == 0) || (i == 5 && j == 5) || (i == 0 && j == 5))
                 {
                     const int nX = i + nSubX;
-                    sub_004F6760(nX << 16, nY << 16, 0, &pCell->nX, &pCell->nY);
+                    SCALE_AdjustPerspectivePosition(nX << 16, nY << 16, 0, &pCell->nX, &pCell->nY);
                     pCell->nX += nOffset;
                     SCMD_ReadGridCell(nX << 3, nY << 3, &pCell->nB0, &pCell->nB1, &pCell->nB2, &pCell->nB3);
                 }
@@ -1121,7 +1122,8 @@ void __thiscall D2GridLightStrc::ApplyUnitLight(D2GridUnitStrc* pUnit, int nArg,
         {
             WALL2_BuildLargeGrid(nSubX, nSubY, 0, tLarge);
         }
-        sub_004F68E0(pUnit->pInfo, tLarge, nX, nY, nSubX, nSubY, 0xFF, nMode, nArg);
+// build: symbol ?D2GFX_FloorTileDraw@* 0x004F68E0
+        D2GFX_FloorTileDraw(pUnit->pInfo, tLarge, nX, nY, nSubX, nSubY, 0xFF, nMode, nArg);
     }
     else
     {
@@ -1149,7 +1151,7 @@ void __thiscall D2GridLightStrc::ApplyUnitLight(D2GridUnitStrc* pUnit, int nArg,
                 sub_004DE070(tSmall, nX, nY, nSubX, nSubY, 0, nMode, bCorners);
             }
         }
-        sub_004F68E0(pUnit->pInfo, tSmall, nX, nY, nSubX, nSubY, 0xFF, nMode, nArg);
+        D2GFX_FloorTileDraw(pUnit->pInfo, tSmall, nX, nY, nSubX, nSubY, 0xFF, nMode, nArg);
     }
 
     if (pInfo->wFlags & 2)

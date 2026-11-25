@@ -54,7 +54,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 void __fastcall D2QSQUEUE_InitQueue(void* pList); // 0x006C1F60
-void __fastcall sub_006C1F80(void* pQueue); // 0x006C1F80
+void __fastcall Destroy(void* pQueue); // 0x006C1F80
 void __fastcall D2QSQUEUE_Push(void* pQueue, unsigned char* pData, unsigned short nLength); // 0x006C1FF0
 extern const char gszSocketFile[]; // 0x006FC418
 extern const char gszUnknown_006CCED8[]; // 0x006CCED8
@@ -401,7 +401,7 @@ void __stdcall D2QSSOCKET_DestroyRecord(D2ThreadRecord006BC5A0Strc* pRecord)
     if (pRecord)
     {
         D2QSSOCKET_SetClosing(pRecord);
-        sub_006C1F80(pRecord->tQueue);
+        Destroy(pRecord->tQueue);
         if (pRecord->pSafeSock && pRecord->pSafeSock->hThread)
         {
             FOG_SOCKET_Destroy(pRecord->pSafeSock);

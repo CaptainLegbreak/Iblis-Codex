@@ -917,7 +917,7 @@ void __fastcall D3DCORE_LogDDrawError(const char* szMessage, long hResult) throw
 
 void __fastcall D3DCORE_SaveVideoConfig(int nRender, int nDevice);                                     // 0x006B2F60
 
-int __stdcall sub_006B42F0_DDrawEnumCallback(void* pGuid, char* szDescription, char* szName, void* pContext); // 0x006B42F0
+int __stdcall D3DCORE_EnumerateD3DDevices(void* pGuid, char* szDescription, char* szName, void* pContext); // 0x006B42F0
 
 extern char gszEnumerationClass[];                                                                 // 0x0074C044
 
@@ -2094,7 +2094,7 @@ static int __stdcall D3DCORE_DetectDirect3D(HINSTANCE hInstance)
             return 0;
         }
 
-        const HRESULT hResult = DirectDrawEnumerateA(sub_006B42F0_DDrawEnumCallback, 0);
+        const HRESULT hResult = DirectDrawEnumerateA(D3DCORE_EnumerateD3DDevices, 0);
         if (hResult)
         {
             D3DCORE_LogDDrawError("DirectDrawEnumerate", hResult);

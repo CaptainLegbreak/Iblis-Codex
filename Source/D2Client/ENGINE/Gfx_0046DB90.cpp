@@ -377,7 +377,8 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
                         if (!sub_006001F0(&tContext, 1, 1))
                         {
                             tContext.nArg34 = 0;
-                            sub_006004E0_LoadSprite(&tContext);
+// build: symbol ?D2CMPSpriteRequest@* 0x006004E0
+                            D2CMPSpriteRequest(&tContext);
                         }
                     }
                     else
@@ -398,7 +399,7 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
                     if (!sub_006001F0(&tContext, 1, 1))
                     {
                         tContext.nArg34 = 0;
-                        sub_006004E0_LoadSprite(&tContext);
+                        D2CMPSpriteRequest(&tContext);
                     }
                 }
                 else
@@ -899,7 +900,7 @@ static int __stdcall GFX_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit
             if (!sub_006001F0(&tContext, bAsync, bAsync))
             {
                 tContext.nArg34 = 0;
-                if (!sub_006004E0_LoadSprite(&tContext))
+                if (!D2CMPSpriteRequest(&tContext))
                 {
                     return -1;
                 }
@@ -1051,7 +1052,8 @@ static void GFX_PreloadRoomUnits(int bAsync)
             }
         }
 
-        if (!gbPreloadForce && sub_005FF2A0_CountPending() >= 0x1E)
+// build: symbol ?D2CMPSpriteNumAsyncLoads@* 0x005FF2A0
+        if (!gbPreloadForce && D2CMPSpriteNumAsyncLoads() >= 0x1E)
         {
             return;
         }
@@ -1096,7 +1098,7 @@ static void GFX_PreloadRoomUnits(int bAsync)
                 }
             }
 
-            if (!gbPreloadForce && sub_005FF2A0_CountPending() >= 0x1E)
+            if (!gbPreloadForce && D2CMPSpriteNumAsyncLoads() >= 0x1E)
             {
                 return;
             }

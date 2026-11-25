@@ -129,7 +129,7 @@ int __fastcall FOG_CreatePathHierarchy(const char* szPath); // 0x00406A10
 int __stdcall GetCmdIndex(const char* s); // 0x00405570
 unsigned long __stdcall SFileSetFilePointer(void* hFile, long lDistanceToMove, long* plDistanceToMoveHigh, unsigned long dwMoveMethod); // 0x004165A0
 void __stdcall SErrSetLastError(unsigned int); // 0x0041C340
-void __stdcall sub_0041D300_ZeroMemory(void* pDest, unsigned int nSize); // 0x0041D300
+void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
 // build: symbol ?FOG_DisplayHalt@* 0x00408A60

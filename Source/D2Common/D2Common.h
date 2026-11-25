@@ -164,8 +164,8 @@ int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxCha
 int __stdcall STATLIST_GetMinDamageFromUnit(D2UnitStrc* pItem, int a2); // 0x00625EF0
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
-int __stdcall sub_00604B90_GetTileStyle(D2TileLibraryEntryStrc* pTile); // 0x00604B90
-int __stdcall sub_00604C50_GetTileSequence(D2TileLibraryEntryStrc* pTile); // 0x00604C50
+int __stdcall TileGetStyle(D2TileLibraryEntryStrc* pTile); // 0x00604B90
+int __stdcall TileGetSequence(D2TileLibraryEntryStrc* pTile); // 0x00604C50
 int __stdcall sub_00629BB0_CheckItemType(D2UnitStrc* pItem, int nType); // 0x00629BB0
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 int __stdcall sub_0062C0B0_GetItemTypeClass(D2UnitStrc* pItem); // 0x0062C0B0

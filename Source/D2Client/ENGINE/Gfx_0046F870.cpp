@@ -234,7 +234,8 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
                         if (!sub_006001F0(&tContext, 1, 1))
                         {
                             tContext.nArg34 = 0;
-                            sub_006004E0_LoadSprite(&tContext);
+// build: symbol ?D2CMPSpriteRequest@* 0x006004E0
+                            D2CMPSpriteRequest(&tContext);
                         }
                     }
                     else
@@ -255,7 +256,7 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
                     if (!sub_006001F0(&tContext, 1, 1))
                     {
                         tContext.nArg34 = 0;
-                        sub_006004E0_LoadSprite(&tContext);
+                        D2CMPSpriteRequest(&tContext);
                     }
                 }
                 else
