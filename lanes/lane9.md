@@ -42,8 +42,8 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   C++ dynamic-initializer table (.CRT$XCU): 66 pointers, in order, to the initializer functions at 0x6CA6F0-0x6CB050
   (Fog LogManager/ErrorManager, Storm SFILE/SERR/SCOMP/SMSG/SEVT/SCMD, D2Client WINMAIN/Game/ui/automap/chat/inv/QuestLog/
   npcmenu/showitems, D2Hell 0x6CAE5F, D2BNClient, D2Game Objects/SUnit/Task, D2Common Preset). 0x6CC728/0x6CC748 look like
-  the CRT's own .CRT$XI/XP entries. The functions sit together at the end of .text because MSVC puts dynamic initializers in
-  .text$yc. Each lane builds them today as plain marked functions, so the linker never emits the table. Generating it would
+  the CRT's own .CRT$XI/XP entries. The functions sit together at the end of .text, which fits the compiler giving dynamic initializers a
+  section of their own (.text$yc, I believe; not checked). Each lane builds them today as plain marked functions, so the linker never emits the table. Generating it would
   mean writing them as real initialized globals (`T g(...)` → `??__Eg@@YAXXZ`) and the build placing compiler-named
   initializers, which is a tools question for you or lane 7, not something lane 9 can do in its files. Noting it so the
   block isn't left on lane 9's row.
