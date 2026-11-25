@@ -1,11 +1,38 @@
 #include "D2Net.h"
+#include "D2ItemTypes.h"
+#include "D2StateIds.h"
+#include "D2SkillIds.h"
+#include "D2StatIds.h"
+#include "D2GameAux.h"
+#include "D2TxtItems.h"
+#include "D2Constants.h"
+#include "D2Txt.h"
+#include "D2GameStrc.h"
+#include "D2Path.h"
+#include "D2UnitData.h"
+#include "D2TxtTables.h"
+#include "D2ItemsWorld.h"
+#include "D2ItemModes.h"
+#include "D2LanguageNames.h"
+
+#include "D2SetsTxt.h"
+
+#include "D2BnMessages.h"
+
 #include "D2Structs.h"
+
 #include "D2DataTbls.h"
+
 #include "D2Primitives.h"
+
 #include "D2ClientMenus.h"
+
 #include "D2BnCryptTypes.h"
+
 #include "D2Records.h"
+
 #include "D2LevelTxt.h"
+
 #include "D2StormSha1.h"
 
 #include "D2GameServer.h"
@@ -96,6 +123,109 @@ int __stdcall QSERVER_DisconnectIP(void* pObject, int nArg1, int nArg2, int nArg
 
 QServer* gpServer; // 0x00882D08
 
+struct D2PacketBufferStrc
+{
+    unsigned char data[1976];
+    int nUsedBytes;
+};
+
+int __fastcall SERVER_GetClientPacketSize(D2PacketBufferStrc* pBuffer, unsigned int nBufferSize, int* pSize); // 0x0052BC20
+
+int __fastcall QSERVER_CheckClientMask(void* pServer, int nClientId); // 0x006BF6C0
+
+// 0x0052B0E0
+int __fastcall SERVER_SendToLocalClientCallback(QServer* pUnused, D2PacketBufferStrc* pPacketBuffer, int nBufferSize)
+{
+    CLIENT_ReadPacketFromBuffer(pPacketBuffer, nBufferSize);
+    return 1;
+}
+
+// 0x0052B100
+int __fastcall SERVER_ValidateClientPacket(D2PacketBufferStrc* pPacketBuffer, int nBufferSize, int* pPacketSize, int* pFlags, int* pType, int* pPriority, int nUnused1, int nUnused2, int nClientId)
+{
+    if (nBufferSize < sizeof(unsigned char))
+        return 3;
+    const unsigned char nHeader = pPacketBuffer->data[0];
+    int nSize;
+    if (SERVER_GetClientPacketSize(pPacketBuffer, nBufferSize, &nSize))
+    {
+        if (nHeader >= 0x71 && nHeader != 0xFF)
+            return 4;
+        if ((unsigned short)nSize > 0x204)
+            return 4;
+        const int nPacketSize = (unsigned short)nSize;
+        if (nPacketSize <= nBufferSize)
+        {
+            *pFlags = 0;
+            *pPacketSize = nPacketSize;
+            if (nHeader < 0x67)
+            {
+                *pType = 1;
+            }
+            else if (nHeader < 0x71)
+            {
+                *pType = 0;
+            }
+            else
+            {
+                if (!QSERVER_CheckClientMask(gpServer, nClientId))
+                    return 4;
+                *pType = 2;
+            }
+            *pPriority = 100;
+            if (*pType == 0)
+                return 2;
+            if (*pType == 1)
+                return 1;
+            return *pType == 2 ? 1 : 2;
+        }
+    }
+    return 3;
+}
+
+int __stdcall FOG_WaitForSingleObject(void* pObject, int nArg1); // 0x006BE4E0
+
+int __stdcall sub_006BE390(void* pObject, int nArg1, int nArg2); // 0x006BE390
+
+int __fastcall sub_006BF610(void* pObject, int nArg1, int nArg2); // 0x006BF610
+
+void __stdcall FOG_SetMaxClientsPerGame(void* pObject, int nArg1); // 0x006BE4A0
+
+int __stdcall sub_006BED90(void* pObject, int nArg1, int nArg2, int nArg3); // 0x006BED90
+
+// 0x0052B1F0
+int __stdcall SERVER_WaitForSingleObject(int nArg1)
+{
+    return FOG_WaitForSingleObject(gpServer, nArg1);
+}
+
+// 0x0052B210
+int __stdcall SERVER_SwapSlotValue(int nArg1, int nArg2)
+{
+    return sub_006BE390(gpServer, nArg1, nArg2);
+}
+
+// 0x0052B230
+int __stdcall SERVER_AddKeyValuePair(int nArg1, int nArg2)
+{
+    return sub_006BF610(gpServer, nArg2, nArg1);
+}
+
+// 0x0052B250
+void __stdcall SERVER_SetMaxClientsPerGame(int nArg1)
+{
+    FOG_SetMaxClientsPerGame(gpServer, nArg1);
+}
+
+int __stdcall FOG_10180(void* pObject); // 0x006BE450
+void __stdcall FOG_10182_Return(void* pObject); // 0x006BF5F0
+
+// 0x0052B270
+int __fastcall sub_0052B270()
+{
+    return FOG_10180(gpServer);
+}
+
 // 0x0052B280
 int __stdcall SERVER_SetHackListEnabled(int nArg1)
 {
@@ -164,6 +294,12 @@ unsigned int __stdcall SERVER_SendPacketToClient(char nSendMode, void* pClientId
     }
 
     return FOG_10157(gpServer_00882D08, (unsigned int)pClientId, pPacket, nPacketSize) != 0 ? nPacketSize : 0;
+}
+
+// 0x0052B490
+int __stdcall sub_0052B490_ObjectCall_6BED90(int nArg1, int nArg2, int nArg3)
+{
+    return sub_006BED90(gpServer, nArg1, nArg2, nArg3);
 }
 
 // 0x0052B4B0
@@ -268,6 +404,12 @@ int __fastcall SERVER_EnqueueLocalClientPacket(const unsigned char* pBuffer, uns
 int __stdcall D2NET_10022(int dwMilliseconds)
 {
     return FOG_10177(gpServer, dwMilliseconds);
+}
+
+// 0x0052B6F0
+void __fastcall sub_0052B6F0()
+{
+    FOG_10182_Return(gpServer);
 }
 
 // 0x0052B700
