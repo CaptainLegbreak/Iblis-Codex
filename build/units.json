@@ -63187,9 +63187,36 @@
      "name": "UpdateD2TransparencyTable"
     },
     {
+     "va": "0x00605AA0",
+     "length": 199
+    },
+    {
+     "va": "0x00605B70",
+     "length": 430
+    },
+    {
      "va": "0x00605DE0",
      "length": 119,
      "name": "?sub_00605DE0_BuildDarkenTables@@YGXPAE@Z"
+    },
+    {
+     "va": "0x00605E60",
+     "length": 146,
+     "name": "?sub_00605E60_BuildLightenTables@@YGXPAE@Z"
+    },
+    {
+     "va": "0x00605F00",
+     "length": 2439
+    },
+    {
+     "va": "0x00606890",
+     "length": 157,
+     "name": "?sub_00606890_BuildBrightnessTable@@YAXPAEPAUD2HslStrc@@@Z"
+    },
+    {
+     "va": "0x00606930",
+     "length": 188,
+     "name": "?CreateD2Palette@@YGPAXPAX@Z"
     },
     {
      "va": "0x00606A10",
@@ -63472,39 +63499,6 @@
      "va": "0x006054F0",
      "length": 460,
      "name": "?PaletteInit@@YGHPBDHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_006056D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00605AA0",
-     "length": 199
-    },
-    {
-     "va": "0x00605B70",
-     "length": 430
-    },
-    {
-     "va": "0x00605E60",
-     "length": 146,
-     "name": "?sub_00605E60_BuildLightenTables@@YGXPAE@Z"
-    },
-    {
-     "va": "0x00605F00",
-     "length": 2439
-    },
-    {
-     "va": "0x00606890",
-     "length": 157,
-     "name": "?sub_00606890_BuildBrightnessTable@@YAXPAEPAUD2HslStrc@@@Z"
-    },
-    {
-     "va": "0x00606930",
-     "length": 188,
-     "name": "?CreateD2Palette@@YGPAXPAX@Z"
     }
    ]
   },
