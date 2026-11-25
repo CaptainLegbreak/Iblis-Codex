@@ -31557,30 +31557,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/SkillDesc_004E72D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004E72D0",
-     "length": 272
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004E89A0.cpp",
    "rank": 1,
    "functions": [
@@ -31701,6 +31677,10 @@
     {
      "va": "0x004E7120",
      "length": 429
+    },
+    {
+     "va": "0x004E72D0",
+     "length": 272
     },
     {
      "va": "0x004E73E0",
