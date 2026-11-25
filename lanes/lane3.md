@@ -4,11 +4,13 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane3/fwd-decls 5a7ab30e 264->264 Eight Storm and Fog files (Exceptions.cpp, QServerNT.cpp, SSignature.cpp, Unknown_00402820/00402C60/00404AB0/00404F40/006CAE80.cpp) drop 18 forward declarations of record types they never name. Files storm-cruft-4 touches are left out, so the two don't conflict. Every unit builds equal (lane 1's type-count effect didn't bite). VERIFIED b3e4f5b3 on base 70376fda (#372); borrowed data 844 B (main 844 B); prechecked; namesync had nothing to rename. Not stacked.
+
 - lane3/storm-cruft-4 196e38de 264->264 (lane3/storm-cruft-3 8b9d94e2 was pushed on #370 just as #371 landed: take -4.) Six files drop the address-less copies they carried of other modules' functions, none called in the unit: chat list and common hash-table members in Unknown_0041E9C0.cpp (29) and Unknown_00426900.cpp (26), news-table array members and module nops in ErrorManager.cpp (13), ErrorManager_004082E0.cpp (13) and Safesock.cpp (3), and the Warden constructors and loader allocators in Unknown_004212C0.cpp (its one function, 0x4212C0, stays). Copies that feed a static with a register convention (the Emit callers, SBig's Square/FromStream, ErrorManager's CaptureFrames/AddFile) stay. A second commit drops the two record types and 56 forward declarations that then name nothing. VERIFIED da0c3e6e on base 6af4454b (#371); borrowed data 844 B (main 844 B); prechecked; namesync had nothing to rename. Applies cleanly to #372 (70376fda), which touches none of its files. Not stacked.
 
 ## Claimed
 
-- Address-less copies and unused forward declarations in Storm/Fog/SRP files (storm-cruft-3, fwd-decls; verifying now).
+(none)
 
 ## Questions
 
