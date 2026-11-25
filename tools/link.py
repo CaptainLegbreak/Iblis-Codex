@@ -247,6 +247,7 @@ class Link(object):
         for a, (u, i) in self.dhome.items():
             y = u.o.by_idx[i]
             self.dext[a] = max(size_of(u, y, a), 1)
+        self.dfull = dict(self.dext)         # full sizes, before clipping at the next global: clusters need them
         st = sorted(self.dext)
         for j, a in enumerate(st[:-1]):
             if a + self.dext[a] > st[j + 1]:
@@ -523,7 +524,7 @@ class Link(object):
         globals, an array that runs on into the next one, a table read past its declared end), those globals and
         the bytes between them become one block copied from your Game.exe, and every reference to any of them is
         bound into that block; their definitions in the sources are left unused."""
-        iv = [(a, a + self.dext[a], a) for a in self.dstarts]
+        iv = [(a, a + self.dfull.get(a, self.dext[a]), a) for a in self.dstarts]
         for k, scn, n, S in list(pending) + list(own):
             if TEXT[0] <= S < TEXT[1] or IAT[0] <= S < IAT[1] or S in self.thunks:
                 continue
@@ -664,6 +665,22 @@ class Link(object):
         return paths
 
     # ---- data no source defines ---------------------------------------------------------------------------------
+    def extend_string(self, lo, hi, rhi):
+        """A block cut off inside a string (something else points into it) keeps the whole string up to its
+        terminator, unless a global the sources define starts first."""
+        if hi - lo < 2:
+            return hi
+        v = D.vread(self.pe, lo, hi - lo)
+        if v is None or 0 in v or not all(32 <= c < 127 or c in (9, 10, 13) for c in v):
+            return hi
+        nxt = self.dstarts[bisect.bisect_left(self.dstarts, hi)] if bisect.bisect_left(self.dstarts, hi) < len(self.dstarts) else rhi
+        tail = D.vread(self.pe, hi, max(0, min(nxt, rhi) - hi)) or b""
+        z = tail.find(b"\0")
+        if z < 0 or not all(32 <= c < 127 or c in (9, 10, 13) for c in tail[:z]):
+            return hi
+        self.note("string_block_extended", "0x%08X" % lo)
+        return hi + z + 1
+
     def generate_data(self):
         """Blocks of the original image that no source defines, copied from your Game.exe with their pointers relinked.
 
@@ -694,6 +711,8 @@ class Link(object):
                 init = S < reg[1]; rlo, rhi = (reg[0], reg[1]) if init else (reg[1], reg[2])
                 lo_, hi_ = self.gen_reach.get(S, (S, S + 1))
                 lo = max(rlo, min(S, lo_)); hi = min(rhi, max(cuts_now[bisect.bisect_right(cuts_now, S)], hi_))
+                if init:
+                    hi = self.extend_string(lo, hi, rhi)
                 iv.append((lo, hi, init, "data"))
             iv.sort()
             merged = []
