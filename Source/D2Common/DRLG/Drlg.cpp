@@ -126,7 +126,7 @@ struct Level
 {
     int kind;
     char pad_4[4];
-    int f_8;
+    int nSavedFlagCount;
     int activeCount;
     Room* rooms;
     char pad_14[24];
@@ -864,11 +864,11 @@ static void __stdcall DRLG_FreeLevel(void* pool, int keep, Level* level)
     {
         if (!level->savedFlags)
         {
-            if (level->f_8)
-                level->savedFlags = (unsigned*)sub_0040B430_Allocate(pool, 4 * level->f_8, ".\\DRLG\\Drlg.cpp", 124, 0);
+            if (level->nSavedFlagCount)
+                level->savedFlags = (unsigned*)sub_0040B430_Allocate(pool, 4 * level->nSavedFlagCount, ".\\DRLG\\Drlg.cpp", 124, 0);
             else
-                level->f_8 = 0;
-            memset(level->savedFlags, 0, 4 * level->f_8);
+                level->nSavedFlagCount = 0;
+            memset(level->savedFlags, 0, 4 * level->nSavedFlagCount);
         }
     }
     else if (level->savedFlags)
@@ -889,7 +889,7 @@ static void __stdcall DRLG_FreeLevel(void* pool, int keep, Level* level)
             DRLGROOM_FreeRoomEx(current);
         } while (room);
         level->rooms = 0;
-        level->f_8 = 0;
+        level->nSavedFlagCount = 0;
     }
     if (level->mapData)
     {

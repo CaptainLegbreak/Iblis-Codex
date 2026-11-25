@@ -173,8 +173,8 @@ struct Unit
     int type;
     int classId;
     char padding_seedLow[N_32 - N_4 - sizeof(int)];
-    unsigned int f_20;
-    unsigned int f_24;
+    unsigned int nSeedLow;
+    unsigned int nSeedHigh;
     char padding_inventory[N_96 - N_36 - sizeof(unsigned int)];
     void* inventory;
 };
@@ -347,10 +347,10 @@ static unsigned int MISSILE_GetLevel(D2UnitStrc* pMissile)
 
 static __forceinline unsigned int RollPercent(Unit* unit)
 {
-    unsigned __int64 next = (unsigned __int64)unit->f_24
-        + (unsigned __int64)unit->f_20 * 1791398085u;
-    unit->f_24 = (unsigned int)(next >> 32);
-    unit->f_20 = (unsigned int)next;
+    unsigned __int64 next = (unsigned __int64)unit->nSeedHigh
+        + (unsigned __int64)unit->nSeedLow * 1791398085u;
+    unit->nSeedHigh = (unsigned int)(next >> 32);
+    unit->nSeedLow = (unsigned int)next;
     return (unsigned int)next % 100u;
 }
 

@@ -159,8 +159,8 @@ struct Unit
     int type;
     int classId;
     char padding_seedLow[N_32 - N_4 - sizeof(int)];
-    unsigned int f_20;
-    unsigned int f_24;
+    unsigned int nSeedLow;
+    unsigned int nSeedHigh;
     char padding_inventory[N_96 - N_36 - sizeof(unsigned int)];
     void* inventory;
 };
@@ -346,7 +346,7 @@ struct Unit0064A190 {
     unsigned int dwUnknown04;
     unsigned int dwUnknown08;
     unsigned int dwUnknown0C;
-    unsigned int f_10;
+    unsigned int dwMissileMode;
     Data0064A190* pData;
 };
 
@@ -419,7 +419,7 @@ struct Unit0064A210 {
     unsigned int dwUnknown04;
     unsigned int dwUnknown08;
     unsigned int dwUnknown0C;
-    unsigned int f_10;
+    unsigned int dwMissileMode;
     Data0064A210* pData;
 };
 
@@ -435,7 +435,7 @@ struct Unit0064A280 {
     unsigned int dwUnknown04;
     unsigned int dwUnknown08;
     unsigned int dwUnknown0C;
-    unsigned int f_10;
+    unsigned int dwMissileMode;
     Data0064A280* pData;
 };
 
@@ -452,7 +452,7 @@ struct Unit0064A300 {
     unsigned int dwUnknown04;
     unsigned int dwUnknown08;
     unsigned int dwUnknown0C;
-    unsigned int f_10;
+    unsigned int dwMissileMode;
     Data0064A300* pData;
 };
 
@@ -469,7 +469,7 @@ struct Unit0064A380 {
     unsigned int dwUnknown04;
     unsigned int dwUnknown08;
     unsigned int dwUnknown0C;
-    unsigned int f_10;
+    unsigned int dwMissileMode;
     Data0064A380* pData;
 };
 
@@ -487,7 +487,7 @@ struct Unit0064A3B0 {
     unsigned int dwUnknown04;
     unsigned int dwUnknown08;
     unsigned int dwUnknown0C;
-    unsigned int f_10;
+    unsigned int dwMissileMode;
     Data0064A3B0* pData;
 };
 
@@ -506,7 +506,7 @@ struct Unit0064A4E0 {
     unsigned int dwUnknown04;
     unsigned int dwUnknown08;
     unsigned int dwUnknown0C;
-    unsigned int f_10;
+    unsigned int dwMissileMode;
     Data0064A4E0* pData;
 };
 
@@ -520,7 +520,7 @@ struct Unit0064A510 {
     unsigned int dwUnknown04;
     unsigned int dwUnknown08;
     unsigned int dwUnknown0C;
-    unsigned int f_10;
+    unsigned int dwMissileMode;
     Data0064A510* pData;
 };
 
@@ -535,7 +535,7 @@ struct Unit0064A540 {
     unsigned int dwUnknown04;
     unsigned int dwUnknown08;
     unsigned int dwUnknown0C;
-    unsigned int f_10;
+    unsigned int dwMissileMode;
     Data0064A540* pData;
 };
 
@@ -550,7 +550,7 @@ struct Unit0064A570 {
     unsigned int dwUnknown04;
     unsigned int dwUnknown08;
     unsigned int dwUnknown0C;
-    unsigned int f_10;
+    unsigned int dwMissileMode;
     Data0064A570* pData;
 };
 
@@ -565,7 +565,7 @@ struct Unit0064A640 {
     unsigned int dwUnknown04;
     unsigned int dwUnknown08;
     unsigned int dwUnknown0C;
-    unsigned int f_10;
+    unsigned int dwMissileMode;
     Data0064A640* pData;
 };
 
@@ -580,7 +580,7 @@ struct Unit0064A6D0 {
     unsigned int dwUnknown04;
     unsigned int dwUnknown08;
     unsigned int dwUnknown0C;
-    unsigned int f_10;
+    unsigned int dwMissileMode;
     Data0064A6D0* pData;
 };
 
@@ -605,7 +605,7 @@ struct Unit0064A6F0 {
     unsigned int dwUnknown04;
     unsigned int dwUnknown08;
     unsigned int dwUnknown0C;
-    unsigned int f_10;
+    unsigned int dwMissileMode;
     Data0064A6F0* pData;
 };
 
@@ -1248,10 +1248,10 @@ void __stdcall MISSILE_SetHomeType(D2UnitStrc* pMissile, D2UnitStrc* pTarget)
 
 static __forceinline unsigned int RollPercent(Unit* unit)
 {
-    unsigned __int64 next = (unsigned __int64)unit->f_24
-        + (unsigned __int64)unit->f_20 * 1791398085u;
-    unit->f_24 = (unsigned int)(next >> 32);
-    unit->f_20 = (unsigned int)next;
+    unsigned __int64 next = (unsigned __int64)unit->nSeedHigh
+        + (unsigned __int64)unit->nSeedLow * 1791398085u;
+    unit->nSeedHigh = (unsigned int)(next >> 32);
+    unit->nSeedLow = (unsigned int)next;
     return (unsigned int)next % 100u;
 }
 

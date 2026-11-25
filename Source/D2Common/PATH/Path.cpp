@@ -920,7 +920,7 @@ struct PathCollisionView
     char retainedGap2[0x14];
     ActiveRoom* room;
     char retainedGap3[0x24];
-    int f_44;
+    int dwUnitSize;
     char retainedGap4[0xC];
     unsigned short collidedMask;
     char retainedGap5[0x26];
@@ -933,7 +933,7 @@ typedef char check_positionY[OFFSET(PathCollisionView,positionY)==0x6?1:-1];
 
 typedef char check_room[OFFSET(PathCollisionView,room)==0x1C?1:-1];
 
-typedef char check_unitSize[OFFSET(PathCollisionView,f_44)==0x44?1:-1];
+typedef char check_unitSize[OFFSET(PathCollisionView,dwUnitSize)==0x44?1:-1];
 
 typedef char check_collidedMask[OFFSET(PathCollisionView,collidedMask)==0x54?1:-1];
 
@@ -2314,7 +2314,7 @@ unsigned char __stdcall PATH_GetMaxDistance(D2DynamicPathStrc* pDynamicPath)
 extern "C" unsigned short __stdcall PATH_GetCollidedWithMask(PathCollisionView* path)
 {
     if (path->velocity == 0)
-        path->collidedMask = COLLISION_CheckMaskWithSize(path->room,path->positionX,path->positionY,path->f_44,0x7FFF);
+        path->collidedMask = COLLISION_CheckMaskWithSize(path->room,path->positionX,path->positionY,path->dwUnitSize,0x7FFF);
     return path->collidedMask;
 }
 
