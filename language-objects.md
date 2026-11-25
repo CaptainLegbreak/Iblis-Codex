@@ -1,10 +1,10 @@
 # Language-table copies: an object map
 
 The 15-entry language-name table (D2LanguageNames.h; strings 0x6CC77C-0x6CC81C) is a header static, so each object file that includes the header has exactly one copy in .data, at the start of that object's initialised data (the header is included before the file's own definitions; lanes 4, 5 and 6 found the same) (see COORDINATOR.md, Decisions).
-This map lists all 308 copies in Game.exe .data on main #359 (round j115): which planned definition holds each one, and the planned data just after it, which is the object the copy starts.
+This map lists all 308 copies in Game.exe .data on main #380: which planned definition holds each one, and the planned data just after it, which is the object the copy starts.
 
 - **Copies built (planned record, or the header copy placed by its marker or by its object):** 307. **Borrowed (not defined yet):** 1.
-- **Planned files holding more than one copy:** 14. Each one spans that many original objects and can be split at its copies.
+- **Planned files holding more than one copy:** 12. Each one spans that many original objects and can be split at its copies.
 - **Runs of back-to-back copies (0x3C apart):** 49 runs with 2 or more copies. A run of N copies is N objects in link order with no initialised data of their own besides the table.
 
 ## Planned files holding several copies
@@ -13,15 +13,13 @@ This map lists all 308 copies in Game.exe .data on main #359 (round j115): which
 |---|---|---:|---|
 | D2Client/Unknown_004DF6C0.cpp | lane1 | 10 | 0x72ADA8, 0x72ADE8, 0x72CBE8, 0x72CC24, 0x72CC60, 0x72CC9C … |
 | D2Client/UNIT/PlrSkills.cpp | lane1 | 9 | 0x72A650, 0x72A788, 0x72A7C4, 0x72A800, 0x72A83C, 0x72A878 … |
-| D2Game/Ai/AiThink4.cpp | lane5 | 6 | 0x741D90, 0x741DCC, 0x741E08, 0x741E44, 0x741E80, 0x741EBC |
+| D2Game/Unknown_005EFB80.cpp | lane5 | 6 | 0x741D90, 0x741DCC, 0x741E08, 0x741E44, 0x741E80, 0x741EBC |
 | D2Lang/Unknown_00526100.cpp | lane6 | 4 | 0x730978, 0x730A28, 0x730A64, 0x730AA0 |
 | D2Client/UI/SkillDesc_004E1FF0.cpp | lane1 | 3 | 0x72D8D8, 0x72D914, 0x72D950 |
-| D2Game/MONSTER/MonsterUnique.cpp | lane5 | 3 | 0x73C4C0, 0x73C4FC, 0x73C538 |
 | D2Launch/Src/CharSel.cpp | lane6 | 2 | 0x70CBC4, 0x7111D8 |
 | D2Multi/Src/ChatDlg.cpp | lane6 | 2 | 0x70CD18, 0x70EB94 |
-| D2Multi/Src/ComCallback.cpp | lane6 | 2 | 0x70EBE0, 0x70F7A4 |
 | D2Client/UI/inv.cpp | lane4 | 2 | 0x721DF8, 0x722298 |
-| D2Hell/Unknown_00517804.cpp | lane9 | 2 | 0x72FA20, 0x72FA60 |
+| D2Hell/Unknown_00516D8B.cpp | lane9 | 2 | 0x72FA20, 0x72FA60 |
 | D2Net/Unknown_0052B920.cpp | lane6 | 2 | 0x730F84, 0x730FC0 |
 | D2Game/Ai/AiThink.cpp | lane5 | 2 | 0x73C9DC, 0x73D478 |
 | D2Common/DATATBLS/DataTbls.cpp | lane8 | 2 | 0x7442C8, 0x74430C |
@@ -40,8 +38,8 @@ Not defined by any file yet. It belongs to the object whose data follows it, nor
 |---|---:|---|---|
 | 0x70CB88 | 2 | D2Launch/Src/CharSel.cpp | D2Launch/Src/CharSel.cpp, D2Launch/Unknown_004370B0.cpp |
 | 0x70CC50 | 2 | D2Client/UI/automap.cpp | D2Launch/Unknown_0043C4F0.cpp, D2Multi/Unknown_0043C8A0.cpp |
-| 0x70F728 | 2 | D2Client/GAME/Record.cpp | D2Client/GAME/Record.cpp, D2Client/Unknown_00451290.cpp |
-| 0x712A28 | 2 | D2Client/ENGINE/Gfx.cpp | ?, D2Client/Unknown_0046ACE0.cpp |
+| 0x70F728 | 2 | D2Client/GAME/Record.cpp | D2Client/GAME/Game_0044B7B0.cpp, D2Client/GAME/Record.cpp |
+| 0x712A28 | 2 | D2Client/ENGINE/Gfx.cpp | ?, D2Client/Unknown_0046C570.cpp |
 | 0x712C54 | 2 | D2Client/Unknown_00477620.cpp | ?, D2Client/GAME/PalShift.cpp |
 | 0x712DD0 | 5 | D2Client/Unknown_0047A980.cpp | D2Client/CORE/ARCHIVE.CPP, D2Client/GAME/Msg.cpp, D2Client/GAME/Roster.cpp, D2Client/GAME/RosterPets.cpp, D2Client/Unknown_0047A980.cpp |
 | 0x721CDC | 2 | D2Client/Unknown_00482C70.cpp | D2Client/Sound/SoundHdr.cpp, D2Client/UNIT/UnitMode.cpp |
@@ -56,7 +54,7 @@ Not defined by any file yet. It belongs to the object whose data follows it, nor
 | 0x72D994 | 3 | D2Gfx/SRC/Window.cpp | D2Client/SKILLS/SkillsAma.cpp, D2Client/SKILLS/SkillsNec.cpp, D2Gfx/SRC/Window.cpp |
 | 0x72DDD8 | 2 | D2Win/Src/D2WinPalette.cpp | D2Win/Src/D2WinArchive.cpp, D2Win/Src/D2WinPalette.cpp |
 | 0x72DE94 | 6 | D2Win/Src/D2WinFont.cpp | D2Win/D2WinAnimImage.cpp, D2Win/Src/D2WinButton.cpp, D2Win/Src/D2WinEditBox.cpp, D2Win/Src/D2WinImage.cpp, D2Win/Src/D2WinTimer.cpp, D2Win/Unknown_004FDA80.cpp |
-| 0x72EFD4 | 7 | D2Glide/Src/glCore.cpp | D2Glide/Unknown_00508970.cpp, D2Win/Src/D2WinAccountList.cpp, D2Win/Src/D2WinList.cpp, D2Win/Src/D2WinPopup.cpp, D2Win/Src/D2WinProgressBar.cpp, D2Win/Src/D2WinScrollbar.cpp, D2Win/Src/D2WinSmack.cpp |
+| 0x72EFD4 | 7 | D2Glide/Src/glCore.cpp | D2Glide/Src/glCore.cpp, D2Win/Src/D2WinAccountList.cpp, D2Win/Src/D2WinList.cpp, D2Win/Src/D2WinPopup.cpp, D2Win/Src/D2WinProgressBar.cpp, D2Win/Src/D2WinScrollbar.cpp, D2Win/Src/D2WinSmack.cpp |
 | 0x72F8FC | 3 | D2Sound/Src/D2SoundSmp.cpp | D2Sound/Src/D2SoundFast.cpp, D2Sound/Src/D2SoundSmp.cpp, D2Sound/Unknown_00514B60.cpp |
 | 0x730A28 | 3 | Bnclient/Unknown_00527BE0.cpp | D2Lang/Unknown_00526100.cpp |
 | 0x730F84 | 2 | D2Game/GAME/Game.cpp | D2Net/Unknown_0052B920.cpp |
@@ -67,12 +65,12 @@ Not defined by any file yet. It belongs to the object whose data follows it, nor
 | 0x731F74 | 2 | D2Game/ITEMS/ItemMode.cpp | ?, D2Game/UNIT/PlayerList.cpp |
 | 0x73200C | 4 | D2Game/SKILLS/Skills.cpp | D2Game/GAME/Task.cpp, D2Game/PLAYER/PlrSave2.cpp, D2Game/PLAYER/PlrTrade.cpp, D2Game/Unknown_0056B180.cpp |
 | 0x732850 | 5 | D2Game/UNIT/SUnitDmg.cpp | D2Game/MONSTER/Monster.cpp, D2Game/MONSTER/MonsterAI.cpp, D2Game/PLAYER/PlayerPets.cpp, D2Game/UNIT/SUNITNPC.CPP, D2Game/UNIT/SUnitDmg.cpp |
-| 0x73C4C0 | 3 | D2Game/MONSTER/MonsterMode.cpp | D2Game/MONSTER/MonsterUnique.cpp |
+| 0x73C4C0 | 3 | D2Game/MONSTER/MonsterMode.cpp | D2Game/MONSTER/MonsterEval.cpp, D2Game/PLAYER/PartyScreen.cpp, D2Game/UNIT/Friendly.cpp |
 | 0x73D478 | 2 | D2Game/Unknown_005B24E0.cpp | ?, D2Game/Ai/AiThink.cpp |
 | 0x741888 | 3 | D2Game/SKILLS/SkillNec.cpp | D2Game/SKILLS/SkillNec.cpp, D2Game/UNIT/SUnitEvent.cpp, D2Game/Unknown_005C0D00.cpp |
 | 0x7419A4 | 6 | D2Game/SKILLS/SkillAss.cpp | ?, D2Game/SKILLS/SkilPal.cpp, D2Game/SKILLS/SkillDruid.cpp, D2Game/SKILLS/SkillMonst.cpp, D2Game/SKILLS/SkillSor.cpp, D2Game/Unknown_005D1080.cpp |
 | 0x741C0C | 6 | D2Game/Ai/AiThink4.cpp | ?, D2Game/Ai/AiTatics.cpp, D2Game/Ai/AiUtil.cpp, D2Game/OBJECTS/OBJEVAL.CPP, D2Game/Quests/QuestsFX.cpp, D2Game/SKILLS/SkillAma.cpp |
-| 0x741D90 | 6 | D2CMP/SRC/SpriteCache.cpp | D2Game/Ai/AiThink4.cpp |
+| 0x741D90 | 6 | D2CMP/SRC/SpriteCache.cpp | D2Game/Unknown_005EFB80.cpp |
 | 0x74430C | 2 | D2Common/DRLG/DrlgActivate.cpp | D2Common/DATATBLS/DataTbls.cpp, D2Common/DRLG/DrlgActivate.cpp |
 | 0x744588 | 3 | D2Common/Stats/StatsEx.cpp | D2Common/Logging/Logging.cpp, D2Common/Stats/StatsEx.cpp, D2Common/Unknown_00624740.cpp |
 | 0x7446E8 | 3 | D2Common/INVENTORY/Inventory.cpp | D2Common/DATATBLS/ItemTbls.cpp, D2Common/INVENTORY/Inventory.cpp, D2Common/ITEMS/Items.cpp |
@@ -84,7 +82,7 @@ Not defined by any file yet. It belongs to the object whose data follows it, nor
 | 0x7465E8 | 3 | D2Common/DATATBLS/MissileTbls.cpp | D2Common/Chat/Chat.cpp, D2Common/DATATBLS/MissileTbls.cpp, D2Common/Text/Text.cpp |
 | 0x74880C | 4 | D2Common/Unknown_006647C0.cpp | D2Common/DATATBLS/OverlayTbls.cpp, D2Common/UNITS/MisStream.cpp, D2Common/Unknown_00664530.cpp, D2Common/Unknown_006647C0.cpp |
 | 0x749690 | 4 | D2Common/DATATBLS/FieldTbls.cpp | D2Common/DATATBLS/FieldTbls.cpp, D2Common/DATATBLS/HoradricCube.cpp, D2Common/Unknown_00668510.cpp, D2Common/Unknown_0066A1A0.cpp |
-| 0x7497C8 | 14 | D2Common/Unknown_0067ADC0.cpp | D2Common/DATATBLS/AnimTbls.cpp, D2Common/DRLG/DrlgAnim.cpp, D2Common/DRLG/DrlgLogic.cpp, D2Common/DRLG/DrlgRoom.cpp, D2Common/DRLG/Maze.cpp, D2Common/DRLG/OutPlace.cpp, D2Common/DRLG/Outdoors.cpp, D2Common/DRLG/RoomTile.cpp, D2Common/PATH/PathUtil.cpp, D2Common/Unknown_0066AB70.cpp, D2Common/Unknown_00674040.cpp, D2Common/Unknown_00679380.cpp, D2Common/Unknown_0067A550.cpp, D2Common/Unknown_0067ADC0.cpp |
+| 0x7497C8 | 14 | D2Common/Unknown_0067ADC0.cpp | D2Common/DATATBLS/AnimTbls.cpp, D2Common/DRLG/DrlgAnim.cpp, D2Common/DRLG/DrlgLogic.cpp, D2Common/DRLG/DrlgRoom.cpp, D2Common/DRLG/DrlgWarp.cpp, D2Common/DRLG/Maze.cpp, D2Common/DRLG/OutPlace.cpp, D2Common/DRLG/Outdoors.cpp, D2Common/DRLG/RoomTile.cpp, D2Common/PATH/PathUtil.cpp, D2Common/Unknown_00674040.cpp, D2Common/Unknown_00679380.cpp, D2Common/Unknown_0067A550.cpp, D2Common/Unknown_0067ADC0.cpp |
 | 0x749B34 | 2 | D2Direct3D/Src/d3dCore.cpp | D2Common/DRLG/DrlgGrid.cpp, D2Common/Unknown_0067B9C0.cpp |
 | 0x749BC4 | 9 | D2Direct3D/Src/d3dCore.cpp | D2Common/DRLG/DrlgVer.cpp, D2Common/DRLG/OutDesr.cpp, D2Common/DRLG/OutJung.cpp, D2Common/DRLG/OutRoom.cpp, D2Common/DRLG/OutSiege.cpp, D2Common/DRLG/OutWild.cpp, D2Common/Unknown_006808F0.cpp, D2Common/Unknown_00681000.cpp, D2Common/Unknown_00681490.cpp |
 
@@ -113,9 +111,9 @@ Not defined by any file yet. It belongs to the object whose data follows it, nor
 | 0x70EE10 | gData_0070EE10 (D2Client/CORE/WINMAIN.CPP) | D2Client/CORE/WINMAIN.CPP |
 | 0x70EE90 | gData_0070EE90 (D2Client/Unknown_0044BA20.cpp) | D2Client/GAME/Game.cpp |
 | 0x70EED0 | gData_0070EED0 (D2Client/GAME/Game.cpp) | D2Client/GAME/Game.cpp |
-| 0x70F728 | gData_0070F728 (D2Client/Unknown_00451290.cpp) | D2Client/GAME/Record.cpp |
+| 0x70F728 | gData_0070F728 (D2Client/GAME/Game_0044B7B0.cpp) | D2Client/GAME/Record.cpp |
 | 0x70F764 | gData_0070F764 (D2Client/GAME/Record.cpp) | D2Client/GAME/Record.cpp |
-| 0x70F7A4 | gData_0070F7A4 (D2Multi/Src/ComCallback.cpp) | D2Client/GAME/Game_0044D080.cpp |
+| 0x70F7A4 | gData_0070F7A4 (D2Client/Unknown_00451E70.cpp) | D2Client/Unknown_00451E70.cpp |
 | 0x70F818 | gData_0070F818 (D2Client/UI/ui.cpp) | D2Client/UI/ui.cpp |
 | 0x7111D8 | gData_007111D8 (D2Launch/Src/CharSel.cpp) | D2Client/UI/automap.cpp |
 | 0x711218 | gData_00711218 (D2Client/UI/automap.cpp) | D2Client/UI/automap.cpp |
@@ -129,9 +127,9 @@ Not defined by any file yet. It belongs to the object whose data follows it, nor
 | 0x711FB0 | gData_00711FB0 (D2Client/ENGINE/Cursor.cpp) | D2Client/ENGINE/Cursor.cpp |
 | 0x7121E0 | gData_007121E0 (D2Client/UI/CmdTbl.cpp) | D2Client/UNIT/CUnit.cpp |
 | 0x712990 | gaszLanguageNames (header, placed by its object) (?) | D2Client/Unknown_0046ACE0.cpp |
-| 0x712A28 | gData_00712A28 (D2Client/Unknown_0046ACE0.cpp) | D2Client/ENGINE/Gfx.cpp |
+| 0x712A28 | gaszLanguageNames (header) (D2Client/Unknown_0046C570.cpp) | D2Client/ENGINE/Gfx.cpp |
 | 0x712A64 | gaszLanguageNames (header, placed by its object) (?) | D2Client/ENGINE/Gfx.cpp |
-| 0x712B10 | gData_00712B10 (D2Client/ENGINE/Gfx_0046DB90.cpp) | D2Client/Unknown_00472DA0.cpp |
+| 0x712B10 | gData_00712B10 (D2Client/ENGINE/Gfx_0046DB90.cpp) | D2Client/Unknown_00472210.cpp |
 | 0x712B50 | gaszLanguageNames (header, placed by its object) (?) | D2Client/DRAW/dLightMap.cpp |
 | 0x712C10 | gData_00712C10 (D2Client/GAME/View.cpp) | D2Client/GAME/View.cpp |
 | 0x712C54 | gData_00712C54 (D2Client/GAME/PalShift.cpp) | D2Client/Unknown_00477620.cpp |
@@ -151,7 +149,7 @@ Not defined by any file yet. It belongs to the object whose data follows it, nor
 | 0x722298 | gData_00722298 (D2Client/UI/inv.cpp) | D2Client/UI/Hireables.cpp |
 | 0x7222D4 | gaszLanguageNames (header, placed by its object) (?) | D2Client/UI/Hireables.cpp |
 | 0x722318 | gData_00722318 (D2Client/UI/panel.cpp) | D2Client/UI/panel.cpp |
-| 0x722414 | gData_00722414 (D2Client/Unknown_0049B030.cpp) | D2Client/Unknown_0049B030.cpp |
+| 0x722414 | gData_00722414 (D2Client/UI/Party.cpp) | D2Client/UI/Party.cpp |
 | 0x722470 | gData_00722470 (D2Client/Unknown_0049BB40.cpp) | D2Client/Unknown_0049BB40.cpp |
 | 0x7225C0 | gData_007225C0 (D2Client/UI/text.cpp) | D2Client/UI/text.cpp |
 | 0x723768 | gData_00723768 (D2Client/UI/QuestLog.cpp) | D2Client/UI/text.cpp |
@@ -226,15 +224,15 @@ Not defined by any file yet. It belongs to the object whose data follows it, nor
 | 0x72F088 | gData_0072F088 (D2Win/Src/D2WinProgressBar.cpp) | D2Glide/Src/glCore.cpp |
 | 0x72F0C4 | gData_0072F0C4 (D2Win/Src/D2WinScrollbar.cpp) | D2Glide/Src/glCore.cpp |
 | 0x72F100 | gData_0072F100 (D2Win/Src/D2WinPopup.cpp) | D2Glide/Src/glCore.cpp |
-| 0x72F13C | gData_0072F13C (D2Glide/Unknown_00508970.cpp) | D2Glide/Src/glCore.cpp |
+| 0x72F13C | gData_0072F13C (D2Glide/Src/glCore.cpp) | D2Glide/Src/glCore.cpp |
 | 0x72F7F4 | gData_0072F7F4 (D2Sound/Unknown_00513A20.cpp) | D2Sound/Unknown_00513A20.cpp |
 | 0x72F838 | gData_0072F838 (D2Sound/Unknown_00513BC0.cpp) | D2Sound/Unknown_00513BC0.cpp |
 | 0x72F8FC | gData_0072F8FC (D2Sound/Unknown_00514B60.cpp) | D2Sound/Src/D2SoundSmp.cpp |
 | 0x72F938 | gData_0072F938 (D2Sound/Src/D2SoundFast.cpp) | D2Sound/Src/D2SoundSmp.cpp |
 | 0x72F974 | gData_0072F974 (D2Sound/Src/D2SoundSmp.cpp) | D2Sound/Src/D2SoundSmp.cpp |
-| 0x72F9B4 | gData_0072F9B4 (D2Sound/Src/D2SoundUtil.cpp) | D2Hell/Unknown_00516DE1.cpp |
-| 0x72FA20 | gData_0072FA20 (D2Hell/Unknown_00517804.cpp) | D2BNClient/Unknown_00518C00.cpp |
-| 0x72FA60 | gData_0072FA20 (D2Hell/Unknown_00517804.cpp) | D2BNClient/Unknown_00518C00.cpp |
+| 0x72F9B4 | gData_0072F9B4 (D2Sound/Src/D2SoundUtil.cpp) | D2Hell/Unknown_00516D8B.cpp |
+| 0x72FA20 | gData_0072FA20 (D2Hell/Unknown_00516D8B.cpp) | D2BNClient/Unknown_00518C00.cpp |
+| 0x72FA60 | gData_0072FA20 (D2Hell/Unknown_00516D8B.cpp) | D2BNClient/Unknown_00518C00.cpp |
 | 0x730128 | gapfnPacketHandlers (D2BNClient/BnSend.cpp) | Bnclient/Unknown_00520DC0.cpp |
 | 0x730198 | gData_00730198 (D2Lang/StrTable/strtable.cpp) | D2Lang/StrTable/strtable.cpp |
 | 0x730538 | gData_00730538 (D2Lang/Unknown_00526610.cpp) | D2Lang/Unknown_00526610.cpp |
@@ -289,17 +287,17 @@ Not defined by any file yet. It belongs to the object whose data follows it, nor
 | 0x738D08 | gaszLanguageNames (header, placed by its object) (?) | D2Game/Quests/a2q0.cpp |
 | 0x73BEE0 | gaszLanguageNames (header) (D2Game/MISSILES/Missiles.cpp) | D2Game/MONSTER/MonsterUnique.cpp |
 | 0x73BF20 | gaszLanguageNames (header, placed by its object) (?) | D2Game/MONSTER/MonsterUnique.cpp |
-| 0x73C4C0 | gData_0073C4C0 (D2Game/MONSTER/MonsterUnique.cpp) | D2Game/MONSTER/MonsterMode.cpp |
-| 0x73C4FC | gData_0073C4FC (D2Game/MONSTER/MonsterUnique.cpp) | D2Game/MONSTER/MonsterMode.cpp |
-| 0x73C538 | gData_0073C538 (D2Game/MONSTER/MonsterUnique.cpp) | D2Game/MONSTER/MonsterMode.cpp |
+| 0x73C4C0 | gaszLanguageNames (header) (D2Game/MONSTER/MonsterEval.cpp) | D2Game/MONSTER/MonsterMode.cpp |
+| 0x73C4FC | gaszLanguageNames (header) (D2Game/PLAYER/PartyScreen.cpp) | D2Game/MONSTER/MonsterMode.cpp |
+| 0x73C538 | gaszLanguageNames (header) (D2Game/UNIT/Friendly.cpp) | D2Game/MONSTER/MonsterMode.cpp |
 | 0x73C578 | gData_0073C578 (D2Game/MONSTER/MonsterMode.cpp) | D2Game/MONSTER/MonsterMode.cpp |
 | 0x73C6E0 | gaszLanguageNames (header, placed by its object) (?) | D2Game/MISSILES/MissMode.cpp |
 | 0x73C9DC | gData_0073C9DC (D2Game/Ai/AiThink.cpp) | D2Game/Ai/AiThink.cpp |
 | 0x73D478 | gaszLanguageNames_0073D478 (D2Game/Ai/AiThink.cpp) | D2Game/Unknown_005B24E0.cpp |
 | 0x73D4B4 | gaszLanguageNames (header, placed by its object) (?) | D2Game/Unknown_005B24E0.cpp |
 | 0x73D530 | gaszLanguageNames (header, placed by its object) (?) | D2Game/Quests/a4q1.cpp |
-| 0x73E810 | gpAct4Q4NpcMessages (D2Game/Quests/a4q1.cpp) | D2Game/Quests/a4q1.cpp |
-| 0x741578 | gaszLanguageNames_00741578 (D2Game/Quests/a3q7.cpp) | D2Game/MONSTER/MonsterChoose.cpp |
+| 0x73E810 | gaszLanguageNames (header) (D2Game/Quests/a3q0.cpp) | D2Game/Quests/a3q0.cpp |
+| 0x741578 | gaszLanguageNames_00741578 (D2Game/MONSTER/MonsterChoose.cpp) | D2Game/MONSTER/MonsterChoose.cpp |
 | 0x741750 | gaszLanguageNames (header, placed by its object) (?) | D2Game/SKILLS/SkillItem.cpp |
 | 0x741888 | gaszLanguageNames (header) (D2Game/UNIT/SUnitEvent.cpp) | D2Game/SKILLS/SkillNec.cpp |
 | 0x7418C4 | gaszLanguageNames (header) (D2Game/Unknown_005C0D00.cpp) | D2Game/SKILLS/SkillNec.cpp |
@@ -317,12 +315,12 @@ Not defined by any file yet. It belongs to the object whose data follows it, nor
 | 0x741CC0 | gaszLanguageNames (header) (D2Game/OBJECTS/OBJEVAL.CPP) | D2Game/Ai/AiThink4.cpp |
 | 0x741CFC | gaszLanguageNames (header) (D2Game/Quests/QuestsFX.cpp) | D2Game/Ai/AiThink4.cpp |
 | 0x741D38 | gaszLanguageNames (header, placed by its object) (?) | D2Game/Ai/AiThink4.cpp |
-| 0x741D90 | gData_00741D90 (D2Game/Ai/AiThink4.cpp) | D2CMP/SRC/SpriteCache.cpp |
-| 0x741DCC | gData_00741DCC (D2Game/Ai/AiThink4.cpp) | D2CMP/SRC/SpriteCache.cpp |
-| 0x741E08 | gData_00741E08 (D2Game/Ai/AiThink4.cpp) | D2CMP/SRC/SpriteCache.cpp |
-| 0x741E44 | gData_00741E44 (D2Game/Ai/AiThink4.cpp) | D2CMP/SRC/SpriteCache.cpp |
-| 0x741E80 | gData_00741E80 (D2Game/Ai/AiThink4.cpp) | D2CMP/SRC/SpriteCache.cpp |
-| 0x741EBC | gData_00741EBC (D2Game/Ai/AiThink4.cpp) | D2CMP/SRC/SpriteCache.cpp |
+| 0x741D90 | gaszLanguageNames (header) (D2Game/Unknown_005EFB80.cpp) | D2CMP/SRC/SpriteCache.cpp |
+| 0x741DCC | gData_00741DCC (D2Game/Unknown_005EFB80.cpp) | D2CMP/SRC/SpriteCache.cpp |
+| 0x741E08 | gData_00741E08 (D2Game/Unknown_005EFB80.cpp) | D2CMP/SRC/SpriteCache.cpp |
+| 0x741E44 | gData_00741E44 (D2Game/Unknown_005EFB80.cpp) | D2CMP/SRC/SpriteCache.cpp |
+| 0x741E80 | gData_00741E80 (D2Game/Unknown_005EFB80.cpp) | D2CMP/SRC/SpriteCache.cpp |
+| 0x741EBC | gData_00741EBC (D2Game/Unknown_005EFB80.cpp) | D2CMP/SRC/SpriteCache.cpp |
 | 0x7435C8 | gData_007435C8 (D2CMP/SRC/Tilecmp.cpp) | D2Common/Chat/Ignorelist.cpp |
 | 0x743780 | gData_00743780 (D2Common/Chat/Ignorelist.cpp) | D2Common/Chat/Ignorelist.cpp |
 | 0x7437C0 | gData_007437C0 (D2Common/Logging/ProfCore.cpp) | D2Common/Logging/ProfCore.cpp |
@@ -376,7 +374,7 @@ Not defined by any file yet. It belongs to the object whose data follows it, nor
 | 0x749708 | gData_00749708 (D2Common/Unknown_0066A1A0.cpp) | D2Common/DATATBLS/FieldTbls.cpp |
 | 0x749744 | gData_00749744 (D2Common/DATATBLS/FieldTbls.cpp) | D2Common/DATATBLS/FieldTbls.cpp |
 | 0x7497C8 | gData_007497C8 (D2Common/DATATBLS/AnimTbls.cpp) | D2Common/Unknown_0067ADC0.cpp |
-| 0x749804 | gData_00749804 (D2Common/Unknown_0066AB70.cpp) | D2Common/Unknown_0067ADC0.cpp |
+| 0x749804 | gData_00749804 (D2Common/DRLG/DrlgWarp.cpp) | D2Common/Unknown_0067ADC0.cpp |
 | 0x749840 | gData_00749840 (D2Common/DRLG/DrlgRoom.cpp) | D2Common/Unknown_0067ADC0.cpp |
 | 0x74987C | gData_0074987C (D2Common/DRLG/DrlgLogic.cpp) | D2Common/Unknown_0067ADC0.cpp |
 | 0x7498B8 | gData_007498B8 (D2Common/DRLG/DrlgAnim.cpp) | D2Common/Unknown_0067ADC0.cpp |
