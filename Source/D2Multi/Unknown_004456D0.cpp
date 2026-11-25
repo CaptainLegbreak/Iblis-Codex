@@ -2,6 +2,7 @@
 #include "D2Unicode.h"
 #include "D2MultiTypes.h"
 #include "StormApi.h"
+#include "D2LangApi.h"
 
 struct D2LaunchResultStrc
 {
@@ -32,9 +33,6 @@ int __stdcall CHATDLG_PollMcp(int nArg); // 0x00443880
 void __cdecl COMCALLBACK_BuildCreateGamePanel(); // 0x004453B0
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback); // 0x004FA590
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 extern "C" const char gszMaxPlayer[]; // 0x006D57C0
 extern "C" const char gszLvlRest[]; // 0x006D57CC
 extern "C" const char gszDiffLevel[]; // 0x006D57DC

@@ -30,6 +30,7 @@
 #include "D2TxtTables.h"
 #include "D2WinPopupLine.h"
 #include "FogApi.h"
+#include "D2LangApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -143,7 +144,6 @@ int __fastcall D2Win_10122(const Unicode* wszText, int nTextLength); // 0x005017
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
 extern "C" const char gszExcelDirectory_006D8ED4[]; // 0x006D8ED4
 
@@ -231,7 +231,6 @@ int __fastcall sub_00526800(const Unicode*); // 0x00526800
 
 Unicode* __fastcall sub_00526F20(Unicode*,const char*,int); // 0x00526F20
 
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
 int __fastcall D2Win_10127_SetFont(int); // 0x00502EF0
 
@@ -266,9 +265,7 @@ void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, uns
 
 int __stdcall CONTROL_MouseInsideRect(const tagRECT* pRect); // 0x004F97B0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
 void __stdcall D2COMP_AddHoverTextLine(const Unicode* wszText, D2HoverLineStrc* pLines, int* pCount, int* pMaxWidth, int* pTotalHeight); // 0x00503FA0
 

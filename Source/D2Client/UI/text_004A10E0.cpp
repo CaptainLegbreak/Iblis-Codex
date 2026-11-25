@@ -2,6 +2,7 @@
 #include "D2Unicode.h"
 #include "D2Structs.h"
 #include "FogApi.h"
+#include "D2LangApi.h"
 
 struct D2TextRowStrc { void* pText; D2TextRowStrc* pNext; };
 #pragma pack(push, 2)
@@ -17,7 +18,6 @@ extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x
 void __fastcall SELECT_SetSelectionRect(D2RectStrc* pRect); // 0x00467430
 void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 int __fastcall D2Win_10127_SetFont(int nFont); // 0x00502EF0
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 D2TextBlockStrc* __fastcall TEXT_CreateTextBox(const Unicode* pText, int nMode); // 0x004A05E0
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall sub_004E0650_GetStringSound(unsigned short nString); // 0x004E0650

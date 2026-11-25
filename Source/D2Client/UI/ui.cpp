@@ -19,6 +19,7 @@
 #include "D2WinSplitText.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi.h"
 
 struct D2CelFileStrc;
 
@@ -309,9 +310,7 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00
 
 const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
@@ -383,9 +382,7 @@ int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
-int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
-D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 extern "C" const char gszFormatD[]; // 0x006D57BC
 
@@ -441,7 +438,6 @@ Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCo
 
 void __fastcall sub_005272B0_FormatText(Unicode* pDst, const Unicode* pText, const Unicode* pFormat, int nMaxLength, int nLanguage); // 0x005272B0
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit);                                                       // 0x006203B0
 
@@ -451,13 +447,10 @@ int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit);                         
 
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit);                                                     // 0x006206B0
 
-void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords);                       // 0x00620900
 
 void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pMonster, const Unicode* wszName);        // 0x0063E810
 
-D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
 
-int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
 
 extern D2ViewStrc* gpClientView;                                                                         // 0x007A0640
 
@@ -696,7 +689,6 @@ static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit);
 int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 
 
-int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -908,7 +900,6 @@ struct D2UiControlCStrc : D2UiControlBaseStrc
     virtual void SetActive(int bActive);
 };
 
-D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);                                 // 0x0063C1E0
 
 void __fastcall CMDTBL_SetHotkeyHandlers(int nArg1, int nArg2);                                                         // 0x0046AA20
 
@@ -1409,9 +1400,7 @@ struct D2StatesTxt;
 extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId); // 0x00452040
 
 
-int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
-D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 

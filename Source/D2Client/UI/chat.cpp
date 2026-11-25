@@ -18,6 +18,8 @@
 #include "D2ClientChatCommand.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 struct D2MsgHandlerEntryStrc;
 
@@ -768,7 +770,6 @@ void __cdecl CHAT_CloseChatInput()
     }
 }
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
@@ -892,7 +893,6 @@ void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 
 
-D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 
 
 
@@ -1262,7 +1262,6 @@ struct D2BnetChatPacketStrc;
 
 extern "C" int __cdecl strcmp(const char* a, const char* b);
 
-Unicode* __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
 
 
 extern int gnOptionArrowFrame; // 0x007BC944
@@ -1349,7 +1348,6 @@ static void CHAT_CopyCharacterPart(const char* szSource, char* szDest)
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
 class D2SquelchListStrc
 {
@@ -1552,11 +1550,9 @@ void __cdecl SOUNDINST_ToggleHints();                                           
 
 int __stdcall CHAT_ParseChatCommand(char** ppText, char* pCode, char* szArgument);                  // 0x0047BAD0
 
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 
 void __fastcall TEXT_PrintChatLine(const Unicode* pText, char nColor);                              // 0x0049E3A0
 

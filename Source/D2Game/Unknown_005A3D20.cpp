@@ -11,6 +11,7 @@
 #include "D2MonModes.h"
 #include "D2UnitData.h"
 #include "D2Txt.h"
+#include "D2CommonApi.h"
 
 #define EVENTTYPE_MONUMOD 7
 union D2SeedStrc;
@@ -21,15 +22,12 @@ struct D2MonsterDataStrc;
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nSize, D2DamageStrc* pDamage, int a7, int a8, int(__fastcall* pfCallback)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*), int a10); // 0x0057E090
 
 typedef void(__fastcall* MONUMODFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
 
 extern MONUMODFUNC gpfnSrvUModCallbacks[][6]; // 0x0073C0B8
 D2UnitStrc* __fastcall MONSTERSPAWN_SpawnLevelVariantAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B2490
-void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00573780
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0

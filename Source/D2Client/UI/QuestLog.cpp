@@ -13,6 +13,8 @@
 #include "D2WinSplitText.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
@@ -25,14 +27,10 @@ int __cdecl GAME_IsExpansion();                                                 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags();                                                           // 0x004B32D0
 int __stdcall INV_GetTableByte(int nUnused, int nIndex);                                           // 0x004B92E0
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                       // 0x00524A30
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc);                   // 0x00526700
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);            // 0x005267E0
 int __fastcall sub_00526800(const Unicode* pString);                                               // 0x00526800
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pDst, const Unicode* pFormat, ...);  // 0x005269D0
-int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);            // 0x0065C310
 
 extern const char gszFormatD[];                                                                    // 0x006D57BC
 extern D2QuestTextsStrc gtQuestTextsSevenTombs;                                                              // 0x00723A64
@@ -72,7 +70,6 @@ void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);   // 0x00502320
 D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
-void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);           // 0x0065C360
 extern D2QuestPosStrc gaQuestPos[];                                                                // 0x00723EA8
 extern int gnPanelOffsetX;                                                                               // 0x007A2858
 extern int gnPanelOffsetY;                                                                               // 0x007A285C
@@ -587,11 +584,8 @@ static void TEXT_SetQuestPage(int nPageArg)
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 
 // The same page selection as TEXT_SetQuestPage, in the statement order that 0x004A2300 inlines

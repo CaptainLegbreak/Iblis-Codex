@@ -16,6 +16,7 @@
 #include "D2CelContext.h"
 #include "D2WinSplitText.h"
 #include "FogApi.h"
+#include "D2LangApi.h"
 
 struct D2CelFileStrc;
 
@@ -50,7 +51,6 @@ D2CharStrc* __fastcall FONT_FindCharInfo(unsigned short wChar);                 
 
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFilePath, unsigned int* pdwBytesWritten, const char* szSrcPath, int nLine); // 0x00517079
 
-int __cdecl STRTABLE_GetLanguage();                                                                         // 0x00525150
 
 void __fastcall sub_00526320_ToUnicode(wchar_t* pDest, const char* szSource, int nLength);                  // 0x00526320
 

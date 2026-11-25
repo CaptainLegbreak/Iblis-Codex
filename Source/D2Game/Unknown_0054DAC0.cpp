@@ -12,6 +12,7 @@
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
 #include "D2LanguageNames.h"
+#include "D2CommonApi.h"
 struct D2ActiveRoomStrc;
 struct D2RoomCoordListStrc;
 struct D2UnitStrc;
@@ -21,7 +22,6 @@ union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2MonsterRegionStrc;
 
-void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 void __stdcall sub_M96_UseBounds_0054DAC0(int nX, int nY, int nWidth, int nHeight);
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -39,7 +39,6 @@ void __fastcall MONSTERUNIQUE_PromoteToChampion(D2GameStrc* pGame, D2UnitStrc* p
 D2UnitStrc* __fastcall MONSTERUNIQUE_SpawnUniqueGroup(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nClassId, int bAllowChampion, unsigned short nX, unsigned short nY, int bAvoidWarps); // 0x005A43E0
 int __stdcall QUESTS_CheckNotIntroQuest(D2GameStrc* pGame, int nQuestId); // 0x005444B0
 D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** ppMonsterRegion, int nLevelId); // 0x00547BB0
 static int MONSTERREGION_CanRetryPresetSpawn(int nMonsterId); // 0x0054E3A0
 
@@ -123,9 +122,7 @@ D2RoomWarpCoordsStrc* __stdcall DUNGEON_GetWarpCoordinatesFromRoom(D2ActiveRoomS
 
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
 
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
-void __stdcall SKILLS_GameTileToSubtileCoords(int* pX, int* pY); // 0x00643560
 
 static int __stdcall sub_0054DB50_IsNearWarpOrSpawn(D2GameStrc* pGame, int nX, int nY, D2ActiveRoomStrc* pRoom);
 
@@ -152,7 +149,6 @@ static inline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc* pSeed
     return SEED_RollRandomNumber(pSeed) & (nMax - 1);
 }
 
-int __stdcall D2Common_10095(D2ActiveRoomStrc* pRoom, int nX, int nY);                                       // 0x0061B130
 
 // 0x0054DB50
 static int __stdcall sub_0054DB50_IsNearWarpOrSpawn(D2GameStrc* pGame, int nX, int nY, D2ActiveRoomStrc* pRoom)
@@ -520,7 +516,6 @@ int __fastcall MONSTERCHOOSE_GetPresetMonsterId(D2GameStrc* pGame, D2MonsterRegi
 
 int __fastcall SKILLS_GetMonsterClassFromChain(int nMonsterId, int nChainIncrements);                      // 0x0054DA60
 
-int __stdcall D2Common_11063(D2ActiveRoomStrc* pRoom, int nMonsterId);                                     // 0x0063EC70
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                   // 0x00451F80
 

@@ -11,6 +11,7 @@
 
 #include "D2ClientMenus.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 struct D2PlayerDataStrc;
 
@@ -32,7 +33,6 @@ void __fastcall DLIGHTMAP_ReleaseLight(void* pResource);                        
 
 void __cdecl TEXT_ResetTextBox();                                                                   // 0x0049F960
 
-void __stdcall TEXT_FreeTextHeader(D2TextHeaderStrc* pTextHeader);                                          // 0x006612A0
 
 int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
 

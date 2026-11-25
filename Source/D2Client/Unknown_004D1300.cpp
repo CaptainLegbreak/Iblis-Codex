@@ -20,6 +20,7 @@
 #include "D2ClientTypes.h"
 #include "D2LevelIds.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -51,9 +52,7 @@ D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams
 
 void __fastcall MISSILE_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -73,7 +72,6 @@ int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
 
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
 
-void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 
 enum
 {
@@ -204,7 +202,6 @@ inline D2MissilesTxt* MISSILE_GetMissilesTxtRecordFromUnit(D2UnitStrc* pMissile)
 
 #define LIGHT_LIMIT 60
 
-int __stdcall MISSILE_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A3B0
 
 #define SPAWN_FLAGS 0x2001
 

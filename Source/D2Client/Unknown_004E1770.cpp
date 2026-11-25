@@ -11,6 +11,7 @@
 #include "D2Txt.h"
 
 #include "D2ClientSound.h"
+#include "D2CommonApi.h"
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -24,7 +25,6 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
-int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 

@@ -15,6 +15,7 @@
 #include "D2LevelTxt.h"
 
 #include "D2Unicode.h"
+#include "D2CommonApi.h"
 
 #define UNIT_MONSTER 1
 
@@ -60,7 +61,6 @@ int __fastcall UI_SetTimerUnitId(D2UnitStrc* pUnit);                            
 
 void __fastcall sub_0046BC90_RequestAtMonster220(D2UnitStrc* pUnit);                                        // 0x0046BC90
 
-D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 
@@ -83,9 +83,7 @@ static inline int GetUnitType(D2UnitStrc* unit)
     return !unit ? 6 : unit->dwUnitType;
 }
 
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer); // 0x00627260
 
 #define NULL 0
 
