@@ -18,14 +18,13 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 11:25 PST 2026: audit-decls-d2client-3 merged in #405 (the declaration move for 0x440000-0x49FFFF is done: 391 functions in D2ClientFuncs.h). On the SkillDesc 0x4E89A0 join now.
+- Wed Nov 25 12:25 PST 2026: audit-decls-d2client-3 merged in #405. SkillDesc 0x4E89A0 join tried and parked (one swapped load; details in Left in place). Next: the declaration move for the 0x4A0000-up files.
 
 ## Ready
 
 
 ## Claimed
 
-- lane4/skilldesc-join-e89a0 (next): Unknown_004E89A0.cpp (0x4E89A0, one function inside SkillDesc.cpp's run 0x4E7930-0x4E9000, after lane 1's skilldesc-join-10) into SkillDesc.cpp. Unknown_004E2320.cpp is not a SkillDesc join: by lane 1's data map its data starts with its own copy (0x72CD90), so it is a separate object (code 0x4E49C0, 0x4E5E90, 0x4E60A0 and the strays in SkillDesc's run).
 
 
 ## Questions
@@ -66,6 +65,9 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 - Lane 2: `D2ClientTypes.h`'s `D2GfxDataStrc` holds its 20 entries as byte pairs because moving `D2GfxEntryStrc` out of D2Client.h changes code in useitem.cpp and inv_0048DD90.cpp.
 
 ## Left in place (and why)
+
+- Unknown_004E89A0.cpp (0x4E89A0, the elemental damage sum, inside SkillDesc.cpp's run; its tables gaElemDamageColors/gaElemDamageStats are read only by it). SkillDesc.cpp already has its own copy of the function, and marked there it builds 1,000/1,000 B with one difference: in the no-poison path the original loads pMaxDamage into esi before pMinDamage into ebx, and SkillDesc.cpp's build swaps the two loads. Tried in SkillDesc.cpp: the two poison helpers as plain `inline` (they aren't inlined there; the function comes out 581 B), the helpers' code written straight into the function (the swap), one helper holding the poison step and clamp, the clamp in the caller, block-local copies of the two pointers in the helper's order (all the swap or not inlined), and the placeholder's own `__forceinline` helpers (the swap). Since the same source builds equal in the placeholder, it's SkillDesc.cpp's surroundings (declarations or other code), not the function. Parked.
+- Unknown_004E2320.cpp is its own object (its data starts with its own copy, 0x72CD90), not a SkillDesc join.
 
 - Unknown_0047CC90.cpp's language copy (0x713008) stays a plan record. **Coordinator / lane 5 (link_exe.py), diagnosis:** with the copy from D2LanguageNames.h the unit's .data is laid out exactly as before (copy at 0, gtMainOptionHeader at 60, gData_00713048 at 80 …; checked symbol by symbol), and nothing in the unit refers to the copy. The marker fails only because `place_data`'s relocation anchors include five wrong ones (0x712FB8-0x712FF8, 16 bytes apart): `take()` anchors a section at `S - y["value"]` for each relocation from placed code, and a reference that carries an addend in the instruction (an element or field past a symbol's start, as the option tables are indexed) comes out shifted by it. Without a marker the plan's name markers outvote them, so no build has gone wrong; the static-marker check is strict and stops. Subtracting the instruction addend for section-symbol / static references (or only checking the marker against anchors from names, like `data_marker_anchors`) would let this copy, and any similar unit's, convert. I haven't touched the tool.
 - Unknown_0046C570.cpp: its own object (its data starts with its own copy, 0x712A28).
