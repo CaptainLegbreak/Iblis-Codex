@@ -8,6 +8,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- **lane3/scomp-huff:** Storm's Huffman coder. Its members (0x41D880-0x41DA30, 0x41EBC0-0x41F9E0) are spread over eight files, each with its own copy of HUFFNODE/CHuffman/CBitInput (Unknown_0041D880, _0041EBC0, _0041E9C0, _0041F4A0, _0041F6A0, SCOMP.CPP, SSignature.cpp, SFILE.CPP). The layout says they are header members emitted as COMDATs: 0x41D880-0x41DA30 in SSignature's object (after CrcBuffer), the rest interleaved with SCOMP.CPP's own functions up to its HuffmanCompress/HuffmanDecompress wrappers (0x41F980/0x41F9E0, beside PkwareCompress and the ADPCM wrappers). Plan: one header for the coder's types, the wrappers and members into SCOMP.CPP and SSignature.cpp by position, and the placeholders go.
+
 - **lane3/stpl-chat (PARKED, see Left in place):** D2Common's chat tables (Ignorelist.cpp 0x60DC70-0x611560: ChatIgnoreList, StringEntryNode/MappingEntryNode, TSExplicitList and TSHashTable<...,HASHKEY_STRI>) onto stplhash.h, plus CelCmp.cpp's 16 strays at 0x60E0D0-0x60E390, which are that object's. The last part of the stpl one-definition job.
 
 - **lane3/stpl-one (the coordinator's header job for lane 4):** memory report (#374), game list object (#377) and Game.cpp (lane 4's game-stplhash-2, #377) are on main. Left, in this order: Game_0044B7B0.cpp (merged #381), then D2CMP's CELLIST copies (posted, lane3/stpl-cellist), then Ignorelist.cpp's chat tables (lane 8's file).
