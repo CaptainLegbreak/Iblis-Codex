@@ -18,11 +18,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 06:20 PST 2026: audit-decls-d2client regenerated on #396 and rebased onto #397; reposted.
+- Wed Nov 25 07:25 PST 2026: audit-decls-d2client rolled back again (#398, lane 1's SkillDesc join); regenerated on #398 limited to my own files, rebased onto #399, reposted.
 
 ## Ready
 
-- lane4/audit-decls-d2client fd05da354 (on #397; regenerated on #396 after lane 1's SkillDesc join, then rebased cleanly): audit item 4 for 0x440000-0x49FFFF, per the coordinator's (a). New module header Source/D2Client/D2ClientFuncs.h declares 356 functions of my range once (those declared with one spelling in two or more D2Client files); 112 files include it after D2Client.h and lose their 1,326 private copies. Left private: a function whose definition is spelled differently (GAME_GetPing, GAME_GetInteractDeadline, VIEW_CreateView, UI_GetPentspinCel), whose linkage differs (CHAT_ResetChatHistory), that uses `Unicode` (a typedef in some files), or that a data table's extern stub declares. **Seven units don't include it** and keep their private copies (listed in the header): inv.cpp (0x488100), inv_004886C0 (0x488B00), inv_0048BC10, inv_0048DD90, useitem (0x4BFDD0), Item.cpp (0x4C4740), UnitSnd (0x4CA560); each flips from the added declarations. All 140 D2Client.h includers all equal; audit guard: no count rose. Full build: Game.exe identical, tree 5d2aecd9259fff812ed3a45db39b6aff19f8d182, borrowed code / data 11,250 / 261 B.
+- lane4/audit-decls-d2client e6efd2b1c (on #399; now limited to lane 4's own files so lane 1's joins can't collide with it): audit item 4 for 0x440000-0x49FFFF, per the coordinator's (a). New module header Source/D2Client/D2ClientFuncs.h declares 331 functions of my range once (those declared with one spelling in two or more D2Client files); the 55 files of my range that declared them include it after D2Client.h and lose their 962 private copies. Files from 0x4A0000 up are untouched and keep their copies (lane 1 can switch them over). Left private: a function whose definition is spelled differently, whose linkage differs, that uses `Unicode`, or that a data table's extern stub declares. Seven declaration-count units don't include it (listed in the header): inv.cpp, inv_004886C0, inv_0048BC10, inv_0048DD90, useitem, Item.cpp, UnitSnd. All 139 D2Client.h includers all equal; audit guard: no count rose. Full build: Game.exe identical, tree 3214eae0c0a4516dff24442caf622f5f7d4480be, borrowed code / data 11,250 / 261 B.
 
 ## Claimed
 
@@ -34,9 +34,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Notes for other lanes
 
-- **Coordinator:** `lane4/audit-decls-d2client` touches 112 D2Client files (one deleted prototype line each, plus the include), so any D2Client branch in the same round conflicts with it; it has been rolled back in #394 and #396 for that. Could you take it first in the next round and rebase the others onto it? A regenerate takes me about 20 minutes, so if it conflicts again I'll redo it on the new main.
-
-- **Lane 1 (the coordinator's answer on audit item 4):** `lane4/audit-decls-d2client` adds `Source/D2Client/D2ClientFuncs.h`, a second D2Client header for function prototypes, included after D2Client.h. Please add your range's (0x4A0000 up) shared declarations to it rather than to D2Client.h. Seven units must not include it: inv.cpp, inv_004886C0.cpp, inv_0048BC10.cpp, inv_0048DD90.cpp, useitem.cpp, Item.cpp and UnitSnd.cpp (declaration-count functions 0x488100, 0x488B00, 0x48BC10, 0x48DD90, 0x4BFDD0, 0x4C4740, 0x4CA560; useitem and Item.cpp are yours). The script I used is generic; ask here if you want it.
+- **Lane 1 (the coordinator's answer on audit item 4):** `lane4/audit-decls-d2client` adds `Source/D2Client/D2ClientFuncs.h`, a second D2Client header for function prototypes, included after D2Client.h. Please add your range's (0x4A0000 up) shared declarations to it rather than to D2Client.h, and switch your files over: my branch only touches files in 0x440000-0x49FFFF now, so your files still declare my range's functions privately too. Seven units must not include it: inv.cpp, inv_004886C0.cpp, inv_0048BC10.cpp, inv_0048DD90.cpp, useitem.cpp, Item.cpp and UnitSnd.cpp (declaration-count functions 0x488100, 0x488B00, 0x48BC10, 0x48DD90, 0x4BFDD0, 0x4C4740, 0x4CA560; useitem and Item.cpp are yours). The script I used is generic; ask here if you want it.
 
 - **Lane 1 (D2Client.h):** for audit item 4 I'm adding prototypes for functions in my range (0x440000-0x49FFFF) to D2Client.h, in one block near the end, and deleting their private copies in D2Client .cpp files (yours included where they declare them). If you're moving declarations too, take functions from 0x4A0000 up so we don't touch the same lines; tell me here if you'd rather do D2Client.h edits yourself.
 
