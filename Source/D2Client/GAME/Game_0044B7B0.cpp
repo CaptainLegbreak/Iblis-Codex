@@ -13,6 +13,7 @@
 #include "D2ClientUiRecords.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -345,23 +346,18 @@ void __cdecl CUNIT_ResetUnitTables(); // 0x00465AA0
 
 D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
-void __stdcall DUNGEON_AnimateTiles(D2ActiveRoomStrc* pRoom); // 0x0061AEF0
 
 void __cdecl sub_0046BEB0_UpdateTimers(); // 0x0046BEB0
 
 void __fastcall GFX_PreloadTick(int nValue); // 0x00470350
 
-int __stdcall ENVIRONMENT_UpdatePeriodOfDay(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom); // 0x0061BFC0
 
 void __cdecl CUNIT_UpdateObjectsForPeriod(); // 0x004646C0
 
-D2DrlgStrc* __stdcall DUNGEON_GetDrlgFromAct(D2DrlgActStrc* pAct); // 0x0061AA90
 
-void __stdcall DRLGACTIVATE_Update(D2DrlgStrc* pDrlg); // 0x0061B920
 
 void __cdecl AUTOMAP_UpdateAutomapReveal(); // 0x00459020
 
-void __stdcall DUNGEON_UpdateAndFreeInactiveRooms(D2DrlgActStrc* pAct); // 0x0061AA20
 
 extern unsigned long gdwTickCount_007A048C; // 0x007A048C
 

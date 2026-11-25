@@ -11,6 +11,7 @@
 #include "D2GameAux.h"
 #include "D2LanguageNames.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi.h"
 // build: symbol _gaszLanguageNames 0x00741C0C
 
 union D2SeedStrc;
@@ -26,7 +27,6 @@ struct D2DataTablesStrc;
 
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 
-int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem); // 0x00629930
 
 
 
@@ -122,9 +122,7 @@ int __fastcall UNITS_GetWeaponClass(D2UnitStrc*); // 0x00623C60
 
 int __stdcall SKILLS_GetParam1(D2SkillStrc*); // 0x006444A0
 
-int __stdcall SKILLS_GetParam2(D2SkillStrc*); // 0x006444D0
 
-int __stdcall SKILLS_GetParam3(D2SkillStrc*); // 0x00644500
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*, int, int); // 0x00552F60
 

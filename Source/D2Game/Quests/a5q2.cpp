@@ -9,6 +9,7 @@
 #include "D2Packets.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi.h"
 
 #define QFLAG_REWARDGRANTED 0
 
@@ -91,7 +92,6 @@ D2UnitStrc* __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, vo
 
 void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C3A0
 
-void __stdcall QUESTRECORD_ResetIntermediateStateFlags(D2BitBufferStrc* pQuestFlags, int nQuestId); // 0x0065C3E0
 
 int __fastcall ACT5Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005879D0
 

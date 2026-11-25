@@ -8,6 +8,7 @@
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);
@@ -68,8 +69,6 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);
 int __stdcall SKILLS_GetBonusSkillLevelFromSkillId(D2UnitStrc* pUnit, int nSkillId);
-int __stdcall SKILLS_GetClassSkillId(int nClassId, int nPosition);
-int __stdcall SKILLS_GetPlayerSkillCount(int nClassId);
 
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 

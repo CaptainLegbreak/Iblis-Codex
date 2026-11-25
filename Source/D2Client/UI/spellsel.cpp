@@ -15,6 +15,7 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "D2CommonApi.h"
 
 struct D2SkillStrc;
 
@@ -91,7 +92,6 @@ int __cdecl sub_00468740(); // 0x00468740
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 
-int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill); // 0x00643AD0
 
 
 extern int gbSkillSelectRight; // 0x007C07FC
@@ -192,7 +192,6 @@ void __cdecl SPELLSEL_FreeSkillIcons()
 
 void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
-int __stdcall SKILLS_GetClassIdFromSkillId(int nSkillId); // 0x00645040
 
 // 0x004A8C80
 void* __fastcall SPELLSEL_GetSkillIconCel(D2SkillsTxt* pSkillsTxt)
@@ -497,9 +496,7 @@ void __fastcall SPELLSEL_AssignHotkey(int nHotkey)
 }
 
 
-void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643BC0
 
-void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643C50
 
 int gnSelectedHotkey; // 0x007C0708
 

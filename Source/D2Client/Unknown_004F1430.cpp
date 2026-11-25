@@ -10,6 +10,7 @@
 #include "D2ItemsWorld.h"
 #include "D2GameRecords.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -65,7 +66,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 extern int gaMissileRing2X[]; // 0x006DC228
 extern int gaMissileRing2Y[]; // 0x006DC328
 void __fastcall SKILLDESC_InitCurvingMissilePath(D2UnitStrc* pMissile, int nArg); // 0x004F2BE0
-unsigned int __fastcall SEED_GetLowSeed(D2SeedStrc* pSeed); // 0x00650E50
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {

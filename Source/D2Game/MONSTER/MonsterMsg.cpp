@@ -5,6 +5,7 @@
 #include "D2LanguageNames.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi.h"
 // build: symbol _gaszLanguageNames 0x00738CC8
 
 #define D2_ASSERT(expr,line) if(!(expr)) {FOG_DisplayHalt(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
@@ -21,7 +22,6 @@ struct D2MonsterModeInfo { int bTarget,bTargetCoords,bSimple,bIncludeCoords,nCoo
 extern D2MonsterModeInfo gMonsterModeInfo[]; // 0x006E1D90
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-int __stdcall PATH_GetType(D2DynamicPathStrc*); // 0x00648E30
 int __stdcall PATH_GetLastPointX(D2DynamicPathStrc*); // 0x00648A40
 int __stdcall PATH_GetLastPointY(D2DynamicPathStrc*); // 0x00648A60
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc*); // 0x006487F0

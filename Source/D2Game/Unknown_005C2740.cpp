@@ -5,11 +5,10 @@
 #include "D2Records.h"
 #include "D2SetsTxt.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi.h"
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90
-unsigned int __fastcall SEED_GetLowSeed(D2SeedStrc*); // 0x00650E50
 void __fastcall SEED_InitLowSeed(D2SeedStrc*, unsigned int); // 0x00650E40
-unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc*); // 0x0062A670
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, unsigned short); // 0x00625480
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*, int, unsigned short); // 0x006253B0
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, unsigned short); // 0x00627260

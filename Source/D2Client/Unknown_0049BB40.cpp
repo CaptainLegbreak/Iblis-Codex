@@ -8,6 +8,7 @@
 #include "D2WinSplitText.h"
 #include "D2WaypointActRange.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi.h"
 
 struct D2PartyRowStrc;
 struct D2PacketRecord21Strc;
@@ -235,9 +236,7 @@ extern void* gpWaypointActTabsCel; // 0x007BF075
 
 extern void* gpWaypointIconCel; // 0x007BF079
 
-D2WaypointDataStrc* __stdcall WAYPOINTS_AllocWaypointData(void* pMemPool); // 0x00660F30
 
-void __stdcall WAYPOINTS_FreeWaypointData(void* pMemPool, D2WaypointDataStrc* pData); // 0x00660FD0
 
 extern "C" void __cdecl TEXT_FreeWaypointCels(); // 0x0049C650
 
@@ -352,11 +351,8 @@ struct Unicode;
 struct D2WaypointActRangeStrc;
 
 
-int __stdcall WAYPOINTS_GetLevelIdFromWaypointNo(unsigned short wWaypointNo, int* pLevelId); // 0x00660D90
 
-int __stdcall WAYPOINTS_GetWaypointNoFromLevelId(int nLevelId, unsigned short* pWaypointNo); // 0x00660E00
 
-int __stdcall WAYPOINTS_IsActivated(D2WaypointDataStrc* pData, unsigned short wField); // 0x00660E50
 
 extern D2WaypointActRangeStrc gaWaypointActRanges[]; // 0x007224AC
 

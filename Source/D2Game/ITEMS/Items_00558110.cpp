@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi.h"
 
 struct D2UnitStrc;
 
@@ -34,7 +35,6 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, in
 
 
 
-D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesWithField(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, D2CoordStrc* pFieldCoord, int nUnitSize, unsigned int nMask, unsigned int nFieldMask, int bAllowNeighborRooms); // 0x0064E810
 
 #define UNIT_PLAYER 0
 

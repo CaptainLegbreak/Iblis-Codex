@@ -8,6 +8,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2LangApi.h"
+#include "D2CommonApi.h"
 #include "gen/data/Source/D2Client/Unknown_0044BA20.inc"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -192,13 +193,11 @@ void __stdcall sub_00449E50_SetValue(int nValue);                               
 
 void __stdcall MCPCONNECT_SetPacket(const char* pData, int nSize);                                     // 0x00449E70
 
-void __cdecl sub_006115F0_Empty();                                                                          // 0x006115F0
 
 void __cdecl sub_0052BDA0_Empty();                                                                          // 0x0052BDA0
 
 void __cdecl sub_0052BDB0_Empty();                                                                          // 0x0052BDB0
 
-void __cdecl PROFCORE_CloseLog();                                                                                // 0x00611600
 
 int __stdcall WINMAIN_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord);                   // 0x0044B8A0
 

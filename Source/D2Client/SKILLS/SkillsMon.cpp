@@ -17,6 +17,7 @@
 #include "D2LevelTxt.h"
 #include "D2WinSplitText.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi.h"
 
 struct D2UnitStrc;
 
@@ -116,7 +117,6 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListSt
 
 
 
-int __stdcall sub_00641530(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);                                       // 0x00641530
 
 
 

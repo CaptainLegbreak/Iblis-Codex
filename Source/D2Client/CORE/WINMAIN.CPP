@@ -6,6 +6,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2LangApi.h"
+#include "D2CommonApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -1602,13 +1603,11 @@ void __stdcall sub_00449E50_SetValue(int nValue);                               
 
 void __stdcall MCPCONNECT_SetPacket(const char* pData, int nSize);                                     // 0x00449E70
 
-void __cdecl sub_006115F0_Empty();                                                                          // 0x006115F0
 
 void __cdecl sub_0052BDA0_Empty();                                                                          // 0x0052BDA0
 
 void __cdecl sub_0052BDB0_Empty();                                                                          // 0x0052BDB0
 
-void __cdecl PROFCORE_CloseLog();                                                                                // 0x00611600
 
 int __stdcall WINMAIN_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord);                   // 0x0044B8A0
 
@@ -1971,11 +1970,9 @@ void* __stdcall sub_004FAC80(int nArg); // 0x004FAC80
 
 void __stdcall DATATBLS_LoadAllTxts(void* pArg, int bArg); // 0x00619300
 
-void __stdcall DATATBLS_UnloadAllBins(); // 0x00619140
 
 void __cdecl GAME_FreeLngModule(); // 0x00451290
 
-void __cdecl PROFCORE_WriteProfileCounters(); // 0x006116B0
 
 extern "C" int __cdecl GAME_ShutdownIfActive(); // 0x0044BB80
 

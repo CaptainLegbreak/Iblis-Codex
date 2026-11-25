@@ -24,6 +24,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2LangApi.h"
+#include "D2CommonApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -248,7 +249,6 @@ void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 
 void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
-void __stdcall TEXT_FreeTextHeader(D2TextHeaderStrc* pTextHeader); // 0x006612A0
 
 int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
 

@@ -18,6 +18,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 #include "D2GameObjs.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi.h"
 
 #define QUEST_A5Q5_ANCIENTS 35
 
@@ -137,9 +138,7 @@ void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); 
 
 void __fastcall PLAYERSTATS_LevelUp(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00570880
 
-unsigned int __stdcall DATATBLS_GetLevelThreshold(int nClass, unsigned int dwLevel); // 0x00611800
 
-int __stdcall DATATBLS_GetMaxLevel(int nClass); // 0x00611830
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 

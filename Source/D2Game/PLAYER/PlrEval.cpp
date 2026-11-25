@@ -13,6 +13,7 @@
 #include "D2LevelTxt.h"
 #include "D2Packets.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi.h"
 #define MONTYPEFLAG_UNIQUE 8
 #define EVENTTYPE_REMOVESTATE 0x0C
 
@@ -54,8 +55,6 @@ struct D2ServerCallbacks { char unk_00[44]; LevelCallback levelUp; };
 extern D2ServerCallbacks* gpServerCallbacks; // 0x00883D50
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*, int, int); // 0x006253B0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
-unsigned int __stdcall DATATBLS_GetCurrentLevelFromExp(int nClass, unsigned int dwExperience); // 0x00611860
-unsigned int __stdcall DATATBLS_GetLevelThreshold(int nClass, unsigned int dwLevel); // 0x00611800
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, int); // 0x00627260
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc*); // 0x00625D60
 int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc*); // 0x00625DB0
@@ -78,8 +77,6 @@ void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBit
 int __stdcall BITMANIP_GetSize(D2BitBufferStrc*); // 0x00410E90
 void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); // 0x00410EB0
 int __stdcall sub_004111A0_GetLowestSetBit(unsigned int); // 0x004111A0
-unsigned int* __stdcall D2COMMON_10494_STATES_GetStatFlags(D2UnitStrc*); // 0x0063A100
-int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc*, D2StatStrc*, int); // 0x00625C90
 void __fastcall SCMD_SendRawPacket(D2ClientStrc*, const void*, int); // 0x0053E8D0
 
 #define STAT_ENERGY 1

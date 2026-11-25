@@ -20,6 +20,7 @@
 #include "D2QuestLookupEntry.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -556,7 +557,6 @@ unsigned int gdwLevelEventBits;                                                 
 
 
 
-D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
 
 static inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {

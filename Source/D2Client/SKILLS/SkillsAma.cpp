@@ -19,6 +19,7 @@
 #include "D2LevelTxt.h"
 #include "D2TxtItems.h"
 #include "D2CommonApi.h"
+#include "D2CommonApi.h"
 struct D2UnitStrc;
 
 
@@ -35,7 +36,6 @@ void __fastcall SKILLS_ScaleFramePrecise(D2UnitStrc* pUnit, int nPercent);      
 int __fastcall SKILLS_GetExtendedMeleeRange(D2UnitStrc* pUnit);                                          // 0x004C7BD0
 int __fastcall UNITSND_GetDirectionRate(D2UnitStrc* pUnit, unsigned int nDirection); // 0x004CA4C0
 int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId);                                                   // 0x004EFC20
-int __fastcall UNITS_GetHitClass(D2UnitStrc* pUnit);                                                        // 0x00623C20
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue);                                           // 0x006445E0
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int bSetBothDirections);                            // 0x00649EF0
 
@@ -81,7 +81,6 @@ void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, i
 
 int __fastcall SKILLDESC_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
 
-D2MonSoundsTxt* __stdcall DATATBLS_GetMonSoundsTxtRecordFromSoundId(int nSoundId); // 0x00656F90
 
 // 0x004F4C20
 int __fastcall SKILLSAMA_CltDoRepeatAttack(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)

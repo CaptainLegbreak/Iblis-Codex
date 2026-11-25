@@ -120,9 +120,7 @@ void __stdcall PATH_SetMoveTestCollisionMask(D2DynamicPathStrc* pPath, int nMask
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit); // 0x00649180
 
 
-void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nPattern, int nMask); // 0x0064EA90
 
-int __stdcall SKILLS_GetParam4(D2SkillStrc* pSkill); // 0x00644530
 
 D2UnitStrc* __fastcall PLAYER_GetWeaponForSkill(D2UnitStrc* pUnit); // 0x00535BC0
 
@@ -137,7 +135,6 @@ void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Uni
 
 unsigned short __fastcall SUNITDMG_GetResultFlags(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nStatValue, int nRangeOffset); // 0x0057EC10
 
-void __stdcall UNITS_SetAnimationFrame(D2UnitStrc* pUnit, int nFrame); // 0x006212C0
 
 
 void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList); // 0x00626CD0
@@ -145,9 +142,7 @@ void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList); // 0x00626CD0
 
 int __stdcall SKILLS_GetParam1(D2SkillStrc* pSkill); // 0x006444A0
 
-int __stdcall SKILLS_GetParam2(D2SkillStrc* pSkill); // 0x006444D0
 
-int __stdcall SKILLS_GetParam3(D2SkillStrc* pSkill); // 0x00644500
 
 
 int __stdcall SKILLS_GetToHitFactor(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x006449F0
@@ -260,7 +255,6 @@ struct D2ActiveRoomStrc;
 
 struct D2SkillStrc;
 
-int __stdcall SKILLS_CheckIfCanLeapTo(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int* pX, int* pY); // 0x00645CA0
 
 void __fastcall SKILLS_StunMonster(D2GameStrc* pGame, D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nDelay); // 0x00570420
 
@@ -277,6 +271,7 @@ static int __stdcall SKILLS_ApplyLeapAttackDamage(D2GameStrc* pGame, int nSkillI
 int __fastcall SKILLS_SrvDo078_LeapAttack(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
 #include "D2Constants.h"
+#include "D2CommonApi.h"
 #include "D2CommonApi.h"
 
 enum D2C_U04BashConstants

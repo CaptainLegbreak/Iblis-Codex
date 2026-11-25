@@ -27,6 +27,7 @@
 #include "StormApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "D2CommonApi.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -170,7 +171,6 @@ Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x0
 
 char* __stdcall UNITS_GetPlayerName(D2UnitStrc* pUnit); // 0x00622150
 
-void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText); // 0x006611A0
 
 extern int gnGameFrame; // 0x007BF20E
 
@@ -205,7 +205,6 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 D2TextBoxStrc* __stdcall CHAT_GetUsedFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x00661200
 
-void __stdcall CHAT_SetUsedInHoverMsg(D2HoverTextStrc* pHoverMsg, int bUsed); // 0x00661210
 
 void __stdcall TEXT_FreeTextHeader(int nHandle); // 0x006612A0
 
@@ -566,11 +565,8 @@ void __fastcall TEXT_DrawTextList(D2TextBoxStrc* pTextBox, int nX, int nY); // 0
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
-void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 
-unsigned int __stdcall CHAT_GetTimeoutFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x006611D0
 
-unsigned char __stdcall CHAT_GetLangIdFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x00661220
 
 extern "C" const char gszTextSourceFile[]; // 0x006DA13C
 
@@ -821,7 +817,6 @@ int __cdecl SELECT_GetHoverClassId(); // 0x00466DD0
 
 void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int dwColor, int eDrawMode, int nColor); // 0x005023B0
 
-int __stdcall UNITS_GetBlockRate(D2UnitStrc* pUnit, int nArg); // 0x00622720
 
 
 
@@ -974,7 +969,6 @@ void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, uns
 
 int __stdcall CelGetHeight(D2CelStrc* pCel); // 0x006018F0
 
-D2BitBufferStrc* __stdcall QUESTRECORD_AllocRecord(void* pMemPool); // 0x0065C430
 
 extern D2MsgHandlerEntryStrc gaDialogWheelHandlers[]; // 0x007273E4
 
@@ -1026,10 +1020,8 @@ static int gbDialogHandlersRegistered; // 0x007C0E58
 
 static int gnDialogCount; // 0x007C0E5C
 
-D2WaypointDataStrc* __stdcall WAYPOINTS_AllocWaypointData(void* pMemPool); // 0x00660F30
 
 
-void __stdcall WAYPOINTS_FreeWaypointData(void* pMemPool, D2WaypointDataStrc* pData); // 0x00660FD0
 
 extern "C" void __cdecl TEXT_FreeWaypointCels(); // 0x0049C650
 
@@ -1229,11 +1221,9 @@ struct D2HoverTextPacketStrc
 
 void __fastcall TEXT_ShowTextBox(unsigned short nStringId); // 0x004A1510
 
-D2TextHeaderStrc* __stdcall TEXT_AllocTextHeader(void* pMemPool); // 0x00661240
 
 void __stdcall TEXT_CreateTextHeaderFromMessageList(D2TextHeaderStrc* pTextHeader, D2MessageListStrc* pMessageList); // 0x00661510
 
-void __stdcall TEXT_SortTextNodeListByStringId(D2TextHeaderStrc* pTextHeader); // 0x006616E0
 
 
 int __stdcall INV_GetTableByte(int nUnused, int nIndex); // 0x004B92E0

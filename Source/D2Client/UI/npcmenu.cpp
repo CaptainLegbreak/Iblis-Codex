@@ -18,6 +18,7 @@
 #include "FogApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "D2CommonApi.h"
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 #include <D2UnitData.h>
@@ -101,7 +102,6 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLay
 
 void __stdcall D2COMMON_10251_Return(D2InventoryStrc* pInventory); // 0x0063BD00
 
-void __stdcall INVENTORY_RemoveInventoryItems(D2InventoryStrc* pInventory); // 0x0063CB70
 
 
 
@@ -206,7 +206,6 @@ extern D2ClientObjectStrc* gpObject_007C0D83; // 0x007C0D83
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
-void __stdcall QUESTRECORD_FreeRecord(void* pMemPool, D2BitBufferStrc* pQuestRecord); // 0x0065C490
 
 extern D2NpcQuestHandlerStrc gaNpcHandlers[]; // 0x007253E0
 
@@ -237,7 +236,6 @@ extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft,
 
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 
-void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, long* pLeft, long* pTop, long* pRight, long* pBottom); // 0x00476070
 
@@ -859,10 +857,8 @@ int __cdecl NPCMENU_NpcMenuCancel(); // 0x004B45D0
 int __cdecl NPCMENU_NpcMenuCancelB(); // 0x004B4620
 
 
-unsigned int __stdcall UNITS_GetHealingCost(D2UnitStrc* pUnit); // 0x00622DE0
 
 
-int __stdcall ITEMS_GetNoOfUnidItems(D2UnitStrc*); // 0x0062A530
 
 extern D2NpcChoiceStrc gaNpcChoices[];                                                             // 0x00725CB0
 
@@ -925,7 +921,6 @@ extern int (__cdecl* gpfnGlobal_00726C62)();                                    
 
 extern short gwGlobal_00726C54;                                                                             // 0x00726C54
 
-D2BitBufferStrc* __stdcall QUESTRECORD_AllocRecord(void* pMemPool); // 0x0065C430
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
