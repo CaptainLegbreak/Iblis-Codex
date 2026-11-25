@@ -2497,24 +2497,6 @@ int __fastcall sub_0051E340_BuildCDKeyInfoForSlot(D2CDKeyInfoStrc* pInfo, unsign
     return BNSEND_BuildCDKeyInfo(pInfo, sub_00523AB0_GetCDKey(nSlot), dwClientToken, BNCLIENT_GetServerToken());
 }
 
-// 0x0051F2D0
-int __fastcall BNSEND_GetPatchResult(int* pResult)
-{
-    int nState;
-    BNDOWNLOAD_ApplyPatches(&nState);
-    switch (nState)
-    {
-    case 0:
-        return 1;
-    case 1:
-        return 1;
-    case 2:
-        *pResult = 1;
-        break;
-    }
-    return 0;
-}
-
 // 0x005204D0
 int __fastcall BNSEND_SetErrorText(int nError, const char* szText)
 {

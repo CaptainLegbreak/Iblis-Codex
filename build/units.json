@@ -37640,6 +37640,11 @@
      "length": 1476
     },
     {
+     "va": "0x0051F2D0",
+     "length": 56,
+     "name": "BNSEND_GetPatchResult"
+    },
+    {
      "va": "0x0051F310",
      "length": 1524
     },
@@ -38568,11 +38573,6 @@
      "va": "0x0051E340",
      "length": 40,
      "name": "?sub_0051E340_BuildCDKeyInfoForSlot@@YIHPAUD2CDKeyInfoStrc@@IH@Z"
-    },
-    {
-     "va": "0x0051F2D0",
-     "length": 56,
-     "name": "BNSEND_GetPatchResult"
     },
     {
      "va": "0x005204D0",
