@@ -2,18 +2,25 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 18:54:27 PST 2026): #377 took four dead-records branches and shim-trim-d2cmp-2. Shipping dead-records-d2client and net-packet-buffer on #377; drlg-outdoor-2 next, then the next record groups (D2MonStatsInitStrc, D2PlayerCountBonusStrc, D2ItemDataTbl, the quest info pair).
+Status (Tue Nov 24 21:55 PST 2026): new lane 2 chat. Set up and baseline-built on #378 (identical). Rebased my open branches onto #380; full builds running now, Ready lines follow as each verifies. drlg-outdoor and bn-crypt-records are lane 10's `-r` branches (as the coordinator says), so I'm not redoing them.
+
+## Claimed
+
+- Private records shared across units (item 23 below): one branch per header; posted here before each push.
 
 ## Ready
 
-- **Dead-copy sweep** (deletions only; each unit tried alone and kept only if it stays all equal, no header changes). Each one is fully verified on #373; shipcheck then rebased it onto #375 cleanly and the prechecks are equal:
-  - `lane2/dead-records-lane6` c309200ed (VERIFIED 0fd41aa5, on #375; shipcheck rebased it onto #377 cleanly): 17 units in D2CMP, D2Win, D2Launch, D2Multi, D2Sound, D2MCPClient, D2BNClient and Bnclient (lane 6).
-  - Coming on #377: `dead-records-d2client` (redone; D2Client moves fast, so it ships as soon as its verify passes), `net-packet-buffer` (now also takes Server.cpp's copy, which #377's net-server brought in), `drlg-outdoor-2` (your rebase request; redone on #377).
-- `lane2/bn-crypt-records`: please drop it from your rebase list. `net-packet-buffer` replaces it (see the sweep above).
-- `lane2/shim-trim-d2multi-2` 11118b176, `-d2bnclient-2` 4f435b04c: the two shim-trim branches still open (d2common-2 in #373, d2game-2 in #374, d2cmp-2 in #377), rebased onto #372 under new names (the old names stay as they are; take the -2 ones). Rebases were clean, namesync had nothing to rename, and each precheck is equal; the full verifies were on #367 (d2common 3f512627, d2game 1810d3f1, d2cmp 0d4d9873, d2multi ee91fde0, d2bnclient 9b34cdac). Deletions only: 4 stale markers and 16 shims nothing calls. D2Multi 2 shims (ChatDlg, ComCallback) + ChatDlg_004423B0's marker; D2BNClient grid's shim + BnDownload.cpp:334's marker. Touches lane 6. What stays, and the joins, are under Notes.
+- `lane2/net-packet-buffer`: WITHDRAWN, never posted. It duplicates lane 10's `bn-crypt-records-r`; don't merge it. (The proxy here won't let me delete the remote branch.)
+- `lane2/shim-trim-d2bnclient-3`: superseded by `-4` (same commit on #380), coming once its full build passes.
+
 ## Working on
 
-23. **Private records again** (the user's decision, answering my question). #367 has 2,536 struct/union definitions private to a .cpp, with 556 names defined in two or more files. Per name: where the copies agree, the record moves to the header that owns its area and each file includes it. Where they differ, the views stay private unless one is clearly a fuller version and every includer still builds equal. Storm template records (BigBuffer, BigStack, the TSList/array families) wait for lane 3's agreement (see Notes). Then the 717 `unk0x..` fields in shared headers, named only from evidence. The shim and context trims get re-run on each new main.
+24. **Audit (audit-379-lanes.md, lane 2's rows):** the decompiler parameter names (`a1`..`a10`, `v12`) in D2GameServer.h, D2DrlgOutdoor.h, D2Packets.h and D2GfxTypes.h; the 18 `f_<hex>` fields in Source/Include; then the 770 `unk0x` fields, from lane 10's field plans or the code's own evidence; then the shared headers' part of the declaration move (functions several modules call).
+23. **Private records again** (the user's decision). Rescan on #378: 2,052 struct/union definitions in .cpp files, 360 names defined in two or more files, 200 of them agreeing in every copy. What's left after the earlier rounds is mostly:
+    - Storm list ctor/dtor wrappers (`sub_00417780` and about 70 more in Game.cpp and CelCmp.cpp) and the `D2Storm*Strc` views: lane 3's stpl.h one-definition job, so I'm leaving them.
+    - Padded partial views in inv.cpp / Unknown_00482C70.cpp and text / Unknown_004A43E0 / Unknown_004A6460 (`ColorView`, `PacketWords`, `Handler`, `Member` ...): context-copy leftovers, not records to share.
+    - Real records, taken one per branch: D2PlayerCountBonusStrc (D2GameTypes.h) and D2ItemDataTbl (new D2ItemDataTbl.h) are in full builds now. Next: D2MonStatsInitStrc (4 full copies + D2Client.h's; needs a shared home that D2Client.h can use), D2CmdArgStrc/D2CmdParamsStrc (D2Client + D2MCPClient), D2CharSaveHeaderStrc (D2Client + D2Launch), D2LaunchPayloadStrc (D2Launch + D2Multi).
+
 22. **The shim trim** (coordinator's Answers). Round 1 is under Ready. Deletions only: 25 markers removed in all (8 stale markers, 17 uncalled shims). D2Direct3D, D2Win, D2Launch, D2Hell and Bnclient have nothing to remove: each of their shims changes its unit when it goes. Fog's 7 markers are lane 3's, so I am only listing them (see Notes). D2Glide's is under Ready. What's left in lane 2's range is shims whose units change without them, plus the joins and lane 3's Fog markers listed under Notes.
 Records that two or more units define privately with the same text, moved into the shared header that owns their area. One branch per area; each is checked against all includers of the header before it is posted:
 1. (done: fog-records-c)
