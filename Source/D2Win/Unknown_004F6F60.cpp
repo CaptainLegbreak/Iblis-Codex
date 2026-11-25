@@ -133,23 +133,23 @@ int gnYBufferPitch; // 0x007D557C
 int gnViewMatrixAdjust; // 0x007C8CC4
 
 // 0x004F8DE0
-void __fastcall sub_004F8DE0(unsigned char* a1, int a2, int a3, int a4)
+void __fastcall sub_004F8DE0(unsigned char* pBuffer, int nWidth, int nHeight, int nArg4)
 {
-    gpScreenBuffer = a1;
-    gnScreenPitch = a2;
-    gnYBufferArg3 = a3;
-    gnYBufferArg4 = a4;
+    gpScreenBuffer = pBuffer;
+    gnScreenPitch = nWidth;
+    gnYBufferArg3 = nHeight;
+    gnYBufferArg4 = nArg4;
 
-    if (a2 != gnYBufferPitch)
+    if (nWidth != gnYBufferPitch)
     {
-        gnScreenPitch = a2;
-        gnYBufferPitch = a2;
+        gnScreenPitch = nWidth;
+        gnYBufferPitch = nWidth;
         CMNSUBTILE_BuildLineOffsets();
     }
 
     if (gnViewMatrixAdjust != gnViewMatrixAdjustDefault)
     {
-        WINDOW_SetPanelCoords(a2, a3);
+        WINDOW_SetPanelCoords(nWidth, nHeight);
     }
 }
 
