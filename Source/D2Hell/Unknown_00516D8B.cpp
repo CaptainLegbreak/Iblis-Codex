@@ -888,6 +888,17 @@ struct D2ListStrc {
     TSLink tTerminator;
     void __thiscall sub_005175F1_UnlinkEntry(int offset); // 0x005175F1
     void __thiscall sub_0051763C_UnlinkAll();
+    D2ListStrc()
+    {
+        nLinkOffset = 0;
+        tTerminator.m_prevlink = &tTerminator;
+        tTerminator.m_next = (void*)~(unsigned int)&tTerminator;
+    }
+    ~D2ListStrc()
+    {
+        sub_0051763C_UnlinkAll();
+        tTerminator.Unlink();
+    }
 };
 // 0x0051763C
 void __thiscall D2ListStrc::sub_0051763C_UnlinkAll()
@@ -1108,26 +1119,10 @@ void __fastcall sub_005179A4_FreeVirtualMemory(void* address)
 
 
 
-extern D2ListStrc gFaultHandlerList; // 0x0072FA14
-void __cdecl sub_006CB401_StaticFini_gFaultHandlerList(); // 0x006CB401
-extern "C" int __cdecl atexit(void (__cdecl* pfnExit)()); // 0x00683824
-
-// 0x006CAE5F
-void __cdecl sub_006CAE5F_StaticInit_gFaultHandlerList()
-{
-    gFaultHandlerList.tTerminator.m_next = (void*)~(unsigned int)&gFaultHandlerList.tTerminator;
-    atexit(sub_006CB401_StaticFini_gFaultHandlerList);
-}
-
-
-
-extern D2ListStrc gFaultHandlerList; // 0x0072FA14
-
-// 0x006CB401
-void __cdecl sub_006CB401_StaticFini_gFaultHandlerList()
-{
-    gFaultHandlerList.sub_0051763C_UnlinkAll();
-    gFaultHandlerList.tTerminator.Unlink();
-}
+// The fault-handler list: its constructor's constant stores are static data, the
+// terminator mark is set by the initializer 0x006CAE5F, and 0x006CB401 is its atexit destructor.
+// build: symbol ??__EgFaultHandlerList@@YAXXZ 0x006CAE5F
+// build: symbol ??__FgFaultHandlerList@@YAXXZ 0x006CB401
+D2ListStrc gFaultHandlerList; // 0x0072FA14
 
 #include "gen/data/Source/D2Hell/Unknown_00516D8B.inc"
