@@ -2,11 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 2026, 15:05 PT): the `volatile` reads are out of 0x0050CA00 and 0x006B83A0 (Ready below). Still on the forcing constructs in my files and lane 9's: 0x4F82D0, 0x4FBF30, 0x518300 and 0x522C30 have readings (see Claimed), not closed yet; 0x502550 not started.
+Status (Wed Nov 25 2026, 15:35 PT): 0x0050CA00 and 0x006B83A0 merged without `volatile` (#412). Still on the forcing constructs in my files and lane 9's: 0x4F82D0, 0x4FBF30, 0x518300 and 0x522C30 have readings (see Claimed), not closed yet; 0x502550 not started.
 
 ## Ready
 
-- `lane6/forcing-50ca00` @ 047547996 (on #410): 0x0050CA00 (D2Glide/Unknown_0050BD30.cpp) and 0x006B83A0 (D2Direct3D/Unknown_006B7530.cpp) without the `volatile` read; the tile origin variables are the ones that step along each vertex row. Both equal; full build identical, 14,922 / 14,922 placed, borrowed code 8,373 B in 5 functions, borrowed data 261 B; auditguard: no count rose. Forcing-construct functions 44 -> 42.
+(nothing outstanding; forcing-50ca00 merged in #412)
 
 
 
