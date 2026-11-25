@@ -3927,33 +3927,6 @@ int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY)
 
 
 
-// 0x004DCD40
-void __fastcall ITEM_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG)
-{
-    if (gnCurrentSongId)
-    {
-        D2SoundsTxt* pSoundTxt = SOUNDHDR_GetSoundRecord(gnCurrentSongId);
-        void* pEntry = sub_004B9610(gnCurrentSongId);
-        if (pEntry && sub_004B9590(pEntry))
-        {
-            const int nValue = nIndex > 0 ? pSoundTxt->nBlock[nIndex - 1] : 0;
-            const int nOffset = 4 * (gnCurrentSongId - sub_004817F0());
-            *(int*)(sub_00481810() + nOffset) = nValue;
-            gdwSongPositionTick = DLIGHTMAP_GetSoundTick();
-        }
-    }
-
-    sub_004BA8F0();
-    gtTimedHint.bActive = 1;
-    gtTimedHint.pOwner = pOwner;
-    gtTimedHint.nEndTickA = sub_0044DB00() + nDelayA;
-    gtTimedHint.bActive2 = 1;
-    gtTimedHint.nArgE = nArgE;
-    gtTimedHint.nEndTickF = sub_0044DB00() + nDelayF;
-    gtTimedHint.nArgG = nArgG;
-    gtTimedHint.nEndTickC = sub_0044DB00() + nDelayC;
-}
-
 
 
 // 0x004DF630
