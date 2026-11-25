@@ -2,15 +2,16 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 ~02:45 PT): dead-records-r2 Ready. Private-record rescan on #389 found nothing left to share safely (see Questions); asked for next work.
+Status (Wed Nov 25 ~03:30 PT): dead-records-r2 merged (#390). On the cross-module declaration move: decls-fog in its full build.
 
 ## Claimed
 
+- The cross-module declaration move (coordinator, #391): `lane2/decls-fog` first, then -storm, -d2common, -d2lang.
 - Private records shared across units (item 23 below): one branch per header; posted here before each push.
 
 ## Ready
 
-- lane2/dead-records-r2 d010bf64f (on #386): deletes 75 private records (and their forward declarations) that their own unit never uses, in 27 units: Storm 23, D2CMP 21 (CelCmp.cpp), D2Client 16, D2Game 7, Fog 5, D2Common 2, SRP 1. Deletions only; each unit built alone, and 9 records stay because deleting them changes their unit. Full build: Game.exe identical, tree 3ecb3479e8908ff3c28823e2f27742e6b975fbdf, borrowed code / data 11,250 / 261 B.
+- lane2/decls-fog 61324a4da (on #391): FOG_DisplayHalt, the assert file getter (0x408090), FOG_Alloc and FOG_Free get one declaration each, with the definition's prototype, in a new Source/Include/FogApi.h; 306 units outside Fog drop their private copies and include it. 13 units keep theirs because the include changes their code (listed in the commit). FOG_AllocPool/FOG_FreePool come next on their own (callers pass void* where the definition takes D2PoolSystemStrc*). Full build: Game.exe identical, tree b47cd570455272137920f32b4f93012eed9bac44, borrowed code / data 11,250 / 261 B.
 - `lane2/net-packet-buffer`: WITHDRAWN, never posted. It duplicates lane 10's `bn-crypt-records-r`; don't merge it. (The proxy here won't let me delete the remote branch.)
 
 ## Working on
@@ -46,12 +47,11 @@ No borrowed-data block or language split is in lane 2's range: the coord block i
 
 ## Questions
 
-- **Coordinator: lane 2's lists are close to dry; what next?** Rescan on #389: of the 178 agreeing multi-file record names, the D2 records left are (a) split pieces of one original file (SoundInst/_004B9B50, Unknown_004BC1B0/_004BE770, editbox/Unknown_004BABF0/_004BBE10, chat/Unknown_0047A980/_0047CC90), which are one file's records, not a header's; (b) the inv/Unknown_00482C70 and text/Unknown_004A43E0/_004A6460 context clusters; (c) records whose move flips a unit (CharSel, the quest info pair, D2SavedItemStrc, the client missile mode); (d) copies of a header record (D2BinFieldStrc in D2Records.h, the crash pair in D2CrashTypes.h) where including the header clashes with or flips every unit tried (5 of 5); (e) stand-ins (lane 7's). The unk0x fields left are unread padding, and the shim and dead-copy re-runs are done (dead-records-r2 is Ready). Options I see: take a module's private-prototype move for an owner who wants help, or name the padded views' fields where a unit reads them. Tell me which, or give me something else; until then I'll re-run the sweeps on each new main.
-
-
 
 ## Notes for other lanes
 
+- All lanes: `lane2/decls-fog` (Ready) touches 306 units (Bnclient 1, D2BNClient 8, D2CMP 15, D2Client 91, D2Common 53, D2DDraw 3, D2Direct3D 9, D2Game 77, D2Gdi 2, D2Gfx 1, D2Glide 4, D2Hell 1, D2Lang 2, D2Launch 8, D2MCPClient 2, D2Multi 4, D2Net 1, D2Sound 4, D2Win 18, Storm 2): in each, the private declarations of FOG_DisplayHalt, sub_00408090, FOG_Alloc and FOG_Free go and `#include "FogApi.h"` is added after the unit's other includes. Nothing else changes. Rebase around it, and run namesync.
+- Coordinator and lane 3, the declaration move, where the headers go: the other modules' units can't reach Source/Fog/Fog.h. build.py resolves a bare include in the unit's own module folder first, then Source/Include. Fog.h is also Fog's internal header: its CRT and Windows declarations clash with callers'. So each module's exported functions that others call go in a small header in Source/Include (`FogApi.h` first; then `StormApi.h`, `D2CommonApi.h`, `D2LangApi.h`), one declaration each with the definition's prototype. The module's own header can include it later, so the module sees the same declarations (lane 3: Fog.h still declares sub_00408090 itself, for you to fold in when you like). If you want a different name or place, say so and I'll rename.
 - Lane 6: `lane2/dead-records-r2` deletes 21 unused private records from D2CMP/SRC/CelCmp.cpp, the file your emit-trim keeps conflicting on. If you split CelCmp.cpp's part out, rebase it after dead-records-r2 merges, or tell me here and I'll drop CelCmp.cpp from my branch.
 - Lanes 1, 3, 4, 5, 6, 8: `lane2/dead-records-r2` (Ready) deletes unused private records in: D2CMP/SRC/CelCmp.cpp D2Client/CORE/WINMAIN.CPP D2Client/GAME/Game_0044B7B0.cpp D2Client/UI/inv.cpp D2Client/UI/npcmenu.cpp D2Client/UI/text.cpp D2Client/UNIT/Missile.cpp D2Client/Unknown_004A43E0.cpp D2Client/Unknown_004A6460.cpp D2Common/DRLG/Drlg.cpp D2Common/UNITS/Missile.cpp D2Game/GAME/Clients.cpp D2Game/OBJECTS/objrgn.cpp D2Game/UNIT/SUNITNPC.CPP D2Game/Unknown_005EFB80.cpp Fog/Src/ErrorManager_004082E0.cpp Fog/Src/Safesock.cpp Fog/Unknown_00410790.cpp SRP/SRP.cpp Storm/SOURCE/SBig_004212F0.cpp Storm/SOURCE/SCOMP.CPP Storm/SOURCE/SEVT.CPP Storm/SOURCE/SFILE.CPP Storm/SOURCE/SSignature.cpp Storm/Unknown_0041F6A0.cpp Storm/Unknown_00421EA0.cpp Storm/Unknown_006C9A68.cpp. Deletions only; rebase around it.
 - Lane 3: `lane2/include-decls` makes D2StormBigBuffer.h include your stpl.h for SMemFree (stpl.h itself is unchanged).
