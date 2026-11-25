@@ -2,10 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 17:13:54 PST 2026): join-005fe010 ready; the rest of the object-map joins are still in the verify queue.
+Status (Tue Nov 24 17:26:59 PST 2026): join-00446880 ready; the rest of the object-map joins are still in the verify queue.
 
 ## Ready
 
+- lane6/join-00446880 527201fa 255->254 placeholders. ComCallback.cpp takes Unknown_00446880.cpp: 0x446880 (a stub returning 0) sits inside ComCallback's run 0x445FF0-0x446B6E. The placeholder's four empty sub_006460*_Empty functions were copies of Skills.cpp's own definitions and are dropped, not moved. Not stacked; D2Multi only. VERIFIED b7daf801 (on #372, merges cleanly on #374; borrowed data 844 B, unchanged).
 - lane6/join-005fe010 42c6e5bb 255->254 placeholders. SpriteCache.cpp takes Unknown_005FE010.cpp: 0x5FE170 sits inside SpriteCache's run and is the free callback SpriteCache passes when it creates the tile cache (it reads gCmpTileCache and gCmpBlockTableB); gpfnCmpFreeCallback (.bss 0x89DB5C) comes with it. Not stacked; D2CMP only. VERIFIED f1d8c152 (on #372, merges cleanly on #374; borrowed data 844 B, unchanged).
 - lane6/join-006056d0 bf68001b 255->254 placeholders (count on #373). FastCmp.cpp takes Unknown_006056D0.cpp (0x605AA0-0x606930, the colour-table builders over FastCmp's palette/HSL helpers; report-372 clear lead, 22), with its tables 0x7420D8-0x7434FE in the plan; FastCmp's three unmarked copies of those functions go. Not stacked; D2CMP only. VERIFIED e651a2df (on #372; borrowed data 844 B, unchanged).
 - lane6/join-00518b90 3b4d3e49 255->254 placeholders (count on #373). Unknown_00518B90.cpp takes Unknown_00518B60.cpp: each had half of D2BnLogStrc (constructor 0x518B60 and deleting destructor 0x518BD0 in one; destructor 0x518B80 and handle getter 0x518B90 in the other, interleaved with 0x518BC0). One struct now carries all of it. Not stacked; D2BNClient only. VERIFIED 95378f9b (on #367, merges cleanly on #368; borrowed data 844 B, unchanged).
