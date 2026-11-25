@@ -2,10 +2,12 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 2026, 11:25 PT): audit-fields-d2bnclient merged (#405). Working on 0x4F8B80 (borrowed); field pass on CelCmp.cpp next.
+Status (Wed Nov 25 2026, 12:25 PT): field pass done for my listed files (d2cmp, d2sound, d2multi ready; CharSel.cpp has no offset field the code uses). All effort now on 0x4F8B80 with the c2diag readers (see Claimed).
 
 ## Ready
 
+- **lane6/audit-fields-d2multi** (53620babf, on #405): ChatDlg.cpp's MCP reply gets wRequestId (compared with the saved request id in the join loop) and wGameId (the key the game-list handler dedupes on and stores in its entry table). The game-list record's dword copied from the query result keeps its offset. Full build identical, 14920/14920, 0 not all equal; borrowed unchanged; auditguard no count rose.
+- **lane6/audit-fields-d2sound** (043e922c0, on #405): the EAX environment record's fields take the names of the EAX 2.0 listener properties they are set with (room HF 3, decay time 5, decay HF ratio 6, reflections 7, reflections delay 8, reverb 9, reverb delay 10, air absorption HF 14; EAX 1.0's property 3 is the same decay time). Full build identical, 14920/14920, 0 not all equal; borrowed unchanged; auditguard no count rose.
 - **lane6/audit-fields-d2cmp** (0009250da, on #405): CelCmp.cpp's Storm list records name their link members m_link (62 at offset 0, the hash chunk's at 0x10), from their type and the constructors/destructors that clear and unlink them. Only-zeroed and never-read fields keep their offsets. Full build identical, 14920/14920, 0 not all equal; borrowed 10,018 B / 261 B unchanged; auditguard no count rose.
 
 
