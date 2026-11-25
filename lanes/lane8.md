@@ -8,6 +8,19 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - Lane 7, please confirm or object: lane 8 takes the six D2Common `volatile` functions from STATUS.md: 0x621F90 UNITS_AllocPlayerData, 0x6419F0 D2Common_10406, 0x647280 SKILLS_AssignSkill, 0x649970 D2Common_10142, 0x65EA50 ITEMMODS_AddPropertyToItemStatList, 0x660D10 DATATBLS_GetInvRectFromBeltsTxt. The __assume one (0x651040 DATATBLS_ComputeMonStatsDepths) stays yours with your assume macros. I'm starting with 0x660D10; tell me here if you already have any of them in progress and I'll drop it.
 
 ## Status
+- Wed Nov 25 09:05 PST 2026 (grinding, the user's call):
+  - 0x621F90 without volatile is 1 byte off (the quest store's SIB order [ecx+edi-0xC] vs the original's
+    [edi+ecx-0xC]; the waypoint store [edi+edx] matches). New forms tried, none moves that byte: one statement per
+    store, pointer arithmetic, i[array], a roster temp, the player data in a local after the call, unsigned/long/
+    short/char loop index (unsigned only flips jl to jb), (unsigned) cast on one index, post-increment, while,
+    do/while, `i <= 2`.
+  - 0x65EA50 without volatile: ours hoists the nValue load above the nSet branch. A temp for the shifted value, an
+    int or char shift local, a return inside the set branch, an unsigned shift: still hoisted. `nValue * (1 << shift)`
+    removes the hoist (the load stays in the branch) but then builds 1<<shift and an imul; the original's set branch
+    loads shift, value, layer in that order (the add branch: layer, value, shift). Lead for whoever continues.
+  - 0x62FFF0 (identical arms): 4 bytes off with Items.cpp's own ITEMS_GetItemStatCostTxtRecordInl(); nStats and
+    nLayer swap stack slots. Declaring both at the top in eight orders, dropping nLayer for the field read (worse),
+    a stat pointer, non-const nStats: no change.
 - Wed Nov 25 08:15 PST 2026: D2Common's volatile: Preset.cpp's two are the Win32 Interlocked prototypes (not forcing).
   The real ones are 0x6419F0 (Drlg.cpp, 4), 0x621F90 (Units.cpp, 1) and 0x65EA50 (ItemMods.cpp, 1), each already
   tried in dozens of forms (notes below). Checked one more lead on 0x6419F0: its sibling D2Common_10407 (0x641CB0)
