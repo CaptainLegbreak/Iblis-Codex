@@ -49061,38 +49061,17 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_00573CB0.cpp",
+   "file": "Source/D2Game/MONSTER/Monster_00573CB0.cpp",
    "rank": 1,
    "functions": [
     {
      "va": "0x00573CB0",
      "length": 1426
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/MONSTER/Monster_00574250.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x00574250",
      "length": 281
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
