@@ -6,6 +6,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 
 ## Ready
 
+- lane10/names-seq-all 4e87c42: seq-all plan, 9 renames applied; dropped 0x00554100, 0x00627EF0, 0x006488A0, 0x0064A190, 0x0064A210, 0x0064A280, 0x0064A300, 0x0064A380, 0x0064A3B0, 0x0064A3E0, 0x0064A4E0, 0x0064A510, 0x0064A540, 0x0064A570, 0x0064A640, 0x0064A6D0, 0x0064A6F0. VERIFIED 21b57484 on base f0f40e42, Game.exe matches.
 - lane10/names-rendslots-all cc06681: rendslots-all plan, 39 renames applied, none dropped. VERIFIED 3429ef96 on base f0f40e42, Game.exe matches.
 - lane10/names-fileprefix-small 0a16e37: fileprefix-small plan, 15 renames applied, none dropped. VERIFIED 0efdd876 on base f0f40e42, Game.exe matches.
 - lane10/names-fileprefix-d2ddraw 59d7db4: fileprefix-d2ddraw plan, 2 renames applied, none dropped. VERIFIED 4ed58210 on base f0f40e42, Game.exe matches.
