@@ -25,15 +25,7 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-- lane9/renderer-swaps 4d34a492, on main 60499b62 (#374), precheck 0 not all equal; full verify VERIFIED, borrowed data
-  844 B (main's). Six functions sat in the other renderer's core file and go back: ddCore.cpp takes
-  DDRAW_OpenSmackCutscene 0x511660 and DDRAW_GetBackBuffer 0x511970 from glCore.cpp (between ddCore's own functions)
-  with the two DirectDraw globals glCore defined for them (0x88126C, 0x88127C); the DirectDraw drawing run
-  (Unknown_00511DF0.cpp) takes 0x5123A0 from glCore.cpp and 0x512410 from glVertex.cpp (it forwards to the run's
-  0x511FB0); Glide's debug run (Unknown_0050BD30.cpp) takes GLIDE_DebugDraw 0x50BEF0 from ddCore.cpp (calls the run's
-  0x50BE20); Unknown_0050F910.cpp takes GLIDE_DrawVideoFrame 0x50FD10 from ddCore.cpp (the frame step of the file's
-  video player 0x50FDF0, its only caller). All touched units equal.
-- lane9/hell-charclass d9263ae2, on main 60499b62 (#374), precheck 0 not all equal; full verify VERIFIED, borrowed data
+- lane9/hell-charclass ab7ce3f6, on main 5cc54de8 (#375), precheck 0 not all equal; full verify VERIFIED, borrowed data
   844 B (main's). Placeholders -1: D2Hell's string helpers 0x6C9A38-0x6C9B6A are one object. D2Hell's placeholders
   0x6C9A38 and 0x6C9A46 and Storm's three character-class pieces 0x6C9A68, 0x6C9AB9, 0x6C9B45 sit back to back at
   unaligned addresses, interleaved; the number parser and space skipper read the same character-class table 0x74C5C8 as
