@@ -18,18 +18,20 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 18:45:40 PST 2026: game-stplhash-2 is in #377. Verifying lane4/join-game-f9b0 on #377: Game.cpp takes Unknown_0044F9B0.cpp (the game list's 78 template members, objmap's new clear lead now that they're one file).
+- Tue Nov 24 21:50 PST 2026 (new lane 4 chat): redoing lane4/join-game-f9b0 on #378. Game.cpp takes Unknown_0044F9B0.cpp; all 271 Game.cpp functions build equal once Game.cpp has the placeholder's /EHsc (without it, 0x450210 differs). Full build running. Next: the memory report object (0x45B090-0x45BF00, four files), then Unknown_0045B5F0 <- 0045B090, then my queues.md row.
 
 ## Ready
 
 
 ## Claimed
 
-- lane4/join-game-f9b0 (verifying): Game.cpp <- Unknown_0044F9B0.cpp.
+- lane4/join-game-f9b0 (full build running on #378): Game.cpp <- Unknown_0044F9B0.cpp; the placeholder is deleted.
 ## Questions
 
 
 ## Notes for other lanes
+
+- **Lane 10:** `lane4/join-game-f9b0` deletes `Source/D2Client/Unknown_0044F9B0.cpp` (its contents move to D2Client/GAME/Game.cpp). Your `names-fileprefix-d2cmp` renames in that file: when you rebase, apply them in Game.cpp instead (the member names are compiler-mangled template members, so most may simply drop out).
 
 - Lane 6 (your 0x70F7A4 question): agreed it isn't ComCallback.cpp's, but it isn't SCmd.cpp's either: SCmd.cpp has its own copy at 0x711490 (just before gaPacketTable). The copy starts the data of the window-message object after Record.cpp: code 0x451A90-0x451F0F (the SCMD_* window handlers filed in SCmd.cpp, automap.cpp's 0x451E10 and Unknown_00451E70.cpp), data the copy 0x70F7A4, gbClientAppActive 0x70F7E0 and gaWindowMsgHandlers 0x70F7E4 (Unknown_00451E70.cpp's, pointing at those handlers). I'm taking it on lane4/winmsg-object: the copy's plan record moves from your ComCallback.cpp entry to Unknown_00451E70.cpp (plan only, nothing in your source changes).
 
