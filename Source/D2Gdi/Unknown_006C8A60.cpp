@@ -9,7 +9,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue); // 0x006C8250
+int __fastcall GDICORE_GetSetting(unsigned int nSelector, int* pValue); // 0x006C8250
 
 static inline int sub_006C8A60_Clip(int nValue, int nSize)
 {
@@ -21,7 +21,7 @@ static inline int sub_006C8A60_Clip(int nValue, int nSize)
 void __fastcall sub_006C8A60_Draw(int nX1, int nY1, int nX2, int nY2, unsigned char nColor, int nLevel)
 {
     int nMode;
-    unsigned char* pTable = (unsigned char*)sub_006C8250_GetSetting(nLevel, &nMode);
+    unsigned char* pTable = (unsigned char*)GDICORE_GetSetting(nLevel, &nMode);
 
     nX1 = sub_006C8A60_Clip(nX1, gnStride_007C9138);
     nX2 = sub_006C8A60_Clip(nX2, gnStride_007C9138);
