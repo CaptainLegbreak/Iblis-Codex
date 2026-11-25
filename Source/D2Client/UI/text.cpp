@@ -4328,50 +4328,6 @@ extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey);
 
 
 
-// 0x004E48B0
-void __fastcall TEXT_AppendUndeadDamageBonus(D2UnitStrc* pUnused, Unicode* wszOut, int nUnused)
-{
-    Unicode wszText[0x80];
-    const Unicode* wszA = D2LANG_GetStringFromTblIndex(0xFA2);
-    const Unicode* wszB = D2LANG_GetStringFromTblIndex(0xF9E);
-    const Unicode* wszC = D2LANG_GetStringFromTblIndex(0xF9B);
-    const Unicode* wszD = D2LANG_GetStringFromTblIndex(0xFA1);
-    Unicode wszNumber[10];
-    char szNumber[10];
-// build: symbol ?gszFormatI@* 0x006D6454
-    SStrPrintf(szNumber, 10, gszFormatI, 0x32);
-    sub_00526320_ToUnicode(wszNumber, szNumber, 9);
-    sub_00526700(wszText, wszA);
-    sub_00526700(wszText, wszNumber);
-    sub_00526700(wszText, wszD);
-    sub_00526700(wszText, wszC);
-    sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xDE2));
-    sub_00526700(wszText, wszB);
-    sub_00526700(wszOut, wszText);
-}
-
-// 0x004E6720
-void __fastcall TEXT_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4)
-{
-    ITEMMODS_AssignProperty(5, 0, pItem, nArg, nArg2, 0);
-    Unicode wszBuffer[1024];
-    wszBuffer[0].wChar = 0;
-    sub_004E6410_BuildPropText(pItem, wszBuffer, nArg3, 1, nArg4);
-    sub_00526700(wszText, wszBuffer);
-
-    D2StatListStrc* pStatList = sub_00625790_UnitFindStatList(pItem, 0, 0x40);
-    if (pStatList)
-    {
-        D2Common_10474(pItem, pStatList);
-        STATLIST_FreeStatList(pStatList);
-    }
-
-    if (wszText[sub_00526800(wszText) - 1].isNewline())
-    {
-        wszText[sub_00526800(wszText) - 1].wChar = 0;
-    }
-}
-
 // 0x004ED3F0
 void __stdcall TEXT_DrawHintText(int nArg1, int nStringIndex)
 {

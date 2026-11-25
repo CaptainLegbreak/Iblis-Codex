@@ -240,7 +240,6 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 extern const int gaSetMaskToBonusMappingTable[0x40]; // 0x006DBD90
 
-void __fastcall sub_004E5A10_UseBonusCount(int nCount);
 
 void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
 
@@ -366,6 +365,9 @@ static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecordForceInline(int nSkillId)
     }
     return 0;
 }
+
+static int __stdcall SKILLDESC_GetStatDisplayValue(int nValue, D2ItemStatCostTxt* pRecord, D2UnitStrc* pUnit, int nStatId); // 0x004E4C50
+
 
 // 0x004E1FF0
 int __fastcall SKILLDESC_CltDoMissileWall(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
@@ -1245,82 +1247,6 @@ D2MonTypeTxt* __fastcall SKILLDESC_GetMonTypeTxtRecord(int nMonType)
     if (nMonType >= 0 && nMonType < sgptDataTables->nMonPropTxtRecordCount)
         return &sgptDataTables->pMonTypeTxt[nMonType];
     return sgptDataTables->pMonTypeTxt;
-}
-
-// 0x004E4C50
-static int __stdcall SKILLDESC_GetStatDisplayValue(int nValue, D2ItemStatCostTxt* pRecord, D2UnitStrc* pUnit, int nStatId)
-{
-    if (pRecord->nOp >= 2 && pRecord->nOp <= 5)
-    {
-        const int nOpBase = pRecord->wOpBase;
-        D2ItemStatCostTxt* pBase = (nOpBase >= 0 && nOpBase < sgptDataTables->nItemStatCostTxtRecordCount) ? &sgptDataTables->pItemStatCostTxt[nOpBase] : 0;
-        if (!pBase)
-            return 0;
-
-        nValue = (STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), nOpBase, 0) >> pBase->nValShift) * nValue >> pRecord->nOpParam;
-    }
-
-    nValue >>= pRecord->nValShift;
-    if (nStatId == 122 && pUnit && pUnit->dwUnitType == UNIT_ITEM && ITEMSIsA(pUnit, 57))
-        nValue += 50;
-
-    return nValue;
-}
-
-// 0x004E4CE0
-int __stdcall SKILLDESC_IsStatGroupUniform(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int nStatId, int nValue, D2ItemStatCostTxt* pRecord, int* pIsSame)
-{
-    if (!pRecord->wDescGrp)
-        return 0;
-
-    for (int i = sgptDataTables->nItemStatCostTxtRecordCount - 1; i >= 0; --i)
-    {
-        D2ItemStatCostTxt* pOther = (i >= 0 && i < sgptDataTables->nItemStatCostTxtRecordCount) ? &sgptDataTables->pItemStatCostTxt[i] : 0;
-        if (!pOther)
-            return 0;
-
-        if (pRecord->wDescGrp == pOther->wDescGrp)
-        {
-            *pIsSame = i == nStatId;
-            const int nStat = STATLIST_GetStatValue(pStatList, i, 0);
-            if (nValue != SKILLDESC_GetStatDisplayValue(nStat, pOther, pUnit, i))
-                return 0;
-        }
-    }
-
-    return 1;
-}
-
-// 0x004E5A10
-static int SKILLDESC_GetSetBonusCount(unsigned int nSetItemMask)
-{
-    if (nSetItemMask >= sizeof(gaSetMaskToBonusMappingTable) / sizeof(gaSetMaskToBonusMappingTable[0]))
-        return 0;
-    return gaSetMaskToBonusMappingTable[nSetItemMask];
-}
-
-void __stdcall sub_004E5A10_Emit(int nUnused, unsigned int nSetItemMask)
-{
-    sub_004E5A10_UseBonusCount(SKILLDESC_GetSetBonusCount(nSetItemMask));
-}
-
-// 0x004E67D0
-void __fastcall SKILLDESC_BuildItemPropText(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4)
-{
-    ITEMMODS_AssignProperty(2, 0, pItem, nArg, nArg2, 0);
-    sub_004E6410_BuildPropText(pItem, wszText, nArg3, 0, nArg4);
-
-    D2StatListStrc* pStatList = sub_00625790_UnitFindStatList(pItem, 0, 0x40);
-    if (pStatList)
-    {
-        D2Common_10474(pItem, pStatList);
-        STATLIST_FreeStatList(pStatList);
-    }
-
-    if (wszText[sub_00526800(wszText) - 1].isNewline())
-    {
-        wszText[sub_00526800(wszText) - 1].wChar = 0;
-    }
 }
 
 // 0x004E6C50

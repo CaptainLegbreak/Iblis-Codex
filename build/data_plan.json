@@ -1275,15 +1275,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/Unknown_004E2320.cpp": {
-   "bytes": 2388,
-   "definitions": 3,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/Unknown_004E2320.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/UI/SkillDesc.cpp": {
    "bytes": 451,
    "definitions": 13,
@@ -4945,6 +4936,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Hell/Unknown_006C9A38.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/Unknown_004E4670.cpp": {
+   "bytes": 2388,
+   "definitions": 3,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/Unknown_004E4670.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -71586,7 +71586,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004E2320.cpp",
+   "file": "Source/D2Client/Unknown_004E4670.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnCombinedStatCount = ",
@@ -71611,7 +71611,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004E2320.cpp",
+   "file": "Source/D2Client/Unknown_004E4670.cpp",
    "fill": 143,
    "form": "declared",
    "fwd": null,
@@ -71668,7 +71668,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/Unknown_004E2320.cpp",
+   "file": "Source/D2Client/Unknown_004E4670.cpp",
    "fill": 6,
    "form": "declared",
    "fwd": null,
