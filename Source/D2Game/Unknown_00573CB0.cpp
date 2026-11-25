@@ -1,5 +1,6 @@
 #include "D2StatIds.h"
 #include "D2Game.h"
+#include "D2GameTypes.h"
 struct D2MonsterInteractStrc;
 struct D2MonsterModeDataStrc;
 struct D2PropertyStrc { int nProperty,nLayer,nMin,nMax; };
@@ -21,7 +22,6 @@ struct D2UnitStrc { int dwUnitType; int dwClassId; void* pMemoryPool; int dwUnit
 struct D2GameStrc { char unk00[0x1C]; void* pMemoryPool; char unk20[0x4A]; unsigned char nGameTypeByte; char unk6B[2]; unsigned char nDifficulty; char unk6E[2]; int bExpansion; int nGameType; char unk78[0x78]; D2SeedStrc pSeed; };
 struct D2MonStatsExTxt { char unk00[5]; unsigned char nFlags; char unk06[0x12E]; };
 struct D2DataTablesStrc { char unk00[0xA78]; D2MonStatsTxt* pMonStats; int unkA7C; int nMonStats; char unkA84[12]; D2MonStatsExTxt* pMonStatsEx; int unkA94; int nMonStatsEx; };
-struct D2PlayerCountBonusStrc { int nHp,nExperience,nSkillBonus,nDifficulty,nPlayerCount; };
 struct D2MonsterStatsStrc { int nMinHp,nMaxHp,nArmor,nToHit,nExperience; int unk14[9]; };
 struct D2MonsterPropertyStrc { int unk00; D2PropertyStrc pProperties[3][6]; unsigned char nChance[3][6]; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -172,13 +172,13 @@ void __stdcall sub_00573CB0_InitializeStats(D2GameStrc* pGame,D2ActiveRoomStrc* 
             const signed char nSkillLevel=pStats->nSkillLevel[i];
             if (nSkillLevel>0)
             {
-                D2GAME_SetSkills_6FD14C60(pMonster,pStats->nSkill[i],tBonus.nSkillBonus+nSkillLevel,0);
+                D2GAME_SetSkills_6FD14C60(pMonster,pStats->nSkill[i],tBonus.nMonsterSkillBonus+nSkillLevel,0);
                 const signed char nSkillMode=pStats->nSkillMode[i];
                 if(nSkillMode>=0) SKILLS_SetSkillMode(SKILLS_GetHighestLevelSkillFromUnitAndId(pMonster,pStats->nSkill[i]),nSkillMode);
             }
         }
     }
-    sub_0063EBC0_SetSkillBonus(pMonster,tBonus.nSkillBonus);
+    sub_0063EBC0_SetSkillBonus(pMonster,tBonus.nMonsterSkillBonus);
     if(pEx->nFlags&(unsigned char)gdwBitMasks[1]) pMonster->dwFlags|=4;
     if(pStats->nFlags[2]&(unsigned char)gdwBitMasks[3]) pMonster->dwFlags|=0x40000000;
     D2MonsterPropertyStrc* pProperties=sub_00573470_GetMonsterProperties(pMonster->dwClassId);

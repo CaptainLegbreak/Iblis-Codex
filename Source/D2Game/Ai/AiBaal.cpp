@@ -72,7 +72,6 @@ struct D2StaticPathStrc;
 
 struct D2TargetNodeStrc;
 
-struct D2PlayerCountBonusStrc;
 
 struct D2AiCmdStrc;
 
@@ -89,15 +88,6 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nType); // 0x00
 int __stdcall D2Common_10142(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, int a3); // 0x00649970
 
 static D2UnitStrc* __stdcall AIBAAL_GetUberTarget(D2GameStrc* pGame, int* pMax, int* pCount, D2AiCmdStrc* pArgs, int (__fastcall* pfCull)(D2UnitStrc*, D2UnitStrc*), D2UnitStrc* pUnit); // 0x005FBDD0
-
-struct D2PlayerCountBonusStrc
-{
-    int nHP;
-    int nExperience;
-    int nMonsterSkillBonus;
-    int nDifficulty;
-    int nPlayerCount;
-};
 
 void __fastcall MONSTER_GetPlayerCountBonus(D2GameStrc* pGame, D2PlayerCountBonusStrc* pPlayerCountBonus, D2ActiveRoomStrc* pRoom, D2UnitStrc* pMonster); // 0x00573930
 
