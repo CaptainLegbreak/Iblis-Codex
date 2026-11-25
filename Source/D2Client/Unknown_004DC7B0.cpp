@@ -62,12 +62,12 @@ static int sub_004DC710_UpdateUnitSightFlag(D2UnitStrc* pUnit)
             D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
             if ((!pRoom || DRLG_GetLOSDrawFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom))) && UNITS_TestCollisionWithUnit(pPlayer, pUnit, 2))
             {
-                pUnit->dwFlagEx = 0;
+                pUnit->dwFlagEx &= ~0x80;
                 return 0;
             }
         }
 set_flag:
-        pUnit->dwFlagEx = 1;
+        pUnit->dwFlagEx |= 0x80;
     }
     return 1;
 }
