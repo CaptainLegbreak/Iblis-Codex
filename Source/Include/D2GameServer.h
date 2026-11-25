@@ -92,7 +92,7 @@ struct D2UnkMonCreateStrc
 typedef void (__fastcall* D2EnterGameFn)(int nGameId, char* szName, int nClass, int nLevel, int nSaveFlags);
 typedef void (__fastcall* FnUpdateCharacterLadder)(const char* szCharName, int nClassId, int nLevel, unsigned __int64 nExperience, unsigned int nFlags, D2FileTimeStrc* pSaveCreationTimestamp);
 typedef const char* (__stdcall* FnLoadComplete)();
-typedef void (__fastcall* D2LeaveGameFn)(D2ClientInfoStrc** ppClientInfo, int nGameId, int nClassId, int nLevel, __int64 nExperience, int nSaveFlags, const char* szCharName, const char* szPreview, int bUnlockCharacter, int a10, int a11, const char* szAccountName, int nCharSaveTransactionToken, int a14, int a15, int a16, int a17, int a18, D2FileTimeStrc* pSaveCreationTimestamp);
+typedef void (__fastcall* D2LeaveGameFn)(D2ClientInfoStrc** ppClientInfo, int nGameId, int nClassId, int nLevel, __int64 nExperience, int nSaveFlags, const char* szCharName, const char* szPreview, int bUnlockCharacter, int, int, const char* szAccountName, int nCharSaveTransactionToken, int, int, int, int, int, D2FileTimeStrc* pSaveCreationTimestamp);
 typedef void (__fastcall* RealmSaveCallback)(unsigned int*, const char*, char*, void*, int, unsigned int);
 typedef void (__fastcall* RealmUpdateCallback)(unsigned int*, const char*, char*);
 
@@ -104,7 +104,7 @@ struct D2ServerCallbackFunctions
     RealmSaveCallback pfSaveDatabaseCharacter; // 0x0C
     void* pfServerLogMessage; // 0x10
     D2EnterGameFn pfEnterGame; // 0x14
-    int (__fastcall* pfFindPlayerToken)(const char* szClientName, int nTokenId, int nGameId, char* pszInOutAccountName, int* pOutCharSaveTransactionToken, int* a6, int* a7, int* a8, int* a9); // 0x18
+    int (__fastcall* pfFindPlayerToken)(const char* szClientName, int nTokenId, int nGameId, char* pszInOutAccountName, int* pOutCharSaveTransactionToken, int*, int*, int*, int*); // 0x18
     void* pfSaveDatabaseGuild; // 0x1C
     void (__fastcall* pfUnlockDatabaseCharacter)(D2ClientInfoStrc** ppClientInfo, const char* szCharName, const char* szAccountName); // 0x20
     void* unk0x24; // 0x24
