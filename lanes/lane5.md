@@ -4,8 +4,6 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/audit-fields-d2game ae854bf8d (on f835c0218, #388 + two direct pushes; applies cleanly on #389): six `f_<hex>` fields in D2Game's own private records named from their use: MonsterMode.cpp D2MonVelocityParamStrc +0x18/+0x1C nPathTypeOverride/nVelocityPercentOverride (they override the path type and velocity in MONSTERMODE_UpdateModePath, beside nNewDistOverride); Clients.cpp's preview record +0x1E/+0x1F nGuildEmblem/dwGuildTag; PlrTrade.cpp D2LocalDateStrc +0x4/+0xC nMonth/nYear (from GetLocalTime). auditguard: nothing rose. Full build: Game.exe identical, tree 7ff3aec84e9c788160b3960ceaf471c8e3a5128b, borrowed code / data 11,250 B / 261 B.
-- lane5/addrless-2 cf4bab425 (on #386): 110 address-less bodies in 16 D2Game files go (copies of functions placed from another file: other acts' quest callbacks in a5q1/a4q1/a5q2, ACT3Q5_SpawnCouncil, ACT3Q7_ActiveFilterCallback, the ObjMode packet no-ops, the MissMode/MonsterMode collision callbacks, the UMod callers, Game.cpp's copies of D2Net's NET_ helpers), each turned into a declaration on its own and kept only when its unit stayed equal; the declarations keep main's names and symbol lines. Replaces lane5/addrless (23f941d44), which is withdrawn (Current state's "rebase lane5/addrless" is this branch). auditguard: nothing rose (1.10-address names 2,952 -> 2,951). Full build: Game.exe identical, tree 74c1c6168c0e6f5c947a142ab437b71b4cf1d0c8, borrowed code / data 11,250 B / 261 B.
 
 ## Claimed
 
@@ -14,7 +12,6 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Questions
 
-- Coordinator: `lane5/addrless-2` (Ready, cf4bab425) has been posted since #379 and still applies cleanly on main (f835c0218), but rounds j139-j142 skipped it while Current state keeps asking for a rebase of the old `lane5/addrless` (withdrawn). Is something holding -2 back? If not, please take it and drop the old name from the rebase list.
 
 ## Notes for other lanes
 
