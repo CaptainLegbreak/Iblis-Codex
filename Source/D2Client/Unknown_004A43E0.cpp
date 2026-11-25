@@ -1766,13 +1766,17 @@ void __fastcall TEXT_ScrollKeyConfigList(int nStep)
     const int nMax = TEXT_GetMaxFirstEntry();
     if (nStep < 0)
     {
-        const int nPrev = gnKeyConfigFirstVisible <= 0 ? gnKeyConfigFirstVisible : gnKeyConfigFirstVisible - 1;
+        int nPrev = gnKeyConfigFirstVisible;
+        if (gnKeyConfigFirstVisible > 0)
+            nPrev = gnKeyConfigFirstVisible - 1;
         if (nPrev >= 0)
             gnKeyConfigFirstVisible = nPrev;
     }
     else if (nStep > 0)
     {
-        const int nNext = gnKeyConfigFirstVisible >= nMax ? gnKeyConfigFirstVisible : gnKeyConfigFirstVisible + 1;
+        int nNext = gnKeyConfigFirstVisible;
+        if (gnKeyConfigFirstVisible < nMax)
+            nNext = gnKeyConfigFirstVisible + 1;
         if (nNext <= nMax)
             gnKeyConfigFirstVisible = nNext;
     }
@@ -2016,6 +2020,7 @@ int __fastcall TEXT_IsOnlyPressed(int nIndex)
     return 1;
 }
 
+// 0x004A4AD0
 void __stdcall sub_004A4AD0_Press(int nX, int nY)
 {
     gnKeyConfigPressedButton = 3;
@@ -2047,15 +2052,14 @@ void __stdcall sub_004A4AD0_Press(int nX, int nY)
             if (nY > nTop + 0x136)
                 TEXT_MoveKeyConfigSelection(1);
 
-            const int nOldD4 = gnKeyConfigColumn;
             const int nOldSelected = gnKeyConfigSelected;
-            const int nLine = TEXT_GetKeyConfigLineAt(nY);
-            gnKeyConfigSelected = nLine;
+            const int nOldColumn = gnKeyConfigColumn;
+            gnKeyConfigSelected = TEXT_GetKeyConfigLineAt(nY);
             gnKeyConfigColumn = TEXT_IsAbovePanelLine(nX);
-            if (gpListEntries[nLine].nId == 0x39)
+            if (gpListEntries[gnKeyConfigSelected].nId == 0x39)
             {
-                gnKeyConfigColumn = nOldD4;
                 gnKeyConfigSelected = nOldSelected;
+                gnKeyConfigColumn = nOldColumn;
             }
         }
     }

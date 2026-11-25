@@ -4334,7 +4334,7 @@
   ["0x004A4A10", 103, "verified", "?TEXT_IsOnSelectedLine@@YAHHH@Z"],
   ["0x004A4A80", 32, "verified", "?TEXT_IsOnPressedButton@@YAHHH@Z"],
   ["0x004A4AA0", 33, "verified", "?TEXT_IsOnlyPressed@@YIHH@Z"],
-  ["0x004A4AD0", 1232, "unmatched"],
+  ["0x004A4AD0", 1232, "verified", "?sub_004A4AD0_Press@@YGXHH@Z"],
   ["0x004A4FA0", 110, "verified", "?TEXT_GetKeyConfigEntryState@@YAHHH@Z"],
   ["0x004A5010", 7, "verified", "?TEXT_ResetKeyConfigDefaults@@YAXXZ"],
   ["0x004A5020", 30, "verified", "?TEXT_AcceptKeyConfig@@YAXXZ"],
