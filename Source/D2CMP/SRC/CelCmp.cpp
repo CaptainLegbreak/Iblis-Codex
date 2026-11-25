@@ -31,7 +31,6 @@ struct D2TileLibraryEntryStrc;
 
 struct D2TSLinkStrc;
 
-struct D2TSListStrc;
 
 struct D2CmpCacheBlockOwnerStrc;
 
@@ -64,11 +63,8 @@ struct D2Storm4168F0Strc;
 
 struct D2Storm416A90Strc;
 
-struct PairStrc_00601BB0;
 
-struct PairStrc_00601D20;
 
-struct PairStrc_00601DB0;
 
 struct PairStrc_0060E1B0;
 
@@ -144,23 +140,14 @@ struct sub_0044ECC0;
 
 struct sub_0044ED50;
 
-struct sub_00601BF0;
 
-struct sub_00601C70;
 
-struct sub_00601D60;
 
-struct sub_00601F20;
 
-struct sub_00601F60;
 
-struct sub_006020D0;
 
-struct sub_00602140;
 
-struct sub_006024A0;
 
-struct sub_00602760;
 
 struct sub_00417780;
 
@@ -212,15 +199,10 @@ struct sub_0044ED40;
 
 struct sub_0044ED90;
 
-struct sub_00601F10;
 
-struct sub_00602130;
 
-struct sub_00602180;
 
-struct sub_00602420;
 
-struct sub_00602750;
 
 struct D2CommonStormSlotListAStrc;
 
@@ -266,7 +248,6 @@ struct D2CommonStormHashTableAStrc;
 
 struct R0052E0F0;
 
-struct R00601DC0;
 
 struct D2StormListEArrayStrc;
 
@@ -288,7 +269,6 @@ struct D2StormChunkListStrc;
 
 struct sub_0044F9F0;
 
-struct D2StormList0044FB30Strc;
 
 struct D2StormDeadListStrc;
 
@@ -312,7 +292,6 @@ struct D2CmpPoolStrc;
 
 class WardenModule;
 
-struct D2Warden47F930Strc;
 
 struct D2WardenModuleHolderAStrc;
 
@@ -329,14 +308,6 @@ struct D2TSLinkStrc
 {
     D2TSLinkStrc* pPrevLink;
     unsigned int nNext;
-};
-
-struct D2TSListStrc
-{
-    int nLinkOffset;
-    D2TSLinkStrc tTerminator;
-
-    void sub_00601E80_InitCopy(const D2TSListStrc& source);
 };
 
 extern D2CmpPoolStrc gCmpPool; // 0x0088CAE0
@@ -456,24 +427,6 @@ struct D2Storm4168F0Strc
     D2StormLinkStrc f_0;
 
     ~D2Storm4168F0Strc();
-};
-
-struct PairStrc_00601BB0
-{
-    int nFirst;
-    int nSecond;
-};
-
-struct PairStrc_00601D20
-{
-    int nFirst;
-    int nSecond;
-};
-
-struct PairStrc_00601DB0
-{
-    int nFirst;
-    int nSecond;
 };
 
 struct PairStrc_0060E1B0
@@ -702,60 +655,6 @@ struct sub_0044ED50
     ~sub_0044ED50();
 };
 
-struct sub_00601BF0
-{
-    D2StormLinkStrc f_0;
-    ~sub_00601BF0();
-};
-
-struct sub_00601C70
-{
-    D2StormLinkStrc f_0;
-    ~sub_00601C70();
-};
-
-struct sub_00601D60
-{
-    D2StormLinkStrc f_0;
-    ~sub_00601D60();
-};
-
-struct sub_00601F20
-{
-    D2StormLinkStrc f_0;
-    ~sub_00601F20();
-};
-
-struct sub_00601F60
-{
-    D2StormLinkStrc f_0;
-    ~sub_00601F60();
-};
-
-struct sub_006020D0
-{
-    D2StormLinkStrc f_0;
-    ~sub_006020D0();
-};
-
-struct sub_00602140
-{
-    D2StormLinkStrc f_0;
-    ~sub_00602140();
-};
-
-struct sub_006024A0
-{
-    D2StormLinkStrc f_0;
-    ~sub_006024A0();
-};
-
-struct sub_00602760
-{
-    D2StormLinkStrc f_0;
-    ~sub_00602760();
-};
-
 struct sub_00417780
 {
     D2StormLinkStrc f_0;
@@ -906,36 +805,6 @@ struct sub_0044ED90
     sub_0044ED90();
 };
 
-struct sub_00601F10
-{
-    D2StormLinkStrc f_0;
-    sub_00601F10();
-};
-
-struct sub_00602130
-{
-    D2StormLinkStrc f_0;
-    sub_00602130();
-};
-
-struct sub_00602180
-{
-    D2StormLinkStrc f_0;
-    sub_00602180();
-};
-
-struct sub_00602420
-{
-    D2StormLinkStrc f_0;
-    sub_00602420();
-};
-
-struct sub_00602750
-{
-    D2StormLinkStrc f_0;
-    sub_00602750();
-};
-
 struct D2CommonStormSlotArrayAStrc {
  unsigned int m_alloc,m_count;
  D2CommonStormSlotListAStrc* m_data;
@@ -952,13 +821,6 @@ struct R0052E0F0
     void* pUnk0x00;
     void* m_pFile;
     bool sub_0052E0F0_IsOpen();
-};
-
-struct R00601DC0
-{
-    void* pUnk0x00;
-    void* m_pFile;
-    bool sub_00601DC0_IsOpen();
 };
 
 int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile); // 0x00601A50
@@ -1061,14 +923,6 @@ struct sub_0044F9F0
     ~sub_0044F9F0();
 };
 
-struct D2StormList0044FB30Strc
-{
-    int m_linkoffset;
-    D2StormCtorLinkStrc m_terminator;
-
-    D2StormList0044FB30Strc();
-};
-
 struct D2StormDeadListStrc
 {
     int m_linkoffset;
@@ -1153,15 +1007,6 @@ public:
     int nImports;
     int unk0x0C;
     void* f_10;
-};
-
-struct D2Warden47F930Strc
-{
-    int n00;
-    int n04;
-    int n08;
-
-    D2Warden47F930Strc();
 };
 
 struct D2WardenModuleHolderAStrc

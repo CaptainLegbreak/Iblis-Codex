@@ -2039,7 +2039,6 @@ struct D2GameDataTableStrc;
 union D2LargeIntegerUnion;
 
 
-struct D2StormSlotLink00530600Strc;
 
 
 extern char gData_00882028[]; // 0x00882028
@@ -2173,19 +2172,6 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
-struct D2StormOwnedLinkStrc : D2StormLinkStrc
-{
-    D2StormOwnedLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-    ~D2StormOwnedLinkStrc()
-    {
-        Unlink();
-    }
-};
-
 
 extern unsigned short gwValue_0077905C;
 
@@ -2296,18 +2282,6 @@ extern "C" void _ReadWriteBarrier(void);
 
 
 int __fastcall D2GAME_SAVE_WriteFile_6FC8A500(D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName, unsigned int dwArg); // 0x00532400
-
-struct D2StormSlotLink00530600Strc
-{
-    D2StormSlotLink00530600Strc* m_prevlink;
-    char* m_next;
-
-    inline char* Next()
-    {
-        char* const pNext = (int)m_next <= 0 ? 0 : m_next;
-        return pNext;
-    }
-};
 
 
 int gdwGlobal_00882D14; // 0x00882D14

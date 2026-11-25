@@ -459,14 +459,6 @@ struct D2SEvtCtorLinkStrc
     D2SEvtCtorLinkStrc();
 };
 
-struct D2SEvtAutoLinkStrc : D2StormLinkStrc
-{
-    ~D2SEvtAutoLinkStrc()
-    {
-        Unlink();
-    }
-};
-
 // 0x00426900
 char* __fastcall sub_00426900_Next(D2StormLinkStrc* pLink)
 {

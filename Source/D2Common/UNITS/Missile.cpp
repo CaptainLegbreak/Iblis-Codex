@@ -243,14 +243,6 @@ extern "C" int __stdcall MISSILE_GetElementalLength(Unit*, Unit*, int, int); // 
 
 extern "C" DataTables* gVar_00744304; // 0x00744304
 
-struct D2MissileDataStrc0064A280
-{
-    unsigned int unk0x00;
-    unsigned int unk0x04;
-    unsigned short unk0x08;
-    short nSkill;
-};
-
 struct Data0064A190;
 
 struct Unit0064A190;

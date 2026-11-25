@@ -10,15 +10,6 @@
 
 struct D2CriticalSectionStrc;
 
-struct D2LogMsgListStrc;
-
-struct D2LogMsgListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* sub_0040FF40_NewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags); // 0x0040FF40
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 

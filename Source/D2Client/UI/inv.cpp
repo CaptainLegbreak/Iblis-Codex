@@ -50,7 +50,6 @@ struct D2RosterSubStrc;
 
 struct D2RosterEntryStrc;
 
-struct D2RC4Strc;
 
 struct D2ClientSlotObjStrc;
 
@@ -58,7 +57,6 @@ struct D2ClientSlotHolderStrc;
 
 struct D2ClientRecordStrc;
 
-struct D2ClientStringListStrc;
 
 struct D2ItemStatCostTxt;
 
@@ -122,15 +120,6 @@ struct D2RosterEntryStrc
     D2RosterEntryStrc* pNext;
 };
 
-struct D2RC4Strc
-{
-    unsigned char S[0x100];
-    unsigned char i;
-    unsigned char j;
-
-    void ApplyKeystream(unsigned char* pData, unsigned int nSize);
-};
-
 struct D2ClientServiceStrc
 {
     char unk0x00[0xD0];
@@ -168,14 +157,6 @@ struct D2ClientRecordStrc
     int nUnk0x1C;
     int nUnk0x20;
     int nUnk0x24;
-};
-
-struct D2ClientStringListStrc
-{
-    Unicode* pStrings[6];
-    unsigned short nCount;
-    unsigned char f_1A[4];
-    unsigned char unk0x1E[8];
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -1420,7 +1401,6 @@ extern unsigned char gabGridColors_007BCAD8[]; // 0x007BCAD8
 
 struct D2CharStatsTxt;
 
-struct D2UnitInvView;
 
 struct D2DifficultyLevelsTxt;
 
@@ -1435,12 +1415,6 @@ extern int gbWeaponSwitch; // 0x007BCC4C
 int __stdcall ITEMS_GetAmmoType(D2UnitStrc*); // 0x0062E6F0
 
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc*); // 0x0062E740
-
-struct D2UnitInvView
-{
-    char unk0x00[0x60];
-    D2InventoryStrc* pInventory;
-};
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
@@ -1564,27 +1538,6 @@ static int sub_00483BF0_IsInRect(int nX, int nY);
 #define HIBYTE(w) ((unsigned char)((((unsigned long)(w)) >> 8) & 0xFF))
 struct D2ClientPacket67Strc;
 struct D2ConfigStrc;
-
-struct D2CacheStatsStrc
-{
-    unsigned int nFloorSize;
-    int unk0x04;
-    int nFloorMisses;
-    unsigned int nSubtileSize;
-    int unk0x10;
-    int nSubtileMisses;
-    unsigned int nSprite1Size;
-    unsigned int nSprite2Size;
-    unsigned int nSprite3Size;
-    int unk0x24[3];
-    int nSprite1Misses;
-    int nSprite2Misses;
-    int nSprite3Misses;
-    int unk0x3C[3];
-    int nSprite1Accesses;
-    int nSprite2Accesses;
-    int nSprite3Accesses;
-};
 
 struct D2ClientPacket67Strc
 {
@@ -6836,16 +6789,6 @@ struct D2RareAffixTxt
 #pragma intrinsic(memset, strcpy, strcat, strlen)
 
 #pragma pack(push, 1)
-
-struct D2LevelTextStrc
-{
-    char c00;
-    int n01;
-    int n05;
-    int n09;
-    int n0D;
-    char c11;
-};
 
 #pragma pack(pop)
 

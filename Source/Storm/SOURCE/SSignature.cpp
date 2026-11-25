@@ -17,15 +17,12 @@ struct D2StormHuffLinkSlotStrc;
 
 struct CHuffman;
 
-struct D2StormArrayBStrc;
 
-struct D2StormArrayCStrc;
 
 struct BigBuffer;
 
 struct BigStack;
 
-struct D2StormBigStrc;
 
 extern "C" void* __cdecl _alloca(unsigned int nSize);
 
@@ -146,62 +143,6 @@ struct CHuffman
 
 #include "D2StormArrayA.h"
 
-struct D2StormArrayBStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    unsigned char* m_data;
-    unsigned int m_chunk;
-
-    void ReallocAndClear(unsigned int nCount)
-    {
-        m_alloc = nCount;
-        if (m_data || nCount)
-            m_data = (unsigned char*)SMemReAlloc(m_data, nCount, gszTypeNameUChar_00708880, -2, 0);
-    }
-    void sub_004219F0_Set(unsigned int nCount, const unsigned char* pData);
-    unsigned int sub_00421160_CalcChunkSize(unsigned int nCount);
-};
-
-struct D2StormArrayCStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    char* m_data;
-    unsigned int m_chunk;
-
-    static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
-    {
-        unsigned int nRemainder = nValue % nAlign;
-        if (nRemainder)
-            nValue += nAlign - nRemainder;
-        return nValue;
-    }
-    void Reserve(unsigned int nCount, int bRound)
-    {
-        nCount += m_count;
-        if (nCount > m_alloc)
-        {
-            if (bRound)
-            {
-                unsigned int nChunk = m_chunk ? m_chunk : sub_00421240_CalcChunkSize(nCount);
-                nCount = RoundUp(nCount, nChunk);
-            }
-            sub_00421770_ReallocData(nCount);
-        }
-    }
-    void ReallocAndClear(unsigned int nCount)
-    {
-        m_alloc = nCount;
-        if (m_data || nCount)
-            m_data = (char*)SMemReAlloc(m_data, nCount, gszTypeNameChar_0070888C, -2, 0);
-    }
-    unsigned int sub_00421240_CalcChunkSize(unsigned int nCount);                                           // 0x00421240
-    void sub_00421770_ReallocData(unsigned int nAlloc);                                                     // 0x00421770
-    void sub_00421A50_Set(unsigned int nCount, const char* pData);
-    unsigned int sub_00421F60_Add(unsigned int nCount, const char* pData);
-};
-
 struct BigBuffer
 {
     D2StormArrayAStrc m_array;
@@ -223,19 +164,6 @@ struct BigStack
 
     BigBuffer* Push(int* pCounter); // 0x00420DD0
     void Drop(unsigned int nCount); // 0x00420E00
-};
-
-struct D2StormBigStrc
-{
-    int unk0x00[5];
-    BigStack tStack;
-    int unk0x158[4];
-
-    ~D2StormBigStrc();                                                                                      // 0x00421D80
-    static void operator delete(void* pMemory)
-    {
-        SMemFree(pMemory, "delete", -1, 0);
-    }
 };
 
 inline void* operator new(unsigned int, void* pPlace) throw();
@@ -278,26 +206,6 @@ struct D2StormNodeListAStrc
         return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
     }
     void LinkNode(char* pNode, unsigned int nLinkType, char* pExisting);
-};
-
-struct D2StormPtrArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    int* m_data;
-    unsigned int m_chunk;
-
-    int* sub_00420FD0_At(unsigned int nIndex);
-};
-
-struct D2StormByteArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    char* m_data;
-    unsigned int m_chunk;
-
-    char* sub_00421000_At(unsigned int nIndex);
 };
 
 inline void* operator new(unsigned int, void* pPlace) throw()

@@ -3689,7 +3689,6 @@ int __cdecl NPCMENU_CloseSubMenuToMain()
 
 struct Handler;
 
-struct HandlerNode;
 
 struct SelectionEntry;
 
@@ -3715,12 +3714,6 @@ struct Handler
     virtual int next2(Message*);
     virtual int previous1(Message*);
     virtual int next1(Message*);
-};
-
-struct HandlerNode
-{
-    Handler* object;
-    HandlerNode* next;
 };
 
 // 0x004B5850

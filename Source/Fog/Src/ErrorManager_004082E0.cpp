@@ -14,19 +14,6 @@ typedef char* va_list;
 
 struct _iobuf;
 
-struct tm
-{
-    int tm_sec;
-    int tm_min;
-    int tm_hour;
-    int tm_mday;
-    int tm_mon;
-    int tm_year;
-    int tm_wday;
-    int tm_yday;
-    int tm_isdst;
-};
-
 extern "C" char* __cdecl strrchr(const char* szString, int nChar);                                          // 0x00682990
 
 char gszLogDirectory[0x400];                                                                       // 0x00992708
@@ -109,25 +96,10 @@ extern "C" unsigned long __readfsdword(unsigned long nOffset);
 
 struct D2FileTimeStrc;
 
-struct D2FindDataStrc;
 
 struct D2Storm408ElemStrc;
 
 struct D2StormArray408Strc;
-
-struct D2FindDataStrc
-{
-    unsigned long dwFileAttributes;
-    D2FileTimeStrc ftCreationTime;
-    D2FileTimeStrc ftLastAccessTime;
-    D2FileTimeStrc ftLastWriteTime;
-    unsigned long nFileSizeHigh;
-    unsigned long nFileSizeLow;
-    unsigned long dwReserved0;
-    unsigned long dwReserved1;
-    char cFileName[260];
-    char cAlternateFileName[14];
-};
 
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 

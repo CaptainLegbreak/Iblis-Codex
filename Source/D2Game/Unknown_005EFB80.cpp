@@ -582,9 +582,7 @@ D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2Mons
 
 #define GRISWOLD_WALK_FLAGS 7
 
-struct Control;
 
-struct MonStats;
 
 enum D2C_MegademonAIParams
 {
@@ -594,18 +592,6 @@ enum D2C_MegademonAIParams
     MEGADEMON_AI_PARAM_APPROACH_CHANCE_PCT = 3,
     MEGADEMON_AI_PARAM_CIRCLE_MELEE_CHANCE_PCT = 4,
     MEGADEMON_AI_PARAM_INFERNO_TIMER = 5,
-};
-
-struct Control
-{
-    char controlPad[0x18];
-    int params[2];
-};
-
-struct MonStats
-{
-    char statsPad[0x170];
-    short skills[8];
 };
 
 #define PATHTYPE_TOWARD 2
