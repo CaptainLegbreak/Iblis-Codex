@@ -61458,547 +61458,597 @@
     {
      "va": "0x00601B60",
      "length": 16,
-     "name": "?sub_00601B60_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?Next@?$TSLink@UTCELENTRY@@@@QAEPAUTCELENTRY@@XZ"
     },
     {
      "va": "0x00601B70",
      "length": 4,
-     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?RawNext@?$TSLink@UTCELENTRY@@@@QAEPAUTCELENTRY@@XZ"
     },
     {
      "va": "0x00601B80",
      "length": 34,
-     "name": "CelListTableSyncEnterLock"
+     "name": "?SyncEnterLock@?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAEXPAPAUHLOCKEDCELLIST__@@H@Z"
     },
     {
      "va": "0x00601BB0",
      "length": 14,
-     "name": "sub_00601BB0"
+     "name": "?sub_00601BB0_ClearLink@@YIXPAU?$TSLink@UTCELENTRY@@@@@Z"
     },
     {
      "va": "0x00601BC0",
      "length": 36,
-     "name": "sub_00601BC0_NextLink"
+     "name": "?NextLink@?$TSLink@UTCELENTRY@@@@QAEPAU1@H@Z"
     },
     {
      "va": "0x00601BF0",
      "length": 50,
-     "name": "??1sub_00601BF0@@QAE@XZ"
+     "name": "??1?$TSLink@UTCELENTRY@@@@QAE@XZ"
     },
     {
      "va": "0x00601C30",
      "length": 36,
-     "name": "sub_00601C30_NextLink"
+     "name": "?NextLink@?$TSLink@UCELLIST@@@@QAEPAU1@H@Z"
     },
     {
      "va": "0x00601C60",
      "length": 16,
-     "name": "?sub_00601C60_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?Next@?$TSLink@UCELLIST@@@@QAEPAUCELLIST@@XZ"
     },
     {
      "va": "0x00601C70",
      "length": 50,
-     "name": "??1sub_00601C70@@QAE@XZ"
+     "name": "??1?$TSLinkedNode@UTCELENTRY@@@@QAE@XZ"
     },
     {
      "va": "0x00601CB0",
      "length": 16,
-     "name": "CelListTableIsWriteLock"
+     "name": "?IsWriteLock@?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAEHPAUHLOCKEDCELLIST__@@@Z"
     },
     {
      "va": "0x00601CC0",
      "length": 19,
-     "name": "?sub_00601CC0_At@D2CommonStormSlotArrayAStrc@@QAEPAUD2CommonStormSlotListAStrc@@I@Z"
+     "name": "??A?$TSBaseArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@QAEAAV?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@I@Z"
     },
     {
      "va": "0x00601CE0",
      "length": 16,
-     "name": "?sub_00601CE0_LinkNext@@YIPADPAUD2StormLinkStrc@@@Z"
+     "name": "?Next@?$TSLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@QAEPAV?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@XZ"
     },
     {
      "va": "0x00601CF0",
      "length": 3,
-     "name": "@sub_00601CF0@4"
+     "name": "?Link@?$TSGetLink@UTCELENTRY@@@@SIPAU?$TSLink@UTCELENTRY@@@@PBUTCELENTRY@@H@Z"
     },
     {
      "va": "0x00601D00",
      "length": 13,
-     "name": "CelListTableSlotIndex"
+     "name": "?ComputeSlot@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEII@Z"
     },
     {
      "va": "0x00601D10",
      "length": 6,
-     "name": "sub_00601D10"
+     "name": "?sub_00601D10@@YAHXZ"
     },
     {
      "va": "0x00601D20",
      "length": 14,
-     "name": "sub_00601D20"
+     "name": "?sub_00601D20_ClearLink@@YIXPAU?$TSLink@UCELLIST@@@@@Z"
     },
     {
      "va": "0x00601D30",
      "length": 36,
-     "name": "sub_00601D30_NextLink"
+     "name": "?NextLink@?$TSLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@QAEPAU1@H@Z"
     },
     {
      "va": "0x00601D60",
      "length": 50,
-     "name": "??1sub_00601D60@@QAE@XZ"
+     "name": "??1TCELENTRY@@QAE@XZ"
     },
     {
      "va": "0x00601DA0",
      "length": 4,
-     "name": "?sub_0060E280_AddLinkOffset@@YIPADPADH@Z"
+     "name": "?Link@?$TSGetExplicitLink@UCELLIST@@@@SIPAU?$TSLink@UCELLIST@@@@PBUCELLIST@@H@Z"
     },
     {
      "va": "0x00601DB0",
      "length": 14,
-     "name": "sub_00601DB0"
+     "name": "?sub_00601DB0_ClearLink@@YIXPAU?$TSLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@Z"
     },
     {
      "va": "0x00601DC0",
      "length": 9,
-     "name": "?sub_00601DC0_IsOpen@R00601DC0@@QAE_NXZ"
+     "name": "?IsLinked@?$TSLink@UTCELENTRY@@@@QAE_NXZ"
+    },
+    {
+     "va": "0x00601DD0",
+     "length": 4,
+     "name": "?Count@?$TSBaseArray@UCELLIST@@@@QBEIXZ"
+    },
+    {
+     "va": "0x00601DE0",
+     "length": 4,
+     "name": "?Link@?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@SIPAU?$TSLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@PBV?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@H@Z"
     },
     {
      "va": "0x00601DF0",
      "length": 11,
-     "name": "?sub_00601DF0_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
+     "name": "?InitializeTerminator@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEXXZ"
     },
     {
      "va": "0x00601E00",
      "length": 13,
-     "name": "??0D2Warden47F930Strc@@QAE@XZ"
+     "name": "??0?$TSBaseArray@UCELLIST@@@@QAE@XZ"
     },
     {
      "va": "0x00601E10",
      "length": 11,
-     "name": "?sub_00601E10_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
+     "name": "?InitializeTerminator@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEXXZ"
     },
     {
      "va": "0x00601E20",
      "length": 57,
-     "name": "CelSlotArrayCalcChunkSize"
+     "name": "?CalcChunkSize@?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAEII@Z"
     },
     {
      "va": "0x00601E60",
      "length": 31,
-     "name": "sub_00601E60_RoundUp"
+     "name": "?RoundUp@?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@SGIII@Z"
     },
     {
      "va": "0x00601E80",
      "length": 24,
-     "name": "sub_00601E80_InitCopy"
+     "name": "?sub_00601E80_CopyLinkOffset@D2CelEntryListHolderStrc@@QAEXABU?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@@Z"
     },
     {
      "va": "0x00601EA0",
      "length": 83,
-     "name": "CelFileFree"
+     "name": "?CelFileFree@@YGXPAUD2CelFileStrc@@@Z"
     },
     {
      "va": "0x00601F00",
      "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?Head@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEPAUTCELENTRY@@XZ"
     },
     {
      "va": "0x00601F10",
      "length": 16,
-     "name": "??0sub_00601F10@@QAE@XZ"
+     "name": "??0?$TSLink@UTCELENTRY@@@@QAE@XZ"
     },
     {
      "va": "0x00601F20",
      "length": 50,
-     "name": "??1sub_00601F20@@QAE@XZ"
+     "name": "?Unlink@?$TSLink@UTCELENTRY@@@@QAEXXZ"
     },
     {
      "va": "0x00601F60",
      "length": 50,
-     "name": "??1sub_00601F60@@QAE@XZ"
+     "name": "??1?$TSLink@UCELLIST@@@@QAE@XZ"
     },
     {
      "va": "0x00601FA0",
      "length": 17,
-     "name": "CelEntryListLink"
+     "name": "?Link@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEPAU?$TSLink@UTCELENTRY@@@@PBUTCELENTRY@@@Z"
     },
     {
      "va": "0x00601FC0",
      "length": 161,
-     "name": "CelEntryListLinkNode"
+     "name": "?LinkNode@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEXPAUTCELENTRY@@I0@Z"
     },
     {
      "va": "0x00602070",
      "length": 32,
-     "name": "CelEntryListNext"
+     "name": "?Next@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEPAUTCELENTRY@@PBU2@@Z"
     },
     {
      "va": "0x00602090",
      "length": 23,
-     "name": "?sub_00602090@LockedObject@@QAEXH@Z"
+     "name": "?SyncLeaveLock@?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAEXPAUHLOCKEDCELLIST__@@@Z"
+    },
+    {
+     "va": "0x006020B0",
+     "length": 16,
+     "name": "?Head@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEPAUCELLIST@@XZ"
     },
     {
      "va": "0x006020C0",
      "length": 16,
-     "name": "?sub_006020C0_Head@D2ChatStormListAStrc@@QAEPADXZ"
+     "name": "?Head@?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAEPAV?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@XZ"
     },
     {
      "va": "0x006020D0",
      "length": 50,
-     "name": "??1sub_006020D0@@QAE@XZ"
+     "name": "?Unlink@?$TSLink@UCELLIST@@@@QAEXXZ"
     },
     {
      "va": "0x00602110",
      "length": 25,
-     "name": "sub_00602110_Link"
+     "name": "?Link@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEPAU?$TSLink@UCELLIST@@@@PBUCELLIST@@@Z"
     },
     {
      "va": "0x00602130",
      "length": 16,
-     "name": "??0sub_00602130@@QAE@XZ"
+     "name": "??0?$TSLinkedNode@UTCELENTRY@@@@QAE@XZ"
     },
     {
      "va": "0x00602140",
      "length": 50,
-     "name": "??1sub_00602140@@QAE@XZ"
+     "name": "??1?$TSLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@QAE@XZ"
     },
     {
      "va": "0x00602180",
      "length": 16,
-     "name": "??0sub_00602180@@QAE@XZ"
+     "name": "??0TCELENTRY@@QAE@XZ"
     },
     {
      "va": "0x00602190",
      "length": 66,
-     "name": "CelEntryListUnlinkNode"
+     "name": "?UnlinkNode@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEXPAUTCELENTRY@@@Z"
     },
     {
      "va": "0x006021E0",
      "length": 121,
-     "name": "CelListTableUnlinkNode"
+     "name": "?Unlink@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEXPAUCELLIST@@@Z"
     },
     {
      "va": "0x00602260",
      "length": 28,
-     "name": "CelSlotListRawNext"
+     "name": "?RawNext@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEPAUCELLIST@@PBU2@@Z"
     },
     {
      "va": "0x00602280",
      "length": 25,
-     "name": "sub_00602280_Link"
+     "name": "?Link@?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAEPAU?$TSLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@PBV?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@Z"
     },
     {
      "va": "0x006022A0",
      "length": 72,
-     "name": "sub_006022A0_sub_006C4290"
+     "name": "?UnlinkNode@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEXPAUCELLIST@@@Z"
     },
     {
      "va": "0x006022F0",
      "length": 22,
-     "name": "sub_006022F0_InitLinkField"
+     "name": "?SetLinkOffset@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEXH@Z"
     },
     {
      "va": "0x00602310",
      "length": 55,
-     "name": "sub_00602310_Next"
+     "name": "?Next@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEPAUCELLIST@@PBU2@@Z"
     },
     {
      "va": "0x00602350",
      "length": 22,
-     "name": "sub_00602350_InitLinkField"
+     "name": "?SetLinkOffset@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEXH@Z"
     },
     {
      "va": "0x00602370",
      "length": 17,
-     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
+     "name": "?sub_00602370_ResetList@@YIXPAU?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@@Z"
+    },
+    {
+     "va": "0x00602390",
+     "length": 17,
+     "name": "?sub_00602390_ResetList@@YIXPAV?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@Z"
     },
     {
      "va": "0x006023B0",
      "length": 39,
-     "name": "?0D2StormListCStrc"
+     "name": "??0?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAE@ABU0@@Z"
     },
     {
      "va": "0x006023E0",
      "length": 24,
-     "name": "sub_006023E0_RawNext"
+     "name": "?RawNext@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEPAUTCELENTRY@@PBU2@@Z"
     },
     {
      "va": "0x00602400",
      "length": 23,
-     "name": "CelListTableSyncLeaveLock"
+     "name": "?Unlock@?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAEXPAUHLOCKEDCELLIST__@@@Z"
     },
     {
      "va": "0x00602420",
      "length": 16,
-     "name": "??0sub_00602420@@QAE@XZ"
+     "name": "??0?$TSLink@UCELLIST@@@@QAE@XZ"
     },
     {
      "va": "0x00602430",
      "length": 106,
-     "name": "?1D2StormHashObjectStrc"
+     "name": "??1?$TSHashObject@UCELLIST@@VHASHKEY_NONE@@@@QAE@XZ"
     },
     {
      "va": "0x006024A0",
      "length": 50,
-     "name": "??1sub_006024A0@@QAE@XZ"
+     "name": "??1D2CelListLinkHolderStrc@@QAE@XZ"
     },
     {
      "va": "0x006024E0",
      "length": 171,
-     "name": "CelReuseListLinkNode"
+     "name": "?LinkNode@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEXPAUCELLIST@@I0@Z"
     },
     {
      "va": "0x00602590",
      "length": 72,
-     "name": "sub_00602590_sub_006C4290"
+     "name": "?UnlinkNode@?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAEXPAV?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@Z"
+    },
+    {
+     "va": "0x006025E0",
+     "length": 61,
+     "name": "?UnlinkAll@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEXXZ"
     },
     {
      "va": "0x00602620",
      "length": 31,
-     "name": "CelListTableDelete"
+     "name": "?Delete@?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@QAEXPAUCELLIST@@@Z"
+    },
+    {
+     "va": "0x00602640",
+     "length": 66,
+     "name": "?UnlinkAll@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEXXZ"
+    },
+    {
+     "va": "0x00602690",
+     "length": 66,
+     "name": "?UnlinkAll@?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAEXXZ"
     },
     {
      "va": "0x006026E0",
      "length": 37,
-     "name": "CelSlotListChangeLinkOffset"
+     "name": "?ChangeLinkOffset@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEXH@Z"
     },
     {
      "va": "0x00602710",
      "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
+     "name": "??0?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAE@XZ"
+    },
+    {
+     "va": "0x00602730",
+     "length": 32,
+     "name": "??0?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAE@XZ"
     },
     {
      "va": "0x00602750",
      "length": 16,
-     "name": "??0sub_00602750@@QAE@XZ"
+     "name": "??0?$TSLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@QAE@XZ"
     },
     {
      "va": "0x00602760",
      "length": 50,
-     "name": "??1sub_00602760@@QAE@XZ"
+     "name": "??1D2CelChunkLinkHolderStrc@@QAE@XZ"
     },
     {
      "va": "0x006027A0",
      "length": 60,
-     "name": "??1D2StormNodeList006027A0Strc@@QAE@XZ"
+     "name": "??1?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAE@XZ"
     },
     {
      "va": "0x006027E0",
      "length": 31,
-     "name": "sub_006027E0_Delete"
+     "name": "?Delete@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEXPAUCELLIST@@@Z"
     },
     {
      "va": "0x00602800",
      "length": 142,
-     "name": "?CelListTableInternalClear@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEXH@Z"
+     "name": "?InternalClear@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEXH@Z"
     },
     {
      "va": "0x00602890",
      "length": 60,
-     "name": "??1D2StormSlotList00602890Strc@@QAE@XZ"
+     "name": "??1?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAE@XZ"
     },
     {
      "va": "0x006028D0",
      "length": 60,
-     "name": "??1D2StormListE006028D0Strc@@QAE@XZ"
+     "name": "??1?$TSExplicitList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@$0BA@@@QAE@XZ"
     },
     {
      "va": "0x00602910",
      "length": 32,
-     "name": "??0D2ChatStormListEStrc@@QAE@XZ"
+     "name": "??0?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@QAE@XZ"
     },
     {
      "va": "0x00602930",
      "length": 32,
-     "name": "??0D2StormList0044FB30Strc@@QAE@XZ"
+     "name": "??0?$TSExplicitList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@$0BA@@@QAE@XZ"
     },
     {
      "va": "0x00602950",
      "length": 34,
-     "name": "?sub_0044FB50_ConstructDeadList@@YIXPAUD2StormDeadListStrc@@@Z"
+     "name": "?Construct@?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@SIXPAV?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@Z"
     },
     {
      "va": "0x00602980",
      "length": 39,
-     "name": "?0D2StormListDStrc"
+     "name": "??0?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@QAE@ABV0@@Z"
     },
     {
      "va": "0x006029B0",
      "length": 82,
-     "name": "CelEntryListNewNode"
+     "name": "?NewNode@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEPAUTCELENTRY@@III@Z"
     },
     {
      "va": "0x00602A10",
      "length": 47,
-     "name": "CelListTableDeleteUnlock"
+     "name": "?DeleteUnlock@?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAEXPAUCELLIST@@PAUHLOCKEDCELLIST__@@@Z"
     },
     {
      "va": "0x00602A40",
      "length": 81,
-     "name": "?_GD2StormSlotLinkStrc"
+     "name": "??_GTCELENTRY@@QAEPAXI@Z"
     },
     {
      "va": "0x00602AA0",
      "length": 60,
-     "name": "??1D2StormSlotList00602AA0Strc@@QAE@XZ"
+     "name": "??1?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@QAE@XZ"
     },
     {
      "va": "0x00602AE0",
      "length": 60,
-     "name": "??1D2StormListE00602AE0Strc@@QAE@XZ"
+     "name": "??1?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAE@XZ"
     },
     {
      "va": "0x00602B20",
      "length": 73,
-     "name": "??1D2StormEntry00602B20Strc@@QAE@XZ"
+     "name": "??1CELLIST@@QAE@XZ"
     },
     {
      "va": "0x00602B70",
      "length": 96,
-     "name": "?_GD2StormSlotListStrc"
+     "name": "??_G?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@QAEPAXI@Z"
     },
     {
      "va": "0x00602BD0",
      "length": 32,
-     "name": "?sub_00602BD0@@YIXPAUD2StormSlotListStrc@@PBU1@@Z"
+     "name": "?CopyConstruct@?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@SIXPAV?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@ABV2@@Z"
+    },
+    {
+     "va": "0x00602BF0",
+     "length": 78,
+     "name": "?Clear@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEXXZ"
     },
     {
      "va": "0x00602C40",
      "length": 106,
-     "name": "CelEntryListDeleteNode"
+     "name": "?DeleteNode@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEPAUTCELENTRY@@PAU2@@Z"
     },
     {
      "va": "0x00602CB0",
      "length": 107,
-     "name": "?_GD2StormEntry38Strc"
+     "name": "??_GCELLIST@@QAEPAXI@Z"
     },
     {
      "va": "0x00602D20",
      "length": 194,
-     "name": "CelReuseListDeleteAll"
+     "name": "?Clear@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEXXZ"
     },
     {
      "va": "0x00602DF0",
      "length": 60,
-     "name": "??1D2StormSlotList00602DF0Strc@@QAE@XZ"
+     "name": "??1D2CelListListHolderStrc@@QAE@XZ"
     },
     {
      "va": "0x00602E30",
      "length": 129,
-     "name": "CelReuseListDeleteNode"
+     "name": "?DeleteNode@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEPAUCELLIST@@PAU2@@Z"
     },
     {
      "va": "0x00602EC0",
      "length": 73,
-     "name": "??1D2StormEntry00602EC0Strc@@QAE@XZ"
+     "name": "?Destruct@?$TSCD@UCELLIST@@@@SIXPAUCELLIST@@@Z"
     },
     {
      "va": "0x00602F10",
      "length": 325,
-     "name": "?CelSlotArrayReallocData@D2StormSlotArrayStrc@@QAEXI@Z"
+     "name": "?ReallocData@?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAEXI@Z"
     },
     {
      "va": "0x00603060",
      "length": 128,
-     "name": "?1D2StormSlotArrayStrc"
+     "name": "??1?$TSFixedArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAE@XZ"
     },
     {
      "va": "0x006030E0",
      "length": 85,
-     "name": "?CelListTableInternalFind@D2StormHashTable006030E0Strc@@QAEPADIH@Z"
+     "name": "?InternalFind@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEPAUCELLIST@@IABVHASHKEY_NONE@@@Z"
     },
     {
      "va": "0x00603140",
      "length": 153,
-     "name": "?1D2StormEntryArrayStrc"
+     "name": "??1?$TSFixedArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAE@XZ"
     },
     {
      "va": "0x006031E0",
      "length": 16,
-     "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
+     "name": "??0?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAE@XZ"
     },
     {
      "va": "0x006031F0",
      "length": 70,
-     "name": "CelSlotArrayReserve"
+     "name": "?Reserve@?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAEXIH@Z"
     },
     {
      "va": "0x00603240",
      "length": 5,
-     "name": "??1D2StormSlotGrowArrayStrc@@QAE@XZ"
+     "name": "??1?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAE@XZ"
     },
     {
      "va": "0x00603250",
      "length": 20,
-     "name": "CelListTablePtr"
+     "name": "?Ptr@?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@QAEPAUCELLIST@@PAUHCELLIST__@@@Z"
     },
     {
      "va": "0x00603270",
      "length": 5,
-     "name": "??1D2StormEntryGrowArrayStrc@@QAE@XZ"
+     "name": "??1?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAE@XZ"
     },
     {
      "va": "0x006032C0",
      "length": 59,
-     "name": "??1D2StormHashChunkStrc@@QAE@XZ"
+     "name": "??1?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@QAE@XZ"
     },
     {
      "va": "0x00603300",
      "length": 247,
-     "name": "CelSlotArraySetCount"
+     "name": "?SetCount@?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAEXI@Z"
     },
     {
      "va": "0x00603400",
      "length": 82,
-     "name": "CelListTableLock"
+     "name": "?Lock@?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAEPAUCELLIST@@PAUHCELLIST__@@PAPAUHLOCKEDCELLIST__@@H@Z"
+    },
+    {
+     "va": "0x00603460",
+     "length": 146,
+     "name": "??1?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAE@XZ"
     },
     {
      "va": "0x00603500",
      "length": 11,
-     "name": "?sub_00603500_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
+     "name": "?InitializeTerminator@?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAEXXZ"
     },
     {
      "va": "0x00603510",
      "length": 17,
-     "name": "?sub_00603510_Reset@D2ChatStormListAStrc@@QAEXXZ"
+     "name": "?sub_00603510_ResetList@@YIXPAU?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@@Z"
     },
     {
      "va": "0x00603530",
      "length": 17,
-     "name": "??0D2Storm603530Strc@@QAE@XZ"
+     "name": "??0?$TSHashObject@UCELLIST@@VHASHKEY_NONE@@@@QAE@XZ"
     },
     {
      "va": "0x00603550",
      "length": 32,
-     "name": "??0D2ChatStormListFStrc@@QAE@XZ"
+     "name": "??0?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAE@XZ"
     },
     {
      "va": "0x00603570",
      "length": 33,
-     "name": "??0D2Storm603570Strc@@QAE@XZ"
+     "name": "??0CELLIST@@QAE@XZ"
     },
     {
      "va": "0x006035A0",
      "length": 98,
-     "name": "CelReuseListNewNode"
+     "name": "?NewNode@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEPAUCELLIST@@III@Z"
     },
     {
      "va": "0x00603610",
      "length": 183,
-     "name": "InternalNew"
+     "name": "?InternalNew@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEPAUCELLIST@@PAV?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@II@Z"
     },
     {
      "va": "0x006036D0",
      "length": 96,
-     "name": "InternalDelete"
+     "name": "?InternalDelete@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEXPAUCELLIST@@@Z"
     },
     {
      "va": "0x00603730",
      "length": 43,
-     "name": "?sub_00603730@SlotArray@@QAEPAU1@UDeleteFlags@@@Z"
+     "name": "??_G?$TSFixedArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAEPAXI@Z"
     },
     {
      "va": "0x00603760",
      "length": 20,
-     "name": "?CelSlotArrayClear@D2StormSlotArrayStrc@@QAEXXZ"
+     "name": "?Clear@?$TSFixedArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAEXXZ"
     },
     {
      "va": "0x00603780",
@@ -62008,214 +62058,232 @@
     {
      "va": "0x006037B0",
      "length": 43,
-     "name": "?_GD2GameHashTableStrc"
+     "name": "??_G?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEPAXI@Z"
     },
     {
      "va": "0x006037E0",
      "length": 98,
-     "name": "?_GD2StormHashChunkStrc"
+     "name": "??_G?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@QAEPAXI@Z"
     },
     {
      "va": "0x00603850",
      "length": 9,
-     "name": "?sub_00603850_SetCount@D2StormSlotArrayStrc@@QAEXI@Z"
+     "name": "?sub_00603850_SetCount@D2CelListArrayHolderStrc@@QAEXI@Z"
     },
     {
      "va": "0x00603860",
      "length": 349,
-     "name": "CelCompressAddImage"
+     "name": "?CelCompressAddImage@@YGXIPAXIIIHHH@Z"
     },
     {
      "va": "0x006039C0",
      "length": 164,
-     "name": "?CELCMP_FreeCachedCelFrame@@YGXI@Z"
+     "name": "?CelCompressDestroy@@YGXI@Z"
     },
     {
      "va": "0x00603A70",
      "length": 232,
-     "name": "?CELCMP_CreateCelFileFromCache@@YGIIPAPAUD2CelFileStrc@@@Z"
+     "name": "?CelCompressCreateCelFile@@YGIIPAPAUD2CelFileStrc@@@Z"
     },
     {
      "va": "0x00603B60",
      "length": 107,
-     "name": "CelChunkListDeleteAll"
+     "name": "?Clear@?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAEXXZ"
     },
     {
      "va": "0x00603BD0",
      "length": 171,
-     "name": "?0D2GameHashTableStrc"
+     "name": "??0?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAE@XZ"
     },
     {
      "va": "0x00603C80",
      "length": 451,
-     "name": "CelListTableGrowListArray"
+     "name": "?GrowListArray@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEXXZ"
     },
     {
      "va": "0x00603E50",
      "length": 20,
-     "name": "?CelListTableDeleteReuseLists@D2GameHashTableReuseStrc@@QAEXXZ"
+     "name": "?DeleteChunksAndReuse@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@QAEXXZ"
+    },
+    {
+     "va": "0x00603E70",
+     "length": 96,
+     "name": "??0?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@QAE@XZ"
     },
     {
      "va": "0x00603ED0",
      "length": 6,
-     "name": "?sub_00603ED0_GetDifference@D2Storm603ED0Strc@@QAEIXZ"
+     "name": "?sub_00603ED0_GetDifference@D2CelListPairStrc@@QAEIXZ"
     },
     {
      "va": "0x00603EE0",
      "length": 57,
-     "name": "CelListArrayCalcChunkSize"
+     "name": "?CalcChunkSize@?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAEII@Z"
     },
     {
      "va": "0x00603F20",
      "length": 31,
-     "name": "sub_00603F20_RoundUp"
+     "name": "?RoundUp@?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@SGIII@Z"
     },
     {
      "va": "0x00603F40",
      "length": 13,
-     "name": "??0D2Warden47F930Strc@@QAE@XZ"
+     "name": "??0?$TSBaseArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@QAE@XZ"
     },
     {
      "va": "0x00603F50",
      "length": 24,
-     "name": "sub_00603F50_CopyLinkOffset"
+     "name": "?sub_00603F50_CopyLinkOffset@D2CelChunkListHolderStrc@@QAEXABV?$TSExplicitList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@$0BA@@@@Z"
     },
     {
      "va": "0x00603F70",
      "length": 19,
-     "name": "??0D2Storm603F70Strc@@QAE@H@Z"
+     "name": "??0?$TSHashObject@UCELLIST@@VHASHKEY_NONE@@@@QAE@ABU0@@Z"
     },
     {
      "va": "0x00603F90",
      "length": 39,
-     "name": "?0D2StormNodeListStrc"
+     "name": "??0?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAE@ABU0@@Z"
     },
     {
      "va": "0x00603FC0",
      "length": 171,
-     "name": "CelChunkListLinkNode"
+     "name": "?LinkNode@?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAEXPAV?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@I0@Z"
     },
     {
      "va": "0x00604070",
      "length": 8,
-     "name": "?sub_00604070_Clear@D2GameHashTableStrc@@QAEXXZ"
+     "name": "?Clear@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEXXZ"
     },
     {
      "va": "0x00604080",
      "length": 35,
-     "name": "?sub_00604080_ConstructEntry@@YIXPAUD2StormEntry604080Strc@@@Z"
+     "name": "?Construct@?$TSCD@UCELLIST@@@@SIXPAUCELLIST@@@Z"
     },
     {
      "va": "0x006040B0",
      "length": 79,
-     "name": "?0D2StormEntry38Strc"
+     "name": "??0CELLIST@@QAE@ABU0@@Z"
     },
     {
      "va": "0x00604100",
      "length": 72,
-     "name": "?sub_00604100_CopyConstructEntry@@YIXPAUD2StormEntry604080Strc@@PBU1@@Z"
+     "name": "?CopyConstruct@?$TSCD@UCELLIST@@@@SIXPAUCELLIST@@ABU2@@Z"
     },
     {
      "va": "0x00604150",
      "length": 96,
-     "name": "InternalDelete"
+     "name": "?InternalDelete@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEXPAUCELLIST@@@Z"
     },
     {
      "va": "0x006041B0",
      "length": 401,
-     "name": "?sub_006041B0_ReallocData@D2StormEntryArrayStrc@@QAEXI@Z"
+     "name": "?ReallocData@?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAEXI@Z"
     },
     {
      "va": "0x00604350",
      "length": 70,
-     "name": "CelListArrayReserve"
+     "name": "?Reserve@?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAEXIH@Z"
     },
     {
      "va": "0x006043A0",
      "length": 16,
-     "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
+     "name": "??0?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAE@XZ"
     },
     {
      "va": "0x006043B0",
-     "length": 138
+     "length": 138,
+     "name": "?New@?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAEPAUCELLIST@@XZ"
     },
     {
      "va": "0x00604440",
      "length": 23,
-     "name": "CelListArrayGrow"
+     "name": "?CelListArrayGrow@D2CelListRecordArrayHolderStrc@@QAEXI@Z"
     },
     {
      "va": "0x00604460",
      "length": 5,
-     "name": "?sub_00604460_New@D2Storm604460Strc@@QAEPAUD2StormEntry604080Strc@@XZ"
+     "name": "?sub_00604460_New@D2CelListRecordArrayHolderStrc@@QAEPAUCELLIST@@XZ"
     },
     {
      "va": "0x00604470",
      "length": 22,
-     "name": "??0D2Storm604470Strc@@QAE@XZ"
+     "name": "??0?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@QAE@XZ"
     },
     {
      "va": "0x00604490",
      "length": 87,
-     "name": "CelChunkListNewNode"
+     "name": "?NewNode@?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAEPAV?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@III@Z"
     },
     {
      "va": "0x006044F0",
      "length": 183,
-     "name": "InternalNew"
+     "name": "?InternalNew@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEPAUCELLIST@@PAV?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@II@Z"
     },
     {
      "va": "0x006045B0",
-     "length": 144
+     "length": 144,
+     "name": "?MonitorFullness@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEHI@Z"
     },
     {
      "va": "0x00604640",
-     "length": 157
+     "length": 157,
+     "name": "??1?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAE@XZ"
     },
     {
      "va": "0x006046E0",
      "length": 27,
-     "name": "?Destroy@D2GameHashTableReuseStrc@@UAEXXZ"
+     "name": "?Destroy@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEXXZ"
     },
     {
      "va": "0x00604700",
      "length": 43,
-     "name": "?_GD2GameHashTableReuseStrc"
+     "name": "??_G?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@UAEPAXI@Z"
+    },
+    {
+     "va": "0x00604730",
+     "length": 37,
+     "name": "??0?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@QAE@XZ"
     },
     {
      "va": "0x00604760",
      "length": 148,
-     "name": "CelListTableNew"
+     "name": "?New@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEPAUCELLIST@@IABVHASHKEY_NONE@@II@Z"
     },
     {
      "va": "0x00604800",
      "length": 5,
-     "name": "??1D2GameExportTableSimpleViewStrc@@QAE@XZ"
+     "name": "??1?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@UAE@XZ"
+    },
+    {
+     "va": "0x00604810",
+     "length": 47,
+     "name": "??0?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAE@XZ"
     },
     {
      "va": "0x00604840",
      "length": 37,
-     "name": "CelListTableNewHandle"
+     "name": "?NewHandle@?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@QAEPAUCELLIST@@PAPAUHCELLIST__@@@Z"
     },
     {
      "va": "0x00604870",
      "length": 43,
-     "name": "?_GD2GameExportTableSimpleStrc"
+     "name": "??_G?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEPAXI@Z"
     },
     {
      "va": "0x006048A0",
      "length": 21,
-     "name": "??1D2GameDataTableViewStrc@@QAE@XZ"
+     "name": "??1?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@UAE@XZ"
     },
     {
      "va": "0x006048C0",
      "length": 58,
-     "name": "CelListTableNewLock"
+     "name": "?NewLock@?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAEPAUCELLIST@@PAPAUHCELLIST__@@PAPAUHLOCKEDCELLIST__@@@Z"
     },
     {
      "va": "0x00604900",
      "length": 55,
-     "name": "?_GD2GameDataTableStrc"
+     "name": "??_G?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@UAEPAXI@Z"
     },
     {
      "va": "0x00604940",
@@ -62356,7 +62424,31 @@
      "va": "0x0066A250",
      "length": 3,
      "name": "sub_0066A250"
+    },
+    {
+     "va": "0x006CAFC0",
+     "length": 70,
+     "name": "??__EgCelListTable@@YAXXZ"
+    },
+    {
+     "va": "0x006CB4C0",
+     "length": 21,
+     "name": "??__FgCelListTable@@YAXXZ"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHsc"
    ]
   },
   {
@@ -62429,54 +62521,9 @@
      "name": "CelGetHardwareData"
     },
     {
-     "va": "0x00601DD0",
-     "length": 4,
-     "name": "?DRLGPRESET_GetLinkRawNext@@YIPADPAUD2StormLinkStrc@@@Z"
-    },
-    {
-     "va": "0x00601DE0",
-     "length": 4,
-     "name": "?sub_0060E280_AddLinkOffset@@YIPADPADH@Z"
-    },
-    {
-     "va": "0x006020B0",
-     "length": 16,
-     "name": "?IGNORELIST_GetStringListHead@D2ChatStormListAStrc@@QAEPADXZ"
-    },
-    {
-     "va": "0x00602390",
-     "length": 17,
-     "name": "?IGNORELIST_ResetStringList@D2ChatStormListAStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x006025E0",
-     "length": 61,
-     "name": "?UnlinkAll@D2StormNodeListStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00602640",
-     "length": 66,
-     "name": "?UnlinkAll@D2StormSlotListStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00602690",
-     "length": 66,
-     "name": "?UnlinkAll@D2StormListEStrc@@QAEXXZ"
-    },
-    {
-     "va": "0x00602730",
-     "length": 32,
-     "name": "??0D2ChatStormListCStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x00602BF0",
-     "length": 78,
-     "name": "?CelEntryListDeleteAll@D2StormNodeListStrc@@QAEXXZ"
-    },
-    {
      "va": "0x00603280",
      "length": 57,
-     "name": "?CelListTableGenerateHandle@?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAEIXZ"
+     "name": "?GenerateHandle@?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@QAEPAUHCELLIST__@@XZ"
     },
     {
      "va": "0x00606D10",
@@ -62693,57 +62740,6 @@
     {
      "va": "0x0060A910",
      "length": 184
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/CelCmp_00603460.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00603460",
-     "length": 146
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/CelCmp_00603E70.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00603E70",
-     "length": 96,
-     "name": "??0D2GameHashTableReuseStrc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/CelCmp_00604730.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00604730",
-     "length": 37,
-     "name": "??0D2GameExportTableSimpleStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x00604810",
-     "length": 47,
-     "name": "??0D2GameDataTableStrc@@QAE@XZ"
     }
    ]
   },
@@ -78770,40 +78766,6 @@
      "length": 12,
      "name": "?sub_006CADE0_RegisterCleanup@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006CAFC0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CAFC0",
-     "length": 70
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_006CB4C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CB4C0",
-     "length": 21
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {

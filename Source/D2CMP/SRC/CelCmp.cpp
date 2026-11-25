@@ -12,7 +12,7 @@
 
 #include "D2CmpStormList.h"
 
-#include "D2CmpStormHash.h"
+#include "CELLIST.h"
 
 #include "D2LRUNode.h"
 #include "D2StormListArray.h"
@@ -306,13 +306,7 @@ struct D2Storm408ElemStrc;
 
 struct D2StormArray408Strc;
 
-struct DeleteFlags;
-
-struct SlotArray;
-
 struct D2CriticalSectionStrc;
-
-struct D2CelEntryStrc;
 
 struct D2CmpPoolStrc;
 
@@ -949,7 +943,7 @@ struct D2CommonStormSlotArrayAStrc {
  D2CommonStormSlotListAStrc* sub_00601CC0_At(unsigned int index);
 };
 
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
+extern "C" int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
@@ -1126,37 +1120,25 @@ struct D2StormGameHashChunkStrc
 
 extern "C" const char gszTypeNewsTableItem_0072FF8C[];
 
-struct DeleteFlags { unsigned value; };
-
-int __stdcall sub_00412650(void*,const char*,int,unsigned); // 0x00412650
-
-// build: symbol ?Destroy@SlotArray@@QAEXXZ 0x00603060
-struct SlotArray { void Destroy(); SlotArray* sub_00603730(DeleteFlags flags); };
-
-enum { DELETE_BIT = 1 };
-
-struct D2CelEntryStrc : D2StormNodeStrc
-{
-    int nArg8;
-    unsigned int nHeight;
-    unsigned int nWidth;
-    unsigned int nSize;
-    int nArg6;
-    int nArg7;
-    void* pData;
-};
-
-typedef void (__fastcall* CelFileBuildFn)(D2StormEntry38Strc* pList, D2CelFileStrc* pCelFile);
+typedef void (__fastcall* CelFileBuildFn)(CELLIST* pList, D2CelFileStrc* pCelFile);
 
 extern CelFileBuildFn gapfnCelFileBuilders[]; // 0x006E3680
 
-void __fastcall RawBuildCelFile(D2StormEntry38Strc* pList, D2CelFileStrc* pCelFile); // 0x0060D190
+void __fastcall RawBuildCelFile(CELLIST* pList, D2CelFileStrc* pCelFile); // 0x0060D190
 
-extern D2GameDataTableStrc gCelListTable; // 0x008E8CC0
+// build: symbol ??__EgCelListTable@@YAXXZ 0x006CAFC0
+// build: symbol ??__FgCelListTable@@YAXXZ 0x006CB4C0
+D2CelListSyncTable gCelListTable; // 0x008E8CC0
 
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw();
 
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
+inline void __cdecl operator delete(void* pMemory)
+{
+    if (pMemory)
+        SMemFree(pMemory, "delete", -1, 0);
+}
+
+extern "C" void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 
 extern "C" const char szWardenClientFile_006D8E18[];
 
@@ -1202,7 +1184,7 @@ int gnCmpPoolArg; // 0x0088CB18
 
 extern const char gszCelCmp[]; // 0x006E5DD0
 
-void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* szLogFileName, int nLogLine, unsigned int nFlags); // 0x004133D0
+extern "C" void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* szLogFileName, int nLogLine, unsigned int nFlags); // 0x004133D0
 
 struct D2CelStrc;
 
@@ -1215,202 +1197,6 @@ extern "C" const char* __cdecl sub_00408090();                                  
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214
-
-struct D2StormListBStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* sub_006023E0_RawNext(D2StormLinkStrc* pLink);
-};
-
-struct D2StormListCStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2StormListCStrc(const D2StormListCStrc& source);
-};
-
-struct D2StormListDStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    D2StormListDStrc(const D2StormListDStrc& source);
-};
-
-struct D2StormNodeList006027A0Strc : D2StormNodeListStrc { ~D2StormNodeList006027A0Strc(); };
-
-struct D2StormSlotList00602890Strc : D2StormSlotListStrc { ~D2StormSlotList00602890Strc(); };
-
-struct D2StormListE006028D0Strc : D2StormListEStrc { ~D2StormListE006028D0Strc(); };
-
-struct D2StormSlotList00602AA0Strc : D2StormSlotListStrc { ~D2StormSlotList00602AA0Strc(); };
-
-struct D2StormListE00602AE0Strc : D2StormListEStrc { ~D2StormListE00602AE0Strc(); };
-
-struct D2StormSlotList00602DF0Strc : D2StormSlotListStrc { ~D2StormSlotList00602DF0Strc(); };
-
-struct D2StormEntry00602B20Strc : D2StormHashObjectStrc
-{
-    unsigned int dwFlags;
-    int nType;
-    int nData;
-    unsigned int nCount;
-    unsigned int nDirections;
-    D2StormNodeList006027A0Strc tList;
-
-    ~D2StormEntry00602B20Strc();
-};
-
-struct D2StormEntry00602EC0Strc : D2StormHashObjectStrc
-{
-    unsigned int dwFlags;
-    int nType;
-    int nData;
-    unsigned int nCount;
-    unsigned int nDirections;
-    D2StormNodeList006027A0Strc tList;
-
-    ~D2StormEntry00602EC0Strc();
-};
-
-extern "C" void _ReadWriteBarrier(void);
-
-#pragma intrinsic(_ReadWriteBarrier)
-
-
-struct D2StormHashTable006030E0Strc
-{
-    void* m_vtable;
-    D2StormListAStrc m_fulllist;
-    unsigned int m_fullnessIndicator;
-    D2StormListArrayStrc m_slotlistarray;
-    unsigned int m_slotmask;
-
-    char* CelListTableInternalFind(unsigned int nHashVal, int nKey);
-};
-
-struct D2StormEntry38Strc;
-
-struct D2StormEntryGrowArrayStrc
-{
-    D2StormEntryArrayStrc tArray;
-
-    ~D2StormEntryGrowArrayStrc();
-};
-
-struct D2Storm603530ArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    void* m_data;
-    unsigned int m_chunk;
-};
-
-struct D2Storm603530Strc
-{
-    unsigned int unk0x00;
-    D2Storm603530ArrayStrc tArray;
-
-    D2Storm603530Strc();
-};
-
-struct D2Storm603570ArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    void* m_data;
-    unsigned int m_chunk;
-
-    D2Storm603570ArrayStrc()
-    {
-        m_alloc = 0;
-        m_count = 0;
-        m_data = 0;
-        m_chunk = 0;
-    }
-};
-
-struct D2Storm603570LinkStrc
-{
-    D2Storm603570LinkStrc* m_prevlink;
-    char* m_next;
-
-    D2Storm603570LinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-};
-
-struct D2Storm603570ListStrc
-{
-    int m_linkoffset;
-    D2Storm603570LinkStrc m_terminator;
-
-    D2Storm603570ListStrc()
-    {
-        m_linkoffset = 0;
-        m_terminator.m_prevlink = &m_terminator;
-        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-    }
-};
-
-struct D2Storm603570Strc
-{
-    unsigned int unk0x00;
-    D2Storm603570ArrayStrc tArray;
-    char unk0x14[0x18];
-    D2Storm603570ListStrc tList;
-
-    D2Storm603570Strc();
-};
-
-struct D2Storm603ED0Strc
-{
-    unsigned int nFirst;
-    unsigned int nSecond;
-
-    unsigned int sub_00603ED0_GetDifference();
-};
-
-struct D2Storm603F40Strc
-{
-    int n00;
-    int n04;
-    int n08;
-
-    D2Storm603F40Strc();
-};
-
-struct D2Storm604460Strc
-{
-    D2StormEntryArrayStrc tArray;
-
-    D2StormEntry38Strc* sub_00604460_New();
-};
-
-struct D2Storm604470Strc
-{
-    unsigned int nField00;
-    unsigned int nField04;
-    unsigned int f_8;
-    unsigned int nField0C;
-    unsigned int nField10;
-    unsigned int nField14;
-
-    D2Storm604470Strc();
-};
-
-struct D2Storm603F70Strc
-{
-    unsigned int unk0x00;
-    D2Storm603530ArrayStrc tArray;
-
-    D2Storm603F70Strc(int nUnused);
-};
 
 int gdwGlobal_0096C7F4; // 0x0096C7F4
 
@@ -2184,139 +1970,8 @@ int __fastcall sub_00600C60_CallFree(void* pMemory)
     return sub_00517ABB_FindLowestSetBit((unsigned int)pMemory);
 }
 
-// 0x00601E20
-unsigned int D2StormSlotArrayStrc::CelSlotArrayCalcChunkSize(unsigned int nCount)
-{
-    if (nCount < 0x15)
-    {
-        unsigned int nResult = nCount;
-        while (nResult & (nResult - 1))
-            nResult &= nResult - 1;
-        return nResult < 1 ? 1 : nResult;
-    }
-    m_chunk = 0x15;
-    return 0x15;
-}
-
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC
 
-extern "C" const char gszTypeNameCelEntry[];                                                                // 0x00741F14
-
-extern "C" const char gszTypeNameCelList[];                                                                 // 0x00741F2C
-
-extern "C" const char gszTypeNameCelHashChunk[];                                                            // 0x00741FB4
-
-inline D2StormHashObjectStrc::~D2StormHashObjectStrc()
-{
-}
-
-// build: symbol ??1?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAE@XZ 0x00604640
-// build: symbol ??1?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAE@XZ 0x00603460
-// build: symbol ?UnlinkAll@D2StormSlotListStrc@@QAEXXZ 0x00602640
-// build: symbol ?UnlinkAll@D2StormNodeListStrc@@QAEXXZ 0x006025E0
-// build: symbol ??1D2StormHashObjectStrc@@QAE@XZ 0x00602430
-// build: symbol ??_G?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@UAEPAXI@Z 0x00604900
-// build: symbol ??_G?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@UAEPAXI@Z 0x00604870
-// build: symbol ??_7?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@6B@ 0x006E5DFC
-// build: symbol ??1?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@UAE@XZ 0x00604800
-// build: symbol ??1?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@UAE@XZ 0x006048A0
-// build: symbol ??_G?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEPAXI@Z 0x00604700
-// build: symbol ??_G?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEPAXI@Z 0x006037B0
-// build: symbol ??_GD2StormEntry38Strc@@QAEPAXI@Z 0x00602CB0
-// build: symbol ??_GD2StormHashChunkStrc@@QAEPAXI@Z 0x006037E0
-// 0x006022A0
-void D2StormListEStrc::sub_006022A0_UnlinkNode(char* pNode)
-{
-    Link(pNode)->Unlink();
-}
-
-// 0x00602590
-void D2StormListEStrc::sub_00602590_UnlinkNode(char* pNode)
-{
-    Link(pNode)->Unlink();
-}
-
-// 0x006029B0
-D2CelEntryStrc* D2StormNodeListStrc::CelEntryListNewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(D2CelEntryStrc) + nExtraBytes, gszTypeNameCelEntry, -2, nFlags | 8);
-    D2CelEntryStrc* pEntry = pMemory ? new (pMemory) D2CelEntryStrc : 0;
-    if (nLinkType)
-        CelEntryListLinkNode(pEntry, nLinkType, 0);
-    return pEntry;
-}
-
-// build: symbol ??_GD2StormSlotLinkStrc@@QAEPAXI@Z 0x00602A40
-// build: symbol ??_GD2StormSlotListStrc@@QAEPAXI@Z 0x00602B70
-// 0x00602C40
-D2CelEntryStrc* D2StormNodeListStrc::CelEntryListDeleteNode(D2CelEntryStrc* pNode)
-{
-    D2CelEntryStrc* pNext = (D2CelEntryStrc*)Link(pNode)->Next();
-    pNode->f_0.Unlink();
-    SMemFree(pNode, gszTypeNameCelEntry, -2, 0);
-    return pNext;
-}
-
-// 0x00602CB0
-inline void D2StormEntry38Strc::operator delete(void* pMemory)
-{
-    if (pMemory)
-        SMemFree(pMemory, "delete", -1, 0);
-}
-
-// 0x00602D20
-void D2StormSlotListStrc::CelReuseListDeleteAll()
-{
-    char* pNode;
-    while ((pNode = m_terminator.Next()) != 0)
-    {
-        ((D2StormEntry38Strc*)pNode)->~D2StormEntry38Strc();
-        SMemFree(pNode, gszTypeNameCelList, -2, 0);
-    }
-}
-
-// 0x00602E30
-char* D2StormSlotListStrc::CelReuseListDeleteNode(char* pNode)
-{
-    char* pNext = Link(pNode)->Next();
-    ((D2StormEntry38Strc*)pNode)->~D2StormEntry38Strc();
-    SMemFree(pNode, gszTypeNameCelList, -2, 0);
-    return pNext;
-}
-
-// 0x00602F10
-void D2StormSlotArrayStrc::CelSlotArrayReallocData(unsigned int nAlloc)
-{
-    D2StormSlotListStrc* pOld = m_data;
-    for (unsigned int i = nAlloc; i < m_count; i++)
-        pOld[i].~D2StormSlotListStrc();
-    m_alloc = nAlloc;
-    void* pNew = SMemReAlloc(pOld, nAlloc * sizeof(D2StormSlotListStrc), gszTypeNameCelSlotList, -2, 0x10);
-    m_data = (D2StormSlotListStrc*)pNew;
-    if (!pNew)
-    {
-        m_data = (D2StormSlotListStrc*)SMemAlloc(nAlloc * sizeof(D2StormSlotListStrc), gszTypeNameCelSlotList, -2, 0);
-        if (pOld)
-        {
-            unsigned int nCopy = nAlloc >= m_count ? m_count : nAlloc;
-            for (unsigned int i = 0; i < nCopy; i++)
-            {
-                new (&m_data[i]) D2StormSlotListStrc(pOld[i]);
-                pOld[i].~D2StormSlotListStrc();
-            }
-            SMemFree(pOld, gszTypeNameCelSlotList, -2, 0);
-        }
-    }
-}
-
-// 0x00603060
-D2StormSlotArrayStrc::~D2StormSlotArrayStrc() throw()
-{
-    for (unsigned int i = 0; i < m_count; ++i)
-        m_data[i].~D2StormSlotListStrc();
-    if (m_data)
-        SMemFree(m_data, gszTypeNameCelSlotList, -2, 0);
-}
 
 // 0x005FDE50
 void __fastcall D2CMPTileCacheReleaseTile(void* pEntry)
@@ -2347,58 +2002,6 @@ int __stdcall CelFileGetNumDirections(D2UnitStrc* unit)
         exit(-1);
     }
     return unit->dwAnimMode;
-}
-
-// 0x00601B40
-void __cdecl sub_00601B40_Empty()
-{
-}
-
-// 0x00601B50
-void __cdecl sub_00601B50_Empty()
-{
-}
-
-// 0x00601B60
-char* __fastcall sub_00601B60_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-// 0x00601B70
-char* __fastcall DRLGPRESET_GetLinkRawNext(D2StormLinkStrc* pLink)
-{
-    return pLink->m_next;
-}
-
-// 0x00601B80
-void D2GameDataTableStrc::CelListTableSyncEnterLock(int* pLockHandle, int bForWriting)
-{
-    EnterCriticalSection(&m_sync.m_critsect);
-    *pLockHandle = bForWriting ? 1 : -1;
-}
-
-// 0x00601BB0
-void __fastcall sub_00601BB0(PairStrc_00601BB0* pPair)
-{
-    pPair->nFirst = 0;
-    pPair->nSecond = 0;
-}
-
-// 0x00601BC0
-D2StormLinkStrc* D2StormLinkStrc::sub_00601BC0_NextLink(int nLinkOffset)
-{
-    if ((int)m_next < 0)
-        return (D2StormLinkStrc*)~(unsigned int)m_next;
-    if (nLinkOffset < 0)
-        nLinkOffset = (char*)this - m_prevlink->m_next;
-    return (D2StormLinkStrc*)(m_next + nLinkOffset);
-}
-
-// 0x00601BF0
-sub_00601BF0::~sub_00601BF0()
-{
-    f_0.Unlink();
 }
 
 int __stdcall CelValidateContext(D2CmpCelContextStrc* pContext)
@@ -2466,34 +2069,6 @@ D2CelStrc* __stdcall CelGetHandle(D2CmpCelContextStrc* pCelContext)
     return pCelFile->pCels[nIndex * pCelFile->nFrames + pCelContext->nFrame];
 }
 
-// 0x00601C30
-D2StormLinkStrc* D2StormLinkStrc::sub_00601C30_NextLink(int nLinkOffset)
-{
-    if ((int)m_next < 0)
-        return (D2StormLinkStrc*)~(unsigned int)m_next;
-    if (nLinkOffset < 0)
-        nLinkOffset = (char*)this - m_prevlink->m_next;
-    return (D2StormLinkStrc*)(m_next + nLinkOffset);
-}
-
-// 0x00601C60
-char* __fastcall sub_00601C60_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-// 0x00601C70
-sub_00601C70::~sub_00601C70()
-{
-    f_0.Unlink();
-}
-
-// 0x00601CB0
-int D2GameDataTableStrc::CelListTableIsWriteLock(int nLockHandle)
-{
-    return nLockHandle == 1;
-}
-
 unsigned short __stdcall SFileGetLocale()
 {
     return gwValue_0077905C;
@@ -2522,8 +2097,6 @@ char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink)
     return (int)pLink->m_next > 0 ? pLink->m_next : 0;
 }
 
-// 0x00601CC0
-D2CommonStormSlotListAStrc* D2CommonStormSlotArrayAStrc::sub_00601CC0_At(unsigned int index) {return &m_data[index];}
 
 static unsigned int __stdcall STORM_RoundUp(unsigned int nValue, unsigned int nAlign)
 {
@@ -2531,15 +2104,6 @@ static unsigned int __stdcall STORM_RoundUp(unsigned int nValue, unsigned int nA
     if (nRemainder)
         nValue += nAlign - nRemainder;
     return nValue;
-}
-
-// build: symbol ??0?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAE@XZ 0x00603BD0
-
-// build: symbol ??_7?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@6B@ 0x006E5DE8
-// 0x00601CE0
-char* __fastcall sub_00601CE0_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
 }
 
 char* __fastcall sub_00416820_LinkNext(D2StormLinkStrc* pLink)
@@ -2622,13 +2186,68 @@ int __fastcall sub_00416AB0_TestField14C(D2Storm416A90Strc* pRecord)
     return 0;
 }
 
-// 0x00601CF0
-extern "C" void* __fastcall sub_00601CF0(void* value) { return value; }
 
-// 0x00601D00
-unsigned int D2GameDataTableStrc::CelListTableSlotIndex(unsigned int nHashVal)
+
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
+// Three members of the cel list table keep the forms this file had before: the original reloads the slot list
+// on every step of its loops, and no plain form of the templates' members has given that yet. InternalFind is
+// defined at the end of the file; GenerateHandle is CelCmp_005FF2A0.cpp's.
+template<>
+CELLIST* TSHashTable<CELLIST, HASHKEY_NONE>::InternalFind(unsigned int hashval, const HASHKEY_NONE& key);
+template<>
+int TSHashTable<CELLIST, HASHKEY_NONE>::MonitorFullness(unsigned int slot);
+template<>
+HCELLIST__* TSExportTableSimple<CELLIST, HCELLIST__*, 0>::GenerateHandle();
+
+
+// 0x006045B0
+template<>
+int TSHashTable<CELLIST, HASHKEY_NONE>::MonitorFullness(unsigned int slot)
 {
-    return m_slotmask & nHashVal;
+    D2CelListList* const& listarray = m_slotlistarray.m_data;
+    if (m_slotmask >= 0x3FF)
+        return 0;
+    if (m_fullnessIndicator > 3)
+        m_fullnessIndicator -= 3;
+    else
+        m_fullnessIndicator = 0;
+    TSLink<CELLIST>* const terminator = &listarray[slot].m_terminator;
+    CELLIST* const head = (int)terminator->m_next <= 0 ? 0 : terminator->m_next;
+    for (CELLIST* ptr = head; (int)ptr > 0; )
+    {
+        ++m_fullnessIndicator;
+        if (m_fullnessIndicator > 13)
+        {
+            m_fullnessIndicator = 0;
+            GrowListArray();
+            return 1;
+        }
+        ptr = listarray[slot].Link(ptr)->m_next;
+    }
+    return 0;
+}
+
+// Members of the cel list's templates whose template form isn't settled keep placeholder names: two empty
+// functions, a link test, three link clears and three list resets (typed by their place in the run), a constant, two copies
+// of a list's link offset, two member destructors, a list destructor, and the array wrappers the game list's
+// object has too (SetCount, ReserveExact, New, a pair difference).
+// 0x00601B40
+void __cdecl sub_00601B40_Empty()
+{
+}
+
+// 0x00601B50
+void __cdecl sub_00601B50_Empty()
+{
+}
+
+// 0x00601BB0
+void __fastcall sub_00601BB0_ClearLink(TSLink<TCELENTRY>* pLink)
+{
+    pLink->m_prevlink = 0;
+    pLink->m_next = 0;
 }
 
 // 0x00601D10
@@ -2638,85 +2257,337 @@ int __cdecl sub_00601D10()
 }
 
 // 0x00601D20
-void __fastcall sub_00601D20(PairStrc_00601D20* pPair)
+void __fastcall sub_00601D20_ClearLink(TSLink<CELLIST>* pLink)
 {
-    pPair->nFirst = 0;
-    pPair->nSecond = 0;
-}
-
-// 0x00601D30
-D2StormLinkStrc* D2StormLinkStrc::sub_00601D30_NextLink(int nLinkOffset)
-{
-    if ((int)m_next < 0)
-        return (D2StormLinkStrc*)~(unsigned int)m_next;
-    if (nLinkOffset < 0)
-        nLinkOffset = (char*)this - m_prevlink->m_next;
-    return (D2StormLinkStrc*)(m_next + nLinkOffset);
-}
-
-// 0x00601D60
-sub_00601D60::~sub_00601D60()
-{
-    f_0.Unlink();
-}
-
-// 0x00601DA0
-char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset)
-{
-    return pNode + nLinkOffset;
+    pLink->m_prevlink = 0;
+    pLink->m_next = 0;
 }
 
 // 0x00601DB0
-void __fastcall sub_00601DB0(PairStrc_00601DB0* pPair)
+void __fastcall sub_00601DB0_ClearLink(TSLink<D2CelListChunk>* pLink)
 {
-    pPair->nFirst = 0;
-    pPair->nSecond = 0;
+    pLink->m_prevlink = 0;
+    pLink->m_next = 0;
 }
+
+// 0x00602370
+void __fastcall sub_00602370_ResetList(D2CelEntryList* pList)
+{
+    pList->SetLinkOffset(0);
+}
+
+// 0x00602390
+void __fastcall sub_00602390_ResetList(D2CelListList* pList)
+{
+    pList->SetLinkOffset(0);
+}
+
+// 0x00603510
+void __fastcall sub_00603510_ResetList(TSList<D2CelListChunk, TSGetExplicitLink<D2CelListChunk> >* pList)
+{
+    pList->SetLinkOffset(0);
+}
+
+struct D2CelEntryLinkHolderStrc
+{
+    TSLink<TCELENTRY> m_link;
+
+    bool sub_00601DC0_IsLinked();
+};
 
 // 0x00601DC0
-bool R00601DC0::sub_00601DC0_IsOpen()
+bool D2CelEntryLinkHolderStrc::sub_00601DC0_IsLinked()
 {
-    return m_pFile != 0;
+    return m_link.m_next != 0;
 }
 
-// 0x00601DF0
-void __fastcall sub_00601DF0_InitTerminator(D2StormListStrc* pList)
+struct D2CelEntryListHolderStrc
 {
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
+    D2CelEntryList m_list;
 
-// 0x00601E00
-D2Warden47F930Strc::D2Warden47F930Strc()
-{
-    n00 = 0;
-    n04 = 0;
-    n08 = 0;
-}
+    void sub_00601E80_CopyLinkOffset(const D2CelEntryList& source);
+};
 
-// 0x00601E10
-void __fastcall sub_00601E10_InitTerminator(D2StormListStrc* pList)
+struct D2CelChunkListHolderStrc
 {
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
+    TSExplicitList<D2CelListChunk, 0x10> m_list;
 
-// 0x00601E60
-unsigned int __stdcall sub_00601E60_RoundUp(unsigned int nValue, unsigned int nAlign)
-{
-    unsigned int nRemainder = nValue % nAlign;
-    if (nRemainder)
-        nValue += nAlign - nRemainder;
-    return nValue;
-}
+    void sub_00603F50_CopyLinkOffset(const TSExplicitList<D2CelListChunk, 0x10>& source);
+};
 
 // 0x00601E80
-void D2TSListStrc::sub_00601E80_InitCopy(const D2TSListStrc& source)
+void D2CelEntryListHolderStrc::sub_00601E80_CopyLinkOffset(const D2CelEntryList& source)
 {
-    nLinkOffset = source.nLinkOffset;
-    tTerminator.pPrevLink = &tTerminator;
-    tTerminator.nNext = ~(unsigned int)&tTerminator;
+    m_list.SetLinkOffset(source.m_linkoffset);
 }
+
+// 0x00603F50
+void D2CelChunkListHolderStrc::sub_00603F50_CopyLinkOffset(const TSExplicitList<D2CelListChunk, 0x10>& source)
+{
+    m_list.SetLinkOffset(source.m_linkoffset);
+}
+
+struct D2CelListLinkHolderStrc
+{
+    TSLink<CELLIST> m_link;
+
+    ~D2CelListLinkHolderStrc();
+};
+
+struct D2CelChunkLinkHolderStrc
+{
+    TSLink<D2CelListChunk> m_link;
+
+    ~D2CelChunkLinkHolderStrc();
+};
+
+struct D2CelListListHolderStrc
+{
+    D2CelListList m_list;
+
+    ~D2CelListListHolderStrc();
+};
+
+// 0x006024A0
+D2CelListLinkHolderStrc::~D2CelListLinkHolderStrc()
+{
+}
+
+// 0x00602760
+D2CelChunkLinkHolderStrc::~D2CelChunkLinkHolderStrc()
+{
+}
+
+// 0x00602DF0
+D2CelListListHolderStrc::~D2CelListListHolderStrc()
+{
+}
+
+struct D2CelListArrayHolderStrc
+{
+    TSGrowableArray<D2CelListList> m_array;
+
+    void sub_00603850_SetCount(unsigned int nCount);
+};
+
+struct D2CelListRecordArrayHolderStrc
+{
+    TSGrowableArray<CELLIST> m_array;
+
+    void CelListArrayGrow(unsigned int nCount);
+    CELLIST* sub_00604460_New();
+};
+
+struct D2CelListPairStrc
+{
+    unsigned int nFirst;
+    unsigned int nSecond;
+
+    unsigned int sub_00603ED0_GetDifference();
+};
+
+// 0x00603850
+void D2CelListArrayHolderStrc::sub_00603850_SetCount(unsigned int nCount)
+{
+    m_array.SetCount(nCount);
+}
+
+// 0x00603ED0
+unsigned int D2CelListPairStrc::sub_00603ED0_GetDifference()
+{
+    return nFirst - nSecond;
+}
+
+// 0x00604440
+void D2CelListRecordArrayHolderStrc::CelListArrayGrow(unsigned int nCount)
+{
+    unsigned int nTotal = m_array.m_count + nCount;
+    if (nTotal > m_array.m_alloc)
+        m_array.ReallocData(nTotal);
+}
+
+// 0x00604460
+CELLIST* D2CelListRecordArrayHolderStrc::sub_00604460_New()
+{
+    return m_array.New();
+}
+
+// The cel list's Storm template members (D2CMP keeps its cel lists in a TSExportTableSync over
+// TSHashTableReuse<CELLIST, HASHKEY_NONE, 0>), in the order the object has them.
+// build: symbol ?Next@?$TSLink@UTCELENTRY@@@@QAEPAUTCELENTRY@@XZ 0x00601B60
+// build: symbol ?RawNext@?$TSLink@UTCELENTRY@@@@QAEPAUTCELENTRY@@XZ 0x00601B70
+// build: symbol ?SyncEnterLock@?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAEXPAPAUHLOCKEDCELLIST__@@H@Z 0x00601B80
+// build: symbol ?NextLink@?$TSLink@UTCELENTRY@@@@QAEPAU1@H@Z 0x00601BC0
+// build: symbol ??1?$TSLink@UTCELENTRY@@@@QAE@XZ 0x00601BF0
+// build: symbol ?NextLink@?$TSLink@UCELLIST@@@@QAEPAU1@H@Z 0x00601C30
+// build: symbol ?Next@?$TSLink@UCELLIST@@@@QAEPAUCELLIST@@XZ 0x00601C60
+// build: symbol ??1?$TSLinkedNode@UTCELENTRY@@@@QAE@XZ 0x00601C70
+// build: symbol ?IsWriteLock@?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAEHPAUHLOCKEDCELLIST__@@@Z 0x00601CB0
+// build: symbol ??A?$TSBaseArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@QAEAAV?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@I@Z 0x00601CC0
+// build: symbol ?Next@?$TSLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@QAEPAV?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@XZ 0x00601CE0
+// build: symbol ?Link@?$TSGetLink@UTCELENTRY@@@@SIPAU?$TSLink@UTCELENTRY@@@@PBUTCELENTRY@@H@Z 0x00601CF0
+// build: symbol ?ComputeSlot@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEII@Z 0x00601D00
+// build: symbol ?NextLink@?$TSLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@QAEPAU1@H@Z 0x00601D30
+// build: symbol ??1TCELENTRY@@QAE@XZ 0x00601D60
+// build: symbol ?Link@?$TSGetExplicitLink@UCELLIST@@@@SIPAU?$TSLink@UCELLIST@@@@PBUCELLIST@@H@Z 0x00601DA0
+// build: symbol ?Count@?$TSBaseArray@UCELLIST@@@@QBEIXZ 0x00601DD0
+// build: symbol ?Link@?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@SIPAU?$TSLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@PBV?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@H@Z 0x00601DE0
+// build: symbol ?InitializeTerminator@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEXXZ 0x00601DF0
+// build: symbol ??0?$TSBaseArray@UCELLIST@@@@QAE@XZ 0x00601E00
+// build: symbol ?InitializeTerminator@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEXXZ 0x00601E10
+// build: symbol ?CalcChunkSize@?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAEII@Z 0x00601E20
+// build: symbol ?RoundUp@?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@SGIII@Z 0x00601E60
+// build: symbol ?Head@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEPAUTCELENTRY@@XZ 0x00601F00
+// build: symbol ??0?$TSLink@UTCELENTRY@@@@QAE@XZ 0x00601F10
+// build: symbol ?Unlink@?$TSLink@UTCELENTRY@@@@QAEXXZ 0x00601F20
+// build: symbol ??1?$TSLink@UCELLIST@@@@QAE@XZ 0x00601F60
+// build: symbol ?Link@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEPAU?$TSLink@UTCELENTRY@@@@PBUTCELENTRY@@@Z 0x00601FA0
+// build: symbol ?LinkNode@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEXPAUTCELENTRY@@I0@Z 0x00601FC0
+// build: symbol ?Next@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEPAUTCELENTRY@@PBU2@@Z 0x00602070
+// build: symbol ?SyncLeaveLock@?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAEXPAUHLOCKEDCELLIST__@@@Z 0x00602090
+// build: symbol ?Head@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEPAUCELLIST@@XZ 0x006020B0
+// build: symbol ?Head@?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAEPAV?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@XZ 0x006020C0
+// build: symbol ?Unlink@?$TSLink@UCELLIST@@@@QAEXXZ 0x006020D0
+// build: symbol ?Link@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEPAU?$TSLink@UCELLIST@@@@PBUCELLIST@@@Z 0x00602110
+// build: symbol ??0?$TSLinkedNode@UTCELENTRY@@@@QAE@XZ 0x00602130
+// build: symbol ??1?$TSLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@QAE@XZ 0x00602140
+// build: symbol ??0TCELENTRY@@QAE@XZ 0x00602180
+// build: symbol ?UnlinkNode@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEXPAUTCELENTRY@@@Z 0x00602190
+// build: symbol ?Unlink@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEXPAUCELLIST@@@Z 0x006021E0
+// build: symbol ?RawNext@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEPAUCELLIST@@PBU2@@Z 0x00602260
+// build: symbol ?Link@?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAEPAU?$TSLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@PBV?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@Z 0x00602280
+// build: symbol ?UnlinkNode@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEXPAUCELLIST@@@Z 0x006022A0
+// build: symbol ?SetLinkOffset@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEXH@Z 0x006022F0
+// build: symbol ?Next@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEPAUCELLIST@@PBU2@@Z 0x00602310
+// build: symbol ?SetLinkOffset@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEXH@Z 0x00602350
+// build: symbol ??0?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAE@ABU0@@Z 0x006023B0
+// build: symbol ?RawNext@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEPAUTCELENTRY@@PBU2@@Z 0x006023E0
+// build: symbol ?Unlock@?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAEXPAUHLOCKEDCELLIST__@@@Z 0x00602400
+// build: symbol ??0?$TSLink@UCELLIST@@@@QAE@XZ 0x00602420
+// build: symbol ??1?$TSHashObject@UCELLIST@@VHASHKEY_NONE@@@@QAE@XZ 0x00602430
+// build: symbol ?LinkNode@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEXPAUCELLIST@@I0@Z 0x006024E0
+// build: symbol ?UnlinkNode@?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAEXPAV?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@Z 0x00602590
+// build: symbol ?UnlinkAll@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEXXZ 0x006025E0
+// build: symbol ?Delete@?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@QAEXPAUCELLIST@@@Z 0x00602620
+// build: symbol ?UnlinkAll@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEXXZ 0x00602640
+// build: symbol ?UnlinkAll@?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAEXXZ 0x00602690
+// build: symbol ?ChangeLinkOffset@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEXH@Z 0x006026E0
+// build: symbol ??0?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAE@XZ 0x00602710
+// build: symbol ??0?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAE@XZ 0x00602730
+// build: symbol ??0?$TSLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@QAE@XZ 0x00602750
+// build: symbol ??1?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAE@XZ 0x006027A0
+// build: symbol ?Delete@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEXPAUCELLIST@@@Z 0x006027E0
+// build: symbol ?InternalClear@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEXH@Z 0x00602800
+// build: symbol ??1?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAE@XZ 0x00602890
+// build: symbol ??1?$TSExplicitList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@$0BA@@@QAE@XZ 0x006028D0
+// build: symbol ??0?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@QAE@XZ 0x00602910
+// build: symbol ??0?$TSExplicitList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@$0BA@@@QAE@XZ 0x00602930
+// build: symbol ?Construct@?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@SIXPAV?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@Z 0x00602950
+// build: symbol ??0?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@QAE@ABV0@@Z 0x00602980
+// build: symbol ?NewNode@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEPAUTCELENTRY@@III@Z 0x006029B0
+// build: symbol ?DeleteUnlock@?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAEXPAUCELLIST@@PAUHLOCKEDCELLIST__@@@Z 0x00602A10
+// build: symbol ??_GTCELENTRY@@QAEPAXI@Z 0x00602A40
+// build: symbol ??1?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@QAE@XZ 0x00602AA0
+// build: symbol ??1?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAE@XZ 0x00602AE0
+// build: symbol ??1CELLIST@@QAE@XZ 0x00602B20
+// build: symbol ??_G?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@QAEPAXI@Z 0x00602B70
+// build: symbol ?CopyConstruct@?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@SIXPAV?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@ABV2@@Z 0x00602BD0
+// build: symbol ?Clear@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEXXZ 0x00602BF0
+// build: symbol ?DeleteNode@?$TSList@UTCELENTRY@@U?$TSGetLink@UTCELENTRY@@@@@@QAEPAUTCELENTRY@@PAU2@@Z 0x00602C40
+// build: symbol ??_GCELLIST@@QAEPAXI@Z 0x00602CB0
+// build: symbol ?Clear@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEXXZ 0x00602D20
+// build: symbol ?DeleteNode@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEPAUCELLIST@@PAU2@@Z 0x00602E30
+// build: symbol ?Destruct@?$TSCD@UCELLIST@@@@SIXPAUCELLIST@@@Z 0x00602EC0
+// build: symbol ?ReallocData@?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAEXI@Z 0x00602F10
+// build: symbol ??1?$TSFixedArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAE@XZ 0x00603060
+// build: symbol ?InternalFind@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEPAUCELLIST@@IABVHASHKEY_NONE@@@Z 0x006030E0
+// build: symbol ??1?$TSFixedArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAE@XZ 0x00603140
+// build: symbol ??0?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAE@XZ 0x006031E0
+// build: symbol ?Reserve@?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAEXIH@Z 0x006031F0
+// build: symbol ??1?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAE@XZ 0x00603240
+// build: symbol ?Ptr@?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@QAEPAUCELLIST@@PAUHCELLIST__@@@Z 0x00603250
+// build: symbol ??1?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAE@XZ 0x00603270
+// build: symbol ??1?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@QAE@XZ 0x006032C0
+// build: symbol ?SetCount@?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAEXI@Z 0x00603300
+// build: symbol ?Lock@?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAEPAUCELLIST@@PAUHCELLIST__@@PAPAUHLOCKEDCELLIST__@@H@Z 0x00603400
+// build: symbol ??1?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAE@XZ 0x00603460
+// build: symbol ?InitializeTerminator@?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAEXXZ 0x00603500
+// build: symbol ??0?$TSHashObject@UCELLIST@@VHASHKEY_NONE@@@@QAE@XZ 0x00603530
+// build: symbol ??0?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAE@XZ 0x00603550
+// build: symbol ??0CELLIST@@QAE@XZ 0x00603570
+// build: symbol ?NewNode@?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAEPAUCELLIST@@III@Z 0x006035A0
+// build: symbol ?InternalNew@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEPAUCELLIST@@PAV?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@II@Z 0x00603610
+// build: symbol ?InternalDelete@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEXPAUCELLIST@@@Z 0x006036D0
+// build: symbol ??_G?$TSFixedArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAEPAXI@Z 0x00603730
+// build: symbol ?Clear@?$TSFixedArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAEXXZ 0x00603760
+// build: symbol ?Destroy@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEXXZ 0x00603780
+// build: symbol ??_G?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEPAXI@Z 0x006037B0
+// build: symbol ??_G?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@QAEPAXI@Z 0x006037E0
+// build: symbol ?Clear@?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAEXXZ 0x00603B60
+// build: symbol ??0?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAE@XZ 0x00603BD0
+// build: symbol ?GrowListArray@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEXXZ 0x00603C80
+// build: symbol ?DeleteChunksAndReuse@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@QAEXXZ 0x00603E50
+// build: symbol ??0?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@QAE@XZ 0x00603E70
+// build: symbol ?CalcChunkSize@?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAEII@Z 0x00603EE0
+// build: symbol ?RoundUp@?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@SGIII@Z 0x00603F20
+// build: symbol ??0?$TSBaseArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@QAE@XZ 0x00603F40
+// build: symbol ??0?$TSHashObject@UCELLIST@@VHASHKEY_NONE@@@@QAE@ABU0@@Z 0x00603F70
+// build: symbol ??0?$TSList@UCELLIST@@U?$TSGetExplicitLink@UCELLIST@@@@@@QAE@ABU0@@Z 0x00603F90
+// build: symbol ?LinkNode@?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAEXPAV?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@I0@Z 0x00603FC0
+// build: symbol ?Clear@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEXXZ 0x00604070
+// build: symbol ?Construct@?$TSCD@UCELLIST@@@@SIXPAUCELLIST@@@Z 0x00604080
+// build: symbol ??0CELLIST@@QAE@ABU0@@Z 0x006040B0
+// build: symbol ?CopyConstruct@?$TSCD@UCELLIST@@@@SIXPAUCELLIST@@ABU2@@Z 0x00604100
+// build: symbol ?InternalDelete@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEXPAUCELLIST@@@Z 0x00604150
+// build: symbol ?ReallocData@?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAEXI@Z 0x006041B0
+// build: symbol ?Reserve@?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAEXIH@Z 0x00604350
+// build: symbol ??0?$TSGrowableArray@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@@@@QAE@XZ 0x006043A0
+// build: symbol ?New@?$TSGrowableArray@UCELLIST@@U?$TSCD@UCELLIST@@@@@@QAEPAUCELLIST@@XZ 0x006043B0
+// build: symbol ??0?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@QAE@XZ 0x00604470
+// build: symbol ?NewNode@?$TSList@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@@@@QAEPAV?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@III@Z 0x00604490
+// build: symbol ?InternalNew@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEPAUCELLIST@@PAV?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@II@Z 0x006044F0
+// build: symbol ?MonitorFullness@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEHI@Z 0x006045B0
+// build: symbol ??1?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAE@XZ 0x00604640
+// build: symbol ?Destroy@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEXXZ 0x006046E0
+// build: symbol ??_G?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@UAEPAXI@Z 0x00604700
+// build: symbol ??0?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@QAE@XZ 0x00604730
+// build: symbol ?New@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@QAEPAUCELLIST@@IABVHASHKEY_NONE@@II@Z 0x00604760
+// build: symbol ??1?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@UAE@XZ 0x00604800
+// build: symbol ??0?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAE@XZ 0x00604810
+// build: symbol ?NewHandle@?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@QAEPAUCELLIST@@PAPAUHCELLIST__@@@Z 0x00604840
+// build: symbol ??_G?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEPAXI@Z 0x00604870
+// build: symbol ??1?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@UAE@XZ 0x006048A0
+// build: symbol ?NewLock@?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@QAEPAUCELLIST@@PAPAUHCELLIST__@@PAPAUHLOCKEDCELLIST__@@@Z 0x006048C0
+// build: symbol ??_G?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@UAEPAXI@Z 0x00604900
+// build: symbol ??__EgCelListTable@@YAXXZ 0x006CAFC0
+// build: symbol ??__FgCelListTable@@YAXXZ 0x006CB4C0
+// build: symbol ?GenerateHandle@?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@QAEPAUHCELLIST__@@XZ 0x00603280
+// build: symbol ??_7?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@6B@ 0x006E5DE8
+// build: symbol ??_7?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@6B@ 0x006E5DFC
+// build: symbol ??_7?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@6B@ 0x006E5E10
+// build: symbol ??_7?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@6B@ 0x006E5E24
+// build: symbol ??_R0?AUTCELENTRY@@@8 0x00741F0C
+// build: symbol ??_R0?AUCELLIST@@@8 0x00741F24
+// build: symbol ??_R0?AV?$TSExplicitList@UCELLIST@@$0?CCCCCCCD@@@@8 0x00741F3C
+// build: symbol ??_R0?AV?$TSHashObjectChunk@UCELLIST@@VHASHKEY_NONE@@@@@8 0x00741FAC
+template int D2CelListSyncTable::IsWriteLock(HLOCKEDCELLIST__*);
+template unsigned int D2CelListTable::ComputeSlot(unsigned int);
+template TSBaseArray<CELLIST>::TSBaseArray();
+template unsigned int TSBaseArray<CELLIST>::Count() const;
+template TCELENTRY* D2CelEntryList::Next(const TCELENTRY*);
+template CELLIST* TSList<CELLIST, TSGetExplicitLink<CELLIST> >::Next(const CELLIST*);
+template TCELENTRY* D2CelEntryList::RawNext(const TCELENTRY*);
+template void D2CelListSyncTable::Unlock(HLOCKEDCELLIST__*);
+template void D2CelListTable::Delete(CELLIST*);
+template void D2CelListSyncTable::DeleteUnlock(CELLIST*, HLOCKEDCELLIST__*);
+template TCELENTRY* D2CelEntryList::DeleteNode(TCELENTRY*);
+template CELLIST* TSList<CELLIST, TSGetExplicitLink<CELLIST> >::DeleteNode(CELLIST*);
+template TSGrowableArray<CELLIST>::TSGrowableArray();
+template void TSGrowableArray<D2CelListList>::Reserve(unsigned int, int);
+template CELLIST* TSList<CELLIST, TSGetExplicitLink<CELLIST> >::NewNode(unsigned int, unsigned int, unsigned int);
+template void TSList<D2CelListChunk, TSGetExplicitLink<D2CelListChunk> >::LinkNode(D2CelListChunk*, unsigned int, D2CelListChunk*);
+template void D2CelListTable::Clear();
+template D2CelListChunk* TSList<D2CelListChunk, TSGetExplicitLink<D2CelListChunk> >::NewNode(unsigned int, unsigned int, unsigned int);
 
 // 0x00601EA0
 void __stdcall CelFileFree(D2CelFileStrc* pCelFile)
@@ -2829,31 +2700,6 @@ void D2ChatStormListBStrc::IGNORELIST_ResetMappingList()
     InitializeTerminator();
 }
 
-// 0x00601F00
-char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
-{
-    return m_terminator.MaskNext();
-}
-
-// 0x00601F10
-sub_00601F10::sub_00601F10()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00601F20
-sub_00601F20::~sub_00601F20()
-{
-    f_0.Unlink();
-}
-
-// 0x00601F60
-sub_00601F60::~sub_00601F60()
-{
-    f_0.Unlink();
-}
-
 namespace NWardenClient
 {
 struct Library
@@ -2877,352 +2723,6 @@ void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
     *pB = nTemp;
 }
 
-// 0x00601FA0
-D2StormLinkStrc* D2StormNodeListStrc::CelEntryListLink(D2StormNodeStrc* pNode)
-{
-    return pNode ? &pNode->f_0 : &m_terminator;
-}
-
-// 0x00601FC0
-void D2StormNodeListStrc::CelEntryListLinkNode(D2StormNodeStrc* pNode, int nLinkType, D2StormNodeStrc* pExistingNode)
-{
-    D2StormLinkStrc* pLink = Link(pNode);
-    pLink->Unlink();
-    D2StormLinkStrc* pExistingLink = Link(pExistingNode);
-    D2StormLinkStrc* pPrevLink;
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->m_prevlink = pExistingLink;
-        pLink->m_next = pExistingLink->m_next;
-        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-        pExistingLink->m_next = (char*)pNode;
-        break;
-    default:
-        pPrevLink = pExistingLink->m_prevlink;
-        pLink->m_prevlink = pPrevLink;
-        pLink->m_next = pPrevLink->m_next;
-        pPrevLink->m_next = (char*)pNode;
-        pExistingLink->m_prevlink = pLink;
-        break;
-    }
-}
-
-// 0x00602070
-char* D2StormNodeListStrc::CelEntryListNext(D2StormNodeStrc* pNode)
-{
-    return Link(pNode)->Next();
-}
-
-// 0x00602090
-void LockedObject::sub_00602090(int acquired)
-{
-    if(acquired!=NOT_ACQUIRED) LeaveCriticalSection((D2CriticalSectionStrc*)&lock);
-}
-
-// 0x006020C0
-char* D2ChatStormListAStrc::sub_006020C0_Head()
-{
-    return m_terminator.MaskNext();
-}
-
-// 0x006020D0
-sub_006020D0::~sub_006020D0()
-{
-    f_0.Unlink();
-}
-
-// 0x00602110
-D2StormLinkStrc* D2StormListEStrc::sub_00602110_Link(char* pNode)
-{
-    return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
-}
-
-// 0x00602130
-sub_00602130::sub_00602130()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00602140
-sub_00602140::~sub_00602140()
-{
-    f_0.Unlink();
-}
-
-// 0x00602180
-sub_00602180::sub_00602180()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00602190
-void D2StormNodeListStrc::CelEntryListUnlinkNode(D2StormNodeStrc* pNode)
-{
-    Link(pNode)->Unlink();
-}
-
-// 0x006021E0
-void D2GameDataTableStrc::CelListTableUnlinkNode(D2StormEntry38Strc* pNode)
-{
-    if (pNode->m_linktoslot.m_next)
-    {
-        pNode->m_linktoslot.Unlink();
-        pNode->m_linktofull.Unlink();
-    }
-}
-
-// 0x00602260
-char* D2StormSlotListStrc::CelSlotListRawNext(char* pNode)
-{
-    return Link(pNode)->m_next;
-}
-
-// 0x00602280
-D2StormLinkStrc* D2StormListEStrc::sub_00602280_Link(char* pNode)
-{
-    return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
-}
-
-// 0x006022F0
-void D2StormListEStrc::sub_006022F0_InitLinkField(int nLinkOffset)
-{
-    m_linkoffset = nLinkOffset;
-    InitializeTerminator();
-}
-
-// 0x00602310
-char* D2StormListEStrc::sub_00602310_Next(char* pNode)
-{
-    return Link(pNode)->Next();
-}
-
-// 0x00602350
-void D2StormListEStrc::sub_00602350_InitLinkField(int nLinkOffset)
-{
-    m_linkoffset = nLinkOffset;
-    InitializeTerminator();
-}
-
-// 0x00602370
-void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
-{
-    m_linkoffset = 0;
-    InitializeTerminator();
-}
-
-// 0x006023B0
-D2StormListCStrc::D2StormListCStrc(const D2StormListCStrc& source)
-{
-    m_linkoffset = source.m_linkoffset;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
-// 0x006023E0
-char* D2StormListBStrc::sub_006023E0_RawNext(D2StormLinkStrc* pLink)
-{
-    return pLink ? pLink->m_next : m_terminator.m_next;
-}
-
-// 0x00602400
-void D2GameDataTableStrc::CelListTableSyncLeaveLock(int nLockHandle)
-{
-    if (nLockHandle)
-        LeaveCriticalSection(&m_sync.m_critsect);
-}
-
-// 0x00602420
-sub_00602420::sub_00602420()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x006024A0
-sub_006024A0::~sub_006024A0()
-{
-    f_0.Unlink();
-}
-
-// 0x006024E0
-void D2StormSlotListStrc::CelReuseListLinkNode(char* pNode, int nLinkType, char* pExistingNode)
-{
-    D2StormSlotLinkStrc* pLink = Link(pNode);
-    pLink->Unlink();
-    D2StormSlotLinkStrc* pExistingLink = Link(pExistingNode);
-    D2StormSlotLinkStrc* pPrevLink;
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->m_prevlink = pExistingLink;
-        pLink->m_next = pExistingLink->m_next;
-        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-        pExistingLink->m_next = pNode;
-        break;
-    default:
-        pPrevLink = pExistingLink->m_prevlink;
-        pLink->m_prevlink = pPrevLink;
-        pLink->m_next = pPrevLink->m_next;
-        pPrevLink->m_next = pNode;
-        pExistingLink->m_prevlink = pLink;
-        break;
-    }
-}
-
-// 0x00602620
-void D2GameDataTableStrc::CelListTableDelete(D2StormEntry38Strc* pNode)
-{
-    CelListTableUnlinkNode(pNode);
-    InternalDelete(pNode);
-}
-
-// 0x006026E0
-void D2StormSlotListStrc::CelSlotListChangeLinkOffset(int nLinkOffset)
-{
-    if (nLinkOffset != m_linkoffset)
-    {
-        UnlinkAll();
-        m_linkoffset = nLinkOffset;
-        InitializeTerminator();
-    }
-}
-
-// 0x00602710
-D2ChatStormListCStrc::D2ChatStormListCStrc()
-{
-    m_linkoffset = 0;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
-// 0x00602750
-sub_00602750::sub_00602750()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00602760
-sub_00602760::~sub_00602760()
-{
-    f_0.Unlink();
-}
-
-// 0x006027A0
-D2StormNodeList006027A0Strc::~D2StormNodeList006027A0Strc()
-{
-}
-
-// 0x006027E0
-void D2GameDataTableStrc::sub_006027E0_Delete(D2StormEntry38Strc* pNode)
-{
-    CelListTableUnlinkNode(pNode);
-    InternalDelete(pNode);
-}
-
-// 0x00602800
-void D2GameHashTableStrc::CelListTableInternalClear(int bWarn)
-{
-    m_fullnessIndicator = 0;
-    m_fulllist.UnlinkAll();
-    for (unsigned int i = 0; i < m_slotlistarray.m_count; ++i)
-    {
-        for (;;)
-        {
-            char* pNode = m_slotlistarray.m_data[i].Head();
-            if (!pNode)
-                break;
-            if (bWarn)
-                m_slotlistarray.m_data[i].sub_006C4290(pNode);
-            else
-                InternalDelete((D2StormEntry38Strc*)pNode);
-        }
-    }
-}
-
-// 0x00602890
-D2StormSlotList00602890Strc::~D2StormSlotList00602890Strc()
-{
-}
-
-// 0x006028D0
-D2StormListE006028D0Strc::~D2StormListE006028D0Strc()
-{
-    UnlinkAll();
-}
-
-// 0x00602910
-D2ChatStormListEStrc::D2ChatStormListEStrc()
-{
-    m_linkoffset = 0xDDDDDDDD;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
-// 0x00602930
-D2StormList0044FB30Strc::D2StormList0044FB30Strc()
-{
-    m_linkoffset = 0x10;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
-// 0x00602950
-void __fastcall sub_0044FB50_ConstructDeadList(D2StormDeadListStrc* pList)
-{
-    new (pList) D2StormDeadListStrc;
-}
-
-// 0x00602980
-D2StormListDStrc::D2StormListDStrc(const D2StormListDStrc& source)
-{
-    m_linkoffset = source.m_linkoffset;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
-// 0x00602A10
-void D2GameDataTableStrc::CelListTableDeleteUnlock(D2StormEntry38Strc* pNode, int nLockHandle)
-{
-    CelListTableDelete(pNode);
-    SyncLeaveLock(nLockHandle);
-}
-
-// 0x00602AA0
-D2StormSlotList00602AA0Strc::~D2StormSlotList00602AA0Strc()
-{
-}
-
-// 0x00602AE0
-D2StormListE00602AE0Strc::~D2StormListE00602AE0Strc()
-{
-    UnlinkAll();
-}
-
-// 0x00602B20
-D2StormEntry00602B20Strc::~D2StormEntry00602B20Strc()
-{
-}
-
-// 0x00602BD0
-void __fastcall sub_00602BD0(D2StormSlotListStrc* destination,const D2StormSlotListStrc* source)
-{
-    new(destination) D2StormSlotListStrc(*source);
-}
-
-// 0x00602DF0
-D2StormSlotList00602DF0Strc::~D2StormSlotList00602DF0Strc()
-{
-}
-
-// 0x00602EC0
-D2StormEntry00602EC0Strc::~D2StormEntry00602EC0Strc()
-{
-}
-
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
 {
     return pWhere;
@@ -3240,19 +2740,6 @@ D2StormListAStrc::~D2StormListAStrc()
 D2StormChunkListStrc::~D2StormChunkListStrc()
 {
     UnlinkAll();
-}
-
-// 0x006030E0
-char* D2StormHashTable006030E0Strc::CelListTableInternalFind(unsigned int nHashVal, int nKey)
-{
-    for (char* pNode = m_slotlistarray.m_data[nHashVal & m_slotmask].Head(); _ReadWriteBarrier(), (int)pNode > 0; pNode = m_slotlistarray.m_data[nHashVal & m_slotmask].RawNext(pNode))
-    {
-        if (((D2StormEntry38Strc*)pNode)->m_hashval == nHashVal)
-        {
-            return pNode;
-        }
-    }
-    return 0;
 }
 
 sub_0044FBE0::~sub_0044FBE0()
@@ -3279,134 +2766,6 @@ D2StormGameGrowArrayStrc::~D2StormGameGrowArrayStrc()
 D2StormGameHashChunkStrc::~D2StormGameHashChunkStrc()
 {
     f_10.Unlink();
-}
-
-// 0x00603140
-D2StormEntryArrayStrc::~D2StormEntryArrayStrc()
-{
-    for (unsigned int i = 0; i < m_count; ++i)
-        m_data[i].~D2StormEntry38Strc();
-    if (m_data)
-        SMemFree(m_data, gszTypeNameCelList, -2, 0);
-}
-
-// 0x006031E0
-D2StormArray408Strc* D2StormArray408Strc::sub_0051D690_Init()
-{
-    m_alloc = 0;
-    m_count = 0;
-    m_data = 0;
-    m_chunk = 0;
-    return this;
-}
-
-// 0x00603240
-D2StormSlotGrowArrayStrc::~D2StormSlotGrowArrayStrc() throw()
-{
-}
-
-// 0x00603250
-inline D2StormEntry38Strc* D2GameDataTableStrc::CelListTablePtr(unsigned int hHandle)
-{
-    return sub_006030E0_InternalFind(hHandle, f_44);
-}
-
-// 0x00603270
-D2StormEntryGrowArrayStrc::~D2StormEntryGrowArrayStrc()
-{
-}
-
-// 0x006032C0
-D2StormHashChunkStrc::~D2StormHashChunkStrc()
-{
-}
-
-// 0x00603400
-inline D2StormEntry38Strc* D2GameDataTableStrc::CelListTableLock(unsigned int hHandle, int* pLockHandle, int bForWriting)
-{
-    SyncEnterLock(pLockHandle, bForWriting);
-    D2StormEntry38Strc* pList = CelListTablePtr(hHandle);
-    if (!pList)
-    {
-        SyncLeaveLock(*pLockHandle);
-        *pLockHandle = 0;
-    }
-    return pList;
-}
-
-// 0x00603500
-void __fastcall sub_00603500_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-// 0x00603510
-void D2ChatStormListAStrc::sub_00603510_Reset()
-{
-    m_linkoffset = 0;
-    InitializeTerminator();
-}
-
-// 0x00603530
-D2Storm603530Strc::D2Storm603530Strc()
-{
-    tArray.m_alloc = 0;
-    tArray.m_count = 0;
-    tArray.m_data = 0;
-    tArray.m_chunk = 0;
-}
-
-// 0x00603550
-D2ChatStormListFStrc::D2ChatStormListFStrc()
-{
-    m_linkoffset = 0;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
-// 0x00603570
-D2Storm603570Strc::D2Storm603570Strc()
-{
-}
-
-// 0x006035A0
-D2StormEntry38Strc* D2StormSlotListStrc::CelReuseListNewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(D2StormEntry38Strc) + nExtraBytes, gszTypeNameCelList, -2, nFlags | 8);
-    D2StormEntry38Strc* pList = pMemory ? new (pMemory) D2StormEntry38Strc : 0;
-    if (nLinkType)
-        CelReuseListLinkNode((char*)pList, nLinkType, 0);
-    return pList;
-}
-
-// build: symbol ??1D2StormHashObjectStrc@@QAE@XZ 0x00602430
-// 0x00603730
-SlotArray* SlotArray::sub_00603730(DeleteFlags flags)
-{
-    Destroy();
-    if(flags.value & DELETE_BIT) {
-        if(this) sub_00412650(this,"delete",-1,0);
-    }
-    return this;
-}
-
-// 0x00603760
-void D2StormSlotArrayStrc::CelSlotArrayClear()
-{
-    this->D2StormSlotArrayStrc::~D2StormSlotArrayStrc();
-    m_alloc = 0;
-    m_count = 0;
-    m_data = 0;
-}
-
-// build: symbol ?Destroy@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEXXZ 0x00603780
-void D2GameHashTableStrc::Destroy()
-{
-    CelListTableInternalClear(1);
-    m_fullnessIndicator = 0;
-    m_slotmask = 0;
-    m_slotlistarray.Clear();
 }
 
 inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
@@ -3466,76 +2825,17 @@ void D2StormArray408Strc::sub_0051D670_FreeData()
         SMemFree(m_data, gszTypeNewsTableItem_0072FF8C, -2, 0);
 }
 
-// 0x00603300
-void D2StormSlotArrayStrc::CelSlotArraySetCount(unsigned int nCount)
-{
-    if (nCount > m_count)
-    {
-        if (nCount > m_alloc)
-        {
-            unsigned int nChunk = m_chunk ? m_chunk : CelSlotArrayCalcChunkSize(nCount);
-            CelSlotArrayReallocData(STORM_RoundUp(nCount, nChunk));
-        }
-        for (unsigned int i = m_count; i < nCount; i++)
-            new (&m_data[i]) D2StormSlotListStrc;
-    }
-    else if (nCount < m_count)
-    {
-        for (unsigned int i = nCount; i < m_count; i++)
-            m_data[i].~D2StormSlotListStrc();
-    }
-    m_count = nCount;
-}
-
-// build: symbol ?InternalNew@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEPAUD2StormEntry38Strc@@PAUD2StormSlotListStrc@@II@Z 0x00603610
-D2StormEntry38Strc* D2GameHashTableStrc::InternalNew(D2StormSlotListStrc* pList, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(D2StormEntry38Strc) + nExtraBytes, gszTypeNameCelList, -2, nFlags | 8);
-    D2StormEntry38Strc* pNode = pMemory ? new (pMemory) D2StormEntry38Strc : 0;
-    pList->LinkNode((char*)pNode, 1, 0);
-    return pNode;
-}
-
-// build: symbol ?InternalDelete@?$TSHashTable@UCELLIST@@VHASHKEY_NONE@@@@UAEXPAUD2StormEntry38Strc@@@Z 0x006036D0
-void D2GameHashTableStrc::InternalDelete(D2StormEntry38Strc* pNode)
-{
-    pNode->~D2StormEntry38Strc();
-    SMemFree(pNode, gszTypeNameCelList, -2, 0);
-}
-
-// 0x006037B0
-inline void D2GameHashTableStrc::operator delete(void* pMemory)
-{
-    if (pMemory)
-        SMemFree(pMemory, "delete", -1, 0);
-}
-
-// 0x006037E0
-inline void D2StormHashChunkStrc::operator delete(void* pMemory)
-{
-    if (pMemory)
-        SMemFree(pMemory, "delete", -1, 0);
-}
-
 void __fastcall sub_005179B3_ConvertCelPixels(void* pDst, void* pSrc, int nRows, unsigned int nSrcSize, unsigned int nWidth, int nRows2); // 0x005179B3
 
-static inline D2CelEntryStrc* __cdecl sub_F43_NewCelEntry(D2StormNodeListStrc* pList, int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(D2CelEntryStrc) + nExtraBytes, gszTypeNameCelEntry, -2, nFlags | 8);
-    D2CelEntryStrc* pEntry = pMemory ? new (pMemory) D2CelEntryStrc : 0;
-    if (nLinkType)
-        pList->LinkNode(pEntry, nLinkType, 0);
-    return pEntry;
-}
 
 // 0x00603860
 void __stdcall CelCompressAddImage(unsigned int hCelList, void* pSrc, unsigned int nSrcSize, unsigned int dwPixelWidth, unsigned int dwPixelHeight, int nArg6, int nArg7, int nArg8)
 {
     D2_ASSERT(dwPixelWidth && dwPixelHeight, 0x229);
     D2_ASSERT(nSrcSize >= dwPixelHeight, 0x22A);
-    int hLock;
-    D2StormEntry38Strc* pList = gCelListTable.CelListTableLock(hCelList, &hLock, 0);
-    D2CelEntryStrc* pEntry = sub_F43_NewCelEntry(&pList->tList, 2, 0, 0);
+    HLOCKEDCELLIST__* hLock;
+    CELLIST* pList = gCelListTable.Lock((HCELLIST__*)hCelList, &hLock, 0);
+    TCELENTRY* pEntry = pList->tList.NewNode(2, 0, 0);
     ++pList->nCount;
     pEntry->nSize = dwPixelWidth * dwPixelHeight;
     pEntry->nArg6 = nArg6;
@@ -3549,155 +2849,17 @@ void __stdcall CelCompressAddImage(unsigned int hCelList, void* pSrc, unsigned i
     gCelListTable.SyncLeaveLock(hLock);
 }
 
-// 0x00603B60
-void D2StormListEStrc::CelChunkListDeleteAll()
-{
-    char* pNode;
-    while ((pNode = m_terminator.Next()) != 0)
-    {
-        ((D2StormHashChunkStrc*)pNode)->~D2StormHashChunkStrc();
-        SMemFree(pNode, gszTypeNameCelHashChunk, -2, 0);
-    }
-}
-
-// 0x00603BD0
-D2GameHashTableStrc::TSHashTable()
-{
-    m_fullnessIndicator = 0;
-    m_fulllist.ChangeLinkOffset(0xC);
-    m_slotmask = 3;
-    m_slotlistarray.CelSlotArraySetCount(4);
-    for (unsigned int i = 0; i <= m_slotmask; i++)
-        m_slotlistarray.m_data[i].ChangeLinkOffset(4);
-}
-
-// 0x00603C80
-void D2GameHashTableStrc::CelListTableGrowListArray()
-{
-    unsigned int nOldCount = m_slotmask + 1;
-    unsigned int nNewCount = 2 * nOldCount;
-    D2StormSlotListStrc tTempList;
-    tTempList.ChangeLinkOffset(4);
-
-    for (unsigned int i = 0; i < nOldCount; i++)
-    {
-        char* pNode;
-        while ((pNode = m_slotlistarray.m_data[i].Head()) != 0)
-            tTempList.LinkToTail(pNode);
-    }
-
-    m_slotlistarray.CelSlotArraySetCount(nNewCount);
-    for (unsigned int i = 0; i < nNewCount; i++)
-        m_slotlistarray.m_data[i].ChangeLinkOffset(4);
-    m_slotmask = nNewCount - 1;
-
-    char* pNode;
-    while ((pNode = tTempList.Head()) != 0)
-        m_slotlistarray.m_data[((D2StormEntry38Strc*)pNode)->m_hashval & m_slotmask].LinkToTail(pNode);
-}
-
-// build: symbol ?InternalDelete@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEXPAUD2StormEntry38Strc@@@Z 0x00604150
-void D2GameHashTableReuseStrc::InternalDelete(D2StormEntry38Strc* pNode)
-{
-    pNode->~D2StormEntry38Strc();
-    SMemFree(pNode, gszTypeNameCelList, -2, 0);
-}
-
-// 0x00604460
-D2StormEntry38Strc* D2Storm604460Strc::sub_00604460_New()
-{
-    return tArray.sub_006043B0_New();
-}
-
-// 0x00604470
-D2Storm604470Strc::D2Storm604470Strc()
-{
-    nField00 = 0;
-    nField04 = 0;
-    f_8 = 0;
-    nField0C = 0;
-    nField10 = 0;
-    nField14 = 0;
-}
-
-// 0x00604490
-D2StormHashChunkStrc* D2StormListEStrc::CelChunkListNewNode(int nLinkType, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(D2StormHashChunkStrc) + nExtraBytes, gszTypeNameCelHashChunk, -2, nFlags | 8);
-    D2StormHashChunkStrc* pChunk = pMemory ? new (pMemory) D2StormHashChunkStrc : 0;
-    if (nLinkType)
-        CelChunkListLinkNode((char*)pChunk, nLinkType, 0);
-    return pChunk;
-}
-
-// 0x006045B0
-int TSHashTable<CELLIST, HASHKEY_NONE>::sub_006045B0(unsigned int nSlot)
-{
-    D2StormSlotListStrc* const& pListArray = m_slotlistarray.m_data;
-    if (m_slotmask >= 0x3FF)
-    {
-        return 0;
-    }
-
-    if (m_fullnessIndicator > 3)
-    {
-        m_fullnessIndicator -= 3;
-    }
-    else
-    {
-        m_fullnessIndicator = 0;
-    }
-
-    D2StormSlotLinkStrc* const pTerminator = &pListArray[nSlot].m_terminator;
-    char* const pHead = (int)pTerminator->m_next <= 0 ? 0 : pTerminator->m_next;
-    for (char* pEntry = pHead; (int)pEntry > 0; )
-    {
-        ++m_fullnessIndicator;
-        if (m_fullnessIndicator > 13)
-        {
-            m_fullnessIndicator = 0;
-            CelListTableGrowListArray();
-            return 1;
-        }
-
-        pEntry = pListArray[nSlot].Link(pEntry)->m_next;
-    }
-
-    return 0;
-}
-
-// 0x006031F0
-void D2StormSlotArrayStrc::CelSlotArrayReserve(unsigned int nCount, int bRound)
-{
-    nCount += m_count;
-    if (nCount > m_alloc)
-    {
-        if (bRound)
-        {
-            unsigned int nChunk = m_chunk ? m_chunk : CelSlotArrayCalcChunkSize(nCount);
-            nCount = STORM_RoundUp(nCount, nChunk);
-        }
-        CelSlotArrayReallocData(nCount);
-    }
-}
-
-// 0x00603850
-void D2StormSlotArrayStrc::sub_00603850_SetCount(unsigned int nCount)
-{
-    CelSlotArraySetCount(nCount);
-}
-
 // 0x006039C0
 void __stdcall CelCompressDestroy(unsigned int hCelList)
 {
-    int hLock;
-    D2StormEntry38Strc* pList = gCelListTable.Lock(hCelList, &hLock, 0);
-    for (D2CelEntryStrc* pEntry = (D2CelEntryStrc*)((((int)pList->tList.m_terminator.m_next <= 0) - 1) & (int)pList->tList.m_terminator.m_next); (int)pEntry > 0; pEntry = (D2CelEntryStrc*)pEntry->f_0.m_next)
+    HLOCKEDCELLIST__* hLock;
+    CELLIST* pList = gCelListTable.Lock((HCELLIST__*)hCelList, &hLock, 0);
+    TCELENTRY* pHead = pList->tList.Head();
+    for (TCELENTRY* pEntry = pHead; (int)pEntry > 0; pEntry = pEntry->m_link.RawNext())
     {
         FOG_Free(pEntry->pData, ".\\SRC\\CelCmp.cpp", 588, 0);
     }
-    pList->tList.CelEntryListDeleteAll();
-// build: symbol ?Delete@* 0x0052E590
+    pList->tList.Clear();
     gCelListTable.Delete(pList);
     gCelListTable.SyncLeaveLock(hLock);
 }
@@ -3705,8 +2867,8 @@ void __stdcall CelCompressDestroy(unsigned int hCelList)
 // 0x00603A70
 unsigned int __stdcall CelCompressCreateCelFile(unsigned int hCelList, D2CelFileStrc** ppCelFile)
 {
-    int hLock;
-    D2StormEntry38Strc* pList = gCelListTable.Lock(hCelList, &hLock, 0);
+    HLOCKEDCELLIST__* hLock;
+    CELLIST* pList = gCelListTable.Lock((HCELLIST__*)hCelList, &hLock, 0);
     *ppCelFile = 0;
 
     if (!pList->nCount)
@@ -3740,33 +2902,6 @@ unsigned int __stdcall CelCompressCreateCelFile(unsigned int hCelList, D2CelFile
     return 0;
 }
 
-// 0x00603E50
-void D2GameHashTableReuseStrc::CelListTableDeleteReuseLists()
-{
-    m_chunkList.CelChunkListDeleteAll();
-    m_reuseList.CelReuseListDeleteAll();
-}
-
-// 0x00603ED0
-unsigned int D2Storm603ED0Strc::sub_00603ED0_GetDifference()
-{
-    return nFirst - nSecond;
-}
-
-// 0x00603EE0
-unsigned int D2StormEntryArrayStrc::CelListArrayCalcChunkSize(unsigned int nCount)
-{
-    if (nCount < 8)
-    {
-        unsigned int nResult = nCount;
-        while (nResult & (nResult - 1))
-            nResult &= nResult - 1;
-        return nResult < 1 ? 1 : nResult;
-    }
-    m_chunk = 8;
-    return 8;
-}
-
 void D2StormArray408Strc::sub_0051D6A0_Clear()
 {
     if (m_data)
@@ -3797,238 +2932,6 @@ D2Storm408ElemStrc* D2StormArray408Strc::sub_0051D7A0_New()
     return &m_data[m_count++];
 }
 
-// 0x00603F20
-unsigned int __stdcall sub_00603F20_RoundUp(unsigned int nValue, unsigned int nAlign)
-{
-    unsigned int nRemainder = nValue % nAlign;
-    if (nRemainder)
-        nValue += nAlign - nRemainder;
-    return nValue;
-}
-
-// 0x00603F40
-D2Storm603F40Strc::D2Storm603F40Strc()
-{
-    n00 = 0;
-    n04 = 0;
-    n08 = 0;
-}
-
-// 0x00603F50
-void D2StormListEStrc::sub_00603F50_CopyLinkOffset(const D2StormListEStrc* pSource)
-{
-    m_linkoffset = pSource->m_linkoffset;
-    InitializeTerminator();
-}
-
-// 0x00603F70
-D2Storm603F70Strc::D2Storm603F70Strc(int nUnused)
-{
-    tArray.m_alloc = 0;
-    tArray.m_count = 0;
-    tArray.m_data = 0;
-    tArray.m_chunk = 0;
-}
-
-// build: symbol ??0D2StormNodeListStrc@@QAE@ABU0@@Z 0x00603F90
-D2StormNodeListStrc::D2StormNodeListStrc(const D2StormNodeListStrc& source)
-{
-    m_linkoffset = source.m_linkoffset;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
-// 0x00603FC0
-void D2StormListEStrc::CelChunkListLinkNode(char* pNode, int nLinkType, char* pExistingNode)
-{
-    D2StormLinkStrc* pLink = Link(pNode);
-    pLink->Unlink();
-    D2StormLinkStrc* pExistingLink = Link(pExistingNode);
-    D2StormLinkStrc* pPrevLink;
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->m_prevlink = pExistingLink;
-        pLink->m_next = pExistingLink->m_next;
-        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-        pExistingLink->m_next = pNode;
-        break;
-    default:
-        pPrevLink = pExistingLink->m_prevlink;
-        pLink->m_prevlink = pPrevLink;
-        pLink->m_next = pPrevLink->m_next;
-        pPrevLink->m_next = pNode;
-        pExistingLink->m_prevlink = pLink;
-        break;
-    }
-}
-
-// 0x00604070
-void D2GameHashTableStrc::sub_00604070_Clear()
-{
-    CelListTableInternalClear(0);
-}
-
-// 0x00604080
-void __fastcall sub_00604080_ConstructEntry(D2StormEntry38Strc* pEntry)
-{
-    new (pEntry) D2StormEntry38Strc;
-}
-
-// build: symbol ??0D2StormEntry38Strc@@QAE@ABU0@@Z 0x006040B0
-D2StormEntry38Strc::D2StormEntry38Strc(const D2StormEntry38Strc& source)
-    : dwFlags(source.dwFlags), nType(source.nType), nData(source.nData),
-      nCount(source.nCount), nDirections(source.nDirections), tList(source.tList)
-{
-}
-
-// 0x00604100
-void __fastcall sub_00604100_CopyConstructEntry(D2StormEntry38Strc* pEntry, const D2StormEntry38Strc* pSource)
-{
-    new (pEntry) D2StormEntry38Strc(*pSource);
-}
-
-// 0x006041B0
-void D2StormEntryArrayStrc::sub_006041B0_ReallocData(unsigned int nAlloc)
-{
-    D2StormEntry38Strc* pOldData = m_data;
-    for (unsigned int i = nAlloc; i < m_count; ++i)
-    {
-        pOldData[i].~D2StormEntry38Strc();
-    }
-
-    m_alloc = nAlloc;
-    m_data = (D2StormEntry38Strc*)SMemReAlloc(pOldData, nAlloc * sizeof(D2StormEntry38Strc), gszTypeNameCelList, -2, 0x10);
-    if (!m_data)
-    {
-        m_data = (D2StormEntry38Strc*)SMemAlloc(nAlloc * sizeof(D2StormEntry38Strc), gszTypeNameCelList, -2, 0);
-        if (pOldData)
-        {
-            const unsigned int nCopy = nAlloc < m_count ? nAlloc : m_count;
-            for (unsigned int i = 0; i < nCopy; ++i)
-            {
-                new (&m_data[i]) D2StormEntry38Strc(pOldData[i]);
-                pOldData[i].~D2StormEntry38Strc();
-            }
-            SMemFree(pOldData, gszTypeNameCelList, -2, 0);
-        }
-    }
-}
-
-// 0x00604350
-void D2StormEntryArrayStrc::CelListArrayReserve(unsigned int nCount, int bRound)
-{
-    nCount += m_count;
-    if (nCount > m_alloc)
-    {
-        if (bRound)
-        {
-            unsigned int nChunk = m_chunk ? m_chunk : CelListArrayCalcChunkSize(nCount);
-            nCount = STORM_RoundUp(nCount, nChunk);
-        }
-        sub_006041B0_ReallocData(nCount);
-    }
-}
-
-// 0x006043A0
-D2StormEntryArrayStrc* D2StormEntryArrayStrc::sub_006043A0_Init()
-{
-    m_alloc = 0;
-    m_count = 0;
-    m_data = 0;
-    m_chunk = 0;
-    return this;
-}
-
-// 0x006043B0
-D2StormEntry38Strc* D2StormEntryArrayStrc::sub_006043B0_New()
-{
-    CelListArrayReserve(1, 1);
-    new (&m_data[m_count]) D2StormEntry38Strc;
-    return &m_data[m_count++];
-}
-
-// 0x00604440
-void D2StormEntryArrayStrc::CelListArrayGrow(unsigned int nCount)
-{
-    unsigned int nNewCount = m_count + nCount;
-    if (nNewCount > m_alloc)
-        sub_006041B0_ReallocData(nNewCount);
-}
-
-// build: symbol ?InternalNew@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEPAUD2StormEntry38Strc@@PAUD2StormSlotListStrc@@II@Z 0x006044F0
-D2StormEntry38Strc* D2GameHashTableReuseStrc::InternalNew(D2StormSlotListStrc* pList, unsigned int nExtraBytes, unsigned int nFlags)
-{
-    void* pMemory = SMemAlloc(sizeof(D2StormEntry38Strc) + nExtraBytes, gszTypeNameCelList, -2, nFlags | 8);
-    D2StormEntry38Strc* pNode = pMemory ? new (pMemory) D2StormEntry38Strc : 0;
-    pList->LinkNode((char*)pNode, 1, 0);
-    return pNode;
-}
-
-// 0x00604640
-D2GameHashTableReuseStrc::~TSHashTableReuse()
-{
-    m_chunkList.CelChunkListDeleteAll();
-    m_reuseList.CelReuseListDeleteAll();
-}
-
-// build: symbol ?Destroy@?$TSHashTableReuse@UCELLIST@@VHASHKEY_NONE@@$0A@@@UAEXXZ 0x006046E0
-void D2GameHashTableReuseStrc::Destroy()
-{
-    CelListTableInternalClear(0);
-    m_chunkList.CelChunkListDeleteAll();
-    m_reuseList.CelReuseListDeleteAll();
-}
-
-// 0x00604700
-inline void D2GameHashTableReuseStrc::operator delete(void* pMemory)
-{
-    if (pMemory)
-        SMemFree(pMemory, "delete", -1, 0);
-}
-
-// 0x00604760
-char* D2GameDataTableStrc::CelListTableNew(unsigned int nHashVal, const int& tKey, int nExtraBytes, int nFlags)
-{
-    unsigned int nSlot = nHashVal & m_slotmask;
-    if (sub_006045B0(nSlot))
-        nSlot = nHashVal & m_slotmask;
-    D2StormSlotListStrc* pSlotList = &m_slotlistarray.m_data[nSlot];
-    D2StormEntry38Strc* pNode = InternalNew(pSlotList, nExtraBytes, nFlags);
-    m_fulllist.LinkNode((char*)pNode, 2, 0);
-    pNode->m_hashval = nHashVal;
-    return (char*)pNode;
-}
-
-// 0x00604840
-char* D2GameDataTableStrc::CelListTableNewHandle(unsigned int* pHandle)
-{
-    unsigned int nHandle = CelListTableGenerateHandle();
-    *pHandle = nHandle;
-    return CelListTableNew(nHandle, f_44, 0, 0);
-}
-
-// 0x00604870
-inline void D2GameExportTableSimpleStrc::operator delete(void* pMemory)
-{
-    if (pMemory)
-        SMemFree(pMemory, "delete", -1, 0);
-}
-
-// 0x006048C0
-char* D2GameDataTableStrc::CelListTableNewLock(unsigned int* pHandle, int* pLockHandle)
-{
-    SyncEnterLock(pLockHandle, 1);
-    return CelListTableNewHandle(pHandle);
-}
-
-// 0x00604900
-inline void D2GameDataTableStrc::operator delete(void* pMemory)
-{
-    if (pMemory)
-        SMemFree(pMemory, "delete", -1, 0);
-}
-
 #define D2CMP_BITCOUNT_BX(x) ((x) - (((x) >> 1) & 0x77777777) - (((x) >> 2) & 0x33333333) - (((x) >> 3) & 0x11111111))
 
 #define D2CMP_BITCOUNT(x) (((D2CMP_BITCOUNT_BX(x) + (D2CMP_BITCOUNT_BX(x) >> 4)) & 0x0F0F0F0F) % 255)
@@ -4039,10 +2942,10 @@ unsigned int __stdcall CelCompressCreate(int nType, unsigned int nDirections, in
     D2_ASSERT(D2CMP_BITCOUNT(nDirections) == 1, 0x1FF);
     D2_ASSERT(nDirections <= 32, 0x200);
     D2_ASSERT(nType < 2, 0x201);
-    unsigned int hHandle;
-    int hLock;
-    D2StormEntry38Strc* pList = (D2StormEntry38Strc*)gCelListTable.CelListTableNewLock(&hHandle, &hLock);
-    pList->tList.CelEntryListDeleteAll();
+    HCELLIST__* hHandle;
+    HLOCKEDCELLIST__* hLock;
+    CELLIST* pList = gCelListTable.NewLock(&hHandle, &hLock);
+    pList->tList.Clear();
     pList->nType = nType;
     pList->nDirections = nDirections;
     pList->nCount = 0;
@@ -4056,34 +2959,9 @@ unsigned int __stdcall CelCompressCreate(int nType, unsigned int nDirections, in
         }
     }
     gCelListTable.SyncLeaveLock(hLock);
-    return hHandle;
+    return (unsigned int)hHandle;
 }
 
-void sub_F43_EmitDeletes(D2StormSlotLinkStrc* pLink, D2StormSlotListStrc* pSlotList, D2StormEntry38Strc* pList, D2StormHashChunkStrc* pChunk)
-{
-    delete pLink;
-    delete pSlotList;
-    delete pList;
-    delete pChunk;
-}
-
-void sub_F43_EmitTableVtables(void* pTable, void* pReuse, void* pSimple, void* pSync)
-{
-    new (pTable) D2GameHashTableStrc(1);
-    new (pReuse) D2GameHashTableReuseStrc(1);
-    new (pSimple) D2GameExportTableSimpleStrc(1);
-    new (pSync) D2GameDataTableStrc(1);
-}
-
-typedef D2StormEntry38Strc* (D2GameDataTableStrc::*D2CELTABLEPTRFN)(unsigned int hHandle);
-
-typedef D2StormEntry38Strc* (D2GameDataTableStrc::*D2CELTABLELOCKFN)(unsigned int hHandle, int* pLockHandle, int bForWriting);
-
-void sub_F43_EmitTableMembers(D2CELTABLEPTRFN* ppfnPtr, D2CELTABLELOCKFN* ppfnLock)
-{
-    *ppfnPtr = &D2GameDataTableStrc::CelListTablePtr;
-    *ppfnLock = &D2GameDataTableStrc::CelListTableLock;
-}
 
 // 0x0060D040
 int __fastcall FindTileGetTiles(D2FindTileEntryStrc** ppTable, void** ppResults, unsigned int nMax, int nKey1, int nKey2, int nKey3)
@@ -4688,6 +3566,20 @@ void __fastcall D2CMPTileCacheFreeProject(D2TileLibraryStrc* pLibrary)
             pEntry->pNode = 0;
         }
     }
+}
+
+// 0x006030E0
+// The cel list table's lookup. The original reloads the slot list on every step of the loop; no plain form of
+// the template's InternalFind has given that yet, so this specialisation keeps the barrier the file had before.
+template<>
+CELLIST* TSHashTable<CELLIST, HASHKEY_NONE>::InternalFind(unsigned int hashval, const HASHKEY_NONE& key)
+{
+    for (CELLIST* ptr = m_slotlistarray[hashval & m_slotmask].Head(); _ReadWriteBarrier(), (int)ptr > 0; ptr = m_slotlistarray[hashval & m_slotmask].RawNext(ptr))
+    {
+        if (ptr->m_hashval == hashval)
+            return ptr;
+    }
+    return 0;
 }
 
 #include "gen/data/Source/D2CMP/SRC/CelCmp.inc"

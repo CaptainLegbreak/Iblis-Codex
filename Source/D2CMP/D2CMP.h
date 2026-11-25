@@ -3,20 +3,19 @@
 struct D2CmpPoolStrc;
 struct D2TileLibraryHashStrc;
 struct AsyncData;
+struct D2CriticalSectionStrc;
 
 D2TileLibraryHashStrc* __cdecl sub_0060CDB0_AllocTileHash(); // 0x0060CDB0
 AsyncData* __fastcall sub_0040A620(void* hArchive, const char* szFileName, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, const char* szFile, int nLine); // 0x0040A620
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 extern "C" __declspec(dllimport) int __stdcall ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x006CC1A4
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount(); // 0x006CC260
-extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(void* lpCriticalSection); // 0x006CC210
+extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x006CC19C
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char gszNewline[]; // 0x006FFCB0
 extern "C" const char gszSpriteCacheSourceFile[]; // 0x006E364C
-extern "C" const char gszTypeNameCelList[]; // 0x00741F2C
-extern "C" const char gszTypeNameCelSlotList[]; // 0x00741F44
 extern "C" const char szFastCmpFile[]; // 0x006E5F08
 extern "C" const char szSubTileFile[]; // 0x006E61F8
 extern "C" const char szTileCodecFile[]; // 0x006E61F8
