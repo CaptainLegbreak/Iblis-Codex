@@ -408,3 +408,9 @@ void __fastcall FOG_AsyncDataFree(AsyncData* ptAsyncData)
     }
     FOG_FreeServerMemory(ptAsyncData->pMemPool, ptAsyncData, ".\\Src\\AsyncData.cpp", 717, 0);
 }
+
+// 0x0040ABE0
+int __cdecl sub_0040ABE0()
+{
+    return 0;
+}
