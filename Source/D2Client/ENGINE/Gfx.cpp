@@ -269,7 +269,6 @@ void* __stdcall SMemAlloc(int nSize, const char* szFile, int nLine, int nFlags);
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 

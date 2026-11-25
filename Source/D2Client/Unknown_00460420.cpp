@@ -20,7 +20,6 @@ D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nTy
 void __fastcall GAME_SetClientState(int nState);                                                    // 0x0044C930
 int __cdecl WINDOW_GetWindow();                                                                                // 0x004F59A0
 void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
-int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int));                                     // 0x00451BB0
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount);     // 0x00451E10
 void __cdecl UI_FreeCels();                                                                       // 0x00460430
 

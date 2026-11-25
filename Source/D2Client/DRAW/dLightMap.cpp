@@ -60,7 +60,6 @@ struct D2LightCellStrc
 };
 
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 extern int gbBlendLightColor; // 0x00712B8C
 

@@ -85,7 +85,6 @@ int __stdcall SCmdProcess(const char* szCmdLine, int bSkipProgName, int (__stdca
 
 unsigned short __stdcall FOG_ConnectionReceive(void* pConnection, char* pBuffer, int nSize); // 0x006BC120
 
-int __fastcall GAME_DispatchMcpPacket(const char* pPacket, unsigned int nSize); // 0x0044B190
 
 
 int __stdcall WINMAIN_HandleExtraArgument(const char* szArgument); // 0x0044B5C0
@@ -194,7 +193,6 @@ int __stdcall WINMAIN_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pReco
 
 int __cdecl CLIENT_GetConnectionStatus();                                                                   // 0x0052B050
 
-int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int));                                     // 0x00451BB0
 
 void __stdcall SERVER_Initialize(int a1, int a2);                                                           // 0x0052B7A0
 

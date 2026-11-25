@@ -512,7 +512,6 @@ void __fastcall sub_0046BFF0_UnitEventMissile271(D2UnitStrc* pUnit)
 
 extern int gnScreenWidth; // 0x0071146C
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 
 

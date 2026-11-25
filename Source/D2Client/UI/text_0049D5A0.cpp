@@ -242,7 +242,6 @@ int __cdecl D2SOUND_GetMasterVolumeOption(); // 0x00514CC0
 int __fastcall sub_004B95C0_IsHintPlaying(void* pHint); // 0x004B95C0
 void __stdcall TEXT_FreeTextBox(D2TextScrollStrc* pTextBox); // 0x0049D410
 void __fastcall SELECT_SetSelectionRect(const D2SelectionRectStrc* pRect); // 0x00467430
-void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 void __fastcall NPCMENU_CancelNpcAndFlag(void* pHint); // 0x004B3D10
 void* __stdcall WINDOW_GetWindow(); // 0x004F59A0
 void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, void* pTable, int nCount); // 0x00451E10

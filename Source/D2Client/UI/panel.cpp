@@ -101,14 +101,11 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
-void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
-
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 
 
 
-void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+
 
 extern int gnTabSelection; // 0x00724CE0
 
@@ -179,7 +176,6 @@ int __fastcall ITEM_GetItemUseSound(D2UnitStrc* pItem); // 0x004C1E20
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 
 
@@ -417,7 +413,6 @@ void* gpCtrlPnl7Cel; // 0x007BEF1C
 
 void* gp800CtrlPnl7Cel; // 0x007BEF74
 
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 void __fastcall SPELLSEL_SetSkillSelectRight(int); // 0x004A8CE0
 

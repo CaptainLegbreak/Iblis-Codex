@@ -64,7 +64,6 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 
 
@@ -182,7 +181,6 @@ D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill);
 
 
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 D2UnitStrc* __fastcall SELECT_GetSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pX, int* pY, unsigned int dwFlags, int bForce); // 0x00467880
 
@@ -196,19 +194,15 @@ extern void* gpDrlgAct_007A0634;                                                
 
 unsigned int gdwLastClampTick; // 0x007A5268
 
-void __cdecl GAME_SetClickHandled(); // 0x0044BEF0
 
 int __cdecl sub_0044DA90(); // 0x0044DA90
 
-int __cdecl GAME_GetCurrentTime(); // 0x0044DAA0
 
 unsigned int __cdecl GAME_GetInteractDeadline(); // 0x0044DAC0
 
-void __fastcall GAME_SetInteractDeadline(int nValue); // 0x0044DAD0
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 
 int __stdcall PLAYER_IsPendingMode(int nArg1, int nArg2);                                             // 0x00461D60
@@ -250,7 +244,6 @@ void __fastcall VIEW_SetPetEntryValue(D2UnitStrc* pOwner, D2UnitStrc* pRecord, i
 
 
 
-void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue); // 0x0046F020
 
 
 

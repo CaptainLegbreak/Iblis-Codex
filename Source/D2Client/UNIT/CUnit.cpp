@@ -186,7 +186,6 @@ void __fastcall VIEW_ResetSelectionForUnit(D2UnitStrc* pUnit);                  
 
 void __fastcall ITEM_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp);  // 0x004C0EC0
 
-int __cdecl GAME_IsExpansion();                                                                                 // 0x0044DCC0
 
 D2ActiveRoomStrc* __fastcall CUNIT_FindRoomBySubtile(int nX, int nY);                                // 0x00465420
 
@@ -411,11 +410,9 @@ int __fastcall sub_M210_EmitUse(D2UnitStrc* pUnit);
 typedef int (__stdcall* D2FarProcFn)();
 
 
-void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
 int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
 
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 extern unsigned char gabColors_007BCAD8[5]; // 0x007BCAD8
 
@@ -495,7 +492,6 @@ void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc*,int*,int*,int*,const char*
 
 int __fastcall GFX_HitTestUnitGfx(D2UnitStrc*,int,int,int,int); // 0x00470860
 
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 
 int __fastcall GFXUTIL_UpdateUnitGfx(D2UnitStrc*,int); // 0x004DB670
@@ -538,7 +534,6 @@ D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int id); // 0x0045C4B0
 
 extern const unsigned char gnSkillMask_006CE26C; // 0x006CE26C
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 
 
@@ -568,7 +563,6 @@ static inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag);
 
 struct D2KeyConfigFileStrc;
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType);
 
 
 

@@ -89,9 +89,7 @@ class ListBoxWrapper;
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
 
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
@@ -183,7 +181,6 @@ public:
 
 
 
-void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 void __stdcall TEXT_FreeTextList(D2TextListStrc* pList); // 0x0049D4D0
 
@@ -813,7 +810,6 @@ extern int global_00724728; // 0x00724728
 
 enum { REPEAT_MASK = 0x40000000, UI_VARIABLE = 11 };
 
-void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 
 
 
@@ -896,10 +892,8 @@ extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer(); // 0x0044C820
 
 
 
-int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 void __fastcall CUNIT_ForEachMonster(UNITFN pfnCallback); // 0x00464990
 
@@ -1070,7 +1064,6 @@ static __declspec(noinline) int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc
 void __cdecl TEXT_DrawOverheadTextList(); // 0x0049DEE0
 
 
-void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
 void __cdecl TEXT_CloseTextUnit(); // 0x004A0880
 

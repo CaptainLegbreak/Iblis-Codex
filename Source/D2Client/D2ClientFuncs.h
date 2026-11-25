@@ -23,6 +23,7 @@ struct D2TextBoxStrc;
 struct D2TextNodeStrc;
 struct D2MonStats2Txt;
 struct D2UniqueItemsTxt;
+struct D2RosterInfoStrc;
 struct D2UnitStrc;
 
 void __fastcall GAME_CalcCdKeyChecksum(char* szKey, unsigned int* pChecksum); // 0x00449890
@@ -400,3 +401,19 @@ void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nMode); // 0x00480E7
 void __fastcall SOUNDHDR_TouchCacheEntry(int nIndex); // 0x00482860
 D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex); // 0x00483470
 int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
+int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
+int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
+extern "C" int __cdecl GAME_IsExpansion(); // 0x0044DCC0
+void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
+void* __fastcall GAME_LoadUiCelFile(const char* szFile); // 0x004520C0
+int __fastcall SCMD_RunMessageLoop(int (__stdcall* pfnIdle)(int)); // 0x00451BB0
+void __cdecl TEXT_ResetTextBox(); // 0x0049F960
+void __fastcall GAME_SetInteractDeadline(int nValue); // 0x0044DAD0
+void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue); // 0x0046F020
+int __cdecl GAME_GetCurrentTime(); // 0x0044DAA0
+int __cdecl CURSOR_GetCursorItem(); // 0x004680A0
+int __cdecl AUTOMAP_GetAutomapFade(); // 0x004576C0
+D2RosterInfoStrc** __fastcall ROSTER_GetRosterInfoList(int nUnitId); // 0x0047A310
+void __cdecl GAME_SetClickHandled(); // 0x0044BEF0
+int __fastcall GAME_DispatchMcpPacket(const unsigned char* pPacket, unsigned int nSize); // 0x0044B190
