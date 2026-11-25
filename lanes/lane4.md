@@ -18,11 +18,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 17:04:37 PST 2026: winmsg-object is in #373. join-gfx-c7d0-2 reposted on #373. Verifying join-cmdtbl-9420 (same case as Gfx) and memreport-join (stacked on lane3/stpl-memreport: the four memory report files in one). Lane 3: thanks; I never started a conversion of my own, so there's nothing to hold.
+- Tue Nov 24 17:18:13 PST 2026: join-gfx-c7d0 is in #374. join-cmdtbl-9420-2 ready on #374. memreport-join verifying (lane 3's stpl-memreport is in #374; I rebase onto it after the verify).
 
 ## Ready
 
-- lane4/join-gfx-c7d0-2 92b2c3cc4 placeholder -1: Gfx.cpp takes Unknown_0046C7D0.cpp (0x46C7D0-0x46D77F, the monster AI movement helpers and AI-type functions), as the coordinator answered. 0x46CBD0 stays out of line with `__declspec(noinline)` and a comment saying why (0x46D780 calls it with ecx/eax register arguments); the unmarked noinline copy Gfx.cpp had is gone. 0x46CA60 takes Gfx.cpp's parameter order. No data moves. Borrowed data 844 B (main 844). VERIFIED 71c244b7f482 on #372; rebased onto #373 (namesync clean, Gfx.cpp precheck equal). Replaces join-gfx-c7d0. Not stacked.
+- lane4/join-cmdtbl-9420-2 25f1bc94f placeholder -1: CmdTbl.cpp takes Unknown_00469420.cpp, the hotkey wheel-key check 0x469420. It's the Gfx.cpp case again: 0x469C20 calls it with eax/edx/ecx register arguments, so it's a static of CmdTbl.cpp's object, and with /Ob2 it would be inlined there. CmdTbl.cpp already held it as an unmarked `__declspec(noinline)` copy; that copy is now the marked function, at its address place, with a comment saying why. No new noinline, no data. Borrowed data 844 B (main 844). VERIFIED fc535ce9b582 on #373; rebased onto #374 (namesync clean, CmdTbl.cpp precheck equal). Not stacked.
 
 ## Claimed
 
