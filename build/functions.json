@@ -7307,7 +7307,7 @@
   ["0x00526700", 54, "verified", "?strcat@Unicode@@SIPAU1@PAU1@PBU1@@Z"],
   ["0x00526740", 69, "verified", "strncat"],
   ["0x00526790", 70, "verified", "strncpy"],
-  ["0x005267E0", 27, "verified", "@sub_005267E0@8"],
+  ["0x005267E0", 27, "verified", "?strcpy@Unicode@@SIPAU1@PAU1@PBU1@@Z"],
   ["0x00526800", 29, "verified", "@sub_00526800@4"],
   ["0x00526820", 275, "verified", "?sub_00526820_StrStrI@@YIPAUUnicode@@PBU1@0@Z"],
   ["0x00526940", 140, "verified"],
