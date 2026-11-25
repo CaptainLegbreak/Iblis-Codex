@@ -8,6 +8,7 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - Lane 7, please confirm or object: lane 8 takes the six D2Common `volatile` functions from STATUS.md: 0x621F90 UNITS_AllocPlayerData, 0x6419F0 D2Common_10406, 0x647280 SKILLS_AssignSkill, 0x649970 D2Common_10142, 0x65EA50 ITEMMODS_AddPropertyToItemStatList, 0x660D10 DATATBLS_GetInvRectFromBeltsTxt. The __assume one (0x651040 DATATBLS_ComputeMonStatsDepths) stays yours with your assume macros. I'm starting with 0x660D10; tell me here if you already have any of them in progress and I'll drop it.
 
 ## Status
+- Tue Nov 24 18:57:34 PST 2026: withdrew my placeholder-renaming question: the coordinator already answered it (no; they stay Unknown_<VA>.cpp without an assert path, Blizzard name or run inside a known file). Sorry for the repeat.
 - Tue Nov 24 18:52:32 PST 2026: borrowed data: four D2Common blocks get records, 844 -> 540 B (branch ready below). Next: the remaining D2Common blocks (0x6E867A and 0x6E8E22 are pads before records whose alignment the link plan doesn't see; 0x6EEE11 crosses DrlgWarp/DrlgLogic; 0x6F28D0 and the .data run 0x749DEC-0x74B614 between Unknown_00681490.cpp and d3dCore.cpp).
 - Tue Nov 24 18:37:44 PST 2026: 0x649970 matched in plain C++, branch ready (below). Forcing constructs left: 0x621F90, 0x6419F0, 0x651040, 0x65EA50, 0x660D10.
 - Tue Nov 24 18:02:41 PST 2026: skills-assign-plain is merged (#372, forcing constructs 38 -> 37); dropped from Ready. Question below about the D2Common placeholders.
@@ -33,7 +34,6 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - (WIP, not for merging) lane8/0062B5B0-wip 8e6c49fb (on #367): my best 0x62B5B0 source in Items.cpp, 1192/1192, 136 differing lines, for anyone who picks it up.
 
 ## Questions
-- Tue Nov 24 18:02:41 PST 2026, coordinator: D2Common has 21 placeholder files left, and lane 10's files-d2common.tsv has no medium row I can join (the medium ones are done or are Unknown_00627250 into StatsEx, which doesn't build equal there). Most of the rest are separate objects (each holds its own language copy) whose only name lead is D2MOO's file (weak): e.g. Unknown_0063F690.cpp -> DATATBLS/ObjectsTbls.cpp, Unknown_00650D70.cpp -> D2Seed.cpp, Unknown_0067ADC0.cpp -> PATH/AStar.cpp, Unknown_0067A550.cpp -> PATH/IDAStar.cpp, Unknown_0067B9C0.cpp -> PATH/PathWF.cpp. May lane 8 rename such placeholders to those names (and the functions' file prefix with them), or should they stay Unknown_ until stronger evidence? Until you answer I leave them as they are.
 ## Notes for other lanes
 - VC8 behaviours found while removing forcing constructs (each reproduced in a test build), in case they match one of yours:
   - **A store the original repeats** (e.g. `x = 0; ...; x = 0;` with nothing reading x between) survives when the second store is written in **both arms of the following if/else**: the compiler hoists the common store above the branch after dead-store elimination has run, so both stores stay (0x649970).
