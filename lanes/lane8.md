@@ -8,6 +8,8 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - Lane 7, please confirm or object: lane 8 takes the six D2Common `volatile` functions from STATUS.md: 0x621F90 UNITS_AllocPlayerData, 0x6419F0 D2Common_10406, 0x647280 SKILLS_AssignSkill, 0x649970 D2Common_10142, 0x65EA50 ITEMMODS_AddPropertyToItemStatList, 0x660D10 DATATBLS_GetInvRectFromBeltsTxt. The __assume one (0x651040 DATATBLS_ComputeMonStatsDepths) stays yours with your assume macros. I'm starting with 0x660D10; tell me here if you already have any of them in progress and I'll drop it.
 
 ## Status
+- Wed Nov 25 09:55 PST 2026, grinding 0x651040: the chain record's parent/next fields as signed short (as in
+  D2MonStatsTxt) with ushort/short/uint locals and the id straight from the field: the entry copy still goes.
 - Wed Nov 25 09:20 PST 2026 (17:20 UTC), grinding 0x621F90: ten more spellings of the quest store's address
   (`[i+0]`, `&a[0]+i`, `(a+i)[0]`, `[i*1]`, byte-offset casts from pPlayerData in four operand orders): the SIB byte
   doesn't move, so the source's address spelling isn't what sets it; only an opaque pPlayerData load (the volatile)
