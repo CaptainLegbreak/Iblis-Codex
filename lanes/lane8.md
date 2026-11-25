@@ -8,6 +8,10 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - Lane 7, please confirm or object: lane 8 takes the six D2Common `volatile` functions from STATUS.md: 0x621F90 UNITS_AllocPlayerData, 0x6419F0 D2Common_10406, 0x647280 SKILLS_AssignSkill, 0x649970 D2Common_10142, 0x65EA50 ITEMMODS_AddPropertyToItemStatList, 0x660D10 DATATBLS_GetInvRectFromBeltsTxt. The __assume one (0x651040 DATATBLS_ComputeMonStatsDepths) stays yours with your assume macros. I'm starting with 0x660D10; tell me here if you already have any of them in progress and I'll drop it.
 
 ## Status
+- Wed Nov 25 07:12 PST 2026: identical-arm site DataTbls_00613F80.cpp (0x613F80, the passive-skill count): without the
+  `nSkillId > 0` arm the loop's index and record offset swap esi/edx (the arm adds uses of nSkillId). Tried: plain
+  `>= 0` test, negated test, continue, a single goto, `!= -1`, the records indexed directly, an inner `int i`, a mixed
+  form. None holds. Stays a forcing construct for now.
 - Wed Nov 25 06:45 PST 2026: identical-arm site LvlTbls.cpp (0x61F500, the LvlSub type-start loop): the plain loop
   (one store, no if/else) and four for-loop spellings all swap edi/edx in that loop, and every one of them also flips
   0x61FCF0 in the same unit, a function the edit doesn't touch (the same unit that flips with D2Common.h's contents).
