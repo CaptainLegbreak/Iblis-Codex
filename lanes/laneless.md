@@ -20,6 +20,16 @@ call stays the coordinator's. This section is replaced at each check.
   - **Trial-merge leftovers:** #372 took growable-ctor-2 and monster-run. lane1/umod-join-3 still conflicts
     with main, and your rebase list doesn't name it yet.
   - **Object map** refreshed on #372: 261 placeholder files, 119 clear leads (`lanes/tools/objmap/report-372.md`).
+- **2026-11-24 16:54 PT, test builds on 0x5EDC50 and 0x5DD7F0** (main #372, real units). All negative, so nobody repeats them:
+  - **0x5EDC50 (789/791):** the -40 fold (`add edx, 2`) survived 25 more forms in AiThink4.cpp: the constant from a
+    local, from `nX - 40` kept in a local, split across terms, cast, through inline helpers that take the base or the
+    offset as an argument, and through five guarded random-range helpers (`if (nMax <= 0) return 0;` and similar).
+    Every one gives the same 112 differing lines.
+    - Flags: /O1, /Os and /Ob0 rewrite the whole function (510-990 B). /Ot, /Oy-, /Ob1, /GS-, /Op and /fp:precise
+      change nothing.
+    - Link-time code generation (/GL + /LTCG) still folds, and adds an `and esp, -8` the original doesn't have.
+  - **0x5DD7F0 (lane7/005DD7F0-wip, 1120/1084):** /GL + /LTCG makes it worse, 1141 B and 321 differing lines against 238.
+  - **Tool:** `lanes/tools/vbatch/ltlab.py` runs a batch of variants through /GL + /LTCG (see the vbatch README).
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.

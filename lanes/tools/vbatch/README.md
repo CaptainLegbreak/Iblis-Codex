@@ -30,3 +30,11 @@ file, so two searches can run at once.
 
 A variant search ranks by listing difference only; a candidate still has to be marked and built in its unit
 (tools/build.py --files) before it counts.
+
+## ltlab.py: the same comparison through link-time code generation
+
+    INTO=... ANCHOR=... python3 lanes/tools/vbatch/ltlab.py UNIT_REL variants.cpp VA [+flag|-flag ...]
+
+Compiles the variants with `/GL`, links them `/LTCG` into a scratch DLL (unresolved externals allowed) and compares
+each exported `V_` function with the original, as multi.py does. Variants must be declared `extern "C"` so they
+can be exported. Run it with `env -u TMPDIR`, as the build does.
