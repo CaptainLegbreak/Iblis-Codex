@@ -611,7 +611,7 @@ static inline int sub_0061B870_IsStatus(D2Entry0061B7E0Strc* pEntry, int nStatus
 }
 
 // 0x0061B870
-int __fastcall sub_0061B870_GetNextValue(D2Owner0061B7E0Strc* pOwner, D2Entry0061B7E0Strc* pEntry)
+int __fastcall DRLGACTIVATE_GetNextValue(D2Owner0061B7E0Strc* pOwner, D2Entry0061B7E0Strc* pEntry)
 {
     unsigned char nIndex = pEntry->nIndex44;
     D2Entry0061B7E0Strc* pNext = pEntry->pSelf1C;

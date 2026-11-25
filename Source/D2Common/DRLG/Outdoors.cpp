@@ -680,7 +680,7 @@ struct D2UnkOutdoorStrc
     void(__fastcall* field_34)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nRand, int a6);
 };
 
-void __fastcall sub_00670750_ApplySubstitutionBorder(D2UnkOutdoorStrc* pOutdoor); // 0x00670750
+void __fastcall DRLGTILESUB_ApplySubstitutionBorder(D2UnkOutdoorStrc* pOutdoor); // 0x00670750
 
 void __fastcall DRLGOUTDOORS_AlterAdjacentPresetGridCells(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674160
 
@@ -707,7 +707,7 @@ void __fastcall DRLGOUTDOORS_AddAct124SecondaryBorder(D2DrlgLevelStrc* pLevel, i
     a1.field_30 = DRLGOUTDOORS_SetBlankGridCell;
     a1.field_34 = DRLGOUTDOORS_SpawnOutdoorLevelPresetEx;
 
-    sub_00670750_ApplySubstitutionBorder(&a1);
+    DRLGTILESUB_ApplySubstitutionBorder(&a1);
 }
 
 // 0x00675320

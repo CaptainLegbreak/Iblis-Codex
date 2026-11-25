@@ -86,7 +86,7 @@ void __fastcall DRLGGRID_FreeGrid(void* pMemPool, D2DrlgGridStrc* pGrid);       
 
 void __fastcall DRLGVER_FreeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertices);                              // 0x0067D1E0
 
-void __stdcall sub_00643560_GameTileToSubtileCoords(int* pX, int* pY);                                                            // 0x00643560
+void __stdcall SKILLS_GameTileToSubtileCoords(int* pX, int* pY);                                                            // 0x00643560
 
 struct D2PresetUnitStrc* __fastcall DRLGROOM_AllocPresetUnit(D2DrlgRoomStrc* pDrlgRoom, void* pMemPool, int nUnitType, int nIndex, int nMode, int nX, int nY);   // 0x0066BF30
 
@@ -393,7 +393,7 @@ static inline int sub_IsSubstMethod(int nSubstMethod)
 }
 
 // 0x00665810
-static void sub_00665810_CopyCodePadded(D2PresetCodeStrc* pDst, const char* pSrc)
+static void DRLGPRESET_CopyCodePadded(D2PresetCodeStrc* pDst, const char* pSrc)
 {
     if (!pSrc[0])
     {
@@ -426,7 +426,7 @@ static void sub_00665810_CopyCodePadded(D2PresetCodeStrc* pDst, const char* pSrc
 }
 
 // 0x00665900
-static void sub_00665900_MapTileTypes(int* pTileTypes, int nCount)
+static void DRLGPRESET_MapTileTypes(int* pTileTypes, int nCount)
 {
     if (nCount > 0)
     {
@@ -440,13 +440,13 @@ static void sub_00665900_MapTileTypes(int* pTileTypes, int nCount)
 }
 
 // 0x00665930
-void __cdecl sub_00665930_LockLevelFiles()
+void __cdecl DRLGPRESET_LockLevelFiles()
 {
     EnterCriticalSection(&gLevelFilesCriticalSection);
 }
 
 // 0x00665940
-void __cdecl sub_00665940_UnlockLevelFiles()
+void __cdecl DRLGPRESET_UnlockLevelFiles()
 {
     LeaveCriticalSection(&gLevelFilesCriticalSection);
 }
@@ -454,13 +454,13 @@ void __cdecl sub_00665940_UnlockLevelFiles()
 void __fastcall sub_M107_Emit_00665810(D2PresetCodeStrc* pDst, const char* pSrc, int bCopy)
 {
     if (bCopy)
-        sub_00665810_CopyCodePadded(pDst, pSrc);
+        DRLGPRESET_CopyCodePadded(pDst, pSrc);
 }
 
 void __fastcall sub_M107_Emit_00665900(int* pTileTypes, int nCount, int bMap)
 {
     if (bMap)
-        sub_00665900_MapTileTypes(pTileTypes, nCount);
+        DRLGPRESET_MapTileTypes(pTileTypes, nCount);
 }
 
 // 0x006658E0
@@ -701,7 +701,7 @@ void __fastcall DRLGPRESET_ParseDS1File(D2DrlgFileStrc* pDrlgFile, void* hArchiv
                         szCode[j] = tolower(szCode[j]);
                     }
                     unsigned int dwCode = 0;
-                    sub_00665810_CopyCodePadded((D2PresetCodeStrc*)&dwCode, szCode);
+                    DRLGPRESET_CopyCodePadded((D2PresetCodeStrc*)&dwCode, szCode);
                     DATATBLS_GetItemRecordFromItemCode(dwCode, &nIndex);
                 }
                 nMode = 3;
@@ -830,7 +830,7 @@ static void __fastcall DRLGPRESET_AddTombStoneTiles(void* pMemPool, D2DrlgRoomSt
                 {
                     int nTileX = nX + pDrlgRoom->pDrlgCoord.nPosX;
                     int nTileY = nY + pDrlgRoom->pDrlgCoord.nPosY;
-                    sub_00643560_GameTileToSubtileCoords(&nTileX, &nTileY);
+                    SKILLS_GameTileToSubtileCoords(&nTileX, &nTileY);
                     pMaze->pTombStoneTiles[nTombStoneTiles].nX = nTileX + 2;
                     pMaze->pTombStoneTiles[nTombStoneTiles].nY = nTileY + 2;
                     ++nTombStoneTiles;
@@ -945,8 +945,8 @@ static void DRLGPRESET_SpawnRiver(D2DrlgMapStrc* pDrlgMap, int nX, int nY, void*
     int nEndSubtileX = 0;
     int nEndSubtileY = nY + pDrlgMap->ptFile->nHeight;
 
-    sub_00643560_GameTileToSubtileCoords(&nSubtileX, &nSubtileY);
-    sub_00643560_GameTileToSubtileCoords(&nEndSubtileX, &nEndSubtileY);
+    SKILLS_GameTileToSubtileCoords(&nSubtileX, &nSubtileY);
+    SKILLS_GameTileToSubtileCoords(&nEndSubtileX, &nEndSubtileY);
 
     while (nSubtileY < nEndSubtileY)
     {
@@ -1043,7 +1043,7 @@ static void __stdcall DRLGPRESET_AddNaviPresetUnit(D2DrlgMapStrc* pDrlgMap, void
 {
     int nX = pDrlgMap->tCoords.nPosX + pDrlgMap->tCoords.nWidth / 2;
     int nY = pDrlgMap->tCoords.nPosY + pDrlgMap->tCoords.nHeight / 2;
-    sub_00643560_GameTileToSubtileCoords(&nX, &nY);
+    SKILLS_GameTileToSubtileCoords(&nX, &nY);
 
     const int nClassId = sgptDataTables->nMonStatsTxtRecordCount <= 266 ? -1 : 266;
     D2PresetUnitStrc* pPresetUnit = DRLGROOM_AllocPresetUnit(0, pMemPool, 1, nClassId, 1, nX, nY);
@@ -1154,8 +1154,8 @@ static void DRLGPRESET_MovePresetUnitsToRoom(D2DrlgRoomStrc* pDrlgRoom)
     tDrlgCoord.nPosY = pDrlgRoom->pDrlgCoord.nPosY;
     tDrlgCoord.nWidth = pDrlgRoom->pDrlgCoord.nWidth;
     tDrlgCoord.nHeight = pDrlgRoom->pDrlgCoord.nHeight;
-    sub_00643560_GameTileToSubtileCoords(&tDrlgCoord.nPosX, &tDrlgCoord.nPosY);
-    sub_00643560_GameTileToSubtileCoords(&tDrlgCoord.nWidth, &tDrlgCoord.nHeight);
+    SKILLS_GameTileToSubtileCoords(&tDrlgCoord.nPosX, &tDrlgCoord.nPosY);
+    SKILLS_GameTileToSubtileCoords(&tDrlgCoord.nWidth, &tDrlgCoord.nHeight);
 
     D2PresetUnitStrc* pPresetUnit = pDrlgMap->pPresetUnit;
     const int nOffsetX = 5 * pDrlgRoom->pDrlgCoord.nPosX;
@@ -2416,7 +2416,7 @@ void __fastcall DRLGPRESET_UpdatePops(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY,
 }
 
 // 0x00667420
-int __fastcall sub_00667420_GetChainField20(D2Unk00667420Strc* p)
+int __fastcall DRLGPRESET_GetChainField20(D2Unk00667420Strc* p)
 {
     return p->p14->p00->n20;
 }

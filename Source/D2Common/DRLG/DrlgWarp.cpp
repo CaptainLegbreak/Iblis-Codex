@@ -575,7 +575,7 @@ void __fastcall DRLGWARP_InitializeConnectedLevels(D2DrlgStrc* pDrlg,int unused,
 }
 
 // 0x0066AE70
-static D2DrlgRoomStrc* sub_0066AE70_GetRandomRoom(D2DrlgLevelStrc* pLevel)
+static D2DrlgRoomStrc* DRLGWARP_GetRandomRoom(D2DrlgLevelStrc* pLevel)
 {
     D2_ASSERT(pLevel, 318);
     D2_ASSERT(pLevel->ptRoomFirst, 319);
@@ -655,7 +655,7 @@ D2ActiveRoomStrc* __fastcall DRLGWARP_GetLevelEntryRoom(D2DrlgStrc* pDrlg, int n
             pDrlgRoom = DRLG_GetRoomExFromLevelAndCoordinates(pLevel, nX, nY);
             if (!pDrlgRoom)
             {
-                pDrlgRoom = sub_0066AE70_GetRandomRoom(pLevel);
+                pDrlgRoom = DRLGWARP_GetRandomRoom(pLevel);
             }
         }
     }

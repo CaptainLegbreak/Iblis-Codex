@@ -337,7 +337,7 @@ void __fastcall SKILLS_RefreshPassivesAndPetLimits(D2UnitStrc* pUnit); // 0x0056
 
 void __fastcall OBJMODE_RemoveSkillShrine(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x00583BD0
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 int __fastcall OBJECTS_OperateFunction07_ExplodingBarrel(D2ObjOperateFnStrc* pOp); // 0x00584330
 
@@ -748,7 +748,7 @@ static inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 }
 
 // 0x00581250
-void __fastcall sub_00581250_ObjectTimer_Light(D2GameStrc* pGame, D2UnitStrc* pObject)
+void __fastcall OBJMODE_ObjectTimer_Light(D2GameStrc* pGame, D2UnitStrc* pObject)
 {
     const int nMode = !pObject ? 0 : pObject->dwAnimMode;
     if (pObject && pObject->dwClassId == 0x18F)
@@ -805,7 +805,7 @@ struct D2PortalFlags00581410Strc
 };
 
 // 0x00581410
-void __fastcall sub_00581410_OpenLinkPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
+void __fastcall OBJMODE_OpenLinkPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit));
     int nPortalLevel = 0x7F;
@@ -984,7 +984,7 @@ static void __stdcall OBJMODE_DamagePlayersInRange(D2GameStrc* pGame, D2UnitStrc
     {
         const int nType = (i ? i->dwUnitType : UNIT_INVALID);
         const int nMode = (i ? i->dwAnimMode : 0);
-        if (nType == UNIT_PLAYER && nMode != PLRMODE_DEAD && sub_006416D0_UnitEdgeDistance(pObject, i) <= pObjectsTxtRecord->dwParm[0] + 1)
+        if (nType == UNIT_PLAYER && nMode != PLRMODE_DEAD && DRLG_UnitEdgeDistance(pObject, i) <= pObjectsTxtRecord->dwParm[0] + 1)
         {
             OBJEVAL_ApplyTrapObjectDamage(pGame, pObject, i, 1);
         }
@@ -1037,7 +1037,7 @@ void __fastcall D2GAME_SpikeTraps_6FC74F60(D2GameStrc* pGame, D2UnitStrc* pObjec
             {
                 const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
                 const int nUnitMode = pUnit ? pUnit->dwAnimMode : 0;
-                if (nUnitType == 0 && nUnitMode != 17 && sub_006416D0_UnitEdgeDistance(pObject, pUnit) <= 0)
+                if (nUnitType == 0 && nUnitMode != 17 && DRLG_UnitEdgeDistance(pObject, pUnit) <= 0)
                 {
                     if (bArmed)
                     {
@@ -3429,7 +3429,7 @@ static int OBJMODE_ExplodeBarrel(D2ObjOperateFnStrc* pOp)
             }
             else if (nUnitType == UNIT_OBJECT)
             {
-                if (OBJECTS_IsNeutralExplodingBarrel(pUnit) && sub_006416D0_UnitEdgeDistance(pOp->hObject, pUnit) <= 2)
+                if (OBJECTS_IsNeutralExplodingBarrel(pUnit) && DRLG_UnitEdgeDistance(pOp->hObject, pUnit) <= 2)
                 {
                     tNewOp.hObject = pUnit;
                     OBJECTS_OperateFunction07_ExplodingBarrel(&tNewOp);

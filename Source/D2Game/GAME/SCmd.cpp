@@ -212,7 +212,7 @@ int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit); // 0x00621F20
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
@@ -321,7 +321,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 
-int __fastcall sub_00573AE0_HasComponents(D2UnitStrc* pUnit); // 0x00573AE0
+int __fastcall MONSTER_HasComponents(D2UnitStrc* pUnit); // 0x00573AE0
 
 int __fastcall PLAYERPETS_GetPetTypeFromPetGUID(D2UnitStrc* pPlayer, int nPetGUID); // 0x00574A20
 
@@ -333,7 +333,7 @@ int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 
 
 short __fastcall MONSTERUNIQUE_GetBossHcIdx(D2UnitStrc* pUnit); // 0x005A01E0
 
-int __fastcall sub_005A0380_HasMonsterFlag(D2UnitStrc* pUnit); // 0x005A0380
+int __fastcall MONSTERUNIQUE_HasMonsterFlag(D2UnitStrc* pUnit); // 0x005A0380
 
 unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit); // 0x005A5650
 
@@ -1713,7 +1713,7 @@ void __fastcall SCMD_SendUnitLifeAndPositionUpdate(D2ClientStrc* pClient, D2Unit
     if (tPacket.packet7F.bIsPlayer)
     {
         D2UnitStrc* pClientPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-        if (sub_006416D0_UnitEdgeDistance(pClientPlayer, hUnit) > 50)
+        if (DRLG_UnitEdgeDistance(pClientPlayer, hUnit) > 50)
         {
             const D2GSPacketSrv90 tZero90 = {};
             tPacket.packet90 = tZero90;
@@ -1812,7 +1812,7 @@ void __fastcall sub_6FC3E200(D2ClientStrc* pClient, D2UnitStrc* pUnit)
     {
         D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &tPacket7F, sizeof(tPacket7F));
     }
-    if (tPacket7F.bIsPlayer && sub_006416D0_UnitEdgeDistance(CLIENTS_GetPlayerFromClient(pClient, 0), pUnit) > 50)
+    if (tPacket7F.bIsPlayer && DRLG_UnitEdgeDistance(CLIENTS_GetPlayerFromClient(pClient, 0), pUnit) > 50)
     {
         D2GSPacketSrv90 tPacket90 = {};
         tPacket90.nHeader = 0x90;
@@ -2992,7 +2992,7 @@ void __fastcall SCMD_SendMonsterAssign(D2ClientStrc* pClient, D2UnitStrc* pUnit)
         BITMANIP_Write(&bitBuffer, MONMODE_NEUTRAL, 4);
     }
 
-    if (sub_00573AE0_HasComponents(pUnit))
+    if (MONSTER_HasComponents(pUnit))
     {
         BITMANIP_Write(&bitBuffer, 1, 1);
 
@@ -3011,7 +3011,7 @@ void __fastcall SCMD_SendMonsterAssign(D2ClientStrc* pClient, D2UnitStrc* pUnit)
         BITMANIP_Write(&bitBuffer, 0, 1);
     }
 
-    if (!sub_005A0380_HasMonsterFlag(pUnit) && !UNITS_IsMerc(pUnit))
+    if (!MONSTERUNIQUE_HasMonsterFlag(pUnit) && !UNITS_IsMerc(pUnit))
     {
         BITMANIP_Write(&bitBuffer, 0, 1);
     }

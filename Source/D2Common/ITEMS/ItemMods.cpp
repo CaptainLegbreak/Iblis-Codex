@@ -499,7 +499,7 @@ int __stdcall sub_M415_EmitRoll_0065C620(D2UnitStrc* pItem, sub_M415_EmitArgs* p
 }
 
 // 0x0065C660
-static const D2PropertyStrc* sub_0065C660_GetAffixProperty(const D2MagicAffixTxt* pMods, int nMod)
+static const D2PropertyStrc* ITEMMODS_GetAffixProperty(const D2MagicAffixTxt* pMods, int nMod)
 {
     D2_ASSERT(pMods, 0x79);
     if ((unsigned int)nMod < 3)
@@ -512,7 +512,7 @@ static const D2PropertyStrc* sub_0065C660_GetAffixProperty(const D2MagicAffixTxt
 }
 
 // 0x0065C6A0
-static const D2PropertyStrc* sub_0065C6A0_GetGradeProperty(const D2GradeModsStrc* pMods, int nMod)
+static const D2PropertyStrc* ITEMMODS_GetGradeProperty(const D2GradeModsStrc* pMods, int nMod)
 {
     if ((unsigned int)nMod < 12)
     {
@@ -524,7 +524,7 @@ static const D2PropertyStrc* sub_0065C6A0_GetGradeProperty(const D2GradeModsStrc
 }
 
 // 0x0065C6D0
-static const D2PropertyStrc* sub_0065C6D0_GetGemProperty(const D2GemsTxt* pMods, int nPropSet, int nMod)
+static const D2PropertyStrc* ITEMMODS_GetGemProperty(const D2GemsTxt* pMods, int nPropSet, int nMod)
 {
     const D2PropertyStrc* pProperties[3];
     pProperties[0] = pMods->pProperties[0];
@@ -541,18 +541,18 @@ static const D2PropertyStrc* sub_0065C6D0_GetGemProperty(const D2GemsTxt* pMods,
 }
 
 // 0x0065C730
-static const D2PropertyStrc* sub_0065C730_GetModsProperty(int nType, const void* pMods, int nMod, int nPropSet)
+static const D2PropertyStrc* ITEMMODS_GetModsProperty(int nType, const void* pMods, int nMod, int nPropSet)
 {
     switch (nType)
     {
     case 0:
-        return sub_0065C660_GetAffixProperty((const D2MagicAffixTxt*)pMods, nMod);
+        return ITEMMODS_GetAffixProperty((const D2MagicAffixTxt*)pMods, nMod);
     case 1:
-        return sub_0065C6A0_GetGradeProperty((const D2GradeModsStrc*)pMods, nMod);
+        return ITEMMODS_GetGradeProperty((const D2GradeModsStrc*)pMods, nMod);
     case 2:
-        return sub_0065C6D0_GetGemProperty((const D2GemsTxt*)pMods, nPropSet, nMod);
+        return ITEMMODS_GetGemProperty((const D2GemsTxt*)pMods, nPropSet, nMod);
     case 5:
-        return sub_0065C6D0_GetGemProperty((const D2GemsTxt*)pMods, nPropSet, nMod);
+        return ITEMMODS_GetGemProperty((const D2GemsTxt*)pMods, nPropSet, nMod);
     case 3:
     case 4:
         return 0;
@@ -2924,7 +2924,7 @@ void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pI
 
     for (int nMod = 0; nMod < nProperties; ++nMod)
     {
-        const D2PropertyStrc* pProperty = sub_0065C730_GetModsProperty(nType, pMods, nMod, nPropSet);
+        const D2PropertyStrc* pProperty = ITEMMODS_GetModsProperty(nType, pMods, nMod, nPropSet);
         if (!pProperty || pProperty->nProperty < 0)
         {
             break;

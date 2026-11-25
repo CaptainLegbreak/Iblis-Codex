@@ -681,7 +681,7 @@ int __stdcall sub_0063BCC0_PlaceItem(D2InventoryStrc* pInventory, D2UnitStrc* pI
 int __stdcall sub_0063BDB0(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc); // 0x0063BDB0
 int __stdcall sub_0063C830_CanPlaceInBelt(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nSlot, int* pResult); // 0x0063C830
 int __stdcall sub_0063E8D0(D2UnitStrc* pUnit, int nMode); // 0x0063E8D0
-int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
+int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 int __stdcall sub_00645080_GetSkillCharClass(int nSkillId, int* pCharClass); // 0x00645080
 int __stdcall D2COMMON_11021(D2UnitStrc* pUnit); // 0x00645680
 int __stdcall sub_00645950_CheckTargetPos(int nX, int nY, D2UnitStrc* pUnit, int nCollisionMask); // 0x00645950

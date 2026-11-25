@@ -125,7 +125,7 @@ D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
-void __stdcall sub_00643560_GameTileToSubtileCoords(int* pX, int* pY); // 0x00643560
+void __stdcall SKILLS_GameTileToSubtileCoords(int* pX, int* pY); // 0x00643560
 
 static int __stdcall sub_0054DB50_IsNearWarpOrSpawn(D2GameStrc* pGame, int nX, int nY, D2ActiveRoomStrc* pRoom);
 
@@ -190,7 +190,7 @@ static int __stdcall sub_0054DB50_IsNearWarpOrSpawn(D2GameStrc* pGame, int nX, i
     DUNGEON_FindActSpawnLocation(((D2GameActsViewStrc*)pGame)->pAct[DRLG_GetActNoFromLevelId(nLevelId)], nLevelId, 11, &nSpawnX, &nSpawnY);
     if (nSpawnX > 0 && nSpawnY > 0)
     {
-        sub_00643560_GameTileToSubtileCoords(&nSpawnX, &nSpawnY);
+        SKILLS_GameTileToSubtileCoords(&nSpawnX, &nSpawnY);
         const int nDX = nX - nSpawnX;
         const int nDY = nY - nSpawnY;
         if (nDY * nDY + nDX * nDX < nDistSq)

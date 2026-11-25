@@ -24,7 +24,7 @@ D2UnitStrc* __fastcall AITACTICS_FindTargetInRange(D2GameStrc* pGame, D2UnitStrc
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);               // 0x005DE080
 void __fastcall AITACTICS_Idle(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);                            // 0x005DE0F0
-void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
+void __fastcall AITACTICS_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
 int __fastcall AITACTICS_RunToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit);      // 0x005DED20
@@ -34,7 +34,7 @@ int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                    
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus);                 // 0x00622C40
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                               // 0x00639DF0
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x006416D0
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 // 0x005ED2A0
@@ -91,8 +91,8 @@ void __fastcall AITHINK_Fn108_Fenris(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
         nDistance = nOwnerTargetDistance;
     }
 
-    const int nOwnerDistance = sub_006416D0_UnitEdgeDistance(pOwner, pUnit);
-    if (pTarget && nOwnerDistance > nMaxDistance && sub_006416D0_UnitEdgeDistance(pOwner, pTarget) > nMaxDistance)
+    const int nOwnerDistance = DRLG_UnitEdgeDistance(pOwner, pUnit);
+    if (pTarget && nOwnerDistance > nMaxDistance && DRLG_UnitEdgeDistance(pOwner, pTarget) > nMaxDistance)
     {
         pTarget = 0;
     }
@@ -143,7 +143,7 @@ void __fastcall AITHINK_Fn108_Fenris(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
         && ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < AI_PARAM(pGame, pMonStatsTxtRecord, 2) || !pTarget || pAiTickParam->pAiControl->dwAiParam[0]))
     {
         D2UnitStrc* pCorpse = SKILLS_FindUseableCorpse(pGame, pUnit, pOwner, 10);
-        if (pCorpse && sub_006416D0_UnitEdgeDistance(pCorpse, pUnit) < nMaxDistance / 2)
+        if (pCorpse && DRLG_UnitEdgeDistance(pCorpse, pUnit) < nMaxDistance / 2)
         {
             if (UNITS_IsInMeleeRange(pUnit, pCorpse, 0))
             {
@@ -175,7 +175,7 @@ void __fastcall AITHINK_Fn108_Fenris(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
 
     if (pTarget)
     {
-        sub_005DE190_SetAiParam(pUnit, 0, nVelocityBonus, 0);
+        AITACTICS_SetAiParam(pUnit, 0, nVelocityBonus, 0);
         AITACTICS_RunToTargetUnit(pGame, pUnit, pTarget);
         return;
     }

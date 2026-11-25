@@ -338,7 +338,7 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 }
 
 // 0x0067D7E0
-static inline void __fastcall sub_0067D7E0_SetOffsetCoords(D2DrlgCoordStrc* pCoords, D2DrlgCoordStrc* pLinkCoords, int nRand, int nLinkRand)
+static inline void __fastcall DRLGOUTROOM_SetOffsetCoords(D2DrlgCoordStrc* pCoords, D2DrlgCoordStrc* pLinkCoords, int nRand, int nLinkRand)
 {
     switch (nRand)
     {
@@ -376,7 +376,7 @@ int __fastcall sub_M_Emit_0067D7E0(D2DrlgLevelLinkDataStrc* pLevelLinkData)
     }
 
     const int nLevelLink = pLevelLinkData->pLink[pLevelLinkData->nIteration].nLevelLink;
-    sub_0067D7E0_SetOffsetCoords(&pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration], &pLevelLinkData->pLevelCoord[nLevelLink], pLevelLinkData->nRand[0][pLevelLinkData->nIteration], pLevelLinkData->nRand[0][nLevelLink]);
+    DRLGOUTROOM_SetOffsetCoords(&pLevelLinkData->pLevelCoord[pLevelLinkData->nIteration], &pLevelLinkData->pLevelCoord[nLevelLink], pLevelLinkData->nRand[0][pLevelLinkData->nIteration], pLevelLinkData->nRand[0][nLevelLink]);
     return 1;
 }
 

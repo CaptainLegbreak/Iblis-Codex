@@ -301,7 +301,7 @@ extern "C" __declspec(dllimport) int __stdcall PtInRect(const tagRECT*,tagPOINT)
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc*,D2DrlgCoordsStrc*); // 0x00619730
 
-void __stdcall sub_00643560_GameTileToSubtileCoords(int*,int*); // 0x00643560
+void __stdcall SKILLS_GameTileToSubtileCoords(int*,int*); // 0x00643560
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,int); // 0x00463740
 
@@ -1346,13 +1346,13 @@ void __fastcall ACT4Q1_OnIzualActivated(D2GameStrc* pGame)
     }
 }
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 // 0x005B43D0
 void __fastcall ACT4Q1_UnitIterate_CheckDistanceToIzualGhost(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
     D2Act4Quest1Strc* pQuestDataEx = (D2Act4Quest1Strc*)pData;
-    if (sub_006416D0_UnitEdgeDistance(pUnit, pQuestDataEx->pTargetUnit) < 5)
+    if (DRLG_UnitEdgeDistance(pUnit, pQuestDataEx->pTargetUnit) < 5)
     {
         pQuestDataEx->bCloseToIzualGhost = 1;
     }

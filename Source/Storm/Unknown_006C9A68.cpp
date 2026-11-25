@@ -60,31 +60,7 @@ struct D2Block006CAB90Strc
 extern D2Block006CAB90Strc gBlock_007BB5F8; // 0x007BB5F8
 extern int gnTextLeft; // 0x007BF278
 
-// 0x006C9A68
-int __fastcall sub_006C9A68_GetDigitClass(signed char character)
-{
-    return gCharacterClass_0074C5C8[character] & 2;
-}
-
 #include "gen/data/Source/Storm/Unknown_006C9A68.inc"
-
-// 0x006C9AB9
-int __fastcall sub_006C9AB9_GetSpaceClass(signed char character)
-{
-    return gCharacterClass_0074C5C8[character] & 1;
-}
-
-// 0x006C9B45
-char* __fastcall sub_006C9B45(char* s)
-{
-    char* r = sub_006C9AFF(s, 0x5C);
-    if (!r)
-        return s;
-    if (*CharNextA(r) != 0)
-        return s;
-    *r = 0;
-    return s;
-}
 
 // 0x006CA940
 void __cdecl sub_006CA940_ClearRealmNames()

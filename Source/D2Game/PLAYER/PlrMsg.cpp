@@ -682,7 +682,7 @@ extern "C" void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatLi
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
-int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
+int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
 extern "C" unsigned int __stdcall PATH_GetLastPointX(D2DynamicPathStrc* pPath); // 0x00648A40
 
@@ -690,7 +690,7 @@ extern "C" unsigned int __stdcall PATH_GetLastPointY(D2DynamicPathStrc* pPath); 
 
 extern "C" void __stdcall PATH_SetTargetPos(D2DynamicPathStrc* pPath, unsigned short wX, unsigned short wY); // 0x00648AD0
 
-extern "C" void __stdcall sub_00648B90_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit); // 0x00648B90
+extern "C" void __stdcall PATH_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit); // 0x00648B90
 
 extern "C" unsigned int __stdcall PATH_GetMoveTestCollisionMask(D2DynamicPathStrc* pPath); // 0x00648CD0
 
@@ -4645,7 +4645,7 @@ static int __stdcall PLRMSG_TestPathToCoords(D2GameStrc* pGame, D2UnitStrc* pUni
 
     if (pTargetUnit)
     {
-        sub_00648B90_SetPathTarget(pPath, pTargetUnit);
+        PATH_SetPathTarget(pPath, pTargetUnit);
     }
     else
     {
@@ -4720,7 +4720,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x5F_UpdatePlayerPos_6FC88530(D2GameStrc
         return 0;
     }
 
-    const int nDistance = sub_006417F0_GetDistanceToXY(pUnit, nX, nY);
+    const int nDistance = DRLG_GetDistanceToXY(pUnit, nX, nY);
     if (nDistance < 5)
     {
         return 0;

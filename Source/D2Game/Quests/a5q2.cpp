@@ -156,7 +156,7 @@ void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); /
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 void __fastcall ACT5Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00587A30
 
@@ -670,7 +670,7 @@ void __fastcall ACT5Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
                 for (D2UnitStrc* pUnit = ((D2ActiveRoomUnitsStrc*)ppRooms[i])->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
                 {
                     if ((!pUnit ? 6 : pUnit->dwUnitType) == 1 && pUnit->dwClassId == 0x216 && pUnit->dwAnimMode != 12 && pUnit->dwAnimMode != 0
-                        && sub_006416D0_UnitEdgeDistance(pUnit, pQuestArg->pTarget) < 15)
+                        && DRLG_UnitEdgeDistance(pUnit, pQuestArg->pTarget) < 15)
                     {
                         pQuestDataEx->nFreedWussieUnitGUIDs[pQuestDataEx->nWussiesInRangeToDoor] = !pUnit ? -1 : pUnit->dwUnitId;
                         ++pQuestDataEx->nWussiesInRangeToDoor;
@@ -993,7 +993,7 @@ static inline int FreedCount(D2Act5Quest2Strc* pEx) { return pEx->nFreedWussies;
 static inline int UnitId(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
 
 // 0x005888D0
-void __fastcall sub_005888D0_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2UnitStrc* pTarget)
+void __fastcall ACT5Q2_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2UnitStrc* pTarget)
 {
  D2QuestDataStrc* pQuestData=QUESTS_GetQuestData(pGame,32);
  if(!pQuestData) return;
@@ -1017,7 +1017,7 @@ void __fastcall sub_005888D0_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPl
       D2UnitStrc* pUnit=ppRooms[i]->pUnitFirst;
       while(pUnit)
       {
-       if((!pUnit ? 6 : pUnit->dwUnitType)==1 && pUnit->dwClassId==434 && pUnit->dwAnimMode==12 && sub_006416D0_UnitEdgeDistance(pUnit,pTarget)<15) break;
+       if((!pUnit ? 6 : pUnit->dwUnitType)==1 && pUnit->dwClassId==434 && pUnit->dwAnimMode==12 && DRLG_UnitEdgeDistance(pUnit,pTarget)<15) break;
        pUnit=pUnit->ptRoomNext;
       }
       if(pUnit)
@@ -1204,7 +1204,7 @@ D2ClientStrc* __fastcall sub_00539070_GetFirstClient(D2GameStrc* pGame); // 0x00
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bValidate); // 0x00537860
 
 // 0x00588E10
-int __fastcall sub_00588E10_IsMonsterNearby(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pDefault)
+int __fastcall ACT5Q2_IsMonsterNearby(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pDefault)
 {
     if (!pUnit)
     {

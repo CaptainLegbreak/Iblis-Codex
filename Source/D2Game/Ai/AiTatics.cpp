@@ -220,12 +220,12 @@ __forceinline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecordInline(int nMonster
     return 0;
 }
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
 
 // 0x005DE6F0
 int __fastcall AITACTICS_WalkAroundTargetWithScaledDistance(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nScale)
 {
-    const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
+    const int nDistance = DRLG_UnitEdgeDistance(pUnit, pTarget);
     const int nTargetX = CLIENTS_GetUnitX(pTarget);
     const int nTargetY = CLIENTS_GetUnitY(pTarget);
     if (nDistance)
@@ -549,7 +549,7 @@ void __fastcall AITACTICS_ScheduleEarlierAiThink(D2GameStrc* pGame, D2UnitStrc* 
 }
 
 // 0x005DE190
-void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, unsigned char nArg)
+void __fastcall AITACTICS_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, unsigned char nArg)
 {
 	D2_ASSERT(nValue >= -126 && nValue <= 126, 272);
 
@@ -1197,7 +1197,7 @@ int __fastcall AITACTICS_WalkAwayFromTarget(D2GameStrc* pGame, D2UnitStrc* pUnit
     const int nDestY = nY + nMaxDistance * nDirY;
     if (nMaxDistance > 5)
     {
-        sub_005DE190_SetAiParam(pUnit, 0, 0, nMaxDistance);
+        AITACTICS_SetAiParam(pUnit, 0, 0, nMaxDistance);
     }
 
     int nFlags;
@@ -1356,7 +1356,7 @@ int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2Uni
         nMode = 5;
     }
 
-    sub_005DE190_SetAiParam(pUnit, nMode, 0, a4);
+    AITACTICS_SetAiParam(pUnit, nMode, 0, a4);
     int nFlags;
     if (bDeleteAiEventCallback)
         nFlags = 4;

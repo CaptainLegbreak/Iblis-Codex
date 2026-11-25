@@ -1362,7 +1362,8 @@ extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nCl
     return 0;
 }
 
-extern "C" D2MonLvlTxt* __fastcall sub_005A0000_GetMonLvlTxtRecord(int nLevel)
+// build: symbol @MISSILES_GetMonLvlTxtRecord@* 0x005A0000
+extern "C" D2MonLvlTxt* __fastcall MISSILES_GetMonLvlTxtRecord(int nLevel)
 {
     if (nLevel >= 0 && nLevel < sgptDataTables->nMonLvlTxtRecordCount)
     {
@@ -1372,7 +1373,8 @@ extern "C" D2MonLvlTxt* __fastcall sub_005A0000_GetMonLvlTxtRecord(int nLevel)
     return 0;
 }
 
-extern "C" int __fastcall sub_005C8BC0_GetSkillsTxtParam7(int nSkillId)
+// build: symbol @SKILLS_GetSkillsTxtParam7@* 0x005C8BC0
+extern "C" int __fastcall SKILLS_GetSkillsTxtParam7(int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)

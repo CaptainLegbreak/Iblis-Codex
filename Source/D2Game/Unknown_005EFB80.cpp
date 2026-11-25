@@ -91,7 +91,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
+void __fastcall AITACTICS_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 
 int __fastcall AITACTICS_ChangeModeAndTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int nX, int nY); // 0x005DDFC0
 
@@ -1537,7 +1537,7 @@ void __fastcall AITHINK_Fn007_Brute(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
         nLife = 100;
     }
 
-    sub_005DE190_SetAiParam(pUnit, 0, 100 - nLife, 0);
+    AITACTICS_SetAiParam(pUnit, 0, 100 - nLife, 0);
     AITACTICS_WalkToTargetWithPathType13(pGame, pUnit, pTarget, 7);
 }
 
@@ -1613,7 +1613,7 @@ void __fastcall AITHINK_Fn003_Zombie(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == LEVEL_BURIALGROUNDS)
     {
 lApproach:
-        sub_005DE190_SetAiParam(pUnit, 0, 100, 0);
+        AITACTICS_SetAiParam(pUnit, 0, 100, 0);
         AITACTICS_RunToTargetUnit(pGame, pUnit, pTarget);
         return;
     }
@@ -1666,7 +1666,7 @@ void __fastcall AITHINK_Fn004_Bighead(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     {
         if (nTargetDistance < 3)
         {
-            sub_005DE190_SetAiParam(pUnit, 0, 50, 0);
+            AITACTICS_SetAiParam(pUnit, 0, 50, 0);
             if (!AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 5, 1))
             {
                 AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 5, pTarget);
@@ -1725,7 +1725,7 @@ void __fastcall AITHINK_Fn005_BloodHawk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
             return;
         }
 
-        sub_005DE190_SetAiParam(pUnit, 0, AI_GetParam(pGame, pMonStatsTxt, 3), 0);
+        AITACTICS_SetAiParam(pUnit, 0, AI_GetParam(pGame, pMonStatsTxt, 3), 0);
         if (!AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 4, 1))
         {
             AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
@@ -1735,7 +1735,7 @@ void __fastcall AITHINK_Fn005_BloodHawk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
 
     if (AI_RollPercentageInline(pUnit) < AI_GetParam(pGame, pMonStatsTxt, 0))
     {
-        sub_005DE190_SetAiParam(pUnit, 0, AI_GetParam(pGame, pMonStatsTxt, 4), nTargetDistance);
+        AITACTICS_SetAiParam(pUnit, 0, AI_GetParam(pGame, pMonStatsTxt, 4), nTargetDistance);
         pAiControl->dwAiParam[0] = 1;
         AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 0);
         return;
@@ -1745,18 +1745,18 @@ void __fastcall AITHINK_Fn005_BloodHawk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     {
         if (AI_RollPercentageInline(pUnit) < AI_GetParam(pGame, pMonStatsTxt, 1))
         {
-            sub_005DE190_SetAiParam(pUnit, 0, -50, 0);
+            AITACTICS_SetAiParam(pUnit, 0, -50, 0);
             AITACTICS_WalkCloseToUnit(pGame, pUnit, 4);
         }
         else
         {
-            sub_005DE190_SetAiParam(pUnit, 0, 0, 0);
+            AITACTICS_SetAiParam(pUnit, 0, 0, 0);
             AITACTICS_WalkCloseToUnit(pGame, pUnit, 3);
         }
         return;
     }
 
-    sub_005DE190_SetAiParam(pUnit, 0, AI_GetParam(pGame, pMonStatsTxt, 3), 0);
+    AITACTICS_SetAiParam(pUnit, 0, AI_GetParam(pGame, pMonStatsTxt, 3), 0);
     if (!AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 4, 1))
     {
         AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
@@ -1889,7 +1889,7 @@ void __fastcall AITHINK_Fn010_CorruptRogue(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     if (nTargetDistance > 20 - 3 * playerCountBonus.nDifficulty)
     {
-        sub_005DE190_SetAiParam(pUnit, 13, AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_RUN_VELOCITY), 0);
+        AITACTICS_SetAiParam(pUnit, 13, AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_RUN_VELOCITY), 0);
         AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, 3);
         return;
     }
@@ -1911,7 +1911,7 @@ void __fastcall AITHINK_Fn010_CorruptRogue(D2GameStrc* pGame, D2UnitStrc* pUnit,
     {
         if (AI_RollPercentageInline(pUnit) < AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_RUN_CHANCE_PCT))
         {
-            sub_005DE190_SetAiParam(pUnit, 13, AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_RUN_VELOCITY), 0);
+            AITACTICS_SetAiParam(pUnit, 13, AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_RUN_VELOCITY), 0);
             AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, 3);
             return;
         }
@@ -1968,7 +1968,7 @@ zero_vel:
             if (nLifePercentage > 75)
             {
                 pAiControl->dwAiParam[0] = 0;
-                sub_005DE190_SetAiParam(pUnit, 13, nVel, 0);
+                AITACTICS_SetAiParam(pUnit, 13, nVel, 0);
                 AITACTICS_WalkToTargetWithPathType13(pGame, pUnit, pTarget, 7);
                 return;
             }
@@ -1996,7 +1996,7 @@ zero_vel:
             return;
         }
 
-        sub_005DE190_SetAiParam(pUnit, 2, nVel, 0);
+        AITACTICS_SetAiParam(pUnit, 2, nVel, 0);
 
         if (!AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 15, 1))
         {
@@ -2040,7 +2040,7 @@ zero_vel:
                 pAiControl->dwAiParam[2] = 0;
             }
 
-            sub_005DE190_SetAiParam(pUnit, 2, nVel, 0);
+            AITACTICS_SetAiParam(pUnit, 2, nVel, 0);
             AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 15, 0);
             return;
         }
@@ -2142,7 +2142,7 @@ void __fastcall AITHINK_Fn018_PantherWoman(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     if (!bCombat && (int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, 0))
     {
-        sub_005DE190_SetAiParam(pUnit, 0, 75, 0);
+        AITACTICS_SetAiParam(pUnit, 0, 75, 0);
         AITACTICS_WalkToTargetWithPathType13(pGame, pUnit, pTarget, 7);
         return;
     }
@@ -2155,7 +2155,7 @@ void __fastcall AITHINK_Fn018_PantherWoman(D2GameStrc* pGame, D2UnitStrc* pUnit,
     D2UnitStrc* pPanther = arg.pTarget;
     if (pPanther && arg.nDistance > AI_PARAM(pGame, pMonStatsTxt, 2) * AI_PARAM(pGame, pMonStatsTxt, 2))
     {
-        sub_005DE190_SetAiParam(pUnit, 0, 75, 0);
+        AITACTICS_SetAiParam(pUnit, 0, 75, 0);
         AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pPanther, 7);
         return;
     }
@@ -2229,12 +2229,12 @@ void __fastcall AITHINK_Fn024_Mosquito(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
 
     if (pAiControl->dwAiParam[0] == 0)
     {
-        sub_005DE190_SetAiParam(pUnit, 13, 100, 0);
+        AITACTICS_SetAiParam(pUnit, 13, 100, 0);
         AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 0);
     }
     else if (pAiControl->dwAiParam[0] == 1)
     {
-        sub_005DE190_SetAiParam(pUnit, 0, 50, 0);
+        AITACTICS_SetAiParam(pUnit, 0, 50, 0);
         AITACTICS_WalkCloseToUnit(pGame, pUnit, 4);
 
         ++pAiControl->dwAiParam[1];
@@ -2247,7 +2247,7 @@ void __fastcall AITHINK_Fn024_Mosquito(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
     }
     else if (pAiControl->dwAiParam[0] == 2)
     {
-        sub_005DE190_SetAiParam(pUnit, 2, 100, 0);
+        AITACTICS_SetAiParam(pUnit, 2, 100, 0);
         AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 10, 1);
         pAiControl->dwAiParam[0] = 1;
         pAiControl->dwAiParam[1] = 0;
@@ -2414,7 +2414,7 @@ void __fastcall AITHINK_Fn028_Vampire(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
             if (pStats->nVelocity > 0) nVelocity = 100 * pStats->nRun / pStats->nVelocity - 100;
             nVelocity = nVelocity <= 0 ? 0 : nVelocity;
             nVelocity = nVelocity >= 120 ? 120 : nVelocity;
-            sub_005DE190_SetAiParam(pUnit, 0, nVelocity, 0);
+            AITACTICS_SetAiParam(pUnit, 0, nVelocity, 0);
             if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 8, 1)) return;
         }
         if (nDistance < AI_PARAM(pGame, pStats, 2) && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pStats, 1)) {
@@ -2535,7 +2535,7 @@ void __fastcall AITHINK_Fn035_CorruptArcher(D2GameStrc* pGame, D2UnitStrc* pUnit
 
     if (nDistance < 6 && (int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_RUN_CHANCE_PCT))
     {
-        sub_005DE190_SetAiParam(pUnit, 0, 100, 0);
+        AITACTICS_SetAiParam(pUnit, 0, 100, 0);
         if (AITACTICS_RunAwayFromTarget(pGame, pUnit, pTarget, 12, 1))
         {
             return;
@@ -2545,14 +2545,14 @@ void __fastcall AITHINK_Fn035_CorruptArcher(D2GameStrc* pGame, D2UnitStrc* pUnit
     if (AI_GetParam(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_WALK_TOW_DISTANCE) > 0 && nDistance > AI_GetParam(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_WALK_TOW_DISTANCE)
         && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_APPROACH_CHANCE_PCT))
     {
-        sub_005DE190_SetAiParam(pUnit, 0, 10, 0);
+        AITACTICS_SetAiParam(pUnit, 0, 10, 0);
         AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pTarget, (unsigned char)AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_WALK_TOW_DISTANCE));
         return;
     }
 
     if (nDistance > AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_ALWAYS_RUN_DISTANCE))
     {
-        sub_005DE190_SetAiParam(pUnit, 0, 100, 0);
+        AITACTICS_SetAiParam(pUnit, 0, 100, 0);
         AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, (unsigned char)AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_ALWAYS_RUN_DISTANCE));
         return;
     }
@@ -2622,7 +2622,7 @@ void __fastcall AITHINK_Fn036_CorruptLancer(D2GameStrc* pGame, D2UnitStrc* pUnit
     if (pAiTickParam->nTargetDistance > AI_PARAM(pGame, pMonStatsTxt, CORRUPTLANCER_AI_PARAM_ALWAYS_RUN_DISTANCE))
     {
         PATH_SetStepNum(pUnit->pDynamicPath, pAiTickParam->pMonstats2Txt->nSteps);
-        sub_005DE190_SetAiParam(pUnit, 13, 100, 0);
+        AITACTICS_SetAiParam(pUnit, 13, 100, 0);
         AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, pAiTickParam->pMonstats2Txt->nSteps);
         pAiControl->dwAiParam[0] = 1;
         return;
@@ -2663,7 +2663,7 @@ void __fastcall AITHINK_Fn036_CorruptLancer(D2GameStrc* pGame, D2UnitStrc* pUnit
 
         if ((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTLANCER_AI_PARAM_RUN_CHANCE_PCT))
         {
-            sub_005DE190_SetAiParam(pUnit, 13, 100, 0);
+            AITACTICS_SetAiParam(pUnit, 13, 100, 0);
             AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, pAiTickParam->pMonstats2Txt->nSteps);
             return;
         }
@@ -2855,7 +2855,7 @@ void __fastcall AITHINK_Fn044_Duriel(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     }
     else
     {
-        sub_005DE190_SetAiParam(pUnit, 13, 0, 0);
+        AITACTICS_SetAiParam(pUnit, 13, 0, 0);
         AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
     }
 }
@@ -3065,7 +3065,7 @@ void __fastcall AITHINK_Fn048_ZakarumZealot(D2GameStrc* pGame, D2UnitStrc* pUnit
             D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
             if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A3Q5, 0))
             {
-                sub_005DE190_SetAiParam(pUnit, 0, nVel, 0);
+                AITACTICS_SetAiParam(pUnit, 0, nVel, 0);
                 if (!AITACTICS_RunAwayFromTarget(pGame, pUnit, pTarget, 8, 1))
                     AITACTICS_WalkCloseToUnit(pGame, pUnit, 6);
                 return;
@@ -3077,7 +3077,7 @@ void __fastcall AITHINK_Fn048_ZakarumZealot(D2GameStrc* pGame, D2UnitStrc* pUnit
         if (!pAiControl->dwAiParam[1] && nLifePercentage < AI_PARAM(pGame, pMonStatsTxt, ZAKARUMZEALOT_AI_PARAM_HURT_PCT))
         {
             pAiControl->dwAiParam[0] = 0;
-            sub_005DE190_SetAiParam(pUnit, 0, nVel, 0);
+            AITACTICS_SetAiParam(pUnit, 0, nVel, 0);
             if (AITACTICS_RunAwayFromTarget(pGame, pUnit, pTarget, 8, 1))
                 return;
             pAiControl->dwAiParam[1] = 5;
@@ -3119,7 +3119,7 @@ void __fastcall AITHINK_Fn048_ZakarumZealot(D2GameStrc* pGame, D2UnitStrc* pUnit
     pAiControl->dwAiParam[0] = 0;
     if ((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, ZAKARUMZEALOT_AI_PARAM_RUN_CHANCE_PCT))
     {
-        sub_005DE190_SetAiParam(pUnit, 0, nVel, 0);
+        AITACTICS_SetAiParam(pUnit, 0, nVel, 0);
         AITACTICS_RunToTargetUnit(pGame, pUnit, pTarget);
         return;
     }
@@ -3692,14 +3692,14 @@ void __fastcall AITHINK_Fn064_SkeletonMage(D2GameStrc* pGame, D2UnitStrc* pUnit,
     {
         if (nDistance > AI_PARAM(pGame, pMonStatsTxt, SKELETONMAGE_AI_PARAM_APPROACH_DISTANCE) && (int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, SKELETONMAGE_AI_PARAM_APPROACH_CHANCE_PCT))
         {
-            sub_005DE190_SetAiParam(pUnit, 0, 10, 0);
+            AITACTICS_SetAiParam(pUnit, 0, 10, 0);
             AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pTarget, AI_PARAM(pGame, pMonStatsTxt, SKELETONMAGE_AI_PARAM_APPROACH_DISTANCE));
             return;
         }
 
         if (nDistance <= AI_PARAM(pGame, pMonStatsTxt, SKELETONMAGE_AI_PARAM_TOO_CLOSE_DISTANCE) && (int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, SKELETONMAGE_AI_PARAM_WALK_AWAY_CHANCE_PCT))
         {
-            sub_005DE190_SetAiParam(pUnit, 0, 25, 0);
+            AITACTICS_SetAiParam(pUnit, 0, 25, 0);
             if (!AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 5, 1))
             {
                 AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTickTarget);
@@ -3716,7 +3716,7 @@ void __fastcall AITHINK_Fn064_SkeletonMage(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     if (nDistance > AI_PARAM(pGame, pMonStatsTxt, SKELETONMAGE_AI_PARAM_APPROACH_DISTANCE) && (int)(AI_RollUnitSeed(pUnit) % 100) < AI_PARAM(pGame, pMonStatsTxt, SKELETONMAGE_AI_PARAM_APPROACH_CHANCE_PCT))
     {
-        sub_005DE190_SetAiParam(pUnit, 0, 10, 0);
+        AITACTICS_SetAiParam(pUnit, 0, 10, 0);
         AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pTickTarget, AI_PARAM(pGame, pMonStatsTxt, SKELETONMAGE_AI_PARAM_APPROACH_DISTANCE));
         return;
     }
@@ -3853,7 +3853,7 @@ void __fastcall AITHINK_Fn070_FingerMage(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         }
         else if (nDistance < 14)
         {
-            sub_005DE190_SetAiParam(pUnit, 0, nVel, 0);
+            AITACTICS_SetAiParam(pUnit, 0, nVel, 0);
             AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 14, 0);
             return;
         }
@@ -4093,7 +4093,7 @@ void __fastcall AITHINK_Fn074_OblivionKnight(D2GameStrc* pGame, D2UnitStrc* pUni
             }
         }
 
-        sub_005DE190_SetAiParam(pUnit, 2, 50, 0);
+        AITACTICS_SetAiParam(pUnit, 2, 50, 0);
 
         if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTickTarget, 10, 1))
         {
@@ -4413,7 +4413,7 @@ void __fastcall AITHINK_Fn006_Fallen(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
             {
                 pAiControl->dwAiParam[0] = 1;
                 AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
-                sub_005DE190_SetAiParam(pUnit, 0, 50, 0);
+                AITACTICS_SetAiParam(pUnit, 0, 50, 0);
 
                 if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pAiTickParam->pTarget, 12, 1))
                 {
@@ -5000,7 +5000,7 @@ void __fastcall AITHINK_Fn017_SandLeaper(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     {
         if (nDistance > 10)
         {
-            sub_005DE190_SetAiParam(pUnit, 0, 75, 0);
+            AITACTICS_SetAiParam(pUnit, 0, 75, 0);
             D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pTarget, 5);
             return;
         }
@@ -5050,7 +5050,7 @@ void __fastcall AITHINK_Fn020_Scarab(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
         }
         else
         {
-            sub_005DE190_SetAiParam(pUnit, 2, 100, 0);
+            AITACTICS_SetAiParam(pUnit, 2, 100, 0);
             if (!AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 0))
             {
                 AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
@@ -5090,7 +5090,7 @@ void __fastcall AITHINK_Fn020_Scarab(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
         return;
     }
 
-    sub_005DE190_SetAiParam(pUnit, 2, 0, 4);
+    AITACTICS_SetAiParam(pUnit, 2, 0, 4);
     AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
 
     if ((int)(AI_RollSeedUnit(pUnit) % 100) > 10)
@@ -5417,7 +5417,7 @@ void __fastcall AITHINK_Fn022_GreaterMummy(D2GameStrc* pGame,D2UnitStrc* pUnit,D
  }
  if(args.nCounter<=0)
  {
-  sub_005DE190_SetAiParam(pUnit,0,50,0);
+  AITACTICS_SetAiParam(pUnit,0,50,0);
   AITACTICS_WalkToTargetUnitWithSteps(pGame,pUnit,pTarget,3); return;
  }
  if((int)((unsigned int)RollSeed_005EFE20(pUnit)%100)<50)
@@ -6054,7 +6054,7 @@ void __fastcall AITHINK_Fn030_Fetish(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
             {
                 pAi->dwAiParam[0] = 0;
                 pAi->dwAiParam[1] = 0;
-                sub_005DE190_SetAiParam(pUnit, 13, 50, 0);
+                AITACTICS_SetAiParam(pUnit, 13, 50, 0);
                 AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pCommandTarget, 0);
                 AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
                 return;
@@ -6067,7 +6067,7 @@ void __fastcall AITHINK_Fn030_Fetish(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
             {
                 pAi->dwAiParam[0] = 0;
                 pAi->dwAiParam[1] = 0;
-                sub_005DE190_SetAiParam(pUnit, 13, 50, 0);
+                AITACTICS_SetAiParam(pUnit, 13, 50, 0);
                 AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pCommandTarget, 0);
                 AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
                 return;
@@ -6093,7 +6093,7 @@ void __fastcall AITHINK_Fn030_Fetish(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
                 AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
             return;
         }
-        sub_005DE190_SetAiParam(pUnit, 2, 50, 0);
+        AITACTICS_SetAiParam(pUnit, 2, 50, 0);
         if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 14, 1))
             return;
         pAi->dwAiParam[0] = 0;
@@ -6105,7 +6105,7 @@ void __fastcall AITHINK_Fn030_Fetish(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
         {
             pAi->dwAiParam[0] = 2;
             pAi->dwAiParam[1] = 0;
-            sub_005DE190_SetAiParam(pUnit, 2, 50, 0);
+            AITACTICS_SetAiParam(pUnit, 2, 50, 0);
             AITACTICS_WalkAwayFromTarget(pGame, pUnit, pTarget, 14, 1);
             return;
         }
@@ -6117,7 +6117,7 @@ void __fastcall AITHINK_Fn030_Fetish(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
                 AITACTICS_IdleInNeutralMode(pGame, pUnit, pRecord->wAiParam[1][pGame->nDifficulty]);
             return;
         }
-        sub_005DE190_SetAiParam(pUnit, 13, 50, 0);
+        AITACTICS_SetAiParam(pUnit, 13, 50, 0);
         AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
         return;
     case 0:
@@ -6136,7 +6136,7 @@ void __fastcall AITHINK_Fn030_Fetish(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
                 return;
             }
         }
-        sub_005DE190_SetAiParam(pUnit, 13, 50, 0);
+        AITACTICS_SetAiParam(pUnit, 13, 50, 0);
         AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
         return;
     }
@@ -6194,7 +6194,7 @@ void __fastcall AITHINK_Fn034_Andariel(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
         }
     }
 
-    sub_005DE190_SetAiParam(pUnit, 1, 0, 0);
+    AITACTICS_SetAiParam(pUnit, 1, 0, 0);
     AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7);
 }
 

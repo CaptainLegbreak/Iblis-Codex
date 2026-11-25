@@ -324,7 +324,7 @@ D2CommonStormZero6105F0Strc::D2CommonStormZero6105F0Strc() : n0x04(0), n0x08(0),
 }
 
 // 0x0066D7E0
-int __fastcall sub_0066D7E0_MapTileType(int nId)
+int __fastcall DRLGANIM_MapTileType(int nId)
 {
     return gnTileTypeTable[nId];
 }
@@ -336,7 +336,7 @@ int __fastcall DRLGPRESET_MapTileType(int nId)
 }
 
 // 0x0066D800
-void __fastcall sub_0066D800_TileToClientCoords(int* pX, int* pY)
+void __fastcall DRLGANIM_TileToClientCoords(int* pX, int* pY)
 {
     *pY += 1;
     DUNGEON_GameTileToClientCoords(pX, pY);

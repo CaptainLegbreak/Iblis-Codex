@@ -814,7 +814,7 @@ int __fastcall SKILLS_SrvDo135_MinionSpawner(Game* game,Unit* unit,int skillId,i
 
 void __stdcall UNITS_SetAnimationSpeed(D2UnitStrc* pUnit, int nSpeed);                                      // 0x00621780
 
-int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY);                                           // 0x006417F0
+int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY);                                           // 0x006417F0
 
 D2UnitStrc* __fastcall D2GAME_CreateMissile_6FD115E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId, int nX, int nY); // 0x0056EDE0
 
@@ -858,7 +858,7 @@ int __fastcall SKILLS_SrvDo136_DeathMaul(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     }
 
     const int nTotalFrames = MISSILE_GetTotalFrames(pMissile);
-    int nDistance = sub_006417F0_GetDistanceToXY(pUnit, nX, nY);
+    int nDistance = DRLG_GetDistanceToXY(pUnit, nX, nY);
     if (nDistance < 1)
     {
         nDistance = 1;

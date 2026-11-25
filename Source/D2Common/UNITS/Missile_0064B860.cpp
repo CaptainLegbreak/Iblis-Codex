@@ -354,7 +354,8 @@ static __forceinline unsigned int RollPercent(Unit* unit)
     return (unsigned int)next % 100u;
 }
 
-static int __stdcall sub_0064A850_CheckCritical(Unit* unit, Unit* item)
+// build: symbol ?MISSILE_CheckCritical@* 0x0064A850
+static int __stdcall MISSILE_CheckCritical(Unit* unit, Unit* item)
 {
     int chance = sub_00625480_GetStat(unit, 337, 0);
     if ((int)RollPercent(unit) < chance)
@@ -377,7 +378,8 @@ static int __stdcall sub_0064A850_CheckCritical(Unit* unit, Unit* item)
     return 0;
 }
 
-static void sub_0064A930_AddElements(Damage* damage, Unit* unit, int shift)
+// build: symbol ?MISSILE_AddElements@* 0x0064A930
+static void MISSILE_AddElements(Damage* damage, Unit* unit, int shift)
 {
     damage->fireMin += sub_00625480_GetStat(unit, 48, 0) << shift;
     damage->fireMax += sub_00625480_GetStat(unit, 49, 0) << shift;
@@ -405,7 +407,8 @@ static void sub_0064A930_AddElements(Damage* damage, Unit* unit, int shift)
     damage->burnLength += sub_00625480_GetStat(unit, 315, 0);
 }
 
-static void sub_0064AA60_ScaleElements(Damage* damage, int factor)
+// build: symbol ?MISSILE_ScaleElements@* 0x0064AA60
+static void MISSILE_ScaleElements(Damage* damage, int factor)
 {
     if (factor != 128)
     {
@@ -542,7 +545,7 @@ void __stdcall MISSILE_CalculateDamageData(Damage* pMissileDamageData, Unit* pOw
             item = sub_00623990_GetWeaponSlot(pOwner, 1);
         else if (pOwner->type == 1 && pOwner->inventory)
             item = sub_00622830_GetWeapon(pOwner);
-        if (sub_0064A850_CheckCritical(pOwner, item)) pMissileDamageData->flags |= 2;
+        if (MISSILE_CheckCritical(pOwner, item)) pMissileDamageData->flags |= 2;
         int bonus = 0;
         if (item && item->type == 4)
         {
@@ -596,7 +599,7 @@ void __stdcall MISSILE_CalculateDamageData(Damage* pMissileDamageData, Unit* pOw
     }
     else if (originDamage && pOrigin)
     {
-        if (sub_0064A850_CheckCritical(pOrigin, 0)) pMissileDamageData->flags |= 2;
+        if (MISSILE_CheckCritical(pOrigin, 0)) pMissileDamageData->flags |= 2;
         sourceMin = sub_00625480_GetStat(pOrigin, 21, 0) * originDamage / 128;
         sourceMax = sub_00625480_GetStat(pOrigin, 22, 0) * originDamage / 128;
         percent = sub_00625480_GetStat(pOrigin, 25, 0);
@@ -635,14 +638,14 @@ void __stdcall MISSILE_CalculateDamageData(Damage* pMissileDamageData, Unit* pOw
     if (sourceDamage)
     {
         sub_00623C80_BeginWeapon(pOwner, 1);
-        sub_0064A930_AddElements(pMissileDamageData, pOwner, 8);
-        sub_0064AA60_ScaleElements(pMissileDamageData, sourceDamage);
+        MISSILE_AddElements(pMissileDamageData, pOwner, 8);
+        MISSILE_ScaleElements(pMissileDamageData, sourceDamage);
         sub_00622E90_EndWeapon(pOwner, 1);
     }
     else if (originDamage && pOrigin)
     {
-        sub_0064A930_AddElements(pMissileDamageData, pOrigin, 0);
-        sub_0064AA60_ScaleElements(pMissileDamageData, originDamage);
+        MISSILE_AddElements(pMissileDamageData, pOrigin, 0);
+        MISSILE_ScaleElements(pMissileDamageData, originDamage);
     }
 }
 

@@ -34,7 +34,7 @@ void __fastcall PLAYER_RestoreWeaponStats(D2UnitStrc* pUnit, int a2);           
 
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
 
-void __fastcall sub_005A43B0_OwnerMissileHook(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pMissile); // 0x005A43B0
+void __fastcall MONSTERUNIQUE_OwnerMissileHook(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pMissile); // 0x005A43B0
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 
@@ -56,7 +56,7 @@ void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
 
-int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY);                                           // 0x006417F0
+int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY);                                           // 0x006417F0
 
 void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, const char* szFile, int nLine); // 0x00648690
 
@@ -483,7 +483,7 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
 
     if (pMissileParams->dwFlags & 0x400)
     {
-        int nDistance = sub_006417F0_GetDistanceToXY(pMissile, nTargetX, nTargetY);
+        int nDistance = DRLG_GetDistanceToXY(pMissile, nTargetX, nTargetY);
         if (!nDistance)
         {
             nDistance = 1;
@@ -526,7 +526,7 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
         MISSILE_SetFlags(pMissile, MISSILE_GetFlags(pMissile) | 2);
     }
 
-    sub_005A43B0_OwnerMissileHook(pGame, pMissileParams->pOwner, pMissile);
+    MONSTERUNIQUE_OwnerMissileHook(pGame, pMissileParams->pOwner, pMissile);
     STATLIST_SetUnitStat(pMissile, STAT_DAMAGE_FRAMERATE, pMissilesTxtRecord->nMissileStatValue, 0);
     return pMissile;
 }
@@ -569,13 +569,13 @@ void __fastcall MISSILES_SyncToClient(D2ClientStrc* pClient, D2GameStrc* pGame, 
 }
 
 // 0x0059FFF0
-unsigned short __fastcall sub_0059FFF0_ToWord(unsigned short nValue)
+unsigned short __fastcall MISSILES_ToWord(unsigned short nValue)
 {
     return nValue;
 }
 
 // 0x005A0000
-extern "C" D2MonLvlTxt* __fastcall sub_005A0000_GetMonLvlTxtRecord(int nLevel)
+extern "C" D2MonLvlTxt* __fastcall MISSILES_GetMonLvlTxtRecord(int nLevel)
 {
     if (nLevel >= 0 && nLevel < sgptDataTables->nMonLvlTxtRecordCount)
     {

@@ -453,7 +453,7 @@ int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2);  
 
 void __stdcall UNITS_SetAnimationSpeed(D2UnitStrc* pUnit, int nSpeed);                                      // 0x00621780
 
-int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY);                                           // 0x006417F0
+int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY);                                           // 0x006417F0
 
 void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames);                              // 0x0064A2B0
 
@@ -601,7 +601,7 @@ int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc*, D2UnitStrc*, int, 
 
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc*, D2UnitStrc*, int); // 0x005DE080
 
-void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
+void __fastcall AITACTICS_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 
 int __fastcall AITACTICS_WalkToTargetWithPathType13(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char); // 0x005DED40
 
@@ -1606,7 +1606,7 @@ int __fastcall SKILLS_SrvDo121_Rabies(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
 }
 
 // 0x005C8BC0
-extern "C" int __fastcall sub_005C8BC0_GetSkillsTxtParam7(int nSkillId)
+extern "C" int __fastcall SKILLS_GetSkillsTxtParam7(int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -2165,11 +2165,11 @@ static __forceinline void HIRELING_StepAside(D2GameStrc* pGame, D2UnitStrc* pOwn
     UNITS_GetPlayerData(pOwner);
     int nX = PATH_GetFinalTargetX(pPath);
     int nY = PATH_GetFinalTargetY(pPath);
-    sub_005DE190_SetAiParam(pUnit, 7, 0, 0);
+    AITACTICS_SetAiParam(pUnit, 7, 0, 0);
     if (D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pOwner, nSteps)) return;
     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
     if (AITACTICS_WalkAwayFromTarget(pGame, pUnit, pOwner, nSteps, 1)) return;
-    sub_005DE190_SetAiParam(pUnit, 0, 0, 40);
+    AITACTICS_SetAiParam(pUnit, 0, 0, 40);
     AITACTICS_WalkToTargetCoordinates(pGame, pUnit, nX, nY);
 }
 

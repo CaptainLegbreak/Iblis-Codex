@@ -187,14 +187,14 @@ void __stdcall sub_0065C270(int nId, int nGroup, D2Block2* pBlock, int nEntry)
 }
 
 // 0x0065C300
-static inline D2Record16Strc* __stdcall sub_0065C300_GetRecord16(D2Record16Strc* pBase, int nIndex)
+static inline D2Record16Strc* __stdcall DATATBLS_GetRecord16(D2Record16Strc* pBase, int nIndex)
 {
     return &pBase[nIndex];
 }
 
 int __fastcall sub_M117_Emit_0065C300(D2Record16Strc* pBase, int nIndex)
 {
-    return (int)sub_0065C300_GetRecord16(pBase, nIndex + 1);
+    return (int)DATATBLS_GetRecord16(pBase, nIndex + 1);
 }
 
 #include "gen/data/Source/D2Common/DATATBLS/InvTbls.inc"

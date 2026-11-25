@@ -51,7 +51,7 @@ void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int
 void __fastcall AIGENERAL_AllocMinionList(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMinion);       // 0x0058F100
 void __fastcall AIUTIL_SetOwnerGUIDAndType(D2UnitStrc* pUnit, D2UnitStrc* pOwner);                          // 0x005DD330
 void __fastcall AIGENERAL_ExecuteCallbackOnMinions(D2UnitStrc* pUnit, void* pArg1, void* pArg2, MinionCallbackFunc pfnCallback); // 0x0058F380
-int __fastcall sub_005A0070_MONSTERUNIQUE_CheckMonType(D2UnitStrc* pUnit, int nMonType);                           // 0x005A0070
+int __fastcall MONSTERUNIQUE_MONSTERUNIQUE_CheckMonType(D2UnitStrc* pUnit, int nMonType);                           // 0x005A0070
 unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit);                                         // 0x005A0120
 void __fastcall sub_005A0200(D2UnitStrc* pUnit, short nBossHcIdx);                             // 0x005A0200
 int __fastcall MONSTERUNIQUE_GetUModCount(unsigned char* pUMods);                                            // 0x005A0260
@@ -296,7 +296,7 @@ static int __stdcall MONSTERUNIQUE_CanAssignUMod(D2UnitStrc* pUnit, D2MonUModTxt
             break;
         }
 
-        if (sub_005A0070_MONSTERUNIQUE_CheckMonType(pUnit, nExcludeMonType))
+        if (MONSTERUNIQUE_MONSTERUNIQUE_CheckMonType(pUnit, nExcludeMonType))
         {
             return 0;
         }
@@ -520,7 +520,7 @@ static void __stdcall MONSTERUNIQUE_AssignRandomUMods(D2GameStrc* pGame, D2UnitS
 }
 
 // 0x005A0930
-static void __stdcall sub_005A0930_TransferUMods(D2UnitStrc* pOwner, D2UnitStrc* pMinion, int bFromStart)
+static void __stdcall MONSTERUNIQUE_TransferUMods(D2UnitStrc* pOwner, D2UnitStrc* pMinion, int bFromStart)
 {
     unsigned char* pOwnerUMods = UModsOfData(pOwner);
     unsigned char* pMinionUMods = UModsOfData(pMinion);
@@ -669,7 +669,7 @@ static void __stdcall MONSTERUNIQUE_SpawnMinionGroup(D2GameStrc* pGame, D2RoomCo
 
         if (pMinion)
         {
-            sub_005A0930_TransferUMods(pUnit, pMinion, 0);
+            MONSTERUNIQUE_TransferUMods(pUnit, pMinion, 0);
             AIGENERAL_SetOwnerData(pGame, pMinion, GAME_GetUnitGUID(pUnit), 1, 0, 0);
             AIGENERAL_AllocMinionList(pGame, pUnit, pMinion);
             AIUTIL_SetOwnerGUIDAndType(pMinion, pUnit);

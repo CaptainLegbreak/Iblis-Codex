@@ -2141,7 +2141,6 @@
     "extern \"C\" void __cdecl SKILLS_SrvSt58_FireClaws(); // 0x005C7E00",
     "extern \"C\" void __cdecl sub_005CB730(); // 0x005CB730",
     "extern \"C\" void __cdecl SKILLS_SrvSt52_Emerge(); // 0x005CC220",
-    "extern \"C\" void __cdecl sub_005CDF00_HasTarget(); // 0x005CDF00",
     "extern \"C\" void __cdecl SKILLS_SrvSt31_Charge(); // 0x005CF6B0",
     "extern \"C\" void __cdecl SKILLS_SrvSt35_Vengeance(); // 0x005CFE10",
     "extern \"C\" void __cdecl SKILLS_SrvSt61_SelfResurrect(); // 0x005D1BF0",
@@ -2333,7 +2332,8 @@
     "extern \"C\" void __cdecl SKILLS_SrvDo028_Meteor_Blizzard_Eruption_BaalTaunt_Catapult(); // 0x005CA3E0",
     "extern \"C\" void __cdecl SKILLS_SrvDo008_MultipleShot_Teeth_ShockWave(); // 0x005DB410",
     "extern \"C\" void __cdecl SKILLS_SrvDo012_Strafe(); // 0x005DBA40",
-    "extern \"C\" void __cdecl SKILLS_SrvDo015_Dopplezon(); // 0x005DC000"
+    "extern \"C\" void __cdecl SKILLS_SrvDo015_Dopplezon(); // 0x005DC000",
+    "extern \"C\" void __cdecl SKILLS_HasTarget(); // 0x005CDF00"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/SKILLS/Skills.inc",
@@ -2442,8 +2442,8 @@
     "extern \"C\" void __cdecl OBJECTS_OperateFunction49_HellForge(); // 0x005B5C10",
     "extern \"C\" void __cdecl sub_005B8530(); // 0x005B8530",
     "extern \"C\" void __cdecl OBJECTS_OperateFunction31_GidbinnDecoy(); // 0x005B9B40",
-    "extern \"C\" void __cdecl sub_00581250_ObjectTimer_Light(); // 0x00581250",
-    "extern \"C\" void __cdecl sub_00581410_OpenLinkPortal(); // 0x00581410"
+    "extern \"C\" void __cdecl OBJMODE_ObjectTimer_Light(); // 0x00581250",
+    "extern \"C\" void __cdecl OBJMODE_OpenLinkPortal(); // 0x00581410"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/OBJECTS/ObjMode.inc",
@@ -3700,8 +3700,8 @@
    "state": "included"
   },
   "Source/Storm/Unknown_006C9A68.cpp": {
-   "bytes": 268,
-   "definitions": 3,
+   "bytes": 12,
+   "definitions": 2,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -3883,7 +3883,7 @@
     "extern \"C\" void __cdecl PARTYSCREEN_AcceptInvitation(); // 0x005A5A30",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod26_Teleport(); // 0x005A1600",
     "extern \"C\" void __cdecl MONSTERUNIQUE_UMod38_Possessed(); // 0x005A1230",
-    "extern \"C\" void __cdecl sub_005A1280_UModChampion(); // 0x005A1280"
+    "extern \"C\" void __cdecl MONSTERUNIQUE_UModChampion(); // 0x005A1280"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/PLAYER/PartyScreen.inc",
@@ -4936,6 +4936,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a3q0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Hell/Unknown_006C9A38.cpp": {
+   "bytes": 256,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Hell/Unknown_006C9A38.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -84563,7 +84572,7 @@
      84,
      "0x0052BF80",
      "names.json",
-     "sub_0052BF80_ZeroBlock8",
+     "GAME_ZeroBlock8",
      0,
      "func"
     ],
@@ -85333,7 +85342,7 @@
      32,
      "0x00581250",
      "source",
-     "sub_00581250_ObjectTimer_Light",
+     "OBJMODE_ObjectTimer_Light",
      0,
      "func"
     ],
@@ -85357,7 +85366,7 @@
      44,
      "0x00581410",
      "names.json",
-     "sub_00581410_OpenLinkPortal",
+     "OBJMODE_OpenLinkPortal",
      0,
      "func"
     ]
@@ -89971,7 +89980,7 @@
      256,
      "0x005CDF00",
      "names.json",
-     "sub_005CDF00_HasTarget",
+     "SKILLS_HasTarget",
      0,
      "func"
     ],
@@ -95666,7 +95675,7 @@
      16,
      "0x005A0E40",
      "owner",
-     "sub_005A0E40_IncreaseMonsterLevelAndExperience",
+     "MONSTERUNIQUE_IncreaseMonsterLevelAndExperience",
      0,
      "func"
     ],
@@ -95706,7 +95715,7 @@
      64,
      "0x005A0E80",
      "names.json",
-     "sub_005A0E80_ApplyMonsterPenalty",
+     "MONSTERUNIQUE_ApplyMonsterPenalty",
      0,
      "func"
     ],
@@ -95802,7 +95811,7 @@
      156,
      "0x005A1280",
      "source",
-     "sub_005A1280_UModChampion",
+     "MONSTERUNIQUE_UModChampion",
      0,
      "func"
     ],
@@ -109499,7 +109508,7 @@
      24,
      "0x00627BB0",
      "source",
-     "sub_00627BB0_ItemCalcGetStatValue",
+     "STATLIST_ItemCalcGetStatValue",
      0,
      "func"
     ]
@@ -135774,7 +135783,7 @@
      32,
      "0x00676650",
      "source",
-     "sub_00676650_LinkStepDirectionSideSized",
+     "DRLGOUTPLACE_LinkStepDirectionSideSized",
      0,
      "func"
     ],
@@ -135782,7 +135791,7 @@
      48,
      "0x00676450",
      "source",
-     "sub_00676450_LinkStepDirectionSide",
+     "DRLGOUTPLACE_LinkStepDirectionSide",
      0,
      "func"
     ],
@@ -135917,7 +135926,7 @@
      32,
      "0x006768C0",
      "source",
-     "sub_006768C0_PlaceLevel",
+     "DRLGOUTPLACE_PlaceLevel",
      0,
      "func"
     ],
@@ -144031,7 +144040,7 @@
    "cname": "gData_0074C5C8",
    "declared": true,
    "decorated": "?gCharacterClass_0074C5C8@@3QBEB",
-   "file": "Source/Storm/Unknown_006C9A68.cpp",
+   "file": "Source/D2Hell/Unknown_006C9A38.cpp",
    "fill": 256,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_0074C5C8[256]; // 0x0074C5C8",

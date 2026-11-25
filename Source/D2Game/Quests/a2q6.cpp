@@ -1539,13 +1539,13 @@ void __fastcall ACT2Q6_DeleteAllHoradricItemsAndOpenTomb(D2GameStrc* pGame, D2Un
     }
 }
 
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
 // 0x0059DF30
 void __fastcall ACT2Q6_UnitIterate_CheckDistanceToTyrael(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
     D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pData;
-    if (sub_006416D0_UnitEdgeDistance(pUnit, pQuestDataEx->pTyrael) < 12)
+    if (DRLG_UnitEdgeDistance(pUnit, pQuestDataEx->pTyrael) < 12)
     {
         pQuestDataEx->bCloseToTyrael = 1;
     }

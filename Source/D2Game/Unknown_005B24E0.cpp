@@ -301,7 +301,7 @@ extern "C" __declspec(dllimport) int __stdcall PtInRect(const tagRECT*,tagPOINT)
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc*,D2DrlgCoordsStrc*); // 0x00619730
 
-void __stdcall sub_00643560_GameTileToSubtileCoords(int*,int*); // 0x00643560
+void __stdcall SKILLS_GameTileToSubtileCoords(int*,int*); // 0x00643560
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,int); // 0x00463740
 
@@ -1112,8 +1112,8 @@ D2UnitStrc* __fastcall D2GAME_SpawnNormalMonster(D2UnkMonCreateStrc* pCreate)
     else
     {
         CopyRect(&area,&pCreate->pRoomCoordList->pBox[1]);
-        sub_00643560_GameTileToSubtileCoords((int*)&area.left,(int*)&area.top);
-        sub_00643560_GameTileToSubtileCoords((int*)&area.right,(int*)&area.bottom);
+        SKILLS_GameTileToSubtileCoords((int*)&area.left,(int*)&area.top);
+        SKILLS_GameTileToSubtileCoords((int*)&area.right,(int*)&area.bottom);
         nAreaTile=pCreate->pRoomCoordList->nIndex;bCheckTile=1;
     }
     if (!pRoom)

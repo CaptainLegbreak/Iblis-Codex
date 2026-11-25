@@ -1020,7 +1020,7 @@ void __fastcall ACT5Q3_SetDrehyaSpecialModeInTown(D2GameStrc* pGame)
 }
 
 // 0x0058A9D0
-int __fastcall sub_0058A9D0_GetQuestFlagAF(D2GameStrc* pGame)
+int __fastcall ACT5Q3_GetQuestFlagAF(D2GameStrc* pGame)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 33);
     if (!pQuestData)

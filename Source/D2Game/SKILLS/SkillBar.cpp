@@ -202,7 +202,7 @@ D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 
-int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
+int __stdcall DRLG_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
@@ -439,7 +439,7 @@ static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 }
 
 // 0x005D8100
-static int __stdcall sub_005D8100_GetFindItemPotion(D2UnitStrc* pUnit, D2GameStrc* pGame, int nSkillId)
+static int __stdcall SKILLS_GetFindItemPotion(D2UnitStrc* pUnit, D2GameStrc* pGame, int nSkillId)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
     if (!pRoom)
@@ -505,7 +505,7 @@ int __fastcall SKILLS_SrvDo069_FindPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     const int nChance = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
     if ((int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < nChance)
     {
-        const int dwCode = sub_005D8100_GetFindItemPotion(pUnit, pGame, nSkillId);
+        const int dwCode = SKILLS_GetFindItemPotion(pUnit, pGame, nSkillId);
         OBJMODE_DropItemWithCodeAndQuality(pGame, pTarget, dwCode, 2);
     }
 
@@ -759,7 +759,7 @@ unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax
 void __fastcall MONSTERMODE_DropTreasureForFindItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nUnused); // 0x005A8000
 
 // 0x005D8780
-int __fastcall sub_005D8780_SrvDoStageRoll(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLS_SrvDoStageRoll(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -1589,7 +1589,7 @@ static int __stdcall SKILLS_FindLeapTargetPosition(D2UnitStrc* pUnit, int nSkill
     const int nUnitY = CLIENTS_GetUnitYInline(pUnit);
     const int nAuraRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
 
-    int nDistance = sub_006417F0_GetDistanceToXY(pUnit, *pX, *pY);
+    int nDistance = DRLG_GetDistanceToXY(pUnit, *pX, *pY);
     if (nDistance <= 1)
     {
         nDistance = 1;
@@ -1622,7 +1622,7 @@ static int __stdcall SKILLS_FindLeapTargetPosition(D2UnitStrc* pUnit, int nSkill
         pRoom = COLLISION_GetFreeCoordinates(pRoom, &coords, UNITS_GetUnitSizeX(pUnit), 0x1C09, 1);
         nX = coords.nX;
         nY = coords.nY;
-        if (pRoom && !COLLISION_CheckAnyCollisionWithPattern(pRoom, nX, nY, PATH_GetUnitCollisionPattern(pUnit), 0x1C09) && sub_00645910_TestLine(nUnitX, nUnitY, nX, nY, pRoom, 0x804) && sub_006417F0_GetDistanceToXY(pUnit, nX, nY) <= nAuraRange)
+        if (pRoom && !COLLISION_CheckAnyCollisionWithPattern(pRoom, nX, nY, PATH_GetUnitCollisionPattern(pUnit), 0x1C09) && sub_00645910_TestLine(nUnitX, nUnitY, nX, nY, pRoom, 0x804) && DRLG_GetDistanceToXY(pUnit, nX, nY) <= nAuraRange)
         {
             *pX = nX;
             *pY = nY;
@@ -2011,7 +2011,7 @@ static int __stdcall SKILLS_Leap(D2GameStrc* pGame, D2SkillStrc* pSkill, D2UnitS
         }
         else if (nBase == 0x21C)
         {
-            nAnimFrame = (unsigned int)sub_006417F0_GetDistanceToXY(pUnit, nX, nY) < 2 ? 12 : 10;
+            nAnimFrame = (unsigned int)DRLG_GetDistanceToXY(pUnit, nX, nY) < 2 ? 12 : 10;
         }
 
         UNITS_SetAnimationFrame(pUnit, nAnimFrame);
