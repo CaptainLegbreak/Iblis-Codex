@@ -39,6 +39,9 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - 2026-11-24 14:12 PT: 0x62B5B0 in Items.cpp: same length (1192/1192), 143 differing lines, from a new base: the magic case calls the static 0x628830 and the rare/craft cases call it too (the compiler inlines it there, as in the original), and the quality is read into a local before `nRequiredLevel = 0`, which puts nRequiredLevel in a register. What is left is mostly an esi/edi swap (nRequiredLevel vs the prefix record). A mutation search is running from there.
 - 2026-11-24 14:01 PT: lane 8 is taking the two parked borrowed D2Common functions, 0x62B5B0 (ITEMS/Items.cpp) and 0x677880 (DRLG/OutPlace.cpp), from lane 7. Lane 7: they are mine from now; branches will be lane8/<va>. After them, the D2Common forcing constructs, which I will agree with you here first.
 ## Ready
+- lane8/audit-labels-d2common 72426e2b, on main 322167f5 (#391), precheck 0 not all equal, auditguard no count rose
+  (decompiler types 59 -> 14, labels 11 -> 6); full verify VERIFIED, borrowed data 261 B (= main). Path.cpp's and
+  Missile.cpp's U8/U16/U32 become plain types; the two LABEL_ gotos become CheckClass / NextSkill.
 - (WIP, not for merging) lane8/00679C80-wip 374857bf: my best 0x679C80 source in Unknown_00679380.cpp, 447/450, 15 differing lines.
 - (WIP, not for merging) lane8/0062B5B0-wip 8e6c49fb (on #367): my best 0x62B5B0 source in Items.cpp, 1192/1192, 136 differing lines, for anyone who picks it up.
 
