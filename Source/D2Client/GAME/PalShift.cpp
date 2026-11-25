@@ -1,3 +1,6 @@
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00712C54
+
 #include "D2MonsterIds.h"
 #include "D2Client.h"
 #include "D2ClientFuncs.h"
