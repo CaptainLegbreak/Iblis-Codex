@@ -43,7 +43,6 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- `lane7/arena-flag` c0b5a52f (on #372): D2Game Arena.cpp ARENA_TestFlag_Inlined without the volatile reference: `if (flags & nFlag) return 1; return 0;` keeps the dword load for 0x53FD10/0x53FE70. VERIFIED tree 64454458, Game.exe identical. Lane 5's file (D2Game).
 
 ## Questions
 
@@ -78,3 +77,4 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 - 2026-11-24 16:33 PT: 0x5EDC50 (AiThink4) at 789/791: everything but block 1's x matches in shape; the compiler folds the -40 into the %20 quotient (`add edx,2`) in about 45 plain forms I tried, where the original keeps `lea [r+nX-0x28]`. Parked; moving on to the rest of the forcing-construct list.
 - 2026-11-24 17:02 PT: lane7/arena-flag Ready (one volatile fewer). Note for owners: `return (x & bit) != 0;` lets the compiler test one byte when the bit sits on a byte boundary (0x10000); the `if (...) return 1; return 0;` form keeps the dword load. Drlg 0x6419F0 and D2WinTextBox 0x4FBF30 by hand: register vs memory operand pins, no plain form yet.
 - 2026-11-24 17:14 PT: arena-flag still Ready (applies to #374). Working Storm SUNI.CPP 0x6C77F0: the hand-unrolled search loop there is the compiler's own unrolling of `for (i = 255; i > 0; --i)`; with that loop and no volatile everything matches but the register pair (ch in ecx, not edx).
+- 2026-11-24 17:41 PT: arena-flag merged in #374, thanks; dropped from Ready. Still on the volatile list (Storm SUNI 0x6C77F0, dLightMap 0x474160, useitem 0x4C0450, BNetGW 0x518300 tried again by hand this hour: all scheduling or register choice, no plain form yet).
