@@ -3700,8 +3700,8 @@
    "state": "included"
   },
   "Source/Storm/Unknown_006C9A68.cpp": {
-   "bytes": 268,
-   "definitions": 3,
+   "bytes": 12,
+   "definitions": 2,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -4936,6 +4936,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/Quests/a3q0.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Hell/Unknown_006C9A38.cpp": {
+   "bytes": 256,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Hell/Unknown_006C9A38.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -144031,7 +144040,7 @@
    "cname": "gData_0074C5C8",
    "declared": true,
    "decorated": "?gCharacterClass_0074C5C8@@3QBEB",
-   "file": "Source/Storm/Unknown_006C9A68.cpp",
+   "file": "Source/D2Hell/Unknown_006C9A38.cpp",
    "fill": 256,
    "form": "declared",
    "fwd": "extern \"C\" const unsigned char gData_0074C5C8[256]; // 0x0074C5C8",
