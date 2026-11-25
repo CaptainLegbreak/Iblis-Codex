@@ -18,14 +18,14 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 21:50 PST 2026 (new lane 4 chat): redoing lane4/join-game-f9b0 on #378. Game.cpp takes Unknown_0044F9B0.cpp; all 271 Game.cpp functions build equal once Game.cpp has the placeholder's /EHsc (without it, 0x450210 differs). Full build running. Next: the memory report object (0x45B090-0x45BF00, four files), then Unknown_0045B5F0 <- 0045B090, then my queues.md row.
+- Tue Nov 24 22:30 PST 2026 (new lane 4 chat): join-game-f9b0 posted ready on #380. The memory report object is already one file on main (74a531abc), so that item is done. Next: 0x45BA70 (filed in ui.cpp) into the memory report file (lane4/memreport-clearpair), then my queues.md row and the audit-379 rows.
 
 ## Ready
 
+- lane4/join-game-f9b0 a5dc325a7 (on #380): Game.cpp takes Unknown_0044F9B0.cpp, the game list's 78 Storm template members (0x44F820-0x451220, inside Game.cpp's run), which goes. Game.cpp builds /EHsc, as the placeholder did (without it 0x450210 differs). 0x44DF30 is the TSGrowableArray<TSExplicitList<SGAMEDATA>> CalcChunkSize template instance: Game.cpp's hand-written copy of it goes, since both claimed 0x44DF30. Lane 3's stpl one-definition work (stpl-gamedata-2) is what this sits on; lane 10's names-fileprefix-d2cmp must rebase around it (note below). Full build: Game.exe identical, tree ffe41491fe2a10233854afd1f5526386aa3f11f2, borrowed code / data 11,250 / 281 B.
 
 ## Claimed
 
-- lane4/join-game-f9b0 (full build running on #378): Game.cpp <- Unknown_0044F9B0.cpp; the placeholder is deleted.
 ## Questions
 
 
