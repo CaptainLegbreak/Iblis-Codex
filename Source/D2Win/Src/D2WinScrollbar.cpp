@@ -370,7 +370,7 @@ int __stdcall SCROLLBAR_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x005084F0
-D2WinScrollBarStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, D2WinMsgHandler a6)
+D2WinScrollBarStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, D2WinMsgHandler pfnHandler)
 {
     D2WinScrollBarStrc* pScrollBar = (D2WinScrollBarStrc*)FOG_Alloc(sizeof(D2WinScrollBarStrc), ".\\Src\\D2WinScrollbar.cpp", 0x1C, 0);
     memset(pScrollBar, 0, sizeof(D2WinScrollBarStrc));
@@ -388,7 +388,7 @@ D2WinScrollBarStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int 
     pScrollBar->controlHeader.pfHandleMouseUp = SCROLLBAR_HandleMouseUp;
     pScrollBar->controlHeader.pfHandleCharInput = 0;
     pScrollBar->controlHeader.pfHandleVirtualKeyInput = 0;
-    pScrollBar->controlHeader.field_34 = a6;
+    pScrollBar->controlHeader.field_34 = pfnHandler;
     pScrollBar->bIsUpperArrowPressed = 0;
     pScrollBar->bIsLowerArrowPressed = 0;
     pScrollBar->nMaxSteps = 0;

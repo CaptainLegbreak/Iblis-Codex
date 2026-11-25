@@ -37,6 +37,7 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2A
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId);                                 // 0x00543640
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);                                            // 0x00624690
 
+// Out of line as in the original: it takes an argument in esi, a convention the compiler gives only a static whose callers are all in this object.
 static __declspec(noinline) void ACT3Q3_SpawnFetishBoss(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2QuestExStrc* pQuestDataEx) // 0x005B9930
 {
     pQuestDataEx->bSpawning = 1;

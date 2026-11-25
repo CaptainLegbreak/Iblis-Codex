@@ -1137,7 +1137,7 @@ void __fastcall DDCORE_PlayBinkMovie(const char* szFile, int nMode, void (__cdec
     SFileOpenFileEx(0, szFile, nScope, &hFile);
     if (!hFile)
     {
-        goto LABEL_FAIL;
+        goto OpenFailed;
     }
 
     unsigned int nFlags;
@@ -1158,7 +1158,7 @@ void __fastcall DDCORE_PlayBinkMovie(const char* szFile, int nMode, void (__cdec
     if (!gpDDrawBink)
     {
         CloseHandle(hFile);
-LABEL_FAIL:
+OpenFailed:
         if (gpDDrawBink)
         {
             BinkClose(gpDDrawBink);

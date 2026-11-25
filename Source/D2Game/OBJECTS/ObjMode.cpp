@@ -626,7 +626,6 @@ void __stdcall UNITFINDS_FreeUnitFindData(D2UnitFindDataStrc* pFind); // 0x0065A
 
 int __fastcall OBJMODE_IsLivingPlayerOrMonster(D2UnitStrc* unit, void* unused); // 0x00582710
 
-#define NOINLINE
 
 struct D2InventoryStrc;
 
@@ -4097,7 +4096,7 @@ static void __stdcall OBJMODE_GetToHitPercentage(int* pToHit, int nSkillLevel, D
 }
 
 // 0x00583840
-static NOINLINE int __stdcall OBJMODE_CalculateShrineStatBonus(int nStatId, int nValue, D2UnitStrc* pUnit)
+static int __stdcall OBJMODE_CalculateShrineStatBonus(int nStatId, int nValue, D2UnitStrc* pUnit)
 {
     D2UnitStrc* pWeapon = 0;
     if (pUnit && pUnit->pInventory)

@@ -1361,6 +1361,7 @@ static void ITEMMODE_GetWeapons(D2UnitStrc* pUnit, D2UnitStrc** ppMainWeapon, D2
     }
 }
 
+// Out of line as in the original: it takes arguments in ecx and eax, a convention the compiler gives only a static whose callers are all in this object.
 // 0x0055C4D0
 static __declspec(noinline) int ITEMMODE_IsSkillUsable(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
