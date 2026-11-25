@@ -737,6 +737,98 @@ inline int UNIT_GetAnimMode(D2UnitStrc* pUnit)
     return 0;
 }
 
+int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
+
+static inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return lSeed;
+}
+
+// 0x00581250
+void __fastcall sub_00581250_ObjectTimer_Light(D2GameStrc* pGame, D2UnitStrc* pObject)
+{
+    const int nMode = !pObject ? 0 : pObject->dwAnimMode;
+    if (pObject && pObject->dwClassId == 0x18F)
+    {
+        switch ((unsigned short)nMode)
+        {
+        case 0:
+        case 2:
+        {
+            D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, UNITS_GetRoom(pObject));
+            EVENT_SetEvent(pGame, pObject, 8, pGame->dwGameFrame + (unsigned int)SEED_RollRandomNumber(&pObjectControl->pSeed) % 250 + 25, 0, 0);
+            UNITS_ChangeAnimMode(pObject, 1);
+            D2ObjectsTxt* pObjectsTxt = DATATBLS_GetObjectsTxtRecord(!pObject ? -1 : pObject->dwClassId);
+            EVENT_SetEvent(pGame, pObject, 1, (pObjectsTxt->dwFrameCnt[1] >> 8) + pGame->dwGameFrame + 1, 0, 0);
+            break;
+        }
+        }
+        return;
+    }
+
+    switch (ENVIRONMENT_GetPeriodOfDayFromAct(pGame->pAct[0], 0))
+    {
+    case 0:
+        if ((unsigned short)nMode == 2 || (unsigned short)nMode == 1)
+        {
+            UNITS_ChangeAnimMode(pObject, 0);
+        }
+        EVENT_SetEvent(pGame, pObject, 8, pGame->dwGameFrame + 1000, 0, 0);
+        return;
+
+    case 1:
+    case 2:
+    case 3:
+        if (!(unsigned short)nMode)
+        {
+            UNITS_ChangeAnimMode(pObject, 1);
+            D2ObjectsTxt* pObjectsTxt = DATATBLS_GetObjectsTxtRecord(!pObject ? -1 : pObject->dwClassId);
+            EVENT_SetEvent(pGame, pObject, 1, (pObjectsTxt->dwFrameCnt[1] >> 8) + pGame->dwGameFrame + 1, 0, 0);
+        }
+        EVENT_SetEvent(pGame, pObject, 8, pGame->dwGameFrame + 1000, 0, 0);
+        return;
+
+    default:
+        EVENT_SetEvent(pGame, pObject, 8, pGame->dwGameFrame + 600, 0, 0);
+        return;
+    }
+}
+
+struct D2PortalFlags00581410Strc;
+
+struct D2PortalFlags00581410Strc
+{
+    unsigned char nFlags;
+};
+
+// 0x00581410
+void __fastcall sub_00581410_OpenLinkPortal(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit));
+    int nPortalLevel = 0x7F;
+    switch (nLevelId)
+    {
+    case LEVEL_ID_ACT5_BARRICADE_1:
+        nPortalLevel = 0x7D;
+        break;
+    case LEVEL_ARREATPLATEAU:
+        nPortalLevel = 0x7E;
+        break;
+    }
+    D2UnitStrc* pPortal = D2GAME_CreateLinkPortal_6FD13B20(pGame, 0, pUnit, nPortalLevel, nLevelId);
+    if (pPortal)
+    {
+        D2PortalFlags00581410Strc tFlags;
+        tFlags.nFlags = UNITS_GetObjectPortalFlags(pPortal) | 3;
+        UNITS_SetObjectPortalFlags(pPortal, tFlags.nFlags);
+    }
+    DUNGEON_ToggleHasPortalFlag(UNITS_GetRoom(pUnit), 0);
+    DUNGEON_ToggleHasPortalFlag(UNITS_GetRoom(pPortal), 0);
+}
+
 // 0x00581490
 void __fastcall OBJMODE_CompleteObjectAnimation(D2GameStrc* pGame, D2UnitStrc* pObject)
 {
@@ -2367,14 +2459,6 @@ D2UnitStrc* __fastcall OBJMODE_RollChestDrop(D2ObjOperateFnStrc* pOp)
         return OBJMODE_DropFromChestTCWithQuality(pOp, 0);
     }
     return 0;
-}
-
-static inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
-{
-    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
-    return lSeed;
 }
 
 // 0x00585240
