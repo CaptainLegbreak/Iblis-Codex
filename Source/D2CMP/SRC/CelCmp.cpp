@@ -1501,9 +1501,9 @@ enum { DISABLED = 0 };
 void* __fastcall sub_0040A9E0(AsyncData* pAsync); // 0x0040A9E0
 
 
-static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader); // 0x005FEB80
+static void* __stdcall SPRITECACHE_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader); // 0x005FEB80
 
-static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry); // 0x005FEC50
+static void* SPRITECACHE_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry); // 0x005FEC50
 
 // 0x005FE210
 void __stdcall D2CMPBuildFileName(char* output,int allowCompressed,const char* format,va_list args)
@@ -1688,7 +1688,7 @@ int __stdcall CelGetRawData(CellTable* p, int nDirection, int nIndex, void* pDst
 }
 
 // 0x00600C60
-int __fastcall sub_00600C60_CallFree(void* pMemory)
+int __fastcall DATATBLS_CallFree(void* pMemory)
 {
     return sub_00517ABB_FindLowestSetBit((unsigned int)pMemory);
 }
