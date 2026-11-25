@@ -1664,12 +1664,12 @@ void __fastcall INV_SendGameLogon(int nServerToken, int nServerHash)
     D2GameLogonPacketStrc tPacket;
     tPacket.nHeader = 0x68;
     *(int*)tPacket.nServerHash = nServerHash;
-    *(short*)tPacket.f_5 = (short)nServerToken;
+    *(short*)tPacket.nServerToken = (short)nServerToken;
     *(int*)tPacket.nVersion = sub_0044D540_GetClientInterface()->pfnGetVersion();
 // build: symbol ?FOG_IsExpansion@* 0x00408F20
     *(unsigned int*)tPacket.nKey1 = FOG_IsExpansion() ? 0xED5DCC50 : 0x2185EDD6;
     *(unsigned int*)tPacket.nKey2 = 0x91A519B6;
-    tPacket.f_14 = STRTABLE_GetLanguage();
+    tPacket.nLanguage = STRTABLE_GetLanguage();
     tPacket.nClass = CHAT_HasClassOverride() ? sub_0047AA20_GetClassOverride() : gnCharClass_007A0522;
     SStrCopy(tPacket.szName, gszClientCharName, 0x7FFFFFFF);
 // build: symbol ?CLIENT_Send@* 0x0052AE50

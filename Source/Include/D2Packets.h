@@ -1318,11 +1318,11 @@ struct D2GameLogonPacketStrc
 {
     unsigned char nHeader;
     unsigned char nServerHash[4];
-    unsigned char f_5[2];
+    unsigned char nServerToken[2];
     unsigned char nClass;
     unsigned char nVersion[4];
     unsigned char nKey1[4];
     unsigned char nKey2[4];
-    unsigned char f_14;
+    unsigned char nLanguage;
     char szName[16];
 };
