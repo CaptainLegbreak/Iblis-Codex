@@ -18,7 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 01:35 PST 2026: placeholder-joins merged in #387. Working on Unknown_0046C570 (Gfx.cpp) next.
+- Wed Nov 25 01:35 PST 2026: placeholder-joins merged in #387. Unknown_0046C570 stays its own object (it starts with its own language copy, 0x712A28; the noinline ruling was for 0x46C7D0's join, already on main).
 
 ## Ready
 
