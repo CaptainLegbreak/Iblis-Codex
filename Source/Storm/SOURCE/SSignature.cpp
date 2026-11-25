@@ -213,6 +213,31 @@ inline void* operator new(unsigned int, void* pPlace) throw()
     return pPlace;
 }
 
+struct D2StormBigStrc;
+void __stdcall SBigNew(D2StormBigStrc** ppBig);                                                             // 0x00423950
+void __stdcall SBigDel(D2StormBigStrc* pBig);                                                               // 0x00424E40
+
+// A big number handle that owns its SBig.
+struct BigNum
+{
+    D2StormBigStrc* hHandle;
+
+    BigNum();
+    ~BigNum();
+};
+
+// 0x0041D320
+BigNum::BigNum()
+{
+    SBigNew(&hHandle);
+}
+
+// 0x0041D330
+BigNum::~BigNum()
+{
+    SBigDel(hHandle);
+}
+
 // 0x0041D340
 static int __stdcall FindSignatureTag(const char* pData, unsigned int nSize, unsigned int nSignSize, unsigned int* pOffset)
 {
@@ -359,54 +384,7 @@ void __fastcall CrcBuffer(const unsigned char* pData, unsigned int nSize, unsign
         *pCrc = nCrc;
 }
 
-// 0x0041D8D0
-unsigned int CBitInput::sub_0041D8D0_Peek(unsigned int nBits, unsigned int nMask)
-{
-    if (nBitCount <= nBits)
-    {
-        nBitBuffer |= *(unsigned short*)pInput << nBitCount;
-        nBitCount += 16;
-        pInput += 2;
-    }
-    return nBitBuffer & nMask;
-}
-
-// 0x0041D900
-void CBitInput::sub_0041D900_Skip(unsigned int nBits)
-{
-    nBitBuffer >>= nBits;
-    nBitCount -= nBits;
-}
-
 // build: symbol ?LinkNode@D2StormNodeListAStrc@@QAEXPADI0@Z 0x0041ED90
-
-// 0x0041F510
-void CHuffman::AddSymbol(unsigned int nValue)
-{
-    HUFFNODE* pFirst = (HUFFNODE*)tItemList.Head();
-    HUFFNODE* pItem = (HUFFNODE*)tFreeList.Head();
-    if (!pItem)
-        pItem = &aItems[nItemsUsed++];
-    tItemList.LinkNode((char*)pItem, 1, 0);
-    pItem->pParent = 0;
-    pItem->pChild = 0;
-    pItem->nValue = pFirst->nValue;
-    pItem->nWeight = pFirst->nWeight;
-    pItem->pParent = pFirst;
-    pItemsByValue[pItem->nValue] = pItem;
-    pItem = (HUFFNODE*)tFreeList.Head();
-    if (!pItem)
-        pItem = &aItems[nItemsUsed++];
-    tItemList.LinkNode((char*)pItem, 1, 0);
-    pItem->pParent = 0;
-    pItem->pChild = 0;
-    pItem->nValue = nValue;
-    pItem->nWeight = 0;
-    pItem->pParent = pFirst;
-    pItemsByValue[nValue] = pItem;
-    pFirst->pChild = pItem;
-    sub_0041F350_IncWeights(pItem);
-}
 
 // 0x0041F9E0
 void __fastcall HuffmanDecompress(void* pOutput, unsigned int* pOutputSize, void* pInput, unsigned int nInputSize, int nUnused)

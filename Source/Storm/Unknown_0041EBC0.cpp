@@ -174,45 +174,6 @@ typedef unsigned int size_t;
 static D2SLogStrc* __stdcall LockLog(unsigned long* pIndex, int bCreate, void* hLog);
 static void UnlockLog(unsigned long nIndex); // 0x0041FCE0
 
-// 0x0041EBC0
-unsigned int CHuffman::sub_0041EBC0_DecodeOne(D2StormHuffInputStrc* input)
-{
- unsigned int prefix=input->Peek7();
- D2StormHuffCacheStrc* entry=&cache[prefix];
- int cached=entry->generation==generation;
- HUFFNODE* node;
- if(cached) {
-  if(entry->bits>7) { input->Skip(7); node=entry->node; }
-  else { input->Skip(entry->bits); return entry->value; }
- } else node=First();
- unsigned int depth=0;
- HUFFNODE* seventh=0;
- do {
-  node=node->child;
-  if(input->GetBit()) node=node->prev;
-  ++depth;
-  if(depth==7) seventh=node;
- } while(node->child);
- if(!cached) {
-  if(depth>7) {
-   entry->generation=generation;
-   entry->bits=depth;
-   entry->node=seventh;
-  } else {
-   unsigned int index=prefix&(0xFFFFFFFF>>(32-depth));
-   unsigned int step=1<<depth;
-   do {
-    D2StormHuffCacheStrc* e=&cache[index];
-    e->generation=generation;
-    e->bits=depth;
-    e->value=node->value;
-    index+=step;
-   } while(index<=127);
-  }
- }
- return node->value;
-}
-
 // 0x0041EF20
 void CHuffman::BuildTree(unsigned char nCmpType)
 {

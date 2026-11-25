@@ -101,12 +101,6 @@ struct D2StormList004185B0Strc;
 
 struct D2StormHashBufferStrc;
 
-class THuffmannTree;
-
-struct D2StormHuffLinkSlotStrc;
-
-struct CHuffman;
-
 struct HANDLER;
 
 
@@ -433,21 +427,6 @@ struct D2StormHashBufferStrc
     int nModulusSize;
     unsigned int nUsed;
     unsigned int nWindow;
-};
-
-class THuffmannTree
-{
-public:
-    THuffmannTree();                                                                                        // 0x0041F4A0
-
-    unsigned int adwData[0x3474 / 4];
-};
-
-struct CHuffman : THuffmannTree
-{
-    D2StormHuffLinkSlotStrc aQuickLinks[0x80];
-
-    CHuffman();
 };
 
 static void* ghStormThread_00779034; // 0x00779034
@@ -2508,13 +2487,6 @@ void __cdecl StartCdThread()
         ghStormThread_00779034 = CreateThread(0, 0, CdThreadProc, 0, 0, &gdwStormThreadId_00779040);
         SetThreadPriority(ghStormThread_00779034, 1);
     }
-}
-
-// 0x0041F950
-CHuffman::CHuffman()
-{
-    for (int i = 0; i < 0x80; ++i)
-        aQuickLinks[i].nData[0] = 0;
 }
 
 // build: symbol ??1?$TSLinkedNode@UAUDIOSTREAM@@@@QAE@XZ 0x00418BE0
