@@ -50,7 +50,7 @@ Every lane, every time it finishes or gets blocked:
   - **Lane 2:** 0x62B5B0 (Items.cpp; lane 7's 03:35 reading: the nRequiredLevel priority gives 46 lines, what's left is source shape), 0x679C80 (450/450 on lane 7's 05:15 note, one block left at +0x91-0xDB), 0x677880 (OutPlace.cpp; the seed form from the 21:40 note).
   - **Lane 3:** 0x6BD230 (Fog Excel.cpp; one instruction off: the flag form gives sbb/inc/jne where the original has jae).
   - **Lane 5:** 0x5DD7F0 (AiUtil.cpp, lane7/005DD7F0-wip-2) and 0x55A6D0 (Items.cpp, lane7/0055A6D0-wip).
-  - **Lane 6:** 0x4F8B80 (D2Gfx Window.cpp, lane7/004F8B80-wip).
+  - **Lane 6:** 0x4F8B80 — **done, #409.**
   - Same rules as lane 7 had: no forcing constructs, source accuracy first. If you think a function can't come out of plain C, say so on the board with the evidence; that goes to the user.
 - **Lane 1's D2Client from 0x4A0000 up goes back to lane 4,** including the SkillDesc joins (lane1.md: skilldesc-join-8, SkillDesc_004EAE70.cpp next) and lane 1's forcing constructs.
 - **Lane 8's D2Common goes to lane 2,** with the six D2Common `volatile` functions lane 8 took (0x660D10 first; 0x6419F0's case 6/8 notes are in lane8.md) and D2Common's internal declarations.
@@ -77,7 +77,7 @@ Every lane, every time it finishes or gets blocked:
 | 3 | Storm, Fog, SRP, borrowed 0x6BD230 |
 | 4 | **all of D2Client** (0x4A0000 and up back from lane 1) and D2Client code below 0x440000 |
 | 5 | D2Game, borrowed 0x5DD7F0, 0x55A6D0 |
-| 6 | D2CMP, D2Launch, D2Multi, D2Win, D2Sound, D2Lang, D2Net, D2MCPClient, D2BNClient, Bnclient, **D2Gfx, D2Direct3D, D2DDraw, D2Gdi, D2Glide, D2Hell** (from lane 9), the initializer table, borrowed 0x4F8B80 |
+| 6 | D2CMP, D2Launch, D2Multi, D2Win, D2Sound, D2Lang, D2Net, D2MCPClient, D2BNClient, Bnclient, **D2Gfx, D2Direct3D, D2DDraw, D2Gdi, D2Glide, D2Hell** (from lane 9), the initializer table |
 | 7 | stopped 2026-11-25; borrowed functions are with lanes 2, 3, 5, 6 |
 | 8 | stopped 2026-11-25; D2Common is lane 2's |
 | 9 | stopped 2026-11-25; the renderers are lane 6's |
