@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 16:37:37 PST 2026): main is #372 (board not refreshed yet); none of my three ready branches is in it, and all three still merge cleanly on #372. laneless/objmap-joins-3 still open.
+Status (Tue Nov 24 16:48:55 PST 2026): three more report-372 joins build equal and are verifying (FastCmp.cpp <- Unknown_006056D0, SpriteCache.cpp <- Unknown_005FE010, ComCallback.cpp <- Unknown_00446880); three earlier joins still ready.
 
 ## Ready
 
@@ -13,6 +13,7 @@ Status (Tue Nov 24 16:37:37 PST 2026): main is #372 (board not refreshed yet); n
 
 ## Claimed
 
+- **report-372 leads:** FastCmp.cpp <- Unknown_006056D0 (lane6/join-006056d0, now a clear lead after #365's FastCmp join), SpriteCache.cpp <- Unknown_005FE010 (lane6/join-005fe010), ComCallback.cpp <- Unknown_00446880 (lane6/join-00446880); the last two sit inside their owner's runs.
 - **report-369 leads:** CelCmp.cpp <- Unknown_006043B0 (lane6/join-006043b0), BnSend.cpp <- Unknown_0051C760 (lane6/join-bnsend-c760; #368's join put Unknown_0051C7E0 into 0051C760, this one takes the result into BnSend). Unknown_0060D280 -> FastCmp.cpp, Unknown_005271A0 -> strtable.cpp and Unknown_00520DC0 + Unknown_005241A0 are in laneless/objmap-joins-3 (44c44aa1, not merged yet), which I was told to leave; I'll take them if that branch is dropped.
 - **Object-map joins (report-356.md):** merged: CelCmp, Codec (#364), FastCmp (#365), SpriteCache, BnMessQueue (#366), BnSend, McpConnect accessors (#367). ChatDlg three (Unknown_004456D0, Unknown_004450D0, Unknown_00444020) retried on #361: still register-allocation/scheduling diffs, left in place. The other leads are skipped on language-copy evidence (Left in place).
 - **The MCP connect object (0x00449890-0x0044A16F):** one object by its .bss (0x00798F58-0x007992F4, read across the whole run) and its language copy (0x0070EC80, now swallowed by ComCallback.cpp's gapfnMsgHandlers, which the dispatcher bounds at 24 entries). Its code is split over D2Client/GAME/Game.cpp (the GAME_ getters, lane 4), D2Client/CORE/WINMAIN.CPP (0x00449920, 0x00449B70, lane 4), D2Client/Unknown_00449890.cpp, D2MCPClient/Src/McpConnect.cpp and ChatDlg.cpp (0x0044A130). The data is in (#358). Then the join into McpConnect.cpp; lane 4, I'll list the Game.cpp/WINMAIN.CPP pieces for you to hand over.
