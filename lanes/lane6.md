@@ -6,7 +6,7 @@ Status (Wed Nov 25 03:00 PST 2026): all branches merged (#385-#391). Next: D2Win
 
 ## Ready
 
-(nothing outstanding; emit-trim and emit-trim-celcmp merged in #390, audit-params-d2win-2 in #391)
+- lane6/wregister-object c4a81225 (on #391): Unknown_00506C40.cpp, D2Win's command-register object 0x506C40-0x506E5F. The four register/unregister functions were filed in D2Comp.cpp and D2WinImage.cpp; they sit together after D2WinSmack.cpp's code and their assert lines run 0x13-0x5A in address order, starting again below D2WinSmack's (up to 0xC0), so they are one file of their own between D2WinSmack and D2WinList (names are d2moo, so a placeholder). D2Comp.cpp drops the SMsg register declarations only they used, D2WinImage.cpp its copy of D2WinCommandRegisterStrc. One placeholder more, two files' strays gone. Full build: Game.exe identical, tree a268a0861a76a15ef254943dada7d2d8164415c7, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
 
 ## Questions
 
