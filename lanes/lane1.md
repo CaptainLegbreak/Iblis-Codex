@@ -4,9 +4,9 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(On main: QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
+(On main: QuestLog.cpp #369, Unknown_004A6260.cpp #370, the unique-mod callbacks #372, strays-5 #373, skills-tail #374. lane1/umod-join-4 is a stray push of commits already on main; ignore it.)
 
-- lane1/skills-tail 7e8df198c 0->0 SkillsAma.cpp takes the three functions after its own, 0x4F4D90-0x4F4FEF: 0x4F4D90 and 0x4F4EC0 from SkillDesc.cpp, 0x4F4F40 from SkillDesc_004E1FF0.cpp. The language copies run SkillsNec (0x72D994), SkillsAma (0x72D9D0), Window (0x72DA0C), and SkillsAma's path string (0x6DC440) follows SkillsNec's (0x6DC428) in .rdata, so SkillsAma.cpp is the last object before Window.cpp's 0x4F4FF0. Borrowed data 844 B, as main; VERIFIED 6168d8f49c49045250c09131f8fd564541802f93 (based on main #373).
+- lane1/hint-object-2 cd9e57f11 0->0 Unknown_004DCAA0.cpp takes the rest of the timed-hint object. 0x4DCA30, 0x4DCAA0, 0x4DCD40 and 0x4DCE10 all work on one .bss block, 0x7C89D0-0x7C8A04 (level entry tick, song state, the timed hint, the speech level), which Unknown_004DCAA0.cpp defines. 0x4DCA30 and 0x4DCE10 come from Unknown_004DC710.cpp, 0x4DCD40 from Item.cpp. Borrowed data 844 B, as main; VERIFIED 3be2c6f719bdc17a11ae13f5b9fa4e89a59b53e6 (based on main #374; lane1/hint-object was the same commit on #373, never posted).
 
 ## In progress
 
