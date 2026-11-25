@@ -4,7 +4,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #374 (round j129). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 844 B (was 15,691 B at #297). Placeholder files 253; shims 49; context copies 3. Names: blizzard 475, library 85, d2moo 5,234, inferred 5,574, placeholder 3,563.
+- `main`: #375 (round j130). Game.exe identical; 14,918 / 14,918 placed; borrowed code 12,041 B in 9 functions; borrowed data 844 B (was 15,691 B at #297). Placeholder files 249; shims 49; context copies 3. Names: blizzard 475, library 85, d2moo 5,234, inferred 6248,574, placeholder 2847,563.
 - **New: [queues.md](queues.md), what's left per lane** (regenerated on #366): placeholder files, context copies, forcing constructs, shimmed functions, per-file options, with each lane's own list. When your current branch is done, take the next item from your row. The forcing constructs (42) are lane 7's job now: owners, leave them to lane 7 unless you settle it with lane 7 in its file. The context copies outside Storm/Fog/SRP are lane 2's trim first (see Answers), then the owners'. Also regenerated (regenerated on #366): [borrowed-data.md](borrowed-data.md) (906 B, by current owner) and [language-objects.md](language-objects.md) (14 files still hold more than one copy, each a split to make).
 - In progress: nothing; next round as branches are posted ready.
 - **Renames are landing on main.** After a rebase, run `python3 tools/namesync.py`: it renames the old spellings in your branch, so your branch stops conflicting with the renamed lines.
@@ -319,6 +319,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #375 j130: renderer-swaps (lane 9), join-00446880, join-005fe010, join-006056d0 (lane 6), monchoose-copy, opts (lane 5), join-cmdtbl-9420-2 (lane 4), hint-object-2 (lane 1), names-fileprefix-d2client (lane 10, 225 renames). Placeholders 253 -> 249; placeholder names 3,072 -> 2,847.
 - #374 j129: arena-flag (lane 7), getters, act3-block (lane 5), join-gfx-c7d0 (lane 4), skills-tail (lane 1), stpl-memreport (lane 3), shim-trim-d2game-2 (lane 2). Placeholders 255 -> 253, shims 56 -> 49.
 - #373 j128: d3d-strays-2, gdi-7cf0 (lane 9), join-bnsend-c760 (lane 6), a1q7, spawn-objmode (lane 5), winmsg-object-2 (lane 4), strays-5 (lane 1), fwd-decls, storm-cruft-4 (lane 3), ai-callback-args, client-text-records, client-ui-records, drlg-records, header-copies, shim-trim-d2common-2 (lane 2). Placeholders 261 -> 255, shims 62 -> 56, private records 2,481 -> 2,381.
 - #372 j127: skills-assign-plain (lane 8), glide-noinline (lane 9), join-006043b0 (lane 6), monster-run, strays-9b (lane 5), growable-ctor-2 (lane 3), umod-join-3 (lane 1). Placeholders 264 -> 261, forcing-construct functions 38 -> 37.
