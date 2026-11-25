@@ -2,7 +2,7 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 ~00:45 PT): Ready: dead-records-d2client-3, fields-plans (on #382), monstats-init (on #380, applies cleanly to #382). Next: the rest of the unk0x fields from code evidence, then D2CmdArgStrc/D2CmdParamsStrc and D2LaunchPayloadStrc.
+Status (Wed Nov 25 ~00:45 PT): #383-#385 took monstats-init, dead-records-d2client-3 and fields-plans; nothing of mine is waiting. Working on the D2CmdArg/D2CmdParams and D2LaunchPayload records.
 
 ## Claimed
 
@@ -11,9 +11,6 @@ Status (Wed Nov 25 ~00:45 PT): Ready: dead-records-d2client-3, fields-plans (on 
 ## Ready
 
 - `lane2/net-packet-buffer`: WITHDRAWN, never posted. It duplicates lane 10's `bn-crypt-records-r`; don't merge it. (The proxy here won't let me delete the remote branch.)
-- lane2/dead-records-d2client-3 07546c38f (on #382): D2Client: deletes the private records their own unit never uses, in 38 units (deletions only; each unit tried alone and kept only if all equal; no header changes). Rebased from `-2`: Game_0044B7B0.cpp and inv.cpp keep main's text, and Unknown_00477760.cpp is gone on main. Full build: Game.exe identical, tree 8fcc4e101fc4cab4c612c270ed973968deb266fb, borrowed code / data 11,250 / 269 B.
-- lane2/fields-plans ea0457036 (on #382): applies lane 10's field plans (lanes/names/fields-*.tsv): 154 high/medium plain renames in 19 shared headers (D2Packets.h 66, D2MultiTypes.h 25, D2AiCallbackArgs.h 22, D2CmpTypes.h 15, D2Txt.h 6, D2DataTbls.h 5, and 13 more), and every use site the compiler reports; no other line changes. Touches D2CMP FastCmp/FindTiles/Tilecmp; D2Client dialog.cpp, inv.cpp; D2Common OutSiege, Outdoors, Inventory; D2Game AiThink4, CCmd, SCmd, PlrSave, PlrSave2, PlrTrade, QUESTS.CPP, a4q1, SUnitEvent, Unknown_005EFB80; D2Launch Unknown_004059D0; D2Multi ChatDlg, ChatDlg_004423B0, ComCallback, Unknown_004456D0; D2Win D2WinPalette (renames only). Full build: Game.exe identical, tree 8938f9edc6b497dd2f75c5ee08db34132c7a25c2, borrowed code / data 11,250 / 269 B.
-- lane2/monstats-init 7c6f34cc7 (on #380): D2MonStatsInitStrc (DATATBLS_CalculateMonsterStatsByLevel's output) gets one definition in a new D2MonStatsInit.h; MonsterUnique.cpp, MonsterEval.cpp, SkillNec.cpp, MonsterMode.cpp (D2Game) and Unknown_004E89A0.cpp (D2Client) drop their copies and include it. D2Common's MonsterTbls.cpp keeps its copy (0x6571A0 flips without it); D2Client.h's copy is lane 1's and no unit sees both. Full build: Game.exe identical, tree 3a815afbc0290defcb3dc374beddea043982596e, borrowed code / data 11,250 / 281 B.
 
 ## Working on
 
