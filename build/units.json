@@ -56837,6 +56837,11 @@
      "name": "sub_005EDC40"
     },
     {
+     "va": "0x005EDC50",
+     "length": 791,
+     "name": "sub_005EDC50"
+    },
+    {
      "va": "0x005EDF70",
      "length": 202,
      "name": "AITHINK_FindDeadMonsterBehind"

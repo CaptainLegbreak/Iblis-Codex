@@ -210,7 +210,7 @@ void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2Mod
 
 void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int a2, int nVel, unsigned char a4); // 0x005DE190
 
-int __fastcall AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x005DEE50
+int __fastcall AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int nX, unsigned int nY); // 0x005DEE50
 
 int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, unsigned char nMaxDistance); // 0x005DF530
 
@@ -8658,6 +8658,85 @@ void __fastcall AITHINK_SetSecondaryAiParams(D2GameStrc* pGame, D2AiControlStrc*
 // 0x005EDC40
 void __stdcall sub_005EDC40(int nUnused1)
 {
+}
+
+static inline unsigned int SEED_RollNext_005EDC50(D2SeedStrc* pSeed, unsigned int& nLowSeed, unsigned int& nHighSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    nHighSeed = (unsigned int)(lSeed >> 32);
+    nLowSeed = (unsigned int)lSeed;
+    pSeed->nHighSeed = nHighSeed;
+    pSeed->nLowSeed = nLowSeed;
+    return nLowSeed;
+}
+
+static inline unsigned int SEED_RollAgain_005EDC50(D2SeedStrc* pSeed, unsigned int& nLowSeed, unsigned int& nHighSeed)
+{
+    const unsigned __int64 lSeed = nHighSeed + 0x6AC690C5i64 * nLowSeed;
+    nHighSeed = (unsigned int)(lSeed >> 32);
+    nLowSeed = (unsigned int)lSeed;
+    pSeed->nHighSeed = nHighSeed;
+    pSeed->nLowSeed = nLowSeed;
+    return nLowSeed;
+}
+
+// 0x005EDC50
+void __fastcall sub_005EDC50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+{
+    int nStep = -30;
+    int bCombat = pAiTickParam->bCombat;
+    D2UnitStrc* pTarget = pAiTickParam->pTarget;
+    int nDistance = pAiTickParam->nTargetDistance;
+    D2MonStatsTxt* pMonStatsTxt = pAiTickParam->pMonstatsTxt;
+
+    if (pUnit->dwNodeIndex == 11)
+    {
+        TARGETS_InsertUnitNode(pGame, pUnit, 0, 8);
+    }
+
+    if (pTarget)
+    {
+        if (bCombat)
+        {
+            AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
+            AITACTICS_Idle(pGame, pUnit, AI_GetParamValue(pGame, pMonStatsTxt, 0));
+            return;
+        }
+
+        if (nDistance < AI_GetParamValue(pGame, pMonStatsTxt, 2) && (int)((unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100) < AI_GetParamValue(pGame, pMonStatsTxt, 1))
+        {
+            AITACTICS_SetVelocity(pUnit, 0, 100, 0);
+            AITACTICS_RunToTargetUnit(pGame, pUnit, pTarget);
+            return;
+        }
+    }
+
+    const int nX = GetUnitX(pUnit);
+    const int nY = GetUnitY(pUnit);
+
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+    unsigned int nLowSeed, nHighSeed;
+    unsigned int nRandX = SEED_RollNext_005EDC50(pSeed, nLowSeed, nHighSeed);
+    unsigned int nRandY = SEED_RollAgain_005EDC50(pSeed, nLowSeed, nHighSeed);
+    if (AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(pGame, pUnit, nX + nRandX % 20 - 40, nY + nRandY % 20 - 10))
+    {
+        return;
+    }
+
+    const int bDirection = SEED_RollNext_005EDC50(pSeed, nLowSeed, nHighSeed) & 1;
+    nRandX = SEED_RollAgain_005EDC50(pSeed, nLowSeed, nHighSeed);
+    nRandY = SEED_RollAgain_005EDC50(pSeed, nLowSeed, nHighSeed);
+    if (AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(pGame, pUnit, nX + nRandX % 20 - 10, nStep * (bDirection ? 1 : -1) + nRandY % 20 + nY - 10))
+    {
+        return;
+    }
+
+    nRandX = SEED_RollNext_005EDC50(pSeed, nLowSeed, nHighSeed);
+    nRandY = SEED_RollAgain_005EDC50(pSeed, nLowSeed, nHighSeed);
+    if (!AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(pGame, pUnit, nX + nRandX % 20 - 10, nStep * (!bDirection ? 1 : -1) + nRandY % 20 + nY - 10))
+    {
+        AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
+    }
 }
 
 // 0x005EDF70

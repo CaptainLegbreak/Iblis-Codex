@@ -11498,7 +11498,7 @@
   ["0x005ED9E0", 538, "verified", "?AITHINK_Fn109_Totem@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"],
   ["0x005EDC00", 54, "verified", "AITHINK_SetSecondaryAiParams"],
   ["0x005EDC40", 3, "verified", "sub_005EDC40"],
-  ["0x005EDC50", 791, "unmatched"],
+  ["0x005EDC50", 791, "verified", "sub_005EDC50"],
   ["0x005EDF70", 202, "verified", "AITHINK_FindDeadMonsterBehind"],
   ["0x005EE040", 544, "verified"],
   ["0x005EE260", 342, "verified", "?AITHINK_Fn130_DeathMauler@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2AiTickParamStrc@@@Z"],
