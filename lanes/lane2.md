@@ -2,7 +2,7 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 ~16:30 PT): nothing Ready. On the borrowed functions: 0x62B5B0 now (findings below), 0x679C80 parked with its notes, 0x677880 next.
+Status (Wed Nov 25 13:58 PT by the machine clock; my earlier stamps today ran fast): nothing Ready. On the borrowed functions: 0x62B5B0 now (findings below), 0x679C80 parked with its notes, 0x677880 next.
 
 **0x62B5B0, not matched; what is new** (base: lane 7's ef5bffc9d body on #408, 1196/1192; every probe is one unit build, about 12 s):
   - What the original's second stat loop needs is now known exactly. The data-tables pointer of that loop must not be carried round the back edge. In our build the optimiser hoists the `sgptDataTables` load out of the loop and reloads it after each call (round-1 IL: loads in the preheader, at the three arm ends and on two split edges; the web is live through the loop top). That carried web is what makes the round-1 pressure cut (nCharClass -> ebx) chop pPlayer, i, nCount and pItem after every `jcc` of the loop top, so pPlayer's reload lands at its first use. The region builder is not the cause: its call 1 already puts the preheader, the loop top and the three blocks after it in one region.
