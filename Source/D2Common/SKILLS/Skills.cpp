@@ -95,10 +95,6 @@ struct D2DrlgOutdoorInfoStrc;
 
 struct D2UnkOutdoorStrc;
 
-struct D2PathBoundsContextStrc;
-
-struct D2PathFoWallContextStrc;
-
 struct D2SkillCalcStrc;
 
 struct D2MonStatsTxt;
@@ -164,19 +160,6 @@ struct D2UnkOutdoorStrc
     void(__fastcall* field_2C)(D2DrlgLevelStrc* pLevel, int nX, int nY);
     void(__fastcall* field_30)(D2DrlgLevelStrc* pLevel, int nX, int nY);
     void(__fastcall* field_34)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nRand, int a6);
-};
-
-struct D2PathBoundsContextStrc
-{
-    char unk0x0000[0x6278];
-    D2PathPointStrc tMin;
-    D2PathPointStrc tMax;
-};
-
-struct D2PathFoWallContextStrc
-{
-    D2PathFoWallNodeStrc* aPendingCache[128];
-    D2PathFoWallNodeStrc* aVisitedCache[128];
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

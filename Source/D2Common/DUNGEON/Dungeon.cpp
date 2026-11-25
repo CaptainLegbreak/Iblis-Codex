@@ -82,8 +82,6 @@ struct D2Act00619DA0Strc;
 
 struct Obj00619EE0;
 
-struct D2SkillCalcStrc;
-
 struct Unicode;
 
 struct Room;
@@ -247,11 +245,6 @@ void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, 
 unsigned char __fastcall DRLGACTIVATE_GetRoomStatusFlags(D2DrlgRoomStrc*); // 0x0061BAE0
 
 void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
-
-struct D2SkillCalcStrc
-{
-    D2UnitStrc* pUnit;
-};
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
