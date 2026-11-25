@@ -2,8 +2,6 @@
 
 struct D2BigPowModStrc;
 
-struct D2BnReply00520DC0Strc;
-
 struct D2BigPairStrc;
 
 struct D2BnHashCtxStrc;
@@ -17,12 +15,6 @@ extern int gnLastStatus_0072FFA8; // 0x0072FFA8
 int __fastcall BNMESSQUEUE_SetError(int nError); // 0x005204A0
 
 int __fastcall BNSEND_SetErrorText(int nError, const char* szText); // 0x005204D0
-
-struct D2BnReply00520DC0Strc
-{
-    int nStatus;
-    char szText[1];
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 

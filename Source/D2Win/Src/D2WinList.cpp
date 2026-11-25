@@ -39,8 +39,6 @@ struct D2WinAccountListDataStrc;
 
 struct D2WinAccountListStrc;
 
-struct D2ViewStrc;
-
 struct D2WinListInitStrc;
 
 enum D2ControlTypes
@@ -57,13 +55,6 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2ViewStrc
-{
-    char unk0x00[0x24];
-    int nPosX;
-    int nPosY;
-};
 
 extern unsigned char gabBeltHotkey[]; // 0x007BEFB0
 

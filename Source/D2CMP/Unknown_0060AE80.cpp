@@ -22,10 +22,6 @@ struct D2SpritePixelsStrc;
 
 struct D2SpriteCelStrc;
 
-struct D2CmpTileFileHeaderStrc;
-
-struct D2CmpTileHeaderTargetStrc;
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 struct D2BitBufferInitStrc
@@ -43,33 +39,6 @@ struct D2SpriteCelStrc { int unknown00[7]; unsigned int dataSize; };
 void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 void* __cdecl sub_006829C0_Copy(void* dest,const void* source,unsigned int size); // 0x006829C0
-
-#pragma pack(push, 1)
-
-struct D2CmpTileFileHeaderStrc
-{
-    unsigned char nType;
-    unsigned char nByte1;
-    unsigned char nCount;
-    int nDword3;
-    int nDword7;
-    int nUnk0x0B;
-};
-
-#pragma pack(pop)
-
-struct D2CmpTileHeaderTargetStrc
-{
-    unsigned char bFlags;
-    char pad0x01[3];
-    int nByte1;
-    int nDword7;
-    int nZero0C;
-    int f_10;
-    int nCount;
-    int nDword3;
-    unsigned int adwData[33];
-};
 
 int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
 

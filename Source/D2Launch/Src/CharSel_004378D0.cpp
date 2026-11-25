@@ -274,13 +274,8 @@ extern D2WinControlStrc* gpControl_00779D9C;        // 0x00779D9C
 void __cdecl CHATDLG_UpdateCreateButton(); // 0x00443630
 struct Unicode;
 struct D2FileTimeStrc;
-struct UnicodeChar;
 struct D2StatusStrc;
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();
-};
 void __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);
 void __fastcall MAINMENUS_ShowTwoTexts(const Unicode* pText1, const Unicode* pText2, D2LaunchDoneFn pfnDone); // 0x00433130
 void __fastcall MAINMENUS_ShowThreeTexts(const Unicode* pText1, const Unicode* pText2, const Unicode* pText3, D2LaunchDoneFn pfnDone); // 0x004331C0

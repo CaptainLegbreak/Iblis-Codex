@@ -1029,14 +1029,7 @@ void __cdecl CHATDLG_UpdateCreateButton(); // 0x00443630
 
 struct D2FileTimeStrc;
 
-struct UnicodeChar;
-
 struct D2StatusStrc;
-
-struct UnicodeChar : Unicode
-{
-    UnicodeChar();
-};
 
 void __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);
 

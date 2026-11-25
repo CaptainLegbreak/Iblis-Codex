@@ -2,19 +2,6 @@
 #include "D2CmpStormHash.h"
 struct D2StormEntry38Strc;
 
-struct D2StormFullListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-// build: symbol ??1D2StormFullListStrc@@QAE@XZ 0x00602AA0
-    ~D2StormFullListStrc()
-    {
-        UnlinkAll();
-    }
-    void UnlinkAll() throw(); // 0x00602640
-};
-
 inline D2StormSlotGrowArrayStrc::~D2StormSlotGrowArrayStrc() throw()
 {
 }

@@ -49,8 +49,6 @@ struct D2DSound3DBufferStrc;
 
 struct D2GuidStrc;
 
-struct D2EaxEnvironmentStrc;
-
 struct D2DSBufferDescStrc;
 
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -200,23 +198,6 @@ void* ghSoundEvent; // 0x0088180C
 void* ghSoundThread; // 0x00881810
 
 void __fastcall D2SOUNDSMP_CloseSoundStream(D2SoundStrc* pSound); // 0x00515E40
-
-struct D2EaxEnvironmentStrc
-{
-    unsigned int dwEnvironment;
-    float fEnvironmentSize;
-    float fEnvironmentDiffusion;
-    int nRoom;
-    int f_10;
-    float f_14;
-    float f_18;
-    int f_1C;
-    float f_20;
-    int f_24;
-    float f_28;
-    float fRoomRolloffFactor;
-    float f_30;
-};
 
 int __cdecl D2SOUND_IsEaxRoomOff(); // 0x00513BA0
 

@@ -4,10 +4,6 @@ struct D2CDKeyInfoStrc;
 
 struct D2AuthCheckPacketStrc;
 
-struct D2CipherKeyStringView;
-
-struct D2EncodedTrailerStrc;
-
 struct D2CDKeyInfoStrc
 {
     unsigned int dwKeyLength;
@@ -61,19 +57,6 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
-
-struct D2CipherKeyStringView
-{
-    void __thiscall BNDOWNLOAD_InitCipherKeys(int bEncrypt); // 0x00522C30
-};
-
-struct D2EncodedTrailerStrc
-{
-    unsigned int nDigest;
-    unsigned char nReserved;
-    unsigned char nLastBlockSize;
-    unsigned short wReserved;
-};
 
 unsigned int __fastcall sub_00523020_GetAlignedData(unsigned int nSize); // 0x00523020
 
