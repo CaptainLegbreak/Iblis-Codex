@@ -5,6 +5,10 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Ready
+- Rebased onto #384 as the board asked (full verify each, Game.exe matches):
+  - lane10/names-strip6f-r 2dfbfe575 (328 renames) replaces names-strip6f. VERIFIED 3020d105.
+  - lane10/names-prefixfix-d2client-8 c014d2c6e (155; 0x004AA8F0 still left out) replaces names-prefixfix-d2client-7, with the UnitMode.cpp renames where #383 moved them. VERIFIED 9a6c844c.
+  - lane10/files-d2lang-w is withdrawn: lane 6's lang-527090 makes that object.
 - lane10/params-d2game-2 b7636c933 = params-d2game plus one commit: 11 more D2Game parameters take the name the callee's declaration gives the position they are passed to, where every call agrees (PLRSAVE_SetSkillIfLevelSet's pUnit/nSkillId/nSkillLevel, GAME_UpdatePing's nTick/nDelay…). Take this one instead of params-d2game. VERIFIED 418ff874.
 - lane10/params-d2game 75279b472 (audit-379 lane 10 item 3): 230 D2Game a<N> parameters renamed in 36 files, on #382. 211 take D2MOO's name for the same parameter of the same function (same parameter count), 19 take the name of the field the function stores them in (packet senders: `tPacket.nUnitGUID = a4` -> nUnitGUID). Names already used as a local in that function are left. Plan with every row and reason: lanes/names/params-d2game.tsv (162 left: D2MOO has a<N> there too, or no matching definition). VERIFIED 1a8918a4, Game.exe matches.
 - lane10/params-d2common 9d0080aef: the same for D2Common, 6 parameters (D2MOO leaves nearly all of D2Common's a<N> unnamed, e.g. the ItemMods property functions' a11): lanes/names/params-d2common.tsv. VERIFIED 307b18f1, Game.exe matches.
@@ -21,7 +25,6 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
   - names-fileprefix-d2cmp waits for lane4/join-game-f9b0 (it deletes Unknown_0044F9B0.cpp, where some of those renames are); I rebuild it on main once that merges.
   - Dropped as the board said: drlg-outdoor-r, emit-helpers-r (merged or superseded), skillsbar-head-r (duplicate of lane 1's).
 - Weak join batch (claimed in Notes), each on main #377 with a full verify, Game.exe matches:
-  - lane10/files-d2lang-w b91ed47c: StrTable/strtable.cpp takes Unknown_005271A0.cpp (EndsWithCharOf, FormatText). VERIFIED b43bf379.
   - lane10/files-d2bnclient-w 7800cbfb: BnDownload.cpp takes Unknown_00518C30.cpp (uses gtBnLogLock, which only BnDownload.cpp defines). VERIFIED c6ae85cb.
   - lane10/files-d2cmp-w 10ad9006: SRC/FastCmp.cpp takes Unknown_0060D280.cpp (the run scanners on both sides of its run). VERIFIED 367d0dde.
   - lane10/files-storm-w edd150d1: SOURCE/SEVT.CPP takes Unknown_00426900.cpp (uses gtSEvtLock). VERIFIED 3c96753d.
