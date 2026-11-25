@@ -1518,10 +1518,10 @@ int __fastcall PLRSAVE_WriteCorpseSection(D2GameStrc* pGame, D2UnitStrc* pPlayer
 }
 
 // 0x00531D30
-static unsigned int __stdcall PLRSAVE_GetSaveFileSize(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int nMaxSize, int a6, int a7)
+static unsigned int __stdcall PLRSAVE_GetSaveFileSize(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int nMaxSize, int bUseTradeInventory, int a7)
 {
     unsigned int nSize = 0;
-    PLRSAVE2_CreateSaveFile(pGame, pPlayer, pData, &nSize, nMaxSize, a6, a7);
+    PLRSAVE2_CreateSaveFile(pGame, pPlayer, pData, &nSize, nMaxSize, bUseTradeInventory, a7);
     return nSize;
 }
 
@@ -2084,11 +2084,11 @@ int __fastcall PLRSAVE_ReadLegacyStats(D2GameStrc* pGame, D2UnitStrc* pUnit, uns
 void __fastcall D2GAME_SetSkills_6FD14C60(int a1, int a2, int a3, int a4); // 0x0056DEB0
 
 // 0x00532E70
-void __stdcall PLRSAVE_SetSkillIfLevelSet(int a1, int a2, unsigned char a3)
+void __stdcall PLRSAVE_SetSkillIfLevelSet(int pUnit, int nSkillId, unsigned char nSkillLevel)
 {
-    if (a3)
+    if (nSkillLevel)
     {
-        D2GAME_SetSkills_6FD14C60(a1, a2, a3, 1);
+        D2GAME_SetSkills_6FD14C60(pUnit, nSkillId, nSkillLevel, 1);
     }
 }
 
@@ -2097,7 +2097,7 @@ void __fastcall SCMD_SendSkillList(D2ClientStrc* pClient, D2UnitStrc* pUnit); //
 void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
 
 // 0x00532E90
-int __fastcall PLRSAVE_ReadLegacySkills(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc* pUnit, unsigned char* pSection, int a5, int a6, int* pSkillCount)
+int __fastcall PLRSAVE_ReadLegacySkills(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc* pUnit, unsigned char* pSection, int nUnused1, int nUnused2, int* pSkillCount)
 {
     *pSkillCount = 0;
 

@@ -259,7 +259,7 @@ unsigned short __fastcall PLAYERLIST_GetFlags(D2UnitStrc* pPlayer1, D2UnitStrc* 
 }
 
 // 0x0055B3A0
-void __fastcall PLAYERLIST_SetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int a3)
+void __fastcall PLAYERLIST_SetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nPartyState)
 {
     D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
     if (pPlayer1 == pPlayer2 || !pPlayerList)
@@ -267,7 +267,7 @@ void __fastcall PLAYERLIST_SetPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPlay
         return;
     }
 
-    pPlayerList->field_C = a3;
+    pPlayerList->field_C = nPartyState;
 }
 
 // 0x0055B3F0
@@ -340,12 +340,12 @@ int __fastcall PLAYERLIST_GetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPla
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
 // 0x0055B720
-void __fastcall PLAYERLIST_SetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int a3)
+void __fastcall PLAYERLIST_SetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nHostileDelayEndTick)
 {
     D2PlayerListStrc* pPlayerList = PLAYERLIST_FindPlayerList(pPlayer1, pPlayer2);
     if (pPlayerList)
     {
-        pPlayerList->field_8 = a3;
+        pPlayerList->field_8 = nHostileDelayEndTick;
     }
 
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer1);

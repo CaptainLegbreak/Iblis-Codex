@@ -858,13 +858,13 @@ static inline int UNITS_GetYPosition(D2UnitStrc* pUnit)
 }
 
 // 0x00548010
-void __fastcall PLRMSG_SendUnitPosition(D2UnitStrc* pUnit, D2ClientStrc* pClient, unsigned char a7)
+void __fastcall PLRMSG_SendUnitPosition(D2UnitStrc* pUnit, D2ClientStrc* pClient, unsigned char bReassign)
 {
     const int nY = UNITS_GetYPosition(pUnit);
     const int nX = UNITS_GetXPosition(pUnit);
     const unsigned int nUnitGUID = (pUnit ? pUnit->dwUnitId : -1);
     const int nUnitType = (pUnit ? pUnit->dwUnitType : UNIT_INVALID);
-    D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(pClient, 0x15, nUnitType, nUnitGUID, nX, nY, a7);
+    D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(pClient, 0x15, nUnitType, nUnitGUID, nX, nY, bReassign);
 }
 
 // 0x00548090

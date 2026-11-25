@@ -811,7 +811,7 @@ static inline D2MonStats2Txt* MONSTERREGION_GetMonStats2TxtRecordFromUnit_Inline
 }
 
 // 0x005B1740
-void __fastcall AITHINK_ExecuteMonsterAiTick(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4)
+void __fastcall AITHINK_ExecuteMonsterAiTick(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused1, int nUnused2)
 {
     D2AiTickParamStrc aiTickParam = {};
     aiTickParam.pAiControl = AIGENERAL_GetAiControlFromUnit_Inline(pUnit);

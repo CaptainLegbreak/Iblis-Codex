@@ -3419,7 +3419,7 @@ static int __stdcall SUNITDMG_ApplyDodge(D2UnitStrc* pAttacker, D2UnitStrc* pDef
 }
 
 // 0x0057E090
-int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nSize, D2DamageStrc* pDamage, int a7, int a8, DAMAGECALLBACK pfCallback, int a10)
+int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nSize, D2DamageStrc* pDamage, int bIncludeOwner, int bIncludeOwnersOwner, DAMAGECALLBACK pfCallback, int nUnitFindFlags)
 {
     D2DamageStrc damage;
     D2UnitFindArgStrc unitFindArg;
@@ -3435,8 +3435,8 @@ int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D
     pRoom = UNITS_GetRoom(pUnit);
     pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
 
-    nFlags = a10;
-    if (!a10)
+    nFlags = nUnitFindFlags;
+    if (!nUnitFindFlags)
     {
         nFlags = 0x583;
     }
@@ -3460,7 +3460,7 @@ int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D
 
     for (i = 0; i < unitFindData.nIndex; ++i)
     {
-        if ((pOwnerOwner != unitFindData.pUnitsArray[i] || a8) && (pOwner != unitFindData.pUnitsArray[i] || a7)
+        if ((pOwnerOwner != unitFindData.pUnitsArray[i] || bIncludeOwnersOwner) && (pOwner != unitFindData.pUnitsArray[i] || bIncludeOwner)
             && SUNIT_AreUnitsHostile(pGame, pOwner, unitFindData.pUnitsArray[i])
             && D2Common_11026(nX, nY, unitFindData.pUnitsArray[i], 0x805))
         {

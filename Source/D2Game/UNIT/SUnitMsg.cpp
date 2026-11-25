@@ -657,7 +657,7 @@ static inline void SUNITMSG_AppendUnitMessage(D2UnitStrc* pUnit, D2UnitPacketLis
 }
 
 // 0x005717C0
-void __fastcall SUNITMSG_QueueItemSkillOnUnit(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, unsigned char nUnitType, int nUnitGUID, unsigned char a6)
+void __fastcall SUNITMSG_QueueItemSkillOnUnit(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, unsigned char nUnitType, int nUnitGUID, unsigned char nSkillParam)
 {
     D2UnitPacketListStrc* pMsg = (D2UnitPacketListStrc*)FOG_AllocPool(!pUnit ? 0 : pUnit->pMemoryPool, 20, ".\\UNIT\\SUnitMsg.cpp", 644, 0);
     *((unsigned char*)pMsg + 10) = nSkillLevel;
@@ -666,7 +666,7 @@ void __fastcall SUNITMSG_QueueItemSkillOnUnit(D2UnitStrc* pUnit, int nSkillId, u
     pMsg->pNext = 0;
     *((short*)pMsg + 4) = nSkillId;
     *((int*)pMsg + 3) = nUnitGUID;
-    *((unsigned char*)pMsg + 16) = a6;
+    *((unsigned char*)pMsg + 16) = nSkillParam;
 
     if (!pUnit->pMsgFirst)
     {
@@ -683,7 +683,7 @@ void __fastcall SUNITMSG_QueueItemSkillOnUnit(D2UnitStrc* pUnit, int nSkillId, u
 }
 
 // 0x00571840
-void __fastcall SUNITMSG_QueueItemSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, short nX, short nY, unsigned char a6)
+void __fastcall SUNITMSG_QueueItemSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, short nX, short nY, unsigned char nSkillParam)
 {
     D2UnitPacketListStrc* pMsg = (D2UnitPacketListStrc*)FOG_AllocPool(!pUnit ? 0 : pUnit->pMemoryPool, 20, ".\\UNIT\\SUnitMsg.cpp", 667, 0);
     *((unsigned char*)pMsg + 10) = nSkillLevel;
@@ -692,7 +692,7 @@ void __fastcall SUNITMSG_QueueItemSkillOnPosition(D2UnitStrc* pUnit, int nSkillI
     pMsg->pNext = 0;
     *((short*)pMsg + 4) = nSkillId;
     *((short*)pMsg + 7) = nY;
-    *((unsigned char*)pMsg + 16) = a6;
+    *((unsigned char*)pMsg + 16) = nSkillParam;
 
     if (!pUnit->pMsgFirst)
     {
@@ -783,13 +783,13 @@ void __fastcall SUNITMSG_QueueLifeUpdate(D2UnitStrc* pUnit, unsigned char nLifeP
 struct D2ClientStrc;
 
 // 0x00571AA0
-void __fastcall SUNITMSG_QueueSkillEvent(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, short nSkillId, short nSkillLevel, int nX, int nY, unsigned char a7)
+void __fastcall SUNITMSG_QueueSkillEvent(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, short nSkillId, short nSkillLevel, int nX, int nY, unsigned char nSkillParam)
 {
     D2UnitPacketSkillEventStrc* pMsg = (D2UnitPacketSkillEventStrc*)FOG_AllocPool(!pUnit ? 0 : pUnit->pMemoryPool, sizeof(D2UnitPacketSkillEventStrc), ".\\UNIT\\SUnitMsg.cpp", 746, 0);
     memset(pMsg, 0, sizeof(D2UnitPacketSkillEventStrc));
     pMsg->pNext = 0;
     pMsg->nHeader = 0xA3;
-    pMsg->nSkillParam = a7;
+    pMsg->nSkillParam = nSkillParam;
     pMsg->nSkillId = nSkillId;
     pMsg->nSkillLevel = nSkillLevel;
     pMsg->nUnitType = !pUnit ? UNIT_INVALID : pUnit->dwUnitType;
