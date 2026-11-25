@@ -107,10 +107,6 @@ struct D2SplittedTextStrc { Unicode* text; D2SplittedTextStrc* next; };
 
 struct D2CelContextStrc { int frame; int unk04[12]; void* cellFile; int unk38[2]; int direction; int unk44; };
 
-#pragma pack(push, 2)
-
-#pragma pack(pop)
-
 extern const char gszUseItemCpp[]; // 0x006DAB50
 
 extern "C" void* __cdecl memset(void*,int,unsigned int);
@@ -316,10 +312,6 @@ struct D2PanelGfxStrc;
 
 struct D2CellNodeStrc;
 
-struct D2SlotObjectStrc;
-
-struct D2GridCellStrc;
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -335,22 +327,6 @@ struct D2PanelGfxStrc
     int unk0x00[15];
     int f_3C;
     int unk0x40[2];
-};
-
-struct D2GridCellStrc
-{
-    int unk0x00[4];
-    D2CellNodeStrc* pNodes;
-    int f_14;
-    int unk0x18[3];
-};
-
-struct D2SlotObjectStrc
-{
-    char unk0x00[0x04];
-    int f_4;
-    char unk0x08[0x2C];
-    unsigned int nKey;
 };
 
 int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0

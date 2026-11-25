@@ -526,15 +526,6 @@ static int SELECT_GetDistanceSquared(D2UnitStrc* pUnit, D2UnitStrc* pOther)
 
 struct Unicode;
 
-struct D2TileRectStrc
-{
-    int unk0x00;
-    int nX;
-    int nY;
-    unsigned int nWidth;
-    unsigned int nHeight;
-};
-
 
 // 0x00467400
 int __cdecl UI_HasSelectedUnit()

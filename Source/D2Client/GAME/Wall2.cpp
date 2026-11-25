@@ -1299,20 +1299,6 @@ void __thiscall D2FloorTileViewStrc::UpdateView(void* pArgument)
         DrawTileTriple(nX, nMaxY + 5, 5, 0);
 }
 
-struct D2SlotObjectStrc;
-
-struct D2SlotObjectStrc
-{
-    char unk0x00[0x04];
-    int f_4;
-    char unk0x08[0x24];
-    int nField0x2C;
-    int nField0x30;
-    unsigned int nKey;
-    char unk0x38[0x09];
-    unsigned int f_41;
-};
-
 static D2FloorTileViewStrc gObj_007C8A28; // 0x007C8A28
 
 unsigned char gnRoomColorBlue; // 0x007C8A6C

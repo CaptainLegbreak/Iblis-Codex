@@ -366,35 +366,6 @@ int gaSplashFrames[4];                                                          
 int gaBubbleFrames[4];                                                                             // 0x007A892C
 float gfPhaseLevel;                                                                                // 0x007A89A0
 
-struct D2UnitOverlayStrc;
-
-struct D2UnitOverlayStrc
-{
-    int nType;
-    int nOverlay;
-    int n08;
-    int n0C;
-    int n10;
-    int n14;
-    int n18;
-    int n1C;
-    int n20;
-    int n24;
-    int n28;
-    int unk0x2C;
-    int unk0x30;
-    int n34;
-    int nState;
-    int nActive;
-    union
-    {
-        D2GfxLightStrc* pLight;
-        void* pResource;
-    };
-    char unk0x44[0x60];
-    D2UnitOverlayStrc* pNext;
-};
-
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
 int __stdcall SCALE_CheckPerspectivePosition(int nXPos, int nYPos); // 0x004F66E0

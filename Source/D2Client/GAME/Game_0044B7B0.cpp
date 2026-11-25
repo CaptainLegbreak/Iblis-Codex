@@ -114,26 +114,6 @@ struct D2AutomapRecordStrc;
 
 struct D2PoolSystemStrc;
 
-#pragma pack(push, 1)
-
-struct D2ClientInfoStrc
-{
-    char unk0x00[0x1EF];
-    union
-    {
-        unsigned short wFlags;
-        struct
-        {
-            unsigned char lowFlags;
-            unsigned char progress;
-        };
-    };
-    char unk0x1F1[0x33];
-    unsigned char nSoundArg;
-};
-
-#pragma pack(pop)
-
 typedef void (__fastcall* D2InitHandlerFn)(void* pArg);
 
 typedef void (__stdcall* D2RecordHandlerFn)(int nArg1, int nArg2, int nArg3);
@@ -434,38 +414,6 @@ struct D2SGameDataStrc
     }
 };
 
-struct D2StormGameDataArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    D2SGameDataStrc* m_data;
-    unsigned int m_chunk;
-
-    static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
-    {
-        unsigned int nRemainder = nValue % nAlign;
-        if (nRemainder)
-            nValue += nAlign - nRemainder;
-        return nValue;
-    }
-    unsigned int sub_00450810_CalcChunkSize(unsigned int nCount);                                           // 0x00450810
-    void sub_00450D90_ReallocData(unsigned int nAlloc);                                                     // 0x00450D90
-    void Reserve(unsigned int nCount, int bRound)
-    {
-        nCount += m_count;
-        if (nCount > m_alloc)
-        {
-            if (bRound)
-            {
-                unsigned int nChunk = m_chunk ? m_chunk : sub_00450810_CalcChunkSize(nCount);
-                nCount = RoundUp(nCount, nChunk);
-            }
-            sub_00450D90_ReallocData(nCount);
-        }
-    }
-    D2SGameDataStrc* sub_00450ED0_New();
-};
-
 struct D2SGameDataStrc;
 
 struct D2StormListAStrc;
@@ -613,30 +561,6 @@ public:
 struct D2ChatMessageStrc { D2WinControlStrc* pControl; unsigned int nMessage; };
 
 struct Unicode;
-
-struct D2TileRectStrc
-{
-    int unk0x00;
-    int nX;
-    int nY;
-    unsigned int nWidth;
-    unsigned int nHeight;
-};
-
-struct D2GridCellStrc;
-
-struct D2GridCellStrc
-{
-    int nFlag;
-    unsigned char nValue[4];
-};
-
-struct D2MonLvlTxt;
-
-struct D2MonLvlTxt
-{
-    char unk0x00[0x78];
-};
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 

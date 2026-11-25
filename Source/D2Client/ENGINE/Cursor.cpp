@@ -216,15 +216,6 @@ void __fastcall CURSOR_SetState(int nValue, int nArg)
 
 struct Unicode;
 
-struct D2TileRectStrc
-{
-    int unk0x00;
-    int nX;
-    int nY;
-    unsigned int nWidth;
-    unsigned int nHeight;
-};
-
 void __fastcall UI_SetCursorPosition(int nA, int nB);                                                               // 0x00468770
 
 extern "C" void _ReadWriteBarrier(void);
@@ -238,22 +229,6 @@ int __stdcall WINDOW_IsFullScreen(); // 0x004F5A30
 void* __cdecl sub_004F59A0_GetWindow(); // 0x004F59A0
 
 extern int gnCursorX_007A6AB0; // 0x007A6AB0
-
-struct D2GridCellStrc;
-
-struct D2GridCellStrc
-{
-    int nFlag;
-    unsigned char nValue[4];
-};
-
-struct D2ChatMessageStrc
-{
-    char* szText;
-    int nColor;
-    int bClear;
-    D2ChatMessageStrc* pNext;
-};
 
 // 0x00468030
 int __cdecl UI_GetCursorFrame()

@@ -38,26 +38,7 @@ int __fastcall sub_00477620_RollUnitValue(D2UnitStrc* pUnit, unsigned short nOff
     return (unsigned int)SEED_RollRandomNumber(pSeed) % 30 + 9;
 }
 
-struct D2GridCellStrc;
-
 extern int gdwGlobal_007BB384; // 0x007BB384
-
-struct D2GridCellStrc
-{
-    unsigned int nFlag;
-    unsigned char nValue0;
-    unsigned char nValue1;
-    unsigned char f_6;
-    unsigned char nValue3;
-};
-
-struct D2ChatMessageStrc
-{
-    char* szText;
-    int nColor;
-    int bClear;
-    D2ChatMessageStrc* pNext;
-};
 
 // 0x00477680
 int __cdecl DLIGHTMAP_GetLocalBloodPalette()
@@ -155,19 +136,8 @@ int __cdecl sub_00477740()
     return gdwGlobal_007BB38C;
 }
 
-struct D2TimedHintEntryStrc;
-
 
 struct D2CacheStatsStrc;
-
-struct D2TimedHintEntryStrc
-{
-    int unk0x00;
-    int nHintId;
-    int nKey;
-    char unk0x0C[0x24];
-    int nState;
-};
 
 
 struct D2CacheStatsStrc

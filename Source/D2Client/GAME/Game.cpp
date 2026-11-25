@@ -24,15 +24,11 @@ struct PairStrc_0044DE50;
 
 struct PairStrc_0044DEE0;
 
-struct D2McpPacket06Strc;
-
 struct D2McpInfoStrc;
 
 struct D2ClientNotifyStrc;
 
 struct Unicode;
-
-struct D2CmdLineArgStrc;
 
 struct D2TickValueStrc;
 
@@ -43,8 +39,6 @@ struct D2StormListAStrc;
 struct D2StormListBStrc;
 
 struct D2StormListArrayStrc;
-
-struct D2StormHashTableStrc;
 
 struct D2StormListStrc;
 
@@ -351,21 +345,6 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMillisecon
 
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* lpOutputString); // 0x006CC200
 
-struct D2McpPacket06Strc
-{
-    unsigned char f_0;
-    unsigned char aRequestId[2];
-    unsigned char aToken[4];
-    unsigned char aValue[4];
-    unsigned char nByte0B;
-    unsigned char nByte0C;
-    unsigned char nByte0D;
-    unsigned char nCount;
-    unsigned char aFirst[16];
-    unsigned char aSecond[16];
-    char szData[1];
-};
-
 struct D2McpInfoStrc
 {
     unsigned short f_0;
@@ -394,12 +373,6 @@ extern unsigned short gwMcpRequestId; // 0x00798F8C
 D2ConfigStrc* gpClientConfig; // 0x007A0438
 
 extern int gnQServerThreshold; // 0x0070F560
-
-struct D2CmdLineArgStrc
-{
-    char unk0x00[0x18];
-    const char* szValue;
-};
 
 struct D2TickValueStrc
 {
@@ -620,17 +593,6 @@ struct D2StormListArrayStrc
 
     D2StormListAStrc* sub_0044DE10_At(unsigned int nIndex);
     unsigned int sub_0044DF30_CalcChunkSize(unsigned int nCount);
-};
-
-struct D2StormHashTableStrc
-{
-    virtual void InternalDelete(char* pNode);                                                               // 0x004503F0
-    D2StormListAStrc m_fulllist;
-    unsigned int m_fullnessIndicator;
-    D2StormListArrayStrc m_slotlistarray;
-    unsigned int m_slotmask;
-
-    void sub_0044FA00_InternalClear(int bWarn); // 0x0044FA00
 };
 
 struct D2StormListStrc
@@ -3694,8 +3656,6 @@ struct D2MonStats2Txt;
 
 struct D2StatesTxt;
 
-struct D2MonLvlTxt;
-
 struct Pad40_00451F30 {
     unsigned int dw00;
     unsigned int dw04;
@@ -3729,11 +3689,6 @@ struct Obj00451F70 {
     unsigned int dwUnknown08;
     unsigned int dwUnknown0C;
     unsigned int dwValue10;
-};
-
-struct D2MonLvlTxt
-{
-    char unk0x00[0x78];
 };
 
 // 0x00451F30

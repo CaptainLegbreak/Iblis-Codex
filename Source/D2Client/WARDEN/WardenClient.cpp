@@ -39,8 +39,6 @@ struct D2WaypointMenuEntryStrc;
 
 struct D2WaypointActRangeStrc;
 
-struct D2AreaScanFindStrc;
-
 struct D2SetItemsTxt;
 
 struct D2SkillsTxt;
@@ -84,16 +82,6 @@ struct D2TextBoxStrc
     char unk0x1A[0x12];
 };
 
-
-struct D2AreaScanFindStrc
-{
-    int nFirst;
-    int nBest;
-    int nSecond;
-    int nArgA;
-    int nArgB;
-    int nOut;
-};
 
 typedef int (__fastcall* AREASCANFN)(void* pArg, D2UnitStrc* pUnit);
 
@@ -502,16 +490,6 @@ int __fastcall WARDENCLIENT_InitWarden(int nValue); // 0x004803C0
 WardenClient gtWardenIface; // 0x00721C98
 
 
-
-struct D2ChatMessageStrc
-{
-    unsigned char unk0x00;
-    unsigned char nType;
-    unsigned char unk0x02[6];
-    unsigned char nColor;
-    unsigned char unk0x09[0x11];
-    D2ChatTextStrc tText;
-};
 
 class D2SquelchListStrc
 {
@@ -1036,14 +1014,6 @@ void __cdecl WARDENCLIENT_ActivatePendingModule()
         gpSlotHolder->pObj->Slot0(&nValue, 4);
     }
 }
-
-struct D2RareAffixTxt
-{
-    char unk0x00[0x0C];
-    unsigned short wStringId;
-    char unk0x0E[0x18];
-    char szName[0x20];
-};
 
 // 0x004802E0
 void __fastcall INV_ProcessWardenRequest(int nArg1, int nArg2)

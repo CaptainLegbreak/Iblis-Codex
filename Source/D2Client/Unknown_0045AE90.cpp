@@ -81,30 +81,9 @@ void __cdecl PLAYER_DrawAutomap()
     D2Win_10127_SetFont(nPrevious);
 }
 
-struct D2UnitOverlayStrc;
-
 struct Unicode;
 
 struct D2TileRectStrc;
-
-struct D2UnitOverlayStrc
-{
-    int nType;
-    int nOverlay;
-    int nUnk0x08;
-    int f_C;
-    int unk0x10[2];
-    int nFrame;
-    int nFrames;
-    int nOffsetX;
-    int nOffsetY;
-    int unk0x28[3];
-    int bFront;
-    int unk0x38;
-    int nUnk0x3C;
-    char unk0x40[0x64];
-    D2UnitOverlayStrc* pNext;
-};
 
 struct D2TileRectStrc
 {
@@ -115,22 +94,6 @@ struct D2TileRectStrc
     int nHeight;
     int nOffsetX;
     int nOffsetY;
-};
-
-struct D2GridCellStrc;
-
-struct D2GridCellStrc
-{
-    int nFlag;
-    unsigned char nValue[4];
-};
-
-struct D2ChatMessageStrc
-{
-    char* szText;
-    int nColor;
-    int bClear;
-    D2ChatMessageStrc* pNext;
 };
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
@@ -335,10 +298,6 @@ int gnAutomapPanelShiftX; // 0x007A5204
 
 struct D2ClientUnitPointStrc;
 
-struct D2TimedHintEntryStrc;
-
-struct D2CacheStatsStrc;
-
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 
 struct D2ClientUnitPointStrc
@@ -347,15 +306,6 @@ struct D2ClientUnitPointStrc
     int nY;
     char unk0x08[0x18];
     D2ClientUnitPointStrc* pNext;
-};
-
-struct D2TimedHintEntryStrc
-{
-    int unk0x00;
-    int nHintId;
-    int nKey;
-    char unk0x0C[0x24];
-    int nState;
 };
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
@@ -373,23 +323,6 @@ struct D2ViewStrc
     void* pLerpTable;
     void* pLerpRows;
     unsigned int dwDrawFlags;
-};
-
-struct D2CacheStatsStrc
-{
-    unsigned int nFloorSize;
-    int unk0x04;
-    int nFloorMisses;
-    unsigned int nSubtileSize;
-    int unk0x10;
-    int nSubtileMisses;
-    unsigned int nSpriteSize[3];
-    int unk0x24[3];
-    int nSpriteMisses[3];
-    int unk0x3C[3];
-    int nSpriteAccesses[3];
-    int unk0x54[3];
-    int unk0x60[3];
 };
 
 // 0x0045B0B0
