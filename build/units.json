@@ -76396,7 +76396,7 @@
     {
      "va": "0x006B1C20",
      "length": 12,
-     "name": "?sub_006B1C20_GetMaskedFlags@@YAIXZ"
+     "name": "?D3DCORE_GetMaskedFlags@@YAIXZ"
     },
     {
      "va": "0x006B1C30",

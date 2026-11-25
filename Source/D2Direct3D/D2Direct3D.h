@@ -31,7 +31,7 @@ extern void* ghDDrawWindow_007C9140; // 0x007C9140
 extern void* gpArray_009897EC[2]; // 0x009897EC
 int __fastcall sub_006B58A0_CreateTexture(D2D3DObjStrc** ppTexture, D2D3DObjStrc** ppSurface, int nWidth, int nHeight); // 0x006B58A0
 unsigned int __fastcall D3DCORE_GetColor(unsigned int index); // 0x006B1D50
-void __cdecl sub_006B3800_Flush(); // 0x006B3800
+void __cdecl D3DCORE_Flush(); // 0x006B3800
 void __fastcall sub_006B1EA0_SetMode(int); // 0x006B1EA0
 void __stdcall sub_006B9F00_PresentFrame(); // 0x006B9F00
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380

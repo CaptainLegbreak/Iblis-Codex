@@ -45,7 +45,7 @@ void __stdcall CelSetHardwareFreeCallback(PixelDataFreeCallback pfnCallback); //
 
 int __fastcall D3DCORE_CreateMemoryTexture(void** ppSurface, void** ppTexture, int nWidth, int nHeight); // 0x006B3730
 
-void __fastcall sub_006B39B0_ShowD3DError(const char* szText, long nResult); // 0x006B39B0
+void __fastcall D3DCORE_ShowD3DError(const char* szText, long nResult); // 0x006B39B0
 
 void __fastcall D3DSPRITE_ClearResourceEntries(void* pData); // 0x006B5BB0
 
@@ -378,7 +378,7 @@ static int __stdcall D3DSPRITE_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode
         hResult = gpDevice_00970E78->lpVtbl->SetTexture(gpDevice_00970E78, 0, pHit->pTexture);
         if (hResult)
         {
-            sub_006B39B0_ShowD3DError(gszSetTextureFailed, hResult);
+            D3DCORE_ShowD3DError(gszSetTextureFailed, hResult);
         }
         return 1;
     }
@@ -489,7 +489,7 @@ static int __stdcall D3DSPRITE_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode
     }
     if (hResult)
     {
-        sub_006B39B0_ShowD3DError(gszSetTextureFailed, hResult);
+        D3DCORE_ShowD3DError(gszSetTextureFailed, hResult);
     }
     return 1;
 }
@@ -1137,7 +1137,7 @@ void __cdecl D3DSPRITE_InitSprites()
     const long nResult = gpDirect3D_00970E64->lpVtbl->CreateVertexBuffer(gpDirect3D_00970E64, &tDesc, (void**)&gpVertexBuffer, 4, 0);
     if (nResult)
     {
-        sub_006B39B0_ShowD3DError("CreateVertexBuffer failed!", nResult);
+        D3DCORE_ShowD3DError("CreateVertexBuffer failed!", nResult);
         return;
     }
 

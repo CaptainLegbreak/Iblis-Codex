@@ -73928,7 +73928,7 @@
      0,
      "0x006B4E80",
      "source",
-     "sub_006B4E80_LoadVideoConfiguration",
+     "D3DCORE_LoadVideoConfiguration",
      0,
      "func"
     ],
@@ -74112,7 +74112,7 @@
      92,
      "0x006B1C20",
      "names.json",
-     "sub_006B1C20_GetMaskedFlags",
+     "D3DCORE_GetMaskedFlags",
      0,
      "func"
     ],
@@ -74352,7 +74352,7 @@
      212,
      "0x006B1BC0",
      "source",
-     "sub_006B1BC0_ClearCaches",
+     "D3DCORE_ClearCaches",
      0,
      "func"
     ]
