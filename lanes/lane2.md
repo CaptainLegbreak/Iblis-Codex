@@ -2,12 +2,19 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 16:54:43 PST 2026): #373 took six lane 2 branches, thanks. Rebasing bn-crypt-records onto #373; re-running the dead-record sweep (`dead-records-*`) on #373.
+Status (Tue Nov 24 18:08:38 PST 2026): dead-copy sweep posted (5 branches); D2Client and lane 6 modules being redone on #375.
 
 ## Ready
 
-- `lane2/bn-crypt-records` 3208ecf0f (VERIFIED b0f2c59f): D2EncodedTrailerStrc into D2BnCryptTypes.h, D2BnServerEntryStrc into D2BnMessages.h, D2PacketBufferStrc into D2NetTypes.h. Touches lane 6's BnDownload, BnSend, Unknown_0051C760, Bnclient Unknown_00521DC0, D2Net Client.cpp and Unknown_0052B920.
-- `lane2/shim-trim-d2game-2` 47e129380, `-d2cmp-2` 9fdd1703f, `-d2multi-2` 11118b176, `-d2bnclient-2` 4f435b04c: the four shim-trim branches still open (d2common-2 merged in #373), rebased onto #372 under new names (the old names stay as they are; take the -2 ones). Rebases were clean, namesync had nothing to rename, and each precheck is equal; the full verifies were on #367 (d2common 3f512627, d2game 1810d3f1, d2cmp 0d4d9873, d2multi ee91fde0, d2bnclient 9b34cdac). Deletions only: 4 stale markers and 16 shims nothing calls. D2Game 6 shims (AiBaal, MonsterMode, Objects, PlrModes, Skills, SUnitDmg) + SUnitDmg's marker on an inline helper; D2CMP FastCmp's shim; D2Multi 2 shims (ChatDlg, ComCallback) + ChatDlg_004423B0's marker; D2BNClient grid's shim + BnDownload.cpp:334's marker. Touches lanes 5, 6 and 8. What stays, and the joins, are under Notes.
+- **Dead-copy sweep** (deletions only; each unit tried alone and kept only if it stays all equal, no header changes). Each one is fully verified on #373; shipcheck then rebased it onto #375 cleanly and the prechecks are equal:
+  - `lane2/dead-records-d2game` 167d2d641 (VERIFIED ceee8119): 15 D2Game units lose records they never use (lane 5).
+  - `lane2/dead-records-d2common` 6b3c96f2b (VERIFIED 946b5887): 9 D2Common units (lane 8).
+  - `lane2/drlg-outdoor` c4edd45e2 (VERIFIED 6cad51ae), **stacked on dead-records-d2common** (it carries that commit too; merge it after or instead of it): D2DrlgOutdoor.h with D2UnkOutdoorStrc, D2UnkOutdoorStrc2, D2OffsetPosStrc and D2JungleStrc for Outdoors, RoomTile, TileSub, Skills and OutPlace (lane 8). This is the second `wip` commit of drlg-records, which #373 skipped as a duplicate subject.
+  - `lane2/dead-records-renderers` 31f98e83b (VERIFIED 3ecbf728): d3dCore, Unknown_006B7250, gdiCore, glDebugFont (lane 9).
+  - `lane2/dead-records-storm-fog` 73325ee45 (VERIFIED 672d5752): Storm's Unknown_00421EA0 (lane 3).
+  - Coming, redone on #375 because #375 conflicted: `dead-records-d2client`, `dead-records-lane6` and `net-packet-buffer` (stacked on lane6).
+- `lane2/bn-crypt-records` (the #373 rebase you asked for) is replaced by `net-packet-buffer`, coming. Once the dead copies go, D2EncodedTrailerStrc and D2BnServerEntryStrc are each left in one unit, so only D2PacketBufferStrc is still worth sharing.
+- `lane2/shim-trim-d2cmp-2` 9fdd1703f, `-d2multi-2` 11118b176, `-d2bnclient-2` 4f435b04c: the three shim-trim branches still open (d2common-2 merged in #373, d2game-2 in #374), rebased onto #372 under new names (the old names stay as they are; take the -2 ones). Rebases were clean, namesync had nothing to rename, and each precheck is equal; the full verifies were on #367 (d2common 3f512627, d2game 1810d3f1, d2cmp 0d4d9873, d2multi ee91fde0, d2bnclient 9b34cdac). Deletions only: 4 stale markers and 16 shims nothing calls. D2CMP FastCmp's shim; D2Multi 2 shims (ChatDlg, ComCallback) + ChatDlg_004423B0's marker; D2BNClient grid's shim + BnDownload.cpp:334's marker. Touches lane 6. What stays, and the joins, are under Notes.
 ## Working on
 
 23. **Private records again** (the user's decision, answering my question). #367 has 2,536 struct/union definitions private to a .cpp, with 556 names defined in two or more files. Per name: where the copies agree, the record moves to the header that owns its area and each file includes it. Where they differ, the views stay private unless one is clearly a fuller version and every includer still builds equal. Storm template records (BigBuffer, BigStack, the TSList/array families) wait for lane 3's agreement (see Notes). Then the 717 `unk0x..` fields in shared headers, named only from evidence. The shim and context trims get re-run on each new main.
