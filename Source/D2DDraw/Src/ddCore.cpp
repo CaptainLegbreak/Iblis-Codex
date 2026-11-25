@@ -569,8 +569,8 @@ int __fastcall DDCORE_CreateSurface(void* hWnd, int nResolutionMode)
 
 int gbDDrawPlayingVideo; // 0x0088126C
 
-void __fastcall sub_005103B0_DDrawLogError(const char* szWhere, int hResult); // 0x005103B0
-void __fastcall sub_005137E0_PlayBinkMovie(const char* szFile, int nMode, void (__cdecl* pfCallback)()); // 0x005137E0
+void __fastcall DDCORE_DDrawLogError(const char* szWhere, int hResult); // 0x005103B0
+void __fastcall DDCORE_PlayBinkMovie(const char* szFile, int nMode, void (__cdecl* pfCallback)()); // 0x005137E0
 
 // 0x00511660
 void __fastcall DDRAW_OpenSmackCutscene(const char* szFile, int nResolutionMode, void (__cdecl* pfFrame)())
@@ -586,11 +586,11 @@ void __fastcall DDRAW_OpenSmackCutscene(const char* szFile, int nResolutionMode,
         const long hResult = gpDDrawPrimarySurface->Blt(0, 0, 0, 0x400, &tBltFx);
         if (hResult)
         {
-            sub_005103B0_DDrawLogError("Cutscene clearing blit failed!", hResult);
+            DDCORE_DDrawLogError("Cutscene clearing blit failed!", hResult);
             return;
         }
 
-        sub_005137E0_PlayBinkMovie(szFile, nResolutionMode, pfFrame);
+        DDCORE_PlayBinkMovie(szFile, nResolutionMode, pfFrame);
         gbDDrawPlayingVideo = 0;
     }
 }
@@ -698,7 +698,7 @@ int __fastcall DDRAW_GetBackBuffer(unsigned char* pBuffer)
     long hResult = gpDDrawBackSurface->Lock(0, &tDesc, 0x11, 0);
     if (hResult)
     {
-        sub_005103B0_DDrawLogError("Lock failed!", hResult);
+        DDCORE_DDrawLogError("Lock failed!", hResult);
         return 0;
     }
 
@@ -727,7 +727,7 @@ int __fastcall DDRAW_GetBackBuffer(unsigned char* pBuffer)
     hResult = gpDDrawBackSurface->Unlock(0);
     if (hResult)
     {
-        sub_005103B0_DDrawLogError("Unlock failed!", hResult);
+        DDCORE_DDrawLogError("Unlock failed!", hResult);
         return 0;
     }
 
@@ -1112,7 +1112,7 @@ int __cdecl DDRAW_ActivateWindow()
 }
 
 // 0x005137E0
-void __fastcall sub_005137E0_PlayBinkMovie(const char* szFile, int nMode, void (__cdecl* pfCallback)())
+void __fastcall DDCORE_PlayBinkMovie(const char* szFile, int nMode, void (__cdecl* pfCallback)())
 {
     int bAbort = 0;
     gbDDrawBinkDone = 0;
@@ -1307,7 +1307,7 @@ int __fastcall sub_00510390_DDrawSetOption(int nOption, int nValue)
 }
 
 // 0x005103B0
-void __fastcall sub_005103B0_DDrawLogError(const char* szWhere, int hResult)
+void __fastcall DDCORE_DDrawLogError(const char* szWhere, int hResult)
 {
     if (hResult == (int)0x887601AE || hResult == (int)0x887601C2)
     {

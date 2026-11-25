@@ -35721,7 +35721,7 @@
     {
      "va": "0x005103B0",
      "length": 3668,
-     "name": "?sub_005103B0_DDrawLogError@@YIXPBDH@Z"
+     "name": "?DDCORE_DDrawLogError@@YIXPBDH@Z"
     },
     {
      "va": "0x00511210",
@@ -35846,7 +35846,7 @@
     {
      "va": "0x005137E0",
      "length": 573,
-     "name": "?sub_005137E0_PlayBinkMovie@@YIXPBDHP6AXXZ@Z"
+     "name": "?DDCORE_PlayBinkMovie@@YIXPBDHP6AXXZ@Z"
     }
    ]
   },
