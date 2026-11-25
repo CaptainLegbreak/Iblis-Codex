@@ -4,11 +4,10 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/addrless 23f941d44 0 placeholders; 110 address-less bodies in 16 D2Game files go (copies of functions placed from another file: other acts' quest callbacks in a5q1/a4q1/a5q2, ACT3Q5_SpawnCouncil, ACT3Q7_ActiveFilterCallback, the ObjMode packet no-ops, collision callbacks, UMod callers...), each turned into a declaration on its own and kept only when its unit stayed equal. Leaves Unknown_005985C0.cpp alone (a2intro deletes it), so the two apply in either order. VERIFIED 30ae7cb59cd03c2106becd9d692a93be0a4dd377, borrowed data 844 B (= main #375). Based on main 5cc54de8b (#375), not stacked. (Being rebased onto #376; a -2 line follows.)
-- lane5/emit-helpers-2 d1d4da532 0 placeholders; 53 of D2Game's 122 `sub_*_Emit_*` helpers go (24 files): each was removed on its own and kept out only when its whole unit stayed equal, i.e. the file's own callers already keep the static emitted. The other 69 stay (their statics' real callers are in other files or placeholders). VERIFIED 432d63354bca571ae6e62d72eca9bdaddbe8c31a, borrowed data 844 B (= main #376). Rebased onto main 876e82419 (#376) (MonsterMsg.cpp and SUnitDmg.cpp redone after the d2game renames), not stacked; replaces lane5/emit-helpers.
 
 ## Claimed
 
+- lane5/addrless-2 (in progress, not ready): lane5/addrless rebased onto #378 as lane5/addrless-2 (the two conflicts were main's new names and symbol lines on Game.cpp's NET_ copies and Unknown_005A3D20.cpp's UMod callers; both stay declarations under main's names). Its 16 units build equal on #378; full build running; the Ready line follows. The old lane5/addrless (23f941d44) is superseded: don't merge it.
 - D2Game placeholder files (Source/D2Game/**, lane 5's): lane 5 is working through them by run, data and call evidence. Lane 10: #367's files-d2game took Unknown_00592090.cpp, which lane5/run-joins-2 had too; please check this file before taking D2Game ones, or post the list you plan, and I'll skip those.
 
 ## Questions
