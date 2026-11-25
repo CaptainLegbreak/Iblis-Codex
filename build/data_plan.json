@@ -448,7 +448,7 @@
     "extern \"C\" void __cdecl sub_004C9490_MissileAroundUnit(); // 0x004C9490",
     "extern \"C\" void __cdecl sub_004C97C0(); // 0x004C97C0",
     "extern \"C\" void __cdecl sub_004E0A30_CltDoClearSeqSpeed(); // 0x004E0A30",
-    "extern \"C\" void __cdecl PLRSKILLS_SkillDoFrameOffset(); // 0x004E0D40",
+    "extern \"C\" void __cdecl GFXUTIL_SkillDoFrameOffset(); // 0x004E0D40",
     "extern \"C\" void __cdecl GFXUTIL_CltDoSetAnimFrameFromCalc(); // 0x004E0F40",
     "extern \"C\" void __cdecl MISSILE_SkillDoClearTarget(); // 0x004E1090",
     "extern \"C\" void __cdecl sub_004E1120(); // 0x004E1120",
@@ -467,14 +467,14 @@
     "extern \"C\" void __cdecl SKILLDESC_CltDoComponentMissileA(); // 0x004E2A40",
     "extern \"C\" void __cdecl SKILLDESC_CltDoComponentMissileB(); // 0x004E2B30",
     "extern \"C\" void __cdecl SKILLDESC_CltDoWeaponOrSkillMissile(); // 0x004E2C20",
-    "extern \"C\" void __cdecl MISSILE_VolleyAtTarget(); // 0x004E2F40",
+    "extern \"C\" void __cdecl SKILLDESC_VolleyAtTarget(); // 0x004E2F40",
     "extern \"C\" void __cdecl GFXUTIL_CltDoTest(); // 0x004E3330",
     "extern \"C\" void __cdecl MISSILE_StartMissileEffect(); // 0x004E34E0",
     "extern \"C\" void __cdecl SKILLSMON_FlankTarget(); // 0x004E3590",
     "extern \"C\" void __cdecl SKILLDESC_CltDoMissileAtTargetOffset(); // 0x004E37C0",
     "extern \"C\" void __cdecl SKILLDESC_CltDoMissileIfCollision(); // 0x004E3910",
     "extern \"C\" void __cdecl SKILLDESC_CltDoFirstMissile(); // 0x004E3A30",
-    "extern \"C\" void __cdecl PLRSKILLS_MissileAtTargetUnit(); // 0x004E3C50",
+    "extern \"C\" void __cdecl SKILLDESC_MissileAtTargetUnit(); // 0x004E3C50",
     "extern \"C\" void __cdecl SKILLDESC_CltDoScatterMissile(); // 0x004E3EB0",
     "extern \"C\" void __cdecl SKILLDESC_CltDoTurnedMissile(); // 0x004EFCF0",
     "extern \"C\" void __cdecl SKILLDESC_CltDoLobMissile(); // 0x004EFDF0",
@@ -522,7 +522,7 @@
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartPosition(); // 0x004C83C0",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartLeap(); // 0x004C8D90",
     "extern \"C\" void __cdecl SKILLSBAR_SkillCltStartRun(); // 0x004C9120",
-    "extern \"C\" void __cdecl MISSILE_SkillStartPlace(); // 0x004E0A40",
+    "extern \"C\" void __cdecl GFXUTIL_SkillStartPlace(); // 0x004E0A40",
     "extern \"C\" void __cdecl sub_004E0BD0_CltStartClearCollision(); // 0x004E0BD0",
     "extern \"C\" void __cdecl sub_004E0EB0_CltStartPathToTarget(); // 0x004E0EB0",
     "extern \"C\" void __cdecl PLRSKILLS_SkillStartMarkTarget(); // 0x004E0FD0",
@@ -3903,7 +3903,7 @@
    "bytes": -152,
    "definitions": 5,
    "externs": [
-    "extern \"C\" void __cdecl ROSTERPETS_HandleButtonUp(); // 0x00467FA0",
+    "extern \"C\" void __cdecl CURSOR_HandleButtonUp(); // 0x00467FA0",
     "extern \"C\" void __cdecl CURSOR_MsgHandler(); // 0x00467EF0",
     "extern \"C\" void __cdecl CURSOR_HandleMouseMotion(); // 0x00468840"
    ],
@@ -3988,10 +3988,10 @@
    "bytes": 60496,
    "definitions": 22,
    "externs": [
-    "extern \"C\" void __cdecl ROSTERPETS_HandleImeStartComposition(); // 0x0047ACA0",
-    "extern \"C\" void __cdecl INV_ResetImeCompositionMsg(); // 0x0047AD10",
-    "extern \"C\" void __cdecl INV_SetMsgHandled(); // 0x0047B070",
-    "extern \"C\" void __cdecl INV_CloseChatOnPanelClickMsg(); // 0x0047BC70",
+    "extern \"C\" void __cdecl CHAT_HandleImeStartComposition(); // 0x0047ACA0",
+    "extern \"C\" void __cdecl CHAT_ResetImeCompositionMsg(); // 0x0047AD10",
+    "extern \"C\" void __cdecl CHAT_SetMsgHandled(); // 0x0047B070",
+    "extern \"C\" void __cdecl CHAT_CloseChatOnPanelClickMsg(); // 0x0047BC70",
     "extern \"C\" void __cdecl sub_0047CD80(); // 0x0047CD80",
     "extern \"C\" char gData_006D7280[]; // 0x006D7280",
     "extern \"C\" char gData_006D7284[]; // 0x006D7284"
@@ -4023,7 +4023,7 @@
    "bytes": 4,
    "definitions": 1,
    "externs": [
-    "extern \"C\" void __cdecl GAME_SaveDefaultCmdLine(); // 0x0044B5E0",
+    "extern \"C\" void __cdecl WINMAIN_SaveDefaultCmdLine(); // 0x0044B5E0",
     "extern \"C\" void __cdecl RECORD_RegisterLngArgument(); // 0x00451260"
    ],
    "fn_types": {},
@@ -4035,7 +4035,7 @@
    "bytes": 268,
    "definitions": 3,
    "externs": [
-    "extern \"C\" void __cdecl GAME_SaveDefaultCmdLine(); // 0x0044B5E0",
+    "extern \"C\" void __cdecl WINMAIN_SaveDefaultCmdLine(); // 0x0044B5E0",
     "extern \"C\" void __cdecl RECORD_RegisterLngArgument(); // 0x00451260",
     "extern \"C\" void __cdecl sub_0044AFC0(); // 0x0044AFC0"
    ],
@@ -30028,7 +30028,7 @@
      60,
      "0x0044B5E0",
      "names.json",
-     "GAME_SaveDefaultCmdLine",
+     "WINMAIN_SaveDefaultCmdLine",
      0,
      "func"
     ],
@@ -40911,7 +40911,7 @@
      32,
      "0x00467FA0",
      "names.json",
-     "ROSTERPETS_HandleButtonUp",
+     "CURSOR_HandleButtonUp",
      0,
      "func"
     ]
@@ -43946,7 +43946,7 @@
      20,
      "0x0047BCA0",
      "names.json",
-     "WARDENCLIENT_HandleChatKeyDown",
+     "CHAT_HandleChatKeyDown",
      0,
      "func"
     ],
@@ -43954,7 +43954,7 @@
      32,
      "0x0047BCA0",
      "names.json",
-     "WARDENCLIENT_HandleChatKeyDown",
+     "CHAT_HandleChatKeyDown",
      0,
      "func"
     ],
@@ -43962,7 +43962,7 @@
      44,
      "0x0047BC70",
      "names.json",
-     "INV_CloseChatOnPanelClickMsg",
+     "CHAT_CloseChatOnPanelClickMsg",
      0,
      "func"
     ]
@@ -44004,7 +44004,7 @@
      32,
      "0x0047ACA0",
      "names.json",
-     "ROSTERPETS_HandleImeStartComposition",
+     "CHAT_HandleImeStartComposition",
      0,
      "func"
     ],
@@ -44012,7 +44012,7 @@
      44,
      "0x0047AD10",
      "names.json",
-     "INV_ResetImeCompositionMsg",
+     "CHAT_ResetImeCompositionMsg",
      0,
      "func"
     ],
@@ -44020,7 +44020,7 @@
      56,
      "0x0047B070",
      "names.json",
-     "INV_SetMsgHandled",
+     "CHAT_SetMsgHandled",
      0,
      "func"
     ],
@@ -44028,7 +44028,7 @@
      68,
      "0x0047B070",
      "names.json",
-     "INV_SetMsgHandled",
+     "CHAT_SetMsgHandled",
      0,
      "func"
     ],
@@ -44036,7 +44036,7 @@
      80,
      "0x0047B070",
      "names.json",
-     "INV_SetMsgHandled",
+     "CHAT_SetMsgHandled",
      0,
      "func"
     ]
@@ -55538,7 +55538,7 @@
      444,
      "0x004AD2F0",
      "source",
-     "MONUNIQUE_HandleUnitClassEvent",
+     "NPCMENU_HandleUnitClassEvent",
      0,
      "func"
     ],
@@ -59544,7 +59544,7 @@
      4,
      "0x004C6030",
      "names.json",
-     "ITEM_UseBowOrCallTarget",
+     "SKILLS_UseBowOrCallTarget",
      0,
      "func"
     ],
@@ -59720,7 +59720,7 @@
      92,
      "0x004E2F40",
      "names.json",
-     "MISSILE_VolleyAtTarget",
+     "SKILLDESC_VolleyAtTarget",
      0,
      "func"
     ],
@@ -59920,7 +59920,7 @@
      192,
      "0x004E0D40",
      "names.json",
-     "PLRSKILLS_SkillDoFrameOffset",
+     "GFXUTIL_SkillDoFrameOffset",
      0,
      "func"
     ],
@@ -60208,7 +60208,7 @@
      336,
      "0x004E3C50",
      "names.json",
-     "PLRSKILLS_MissileAtTargetUnit",
+     "SKILLDESC_MissileAtTargetUnit",
      0,
      "func"
     ],
@@ -60715,7 +60715,7 @@
      108,
      "0x004C7CF0",
      "names.json",
-     "ITEM_EvaluateClientSkillCalc",
+     "SKILLS_EvaluateClientSkillCalc",
      0,
      "func"
     ],
@@ -60755,7 +60755,7 @@
      128,
      "0x004E0A40",
      "names.json",
-     "MISSILE_SkillStartPlace",
+     "GFXUTIL_SkillStartPlace",
      0,
      "func"
     ],
@@ -67944,7 +67944,7 @@
      40,
      "0x004D9180",
      "names.json",
-     "MISSILE_StateStartMissile",
+     "PLRSKILLS_StateStartMissile",
      0,
      "func"
     ],
@@ -67976,7 +67976,7 @@
      56,
      "0x004D93B0",
      "names.json",
-     "ITEM_SendPositionEvent",
+     "PLRSKILLS_SendPositionEvent",
      0,
      "func"
     ],
@@ -68000,7 +68000,7 @@
      68,
      "0x004D96B0",
      "names.json",
-     "MISSILE_StateMissile",
+     "PLRSKILLS_StateMissile",
      0,
      "func"
     ],
@@ -68136,7 +68136,7 @@
      44,
      "0x004D9630",
      "names.json",
-     "MISSILE_StateOverlayRanges",
+     "PLRSKILLS_StateOverlayRanges",
      0,
      "func"
     ],

@@ -397,7 +397,7 @@ int __fastcall NPCMENU_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
 
 void __cdecl sub_K04_EmitUse(int nValue);
 
-int __cdecl MONSTER_IsGambleShop(); // 0x004B3500
+int __cdecl NPCMENU_IsGambleShop(); // 0x004B3500
 
 unsigned char gnMaxTab;                                                                            // 0x007BCC05
 
@@ -1414,7 +1414,7 @@ void __cdecl sub_00477DD0(); // 0x00477DD0
 
 void __cdecl sub_00481830(); // 0x00481830
 
-void __cdecl PLAYERLIST_ClearFadeTimer(); // 0x004DC0A0
+void __cdecl GFXUTIL_ClearFadeTimer(); // 0x004DC0A0
 
 void __fastcall GAME_SetPlayCinematic(int nValue); // 0x0044D530
 
@@ -1645,7 +1645,7 @@ void __cdecl INV_SendLeaveGame()
     }
     if (gdwGlobal_007A0610 == 6 || gdwGlobal_007A0610 == 7)
     {
-        D2ClientNotifyStrc* pNotify = GAME_GetClientNotify();
+        D2ClientNotifyStrc* pNotify = WINMAIN_GetClientNotify();
         if (pNotify)
             pNotify->pfnNotify();
     }
@@ -1827,7 +1827,7 @@ void __cdecl INV_LoadUiRecords()
 
 
 // 0x00483960
-void __cdecl CUNIT_InitColorTable()
+void __cdecl INV_InitColorTable()
 {
     gabColors_007BCAD8[0] = D2Win_10034_MixRGB(0x80, 0, 0);
     gabColors_007BCAD8[1] = D2Win_10034_MixRGB(0, 0x80, 0);
@@ -4437,7 +4437,7 @@ static int UNITS_GetWeaponClass(D2UnitStrc* pUnit)
 // 0x00487ED0
 void __cdecl INV_SetupPanelButtons()
 {
-    const int bValue = MONSTER_IsGambleShop();
+    const int bValue = NPCMENU_IsGambleShop();
     int nUnitId;
     if (!NPCMENU_GetInteractNpcId(&nUnitId))
         return;
@@ -5088,7 +5088,7 @@ void __fastcall INV_UpdateTradeAcceptSound(int bFirst, int bSecond)
 }
 
 // 0x00489840
-int __cdecl CUNIT_IsInvPanelTradeMode()
+int __cdecl INV_IsInvPanelTradeMode()
 {
     if (gnInvPanelMode == 1 || gnInvPanelMode == 2 || gnInvPanelMode == 3)
     {

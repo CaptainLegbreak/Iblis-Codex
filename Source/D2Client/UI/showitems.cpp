@@ -120,7 +120,7 @@ static inline void sub_004C0640_ClampToScreen(int* pLeft, int* pTop, int* pRight
     }
 }
 
-void __fastcall GAME_SetExitApplication(int nValue); // 0x0044B880
+void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
 void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 
@@ -370,7 +370,7 @@ D2ClientValues40Strc* __fastcall SHOWITEMS_ClearValues(D2ClientValues40Strc* pVa
 void __cdecl USEITEM_LeaveGame()
 {
     sub_00477EE0();
-    GAME_SetExitApplication(0);
+    WINMAIN_SetExitApplication(0);
     GAME_SetCinematicExit(1);
     GAME_RequestExit();
 }

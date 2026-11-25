@@ -890,8 +890,8 @@ D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex)
     return 0;
 }
 
-// build: symbol ?CUNIT_InitColorTable@* 0x00483960
-void __cdecl CUNIT_InitColorTable()
+// build: symbol ?INV_InitColorTable@* 0x00483960
+void __cdecl INV_InitColorTable()
 {
     gabColors_007BCAD8[0] = sub_004FB180_FindPaletteIndex(0x80, 0, 0);
     gabColors_007BCAD8[1] = sub_004FB180_FindPaletteIndex(0, 0x80, 0);
@@ -900,8 +900,8 @@ void __cdecl CUNIT_InitColorTable()
     gabColors_007BCAD8[4] = sub_004FB180_FindPaletteIndex(0x80, 0x40, 0x40);
 }
 
-// build: symbol ?CUNIT_IsInvPanelTradeMode@* 0x00489840
-int __cdecl CUNIT_IsInvPanelTradeMode()
+// build: symbol ?INV_IsInvPanelTradeMode@* 0x00489840
+int __cdecl INV_IsInvPanelTradeMode()
 {
     if (gnInvPanelMode == 1 || gnInvPanelMode == 2 || gnInvPanelMode == 3)
     {
@@ -941,8 +941,8 @@ void __fastcall CUNIT_SetDialogState(int nState)
     }
 }
 
-// build: symbol ?CUNIT_ClearTextPanel@* 0x004A1730
-void __cdecl CUNIT_ClearTextPanel()
+// build: symbol ?TEXT_ClearTextPanel@* 0x004A1730
+void __cdecl TEXT_ClearTextPanel()
 {
     TEXT_ResetTextBox();
     gbTextPanelOpen = 0;

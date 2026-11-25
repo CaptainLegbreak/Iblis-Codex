@@ -139,7 +139,7 @@ int __fastcall UNITSND_GetDirectionRate(D2UnitStrc* pUnit, unsigned int nDirecti
 
 int __fastcall SKILLSBAR_SetRunPath(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004C85B0
 
-void __fastcall SKILLS_SetLobVelocity(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004C8670
+void __fastcall SKILLSBAR_SetLobVelocity(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004C8670
 
 int __stdcall SKILLS_CheckIfCanLeapTo(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int* pX, int* pY); // 0x00645CA0
 
@@ -195,7 +195,7 @@ int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 
 int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int nY, int nArg, int bOverlay); // 0x00471EC0
 
-void __fastcall SKILLS_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames); // 0x004DA5B0
+void __fastcall GFXUTIL_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames); // 0x004DA5B0
 
 struct D2LobBracketStrc
 {
@@ -233,7 +233,7 @@ static int __stdcall SKILLS_AdjustTargetPosition(int nSkillId, D2UnitStrc* pUnit
     return ITEM_GetTargetPosition((D2UnitStrc*)pSkillsTxt, (int*)&pY, (int*)&pUnit);
 }
 
-void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
+void* __fastcall UNITSND_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
 
 void __fastcall sub_004BA840(void* pUnitSfx); // 0x004BA840
 
@@ -354,7 +354,7 @@ int __fastcall SKILLSBAR_SetRunPath(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 }
 
 // 0x004C8670
-void __fastcall SKILLS_SetLobVelocity(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+void __fastcall SKILLSBAR_SetLobVelocity(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
     if (!pSkill)
     {
@@ -404,7 +404,7 @@ void __fastcall SKILLS_SetLobVelocity(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 
     sub_004DA000(pUnit);
     sub_004DA250(pUnit, 0, 0, -nVelocity, 0);
-    SKILLS_SetBallistic(pUnit, 0, nFrames);
+    GFXUTIL_SetBallistic(pUnit, 0, nFrames);
 }
 
 
@@ -627,7 +627,7 @@ int __fastcall SKILLSBAR_SkillCltDoLeap(D2UnitStrc* pUnit, int nSkillId, int nSk
     if (nFlags & 0x80)
     {
         SKILLSBAR_SetRunPath(pUnit, pSkill);
-        SKILLS_SetLobVelocity(pUnit, pSkill);
+        SKILLSBAR_SetLobVelocity(pUnit, pSkill);
         return 1;
     }
 
@@ -740,7 +740,7 @@ int __fastcall SKILLSBAR_SkillCltDoLeapAttack(D2UnitStrc* pUnit, int nSkillId, i
     if (nFlags & 0x80)
     {
         SKILLSBAR_SetRunPath(pUnit, pSkill);
-        SKILLS_SetLobVelocity(pUnit, pSkill);
+        SKILLSBAR_SetLobVelocity(pUnit, pSkill);
         return 1;
     }
 
@@ -749,7 +749,7 @@ int __fastcall SKILLSBAR_SkillCltDoLeapAttack(D2UnitStrc* pUnit, int nSkillId, i
 }
 
 // 0x004C9060
-void __fastcall SKILLS_RotateUnitDirection(D2UnitStrc* pUnit, int nArg, int bForward)
+void __fastcall SKILLSBAR_RotateUnitDirection(D2UnitStrc* pUnit, int nArg, int bForward)
 {
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     if (!pPath)
@@ -901,7 +901,7 @@ int __fastcall SKILLSBAR_SkillCltDoCollide(D2UnitStrc* pUnit, int nSkillId, int 
         PATH_SetFootprintCollisionMask(pDynamicPath, nMask);
         PATH_SetMoveTestCollisionMask(pDynamicPath, bPlayer ? 0x1C09 : 0x3C01);
         SKILLS_SetFlags(pSkill, 0);
-        sub_004BA840(MISSILE_FindUnitSfxInRange(pUnit, 0x9E3));
+        sub_004BA840(UNITSND_FindUnitSfxInRange(pUnit, 0x9E3));
     }
     else if (nFlags & 1)
     {

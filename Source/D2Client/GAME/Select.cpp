@@ -53,7 +53,7 @@ void __fastcall VIEW_SetViewDirty(D2ViewStrc* pView);                           
 void __fastcall MSG_SendDword(char nHeader, int nArg);                                           // 0x00478680
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId);                        // 0x00451FE0
-int __fastcall SCMD_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY);                           // 0x00463EE0
+int __fastcall CUNIT_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY);                           // 0x00463EE0
 int __cdecl GAME_IsLeftButtonHeld();                                                                                 // 0x0044BF30
 int __cdecl GAME_GetCurrentTime(); // 0x0044DAA0
 unsigned int __cdecl GAME_GetInteractDeadline(); // 0x0044DAC0
@@ -157,7 +157,7 @@ int __cdecl SELECT_GetHoverMonClassId()
 }
 
 // 0x00466DD0
-int __cdecl UI_GetHoverClassId()
+int __cdecl SELECT_GetHoverClassId()
 {
 // build: symbol ?gnHoverClassId@* 0x00711F94
     return gnHoverClassId;
@@ -292,8 +292,8 @@ void __cdecl SELECT_UnlockHover()
 static int __stdcall SELECT_CheckWarpTileHover(D2UnitStrc* pPlayer, D2HoverCoordStrc tY1, int nX2, int nY2, D2UnitStrc* pUnit, int nX1, int* pnFlag)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_TILE
-        && SCMD_IsPointInTileRect(pUnit, nX1, tY1.nValue)
-        && SCMD_IsPointInTileRect(pUnit, nX2, nY2)
+        && CUNIT_IsPointInTileRect(pUnit, nX1, tY1.nValue)
+        && CUNIT_IsPointInTileRect(pUnit, nX2, nY2)
         && UNITS_IsInMovingMode(pPlayer)
         && GAME_IsLeftButtonHeld())
     {
@@ -537,7 +537,7 @@ struct D2TileRectStrc
 
 
 // 0x00467400
-int __cdecl UI_HasSelectedUnit()
+int __cdecl SELECT_HasSelectedUnit()
 {
     return gbHasSelectedUnit;
 }

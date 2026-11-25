@@ -27,7 +27,7 @@ struct D2MissileStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-D2UnitStrc* __fastcall GFXUTIL_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
+D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
@@ -47,7 +47,7 @@ void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
-void* __fastcall MISSILE_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
+void* __fastcall UNITSND_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce); // 0x004BA790
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __fastcall ITEM_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
@@ -157,7 +157,7 @@ int __fastcall sub_004F1430_MissilesOnUnitsInRadius(D2UnitStrc* pUnit, int nSkil
 
     for (int i = 0; i < tUnitFindData.nIndex; ++i)
     {
-        D2UnitStrc* pMissile = GFXUTIL_SubmitMissileRequest(pUnit, 0x24B, UNITS_GetUnitXPosition(tUnitFindData.pUnitsArray[i]), UNITS_GetUnitYPosition(tUnitFindData.pUnitsArray[i]), nSkillId, nSkillLevel);
+        D2UnitStrc* pMissile = MISSILE_SubmitMissileRequest(pUnit, 0x24B, UNITS_GetUnitXPosition(tUnitFindData.pUnitsArray[i]), UNITS_GetUnitYPosition(tUnitFindData.pUnitsArray[i]), nSkillId, nSkillLevel);
         if (pMissile)
         {
             int nFrames = MISSILE_GetTotalFrames(pMissile);
@@ -314,7 +314,7 @@ int __fastcall sub_004F1C80_SkillCltDoSpray(D2UnitStrc* pUnit, int nSkillId, int
     const int bInTown = !pRoom || DUNGEON_IsRoomInTown(pRoom);
     if (pSkillsTxt->wPrgSound > 0)
     {
-        void* pUnitSfx = MISSILE_FindUnitSfxInRange(pUnit, pSkillsTxt->wPrgSound);
+        void* pUnitSfx = UNITSND_FindUnitSfxInRange(pUnit, pSkillsTxt->wPrgSound);
         if (bInTown)
         {
             if (pUnitSfx)

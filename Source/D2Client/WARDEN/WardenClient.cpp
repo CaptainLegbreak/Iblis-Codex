@@ -131,7 +131,7 @@ int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-void __fastcall COMCALLBACK_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -209,7 +209,7 @@ int __fastcall SPELLSEL_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); /
 
 void __fastcall SPELLSEL_DrawSkillInfoBase(int nValue, D2SkillsTxt* pSkillsTxt, int nOwnerGUID, int nCharges, int nState, int nX, int nY, int nArg); // 0x004A9690
 
-void __fastcall TEXT_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY); // 0x004A8D50
+void __fastcall SPELLSEL_UpdateSkillButtonHover(short* pId, int nState, int nA, int nB, int nX, int nY); // 0x004A8D50
 
 void __fastcall SPELLSEL_DrawSkillQuantity(short* pId, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
 
@@ -243,7 +243,7 @@ int __fastcall ROSTERPETS_IsOwnedByPlayer(D2UnitStrc* pUnit); // 0x004791B0
 
 void __cdecl CHAT_RecallChatLine(); // 0x0047B9C0
 
-void __stdcall GFX_StepChatIndex(int nDelta); // 0x0047BA80
+void __stdcall CHAT_StepChatIndex(int nDelta); // 0x0047BA80
 
 extern const int gdwBitMasks[]; // 0x006CE268
 
@@ -386,7 +386,7 @@ namespace NWardenClient
 struct Library
 {
     Library();
-    virtual int GFX_SendWardenPacket(const void* pData, int nSize) = 0;
+    virtual int WARDENCLIENT_SendWardenPacket(const void* pData, int nSize) = 0; // 0x00480000
     virtual bool WARDENCLIENT_ServiceLoadModule(const unsigned char* pModuleKey, const unsigned char* pRc4Key) = 0;
     virtual void WARDENCLIENT_CallServiceWithHashName(const unsigned char* pHash, int nArg2, int nArg3) = 0;
     virtual void* WARDENCLIENT_ServiceAlloc(int nSize) = 0;
@@ -399,7 +399,7 @@ struct Library
 struct WardenClient : NWardenClient::Library
 {
     WardenClient();
-    int GFX_SendWardenPacket(const void* pData, int nSize);                                          // 0x00480000
+    int WARDENCLIENT_SendWardenPacket(const void* pData, int nSize);                                          // 0x00480000
     bool WARDENCLIENT_ServiceLoadModule(const unsigned char* pModuleKey, const unsigned char* pRc4Key); // 0x00480020
     void WARDENCLIENT_CallServiceWithHashName(const unsigned char* pHash, int nArg2, int nArg3);     // 0x00480040
     void* WARDENCLIENT_ServiceAlloc(int nSize);                                                      // 0x004800C0
@@ -913,7 +913,7 @@ static int __stdcall WARDENCLIENT_LoadModuleByKey(const unsigned char* pRc4Key, 
 }
 
 // 0x0047FFB0
-int __stdcall INV_CallServiceWithTime(const char* szName, int nArg2, int nArg3)
+int __stdcall WARDENCLIENT_CallServiceWithTime(const char* szName, int nArg2, int nArg3)
 {
     if (!gpService)
         return 0;
@@ -923,7 +923,7 @@ int __stdcall INV_CallServiceWithTime(const char* szName, int nArg2, int nArg3)
 }
 
 // 0x00480000
-int WardenClient::GFX_SendWardenPacket(const void* pData, int nSize)
+int WardenClient::WARDENCLIENT_SendWardenPacket(const void* pData, int nSize)
 {
     return MSG_SendWardenPacket(pData, nSize);
 }
@@ -1046,7 +1046,7 @@ struct D2RareAffixTxt
 };
 
 // 0x004802E0
-void __fastcall INV_ProcessWardenRequest(int nArg1, int nArg2)
+void __fastcall WARDENCLIENT_ProcessWardenRequest(int nArg1, int nArg2)
 {
     if (gpSlotHolder)
     {
@@ -1178,7 +1178,7 @@ void __fastcall WARDENCLIENT_OpenTextPanel(unsigned short nStringId, int bSide, 
     {
         gbTextHandlersRegistered = 1;
         gnStartTick = GetTickCount();
-        COMCALLBACK_RegisterMsgHandlers(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
+        SCMD_RegisterMsgHandlers(WINDOW_GetWindow(), gaTextMsgHandlers, 7);
     }
 
     const int nSoundId = sub_004E0650_GetStringSound(nStringId);
