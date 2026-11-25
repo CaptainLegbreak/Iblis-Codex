@@ -2830,6 +2830,20 @@ void __fastcall PLRTRADE_RefreshTradeSnapshot(D2GameStrc* pGame, D2UnitStrc* pPl
     EVENT_SetEvent(pGame, pPlayer, 0xD, pGame->dwGameFrame + 1, 0, 0);
 }
 
+extern "C" long __cdecl _time32(long* pTime); // 0x006850E6
+
+// 0x00568D60
+// time() from the C runtime's time.inl (a static inline around _time32), emitted out of line in this object.
+static long time(long* pTime)
+{
+    return _time32(pTime);
+}
+
+long __stdcall sub_M106_Emit_0051DC70(long* pTime)
+{
+    return time(pTime);
+}
+
 // 0x00568D70
 int __cdecl AITACTICS_GetHighestClassSkillCount()
 {
