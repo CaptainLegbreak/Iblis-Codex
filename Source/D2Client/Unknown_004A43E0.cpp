@@ -1119,8 +1119,6 @@ void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTo
 
 void __fastcall VIEW_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
 
-static int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc* pTextBox);
-
 void __cdecl TEXT_DrawMessageList(); // 0x0049DC40
 
 void __cdecl TEXT_DrawOverheadTextList(); // 0x0049DEE0
@@ -1561,22 +1559,6 @@ static __forceinline const unsigned short* TEXT_ReadLine(Unicode* pLine, const u
 
 
 
-
-
-
-
-// calling-convention shim (not game code)
-static int __cdecl sub_0049D5A0_UpdateTextBox(D2TextBoxStrc* pTextBox)
-{
-    int nA = WINDOW_GetWindow();
-    int nB = WINDOW_GetWindow();
-    SELECT_SetSelectionRect((void*)nA);
-    SELECT_SetSelectionRect((void*)nB);
-    SELECT_SetSelectionRect((void*)nA);
-    SELECT_SetSelectionRect((void*)nB);
-    pTextBox->nScroll = 1;
-    return *(char*)pTextBox;
-}
 
 
 
