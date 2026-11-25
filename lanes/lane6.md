@@ -2,10 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 16:48:55 PST 2026): three more report-372 joins build equal and are verifying (FastCmp.cpp <- Unknown_006056D0, SpriteCache.cpp <- Unknown_005FE010, ComCallback.cpp <- Unknown_00446880); three earlier joins still ready.
+Status (Tue Nov 24 17:00:34 PST 2026): join-006056d0 ready; the rest of the object-map joins are still in the verify queue.
 
 ## Ready
 
+- lane6/join-006056d0 bf68001b 264->263 placeholders. FastCmp.cpp takes Unknown_006056D0.cpp (0x605AA0-0x606930, the colour-table builders over FastCmp's palette/HSL helpers; report-372 clear lead, 22), with its tables 0x7420D8-0x7434FE in the plan; FastCmp's three unmarked copies of those functions go. Not stacked; D2CMP only. VERIFIED e651a2df (on #372; borrowed data 844 B, unchanged).
 - lane6/join-bnsend-c760 da4cc8f1 264->263 placeholders (count on #371). BnSend.cpp takes Unknown_0051C760.cpp (0x51C760 splits the receive buffer and calls BnSend's BNSEND_DispatchPacket; 0x51C7E0 is the receive thread next to it). BNSEND_DispatchPacket's only caller calls it, so it is `__declspec(noinline)` now that the two share a unit. Not stacked; D2BNClient only. VERIFIED d2ed567e (on #369, merges cleanly on #371; borrowed data 844 B, unchanged).
 - lane6/join-006043b0 a72bc4a2 264->263 placeholders (count on #371). CelCmp.cpp takes Unknown_006043B0.cpp (report-369's top lead for lane 6). 0x6043B0 is the entry array's New (reserve one, construct in place, return it), now a member of CelCmp's D2StormEntryArrayStrc using CelCmp's own CelListArrayReserve (inlined as before); the placeholder's private array type goes. 0x6046E0 is TSHashTableReuse::Destroy in CelCmp's class; both Destroy members are bound by `build: symbol` since they share a short name. Not stacked; D2CMP only. VERIFIED 7fbb7b01 (on #369, merges cleanly on #371; borrowed data 844 B, unchanged).
 - lane6/join-00518b90 3b4d3e49 264->263 placeholders (count on #371). Unknown_00518B90.cpp takes Unknown_00518B60.cpp: each had half of D2BnLogStrc (constructor 0x518B60 and deleting destructor 0x518BD0 in one; destructor 0x518B80 and handle getter 0x518B90 in the other, interleaved with 0x518BC0). One struct now carries all of it. Not stacked; D2BNClient only. VERIFIED 95378f9b (on #367, merges cleanly on #368; borrowed data 844 B, unchanged).
