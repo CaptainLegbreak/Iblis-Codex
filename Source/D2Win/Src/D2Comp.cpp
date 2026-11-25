@@ -1287,7 +1287,7 @@ void __stdcall D2COMP_FreePoolMemory(void* pMemory)
 }
 
 // 0x005043D0
-void __stdcall sub_005043D0_Stub4(int a1, int a2, int a3, int a4)
+void __stdcall D2COMP_Stub4(int a1, int a2, int a3, int a4)
 {
 }
 

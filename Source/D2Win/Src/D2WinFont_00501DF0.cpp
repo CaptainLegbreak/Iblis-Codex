@@ -63,7 +63,7 @@ inline int sub_00501DF0_IsColorCodePrefix(unsigned short wChar)
 }
 
 // 0x00501DF0
-void __fastcall sub_00501DF0_DrawClippedFontText(const Unicode* pText, int nX, int nY, int nTextColor, int nSkipLines, int nDrawLines)
+void __fastcall D2WINFONT_DrawClippedFontText(const Unicode* pText, int nX, int nY, int nTextColor, int nSkipLines, int nDrawLines)
 {
     if (nSkipLines < 0)
         return;
@@ -134,7 +134,7 @@ void __fastcall sub_00501DF0_DrawClippedFontText(const Unicode* pText, int nX, i
 }
 
 // 0x00501FE0
-void __fastcall sub_00501FE0_DrawTickerText(const Unicode* wszText, int nX, int nY, int nColor, int nScroll, int nWidth)
+void __fastcall D2WINFONT_DrawTickerText(const Unicode* wszText, int nX, int nY, int nColor, int nScroll, int nWidth)
 {
     const int nLength = sub_00526800(wszText);
     int nCount = 0;
@@ -237,7 +237,7 @@ static inline D2SplittedTextStrc* AllocSplitTextLine_Inline(const Unicode* wszTe
 }
 
 // 0x00502970
-D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* wszText, int* pLineCount, int nWidth)
+D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode* wszText, int* pLineCount, int nWidth)
 {
     const int nLength = sub_00526800(wszText);
     D2SplittedTextStrc* pLast = 0;

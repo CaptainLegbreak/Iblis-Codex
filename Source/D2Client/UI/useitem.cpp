@@ -129,7 +129,7 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode*); // 0x00501820
 
 void __fastcall D2Win_10117_DrawText(const Unicode*,int,int,int,int); // 0x00502320
 
-D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode*,int*,int); // 0x00502970
+D2SplittedTextStrc* __fastcall D2WINFONT_SplitText(const Unicode*,int*,int); // 0x00502970
 
 int __fastcall D2Win_10127_SetFont(int); // 0x00502EF0
 
@@ -410,7 +410,7 @@ void __cdecl USEITEM_DrawUseItemPanel()
    else if(MONSTER_GetUseItemMode()==512)textIndex=22747;
    const Unicode* panelText=D2LANG_GetStringFromTblIndex(textIndex);
    int lineCount;
-   D2SplittedTextStrc* line=sub_00502970_SplitText(panelText,&lineCount,300);
+   D2SplittedTextStrc* line=D2WINFONT_SplitText(panelText,&lineCount,300);
    if(line){
     int y=30;
     do {

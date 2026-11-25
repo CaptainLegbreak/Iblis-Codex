@@ -86,7 +86,7 @@ int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl GAME_IsLaunchExpansion(); // 0x0043DB10
 int __cdecl CHATDLG_GetConnectStatus(); // 0x0043DC30
 int __cdecl CHARSEL_CancelGameCreate(); // 0x0043F850
-int __cdecl sub_00449B30_QueryAddress(); // 0x00449B30
+int __cdecl MCPCONNECT_QueryAddress(); // 0x00449B30
 int __cdecl sub_00449B70_Receive(); // 0x00449B70
 int __cdecl GAME_GetMcpGameToken(); // 0x00449BE0
 int __cdecl GAME_GetConnectError(); // 0x00449C00

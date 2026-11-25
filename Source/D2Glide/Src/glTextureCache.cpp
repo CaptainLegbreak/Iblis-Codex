@@ -10,7 +10,7 @@ void __fastcall GLSMACK_TexCacheEvict(D2GlideTexCacheStrc* pCache); // 0x0050EC4
 void __fastcall GLFLOORCACHE_FloorCacheTouch(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F670
 void __fastcall GLSMACK_FloorCacheEvict(D2GlideFloorCacheStrc* pCache); // 0x0050F6D0
 short __fastcall GLFLOORCACHE_FloorCacheAdd(D2GlideFloorCacheStrc* pCache); // 0x0050F820
-void __stdcall sub_0050F980_DecodeTileBlocks(D2TileLibraryEntryStrc* pTile, unsigned char* pDst); // 0x0050F980
+void __stdcall GLVERTEX_DecodeTileBlocks(D2TileLibraryEntryStrc* pTile, unsigned char* pDst); // 0x0050F980
 extern D2GrTexInfoStrc gtGlideFloorTexInfo; // 0x0072F6BC
 extern void (__stdcall* gpfnGrTexDownloadMipMap)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EAB8
 extern void (__stdcall* gpfnGrTexSource)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
@@ -312,7 +312,7 @@ int __fastcall GLTEXTURECACHE_BindFloorTexture(D2TileLibraryEntryStrc* pTile)
         int nTexAddress;
         if (pTile->nCacheIndex == 0)
         {
-            sub_0050F980_DecodeTileBlocks(pTile, gpGlideFloorDecodeBuffer);
+            GLVERTEX_DecodeTileBlocks(pTile, gpGlideFloorDecodeBuffer);
             pTile->nCacheIndex = GLFLOORCACHE_FloorCacheAdd(&gtGlideFloorCache);
             const int nEntry = pTile->nCacheIndex - 1;
             D2_ASSERT(nEntry >= 0, 0xE5);

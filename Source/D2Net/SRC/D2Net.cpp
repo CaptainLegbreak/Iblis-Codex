@@ -111,13 +111,13 @@ void D2NetLockStrc::Unlock(int nUnused)
 }
 
 // 0x0052BE00
-unsigned int __fastcall sub_0052BE00_GetBits12(unsigned int nValue)
+unsigned int __fastcall NET_GetBits12(unsigned int nValue)
 {
     return (nValue >> 12) & 7;
 }
 
 // 0x0052BE10
-char* __fastcall sub_0052BE10_GetField0D0(D2Net52BE10Strc* pRecord)
+char* __fastcall NET_GetField0D0(D2Net52BE10Strc* pRecord)
 {
     return pRecord->aData;
 }

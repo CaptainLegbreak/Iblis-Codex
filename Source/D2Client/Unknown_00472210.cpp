@@ -349,7 +349,7 @@ struct D2CelFileStrc;
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);          // 0x006CC468
 D2CelFileStrc* __fastcall ARCHIVE_LoadCellFileWithFileSize(const char* szFile, unsigned int* pFileSize, int nType); // 0x00478950
-unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
+unsigned char __stdcall PALETTE_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile);                                                // 0x006019F0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                             // 0x006427F0
 int __stdcall sub_004726F0(int nArg);                                                                       // 0x004726F0
@@ -672,15 +672,15 @@ void __fastcall sub_00472890_InitWeather(int nLevelId)
     {
         const int nStep = n80 / 12;
         nColor = 0x62 - nStep;
-        gabParticleColorsDay[i] = sub_004FB180_FindPaletteIndex(nColor, nColor + 0x19, nColor);
+        gabParticleColorsDay[i] = PALETTE_FindPaletteIndex(nColor, nColor + 0x19, nColor);
         nColor = 0x2D - i * 40 / 12;
-        gabParticleColorsTwilight[i] = sub_004FB180_FindPaletteIndex(nColor, nColor + 10, nColor);
+        gabParticleColorsTwilight[i] = PALETTE_FindPaletteIndex(nColor, nColor + 10, nColor);
         nColor = 0x19 - n24 / 12;
-        gabParticleColorsNight[i] = sub_004FB180_FindPaletteIndex(nColor, nColor + 5, nColor);
+        gabParticleColorsNight[i] = PALETTE_FindPaletteIndex(nColor, nColor + 5, nColor);
         nColor = nStep + 0x78;
-        gabPeriodLightColors[i] = sub_004FB180_FindPaletteIndex(nColor, nColor, nColor);
+        gabPeriodLightColors[i] = PALETTE_FindPaletteIndex(nColor, nColor, nColor);
         nColor = nStep + 0xAA;
-        gabOutdoorLightColors[i] = sub_004FB180_FindPaletteIndex(nColor, nColor, nColor);
+        gabOutdoorLightColors[i] = PALETTE_FindPaletteIndex(nColor, nColor, nColor);
         n24 += 24;
         n80 += 80;
     }

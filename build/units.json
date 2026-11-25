@@ -12615,7 +12615,7 @@
     {
      "va": "0x00449B30",
      "length": 50,
-     "name": "sub_00449B30_QueryAddress"
+     "name": "MCPCONNECT_QueryAddress"
     },
     {
      "va": "0x00449B70",
@@ -32784,7 +32784,7 @@
     {
      "va": "0x00508970",
      "length": 1511,
-     "name": "?sub_00508970_GlideLoadLibrary@@YAHXZ"
+     "name": "?GLCORE_GlideLoadLibrary@@YAHXZ"
     },
     {
      "va": "0x00508F60",
@@ -32993,7 +32993,7 @@
     {
      "va": "0x004F4FF0",
      "length": 39,
-     "name": "?sub_004F4FF0_SetVideoMode@@YIHH@Z"
+     "name": "?WINDOW_SetVideoMode@@YIHH@Z"
     },
     {
      "va": "0x004F5020",
@@ -34072,7 +34072,7 @@
     {
      "va": "0x004FB180",
      "length": 37,
-     "name": "?sub_004FB180_FindPaletteIndex@@YGEEEE@Z"
+     "name": "?PALETTE_FindPaletteIndex@@YGEEEE@Z"
     },
     {
      "va": "0x004FB1B0",
@@ -35166,7 +35166,7 @@
     {
      "va": "0x005043D0",
      "length": 3,
-     "name": "?sub_005043D0_Stub4@@YGXHHHH@Z"
+     "name": "?D2COMP_Stub4@@YGXHHHH@Z"
     },
     {
      "va": "0x005043E0",
@@ -35539,7 +35539,7 @@
     {
      "va": "0x00507EF0",
      "length": 37,
-     "name": "@sub_00507EF0_GetScrollBarField48@4"
+     "name": "@SCROLLBAR_GetScrollBarField48@4"
     },
     {
      "va": "0x00507F20",
@@ -35554,7 +35554,7 @@
     {
      "va": "0x00507FA0",
      "length": 37,
-     "name": "@sub_00507FA0_GetScrollBarField4C@4"
+     "name": "@SCROLLBAR_GetScrollBarField4C@4"
     },
     {
      "va": "0x00507FD0",
@@ -36156,7 +36156,7 @@
     {
      "va": "0x0050F980",
      "length": 323,
-     "name": "sub_0050F980_DecodeTileBlocks"
+     "name": "GLVERTEX_DecodeTileBlocks"
     }
    ]
   },
@@ -41580,7 +41580,7 @@
     {
      "va": "0x0052B490",
      "length": 30,
-     "name": "sub_0052B490_ObjectCall_6BED90"
+     "name": "CLIENT_ObjectCall_6BED90"
     },
     {
      "va": "0x0052B4B0",
@@ -41741,12 +41741,12 @@
     {
      "va": "0x0052BE00",
      "length": 9,
-     "name": "?sub_0052BE00_GetBits12@@YIII@Z"
+     "name": "?NET_GetBits12@@YIII@Z"
     },
     {
      "va": "0x0052BE10",
      "length": 7,
-     "name": "?sub_0052BE10_GetField0D0@@YIPADPAUD2Net52BE10Strc@@@Z"
+     "name": "?NET_GetField0D0@@YIPADPAUD2Net52BE10Strc@@@Z"
     },
     {
      "va": "0x0052BE40",

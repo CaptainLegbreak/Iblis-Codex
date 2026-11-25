@@ -82,14 +82,14 @@ int __fastcall POPUP_Draw(D2WinControlStrc* pControl); // 0x005087A0
 extern D2WinPopUpStrc* gpPopUp; // 0x0087E974
 
 // 0x00507EF0
-extern "C" int __fastcall sub_00507EF0_GetScrollBarField48(D2WinScrollBarStrc* ptScrollbarData)
+extern "C" int __fastcall SCROLLBAR_GetScrollBarField48(D2WinScrollBarStrc* ptScrollbarData)
 {
     D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_SCROLLBAR, 0x4B);
     return ptScrollbarData->nMaxSteps;
 }
 
 // 0x00507FA0
-extern "C" int __fastcall sub_00507FA0_GetScrollBarField4C(D2WinScrollBarStrc* ptScrollbarData)
+extern "C" int __fastcall SCROLLBAR_GetScrollBarField4C(D2WinScrollBarStrc* ptScrollbarData)
 {
     D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_SCROLLBAR, 0x74);
     return ptScrollbarData->nCurrentStep;
