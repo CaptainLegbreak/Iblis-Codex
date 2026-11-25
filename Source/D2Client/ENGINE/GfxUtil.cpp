@@ -754,14 +754,14 @@ void __fastcall SKILLS_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames)
     pBallistic->f_4 = 0;
     pBallistic->f_8 = 0;
     pBallistic->nVelocity = nSpeed;
-    if (!pBallistic->f_24)
+    if (!pBallistic->nAcceleration)
     {
-        pBallistic->f_24 = -0x1000;
+        pBallistic->nAcceleration = -0x1000;
     }
 
     pBallistic->nVelA = 0;
     pBallistic->nVelB = 0;
-    pBallistic->nStartVelocity = (-nSpeed - pBallistic->f_24 * pBallistic->nFrames * pBallistic->nFrames / 2) / pBallistic->nFrames;
+    pBallistic->nStartVelocity = (-nSpeed - pBallistic->nAcceleration * pBallistic->nFrames * pBallistic->nFrames / 2) / pBallistic->nFrames;
 }
 
 
