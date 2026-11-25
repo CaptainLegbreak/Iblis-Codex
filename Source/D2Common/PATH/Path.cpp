@@ -2411,10 +2411,10 @@ extern "C" __declspec(dllexport) int __stdcall PATH_GetStepNum(Obj006490A0* pObj
 }
 
 // 0x006490C0
-void __stdcall D2Common_10207(D2DynamicPathStrc* pDynamicPath, char a2, char a3)
+void __stdcall D2Common_10207(D2DynamicPathStrc* pDynamicPath, char a2, char dwSpeed)
 {
     pDynamicPath->unk0x67 = a2;
-    pDynamicPath->dwSpeed = a3;
+    pDynamicPath->dwSpeed = dwSpeed;
 }
 
 // 0x006490E0
