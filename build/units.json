@@ -55803,7 +55803,7 @@
     {
      "va": "0x005FE170",
      "length": 83,
-     "name": "?sub_005FE170_SpriteCacheFreeCallback@@YIXPAX@Z"
+     "name": "?SPRITECACHE_SpriteCacheFreeCallback@@YIXPAX@Z"
     },
     {
      "va": "0x005FE1D0",
@@ -55825,12 +55825,12 @@
     {
      "va": "0x005FEB80",
      "length": 195,
-     "name": "?sub_005FEB80_FindDC6Frame@@YGPAXPAXPAUD2CmpSpriteContextStrc@@PAUD2CmpDC6HeaderStrc@@@Z"
+     "name": "?SPRITECACHE_FindDC6Frame@@YGPAXPAXPAUD2CmpSpriteContextStrc@@PAUD2CmpDC6HeaderStrc@@@Z"
     },
     {
      "va": "0x005FEC50",
      "length": 58,
-     "name": "?sub_005FEC50_GetCachedDC6Frame@@YAPAXPAUD2CmpSpriteContextStrc@@PAUD2CmpDC6CacheEntryStrc@@@Z"
+     "name": "?SPRITECACHE_GetCachedDC6Frame@@YAPAXPAUD2CmpSpriteContextStrc@@PAUD2CmpDC6CacheEntryStrc@@@Z"
     },
     {
      "va": "0x005FEC90",
@@ -62603,7 +62603,7 @@
     {
      "va": "0x00605080",
      "length": 358,
-     "name": "?sub_00605080_HslToRgb@@YAXPBUD2HslStrc@@PAUD2PalRgbaStrc@@@Z"
+     "name": "?FASTCMP_HslToRgb@@YAXPBUD2HslStrc@@PAUD2PalRgbaStrc@@@Z"
     },
     {
      "va": "0x006051F0",
@@ -62623,7 +62623,7 @@
     {
      "va": "0x006052F0",
      "length": 39,
-     "name": "?sub_006052F0_InitSquareTable@@YAXXZ"
+     "name": "?FASTCMP_InitSquareTable@@YAXXZ"
     },
     {
      "va": "0x00605320",
@@ -62633,7 +62633,7 @@
     {
      "va": "0x00605340",
      "length": 417,
-     "name": "?sub_00605340_LoadPcxPalette@@YIHPBD@Z"
+     "name": "?FASTCMP_LoadPcxPalette@@YIHPBD@Z"
     },
     {
      "va": "0x006056C0",
@@ -62684,12 +62684,12 @@
     {
      "va": "0x00605DE0",
      "length": 119,
-     "name": "?sub_00605DE0_BuildDarkenTables@@YGXPAE@Z"
+     "name": "?FASTCMP_BuildDarkenTables@@YGXPAE@Z"
     },
     {
      "va": "0x00605E60",
      "length": 146,
-     "name": "?sub_00605E60_BuildLightenTables@@YGXPAE@Z"
+     "name": "?FASTCMP_BuildLightenTables@@YGXPAE@Z"
     },
     {
      "va": "0x00605F00",
@@ -62698,7 +62698,7 @@
     {
      "va": "0x00606890",
      "length": 157,
-     "name": "?sub_00606890_BuildBrightnessTable@@YAXPAEPAUD2HslStrc@@@Z"
+     "name": "?FASTCMP_BuildBrightnessTable@@YAXPAEPAUD2HslStrc@@@Z"
     },
     {
      "va": "0x00606930",
