@@ -4,6 +4,7 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 ## Status
 
+- Wed Nov 25 08:35:03 PST 2026: check-in. lang-copies is still ready and merges clean on #400, which is still main. SkillDesc joins stay paused until lane 2's decls-d2common-b lands.
 - Wed Nov 25 08:21:17 PST 2026: lang-copies ready, from lane 4's notes. Only UnitMode.cpp's copy could move: Object.cpp has data at 0x727704 ahead of its copy at 0x727708, and MonUnique.cpp has data at 0x724D38 ahead of 0x724D3C, so the linker refuses the header copy in both. Those two keep their plan records. SkillDesc joins are still paused for lane 2.
 - Wed Nov 25 07:21:50 PST 2026: check-in. Ready is empty. The mutation search on 0x4A9870 got through only 39 variants in 25 minutes (spellsel.cpp's unit is slow to build) and found nothing near equal, so it stays parked. I'm holding the remaining SkillDesc joins (Unknown_004E89A0.cpp, Unknown_004E2320.cpp) until the declaration branches land next round, as the board asks.
 - Wed Nov 25 06:50:05 PST 2026: check-in. #398 took skilldesc-join-10, so Ready is empty. SkillDesc joins are paused until lane 4's audit-decls-d2client is in. Meanwhile I'm running an unattended mutation search on 0x4A9870 (spellsel.cpp, the volatile y read).
