@@ -39170,11 +39170,6 @@
      "name": "GAME_DeleteBigNum"
     },
     {
-     "va": "0x0052BDC0",
-     "length": 6,
-     "name": "sub_0052BDC0"
-    },
-    {
      "va": "0x0052BE20",
      "length": 1,
      "name": "?GAME_LogMessage@@YAXHPBDZZ"
@@ -40932,16 +40927,6 @@
      "va": "0x0052B050",
      "length": 130,
      "name": "?CLIENT_GetConnectionStatus@@YAHXZ"
-    },
-    {
-     "va": "0x0052BDA0",
-     "length": 1,
-     "name": "?sub_0052BDA0_Empty@@YAXXZ"
-    },
-    {
-     "va": "0x0052BDB0",
-     "length": 1,
-     "name": "?sub_0052BDB0_Empty@@YAXXZ"
     }
    ]
   },
@@ -41724,31 +41709,6 @@
      "name": "?sub_0052B900_Nop@@YAXXZ"
     },
     {
-     "va": "0x0052BDD0",
-     "length": 5,
-     "name": "?sub_0052BDD0_AlwaysTrue@@YG_NH@Z"
-    },
-    {
-     "va": "0x0052BDE0",
-     "length": 10,
-     "name": "?Lock@D2NetLockStrc@@QAEXH@Z"
-    },
-    {
-     "va": "0x0052BDF0",
-     "length": 10,
-     "name": "?Unlock@D2NetLockStrc@@QAEXH@Z"
-    },
-    {
-     "va": "0x0052BE00",
-     "length": 9,
-     "name": "?NET_GetBits12@@YIII@Z"
-    },
-    {
-     "va": "0x0052BE10",
-     "length": 7,
-     "name": "?NET_GetField0D0@@YIPADPAUD2Net52BE10Strc@@@Z"
-    },
-    {
      "va": "0x0052BE40",
      "length": 3,
      "name": "?NET_DefaultLeaveGame@@YGXHHHHHHHHHHHHHHHHHH@Z"
@@ -41822,6 +41782,52 @@
     "/Ob2",
     "/Gd",
     "/GS-"
+   ]
+  },
+  {
+   "file": "Source/D2Net/Unknown_0052BDA0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x0052BDA0",
+     "length": 1,
+     "name": "?sub_0052BDA0_Empty@@YAXXZ"
+    },
+    {
+     "va": "0x0052BDB0",
+     "length": 1,
+     "name": "?sub_0052BDB0_Empty@@YAXXZ"
+    },
+    {
+     "va": "0x0052BDC0",
+     "length": 6,
+     "name": "sub_0052BDC0"
+    },
+    {
+     "va": "0x0052BDD0",
+     "length": 5,
+     "name": "?sub_0052BDD0_AlwaysTrue@@YG_NH@Z"
+    },
+    {
+     "va": "0x0052BDE0",
+     "length": 10,
+     "name": "?Lock@D2NetLockStrc@@QAEXH@Z"
+    },
+    {
+     "va": "0x0052BDF0",
+     "length": 10,
+     "name": "?Unlock@D2NetLockStrc@@QAEXH@Z"
+    },
+    {
+     "va": "0x0052BE00",
+     "length": 9,
+     "name": "?NET_GetBits12@@YIII@Z"
+    },
+    {
+     "va": "0x0052BE10",
+     "length": 7,
+     "name": "?NET_GetField0D0@@YIPADPAUD2Net52BE10Strc@@@Z"
+    }
    ]
   },
   {

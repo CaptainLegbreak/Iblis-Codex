@@ -1780,11 +1780,20 @@
    "state": "included"
   },
   "Source/D2Net/Unknown_0052B920.cpp": {
-   "bytes": 1300,
-   "definitions": 4,
+   "bytes": 1240,
+   "definitions": 3,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Net/Unknown_0052B920.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Net/Unknown_0052BDA0.cpp": {
+   "bytes": 60,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Net/Unknown_0052BDA0.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -84228,7 +84237,7 @@
    "cname": "gData_00730F84",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Net/Unknown_0052B920.cpp",
+   "file": "Source/D2Net/Unknown_0052BDA0.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00730F84_t gData_00730F84; // 0x00730F84",
    "head": "extern \"C\" struct d2data_00730F84_t gData_00730F84 = ",
