@@ -59,6 +59,12 @@ call stays the coordinator's. This section is replaced at each check.
     - **0x679C80:** passing the point to PATH_GetDirections and/or sub_6FDAA880 as a packed `unsigned int`,
       and four ways of reading the halves, don't beat the near version (35 lines). Both packed gives 449/450 but
       37 lines; reading `.X`/`.Y` instead of the shift loses the frame.
+    - **0x5DD7F0, declarations and body together:** 19 groups, the 11 body groups plus return types for 8 callees
+      (LOS check, IsDead, IsRoomInTown, TestCollisionWithUnit, alignment, distance, melee range; int, bool,
+      unsigned char, unsigned int) and int or unsigned coordinate getters. Greedy runs from the default start and
+      three random starts (scores 314, 450, 439) all end at exactly 310, the near version's score. The two static
+      callees (ResolveTargetOverride, ShouldUseAlternativeTarget) were left out: the original passes them their
+      arguments in registers. Template: `lanes/vsearch/005DD7F0-combo.tpl`.
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
