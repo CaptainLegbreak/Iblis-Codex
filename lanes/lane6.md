@@ -6,7 +6,9 @@ Status (Wed Nov 25 04:00 PST 2026): wregister-object and bn-getters merged (#393
 
 ## Ready
 
-(nothing outstanding; wregister-object and bn-getters merged in #393)
+- lane6/charsel-pieces ce52a664 (on #393): CharSel.cpp takes CHARSEL_CreateCharListControls (0x43A800) from CharSel_004378D0.cpp: it sits between two CharSel.cpp runs and uses CharSel.cpp's controls, and in CharSel.cpp the whole unit builds equal. (0x43A2B0 and 0x43AD10/0x43ADB0, in CharSel_0042E600/0042FFE0, sit the same way, but their files declare CharSel.cpp's globals and messages with other types; that needs those declarations unified first.) Full build: Game.exe identical, tree f9cc59ceaede34667aebdb56fc7f9038ff53eb7a, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
+
+(lane6/bnclient-join verifying)
 
 ## Questions
 
