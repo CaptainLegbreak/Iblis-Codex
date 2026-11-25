@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 01:55 PST 2026): data-only-units (#385), lang-copies-2 (#386) and audit-params-d2win (#387) merged. emit-trim rebuilt on #387 without CelCmp.cpp; emit-trim-celcmp and audit-params-d2win-2 (D2WinList.cpp, Unknown_004F6F60.cpp) verifying.
+Status (Wed Nov 25 02:40 PST 2026): ready on #387: emit-trim, emit-trim-celcmp, audit-params-d2win-2. Next: D2Win language-copy runs (D2WinFont.cpp's six, the D2Win run in glCore.cpp), then placeholders by run.
 
 ## Ready
 
@@ -17,6 +17,8 @@ Status (Wed Nov 25 01:55 PST 2026): data-only-units (#385), lang-copies-2 (#386)
 
 
 - lane6/emit-trim-celcmp d66d5588 (on #387): CelCmp.cpp drops sub_P04_Emit_005FEC50 and sub_F43_EmitPixelDataFreeWriter; the unit stays all equal without them (split out of emit-trim, which kept conflicting on this file). Full build: Game.exe identical, tree e7fc1aab357dba7dfed37495cd7dc5e66ef69dc7, borrowed code / data 11,250 / 261 B; auditguard: emit helpers 544 -> 542, no count rose.
+
+- lane6/audit-params-d2win-2 f00a0649 (on #387): D2WinList.cpp's D2Win_10137/10138 name their entry handler, hotkey character and virtual key (the fields the char and key-down handlers match), and the prepend/select flags; Unknown_004F6F60.cpp's 0x4F8DE0 names its buffer, width and height. No code changes. Full build: Game.exe identical, tree 84675b4201fc0422b8337521f49aad373ebfb38f, borrowed code / data 11,250 / 261 B; auditguard: a1/v12 names 2,564 -> 2,531, no count rose.
 
 ## Questions
 
