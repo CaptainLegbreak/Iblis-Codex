@@ -6,6 +6,7 @@
 #include "D2LevelTxt.h"
 #include "D2Unicode.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 struct D2UnitStrc;
 
 
@@ -21,11 +22,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" const char gszFormatD[];                                                                // 0x006D57BC
 extern "C" const char gszFmtRange[];                                                                // 0x006D9D70
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);                                 // 0x005267E0
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 void __fastcall NPCMENU_ClearUnicode(Unicode* pChar);                                                  // 0x0042F530
 void __stdcall sub_00403040_VectorConstructor(void* pArray, unsigned int nSize, int nCount, void (__fastcall* pfnConstructor)(Unicode*)); // 0x00403040
 void __fastcall INV_PrefixColorCode(Unicode* wszText, int nLevel);                                // 0x004521C0

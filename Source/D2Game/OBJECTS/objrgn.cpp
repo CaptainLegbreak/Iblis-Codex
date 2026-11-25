@@ -33,6 +33,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 // build: symbol _gaszLanguageNames 0x0073192C
 
 union D2SeedStrc;
@@ -367,9 +368,7 @@ extern UnitDescriptionFunction gpfnGetDescription[5]; // 0x0073107C
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
 
 

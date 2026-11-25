@@ -15,6 +15,7 @@
 #include "D2ClientTextPanel.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 struct D2ActiveRoomStrc;
 
@@ -228,12 +229,10 @@ int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
 extern "C" size_t __cdecl strlen(const char* szString);
 
-int __fastcall sub_005262A0_Utf8CountChars(const char* pSrc, int nCount); // 0x005262A0
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
 
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 
@@ -253,7 +252,6 @@ void __cdecl PARTY_DrawRosterButtonHints(); // 0x0049B330
 
 void __cdecl PARTY_RefreshRosterIndices(); // 0x0049A9B0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
@@ -269,7 +267,6 @@ int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); //
 
 void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 

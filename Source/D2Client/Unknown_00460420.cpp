@@ -5,6 +5,7 @@
 #include "D2ClientTypes.h"
 #include "D2StormTypes.h"
 #include "D2CelContext.h"
+#include "D2LangApi.h"
 
 struct D2CelFileStrc;
 
@@ -62,7 +63,6 @@ void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unico
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 extern int gnScreenWidth; // 0x0071146C
 

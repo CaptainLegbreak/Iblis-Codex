@@ -10,6 +10,7 @@
 #include "D2ClientUiRecords.h"
 #include "StormApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 #define D2_FREE_PANEL_CEL(pCel) if (pCel) { ARCHIVE_FreeClientCellFile(pCel); pCel = 0; }
 
@@ -181,9 +182,7 @@ int __fastcall D2Win_10127_SetFont(int nArg);                                   
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 
@@ -191,7 +190,6 @@ Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCo
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 
 extern D2CelFileStrc* gapHirelingIcons[7];                                                         // 0x007BEEB0
 
@@ -1073,7 +1071,6 @@ extern void* gpCellFile_007BEF20; // 0x007BEF20
 
 int gdwGlobal_007BEEFC; // 0x007BEEFC
 
-int __cdecl STRTABLE_GetLanguage();                                                                         // 0x00525150
 
 const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2);                                     // 0x00469DE0
 

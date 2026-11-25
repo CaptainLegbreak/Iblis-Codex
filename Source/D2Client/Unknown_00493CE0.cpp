@@ -5,6 +5,7 @@
 #include "D2LevelTxt.h"
 #include "D2Unicode.h"
 #include "StormApi.h"
+#include "D2LangApi.h"
 struct D2StoredUnitRecordStrc;
 struct D2UnitStrc;
 
@@ -36,12 +37,9 @@ int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount);                    // 0x00526790
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern D2CelFileStrc* gapHirelingIcons[7];                                                         // 0x007BEEB0

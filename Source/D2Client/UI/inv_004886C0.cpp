@@ -13,6 +13,7 @@
 #include "D2ClientUiRecords.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 struct D2CelFileStrc;
 
@@ -57,7 +58,6 @@ D2CelFileStrc* __cdecl GAME_GetBuySellButtonCells(); // 0x00454600
 
 int __fastcall D2Win_10127_SetFont(int nFont);                                                                     // 0x00502EF0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 
@@ -121,7 +121,6 @@ unsigned char __cdecl GAME_GetDifficulty();                                     
 
 int __stdcall ITEMS_GetAllRepairCosts(void* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, D2BitBufferStrc* pQuestFlags, void* pfCallback); // 0x0062FE60
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
 

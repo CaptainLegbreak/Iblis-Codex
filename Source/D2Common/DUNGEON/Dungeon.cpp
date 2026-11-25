@@ -26,6 +26,7 @@
 #include "D2DrlgDelete.h"
 #include "D2CommonLevelNode.h"
 #include "FogApi.h"
+#include "D2LangApi.h"
 
 struct D2DrlgRoomStrc;
 
@@ -247,7 +248,6 @@ void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
 

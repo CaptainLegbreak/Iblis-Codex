@@ -5,6 +5,7 @@
 #include "D2MultiTypes.h"
 #include "D2WinSplitText.h"
 #include "StormApi.h"
+#include "D2LangApi.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -46,10 +47,7 @@ int __cdecl GAME_GetConnectionType();                                           
 void __cdecl SOUNDINST_ToggleHints();                                                                    // 0x004BABC0
 bool __fastcall CHAT_IsNarrowText(const Unicode* pText);                                            // 0x0047BD00
 int __stdcall CHAT_ParseChatCommand(char** ppText, char* pCode, char* szArgument);                  // 0x0047BAD0
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 void __fastcall TEXT_PrintChatLine(const Unicode* pText, char nColor);                              // 0x0049E3A0
 void __fastcall MSG_SendStrings(const unsigned char* pData);                                       // 0x004787B0

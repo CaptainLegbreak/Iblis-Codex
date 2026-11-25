@@ -38,6 +38,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 // build: symbol _gaszLanguageNames 0x007312E0
 
 #pragma intrinsic(strcpy)
@@ -2134,9 +2135,7 @@ typedef void(__fastcall* UnitDescriptionFunction)(char* szDescription, int nClas
 
 extern UnitDescriptionFunction gpfnGetDescription[5]; // 0x0073107C
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
 
 extern unsigned short gwValue_0077905C;

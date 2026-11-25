@@ -9,6 +9,7 @@
 #include "D2UnitDropPacket.h"
 #include "StormApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 #pragma intrinsic(strlen)
 struct D2UnitStrc;
 struct D2ActiveRoomStrc;
@@ -36,7 +37,6 @@ struct Unicode
     Unicode(unsigned short wValue);
 };
 extern "C" char* __cdecl strstr(const char* szString, const char* szSubString); // 0x00686900
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 extern "C" int __stdcall CHARSEL_CreateNotice(const Unicode* pTitle, const Unicode* pText, int nState, unsigned char nSel); // 0x0043A460
 static int gnCharEntryCount; // 0x00779DC4
 extern int gdwGlobal_0070CC08; // 0x0070CC08

@@ -22,6 +22,7 @@
 #include "FogApi.h"
 #include "StormApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 struct D2ActiveRoomStrc;
 
@@ -463,9 +464,7 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940
 
 void __stdcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int nY, int nArg); // 0x005022F0
 

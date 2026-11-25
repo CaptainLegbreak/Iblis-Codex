@@ -7,6 +7,7 @@
 #include "D2ClientUiRecords.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
@@ -58,7 +59,6 @@ extern D2WeatherLayerStateStrc gtSplashCels; // 0x007A89B0
 extern D2WeatherLayerStateStrc gtBubbleCels; // 0x007A893C
 extern D2NpcEntryStrc gaNpcEntries[]; // 0x00726850
 void __fastcall TEXT_DrawCenteredText(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 extern int gnAutomapWidth; // 0x007A5220
 extern int gnPanelOffsetX; // 0x007A2858
 extern int gnPanelOffsetY; // 0x007A285C

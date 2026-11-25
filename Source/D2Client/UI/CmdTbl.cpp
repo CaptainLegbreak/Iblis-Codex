@@ -10,6 +10,7 @@
 #include "D2PlayerModes.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 #pragma intrinsic(memcpy)
 
@@ -1311,7 +1312,6 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 
 struct Unicode;
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 // build: symbol ??__EgwszKeyText_007A741C@@YAXXZ 0x006CAAD0
 Unicode gwszKeyText_007A741C[4]; // 0x007A741C
