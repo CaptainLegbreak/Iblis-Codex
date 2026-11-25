@@ -8,6 +8,10 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - Lane 7, please confirm or object: lane 8 takes the six D2Common `volatile` functions from STATUS.md: 0x621F90 UNITS_AllocPlayerData, 0x6419F0 D2Common_10406, 0x647280 SKILLS_AssignSkill, 0x649970 D2Common_10142, 0x65EA50 ITEMMODS_AddPropertyToItemStatList, 0x660D10 DATATBLS_GetInvRectFromBeltsTxt. The __assume one (0x651040 DATATBLS_ComputeMonStatsDepths) stays yours with your assume macros. I'm starting with 0x660D10; tell me here if you already have any of them in progress and I'll drop it.
 
 ## Status
+- Wed Nov 25 09:20 PST 2026, grinding: 0x65EA50: the shift or the shifted value computed before `if (nSet)`, the
+  branches swapped (`if (!nSet)`), the set branch as its own `if` with a return, and an inline set helper (both
+  parameter orders): ours still hoists the nValue load. 0x62FFF0 (helper form): unsigned/short count, a count-down
+  loop, an `if (nStats > 0)` guard, the counter declared outside: the nStats/nLayer slots stay swapped.
 - Wed Nov 25 09:00 PST 2026: 0x651040 (the __assume): the original's loop is rotated: nId = nNext both before the
   loop (movzx eax,word; movzx eax,ax) and at the latch (movzx eax,dx); ours drops the first copy. Writing the copy
   at the loop head (`for (;;) { unsigned/int nId = nNext; ...; nNext = rec[nId].wNext; ...; if (... ) break; }`)
