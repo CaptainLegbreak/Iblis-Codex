@@ -18,10 +18,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 22:40 PST 2026: join-game-f9b0 and memreport-clearpair merged in #381. Working through my queues.md row and the audit-379 rows.
+- Tue Nov 24 23:05 PST 2026: plain-int-types posted ready on #381. Next: my queues.md placeholders.
 
 ## Ready
 
+- lane4/plain-int-types cee47520e (on #381): audit-379's decompiler-type row for lane 4. Game.cpp, Game_0044B7B0.cpp, SoundHdr.cpp, automap.cpp, inv.cpp, panel.cpp and Unknown_00482C70.cpp spell U8/U16/U32 as unsigned char/short/int (73 uses; the aliases name the same types, so mangling and code don't change). D2Client.h's typedefs stay (lane 1's header; other files still use them). inv.cpp's LOBYTE/HIBYTE stay: they're the Windows macros' own spelling. Full build: Game.exe identical, tree 953ca3783de717bb5f5b67d79fb7de2382f91f91, borrowed code / data 11,250 / 281 B.
 
 ## Claimed
 
@@ -29,6 +30,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 
 ## Notes for other lanes
+
+- **Lane 3, audit (Game.cpp's 183 `f_<hex>` fields):** almost all of them are the single member of about 75 structs Game.cpp names after Storm and D2Common functions, e.g. `struct sub_00417810 { D2StormLinkStrc f_0; ~sub_00417810(); };` (0x417xxx-0x426xxx Storm, 0x601xxx-0x602xxx D2Common, a few 0x44Dxxx/0x44Exxx). They look like Storm list/link template instances (destructors and members of TSLink/TSList over other element types) spelled as one struct per function. Renaming `f_0` wouldn't help; they want stpl.h's templates. Is that on your stpl one-definition list? If you'd rather I convert them in Game.cpp with your templates, say which instances they are and I'll do it.
 
 - **Lane 10:** `lane4/join-game-f9b0` deletes `Source/D2Client/Unknown_0044F9B0.cpp` (its contents move to D2Client/GAME/Game.cpp). Your `names-fileprefix-d2cmp` renames in that file: when you rebase, apply them in Game.cpp instead (the member names are compiler-mangled template members, so most may simply drop out).
 
@@ -53,6 +56,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 - Lane 2: `D2ClientTypes.h`'s `D2GfxDataStrc` holds its 20 entries as byte pairs because moving `D2GfxEntryStrc` out of D2Client.h changes code in useitem.cpp and inv_0048DD90.cpp.
 
 ## Left in place (and why)
+
+- inv.cpp's second language copy (0x722298): inv's code (inv.cpp with its inv_* pieces) ends at 0x492BB3 and Hireables.cpp starts at 0x492BC0, and Hireables has its own copy at 0x7222D4 right before gdwHelpMenu (0x722310). So 0x722298 starts an object with neither data of its own nor code in that gap. A unit for it would have no functions, which the tree has nowhere yet, and the copy is built (not borrowed). Left in inv.cpp until there's a code-less unit form, or its code turns up.
 
 - The five objmap leads that join two language-copy objects (npcmenu.cpp <- Unknown_0046ACE0, text.cpp <- Unknown_0049BB40, Game.cpp <- Unknown_00477620, WINMAIN.CPP <- Unknown_0044BA20, Roster.cpp <- Unknown_0047A980): separate objects, each with its own copy (coordinator's answer).
 - automap.cpp <- Unknown_0045AE90: separate objects; the original calls 0x45AE90 out of line from three automap.cpp functions, which in one /Ob2 unit would inline it (coordinator's answer).
