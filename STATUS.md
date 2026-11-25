@@ -48,7 +48,7 @@ How far the sources are from reading like the original source tree. Byte matchin
 | … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 229 |
 | Record definitions private to a source file (`struct`/`union` in a .cpp) | 2150 |
 | Unnamed fields (`unk0x..`) in the shared headers | 770 |
-| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`) | 33 |
+| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 45 |
 | Calling-convention shims | 45 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
 | `__declspec(noinline)` / `__forceinline` | 108 / 216 |
@@ -76,7 +76,7 @@ original code, compile to different bytes, and are never used by the byte-exact 
 
 ## Non-original constructs
 
-Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original's release-build asserts and unreachable switch defaults) are listed for completeness.
+Functions whose source needs something the original source very likely did not have: a per-file compiler option other than its module's default (`build/config.json`: `flags`, or `module_flags` for a module built with other options), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a construct that only shapes code generation (a `volatile` read or qualifier, `#pragma optimize`, `__assume`, an `if`/`else` whose two arms are identical). Inline assembly that the original very likely had too (`cpuid`, `bsr`) and `__assume` reached through a module header macro (`SASSERT`, `DEFAULT_UNREACHABLE`: the original's release-build asserts and unreachable switch defaults) are listed for completeness.
 
 Not listed one by one: 4125 functions are compiled with `/GS-` and 1077 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 108 times and `__declspec(dllexport)` 138 times to keep a body out of line or emitted.
 
@@ -335,6 +335,7 @@ Not listed one by one: 4125 functions are compiled with `/GS-` and 1077 with `/E
 | 0x004107D0 | SYSTEM_AtomicRead64 | `Fog/Src/System/system.cpp` | inline assembly |
 | 0x004157C0 | FillStreamBuffer | `Storm/SOURCE/SFILE.CPP` | __assume through a header macro (original) |
 | 0x00423DC0 | Div | `Storm/SOURCE/SBig_00423DC0.cpp` | __assume through a header macro (original) |
+| 0x00424700 | Rand | `Storm/SOURCE/SBig_00424700.cpp` | identical if/else arms |
 | 0x00424B00 | sub_00424B00_BigSquare | `Storm/SOURCE/SBig_00424B00.cpp` | __assume through a header macro (original) |
 | 0x00425720 | sub_00425720_Rotl | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
 | 0x00425730 | sub_00425730_Sha1Round0 | `Storm/Unknown_00425720.cpp` | compiler option /Ob2 |
@@ -437,7 +438,10 @@ Not listed one by one: 4125 functions are compiled with `/GS-` and 1077 with `/E
 | 0x0042DC50 | zError | `Storm/zlib/zutil.c` | compiler option /Ob2, compiler option /TC |
 | 0x0042DC70 | zcalloc | `Storm/zlib/zutil.c` | compiler option /Ob2, compiler option /TC |
 | 0x0042DC90 | zcfree | `Storm/zlib/zutil.c` | compiler option /Ob2, compiler option /TC |
+| 0x0044CD70 | GAME_TickKeepAlive | `D2Client/GAME/Game.cpp` | identical if/else arms |
+| 0x0044EFA0 | GAME_RunGameFrame | `D2Client/GAME/Game_0044D080.cpp` | identical if/else arms |
 | 0x00474160 | DLIGHTMAP_MakeLightEntry | `D2Client/DRAW/dLightMap.cpp` | volatile read or qualifier |
+| 0x00477170 | PALSHIFT_LoadPalShift | `D2Client/GAME/PalShift.cpp` | #pragma optimize |
 | 0x00477DD0 | sub_00477DD0 | `D2Client/Unknown_00477760.cpp` | __assume |
 | 0x004A9870 | SPELLSEL_DrawSkillSlot | `D2Client/UI/spellsel.cpp` | volatile read or qualifier |
 | 0x004B8100 | DIALOG_DrawDialog | `D2Client/UI/dialog.cpp` | volatile read or qualifier |
@@ -509,7 +513,7 @@ Not listed one by one: 4125 functions are compiled with `/GS-` and 1077 with `/E
 | 0x004FA840 | D2Win_COMMANDS_Snapshot_6F8ADE70 | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FA860 | D2Win_COMMANDS_MouseButton_6F8AE070 | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FBF30 | TEXTBOX_Draw | `D2Win/Src/D2WinTextBox.cpp` | volatile read or qualifier |
-| 0x00502550 | D2Win_10128 | `D2Win/Src/D2WinFont.cpp` | __assume |
+| 0x00502550 | D2Win_10128 | `D2Win/Src/D2WinFont.cpp` | __assume, identical if/else arms |
 | 0x0050CA00 | sub_0050CA00_GlideShadowTileDrawPerspective | `D2Glide/Unknown_0050BD30.cpp` | volatile read or qualifier |
 | 0x005179B3 | sub_005179B3_CopyRect | `D2Hell/Unknown_00516D8B.cpp` | inline assembly |
 | 0x00517A36 | sub_00517A36_CompareMemory | `D2Hell/Unknown_00516D8B.cpp` | inline assembly |
@@ -545,25 +549,32 @@ Not listed one by one: 4125 functions are compiled with `/GS-` and 1077 with `/E
 | 0x0052C900 | GAME_TriggerClientSave | `D2Game/GAME/Game.cpp` | volatile read or qualifier |
 | 0x00574250 | MONSTER_Initialize | `D2Game/MONSTER/Monster_00574250.cpp` | compiler option /Ob1 |
 | 0x00579090 | SUNITNPC_RefillNpcStore | `D2Game/UNIT/SUNITNPC.CPP` | volatile read or qualifier |
-| 0x00580C20 | PLRMODE_UpdateMovement | `D2Game/PLAYER/PlrModes.cpp` | volatile read or qualifier |
+| 0x00580C20 | PLRMODE_UpdateMovement | `D2Game/PLAYER/PlrModes.cpp` | volatile read or qualifier, identical if/else arms |
+| 0x005852E0 | OBJMODE_MainObeliskHandler | `D2Game/OBJECTS/ObjMode.cpp` | identical if/else arms |
 | 0x005A48C0 | MONSTERUNIQUE_PromoteToChampion | `D2Game/MONSTER/MonsterUnique_005A49B0.cpp` | compiler option /Ob1 |
 | 0x005A49B0 | D2GAME_SpawnSuperUnique_6FC6F690 | `D2Game/MONSTER/MonsterUnique_005A49B0.cpp` | compiler option /Ob1 |
 | 0x005A5690 | PARTYSCREEN_SendEventUpdateToClient | `D2Game/PLAYER/PartyScreen.cpp` | volatile read or qualifier |
 | 0x005AF170 | MISSMODE_SrvDo16_FrozenOrbNova | `D2Game/MISSILES/MissMode.cpp` | __assume |
 | 0x005B0FF0 | D2GAME_AICORE_MinionLeash_6FCF0D10 | `D2Game/Ai/AiThink.cpp` | volatile read or qualifier |
 | 0x005B2830 | MONSTERSPAWN_SpawnMinionParty | `D2Game/Unknown_005B24E0.cpp` | volatile read or qualifier |
-| 0x005B2A00 | D2GAME_SpawnNormalMonster | `D2Game/Unknown_005B24E0.cpp` | volatile read or qualifier |
+| 0x005B2A00 | D2GAME_SpawnNormalMonster | `D2Game/Unknown_005B24E0.cpp` | volatile read or qualifier, identical if/else arms |
 | 0x005C09E0 | SKILLITEM_EventFunc31_Reanimate | `D2Game/SKILLS/SkillItem.cpp` | volatile read or qualifier |
 | 0x005D3BA0 | SKILLS_ApplyProgressiveLeechAndElementalDamage | `D2Game/SKILLS/SkillAss.cpp` | volatile read or qualifier |
 | 0x005D4680 | SKILLS_MissileInit_CurvingPath | `D2Game/SKILLS/SkillAss.cpp` | volatile read or qualifier |
+| 0x005DD370 | AIUTIL_FindMonsterAtCoords | `D2Game/Ai/AiUtil.cpp` | identical if/else arms |
+| 0x005E3930 | AITHINK_PetMove | `D2Game/Ai/AiThink4.cpp` | identical if/else arms |
 | 0x005EB970 | AITHINK_Fn106_143_ShadowMaster | `D2Game/Ai/AiThink4.cpp` | volatile read or qualifier |
 | 0x006009C0 | sub_006009C0 | `D2CMP/Unknown_006009C0.cpp` | compiler option /Od, compiler option /Oi, compiler option /Oy, without /Oy- |
+| 0x00613F80 | DATATBLS_LoadSkills_SkillDescTxt | `D2Common/DATATBLS/DataTbls_00613F80.cpp` | identical if/else arms |
+| 0x0061F500 | DATATBLS_LoadLvlSubTxt | `D2Common/DATATBLS/LvlTbls.cpp` | identical if/else arms |
 | 0x00621F90 | UNITS_AllocPlayerData | `D2Common/UNITS/Units.cpp` | volatile read or qualifier |
+| 0x0062FFF0 | ITEMS_SerializeItemComplete | `D2Common/ITEMS/Items.cpp` | identical if/else arms |
 | 0x006419F0 | D2Common_10406 | `D2Common/DRLG/Drlg.cpp` | volatile read or qualifier |
 | 0x00651040 | DATATBLS_ComputeMonStatsDepths | `D2Common/DATATBLS/MonsterTbls.cpp` | __assume |
 | 0x0065EA50 | ITEMMODS_AddPropertyToItemStatList | `D2Common/ITEMS/ItemMods.cpp` | volatile read or qualifier |
+| 0x006B38A0 | D3DCORE_CopySurface | `D2Direct3D/Src/d3dCore.cpp` | identical if/else arms |
 | 0x006B83A0 | sub_006B83A0_DrawPerspective | `D2Direct3D/Unknown_006B7530.cpp` | volatile read or qualifier |
-| 0x006BD780 | FOG_10207 | `Fog/Src/Excel/Excel.cpp` | __assume through a header macro (original) |
+| 0x006BD780 | FOG_10207 | `Fog/Src/Excel/Excel.cpp` | __assume through a header macro (original), identical if/else arms |
 | 0x006BE310 | FOG_SetServerConfig | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006BE350 | FOG_StartServer | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006BE390 | FOG_10186 | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
