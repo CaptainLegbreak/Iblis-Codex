@@ -1207,7 +1207,7 @@ static float SOUND_PowF(float fBase, float fExponent)
     return (float)pow(fBase, fExponent);
 }
 
-static float SOUND_GetDistance(float fX, float fY, float fZ)
+static double SOUND_GetDistance(float fX, float fY, float fZ)
 {
     return SOUND_SqrtF(fX * fX + fY * fY + fZ * fZ);
 }
@@ -1226,17 +1226,15 @@ static __forceinline float SOUND_GetAttenuation(float fDistance)
 // 0x00516830
 void __fastcall D2SOUNDSMP_GetPositionalVolumePan(int* pVolume, int* pPan, float fX, float fY, float fZ)
 {
-    // stands for the original rounding the distance twice through the fY slot and the pan through the fX slot (no plain form found)
-    *(volatile float*)&fY = SOUND_GetDistance(fX, fY, fZ);
-    const float fAttenuation = SOUND_GetAttenuation(*(volatile float*)&fY);
+    const float fAttenuation = SOUND_GetAttenuation(SOUND_GetDistance(fX, fY, fZ));
 
     int nVolume = (int)(255.0f / SOUND_PowF(10.0f, fAttenuation / 20.0f));
     nVolume = nVolume > 0 ? nVolume : 0;
     if (nVolume >= 255)
         nVolume = 255;
 
-    *(volatile float*)&fX = fX * 127.0f / 1.25f + 128.0f;
-    int nPan = (int)*(volatile float*)&fX;
+    const float fPan = fX * 127.0f / 1.25f + 128.0f;
+    int nPan = (int)fPan;
     nPan = nPan > 0 ? nPan : 0;
     if (nPan >= 255)
         nPan = 255;
