@@ -216,8 +216,8 @@ struct D2PlrIntroSaveStrc
 {
     unsigned short nHeader;
     unsigned short nLength;
-    unsigned char unk0x04[3][8];
-    unsigned char unk0x1C[3][8];
+    unsigned char nQuestIntroFlags[3][8];
+    unsigned char nNpcIntroFlags[3][8];
 };
 
 int __fastcall PLRSAVE2_ReadItemSection(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char** ppSection, unsigned char* pEnd, int nVersion, int nUnused, int* pError); // 0x0056A7E0
@@ -781,8 +781,8 @@ int __fastcall PLRSAVE2_WritePlrIntroSection(D2GameStrc* pGame, D2UnitStrc* pPla
     tPlrIntroSave.nLength = sizeof(tPlrIntroSave);
     for (int i = 0; i < 3; ++i)
     {
-        PLRINTRO_CopyQuestIntroFlagsToBuffer(pPlayerData->pPlayerIntro[i], tPlrIntroSave.unk0x04[i]);
-        PLRINTRO_CopyNpcIntroFlagsToBuffer(pPlayerData->pPlayerIntro[i], tPlrIntroSave.unk0x1C[i]);
+        PLRINTRO_CopyQuestIntroFlagsToBuffer(pPlayerData->pPlayerIntro[i], tPlrIntroSave.nQuestIntroFlags[i]);
+        PLRINTRO_CopyNpcIntroFlagsToBuffer(pPlayerData->pPlayerIntro[i], tPlrIntroSave.nNpcIntroFlags[i]);
     }
 
     memcpy(pSection, &tPlrIntroSave, sizeof(tPlrIntroSave));
@@ -1471,8 +1471,8 @@ int __fastcall PLRSAVE2_ReadPlrIntroSection(D2GameStrc* pGame, D2UnitStrc* pPlay
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
     for (int i = 0; i < 3; ++i)
     {
-        PLRINTRO_CopyBufferToQuestIntroFlags(pPlayerData->pPlayerIntro[i], pPlrIntro->unk0x04[i]);
-        PLRINTRO_CopyBufferToNpcIntroFlags(pPlayerData->pPlayerIntro[i], pPlrIntro->unk0x1C[i]);
+        PLRINTRO_CopyBufferToQuestIntroFlags(pPlayerData->pPlayerIntro[i], pPlrIntro->nQuestIntroFlags[i]);
+        PLRINTRO_CopyBufferToNpcIntroFlags(pPlayerData->pPlayerIntro[i], pPlrIntro->nNpcIntroFlags[i]);
     }
 
     *ppSection = pSectionEnd;

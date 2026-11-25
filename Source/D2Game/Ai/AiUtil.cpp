@@ -81,7 +81,7 @@ struct D2AiCallback7ArgStrc
 {
     D2UnitStrc* pTarget;
     int nDistance;
-    D2UnitStrc* unk0x08;
+    D2UnitStrc* pExcludedUnit;
 };
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -105,7 +105,7 @@ struct D2AiCallback11ArgStrc
 {
     D2UnitStrc* pTarget;
     int nDistance;
-    D2UnitStrc* unk0x08;
+    D2UnitStrc* pExcludedUnit;
 };
 
 int __fastcall AIUTIL_HasClearApproachToTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005DC640
@@ -165,7 +165,7 @@ struct D2AiTargetSearchArgsStrc
     int nDistance;
     int bCheckTargetCollision;
     int nMaxDistance;
-    int unk0x10;
+    int nAreaTile;
     D2UnitStrc* pAlternativeTarget;
     int nAlternativeDistance;
 };
@@ -245,7 +245,7 @@ struct D2AiTargetArgsStrc
         {
             int bCheckTargetCollision;
             int nMaxDistance;
-            int unk0x10;
+            int nAreaTile;
             D2UnitStrc* pAlternativeTarget;
             int nAlternativeDistance;
         } tSearch;
@@ -321,7 +321,7 @@ struct D2PartyCallbackArgStrc
     AIUTIL_TargetCallback pfCallback;
     D2GameStrc* pGame;
     D2UnitStrc* pUnit;
-    void* unk0x0C;
+    void* pCallbackArg;
 };
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
@@ -879,7 +879,7 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHostileTarget(D2GameStrc* pGa
         if (pTarget->dwUnitType == UNIT_MONSTER && (!pUnit || pUnit->dwUnitType != UNIT_PLAYER) && !STATLIST_GetUnitAlignment(pUnit) && pArg->bCheckTargetCollision && !MONSTERS_IsDead(pTarget))
         {
             D2AiControlStrc* pAiControl = (D2AiControlStrc*)sub_00541860(pTarget);
-            if ((pAiControl->nAiFlags & 8) && pArg->unk0x10 == D2Common_10095(UNITS_GetRoom(pTarget), CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget)))
+            if ((pAiControl->nAiFlags & 8) && pArg->nAreaTile == D2Common_10095(UNITS_GetRoom(pTarget), CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget)))
             {
                 pAiControl->nAiFlags |= 8;
                 pArg->bCheckTargetCollision = 0;
@@ -978,7 +978,7 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHighThreatTarget(D2GameStrc* 
 {
     D2AiCallback7ArgStrc* pArg = (D2AiCallback7ArgStrc*)pCallbackArg;
 
-    if (pTarget == pArg->unk0x08)
+    if (pTarget == pArg->pExcludedUnit)
     {
         return 0;
     }
@@ -1008,7 +1008,7 @@ D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHighThreatTargetWithClearAppr
 {
     D2AiCallback11ArgStrc* pArg = (D2AiCallback11ArgStrc*)pCallbackArg;
 
-    if (pTarget == pArg->unk0x08 || !AIUTIL_IsHostileTarget(pGame, pUnit, pTarget))
+    if (pTarget == pArg->pExcludedUnit || !AIUTIL_IsHostileTarget(pGame, pUnit, pTarget))
     {
         return 0;
     }
@@ -1265,7 +1265,7 @@ void __fastcall AIUTIL_MinionCallback_FindTarget(D2UnitStrc* pUnit, void* pArg, 
     D2GameStrc* pGame = pPartyCallbackArg->pGame;
     D2UnitStrc* pOwner = pPartyCallbackArg->pUnit;
     AIUTIL_TargetCallback pfCallback = pPartyCallbackArg->pfCallback;
-    void* pCallbackArg = pPartyCallbackArg->unk0x0C;
+    void* pCallbackArg = pPartyCallbackArg->pCallbackArg;
     D2UnitStrc* pResult = pfCallback(pGame, pOwner, pUnit, pCallbackArg);
     if (pResult)
     {
@@ -1292,7 +1292,7 @@ static D2UnitStrc* __stdcall AIUTIL_FindTargetAmongMinions(D2GameStrc* pGame, vo
     partyCallbackArg.pfCallback = pfCallback;
     partyCallbackArg.pGame = pGame;
     partyCallbackArg.pUnit = pUnit;
-    partyCallbackArg.unk0x0C = pCallbackArg;
+    partyCallbackArg.pCallbackArg = pCallbackArg;
 
     AIGENERAL_ExecuteCallbackOnMinions(pOwner, &partyCallbackArg, &pTarget, AIUTIL_MinionCallback_FindTarget);
     return pTarget;
@@ -1804,10 +1804,10 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
         {
             arg.pTarget = 0;
             arg.nDistance = 0x7FFFFFFF;
-            const int nUnk = D2Common_10095(UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
+            const int nAreaTile = D2Common_10095(UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
             arg.tSearch.bCheckTargetCollision = bCheckCollision;
             arg.tSearch.nMaxDistance = 35;
-            arg.tSearch.unk0x10 = nUnk;
+            arg.tSearch.nAreaTile = nAreaTile;
             arg.tSearch.pAlternativeTarget = 0;
             arg.tSearch.nAlternativeDistance = 0x7FFFFFFF;
             AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, 0, 5);

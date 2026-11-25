@@ -67,17 +67,13 @@ struct R00601DC0;
 
 struct D2TimerArg2Strc
 {
-    union
-    {
-        int nUnitGUID;
-        int unk0x00;
-    };
+    int nUnitGUID;
     D2TimerArg2Strc* pNext;
 };
 
 struct D2TimerArgStrc
 {
-    D2TimerArg2Strc* unk0x00;
+    D2TimerArg2Strc* pGUIDList;
     unsigned int dwUnitId;
 };
 
@@ -756,14 +752,14 @@ D2TimerArgStrc* __fastcall OBJECTS_AllocTimerArg(D2GameStrc* pGame)
     D2TimerArg2Strc* pArg = (D2TimerArg2Strc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2TimerArg2Strc), ".\\OBJECTS\\Objects.cpp", 0x1BC, 0);
     pArg->nUnitGUID = -1;
     pArg->pNext = 0;
-    pTimerArg->unk0x00 = pArg;
+    pTimerArg->pGUIDList = pArg;
     return pTimerArg;
 }
 
 // 0x0054F580
 void __fastcall OBJECTS_FreeTimerArg(D2GameStrc* pGame, D2TimerArgStrc* pTimerArg)
 {
-    D2TimerArg2Strc* pArg = pTimerArg->unk0x00;
+    D2TimerArg2Strc* pArg = pTimerArg->pGUIDList;
     while (pArg)
     {
         D2TimerArg2Strc* pNext = pArg->pNext;
