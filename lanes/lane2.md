@@ -2,7 +2,13 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 ~13:05 PT): 0x679C80. The original has no cast on the backtrack test (`lea ecx,[eax-4]; and ecx,7; cmp ecx,ebx`), so the cast form (450/450) is length-fitting, not the source; working the plain form (447/450, 86 lines). c2prio on it: round 1 gives pPathInfo 46 against nPrevDir 45 for ebx. The start-point block (L1893-1895) has K=5 because the struct load makes a temp (tmp#25, the `mov eax,edi` the original doesn't have); without that temp K=4, pPathInfo falls to 44 and nPrevDir takes ebx. So one cause for both differences: find the plain form whose start-point load makes no temp (the original loads straight into edi, stores edi to tCurCoords, compares X from the frame). Tried so far: 208 spellings of the block (which point is loaded first, which each compare reads, store order) and of the statement order after it. Next: forms that change how the point is copied (inline accessor, reference, by-value helper).
+Status (Wed Nov 25 ~13:20 PT): decls-fog-storm-3 Ready (on #405, clean on #407). **0x679C80, not matched yet; what is established:**
+  - The original has no cast on the backtrack test, so the 450/450 cast form is not the source. Plain forms only.
+  - Whatever the spelling (casts, unions, declaration places, an inline step helper taking `&tCurCoords`, 300+ variants), the start-point block reaches the back end in one of three forms, decided only by which variable receives the load and which the tests read: (b) `tCurCoords = start; tPoint = tCurCoords` or both tests on tCurCoords: 447/450, 86 lines, a register copy of tCurCoords in eax; (a) `tPoint = start; tCurCoords = tPoint`, tests on tPoint: 446/450, pPathInfo keeps ebx, far off; (d) both loaded from the field, X from tCurCoords and Y from tPoint: 446/450, 94 lines, and **the right global picture**: start point straight into edi, pPathInfo spilled at entry, tNextPoint in ebx (tie 49:49 with pPathInfo, won on the key), Y from a late copy.
+  - What form (d) still has wrong, all in +0x91..+0xDB: our compiler forwards the stored tCurCoords into the X test (`cmp di,bx` before the store; the original re-reads `word [ebp-4]`); it keeps pPathInfo in ecx across the `if` (the original puts the Y copy in ecx and reloads pPathInfo after); in the `if` body it stores ebx to tCurCoords (the original copies ebx to edi first and stores edi).
+  - Note for anyone reading with c2diag: `iblis_pp.py` preprocesses `IBLIS_ROOT` (default /home/claude/iblis-codex), not the worktree you are in. Set `IBLIS_ROOT` or the reading is of another source.
+  - mutsearch.py from form (d) reaches 450/450 only by padding with casts that change behaviour (`(unsigned char)tPoint.Y`); not usable.
+  Next: c2temps/c2split on forms (b) and (d) to see why the tCurCoords read is forwarded in one and not the other; then 0x62B5B0 from lane7/0062B5B0-wip.
 
 ## Claimed
 
