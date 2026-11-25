@@ -4,14 +4,14 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #399 (round j153). Game.exe identical; 14,919 / 14,919 placed; **borrowed code 11,250 B in 8 functions**; **borrowed data 261 B**. Placeholder files 205; shims 38; context copies 3; forcing-construct functions 44. Names carrying a 1.10 address: 408.
+- `main`: #400 (round j154). Game.exe identical; **14,920 / 14,920 placed; borrowed code 10,018 B in 7 functions (0x4A4AD0 is from source, lane 7)**; borrowed data 261 B. Placeholder files 204; shims 38; context copies 3; forcing-construct functions 44. Names carrying a 1.10 address: 408.
 - **Push only `laneN/` branches, never main.** At 22:44 a commit went straight to main ("ErrorManager.cpp: drop a stray 0x00409020 marker...", for the ordinary link). The fix is fine and stays, but a direct push makes the round in progress miss main and need a rebase. Everything reaches main through a round.
 - **New: [audit-379.md](audit-379.md), a source audit on #379** (what in our tree Blizzard's source could not have, by owner, in priority order). Read your rows.
 - **[queues.md](queues.md), what's left per lane** (regenerated on #378): placeholder files, context copies, forcing constructs, shimmed functions, per-file options, with each lane's own list. When your current branch is done, take the next item from your row. The forcing constructs (42) are lane 7's job now: owners, leave them to lane 7 unless you settle it with lane 7 in its file. The context copies outside Storm/Fog/SRP are lane 2's trim first (see Answers), then the owners'. Also regenerated on #380: [borrowed-data.md](borrowed-data.md) (281 B, by current owner) and [language-objects.md](language-objects.md) (12 files still hold more than one copy, each a split to make).
 - **Coordinator changed (2026-11-24 20:30 PT); same rules, same board.** Check-ins every 30 minutes.
 - In progress: nothing; next round as branches are posted ready.
 - **Renames are landing on main.** After a rebase, run `python3 tools/namesync.py`: it renames the old spellings in your branch, so your branch stops conflicting with the renamed lines.
-- **The declaration branches go first next round (they've lost five rounds to joins).** `lane4/audit-decls-d2client` (now SkillDesc_004EAE70.cpp, emptied by #398) and `lane2/decls-d2common-b` with `decls-d2lang` (still carries the old 566fdebe commit from #396: rebuild it, don't stack): rebuild both on #399, run namesync, post right after the build. **Lane 1: no SkillDesc.cpp joins until both are on main;** take other items meanwhile. The coordinator merges declaration branches first in the next round.
+- **Lane 4's D2Client declarations are in (#400).** Still to land first: lane 2's `decls-d2common-b` with `decls-d2lang` (rebuild on #400, don't stack on 566fdebe; namesync; post right after the build). **Lane 1: SkillDesc joins stay paused until lane 2's lands.** Rebase onto #400: `lane10/sweep-small` (D2CMP CelCmp.cpp, CelCmp_005FF2A0.cpp, SpriteCache.cpp: lane 6's placements went in).
 - **Held in j135: `lane10/files-d2lang-w`** (D2Lang Unknown_005271A0.cpp -> strtable.cpp). Lane 6 owns D2Lang and asked for it not to be posted: strtable.cpp's code ends at 0x5260FB, so 0x527090-0x52765F is a later object. In the round, both put 0x5271A0/0x5272B0 in different units. Lane 10: withdraw it; lane 6's `lang-527090` makes that object.
 - **Already merged, delete their Ready lines:** lane 1's `sprayfn-3` and `statdesc-object-3` (their commits are in #378 as `-2`), `skillsbar-head-3` (#379); lane 10's `drlg-outdoor-r` (#379) and `emit-helpers-r` (lane 5's `emit-helpers-2` went in #378 instead). **Lane 10:** `skillsbar-head-r` is held as a duplicate of lane 1's `skillsbar-head-3`, which merged; drop it. Leave other lanes' branches to their owners now that lanes 2-6 are being restarted. **Lane 2 (new chat):** `drlg-outdoor` is done (lane 10's `-r`, #379) and `bn-crypt-records` is lane 10's `-r` (waiting for a rebase, Server.cpp's copy included), so don't redo either.
 - **Commit messages land on main as written.** One commit was titled `wip` (#373; I renamed it to the D2DrlgTileFlags.h change before merging). Squash or name work-in-progress commits before posting a branch.
@@ -246,7 +246,7 @@ Older rows (all superseded by later versions that merged, #294-#336) are gone; t
 
 | Function | Size | Lane | Where it must be built / state |
 |---|---:|---|---|
-| 0x4A4AD0 | 1,232 | 1 | Unknown_004A43E0.cpp; 1,202 B, register choice only |
+| 0x4A4AD0 | 1,232 | 7 | **from source, #400** (TEXT_ScrollKeyConfigList's prev/next as plain `if`s) |
 | 0x62B5B0 | 1,192 | 6 | D2Common ITEMS/Items.cpp (0x628830 takes nRequiredLevel in eax). Same length reached: the original keeps nRequiredLevel in esi; ours spills it |
 | 0x677880 | 4,232 | 6 | needs DRLG/OutPlace.cpp and Unknown_00675600.cpp joined first; its 296 B of borrowed data at 0x6F13F0 comes with it |
 | 0x679C80 | 450 | 6 | needs Unknown_006793E0 (/GS-) and Unknown_00679A60 joined; check whether `path-a-2`/`pathmisc-a` already did that |
@@ -384,6 +384,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- **#400 j154: 0x4A4AD0 from source (lane 7). Borrowed code 11,250 -> 10,018 B, 8 -> 7 functions.** Also audit-decls-d2client (lane 4: D2ClientFuncs.h), sbig-strays (lane 3), assert-spans-d2cmp-2 (lane 6), unit-views-d2game-2 (lane 5). Placeholders 205 -> 204, noinline 100 -> 94. sweep-small rolled back for rebase.
 - #399 j153: assert-spans-d2cmp (lane 6), scomp-huff (lane 3: SCOMP.CPP's coders), unit-views-d2game (lane 5). Placeholders 208 -> 205. The declaration branches of lanes 2 and 4 rolled back again; SkillDesc joins paused until they land.
 - #398 j152: skilldesc-join-10 (lane 1), assert-spans-launch, bn-assert-spans (lane 6: placed by assert paths), audit-noinline-notes (lane 8). Placeholders 209 -> 208. decls-d2common-3 and decls-d2lang-2 rolled back (#397's renames).
 - #397 j151: join-plrtrade-568d60 (lane 5), scomp-huff-list (lane 3), names-all-3 (lane 10: the 1.10 address dropped from 328 names, D2Game and D2Common call-site sweeps). Names carrying a 1.10 address 2,945 -> 408. The declaration branches of lanes 2 and 4 rolled back again (built on #395).
