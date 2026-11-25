@@ -110,12 +110,12 @@ typedef int (__fastcall* KeyCallback)(const char*);
 
 typedef void (__fastcall* FieldCallback)(const char*,void*,int,int,int,int);
 
-static void sub_006BCD50_MakeCode(const char* szText, char* szCode);
+static void EXCEL_MakeCode(const char* szText, char* szCode); // 0x006BCD50
 
 extern "C" double __cdecl pow(double,double);
 
 // 0x006BCD50
-static void sub_006BCD50_MakeCode(const char* szText, char* szCode)
+static void EXCEL_MakeCode(const char* szText, char* szCode)
 {
     if (!szText[0])
     {
@@ -153,7 +153,7 @@ static void sub_006BCD50_MakeCode(const char* szText, char* szCode)
 unsigned int __stdcall sub_006BCD50_Shim(const char* szText)
 {
     unsigned int dwCode;
-    sub_006BCD50_MakeCode(szText, (char*)&dwCode);
+    EXCEL_MakeCode(szText, (char*)&dwCode);
     return dwCode;
 }
 
@@ -633,7 +633,7 @@ D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine)
 }
 
 // 0x006BE190
-void __fastcall sub_006BE190_BuildGammaTable(int gamma,void* table,double scale,int entrySize,int entries,int mask)
+void __fastcall EXCEL_BuildGammaTable(int gamma,void* table,double scale,int entrySize,int entries,int mask)
 {
  D2_ASSERT(entrySize==1 || entrySize==2 || entrySize==4,14);
  D2_ASSERT(gamma>=0,15);

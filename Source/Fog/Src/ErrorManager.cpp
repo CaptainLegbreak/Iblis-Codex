@@ -1517,7 +1517,7 @@ static int __fastcall FOG_AppendBackslash(char* szPath, int nSize)
 }
 
 // 0x00407F70
-void __fastcall sub_00407F70_LogText(void* pUnused, const char* szText)
+void __fastcall ERRORMANAGER_LogText(void* pUnused, const char* szText)
 {
     LOGMANAGER_LogWritePrefixedLine(&gszEmptyAssertText, szText);
 }

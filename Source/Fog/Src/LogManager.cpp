@@ -660,7 +660,7 @@ static inline LogManager::Message* LOGMANAGER_QueueHead(TSList<LogManager::Messa
 }
 
 // 0x004101C0
-unsigned long __stdcall sub_004101C0_LogThreadProc(void* pParam)
+unsigned long __stdcall LOGMANAGER_LogThreadProc(void* pParam)
 {
     unsigned long dwStopTime = 0;
     for (;;)
@@ -721,7 +721,7 @@ void __cdecl LOGMANAGER_InitLogSystem()
 {
 // build: symbol ?gbLogThreadStop@* 0x0075E830
     gbLogThreadStop = 0;
-    ghLogThread = CreateThread(0, 0, sub_004101C0_LogThreadProc, 0, 0, &gnLogThreadId);
+    ghLogThread = CreateThread(0, 0, LOGMANAGER_LogThreadProc, 0, 0, &gnLogThreadId);
     gbLogInitialized = 1;
     GetLocalTime(&gLogStartTime_0075D288);
     for (unsigned int i = 0; i < 20; i++)

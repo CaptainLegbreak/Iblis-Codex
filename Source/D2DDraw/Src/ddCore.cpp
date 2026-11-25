@@ -316,7 +316,7 @@ struct D2FogSystemInfoStrc;
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dScale, int nArg, int nEntries, int nMask); // 0x006BE190
+void __fastcall EXCEL_BuildGammaTable(int nGamma, void* pTable, double dScale, int nArg, int nEntries, int nMask); // 0x006BE190
 
 unsigned long gdwVideoFlags; // 0x00881140
 
@@ -376,7 +376,7 @@ void __fastcall sub_00510160_DDrawSetPalette(tagPALETTEENTRY* pPalette)
     unsigned char abGamma[256];
 // build: symbol ?gnDDrawGammaScale@* 0x0072F7C8
 // build: symbol ?gnDDrawGamma@* 0x0072F7CC
-    sub_006BE190_BuildGammaTable(gnDDrawGamma, abGamma, gnDDrawGammaScale, 1, 256, 0xFF);
+    EXCEL_BuildGammaTable(gnDDrawGamma, abGamma, gnDDrawGammaScale, 1, 256, 0xFF);
     for (int i = 0; i < 256; ++i)
     {
         gatGamePalette[i].peRed = abGamma[gaDDrawSavedPalette[i].peRed];
