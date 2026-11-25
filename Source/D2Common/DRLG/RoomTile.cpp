@@ -159,12 +159,6 @@ static void __stdcall DRLGROOMTILE_LoadInitRoomTile(void* pMemPool, int nX, int 
 
 static void __stdcall DRLGROOMTILE_SetTileDataPosition(D2DrlgTileDataStrc* pTileData, D2DrlgRoomStrc* pDrlgRoom, int nX, int nY);
 
-struct D2DrlgDrlgStrc
-{
-    char unk0x000[0x464];
-    void* hArchive;
-};
-
 struct D2UnkOutdoorStrc
 {
     D2DrlgLevelStrc* pLevel;
