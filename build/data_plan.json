@@ -317,7 +317,6 @@
    "bytes": 312,
    "definitions": 7,
    "externs": [
-    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8",
     "extern \"C\" void __cdecl GAME_DrawGameView(); // 0x0044C990",
     "extern \"C\" void __cdecl sub_0045FDE0_DrawLoadingScreen(); // 0x0045FDE0",
     "extern \"C\" void __cdecl sub_00460190_DrawFrame(); // 0x00460190",
@@ -348,7 +347,8 @@
     "extern \"C\" void __cdecl GAME_ApplyConfigBattleNetIP(); // 0x0044D650",
     "extern \"C\" void __cdecl GAME_ApplyConfigMcpIP(); // 0x0044D680",
     "extern \"C\" void __cdecl GAME_ApplyConfigClass(); // 0x0044D6B0",
-    "extern \"C\" void __cdecl GAME_ApplyConfigName(); // 0x0044D890"
+    "extern \"C\" void __cdecl GAME_ApplyConfigName(); // 0x0044D890",
+    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/GAME/Game.inc",
