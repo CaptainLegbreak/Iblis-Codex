@@ -60798,6 +60798,10 @@
      "length": 472
     },
     {
+     "va": "0x005DD7F0",
+     "length": 1084
+    },
+    {
      "va": "0x005DDC30",
      "length": 200,
      "name": "?AIUTIL_SelectAiTargetWithCollisionCheck@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAH2@Z"

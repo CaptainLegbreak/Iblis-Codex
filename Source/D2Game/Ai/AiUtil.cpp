@@ -1975,7 +1975,7 @@ D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
             arg.nDistance = 0x7FFFFFFF;
             arg.tSearch.bCheckTargetCollision = bCheckCollision;
             arg.tSearch.nMaxDistance = 35;
-            arg.tSearch.unk0x10 = nCollision;
+            arg.tSearch.nAreaTile = nCollision;
             arg.tSearch.pAlternativeTarget = 0;
             arg.tSearch.nAlternativeDistance = 0x7FFFFFFF;
             AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, 0, 5);
