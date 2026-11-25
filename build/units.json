@@ -56215,6 +56215,11 @@
      "name": "?D2CMPTileCachePreLoadMarkedTiles@@YAXXZ"
     },
     {
+     "va": "0x005FE170",
+     "length": 83,
+     "name": "?sub_005FE170_SpriteCacheFreeCallback@@YIXPAX@Z"
+    },
+    {
      "va": "0x005FE1D0",
      "length": 28,
      "name": "?D2CMPTileFreePoolEntry@@YIXPAX@Z"
@@ -62670,17 +62675,6 @@
      "va": "0x0066A250",
      "length": 3,
      "name": "sub_0066A250"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_005FE010.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FE170",
-     "length": 83,
-     "name": "?sub_005FE170_SpriteCacheFreeCallback@@YIXPAX@Z"
     }
    ]
   },
