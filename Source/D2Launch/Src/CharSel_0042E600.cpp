@@ -301,4 +301,4 @@ fail:
     MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(nStringId), sub_004336C0);
     return 0;
 }
-void __cdecl sub_0043A610_ShowString(); // 0x0043A610
+void __cdecl CHARSEL_ShowString(); // 0x0043A610

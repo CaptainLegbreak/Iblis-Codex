@@ -958,7 +958,7 @@ char gszCharName[256];                                                          
 
 int gnCharCount;                                                                                   // 0x00779DE0
 
-static int sub_00438030_IsNotListedCode(int nValue);
+static int CHARSEL_IsNotListedCode(int nValue); // 0x00438030
 
 #include "gen/data/Source/D2Launch/Src/CharSel/gnSelectionB.inc"
 
@@ -1042,7 +1042,7 @@ void __fastcall MAINMENUS_ShowFourTexts(const Unicode* pText1, const Unicode* pT
 
 void __cdecl MAINMENUS_ShowLoginScreen(); // 0x00435330
 
-void __fastcall sub_0042FF10_SetValue(int nValue); // 0x0042FF10
+void __fastcall MAINMENUS_SetValue(int nValue); // 0x0042FF10
 
 extern int gnLogonRetries; // 0x0070CC4C
 
@@ -1301,7 +1301,7 @@ static Unicode* CHARSEL_GetClassName(Unicode* pBuffer, int nClass)
 }
 
 // 0x00438030
-static int sub_00438030_IsNotListedCode(int nValue)
+static int CHARSEL_IsNotListedCode(int nValue)
 {
     switch (nValue)
     {
@@ -1887,7 +1887,7 @@ BUILD_MODEL:
     unsigned char type=gpCurrentCharEntry->nType;
     int mode=5;
     if(gpCurrentCharEntry->wFlags&4) {
-        if(gpCurrentCharEntry->wFlags&8) type=8+(sub_00438030_IsNotListedCode(type)!=0);
+        if(gpCurrentCharEntry->wFlags&8) type=8+(CHARSEL_IsNotListedCode(type)!=0);
         else if(FOG_IsExpansion() || gpCurrentCharEntry->nType<5) mode=1;
     }
     gpCurrentCharEntry->pAnim=D2COMP_CreateCompositeUnit(type,mode,gpCurrentCharEntry->aFlags,gpCurrentCharEntry->aColors);
@@ -2101,7 +2101,7 @@ void __fastcall sub_A15_Emit_00437F60(const unsigned char* pClass)
 
 int __fastcall sub_A15_Emit_00438030(const unsigned char* pClass)
 {
-    return sub_00438030_IsNotListedCode(*pClass);
+    return CHARSEL_IsNotListedCode(*pClass);
 }
 
 unsigned int __fastcall sub_A15_Emit_004380B0(const unsigned int* pExpire)
@@ -2485,7 +2485,7 @@ void __cdecl CHARSEL_ShowMessage()
 }
 
 // 0x0043A610
-void __cdecl sub_0043A610_ShowString()
+void __cdecl CHARSEL_ShowString()
 {
     const Unicode* pTitle = D2LANG_GetStringFromTblIndex(0x2B3B);
     Unicode wEmpty;
