@@ -170,16 +170,6 @@
      "name": "ERRORMANAGER_EnumLoadedModules"
     },
     {
-     "va": "0x00405570",
-     "length": 89,
-     "name": "GetCmdIndex"
-    },
-    {
-     "va": "0x004055D0",
-     "length": 51,
-     "name": "ERRORMANAGER_IsCmdSeparator"
-    },
-    {
      "va": "0x004067C0",
      "length": 11,
      "name": "?ERRORMANAGER_SetBasePathToCurrent@@YAHXZ"
@@ -846,6 +836,67 @@
    ]
   },
   {
+   "file": "Source/D2Launch/Unknown_004053F0.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x004053F0",
+     "length": 27,
+     "name": "?3"
+    },
+    {
+     "va": "0x00405410",
+     "length": 23,
+     "name": "?2"
+    },
+    {
+     "va": "0x00405430",
+     "length": 29,
+     "name": "?sub_00405430_GetIniPath@@YAXPAD@Z"
+    },
+    {
+     "va": "0x00405450",
+     "length": 256,
+     "name": "?sub_00405450_LoadIniSettings@@YGXPAD@Z"
+    },
+    {
+     "va": "0x00405550",
+     "length": 28,
+     "name": "?sub_00405550@@YIXPAUCharacter@@@Z"
+    },
+    {
+     "va": "0x00405570",
+     "length": 89,
+     "name": "GetCmdIndex"
+    },
+    {
+     "va": "0x004055D0",
+     "length": 51,
+     "name": "ERRORMANAGER_IsCmdSeparator"
+    },
+    {
+     "va": "0x00405610",
+     "length": 242,
+     "name": "?ParseCmdValue@@YAXPAD@Z"
+    },
+    {
+     "va": "0x00405710",
+     "length": 387,
+     "name": "?sub_00405710_ParseCmdArgument@@YIHPADPBD0@Z"
+    },
+    {
+     "va": "0x004058A0",
+     "length": 242,
+     "name": "?sub_004058A0_ParseCmdArgs@@YGXPAUD2ConfigStrc@@PBD@Z"
+    },
+    {
+     "va": "0x004059A0",
+     "length": 44,
+     "name": "?ParseCmdLine@@YIXPAUD2ConfigStrc@@PBD@Z"
+    }
+   ]
+  },
+  {
    "file": "Source/D2Launch/Unknown_004059D0.cpp",
    "rank": 0,
    "functions": [
@@ -1216,6 +1267,15 @@
      "name": "?sub_00404900_FindCodeView@@YG_NPBUD2ImageDosHeaderStrc@@PBUD2ImageDebugDirStrc@@PAUD2CrashModuleStrc@@K@Z"
     },
     {
+     "va": "0x00404F40",
+     "length": 32,
+     "name": "?sub_00404F40_GetDebugDirectory64@@YGXPAK0PBUD2ImageOptionalHeader64Strc@@@Z"
+    },
+    {
+     "va": "0x00404F60",
+     "length": 32
+    },
+    {
      "va": "0x00404F80",
      "length": 111,
      "name": "?sub_00404F80_ReadNb10@@YA_NPAUD2CrashModuleStrc@@PBUD2CvNb10Strc@@@Z"
@@ -1224,6 +1284,10 @@
      "va": "0x00404FF0",
      "length": 107,
      "name": "?sub_00404FF0_ReadRsds@@YA_NPBUD2CvRsdsStrc@@PAUD2CrashModuleStrc@@@Z"
+    },
+    {
+     "va": "0x00405060",
+     "length": 493
     }
    ]
   },
@@ -2608,102 +2672,6 @@
     "/Ob1",
     "/Gd",
     "/Oy"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00404F40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00404F40",
-     "length": 32,
-     "name": "?sub_00404F40_GetDebugDirectory64@@YGXPAK0PBUD2ImageOptionalHeader64Strc@@@Z"
-    },
-    {
-     "va": "0x00404F60",
-     "length": 32
-    },
-    {
-     "va": "0x00405060",
-     "length": 493
-    },
-    {
-     "va": "0x004053F0",
-     "length": 27,
-     "name": "?3"
-    },
-    {
-     "va": "0x00405410",
-     "length": 23,
-     "name": "?2"
-    },
-    {
-     "va": "0x00405430",
-     "length": 29,
-     "name": "?sub_00405430_GetIniPath@@YAXPAD@Z"
-    },
-    {
-     "va": "0x00405450",
-     "length": 256,
-     "name": "?sub_00405450_LoadIniSettings@@YGXPAD@Z"
-    },
-    {
-     "va": "0x00405550",
-     "length": 28,
-     "name": "?sub_00405550@@YIXPAUCharacter@@@Z"
-    },
-    {
-     "va": "0x00405610",
-     "length": 242,
-     "name": "?ParseCmdValue@@YAXPAD@Z"
-    },
-    {
-     "va": "0x004058A0",
-     "length": 242,
-     "name": "?sub_004058A0_ParseCmdArgs@@YGXPAUD2ConfigStrc@@PBD@Z"
-    },
-    {
-     "va": "0x004059A0",
-     "length": 44,
-     "name": "?ParseCmdLine@@YIXPAUD2ConfigStrc@@PBD@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd"
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00405710.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00405710",
-     "length": 387,
-     "name": "?sub_00405710_ParseCmdArgument@@YIHPADPBD0@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd"
    ]
   },
   {

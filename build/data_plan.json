@@ -43,24 +43,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/Storm/Unknown_00404F40.cpp": {
-   "bytes": 5336,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00404F40.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Storm/Unknown_00405710.cpp": {
-   "bytes": 0,
-   "definitions": 0,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Storm/Unknown_00405710.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Launch/Unknown_004059D0.cpp": {
    "bytes": 108,
    "definitions": 2,
@@ -4924,6 +4906,15 @@
    "include": "gen/data/Source/Storm/SOURCE/SEVT.inc",
    "lang": "cpp",
    "state": "included"
+  },
+  "Source/D2Launch/Unknown_004053F0.cpp": {
+   "bytes": 5336,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Launch/Unknown_004053F0.inc",
+   "lang": "cpp",
+   "state": "included"
   }
  },
  "definitions": [
@@ -7110,7 +7101,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_00404F40.cpp",
+   "file": "Source/D2Launch/Unknown_004053F0.cpp",
    "form": "declared_owner",
    "fwd": null,
    "head": "extern D2IniEntryStrc gaIniEntries_00705040[58] = ",
