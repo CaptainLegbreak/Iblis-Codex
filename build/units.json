@@ -9211,6 +9211,10 @@
      "name": "?CHARSEL_ResetRealmScreen@@YAXXZ"
     },
     {
+     "va": "0x0043A800",
+     "length": 331
+    },
+    {
      "va": "0x0043A950",
      "length": 79,
      "name": "?CHARSEL_OnRealmChosen@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
@@ -9405,10 +9409,6 @@
     {
      "va": "0x00437CB0",
      "length": 74
-    },
-    {
-     "va": "0x0043A800",
-     "length": 331
     },
     {
      "va": "0x0043B520",
