@@ -8,6 +8,7 @@
 
 #include "D2CmpTiles.h"
 #include "FogApi.h"
+#include "FogApi.h"
 
 static int DccTestBit(const unsigned int* pBits, int nBit);
 
@@ -41,7 +42,6 @@ struct D2SpritePixelsStrc { int unknown00,width,height; char unknown0C[0x14]; un
 
 struct D2SpriteCelStrc { int unknown00[7]; unsigned int dataSize; };
 
-void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 void* __cdecl sub_006829C0_Copy(void* dest,const void* source,unsigned int size); // 0x006829C0
 
@@ -72,13 +72,10 @@ struct D2CmpTileHeaderTargetStrc
     unsigned int adwData[33];
 };
 
-int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
 
 int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
 
-int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
 
-int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 
 static int CodecDccNextCell(D2DccDirStrc* pDir, D2DccIterStrc* pIt); // 0x0060B2B0
 

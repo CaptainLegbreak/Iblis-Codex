@@ -25,6 +25,8 @@
 #include "StormApi.h"
 #include "D2CommonApi.h"
 #include "D2LangApi.h"
+#include "FogApi.h"
+#include "StormApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -250,7 +252,6 @@ void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 void __cdecl TEXT_ResetTextBox(); // 0x0049F960
 
 
-int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -672,7 +673,6 @@ extern D2CriticalSectionStrc gtMessageLock; // 0x00882004
 
 extern int gnBnState; // 0x0088201C
 
-int __fastcall FOG_SOCKET_WSAStartup(); // 0x0040D890
 
 void __fastcall BNDOWNLOAD_ResolveHost(char* szResult, const char* szHost); // 0x0051C0E0
 

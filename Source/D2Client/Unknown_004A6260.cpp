@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2ClientTypes.h"
 #include "D2StormTypes.h"
+#include "StormApi.h"
 
 struct D2ClientListEntryStrc
 {
@@ -8,7 +9,6 @@ struct D2ClientListEntryStrc
     unsigned char unk0x04[6];
 };
 
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
 int __cdecl GAME_IsExitPending();                                                                                 // 0x0044DA30
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount);     // 0x00451E10

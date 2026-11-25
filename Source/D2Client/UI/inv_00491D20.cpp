@@ -7,6 +7,7 @@
 #include "D2ClientUiRecords.h"
 #include "FogApi.h"
 #include "D2CommonApi.h"
+#include "StormApi.h"
 struct D2UnitStrc;
 struct D2InventoryStrc;
 struct D2BitBufferStrc;
@@ -436,7 +437,6 @@ int __cdecl sub_0045AE90(); // 0x0045AE90
 void __cdecl UI_CancelCursorItemUse(); // 0x00453EC0
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS*); // 0x00498DC0
-int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 void __cdecl sub_0048A730_SwapWeapons(); // 0x0048A730
 extern "C" void __cdecl sub_004B90B0_SendState(); // 0x004B90B0
 typedef int (__fastcall *D2BodyClickFn)(D2UnitStrc*,D2InventoryStrc*,int);

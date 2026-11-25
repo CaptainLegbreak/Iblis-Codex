@@ -68,7 +68,6 @@ int __stdcall CelGetOffsetX(D2CelStrc* pCel); // 0x00601920
 
 int __stdcall CelGetOffsetY(D2CelStrc* pCel); // 0x00601950
 
-void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 static int __stdcall D3D_LoadSpriteInfo(D2CelContextStrc* pContext, D2SpriteInfoStrc* pInfo); // 0x006B5C80
 
@@ -81,6 +80,7 @@ void* gpSpriteOutlineBuffer; // 0x00970F38
 #include "D2GfxTypes.h"
 #include "D2DDrawTypes.h"
 #include "D2ClientTypes.h"
+#include "FogApi.h"
 #include "FogApi.h"
 
 struct D2CelStrc;

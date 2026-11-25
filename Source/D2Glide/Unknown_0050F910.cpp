@@ -6,13 +6,13 @@
 
 #include "D2Win32Types.h"
 #include "FogApi.h"
+#include "FogApi.h"
 
 extern int gbRenderPaused; // 0x007C9144
 extern int gnRenderWidth; // 0x007C9138
 
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 extern "C" __declspec(dllimport) long __stdcall DispatchMessageA(const tagMSG* pMsg); // 0x006CC478
-int __cdecl FOG_UseDirect(); // 0x00406D20
 extern "C" __declspec(dllimport) int __stdcall PeekMessageA(tagMSG* pMsg, void* hWnd, unsigned int uMsgFilterMin, unsigned int uMsgFilterMax, unsigned int wRemoveMsg); // 0x006CC480
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
 extern "C" __declspec(dllimport) int __stdcall TranslateMessage(const tagMSG* pMsg); // 0x006CC47C

@@ -14,6 +14,7 @@
 
 #include "D2SoundTypes.h"
 #include "FogApi.h"
+#include "StormApi.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
@@ -69,7 +70,6 @@ int gbChannelTableInit; // 0x008817A8
 
 extern "C" { int gnStreamChannelArg; } // 0x008817A0
 
-extern "C" int __stdcall SFileDdaInitialize(int nValue); // 0x00415EE0
 
 D2SoundStrc* __fastcall D2SOUNDSMP_CreateSound(unsigned int nFlags, int nValue); // 0x00515530
 

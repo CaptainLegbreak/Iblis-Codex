@@ -16,6 +16,7 @@
 
 #include "D2FogSystemInfo.h"
 #include "FogApi.h"
+#include "FogApi.h"
 
 #pragma intrinsic(strcpy)
 
@@ -104,7 +105,6 @@ D2SpriteCacheNodeStrc* __fastcall D2CMPSpriteCacheEvict(D2SpriteCacheStrc* pCach
 
 extern D2CmpCacheListEntryStrc* gpCmpCacheEntries; // 0x0089DB7C
 
-void __fastcall FOG_AsyncDataFree(AsyncData* pAsync); // 0x0040AB00
 
 void __fastcall CelDrawRleShadow(D2CelStrc* pCel, unsigned char* pDst, int nX, int nClipLeft, int nClipRight, int nPitch, int nSkip, int nLines, int nTable, int nColor); // 0x00608D60
 
@@ -166,7 +166,6 @@ extern int gnCmpTilePoolBlocks; // 0x00741EF8
 
 void __cdecl CodecInitLock(); // 0x0060CD30
 
-D2FogSystemInfoStrc* __cdecl FOG_GetSystemInfo(); // 0x00407360
 
 void __fastcall CelDataHashInit(D2CmpBlockTableAStrc* pTable); // 0x0060AEE0
 
@@ -222,7 +221,6 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* 
 
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars); // 0x00413590
 
-void* __fastcall FOG_AsyncDataGetBuffer(AsyncData* pAsync); // 0x0040A9E0
 
 // build: symbol _gszFmtDcc4 0x006E3618
 extern "C" const char gszFmtDcc4[];
@@ -371,9 +369,7 @@ int __fastcall CodecLoadTileHeader(const char*, SpriteFile*); // 0x0060BF20
 
 int __fastcall FOG_FOpenFile(const char*, char**); // 0x004068E0
 
-int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
 
-int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 
 int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
 

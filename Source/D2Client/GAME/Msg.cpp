@@ -2,6 +2,7 @@
 #include "D2ClientFuncs.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "FogApi.h"
 #include "gen/data/Source/D2Client/GAME/Msg.inc"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -38,7 +39,6 @@ extern "C" size_t __cdecl fread(void* pBuffer, size_t nSize, size_t nCount, _iob
 
 
 
-int __fastcall FOG_GetSavePath(char* szPath, int nSize); // 0x00407050
 
 
 extern char gszClientCharName[]; // 0x007A05C4

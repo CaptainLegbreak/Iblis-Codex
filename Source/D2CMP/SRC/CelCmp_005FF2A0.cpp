@@ -6,6 +6,7 @@
 #include "D2CmpStormList.h"
 #include "CELLIST.h"
 #include "FogApi.h"
+#include "FogApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SpriteCacheNodeStrc;
@@ -53,7 +54,6 @@ extern void* gpfnTileFreeCallback; // 0x0088CB1C
 
 extern D2SpriteCacheStrc gCmpTileCache; // 0x0089DB60
 D2SpriteCacheNodeStrc* __fastcall D2CMPSpriteCacheEvict(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bLocked); // 0x005FF4A0
-void __fastcall FOG_AsyncDataFree(AsyncData* pAsync); // 0x0040AB00
 
 void __fastcall CelDrawRleShadow(D2CelStrc* pCel, unsigned char* pDst, int nX, int nClipLeft, int nClipRight, int nPitch, int nSkip, int nLines, int nTable, int nColor); // 0x00608D60
 

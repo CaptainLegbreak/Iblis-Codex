@@ -15,6 +15,7 @@
 #include "D2BnCryptTypes.h"
 #include "D2BnMessages.h"
 #include "FogApi.h"
+#include "FogApi.h"
 
 static int BNDOWNLOAD_CheckStringBlock(const char* pBuffer, unsigned int nPos, unsigned int nCount, unsigned int nSize); // 0x00520A80
 
@@ -156,7 +157,6 @@ extern "C" char* __cdecl strrchr(const char* szString, int nChar); // 0x00682990
 
 extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); // 0x006841E9
 
-void __cdecl LOGMANAGER_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 void __cdecl sub_0051A480_DebugLog(const char* szFormat, ...); // 0x0051A480
 
@@ -174,11 +174,8 @@ int __stdcall SFileCloseFile(void* pArg); // 0x004198D0
 
 int __stdcall SFileOpenFile(const char* szFileName, void** phFile); // 0x00419980
 
-void* __fastcall FOG_CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
 
-int __fastcall FOG_WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x004069D0
 
-int __fastcall FOG_CloseFile(void* hFile); // 0x004069A0
 
 void __fastcall BNDOWNLOAD_SetStatus(int nStatus); // 0x0051EA40
 
@@ -275,9 +272,7 @@ extern "C" int __stdcall recv(unsigned int nSocket, char* pBuffer, int nLength, 
 
 extern "C" int __stdcall send(unsigned int nSocket, const char* pBuffer, int nLength, int nFlags); // 0x006B017A
 
-unsigned long __fastcall FOG_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004069F0
 
-int __fastcall FOG_SOCKET_CloseSocket(unsigned int s); // 0x0040D880
 
 void __fastcall sub_00519DB0_HandOnDownload(const char* szFile, const void* pData, unsigned int nSize, const D2FileTimeStrc* pFileTime, int nArg5, int nArg6); // 0x00519DB0
 
@@ -315,7 +310,6 @@ extern "C" unsigned int __cdecl _beginthreadex(void* pSecurity, unsigned int nSt
 
 int __fastcall CACHE_WriteCachedFile(const char* szName, const void* pData, unsigned int nSize, const D2FileTimeStrc* pFileTime, unsigned int nSeconds1, unsigned int nSeconds2); // 0x00519DB0
 
-int __fastcall FOG_SOCKET_WSAStartup();                                                                     // 0x0040D890
 
 int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsigned int nFlags, const void* pData, unsigned long nSize); // 0x00415000
 
