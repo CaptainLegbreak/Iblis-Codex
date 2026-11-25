@@ -7179,22 +7179,22 @@
     {
      "va": "0x004211C0",
      "length": 121,
-     "name": "sub_004211C0_ReallocData"
+     "name": "?ReallocData@?$TSGrowableArray@EU?$TSCD@E@@@@QAEXI@Z"
     },
     {
      "va": "0x00421630",
      "length": 70,
-     "name": "sub_00421630_Reserve"
+     "name": "?Reserve@?$TSGrowableArray@EU?$TSCD@E@@@@QAEXIH@Z"
     },
     {
      "va": "0x004216E0",
      "length": 144,
-     "name": "sub_004216E0_ReallocData"
+     "name": "?ReallocData@?$TSGrowableArray@IU?$TSCD@I@@@@QAEXI@Z"
     },
     {
      "va": "0x004218A0",
      "length": 16,
-     "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
+     "name": "??0?$TSGrowableArray@EU?$TSCD@E@@@@QAE@XZ"
     },
     {
      "va": "0x004219D0",
@@ -7204,12 +7204,12 @@
     {
      "va": "0x00421AB0",
      "length": 70,
-     "name": "sub_00421AB0_Reserve"
+     "name": "?Reserve@?$TSGrowableArray@IU?$TSCD@I@@@@QAEXIH@Z"
     },
     {
      "va": "0x00421B00",
      "length": 70,
-     "name": "sub_00421B00_Reserve"
+     "name": "?Reserve@?$TSGrowableArray@DU?$TSCD@D@@@@QAEXIH@Z"
     }
    ]
   },
