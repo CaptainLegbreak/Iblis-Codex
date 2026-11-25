@@ -1846,6 +1846,15 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
     return 0;
 }
 
+static inline int AIUTIL_GetMonsterVisionInline(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData)
+    {
+        return pUnit->pMonsterData->pVision;
+    }
+    return 0;
+}
+
 // 0x005DD7F0
 D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat)
 {
@@ -1865,9 +1874,10 @@ D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
     else
     {
         bCheckCollision = !AIUTIL_CheckAiControlFlag((Obj005DD220*)pAiControl, 8);
-        if (pUnit && pUnit->dwUnitType == 1)
+        const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+        if (nType == UNIT_MONSTER)
         {
-            pSpecialAi = pUnit->pMonsterData ? (int*)pUnit->pMonsterData->pVision : 0;
+            pSpecialAi = (int*)AIUTIL_GetMonsterVisionInline(pUnit);
             if (bCheckCollision && pSpecialAi)
             {
                 nOldToggle = pSpecialAi[9];
