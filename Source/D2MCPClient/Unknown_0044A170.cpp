@@ -4,6 +4,8 @@
 #include "D2LaunchRequest.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 typedef void (__fastcall* D2McpCallbackFn)(unsigned short wRequestId, unsigned char* pData);
 
@@ -159,7 +161,6 @@ void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMa
 
 void __stdcall GAME_StripColorCodes(Unicode* pText); // 0x0044B230
 
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
 extern int gnMcpGameToken; // 0x00798FB0
 
@@ -197,13 +198,11 @@ void __stdcall sub_00449E50_SetValue(int nValue);                               
 
 void __stdcall MCPCONNECT_SetPacket(const char* pData, int nSize);                                     // 0x00449E70
 
-void __cdecl sub_006115F0_Empty();                                                                          // 0x006115F0
 
 void __cdecl sub_0052BDA0_Empty();                                                                          // 0x0052BDA0
 
 void __cdecl sub_0052BDB0_Empty();                                                                          // 0x0052BDB0
 
-void __cdecl PROFCORE_CloseLog();                                                                                // 0x00611600
 
 int __stdcall WINMAIN_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord);                   // 0x0044B8A0
 
@@ -502,9 +501,7 @@ extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSiz
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
-Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940
 
 extern D2McpPacketHandler gpfnMcpPacketHandlers[]; // 0x0070ED00
 

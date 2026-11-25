@@ -6,6 +6,8 @@
 #include "D2LaunchRequest.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -146,7 +148,6 @@ void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMa
 
 void __stdcall GAME_StripColorCodes(Unicode* pText); // 0x0044B230
 
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
 extern int gnMcpGameToken; // 0x00798FB0
 
@@ -181,13 +182,11 @@ typedef void (__fastcall* D2McpCallback)(int nId, unsigned int nSize, const unsi
 
 
 
-void __cdecl sub_006115F0_Empty();                                                                          // 0x006115F0
 
 void __cdecl sub_0052BDA0_Empty();                                                                          // 0x0052BDA0
 
 void __cdecl sub_0052BDB0_Empty();                                                                          // 0x0052BDB0
 
-void __cdecl PROFCORE_CloseLog();                                                                                // 0x00611600
 
 int __stdcall WINMAIN_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord);                   // 0x0044B8A0
 

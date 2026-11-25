@@ -1,7 +1,7 @@
+#include "D2CommonApi.h"
 typedef unsigned int DWORD;
 
 extern "C" void* __fastcall sub_004648F0_GetTargetUnit(void* pUnit); // 0x004648F0
-extern "C" int __stdcall ITEMS_IsMetalItem(int nItemId); // 0x00629CC0
 extern "C" int __stdcall ITEMS_CheckItemFlag(void* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 extern "C" void* __stdcall UNITS_GetRoom(void* pUnit); // 0x00620BB0
 extern "C" void* __stdcall STATLIST_GetOwner(void* pUnit, int* pStatNotDynamic); // 0x00625820

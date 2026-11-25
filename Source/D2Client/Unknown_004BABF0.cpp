@@ -5,6 +5,7 @@
 #include "D2StormTypes.h"
 #include "D2WinSplitText.h"
 #include "FogApi.h"
+#include "D2LangApi.h"
 
 struct Unicode;
 struct D2ButtonStringStrc;
@@ -203,8 +204,6 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText); // 0x00501820
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 extern D2ButtonStringStrc gaButtonStrings[]; // 0x007275A8
 
 // build: symbol ??1ButtonImplementation@@UAE@XZ 0x004BABF0

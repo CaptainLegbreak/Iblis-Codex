@@ -29,6 +29,7 @@
 #include "D2CoordPair.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2LangApi.h"
 
 void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...); // 0x00409020
 
@@ -216,7 +217,6 @@ int __cdecl CLIENT_GetConnectionStatus(); // 0x0052B050
 
 D2WinControlStrc* __fastcall MAINMENUS_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 int __stdcall CONTROL_SetFocusedEditBox(D2WinControlStrc* pEditBox); // 0x004F91C0
 
@@ -714,7 +714,6 @@ void __cdecl CHARSEL_DisconnectBattleNet();                                     
 
 void __fastcall sub_0043C6A0(int bSet);                                                                     // 0x0043C6A0
 
-void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField);                                                 // 0x00525260
 
 D2WinControlStrc* gpOkButton_00779330; // 0x00779330
 
@@ -812,7 +811,6 @@ struct D2LaunchSlotStrc;
 
 struct D2MenuListStrc;
 
-int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 
 int __cdecl D2Win_10003(); // 0x004F9050
 
@@ -1122,7 +1120,6 @@ int __cdecl GAME_GetConnectError(); // 0x00449C00
 
 int __stdcall CHATDLG_RequestCharLogon(const char* szName); // 0x00449E10
 
-void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 
 extern char gaGlobal_007089C4[]; // 0x007089C4
 
@@ -1249,9 +1246,7 @@ const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); 
 
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 
-char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 
-char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 
 int __fastcall sub_005264F0_Compare(const Unicode* pString1, const Unicode* pString2); // 0x005264F0
 
@@ -1267,7 +1262,6 @@ char* __cdecl GAME_GetPreferredRealm(); // 0x00437D00
 
 int __stdcall CHATDLG_RequestCharCreate(const char* szName, int nClass, int nFlags); // 0x00449DF0
 
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
