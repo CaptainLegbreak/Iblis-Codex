@@ -647,6 +647,12 @@ static int __cdecl ERRORMANAGER_ConvertLocalTime(tm* pTm, const __int64* pTime)
     return _localtime64_s(pTm, pTime);
 }
 
+// 0x0040EB10
+int __cdecl sub_0040EB10()
+{
+    return 0;
+}
+
 // calling-convention shim (not game code)
 int __cdecl sub_M126_Emit_00401000(tm* pTm, const __int64* pTime)
 {
