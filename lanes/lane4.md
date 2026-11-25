@@ -18,15 +18,16 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 17:18:13 PST 2026: join-gfx-c7d0 is in #374. join-cmdtbl-9420-2 ready on #374. memreport-join verifying (lane 3's stpl-memreport is in #374; I rebase onto it after the verify).
+- Tue Nov 24 17:34:46 PST 2026: memreport-join ready on #374 (placeholders -3). Next: the template placeholders 0x44F9B0-0x451260 once lane 3 posts the SGAMEDATA table part of stpl-one.
 
 ## Ready
 
+- lane4/memreport-join bdc20fe2b placeholder -3: Unknown_0045B5F0.cpp takes the rest of the memory report object, on top of lane 3's stpl-memreport (#374): Unknown_0045B960.cpp (the file printf, called only from the dump), Unknown_0045B090.cpp (the TSLink/TSLinkedNode/TSList<TALLOCREC> members and TALLOCREC's own, as explicit instantiations and symbol lines, plus the two stand-ins) and Unknown_0045BF00.cpp (the D2Mem.txt dump). One object 0x45B5F0-0x45C2F7; its data (gnScreenWidth..gnSavedScreenWidth, then TALLOCREC's type descriptor) is unchanged. The unit takes /GS-, which the printf and the dump had and the rest builds equal with. Borrowed data 844 B (main 844). VERIFIED de46fc381ef7 on #374. Not stacked.
 - lane4/join-cmdtbl-9420-2 25f1bc94f placeholder -1: CmdTbl.cpp takes Unknown_00469420.cpp, the hotkey wheel-key check 0x469420. It's the Gfx.cpp case again: 0x469C20 calls it with eax/edx/ecx register arguments, so it's a static of CmdTbl.cpp's object, and with /Ob2 it would be inlined there. CmdTbl.cpp already held it as an unmarked `__declspec(noinline)` copy; that copy is now the marked function, at its address place, with a comment saying why. No new noinline, no data. Borrowed data 844 B (main 844). VERIFIED fc535ce9b582 on #373; rebased onto #374 (namesync clean, CmdTbl.cpp precheck equal). Not stacked.
 
 ## Claimed
 
-- lane4/memreport-join (verifying): Unknown_0045B5F0.cpp takes Unknown_0045B960/0045B090/0045BF00.cpp, stacked on lane3/stpl-memreport. Builds equal. Then the template placeholders (0044F9B0 and its four) once lane 3's SGAMEDATA part of stpl-one is posted.
+- The template placeholders (Unknown_0044F9B0 <- 0044F9D0/0044FB50/0044FD80/00450040, and 00450D90/00450210/00450520/00450550/00450950): waiting on lane 3's SGAMEDATA part of stpl-one, then lane 4 joins them.
 ## Questions
 
 - Template placeholders (Unknown_0044F9B0 <- 0044F9D0/0044FB50/0044FD80/00450040, and Unknown_0045B5F0 <- 0045B090): parked. Each placeholder carries its own model of the Storm list/link/hash-table classes (D2StormLinkStrc with member functions in one, the shared D2StormAutoLink.h one in the other; D2StormHashTableReuseStrc without sub_00450690_DeleteChunksAndReuse or m_chunkList/m_reuseList in the owner), so joined they redefine or miss members. The fix is one definition of those Storm templates (stpl.h, lane 2/3) that both sides use; I'll take it up after the remaining leads unless someone owns that header work.
