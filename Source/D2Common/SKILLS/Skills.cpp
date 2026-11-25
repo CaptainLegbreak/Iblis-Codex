@@ -40,6 +40,7 @@
 
 #include "D2PathFind.h"
 #include "D2MissileData.h"
+#include "D2DrlgOutdoor.h"
 
 #define LVLSUB_UNUSED_INVALID -1
 
@@ -93,7 +94,6 @@ struct D2DrlgCoordStrc;
 
 struct D2DrlgOutdoorInfoStrc;
 
-struct D2UnkOutdoorStrc;
 
 struct D2SkillCalcStrc;
 
@@ -144,23 +144,6 @@ struct D2SkillDescTxt;
 struct D2InventoryStrc;
 
 
-struct D2UnkOutdoorStrc
-{
-    D2DrlgLevelStrc* pLevel;
-    int* field_4;
-    D2DrlgGridStrc* pGrid1;
-    D2DrlgGridStrc* pGrid2;
-    int nLevelPrestId;
-    int field_14;
-    int nLvlSubId;
-    unsigned int(__fastcall* field_1C)(D2DrlgLevelStrc* pLevel, int nX, int nY);
-    int(__fastcall* field_20)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nId, int nOffset, char nFlags);
-    int(__fastcall* field_24)(D2DrlgLevelStrc* pLevel, int nX, int nY, int a4, int a5, unsigned int a6);
-    int(__fastcall* field_28)(D2DrlgLevelStrc* pLevel, int nStyle, int a3);
-    void(__fastcall* field_2C)(D2DrlgLevelStrc* pLevel, int nX, int nY);
-    void(__fastcall* field_30)(D2DrlgLevelStrc* pLevel, int nX, int nY);
-    void(__fastcall* field_34)(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nRand, int a6);
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 

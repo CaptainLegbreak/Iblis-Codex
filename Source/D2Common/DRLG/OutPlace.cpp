@@ -13,6 +13,7 @@
 #include "D2Drlg.h"
 
 #include "D2DrlgPresets.h"
+#include "D2DrlgOutdoor.h"
 
 #define DRLGTYPE_OUTDOOR 3
 
@@ -42,7 +43,6 @@ struct D2UnkOutdoorStrc3;
 
 struct D2PosStrc;
 
-struct D2OffsetPosStrc;
 
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation); // 0x0067C4F0
 
@@ -92,14 +92,6 @@ struct D2PosStrc
     int nY;
 };
 
-struct D2OffsetPosStrc
-{
-    int nX;
-    int nY;
-    int nA;
-    int nB;
-    int nDir;
-};
 
 static int sub_00677870_IsYGreater(const D2PosStrc* pPos1, const D2PosStrc* pPos2);
 
@@ -1212,17 +1204,6 @@ void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, in
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);         // 0x0040B480
 extern "C" void* __cdecl sub_00681EF0_Memset(void* pDst, int nValue, unsigned int nSize);                   // 0x00681EF0
 
-struct D2JungleStrc
-{
-    D2OffsetPosStrc tCoord;
-    int nBranch;
-    D2JungleStrc* pBasedOn;
-    D2JungleStrc* pBranches[3];
-    int nPresetsBlocksX;
-    int nPresetsBlocksY;
-    int* pJungleDefs;
-    int nJungleDefs;
-};
 
 
 
