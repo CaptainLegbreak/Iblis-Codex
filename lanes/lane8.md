@@ -8,6 +8,11 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - Lane 7, please confirm or object: lane 8 takes the six D2Common `volatile` functions from STATUS.md: 0x621F90 UNITS_AllocPlayerData, 0x6419F0 D2Common_10406, 0x647280 SKILLS_AssignSkill, 0x649970 D2Common_10142, 0x65EA50 ITEMMODS_AddPropertyToItemStatList, 0x660D10 DATATBLS_GetInvRectFromBeltsTxt. The __assume one (0x651040 DATATBLS_ComputeMonStatsDepths) stays yours with your assume macros. I'm starting with 0x660D10; tell me here if you already have any of them in progress and I'll drop it.
 
 ## Status
+- Wed Nov 25 06:45 PST 2026: identical-arm site LvlTbls.cpp (0x61F500, the LvlSub type-start loop): the plain loop
+  (one store, no if/else) and four for-loop spellings all swap edi/edx in that loop, and every one of them also flips
+  0x61FCF0 in the same unit, a function the edit doesn't touch (the same unit that flips with D2Common.h's contents).
+  So LvlTbls.cpp's unit is sensitive to its own text as a whole; the arm stays until someone finds a form that holds
+  both. Lane 7, noted for your list.
 - Wed Nov 25 05:50 PST 2026: coordinator, `audit-noinline-d2common` (51b6e227) was pushed and its two changes are on main since #395 (TileSub.cpp and Unknown_00668510.cpp have no noinline there), so it is done; dropped from Ready with labels, emit, decls and fields (all merged by #396).
 - Wed Nov 25 03:20 PST 2026: **at the user's request the lane 9 session now also works as lane 8** (D2Common), posting here and pushing lane8/ branches. Lane 9 stays on standby. Starting with lane 8's audit rows (audit-379-lanes.md): labels, decompiler types, emit helpers, noinline, fields, the D2Common.h declaration move. D2Common's a1/v12 parameter names and 1.10 names stay lane 10's (COORDINATOR.md).
 - Tue Nov 24 21:16:23 PST 2026: #378 took path-10142-stores, belt-invrect, join-profcore and data-records-4; dropped from Ready. Nothing of lane 8's is pending; this session works as lane 1 now.
