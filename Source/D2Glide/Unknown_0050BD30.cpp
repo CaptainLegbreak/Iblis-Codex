@@ -97,7 +97,7 @@ void __fastcall sub_0050DBE0_GlideSetVertexShade(D2GlideSpriteVertexStrc* pVerte
 
 void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile);                                   // 0x0050FBD0
 
-int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3);                                   // 0x005FDEA0
+int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int bAsync, int nFlags);                                   // 0x005FDEA0
 
 static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, int nScreenPanels, tagRECT* pRect, int* pOffset);
 
@@ -1042,7 +1042,7 @@ static __forceinline void GLIDE_SetTileVertex(const D2TileVertexStrc* pSource, D
 }
 
 // 0x0050D6A0
-void __fastcall sub_0050D6A0_GlideDrawFloorTile(void* pTile, const D2TileVertexStrc* pVertices, int a3, int a4, int a5, int a6, unsigned char nAlpha, int a8, int bDepth)
+void __fastcall sub_0050D6A0_GlideDrawFloorTile(void* pTile, const D2TileVertexStrc* pVertices, int nPosX, int nPosY, int nWorldXpos, int nWorldYpos, unsigned char nAlpha, int nScreenPanels, int bDepth)
 {
     if (!GLTEXTURECACHE_BindFloorTexture(pTile))
         return;

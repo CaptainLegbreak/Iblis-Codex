@@ -358,13 +358,13 @@ int __fastcall sub_0051740B_ErrorBox(const char* text) {
  return 1;
 }
 // 0x00517423
-int __fastcall FaultDoAssert(const char* a1, unsigned int a2, const char* a3)
+int __fastcall FaultDoAssert(const char* szFile, unsigned int nLine, const char* szExpression)
 {
     char Text[512];
 
     if (sgpfnAssertHandler)
-        sgpfnAssertHandler(a1, a2, a3);
-    wsprintfA(Text, sgszAssertFormatString, a1, a2, a3);
+        sgpfnAssertHandler(szFile, nLine, szExpression);
+    wsprintfA(Text, sgszAssertFormatString, szFile, nLine, szExpression);
     const int buttonID = MessageBoxA(0, Text, gpszModuleName, 0x52212);
     if (buttonID == 3) {
         sub_005173DF_TerminateCurrentProcess();

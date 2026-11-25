@@ -26,7 +26,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern D2DDrawSurfaceStrc* gpDDrawOffscreenSurface; // 0x00881280
 
 
-int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
+int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int bAsync, int nFlags); // 0x005FDEA0
 
 int gaDDrawDebugFontCharWidths[96]; // 0x00881428
 

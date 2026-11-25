@@ -11,7 +11,7 @@ struct D2TileLightStrc;
 extern unsigned char* gpSurfaceBits_007C9154; // 0x007C9154
 
 
-int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
+int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int bAsync, int nFlags); // 0x005FDEA0
 extern int gnRenderHeight; // 0x007C913C
 
 // 0x006C8DA0

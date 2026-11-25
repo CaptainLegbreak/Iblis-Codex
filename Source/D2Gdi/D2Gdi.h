@@ -58,7 +58,7 @@ struct D2BitmapInfoStrc
 };
 struct D2GfxBufferFuncsStrc
 {
-    void (__fastcall* pfnSetBuffer)(void* pBits, int nWidth, int nHeight, int a4);
+    void (__fastcall* pfnSetBuffer)(void* pBits, int nWidth, int nHeight, int nReserved);
 };
 struct D2PaletteEntry006C7C10Strc
 {
