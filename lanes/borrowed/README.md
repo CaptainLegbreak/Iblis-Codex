@@ -1,6 +1,6 @@
 # The 8 borrowed functions: compiler readings (coordinator, 2026-11-25 on main #384)
 
-Owners from 2026-11-25 10:30 PT: lane 2 has 0x62B5B0, 0x679C80, 0x677880; lane 3 has 0x6BD230; lane 5 has 0x5DD7F0, 0x55A6D0; 0x4A4AD0 (#400) and 0x4F8B80 (#409) are done.
+Owners from 2026-11-25 10:30 PT: lane 2 has 0x62B5B0, 0x679C80, 0x677880; lane 3 has 0x6BD230; lane 5 has 0x5DD7F0, 0x55A6D0; 0x4A4AD0 (#400), 0x4F8B80 (#409) and 0x5DD7F0 (#410) are done.
 
 Each folder holds: `candidate.cpp`, the best known draft, as built here; `score.json`, our length and the
 original's, and the number of differing bytes after relocations are masked; `idiff.txt`, original and ours side by
@@ -14,7 +14,7 @@ see tools/c2diag/IBLIS.md). Each draft was put into its unit on main #384 and bu
 | 0x62B5B0 | 1,192 B | D2Common/ITEMS/Items.cpp | lane8/0062B5B0-wip | **1,192 / 1,192** | 355 | +0x30: the original zeroes **esi**, ours edi; the whole function's esi/edi choice follows from that variable |
 | 0x4A4AD0 | 1,232 B | D2Client/Unknown_004A43E0.cpp | lane7/004A4AD0 | **from source, #400** | 0 | done: TEXT_ScrollKeyConfigList's prev/next written as plain `if`s gave nMax and gnKeyConfigFirstVisible the uses the original's allocation needs |
 | 0x4F8B80 | 561 B | D2Gfx/SRC/Window.cpp | lane6/004F8B80 | **from source, #409** | 0 | done: CMNSUBTILE_DrawFloorTile, on the tile library's own records and a 12-byte light cell |
-| 0x5DD7F0 | 1,084 B | D2Game/Ai/AiUtil.cpp | lane5/005DD7F0-wip (2079dcd5f, on #407) | 1,086 / 1,084 | 550 | +0x1D2: the original zeroes esi and compares eax and edi against it (`xor esi,esi; cmp eax,esi; sete cl; cmp edi,esi`); ours tests each (`test eax,eax; sete cl; test edi,edi`). Everything before matches but call targets |
+| 0x5DD7F0 | 1,084 B | D2Game/Ai/AiUtil.cpp | lane5/005DD7F0 | **from source, #410** | 0 | done: the 0x40 flag read into a local, the collision choice one if/else chain on it, the flag cleared after the chain; AIUTIL_CheckAiControlFlag's if and two returns |
 | 0x55A6D0 | 2,253 B | D2Game/ITEMS/Items.cpp | lane7/0055A6D0-wip | 2,239 / 2,253 | 2,015 | +0x17: the original keeps the 0x1C parameter in esi and the fastcall edx argument in ebx; ours swaps them |
 | 0x677880 | 4,232 B | D2Common/DRLG/OutPlace.cpp | waiting for lane 7's current source | | | the seed form fixed the first difference (lane 7, 21:40) |
 

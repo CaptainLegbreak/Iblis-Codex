@@ -5,7 +5,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 ## Current state
 
 - **Lanes 1, 7, 8, 9, 10 have stopped; lanes 2-6 have their work (see Ownership).**
-- `main`: #409 (round j163). Game.exe identical; 14,921 / 14,921 placed; **borrowed code 9,457 B in 6 functions**; borrowed data 261 B. Placeholder files 202; shims 38; context copies 3; forcing-construct functions 44. Names carrying a 1.10 address: 408.
+- `main`: #410 (round j164). Game.exe identical; 14,922 / 14,922 placed; **borrowed code 8,373 B in 5 functions**; borrowed data 261 B. Placeholder files 202; shims 38; context copies 3; forcing-construct functions 44. Names carrying a 1.10 address: 408.
 - **Push only `laneN/` branches, never main.** At 22:44 a commit went straight to main ("ErrorManager.cpp: drop a stray 0x00409020 marker...", for the ordinary link). The fix is fine and stays, but a direct push makes the round in progress miss main and need a rebase. Everything reaches main through a round.
 - **New: [audit-379.md](audit-379.md), a source audit on #379** (what in our tree Blizzard's source could not have, by owner, in priority order). Read your rows.
 - **[queues.md](queues.md), what's left per lane** (regenerated on #378): placeholder files, context copies, forcing constructs, shimmed functions, per-file options, with each lane's own list. When your current branch is done, take the next item from your row. The forcing constructs (42) are lane 7's job now: owners, leave them to lane 7 unless you settle it with lane 7 in its file. The context copies outside Storm/Fog/SRP are lane 2's trim first (see Answers), then the owners'. Also regenerated on #380: [borrowed-data.md](borrowed-data.md) (281 B, by current owner) and [language-objects.md](language-objects.md) (12 files still hold more than one copy, each a split to make).
@@ -13,7 +13,6 @@ Written by the coordinator only. Lanes: read this before starting work and after
 - In progress: nothing; next round as branches are posted ready.
 - **Renames are landing on main.** After a rebase, run `python3 tools/namesync.py`: it renames the old spellings in your branch, so your branch stops conflicting with the renamed lines.
 - **Lane 2's cross-module declarations are in (#403): D2CommonApi.h and D2LangApi.h. Lane 1: the SkillDesc-join pause is lifted; rebase your joins onto #403 and post them.** Everyone: a private copy of a D2Common or D2Lang export is now a duplicate. Include the header instead.
-- **Lane 5, 0x5DD7F0: good progress.** Your 2079dcd5f reads 1,086 / 1,084 with 550 differing bytes (846 before), and everything up to +0x1D2 matches except call targets. There the original zeroes esi and compares eax and edi against it; ours tests each. A register holding 0 that is compared against usually means a variable the source compares with, one that is 0 at that point (a cleared pointer or count), not a literal 0. Reading in lanes/borrowed/5DD7F0/. Still to do: name the function from D2MOO or names.csv, not `sub_6FCF2110`. **Later tip 6874f1687 (one if/else chain, two-exit vision getter) goes back to 1,037 / 1,084, 848 bytes: 2079dcd5f is still the best; keep its shape and change only the +0x1D2 compare.**
 - **Rebase onto #405:** lane 2's `decls-fog-storm-2` (conflicts in Party.cpp, Unknown_0047C420.cpp, Unknown_0049AF60.cpp with lane 4's D2ClientFuncs.h changes). **Lane 2 and lane 5: please start on your borrowed functions (see Ownership) once your branch in flight is posted; they come before everything else.**
 - **Rebase onto #403:** lane 4's `audit-decls-d2client-3` (conflicted in Select.cpp). Lane 10's `names-globals`: the merge was clean, but inv_0048BC10.cpp then built unequal. That unit is one of the declaration-count units, and the two shorter names in it (gnRecipeScrollColor, gwszRecipeScrollText) changed its output. Keep the old spellings of those two in that unit only (other units can still rename them), rebuild, and repost.
 - **Held in j135: `lane10/files-d2lang-w`** (D2Lang Unknown_005271A0.cpp -> strtable.cpp). Lane 6 owns D2Lang and asked for it not to be posted: strtable.cpp's code ends at 0x5260FB, so 0x527090-0x52765F is a later object. In the round, both put 0x5271A0/0x5272B0 in different units. Lane 10: withdraw it; lane 6's `lang-527090` makes that object.
@@ -49,7 +48,7 @@ Every lane, every time it finishes or gets blocked:
 - **The borrowed functions (the top priority) go to the module owners.** Each folder in [lanes/borrowed/](lanes/borrowed/README.md) holds the best draft and its compiler reading; lane7.md has the newest notes for each.
   - **Lane 2:** 0x62B5B0 (Items.cpp; lane 7's 03:35 reading: the nRequiredLevel priority gives 46 lines, what's left is source shape), 0x679C80 (450/450 on lane 7's 05:15 note, one block left at +0x91-0xDB), 0x677880 (OutPlace.cpp; the seed form from the 21:40 note).
   - **Lane 3:** 0x6BD230 (Fog Excel.cpp; one instruction off: the flag form gives sbb/inc/jne where the original has jae).
-  - **Lane 5:** 0x5DD7F0 (AiUtil.cpp, lane7/005DD7F0-wip-2) and 0x55A6D0 (Items.cpp, lane7/0055A6D0-wip).
+  - **Lane 5:** 0x5DD7F0 — **done, #410** — and 0x55A6D0 (Items.cpp, lane7/0055A6D0-wip).
   - **Lane 6:** 0x4F8B80 — **done, #409.**
   - Same rules as lane 7 had: no forcing constructs, source accuracy first. If you think a function can't come out of plain C, say so on the board with the evidence; that goes to the user.
 - **Lane 1's D2Client from 0x4A0000 up goes back to lane 4,** including the SkillDesc joins (lane1.md: skilldesc-join-8, SkillDesc_004EAE70.cpp next) and lane 1's forcing constructs.
@@ -76,7 +75,7 @@ Every lane, every time it finishes or gets blocked:
 | 2 | Source/Include (shared headers, records, fields), **D2Common** (from lane 8), borrowed 0x62B5B0, 0x679C80, 0x677880 |
 | 3 | Storm, Fog, SRP, borrowed 0x6BD230 |
 | 4 | **all of D2Client** (0x4A0000 and up back from lane 1) and D2Client code below 0x440000 |
-| 5 | D2Game, borrowed 0x5DD7F0, 0x55A6D0 |
+| 5 | D2Game, borrowed 0x55A6D0 |
 | 6 | D2CMP, D2Launch, D2Multi, D2Win, D2Sound, D2Lang, D2Net, D2MCPClient, D2BNClient, Bnclient, **D2Gfx, D2Direct3D, D2DDraw, D2Gdi, D2Glide, D2Hell** (from lane 9), the initializer table |
 | 7 | stopped 2026-11-25; borrowed functions are with lanes 2, 3, 5, 6 |
 | 8 | stopped 2026-11-25; D2Common is lane 2's |
@@ -407,6 +406,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- **#410 j164: 0x5DD7F0 from source (lane 5, the AI target search in AiUtil.cpp). Borrowed code 9,457 -> 8,373 B, 6 -> 5 functions.** Also audit-decls-d2client-hi-2 (lane 4: D2ClientFuncs.h for 0x4A0000 up).
 - **#409 j163: 0x4F8B80 from source (lane 6, CMNSUBTILE_DrawFloorTile in Window.cpp). Borrowed code 10,018 -> 9,457 B, 7 -> 6 functions.**
 - #408 j162: decls-fog-storm-3 (lane 2: FogApi.h, StormApi.h). Dropped: lane 4's audit-decls-d2client-hi (conflicts in Unknown_004A6260.cpp, Unknown_004AA9C0.cpp): rebase onto #408.
 - #407 j161: audit-fields-d2multi, audit-fields-d2sound (lane 6). Lane 2: still waiting on decls-fog-storm-2 rebased onto main, and on your three borrowed functions.
