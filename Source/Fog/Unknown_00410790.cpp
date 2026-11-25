@@ -408,7 +408,7 @@ void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBit
 }
 
 // 0x00410E90
-extern "C" int __stdcall sub_00410E90(D2BitBufferStrc* pBuffer)
+extern "C" int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer)
 {
     return pBuffer->nPosBits ? pBuffer->nPos + 1 : pBuffer->nPos;
 }

@@ -181,7 +181,7 @@ int __cdecl sub_004DF980_IsSoundMode1Or2();
 
 void __fastcall sub_004776C0(void* pArg);
 
-int __cdecl sub_004F5140();
+int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 
 int __cdecl sub_004DF940(); // 0x004DF940
 
@@ -1015,7 +1015,7 @@ void __fastcall sub_0047D2B0_ContrastSelect(D2MenuItemStrc* pItem, SMSGHANDLER_P
 // 0x0047D2F0
 void __fastcall sub_0047D2F0_ContrastOption(D2MenuItemStrc* pItem, int nArg)
 {
-    unsigned long nContrast = (sub_004F5140() != 4) ? 100 : 0;
+    unsigned long nContrast = (D2GFX_GetDisplayType() != 4) ? 100 : 0;
     SRegLoadValue("Diablo II", "Contrast", 0, &nContrast);
     pItem->dwMoveCount = sub_0047CC90_ValueToSlider(pItem, nContrast, 0, 100);
     sub_0047D2B0_ContrastSelect(pItem, 0);

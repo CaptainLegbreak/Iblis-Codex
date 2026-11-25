@@ -2695,7 +2695,7 @@
     "extern \"C\" void __cdecl SKILLS_EventCallback_ActiveState(); // 0x0056D790",
     "extern \"C\" void __cdecl SKILLS_EventCallback_PeriodicSkillAura(); // 0x0056FCB0",
     "extern \"C\" void __cdecl SKILLS_EventCallback_ItemAura(); // 0x0056FE40",
-    "extern \"C\" void __cdecl sub_005A4370(); // 0x005A4370",
+    "extern \"C\" void __cdecl MONSTERUNIQUE_EventExecuteUModCallbacks(); // 0x005A4370",
     "extern \"C\" void __cdecl sub_005A7EF0(); // 0x005A7EF0",
     "extern \"C\" void __cdecl AITHINK_ExecuteMonsterAiTick(); // 0x005B1740",
     "extern \"C\" void __cdecl sub_005A6DE0(); // 0x005A6DE0",
@@ -95913,7 +95913,7 @@
      20,
      "0x005A4370",
      "queue_function",
-     "sub_005A4370",
+     "MONSTERUNIQUE_EventExecuteUModCallbacks",
      0,
      "func"
     ],

@@ -953,7 +953,7 @@ void __fastcall sub_M110_Emit_00472530(int bValue)
 
 extern "C" double __cdecl fabs(double x);
 
-int __cdecl sub_004F5140();                                                                                 // 0x004F5140
+int __cdecl D2GFX_GetDisplayType();                                                                                 // 0x004F5140
 
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);                       // 0x0061C100
 
@@ -998,7 +998,7 @@ static inline void sub_U01_StepSeedInline(D2SeedStrc* pSeed)
 
 static void __stdcall sub_00472FB0_GetPeriodLight(unsigned char* pOut2, int nValue, unsigned char* pOut1)
 {
-    int n = sub_004F5140();
+    int n = D2GFX_GetDisplayType();
     int bFlag;
     if (n > 0 && (n <= 3 || n == 6))
     {

@@ -2592,7 +2592,7 @@ void __fastcall MONSTERUNIQUE_ExecuteUModModeChangeCallbacks(D2GameStrc* pGame, 
 
 
 // 0x005A4370
-void __fastcall sub_005A4370(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+void __fastcall MONSTERUNIQUE_EventExecuteUModCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
     MONSTERUNIQUE_ExecuteUModCallbacks(pGame, 0, 2, pUnit);
 }
@@ -2616,7 +2616,7 @@ void __fastcall MONSTERUNIQUE_ExecuteUModSuccessfulHitCallbacks(D2GameStrc* pGam
 
 
 // 0x005A43A0
-void __fastcall sub_6FC6E8A0(D2GameStrc* pGame, D2UnitStrc* pUnit)
+void __fastcall MONSTERUNIQUE_ExecuteUModDamagedCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     MONSTERUNIQUE_ExecuteUModCallbacks(pGame, 0, 4, pUnit);
 }
@@ -3654,7 +3654,7 @@ D2UnitStrc* __fastcall MONSTERUNIQUE_RestoreUniqueMonster(D2GameStrc* pGame, D2A
 #define MONSTERDATA_UMODS_OFFSET 0x1C
 
 // 0x005A46E0
-D2UnitStrc* __fastcall sub_6FC6FDC0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nUnitGUID, unsigned char* pUMods)
+D2UnitStrc* __fastcall MONSTERUNIQUE_RestoreMinion(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nUnitGUID, unsigned char* pUMods)
 {
     D2UnitStrc* pMonster = MONSTERSPAWN_SpawnWithUnitId(pGame, pRoom, nX, nY, nClassId, 1, nUnitGUID, -1, 98);
     if (!pMonster)

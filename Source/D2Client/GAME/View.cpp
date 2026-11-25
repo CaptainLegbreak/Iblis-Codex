@@ -1398,7 +1398,7 @@ void __cdecl sub_00481850(); // 0x00481850
 
 unsigned int __cdecl D2CMPSpriteCacheGetUsedMemory(); // 0x005FEE10
 
-int __cdecl sub_004F5140(); // 0x004F5140
+int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 
 extern "C" const char gszUnknownText[]; // 0x006CC780
 

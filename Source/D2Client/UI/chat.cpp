@@ -860,7 +860,7 @@ int __cdecl sub_004DF980_IsSoundMode1Or2();
 
 void __fastcall sub_004776C0(void* pArg);
 
-int __cdecl sub_004F5140();
+int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 
 int __cdecl sub_004DF940(); // 0x004DF940
 

@@ -62,7 +62,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 unsigned int __cdecl sub_0044DA90(); // 0x0044DA90
 
-int __cdecl sub_004F5140(); // 0x004F5140
+int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
@@ -652,7 +652,7 @@ void __cdecl PANEL_DrawLifeOrb()
             nPoison = 80;
         if (nPoison > nHeight)
         {
-            if (sub_004F5140() == 6)
+            if (D2GFX_GetDisplayType() == 6)
                 sub_004F64E0(&tContext, 0x1C, gnScreenHeight - 0xD, nHeight, nPoison - nHeight, 0);
             else
                 sub_004F64E0(&tContext, 0x1D, gnScreenHeight - 0xD, nHeight, nPoison - nHeight, 0);
@@ -662,7 +662,7 @@ void __cdecl PANEL_DrawLifeOrb()
     tContext.nFrame = STATES_CheckState(sub_00463DD0_GetPlayerUnit(), STATE_POISON) ? 2 : 0;
     if (nHeight)
     {
-        switch (sub_004F5140())
+        switch (D2GFX_GetDisplayType())
         {
         case 1:
         case 3:
@@ -704,14 +704,14 @@ void __cdecl PANEL_DrawManaOrb()
             nShield = 80;
         if (nShield > nHeight)
         {
-            if (sub_004F5140() == 6)
+            if (D2GFX_GetDisplayType() == 6)
                 sub_004F64E0(&tContext, gnScreenWidth - 0x70, gnScreenHeight - 0xD, nHeight, nShield - nHeight, 0);
             else
                 sub_004F64E0(&tContext, gnScreenWidth - 0x6F, gnScreenHeight - 0xD, nHeight, nShield - nHeight, 0);
         }
     }
 
-    switch (sub_004F5140())
+    switch (D2GFX_GetDisplayType())
     {
     case 1:
     case 3:
@@ -2070,7 +2070,7 @@ void __cdecl PANEL_DrawBelt()
 void __cdecl PANEL_DrawControlPanel()
 {
     int nOffset = 0;
-    if (sub_004F5140() == 3)
+    if (D2GFX_GetDisplayType() == 3)
     {
         nOffset = 1;
     }

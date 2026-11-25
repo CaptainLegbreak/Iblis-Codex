@@ -36,7 +36,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
-int __cdecl sub_004F5140(); // 0x004F5140
+int __cdecl D2GFX_GetDisplayType(); // 0x004F5140
 void __stdcall AUTOMAP_DrawRoomCollision(D2ActiveRoomStrc* pRoom); // 0x0045B4F0
 void __stdcall sub_0045B5F0(D2ActiveRoomStrc* pRoom); // 0x0045B5F0
 
@@ -187,7 +187,7 @@ inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 // 0x0045B8B0
 void __cdecl sub_0045B8B0_DrawLogicalRoom()
 {
-    if (sub_004F5140() == 3)
+    if (D2GFX_GetDisplayType() == 3)
         return;
 
     D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
