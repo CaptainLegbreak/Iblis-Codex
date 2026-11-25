@@ -2,6 +2,8 @@
 #include "D2LangTypes.h"
 #include "D2Unicode.h"
 
+#include "gen/data/Source/D2Lang/Unknown_00526490.inc"
+
 struct D2LangByteRangeStrc;
 struct D2UtfConvertSpecStrc;
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
