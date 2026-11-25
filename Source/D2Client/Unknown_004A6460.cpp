@@ -2482,11 +2482,6 @@ static void TEXT_DrawBlockChanceHover(int nX, int nY, int nValue)
     D2Win_10132(wszText, gnPanelOffsetX + 0x8B, gnScreenHeight + gnPanelOffsetY - 0x13B, gnTextColor, 2, 0);
 }
 
-void __stdcall sub_I10_Emit_004A7180(int nX, int nY, int nValue)
-{
-    TEXT_DrawBlockChanceHover(nX, nY, nValue);
-}
-
 static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord_Inl(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -2520,12 +2515,6 @@ static int TEXT_AddToHitFactor(D2UnitStrc* pUnit, int nAttackRate)
     }
 
     return nAttackRate;
-}
-
-int __fastcall sub_004A70C0_Emit(int nArg, D2UnitStrc* pUnit)
-{
-    int nValue = TEXT_GetWeaponBlock(pUnit);
-    return nValue > 0 ? nValue : nArg;
 }
 
 inline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
