@@ -11,10 +11,10 @@ struct D2ListBoxLineStrc
     }
 
     Unicode wszText0[0x400];
-    Unicode f_800[0x400];
-    Unicode f_1000[0x400];
-    Unicode f_1800[0x400];
-    Unicode f_2000[0x400];
+    Unicode wszText1[0x400];
+    Unicode wszText2[0x400];
+    Unicode wszText3[0x400];
+    Unicode wszText4[0x400];
     Unicode wszText5[0x400];
     short nFlags;
     int unk0x3002;

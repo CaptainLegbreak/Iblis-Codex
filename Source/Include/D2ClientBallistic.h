@@ -13,7 +13,7 @@ struct D2BallisticStrc
     int nVelB;
     int nStartVelocity;
     int unk0x1C[2];
-    int f_24;
+    int nAcceleration;
     int unk0x28[8];
     int nFrames;
 };
