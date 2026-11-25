@@ -18,11 +18,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 03:55 PST 2026: audit-decls-d2client posted (356 functions into D2ClientFuncs.h, 1,330 private declarations fewer).
+- Wed Nov 25 04:40 PST 2026: audit-decls-d2client regenerated and reposted on #394.
 
 ## Ready
 
-- lane4/audit-decls-d2client 300ab436f (on #391): audit item 4 for 0x440000-0x49FFFF, per the coordinator's (a). New module header Source/D2Client/D2ClientFuncs.h declares 356 functions of my range once (those declared with one spelling in two or more D2Client files); 114 files include it after D2Client.h and lose their 1,330 private copies. Left private: a function whose definition is spelled differently (GAME_GetPing, GAME_GetInteractDeadline, VIEW_CreateView, UI_GetPentspinCel), whose linkage differs (CHAT_ResetChatHistory), that uses `Unicode` (a typedef in some files), or that a data table's extern stub declares. **Seven units don't include it** and keep their private copies (listed in the header): inv.cpp (0x488100), inv_004886C0 (0x488B00), inv_0048BC10, inv_0048DD90, useitem (0x4BFDD0), Item.cpp (0x4C4740), UnitSnd (0x4CA560); each flips from the added declarations. All 143 D2Client.h includers all equal; audit guard: no count rose. Full build: Game.exe identical, tree ce1e516f1b33152f9c2ab43e7dc96ff980435c9f, borrowed code / data 11,250 / 261 B.
+- lane4/audit-decls-d2client 3725138f3 (on #394; regenerated on #393 because it conflicted in six files): audit item 4 for 0x440000-0x49FFFF, per the coordinator's (a). New module header Source/D2Client/D2ClientFuncs.h declares 356 functions of my range once (those declared with one spelling in two or more D2Client files); 113 files include it after D2Client.h and lose their 1,328 private copies. Left private: a function whose definition is spelled differently (GAME_GetPing, GAME_GetInteractDeadline, VIEW_CreateView, UI_GetPentspinCel), whose linkage differs (CHAT_ResetChatHistory), that uses `Unicode` (a typedef in some files), or that a data table's extern stub declares. **Seven units don't include it** and keep their private copies (listed in the header): inv.cpp (0x488100), inv_004886C0 (0x488B00), inv_0048BC10, inv_0048DD90, useitem (0x4BFDD0), Item.cpp (0x4C4740), UnitSnd (0x4CA560); each flips from the added declarations. All 141 D2Client.h includers all equal; audit guard: no count rose. Full build: Game.exe identical, tree 0982238cf353aeabd27efce194cb08f7188a62d2, borrowed code / data 11,250 / 261 B.
 
 ## Claimed
 
