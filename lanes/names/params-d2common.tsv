@@ -1,12 +1,24 @@
 file	function	old	new	confidence	reason
 Source/D2Common/Unknown_00679380.cpp	PATH_NormalizeStep	a1			no D2MOO definition of this function
 Source/D2Common/Unknown_00679380.cpp	PATH_NormalizeStep	a2			no D2MOO definition of this function
+Source/D2Common/Unknown_0066A1A0.cpp	DATATBLS_EmptyStub_0066A220	a1			no D2MOO definition of this function
+Source/D2Common/Unknown_0066A1A0.cpp	DATATBLS_EmptyStub_0066A220	a2			no D2MOO definition of this function
+Source/D2Common/Unknown_0066A1A0.cpp	DATATBLS_EmptyStub_0066A250	a1			no D2MOO definition of this function
+Source/D2Common/Unknown_006634F0.cpp	sub_00663B40_SetBonusStatList	a3			no D2MOO definition of this function
+Source/D2Common/Unknown_006634F0.cpp	ITEMS_UpdateSets	a3			D2MOO also has a3
+Source/D2Common/Unknown_006634F0.cpp	ITEMS_UpdateSets	a4			D2MOO also has a4
+Source/D2Common/Unknown_0064FAD0.cpp	D2Common_10236	a2			D2MOO also has a2
+Source/D2Common/Unknown_0064FAD0.cpp	D2Common_10230	a2			D2MOO also has a2
+Source/D2Common/COMPOSIT/Composit.cpp	D2Common_10885_COMPOSIT_unk	a5			D2MOO also has a5
+Source/D2Common/UNITS/Units.cpp	UNITS_SetCurrentRoomInvalid	a2			D2MOO also has a2
+Source/D2Common/UNITS/Units.cpp	D2Common_10434	a2			D2MOO also has a2
+Source/D2Common/UNITS/Units.cpp	UNITS_MergeDualWieldWeaponStatLists	a2			D2MOO also has a2
+Source/D2Common/UNITS/Units.cpp	sub_00622E90_Nop	a2			no D2MOO definition of this function
 Source/D2Common/DATATBLS/ItemTbls.cpp	ITEMS_ResolveItemCalcKeyword	a2			no D2MOO definition of this function
 Source/D2Common/DATATBLS/ItemTbls.cpp	ITEMS_ResolveItemCalcKeyword	a3			no D2MOO definition of this function
 Source/D2Common/DATATBLS/MissileTbls.cpp	DATATBLS_MissileLinkerResolveKeyword	a2			no D2MOO definition of this function
 Source/D2Common/DATATBLS/MissileTbls.cpp	DATATBLS_MissileLinkerResolveKeyword	a3			no D2MOO definition of this function
 Source/D2Common/PATH/Path.cpp	D2Common_10207	a2			D2MOO also has a2
-Source/D2Common/PATH/Path.cpp	D2Common_10207	a3	dwSpeed	medium	D2MOO also leaves it a3; the function stores it straight into the field dwSpeed
 Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10846	a2			D2MOO also has a2
 Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10846	a3			D2MOO also has a3
 Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10846	a4			D2MOO also has a4
@@ -79,41 +91,23 @@ Source/D2Common/SKILLS/Skills.cpp	D2Common_11015	a2			D2MOO also has a2
 Source/D2Common/SKILLS/Skills.cpp	D2COMMON_11017_CheckUnitIfConsumeable	a2			D2MOO also has a2
 Source/D2Common/SKILLS/Skills.cpp	SKILLS_CalcNestedParamCallback	a2			no D2MOO definition of this function
 Source/D2Common/SKILLS/Skills.cpp	SKILLS_CalcNestedParamCallback	a3			no D2MOO definition of this function
-Source/D2Common/SKILLS/Skills.cpp	D2Common_11030	a3	nLevelBonus	medium	D2MOO also leaves it a3; the function stores it straight into the field nLevelBonus
 Source/D2Common/SKILLS/Skills.cpp	D2Common_11031	a3			D2MOO also has a3
 Source/D2Common/SKILLS/Skills.cpp	D2Common_11025	a6			D2MOO also has a6
-Source/D2Common/Unknown_0066A1A0.cpp	DATATBLS_EmptyStub_0066A220	a1			no D2MOO definition of this function
-Source/D2Common/Unknown_0066A1A0.cpp	DATATBLS_EmptyStub_0066A220	a2			no D2MOO definition of this function
-Source/D2Common/Unknown_0066A1A0.cpp	DATATBLS_EmptyStub_0066A250	a1			no D2MOO definition of this function
-Source/D2Common/Unknown_006634F0.cpp	sub_00663B40_SetBonusStatList	a3			no D2MOO definition of this function
-Source/D2Common/Unknown_006634F0.cpp	ITEMS_UpdateSets	a3			D2MOO also has a3
-Source/D2Common/Unknown_006634F0.cpp	ITEMS_UpdateSets	a4			D2MOO also has a4
-Source/D2Common/Unknown_0064FAD0.cpp	D2Common_10236	a2			D2MOO also has a2
-Source/D2Common/Unknown_0064FAD0.cpp	D2Common_10230	a2			D2MOO also has a2
-Source/D2Common/Unknown_0064FAD0.cpp	D2Common_10230	a4	X	medium	D2MOO also leaves it a4; the function stores it straight into the field X
-Source/D2Common/Unknown_0064FAD0.cpp	D2Common_10230	a5	Y	medium	D2MOO also leaves it a5; the function stores it straight into the field Y
-Source/D2Common/COMPOSIT/Composit.cpp	D2Common_10885_COMPOSIT_unk	a5			D2MOO also has a5
-Source/D2Common/UNITS/Units.cpp	UNITS_SetCurrentRoomInvalid	a2			D2MOO also has a2
-Source/D2Common/UNITS/Units.cpp	D2Common_10434	a2			D2MOO also has a2
-Source/D2Common/UNITS/Units.cpp	UNITS_MergeDualWieldWeaponStatLists	a2			D2MOO also has a2
-Source/D2Common/UNITS/Units.cpp	sub_00622E90_Nop	a2			no D2MOO definition of this function
-Source/D2Common/INVENTORY/Inventory.cpp	INVENTORY_CreateCorpseForPlayer	a3			D2MOO also has a3
-Source/D2Common/INVENTORY/Inventory.cpp	INVENTORY_CreateCorpseForPlayer	a4			D2MOO also has a4
-Source/D2Common/INVENTORY/Inventory.cpp	INVENTORY_FreeCorpse	a3			D2MOO also has a3
-Source/D2Common/INVENTORY/Inventory.cpp	D2Common_11050	a2			D2MOO also has a2
+Source/D2Common/DATATBLS/MonsterTbls.cpp	sub_00654E70	a1			no D2MOO definition of this function
+Source/D2Common/DATATBLS/MonsterTbls.cpp	sub_00654E70	a2			no D2MOO definition of this function
 Source/D2Common/DATATBLS/DataTbls.cpp	DATATBLS_InitUnicodeClassNamesInCharStatsTxt	a5			D2MOO source/D2Common/src/DataTbls/DataTbls.cpp has 0 parameters, ours 6
 Source/D2Common/DATATBLS/DataTbls.cpp	DATATBLS_LoadAllTxts	a2			D2MOO also has a2
 Source/D2Common/DATATBLS/DataTbls.cpp	DATATBLS_LoadAllTxts	a3			D2MOO also has a3
-Source/D2Common/DATATBLS/MonsterTbls.cpp	sub_00654E70	a1			no D2MOO definition of this function
-Source/D2Common/DATATBLS/MonsterTbls.cpp	sub_00654E70	a2			no D2MOO definition of this function
 Source/D2Common/PATH/PathUtil.cpp	PATH_NormalizeStep	a1			no D2MOO definition of this function
 Source/D2Common/PATH/PathUtil.cpp	PATH_NormalizeStep	a2			no D2MOO definition of this function
 Source/D2Common/ENVIRONMENT/Env.cpp	ENVIRONMENT_GetStatistics	a5			D2MOO also has a5
 Source/D2Common/DRLG/DrlgLogic.cpp	DRLGLOGIC_SetTileGridFlags	a1			D2MOO also has a1
 Source/D2Common/DRLG/DrlgLogic.cpp	DRLGLOGIC_SetTileGridFlags	a4			D2MOO also has a4
-Source/D2Common/DRLG/Outdoors.cpp	DRLGOUTDOORS_SpawnPresetFarAway	a5	nOffset	high	D2MOO source/D2Common/src/Drlg/DrlgOutdoors.cpp, parameter 5
-Source/D2Common/DRLG/Outdoors.cpp	DRLGOUTDOORS_SpawnPresetFarAway	a6	nFlags	high	D2MOO source/D2Common/src/Drlg/DrlgOutdoors.cpp, parameter 6
 Source/D2Common/DRLG/OutPlace.cpp	DRLGOUTPLACE_PlaceCoordBeside	a4			no D2MOO definition of this function
 Source/D2Common/DRLG/OutPlace.cpp	DRLGOUTPLACE_PlaceCoordCentered	a4			no D2MOO definition of this function
 Source/D2Common/DRLG/OutPlace.cpp	sub_6FD815E0	a3			D2MOO also has a3
 Source/D2Common/DRLG/OutPlace.cpp	sub_6FD815E0	a4			D2MOO also has a4
+Source/D2Common/INVENTORY/Inventory.cpp	INVENTORY_CreateCorpseForPlayer	a3			D2MOO also has a3
+Source/D2Common/INVENTORY/Inventory.cpp	INVENTORY_CreateCorpseForPlayer	a4	bCounted	medium	D2MOO also leaves it a4; the function stores it straight into the field bCounted
+Source/D2Common/INVENTORY/Inventory.cpp	INVENTORY_FreeCorpse	a3			D2MOO also has a3
+Source/D2Common/INVENTORY/Inventory.cpp	D2Common_11050	a2			D2MOO also has a2
