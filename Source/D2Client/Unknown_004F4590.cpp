@@ -5,7 +5,7 @@
 
 
 
-void __fastcall sub_004B9A00(int nSound, D2UnitStrc* pUnit, int a3, int a4, int a5); // 0x004B9A00
+void __fastcall sub_004B9A00(int nSound, D2UnitStrc* pUnit, int nDelay, int nArg3, int nArg4); // 0x004B9A00
 
 static inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
 {

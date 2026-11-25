@@ -34,7 +34,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath);               
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath);                                           // 0x00648900
 extern "C" void __stdcall PATH_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pTarget);        // 0x00648B90
 void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nType);                                    // 0x00648CF0
-int __stdcall D2Common_10142(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, int a3);                   // 0x00649970
+int __stdcall D2Common_10142(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, int bAllowInTown);                   // 0x00649970
 
 inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {

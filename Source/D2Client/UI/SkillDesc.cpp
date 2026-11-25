@@ -461,7 +461,7 @@ void __fastcall SKILLDESC_DescAttackRatingOffhand(D2UnitStrc* pUnit, D2SkillStrc
 
 static void __stdcall SKILLDESC_AddScaledWeaponDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill, D2UnitStrc* pItem, int nRatio); // 0x004E9660
 
-void __fastcall sub_004EA4A0(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, int a5, int a6, int nParam, int a8, int a9); // 0x004EA4A0
+void __fastcall sub_004EA4A0(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pType, int nBonus, int nAdd, int nParam, int nSrcDam, int nItem); // 0x004EA4A0
 
 extern const char gszFmtOne_006D57BC[]; // 0x006D57BC
 

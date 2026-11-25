@@ -139,7 +139,7 @@ void __stdcall D2Common_10153(D2DynamicPathStrc* pDynamicPath);
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit);
 void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory);
 int __stdcall D2Common_10399(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);
-void* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2);
+void* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* pValue);
 D2SkillStrc* __fastcall SKILLS_GetSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine);
@@ -155,7 +155,7 @@ int __stdcall PATH_GetLastPointY(D2DynamicPathStrc* pPath); // 0x00648A60
 D2ActiveRoomStrc* __stdcall PATH_GetNextRoom(D2DynamicPathStrc* pDynamicPath);
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY);
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit);
-int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int a3);
+int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown);
 void __stdcall D2Common_10228(D2UnitStrc* pUnit);
 void __stdcall PATH_SetUnitDeadCollision(D2UnitStrc* pUnit, int nArg); // 0x00649F70
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);

@@ -823,7 +823,7 @@ struct D2SpawnArgsStrc
 
 static D2UnitStrc* __stdcall MISSILE_SpawnSubMissile(D2UnitStrc* pOwner, int nMissile, int nSpread, D2UnitStrc* pMissile); // 0x004CE530
 
-void __fastcall sub_004B9A00_PlayOverlay(int nOverlay, D2UnitStrc* pOwner, int a3, int a4, int a5); // 0x004B9A00
+void __fastcall sub_004B9A00_PlayOverlay(int nOverlay, D2UnitStrc* pOwner, int nDelay, int nArg3, int nArg4); // 0x004B9A00
 
 void __fastcall MISSILE_SpawnScatterMissiles(D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nSound, int nLevel); // 0x004CE650
 

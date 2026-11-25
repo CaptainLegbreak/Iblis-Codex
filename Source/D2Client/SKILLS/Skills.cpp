@@ -210,7 +210,7 @@ D2GfxLightStrc* __fastcall DLIGHTMAP_MakeLightEntry(D2UnitStrc* pUnit, int nArg1
 
 void __fastcall sub_00474290(D2GfxLightStrc* pLight, int nRadius); // 0x00474290
 
-void* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2); // 0x00643A00
+void* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* pValue); // 0x00643A00
 
 void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 
@@ -520,7 +520,7 @@ int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);      
 
 void __stdcall PATH_SetDirection(D2DynamicPathStrc* pDynamicPath, int nDirection);                          // 0x006488A0
 
-int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
+int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
 
 // 0x00457300
 void __fastcall SKILLS_InitGfxCaches(void* pMemPool, int bCelPool)

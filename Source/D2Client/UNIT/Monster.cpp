@@ -152,7 +152,7 @@ void __stdcall MONSTER_RunUModCallbacks(D2UnitStrc* pUnit, void* pArg, int nMode
 
 void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory); // 0x0063AC40
 
-D2GfxLightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2); // 0x00643A00
+D2GfxLightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* pValue); // 0x00643A00
 
 void __stdcall PATH_FreeDynamicPath(void* pMemPool, D2DynamicPathStrc* pDynamicPath); // 0x00648460
 
@@ -528,7 +528,7 @@ void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc* pDynamicPath);       
 
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance);            // 0x00648E70
 
-void __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int a3);                         // 0x00649970
+void __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown);                         // 0x00649970
 
 void __stdcall PATH_SetUnitDeadCollision(D2UnitStrc* pUnit, int bForGameLogic);                             // 0x00649F70
 
