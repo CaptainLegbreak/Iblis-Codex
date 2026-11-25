@@ -8,6 +8,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 - lane10/sweep-small-2 835f49abc, on main #400 (replaces sweep-small, which conflicted with #399/#400 in D2CMP's CelCmp.cpp, CelCmp_005FF2A0.cpp and SpriteCache.cpp; SpriteCache.cpp's new call takes FOG_AsyncDataTestLoaded too): the call-site sweep for the smaller modules (Fog, Storm, D2Win, D2CMP, D2Gfx, D2Launch, D2Multi, D2Lang, D2Net, D2Sound, the Battle.net modules, the renderers, SRP): 80 old sub_ spellings take their names.csv names in 76 files. Left out: the ones whose units fail with the name (declarations that differ), and 0x0051E3D0 (BNDOWNLOAD_SendGetFileTime), which the data plan declares extern "C" while D2BNClient.h declares it C++. VERIFIED 5aa49dc3, Game.exe matches.
 
 ## Claimed
+- Wed Nov 25 08:27:54 PST 2026: check-in on #400: the board's rebase of sweep-small onto #400 is done already, as sweep-small-2 835f49abc (Ready, still on the newest main). Next: checking which globals plans are still unapplied.
 - Wed Nov 25 07:46:20 PST 2026: check-in: sweep-small rebuilt as sweep-small-2 on #400 (Ready).
 - Wed Nov 25 06:57:58 PST 2026: check-in on #398: sweep-small posted (Ready). Next: the call-site sweep for the functions it left out, starting with the prototype mismatches.
 - Wed Nov 25 06:18:11 PST 2026: check-in on #397: names-all-3 merged, nothing to rebase. Running the call-site sweep for the smaller modules (Fog, Storm, D2Win, D2CMP, D2Gfx, D2Launch, D2Multi, D2Lang, D2Net, D2Sound, the Battle.net modules, renderers, SRP) on #397.
