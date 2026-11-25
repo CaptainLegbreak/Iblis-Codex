@@ -40223,11 +40223,6 @@
      "va": "0x00525FB0",
      "length": 331,
      "name": "D2LANG_FormatInt"
-    },
-    {
-     "va": "0x00527090",
-     "length": 258,
-     "name": "ContainsChar"
     }
    ]
   },
@@ -40396,9 +40391,14 @@
    ]
   },
   {
-   "file": "Source/D2Lang/Unknown_005271A0.cpp",
+   "file": "Source/D2Lang/Unknown_00527090.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x00527090",
+     "length": 258,
+     "name": "ContainsChar"
+    },
     {
      "va": "0x005271A0",
      "length": 259,
