@@ -2,18 +2,16 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 17:33:37 PST 2026): four joins ready, all merge cleanly on #374. Retried Unknown_00527BE0 <- Unknown_00528030 with noinline on 0x528760's callees: still a 4-byte frame and register difference with identical source and declarations, so it stays parked. Remaining report leads in my modules are weak or another lane's (Notes).
+Status (Tue Nov 24 18:02:34 PST 2026): join-006056d0, join-005fe010, join-00446880 merged (#375); join-00518b90 still ready. Next: the D2Net object map (Unknown_0052B920.cpp holds two language copies), then D2Lang's code order.
 
 ## Ready
 
-- lane6/join-00446880 527201fa 253->252 placeholders (count on #374). ComCallback.cpp takes Unknown_00446880.cpp: 0x446880 (a stub returning 0) sits inside ComCallback's run 0x445FF0-0x446B6E. The placeholder's four empty sub_006460*_Empty functions were copies of Skills.cpp's own definitions and are dropped, not moved. Not stacked; D2Multi only. VERIFIED b7daf801 (on #373, merges cleanly on #374; borrowed data 844 B, unchanged).
-- lane6/join-005fe010 42c6e5bb 253->252 placeholders (count on #374). SpriteCache.cpp takes Unknown_005FE010.cpp: 0x5FE170 sits inside SpriteCache's run and is the free callback SpriteCache passes when it creates the tile cache (it reads gCmpTileCache and gCmpBlockTableB); gpfnCmpFreeCallback (.bss 0x89DB5C) comes with it. Not stacked; D2CMP only. VERIFIED f1d8c152 (on #373, merges cleanly on #374; borrowed data 844 B, unchanged).
-- lane6/join-006056d0 bf68001b 253->252 placeholders (count on #374). FastCmp.cpp takes Unknown_006056D0.cpp (0x605AA0-0x606930, the colour-table builders over FastCmp's palette/HSL helpers; report-372 clear lead, 22), with its tables 0x7420D8-0x7434FE in the plan; FastCmp's three unmarked copies of those functions go. Not stacked; D2CMP only. VERIFIED e651a2df (on #372; borrowed data 844 B, unchanged).
-- lane6/join-00518b90 3b4d3e49 253->252 placeholders (count on #374). Unknown_00518B90.cpp takes Unknown_00518B60.cpp: each had half of D2BnLogStrc (constructor 0x518B60 and deleting destructor 0x518BD0 in one; destructor 0x518B80 and handle getter 0x518B90 in the other, interleaved with 0x518BC0). One struct now carries all of it. Not stacked; D2BNClient only. VERIFIED 95378f9b (on #367, merges cleanly on #368; borrowed data 844 B, unchanged).
+- lane6/join-00518b90 3b4d3e49 249->248 placeholders (count on #375; merges cleanly on #375). Unknown_00518B90.cpp takes Unknown_00518B60.cpp: each had half of D2BnLogStrc (constructor 0x518B60 and deleting destructor 0x518BD0 in one; destructor 0x518B80 and handle getter 0x518B90 in the other, interleaved with 0x518BC0). One struct now carries all of it. Not stacked; D2BNClient only. VERIFIED 95378f9b (on #367, merges cleanly on #368; borrowed data 844 B, unchanged).
 
 
 ## Claimed
 
+- **D2Net object map (next):** Unknown_0052B920.cpp holds two language copies (0x00730F84, 0x00730FC0), so it spans two objects; its packet tables (0x00730AE8, 0x00730DC0) are read from code interleaved with Client.cpp, Server.cpp and D2Game's Game.cpp. Mapping first, then a split.
 - **report-372 leads:** FastCmp.cpp <- Unknown_006056D0 (lane6/join-006056d0, now a clear lead after #365's FastCmp join), SpriteCache.cpp <- Unknown_005FE010 (lane6/join-005fe010), ComCallback.cpp <- Unknown_00446880 (lane6/join-00446880); the last two sit inside their owner's runs.
 - **report-369 leads:** CelCmp.cpp <- Unknown_006043B0 (lane6/join-006043b0), BnSend.cpp <- Unknown_0051C760 (lane6/join-bnsend-c760; #368's join put Unknown_0051C7E0 into 0051C760, this one takes the result into BnSend). Unknown_0060D280 -> FastCmp.cpp, Unknown_005271A0 -> strtable.cpp and Unknown_00520DC0 + Unknown_005241A0 are in laneless/objmap-joins-3 (44c44aa1, not merged yet), which I was told to leave; I'll take them if that branch is dropped.
 - **Object-map joins (report-356.md):** merged: CelCmp, Codec (#364), FastCmp (#365), SpriteCache, BnMessQueue (#366), BnSend, McpConnect accessors (#367). ChatDlg three (Unknown_004456D0, Unknown_004450D0, Unknown_00444020) retried on #361: still register-allocation/scheduling diffs, left in place. The other leads are skipped on language-copy evidence (Left in place).
