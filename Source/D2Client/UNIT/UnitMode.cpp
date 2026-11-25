@@ -269,6 +269,21 @@ __forceinline int CLIENT_GetAnimModeInline(D2UnitStrc* pUnit)
     return 0;
 }
 
+void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
+
+inline int UNITS_GetFlag21Inl(D2UnitStrc* pUnit)
+{
+    return (pUnit->dwFlags >> 21) & 1;
+}
+
+// 0x004804A0
+int __fastcall sub_004804A0_SetPathTargetPos(D2UnitStrc* pUnit, int nX, int nY)
+{
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+    D2COMMON_10170_PathSetTargetPos(pPath, nX, nY);
+    return D2Common_10142(pPath, pUnit, UNITS_GetFlag21Inl(pUnit));
+}
+
 // 0x004804E0
 void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nMode, int nTargetX, int nTargetY)
 {
