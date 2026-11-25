@@ -99,7 +99,7 @@ extern const unsigned char gnMissileFlag_006CE27C; // 0x006CE27C
 
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc*, D2UnitStrc*); // 0x00552FD0
 
-int __stdcall sub_0064A3E0_GetMissileId(D2UnitStrc*); // 0x0064A3E0
+int __stdcall MISSILE_GetClassId(D2UnitStrc*); // 0x0064A3E0
 
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc*); // 0x00648A00
 
@@ -551,7 +551,7 @@ void __fastcall MISSILES_SyncToClient(D2ClientStrc* pClient, D2GameStrc* pGame, 
         return;
     D2GSPacketSrv73 packet = {};
     packet.nHeader = 0x73;
-    packet.nMissileId = sub_0064A3E0_GetMissileId(pMissile);
+    packet.nMissileId = MISSILE_GetClassId(pMissile);
     packet.nX = CLIENTS_GetUnitX(pMissile);
     packet.nY = CLIENTS_GetUnitY(pMissile);
     if (bSendPath)

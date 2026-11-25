@@ -87,7 +87,7 @@ unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMa
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 
-D2StatListStrc* __stdcall sub_00625790_UnitFindStatList(D2UnitStrc* pUnit, int nState, int nFlag);
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pUnit, int nState, int nFlag); // 0x00625790
 
 
 
@@ -752,7 +752,7 @@ static D2StatListStrc* __stdcall ITEMMODS_GetOrCreateStatList(D2UnitStrc* pUnit,
 
     if (pUnit)
     {
-        hStatsList = sub_00625790_UnitFindStatList(pUnit, nState, fFilter);
+        hStatsList = STATLIST_GetStatListFromUnitStateOrFlag(pUnit, nState, fFilter);
         if (!hStatsList)
         {
             int nUnitGUID = pUnit->dwUnitId;
@@ -764,7 +764,7 @@ static D2StatListStrc* __stdcall ITEMMODS_GetOrCreateStatList(D2UnitStrc* pUnit,
     }
     else
     {
-        hStatsList = sub_00625790_UnitFindStatList(pItem, nState, fFilter);
+        hStatsList = STATLIST_GetStatListFromUnitStateOrFlag(pItem, nState, fFilter);
         if (!hStatsList)
         {
             hStatsList = STATLIST_AllocStatList(!pItem ? 0 : pItem->pMemoryPool, fFilter, 0, 4, !pItem ? -1 : pItem->dwUnitId);
@@ -2910,7 +2910,7 @@ int __stdcall ITEMMODS_UpdateRuneword(D2UnitStrc* pUnit, D2UnitStrc* pItem, int 
         return 0;
     }
 
-    if (sub_00625790_UnitFindStatList(pUnit, STATE_RUNEWORD, 0x40))
+    if (STATLIST_GetStatListFromUnitStateOrFlag(pUnit, STATE_RUNEWORD, 0x40))
     {
         return 0;
     }

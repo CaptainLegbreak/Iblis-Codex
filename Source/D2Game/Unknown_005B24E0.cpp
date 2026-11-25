@@ -260,7 +260,7 @@ struct D2TileLibraryEntryStrc;
 
 extern D2CoordStrc g_006E2D50_offsets[4];  // 0x006E2D50
 
-D2DrlgTileDataStrc* __stdcall sub_00619660_GetFloorTiles(D2ActiveRoomStrc*,int*); // 0x00619660
+D2DrlgTileDataStrc* __stdcall DUNGEON_GetFloorTilesFromRoom(D2ActiveRoomStrc*,int*); // 0x00619660
 
 int __stdcall TileGetFlags(D2TileLibraryEntryStrc*); // 0x00604BC0
 
@@ -983,7 +983,7 @@ int __fastcall sub_005B2570_SpawnMinionsAround(D2GameStrc* pGame, D2UnitStrc* pU
 int __stdcall MONSTERSPAWN_FindFloorPosition(D2ActiveRoomStrc* room,int* outX,int* outY)
 {
     int count;
-    D2DrlgTileDataStrc* tiles=sub_00619660_GetFloorTiles(room,&count);
+    D2DrlgTileDataStrc* tiles=DUNGEON_GetFloorTilesFromRoom(room,&count);
     if (!tiles) return 0;
     if (!count) return 0;
     unsigned start=ITEMS_RollLimitedRandomNumber(room?&room->pSeed:0,count);

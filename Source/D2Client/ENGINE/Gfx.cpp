@@ -1255,7 +1255,8 @@ static void __stdcall GFX_CommandOnUnit(int nCommand, int nArg, D2UnitStrc* pUni
     tCommand.nZero = 0;
     tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
     tCommand.nArg = nArg;
-    tCommand.nPathByte = sub_00648EA0_GetPathByte(pPath);
+// build: symbol ?PATH_GetMaxDistance@* 0x00648EA0
+    tCommand.nPathByte = PATH_GetMaxDistance(pPath);
     MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
 }
 
@@ -1298,7 +1299,7 @@ static int __stdcall sub_0046C7D0_StepAwayFromUnit(D2UnitStrc* pUnit, unsigned c
     tCommand.nZero = 0;
     tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
     tCommand.nArg = nArg;
-    tCommand.nPathByte = sub_00648EA0_GetPathByte(pPath);
+    tCommand.nPathByte = PATH_GetMaxDistance(pPath);
     MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
     return 1;
 }
@@ -1328,7 +1329,7 @@ static void __stdcall GFX_StepRandom(unsigned char nScale, int nCommand, int nAr
     tCommand.nZero = 0;
     tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
     tCommand.nArg = nArg;
-    tCommand.nPathByte = sub_00648EA0_GetPathByte(pPath);
+    tCommand.nPathByte = PATH_GetMaxDistance(pPath);
     MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
 }
 
@@ -1342,7 +1343,7 @@ static void __stdcall sub_0046CA60_CommandToXY(int nCommand, D2UnitStrc* pUnit, 
     tCommand.nZero = 0;
     tCommand.nPathValue = sub_00648E30_GetPathValue(pPath);
     tCommand.nArg = nArg;
-    tCommand.nPathByte = sub_00648EA0_GetPathByte(pPath);
+    tCommand.nPathByte = PATH_GetMaxDistance(pPath);
     MONSTER_HandleMonsterCommand(nCommand, pUnit, &tCommand);
 }
 
@@ -2011,7 +2012,8 @@ static void __stdcall GFX_RecalcStateOverlays(D2StateOwnerStrc* pOwner, D2UnitSt
     {
         STATES_ToggleState(pUnit, nStateId, 0);
     }
-    if (!sub_0063A250(pUnit))
+// build: symbol ?STATES_CheckStateMaskAuraOnUnit@* 0x0063A250
+    if (!STATES_CheckStateMaskAuraOnUnit(pUnit))
     {
         pNode->nCurrent = 0;
         if (bHasState)
@@ -2381,7 +2383,8 @@ int __fastcall GFX_DrawItemCel(D2UnitStrc* pItem, int nX, int nY)
         return 0;
     }
     unsigned char nShift;
-    const int nPalette = sub_0062C100(0, pItem, &nShift, 1);
+// build: symbol ?ITEMS_GetColor@* 0x0062C100
+    const int nPalette = ITEMS_GetColor(0, pItem, &nShift, 1);
     int nDrawMode = 5;
     if (ITEMS_CheckItemFlag(pItem, 0x400000, 0xAC2, ".\\ENGINE\\Gfx.cpp"))
     {
