@@ -31753,30 +31753,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/UI/SkillDesc_004EC280.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004EC280",
-     "length": 90
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/UI/SkillDesc.cpp",
    "rank": 0,
    "functions": [
@@ -32121,6 +32097,10 @@
      "va": "0x004EC220",
      "length": 87,
      "name": "?SKILLDESC_AddSkillElemDamage@@YGHPAUD2UnitStrc@@PAUUnicode@@PAUD2SkillsTxt@@GHH@Z"
+    },
+    {
+     "va": "0x004EC280",
+     "length": 90
     },
     {
      "va": "0x004EC620",
