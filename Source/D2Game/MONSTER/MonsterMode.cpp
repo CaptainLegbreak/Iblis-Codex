@@ -45,11 +45,11 @@ void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
 
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x006272B0
 
-int __fastcall sub_005A00F0_GetMonUModConstant(int nIndex);                                                 // 0x005A00F0
+int __fastcall MONSTERUNIQUE_GetMonUModConstant(int nIndex);                                                 // 0x005A00F0
 
-extern "C" D2MonLvlTxt* __fastcall sub_005A0000_GetMonLvlTxtRecord(int nLevel); // 0x005A0000
+extern "C" D2MonLvlTxt* __fastcall MISSILES_GetMonLvlTxtRecord(int nLevel); // 0x005A0000
 
-void __fastcall sub_005A0E80_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nUMod, int bUnique);                   // 0x005A0E80
+void __fastcall MONSTERUNIQUE_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nUMod, int bUnique);                   // 0x005A0E80
 
 int __fastcall MONSTERUNIQUE_UMod8_Resistant(D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A1370
 

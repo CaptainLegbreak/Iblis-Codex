@@ -537,7 +537,7 @@ static inline unsigned char* sub_00573AE0_GetComponents(D2UnitStrc* pUnit)
 }
 
 // 0x00573AE0
-int __fastcall sub_00573AE0_HasComponents(D2UnitStrc* pUnit)
+int __fastcall MONSTER_HasComponents(D2UnitStrc* pUnit)
 {
 	const unsigned char* pComponents = sub_00573AE0_GetComponents(pUnit);
 	int i = 0;

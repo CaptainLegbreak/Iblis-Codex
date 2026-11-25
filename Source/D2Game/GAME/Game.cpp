@@ -1453,7 +1453,7 @@ int __cdecl sub_0052BF70()
 void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                   // 0x0041D300
 
 // 0x0052BF80
-void __fastcall sub_0052BF80_ZeroBlock8(void* pData)
+void __fastcall GAME_ZeroBlock8(void* pData)
 {
     SMemZero(pData, 8);
 }
@@ -1548,7 +1548,7 @@ typedef void* HGAMEDATA;
 extern HGAMEDATA hGameArray_6FD447F8[1024];                                                                 // 0x00882D38
 
 // 0x0052C170
-unsigned short __fastcall sub_0052C170_ReserveGameId()
+unsigned short __fastcall GAME_ReserveGameId()
 {
     EnterCriticalSection(&gGameListLock);
 

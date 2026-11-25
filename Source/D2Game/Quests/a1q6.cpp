@@ -970,7 +970,7 @@ void __fastcall ACT1Q7_Callback00_NpcActivate(D2QuestDataStrc* pQuest, D2QuestAr
 }
 
 // 0x00596BA0
-void __fastcall sub_00596BA0_EmptyCallback(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+void __fastcall ACT1Q6_EmptyCallback(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
 }
 

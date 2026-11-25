@@ -237,7 +237,7 @@ extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const ch
 
 int __stdcall FOG_GetStringFromLinkIndex(D2TxtLinkStrc* pLinker, int nIndex, char* szString); // 0x006BD180
 
-extern "C" D2ItemTypesTxt* __fastcall sub_00555C90_GetTableRow(int index); // 0x00555C90
+extern "C" D2ItemTypesTxt* __fastcall SUNIT_GetTableRow(int index); // 0x00555C90
 
 int __stdcall ITEMS_CheckItemTypeIdByItemId(int nItemId, int nItemType); // 0x00629A90
 
@@ -1686,7 +1686,7 @@ void __cdecl DATATBLS_CreateItemTypeTreasureClasses()
                                 && (i == 38 || !ITEMS_CheckItemTypeIdByItemId(j, ITEMTYPE_MISSILE_POTION))
                                 && pItemsTxtRecord->nLevel > nLevel - 3 && pItemsTxtRecord->nLevel <= nLevel)
                             {
-                                D2ItemTypesTxt* pTypeRecord = sub_00555C90_GetTableRow(pItemsTxtRecord->wType[0]);
+                                D2ItemTypesTxt* pTypeRecord = SUNIT_GetTableRow(pItemsTxtRecord->wType[0]);
                                 if (pTypeRecord)
                                 {
                                     const int nProbability = pTypeRecord->nRarity > 1 ? pTypeRecord->nRarity : 1;

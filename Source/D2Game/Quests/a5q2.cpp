@@ -993,7 +993,7 @@ static inline int FreedCount(D2Act5Quest2Strc* pEx) { return pEx->nFreedWussies;
 static inline int UnitId(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
 
 // 0x005888D0
-void __fastcall sub_005888D0_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2UnitStrc* pTarget)
+void __fastcall ACT5Q2_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2UnitStrc* pTarget)
 {
  D2QuestDataStrc* pQuestData=QUESTS_GetQuestData(pGame,32);
  if(!pQuestData) return;
@@ -1204,7 +1204,7 @@ D2ClientStrc* __fastcall sub_00539070_GetFirstClient(D2GameStrc* pGame); // 0x00
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bValidate); // 0x00537860
 
 // 0x00588E10
-int __fastcall sub_00588E10_IsMonsterNearby(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pDefault)
+int __fastcall ACT5Q2_IsMonsterNearby(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pDefault)
 {
     if (!pUnit)
     {

@@ -518,7 +518,8 @@ static void __stdcall MONSTERUNIQUE_AssignRandomUMods(D2GameStrc* pGame, D2UnitS
     }
 }
 
-static void __stdcall sub_005A0930_TransferUMods(D2UnitStrc* pOwner, D2UnitStrc* pMinion, int bFromStart)
+// build: symbol ?MONSTERUNIQUE_TransferUMods@* 0x005A0930
+static void __stdcall MONSTERUNIQUE_TransferUMods(D2UnitStrc* pOwner, D2UnitStrc* pMinion, int bFromStart)
 {
     unsigned char* pOwnerUMods = UModsOfData(pOwner);
     unsigned char* pMinionUMods = UModsOfData(pMinion);
@@ -666,7 +667,7 @@ static void __stdcall MONSTERUNIQUE_SpawnMinionGroup(D2GameStrc* pGame, D2RoomCo
 
         if (pMinion)
         {
-            sub_005A0930_TransferUMods(pUnit, pMinion, 0);
+            MONSTERUNIQUE_TransferUMods(pUnit, pMinion, 0);
             AIGENERAL_SetOwnerData(pGame, pMinion, GAME_GetUnitGUID(pUnit), 1, 0, 0);
             AIGENERAL_AllocMinionList(pGame, pUnit, pMinion);
             AIUTIL_SetOwnerGUIDAndType(pMinion, pUnit);

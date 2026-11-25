@@ -2169,7 +2169,7 @@ void __fastcall ACT1Q4_DropWirtsBodyGold(D2QuestDataStrc* pQuestData, D2UnitStrc
 }
 
 // 0x005946D0
-void __fastcall sub_005946D0_SetA1Q4Unk0xB0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
+void __fastcall ACT1Q4_SetA1Q4Unk0xB0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nValue)
 {
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q4_CAIN);
     if (pQuestData)
