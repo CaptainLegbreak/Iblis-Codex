@@ -6281,9 +6281,4 @@ int __fastcall sub_005ADA80_Shim(D2UnitStrc* pMissile)
     return MISSMODE_GetPierceFlags(pMissile);
 }
 
-int __stdcall sub_K13_Emit_005A94C0(D2ActiveRoomStrc* pRoom, int nOffsetX, int nOffsetY, int nMaxDistanceSq, int nX, int nY)
-{
-    return MISSMODE_CheckDistanceAndLineOfSight(nMaxDistanceSq, nX, nY, pRoom, nOffsetX, nOffsetY);
-}
-
 #include "gen/data/Source/D2Game/MISSILES/MissMode.inc"

@@ -1442,11 +1442,6 @@ int __fastcall PLRSAVE_WriteItems(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Invent
     return pData - pBuffer;
 }
 
-void __stdcall sub_M93_Emit_00531750(int nUnused, D2InventoryStrc* pInventory)
-{
-    PLRSAVE_CountInventoryItems(PLRSAVE_CountInventoryItems(pInventory));
-}
-
 // 0x00531BB0
 int __fastcall PLRSAVE_WriteUnitItems(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char* pBuffer, int nBufferSize, int nArg5, int nArg6, int nArg7)
 {
@@ -1966,12 +1961,6 @@ int __fastcall PLRSAVE_ReadLegacyHeader(D2GameStrc* pGame,D2ClientStrc* pClient,
 invalidVersion:
  if(gpD2EventCallbackTable) { *pNewPlayer=1;return 9; }
  return 1;
-}
-
-int __fastcall sub_Emit_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2UnitStrc* pParent)
-{
-    sub_00564CB0_Nop(pItem);
-    return PLRSAVE_PlaceCorpseItem(pGame, pPlayer, pItem, pParent);
 }
 
 // 0x00532BE0

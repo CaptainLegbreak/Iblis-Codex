@@ -1413,14 +1413,6 @@ static void __stdcall PLRMODE_RestoreWeapon(D2GameStrc* pGame, unsigned char nBo
     UNITS_SetWeaponGUID(pPlayer, 0);
 }
 
-void __fastcall sub_0057F240_EmitCaller(void* pGame, D2UnitStrc* pPlayer)
-{
-    if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER && !PLRMODE_DrainRunStamina(pPlayer))
-    {
-        sub_0057F240_EmitWalk(pPlayer);
-    }
-}
-
 // 0x00580030
 static void __stdcall sRestoreWeapon(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pWeapon)
 {

@@ -2171,12 +2171,6 @@ void __fastcall SKILLS_MissileInit_CurvingPath(D2UnitStrc* pMissile, int nInitSe
     PATH_SetNumberOfPathPoints(pPath, nFrames);
 }
 
-int __fastcall sub_M269_Emit_005D4150(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMissileId, int nX, int nY, int nSkillId, int nSkillLevel, int nStep, int nLowSeed)
-{
-    SKILLS_CreateChargedBoltMissileRing(pGame, pUnit, nMissileId, nX, nY, nSkillId, nSkillLevel, nStep, nLowSeed ^ 0x5A5);
-    return 0x3C1;
-}
-
 // 0x005D4870
 static void __stdcall SKILLS_CreateCurvingMissileRing(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMissileId, int nX, int nY, int nSkillId, int nSkillLevel, int nStep, unsigned int nLowSeed)
 {
@@ -3519,12 +3513,6 @@ static void __stdcall SKILLS_ScaleSummonedPetStats(D2GameStrc* pGame, D2SkillsTx
     {
         D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pPet, pSkillsTxtRecord->wSumUMod, 1);
     }
-}
-
-D2UnitStrc* __fastcall sub_M98_Emit_005D6CF0(D2GameStrc* pGame, D2UnitStrc* pPet, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel, int nExtra)
-{
-    SKILLS_ScaleSummonedPetStats(pGame, pSkillsTxtRecord, nSkillId, nSkillLevel + nExtra, pPet);
-    return pPet;
 }
 
 // 0x005D6E70
