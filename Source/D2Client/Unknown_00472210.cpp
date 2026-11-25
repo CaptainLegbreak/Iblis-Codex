@@ -745,7 +745,8 @@ void __fastcall sub_00472C80_StepSplashes(int nUnused)
             pSplash->nFrame += 1;
             pSplash->nFrameDelay = 2;
             if (pSplash->nFrame >= gaSplashFrames[pSplash->nType])
-                sub_006BCCD0_FreeDataArraySlot(gpWeatherSplashes, i << 16);
+// build: symbol ?DATAARRAYS_FreeEntry@* 0x006BCCD0
+                DATAARRAYS_FreeEntry(gpWeatherSplashes, i << 16);
         }
     }
 }
@@ -772,7 +773,7 @@ void __fastcall sub_00472D10_StepBubbles(int nUnused)
             pSplash->nFrame += 1;
             pSplash->nFrameDelay = 2;
             if (pSplash->nFrame >= gaBubbleFrames[pSplash->nType])
-                sub_006BCCD0_FreeDataArraySlot(gpWeatherBubbles, i << 16);
+                DATAARRAYS_FreeEntry(gpWeatherBubbles, i << 16);
         }
     }
 }
@@ -995,7 +996,7 @@ void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed)
         {
             if (!pParticle->nType)
             {
-                sub_006BCCD0_FreeDataArraySlot(gpWeatherParticles, i << 16);
+                DATAARRAYS_FreeEntry(gpWeatherParticles, i << 16);
 // build: symbol ?gnPhaseLevel@* 0x007A89E0
                 if (gpWeatherParticles->nCount < gnPhaseLevel)
                 {
@@ -1312,7 +1313,7 @@ void __fastcall sub_00473A70(D2WeatherStrc* pWeather, D2WeatherLayerStateStrc* p
                     }
                 }
             }
-            sub_006BCCD0_FreeDataArraySlot(pWeather, i << 16);
+            DATAARRAYS_FreeEntry(pWeather, i << 16);
         }
         else
         {

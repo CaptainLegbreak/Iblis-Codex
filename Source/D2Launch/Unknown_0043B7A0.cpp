@@ -568,7 +568,7 @@ int __cdecl sub_0043BF60()
         {
             gpFuncTable_0077ABF0->pfnSlot10Result();
             gbConnecting = 0;
-            sub_004336C0();
+            MAINMENUS_ShowMainMenu();
             return 0;
         }
     }
@@ -592,7 +592,7 @@ int __fastcall CHARSEL_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode)
 
     if (!gpFuncTable_0077ABF0->pfnSlot68())
     {
-        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
+        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
         return 0;
     }
 
@@ -699,7 +699,7 @@ int __fastcall CHARSEL_Connect(D2ConfigStrc* pRecord, int bFlag, int nMode)
         {
             D2MCPClientCloseMCP();
             gpFuncTable_0077ABF0->pfnSlot10Result();
-            sub_004336C0();
+            MAINMENUS_ShowMainMenu();
             return 0;
         }
 

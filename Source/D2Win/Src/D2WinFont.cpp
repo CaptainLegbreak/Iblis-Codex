@@ -233,7 +233,7 @@ void __stdcall D2Win_10116()
     {
         if (gatFontCache[i].pCellFile)
         {
-            sub_004FAAE0_FreeCellFile(gatFontCache[i].pCellFile);
+            ARCHIVE_FreeCellFile(gatFontCache[i].pCellFile);
             gatFontCache[i].pCellFile = 0;
         }
         if (gatFontCache[i].pFontInfo[0])
@@ -242,7 +242,7 @@ void __stdcall D2Win_10116()
             gatFontCache[i].pFontInfo[0] = 0;
         }
     }
-    sub_004FAAE0_FreeCellFile(ghMonsterIndicators);
+    ARCHIVE_FreeCellFile(ghMonsterIndicators);
     ghMonsterIndicators = 0;
 }
 

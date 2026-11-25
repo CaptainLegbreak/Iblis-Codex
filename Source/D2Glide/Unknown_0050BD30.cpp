@@ -84,7 +84,7 @@ extern void* gapGlideTileStripA[10];                                            
 
 extern void* gapGlideTileStripB[10];                                                            // 0x0072F378
 
-void __fastcall sub_0050DBE0_GlideSetVertexShade(D2GlideSpriteVertexStrc* pVertex, unsigned char nShade);   // 0x0050DBE0
+void __fastcall GLVERTEX_SetVertexAmbientColor(D2GlideSpriteVertexStrc* pVertex, unsigned char nShade);   // 0x0050DBE0
 
 void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile);                                   // 0x0050FBD0
 
@@ -506,7 +506,7 @@ DrawVisibleTile:
                     GLPERSPECTIVE_PerspectiveTransform(nX, nY, 0, &nScreenX, &nScreenY);
                     pVertex->y = (float)nScreenY;
                     pVertex->x = (float)nScreenX + fOffset;
-                    sub_0050DBE0_GlideSetVertexShade(pVertex, eDrawMode);
+                    GLVERTEX_SetVertexAmbientColor(pVertex, eDrawMode);
                     nX += 0x8000;
                     ++pVertex;
                     nY -= 0x8000;

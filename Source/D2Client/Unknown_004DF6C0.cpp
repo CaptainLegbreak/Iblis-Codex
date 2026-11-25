@@ -167,7 +167,8 @@ void __fastcall GFXUTIL_ApplySoundEnviron(int nEnvironId)
     }
 
     D2SoundEnvironTxtStrc* pTxt = SOUNDHDR_GetSoundEnvironTxtRecord(nEnvironId);
-    if ((sub_00514C90_GetSoundMode() == 2 || !nEnvironId) && sub_00513B70_IsSoundEnvironEnabled())
+// build: symbol ?D2SOUND_IsEaxEnabled@* 0x00513B70
+    if ((sub_00514C90_GetSoundMode() == 2 || !nEnvironId) && D2SOUND_IsEaxEnabled())
     {
         D2SoundEnvironStrc tEnviron;
         tEnviron.nEnviron = pTxt->nEAXEnviron;
@@ -321,7 +322,7 @@ int __cdecl sub_004DF960()
     {
         return 0;
     }
-    return sub_00513B70_IsSoundEnvironEnabled();
+    return D2SOUND_IsEaxEnabled();
 }
 
 // 0x004DF980
@@ -560,7 +561,7 @@ int __fastcall sub_004E0000_SetSoundMode(int nMode)
     if (nMode == 1 && !D2SOUND_IsPositionalSoundEnabled())
         return 0;
 
-    if (nMode == 2 && !sub_00513B70_IsSoundEnvironEnabled())
+    if (nMode == 2 && !D2SOUND_IsEaxEnabled())
         return 0;
 
     sub_004DFA60();

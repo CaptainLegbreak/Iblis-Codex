@@ -4572,7 +4572,8 @@ void __fastcall SCMD_ProcessPackets(unsigned char* pData, int nSize)
         int nPacketSize;
         int nUnitId;
         int nUnitType;
-        if (!sub_0052B920(pPacket, nSize, &nPacketSize))
+// build: symbol ?SERVER_GetServerPacketSize@* 0x0052B920
+        if (!SERVER_GetServerPacketSize(pPacket, nSize, &nPacketSize))
         {
             return;
         }

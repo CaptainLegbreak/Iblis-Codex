@@ -156,7 +156,7 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
 void __fastcall DRLGPRESET_ParseDS1File(D2DrlgFileStrc* pDrlgFile, void* hArchive, const char* szFile);                  // 0x00665950
 
-int __stdcall sub_00604B90(void* pTile);                                                                  // 0x00604B90
+int __stdcall TileGetStyle(void* pTile);                                                                  // 0x00604B90
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void);                                // 0x006CC260
 
@@ -1673,7 +1673,7 @@ static void __stdcall DRLGPRESET_TogglePopsVisibility(D2DrlgRoomStrc* ptRoom, in
                 pTileData->dwFlags &= ~8;
             }
         }
-        else if (!(pTileData->dwFlags & 0x100) && sub_00604B90(pTileData->pTile) == nPopSubIndex && DRLGPRESET_IsTileInsideCoord(&tDrlgCoord, ptRoom, pTileData))
+        else if (!(pTileData->dwFlags & 0x100) && TileGetStyle(pTileData->pTile) == nPopSubIndex && DRLGPRESET_IsTileInsideCoord(&tDrlgCoord, ptRoom, pTileData))
         {
             pTileData->dwPopFlags |= 2;
             if (bClose)

@@ -4124,7 +4124,8 @@ void __fastcall AUTOMAP_ProcessUnitPacketBuffer(void* pArg)
     {
         unsigned char* pPacket = pBuffer->pData + gnPacketRecordSize * i;
         int nSize;
-        if (!sub_0052B920(pPacket, gnPacketRecordSize, &nSize))
+// build: symbol ?SERVER_GetServerPacketSize@* 0x0052B920
+        if (!SERVER_GetServerPacketSize(pPacket, gnPacketRecordSize, &nSize))
         {
             return;
         }

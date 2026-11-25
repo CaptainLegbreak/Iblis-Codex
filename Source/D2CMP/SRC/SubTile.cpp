@@ -158,7 +158,7 @@ D2CmpSubTileRecordStrc* __fastcall SubTileCreateRecord(const void* pSrc, int bRa
     else
     {
         int nLength;
-        pData = sub_0060D430_Compress(pSrc, &nLength);
+        pData = SubTileCompress(pSrc, &nLength);
         nSize = nLength;
     }
     D2CmpSubTileRecordStrc* pRecord = (D2CmpSubTileRecordStrc*)FOG_Alloc(sizeof(D2CmpSubTileRecordStrc), szSubTileFile, 0x6E, 0);

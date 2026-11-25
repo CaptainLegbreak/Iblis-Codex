@@ -3574,7 +3574,7 @@ void __fastcall ERRORMANAGER_PoolFree(D2PoolSystemStrc* pSystem, void** ppMemory
         const int nIndex = ((char*)*ppMemory - (char*)pBlock->pMemory) / pPool->nBlockSize;
         if (nIndex >= pPool->nBlocksPerChunk)
         {
-            sub_00409810_FreeLarge(pSystem, *ppMemory, szFile, nLine);
+            ERRORMANAGER_PoolFreeLarge(pSystem, *ppMemory, szFile, nLine);
             return;
         }
         EnterCriticalSection(&pPool->tLock);
@@ -3587,7 +3587,7 @@ void __fastcall ERRORMANAGER_PoolFree(D2PoolSystemStrc* pSystem, void** ppMemory
         LeaveCriticalSection(&pPool->tLock);
         return;
     }
-    sub_00409810_FreeLarge(pSystem, *ppMemory, szFile, nLine);
+    ERRORMANAGER_PoolFreeLarge(pSystem, *ppMemory, szFile, nLine);
 }
 
 void* __fastcall ERRORMANAGER_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory, int nSize, const char* szFile, int nLine); // 0x0040A1F0
@@ -3842,13 +3842,13 @@ void* __fastcall ERRORMANAGER_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory
     D2MemPoolBlockStrc* pBlock = ERRORMANAGER_FindPoolBlock(pMemory, pSystem);
     if (!pBlock)
     {
-        void* pNew = sub_004098B0_ReallocLarge(pSystem, pMemory, nSize, szFile, nLine);
+        void* pNew = ERRORMANAGER_PoolReallocLarge(pSystem, pMemory, nSize, szFile, nLine);
         D2_ASSERT(pNew, 0x635);
         return pNew;
     }
     if (pMemory < pBlock->pMemory)
     {
-        void* pNew = sub_004098B0_ReallocLarge(pSystem, pMemory, nSize, szFile, nLine);
+        void* pNew = ERRORMANAGER_PoolReallocLarge(pSystem, pMemory, nSize, szFile, nLine);
         D2_ASSERT(pNew, 0x63C);
         return pNew;
     }
@@ -3856,7 +3856,7 @@ void* __fastcall ERRORMANAGER_PoolRealloc(D2PoolSystemStrc* pPool, void* pMemory
     const int nIndex = ((char*)pMemory - (char*)pBlock->pMemory) / pBlockPool->nBlockSize;
     if (nIndex >= pBlockPool->nBlocksPerChunk)
     {
-        void* pNew = sub_004098B0_ReallocLarge(pSystem, pMemory, nSize, szFile, nLine);
+        void* pNew = ERRORMANAGER_PoolReallocLarge(pSystem, pMemory, nSize, szFile, nLine);
         D2_ASSERT(pNew, 0x648);
         return pNew;
     }

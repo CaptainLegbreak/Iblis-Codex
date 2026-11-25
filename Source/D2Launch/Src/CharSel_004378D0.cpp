@@ -615,7 +615,8 @@ int __cdecl CHARSEL_InitRealmScreen()
     gnBusy = 0;
     if (gnLaunchMode == 1)
     {
-        sub_00434060();
+// build: symbol ?MAINMENUS_BuildRealmList@* 0x00434060
+        MAINMENUS_BuildRealmList();
         const int nCount = GAME_GetSlotNameCount();
         if (nCount != -1)
         {
@@ -632,11 +633,12 @@ int __cdecl CHARSEL_InitRealmScreen()
                 gpControl_00779D8C = MAINMENUS_CreateControl(0x6C);
                 sub_004FC9B0_SetText(MAINMENUS_CreateControl(0x6A), D2LANG_GetStringFromTblIndex(0x2B32), 4, 0, 0);
 
+// build: symbol ?Realm@* 0x005180E0
                 if (!SRegLoadString("Diablo II", "Preferred Realm", 0, gszPreferredRealm, 0x100) || !CHARSEL_FindSlotByName(gszPreferredRealm))
                 {
                     D2FuncRecordStrc* pRecord = gpFuncTable_0077ABF0->pfnGetRecord();
                     const int nIndex = pRecord->nIndex;
-                    SStrCopy(gszPreferredRealm, sub_005180E0(pRecord, nIndex), 0x7FFFFFFF);
+                    SStrCopy(gszPreferredRealm, Realm(pRecord, nIndex), 0x7FFFFFFF);
                     SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
                     if (!CHARSEL_FindSlotByName(gszPreferredRealm))
                     {
@@ -663,6 +665,6 @@ int __cdecl CHARSEL_InitRealmScreen()
     return 1;
 
 fail:
-    MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(nStringId), sub_004336C0);
+    MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(nStringId), MAINMENUS_ShowMainMenu);
     return 0;
 }

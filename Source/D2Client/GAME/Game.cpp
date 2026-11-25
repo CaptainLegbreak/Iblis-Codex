@@ -166,7 +166,8 @@ struct sub_0041C4F0;
 
 struct sub_0041C720;
 
-struct sub_0041C7F0;
+// build: symbol ?HANDLER@* 0x0041C7F0
+struct HANDLER;
 
 struct sub_004204A0;
 
@@ -966,10 +967,10 @@ struct sub_0041C720
     sub_0041C720();
 };
 
-struct sub_0041C7F0
+struct HANDLER
 {
     D2StormLinkStrc f_0;
-    sub_0041C7F0();
+    HANDLER();
 };
 
 struct sub_004204A0
@@ -1686,7 +1687,7 @@ sub_0041C730::~sub_0041C730()
     f_0.Unlink();
 }
 
-sub_0041C7F0::sub_0041C7F0()
+HANDLER::HANDLER()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;

@@ -2168,7 +2168,7 @@ void __cdecl TEXT_CancelKeyConfig()
 // 0x004A5060
 void __cdecl TEXT_LayoutSlider()
 {
-    const int nOldFont = sub_00502EF0_SetFont(13);
+    const int nOldFont = D2Win_10127_SetFont(13);
     for (unsigned int i = 0; i < 3; ++i)
     {
         const int nWidth = D2Win_10121_GetTextWidth(D2LANG_GetStringFromTblIndex(gaKeyConfigButtons[i].nStringId));
@@ -2178,7 +2178,7 @@ void __cdecl TEXT_LayoutSlider()
         gaKeyConfigButtons[i].nTop = sub_F08_ListTop() + 0x149;
         gaKeyConfigButtons[i].nBottom = sub_F08_ListTop() + 0x16F;
     }
-    sub_00502EF0_SetFont(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
 
     gnKeyConfigThumbY = sub_F08_TrackSpan() * gnKeyConfigFirstVisible / TEXT_GetMaxFirstEntry() + sub_F08_TrackTop();
 }
@@ -2244,7 +2244,7 @@ void __cdecl TEXT_DrawKeyConfigPanel()
         sub_004A4AD0_Press(nMouseX, nMouseY);
     }
 
-    const int nOldFont = sub_00502EF0_SetFont(13);
+    const int nOldFont = D2Win_10127_SetFont(13);
     AUTOMAP_DrawFramedBox(KEYCFG_X, KEYCFG_Y, gnScreenWidth_0071146C - 2 * KEYCFG_X, (KEYCFG_Y + 0x171) - KEYCFG_Y, 0, 1);
 
     D2RectStrc tRect;
@@ -2338,7 +2338,7 @@ void __cdecl TEXT_DrawKeyConfigPanel()
         D2Win_10117_DrawText(D2LANG_GetStringFromTblIndex(gnMessage), nTextX, nTextY, 1, 1);
     }
 
-    sub_00502EF0_SetFont(nOldFont);
+    D2Win_10127_SetFont(nOldFont);
     ++gnBlink;
 }
 

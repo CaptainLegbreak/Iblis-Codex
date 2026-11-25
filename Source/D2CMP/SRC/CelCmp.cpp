@@ -183,7 +183,8 @@ struct sub_0041C4F0;
 
 struct sub_0041C720;
 
-struct sub_0041C7F0;
+// build: symbol ?HANDLER@* 0x0041C7F0
+struct HANDLER;
 
 struct sub_004204A0;
 
@@ -750,10 +751,10 @@ struct sub_0041C720
     sub_0041C720();
 };
 
-struct sub_0041C7F0
+struct HANDLER
 {
     D2StormLinkStrc f_0;
-    sub_0041C7F0();
+    HANDLER();
 };
 
 struct sub_004204A0
@@ -1259,7 +1260,7 @@ sub_0041C730::~sub_0041C730()
     f_0.Unlink();
 }
 
-sub_0041C7F0::sub_0041C7F0()
+HANDLER::HANDLER()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
@@ -1498,7 +1499,7 @@ extern Config extensions; // 0x00741EFC
 
 enum { DISABLED = 0 };
 
-void* __fastcall sub_0040A9E0(AsyncData* pAsync); // 0x0040A9E0
+void* __fastcall FOG_AsyncDataGetBuffer(AsyncData* pAsync); // 0x0040A9E0
 
 
 static void* __stdcall SPRITECACHE_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader); // 0x005FEB80
@@ -2978,7 +2979,8 @@ int __stdcall D2CMPSpriteFindAsynchSiblings(int nKeyA, int nKeyB, int nKeyC)
         if (pKey && !(pKey->nFlags & 1) && pKey->nKeyC == nKeyC && pKey->nKeyB == nKeyB && pKey->nKeyA == nKeyA)
         {
             D2_ASSERT(pKey->pAsyncData, 0xB7B);
-            if (!sub_0040A7F0_AsyncDataCheck(pKey->pAsyncData))
+// build: symbol ?FOG_AsyncDataTestLoaded@* 0x0040A7F0
+            if (!FOG_AsyncDataTestLoaded(pKey->pAsyncData))
             {
                 return 1;
             }
@@ -3010,7 +3012,8 @@ void __stdcall D2CMPSpriteCacheDestroy(int bFree)
 
     if (bFree)
     {
-        sub_006093E0_PoolFreeAll(&gCmpTilePool);
+// build: symbol ?LRUCacheDestroy@* 0x006093E0
+        LRUCacheDestroy(&gCmpTilePool);
     }
 
     memset(&gCmpTilePool, 0, sizeof(gCmpTilePool));
@@ -3169,7 +3172,8 @@ void __stdcall D2CMPTileCacheInit(void* pMemPool, int nArg)
 {
     gnCmpPoolArg = nArg;
     memset(&gCmpPool, 0, sizeof(gCmpPool));
-    sub_00609020_PoolInit(&gCmpPool, pMemPool, nArg, D2CMPTileCacheReleaseTile, 0x1000);
+// build: symbol ?LRUCacheInit@* 0x00609020
+    LRUCacheInit(&gCmpPool, pMemPool, nArg, D2CMPTileCacheReleaseTile, 0x1000);
     gbCmpPoolInitialized = 1;
 }
 
@@ -3180,7 +3184,7 @@ void __stdcall D2CMPTileCacheDestroy(int bFree)
     {
         if (bFree)
         {
-            sub_006093E0_PoolFreeAll(&gCmpPool);
+            LRUCacheDestroy(&gCmpPool);
         }
 
         memset(&gCmpPool, 0, sizeof(gCmpPool));
@@ -3193,7 +3197,8 @@ void __stdcall D2CMPTileCacheDestroy(int bFree)
 // 0x005FDF50
 void __stdcall D2CMPTileCacheFreeTile(D2CmpCacheBlockOwnerStrc* pOwner)
 {
-    sub_006092D0_PoolFree(&gCmpPool, pOwner->pBlock);
+// build: symbol ?LRUCacheRelease@* 0x006092D0
+    LRUCacheRelease(&gCmpPool, pOwner->pBlock);
     pOwner->nBlockUsed = 0;
     pOwner->pBlock = 0;
 }
@@ -3252,7 +3257,7 @@ void __fastcall D2CMPTileCacheFreeProject(D2TileLibraryStrc* pLibrary)
         D2TileLibraryEntryStrc* pEntry = &pLibrary->pTiles[i];
         if (pEntry->pNode)
         {
-            sub_006092D0_PoolFree(&gCmpPool, pEntry->pNode);
+            LRUCacheRelease(&gCmpPool, pEntry->pNode);
             pEntry->pBlocks = 0;
             pEntry->pNode = 0;
         }

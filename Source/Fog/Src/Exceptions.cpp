@@ -492,7 +492,7 @@ static D2ModuleInfoStrc* __stdcall EXCEPTIONS_GetModuleList(void* hProcess, unsi
     D2ModuleInfoStrc* pList = EXCEPTIONS_GetModuleListToolhelp(dwPid);
     if (!pList)
     {
-        pList = sub_0040B920_GetModuleListPsapi(hProcess);
+        pList = EXCEPTIONS_GetModuleListPsapi(hProcess);
     }
 
     for (D2ModuleInfoStrc* pModule = pList; pModule; pModule = pModule->pNext)

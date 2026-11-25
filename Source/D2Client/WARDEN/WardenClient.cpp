@@ -823,7 +823,8 @@ static int __stdcall WARDENCLIENT_LoadModule(const unsigned char* pData, const u
         SMemFree(pBuffer, ".\\WARDEN\\WardenClient.cpp", 0x185, 0);
         return 0;
     }
-    if (sub_006C79C0_Decompress(pModule, &nModuleSize, pBuffer + 4, nSize - 4))
+// build: symbol ?uncompress@* 0x006C79C0
+    if (uncompress(pModule, &nModuleSize, pBuffer + 4, nSize - 4))
     {
         SMemFree(pBuffer, ".\\WARDEN\\WardenClient.cpp", 0x18D, 0);
         SMemFree(pModule, ".\\WARDEN\\WardenClient.cpp", 0x18E, 0);

@@ -1068,7 +1068,8 @@ void __fastcall OBJECTS_InitFunction01_Shrine(InitContext* context)
         const unsigned int randomLevel = DUNGEON_GetLevelIdFromRoom(context->room);
         do
         {
-            int count = sub_00641500_ShrineCount() - N1;
+// build: symbol ?DATATBLS_GetShrinesTxtRecordCount@* 0x00641500
+            int count = DATATBLS_GetShrinesTxtRecordCount() - N1;
             choice = Limited(context->control,count) + N1;
             if (randomLevel >= sub_006414B0_ShrineRecord(choice)->minimumLevel)
                 break;

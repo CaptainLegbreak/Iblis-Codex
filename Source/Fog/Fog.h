@@ -12,7 +12,7 @@ struct D2ThreadContextStrc;
 struct D2QueueServerStrc;
 struct _iobuf;
 
-D2ModuleInfoStrc* __stdcall sub_0040B920_GetModuleListPsapi(void* hProcess); // 0x0040B920
+D2ModuleInfoStrc* __stdcall EXCEPTIONS_GetModuleListPsapi(void* hProcess); // 0x0040B920
 extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileName); // 0x006CC1A0
 extern "C" __declspec(dllimport) int __stdcall DuplicateHandle(void* hSourceProcess, void* hSource, void* hTargetProcess, void** phTarget, unsigned long dwAccess, int bInherit, unsigned long dwOptions); // 0x006CC248
 extern "C" __declspec(dllimport) int __stdcall FreeLibrary(void* hModule); // 0x006CC14C
@@ -85,10 +85,10 @@ void __cdecl FOG_CreateNewPoolSystem(void* pReserved, const char* szName, int nS
 void __cdecl LOGMANAGER_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410740
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 bool __fastcall ERRORMANAGER_ShowErrorReport(const char* szSummary, const char* szUnused, const char** ppszFiles, int nFiles, unsigned int nLine, bool bFlag); // 0x00408660
-void __fastcall sub_00409810_FreeLarge(D2PoolSystemStrc* pSystem, void* pMemory, const char* szFile, int nLine); // 0x00409810
+void __fastcall ERRORMANAGER_PoolFreeLarge(D2PoolSystemStrc* pSystem, void* pMemory, const char* szFile, int nLine); // 0x00409810
 void __fastcall QSERVER_ProcessReceived(D2QueueServerStrc* pServer, D2QClientStrc* pClient); // 0x006C08A0
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
-void* __fastcall sub_004098B0_ReallocLarge(D2PoolSystemStrc* pSystem, void* pMemory, int nSize, const char* szFile, int nLine); // 0x004098B0
+void* __fastcall ERRORMANAGER_PoolReallocLarge(D2PoolSystemStrc* pSystem, void* pMemory, int nSize, const char* szFile, int nLine); // 0x004098B0
 
 #define QS_IS_READ(f) (((f) & 1) == 1)
 #define QS_IS_WRITE(f) (((f) & 3) == 2)

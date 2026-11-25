@@ -760,7 +760,8 @@ static void __stdcall TileConvertSubTile24To8(D2CmpSubTileRecordStrc* pDst, cons
     if (pDst->tHeader.nFlags & 0x1000)
     {
         int nLength;
-        unsigned char* pData = (unsigned char*)sub_0060D430_Compress(pMapped, &nLength);
+// build: symbol ?SubTileCompress@* 0x0060D430
+        unsigned char* pData = (unsigned char*)SubTileCompress(pMapped, &nLength);
         D2_ASSERT(pData, 0x434);
         D2_ASSERT(nLength < 0x10000, 0x435);
         FOG_Free(pDst->ptData, ".\\SRC\\Tilecmp.cpp", 0x436, 0);

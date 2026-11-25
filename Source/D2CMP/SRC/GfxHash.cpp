@@ -30,7 +30,7 @@ typedef void(__fastcall* PixelDataFreeCallback)(void* pData);
 
 void* __fastcall FOG_AsyncDataGetBuffer(D2AsyncLoadStrc* pAsync); // 0x0040A9E0
 
-void __fastcall sub_0040AB00_FreeAsyncData(D2AsyncLoadStrc* pAsync); // 0x0040AB00
+void __fastcall FOG_AsyncDataFree(D2AsyncLoadStrc* pAsync); // 0x0040AB00
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
@@ -311,7 +311,7 @@ void __fastcall GfxHashFreeEntry(D2CmpGfxHashStrc* pHash, int nUnused, void* pMe
             }
         }
 
-        sub_0040AB00_FreeAsyncData(pAsync);
+        FOG_AsyncDataFree(pAsync);
         pInfo->pAsync = 0;
     }
 

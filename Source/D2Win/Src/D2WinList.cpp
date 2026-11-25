@@ -577,7 +577,8 @@ void __fastcall D2Win_10138(D2WinListStrc* pList, const char* szText, D2WinMsgHa
 // 0x00507140
 void __stdcall LIST_UnloadPentspinCellfile()
 {
-    sub_004FAAE0_FreeCellFile(sghPentagram);
+// build: symbol ?ARCHIVE_FreeCellFile@* 0x004FAAE0
+    ARCHIVE_FreeCellFile(sghPentagram);
     sghPentagram = 0;
 }
 

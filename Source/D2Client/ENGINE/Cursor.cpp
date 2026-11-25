@@ -158,7 +158,8 @@ void __stdcall CURSOR_MsgHandler(SMSGHANDLER_PARAMS* pMsg)
     if (pMsg->wParam == 2)
     {
         gbCursorVisible = 0;
-        sub_004F59F0(0);
+// build: symbol ?WINDOW_ShowCursor@* 0x004F59F0
+        WINDOW_ShowCursor(0);
     }
     else
     {
@@ -620,7 +621,7 @@ void __stdcall CURSOR_HandleMouseMotion(SMSGHANDLER_PARAMS* pMsg)
             return;
         }
     }
-    sub_004F59F0(1);
+    WINDOW_ShowCursor(1);
     gdwLastMouseMoveTick = GetTickCount();
     if (gnCursorState == 4 || gnCursorState == 2)
     {

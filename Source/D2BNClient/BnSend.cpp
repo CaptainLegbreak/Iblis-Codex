@@ -781,10 +781,11 @@ int __fastcall BNSEND_SendLogonResponse(const char* szName, const char* szPasswo
     CharLowerBuffA(szLower, nLength);
     tInput.f_0 = GetTickCount();
     tInput.f_4 = gdwGlobal_008818BC;
-    sub_005209D0_HashData(tInput.abDigest, szLower, nLength);
+// build: symbol ?BNDOWNLOAD_HashBuffer@* 0x005209D0
+    BNDOWNLOAD_HashBuffer(tInput.abDigest, szLower, nLength);
     tPacket.f_0 = tInput.f_0;
     tPacket.f_4 = tInput.f_4;
-    sub_005209D0_HashData(tPacket.abProof, &tInput, sizeof(tInput));
+    BNDOWNLOAD_HashBuffer(tPacket.abProof, &tInput, sizeof(tInput));
     BNSEND_SendPacket(0x29, &tPacket, SStrCopy(tPacket.szName, szName, 0x100) + 0x1D);
     return 1;
 }
@@ -801,10 +802,10 @@ int __fastcall BNSEND_SendLogonResponseEx(const char* szName, const char* szPass
     CharLowerBuffA(szLower, nLength);
     tInput.f_0 = GetTickCount();
     tInput.f_4 = gdwGlobal_008818BC;
-    sub_005209D0_HashData(tInput.abDigest, szLower, nLength);
+    BNDOWNLOAD_HashBuffer(tInput.abDigest, szLower, nLength);
     tPacket.f_0 = tInput.f_0;
     tPacket.f_4 = tInput.f_4;
-    sub_005209D0_HashData(tPacket.abProof, &tInput, sizeof(tInput));
+    BNDOWNLOAD_HashBuffer(tPacket.abProof, &tInput, sizeof(tInput));
     BNSEND_SendPacket(0x3A, &tPacket, SStrCopy(tPacket.szName, szName, 0x100) + 0x1D);
     return 1;
 }
@@ -817,7 +818,7 @@ int __fastcall BNSEND_SendCreateAccountEx(const char* szName, const char* szPass
     SStrCopy(szLower, szPassword, 0x100);
     unsigned int nLength = SStrLen(szLower);
     CharLowerBuffA(szLower, nLength);
-    sub_005209D0_HashData(tPacket.f_0, szLower, nLength);
+    BNDOWNLOAD_HashBuffer(tPacket.f_0, szLower, nLength);
     BNSEND_SendPacket(0x3D, &tPacket, SStrCopy(tPacket.szName, szName, 0x100) + 0x15);
     return 1;
 }
@@ -833,14 +834,14 @@ int __fastcall BNSEND_SendChangePasswordLegacy(const char* szAccountName, const 
     CharLowerBuffA(szLower, nLength);
     tInput.f_0 = GetTickCount();
     tInput.f_4 = gdwGlobal_008818BC;
-    sub_005209D0_HashData(tInput.abDigest, szLower, nLength);
+    BNDOWNLOAD_HashBuffer(tInput.abDigest, szLower, nLength);
     SStrCopy(szLower, szNewPassword, 0x100);
     nLength = SStrLen(szLower);
     CharLowerBuffA(szLower, nLength);
     tPacket.f_0 = tInput.f_0;
     tPacket.f_4 = tInput.f_4;
-    sub_005209D0_HashData(tPacket.abOldProof, &tInput, sizeof(tInput));
-    sub_005209D0_HashData(tPacket.abNewHash, szLower, nLength);
+    BNDOWNLOAD_HashBuffer(tPacket.abOldProof, &tInput, sizeof(tInput));
+    BNDOWNLOAD_HashBuffer(tPacket.abNewHash, szLower, nLength);
     BNSEND_SendPacket(0x31, &tPacket, SStrCopy(tPacket.szName, szAccountName, 0x100) + 0x31);
     return 1;
 }
@@ -1241,11 +1242,11 @@ D2BnSizedReplyStrc* __fastcall BNSEND_LogonRealm(const char* szRealmName, const 
     gnClientToken += 1;
     tHash.f_0 = gnClientToken;
     tHash.f_4 = gdwGlobal_008818BC;
-    sub_005209D0_HashData(tHash.abPasswordHash, szRealmPassword, strlen(szRealmPassword));
+    BNDOWNLOAD_HashBuffer(tHash.abPasswordHash, szRealmPassword, strlen(szRealmPassword));
 
     D2BnLogonRealmPacketStrc tPacket;
     tPacket.f_0 = gnClientToken;
-    sub_005209D0_HashData(tPacket.abProof, &tHash, 0x1C);
+    BNDOWNLOAD_HashBuffer(tPacket.abProof, &tHash, 0x1C);
     const int nLength = SStrCopy(tPacket.szRealmName, szRealmName, 0x100) + 1;
 
     sub_00520C00_ClearReply(0x3E);
@@ -1607,7 +1608,8 @@ void __fastcall BNSEND_GetDnsPending(int* pState)
 // 0x0051C240
 int __fastcall BNSEND_Logon(const char* szName, const char* szPassword)
 {
-    switch (sub_0051A570_GetMode())
+// build: symbol ?BNCLIENT_GetLogonType@* 0x0051A570
+    switch (BNCLIENT_GetLogonType())
     {
     case 0:
         sub_00520C00_ClearReply(0x3A);
@@ -1628,7 +1630,7 @@ int __cdecl BNSEND_GetLogonResult()
         BNMESSQUEUE_SetError(0x12);
         return 0;
     }
-    switch (sub_0051A570_GetMode())
+    switch (BNCLIENT_GetLogonType())
     {
     case 0:
         return BNDOWNLOAD_IsReplyReceived(0x3A);
@@ -1641,7 +1643,7 @@ int __cdecl BNSEND_GetLogonResult()
 // 0x0051C2D0
 int __fastcall BNSEND_CreateAccount(const char* szName, const char* szPassword)
 {
-    switch (sub_0051A570_GetMode())
+    switch (BNCLIENT_GetLogonType())
     {
     case 0:
         sub_00520C00_ClearReply(0x3D);
@@ -1658,7 +1660,7 @@ int __fastcall BNSEND_CreateAccount(const char* szName, const char* szPassword)
 int __fastcall BNSEND_GetCreateAccountResult(int* pResult)
 {
     *pResult = GAME_GetCreateAccountResult();
-    switch (sub_0051A570_GetMode())
+    switch (BNCLIENT_GetLogonType())
     {
     case 0:
         return BNDOWNLOAD_IsReplyReceived(0x3D);
@@ -1671,7 +1673,7 @@ int __fastcall BNSEND_GetCreateAccountResult(int* pResult)
 // 0x0051C350
 int __fastcall BNSEND_ChangePassword(const char* szAccountName, const char* szOldPassword, const char* szNewPassword)
 {
-    switch (sub_0051A570_GetMode())
+    switch (BNCLIENT_GetLogonType())
     {
     case 0:
         sub_00520C00_ClearReply(0x31);
@@ -1688,7 +1690,7 @@ int __fastcall BNSEND_ChangePassword(const char* szAccountName, const char* szOl
 int __fastcall BNSEND_GetChangePasswordResult(int* pResult)
 {
     *pResult = GAME_GetChangePasswordResult();
-    switch (sub_0051A570_GetMode())
+    switch (BNCLIENT_GetLogonType())
     {
     case 0:
         return BNDOWNLOAD_IsReplyReceived(0x31);
@@ -2201,7 +2203,8 @@ void __fastcall BNSEND_ComputeShaDigest(unsigned char* pDigest, const unsigned c
 
 static inline int CheckCDKeySlot(int nSlot, int* pProduct, int* pValue1, int* pValue2, char* pKeyBlock)
 {
-    const char* szKey = sub_00523AB0_GetCDKey(nSlot);
+// build: symbol ?GRID_GetCDKey@* 0x00523AB0
+    const char* szKey = GRID_GetCDKey(nSlot);
     unsigned int nLength = SStrLen(szKey);
     if (nLength != 0x10)
     {
@@ -2209,7 +2212,8 @@ static inline int CheckCDKeySlot(int nSlot, int* pProduct, int* pValue1, int* pV
             return 0;
         if (!szKey)
             return 0;
-        sub_00522AE0_DecodeCDKey(szKey, pProduct, pValue1, pKeyBlock);
+// build: symbol ?BNDOWNLOAD_DecodeCDKey@* 0x00522AE0
+        BNDOWNLOAD_DecodeCDKey(szKey, pProduct, pValue1, pKeyBlock);
         return 1;
     }
     return BNSEND_DecodeCDKey16(pProduct, pValue1, szKey, pValue2);
@@ -2404,7 +2408,7 @@ static int __stdcall BNSEND_BuildCDKeyInfo(D2CDKeyInfoStrc* pInfo, const char* s
         pInfo->f_4 = tHash16.f_8;
         pInfo->nValue1 = tHash16.nValue1;
         pInfo->f_C = tHash16.f_10;
-        sub_005209D0_HashData(pInfo->abDigest, &tHash16, 0x18);
+        BNDOWNLOAD_HashBuffer(pInfo->abDigest, &tHash16, 0x18);
         return 1;
 
     case 0x1A:
@@ -2413,7 +2417,7 @@ static int __stdcall BNSEND_BuildCDKeyInfo(D2CDKeyInfoStrc* pInfo, const char* s
         if (!szKey)
             return 0;
 
-        sub_00522AE0_DecodeCDKey(szKey, &tHash26.f_8, &nValue1, tHash26.abPrivate);
+        BNDOWNLOAD_DecodeCDKey(szKey, &tHash26.f_8, &nValue1, tHash26.abPrivate);
         tHash26.nValue1 = nValue1;
         pInfo->f_0 = SStrLen(szKey);
         pInfo->f_4 = tHash26.f_8;
@@ -2430,8 +2434,8 @@ static int __stdcall BNSEND_BuildCDKeyInfo(D2CDKeyInfoStrc* pInfo, const char* s
 int __stdcall BNSEND_SendAuthCheck()
 {
     const char* szExeInfo = GAME_GetExeInfo();
-    const char* szKey0 = sub_00523AB0_GetCDKey(0);
-    const char* szKey1 = sub_00523AB0_GetCDKey(1);
+    const char* szKey0 = GRID_GetCDKey(0);
+    const char* szKey1 = GRID_GetCDKey(1);
     const unsigned int dwExeHash = GAME_GetExeHash();
     gdwClientToken += _time32(0);
     gdwClientToken += GetTickCount();
@@ -2494,7 +2498,7 @@ int __stdcall BNSEND_CheckCDKeys()
 // 0x0051E340
 int __fastcall sub_0051E340_BuildCDKeyInfoForSlot(D2CDKeyInfoStrc* pInfo, unsigned int dwClientToken, int nSlot)
 {
-    return BNSEND_BuildCDKeyInfo(pInfo, sub_00523AB0_GetCDKey(nSlot), dwClientToken, BNCLIENT_GetServerToken());
+    return BNSEND_BuildCDKeyInfo(pInfo, GRID_GetCDKey(nSlot), dwClientToken, BNCLIENT_GetServerToken());
 }
 
 // 0x005204D0
@@ -2598,7 +2602,8 @@ int __fastcall BNSEND_SendAccountLogon(const char* szName, const char* szPasswor
     char szNameUpper[0x100];
     gnLoginRetryCount = 0;
     SStrCopy(gszAccountName, szName, 0x100);
-    sub_0041D300_ZeroMemory(&gtLoginRecord, sizeof(gtLoginRecord));
+// build: symbol ?SMemZero@* 0x0041D300
+    SMemZero(&gtLoginRecord, sizeof(gtLoginRecord));
     SStrCopy(szNameUpper, szName, 0x100);
     SStrUpper(szNameUpper);
     SStrCopy(szPasswordUpper, szPassword, 0x100);
@@ -2615,7 +2620,7 @@ int __fastcall BNSEND_SendAccountLogonProof(const unsigned char* pSalt, const un
 {
     unsigned char abProof[0x14];
     const int bResult = gtBigPair.sub_00528760_ComputeLoginProof(&gtLoginRecord, pSalt, pServerPublic);
-    sub_0041D300_ZeroMemory(gtLoginRecord.szPassword, sizeof(gtLoginRecord.szPassword));
+    SMemZero(gtLoginRecord.szPassword, sizeof(gtLoginRecord.szPassword));
     if (bResult)
     {
         sub_0041D2A0_MemCopy(abProof, gtLoginRecord.abProof, sizeof(abProof));
@@ -2650,7 +2655,7 @@ int __fastcall BNSEND_SendAccountChange(const char* szAccountName, const char* s
     char szNewUpper[0x100];
     char szAccountUpper[0x100];
     gnLoginRetryCount = 0;
-    sub_0041D300_ZeroMemory(&gtLoginRecord, sizeof(gtLoginRecord));
+    SMemZero(&gtLoginRecord, sizeof(gtLoginRecord));
     SStrCopy(szAccountUpper, szAccountName, 0x100);
     SStrUpper(szAccountUpper);
     SStrCopy(szOldUpper, szOldPassword, 0x100);
@@ -2670,12 +2675,12 @@ int __fastcall BNSEND_SendAccountChangeProof(const unsigned char* pSalt, const u
 {
     D2BnChangeProofStrc tPacket;
     const int bResult = gtBigPair.sub_00528760_ComputeLoginProof(&gtLoginRecord, pSalt, pServerPublic);
-    sub_0041D300_ZeroMemory(gtLoginRecord.szPassword, sizeof(gtLoginRecord.szPassword));
+    SMemZero(gtLoginRecord.szPassword, sizeof(gtLoginRecord.szPassword));
     if (bResult)
     {
         sub_0041D2A0_MemCopy(tPacket.abProof, gtLoginRecord.abProof, sizeof(tPacket.abProof));
         sub_0041D2A0_MemCopy(tPacket.abVerifier, gabNewVerifier, sizeof(tPacket.abVerifier));
-        sub_0041D300_ZeroMemory(gabNewVerifier, sizeof(gabNewVerifier));
+        SMemZero(gabNewVerifier, sizeof(gabNewVerifier));
         BNSEND_SendPacket(0x56, &tPacket, sizeof(tPacket));
         return 1;
     }
@@ -2691,11 +2696,11 @@ int __fastcall BNSEND_SendAccountUpgradeProof(unsigned int nServerToken)
     tInput.nTick = GetTickCount();
     tInput.f_4 = nServerToken;
     CharLowerBuffA(szPassword, SStrCopy(szPassword, gtLoginRecord.szPassword, 0x100));
-    sub_005209D0_HashData(tInput.abDigest, szPassword, SStrLen(szPassword));
+    BNDOWNLOAD_HashBuffer(tInput.abDigest, szPassword, SStrLen(szPassword));
     tPacket.nTick = tInput.nTick;
-    sub_005209D0_HashData(tPacket.abProof, &tInput, sizeof(tInput));
+    BNDOWNLOAD_HashBuffer(tPacket.abProof, &tInput, sizeof(tInput));
     sub_0041D2A0_MemCopy(tPacket.abVerifier, gabNewVerifier, sizeof(tPacket.abVerifier));
-    sub_0041D300_ZeroMemory(gabNewVerifier, sizeof(gabNewVerifier));
+    SMemZero(gabNewVerifier, sizeof(gabNewVerifier));
     BNSEND_SendPacket(0x58, &tPacket, sizeof(tPacket));
     return 0;
 }
@@ -2715,7 +2720,7 @@ int __cdecl GAME_GetLoginRetryCount()
 // 0x005224F0
 void __cdecl BNSEND_ClearPassword()
 {
-    sub_0041D300_ZeroMemory(gtLoginRecord.szPassword, sizeof(gtLoginRecord.szPassword));
+    SMemZero(gtLoginRecord.szPassword, sizeof(gtLoginRecord.szPassword));
 }
 
 // 0x00528890

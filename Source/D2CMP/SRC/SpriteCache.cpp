@@ -104,7 +104,7 @@ D2SpriteCacheNodeStrc* __fastcall D2CMPSpriteCacheEvict(D2SpriteCacheStrc* pCach
 
 extern D2CmpCacheListEntryStrc* gpCmpCacheEntries; // 0x0089DB7C
 
-void __fastcall sub_0040AB00_FreeAsyncData(AsyncData* pAsync); // 0x0040AB00
+void __fastcall FOG_AsyncDataFree(AsyncData* pAsync); // 0x0040AB00
 
 void __fastcall CelDrawRleShadow(D2CelStrc* pCel, unsigned char* pDst, int nX, int nClipLeft, int nClipRight, int nPitch, int nSkip, int nLines, int nTable, int nColor); // 0x00608D60
 
@@ -294,7 +294,7 @@ void __stdcall D2CMPSpriteInitFrames(D2CmpSpriteFileStrc* pFile, D2CmpSpriteCont
 
 D2SpriteCacheNodeStrc* __fastcall D2CMPSpriteCacheAlloc(D2SpriteCacheStrc* pCache, unsigned int nSize, unsigned int nKey, int bLocked); // 0x005FFC40
 
-AsyncData* __fastcall sub_0040A620(void* pMemPool, const char* szFileName, int bAllowAsync, long nFileOffset, int nFileSize, void* pBuffer, D2CmpLoadDescStrc* pAsyncOpDesc, int nPriority, const char* szFile, int nLine); // 0x0040A620
+AsyncData* __fastcall FOG_AsyncDataLoadFileEx(void* pMemPool, const char* szFileName, int bAllowAsync, long nFileOffset, int nFileSize, void* pBuffer, D2CmpLoadDescStrc* pAsyncOpDesc, int nPriority, const char* szFile, int nLine); // 0x0040A620
 
 unsigned int __fastcall FOG_AsyncDataGetBufferSize(AsyncData* pAsyncData); // 0x0040AA40
 
@@ -466,7 +466,8 @@ extern "C" void __cdecl D2CMPResetTileCacheHits()
 // 0x005FE070
 void __cdecl D2CMPTileFreeAsyncLoads()
 {
-    sub_006093E0_PoolFreeAll(&gCmpPool);
+// build: symbol ?LRUCacheDestroy@* 0x006093E0
+    LRUCacheDestroy(&gCmpPool);
 }
 
 // 0x005FE0E0
@@ -813,7 +814,8 @@ static void __stdcall D2CMPSpriteInitFrames(D2CmpSpriteFileStrc* pFile, D2CmpSpr
 // 0x005FEE00
 void __cdecl D2CMPSpriteCacheDumpHashTableStats()
 {
-    gCmpBlockTableB.sub_0060AB70_Destroy();
+// build: symbol ?GfxHashDumpStats@* 0x0060AB70
+    gCmpBlockTableB.GfxHashDumpStats();
 }
 
 // 0x005FEE10
@@ -1068,7 +1070,7 @@ int __cdecl D2CMPSpriteNumAsyncLoads()
         if (pKey && !(pKey->nFlags & 1))
         {
             D2_ASSERT(pKey->pAsyncData, 0xB5B);
-            if (!sub_0040A7F0_AsyncDataCheck(pKey->pAsyncData))
+            if (!FOG_AsyncDataTestLoaded(pKey->pAsyncData))
             {
                 nCount += 1;
             }
@@ -1231,9 +1233,9 @@ void __cdecl D2CMPSpriteFreeAsyncLoads()
         if (pKey)
         {
             AsyncData* pAsyncData = pKey->pAsyncData;
-            if (pAsyncData && !sub_0040A7F0_AsyncDataCheck(pAsyncData))
+            if (pAsyncData && !FOG_AsyncDataTestLoaded(pAsyncData))
             {
-                sub_0040AB00_FreeAsyncData(pAsyncData);
+                FOG_AsyncDataFree(pAsyncData);
                 pKey->pAsyncData = 0;
             }
         }
@@ -1258,9 +1260,10 @@ void __stdcall D2CMPSpriteCacheInit(void* pMemPool, unsigned int nMaxSize, int n
     }
     gbCmpSmallCelCache = nCacheSize < 0x4000000;
     CelDataHashInit(&gCmpBlockTableA);
-    sub_006093E0_PoolFreeAll(&gCmpTilePool);
+    LRUCacheDestroy(&gCmpTilePool);
     memset(&gCmpTilePool, 0, sizeof(gCmpTilePool));
-    sub_00609020_PoolInit(&gCmpTilePool, pMemPool, nArg, D2CMPTileFreePoolEntry, gnCmpTilePoolBlocks);
+// build: symbol ?LRUCacheInit@* 0x00609020
+    LRUCacheInit(&gCmpTilePool, pMemPool, nArg, D2CMPTileFreePoolEntry, gnCmpTilePoolBlocks);
     memset(&gCmpBlockTableB, 0, sizeof(gCmpBlockTableB));
     GfxHashInit(&gCmpBlockTableB);
     if (gCmpTileCache.nArg)
@@ -1531,12 +1534,12 @@ static int __stdcall D2CMPSpriteReadFrames(D2CmpSpriteContextStrc* pContext, int
         tDesc.nFirstFrame = nDirection * nFrames;
         tDesc.nFrames = nFrames;
         pEntry->nFlags |= 4;
-        pEntry->pAsync = sub_0040A620(gCmpTileCache.pMemPool, szName, 0, pFile->aOffsets[nStart], nSize, 0, &tDesc, -2, gszSpriteCacheSourceFile, 0x369);
+        pEntry->pAsync = FOG_AsyncDataLoadFileEx(gCmpTileCache.pMemPool, szName, 0, pFile->aOffsets[nStart], nSize, 0, &tDesc, -2, gszSpriteCacheSourceFile, 0x369);
         nSize = FOG_AsyncDataGetBufferSize(pEntry->pAsync);
     }
     else
     {
-        pEntry->pAsync = sub_0040A620(gCmpTileCache.pMemPool, szName, 0, pFile->aOffsets[nStart], nSize, 0, 0, -2, gszSpriteCacheSourceFile, 0x379);
+        pEntry->pAsync = FOG_AsyncDataLoadFileEx(gCmpTileCache.pMemPool, szName, 0, pFile->aOffsets[nStart], nSize, 0, 0, -2, gszSpriteCacheSourceFile, 0x379);
     }
 
     D2_ASSERT(pEntry->pAsync, 0x37D);
@@ -1592,11 +1595,11 @@ static int __stdcall D2CMPSpriteReadFramesAsync(D2CmpSpriteFileStrc* pFile, int 
         tDesc.nFirstFrame = nDirection * nFrames;
         tDesc.nFrames = nFrames;
         pEntry->nFlags |= 4;
-        pEntry->pAsync = sub_0040A620(gCmpTileCache.pMemPool, szName, 1, pFile->aOffsets[nStart], nSize, 0, (int)&tDesc, -2, gszSpriteCacheSourceFile, 0x3DA);
+        pEntry->pAsync = FOG_AsyncDataLoadFileEx(gCmpTileCache.pMemPool, szName, 1, pFile->aOffsets[nStart], nSize, 0, (int)&tDesc, -2, gszSpriteCacheSourceFile, 0x3DA);
     }
     else
     {
-        pEntry->pAsync = sub_0040A620(gCmpTileCache.pMemPool, szName, 1, pFile->aOffsets[nStart], nSize, 0, 0, -2, gszSpriteCacheSourceFile, 0x3E6);
+        pEntry->pAsync = FOG_AsyncDataLoadFileEx(gCmpTileCache.pMemPool, szName, 1, pFile->aOffsets[nStart], nSize, 0, 0, -2, gszSpriteCacheSourceFile, 0x3E6);
     }
 
     if (!pEntry->pAsync)

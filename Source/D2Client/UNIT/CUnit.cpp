@@ -2336,7 +2336,8 @@ void __fastcall CUNIT_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int bFl
                 if (pOldLevel->nPal != pNewLevel->nPal)
                 {
                     sub_004FB480_SetActA(pNewLevel->nPal);
-                    sub_00600C00_SetActB(pNewLevel->nPal);
+// build: symbol ?D2CMPPalShiftSetAct@* 0x00600C00
+                    D2CMPPalShiftSetAct(pNewLevel->nPal);
                 }
             }
         }

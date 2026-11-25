@@ -408,7 +408,7 @@ static int DDCORE_OpenSurfaces(int nResolutionMode)
     long hResult = gpDirectDraw->SetCooperativeLevel(ghDDrawWindow_007C9140, 0x11);
     if (hResult && hResult != 0x88760245)
     {
-        sub_005103B0("SetCooperativeLevel failed!", hResult);
+        DDCORE_DDrawLogError("SetCooperativeLevel failed!", hResult);
         return 0;
     }
 
@@ -491,7 +491,7 @@ static int DDCORE_OpenSurfaces(int nResolutionMode)
     return 1;
 
 fail:
-    sub_005103B0(szError, hResult);
+    DDCORE_DDrawLogError(szError, hResult);
     LOGMANAGER_WriteLogLine("Opening DirectDraw window failed!");
     return 0;
 }
@@ -535,7 +535,7 @@ int __cdecl DDCORE_SetDisplayMode()
     {
         szError = "Failed to create primary surface for cutscenes";
 fail:
-        sub_005103B0(szError, hResult);
+        DDCORE_DDrawLogError(szError, hResult);
         LOGMANAGER_WriteLogLine("Opening DirectDraw window for cutscenes failed!");
         return 0;
     }
@@ -552,14 +552,14 @@ int __fastcall DDCORE_CreateSurface(void* hWnd, int nResolutionMode)
     long hResult = gpDirectDraw->SetCooperativeLevel(hWnd, 0x11);
     if (hResult)
     {
-        sub_005103B0("SetCooperativeLevel failed!", hResult);
+        DDCORE_DDrawLogError("SetCooperativeLevel failed!", hResult);
         return 0;
     }
     memset(gatGamePalette, 0, sizeof(gatGamePalette));
     hResult = gpDirectDraw->CreatePalette(4, gatGamePalette, &gpDDrawPalette, 0);
     if (hResult)
     {
-        sub_005103B0("CreatePalette failed!", hResult);
+        DDCORE_DDrawLogError("CreatePalette failed!", hResult);
         return 0;
     }
     return DDCORE_OpenSurfaces(nResolutionMode);
@@ -606,7 +606,7 @@ int __fastcall DDCORE_StartDraw(int bClear, unsigned char nRed, unsigned char nG
     long nResult = gpDDrawOffscreenSurface->Lock(0, &tDesc, 0x21, 0);
     if (nResult)
     {
-        sub_005103B0("Lock failed!", nResult);
+        DDCORE_DDrawLogError("Lock failed!", nResult);
         LeaveCriticalSection(gpRenderCriticalSection);
         return 0;
     }
@@ -622,7 +622,7 @@ int __fastcall DDCORE_EndDraw()
     long hResult = gpDDrawOffscreenSurface->Unlock(0);
     if (hResult)
     {
-        sub_005103B0("Unlock failed!", hResult);
+        DDCORE_DDrawLogError("Unlock failed!", hResult);
         return 0;
     }
 
@@ -648,7 +648,7 @@ int __fastcall DDCORE_Blit()
             const long hResult = gpDDrawBackSurface->BltFast(0, 0, gpDDrawOffscreenSurface, &tRect, 0x10);
             if (hResult)
             {
-                sub_005103B0("BltFast failed!", hResult);
+                DDCORE_DDrawLogError("BltFast failed!", hResult);
                 return 0;
             }
         }
@@ -665,7 +665,7 @@ int __fastcall DDCORE_Blit()
         const long hResult = gpDDrawPrimarySurface->BltFast(0, 0, gpDDrawOffscreenSurface, &tRect, 0x10);
         if (hResult)
         {
-            sub_005103B0("BltFast failed!", hResult);
+            DDCORE_DDrawLogError("BltFast failed!", hResult);
             return 0;
         }
     }
@@ -676,7 +676,7 @@ int __fastcall DDCORE_Blit()
         const long hResult = gpDDrawPalette->SetEntries(0, 1, 0xFF, gabPaletteEntries);
         if (hResult)
         {
-            sub_005103B0("SetEntries failed!", hResult);
+            DDCORE_DDrawLogError("SetEntries failed!", hResult);
             return 0;
         }
     }
@@ -882,7 +882,7 @@ int __fastcall DDCORE_Init(D2GfxSettingsStrc* pSettings, D2TileDrawFunctionsStrc
 
     if (hResult)
     {
-        sub_005103B0(gszDirectDrawCreateFailed, hResult);
+        DDCORE_DDrawLogError(gszDirectDrawCreateFailed, hResult);
         return 0;
     }
 

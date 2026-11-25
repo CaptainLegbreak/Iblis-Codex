@@ -53,7 +53,7 @@ extern void* gpfnTileFreeCallback; // 0x0088CB1C
 
 extern D2SpriteCacheStrc gCmpTileCache; // 0x0089DB60
 D2SpriteCacheNodeStrc* __fastcall D2CMPSpriteCacheEvict(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bLocked); // 0x005FF4A0
-void __fastcall sub_0040AB00_FreeAsyncData(AsyncData* pAsync); // 0x0040AB00
+void __fastcall FOG_AsyncDataFree(AsyncData* pAsync); // 0x0040AB00
 
 void __fastcall CelDrawRleShadow(D2CelStrc* pCel, unsigned char* pDst, int nX, int nClipLeft, int nClipRight, int nPitch, int nSkip, int nLines, int nTable, int nColor); // 0x00608D60
 
@@ -99,7 +99,8 @@ int __cdecl D2CMPSpriteNumAsyncLoads()
         if (pKey && !(pKey->nFlags & 1))
         {
             D2_ASSERT(pKey->pAsyncData, 0xB5B);
-            if (!sub_0040A7F0_AsyncDataCheck(pKey->pAsyncData))
+// build: symbol ?FOG_AsyncDataTestLoaded@* 0x0040A7F0
+            if (!FOG_AsyncDataTestLoaded(pKey->pAsyncData))
             {
                 nCount += 1;
             }
@@ -118,9 +119,9 @@ void __cdecl D2CMPSpriteFreeAsyncLoads()
         if (pKey)
         {
             AsyncData* pAsyncData = pKey->pAsyncData;
-            if (pAsyncData && !sub_0040A7F0_AsyncDataCheck(pAsyncData))
+            if (pAsyncData && !FOG_AsyncDataTestLoaded(pAsyncData))
             {
-                sub_0040AB00_FreeAsyncData(pAsyncData);
+                FOG_AsyncDataFree(pAsyncData);
                 pKey->pAsyncData = 0;
             }
         }
