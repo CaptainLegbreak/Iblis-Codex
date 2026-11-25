@@ -14,18 +14,6 @@ struct D2RosterInfoStrc
     D2RosterInfoStrc* pNext;
 };
 
-struct D2ViewStrc
-{
-    char unk0x00[0x38];
-    int nField0x38;
-    char unk0x3C[0xEA60];
-    int nField0xEA9C;
-    char unk0xEAA0[8];
-    void* pCells;
-    char unk0xEAAC[4];
-    int nField0xEAB0;
-};
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60

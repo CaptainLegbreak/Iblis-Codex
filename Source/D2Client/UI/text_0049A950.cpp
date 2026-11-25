@@ -14,26 +14,11 @@ struct Unicode;
 
 struct D2RectStrc;
 
-struct D2TextNodeStrc;
-
 struct D2TextListStrc;
 
 struct D2MsgHandlerEntryStrc;
 
 class ListBoxWrapper;
-
-struct D2ClientListEntryStrc
-{
-    unsigned char nId[4];
-    unsigned char unk0x04[6];
-};
-
-struct D2TextNodeStrc
-{
-    void* pOwned[6];
-    unsigned char unk0x18[10];
-    unsigned char pNext[4];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 

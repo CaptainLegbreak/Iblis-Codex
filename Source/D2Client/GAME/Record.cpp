@@ -251,23 +251,6 @@ void __cdecl WINMAIN_StartPlayback()
 
 struct Unicode;
 
-struct D2TileRectStrc
-{
-    int unk0x00;
-    int nX;
-    int nY;
-    unsigned int nWidth;
-    unsigned int nHeight;
-};
-
-struct D2GridCellStrc;
-
-struct D2GridCellStrc
-{
-    int nFlag;
-    unsigned char nValue[4];
-};
-
 // 0x00451910
 int __cdecl UI_IsRecordingEnabled()
 {
@@ -287,13 +270,6 @@ void __stdcall CHARSEL_RecordHandler(int nArg1, int nArg2, int nArg3)
 }
 
 D2RecordHandlerFn __fastcall sub_005173D3_SetRecordHandler(D2RecordHandlerFn pfnHandler);                  // 0x005173D3
-
-struct D2MonLvlTxt;
-
-struct D2MonLvlTxt
-{
-    char unk0x00[0x78];
-};
 
 // 0x00451940
 void __cdecl GAME_InstallRecordHandler()

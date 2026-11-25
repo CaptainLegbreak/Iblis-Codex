@@ -317,15 +317,7 @@ void __fastcall SOUNDINST_MoveSound(int nHandle, int nX, int nY, int nZ)
     }
 }
 
-struct D2DialogWidget;
-
 struct D2DialogWidgetNodeStrc;
-
-struct D2DialogWidget
-{
-    virtual void Unk0();
-    virtual void Draw();
-};
 
 
 // 0x004B97D0

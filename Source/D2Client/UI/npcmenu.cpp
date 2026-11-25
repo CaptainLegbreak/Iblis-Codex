@@ -31,8 +31,6 @@ struct D2ClientItemSlotStrc;
 
 struct D2MonsterDataStrc;
 
-struct D2ClientPacket7Strc;
-
 struct D2PacketRecord6Strc;
 
 struct D2StringMapStrc;
@@ -118,13 +116,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern D2ClientItemSlotStrc gaNpcItemSlots[10]; // 0x007C0C85
 
 #pragma pack(push, 1)
-
-struct D2ClientPacket7Strc
-{
-    unsigned char nHeader;
-    int dwUnitId;
-    unsigned short f_5;
-};
 
 struct D2PacketRecord6Strc
 {
@@ -3730,19 +3721,6 @@ struct HandlerNode
 {
     Handler* object;
     HandlerNode* next;
-};
-
-struct SelectionState
-{
-    char pad00[68];
-    int selected;
-    char padSelected[76-68-4];
-    int activeCount;
-    int totalCount;
-    char padTotal[372-80-4];
-    SelectionEntry entries[9];
-    char padEntries[4];
-    HandlerNode* handlers;
 };
 
 // 0x004B5850

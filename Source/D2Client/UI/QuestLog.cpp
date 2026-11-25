@@ -81,25 +81,6 @@ extern int gnPanelOffsetY;                                                      
 
 extern D2QuestLogStateStrc gtQuestLog_007BF298;                                                             // 0x007BF298
 
-struct D2TextNodeStrc;
-
-#pragma pack(push, 2)
-struct D2ClientListEntryStrc
-{
-    unsigned char nId[4];
-    unsigned char unk0x04[6];
-};
-#pragma pack(pop)
-
-#pragma pack(push, 2)
-struct D2TextNodeStrc
-{
-    void* pOwned[6];
-    unsigned char unk0x18[10];
-    unsigned char pNext[4];
-};
-#pragma pack(pop)
-
 extern D2UiEntry10Strc gaQuestLookup[41]; // 0x00723F38
 
 static inline int sub_004A1950_GetActNumber(const D2QuestTextsStrc* pTexts)
@@ -695,12 +676,6 @@ extern "C" void __cdecl TEXT_ResetQuestGlobals(void)
     gByte_007C025F = 0;
     gByte_007C0260 = 0;
 }
-
-struct D2ClientServiceStrc
-{
-    char unk0x00[0xD0];
-    int (__fastcall* pfnCall)(int nArg1, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
-};
 
 class D2SquelchListStrc
 {
@@ -1397,51 +1372,6 @@ void __cdecl sub_004A3050()
 
 
 char gbGlobal_007C025D; // 0x007C025D
-
-struct D2TimedHintEntryStrc;
-
-struct D2ViewStrc;
-
-struct D2CacheStatsStrc;
-
-struct D2TimedHintEntryStrc
-{
-    int unk0x00;
-    int nHintId;
-    int nKey;
-    char unk0x0C[0x24];
-    int nState;
-};
-
-struct D2ViewStrc
-{
-    unsigned int dwFlags;
-    tagRECT tRect;
-    unsigned char unk_14[0x10];
-    int nPosX;
-    int nPosY;
-    void* pLerpData;
-    void* pLerpTable;
-    void* pLerpRows;
-    unsigned int dwDrawFlags;
-};
-
-struct D2CacheStatsStrc
-{
-    unsigned int nFloorSize;
-    int unk0x04;
-    int nFloorMisses;
-    unsigned int nSubtileSize;
-    int unk0x10;
-    int nSubtileMisses;
-    unsigned int nSpriteSize[3];
-    int unk0x24[3];
-    int nSpriteMisses[3];
-    int unk0x3C[3];
-    int nSpriteAccesses[3];
-    int unk0x54[3];
-    int unk0x60[3];
-};
 
 
 struct D2QuestLookupEntryStrc;

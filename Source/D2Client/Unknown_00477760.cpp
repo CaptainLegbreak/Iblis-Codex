@@ -6,27 +6,6 @@
 struct D2ClientPacket67Strc;
 struct D2ConfigStrc;
 
-struct D2CacheStatsStrc
-{
-    unsigned int nFloorSize;
-    int unk0x04;
-    int nFloorMisses;
-    unsigned int nSubtileSize;
-    int unk0x10;
-    int nSubtileMisses;
-    unsigned int nSprite1Size;
-    unsigned int nSprite2Size;
-    unsigned int nSprite3Size;
-    int unk0x24[3];
-    int nSprite1Misses;
-    int nSprite2Misses;
-    int nSprite3Misses;
-    int unk0x3C[3];
-    int nSprite1Accesses;
-    int nSprite2Accesses;
-    int nSprite3Accesses;
-};
-
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 void __stdcall D2CMPGetTileCacheHits(unsigned int* pSize, int* pMisses, int* pTotal, int* pUtilized); // 0x005FE010
 

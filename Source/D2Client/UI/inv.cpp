@@ -57,8 +57,6 @@ struct D2ClientSlotHolderStrc;
 
 struct D2ClientRecordStrc;
 
-struct D2ClientStringListStrc;
-
 struct D2ItemStatCostTxt;
 
 
@@ -170,14 +168,6 @@ struct D2ClientRecordStrc
     int nUnk0x1C;
     int nUnk0x20;
     int nUnk0x24;
-};
-
-struct D2ClientStringListStrc
-{
-    Unicode* pStrings[6];
-    unsigned short nCount;
-    unsigned char f_1A[4];
-    unsigned char unk0x1E[8];
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -1436,8 +1426,6 @@ extern unsigned char gabGridColors_007BCAD8[]; // 0x007BCAD8
 
 struct D2CharStatsTxt;
 
-struct D2UnitInvView;
-
 
 
 struct D2DifficultyLevelsTxt;
@@ -1453,12 +1441,6 @@ extern int gbWeaponSwitch; // 0x007BCC4C
 int __stdcall ITEMS_GetAmmoType(D2UnitStrc*); // 0x0062E6F0
 
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc*); // 0x0062E740
-
-struct D2UnitInvView
-{
-    char unk0x00[0x60];
-    D2InventoryStrc* pInventory;
-};
 
 
 
@@ -6708,20 +6690,6 @@ struct D2RareAffixTxt
 };
 
 #pragma intrinsic(memset, strcpy, strcat, strlen)
-
-#pragma pack(push, 1)
-
-struct D2LevelTextStrc
-{
-    char c00;
-    int n01;
-    int n05;
-    int n09;
-    int n0D;
-    char c11;
-};
-
-#pragma pack(pop)
 
 #define WSZ(a) ((Unicode*)(a))
 

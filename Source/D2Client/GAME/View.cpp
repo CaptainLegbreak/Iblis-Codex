@@ -29,12 +29,6 @@ struct D2MapAIStrc;
 
 struct D2ClientListLinkStrc;
 
-struct D2ClientOffsetListAStrc;
-
-struct D2ClientOffsetListBStrc;
-
-struct D2ClientNodeListStrc;
-
 struct D2PlayerDataStrc;
 
 struct D2ClientRecordStrc;
@@ -45,8 +39,6 @@ struct D2ClientTimedBoxStrc;
 
 struct D2ClientViewStrc;
 
-struct D2ClientArrayStrc;
-
 struct D2PalShiftEntryStrc;
 
 struct D2DrlgCoordsStrc;
@@ -54,8 +46,6 @@ struct D2DrlgCoordsStrc;
 struct D2MissileStrc;
 
 struct D2RosterPetStrc;
-
-struct D2TimedHintEntryStrc;
 
 struct D2TimedHintNodeStrc;
 
@@ -86,34 +76,6 @@ struct D2ClientListNodeStrc : D2ClientListLinkStrc
     int nData;
 };
 
-struct D2ClientOffsetListAStrc
-{
-    int nLinkOffset;
-    D2ClientListLinkStrc tTerminator;
-
-    D2ClientListLinkStrc* Link(D2ClientListNodeStrc* pNode) { return pNode ? (D2ClientListLinkStrc*)((char*)pNode + nLinkOffset) : &tTerminator; }
-    void sub_004502A0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting); // 0x004502A0
-};
-
-struct D2ClientOffsetListBStrc
-{
-    int nLinkOffset;
-    D2ClientListLinkStrc tTerminator;
-
-    D2ClientListLinkStrc* Link(D2ClientListNodeStrc* pNode) { return pNode ? (D2ClientListLinkStrc*)((char*)pNode + nLinkOffset) : &tTerminator; }
-    void sub_004508A0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting); // 0x004508A0
-};
-
-struct D2ClientNodeListStrc
-{
-    int nLinkOffset;
-    D2ClientListLinkStrc tTerminator;
-
-    D2ClientListLinkStrc* sub_0045BB30_Link(D2ClientListNodeStrc* pNode);
-    D2ClientListNodeStrc* sub_0045BB50_Next(D2ClientListNodeStrc* pNode);
-    void sub_0045BBE0_LinkNode(D2ClientListNodeStrc* pNode, unsigned int nLinkType, D2ClientListNodeStrc* pExisting);
-};
-
 struct D2ClientRecordStrc
 {
     int unk0x00[3];
@@ -140,15 +102,6 @@ struct D2ClientViewStrc
     tagRECT tClipRect;
     int nPosX;
     int nPosY;
-};
-
-struct D2ClientArrayStrc
-{
-    unsigned int nAllocated;
-    unsigned int nCount;
-
-    void sub_00450110_SetCount(unsigned int nCount);                                                        // 0x00450110
-    void sub_00450680_SetCount(unsigned int nCount); // 0x00450680
 };
 
 struct D2PalShiftEntryStrc
@@ -232,15 +185,6 @@ enum D2C_W10Constants
     STAT_HITPOINTS = 6,
     PET_TYPE_LIFE = 7,
     DRAW_MODE_5 = 5,
-};
-
-struct D2TimedHintEntryStrc
-{
-    int unk0x00;
-    int nHintId;
-    int nKey;
-    char unk0x0C[0x24];
-    int nState;
 };
 
 extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
@@ -588,15 +532,6 @@ static inline D2ClientListLinkStrc* ListNextLink(D2ClientListLinkStrc* pLink, in
         nLinkOffset = (int)pLink - (int)pLink->pPrevLink->pNext;
     return (D2ClientListLinkStrc*)(nOffset + nLinkOffset);
 }
-
-struct D2Warden47F930Strc
-{
-    int n00;
-    int n04;
-    int n08;
-
-    D2Warden47F930Strc();
-};
 
 // 0x00466820
 void __fastcall VIEW_SpawnRoomPresets(D2ActiveRoomStrc* pRoom)

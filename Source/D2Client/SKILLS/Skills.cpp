@@ -1294,24 +1294,6 @@ int __fastcall SKILLS_ScanFindCallback(D2AreaScanStrc* pScan, D2UnitStrc* pUnit)
 
 struct Unicode;
 
-struct D2ClientServiceStrc
-{
-    char unk0x00[0xC8];
-    void (__fastcall* pfnFree)(void* pData, int nSize);
-    int (__fastcall* pfnFind)(char* szName, int* pArg, void** ppData, int* pSize);
-    void (__fastcall* pfnCall)(const char* szName, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
-};
-
-struct D2ChatMessageStrc
-{
-    unsigned char unk0x00;
-    unsigned char nType;
-    unsigned char unk0x02[6];
-    unsigned char nColor;
-    unsigned char unk0x09[0x11];
-    D2ChatTextStrc tText;
-};
-
 class D2SquelchListStrc
 {
 public:
@@ -1430,29 +1412,9 @@ int __stdcall sub_004C6020_AlwaysOne(int nArg)
 
 struct D2CellNodeStrc;
 
-struct D2SlotObjectStrc;
-
-struct D2GridCellStrc;
-
 void __fastcall sub_004E4050_Nothing(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x004E4050
 
 int __stdcall D2COMMON_11039_CheckWeaponIsMissileBased(D2UnitStrc* pUnit, int* pValue); // 0x00645F00
-
-struct D2GridCellStrc
-{
-    int unk0x00[4];
-    D2CellNodeStrc* pNodes;
-    int f_14;
-    int unk0x18[3];
-};
-
-struct D2SlotObjectStrc
-{
-    char unk0x00[0x04];
-    int f_4;
-    char unk0x08[0x2C];
-    unsigned int nKey;
-};
 
 // 0x004C6030
 int __fastcall ITEM_UseBowOrCallTarget(D2UnitStrc* pUnit, int nArg2, int nArg3)

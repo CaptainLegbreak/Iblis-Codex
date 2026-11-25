@@ -811,15 +811,7 @@ void __stdcall STATLIST_AllocStatListEx(D2UnitStrc* pUnit, int nFlags, void* pCa
 
 static void __stdcall MISSILE_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pMissile); // 0x004CD420
 
-struct D2SpawnArgsStrc;
-
 struct D2MissileScanStateStrc;
-
-struct D2SpawnArgsStrc
-{
-    D2UnitStrc* pOwner;
-    int nMissile;
-};
 
 static D2UnitStrc* __stdcall MISSILE_SpawnSubMissile(D2UnitStrc* pOwner, int nMissile, int nSpread, D2UnitStrc* pMissile); // 0x004CE530
 
@@ -1398,8 +1390,6 @@ struct D2GfxEntryStrc;
 
 struct D2CltMissileSpawnArgStrc;
 
-struct D2AreaScanStrc;
-
 extern D2DrlgActStrc* gpAct; // 0x007A0634
 
 void __stdcall MISSTREAM_FreeMissileStream(D2UnitStrc* pMissile); // 0x00663D90
@@ -1432,13 +1422,6 @@ struct D2CltMissileSpawnArgStrc
     int nSkillLevel;
     int nMaxCount;
     int nMissile;
-};
-
-struct D2AreaScanStrc
-{
-    int unk0x00;
-    int nCount;
-    D2CltMissileSpawnArgStrc* pArg;
 };
 
 int __fastcall MISSILE_RollRange(D2SeedStrc* pSeed, int nMin, int nMax); // 0x004CC790
