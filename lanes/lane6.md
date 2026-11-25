@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 08:30 PST 2026): ready on #400: comcallback-span. Next: assert spans over the rest of my modules' functions in other lanes' files (and other lanes' functions in mine, for their owners).
+Status (Wed Nov 25 09:10 PST 2026): comcallback-span merged (#401); nothing outstanding. Placeholder singles checked (Left in place). Next: the asserted-span leads for other lanes are on the board; my remaining placeholders need new evidence.
 
 ## Ready
 
@@ -72,6 +72,8 @@ Nothing of mine in flight. Open items:
 - Lane 5: D2Game-range functions in SpriteCache.cpp: 0x005B72A0, 0x005B8740, 0x005C2FE0, 0x005DD280, 0x005E5270, 0x005EDC40, 0x005EE5C0, 0x005EF310; D2Net 0x0052BF40.
 
 ## Left in place (and why)
+
+- **Single-function placeholders tried on #401, no join:** Bnclient Unknown_00521DC0 (between two BnSend.cpp runs, outside BnSend's asserted span 0x51AB30-0x51BE20; doesn't compile there without BnSend taking its private records); Unknown_00524140 (unit unequal in Unknown_00520DC0.cpp); Unknown_00524760/Unknown_00524780 (the IDEA CipherBlock/SetKey wrappers after the cipher core: 0x524760 builds equal in Unknown_00520DC0.cpp but 0x524780 doesn't, there or with 0x524760, so nothing says which object they belong to); D2Net Unknown_0052B910 (a WSAGetLastError wrapper; equal in D2Net.cpp, but nothing but adjacency ties it there). Unknown_004FDA80, Unknown_0043CBE0 and the D2Sound three each start their .data with a language copy, so they are objects of their own.
 
 - **`__declspec(noinline)`, audit-379 (21 uses in my files):** each was removed alone and its unit rebuilt (lane6/emit-trim drops the one that wasn't needed, CHATDLG_DestroyProfileControls). Without each of these 16 the unit is NOT_ALL_EQUAL, so I've left them for a ruling (lane 7 / coordinator): ChatDlg.cpp CHATDLG_SetMainControlState, CHATDLG_GetConnectStatus, CHATDLG_WriteUserData, CHARSEL_CancelGameCreate, CHATDLG_SendPendingText, CHATDLG_CopyName, CHATDLG_DestroyGameListControls (all non-static); D2Comp.cpp D2COMP_LoadCofFile, D2COMP_SetupGfxData (static); Unknown_00513BC0.cpp D2SOUND_GetChannelEntry (static), D2SOUND_DestroyStreamChannel; BnDownload_00520CB0.cpp BNDOWNLOAD_PermuteKeyBits (static, register convention); Unknown_0043B7A0.cpp CHARSEL_ReportStatus (static); CharSel_00438560.cpp CHARSEL_GetDaysLeft (static); D2WinButton.cpp BUTTON_IsPointInside (static); Tilecmp.cpp TileHasNonKeyPixel (static). Not yet tried, because lane 9 or my own label branch touches the file: BnSend.cpp 1, D2WinFont.cpp 1, D2WinEditBox.cpp 1, ComCallback.cpp 1.
 
