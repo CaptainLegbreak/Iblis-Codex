@@ -2,13 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Tue Nov 24 18:32:19 PST 2026): net-x-object verified and posted ready; net-server and join-00518b90 still ready. Working on D2Lang's object map (lang-utf8 verifying, then UNISYS).
+Status (Tue Nov 24 18:47:31 PST 2026): net-server merged (#377); join-00518b90 was in #369 (line dropped). net-x-object conflicts on #377: withdrawn, rebased as net-x-object-2 (verifying). lang-utf8 ready; lang-unisys and lang-unicode (stacked on it) verifying.
 
 ## Ready
 
-- lane6/net-x-object 6a93b885 243->244 placeholders (count on #376; merges cleanly on #376). New Unknown_0052BDA0.cpp for D2Net's object at 0x0052BDA0-0x0052BE1F: the language copy 0x00730F84 starts its own .data after Unknown_0052B920.cpp's packet-size tables, and the next copy (0x00730FC0) starts D2Game Game.cpp's object at 0x0052BE20. Moved in: Client.cpp's two empties (0x0052BDA0/0x0052BDB0), D2Game Game.cpp's 0x0052BDC0 (inside D2Net's run; lane 5, FYI) and D2Net.cpp's 0x0052BDD0-0x0052BE10 with D2NetLockStrc; the 0x00730F84 plan record moves from Unknown_0052B920.cpp. Not stacked. VERIFIED 9c50e03b (on #375, merges cleanly on #376; borrowed data 844 B, unchanged).
-- lane6/net-server 481f358d 243->243 placeholders (count on #376; merges cleanly on #376). Server.cpp takes the rest of D2Net's server object 0x52B0E0-0x52B7DF: every function in the run uses the server state at .bss 0x00882D08 and no other code does. Moved in: BnSend.cpp's 0x0052B0E0/0x0052B100, Client.cpp's five SERVER_* (0x0052B1F0-0x0052B250, 0x0052B490), and D2Game ItemMode.cpp's 0x0052B270/0x0052B6F0 (inside D2Net's run, so lane 6's by the ownership rule; lane 5, FYI). No placeholder change. Not stacked. VERIFIED f5289998 (on #375, merges cleanly on #376; borrowed data 844 B, unchanged).
-- lane6/join-00518b90 3b4d3e49 243->242 placeholders (count on #376; merges cleanly on #376). Unknown_00518B90.cpp takes Unknown_00518B60.cpp: each had half of D2BnLogStrc (constructor 0x518B60 and deleting destructor 0x518BD0 in one; destructor 0x518B80 and handle getter 0x518B90 in the other, interleaved with 0x518BC0). One struct now carries all of it. Not stacked; D2BNClient only. VERIFIED 95378f9b (on #367, merges cleanly on #368; borrowed data 844 B, unchanged).
+- lane6/lang-utf8 df9a71bb 234->233 placeholders (count on #377; merges cleanly on #377). Unknown_00526100.cpp (D2Lang's UTF-8 object: copy 0x00730978 and gaUtf8ConvertTable) takes Unknown_00526320.cpp and Unknown_00525FB0.cpp's 0x005263E0: the static helpers tie the run (0x00526100 is called only by 0x00526320; 0x00526190 only by 0x005262F0, 0x005263E0 and 0x00526430; 0x00526200 only by 0x005262A0). One Unicode view, the shared D2Unicode.h; 0x00526190 takes (pDest, ch), the order 0x005263E0's call needs. Not stacked. VERIFIED 0b507bf3 (on #376, merges cleanly on #377; borrowed data 844 B, unchanged).
 
 
 ## Claimed
