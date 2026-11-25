@@ -190,9 +190,3 @@ void __stdcall sub_0050F980_DecodeTileBlocks(D2TileLibraryEntryStrc* pTile, unsi
         }
     }
 }
-// 0x00512410
-int __fastcall sub_00512410_ForwardToDrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, int nScreenMode, void* pPalette)
-{
-    return sub_00511FB0_DrawImage(pData, nX, nY, dwGamma, nDrawMode, pPalette);
-}
-

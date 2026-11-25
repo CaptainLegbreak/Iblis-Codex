@@ -239,11 +239,9 @@ int __cdecl GLVERTEX_IsPerspective();                                           
 
 void __fastcall sub_0050FDF0_GlidePlaySmacker(const char* szFile, int nResolutionMode, void* pfFrame);      // 0x0050FDF0
 
-void __fastcall sub_005103B0_DDrawLogError(const char* szWhere, int hResult); // 0x005103B0
 
 void __fastcall sub_00512D90_DDrawUtilFilledRect(tagRECT* pRect, unsigned char nColor);                     // 0x00512D90
 
-void __fastcall sub_005137E0_DDrawPlaySmacker(const char* szFile, int nResolutionMode, void* pfFrame);      // 0x005137E0
 
 void __fastcall sub_006BE190_BuildGammaTable(int gamma,void* table,double scale,int entrySize,int entries,int mask); // 0x006BE190
 
@@ -259,9 +257,7 @@ extern void (__stdcall* gpfnGrConstantColorValue)(unsigned int dwColor);        
 
 int gbGlidePlayingVideo;                                                                           // 0x0087EFD0
 
-int gbDDrawPlayingVideo;                                                                           // 0x0088126C
 
-D2DDrawSurfaceStrc* gpDDrawBackSurface;                                                            // 0x0088127C
 
 struct D2GfxLightExStrc;
 
@@ -1360,82 +1356,6 @@ void __fastcall GLCORE_ReleaseTexSlots(D2GlideTexSlotStrc* pSlots)
             }
         }
     }
-}
-
-// 0x00511660
-void __fastcall DDRAW_OpenSmackCutscene(const char* szFile, int nResolutionMode, void* pfFrame)
-{
-    if (!gbRenderPaused)
-    {
-        gbDDrawPlayingVideo = 1;
-        D2DDBltFxStrc tBltFx = { sizeof(tBltFx) };
-        tBltFx.dwFillColor = 0;
-// build: symbol ?gpDDrawPrimarySurface@* 0x00881278
-        D2_ASSERT(gpDDrawPrimarySurface, 0x387);
-
-        const long hResult = gpDDrawPrimarySurface->lpVtbl->Blt(gpDDrawPrimarySurface, 0, 0, 0, 0x400, &tBltFx);
-        if (hResult)
-        {
-            sub_005103B0_DDrawLogError("Cutscene clearing blit failed!", hResult);
-            return;
-        }
-
-        sub_005137E0_DDrawPlaySmacker(szFile, nResolutionMode, pfFrame);
-        gbDDrawPlayingVideo = 0;
-    }
-}
-
-// 0x00511970
-int __fastcall DDRAW_GetBackBuffer(unsigned char* pBuffer)
-{
-    D2DDSurfaceDescStrc tDesc = { sizeof(tDesc) };
-    if (!gpDDrawBackSurface)
-    {
-        return 0;
-    }
-
-    long hResult = gpDDrawBackSurface->lpVtbl->Lock(gpDDrawBackSurface, 0, &tDesc, 0x11, 0);
-    if (hResult)
-    {
-        sub_005103B0_DDrawLogError("Lock failed!", hResult);
-        return 0;
-    }
-
-    unsigned char* pDstRow = pBuffer;
-    unsigned char* pSrcRow = (unsigned char*)tDesc.lpSurface;
-    for (int y = 0; y < gnRenderHeight; ++y)
-    {
-        unsigned char* pSrc = pSrcRow;
-        unsigned char* pDst = pDstRow;
-        for (int x = 0; x < gnRenderWidth; ++x)
-        {
-            const tagPALETTEENTRY* pEntry = &gatGamePalette[*pSrc];
-            *pDst = pEntry->peRed;
-            ++pDst;
-            *pDst = pEntry->peGreen;
-            ++pDst;
-            *pDst = pEntry->peBlue;
-            ++pSrc;
-            ++pDst;
-        }
-
-        pDstRow += 3 * gnRenderWidth;
-        pSrcRow += tDesc.lPitch;
-    }
-
-    hResult = gpDDrawBackSurface->lpVtbl->Unlock(gpDDrawBackSurface, 0);
-    if (hResult)
-    {
-        sub_005103B0_DDrawLogError("Unlock failed!", hResult);
-        return 0;
-    }
-
-    return 1;
-}
-
-// 0x005123A0
-void __stdcall DDRAW_CelDrawHilight(int nUnused1, int nUnused2)
-{
 }
 
 // 0x00518C10
