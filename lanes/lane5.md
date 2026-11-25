@@ -4,7 +4,6 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/join-skillmonst-cdf10 684b393f4 (on #391): SkillMonst.cpp takes in Unknown_005CD910.cpp's two functions, 0x5CDF10 and 0x5CDFB0, which sit inside its run (after 0x5CDF00, before 0x5CE0B0) and call its own frenzy helpers; rewritten in the file's types (0x5CDFB0 is 0x5CE0B0's twin with monster component 10 for 11). The leftover Game*-typed declaration of SKILLS_ApplyFrenzyStats takes the definition's prototype. Placeholders -1. auditguard: 1.10-address names 2,951 -> 2,949, nothing rose. Full build: Game.exe identical, tree c72e690cbc60a79dcc28120d3eab06712623b3d1, borrowed code / data 11,250 B / 261 B.
 
 ## Claimed
 
