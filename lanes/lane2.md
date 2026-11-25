@@ -2,7 +2,7 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 ~01:30 PT): shim-trim-r2 Ready. Re-ran the shim trim on #385 (every non-Fog shim deleted alone): only the two text box copies go; the other 31 still change their units. Records and fields: see the notes below; one question for the coordinator.
+Status (Wed Nov 25 ~02:10 PT): Ready: shim-trim-r2, include-decls (the Source/Include declaration item; thanks for the answer). Next: the dead-copy sweep and agreeing private records on the newest main.
 
 ## Claimed
 
@@ -10,6 +10,7 @@ Status (Wed Nov 25 ~01:30 PT): shim-trim-r2 Ready. Re-ran the shim trim on #385 
 
 ## Ready
 
+- lane2/include-decls 1163edbc6 (on #386): the declaration move's Source/Include part (the coordinator's answer). Of the 26 functions declared in shared headers, two had a second copy: D2StormBigBuffer.h's SMemFree (with C++ linkage, though SMEM.CPP defines it extern "C") now comes from stpl.h, and D2CrashTypes.h's EnterCriticalSection/LeaveCriticalSection come from CCritSect.h. The rest are declared once, with their definitions' prototypes. Full build: Game.exe identical, tree 259dfcc860f9cefa4a335b6ea7f906123ef8268c, borrowed code / data 11,250 / 261 B.
 - lane2/shim-trim-r2 b879b640d (on #385): D2Client: drops the uncalled static copies of sub_0049D5A0_UpdateTextBox (shim marker, body and prototype) from Unknown_004A43E0.cpp and Unknown_004A6460.cpp; text.cpp keeps the function (deletions only). Full build: Game.exe identical, tree 039135ea38095e08efff268b1e50ce49a3bdfc4e, borrowed code / data 11,250 / 261 B.
 - `lane2/net-packet-buffer`: WITHDRAWN, never posted. It duplicates lane 10's `bn-crypt-records-r`; don't merge it. (The proxy here won't let me delete the remote branch.)
 
@@ -46,12 +47,12 @@ No borrowed-data block or language split is in lane 2's range: the coord block i
 
 ## Questions
 
-- **Coordinator: what is lane 2's part of the declaration move?** The audit item says "the shared headers' part of the declaration move (functions several modules call)". Every function belongs to a module, and its declaration goes in that module's header (Fog.h, D2Common.h, ... owned by lanes 3, 8 and the rest). Is there a set you want in Source/Include, say the Storm/Fog exports that every module declares privately? If not, I'll leave the move to the owners. Meanwhile I'm on the record and field items.
 
 
 
 ## Notes for other lanes
 
+- Lane 3: `lane2/include-decls` makes D2StormBigBuffer.h include your stpl.h for SMemFree (stpl.h itself is unchanged).
 - Lane 3: the private `D2CmdArgStrc`/`D2CmdParamsStrc` in D2MCPClient/Unknown_0044A170.cpp, D2Client/Unknown_0044B400.cpp and Unknown_0044BA20.cpp (three identical copies) are Storm's SCmd argument records: flags, id, name and handler, used with SCmdRegisterArgList. Their name clashes with D2CmdArg.h's game command table, so they can't share that header. They belong in a Storm header under Storm's own names; yours if you want them.
 - All lanes, unk0x fields in Source/Include: after lane 10's plans (fields-plans, #385), almost every remaining `unk0x` member is never read by name in any unit that includes its header (D2CmpTypes.h: 27 of 28 unread). Padding with no reader has no evidence to name it from, so I'm leaving those. If your code reads a shared field through a cast or an offset, tell me here and I'll name it.
 - D2LaunchPayloadStrc (MainMenus.cpp, ChatDlg.cpp) stays private: it embeds D2LaunchThreadRecordStrc by value, and that record is defined in D2MCPClient.h, D2Client.h and MainMenus.cpp. Sharing the payload means moving the thread record out of two module headers first.
