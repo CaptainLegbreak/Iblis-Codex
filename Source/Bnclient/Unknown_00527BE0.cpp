@@ -1,13 +1,9 @@
 #include "Bnclient.h"
 
-struct D2LangCharMapEntryStrc;
 struct D2SrpSeedRecordStrc;
 struct D2BigLoginRecordStrc;
 
-extern unsigned char gnLeadByteRangeCount; // 0x00882B22
 extern "C" unsigned int __cdecl strlen(const char* szString);
-extern unsigned short gnCharMapCount; // 0x00882B20
-extern D2LangCharMapEntryStrc* gpCharMap; // 0x00882B24
 extern "C" long __cdecl _time32(long* pTime);
 extern "C" int __cdecl tolower(int nChar);
 // build: symbol ?gacCDKeyMap@* 0x006DF238
@@ -34,114 +30,6 @@ int __fastcall sub_0052A2F0_BigCompareUnsigned(void* hBig, unsigned int nValue);
 int __fastcall sub_0052A350_BigOp_423790(void* hResult, void* hLeft, void* hRight); // 0x0052A350
 int __fastcall sub_0052A3B0_BigOp_423AC0(void* hResult, void* hLeft, void* hRight); // 0x0052A3B0
 void __fastcall sub_0052A430_BigOpUnsigned_424F10(void* hResult, void* hLeft, unsigned int nValue); // 0x0052A430
-
-unsigned short gnCharMapCount; // 0x00882B20
-
-D2LangCharMapEntryStrc* gpCharMap; // 0x00882B24
-
-// 0x005276E0
-static int sub_005276E0_IsLeadByte(unsigned char nByte)
-{
-    if (nByte < 0x20)
-    {
-        return 0;
-    }
-    for (int i = 0; i < gnLeadByteRangeCount; ++i)
-    {
-// build: symbol ?gpLeadByteRanges@* 0x00882B28
-        if (gpLeadByteRanges[i].nLow <= nByte && nByte <= gpLeadByteRanges[i].nHigh)
-        {
-            return 0;
-        }
-    }
-    return 1;
-}
-
-static int sub_00527B00_MapUnicodeChar(int nChar)
-{
-    const unsigned short wChar = (unsigned short)nChar;
-    if (wChar < 0x20)
-    {
-        return wChar;
-    }
-    D2LangCharMapEntryStrc tKey;
-    tKey.f_2 = wChar;
-    const D2LangCharMapEntryStrc* pEntry = (const D2LangCharMapEntryStrc*)bsearch(&tKey, gpCharMap, gnCharMapCount, sizeof(D2LangCharMapEntryStrc), sub_00527AE0_CompareKey);
-    if (!pEntry)
-    {
-        return -1;
-    }
-    return pEntry->wValue;
-}
-
-// 0x00527BE0
-char* __fastcall sub_00527BE0_UnicodeToCodePage(char* szDest, const Unicode* pSrc, int nCount)
-{
-    if (!gpCharMap)
-    {
-        return sub_00526F70(szDest, pSrc, nCount);
-    }
-    int i = 0;
-    for (; i < nCount; ++pSrc)
-    {
-        if (!pSrc->wChar)
-        {
-            goto terminate;
-        }
-        const int nCodePage = sub_00527B00_MapUnicodeChar(pSrc->wChar);
-        if (nCodePage < 0)
-        {
-            continue;
-        }
-        if ((nCodePage & 0xFF00) || sub_005276E0_IsLeadByte((unsigned char)nCodePage))
-        {
-            szDest[i++] = (char)((unsigned short)nCodePage >> 8);
-        }
-        szDest[i++] = (char)nCodePage;
-    }
-    if (pSrc->wChar)
-    {
-        return szDest;
-    }
-terminate:
-    if (i < nCount)
-    {
-        szDest[i] = 0;
-    }
-    return szDest;
-}
-
-// 0x00527CA0
-int __fastcall sub_00527CA0_GetCodePageLength(const Unicode* pSrc, int nCount)
-{
-    if (!gpCharMap)
-    {
-        return sub_00526800(pSrc);
-    }
-    int nLength = 0;
-    for (int i = 0; i < nCount; ++i)
-    {
-        if (!pSrc[i].wChar)
-        {
-            goto terminate;
-        }
-        const int nCodePage = sub_00527B00_MapUnicodeChar(pSrc[i].wChar);
-        if (nCodePage < 0)
-        {
-            continue;
-        }
-        if ((nCodePage & 0xFF00) || sub_005276E0_IsLeadByte((unsigned char)nCodePage))
-        {
-            nLength += 2;
-        }
-        else
-        {
-            nLength += 1;
-        }
-    }
-terminate:
-    return nLength;
-}
 
 // 0x00527DB0
 // build: symbol ?BNDOWNLOAD_GetTime@* 0x00521B40

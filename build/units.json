@@ -40389,31 +40389,6 @@
      "va": "0x00526F70",
      "length": 54,
      "name": "?sub_00526F70@@YIPADPADPBUUnicode@@H@Z"
-    },
-    {
-     "va": "0x00527660",
-     "length": 27,
-     "name": "?_V"
-    },
-    {
-     "va": "0x00527680",
-     "length": 23,
-     "name": "?_U"
-    },
-    {
-     "va": "0x005276A0",
-     "length": 26,
-     "name": "sub_005276A0_SetFromBytes"
-    },
-    {
-     "va": "0x005276C0",
-     "length": 30,
-     "name": "sub_005276C0_Contains"
-    },
-    {
-     "va": "0x00527AE0",
-     "length": 21,
-     "name": "sub_00527AE0_CompareKey"
     }
    ]
   },
@@ -40459,26 +40434,6 @@
      "va": "0x005267E0",
      "length": 27,
      "name": "@sub_005267E0@8"
-    },
-    {
-     "va": "0x005276E0",
-     "length": 61,
-     "name": "?sub_005276E0_IsLeadByte@@YAHE@Z"
-    },
-    {
-     "va": "0x00527B00",
-     "length": 73,
-     "name": "?sub_00527B00_MapUnicodeChar@@YAHG@Z"
-    },
-    {
-     "va": "0x00527B50",
-     "length": 139,
-     "name": "?sub_00527B50_CodePageToUnicode@@YIPAUUnicode@@PAU1@PBDH@Z"
-    },
-    {
-     "va": "0x00527D50",
-     "length": 95,
-     "name": "?sub_00527D50_GetCodePageCharCount@@YIHPBDH@Z"
     }
    ]
   },
@@ -40544,6 +40499,31 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x00527660",
+     "length": 27,
+     "name": "?_V"
+    },
+    {
+     "va": "0x00527680",
+     "length": 23,
+     "name": "?_U"
+    },
+    {
+     "va": "0x005276A0",
+     "length": 26,
+     "name": "sub_005276A0_SetFromBytes"
+    },
+    {
+     "va": "0x005276C0",
+     "length": 30,
+     "name": "sub_005276C0_Contains"
+    },
+    {
+     "va": "0x005276E0",
+     "length": 61,
+     "name": "?sub_005276E0_IsLeadByte@@YAHE@Z"
+    },
+    {
      "va": "0x00527720",
      "length": 103,
      "name": "?UNISYS_FreeCodePageTables@@YAXXZ"
@@ -40556,13 +40536,22 @@
     {
      "va": "0x00527A50",
      "length": 135
-    }
-   ]
-  },
-  {
-   "file": "Source/Bnclient/Unknown_00527BE0.cpp",
-   "rank": 0,
-   "functions": [
+    },
+    {
+     "va": "0x00527AE0",
+     "length": 21,
+     "name": "sub_00527AE0_CompareKey"
+    },
+    {
+     "va": "0x00527B00",
+     "length": 73,
+     "name": "?sub_00527B00_MapUnicodeChar@@YAHG@Z"
+    },
+    {
+     "va": "0x00527B50",
+     "length": 139,
+     "name": "?sub_00527B50_CodePageToUnicode@@YIPAUUnicode@@PAU1@PBDH@Z"
+    },
     {
      "va": "0x00527BE0",
      "length": 191
@@ -40571,6 +40560,17 @@
      "va": "0x00527CA0",
      "length": 164
     },
+    {
+     "va": "0x00527D50",
+     "length": 95,
+     "name": "?sub_00527D50_GetCodePageCharCount@@YIHPBDH@Z"
+    }
+   ]
+  },
+  {
+   "file": "Source/Bnclient/Unknown_00527BE0.cpp",
+   "rank": 0,
+   "functions": [
     {
      "va": "0x00527DB0",
      "length": 10,
