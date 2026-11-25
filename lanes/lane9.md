@@ -86,6 +86,16 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
     Report@crashy type descriptor and right before Fog's ghProcess. Fog's (lane 3), not D2Hell's.
   - 0x6CC75C (32 B): 4 zero bytes and then the image's debug directory entry (stamp 0x574DDFBC, type 2 CodeView,
     size 0x40); linker output, a tools row.
+- Audit (audit-379-lanes.md, lane 9's rows), taken in this order: parameter names, decompiler types, labels, then
+  noinline, emit helpers, f_<hex>/unk0x fields, declarations into the module headers.
+- lane9/audit-params-renderers 32d7fc53, on main 312ab020 (#383), precheck 0 not all equal, auditguard no count rose
+  (a1/v12 2,826 -> 2,728, all 98 of lane 9's); full verify VERIFIED, borrowed data 265 B (= main). One branch for the
+  six modules since no bytes change: Glide entry points take the SDK's names, the tile/sprite validators bAsync/nFlags,
+  ddCore's perspective stubs and the Glide floor-tile drawer the names in D2Gfx.h's function table (the stubs' two
+  out-pointers become int*, units.json names follow), FaultDoAssert szFile/nLine/szExpression from its format string.
+- lane9/audit-types-d2direct3d 0e3efc56, on main 312ab020 (#383), precheck 0 not all equal, auditguard no count rose
+  (decompiler types 143 -> 131); full verify VERIFIED, borrowed data 265 B (= main). Unknown_006B7530.cpp's U32/U8
+  become unsigned int / unsigned char.
 - **Handover, initializer slots outside lane 9** (lane 9 stops here; these are the owners'):
   - 0x6CAC10 gnTextLeft = (gnScreenWidth - 325) / 2 (bss 0x7BF278, slot between inv's and QuestLog's): lane 1. In
     UI/text_0049A950.cpp it builds equal but raises borrowed data by 4 B, so that's probably not its object; the
