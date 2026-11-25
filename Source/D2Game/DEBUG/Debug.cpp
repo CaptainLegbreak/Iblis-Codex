@@ -23,32 +23,34 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int
 // 0x00534650
 D2UnitStrc* __stdcall DEBUG_GetUnitFromTypeAndGUID(int nUnitType, int nUnitGUID)
 {
-    D2GameStrc* pGame = sub_0052F6E0_LockFirstGame();
+// build: symbol ?GAME_LockDebugGame@* 0x0052F6E0
+    D2GameStrc* pGame = GAME_LockDebugGame();
     if (!pGame)
     {
         return 0;
     }
 
     D2UnitStrc* pUnit = SUNIT_GetServerUnit(pGame, nUnitType, nUnitGUID);
-    sub_0052DF40_UnlockFirstGame();
+// build: symbol ?GAME_UnlockDebugGame@* 0x0052DF40
+    GAME_UnlockDebugGame();
     return pUnit;
 }
 
 // 0x00534680
 D2DrlgActStrc* __stdcall DEBUG_GetAct(int nAct)
 {
-    D2GameStrc* ptGame = sub_0052F6E0_LockFirstGame();
+    D2GameStrc* ptGame = GAME_LockDebugGame();
     D2_ASSERT(ptGame, 105);
 
     D2DrlgActStrc* pAct = ptGame->pAct[nAct];
-    sub_0052DF40_UnlockFirstGame();
+    GAME_UnlockDebugGame();
     return pAct;
 }
 
 // 0x005346C0
 int __stdcall DEBUG_GetMonsterCount()
 {
-    D2GameStrc* ptGame = sub_0052F6E0_LockFirstGame();
+    D2GameStrc* ptGame = GAME_LockDebugGame();
 
     D2_ASSERT(ptGame, 0x7B);
 
@@ -61,7 +63,7 @@ int __stdcall DEBUG_GetMonsterCount()
         }
     }
 
-    sub_0052DF40_UnlockFirstGame();
+    GAME_UnlockDebugGame();
     return nIndex;
 }
 
@@ -72,11 +74,11 @@ void* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* pAct, int a2
 // 0x00534730
 void* __stdcall DEBUG_GetRoomBySubtileCoordinates(unsigned char bAct, int a2, int a3)
 {
-    D2GameStrc* pGame = sub_0052F6E0_LockFirstGame();
+    D2GameStrc* pGame = GAME_LockDebugGame();
     D2_ASSERT(bAct < 5, 141);
 
     void* pResult = DUNGEON_FindRoomBySubtileCoordinates(pGame->pAct[bAct], a2, a3);
-    sub_0052DF40_UnlockFirstGame();
+    GAME_UnlockDebugGame();
     return pResult;
 }
 

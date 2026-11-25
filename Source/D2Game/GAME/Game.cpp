@@ -980,7 +980,7 @@ void __stdcall GAME_GetUnitsDescriptions(unsigned short nGameId, D2UnitDescripti
 
 struct D2PoolSystemStrc;
 
-#include "gen/data/Source/D2Game/GAME/Game_0052D720.static/gnFrameRate.inc"
+#include "gen/data/Source/D2Game/GAME/GAME_UpdateFrameRate.static/gnFrameRate.inc"
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                              // 0x0040B380
 
@@ -1229,7 +1229,7 @@ void __cdecl FOG_CreateNewPoolSystem(void* pReserved, const char* szName, int nS
 
 void __stdcall GAME_SetReservedGameGUID(int hGame, unsigned short nGameId);                            // 0x0052C110
 
-unsigned short __cdecl sub_0052C170_AllocGameId();
+unsigned short __cdecl GAME_ReserveGameId(); // 0x0052C170
 
 void __fastcall GAME_ResolveGameNameConflict(D2GameStrc* pGame, const char* szGameName, unsigned int a3);                    // 0x0052F940
 
@@ -2686,7 +2686,7 @@ int __stdcall SrvRecvDatabaseCharacter(int nClientId, const unsigned char* pSave
         return 0;
     }
 
-    D2GameStrc* pGame = sub_0052FEE0_LockGameByClientId(nClientId);
+    D2GameStrc* pGame = GAME_GetGameByClientId(nClientId);
     if (!pGame)
     {
         return 0;
@@ -4072,7 +4072,7 @@ int __stdcall SrvCreateNewEmptyGame(char* szGameName, const char* szPassword, co
         return 0;
     }
 
-    const unsigned short nGameId = sub_0052C170_AllocGameId();
+    const unsigned short nGameId = GAME_ReserveGameId();
     if (!nGameId)
     {
         return 0;
@@ -4196,7 +4196,7 @@ void __fastcall sSrvSendGameInit(int nClientId, char* szGameName, unsigned char 
 
     pGame->unk0x24 = 1;
 
-    pGame->nGameId = sub_0052C170_AllocGameId();
+    pGame->nGameId = GAME_ReserveGameId();
     GAME_ResolveGameNameConflict(pGame, szGameName, nClientId);
     pGame->nGameType = nGameType;
     pGame->dwLastUsedUnitGUID[0] = 0;

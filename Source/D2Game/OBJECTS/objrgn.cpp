@@ -1018,7 +1018,7 @@ void __cdecl FOG_CreateNewPoolSystem(void* pReserved, const char* szName, int nS
 
 void __stdcall GAME_SetReservedGameGUID(int hGame, unsigned short nGameId);                            // 0x0052C110
 
-unsigned short __cdecl sub_0052C170_AllocGameId();
+unsigned short __cdecl GAME_ReserveGameId(); // 0x0052C170
 
 void __fastcall GAME_ResolveGameNameConflict(D2GameStrc* pGame, const char* szGameName, unsigned int a3);                    // 0x0052F940
 
