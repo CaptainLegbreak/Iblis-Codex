@@ -902,7 +902,7 @@ __declspec(noinline) int __fastcall PLRSAVE2_WriteItemSection(D2GameStrc* pGame,
 }
 
 // 0x005697F0
-int __fastcall PLRSAVE2_WriteCorpsesSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd, int a5, int a6)
+int __fastcall PLRSAVE2_WriteCorpsesSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd, int a5, int bSizing)
 {
     unsigned char* pSection = *ppSection;
     unsigned short bHasCorpseWithItems = 0;
@@ -971,7 +971,7 @@ int __fastcall PLRSAVE2_WriteCorpsesSection(D2GameStrc* pGame, D2UnitStrc* pPlay
         *(D2CorpseSaveStrc*)pSection = tCorpse;
 
         pSection += 12;
-        if (PLRSAVE2_WriteItemSection(pGame, pUnit, &pSection, pEnd, 0, a5, a6))
+        if (PLRSAVE2_WriteItemSection(pGame, pUnit, &pSection, pEnd, 0, a5, bSizing))
         {
             return 4;
         }

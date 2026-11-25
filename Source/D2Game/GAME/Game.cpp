@@ -1637,9 +1637,9 @@ void __stdcall D2Game_10056(int nValue)
 }
 
 // 0x0052C400
-void __fastcall GAME_UpdatePing(int nClientId, int a2, int a3, int a4)
+void __fastcall GAME_UpdatePing(int nClientId, int nTick, int nDelay, int a4)
 {
-    CLIENTS_UpdatePing(nClientId, a2, a3, a4);
+    CLIENTS_UpdatePing(nClientId, nTick, nDelay, a4);
 }
 
 // 0x0052C410

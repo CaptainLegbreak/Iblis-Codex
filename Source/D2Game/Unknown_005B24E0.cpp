@@ -491,7 +491,7 @@ D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnitInCoordList(D2GameStrc* pGame, D2
 }
 
 // 0x005B2490
-D2UnitStrc* __fastcall sub_6FC6A150(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags)
+D2UnitStrc* __fastcall sub_6FC6A150(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags)
 {
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
     if (!DUNGEON_GetLevelIdFromPopulatedRoom(pRoom))
@@ -500,7 +500,7 @@ D2UnitStrc* __fastcall sub_6FC6A150(D2GameStrc* pGame, D2UnitStrc* pUnit, int nM
     }
 
     const int nSpawnMonsterId = D2Common_11063(pRoom, nMonsterId);
-    return MONSTERSPAWN_SpawnAtUnit(pGame, pUnit, nSpawnMonsterId, nAnimMode, a5, nFlags);
+    return MONSTERSPAWN_SpawnAtUnit(pGame, pUnit, nSpawnMonsterId, nAnimMode, nMaxSearchRings, nFlags);
 }
 
 // 0x005B2F20
@@ -894,7 +894,7 @@ struct D2QuestDataStrc;
 struct D2UnitStrc;
 
 // 0x005B24E0
-int __fastcall MONSTERSPAWN_SpawnLinkedMinionsAtCoordinates(D2GameStrc* pGame, D2UnitStrc* pOwner, int nMonsterId, int nAnimMode, int a5, int nCount, short nFlags)
+int __fastcall MONSTERSPAWN_SpawnLinkedMinionsAtCoordinates(D2GameStrc* pGame, D2UnitStrc* pOwner, int nMonsterId, int nAnimMode, int nMaxSearchRings, int nCount, short nFlags)
 {
     if (!pOwner)
         return 0;
@@ -903,7 +903,7 @@ int __fastcall MONSTERSPAWN_SpawnLinkedMinionsAtCoordinates(D2GameStrc* pGame, D
     const int nOwnerId = pOwner->dwUnitId;
     for (int i = 0; i < nCount; ++i)
     {
-        D2UnitStrc* pMinion = MONSTERSPAWN_SpawnAtUnit(pGame, pOwner, nMonsterId, nAnimMode, a5, nFlags);
+        D2UnitStrc* pMinion = MONSTERSPAWN_SpawnAtUnit(pGame, pOwner, nMonsterId, nAnimMode, nMaxSearchRings, nFlags);
         if (pMinion)
         {
             nResult = 1;

@@ -1419,7 +1419,7 @@ extern "C" __declspec(dllexport) void __fastcall AIUTIL_ToggleAiControlFlag(Obj0
     }
 }
 
-D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId)
+D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pCallbackArg, AIUTIL_TargetCallback a4, int nCallbackId)
 {
     AIUTIL_TargetCallback pfCallback = gaAiTargetSearchTable[nCallbackId].pfCallback;
     if (!pfCallback)
@@ -1435,13 +1435,13 @@ D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* 
     switch (nType)
     {
     case 1:
-        return AIUTIL_FindPlayerTargetInAdjacentRooms(pGame, pUnit, a3, pfCallback);
+        return AIUTIL_FindPlayerTargetInAdjacentRooms(pGame, pUnit, pCallbackArg, pfCallback);
     case 2:
-        return AIUTIL_FindTargetInAdjacentActiveRooms(pGame, pUnit, a3, pfCallback);
+        return AIUTIL_FindTargetInAdjacentActiveRooms(pGame, pUnit, pCallbackArg, pfCallback);
     case 3:
-        return AIUTIL_FindTargetAmongMinions(pGame, a3, pfCallback, pUnit);
+        return AIUTIL_FindTargetAmongMinions(pGame, pCallbackArg, pfCallback, pUnit);
     default:
-        return AIUTIL_FindTargetInAdjacentRooms(pGame, a3, pfCallback, pUnit);
+        return AIUTIL_FindTargetInAdjacentRooms(pGame, pCallbackArg, pfCallback, pUnit);
     }
 }
 
