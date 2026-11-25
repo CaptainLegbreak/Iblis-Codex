@@ -1563,7 +1563,7 @@ int __fastcall PlayerCreate(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned c
                 nErrorCode = PLRSAVE2_ReadWaypointData(pGame, pPlayer, &pSection, pSaveFileEnd, nVersion);
                 if (!nErrorCode)
                 {
-                    nErrorCode = sub_0056A470_ReadPlrIntroSection(pGame, pPlayer, &pSection, pSaveFileEnd, nVersion);
+                    nErrorCode = PLRSAVE2_ReadPlrIntroSection(pGame, pPlayer, &pSection, pSaveFileEnd, nVersion);
                     if (!nErrorCode)
                     {
                         nErrorCode = PLRSAVE2_ReadStats(pGame, pPlayer, &pSection, pSaveFileEnd, nVersion, pSaveHeader->nStats);

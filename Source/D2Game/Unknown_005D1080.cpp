@@ -1267,9 +1267,9 @@ static void __stdcall SKILLS_ApplyAuraStateToTarget(Unit* owner, Unit* target, i
     request.duration = sub_00646CA0_Evaluate(owner, record->calc, skill, level);
     request.stat = -1;
     request.state = record->state;
-    D2StatListStrc* list = sub_0056E970_Apply(&request);
+    D2StatListStrc* list = SKILLS_ApplyStateEffect(&request);
     if (list)
-        sub_005C6CC0_Configure(owner, list, record, skill, level);
+        SKILLS_ApplyAuraStatsToStatList(owner, list, record, skill, level);
 }
 
 // 0x005D1E10
@@ -1281,7 +1281,7 @@ static void __stdcall SKILLS_ApplyShapeshift(Unit* owner, int level, int skill, 
     if (!record)
         return;
 
-    int selected = sub_0056E620_Select(owner, 0, skill, level, &level, 0, 0);
+    int selected = D2GAME_GetSummonIdFromSkill(owner, 0, skill, level, &level, 0, 0);
     if (selected < 0)
         return;
     if (GetUnitType(target) != 1)
@@ -1289,8 +1289,10 @@ static void __stdcall SKILLS_ApplyShapeshift(Unit* owner, int level, int skill, 
 
     int variant;
     sub_006510C0_ClassInfo(!target ? -1 : target->classId, 0, &variant);
-    int resolved = sub_0054DA60_Resolve(selected, variant);
-    sub_00574370_Change(game, target, resolved, level);
+// build: symbol ?SKILLS_GetMonsterClassFromChain@* 0x0054DA60
+    int resolved = SKILLS_GetMonsterClassFromChain(selected, variant);
+// build: symbol ?MONSTER_Reinitialize@* 0x00574370
+    MONSTER_Reinitialize(game, target, resolved, level);
 
     AiState* ai;
     if (target->type == 1 && target->monster)
@@ -1300,8 +1302,8 @@ static void __stdcall SKILLS_ApplyShapeshift(Unit* owner, int level, int skill, 
     sub_005B0E00_Ai(game, target, ai, 15);
 
     ModeRequest mode;
-    sub_005A7E60_FillMode(target, level, &mode);
-    sub_005A7C20_SetMode(game, &mode, 1);
+    MONSTERMODE_GetModeChangeInfo(target, level, &mode);
+    D2GAME_ModeChange(game, &mode, 1);
     sub_00639DB0_SetState(target, 142, 1);
 
     int ownerType;
@@ -1325,7 +1327,8 @@ static void __stdcall SKILLS_ApplyShapeshift(Unit* owner, int level, int skill, 
     }
 
     if (record->effect > 0 && record->effect < 43)
-        sub_005A4850_Effect(game, target, record->effect, 0);
+// build: symbol ?D2GAME_BOSSES_AssignUMod@* 0x005A4850
+        D2GAME_BOSSES_AssignUMod(game, target, record->effect, 0);
 }
 
 // 0x005D1F70
@@ -1338,7 +1341,7 @@ extern "C" int __fastcall SKILLS_SrvDo131_OverseerWhip(Game* game, Unit* owner, 
         return 0;
     if (record->state >= gVar_00744304->stateCount)
         return 0;
-    Unit* target = sub_00553540_Target(game, owner);
+    Unit* target = SUNIT_GetTargetUnit(game, owner);
     if (target && !sub_005541B0_Inactive(target))
     {
         const int type = GetUnitType(target);

@@ -843,7 +843,8 @@ static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc* pGame, D2UnitStrc* pUn
             return 4;
         return 8 * ((int)(AIBAAL_RollSeed_Inline(&pUnit->pSeed) % 100) < 8) + 1;
     }
-    if (!pGame) pGame = sub_00554010_GetGame(pUnit);
+// build: symbol ?SUNIT_GetGameFromUnit@* 0x00554010
+    if (!pGame) pGame = SUNIT_GetGameFromUnit(pUnit);
     int bInCloseRange = 0;
     if ((!pTarget ? 6 : pTarget->dwUnitType) == 0)
     {
