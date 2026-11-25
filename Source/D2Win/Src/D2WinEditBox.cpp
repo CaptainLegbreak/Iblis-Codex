@@ -1040,7 +1040,7 @@ D2WinEditBoxStrc* __fastcall D2Win_10070_EDITBOX_Create(int nX, int nY, int nWid
     pEditBox->nLastVisibleChar = 0;
     pEditBox->nSelectionStart = -1;
     pEditBox->controlHeader.pfDraw = (D2WinControlFn)((nEditBoxFlags & 8) ? EDITBOX_DrawMultiLine : EDITBOX_DrawSingleLine);
-    pEditBox->controlHeader.pfHandleMouseDown = (nEditBoxFlags & 8) ? sub_004FE710_EditBoxMouseDownAlt : EDITBOX_HandleSingleLineMouseDown;
+    pEditBox->controlHeader.pfHandleMouseDown = (nEditBoxFlags & 8) ? EDITBOX_HandleMultiLineMouseDown : EDITBOX_HandleSingleLineMouseDown;
     pEditBox->controlHeader.pfHandleMouseUp = EDITBOX_HandleMouseUp;
     pEditBox->controlHeader.pfHandleCharInput = 0;
     pEditBox->controlHeader.pfHandleVirtualKeyInput = 0;
@@ -1471,7 +1471,7 @@ int __fastcall EDITBOX_DrawMultiLine(D2WinEditBoxStrc* pEditBox)
             SMSGHANDLER_PARAMS tMsg;
             tMsg.hWnd = pEditBox;
             tMsg.uMessage = 0x201;
-            sub_004FE710_EditBoxMouseDownAlt(&tMsg);
+            EDITBOX_HandleMultiLineMouseDown(&tMsg);
         }
 
         UnicodeChar wszText[300];

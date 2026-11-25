@@ -80,11 +80,11 @@ void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* 
 
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 
-int __stdcall sub_004FD110_SetBarValue(D2WinControlStrc* pBar, int nValue); // 0x004FD110
+int __stdcall IMAGE_SetFrame(D2WinControlStrc* pBar, int nValue); // 0x004FD110
 
-int __stdcall sub_004FD170_SetBarMode(D2WinControlStrc* pBar, int nMode); // 0x004FD170
+int __stdcall IMAGE_ForceNormalDrawMode(D2WinControlStrc* pBar, int nMode); // 0x004FD170
 
-int __stdcall sub_004FD1B0_GetBarMax(D2WinControlStrc* pBar); // 0x004FD1B0
+int __stdcall IMAGE_GetFrameCount(D2WinControlStrc* pBar); // 0x004FD1B0
 
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
 
@@ -619,7 +619,7 @@ unsigned long gdwLastRefresh;                                                   
 
 static inline int ProgressBarValue(int nPercent)
 {
-    return nPercent * sub_004FD1B0_GetBarMax(gpProgressBar) / 100;
+    return nPercent * IMAGE_GetFrameCount(gpProgressBar) / 100;
 }
 
 static __forceinline int FilterNoSeparator(D2WinControlStrc* pControl)
@@ -778,7 +778,7 @@ int __stdcall sub_004456A0_OnEnter(int nArg);                                   
 
 int __stdcall sub_004435D0_IsTextChar(D2WinControlStrc* pControl, int nArg, const char* pChar);             // 0x004435D0
 
-int __stdcall sub_004FE770_IsDigitChar(D2WinControlStrc* pControl, int nArg, const char* pChar);            // 0x004FE770
+int __stdcall D2Win_10078_IsNumber(D2WinControlStrc* pControl, int nArg, const char* pChar);            // 0x004FE770
 
 int __stdcall sub_004456B0_OnEnter(int nArg);                                                               // 0x004456B0
 
@@ -837,7 +837,7 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
         gpMaxPlayerControl = CONTROL_Create(&gtMaxPlayersEditInit);
         sub_004FFE10_SetTextA(gpMaxPlayerControl, gszMaxPlayersText);
         sub_004FDD50_SetMaxLength(gpMaxPlayerControl, 3);
-        sub_004FDAD0_SetKeyCallback(gpMaxPlayerControl, sub_004FE770_IsDigitChar);
+        sub_004FDAD0_SetKeyCallback(gpMaxPlayerControl, D2Win_10078_IsNumber);
         sub_004FDB00_SetEnterCallback(gpMaxPlayerControl, sub_004456B0_OnEnter);
         gpLevelDiffCheck = (D2WinButtonStrc *)CONTROL_Create(&gtLevelDiffCheckInit);
         BUTTON_SetIsPressed((D2WinControlStrc *)(D2WinButtonStrc*)gpLevelDiffCheck, 1);
@@ -845,7 +845,7 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
         gpLevelDiffEdit = CONTROL_Create(&gtLevelDiffEditInit);
         sub_004FFE10_SetTextA(gpLevelDiffEdit, gszLevelDiffText);
         sub_004FDD50_SetMaxLength(gpLevelDiffEdit, 3);
-        sub_004FDAD0_SetKeyCallback(gpLevelDiffEdit, sub_004FE770_IsDigitChar);
+        sub_004FDAD0_SetKeyCallback(gpLevelDiffEdit, D2Win_10078_IsNumber);
         sub_004FDB00_SetEnterCallback(gpLevelDiffEdit, sub_004456C0_OnEnter);
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
         CONTROL_SetEnabled(gpLevelDiffEdit, 0);

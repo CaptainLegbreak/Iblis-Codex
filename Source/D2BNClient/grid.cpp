@@ -301,7 +301,7 @@ int __cdecl GAME_GetExeInfo()
 }
 
 // 0x00523AB0
-const char* __fastcall sub_00523AB0_GetCDKey(int nSlot)
+const char* __fastcall GRID_GetCDKey(int nSlot)
 {
     return nSlot ? (const char*)gpKeyFile3Data : (const char*)gpGidFileData;
 }

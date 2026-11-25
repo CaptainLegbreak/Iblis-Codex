@@ -126,11 +126,12 @@ static inline void sub_004DF4B0_DrawCellNode(D2CellGridViewStrc* pView, D2CellNo
     {
         if (bMode)
         {
-            sub_004F6980(pNode->pPos->f_18, pNode->nA, pNode->nB, 4, nArg);
+// build: symbol ?TILE_ShadowTileDraw@* 0x004F6980
+            TILE_ShadowTileDraw(pNode->pPos->f_18, pNode->nA, pNode->nB, 4, nArg);
         }
         else
         {
-            sub_004F6980(pNode->pPos->f_18, pView->nOffsetX - pView->nScrollX + pNode->pPos->nX, pNode->pPos->nY - pView->nScrollY + pView->nOffsetY, 4, nArg);
+            TILE_ShadowTileDraw(pNode->pPos->f_18, pView->nOffsetX - pView->nScrollX + pNode->pPos->nX, pNode->pPos->nY - pView->nScrollY + pView->nOffsetY, 4, nArg);
         }
     }
     else if (pNode->dwFlags & 2)

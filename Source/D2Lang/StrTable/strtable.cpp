@@ -212,7 +212,7 @@ void __cdecl STRTABLE_CloseArchives()
 }
 
 // 0x00524930
-const Unicode* __fastcall sub_00524930(D2TblHeaderStrc* pTable, void* pIndex, unsigned short nIndex)
+const Unicode* __fastcall STRTABLE_GetStringFromTable(D2TblHeaderStrc* pTable, void* pIndex, unsigned short nIndex)
 {
     unsigned short nCount = pTable->nNumElements;
     unsigned short* pIndices = (unsigned short*)(pTable + 1);
@@ -265,19 +265,19 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex)
         }
         else
         {
-            const Unicode* pText = sub_00524930(sghExpansionStringTable, gppExpansionStringIndex, nIndex - 0x4E20);
+            const Unicode* pText = STRTABLE_GetStringFromTable(sghExpansionStringTable, gppExpansionStringIndex, nIndex - 0x4E20);
             if (pText)
                 return pText;
         }
     }
     if (sghPatchStringTable && nIndex >= 0x2710)
     {
-        const Unicode* pText = sub_00524930(sghPatchStringTable, gppPatchStringIndex, nIndex - 0x2710);
+        const Unicode* pText = STRTABLE_GetStringFromTable(sghPatchStringTable, gppPatchStringIndex, nIndex - 0x2710);
         if (pText)
             return pText;
     }
     D2_ASSERT(sghStringTable, 0x246);
-    return sub_00524930(sghStringTable, gppStringIndex, nIndex);
+    return STRTABLE_GetStringFromTable(sghStringTable, gppStringIndex, nIndex);
 }
 
 // 0x00524AC0
@@ -527,7 +527,7 @@ static inline const Unicode* D2LANG_GetStringFromTblIndex_Inline(unsigned short 
         }
         else
         {
-            const Unicode* pText = sub_00524930(sghExpansionStringTable, gppExpansionStringIndex, nIndex - 0x4E20);
+            const Unicode* pText = STRTABLE_GetStringFromTable(sghExpansionStringTable, gppExpansionStringIndex, nIndex - 0x4E20);
             if (pText)
             {
                 return pText;
@@ -536,14 +536,14 @@ static inline const Unicode* D2LANG_GetStringFromTblIndex_Inline(unsigned short 
     }
     if (sghPatchStringTable && nIndex >= 0x2710)
     {
-        const Unicode* pText = sub_00524930(sghPatchStringTable, gppPatchStringIndex, nIndex - 0x2710);
+        const Unicode* pText = STRTABLE_GetStringFromTable(sghPatchStringTable, gppPatchStringIndex, nIndex - 0x2710);
         if (pText)
         {
             return pText;
         }
     }
     D2_ASSERT(sghStringTable, 0x246);
-    return sub_00524930(sghStringTable, gppStringIndex, nIndex);
+    return STRTABLE_GetStringFromTable(sghStringTable, gppStringIndex, nIndex);
 }
 
 // 0x005259C0

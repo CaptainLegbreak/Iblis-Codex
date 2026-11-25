@@ -622,9 +622,10 @@ void __cdecl PANEL_DrawLifeOrb()
         if (nPoison > nHeight)
         {
             if (D2GFX_GetDisplayType() == 6)
-                sub_004F64E0(&tContext, 0x1C, gnScreenHeight - 0xD, nHeight, nPoison - nHeight, 0);
+// build: symbol ?TEXTURE_CelDrawEx@* 0x004F64E0
+                TEXTURE_CelDrawEx(&tContext, 0x1C, gnScreenHeight - 0xD, nHeight, nPoison - nHeight, 0);
             else
-                sub_004F64E0(&tContext, 0x1D, gnScreenHeight - 0xD, nHeight, nPoison - nHeight, 0);
+                TEXTURE_CelDrawEx(&tContext, 0x1D, gnScreenHeight - 0xD, nHeight, nPoison - nHeight, 0);
         }
     }
 
@@ -635,10 +636,10 @@ void __cdecl PANEL_DrawLifeOrb()
         {
         case 1:
         case 3:
-            sub_004F64E0(&tContext, 0x1D, gnScreenHeight - 0xD, 0, nHeight, 5);
+            TEXTURE_CelDrawEx(&tContext, 0x1D, gnScreenHeight - 0xD, 0, nHeight, 5);
             break;
         default:
-            sub_004F64E0(&tContext, 0x1D, gnScreenHeight - 0xD, 0, nHeight, 5);
+            TEXTURE_CelDrawEx(&tContext, 0x1D, gnScreenHeight - 0xD, 0, nHeight, 5);
             break;
         }
     }
@@ -674,9 +675,9 @@ void __cdecl PANEL_DrawManaOrb()
         if (nShield > nHeight)
         {
             if (D2GFX_GetDisplayType() == 6)
-                sub_004F64E0(&tContext, gnScreenWidth - 0x70, gnScreenHeight - 0xD, nHeight, nShield - nHeight, 0);
+                TEXTURE_CelDrawEx(&tContext, gnScreenWidth - 0x70, gnScreenHeight - 0xD, nHeight, nShield - nHeight, 0);
             else
-                sub_004F64E0(&tContext, gnScreenWidth - 0x6F, gnScreenHeight - 0xD, nHeight, nShield - nHeight, 0);
+                TEXTURE_CelDrawEx(&tContext, gnScreenWidth - 0x6F, gnScreenHeight - 0xD, nHeight, nShield - nHeight, 0);
         }
     }
 
@@ -684,10 +685,10 @@ void __cdecl PANEL_DrawManaOrb()
     {
     case 1:
     case 3:
-        sub_004F64E0(&tContext, gnScreenWidth - 0x6F, gnScreenHeight - 0xD, 0, nHeight, 5);
+        TEXTURE_CelDrawEx(&tContext, gnScreenWidth - 0x6F, gnScreenHeight - 0xD, 0, nHeight, 5);
         break;
     default:
-        sub_004F64E0(&tContext, gnScreenWidth - 0x6F, gnScreenHeight - 0xD, 0, nHeight, 5);
+        TEXTURE_CelDrawEx(&tContext, gnScreenWidth - 0x6F, gnScreenHeight - 0xD, 0, nHeight, 5);
         break;
     }
 

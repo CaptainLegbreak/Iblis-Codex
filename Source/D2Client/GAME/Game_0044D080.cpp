@@ -1133,7 +1133,8 @@ void __cdecl GAME_CheckConnectionTimeouts()
     }
 
     unsigned long dwNow = GetTickCount();
-    if (!sub_0052A640_IsConnected() && !gbLeavingGame && gbPositionalSound)
+// build: symbol ?CLIENT_IsConnected@* 0x0052A640
+    if (!CLIENT_IsConnected() && !gbLeavingGame && gbPositionalSound)
     {
         GAME_ShowLoadingMessage(7);
     }

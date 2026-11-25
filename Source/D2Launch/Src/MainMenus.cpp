@@ -242,7 +242,7 @@ D2ConfigStrc* gpLaunchRecord; // 0x007795D4
 
 void __cdecl D2SOUNDFAST_FadeOutWaves(); // 0x00515020
 
-void __cdecl sub_0043B080();
+void __cdecl CHARSEL_InitCharSelectScreen(); // 0x0043B080
 
 void __cdecl MAINMENUS_CreateLoginScreen(); // 0x00432100
 
@@ -312,7 +312,7 @@ extern "C" void _ReadWriteBarrier(void);
 
 void* __cdecl sub_00449AC0_GetHandle(); // 0x00449AC0
 
-int __cdecl sub_00432350_GetStatus(); // 0x00432350
+int __cdecl MAINMENUS_IsListedCode(); // 0x00432350
 
 extern "C" int __cdecl strcmp(const char* szA, const char* szB);
 
@@ -1856,11 +1856,11 @@ void __cdecl sub_0042F880_DestroyControls()
     MAINMENUS_DestroyControls();
 }
 
-int __stdcall sub_004FD110_SetBarValue(D2WinControlStrc* pBar, int nValue); // 0x004FD110
+int __stdcall IMAGE_SetFrame(D2WinControlStrc* pBar, int nValue); // 0x004FD110
 
-int __stdcall sub_004FD170_SetBarMode(D2WinControlStrc* pBar, int nMode); // 0x004FD170
+int __stdcall IMAGE_ForceNormalDrawMode(D2WinControlStrc* pBar, int nMode); // 0x004FD170
 
-int __stdcall sub_004FD1B0_GetBarMax(D2WinControlStrc* pBar); // 0x004FD1B0
+int __stdcall IMAGE_GetFrameCount(D2WinControlStrc* pBar); // 0x004FD1B0
 
 D2WinControlStrc* gpProgressText; // 0x00779978
 
@@ -1870,7 +1870,7 @@ struct D2ChatMessageStrc { D2WinControlStrc* pControl; unsigned int nMessage; };
 
 static inline int ProgressBarValue(int nPercent)
 {
-    return nPercent * sub_004FD1B0_GetBarMax(gpProgressBar) / 100;
+    return nPercent * IMAGE_GetFrameCount(gpProgressBar) / 100;
 }
 
 // 0x0042F890
@@ -1880,7 +1880,7 @@ void __cdecl MAINMENUS_ShowProgressScreen()
     CHARSEL_CreateBaseScreen();
     MAINMENUS_CreateControl(0x116);
     gpProgressBar = MAINMENUS_CreateControl(0x117);
-    sub_004FD170_SetBarMode(gpProgressBar, 3);
+    IMAGE_ForceNormalDrawMode(gpProgressBar, 3);
     gpProgressText = MAINMENUS_CreateControl(0x113);
     int nPercent = gpFuncTable_0077ABF0->pfnSlot4C();
     if (nPercent > 100)
@@ -1890,7 +1890,7 @@ void __cdecl MAINMENUS_ShowProgressScreen()
     pControl = MAINMENUS_CreateControl(0x112);
     sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x143B), 0, 0, 0);
     MAINMENUS_CreateControl(0x118);
-    sub_004FD110_SetBarValue(gpProgressBar, ProgressBarValue(nPercent));
+    IMAGE_SetFrame(gpProgressBar, ProgressBarValue(nPercent));
     sprintf(szText, "%d%%", nPercent);
     sub_004FCFF0_SetTextA(gpProgressText, szText, 0);
 }
@@ -1903,7 +1903,7 @@ void __cdecl MAINMENUS_UpdateProgress()
     int nPercent = gpFuncTable_0077ABF0->pfnSlot4C();
     if (nPercent > 100)
         nPercent = 100;
-    sub_004FD110_SetBarValue(gpProgressBar, ProgressBarValue(nPercent));
+    IMAGE_SetFrame(gpProgressBar, ProgressBarValue(nPercent));
     sprintf(szText, "%d%%", nPercent);
     if (gpProgressText)
         sub_004FCFF0_SetTextA(gpProgressText, szText, 0);
@@ -1981,7 +1981,7 @@ static void MAINMENUS_BuildLocalizedVideoPath(char* szOut, const char* szFormat,
 // 0x0042FDD0
 void __cdecl MAINMENUS_ReturnToCharSelect()
 {
-    sub_00515020();
+    D2SOUNDFAST_FadeOutWaves();
     MAINMENUS_Reset();
     CHARSEL_InitCharSelectScreen();
 }
@@ -2980,7 +2980,8 @@ int __stdcall MAINMENUS_ShowLevelScreen(int nUnused)
 {
     char szAddress[0x64];
     unsigned char nLevel;
-    sub_00515F50(0xB4);
+// build: symbol ?D2SOUNDSMP_FadeOutMasterVolume@* 0x00515F50
+    D2SOUNDSMP_FadeOutMasterVolume(0xB4);
 // build: symbol ?D2SOUND_StopChannel@* 0x00514930
     D2SOUND_StopChannel();
 // build: symbol ?D2SOUNDSMP_SetMasterVolume@* 0x00515CE0
@@ -3100,7 +3101,8 @@ static void __stdcall MAINMENUS_PlayVideo(int nArg, const char* szFormat)
             strcpy(szSize, "640x146");
         }
         MAINMENUS_BuildLocalizedVideoPath(szPath, szFormat, szSize);
-        sub_004F5D90_PlayVideo(szPath, nMode, 0);
+// build: symbol ?WINDOW_OpenSmackCutscene@* 0x004F5D90
+        WINDOW_OpenSmackCutscene(szPath, nMode, 0);
         D2Win_10004(1);
     }
     MAINMENUS_FlushInput();
@@ -3199,7 +3201,7 @@ int __fastcall MAINMENUS_IsDoubleClick(SMSGHANDLER_PARAMS* pMsg)
 int __stdcall MAINMENUS_Leave(int nArg)
 {
     gnLaunchState = 0;
-    sub_00515F50(0xB4);
+    D2SOUNDSMP_FadeOutMasterVolume(0xB4);
     D2Win_StopMessageLoop();
     return 1;
 }
@@ -3352,7 +3354,7 @@ int __stdcall sub_00431F50_OnCancel(int nArg)
 {
     D2SOUNDFAST_FadeOutWaves();
     MAINMENUS_Reset();
-    sub_0043B080();
+    CHARSEL_InitCharSelectScreen();
     return 1;
 }
 
@@ -3477,14 +3479,15 @@ int __stdcall MAINMENUS_StoreAccount(int nArg)
 {
     const Unicode* pText = sub_004FDD90_GetEditText(gpAccountEdit);
     sub_00526F70(gpLaunchRecord->szAccount, pText, 0x100);
-    sub_004370C0();
+// build: symbol ?MAINMENUS_CreateInfoScreen@* 0x004370C0
+    MAINMENUS_CreateInfoScreen();
     return 1;
 }
 
 // 0x00432340
 int __stdcall MAINMENUS_OpenInfoScreen(int nUnused)
 {
-    sub_004370C0();
+    MAINMENUS_CreateInfoScreen();
     return 1;
 }
 
@@ -3522,7 +3525,7 @@ int __cdecl MAINMENUS_PollStatus()
     case 0:
 // build: symbol ?GAME_GetConnectError@* 0x00449C00
         GAME_GetConnectError();
-        return sub_00432350_GetStatus() ? 2 : 0;
+        return MAINMENUS_IsListedCode() ? 2 : 0;
     }
 }
 
@@ -3884,7 +3887,7 @@ void __cdecl MAINMENUS_PlayIntro()
         SFileCloseFile(hFile);
     else
         sprintf(szPath, "%s\\video\\%s\\D2x_Intro%s.bik", gszDataLocal, "ENG", szSize);
-    sub_004F5D90_PlayVideo(szPath, nMode, 0);
+    WINDOW_OpenSmackCutscene(szPath, nMode, 0);
     if (SRegLoadString("Diablo II", "Aux Battle.net", 0, szAddress, 0x64))
         sscanf(szAddress, "%ld.%ld.%ld.%ld", &a, &b, &c, &d);
     d |= 0x80;
@@ -3909,7 +3912,7 @@ void __cdecl MAINMENUS_PlayIntroVideo()
         strcpy(szSize, "640x146");
     }
     MAINMENUS_BuildLocalizedVideoPath(szPath, "%s\\video\\%s\\d2intro%s.bik", szSize);
-    sub_004F5D90_PlayVideo(szPath, nMode, 0);
+    WINDOW_OpenSmackCutscene(szPath, nMode, 0);
     MAINMENUS_CreateVideoScreen();
 }
 
@@ -4018,7 +4021,7 @@ void __cdecl MAINMENUS_BuildRealmList()
 int __stdcall MAINMENUS_CheckCreditsEnd(int nArg)
 {
     if (gnListPos <= sub_004FB950_GetFirstVisible(gpList_00779964) + 10)
-        sub_004336C0();
+        MAINMENUS_ShowMainMenu();
     return 1;
 }
 
@@ -4151,12 +4154,12 @@ int __stdcall MAINMENUS_PlayExpansionOutro(int nArg)
 // 0x004345C0
 int __stdcall MAINMENUS_ReloadAndLeave(int nArg)
 {
-    sub_004FAD70();
+    ARCHIVE_UnloadExpansionArchives();
     ARCHIVE_LoadExpansionArchives(MAINMENUS_PromptPlayDisc, MAINMENUS_PromptExpansionDisc, 0, gpConfig_007795D4);
 // build: symbol ?D2SOUND_GetOptionsMusicOption@* 0x00514D80
     if (D2SOUND_GetOptionsMusicOption())
         D2SOUND_10034(1);
-    sub_004336C0();
+    MAINMENUS_ShowMainMenu();
     return 1;
 }
 
@@ -4209,10 +4212,11 @@ int __stdcall MAINMENUS_OnRealmSelected(SMSGHANDLER_PARAMS* pMsg)
     {
         nSelection += 1;
         SetCurGateway(pRecord, nSelection);
-        SRegSaveString("Diablo II", "Preferred Realm", 0, sub_005180E0(pRecord, nSelection));
+// build: symbol ?Realm@* 0x005180E0
+        SRegSaveString("Diablo II", "Preferred Realm", 0, Realm(pRecord, nSelection));
     }
     MAINMENUS_Reset();
-    sub_004336C0();
+    MAINMENUS_ShowMainMenu();
     return 1;
 }
 
@@ -4223,7 +4227,7 @@ int __stdcall MAINMENUS_ResetAndLeave(int nArg)
     MAINMENUS_Reset();
     if (D2SOUND_GetOptionsMusicOption())
         D2SOUND_10034(1);
-    sub_004336C0();
+    MAINMENUS_ShowMainMenu();
     return 1;
 }
 
@@ -4257,13 +4261,15 @@ int __stdcall MAINMENUS_JoinTcpIp(int nUnused)
     }
     strcpy(gpLaunchRecord->szServerIP, szText);
     MAINMENUS_ShowConnectingPopup();
-    sub_004FA590_RunLoop(sub_00431D10);
+    sub_004FA590_RunLoop(MAINMENUS_StopLoop);
     gbConnectResult = 0;
-    sub_0052A750(0, szText);
-    sub_004FA590_RunLoop(sub_00431E30);
+// build: symbol ?CLIENT_Initialize@* 0x0052A750
+    CLIENT_Initialize(0, szText);
+    sub_004FA590_RunLoop(MAINMENUS_PollConnection);
     if (!gbConnectResult)
     {
-        sub_0052A7E0();
+// build: symbol ?CLIENT_Release@* 0x0052A7E0
+        CLIENT_Release();
         MAINMENUS_DestroyControls();
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x145B);
 // build: symbol ?CHARSEL_CreateTcpIpScreen@* 0x0042FFE0
@@ -4272,15 +4278,15 @@ int __stdcall MAINMENUS_JoinTcpIp(int nUnused)
     }
     MAINMENUS_DestroyControls();
     MAINMENUS_ShowConnectingPopup();
-    sub_004FA590_RunLoop(sub_00431C90);
-    sub_0052A7E0();
+    sub_004FA590_RunLoop(MAINMENUS_PollSystemPacket);
+    CLIENT_Release();
     MAINMENUS_DestroyControls();
     if (!gdwGlobal_00779974)
     {
         gnLaunchMode = 2;
         gpLaunchRecord->dwGameType = 9;
         gpLaunchRecord->wJoinID = 1;
-        sub_00515020();
+        D2SOUNDFAST_FadeOutWaves();
         MAINMENUS_Reset();
         CHARSEL_InitCharSelectScreen();
     }
@@ -4558,7 +4564,7 @@ int __stdcall MAINMENUS_PlayIntroAndLeave(int nArg)
 // 0x00434DC0
 int __stdcall sub_00434DC0_Leave(int nArg)
 {
-    sub_004336C0();
+    MAINMENUS_ShowMainMenu();
     return 1;
 }
 
@@ -4567,14 +4573,14 @@ int __stdcall MAINMENUS_DisconnectAndLeave(int nArg)
 {
 // build: symbol ?CHARSEL_DisconnectBattleNet@* 0x0043B9A0
     CHARSEL_DisconnectBattleNet();
-    sub_004336C0();
+    MAINMENUS_ShowMainMenu();
     return 1;
 }
 
 // 0x00434DF0
 int __stdcall sub_00434DF0_Leave(int nArg)
 {
-    sub_004336C0();
+    MAINMENUS_ShowMainMenu();
     return 1;
 }
 
@@ -4659,7 +4665,7 @@ int __stdcall MAINMENUS_CheckFreeSpace(int nUnused)
 // 0x00435020
 int __stdcall MAINMENUS_Callback(int nUnused)
 {
-    sub_004336C0();
+    MAINMENUS_ShowMainMenu();
     return 1;
 }
 
@@ -4668,7 +4674,7 @@ int __stdcall MAINMENUS_ChangePasswordOk(int nArg)
 {
     if (!nArg)
     {
-        sub_004370C0();
+        MAINMENUS_CreateInfoScreen();
         return 1;
     }
     MAINMENUS_StoreAccountTexts(gpAccountEdit, gpCreatePasswordEdit);
@@ -4789,7 +4795,7 @@ void __cdecl MAINMENUS_ShowLoginScreen()
         goto create;
     if (bConnected)
         CHARSEL_DisconnectBattleNet();
-    sub_004336C0();
+    MAINMENUS_ShowMainMenu();
     if (!sub_0043BF60())
         return;
 create:
@@ -5012,7 +5018,7 @@ int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
         {
             gnLaunchMode = 1;
             sub_004F90A0(1);
-            sub_0043B080();
+            CHARSEL_InitCharSelectScreen();
         }
         else
         {
@@ -5027,7 +5033,7 @@ int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
         {
             gnLaunchMode = 3;
             sub_004F90A0(1);
-            sub_0043B080();
+            CHARSEL_InitCharSelectScreen();
         }
         else
         {
@@ -5072,20 +5078,21 @@ int __fastcall MAINMENUS_RunFrontEnd(D2ConfigStrc* pRecord)
             {
                 gnLaunchMode = 0;
                 sub_004F90A0(1);
-                sub_004336C0();
+                MAINMENUS_ShowMainMenu();
             }
         }
     }
     D2Win_SetQuitCallback(sub_004309B0_ClearState);
     D2Win_RunMessageLoop(MAINMENUS_IdleLoopCallback);
-    sub_00515020();
+    D2SOUNDFAST_FadeOutWaves();
     while (D2SOUNDFAST_IsAnyWavePlaying())
         Sleep(0);
     D2SOUNDFAST_FreeWaveSlots();
 // build: symbol ?MAINMENUS_Reset@* 0x0042F480
     MAINMENUS_Reset();
     MAINMENUS_FreeFrontEndCells();
-    sub_00524E40();
+// build: symbol ?STRTABLE_UnloadStringTables@* 0x00524E40
+    STRTABLE_UnloadStringTables();
     memset(gpLaunchRecord->adwSecret, 0, sizeof(gpLaunchRecord->adwSecret));
     sub_004FA550();
     return gnLaunchState;
@@ -5153,7 +5160,7 @@ int __stdcall MAINMENUS_OnTcpIpHost(int nArg)
 // 0x00435E00
 int __stdcall MAINMENUS_Back(int nArg)
 {
-    sub_00435580();
+    MAINMENUS_CreateCharCreateScreen();
     return 1;
 }
 
@@ -5167,7 +5174,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
     {
     case 1:
     case 2:
-        sub_00435580();
+        MAINMENUS_CreateCharCreateScreen();
         return;
     }
 
@@ -5206,7 +5213,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
                     sub_00526320_ToUnicode(wszName, szName, 100);
                     sub_00526700(wszText, wszName);
                     sub_00526700(wszText, wszTail);
-                    MAINMENUS_ShowText(wszText, sub_00435580);
+                    MAINMENUS_ShowText(wszText, MAINMENUS_CreateCharCreateScreen);
                     return;
                 }
 
@@ -5215,7 +5222,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
                 Unicode wszName[256];
                 sub_00526F20_ToUnicode(wszName, gpLaunchRecord->szCharName, 256);
                 sub_005269D0(256, wszText, D2LANG_GetStringFromTblIndex(0x2B33), wszName);
-                MAINMENUS_ShowText(wszText, sub_00435580);
+                MAINMENUS_ShowText(wszText, MAINMENUS_CreateCharCreateScreen);
                 return;
             }
 
@@ -5241,7 +5248,7 @@ void __cdecl MAINMENUS_CreateRealmCharacter()
     case 10:
     case 11:
     case 12:
-        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x145D), sub_00435580);
+        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x145D), MAINMENUS_CreateCharCreateScreen);
         return;
 
     case 71:
@@ -5261,7 +5268,7 @@ int __stdcall MAINMENUS_LoginOk(int nArg)
 {
     if (!nArg)
     {
-        sub_004336C0();
+        MAINMENUS_ShowMainMenu();
         return 1;
     }
     if (!sub_004F9710_TestFlag(gpControl_00779594))
@@ -5272,7 +5279,7 @@ int __stdcall MAINMENUS_LoginOk(int nArg)
         SRegSaveString("Diablo II", "Last BNet", 0, gpLaunchRecord->szAccount);
         if (gnLaunchMode == 1)
         {
-            sub_00515020();
+            D2SOUNDFAST_FadeOutWaves();
             MAINMENUS_Reset();
             CHARSEL_InitCharSelectScreen();
             return 1;
@@ -5282,7 +5289,7 @@ int __stdcall MAINMENUS_LoginOk(int nArg)
             MAINMENUS_ReturnToCharSelect();
             return 1;
         }
-        sub_00435580();
+        MAINMENUS_CreateCharCreateScreen();
     }
     return 1;
 }
@@ -5312,12 +5319,12 @@ int __stdcall MAINMENUS_ConnectOk(int nArg)
 // build: symbol ?MAINMENUS_HasSaveFiles@* 0x00430BC0
         if (MAINMENUS_HasSaveFiles())
         {
-            sub_00515020();
+            D2SOUNDFAST_FadeOutWaves();
             MAINMENUS_Reset();
-            sub_0043B080();
+            CHARSEL_InitCharSelectScreen();
             return 1;
         }
-        sub_00435580();
+        MAINMENUS_CreateCharCreateScreen();
     }
     return 1;
 }
@@ -5405,7 +5412,7 @@ int __stdcall MAINMENUS_SubmitCharacter(int nArg)
 int __stdcall MAINMENUS_BackToCharCreate(int nArg)
 {
     MAINMENUS_DestroyControls();
-    sub_00435580();
+    MAINMENUS_CreateCharCreateScreen();
     return 1;
 }
 
@@ -5415,7 +5422,8 @@ void __cdecl MAINMENUS_CreateCharacter()
     char szName[0x100];
     if (MAINMENUS_SaveExists() == 1 && gnLaunchMode != 1)
     {
-        sub_00433460_ShowMessage(D2LANG_GetStringFromTblIndex(0x142D), MAINMENUS_DestroyControls);
+// build: symbol ?MAINMENUS_ShowTextBox@* 0x00433460
+        MAINMENUS_ShowTextBox(D2LANG_GetStringFromTblIndex(0x142D), MAINMENUS_DestroyControls);
         return;
     }
     if (gpLaunchRecord->nMode == 6 || gpLaunchRecord->nMode == 5)
@@ -5435,7 +5443,7 @@ void __cdecl MAINMENUS_CreateCharacter()
     {
         MAINMENUS_Reset();
         AUTOMAP_InitCharSaveHeader((gpLaunchRecord->szPassword + 0x18), gpLaunchRecord->nMode, (gpLaunchRecord->szPassword + 0x48), gpLaunchRecord->wFlags1EF);
-        sub_0043C6B0((gpLaunchRecord->szPassword + 0x18));
+        CHATDLG_WriteSaveHeader((gpLaunchRecord->szPassword + 0x18));
         gpLaunchRecord->nByte35E = 1;
         gpLaunchRecord->dwGameType = 0;
         gnLaunchState = 1;
@@ -5451,7 +5459,7 @@ void __cdecl MAINMENUS_CreateCharacter()
         MAINMENUS_Reset();
         sub_0043C6A0(0);
         AUTOMAP_InitCharSaveHeader((gpLaunchRecord->szPassword + 0x18), gpLaunchRecord->nMode, (gpLaunchRecord->szPassword + 0x48), gpLaunchRecord->wFlags1EF);
-        sub_0043C6B0((gpLaunchRecord->szPassword + 0x18));
+        CHATDLG_WriteSaveHeader((gpLaunchRecord->szPassword + 0x18));
         gpLaunchRecord->nByte35E = 3;
         gnLaunchState = 1;
         *(int*)gpLaunchRecord->aState209 = 4;
@@ -5467,7 +5475,7 @@ void __cdecl MAINMENUS_CreateCharacter()
         D2MCPClientCloseMCP();
         sub_0043C6A0(0);
         AUTOMAP_InitCharSaveHeader((gpLaunchRecord->szPassword + 0x18), gpLaunchRecord->nMode, (gpLaunchRecord->szPassword + 0x48), gpLaunchRecord->wFlags1EF);
-        sub_0043C6B0((gpLaunchRecord->szPassword + 0x18));
+        CHATDLG_WriteSaveHeader((gpLaunchRecord->szPassword + 0x18));
         gpLaunchRecord->nLevel = 1;
         SMemCopy(gpLaunchRecord->szText0x3A1, gabDefault, 0x10);
         SMemZero(gpLaunchRecord->nComponentColors, 0x10);
@@ -5560,7 +5568,7 @@ int __stdcall MAINMENUS_OnCharCreateOk(int nUnused)
         GetDiskFreeSpaceA(szPath, &nSectorsPerCluster, &nBytesPerSector, &nFreeClusters, &nTotalClusters);
         if (nFreeClusters * nBytesPerSector * nSectorsPerCluster < 5000)
         {
-            sub_00433460_ShowMessage(D2LANG_GetStringFromTblIndex(0x141D), MAINMENUS_ReturnToCharSelect);
+            MAINMENUS_ShowTextBox(D2LANG_GetStringFromTblIndex(0x141D), MAINMENUS_ReturnToCharSelect);
             return 1;
         }
         CONTROL_SetEnabled(gpOkButton_00779330, 0);

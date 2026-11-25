@@ -760,7 +760,8 @@ static int __stdcall GFX_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit
             if (!sub_006001F0(&tContext, bAsync, bAsync))
             {
                 tContext.nArg34 = 0;
-                if (!sub_006004E0_LoadSprite(&tContext))
+// build: symbol ?D2CMPSpriteRequest@* 0x006004E0
+                if (!D2CMPSpriteRequest(&tContext))
                 {
                     return -1;
                 }
@@ -2977,7 +2978,7 @@ int __fastcall GFX_DrawUnitHealthBar(D2UnitStrc* pUnit)
         if (bPerspective)
         {
             int nZ = sub_004DA0F0_GetUnitGfxOffsetZ(pUnit);
-            sub_004F6760_PrecisionToScreen(UNITS_GetPrecisionX(pUnit), UNITS_GetPrecisionY(pUnit), nZ, &nX, &nY);
+            SCALE_AdjustPerspectivePosition(UNITS_GetPrecisionX(pUnit), UNITS_GetPrecisionY(pUnit), nZ, &nX, &nY);
             switch (sub_0045AE90())
             {
             case 1:

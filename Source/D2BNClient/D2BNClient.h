@@ -10,7 +10,7 @@ struct D2TimeZoneInformationStrc;
 struct FSafeSock;
 
 bool __fastcall sub_00516DE1_CanRunSurvey(const char* szExePath); // 0x00516DE1
-const char* __fastcall sub_00523AB0_GetCDKey(int nSlot); // 0x00523AB0
+const char* __fastcall GRID_GetCDKey(int nSlot); // 0x00523AB0
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 extern "C" __declspec(dllimport) int __stdcall FreeLibrary(void* hModule); // 0x006CC14C
 extern "C" __declspec(dllimport) int __stdcall GetLocaleInfoA(unsigned long nLocale, unsigned long nLCType, char* pData, int nData); // 0x006CC394
@@ -50,7 +50,7 @@ extern int gnCacheValue_00881890; // 0x00881890
 extern unsigned int gadwCacheCrcTable[]; // 0x0072FB80
 void __cdecl SLogWrite(void* hLog, const char* szFormat, ...); // 0x00420190
 int __cdecl FOG_IsExpansion(); // 0x00408F20
-int __cdecl sub_0051A570_GetMode(); // 0x0051A570
+int __cdecl BNCLIENT_GetLogonType(); // 0x0051A570
 int __cdecl GAME_GetAbortFlag(); // 0x00520AE0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __fastcall FOG_SOCKET_GetPeerName(FSafeSock* pSafeSock, void* pAddress, int* pnLength); // 0x0040DEE0
@@ -60,7 +60,7 @@ int __fastcall sub_0051E3D0_PostMessage(const char* szText, int nCode); // 0x005
 void __fastcall BNDOWNLOAD_RequestDownload(int nType, int nSubType, unsigned int nArg1, unsigned int nArg2, const D2FileTimeStrc* pFileTime, const char* szFile, const char* szLink); // 0x0051F910
 int __fastcall BNDOWNLOAD_WaitForReply(unsigned char nReply); // 0x00520B70
 int __fastcall BNDOWNLOAD_IsReplyReceived(unsigned char nReply); // 0x00520BF0
-int __fastcall sub_00522AE0_DecodeCDKey(const char* szKey, void* pArg2, void* pArg3, void* pArg4); // 0x00522AE0
+int __fastcall BNDOWNLOAD_DecodeCDKey(const char* szKey, void* pArg2, void* pArg3, void* pArg4); // 0x00522AE0
 int __stdcall SFileAuthenticateArchive(void* hArchive, unsigned int* pnResult); // 0x004172F0
 int __stdcall SFileCloseArchive(void* hMpq); // 0x00419A80
 int __stdcall SFileLoadFile(const char* szFileName, void** ppBuffer, unsigned int* pSize, unsigned int nExtraSize, void* pOverlapped); // 0x0041B650
@@ -72,12 +72,12 @@ unsigned int __stdcall SStrPack(char* szDest, const char* szSource, unsigned int
 void __cdecl sub_00518C70_LogIndent(int nChannel, int nDelta); // 0x00518C70
 void __cdecl sub_00520AD0_SetDisconnected(); // 0x00520AD0
 void __fastcall FOG_SOCKET_Destroy(FSafeSock* pSafeSock); // 0x0040DBD0
-void __fastcall sub_005209D0_HashData(unsigned char* pDigest, const void* pData, unsigned int nLength); // 0x005209D0
+void __fastcall BNDOWNLOAD_HashBuffer(unsigned char* pDigest, const void* pData, unsigned int nLength); // 0x005209D0
 void __fastcall sub_00520C00_ClearReply(unsigned char nReply); // 0x00520C00
 void __stdcall SLogClose(void* hLog); // 0x0041FD00
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 void __stdcall sub_0041D2A0_MemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
-void __stdcall sub_0041D300_ZeroMemory(void* pDest, unsigned int nSize); // 0x0041D300
+void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 void __stdcall sub_00420120_LogAdjust(void* hLog, int nValue); // 0x00420120
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 
