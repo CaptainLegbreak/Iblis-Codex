@@ -1,0 +1,2 @@
+va	old_name	new_name	source	file	confidence	reason
+0x00449B30	sub_00449B30_QueryAddress	MCPCONNECT_QueryAddress	inferred	Source/D2MCPClient/Src/McpConnect.cpp	medium	QueryAddress is the descriptive part of its placeholder name; McpConnect.cpp takes the file's prefix, the file stem, which 3 names in the file already use

@@ -1,0 +1,2 @@
+va	old_name	new_name	source	file	confidence	reason
+0x004F4FF0	sub_004F4FF0_SetVideoMode	WINDOW_SetVideoMode	inferred	Source/D2Gfx/SRC/Window.cpp	medium	SetVideoMode is the descriptive part of its placeholder name; Window.cpp takes the file's prefix, the file stem, which 26 names in the file already use

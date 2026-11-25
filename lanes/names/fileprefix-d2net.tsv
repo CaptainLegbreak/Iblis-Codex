@@ -1,0 +1,4 @@
+va	old_name	new_name	source	file	confidence	reason
+0x0052B490	sub_0052B490_ObjectCall_6BED90	CLIENT_ObjectCall_6BED90	inferred	Source/D2Net/SRC/Client.cpp	medium	ObjectCall_6BED90 is the descriptive part of its placeholder name; Client.cpp takes the file's prefix, the file stem, which 18 names in the file already use
+0x0052BE00	sub_0052BE00_GetBits12	NET_GetBits12	inferred	Source/D2Net/SRC/D2Net.cpp	medium	GetBits12 is the descriptive part of its placeholder name; D2Net.cpp takes the file's prefix, the prefix of 4 sourced names in the file
+0x0052BE10	sub_0052BE10_GetField0D0	NET_GetField0D0	inferred	Source/D2Net/SRC/D2Net.cpp	medium	GetField0D0 is the descriptive part of its placeholder name; D2Net.cpp takes the file's prefix, the prefix of 4 sourced names in the file

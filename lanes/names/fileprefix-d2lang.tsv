@@ -1,0 +1,2 @@
+va	old_name	new_name	source	file	confidence	reason
+0x00527A50	sub_00527A50_MapCodePageChar	UNISYS_MapCodePageChar	inferred	Source/D2Lang/Unicode/UNISYS.CPP	medium	MapCodePageChar is the descriptive part of its placeholder name; UNISYS.CPP takes the file's prefix, the file stem, which 2 names in the file already use
