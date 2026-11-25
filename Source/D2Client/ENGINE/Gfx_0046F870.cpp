@@ -41,8 +41,6 @@ extern "C" char* __cdecl _strlwr(char* szString); // 0x006864E1
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
-D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
-int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 int __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
 void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue); // 0x0046F020
 int __fastcall GFXUTIL_IsPlayerMonsterOrObject(D2UnitStrc* pUnit); // 0x004DB180
@@ -68,7 +66,6 @@ static int GFX_LoadGfxNodeSetByte(D2UnitStrc* pUnit, int nIndex); // 0x0046EA50
 struct D2GfxHeaderStrc { int unknown00[2],left,right,top,bottom; };
 
 extern int gnScreenWidth; // 0x0071146C
-void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc*,int,int); // 0x0046FA80
 D2GfxHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void*); // 0x004DB040
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc*,D2InventoryStrc*,int*,int,int); // 0x0064F380
 
@@ -299,7 +296,6 @@ void __fastcall GFX_LoadMonsterCofs(int nMonsterId, int bLoadNow)
 
 void GFX_LoadMonsterModeGfx(D2UnitStrc* pUnit, int nIndex); // 0x0046F9E0
 
-void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nIndex); // 0x0046FA80
 
 
 static inline int IsShapeShifted(D2UnitStrc* unit) { if(!unit) return 0; return (unit->dwFlagEx>>3)&1; }

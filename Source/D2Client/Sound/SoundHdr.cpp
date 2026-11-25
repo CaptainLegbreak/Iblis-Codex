@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Records.h"
 #include "D2ClientSound.h"
 #include "D2SoundEnvironTxt.h"
@@ -20,7 +21,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 int __fastcall ITEM_QueryCacheAddress(D2SoundsTxt* pEntry); // 0x004DF630
 
-void __fastcall SOUNDHDR_TouchCacheEntry(int nIndex); // 0x00482860
 
 int __stdcall INV_FreeCacheEntries(unsigned int nFree, int bTwoPasses, int bCheckAge); // 0x004824A0
 

@@ -190,7 +190,6 @@ void __fastcall MSG_SetProgress(int nValue, int nDivisor)
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long nMilliseconds); // 0x006CC258
 
-void __fastcall UI_DrawLoadingScreen(int nArg); // 0x004565E0
 
 // 0x00478160
 void __fastcall MSG_ShowProgressSteps(int nDone, int nTotal)

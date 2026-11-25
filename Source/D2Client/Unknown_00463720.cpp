@@ -47,12 +47,8 @@ int __stdcall PLAYER_IsPendingMode(int nArg1, int nArg2); // 0x00461D60
 int __fastcall CUNIT_CanUseSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00464600
 int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
-void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 D2UnitStrc* __fastcall SELECT_GetSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pX, int* pY, unsigned int dwFlags, int bForce); // 0x00467880
-void __fastcall MSG_SendFourDwords(char nCommand, int nUnitType, int nUnitId, int nX, int nY); // 0x00478700
 int __cdecl INV_GetScreenHeightMinusPanel(); // 0x00454970
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);
 void __fastcall PLAYER_SetPlayerMode(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2); // 0x00460780
 int __fastcall PLAYER_FilterCommandMessage(D2PlayerCmdStrc* pCmd); // 0x00462930
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
@@ -60,16 +56,12 @@ void __fastcall sub_00463D90(int nArg);
 D2UnitStrc* __cdecl sub_00463DD0();
 D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit();
 D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit);
-void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg); // 0x00466CB0
 void __fastcall VIEW_SetPetEntryValue(D2UnitStrc* pOwner, D2UnitStrc* pRecord, int nValue); // 0x00467410
 
 struct D2ActiveRoomStrc { char unknown0[76]; int x, y, width, height; };
 
 void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, char nValue); // 0x0046F020
 void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
-int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny); // 0x00478F20
-void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
-void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
 void __fastcall UNITMODE_DoUnitAction(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00481030
 void __fastcall NPCMENU_RefreshNpcEntries(D2UnitStrc* pUnit); // 0x004B3E10
 void __cdecl ITEM_ResetWeaponClasses(); // 0x004C1E30

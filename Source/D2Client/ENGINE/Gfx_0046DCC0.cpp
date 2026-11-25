@@ -38,9 +38,7 @@ static void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2StateNodeStrc*
 
 extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
-D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 void* __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
-void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
 int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit); // 0x004DA0B0
 int __stdcall PARTICLE_GetGfxClientY(D2UnitStrc* pUnit); // 0x004DA0D0
