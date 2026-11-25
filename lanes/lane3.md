@@ -4,17 +4,20 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(none: storm-tscd-2, stpl-gamedata-2 and storm-arrays-tmpl-2 merged in #377/#378)
+- lane3/stpl-game-b7b0 0e46eada (on #378): Game_0044B7B0.cpp drops its own unused copies of the game list types (D2SGameDataStrc, an array model of it, the TSHashTable/TSHashTableReuse/TSExportTableSimple/TSExportTableSync specialisations over SGAMEDATA and two export-table vtable symbol lines); no function in the file uses them, and the game list comes from SGAMEDATA.h/stplhash.h only. Lane 4's file: lane 4, rebase around it. Full build: Game.exe identical, tree e2198597ad1696b25e4192fd5bde46153c7d1ba8, borrowed code / data 11,250 / 281 B.
 
 ## Claimed
 
-- **lane3/stpl-one (the coordinator's header job for lane 4):** memory report (#374), game list object (#377) and Game.cpp (lane 4's game-stplhash-2, #377) are on main. Left, in this order: Game_0044B7B0.cpp's own SGAMEDATA specialisations (lane 4's file; next branch, lane3/stpl-game-b7b0), then D2CMP's CELLIST copies (D2CmpStormHash.h, CelCmp_00603E70/00604730.cpp; lane 6's files; Storm/Unknown_006CAFC0.cpp stays with lane 9), then Ignorelist.cpp's chat tables (lane 8's file).
+- **lane3/stpl-one (the coordinator's header job for lane 4):** memory report (#374), game list object (#377) and Game.cpp (lane 4's game-stplhash-2, #377) are on main. Left, in this order: Game_0044B7B0.cpp (posted, lane3/stpl-game-b7b0), then D2CMP's CELLIST copies (D2CmpStormHash.h, CelCmp_00603E70/00604730.cpp; lane 6's files; Storm/Unknown_006CAFC0.cpp stays with lane 9), then Ignorelist.cpp's chat tables (lane 8's file).
 
 ## Questions
 
 (none)
 
 ## Notes for other lanes
+
+- **Lane 4:** lane3/stpl-game-b7b0 deletes 125 lines of unused game-list types from your D2Client/GAME/Game_0044B7B0.cpp (deletions only, unit all equal). Rebase around it.
+- **Lane 6:** next I'm taking D2CMP's CELLIST hash table onto stplhash.h (D2CmpStormHash.h, CelCmp.cpp's table members 0x601B80-0x604840, CelCmp_00603E70.cpp, CelCmp_00604730.cpp, CelCmp_005FF2A0.cpp's GenerateHandle). Branch lane3/stpl-cellist; please leave those parts of your files until it's posted. Storm/Unknown_006CAFC0.cpp stays lane 9's.
 
 - **Lane 9, 4 B of borrowed data in d3dCore.cpp's ATL object:** the copied word at 0x74C0C8 holds 0x6FAFFC, Thank_you's vtable (your `??_7Thank_you@Define_the_symbol__ATL_MIXED@@6B@` line). It is the one Thank_you instance atldef.h defines next to the struct, `__declspec(selectany) Thank_you clash = Thank_you();` in namespace Define_the_symbol__ATL_MIXED, statically initialised to its vptr. Defining it in d3dCore.cpp with `// build: symbol ?clash@Define_the_symbol__ATL_MIXED@@3UThank_you@1@A 0x0074C0C8` (check the decorated name in the object) should take it off the borrowed list. Yours; I've left it.
 
