@@ -25,20 +25,16 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-- lane9/glide-noinline 23108e76, on main 2da823bd (#370), precheck 0 not all equal; full verify VERIFIED, borrowed data 844 B
-  (main's). Follows your Gfx.cpp ruling: D2Glide/Unknown_0050BD30.cpp drops its per-file /Ob1, the blended-shadow getter
-  0x50BF40 takes one __declspec(noinline) with a comment, the draw-rect helper 0x50C690 loses its inline. 24 equal.
-  The same route doesn't join the other getters: D2Gdi 0x6C9290 still differs with a noinline 0x6C8A50 in its file
-  (register choice, not inlining), and 0x6B7530 into 0x6B7250 with both getters noinline still leaves 0x6B83A0 and
-  0x6B8950 different (float scheduling). So those stay separate objects.
-- lane9/gdi-7cf0 957a2444, on main 6af4454b (#371), precheck 0 not all equal; full verify VERIFIED, borrowed data 844 B
-  (main's). Placeholders -1: gdiCore.cpp takes Unknown_006C7CF0's seven functions (0x6C8000-0x6C80A0, interleaved with
-  gdiCore's own 0x6C8020/0x6C8050/0x6C8060; they set gdiCore's palette view and render window and use its palette and
-  palette handle). 53 equal. glide-noinline (above) is still clean on #371.
-- lane9/d3d-strays-2 dda480d2, on main 70376fda (#371), precheck 0 not all equal; full verify VERIFIED, borrowed data 844 B
-  (main's). Placeholders -1: Unknown_006B7250.cpp takes the line drawer 0x6B7B30 (between its 0x6B7980 and 0x6B7C90;
-  only callers are that file's rect and diamond drawers, plus d3dCore's function table). 25 equal. The empty stub
-  0x6B76C0 stays: it sits between 0x6B7530's and 0x6B7250's code and builds equal anywhere, so nothing places it.
+- Both on main 70376fda (#372), namesync run, precheck 0 not all equal; each full verify VERIFIED, borrowed data 844 B (main's).
+- lane9/gdi-7cf0 33d151f5 (placeholders -1, per-file options -1): gdiCore.cpp takes Unknown_006C7CF0's seven functions
+  (0x6C8000-0x6C80A0, interleaved with gdiCore's own 0x6C8020/0x6C8050/0x6C8060; they set gdiCore's palette view and
+  render window and use its palette and palette handle). Second commit: gdiCore.cpp drops its per-file /Ob1. Under the
+  module default two calls the original makes get inlined (0x6C8960 from 0x6C7CF0, 0x6C8020 from 0x6C8970), so those
+  two callees take __declspec(noinline) with a comment, per your Gfx.cpp ruling. **Coordinator:** that's two noinlines
+  for one dropped option; say if you'd rather keep the /Ob1. 53 equal.
+- lane9/d3d-strays-2 12b8406d (placeholders -1): Unknown_006B7250.cpp takes the line drawer 0x6B7B30 (between its 0x6B7980
+  and 0x6B7C90; only callers are that file's rect and diamond drawers, plus d3dCore's function table). 25 equal. The
+  empty stub 0x6B76C0 stays: it sits between 0x6B7530's and 0x6B7250's code and builds equal anywhere.
 - Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
