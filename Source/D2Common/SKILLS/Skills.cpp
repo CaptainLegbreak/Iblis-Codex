@@ -3317,47 +3317,37 @@ void __stdcall SKILLS_RemoveSkill(D2UnitStrc* pUnit, int nSkillId, const char* s
 // 0x00647280
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine)
 {
-    // volatile: the original loads the unit argument once, at entry
-    D2UnitStrc* const pTheUnit = *(D2UnitStrc* volatile*)&pUnit;
-    D2SkillStrc* pSkill = 0;
+    D2SkillStrc* pSkill;
     if (!nSkillLevel)
     {
         if (bRemove)
         {
-            sSkillsRemoveSkill(nSkillId, 0, pTheUnit);
-            SKILLS_RefreshSkill(pTheUnit, nSkillId);
+            sSkillsRemoveSkill(nSkillId, 0, pUnit);
         }
         else
         {
-            pSkill = SKILLS_GetSkillById(pTheUnit, nSkillId, -1);
+            pSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
             if (!pSkill)
             {
-                SKILLS_AddSkill(pTheUnit, nSkillId);
-                pSkill = SKILLS_GetSkillById(pTheUnit, nSkillId, -1);
+                SKILLS_AddSkill(pUnit, nSkillId);
+                pSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
+                if (!pSkill)
+                {
+                    return;
+                }
             }
-
-            if (pSkill)
-            {
-                pSkill->nSkillLevel = 0;
-                SKILLS_RefreshSkill(pTheUnit, nSkillId);
-            }
+            pSkill->nSkillLevel = 0;
         }
     }
     else
     {
-        pSkill = SKILLS_GetSkillById(pTheUnit, nSkillId, -1);
-        if (!pSkill)
-        {
-            pSkill = SKILLS_AddSkill(pTheUnit, nSkillId);
-        }
-
-        if (pSkill)
+        pSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
+        if (pSkill || (pSkill = SKILLS_AddSkill(pUnit, nSkillId)) != 0)
         {
             pSkill->nSkillLevel = nSkillLevel;
         }
-
-        SKILLS_RefreshSkill(pTheUnit, nSkillId);
     }
+    SKILLS_RefreshSkill(pUnit, nSkillId);
 }
 
 // 0x00647530

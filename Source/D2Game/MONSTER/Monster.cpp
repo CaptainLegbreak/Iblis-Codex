@@ -8,6 +8,7 @@
 #include "D2UnitData.h"
 #include "D2LevelTxt.h"
 #include "D2LanguageNames.h"
+#include "D2StatIds.h"
 // build: symbol _gaszLanguageNames 0x0073288C
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
@@ -517,6 +518,116 @@ void __fastcall MONSTER_GetPlayerCountBonus(D2GameStrc* pGame, D2PlayerCountBonu
 
     pPlayerCountBonus->nMonsterSkillBonus = pDifficultyLevelsTxtRecord->dwMonsterSkillBonus;
     pPlayerCountBonus->nDifficulty = pGame->nDifficulty;
+}
+
+static inline unsigned char* sub_00573AE0_GetComponents(D2UnitStrc* pUnit)
+{
+	if (!pUnit || pUnit->dwUnitType != UNIT_MONSTER)
+	{
+		return 0;
+	}
+
+	D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
+	if (!pMonsterData)
+	{
+		return 0;
+	}
+
+	return pMonsterData->nComponent;
+}
+
+// 0x00573AE0
+int __fastcall sub_00573AE0_HasComponents(D2UnitStrc* pUnit)
+{
+	const unsigned char* pComponents = sub_00573AE0_GetComponents(pUnit);
+	int i = 0;
+	do
+	{
+		if (*pComponents)
+		{
+			return 1;
+		}
+		++i;
+		++pComponents;
+	}
+	while (i < 16);
+
+	return 0;
+}
+
+struct D2ItemsTxt;
+
+struct D2MonsterItemCodeStrc;
+
+struct D2MonsterItemCodeStrc
+{
+    unsigned int nItemCode;
+    unsigned char nBodyLoc;
+};
+
+D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner); // 0x0063ABD0
+
+D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
+
+D2UnitStrc* __fastcall D2GAME_CreateItemUnit_6FC501A0(D2UnitStrc* pPlayer, int nItemId, D2GameStrc* pGame, int nSpawnTarget, int nQuality, int bNoSockets, int bNoEthereal, int nItemLevel, int bUseSeed, int dwSeed, int dwItemSeed); // 0x00559CE0
+
+void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
+
+void __stdcall ITEMS_SetBodyLocation(D2UnitStrc* pItem, unsigned char nBodyLoc); // 0x00627D70
+
+unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
+
+int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, unsigned char nBodyLoc, int a5, int* pUnused); // 0x005606B0
+
+int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit); // 0x00625E00
+
+void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
+
+// 0x00573B20
+void __fastcall MONSTERAI_CreateAndEquipItem(D2GameStrc* pGame, D2UnitStrc* pMonster, D2MonsterItemCodeStrc* pItemCode, int dwILvl, int dwQuality)
+{
+    const int nType = pMonster ? pMonster->dwUnitType : UNIT_INVALID;
+    if (nType != 1)
+    {
+        return;
+    }
+
+    if (!pMonster->pInventory)
+    {
+        INVENTORY_AllocInventory(0, pMonster);
+    }
+
+    int nItemId;
+    if (!DATATBLS_GetItemRecordFromItemCode(pItemCode->nItemCode, &nItemId))
+    {
+        return;
+    }
+
+    D2UnitStrc* pItem = D2GAME_CreateItemUnit_6FC501A0(pMonster, nItemId, pGame, 4, dwQuality, 1, 1, dwILvl, 0, 0, 0);
+    if (!pItem)
+    {
+        return;
+    }
+
+    ITEMS_SetItemFlag(pItem, 0x1000, 1);
+    ITEMS_SetBodyLocation(pItem, pItemCode->nBodyLoc);
+    if (pItemCode->nBodyLoc == 0)
+    {
+        return;
+    }
+
+    {
+        const int nItemGUID = pItem->dwUnitId;
+        int nUnused;
+        if (!ITEMMODE_EquipCursorItem(pGame, pMonster, nItemGUID, ITEMS_GetBodyLocation(pItem), 1, &nUnused))
+        {
+            SUNIT_RemoveUnit(pGame, pItem);
+        }
+        else
+        {
+            STATLIST_SetUnitStat(pItem, STAT_DURABILITY, STATLIST_GetMaxDurabilityFromUnit(pItem), 0);
+        }
+    }
 }
 
 // 0x00573C00

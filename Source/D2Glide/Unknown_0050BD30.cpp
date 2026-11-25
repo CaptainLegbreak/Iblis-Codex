@@ -99,7 +99,7 @@ void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile);      
 
 int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3);                                   // 0x005FDEA0
 
-static inline void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, int nScreenPanels, tagRECT* pRect, int* pOffset);
+static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, int nScreenPanels, tagRECT* pRect, int* pOffset);
 
 
 void __cdecl sub_0050BE20_GlideDebugRefresh();
@@ -352,7 +352,7 @@ void __cdecl sub_0050C680_ClearBuffer()
 }
 
 // 0x0050C690
-static inline void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, int nScreenPanels, tagRECT* pRect, int* pOffset)
+static void __stdcall sub_0050C690_GlideGetDrawRect(int bPerspective, int nScreenPanels, tagRECT* pRect, int* pOffset)
 {
     D2_ASSERT(pRect, 0x54);
 
@@ -786,8 +786,9 @@ void __cdecl sub_0050D540_GlideInitD()
 
 extern D2GfxSettingsStrc* gpGfxSettings; // 0x007C9148
 
+// The original calls this getter from 0x50CD40 instead of inlining it.
 // 0x0050BF40
-int __cdecl sub_0050BF40_GlideGetBlendedShadows()
+__declspec(noinline) int __cdecl sub_0050BF40_GlideGetBlendedShadows()
 {
     return gpGfxSettings->bBlendedShadows;
 }

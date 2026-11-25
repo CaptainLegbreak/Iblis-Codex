@@ -25441,6 +25441,75 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004AD0C0",
+     "length": 215,
+     "name": "NPCMENU_StateOverlayBurst"
+    },
+    {
+     "va": "0x004AD1A0",
+     "length": 335,
+     "name": "NPCMENU_StateOverlayCross"
+    },
+    {
+     "va": "0x004AD2F0",
+     "length": 539
+    },
+    {
+     "va": "0x004AD510",
+     "length": 212,
+     "name": "NPCMENU_StateStartEffect"
+    },
+    {
+     "va": "0x004AD5F0",
+     "length": 233,
+     "name": "?NPCMENU_StateDurielDeath@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD6E0",
+     "length": 420,
+     "name": "?NPCMENU_StateMissileBurst@@YGXHPAUD2UnitStrc@@H@Z"
+    },
+    {
+     "va": "0x004AD890",
+     "length": 73,
+     "name": "?NPCMENU_StateBurstOnFrame@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD8E0",
+     "length": 50,
+     "name": "?NPCMENU_StateBurst@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD920",
+     "length": 73,
+     "name": "?NPCMENU_StateBurstNeutral@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004AD970",
+     "length": 426,
+     "name": "?NPCMENU_StateMissileSplit@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x004ADB20",
+     "length": 152,
+     "name": "NPCMENU_StateOverlayAtPath"
+    },
+    {
+     "va": "0x004ADBC0",
+     "length": 283,
+     "name": "NPCMENU_StateMonOverlay"
+    },
+    {
+     "va": "0x004ADCE0",
+     "length": 151,
+     "name": "?NPCMENU_StateRequests@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004ADD80",
+     "length": 8,
+     "name": "?NPCMENU_StateRequestsCallback@@YIXPAUD2UnitStrc@@HH@Z"
+    },
+    {
      "va": "0x004ADD90",
      "length": 167
     },
@@ -25473,6 +25542,11 @@
      "va": "0x004ADEA0",
      "length": 480,
      "name": "?MONSTER_GetMonsterName@@YIXPAUD2UnitStrc@@PAUUnicode@@HG@Z"
+    },
+    {
+     "va": "0x004AE080",
+     "length": 29,
+     "name": "@NPCMENU_GetMonsterTypeFlags@8"
     }
    ]
   },
@@ -25809,80 +25883,6 @@
      "va": "0x0042F530",
      "length": 6,
      "name": "??_FUnicode@@QAEXXZ"
-    },
-    {
-     "va": "0x004AD0C0",
-     "length": 215,
-     "name": "NPCMENU_StateOverlayBurst"
-    },
-    {
-     "va": "0x004AD1A0",
-     "length": 335,
-     "name": "NPCMENU_StateOverlayCross"
-    },
-    {
-     "va": "0x004AD2F0",
-     "length": 539
-    },
-    {
-     "va": "0x004AD510",
-     "length": 212,
-     "name": "NPCMENU_StateStartEffect"
-    },
-    {
-     "va": "0x004AD5F0",
-     "length": 233,
-     "name": "?NPCMENU_StateDurielDeath@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD6E0",
-     "length": 420,
-     "name": "?NPCMENU_StateMissileBurst@@YGXHPAUD2UnitStrc@@H@Z"
-    },
-    {
-     "va": "0x004AD890",
-     "length": 73,
-     "name": "?NPCMENU_StateBurstOnFrame@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD8E0",
-     "length": 50,
-     "name": "?NPCMENU_StateBurst@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD920",
-     "length": 73,
-     "name": "?NPCMENU_StateBurstNeutral@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AD970",
-     "length": 426,
-     "name": "?NPCMENU_StateMissileSplit@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004ADB20",
-     "length": 152,
-     "name": "NPCMENU_StateOverlayAtPath"
-    },
-    {
-     "va": "0x004ADBC0",
-     "length": 283,
-     "name": "NPCMENU_StateMonOverlay"
-    },
-    {
-     "va": "0x004ADCE0",
-     "length": 151,
-     "name": "?NPCMENU_StateRequests@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004ADD80",
-     "length": 8,
-     "name": "?NPCMENU_StateRequestsCallback@@YIXPAUD2UnitStrc@@HH@Z"
-    },
-    {
-     "va": "0x004AE080",
-     "length": 29,
-     "name": "@NPCMENU_GetMonsterTypeFlags@8"
     },
     {
      "va": "0x004B1620",
@@ -36203,21 +36203,6 @@
      "va": "0x0050D6A0",
      "length": 1141
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
@@ -49090,6 +49075,15 @@
      "name": "?MONSTER_GetPlayerCountBonus@@YIXPAUD2GameStrc@@PAUD2PlayerCountBonusStrc@@PAUD2ActiveRoomStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x00573AE0",
+     "length": 57
+    },
+    {
+     "va": "0x00573B20",
+     "length": 216,
+     "name": "MONSTERAI_CreateAndEquipItem"
+    },
+    {
      "va": "0x00573C00",
      "length": 176,
      "name": "MONSTER_ResetMonsterModesInLevel"
@@ -49108,10 +49102,6 @@
     {
      "va": "0x005739D0",
      "length": 260
-    },
-    {
-     "va": "0x00573AE0",
-     "length": 57
     }
    ],
    "flags": [
@@ -49133,11 +49123,6 @@
    "file": "Source/D2Game/UNIT/SUNITNPC.CPP",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x00573B20",
-     "length": 216,
-     "name": "MONSTERAI_CreateAndEquipItem"
-    },
     {
      "va": "0x00575FA0",
      "length": 71,
@@ -50253,11 +50238,6 @@
     {
      "va": "0x005C6870",
      "length": 153
-    },
-    {
-     "va": "0x005C7390",
-     "length": 387,
-     "name": "?SKILLS_SrvDo119_DruidSummon@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
    ]
   },
@@ -51070,11 +51050,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00588D60",
-     "length": 100,
-     "name": "?ACT5Q2_FindPortal@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAU2@@Z"
-    },
-    {
      "va": "0x005920D0",
      "length": 96,
      "name": "?ACT1Q4_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
@@ -51528,16 +51503,6 @@
     {
      "va": "0x00587A30",
      "length": 81
-    },
-    {
-     "va": "0x00588C50",
-     "length": 67,
-     "name": "?ACT5Q2_GetBarbsToBeRescued@@YIHPAUD2QuestDataStrc@@@Z"
-    },
-    {
-     "va": "0x00588DD0",
-     "length": 64,
-     "name": "?ACT5Q2_OnWussieActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     }
    ]
   },
@@ -51648,59 +51613,33 @@
      "name": "?ACT5Q2_UpdateWussieCounters@@YIXPAUD2GameStrc@@HPAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x005888D0",
+     "length": 883
+    },
+    {
+     "va": "0x00588C50",
+     "length": 67,
+     "name": "?ACT5Q2_GetBarbsToBeRescued@@YIHPAUD2QuestDataStrc@@@Z"
+    },
+    {
      "va": "0x00588CA0",
      "length": 178,
      "name": "?ACT5Q2_UpdatePortalMode@@YIXPAUD2QuestDataStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_005888D0.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
-     "va": "0x005888D0",
-     "length": 883
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00588E10.cpp",
-   "rank": 1,
-   "functions": [
+     "va": "0x00588D60",
+     "length": 100,
+     "name": "?ACT5Q2_FindPortal@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAPAU2@@Z"
+    },
+    {
+     "va": "0x00588DD0",
+     "length": 64,
+     "name": "?ACT5Q2_OnWussieActivated@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
+    },
     {
      "va": "0x00588E10",
      "length": 148
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
@@ -52069,16 +52008,6 @@
      "va": "0x0058BE20",
      "length": 96,
      "name": "?ACT5Q5_UnitIterate_StatusCyclerEx@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0058E830",
-     "length": 225,
-     "name": "OBJECTS_InitFunction79_Zoo"
-    },
-    {
-     "va": "0x0058E920",
-     "length": 108,
-     "name": "ACT5Q6_SpawnTyrael"
     },
     {
      "va": "0x00592D50",
@@ -52470,6 +52399,16 @@
      "va": "0x0058E740",
      "length": 225,
      "name": "OBJECTS_OperateFunction72_LastPortal"
+    },
+    {
+     "va": "0x0058E830",
+     "length": 225,
+     "name": "OBJECTS_InitFunction79_Zoo"
+    },
+    {
+     "va": "0x0058E920",
+     "length": 108,
+     "name": "ACT5Q6_SpawnTyrael"
     }
    ]
   },
@@ -59490,11 +59429,6 @@
      "length": 167
     },
     {
-     "va": "0x005C72F0",
-     "length": 153,
-     "name": "SKILLS_SrvDo118_Twister_Tornado"
-    },
-    {
      "va": "0x005FD350",
      "length": 285
     }
@@ -59825,6 +59759,16 @@
      "va": "0x005C7160",
      "length": 397,
      "name": "?SKILLS_SrvDo117_Firestorm@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
+    },
+    {
+     "va": "0x005C72F0",
+     "length": 153,
+     "name": "SKILLS_SrvDo118_Twister_Tornado"
+    },
+    {
+     "va": "0x005C7390",
+     "length": 387,
+     "name": "?SKILLS_SrvDo119_DruidSummon@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     },
     {
      "va": "0x005C7520",
@@ -62548,6 +62492,10 @@
      "name": "?sub_0051D690_Init@D2StormArray408Strc@@QAEPAU1@XZ"
     },
     {
+     "va": "0x006043B0",
+     "length": 138
+    },
+    {
      "va": "0x00604440",
      "length": 23,
      "name": "CelListArrayGrow"
@@ -62579,6 +62527,11 @@
     {
      "va": "0x00604640",
      "length": 157
+    },
+    {
+     "va": "0x006046E0",
+     "length": 27,
+     "name": "?Destroy@D2GameHashTableReuseStrc@@UAEXXZ"
     },
     {
      "va": "0x00604700",
@@ -63142,21 +63095,6 @@
      "va": "0x00603E70",
      "length": 96,
      "name": "??0D2GameHashTableReuseStrc@@QAE@XZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/Unknown_006043B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006043B0",
-     "length": 138
-    },
-    {
-     "va": "0x006046E0",
-     "length": 27,
-     "name": "?Destroy@D2GameHashTableReuseStrc@@UAEXXZ"
     }
    ]
   },

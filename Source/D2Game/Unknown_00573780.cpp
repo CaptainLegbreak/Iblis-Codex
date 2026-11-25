@@ -122,21 +122,4 @@ static inline unsigned char* sub_00573AE0_GetComponents(D2UnitStrc* pUnit)
 	return pMonsterData->nComponent;
 }
 
-// 0x00573AE0
-int __fastcall sub_00573AE0_HasComponents(D2UnitStrc* pUnit)
-{
-	const unsigned char* pComponents = sub_00573AE0_GetComponents(pUnit);
-	int i = 0;
-	do
-	{
-		if (*pComponents)
-		{
-			return 1;
-		}
-		++i;
-		++pComponents;
-	}
-	while (i < 16);
-
-	return 0;
-}
+int __fastcall sub_00573AE0_HasComponents(D2UnitStrc* pUnit); // 0x00573AE0

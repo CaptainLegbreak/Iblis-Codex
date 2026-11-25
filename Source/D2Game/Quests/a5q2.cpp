@@ -977,6 +977,138 @@ void __fastcall ACT5Q2_UpdateWussieCounters(D2GameStrc* pGame, int nUnused, D2Un
         }
     }
 }
+
+struct D2CoordStrc;
+
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,int); // 0x00463740
+
+void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, unsigned int nSize, unsigned short fCollision, D2ActiveRoomStrc** ppRoom, int nId, int nRadius); // 0x00545340
+
+D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char nAllocFlags, int nMode, unsigned int nOverrideUnitGUID); // 0x00555230
+
+void __stdcall UNITS_GetCoords(D2UnitStrc*,D2CoordStrc*); // 0x00620870
+
+static inline int FreedCount(D2Act5Quest2Strc* pEx) { return pEx->nFreedWussies; }
+
+static inline int UnitId(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
+
+// 0x005888D0
+void __fastcall sub_005888D0_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2UnitStrc* pTarget)
+{
+ D2QuestDataStrc* pQuestData=QUESTS_GetQuestData(pGame,32);
+ if(!pQuestData) return;
+ D2Act5Quest2Strc* pQuestDataEx= (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
+ int nIndex=ACT5Q2_GetWussieGroupIndex(pQuestData,pTarget);
+ if(nIndex<0 || pQuestDataEx->bPortalAttempted[nIndex]==1) return;
+ else
+ {
+     D2CoordStrc tCoords;
+     tCoords.nX=pQuestDataEx->pWussieCoords[nIndex].nX+12;
+     tCoords.nY=pQuestDataEx->pWussieCoords[nIndex].nY;
+     D2ActiveRoomStrc* pTargetRoom=UNITS_GetRoom(pTarget);
+     D2ActiveRoomStrc* pRoom=UNITS_GetRoom(pPlayer);
+     bool bFound=false;
+     if(!pRoom) return;
+     D2ActiveRoomStrc** ppRooms;
+     int nRooms;
+     DUNGEON_GetAdjacentRoomsListFromRoom(pRoom,&ppRooms,&nRooms);
+     for(unsigned int i=0;i<(unsigned int)nRooms;++i)
+     {
+      D2UnitStrc* pUnit=ppRooms[i]->pUnitFirst;
+      while(pUnit)
+      {
+       if((!pUnit ? 6 : pUnit->dwUnitType)==1 && pUnit->dwClassId==434 && pUnit->dwAnimMode==12 && sub_006416D0_UnitEdgeDistance(pUnit,pTarget)<15) break;
+       pUnit=pUnit->ptRoomNext;
+      }
+      if(pUnit)
+      {
+       pTargetRoom=UNITS_GetRoom(pUnit);
+       UNITS_GetCoords(pUnit,&tCoords);
+       tCoords.nX+=2;
+       bFound=true;
+      }
+     }
+     if(!bFound) return;
+     pQuestDataEx->bPortalAttempted[nIndex]=1;
+     pRoom=sub_00463740_FindRoomAtPoint(pTargetRoom,tCoords.nX,tCoords.nY);
+     D2UnitStrc* pPortal=SUNIT_AllocUnitData(2,189,tCoords.nX,tCoords.nY,pQuestData->pGame,pRoom,1,1,0);
+     if(!pPortal)
+     {
+      pPortal=SUNIT_AllocUnitData(2,189,tCoords.nX-2,tCoords.nY,pQuestData->pGame,pRoom,1,1,0);
+      if(!pPortal && pRoom)
+      {
+       D2ActiveRoomStrc* pFreeRoom=pRoom;
+       QUESTS_GetFreePosition(pRoom,&tCoords,2,0x8000,&pFreeRoom,17,100);
+       if(pFreeRoom)
+        pPortal=SUNIT_AllocUnitData(2,189,tCoords.nX,tCoords.nY,pQuestData->pGame,pFreeRoom,1,1,0);
+       else
+        pPortal=SUNIT_AllocUnitData(2,189,tCoords.nX,tCoords.nY,pQuestData->pGame,pRoom,1,1,0);
+      }
+     }
+     if(pPortal)
+     {
+      pQuestDataEx->bPortalSpawned[nIndex]=1;
+      pQuestDataEx->nPortalGUIDs[nIndex]=UnitId(pPortal);
+      EVENT_SetEvent(pQuestData->pGame,pPortal,7,pQuestData->pGame->dwGameFrame+25,0,0);
+      DUNGEON_ToggleHasPortalFlag(UNITS_GetRoom(pPortal),0);
+     }
+     D2BitBufferStrc* pQuestFlags=PLAYER_GetQuestFlags(pGame,pPlayer);
+     if(pQuestDataEx->nSpawnedWussies==pQuestDataEx->nKilledWussies+pQuestDataEx->nFreedWussies && pQuestDataEx->bWussiesSpawned[0] && pQuestDataEx->bWussiesSpawned[1] && pQuestDataEx->bWussiesSpawned[2])
+     {
+      if(pQuestDataEx->nFreedWussies>11)
+      {
+       pQuestData->nStatusFlags = 0;
+       QUESTS_UnitIterate(pQuestData,3,0,ACT5Q2_UnitIterate_StatusCyclerEx,true);
+       if(!QUESTRECORD_GetQuestState(pQuestFlags,36,0) && !QUESTRECORD_GetQuestState(pQuestFlags,36,1))
+       {
+        QUESTRECORD_SetQuestState(pQuestFlags,36,13);
+        QUESTRECORD_SetQuestState(pQuestFlags,36,1);
+        const int nFreed = FreedCount(pQuestDataEx);
+        if(nFreed==15) QUESTRECORD_SetQuestState(pQuestFlags,36,5);
+        else if(nFreed==14) QUESTRECORD_SetQuestState(pQuestFlags,36,6);
+        else QUESTRECORD_SetQuestState(pQuestFlags,36,7);
+       }
+       SUNIT_IterateUnitsOfType(pGame,0,pPlayer,ACT5Q2_UnitIterate_SetPrimaryGoalDoneForPartyMembers);
+       SUNIT_IterateUnitsOfType(pGame,0,pPlayer,ACT5Q2_UnitIterate_SetCompletionFlag);
+       SUNIT_IterateUnitsOfType(pGame,0,pPlayer,ACT5Q2_UnitIterate_AttachCompletionSound);
+      }
+      else SUNIT_IterateUnitsOfType(pGame,0,pPlayer,ACT5Q2_UnitIterate_SetCompletionFlag);
+     }
+     else
+     {
+      QUESTRECORD_SetQuestState(pQuestFlags,36,4);
+      if(pQuestDataEx->nKilledWussies<5)
+      {
+       pQuestData->nStatusFlags = 32;
+       QUESTS_UnitIterate(pQuestData,2,0,ACT5Q2_UnitIterate_StatusCyclerEx,true);
+      }
+      pQuestDataEx->bQualKehkActivated=0;
+     }
+ }
+}
+
+// 0x00588C50
+int __fastcall ACT5Q2_GetBarbsToBeRescued(D2QuestDataStrc* pQuestData)
+{
+    D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
+
+    int nBarbs = 0;
+    for (int i = 0; i < 3; ++i)
+    {
+        if (!pQuestDataEx->bWussiesSpawned[i])
+        {
+            nBarbs += 5;
+        }
+    }
+
+    nBarbs += pQuestDataEx->nSpawnedWussies - pQuestDataEx->nFreedWussies - pQuestDataEx->nKilledWussies;
+    if (nBarbs < 0)
+    {
+        nBarbs = 0;
+    }
+
+    return nBarbs;
+}
 // 0x00588CA0
 void __fastcall ACT5Q2_UpdatePortalMode(D2QuestDataStrc* pQuestData, D2UnitStrc* pPortal)
 {
@@ -1022,5 +1154,95 @@ found:
     }
 
     EVENT_SetEvent(pQuestData->pGame, pPortal, 7, pQuestData->pGame->dwGameFrame + 25, 0, 0);
+}
+
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
+
+// 0x00588D60
+int __fastcall ACT5Q2_FindPortal(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc** ppPortal)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 32);
+    if (pQuestData)
+    {
+        D2Act5Quest2Strc* pQuestDataEx = (D2Act5Quest2Strc*)pQuestData->pQuestDataEx;
+        int nIndex = ACT5Q2_GetWussieGroupIndex(pQuestData, pUnit);
+        if (nIndex >= 0 && pQuestDataEx->bPortalSpawned[nIndex])
+        {
+            D2UnitStrc* pPortal = SUNIT_GetServerUnit(pGame, 2, pQuestDataEx->nPortalGUIDs[nIndex]);
+            if (pPortal)
+            {
+                *ppPortal = pPortal;
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
+// 0x00588DD0
+void __fastcall ACT5Q2_OnWussieActivated(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPlayer)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q2_RESCUESOLDIERS);
+
+    if (!pQuestData || !pQuestData->bNotIntro || pQuestData->fLastState == 5)
+    {
+        return;
+    }
+
+    if (((D2Act5Quest2Strc*)pQuestData->pQuestDataEx)->nKilledWussies >= 5)
+    {
+        return;
+    }
+
+    pQuestData->nStatusFlags = 0;
+    QUESTS_UnitIterate(pQuestData, 5, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
+}
+
+D2ClientStrc* __fastcall sub_00539070_GetFirstClient(D2GameStrc* pGame); // 0x00539070
+
+D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bValidate); // 0x00537860
+
+// 0x00588E10
+int __fastcall sub_00588E10_IsMonsterNearby(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pDefault)
+{
+    if (!pUnit)
+    {
+        if (pGame->nGameType == 3)
+        {
+            D2ClientStrc* pClient = sub_00539070_GetFirstClient(pGame);
+            if (pClient)
+            {
+                pUnit = CLIENTS_GetPlayerFromClient(pClient, 0);
+            }
+        }
+        if (!pUnit)
+        {
+            pUnit = pDefault;
+        }
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        goto NotFound;
+    }
+
+    D2ActiveRoomStrc** ppRoomList;
+    int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+    for (unsigned int i = 0; i < (unsigned int)nNumRooms; ++i)
+    {
+        for (D2UnitStrc* pTarget = ppRoomList[i]->pUnitFirst; pTarget; pTarget = pTarget->ptRoomNext)
+        {
+            if ((!pTarget ? 6 : pTarget->dwUnitType) == 1 && (!pTarget ? -1 : pTarget->dwClassId) == 0x1B2 && (!pTarget ? 0 : pTarget->dwAnimMode) == 12)
+            {
+                return 1;
+            }
+        }
+    }
+
+NotFound:
+    return 0;
 }
 
