@@ -74,7 +74,7 @@ struct Obj00648690;
 
 struct Obj006486D0;
 
-struct T00648730;
+struct RoomStatusNode;
 
 struct DrlgView;
 
@@ -300,10 +300,10 @@ typedef unsigned char U8;
 
 typedef unsigned int U32;
 
-struct T00648730
+struct RoomStatusNode
 {
     char retainedPrefix[0x1c];
-    T00648730* statusNext;
+    RoomStatusNode* statusNext;
     char retainedMiddle[0x10];
     ActiveRoom* activeRoom;
     char retainedBeforeStatus[0x10];
@@ -314,7 +314,7 @@ struct T00648730
 struct DrlgView
 {
     char retainedPrefix[0xa0];
-    T00648730 statusRooms[4];
+    RoomStatusNode statusRooms[4];
 };
 
 struct PathView
@@ -335,21 +335,21 @@ struct UnitView
 
 typedef char check_pointer_width[sizeof(void*)==4?1:-1];
 
-typedef char check_room_next[OFFSET(T00648730,statusNext)==0x1c?1:-1];
+typedef char check_room_next[OFFSET(RoomStatusNode,statusNext)==0x1c?1:-1];
 
-typedef char check_room_active[OFFSET(T00648730,activeRoom)==0x30?1:-1];
+typedef char check_room_active[OFFSET(RoomStatusNode,activeRoom)==0x30?1:-1];
 
-typedef char check_room_status[OFFSET(T00648730,status)==0x44?1:-1];
+typedef char check_room_status[OFFSET(RoomStatusNode,status)==0x44?1:-1];
 
-typedef char check_room_stride[sizeof(T00648730)==0xec?1:-1];
+typedef char check_room_stride[sizeof(RoomStatusNode)==0xec?1:-1];
 
 typedef char check_room_array[OFFSET(DrlgView,statusRooms)==0xa0?1:-1];
 
-typedef char check_first_head[OFFSET(DrlgView,statusRooms)+OFFSET(T00648730,statusNext)==0xbc?1:-1];
+typedef char check_first_head[OFFSET(DrlgView,statusRooms)+OFFSET(RoomStatusNode,statusNext)==0xbc?1:-1];
 
-typedef char check_second_sentinel[OFFSET(DrlgView,statusRooms)+sizeof(T00648730)==0x18c?1:-1];
+typedef char check_second_sentinel[OFFSET(DrlgView,statusRooms)+sizeof(RoomStatusNode)==0x18c?1:-1];
 
-typedef char check_second_head[OFFSET(DrlgView,statusRooms)+sizeof(T00648730)+OFFSET(T00648730,statusNext)==0x1a8?1:-1];
+typedef char check_second_head[OFFSET(DrlgView,statusRooms)+sizeof(RoomStatusNode)+OFFSET(RoomStatusNode,statusNext)==0x1a8?1:-1];
 
 typedef char check_path_count[OFFSET(PathView,pointCount)==0x28?1:-1];
 
@@ -1635,7 +1635,7 @@ extern "C" __declspec(dllexport) void __stdcall PATH_SetVelocity(Obj00648690* pO
 
 extern "C" ActiveRoom* __fastcall DRLGACTIVATE_GetARoomInClientSight(DrlgView* drlg)
 {
-    T00648730* room = drlg->statusRooms[0].statusNext;
+    RoomStatusNode* room = drlg->statusRooms[0].statusNext;
     if (room == &drlg->statusRooms[0] || !room)
     {
         room = drlg->statusRooms[1].statusNext;

@@ -108,7 +108,7 @@ void __fastcall sub_006BBCE0_Run(const char* szFile, int nMode, void (__cdecl* p
     SFileOpenFileEx(0, szFile, nScope, &hFile);
     if (!hFile)
     {
-        goto LABEL_FAIL;
+        goto FAIL;
     }
 
     unsigned int nFlags;
@@ -129,7 +129,7 @@ void __fastcall sub_006BBCE0_Run(const char* szFile, int nMode, void (__cdecl* p
     if (!gpBink_00989C10)
     {
         CloseHandle(hFile);
-LABEL_FAIL:
+FAIL:
         if (gpBink_00989C10)
         {
             BinkClose(gpBink_00989C10);
