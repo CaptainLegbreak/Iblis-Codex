@@ -1,7 +1,7 @@
 file	function	old	new	confidence	reason
 Source/D2Game/Unknown_005B24E0.cpp	MONSTERSPAWN_SpawnAtUnit	a5	nMaxSearchRings	high	D2MOO source/D2Game/src/MONSTER/MonsterSpawn.cpp, parameter 5
 Source/D2Game/Unknown_005B24E0.cpp	MONSTERSPAWN_SpawnAtUnitInCoordList	a6	nMaxSearchRings	high	D2MOO source/D2Game/src/MONSTER/MonsterSpawn.cpp, parameter 6
-Source/D2Game/Unknown_005B24E0.cpp	sub_6FC6A150	a5			no D2MOO definition of this function
+Source/D2Game/Unknown_005B24E0.cpp	MONSTERSPAWN_SpawnLevelVariantAtUnit	a5	nMaxSearchRings	high	D2MOO source/D2Game/src/MONSTER/MonsterSpawn.cpp, parameter 5
 Source/D2Game/Unknown_005B24E0.cpp	MONSTERSPAWN_SpawnWithUnitId	a8	nMaxSearchRings	high	D2MOO source/D2Game/src/MONSTER/MonsterSpawn.cpp, parameter 8
 Source/D2Game/Unknown_005B24E0.cpp	MONSTERSPAWN_SpawnInCoordList	a8	nMaxSearchRings	high	D2MOO source/D2Game/src/MONSTER/MonsterSpawn.cpp, parameter 8
 Source/D2Game/Unknown_005B24E0.cpp	MONSTERSPAWN_SpawnWithOwnerData	a1	nX	medium	no D2MOO definition of this function; the function stores it straight into the field nX
@@ -21,6 +21,34 @@ Source/D2Game/Unknown_005FD850.cpp	SKILLITEM_HandleItemEffectSkill	a7	nItemEffec
 Source/D2Game/Unknown_005FD850.cpp	SKILLITEM_CastSkillOnTarget	a5	nItemEffectParam	high	D2MOO source/D2Game/src/SKILLS/SkillItem.cpp, parameter 5
 Source/D2Game/Unknown_005FD850.cpp	SKILLITEM_CastSkillOnPosition	a6	nItemEffectParam	high	D2MOO source/D2Game/src/SKILLS/SkillItem.cpp, parameter 6
 Source/D2Game/Unknown_0059F440.cpp	ACT2Q4_GetAndUpdatePalaceNpcState	a3			D2MOO also has a3
+Source/D2Game/PLAYER/PlrMsg.cpp	PLRMSG_SendUnitPosition	a7			no D2MOO definition of this function
+Source/D2Game/PLAYER/PlrMsg.cpp	PLRMSG_InteractWithUnit	a4			no D2MOO definition of this function
+Source/D2Game/PLAYER/Player.cpp	PLAYER_PlaceItemInInventory	a8	pPlayer	high	D2MOO source/D2Game/src/PLAYER/Player.cpp, parameter 2
+Source/D2Game/PLAYER/Player.cpp	PLAYER_CanModifyInventory	a3	pItem	high	D2MOO source/D2Game/src/PLAYER/Player.cpp, parameter 3
+Source/D2Game/PLAYER/PlrSave.cpp	D2GAME_SAVE_SerializeItem_6FC89AD0	a4			D2MOO source/D2Game/src/PLAYER/PlrSave.cpp has 5 parameters, ours 6
+Source/D2Game/PLAYER/PlrSave.cpp	D2GAME_SAVE_SerializeItem_6FC89AD0	a5			D2MOO source/D2Game/src/PLAYER/PlrSave.cpp has 5 parameters, ours 6
+Source/D2Game/PLAYER/PlrSave.cpp	D2GAME_SAVE_SerializeItem_6FC89AD0	a6			D2MOO source/D2Game/src/PLAYER/PlrSave.cpp has 5 parameters, ours 6
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_WriteItems	a4			no D2MOO definition of this function
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_WriteItems	a5			no D2MOO definition of this function
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_WriteItems	a6			no D2MOO definition of this function
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_WriteCorpseSection	a5			no D2MOO definition of this function
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_GetSaveFileSize	a6			no D2MOO definition of this function
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_GetSaveFileSize	a7			no D2MOO definition of this function
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_SetSkillIfLevelSet	a1			no D2MOO definition of this function
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_SetSkillIfLevelSet	a2			no D2MOO definition of this function
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_SetSkillIfLevelSet	a3			no D2MOO definition of this function
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_ReadLegacySkills	a5	nUnused1	high	D2MOO source/D2Game/src/PLAYER/PlrSave.cpp, parameter 5
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_ReadLegacySkills	a6	nUnused2	high	D2MOO source/D2Game/src/PLAYER/PlrSave.cpp, parameter 6
+Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_WriteCorpsesSection	a5			D2MOO source/D2Game/src/PLAYER/PlrSave2.cpp has 5 parameters, ours 6
+Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_WriteCorpsesSection	a6			D2MOO source/D2Game/src/PLAYER/PlrSave2.cpp has 5 parameters, ours 6
+Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_WriteMercSection	a7			no D2MOO definition of this function
+Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_WriteIronGolemSection	a5			D2MOO source/D2Game/src/PLAYER/PlrSave2.cpp has 5 parameters, ours 6
+Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_WriteIronGolemSection	a6			D2MOO source/D2Game/src/PLAYER/PlrSave2.cpp has 5 parameters, ours 6
+Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_CreateSaveFile	a6	bUseTradeInventory	high	D2MOO source/D2Game/src/PLAYER/PlrSave2.cpp, parameter 6
+Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_CreateSaveFile	a7	nUnused	high	D2MOO source/D2Game/src/PLAYER/PlrSave2.cpp, parameter 7
+Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_ReadPetSection	a6	pDetailError	high	D2MOO source/D2Game/src/PLAYER/PlrSave2.cpp, parameter 7
+Source/D2Game/PLAYER/PlayerPets.cpp	PLAYERPETS_IteratePets	a4	pArg	high	D2MOO source/D2Game/src/PLAYER/PlayerPets.cpp, parameter 4
+Source/D2Game/PLAYER/PlayerPets.cpp	PLAYERPETS_GetFirstPetByType	a4	bIncludeDead	high	D2MOO source/D2Game/src/PLAYER/PlayerPets.cpp, parameter 4
 Source/D2Game/DEBUG/Debug.cpp	DEBUG_GetRoomBySubtileCoordinates	a2	nX	high	D2MOO source/D2Game/src/DEBUG/Debug.cpp, parameter 2
 Source/D2Game/DEBUG/Debug.cpp	DEBUG_GetRoomBySubtileCoordinates	a3	nY	high	D2MOO source/D2Game/src/DEBUG/Debug.cpp, parameter 3
 Source/D2Game/DEBUG/Debug.cpp	sub_005347B0_Stub5	a1			no D2MOO definition of this function
@@ -48,6 +76,11 @@ Source/D2Game/DEBUG/Debug.cpp	sub_005347E0_Stub5	a2			no D2MOO definition of thi
 Source/D2Game/DEBUG/Debug.cpp	sub_005347E0_Stub5	a3			no D2MOO definition of this function
 Source/D2Game/DEBUG/Debug.cpp	sub_005347E0_Stub5	a4			no D2MOO definition of this function
 Source/D2Game/DEBUG/Debug.cpp	sub_005347E0_Stub5	a5			no D2MOO definition of this function
+Source/D2Game/Ai/AiGeneral.cpp	AIGENERAL_ExecuteCallbackOnMinions	a2	pCallbackArg1	high	D2MOO source/D2Game/src/AI/AiGeneral.cpp, parameter 2
+Source/D2Game/Ai/AiGeneral.cpp	AIGENERAL_ExecuteCallbackOnMinions	a3	pCallbackArg2	high	D2MOO source/D2Game/src/AI/AiGeneral.cpp, parameter 3
+Source/D2Game/Ai/AiTatics.cpp	AITACTICS_MoveInRadiusToTarget	a5	nMaxStepDistance	high	D2MOO source/D2Game/src/AI/AiTactics.cpp, parameter 5
+Source/D2Game/Ai/AiTatics.cpp	AITACTICS_MoveInRadiusToTarget	a6	nDesiredDistance	high	D2MOO source/D2Game/src/AI/AiTactics.cpp, parameter 6
+Source/D2Game/Ai/AiTatics.cpp	AITACTICS_WalkToTargetWithRandomPathType	a4	nNewDistance	high	D2MOO source/D2Game/src/AI/AiTactics.cpp, parameter 4
 Source/D2Game/PLAYER/PlrTrade.cpp	D2GAME_PLRTRADE_IsInteractingWithPlayer	a3			D2MOO source/D2Game/src/PLAYER/PlrTrade.cpp has 2 parameters, ours 3
 Source/D2Game/PLAYER/PlrModes.cpp	MONSTERMODE_EventUpdateStatListExpirations	a3	nEventCustomId	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 3
 Source/D2Game/PLAYER/PlrModes.cpp	MONSTERMODE_EventUpdateStatListExpirations	a4	nEventCustomParam	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 4
@@ -59,48 +92,103 @@ Source/D2Game/PLAYER/PlrModes.cpp	PLRMODE_EventFreeHoverText	a3	nEventCustomId	h
 Source/D2Game/PLAYER/PlrModes.cpp	PLRMODE_EventFreeHoverText	a4	nEventCustomParam	high	D2MOO source/D2Game/src/PLAYER/PlrModes.cpp, parameter 4
 Source/D2Game/PLAYER/PlrModes.cpp	PLRMODE_EventSynchronizePartyAndPets	a3	nEventCustomId	high	D2MOO source/D2Game/src/PLAYER/PlrModes.cpp, parameter 3
 Source/D2Game/PLAYER/PlrModes.cpp	PLRMODE_EventSynchronizePartyAndPets	a4	nEventCustomParam	high	D2MOO source/D2Game/src/PLAYER/PlrModes.cpp, parameter 4
-Source/D2Game/PLAYER/PlrMsg.cpp	PLRMSG_SendUnitPosition	a7			no D2MOO definition of this function
-Source/D2Game/PLAYER/PlrMsg.cpp	PLRMSG_InteractWithUnit	a4			no D2MOO definition of this function
 Source/D2Game/PLAYER/PartyScreen.cpp	PARTYSCREEN_PlayerIterate_PartyJoined	a3	pArgs	high	D2MOO source/D2Game/src/PLAYER/PartyScreen.cpp, parameter 3
-Source/D2Game/PLAYER/Player.cpp	PLAYER_PlaceItemInInventory	a8	pPlayer	high	D2MOO source/D2Game/src/PLAYER/Player.cpp, parameter 2
-Source/D2Game/PLAYER/Player.cpp	PLAYER_CanModifyInventory	a3	pItem	high	D2MOO source/D2Game/src/PLAYER/Player.cpp, parameter 3
-Source/D2Game/PLAYER/PlrSave.cpp	D2GAME_SAVE_SerializeItem_6FC89AD0	a4			D2MOO source/D2Game/src/PLAYER/PlrSave.cpp has 5 parameters, ours 6
-Source/D2Game/PLAYER/PlrSave.cpp	D2GAME_SAVE_SerializeItem_6FC89AD0	a5			D2MOO source/D2Game/src/PLAYER/PlrSave.cpp has 5 parameters, ours 6
-Source/D2Game/PLAYER/PlrSave.cpp	D2GAME_SAVE_SerializeItem_6FC89AD0	a6			D2MOO source/D2Game/src/PLAYER/PlrSave.cpp has 5 parameters, ours 6
-Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_WriteItems	a4			no D2MOO definition of this function
-Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_WriteItems	a5			no D2MOO definition of this function
-Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_WriteItems	a6			no D2MOO definition of this function
-Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_WriteCorpseSection	a5			no D2MOO definition of this function
-Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_GetSaveFileSize	a6			no D2MOO definition of this function
-Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_GetSaveFileSize	a7			no D2MOO definition of this function
-Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_SetSkillIfLevelSet	a1			no D2MOO definition of this function
-Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_SetSkillIfLevelSet	a2			no D2MOO definition of this function
-Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_SetSkillIfLevelSet	a3			no D2MOO definition of this function
-Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_ReadLegacySkills	a5	nUnused1	high	D2MOO source/D2Game/src/PLAYER/PlrSave.cpp, parameter 5
-Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_ReadLegacySkills	a6	nUnused2	high	D2MOO source/D2Game/src/PLAYER/PlrSave.cpp, parameter 6
-Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_WriteCorpsesSection	a5			D2MOO source/D2Game/src/PLAYER/PlrSave2.cpp has 5 parameters, ours 6
-Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_WriteCorpsesSection	a6			D2MOO source/D2Game/src/PLAYER/PlrSave2.cpp has 5 parameters, ours 6
-Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_WriteMercSection	a7			no D2MOO definition of this function
-Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_WriteIronGolemSection	a5			D2MOO source/D2Game/src/PLAYER/PlrSave2.cpp has 5 parameters, ours 6
-Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_WriteIronGolemSection	a6			D2MOO source/D2Game/src/PLAYER/PlrSave2.cpp has 5 parameters, ours 6
-Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_CreateSaveFile	a6	bUseTradeInventory	high	D2MOO source/D2Game/src/PLAYER/PlrSave2.cpp, parameter 6
-Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_CreateSaveFile	a7	nUnused	high	D2MOO source/D2Game/src/PLAYER/PlrSave2.cpp, parameter 7
-Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_ReadPetSection	a6	pDetailError	high	D2MOO source/D2Game/src/PLAYER/PlrSave2.cpp, parameter 7
-Source/D2Game/PLAYER/PlayerPets.cpp	PLAYERPETS_IteratePets	a4	pArg	high	D2MOO source/D2Game/src/PLAYER/PlayerPets.cpp, parameter 4
-Source/D2Game/PLAYER/PlayerPets.cpp	PLAYERPETS_GetFirstPetByType	a4	bIncludeDead	high	D2MOO source/D2Game/src/PLAYER/PlayerPets.cpp, parameter 4
-Source/D2Game/Ai/AiGeneral.cpp	AIGENERAL_ExecuteCallbackOnMinions	a2	pCallbackArg1	high	D2MOO source/D2Game/src/AI/AiGeneral.cpp, parameter 2
-Source/D2Game/Ai/AiGeneral.cpp	AIGENERAL_ExecuteCallbackOnMinions	a3	pCallbackArg2	high	D2MOO source/D2Game/src/AI/AiGeneral.cpp, parameter 3
-Source/D2Game/Ai/AiTatics.cpp	AITACTICS_MoveInRadiusToTarget	a5	nMaxStepDistance	high	D2MOO source/D2Game/src/AI/AiTactics.cpp, parameter 5
-Source/D2Game/Ai/AiTatics.cpp	AITACTICS_MoveInRadiusToTarget	a6	nDesiredDistance	high	D2MOO source/D2Game/src/AI/AiTactics.cpp, parameter 6
-Source/D2Game/Ai/AiTatics.cpp	AITACTICS_WalkToTargetWithRandomPathType	a4	nNewDistance	high	D2MOO source/D2Game/src/AI/AiTactics.cpp, parameter 4
 Source/D2Game/Ai/AiThink4.cpp	AITHINK_MinionCallback_CheckDead	a2	pDeadMinionFound	high	D2MOO source/D2Game/src/AI/AiThink.cpp, parameter 2
 Source/D2Game/Ai/AiThink4.cpp	AITHINK_MinionCallback_CheckDead	a3	pUnused	high	D2MOO source/D2Game/src/AI/AiThink.cpp, parameter 3
 Source/D2Game/Ai/AiThink4.cpp	AITHINK_RavenWalkToUnit	a4			no D2MOO definition of this function
 Source/D2Game/Ai/AiThink4.cpp	AITHINK_RavenWalkToUnit	a2			no D2MOO definition of this function
-Source/D2Game/Ai/AiUtil.cpp	sub_6FCF1E80	a3			no D2MOO definition of this function
-Source/D2Game/Ai/AiUtil.cpp	sub_6FCF1E80	a4			no D2MOO definition of this function
 Source/D2Game/Ai/AiThink.cpp	AITHINK_ExecuteMonsterAiTick	a3	nUnused1	high	D2MOO source/D2Game/src/AI/AiThink.cpp, parameter 3
 Source/D2Game/Ai/AiThink.cpp	AITHINK_ExecuteMonsterAiTick	a4	nUnused2	high	D2MOO source/D2Game/src/AI/AiThink.cpp, parameter 4
+Source/D2Game/Quests/QUESTS.CPP	QUESTS_TriggerFX	a2	nEvent	high	D2MOO source/D2Game/src/QUESTS/Quests.cpp, parameter 2
+Source/D2Game/UNIT/SUnitMsg.cpp	SUNITMSG_QueueItemSkillOnUnit	a6	nSkillParam	high	D2MOO source/D2Game/src/UNIT/SUnitMsg.cpp, parameter 6
+Source/D2Game/UNIT/SUnitMsg.cpp	SUNITMSG_QueueItemSkillOnPosition	a6	nSkillParam	high	D2MOO source/D2Game/src/UNIT/SUnitMsg.cpp, parameter 6
+Source/D2Game/UNIT/SUnitMsg.cpp	SUNITMSG_QueueSkillEvent	a7	nSkillParam	high	D2MOO source/D2Game/src/UNIT/SUnitMsg.cpp, parameter 7
+Source/D2Game/UNIT/SUnitDmg.cpp	SUNITDMG_SetMissileDamageFlagsForNearbyUnits	a7	bIncludeOwner	high	D2MOO source/D2Game/src/UNIT/SUnitDmg.cpp, parameter 7
+Source/D2Game/UNIT/SUnitDmg.cpp	SUNITDMG_SetMissileDamageFlagsForNearbyUnits	a8	bIncludeOwnersOwner	high	D2MOO source/D2Game/src/UNIT/SUnitDmg.cpp, parameter 8
+Source/D2Game/UNIT/SUnitDmg.cpp	SUNITDMG_SetMissileDamageFlagsForNearbyUnits	a10	nUnitFindFlags	high	D2MOO source/D2Game/src/UNIT/SUnitDmg.cpp, parameter 10
+Source/D2Game/UNIT/SUnitEvent.cpp	SUNITEVENT_Register	a8	nEventKey	high	D2MOO source/D2Game/src/UNIT/SUnitEvent.cpp, parameter 8
+Source/D2Game/UNIT/SUnitEvent.cpp	SUNITEVENT_Unregister	a4	nEventKey	high	D2MOO source/D2Game/src/UNIT/SUnitEvent.cpp, parameter 4
+Source/D2Game/UNIT/SUnitEvent.cpp	SUNITEVENT_GetEvent	a4	nEventKey	high	D2MOO source/D2Game/src/UNIT/SUnitEvent.cpp, parameter 4
+Source/D2Game/UNIT/PlayerList.cpp	PLAYERLIST_SetPartyState	a3	nPartyState	high	D2MOO source/D2Game/src/PLAYER/PlayerList.cpp, parameter 3
+Source/D2Game/UNIT/PlayerList.cpp	PLAYERLIST_SetHostileDelay	a3	nHostileDelayEndTick	high	D2MOO source/D2Game/src/PLAYER/PlayerList.cpp, parameter 3
+Source/D2Game/ITEMS/ItemMode.cpp	sITEMSAddStatsList	a4			no D2MOO definition of this function
+Source/D2Game/ITEMS/ItemMode.cpp	ITEMS_DropTreasureClassById	a7	bIgnoreNoDrop	high	D2MOO source/D2Game/src/ITEMS/Items.cpp, parameter 7
+Source/D2Game/ITEMS/ItemMode.cpp	D2GAME_UpdatePlayerItems_6FC4BB90	a3	bRefresh	high	D2MOO source/D2Game/src/ITEMS/ItemMode.cpp, parameter 3
+Source/D2Game/ITEMS/ItemMode.cpp	ITEMMODE_PlaceCursorItemInBelt	a6	pItemStatus	high	D2MOO source/D2Game/src/ITEMS/ItemMode.cpp, parameter 6
+Source/D2Game/ITEMS/ItemMode.cpp	ITEMMODE_SwapCursorAndBeltItem	a5	pItemStatus	high	D2MOO source/D2Game/src/ITEMS/ItemMode.cpp, parameter 5
+Source/D2Game/ITEMS/ItemMode.cpp	D2GAME_ITEMSOCKET_PlaceItem_6FC497E0	a9			D2MOO source/D2Game/src/ITEMS/ItemMode.cpp has 8 parameters, ours 9
+Source/D2Game/ITEMS/ItemMode.cpp	ITEMMODE_RemoveBeltItemToCursor	a4	pItemStatus	high	D2MOO source/D2Game/src/ITEMS/ItemMode.cpp, parameter 4
+Source/D2Game/ITEMS/ItemMode.cpp	ITEMMODE_DuplicateSocketFillers	a5	bRefresh	high	D2MOO source/D2Game/src/ITEMS/ItemMode.cpp, parameter 5
+Source/D2Game/SKILLS/SkillDruid.cpp	SKILLS_CreateMissileSpread	a7	bCreateFirstMissile	high	D2MOO source/D2Game/src/SKILLS/SkillDruid.cpp, parameter 7
+Source/D2Game/SKILLS/SkillItem.cpp	SKILLITEM_ActivateAura	a5	nEventKey	high	D2MOO source/D2Game/src/SKILLS/SkillItem.cpp, parameter 3
+Source/D2Game/SKILLS/SkillItem.cpp	SKILLITEM_DeactivateAura	a4	nEventKey	high	D2MOO source/D2Game/src/SKILLS/SkillItem.cpp, parameter 3
+Source/D2Game/SKILLS/SkillItem.cpp	SKILLITEM_pSpell03_Potion	a4	pTarget	high	D2MOO source/D2Game/src/SKILLS/SkillItem.cpp, parameter 4
+Source/D2Game/SKILLS/SkillItem.cpp	SKILLITEM_pSpell03_Potion	a5	nX	high	D2MOO source/D2Game/src/SKILLS/SkillItem.cpp, parameter 5
+Source/D2Game/SKILLS/SkillItem.cpp	SKILLITEM_pSpell03_Potion	a6	nY	high	D2MOO source/D2Game/src/SKILLS/SkillItem.cpp, parameter 6
+Source/D2Game/SKILLS/SkillItem.cpp	SKILLITEM_pSpell03_Potion	a7	nSkillId	high	D2MOO source/D2Game/src/SKILLS/SkillItem.cpp, parameter 7
+Source/D2Game/SKILLS/Skills.cpp	SKILLS_FindNextAuraTarget	a7	nPreviousTargetGUID	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 7
+Source/D2Game/SKILLS/Skills.cpp	SKILLS_FindNextAuraTarget	a8	pTargetCount	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 8
+Source/D2Game/SKILLS/Skills.cpp	SKILLS_RemoveStatesInGroup	a3	bIncludeState	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 3
+Source/D2Game/SKILLS/Skills.cpp	SKILLS_SchedulePeriodicSkill	a5	bUseRightSkill	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 5
+Source/D2Game/SKILLS/Skills.cpp	SKILLS_SchedulePeriodicStat	a5	nEventKey	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 3
+Source/D2Game/SKILLS/Skills.cpp	SKILLS_SchedulePeriodicStat	a6	bUseRightSkill	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 6
+Source/D2Game/SKILLS/Skills.cpp	SKILLS_EventCallback_PeriodicSkillAura	a4	nUnused	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 4
+Source/D2Game/SKILLS/Skills.cpp	SKILLS_EventCallback_ItemAura	a3	nEventCustomId	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 3
+Source/D2Game/SKILLS/Skills.cpp	SKILLS_CreateMissileRing	a3	pOrigin	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 3
+Source/D2Game/SKILLS/Skills.cpp	D2GAME_AssignSkill_6FD13800	a2	bLeftSkill	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 2
+Source/D2Game/SKILLS/Skills.cpp	SKILLS_SetDamageResultFlagsFromSkill	a8	nRangeOffset	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 8
+Source/D2Game/SKILLS/Skills.cpp	SKILLS_SetDamageResultFlags	a5	nToHitFactor	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 5
+Source/D2Game/SKILLS/Skills.cpp	SKILLS_SetDamageResultFlags	a7	nRangeOffset	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 7
+Source/D2Game/SKILLS/Skills.cpp	SKILLS_RegisterUnitEvent	a4	nParam1	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 4
+Source/D2Game/SKILLS/Skills.cpp	SKILLS_RegisterUnitEvent	a5	nParam2	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 5
+Source/D2Game/SKILLS/Skills.cpp	SKILLS_RegisterUnitEvent	a7	nEventGroup	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 7
+Source/D2Game/SKILLS/Skills.cpp	SKILLS_RegisterUnitEvent	a8	nEventKey	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 8
+Source/D2Game/GAME/Event.cpp	EVENT_ExecutePlayerEvents	a4	pGame		name already used in this function
+Source/D2Game/GAME/Event.cpp	EVENT_ExecuteMonsterEvents	a4	pGame		name already used in this function
+Source/D2Game/GAME/Event.cpp	EVENT_ExecuteObjectEvents	a4	pGame		name already used in this function
+Source/D2Game/GAME/Event.cpp	EVENT_ExecuteMissileEvents	a4	pGame		name already used in this function
+Source/D2Game/GAME/Event.cpp	EVENT_ExecuteItemEvents	a4	pGame		name already used in this function
+Source/D2Game/GAME/Targets.cpp	TARGETS_AllocPlayerNode	a3	nNodeData	high	D2MOO source/D2Game/src/GAME/Targets.cpp, parameter 3
+Source/D2Game/GAME/Targets.cpp	D2GAME_UpdateSummonAI_6FC401F0	a3	nNodeData	high	D2MOO source/D2Game/src/GAME/Targets.cpp, parameter 3
+Source/D2Game/GAME/Targets.cpp	TARGETS_InsertUnitNode	a3	nNodeData	high	D2MOO source/D2Game/src/GAME/Targets.cpp, parameter 3
+Source/D2Game/GAME/Game.cpp	D2Game_10056	a1	nValue	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 1
+Source/D2Game/GAME/Game.cpp	GAME_UpdatePing	a2			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	GAME_UpdatePing	a3			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	GAME_UpdatePing	a4			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	GAME_AbortClient	a3	szFile	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 3
+Source/D2Game/GAME/Game.cpp	GAME_AbortClient	a4	nLine	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 4
+Source/D2Game/GAME/Game.cpp	SrvVerifyJoinGame	a9			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	SrvVerifyJoinGame	a10			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	SrvVerifyJoinGame	a11			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	SrvVerifyJoinGame	a12			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	SrvVerifyJoinGame	a13			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	sub_0052BF40_Stub	a1			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	sub_0052BF40_Stub	a2			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	sub_0052BF40_Stub	a3			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	sub_0052BF40_Stub	a4			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	sub_0052BFB0_Stub	a1			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	sub_0052BFB0_Stub	a2			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	sub_0052BFB0_Stub	a3			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	sub_0052BFB0_Stub	a4			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	SrvRecvDatabaseCharacter	a6			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	SrvJoinGame	a5			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	SrvJoinGame	a8			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	SrvJoinGame	a9			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	SrvJoinGame	a11			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	SrvJoinGame	a12			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	SrvJoinGame	a13			no D2MOO definition of this function
+Source/D2Game/GAME/Game.cpp	GAME_UpdateGamesProgress	a1	bLimitCatchUp	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 1
+Source/D2Game/GAME/Game.cpp	GAME_AbortClientById	a2	szFile	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 2
+Source/D2Game/GAME/Game.cpp	GAME_AbortClientById	a3	nLine	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 3
+Source/D2Game/GAME/Game.cpp	GAME_ReturnArgument	a1	nValue	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 1
+Source/D2Game/GAME/Game.cpp	GAME_SetTargetFrameRate	a1	nFrameRate	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 1
+Source/D2Game/GAME/Game.cpp	GAME_SendMessageToAllClients	a1	nMessageType	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 1
+Source/D2Game/GAME/Game.cpp	GAME_SendMessageToAllClientsAsync	a1	nParam1	medium	no D2MOO definition of this function; the function stores it straight into the field nParam1
+Source/D2Game/GAME/CCmd.cpp	CCMD_CanClientJoinGame	a1			D2MOO also has a1
+Source/D2Game/GAME/CCmd.cpp	CCMD_CanClientJoinGame	a2			D2MOO also has a2
+Source/D2Game/MONSTER/MonsterAI.cpp	MONSTERAI_SendMercStats	a3	dwZero	high	D2MOO source/D2Game/src/MONSTER/MonsterAI.cpp, parameter 3
+Source/D2Game/MONSTER/MonsterRegion.cpp	MONSTERREGION_AdjustCountsForInactiveMonster	a6	bExcludeFromCount	high	D2MOO source/D2Game/src/MONSTER/MonsterRegion.cpp, parameter 6
+Source/D2Game/MONSTER/Monster.cpp	MONSTER_SetVelocityAndPosition	a5	bUnusedSkipRoomUpdate	high	D2MOO source/D2Game/src/MONSTER/Monster.cpp, parameter 5
 Source/D2Game/UNIT/SUNITNPC.CPP	SUNITNPC_RemovePurchasedItemFromStore	a5	nTransactionType	high	D2MOO source/D2Game/src/UNIT/SUnitNpc.cpp, parameter 5
 Source/D2Game/UNIT/SUNITNPC.CPP	SUNITNPC_FindStackForStorePurchase	a4	pFreeStackCount	high	D2MOO source/D2Game/src/UNIT/SUnitNpc.cpp, parameter 4
 Source/D2Game/UNIT/SUNITNPC.CPP	sub_00577700_FindStack	a4			no D2MOO definition of this function
@@ -115,7 +203,6 @@ Source/D2Game/UNIT/SUnit.cpp	SUNIT_TeleportUnit	a6	bSkipCollisionSearch	high	D2M
 Source/D2Game/UNIT/SUnit.cpp	SUNIT_TeleportUnit	a7	bSyncOtherPlayersOnly	high	D2MOO source/D2Game/src/UNIT/SUnit.cpp, parameter 7
 Source/D2Game/UNIT/SUnit.cpp	SUNIT_EventClearTeleportCoordinates	a4	nUnusedParam1	high	D2MOO source/D2Game/src/UNIT/SUnit.cpp, parameter 4
 Source/D2Game/UNIT/SUnit.cpp	SUNIT_EventClearTeleportCoordinates	a5	nUnusedParam2	high	D2MOO source/D2Game/src/UNIT/SUnit.cpp, parameter 5
-Source/D2Game/Quests/QUESTS.CPP	QUESTS_TriggerFX	a2	nEvent	high	D2MOO source/D2Game/src/QUESTS/Quests.cpp, parameter 2
 Source/D2Game/UNIT/sunitproxy.cpp	SUNITPROXY_AllocNpcEvent	a4	bPending	high	D2MOO source/D2Game/src/UNIT/SUnitProxy.cpp, parameter 4
 Source/D2Game/ITEMS/Items.cpp	D2GAME_DropArmor_6FC4F830	a4	nItemType	high	D2MOO source/D2Game/src/ITEMS/Items.cpp, parameter 4
 Source/D2Game/ITEMS/Items.cpp	D2GAME_DropArmor_6FC4F830	a5	bIgnoreRarity	high	D2MOO source/D2Game/src/ITEMS/Items.cpp, parameter 5
@@ -125,9 +212,23 @@ Source/D2Game/ITEMS/Items.cpp	ITEMS_DropMiscItemAtCoordinates	a4	nItemType	high	
 Source/D2Game/ITEMS/Items.cpp	ITEMS_DropMiscItemAtCoordinates	a5	bIgnoreRarity	high	D2MOO source/D2Game/src/ITEMS/Items.cpp, parameter 5
 Source/D2Game/SKILLS/SkillSor.cpp	SKILLS_StartInferno	a5	nMissileId	high	D2MOO source/D2Game/src/SKILLS/SkillSor.cpp, parameter 5
 Source/D2Game/SKILLS/SkillBar.cpp	SKILLS_ApplyWarcryStats	a2	pTarget	high	D2MOO source/D2Game/src/SKILLS/SkillBar.cpp, parameter 2
+Source/D2Game/GAME/Clients.cpp	CLIENTS_AttachSaveFile	a6	nUnused1	high	D2MOO source/D2Game/src/GAME/Clients.cpp, parameter 6
+Source/D2Game/GAME/Clients.cpp	CLIENTS_AttachSaveFile	a7	nUnused2	high	D2MOO source/D2Game/src/GAME/Clients.cpp, parameter 7
+Source/D2Game/GAME/Clients.cpp	ClientAddToGame	a8			no D2MOO definition of this function
+Source/D2Game/GAME/Clients.cpp	ClientAddToGame	a9			no D2MOO definition of this function
+Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_TryDropTreasure	a3	nUnused	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 3
+Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_DropTreasure	a7	bIgnoreNoDrop	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 3
+Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventUpdateStatListExpirations	a3	nEventCustomId	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 3
+Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventUpdateStatListExpirations	a4	nEventCustomParam	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 4
+Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventFreeHoverText	a3	nEventCustomId	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 3
+Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventFreeHoverText	a4	nEventCustomParam	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 4
+Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventClearTargetOverride	a3	nEventCustomId	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 3
+Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventClearTargetOverride	a4	nEventCustomParam	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 4
+Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventModeChange	a3	nEventCustomId	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 3
+Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventModeChange	a4	nEventCustomParam	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 4
+Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventEndAnimation	a3	nEventCustomId	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 3
+Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventEndAnimation	a4	nEventCustomParam	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 4
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x0C_6FC3C8A0	a5	nMessage	medium	D2MOO also leaves it a5; the function stores it straight into the field nMessage
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x0E_6FC3C8E0	a5			D2MOO also has a5
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x0E_6FC3C8E0	a6			D2MOO also has a6
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x10_6FC3C9A0	a3	nUnitType	high	D2MOO source/D2Game/src/GAME/SCmd.cpp, parameter 3
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x10_6FC3C9A0	a4	nUnitGUID	high	D2MOO source/D2Game/src/GAME/SCmd.cpp, parameter 4
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x10_6FC3C9A0	a5	nFlags	high	D2MOO source/D2Game/src/GAME/SCmd.cpp, parameter 5
@@ -142,22 +243,22 @@ Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x0F_6FC3CA00	a7	nDestPosY	
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x0F_6FC3CA00	a8	nHitClass	medium	D2MOO also leaves it a8; the function stores it straight into the field nHitClass
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x0F_6FC3CA00	a9	nCurrentPosX	high	D2MOO source/D2Game/src/GAME/SCmd.cpp, parameter 9
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x0F_6FC3CA00	a10	nCurrentPosY	high	D2MOO source/D2Game/src/GAME/SCmd.cpp, parameter 10
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68_6FC3CA90	a4			D2MOO also has a4
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68_6FC3CA90	a5			D2MOO also has a5
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68_6FC3CA90	a6			D2MOO also has a6
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68_6FC3CA90	a7			D2MOO also has a7
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x67_6FC3CBC0	a4			D2MOO also has a4
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x67_6FC3CBC0	a7			D2MOO also has a7
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68_6FC3CCB0	a4			D2MOO also has a4
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68_6FC3CCB0	a5			D2MOO also has a5
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68_6FC3CCB0	a6			D2MOO also has a6
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68_6FC3CCB0	a7			D2MOO also has a7
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68_6FC3CCB0	a8	nMaxDistance	medium	D2MOO also leaves it a8; the function stores it straight into the field nMaxDistance
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68_6FC3CCB0	a9			D2MOO also has a9
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x67_6FC3CDE0	a4			D2MOO also has a4
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x67_6FC3CDE0	a7			D2MOO also has a7
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x67_6FC3CDE0	a8	nMaxDistance	medium	D2MOO also leaves it a8; the function stores it straight into the field nMaxDistance
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x67_6FC3CDE0	a9			D2MOO also has a9
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68	a4	nMessage	medium	no D2MOO definition of this function; the function stores it straight into the field nMessage
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68	a5	nTargetUnitType	medium	no D2MOO definition of this function; the function stores it straight into the field nTargetUnitType
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68	a6	nTargetUnitGUID	medium	no D2MOO definition of this function; the function stores it straight into the field nTargetUnitGUID
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68	a7	nUnitLife	medium	no D2MOO definition of this function; the function stores it straight into the field nUnitLife
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x67	a4	nMessage	medium	no D2MOO definition of this function; the function stores it straight into the field nMessage
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x67	a7	nUnitLife	medium	no D2MOO definition of this function; the function stores it straight into the field nUnitLife
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68Ex	a4	nMessage	medium	no D2MOO definition of this function; the function stores it straight into the field nMessage
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68Ex	a5	nTargetUnitType	medium	no D2MOO definition of this function; the function stores it straight into the field nTargetUnitType
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68Ex	a6	nTargetUnitGUID	medium	no D2MOO definition of this function; the function stores it straight into the field nTargetUnitGUID
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68Ex	a7	nUnitLife	medium	no D2MOO definition of this function; the function stores it straight into the field nUnitLife
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68Ex	a8	nMaxDistance	medium	no D2MOO definition of this function; the function stores it straight into the field nMaxDistance
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x68Ex	a9	nHitClass	medium	no D2MOO definition of this function; the function stores it straight into the field nHitClass
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x67Ex	a4	nMessage	medium	no D2MOO definition of this function; the function stores it straight into the field nMessage
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x67Ex	a7	nUnitLife	medium	no D2MOO definition of this function; the function stores it straight into the field nUnitLife
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x67Ex	a8	nMaxDistance	medium	no D2MOO definition of this function; the function stores it straight into the field nMaxDistance
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x67Ex	a9	nHitClass	medium	no D2MOO definition of this function; the function stores it straight into the field nHitClass
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x6A_6FC3CEE0	a2	nHeader	high	D2MOO source/D2Game/src/GAME/SCmd.cpp, parameter 2
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x6A_6FC3CEE0	a4	nAction	high	D2MOO source/D2Game/src/GAME/SCmd.cpp, parameter 4
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x6A_6FC3CEE0	a5	nTargetType	high	D2MOO source/D2Game/src/GAME/SCmd.cpp, parameter 5
@@ -188,22 +289,22 @@ Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x6B_6FC3D000	a9	nCurrentPo
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x6B_6FC3D000	a10	nCurrentPosY	high	D2MOO source/D2Game/src/GAME/SCmd.cpp, parameter 10
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x15_6FC3D0D0	a7	bReassign	medium	D2MOO also leaves it a7; the function stores it straight into the field bReassign
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x1A_B_C_6FC3D410	a3	nPreviousExperience	high	D2MOO source/D2Game/src/GAME/SCmd.cpp, parameter 3
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a2			D2MOO also has a2
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a3			D2MOO also has a3
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a4			D2MOO also has a4
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a5			D2MOO also has a5
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a6			D2MOO also has a6
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a7			D2MOO also has a7
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a8			D2MOO also has a8
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a9			D2MOO also has a9
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a10			D2MOO also has a10
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA5_6FC3D7F0	a2			D2MOO also has a2
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA5_6FC3D7F0	a3			D2MOO also has a3
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA5_6FC3D7F0	a4			D2MOO also has a4
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a2	nSeed	medium	D2MOO also leaves it a2; the function stores it straight into the field nSeed
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a3	nSkillId	medium	D2MOO also leaves it a3; the function stores it straight into the field nSkillId
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a4	nSkillLevel	medium	D2MOO also leaves it a4; the function stores it straight into the field nSkillLevel
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a5	nUnitType	medium	D2MOO also leaves it a5; the function stores it straight into the field nUnitType
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a6	nUnitGUID	medium	D2MOO also leaves it a6; the function stores it straight into the field nUnitGUID
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a7	nTargetType	medium	D2MOO also leaves it a7; the function stores it straight into the field nTargetType
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a8	nTargetGUID	medium	D2MOO also leaves it a8; the function stores it straight into the field nTargetGUID
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a9	nX	medium	D2MOO also leaves it a9; the function stores it straight into the field nX
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA3_6FC3D730	a10	nY	medium	D2MOO also leaves it a10; the function stores it straight into the field nY
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA5_6FC3D7F0	a2	nUnitType	medium	D2MOO also leaves it a2; the function stores it straight into the field nUnitType
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA5_6FC3D7F0	a3	nUnitGUID	medium	D2MOO also leaves it a3; the function stores it straight into the field nUnitGUID
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA5_6FC3D7F0	a4	nSkillId	medium	D2MOO also leaves it a4; the function stores it straight into the field nSkillId
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x23_6FC3DC60	a4	bLeftSkill	high	D2MOO source/D2Game/src/GAME/SCmd.cpp, parameter 4
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x23_6FC3DC60	a5	nSkillId	high	D2MOO source/D2Game/src/GAME/SCmd.cpp, parameter 5
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x23_6FC3DC60	a6	nSkillOwnerGUID	high	D2MOO source/D2Game/src/GAME/SCmd.cpp, parameter 6
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x7A_6FC3E100	a2			D2MOO also has a2
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x7A_6FC3E100	a2	bAdd	medium	D2MOO also leaves it a2; the function stores it straight into the field bAdd
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x81_6FC3E160	a2			D2MOO also has a2
 Source/D2Game/GAME/SCmd.cpp	D2GAME_SendP0x9C_ItemAction_GroundToCursor_6FC3E870	a4	dwFlags	high	D2MOO source/D2Game/src/GAME/SCmd.cpp, parameter 4
 Source/D2Game/GAME/SCmd.cpp	D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0	a4	dwFlags	high	D2MOO source/D2Game/src/GAME/SCmd.cpp, parameter 4
@@ -245,149 +346,96 @@ Source/D2Game/GAME/SCmd.cpp	SCMD_SendUniqueMonsterInfo	a5	nUMods01	medium	no D2M
 Source/D2Game/GAME/SCmd.cpp	SCMD_SendUniqueMonsterInfo	a6	nUMods23	medium	no D2MOO definition of this function; the function stores it straight into the field nUMods23
 Source/D2Game/GAME/SCmd.cpp	SCMD_SendUniqueMonsterInfo	a7	bChampion	medium	no D2MOO definition of this function; the function stores it straight into the field bChampion
 Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x19_6FC3D3D0	a3	nPreviousGold	high	D2MOO source/D2Game/src/GAME/SCmd.cpp, parameter 3
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x98	a2			no D2MOO definition of this function
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x98	a3			no D2MOO definition of this function
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x9B_6FC3FB30	a3			D2MOO also has a3
-Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA4_6FC3FC00	a2			D2MOO also has a2
-Source/D2Game/UNIT/SUnitMsg.cpp	SUNITMSG_QueueItemSkillOnUnit	a6	nSkillParam	high	D2MOO source/D2Game/src/UNIT/SUnitMsg.cpp, parameter 6
-Source/D2Game/UNIT/SUnitMsg.cpp	SUNITMSG_QueueItemSkillOnPosition	a6	nSkillParam	high	D2MOO source/D2Game/src/UNIT/SUnitMsg.cpp, parameter 6
-Source/D2Game/UNIT/SUnitMsg.cpp	SUNITMSG_QueueSkillEvent	a7	nSkillParam	high	D2MOO source/D2Game/src/UNIT/SUnitMsg.cpp, parameter 7
-Source/D2Game/GAME/Clients.cpp	CLIENTS_AttachSaveFile	a6	nUnused1	high	D2MOO source/D2Game/src/GAME/Clients.cpp, parameter 6
-Source/D2Game/GAME/Clients.cpp	CLIENTS_AttachSaveFile	a7	nUnused2	high	D2MOO source/D2Game/src/GAME/Clients.cpp, parameter 7
-Source/D2Game/GAME/Clients.cpp	ClientAddToGame	a8			no D2MOO definition of this function
-Source/D2Game/GAME/Clients.cpp	ClientAddToGame	a9			no D2MOO definition of this function
-Source/D2Game/UNIT/SUnitDmg.cpp	SUNITDMG_SetMissileDamageFlagsForNearbyUnits	a7	bIncludeOwner	high	D2MOO source/D2Game/src/UNIT/SUnitDmg.cpp, parameter 7
-Source/D2Game/UNIT/SUnitDmg.cpp	SUNITDMG_SetMissileDamageFlagsForNearbyUnits	a8	bIncludeOwnersOwner	high	D2MOO source/D2Game/src/UNIT/SUnitDmg.cpp, parameter 8
-Source/D2Game/UNIT/SUnitDmg.cpp	SUNITDMG_SetMissileDamageFlagsForNearbyUnits	a10	nUnitFindFlags	high	D2MOO source/D2Game/src/UNIT/SUnitDmg.cpp, parameter 10
-Source/D2Game/UNIT/SUnitEvent.cpp	SUNITEVENT_Register	a8	nEventKey	high	D2MOO source/D2Game/src/UNIT/SUnitEvent.cpp, parameter 8
-Source/D2Game/UNIT/SUnitEvent.cpp	SUNITEVENT_Unregister	a4	nEventKey	high	D2MOO source/D2Game/src/UNIT/SUnitEvent.cpp, parameter 4
-Source/D2Game/UNIT/SUnitEvent.cpp	SUNITEVENT_GetEvent	a4	nEventKey	high	D2MOO source/D2Game/src/UNIT/SUnitEvent.cpp, parameter 4
-Source/D2Game/UNIT/PlayerList.cpp	PLAYERLIST_SetPartyState	a3	nPartyState	high	D2MOO source/D2Game/src/PLAYER/PlayerList.cpp, parameter 3
-Source/D2Game/UNIT/PlayerList.cpp	PLAYERLIST_SetHostileDelay	a3	nHostileDelayEndTick	high	D2MOO source/D2Game/src/PLAYER/PlayerList.cpp, parameter 3
-Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_TryDropTreasure	a3	nUnused	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 3
-Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_DropTreasure	a7	bIgnoreNoDrop	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 3
-Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventUpdateStatListExpirations	a3	nEventCustomId	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 3
-Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventUpdateStatListExpirations	a4	nEventCustomParam	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 4
-Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventFreeHoverText	a3	nEventCustomId	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 3
-Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventFreeHoverText	a4	nEventCustomParam	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 4
-Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventClearTargetOverride	a3	nEventCustomId	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 3
-Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventClearTargetOverride	a4	nEventCustomParam	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 4
-Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventModeChange	a3	nEventCustomId	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 3
-Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventModeChange	a4	nEventCustomParam	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 4
-Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventEndAnimation	a3	nEventCustomId	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 3
-Source/D2Game/MONSTER/MonsterMode.cpp	MONSTERMODE_EventEndAnimation	a4	nEventCustomParam	high	D2MOO source/D2Game/src/MONSTER/MonsterMode.cpp, parameter 4
-Source/D2Game/ITEMS/ItemMode.cpp	sITEMSAddStatsList	a4			no D2MOO definition of this function
-Source/D2Game/ITEMS/ItemMode.cpp	ITEMS_DropTreasureClassById	a7	bIgnoreNoDrop	high	D2MOO source/D2Game/src/ITEMS/Items.cpp, parameter 7
-Source/D2Game/ITEMS/ItemMode.cpp	D2GAME_UpdatePlayerItems_6FC4BB90	a3	bRefresh	high	D2MOO source/D2Game/src/ITEMS/ItemMode.cpp, parameter 3
-Source/D2Game/ITEMS/ItemMode.cpp	ITEMMODE_PlaceCursorItemInBelt	a6	pItemStatus	high	D2MOO source/D2Game/src/ITEMS/ItemMode.cpp, parameter 6
-Source/D2Game/ITEMS/ItemMode.cpp	ITEMMODE_SwapCursorAndBeltItem	a5	pItemStatus	high	D2MOO source/D2Game/src/ITEMS/ItemMode.cpp, parameter 5
-Source/D2Game/ITEMS/ItemMode.cpp	D2GAME_ITEMSOCKET_PlaceItem_6FC497E0	a9			D2MOO source/D2Game/src/ITEMS/ItemMode.cpp has 8 parameters, ours 9
-Source/D2Game/ITEMS/ItemMode.cpp	ITEMMODE_RemoveBeltItemToCursor	a4	pItemStatus	high	D2MOO source/D2Game/src/ITEMS/ItemMode.cpp, parameter 4
-Source/D2Game/ITEMS/ItemMode.cpp	ITEMMODE_DuplicateSocketFillers	a5	bRefresh	high	D2MOO source/D2Game/src/ITEMS/ItemMode.cpp, parameter 5
-Source/D2Game/SKILLS/SkillDruid.cpp	SKILLS_CreateMissileSpread	a7	bCreateFirstMissile	high	D2MOO source/D2Game/src/SKILLS/SkillDruid.cpp, parameter 7
-Source/D2Game/SKILLS/SkillItem.cpp	SKILLITEM_ActivateAura	a5	nEventKey	high	D2MOO source/D2Game/src/SKILLS/SkillItem.cpp, parameter 3
-Source/D2Game/SKILLS/SkillItem.cpp	SKILLITEM_DeactivateAura	a4	nEventKey	high	D2MOO source/D2Game/src/SKILLS/SkillItem.cpp, parameter 3
-Source/D2Game/SKILLS/SkillItem.cpp	SKILLITEM_pSpell03_Potion	a4	pTarget	high	D2MOO source/D2Game/src/SKILLS/SkillItem.cpp, parameter 4
-Source/D2Game/SKILLS/SkillItem.cpp	SKILLITEM_pSpell03_Potion	a5	nX	high	D2MOO source/D2Game/src/SKILLS/SkillItem.cpp, parameter 5
-Source/D2Game/SKILLS/SkillItem.cpp	SKILLITEM_pSpell03_Potion	a6	nY	high	D2MOO source/D2Game/src/SKILLS/SkillItem.cpp, parameter 6
-Source/D2Game/SKILLS/SkillItem.cpp	SKILLITEM_pSpell03_Potion	a7	nSkillId	high	D2MOO source/D2Game/src/SKILLS/SkillItem.cpp, parameter 7
-Source/D2Game/SKILLS/Skills.cpp	SKILLS_FindNextAuraTarget	a7	nPreviousTargetGUID	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 7
-Source/D2Game/SKILLS/Skills.cpp	SKILLS_FindNextAuraTarget	a8	pTargetCount	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 8
-Source/D2Game/SKILLS/Skills.cpp	SKILLS_RemoveStatesInGroup	a3	bIncludeState	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 3
-Source/D2Game/SKILLS/Skills.cpp	SKILLS_SchedulePeriodicSkill	a5	bUseRightSkill	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 5
-Source/D2Game/SKILLS/Skills.cpp	SKILLS_SchedulePeriodicStat	a5	nEventKey	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 3
-Source/D2Game/SKILLS/Skills.cpp	SKILLS_SchedulePeriodicStat	a6	bUseRightSkill	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 6
-Source/D2Game/SKILLS/Skills.cpp	SKILLS_EventCallback_PeriodicSkillAura	a4	nUnused	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 4
-Source/D2Game/SKILLS/Skills.cpp	SKILLS_EventCallback_ItemAura	a3	nEventCustomId	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 3
-Source/D2Game/SKILLS/Skills.cpp	SKILLS_CreateMissileRing	a3	pOrigin	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 3
-Source/D2Game/SKILLS/Skills.cpp	D2GAME_AssignSkill_6FD13800	a2	bLeftSkill	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 2
-Source/D2Game/SKILLS/Skills.cpp	SKILLS_SetDamageResultFlagsFromSkill	a8	nRangeOffset	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 8
-Source/D2Game/SKILLS/Skills.cpp	SKILLS_SetDamageResultFlags	a5	nToHitFactor	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 5
-Source/D2Game/SKILLS/Skills.cpp	SKILLS_SetDamageResultFlags	a7	nRangeOffset	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 7
-Source/D2Game/SKILLS/Skills.cpp	SKILLS_RegisterUnitEvent	a4	nParam1	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 4
-Source/D2Game/SKILLS/Skills.cpp	SKILLS_RegisterUnitEvent	a5	nParam2	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 5
-Source/D2Game/SKILLS/Skills.cpp	SKILLS_RegisterUnitEvent	a7	nEventGroup	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 7
-Source/D2Game/SKILLS/Skills.cpp	SKILLS_RegisterUnitEvent	a8	nEventKey	high	D2MOO source/D2Game/src/SKILLS/Skills.cpp, parameter 8
-Source/D2Game/GAME/Targets.cpp	TARGETS_AllocPlayerNode	a3	nNodeData	high	D2MOO source/D2Game/src/GAME/Targets.cpp, parameter 3
-Source/D2Game/GAME/Targets.cpp	D2GAME_UpdateSummonAI_6FC401F0	a3	nNodeData	high	D2MOO source/D2Game/src/GAME/Targets.cpp, parameter 3
-Source/D2Game/GAME/Targets.cpp	TARGETS_InsertUnitNode	a3	nNodeData	high	D2MOO source/D2Game/src/GAME/Targets.cpp, parameter 3
-Source/D2Game/GAME/Event.cpp	EVENT_ExecutePlayerEvents	a4	pGame		name already used in this function
-Source/D2Game/GAME/Event.cpp	EVENT_ExecuteMonsterEvents	a4	pGame		name already used in this function
-Source/D2Game/GAME/Event.cpp	EVENT_ExecuteObjectEvents	a4	pGame		name already used in this function
-Source/D2Game/GAME/Event.cpp	EVENT_ExecuteMissileEvents	a4	pGame		name already used in this function
-Source/D2Game/GAME/Event.cpp	EVENT_ExecuteItemEvents	a4	pGame		name already used in this function
-Source/D2Game/GAME/CCmd.cpp	CCMD_CanClientJoinGame	a1			D2MOO also has a1
-Source/D2Game/GAME/CCmd.cpp	CCMD_CanClientJoinGame	a2			D2MOO also has a2
-Source/D2Game/GAME/Game.cpp	D2Game_10056	a1	nValue	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 1
-Source/D2Game/GAME/Game.cpp	GAME_UpdatePing	a2			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	GAME_UpdatePing	a3			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	GAME_UpdatePing	a4			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	GAME_AbortClient	a3	szFile	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 3
-Source/D2Game/GAME/Game.cpp	GAME_AbortClient	a4	nLine	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 4
-Source/D2Game/GAME/Game.cpp	SrvVerifyJoinGame	a9			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	SrvVerifyJoinGame	a10			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	SrvVerifyJoinGame	a11			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	SrvVerifyJoinGame	a12			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	SrvVerifyJoinGame	a13			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a1			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a2			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a3			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a4			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a5			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a6			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a7			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a8			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a9			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a10			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a11			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a12			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a13			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a14			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a15			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a16			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a17			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultLeaveGame	a18			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultSaveDatabaseCharacter	a1			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultSaveDatabaseCharacter	a2			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultSaveDatabaseCharacter	a3			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultSaveDatabaseCharacter	a4			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultEnterGame	a1			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultEnterGame	a2			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultEnterGame	a3			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultFindPlayerToken	a1			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultFindPlayerToken	a2			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultFindPlayerToken	a3			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultFindPlayerToken	a4			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultFindPlayerToken	a5			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultFindPlayerToken	a6			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultFindPlayerToken	a7			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultUpdateCharacterLadder	a1			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultUpdateCharacterLadder	a2			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultUpdateCharacterLadder	a3			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultUpdateCharacterLadder	a4			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	NET_DefaultUpdateCharacterLadder	a5			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	sub_0052BF40_Stub	a1			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	sub_0052BF40_Stub	a2			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	sub_0052BF40_Stub	a3			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	sub_0052BF40_Stub	a4			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	sub_0052BFB0_Stub	a1			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	sub_0052BFB0_Stub	a2			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	sub_0052BFB0_Stub	a3			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	sub_0052BFB0_Stub	a4			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	SrvRecvDatabaseCharacter	a6			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	SrvJoinGame	a5			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	SrvJoinGame	a8			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	SrvJoinGame	a9			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	SrvJoinGame	a11			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	SrvJoinGame	a12			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	SrvJoinGame	a13			no D2MOO definition of this function
-Source/D2Game/GAME/Game.cpp	GAME_UpdateGamesProgress	a1	bLimitCatchUp	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 1
-Source/D2Game/GAME/Game.cpp	GAME_AbortClientById	a2	szFile	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 2
-Source/D2Game/GAME/Game.cpp	GAME_AbortClientById	a3	nLine	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 3
-Source/D2Game/GAME/Game.cpp	GAME_ReturnArgument	a1	nValue	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 1
-Source/D2Game/GAME/Game.cpp	GAME_SetTargetFrameRate	a1	nFrameRate	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 1
-Source/D2Game/GAME/Game.cpp	GAME_SendMessageToAllClients	a1	nMessageType	high	D2MOO source/D2Game/src/GAME/Game.cpp, parameter 1
-Source/D2Game/GAME/Game.cpp	GAME_SendMessageToAllClientsAsync	a1	nParam1	medium	no D2MOO definition of this function; the function stores it straight into the field nParam1
-Source/D2Game/MONSTER/MonsterAI.cpp	MONSTERAI_SendMercStats	a3	dwZero	high	D2MOO source/D2Game/src/MONSTER/MonsterAI.cpp, parameter 3
-Source/D2Game/MONSTER/Monster.cpp	MONSTER_SetVelocityAndPosition	a5	bUnusedSkipRoomUpdate	high	D2MOO source/D2Game/src/MONSTER/Monster.cpp, parameter 5
-Source/D2Game/MONSTER/MonsterRegion.cpp	MONSTERREGION_AdjustCountsForInactiveMonster	a6	bExcludeFromCount	high	D2MOO source/D2Game/src/MONSTER/MonsterRegion.cpp, parameter 6
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x98	a2	nUnitGUID	medium	no D2MOO definition of this function; the function stores it straight into the field nUnitGUID
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x98	a3	nMinionSpawnClassId	medium	no D2MOO definition of this function; the function stores it straight into the field nMinionSpawnClassId
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x9B_6FC3FB30	a3	nReviveCost	medium	D2MOO also leaves it a3; the function stores it straight into the field nReviveCost
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0xA4_6FC3FC00	a2	nMonStatsId	medium	D2MOO also leaves it a2; the function stores it straight into the field nMonStatsId
+Source/D2Game/Unknown_005B24E0.cpp	MONSTERSPAWN_SpawnWithOwnerData	a6			callees disagree: b, bSetFlag2, nFlag2
+Source/D2Game/Unknown_005B24E0.cpp	MONSTERSPAWN_SpawnLinkedMinionsAtCoordinates	a5	nMaxSearchRings	medium	passed straight to a function whose declaration calls that parameter nMaxSearchRings
+Source/D2Game/Unknown_0059F440.cpp	ACT2Q4_GetAndUpdatePalaceNpcState	a3			not passed straight to a named parameter
+Source/D2Game/PLAYER/PlrMsg.cpp	PLRMSG_SendUnitPosition	a7	bReassign	medium	passed straight to a function whose declaration calls that parameter bReassign
+Source/D2Game/PLAYER/PlrMsg.cpp	PLRMSG_InteractWithUnit	a4			not passed straight to a named parameter
+Source/D2Game/PLAYER/PlrSave.cpp	D2GAME_SAVE_SerializeItem_6FC89AD0	a4			not passed straight to a named parameter
+Source/D2Game/PLAYER/PlrSave.cpp	D2GAME_SAVE_SerializeItem_6FC89AD0	a5			not passed straight to a named parameter
+Source/D2Game/PLAYER/PlrSave.cpp	D2GAME_SAVE_SerializeItem_6FC89AD0	a6			not passed straight to a named parameter
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_WriteItems	a4			not passed straight to a named parameter
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_WriteItems	a5			not passed straight to a named parameter
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_WriteItems	a6			not passed straight to a named parameter
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_WriteCorpseSection	a5			not passed straight to a named parameter
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_GetSaveFileSize	a6	bUseTradeInventory	medium	passed straight to a function whose declaration calls that parameter bUseTradeInventory
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_GetSaveFileSize	a7			not passed straight to a named parameter
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_SetSkillIfLevelSet	a1	pUnit	medium	passed straight to a function whose declaration calls that parameter pUnit
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_SetSkillIfLevelSet	a2	nSkillId	medium	passed straight to a function whose declaration calls that parameter nSkillId
+Source/D2Game/PLAYER/PlrSave.cpp	PLRSAVE_SetSkillIfLevelSet	a3	nSkillLevel	medium	passed straight to a function whose declaration calls that parameter nSkillLevel
+Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_WriteCorpsesSection	a5			not passed straight to a named parameter
+Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_WriteCorpsesSection	a6	bSizing	medium	passed straight to a function whose declaration calls that parameter bSizing
+Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_WriteMercSection	a7			not passed straight to a named parameter
+Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_WriteIronGolemSection	a5			not passed straight to a named parameter
+Source/D2Game/PLAYER/PlrSave2.cpp	PLRSAVE2_WriteIronGolemSection	a6			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	sub_005347B0_Stub5	a1			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	sub_005347B0_Stub5	a2			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	sub_005347B0_Stub5	a3			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	sub_005347B0_Stub5	a4			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	sub_005347B0_Stub5	a5			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	DEBUG_Stub6	a1			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	DEBUG_Stub6	a2			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	DEBUG_Stub6	a3			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	DEBUG_Stub6	a4			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	DEBUG_Stub6	a5			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	DEBUG_Stub6	a6			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	DEBUG_Stub9	a1			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	DEBUG_Stub9	a2			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	DEBUG_Stub9	a3			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	DEBUG_Stub9	a4			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	DEBUG_Stub9	a5			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	DEBUG_Stub9	a6			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	DEBUG_Stub9	a7			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	DEBUG_Stub9	a8			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	DEBUG_Stub9	a9			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	sub_005347E0_Stub5	a1			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	sub_005347E0_Stub5	a2			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	sub_005347E0_Stub5	a3			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	sub_005347E0_Stub5	a4			not passed straight to a named parameter
+Source/D2Game/DEBUG/Debug.cpp	sub_005347E0_Stub5	a5			not passed straight to a named parameter
+Source/D2Game/PLAYER/PlrTrade.cpp	D2GAME_PLRTRADE_IsInteractingWithPlayer	a3			not passed straight to a named parameter
+Source/D2Game/Ai/AiThink4.cpp	AITHINK_RavenWalkToUnit	a4			not passed straight to a named parameter
+Source/D2Game/Ai/AiThink4.cpp	AITHINK_RavenWalkToUnit	a2			not passed straight to a named parameter
+Source/D2Game/ITEMS/ItemMode.cpp	sITEMSAddStatsList	a4			not passed straight to a named parameter
+Source/D2Game/ITEMS/ItemMode.cpp	D2GAME_ITEMSOCKET_PlaceItem_6FC497E0	a9			not passed straight to a named parameter
+Source/D2Game/GAME/Event.cpp	EVENT_ExecutePlayerEvents	a4			not passed straight to a named parameter
+Source/D2Game/GAME/Event.cpp	EVENT_ExecuteMonsterEvents	a4			not passed straight to a named parameter
+Source/D2Game/GAME/Event.cpp	EVENT_ExecuteObjectEvents	a4			not passed straight to a named parameter
+Source/D2Game/GAME/Event.cpp	EVENT_ExecuteMissileEvents	a4			not passed straight to a named parameter
+Source/D2Game/GAME/Event.cpp	EVENT_ExecuteItemEvents	a4			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	GAME_UpdatePing	a2	nTick	medium	passed straight to a function whose declaration calls that parameter nTick
+Source/D2Game/GAME/Game.cpp	GAME_UpdatePing	a3	nDelay	medium	passed straight to a function whose declaration calls that parameter nDelay
+Source/D2Game/GAME/Game.cpp	GAME_UpdatePing	a4			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	SrvVerifyJoinGame	a9			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	SrvVerifyJoinGame	a10			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	SrvVerifyJoinGame	a11			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	SrvVerifyJoinGame	a12			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	SrvVerifyJoinGame	a13			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	sub_0052BF40_Stub	a1			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	sub_0052BF40_Stub	a2			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	sub_0052BF40_Stub	a3			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	sub_0052BF40_Stub	a4			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	sub_0052BFB0_Stub	a1			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	sub_0052BFB0_Stub	a2			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	sub_0052BFB0_Stub	a3			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	sub_0052BFB0_Stub	a4			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	SrvRecvDatabaseCharacter	a6			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	SrvJoinGame	a5			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	SrvJoinGame	a8			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	SrvJoinGame	a9			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	SrvJoinGame	a11			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	SrvJoinGame	a12			not passed straight to a named parameter
+Source/D2Game/GAME/Game.cpp	SrvJoinGame	a13			not passed straight to a named parameter
+Source/D2Game/GAME/CCmd.cpp	CCMD_CanClientJoinGame	a1			not passed straight to a named parameter
+Source/D2Game/GAME/CCmd.cpp	CCMD_CanClientJoinGame	a2			not passed straight to a named parameter
+Source/D2Game/UNIT/SUNITNPC.CPP	sub_00577700_FindStack	a4			not passed straight to a named parameter
+Source/D2Game/GAME/Clients.cpp	ClientAddToGame	a8			not passed straight to a named parameter
+Source/D2Game/GAME/Clients.cpp	ClientAddToGame	a9			not passed straight to a named parameter
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x81_6FC3E160	a2			not passed straight to a named parameter
+Source/D2Game/GAME/SCmd.cpp	D2GAME_PACKETS_SendPacket0x3E_6FC3EC20	a3			not passed straight to a named parameter
+Source/D2Game/GAME/SCmd.cpp	D2GAME_SendPacket0x48_6FC3EF40	a3			not passed straight to a named parameter
+Source/D2Game/GAME/SCmd.cpp	SCMD_SendInteractionTarget	a5			not passed straight to a named parameter
