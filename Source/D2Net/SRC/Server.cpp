@@ -221,7 +221,7 @@ int __stdcall FOG_10180(void* pObject); // 0x006BE450
 void __stdcall FOG_10182_Return(void* pObject); // 0x006BF5F0
 
 // 0x0052B270
-int __fastcall sub_0052B270()
+int __fastcall D2NET_10027()
 {
     return FOG_10180(gpServer);
 }
@@ -297,7 +297,7 @@ unsigned int __stdcall SERVER_SendPacketToClient(char nSendMode, void* pClientId
 }
 
 // 0x0052B490
-int __stdcall sub_0052B490_ObjectCall_6BED90(int nArg1, int nArg2, int nArg3)
+int __stdcall SERVER_GetIpAddressStringFromClientId(int nArg1, int nArg2, int nArg3)
 {
     return sub_006BED90(gpServer, nArg1, nArg2, nArg3);
 }
@@ -407,7 +407,7 @@ int __stdcall D2NET_10022(int dwMilliseconds)
 }
 
 // 0x0052B6F0
-void __fastcall sub_0052B6F0()
+void __fastcall D2NET_10028_Return()
 {
     FOG_10182_Return(gpServer);
 }

@@ -899,7 +899,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volati
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile*);  // 0x006CC204
 
-int __stdcall sub_0052B490_ObjectCall_6BED90(int,int,int);
+int __stdcall SERVER_GetIpAddressStringFromClientId(int,int,int); // 0x0052B490
 
 int __stdcall sub_0052B330(unsigned char,int,void*,int);  // 0x0052B330
 
@@ -1979,20 +1979,20 @@ void __fastcall GAME_ProcessAdminMessage(void* pData,int nSize) {
  char received[16];
  switch(request->command) {
  case 0xFA:
-  sub_0052B490_ObjectCall_6BED90(client,(int)received,16);
+  SERVER_GetIpAddressStringFromClientId(client,(int)received,16);
   InterlockedIncrement(&gnAdminConnectionCount);
   response.command=REPLY_FA;
   sub_0052B330(2,client,&response,16);
   break;
  case 0xFB:
-  sub_0052B490_ObjectCall_6BED90(client,(int)received,16);
+  SERVER_GetIpAddressStringFromClientId(client,(int)received,16);
   response.command=REPLY_FB;
   sub_0052B330(2,client,&response,16);
   D2NET_10016(client);
   InterlockedDecrement(&gnAdminConnectionCount);
   break;
  case 0xFC:
-  sub_0052B490_ObjectCall_6BED90(client,(int)received,16);
+  SERVER_GetIpAddressStringFromClientId(client,(int)received,16);
   response.command=REPLY_FC;
   sub_0052B330(2,client,&response,16);
   break;
