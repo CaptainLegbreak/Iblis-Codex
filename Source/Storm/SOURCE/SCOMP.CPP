@@ -1,6 +1,7 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
 #include "D2StormLink.h"
+#include "stpl.h"
 #include "SValidate.h"
 
 struct D2StormHashBufferStrc;
@@ -16,8 +17,6 @@ struct D2StormCompParamStrc;
 
 struct D2StormZArenaStrc;
 
-struct D2StormNodeListAStrc;
-
 struct HUFFNODE;
 
 struct CHuffman;
@@ -30,37 +29,19 @@ struct D2SCompListViewStrc;
 
 struct D2SCompLinkNextAStrc;
 
-struct D2SCompLinkNextBStrc;
-
 struct D2SCompLinkPrevStrc;
 
 struct D2SCompLinkRawAStrc;
 
-struct D2SCompLinkRawBStrc;
-
 struct D2SCompUnlinkAStrc;
 
-struct D2SCompUnlinkBStrc;
-
-struct D2SCompUnlinkCStrc;
-
-struct D2SCompUnlinkDStrc;
-
 struct D2SCompListTermStrc;
-
-struct D2SCompLinkCtorAStrc;
-
-struct D2SCompLinkCtorBStrc;
-
-struct D2SCompListHeadStrc;
 
 struct D2SCompListTailStrc;
 
 struct D2SCompListInitStrc;
 
 struct D2SCompTermLinkStrc;
-
-struct D2SCompListStrc;
 
 struct D2StormMemSourceStrc
 {
@@ -87,31 +68,12 @@ struct D2StormCompParamStrc
     unsigned int nSrcSize;
 };
 
-struct D2StormNodeListAStrc
+struct HUFFNODE : TSLinkedNode<HUFFNODE>
 {
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* Head()
-    {
-        return m_terminator.Next();
-    }
-    D2StormLinkStrc* Link(char* pNode)
-    {
-        return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
-    }
-    D2StormLinkStrc* sub_0041EB40_Link(char* pNode);
-    void sub_0041EB60_UnlinkNode(char* pNode);
-    void LinkNode(char* pNode, unsigned int nLinkType, char* pExisting);                       // 0x0041ED90
-};
-
-struct HUFFNODE
-{
-    D2StormLinkStrc tLink;
-    unsigned int nValue;
-    unsigned int nWeight;
-    HUFFNODE* pParent;
-    HUFFNODE* pChild;
+    unsigned int nValue;                                    // 0x08
+    unsigned int nWeight;                                   // 0x0C
+    HUFFNODE* pParent;                                      // 0x10
+    HUFFNODE* pChild;                                       // 0x14
 
     HUFFNODE();
     ~HUFFNODE();
@@ -121,8 +83,8 @@ struct CHuffman
 {
     int unk0x00[2];
     HUFFNODE aItems[0x203];
-    D2StormNodeListAStrc tFreeList;
-    D2StormNodeListAStrc tItemList;
+    TSList<HUFFNODE> tFreeList;
+    TSList<HUFFNODE> tItemList;
     unsigned int nItemsUsed;
 
     HUFFNODE* NewItem(unsigned int nLinkType); // 0x0041EED0
@@ -152,29 +114,13 @@ struct D2SCompListViewStrc
 
 struct D2SCompLinkNextAStrc { D2SCompLinkStrc tLink; char* sub_0041E930_Next(); };
 
-struct D2SCompLinkNextBStrc { D2SCompLinkStrc tLink; char* sub_0041EA40_Next(); };
-
 struct D2SCompLinkPrevStrc { D2SCompLinkStrc tLink; char* sub_0041E940_Prev(); };
 
 struct D2SCompLinkRawAStrc { D2SCompLinkStrc tLink; char* sub_0041E960_RawNext(); };
 
-struct D2SCompLinkRawBStrc { D2SCompLinkStrc tLink; char* sub_0041EA50_RawNext(); };
-
 struct D2SCompUnlinkAStrc { D2SCompLinkStrc tLink; void sub_0041E970_Unlink(); };
 
-struct D2SCompUnlinkBStrc { D2SCompLinkStrc tLink; void sub_0041EA70_Unlink(); };
-
-struct D2SCompUnlinkCStrc { D2SCompLinkStrc tLink; void sub_0041EAE0_Unlink(); };
-
-struct D2SCompUnlinkDStrc { D2SCompLinkStrc tLink; void sub_0041ED30_Unlink(); };
-
 struct D2SCompListTermStrc { D2SCompListViewStrc tList; void sub_0041E9B0_InitializeTerminator(); };
-
-struct D2SCompLinkCtorAStrc { D2SCompLinkStrc* m_prevlink; char* m_next; D2SCompLinkCtorAStrc(); };
-
-struct D2SCompLinkCtorBStrc { D2SCompLinkStrc* m_prevlink; char* m_next; D2SCompLinkCtorBStrc(); };
-
-struct D2SCompListHeadStrc { D2SCompListViewStrc tList; char* sub_0041EAB0_Head(); };
 
 struct D2SCompListTailStrc { D2SCompListViewStrc tList; char* sub_0041EAC0_Tail(); };
 
@@ -185,13 +131,6 @@ struct D2SCompTermLinkStrc
     D2SCompTermLinkStrc* m_prevlink;
     char* m_next;
     D2SCompTermLinkStrc() { m_prevlink = 0; m_next = 0; }
-};
-
-struct D2SCompListStrc
-{
-    int m_linkoffset;
-    D2SCompTermLinkStrc m_terminator;
-    D2SCompListStrc();
 };
 
 struct D2StormZArenaStrc
@@ -1015,30 +954,12 @@ void __fastcall sub_0041E9D0_SwapDwords(int* pA, int* pB)
     *pB = nTemp;
 }
 
-// 0x0041EA40
-char* D2SCompLinkNextBStrc::sub_0041EA40_Next() { return (int)tLink.m_next <= 0 ? 0 : tLink.m_next; }
-
-// 0x0041EA50
-char* D2SCompLinkRawBStrc::sub_0041EA50_RawNext() { return tLink.m_next; }
-
-// 0x0041EA60
-D2SCompLinkCtorAStrc::D2SCompLinkCtorAStrc() { m_prevlink = 0; m_next = 0; }
-
-// 0x0041EA70
-void D2SCompUnlinkBStrc::sub_0041EA70_Unlink() { tLink.Unlink(); }
-
-// 0x0041EAB0
-char* D2SCompListHeadStrc::sub_0041EAB0_Head() { return (int)tList.m_terminator.m_next <= 0 ? 0 : tList.m_terminator.m_next; }
-
 // 0x0041EAC0
 char* D2SCompListTailStrc::sub_0041EAC0_Tail()
 {
     D2SCompLinkStrc* pLink = tList.m_terminator.m_prevlink->m_prevlink;
     return (int)pLink->m_next <= 0 ? 0 : pLink->m_next;
 }
-
-// 0x0041EAE0
-void D2SCompUnlinkCStrc::sub_0041EAE0_Unlink() { tLink.Unlink(); }
 
 // 0x0041EB20
 void D2SCompListInitStrc::sub_0041EB20_Init()
@@ -1048,31 +969,14 @@ void D2SCompListInitStrc::sub_0041EB20_Init()
     tList.m_terminator.m_next = (char*)~(unsigned int)&tList.m_terminator;
 }
 
-// 0x0041EBB0
-D2SCompLinkCtorBStrc::D2SCompLinkCtorBStrc() { m_prevlink = 0; m_next = 0; }
-
-// 0x0041ED30
-void D2SCompUnlinkDStrc::sub_0041ED30_Unlink() { tLink.Unlink(); }
-
-// 0x0041ED70
-D2SCompListStrc::D2SCompListStrc()
-{
-    m_linkoffset = 0;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
 // 0x0041EE80
 HUFFNODE::HUFFNODE()
 {
-    tLink.m_prevlink = 0;
-    tLink.m_next = 0;
 }
 
 // 0x0041EE90
 HUFFNODE::~HUFFNODE()
 {
-    tLink.Unlink();
 }
 
 // List and bit-reader pieces of the run that no caller reaches, on placeholder types.
@@ -1109,18 +1013,6 @@ struct D2SCompBitInputStrc
         nBitCount -= nBits;
     }
     unsigned int sub_0041E9E0_Get(unsigned int nBits, unsigned int nMask);
-};
-
-struct D2StormNodeListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    char* Head()
-    {
-        return m_terminator.Next();
-    }
-    void sub_0041EE40_UnlinkAll();
 };
 
 // 0x0041E8F0
@@ -1160,58 +1052,38 @@ int __stdcall sub_0041EA20_Forward(void* p1, unsigned int* p2, const void* p3, u
     return SCompDecompress(p1, p2, (unsigned char*)p3, n4, 0);
 }
 
-// 0x0041EB40
-D2StormLinkStrc* D2StormNodeListAStrc::sub_0041EB40_Link(char* pNode)
-{
-    return pNode ? (D2StormLinkStrc*)pNode : &m_terminator;
-}
-
-// 0x0041EB60
-void D2StormNodeListAStrc::sub_0041EB60_UnlinkNode(char* pNode)
-{
-    Link(pNode)->Unlink();
-}
-
-// 0x0041ED90
-void D2StormNodeListAStrc::LinkNode(char* pNode, unsigned int nLinkType, char* pExisting)
-{
-    D2StormLinkStrc* pLink = Link(pNode);
-    pLink->Unlink();
-    D2StormLinkStrc* pExistingLink = Link(pExisting);
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->m_prevlink = pExistingLink;
-        pLink->m_next = pExistingLink->m_next;
-        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-        pExistingLink->m_next = pNode;
-        break;
-    default:
-        {
-            D2StormLinkStrc* pPrev = pExistingLink->m_prevlink;
-            pLink->m_prevlink = pPrev;
-            pLink->m_next = pPrev->m_next;
-            pPrev->m_next = pNode;
-            pExistingLink->m_prevlink = pLink;
-        }
-        break;
-    }
-}
-
-// 0x0041EE40
-void D2StormNodeListStrc::sub_0041EE40_UnlinkAll()
-{
-    while (char* pNode = Head())
-        ((D2StormLinkStrc*)pNode)->Unlink();
-}
+// build: symbol ?Next@?$TSLink@UHUFFNODE@@@@QAEPAUHUFFNODE@@XZ 0x0041EA40
+// build: symbol ?RawNext@?$TSLink@UHUFFNODE@@@@QAEPAUHUFFNODE@@XZ 0x0041EA50
+// build: symbol ??0?$TSLink@UHUFFNODE@@@@QAE@XZ 0x0041EA60
+// build: symbol ?Unlink@?$TSLink@UHUFFNODE@@@@QAEXXZ 0x0041EA70
+// build: symbol ?Head@?$TSList@UHUFFNODE@@U?$TSGetLink@UHUFFNODE@@@@@@QAEPAUHUFFNODE@@XZ 0x0041EAB0
+// build: symbol ??1?$TSLink@UHUFFNODE@@@@QAE@XZ 0x0041EAE0
+// build: symbol ?Link@?$TSList@UHUFFNODE@@U?$TSGetLink@UHUFFNODE@@@@@@QAEPAU?$TSLink@UHUFFNODE@@@@PBUHUFFNODE@@@Z 0x0041EB40
+// build: symbol ?UnlinkNode@?$TSList@UHUFFNODE@@U?$TSGetLink@UHUFFNODE@@@@@@QAEXPAUHUFFNODE@@@Z 0x0041EB60
+// build: symbol ??0?$TSLinkedNode@UHUFFNODE@@@@QAE@XZ 0x0041EBB0
+// build: symbol ??1?$TSLinkedNode@UHUFFNODE@@@@QAE@XZ 0x0041ED30
+// build: symbol ??0?$TSList@UHUFFNODE@@U?$TSGetLink@UHUFFNODE@@@@@@QAE@XZ 0x0041ED70
+// build: symbol ?LinkNode@?$TSList@UHUFFNODE@@U?$TSGetLink@UHUFFNODE@@@@@@QAEXPAUHUFFNODE@@I0@Z 0x0041ED90
+// build: symbol ?UnlinkAll@?$TSList@UHUFFNODE@@U?$TSGetLink@UHUFFNODE@@@@@@QAEXXZ 0x0041EE40
+template HUFFNODE* TSLink<HUFFNODE>::Next();
+template HUFFNODE* TSLink<HUFFNODE>::RawNext();
+template TSLink<HUFFNODE>::TSLink();
+template void TSLink<HUFFNODE>::Unlink();
+template HUFFNODE* TSList<HUFFNODE>::Head();
+template TSLink<HUFFNODE>::~TSLink();
+template TSLink<HUFFNODE>* TSList<HUFFNODE>::Link(const HUFFNODE*);
+template void TSList<HUFFNODE>::UnlinkNode(HUFFNODE*);
+template TSList<HUFFNODE>::TSList();
+template void TSList<HUFFNODE>::LinkNode(HUFFNODE*, unsigned int, HUFFNODE*);
+template void TSList<HUFFNODE>::UnlinkAll();
 
 // 0x0041EED0
 HUFFNODE* CHuffman::NewItem(unsigned int nLinkType)
 {
-    HUFFNODE* pItem = (HUFFNODE*)tFreeList.Head();
+    HUFFNODE* pItem = tFreeList.Head();
     if (!pItem)
         pItem = &aItems[nItemsUsed++];
-    tItemList.LinkNode((char*)pItem, nLinkType, 0);
+    tItemList.LinkNode(pItem, nLinkType, 0);
     pItem->pParent = 0;
     pItem->pChild = 0;
     return pItem;

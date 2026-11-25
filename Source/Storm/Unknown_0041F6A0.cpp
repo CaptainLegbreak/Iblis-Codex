@@ -105,3 +105,4 @@ static int BigIsEven(const BigBuffer& a)
     return !a.Count() || !(a[0] & 1);
 }
 
+// build: symbol ?sub_0041EE40_UnlinkAll@D2StormNodeListStrc@@QAEXXZ 0x0041EE40
