@@ -211,7 +211,8 @@ void __fastcall ProcessClientMessage(void* pData, int nPacketSize)
 {
     const int nClientId = *(int*)pData;
     unsigned char* pPacket = (unsigned char*)pData + 4;
-    D2GameStrc* pGame = sub_0052FEE0_LockGameByClientId(nClientId);
+// build: symbol ?GAME_GetGameByClientId@* 0x0052FEE0
+    D2GameStrc* pGame = GAME_GetGameByClientId(nClientId);
     if (!pGame)
     {
         GAME_LogMessage(9, "[ProcessClientMessage] Client %d is not in any game", nClientId);

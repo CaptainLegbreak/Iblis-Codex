@@ -77,7 +77,8 @@ bool __fastcall sub_005B9A30_QuestSeqCallback(D2GameStrc* pGame, D2QuestDataStrc
                         if ((!pUnit ? 6 : pUnit->dwUnitType) == 0)
                         {
                             ACT3Q3_SpawnFetishBoss(pGame, pRoom, pQuestDataEx);
-                            pQuestData->pCallback = sub_005B9980_QuestCallback;
+// build: symbol ?ACT3Q3_Callback08_MonsterKilled@* 0x005B9980
+                            pQuestData->pCallback = ACT3Q3_Callback08_MonsterKilled;
                             return true;
                         }
                     }

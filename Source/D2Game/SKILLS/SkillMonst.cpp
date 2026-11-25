@@ -2634,7 +2634,7 @@ struct MonsterData;
 struct Skills;
 
 
-D2UnitStrc* __stdcall sub_00553540(Game*, D2UnitStrc*); // 0x00553540
+D2UnitStrc* __stdcall SUNIT_GetTargetUnit(Game*, D2UnitStrc*); // 0x00553540
 
 void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(Game*, D2UnitStrc*, D2UnitStrc*); // 0x0057C9F0
 

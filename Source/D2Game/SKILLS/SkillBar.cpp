@@ -977,7 +977,7 @@ int __fastcall SKILLS_RollFrenzyDamage(Game* game,Unit* unit,Unit* target,int id
     UNITS_SetTargetUnitForDynamicUnit(unit,target);
     D2DamageStrc damage;
     memset(&damage,0,sizeof(damage));
-    damage.wResultFlags=sub_0057EC10(game,unit,target,SKILLS_GetToHitFactor(unit,id,level),0);
+    damage.wResultFlags=SUNITDMG_GetResultFlags(game,unit,target,SKILLS_GetToHitFactor(unit,id,level),0);
     if(damage.wResultFlags&1) {
         damage.wResultFlags |= record->resultFlags;
         damage.dwHitFlags |= record->hitFlags;

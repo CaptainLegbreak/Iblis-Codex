@@ -2517,10 +2517,12 @@ unsigned long __stdcall GAME_RunQServerThread(void* pArg)
     {
         if (bRestart)
         {
-            sub_0052CFE0();
+// build: symbol ?GAME_ProcessNetworkMessages@* 0x0052CFE0
+            GAME_ProcessNetworkMessages();
             pSession = GAME_UpdateGamesProgress(1);
             if (pSession)
-                sub_0052FD90(0, 0);
+// build: symbol ?GAME_UpdateClients@* 0x0052FD90
+                GAME_UpdateClients(0, 0);
         }
         if (pSession)
         {
@@ -2563,8 +2565,9 @@ unsigned long __stdcall GAME_RunQServerThread(void* pArg)
         bRestart = gbQServerRestart;
         LeaveCriticalSection(&gtQServerLock);
     }
-    sub_0052E9C0();
-    sub_0052FD90(0, 1);
+// build: symbol ?GAME_CloseAllGames@* 0x0052E9C0
+    GAME_CloseAllGames();
+    GAME_UpdateClients(0, 1);
     DeleteCriticalSection(&gtQServerLock);
     OutputDebugStringA("Open server thread shut down\n");
     return 1;

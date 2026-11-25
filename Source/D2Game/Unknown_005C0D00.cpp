@@ -325,7 +325,7 @@ void __fastcall ACT5Q5_OnPortalOpened(D2GameStrc* game,D2UnitStrc* unit); // 0x0
 
 D2ClientStrc* __fastcall sub_005531C0_GetClient(D2UnitStrc* unit,const char* file,int line,int type,int id); // 0x005531C0
 
-void __fastcall sub_0053B3D0_SendByte(D2ClientStrc* client,unsigned char code); // 0x0053B3D0
+void __fastcall D2GAME_PACKETS_SendPacketSize06_6FC3C850(D2ClientStrc* client,unsigned char code); // 0x0053B3D0
 
 int __stdcall ITEMS_GetBonusLifeBasedOnClass(D2UnitStrc*, int); // 0x0062A5D0
 
