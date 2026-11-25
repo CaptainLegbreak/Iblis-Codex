@@ -75,7 +75,7 @@ struct D2WaypointSaveDataStrc;
 
 struct D2PlrIntroSaveStrc;
 
-struct T0056A6F0;
+struct D2SaveSkillLevelStrc;
 
 struct D2Act5Quest3Strc;
 
@@ -251,7 +251,7 @@ void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int n
 
 void __fastcall SCMD_SendSkillList(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053C5D0
 
-struct T0056A6F0 { unsigned char value; };
+struct D2SaveSkillLevelStrc { unsigned char value; };
 
 void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc*,int,int,int); // 0x0056DEB0
 
@@ -1677,7 +1677,7 @@ int __fastcall PLRSAVE2_ReadStats(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned
 }
 
 // 0x0056A6F0
-void __fastcall PLRSAVE2_SetSkillIfLevelSet(Game* unused,D2UnitStrc* unit,int skill,T0056A6F0 level)
+void __fastcall PLRSAVE2_SetSkillIfLevelSet(Game* unused,D2UnitStrc* unit,int skill,D2SaveSkillLevelStrc level)
 {
     if(level.value) D2GAME_SetSkills_6FD14C60(unit,skill,level.value,REMOVE_SKILL);
 }
