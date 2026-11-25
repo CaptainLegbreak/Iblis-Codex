@@ -35605,12 +35605,12 @@
     {
      "va": "0x00510340",
      "length": 3,
-     "name": "?DDCORE_PerspectiveTransform@@YIXHHHHH@Z"
+     "name": "?DDCORE_PerspectiveTransform@@YIXHHHPAH0@Z"
     },
     {
      "va": "0x00510350",
      "length": 3,
-     "name": "?DDCORE_PerspectiveTransformScale@@YIXHHHHHH@Z"
+     "name": "?DDCORE_PerspectiveTransformScale@@YIXHHHPAH0H@Z"
     },
     {
      "va": "0x00510360",

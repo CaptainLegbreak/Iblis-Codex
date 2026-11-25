@@ -452,7 +452,7 @@ extern int gnSurfaceHeight_007C913C;                                            
 extern unsigned char* gpSurfaceBits_007C9154;                                                               // 0x007C9154
 
 
-int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
+int __stdcall D2CMPTileValidate(D2TileLibraryEntryStrc* pTile, int bAsync, int nFlags); // 0x005FDEA0
 int __cdecl sub_006C8A50_GetBlendedShadows(); // 0x006C8A50
 extern int gnRenderHeight; // 0x007C913C
 

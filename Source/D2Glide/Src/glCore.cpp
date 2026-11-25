@@ -126,7 +126,7 @@ int gnGlideGammaTableSize;                                                      
 
 extern int gnGlideTmuState; // 0x0072F254
 
-void (__stdcall* gpfnGrTexCombine)(int a1, int a2, int a3, int a4, int a5, int a6, int a7); // 0x0087EAD0
+void (__stdcall* gpfnGrTexCombine)(int nTmu, int nRgbFunction, int nRgbFactor, int nAlphaFunction, int nAlphaFactor, int bRgbInvert, int bAlphaInvert); // 0x0087EAD0
 
 unsigned int gaGlidePalette[256];                                                                  // 0x0087EBA0
 
@@ -149,21 +149,21 @@ extern int gdwGlobal_0087EFB8; // 0x0087EFB8
 
 extern void* (__stdcall* gpfnGrSstWinOpen)(void* hWnd, int nRes, int nRefresh, int nFormat, int nOrigin, int nBuffers, int nAux); // 0x0087EAF4
 
-extern void (__stdcall* gpfnGrCoordinateSpace)(int a1); // 0x0087EB38
+extern void (__stdcall* gpfnGrCoordinateSpace)(int nMode); // 0x0087EB38
 
-extern void (__stdcall* gpfnGrDepthMask)(int a1); // 0x0087E97C
+extern void (__stdcall* gpfnGrDepthMask)(int bMask); // 0x0087E97C
 
-extern void (__stdcall* gpfnGrColorMask)(int a1, int a2); // 0x0087EB30
+extern void (__stdcall* gpfnGrColorMask)(int bRgb, int bAlpha); // 0x0087EB30
 
-void (__stdcall* gpfnGrTexFilterMode)(int a1, int a2, int a3); // 0x0087EAFC
+void (__stdcall* gpfnGrTexFilterMode)(int nTmu, int nMinFilterMode, int nMagFilterMode); // 0x0087EAFC
 
-extern void (__stdcall* gpfnGrChromakeyValue)(int a1); // 0x0087EB34
+extern void (__stdcall* gpfnGrChromakeyValue)(int nValue); // 0x0087EB34
 
 void (__stdcall* gpfnGrGlideShutdown)(); // 0x0087EAB0
 
 void (__stdcall* gpfnGrGlideInit)(); // 0x0087EB04
 
-void (__stdcall* gpfnGrSstSelect)(int a1); // 0x0087EB3C
+void (__stdcall* gpfnGrSstSelect)(int nSst); // 0x0087EB3C
 
 void __cdecl GLDEBUGFONT_CreateDebugFont(); // 0x0050B9E0
 
@@ -179,7 +179,7 @@ int gdwGlobal_0087EFBC; // 0x0087EFBC
 
 int (__stdcall* gpfnGrGet)(int nName, int nSize, int* pParams); // 0x0087EB1C
 
-void (__stdcall* gpfnGrVertexLayout)(int a1, int a2, int a3); // 0x0087EB9C
+void (__stdcall* gpfnGrVertexLayout)(int nParam, int nOffset, int nMode); // 0x0087EB9C
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 
@@ -414,22 +414,22 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern "C" __declspec(dllimport) void* __stdcall LoadLibraryA(const char* szLibFileName);
 extern "C" __declspec(dllimport) void* __stdcall GetProcAddress(void* hModule, const char* szProcName);
-extern void (__stdcall* gpfnGrVertexLayout)(int a1, int a2, int a3); // 0x0087EB9C
+extern void (__stdcall* gpfnGrVertexLayout)(int nParam, int nOffset, int nMode); // 0x0087EB9C
 extern void (__stdcall* gpfnGrDrawVertexArrayContiguous)(int nMode, int nCount, void* pVertices, int nStride); // 0x0087EAC4
 extern void (__stdcall* gpfnGrBufferClear)(unsigned int dwColor, unsigned int nAlpha, unsigned int nDepth); // 0x0087EB88
 extern void (__stdcall* gpfnGrBufferSwap)(int nSwapInterval); // 0x0087EB90
 extern void* gpfGlideFinish_0087EB14; // 0x0087EB14
 extern void* gpfGlideSstWinClose_0087EFA4; // 0x0087EFA4
-extern void (__stdcall* gpfnGrSstSelect)(int a1); // 0x0087EB3C
-extern void (__stdcall* gpfnGrAlphaBlendFunction)(int a1, int a2, int a3, int a4); // 0x0087EACC
-extern void (__stdcall* gpfnGrAlphaCombine)(int a1, int a2, int a3, int a4, int a5); // 0x0087EAF0
+extern void (__stdcall* gpfnGrSstSelect)(int nSst); // 0x0087EB3C
+extern void (__stdcall* gpfnGrAlphaBlendFunction)(int nRgbSrcFactor, int nRgbDstFactor, int nAlphaSrcFactor, int nAlphaDstFactor); // 0x0087EACC
+extern void (__stdcall* gpfnGrAlphaCombine)(int nFunction, int nFactor, int nLocal, int nOther, int bInvert); // 0x0087EAF0
 extern void (__stdcall* gpfnGrChromakeyMode)(int bEnable); // 0x0087EB8C
 extern void (__stdcall* gpfnGrColorCombine)(int nFunction, int nFactor, int nLocal, int nOther, int bInvert); // 0x0087EB2C
 extern void (__stdcall* gpfnGrConstantColorValue)(unsigned int dwColor); // 0x0087EFA0
 extern void (__stdcall* gpfnGrDitherMode)(int nFunction); // 0x0087EAB4
 extern int (__stdcall* gpfnGrGet)(int nName, int nSize, int* pParams); // 0x0087EB1C
-extern void (__stdcall* gpfnGrTexCombine)(int a1, int a2, int a3, int a4, int a5, int a6, int a7); // 0x0087EAD0
-extern void (__stdcall* gpfnGrTexFilterMode)(int a1, int a2, int a3); // 0x0087EAFC
+extern void (__stdcall* gpfnGrTexCombine)(int nTmu, int nRgbFunction, int nRgbFactor, int nAlphaFunction, int nAlphaFactor, int bRgbInvert, int bAlphaInvert); // 0x0087EAD0
+extern void (__stdcall* gpfnGrTexFilterMode)(int nTmu, int nMinFilterMode, int nMagFilterMode); // 0x0087EAFC
 extern void (__stdcall* gpfnGrGlideInit)(); // 0x0087EB04
 extern void (__stdcall* gpfnGrGlideShutdown)(); // 0x0087EAB0
 
@@ -455,17 +455,17 @@ void (__stdcall* gpfnGrDrawVertexArray)(int nMode, int nCount, void** ppVertices
 
 void* (__stdcall* gpfnGrSstWinOpen)(void* hWnd, int nRes, int nRefresh, int nFormat, int nOrigin, int nBuffers, int nAux); // 0x0087EAF4
 
-void (__stdcall* gpfnGrChromakeyValue)(int a1); // 0x0087EB34
+void (__stdcall* gpfnGrChromakeyValue)(int nValue); // 0x0087EB34
 
 void* gpfnGrClipWindow; // 0x0087EB10
 
-void (__stdcall* gpfnGrColorMask)(int a1, int a2); // 0x0087EB30
+void (__stdcall* gpfnGrColorMask)(int bRgb, int bAlpha); // 0x0087EB30
 
 void* gpfnGrDepthBufferFunction; // 0x0087EB28
 
 void* gpfnGrDepthBufferMode; // 0x0087EB20
 
-void (__stdcall* gpfnGrDepthMask)(int a1); // 0x0087E97C
+void (__stdcall* gpfnGrDepthMask)(int bMask); // 0x0087E97C
 
 void (__stdcall* gpfnGrLoadGammaTable)(int nEntries, unsigned int* pRed, unsigned int* pGreen, unsigned int* pBlue); // 0x0087EAE0
 
@@ -477,7 +477,7 @@ void* gpfnGrEnable; // 0x0087EAC0
 
 void* gpfnGrDisable; // 0x0087EAF8
 
-void (__stdcall* gpfnGrCoordinateSpace)(int a1); // 0x0087EB38
+void (__stdcall* gpfnGrCoordinateSpace)(int nMode); // 0x0087EB38
 
 void* gpfnGrTexTextureMemRequired; // 0x0087EB00
 
@@ -758,9 +758,9 @@ void __fastcall GLCORE_SetPalette(const tagPALETTEENTRY* pPalette)
     }
 }
 
-void (__stdcall* gpfnGrAlphaBlendFunction)(int a1, int a2, int a3, int a4); // 0x0087EACC
+void (__stdcall* gpfnGrAlphaBlendFunction)(int nRgbSrcFactor, int nRgbDstFactor, int nAlphaSrcFactor, int nAlphaDstFactor); // 0x0087EACC
 
-void (__stdcall* gpfnGrAlphaCombine)(int a1, int a2, int a3, int a4, int a5); // 0x0087EAF0
+void (__stdcall* gpfnGrAlphaCombine)(int nFunction, int nFactor, int nLocal, int nOther, int bInvert); // 0x0087EAF0
 
 void (__stdcall* gpfnGrColorCombine)(int nFunction, int nFactor, int nLocal, int nOther, int bInvert); // 0x0087EB2C
 
