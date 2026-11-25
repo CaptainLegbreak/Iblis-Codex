@@ -87,9 +87,11 @@ bool gbKoreanFonts;                                                             
 // build: symbol ??__EgwszFramedText@@YAXXZ 0x006CAE20
 Unicode gwszFramedText[1024];                                                                      // 0x00841EC8
 
-extern wchar_t gwszMonsterCode_008426DC[2];                                                                 // 0x008426DC
+// build: symbol ??__EgwszMonsterCode_008426DC@@YAXXZ 0x006CAE50
+Unicode gwszMonsterCode_008426DC[2]; // 0x008426DC
 
-extern wchar_t gwszColorCode_008426E0[2];                                                                   // 0x008426E0
+// build: symbol ??__EgwszColorCode_008426E0@@YAXXZ 0x006CAE40
+Unicode gwszColorCode_008426E0[2]; // 0x008426E0
 
 struct D2FontStrc;
 
@@ -1137,9 +1139,9 @@ void __fastcall D2Win_10115_FONT()
     gpFontCache = &gatFontCache[1];
     memset(gwszFramedText, 0, 0x800);
     *(unsigned short*)szFile = 'c';
-    sub_00526320_ToUnicode(gwszColorCode_008426E0, szFile, 2);
+    sub_00526320_ToUnicode((wchar_t*)gwszColorCode_008426E0, szFile, 2);
     *(unsigned short*)szFile = 'm';
-    sub_00526320_ToUnicode(gwszMonsterCode_008426DC, szFile, 2);
+    sub_00526320_ToUnicode((wchar_t*)gwszMonsterCode_008426DC, szFile, 2);
 }
 
 // 0x00502EF0
