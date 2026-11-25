@@ -25,20 +25,16 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 - atl-d3dcore is in #332. Its 2 B note stands: 0x006FADC2 counts as copied, not padding, now that the ATL data shares d3dCore's object.
 
 ## Ready
-- lane9/ddcore-strays cb8b3c79, on main eb850b12 (#369), precheck 0 not all equal; full verify VERIFIED, borrowed data 844 B
-  (main's). Placeholders -2, two of files-d2ddraw/d2gdi.tsv's medium rows: ddCore.cpp takes Unknown_00510130's 17
-  functions (between two runs of ddCore, five data items only ddCore also uses; they are entries of ddCore's function
-  table, whose plan no longer lists them as outside functions; 43 equal), and gdiCore.cpp takes Unknown_006C7EF0's two
-  (between two runs of gdiCore, on gdiCore's palette 0x989C40, which now has one name and type there; 46 equal).
-  Unknown_005125E0.cpp's row doesn't hold: in ddCore its wall-tile drawer 0x512F90 inlines the blended-shadow getter,
-  which the original calls. Unknown_0050F910 (D2Glide) I leave on its own: its planned data is the tile TexInfo
-  0x72F6A8, the twin of glTextureCache's floor TexInfo 0x72F6BC, so it reads as glTextureCache's tile counterpart.
 - lane9/glide-noinline 23108e76, on main 2da823bd (#370), precheck 0 not all equal; full verify VERIFIED, borrowed data 844 B
   (main's). Follows your Gfx.cpp ruling: D2Glide/Unknown_0050BD30.cpp drops its per-file /Ob1, the blended-shadow getter
   0x50BF40 takes one __declspec(noinline) with a comment, the draw-rect helper 0x50C690 loses its inline. 24 equal.
   The same route doesn't join the other getters: D2Gdi 0x6C9290 still differs with a noinline 0x6C8A50 in its file
   (register choice, not inlining), and 0x6B7530 into 0x6B7250 with both getters noinline still leaves 0x6B83A0 and
   0x6B8950 different (float scheduling). So those stay separate objects.
+- lane9/gdi-7cf0 957a2444, on main 6af4454b (#371), precheck 0 not all equal; full verify VERIFIED, borrowed data 844 B
+  (main's). Placeholders -1: gdiCore.cpp takes Unknown_006C7CF0's seven functions (0x6C8000-0x6C80A0, interleaved with
+  gdiCore's own 0x6C8020/0x6C8050/0x6C8060; they set gdiCore's palette view and render window and use its palette and
+  palette handle). 53 equal. glide-noinline (above) is still clean on #371.
 - Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
