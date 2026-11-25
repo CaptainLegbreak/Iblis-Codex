@@ -2184,6 +2184,27 @@ void __stdcall SCMD_HandleResetMessage(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
+Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
+
+extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
+
+// 0x00452270
+Unicode* __fastcall sub_00452270_AppendDigitText(Unicode* pText, int nValue)
+{
+    char szNumber[4];
+    unsigned short wszNumberBuf[3];
+    Unicode* wszNumber = (Unicode*)wszNumberBuf;
+    D2_ASSERT(sub_00526800(pText) < 500, 0x36C);
+    sub_00526700(pText, D2LANG_GetStringFromTblIndex(0xF9A));
+    wszNumber[0].wChar = 0;
+    wszNumber[1].wChar = 0;
+    wszNumber[2].wChar = 0;
+    wsprintfA(szNumber, "%c", (char)(nValue + '0'));
+    Unicode::win2Unicode(wszNumber, szNumber, 2);
+    sub_00526700(pText, wszNumber);
+    return pText;
+}
+
 // 0x00452300
 Unicode* __fastcall SCMD_StripColorCodes(Unicode* pString)
 {
@@ -2201,11 +2222,7 @@ Unicode* __fastcall SCMD_StripColorCodes(Unicode* pString)
     return pString;
 }
 
-Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
-
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                  // 0x00526F20
-
-extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
 
 // 0x004523A0
 Unicode* __fastcall SCMD_FormatRangeText(Unicode* pText, int nFirst, int nSecond)
