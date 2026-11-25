@@ -327,19 +327,18 @@ Draw:
             int nStartX=nDrawX;
             do
             {
-                int nRowX=nStartX;
-
-                // the original keeps both row starts in memory and steps them separately; with a plain copy the two counters merge into one register
-                int nRowY=*(volatile int*)&nStartY;
+                // The tile's origin variables walk each row of three vertices; the row starts keep the next row's origin.
+                nDrawX=nStartX;
+                nDrawY=nStartY;
                 for(int j=0;j<3;++j)
                 {
-                    sub_006B9860_Project(nRowX,nRowY,0,&nOutX,&nSide);
+                    sub_006B9860_Project(nDrawX,nDrawY,0,&nOutX,&nSide);
                     pVertex->fY=(float)nSide;
                     pVertex->fX=(float)nOutX+fOffset;
                     sub_006B9730_SetColor(pVertex,nColor,nAlpha);
                     ++pVertex;
-                    nRowX+=0x8000;
-                    nRowY-=0x8000;
+                    nDrawX+=0x8000;
+                    nDrawY-=0x8000;
                 }
                 nStartX+=0x8000;
                 nStartY+=0x8000;

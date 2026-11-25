@@ -48,7 +48,7 @@ How far the sources are from reading like the original source tree. Byte matchin
 | … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 203 |
 | Record definitions private to a source file (`struct`/`union` in a .cpp) | 1904 |
 | Unnamed fields (`unk0x..`) in the shared headers | 647 |
-| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 44 |
+| Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 41 |
 | Calling-convention shims | 38 |
 | Context copies kept only so the compiler inlines or emits as the original did (`// build: context`) | 3 |
 | `__declspec(noinline)` / `__forceinline` | 95 / 201 |
@@ -502,7 +502,6 @@ Not listed one by one: 4170 functions are compiled with `/GS-` and 1566 with `/E
 | 0x004FA860 | D2Win_COMMANDS_MouseButton | `D2Win/Src/D2WinMain.cpp` | compiler option /Ob1 |
 | 0x004FBF30 | TEXTBOX_Draw | `D2Win/Src/D2WinTextBox.cpp` | volatile read or qualifier |
 | 0x00502550 | D2Win_10128 | `D2Win/Src/D2WinFont.cpp` | __assume, identical if/else arms |
-| 0x0050CA00 | sub_0050CA00_GlideShadowTileDrawPerspective | `D2Glide/Unknown_0050BD30.cpp` | volatile read or qualifier |
 | 0x005179B3 | sub_005179B3_CopyRect | `D2Hell/Unknown_00516D8B.cpp` | inline assembly |
 | 0x00517A36 | sub_00517A36_CompareMemory | `D2Hell/Unknown_00516D8B.cpp` | inline assembly |
 | 0x00517ABB | sub_00517ABB_FindLowestSetBit | `D2Hell/Unknown_00516D8B.cpp` | inline assembly |
@@ -560,7 +559,6 @@ Not listed one by one: 4170 functions are compiled with `/GS-` and 1566 with `/E
 | 0x00651040 | DATATBLS_ComputeMonStatsDepths | `D2Common/DATATBLS/MonsterTbls.cpp` | __assume |
 | 0x0065EA50 | ITEMMODS_AddPropertyToItemStatList | `D2Common/ITEMS/ItemMods.cpp` | volatile read or qualifier |
 | 0x006B38A0 | D3DCORE_CopySurface | `D2Direct3D/Src/d3dCore.cpp` | identical if/else arms |
-| 0x006B83A0 | sub_006B83A0_DrawPerspective | `D2Direct3D/Unknown_006B7530.cpp` | volatile read or qualifier |
 | 0x006BD780 | FOG_10207 | `Fog/Src/Excel/Excel.cpp` | __assume through a header macro (original), identical if/else arms |
 | 0x006BE310 | FOG_SetServerConfig | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006BE350 | FOG_StartServer | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
@@ -638,7 +636,6 @@ Not listed one by one: 4170 functions are compiled with `/GS-` and 1566 with `/E
 | 0x006C0770 | QSERVER_BanClient | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006C0800 | QSERVER_BanAddress | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
 | 0x006C08A0 | QSERVER_ProcessReceived | `Fog/Src/QServer/QServer.cpp` | compiler option /EHa |
-| 0x006C77F0 | SUniConvertUTF16ToCP | `Storm/SOURCE/SUNI.CPP` | volatile read or qualifier |
 | 0x006C79C0 | uncompress | `Storm/zlib/uncompr.c` | compiler option /Ob2, compiler option /TC |
 | 0x006C7A60 | GDICORE_Detect | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
 | 0x006C7A70 | GDICORE_Init | `D2Gdi/Src/gdiCore.cpp` | compiler option /Ob1 |
