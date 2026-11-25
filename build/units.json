@@ -22379,6 +22379,14 @@
      "length": 250
     },
     {
+     "va": "0x004815A0",
+     "length": 94
+    },
+    {
+     "va": "0x00481600",
+     "length": 277
+    },
+    {
      "va": "0x00481780",
      "length": 29,
      "name": "?UNITMODE_GetPlayerLevelId@@YAHXZ"
@@ -22404,54 +22412,6 @@
      "length": 47,
      "name": "?sub_004804A0_SetPathTargetPos@@YIHPAUD2UnitStrc@@HH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_004815A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004815A0",
-     "length": 94
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00481600.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00481600",
-     "length": 277
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
