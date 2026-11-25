@@ -3269,34 +3269,10 @@ static inline D2MissilesTxt* CLTMISS_GetMissilesTxtRecord(int nMissileId)
 }
 
 // build: symbol ?MISSILE_InitFromOwner@* 0x004CC870
-void __fastcall MISSILE_InitFromOwner(D2UnitStrc* pMissile, int nInitArg)
-{
-    D2UnitStrc* pOwner = (D2UnitStrc*)nInitArg;
-    if (!pMissile)
-        return;
-
-    D2MissilesTxt* pMissilesTxtRecord = CLTMISS_GetMissilesTxtRecord(pMissile->dwClassId);
-    if (!pMissilesTxtRecord || !pOwner)
-        return;
-
-    int nOffset = 0;
-    if (pMissilesTxtRecord->dwCltParam[1] > 0)
-        nOffset = SEED_RollLimitedRandomNumber(&pOwner->pSeed, pMissilesTxtRecord->dwCltParam[1]) - pMissilesTxtRecord->dwCltParam[1] / 2;
-
-    GFXUTIL_SetMotionVectorA(pMissile, 0, 0, nOffset);
-    PATH_SetDirection(pMissile->pDynamicPath, PATH_GetDirection(pOwner->pDynamicPath));
-    D2COMMON_10203_PATH_SetRotateFlag(pMissile->pDynamicPath, 0);
-    pMissile->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->nAnimLen) << 8;
-}
+void __fastcall MISSILE_InitFromOwner(D2UnitStrc* pMissile, int nInitArg);
 
 // build: symbol ?MISSILE_CltHitFlagOwner@* 0x004CCCA0
-int __fastcall MISSILE_CltHitFlagOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
-{
-    D2UnitStrc* pOwner = CUNIT_GetOwnerUnit(pMissile);
-    if (pOwner)
-        pOwner->dwFlagEx |= UNITFLAGEX_0x40000;
-    return 1;
-}
+int __fastcall MISSILE_CltHitFlagOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit);
 
 // 0x005AD910
 int __fastcall MISSMODE_RadamentDeathAreaEffectCallbackFirstFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pCorpse, int nSkillLevel, int nUnused)
@@ -3318,15 +3294,7 @@ static inline void MISSMODE_BaalFxOpenPortal(D2GameStrc* pGame, D2UnitStrc* pMis
 }
 
 // build: symbol ?MISSILE_CltHitClearGlobals@* 0x004CCF00
-int __fastcall MISSILE_CltHitClearGlobals(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        UI_ClearGlobals();
-        return 1;
-    }
-    return 0;
-}
+int __fastcall MISSILE_CltHitClearGlobals(D2UnitStrc* pMissile, D2UnitStrc* pUnit);
 
 // 0x005AD970
 int __fastcall MISSMODE_SrvHit57_BaalFxControl(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit)

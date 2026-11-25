@@ -132,15 +132,9 @@ unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit)
 
 
 void __stdcall MONSTERUNIQUE_ExecuteUModCallbacks(D2GameStrc* pGame, D2UnitStrc* pMissile, int nCallbackIndex, D2UnitStrc* pUnit); // 0x005A4270
-void __fastcall MONSTERUNIQUE_ExecuteUModModeStartCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    MONSTERUNIQUE_ExecuteUModCallbacks(pGame, 0, 0, pUnit);
-}
+void __fastcall MONSTERUNIQUE_ExecuteUModModeStartCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
-void __fastcall MONSTERUNIQUE_ExecuteUModModeChangeCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    MONSTERUNIQUE_ExecuteUModCallbacks(pGame, 0, 1, pUnit);
-}
+void __fastcall MONSTERUNIQUE_ExecuteUModModeChangeCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
 // 0x005A4370
 void __fastcall sub_005A4370(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
@@ -148,20 +142,8 @@ void __fastcall sub_005A4370(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, in
     MONSTERUNIQUE_ExecuteUModCallbacks(pGame, 0, 2, pUnit);
 }
 
-void __fastcall MONSTERUNIQUE_ExecuteUModSuccessfulHitCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    MONSTERUNIQUE_ExecuteUModCallbacks(pGame, 0, 3, pUnit);
-}
+void __fastcall MONSTERUNIQUE_ExecuteUModSuccessfulHitCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
-void __fastcall sub_6FC6E8A0(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    MONSTERUNIQUE_ExecuteUModCallbacks(pGame, 0, 4, pUnit);
-}
+void __fastcall sub_6FC6E8A0(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
-void __fastcall sub_005A43B0_OwnerMissileHook(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMissile)
-{
-    if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && pMissile)
-    {
-        MONSTERUNIQUE_ExecuteUModCallbacks(pGame, pMissile, 5, pUnit);
-    }
-}
+void __fastcall sub_005A43B0_OwnerMissileHook(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMissile);

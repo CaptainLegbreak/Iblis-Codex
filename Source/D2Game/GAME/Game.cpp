@@ -2577,87 +2577,37 @@ void __fastcall D2GAME_SetStatOrResetGold_6FC7CA70(D2UnitStrc* pUnit, int nStat,
 void __fastcall PLRSAVE_ByteToHex(char* szOut, unsigned char nByte); // 0x00531D60
 
 // build: symbol ?NET_IsSimulatedLagConnection@* 0x0052B800
-int __fastcall NET_IsSimulatedLagConnection()
-{
-    return gnConnectionMode == 2;
-}
+int __fastcall NET_IsSimulatedLagConnection();
 
-int __fastcall NET_DequeueFirstPacketFromList(D2CriticalSectionStrc* pCriticalSection, D2NetPacketRecStrc** ppPacketList, unsigned char* pBuffer, unsigned int nBufferSize)
-{
-    int nResult;
+int __fastcall NET_DequeueFirstPacketFromList(D2CriticalSectionStrc* pCriticalSection, D2NetPacketRecStrc** ppPacketList, unsigned char* pBuffer, unsigned int nBufferSize);
 
-    EnterCriticalSection(pCriticalSection);
+void __cdecl sub_0052B8F0_Nop();
 
-    D2NetPacketRecStrc* pPacket = *ppPacketList;
-    if (pPacket && (gnConnectionMode != 2 || GetTickCount() - pPacket->dwTickCount >= 500))
-    {
-        memcpy(pBuffer, pPacket, nBufferSize < MAX_MSG_SIZE ? nBufferSize : MAX_MSG_SIZE);
-        nResult = pPacket->nPacketSize;
-        *ppPacketList = pPacket->pNext;
-        FOG_Free(pPacket, gszD2NetSourceFile, 0x46, 0);
-    }
-    else
-    {
-        nResult = -1;
-    }
+void __cdecl sub_0052B900_Nop();
 
-    LeaveCriticalSection(pCriticalSection);
-    return nResult;
-}
+bool __stdcall sub_0052BDD0_AlwaysTrue(int nUnused);
 
-void __cdecl sub_0052B8F0_Nop()
-{
-}
+unsigned int __fastcall sub_0052BE00_GetBits12(unsigned int nValue);
 
-void __cdecl sub_0052B900_Nop()
-{
-}
-
-bool __stdcall sub_0052BDD0_AlwaysTrue(int nUnused)
-{
-    return true;
-}
-
-unsigned int __fastcall sub_0052BE00_GetBits12(unsigned int nValue)
-{
-    return (nValue >> 12) & 7;
-}
-
-char* __fastcall sub_0052BE10_GetField0D0(D2Net52BE10Strc* pRecord)
-{
-    return pRecord->aData;
-}
+char* __fastcall sub_0052BE10_GetField0D0(D2Net52BE10Strc* pRecord);
 
 // build: symbol ?NET_DefaultLeaveGame@* 0x0052BE40
-void __stdcall NET_DefaultLeaveGame(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12, int a13, int a14, int a15, int a16, int a17, int a18)
-{
-}
+void __stdcall NET_DefaultLeaveGame(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, int a11, int a12, int a13, int a14, int a15, int a16, int a17, int a18);
 
 // build: symbol ?NET_DefaultSaveDatabaseCharacter@* 0x0052BE60
-void __stdcall NET_DefaultSaveDatabaseCharacter(int a1, int a2, int a3, int a4)
-{
-}
+void __stdcall NET_DefaultSaveDatabaseCharacter(int a1, int a2, int a3, int a4);
 
 // build: symbol ?NET_DefaultServerLogMessage@* 0x0052BE70
-void __cdecl NET_DefaultServerLogMessage()
-{
-}
+void __cdecl NET_DefaultServerLogMessage();
 
 // build: symbol ?NET_DefaultEnterGame@* 0x0052BE80
-void __stdcall NET_DefaultEnterGame(int a1, int a2, int a3)
-{
-}
+void __stdcall NET_DefaultEnterGame(int a1, int a2, int a3);
 
 // build: symbol ?NET_DefaultFindPlayerToken@* 0x0052BE90
-int __stdcall NET_DefaultFindPlayerToken(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
-{
-    return 0;
-}
+int __stdcall NET_DefaultFindPlayerToken(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
 
 // build: symbol ?NET_DefaultUpdateCharacterLadder@* 0x0052BED0
-void __stdcall NET_DefaultUpdateCharacterLadder(int a1, int a2, int a3, int a4, int a5)
-{
-}
+void __stdcall NET_DefaultUpdateCharacterLadder(int a1, int a2, int a3, int a4, int a5);
 
 // 0x0052BEF0
 void __cdecl GAME_DefaultGetGameServerInfo()
@@ -2753,49 +2703,28 @@ void __fastcall D2GAME_NPC_HireMerc_6FCC9540(D2GameStrc* pGame, D2UnitStrc* pPla
 void __fastcall LEVEL_SynchronizeDayNightCycleWithClient(D2GameStrc* pGame, D2ClientStrc* pClient); // 0x0053ABE0
 void __fastcall LEVEL_UpdateQueuedUnitsInAllActs(D2GameStrc* pGame); // 0x0053B000
 
-void __stdcall sub_00646010_Empty(int nUnused1, int nUnused2, int nUnused3)
-{
-}
+void __stdcall sub_00646010_Empty(int nUnused1, int nUnused2, int nUnused3);
 
-void __stdcall sub_006460C0_Empty(int nUnused)
-{
-}
+void __stdcall sub_006460C0_Empty(int nUnused);
 
-void __stdcall sub_006460D0_Empty(int nUnused1, int nUnused2, int nUnused3)
-{
-}
+void __stdcall sub_006460D0_Empty(int nUnused1, int nUnused2, int nUnused3);
 
-void __stdcall sub_006460E0_Empty(int nUnused)
-{
-}
+void __stdcall sub_006460E0_Empty(int nUnused);
 
-unsigned short __stdcall SFileGetLocale()
-{
-    return gwValue_0077905C;
-}
+unsigned short __stdcall SFileGetLocale();
 
-void __stdcall sub_00416750_Nop()
-{
-}
+void __stdcall sub_00416750_Nop();
 
-void __stdcall sub_00416760_Nop()
-{
-}
+void __stdcall sub_00416760_Nop();
 
-char* __fastcall sub_004167A0_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
+char* __fastcall sub_004167A0_LinkNext(D2StormLinkStrc* pLink);
 
 D2Storm4167B0Strc::~D2Storm4167B0Strc()
 {
     f_0.Unlink();
 }
 
-char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
+char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink);
 
 void __fastcall PLRMSG_SendWalkMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int nAnimMode); // 0x00548180
 
@@ -3243,85 +3172,36 @@ int __stdcall GAME_UpdateClients(int bForceUpdate1, int bForceUpdate2)
     return aCounter[0].LowPart;
 }
 
-char* __fastcall sub_00416820_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
+char* __fastcall sub_00416820_LinkNext(D2StormLinkStrc* pLink);
 
-char* __fastcall sub_00416830_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
+char* __fastcall sub_00416830_LinkNext(D2StormLinkStrc* pLink);
 
-char* __fastcall sub_00416840_LinkRawNext(D2StormLinkStrc* pLink)
-{
-    return pLink->m_next;
-}
+char* __fastcall sub_00416840_LinkRawNext(D2StormLinkStrc* pLink);
 
-char* __fastcall sub_00416850_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
+char* __fastcall sub_00416850_LinkNext(D2StormLinkStrc* pLink);
 
-char* __fastcall sub_00416860_LinkPrev(D2StormLinkStrc* pLink)
-{
-    D2StormLinkStrc* pPrev = pLink->m_prevlink->m_prevlink;
-    return (int)pPrev->m_next > 0 ? pPrev->m_next : 0;
-}
+char* __fastcall sub_00416860_LinkPrev(D2StormLinkStrc* pLink);
 
-char* __fastcall sub_00416880_LinkRawNext(D2StormLinkStrc* pLink)
-{
-    return pLink->m_next;
-}
+char* __fastcall sub_00416880_LinkRawNext(D2StormLinkStrc* pLink);
 
 D2Storm4168F0Strc::~D2Storm4168F0Strc()
 {
     f_0.Unlink();
 }
 
-void __fastcall sub_004169F0_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
+void __fastcall sub_004169F0_InitTerminator(D2StormListStrc* pList);
 
-void __fastcall sub_00416A00_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
+void __fastcall sub_00416A00_InitTerminator(D2StormListStrc* pList);
 
-void __fastcall sub_00416A10_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
+void __fastcall sub_00416A10_InitTerminator(D2StormListStrc* pList);
 
-void __fastcall sub_00416A20_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
+void __fastcall sub_00416A20_InitTerminator(D2StormListStrc* pList);
 
-void __fastcall sub_00416A30_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
+void __fastcall sub_00416A30_InitTerminator(D2StormListStrc* pList);
 
-int __fastcall sub_00416A90_TestField150(D2Storm416A90Strc* pRecord)
-{
-    if (pRecord && pRecord->n150)
-        return 1;
-    return 0;
-}
+int __fastcall sub_00416A90_TestField150(D2Storm416A90Strc* pRecord);
 
-int __fastcall sub_00416AB0_TestField14C(D2Storm416A90Strc* pRecord)
-{
-    if (pRecord && pRecord->n14C)
-        return 1;
-    return 0;
-}
+int __fastcall sub_00416AB0_TestField14C(D2Storm416A90Strc* pRecord);
 
 // 0x00530820
 D2GameStrc* D2GameDataTableStrc::sub_00530820_New(unsigned int nHashVal, HASHKEY_NONE* pKey, int nExtraBytes, int nFlags)

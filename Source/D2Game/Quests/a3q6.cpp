@@ -836,53 +836,7 @@ void __fastcall ACT3Q6_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     }
 }
 
-void __fastcall ACT3Q5_SpawnCouncil(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A3Q5_TRAVINCAL);
-    if (!pQuestData || !pQuestData->bNotIntro)
-        return;
-
-    D2Act3Quest5Strc* pQuestDataEx = (D2Act3Quest5Strc*)pQuestData->pQuestDataEx;
-    pQuestDataEx->bMonstersSpawned = 1;
-    if (pQuestDataEx->nSpawnCount >= 6)
-        return;
-
-    const int nUnitId = !pUnit ? -1 : pUnit->dwUnitId;
-
-    for (int i = 0; i < pQuestDataEx->nSpawnCount; ++i)
-    {
-        if (pQuestDataEx->nMonsterGUIDs[i] == nUnitId)
-            return;
-    }
-
-    pQuestDataEx->nMonsterGUIDs[pQuestDataEx->nSpawnCount] = nUnitId;
-    ++pQuestDataEx->nSpawnCount;
-    pQuestDataEx->nMonstersLeftToKill = pQuestDataEx->nSpawnCount;
-
-    if (pQuestData->fState <= 1)
-    {
-        if (pQuestData->fLastState != 1)
-        {
-            pQuestData->nStatusFlags = 0;
-            QUESTS_UnitIterate(pQuestData, 1, 0, ACT3Q5_UnitIterate_StatusCyclerEx, 1);
-        }
-    }
-    else
-    {
-        if (pQuestData->fLastState != 3)
-        {
-            pQuestData->nStatusFlags = 0;
-            QUESTS_UnitIterate(pQuestData, 3, 0, ACT3Q5_UnitIterate_StatusCyclerEx, 1);
-        }
-    }
-
-    if (QUESTS_GetGlobalState(pQuestData->pGame, QUESTSTATEFLAG_A3Q1, QFLAG_PRIMARYGOALDONE) == 1)
-        QUESTS_StateDebug(pQuestData, 4, gszAct3Q5SourceFile, 630);
-    else
-        QUESTS_StateDebug(pQuestData, 5, gszAct3Q5SourceFile, 634);
-
-    SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT3Q5_UnitIterate_UpdateQuestStateFlags);
-}
+void __fastcall ACT3Q5_SpawnCouncil(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
 // 0x005BCDC0
 void __fastcall ACT3Q6_InitQuestData(D2QuestDataStrc* pQuestData)
