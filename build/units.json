@@ -51363,6 +51363,16 @@
      "va": "0x00586C50",
      "length": 39,
      "name": "ACT5Intro_ActiveFilterCallback"
+    },
+    {
+     "va": "0x0058E990",
+     "length": 192,
+     "name": "?ACT5Intro_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
+    },
+    {
+     "va": "0x0058EA50",
+     "length": 101,
+     "name": "?sub_0058EA50_InitQuestCallbacks@@YIXPAUD2QuestData0058EA50Strc@@@Z"
     }
    ]
   },
@@ -52407,22 +52417,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Unknown_0058E990.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0058E990",
-     "length": 192,
-     "name": "?ACT5Intro_Callback11_ScrollMessage@@YIXPAUD2QuestDataStrc@@PAUD2QuestArgStrc@@@Z"
-    },
-    {
-     "va": "0x0058EA50",
-     "length": 101,
-     "name": "?sub_0058EA50_InitQuestCallbacks@@YIXPAUD2QuestData0058EA50Strc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Ai/AiGeneral.cpp",
    "rank": 0,
    "functions": [
@@ -53090,11 +53084,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x00596BC0",
-     "length": 128,
-     "name": "ACT1Q7_ActiveFilterCallback"
-    },
-    {
      "va": "0x00599C10",
      "length": 220,
      "name": "?OBJECTS_OperateFunction40_HoradricScrollChest@@YIHPAUD2ObjOperateFnStrc@@H@Z"
@@ -53723,13 +53712,12 @@
      "va": "0x00596BB0",
      "length": 5,
      "name": "?ACT3Q7_StatusFilterCallback@@YI_NPAUD2QuestDataStrc@@PAUD2UnitStrc@@PAUD2BitBufferStrc@@2PAE@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/Unknown_00596C40.cpp",
-   "rank": 0,
-   "functions": [
+    },
+    {
+     "va": "0x00596BC0",
+     "length": 128,
+     "name": "ACT1Q7_ActiveFilterCallback"
+    },
     {
      "va": "0x00596C40",
      "length": 94,
