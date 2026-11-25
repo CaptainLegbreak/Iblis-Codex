@@ -26,6 +26,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
+- lane4/skilldesc-join-e89a0 (next): Unknown_004E89A0.cpp (0x4E89A0, one function inside SkillDesc.cpp's run 0x4E7930-0x4E9000, after lane 1's skilldesc-join-10) into SkillDesc.cpp. Unknown_004E2320.cpp is not a SkillDesc join: by lane 1's data map its data starts with its own copy (0x72CD90), so it is a separate object (code 0x4E49C0, 0x4E5E90, 0x4E60A0 and the strays in SkillDesc's run).
+
 
 ## Questions
 
