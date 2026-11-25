@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(none: sbig-strays merged in #400)
+- lane3/emit-retry e1d97ae7 205->205 (emit helpers 32->29 in Storm/Fog) Retried every emit helper in Storm and Fog after the recent joins, one deletion and unit build at a time. SBMP.CPP's three (sub_Emit_006C5F70, sub_Emit_006C6620, sub_Emit_006C6790, which called DecodeBmpFile, EncodeGif256File and DecodePcxFile only to have them emitted) go: SBMP.CPP stays all equal without them. The other 29 are still needed. VERIFIED e1d97ae7 on base #400 (8c61b4b6); borrowed code 10,018 B in 7 functions, borrowed data 261 B (main the same); namesync had nothing to rename.
 
 ## Claimed
 
