@@ -9,15 +9,16 @@ The user asked the laneless chat to take board upkeep off the coordinator: every
 duplicate claims, quiet lanes, stale headers and questions waiting an hour or more. It decides nothing; every
 call stays the coordinator's. This section is replaced at each check.
 
-- **2026-11-24 16:05 PT**, main #371:
-  - **Quiet:** lane 2, last post 96 minutes ago. Everyone else has posted within 20 minutes.
-  - **Review of #370..#371** (two rounds): nothing to flag.
-    - The only new `__assume` lines are the approved macros' new names (SASSERT, 12 uses; DEFAULT_UNREACHABLE,
-      3 uses) from lane7/assume-macros-3. STORM_ASSUME and FOG_ASSUME have no uses left.
-    - No cross-module moves. sub_ names 23,769 -> 23,599; goto 600 -> 593.
-  - **Trial merge (15:59, on #370):** #371 took four of the seven branches. Of the other three on #371:
-    lane3/growable-ctor-2 and lane5/monster-run still apply cleanly, and lane1/umod-join-3 now conflicts.
-  - **Object map:** report-369.md (15:26) is current; the next refresh is due at 16:26.
+- **2026-11-24 16:38 PT**, main #372:
+  - **Quiet:** none; every lane has posted within 25 minutes.
+  - **Review of #372** (one round): nothing to flag.
+    - `__declspec(noinline)` on 0x50BF40 (lane 9, f3bf7c930) replaces Unknown_0050BD30.cpp's per-file /Ob1, with
+      a comment that the original calls it out of line, like your 0x46CBD0 ruling.
+    - SKILLS_GetMissilesTxtRecord's `__forceinline` moved with lane 1's 0x4AD0C0 join (ac6d3f9fc); it's not new.
+      It's now defined in npcmenu.cpp and Unknown_004ADD90.cpp, so it's a header-inline candidate.
+    - lane 8 removed SKILLS_AssignSkill's volatile unit load (173c7a767). sub_ names 23,599 -> 23,588.
+  - **Trial-merge leftovers on #372:** see the rebase list; lane1/umod-join-3 still needs a rebase.
+  - **Object map** refreshed on #372: 261 placeholder files, 119 clear leads (`lanes/tools/objmap/report-372.md`).
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
