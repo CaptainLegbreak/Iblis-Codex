@@ -331,13 +331,6 @@ int __stdcall sub_0054DDC0_FindPosition(D2GameStrc* pGame, D2ActiveRoomStrc* pRo
     return 0;
 }
 
-void __fastcall sub_M96_Emit_0054DAC0(void* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pArea)
-{
-    int nX, nY, nWidth, nHeight;
-    sub_0054DAC0_GetSpawnBounds(pRoom, &nWidth, pArea, &nX, &nY, &nHeight);
-    sub_M96_UseBounds_0054DAC0(nX, nY, nWidth, nHeight);
-}
-
 static inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord_Inline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -894,46 +887,6 @@ void __fastcall MONSTERREGION_TrySpawnWanderingMonster(D2GameStrc* pGame, D2Acti
     }
 }
 
-D2UnitStrc* __fastcall sub_A12_Emit_0054DF80(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, int nMonsterId, unsigned char nMin, unsigned char nMax)
-{
-    return sub_0054DF80_SpawnGroupInCoordList(pGame, pRoom, pCoordList, nMin, nMax, nMonsterId);
-}
-
-D2UnitStrc* __fastcall sub_A12_Emit_0054E090(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nMonsterId, int nX, int nY)
-{
-    return sub_0054E090_SpawnGroupAtPoint(pGame, pRoom, nMonsterId, nX, nY);
-}
-
-int __fastcall sub_A12_Emit_0054E190(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, D2UnkMonCreateStrc2* pCreate)
-{
-    return sub_0054E190_SpawnMonsterAtFreePosition(pGame, pRoom, nClassId, pCreate);
-}
-
-int __fastcall sub_A12_Emit_0054E260(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, int nMonsterId)
-{
-    return sub_0054E260_SpawnMonsterWithMinions(pGame, pRoom, pCoordList, nMonsterId);
-}
-
-void __fastcall sub_A12_Emit_0054E1E0(D2GameStrc* pGame, D2UnitStrc* pMonster, int nMonsterId)
-{
-    sub_0054E1E0_SpawnChampionMinions(0, nMonsterId, pGame, pMonster);
-}
-
-int __fastcall sub_A12_Emit_0054E2A0(int nMonsterId, int nLevelId)
-{
-    return sub_0054E2A0_GetFallenVariantForLevel(nLevelId, nMonsterId);
-}
-
-D2UnitStrc* __fastcall sub_A12_Emit_0054E490(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode)
-{
-    return sub_0054E490_SpawnRegularPresetMonster(pGame, pRoom, nX, nY, nMode, nClassId);
-}
-
-int __fastcall sub_A12_Emit_0054EBC0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
-{
-    return sub_0054EBC0_CanPopulateRoom(pRoom, pGame);
-}
-
 // 0x0054E3A0
 static int MONSTERREGION_CanRetryPresetSpawn(int nMonsterId)
 {
@@ -957,11 +910,6 @@ D2UnitStrc* __fastcall sub_H05_Emit_0054DF80(D2GameStrc* pGame, D2ActiveRoomStrc
     return sub_0054DF80_SpawnGroupInCoordList(pGame, pRoom, pCoordList, nMin, nMax, nMonsterId);
 }
 
-D2UnitStrc* __fastcall sub_H05_Emit_0054E090(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nMonsterId, int nX, int nY)
-{
-    return sub_0054E090_SpawnGroupAtPoint(pGame, pRoom, nMonsterId, nX, nY);
-}
-
 int __fastcall sub_H05_Emit_0054E190(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, D2UnkMonCreateStrc2* pCreate)
 {
     return sub_0054E190_SpawnMonsterAtFreePosition(pGame, pRoom, nClassId, pCreate);
@@ -970,21 +918,6 @@ int __fastcall sub_H05_Emit_0054E190(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom,
 int __fastcall sub_H05_Emit_0054E260(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, int nMonsterId)
 {
     return sub_0054E260_SpawnMonsterWithMinions(pGame, pRoom, pCoordList, nMonsterId);
-}
-
-void __fastcall sub_H05_Emit_0054E1E0(D2GameStrc* pGame, D2UnitStrc* pMonster, int nMonsterId)
-{
-    sub_0054E1E0_SpawnChampionMinions(0, nMonsterId, pGame, pMonster);
-}
-
-int __fastcall sub_H05_Emit_0054E2A0(int nMonsterId, int nLevelId)
-{
-    return sub_0054E2A0_GetFallenVariantForLevel(nLevelId, nMonsterId);
-}
-
-D2UnitStrc* __fastcall sub_H05_Emit_0054E490(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode)
-{
-    return sub_0054E490_SpawnRegularPresetMonster(pGame, pRoom, nX, nY, nMode, nClassId);
 }
 
 int __fastcall sub_H05_Emit_0054EBC0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)

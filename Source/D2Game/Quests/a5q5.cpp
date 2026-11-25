@@ -1494,12 +1494,3 @@ int __fastcall OBJECTS_OperateFunction71_SummitDoor(D2ObjOperateFnStrc* pOp, int
     return 0;
 }
 
-
-void __fastcall sub_Emit_0058C5C0(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    if (pUnit)
-    {
-        ACT5Q5_RewardPlayer(pGame, pUnit);
-    }
-}
-

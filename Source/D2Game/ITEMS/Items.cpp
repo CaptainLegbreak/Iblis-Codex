@@ -801,18 +801,6 @@ static void ITEMS_SetWeaponDamage(D2UnitStrc* pItem)
     }
 }
 
-void sub_A04_Emit_00557AB0(D2UnitStrc** ppItem, int bWeapon)
-{
-    if (bWeapon)
-    {
-        ITEMS_SetWeaponDamage(*ppItem);
-    }
-    else
-    {
-        ITEMS_RollArmorClass(*ppItem);
-    }
-}
-
 // 0x005564A0
 static unsigned int ITEMS_HasUniqueBeenDroppedAlready(D2GameStrc* pGame, int nUniqueItemId)
 {
@@ -1924,11 +1912,6 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
     return nResult;
 }
 
-void sub_G07_Emit_00557A70(D2UnitStrc** ppItem)
-{
-    ITEMS_RollVarInvGfx(*ppItem);
-}
-
 // 0x00557EE0
 void __fastcall ITEMS_FreeSocketInventoryAndTimers(D2GameStrc* pGame, D2UnitStrc* pItem)
 {
@@ -2301,18 +2284,6 @@ int __fastcall ITEMS_GetDiminishedMagicFind(int nMagicFind, int nFactor, int nFa
     nFactor2 *= nMagicFind;
     nMagicFind += nFactor;
     return nFactor2 / nMagicFind + 100;
-}
-
-int sub_B05_Emit_005585D0(int nBase, int nDiv, D2UnitStrc* pPlayer, int* pOut)
-{
-    nBase -= nDiv;
-    const int nMagicBonus = ITEMS_GetMagicFindBonus(pPlayer);
-    if (nMagicBonus && nMagicBonus <= -100)
-    {
-        return 0;
-    }
-    *pOut = nBase / nDiv;
-    return nMagicBonus + 100;
 }
 
 static inline D2ItemTypesTxt* sub_C03_GetItemTypesTxtRecord(int nItemType)
@@ -3108,11 +3079,6 @@ D2UnitStrc* __fastcall D2GAME_DropWeapon_6FC4FA50(D2GameStrc* pGame, D2ActiveRoo
     }
 
     return 0;
-}
-
-int __stdcall sub_C03_Emit_00558640(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer, D2QualityModsStrc* pMods, int nItemLevel, unsigned short nItemId)
-{
-    return ITEMS_RollDropQuality(pGame, pItem, pPlayer, pMods, nItemLevel, nItemId);
 }
 
 static int ITEMS_GetItemsTxtRecordCount()

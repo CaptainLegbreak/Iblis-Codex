@@ -1920,12 +1920,6 @@ static void QUESTS_SetActNpcIntroFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer, u
     }
 }
 
-void sub_A04_Emit_005467E0(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    QUESTS_SetActNpcIntroFlags(pGame, pPlayer, 1);
-    QUESTS_SetActNpcIntroFlags(pGame, pPlayer, 2);
-}
-
 // 0x00545090
 static int __stdcall QUESTS_FillNpcIntroFlags(D2PlrIntroStrc* pIntroFlags, const int* pNpcIds, int nCount, D2GSPacketSrv91* pPacket)
 {

@@ -1951,11 +1951,6 @@ static int __stdcall ITEMMODE_HasConflictingQuestOrUniqueItem(D2UnitStrc* pItem,
 }
 
 
-int __fastcall sub_E03_EmitBookSkillA(D2UnitStrc* pItem)
-{
-    return ITEMMODE_GetBookOrScrollSkillId(pItem);
-}
-
 // 0x0055CC90
 int __fastcall ITEMMODE_CanPickUpItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
@@ -4073,11 +4068,6 @@ extern "C" __declspec(dllexport) int __cdecl sub_00564CA0() {
 }
 
 void __fastcall MONSTER_DeleteEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005738D0
-int __fastcall sub_J07_Emit_00560020(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
-{
-    return ITEMMODE_PickupStackable(pGame, pUnit, pItem);
-}
-
 // 0x00604A30
 void __stdcall TileSetHardwareFreeCallback(void* pfnCallback)
 {
@@ -4646,17 +4636,6 @@ int __fastcall ITEMMODE_ReplaceOppositeHandItem(D2GameStrc* ptGame, D2UnitStrc* 
     }
 
     UNITS_RefreshInventory(pUnit, 1);
-    return 1;
-}
-
-int __fastcall sub_K06_Emit_005600A0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int bRemove)
-{
-    if (!ITEMMODE_PlaceItemAtFreeInventoryPosition(pGame, bRemove, 0, ".\\ITEMS\\ItemMode.cpp", 0x7EF, pUnit, pItem))
-    {
-        UNITS_RefreshInventory(pUnit, 0);
-        return 0;
-    }
-    UNITS_ChangeAnimMode(pItem, 0);
     return 1;
 }
 
