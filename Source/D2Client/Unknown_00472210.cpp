@@ -996,9 +996,8 @@ void __stdcall sub_004732C0_StepParticles(D2SeedStrc* pSeed)
     {
 // build: symbol ?gnWeatherAngle@* 0x007A89C4
 // build: symbol ?FOG_10083_Cos_LUT@* 0x0040B330
-        const float fAbs = (float)fabs(FOG_10083_Cos_LUT(gnWeatherAngle));
-        // volatile: the original stores the absolute value and reloads it as a float
-        fScale = *(float volatile*)&fAbs;
+        const double dAbs = sub_00472310_AbsFloat(FOG_10083_Cos_LUT(gnWeatherAngle));
+        fScale = (float)dAbs;
         fScale = fScale < 0.25f ? 0.25f : fScale;
     }
     else
