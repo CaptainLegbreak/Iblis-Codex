@@ -2,8 +2,8 @@
 // Storm big-number buffer: a growable array of 32-bit limbs plus a start offset.
 
 #include "D2StormArrayA.h"
+#include "stpl.h"
 
-int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned int nFlags);                // 0x00412650
 extern char gszTypeNameUInt_00708874[];                                                                     // 0x00708874
 
 struct BigBuffer
