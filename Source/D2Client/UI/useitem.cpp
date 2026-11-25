@@ -641,22 +641,25 @@ int __cdecl sub_004C0440_Thunk()
 static int USEITEM_ClickHotspots(int nX, int nY)
 {
     int bHit = 0;
-    int n;
-    // volatile: the volatile read keeps the original's register for the count; no plain form found
 // build: symbol ?gnHotspotCount@* 0x007278FC
-    for (int i = 0; i < (n = *(volatile int*)&gnHotspotCount); i++)
+    for (int i = 0; i < gnHotspotCount; i++)
     {
         if (gaUseItemHotspots[i].pressed && nX >= gaUseItemHotspots[i].left && nX <= gaUseItemHotspots[i].right && nY >= gaUseItemHotspots[i].top && nY <= gaUseItemHotspots[i].bottom)
         {
             sub_004B9A00(1, 0, 0, 0, 0);
-            if (!i)
+            if (i == 0)
+            {
                 USEITEM_ShowConfirmation();
+                bHit = 1;
+            }
             else
+            {
                 USEITEM_ClosePanel();
-            bHit = 1;
+                bHit = 1;
+            }
         }
     }
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < gnHotspotCount; i++)
     {
         gaUseItemHotspots[i].pressed = 0;
         gaUseItemHotspots[i].hovered = 0;
