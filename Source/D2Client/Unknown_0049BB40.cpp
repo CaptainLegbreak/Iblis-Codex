@@ -1,3 +1,6 @@
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00722470
+
 #include "D2Client.h"
 #include "D2Primitives.h"
 #include "D2StormTypes.h"

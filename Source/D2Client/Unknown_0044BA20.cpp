@@ -1,3 +1,6 @@
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x0070EE90
+
 #include "D2Client.h"
 #include "D2Unicode.h"
 #include "D2McpPackets.h"
