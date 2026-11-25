@@ -40337,11 +40337,6 @@
    "rank": 0,
    "functions": [
     {
-     "va": "0x005263E0",
-     "length": 78,
-     "name": "?sub_005263E0@@YIPADPADPBUUnicode@@H@Z"
-    },
-    {
      "va": "0x005264F0",
      "length": 65,
      "name": "?strcmp@Unicode@@SIHPBU1@0@Z"
@@ -40464,6 +40459,15 @@
      "name": "?sub_005262A0_Utf8CountChars@@YIHPBDH@Z"
     },
     {
+     "va": "0x00526320",
+     "length": 181
+    },
+    {
+     "va": "0x005263E0",
+     "length": 78,
+     "name": "?sub_005263E0@@YIPADPADPBUUnicode@@H@Z"
+    },
+    {
      "va": "0x00526430",
      "length": 88,
      "name": "?sub_00526430_UnicodeUtf8Length@@YIHPBUUnicode@@H@Z"
@@ -40503,30 +40507,6 @@
      "va": "0x005262F0",
      "length": 47
     }
-   ]
-  },
-  {
-   "file": "Source/D2Lang/Unknown_00526320.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00526320",
-     "length": 181
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
