@@ -762,7 +762,9 @@ static void __stdcall DRLGROOMTILE_LoadFloorWarpTiles(D2DrlgRoomStrc* pDrlgRoom,
             D2DrlgTileDataStrc* pFloorTileData = pDrlgRoom->ptDrlgTiles->pTiles.pFloorTiles;
             for (int i = 0; i < pDrlgRoom->ptDrlgTiles->nFloors; ++i, ++pFloorTileData)
             {
-                if (sub_00604B90_GetTileStyle(pFloorTileData->pTile) == nTileSequence && (unsigned int)sub_00604C50_GetTileSequence(pFloorTileData->pTile) < 4)
+// build: symbol ?TileGetStyle@* 0x00604B90
+// build: symbol ?TileGetSequence@* 0x00604C50
+                if (TileGetStyle(pFloorTileData->pTile) == nTileSequence && (unsigned int)TileGetSequence(pFloorTileData->pTile) < 4)
                 {
                     pFloorTileData->pNext = pWarpTile->pUnselectedTiles;
                     pWarpTile->pUnselectedTiles = pFloorTileData;
@@ -970,7 +972,7 @@ TileTypeChosen:
         COLLISION_ReplaceTileCollision(pDrlgRoom2->pRoom, pTileData->pNext, 0);
     }
 
-    const int bBlankFloor = pTileData->nTileType == 0 && sub_00604B90_GetTileStyle(pTileData->pTile) == 30 && sub_00604C50_GetTileSequence(pTileData->pTile) == 0;
+    const int bBlankFloor = pTileData->nTileType == 0 && TileGetStyle(pTileData->pTile) == 30 && TileGetSequence(pTileData->pTile) == 0;
     if (nNewTileType != pTileData->nTileType || bBlankFloor)
     {
         D2TileLibraryEntryStrc* pTileCache = DRLGROOMTILE_GetTileCache(pDrlgRoom2, nNewTileType, nPackedTileInformation);

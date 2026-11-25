@@ -63,7 +63,6 @@ void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* s
 
 D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
-D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 int __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
 
@@ -119,7 +118,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
 
-void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
 
 void __fastcall GFXUTIL_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
 
@@ -148,7 +146,6 @@ static D2MonGfxCacheStrc* gpPoolBlock; // 0x007A80FC
 
 void __fastcall GFX_ResetMonsterModeGfx(D2UnitStrc* pUnit); // 0x00470B70
 
-int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 
 
 void __fastcall GFXUTIL_SetGfxEntryByte(D2UnitStrc* pUnit, int nIndex, unsigned char nValue); // 0x004DB1C0
@@ -175,7 +172,6 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
 
 
 
-void __fastcall GFX_PreloadTick(int bAsync); // 0x00470350
 
 void __cdecl GFX_PreloadForce(); // 0x00470B10
 
@@ -377,7 +373,8 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
                         if (!sub_006001F0(&tContext, 1, 1))
                         {
                             tContext.nArg34 = 0;
-                            sub_006004E0_LoadSprite(&tContext);
+// build: symbol ?D2CMPSpriteRequest@* 0x006004E0
+                            D2CMPSpriteRequest(&tContext);
                         }
                     }
                     else
@@ -398,7 +395,7 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
                     if (!sub_006001F0(&tContext, 1, 1))
                     {
                         tContext.nArg34 = 0;
-                        sub_006004E0_LoadSprite(&tContext);
+                        D2CMPSpriteRequest(&tContext);
                     }
                 }
                 else
@@ -899,7 +896,7 @@ static int __stdcall GFX_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit
             if (!sub_006001F0(&tContext, bAsync, bAsync))
             {
                 tContext.nArg34 = 0;
-                if (!sub_006004E0_LoadSprite(&tContext))
+                if (!D2CMPSpriteRequest(&tContext))
                 {
                     return -1;
                 }
@@ -1051,7 +1048,8 @@ static void GFX_PreloadRoomUnits(int bAsync)
             }
         }
 
-        if (!gbPreloadForce && sub_005FF2A0_CountPending() >= 0x1E)
+// build: symbol ?D2CMPSpriteNumAsyncLoads@* 0x005FF2A0
+        if (!gbPreloadForce && D2CMPSpriteNumAsyncLoads() >= 0x1E)
         {
             return;
         }
@@ -1096,7 +1094,7 @@ static void GFX_PreloadRoomUnits(int bAsync)
                 }
             }
 
-            if (!gbPreloadForce && sub_005FF2A0_CountPending() >= 0x1E)
+            if (!gbPreloadForce && D2CMPSpriteNumAsyncLoads() >= 0x1E)
             {
                 return;
             }

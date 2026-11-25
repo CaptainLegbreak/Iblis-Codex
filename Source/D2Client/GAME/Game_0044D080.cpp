@@ -138,7 +138,6 @@ void __cdecl GAME_CheckConnectionTimeouts(); // 0x0044EEC0
 void __cdecl RECORD_ReplayRecords(); // 0x004519C0
 
 
-int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
 void __cdecl PLAYER_ClearCommandPending(); // 0x00462920
 
@@ -392,7 +391,6 @@ extern D2LoadingTimerStrc gtLoadingTimer_007A0684; // 0x007A0684
 
 void __cdecl GAME_DrawLoadingText(); // 0x0044CB60
 
-int __fastcall GAME_IsTimerRunning(D2LoadingTimerStrc* pTimer); // 0x0044E040
 
 D2ViewStrc* gpClientView; // 0x007A0640
 
@@ -1135,7 +1133,8 @@ void __cdecl GAME_CheckConnectionTimeouts()
     }
 
     unsigned long dwNow = GetTickCount();
-    if (!sub_0052A640_IsConnected() && !gbLeavingGame && gbPositionalSound)
+// build: symbol ?CLIENT_IsConnected@* 0x0052A640
+    if (!CLIENT_IsConnected() && !gbLeavingGame && gbPositionalSound)
     {
         GAME_ShowLoadingMessage(7);
     }

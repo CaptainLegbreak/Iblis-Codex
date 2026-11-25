@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Records.h"
 #include "D2ClientSound.h"
 #include "D2SoundEnvironTxt.h"
@@ -20,7 +21,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 int __fastcall ITEM_QueryCacheAddress(D2SoundsTxt* pEntry); // 0x004DF630
 
-void __fastcall SOUNDHDR_TouchCacheEntry(int nIndex); // 0x00482860
 
 int __stdcall INV_FreeCacheEntries(unsigned int nFree, int bTwoPasses, int bCheckAge); // 0x004824A0
 
@@ -142,8 +142,10 @@ static int gnSongMin; // 0x007BC9B0
 static void SOUNDHDR_FinishCacheLoad(D2SoundsTxt* pEntry)
 {
     D2_ASSERT(pEntry->nState == 1, 0x40);
-    pEntry->pData = sub_0040A9E0(pEntry->pAsync);
-    pEntry->nSize = sub_0040AA40(pEntry->pAsync);
+// build: symbol ?FOG_AsyncDataGetBuffer@* 0x0040A9E0
+    pEntry->pData = FOG_AsyncDataGetBuffer(pEntry->pAsync);
+// build: symbol ?FOG_AsyncDataGetBufferSize@* 0x0040AA40
+    pEntry->nSize = FOG_AsyncDataGetBufferSize(pEntry->pAsync);
     pEntry->nState = 2;
     ITEM_QueryCacheAddress(pEntry);
     gnCacheLoading -= 1;
@@ -536,7 +538,8 @@ void __fastcall SOUNDHDR_ReleaseCacheEntry(int nIndex)
     pEntry->dwLastUse = 0;
     if (pEntry->pAsync)
     {
-        sub_0040AB00_FreeAsyncData(pEntry->pAsync);
+// build: symbol ?FOG_AsyncDataFree@* 0x0040AB00
+        FOG_AsyncDataFree(pEntry->pAsync);
         pEntry->pAsync = 0;
         pEntry->nState = 0;
         pEntry->pData = 0;
@@ -694,10 +697,11 @@ void __fastcall SOUNDHDR_LoadCacheEntry(int nIndex, int bDirect, int nArg)
         return;
     }
 
-    pEntry->pAsync = sub_0040A620(0, szPath, 1, 0, -1, 0, 0, -2, ".\\Sound\\SoundHdr.cpp", 0x31B);
+// build: symbol ?FOG_AsyncDataLoadFileEx@* 0x0040A620
+    pEntry->pAsync = FOG_AsyncDataLoadFileEx(0, szPath, 1, 0, -1, 0, 0, -2, ".\\Sound\\SoundHdr.cpp", 0x31B);
     if (pEntry->pAsync)
     {
-        const unsigned int nAsyncSize = sub_0040AA40(pEntry->pAsync);
+        const unsigned int nAsyncSize = FOG_AsyncDataGetBufferSize(pEntry->pAsync);
         gdwCacheUsed += nAsyncSize;
         pEntry->nSize = nAsyncSize;
         SOUNDHDR_TouchCacheEntry(nIndex);
@@ -730,7 +734,8 @@ void __fastcall SOUNDHDR_UpdateCache(unsigned int nTick)
             }
             SOUNDHDR_LoadCacheEntry(i, bForce, 1);
         }
-        if (pEntry->nState == 1 && sub_0040A7F0_AsyncDataCheck(pEntry->pAsync))
+// build: symbol ?FOG_AsyncDataTestLoaded@* 0x0040A7F0
+        if (pEntry->nState == 1 && FOG_AsyncDataTestLoaded(pEntry->pAsync))
             SOUNDHDR_FinishCacheLoad(pEntry);
     }
     gnCacheLastTick = nTick;

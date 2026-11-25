@@ -737,7 +737,6 @@ extern "C" void __cdecl GAME_UnregisterMouseHandlers(); // 0x0044DCE0
 extern "C" void __cdecl GAME_RegisterMouseHandlers(); // 0x0044DD20
 
 
-void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
 
 void __cdecl TEXT_InitKeyConfigEntries(); // 0x004A43E0
@@ -789,7 +788,6 @@ int __fastcall TEXT_IsInPanelButton(int, int, int); // 0x004A6580
 
 int __cdecl TEXT_IsMouseOnStatButton(); // 0x004A65E0
 
-void __stdcall CURSOR_HandleButtonDown(SMSGHANDLER_PARAMS*); // 0x00467F20
 
 int __cdecl NPCMENU_IsNpcTalkActive(); // 0x004B3470
 
@@ -819,7 +817,6 @@ void __fastcall TEXT_ScrollKeyConfigList(int nStep);
 
 
 
-void __fastcall sub_0047E200_CloseMenus(int bRestore); // 0x0047E200
 
 
 extern int global_00724728; // 0x00724728

@@ -1162,7 +1162,6 @@ extern int gbUiRecordMode; // 0x007BEF98
 extern int gnAutomapMode_007A5150; // 0x007A5150
 
 
-void __fastcall AUTOMAP_ResetBaseOffset(int force); // 0x00457640
 
 enum D2C_F06UiConstants
 {
@@ -1242,7 +1241,6 @@ D2PacketBufferStrc* __fastcall sub_00464770_GetPacketBuffer(void* pArg); // 0x00
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 
 void __fastcall DLIGHTMAP_ResetLightSize(D2GfxLightStrc* pLight, int nRadius); // 0x004742D0
 
@@ -1256,7 +1254,6 @@ unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem); // 0x006
 
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 
-D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
 extern Unicode gwszHoverName[]; // 0x007A2F38
 
@@ -1484,7 +1481,6 @@ void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pC
 
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
 
-D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 short __fastcall CUNIT_GetPlayerPartyId(D2UnitStrc* pUnit); // 0x00465400
 
@@ -1520,9 +1516,7 @@ int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath)
 
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 int __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nArg, int nX, int nY, int nArg3, int nArg4); // 0x004CDB40
 
@@ -4110,7 +4104,8 @@ void __fastcall AUTOMAP_ProcessUnitPacketBuffer(void* pArg)
     {
         unsigned char* pPacket = pBuffer->pData + gnPacketRecordSize * i;
         int nSize;
-        if (!sub_0052B920(pPacket, gnPacketRecordSize, &nSize))
+// build: symbol ?SERVER_GetServerPacketSize@* 0x0052B920
+        if (!SERVER_GetServerPacketSize(pPacket, gnPacketRecordSize, &nSize))
         {
             return;
         }

@@ -2147,7 +2147,8 @@ int __stdcall WINMAIN_LauncherRun(void* hInstance, D2ConfigStrc* pRecord)
     }
     sub_004FA550();
     DATATBLS_UnloadAllBins();
-    sub_00524E40();
+// build: symbol ?STRTABLE_UnloadStringTables@* 0x00524E40
+    STRTABLE_UnloadStringTables();
     GAME_FreeLngModule();
     PROFCORE_WriteProfileCounters();
     GAME_ShutdownIfActive();

@@ -95,7 +95,6 @@ int __stdcall CLIENT_DequeueGamePacket(unsigned char* pBuffer, unsigned int nBuf
 
 int __stdcall CLIENT_DequeueSystemPacket(unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052A8B0
 
-void __fastcall SCMD_HandleSystemPacket(unsigned char* pPacket, int nLength); // 0x0045C850
 
 void __fastcall SCMD_ProcessPackets(unsigned char* pPacket, int nLength); // 0x0045F7B0
 

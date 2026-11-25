@@ -136,7 +136,6 @@ void __cdecl CHAT_InitChatIme(); // 0x0047B090
 
 void __cdecl sub_0047B4D0_Nop(); // 0x0047B4D0
 
-void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
 void __fastcall TEXT_ToggleKeyConfigPanel(int nArg); // 0x004A5200
 
@@ -305,7 +304,6 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 Unicode* __fastcall INV_PrefixColorCode(Unicode* pText, int nDigit); // 0x004521C0
 
-D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 
@@ -429,9 +427,7 @@ void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTo
 
 
 
-int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny);                       // 0x00478F20
 
-int __fastcall ROSTERPETS_FindRosterIndex(int nUnitId);                                                   // 0x00479150
 
 const char* __fastcall ROSTER_GetPortalOwnerName(int nUnitId);                                              // 0x0047A290
 
@@ -560,7 +556,6 @@ D2UnitStrc* __cdecl SELECT_GetSelectedUnit(); // 0x00467A10
 
 void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit); // 0x00454F30
 
-int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
 void __fastcall TEXT_UpdateTexts(D2ViewStrc* pView); // 0x004A0E70
 
@@ -732,7 +727,6 @@ extern int gbPositionalSound;                                                   
 
 void __fastcall AUTOMAP_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
 
-void __fastcall AUTOMAP_ResetBaseOffset(int bForce); // 0x00457640
 
 void __cdecl AUTOMAP_FreeAutomap(); // 0x0045A5C0
 
@@ -2162,7 +2156,8 @@ void __fastcall UI_FreeLoadingScreen()
         ARCHIVE_FreeClientCellFile(gpLoadingScreen);
         gpLoadingScreen = 0;
         sub_004FB480_SetActA(gnLoadingAct);
-        sub_00600C00_SetActB(gnLoadingAct);
+// build: symbol ?D2CMPPalShiftSetAct@* 0x00600C00
+        D2CMPPalShiftSetAct(gnLoadingAct);
         AUTOMAP_InitAutomapColors();
         INV_InitColorTable();
 // build: symbol ?PANEL_SetRedColour@* 0x00499E10
@@ -2260,13 +2255,15 @@ static __forceinline int SetHoverPositionFromUnit(D2UnitStrc* pUnit)
     {
         const int nPrecisionX = UNITS_GetPrecisionX(pUnit);
         const int nPrecisionY = UNITS_GetPrecisionY(pUnit);
-        if (!sub_004F66E0_IsPrecisionOnScreen(nPrecisionX, nPrecisionY))
+// build: symbol ?SCALE_CheckPerspectivePosition@* 0x004F66E0
+        if (!SCALE_CheckPerspectivePosition(nPrecisionX, nPrecisionY))
         {
             return 0;
         }
         int nX;
         int nY;
-        sub_004F6760_PrecisionToScreen(nPrecisionX, nPrecisionY, 0, &nX, &nY);
+// build: symbol ?SCALE_AdjustPerspectivePosition@* 0x004F6760
+        SCALE_AdjustPerspectivePosition(nPrecisionX, nPrecisionY, 0, &nX, &nY);
         switch (sub_0045AE90())
         {
         case 1:

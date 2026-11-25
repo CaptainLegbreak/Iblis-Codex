@@ -122,17 +122,14 @@ void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 void* __fastcall sub_0046E570_GetGfxEntry(D2UnitStrc* pUnit, int nMode); // 0x0046E570
 
 void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046E5A0
 
-void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
 
 int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 
-D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
 D2UnitStrc* __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0x004CD540
 
@@ -470,7 +467,6 @@ unsigned int gnWardenBufferSize; // 0x007BC98C
 
 static int __stdcall WARDENCLIENT_LoadModule(const unsigned char* pData, const unsigned char* pKey, unsigned int nSize); // 0x0047FC70
 
-int __fastcall WARDENCLIENT_InitWarden(int nValue); // 0x004803C0
 
 
 
@@ -805,7 +801,8 @@ static int __stdcall WARDENCLIENT_LoadModule(const unsigned char* pData, const u
         SMemFree(pBuffer, ".\\WARDEN\\WardenClient.cpp", 0x185, 0);
         return 0;
     }
-    if (sub_006C79C0_Decompress(pModule, &nModuleSize, pBuffer + 4, nSize - 4))
+// build: symbol ?uncompress@* 0x006C79C0
+    if (uncompress(pModule, &nModuleSize, pBuffer + 4, nSize - 4))
     {
         SMemFree(pBuffer, ".\\WARDEN\\WardenClient.cpp", 0x18D, 0);
         SMemFree(pModule, ".\\WARDEN\\WardenClient.cpp", 0x18E, 0);

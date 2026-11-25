@@ -6490,40 +6490,6 @@ void __cdecl CHATDLG_CreateJoinScreen()
     CHATDLG_UpdateJoinButtonState();
 }
 
-// 0x00448BD0
-void __fastcall CHATDLG_UpdateScroll(int nDelta)
-{
-    int bUp = 0;
-    int bDown = 0;
-    const int nOld = gnChannelScroll;
-    if (gnChannelUserCount <= 11)
-    {
-        gnChannelScroll = 0;
-    }
-    else
-    {
-        gnChannelScroll = D2_MIN(D2_MAX(gnChannelScroll + nDelta, 0), gnChannelUserCount - 11);
-        if (gnChannelScroll > 0)
-            bUp = 1;
-        if (gnChannelScroll < gnChannelUserCount - 11)
-            bDown = 1;
-    }
-    if (gnChannelScroll != nOld)
-// build: symbol ?COMCALLBACK_RefreshChannelList@* 0x00447BB0
-        COMCALLBACK_RefreshChannelList();
-    CONTROL_SetEnabled(gpChatUpButtonA, bUp);
-    CONTROL_SetEnabled(gpChatDownButtonA, bDown);
-    CONTROL_SetEnabled(gpChatUpButtonB, bUp);
-    CONTROL_SetEnabled(gpChatDownButtonB, bDown);
-}
-
-// 0x00449330
-int __fastcall CHATDLG_OnShowUser(int nA, int nB, const char* szText, int nLength)
-{
-    COMCALLBACK_AddChannelUser(szText, nLength, nA);
-    return 1;
-}
-
 // 0x004497F0
 void __fastcall CHATDLG_MixChar(char* pChar, int nBits, unsigned int* pPool)
 {

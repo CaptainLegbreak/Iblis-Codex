@@ -57,7 +57,7 @@ struct D2SkillsTxt;
 
 struct D2_6FD106F0_Strc;
 
-struct D2_6FD10880_Strc;
+struct D2AuraNextTargetArgsStrc;
 
 struct D2MonStatsTxt;
 
@@ -192,14 +192,14 @@ struct D2_6FD106F0_Strc
     int (__fastcall* pCallback)(D2GameStrc*, D2UnitStrc*);
 };
 
-struct D2_6FD10880_Strc
+struct D2AuraNextTargetArgsStrc
 {
-    D2UnitStrc* unk0x00;
-    unsigned int unk0x04;
-    D2UnitStrc* unk0x08;
-    unsigned int unk0x0C;
-    unsigned int unk0x10;
-    int unk0x14;
+    D2UnitStrc* pNextTarget;
+    unsigned int nNextGUID;
+    D2UnitStrc* pWrapTarget;
+    unsigned int nWrapGUID;
+    unsigned int nPreviousGUID;
+    int nTargetCount;
 };
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
@@ -1129,24 +1129,24 @@ int __fastcall SKILLS_CountAuraTargets(D2GameStrc* pGame, D2UnitStrc* pUnit, int
 // 0x0056BCD0
 int __fastcall SKILLS_AuraCallback_FindNextTarget(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit)
 {
-    D2_6FD10880_Strc* pArgs = (D2_6FD10880_Strc*)pAuraCallback->pArgs;
+    D2AuraNextTargetArgsStrc* pArgs = (D2AuraNextTargetArgsStrc*)pAuraCallback->pArgs;
 
     const int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
 
-    if ((unsigned int)nUnitGUID <= pArgs->unk0x10 || (unsigned int)nUnitGUID >= pArgs->unk0x04)
+    if ((unsigned int)nUnitGUID <= pArgs->nPreviousGUID || (unsigned int)nUnitGUID >= pArgs->nNextGUID)
     {
-        if ((unsigned int)nUnitGUID <= pArgs->unk0x0C)
+        if ((unsigned int)nUnitGUID <= pArgs->nWrapGUID)
         {
-            pArgs->unk0x0C = nUnitGUID;
-            pArgs->unk0x08 = pUnit;
+            pArgs->nWrapGUID = nUnitGUID;
+            pArgs->pWrapTarget = pUnit;
         }
-        ++pArgs->unk0x14;
+        ++pArgs->nTargetCount;
     }
     else
     {
-        pArgs->unk0x04 = nUnitGUID;
-        pArgs->unk0x00 = pUnit;
-        ++pArgs->unk0x14;
+        pArgs->nNextGUID = nUnitGUID;
+        pArgs->pNextTarget = pUnit;
+        ++pArgs->nTargetCount;
     }
 
     return 1;
@@ -1155,24 +1155,24 @@ int __fastcall SKILLS_AuraCallback_FindNextTarget(D2AuraCallbackStrc* pAuraCallb
 // 0x0056BD10
 D2UnitStrc* __fastcall SKILLS_FindNextAuraTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int nPreviousTargetGUID, int* pTargetCount)
 {
-    D2_6FD10880_Strc args;
-    args.unk0x0C = nPreviousTargetGUID;
-    args.unk0x10 = nPreviousTargetGUID;
-    args.unk0x00 = 0;
-    args.unk0x04 = -1;
-    args.unk0x08 = 0;
-    args.unk0x14 = 0;
+    D2AuraNextTargetArgsStrc args;
+    args.nWrapGUID = nPreviousTargetGUID;
+    args.nPreviousGUID = nPreviousTargetGUID;
+    args.pNextTarget = 0;
+    args.nNextGUID = -1;
+    args.pWrapTarget = 0;
+    args.nTargetCount = 0;
     SKILLS_IterateAuraTargets(pGame, pUnit, nX, nY, nAuraRange, nAuraFilter | 0xA783, SKILLS_AuraCallback_FindNextTarget, &args, 0, ".\\SKILLS\\Skills.cpp", 803);
 
-    D2UnitStrc* pResult = args.unk0x00;
+    D2UnitStrc* pResult = args.pNextTarget;
     if (!pResult)
     {
-        pResult = args.unk0x08;
+        pResult = args.pWrapTarget;
     }
 
     if (pTargetCount)
     {
-        *pTargetCount = args.unk0x14;
+        *pTargetCount = args.nTargetCount;
     }
 
     return pResult;

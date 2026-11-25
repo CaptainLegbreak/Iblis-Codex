@@ -138,7 +138,8 @@ void __fastcall CLIENT_SetConnected(int bConnected)
 
 void __stdcall sub_M118_Emit_0052A730(int nArg, const char* szIpAddress)
 {
-    sub_0052B810(nArg);
+// build: symbol ?NET_SetConnectionMode@* 0x0052B810
+    NET_SetConnectionMode(nArg);
     if (NET_IsLocalConnection())
     {
         return;
@@ -352,7 +353,7 @@ void __stdcall CLIENT_Initialize(int nArg, const char* szIpAddress)
     InitializeCriticalSection(&gCriticalSection);
     gpPacketBuffer = (D2PacketBufferStrc*)FOG_Alloc(0x7BC, ".\\SRC\\Client.cpp", 200, 0);
     memset(gpPacketBuffer, 0, 0x7BC);
-    sub_0052B810(nArg);
+    NET_SetConnectionMode(nArg);
     if (NET_IsLocalConnection())
     {
         SERVER_SendConnectionInfo();

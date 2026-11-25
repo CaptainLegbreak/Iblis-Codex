@@ -230,7 +230,8 @@ int __stdcall MAINMENUS_DeclineEmail(int nArg)
 // 0x00436C90
 int __stdcall MAINMENUS_AskEmailRegistration(int nArg)
 {
-    MAINMENUS_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B5E), 0x2B61, 0x13EF, MAINMENUS_DeclineEmail, sub_004334D0_CloseBox, 0, 1);
+// build: symbol ?MAINMENUS_OnCloseBox@* 0x004334D0
+    MAINMENUS_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B5E), 0x2B61, 0x13EF, MAINMENUS_DeclineEmail, MAINMENUS_OnCloseBox, 0, 1);
     return 1;
 }
 
@@ -325,7 +326,8 @@ void __cdecl MAINMENUS_CreateEmailScreen()
 {
     if (!gpFuncTable_0077ABF0->pfnSlot68())
     {
-        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
+// build: symbol ?MAINMENUS_ShowMainMenu@* 0x004336C0
+        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
         return;
     }
     CHARSEL_CreateBaseScreen();
@@ -366,7 +368,7 @@ void __cdecl MAINMENUS_CreateInfoScreen()
 {
     if (!gpFuncTable_0077ABF0->pfnSlot68())
     {
-        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
+        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
         return;
     }
     CHARSEL_CreateBaseScreen();
@@ -449,7 +451,7 @@ void __cdecl MAINMENUS_CreatePasswordScreen()
 {
     if (!gpFuncTable_0077ABF0->pfnSlot68())
     {
-        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
+        MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
         return;
     }
     CHARSEL_CreateBaseScreen();
@@ -565,14 +567,14 @@ int __stdcall MAINMENUS_ConfirmText(int nArg)
         sub_005263E0(szText, pText1, 0x100);
         if (!MAINMENUS_CheckAtAndDot(szText))
         {
-            MAINMENUS_ShowMessageBox(D2LANG_GetStringFromTblIndex(0x2B5C), D2LANG_GetStringFromTblIndex(0x2B5D), 0x13EE, 0, sub_004334D0_CloseBox, 0, 1, 0);
+            MAINMENUS_ShowMessageBox(D2LANG_GetStringFromTblIndex(0x2B5C), D2LANG_GetStringFromTblIndex(0x2B5D), 0x13EE, 0, MAINMENUS_OnCloseBox, 0, 1, 0);
             return 1;
         }
         gpFuncTable_0077ABF0->pfnSlotB8(szText);
         D2Win_StopMessageLoop();
         return 1;
     }
-    MAINMENUS_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B5B), 0x13EE, 0, sub_004334D0_CloseBox, 0, 1, 0);
+    MAINMENUS_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B5B), 0x13EE, 0, MAINMENUS_OnCloseBox, 0, 1, 0);
     return 1;
 }
 
@@ -606,7 +608,7 @@ int __stdcall sub_00437730_ChangePassword(int bOk)
     char szName[0x100];
     if (!bOk)
     {
-        sub_004370C0();
+        MAINMENUS_CreateInfoScreen();
         return 1;
     }
     if (!sub_004F9710_TestFlag(gpPasswordOk))
@@ -634,19 +636,19 @@ int __stdcall sub_00437730_ChangePassword(int bOk)
                 MAINMENUS_ShowLoginScreen();
                 return 1;
             }
-            MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
+            MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
             return 0;
         }
         else
         {
             Unicode aText[0x100];
-            MAINMENUS_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B71), 0x13EE, 0, sub_004334D0_CloseBox, 0, 1, 0);
+            MAINMENUS_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B71), 0x13EE, 0, MAINMENUS_OnCloseBox, 0, 1, 0);
         }
     }
     else
     {
         Unicode aText[0x100];
-        MAINMENUS_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B72), 0x13EE, 0, sub_004334D0_CloseBox, 0, 1, 0);
+        MAINMENUS_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B72), 0x13EE, 0, MAINMENUS_OnCloseBox, 0, 1, 0);
     }
     return 1;
 }
@@ -661,7 +663,7 @@ int __stdcall CHARSEL_SubmitPasswordReset(int nArg)
 
     if (!nArg)
     {
-        sub_004370C0();
+        MAINMENUS_CreateInfoScreen();
         return 1;
     }
 
@@ -679,7 +681,7 @@ int __stdcall CHARSEL_SubmitPasswordReset(int nArg)
         return 1;
     }
 
-    MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), sub_004336C0);
+    MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
     return 0;
 }
 

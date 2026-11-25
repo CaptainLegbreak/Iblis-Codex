@@ -167,7 +167,8 @@ struct sub_0041C4F0;
 
 struct sub_0041C720;
 
-struct sub_0041C7F0;
+// build: symbol ?HANDLER@* 0x0041C7F0
+struct HANDLER;
 
 struct sub_004204A0;
 
@@ -450,9 +451,7 @@ int gbClickHandled; // 0x007A0658
 extern int gnAutomapHeight_007A521C; // 0x007A521C
 
 
-int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
-void __fastcall AUTOMAP_ResetBaseOffset(int bForce); // 0x00457640
 
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -960,10 +959,10 @@ struct sub_0041C720
     sub_0041C720();
 };
 
-struct sub_0041C7F0
+struct HANDLER
 {
     D2StormLinkStrc f_0;
-    sub_0041C7F0();
+    HANDLER();
 };
 
 struct sub_004204A0
@@ -1100,14 +1099,12 @@ void __cdecl GAME_InitColors(); // 0x00452130
 
 void __fastcall UI_SetLoadingAct(int nValue); // 0x00454790
 
-void __fastcall UI_DrawLoadingScreen(int bAdvanceFrame); // 0x004565E0
 
 void __stdcall AUTOMAP_RevealRoomCallback(D2ActiveRoomStrc* pRoom); // 0x00459150
 
 void __stdcall AUTOMAP_AddTownCelsCallback(int nLevelId, int nPickedFile, int nX, int nY); // 0x004591A0
 
 
-void __fastcall GFX_LoadGlobalHashedFile(unsigned char nIndex); // 0x0046F310
 
 void __cdecl GFX_FreeActHashedFile(); // 0x0046F440
 
@@ -1349,7 +1346,6 @@ struct UnitPrefix;
 void __stdcall DUNGEON_AnimateTiles(D2ActiveRoomStrc* pRoom); // 0x0061AEF0
 
 
-void __fastcall GFX_PreloadTick(int nValue); // 0x00470350
 
 int __stdcall ENVIRONMENT_UpdatePeriodOfDay(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom); // 0x0061BFC0
 
@@ -1639,7 +1635,7 @@ sub_0041C730::~sub_0041C730()
     f_0.Unlink();
 }
 
-sub_0041C7F0::sub_0041C7F0()
+HANDLER::HANDLER()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
@@ -1736,30 +1732,6 @@ int __cdecl GAME_GetStopMainLoop()
 int __cdecl GAME_IsLaunchExpansion()
 {
     return gdwGlobal_0077BBF8;
-}
-
-// 0x00446CF0
-void* __cdecl GAME_GetChannelName()
-{
-    return gszChannelName;
-}
-
-// 0x004473F0
-int __cdecl sub_004473F0()
-{
-    return 1;
-}
-
-// 0x004476F0
-int __cdecl sub_004476F0()
-{
-    return 1;
-}
-
-// 0x00447730
-int __stdcall sub_00447730(int nUnused1, int nUnused2)
-{
-    return 0;
 }
 
 // build: symbol ?COMCALLBACK_NibbleToHex@* 0x00449840

@@ -176,7 +176,6 @@ unsigned int __stdcall ITEMS_CheckIfBeltable(D2UnitStrc* pItem); // 0x0062BAD0
 int __fastcall ITEM_IsItemActionBlocked(D2UnitStrc* pItem); // 0x004C2240
 
 
-void __fastcall MSG_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 
 void __fastcall ITEM_SetUninterruptableState(D2UnitStrc* pItem); // 0x004C21F0
 
@@ -186,7 +185,6 @@ int __fastcall ITEM_GetItemUseSound(D2UnitStrc* pItem); // 0x004C1E20
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
@@ -202,9 +200,7 @@ void __fastcall sub_0049FF90_Close(D2UnitStrc* pItem, D2ItemsTxt* pState); // 0x
 
 void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
-int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 
-int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
 
 extern int gnBeltUiRecordRow; // 0x007A5218
 
@@ -218,7 +214,6 @@ static int gnBeltRecordMode2; // 0x007BEF9C
 
 D2UnitStrc* gpBeltItemA; // 0x007BEFA8
 
-int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
 extern "C" size_t __cdecl strlen(const char* szString);
 
@@ -449,7 +444,6 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); 
 void __fastcall SPELLSEL_SetSkillSelectRight(int); // 0x004A8CE0
 
 
-void __fastcall GAME_SetAlwaysRun(int); // 0x0044BE80
 
 // build: symbol ?gbControlPanelMouseDown@* 0x00722358
 #include "gen/data/Source/D2Client/UI/panel/gbControlPanelMouseDown.inc"
@@ -628,9 +622,10 @@ void __cdecl PANEL_DrawLifeOrb()
         if (nPoison > nHeight)
         {
             if (D2GFX_GetDisplayType() == 6)
-                sub_004F64E0(&tContext, 0x1C, gnScreenHeight - 0xD, nHeight, nPoison - nHeight, 0);
+// build: symbol ?TEXTURE_CelDrawEx@* 0x004F64E0
+                TEXTURE_CelDrawEx(&tContext, 0x1C, gnScreenHeight - 0xD, nHeight, nPoison - nHeight, 0);
             else
-                sub_004F64E0(&tContext, 0x1D, gnScreenHeight - 0xD, nHeight, nPoison - nHeight, 0);
+                TEXTURE_CelDrawEx(&tContext, 0x1D, gnScreenHeight - 0xD, nHeight, nPoison - nHeight, 0);
         }
     }
 
@@ -641,10 +636,10 @@ void __cdecl PANEL_DrawLifeOrb()
         {
         case 1:
         case 3:
-            sub_004F64E0(&tContext, 0x1D, gnScreenHeight - 0xD, 0, nHeight, 5);
+            TEXTURE_CelDrawEx(&tContext, 0x1D, gnScreenHeight - 0xD, 0, nHeight, 5);
             break;
         default:
-            sub_004F64E0(&tContext, 0x1D, gnScreenHeight - 0xD, 0, nHeight, 5);
+            TEXTURE_CelDrawEx(&tContext, 0x1D, gnScreenHeight - 0xD, 0, nHeight, 5);
             break;
         }
     }
@@ -680,9 +675,9 @@ void __cdecl PANEL_DrawManaOrb()
         if (nShield > nHeight)
         {
             if (D2GFX_GetDisplayType() == 6)
-                sub_004F64E0(&tContext, gnScreenWidth - 0x70, gnScreenHeight - 0xD, nHeight, nShield - nHeight, 0);
+                TEXTURE_CelDrawEx(&tContext, gnScreenWidth - 0x70, gnScreenHeight - 0xD, nHeight, nShield - nHeight, 0);
             else
-                sub_004F64E0(&tContext, gnScreenWidth - 0x6F, gnScreenHeight - 0xD, nHeight, nShield - nHeight, 0);
+                TEXTURE_CelDrawEx(&tContext, gnScreenWidth - 0x6F, gnScreenHeight - 0xD, nHeight, nShield - nHeight, 0);
         }
     }
 
@@ -690,10 +685,10 @@ void __cdecl PANEL_DrawManaOrb()
     {
     case 1:
     case 3:
-        sub_004F64E0(&tContext, gnScreenWidth - 0x6F, gnScreenHeight - 0xD, 0, nHeight, 5);
+        TEXTURE_CelDrawEx(&tContext, gnScreenWidth - 0x6F, gnScreenHeight - 0xD, 0, nHeight, 5);
         break;
     default:
-        sub_004F64E0(&tContext, gnScreenWidth - 0x6F, gnScreenHeight - 0xD, 0, nHeight, 5);
+        TEXTURE_CelDrawEx(&tContext, gnScreenWidth - 0x6F, gnScreenHeight - 0xD, 0, nHeight, 5);
         break;
     }
 

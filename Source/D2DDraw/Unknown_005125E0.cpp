@@ -134,7 +134,8 @@ void __fastcall sub_00512ED0_ClearScreen(int bPartial)
             }
             else
             {
-                sub_005103B0("Blit (screen clear) failed!", nResult);
+// build: symbol ?DDCORE_DDrawLogError@* 0x005103B0
+                DDCORE_DDrawLogError("Blit (screen clear) failed!", nResult);
             }
         }
     }

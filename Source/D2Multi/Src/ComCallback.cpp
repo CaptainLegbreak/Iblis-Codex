@@ -80,11 +80,11 @@ void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* 
 
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 
-int __stdcall sub_004FD110_SetBarValue(D2WinControlStrc* pBar, int nValue); // 0x004FD110
+int __stdcall IMAGE_SetFrame(D2WinControlStrc* pBar, int nValue); // 0x004FD110
 
-int __stdcall sub_004FD170_SetBarMode(D2WinControlStrc* pBar, int nMode); // 0x004FD170
+int __stdcall IMAGE_ForceNormalDrawMode(D2WinControlStrc* pBar, int nMode); // 0x004FD170
 
-int __stdcall sub_004FD1B0_GetBarMax(D2WinControlStrc* pBar); // 0x004FD1B0
+int __stdcall IMAGE_GetFrameCount(D2WinControlStrc* pBar); // 0x004FD1B0
 
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
 
@@ -364,6 +364,10 @@ static void __stdcall COMCALLBACK_UpdateUser(D2MultiChannelUserStrc* pUser, cons
 struct D2ChannelEntryStrc;
 
 D2MultiChannelUserStrc* __stdcall COMCALLBACK_AddChannelUser(const char* szName, const unsigned char* pStat, unsigned int nFlags); // 0x00449050
+extern D2WinControlStrc* gpChatUpButtonA; // 0x0077B084
+extern D2WinControlStrc* gpChatDownButtonA; // 0x0077B088
+extern D2WinControlStrc* gpChatUpButtonB; // 0x0077B08C
+extern D2WinControlStrc* gpChatDownButtonB; // 0x0077B090
 
 int __stdcall sub_005041B0_Destroy(D2CompositeStrc* pComposite, int nFlag); // 0x005041B0
 
@@ -615,7 +619,7 @@ unsigned long gdwLastRefresh;                                                   
 
 static inline int ProgressBarValue(int nPercent)
 {
-    return nPercent * sub_004FD1B0_GetBarMax(gpProgressBar) / 100;
+    return nPercent * IMAGE_GetFrameCount(gpProgressBar) / 100;
 }
 
 static __forceinline int FilterNoSeparator(D2WinControlStrc* pControl)
@@ -774,7 +778,7 @@ int __stdcall sub_004456A0_OnEnter(int nArg);                                   
 
 int __stdcall sub_004435D0_IsTextChar(D2WinControlStrc* pControl, int nArg, const char* pChar);             // 0x004435D0
 
-int __stdcall sub_004FE770_IsDigitChar(D2WinControlStrc* pControl, int nArg, const char* pChar);            // 0x004FE770
+int __stdcall D2Win_10078_IsNumber(D2WinControlStrc* pControl, int nArg, const char* pChar);            // 0x004FE770
 
 int __stdcall sub_004456B0_OnEnter(int nArg);                                                               // 0x004456B0
 
@@ -833,7 +837,7 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
         gpMaxPlayerControl = CONTROL_Create(&gtMaxPlayersEditInit);
         sub_004FFE10_SetTextA(gpMaxPlayerControl, gszMaxPlayersText);
         sub_004FDD50_SetMaxLength(gpMaxPlayerControl, 3);
-        sub_004FDAD0_SetKeyCallback(gpMaxPlayerControl, sub_004FE770_IsDigitChar);
+        sub_004FDAD0_SetKeyCallback(gpMaxPlayerControl, D2Win_10078_IsNumber);
         sub_004FDB00_SetEnterCallback(gpMaxPlayerControl, sub_004456B0_OnEnter);
         gpLevelDiffCheck = (D2WinButtonStrc *)CONTROL_Create(&gtLevelDiffCheckInit);
         BUTTON_SetIsPressed((D2WinControlStrc *)(D2WinButtonStrc*)gpLevelDiffCheck, 1);
@@ -841,7 +845,7 @@ void __cdecl COMCALLBACK_BuildCreateScreen()
         gpLevelDiffEdit = CONTROL_Create(&gtLevelDiffEditInit);
         sub_004FFE10_SetTextA(gpLevelDiffEdit, gszLevelDiffText);
         sub_004FDD50_SetMaxLength(gpLevelDiffEdit, 3);
-        sub_004FDAD0_SetKeyCallback(gpLevelDiffEdit, sub_004FE770_IsDigitChar);
+        sub_004FDAD0_SetKeyCallback(gpLevelDiffEdit, D2Win_10078_IsNumber);
         sub_004FDB00_SetEnterCallback(gpLevelDiffEdit, sub_004456C0_OnEnter);
 // build: symbol ?CONTROL_SetEnabled@* 0x004F96F0
         CONTROL_SetEnabled(gpLevelDiffEdit, 0);
@@ -1158,6 +1162,12 @@ int __cdecl COMCALLBACK_PlayTempSmack()
         return 1;
     }
     return 0;
+}
+
+// 0x00446CF0
+void* __cdecl GAME_GetChannelName()
+{
+    return gszChannelName;
 }
 
 // 0x00446D00
@@ -1541,6 +1551,12 @@ static inline const char* sub_SkipStarPrefix(const char* szName)
     return szName;
 }
 
+// 0x004473F0
+int __cdecl sub_004473F0()
+{
+    return 1;
+}
+
 // 0x00447400
 void __fastcall COMCALLBACK_SetNamedValue(const char* szName, const char* szValue)
 {
@@ -1637,12 +1653,24 @@ D2LaunchFuncsStrc* gpLaunchFuncs; // 0x0077B09C
 void __cdecl CHATDLG_RefreshChatScreen(); // 0x0043FBD0
 __declspec(noinline) void __cdecl CHATDLG_RefreshChatScreen(); // 0x0043FBD0
 
+// 0x004476F0
+int __cdecl sub_004476F0()
+{
+    return 1;
+}
+
 // 0x00447700
 int __fastcall CHATDLG_OnChannelDoesNotExist(int nA, int nB, const char* szText, int nLength)
 {
     gpLaunchFuncs->pfnJoinChannel(nLength, 1, 0);
     CHATDLG_RefreshChatScreen();
     return 1;
+}
+
+// 0x00447730
+int __stdcall sub_00447730(int nUnused1, int nUnused2)
+{
+    return 0;
 }
 
 // 0x00447740
@@ -2291,6 +2319,33 @@ int __fastcall sub_00446D30_Shim(D2MultiChannelUserStrc* pLeft, D2MultiChannelUs
     return COMCALLBACK_GetUserRank(pRight) - COMCALLBACK_GetUserRank(pLeft);
 }
 
+// 0x00448BD0
+void __fastcall CHATDLG_UpdateScroll(int nDelta)
+{
+    int bUp = 0;
+    int bDown = 0;
+    const int nOld = gnChannelScroll;
+    if (gnChannelUserCount <= 11)
+    {
+        gnChannelScroll = 0;
+    }
+    else
+    {
+        gnChannelScroll = D2_MIN(D2_MAX(gnChannelScroll + nDelta, 0), gnChannelUserCount - 11);
+        if (gnChannelScroll > 0)
+            bUp = 1;
+        if (gnChannelScroll < gnChannelUserCount - 11)
+            bDown = 1;
+    }
+    if (gnChannelScroll != nOld)
+// build: symbol ?COMCALLBACK_RefreshChannelList@* 0x00447BB0
+        COMCALLBACK_RefreshChannelList();
+    CONTROL_SetEnabled(gpChatUpButtonA, bUp);
+    CONTROL_SetEnabled(gpChatDownButtonA, bDown);
+    CONTROL_SetEnabled(gpChatUpButtonB, bUp);
+    CONTROL_SetEnabled(gpChatDownButtonB, bDown);
+}
+
 // 0x00448C70
 int __stdcall COMCALLBACK_ButtonCallback(D2ChatMessageStrc* pMsg)
 {
@@ -2547,6 +2602,13 @@ int __cdecl sub_M133_Emit_00447390(const char* szNameA, const char* szNameB)
 static inline void* COMCALLBACK_AddEntry(const char* szName, const unsigned char* pStat, unsigned int nFlags)
 {
     return COMCALLBACK_AddChannelUser(szName, pStat, nFlags);
+}
+
+// 0x00449330
+int __fastcall CHATDLG_OnShowUser(int nFlags, int nUnused, const char* szName, const unsigned char* pStat)
+{
+    COMCALLBACK_AddChannelUser(szName, pStat, nFlags);
+    return 1;
 }
 
 // 0x00449350

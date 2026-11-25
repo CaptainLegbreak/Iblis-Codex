@@ -21,6 +21,8 @@ struct D2SetsTxt;
 struct D2SoundsTxt;
 struct D2TextBoxStrc;
 struct D2TextNodeStrc;
+struct D2MonStats2Txt;
+struct D2UniqueItemsTxt;
 struct D2UnitStrc;
 
 void __fastcall GAME_CalcCdKeyChecksum(char* szKey, unsigned int* pChecksum); // 0x00449890
@@ -354,3 +356,47 @@ void __cdecl TEXT_FreeMainTextBox(); // 0x0049E300
 void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket); // 0x0049F490
 void __cdecl TEXT_DrawPanelFrame(); // 0x0049FA10
 void __cdecl TEXT_FreeTextPanelCels(); // 0x0049FE10
+void __fastcall GAME_SetResolution(int nResolution); // 0x0044BA20
+int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
+void __fastcall GAME_SetAlwaysRun(int bAlwaysRun); // 0x0044BE80
+void __fastcall GAME_SetSkillDelayUntil(int nValue); // 0x0044CE40
+int __fastcall GAME_IsTimerRunning(D2LoadingTimerStrc* pTimer); // 0x0044E040
+int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
+D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
+int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
+void __fastcall UI_DrawLoadingScreen(int bAdvanceFrame); // 0x004565E0
+void __fastcall AUTOMAP_ResetBaseOffset(int bForce); // 0x00457640
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
+void __fastcall SCMD_HandleSystemPacket(unsigned char* pPacket, int nSize); // 0x0045C850
+int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
+D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
+int __fastcall CUNIT_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY); // 0x00463EE0
+void __fastcall CUNIT_UpdateAttackableFlag(D2UnitStrc* pUnit); // 0x004647D0
+D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
+void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int bCheckOwner); // 0x00466CB0
+void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
+void __stdcall CURSOR_HandleButtonDown(SMSGHANDLER_PARAMS* pMsg); // 0x00467F20
+int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
+void __stdcall GFX_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nColor, int bFront, int nX, int nY, int bLift); // 0x0046E300
+void __fastcall GFX_LoadGlobalHashedFile(unsigned char nIndex); // 0x0046F310
+void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nIndex); // 0x0046FA80
+void __fastcall GFX_PreloadTick(int bAsync); // 0x00470350
+void __fastcall SCMD_GetRoomLight(D2ActiveRoomStrc* pRoom, int* pIntensity, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue, int bLevelLight); // 0x00474550
+unsigned char* __fastcall PALSHIFT_GetPalShift(D2UnitStrc* pUnit); // 0x00477530
+void __fastcall MSG_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
+void __fastcall MSG_SendFourDwords(char nCommand, int nUnitId, int nArg1, int nArg2, int nArg3); // 0x00478700
+int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny); // 0x00478F20
+int __fastcall ROSTERPETS_FindRosterIndex(int nUnitId); // 0x00479150
+void __fastcall ROSTER_SetPortalIds(int nUnitId, int nA, int nB); // 0x0047A270
+void __fastcall sub_0047E200_CloseMenus(int bRestore); // 0x0047E200
+int __fastcall WARDENCLIENT_InitWarden(int nValue); // 0x004803C0
+int __fastcall sub_004804A0_SetPathTargetPos(D2UnitStrc* pUnit, int nX, int nY); // 0x004804A0
+void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nMode, int nTargetX, int nTargetY); // 0x004804E0
+int __fastcall UNITMODE_SetPathTargetUnit(D2UnitStrc* pUnit, int nUnitType, int nUnitId); // 0x00480780
+void __fastcall UNITMODE_SetModeOverlay(D2UnitStrc* pUnit, int nMode); // 0x00480D20
+void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nMode); // 0x00480E70
+void __fastcall SOUNDHDR_TouchCacheEntry(int nIndex); // 0x00482860
+D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex); // 0x00483470
+int __fastcall AUTOMAP_IsCursorOverMiniPanelButton(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0

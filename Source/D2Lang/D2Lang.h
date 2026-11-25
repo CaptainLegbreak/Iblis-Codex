@@ -5,7 +5,7 @@
 struct D2LangCharMapEntryStrc;
 struct Unicode;
 
-const Unicode* __fastcall sub_00524930(D2TblHeaderStrc* pTable, void* pIndex, unsigned short nIndex); // 0x00524930
+const Unicode* __fastcall STRTABLE_GetStringFromTable(D2TblHeaderStrc* pTable, void* pIndex, unsigned short nIndex); // 0x00524930
 extern "C" char* __cdecl _ultoa(unsigned long nValue, char* szOut, int nRadix); // 0x00687652
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char gszStar[]; // 0x006D5830

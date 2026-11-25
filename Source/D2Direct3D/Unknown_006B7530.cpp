@@ -167,6 +167,7 @@ void __fastcall sub_006B7630_DrawTextV(int nX, int nY, const char* szFormat, va_
     char szBuffer[0x200];
     const int nLength = wvsprintfA(szBuffer, szFormat, args);
     const int nStartX = nX;
+// build: symbol ?D3DCORE_SetColorCombineMode@* 0x006B1EA0
     D3DCORE_SetColorCombineMode(1);
     D3DCORE_SetAlphaBlendMode(1);
     D3DCORE_SetTextureFilterMode(1);
@@ -741,7 +742,7 @@ int __fastcall sub_006B86F0_DrawShadow(void* sprite, int x, int y, int mode, int
     if (D2CMPTileValidate(sprite, 1, 0))
     {
         unsigned char alpha = 255;
-        sub_006B1EA0_SetMode(1);
+        D3DCORE_SetColorCombineMode(1);
         if (sub_006B77A0_GetBlendedShadows())
         {
             D3DCORE_SetAlphaBlendMode(4);

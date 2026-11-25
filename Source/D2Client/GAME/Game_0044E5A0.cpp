@@ -331,7 +331,6 @@ extern D2LoadingTimerStrc gtLoadingTimer_007A0684; // 0x007A0684
 
 void __fastcall WINMAIN_PushStateValue(int); // 0x0044B440
 
-void __fastcall GAME_SetResolution(int); // 0x0044BA20
 
 
 unsigned long __stdcall GAME_RunQServerThread(void*); // 0x0044CF20
@@ -340,7 +339,6 @@ int __stdcall GAME_ShowBetaScreens(int); // 0x0044D100
 
 extern "C" void __cdecl GAME_UnregisterMouseHandlers(); // 0x0044DCE0
 
-int __fastcall GAME_IsTimerRunning(D2LoadingTimerStrc*); // 0x0044E040
 
 
 int __stdcall GAME_LoadingTimerCallback(int); // 0x0044E400
@@ -375,7 +373,6 @@ void __fastcall INV_SendGameLogon(int,int); // 0x00477F70
 
 int __cdecl DLIGHTMAP_GetClientFlags(); // 0x0047A990
 
-int __fastcall WARDENCLIENT_InitWarden(int); // 0x004803C0
 
 
 void __fastcall SOUNDHDR_UpdateSoundSystem(int); // 0x00482260

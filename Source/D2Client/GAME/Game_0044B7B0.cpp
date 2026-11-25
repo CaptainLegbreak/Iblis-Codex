@@ -33,7 +33,6 @@ int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 
 
-void __fastcall AUTOMAP_ResetBaseOffset(int nValue); // 0x00457640
 
 
 void __fastcall UI_ToggleListDialog(int nResolution); // 0x004549B0
@@ -306,7 +305,6 @@ struct UnitPrefix;
 void __stdcall DUNGEON_AnimateTiles(D2ActiveRoomStrc* pRoom); // 0x0061AEF0
 
 
-void __fastcall GFX_PreloadTick(int nValue); // 0x00470350
 
 int __stdcall ENVIRONMENT_UpdatePeriodOfDay(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom); // 0x0061BFC0
 
@@ -385,7 +383,6 @@ void __cdecl WINMAIN_SetCharDiedFlag(); // 0x0044B860
 
 void __cdecl WINMAIN_SetLaunchStateOne(); // 0x0044B870
 
-void __fastcall GAME_SetResolution(int nResolution); // 0x0044BA20
 
 int __stdcall GAME_StartSubsystem(); // 0x0044BB70
 
@@ -395,7 +392,6 @@ int __fastcall GAME_RunClient(int nArg, const char* szAddress); // 0x0044BC10
 
 int __fastcall GAME_GetRangeEnd(D2RangeStrc* pRange); // 0x0044BE10
 
-void __fastcall GAME_SetAlwaysRun(int bAlwaysRun); // 0x0044BE80
 
 
 
@@ -460,7 +456,6 @@ extern "C" void __cdecl GAME_ConfigureEnvironmentOrDefer(); // 0x0044C820
 
 
 
-int __fastcall GAME_IsTimerRunning(D2LoadingTimerStrc* pTimer); // 0x0044E040
 
 
 
@@ -522,7 +517,6 @@ void __cdecl GAME_InitGameState()
 
 
 
-int __fastcall GAME_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 
 int __fastcall GAME_GetUnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 
@@ -620,7 +614,6 @@ inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
 
 void __cdecl GAME_FreeLngModule(); // 0x00451290
 
-void __fastcall GAME_SetSkillDelayUntil(int nValue); // 0x0044CE40
 
 
 

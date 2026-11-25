@@ -101,7 +101,7 @@ typedef void (__fastcall* PixelDataFreeCallback)(void* pData);
 
 int __cdecl GLCORE_GetFloorTilesFlag();                                                                                  // 0x00509650
 
-void __fastcall sub_0050A110_GlideFreeCelData(void* pData);                                                 // 0x0050A110
+void __fastcall GLCORE_ReleaseTexSlots(void* pData);                                                 // 0x0050A110
 
 void __stdcall CelSetHardwareFreeCallback(PixelDataFreeCallback pfnCallback); // 0x00601A30
 
@@ -1040,7 +1040,7 @@ void __cdecl GLSPRITE_InitSprites()
     D2_ASSERT(!gpGlideSpriteBufferB_0087F0CC, 0x4B);
     gpGlideSpriteBufferA = (unsigned char*)FOG_Alloc(0x10000, ".\\Src\\glSprite.cpp", 0x4C, 0);
     gpGlideSpriteBufferB_0087F0CC = (unsigned char*)FOG_Alloc(0x10000, ".\\Src\\glSprite.cpp", 0x4D, 0);
-    CelSetHardwareFreeCallback(sub_0050A110_GlideFreeCelData);
+    CelSetHardwareFreeCallback(GLCORE_ReleaseTexSlots);
     gbGlideSpriteFlag = 0;
     gbGlideMultiTmu = gnGlideTmuCount > 1;
     if (gnGlideTmuCount > 1 && !GLCORE_GetFloorTilesFlag())

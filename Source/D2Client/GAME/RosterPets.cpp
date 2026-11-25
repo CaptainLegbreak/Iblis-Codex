@@ -129,7 +129,6 @@ struct D2HirelingInfoStrc
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-void __fastcall CUNIT_UpdateAttackableFlag(D2UnitStrc* pUnit); // 0x004647D0
 
 
 void __fastcall MONSTER_SetMonsterLight(D2UnitStrc* pUnit); // 0x004AE210

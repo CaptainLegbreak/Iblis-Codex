@@ -89,7 +89,7 @@ public:
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars);
 int __cdecl GAME_GetSlotNameCount(); // 0x00430B40
-void __cdecl sub_00434060();
+void __cdecl MAINMENUS_BuildRealmList(); // 0x00434060
 void __cdecl CHARSEL_InitCharList(); // 0x0043AE30
 void __fastcall CHARSEL_UseName(char* szName); // 0x0043ADB0
 int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140
@@ -171,7 +171,7 @@ void __cdecl CHARSEL_InitCharSelectScreen()
 
     if (gnLaunchMode == 1)
     {
-        sub_00434060();
+        MAINMENUS_BuildRealmList();
         const int nCount = GAME_GetSlotNameCount();
         if (nCount != -1)
         {

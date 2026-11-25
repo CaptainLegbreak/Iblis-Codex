@@ -59,9 +59,7 @@ int __cdecl sub_0044DA90();                                                     
 
 int __fastcall RECORD_DispatchRecordedMessage(D2MsgRecordStrc* pRecord);                                          // 0x00451880
 
-D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId);                        // 0x00451FE0
 
-int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 
 
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
@@ -249,7 +247,6 @@ struct D2HirelingInfoStrc
 int __fastcall sub_00477620_RollUnitValue(D2UnitStrc* pUnit, unsigned short nOffset); // 0x00477620
 
 
-int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny);                   // 0x00478F20
 
 
 
@@ -386,9 +383,7 @@ int __fastcall OBJECT_UpdateEnvObject(D2UnitStrc* pUnit, int nArg); // 0x004BC5E
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int bForce); // 0x00461250
 
@@ -488,7 +483,6 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2A
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
-D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
@@ -522,7 +516,6 @@ int __fastcall GFX_HitTestUnitGfx(D2UnitStrc*,int,int,int,int); // 0x00470860
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-int __fastcall CUNIT_IsPointInTileRect(D2UnitStrc*,int,int); // 0x00463EE0
 
 int __fastcall GFXUTIL_UpdateUnitGfx(D2UnitStrc*,int); // 0x004DB670
 
@@ -561,14 +554,12 @@ void __fastcall CUNIT_SyncFromServerUnit(D2UnitStrc* pUnit); // 0x00465070
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int id); // 0x0045C4B0
 
-int __fastcall ROSTERPETS_FindRosterIndex(int unitId); // 0x00479150
 
 extern const unsigned char gnSkillMask_006CE26C; // 0x006CE26C
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 
-D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 
 static int __stdcall CUNIT_IsItemInInventory(D2UnitStrc* pOwner, D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x00464D20
@@ -582,7 +573,6 @@ static void CUNIT_RemoveUnitFromTable(unsigned int nUnitId, int nUnitType, D2Uni
 
 
 
-void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int bCheckOwner); // 0x00466CB0
 
 static D2UnitStrc* __stdcall CUNIT_InitUnit(unsigned int nUnitId, int nClassId, int nY, int nUnitType, int nArg5, int nArg6, D2UnitStrc* pUnit, int nX); // 0x00465FD0
 
@@ -600,7 +590,6 @@ struct D2KeyConfigFileStrc;
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType);
 
 
-D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 static int __stdcall CUNIT_CheckSkillSelectProc(D2UnitStrc* pPlayer, D2UnitStrc* pTarget, int nSkillId); // 0x004642B0
 
@@ -683,14 +672,12 @@ static void CUNIT_RemoveUnitFromTable(unsigned int nUnitId, int nUnitType, D2Uni
 
 
 
-void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int bCheckOwner);
 
 static D2UnitStrc* __stdcall CUNIT_InitUnit(unsigned int nUnitId, int nClassId, int nY, int nUnitType, int nArg5, int nArg6, D2UnitStrc* pUnit, int nX);
 
 
 
 
-D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg);
 
 int __stdcall CUNIT_CheckSkillSelectProc(D2UnitStrc* pPlayer, D2UnitStrc* pTarget, int nSkillId); // 0x004642B0
 
@@ -2303,7 +2290,8 @@ void __fastcall CUNIT_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int bFl
                 if (pOldLevel->nPal != pNewLevel->nPal)
                 {
                     sub_004FB480_SetActA(pNewLevel->nPal);
-                    sub_00600C00_SetActB(pNewLevel->nPal);
+// build: symbol ?D2CMPPalShiftSetAct@* 0x00600C00
+                    D2CMPPalShiftSetAct(pNewLevel->nPal);
                 }
             }
         }
@@ -3388,7 +3376,6 @@ void __cdecl CUNIT_ClearAiTargets()
     }
 }
 
-unsigned char* __fastcall PALSHIFT_GetPalShift(D2UnitStrc* pUnit); // 0x00477530
 
 D2UnitStrc* __fastcall sub_M109_Emit_00463920(int nUnitType, int nHash)
 {
