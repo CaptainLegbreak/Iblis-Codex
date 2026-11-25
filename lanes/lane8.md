@@ -13,7 +13,9 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
   at the loop head (`for (;;) { unsigned/int nId = nNext; ...; nNext = rec[nId].wNext; ...; if (... ) break; }`)
   brings the movzx copy back, but the compiler keeps it at the head (not rotated, 3 bytes shorter) with nId/nNext/
   depth in ecx/eax/edx instead of eax/edx/ecx. short/ushort/int nId, short nNext, do/while/while/for-with-breaks:
-  none rotates it. A lead: the copy-at-head shape is the right kind of source.
+  none rotates it. A lead: the copy-at-head shape is the right kind of source. Also tried with the original's rotated
+  shape: nId and nNext assigned in one chain, nId straight from the field, int nNext, a record pointer, and casts on the
+  first copy ((unsigned short)(short), (short), (int)(unsigned short), & 0xFFFF): the compiler drops the first copy.
 - Wed Nov 25 09:05 PST 2026 (grinding, the user's call):
   - 0x621F90 without volatile is 1 byte off (the quest store's SIB order [ecx+edi-0xC] vs the original's
     [edi+ecx-0xC]; the waypoint store [edi+edx] matches). New forms tried, none moves that byte: one statement per
