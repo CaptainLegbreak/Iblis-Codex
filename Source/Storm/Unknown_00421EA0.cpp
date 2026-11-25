@@ -11,8 +11,6 @@ struct D2StormBigStrc;
 struct BigStack;
 struct D2StormArrayBStrc;
 struct D2GameLinkStrc;
-struct D2StormListAStrc;
-struct D2StormGameArrayStrc;
 void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 
 struct D2StormArrayAStrc
@@ -199,26 +197,6 @@ struct D2GameStrc
 
     ~D2GameStrc();                                                                                          // 0x0044F820
     static void operator delete(void* pMemory);
-};
-
-struct D2StormListAStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    ~D2StormListAStrc();
-    void UnlinkAll();                                                                                       // 0x0044F8E0
-    static void operator delete(void* pMemory);
-};
-
-struct D2StormGameArrayStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    D2GameStrc* m_data;
-    unsigned int m_chunk;
-
-    ~D2StormGameArrayStrc();                                                                                // 0x0044FD80
 };
 
 static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsigned int nSize, unsigned int* pnOffset, unsigned int* pnLength);

@@ -610,7 +610,6 @@ struct D2SliderButtonStrc;
 
 struct D2Record42Strc;
 
-struct D2QuestTextLineStrc;
 
 struct D2QuestPanelEntryStrc;
 
@@ -672,12 +671,6 @@ extern int gnPage_007C0255; // 0x007C0255
 extern D2SliderButtonStrc gaKeyConfigButtons[3]; // 0x007246D8
 
 extern int gaPressed[7]; // 0x007C0288
-
-struct D2QuestTextLineStrc
-{
-    unsigned short wLead[9];
-    Unicode wszText[300];
-};
 
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160

@@ -7,7 +7,6 @@ struct D2StormHashBufferStrc;
 
 struct D2CriticalSectionStrc;
 
-struct D2FogBlockStrc;
 
 struct D2StormMemSourceStrc;
 
@@ -62,15 +61,6 @@ struct D2SCompListInitStrc;
 struct D2SCompTermLinkStrc;
 
 struct D2SCompListStrc;
-
-struct D2FogBlockStrc
-{
-    D2FogBlockStrc* pNext;
-    unsigned int dwSize;
-    int unk0x08[2];
-    int bReportLeak;
-    int bInUse;
-};
 
 struct D2StormMemSourceStrc
 {

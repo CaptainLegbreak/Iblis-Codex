@@ -36,7 +36,6 @@ struct _iobuf;
 
 struct D2InspectorInfoStrc;
 
-struct D2CrashSubmitInfoStrc;
 
 typedef long (__stdcall* D2ExceptionFilterFn)(void* pExceptionPointers);
 
@@ -83,16 +82,6 @@ struct AsyncDataEventSlot
 };
 
 extern "C" size_t __cdecl strlen(const char* szString);
-
-struct D2CrashSubmitInfoStrc
-{
-    const char* szName;
-    const char* szLocale;
-    const char* szFrom;
-    unsigned int dwFlags;
-    const char* apszLines[16];
-    int nLines;
-};
 
 void __fastcall ERRORMANAGER_DumpThread(unsigned long dwThreadId, D2ThreadContextStrc* pThreadContext, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader, int nArg7); // 0x00403070
 
@@ -211,21 +200,12 @@ extern "C" int __stdcall recv(unsigned int nSocket, char* pBuffer, int nLength, 
 
 struct FSafeSock;
 
-struct D2LogMsgListStrc;
 
 class CCritSect;
 
 extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); // 0x00684BD5
 
 int __fastcall FOG_SOCKET_WSAStartup(); // 0x0040D890
-
-struct D2LogMsgListStrc
-{
-    int m_linkoffset;
-    D2StormLinkStrc m_terminator;
-
-    void sub_0040FED0_DeleteAll();                                          // 0x0040FED0
-};
 
 FSafeSock* __fastcall FOG_SOCKET_ConnectEx(char* szHostAddress, int nPortNumber, unsigned long (__stdcall* pThreadProc)(void* pParam), void* lpParameter, const char* szName, int bNonBlocking); // 0x0040D8E0
 

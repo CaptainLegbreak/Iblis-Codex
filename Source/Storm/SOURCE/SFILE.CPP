@@ -519,17 +519,8 @@ extern TSList<REQUEST> gRequestList_00708360; // 0x00708360
 
 static int gbStreamsPaused_00779044;                                                                        // 0x00779044
 
-struct D2FogBlockStrc;
 
 struct D2StormRecord419000Strc;
-
-struct D2FogBlockStrc
-{
-    D2FogBlockStrc* pNext;
-    unsigned int dwSize;
-    int unk0x08[3];
-    int bInUse;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetModuleFileNameA(void* hModule, char* szFileName, unsigned long nSize); // 0x006CC1BC
 

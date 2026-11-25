@@ -116,22 +116,6 @@ struct D2PoolSystemStrc;
 
 #pragma pack(push, 1)
 
-struct D2ClientInfoStrc
-{
-    char unk0x00[0x1EF];
-    union
-    {
-        unsigned short wFlags;
-        struct
-        {
-            unsigned char lowFlags;
-            unsigned char progress;
-        };
-    };
-    char unk0x1F1[0x33];
-    unsigned char nSoundArg;
-};
-
 #pragma pack(pop)
 
 typedef void (__fastcall* D2InitHandlerFn)(void* pArg);
@@ -489,29 +473,7 @@ struct D2ChatMessageStrc { D2WinControlStrc* pControl; unsigned int nMessage; };
 
 struct Unicode;
 
-struct D2TileRectStrc
-{
-    int unk0x00;
-    int nX;
-    int nY;
-    unsigned int nWidth;
-    unsigned int nHeight;
-};
 
-struct D2GridCellStrc;
-
-struct D2GridCellStrc
-{
-    int nFlag;
-    unsigned char nValue[4];
-};
-
-struct D2MonLvlTxt;
-
-struct D2MonLvlTxt
-{
-    char unk0x00[0x78];
-};
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 

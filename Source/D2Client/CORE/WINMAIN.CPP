@@ -1829,12 +1829,6 @@ int gaStateStack[1]; // 0x007A0424
 
 int gnStateStackCount; // 0x007A044C
 
-struct D2MonLvlTxt;
-
-struct D2MonLvlTxt
-{
-    char unk0x00[0x78];
-};
 
 // 0x0044B440
 void __fastcall WINMAIN_PushStateValue(int nValue)
@@ -1946,21 +1940,6 @@ void __cdecl WINMAIN_SetLaunchStateOne()
 }
 
 #pragma pack(push, 1)
-struct D2ClientInfoStrc
-{
-    char unk0x00[0x1EF];
-    union
-    {
-        unsigned short wFlags;
-        struct
-        {
-            unsigned char lowFlags;
-            unsigned char progress;
-        };
-    };
-    char unk0x1F1[0x33];
-    unsigned char nSoundArg;
-};
 #pragma pack(pop)
 
 // 0x0044B880

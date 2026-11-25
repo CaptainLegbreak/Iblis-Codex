@@ -27,7 +27,6 @@ struct D2BigServerRecordStrc;
 
 struct D2BigServerHandlesStrc;
 
-struct D2SrpSha1ContextStrc;
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
@@ -61,13 +60,6 @@ struct D2BigServerHandlesStrc
 unsigned char* __fastcall SHA_Interleave(unsigned char* pDest, const unsigned char* pData, unsigned int nSize); // 0x0052A120
 
 extern "C" unsigned int __cdecl _rotl(unsigned int nValue, int nShift);
-
-struct D2SrpSha1ContextStrc
-{
-    unsigned int aState[5];
-    unsigned int aCount[2];
-    unsigned char aBuffer[64];
-};
 
 struct D2Blob32Strc
 {

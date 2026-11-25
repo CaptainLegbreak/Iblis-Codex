@@ -2,22 +2,9 @@
 #include "D2StormArrayA.h"
 
 struct D2StormArrayAStrc;
-struct D2StormArrayCStrc;
 struct BigBuffer;
-struct D2StormFixedArrayAStrc;
-struct D2StormArrayBStrc;
 
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x004133D0
-
-struct D2StormArrayCStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    char* m_data;
-    unsigned int m_chunk;
-
-    void sub_00421770_ReallocData(unsigned int nAlloc);
-};
 
 struct BigBuffer
 {
@@ -41,53 +28,6 @@ struct BigBuffer
 };
 
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
-
-struct D2StormFixedArrayAStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    unsigned int* m_data;
-
-    void InlineReallocData(unsigned int nAlloc)
-    {
-        m_alloc = nAlloc;
-        if (m_data || nAlloc)
-            m_data = (unsigned int*)SMemReAlloc(m_data, nAlloc * sizeof(unsigned int), gszTypeNameUInt_00708874, -2, 0);
-    }
-    void sub_004215C0_Set(unsigned int nCount, const unsigned int* pData);
-};
-
-struct D2StormArrayBStrc
-{
-    unsigned int m_alloc;
-    unsigned int m_count;
-    unsigned char* m_data;
-    unsigned int m_chunk;
-
-    static unsigned int __stdcall RoundUp(unsigned int nValue, unsigned int nAlign)
-    {
-        unsigned int nRemainder = nValue % nAlign;
-        if (nRemainder)
-            nValue += nAlign - nRemainder;
-        return nValue;
-    }
-    unsigned int sub_00421160_CalcChunkSize(unsigned int nCount);                                           // 0x00421160
-    void sub_004211C0_ReallocData(unsigned int nAlloc);                                                     // 0x004211C0
-    void InlineReserve(unsigned int nCount, int bRound)
-    {
-        nCount += m_count;
-        if (nCount > m_alloc)
-        {
-            if (bRound)
-            {
-                unsigned int nChunk = m_chunk ? m_chunk : sub_00421160_CalcChunkSize(nCount);
-                nCount = RoundUp(nCount, nChunk);
-            }
-            sub_004211C0_ReallocData(nCount);
-        }
-    }
-    unsigned int sub_004218B0_Add(unsigned int nCount, const unsigned char* pData);
-};
 
 inline void* operator new(unsigned int, void* pWhere) throw();
 
