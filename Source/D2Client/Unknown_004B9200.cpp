@@ -1,5 +1,6 @@
 #include "D2StatIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2ClientGame.h"
 #include "D2Unicode.h"
@@ -57,9 +58,7 @@ void __fastcall TEXT_AcceptWordPacket(D2UiPacketStrc_004B9210* pPacket); // 0x00
 
 void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
-void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 
-void __cdecl GAME_RequestExit(); // 0x0044D520
 
 
 

@@ -1,5 +1,6 @@
 #include "D2StateIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2CommonApi.h"
@@ -7,7 +8,6 @@
 
 
 
-D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit);                                                       // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                                                       // 0x00620410
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit);                                                    // 0x00621190
@@ -20,7 +20,6 @@ int __fastcall GFX_DrawUnit(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int
 void __fastcall PLRSKILLS_CallSkillSeqDoForward(D2UnitStrc* pUnit, int nArg);                                 // 0x004D85B0
 void __fastcall PLRSKILLS_CallSkillSeqDoBackward(D2UnitStrc* pUnit, int nArg);                                                  // 0x004D8650
 void __fastcall PLRSKILLS_SkillSeqDoForward(D2UnitStrc* pUnit, int nArg);                                      // 0x004D8520
-void __fastcall PLRSKILLS_SkillSeqDoBackward(D2UnitStrc* pUnit, int nArg);                                      // 0x004D85C0
 
 inline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
 {

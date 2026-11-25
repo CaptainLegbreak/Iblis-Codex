@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2ClientTypes.h"
 #include "D2StormTypes.h"
 #include "StormApi.h"
@@ -9,10 +10,8 @@ struct D2ClientListEntryStrc
     unsigned char unk0x04[6];
 };
 
-int __cdecl GAME_IsExitPending();                                                                                 // 0x0044DA30
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount);     // 0x00451E10
-void __cdecl UI_RegisterKeyConfigHandlers();                                                                                // 0x00454980
 int __fastcall CMDTBL_QueryKey(int nId, int nMode, int nCommand, int* pKey);                          // 0x00469C20
 int __cdecl WINDOW_GetWindow();                                                                                // 0x004F59A0
 extern D2MsgHandlerEntryStrc gaKeyCaptureMButtonHandlers[];                                                      // 0x0072472C

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2DataTbls.h"
 #include "D2CelContext.h"
 #include "D2TxtTables.h"
@@ -18,7 +19,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
 
-D2GfxMotionStrc* __fastcall GFX_GetGfxMotion(D2UnitStrc* pUnit);                                   // 0x0046F060
 
 D2TokRecord* __stdcall DATATBLS_GetMonModeTxtRecord(unsigned int nIndex, int bGetMode);                     // 0x0065B500
 

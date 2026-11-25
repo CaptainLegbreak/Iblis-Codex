@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Drlg.h"
@@ -44,9 +45,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* hPath); // 0x006488C0
 
@@ -805,7 +804,6 @@ struct D2GridLightStrc
 
 extern int gnScreenWidth; // 0x0071146C
 
-int __cdecl DLIGHTMAP_GetRenderMode(); // 0x00477730
 
 void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE070
 
@@ -849,11 +847,8 @@ struct D2FloorTileViewStrc
     void __thiscall UpdateView(void* pArgument); // 0x004DE730
 };
 
-int __cdecl sub_0044DB00(); // 0x0044DB00
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
 
-D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
 int __cdecl sub_00473770_IsMudLevel(); // 0x00473770
 

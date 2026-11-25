@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Unicode.h"
 #include "D2Structs.h"
 #include "FogApi.h"
@@ -16,13 +17,10 @@ D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nId, int nType); // 0x0
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int nType, unsigned int nId); // 0x004786A0
 extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
 void __fastcall SELECT_SetSelectionRect(D2RectStrc* pRect); // 0x00467430
-void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 int __fastcall D2Win_10127_SetFont(int nFont); // 0x00502EF0
 D2TextBlockStrc* __fastcall TEXT_CreateTextBox(const Unicode* pText, int nMode); // 0x004A05E0
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall sub_004E0650_GetStringSound(unsigned short nString); // 0x004E0650
-void __fastcall UNITSND_ReleaseSkillSfx(D2UnitStrc* pUnit); // 0x004CB190
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __fastcall sub_004B9A00(int nSound, D2UnitStrc* pUnit, int nMode, int nZero, int nZero2); // 0x004B9A00
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 void* __stdcall WINDOW_GetWindow(); // 0x004F59A0

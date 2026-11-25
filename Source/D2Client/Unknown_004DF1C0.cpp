@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 
 #include "D2Structs.h"
 
@@ -69,9 +70,7 @@ extern D2LightOffsetsStrc gaLightOffsetsA[]; // 0x0072ABC8
 
 extern D2LightOffsetsStrc gaLightOffsetsB[]; // 0x0072A9E8
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
 
-int __cdecl DLIGHTMAP_GetRenderMode(); // 0x00477730
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 

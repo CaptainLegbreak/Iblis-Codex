@@ -1,5 +1,6 @@
 #include "D2StatIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2ClientGame.h"
 #include "D2Unicode.h"
@@ -18,12 +19,7 @@ struct D2HintKeyListStrc;
 struct D2TimedHintNodeStrc;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
-int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
-int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 void __cdecl INV_ClearTradeFlag(); // 0x0048A6F0
-void __fastcall MSG_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
-void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 // build: symbol ?DIALOG_CreateDialog@* 0x004B7EB0
 D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int (__cdecl* pfnArg8)(),
     int (__cdecl* pfnArgC)(), int nArg10, int nArg14, int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28); // 0x004B7EB0
@@ -31,7 +27,6 @@ void __fastcall ROSTER_SetCtrlState(void* pPanel, int nValue); // 0x004B8370
 // build: symbol ?DIALOG_AddTextLine@* 0x004B85F0
 void __fastcall DIALOG_AddTextLine(void* pPanel, const Unicode* pText, int nArg3, int nArg4, int nArg5, int nArg6,
     int (__cdecl* pfnArg7)(), int nArg8); // 0x004B85F0
-void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
 int __cdecl sub_004B8A30_OnCancel(); // 0x004B8A30
 int __cdecl sub_004B8A80_OnClose(); // 0x004B8A80
 extern D2ClientDialogStrc* gpTradeWaitDialog; // 0x007C0E6C
@@ -43,7 +38,6 @@ int __cdecl sub_004B8BA0_OnClose2(); // 0x004B8BA0
 
 
 int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
-D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 void __fastcall SOUNDINST_SetValue(int nKey, int nValue); // 0x004B9B50
 extern D2TimedHintNodeStrc* gpClientSoundList; // 0x007C5458
 
@@ -69,16 +63,13 @@ void __fastcall INV_SetTradePanelOpen(int bOpen); // 0x00489360
 
 void __fastcall UNITSND_PlayPlayerSpeech(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 
-int __cdecl sub_004B85E0(); // 0x004B85E0
 
 void __fastcall INV_UpdateTradeAcceptSound(int nArg1, int nArg2); // 0x004897E0
 
-int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 
 void __cdecl INV_SetTradeFlag(); // 0x0048A6E0
 
@@ -88,9 +79,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLay
 
 void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
-void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 
-void __cdecl GAME_RequestExit(); // 0x0044D520
 
 extern int gnTradePartnerUnitId; // 0x007C0E60
 
@@ -111,9 +100,7 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 
 
-int __cdecl sub_00468730(); // 0x00468730
 
-int __cdecl sub_00468740(); // 0x00468740
 
 int __cdecl UI_IsGoldPanelOpen(); // 0x004549C0
 

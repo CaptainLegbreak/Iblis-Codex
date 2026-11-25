@@ -4,6 +4,7 @@
 #include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Txt.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
@@ -85,13 +86,10 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 
-unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 
-int __cdecl SELECT_GetHoverClassId(); // 0x00466DD0
 
 int __cdecl GAME_GetLadderFlag(); // 0x0044DCA0
 
@@ -103,13 +101,11 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
-int __stdcall INV_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
 
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x00451F30
 
 D2GfxLightStrc* __fastcall DLIGHTMAP_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
 
-void __fastcall CUNIT_FreeLight(D2UnitStrc* pUnit); // 0x00464930
 
 D2HirelingTxt* __stdcall DATATBLS_GetHirelingTxtRecordFromIdAndLevel(int bExpansion, int nId, int nLevel); // 0x006562F0
 
@@ -120,11 +116,9 @@ D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUn
 
 void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pMonster, const Unicode* wszName); // 0x0063E810
 
-void __fastcall ITEM_RefreshUnitEquipment(D2UnitStrc* pUnit); // 0x004C1C10
 
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 
-float __stdcall GFXUTIL_VectorLengthSquared(float fX, float fY); // 0x004E4160
 
 extern D2DrlgActStrc* gpAct; // 0x007A0634
 
@@ -133,7 +127,6 @@ D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg); // 0x00466CB0
 
-void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit); // 0x0046EC10
 
 void __fastcall DLIGHTMAP_ReleaseLight(D2GfxLightStrc* pLight); // 0x004743D0
 
@@ -151,7 +144,6 @@ void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
 
 void __fastcall UNITMODE_RecacheUnitPath(D2UnitStrc* pUnit); // 0x00480490
 
@@ -201,7 +193,6 @@ int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
@@ -213,15 +204,11 @@ void __stdcall MONSTER_SpawnQuillRatMissiles(D2UnitStrc* pUnit, int nMissile, in
 
 int __fastcall SKILLS_DoUsedSkill(D2UnitStrc* pUnit); // 0x004C68F0
 
-void __fastcall SKILLS_RunStateActiveFuncs(D2UnitStrc* pUnit); // 0x004C72F0
 
-void __fastcall UNITSND_UpdateModeSound(D2UnitStrc* pUnit); // 0x004CB460
 
 D2UnitStrc* __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
-D2UnitStrc* __fastcall MISSILE_SubmitOffsetRequest(D2UnitStrc* pUnit, int nArg0, int nOffsetX, int nOffsetY, int nTargetX, int nTargetY, int nArg3, int nArg4, int nRange); // 0x004CDC30
 
-void __stdcall PARTICLE_ResetGfxMotion(D2UnitStrc* pUnit); // 0x004DA000
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
@@ -257,17 +244,13 @@ extern const int gaBloodOffsetY[]; // 0x006DA5F0
 
 extern const int gaBloodOffsetX[]; // 0x006DA610
 
-D2UnitStrc* __fastcall MISSILE_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
 
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625500
 
 void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
 
-void __stdcall GFXUTIL_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA2A0
 
-void __stdcall GFXUTIL_ReplaceMotionFlag1With8(D2UnitStrc* pUnit); // 0x004DA690
 
-void __fastcall GFXUTIL_SetMotionFlagMask(D2UnitStrc* pUnit, int bSet); // 0x004DA6E0
 
 
 
@@ -285,7 +268,6 @@ struct D2ClientStringListStrc
     unsigned short wCount;
 };
 
-void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
@@ -346,13 +328,9 @@ unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
-void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 
-void __fastcall MONSTER_SetClientFlags(D2UnitStrc* pUnit, unsigned short wFlags); // 0x004AE0A0
 
-void __fastcall MONSTER_SetMonsterLight(D2UnitStrc* pUnit); // 0x004AE210
 
-void __fastcall PLAYERLIST_InitGfxData(D2UnitStrc* pUnit); // 0x004DC510
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
@@ -401,7 +379,6 @@ void __fastcall MONSTER_UpdateMonsterClient(D2UnitStrc* pUnit); // 0x004B13A0
 
 extern "C" { Unicode gwszNameSeparator[1]; }                                                                // 0x007C0C58
 
-int __fastcall MONSTER_IsMinionMonster(D2UnitStrc* pUnit);                                             // 0x004AE380
 
 int __fastcall D2Win_10121_GetTextWidth(const Unicode* wszText);                                             // 0x00501820
 
@@ -441,13 +418,11 @@ void __cdecl GAME_ResetMouseState();                                            
 
 void __fastcall AUTOMAP_SetUnitFlag(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x00457460
 
-int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit);                                                             // 0x00463860
 
 void __fastcall CUNIT_SetTargetByGUID(D2UnitStrc* pUnit, int nUnitType, unsigned int nUnitId); // 0x004643F0
 
 void __fastcall CUNIT_UpdateAttackableFlag(D2UnitStrc* pUnit);                                       // 0x004647D0
 
-void __fastcall CUNIT_MarkUnitDead(D2UnitStrc* pUnit);                                                // 0x00464810
 
 void __fastcall CUNIT_SetDrawDelay(D2UnitStrc* pUnit);                                               // 0x00464C90
 
@@ -455,13 +430,11 @@ void __fastcall CUNIT_SetOverlayWithSound(D2UnitStrc* pUnit, int nOverlay, int n
 
 void __fastcall CUNIT_SetPathTargetToTargetUnit(D2UnitStrc* pUnit, int nArg);                        // 0x00465BF0
 
-void __cdecl SELECT_ClearSelection();                                                                                // 0x00466FE0
 
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit();                                                             // 0x00467A10
 
 void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
-void __fastcall GFX_RemoveOverlays(D2UnitStrc* pUnit);                                             // 0x0046F170
 
 int __fastcall sub_004804A0_SetPathTargetPos(D2UnitStrc* pUnit, int nX, int nY);                           // 0x004804A0
 
@@ -491,7 +464,6 @@ void __fastcall SKILLS_StartSkillOnUnit(D2UnitStrc* pUnit, D2MonCommandStrc* pCo
 
 void __fastcall SKILLS_StartSkillAtPos(D2UnitStrc* pUnit, D2MonCommandStrc* pCommand);                                // 0x004C6F40
 
-int __stdcall PARTICLE_GetGfxClientZ(D2UnitStrc* pUnit);                                          // 0x004DA0F0
 
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill);                              // 0x00620210
 
