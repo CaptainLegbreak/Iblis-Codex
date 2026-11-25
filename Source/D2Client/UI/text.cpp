@@ -466,7 +466,7 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int nAr
 
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
 
-void __fastcall sub_004B8370_SetField5C(D2ClientDialogStrc* pDialog, int nValue); // 0x004B8370
+void __fastcall ROSTER_SetCtrlState(D2ClientDialogStrc* pDialog, int nValue); // 0x004B8370
 
 // build: symbol ?DIALOG_AddTextLine@* 0x004B85F0
 void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nArg8, int nArgC,
@@ -1117,7 +1117,7 @@ extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
 
 static int TEXT_FormatPartyEvent(Unicode* pOut, D2GSPacketSrv5A* pPacket); // 0x0049E8F0
 
-void __fastcall sub_0049E3A0_ShowChatText(const Unicode* wszText, char nColor);
+void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor); // 0x0049E3A0
 
 
 extern "C" __declspec(dllimport) int __stdcall SetRect(D2RectStrc* pRect, int nLeft, int nTop, int nRight, int nBottom);
@@ -2261,7 +2261,8 @@ void __fastcall sub_0049E5C0_PrintWrappedLine(const Unicode* wszText, char nColo
     if (GAME_GetUIVarState(0x18) && gpListBox)
     {
         gpListBox->Refresh();
-        sub_0049E340();
+// build: symbol ?TEXT_FillListBox@* 0x0049E340
+        TEXT_FillListBox();
     }
     D2Win_10127_SetFont(nOldFont);
     sub_004B9A00(6, 0, 0, 0, 0);
@@ -2495,7 +2496,7 @@ void __fastcall TEXT_PrintChatLine(const Unicode* wszText, char nColor)
     if (GAME_GetUIVarState(0x18) && gpListBox)
     {
         gpListBox->Refresh();
-        sub_0049E340();
+        TEXT_FillListBox();
     }
     D2Win_10127_SetFont(nOldFont);
 }
@@ -2578,7 +2579,7 @@ void __fastcall TEXT_PrintPartyText(const Unicode* wszText, char nColor)
     if (GAME_GetUIVarState(0x18) && gpListBox)
     {
         gpListBox->Refresh();
-        sub_0049E340();
+        TEXT_FillListBox();
     }
     D2Win_10127_SetFont(nOldFont);
     sub_004B9A00(6, 0, 0, 0, 0);
@@ -2643,7 +2644,8 @@ D2UnitStrc* __cdecl TEXT_GetTextUnit()
 // 0x0049E8F0
 static int TEXT_FormatPartyEvent(Unicode* pOut, D2GSPacketSrv5A* pPacket)
 {
-    D2StoredUnitRecordStrc* pRecord = sub_00479BB0_FindRecord(pPacket->dwParam);
+// build: symbol ?ROSTER_FindRosterUnitById@* 0x00479BB0
+    D2StoredUnitRecordStrc* pRecord = ROSTER_FindRosterUnitById(pPacket->dwParam);
     Unicode wszName[16];
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     char szName[16];
@@ -2950,7 +2952,7 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
 
     if (pPacket->nMessageType == 4)
     {
-        sub_0049E3A0_ShowChatText(wszText, pPacket->nMessageColor);
+        TEXT_PrintChatLine(wszText, pPacket->nMessageColor);
         return;
     }
 
@@ -2963,7 +2965,7 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
         Unicode::win2Unicode(wszC, pPacket->szName, 0x10);
         sub_005269D0(0x264, wszA, D2LANG_GetStringFromTblIndex(0xE4A), wszC, wszB);
         SCMD_StripColorCodes(wszA);
-        sub_0049E3A0_ShowChatText(wszA, 2);
+        TEXT_PrintChatLine(wszA, 2);
     }
     else if (pPacket->nMessageType == 2)
     {
@@ -2976,19 +2978,19 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
             Unicode::strcat(wszA, D2LANG_GetStringFromTblIndex(0xE46));
             sub_005267E0(wszB, wszText);
             Unicode::strcat(wszA, wszB);
-            sub_0049E3A0_ShowChatText(wszA, 2);
+            TEXT_PrintChatLine(wszA, 2);
             return;
         }
         if (nTextLen > 0x131)
             return;
         sub_005267E0(wszA, wszText);
-        sub_0049E3A0_ShowChatText(wszA, 2);
+        TEXT_PrintChatLine(wszA, 2);
     }
     else if (pPacket->nMessageType == 1)
     {
         if (pPacket->nUnitType == 0 || pPacket->nUnitType == 1)
         {
-            sub_0049E3A0_ShowChatText(wszText, pPacket->nMessageColor);
+            TEXT_PrintChatLine(wszText, pPacket->nMessageColor);
             return;
         }
         const int nNameLen = strlen(pPacket->szName);
@@ -3003,13 +3005,13 @@ void __fastcall TEXT_HandleChatPacket(D2GSPacketSrv26* pPacket)
             Unicode::strcat(wszB, wszText);
             INV_PrefixColorCode(wszB, 0);
             Unicode::strcat(wszA, wszB);
-            sub_0049E3A0_ShowChatText(wszA, pPacket->nMessageColor);
+            TEXT_PrintChatLine(wszA, pPacket->nMessageColor);
             return;
         }
         if (nTextLen > 0x131)
             return;
         sub_005267E0(wszA, wszText);
-        sub_0049E3A0_ShowChatText(wszA, pPacket->nMessageColor);
+        TEXT_PrintChatLine(wszA, pPacket->nMessageColor);
     }
     else if (pPacket->nMessageType == 5)
     {
@@ -3337,7 +3339,7 @@ void TEXT_OpenMessageLogDialog()
     }
     gpListDialog = DIALOG_CreateDialog(5, 0x1E, (int)TEXT_CloseMessageLogCallback, 0, 0, 0, 0,
         gnScreenWidth - 0x14, gnScreenHeight - 0x82, 0, 0);
-    sub_004B8370_SetField5C(gpListDialog, 1);
+    ROSTER_SetCtrlState(gpListDialog, 1);
     DIALOG_AddTextLine(gpListDialog, D2LANG_GetStringFromTblIndex(0xFC3), 0x15, 0, 4, 1, 0, 0);
     DIALOG_AddTextLine(gpListDialog, D2LANG_GetStringFromTblIndex(0x1030), gnScreenHeight - 0xA5, 0,
         0, 1, TEXT_CloseMessageLogCallback, 1);
@@ -3346,7 +3348,7 @@ void TEXT_OpenMessageLogDialog()
     if (gpListBox)
     {
         DIALOG_AddWidget(gpListDialog, gpListBox, 0x19, 0x1E);
-        sub_0049E340();
+        TEXT_FillListBox();
         sub_004B82F0_Select(gpListDialog, -1);
     }
 }

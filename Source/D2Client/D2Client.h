@@ -100,14 +100,14 @@ D2SkillStrc* __stdcall UNITS_GetStartSkill(D2UnitStrc* pUnit); // 0x00620150
 D2SquelchListStrc* __cdecl sub_00611560_GetSquelchList(); // 0x00611560
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc* pUnit, int nFlag); // 0x00625760
 D2StatListStrc* __stdcall sub_00625790_UnitFindStatList(D2UnitStrc* pUnit, int nState, int nFlag); // 0x00625790
-D2StoredUnitRecordStrc* __fastcall sub_00479BB0_FindRecord(int nUnitId); // 0x00479BB0
+D2StoredUnitRecordStrc* __fastcall ROSTER_FindRosterUnitById(int nUnitId); // 0x00479BB0
 D2TileRectStrc* __stdcall sub_00619620(D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit); // 0x00619620
 D2TokRecord* __stdcall DATATBLS_GetObjModeTypeTxtRecord(unsigned int nIndex, int bGetMode); // 0x0065B570
 D2TokRecord* __stdcall DATATBLS_GetPlrModeTypeTxtRecord(unsigned int nIndex, int bGetMode); // 0x0065B480
-D2UnitStrc* __fastcall sub_004661C0_CreateClientUnit(int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nMode); // 0x004661C0
+D2UnitStrc* __fastcall CUNIT_AllocClientUnit(int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nMode); // 0x004661C0
 D2UnitStrc* __fastcall sub_004C5420_CreateFirstMissile(D2UnitStrc* pUnit, int nArg0, int nArg3, int nArg4); // 0x004C5420
 D2UnitStrc* __fastcall sub_004C5470_CreateMissileToTarget(D2UnitStrc* pUnit, int nMissile, int nSkillId, int nSkillLevel); // 0x004C5470
-D2UnitStrc* __fastcall sub_004CDD10_CreateMissileAtTarget(D2UnitStrc* pUnit, int nMissile, int nSkillId, int nSkillLevel); // 0x004CDD10
+D2UnitStrc* __fastcall MISSILE_SubmitTargetRequest(D2UnitStrc* pUnit, int nMissile, int nSkillId, int nSkillLevel); // 0x004CDD10
 D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2); // 0x00623990
 D2UnitStrc* __stdcall INVENTORY_RemoveItemFromInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063AD90
 D2UnitStrc* __stdcall PATH_GetTargetUnit(D2DynamicPathStrc* pDynamicPath); // 0x00648BF0
@@ -470,23 +470,23 @@ int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __cdecl sub_0040EB10(); // 0x0040EB10
 int __cdecl sub_00410A80_GetTime(); // 0x00410A80
 int __cdecl MAINMENUS_HasSaveFiles(); // 0x00430BC0
-int __cdecl sub_00454840_Test(); // 0x00454840
+int __cdecl UI_IsLoadingScreenActive(); // 0x00454840
 int __cdecl sub_00468730_GetMouseX(); // 0x00468730
 int __cdecl sub_00468740_GetMouseY(); // 0x00468740
 int __cdecl sub_00473C40(); // 0x00473C40
 int __cdecl sub_004817A0_GetPlayerSoundEnviron(); // 0x004817A0
-int __cdecl sub_00489860(); // 0x00489860
-int __cdecl sub_004A08C0(); // 0x004A08C0
-int __cdecl sub_004A65E0_IsInLeftButton(); // 0x004A65E0
-int __cdecl sub_004A6690_IsInRightButton(); // 0x004A6690
-int __cdecl sub_004B1A80(); // 0x004B1A80
-int __cdecl sub_004B1B80(); // 0x004B1B80
-int __cdecl sub_004B1C00(); // 0x004B1C00
-int __cdecl sub_004B4010(); // 0x004B4010
-int __cdecl sub_004B4070(); // 0x004B4070
-int __cdecl sub_004B41C0(); // 0x004B41C0
-int __cdecl sub_004B41E0(); // 0x004B41E0
-int __cdecl sub_004B4290(); // 0x004B4290
+int __cdecl INV_IsSellMode(); // 0x00489860
+int __cdecl TEXT_CloseText(); // 0x004A08C0
+int __cdecl TEXT_IsMouseOnStatButton(); // 0x004A65E0
+int __cdecl TEXT_IsMouseOnSkillButton(); // 0x004A6690
+int __cdecl NPCMENU_OnSelectMessage(); // 0x004B1A80
+int __cdecl NPCMENU_PlayIntroMessage(); // 0x004B1B80
+int __cdecl NPCMENU_PlayGossipMessage(); // 0x004B1C00
+int __cdecl NPCMENU_CloseSubMenuDialog(); // 0x004B4010
+int __cdecl NPCMENU_CloseConfirmDialog(); // 0x004B4070
+int __cdecl NPCMENU_NextNpcMessage(); // 0x004B41C0
+int __cdecl NPCMENU_GreetNpcMessage(); // 0x004B41E0
+int __cdecl NPCMENU_ConfirmNpcAction(); // 0x004B4290
 int __cdecl sub_004B9180(); // 0x004B9180
 int __cdecl D2GFX_CheckUnitPerspective(); // 0x004F5170
 int __cdecl D2GFX_IsHardwareRenderMode(); // 0x004F51C0
@@ -508,46 +508,47 @@ int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x004
 int __fastcall sub_0040A7F0_AsyncDataCheck(AsyncData* pAsyncData); // 0x0040A7F0
 int __fastcall MAINMENUS_ConnectToRealm(const char* szName, int bFlag); // 0x00432480
 int __fastcall sub_00451F70_GetUnitMode(D2UnitStrc* pUnit); // 0x00451F70
-int __fastcall sub_004525F0_GetHoverTextY(D2UnitStrc* pUnit); // 0x004525F0
-int __fastcall sub_004577C0_SetValue(int nValue); // 0x004577C0
-int __fastcall sub_004577F0_SetValue(int nValue); // 0x004577F0
-int __fastcall sub_00462D00(int nMode, int nX, int nY, int nFlags); // 0x00462D00
-int __fastcall sub_00463860_GetMonsterId(D2UnitStrc* pUnit); // 0x00463860
+int __fastcall UI_GetMonsterLifeFraction(D2UnitStrc* pUnit); // 0x004525F0
+int __fastcall AUTOMAP_SaveAutomapParty(int nValue); // 0x004577C0
+int __fastcall AUTOMAP_SaveAutomapPartyNames(int nValue); // 0x004577F0
+int __fastcall PLAYER_PlayerCommand(int nMode, int nX, int nY, int nFlags); // 0x00462D00
+int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 int __fastcall sub_00464EC0(D2UnitStrc*,D2UnitStrc*); // 0x00464EC0
-int __fastcall sub_00464F70(D2UnitStrc*,D2UnitStrc*); // 0x00464F70
-int __fastcall sub_00465C60(D2UnitStrc*,D2UnitStrc*); // 0x00465C60
-int __fastcall sub_00466870(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x00466870
+int __fastcall CUNIT_IsTargetBlocked(D2UnitStrc*,D2UnitStrc*); // 0x00464F70
+int __fastcall CUNIT_IsHostileTo(D2UnitStrc*,D2UnitStrc*); // 0x00465C60
+int __fastcall CUNIT_IsUnitSelectable(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x00466870
 int __fastcall SELECT_IsMonsterUnit(D2UnitStrc* pUnit, void* pArg); // 0x00467640
 int __fastcall sub_0046C140_CheckMonStats2ModeFlag(int nMonsterId, int nMode); // 0x0046C140
-int __fastcall sub_0046C570_FindRoomUnit(D2UnitStrc* pUnit, D2UnitStrc** ppFound, int* pDistance,
+// build: symbol ?GFXUTIL_ForEachUnitInAdjacentRooms@* 0x0046C570
+int __fastcall GFXUTIL_ForEachUnitInAdjacentRooms(D2UnitStrc* pUnit, D2UnitStrc** ppFound, int* pDistance,
     int (__fastcall* pfnCheck)(D2UnitStrc* pUnit, D2UnitStrc* pOther, D2UnitStrc** ppFound, int* pDistance)); // 0x0046C570
-int __fastcall sub_0046C600_CheckTarget(D2UnitStrc* pUnit, D2UnitStrc* pOther, D2UnitStrc** ppFound, int* pDistance); // 0x0046C600
-int __fastcall sub_0046C660_CheckTarget2(D2UnitStrc* pUnit, D2UnitStrc* pOther, D2UnitStrc** ppFound, int* pDistance); // 0x0046C660
+int __fastcall GFXUTIL_FindNearestUnitCallback(D2UnitStrc* pUnit, D2UnitStrc* pOther, D2UnitStrc** ppFound, int* pDistance); // 0x0046C600
+int __fastcall GFX_FindCorpseCallback(D2UnitStrc* pUnit, D2UnitStrc* pOther, D2UnitStrc** ppFound, int* pDistance); // 0x0046C660
 int __fastcall sub_0046D9F0_TestUnit(D2UnitStrc* pUnit); // 0x0046D9F0
 int __fastcall sub_0046DA60_GetUnitMode(D2UnitStrc* pUnit); // 0x0046DA60
 int __fastcall sub_0046DAC0_GetItemClassId(D2UnitStrc* pUnit); // 0x0046DAC0
 int __fastcall sub_0046E100(D2UnitStrc* pUnit, int nOverlay); // 0x0046E100
-int __fastcall sub_00471450(D2UnitStrc* pUnit); // 0x00471450
-int __fastcall sub_0047A070_IsPartyRelation(int nPlayerId, int nOtherId); // 0x0047A070
+int __fastcall GFX_DrawSimpleUnitShadow(D2UnitStrc* pUnit); // 0x00471450
+int __fastcall ROSTER_IsHostileRelation(int nPlayerId, int nOtherId); // 0x0047A070
 int __fastcall sub_0047A520(int nUnitId1, int nUnitId2); // 0x0047A520
-int __fastcall sub_0047A6B0_GetLifeValue(int nUnitId); // 0x0047A6B0
+int __fastcall ROSTER_GetOtherPartyLife(int nUnitId); // 0x0047A6B0
 int __fastcall sub_004807C0(D2UnitStrc* pUnit); // 0x004807C0
 int __fastcall sub_00480C10_UnitEvent(int nEvent, D2UnitStrc* pUnit, int* pArgs, int nFlag); // 0x00480C10
-int __fastcall sub_00489190(SMSGHANDLER_PARAMS* pMsg); // 0x00489190
-int __fastcall sub_004A6630_IsInPanelButton2(int nMode, int nX, int nY); // 0x004A6630
+int __fastcall INV_ClickNpcPanel(SMSGHANDLER_PARAMS* pMsg); // 0x00489190
+int __fastcall TEXT_IsInRightPanelButton(int nMode, int nX, int nY); // 0x004A6630
 int __fastcall sub_004AC7E0_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag); // 0x004AC7E0
-int __fastcall sub_004AE080(D2UnitStrc* pUnit, int nMode); // 0x004AE080
-int __fastcall sub_004AE320_IsMonsterFlag4(D2UnitStrc* pUnit); // 0x004AE320
-int __fastcall sub_004AE340(D2UnitStrc* pUnit); // 0x004AE340
-int __fastcall sub_004B11F0(D2UnitStrc* pUnit); // 0x004B11F0
-int __fastcall sub_004B1280(D2UnitStrc* pUnit, D2MonAnimRecStrc* pRecord); // 0x004B1280
+int __fastcall NPCMENU_GetMonsterTypeFlags(D2UnitStrc* pUnit, int nMode); // 0x004AE080
+int __fastcall MONSTER_IsChampionMonster(D2UnitStrc* pUnit); // 0x004AE320
+int __fastcall MONSTER_IsGhostlyMonster(D2UnitStrc* pUnit); // 0x004AE340
+int __fastcall MONSTER_IsConvertible(D2UnitStrc* pUnit); // 0x004B11F0
+int __fastcall MONSTER_HandleSequenceStop(D2UnitStrc* pUnit, D2MonAnimRecStrc* pRecord); // 0x004B1280
 int __fastcall sub_004B95C0_IsHintPlaying(void* pHint); // 0x004B95C0
 int __fastcall sub_004B9610_FindHint(int nId); // 0x004B9610
-int __fastcall sub_004CAEB0(D2UnitStrc* pUnit, int nMode); // 0x004CAEB0
+int __fastcall UNITSND_GetFootstepSound(D2UnitStrc* pUnit, int nMode); // 0x004CAEB0
 int __fastcall MISSILE_GetSkillMissileRange(int nSkillId, int nSkillLevel); // 0x004CC7C0
 int __fastcall sub_004DAB40_CheckCel(D2CelStrc* pCel, int nX, int nY, int nArg4); // 0x004DAB40
 int __fastcall sub_004DBB50_InitCelContext(D2CelContextStrc* pContext, D2UnitStrc* pUnit, int a3, int nDirection, int nFrame, int* pOut, int a7, int a8); // 0x004DBB50
-int __fastcall sub_004DBD30_CountVisibleLayers(D2UnitStrc* pUnit, D2GfxLayerHeaderStrc* pHeader, unsigned char* pLayers, int* pOut, int nDirection, int nFrame); // 0x004DBD30
+int __fastcall GFXUTIL_GetComponentsMaxHeight(D2UnitStrc* pUnit, D2GfxLayerHeaderStrc* pHeader, unsigned char* pLayers, int* pOut, int nDirection, int nFrame); // 0x004DBD30
 int __fastcall sub_004E4120(int nRange); // 0x004E4120
 int __fastcall sub_004F2260_GetSkillCount(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004F2260
 int __fastcall sub_004F9710_TestFlag(D2WinControlStrc* pControl); // 0x004F9710
@@ -708,7 +709,7 @@ unsigned char __stdcall sub_006283F0_GetInvGfxIndex(D2UnitStrc* pItem); // 0x006
 unsigned char __stdcall sub_0062E8D0_HasAltInvGfx(D2UnitStrc* pItem); // 0x0062E8D0
 unsigned char __stdcall MONSTERS_GetMaximalLightRadius(D2UnitStrc* pUnit); // 0x0063EBD0
 unsigned char __stdcall sub_00648EA0_GetPathByte(D2DynamicPathStrc* pPath); // 0x00648EA0
-unsigned char* __fastcall sub_004DB110_GetLayerOrder(void* pGfx, int nA, int nFrame); // 0x004DB110
+unsigned char* __fastcall GFXUTIL_GetLayerOrder(void* pGfx, int nA, int nFrame); // 0x004DB110
 unsigned int __cdecl sub_0044CE60_GetPing(); // 0x0044CE60
 unsigned int __cdecl sub_005FF2A0_CountPending(); // 0x005FF2A0
 unsigned int __fastcall sub_0040AA40(AsyncData* pAsync); // 0x0040AA40
@@ -737,33 +738,33 @@ void __cdecl sub_0043B080(); // 0x0043B080
 void __cdecl CHARSEL_ClearCancelled(); // 0x0043B820
 void __cdecl CHARSEL_DisconnectBattleNet(); // 0x0043B9A0
 void __cdecl CHARSEL_CreateBaseScreen(); // 0x0043C4F0
-void __cdecl sub_004584C0_ResetA(); // 0x004584C0
-void __cdecl sub_00458680_ResetB(); // 0x00458680
-void __cdecl sub_00458750_Rebuild(); // 0x00458750
-void __cdecl sub_00469D50(); // 0x00469D50
+void __cdecl AUTOMAP_SaveAutomapLayer(); // 0x004584C0
+void __cdecl AUTOMAP_ResetAutomapCells(); // 0x00458680
+void __cdecl AUTOMAP_LoadAutomapLayer(); // 0x00458750
+void __cdecl CMDTBL_RestoreHotkeys(); // 0x00469D50
 void __cdecl sub_00472610(); // 0x00472610
 void __cdecl DLIGHTMAP_RunLightPass(); // 0x00475800
 void __cdecl sub_00477EE0(); // 0x00477EE0
 void __cdecl sub_00480340(); // 0x00480340
-void __cdecl sub_00487B30(); // 0x00487B30
-void __cdecl sub_00488F10(); // 0x00488F10
-void __cdecl sub_0048A540(); // 0x0048A540
-void __cdecl sub_0048A6A0_ClearHover(); // 0x0048A6A0
+void __cdecl INV_ResetNpcState(); // 0x00487B30
+void __cdecl INV_RestoreSelectedShopButton(); // 0x00488F10
+void __cdecl INV_QuestCodeUpdate(); // 0x0048A540
+void __cdecl INV_ResetNpcCursor(); // 0x0048A6A0
 void __cdecl sub_00497250(); // 0x00497250
-void __cdecl sub_00497270(); // 0x00497270
-void __cdecl sub_00497290(); // 0x00497290
+void __cdecl HIREABLES_InitTextColorA(); // 0x00497270
+void __cdecl HIREABLES_InitTextColorB(); // 0x00497290
 void __cdecl sub_004972B0(); // 0x004972B0
-void __cdecl sub_00499E10(); // 0x00499E10
-void __cdecl sub_0049E340(); // 0x0049E340
+void __cdecl PANEL_SetRedColour(); // 0x00499E10
+void __cdecl TEXT_FillListBox(); // 0x0049E340
 void __cdecl sub_004A2550(); // 0x004A2550
-void __cdecl sub_004A5060(); // 0x004A5060
-void __cdecl sub_004A5D00(); // 0x004A5D00
+void __cdecl TEXT_LayoutSlider(); // 0x004A5060
+void __cdecl TEXT_RegisterKeyCaptureHandlers(); // 0x004A5D00
 void __cdecl sub_004AB2F0(); // 0x004AB2F0
-void __cdecl sub_004B2F50(); // 0x004B2F50
+void __cdecl NPCMENU_ShowTradeDialog(); // 0x004B2F50
 void __cdecl sub_004BA8F0(); // 0x004BA8F0
 void __cdecl SOUNDINST_LockSpeechSounds(); // 0x004BAA50
 void __cdecl sub_004BAAB0(); // 0x004BAAB0
-void __cdecl sub_004C0090(); // 0x004C0090
+void __cdecl USEITEM_CloseUseItemPanel(); // 0x004C0090
 void __cdecl sub_004C0440(); // 0x004C0440
 void __cdecl sub_004DCA30(); // 0x004DCA30
 void __cdecl sub_004F6830(); // 0x004F6830
@@ -783,65 +784,65 @@ void __fastcall FOG_FCloseFile(void* hFile); // 0x004068F0
 void __fastcall sub_0040AB00_FreeAsyncData(AsyncData* pAsync); // 0x0040AB00
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 void __fastcall sub_0043C6A0(int bSet); // 0x0043C6A0
-void __fastcall sub_004527D0(D2UnitStrc* pUnit, int nA, int nB); // 0x004527D0
-void __fastcall sub_004545C0(int bSet); // 0x004545C0
-void __fastcall sub_00455AE0_CloseUIVar(int nUIVar); // 0x00455AE0
-void __fastcall sub_004565E0_Redraw(int nArg); // 0x004565E0
+void __fastcall UI_BuildItemHoverName(D2UnitStrc* pUnit, int nA, int nB); // 0x004527D0
+void __fastcall UI_TogglePanelHandlers(int bSet); // 0x004545C0
+void __fastcall UI_ClearPanelHandlers(int nUIVar); // 0x00455AE0
+void __fastcall UI_DrawLoadingScreen(int nArg); // 0x004565E0
 void __fastcall sub_0045D3E0(D2UnitStrc* pUnit); // 0x0045D3E0
-void __fastcall sub_00460BF0_InitPlayerUnit(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00460BF0
-void __fastcall sub_00460D50_FreePlayerUnit(D2UnitStrc* pUnit); // 0x00460D50
-void __fastcall sub_00463E20_SetUnitFlagA(D2UnitStrc* pUnit, int bSet); // 0x00463E20
-void __fastcall sub_00463E80_SetUnitFlagB(D2UnitStrc* pUnit, int bSet); // 0x00463E80
+void __fastcall PLAYER_InitClientPlayer(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00460BF0
+void __fastcall PLAYER_FreeClientPlayer(D2UnitStrc* pUnit); // 0x00460D50
+void __fastcall CUNIT_SetBasePalShiftIndex(D2UnitStrc* pUnit, int bSet); // 0x00463E20
+void __fastcall CUNIT_SetPalShiftIndex(D2UnitStrc* pUnit, int bSet); // 0x00463E80
 void __fastcall sub_004647D0(D2UnitStrc* pUnit); // 0x004647D0
-void __fastcall sub_00464CF0(D2UnitStrc* pUnit, int nRadius); // 0x00464CF0
+void __fastcall CUNIT_SetStartLight(D2UnitStrc* pUnit, int nRadius); // 0x00464CF0
 void __fastcall sub_00465BF0(D2UnitStrc* pUnit, int nArg); // 0x00465BF0
 void __fastcall sub_00465F00_RemoveClientUnit(int nUnitId, int nUnitType); // 0x00465F00
-void __fastcall sub_0046AA20(int nArg1, int nArg2); // 0x0046AA20
+void __fastcall CMDTBL_SetHotkeyHandlers(int nArg1, int nArg2); // 0x0046AA20
 void __fastcall sub_0046BFF0(D2UnitStrc* pUnit); // 0x0046BFF0
-void __fastcall sub_0046F070_SetGfxMotion(D2UnitStrc* pUnit, D2GfxMotionStrc* pMotion); // 0x0046F070
-void __fastcall sub_0046F1C0(D2GfxDataStrc* pGfxData, int nValue); // 0x0046F1C0
-void __fastcall sub_0046F220(D2GfxDataStrc* pGfxData, int nValue); // 0x0046F220
+void __fastcall GFX_SetGfxMotionFlag(D2UnitStrc* pUnit, D2GfxMotionStrc* pMotion); // 0x0046F070
+void __fastcall GFX_SetGfxBasePalShift(D2GfxDataStrc* pGfxData, int nValue); // 0x0046F1C0
+void __fastcall GFX_SetGfxPalShift(D2GfxDataStrc* pGfxData, int nValue); // 0x0046F220
 void __fastcall GFX_LoadMonsterCofs(int nItemId, int nArg); // 0x0046F870
-void __fastcall sub_00471620(D2CellPosStrc* pPos); // 0x00471620
+void __fastcall GFX_DrawUnitShadow(D2CellPosStrc* pPos); // 0x00471620
 void __fastcall sub_00472DA0(int nX, int nY, int nSubX, int nSubY); // 0x00472DA0
 void __fastcall sub_00472EC0(int nX, int nY, int nSubX, int nSubY); // 0x00472EC0
-void __fastcall sub_00476000_SetViewRect(D2ViewStrc* pView, int nLeft, int nTop, int nRight, int nBottom); // 0x00476000
+void __fastcall VIEW_SetViewRects(D2ViewStrc* pView, int nLeft, int nTop, int nRight, int nBottom); // 0x00476000
 void __fastcall sub_00476A80_StartTiming(int nArg1, int nArg2, int nArg3, int nArg4); // 0x00476A80
-void __fastcall sub_00479DA0(D2StoredUnitRecordStrc* pEntry); // 0x00479DA0
-void __fastcall sub_00479DE0(D2StoredUnitRecordStrc* pEntry); // 0x00479DE0
-void __fastcall sub_00479E20(D2StoredUnitRecordStrc* pEntry); // 0x00479E20
-void __fastcall sub_00479FE0(D2StoredUnitRecordStrc* pEntry); // 0x00479FE0
+void __fastcall ROSTER_ToggleLoot(D2StoredUnitRecordStrc* pEntry); // 0x00479DA0
+void __fastcall ROSTER_ToggleMute(D2StoredUnitRecordStrc* pEntry); // 0x00479DE0
+void __fastcall ROSTER_ToggleSquelch(D2StoredUnitRecordStrc* pEntry); // 0x00479E20
+void __fastcall ROSTER_ToggleHostile(D2StoredUnitRecordStrc* pEntry); // 0x00479FE0
 void __fastcall sub_004822B0(int nId, int nValue); // 0x004822B0
 void __fastcall sub_00482370(int nId); // 0x00482370
-void __fastcall sub_00482710(int nIndex, char* szPath); // 0x00482710
-void __fastcall sub_0049F3D0(void* pSoundData); // 0x0049F3D0
+void __fastcall SOUNDHDR_GetSoundPath(int nIndex, char* szPath); // 0x00482710
+void __fastcall TEXT_FreeHoverText(void* pSoundData); // 0x0049F3D0
 void __fastcall sub_0049F490_PrintChatMessage(D2ChatMessageStrc* pMessage); // 0x0049F490
 void __fastcall TEXT_ShowNpcMessage(D2UnitStrc* pUnit, unsigned short nMessage, int nArg); // 0x004A10E0
 void __fastcall sub_004A2760(int nCount); // 0x004A2760
 void __fastcall sub_004AC780_SetMonsterWord(D2UnitStrc* pUnit, unsigned short nValue); // 0x004AC780
 void __fastcall sub_004AC810_ToggleMonsterFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet); // 0x004AC810
 void __fastcall sub_004AD020_RefreshMonster(D2UnitStrc* pUnit); // 0x004AD020
-void __fastcall sub_004AE3C0(D2UnitStrc* pUnit); // 0x004AE3C0
-void __fastcall sub_004AEDD0(D2UnitStrc* pUnit, int nMonsterId); // 0x004AEDD0
+void __fastcall MONSTER_OwnerMissileHit(D2UnitStrc* pUnit); // 0x004AE3C0
+void __fastcall MONSTER_ChangeMonsterClass(D2UnitStrc* pUnit, int nMonsterId); // 0x004AEDD0
 void __fastcall sub_004AF890(D2UnitStrc* pUnit, int nArg1, int nArg2); // 0x004AF890
-void __fastcall sub_004B3D10_ReleaseTextUnit(int nUnitId); // 0x004B3D10
+void __fastcall NPCMENU_CancelNpcAndFlag(int nUnitId); // 0x004B3D10
 void __fastcall SOUNDINST_MoveSound(int nHandle, int nPan, int nVolume, int nArg); // 0x004B99A0
-void __fastcall sub_004BC720_InitObjectUnit(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nArg); // 0x004BC720
-void __fastcall sub_004BD6B0_InitShrine(D2UnitStrc* pUnit); // 0x004BD6B0
-void __fastcall sub_004C1910_InitItemUnit(D2UnitStrc* pItem, D2ActiveRoomStrc* pRoom, int nX, int nY, int nArg, int bFlag); // 0x004C1910
-void __fastcall sub_004C5390_ScaleUpDirection(int* pX, int* pY); // 0x004C5390
+void __fastcall OBJECT_InitObject(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nArg); // 0x004BC720
+void __fastcall OBJECT_SetShrine(D2UnitStrc* pUnit); // 0x004BD6B0
+void __fastcall ITEM_SetItemMode(D2UnitStrc* pItem, D2ActiveRoomStrc* pRoom, int nX, int nY, int nArg, int bFlag); // 0x004C1910
+void __fastcall SKILLS_ScaleUpDirection(int* pX, int* pY); // 0x004C5390
 void __fastcall sub_004C5680_StartAura(D2UnitStrc* pUnit, int nAuraFunc); // 0x004C5680
 void __fastcall SKILLSPAL_DrawMotionTrail(D2UnitStrc* pUnit, int nArg, int bForward); // 0x004C9990
-void __fastcall sub_004CA8A0_AddUnitSound(D2UnitStrc* pUnit, int nHandle); // 0x004CA8A0
-void __fastcall sub_004CAF60(D2UnitStrc* pUnit); // 0x004CAF60
+void __fastcall UNITSND_AddUnitSfx(D2UnitStrc* pUnit, int nHandle); // 0x004CA8A0
+void __fastcall UNITSND_UpdateFootsteps(D2UnitStrc* pUnit); // 0x004CAF60
 void __fastcall sub_004CBDE0_PetCommand(int nPetId, char bFlag, int nSkill); // 0x004CBDE0
-void __fastcall sub_004CC160(D2UnitStrc* pUnit, int nValue); // 0x004CC160
+void __fastcall UNITSND_AddUnitSoundRefs(D2UnitStrc* pUnit, int nValue); // 0x004CC160
 void __fastcall sub_004CC5B0_RequestMode(D2UnitStrc* pUnit, int nMode, int nArg); // 0x004CC5B0
 void __fastcall sub_004CC870_SubMissileCallback(D2UnitStrc* pMissile); // 0x004CC870
 void __fastcall sub_004CED20(D2UnitStrc* pMissile, int nMissile); // 0x004CED20
 D2UnitStrc* __fastcall MISSILE_CltMissileHit(D2UnitStrc* pMissile, D2UnitStrc* pTarget, int bArg); // 0x004D2D70
-void __fastcall sub_004DA620(D2UnitStrc* pUnit, int nArg); // 0x004DA620
-void __fastcall sub_004DB1C0_SetGfxByte(D2UnitStrc* pUnit, int nIndex, unsigned char nValue); // 0x004DB1C0
+void __fastcall GFXUTIL_SetMotionFlag10(D2UnitStrc* pUnit, int nArg); // 0x004DA620
+void __fastcall GFXUTIL_SetGfxEntryByte(D2UnitStrc* pUnit, int nIndex, unsigned char nValue); // 0x004DB1C0
 void __fastcall sub_004DC7B0(D2CellPosStrc* pPos, unsigned int nColor, int nArg); // 0x004DC7B0
 void __fastcall GFXUTIL_ApplySoundEnviron(int nEnvironId); // 0x004DF6C0
 void __fastcall sub_004DF7B0(void* pStream); // 0x004DF7B0
@@ -946,7 +947,7 @@ void __stdcall CHATDLG_SetMcpResult(int nValue); // 0x00449BF0
 void __stdcall CHATDLG_SetCharCreateReceived(int nValue); // 0x00449C20
 void __stdcall sub_0048B0A0(D2UnitStrc* pUnit); // 0x0048B0A0
 void __stdcall sub_004A4AD0_Press(int nX, int nY); // 0x004A4AD0
-void __stdcall sub_004B2650(int nArg1, int nArg2); // 0x004B2650
+void __stdcall NPCMENU_SendTradeRequest(int nArg1, int nArg2); // 0x004B2650
 void __stdcall sub_004DA000(D2UnitStrc* pUnit); // 0x004DA000
 void __stdcall sub_004DA250(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int nArg5); // 0x004DA250
 void __stdcall sub_004DD7C0(D2ActiveRoomStrc* pRoom, D2WallRoomArgStrc* pArg); // 0x004DD7C0
@@ -982,7 +983,7 @@ void* __cdecl sub_00454600(); // 0x00454600
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void* __fastcall sub_0040A9E0(AsyncData* pAsync); // 0x0040A9E0
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-void* __fastcall sub_004DC0B0_GetUnitMemoryPool(D2UnitStrc* pUnit); // 0x004DC0B0
+void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc* pUnit); // 0x004DC0B0
 void* __fastcall sub_00517993_VirtualAlloc(unsigned int nSize); // 0x00517993
 void* __stdcall D2Win_GetArchive(); // 0x004FAC80
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* szLogFileName, int nLogLine, unsigned int nFlags); // 0x004133D0

@@ -3798,7 +3798,7 @@ static D2UnitStrc* __stdcall ITEMS_CreateDropAtUnit(D2GameStrc* pGame, int nQual
     return D2GAME_CreateItemEx_6FC4ED80(pGame, &tItemDrop, 0);
 }
 
-void* __fastcall sub_004DC0B0_GetUnitMemoryPool(D2UnitStrc*); // 0x004DC0B0
+void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc*); // 0x004DC0B0
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateAndFlag(D2UnitStrc*, int, int); // 0x006257D0
 

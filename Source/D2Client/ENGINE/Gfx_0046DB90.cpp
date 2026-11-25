@@ -364,7 +364,8 @@ static void __stdcall GFX_LoadMonsterCof(D2MonStatsTxt* pMonStatsTxtRecord, int 
     D2_ASSERT(pData, 0xEC9);
     D2GfxLayerHeaderStrc* pHeader = sub_004DB040_GetLayerHeader(pData);
     D2_ASSERT(pHeader, 0xECB);
-    unsigned char* pOrder = sub_004DB110_GetLayerOrder(pData, 0, 0);
+// build: symbol ?GFXUTIL_GetLayerOrder@* 0x004DB110
+    unsigned char* pOrder = GFXUTIL_GetLayerOrder(pData, 0, 0);
     D2_ASSERT(pOrder, 0xED0);
 
     for (int i = 0; i < pHeader->nLayers; ++i)
@@ -580,7 +581,7 @@ static int GFX_LoadObjectGfx(D2UnitStrc* pUnit, int nIndex)
             return 0;
         }
         D2_ASSERT(GFX_LoadGfxNode(&nValue, nIndex, pUnit), 0x4D4);
-        sub_004DB1C0_SetGfxByte(pUnit, nIndex, 1);
+        GFXUTIL_SetGfxEntryByte(pUnit, nIndex, 1);
         return 1;
     }
     D2_ASSERT(0, 0x4DC);
@@ -595,7 +596,7 @@ static int GFX_LoadGfxNodeSetByte(D2UnitStrc* pUnit, int nIndex)
     {
         return 0;
     }
-    sub_004DB1C0_SetGfxByte(pUnit, nIndex, 1);
+    GFXUTIL_SetGfxEntryByte(pUnit, nIndex, 1);
     return 1;
 }
 
@@ -891,7 +892,7 @@ static int __stdcall GFX_LoadUnitLayers(int bAsync, int nMode, D2UnitStrc* pUnit
     D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, gszGfxFile, 0x6CD);
     int nB;
     GFXUTIL_GetLayerInfo(pUnit, nType, nClass, nMode, &nDirection, &nA, &nB, nArg, 0);
-    unsigned char* pOrder = sub_004DB110_GetLayerOrder(pLayer, nA, 0);
+    unsigned char* pOrder = GFXUTIL_GetLayerOrder(pLayer, nA, 0);
     D2_ASSERT(pOrder, 0x6D6);
     for (int i = 0; i < pHeader->nLayers; ++i)
     {
@@ -1051,7 +1052,8 @@ static void GFX_PreloadRoomUnits(int bAsync)
             {
                 if ((nCounter++ & 0x1F) != 0)
                 {
-                    sub_004565E0_Redraw(1);
+// build: symbol ?UI_DrawLoadingScreen@* 0x004565E0
+                    UI_DrawLoadingScreen(1);
                 }
             }
         }
@@ -1204,7 +1206,8 @@ void __fastcall GFX_ResetMonsterModeGfx(D2UnitStrc* pUnit)
             gpPoolBlock[nClass].aPending[nAnimMode] = 0;
 
             int bAsync = 1;
-            if (!UNITS_GetRoom(pUnit) || WINDOW_GetState() || sub_00454840_Test())
+// build: symbol ?UI_IsLoadingScreenActive@* 0x00454840
+            if (!UNITS_GetRoom(pUnit) || WINDOW_GetState() || UI_IsLoadingScreenActive())
             {
                 bAsync = 0;
             }
@@ -1248,7 +1251,7 @@ void __fastcall sub_00470B70_ResetMonsterMode(D2UnitStrc* pUnit)
             gpPoolBlock[nClass].nModeFlags[nAnimMode] = 0;
             gpPoolBlock[nClass].aPending[nAnimMode] = 0;
             int bAsync = 1;
-            if (!UNITS_GetRoom(pUnit) || WINDOW_GetState() || sub_00454840_Test())
+            if (!UNITS_GetRoom(pUnit) || WINDOW_GetState() || UI_IsLoadingScreenActive())
             {
                 bAsync = 0;
             }

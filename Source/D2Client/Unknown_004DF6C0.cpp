@@ -694,7 +694,8 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
     else
     {
         char szPath[0x50];
-        sub_00482710(pObject->nSoundId, szPath);
+// build: symbol ?SOUNDHDR_GetSoundPath@* 0x00482710
+        SOUNDHDR_GetSoundPath(pObject->nSoundId, szPath);
         bOk = D2SOUNDSMP_StartSoundStream(pSlot->pSound, szPath, pObject->nField0x24, pRecord->nLoop);
     }
     if (!bOk)

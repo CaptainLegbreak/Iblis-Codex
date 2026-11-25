@@ -184,7 +184,7 @@ unsigned char* __fastcall MONUNIQUE_GetMonUmods(D2UnitStrc* pUnit)
 }
 
 // 0x004AC760
-unsigned short __fastcall sub_004AC760_GetNameSeed(D2UnitStrc* pUnit)
+unsigned short __fastcall MONUNIQUE_GetMonsterDataWord14(D2UnitStrc* pUnit)
 {
     D2MonsterDataStrc* pMonsterData = MONUNIQUE_MonsterDataOf(pUnit);
     if (!pMonsterData)
@@ -279,7 +279,7 @@ void __fastcall MONUNIQUE_SetMonsterHoverName(D2UnitStrc* pUnit, int nMode, int 
     sub_00526320_ToUnicode(gwszNameSeparator, szSpace, 2);
 
     D2SeedStrc* pSeed = &pUnit->pSeed;
-    unsigned short nNameSeed = sub_004AC760_GetNameSeed(pUnit);
+    unsigned short nNameSeed = MONUNIQUE_GetMonsterDataWord14(pUnit);
     D2MonsterDataStrc* pMonsterData = (pUnit && sub_0044BE50(pUnit) == 1) ? pUnit->pMonsterData : NULL;
     if (pMonsterData && (pMonsterData->nTypeFlag & 2))
     {
@@ -420,7 +420,8 @@ void __fastcall MONUNIQUE_InitUModLight(D2UnitStrc* pUnit, int nUnused, int bIni
     }
 
     pUnit->pLight = pLight;
-    sub_00464CF0(pUnit, DLIGHTMAP_GetLightSize(pLight));
+// build: symbol ?CUNIT_SetStartLight@* 0x00464CF0
+    CUNIT_SetStartLight(pUnit, DLIGHTMAP_GetLightSize(pLight));
 }
 
 // 0x004ACD50

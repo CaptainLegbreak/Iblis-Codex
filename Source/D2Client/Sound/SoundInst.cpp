@@ -431,7 +431,8 @@ int __fastcall SOUNDINST_PlaySound(int nSoundId, D2UnitStrc* pUnit, int nDelay, 
     if (pUnit)
     {
         D2SOUNDUTIL_ListAddHead(&pSound->pUnitList, pUnit);
-        sub_004CA8A0_AddUnitSound(pUnit, pSound->f_8);
+// build: symbol ?UNITSND_AddUnitSfx@* 0x004CA8A0
+        UNITSND_AddUnitSfx(pUnit, pSound->f_8);
     }
 
     return pSound->f_8;

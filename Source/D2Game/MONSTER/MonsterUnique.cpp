@@ -1588,7 +1588,7 @@ void __fastcall MONSTERUNIQUE_UMod5_Strong(D2UnitStrc* pUnit, int nUMod, int bUn
         nDamage = nDamage * pDifficultyLevelsTxtRecord->dwChampionDmgBonus / 100;
         nToHit = nToHit * pDifficultyLevelsTxtRecord->dwChampionDmgBonus / 100;
 
-        const int nMonsterId = sub_00463860_GetMonsterId(pUnit);
+        const int nMonsterId = CUNIT_GetMonsterBaseId(pUnit);
         if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount && nMonsterId == MONSTER_WILLOWISP1)
         {
             nDamage /= 2;
@@ -3376,7 +3376,7 @@ void __fastcall MONSTERUNIQUE_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nMode, 
     {
         nDamage = nDamage * pDifficultyLevelsTxtRecord->dwChampionDmgBonus / 100;
         nToHit = nToHit * pDifficultyLevelsTxtRecord->dwChampionDmgBonus / 100;
-        if (CUNIT_ValidateMonsterId(sub_00463860_GetMonsterId(pUnit)) == 118)
+        if (CUNIT_ValidateMonsterId(CUNIT_GetMonsterBaseId(pUnit)) == 118)
         {
             nDamage /= 2;
         }

@@ -559,7 +559,7 @@ struct D2SkillPairStrc
     int nB;
 };
 
-void* __fastcall sub_004DC0B0_GetUnitMemoryPool(D2UnitStrc*); // 0x004DC0B0
+void* __fastcall GFXUTIL_GetNextRosterInfo(D2UnitStrc*); // 0x004DC0B0
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateAndFlag(D2UnitStrc*, int, int); // 0x006257D0
 
@@ -705,7 +705,7 @@ void __stdcall ITEMS_AssignLegacyStaffMods(D2UnitStrc* pItem, int nItemLevel, in
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitStateAndFlag(pItem, 0, 0x40);
         if (!pStatList)
         {
-            pStatList = STATLIST_AllocStatList(sub_004DC0B0_GetUnitMemoryPool(pItem), 0x40, 0, 4, GAME_GetUnitGUID(pItem));
+            pStatList = STATLIST_AllocStatList(GFXUTIL_GetNextRosterInfo(pItem), 0x40, 0, 4, GAME_GetUnitGUID(pItem));
             D2COMMON_10475_PostStatToStatList(pItem, pStatList, 1);
         }
         if (pStatList)
@@ -835,7 +835,7 @@ void __stdcall ITEMS_AssignModernStaffMods(D2UnitStrc* pUnit, int nItemLvl, int 
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitStateAndFlag(pUnit, 0, 0x40u);
         if (!pStatList)
         {
-            pStatList = STATLIST_AllocStatList(sub_004DC0B0_GetUnitMemoryPool(pUnit), 0x40u, 0, 4, GAME_GetUnitGUID(pUnit));
+            pStatList = STATLIST_AllocStatList(GFXUTIL_GetNextRosterInfo(pUnit), 0x40u, 0, 4, GAME_GetUnitGUID(pUnit));
             D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
         }
 

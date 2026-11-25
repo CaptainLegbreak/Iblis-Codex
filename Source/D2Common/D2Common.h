@@ -67,7 +67,7 @@ extern "C" double __cdecl sin(double x); // 0x00688590
 extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); // 0x006841E9
 extern "C" int __cdecl atoi(const char* szString); // 0x00681EBB
 extern "C" int __cdecl fflush(_iobuf* pFile); // 0x00688927
-extern "C" int __fastcall sub_00483360_Ratio(int, int, int); // 0x00483360
+extern "C" int __fastcall DATATBLS_ApplyRatio(int, int, int); // 0x00483360
 extern "C" int __stdcall sub_006289C0_IsWeapon(Unit*); // 0x006289C0
 extern "C" int __stdcall sub_00629BB0_IsItemType(Unit*, int); // 0x00629BB0
 extern "C" int __stdcall sub_0062BA80_UsesThrowDamage(Unit*); // 0x0062BA80
@@ -151,7 +151,7 @@ int __fastcall MONSTERS_GetBaseIdFromMonsterId(int nMonsterId); // 0x00463900
 int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall sub_00451F70_GetUnitMode(D2UnitStrc* pUnit); // 0x00451F70
 int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
-int __fastcall sub_004638A0(int nMonsterId, int nFlag); // 0x004638A0
+int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
 int __fastcall SPELLSEL_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 int __fastcall sub_0062EFB0_GetRepairCost(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nNpcId, int nMode); // 0x0062EFB0
 int __fastcall PATH_GetFirstDirectionXY(int nX1, int nY1, int nX2, int nY2); // 0x00678CF0

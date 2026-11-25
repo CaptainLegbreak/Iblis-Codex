@@ -2651,7 +2651,8 @@ int __fastcall SKILLDESC_CltDoMissileLine(D2UnitStrc* pUnit, int nSkillId, int n
     const int nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
     int nStepX = nX - CLIENTS_GetUnitX(pUnit);
     int nStepY = nY - CLIENTS_GetUnitY(pUnit);
-    sub_004C5390_ScaleUpDirection(&nStepX, &nStepY);
+// build: symbol ?SKILLS_ScaleUpDirection@* 0x004C5390
+    SKILLS_ScaleUpDirection(&nStepX, &nStepY);
     sub_004C53D0_ScaleDownDirection(&nStepX, &nStepY);
     nX += -(nStepX * nCount / 2);
     nY += -(nStepY * nCount / 2);

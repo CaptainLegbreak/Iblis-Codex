@@ -208,16 +208,17 @@ void __fastcall PLAYER_SetPanelSlide(int nMode)
     switch (nMode)
     {
     case 0:
-        sub_00476000_SetViewRect(gpClientView, 0, 0, nWidth, gnAutomapHeight_007A521C);
+// build: symbol ?VIEW_SetViewRects@* 0x00476000
+        VIEW_SetViewRects(gpClientView, 0, 0, nWidth, gnAutomapHeight_007A521C);
         break;
     case 1:
-        sub_00476000_SetViewRect(gpClientView, -nQuarter, 0, nWidth - nQuarter, gnAutomapHeight_007A521C);
+        VIEW_SetViewRects(gpClientView, -nQuarter, 0, nWidth - nQuarter, gnAutomapHeight_007A521C);
         break;
     case 2:
-        sub_00476000_SetViewRect(gpClientView, nQuarter, 0, nWidth + nQuarter, gnAutomapHeight_007A521C);
+        VIEW_SetViewRects(gpClientView, nQuarter, 0, nWidth + nQuarter, gnAutomapHeight_007A521C);
         break;
     case 3:
-        sub_00476000_SetViewRect(gpClientView, 0, 0, nWidth, gnAutomapHeight_007A521C);
+        VIEW_SetViewRects(gpClientView, 0, 0, nWidth, gnAutomapHeight_007A521C);
         GAME_ResetMouseButtons();
         break;
     }

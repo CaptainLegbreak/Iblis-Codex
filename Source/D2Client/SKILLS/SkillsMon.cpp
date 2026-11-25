@@ -1390,7 +1390,8 @@ D2UnitStrc* __fastcall SKILLSMON_GetTargetMonster(D2UnitStrc* pUnit)
     {
         return 0;
     }
-    return sub_004B11F0(pTarget) ? pTarget : 0;
+// build: symbol ?MONSTER_IsConvertible@* 0x004B11F0
+    return MONSTER_IsConvertible(pTarget) ? pTarget : 0;
 }
 
 
@@ -1433,7 +1434,8 @@ int __fastcall SKILLSMON_MissileLine(D2UnitStrc* pUnit, int nSkillId, int nSkill
 
     int nDx = nX - CLIENTS_GetUnitX(pUnit);
     int nDy = nY - CLIENTS_GetUnitY(pUnit);
-    sub_004C5390_ScaleUpDirection(&nDx, &nDy);
+// build: symbol ?SKILLS_ScaleUpDirection@* 0x004C5390
+    SKILLS_ScaleUpDirection(&nDx, &nDy);
     sub_004C53D0_ScaleDownDirection(&nDx, &nDy);
     nX -= nDx * nCount / 2;
     nY -= nDy * nCount / 2;

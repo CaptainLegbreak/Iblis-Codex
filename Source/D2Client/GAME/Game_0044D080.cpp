@@ -1237,6 +1237,8 @@ int __stdcall GAME_RunGameFrame(int nUnused)
     {
         sub_00477DD0();
         gdwLastCheck_007A04A0 = dwNow;
+        // Same keep-alive step as GAME_TickKeepAlive (0x44CD70): both arms set the same interval, and the original
+        // still reads gpClientConfig and tests 0x1EF bit 2 with nothing depending on the result.
         if (gpClientConfig->aFlags1EF[0] & 4)
         {
             gdwNextKeepAliveTick = dwNow + 5000;

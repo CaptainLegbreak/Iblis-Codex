@@ -424,7 +424,7 @@ static int __stdcall SKILLDESC_AppendScaledRange(Unicode* wszOut, unsigned short
 
 static int __stdcall SKILLDESC_AppendFormattedValue(int nValue, unsigned short wStr, Unicode* wszOut); // 0x004E7930
 
-static int __stdcall SKILLDESC_AppendLabelValue(unsigned short wStr, int bPrefixSign, Unicode* wszOut, int nValue); // 0x004E79E0
+static int __stdcall SKILLDESC_AppendLabelValue(Unicode* wszOut, unsigned short wStr, int nValue, int bPrefixSign); // 0x004E79E0
 
 static int __stdcall SKILLDESC_AppendScaledValue(unsigned short wStr1, unsigned short wStr2, int nMultiplier, Unicode* wszOut, int bPrefixSign, int nValue); // 0x004E7A90
 
@@ -1669,7 +1669,7 @@ static int __stdcall SKILLDESC_AppendFormattedValue(int nValue, unsigned short w
 }
 
 // 0x004E79E0
-static int __stdcall SKILLDESC_AppendLabelValue(unsigned short wStr, int bPrefixSign, Unicode* wszOut, int nValue)
+static int __stdcall SKILLDESC_AppendLabelValue(Unicode* wszOut, unsigned short wStr, int nValue, int bPrefixSign)
 {
     Unicode wszText[32];
     for (int i = 0; i < 32; ++i)
@@ -1869,7 +1869,7 @@ static int __stdcall SKILLDESC_AppendLabelsRange(Unicode* wszOut, int bPrefixSig
 static int __stdcall SKILLDESC_AppendLabelRange(Unicode* wszOut, int bSeparator, int bPrefixSign, unsigned short wStr, int nMin, int nMax)
 {
     if (nMin == nMax)
-        return SKILLDESC_AppendLabelValue(wStr, bPrefixSign, wszOut, nMin);
+        return SKILLDESC_AppendLabelValue(wszOut, wStr, nMin, bPrefixSign);
 
     Unicode wszText[32];
     for (int i = 0; i < 32; ++i)
@@ -2024,6 +2024,7 @@ static int __stdcall SKILLDESC_AppendManaValue(int nValue, Unicode* wszOut)
     return 1;
 }
 
+// 0x004E85C0
 static int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, int nLevel, int nMultiplier, D2SkillsTxt* pSkillsTxt, int nValue)
 {
     short nMana = pSkillsTxt->wMana;
@@ -2037,19 +2038,21 @@ static int __stdcall sub_004E85C0_AppendManaCost(Unicode* wszOut, int nSkillId, 
     if (!pSkillDescTxt)
         return 0;
 
-    unsigned short wStr = pSkillDescTxt->wStrMana;
-    int nCost = ((nLevel - 1) * pSkillsTxt->wLevelMana + nMana) << pSkillsTxt->nManaShift;
-    int nMinCost = pSkillsTxt->wMinMana << 8;
+    nSkillId = pSkillDescTxt->wStrMana;
+    const int nLevelMana = pSkillsTxt->wLevelMana;
+    const int nLevelCost = nLevelMana << pSkillsTxt->nManaShift;
+    int nCost = ((nLevel - 1) * nLevelMana + nMana) << pSkillsTxt->nManaShift;
+    const int nMinCost = pSkillsTxt->wMinMana << 8;
     if (nMinCost > nCost)
         nCost = nMinCost;
 
-    if (pSkillsTxt->nManaShift == 8 || pSkillsTxt->wLevelMana << pSkillsTxt->nManaShift > 0x100 || nCost > 0x1900)
-        return SKILLDESC_AppendLabelValue(wStr, 0, wszOut, nCost >> 8);
+    if (pSkillsTxt->nManaShift == 8 || nLevelCost > 0x100 || nCost > 0x1900)
+        return SKILLDESC_AppendLabelValue(wszOut, (unsigned short)nSkillId, nCost >> 8, 0);
 
-    if (nMultiplier > 10)
-        return SKILLDESC_AppendScaledValue(wStr, 0x1506, nMultiplier, wszOut, 0, nCost);
+    if (nMultiplier <= 10)
+        return SKILLDESC_AppendLabelDecimal((unsigned short)nSkillId, wszOut, 0, nCost / 256, nCost % 256 * 10 / 256);
 
-    return SKILLDESC_AppendLabelDecimal(wStr, wszOut, 0, nCost / 256, nCost % 256 * 10 / 256);
+    return SKILLDESC_AppendScaledValue((unsigned short)nSkillId, 0x1506, nMultiplier, wszOut, 0, nCost);
 }
 
 // 0x004E8D90
@@ -3111,7 +3114,7 @@ extern "C" int __stdcall sub_D05_Emit_4E77A0(Unicode* p, unsigned short w1, unsi
 
 extern "C" int __stdcall sub_D05_Emit_4E7930(int n, unsigned short w, Unicode* p) { return SKILLDESC_AppendFormattedValue(n, w, p); }
 
-extern "C" int __stdcall sub_D05_Emit_4E79E0(unsigned short w, int b, Unicode* p, int n) { return SKILLDESC_AppendLabelValue(w, b, p, n); }
+extern "C" int __stdcall sub_D05_Emit_4E79E0(unsigned short w, int b, Unicode* p, int n) { return SKILLDESC_AppendLabelValue(p, w, n, b); }
 
 extern "C" int __stdcall sub_D05_Emit_4E7A90(unsigned short w1, unsigned short w2, int m, Unicode* p, int b, int n) { return SKILLDESC_AppendScaledValue(w1, w2, m, p, b, n); }
 
@@ -4250,7 +4253,7 @@ static int __stdcall sub_004E80F0_AddRangeText(Unicode* wszText, int bSeparator,
 {
     if (nMin == nMax)
     {
-        return SKILLDESC_AppendLabelValue(nString, bPlus, wszText, nMin);
+        return SKILLDESC_AppendLabelValue(wszText, nString, nMin, bPlus);
     }
 
     Unicode wszNumber[32];
@@ -4275,6 +4278,7 @@ static int __stdcall sub_004E80F0_AddRangeText(Unicode* wszText, int bSeparator,
     return 1;
 }
 
+// 0x004EC280
 static int __stdcall SKILLDESC_AddMissileElemDamage(D2UnitStrc* pUnit, Unicode* wszText, unsigned short nString, int nMissileId, int nSkillLevel)
 {
     const int nMin = MISSILE_GetMinElemDamage(0, pUnit, nMissileId, nSkillLevel) >> 8;
@@ -5183,7 +5187,7 @@ int __fastcall sub_D06_Emit_004EDEA0(D2UnitStrc* pUnit, Unicode* wszText, D2Skil
         sub_004E7E70_AddValueTwoTexts(nStringA, nStringB, 1, nCalcA, wszText);
         return 1;
     case 28:
-        SKILLDESC_AppendLabelValue(nStringA, 1, wszText, nCalcA);
+        SKILLDESC_AppendLabelValue(wszText, nStringA, nCalcA, 1);
         return 1;
     case 29:
         sub_004E7C30_AddValueTextAfter(nStringA, 1, nCalcA, wszText);

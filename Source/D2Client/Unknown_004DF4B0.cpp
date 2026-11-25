@@ -135,7 +135,8 @@ static inline void sub_004DF4B0_DrawCellNode(D2CellGridViewStrc* pView, D2CellNo
     }
     else if (pNode->dwFlags & 2)
     {
-        sub_00471620(pNode->pPos);
+// build: symbol ?GFX_DrawUnitShadow@* 0x00471620
+        GFX_DrawUnitShadow(pNode->pPos);
     }
 }
 

@@ -528,7 +528,8 @@ void __cdecl TEXT_CloseMessageLogDialog()
 // 0x004A1760
 int __cdecl TEXT_Forward()
 {
-    return sub_004A08C0();
+// build: symbol ?TEXT_CloseText@* 0x004A08C0
+    return TEXT_CloseText();
 }
 
 // 0x004A1770
@@ -546,7 +547,7 @@ void __stdcall TEXT_KeyUpMsg(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    if (sub_004A08C0())
+    if (TEXT_CloseText())
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;

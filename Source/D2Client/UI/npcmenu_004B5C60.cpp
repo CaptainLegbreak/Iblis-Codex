@@ -82,7 +82,7 @@ D2ClientDialogStrc* __fastcall DIALOG_CreateDialog(int nArg1, int nArg2, int nAr
     int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28);                                            // 0x004B7EB0
 void __fastcall DIALOG_DestroyDialog(void* pRes); // 0x004B8020
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex);                               // 0x004B82F0
-void __fastcall sub_004B8370_SetField5C(D2ClientDialogStrc* pDialog, int nValue);                           // 0x004B8370
+void __fastcall ROSTER_SetCtrlState(D2ClientDialogStrc* pDialog, int nValue);                           // 0x004B8370
 // build: symbol ?DIALOG_AddTextLine@* 0x004B85F0
 void __fastcall DIALOG_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nArg8, int nArgC,
     int nArg10, int nArg14, int (__cdecl* pfnCallback)(), int nArg1C);                                      // 0x004B85F0
@@ -123,7 +123,7 @@ int __cdecl NPCMENU_ShowMainMenu()
 
     gpNpcHireDialog = DIALOG_CreateDialog((gnScreenWidth - 0x1EA) / 2, gnAutomapHeight_007A521C / 2 - 0xC3,
         (int)NPCMENU_CloseHireDialog, 0, 0, 0, 0, 0x1EA, 0x15E, 0, 1);
-    sub_004B8370_SetField5C(gpNpcHireDialog, 1);
+    ROSTER_SetCtrlState(gpNpcHireDialog, 1);
 
     Unicode wszGold[300];
     sub_005269D0(300, wszGold, D2LANG_GetStringFromTblIndex(0xD24),

@@ -904,7 +904,8 @@ static int CUNIT_AddUnitToTable(D2UnitStrc* pUnit)
         D2_ASSERT(!CUNIT_FindClientUnit(pUnit->dwUnitId, pUnit->dwUnitType), 0xA5);
     }
 
-    sub_004CC160(pUnit, 1);
+// build: symbol ?UNITSND_AddUnitSoundRefs@* 0x004CC160
+    UNITSND_AddUnitSoundRefs(pUnit, 1);
 
     const unsigned int nUnitId = pUnit->dwUnitId;
     const int nType = pUnit->dwUnitType;
@@ -1141,7 +1142,8 @@ D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit)
 void __fastcall CUNIT_SetBasePalShiftIndex(D2UnitStrc* pUnit, int nValue)
 {
     D2_ASSERT(pUnit, 0x563);
-    sub_0046F1C0(pUnit->pGfxData, nValue);
+// build: symbol ?GFX_SetGfxBasePalShift@* 0x0046F1C0
+    GFX_SetGfxBasePalShift(pUnit->pGfxData, nValue);
 }
 
 // 0x00463E50
@@ -1155,7 +1157,8 @@ int __fastcall CUNIT_GetBasePalShiftIndex(D2UnitStrc* pUnit)
 void __fastcall CUNIT_SetPalShiftIndex(D2UnitStrc* pUnit, int nValue)
 {
     D2_ASSERT(pUnit, 0x575);
-    sub_0046F220(pUnit->pGfxData, nValue);
+// build: symbol ?GFX_SetGfxPalShift@* 0x0046F220
+    GFX_SetGfxPalShift(pUnit->pGfxData, nValue);
 }
 
 // 0x00463EB0
@@ -1314,7 +1317,8 @@ int __fastcall CUNIT_SelectProcConvertTarget(D2UnitStrc* pPlayer, D2UnitStrc* pT
         return 0;
     if (!D2COMMON_11017_CheckUnitIfConsumeable(pTarget, 0))
         return 0;
-    if (!sub_004B11F0(pTarget))
+// build: symbol ?MONSTER_IsConvertible@* 0x004B11F0
+    if (!MONSTER_IsConvertible(pTarget))
         return 0;
     const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
     if (nType != 1)
@@ -2430,24 +2434,26 @@ static void CUNIT_FreeUnit(D2UnitStrc* pUnit)
 
     PARTICLE_FreeGfxMotion(pUnit);
     UNITSND_ReleaseUnitHints(pUnit, 0);
-    sub_004CC160(pUnit, -1);
+    UNITSND_AddUnitSoundRefs(pUnit, -1);
 
     switch (pUnit->dwUnitType)
     {
     case UNIT_PLAYER:
         if (pUnit->pHoverText)
         {
-            sub_0049F3D0(pUnit->pHoverText);
+// build: symbol ?TEXT_FreeHoverText@* 0x0049F3D0
+            TEXT_FreeHoverText(pUnit->pHoverText);
             pUnit->pHoverText = 0;
         }
-        sub_00460D50_FreePlayerUnit(pUnit);
+// build: symbol ?PLAYER_FreeClientPlayer@* 0x00460D50
+        PLAYER_FreeClientPlayer(pUnit);
         UNITSND_ReleaseUnitHints(pUnit, 1);
         break;
 
     case UNIT_MONSTER:
         if (pUnit->pHoverText)
         {
-            sub_0049F3D0(pUnit->pHoverText);
+            TEXT_FreeHoverText(pUnit->pHoverText);
             pUnit->pHoverText = 0;
         }
         MONSTER_FreeClientUnit(pUnit);
@@ -2463,7 +2469,7 @@ static void CUNIT_FreeUnit(D2UnitStrc* pUnit)
     case UNIT_OBJECT:
         if (pUnit->pHoverText)
         {
-            sub_0049F3D0(pUnit->pHoverText);
+            TEXT_FreeHoverText(pUnit->pHoverText);
             pUnit->pHoverText = 0;
         }
         OBJECT_ReleaseObjectUnit(pUnit);
@@ -2854,7 +2860,8 @@ static D2UnitStrc* __stdcall CUNIT_InitUnit(unsigned int nUnitId, int nClassId, 
     switch (nUnitType)
     {
     case 0:
-        sub_00460BF0_InitPlayerUnit(pUnit, pRoom, nX, nY);
+// build: symbol ?PLAYER_InitClientPlayer@* 0x00460BF0
+        PLAYER_InitClientPlayer(pUnit, pRoom, nX, nY);
         break;
 
     case 1:
@@ -2863,12 +2870,14 @@ static D2UnitStrc* __stdcall CUNIT_InitUnit(unsigned int nUnitId, int nClassId, 
 
     case 2:
         UNITS_AllocStaticPath(pUnit);
-        sub_004BC720_InitObjectUnit(pUnit, pRoom, nX, nY, nClassId, nArg6);
+// build: symbol ?OBJECT_InitObject@* 0x004BC720
+        OBJECT_InitObject(pUnit, pRoom, nX, nY, nClassId, nArg6);
         break;
 
     case 4:
         UNITS_AllocStaticPath(pUnit);
-        sub_004C1910_InitItemUnit(pUnit, pRoom, nX, nY, nArg5, 1);
+// build: symbol ?ITEM_SetItemMode@* 0x004C1910
+        ITEM_SetItemMode(pUnit, pRoom, nX, nY, nArg5, 1);
         break;
 
     case 3:
@@ -2965,7 +2974,7 @@ D2UnitStrc* __fastcall CUNIT_CreatePlayerUnit(unsigned int nUnitId, int nClassId
         SEED_InitLowSeed(&pUnit->pSeed, (unsigned int)lSeed);
     }
 
-    sub_00460BF0_InitPlayerUnit(pUnit, pRoom, nX, nY);
+    PLAYER_InitClientPlayer(pUnit, pRoom, nX, nY);
     PLAYERLIST_InitGfxData(pUnit);
     UnitUpdateAnimRateAndVel(pUnit, ".\\UNIT\\CUnit.cpp", 0x21D);
 
@@ -2993,7 +3002,8 @@ D2UnitStrc* __fastcall CUNIT_CreateObjectUnit(unsigned int nUnitId, int nClassId
         pUnit->pObjectData->InteractType = nInteractType;
         if (UNITS_IsShrine(pUnit))
         {
-            sub_004BD6B0_InitShrine(pUnit);
+// build: symbol ?OBJECT_SetShrine@* 0x004BD6B0
+            OBJECT_SetShrine(pUnit);
         }
     }
 
@@ -3187,8 +3197,8 @@ D2UnitStrc* __fastcall CUNIT_AddClientMonster(D2UnitSpawnStrc* pSpawn, void* pAr
         nMode = 2;
     }
 
-    sub_0046F1C0(pUnit->pGfxData, nMode);
-    sub_0046F220(pUnit->pGfxData, nMode);
+    GFX_SetGfxBasePalShift(pUnit->pGfxData, nMode);
+    GFX_SetGfxPalShift(pUnit->pGfxData, nMode);
     pUnit = CUNIT_InsertUnit(pUnit);
     if (ROSTER_GetPetType(pUnit->dwUnitId) == 7)
     {
@@ -3266,7 +3276,7 @@ int __fastcall CUNIT_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, int bHi
     }
     D2UnitStrc* pPlayer=gpPlayerUnit;
     if(UNIT_HasFlag(pUnit,0x200000)) return 0;
-    if(!sub_00465C60(pPlayer,pUnit) && !sub_00464EC0(pPlayer,pUnit) && !sub_00464F70(pPlayer,pUnit)) return 0;
+    if(!CUNIT_IsHostileTo(pPlayer,pUnit) && !sub_00464EC0(pPlayer,pUnit) && !CUNIT_IsTargetBlocked(pPlayer,pUnit)) return 0;
     int bSelectable=0;
     if(CUNIT_CheckMonsterSkillSelect(pUnit,pPlayer))
     {

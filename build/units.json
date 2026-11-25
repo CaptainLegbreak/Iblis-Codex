@@ -14887,7 +14887,7 @@
     {
      "va": "0x004AC760",
      "length": 25,
-     "name": "?sub_004AC760_GetNameSeed@@YIGPAUD2UnitStrc@@@Z"
+     "name": "?MONUNIQUE_GetMonsterDataWord14@@YIGPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004AC780",
@@ -31549,30 +31549,6 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004E85C0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004E85C0",
-     "length": 290
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Client/Unknown_004E89A0.cpp",
    "rank": 1,
    "functions": [
@@ -31733,30 +31709,6 @@
     {
      "va": "0x004ED150",
      "length": 663
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/UI/SkillDesc_004EC280.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x004EC280",
-     "length": 90
     }
    ],
    "flags": [
@@ -31958,6 +31910,10 @@
      "name": "?SKILLDESC_AppendManaValue@@YGHHPA_W@Z"
     },
     {
+     "va": "0x004E85C0",
+     "length": 290
+    },
+    {
      "va": "0x004E8D90",
      "length": 296,
      "name": "?SKILLDESC_AddElementalStatDamage@@YAXPAUD2UnitStrc@@PAH1E@Z"
@@ -32115,6 +32071,10 @@
      "va": "0x004EC220",
      "length": 87,
      "name": "?SKILLDESC_AddSkillElemDamage@@YGHPAUD2UnitStrc@@PAUUnicode@@PAUD2SkillsTxt@@GHH@Z"
+    },
+    {
+     "va": "0x004EC280",
+     "length": 90
     },
     {
      "va": "0x004EC620",
