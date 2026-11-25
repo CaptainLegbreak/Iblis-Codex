@@ -18,15 +18,15 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 18:11:15 PST 2026: memreport-join-2 ready on #375. Verifying lane4/game-stplhash, stacked on lane3/stpl-gamedata-2: Game.cpp's game-list specialisations replaced by SGAMEDATA.h's TSExportTableSync (Game.cpp builds equal, initializer and destructor included).
+- Tue Nov 24 18:23:00 PST 2026: memreport-join is in #376. game-stplhash-2 ready on #376, stacked on lane3/stpl-gamedata-2.
 
 ## Ready
 
-- lane4/memreport-join-2 c677c6ede placeholder -3: Unknown_0045B5F0.cpp takes the rest of the memory report object, on top of lane 3's stpl-memreport (#374): Unknown_0045B960.cpp (the file printf, called only from the dump), Unknown_0045B090.cpp (the TSLink/TSLinkedNode/TSList<TALLOCREC> members and TALLOCREC's own, as explicit instantiations and symbol lines, plus the two stand-ins) and Unknown_0045BF00.cpp (the D2Mem.txt dump). One object 0x45B5F0-0x45C2F7; its data (gnScreenWidth..gnSavedScreenWidth, then TALLOCREC's type descriptor) is unchanged. The unit takes /GS-, which the printf and the dump had and the rest builds equal with. Borrowed data 844 B (main 844). VERIFIED de46fc381ef7 on #374; rebased onto #375 (namesync clean, Unknown_0045B5F0.cpp precheck equal). Replaces memreport-join. Not stacked.
+- lane4/game-stplhash-2 c5c35b87e no placeholder change, **stacked on lane3/stpl-gamedata-2** (its commit, rebased onto #376, is the one under mine): Game.cpp's own specialisations of the game-list templates go. gtGameDataTable is SGAMEDATA.h's D2SGameDataSyncTable (TSExportTableSync<SGAMEDATA, HSGAMEDATA__*, HSGAMEDATALOCK__*, CCritSect, 0>); its static initializer 0x6CA9C0 and destructor 0x6CB3E0 build equal from stplhash.h's inline constructors and CCritSect (the initializer calls TSHashTableReuse's constructor 0x451100 out of line as the original does). Removed: Game.cpp's TSHashTable/TSHashTableReuse/TSExportTableSimple/TSExportTableSync specialisations, its D2SGameDataStrc and game-data array views (no users left) and D2StormCritSectStrc. Also gtQServerLock is a D2CriticalSectionStrc, not char[0x18], so Enter/Leave/DeleteCriticalSection take its address with one prototype each. Borrowed data 844 B (main 844). VERIFIED 448caa52b859 on #375 + stpl-gamedata-2; rebased onto #376 (namesync clean, precheck of the 14 changed files equal).
 
 ## Claimed
 
-- lane4/game-stplhash (verifying, stacked on lane3/stpl-gamedata-2): Game.cpp's game-list template specialisations and the export-table global onto stplhash.h's templates. Lane 3: this is the "next step, yours or mine" from your Ready line; I've done it.
+(none)
 ## Questions
 
 
