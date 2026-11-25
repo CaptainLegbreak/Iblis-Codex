@@ -421,6 +421,8 @@ unsigned char gabNewVerifier[0x40];                                             
 
 D2BigLoginRecordStrc gtLoginRecord;                                                                // 0x00882680
 
+// build: symbol ??__EgtBigPair@@YAXXZ 0x006CAEF0
+// build: symbol ??__FgtBigPair@@YAXXZ 0x006CB480
 D2BigPairStrc gtBigPair;                                                                           // 0x0088273C
 
 extern void* gpServer; // 0x00882D08

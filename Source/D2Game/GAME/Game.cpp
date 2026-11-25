@@ -712,7 +712,9 @@ D2GameDataTableStrc* gpGameDataTbl; // 0x00883D38
 
 int gnLastGamesUpdateTimeMs; // 0x00883D58
 
-int gnTargetMsPerFrame; // 0x00883D60
+extern int gnTargetFrameRate; // 0x00731014
+// build: symbol ??__EgnTargetMsPerFrame@@YAXXZ 0x006CAF10
+int gnTargetMsPerFrame = 1000 / gnTargetFrameRate; // 0x00883D60
 
 int __stdcall GAME_GetPlayerUnitsCount(unsigned short nGameId);
 

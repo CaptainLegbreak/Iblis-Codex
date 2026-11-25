@@ -226,9 +226,13 @@ int ganRowOffsets[732]; // 0x007C97A8
 
 D2PaletteTableStrc gtPaletteTables; // 0x007D5458
 
-const char* gszWindowClass; // 0x007C9344
+extern const char* gszDefaultClass_0072DAA0; // 0x0072DAA0
+extern const char* gszDefaultWindow_0072DB3C; // 0x0072DB3C
+// build: symbol ??__EgszWindowClass@@YAXXZ 0x006CAE00
+const char* gszWindowClass = gszDefaultWindow_0072DB3C; // 0x007C9344
 
-const char* gszWindowTitle; // 0x007C9348
+// build: symbol ??__EgszWindowTitle@@YAXXZ 0x006CAE10
+const char* gszWindowTitle = gszDefaultWindow_0072DB3C; // 0x007C9348
 
 struct D2TileLibraryBlockStrc;
 
@@ -339,7 +343,8 @@ extern "C" __declspec(dllimport) int __stdcall UnregisterClassA(const char* lpCl
 
 void* ghInstance;                                                                                  // 0x007C8CA8
 
-const char* gszWindowClassName;                                                                    // 0x007C9158
+// build: symbol ??__EgszWindowClassName@@YAXXZ 0x006CADF0
+const char* gszWindowClassName = gszDefaultClass_0072DAA0; // 0x007C9158
 
 int gbNoWindowCreated;                                                                             // 0x007C9338
 

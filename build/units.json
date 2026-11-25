@@ -33558,6 +33558,21 @@
      "va": "0x004F8E40",
      "length": 66,
      "name": "?CMNSUBTILE_SetPaletteTables@@YIXPAUD2PaletteTableStrc@@@Z"
+    },
+    {
+     "va": "0x006CADF0",
+     "length": 11,
+     "name": "?sub_006CADF0_InitializeWindowText@@YAXXZ"
+    },
+    {
+     "va": "0x006CAE00",
+     "length": 11,
+     "name": "?sub_006CAE00_InitializeWindowText@@YAXXZ"
+    },
+    {
+     "va": "0x006CAE10",
+     "length": 11,
+     "name": "?sub_006CAE10_InitializeWindowText@@YAXXZ"
     }
    ]
   },
@@ -34956,6 +34971,16 @@
     {
      "va": "0x006CAE20",
      "length": 17
+    },
+    {
+     "va": "0x006CAE40",
+     "length": 15,
+     "name": "?sub_006CAE40_InitializeColorCode@@YAXXZ"
+    },
+    {
+     "va": "0x006CAE50",
+     "length": 15,
+     "name": "?sub_006CAE50_InitializeMonsterCode@@YAXXZ"
     }
    ]
   },
@@ -38836,6 +38861,15 @@
      "va": "0x00528890",
      "length": 210,
      "name": "sub_00528890_CompareServerProof"
+    },
+    {
+     "va": "0x006CAEF0",
+     "length": 22,
+     "name": "?sub_006CAEF0_InitializeBigPair@@YAXXZ"
+    },
+    {
+     "va": "0x006CB480",
+     "length": 10
     }
    ]
   },
@@ -39938,6 +39972,11 @@
      "va": "0x00530EA0",
      "length": 131,
      "name": "D2GAME_SetStatOrResetGold_6FC7CA70"
+    },
+    {
+     "va": "0x006CAF10",
+     "length": 18,
+     "name": "?sub_006CAF10_SetPerSecond@@YAXXZ"
     }
    ]
   },
@@ -78858,47 +78897,6 @@
      "va": "0x006CADE0",
      "length": 12,
      "name": "?sub_006CADE0_RegisterCleanup@@YAXXZ"
-    },
-    {
-     "va": "0x006CADF0",
-     "length": 11,
-     "name": "?sub_006CADF0_InitializeWindowText@@YAXXZ"
-    },
-    {
-     "va": "0x006CAE00",
-     "length": 11,
-     "name": "?sub_006CAE00_InitializeWindowText@@YAXXZ"
-    },
-    {
-     "va": "0x006CAE10",
-     "length": 11,
-     "name": "?sub_006CAE10_InitializeWindowText@@YAXXZ"
-    },
-    {
-     "va": "0x006CAE40",
-     "length": 15,
-     "name": "?sub_006CAE40_InitializeColorCode@@YAXXZ"
-    },
-    {
-     "va": "0x006CAE50",
-     "length": 15,
-     "name": "?sub_006CAE50_InitializeMonsterCode@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_006CAE80.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006CAEF0",
-     "length": 22,
-     "name": "?sub_006CAEF0_InitializeBigPair@@YAXXZ"
-    },
-    {
-     "va": "0x006CAF10",
-     "length": 18,
-     "name": "?sub_006CAF10_SetPerSecond@@YAXXZ"
     }
    ]
   },
@@ -78909,16 +78907,6 @@
     {
      "va": "0x006CAFC0",
      "length": 70
-    }
-   ]
-  },
-  {
-   "file": "Source/Bnclient/Unknown_006CB420.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006CB480",
-     "length": 10
     }
    ]
   },
