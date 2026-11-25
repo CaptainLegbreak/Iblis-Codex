@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2CelContext.h"
 #include "D2ClientTypes.h"
 #include "D2ClientGame.h"
@@ -42,15 +43,10 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
 
-int __cdecl GAME_IsExitPending();                                                                                 // 0x0044DA30
 
-void __cdecl GAME_ResetMouseButtons();                                                                                // 0x0044DA70
 
-void __cdecl UI_StartUIVarDelay();                                                                                // 0x00453AE0
 
-int __cdecl sub_00468730();                                                                                 // 0x00468730
 
-int __cdecl sub_00468740();                                                                                 // 0x00468740
 
 void __fastcall ROSTERPETS_RemoveHirelingEntries(int nUnused, int nKey);                                            // 0x00478AB0
 
@@ -122,7 +118,6 @@ struct D2Packet81ArgsStrc;
 
 struct D2HirelingInfoStrc;
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 struct D2HirelingInfoStrc
 {
@@ -136,7 +131,6 @@ D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType)
 
 void __fastcall CUNIT_UpdateAttackableFlag(D2UnitStrc* pUnit); // 0x004647D0
 
-void __fastcall ROSTERPETS_SetRosterEntry(int nKey, int nArg, int nType, int nValue); // 0x00478B10
 
 void __fastcall MONSTER_SetMonsterLight(D2UnitStrc* pUnit); // 0x004AE210
 
@@ -298,9 +292,7 @@ void __fastcall ROSTERPETS_DropPetEntry(int nKey)
 
 struct D2PetTypeTxt;
 
-D2StoredUnitRecordStrc* __fastcall ROSTER_FindRosterUnitById(int nUnitId); // 0x00479BB0
 
-unsigned short __fastcall ROSTER_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -391,7 +383,6 @@ D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey)
 
 unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
 
-int __fastcall ROSTER_IsHostileRelation(int nUnitId1, int nUnitId2); // 0x0047A070
 
 static inline D2RosterPetStrc* PETS_FindRosterPetInl(int nUnitId)
 {
@@ -647,9 +638,7 @@ int __fastcall ROSTERPETS_IsOwnedByPlayer(D2UnitStrc* pUnit)
     return 1;
 }
 
-int __fastcall CUNIT_GetBasePalShiftIndex(D2UnitStrc* pUnit); // 0x00463E50
 
-int __fastcall CUNIT_GetPalShiftIndex(D2UnitStrc* pUnit); // 0x00463EB0
 
 
 

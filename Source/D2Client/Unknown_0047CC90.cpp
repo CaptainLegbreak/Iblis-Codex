@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -63,7 +64,6 @@ extern Unicode gwszChatLine_007BB638[0x101]; // 0x007BB638
 
 void __fastcall SCMD_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 
-bool __cdecl CHAT_IsImeLanguage(); // 0x0047B010
 
 int __cdecl WINDOW_GetWindow(); // 0x004F59A0
 
@@ -197,15 +197,10 @@ void __fastcall GAME_SetResolution(int nResolution); // 0x0044BA20
 
 void __fastcall AUTOMAP_SetAutomapMode(int nMode); // 0x0045A720
 
-int __fastcall AUTOMAP_SetAutomapFade(int nFade); // 0x004576F0
 
-int __cdecl AUTOMAP_GetAutomapCenters(); // 0x00457740
 
-int __fastcall AUTOMAP_SaveAutomapCenters(int nValue); // 0x00457750
 
-int __cdecl AUTOMAP_GetAutomapParty(); // 0x004577B0
 
-int __cdecl AUTOMAP_GetAutomapPartyNames(); // 0x004577E0
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -225,7 +220,6 @@ void __fastcall GAME_SetAlwaysRun(int bAlwaysRun); // 0x0044BE80
 
 int __cdecl AUTOMAP_GetAutomapFade(); // 0x004576C0
 
-int __cdecl UI_GetAutomapMode(); // 0x0045A710
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
@@ -237,29 +231,20 @@ void __fastcall QUESTLOG_ToggleQuestLog(int nMode); // 0x004A3FE0
 
 int __fastcall UI_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
-void __cdecl UI_DisableUIVarDelay(); // 0x00453AC0
 
-void __cdecl UI_EnableUIVarDelay(); // 0x00453AD0
 
-void __cdecl UI_StartUIVarDelay(); // 0x00453AE0
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 
-int __cdecl sub_00468830(); // 0x00468830
 
-void __fastcall CURSOR_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 
-int __cdecl HIREABLES_AreBeltRowsShown(); // 0x004979E0
 
-int __cdecl HIREABLES_GetBeltRowCount(); // 0x004979F0
 
 int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
-void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
 static int gbSlotClicked; // 0x007BC97C
 
@@ -271,21 +256,15 @@ extern int gbAnyPanelOpen; // 0x007BC96C
 
 void __fastcall WINMAIN_SetExitApplication(int nValue); // 0x0044B880
 
-void __fastcall GAME_SetCinematicExit(int nValue); // 0x0044C860
 
 void __fastcall sub_0047E200_CloseMenus(int bRestore); // 0x0047E200
 
 static inline int sub_0047D500(D2OptionEntryStrc* pEntry);
 
-void __fastcall sub_0047F310_ShowPage2(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg);
 
-void __fastcall sub_0047F340_ShowPage3(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg);
 
-void __fastcall sub_0047F3A0_ShowPage4(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg);
 
-void __fastcall sub_0047F400_OpenPanel(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg);
 
-void __fastcall sub_0047F430_ShowPage0(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg);
 
 
 
@@ -307,7 +286,6 @@ int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nA
 
 extern void* gpSlotCells; // 0x007BC964
 
-int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
 
 extern "C" unsigned int __cdecl strlen(const char* szString);
@@ -324,7 +302,6 @@ Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCo
 
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                   // 0x00526F20
 
-int __cdecl GAME_IsExitPending();                                                                                 // 0x0044DA30
 
 extern unsigned char gbGlobal_007BB5E0;                                                                     // 0x007BB5E0
 
@@ -351,7 +328,6 @@ extern "C" int __cdecl strcmp(const char* a, const char* b);
 
 Unicode* __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
 
-int __cdecl UI_TickElapsed(); // 0x00454850
 
 extern int gnOptionArrowFrame; // 0x007BC944
 
@@ -383,7 +359,6 @@ int __cdecl sub_004DF9B0_IsSoundMode2(); // 0x004DF9B0
 
 void __fastcall sub_004E0690_SetSoundTableFlag(int nValue); // 0x004E0690
 
-void __fastcall TEXT_SaveTextDisplaySetting(unsigned long nValue); // 0x0049D570
 
 void __stdcall D2GFX_SetLowQuality(int bLowQuality); // 0x004F5220
 
@@ -693,7 +668,6 @@ int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
-void __stdcall CHAT_StepChatIndex(int nDelta); // 0x0047BA80
 
 
 extern D2OptionHeaderStrc gtMainOptionHeader; // 0x00713044
@@ -742,11 +716,8 @@ extern "C" int __cdecl atoi(const char* szString);                              
 
 
 
-void __cdecl sub_00477C60_CheckCacheStats();                                                                // 0x00477C60
 
-void __cdecl VIEW_ToggleCacheStats();                                                               // 0x00477C00
 
-int __cdecl GAME_GetConnectionType();                                                                                 // 0x0044DB30
 
 void __cdecl SOUNDINST_ToggleHints();                                                                    // 0x004BABC0
 
@@ -760,7 +731,6 @@ void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFor
 
 void __fastcall TEXT_PrintChatLine(const Unicode* pText, char nColor);                              // 0x0049E3A0
 
-void __fastcall MSG_SendStrings(const unsigned char* pData);                                       // 0x004787B0
 
 unsigned int __fastcall D2Win_10128(unsigned char nChar);                                                   // 0x00502550
 
@@ -779,11 +749,9 @@ extern Unicode gawszChatHistory_007BB840[8][257];                               
 
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
 
-D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
 
 extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 
-void __fastcall sub_0047DBB0_LoadOptionCels(D2OptionHeaderStrc* pHeader, D2OptionEntryStrc* pEntries); // 0x0047DBB0
 
 D2CelFileStrc* __fastcall ARCHIVE_LoadClientCellFile(const char* szFile, int nType); // 0x004788B0
 
@@ -812,19 +780,14 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 
-unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 
 const Unicode* __fastcall CMDTBL_GetKeyText(int nKey, int nArg2); // 0x00469DE0
 
-int __cdecl sub_00468730(); // 0x00468730
 
-int __cdecl sub_00468740(); // 0x00468740
 
 void __stdcall sub_0047E9A0_DrawSlots(int bDraw); // 0x0047E9A0
 
-int __cdecl sub_0047EA60_IsAnyPanelOpen(); // 0x0047EA60
 
-int __cdecl sub_0047EB50_IsAnyLeftPanelOpen(); // 0x0047EB50
 
 extern void* gpMiniPanelCel; // 0x007BC960
 
@@ -1174,7 +1137,6 @@ void __stdcall sub_0047D840_OptionMouseUp(SMSGHANDLER_PARAMS* pMsg)
     sub_00420290_BreakHandlerChain(pMsg);
 }
 
-int __cdecl GAME_GetAlwaysRun(); // 0x0044BE90
 
 void* __fastcall GAME_LoadUiCelFile(const char* szPath); // 0x004520C0
 

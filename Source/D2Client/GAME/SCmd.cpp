@@ -2,6 +2,7 @@
 #include "D2LevelIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2GameClient.h"
 #include "D2Primitives.h"
 #include "D2Constants.h"
@@ -426,15 +427,10 @@ extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSiz
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
-void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
-int __fastcall CUNIT_HasHotkeyBinding(int nA, int nB); // 0x00469D90
 
-unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 
-void __cdecl GAME_ResetLeftClick(); // 0x0044C060
 
-void __cdecl SELECT_UnlockHover(); // 0x00466FF0
 
 void __cdecl TEXT_ClearListFlags(); // 0x004A01E0
 
@@ -468,7 +464,6 @@ Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Uni
 
 void __stdcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int nY, int nArg); // 0x005022F0
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
 
@@ -494,7 +489,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits); // 0x00411020
 
-D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
@@ -529,7 +523,6 @@ struct D2ErrorPacketStrc
 
 void __cdecl GAME_SaveCharFile(); // 0x0045C520
 
-void __fastcall GAME_ShowLoadingMessage(int nError); // 0x0044E380
 
 extern int gbGameServerReady; // 0x007A0618
 
@@ -555,11 +548,8 @@ struct D2GSPacketSrv03
 };
 #pragma pack(pop)
 
-void __fastcall GAME_SetDifficulty(unsigned char nDifficulty); // 0x0044DC70
 
-void __fastcall GAME_SetExpansion(unsigned char nValue); // 0x0044DC80
 
-void __fastcall GAME_SetLadderFlag(int nValue); // 0x0044DC90
 
 void __fastcall CHAT_SetClientFlags(int nFlags); // 0x0047A9A0
 
@@ -617,7 +607,6 @@ struct D2GSPacketSrv51
 };
 #pragma pack(pop)
 
-void __cdecl GAME_FreeWeather(); // 0x0044C880
 
 extern int gbLeavingGame; // 0x007A0620
 
@@ -625,15 +614,12 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 int __cdecl GAME_IsCinematicExit(); // 0x0044C870
 
-D2UnitStrc* __fastcall CUNIT_AllocClientUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5); // 0x004661C0
 
 void __fastcall GFX_ResetMonsterModeGfx(D2UnitStrc* pUnit); // 0x00470B70
 
-D2UnitStrc* __fastcall CUNIT_CreateObjectUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5, int nArg6, unsigned char nInteractType); // 0x00466300
 
 int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 
-void __fastcall CUNIT_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
@@ -784,7 +770,6 @@ int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc* pBuffer, int nBits); // 0x004
 
 
 
-int __cdecl GAME_IsExitPending(); // 0x0044DA30
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
@@ -792,7 +777,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 void __fastcall sub_00462F60(D2GSPacketSrv74Strc* pPacket); // 0x00462F60
 
-int __cdecl CUNIT_IsPlayerDeadOrMissing(); // 0x00463DF0
 
 void __fastcall ROSTER_SetPortalIds(int nOwnerGUID, int nPortalGUID0, int nPortalGUID1); // 0x0047A270
 
@@ -833,13 +817,9 @@ struct D2GSPacketSrv10
 };
 
 
-unsigned char __stdcall AUTOMAP_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00462EE0
 
-int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
-void __fastcall GFX_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent); // 0x0046F280
 
-void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
 
 void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 
@@ -976,7 +956,6 @@ struct D2GSPacketSrv99
 };
 #pragma pack(pop)
 
-void __fastcall CUNIT_SetOverlayWithSound(D2UnitStrc* pUnit, int nOverlay, int nArg); // 0x00464E50
 
 void __fastcall NPCMENU_NpcInteractPacket(unsigned char nUnitType, int nUnitId, unsigned char* pBuffer, unsigned char nArg); // 0x004B6DD0
 
@@ -1000,13 +979,11 @@ void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int n
 
 int __fastcall SKILLS_TriggerSkillOnUnit(void* pArg1, int nArg2, int nArg3, int nArg4, int nArg5); // 0x004CA200
 
-void __fastcall CUNIT_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int nFlags); // 0x004654C0
 
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pUnit); // 0x0063EA40
 
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nMask); // 0x00648C30
 
-void __fastcall GAME_ExtendDelay(int nDelay); // 0x0044DB40
 
 #pragma pack(push, 1)
 struct D2PacketRecord11Strc
@@ -1076,7 +1053,6 @@ struct D2UnitStatPacket2Strc
 
 void __fastcall ITEM_RefreshUnitItemsFromPacket(D2PacketRecord11Strc* pPacket, int nArg); // 0x004C1BC0
 
-D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
 void __fastcall ITEM_RefreshUnitEquipment(D2UnitStrc* pUnit); // 0x004C1C10
 
@@ -1435,7 +1411,6 @@ struct D2GSPacketSrvA9
 
 void __fastcall UNITSND_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent); // 0x004CBDE0
 
-D2UnitStrc* __fastcall CUNIT_CreatePlayerUnit(unsigned int nUnitId, int nClassId, int nX, int nY, char* szName); // 0x00466200
 
 void __fastcall ROSTER_AddRosterUnit(int nUnitId, int nClassId, const char* szName, unsigned short wLevel, unsigned short wPartyId, int nUnused, int nPartyFlags, unsigned short wGuildFlags, const char* szGuildTag, const char* szGuildName); // 0x0047A6F0
 
@@ -1447,15 +1422,11 @@ void __stdcall UNITS_SetPlayerPortalFlags(D2UnitStrc* pUnit, int nPortalFlags); 
 
 void __fastcall sub_004B9320_PlayCinematicFromPacket(const D2CinematicPacketStrc* pPacket); // 0x004B9320
 
-void __cdecl sub_0047F1D0_LoadResolution(); // 0x0047F1D0
 
-void __fastcall ROSTER_SetKillCount(int nUnitId, unsigned short nValue); // 0x00479B10
 
-void __fastcall ROSTER_UpdateRosterUnit(int nUnitId, unsigned short wPartyId, unsigned short wLevel, int nUnused, int nPartyFlags); // 0x0047A850
 
 void __fastcall sub_004B90D0(int nGold, unsigned char nOwner); // 0x004B90D0
 
-void __fastcall ROSTERPETS_SetRosterEntry(int nKey, int nArg, int nType, int nValue); // 0x00478B10
 
 void __fastcall ROSTERPETS_DropPetEntry(int nKey); // 0x00478C90
 
@@ -1463,21 +1434,14 @@ void __fastcall SPELLSEL_SetHotkeySkillSlot(int nSlot, int nValueA, int nValueB,
 
 void __fastcall GFX_LoadGlobalHashedFile(unsigned char nAct); // 0x0046F310
 
-void __fastcall ROSTER_SetLifeAndLevel(int nUnitId, int nLife, unsigned short wLevelId); // 0x0047A0D0
 
 void __fastcall VIEW_UpdatePetLife(int nUnitId, int nLifePercent, unsigned short nArg); // 0x00479010
 
-void __fastcall ROSTER_SetPosition(int nUnitId, int nX, int nY); // 0x0047A100
 
-void __fastcall ROSTER_SetPartyFlags(int nUnitId, unsigned char nFlags); // 0x0047A350
 
-void __fastcall ROSTER_SetPvpFlags(int nUnitId1, int nUnitId2, unsigned short wFlags); // 0x0047A370
 
-void __fastcall ROSTER_SetPartyId(int nUnitId, unsigned short wPartyId); // 0x0047A330
 
-void __fastcall ROSTER_AddCorpse(int nUnitId, int nCorpseId); // 0x0047A3D0
 
-void __fastcall ROSTER_DropCorpseEntry(int nUnitId, int nCorpseId); // 0x0047A490
 
 void __fastcall NPCMENU_SetNpcMenuState(unsigned short wValue, int nValue); // 0x004B6980
 
@@ -1841,7 +1805,6 @@ void __fastcall sub_004C51B0(D2PacketRecord6Strc* pPacket); // 0x004C51B0
 
 void __fastcall NPCMENU_OnNpcWantsInteract(D2PacketRecord6Strc* pPacket); // 0x004B3380
 
-void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
 void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619EE0
 
@@ -1853,7 +1816,6 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
-int __stdcall ROSTERPETS_GetPulseColor(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0046BD50
 
 D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
@@ -1970,7 +1932,6 @@ struct D2EnvironmentPacketStrc
 
 extern D2DrlgActStrc* gpDrlgAct_007A0634; // 0x007A0634
 
-void __cdecl CUNIT_UpdateObjectsForPeriod(); // 0x004646C0
 
 struct D2GSPacketSrv9C
 {
@@ -2156,7 +2117,6 @@ struct D2MsgRecordChunkStrc;
 
 
 
-int __cdecl RECORD_IsReplayActive(); // 0x00451990
 
 void __fastcall RECORD_RecordInputMessage(unsigned int uMessage, unsigned int wParam, int lParam); // 0x004514B0
 

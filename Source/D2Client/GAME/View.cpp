@@ -1,6 +1,7 @@
 #include "D2MissileIds.h"
 #include "D2LevelIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
@@ -121,19 +122,14 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
-D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey); // 0x00478E40
 
 void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
-void __fastcall MSG_SendTwoWords(char nHeader, short nArg1, short nArg2); // 0x004785D0
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
-int __cdecl sub_00468730(); // 0x00468730
 
-int __cdecl sub_00468740(); // 0x00468740
 
-int __cdecl GAME_GetAlwaysRun(); // 0x0044BE90
 
 void __cdecl sub_00497300(); // 0x00497300
 
@@ -144,7 +140,6 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); 
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 
 
-int __cdecl HIREABLES_GetHelpMenuSetting(); // 0x004942D0
 
 void __cdecl HIREABLES_DrawKeyHelp(); // 0x00495030
 
@@ -199,11 +194,9 @@ extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-void __fastcall CUNIT_MarkUnitDead(D2UnitStrc* pUnit); // 0x00464810
 
 D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
 
-D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860
 
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
@@ -262,7 +255,6 @@ void __cdecl VIEW_FreeCels(); // 0x00475EB0
 
 void __fastcall WALL2_FreeViewCells(D2ViewStrc* pView); // 0x004DCF30
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
 
 void __fastcall WALL2_PrepareWallCells(D2ViewStrc* pView, int nValue); // 0x004DDB70
 
@@ -318,7 +310,6 @@ extern int gpLastHoverItem; // 0x007BCBF8
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 
@@ -453,7 +444,6 @@ int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit);                           
 
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                                                        // 0x00620410
 
-int __cdecl sub_0044DB00();                                                                                  // 0x0044DB00
 
 void __cdecl WALL2_UpdateRoomColor();                                                                 // 0x004DED20
 
@@ -511,7 +501,6 @@ unsigned char gbLifeColorsInit; // 0x007BEED3
 
 int gbDebugDrawLights; // 0x007B9564
 
-void __fastcall VIEW_PrepareSceneLighting(D2ViewStrc* pView); // 0x00476BC0
 
 static int gnPopupX; // 0x007BEED4
 
@@ -601,11 +590,8 @@ static inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 
 void __fastcall D2Win_10178_CopyGammaTable(unsigned char (*pRows)[0x100]); // 0x004FB1C0
 
-unsigned char* __stdcall GFX_BuildLerpTable(unsigned int nCount, int nSteps); // 0x00475B80
 
-unsigned char** __stdcall GFX_BuildLerpRowTable(unsigned int nCount, int nSteps); // 0x00475C40
 
-unsigned char** __stdcall SCMD_BuildRampTable(unsigned int nSize, int nSteps); // 0x00475D30
 
 extern unsigned char gabRowTable[][0x100]; // 0x007B5C10
 
@@ -1311,13 +1297,9 @@ void __cdecl sub_00477760_DrawCacheStats(); // 0x00477760
 
 int __stdcall GAME_GetPing(); // 0x0044CE60
 
-int __cdecl GAME_GetSkippedFrames(); // 0x0044DAF0
 
-int __cdecl UI_GetGfxMemory(); // 0x0046F980
 
-int __cdecl UI_GetCofMemoryUsed(); // 0x0046F990
 
-int __cdecl UI_GetCofMemoryLimit(); // 0x0046F9A0
 
 int __cdecl D2CMPSpriteCacheGetMaxMemory(); // 0x005FEE40
 
@@ -1327,7 +1309,6 @@ int __cdecl D2CMPCelDataCacheGetMaxMemory(); // 0x005FEE70
 
 int __stdcall sub_0040ABE0(); // 0x0040ABE0
 
-void __cdecl sub_00481850(); // 0x00481850
 
 unsigned int __cdecl D2CMPSpriteCacheGetUsedMemory(); // 0x005FEE10
 

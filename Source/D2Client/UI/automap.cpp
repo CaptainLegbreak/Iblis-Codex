@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -1096,7 +1097,6 @@ void __cdecl AUTOMAP_ReloadAutomapCels(); // 0x0045A2B0
 
 int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00461250
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 D2GfxDataStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 
@@ -1186,9 +1186,7 @@ void __fastcall SCMD_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHA
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
-void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
 
 int __fastcall NPCMENU_GetInteractNpcId(int* pLow); // 0x004B3230
 
@@ -1212,7 +1210,6 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, unsigned char nAlpha); // 0x004F6380
 
-D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
@@ -1220,7 +1217,6 @@ int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 
-int __fastcall VIEW_GetViewShift(int* pX, int* pY); // 0x00476AC0
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
@@ -1242,9 +1238,7 @@ void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int n
 
 D2PacketBufferStrc* __fastcall sub_00464770_GetPacketBuffer(void* pArg); // 0x00464770
 
-int __cdecl sub_00468730(); // 0x00468730
 
-int __cdecl sub_00468740(); // 0x00468740
 
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
@@ -1392,7 +1386,6 @@ int gbLayoutPetIconVisible; // 0x007A51F0
 
 static D2AutomapLayerStrc* AUTOMAP_InitAutomapLayer(int nLayerNo); // 0x00458D40
 
-void __cdecl AUTOMAP_UpdateAutomapReveal();
 
 int gnRevealPlayerX; // 0x007A5200
 
@@ -1466,7 +1459,6 @@ const char* __cdecl WINMAIN_GetGamePassword(); // 0x0044B820
 
 const char* __cdecl WINMAIN_GetGameDescription(); // 0x0044B7F0
 
-unsigned char __cdecl GAME_GetDifficulty(); // 0x0044DCD0
 
 // build: symbol ??__EgnAutomapWidth@@YAXXZ 0x006CAA90
 int gnAutomapWidth = gnScreenWidth; // 0x007A5220
@@ -1487,7 +1479,6 @@ int gnAutomapOffsetX;                                                           
 
 int gnAutomapOffsetY;                                                                              // 0x007A519C
 
-int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
 
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 
@@ -1505,7 +1496,6 @@ int __stdcall INVENTORY_GetOwnerId(D2InventoryStrc* pInventory); // 0x0063D450
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
-int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
@@ -1515,11 +1505,8 @@ const char* __stdcall UNITS_GetPlayerName(D2UnitStrc* pUnit); // 0x006221A0
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
 
-unsigned short __fastcall ROSTER_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
 
-int __fastcall ROSTER_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord); // 0x0047A0C0
 
 int __fastcall ROSTER_GetLevelId(D2StoredUnitRecordStrc* pEntry); // 0x0047A1E0
 
@@ -1611,7 +1598,6 @@ static inline int AUTOMAP_UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag);
 
 void __cdecl AUTOMAP_SaveAutomapLayer();                                                                         // 0x004584C0
 
-void __cdecl AUTOMAP_ResetAutomapCells();                                                                         // 0x00458680
 
 void __cdecl AUTOMAP_LoadAutomapLayer();                                                                        // 0x00458750
 
@@ -4145,7 +4131,6 @@ void __fastcall AUTOMAP_ProcessUnitPacketBuffer(void* pArg)
 }
 
 
-void __stdcall UI_DrawCelPair(int bFirst);                                                        // 0x0045FBC0
 
 void __cdecl UI_DrawCenteredStrings();                                                            // 0x0045FFC0
 
@@ -4153,7 +4138,6 @@ void __stdcall VIEW_DrawPanelCels(int nFrame1, int nFrame2);                    
 
 void __cdecl UI_DrawCenteredStringPair();                                                         // 0x004600F0
 
-void __cdecl CURSOR_DrawCursor(); // 0x004684C0
 
 
 

@@ -1,5 +1,6 @@
 #include "D2LanguageNames.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -25,9 +26,7 @@ int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); 
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
 void __fastcall ARCHIVE_FreeClientCellFile(void* pCel); // 0x00478A00
 
@@ -37,7 +36,6 @@ int __fastcall ROSTERPETS_HasPets(D2UnitStrc* pUnit); // 0x00478F70
 
 int __fastcall ROSTER_HasPartyMate(D2UnitStrc* pUnit); // 0x0047A2C0
 
-void __fastcall WARDENCLIENT_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg); // 0x00496BE0
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
@@ -77,7 +75,6 @@ D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
-int __fastcall ROSTERPETS_GetHirelingClassId(int nUnitId); // 0x00479120
 
 extern const unsigned int gdwBitMasks[]; // 0x006CE268
 
@@ -144,31 +141,23 @@ struct D2StoredUnitRecordStrc;
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 
 
-int __cdecl sub_0045AE90();                                                                                 // 0x0045AE90
 
 short __fastcall CUNIT_GetPlayerPartyId(D2UnitStrc* pUnit); // 0x00465400
 
 const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit);                                     // 0x00464A60
 
-int __fastcall ROSTERPETS_CountPets(D2UnitStrc* pOwner, int nPetType);                                 // 0x00478EE0
 
-int __fastcall ROSTER_GetPetLife(int nUnitId);                                                       // 0x00479080
 
-D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry);              // 0x004795A0
 
 extern "C" const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 
 int __fastcall ROSTER_GetClassId(D2StoredUnitRecordStrc* pEntry);                                                // 0x00479BA0
 
-unsigned short __fastcall ROSTER_GetEntryIndex(D2StoredUnitRecordStrc* pEntry);                      // 0x00479BC0
 
-int __fastcall ROSTER_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord);                              // 0x0047A0C0
 
-int __fastcall ROSTER_GetPartyLife(int nUnitId);                                                     // 0x0047A150
 
 D2CelFileStrc* __fastcall HIREABLES_GetPetIcon(D2UnitStrc* pOwner, int nPetType, int* pUnitId, int* pSingle); // 0x00493240
 
-void __stdcall INV_DrawIconNumber(int nValue, int nX);                                                // 0x00493100
 
 const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB);                                         // 0x0046A530
 
@@ -228,7 +217,6 @@ static inline int InBox(int nX, int nY, int nLeft, int nRight, int nTop, int nBo
     return nX >= nLeft && nX <= nRight && nY >= nTop && nY <= nBottom;
 }
 
-int __cdecl HIREABLES_GetHelpMenuSetting(); // 0x004942D0
 int __stdcall HIREABLES_CanEquipHirelingItem(int playSound); // 0x004934D0
 void __stdcall sub_K04_EmitUse(int nValue);
 
@@ -446,15 +434,10 @@ static inline D2PetTypeTxt* sub_00493240_GetPetTypeTxtRecord(int nPetType)
     return 0;
 }
 
-int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
-unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 
-int __cdecl sub_00468730(); // 0x00468730
 
-int __cdecl sub_00468740(); // 0x00468740
 
-void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 
 int gnGlobal_007BEED4; // 0x007BEED4
 
@@ -750,7 +733,6 @@ void __cdecl VIEW_DrawHelpShade()
     AUTOMAP_DrawFramedBox(0, 0, gnScreenWidth, gnScreenHeight - 0x31, gnHelpShadeColor, 1);
 }
 
-void __cdecl GAME_ResetMouseButtons();                                                                                // 0x0044DA70
 
 // 0x00494620
 void __cdecl ROSTERPETS_DrawHelpColumn()
@@ -866,7 +848,6 @@ void __cdecl VIEW_DrawHelpPanelCel()
     }
 }
 
-void __cdecl PANEL_SetBlackColour();                                                                                // 0x00499E30
 
 // 0x00494EB0
 void __cdecl sub_00494EB0()
@@ -1480,7 +1461,6 @@ void __cdecl HIREABLES_FreePanelCels()
 
 struct D2SkillsTxt;
 
-int __cdecl ROSTER_IsAnyoneHostile(); // 0x0047A560
 
 int __cdecl CUNIT_IsTrading(); // 0x004B8A10
 

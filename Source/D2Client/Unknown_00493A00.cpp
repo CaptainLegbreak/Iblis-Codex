@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2CelContext.h"
@@ -9,24 +10,16 @@
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 D2UnitStrc* __cdecl sub_00463DD0();
-int __cdecl sub_0045AE90();
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 int __fastcall GAME_GetUIVarState(int nUIVar); // 0x004538D0
 int __fastcall UI_SetUIVar(int nUIVar, int nState, int nArg); // 0x00455F20
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(int nUnitId, int nUnitType); // 0x00463990
 unsigned short __fastcall CUNIT_GetPlayerPartyId(D2UnitStrc* pUnit); // 0x00465400
 const Unicode* __fastcall CUNIT_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
-int __fastcall ROSTERPETS_CountPets(D2UnitStrc* pOwner, int nPetType); // 0x00478EE0
 int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
-int __fastcall ROSTER_GetPetLife(int nUnitId); // 0x00479080
-D2StoredUnitRecordStrc* __fastcall ROSTER_GetNextStoredUnit(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
 const char* __fastcall ROSTER_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 int __fastcall ROSTER_GetClassId(D2StoredUnitRecordStrc* pEntry); // 0x00479BA0
-unsigned short __fastcall ROSTER_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
-int __fastcall ROSTER_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord); // 0x0047A0C0
-int __fastcall ROSTER_GetPartyLife(int nUnitId); // 0x0047A150
 D2CelFileStrc* __fastcall HIREABLES_GetPetIcon(D2UnitStrc* pOwner, int nPetType, int* pUnitId, int* pSingle);
-void __stdcall INV_DrawIconNumber(int nValue, int nX);
 const Unicode* __fastcall CMDTBL_GetKeyName(int nA, int nB);
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette);
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, int eDrawMode); // 0x004F6300

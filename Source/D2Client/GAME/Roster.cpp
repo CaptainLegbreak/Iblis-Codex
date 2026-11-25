@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2ClientGame.h"
 #include "D2UnitData.h"
@@ -52,14 +53,12 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 
 void __fastcall MSG_SendPartyCommand(int nCommand, int nUnitId); // 0x00478780
 
 void __cdecl ROSTER_RebuildRosterOrder(); // 0x00479AB0
 
-void __cdecl PARTY_RebuildRosterUnits(); // 0x0049A640
 
 unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
 
@@ -167,7 +166,6 @@ void __cdecl ROSTER_BuildRosterGroups();                                        
 
 D2StoredUnitRecordStrc* __cdecl ROSTER_LeaveParty();                                                  // 0x00479F60
 
-int __cdecl CHAT_IsNumberDisplayEnabled();                                                          // 0x0047A980
 
 D2RosterInfoStrc** __cdecl PLAYERLIST_AllocRosterInfoList();                                              // 0x004DC270
 
@@ -214,11 +212,8 @@ void __fastcall PLAYERLIST_FreeRosterInfoList(D2RosterInfoStrc** pList);        
 
 unsigned short __fastcall CUNIT_GetPlayerPartyId(D2UnitStrc* pUnit);                           // 0x00465400
 
-void __fastcall ROSTER_SetKillCount(int nUnitId, unsigned short nValue); // 0x00479B10
 
-D2StoredUnitRecordStrc* __fastcall ROSTER_FindRosterUnitById(int nUnitId); // 0x00479BB0
 
-unsigned short __fastcall ROSTER_LookupPartyNumber(D2UnitStrc* pUnit); // 0x00479C00
 
 static void ROSTER_ToggleRelationFlag(D2StoredUnitRecordStrc* pEntry, unsigned short nFlag); // 0x00479D30
 
@@ -230,39 +225,27 @@ void __fastcall ROSTER_ToggleSquelch(D2StoredUnitRecordStrc* pEntry); // 0x00479
 
 void __fastcall ROSTER_ToggleHostile(D2StoredUnitRecordStrc* pEntry); // 0x00479FE0
 
-int __fastcall ROSTER_IsHostileRelation(int nUnitId1, int nUnitId2); // 0x0047A070
 
-void __fastcall ROSTER_SetLifeAndLevel(int nUnitId, int nLife, unsigned short wLevelId); // 0x0047A0D0
 
-void __fastcall ROSTER_SetPosition(int nUnitId, int nX, int nY); // 0x0047A100
 
-int __fastcall ROSTER_GetPartyLife(int nUnitId); // 0x0047A150
 
 char* __fastcall ROSTER_GetNameEx(int nUnitId); // 0x0047A1F0
 
-char* __fastcall ROSTER_GetUnitName(D2UnitStrc* pUnit); // 0x0047A210
 
 void __fastcall ROSTER_SetPortalIds(int nUnitId, int nA, int nB); // 0x0047A270
 
 D2RosterInfoStrc** __fastcall ROSTER_GetRosterInfoList(int nUnitId); // 0x0047A310
 
-void __fastcall ROSTER_SetPartyId(int nUnitId, unsigned short wPartyId); // 0x0047A330
 
-void __fastcall ROSTER_SetPartyFlags(int nUnitId, unsigned char nFlags); // 0x0047A350
 
-void __fastcall ROSTER_SetPvpFlags(int nUnitId1, int nUnitId2, unsigned short wFlags); // 0x0047A370
 
-void __fastcall ROSTER_AddCorpse(int nUnitId, int nCorpseId); // 0x0047A3D0
 
-void __fastcall ROSTER_DropCorpseEntry(int nUnitId, int nCorpseId); // 0x0047A490
 
-int __fastcall ROSTER_CanLoot(int nUnitId1, int nUnitId2); // 0x0047A4F0
 
 int __fastcall ROSTER_IsSameParty(int nUnitId1, int nUnitId2); // 0x0047A520
 
 int __fastcall ROSTER_GetOtherPartyLife(int nUnitId); // 0x0047A6B0
 
-void __fastcall ROSTER_UpdateRosterUnit(int nUnitId, unsigned short wPartyId, unsigned short wLevel, int nUnused, int nPartyFlags); // 0x0047A850
 
 static void ROSTER_MoveGroupMembers(D2RosterGroupStrc* pGroup); // 0x00479800
 
@@ -276,7 +259,6 @@ void __fastcall ROSTER_AddRosterUnit(int nUnitId, int nClassId, const char* szNa
 
 static D2StoredUnitRecordStrc* ROSTER_FindRosterUnit(int nUnitId); // 0x004792E0
 
-int __fastcall ROSTER_IsNotSquelched(int nUnitId); // 0x0047A170
 
 static D2StoredUnitRecordStrc* ROSTER_FindRosterUnitByIdOrName(int nUnitId, const char* szName); // 0x00479360
 
@@ -286,7 +268,6 @@ static D2StoredUnitRecordStrc* ROSTER_SortRosterByKills(D2StoredUnitRecordStrc* 
 
 void __cdecl ROSTER_SortMainListByKills(); // 0x00479740
 
-void __cdecl ROSTER_SendLeaveParty(); // 0x00479FC0
 
 
 

@@ -1,5 +1,6 @@
 #include "D2StateIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2CelContext.h"
@@ -35,13 +36,10 @@ D2StateOwnerStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 static void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pOverlay); // 0x0046E040
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
 extern "C" int __cdecl PLAYER_GetScreenOffsetX(); // 0x0045AFC0
 extern "C" int __cdecl PLAYER_GetScreenOffsetY(); // 0x0045AFD0
 D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void* __fastcall GFX_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
-D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
 void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
 int __fastcall GFX_IsUnitOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 int __stdcall PARTICLE_GetGfxOffsetX(D2UnitStrc* pUnit); // 0x004DA0B0
@@ -97,7 +95,6 @@ static void __fastcall GFX_GetBaseName(const char* szPath, char* szDest)
     }
 }
 
-D2HashedFileEntryStrc* __stdcall GFX_FindHashedEntry(D2HashedFileStrc* pTable, const char* szPath); // 0x0046DC40
 
 // 0x0046DCC0
 static D2HashedFileEntryStrc* __stdcall GFX_LoadHashedEntry(D2HashedFileStrc* pTable, const char* szPath)

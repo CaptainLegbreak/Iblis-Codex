@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
@@ -53,7 +54,6 @@ struct D2PalShiftEntryStrc
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn);                                  // 0x006CC34C
 
-int __cdecl GAME_GetColorFlag();                                                                                 // 0x0044DC60
 
 int __cdecl sub_0044DA90();                                                                                 // 0x0044DA90
 
@@ -63,7 +63,6 @@ D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonster
 
 int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 
-int __fastcall CUNIT_GetPalShiftIndex(D2UnitStrc* pUnit);                                               // 0x00463EB0
 
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
 
@@ -177,11 +176,9 @@ void __fastcall CUNITEVENT_FreeCltUnitEvents(D2UnitStrc* pUnit);                
 
 void __fastcall SCMD_FreePacketBuffer(void* pArg);                                                  // 0x0045F9F0
 
-void __cdecl UI_FreePlayerUI();                                                                                // 0x00453DE0
 
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection);                         // 0x006488A0
 
-void __fastcall GAME_SetStandStillHeld(int nValue);                                                          // 0x0044BEA0
 
 void __cdecl UI_LoadPlayerUI();                                                                   // 0x00453D90
 
@@ -247,19 +244,14 @@ struct D2HirelingInfoStrc
     int unk0x0C;
 };
 
-unsigned char __cdecl GAME_GetDifficulty();                                                         // 0x0044DCD0
 
-void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit);                                                // 0x0046EC10
 
 int __fastcall sub_00477620_RollUnitValue(D2UnitStrc* pUnit, unsigned short nOffset); // 0x00477620
 
-D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey);                                             // 0x00478E40
 
 int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny);                   // 0x00478F20
 
-int __fastcall ROSTER_GetPetType(int nUnitId);                                                        // 0x00479180
 
-int __fastcall ROSTERPETS_IsOwnedByPlayer(D2UnitStrc* pUnit);                                             // 0x004791B0
 
 unsigned char* __fastcall MONUNIQUE_GetMonUmods(D2UnitStrc* pUnit);                                  // 0x004AC740
 
@@ -295,7 +287,6 @@ static D2UnitStrc* __stdcall CUNIT_FindUnitInTable(D2UnitStrc** ppTable, unsigne
 
 static void CUNIT_ApplyClassEffects(D2UnitStrc* pUnit, int nClassId); // 0x004656C0
 
-void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 
 void __stdcall PARTICLE_ResetGfxMotion(D2UnitStrc* pUnit);                                              // 0x004DA000
 
@@ -391,11 +382,9 @@ int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseT
 
 int __fastcall OBJECT_UpdateEnvObject(D2UnitStrc* pUnit, int nArg); // 0x004BC5E0
 
-void __fastcall GFX_RefreshPathTarget(D2UnitStrc* pUnit); // 0x00480420
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
-unsigned short __fastcall ROSTER_LookupPartyNumber(D2UnitStrc* pUnit); // 0x00479C00
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
@@ -403,7 +392,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 int __fastcall PLAYER_ApplyUnitCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int bForce); // 0x00461250
 
-void __cdecl SELECT_ClearSelection(); // 0x00466FE0
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
@@ -429,7 +417,6 @@ int __stdcall D2Common_11020(D2UnitStrc* pUnit); // 0x00645630
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-int __fastcall CUNIT_GetMonsterBaseId(D2UnitStrc* pUnit); // 0x00463860
 
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 
@@ -523,9 +510,7 @@ static int __stdcall CUNIT_GetUnitSelectRect(D2UnitStrc* pUnit, int nMode, D2Rec
 
 extern "C" __declspec(dllimport) int __stdcall PtInRect(const D2RectStrc*, D2CoordPairStrc);
 
-int __cdecl sub_00468730(); // 0x00468730
 
-int __cdecl sub_0045AE90(); // 0x0045AE90
 
 int __fastcall sub_00451F30(D2UnitStrc*,unsigned int); // 0x00451F30
 
@@ -547,7 +532,6 @@ int gbGoldButtonDisabled; // 0x007BCE2C
 
 static int __stdcall CUNIT_CheckMonsterSkillSelect(D2UnitStrc* pUnit, D2UnitStrc* pPlayer); // 0x00464310
 
-int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
 #define gpUnitTable_007A5470 (gapServerUnitTable + 1 * 0x80)
 
@@ -583,11 +567,9 @@ extern const unsigned char gnSkillMask_006CE26C; // 0x006CE26C
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x004639B0
 
 D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
-void __fastcall CUNIT_SetTargetByGUID(D2UnitStrc* pUnit, int nUnitType, unsigned int nUnitId); // 0x004643F0
 
 static int __stdcall CUNIT_IsItemInInventory(D2UnitStrc* pOwner, D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x00464D20
 
@@ -595,23 +577,17 @@ static int __stdcall CUNIT_IsItemOwnedByOther(D2UnitStrc* pOwner, D2UnitStrc* pI
 
 static void CUNIT_FreeUnit(D2UnitStrc* pUnit); // 0x00465870
 
-void __cdecl CUNIT_FreeAllUnits(); // 0x004659C0
 
 static void CUNIT_RemoveUnitFromTable(unsigned int nUnitId, int nUnitType, D2UnitStrc** ppTable, int nHash); // 0x00465E80
 
-void __fastcall CUNIT_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
 
-void __fastcall CUNIT_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
 
 void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int bCheckOwner); // 0x00466CB0
 
 static D2UnitStrc* __stdcall CUNIT_InitUnit(unsigned int nUnitId, int nClassId, int nY, int nUnitType, int nArg5, int nArg6, D2UnitStrc* pUnit, int nX); // 0x00465FD0
 
-D2UnitStrc* __fastcall CUNIT_CreatePlayerUnit(unsigned int nUnitId, int nClassId, int nX, int nY, char* szName); // 0x00466200
 
-D2UnitStrc* __fastcall CUNIT_AllocClientUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5); // 0x004661C0
 
-D2UnitStrc* __fastcall CUNIT_CreateObjectUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5, int nArg6, unsigned char nInteractType); // 0x00466300
 
 static inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag);
 
@@ -623,7 +599,6 @@ struct D2KeyConfigFileStrc;
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType);
 
-D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitType);
 
 D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
@@ -685,7 +660,6 @@ extern int gnScreenWidth; // 0x0071146C
 
 int __fastcall CUNIT_IsPetSkillTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00464EC0
 
-int __fastcall ROSTER_CanLoot(int nUnitId1, int nUnitId2); // 0x0047A4F0
 
 unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
 
@@ -697,7 +671,6 @@ static int CUNIT_AddUnitToTable(D2UnitStrc* pUnit);
 
 void __fastcall CUNIT_SetPlayerUnit(D2UnitStrc* pUnit); // 0x00463D90
 
-void __fastcall CUNIT_SetTargetByGUID(D2UnitStrc* pUnit, int nUnitType, unsigned int nUnitId);
 
 static int __stdcall CUNIT_IsItemInInventory(D2UnitStrc* pOwner, D2UnitStrc* pItem, D2UnitStrc* pUnit);
 
@@ -705,23 +678,17 @@ static int __stdcall CUNIT_IsItemOwnedByOther(D2UnitStrc* pOwner, D2UnitStrc* pI
 
 static void CUNIT_FreeUnit(D2UnitStrc* pUnit);
 
-void __cdecl CUNIT_FreeAllUnits();
 
 static void CUNIT_RemoveUnitFromTable(unsigned int nUnitId, int nUnitType, D2UnitStrc** ppTable, int nHash);
 
-void __fastcall CUNIT_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType);
 
-void __fastcall CUNIT_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType);
 
 void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int bCheckOwner);
 
 static D2UnitStrc* __stdcall CUNIT_InitUnit(unsigned int nUnitId, int nClassId, int nY, int nUnitType, int nArg5, int nArg6, D2UnitStrc* pUnit, int nX);
 
-D2UnitStrc* __fastcall CUNIT_CreatePlayerUnit(unsigned int nUnitId, int nClassId, int nX, int nY, char* szName);
 
-D2UnitStrc* __fastcall CUNIT_AllocClientUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5);
 
-D2UnitStrc* __fastcall CUNIT_CreateObjectUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5, int nArg6, unsigned char nInteractType);
 
 D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg);
 
@@ -3408,11 +3375,9 @@ void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int bCheckOwner)
 }
 
 
-unsigned short __fastcall CUNIT_GetHotkeyBinding(int nA, int nB); // 0x00469AA0
 
 
 
-void __cdecl CUNIT_DrawCountdown(); // 0x0046C060
 
 // 0x0046D750
 void __cdecl CUNIT_ClearAiTargets()

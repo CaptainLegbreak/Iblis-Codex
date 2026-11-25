@@ -2,6 +2,7 @@
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2DataTbls.h"
@@ -61,31 +62,19 @@ static inline void PLAYER_ReleaseRoomLight(D2UnitStrc* pUnit); // 0x00460FF0
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
 
-int __cdecl GAME_GetConnectionType(); // 0x0044DB30
 
-void __cdecl GAME_ResetMouseButtons(); // 0x0044DA70
 
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
-void __cdecl AUTOMAP_UpdateAutomapLayout(); // 0x00457520
 
-void __cdecl AUTOMAP_PaintAutomap(); // 0x00459700
 
-void __cdecl AUTOMAP_DrawGameInfoLines(); // 0x00459E90
 
-void __cdecl AUTOMAP_DrawStringLine(); // 0x00459FF0
 
-void __cdecl AUTOMAP_DrawLevelName(); // 0x0045A050
 
-void __cdecl AUTOMAP_DrawVersionLine(); // 0x0045A0A0
 
-void __cdecl AUTOMAP_DrawLocalIpLine(); // 0x0045A120
 
-void __cdecl AUTOMAP_DrawDifficultyLine(); // 0x0045A190
 
-void __cdecl AUTOMAP_DrawAutomapUnits(); // 0x0045AC90
 
-D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
 D2PacketBufferStrc* __fastcall sub_00464770_GetPacketBuffer(void* pArg); // 0x00464770
 
@@ -144,7 +133,6 @@ void __fastcall PLAYER_HandleStatChanged(D2GameStrc* pGame, D2UnitStrc* pOwner, 
 
 void __cdecl PLAYER_RefreshAdjacentPlayers(); // 0x004608C0
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 void __fastcall GFX_AddAiTargetUnit(D2UnitStrc* pUnit); // 0x0046C6E0
 
@@ -192,17 +180,13 @@ D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUn
 
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
-void __cdecl UI_CancelCursorItemUse(); // 0x00453EC0
 
-void __fastcall GFX_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
 D2UnitStrc* __fastcall SELECT_GetSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pX, int* pY, unsigned int dwFlags, int bForce); // 0x00467880
 
-int __cdecl sub_00468830(); // 0x00468830
 
-void __fastcall MSG_SendDword(char nHeader, int nArg); // 0x00478680
 
 int __stdcall D2Common_11016(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00645460
 
@@ -226,17 +210,14 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);        
 
 int __fastcall GAME_GetUIVarState(unsigned int nUIVar); // 0x004538D0
 
-void __fastcall AUTOMAP_ScreenToMap(int* pX, int* pY);                                                             // 0x0045AFF0
 
 int __stdcall PLAYER_IsPendingMode(int nArg1, int nArg2);                                             // 0x00461D60
 
 int __fastcall CUNIT_CanUseSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                            // 0x00464600
 
-int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
 
 int __fastcall CUNIT_IsHostileTo(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x00465C60
 
-void __cdecl SELECT_ClearSelection();                                                                                // 0x00466FE0
 
 D2UnitStrc* __cdecl SELECT_GetSelectedUnit();                                                             // 0x00467A10
 
@@ -244,13 +225,11 @@ void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit);                     
 
 D2UnitStrc* __fastcall SELECT_GetSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pUnit, int* pnX, int* pnY, unsigned char nFlags, int bArg); // 0x00467880
 
-int __fastcall DLIGHTMAP_GetDistance(int nDX, int nDY);                                                  // 0x00474080
 
 void __fastcall MSG_SendFourDwords(char nCommand, int nUnitType, int nUnitId, int nX, int nY);         // 0x00478700
 
 int __cdecl INV_GetScreenHeightMinusPanel();                                                                                 // 0x00454970
 
-int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag);                                   // 0x00457490
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 
@@ -258,39 +237,28 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                             
 
 void __fastcall PLAYER_SetPlayerMode(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2);             // 0x00460780
 
-int __fastcall PLAYER_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance); // 0x00461AC0
 
 int __fastcall PLAYER_FilterCommandMessage(D2PlayerCmdStrc* pCmd);                                           // 0x00462930
 
 void __fastcall CUNIT_SetPlayerUnit(D2UnitStrc* pUnit); // 0x00463D90
 
-void __fastcall CUNIT_MarkUnitDead(D2UnitStrc* pUnit);                                                            // 0x00464810
 
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit);                                       // 0x004648F0
 
-void __fastcall CUNIT_FreeLight(D2UnitStrc* pUnit);                                                  // 0x00464930
 
-void __fastcall CUNIT_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, int nFlags);                // 0x004654C0
 
 void __fastcall CUNIT_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg);                                                  // 0x00466CB0
 
 void __fastcall VIEW_SetPetEntryValue(D2UnitStrc* pOwner, D2UnitStrc* pRecord, int nValue);            // 0x00467410
 
-int __cdecl sub_00468740();                                                                                 // 0x00468740
 
-void __fastcall sub_0046BF30_CheckThroneLevel(D2ActiveRoomStrc* pRoom);                                     // 0x0046BF30
 
-void __fastcall GFX_RemoveAiTargetUnit(D2UnitStrc* pUnit);                                                            // 0x0046C700
 
-void __fastcall GFX_FreeGfxData(D2UnitStrc* pUnit);                                                            // 0x0046EC10
 
-void __fastcall GFX_PruneGfxNodes(D2UnitStrc* pUnit);                                              // 0x0046ECE0
 
 void __fastcall GFX_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue); // 0x0046F020
 
-void __fastcall sub_00473C90_SetGlobal(int nValue);                                                         // 0x00473C90
 
-D2ClientEntryStrc* __fastcall ROSTERPETS_FindEntry(int nKey);                                             // 0x00478E40
 
 int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny);                       // 0x00478F20
 
@@ -434,9 +402,7 @@ void __stdcall DUNGEON_InitRoomTileAnimation(D2DrlgActStrc* pAct, D2ActiveRoomSt
 
 void __stdcall UNITS_GetRunAndWalkSpeedForPlayer(int nUnused, int nCharId, int* pWalkSpeed, int* pRunSpeed); // 0x00620E40
 
-int __cdecl GAME_GetLeftClickState(); // 0x0044BF00
 
-int __cdecl GAME_GetRightClickState(); // 0x0044BF10
 
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
 
@@ -542,9 +508,7 @@ D2SkillRefStrc* gpEmitRef_E06;
 
 int gnEmitArg_E06;
 
-D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
-void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg);                                          // 0x00470610
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
@@ -563,7 +527,6 @@ int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc,
 
 int __stdcall DRLG_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 
-int __fastcall MONSTERUNIQUE_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 

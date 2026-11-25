@@ -1,6 +1,7 @@
 #include "D2SkillIds.h"
 #include "D2StatIds.h"
 #include "D2Client.h"
+#include "D2ClientFuncs.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2DataTbls.h"
@@ -40,15 +41,12 @@ struct D2UnitTargetStrc;
 
 void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc* pDynamicPath); // 0x00650590
 
-void __fastcall GFX_AddUnitOverlay(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 
-void __fastcall GFX_RefreshUnitGfx(D2UnitStrc* pUnit, int nArg); // 0x00470610
 
 void __fastcall sub_004E4020(D2UnitStrc* pUnit); // 0x004E4020
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
@@ -107,7 +105,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-unsigned short __cdecl GAME_GetClickFlags(); // 0x0044BEC0
 
 int __cdecl GAME_GetCurrentTime(); // 0x0044DAA0
 
@@ -115,17 +112,13 @@ void __fastcall GAME_SetInteractDeadline(int nValue); // 0x0044DAD0
 
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x00451F30
 
-void __fastcall GFX_ClearPendingAction(D2UnitStrc* pUnit); // 0x0045C470
 
-int __fastcall PLAYER_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance); // 0x00461AC0
 
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nUnitId, int nUnitType); // 0x00463990
 
-int __fastcall CUNIT_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 
 void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
-int __fastcall ROSTER_CanLoot(int nUnitId1, int nUnitId2); // 0x0047A4F0
 
 void __fastcall UNITMODE_SendUnitActionPacket(int nHeader, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00480B40
 
@@ -159,7 +152,6 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
 int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 
-D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 
 void __fastcall UNITMODE_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nMode, int nTargetX, int nTargetY); // 0x004804E0
 
@@ -201,7 +193,6 @@ extern "C" unsigned int __cdecl sub_0044DB10_GetFrame();
 extern "C" int __stdcall sub_00650840_UpdatePath(D2UnitStrc* unit, unsigned int frame);
 
 
-void __fastcall CUNIT_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
 
 void __stdcall STATLIST_UpdateStatListsExpiration(D2UnitStrc* unit, int value); // 0x00627460
 
@@ -219,7 +210,6 @@ void __fastcall MISSILE_CltDoMissile(D2UnitStrc* unit); // 0x004D2C70
 
 void __fastcall ITEM_UpdateItemAnim(D2UnitStrc* unit); // 0x004C1AD0
 
-D2UnitStrc* __fastcall CUNIT_FindServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x004639B0
 
 void __fastcall sub_0045FA40_FreeUnit(D2UnitStrc* unit); // 0x0045FA40
 
@@ -237,7 +227,6 @@ D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(D2DrlgActStrc* 
 
 extern D2DrlgActStrc* gpAct; // 0x007A0634
 
-void __fastcall MSG_SendTwoWords(char nHeader, short nArg1, short nArg2); // 0x004785D0
 
 void __fastcall AUTOMAP_UpdatePathAndMove(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463180
 
