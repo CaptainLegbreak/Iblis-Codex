@@ -772,26 +772,6 @@ void __fastcall MONSTER_SetMonsterLight(D2UnitStrc* pUnit)
     sub_00464CF0(pUnit, nLight);
 }
 
-void __cdecl sub_F03_Emit_004AE1D0(D2UnitStrc* pUnit)
-{
-    MONSTER_RefreshMonsterMode(pUnit);
-}
-
-void __cdecl sub_F03_Emit_004AFB60(D2UnitStrc* pUnit)
-{
-    MONSTER_ReplaySequence(pUnit);
-}
-
-int __cdecl sub_F03_Emit_004AFBC0(D2UnitStrc* pUnit, D2MonCmdRecordStrc* pRecord)
-{
-    return MONSTER_HasMonStatsFlag(pUnit, pRecord);
-}
-
-void __cdecl sub_F03_Emit_004AFC10(D2UnitStrc* pUnit)
-{
-    MONSTER_CreateDeathMissiles(pUnit);
-}
-
 // 0x004AE320
 int __fastcall MONSTER_IsChampionMonster(D2UnitStrc* pUnit)
 {
@@ -1859,11 +1839,6 @@ static void MONSTER_HandleAttackEvent(D2UnitStrc* pUnit)
     }
 }
 
-void __fastcall sub_I07_Emit_004AE4F0(D2UnitStrc* pUnit, int nEvent)
-{
-    MONSTER_HandleMonsterEvent(pUnit, nEvent);
-}
-
 static inline unsigned int sub_M165_SeedStep(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
@@ -2845,12 +2820,6 @@ static inline int sub_I20_UnitY(D2UnitStrc* pUnit)
     }
 }
 
-
-void __fastcall sub_J10_Emit_004AFCE0(D2UnitStrc* pUnit, int nMode, int nOtherMode)
-{
-    MONSTER_UpdateCollisionForMode(pUnit, nMode);
-    MONSTER_UpdateCollisionForMode(pUnit, nOtherMode);
-}
 
 // 0x004B1020
 int __cdecl MONSTER_GetEventUnit()

@@ -2195,13 +2195,6 @@ void __fastcall ITEM_HandleItemFromStorage(D2GSPacketSrv9D* pPacket)
     }
 }
 
-void __fastcall sub_BF69_Emit_004C1350(D2UnitStrc* pUnit, D2UnitStrc* pItem)
-{
-    ITEMS_SetItemFlag(pItem, 0x100, 0);
-    ITEM_RefreshEquippedItems(pUnit);
-    ITEMS_UpdateSets(pUnit, pItem, 0, 0);
-}
-
 // 0x004C2E90
 void __fastcall ITEM_HandleEquipItem(D2GSPacketSrv9D* pPacket)
 {

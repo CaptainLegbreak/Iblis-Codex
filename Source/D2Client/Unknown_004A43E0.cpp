@@ -2273,13 +2273,6 @@ static int TEXT_GetKeyConfigEntryState(int nIndex, int nFlag)
 
 
 
-int sub_B05_Emit_004A4FA0(int* pIndex)
-{
-    int nA = TEXT_GetKeyConfigEntryState(*pIndex, 1);
-    int nB = TEXT_GetKeyConfigEntryState(*pIndex, 0);
-    return sub_B05_Sink(nA, nB);
-}
-
 // 0x004A5010
 void __cdecl TEXT_ResetKeyConfigDefaults()
 {
