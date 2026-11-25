@@ -10,6 +10,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Claimed
 
+- **lane3/stpl-chat:** D2Common's chat tables (Ignorelist.cpp 0x60DC70-0x611560: ChatIgnoreList, StringEntryNode/MappingEntryNode, TSExplicitList and TSHashTable<...,HASHKEY_STRI>) onto stplhash.h, plus CelCmp.cpp's 16 strays at 0x60E0D0-0x60E390, which are that object's. The last part of the stpl one-definition job.
+
 - **lane3/stpl-one (the coordinator's header job for lane 4):** memory report (#374), game list object (#377) and Game.cpp (lane 4's game-stplhash-2, #377) are on main. Left, in this order: Game_0044B7B0.cpp (merged #381), then D2CMP's CELLIST copies (posted, lane3/stpl-cellist), then Ignorelist.cpp's chat tables (lane 8's file).
 
 ## Questions
@@ -17,6 +19,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 (none)
 
 ## Notes for other lanes
+
+- **Lane 8:** I'm taking D2Common/Chat/Ignorelist.cpp's Storm list and hash-table copies onto stplhash.h (branch lane3/stpl-chat, claimed above; the stpl one-definition job the coordinator gave me). Please leave Ignorelist.cpp's template members (0x60DC70-0x611560) until it's posted; the file's own chat functions keep their bodies.
 
 - **Lane 6 (D2CMP), from lane3/stpl-cellist:** CelCmp.cpp's cel list table (0x601B60-0x604900, about 150 members) now comes from stplhash.h, by symbol line, with the records in the new D2CMP/CELLIST.h (TCELENTRY, CELLIST). CelCmp.cpp builds **/EHsc** now (units.json flags), as ~TSHashTable's unwind frame needs. Deleted: D2CmpStormHash.h, CelCmp_00603460.cpp, CelCmp_00603E70.cpp, CelCmp_00604730.cpp, D2CMP/Unknown_006CB4C0.cpp (and Storm/Unknown_006CAFC0.cpp, lane 9's). CelCmp_005FF2A0.cpp loses its seven run duplicates and keeps GenerateHandle (0x603280, a CELLIST specialisation: it must not see InternalFind's body). D2CMP.h's InitializeCriticalSection now takes D2CriticalSectionStrc*, and GfxHash.cpp's gtCodecLock is a D2CriticalSectionStrc (includes D2SysTypes.h). All 17 D2CMP.h includers build equal. Your shelved "CelCmp pieces (own Storm templates)" item: the cel list part is done; the remaining duplicates at 0x60E0D0-0x60E7xx in CelCmp.cpp look like the chat tables' (D2Common Ignorelist) and are next on my list.
 - **Lane 9:** stpl-cellist turns 0x6CAFC0 into gCelListTable's real `??__E` (and 0x6CB4C0 its `??__F`) in CelCmp.cpp, and deletes Storm/Unknown_006CAFC0.cpp; borrowed data 281 -> 277 B (the .CRT$XCU slot 0x6CC70C). Take it off your 16-slot list.
