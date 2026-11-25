@@ -1710,6 +1710,44 @@ void __fastcall D2CMPTileCacheReleaseTile(void* pEntry)
     pTile->pNext = 0;
 }
 
+// 0x00601650
+void __stdcall CelDrawEx(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nClipTop, int nClipRows, int nArg13)
+{
+    D2CelFileStrc* pCelFile = pContext->pCelFile;
+    if (pCelFile)
+    {
+        D2_ASSERT(pCelFile->dwVersion == 6, 0x4C6);
+        D2_ASSERT(!(pCelFile->dwFlags & 4), 0x4C7);
+    }
+    D2_ASSERT(pBuffer, 0x4CA);
+    D2CelStrc* pCel = pContext->pCel;
+    D2_ASSERT(pCel, 0x4CD);
+    nY += pCel->nYOffset;
+    int nEnd = nY - nClipTop;
+    nX += pCel->nXOffset;
+    int nStart = nEnd - nClipRows;
+    if (nEnd < 0 || nStart >= nHeight)
+    {
+        return;
+    }
+    if (nStart < 0)
+    {
+        nStart = 0;
+    }
+    if (nEnd >= nHeight)
+    {
+        nEnd = nHeight - 1;
+    }
+    const int nRows = nEnd - nStart;
+    if (!nRows)
+    {
+        return;
+    }
+    CELDRAWFN pfnDraw = gpfnCelDraw[pCelFile->nFormat];
+    D2_ASSERT(pfnDraw, 0x4E9);
+    pfnDraw(pCel, &pBuffer[nEnd * nPitch + nX], nX, nArg4, nArg5, nPitch, nY - nEnd, nRows, nArg9, nArg10, nArg13);
+}
+
 // 0x00601980
 char* __stdcall CelGetControlData(D2CelStrc* pCel)
 {
@@ -2967,25 +3005,6 @@ const char* __stdcall D2CMPGetGfxFileExtension(int bAllowCompressed)
     }
 
     return gszCmpDefaultExtension;
-}
-
-// 0x005FF300
-int __stdcall D2CMPSpriteFindAsynchSiblings(int nKeyA, int nKeyB, int nKeyC)
-{
-    for (D2CmpCacheListEntryStrc* pEntry = gpCmpCacheEntries; pEntry; pEntry = pEntry->pNext)
-    {
-        D2CmpCacheKeyStrc* pKey = pEntry->pKey;
-        if (pKey && !(pKey->nFlags & 1) && pKey->nKeyC == nKeyC && pKey->nKeyB == nKeyB && pKey->nKeyA == nKeyA)
-        {
-            D2_ASSERT(pKey->pAsyncData, 0xB7B);
-            if (!sub_0040A7F0_AsyncDataCheck(pKey->pAsyncData))
-            {
-                return 1;
-            }
-        }
-    }
-
-    return 0;
 }
 
 // 0x005FE280

@@ -1090,6 +1090,33 @@ void __fastcall CelFileConvertRle24To8(D2CellFileStrc* pSrcFile, D2CellFileStrc*
 
 #pragma intrinsic(memcpy)
 
+// 0x00606D10
+const char* __fastcall CelSkipRleLines(const char* pData, int nLines)
+{
+    if (!nLines)
+    {
+        return pData;
+    }
+
+    for (;;)
+    {
+        const char nRun = *pData++;
+        if (nRun < 0)
+        {
+            if (!(nRun & 0x7F) && !--nLines)
+            {
+                break;
+            }
+        }
+        else
+        {
+            pData += nRun;
+        }
+    }
+
+    return pData;
+}
+
 // 0x00606D40
 void __fastcall CelDrawRleCopy(const char* pSrc, char* pDst, int nLines, int nPitch)
 {
@@ -2361,28 +2388,6 @@ void __fastcall CelCompressEncodeRleCels(D2CmpCellListStrc* pList, D2CellFileStr
         pDstFile->pGfxCells[CelGameDirToFileDir(nDirection, nDirections) * nFrames + i % nFrames] = pNew;
         ++i;
     }
-}
-
-// 0x006096D0
-D2CmpTileStrc* __stdcall TileListAddTile(D2CmpTileListStrc* ptList, short nValue16, short nValue14, int nValue24, int nValue28, int nValue2C, int nValue30, int nValue10, const D2CmpTileInfoStrc* pInfo)
-{
-    D2_ASSERT(ptList, 0xA2);
-    D2CmpTileStrc* pTile = TileAlloc();
-    D2_ASSERT(pTile, 0xA6);
-    pTile->pNext = ptList->pFirst;
-    ptList->nCount++;
-    ptList->pFirst = pTile;
-    pTile->nMaterialFlags = nValue16;
-    pTile->nRoofHeight = nValue14;
-    pTile->nOrientation = nValue24;
-    pTile->nIndex = nValue28;
-    pTile->nSubIndex = nValue2C;
-    pTile->nRarity = nValue30;
-    pTile->nLightDirection = nValue10;
-    pTile->nOwnerId = ptList->nId;
-    pTile->nType = 2;
-    pTile->tInfo = *pInfo;
-    return pTile;
 }
 
 // 0x0060B1A0

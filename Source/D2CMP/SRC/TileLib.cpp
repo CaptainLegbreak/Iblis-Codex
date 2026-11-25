@@ -124,19 +124,6 @@ void __stdcall TileProjectNormalizeHeaders(D2CmpTileLibraryStrc* pLibrary, D2Cmp
     }
 }
 
-// 0x0060A4C0
-void __stdcall TileNormalizeSubTiles(D2CmpTileBlockStrc* pBlock)
-{
-    D2_ASSERT(pBlock, 0x3C9);
-    char* pBase = (char*)pBlock->pSubs;
-    for (int i = 0; i < pBlock->nSubs; i++)
-    {
-        D2CmpSubTileRecordStrc* pSub = &pBlock->pSubs[i];
-        pSub->ptData += (int)pBase;
-    }
-}
-
-
 // 0x0060AB10
 void __fastcall GfxHashRemove(void* pMemPool, D2CmpGfxHashStrc* pHash, D2CmpGfxHashEntryStrc* pEntry)
 {
