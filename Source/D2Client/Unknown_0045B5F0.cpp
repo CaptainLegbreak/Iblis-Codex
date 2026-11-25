@@ -260,8 +260,16 @@ template void TSList<TALLOCREC>::UnlinkAll();
 template TALLOCREC* TSList<TALLOCREC>::NewNode(unsigned int, unsigned int, unsigned int);
 template TALLOCREC* TSList<TALLOCREC>::DeleteNode(TALLOCREC*);
 
-// Two of the object's members are still unplaced: a second unlink and a list reset. They are probably members of
-// TSLink or TSList the template here doesn't have, so they keep their own names.
+// Three of the object's members are still unplaced: a link clear, a second unlink and a list reset. They are
+// probably members of TSLink or TSList the template here doesn't have, so they keep their own names.
+struct D2AllocRecPairStrc
+{
+    int nFirst;
+    int nSecond;
+
+    void sub_0045BA70_Clear();
+};
+
 struct D2AllocRecLinkStrc
 {
     TSLink<TALLOCREC>* m_prevlink;
@@ -277,6 +285,13 @@ struct D2AllocRecListResetStrc
 
     void sub_0045BB10_Initialize();
 };
+
+// 0x0045BA70
+void D2AllocRecPairStrc::sub_0045BA70_Clear()
+{
+    nFirst = 0;
+    nSecond = 0;
+}
 
 // 0x0045BAD0
 void D2AllocRecLinkStrc::sub_0045BAD0_Unlink()
