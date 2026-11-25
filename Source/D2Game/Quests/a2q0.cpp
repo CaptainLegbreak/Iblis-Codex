@@ -192,7 +192,12 @@ bool __fastcall ACT2Intro_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitSt
 
 extern "C" char gpAct2IntroNpcMessages[]; // 0x00738D60
 
-bool __fastcall ACT2Intro_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x005985C0
+
+// 0x005985C0
+bool __fastcall ACT2Intro_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    return false;
+}
 
 // 0x005985D0
 void __fastcall ACT2Intro_InitQuestData(D2QuestDataStrc* pQuestData)
