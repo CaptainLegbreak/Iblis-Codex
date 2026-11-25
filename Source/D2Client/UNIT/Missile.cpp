@@ -5550,32 +5550,6 @@ int __fastcall MISSILE_StartMissileEffect(D2UnitStrc* pUnit, int nSkillId, int n
     return 1;
 }
 
-// 0x004E6680
-void __fastcall MISSILE_AddSetStatePropText(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nArg1, int nArg2)
-{
-    if (ITEMS_GetItemQuality(pItem) != ITEMQUAL_SET)
-    {
-        return;
-    }
-
-    D2SetItemsTxt* pSetItemsTxt = ITEMS_GetSetItemsTxtRecordInline(pItem);
-    if (!pSetItemsTxt)
-    {
-        return;
-    }
-
-    for (int i = 0; i < 6; ++i)
-    {
-// build: symbol ?gaSetPropIds@* 0x006DBD70
-        D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, gaSetPropIds[i]);
-        if (pStatList && pSetItemsTxt->nSetId == STATLIST_GetStatValue(pStatList, STAT_VALUE, 0))
-        {
-            sub_004E60A0_AddSetPropText(pUnit, nArg1, nArg2, 0, gaSetPropIds[i], 0, 0, 1);
-            return;
-        }
-    }
-}
-
 // 0x004D14A0
 int __fastcall MISSILE_CltHitFollowUp(D2UnitStrc* pMissile, D2UnitStrc* pHitUnit)
 {
