@@ -3272,8 +3272,8 @@
    "state": "included"
   },
   "Source/D2Common/PATH/Path.cpp": {
-   "bytes": 772,
-   "definitions": 9,
+   "bytes": 776,
+   "definitions": 10,
    "externs": [
     "extern \"C\" void __cdecl PATH_AStar_ComputePath(); // 0x0067B850",
     "extern \"C\" void __cdecl PATH_BackupTurn_Compute(); // 0x00679E60",
@@ -3480,8 +3480,8 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/OutDesr.cpp": {
-   "bytes": 936,
-   "definitions": 5,
+   "bytes": 940,
+   "definitions": 6,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/DRLG/OutDesr.inc",
@@ -4199,8 +4199,8 @@
    "state": "included"
   },
   "Source/D2Common/DRLG/OutPlace.cpp": {
-   "bytes": 3216,
-   "definitions": 18,
+   "bytes": 3512,
+   "definitions": 20,
    "externs": [
     "extern \"C\" void __cdecl sub_006760F0(); // 0x006760F0",
     "extern \"C\" void __cdecl DRLGOUTROOM_LinkLevelsByLevelCoords(); // 0x0067D830",
@@ -4932,6 +4932,74 @@
   }
  },
  "definitions": [
+  {
+   "alias": false,
+   "cname": "gData_006F1500",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/DRLG/OutPlace.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" const struct d2data_006F1500_t gData_006F1500; // 0x006F1500",
+   "head": "extern \"C\" const struct d2data_006F1500_t gData_006F1500 = ",
+   "name": "gData_006F1500",
+   "pointers": [],
+   "region": "rdata",
+   "size": 24,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006F1500_t\n{\n    unsigned char b0[24];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x006F1500",
+   "va": "0x006F1500"
+  },
+  {
+   "alias": false,
+   "cname": "gData_006F13F0",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/DRLG/OutPlace.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" const struct d2data_006F13F0_t gData_006F13F0; // 0x006F13F0",
+   "head": "extern \"C\" const struct d2data_006F13F0_t gData_006F13F0 = ",
+   "name": "gData_006F13F0",
+   "pointers": [],
+   "region": "rdata",
+   "size": 272,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006F13F0_t\n{\n    unsigned char b0[272];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x006F13F0",
+   "va": "0x006F13F0"
+  },
+  {
+   "alias": false,
+   "cname": "gData_006F26A8",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/DRLG/OutDesr.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" const struct d2data_006F26A8_t gData_006F26A8; // 0x006F26A8",
+   "head": "extern \"C\" const struct d2data_006F26A8_t gData_006F26A8 = ",
+   "name": "gData_006F26A8",
+   "pointers": [],
+   "region": "rdata",
+   "size": 4,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006F26A8_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x006F26A8",
+   "va": "0x006F26A8"
+  },
+  {
+   "alias": false,
+   "cname": "gData_006EB3D8",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/PATH/Path.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" const struct d2data_006EB3D8_t gData_006EB3D8; // 0x006EB3D8",
+   "head": "extern \"C\" const struct d2data_006EB3D8_t gData_006EB3D8 = ",
+   "name": "gData_006EB3D8",
+   "pointers": [],
+   "region": "rdata",
+   "size": 4,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006EB3D8_t\n{\n    unsigned char b0[4];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x006EB3D8",
+   "va": "0x006EB3D8"
+  },
   {
    "alias": true,
    "cname": "gData_006E867C",
