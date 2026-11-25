@@ -18,15 +18,15 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 16:04:26 PST 2026: winmsg-object ready on #371. Next: the Storm list/hash-table templates in lane 4's range (0x44F9B0-0x451260 and the memory report object), which most of my remaining placeholders wait on.
+- Tue Nov 24 16:20:36 PST 2026: winmsg-object reposted on #372 as winmsg-object-2. memreport unclaimed: it waits on lane 3's stpl-one (one stpl.h definition of the Storm link/list/hash-table models), which lane 3 has claimed; I join the four files on top of it. Next: remaining objmap leads in my range.
 
 ## Ready
 
-- lane4/winmsg-object 6c394eeb9 no placeholder change: Unknown_00451E70.cpp takes the window-message object 0x451A90-0x451F0F: SCmd.cpp's nine window handlers 0x451A90-0x451DB0 (gaWindowMsgHandlers points at four of them; SCmd.cpp has its own copy at 0x711490, so they aren't its object) and automap.cpp's 0x451E10. Its data, the language-table copy 0x70F7A4 (planned under lane 6's D2Multi/Src/ComCallback.cpp, answering lane 6's question) and gbClientAppActive 0x70F7E0 (under Game_0044D080.cpp), moves into its plan ahead of gaWindowMsgHandlers, so its .data is copy, flag, table as in the original. Table pointers `owner`, plan externs dropped; the unit takes D2StormTypes.h and D2Win32Message.h. Plan-only change in lane 6's area. Borrowed data 844 B (main 844). VERIFIED 0432b5c450a9 on #369; rebased onto #371 (precheck equal). Not stacked.
+- lane4/winmsg-object-2 761ea80ca no placeholder change: Unknown_00451E70.cpp takes the window-message object 0x451A90-0x451F0F: SCmd.cpp's nine window handlers 0x451A90-0x451DB0 (gaWindowMsgHandlers points at four of them; SCmd.cpp has its own copy at 0x711490, so they aren't its object) and automap.cpp's 0x451E10. Its data, the language-table copy 0x70F7A4 (planned under lane 6's D2Multi/Src/ComCallback.cpp, answering lane 6's question) and gbClientAppActive 0x70F7E0 (under Game_0044D080.cpp), moves into its plan ahead of gaWindowMsgHandlers, so its .data is copy, flag, table as in the original. Table pointers `owner`, plan externs dropped; the unit takes D2StormTypes.h and D2Win32Message.h. Plan-only change in lane 6's area. Borrowed data 844 B (main 844). VERIFIED 0432b5c450a9 on #369; rebased onto #372 (namesync clean, precheck of Unknown_00451E70.cpp, SCmd.cpp, automap.cpp, ComCallback.cpp, Game_0044D080.cpp equal). Replaces lane4/winmsg-object. Not stacked.
 
 ## Claimed
 
-- lane4/memreport: the memory report object (Unknown_0045B5F0 + 0045B960 + 0045B090 + 0045BF00) onto stpl.h's TSLink/TSList, with explicit instantiations for the out-of-line members at 0x45B9D0-0x45BD90 (as SFILE.CPP does), then joined into one file.
+(none; memreport waits on lane3/stpl-one, then lane 4 joins the four files)
 ## Questions
 
 - Memory report object (lead, not done): Unknown_0045B5F0.cpp, Unknown_0045B960.cpp, Unknown_0045B090.cpp and Unknown_0045BF00.cpp are one object. 0x45BF00 (the D2Mem.txt dump) uses a list whose type name gszTypeNameAllocRec (0x711480) is in Unknown_0045B5F0.cpp's data, 0x45B960 (its file printf) is called only from 0x45BF00, and Unknown_0045B090.cpp's 16 functions between them are that list's template members. They don't join yet: each file writes its own model of the list (D2ClientAllocRecListStrc with Head/NewNode in one, Link/Next and different members in another; D2StormLinkStrc as a full class in Unknown_0045B090.cpp vs D2StormAutoLink.h). The clean fix is stpl.h's TSList<D2ClientAllocRecStrc> for all four, as lane 3 did for SFILE.CPP. I'll do it unless lane 3 would rather.
