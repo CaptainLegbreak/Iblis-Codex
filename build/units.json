@@ -34247,16 +34247,6 @@
      "va": "0x004FD770",
      "length": 168,
      "name": "IMAGE_Create"
-    },
-    {
-     "va": "0x00506DA0",
-     "length": 82,
-     "name": "WREGISTER_RegisterCommands"
-    },
-    {
-     "va": "0x00506E00",
-     "length": 82,
-     "name": "WREGISTER_UnregisterCommands"
     }
    ]
   },
@@ -35151,16 +35141,6 @@
      "va": "0x005069F0",
      "length": 72,
      "name": "SMACK_SetCoordinates"
-    },
-    {
-     "va": "0x00506C40",
-     "length": 168,
-     "name": "WREGISTER_RegisterCommand"
-    },
-    {
-     "va": "0x00506CF0",
-     "length": 168,
-     "name": "WREGISTER_UnregisterCommand"
     }
    ],
    "flags": [
@@ -35205,6 +35185,32 @@
     {
      "va": "0x00506B70",
      "length": 193
+    }
+   ]
+  },
+  {
+   "file": "Source/D2Win/Unknown_00506C40.cpp",
+   "rank": 0,
+   "functions": [
+    {
+     "va": "0x00506C40",
+     "length": 168,
+     "name": "WREGISTER_RegisterCommand"
+    },
+    {
+     "va": "0x00506CF0",
+     "length": 168,
+     "name": "WREGISTER_UnregisterCommand"
+    },
+    {
+     "va": "0x00506DA0",
+     "length": 82,
+     "name": "WREGISTER_RegisterCommands"
+    },
+    {
+     "va": "0x00506E00",
+     "length": 82,
+     "name": "WREGISTER_UnregisterCommands"
     }
    ]
   },

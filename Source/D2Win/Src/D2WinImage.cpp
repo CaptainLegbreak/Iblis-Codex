@@ -53,7 +53,6 @@ struct D2WinImage2Strc;
 
 struct D2WinTimerStrc;
 
-struct D2WinCommandRegisterStrc;
 
 struct D2WinListDataStrc;
 
@@ -104,12 +103,6 @@ typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
-struct D2WinCommandRegisterStrc
-{
-    int nType;
-    int nId;
-    D2WinMsgHandler pCallback;
-};
 
 
 
@@ -130,10 +123,6 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
-
-void __fastcall WREGISTER_RegisterCommand(void* hWnd, int nType, int nId, D2WinMsgHandler pCallback); // 0x00506C40
-
-void __fastcall WREGISTER_UnregisterCommand(void* hWnd, int nType, int nId, D2WinMsgHandler pCallback); // 0x00506CF0
 
 extern void* sghPentagram; // 0x0087E96C
 
@@ -423,28 +412,6 @@ int __stdcall IMAGE2_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
     }
 
     return 0;
-}
-
-// 0x00506DA0
-void __fastcall WREGISTER_RegisterCommands(void* hWnd, D2WinCommandRegisterStrc* pCommandRegister, unsigned int nCommands)
-{
-    D2_ASSERT(hWnd, 0x4D);
-
-    for (unsigned int i = 0; i < nCommands; ++i)
-    {
-        WREGISTER_RegisterCommand(hWnd, pCommandRegister[i].nType, pCommandRegister[i].nId, pCommandRegister[i].pCallback);
-    }
-}
-
-// 0x00506E00
-void __fastcall WREGISTER_UnregisterCommands(void* hWnd, D2WinCommandRegisterStrc* pCommandRegister, unsigned int nCommands)
-{
-    D2_ASSERT(hWnd, 0x5A);
-
-    for (unsigned int i = 0; i < nCommands; ++i)
-    {
-        WREGISTER_UnregisterCommand(hWnd, pCommandRegister[i].nType, pCommandRegister[i].nId, pCommandRegister[i].pCallback);
-    }
 }
 
 // 0x004FD070

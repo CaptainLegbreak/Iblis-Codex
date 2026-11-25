@@ -372,22 +372,6 @@ extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileNam
 
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
 
-int __stdcall SMsgRegisterCommand(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420BF0
-
-int __stdcall SMsgRegisterKeyDown(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420C10
-
-int __stdcall SMsgRegisterKeyUp(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420C30
-
-int __stdcall SMsgRegisterMessage(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420C50
-
-int __stdcall SMsgUnregisterCommand(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420C70
-
-int __stdcall SMsgUnregisterKeyDown(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420C90
-
-int __stdcall SMsgUnregisterKeyUp(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420CB0
-
-int __stdcall SMsgUnregisterMessage(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420CD0
-
 void __stdcall WINDOW_DecodeSmacker(const char* szSmacker, unsigned char* pBuffer, int nVersion); // 0x004F5E00
 
 void __stdcall WINDOW_CloseSmacker(void* pContext); // 0x004F5E80
@@ -2466,58 +2450,6 @@ int __stdcall SMACK_SetCoordinates(D2WinSmackStrc* pSmack, int nX, int nY)
     pSmack->nMovieX = nX;
     pSmack->nMovieY = nY;
     return 1;
-}
-
-// 0x00506C40
-void __fastcall WREGISTER_RegisterCommand(void* hWnd, int nType, int nId, D2WinMsgHandler pCallback)
-{
-    D2_ASSERT(hWnd, 0x13);
-    switch (nType)
-    {
-    case 0:
-        D2_ASSERT(nId != 0x111, 0x17);
-        D2_ASSERT(nId != 0x101, 0x18);
-        D2_ASSERT(nId != 0x100, 0x19);
-        SMsgRegisterMessage(hWnd, nId, pCallback);
-        break;
-    case 1:
-        SMsgRegisterCommand(hWnd, nId, pCallback);
-        break;
-    case 2:
-        SMsgRegisterKeyUp(hWnd, nId, pCallback);
-        break;
-    case 3:
-        SMsgRegisterKeyDown(hWnd, nId, pCallback);
-        break;
-    default:
-        return;
-    }
-}
-
-// 0x00506CF0
-void __fastcall WREGISTER_UnregisterCommand(void* hWnd, int nType, int nId, D2WinMsgHandler pCallback)
-{
-    D2_ASSERT(hWnd, 0x30);
-    switch (nType)
-    {
-    case 0:
-        D2_ASSERT(nId != 0x111, 0x34);
-        D2_ASSERT(nId != 0x101, 0x35);
-        D2_ASSERT(nId != 0x100, 0x36);
-        SMsgUnregisterMessage(hWnd, nId, pCallback);
-        break;
-    case 1:
-        SMsgUnregisterCommand(hWnd, nId, pCallback);
-        break;
-    case 2:
-        SMsgUnregisterKeyUp(hWnd, nId, pCallback);
-        break;
-    case 3:
-        SMsgUnregisterKeyDown(hWnd, nId, pCallback);
-        break;
-    default:
-        return;
-    }
 }
 
 #include "gen/data/Source/D2Win/Src/D2Comp.inc"
