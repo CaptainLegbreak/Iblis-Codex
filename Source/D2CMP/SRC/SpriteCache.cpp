@@ -13,6 +13,7 @@
 #include "D2CmpCache.h"
 
 #include "D2SpriteCache.h"
+
 #include "D2FogSystemInfo.h"
 
 #pragma intrinsic(strcpy)
@@ -503,6 +504,33 @@ static __forceinline int SpriteCache_FlatPath(char* szOut, const char* szDir, co
         wsprintfA(szOut, "%s\\%s.dc6", szDir, szName);
     }
     return 1;
+}
+
+struct D2SpriteKeyStrc
+{
+    int nKeyA;
+    int nKeyB;
+    int nKeyC;
+};
+struct D2SpriteFreeNodeStrc
+{
+    char unk0x00[0x20];
+    D2SpriteKeyStrc* pKey;
+};
+void (__fastcall* gpfnCmpFreeCallback)(int nKeyA, int nKeyC, int nKeyB);                           // 0x0089DB5C
+void __fastcall GfxHashRemove(void* pMemPool, D2CmpGfxHashStrc* pHash, D2CmpGfxHashEntryStrc* pEntry); // 0x0060AB10
+
+// 0x005FE170
+void __fastcall sub_005FE170_SpriteCacheFreeCallback(void* pNode)
+{
+    D2SpriteFreeNodeStrc* pFreeNode = (D2SpriteFreeNodeStrc*)pNode;
+    if (gpfnCmpFreeCallback)
+    {
+        D2SpriteKeyStrc* pKey = pFreeNode->pKey;
+        D2_ASSERT(pKey, 0xB5);
+        gpfnCmpFreeCallback(pKey->nKeyA, pKey->nKeyC, pKey->nKeyB);
+    }
+    GfxHashRemove(gCmpTileCache.pMemPool, (D2CmpGfxHashStrc*)&gCmpBlockTableB, (D2CmpGfxHashEntryStrc*)pNode);
 }
 
 // 0x005FE1D0
@@ -1376,7 +1404,6 @@ static int __stdcall D2CMPSpriteLoadDc6Entry(D2CmpSpriteFileStrc* pFile, int nAr
     pContext->pFrame = sub_005FEC50_GetCachedDC6Frame(pContext, pEntry);
     return pContext->pFrame != 0;
 }
-
 
 // 0x005FFFA0
 static int __stdcall D2CMPSpriteLoadDc6CacheEntry(D2CmpSpriteFileStrc* pFile, int nDirection, int nFrames, const char* szName, D2CmpSpriteContextStrc* pContext)
