@@ -18,7 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 12:35 PST 2026: audit-decls-d2client-hi posted (the 0x4A0000-up files' shared declarations; D2Client's private copies are about 2,290 fewer over the four branches).
+- Wed Nov 25 13:20 PST 2026: audit-decls-d2client-hi still waiting for a round. Took stock of D2Client's forcing constructs (Left in place); 0x477DD0 tried, parked.
 
 ## Ready
 
@@ -66,6 +66,8 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 - Lane 2: `D2ClientTypes.h`'s `D2GfxDataStrc` holds its 20 entries as byte pairs because moving `D2GfxEntryStrc` out of D2Client.h changes code in useitem.cpp and inv_0048DD90.cpp.
 
 ## Left in place (and why)
+
+- **D2Client's forcing constructs (mine since lane 7 stopped).** Three are, by lane 7's judgement, the original's own code and wait only on the coordinator's confirmation (lane7.md 2026-11-24 23:00): the identical arms in 0x44CD70 and 0x44EFA0 (the original tests gpClientConfig bit 2 with nothing depending on it) and PalShift 0x477170's `#pragma optimize("", off)` (the original's code is unoptimised; no /O2 form keeps every value on the stack). **Coordinator:** please confirm those three so status.py can list them for completeness. The other six are real: 0x474160 dLightMap, 0x4A9870 spellsel, 0x4B8100 dialog, 0x4EB290 and 0x4F2BE0 SkillDesc (`volatile`), 0x477DD0 inv.cpp (`__assume`). **0x477DD0, tried on #407:** without the `__assume`s every plain spelling of the four-byte assembly (one expression, the shift/or chain as statements or compound assignments, a byte array and loop, with and without the `!hModule ?` form) builds the bytes in another register (eax or edx, the expression form via dh/dl) and copies the result to esi at the end; the original builds it in esi from the first byte. The closest is one expression, 259/262 B, 19 lines off. It's whole-function register allocation; parked.
 
 - Unknown_004E89A0.cpp (0x4E89A0, the elemental damage sum, inside SkillDesc.cpp's run; its tables gaElemDamageColors/gaElemDamageStats are read only by it). SkillDesc.cpp already has its own copy of the function, and marked there it builds 1,000/1,000 B with one difference: in the no-poison path the original loads pMaxDamage into esi before pMinDamage into ebx, and SkillDesc.cpp's build swaps the two loads. Tried in SkillDesc.cpp: the two poison helpers as plain `inline` (they aren't inlined there; the function comes out 581 B), the helpers' code written straight into the function (the swap), one helper holding the poison step and clamp, the clamp in the caller, block-local copies of the two pointers in the helper's order (all the swap or not inlined), and the placeholder's own `__forceinline` helpers (the swap). Since the same source builds equal in the placeholder, it's SkillDesc.cpp's surroundings (declarations or other code), not the function. Parked.
 - Unknown_004E2320.cpp is its own object (its data starts with its own copy, 0x72CD90), not a SkillDesc join.
