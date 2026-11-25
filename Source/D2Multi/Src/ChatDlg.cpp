@@ -590,9 +590,9 @@ void __fastcall CHATDLG_UpdateScroll(int nDelta); // 0x00448BD0
 struct D2LaunchReplyStrc
 {
     int nStatus;
-    unsigned short f_4;
+    unsigned short wRequestId;
     char unk0x06[0x02];
-    unsigned short f_8;
+    unsigned short wGameId;
     char unk0x0A[0x0A];
     unsigned short wValue;
     char unk0x16[0x06];
@@ -949,7 +949,7 @@ struct D2LaunchReplyEntryStrc
     char szName[0x10];
     char szDesc[0x20];
     unsigned short wValue;
-    unsigned short f_32;
+    unsigned short wGameId;
     char unk0x34[0x02];
     int nValue;
     char unk0x3A[0x01];
@@ -4189,7 +4189,7 @@ int __stdcall CHATDLG_OnTick(int nUnused)
             if (MCPCONNECT_QueryAddress())
             {
                 D2LaunchReplyStrc* pReply = (D2LaunchReplyStrc*)GAME_GetMcpReply();
-                const unsigned short wId = pReply->f_4;
+                const unsigned short wId = pReply->wRequestId;
                 if (wId != 0)
                 {
                     if (wId == gwSavedRequestId)
@@ -4845,10 +4845,10 @@ void __fastcall CHATDLG_HandleGameListReply(D2LaunchReplyStrc* pReply)
     const int nCount = gnValue_00798CCC;
     for (int i = 0; i < nCount; ++i)
     {
-        if (gatReplyEntries[i].f_32 == pReply->f_8)
+        if (gatReplyEntries[i].wGameId == pReply->wGameId)
             return;
     }
-    gatReplyEntries[nCount].f_32 = pReply->f_8;
+    gatReplyEntries[nCount].wGameId = pReply->wGameId;
     gatReplyEntries[nCount].nValue = 0;
     gatReplyEntries[nCount].wValue = pReply->wValue;
     strcpy(gatReplyEntries[nCount].szName, pReply->szName);
