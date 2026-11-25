@@ -4,11 +4,11 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(lane3/stpl-cellist: full build on #381 running; Ready line follows.)
+- lane3/stpl-cellist 24d3c51a (on #381): D2CMP's cel list table (CelCmp.cpp 0x601B60-0x604900, about 150 members) comes from stplhash.h's templates by symbol line, with TCELENTRY/CELLIST in the new D2CMP/CELLIST.h and CCritSect in Source/Include/CCritSect.h; CelCmp.cpp builds /EHsc; gCelListTable is a real global with its ??__E/??__F (0x6CAFC0/0x6CB4C0). Deletes D2CmpStormHash.h, CelCmp_00603460.cpp, CelCmp_00603E70.cpp, CelCmp_00604730.cpp, D2CMP/Unknown_006CB4C0.cpp and Storm/Unknown_006CAFC0.cpp (placeholders -2, pieces -3); stplhash.h gains the export tables' handle API. Touches lane 6's D2CMP files (CelCmp.cpp, CelCmp_005FF2A0.cpp, D2CMP.h, GfxHash.cpp) and lane 9's 0x6CAFC0 slot; see Notes. All 26 includers of stpl.h/stplhash.h/CCritSect.h/D2CMP.h/SGAMEDATA.h build equal (SFILE.CPP included). Full build: Game.exe identical, tree a932027d0741727d93bb4867ba1dd0e0b0c13350, borrowed code / data 11,250 / 277 B (main 281 B; no byte newly copied: 0x6CC70C-0x6CC70F, the table's .CRT$XCU slot, is now built).
 
 ## Claimed
 
-- **lane3/stpl-one (the coordinator's header job for lane 4):** memory report (#374), game list object (#377) and Game.cpp (lane 4's game-stplhash-2, #377) are on main. Left, in this order: Game_0044B7B0.cpp (merged #381), then D2CMP's CELLIST copies (lane3/stpl-cellist, built), then Ignorelist.cpp's chat tables (lane 8's file).
+- **lane3/stpl-one (the coordinator's header job for lane 4):** memory report (#374), game list object (#377) and Game.cpp (lane 4's game-stplhash-2, #377) are on main. Left, in this order: Game_0044B7B0.cpp (merged #381), then D2CMP's CELLIST copies (posted, lane3/stpl-cellist), then Ignorelist.cpp's chat tables (lane 8's file).
 
 ## Questions
 
