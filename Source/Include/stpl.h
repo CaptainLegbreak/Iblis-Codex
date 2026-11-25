@@ -234,9 +234,22 @@ struct TSList
 };
 
 // Construction/destruction policy of the arrays.
+// The arrays' element policy: construct, copy-construct and destruct one element in place.
 template<class T>
 struct TSCD
 {
+    static void __fastcall Construct(T* ptr)
+    {
+        new (ptr) T;
+    }
+    static void __fastcall CopyConstruct(T* ptr, const T& source)
+    {
+        new (ptr) T(source);
+    }
+    static void __fastcall Destruct(T* ptr)
+    {
+        ptr->~T();
+    }
 };
 
 template<class T>
@@ -260,6 +273,10 @@ struct TSBaseArray
     {
         return m_data[index];
     }
+    T* Ptr()
+    {
+        return m_data;
+    }
 };
 
 template<class T, class TCD = TSCD<T> >
@@ -268,7 +285,7 @@ struct TSFixedArray : TSBaseArray<T>
     ~TSFixedArray()
     {
         for (unsigned int i = 0; i < this->m_count; i++)
-            this->m_data[i].~T();
+            TCD::Destruct(&this->m_data[i]);
         if (this->m_data)
             SMemFree(this->m_data, STORM_TYPENAME(T), -2, 0);
     }
@@ -340,10 +357,18 @@ struct TSGrowableArray : TSFixedArray<T, TCD>
             ReallocData(count);
         }
     }
+    unsigned int Add(unsigned int count, const T* data)
+    {
+        Reserve(count, 1);
+        for (unsigned int i = 0; i < count; i++, data++)
+            TCD::CopyConstruct(&this->m_data[this->m_count + i], *data);
+        this->m_count += count;
+        return this->m_count - count;
+    }
     T* New()
     {
         Reserve(1, 1);
-        new (&this->m_data[this->m_count]) T;
+        TCD::Construct(&this->m_data[this->m_count]);
         return &this->m_data[this->m_count++];
     }
     void SetCount(unsigned int count)
@@ -356,12 +381,12 @@ struct TSGrowableArray : TSFixedArray<T, TCD>
                 ReallocData(RoundUp(count, chunk));
             }
             for (unsigned int i = this->m_count; i < count; i++)
-                new (&this->m_data[i]) T;
+                TCD::Construct(&this->m_data[i]);
         }
         else if (count < this->m_count)
         {
             for (unsigned int i = count; i < this->m_count; i++)
-                this->m_data[i].~T();
+                TCD::Destruct(&this->m_data[i]);
         }
         this->m_count = count;
     }
@@ -407,11 +432,20 @@ void TSList<T, TGetLink>::Clear()
 }
 
 template<class T, class TCD>
+void TSFixedArray<T, TCD>::Set(unsigned int count, const T* data)
+{
+    ReallocData(count);
+    for (unsigned int i = 0; i < count; i++, data++)
+        TCD::CopyConstruct(&this->m_data[i], *data);
+    this->m_count = count;
+}
+
+template<class T, class TCD>
 void TSGrowableArray<T, TCD>::ReallocData(unsigned int count)
 {
     T* olddata = this->m_data;
     for (unsigned int i = count; i < this->m_count; i++)
-        olddata[i].~T();
+        TCD::Destruct(&olddata[i]);
     this->m_alloc = count;
     this->m_data = (T*)SMemReAlloc(olddata, count * sizeof(T), STORM_TYPENAME(T), -2, 0x10);
     if (!this->m_data)
@@ -422,8 +456,8 @@ void TSGrowableArray<T, TCD>::ReallocData(unsigned int count)
             unsigned int copycount = count < this->m_count ? count : this->m_count;
             for (unsigned int i = 0; i < copycount; i++)
             {
-                new (&this->m_data[i]) T(olddata[i]);
-                olddata[i].~T();
+                TCD::CopyConstruct(&this->m_data[i], olddata[i]);
+                TCD::Destruct(&olddata[i]);
             }
             SMemFree(olddata, STORM_TYPENAME(T), -2, 0);
         }

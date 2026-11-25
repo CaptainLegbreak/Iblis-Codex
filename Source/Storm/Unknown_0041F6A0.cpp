@@ -74,7 +74,6 @@ public:
     unsigned int adwData[0x3474 / 4];
 };
 
-
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) int __stdcall WriteFile(void* hFile, const void* pBuffer, unsigned long nToWrite, unsigned long* pnWritten, void* pOverlapped); // 0x006CC1A8
@@ -225,112 +224,9 @@ void __fastcall sub_M111_Emit_005A64F0(D2UnitStrc* pUnit, int* pResult)
     *pResult = MONSTERMODE_IsActionFrame(pUnit) + 1;
 }
 
-// 0x00421010
-char* D2StormByteArrayStrc::sub_00421010_Ptr()
-{
-    return m_data;
-}
-
-// 0x00421040
-void __cdecl sub_00421040_Empty()
-{
-}
-
-// 0x00421050
-void __fastcall sub_00421050_Construct(unsigned char* pDest, const unsigned char* pValue)
-{
-    if (pDest)
-        *pDest = *pValue;
-}
-
-// 0x00421060
-void __cdecl sub_00421060_Empty()
-{
-}
-
-// 0x00421070
-void __cdecl sub_00421070_Empty()
-{
-}
-
-// 0x00421080
-void __cdecl sub_00421080_Empty()
-{
-}
-
-// 0x00421090
-void __fastcall sub_00421090_Construct(char* pDest, const char* pValue)
-{
-    if (pDest)
-        *pDest = *pValue;
-}
-
-// 0x00421150
-unsigned int* D2StormFixedArrayAStrc::sub_00421150_Ptr()
-{
-    return m_data;
-}
-
-// 0x004212A0
-void __fastcall sub_004212A0_Construct(unsigned int* pDest, const unsigned int* pValue)
-{
-    if (pDest)
-        *pDest = *pValue;
-}
-
-// 0x004212B0
-void __cdecl sub_004212B0_Empty()
-{
-}
-
 // build: symbol ?BigIsEven@* 0x00421440
 static int BigIsEven(const BigBuffer& a)
 {
     return !a.Count() || !(a[0] & 1);
 }
 
-// 0x00421570
-D2StormFixedUIntArrayStrc::~D2StormFixedUIntArrayStrc()
-{
-    if (m_data)
-        SMemFree(m_data, gszTypeNameUInt_00708874, -2, 0);
-}
-
-// 0x00421590
-D2StormFixedUCharArrayStrc::~D2StormFixedUCharArrayStrc()
-{
-    if (m_data)
-        SMemFree(m_data, gszTypeNameUChar_00708880, -2, 0);
-}
-
-// 0x004215B0
-unsigned char* D2StormFixedArrayBStrc::sub_004215B0_Ptr()
-{
-    return m_data;
-}
-
-// 0x004217F0
-D2StormGrowUIntArrayStrc::~D2StormGrowUIntArrayStrc()
-{
-    if (m_data)
-        SMemFree(m_data, gszTypeNameUInt_00708874, -2, 0);
-}
-
-// 0x00421840
-D2StormGrowUCharArrayStrc::~D2StormGrowUCharArrayStrc()
-{
-    if (m_data)
-        SMemFree(m_data, gszTypeNameUChar_00708880, -2, 0);
-}
-
-// 0x00421930
-unsigned char* D2StormArrayBStrc::sub_00421930_New()
-{
-    unsigned int nCount = m_count + 1;
-    if (nCount > m_alloc)
-    {
-        unsigned int nChunk = m_chunk ? m_chunk : sub_00421160_CalcChunkSize(nCount);
-        sub_004211C0_ReallocData(RoundUp(nCount, nChunk));
-    }
-    return &m_data[m_count++];
-}
