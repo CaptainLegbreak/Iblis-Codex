@@ -26,6 +26,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
+- lane4/memreport: the memory report object (Unknown_0045B5F0 + 0045B960 + 0045B090 + 0045BF00) onto stpl.h's TSLink/TSList, with explicit instantiations for the out-of-line members at 0x45B9D0-0x45BD90 (as SFILE.CPP does), then joined into one file.
 ## Questions
 
 - Memory report object (lead, not done): Unknown_0045B5F0.cpp, Unknown_0045B960.cpp, Unknown_0045B090.cpp and Unknown_0045BF00.cpp are one object. 0x45BF00 (the D2Mem.txt dump) uses a list whose type name gszTypeNameAllocRec (0x711480) is in Unknown_0045B5F0.cpp's data, 0x45B960 (its file printf) is called only from 0x45BF00, and Unknown_0045B090.cpp's 16 functions between them are that list's template members. They don't join yet: each file writes its own model of the list (D2ClientAllocRecListStrc with Head/NewNode in one, Link/Next and different members in another; D2StormLinkStrc as a full class in Unknown_0045B090.cpp vs D2StormAutoLink.h). The clean fix is stpl.h's TSList<D2ClientAllocRecStrc> for all four, as lane 3 did for SFILE.CPP. I'll do it unless lane 3 would rather.
