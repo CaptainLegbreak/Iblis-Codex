@@ -12,7 +12,9 @@ Status (Tue Nov 24 22:50 PST 2026): net-x-object-3 and lang-unisys merged in #38
 
 - lane6/lang-527090 46aa99a8 (on #381; replaces bc52e1e5): Unknown_00527090.cpp (was Unknown_005271A0.cpp) takes D2LangCharSetStrc::ContainsChar (0x527090) out of strtable.cpp: it and the static 0x5271A0 are called only from 0x5272B0, so the three are one object after the Unicode routines; strtable.cpp's code ends at 0x5260FB. The 0x5271A0 emit helper and its gszEndCharsS declaration go (unit stays equal). Full build: Game.exe identical, tree 374175a6f08102feba0f5c3a012bab87b7699c38, borrowed code / data 11,250 / 281 B; auditguard: no count rose (emit helpers fall by 1).
 
-(decomp-labels and emit-trim verifying, on #381)
+- lane6/decomp-labels 85d1d94b (on #381): audit-379's decompiler labels and types and a1 names in my files. ComCallback.cpp, Unknown_0043C8A0.cpp and D2WinEditBox.cpp lose the LABEL_ prefix on their goto labels; Unknown_0044A170.cpp's U32 typedef gives way to unsigned int; D2Net.cpp's five empty default callbacks leave their unused parameters unnamed (were a1..a18). No code changes. Applies cleanly with lane 9's crt-xcu-rest, which also touches Unknown_0043C8A0.cpp. Full build: Game.exe identical, tree 833524a6eed7ad6d179c9ba61bd40d533c2454e9, borrowed code / data 11,250 / 281 B; auditguard: types 216 -> 211, labels 74 -> 61, a1/v12 2,910 -> 2,873, no count rose.
+
+(emit-trim and data-only-units verifying, on #381)
 
 ## Questions
 
