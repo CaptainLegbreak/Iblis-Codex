@@ -35,6 +35,10 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   (main's). Placeholders -1: gdiCore.cpp takes Unknown_006C7CF0's seven functions (0x6C8000-0x6C80A0, interleaved with
   gdiCore's own 0x6C8020/0x6C8050/0x6C8060; they set gdiCore's palette view and render window and use its palette and
   palette handle). 53 equal. glide-noinline (above) is still clean on #371.
+- lane9/d3d-strays-2 dda480d2, on main 70376fda (#371), precheck 0 not all equal; full verify VERIFIED, borrowed data 844 B
+  (main's). Placeholders -1: Unknown_006B7250.cpp takes the line drawer 0x6B7B30 (between its 0x6B7980 and 0x6B7C90;
+  only callers are that file's rect and diamond drawers, plus d3dCore's function table). 25 equal. The empty stub
+  0x6B76C0 stays: it sits between 0x6B7530's and 0x6B7250's code and builds equal anywhere, so nothing places it.
 - Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
