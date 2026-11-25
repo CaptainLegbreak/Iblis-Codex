@@ -51,7 +51,6 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 - `lane7/audit-arms-real` 7f1dbda89 (on #386): comments only, on the three identical-arm if/else pairs the original has too (D2Client GAME/Game.cpp 0x44CD70 and Game_0044D080.cpp 0x44EFA0, lane 4's; D2Game OBJECTS/ObjMode.cpp 0x5852E0, lane 5's). Each comment says what the original's code keeps. VERIFIED tree 66b181a0, Game.exe identical, auditguard: no count rose (the three stay counted: they are the original's own redundancy, per your instruction to keep those with a comment).
 
-- `lane7/aiutil-dead-copy` 3fa008c8 (on #384): D2Game Ai/AiUtil.cpp, deletes `sub_6FCF1E80`, an unmarked and uncalled second body of AIUTIL_FindTargetWithCallback (0x5DD0B0). Source only, unit all equal. VERIFIED tree a03d4b33, Game.exe identical, auditguard: no count rose. Lane 5's file.
 
 ## Questions
 
