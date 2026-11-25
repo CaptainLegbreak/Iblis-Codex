@@ -2420,6 +2420,65 @@ void __cdecl CHARSEL_UpdateStatus()
         sub_004FC9B0_SetText(gpControl_00779DD0, D2LANG_GetStringFromTblIndex(0x2B39), 4, 0, 0);
 }
 
+// 0x0043A2B0
+int __cdecl CHARSEL_InitRealmScreen()
+{
+    unsigned short nStringId;
+    gnBusy = 0;
+    if (gnLaunchMode == 1)
+    {
+        sub_00434060();
+        const int nCount = GAME_GetSlotNameCount();
+        if (nCount != -1)
+        {
+            if (nCount != 0)
+            {
+                D2WinControlStrc* pControl = MAINMENUS_CreateControl(0x7A);
+                sub_004FD830(pControl);
+                sub_004FDA50(pControl);
+                gpControl_00779DD0 = MAINMENUS_CreateControl(0x94);
+// build: symbol ?gpCharSelectText@* 0x00779DD4
+                gpCharSelectText = MAINMENUS_CreateControl(0x95);
+                MAINMENUS_CreateControl(0x69);
+                gpControl_00779D98 = MAINMENUS_CreateControl(0x6B);
+                gpControl_00779D8C = MAINMENUS_CreateControl(0x6C);
+                sub_004FC9B0_SetText(MAINMENUS_CreateControl(0x6A), D2LANG_GetStringFromTblIndex(0x2B32), 4, 0, 0);
+
+                if (!SRegLoadString("Diablo II", "Preferred Realm", 0, gszPreferredRealm, 0x100) || !CHARSEL_FindSlotByName(gszPreferredRealm))
+                {
+                    D2FuncRecordStrc* pRecord = gpFuncTable_0077ABF0->pfnGetRecord();
+                    const int nIndex = pRecord->nIndex;
+                    SStrCopy(gszPreferredRealm, sub_005180E0(pRecord, nIndex), 0x7FFFFFFF);
+                    SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
+                    if (!CHARSEL_FindSlotByName(gszPreferredRealm))
+                    {
+                        const char* szFirst = GAME_GetSlotNameCount() > 0 ? MAINMENUS_GetSlotName(0) : 0;
+                        SStrCopy(gszPreferredRealm, szFirst, 0x7FFFFFFF);
+                        SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
+                    }
+                }
+            }
+            else
+            {
+                CHARSEL_DisconnectBattleNet();
+                nStringId = 0x14AA;
+                goto fail;
+            }
+        }
+        else
+        {
+            CHARSEL_DisconnectBattleNet();
+            nStringId = 0x14E3;
+            goto fail;
+        }
+    }
+    return 1;
+
+fail:
+    MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(nStringId), sub_004336C0);
+    return 0;
+}
+
 // 0x0043A460
 extern "C" int __stdcall CHARSEL_CreateNotice(const Unicode* pTitle, const Unicode* pText, int nState, unsigned char nSel)
 {
@@ -2779,6 +2838,50 @@ static inline void* CharSelCache_FindData(unsigned int dwHash, int nTick)
     return 0;
 }
 
+// 0x0043AD10
+static void CHARSEL_RequestCharList(char* szName)
+{
+    CHARSEL_FreeCharList();
+    gdwGlobal_00779DB8 = 0;
+    CONTROL_SetEnabled(gpControl_00779D90, 1);
+    const unsigned int dwHash = SStrHash(szName, 0, 0);
+    const int nTick = GetTickCount();
+    void* pData = CharSelCache_FindData(dwHash, nTick);
+    if (!pData)
+    {
+        if (!gpFuncTable_0077ABF0->pfnSlot68())
+        {
+            MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(0x14E3), MAINMENUS_ShowMainMenu);
+            return;
+        }
+        gnBusy = 1;
+        gpszName = szName;
+        return;
+    }
+    CHARSEL_HandleCharList(szName, (int)pData, 0);
+}
+
+// 0x0043ADB0
+void __fastcall CHARSEL_UseName(char* szName)
+{
+    gbFlag_00779DD8 = 0;
+    if (gnLaunchMode == 1)
+    {
+        D2Win_10047((D2WinTextBoxStrc*)gpControl_00779D8C);
+        D2Win_10046(gpControl_00779D8C, szName, 0);
+        CHARSEL_RequestCharList(szName);
+    }
+    else if (gnLaunchMode == 0 || gnLaunchMode == 3 || gnLaunchMode == 2)
+    {
+        CHARSEL_FreeCharList();
+        if (!FOG_IsExpansion())
+            CHARSEL_ShowMessage();
+        sub_00438F70();
+    }
+    CHARSEL_Redraw();
+    CHARSEL_RefreshCharList();
+}
+
 // 0x0043AE30
 void __cdecl CHARSEL_InitCharList()
 {
@@ -2972,65 +3075,6 @@ int __stdcall sub_M106_Emit_0051DD20(int n)
 int __stdcall sub_M106_Emit_0051DD40(int n)
 {
     return BNSEND_MapKeyChar((unsigned char)tolower(n)) * 24 + BNSEND_MapKeyChar((unsigned char)tolower(n + 1));
-}
-
-// build: symbol ?CHARSEL_InitRealmScreen@* 0x0043A2B0
-int __cdecl CHARSEL_InitRealmScreen()
-{
-    unsigned short nStringId;
-    gnBusy = 0;
-    if (gnLaunchMode == 1)
-    {
-        sub_00434060();
-        const int nCount = GAME_GetSlotNameCount();
-        if (nCount != -1)
-        {
-            if (nCount != 0)
-            {
-                D2WinControlStrc* pControl = MAINMENUS_CreateControl(0x7A);
-                sub_004FD830(pControl);
-                sub_004FDA50(pControl);
-                gpControl_00779DD0 = MAINMENUS_CreateControl(0x94);
-// build: symbol ?gpCharSelectText@* 0x00779DD4
-                gpCharSelectText = MAINMENUS_CreateControl(0x95);
-                MAINMENUS_CreateControl(0x69);
-                gpControl_00779D98 = MAINMENUS_CreateControl(0x6B);
-                gpControl_00779D8C = MAINMENUS_CreateControl(0x6C);
-                sub_004FC9B0_SetText(MAINMENUS_CreateControl(0x6A), D2LANG_GetStringFromTblIndex(0x2B32), 4, 0, 0);
-
-                if (!SRegLoadString("Diablo II", "Preferred Realm", 0, gszPreferredRealm, 0x100) || !CHARSEL_FindSlotByName(gszPreferredRealm))
-                {
-                    D2FuncRecordStrc* pRecord = gpFuncTable_0077ABF0->pfnGetRecord();
-                    const int nIndex = pRecord->nIndex;
-                    SStrCopy(gszPreferredRealm, sub_005180E0(pRecord, nIndex), 0x7FFFFFFF);
-                    SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
-                    if (!CHARSEL_FindSlotByName(gszPreferredRealm))
-                    {
-                        const char* szFirst = GAME_GetSlotNameCount() > 0 ? MAINMENUS_GetSlotName(0) : 0;
-                        SStrCopy(gszPreferredRealm, szFirst, 0x7FFFFFFF);
-                        SRegSaveString("Diablo II", "Preferred Realm", 0, gszPreferredRealm);
-                    }
-                }
-            }
-            else
-            {
-                CHARSEL_DisconnectBattleNet();
-                nStringId = 0x14AA;
-                goto fail;
-            }
-        }
-        else
-        {
-            CHARSEL_DisconnectBattleNet();
-            nStringId = 0x14E3;
-            goto fail;
-        }
-    }
-    return 1;
-
-fail:
-    MAINMENUS_ShowText(D2LANG_GetStringFromTblIndex(nStringId), sub_004336C0);
-    return 0;
 }
 
 #include "gen/data/Source/D2Launch/Src/CharSel.inc"
