@@ -1,0 +1,119 @@
+file	function	old	new	confidence	reason
+Source/D2Common/Unknown_00679380.cpp	PATH_NormalizeStep	a1			no D2MOO definition of this function
+Source/D2Common/Unknown_00679380.cpp	PATH_NormalizeStep	a2			no D2MOO definition of this function
+Source/D2Common/DATATBLS/ItemTbls.cpp	ITEMS_ResolveItemCalcKeyword	a2			no D2MOO definition of this function
+Source/D2Common/DATATBLS/ItemTbls.cpp	ITEMS_ResolveItemCalcKeyword	a3			no D2MOO definition of this function
+Source/D2Common/DATATBLS/MissileTbls.cpp	DATATBLS_MissileLinkerResolveKeyword	a2			no D2MOO definition of this function
+Source/D2Common/DATATBLS/MissileTbls.cpp	DATATBLS_MissileLinkerResolveKeyword	a3			no D2MOO definition of this function
+Source/D2Common/PATH/Path.cpp	D2Common_10207	a2			D2MOO also has a2
+Source/D2Common/PATH/Path.cpp	D2Common_10207	a3	dwSpeed	medium	D2MOO also leaves it a3; the function stores it straight into the field dwSpeed
+Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10846	a2			D2MOO also has a2
+Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10846	a3			D2MOO also has a3
+Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10846	a4			D2MOO also has a4
+Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10846	a5			D2MOO also has a5
+Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10849	a1			D2MOO also has a1
+Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10849	a2			D2MOO also has a2
+Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10845	a2			D2MOO also has a2
+Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10845	a3			D2MOO also has a3
+Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10845	a4			D2MOO also has a4
+Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10850	a1			D2MOO also has a1
+Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10850	a2			D2MOO also has a2
+Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10850	a3			D2MOO also has a3
+Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10851	a1			D2MOO also has a1
+Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10851	a2			D2MOO also has a2
+Source/D2Common/ITEMS/ItemMods.cpp	D2Common_10851	a3			D2MOO also has a3
+Source/D2Common/ITEMS/ItemMods.cpp	sub_0065E070_AddStatTriple	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AddRolledStatEx	a7			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignLayerStat	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignRolledStat	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignSockets	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignIndestructible	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignRolledStatForceBase	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignAllResist	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignAllMaxResist	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignMinDamage	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignMaxDamage	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignDamagePercent	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignAllSkills	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignChargedSkill	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignStatPair	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignStatTriple	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignSingleSkill	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignElemSkill	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignClassSkills	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignNothing	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignRangeStat	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignByTimeStat	a9			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_Nop	a1			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_Nop	a2			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_Nop	a3			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc01	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc02	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc03	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc04	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc05	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc06	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc07	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc08	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc09	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc24	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc10	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc11	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc14	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc19	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc18	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc15	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc16	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc17	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc20	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc21	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc36	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc22	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc12	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc13	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_PropertyFunc23	a11			D2MOO also has a11
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_DispatchPropertyAssign	a11			no D2MOO definition of this function
+Source/D2Common/ITEMS/ItemMods.cpp	D2COMMON_11292_ItemAssignProperty	a10			D2MOO also has a10
+Source/D2Common/ITEMS/ItemMods.cpp	ITEMMODS_AssignProperty	a2			D2MOO also has a2
+Source/D2Common/SKILLS/Skills.cpp	D2Common_11015	a2			D2MOO also has a2
+Source/D2Common/SKILLS/Skills.cpp	D2COMMON_11017_CheckUnitIfConsumeable	a2			D2MOO also has a2
+Source/D2Common/SKILLS/Skills.cpp	SKILLS_CalcNestedParamCallback	a2			no D2MOO definition of this function
+Source/D2Common/SKILLS/Skills.cpp	SKILLS_CalcNestedParamCallback	a3			no D2MOO definition of this function
+Source/D2Common/SKILLS/Skills.cpp	D2Common_11030	a3	nLevelBonus	medium	D2MOO also leaves it a3; the function stores it straight into the field nLevelBonus
+Source/D2Common/SKILLS/Skills.cpp	D2Common_11031	a3			D2MOO also has a3
+Source/D2Common/SKILLS/Skills.cpp	D2Common_11025	a6			D2MOO also has a6
+Source/D2Common/Unknown_0066A1A0.cpp	DATATBLS_EmptyStub_0066A220	a1			no D2MOO definition of this function
+Source/D2Common/Unknown_0066A1A0.cpp	DATATBLS_EmptyStub_0066A220	a2			no D2MOO definition of this function
+Source/D2Common/Unknown_0066A1A0.cpp	DATATBLS_EmptyStub_0066A250	a1			no D2MOO definition of this function
+Source/D2Common/Unknown_006634F0.cpp	sub_00663B40_SetBonusStatList	a3			no D2MOO definition of this function
+Source/D2Common/Unknown_006634F0.cpp	ITEMS_UpdateSets	a3			D2MOO also has a3
+Source/D2Common/Unknown_006634F0.cpp	ITEMS_UpdateSets	a4			D2MOO also has a4
+Source/D2Common/Unknown_0064FAD0.cpp	D2Common_10236	a2			D2MOO also has a2
+Source/D2Common/Unknown_0064FAD0.cpp	D2Common_10230	a2			D2MOO also has a2
+Source/D2Common/Unknown_0064FAD0.cpp	D2Common_10230	a4	X	medium	D2MOO also leaves it a4; the function stores it straight into the field X
+Source/D2Common/Unknown_0064FAD0.cpp	D2Common_10230	a5	Y	medium	D2MOO also leaves it a5; the function stores it straight into the field Y
+Source/D2Common/COMPOSIT/Composit.cpp	D2Common_10885_COMPOSIT_unk	a5			D2MOO also has a5
+Source/D2Common/UNITS/Units.cpp	UNITS_SetCurrentRoomInvalid	a2			D2MOO also has a2
+Source/D2Common/UNITS/Units.cpp	D2Common_10434	a2			D2MOO also has a2
+Source/D2Common/UNITS/Units.cpp	UNITS_MergeDualWieldWeaponStatLists	a2			D2MOO also has a2
+Source/D2Common/UNITS/Units.cpp	sub_00622E90_Nop	a2			no D2MOO definition of this function
+Source/D2Common/INVENTORY/Inventory.cpp	INVENTORY_CreateCorpseForPlayer	a3			D2MOO also has a3
+Source/D2Common/INVENTORY/Inventory.cpp	INVENTORY_CreateCorpseForPlayer	a4			D2MOO also has a4
+Source/D2Common/INVENTORY/Inventory.cpp	INVENTORY_FreeCorpse	a3			D2MOO also has a3
+Source/D2Common/INVENTORY/Inventory.cpp	D2Common_11050	a2			D2MOO also has a2
+Source/D2Common/DATATBLS/DataTbls.cpp	DATATBLS_InitUnicodeClassNamesInCharStatsTxt	a5			D2MOO source/D2Common/src/DataTbls/DataTbls.cpp has 0 parameters, ours 6
+Source/D2Common/DATATBLS/DataTbls.cpp	DATATBLS_LoadAllTxts	a2			D2MOO also has a2
+Source/D2Common/DATATBLS/DataTbls.cpp	DATATBLS_LoadAllTxts	a3			D2MOO also has a3
+Source/D2Common/DATATBLS/MonsterTbls.cpp	sub_00654E70	a1			no D2MOO definition of this function
+Source/D2Common/DATATBLS/MonsterTbls.cpp	sub_00654E70	a2			no D2MOO definition of this function
+Source/D2Common/PATH/PathUtil.cpp	PATH_NormalizeStep	a1			no D2MOO definition of this function
+Source/D2Common/PATH/PathUtil.cpp	PATH_NormalizeStep	a2			no D2MOO definition of this function
+Source/D2Common/ENVIRONMENT/Env.cpp	ENVIRONMENT_GetStatistics	a5			D2MOO also has a5
+Source/D2Common/DRLG/DrlgLogic.cpp	DRLGLOGIC_SetTileGridFlags	a1			D2MOO also has a1
+Source/D2Common/DRLG/DrlgLogic.cpp	DRLGLOGIC_SetTileGridFlags	a4			D2MOO also has a4
+Source/D2Common/DRLG/Outdoors.cpp	DRLGOUTDOORS_SpawnPresetFarAway	a5	nOffset	high	D2MOO source/D2Common/src/Drlg/DrlgOutdoors.cpp, parameter 5
+Source/D2Common/DRLG/Outdoors.cpp	DRLGOUTDOORS_SpawnPresetFarAway	a6	nFlags	high	D2MOO source/D2Common/src/Drlg/DrlgOutdoors.cpp, parameter 6
+Source/D2Common/DRLG/OutPlace.cpp	DRLGOUTPLACE_PlaceCoordBeside	a4			no D2MOO definition of this function
+Source/D2Common/DRLG/OutPlace.cpp	DRLGOUTPLACE_PlaceCoordCentered	a4			no D2MOO definition of this function
+Source/D2Common/DRLG/OutPlace.cpp	sub_6FD815E0	a3			D2MOO also has a3
+Source/D2Common/DRLG/OutPlace.cpp	sub_6FD815E0	a4			D2MOO also has a4
