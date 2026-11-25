@@ -3,9 +3,7 @@
 #include "D2StormTypes.h"
 #include "D2StormSha1.h"
 
-
 struct D2StormNodeListStrc;
-
 
 struct D2StormHashBufferStrc;
 
@@ -19,7 +17,6 @@ struct D2StormHuffLinkSlotStrc;
 
 struct CHuffman;
 
-
 struct D2StormArrayBStrc;
 
 struct D2StormArrayCStrc;
@@ -29,7 +26,6 @@ struct BigBuffer;
 struct BigStack;
 
 struct D2StormBigStrc;
-
 
 extern "C" void* __cdecl _alloca(unsigned int nSize);
 
@@ -101,7 +97,6 @@ struct D2StormNodeListStrc
 extern D2StormNodeListStrc gHandlerList_00708420; // 0x00708420
 
 extern D2StormNodeListStrc gWndRecList_00708860; // 0x00708860
-
 
 struct D2StormHashBufferStrc
 {
@@ -265,9 +260,7 @@ int __stdcall Rand(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* 
 
 int __stdcall sub_00424B00_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, BigStack* pStack); // 0x00424B00
 
-
 inline void* operator new(unsigned int, void* pPlace) throw();
-
 
 void __stdcall SMemMove(void* pDest, const void* pSource, unsigned int nSize);                             // 0x0041D2E0
 
@@ -337,8 +330,6 @@ inline void* operator new(unsigned int, void* pPlace) throw()
 {
     return pPlace;
 }
-
-
 
 // 0x0041D340
 static int __stdcall FindSignatureTag(const char* pData, unsigned int nSize, unsigned int nSignSize, unsigned int* pOffset)
@@ -563,87 +554,6 @@ void BigStack::Drop(unsigned int nCount)
     nUsed -= nCount;
 }
 
-// 0x00420FD0
-int* D2StormPtrArrayStrc::sub_00420FD0_At(unsigned int nIndex)
-{
-    return &m_data[nIndex];
-}
-
-// 0x00421000
-char* D2StormByteArrayStrc::sub_00421000_At(unsigned int nIndex)
-{
-    return &m_data[nIndex];
-}
-
-// 0x004210A0
-unsigned int D2StormArrayAStrc::sub_004210A0_CalcChunkSize(unsigned int nCount)
-{
-    if (nCount < 0x40)
-    {
-        unsigned int nResult = nCount;
-        while (nResult & (nResult - 1))
-            nResult &= nResult - 1;
-        return nResult < 1 ? 1 : nResult;
-    }
-    m_chunk = 0x40;
-    return 0x40;
-}
-
-// 0x004210E0
-unsigned int __stdcall sub_004210E0_RoundUp(unsigned int nValue, unsigned int nAlign)
-{
-    unsigned int nRemainder = nValue % nAlign;
-    if (nRemainder)
-        nValue += nAlign - nRemainder;
-    return nValue;
-}
-
-// 0x00421160
-unsigned int D2StormArrayBStrc::sub_00421160_CalcChunkSize(unsigned int nCount)
-{
-    if (nCount < 0x100)
-    {
-        unsigned int nResult = nCount;
-        while (nResult & (nResult - 1))
-            nResult &= nResult - 1;
-        return nResult < 1 ? 1 : nResult;
-    }
-    m_chunk = 0x100;
-    return 0x100;
-}
-
-// 0x004211A0
-unsigned int __stdcall sub_004211A0_RoundUp(unsigned int nValue, unsigned int nAlign)
-{
-    unsigned int nRemainder = nValue % nAlign;
-    if (nRemainder)
-        nValue += nAlign - nRemainder;
-    return nValue;
-}
-
-// 0x00421240
-unsigned int D2StormArrayCStrc::sub_00421240_CalcChunkSize(unsigned int nCount)
-{
-    if (nCount < 0x100)
-    {
-        unsigned int nResult = nCount;
-        while (nResult & (nResult - 1))
-            nResult &= nResult - 1;
-        return nResult < 1 ? 1 : nResult;
-    }
-    m_chunk = 0x100;
-    return 0x100;
-}
-
-// 0x00421280
-unsigned int __stdcall sub_00421280_RoundUp(unsigned int nValue, unsigned int nAlign)
-{
-    unsigned int nRemainder = nValue % nAlign;
-    if (nRemainder)
-        nValue += nAlign - nRemainder;
-    return nValue;
-}
-
 // 0x004212D0
 int BigBuffer::sub_004212D0_Get(unsigned int nIndex)
 {
@@ -672,34 +582,6 @@ unsigned int __stdcall BigHighBitIndex(BigBuffer* pQueue)
         }
     }
     return 0;
-}
-
-// 0x004219F0
-void D2StormArrayBStrc::sub_004219F0_Set(unsigned int nCount, const unsigned char* pData)
-{
-    ReallocAndClear(nCount);
-    for (unsigned int i = 0; i < nCount; i++, pData++)
-        new (&m_data[i]) unsigned char(*pData);
-    m_count = nCount;
-}
-
-// 0x00421A50
-void D2StormArrayCStrc::sub_00421A50_Set(unsigned int nCount, const char* pData)
-{
-    ReallocAndClear(nCount);
-    for (unsigned int i = 0; i < nCount; i++, pData++)
-        new (&m_data[i]) char(*pData);
-    m_count = nCount;
-}
-
-// 0x00421F60
-unsigned int D2StormArrayCStrc::sub_00421F60_Add(unsigned int nCount, const char* pData)
-{
-    Reserve(nCount, 1);
-    for (unsigned int i = 0; i < nCount; i++, pData++)
-        new (&m_data[m_count + i]) char(*pData);
-    m_count += nCount;
-    return m_count - nCount;
 }
 
 // 0x004220D0

@@ -11,7 +11,6 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x004133D0
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
-
 struct D2StormArrayCStrc
 {
     unsigned int m_alloc;
@@ -111,26 +110,6 @@ int __stdcall sub_004212F0_Compare(BigBuffer* pLeft, BigBuffer* pRight)
     return nResult;
 }
 
-// 0x00421770
-void D2StormArrayCStrc::sub_00421770_ReallocData(unsigned int nAlloc)
-{
-    char* pOld = m_data;
-    m_alloc = nAlloc;
-    m_data = (char*)SMemReAlloc(pOld, nAlloc, gszTypeNameChar_0070888C, -2, 0x10);
-    if (!m_data)
-    {
-        m_data = (char*)SMemAlloc(nAlloc, gszTypeNameChar_0070888C, -2, 0);
-        if (pOld)
-        {
-            if (nAlloc >= m_count)
-                nAlloc = m_count;
-            for (unsigned int i = 0; i < nAlloc; ++i)
-                new (&m_data[i]) char(pOld[i]);
-            SMemFree(pOld, gszTypeNameChar_0070888C, -2, 0);
-        }
-    }
-}
-
 // 0x00422140
 void BigBuffer::sub_00422140_Trim()
 {
@@ -143,25 +122,6 @@ void BigBuffer::sub_00422140_Trim()
 }
 
 #include "gen/data/Source/Storm/SOURCE/SBig_004212F0.inc"
-
-// 0x004215C0
-void D2StormFixedArrayAStrc::sub_004215C0_Set(unsigned int nCount, const unsigned int* pData)
-{
-    InlineReallocData(nCount);
-    for (unsigned int i = 0; i < nCount; i++, pData++)
-        new (&m_data[i]) unsigned int(*pData);
-    m_count = nCount;
-}
-
-// 0x004218B0
-unsigned int D2StormArrayBStrc::sub_004218B0_Add(unsigned int nCount, const unsigned char* pData)
-{
-    InlineReserve(nCount, 1);
-    for (unsigned int i = 0; i < nCount; i++, pData++)
-        new (&m_data[m_count + i]) unsigned char(*pData);
-    m_count += nCount;
-    return m_count - nCount;
-}
 
 // 0x00421FE0
 void BigBuffer::GrowToFit(int nIndex)
