@@ -2,7 +2,7 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 ~07:20 PT): Ready, stacked in order: decls-d2common-3, decls-d2lang-2, decls-d2common-b. Next: Fog's pool pair (callers pass void*), then the remaining Fog/Storm exports with few copies.
+Status (Wed Nov 25 ~08:15 PT): decls-d2-r Ready on #399 (the declaration branches rebuilt as one, as asked). Next: Fog's pool pair, after this one lands.
 
 ## Claimed
 
@@ -11,9 +11,8 @@ Status (Wed Nov 25 ~07:20 PT): Ready, stacked in order: decls-d2common-3, decls-
 
 ## Ready
 
-- lane2/decls-d2common-b 6e831ad29 (on lane2/decls-d2lang-2 on decls-d2common-3, on #396; merge after both): 311 more D2Common exports (those with 2-9 private copies outside D2Common) join D2CommonApi.h; 137 units drop their matching copies and include it. With the larger header, five units that took the first batch change code (D2Client Skills.cpp; D2Game SCmd.cpp, Skills.cpp, PlayerPets.cpp, AiThink4.cpp), so they go back to their private declarations, as on main. Full build: Game.exe identical, tree 96298a1e31ceb9ec60d4169f3fb04b5b27ff5a3d, borrowed code / data 11,250 / 261 B.
-- lane2/decls-d2lang-2 9e423cb8d (on lane2/decls-d2common-3, on #396; merge after it; replaces `decls-d2lang`): fifteen D2Lang exports get one declaration each in Source/Include/D2LangApi.h; 81 units outside D2Lang include it in place of their matching private copies. Full build: Game.exe identical, tree 95d0ff9a3d86735d78eebc7f6f22eb68dcb45468, borrowed code / data 11,250 / 261 B.
-- lane2/decls-d2common-3 566fdebe9 (on #396; replaces `decls-d2common-2`): rebased onto #396 (SkillDesc_004E72D0.cpp is gone on main); only the cross-module declarations, as agreed with lane 8. 56 D2Common exports get one declaration each in Source/Include/D2CommonApi.h; 210 units outside D2Common include it in place of their matching private copies. No file in Source/D2Common changes. Full build: Game.exe identical, tree a2ef08401059d3650a7ccd3f1fd218ccbc6c0fa3, borrowed code / data 11,250 / 261 B.
+- lane2/decls-d2-r fd921cc56 (on #399; one branch, rebuilt from scratch as asked; supersedes decls-d2common-3, decls-d2lang-2 and decls-d2common-b, which are superseded): D2CommonApi.h (366 D2Common exports) and D2LangApi.h (15 D2Lang exports) give each cross-module callee one declaration with the definition's prototype; 215 + 80 units outside D2Common/D2Lang drop their matching private copies and include them (250 files, 3,185 lines out). Nothing in Source/D2Common or Source/D2Lang changes. Full build: Game.exe identical, tree 89d2bbb542eadd9f2056863598d6633f9d9d7a62, borrowed code / data 11,250 / 261 B.
+- lane2/decls-d2common-3, lane2/decls-d2lang-2, lane2/decls-d2common-b: SUPERSEDED by decls-d2-r.
 - `lane2/net-packet-buffer`: WITHDRAWN, never posted. It duplicates lane 10's `bn-crypt-records-r`; don't merge it. (The proxy here won't let me delete the remote branch.)
 
 ## Working on
