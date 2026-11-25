@@ -1981,7 +1981,8 @@ static void __stdcall ITEM_PlaceItemAt(unsigned short nY, unsigned char nPage, D
         return;
     }
 
-    if (!sub_0063BCC0_PlaceItem(hInventory, pItem, ITEMPKT_GetUnitX(pItem), ITEMPKT_GetUnitY(pItem), UNITS_GetInventoryRecordId(pUnit, nPage, GAME_IsExpansion()), 1, nPage))
+// build: symbol ?INVENTORY_PlaceItemAtInventoryPage@* 0x0063BCC0
+    if (!INVENTORY_PlaceItemAtInventoryPage(hInventory, pItem, ITEMPKT_GetUnitX(pItem), ITEMPKT_GetUnitY(pItem), UNITS_GetInventoryRecordId(pUnit, nPage, GAME_IsExpansion()), 1, nPage))
     {
         return;
     }
@@ -3018,7 +3019,7 @@ static void ITEM_CursorItemToBelt(D2GSPacketSrv9C* pPacket, D2ItemSaveStrc* pIte
         return;
     }
 
-    D2_ASSERT(sub_0063BCC0_PlaceItem(pInventory, pItem, CLIENTS_GetUnitX(pItem), CLIENTS_GetUnitY(pItem), UNITS_GetInventoryRecordId(pPlayer, nPage, GAME_IsExpansion()), 1, nPage), 0x892);
+    D2_ASSERT(INVENTORY_PlaceItemAtInventoryPage(pInventory, pItem, CLIENTS_GetUnitX(pItem), CLIENTS_GetUnitY(pItem), UNITS_GetInventoryRecordId(pPlayer, nPage, GAME_IsExpansion()), 1, nPage), 0x892);
 
     if (ITEMS_IsCharmUsable(pItem, pPlayer))
     {
@@ -3404,7 +3405,7 @@ void __fastcall ITEM_HandleAutoUnequip(D2GSPacketSrv9D* pPacket)
         gwLeftHandWeaponClass = 0;
     }
 
-    if (sub_0063BCC0_PlaceItem(pInventory, pItem, tItemSave.nX, tItemSave.nY, nRecordId, 1, 0))
+    if (INVENTORY_PlaceItemAtInventoryPage(pInventory, pItem, tItemSave.nX, tItemSave.nY, nRecordId, 1, 0))
     {
         if (!INVENTORY_PlaceItemInSocket(pInventory, pItem, 1))
         {

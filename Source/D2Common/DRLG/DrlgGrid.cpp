@@ -39,7 +39,7 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 
 int* __fastcall DRLGGRID_GetGridCellPtr(D2DrlgGridStrc* pGrid, int nX, int nY);
 
-int __fastcall sub_0067C570(D2DrlgGridStrc* pGrid, int nX, int nY);
+int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 
 void __fastcall DRLGGRID_AssignSubArea(D2DrlgGridStrc* pGrid, int* pCellsFlags, D2DrlgCoordsStrc* pCoords, int nStride, int* pCellsRowOffsets);
 

@@ -2497,7 +2497,8 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
         }
         const Unicode* pName = CUNIT_GetUnitName(pUnit);
         const int nClassId = pUnit->dwClassId;
-        const int nOffset = sub_00622270_GetHoverOffset(pUnit);
+// build: symbol ?UNITS_GetNameOffsetFromObject@* 0x00622270
+        const int nOffset = UNITS_GetNameOffsetFromObject(pUnit);
         const unsigned char nFlags = DATATBLS_GetObjectsTxtRecord((unsigned short)nClassId)->nSubClass;
         if (nFlags & 4)
         {
@@ -2550,13 +2551,15 @@ void __fastcall UI_DrawUnitHover(D2UnitStrc* pUnit)
     {
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
         const int nClassId = pUnit->dwClassId;
-        const int nLevelId = sub_0061A1D0_GetTileLevelId(pRoom, nClassId);
+// build: symbol ?DUNGEON_GetWarpDestinationLevel@* 0x0061A1D0
+        const int nLevelId = DUNGEON_GetWarpDestinationLevel(pRoom, nClassId);
         D2LevelsTxt* pLevelsTxt = DATATBLS_GetLevelsTxtRecord(nLevelId);
         if (!pLevelsTxt)
         {
             return;
         }
-        D2TileRectStrc* pRect = sub_00619620(pRoom, pUnit);
+// build: symbol ?DUNGEON_GetLvlWarpTxtRecordFromRoomAndUnit@* 0x00619620
+        D2TileRectStrc* pRect = DUNGEON_GetLvlWarpTxtRecordFromRoomAndUnit(pRoom, pUnit);
         if (!pRect)
         {
             return;

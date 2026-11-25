@@ -204,7 +204,7 @@ inline D2MissilesTxt* MISSILE_GetMissilesTxtRecordFromUnit(D2UnitStrc* pMissile)
 
 #define LIGHT_LIMIT 60
 
-int __stdcall sub_0064A3B0_GetElapsedFrames(D2UnitStrc* pMissile);
+int __stdcall MISSILE_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A3B0
 
 #define SPAWN_FLAGS 0x2001
 
@@ -383,7 +383,7 @@ void __fastcall sub_004D6130_CltDoRandomSubMissile3(D2UnitStrc* pMissile)
         return;
     }
 
-    const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
+    const int nFrames = MISSILE_GetRemainingFrames(pMissile);
 
     int nCount = 0;
     do

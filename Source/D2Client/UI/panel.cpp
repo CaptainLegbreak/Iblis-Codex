@@ -1120,7 +1120,8 @@ static void __cdecl PANEL_DrawCursorBeltBox(D2InventoryStrc* pInventory)
     }
 
     int nResult;
-    if (sub_0063C830_CanPlaceInBelt(pInventory, pItem, gnBeltBox, &nResult))
+// build: symbol ?INVENTORY_GetUseableItemFromBeltSlot@* 0x0063C830
+    if (INVENTORY_GetUseableItemFromBeltSlot(pInventory, pItem, gnBeltBox, &nResult))
     {
         PANEL_DrawBeltBoxFrame(gnBeltBox, 3);
         return;

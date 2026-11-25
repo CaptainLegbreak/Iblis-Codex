@@ -211,10 +211,10 @@ struct D2CommonChatIgnoreListStrc
     virtual int IGNORELIST_AddName(const char* szName) = 0;                                                   // 0x00610EB0
     virtual int IGNORELIST_RemoveName(const char* szName) = 0;                                                // 0x0060FB20
     virtual int IGNORELIST_IsListed(const char* szName) = 0;                                              // 0x00610380
-    virtual void sub_00610F90_VirtSlot3() = 0;                                                              // 0x00610F90
+    virtual void IGNORELIST_AddAlias() = 0;                                                              // 0x00610F90
     virtual int IGNORELIST_RemoveAlias(const char* szName) = 0;                                           // 0x0060FBE0
     virtual void IGNORELIST_IsTextFiltered() = 0;                                                              // 0x0060FC40
-    virtual void sub_00611320_VirtSlot6() = 0;                                                              // 0x00611320
+    virtual void IGNORELIST_StoreAccountAlias() = 0;                                                              // 0x00611320
     virtual void IGNORELIST_TranslateAlias(const char* szName, char* szOut, int nSize) = 0;                    // 0x0060F870
     virtual int IGNORELIST_IsEnabled() = 0;                                                               // 0x0060DDF0
     virtual void IGNORELIST_SetEnabled(int bEnabled) = 0;                                                 // 0x0060DE00

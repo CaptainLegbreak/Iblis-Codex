@@ -312,7 +312,7 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit);                   
 
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 
-void __stdcall sub_0063EE10_GetMonsterDirectionDelta(D2UnitStrc* pUnit, int* pX, int* pY);                  // 0x0063EE10
+void __stdcall MONSTERS_GetChainDirectionDelta(D2UnitStrc* pUnit, int* pX, int* pY);                  // 0x0063EE10
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
@@ -8741,7 +8741,7 @@ int __fastcall AITHINK_FindDeadMonsterBehind(D2GameStrc* pGame, D2UnitStrc* pUni
     int nY = coords.nSubtileY;
     int nDirX = 0;
     int nDirY = 0;
-    sub_0063EE10_GetMonsterDirectionDelta(pUnit, &nDirX, &nDirY);
+    MONSTERS_GetChainDirectionDelta(pUnit, &nDirX, &nDirY);
     nDirX = -nDirX;
     nDirY = -nDirY;
     int bResult = 0;

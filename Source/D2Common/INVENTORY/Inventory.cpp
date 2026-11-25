@@ -187,7 +187,7 @@ u8 __stdcall ITEMS_GetBodyLocation(D2UnitStrc*); // 0x00627D40
 u8 __stdcall ITEMS_GetComponent(D2UnitStrc*); // 0x00628660
 
 
-s32 __stdcall sub_0062C100_Transform(D2UnitStrc*, D2UnitStrc*, u8*, s32); // 0x0062C100
+s32 __stdcall ITEMS_GetColor(D2UnitStrc*, D2UnitStrc*, u8*, s32); // 0x0062C100
 
 ItemRecord* __stdcall sub_006335F0_ItemRecord(s32); // 0x006335F0
 
@@ -199,7 +199,7 @@ u32 __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc*, Inventory*, s32*, s32, s32)
 
 s32 __stdcall COMPOSIT_IsArmorComponent(s32); // 0x0064F420
 
-s32 __stdcall sub_0064F500_AppearanceIndex(s32, AppearanceSix*); // 0x0064F500
+s32 __stdcall COMPOSIT_GetArmorTypeFromComponent(s32, AppearanceSix*); // 0x0064F500
 
 AppearanceRecord* __stdcall DATATBLS_GetArmTypeTxtRecord(s32); // 0x0065B620
 
@@ -3622,7 +3622,7 @@ static void __stdcall INVENTORY_FillItemComponentGfxInfo(D2UnitStrc* unit, u8* f
             }
             firstOutput[slot] = (u8)code;
             INVENTORY_SetBowHandComponents(firstOutput, secondOutput, item, unit);
-            if (!sub_0062C100_Transform(unit, item, &secondOutput[slot], 0))
+            if (!ITEMS_GetColor(unit, item, &secondOutput[slot], 0))
             {
                 secondOutput[slot] = 0xFF;
             }
@@ -4251,7 +4251,7 @@ void __stdcall INVENTORY_GetItemSaveGfxInfo(D2UnitStrc* unit, u8* firstOutput, u
                         {
                             if (COMPOSIT_IsArmorComponent(slot))
                             {
-                                AppearanceRecord* appearanceRecord = DATATBLS_GetArmTypeTxtRecord(sub_0064F500_AppearanceIndex(slot, &appearance));
+                                AppearanceRecord* appearanceRecord = DATATBLS_GetArmTypeTxtRecord(COMPOSIT_GetArmorTypeFromComponent(slot, &appearance));
                                 if (GAME_GetUnitClassId(item) > 0)
                                 {
                                     const u32 appearanceCode = FIELD(u32, appearanceRecord, 0x20);
@@ -4261,7 +4261,7 @@ void __stdcall INVENTORY_GetItemSaveGfxInfo(D2UnitStrc* unit, u8* firstOutput, u
                                         if (slot < 0x10)
                                         {
                                             firstOutput[slot] = (u8)code;
-                                            if (!sub_0062C100_Transform(unit, item, &secondOutput[slot], 0))
+                                            if (!ITEMS_GetColor(unit, item, &secondOutput[slot], 0))
                                             {
                                                 secondOutput[slot] = 0xFF;
                                             }
