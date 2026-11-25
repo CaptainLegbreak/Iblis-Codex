@@ -51,8 +51,6 @@ struct D2MonStatsTxt;
 
 struct D2MissilesTxt;
 
-struct D2UnkFieldsStrc;
-
 struct D2StaticPathStrc;
 
 struct D2HitFunc22ParamStrc;
@@ -62,14 +60,6 @@ struct D2AuraCallbackStrc;
 union D2SeedStrc;
 
 struct D2SkillsTxt;
-
-struct D2UnkFieldsStrc
-{
-    char pad0x00[0x18];
-    int nUnk0x18;
-    int nUnk0x1C;
-    unsigned char nUnk0x20;
-};
 
 enum D2MiscConstants
 {
@@ -679,20 +669,6 @@ enum D2C_H16ElemConstants
     MONLVL_DM = 6,
 };
 
-struct D2AiTableStrc;
-
-struct D2AiStateStrc;
-
-struct D2AiTableStrc
-{
-    int a, b, c, d;
-};
-
-
-struct D2AiStateStrc
-{
-    int nTargetMode;
-};
 
 static D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
 {
@@ -6236,16 +6212,6 @@ int __fastcall MISSMODE_SrvDo01_BasicMissile(D2GameStrc* pGame, D2UnitStrc* pMis
 }
 
 struct D2LevelsTxt;
-
-struct D2AiCallback11ArgStrc;
-
-struct D2AiCallback11ArgStrc
-{
-    D2UnitStrc* pTarget;
-    int nDistance;
-    D2UnitStrc* unk0x08;
-    int unk0x0C[7];
-};
 
 static inline int synh_GetUnitX(SynUnit* pUnit)
 {

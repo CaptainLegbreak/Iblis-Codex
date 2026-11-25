@@ -297,17 +297,6 @@ enum D2C_F39Constants
 
 struct D2MonsterRegionStrc;
 
-struct D2Do142ArgsStrc
-{
-    D2DamageStrc* pDamage;
-    int nToHit;
-    unsigned short wResultFlags;
-    unsigned short unk0x0A;
-    unsigned int dwHitFlags;
-    unsigned char nSrcDam;
-    unsigned char unk0x11[3];
-};
-
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 
@@ -549,37 +538,6 @@ struct Game
     void* pool;
 };
 
-struct Seed
-{
-    U32 low;
-    U32 high;
-};
-
-
-struct AuraRequest
-{
-    D2UnitStrc* owner;
-    D2UnitStrc* target;
-    int skill;
-    int level;
-    int duration;
-    int stat;
-    int amount;
-    int state;
-    void* callback;
-};
-
-struct ModeRequest
-{
-    int mode;
-    D2UnitStrc* target;
-    U32 field08;
-    U32 field0C;
-    U32 field10;
-    U32 f_14;
-    U32 f_18;
-    U32 field1C;
-};
 
 extern "C" int __stdcall sub_00646CA0_Evaluate(D2UnitStrc*, U32, int, int); // 0x00646CA0
 

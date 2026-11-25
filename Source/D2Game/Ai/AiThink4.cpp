@@ -28,19 +28,9 @@ struct D2MonStatsTxt;
 
 struct D2LevelsTxt;
 
-struct D2AiCallback11ArgStrc;
-
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-
-struct D2AiCallback11ArgStrc
-{
-    D2UnitStrc* pTarget;
-    int nDistance;
-    D2UnitStrc* unk0x08;
-    int unk0x0C[7];
-};
 
 typedef D2UnitStrc* (__fastcall* AITARGETCALLBACK)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, void*);
 
@@ -164,8 +154,6 @@ int __stdcall SKILLS_GetShiftedManaCosts(int nSkillId, int nSkillLevel); // 0x00
 
 #define AI_GetParam(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 
-struct D2FallenShamanAiCallbackArgStrc;
-
 struct D2ModeChangeStrc;
 
 enum
@@ -184,15 +172,6 @@ enum
 {
     MONTYPEFLAG_UNIQUE = 0x08,
     MONTYPEFLAG_CHAMPION = 0x04,
-};
-
-struct D2FallenShamanAiCallbackArgStrc
-{
-    D2UnitStrc* pTarget;
-    int nCounter;
-    int nDistance;
-    int nMaxDistance;
-    int unk0x10[6];
 };
 
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00552FD0
@@ -1087,12 +1066,6 @@ int __fastcall ACT5Q3_SpawnDrehyaPortalOutsideTown(D2GameStrc* pGame, D2UnitStrc
 
 struct D2UnitFindArgStrc;
 
-struct Target005F6630;
-
-struct Obj005F6630;
-
-struct D2Record5F6E20Strc;
-
 enum D2C_BruteAIParams
 {
     BRUTE_AI_PARAM_CIRCLE_CHANCE_PCT = 1,
@@ -1122,26 +1095,6 @@ typedef int(__fastcall* UNITFINDTEST)(D2UnitStrc* pUnit);
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int nCustomId, int nCustomParam); // 0x005417D0
 
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
-
-struct Target005F6630
-{
-    unsigned char bUnknown00[0x14];
-    unsigned int dwValue14;
-    unsigned int dwValue18;
-};
-
-struct Obj005F6630
-{
-    unsigned char bUnknown00[0xA8];
-    unsigned int dwValueA8;
-};
-
-struct D2Record5F6E20Strc
-{
-    char unk0x00[0x32];
-    short nMax;
-    short nCurrent;
-};
 
 enum D2C_M172FetishShamanAi
 {
@@ -1177,14 +1130,6 @@ void __stdcall INVENTORY_GetDirectionDelta(unsigned char, unsigned int*, unsigne
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc*); // 0x0064C040
 
 int __fastcall AITACTICS_RunCloseToTargetUnit(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char); // 0x005DF680
-
-struct D2VileMotherAiCallbackArgStrc
-{
-    int nLastInClass;
-    int nMaxDistance;
-    int nCounter;
-    int unk0x0C[7];
-};
 
 enum D2C_VileMotherAIParams
 {
@@ -1284,13 +1229,6 @@ void __fastcall sub_005DEC80_Walk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitSt
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
 
 #define D2_MAX(a,b) ((a) > (b) ? (a) : (b))
-
-struct D2RegurgitatorAiCallbackArgStrc
-{
-    D2UnitStrc* pTarget;
-    int nDistance;
-    int unk0x08[8];
-};
 
 #define ROLL() ((int)SEED_RollLimitedRandomNumber(pSeed, 100))
 

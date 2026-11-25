@@ -1000,13 +1000,6 @@ int __fastcall PLRSAVE_ReadLegacyHeader(D2GameStrc* pGame,D2ClientStrc* pClient,
 
 int __fastcall D2GAME_SAVE_ProcessSaveFile_6FC8C0C0(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned char* pSaveFile, unsigned int nSize, D2UnitStrc** ppPlayer, D2ActiveRoomStrc* pRoomArg, int nXArg, int nYArg);
 
-struct D2NpcVendorChainStrc
-{
-    int dwGUID;
-    int unk0x04;
-    D2NpcVendorChainStrc* pNext;
-};
-
 
 struct D2NpcControlStrc
 {

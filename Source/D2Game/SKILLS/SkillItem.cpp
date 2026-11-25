@@ -47,8 +47,6 @@ struct D2CurseStrc;
 
 struct D2SkillsTxt;
 
-struct D2MonEquipTxt;
-
 struct Unit005A0180;
 
 union D2SeedStrc;
@@ -212,11 +210,6 @@ void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUn
 int __fastcall SKILL_ComputePeriodicRate(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel); // 0x0056CD50
 
 int __fastcall sub_0056F7F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5, int a6, int a7); // 0x0056F7F0
-
-struct D2MonEquipTxt
-{
-    char unk0x00[0x1C];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -418,12 +411,6 @@ int __fastcall SKILLITEM_TimerCallback_ReanimateMonster(D2GameStrc* pGame, int n
 
 D2UnitEventStrc* __fastcall SUNITEVENT_Register(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitEvent, int nGUID1, int nGUID2, D2UnitEventCallbackFunction pCallback, unsigned int nQueueNo, int a8); // 0x005C0AD0
 
-struct D2AffixIndexAndPtrStrc
-{
-    int nIndex;
-    D2MagicAffixTxt* pAffix;
-};
-
 struct D2AiCmdStrc;
 
 struct D2StaticPathStrc;
@@ -433,18 +420,10 @@ unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc*, int, int
 struct D2MagicAffixTxt;
 
 
-struct D2SkillPairStrc;
-
 struct D2RareAffixIndexAndPtrStrc;
 
 struct D2SetItemsTxt;
 
-
-struct D2SkillPairStrc
-{
-    int nA;
-    int nB;
-};
 
 static inline int GetItemType(D2UnitStrc* pItem)
 {
