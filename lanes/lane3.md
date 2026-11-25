@@ -4,11 +4,9 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/scomp-huff c0c8664b 213->210 SCOMP.CPP's object runs from 0x41D880 (after SSignature.cpp's CrcBuffer) to 0x41FA3F, and its .rdata is the Huffman weight table, the ADPCM index/step tables and the codec tables, in that order. The code was spread over five placeholders plus SSignature.cpp and SFILE.CPP, each with its own model of the coder's types; it now lives in SCOMP.CPP on one set: CBitInput (0x41D880-0x41D900, 0x41E9E0) and CBitOutput (0x41D920-0x41D9A0); CHuffman, the tree (ctor, dtor, EncodeOne, IncWeights, AddSymbol, Compress, and stpl.h's ~TSList<HUFFNODE> 0x41F460 by symbol line); CHuffmanCache, the tree plus the decoder's 7-bit prefix cache (ctor 0x41F950 from SFILE.CPP, DecodeOne, Decompress; its start node is the item list's tail, TSLink::Prev); CHuffmanEncoder's ctor/dtor and CHuffmanDecoder's dtor (0x41F920-0x41F940); and the ADPCM coder (0x41DA30, 0x41DA60, 0x41DCE0), whose SCOMP.CPP copies replace the placeholder's. SCOMP.CPP builds /EHsc (the tree's ctor uses the EH vector constructor iterator; SCOMP's own functions build equal either way). Unknown_0041D880.cpp, Unknown_0041DA60.cpp and Unknown_0041F4A0.cpp go; BigNum's ctor/dtor (0x41D320/0x41D330), which sit in SSignature.cpp's run, move there. SFILE.CPP loses its two Huffman types and 0x41AAD0 stays equal. Left, see Left in place: BuildTree (0x41EF20) stays in Unknown_0041EBC0.cpp, and HuffmanCompress/HuffmanDecompress (0x41F980/0x41F9E0) stay in Unknown_0041F6A0.cpp and SSignature.cpp. VERIFIED c0c8664b on base #397 (dbba154c); borrowed code 11,250 B in 8 functions, borrowed data 261 B (main the same); namesync had nothing to rename.
+(none: scomp-huff merged in #399)
 
 ## Claimed
-
-- **lane3/scomp-huff:** step 2 posted (above). Left: BuildTree and the two wrappers (see Left in place).
 
 - **lane3/stpl-chat (PARKED, see Left in place):** D2Common's chat tables (Ignorelist.cpp 0x60DC70-0x611560: ChatIgnoreList, StringEntryNode/MappingEntryNode, TSExplicitList and TSHashTable<...,HASHKEY_STRI>) onto stplhash.h, plus CelCmp.cpp's 16 strays at 0x60E0D0-0x60E390, which are that object's. The last part of the stpl one-definition job.
 
