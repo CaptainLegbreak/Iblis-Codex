@@ -28,8 +28,8 @@ int __fastcall CHATDLG_SetupLogin(D2LaunchLoginStrc* pLogin, const char* szText0
 void __fastcall CHATDLG_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone); // 0x004401C0
 void __cdecl CHATDLG_DestroyCreateControls(); // 0x00443220
 int __stdcall CHATDLG_CheckStartAdvResult(int nUnused); // 0x00443840
-int __stdcall sub_00443870_SetCancel(int nArg); // 0x00443870
-int __stdcall sub_00443880_PollMcp(int nArg); // 0x00443880
+int __stdcall CHATDLG_SetCancel(int nArg); // 0x00443870
+int __stdcall CHATDLG_PollMcp(int nArg); // 0x00443880
 void __cdecl COMCALLBACK_BuildCreateGamePanel(); // 0x004453B0
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback); // 0x004FA590
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
@@ -167,8 +167,8 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
         }
 
         gdwGlobal_00798CC4 = 0;
-        CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), sub_00443870_SetCancel);
-        sub_004FA590_RunLoop(sub_00443880_PollMcp);
+        CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), CHATDLG_SetCancel);
+        sub_004FA590_RunLoop(CHATDLG_PollMcp);
         CHATDLG_DestroyPopupControls();
         if (gdwGlobal_00798CC4)
 // build: symbol ?CHARSEL_CancelGameCreate@* 0x0043F850

@@ -10636,7 +10636,7 @@
     {
      "va": "0x00446B30",
      "length": 62,
-     "name": "?sub_00446B30_ShowText@@YIHHPBD@Z"
+     "name": "?COMCALLBACK_ShowText@@YIHHPBD@Z"
     },
     {
      "va": "0x00446B70",
@@ -10664,7 +10664,7 @@
     {
      "va": "0x00446D60",
      "length": 46,
-     "name": "?sub_00446D60_Classify@@YAHH@Z"
+     "name": "?COMCALLBACK_Classify@@YAHH@Z"
     },
     {
      "va": "0x00446D90",
@@ -11598,12 +11598,12 @@
     {
      "va": "0x0043CC00",
      "length": 29,
-     "name": "sub_0043CC00_StrChr"
+     "name": "CHATDLG_StrChr"
     },
     {
      "va": "0x0043CC20",
      "length": 6,
-     "name": "?sub_0043CC20_TestBit2@@YIHH@Z"
+     "name": "?CHATDLG_TestBit2@@YIHH@Z"
     },
     {
      "va": "0x0043CC30",
@@ -11613,7 +11613,7 @@
     {
      "va": "0x0043D510",
      "length": 1139,
-     "name": "?sub_0043D510_FreeCellFiles@@YAXXZ"
+     "name": "?CHATDLG_FreeCellFiles@@YAXXZ"
     },
     {
      "va": "0x0043D990",
@@ -11678,17 +11678,17 @@
     {
      "va": "0x0043DBA0",
      "length": 22,
-     "name": "?sub_0043DBA0_ClearSelection@@YGHHHH@Z"
+     "name": "?CHATDLG_ClearSelection@@YGHHHH@Z"
     },
     {
      "va": "0x0043DBC0",
      "length": 40,
-     "name": "?sub_0043DBC0_OnWaitTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?CHATDLG_OnWaitTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x0043DBF0",
      "length": 52,
-     "name": "?sub_0043DBF0_OnReceiveTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
+     "name": "?CHATDLG_OnReceiveTick@@YGHPAUSMSGHANDLER_PARAMS@@@Z"
     },
     {
      "va": "0x0043DC30",
@@ -11703,12 +11703,12 @@
     {
      "va": "0x0043DCE0",
      "length": 28,
-     "name": "?sub_0043DCE0_FreeChatCellFile@@YAXXZ"
+     "name": "?CHATDLG_FreeChatCellFile@@YAXXZ"
     },
     {
      "va": "0x0043DD00",
      "length": 196,
-     "name": "?sub_0043DD00_GetClassName@@YAXHPAUUnicode@@@Z"
+     "name": "?CHATDLG_GetClassName@@YAXHPAUUnicode@@@Z"
     },
     {
      "va": "0x0043DDD0",
@@ -12191,7 +12191,7 @@
     {
      "va": "0x004414C0",
      "length": 55,
-     "name": "?sub_004414C0_UpdateEnable@@YAXXZ"
+     "name": "?CHATDLG_UpdateEnable@@YAXXZ"
     },
     {
      "va": "0x00441500",
@@ -12250,17 +12250,17 @@
     {
      "va": "0x00442A70",
      "length": 15,
-     "name": "?sub_00442A70_SetFlagBits12@@YIXPAIH@Z"
+     "name": "?CHATDLG_SetFlagBits12@@YIXPAIH@Z"
     },
     {
      "va": "0x00442A80",
      "length": 41,
-     "name": "?sub_00442A80_IsNightmareOpen@@YIHI@Z"
+     "name": "?CHATDLG_IsNightmareOpen@@YIHI@Z"
     },
     {
      "va": "0x00442AB0",
      "length": 41,
-     "name": "?sub_00442AB0_IsHellOpen@@YIHI@Z"
+     "name": "?CHATDLG_IsHellOpen@@YIHI@Z"
     },
     {
      "va": "0x00442AE0",
@@ -12349,7 +12349,7 @@
     {
      "va": "0x00443540",
      "length": 144,
-     "name": "?sub_00443540_IsNameChar@@YGHPAUD2WinControlStrc@@HPBD@Z"
+     "name": "?CHATDLG_IsNameChar@@YGHPAUD2WinControlStrc@@HPBD@Z"
     },
     {
      "va": "0x004435D0",
@@ -12364,7 +12364,7 @@
     {
      "va": "0x00443630",
      "length": 420,
-     "name": "?sub_00443630_UpdateCreateButton@@YAXXZ"
+     "name": "?CHATDLG_UpdateCreateButton@@YAXXZ"
     },
     {
      "va": "0x004437E0",
@@ -12379,12 +12379,12 @@
     {
      "va": "0x00443870",
      "length": 13,
-     "name": "?sub_00443870_SetCancel@@YGHH@Z"
+     "name": "?CHATDLG_SetCancel@@YGHH@Z"
     },
     {
      "va": "0x00443880",
      "length": 53,
-     "name": "?sub_00443880_PollMcp@@YGHH@Z"
+     "name": "?CHATDLG_PollMcp@@YGHH@Z"
     },
     {
      "va": "0x004438C0",
@@ -12408,17 +12408,17 @@
     {
      "va": "0x00443C20",
      "length": 69,
-     "name": "?sub_00443C20_SelectNormal@@YGHH@Z"
+     "name": "?CHATDLG_SelectNormal@@YGHH@Z"
     },
     {
      "va": "0x00443C70",
      "length": 72,
-     "name": "?sub_00443C70_SelectNightmare@@YGHH@Z"
+     "name": "?CHATDLG_SelectNightmare@@YGHH@Z"
     },
     {
      "va": "0x00443CC0",
      "length": 72,
-     "name": "?sub_00443CC0_SelectHell@@YGHH@Z"
+     "name": "?CHATDLG_SelectHell@@YGHH@Z"
     },
     {
      "va": "0x00443D10",
@@ -12448,7 +12448,7 @@
     {
      "va": "0x00443F70",
      "length": 13,
-     "name": "?sub_00443F70_OnRefresh@@YGHH@Z"
+     "name": "?CHATDLG_OnRefresh@@YGHH@Z"
     },
     {
      "va": "0x00443F80",
@@ -12471,17 +12471,17 @@
     {
      "va": "0x004450A0",
      "length": 23,
-     "name": "?sub_004450A0_JoinNameKey@@YGHPAUD2WinControlStrc@@HPBD@Z"
+     "name": "?CHATDLG_JoinNameKey@@YGHPAUD2WinControlStrc@@HPBD@Z"
     },
     {
      "va": "0x004450C0",
      "length": 13,
-     "name": "?sub_004450C0_JoinNameEnter@@YGHH@Z"
+     "name": "?CHATDLG_JoinNameEnter@@YGHH@Z"
     },
     {
      "va": "0x004451C0",
      "length": 316,
-     "name": "?sub_004451C0_UpdateLevelControls@@YAXXZ"
+     "name": "?CHATDLG_UpdateLevelControls@@YAXXZ"
     },
     {
      "va": "0x00445300",
@@ -12496,7 +12496,7 @@
     {
      "va": "0x00445530",
      "length": 18,
-     "name": "?sub_00445530_ResetBuildPanel@@YGHH@Z"
+     "name": "?CHATDLG_ResetBuildPanel@@YGHH@Z"
     },
     {
      "va": "0x00445550",

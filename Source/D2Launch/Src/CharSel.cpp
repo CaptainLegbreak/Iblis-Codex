@@ -126,7 +126,7 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
-void __cdecl sub_00444E70_FillGameList(); // 0x00444E70
+void __cdecl CHATDLG_FillGameList(); // 0x00444E70
 
 void __fastcall WINMAIN_SendMcpGameListRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
 
@@ -833,7 +833,7 @@ void __fastcall CHATDLG_JoinChannel(const char* szText); // 0x004411E0
 
 int __fastcall CHATDLG_SendChatText(char* szText, int bWhisper); // 0x004428D0
 
-int __fastcall sub_004438E0_Lookup(const char* szName, const char* szPassword, D2LaunchGameRecStrc* pRecord); // 0x004438E0
+int __fastcall CHATDLG_Lookup(const char* szName, const char* szPassword, D2LaunchGameRecStrc* pRecord); // 0x004438E0
 
 extern char gszLevelDiffText[]; // 0x0070EBD0
 
@@ -1025,7 +1025,7 @@ void __fastcall D2Win_10050_TEXTBOX_SetLine(D2WinTextBoxStrc* pTextBox, int nLin
 
 D2WinControlStrc* gpNameControl;        // 0x007799E8
 
-void __cdecl sub_00443630_UpdateCreateButton(); // 0x00443630
+void __cdecl CHATDLG_UpdateCreateButton(); // 0x00443630
 
 struct D2FileTimeStrc;
 
