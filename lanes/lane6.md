@@ -2,11 +2,11 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 08:00 PST 2026): both D2CMP span branches merged (#399, #400). Now: ComCallback.cpp's asserted span.
+Status (Wed Nov 25 08:30 PST 2026): ready on #400: comcallback-span. Next: assert spans over the rest of my modules' functions in other lanes' files (and other lanes' functions in mine, for their owners).
 
 ## Ready
 
-(nothing outstanding; assert-spans-d2cmp merged in #399, assert-spans-d2cmp-2 in #400)
+- lane6/comcallback-span 71afc67d (on #400): ComCallback.cpp takes six functions from inside its asserted span 0x446B70-0x4495A0: four one-line functions filed in lane 4's D2Client/GAME/Game.cpp (GAME_GetChannelName 0x446CF0, 0x4473F0, 0x4476F0, 0x447730) and CHATDLG_UpdateScroll/CHATDLG_OnShowUser (0x448BD0, 0x449330) from ChatDlg.cpp. 0x447730 and 0x449330 are entries of ComCallback's own gapfnMsgHandlers table, so its plan drops their extern "C" declarations (plan-only change in build/data_plan.json); CHATDLG_OnShowUser names its parameters for what it passes on (flags, name, stat string). Lane 4: touches your Game.cpp. Full build: Game.exe identical, tree 7fc99366a979d4594a27e88c1a4dd300ea9a6162, borrowed code / data 10,018 / 261 B; auditguard: no count rose.
 
 ## Questions
 
