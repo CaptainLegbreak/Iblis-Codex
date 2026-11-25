@@ -186,7 +186,6 @@ static void __stdcall UNITMODE_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, 
 
 static int __stdcall UNITMODE_TryMonsterAction(int nAction, int nArg1, int nArg2, D2UnitStrc* pPlayer, D2UnitStrc* pUnit); // 0x004814A0
 
-static inline void memset0(D2UnitTargetStrc* p) { int* q = (int*)p; for (int i = 0; i < 7; ++i) q[i] = 0; }
 
 static int __stdcall UNITMODE_ActOnPlayer(int nAction, int nType, int nId, D2UnitStrc* pPlayer, D2UnitStrc* pUnit); // 0x00481400
 
@@ -202,7 +201,6 @@ extern "C" unsigned int __cdecl sub_0044DB10_GetFrame();
 
 extern "C" int __stdcall sub_00650840_UpdatePath(D2UnitStrc* unit, unsigned int frame);
 
-int sub_0044BE50(D2UnitStrc* pUnit); // 0x0044BE50
 
 void __fastcall CUNIT_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
 
@@ -634,43 +632,11 @@ static inline D2SkillsTxt* UMODE_GetSkillsTxtRecord(int nSkillId)
     return 0;
 }
 
-static inline D2PlayerDataStrc* UMODE_GetPlayerData(D2UnitStrc* pUnit)
-{
-    return (pUnit && pUnit->dwUnitType == UNIT_PLAYER) ? pUnit->pPlayerData : 0;
-}
-
-static inline int UMODE_GetPendingFlag(D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
-    {
-        return pUnit->pPlayerData->nState;
-    }
-    return 0;
-}
-
 static inline int UMODE_GetPendingAction(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
     {
         return pUnit->pPlayerData->nMode;
-    }
-    return 0;
-}
-
-static inline int UMODE_GetPendingType(D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
-    {
-        return pUnit->pPlayerData->nArg1;
-    }
-    return 0;
-}
-
-static inline int UMODE_GetPendingId(D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->pPlayerData)
-    {
-        return pUnit->pPlayerData->nArg2;
     }
     return 0;
 }
@@ -684,11 +650,6 @@ static inline void UMODE_SetPendingAction(D2UnitStrc* pUnit, int bFlag, int nAct
         pUnit->pPlayerData->nArg1 = nType;
         pUnit->pPlayerData->nArg2 = nId;
     }
-}
-
-static inline int UMODE_IsTargetable(D2UnitStrc* pUnit)
-{
-    return pUnit ? (pUnit->dwFlags >> 1) & 1 : 0;
 }
 
 // 0x00480BA0
@@ -820,182 +781,6 @@ void __fastcall UNITMODE_SetModeOverlay(D2UnitStrc* pUnit, int nMode)
         GFX_AddUnitOverlay(pUnit, 0x15, 2, 0, 0, 0, 0, 0);
     else if (dwKind == 0x90)
         GFX_AddUnitOverlay(pUnit, 0x71, 2, 0, 0, 0, 0, 0);
-}
-
-static void __stdcall sub_004812E0_QueueAction(int nAction, int nType, int nId, D2UnitStrc* pPlayer)
-{
-    if (GAME_GetClickFlags() & 8)
-    {
-        if (!UNITMODE_CanUseSkillNow(pPlayer))
-        {
-            UMODE_SetPendingAction(pPlayer, 1, nAction, nType, nId);
-            return;
-        }
-
-        int args[7] = {};
-        args[0] = nType;
-        args[1] = nId;
-        if (sub_00480C10_UnitEvent(0x18, pPlayer, args, 0))
-        {
-            MSG_SendTwoDwords(4, nType, nId);
-        }
-    }
-    else
-    {
-        if (!UNITMODE_CanUseSkillNow(pPlayer))
-        {
-            UMODE_SetPendingAction(pPlayer, 1, nAction, nType, nId);
-            return;
-        }
-
-        int args[7] = {};
-        args[0] = nType;
-        args[1] = nId;
-        if (sub_00480C10_UnitEvent(0, pPlayer, args, 0))
-        {
-            MSG_SendTwoDwords(2, nType, nId);
-        }
-    }
-
-    UMODE_SetPendingAction(pPlayer, 0, 0, 0, 0);
-    UMODE_SetPendingAction(pPlayer, 1, nAction, nType, nId);
-}
-
-static int __stdcall sub_004814A0_ActOnMonster(int nAction, int nType, int nId, D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
-{
-    if (CUNIT_IsDeadOrDying(pUnit))
-    {
-        D2SkillStrc* pSkill;
-        switch (nAction)
-        {
-        case 5:
-        case 6:
-        case 7:
-        case 8:
-        case 9:
-        case 10:
-        case 11:
-            pSkill = UNITS_GetLeftSkill(pPlayer);
-            break;
-
-        case 12:
-        case 13:
-        case 14:
-        case 15:
-        case 16:
-        case 17:
-        case 18:
-            pSkill = UNITS_GetRightSkill(pPlayer);
-            break;
-
-        default:
-            pSkill = 0;
-            break;
-        }
-
-        if (pSkill)
-        {
-            D2SkillsTxt* pSkillsTxt = UMODE_GetSkillsTxtRecord(SKILLS_GetSkillIdFromSkill(pSkill, gszUnitModeFile, 0x44F));
-            if (pSkillsTxt && BITARRAY_CHECK((unsigned char*)pSkillsTxt, 56))
-            {
-                goto LABEL_OK;
-            }
-        }
-        SELECT_RefreshHoverUnit(0);
-        return 0;
-    }
-
-    if (!UMODE_IsTargetable(pUnit))
-    {
-        SELECT_RefreshHoverUnit(0);
-        return 0;
-    }
-
-LABEL_OK:
-    if (!UNITMODE_IsTargetInRange(pPlayer, pUnit, nAction))
-    {
-        return 1;
-    }
-
-    sub_004812E0_QueueAction(nAction, nType, nId, pPlayer);
-    return 0;
-}
-
-static int __stdcall sub_004815A0_ActOnObject(D2UnitStrc* pPlayer, int nType, int nId, int nAction, D2UnitStrc* pUnit)
-{
-    if (!UMODE_IsTargetable(pUnit))
-    {
-        SELECT_RefreshHoverUnit(0);
-        return 0;
-    }
-
-    if (!UNITMODE_IsTargetInRange(pPlayer, pUnit, nAction))
-    {
-        return 1;
-    }
-
-    sub_004812E0_QueueAction(nAction, nType, nId, pPlayer);
-    return 0;
-}
-
-void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer)
-{
-    D2PlayerDataStrc* pPlayerData = UMODE_GetPlayerData(pPlayer);
-    if (!pPlayerData || !pPlayerData->nState)
-    {
-        return;
-    }
-
-    const int nAction = pPlayer->dwUnitType == UNIT_PLAYER ? pPlayer->pPlayerData->nMode : 0;
-    const int nType = pPlayer->dwUnitType == UNIT_PLAYER ? pPlayer->pPlayerData->nArg1 : 0;
-    const int nId = pPlayer->dwUnitType == UNIT_PLAYER ? pPlayer->pPlayerData->nArg2 : 0;
-
-    D2UnitStrc* pUnit = CUNIT_FindClientUnit(nId, nType);
-    GFX_ClearPendingAction(pPlayer);
-
-    if (nAction == 0x13 && nType == 5)
-    {
-        GAME_SetInteractDeadline(GAME_GetCurrentTime() + 500);
-    }
-
-    if (!pUnit || !nAction)
-    {
-        return;
-    }
-
-    switch (nType)
-    {
-    case 0:
-        if (!UNITMODE_ActOnPlayer(nAction, 0, nId, pPlayer, pUnit))
-        {
-            return;
-        }
-        break;
-
-    case 1:
-        if (!sub_004814A0_ActOnMonster(nAction, 1, nId, pPlayer, pUnit))
-        {
-            return;
-        }
-        break;
-
-    case 2:
-        if (!sub_004815A0_ActOnObject(pPlayer, 2, nId, nAction, pUnit))
-        {
-            return;
-        }
-        break;
-
-    default:
-        if (!sub_00451F30_TestUnitFlag(pUnit, 2))
-        {
-            SELECT_RefreshHoverUnit(0);
-            return;
-        }
-        break;
-    }
-
-    UNITMODE_DoUnitAction(nAction, pPlayer, nType, nId, 0);
 }
 
 // 0x00480E30
@@ -1295,25 +1080,6 @@ static void __stdcall UNITMODE_DoPlayerAction(D2UnitStrc* pPlayer, int nAction, 
     sub_SetPlayerAction(pPlayer, 1, nAction, nArg1, nArg2);
 }
 
-static int __stdcall sub_004815A0_TryUnitAction(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, int nArg1, int nArg2, int nAction)
-{
-    int bSelectable = 0;
-    if (pUnit)
-        bSelectable = (pUnit->dwFlags >> 1) & 1;
-    if (!bSelectable)
-    {
-        SELECT_RefreshHoverUnit(0);
-        return 0;
-    }
-    if (UNITMODE_IsTargetInRange(pPlayer, pUnit, nAction))
-    {
-        UNITMODE_DoPlayerAction(pPlayer, nAction, nArg1, nArg2);
-        return 0;
-    }
-    return 1;
-}
-
-
 // 0x00481400
 static int __stdcall UNITMODE_ActOnPlayer(int nAction, int nType, int nId, D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
 {
@@ -1360,7 +1126,7 @@ static inline D2SkillsTxt* sub_004814A0_GetSkillsTxtRecord(int nSkillId)
 }
 
 // 0x004814A0
-static int __stdcall UNITMODE_TryMonsterAction(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
+static int __stdcall UNITMODE_TryMonsterAction(int nAction, int nArg1, int nArg2, D2UnitStrc* pPlayer, D2UnitStrc* pUnit)
 {
     if (CUNIT_IsDeadOrDying(pUnit))
     {
@@ -1425,6 +1191,89 @@ InRange:
     return 1;
 }
 
+static inline int sub_IsUnitTargetable(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+    return (pUnit->dwFlags >> 1) & 1;
+}
+
+// 0x004815A0
+static int __stdcall sub_004815A0_TryUnitAction(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, int nAction, int nArg1, int nArg2)
+{
+    if (!sub_IsUnitTargetable(pUnit))
+    {
+        SELECT_RefreshHoverUnit(0);
+        return 0;
+    }
+
+    if (UNITMODE_IsTargetInRange(pPlayer, pUnit, nAction))
+    {
+        UNITMODE_DoPlayerAction(pPlayer, nAction, nArg1, nArg2);
+        return 0;
+    }
+
+    return 1;
+}
+
+static int sub_0044BE50(D2UnitStrc* pUnit)
+{
+    int nType = 6;
+    if (pUnit)
+    {
+        nType = pUnit->dwUnitType;
+    }
+    return nType;
+}
+
+// 0x00481600
+void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer)
+{
+    if (sub_0044BE50(pPlayer) == 0 && pPlayer->pPlayerData && pPlayer->pPlayerData->nState)
+    {
+        const int nAction = sub_0044BE50(pPlayer) == 0 ? pPlayer->pPlayerData->nMode : 0;
+        const int nArg1 = sub_0044BE50(pPlayer) == 0 ? pPlayer->pPlayerData->nArg1 : 0;
+        const int nArg2 = sub_0044BE50(pPlayer) == 0 ? pPlayer->pPlayerData->nArg2 : 0;
+
+        D2UnitStrc* pUnit = CUNIT_FindClientUnit(nArg2, nArg1);
+        GFX_ClearPendingAction(pPlayer);
+
+        if (nAction == 0x13 && nArg1 == 5)
+        {
+            GAME_SetInteractDeadline(GAME_GetCurrentTime() + 500);
+        }
+
+        if (pUnit && nAction)
+        {
+            switch (nArg1)
+            {
+            case 0:
+                if (!UNITMODE_ActOnPlayer(nAction, 0, nArg2, pPlayer, pUnit))
+                    return;
+                break;
+            case 1:
+                if (!UNITMODE_TryMonsterAction(nAction, 1, nArg2, pPlayer, pUnit))
+                    return;
+                break;
+            case 2:
+                if (!sub_004815A0_TryUnitAction(pUnit, pPlayer, nAction, 2, nArg2))
+                    return;
+                break;
+            default:
+                if (!sub_00451F30_TestUnitFlag(pUnit, 2))
+                {
+                    SELECT_RefreshHoverUnit(0);
+                    return;
+                }
+                break;
+            }
+            UNITMODE_DoUnitAction(nAction, pPlayer, nArg1, nArg2, 0);
+        }
+    }
+}
+
 // 0x00481780
 int __cdecl UNITMODE_GetPlayerLevelId()
 {
@@ -1460,10 +1309,5 @@ void __cdecl sub_00481830()
     sub_004BAAB0();
 }
 
-// calling-convention shim (not game code)
-int __stdcall sub_004814A0_Shim(D2UnitStrc* pUnit, int nAction, D2UnitStrc* pPlayer, int nArg1, int nArg2)
-{
-    return UNITMODE_TryMonsterAction(pUnit, pPlayer, nAction, nArg1, nArg2);
-}
 
 #include "gen/data/Source/D2Client/UNIT/UnitMode.inc"
