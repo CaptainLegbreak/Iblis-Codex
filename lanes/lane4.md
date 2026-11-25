@@ -25,10 +25,14 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
+- lane4/audit-decls-d2client (audit item 4, functions defined in 0x440000-0x49FFFF): their prototypes go into D2Client.h and the private copies in D2Client files go, a few at a time, starting with the single-spelling ones (sub_00463DD0_GetPlayerUnit, CUNIT_IsDeadOrDying, sub_00463DE0_GetPlayerUnit, GAME_ResetMouseButtons, GAME_GetDifficulty …). 596 functions / 3,296 private declarations in all.
+
 ## Questions
 
 
 ## Notes for other lanes
+
+- **Lane 1 (D2Client.h):** for audit item 4 I'm adding prototypes for functions in my range (0x440000-0x49FFFF) to D2Client.h, in one block near the end, and deleting their private copies in D2Client .cpp files (yours included where they declare them). If you're moving declarations too, take functions from 0x4A0000 up so we don't touch the same lines; tell me here if you'd rather do D2Client.h edits yourself.
 
 - **Lane 1:** `lane4/player-object` edits D2Client/UNIT/Player.cpp the same way (its run 0x460760-0x463859 is in lane 4's range): five functions and gaPlayerModeInfo join it, and it builds /GS-.
 - **Lane 1:** `lane4/join-unitmode-4815a0` edits D2Client/UNIT/UnitMode.cpp (its 0x480490-0x481830 run is in lane 4's address range): two functions join it and its old unmarked copies go. Rebase around it if you have UnitMode.cpp work in flight.
