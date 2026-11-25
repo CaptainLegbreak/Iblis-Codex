@@ -518,9 +518,9 @@ int __fastcall SKILLDESC_GetSkillParamFive(int nSkillId); // 0x004E6C70
 
 int __fastcall SKILLDESC_GetSkillParamSix(int nSkillId); // 0x004F4110
 
-int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00644D50
+int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bApplyMastery); // 0x00644D50
 
-int __stdcall SKILLS_GetMaxElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00644E40
+int __stdcall SKILLS_GetMaxElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bApplyMastery); // 0x00644E40
 
 int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00644F20
 
@@ -540,11 +540,11 @@ static D2SkillStrc* SKILLS_GetHighestLevelSkillFromSkillId(D2UnitStrc* pUnit, in
 
 int __stdcall SKILLS_CheckIfCanLeapTo(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int* pX, int* pY);
 
-int __stdcall SKILLS_GetMaxPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4);
+int __stdcall SKILLS_GetMaxPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bAddWeaponDamage);
 
 static int __stdcall SKILLS_GetKickDamage(D2UnitStrc* pUnit, int bMin);
 
-int __stdcall SKILLS_GetMinPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4);
+int __stdcall SKILLS_GetMinPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bAddWeaponDamage);
 
 int __stdcall sub_00436E90_AlwaysOne(int nArg)
 {
@@ -2179,7 +2179,7 @@ inline int SKILLS_ApplyMasteryInl(D2UnitStrc* pUnit, int nStatId, int nSrcDamage
 }
 
 // 0x00644D50
-int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4)
+int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bApplyMastery)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
 
@@ -2206,7 +2206,7 @@ int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkil
             }
         }
 
-        if (a4 && pUnit)
+        if (bApplyMastery && pUnit)
         {
             nDamage += SKILLS_CalculateMasteryBonus(pUnit, pSkillsTxtRecord->nEType, nDamage);
         }
@@ -2216,7 +2216,7 @@ int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkil
 }
 
 // 0x00644E40
-int __stdcall SKILLS_GetMaxElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4)
+int __stdcall SKILLS_GetMaxElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bApplyMastery)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
 
@@ -2243,7 +2243,7 @@ int __stdcall SKILLS_GetMaxElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkil
             }
         }
 
-        if (a4 && pUnit)
+        if (bApplyMastery && pUnit)
         {
             nDamage += SKILLS_CalculateMasteryBonus(pUnit, pSkillsTxtRecord->nEType, nDamage);
         }
@@ -3882,7 +3882,7 @@ static BOOL __stdcall SKILLS_CheckSkillDelay(D2SkillStrc* pSkill, D2UnitStrc* pU
 }
 
 // 0x00647BC0
-int __stdcall SKILLS_GetMinPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4)
+int __stdcall SKILLS_GetMinPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bAddWeaponDamage)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -3911,7 +3911,7 @@ int __stdcall SKILLS_GetMinPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkil
     }
 
     int nDamage = 0;
-    if (pSkillsTxtRecord->nSrcDam && a4)
+    if (pSkillsTxtRecord->nSrcDam && bAddWeaponDamage)
     {
         D2UnitStrc* pItem = D2Common_10434(pUnit, 0);
         int nWeaponDamage;
@@ -3944,7 +3944,7 @@ int __stdcall SKILLS_GetMinPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkil
 }
 
 // 0x00647D00
-int __stdcall SKILLS_GetMaxPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4)
+int __stdcall SKILLS_GetMaxPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bAddWeaponDamage)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecordInl(nSkillId);
 
@@ -3962,7 +3962,7 @@ int __stdcall SKILLS_GetMaxPhysDamage(D2UnitStrc* pUnit, int nSkillId, int nSkil
         else
         {
             D2UnitStrc* const pSource = pUnit;
-            if (pSkillsTxtRecord->nSrcDam && a4)
+            if (pSkillsTxtRecord->nSrcDam && bAddWeaponDamage)
             {
                 D2UnitStrc* pItem = D2Common_10434(pSource, 0);
                 int nWeaponDamage = 0;

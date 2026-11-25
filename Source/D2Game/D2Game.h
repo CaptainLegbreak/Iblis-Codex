@@ -384,8 +384,8 @@ int __stdcall SERVER_SetClientGameGUID(int nClientId, int dwGameGuid); // 0x0052
 int __stdcall SKILLS_GetBonusSkillLevelFromSkillId(D2UnitStrc* pUnit, int nSkillId); // 0x00644300
 int __stdcall SKILLS_GetClassSkillId(int nClassId, int nPosition); // 0x006460F0
 int __stdcall SKILLS_GetManaCosts(int nSkillId, int nSkillLevel); // 0x00644B10
-int __stdcall SKILLS_GetMaxElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00644E40
-int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00644D50
+int __stdcall SKILLS_GetMaxElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bApplyMastery); // 0x00644E40
+int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bApplyMastery); // 0x00644D50
 int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill); // 0x00643AD0
 int __stdcall SKILLS_GetPassiveState(int nSkillId); // 0x00643690
 int __stdcall SKILLS_GetPlayerSkillCount(int nClassId); // 0x00646140
@@ -526,7 +526,7 @@ void __stdcall COLLISION_ResetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int 
 void __stdcall D2COMMON_10190_PATH_SetDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nDistance); // 0x00648E40
 void __stdcall D2Common_10075(D2ActiveRoomStrc* pRoom, int bSet); // 0x0061A510
 void __stdcall D2Common_10214(D2UnitStrc* pUnit); // 0x00649CA0
-void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
+void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int bSetBothDirections); // 0x00649EF0
 void __stdcall D2Common_10469(D2UnitStrc* pUnit); // 0x00627540
 void __stdcall D2NET_10016(int nClientId); // 0x0052B570
 void __stdcall DATATBLS_GetSequenceEvent(D2AnimSeqTxt* pMonSeqTxt, int nSeqFramePoint, int* pEvent); // 0x006634C0

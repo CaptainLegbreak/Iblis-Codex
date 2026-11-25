@@ -105,7 +105,7 @@ int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 
 void __cdecl INV_SetTradeFlag(); // 0x0048A6E0
 
-extern "C" void __fastcall sub_00478600_SendPacket(U8 command, U16 value, U16 first, U16 second);
+extern "C" void __fastcall sub_00478600_SendPacket(unsigned char command, unsigned short value, unsigned short first, unsigned short second);
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 

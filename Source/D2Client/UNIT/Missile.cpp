@@ -523,7 +523,7 @@ extern const D2CltHitPatternStrc gaCltHitPatterns[3];                           
 
 void __fastcall MISSILE_SpawnMissilesInRange(D2UnitStrc* pUnit, const int* pArg, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004CDDB0
 
-void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4);                            // 0x00649EF0
+void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int bSetBothDirections);                            // 0x00649EF0
 
 extern const int gaCollisionBurstMissiles[]; // 0x0072A33C
 

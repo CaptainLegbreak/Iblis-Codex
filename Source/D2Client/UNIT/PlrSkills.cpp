@@ -117,7 +117,7 @@ unsigned char __stdcall INVENTORY_GetEightWayDirection(unsigned char nIndex); //
 int __stdcall MONSTERS_GetSpawnMode_XY(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int* pMode, int* pX, int* pY); // 0x0063EA70
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
-void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
+void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int bSetBothDirections); // 0x00649EF0
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 
 
@@ -140,7 +140,7 @@ extern CLIENTSTATEFN gpfnClientStateRemFuncs[]; // 0x0072A710
 
 typedef char check_pointer_width[sizeof(void*)==4?1:-1];
 
-typedef char check_scalar_width[sizeof(U32)==4?1:-1];
+typedef char check_scalar_width[sizeof(unsigned int)==4?1:-1];
 
 extern "C" int __stdcall SKILLS_GetUseState(D2UnitStrc* unit,D2SkillStrc* skill); // 0x00647960
 

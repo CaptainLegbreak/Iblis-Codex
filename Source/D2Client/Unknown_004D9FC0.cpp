@@ -34,7 +34,7 @@ extern CLIENTSTATEFN gpfnClientStateRemFuncs[]; // 0x0072A710
 
 typedef char check_pointer_width[sizeof(void*)==4?1:-1];
 
-typedef char check_scalar_width[sizeof(U32)==4?1:-1];
+typedef char check_scalar_width[sizeof(unsigned int)==4?1:-1];
 
 extern "C" int __stdcall SKILLS_GetUseState(D2UnitStrc* unit,D2SkillStrc* skill); // 0x00647960
 
@@ -52,8 +52,8 @@ extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill)
         return status;
     if (unit == sub_00463DE0_GetPlayerUnit())
     {
-        U32 first = sub_0044DA90();
-        U32 second = GAME_GetSkillDelayUntil();
+        unsigned int first = sub_0044DA90();
+        unsigned int second = GAME_GetSkillDelayUntil();
         if (first < second)
             return 8;
     }

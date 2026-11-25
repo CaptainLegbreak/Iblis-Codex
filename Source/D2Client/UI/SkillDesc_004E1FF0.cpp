@@ -181,7 +181,7 @@ void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064
 
 extern D2DrlgActStrc* gpAct; // 0x007A0634
 
-typedef char check_scalar_width[(sizeof(U32) == 4 && sizeof(int) == 4) ? 1 : -1];
+typedef char check_scalar_width[(sizeof(unsigned int) == 4 && sizeof(int) == 4) ? 1 : -1];
 
 extern "C" int __fastcall sub_004E40A0(int nRange); // 0x004E40A0
 
@@ -315,9 +315,9 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);  
 
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine);              // 0x00643CE0
 
-int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4);            // 0x00644D50
+int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bApplyMastery);            // 0x00644D50
 
-int __stdcall SKILLS_GetMaxElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4);            // 0x00644E40
+int __stdcall SKILLS_GetMaxElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bApplyMastery);            // 0x00644E40
 
 int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bFlag);       // 0x00644F20
 
@@ -1046,7 +1046,7 @@ void __cdecl sub_004E4030_Nothing()
 // 0x004E4100
 extern "C" int __fastcall SKILLDESC_RandomInRange(int nMin, int nMax)
 {
-    U32 width = (U32)nMax - (U32)nMin + 1u;
+    unsigned int width = (unsigned int)nMax - (unsigned int)nMin + 1u;
     return sub_004E40A0((int)width) + nMin;
 }
 
