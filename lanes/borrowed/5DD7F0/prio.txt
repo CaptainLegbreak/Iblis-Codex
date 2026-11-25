@@ -1,563 +1,584 @@
 function: ?sub_6FCF2110@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAUD2AiControlStrc@@PAH3@Z
 
-=== round 1 (register class 0): 38 candidates with references ===
+=== round 1 (register class 0): 40 candidates with references ===
   candidate                       id   prio refs   key  web  reg    def lines / use lines
-  pCurrent                        26    180   12    a2       esi    6538,6559 / 6539,6540,6542,6547,6551,6554,6560
-  nCurrentDistance                27    130    8    9d       edi    6542,6548,6560 / 6543,6544,6545,6551,6553
-  pCurrent                        32     68    5    d2       esi    6586 / 6587,6589,6590,6593
-  pCurrent                        28     68    5    b6       esi    6569 / 6570,6572,6573,6576
-  pNode                           18     56   13    ca       ebx    6519,6556,6565,6579 / 6536,6538,6556,6557,6559,6567,6569,6579
-  tmp#39(def L6490,6493)          39     48    5    11              6490,6493 / 6490,6493
-  nCurrentDistance                33     46    3    d5              6589 / 6590,6592
-  nCurrentDistance                29     46    3    b9              6572 / 6573,6575
-  nAlternativeDistance            31     40    5    e3              6583,6592 / 6590,6598,6601
-  nCollision                      34     32    2   107              6606 / 6612
-  pNode                           19     32    6    e6  <18         6581,6596 / 6584,6586,6596
-  tmp#35                          35     20    2    f8               / 6616
-  nThreat                         21     20    3    5d              6527 / 6528,6529
-  pMonStats                       20     20    3    5a              6524 / 6525,6527
-  tmp#38(def L6523)               38     18    3    57  <37         6523 / 6523,6524
-  pAlternative                    30     16    5    e2              6582,6593 / 6598,6600
-  tmp#37(def L6502)               37     16    3    2c              6502 / 6502
-  pGame                           10     16    5     7              6483 / 6514,6518,6527,6615
-  pRoom                           11     -8    4     4              6484 / 6485,6495,6606
-  pUnit                           12    -19   23     8              6483 / 6484,6500,6502,6514,6516,6523,6531,6532,6533,6551,6573,6590,6598,6606,6615,6616,6634,6640
-  nX                              23    -54    5    65              6532 / 6542,6560,6572,6589
-  nY                              24    -54    5    62              6533 / 6542,6560,6572,6589
-  i                               25    -60    4    a5              6534 / 6534
-  nDistance                       16    -78   10   122              6521,6529,6553,6575,6601,6619,6624 / 6551,6573,6641
-  ppNode                          17    -92    6    a7              6518,6565 / 6519,6565,6581
-  pTarget                          2   -124    9   123              6520,6554,6576,6600,6618,6623 / 6628,6640,6642
-  const:55#7                       7   -126    1     0               / 6545
-  bCheckCollision                 14   -143   10    34              6492,6496,6499,6506 / 6503,6514,6551,6573,6590,6610
-  nAct                            22   -156    4    68              6531 / 6540,6570,6587
-  const:0#1                        1   -169   40     0               / 6485,6487,6488,6496,6500,6502,6503,6506,6511,6514,6520,6523,6525,6528,6534,6536,6539,6551,6557,6567,6573,6582,6584,6590,6598,6608,6613,6615,6616,6628,6630,6637,6638,6640
-  const:1#3                        3   -171    5     0               / 6492,6499,6500,6523,6534
-  const:4#8                        8   -178    4     0               / 6551,6565,6573,6590
-  const:2147483647#5               5   -180    5     0               / 6513,6548,6583,6609,6614
-  nMinDistance                    15   -211    4    85              6513,6544 / 6543,6631
-  pSpecialAi                       6   -249    7    2f              6487,6502 / 6503,6505,6637,6638
-  pAiControl                       4   -253    5    13               / 6490,6493,6499,6636
-  const:8#9                        9   -256    2     0               / 6534,6636
-  nOldToggle                      13   -274    4    38              6488,6505 / 6506,6638
+  pCurrent                        27    180   12    aa       esi    6552,6573 / 6553,6554,6556,6561,6565,6568,6574
+  nCurrentDistance                28    130    8    a5       edi    6556,6562,6574 / 6557,6558,6559,6565,6567
+  pCurrent                        33     68    5    da       esi    6600 / 6601,6603,6604,6607
+  pCurrent                        29     68    5    be       esi    6583 / 6584,6586,6587,6590
+  tmp#37(def L6510)               37     60    6    24       eax    6510 / 6510
+  pNode                           19     56   13    d2       ebx    6533,6570,6579,6593 / 6550,6552,6570,6571,6573,6581,6583,6593
+  nCurrentDistance                34     46    3    dd              6603 / 6604,6606
+  nCurrentDistance                30     46    3    c1              6586 / 6587,6589
+  nAlternativeDistance            32     40    5    eb              6597,6606 / 6604,6612,6615
+  tmp#42(def L6501,6523)          42     34    5    11              6501,6523 / 6501,6523
+  nCollision                      35     32    2   10f              6620 / 6626
+  pNode                           20     32    6    ee  <19         6595,6610 / 6598,6600,6610
+  tmp#36                          36     20    2   100               / 6630
+  nThreat                         22     20    3    65              6541 / 6542,6543
+  pMonStats                       21     20    3    62              6538 / 6539,6541
+  tmp#41(def L6537)               41     18    3    5f  <40         6537 / 6537,6538
+  pAlternative                    31     16    5    ea              6596,6607 / 6612,6614
+  tmp#40(def L6514)               40     16    3    30              6514 / 6514
+  tmp#39(def L6511)               39     16    3    2b              6511 / 6512,6514
+  pGame                           10     12    5     7              6494 / 6528,6532,6541,6629
+  pRoom                           11    -12    4     4              6495 / 6496,6506,6620
+  pUnit                           12    -17   23     8              6494 / 6495,6511,6514,6528,6530,6537,6545,6546,6547,6565,6587,6604,6612,6620,6629,6630,6648,6654
+  nX                              24    -54    5    6d              6546 / 6556,6574,6586,6603
+  nY                              25    -54    5    6a              6547 / 6556,6574,6586,6603
+  i                               26    -60    4    ad              6548 / 6548
+  nDistance                       17    -78   10   12a              6535,6543,6567,6589,6615,6633,6638 / 6565,6587,6655
+  ppNode                          18    -92    6    af              6532,6579 / 6533,6579,6595
+  pTarget                         15   -124    9   12b              6534,6568,6590,6614,6632,6637 / 6642,6654,6656
+  const:55#7                       7   -126    1     0               / 6559
+  bCheckCollision                 14   -150   10    39              6504,6507,6510,6518 / 6515,6528,6565,6587,6604,6624
+  nAct                            23   -156    4    70              6545 / 6554,6584,6601
+  const:0#1                        1   -172   41     0               / 6496,6498,6499,6507,6510,6511,6514,6515,6518,6525,6528,6534,6537,6539,6542,6548,6550,6553,6565,6571,6581,6587,6596,6598,6604,6612,6622,6627,6629,6630,6642,6644,6651,6652,6654
+  const:1#3                        3   -173    6     0               / 6504,6510,6512,6514,6537,6548
+  const:4#8                        8   -178    4     0               / 6565,6579,6587,6604
+  const:2147483647#5               5   -180    5     0               / 6527,6562,6597,6623,6628
+  nMinDistance                    16   -211    4    8d              6527,6558 / 6557,6645
+  pSpecialAi                       6   -251    7    33              6498,6514 / 6515,6517,6651,6652
+  const:8#9                        9   -256    2     0               / 6548,6650
+  pAiControl                       4   -260    5    13               / 6501,6510,6523,6650
+  nOldToggle                      13   -278    4    3d              6499,6517 / 6518,6652
   colouring order:
     pCurrent                     prio   180 -> esi  (allowed esi/edi/ebx; costs esi=1 edi=2 ebx=5800)
     nCurrentDistance             prio   130 -> edi  (allowed edi/ebx; costs edi=2 ebx=5800)
     pCurrent                     prio    68 -> esi  (allowed esi/edi/ebx; costs esi=0 edi=0 ebx=24000)
     pCurrent                     prio    68 -> esi  (allowed esi/edi/ebx; costs esi=0 edi=0 ebx=31900)
+    tmp#37(def L6510)            prio    60 -> eax  (allowed eax/ecx/edx/esi/edi/ebx; costs eax=0 ecx=0 edx=0 esi=0 edi=0 ebx=8800)
     pNode                        prio    56 -> ebx  (allowed ebx; costs ebx=26500)
   blocks (w = loop weight, K = candidates referenced in the block):
-    blk 00c459c4 L6483-6485 w=1 K=4: const:0#1+0 pRoom+16 pGame+8 pUnit+16
-    blk 00c45d04 L6487-6490 w=1 K=6: const:1#3+0 tmp#39(def L6490,6493)+24 pAiControl+12 nOldToggle+12 pSpecialAi+12 const:0#1+0 pRoom-6(live) pGame-6(live) pUnit-6(live)
-    blk 00c45ea4 L6492-6493 w=1 K=4: tmp#39(def L6490,6493)+24 bCheckCollision+8 const:1#3+0 pAiControl+8 nOldToggle-4(live) pSpecialAi-4(live) const:0#1-4(live) pRoom-4(live) pGame-4(live) pUnit-4(live)
-    blk 00c46044 L6495-6495 w=1 K=1: nOldToggle-1(live) pUnit-1(live) pRoom+2 pGame-1(live) pSpecialAi-1(live) pAiControl-1(live) const:1#3-1(live) const:0#1-1(live)
-    blk 00c461e4 L6496-6497 w=1 K=2: bCheckCollision+4 nOldToggle-2(live) pUnit-2(live) pRoom-2(live) pGame-2(live) pSpecialAi-2(live) pAiControl-2(live) const:1#3-2(live) const:0#1+0
-    blk 00c46384 L6499-6500 w=1 K=5: bCheckCollision+10 nOldToggle-5(live) pUnit+10 pRoom-5(live) pGame-5(live) pSpecialAi-5(live) pAiControl+10 const:1#3+0 const:0#1+0
-    blk 00c46524 L6500-6500 w=1 K=2: bCheckCollision-2(live) nOldToggle-2(live) pUnit+4 pRoom-2(live) pGame-2(live) pSpecialAi-2(live) pAiControl-2(live) const:1#3+0 const:0#1-2(live)
-    blk 00bc6ef8 L6502-6502 w=1 K=3: tmp#37(def L6502)+12 bCheckCollision-3(live) nOldToggle-3(live) pUnit+6 pRoom-3(live) pGame-3(live) pAiControl-3(live) const:1#3-3(live) const:0#1+0
-    blk 00bc7098 L6502-6502 w=1 K=2: tmp#37(def L6502)+4 pSpecialAi+4 bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pRoom-2(live) pGame-2(live) pAiControl-2(live) const:1#3-2(live) const:0#1-2(live)
-    blk 00bc7238 L6502-6502 w=1 K=2: pSpecialAi+4 bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pRoom-2(live) pGame-2(live) pAiControl-2(live) const:1#3-2(live) const:0#1+0
-    blk 00bc73d8 L6503-6503 w=1 K=2: pSpecialAi-2(live) bCheckCollision+4 nOldToggle-2(live) pUnit-2(live) pRoom-2(live) pGame-2(live) pAiControl-2(live) const:1#3-2(live) const:0#1+0
-    blk 00bc7578 L6503-6503 w=1 K=2: pSpecialAi+4 bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pRoom-2(live) pGame-2(live) pAiControl-2(live) const:1#3-2(live) const:0#1+0
-    blk 00bc7718 L6505-6506 w=1 K=4: bCheckCollision+8 nOldToggle+16 pUnit-4(live) pRoom-4(live) pGame-4(live) pSpecialAi+8 pAiControl-4(live) const:1#3-4(live) const:0#1+0
-    blk 00bc78b8 L6511-6514 w=1 K=7: const:8#9+0 nMinDistance+14 const:2147483647#5+0 bCheckCollision+14 nOldToggle-7(live) pUnit+14 pRoom-7(live) pGame+14 pSpecialAi-7(live) pAiControl-7(live) const:1#3-7(live) const:0#1+7
-    blk 00bc7a58 L6516-6516 w=1 K=1: const:8#9-1(live) nMinDistance-1(live) const:2147483647#5-1(live) bCheckCollision-1(live) nOldToggle-1(live) pUnit+2 pRoom-1(live) pGame-1(live) pSpecialAi-1(live) pAiControl-1(live) const:1#3-1(live) const:0#1-1(live)
-    blk 00bc7bf8 L6518-6523 w=1 K=7: nDistance+14 pTarget+14 pNode+14 ppNode+28 nMinDistance-7(live) bCheckCollision-7(live) nOldToggle-7(live) pUnit+14 pGame+14 const:8#9-7(live) pSpecialAi-7(live) const:2147483647#5-7(live) pAiControl-7(live) const:1#3-7(live) const:0#1+0
-    blk 00bfecc0 L6523-6523 w=1 K=2: nDistance-2(live) pTarget-2(live) pNode-2(live) ppNode-2(live) nMinDistance-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit+4 pGame-2(live) const:8#9-2(live) pSpecialAi-2(live) const:2147483647#5-2(live) pAiControl-2(live) const:1#3+0 const:0#1-2(live)
-    blk 00bfee60 L6523-6523 w=1 K=3: tmp#38(def L6523)+12 nDistance-3(live) pTarget-3(live) pNode-3(live) ppNode-3(live) nMinDistance-3(live) bCheckCollision-3(live) nOldToggle-3(live) pUnit+6 pGame-3(live) const:8#9-3(live) pSpecialAi-3(live) const:2147483647#5-3(live) pAiControl-3(live) const:1#3-3(live) const:0#1+0
-    blk 00bff000 L6524-6525 w=1 K=3: tmp#38(def L6523)+6 pMonStats+12 nDistance-3(live) pTarget-3(live) pNode-3(live) ppNode-3(live) nMinDistance-3(live) bCheckCollision-3(live) nOldToggle-3(live) pUnit-3(live) pGame-3(live) const:8#9-3(live) pSpecialAi-3(live) const:2147483647#5-3(live) pAiControl-3(live) const:1#3-3(live) const:0#1+0
-    blk 00bff1a0 L6527-6528 w=1 K=4: pMonStats+8 pGame+8 nThreat+16 nDistance-4(live) pTarget-4(live) pNode-4(live) ppNode-4(live) nMinDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) pSpecialAi-4(live) const:2147483647#5-4(live) pAiControl-4(live) const:1#3-4(live) const:0#1+0
-    blk 00bff340 L6529-6529 w=1 K=2: nThreat+4 nDistance+4 pNode-2(live) ppNode-2(live) nMinDistance-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) const:2147483647#5-2(live) pAiControl-2(live) const:1#3-2(live) pTarget-2(live) const:0#1-2(live)
-    blk 00bff4e0 L6531-6534 w=1 K=6: i+12 nY+12 nX+12 nAct+12 nDistance-6(live) pNode-6(live) ppNode-6(live) nMinDistance-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit+36 const:8#9-6(live) pSpecialAi-6(live) const:2147483647#5-6(live) pAiControl-6(live) const:1#3-6(live) pTarget-6(live) const:0#1+0
-    blk 00c000c0 L6534-6534 w=1 K=2: const:4#8+0 const:55#7+0 i-2(live) nY-2(live) nX-2(live) nAct-2(live) nDistance-2(live) pNode-2(live) ppNode-2(live) nMinDistance-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) const:2147483647#5-2(live) pAiControl-2(live) const:1#3-2(live) pTarget-2(live) const:0#1-2(live)
-    blk 00bff680 L6536-6536 w=2 K=2: const:4#8-4(live) const:55#7-4(live) i-4(live) nY-4(live) nX-4(live) nAct-4(live) nDistance-4(live) pNode+8 ppNode-4(live) nMinDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) pSpecialAi-4(live) const:2147483647#5-4(live) pAiControl-4(live) const:1#3-4(live) pTarget-4(live) const:0#1+0
-    blk 00bff820 L6538-6539 w=2 K=3: pCurrent+24 const:4#8-6(live) const:55#7-6(live) i-6(live) nY-6(live) nX-6(live) nAct-6(live) nDistance-6(live) pNode+12 ppNode-6(live) nMinDistance-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit-6(live) const:8#9-6(live) pSpecialAi-6(live) const:2147483647#5-6(live) pAiControl-6(live) const:1#3-6(live) pTarget-6(live) const:0#1+0
-    blk 00bff9c0 L6539-6539 w=2 K=2: pCurrent+8 const:4#8-4(live) const:55#7-4(live) i-4(live) nY-4(live) nX-4(live) nAct-4(live) nDistance-4(live) pNode-4(live) ppNode-4(live) nMinDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) pSpecialAi-4(live) const:2147483647#5-4(live) pAiControl-4(live) const:1#3-4(live) pTarget-4(live) const:0#1+0
-    blk 00bf2c60 L6540-6540 w=2 K=2: pCurrent+8 const:4#8-4(live) const:55#7-4(live) i-4(live) nY-4(live) nX-4(live) nAct+8 nDistance-4(live) pNode-4(live) ppNode-4(live) nMinDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) pSpecialAi-4(live) const:2147483647#5-4(live) pAiControl-4(live) const:1#3-4(live) pTarget-4(live) const:0#1-4(live)
-    blk 00bf2e00 L6540-6540 w=2 K=1: pCurrent+4 const:4#8-2(live) const:55#7-2(live) i-2(live) nY-2(live) nX-2(live) nAct-2(live) nDistance-2(live) pNode-2(live) ppNode-2(live) nMinDistance-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) const:2147483647#5-2(live) pAiControl-2(live) const:1#3-2(live) pTarget-2(live) const:0#1-2(live)
-    blk 00bf2fa0 L6540-6540 w=2 K=1: pCurrent+4 const:4#8-2(live) const:55#7-2(live) i-2(live) nY-2(live) nX-2(live) nAct-2(live) nDistance-2(live) pNode-2(live) ppNode-2(live) nMinDistance-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) const:2147483647#5-2(live) pAiControl-2(live) const:1#3-2(live) pTarget-2(live) const:0#1-2(live)
-    blk 00bf3140 L6542-6543 w=2 K=5: nCurrentDistance+40 pCurrent+20 const:4#8-10(live) const:55#7-10(live) i-10(live) nY+20 nX+20 nAct-10(live) nDistance-10(live) pNode-10(live) ppNode-10(live) nMinDistance+20 bCheckCollision-10(live) nOldToggle-10(live) pUnit-10(live) const:8#9-10(live) pSpecialAi-10(live) const:2147483647#5-10(live) pAiControl-10(live) const:1#3-10(live) pTarget-10(live) const:0#1-10(live)
-    blk 00bf32e0 L6544-6544 w=2 K=2: nMinDistance+8 nCurrentDistance+8 pCurrent-4(live) i-4(live) nY-4(live) nX-4(live) nAct-4(live) pNode-4(live) ppNode-4(live) nDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) const:4#8-4(live) const:55#7-4(live) pSpecialAi-4(live) const:2147483647#5-4(live) pAiControl-4(live) const:1#3-4(live) pTarget-4(live) const:0#1-4(live)
-    blk 00bf3480 L6545-6545 w=2 K=2: nMinDistance-4(live) nCurrentDistance+8 pCurrent-4(live) i-4(live) nY-4(live) nX-4(live) nAct-4(live) pNode-4(live) ppNode-4(live) nDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) const:4#8-4(live) const:55#7+0 pSpecialAi-4(live) const:2147483647#5-4(live) pAiControl-4(live) const:1#3-4(live) pTarget-4(live) const:0#1-4(live)
-    blk 00bf3620 L6547-6547 w=2 K=1: nMinDistance-2(live) nCurrentDistance-2(live) pCurrent+4 i-2(live) nY-2(live) nX-2(live) nAct-2(live) pNode-2(live) ppNode-2(live) nDistance-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) const:4#8-2(live) const:55#7-2(live) pSpecialAi-2(live) const:2147483647#5-2(live) pAiControl-2(live) const:1#3-2(live) pTarget-2(live) const:0#1-2(live)
-    blk 00bf37c0 L6548-6548 w=2 K=2: nCurrentDistance+8 pCurrent-4(live) i-4(live) nY-4(live) nX-4(live) nAct-4(live) pNode-4(live) ppNode-4(live) nDistance-4(live) nMinDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) const:4#8-4(live) const:55#7-4(live) pSpecialAi-4(live) const:2147483647#5+0 pAiControl-4(live) const:1#3-4(live) pTarget-4(live) const:0#1-4(live)
-    blk 00c379f8 L?         w=2 K=0: nCurrentDistance-0(live) pCurrent-0(live) i-0(live) nY-0(live) nX-0(live) nAct-0(live) pNode-0(live) ppNode-0(live) nDistance-0(live) nMinDistance-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) const:8#9-0(live) const:4#8-0(live) const:55#7-0(live) pSpecialAi-0(live) const:2147483647#5-0(live) pAiControl-0(live) const:1#3-0(live) pTarget-0(live) const:0#1-0(live)
-    blk 00bffee8 L?         w=2 K=0: nCurrentDistance-0(live) pCurrent-0(live) i-0(live) nY-0(live) nX-0(live) nAct-0(live) pNode-0(live) ppNode-0(live) nDistance-0(live) nMinDistance-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) const:8#9-0(live) const:4#8-0(live) const:55#7-0(live) pSpecialAi-0(live) const:2147483647#5-0(live) pAiControl-0(live) const:1#3-0(live) pTarget-0(live) const:0#1-0(live)
-    blk 00bf3960 L6551-6551 w=4 K=2: nCurrentDistance+16 pCurrent-8(live) i-8(live) nY-8(live) nX-8(live) nAct-8(live) pNode-8(live) ppNode-8(live) nDistance+16 nMinDistance-8(live) bCheckCollision-8(live) nOldToggle-8(live) pUnit-8(live) const:8#9-8(live) const:4#8-8(live) const:55#7-8(live) pSpecialAi-8(live) const:2147483647#5-8(live) pAiControl-8(live) const:1#3-8(live) pTarget-8(live) const:0#1-8(live)
-    blk 00bf6c80 L6551-6551 w=4 K=2: nCurrentDistance-8(live) pCurrent-8(live) i-8(live) nY-8(live) nX-8(live) nAct-8(live) pNode-8(live) ppNode-8(live) nDistance-8(live) nMinDistance-8(live) bCheckCollision+16 nOldToggle-8(live) pUnit-8(live) const:8#9-8(live) const:4#8-8(live) const:55#7-8(live) pSpecialAi-8(live) const:2147483647#5-8(live) pAiControl-8(live) const:1#3-8(live) pTarget-8(live) const:0#1+0
-    blk 00bf6e20 L6551-6551 w=4 K=3: nCurrentDistance-12(live) pCurrent+24 i-12(live) nY-12(live) nX-12(live) nAct-12(live) pNode-12(live) ppNode-12(live) nDistance-12(live) nMinDistance-12(live) bCheckCollision-12(live) nOldToggle-12(live) pUnit+24 const:8#9-12(live) const:4#8+0 const:55#7-12(live) pSpecialAi-12(live) const:2147483647#5-12(live) pAiControl-12(live) const:1#3-12(live) pTarget-12(live) const:0#1-12(live)
-    blk 00bf6fc0 L6553-6554 w=4 K=4: pCurrent+32 nCurrentDistance+32 pTarget+32 nDistance+32 i-16(live) nY-16(live) nX-16(live) nAct-16(live) pNode-16(live) ppNode-16(live) nMinDistance-16(live) bCheckCollision-16(live) nOldToggle-16(live) pUnit-16(live) const:8#9-16(live) const:4#8-16(live) const:55#7-16(live) pSpecialAi-16(live) const:2147483647#5-16(live) pAiControl-16(live) const:1#3-16(live) const:0#1-16(live)
-    blk 00bf7160 L6556-6557 w=4 K=2: pNode+48 pTarget-8(live) nDistance-8(live) i-8(live) nY-8(live) nX-8(live) nAct-8(live) ppNode-8(live) nMinDistance-8(live) bCheckCollision-8(live) nOldToggle-8(live) pUnit-8(live) const:8#9-8(live) const:4#8-8(live) const:55#7-8(live) pSpecialAi-8(live) const:2147483647#5-8(live) pAiControl-8(live) const:1#3-8(live) const:0#1+0
-    blk 00bf7300 L6559-6561 w=4 K=5: nCurrentDistance+40 pCurrent+80 pNode+40 pTarget-20(live) nDistance-20(live) i-20(live) nY+40 nX+40 nAct-20(live) ppNode-20(live) nMinDistance-20(live) bCheckCollision-20(live) nOldToggle-20(live) pUnit-20(live) const:8#9-20(live) const:4#8-20(live) const:55#7-20(live) pSpecialAi-20(live) const:2147483647#5-20(live) pAiControl-20(live) const:1#3-20(live) const:0#1-20(live)
-    blk 00bf74a0 L6534-6565 w=2 K=6: pNode+24 i+48 nY-12(live) nX-12(live) nAct-12(live) ppNode+48 nDistance-12(live) nMinDistance-12(live) bCheckCollision-12(live) nOldToggle-12(live) pUnit-12(live) const:8#9+0 const:4#8+0 const:55#7-12(live) pSpecialAi-12(live) const:2147483647#5-12(live) pAiControl-12(live) const:1#3+0 pTarget-12(live) const:0#1-12(live)
-    blk 00bf7640 L6539-6539 w=1 K=0: nY-0(live) nX-0(live) nAct-0(live) pNode-0(live) ppNode-0(live) nDistance-0(live) nMinDistance-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) const:8#9-0(live) const:4#8-0(live) pSpecialAi-0(live) const:2147483647#5-0(live) pAiControl-0(live) pTarget-0(live) const:0#1-0(live)
-    blk 00bf7980 L6567-6567 w=1 K=2: nY-2(live) nX-2(live) nAct-2(live) pNode+4 ppNode-2(live) nDistance-2(live) nMinDistance-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) const:4#8-2(live) pSpecialAi-2(live) const:2147483647#5-2(live) pAiControl-2(live) pTarget-2(live) const:0#1+0
-    blk 00c37c20 L?         w=1 K=0: nY-0(live) nX-0(live) nAct-0(live) pNode-0(live) ppNode-0(live) nDistance-0(live) nMinDistance-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) const:8#9-0(live) const:4#8-0(live) pSpecialAi-0(live) const:2147483647#5-0(live) pAiControl-0(live) pTarget-0(live) const:0#1-0(live)
-    blk 00bf0c50 L6569-6570 w=2 K=3: pCurrent+24 nY-6(live) nX-6(live) nAct+12 pNode+12 ppNode-6(live) nDistance-6(live) nMinDistance-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit-6(live) const:8#9-6(live) const:4#8-6(live) pSpecialAi-6(live) const:2147483647#5-6(live) pAiControl-6(live) pTarget-6(live) const:0#1-6(live)
-    blk 00bf0df0 L6572-6573 w=2 K=5: nCurrentDistance+40 pCurrent+20 nY+20 nX+20 nAct-10(live) pNode-10(live) ppNode-10(live) nDistance+20 nMinDistance-10(live) bCheckCollision-10(live) nOldToggle-10(live) pUnit-10(live) const:8#9-10(live) const:4#8-10(live) pSpecialAi-10(live) const:2147483647#5-10(live) pAiControl-10(live) pTarget-10(live) const:0#1-10(live)
-    blk 00bf0f90 L6573-6573 w=2 K=2: nCurrentDistance-4(live) pCurrent-4(live) nY-4(live) nX-4(live) nAct-4(live) pNode-4(live) ppNode-4(live) nDistance-4(live) nMinDistance-4(live) bCheckCollision+8 nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) const:4#8-4(live) pSpecialAi-4(live) const:2147483647#5-4(live) pAiControl-4(live) pTarget-4(live) const:0#1+0
-    blk 00bf1130 L6573-6573 w=2 K=3: nCurrentDistance-6(live) pCurrent+12 nY-6(live) nX-6(live) nAct-6(live) pNode-6(live) ppNode-6(live) nDistance-6(live) nMinDistance-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit+12 const:8#9-6(live) const:4#8+0 pSpecialAi-6(live) const:2147483647#5-6(live) pAiControl-6(live) pTarget-6(live) const:0#1-6(live)
-    blk 00bf12d0 L6575-6576 w=2 K=4: pCurrent+16 nCurrentDistance+16 pTarget+16 nDistance+16 nY-8(live) nX-8(live) nAct-8(live) pNode-8(live) ppNode-8(live) nMinDistance-8(live) bCheckCollision-8(live) nOldToggle-8(live) pUnit-8(live) const:8#9-8(live) const:4#8-8(live) pSpecialAi-8(live) const:2147483647#5-8(live) pAiControl-8(live) const:0#1-8(live)
-    blk 00bf1470 L6567-6579 w=2 K=2: pNode+24 pTarget-4(live) nDistance-4(live) nY-4(live) nX-4(live) nAct-4(live) ppNode-4(live) nMinDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) const:4#8-4(live) pSpecialAi-4(live) const:2147483647#5-4(live) pAiControl-4(live) const:0#1+0
-    blk 00c00298 L?         w=1 K=0: nY-0(live) nX-0(live) nAct-0(live) ppNode-0(live) nDistance-0(live) nMinDistance-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) const:8#9-0(live) const:4#8-0(live) pSpecialAi-0(live) const:2147483647#5-0(live) pAiControl-0(live) pTarget-0(live) const:0#1-0(live)
-    blk 00bf1610 L6581-6584 w=1 K=6: ppNode+12 nAlternativeDistance+12 pAlternative+12 pNode+24 nY-6(live) nX-6(live) nAct-6(live) nDistance-6(live) nMinDistance-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit-6(live) const:8#9-6(live) const:4#8-6(live) pSpecialAi-6(live) pAiControl-6(live) pTarget-6(live) const:0#1+0
-    blk 00bffcc8 L?         w=1 K=0: nAlternativeDistance-0(live) pAlternative-0(live) pNode-0(live) nY-0(live) nX-0(live) nAct-0(live) nDistance-0(live) nMinDistance-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) const:8#9-0(live) const:4#8-0(live) pSpecialAi-0(live) pAiControl-0(live) pTarget-0(live) const:0#1-0(live)
-    blk 00bf17b0 L6586-6587 w=2 K=3: pCurrent+24 nAlternativeDistance-6(live) pAlternative-6(live) pNode+12 nY-6(live) nX-6(live) nAct+12 nDistance-6(live) nMinDistance-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit-6(live) const:8#9-6(live) const:4#8-6(live) pSpecialAi-6(live) pAiControl-6(live) pTarget-6(live) const:0#1-6(live)
-    blk 00bf1950 L6589-6590 w=2 K=5: nCurrentDistance+40 pCurrent+20 nAlternativeDistance+20 pAlternative-10(live) pNode-10(live) nY+20 nX+20 nAct-10(live) nDistance-10(live) nMinDistance-10(live) bCheckCollision-10(live) nOldToggle-10(live) pUnit-10(live) const:8#9-10(live) const:4#8-10(live) pSpecialAi-10(live) pAiControl-10(live) pTarget-10(live) const:0#1-10(live)
-    blk 00c2ce50 L6590-6590 w=2 K=2: nCurrentDistance-4(live) pCurrent-4(live) nAlternativeDistance-4(live) pAlternative-4(live) pNode-4(live) nY-4(live) nX-4(live) nAct-4(live) nDistance-4(live) nMinDistance-4(live) bCheckCollision+8 nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) const:4#8-4(live) pSpecialAi-4(live) pAiControl-4(live) pTarget-4(live) const:0#1+0
-    blk 00c2cff0 L6590-6590 w=2 K=3: nCurrentDistance-6(live) pCurrent+12 nAlternativeDistance-6(live) pAlternative-6(live) pNode-6(live) nY-6(live) nX-6(live) nAct-6(live) nDistance-6(live) nMinDistance-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit+12 const:8#9-6(live) const:4#8+0 pSpecialAi-6(live) pAiControl-6(live) pTarget-6(live) const:0#1-6(live)
-    blk 00c2d190 L6592-6593 w=2 K=4: pCurrent+16 nCurrentDistance+16 pAlternative+16 nAlternativeDistance+16 nY-8(live) nX-8(live) nAct-8(live) pNode-8(live) nDistance-8(live) nMinDistance-8(live) bCheckCollision-8(live) nOldToggle-8(live) pUnit-8(live) const:8#9-8(live) const:4#8-8(live) pSpecialAi-8(live) pAiControl-8(live) pTarget-8(live) const:0#1-8(live)
-    blk 00c2d330 L6584-6596 w=2 K=2: pNode+24 pAlternative-4(live) nAlternativeDistance-4(live) nY-4(live) nX-4(live) nAct-4(live) nDistance-4(live) nMinDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) const:4#8-4(live) pSpecialAi-4(live) pAiControl-4(live) pTarget-4(live) const:0#1+0
-    blk 00c00470 L?         w=1 K=0: nAlternativeDistance-0(live) pAlternative-0(live) nDistance-0(live) nMinDistance-0(live) nOldToggle-0(live) pUnit-0(live) const:8#9-0(live) pSpecialAi-0(live) pAiControl-0(live) pTarget-0(live) const:0#1-0(live)
-    blk 00c2d4d0 L6598-6598 w=1 K=2: nAlternativeDistance-2(live) pAlternative+4 nDistance-2(live) nMinDistance-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) pAiControl-2(live) pTarget-2(live) const:0#1+0
-    blk 00c2d670 L6598-6598 w=1 K=3: nAlternativeDistance+6 pAlternative+6 nMinDistance-3(live) nOldToggle-3(live) pUnit+6 const:8#9-3(live) pSpecialAi-3(live) pAiControl-3(live) const:0#1-3(live)
-    blk 00c2d810 L6600-6604 w=1 K=4: nAlternativeDistance+8 pAlternative+8 nDistance+8 pTarget+8 nMinDistance-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) pSpecialAi-4(live) pAiControl-4(live) const:0#1-4(live)
-    blk 00c2d9b0 L6606-6616 w=1 K=8: pGame+16 const:2147483647#5+16 nCollision+32 bCheckCollision+16 pRoom+16 tmp#35+16 nMinDistance-8(live) nOldToggle-8(live) pUnit+48 const:8#9-8(live) pSpecialAi-8(live) pAiControl-8(live) const:0#1+16
-    blk 00c2db50 L6616-6616 w=1 K=2: tmp#35+4 nMinDistance-2(live) nOldToggle-2(live) pUnit+4 const:8#9-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#1-2(live)
-    blk 00c1ddd8 L6618-6621 w=1 K=2: nDistance+4 pTarget+4 nMinDistance-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#1-2(live)
-    blk 00c1df78 L6623-6624 w=1 K=2: nDistance+4 pTarget+4 nMinDistance-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#1-2(live)
-    blk 00c00648 L6624-6624 w=1 K=2: nDistance+0 pTarget+0 nMinDistance-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#1-2(live)
-    blk 00c1e118 L6628-6628 w=1 K=2: nDistance-2(live) pTarget+4 nMinDistance-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#1+0
-    blk 00c1e2b8 L6630-6632 w=1 K=2: nMinDistance+4
-    blk 00c1e458 L6634-6634 w=1 K=1: nDistance-1(live) nOldToggle-1(live) pUnit+2 const:8#9-1(live) pSpecialAi-1(live) pAiControl-1(live) pTarget-1(live) const:0#1-1(live)
-    blk 00c1e5f8 L6636-6637 w=1 K=4: pAiControl+16 const:8#9+4 nDistance-4(live) nOldToggle-4(live) pUnit-4(live) pSpecialAi+8 pTarget-4(live) const:0#1+0
-    blk 00c1e798 L6638-6638 w=1 K=3: pSpecialAi+6 nOldToggle+6 nDistance-3(live) pUnit-3(live) pTarget-3(live) const:0#1+0
-    blk 00c1e938 L6640-6642 w=1 K=4: pTarget+16 nDistance+8 pUnit+8
+    blk 00c52ba4 L6494-6496 w=1 K=4: const:0#1+0 pRoom+16 pGame+8 pUnit+16
+    blk 00c52ee4 L6498-6502 w=1 K=6: const:1#3+0 tmp#42(def L6501,6523)+24 pAiControl+12 nOldToggle+12 pSpecialAi+12 const:0#1+0 pRoom-6(live) pGame-6(live) pUnit-6(live)
+    blk 00c53084 L6504-6504 w=1 K=2: bCheckCollision+4 const:1#3+0 tmp#42(def L6501,6523)-2(live) pAiControl-2(live) nOldToggle-2(live) pSpecialAi-2(live) const:0#1-2(live) pRoom-2(live) pGame-2(live) pUnit-2(live)
+    blk 00c53224 L6506-6506 w=1 K=1: nOldToggle-1(live) pUnit-1(live) pRoom+2 pGame-1(live) pSpecialAi-1(live) pAiControl-1(live) const:1#3-1(live) const:0#1-1(live)
+    blk 00c533c4 L6507-6508 w=1 K=2: bCheckCollision+4 nOldToggle-2(live) pUnit-2(live) pRoom-2(live) pGame-2(live) pSpecialAi-2(live) pAiControl-2(live) const:1#3-2(live) const:0#1+0
+    blk 00c53564 L6510-6511 w=1 K=6: tmp#37(def L6510)+60 bCheckCollision+12 nOldToggle-6(live) pUnit+12 pRoom-6(live) pGame-6(live) pSpecialAi-6(live) pAiControl+12 const:1#3+0 const:0#1+0
+    blk 00c53704 L6511-6512 w=1 K=3: tmp#39(def L6511)+12 bCheckCollision-3(live) nOldToggle-3(live) pUnit+6 pRoom-3(live) pGame-3(live) pSpecialAi-3(live) pAiControl-3(live) const:1#3+0 const:0#1-3(live)
+    blk 00c05d10 L6514-6514 w=1 K=2: tmp#39(def L6511)+4 bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pRoom-2(live) pGame-2(live) pAiControl-2(live) const:1#3+0 const:0#1-2(live)
+    blk 00c05eb0 L6514-6514 w=1 K=3: tmp#40(def L6514)+12 bCheckCollision-3(live) nOldToggle-3(live) pUnit+6 pRoom-3(live) pGame-3(live) pAiControl-3(live) const:1#3-3(live) const:0#1+0
+    blk 00c06050 L6514-6514 w=1 K=2: tmp#40(def L6514)+4 pSpecialAi+4 bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pRoom-2(live) pGame-2(live) pAiControl-2(live) const:1#3-2(live) const:0#1-2(live)
+    blk 00c061f0 L6514-6514 w=1 K=2: pSpecialAi+4 bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pRoom-2(live) pGame-2(live) pAiControl-2(live) const:1#3-2(live) const:0#1+0
+    blk 00c06390 L6514-6515 w=1 K=2: pSpecialAi-2(live) bCheckCollision+4 nOldToggle-2(live) pUnit-2(live) pRoom-2(live) pGame-2(live) pAiControl-2(live) const:1#3-2(live) const:0#1+0
+    blk 00c06530 L6515-6515 w=1 K=2: pSpecialAi+4 bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pRoom-2(live) pGame-2(live) pAiControl-2(live) const:1#3-2(live) const:0#1+0
+    blk 00c066d0 L6517-6522 w=1 K=4: bCheckCollision+8 nOldToggle+16 pUnit-4(live) pRoom-4(live) pGame-4(live) pSpecialAi+8 pAiControl-4(live) const:1#3-4(live) const:0#1+0
+    blk 00c06870 L6523-6523 w=1 K=2: tmp#42(def L6501,6523)+12 bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pRoom-2(live) pGame-2(live) pSpecialAi-2(live) pAiControl+4 const:1#3-2(live) const:0#1-2(live)
+    blk 00c06a10 L6523-6528 w=1 K=7: const:8#9+0 nMinDistance+14 const:2147483647#5+0 bCheckCollision+14 nOldToggle-7(live) pUnit+14 pRoom-7(live) pGame+14 pSpecialAi-7(live) pAiControl-7(live) const:1#3-7(live) const:0#1+7
+    blk 00c3ced0 L6530-6530 w=1 K=1: const:8#9-1(live) nMinDistance-1(live) const:2147483647#5-1(live) bCheckCollision-1(live) nOldToggle-1(live) pUnit+2 pRoom-1(live) pGame-1(live) pSpecialAi-1(live) pAiControl-1(live) const:1#3-1(live) const:0#1-1(live)
+    blk 00c3d070 L6532-6537 w=1 K=7: nDistance+14 pTarget+14 pNode+14 ppNode+28 nMinDistance-7(live) bCheckCollision-7(live) nOldToggle-7(live) pUnit+14 pGame+14 const:8#9-7(live) pSpecialAi-7(live) const:2147483647#5-7(live) pAiControl-7(live) const:1#3-7(live) const:0#1+0
+    blk 00c3d210 L6537-6537 w=1 K=2: nDistance-2(live) pTarget-2(live) pNode-2(live) ppNode-2(live) nMinDistance-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit+4 pGame-2(live) const:8#9-2(live) pSpecialAi-2(live) const:2147483647#5-2(live) pAiControl-2(live) const:1#3+0 const:0#1-2(live)
+    blk 00c3d3b0 L6537-6537 w=1 K=3: tmp#41(def L6537)+12 nDistance-3(live) pTarget-3(live) pNode-3(live) ppNode-3(live) nMinDistance-3(live) bCheckCollision-3(live) nOldToggle-3(live) pUnit+6 pGame-3(live) const:8#9-3(live) pSpecialAi-3(live) const:2147483647#5-3(live) pAiControl-3(live) const:1#3-3(live) const:0#1+0
+    blk 00c3d550 L6538-6539 w=1 K=3: tmp#41(def L6537)+6 pMonStats+12 nDistance-3(live) pTarget-3(live) pNode-3(live) ppNode-3(live) nMinDistance-3(live) bCheckCollision-3(live) nOldToggle-3(live) pUnit-3(live) pGame-3(live) const:8#9-3(live) pSpecialAi-3(live) const:2147483647#5-3(live) pAiControl-3(live) const:1#3-3(live) const:0#1+0
+    blk 00c3d6f0 L6541-6542 w=1 K=4: pMonStats+8 pGame+8 nThreat+16 nDistance-4(live) pTarget-4(live) pNode-4(live) ppNode-4(live) nMinDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) pSpecialAi-4(live) const:2147483647#5-4(live) pAiControl-4(live) const:1#3-4(live) const:0#1+0
+    blk 00c3d890 L6543-6543 w=1 K=2: nThreat+4 nDistance+4 pNode-2(live) ppNode-2(live) nMinDistance-2(live) pTarget-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) const:2147483647#5-2(live) pAiControl-2(live) const:1#3-2(live) const:0#1-2(live)
+    blk 00c3da30 L6545-6548 w=1 K=6: i+12 nY+12 nX+12 nAct+12 nDistance-6(live) pNode-6(live) ppNode-6(live) nMinDistance-6(live) pTarget-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit+36 const:8#9-6(live) pSpecialAi-6(live) const:2147483647#5-6(live) pAiControl-6(live) const:1#3-6(live) const:0#1+0
+    blk 00bee41c L6548-6548 w=1 K=2: const:4#8+0 const:55#7+0 i-2(live) nY-2(live) nX-2(live) nAct-2(live) nDistance-2(live) pNode-2(live) ppNode-2(live) nMinDistance-2(live) pTarget-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) const:2147483647#5-2(live) pAiControl-2(live) const:1#3-2(live) const:0#1-2(live)
+    blk 00c3dbd0 L6550-6550 w=2 K=2: const:4#8-4(live) const:55#7-4(live) i-4(live) nY-4(live) nX-4(live) nAct-4(live) nDistance-4(live) pNode+8 ppNode-4(live) nMinDistance-4(live) pTarget-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) pSpecialAi-4(live) const:2147483647#5-4(live) pAiControl-4(live) const:1#3-4(live) const:0#1+0
+    blk 00c37ea8 L6552-6553 w=2 K=3: pCurrent+24 const:4#8-6(live) const:55#7-6(live) i-6(live) nY-6(live) nX-6(live) nAct-6(live) nDistance-6(live) pNode+12 ppNode-6(live) nMinDistance-6(live) pTarget-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit-6(live) const:8#9-6(live) pSpecialAi-6(live) const:2147483647#5-6(live) pAiControl-6(live) const:1#3-6(live) const:0#1+0
+    blk 00c38048 L6553-6553 w=2 K=2: pCurrent+8 const:4#8-4(live) const:55#7-4(live) i-4(live) nY-4(live) nX-4(live) nAct-4(live) nDistance-4(live) pNode-4(live) ppNode-4(live) nMinDistance-4(live) pTarget-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) pSpecialAi-4(live) const:2147483647#5-4(live) pAiControl-4(live) const:1#3-4(live) const:0#1+0
+    blk 00c381e8 L6554-6554 w=2 K=2: pCurrent+8 const:4#8-4(live) const:55#7-4(live) i-4(live) nY-4(live) nX-4(live) nAct+8 nDistance-4(live) pNode-4(live) ppNode-4(live) nMinDistance-4(live) pTarget-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) pSpecialAi-4(live) const:2147483647#5-4(live) pAiControl-4(live) const:1#3-4(live) const:0#1-4(live)
+    blk 00c38388 L6554-6554 w=2 K=1: pCurrent+4 const:4#8-2(live) const:55#7-2(live) i-2(live) nY-2(live) nX-2(live) nAct-2(live) nDistance-2(live) pNode-2(live) ppNode-2(live) nMinDistance-2(live) pTarget-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) const:2147483647#5-2(live) pAiControl-2(live) const:1#3-2(live) const:0#1-2(live)
+    blk 00c38528 L6554-6554 w=2 K=1: pCurrent+4 const:4#8-2(live) const:55#7-2(live) i-2(live) nY-2(live) nX-2(live) nAct-2(live) nDistance-2(live) pNode-2(live) ppNode-2(live) nMinDistance-2(live) pTarget-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) const:2147483647#5-2(live) pAiControl-2(live) const:1#3-2(live) const:0#1-2(live)
+    blk 00c386c8 L6556-6557 w=2 K=5: nCurrentDistance+40 pCurrent+20 const:4#8-10(live) const:55#7-10(live) i-10(live) nY+20 nX+20 nAct-10(live) nDistance-10(live) pNode-10(live) ppNode-10(live) nMinDistance+20 pTarget-10(live) bCheckCollision-10(live) nOldToggle-10(live) pUnit-10(live) const:8#9-10(live) pSpecialAi-10(live) const:2147483647#5-10(live) pAiControl-10(live) const:1#3-10(live) const:0#1-10(live)
+    blk 00c38868 L6558-6558 w=2 K=2: nMinDistance+8 nCurrentDistance+8 pCurrent-4(live) i-4(live) nY-4(live) nX-4(live) nAct-4(live) pNode-4(live) ppNode-4(live) nDistance-4(live) pTarget-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) const:4#8-4(live) const:55#7-4(live) pSpecialAi-4(live) const:2147483647#5-4(live) pAiControl-4(live) const:1#3-4(live) const:0#1-4(live)
+    blk 00c38a08 L6559-6559 w=2 K=2: nMinDistance-4(live) nCurrentDistance+8 pCurrent-4(live) i-4(live) nY-4(live) nX-4(live) nAct-4(live) pNode-4(live) ppNode-4(live) nDistance-4(live) pTarget-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) const:4#8-4(live) const:55#7+0 pSpecialAi-4(live) const:2147483647#5-4(live) pAiControl-4(live) const:1#3-4(live) const:0#1-4(live)
+    blk 00c38ba8 L6561-6561 w=2 K=1: nMinDistance-2(live) nCurrentDistance-2(live) pCurrent+4 i-2(live) nY-2(live) nX-2(live) nAct-2(live) pNode-2(live) ppNode-2(live) nDistance-2(live) pTarget-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) const:4#8-2(live) const:55#7-2(live) pSpecialAi-2(live) const:2147483647#5-2(live) pAiControl-2(live) const:1#3-2(live) const:0#1-2(live)
+    blk 00c24e10 L6562-6562 w=2 K=2: nCurrentDistance+8 pCurrent-4(live) i-4(live) nY-4(live) nX-4(live) nAct-4(live) pNode-4(live) ppNode-4(live) nDistance-4(live) nMinDistance-4(live) pTarget-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) const:4#8-4(live) const:55#7-4(live) pSpecialAi-4(live) const:2147483647#5+0 pAiControl-4(live) const:1#3-4(live) const:0#1-4(live)
+    blk 00bedc30 L?         w=2 K=0: nCurrentDistance-0(live) pCurrent-0(live) i-0(live) nY-0(live) nX-0(live) nAct-0(live) pNode-0(live) ppNode-0(live) nDistance-0(live) nMinDistance-0(live) pTarget-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) const:8#9-0(live) const:4#8-0(live) const:55#7-0(live) pSpecialAi-0(live) const:2147483647#5-0(live) pAiControl-0(live) const:1#3-0(live) const:0#1-0(live)
+    blk 00bee244 L?         w=2 K=0: nCurrentDistance-0(live) pCurrent-0(live) i-0(live) nY-0(live) nX-0(live) nAct-0(live) pNode-0(live) ppNode-0(live) nDistance-0(live) nMinDistance-0(live) pTarget-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) const:8#9-0(live) const:4#8-0(live) const:55#7-0(live) pSpecialAi-0(live) const:2147483647#5-0(live) pAiControl-0(live) const:1#3-0(live) const:0#1-0(live)
+    blk 00c24fb0 L6565-6565 w=4 K=2: nCurrentDistance+16 pCurrent-8(live) i-8(live) nY-8(live) nX-8(live) nAct-8(live) pNode-8(live) ppNode-8(live) nDistance+16 nMinDistance-8(live) pTarget-8(live) bCheckCollision-8(live) nOldToggle-8(live) pUnit-8(live) const:8#9-8(live) const:4#8-8(live) const:55#7-8(live) pSpecialAi-8(live) const:2147483647#5-8(live) pAiControl-8(live) const:1#3-8(live) const:0#1-8(live)
+    blk 00c25150 L6565-6565 w=4 K=2: nCurrentDistance-8(live) pCurrent-8(live) i-8(live) nY-8(live) nX-8(live) nAct-8(live) pNode-8(live) ppNode-8(live) nDistance-8(live) nMinDistance-8(live) pTarget-8(live) bCheckCollision+16 nOldToggle-8(live) pUnit-8(live) const:8#9-8(live) const:4#8-8(live) const:55#7-8(live) pSpecialAi-8(live) const:2147483647#5-8(live) pAiControl-8(live) const:1#3-8(live) const:0#1+0
+    blk 00c252f0 L6565-6565 w=4 K=3: nCurrentDistance-12(live) pCurrent+24 i-12(live) nY-12(live) nX-12(live) nAct-12(live) pNode-12(live) ppNode-12(live) nDistance-12(live) nMinDistance-12(live) pTarget-12(live) bCheckCollision-12(live) nOldToggle-12(live) pUnit+24 const:8#9-12(live) const:4#8+0 const:55#7-12(live) pSpecialAi-12(live) const:2147483647#5-12(live) pAiControl-12(live) const:1#3-12(live) const:0#1-12(live)
+    blk 00c25490 L6567-6568 w=4 K=4: pCurrent+32 nCurrentDistance+32 pTarget+32 nDistance+32 i-16(live) nY-16(live) nX-16(live) nAct-16(live) pNode-16(live) ppNode-16(live) nMinDistance-16(live) bCheckCollision-16(live) nOldToggle-16(live) pUnit-16(live) const:8#9-16(live) const:4#8-16(live) const:55#7-16(live) pSpecialAi-16(live) const:2147483647#5-16(live) pAiControl-16(live) const:1#3-16(live) const:0#1-16(live)
+    blk 00c25630 L6570-6571 w=4 K=2: pNode+48 pTarget-8(live) nDistance-8(live) i-8(live) nY-8(live) nX-8(live) nAct-8(live) ppNode-8(live) nMinDistance-8(live) bCheckCollision-8(live) nOldToggle-8(live) pUnit-8(live) const:8#9-8(live) const:4#8-8(live) const:55#7-8(live) pSpecialAi-8(live) const:2147483647#5-8(live) pAiControl-8(live) const:1#3-8(live) const:0#1+0
+    blk 00c257d0 L6573-6575 w=4 K=5: nCurrentDistance+40 pCurrent+80 pNode+40 pTarget-20(live) nDistance-20(live) i-20(live) nY+40 nX+40 nAct-20(live) ppNode-20(live) nMinDistance-20(live) bCheckCollision-20(live) nOldToggle-20(live) pUnit-20(live) const:8#9-20(live) const:4#8-20(live) const:55#7-20(live) pSpecialAi-20(live) const:2147483647#5-20(live) pAiControl-20(live) const:1#3-20(live) const:0#1-20(live)
+    blk 00c25970 L6548-6579 w=2 K=6: pNode+24 i+48 nY-12(live) nX-12(live) nAct-12(live) ppNode+48 nDistance-12(live) nMinDistance-12(live) pTarget-12(live) bCheckCollision-12(live) nOldToggle-12(live) pUnit-12(live) const:8#9+0 const:4#8+0 const:55#7-12(live) pSpecialAi-12(live) const:2147483647#5-12(live) pAiControl-12(live) const:1#3+0 const:0#1-12(live)
+    blk 00c25b10 L6553-6553 w=1 K=0: nY-0(live) nX-0(live) nAct-0(live) pNode-0(live) ppNode-0(live) nDistance-0(live) nMinDistance-0(live) pTarget-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) const:8#9-0(live) const:4#8-0(live) pSpecialAi-0(live) const:2147483647#5-0(live) pAiControl-0(live) const:0#1-0(live)
+    blk 00c25fb8 L6581-6581 w=1 K=2: nY-2(live) nX-2(live) nAct-2(live) pNode+4 ppNode-2(live) nDistance-2(live) nMinDistance-2(live) pTarget-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) const:4#8-2(live) pSpecialAi-2(live) const:2147483647#5-2(live) pAiControl-2(live) const:0#1+0
+    blk 00beddd0 L?         w=1 K=0: nY-0(live) nX-0(live) nAct-0(live) pNode-0(live) ppNode-0(live) nDistance-0(live) nMinDistance-0(live) pTarget-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) const:8#9-0(live) const:4#8-0(live) pSpecialAi-0(live) const:2147483647#5-0(live) pAiControl-0(live) const:0#1-0(live)
+    blk 00c26158 L6583-6584 w=2 K=3: pCurrent+24 nY-6(live) nX-6(live) nAct+12 pNode+12 ppNode-6(live) nDistance-6(live) nMinDistance-6(live) pTarget-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit-6(live) const:8#9-6(live) const:4#8-6(live) pSpecialAi-6(live) const:2147483647#5-6(live) pAiControl-6(live) const:0#1-6(live)
+    blk 00c262f8 L6586-6587 w=2 K=5: nCurrentDistance+40 pCurrent+20 nY+20 nX+20 nAct-10(live) pNode-10(live) ppNode-10(live) nDistance+20 nMinDistance-10(live) pTarget-10(live) bCheckCollision-10(live) nOldToggle-10(live) pUnit-10(live) const:8#9-10(live) const:4#8-10(live) pSpecialAi-10(live) const:2147483647#5-10(live) pAiControl-10(live) const:0#1-10(live)
+    blk 00c26498 L6587-6587 w=2 K=2: nCurrentDistance-4(live) pCurrent-4(live) nY-4(live) nX-4(live) nAct-4(live) pNode-4(live) ppNode-4(live) nDistance-4(live) nMinDistance-4(live) pTarget-4(live) bCheckCollision+8 nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) const:4#8-4(live) pSpecialAi-4(live) const:2147483647#5-4(live) pAiControl-4(live) const:0#1+0
+    blk 00c26638 L6587-6587 w=2 K=3: nCurrentDistance-6(live) pCurrent+12 nY-6(live) nX-6(live) nAct-6(live) pNode-6(live) ppNode-6(live) nDistance-6(live) nMinDistance-6(live) pTarget-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit+12 const:8#9-6(live) const:4#8+0 pSpecialAi-6(live) const:2147483647#5-6(live) pAiControl-6(live) const:0#1-6(live)
+    blk 00c267d8 L6589-6590 w=2 K=4: pCurrent+16 nCurrentDistance+16 pTarget+16 nDistance+16 nY-8(live) nX-8(live) nAct-8(live) pNode-8(live) ppNode-8(live) nMinDistance-8(live) bCheckCollision-8(live) nOldToggle-8(live) pUnit-8(live) const:8#9-8(live) const:4#8-8(live) pSpecialAi-8(live) const:2147483647#5-8(live) pAiControl-8(live) const:0#1-8(live)
+    blk 00c26978 L6581-6593 w=2 K=2: pNode+24 pTarget-4(live) nDistance-4(live) nY-4(live) nX-4(live) nAct-4(live) ppNode-4(live) nMinDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) const:4#8-4(live) pSpecialAi-4(live) const:2147483647#5-4(live) pAiControl-4(live) const:0#1+0
+    blk 00bee5f4 L?         w=1 K=0: nY-0(live) nX-0(live) nAct-0(live) ppNode-0(live) nDistance-0(live) nMinDistance-0(live) pTarget-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) const:8#9-0(live) const:4#8-0(live) pSpecialAi-0(live) const:2147483647#5-0(live) pAiControl-0(live) const:0#1-0(live)
+    blk 00c26b18 L6595-6598 w=1 K=6: ppNode+12 nAlternativeDistance+12 pAlternative+12 pNode+24 nY-6(live) nX-6(live) nAct-6(live) nDistance-6(live) nMinDistance-6(live) pTarget-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit-6(live) const:8#9-6(live) const:4#8-6(live) pSpecialAi-6(live) pAiControl-6(live) const:0#1+0
+    blk 00bedff8 L?         w=1 K=0: nAlternativeDistance-0(live) pAlternative-0(live) pNode-0(live) nY-0(live) nX-0(live) nAct-0(live) nDistance-0(live) nMinDistance-0(live) pTarget-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) const:8#9-0(live) const:4#8-0(live) pSpecialAi-0(live) pAiControl-0(live) const:0#1-0(live)
+    blk 00c16da0 L6600-6601 w=2 K=3: pCurrent+24 nAlternativeDistance-6(live) pAlternative-6(live) pNode+12 nY-6(live) nX-6(live) nAct+12 nDistance-6(live) nMinDistance-6(live) pTarget-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit-6(live) const:8#9-6(live) const:4#8-6(live) pSpecialAi-6(live) pAiControl-6(live) const:0#1-6(live)
+    blk 00c16f40 L6603-6604 w=2 K=5: nCurrentDistance+40 pCurrent+20 nAlternativeDistance+20 pAlternative-10(live) pNode-10(live) nY+20 nX+20 nAct-10(live) nDistance-10(live) nMinDistance-10(live) pTarget-10(live) bCheckCollision-10(live) nOldToggle-10(live) pUnit-10(live) const:8#9-10(live) const:4#8-10(live) pSpecialAi-10(live) pAiControl-10(live) const:0#1-10(live)
+    blk 00c170e0 L6604-6604 w=2 K=2: nCurrentDistance-4(live) pCurrent-4(live) nAlternativeDistance-4(live) pAlternative-4(live) pNode-4(live) nY-4(live) nX-4(live) nAct-4(live) nDistance-4(live) nMinDistance-4(live) pTarget-4(live) bCheckCollision+8 nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) const:4#8-4(live) pSpecialAi-4(live) pAiControl-4(live) const:0#1+0
+    blk 00c17280 L6604-6604 w=2 K=3: nCurrentDistance-6(live) pCurrent+12 nAlternativeDistance-6(live) pAlternative-6(live) pNode-6(live) nY-6(live) nX-6(live) nAct-6(live) nDistance-6(live) nMinDistance-6(live) pTarget-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit+12 const:8#9-6(live) const:4#8+0 pSpecialAi-6(live) pAiControl-6(live) const:0#1-6(live)
+    blk 00c17420 L6606-6607 w=2 K=4: pCurrent+16 nCurrentDistance+16 pAlternative+16 nAlternativeDistance+16 nY-8(live) nX-8(live) nAct-8(live) pNode-8(live) nDistance-8(live) nMinDistance-8(live) pTarget-8(live) bCheckCollision-8(live) nOldToggle-8(live) pUnit-8(live) const:8#9-8(live) const:4#8-8(live) pSpecialAi-8(live) pAiControl-8(live) const:0#1-8(live)
+    blk 00c175c0 L6598-6610 w=2 K=2: pNode+24 pAlternative-4(live) nAlternativeDistance-4(live) nY-4(live) nX-4(live) nAct-4(live) nDistance-4(live) nMinDistance-4(live) pTarget-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) const:4#8-4(live) pSpecialAi-4(live) pAiControl-4(live) const:0#1+0
+    blk 00bee7cc L?         w=1 K=0: nAlternativeDistance-0(live) pAlternative-0(live) nDistance-0(live) nMinDistance-0(live) pTarget-0(live) nOldToggle-0(live) pUnit-0(live) const:8#9-0(live) pSpecialAi-0(live) pAiControl-0(live) const:0#1-0(live)
+    blk 00c17760 L6612-6612 w=1 K=2: nAlternativeDistance-2(live) pAlternative+4 nDistance-2(live) nMinDistance-2(live) pTarget-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#1+0
+    blk 00c17900 L6612-6612 w=1 K=3: nAlternativeDistance+6 pAlternative+6 nMinDistance-3(live) nOldToggle-3(live) pUnit+6 const:8#9-3(live) pSpecialAi-3(live) pAiControl-3(live) const:0#1-3(live)
+    blk 00c17aa0 L6614-6618 w=1 K=4: nAlternativeDistance+8 pAlternative+8 nDistance+8 pTarget+8 nMinDistance-4(live) nOldToggle-4(live) pUnit-4(live) const:8#9-4(live) pSpecialAi-4(live) pAiControl-4(live) const:0#1-4(live)
+    blk 00bfecc0 L6620-6630 w=1 K=8: pGame+16 const:2147483647#5+16 nCollision+32 bCheckCollision+16 pRoom+16 tmp#36+16 nMinDistance-8(live) nOldToggle-8(live) pUnit+48 const:8#9-8(live) pSpecialAi-8(live) pAiControl-8(live) const:0#1+16
+    blk 00bfee60 L6630-6630 w=1 K=2: tmp#36+4 nMinDistance-2(live) nOldToggle-2(live) pUnit+4 const:8#9-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#1-2(live)
+    blk 00bff000 L6632-6635 w=1 K=2: nDistance+4 pTarget+4 nMinDistance-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#1-2(live)
+    blk 00bff1a0 L6637-6638 w=1 K=2: nDistance+4 pTarget+4 nMinDistance-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#1-2(live)
+    blk 00bee9a4 L6638-6638 w=1 K=2: nDistance+0 pTarget+0 nMinDistance-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#1-2(live)
+    blk 00bff340 L6642-6642 w=1 K=2: nDistance-2(live) pTarget+4 nMinDistance-2(live) nOldToggle-2(live) pUnit-2(live) const:8#9-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#1+0
+    blk 00bff4e0 L6644-6646 w=1 K=2: nMinDistance+4
+    blk 00bff680 L6648-6648 w=1 K=1: nDistance-1(live) pTarget-1(live) nOldToggle-1(live) pUnit+2 const:8#9-1(live) pSpecialAi-1(live) pAiControl-1(live) const:0#1-1(live)
+    blk 00bff820 L6650-6651 w=1 K=4: pAiControl+16 const:8#9+4 nDistance-4(live) pTarget-4(live) nOldToggle-4(live) pUnit-4(live) pSpecialAi+8 const:0#1+0
+    blk 00bff9c0 L6652-6652 w=1 K=3: pSpecialAi+6 nOldToggle+6 nDistance-3(live) pTarget-3(live) pUnit-3(live) const:0#1+0
+    blk 00c0bd48 L6654-6656 w=1 K=4: pTarget+16 nDistance+8 pUnit+8
 
 === round 2 (register class 0): 23 candidates with references ===
   candidate                       id   prio refs   key  web  reg    def lines / use lines
-  pTarget                         58     32    1   123   <2         6554 / 
-  nDistance                       57     32    1   122  <16         6553 / 
-  pTarget                         60     28    1   123   <2         6576 / 
-  nDistance                       59     28    1   122  <16         6575 / 
-  nOldToggle                      55     24    2    38  <13         6505 / 6506
-  i                               54     22    4    a5  <25         6534 / 6534
-  pUnit                           45     18   22     8  <12         6483 / 6484,6500,6502,6514,6516,6523,6531,6532,6533,6573,6590,6598,6606,6615,6616,6634,6640
-  nAct                            51     10    2    68  <22          / 6570,6587
-  nDistance                       56      6    1   122  <16         6529 / 
-  ppNode                          50    -14    6    a7  <17         6518,6565 / 6519,6565,6581
-  const:0#7                        7    -16    2     0   <1          / 6551,6557
-  nX                              52    -35    4    65  <23         6532 / 6542,6572,6589
-  nY                              53    -35    4    62  <24         6533 / 6542,6572,6589
-  const:1#41                      41    -51    3     0   <3          / 6492,6523,6534
-  nDistance                       49    -82    3   122  <16         6521 / 6573,6641
-  const:0#36                      36    -83   37     0   <1          / 6485,6487,6488,6496,6500,6502,6503,6506,6511,6514,6520,6523,6525,6534,6536,6539,6567,6573,6582,6584,6590,6598,6608,6613,6615,6616,6628,6630,6637,6638,6640
-  const:2147483647#43             43    -86    4     0   <5          / 6513,6583,6609,6614
-  bCheckCollision                 47    -88    5    34  <14         6492 / 6514,6573,6590,6610
-  pTarget                         40   -101    4   123   <2         6520 / 6628,6640,6642
-  nMinDistance                    48   -148    2    85  <15         6513 / 6631
-  pAiControl                      42   -158    5    13   <4          / 6490,6493,6499,6636
-  pSpecialAi                      44   -163    3    2f   <6         6487 / 6637,6638
-  nOldToggle                      46   -182    2    38  <13         6488 / 6638
+  pTarget                         60     32    1   12b  <15         6568 / 
+  nDistance                       59     32    1   12a  <17         6567 / 
+  pTarget                         62     28    1   12b  <15         6590 / 
+  nDistance                       61     28    1   12a  <17         6589 / 
+  nOldToggle                      57     24    2    3d  <13         6517 / 6518
+  i                               56     22    4    ad  <26         6548 / 6548
+  pUnit                           46     19   22     8  <12         6494 / 6495,6511,6514,6528,6530,6537,6545,6546,6547,6587,6604,6612,6620,6629,6630,6648,6654
+  nAct                            53     10    2    70  <23          / 6584,6601
+  nDistance                       58      6    1   12a  <17         6543 / 
+  ppNode                          52    -14    6    af  <18         6532,6579 / 6533,6579,6595
+  const:0#7                        7    -16    2     0   <1          / 6565,6571
+  nX                              54    -35    4    6d  <24         6546 / 6556,6586,6603
+  nY                              55    -35    4    6a  <25         6547 / 6556,6586,6603
+  const:1#2                        2    -53    3     0   <3          / 6504,6537,6548
+  nDistance                       51    -82    3   12a  <17         6535 / 6587,6655
+  const:2147483647#44             44    -86    4     0   <5          / 6527,6597,6623,6628
+  const:0#38                      38    -87   38     0   <1          / 6496,6498,6499,6507,6510,6511,6514,6515,6518,6525,6528,6534,6537,6539,6548,6550,6553,6581,6587,6596,6598,6604,6612,6622,6627,6629,6630,6642,6644,6651,6652,6654
+  bCheckCollision                 48    -94    5    39  <14         6504 / 6528,6587,6604,6624
+  pTarget                         49   -101    4   12b  <15         6534 / 6642,6654,6656
+  nMinDistance                    50   -148    2    8d  <16         6527 / 6645
+  pAiControl                      43   -166    5    13   <4          / 6501,6510,6523,6650
+  pSpecialAi                      45   -167    3    33   <6         6498 / 6651,6652
+  nOldToggle                      47   -187    2    3d  <13         6499 / 6652
   colouring order:
-    tmp#39                       prio    48 -> eax  (allowed eax/ecx/edx/ebx; costs eax=0 ecx=0 edx=0 ebx=0)
     nCurrentDistance             prio    46 -> ebx  (allowed edi/ebx; costs edi=5002 ebx=2600)
   blocks (w = loop weight, K = candidates referenced in the block):
-    blk 00c459c4 L6483-6485 w=1 K=4: const:0#36+0 pUnit+16
-    blk 00c45d04 L6487-6490 w=1 K=5: pAiControl+10 nOldToggle+10 pSpecialAi+10 const:0#36+0 pUnit-5(live)
-    blk 00c45ea4 L6492-6493 w=1 K=4: bCheckCollision+8 const:1#41+0 pAiControl+8 nOldToggle-4(live) pSpecialAi-4(live) const:0#36-4(live) pUnit-4(live)
-    blk 00c46044 L6495-6495 w=1 K=1: nOldToggle-1(live) pUnit-1(live) pSpecialAi-1(live) pAiControl-1(live) const:0#36-1(live)
-    blk 00c461e4 L6496-6497 w=1 K=3: bCheckCollision+0 const:1#41+0 nOldToggle-3(live) pUnit-3(live) pSpecialAi-3(live) pAiControl-3(live) const:0#36+3
-    blk 00c46384 L6499-6500 w=1 K=3: nOldToggle-3(live) pUnit+6 pSpecialAi-3(live) pAiControl+6 const:0#36+0
-    blk 00c46524 L6500-6500 w=1 K=1: nOldToggle-1(live) pUnit+2 pSpecialAi-1(live) pAiControl-1(live) const:0#36-1(live)
-    blk 00bc6ef8 L6502-6502 w=1 K=3: nOldToggle-3(live) pUnit+6 pAiControl-3(live) const:0#36+0
-    blk 00bc7098 L6502-6502 w=1 K=1: nOldToggle-1(live) pUnit-1(live) pAiControl-1(live) const:0#36-1(live)
-    blk 00bc7238 L6502-6502 w=1 K=1: nOldToggle-1(live) pUnit-1(live) pAiControl-1(live) const:0#36+1
-    blk 00bc73d8 L6503-6503 w=1 K=1: nOldToggle-1(live) pUnit-1(live) pAiControl-1(live) const:0#36+0
-    blk 00bc7578 L6503-6503 w=1 K=1: nOldToggle-1(live) pUnit-1(live) pAiControl-1(live) const:0#36+0
-    blk 00bc7718 L6505-6506 w=1 K=6: nOldToggle+24 bCheckCollision+0 nOldToggle+0 pSpecialAi+0 const:1#41+0 pUnit-6(live) pAiControl-6(live) const:0#36+0
-    blk 00c00820 L6506-6506 w=1 K=3: bCheckCollision+0 pSpecialAi+0 const:1#41+0 nOldToggle-3(live) pUnit-3(live) pAiControl-3(live) const:0#36-3(live)
-    blk 00c009f8 L6506-6506 w=1 K=2: bCheckCollision+0 const:1#41+0 nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#36-2(live)
-    blk 00bc78b8 L6511-6514 w=1 K=6: nMinDistance+12 const:2147483647#43+0 bCheckCollision+12 const:1#41-6(live) nOldToggle-6(live) pUnit+12 pSpecialAi-6(live) pAiControl-6(live) const:0#36+6
-    blk 00bc7a58 L6516-6516 w=1 K=1: nMinDistance-1(live) const:2147483647#43-1(live) bCheckCollision-1(live) const:1#41-1(live) nOldToggle-1(live) pUnit+2 pSpecialAi-1(live) pAiControl-1(live) const:0#36-1(live)
-    blk 00bc7bf8 L6518-6523 w=1 K=7: nDistance+14 pTarget+14 ppNode+28 nMinDistance-7(live) bCheckCollision-7(live) nOldToggle-7(live) pUnit+14 pSpecialAi-7(live) const:2147483647#43-7(live) pAiControl-7(live) const:1#41-7(live) const:0#36+0
-    blk 00bfecc0 L6523-6523 w=1 K=2: nDistance-2(live) pTarget-2(live) ppNode-2(live) nMinDistance-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit+4 pSpecialAi-2(live) const:2147483647#43-2(live) pAiControl-2(live) const:1#41+0 const:0#36-2(live)
-    blk 00bfee60 L6523-6523 w=1 K=3: nDistance-3(live) pTarget-3(live) ppNode-3(live) nMinDistance-3(live) bCheckCollision-3(live) nOldToggle-3(live) pUnit+6 pSpecialAi-3(live) const:2147483647#43-3(live) pAiControl-3(live) const:1#41-3(live) const:0#36+0
-    blk 00bff000 L6524-6525 w=1 K=3: nDistance-3(live) pTarget-3(live) ppNode-3(live) nMinDistance-3(live) bCheckCollision-3(live) nOldToggle-3(live) pUnit-3(live) pSpecialAi-3(live) const:2147483647#43-3(live) pAiControl-3(live) const:1#41-3(live) const:0#36+0
-    blk 00bff1a0 L6527-6528 w=1 K=3: nDistance-3(live) pTarget-3(live) ppNode-3(live) nMinDistance-3(live) bCheckCollision-3(live) nOldToggle-3(live) pUnit-3(live) pSpecialAi-3(live) const:2147483647#43-3(live) pAiControl-3(live) const:1#41-3(live) const:0#36-3(live)
-    blk 00bff340 L6529-6529 w=1 K=3: nDistance+6 nDistance+0 ppNode-3(live) nMinDistance-3(live) bCheckCollision-3(live) nOldToggle-3(live) pUnit-3(live) pSpecialAi-3(live) const:2147483647#43-3(live) pAiControl-3(live) const:1#41-3(live) pTarget-3(live) const:0#36-3(live)
-    blk 00bff4e0 L6531-6534 w=1 K=5: i+10 nY+10 nX+10 nDistance-5(live) ppNode-5(live) nMinDistance-5(live) bCheckCollision-5(live) nOldToggle-5(live) pUnit+30 pSpecialAi-5(live) const:2147483647#43-5(live) pAiControl-5(live) const:1#41-5(live) pTarget-5(live) const:0#36+0
-    blk 00c000c0 L?         w=1 K=0: i-0(live) nY-0(live) nX-0(live) nDistance-0(live) ppNode-0(live) nMinDistance-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) pSpecialAi-0(live) const:2147483647#43-0(live) pAiControl-0(live) const:1#41-0(live) pTarget-0(live) const:0#36-0(live)
-    blk 00bff680 L6536-6536 w=2 K=2: i-4(live) nY-4(live) nX-4(live) nDistance-4(live) ppNode-4(live) nMinDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) pSpecialAi-4(live) const:2147483647#43-4(live) pAiControl-4(live) const:1#41-4(live) pTarget-4(live) const:0#36+0
-    blk 00bff820 L6538-6539 w=2 K=3: i-6(live) nY-6(live) nX-6(live) nDistance-6(live) ppNode-6(live) nMinDistance-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit-6(live) pSpecialAi-6(live) const:2147483647#43-6(live) pAiControl-6(live) const:1#41-6(live) pTarget-6(live) const:0#36+0
-    blk 00bff9c0 L6539-6539 w=2 K=2: i-4(live) nY-4(live) nX-4(live) nDistance-4(live) ppNode-4(live) nMinDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) pSpecialAi-4(live) const:2147483647#43-4(live) pAiControl-4(live) const:1#41-4(live) pTarget-4(live) const:0#36+0
-    blk 00bf2c60 L6540-6540 w=2 K=1: i-2(live) nY-2(live) nX-2(live) nDistance-2(live) ppNode-2(live) nMinDistance-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) const:2147483647#43-2(live) pAiControl-2(live) const:1#41-2(live) pTarget-2(live) const:0#36-2(live)
-    blk 00bf2e00 L6540-6540 w=2 K=1: i-2(live) nY-2(live) nX-2(live) nDistance-2(live) ppNode-2(live) nMinDistance-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) const:2147483647#43-2(live) pAiControl-2(live) const:1#41-2(live) pTarget-2(live) const:0#36-2(live)
-    blk 00bf2fa0 L6540-6540 w=2 K=1: i-2(live) nY-2(live) nX-2(live) nDistance-2(live) ppNode-2(live) nMinDistance-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) const:2147483647#43-2(live) pAiControl-2(live) const:1#41-2(live) pTarget-2(live) const:0#36-2(live)
-    blk 00bf3140 L6542-6543 w=2 K=4: nX+16 nY+16
-    blk 00bf6c80 L6551-6551 w=4 K=1: const:0#7+0
-    blk 00c3eee0 L6551-6551 w=4 K=1: const:0#7+0
-    blk 00bf6fc0 L6553-6554 w=4 K=4: pTarget+32 nDistance+32 const:0#7-16(live)
-    blk 00c3f080 L6554-6554 w=4 K=1: const:0#7+0
-    blk 00bf7160 L6556-6557 w=4 K=2: 
-    blk 00c3f220 L6561-6561 w=2 K=15: i+0 nY+0 nX+0 ppNode+0 nDistance+0 nMinDistance+0 bCheckCollision+0 nOldToggle+0 pUnit+0 pSpecialAi+0 const:2147483647#43+0 pAiControl+0 const:1#41+0 pTarget+0 const:0#36+0
-    blk 00bf74a0 L6534-6565 w=2 K=4: i+32 nY-8(live) nX-8(live) ppNode+32 nDistance-8(live) nMinDistance-8(live) bCheckCollision-8(live) nOldToggle-8(live) pUnit-8(live) pSpecialAi-8(live) const:2147483647#43-8(live) pAiControl-8(live) const:1#41+0 pTarget-8(live) const:0#36-8(live)
-    blk 00bf7640 L6539-6539 w=1 K=0: nY-0(live) nX-0(live) ppNode-0(live) nDistance-0(live) nMinDistance-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) pSpecialAi-0(live) const:2147483647#43-0(live) pAiControl-0(live) pTarget-0(live) const:0#36-0(live)
-    blk 00bf7980 L6567-6567 w=1 K=2: nY-2(live) nX-2(live) ppNode-2(live) nDistance-2(live) nMinDistance-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) const:2147483647#43-2(live) pAiControl-2(live) pTarget-2(live) const:0#36+0
-    blk 00c37c20 L?         w=1 K=0: nY-0(live) nX-0(live) ppNode-0(live) nDistance-0(live) nMinDistance-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) pSpecialAi-0(live) const:2147483647#43-0(live) pAiControl-0(live) pTarget-0(live) const:0#36-0(live)
-    blk 00bf0c50 L6569-6570 w=2 K=3: nAct+12 nY-6(live) nX-6(live) ppNode-6(live) nDistance-6(live) nMinDistance-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit-6(live) pSpecialAi-6(live) const:2147483647#43-6(live) pAiControl-6(live) pTarget-6(live) const:0#36-6(live)
-    blk 00bf0df0 L6572-6573 w=2 K=5: nY+20 nX+20 ppNode-10(live) nDistance+20 nMinDistance-10(live) bCheckCollision-10(live) nOldToggle-10(live) pUnit-10(live) pSpecialAi-10(live) const:2147483647#43-10(live) pAiControl-10(live) pTarget-10(live) const:0#36-10(live)
-    blk 00bf0f90 L6573-6573 w=2 K=2: nY-4(live) nX-4(live) ppNode-4(live) nDistance-4(live) nMinDistance-4(live) bCheckCollision+8 nOldToggle-4(live) pUnit-4(live) pSpecialAi-4(live) const:2147483647#43-4(live) pAiControl-4(live) pTarget-4(live) const:0#36+0
-    blk 00bf1130 L6573-6573 w=2 K=2: nY-4(live) nX-4(live) ppNode-4(live) nDistance-4(live) nMinDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit+8 pSpecialAi-4(live) const:2147483647#43-4(live) pAiControl-4(live) pTarget-4(live) const:0#36-4(live)
-    blk 00bf12d0 L6575-6576 w=2 K=7: pTarget+28 nDistance+28 nAct+0 nDistance+0 pTarget+0 nY-14(live) nX-14(live) ppNode-14(live) nMinDistance-14(live) bCheckCollision-14(live) nOldToggle-14(live) pUnit-14(live) pSpecialAi-14(live) const:2147483647#43-14(live) pAiControl-14(live) const:0#36-14(live)
-    blk 00c3f3c0 L6576-6576 w=2 K=1: nAct+0 nY-2(live) nX-2(live) ppNode-2(live) nDistance-2(live) nMinDistance-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) const:2147483647#43-2(live) pAiControl-2(live) pTarget-2(live) const:0#36-2(live)
-    blk 00bf1470 L6567-6579 w=2 K=2: nAct-4(live) nY-4(live) nX-4(live) ppNode-4(live) nDistance-4(live) nMinDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) pSpecialAi-4(live) const:2147483647#43-4(live) pAiControl-4(live) pTarget-4(live) const:0#36+0
-    blk 00c00298 L6567-6567 w=1 K=0: nY-0(live) nX-0(live) nAct-0(live) ppNode-0(live) nDistance-0(live) nMinDistance-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) pSpecialAi-0(live) const:2147483647#43-0(live) pAiControl-0(live) pTarget-0(live) const:0#36-0(live)
-    blk 00c3f560 L6567-6567 w=1 K=1: nAct+0 nY-1(live) nX-1(live) ppNode-1(live) nDistance-1(live) nMinDistance-1(live) bCheckCollision-1(live) nOldToggle-1(live) pUnit-1(live) pSpecialAi-1(live) const:2147483647#43-1(live) pAiControl-1(live) pTarget-1(live) const:0#36-1(live)
-    blk 00bf1610 L6581-6584 w=1 K=6: ppNode+12 nAct-6(live) nY-6(live) nX-6(live) nDistance-6(live) nMinDistance-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit-6(live) pSpecialAi-6(live) pAiControl-6(live) pTarget-6(live) const:0#36+0
-    blk 00bffcc8 L?         w=1 K=0: nAct-0(live) nY-0(live) nX-0(live) nDistance-0(live) nMinDistance-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) pSpecialAi-0(live) pAiControl-0(live) pTarget-0(live) const:0#36-0(live)
-    blk 00bf17b0 L6586-6587 w=2 K=3: nAct+12 nY-6(live) nX-6(live) nDistance-6(live) nMinDistance-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit-6(live) pSpecialAi-6(live) pAiControl-6(live) pTarget-6(live) const:0#36-6(live)
-    blk 00bf1950 L6589-6590 w=2 K=5: nY+20 nX+20 nDistance-10(live) nMinDistance-10(live) bCheckCollision-10(live) nOldToggle-10(live) pUnit-10(live) pSpecialAi-10(live) pAiControl-10(live) pTarget-10(live) const:0#36-10(live)
-    blk 00c2ce50 L6590-6590 w=2 K=2: nY-4(live) nX-4(live) nDistance-4(live) nMinDistance-4(live) bCheckCollision+8 nOldToggle-4(live) pUnit-4(live) pSpecialAi-4(live) pAiControl-4(live) pTarget-4(live) const:0#36+0
-    blk 00c2cff0 L6590-6590 w=2 K=2: nY-4(live) nX-4(live) nDistance-4(live) nMinDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit+8 pSpecialAi-4(live) pAiControl-4(live) pTarget-4(live) const:0#36-4(live)
-    blk 00c2d190 L6592-6593 w=2 K=5: nAct+0 nY-10(live) nX-10(live) nDistance-10(live) nMinDistance-10(live) bCheckCollision-10(live) nOldToggle-10(live) pUnit-10(live) pSpecialAi-10(live) pAiControl-10(live) pTarget-10(live) const:0#36-10(live)
-    blk 00c3f738 L6593-6593 w=2 K=1: nAct+0 nY-2(live) nX-2(live) nDistance-2(live) nMinDistance-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) pAiControl-2(live) pTarget-2(live) const:0#36-2(live)
-    blk 00c2d330 L6584-6596 w=2 K=2: nAct-4(live) nY-4(live) nX-4(live) nDistance-4(live) nMinDistance-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) pSpecialAi-4(live) pAiControl-4(live) pTarget-4(live) const:0#36+0
-    blk 00c00470 L?         w=1 K=0: nDistance-0(live) nMinDistance-0(live) nOldToggle-0(live) pUnit-0(live) pSpecialAi-0(live) pAiControl-0(live) pTarget-0(live) const:0#36-0(live)
-    blk 00c2d4d0 L6598-6598 w=1 K=2: nDistance-2(live) nMinDistance-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) pAiControl-2(live) pTarget-2(live) const:0#36+0
-    blk 00c2d670 L6598-6598 w=1 K=3: pUnit+6
-    blk 00c2d810 L6600-6604 w=1 K=10: nDistance+0 nMinDistance+0 nOldToggle+0 pUnit+0 pSpecialAi+0 pAiControl+0 pTarget+0 const:0#36+0
-    blk 00c2d9b0 L6606-6616 w=1 K=8: const:2147483647#43+16 bCheckCollision+16 nMinDistance-8(live) nOldToggle-8(live) pUnit+48 pSpecialAi-8(live) pAiControl-8(live) const:0#36+16
-    blk 00c2db50 L6616-6616 w=1 K=2: pUnit+4
-    blk 00c1ddd8 L6618-6621 w=1 K=8: nDistance+0 nMinDistance+0 nOldToggle+0 pUnit+0 pSpecialAi+0 pAiControl+0 pTarget+0 const:0#36+0
-    blk 00c3f910 L6621-6621 w=1 K=6: nMinDistance+0 nOldToggle+0 pUnit+0 pSpecialAi+0 pAiControl+0 const:0#36+0
-    blk 00c1df78 L6623-6624 w=1 K=2: nDistance+0 pTarget+0 nMinDistance-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#36-2(live)
-    blk 00c3fae8 L6624-6624 w=1 K=6: nMinDistance+0 nOldToggle+0 pUnit+0 pSpecialAi+0 pAiControl+0 const:0#36+0
-    blk 00c00648 L6624-6624 w=1 K=2: nDistance+0 pTarget+0 nMinDistance-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#36-2(live)
-    blk 00c1e118 L6628-6628 w=1 K=2: nDistance-2(live) pTarget+4 nMinDistance-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#36+0
-    blk 00c1e2b8 L6630-6632 w=1 K=2: nMinDistance+4
-    blk 00c1e458 L6634-6634 w=1 K=1: nDistance-1(live) nOldToggle-1(live) pUnit+2 pSpecialAi-1(live) pAiControl-1(live) pTarget-1(live) const:0#36-1(live)
-    blk 00c1e5f8 L6636-6637 w=1 K=3: pAiControl+12 nDistance-3(live) nOldToggle-3(live) pUnit-3(live) pSpecialAi+6 pTarget-3(live) const:0#36+0
-    blk 00c1e798 L6638-6638 w=1 K=3: pSpecialAi+6 nOldToggle+6 nDistance-3(live) pUnit-3(live) pTarget-3(live) const:0#36+0
-    blk 00c1e938 L6640-6642 w=1 K=4: pTarget+16 nDistance+8 pUnit+8
+    blk 00c52ba4 L6494-6496 w=1 K=4: const:0#38+0 pUnit+16
+    blk 00c52ee4 L6498-6502 w=1 K=5: pAiControl+10 nOldToggle+10 pSpecialAi+10 const:0#38+0 pUnit-5(live)
+    blk 00c53084 L6504-6504 w=1 K=2: bCheckCollision+4 const:1#2+0 pAiControl-2(live) nOldToggle-2(live) pSpecialAi-2(live) const:0#38-2(live) pUnit-2(live)
+    blk 00c53224 L6506-6506 w=1 K=1: nOldToggle-1(live) pUnit-1(live) pSpecialAi-1(live) pAiControl-1(live) const:0#38-1(live)
+    blk 00c533c4 L6507-6508 w=1 K=3: bCheckCollision+0 const:1#2+0 nOldToggle-3(live) pUnit-3(live) pSpecialAi-3(live) pAiControl-3(live) const:0#38+3
+    blk 00c53564 L6510-6511 w=1 K=4: nOldToggle-4(live) pUnit+8 pSpecialAi-4(live) pAiControl+8 const:0#38+0
+    blk 00c53704 L6511-6512 w=1 K=2: nOldToggle-2(live) pUnit+4 pSpecialAi-2(live) pAiControl-2(live) const:0#38-2(live)
+    blk 00c05d10 L6514-6514 w=1 K=1: nOldToggle-1(live) pUnit-1(live) pAiControl-1(live) const:0#38-1(live)
+    blk 00c05eb0 L6514-6514 w=1 K=3: nOldToggle-3(live) pUnit+6 pAiControl-3(live) const:0#38+0
+    blk 00c06050 L6514-6514 w=1 K=1: nOldToggle-1(live) pUnit-1(live) pAiControl-1(live) const:0#38-1(live)
+    blk 00c061f0 L6514-6514 w=1 K=1: nOldToggle-1(live) pUnit-1(live) pAiControl-1(live) const:0#38+1
+    blk 00c06390 L6514-6515 w=1 K=1: nOldToggle-1(live) pUnit-1(live) pAiControl-1(live) const:0#38+0
+    blk 00c06530 L6515-6515 w=1 K=1: nOldToggle-1(live) pUnit-1(live) pAiControl-1(live) const:0#38+0
+    blk 00c066d0 L6517-6522 w=1 K=6: nOldToggle+24 bCheckCollision+0 nOldToggle+0 pSpecialAi+0 const:1#2+0 pUnit-6(live) pAiControl-6(live) const:0#38+0
+    blk 00c06870 L6523-6523 w=1 K=2: bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) pAiControl+4 const:0#38-2(live) const:1#2-2(live)
+    blk 00c43f20 L6508-6508 w=1 K=2: bCheckCollision+0 const:1#2+0 nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#38-2(live)
+    blk 00c440c0 L6508-6508 w=1 K=3: bCheckCollision+0 pSpecialAi+0 const:1#2+0 nOldToggle-3(live) pUnit-3(live) pAiControl-3(live) const:0#38-3(live)
+    blk 00c44260 L6522-6522 w=1 K=2: bCheckCollision+0 const:1#2+0 nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#38-2(live)
+    blk 00c06a10 L6523-6528 w=1 K=6: nMinDistance+12 const:2147483647#44+0 bCheckCollision+12 const:1#2-6(live) nOldToggle-6(live) pUnit+12 pSpecialAi-6(live) pAiControl-6(live) const:0#38+6
+    blk 00c3ced0 L6530-6530 w=1 K=1: nMinDistance-1(live) const:2147483647#44-1(live) bCheckCollision-1(live) const:1#2-1(live) nOldToggle-1(live) pUnit+2 pSpecialAi-1(live) pAiControl-1(live) const:0#38-1(live)
+    blk 00c3d070 L6532-6537 w=1 K=7: nDistance+14 pTarget+14 ppNode+28 nMinDistance-7(live) bCheckCollision-7(live) nOldToggle-7(live) pUnit+14 pSpecialAi-7(live) const:2147483647#44-7(live) pAiControl-7(live) const:0#38+0 const:1#2-7(live)
+    blk 00c3d210 L6537-6537 w=1 K=2: nDistance-2(live) pTarget-2(live) ppNode-2(live) nMinDistance-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit+4 pSpecialAi-2(live) const:2147483647#44-2(live) pAiControl-2(live) const:0#38-2(live) const:1#2+0
+    blk 00c3d3b0 L6537-6537 w=1 K=3: nDistance-3(live) pTarget-3(live) ppNode-3(live) nMinDistance-3(live) bCheckCollision-3(live) nOldToggle-3(live) pUnit+6 pSpecialAi-3(live) const:2147483647#44-3(live) pAiControl-3(live) const:0#38+0 const:1#2-3(live)
+    blk 00c3d550 L6538-6539 w=1 K=3: nDistance-3(live) pTarget-3(live) ppNode-3(live) nMinDistance-3(live) bCheckCollision-3(live) nOldToggle-3(live) pUnit-3(live) pSpecialAi-3(live) const:2147483647#44-3(live) pAiControl-3(live) const:0#38+0 const:1#2-3(live)
+    blk 00c3d6f0 L6541-6542 w=1 K=3: nDistance-3(live) pTarget-3(live) ppNode-3(live) nMinDistance-3(live) bCheckCollision-3(live) nOldToggle-3(live) pUnit-3(live) pSpecialAi-3(live) const:2147483647#44-3(live) pAiControl-3(live) const:0#38-3(live) const:1#2-3(live)
+    blk 00c3d890 L6543-6543 w=1 K=3: nDistance+6 nDistance+0 ppNode-3(live) nMinDistance-3(live) pTarget-3(live) bCheckCollision-3(live) nOldToggle-3(live) pUnit-3(live) pSpecialAi-3(live) const:2147483647#44-3(live) pAiControl-3(live) const:0#38-3(live) const:1#2-3(live)
+    blk 00c3da30 L6545-6548 w=1 K=5: i+10 nY+10 nX+10 nDistance-5(live) ppNode-5(live) nMinDistance-5(live) pTarget-5(live) bCheckCollision-5(live) nOldToggle-5(live) pUnit+30 pSpecialAi-5(live) const:2147483647#44-5(live) pAiControl-5(live) const:0#38+0 const:1#2-5(live)
+    blk 00bee41c L?         w=1 K=0: i-0(live) nY-0(live) nX-0(live) nDistance-0(live) ppNode-0(live) nMinDistance-0(live) pTarget-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) pSpecialAi-0(live) const:2147483647#44-0(live) pAiControl-0(live) const:0#38-0(live) const:1#2-0(live)
+    blk 00c3dbd0 L6550-6550 w=2 K=2: i-4(live) nY-4(live) nX-4(live) nDistance-4(live) ppNode-4(live) nMinDistance-4(live) pTarget-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) pSpecialAi-4(live) const:2147483647#44-4(live) pAiControl-4(live) const:0#38+0 const:1#2-4(live)
+    blk 00c37ea8 L6552-6553 w=2 K=3: i-6(live) nY-6(live) nX-6(live) nDistance-6(live) ppNode-6(live) nMinDistance-6(live) pTarget-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit-6(live) pSpecialAi-6(live) const:2147483647#44-6(live) pAiControl-6(live) const:0#38+0 const:1#2-6(live)
+    blk 00c38048 L6553-6553 w=2 K=2: i-4(live) nY-4(live) nX-4(live) nDistance-4(live) ppNode-4(live) nMinDistance-4(live) pTarget-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) pSpecialAi-4(live) const:2147483647#44-4(live) pAiControl-4(live) const:0#38+0 const:1#2-4(live)
+    blk 00c381e8 L6554-6554 w=2 K=1: i-2(live) nY-2(live) nX-2(live) nDistance-2(live) ppNode-2(live) nMinDistance-2(live) pTarget-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) const:2147483647#44-2(live) pAiControl-2(live) const:0#38-2(live) const:1#2-2(live)
+    blk 00c38388 L6554-6554 w=2 K=1: i-2(live) nY-2(live) nX-2(live) nDistance-2(live) ppNode-2(live) nMinDistance-2(live) pTarget-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) const:2147483647#44-2(live) pAiControl-2(live) const:0#38-2(live) const:1#2-2(live)
+    blk 00c38528 L6554-6554 w=2 K=1: i-2(live) nY-2(live) nX-2(live) nDistance-2(live) ppNode-2(live) nMinDistance-2(live) pTarget-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) const:2147483647#44-2(live) pAiControl-2(live) const:0#38-2(live) const:1#2-2(live)
+    blk 00c386c8 L6556-6557 w=2 K=4: nX+16 nY+16
+    blk 00c25150 L6565-6565 w=4 K=1: const:0#7+0
+    blk 00c44400 L6565-6565 w=4 K=1: const:0#7+0
+    blk 00c25490 L6567-6568 w=4 K=4: pTarget+32 nDistance+32 const:0#7-16(live)
+    blk 00c445d8 L6568-6568 w=4 K=1: const:0#7+0
+    blk 00c25630 L6570-6571 w=4 K=2: 
+    blk 00c447b0 L6575-6575 w=2 K=15: i+0 nY+0 nX+0 ppNode+0 nDistance+0 nMinDistance+0 pTarget+0 bCheckCollision+0 nOldToggle+0 pUnit+0 pSpecialAi+0 const:2147483647#44+0 pAiControl+0 const:0#38+0 const:1#2+0
+    blk 00c25970 L6548-6579 w=2 K=4: i+32 nY-8(live) nX-8(live) ppNode+32 nDistance-8(live) nMinDistance-8(live) pTarget-8(live) bCheckCollision-8(live) nOldToggle-8(live) pUnit-8(live) pSpecialAi-8(live) const:2147483647#44-8(live) pAiControl-8(live) const:0#38-8(live) const:1#2+0
+    blk 00c25b10 L6553-6553 w=1 K=0: nY-0(live) nX-0(live) ppNode-0(live) nDistance-0(live) nMinDistance-0(live) pTarget-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) pSpecialAi-0(live) const:2147483647#44-0(live) pAiControl-0(live) const:0#38-0(live)
+    blk 00c25fb8 L6581-6581 w=1 K=2: nY-2(live) nX-2(live) ppNode-2(live) nDistance-2(live) nMinDistance-2(live) pTarget-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) const:2147483647#44-2(live) pAiControl-2(live) const:0#38+0
+    blk 00beddd0 L?         w=1 K=0: nY-0(live) nX-0(live) ppNode-0(live) nDistance-0(live) nMinDistance-0(live) pTarget-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) pSpecialAi-0(live) const:2147483647#44-0(live) pAiControl-0(live) const:0#38-0(live)
+    blk 00c26158 L6583-6584 w=2 K=3: nAct+12 nY-6(live) nX-6(live) ppNode-6(live) nDistance-6(live) nMinDistance-6(live) pTarget-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit-6(live) pSpecialAi-6(live) const:2147483647#44-6(live) pAiControl-6(live) const:0#38-6(live)
+    blk 00c262f8 L6586-6587 w=2 K=5: nY+20 nX+20 ppNode-10(live) nDistance+20 nMinDistance-10(live) pTarget-10(live) bCheckCollision-10(live) nOldToggle-10(live) pUnit-10(live) pSpecialAi-10(live) const:2147483647#44-10(live) pAiControl-10(live) const:0#38-10(live)
+    blk 00c26498 L6587-6587 w=2 K=2: nY-4(live) nX-4(live) ppNode-4(live) nDistance-4(live) nMinDistance-4(live) pTarget-4(live) bCheckCollision+8 nOldToggle-4(live) pUnit-4(live) pSpecialAi-4(live) const:2147483647#44-4(live) pAiControl-4(live) const:0#38+0
+    blk 00c26638 L6587-6587 w=2 K=2: nY-4(live) nX-4(live) ppNode-4(live) nDistance-4(live) nMinDistance-4(live) pTarget-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit+8 pSpecialAi-4(live) const:2147483647#44-4(live) pAiControl-4(live) const:0#38-4(live)
+    blk 00c267d8 L6589-6590 w=2 K=7: pTarget+28 nDistance+28 nAct+0 nDistance+0 pTarget+0 nY-14(live) nX-14(live) ppNode-14(live) nMinDistance-14(live) bCheckCollision-14(live) nOldToggle-14(live) pUnit-14(live) pSpecialAi-14(live) const:2147483647#44-14(live) pAiControl-14(live) const:0#38-14(live)
+    blk 00c44988 L6590-6590 w=2 K=1: nAct+0 nY-2(live) nX-2(live) ppNode-2(live) nDistance-2(live) nMinDistance-2(live) pTarget-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) const:2147483647#44-2(live) pAiControl-2(live) const:0#38-2(live)
+    blk 00c26978 L6581-6593 w=2 K=2: nAct-4(live) nY-4(live) nX-4(live) ppNode-4(live) nDistance-4(live) nMinDistance-4(live) pTarget-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) pSpecialAi-4(live) const:2147483647#44-4(live) pAiControl-4(live) const:0#38+0
+    blk 00bee5f4 L6581-6581 w=1 K=0: nY-0(live) nX-0(live) nAct-0(live) ppNode-0(live) nDistance-0(live) nMinDistance-0(live) pTarget-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) pSpecialAi-0(live) const:2147483647#44-0(live) pAiControl-0(live) const:0#38-0(live)
+    blk 00c44b60 L6581-6581 w=1 K=1: nAct+0 nY-1(live) nX-1(live) ppNode-1(live) nDistance-1(live) nMinDistance-1(live) pTarget-1(live) bCheckCollision-1(live) nOldToggle-1(live) pUnit-1(live) pSpecialAi-1(live) const:2147483647#44-1(live) pAiControl-1(live) const:0#38-1(live)
+    blk 00c26b18 L6595-6598 w=1 K=6: ppNode+12 nAct-6(live) nY-6(live) nX-6(live) nDistance-6(live) nMinDistance-6(live) pTarget-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit-6(live) pSpecialAi-6(live) pAiControl-6(live) const:0#38+0
+    blk 00bedff8 L?         w=1 K=0: nAct-0(live) nY-0(live) nX-0(live) nDistance-0(live) nMinDistance-0(live) pTarget-0(live) bCheckCollision-0(live) nOldToggle-0(live) pUnit-0(live) pSpecialAi-0(live) pAiControl-0(live) const:0#38-0(live)
+    blk 00c16da0 L6600-6601 w=2 K=3: nAct+12 nY-6(live) nX-6(live) nDistance-6(live) nMinDistance-6(live) pTarget-6(live) bCheckCollision-6(live) nOldToggle-6(live) pUnit-6(live) pSpecialAi-6(live) pAiControl-6(live) const:0#38-6(live)
+    blk 00c16f40 L6603-6604 w=2 K=5: nY+20 nX+20 nDistance-10(live) nMinDistance-10(live) pTarget-10(live) bCheckCollision-10(live) nOldToggle-10(live) pUnit-10(live) pSpecialAi-10(live) pAiControl-10(live) const:0#38-10(live)
+    blk 00c170e0 L6604-6604 w=2 K=2: nY-4(live) nX-4(live) nDistance-4(live) nMinDistance-4(live) pTarget-4(live) bCheckCollision+8 nOldToggle-4(live) pUnit-4(live) pSpecialAi-4(live) pAiControl-4(live) const:0#38+0
+    blk 00c17280 L6604-6604 w=2 K=2: nY-4(live) nX-4(live) nDistance-4(live) nMinDistance-4(live) pTarget-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit+8 pSpecialAi-4(live) pAiControl-4(live) const:0#38-4(live)
+    blk 00c17420 L6606-6607 w=2 K=5: nAct+0 nY-10(live) nX-10(live) nDistance-10(live) nMinDistance-10(live) pTarget-10(live) bCheckCollision-10(live) nOldToggle-10(live) pUnit-10(live) pSpecialAi-10(live) pAiControl-10(live) const:0#38-10(live)
+    blk 00c44d38 L6607-6607 w=2 K=1: nAct+0 nY-2(live) nX-2(live) nDistance-2(live) nMinDistance-2(live) pTarget-2(live) bCheckCollision-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#38-2(live)
+    blk 00c175c0 L6598-6610 w=2 K=2: nAct-4(live) nY-4(live) nX-4(live) nDistance-4(live) nMinDistance-4(live) pTarget-4(live) bCheckCollision-4(live) nOldToggle-4(live) pUnit-4(live) pSpecialAi-4(live) pAiControl-4(live) const:0#38+0
+    blk 00bee7cc L?         w=1 K=0: nDistance-0(live) nMinDistance-0(live) pTarget-0(live) nOldToggle-0(live) pUnit-0(live) pSpecialAi-0(live) pAiControl-0(live) const:0#38-0(live)
+    blk 00c17760 L6612-6612 w=1 K=2: nDistance-2(live) nMinDistance-2(live) pTarget-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#38+0
+    blk 00c17900 L6612-6612 w=1 K=3: pUnit+6
+    blk 00c17aa0 L6614-6618 w=1 K=10: nDistance+0 nMinDistance+0 pTarget+0 nOldToggle+0 pUnit+0 pSpecialAi+0 pAiControl+0 const:0#38+0
+    blk 00bfecc0 L6620-6630 w=1 K=8: const:2147483647#44+16 bCheckCollision+16 nMinDistance-8(live) nOldToggle-8(live) pUnit+48 pSpecialAi-8(live) pAiControl-8(live) const:0#38+16
+    blk 00bfee60 L6630-6630 w=1 K=2: pUnit+4
+    blk 00bff000 L6632-6635 w=1 K=8: nDistance+0 nMinDistance+0 pTarget+0 nOldToggle+0 pUnit+0 pSpecialAi+0 pAiControl+0 const:0#38+0
+    blk 00c33e88 L6635-6635 w=1 K=6: nMinDistance+0 nOldToggle+0 pUnit+0 pSpecialAi+0 pAiControl+0 const:0#38+0
+    blk 00bff1a0 L6637-6638 w=1 K=2: nDistance+0 pTarget+0 nMinDistance-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#38-2(live)
+    blk 00c34060 L6638-6638 w=1 K=6: nMinDistance+0 nOldToggle+0 pUnit+0 pSpecialAi+0 pAiControl+0 const:0#38+0
+    blk 00bee9a4 L6638-6638 w=1 K=2: nDistance+0 pTarget+0 nMinDistance-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#38-2(live)
+    blk 00bff340 L6642-6642 w=1 K=2: nDistance-2(live) pTarget+4 nMinDistance-2(live) nOldToggle-2(live) pUnit-2(live) pSpecialAi-2(live) pAiControl-2(live) const:0#38+0
+    blk 00bff4e0 L6644-6646 w=1 K=2: nMinDistance+4
+    blk 00bff680 L6648-6648 w=1 K=1: nDistance-1(live) pTarget-1(live) nOldToggle-1(live) pUnit+2 pSpecialAi-1(live) pAiControl-1(live) const:0#38-1(live)
+    blk 00bff820 L6650-6651 w=1 K=3: pAiControl+12 nDistance-3(live) pTarget-3(live) nOldToggle-3(live) pUnit-3(live) pSpecialAi+6 const:0#38+0
+    blk 00bff9c0 L6652-6652 w=1 K=3: pSpecialAi+6 nOldToggle+6 nDistance-3(live) pTarget-3(live) pUnit-3(live) const:0#38+0
+    blk 00c0bd48 L6654-6656 w=1 K=4: pTarget+16 nDistance+8 pUnit+8
 
 === round 3 (register class 0): 2 candidates with references ===
   candidate                       id   prio refs   key  web  reg    def lines / use lines
-  nAlternativeDistance            59     16    3    e3  <31         6583 / 6590,6598
-  pAlternative                    60     -8    3    e2  <30         6582 / 6598
+  nAlternativeDistance            61     16    3    eb  <32         6597 / 6604,6612
+  pAlternative                    62     -8    3    ea  <31         6596 / 6612
   colouring order:
     nCurrentDistance             prio    46 -> edi  (allowed edi; costs edi=5402)
   blocks (w = loop weight, K = candidates referenced in the block):
-    blk 00bf1610 L6581-6584 w=1 K=6: nAlternativeDistance+12 pAlternative+12
-    blk 00bffcc8 L?         w=1 K=0: nAlternativeDistance-0(live) pAlternative-0(live)
-    blk 00bf17b0 L6586-6587 w=2 K=3: nAlternativeDistance-6(live) pAlternative-6(live)
-    blk 00bf1950 L6589-6590 w=2 K=5: pAlternative-10(live) nAlternativeDistance+20
-    blk 00c2ce50 L6590-6590 w=2 K=2: pAlternative-4(live) nAlternativeDistance-4(live)
-    blk 00c2cff0 L6590-6590 w=2 K=2: pAlternative-4(live) nAlternativeDistance-4(live)
-    blk 00c2d190 L6592-6593 w=2 K=5: pAlternative+0 nAlternativeDistance+0
-    blk 00c3f738 L6593-6593 w=2 K=1: pAlternative-2(live) nAlternativeDistance-2(live)
-    blk 00c2d330 L6584-6596 w=2 K=2: pAlternative-4(live) nAlternativeDistance-4(live)
-    blk 00c00470 L?         w=1 K=0: pAlternative-0(live) nAlternativeDistance-0(live)
-    blk 00c2d4d0 L6598-6598 w=1 K=2: pAlternative+4 nAlternativeDistance-2(live)
-    blk 00c2d670 L6598-6598 w=1 K=3: pAlternative+6 nAlternativeDistance+6
+    blk 00c26b18 L6595-6598 w=1 K=6: nAlternativeDistance+12 pAlternative+12
+    blk 00bedff8 L?         w=1 K=0: nAlternativeDistance-0(live) pAlternative-0(live)
+    blk 00c16da0 L6600-6601 w=2 K=3: nAlternativeDistance-6(live) pAlternative-6(live)
+    blk 00c16f40 L6603-6604 w=2 K=5: pAlternative-10(live) nAlternativeDistance+20
+    blk 00c170e0 L6604-6604 w=2 K=2: pAlternative-4(live) nAlternativeDistance-4(live)
+    blk 00c17280 L6604-6604 w=2 K=2: pAlternative-4(live) nAlternativeDistance-4(live)
+    blk 00c17420 L6606-6607 w=2 K=5: pAlternative+0 nAlternativeDistance+0
+    blk 00c44d38 L6607-6607 w=2 K=1: pAlternative-2(live) nAlternativeDistance-2(live)
+    blk 00c175c0 L6598-6610 w=2 K=2: pAlternative-4(live) nAlternativeDistance-4(live)
+    blk 00bee7cc L?         w=1 K=0: pAlternative-0(live) nAlternativeDistance-0(live)
+    blk 00c17760 L6612-6612 w=1 K=2: pAlternative+4 nAlternativeDistance-2(live)
+    blk 00c17900 L6612-6612 w=1 K=3: pAlternative+6 nAlternativeDistance+6
 
 === round 4 (register class 0): 13 candidates with references ===
   candidate                       id   prio refs   key  web  reg    def lines / use lines
-  pUnit                           25     41   21     8  <12  edi    6483 / 6484,6500,6502,6514,6516,6523,6531,6532,6533,6590,6598,6606,6615,6616,6634,6640
-  ppNode                          16     21    6    a7  <17         6518,6565 / 6519,6565,6581
-  nX                              15    -15    4    65  <23         6532 / 6542,6572,6589
-  nY                              14    -15    4    62  <24         6533 / 6542,6572,6589
-  const:2147483647#57             57    -51    4     0   <5          / 6513,6583,6609,6614
-  const:0#31                      31    -52   36     0   <1          / 6485,6487,6488,6496,6500,6502,6503,6506,6511,6514,6520,6523,6525,6534,6536,6539,6567,6582,6584,6590,6598,6608,6613,6615,6616,6628,6630,6637,6638,6640
-  bCheckCollision                 23    -65    4    34  <14         6492 / 6514,6590,6610
-  pTarget                         30    -80    4   123   <2         6520 / 6628,6640,6642
-  nDistance                       17    -92    2   122  <16         6521 / 6641
-  nMinDistance                    22   -113    2    85  <15         6513 / 6631
-  pAiControl                      58   -123    5    13   <4          / 6490,6493,6499,6636
-  pSpecialAi                      56   -128    3    2f   <6         6487 / 6637,6638
-  nOldToggle                      24   -147    2    38  <13         6488 / 6638
+  pUnit                           58     42   21     8  <12  edi    6494 / 6495,6511,6514,6528,6530,6537,6545,6546,6547,6604,6612,6620,6629,6630,6648,6654
+  ppNode                          17     21    6    af  <18         6532,6579 / 6533,6579,6595
+  nX                              16    -15    4    6d  <24         6546 / 6556,6586,6603
+  nY                              15    -15    4    6a  <25         6547 / 6556,6586,6603
+  const:2147483647#60             60    -51    4     0   <5          / 6527,6597,6623,6628
+  const:0#32                      32    -56   37     0   <1          / 6496,6498,6499,6507,6510,6511,6514,6515,6518,6525,6528,6534,6537,6539,6548,6550,6553,6581,6596,6598,6604,6612,6622,6627,6629,6630,6642,6644,6651,6652,6654
+  bCheckCollision                 25    -71    4    39  <14         6504 / 6528,6604,6624
+  pTarget                         24    -80    4   12b  <15         6534 / 6642,6654,6656
+  nDistance                       18    -92    2   12a  <17         6535 / 6655
+  nMinDistance                    23   -113    2    8d  <16         6527 / 6645
+  pAiControl                      31   -131    5    13   <4          / 6501,6510,6523,6650
+  pSpecialAi                      59   -132    3    33   <6         6498 / 6651,6652
+  nOldToggle                      26   -152    2    3d  <13         6499 / 6652
   colouring order:
-    pUnit                        prio    41 -> edi  (allowed edi; costs edi=3198)
+    pUnit                        prio    42 -> edi  (allowed edi; costs edi=3198)
   blocks (w = loop weight, K = candidates referenced in the block):
-    blk 00c459c4 L6483-6485 w=1 K=4: const:0#31+0 pUnit+16
-    blk 00c45d04 L6487-6490 w=1 K=5: pAiControl+10 nOldToggle+10 pSpecialAi+10 const:0#31+0 pUnit-5(live)
-    blk 00c45ea4 L6492-6493 w=1 K=4: bCheckCollision+8 pAiControl+8 nOldToggle-4(live) pSpecialAi-4(live) const:0#31-4(live) pUnit-4(live)
-    blk 00c46044 L6495-6495 w=1 K=1: pAiControl-1(live) pSpecialAi-1(live) const:0#31-1(live) pUnit-1(live) nOldToggle-1(live)
-    blk 00c461e4 L6496-6497 w=1 K=3: bCheckCollision+0 pAiControl-3(live) pSpecialAi-3(live) const:0#31+3 pUnit-3(live) nOldToggle-3(live)
-    blk 00c46384 L6499-6500 w=1 K=3: pAiControl+6 pSpecialAi-3(live) const:0#31+0 pUnit+6 nOldToggle-3(live)
-    blk 00c46524 L6500-6500 w=1 K=1: pAiControl-1(live) pSpecialAi-1(live) const:0#31-1(live) pUnit+2 nOldToggle-1(live)
-    blk 00bc6ef8 L6502-6502 w=1 K=3: pAiControl-3(live) const:0#31+0 pUnit+6 nOldToggle-3(live)
-    blk 00bc7098 L6502-6502 w=1 K=1: pAiControl-1(live) const:0#31-1(live) pUnit-1(live) nOldToggle-1(live)
-    blk 00bc7238 L6502-6502 w=1 K=1: pAiControl-1(live) const:0#31+1 pUnit-1(live) nOldToggle-1(live)
-    blk 00bc73d8 L6503-6503 w=1 K=1: pAiControl-1(live) const:0#31+0 pUnit-1(live) nOldToggle-1(live)
-    blk 00bc7578 L6503-6503 w=1 K=1: pAiControl-1(live) const:0#31+0 pUnit-1(live) nOldToggle-1(live)
-    blk 00bc7718 L6505-6506 w=1 K=6: pSpecialAi+0 nOldToggle+0 bCheckCollision+0 pAiControl-6(live) const:0#31+0 pUnit-6(live)
-    blk 00c00820 L6506-6506 w=1 K=3: pSpecialAi+0 bCheckCollision+0 pAiControl-3(live) const:0#31-3(live) pUnit-3(live) nOldToggle-3(live)
-    blk 00c009f8 L6506-6506 w=1 K=2: bCheckCollision+0 pAiControl-2(live) pSpecialAi-2(live) const:0#31-2(live) pUnit-2(live) nOldToggle-2(live)
-    blk 00bc78b8 L6511-6514 w=1 K=6: nMinDistance+12 const:2147483647#57+0 bCheckCollision+12 pAiControl-6(live) pSpecialAi-6(live) const:0#31+6 pUnit+12 nOldToggle-6(live)
-    blk 00bc7a58 L6516-6516 w=1 K=1: nMinDistance-1(live) const:2147483647#57-1(live) bCheckCollision-1(live) pAiControl-1(live) pSpecialAi-1(live) const:0#31-1(live) pUnit+2 nOldToggle-1(live)
-    blk 00bc7bf8 L6518-6523 w=1 K=7: nDistance+14 pTarget+14 ppNode+28 pAiControl-7(live) const:2147483647#57-7(live) pSpecialAi-7(live) const:0#31+0 pUnit+14 nOldToggle-7(live) bCheckCollision-7(live) nMinDistance-7(live)
-    blk 00bfecc0 L6523-6523 w=1 K=2: nDistance-2(live) pTarget-2(live) ppNode-2(live) pAiControl-2(live) const:2147483647#57-2(live) pSpecialAi-2(live) const:0#31-2(live) pUnit+4 nOldToggle-2(live) bCheckCollision-2(live) nMinDistance-2(live)
-    blk 00bfee60 L6523-6523 w=1 K=3: nDistance-3(live) pTarget-3(live) ppNode-3(live) pAiControl-3(live) const:2147483647#57-3(live) pSpecialAi-3(live) const:0#31+0 pUnit+6 nOldToggle-3(live) bCheckCollision-3(live) nMinDistance-3(live)
-    blk 00bff000 L6524-6525 w=1 K=3: nDistance-3(live) pTarget-3(live) ppNode-3(live) pAiControl-3(live) const:2147483647#57-3(live) pSpecialAi-3(live) const:0#31+0 pUnit-3(live) nOldToggle-3(live) bCheckCollision-3(live) nMinDistance-3(live)
-    blk 00bff1a0 L6527-6528 w=1 K=3: nDistance-3(live) pTarget-3(live) ppNode-3(live) pAiControl-3(live) const:2147483647#57-3(live) pSpecialAi-3(live) const:0#31-3(live) pUnit-3(live) nOldToggle-3(live) bCheckCollision-3(live) nMinDistance-3(live)
-    blk 00bff340 L6529-6529 w=1 K=2: nDistance+0 pAiControl-2(live) const:2147483647#57-2(live) pSpecialAi-2(live) const:0#31-2(live) pTarget-2(live) pUnit-2(live) nOldToggle-2(live) bCheckCollision-2(live) nMinDistance-2(live) ppNode-2(live)
-    blk 00bff4e0 L6531-6534 w=1 K=5: nY+10 nX+10 nDistance-5(live) pAiControl-5(live) const:2147483647#57-5(live) pSpecialAi-5(live) const:0#31+0 pTarget-5(live) pUnit+30 nOldToggle-5(live) bCheckCollision-5(live) nMinDistance-5(live) ppNode-5(live)
-    blk 00c000c0 L?         w=1 K=0: nY-0(live) nX-0(live) nDistance-0(live) pAiControl-0(live) const:2147483647#57-0(live) pSpecialAi-0(live) const:0#31-0(live) pTarget-0(live) pUnit-0(live) nOldToggle-0(live) bCheckCollision-0(live) nMinDistance-0(live) ppNode-0(live)
-    blk 00bff680 L6536-6536 w=2 K=2: nY-4(live) nX-4(live) nDistance-4(live) pAiControl-4(live) const:2147483647#57-4(live) pSpecialAi-4(live) const:0#31+0 pTarget-4(live) pUnit-4(live) nOldToggle-4(live) bCheckCollision-4(live) nMinDistance-4(live) ppNode-4(live)
-    blk 00bff820 L6538-6539 w=2 K=3: nY-6(live) nX-6(live) nDistance-6(live) pAiControl-6(live) const:2147483647#57-6(live) pSpecialAi-6(live) const:0#31+0 pTarget-6(live) pUnit-6(live) nOldToggle-6(live) bCheckCollision-6(live) nMinDistance-6(live) ppNode-6(live)
-    blk 00bff9c0 L6539-6539 w=2 K=2: nY-4(live) nX-4(live) nDistance-4(live) pAiControl-4(live) const:2147483647#57-4(live) pSpecialAi-4(live) const:0#31+0 pTarget-4(live) pUnit-4(live) nOldToggle-4(live) bCheckCollision-4(live) nMinDistance-4(live) ppNode-4(live)
-    blk 00bf2c60 L6540-6540 w=2 K=1: nY-2(live) nX-2(live) nDistance-2(live) pAiControl-2(live) const:2147483647#57-2(live) pSpecialAi-2(live) const:0#31-2(live) pTarget-2(live) pUnit-2(live) nOldToggle-2(live) bCheckCollision-2(live) nMinDistance-2(live) ppNode-2(live)
-    blk 00bf2e00 L6540-6540 w=2 K=1: nY-2(live) nX-2(live) nDistance-2(live) pAiControl-2(live) const:2147483647#57-2(live) pSpecialAi-2(live) const:0#31-2(live) pTarget-2(live) pUnit-2(live) nOldToggle-2(live) bCheckCollision-2(live) nMinDistance-2(live) ppNode-2(live)
-    blk 00bf2fa0 L6540-6540 w=2 K=1: nY-2(live) nX-2(live) nDistance-2(live) pAiControl-2(live) const:2147483647#57-2(live) pSpecialAi-2(live) const:0#31-2(live) pTarget-2(live) pUnit-2(live) nOldToggle-2(live) bCheckCollision-2(live) nMinDistance-2(live) ppNode-2(live)
-    blk 00bf3140 L6542-6543 w=2 K=4: nX+16 nY+16
-    blk 00c3f220 L6561-6561 w=2 K=15: pAiControl+0 const:2147483647#57+0 pSpecialAi+0 const:0#31+0 pTarget+0 pUnit+0 nOldToggle+0 bCheckCollision+0 nMinDistance+0 nDistance+0 ppNode+0 nX+0 nY+0
-    blk 00bf74a0 L6534-6565 w=2 K=4: pAiControl-8(live) const:2147483647#57-8(live) pSpecialAi-8(live) const:0#31-8(live) pTarget-8(live) pUnit-8(live) nOldToggle-8(live) bCheckCollision-8(live) nMinDistance-8(live) nDistance-8(live) ppNode+32 nX-8(live) nY-8(live)
-    blk 00bf7640 L6539-6539 w=1 K=0: pAiControl-0(live) const:2147483647#57-0(live) pSpecialAi-0(live) const:0#31-0(live) pTarget-0(live) pUnit-0(live) nOldToggle-0(live) bCheckCollision-0(live) nMinDistance-0(live) nDistance-0(live) ppNode-0(live) nX-0(live) nY-0(live)
-    blk 00bf7980 L6567-6567 w=1 K=2: pAiControl-2(live) const:2147483647#57-2(live) pSpecialAi-2(live) const:0#31+0 pTarget-2(live) pUnit-2(live) nOldToggle-2(live) bCheckCollision-2(live) nMinDistance-2(live) nDistance-2(live) ppNode-2(live) nX-2(live) nY-2(live)
-    blk 00c37c20 L?         w=1 K=0: pAiControl-0(live) const:2147483647#57-0(live) pSpecialAi-0(live) const:0#31-0(live) pTarget-0(live) pUnit-0(live) nOldToggle-0(live) bCheckCollision-0(live) nMinDistance-0(live) nDistance-0(live) ppNode-0(live) nX-0(live) nY-0(live)
-    blk 00bf0c50 L6569-6570 w=2 K=3: pAiControl-6(live) const:2147483647#57-6(live) pSpecialAi-6(live) const:0#31-6(live) pTarget-6(live) pUnit-6(live) nOldToggle-6(live) bCheckCollision-6(live) nMinDistance-6(live) nDistance-6(live) ppNode-6(live) nX-6(live) nY-6(live)
-    blk 00bf0df0 L6572-6573 w=2 K=4: nX+16 nY+16
-    blk 00bf12d0 L6575-6576 w=2 K=16: pAiControl+0 const:2147483647#57+0 pSpecialAi+0 const:0#31+0 pTarget+0 pUnit+0 nOldToggle+0 bCheckCollision+0 nMinDistance+0 nDistance+0 ppNode+0 nX+0 nY+0
-    blk 00c3f3c0 L6576-6576 w=2 K=14: pAiControl+0 const:2147483647#57+0 pSpecialAi+0 const:0#31+0 pTarget+0 pUnit+0 nOldToggle+0 bCheckCollision+0 nMinDistance+0 nDistance+0 ppNode+0 nX+0 nY+0
-    blk 00bf1470 L6567-6579 w=2 K=2: pAiControl-4(live) const:2147483647#57-4(live) pSpecialAi-4(live) const:0#31+0 pTarget-4(live) pUnit-4(live) nOldToggle-4(live) bCheckCollision-4(live) nMinDistance-4(live) nDistance-4(live) ppNode-4(live) nX-4(live) nY-4(live)
-    blk 00c00298 L6567-6567 w=1 K=0: pAiControl-0(live) const:2147483647#57-0(live) pSpecialAi-0(live) const:0#31-0(live) pTarget-0(live) pUnit-0(live) nOldToggle-0(live) bCheckCollision-0(live) nMinDistance-0(live) nDistance-0(live) ppNode-0(live) nX-0(live) nY-0(live)
-    blk 00c3f560 L6567-6567 w=1 K=1: pAiControl-1(live) const:2147483647#57-1(live) pSpecialAi-1(live) const:0#31-1(live) pTarget-1(live) pUnit-1(live) nOldToggle-1(live) bCheckCollision-1(live) nMinDistance-1(live) nDistance-1(live) ppNode-1(live) nX-1(live) nY-1(live)
-    blk 00bf1610 L6581-6584 w=1 K=6: ppNode+12 pAiControl-6(live) pSpecialAi-6(live) const:0#31+0 pTarget-6(live) pUnit-6(live) nOldToggle-6(live) bCheckCollision-6(live) nMinDistance-6(live) nDistance-6(live) nX-6(live) nY-6(live)
-    blk 00bffcc8 L?         w=1 K=0: pAiControl-0(live) pSpecialAi-0(live) const:0#31-0(live) pTarget-0(live) pUnit-0(live) nOldToggle-0(live) bCheckCollision-0(live) nMinDistance-0(live) nDistance-0(live) nX-0(live) nY-0(live)
-    blk 00bf17b0 L6586-6587 w=2 K=3: pAiControl-6(live) pSpecialAi-6(live) const:0#31-6(live) pTarget-6(live) pUnit-6(live) nOldToggle-6(live) bCheckCollision-6(live) nMinDistance-6(live) nDistance-6(live) nX-6(live) nY-6(live)
-    blk 00bf1950 L6589-6590 w=2 K=5: pAiControl-10(live) pSpecialAi-10(live) const:0#31-10(live) pTarget-10(live) pUnit-10(live) nOldToggle-10(live) bCheckCollision-10(live) nMinDistance-10(live) nDistance-10(live) nX+20 nY+20
-    blk 00c2ce50 L6590-6590 w=2 K=2: pAiControl-4(live) pSpecialAi-4(live) const:0#31+0 pTarget-4(live) pUnit-4(live) nOldToggle-4(live) bCheckCollision+8 nMinDistance-4(live) nDistance-4(live) nX-4(live) nY-4(live)
-    blk 00c2cff0 L6590-6590 w=2 K=2: pAiControl-4(live) pSpecialAi-4(live) const:0#31-4(live) pTarget-4(live) pUnit+8 nOldToggle-4(live) bCheckCollision-4(live) nMinDistance-4(live) nDistance-4(live) nX-4(live) nY-4(live)
-    blk 00c2d190 L6592-6593 w=2 K=5: pAiControl-10(live) pSpecialAi-10(live) const:0#31-10(live) pTarget-10(live) pUnit-10(live) nOldToggle-10(live) bCheckCollision-10(live) nMinDistance-10(live) nDistance-10(live) nX-10(live) nY-10(live)
-    blk 00c3f738 L6593-6593 w=2 K=1: pAiControl-2(live) pSpecialAi-2(live) const:0#31-2(live) pTarget-2(live) pUnit-2(live) nOldToggle-2(live) bCheckCollision-2(live) nMinDistance-2(live) nDistance-2(live) nX-2(live) nY-2(live)
-    blk 00c2d330 L6584-6596 w=2 K=2: pAiControl-4(live) pSpecialAi-4(live) const:0#31+0 pTarget-4(live) pUnit-4(live) nOldToggle-4(live) bCheckCollision-4(live) nMinDistance-4(live) nDistance-4(live) nX-4(live) nY-4(live)
-    blk 00c00470 L?         w=1 K=0: pAiControl-0(live) pSpecialAi-0(live) const:0#31-0(live) pTarget-0(live) pUnit-0(live) nOldToggle-0(live) nMinDistance-0(live) nDistance-0(live)
-    blk 00c2d4d0 L6598-6598 w=1 K=2: pAiControl-2(live) pSpecialAi-2(live) const:0#31+0 pTarget-2(live) pUnit-2(live) nOldToggle-2(live) nMinDistance-2(live) nDistance-2(live)
-    blk 00c2d670 L6598-6598 w=1 K=3: pUnit+6
-    blk 00c2d810 L6600-6604 w=1 K=8: pAiControl+0 pSpecialAi+0 const:0#31+0 pTarget+0 pUnit+0 nOldToggle+0 nMinDistance+0 nDistance+0
-    blk 00c2d9b0 L6606-6616 w=1 K=8: const:2147483647#57+16 bCheckCollision+16 pAiControl-8(live) pSpecialAi-8(live) const:0#31+16 pUnit+48 nOldToggle-8(live) nMinDistance-8(live)
-    blk 00c2db50 L6616-6616 w=1 K=2: pUnit+4
-    blk 00c1ddd8 L6618-6621 w=1 K=8: pAiControl+0 pSpecialAi+0 const:0#31+0 pTarget+0 pUnit+0 nOldToggle+0 nMinDistance+0 nDistance+0
-    blk 00c3f910 L6621-6621 w=1 K=6: pAiControl+0 pSpecialAi+0 const:0#31+0 pUnit+0 nOldToggle+0 nMinDistance+0
-    blk 00c1df78 L6623-6624 w=1 K=2: pTarget+0 nDistance+0 pAiControl-2(live) pSpecialAi-2(live) const:0#31-2(live) pUnit-2(live) nOldToggle-2(live) nMinDistance-2(live)
-    blk 00c3fae8 L6624-6624 w=1 K=6: pAiControl+0 pSpecialAi+0 const:0#31+0 pUnit+0 nOldToggle+0 nMinDistance+0
-    blk 00c00648 L6624-6624 w=1 K=2: pTarget+0 nDistance+0 pAiControl-2(live) pSpecialAi-2(live) const:0#31-2(live) pUnit-2(live) nOldToggle-2(live) nMinDistance-2(live)
-    blk 00c1e118 L6628-6628 w=1 K=2: pTarget+4 nDistance-2(live) pAiControl-2(live) pSpecialAi-2(live) const:0#31+0 pUnit-2(live) nOldToggle-2(live) nMinDistance-2(live)
-    blk 00c1e2b8 L6630-6632 w=1 K=2: nMinDistance+4
-    blk 00c1e458 L6634-6634 w=1 K=1: pAiControl-1(live) pSpecialAi-1(live) const:0#31-1(live) pTarget-1(live) pUnit+2 nOldToggle-1(live) nDistance-1(live)
-    blk 00c1e5f8 L6636-6637 w=1 K=3: pAiControl+12 pSpecialAi+6 const:0#31+0 pTarget-3(live) pUnit-3(live) nOldToggle-3(live) nDistance-3(live)
-    blk 00c1e798 L6638-6638 w=1 K=3: pSpecialAi+6 nOldToggle+6 const:0#31+0 pTarget-3(live) pUnit-3(live) nDistance-3(live)
-    blk 00c1e938 L6640-6642 w=1 K=4: pTarget+16 nDistance+8 pUnit+8
+    blk 00c52ba4 L6494-6496 w=1 K=4: const:0#32+0 pUnit+16
+    blk 00c52ee4 L6498-6502 w=1 K=5: pAiControl+10 nOldToggle+10 pSpecialAi+10 const:0#32+0 pUnit-5(live)
+    blk 00c53084 L6504-6504 w=1 K=2: bCheckCollision+4 pAiControl-2(live) nOldToggle-2(live) pSpecialAi-2(live) const:0#32-2(live) pUnit-2(live)
+    blk 00c53224 L6506-6506 w=1 K=1: pSpecialAi-1(live) pUnit-1(live) const:0#32-1(live) pAiControl-1(live) nOldToggle-1(live)
+    blk 00c533c4 L6507-6508 w=1 K=3: bCheckCollision+0 pSpecialAi-3(live) pUnit-3(live) const:0#32+3 pAiControl-3(live) nOldToggle-3(live)
+    blk 00c53564 L6510-6511 w=1 K=4: pSpecialAi-4(live) pUnit+8 const:0#32+0 pAiControl+8 nOldToggle-4(live)
+    blk 00c53704 L6511-6512 w=1 K=2: pSpecialAi-2(live) pUnit+4 const:0#32-2(live) pAiControl-2(live) nOldToggle-2(live)
+    blk 00c05d10 L6514-6514 w=1 K=1: pUnit-1(live) const:0#32-1(live) pAiControl-1(live) nOldToggle-1(live)
+    blk 00c05eb0 L6514-6514 w=1 K=3: pUnit+6 const:0#32+0 pAiControl-3(live) nOldToggle-3(live)
+    blk 00c06050 L6514-6514 w=1 K=1: pUnit-1(live) const:0#32-1(live) pAiControl-1(live) nOldToggle-1(live)
+    blk 00c061f0 L6514-6514 w=1 K=1: pUnit-1(live) const:0#32+1 pAiControl-1(live) nOldToggle-1(live)
+    blk 00c06390 L6514-6515 w=1 K=1: pUnit-1(live) const:0#32+0 pAiControl-1(live) nOldToggle-1(live)
+    blk 00c06530 L6515-6515 w=1 K=1: pUnit-1(live) const:0#32+0 pAiControl-1(live) nOldToggle-1(live)
+    blk 00c066d0 L6517-6522 w=1 K=6: pSpecialAi+0 nOldToggle+0 bCheckCollision+0 pUnit-6(live) const:0#32+0 pAiControl-6(live)
+    blk 00c06870 L6523-6523 w=1 K=2: pSpecialAi-2(live) pUnit-2(live) const:0#32-2(live) pAiControl+4 nOldToggle-2(live) bCheckCollision-2(live)
+    blk 00c43f20 L6508-6508 w=1 K=2: bCheckCollision+0 pSpecialAi-2(live) pUnit-2(live) const:0#32-2(live) pAiControl-2(live) nOldToggle-2(live)
+    blk 00c440c0 L6508-6508 w=1 K=3: pSpecialAi+0 bCheckCollision+0 pUnit-3(live) const:0#32-3(live) pAiControl-3(live) nOldToggle-3(live)
+    blk 00c44260 L6522-6522 w=1 K=2: bCheckCollision+0 pSpecialAi-2(live) pUnit-2(live) const:0#32-2(live) pAiControl-2(live) nOldToggle-2(live)
+    blk 00c06a10 L6523-6528 w=1 K=6: nMinDistance+12 const:2147483647#60+0 bCheckCollision+12 pSpecialAi-6(live) pUnit+12 const:0#32+6 pAiControl-6(live) nOldToggle-6(live)
+    blk 00c3ced0 L6530-6530 w=1 K=1: nMinDistance-1(live) const:2147483647#60-1(live) bCheckCollision-1(live) pSpecialAi-1(live) pUnit+2 const:0#32-1(live) pAiControl-1(live) nOldToggle-1(live)
+    blk 00c3d070 L6532-6537 w=1 K=7: nDistance+14 pTarget+14 ppNode+28 const:2147483647#60-7(live) pSpecialAi-7(live) pUnit+14 const:0#32+0 pAiControl-7(live) nOldToggle-7(live) bCheckCollision-7(live) nMinDistance-7(live)
+    blk 00c3d210 L6537-6537 w=1 K=2: nDistance-2(live) pTarget-2(live) ppNode-2(live) const:2147483647#60-2(live) pSpecialAi-2(live) pUnit+4 const:0#32-2(live) pAiControl-2(live) nOldToggle-2(live) bCheckCollision-2(live) nMinDistance-2(live)
+    blk 00c3d3b0 L6537-6537 w=1 K=3: nDistance-3(live) pTarget-3(live) ppNode-3(live) const:2147483647#60-3(live) pSpecialAi-3(live) pUnit+6 const:0#32+0 pAiControl-3(live) nOldToggle-3(live) bCheckCollision-3(live) nMinDistance-3(live)
+    blk 00c3d550 L6538-6539 w=1 K=3: nDistance-3(live) pTarget-3(live) ppNode-3(live) const:2147483647#60-3(live) pSpecialAi-3(live) pUnit-3(live) const:0#32+0 pAiControl-3(live) nOldToggle-3(live) bCheckCollision-3(live) nMinDistance-3(live)
+    blk 00c3d6f0 L6541-6542 w=1 K=3: nDistance-3(live) pTarget-3(live) ppNode-3(live) const:2147483647#60-3(live) pSpecialAi-3(live) pUnit-3(live) const:0#32-3(live) pAiControl-3(live) nOldToggle-3(live) bCheckCollision-3(live) nMinDistance-3(live)
+    blk 00c3d890 L6543-6543 w=1 K=2: nDistance+0 const:2147483647#60-2(live) pSpecialAi-2(live) pUnit-2(live) const:0#32-2(live) pAiControl-2(live) nOldToggle-2(live) bCheckCollision-2(live) pTarget-2(live) nMinDistance-2(live) ppNode-2(live)
+    blk 00c3da30 L6545-6548 w=1 K=5: nY+10 nX+10 nDistance-5(live) const:2147483647#60-5(live) pSpecialAi-5(live) pUnit+30 const:0#32+0 pAiControl-5(live) nOldToggle-5(live) bCheckCollision-5(live) pTarget-5(live) nMinDistance-5(live) ppNode-5(live)
+    blk 00bee41c L?         w=1 K=0: nY-0(live) nX-0(live) nDistance-0(live) const:2147483647#60-0(live) pSpecialAi-0(live) pUnit-0(live) const:0#32-0(live) pAiControl-0(live) nOldToggle-0(live) bCheckCollision-0(live) pTarget-0(live) nMinDistance-0(live) ppNode-0(live)
+    blk 00c3dbd0 L6550-6550 w=2 K=2: nY-4(live) nX-4(live) nDistance-4(live) const:2147483647#60-4(live) pSpecialAi-4(live) pUnit-4(live) const:0#32+0 pAiControl-4(live) nOldToggle-4(live) bCheckCollision-4(live) pTarget-4(live) nMinDistance-4(live) ppNode-4(live)
+    blk 00c37ea8 L6552-6553 w=2 K=3: nY-6(live) nX-6(live) nDistance-6(live) const:2147483647#60-6(live) pSpecialAi-6(live) pUnit-6(live) const:0#32+0 pAiControl-6(live) nOldToggle-6(live) bCheckCollision-6(live) pTarget-6(live) nMinDistance-6(live) ppNode-6(live)
+    blk 00c38048 L6553-6553 w=2 K=2: nY-4(live) nX-4(live) nDistance-4(live) const:2147483647#60-4(live) pSpecialAi-4(live) pUnit-4(live) const:0#32+0 pAiControl-4(live) nOldToggle-4(live) bCheckCollision-4(live) pTarget-4(live) nMinDistance-4(live) ppNode-4(live)
+    blk 00c381e8 L6554-6554 w=2 K=1: nY-2(live) nX-2(live) nDistance-2(live) const:2147483647#60-2(live) pSpecialAi-2(live) pUnit-2(live) const:0#32-2(live) pAiControl-2(live) nOldToggle-2(live) bCheckCollision-2(live) pTarget-2(live) nMinDistance-2(live) ppNode-2(live)
+    blk 00c38388 L6554-6554 w=2 K=1: nY-2(live) nX-2(live) nDistance-2(live) const:2147483647#60-2(live) pSpecialAi-2(live) pUnit-2(live) const:0#32-2(live) pAiControl-2(live) nOldToggle-2(live) bCheckCollision-2(live) pTarget-2(live) nMinDistance-2(live) ppNode-2(live)
+    blk 00c38528 L6554-6554 w=2 K=1: nY-2(live) nX-2(live) nDistance-2(live) const:2147483647#60-2(live) pSpecialAi-2(live) pUnit-2(live) const:0#32-2(live) pAiControl-2(live) nOldToggle-2(live) bCheckCollision-2(live) pTarget-2(live) nMinDistance-2(live) ppNode-2(live)
+    blk 00c386c8 L6556-6557 w=2 K=4: nX+16 nY+16
+    blk 00c447b0 L6575-6575 w=2 K=15: const:2147483647#60+0 pSpecialAi+0 pUnit+0 const:0#32+0 pAiControl+0 nOldToggle+0 bCheckCollision+0 pTarget+0 nMinDistance+0 nDistance+0 ppNode+0 nX+0 nY+0
+    blk 00c25970 L6548-6579 w=2 K=4: const:2147483647#60-8(live) pSpecialAi-8(live) pUnit-8(live) const:0#32-8(live) pAiControl-8(live) nOldToggle-8(live) bCheckCollision-8(live) pTarget-8(live) nMinDistance-8(live) nDistance-8(live) ppNode+32 nX-8(live) nY-8(live)
+    blk 00c25b10 L6553-6553 w=1 K=0: const:2147483647#60-0(live) pSpecialAi-0(live) pUnit-0(live) const:0#32-0(live) pAiControl-0(live) nOldToggle-0(live) bCheckCollision-0(live) pTarget-0(live) nMinDistance-0(live) nDistance-0(live) ppNode-0(live) nX-0(live) nY-0(live)
+    blk 00c25fb8 L6581-6581 w=1 K=2: const:2147483647#60-2(live) pSpecialAi-2(live) pUnit-2(live) const:0#32+0 pAiControl-2(live) nOldToggle-2(live) bCheckCollision-2(live) pTarget-2(live) nMinDistance-2(live) nDistance-2(live) ppNode-2(live) nX-2(live) nY-2(live)
+    blk 00beddd0 L?         w=1 K=0: const:2147483647#60-0(live) pSpecialAi-0(live) pUnit-0(live) const:0#32-0(live) pAiControl-0(live) nOldToggle-0(live) bCheckCollision-0(live) pTarget-0(live) nMinDistance-0(live) nDistance-0(live) ppNode-0(live) nX-0(live) nY-0(live)
+    blk 00c26158 L6583-6584 w=2 K=3: const:2147483647#60-6(live) pSpecialAi-6(live) pUnit-6(live) const:0#32-6(live) pAiControl-6(live) nOldToggle-6(live) bCheckCollision-6(live) pTarget-6(live) nMinDistance-6(live) nDistance-6(live) ppNode-6(live) nX-6(live) nY-6(live)
+    blk 00c262f8 L6586-6587 w=2 K=4: nX+16 nY+16
+    blk 00c267d8 L6589-6590 w=2 K=16: const:2147483647#60+0 pSpecialAi+0 pUnit+0 const:0#32+0 pAiControl+0 nOldToggle+0 bCheckCollision+0 pTarget+0 nMinDistance+0 nDistance+0 ppNode+0 nX+0 nY+0
+    blk 00c44988 L6590-6590 w=2 K=14: const:2147483647#60+0 pSpecialAi+0 pUnit+0 const:0#32+0 pAiControl+0 nOldToggle+0 bCheckCollision+0 pTarget+0 nMinDistance+0 nDistance+0 ppNode+0 nX+0 nY+0
+    blk 00c26978 L6581-6593 w=2 K=2: const:2147483647#60-4(live) pSpecialAi-4(live) pUnit-4(live) const:0#32+0 pAiControl-4(live) nOldToggle-4(live) bCheckCollision-4(live) pTarget-4(live) nMinDistance-4(live) nDistance-4(live) ppNode-4(live) nX-4(live) nY-4(live)
+    blk 00bee5f4 L6581-6581 w=1 K=0: const:2147483647#60-0(live) pSpecialAi-0(live) pUnit-0(live) const:0#32-0(live) pAiControl-0(live) nOldToggle-0(live) bCheckCollision-0(live) pTarget-0(live) nMinDistance-0(live) nDistance-0(live) ppNode-0(live) nX-0(live) nY-0(live)
+    blk 00c44b60 L6581-6581 w=1 K=1: const:2147483647#60-1(live) pSpecialAi-1(live) pUnit-1(live) const:0#32-1(live) pAiControl-1(live) nOldToggle-1(live) bCheckCollision-1(live) pTarget-1(live) nMinDistance-1(live) nDistance-1(live) ppNode-1(live) nX-1(live) nY-1(live)
+    blk 00c26b18 L6595-6598 w=1 K=6: ppNode+12 pSpecialAi-6(live) pUnit-6(live) const:0#32+0 pAiControl-6(live) nOldToggle-6(live) bCheckCollision-6(live) pTarget-6(live) nMinDistance-6(live) nDistance-6(live) nX-6(live) nY-6(live)
+    blk 00bedff8 L?         w=1 K=0: pSpecialAi-0(live) pUnit-0(live) const:0#32-0(live) pAiControl-0(live) nOldToggle-0(live) bCheckCollision-0(live) pTarget-0(live) nMinDistance-0(live) nDistance-0(live) nX-0(live) nY-0(live)
+    blk 00c16da0 L6600-6601 w=2 K=3: pSpecialAi-6(live) pUnit-6(live) const:0#32-6(live) pAiControl-6(live) nOldToggle-6(live) bCheckCollision-6(live) pTarget-6(live) nMinDistance-6(live) nDistance-6(live) nX-6(live) nY-6(live)
+    blk 00c16f40 L6603-6604 w=2 K=5: pSpecialAi-10(live) pUnit-10(live) const:0#32-10(live) pAiControl-10(live) nOldToggle-10(live) bCheckCollision-10(live) pTarget-10(live) nMinDistance-10(live) nDistance-10(live) nX+20 nY+20
+    blk 00c170e0 L6604-6604 w=2 K=2: pSpecialAi-4(live) pUnit-4(live) const:0#32+0 pAiControl-4(live) nOldToggle-4(live) bCheckCollision+8 pTarget-4(live) nMinDistance-4(live) nDistance-4(live) nX-4(live) nY-4(live)
+    blk 00c17280 L6604-6604 w=2 K=2: pSpecialAi-4(live) pUnit+8 const:0#32-4(live) pAiControl-4(live) nOldToggle-4(live) bCheckCollision-4(live) pTarget-4(live) nMinDistance-4(live) nDistance-4(live) nX-4(live) nY-4(live)
+    blk 00c17420 L6606-6607 w=2 K=5: pSpecialAi-10(live) pUnit-10(live) const:0#32-10(live) pAiControl-10(live) nOldToggle-10(live) bCheckCollision-10(live) pTarget-10(live) nMinDistance-10(live) nDistance-10(live) nX-10(live) nY-10(live)
+    blk 00c44d38 L6607-6607 w=2 K=1: pSpecialAi-2(live) pUnit-2(live) const:0#32-2(live) pAiControl-2(live) nOldToggle-2(live) bCheckCollision-2(live) pTarget-2(live) nMinDistance-2(live) nDistance-2(live) nX-2(live) nY-2(live)
+    blk 00c175c0 L6598-6610 w=2 K=2: pSpecialAi-4(live) pUnit-4(live) const:0#32+0 pAiControl-4(live) nOldToggle-4(live) bCheckCollision-4(live) pTarget-4(live) nMinDistance-4(live) nDistance-4(live) nX-4(live) nY-4(live)
+    blk 00bee7cc L?         w=1 K=0: pSpecialAi-0(live) pUnit-0(live) const:0#32-0(live) pAiControl-0(live) nOldToggle-0(live) pTarget-0(live) nMinDistance-0(live) nDistance-0(live)
+    blk 00c17760 L6612-6612 w=1 K=2: pSpecialAi-2(live) pUnit-2(live) const:0#32+0 pAiControl-2(live) nOldToggle-2(live) pTarget-2(live) nMinDistance-2(live) nDistance-2(live)
+    blk 00c17900 L6612-6612 w=1 K=3: pUnit+6
+    blk 00c17aa0 L6614-6618 w=1 K=8: pSpecialAi+0 pUnit+0 const:0#32+0 pAiControl+0 nOldToggle+0 pTarget+0 nMinDistance+0 nDistance+0
+    blk 00bfecc0 L6620-6630 w=1 K=8: const:2147483647#60+16 bCheckCollision+16 pSpecialAi-8(live) pUnit+48 const:0#32+16 pAiControl-8(live) nOldToggle-8(live) nMinDistance-8(live)
+    blk 00bfee60 L6630-6630 w=1 K=2: pUnit+4
+    blk 00bff000 L6632-6635 w=1 K=8: pSpecialAi+0 pUnit+0 const:0#32+0 pAiControl+0 nOldToggle+0 pTarget+0 nMinDistance+0 nDistance+0
+    blk 00c33e88 L6635-6635 w=1 K=6: pSpecialAi+0 pUnit+0 const:0#32+0 pAiControl+0 nOldToggle+0 nMinDistance+0
+    blk 00bff1a0 L6637-6638 w=1 K=2: pTarget+0 nDistance+0 pSpecialAi-2(live) pUnit-2(live) const:0#32-2(live) pAiControl-2(live) nOldToggle-2(live) nMinDistance-2(live)
+    blk 00c34060 L6638-6638 w=1 K=6: pSpecialAi+0 pUnit+0 const:0#32+0 pAiControl+0 nOldToggle+0 nMinDistance+0
+    blk 00bee9a4 L6638-6638 w=1 K=2: pTarget+0 nDistance+0 pSpecialAi-2(live) pUnit-2(live) const:0#32-2(live) pAiControl-2(live) nOldToggle-2(live) nMinDistance-2(live)
+    blk 00bff340 L6642-6642 w=1 K=2: pTarget+4 nDistance-2(live) pSpecialAi-2(live) pUnit-2(live) const:0#32+0 pAiControl-2(live) nOldToggle-2(live) nMinDistance-2(live)
+    blk 00bff4e0 L6644-6646 w=1 K=2: nMinDistance+4
+    blk 00bff680 L6648-6648 w=1 K=1: pSpecialAi-1(live) pUnit+2 const:0#32-1(live) pAiControl-1(live) nOldToggle-1(live) pTarget-1(live) nDistance-1(live)
+    blk 00bff820 L6650-6651 w=1 K=3: pAiControl+12 pSpecialAi+6 pUnit-3(live) const:0#32+0 nOldToggle-3(live) pTarget-3(live) nDistance-3(live)
+    blk 00bff9c0 L6652-6652 w=1 K=3: pSpecialAi+6 nOldToggle+6 pUnit-3(live) const:0#32+0 pTarget-3(live) nDistance-3(live)
+    blk 00c0bd48 L6654-6656 w=1 K=4: pTarget+16 nDistance+8 pUnit+8
 
 === round 5 (register class 0): 22 candidates with references ===
   candidate                       id   prio refs   key  web  reg    def lines / use lines
-  ppNode                          50     45    6    a7  <17  (d690) 6518,6565 / 6519,6565,6581
-  pNode                           48     42    4    e6  <18  (d690) 6581 / 6584,6586,6596
-  bCheckCollision                 46     33    3    34  <14  (d690) 6492 / 6514,6610
-  pNode                            2     24    2    e6  <18  eax    6596 / 6584
-  pGame                           53     19    4     7  <10  ebx    6483 / 6514,6518,6615
-  i                               12     16    4    a5  <25         6534 / 6534
-  const:2147483647#8               8     15    3     0   <5          / 6513,6609,6614
-  nX                               3     10    1    65  <23         6532 / 
-  const:0#36                      36     10   21     0   <1          / 6485,6487,6488,6496,6500,6502,6503,6506,6511,6514,6608,6613,6615,6616,6628,6630,6637,6638,6640
-  pAlternative                     4      2    3    e2  <30         6582 / 6598
-  nMinDistance                    47      1    2    85  <15         6513 / 6631
-  const:0#42                      42      0    2     0   <1          / 6539
-  nAlternativeDistance             5     -1    2    e3  <31         6583 / 6598
-  pAiControl                       6     -7    5    13   <4          / 6490,6493,6499,6636
-  pSpecialAi                       9    -11    3    2f   <6         6487 / 6637,6638
-  const:0#43                      43    -14    2     0   <1          / 6584,6590
-  pTarget                         44    -16    4   123   <2         6520 / 6628,6640,6642
-  const:0#40                      40    -16    9     0   <1          / 6520,6523,6525,6534,6536,6567,6582,6584
-  const:1#13                      13    -19    2     0   <3          / 6523,6534
-  nDistance                       49    -28    2   122  <16         6521 / 6641
-  nOldToggle                      45    -29    2    38  <13         6488 / 6638
-  nY                              52    -36    3    62  <24         6533 / 6572,6589
+  ppNode                          51     45    6    af  <18  (d690) 6532,6579 / 6533,6579,6595
+  pNode                           49     42    4    ee  <19  (d690) 6595 / 6598,6600,6610
+  bCheckCollision                 46     27    3    39  <14  (d690) 6504 / 6528,6624
+  pNode                            3     24    2    ee  <19  eax    6610 / 6598
+  i                               12     16    4    ad  <26  (d690) 6548 / 6548
+  pGame                           54     15    4     7  <10  ebx    6494 / 6528,6532,6629
+  const:2147483647#8               8     15    3     0   <5          / 6527,6623,6628
+  nX                               4     10    1    6d  <24         6546 / 
+  const:0#13                      13      7   22     0   <1          / 6496,6498,6499,6507,6510,6511,6514,6515,6518,6525,6528,6622,6627,6629,6630,6642,6644,6651,6652,6654
+  pAlternative                     5      2    3    ea  <31         6596 / 6612
+  nMinDistance                    48      1    2    8d  <16         6527 / 6645
+  const:0#38                      38      0    2     0   <1          / 6553
+  nAlternativeDistance             6     -1    2    eb  <32         6597 / 6612
+  pAiControl                      44    -11    5    13   <4          / 6501,6510,6523,6650
+  pSpecialAi                       9    -14    3    33   <6         6498 / 6651,6652
+  const:0#43                      43    -14    2     0   <1          / 6598,6604
+  pTarget                         47    -16    4   12b  <15         6534 / 6642,6654,6656
+  const:0#14                      14    -16    9     0   <1          / 6534,6537,6539,6548,6550,6581,6596,6598
+  const:1#55                      55    -19    2     0   <3          / 6537,6548
+  nDistance                       50    -28    2   12a  <17         6535 / 6655
+  nOldToggle                      45    -33    2    3d  <13         6499 / 6652
+  nY                              52    -36    3    6a  <25         6547 / 6586,6603
   colouring order:
     ppNode                       prio    45 -> not coloured (split / memory)
     pNode                        prio    42 -> not coloured (split / memory)
-    bCheckCollision              prio    33 -> not coloured (split / memory)
+    tmp#42                       prio    34 -> eax  (allowed eax/ecx/edx/ebx; costs eax=0 ecx=0 edx=0 ebx=1400)
     nCollision                   prio    32 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=-4 ecx=0 edx=0 esi=0 ebx=700)
+    bCheckCollision              prio    27 -> not coloured (split / memory)
     pNode                        prio    24 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=0)
     nOldToggle                   prio    24 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=1400)
-    tmp#35                       prio    20 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=0)
+    tmp#36                       prio    20 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=0)
     nThreat                      prio    20 -> eax  (allowed eax/ecx/edx; costs eax=0 ecx=0 edx=0)
     pMonStats                    prio    20 -> eax  (allowed eax/ecx/edx/esi; costs eax=0 ecx=0 edx=0 esi=0)
-    pGame                        prio    19 -> ebx  (allowed ebx; costs ebx=900)
+    tmp#41                       prio    18 -> eax  (allowed eax/ecx/edx/esi; costs eax=0 ecx=0 edx=0 esi=0)
+    i                            prio    16 -> not coloured (split / memory)
+    tmp#40                       prio    16 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=1400)
+    tmp#39                       prio    16 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=1400)
+    pGame                        prio    15 -> ebx  (allowed ebx; costs ebx=900)
   blocks (w = loop weight, K = candidates referenced in the block):
-    blk 00c459c4 L6483-6485 w=1 K=4: const:0#36+0 pGame+8
-    blk 00c45d04 L6487-6490 w=1 K=5: pAiControl+10 nOldToggle+10 pSpecialAi+10 const:0#36+0 pGame-5(live)
-    blk 00c45ea4 L6492-6493 w=1 K=3: bCheckCollision+6 pAiControl+6 nOldToggle-3(live) pSpecialAi-3(live) const:0#36-3(live) pGame-3(live)
-    blk 00c46044 L6495-6495 w=1 K=1: pGame-1(live) nOldToggle-1(live) const:0#36-1(live) pSpecialAi-1(live) pAiControl-1(live)
-    blk 00c461e4 L6496-6497 w=1 K=2: bCheckCollision+0 pGame-2(live) nOldToggle-2(live) const:0#36+2 pSpecialAi-2(live) pAiControl-2(live)
-    blk 00c46384 L6499-6500 w=1 K=3: pGame-3(live) nOldToggle-3(live) const:0#36+0 pSpecialAi-3(live) pAiControl+6
-    blk 00c46524 L6500-6500 w=1 K=1: pGame-1(live) nOldToggle-1(live) const:0#36-1(live) pSpecialAi-1(live) pAiControl-1(live)
-    blk 00bc6ef8 L6502-6502 w=1 K=3: pGame-3(live) nOldToggle-3(live) const:0#36+0 pAiControl-3(live)
-    blk 00bc7098 L6502-6502 w=1 K=1: pGame-1(live) nOldToggle-1(live) const:0#36-1(live) pAiControl-1(live)
-    blk 00bc7238 L6502-6502 w=1 K=1: pGame-1(live) nOldToggle-1(live) const:0#36+1 pAiControl-1(live)
-    blk 00bc73d8 L6503-6503 w=1 K=1: pGame-1(live) nOldToggle-1(live) const:0#36+0 pAiControl-1(live)
-    blk 00bc7578 L6503-6503 w=1 K=1: pGame-1(live) nOldToggle-1(live) const:0#36+0 pAiControl-1(live)
-    blk 00bc7718 L6505-6506 w=1 K=5: bCheckCollision+0 nOldToggle+0 pSpecialAi+0 pGame-5(live) const:0#36+0 pAiControl-5(live)
-    blk 00c00820 L6506-6506 w=1 K=2: bCheckCollision+0 pSpecialAi+0 pGame-2(live) nOldToggle-2(live) const:0#36-2(live) pAiControl-2(live)
-    blk 00c009f8 L6506-6506 w=1 K=1: bCheckCollision+0 pGame-1(live) nOldToggle-1(live) const:0#36-1(live) pSpecialAi-1(live) pAiControl-1(live)
-    blk 00bc78b8 L6511-6514 w=1 K=6: nMinDistance+12 const:2147483647#8+0 bCheckCollision+12 pGame+12 nOldToggle-6(live) const:0#36+6 pSpecialAi-6(live) pAiControl-6(live)
-    blk 00bc7a58 L6516-6516 w=1 K=1: nMinDistance-1(live) const:2147483647#8-1(live) bCheckCollision-1(live) pGame-1(live) nOldToggle-1(live) const:0#36-1(live) pSpecialAi-1(live) pAiControl-1(live)
-    blk 00bc7bf8 L6518-6523 w=1 K=7: pGame+14 nDistance+14 pTarget+14 const:0#40+0 ppNode+28
-    blk 00bfecc0 L6523-6523 w=1 K=2: const:1#13+0 nDistance-2(live) pTarget-2(live) const:0#40-2(live) ppNode-2(live)
-    blk 00bfee60 L6523-6523 w=1 K=3: const:1#13-3(live) nDistance-3(live) pTarget-3(live) const:0#40+0 ppNode-3(live)
-    blk 00bff000 L6524-6525 w=1 K=3: const:1#13-3(live) nDistance-3(live) pTarget-3(live) const:0#40+0 ppNode-3(live)
-    blk 00bff1a0 L6527-6528 w=1 K=2: const:1#13-2(live) nDistance-2(live) pTarget-2(live) const:0#40-2(live) ppNode-2(live)
-    blk 00bff340 L6529-6529 w=1 K=2: nDistance+0 ppNode-2(live) pTarget-2(live) const:0#40-2(live) const:1#13-2(live)
-    blk 00c3fcc0 L6529-6529 w=1 K=1: const:1#13+0 ppNode-1(live) nDistance-1(live) pTarget-1(live) const:0#40-1(live)
-    blk 00bff4e0 L6531-6534 w=1 K=5: nX+10 i+10 nY+10 const:1#13-5(live) ppNode-5(live) nDistance-5(live) pTarget-5(live) const:0#40+0
-    blk 00c000c0 L?         w=1 K=0: i-0(live) nY-0(live) const:1#13-0(live) ppNode-0(live) nDistance-0(live) pTarget-0(live) const:0#40-0(live)
-    blk 00bff680 L6536-6536 w=2 K=2: i-4(live) nY-4(live) const:1#13-4(live) ppNode-4(live) nDistance-4(live) pTarget-4(live) const:0#40+0
-    blk 00bff820 L6538-6539 w=2 K=3: const:0#42+0 nY-6(live) i-6(live)
-    blk 00bff9c0 L6539-6539 w=2 K=2: nY-4(live) i-4(live)
-    blk 00bf2c60 L6540-6540 w=2 K=1: nY-2(live) i-2(live)
-    blk 00c3f220 L6561-6561 w=2 K=8: nY+0 ppNode+0 nDistance+0 pTarget+0 const:0#40+0 const:1#13+0 i+0
-    blk 00c1cdd0 L6561-6561 w=2 K=5: ppNode+0 nDistance+0 pTarget+0 const:0#40+0 const:1#13+0 nY-10(live) i-10(live)
-    blk 00c1cf70 L6561-6561 w=2 K=7: nY+0 ppNode+0 nDistance+0 pTarget+0 const:0#40+0 const:1#13+0 i+0
-    blk 00bf74a0 L6534-6565 w=2 K=4: nY-8(live) ppNode+32 nDistance-8(live) pTarget-8(live) const:0#40-8(live) const:1#13+0 i+32
-    blk 00bf7640 L6539-6539 w=1 K=0: nY-0(live) ppNode-0(live) nDistance-0(live) pTarget-0(live) const:0#40-0(live)
-    blk 00bf7980 L6567-6567 w=1 K=2: nY-2(live) ppNode-2(live) nDistance-2(live) pTarget-2(live) const:0#40+0
-    blk 00c37c20 L?         w=1 K=0: nY-0(live)
-    blk 00bf0c50 L6569-6570 w=2 K=3: nY-6(live)
-    blk 00bf0df0 L6572-6573 w=2 K=3: nY+12
-    blk 00bf12d0 L6575-6576 w=2 K=5: nY+0
-    blk 00c3f3c0 L6576-6576 w=2 K=3: nY+0
-    blk 00bf1470 L6567-6579 w=2 K=1: nY-2(live)
-    blk 00c00298 L6567-6567 w=1 K=4: ppNode+0 nDistance+0 pTarget+0 const:0#40+0 nY-4(live)
-    blk 00c3f560 L6567-6567 w=1 K=1: nY-1(live) ppNode-1(live) nDistance-1(live) pTarget-1(live) const:0#40-1(live)
-    blk 00bf1610 L6581-6584 w=1 K=5: ppNode+10 nAlternativeDistance+10 pAlternative+10 pNode+20 nY-5(live) nDistance-5(live) pTarget-5(live)
-    blk 00bffcc8 L6584-6584 w=1 K=0: nY-0(live) pNode-0(live) nAlternativeDistance-0(live) pAlternative-0(live)
-    blk 00c1d148 L6584-6584 w=2 K=1: pNode+0 nY-2(live) nAlternativeDistance-2(live) pAlternative-2(live)
-    blk 00bf17b0 L6586-6587 w=2 K=3: pNode+12 nY-6(live) nAlternativeDistance-6(live) pAlternative-6(live)
-    blk 00bf1950 L6589-6590 w=2 K=3: nY+12
-    blk 00c2ce50 L6590-6590 w=2 K=1: const:0#43+0
-    blk 00c1d320 L6590-6590 w=2 K=1: const:0#43+0
-    blk 00c2d190 L6592-6593 w=2 K=7: nY+0 pNode+0 nAlternativeDistance+0 pAlternative+0 const:0#43-14(live)
-    blk 00c3f738 L6593-6593 w=2 K=6: nY+0 pNode+0 const:0#43+0 nAlternativeDistance+0 pAlternative+0
-    blk 00c1d4f8 L6593-6593 w=2 K=1: const:0#43+0 nY-2(live) pNode-2(live) nAlternativeDistance-2(live) pAlternative-2(live)
-    blk 00c2d330 L6584-6596 w=2 K=3: pNode+24 pNode+12 nY-6(live) nAlternativeDistance-6(live) pAlternative-6(live)
-    blk 00c00470 L?         w=1 K=0: nAlternativeDistance-0(live) pAlternative-0(live)
-    blk 00c2d4d0 L6598-6598 w=1 K=1: nAlternativeDistance-1(live) pAlternative+2
-    blk 00c2d670 L6598-6598 w=1 K=3: pAlternative+6 nAlternativeDistance+6
-    blk 00c2d810 L6600-6604 w=1 K=8: nDistance+0 nMinDistance+0 nOldToggle+0 pTarget+0 const:0#36+0 pSpecialAi+0 pAiControl+0
-    blk 00c2d9b0 L6606-6616 w=1 K=8: pGame+16 const:2147483647#8+16 bCheckCollision+16 nMinDistance-8(live) nOldToggle-8(live) const:0#36+16 pSpecialAi-8(live) pAiControl-8(live)
-    blk 00c1ddd8 L6618-6621 w=1 K=8: nDistance+0 nMinDistance+0 nOldToggle+0 pTarget+0 const:0#36+0 pSpecialAi+0 pAiControl+0
-    blk 00c3f910 L6621-6621 w=1 K=6: nMinDistance+0 nOldToggle+0 const:0#36+0 pSpecialAi+0 pAiControl+0
-    blk 00c1df78 L6623-6624 w=1 K=2: nDistance+0 pTarget+0 nMinDistance-2(live) nOldToggle-2(live) const:0#36-2(live) pSpecialAi-2(live) pAiControl-2(live)
-    blk 00c3fae8 L6624-6624 w=1 K=6: nMinDistance+0 nOldToggle+0 const:0#36+0 pSpecialAi+0 pAiControl+0
-    blk 00c00648 L6624-6624 w=1 K=2: nDistance+0 pTarget+0 nMinDistance-2(live) nOldToggle-2(live) const:0#36-2(live) pSpecialAi-2(live) pAiControl-2(live)
-    blk 00c1d6d0 L6604-6604 w=1 K=7: nDistance+0 nMinDistance+0 nOldToggle+0 pTarget+0 const:0#36+0 pSpecialAi+0 pAiControl+0
-    blk 00c1d8a8 L6604-6604 w=1 K=5: nMinDistance+0 nOldToggle+0 const:0#36+0 pSpecialAi+0 pAiControl+0 nDistance-5(live) pTarget-5(live)
-    blk 00c1e118 L6628-6628 w=1 K=2: nMinDistance-2(live) nOldToggle-2(live) const:0#36+0 pSpecialAi-2(live) pAiControl-2(live) nDistance-2(live) pTarget+4
-    blk 00c1e2b8 L6630-6632 w=1 K=2: nMinDistance+4
-    blk 00c1e458 L6634-6634 w=1 K=1: nDistance-1(live) nOldToggle-1(live) pTarget-1(live) const:0#36-1(live) pSpecialAi-1(live) pAiControl-1(live)
-    blk 00c1e5f8 L6636-6637 w=1 K=3: pAiControl+12 nDistance-3(live) nOldToggle-3(live) pTarget-3(live) const:0#36+0 pSpecialAi+6
-    blk 00c1e798 L6638-6638 w=1 K=3: pSpecialAi+6 nOldToggle+6 nDistance-3(live) pTarget-3(live) const:0#36+0
-    blk 00c1e938 L6640-6642 w=1 K=4: pTarget+16 nDistance+8
+    blk 00c52ba4 L6494-6496 w=1 K=4: const:0#13+0 pGame+8
+    blk 00c52ee4 L6498-6502 w=1 K=5: pAiControl+10 nOldToggle+10 pSpecialAi+10 const:0#13+0 pGame-5(live)
+    blk 00c53084 L6504-6504 w=1 K=1: bCheckCollision+2 pAiControl-1(live) nOldToggle-1(live) pSpecialAi-1(live) const:0#13-1(live) pGame-1(live)
+    blk 00c53224 L6506-6506 w=1 K=1: pGame-1(live) nOldToggle-1(live) pAiControl-1(live) const:0#13-1(live) pSpecialAi-1(live)
+    blk 00c533c4 L6507-6508 w=1 K=2: bCheckCollision+0 pGame-2(live) nOldToggle-2(live) pAiControl-2(live) const:0#13+2 pSpecialAi-2(live)
+    blk 00c53564 L6510-6511 w=1 K=4: pGame-4(live) nOldToggle-4(live) pAiControl+8 const:0#13+0 pSpecialAi-4(live)
+    blk 00c53704 L6511-6512 w=1 K=2: pGame-2(live) nOldToggle-2(live) pAiControl-2(live) const:0#13-2(live) pSpecialAi-2(live)
+    blk 00c05d10 L6514-6514 w=1 K=1: pGame-1(live) nOldToggle-1(live) pAiControl-1(live) const:0#13-1(live)
+    blk 00c05eb0 L6514-6514 w=1 K=3: pGame-3(live) nOldToggle-3(live) pAiControl-3(live) const:0#13+0
+    blk 00c06050 L6514-6514 w=1 K=1: pGame-1(live) nOldToggle-1(live) pAiControl-1(live) const:0#13-1(live)
+    blk 00c061f0 L6514-6514 w=1 K=1: pGame-1(live) nOldToggle-1(live) pAiControl-1(live) const:0#13+1
+    blk 00c06390 L6514-6515 w=1 K=1: pGame-1(live) nOldToggle-1(live) pAiControl-1(live) const:0#13+0
+    blk 00c06530 L6515-6515 w=1 K=1: pGame-1(live) nOldToggle-1(live) pAiControl-1(live) const:0#13+0
+    blk 00c066d0 L6517-6522 w=1 K=5: bCheckCollision+0 nOldToggle+0 pSpecialAi+0 pGame-5(live) pAiControl-5(live) const:0#13+0
+    blk 00c06870 L6523-6523 w=1 K=2: pGame-2(live) bCheckCollision-2(live) nOldToggle-2(live) pAiControl+4 const:0#13-2(live) pSpecialAi-2(live)
+    blk 00c43f20 L6508-6508 w=1 K=1: bCheckCollision+0 pGame-1(live) nOldToggle-1(live) pAiControl-1(live) const:0#13-1(live) pSpecialAi-1(live)
+    blk 00c440c0 L6508-6508 w=1 K=2: bCheckCollision+0 pSpecialAi+0 pGame-2(live) nOldToggle-2(live) pAiControl-2(live) const:0#13-2(live)
+    blk 00c44260 L6522-6522 w=1 K=1: bCheckCollision+0 pGame-1(live) nOldToggle-1(live) pAiControl-1(live) const:0#13-1(live) pSpecialAi-1(live)
+    blk 00c06a10 L6523-6528 w=1 K=6: nMinDistance+12 const:2147483647#8+0 bCheckCollision+12 pGame+12 nOldToggle-6(live) pAiControl-6(live) const:0#13+6 pSpecialAi-6(live)
+    blk 00c3ced0 L6530-6530 w=1 K=1: nMinDistance-1(live) const:2147483647#8-1(live) bCheckCollision-1(live) pGame-1(live) nOldToggle-1(live) pAiControl-1(live) const:0#13-1(live) pSpecialAi-1(live)
+    blk 00c3d070 L6532-6537 w=1 K=7: pGame+14 nDistance+14 pTarget+14 const:0#14+0 ppNode+28
+    blk 00c3d210 L6537-6537 w=1 K=2: const:1#55+0 nDistance-2(live) pTarget-2(live) const:0#14-2(live) ppNode-2(live)
+    blk 00c3d3b0 L6537-6537 w=1 K=3: const:1#55-3(live) nDistance-3(live) pTarget-3(live) const:0#14+0 ppNode-3(live)
+    blk 00c3d550 L6538-6539 w=1 K=3: const:1#55-3(live) nDistance-3(live) pTarget-3(live) const:0#14+0 ppNode-3(live)
+    blk 00c3d6f0 L6541-6542 w=1 K=2: const:1#55-2(live) nDistance-2(live) pTarget-2(live) const:0#14-2(live) ppNode-2(live)
+    blk 00c3d890 L6543-6543 w=1 K=2: nDistance+0 const:1#55-2(live) ppNode-2(live) pTarget-2(live) const:0#14-2(live)
+    blk 00c34238 L6543-6543 w=1 K=1: const:1#55+0 ppNode-1(live) nDistance-1(live) pTarget-1(live) const:0#14-1(live)
+    blk 00c3da30 L6545-6548 w=1 K=5: nX+10 i+10 nY+10 const:1#55-5(live) ppNode-5(live) nDistance-5(live) pTarget-5(live) const:0#14+0
+    blk 00bee41c L?         w=1 K=0: i-0(live) nY-0(live) const:1#55-0(live) ppNode-0(live) nDistance-0(live) pTarget-0(live) const:0#14-0(live)
+    blk 00c3dbd0 L6550-6550 w=2 K=2: i-4(live) nY-4(live) const:1#55-4(live) ppNode-4(live) nDistance-4(live) pTarget-4(live) const:0#14+0
+    blk 00c37ea8 L6552-6553 w=2 K=3: const:0#38+0 nY-6(live) i-6(live)
+    blk 00c38048 L6553-6553 w=2 K=2: nY-4(live) i-4(live)
+    blk 00c381e8 L6554-6554 w=2 K=1: nY-2(live) i-2(live)
+    blk 00c447b0 L6575-6575 w=2 K=8: const:1#55+0 nY+0 ppNode+0 nDistance+0 pTarget+0 const:0#14+0 i+0
+    blk 00c34410 L6575-6575 w=2 K=5: const:1#55+0 ppNode+0 nDistance+0 pTarget+0 const:0#14+0 nY-10(live) i-10(live)
+    blk 00c345e8 L6575-6575 w=2 K=7: const:1#55+0 nY+0 ppNode+0 nDistance+0 pTarget+0 const:0#14+0 i+0
+    blk 00c25970 L6548-6579 w=2 K=4: const:1#55+0 nY-8(live) ppNode+32 nDistance-8(live) pTarget-8(live) const:0#14-8(live) i+32
+    blk 00c25b10 L6553-6553 w=1 K=0: nY-0(live) ppNode-0(live) nDistance-0(live) pTarget-0(live) const:0#14-0(live)
+    blk 00c25fb8 L6581-6581 w=1 K=2: nY-2(live) ppNode-2(live) nDistance-2(live) pTarget-2(live) const:0#14+0
+    blk 00beddd0 L?         w=1 K=0: nY-0(live)
+    blk 00c26158 L6583-6584 w=2 K=3: nY-6(live)
+    blk 00c262f8 L6586-6587 w=2 K=3: nY+12
+    blk 00c267d8 L6589-6590 w=2 K=5: nY+0
+    blk 00c44988 L6590-6590 w=2 K=3: nY+0
+    blk 00c26978 L6581-6593 w=2 K=1: nY-2(live)
+    blk 00bee5f4 L6581-6581 w=1 K=4: ppNode+0 nDistance+0 pTarget+0 const:0#14+0 nY-4(live)
+    blk 00c44b60 L6581-6581 w=1 K=1: nY-1(live) ppNode-1(live) nDistance-1(live) pTarget-1(live) const:0#14-1(live)
+    blk 00c26b18 L6595-6598 w=1 K=5: ppNode+10 nAlternativeDistance+10 pAlternative+10 pNode+20 nY-5(live) nDistance-5(live) pTarget-5(live)
+    blk 00bedff8 L6598-6598 w=1 K=0: nY-0(live) pNode-0(live) nAlternativeDistance-0(live) pAlternative-0(live)
+    blk 00c347c0 L6598-6598 w=2 K=1: pNode+0 nY-2(live) nAlternativeDistance-2(live) pAlternative-2(live)
+    blk 00c16da0 L6600-6601 w=2 K=3: pNode+12 nY-6(live) nAlternativeDistance-6(live) pAlternative-6(live)
+    blk 00c16f40 L6603-6604 w=2 K=3: nY+12
+    blk 00c170e0 L6604-6604 w=2 K=1: const:0#43+0
+    blk 00c34998 L6604-6604 w=2 K=1: const:0#43+0
+    blk 00c17420 L6606-6607 w=2 K=7: nY+0 pNode+0 nAlternativeDistance+0 pAlternative+0 const:0#43-14(live)
+    blk 00c44d38 L6607-6607 w=2 K=6: nY+0 pNode+0 const:0#43+0 nAlternativeDistance+0 pAlternative+0
+    blk 00c34b70 L6607-6607 w=2 K=1: const:0#43+0 nY-2(live) pNode-2(live) nAlternativeDistance-2(live) pAlternative-2(live)
+    blk 00c175c0 L6598-6610 w=2 K=3: pNode+24 pNode+12 nY-6(live) nAlternativeDistance-6(live) pAlternative-6(live)
+    blk 00bee7cc L?         w=1 K=0: nAlternativeDistance-0(live) pAlternative-0(live)
+    blk 00c17760 L6612-6612 w=1 K=1: nAlternativeDistance-1(live) pAlternative+2
+    blk 00c17900 L6612-6612 w=1 K=3: pAlternative+6 nAlternativeDistance+6
+    blk 00c17aa0 L6614-6618 w=1 K=8: nDistance+0 nMinDistance+0 pTarget+0 nOldToggle+0 pAiControl+0 const:0#13+0 pSpecialAi+0
+    blk 00bfecc0 L6620-6630 w=1 K=8: pGame+16 const:2147483647#8+16 bCheckCollision+16 nMinDistance-8(live) nOldToggle-8(live) pAiControl-8(live) const:0#13+16 pSpecialAi-8(live)
+    blk 00bff000 L6632-6635 w=1 K=8: nDistance+0 nMinDistance+0 pTarget+0 nOldToggle+0 pAiControl+0 const:0#13+0 pSpecialAi+0
+    blk 00c33e88 L6635-6635 w=1 K=6: nMinDistance+0 nOldToggle+0 pAiControl+0 const:0#13+0 pSpecialAi+0
+    blk 00bff1a0 L6637-6638 w=1 K=2: nDistance+0 pTarget+0 nMinDistance-2(live) nOldToggle-2(live) pAiControl-2(live) const:0#13-2(live) pSpecialAi-2(live)
+    blk 00c34060 L6638-6638 w=1 K=6: nMinDistance+0 nOldToggle+0 pAiControl+0 const:0#13+0 pSpecialAi+0
+    blk 00bee9a4 L6638-6638 w=1 K=2: nDistance+0 pTarget+0 nMinDistance-2(live) nOldToggle-2(live) pAiControl-2(live) const:0#13-2(live) pSpecialAi-2(live)
+    blk 00c6b078 L6618-6618 w=1 K=7: nDistance+0 nMinDistance+0 pTarget+0 nOldToggle+0 pAiControl+0 const:0#13+0 pSpecialAi+0
+    blk 00c6b218 L6618-6618 w=1 K=5: nMinDistance+0 nOldToggle+0 pAiControl+0 const:0#13+0 pSpecialAi+0 nDistance-5(live) pTarget-5(live)
+    blk 00bff340 L6642-6642 w=1 K=2: nMinDistance-2(live) nOldToggle-2(live) pAiControl-2(live) const:0#13+0 pSpecialAi-2(live) nDistance-2(live) pTarget+4
+    blk 00bff4e0 L6644-6646 w=1 K=2: nMinDistance+4
+    blk 00bff680 L6648-6648 w=1 K=1: nDistance-1(live) pTarget-1(live) nOldToggle-1(live) pAiControl-1(live) const:0#13-1(live) pSpecialAi-1(live)
+    blk 00bff820 L6650-6651 w=1 K=3: pAiControl+12 nDistance-3(live) pTarget-3(live) nOldToggle-3(live) const:0#13+0 pSpecialAi+6
+    blk 00bff9c0 L6652-6652 w=1 K=3: pSpecialAi+6 nOldToggle+6 nDistance-3(live) pTarget-3(live) const:0#13+0
+    blk 00c0bd48 L6654-6656 w=1 K=4: pTarget+16 nDistance+8
 
 === round 6 (register class 0): 11 candidates with references ===
   candidate                       id   prio refs   key  web  reg    def lines / use lines
-  pAiControl                       3     21    3    13   <4  esi     / 6490,6493,6499
-  bCheckCollision                 56     16    2    34  <14         6492 / 6514
-  pRoom                           59     13    3     4  <11         6484 / 6485,6495
-  pAiControl                      24     12    2    13   <4          / 6636
-  const:2147483647#30             30     12    2     0   <5          / 6609,6614
-  nMinDistance                    31     10    1    85  <15         6513 / 
-  nOldToggle                      41     10    1    38  <13         6488 / 
-  pSpecialAi                      54     10    1    2f   <6         6487 / 
-  pSpecialAi                      60     10    2    2f   <6          / 6637,6638
-  const:0#58                      58      9    9     0   <1          / 6608,6613,6615,6616,6628,6630,6637,6638,6640
-  const:0#57                      57      0   12     0   <1          / 6485,6487,6488,6496,6500,6502,6503,6506,6511,6514
+  pAiControl                      59     20    3    13   <4  esi     / 6501,6510,6523
+  pRoom                           62     13    3     4  <11         6495 / 6496,6506
+  pAiControl                      24     12    2    13   <4          / 6650
+  const:2147483647#25             25     12    2     0   <5          / 6623,6628
+  nMinDistance                    26     10    1    8d  <16         6527 / 
+  nOldToggle                      31     10    1    3d  <13         6499 / 
+  bCheckCollision                 56     10    2    39  <14         6504 / 6528
+  pSpecialAi                       4     10    2    33   <6          / 6651,6652
+  pSpecialAi                      32     10    1    33   <6         6498 / 
+  const:0#61                      61      9    9     0   <1          / 6622,6627,6629,6630,6642,6644,6651,6652,6654
+  const:0#60                      60     -3   13     0   <1          / 6496,6498,6499,6507,6510,6511,6514,6515,6518,6525,6528
   colouring order:
-    pAiControl                   prio    21 -> esi  (allowed esi; costs esi=400)
+    pAiControl                   prio    20 -> esi  (allowed esi; costs esi=400)
   blocks (w = loop weight, K = candidates referenced in the block):
-    blk 00c459c4 L6483-6485 w=1 K=4: const:0#57+0 pRoom+16
-    blk 00c45d04 L6487-6490 w=1 K=5: nOldToggle+10 pSpecialAi+10 pAiControl+10 const:0#57+0 pRoom-5(live)
-    blk 00c45ea4 L6492-6493 w=1 K=3: pAiControl+6 bCheckCollision+6 const:0#57-3(live)
-    blk 00c46044 L6495-6495 w=1 K=1: pRoom+2 const:0#57-1(live) pAiControl-1(live)
-    blk 00c461e4 L6496-6497 w=1 K=2: bCheckCollision+0 const:0#57+2
-    blk 00c46384 L6499-6500 w=1 K=3: pAiControl+6 const:0#57+0
-    blk 00c46524 L6500-6500 w=1 K=1: const:0#57-1(live)
-    blk 00bc6ef8 L6502-6502 w=1 K=3: const:0#57+0
-    blk 00bc7098 L6502-6502 w=1 K=1: const:0#57-1(live)
-    blk 00bc7238 L6502-6502 w=1 K=1: const:0#57+1
-    blk 00bc73d8 L6503-6503 w=1 K=1: const:0#57+0
-    blk 00bc7578 L6503-6503 w=1 K=1: const:0#57+0
-    blk 00bc7718 L6505-6506 w=1 K=3: bCheckCollision+0 const:0#57+0
-    blk 00c00820 L6506-6506 w=1 K=1: bCheckCollision+0 const:0#57-1(live)
-    blk 00c009f8 L6506-6506 w=1 K=1: bCheckCollision+0 const:0#57-1(live)
-    blk 00bc78b8 L6511-6514 w=1 K=5: bCheckCollision+10 const:0#57+5 nMinDistance+10
-    blk 00c2d810 L6600-6604 w=1 K=4: const:0#58+0
-    blk 00c2d9b0 L6606-6616 w=1 K=6: const:2147483647#30+12 const:0#58+12
-    blk 00c1ddd8 L6618-6621 w=1 K=4: const:0#58+0
-    blk 00c3f910 L6621-6621 w=1 K=2: const:0#58+0
-    blk 00c1df78 L6623-6624 w=1 K=2: const:0#58-2(live)
-    blk 00c00648 L6624-6624 w=1 K=3: const:0#58+0
-    blk 00c1d6d0 L6604-6604 w=1 K=3: const:0#58+0
-    blk 00c1d8a8 L6604-6604 w=1 K=1: const:0#58+0
-    blk 00c1e118 L6628-6628 w=1 K=2: const:0#58+0
-    blk 00c1e2b8 L6630-6632 w=1 K=1: 
-    blk 00c1e458 L6634-6634 w=1 K=1: const:0#58-1(live)
-    blk 00c1e5f8 L6636-6637 w=1 K=3: pAiControl+12 pSpecialAi+6 const:0#58+0
-    blk 00c1e798 L6638-6638 w=1 K=2: pSpecialAi+4 const:0#58+0
-    blk 00c1e938 L6640-6642 w=1 K=4: 
+    blk 00c52ba4 L6494-6496 w=1 K=4: const:0#60+0 pRoom+16
+    blk 00c52ee4 L6498-6502 w=1 K=5: nOldToggle+10 pSpecialAi+10 pAiControl+10 const:0#60+0 pRoom-5(live)
+    blk 00c53084 L6504-6504 w=1 K=1: bCheckCollision+2 const:0#60-1(live) pAiControl-1(live)
+    blk 00c53224 L6506-6506 w=1 K=1: pRoom+2 const:0#60-1(live) pAiControl-1(live)
+    blk 00c533c4 L6507-6508 w=1 K=2: bCheckCollision+0 const:0#60+2
+    blk 00c53564 L6510-6511 w=1 K=4: pAiControl+8 const:0#60+0
+    blk 00c53704 L6511-6512 w=1 K=2: const:0#60-2(live)
+    blk 00c05d10 L6514-6514 w=1 K=1: const:0#60-1(live)
+    blk 00c05eb0 L6514-6514 w=1 K=3: const:0#60+0
+    blk 00c06050 L6514-6514 w=1 K=1: const:0#60-1(live)
+    blk 00c061f0 L6514-6514 w=1 K=1: const:0#60+1
+    blk 00c06390 L6514-6515 w=1 K=1: const:0#60+0
+    blk 00c06530 L6515-6515 w=1 K=1: const:0#60+0
+    blk 00c066d0 L6517-6522 w=1 K=3: bCheckCollision+0 const:0#60+0
+    blk 00c06870 L6523-6523 w=1 K=2: pAiControl+4 const:0#60-2(live) bCheckCollision-2(live)
+    blk 00c43f20 L6508-6508 w=1 K=1: bCheckCollision+0 const:0#60-1(live)
+    blk 00c440c0 L6508-6508 w=1 K=1: bCheckCollision+0 const:0#60-1(live)
+    blk 00c44260 L6522-6522 w=1 K=1: bCheckCollision+0 const:0#60-1(live)
+    blk 00c06a10 L6523-6528 w=1 K=5: bCheckCollision+10 const:0#60+5 nMinDistance+10
+    blk 00c17aa0 L6614-6618 w=1 K=4: const:0#61+0
+    blk 00bfecc0 L6620-6630 w=1 K=6: const:2147483647#25+12 const:0#61+12
+    blk 00bff000 L6632-6635 w=1 K=4: const:0#61+0
+    blk 00c33e88 L6635-6635 w=1 K=2: const:0#61+0
+    blk 00bff1a0 L6637-6638 w=1 K=2: const:0#61-2(live)
+    blk 00bee9a4 L6638-6638 w=1 K=3: const:0#61+0
+    blk 00c6b078 L6618-6618 w=1 K=3: const:0#61+0
+    blk 00c6b218 L6618-6618 w=1 K=1: const:0#61+0
+    blk 00bff340 L6642-6642 w=1 K=2: const:0#61+0
+    blk 00bff4e0 L6644-6646 w=1 K=1: 
+    blk 00bff680 L6648-6648 w=1 K=1: const:0#61-1(live)
+    blk 00bff820 L6650-6651 w=1 K=3: pAiControl+12 pSpecialAi+6 const:0#61+0
+    blk 00bff9c0 L6652-6652 w=1 K=2: pSpecialAi+4 const:0#61+0
+    blk 00c0bd48 L6654-6656 w=1 K=4: 
 
 === round 7 (register class 0): 2 candidates with references ===
   candidate                       id   prio refs   key  web  reg    def lines / use lines
-  const:0#41                      41      7    5     0   <1  (d690)  / 6485,6487,6488,6511,6514
-  const:0#54                      54     -1    6     0   <1  (d690)  / 6500,6502,6503,6506
+  const:0#31                      31      7    5     0   <1  (d690)  / 6496,6498,6499,6525,6528
+  const:0#32                      32     -3    7     0   <1  (d690)  / 6510,6511,6514,6515,6518
   colouring order:
-    tmp#38                       prio    18 -> eax  (allowed eax/ecx/edx/esi; costs eax=0 ecx=0 edx=0 esi=0)
-    i                            prio    16 -> not coloured (split / memory)
-    bCheckCollision              prio    16 -> not coloured (split / memory)
-    tmp#37                       prio    16 -> eax  (allowed eax/ecx/edx/esi; costs eax=0 ecx=0 edx=0 esi=0)
     pRoom                        prio    13 -> ecx  (allowed ecx/edx; costs ecx=0 edx=0)
     pAiControl                   prio    12 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=0)
-    const:2147483647#30          prio    12 -> ecx  (allowed ecx/edx/esi; costs ecx=0 edx=0 esi=0)
+    const:2147483647#25          prio    12 -> ecx  (allowed ecx/edx/esi; costs ecx=0 edx=0 esi=0)
     nAct                         prio    10 -> not coloured (split / memory)
+    bCheckCollision              prio    10 -> not coloured (split / memory)
     pSpecialAi                   prio    10 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=0)
-    const:0#58                   prio     9 -> not coloured (split / memory)
-    const:0#41                   prio     7 -> not coloured (split / memory)
+    const:0#61                   prio     9 -> not coloured (split / memory)
+    const:0#31                   prio     7 -> not coloured (split / memory)
     pAlternative                 prio     2 -> not coloured (split / memory)
-    const:0#42                   prio     0 -> not coloured (split / memory)
+    const:0#38                   prio     0 -> not coloured (split / memory)
     nAlternativeDistance         prio    -1 -> not coloured (split / memory)
-    const:0#54                   prio    -1 -> not coloured (split / memory)
+    const:0#32                   prio    -3 -> not coloured (split / memory)
     const:0#43                   prio   -14 -> not coloured (split / memory)
     pTarget                      prio   -16 -> not coloured (split / memory)
-    const:0#40                   prio   -16 -> not coloured (split / memory)
+    const:0#14                   prio   -16 -> not coloured (split / memory)
     const:0#7                    prio   -16 -> not coloured (split / memory)
-    const:1#13                   prio   -19 -> not coloured (split / memory)
+    const:1#55                   prio   -19 -> not coloured (split / memory)
     nDistance                    prio   -28 -> not coloured (split / memory)
     nY                           prio   -36 -> not coloured (split / memory)
     nDistance                    prio   -36 -> not coloured (split / memory)
   blocks (w = loop weight, K = candidates referenced in the block):
-    blk 00c459c4 L6483-6485 w=1 K=4: const:0#41+0
-    blk 00c45d04 L6487-6490 w=1 K=3: const:0#41+6
-    blk 00c45ea4 L6492-6493 w=1 K=3: const:0#41-3(live)
-    blk 00c461e4 L6496-6497 w=1 K=2: const:0#41+0
-    blk 00c46384 L6499-6500 w=1 K=3: const:0#54+0
-    blk 00c46524 L6500-6500 w=1 K=1: const:0#54-1(live)
-    blk 00bc6ef8 L6502-6502 w=1 K=3: const:0#54+0
-    blk 00bc7098 L6502-6502 w=1 K=1: const:0#54-1(live)
-    blk 00bc7238 L6502-6502 w=1 K=1: const:0#54+1
-    blk 00bc73d8 L6503-6503 w=1 K=1: const:0#54+0
-    blk 00bc7578 L6503-6503 w=1 K=1: const:0#54+0
-    blk 00bc7718 L6505-6506 w=1 K=4: const:0#41+0
-    blk 00c00820 L6506-6506 w=1 K=2: const:0#41+0
-    blk 00c009f8 L6506-6506 w=1 K=2: const:0#41+0
-    blk 00bc78b8 L6511-6514 w=1 K=4: const:0#41+4
+    blk 00c52ba4 L6494-6496 w=1 K=4: const:0#31+0
+    blk 00c52ee4 L6498-6502 w=1 K=3: const:0#31+6
+    blk 00c53084 L6504-6504 w=1 K=1: const:0#31-1(live)
+    blk 00c533c4 L6507-6508 w=1 K=2: const:0#31+0
+    blk 00c53564 L6510-6511 w=1 K=4: const:0#32+0
+    blk 00c53704 L6511-6512 w=1 K=2: const:0#32-2(live)
+    blk 00c05d10 L6514-6514 w=1 K=1: const:0#32-1(live)
+    blk 00c05eb0 L6514-6514 w=1 K=3: const:0#32+0
+    blk 00c06050 L6514-6514 w=1 K=1: const:0#32-1(live)
+    blk 00c061f0 L6514-6514 w=1 K=1: const:0#32+1
+    blk 00c06390 L6514-6515 w=1 K=1: const:0#32+0
+    blk 00c06530 L6515-6515 w=1 K=1: const:0#32+0
+    blk 00c066d0 L6517-6522 w=1 K=4: const:0#31+0
+    blk 00c06870 L6523-6523 w=1 K=2: const:0#31-2(live)
+    blk 00c43f20 L6508-6508 w=1 K=2: const:0#31+0
+    blk 00c440c0 L6508-6508 w=1 K=2: const:0#31+0
+    blk 00c44260 L6522-6522 w=1 K=2: const:0#31+0
+    blk 00c06a10 L6523-6528 w=1 K=4: const:0#31+4
 
 === round 8 (register class 0): 14 candidates with references ===
   candidate                       id   prio refs   key  web  reg    def lines / use lines
-  ppNode                           8     32    3    a7  <17  eax    6565 / 6565
-  i                                6     32    3    a5  <25  eax    6534 / 6534
-  ppNode                          46     28    2    a7  <17  ebx    6518 / 6519
-  pNode                           22     16    2    e6  <18  eax    6581 / 6584
-  pTarget                         45     14    1   123   <2         6520 / 
-  nDistance                       36     14    1   122  <16         6521 / 
-  nAct                            23     12    1    68  <22          / 6570
-  pTarget                         31     10    3   123   <2  esi     / 6628,6640,6642
-  nAlternativeDistance            17      8    1    e3  <31         6583 / 
-  pAlternative                    19      8    1    e2  <30         6582 / 
-  i                                9      8    1    a5  <25         6534 / 
-  nY                              11      8    1    62  <24         6533 / 
-  pAlternative                    57      6    2    e2  <30          / 6598
-  bCheckCollision                 47      6    1    34  <14         6492 / 
+  ppNode                           9     32    3    af  <18  eax    6579 / 6579
+  i                                8     32    3    ad  <26  eax    6548 / 6548
+  ppNode                          46     28    2    af  <18  ebx    6532 / 6533
+  pNode                           20     16    2    ee  <19  eax    6595 / 6598
+  pTarget                         45     14    1   12b  <15         6534 / 
+  nDistance                       44     14    1   12a  <17         6535 / 
+  nAct                            23     12    1    70               / 6584
+  pTarget                         26     10    3   12b  <15  esi     / 6642,6654,6656
+  nAlternativeDistance            17      8    1    eb  <32         6597 / 
+  pAlternative                    18      8    1    ea  <31         6596 / 
+  i                               11      8    1    ad  <26         6548 / 
+  nY                              13      8    1    6a  <25         6547 / 
+  pAlternative                    60      6    2    ea  <31          / 6612
+  bCheckCollision                 48      2    1    39  <14         6504 / 
   colouring order:
     ppNode                       prio    32 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=0)
     i                            prio    32 -> eax  (allowed eax/ecx/edx/esi; costs eax=0 ecx=0 edx=0 esi=0)
@@ -565,88 +586,88 @@ function: ?sub_6FCF2110@@YIPAUD2UnitStrc@@PAUD2GameStrc@@PAU1@PAUD2AiControlStrc
     pNode                        prio    16 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=0)
     pTarget                      prio    10 -> esi  (allowed esi/ebx; costs esi=0 ebx=0)
   blocks (w = loop weight, K = candidates referenced in the block):
-    blk 00c45ea4 L6492-6493 w=1 K=3: bCheckCollision+6
-    blk 00bc7bf8 L6518-6523 w=1 K=7: nDistance+14 pTarget+14 ppNode+28
-    blk 00bff4e0 L6531-6534 w=1 K=4: i+8 nY+8
-    blk 00bf74a0 L6534-6565 w=2 K=4: i+32 ppNode+32
-    blk 00bf0c50 L6569-6570 w=2 K=3: nAct+12
-    blk 00bf1610 L6581-6584 w=1 K=4: pNode+16 nAlternativeDistance+8 pAlternative+8
-    blk 00c2d4d0 L6598-6598 w=1 K=1: pAlternative+2
-    blk 00c2d670 L6598-6598 w=1 K=2: pAlternative+4
-    blk 00c1e118 L6628-6628 w=1 K=2: pTarget+4
-    blk 00c1e458 L6634-6634 w=1 K=1: pTarget-1(live)
-    blk 00c1e5f8 L6636-6637 w=1 K=3: pTarget-3(live)
-    blk 00c1e798 L6638-6638 w=1 K=2: pTarget-2(live)
-    blk 00c1e938 L6640-6642 w=1 K=3: pTarget+12
+    blk 00c53084 L6504-6504 w=1 K=1: bCheckCollision+2
+    blk 00c3d070 L6532-6537 w=1 K=7: nDistance+14 pTarget+14 ppNode+28
+    blk 00c3da30 L6545-6548 w=1 K=4: i+8 nY+8
+    blk 00c25970 L6548-6579 w=2 K=4: i+32 ppNode+32
+    blk 00c26158 L6583-6584 w=2 K=3: nAct+12
+    blk 00c26b18 L6595-6598 w=1 K=4: pNode+16 nAlternativeDistance+8 pAlternative+8
+    blk 00c17760 L6612-6612 w=1 K=1: pAlternative+2
+    blk 00c17900 L6612-6612 w=1 K=2: pAlternative+4
+    blk 00bff340 L6642-6642 w=1 K=2: pTarget+4
+    blk 00bff680 L6648-6648 w=1 K=1: pTarget-1(live)
+    blk 00bff820 L6650-6651 w=1 K=3: pTarget-3(live)
+    blk 00bff9c0 L6652-6652 w=1 K=2: pTarget-2(live)
+    blk 00c0bd48 L6654-6656 w=1 K=3: pTarget+12
 
 === round 9 (register class 0): 2 candidates with references ===
   candidate                       id   prio refs   key  web  reg    def lines / use lines
-  const:0#45                      45     12    4     0   <1  esi     / 6608,6613,6615,6616
-  const:0#47                      47     -1    5     0   <1  (d690)  / 6628,6630,6637,6638,6640
+  const:0#45                      45     12    4     0   <1  esi     / 6622,6627,6629,6630
+  const:0#48                      48     -1    5     0   <1  (d690)  / 6642,6644,6651,6652,6654
   colouring order:
     const:0#45                   prio    12 -> esi  (allowed esi; costs esi=0)
     pAlternative                 prio     6 -> eax  (allowed eax/ecx/edx/esi/ebx; costs eax=0 ecx=0 edx=0 esi=0 ebx=0)
-    const:0#47                   prio    -1 -> not coloured (split / memory)
-    const:0#41                   prio   -36 -> not coloured (split / memory)
+    const:0#48                   prio    -1 -> not coloured (split / memory)
+    const:0#31                   prio   -36 -> not coloured (split / memory)
   blocks (w = loop weight, K = candidates referenced in the block):
-    blk 00c2d9b0 L6606-6616 w=1 K=6: const:0#45+12
-    blk 00c1e118 L6628-6628 w=1 K=2: const:0#47+0
-    blk 00c1e2b8 L6630-6632 w=1 K=1: 
-    blk 00c1e458 L6634-6634 w=1 K=1: const:0#47-1(live)
-    blk 00c1e5f8 L6636-6637 w=1 K=3: const:0#47+0
-    blk 00c1e798 L6638-6638 w=1 K=2: const:0#47+0
-    blk 00c1e938 L6640-6642 w=1 K=3: 
+    blk 00bfecc0 L6620-6630 w=1 K=6: const:0#45+12
+    blk 00bff340 L6642-6642 w=1 K=2: const:0#48+0
+    blk 00bff4e0 L6644-6646 w=1 K=1: 
+    blk 00bff680 L6648-6648 w=1 K=1: const:0#48-1(live)
+    blk 00bff820 L6650-6651 w=1 K=3: const:0#48+0
+    blk 00bff9c0 L6652-6652 w=1 K=2: const:0#48+0
+    blk 00c0bd48 L6654-6656 w=1 K=3: 
 
 === round 10 (register class 0): 7 candidates with references ===
   candidate                       id   prio refs   key  web  reg    def lines / use lines
-  const:0#36                      36      6    3     0   <1  eax     / 6485,6487,6488
-  const:0#23                      23      3    2     0   <1  (d690)  / 6511,6514
-  const:0#11                      11      2    2     0   <1  (d690)  / 6582,6584
-  const:0#58                      58      2    6     0   <1  (d690)  / 6520,6523,6525,6534,6536
-  const:0#9                        9      0    1     0   <1          / 6590
-  const:0#17                      17      0    1     0   <1          / 6551
-  const:1#19                      19      0    1     0   <3          / 6523
+  const:0#44                      44      6    3     0   <1  eax     / 6496,6498,6499
+  const:0#23                      23      3    2     0   <1  (d690)  / 6525,6528
+  const:0#13                      13      2    2     0   <1  (d690)  / 6596,6598
+  const:0#61                      61      2    6     0   <1  (d690)  / 6534,6537,6539,6548,6550
+  const:0#11                      11      0    1     0   <1          / 6604
+  const:0#17                      17      0    1     0   <1          / 6565
+  const:1#18                      18      0    1     0   <3          / 6537
   colouring order:
-    const:0#36                   prio     6 -> eax  (allowed eax/edx/esi; costs eax=0 edx=0 esi=0)
+    const:0#44                   prio     6 -> eax  (allowed eax/edx/esi; costs eax=0 edx=0 esi=0)
     const:0#23                   prio     3 -> not coloured (split / memory)
-    const:0#58                   prio     2 -> not coloured (split / memory)
-    const:0#11                   prio     2 -> not coloured (split / memory)
-    const:0#42                   prio   -36 -> not coloured (split / memory)
-    const:0#54                   prio   -36 -> not coloured (split / memory)
-    const:0#47                   prio   -36 -> not coloured (split / memory)
+    const:0#61                   prio     2 -> not coloured (split / memory)
+    const:0#13                   prio     2 -> not coloured (split / memory)
+    const:0#38                   prio   -36 -> not coloured (split / memory)
+    const:0#32                   prio   -36 -> not coloured (split / memory)
+    const:0#48                   prio   -36 -> not coloured (split / memory)
     const:0#23                   prio   -36 -> not coloured (split / memory)
-    const:0#58                   prio   -36 -> not coloured (split / memory)
+    const:0#61                   prio   -36 -> not coloured (split / memory)
   blocks (w = loop weight, K = candidates referenced in the block):
-    blk 00c459c4 L6483-6485 w=1 K=4: const:0#36+0
-    blk 00c45d04 L6487-6490 w=1 K=3: const:0#36+6
-    blk 00bc78b8 L6511-6514 w=1 K=3: const:0#23+3
-    blk 00bc7bf8 L6518-6523 w=1 K=5: const:0#58+5
-    blk 00bfecc0 L6523-6523 w=1 K=2: const:0#58-2(live)
-    blk 00bfee60 L6523-6523 w=1 K=3: const:0#58+0
-    blk 00bff000 L6524-6525 w=1 K=3: const:0#58+0
-    blk 00bff1a0 L6527-6528 w=1 K=2: const:0#58-2(live)
-    blk 00bff340 L6529-6529 w=1 K=1: const:0#58-1(live)
-    blk 00c3fcc0 L6529-6529 w=1 K=0: const:0#58-0(live)
-    blk 00bff4e0 L6531-6534 w=1 K=2: const:0#58+2
-    blk 00c000c0 L6534-6534 w=1 K=0: const:0#58-0(live)
-    blk 00c1da80 L6534-6534 w=2 K=1: const:0#58+0
-    blk 00bff680 L6536-6536 w=2 K=2: 
-    blk 00bf6c80 L6551-6551 w=4 K=1: 
-    blk 00bf1610 L6581-6584 w=1 K=2: const:0#11+2
-    blk 00c2ce50 L6590-6590 w=2 K=1: 
+    blk 00c52ba4 L6494-6496 w=1 K=4: const:0#44+0
+    blk 00c52ee4 L6498-6502 w=1 K=3: const:0#44+6
+    blk 00c06a10 L6523-6528 w=1 K=3: const:0#23+3
+    blk 00c3d070 L6532-6537 w=1 K=5: const:0#61+5
+    blk 00c3d210 L6537-6537 w=1 K=2: const:0#61-2(live)
+    blk 00c3d3b0 L6537-6537 w=1 K=3: const:0#61+0
+    blk 00c3d550 L6538-6539 w=1 K=3: const:0#61+0
+    blk 00c3d6f0 L6541-6542 w=1 K=2: const:0#61-2(live)
+    blk 00c3d890 L6543-6543 w=1 K=1: const:0#61-1(live)
+    blk 00c34238 L6543-6543 w=1 K=0: const:0#61-0(live)
+    blk 00c3da30 L6545-6548 w=1 K=2: const:0#61+2
+    blk 00bee41c L6548-6548 w=1 K=0: const:0#61-0(live)
+    blk 00c6b3b8 L6548-6548 w=2 K=1: const:0#61+0
+    blk 00c3dbd0 L6550-6550 w=2 K=2: 
+    blk 00c25150 L6565-6565 w=4 K=1: 
+    blk 00c26b18 L6595-6598 w=1 K=2: const:0#13+2
+    blk 00c170e0 L6604-6604 w=2 K=1: 
 
 === round 11 (register class 0): 1 candidates with references ===
   candidate                       id   prio refs   key  web  reg    def lines / use lines
-  const:0#23                      23      3    5     0   <1  esi     / 6520,6523,6525,6534
+  const:0#23                      23      3    5     0   <1  esi     / 6534,6537,6539,6548
   colouring order:
     const:0#23                   prio     3 -> esi  (allowed esi; costs esi=0)
-    const:0#11                   prio   -36 -> not coloured (split / memory)
+    const:0#13                   prio   -36 -> not coloured (split / memory)
   blocks (w = loop weight, K = candidates referenced in the block):
-    blk 00bc7bf8 L6518-6523 w=1 K=5: const:0#23+5
-    blk 00bfecc0 L6523-6523 w=1 K=1: const:0#23-1(live)
-    blk 00bfee60 L6523-6523 w=1 K=3: const:0#23+0
-    blk 00bff000 L6524-6525 w=1 K=3: const:0#23+0
-    blk 00bff1a0 L6527-6528 w=1 K=2: const:0#23-2(live)
-    blk 00bff340 L6529-6529 w=1 K=1: const:0#23-1(live)
-    blk 00c3fcc0 L6529-6529 w=1 K=0: const:0#23-0(live)
-    blk 00bff4e0 L6531-6534 w=1 K=2: const:0#23+2
+    blk 00c3d070 L6532-6537 w=1 K=5: const:0#23+5
+    blk 00c3d210 L6537-6537 w=1 K=1: const:0#23-1(live)
+    blk 00c3d3b0 L6537-6537 w=1 K=3: const:0#23+0
+    blk 00c3d550 L6538-6539 w=1 K=3: const:0#23+0
+    blk 00c3d6f0 L6541-6542 w=1 K=2: const:0#23-2(live)
+    blk 00c3d890 L6543-6543 w=1 K=1: const:0#23-1(live)
+    blk 00c34238 L6543-6543 w=1 K=0: const:0#23-0(live)
+    blk 00c3da30 L6545-6548 w=1 K=2: const:0#23+2

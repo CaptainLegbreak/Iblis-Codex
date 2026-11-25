@@ -7,19 +7,20 @@ D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
     int* pSpecialAi = 0;
     int nOldToggle = 0;
     int bCheckCollision;
-    if (pAiControl->nAiFlags & 0x40)
+    int bForce = AIUTIL_CheckAiControlFlag((Obj005DD220*)pAiControl, 0x40);
+    if (bForce)
     {
         bCheckCollision = 1;
-        pAiControl->nAiFlags &= ~0x40;
     }
     else if (DUNGEON_CheckLOSDraw(pRoom))
         bCheckCollision = 0;
     else
     {
-        bCheckCollision = (pAiControl->nAiFlags & 8) == 0;
-        if (pUnit && pUnit->dwUnitType == 1)
+        bCheckCollision = !AIUTIL_CheckAiControlFlag((Obj005DD220*)pAiControl, 8);
+        const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+        if (nType == UNIT_MONSTER)
         {
-            pSpecialAi = pUnit->pMonsterData ? (int*)pUnit->pMonsterData->pVision : 0;
+            pSpecialAi = (int*)AIUTIL_GetMonsterVisionInline(pUnit);
             if (bCheckCollision && pSpecialAi)
             {
                 nOldToggle = pSpecialAi[9];
@@ -27,6 +28,8 @@ D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
             }
         }
     }
+    if (bForce)
+        AIUTIL_ToggleAiControlFlag((Obj005DD230*)pAiControl, 0x40, 0);
 
     D2UnitStrc* pTarget = 0;
     int nDistance;

@@ -1,35 +1,147 @@
-== AiUtil.cpp 0x005DD7F0 unmasked diffs at ['+0x3b', '+0x3c', '+0x3d', '+0x3e', '+0x3f', '+0x41', '+0x42', '+0x43', '+0x44', '+0x45', '+0x46', '+0x47']
-  orig +0x02f mov dword ptr [ebp - 0x18], eax
-  orig +0x032 mov dword ptr [ebp - 0x34], eax
-  orig +0x035 movzx eax, word ptr [esi + 8]
-  orig +0x039 test al, 0x40
-  orig +0x03b je 0x5dd9a0   <==
-  orig +0x041 and eax, 0xffbf
-  orig +0x046 mov dword ptr [ebp - 0xc], 1
-  orig +0x04d mov word ptr [esi + 8], ax
-  orig +0x051 mov ecx, dword ptr [ebp - 0xc]
-  ours +0x02f mov dword ptr [ebp - 0x18], eax
-  ours +0x032 mov dword ptr [ebp - 0x34], eax
-  ours +0x035 movzx eax, word ptr [esi + 8]
-  ours +0x039 test al, 0x40
-  ours +0x03b je 0x5dd83f   <==
-  ours +0x03d and eax, 0xffbf
-  ours +0x042 mov dword ptr [ebp - 0xc], 1
-  ours +0x049 mov word ptr [esi + 8], ax
-  ours +0x04d jmp 0x5dd89f
+== AiUtil.cpp 0x005DD7F0 unmasked diffs at ['+0x7a', '+0x88', '+0xf4', '+0xfe', '+0x107', '+0x113', '+0x121', '+0x135', '+0x156', '+0x198', '+0x1d2', '+0x1d3']
+  orig +0x063 mov dword ptr [ebp - 0x14], 0
+  orig +0x06a mov dword ptr [ebp - 0x30], 0x7fffffff
+  orig +0x071 call 0x5dd610
+  orig +0x076 test eax, eax
+  orig +0x078 jne 0x5ddbc7   <==
+  orig +0x07e push edi
+  orig +0x07f call 0x6259b0
+  orig +0x084 test eax, eax
+  orig +0x086 jne 0x5ddb44
+  ours +0x063 mov dword ptr [ebp - 0x14], 0
+  ours +0x06a mov dword ptr [ebp - 0x30], 0x7fffffff
+  ours +0x071 call 0x5dd866
+  ours +0x076 test eax, eax
+  ours +0x078 jne 0x5ddbc9   <==
+  ours +0x07e push edi
+  ours +0x07f call 0x5dd874
+  ours +0x084 test eax, eax
+  ours +0x086 jne 0x5ddb46
   --
+  orig +0x08c add ebx, 0x10f8
+  orig +0x092 xor esi, esi
+  orig +0x094 cmp edi, esi
+  orig +0x096 mov dword ptr [ebp - 0x24], ebx
+  ours +0x08c add ebx, 0x10f8
+  ours +0x092 xor esi, esi
+  ours +0x094 cmp edi, esi
+  ours +0x096 mov dword ptr [ebp - 0x24], ebx
   --
-  ours +0x04f push ecx
+  orig +0x0e8 mov dword ptr [ebp - 0x2c], esi
+  orig +0x0eb jmp 0x5dd8e0
+  orig +0x0ed lea ecx, [ecx]
+  orig +0x0f0 test ebx, ebx
+  orig +0x0f2 je 0x5dda1d   <==
+  orig +0x0f8 mov esi, dword ptr [ebx]
+  orig +0x0fa test esi, esi
+  orig +0x0fc je 0x5ddb25
+  orig +0x102 cmp dword ptr [esi], 0
+  ours +0x0e8 mov dword ptr [ebp - 0x2c], esi
+  ours +0x0eb jmp 0x5dd8e0
+  ours +0x0ed lea ecx, [ecx]
+  ours +0x0f0 test ebx, ebx
+  ours +0x0f2 je 0x5dda20   <==
+  ours +0x0f8 mov esi, dword ptr [ebx]
+  ours +0x0fa test esi, esi
+  ours +0x0fc je 0x5ddb27
+  ours +0x102 cmp dword ptr [esi], 0
   --
+  orig +0x105 jne 0x5ddb25
+  orig +0x10b mov cl, byte ptr [ebp - 1]
+  orig +0x10e cmp cl, byte ptr [esi + 0x18]
+  ours +0x105 jne 0x5ddb27
+  ours +0x10b mov cl, byte ptr [ebp - 1]
+  ours +0x10e cmp cl, byte ptr [esi + 0x18]
   --
+  orig +0x111 jne 0x5dda1d
+  orig +0x117 push esi
+  ours +0x111 jne 0x5dda20
+  ours +0x117 push esi
   --
-  orig +0x054 lea edx, [ebp - 8]
+  orig +0x118 call 0x620bb0
+  orig +0x11d test eax, eax
+  orig +0x11f je 0x5dda1d
+  ours +0x118 call 0x5dd90d
+  ours +0x11d test eax, eax
+  ours +0x11f je 0x5dda20
   --
-  ours +0x050 call 0x5dd845
+  orig +0x125 push esi
+  orig +0x126 call 0x620bb0
+  orig +0x12b push eax
+  orig +0x12c call 0x61ab00
+  ours +0x125 push esi
+  ours +0x126 call 0x5dd91b
+  ours +0x12b push eax
+  ours +0x12c call 0x5dd921
   --
+  orig +0x131 test eax, eax
+  orig +0x133 jne 0x5dda1d   <==
+  orig +0x139 mov edx, dword ptr [ebp - 0x1c]
+  orig +0x13c push edx
+  orig +0x13d mov edx, dword ptr [ebp - 0x20]
+  orig +0x140 mov ecx, esi
+  ours +0x131 test eax, eax
+  ours +0x133 jne 0x5dda20   <==
+  ours +0x139 mov edx, dword ptr [ebp - 0x1c]
+  ours +0x13c push edx
+  ours +0x13d mov edx, dword ptr [ebp - 0x20]
+  ours +0x140 mov ecx, esi
   --
+  orig +0x149 cmp edi, dword ptr [ebp - 0x30]
+  orig +0x14c jae 0x5dd941
+  orig +0x14e mov dword ptr [ebp - 0x30], edi
+  orig +0x151 cmp edi, 0x37
+  orig +0x154 jae 0x5dda1a   <==
+  orig +0x15a mov ecx, esi
+  orig +0x15c call 0x5541b0
+  orig +0x161 test eax, eax
+  orig +0x163 je 0x5dd960
+  ours +0x149 cmp edi, dword ptr [ebp - 0x30]
+  ours +0x14c jae 0x5dd941
+  ours +0x14e mov dword ptr [ebp - 0x30], edi
+  ours +0x151 cmp edi, 0x37
+  ours +0x154 jae 0x5dda1d   <==
+  ours +0x15a mov ecx, esi
+  ours +0x15c call 0x5dd951
+  ours +0x161 test eax, eax
+  ours +0x163 je 0x5dd960
   --
+  orig +0x18b mov dword ptr [ebp - 8], edi
+  orig +0x18e mov dword ptr [ebp - 0x14], esi
+  orig +0x191 mov ebx, dword ptr [ebx + 8]
+  orig +0x194 test ebx, ebx
+  orig +0x196 je 0x5dda1a   <==
+  orig +0x19c mov ecx, dword ptr [ebp - 0x1c]
+  orig +0x19f mov esi, dword ptr [ebx]
+  orig +0x1a1 mov edx, dword ptr [ebp - 0x20]
+  orig +0x1a4 push ecx
+  ours +0x18b mov dword ptr [ebp - 8], edi
+  ours +0x18e mov dword ptr [ebp - 0x14], esi
+  ours +0x191 mov ebx, dword ptr [ebx + 8]
+  ours +0x194 test ebx, ebx
+  ours +0x196 je 0x5dda1d   <==
+  ours +0x19c mov ecx, dword ptr [ebp - 0x1c]
+  ours +0x19f mov esi, dword ptr [ebx]
+  ours +0x1a1 mov edx, dword ptr [ebp - 0x20]
+  ours +0x1a4 push ecx
   --
-  orig +0x057 push edx
+  orig +0x1c6 movzx eax, byte ptr [esi + 8]
+  orig +0x1ca shr eax, 3
+  orig +0x1cd xor ecx, ecx
+  orig +0x1cf and eax, 1
+  orig +0x1d2 xor esi, esi   <==
+  orig +0x1d4 cmp eax, esi
+  orig +0x1d6 sete cl
+  orig +0x1d9 cmp edi, esi
+  orig +0x1db mov dword ptr [ebp - 0xc], ecx
+  ours +0x1c6 movzx eax, byte ptr [esi + 8]
+  ours +0x1ca shr eax, 3
+  ours +0x1cd xor ecx, ecx
+  ours +0x1cf and eax, 1
+  ours +0x1d2 test eax, eax   <==
+  ours +0x1d4 sete cl
+  ours +0x1d7 test edi, edi
+  ours +0x1d9 mov dword ptr [ebp - 0xc], ecx
+  ours +0x1dc je 0x5dd841
   --
   --
