@@ -420,14 +420,14 @@ extern unsigned short gwValue_0077905C;
 
 struct D2Storm4167B0Strc
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
 
     ~D2Storm4167B0Strc();
 };
 
 struct D2Storm4168F0Strc
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
 
     ~D2Storm4168F0Strc();
 };
@@ -450,361 +450,361 @@ int __fastcall DRLGOUTSIEGE_GetBorderLookupId(D2DrlgLevelStrc* pLevel); // 0x006
 
 struct sub_0040F7D0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_0040F7D0();
 };
 
 struct sub_00417810
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00417810();
 };
 
 struct sub_00417860
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00417860();
 };
 
 struct sub_004178C0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_004178C0();
 };
 
 struct sub_00417900
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00417900();
 };
 
 struct sub_00417950
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00417950();
 };
 
 struct sub_004179B0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_004179B0();
 };
 
 struct sub_004183F0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_004183F0();
 };
 
 struct sub_00418430
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00418430();
 };
 
 struct sub_00418780
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00418780();
 };
 
 struct sub_004187C0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_004187C0();
 };
 
 struct sub_00418800
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00418800();
 };
 
 struct sub_00418840
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00418840();
 };
 
 struct sub_00418880
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00418880();
 };
 
 struct sub_004188C0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_004188C0();
 };
 
 struct sub_00418BA0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00418BA0();
 };
 
 struct sub_00418BE0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00418BE0();
 };
 
 struct sub_00418C20
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00418C20();
 };
 
 struct sub_00418E10
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00418E10();
 };
 
 struct sub_0041C3D0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_0041C3D0();
 };
 
 struct sub_0041C500
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_0041C500();
 };
 
 struct sub_0041C730
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_0041C730();
 };
 
 struct sub_0041C800
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_0041C800();
 };
 
 struct sub_00420430
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00420430();
 };
 
 struct sub_004204B0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_004204B0();
 };
 
 struct sub_00420710
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00420710();
 };
 
 struct sub_004207E0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_004207E0();
 };
 
 struct sub_00426960
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00426960();
 };
 
 struct sub_00426A80
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00426A80();
 };
 
 struct sub_00426CB0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00426CB0();
 };
 
 struct sub_00426D80
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_00426D80();
 };
 
 struct sub_0044DDD0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_0044DDD0();
 };
 
 struct sub_0044DE90
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_0044DE90();
 };
 
 struct sub_0044ECC0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_0044ECC0();
 };
 
 struct sub_0044ED50
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     ~sub_0044ED50();
 };
 
 struct sub_00417780
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_00417780();
 };
 
 struct sub_00417850
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_00417850();
 };
 
 struct sub_004178B0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_004178B0();
 };
 
 struct sub_00417940
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_00417940();
 };
 
 struct sub_00417990
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_00417990();
 };
 
 struct sub_00418760
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_00418760();
 };
 
 struct sub_00418770
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_00418770();
 };
 
 struct sub_00418A40
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_00418A40();
 };
 
 struct sub_00418DE0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_00418DE0();
 };
 
 struct sub_00418DF0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_00418DF0();
 };
 
 struct sub_00418E00
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_00418E00();
 };
 
 struct sub_00418E50
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_00418E50();
 };
 
 struct sub_00418FF0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_00418FF0();
 };
 
 struct sub_00419060
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_00419060();
 };
 
 struct sub_0041C4F0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_0041C4F0();
 };
 
 struct sub_0041C720
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_0041C720();
 };
 
 struct HANDLER
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     HANDLER();
 };
 
 struct sub_004204A0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_004204A0();
 };
 
 struct sub_00420700
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_00420700();
 };
 
 struct sub_004207D0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_004207D0();
 };
 
 struct sub_00426CA0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_00426CA0();
 };
 
 struct sub_00426D70
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_00426D70();
 };
 
 struct sub_0044BDE0
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_0044BDE0();
 };
 
 struct sub_0044ED40
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_0044ED40();
 };
 
 struct sub_0044ED90
 {
-    D2StormLinkStrc f_0;
+    D2StormLinkStrc m_link;
     sub_0044ED90();
 };
 
@@ -970,7 +970,7 @@ struct D2StormGameGrowArrayStrc
 struct D2StormGameHashChunkStrc
 {
     D2StormGameArrayStrc tArray;
-    D2StormChunkLinkStrc f_10;
+    D2StormChunkLinkStrc m_link;
 
     ~D2StormGameHashChunkStrc();
 };
@@ -1059,289 +1059,289 @@ int __cdecl sub_0069FA20(); // 0x0069FA20
 
 sub_0040F7D0::~sub_0040F7D0()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00417780::sub_00417780()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_00417810::~sub_00417810()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00417850::sub_00417850()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_00417860::~sub_00417860()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_004178B0::sub_004178B0()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_004178C0::~sub_004178C0()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00417900::~sub_00417900()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00417940::sub_00417940()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_00417950::~sub_00417950()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00417990::sub_00417990()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_004179B0::~sub_004179B0()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_004183F0::~sub_004183F0()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00418430::~sub_00418430()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00418760::sub_00418760()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_00418770::sub_00418770()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_00418780::~sub_00418780()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_004187C0::~sub_004187C0()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00418800::~sub_00418800()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00418840::~sub_00418840()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00418880::~sub_00418880()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_004188C0::~sub_004188C0()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00418A40::sub_00418A40()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_00418BA0::~sub_00418BA0()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00418BE0::~sub_00418BE0()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00418C20::~sub_00418C20()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00418DE0::sub_00418DE0()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_00418DF0::sub_00418DF0()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_00418E00::sub_00418E00()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_00418E10::~sub_00418E10()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00418E50::sub_00418E50()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_00418FF0::sub_00418FF0()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_00419060::sub_00419060()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_0041C3D0::~sub_0041C3D0()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_0041C4F0::sub_0041C4F0()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_0041C500::~sub_0041C500()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_0041C720::sub_0041C720()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_0041C730::~sub_0041C730()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 HANDLER::HANDLER()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_0041C800::~sub_0041C800()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00420430::~sub_00420430()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_004204A0::sub_004204A0()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_004204B0::~sub_004204B0()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00420700::sub_00420700()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_00420710::~sub_00420710()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_004207D0::sub_004207D0()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_004207E0::~sub_004207E0()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00426960::~sub_00426960()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00426A80::~sub_00426A80()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00426CA0::sub_00426CA0()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_00426CB0::~sub_00426CB0()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_00426D70::sub_00426D70()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_00426D80::~sub_00426D80()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset)
@@ -1394,40 +1394,40 @@ int __stdcall sub_00436E90_AlwaysOne(int nArg)
 
 sub_0044BDE0::sub_0044BDE0()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_0044DDD0::~sub_0044DDD0()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_0044DE90::~sub_0044DE90()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_0044ECC0::~sub_0044ECC0()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_0044ED40::sub_0044ED40()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 sub_0044ED50::~sub_0044ED50()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 sub_0044ED90::sub_0044ED90()
 {
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
+    m_link.m_prevlink = 0;
+    m_link.m_next = 0;
 }
 
 int __stdcall sub_004C6020_AlwaysOne(int nArg)
@@ -1878,7 +1878,7 @@ char* __fastcall sub_004167A0_LinkNext(D2StormLinkStrc* pLink)
 
 D2Storm4167B0Strc::~D2Storm4167B0Strc()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink)
@@ -1928,7 +1928,7 @@ char* __fastcall sub_00416880_LinkRawNext(D2StormLinkStrc* pLink)
 
 D2Storm4168F0Strc::~D2Storm4168F0Strc()
 {
-    f_0.Unlink();
+    m_link.Unlink();
 }
 
 void __fastcall sub_004169F0_InitTerminator(D2StormListStrc* pList)
@@ -2546,7 +2546,7 @@ D2StormGameGrowArrayStrc::~D2StormGameGrowArrayStrc()
 
 D2StormGameHashChunkStrc::~D2StormGameHashChunkStrc()
 {
-    f_10.Unlink();
+    m_link.Unlink();
 }
 
 inline unsigned int RoundUpInline(unsigned int nValue, unsigned int nAlign)
