@@ -4,17 +4,23 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/stpl-game-b7b0 9bdf1a8f (on #380): Game_0044B7B0.cpp drops its own unused copies of the game list types (D2SGameDataStrc, an array model of it, the TSHashTable/TSHashTableReuse/TSExportTableSimple/TSExportTableSync specialisations over SGAMEDATA and two export-table vtable symbol lines); no function in the file uses them, and the game list comes from SGAMEDATA.h/stplhash.h only. Lane 4's file: lane 4, rebase around it. Full build: Game.exe identical, tree e8496d4fab15f72d453d68dda86866287338148f, borrowed code / data 11,250 / 281 B.
+(lane3/stpl-cellist: full build on #381 running; Ready line follows.)
 
 ## Claimed
 
-- **lane3/stpl-one (the coordinator's header job for lane 4):** memory report (#374), game list object (#377) and Game.cpp (lane 4's game-stplhash-2, #377) are on main. Left, in this order: Game_0044B7B0.cpp (posted, lane3/stpl-game-b7b0), then D2CMP's CELLIST copies (D2CmpStormHash.h, CelCmp_00603E70/00604730.cpp; lane 6's files; Storm/Unknown_006CAFC0.cpp stays with lane 9), then Ignorelist.cpp's chat tables (lane 8's file).
+- **lane3/stpl-one (the coordinator's header job for lane 4):** memory report (#374), game list object (#377) and Game.cpp (lane 4's game-stplhash-2, #377) are on main. Left, in this order: Game_0044B7B0.cpp (merged #381), then D2CMP's CELLIST copies (lane3/stpl-cellist, built), then Ignorelist.cpp's chat tables (lane 8's file).
 
 ## Questions
 
 (none)
 
 ## Notes for other lanes
+
+- **Lane 6 (D2CMP), from lane3/stpl-cellist:** CelCmp.cpp's cel list table (0x601B60-0x604900, about 150 members) now comes from stplhash.h, by symbol line, with the records in the new D2CMP/CELLIST.h (TCELENTRY, CELLIST). CelCmp.cpp builds **/EHsc** now (units.json flags), as ~TSHashTable's unwind frame needs. Deleted: D2CmpStormHash.h, CelCmp_00603460.cpp, CelCmp_00603E70.cpp, CelCmp_00604730.cpp, D2CMP/Unknown_006CB4C0.cpp (and Storm/Unknown_006CAFC0.cpp, lane 9's). CelCmp_005FF2A0.cpp loses its seven run duplicates and keeps GenerateHandle (0x603280, a CELLIST specialisation: it must not see InternalFind's body). D2CMP.h's InitializeCriticalSection now takes D2CriticalSectionStrc*, and GfxHash.cpp's gtCodecLock is a D2CriticalSectionStrc (includes D2SysTypes.h). All 17 D2CMP.h includers build equal. Your shelved "CelCmp pieces (own Storm templates)" item: the cel list part is done; the remaining duplicates at 0x60E0D0-0x60E7xx in CelCmp.cpp look like the chat tables' (D2Common Ignorelist) and are next on my list.
+- **Lane 9:** stpl-cellist turns 0x6CAFC0 into gCelListTable's real `??__E` (and 0x6CB4C0 its `??__F`) in CelCmp.cpp, and deletes Storm/Unknown_006CAFC0.cpp; borrowed data 281 -> 277 B (the .CRT$XCU slot 0x6CC70C). Take it off your 16-slot list.
+- **Lane 7:** two CELLIST members in CelCmp.cpp are explicit specialisations with this file's earlier bodies: InternalFind (0x6030E0) keeps the `_ReadWriteBarrier()` it had, and MonitorFullness (0x6045B0) reads the slot array through a `const&` to m_data. The original reloads the slot list on every loop step; plain forms of stplhash.h's members (head in a variable, re-indexing, key compare through HASHKEY_NONE::operator==, a reference to the array, Head out of class, while loop) all hoist it. Yours if you want the barrier; stplhash.h's general InternalFind is plain.
+- **Lane 2:** new shared header Source/Include/CCritSect.h (Storm's lock wrapper, moved out of D2Client/SGAMEDATA.h so D2CMP's table can use it too). It's the export tables' TSYNC, so it sits with stpl.h/stplhash.h; say if you'd rather own it.
+- **All lanes (stpl.h):** Storm/SOURCE/SFILE.CPP's SFileReadFileEx2 (0x41AAD0) flips when stpl.h's classes gain *any* member, plain ones too (TSLink::IsLinked or TSLinkedNode::IsLinked both flip it). Build SFILE.CPP whenever you touch stpl.h.
 
 - **Lane 4:** lane3/stpl-game-b7b0 deletes 125 lines of unused game-list types from your D2Client/GAME/Game_0044B7B0.cpp (deletions only, unit all equal). Rebase around it.
 - **Lane 6:** next I'm taking D2CMP's CELLIST hash table onto stplhash.h (D2CmpStormHash.h, CelCmp.cpp's table members 0x601B80-0x604840, CelCmp_00603E70.cpp, CelCmp_00604730.cpp, CelCmp_005FF2A0.cpp's GenerateHandle). Branch lane3/stpl-cellist; please leave those parts of your files until it's posted. Storm/Unknown_006CAFC0.cpp stays lane 9's.
