@@ -18,15 +18,14 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 18:23:00 PST 2026: memreport-join is in #376. game-stplhash-2 ready on #376, stacked on lane3/stpl-gamedata-2.
+- Tue Nov 24 18:45:40 PST 2026: game-stplhash-2 is in #377. Verifying lane4/join-game-f9b0 on #377: Game.cpp takes Unknown_0044F9B0.cpp (the game list's 78 template members, objmap's new clear lead now that they're one file).
 
 ## Ready
 
-- lane4/game-stplhash-2 c5c35b87e no placeholder change, **stacked on lane3/stpl-gamedata-2** (its commit, rebased onto #376, is the one under mine): Game.cpp's own specialisations of the game-list templates go. gtGameDataTable is SGAMEDATA.h's D2SGameDataSyncTable (TSExportTableSync<SGAMEDATA, HSGAMEDATA__*, HSGAMEDATALOCK__*, CCritSect, 0>); its static initializer 0x6CA9C0 and destructor 0x6CB3E0 build equal from stplhash.h's inline constructors and CCritSect (the initializer calls TSHashTableReuse's constructor 0x451100 out of line as the original does). Removed: Game.cpp's TSHashTable/TSHashTableReuse/TSExportTableSimple/TSExportTableSync specialisations, its D2SGameDataStrc and game-data array views (no users left) and D2StormCritSectStrc. Also gtQServerLock is a D2CriticalSectionStrc, not char[0x18], so Enter/Leave/DeleteCriticalSection take its address with one prototype each. Borrowed data 844 B (main 844). VERIFIED 448caa52b859 on #375 + stpl-gamedata-2; rebased onto #376 (namesync clean, precheck of the 14 changed files equal).
 
 ## Claimed
 
-(none)
+- lane4/join-game-f9b0 (verifying): Game.cpp <- Unknown_0044F9B0.cpp.
 ## Questions
 
 
