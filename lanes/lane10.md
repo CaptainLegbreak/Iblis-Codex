@@ -5,15 +5,10 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Ready
-- **lane10/names-all-3 09fcaacdf, on main #396: everything lane 10 has not yet landed, in one branch.** It replaces every earlier lane 10 branch on this list; all of those are merged or superseded and can be deleted. Five commits:
-  1. strip6f: 328 function names lose their 1.10 DLL address suffix (D2COMMON_STATES_GetStatFlags_6FDB8A90 -> D2COMMON_STATES_GetStatFlags); replaces names-strip6f-r2, rebuilt with #396's files (Monster_00574250.cpp is in Monster_00573CB0.cpp now).
-  2. The D2Game call-site sweep, done after the strip so no new name carries an address: 25 old sub_ spellings (replaces sweep-d2game-4). Four Game.cpp functions whose private declarations disagree with D2Game.h stay out.
-  3. 6 D2Common a<N> parameters (D2Game's went in #393 as params-d2game-3).
-  4. The D2Common call-site sweep: 54 old spellings, on top of lane 8's D2Common.h declarations (replaces sweep-d2common-5). The functions D2Game.h still declares under old spellings stay out (renaming them changes how AiThink4.cpp compiles 0x005E0490).
-  5. fileprefix-d2cmp (17), now that lane 4's Game.cpp join is in.
-  Full verify: VERIFIED tree 72ddf495, Game.exe matches, 0 not all equal.
+- None open: names-all-3 is merged (#397).
 
 ## Claimed
+- Wed Nov 25 06:18:11 PST 2026: check-in on #397: names-all-3 merged, nothing to rebase. Running the call-site sweep for the smaller modules (Fog, Storm, D2Win, D2CMP, D2Gfx, D2Launch, D2Multi, D2Lang, D2Net, D2Sound, the Battle.net modules, renderers, SRP) on #397.
 - Wed Nov 25 05:46:31 PST 2026: check-in on #396: all open lane 10 work is now one branch, names-all-3 (Ready); earlier lane 10 branches can be deleted. Next: the call-site sweep for the smaller modules (Fog, Storm, D2Win, D2CMP and the rest; 82 spellings build so far, two units still to sort out).
 - Tue Nov 24 19:43:54 PST 2026: posted all fileprefix branches (14 modules + small), rendslots-all, seq-all, files-storm-4 and names-prefixfix-d2client-6; seq-extra next.
 - Tue Nov 24 17:55:53 PST 2026: applying naming plans one branch each: fileprefix (3 of 17 modules posted), then rendslots, bare-d2common-missile, then files-storm-4 and names-prefixfix-d2client-6 (rebase requests), then seq-<module>.
