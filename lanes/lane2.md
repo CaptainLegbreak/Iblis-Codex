@@ -2,7 +2,7 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 ~03:30 PT): dead-records-r2 merged (#390). On the cross-module declaration move: decls-fog in its full build.
+Status (Wed Nov 25 ~04:00 PT): decls-fog and decls-storm (stacked) Ready. Next: decls-d2common (UNITS_GetRoom, PATH_Get*Position, STATLIST_UnitGetStatValue, ...), then decls-d2lang, then Fog's pool pair.
 
 ## Claimed
 
@@ -11,6 +11,7 @@ Status (Wed Nov 25 ~03:30 PT): dead-records-r2 merged (#390). On the cross-modul
 
 ## Ready
 
+- lane2/decls-storm 65ee44396 (on lane2/decls-fog, on #391; merge after decls-fog): thirteen Storm string, registry and message exports (SStrCopy, SStrLen, SStrCmpI, SRegLoadValue/SaveValue, ...) get one declaration each, with the definition's prototype, in a new Source/Include/StormApi.h; 77 units outside Storm and Fog drop their private copies and include it. 7 units keep theirs (two change code, five declare one with another type). Full build: Game.exe identical, tree 895545fbd80d64f4e5b961fce84a63082dc558b6, borrowed code / data 11,250 / 261 B.
 - lane2/decls-fog 61324a4da (on #391): FOG_DisplayHalt, the assert file getter (0x408090), FOG_Alloc and FOG_Free get one declaration each, with the definition's prototype, in a new Source/Include/FogApi.h; 306 units outside Fog drop their private copies and include it. 13 units keep theirs because the include changes their code (listed in the commit). FOG_AllocPool/FOG_FreePool come next on their own (callers pass void* where the definition takes D2PoolSystemStrc*). Full build: Game.exe identical, tree b47cd570455272137920f32b4f93012eed9bac44, borrowed code / data 11,250 / 261 B.
 - `lane2/net-packet-buffer`: WITHDRAWN, never posted. It duplicates lane 10's `bn-crypt-records-r`; don't merge it. (The proxy here won't let me delete the remote branch.)
 
