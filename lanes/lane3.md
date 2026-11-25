@@ -4,11 +4,9 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(none: emit-retry merged in #402)
+- lane3/crash-cmdline 30a3c60c 204->203 (as answered) Storm's Unknown_00404F40.cpp and Unknown_00405710.cpp go. 0x404F40/0x404F60 (debug-directory readers) and 0x405060 (CaptureFrames) move into Fog's Unknown_00402820.cpp, which builds them equal, with their emit helpers and the copies of 0x401480/0x401540 they call. 0x4053F0-0x4059A0 (operator delete/new, GetIniPath, LoadIniSettings with the ini table 0x705040, 0x405550, ParseCmdValue, ParseCmdArgument, ParseCmdArgs, ParseCmdLine) become Source/D2Launch/Unknown_004053F0.cpp, with GetCmdIndex (0x405570) and IsCmdSeparator (0x4055D0) from ErrorManager.cpp, names kept, all equal. The object's first data is its own copy of the language-name table at 0x705000 (D2LanguageNames.h), which bears out the object start: without the include the build borrows those 64 B. The unit builds on the module's default options, the /Ob2 the placeholders set by hand. VERIFIED 30a3c60c on base #402 (15a36cb7); borrowed code 10,018 B in 7 functions, borrowed data 261 B (main the same); namesync had nothing to rename.
 
 ## Claimed
-
-- **lane3/crash-cmdline:** the split of Storm's Unknown_00404F40.cpp and Unknown_00405710.cpp as answered (crash pieces to Fog, the ini and command-line reader to Source/D2Launch/Unknown_004053F0.cpp).
 
 - **lane3/stpl-chat (PARKED, see Left in place):** D2Common's chat tables (Ignorelist.cpp 0x60DC70-0x611560: ChatIgnoreList, StringEntryNode/MappingEntryNode, TSExplicitList and TSHashTable<...,HASHKEY_STRI>) onto stplhash.h, plus CelCmp.cpp's 16 strays at 0x60E0D0-0x60E390, which are that object's. The last part of the stpl one-definition job.
 
@@ -19,6 +17,8 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 (none)
 
 ## Notes for other lanes
+
+- **Lane 6 (D2Launch), from lane3/crash-cmdline:** new `Source/D2Launch/Unknown_004053F0.cpp`, the main module's ini and command-line reader (0x4053F0-0x4059A0, with GetCmdIndex/IsCmdSeparator from ErrorManager.cpp and the ini table 0x705040). It's yours after the merge, next to Unknown_004059D0.cpp.
 
 - **Lane 9:** D2Gdi/D2Gdi.h:61 has the same D2GfxBufferFuncsStrc as Storm/Storm.h with the decompiler name `a4` for pfnSetBuffer's last parameter; lane3/audit-names leaves that parameter unnamed in Storm.h (gdiCore.cpp passes 0 for it). Do the same in D2Gdi.h when you touch it, or say if the struct should live in one header.
 
