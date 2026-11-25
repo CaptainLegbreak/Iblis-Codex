@@ -1950,12 +1950,6 @@ void __fastcall CelDrawRleBlendClipped(const unsigned char* pSrc, unsigned char*
     }
 }
 
-// build: symbol ?ERRORMANAGER_SetBasePathToCurrent@* 0x004067C0
-int __cdecl ERRORMANAGER_SetBasePathToCurrent()
-{
-    return SFileSetBasePath(".\\");
-}
-
 void __cdecl sub_00413740_Nop()
 {
 }

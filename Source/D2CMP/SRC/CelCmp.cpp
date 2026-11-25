@@ -1426,24 +1426,6 @@ sub_0044ED90::sub_0044ED90()
     f_0.m_next = 0;
 }
 
-// build: symbol ?SKILLS_ScaleUpDirection@* 0x004C5390
-void __fastcall SKILLS_ScaleUpDirection(int* pX, int* pY)
-{
-    int nDistance = *pX * *pX + *pY * *pY;
-    if (nDistance < 4)
-    {
-        *pX <<= 2;
-        *pY <<= 2;
-        nDistance = *pX * *pX + *pY * *pY;
-    }
-
-    if (nDistance < 16)
-    {
-        *pX <<= 1;
-        *pY <<= 1;
-    }
-}
-
 int __stdcall sub_004C6020_AlwaysOne(int nArg)
 {
     return 1;
@@ -1522,102 +1504,6 @@ void* __fastcall sub_0040A9E0(AsyncData* pAsync); // 0x0040A9E0
 static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader); // 0x005FEB80
 
 static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry); // 0x005FEC50
-
-// build: symbol ?sub_005FEC50_GetCachedDC6Frame@* 0x005FEC50
-static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry)
-{
-    if (pEntry && pEntry->tHeader.pAsync)
-    {
-        D2CmpDC6HeaderStrc* pHeader = &pEntry->tHeader;
-        void* pData = sub_0040A9E0(pHeader->pAsync);
-        if (pData)
-        {
-            pContext->nFrames = pHeader->nFrames;
-            return sub_005FEB80_FindDC6Frame(pData, pContext, pHeader);
-        }
-
-        return 0;
-    }
-
-    return 0;
-}
-
-// build: symbol ?sub_005FEB80_FindDC6Frame@* 0x005FEB80
-static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContextStrc* pContext, D2CmpDC6HeaderStrc* pHeader)
-{
-    if (!pData)
-    {
-        return 0;
-    }
-
-    if (!pHeader)
-    {
-        return 0;
-    }
-
-    if ((unsigned int)pContext->nFrame >= pHeader->nFrames)
-    {
-        return 0;
-    }
-
-    int nIndex;
-    D2CmpDC6FrameStrc* pFrame = (D2CmpDC6FrameStrc*)pData;
-    if (pContext->nType == 6 && (pContext->dwFlags & 2))
-    {
-        nIndex = CelGameDirToFileDir(pContext->nDirection, pHeader->nDirections - 1);
-    }
-    else if (pContext->nType == 2)
-    {
-        nIndex = 0;
-    }
-    else if (pContext->nType == 4)
-    {
-        nIndex = pContext->nDirection;
-    }
-    else
-    {
-        nIndex = CelGameDirToFileDir(pContext->nDirection, pHeader->nDirections - 1);
-    }
-
-    if (nIndex >= pHeader->nDirections - 1)
-    {
-        return 0;
-    }
-
-    int nOffset = pHeader->aOffsets[nIndex];
-    if (nOffset < 0)
-    {
-        return 0;
-    }
-
-    const int nFrame = pContext->nFrame;
-    for (int i = 0; i <= nFrame; ++i)
-    {
-        pFrame = (D2CmpDC6FrameStrc*)((char*)pData + nOffset);
-        if (pFrame->nFlip != 0)
-        {
-            return 0;
-        }
-
-        if (pFrame->nWidth > 0x100)
-        {
-            return 0;
-        }
-
-        if (pFrame->nHeight > 0x100)
-        {
-            return 0;
-        }
-
-        nOffset += pFrame->nLength + pFrame->nOffsetY_14 + 0x23;
-        if (nOffset < 0)
-        {
-            return 0;
-        }
-    }
-
-    return pFrame;
-}
 
 // 0x005FE210
 void __stdcall D2CMPBuildFileName(char* output,int allowCompressed,const char* format,va_list args)
@@ -2552,14 +2438,6 @@ struct Library
 };
 }
 
-// build: symbol ?WARDENCLIENT_SwapBytes@* 0x0047F8B0
-void __fastcall WARDENCLIENT_SwapBytes(unsigned char* pA, unsigned char* pB)
-{
-    unsigned char nTemp = *pA;
-    *pA = *pB;
-    *pB = nTemp;
-}
-
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
 {
     return pWhere;
@@ -2641,13 +2519,6 @@ void __cdecl sub_0051D2D0_Nop()
 
 void __cdecl sub_0051D2E0_Nop()
 {
-}
-
-// build: symbol ?BNNEWS_CopyNewsItem@* 0x0051D350
-void __fastcall BNNEWS_CopyNewsItem(D2Storm408ElemStrc* pDst, const D2Storm408ElemStrc* pSrc)
-{
-    if (pDst)
-        *pDst = *pSrc;
 }
 
 void D2StormArray408Strc::sub_0051D570_FreeData()
@@ -3256,18 +3127,6 @@ WardenModule::WardenModule()
 
 D2WardenModuleHolderBStrc::~D2WardenModuleHolderBStrc()
 {
-}
-
-// build: symbol ?WARDENCLIENT_AllocLoaderMemory@* 0x0047FBF0
-void* __fastcall WARDENCLIENT_AllocLoaderMemory(unsigned int nSize)
-{
-    return SMemAlloc(nSize, szWardenClientFile_006D8E18, 0x10D, 0);
-}
-
-// build: symbol ?WARDENCLIENT_FreeLoaderMemory@* 0x0047FC10
-void __fastcall WARDENCLIENT_FreeLoaderMemory(void* pMemory)
-{
-    SMemFree(pMemory, szWardenClientFile_006D8E18, 0x117, 0);
 }
 
 NWardenClient::Library::Library()

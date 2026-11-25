@@ -106,29 +106,6 @@ static int __stdcall D2SOUNDSMP_CreateSoundBuffer(unsigned int nFlags, D2SoundSt
     pSound->nLoopStart = -1;
     return 1;
 }
-// build: symbol ?D2SOUNDSMP_CreateSound@* 0x00515530
-D2SoundStrc* __fastcall D2SOUNDSMP_CreateSound(unsigned int nFlags, int nValue)
-{
-    gbSoundGlobalFocus = nValue;
-// build: symbol ?D2SOUND_IsPositionalSoundEnabled@* 0x00513B60
-    if ((nFlags & 2) && !D2SOUND_IsPositionalSoundEnabled())
-        return 0;
-    if ((nFlags & 2) && (nFlags & 1))
-        return 0;
-
-    D2SoundStrc* pSound = (D2SoundStrc*)FOG_Alloc(0x60, gszD2SoundSmpFile, 0x1D9, 0);
-    memset(pSound, 0, 0x60);
-    if (!D2SOUNDSMP_CreateSoundBuffer(nFlags, pSound))
-    {
-        FOG_Free(pSound, gszD2SoundSmpFile, 0x1E0, 0);
-        return 0;
-    }
-
-    EnterCriticalSection(&gtSoundLock);
-    D2SOUNDUTIL_ListAddHead(&gpSoundList, pSound);
-    LeaveCriticalSection(&gtSoundLock);
-    return pSound;
-}
 // build: symbol ?D2SOUNDSMP_ReleaseSoundBuffers@* 0x00516070
 static void D2SOUNDSMP_ReleaseSoundBuffers(D2SoundStrc* pSound)
 {
@@ -149,16 +126,6 @@ static void D2SOUNDSMP_ReleaseSoundBuffers(D2SoundStrc* pSound)
         pSound->pBuffer = 0;
     }
     memset(pSound, 0, 0x60);
-}
-// build: symbol ?D2SOUNDSMP_DestroySound@* 0x005160D0
-void __fastcall D2SOUNDSMP_DestroySound(D2SoundStrc* pSound)
-{
-    D2_ASSERT(pSound, 0x211);
-    EnterCriticalSection(&gtSoundLock);
-    D2SOUNDSMP_ReleaseSoundBuffers(pSound);
-    D2SOUNDUTIL_ListRemove(&gpSoundList, pSound);
-    LeaveCriticalSection(&gtSoundLock);
-    FOG_Free(pSound, gszD2SoundSmpFile, 0x21D, 0);
 }
 // build: symbol ?D2SOUNDSMP_ResetSound@* 0x00516140
 void __fastcall D2SOUNDSMP_ResetSound(D2SoundStrc* pSound)
@@ -221,31 +188,6 @@ static inline void sub_AdvancePlayPositionInline(D2SoundStrc* pSound, unsigned l
     pSound->nPosition = nPosition + dwPlay;
 }
 unsigned long __stdcall D2SOUNDSMP_SoundThreadProc(void* pParameter); // 0x00516250
-// build: symbol ?D2SOUNDSMP_FindRiffChunk@* 0x005166D0
-static const unsigned char* __stdcall D2SOUNDSMP_FindRiffChunk(const unsigned char* pData, unsigned int* pnSize, unsigned int nChunkId, unsigned int* pnChunkSize)
-{
-    while (*pnSize >= 8)
-    {
-        *pnSize -= 8;
-        const unsigned int nRemaining = *pnSize;
-        const unsigned int* pHeader = (const unsigned int*)pData;
-        pData += 8;
-        const unsigned int nLength = pHeader[1];
-        if (pHeader[0] == nChunkId)
-        {
-            *pnChunkSize = nLength;
-            return pData;
-        }
-
-        if (nRemaining < nLength)
-            return 0;
-
-        *pnSize = nRemaining - nLength;
-        pData += nLength;
-    }
-
-    return 0;
-}
 const unsigned char* __fastcall D2SOUNDSMP_ReadWaveHeader(const unsigned int* pRiff, unsigned int* pnSize, D2WaveFormatStrc* pFormat); // 0x00516760
 static float SOUND_SqrtF(float fValue)
 {
