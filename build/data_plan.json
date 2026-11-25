@@ -1329,7 +1329,7 @@
     "extern \"C\" void __cdecl sub_0050D490_GlideTileDrawTrans(); // 0x0050D490",
     "extern \"C\" void __cdecl sub_0050D4C0_GlideTileDrawLit(); // 0x0050D4C0",
     "extern \"C\" void __cdecl sub_0050D6A0_GlideDrawFloorTile(); // 0x0050D6A0",
-    "extern \"C\" void __cdecl sub_0050DF00_ResetSpriteScale(); // 0x0050DF00"
+    "extern \"C\" void __cdecl GLVERTEX_PerspectiveClearScale(); // 0x0050DF00"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Glide/Src/glCore.inc",
@@ -1450,7 +1450,7 @@
     "extern \"C\" void __cdecl sub_00512250_DrawCel(); // 0x00512250",
     "extern \"C\" void __cdecl sub_005122E0_DrawShadow(); // 0x005122E0",
     "extern \"C\" void __cdecl sub_005123B0_DDrawDebugFillBackBuffer(); // 0x005123B0",
-    "extern \"C\" void __cdecl sub_00512410_ForwardToDrawImage(); // 0x00512410",
+    "extern \"C\" void __cdecl GLVERTEX_CelFlatSpriteDraw(); // 0x00512410",
     "extern \"C\" void __cdecl sub_00512930_DDrawDrawLine(); // 0x00512930",
     "extern \"C\" void __cdecl sub_00512C20_DrawDiamond(); // 0x00512C20",
     "extern \"C\" void __cdecl sub_00512CE0_DrawRect(); // 0x00512CE0",
@@ -3527,8 +3527,8 @@
     "extern \"C\" void __cdecl D3DSPRITE_DrawSpriteClipped(); // 0x006B6EE0",
     "extern \"C\" void __cdecl D3DSPRITE_DrawSpriteRows(); // 0x006B6C90",
     "extern \"C\" void __cdecl D3DSPRITE_DrawSpriteShadow(); // 0x006B7000",
-    "extern \"C\" void __cdecl sub_006B6B40_DrawSprite(); // 0x006B6B40",
-    "extern \"C\" void __cdecl sub_006B6BF0_DrawSprite(); // 0x006B6BF0",
+    "extern \"C\" void __cdecl D3DSPRITE_CelDraw(); // 0x006B6B40",
+    "extern \"C\" void __cdecl D3DSPRITE_CelDrawColor(); // 0x006B6BF0",
     "extern \"C\" void __cdecl sub_006B7630_DrawTextV(); // 0x006B7630",
     "extern \"C\" void __cdecl sub_006B76C0(); // 0x006B76C0",
     "extern \"C\" void __cdecl sub_006B77B0_Call(); // 0x006B77B0",
@@ -73264,7 +73264,7 @@
      0,
      "0x00508F60",
      "names.json",
-     "sub_00508F60_GlideCheckBoards",
+     "GLCORE_Detect",
      0,
      "func"
     ],
@@ -73480,7 +73480,7 @@
      108,
      "0x0050DF00",
      "names.json",
-     "sub_0050DF00_ResetSpriteScale",
+     "GLVERTEX_PerspectiveClearScale",
      0,
      "func"
     ],
@@ -73810,7 +73810,7 @@
      48,
      "0x00510390",
      "names.json",
-     "sub_00510390_DDrawSetOption",
+     "DDCORE_SetOption",
      0,
      "func"
     ],
@@ -73874,7 +73874,7 @@
      80,
      "0x00510150",
      "names.json",
-     "sub_00510150_DDrawGetScreenSize",
+     "DDCORE_GetDimensions",
      0,
      "func"
     ],
@@ -73882,7 +73882,7 @@
      84,
      "0x005102F0",
      "names.json",
-     "sub_005102F0_DDrawNop",
+     "DDCORE_SetGlobalScale",
      0,
      "func"
     ],
@@ -73890,7 +73890,7 @@
      88,
      "0x00510300",
      "names.json",
-     "sub_00510300_DDrawSetGamma",
+     "DDCORE_SetGamma",
      0,
      "func"
     ],
@@ -73898,7 +73898,7 @@
      92,
      "0x00510310",
      "names.json",
-     "sub_00510310_ReturnOne",
+     "DDCORE_GammaCanBeControlled",
      0,
      "func"
     ],
@@ -73906,7 +73906,7 @@
      96,
      "0x00510330",
      "names.json",
-     "sub_00510330_DDrawNop",
+     "DDCORE_UpdatePerspective",
      0,
      "func"
     ],
@@ -73914,7 +73914,7 @@
      100,
      "0x00510340",
      "names.json",
-     "sub_00510340_DDrawStub5",
+     "DDCORE_PerspectiveTransform",
      0,
      "func"
     ],
@@ -73922,7 +73922,7 @@
      104,
      "0x00510350",
      "names.json",
-     "sub_00510350_DDrawStub6",
+     "DDCORE_PerspectiveTransformScale",
      0,
      "func"
     ],
@@ -73930,7 +73930,7 @@
      108,
      "0x00510360",
      "names.json",
-     "sub_00510360_DDrawNop",
+     "DDCORE_PerspectiveClearScale",
      0,
      "func"
     ],
@@ -73938,7 +73938,7 @@
      112,
      "0x00510160",
      "names.json",
-     "sub_00510160_DDrawSetPalette",
+     "DDCORE_SetPalette",
      0,
      "func"
     ],
@@ -73946,7 +73946,7 @@
      116,
      "0x005102D0",
      "names.json",
-     "sub_005102D0_DDrawSetPaletteView",
+     "DDCORE_SetPaletteTables",
      0,
      "func"
     ],
@@ -73970,7 +73970,7 @@
      128,
      "0x00512410",
      "names.json",
-     "sub_00512410_ForwardToDrawImage",
+     "GLVERTEX_CelFlatSpriteDraw",
      0,
      "func"
     ],
@@ -74138,7 +74138,7 @@
      212,
      "0x00510130",
      "names.json",
-     "sub_00510130_DDrawNop",
+     "DDCORE_ClearCaches",
      0,
      "func"
     ]
@@ -74252,7 +74252,7 @@
      44,
      "0x006B20B0",
      "names.json",
-     "sub_006B20B0",
+     "D3DCORE_ActivateWindow",
      0,
      "func"
     ],
@@ -74284,7 +74284,7 @@
      60,
      "0x006B1C00",
      "names.json",
-     "sub_006B1C00",
+     "D3DCORE_CheckCutScene",
      0,
      "func"
     ],
@@ -74332,7 +74332,7 @@
      84,
      "0x006B1C10",
      "names.json",
-     "sub_006B1C10_SetGlobal",
+     "D3DCORE_SetGlobalScale",
      0,
      "func"
     ],
@@ -74428,7 +74428,7 @@
      132,
      "0x006B6B40",
      "queue_function",
-     "sub_006B6B40_DrawSprite",
+     "D3DSPRITE_CelDraw",
      0,
      "func"
     ],
@@ -74436,7 +74436,7 @@
      136,
      "0x006B6BF0",
      "queue_function",
-     "sub_006B6BF0_DrawSprite",
+     "D3DSPRITE_CelDrawColor",
      0,
      "func"
     ],
@@ -74614,7 +74614,7 @@
      0,
      "0x006C7A60",
      "names.json",
-     "sub_006C7A60",
+     "GDICORE_Detect",
      0,
      "func"
     ],
@@ -74702,7 +74702,7 @@
      44,
      "0x006C80F0",
      "names.json",
-     "sub_006C80F0",
+     "GDICORE_ActivateWindow",
      0,
      "func"
     ],
@@ -74710,7 +74710,7 @@
      48,
      "0x006C8100",
      "names.json",
-     "sub_006C8100",
+     "GDICORE_SetOption",
      0,
      "func"
     ],
@@ -74718,7 +74718,7 @@
      52,
      "0x006C7CC0",
      "names.json",
-     "sub_006C7CC0",
+     "GDICORE_PlayCutscene",
      0,
      "func"
     ],
@@ -74726,7 +74726,7 @@
      56,
      "0x006C7CD0",
      "names.json",
-     "sub_006C7CD0",
+     "GDICORE_OpenSmackCutscene",
      0,
      "func"
     ],
@@ -74734,7 +74734,7 @@
      60,
      "0x006C7CE0",
      "names.json",
-     "sub_006C7CE0",
+     "GDICORE_CheckCutScene",
      0,
      "func"
     ],
@@ -74766,7 +74766,7 @@
      76,
      "0x006C8190",
      "names.json",
-     "sub_006C8190",
+     "GDICORE_GetCacheResults",
      0,
      "func"
     ],
@@ -74782,7 +74782,7 @@
      84,
      "0x006C8030",
      "names.json",
-     "sub_006C8030_Nop",
+     "GDICORE_SetGlobalScale",
      0,
      "func"
     ],
@@ -74790,7 +74790,7 @@
      88,
      "0x006C8040",
      "names.json",
-     "sub_006C8040_Nop",
+     "GDICORE_SetGamma",
      0,
      "func"
     ],
@@ -74798,7 +74798,7 @@
      92,
      "0x006C8050",
      "names.json",
-     "sub_006C8050",
+     "GDICORE_GammaCanBeControlled",
      0,
      "func"
     ],
@@ -74806,7 +74806,7 @@
      96,
      "0x006C8070",
      "names.json",
-     "sub_006C8070_Nop",
+     "GDICORE_UpdatePerspective",
      0,
      "func"
     ],
@@ -74814,7 +74814,7 @@
      100,
      "0x006C8080",
      "names.json",
-     "sub_006C8080_Nop",
+     "GDICORE_PerspectiveTransform",
      0,
      "func"
     ],
@@ -74822,7 +74822,7 @@
      104,
      "0x006C8090",
      "names.json",
-     "sub_006C8090_Nop",
+     "GDICORE_PerspectiveTransformScale",
      0,
      "func"
     ],
@@ -74830,7 +74830,7 @@
      108,
      "0x006C80A0",
      "names.json",
-     "sub_006C80A0_Nop",
+     "GDICORE_PerspectiveClearScale",
      0,
      "func"
     ],
@@ -74854,7 +74854,7 @@
      120,
      "0x006C8060",
      "names.json",
-     "sub_006C8060",
+     "GDICORE_SetAmbientColor",
      0,
      "func"
     ],
@@ -74886,7 +74886,7 @@
      136,
      "0x006C85A0",
      "source",
-     "sub_006C85A0_DrawImage",
+     "GDICORE_CelDrawColor",
      0,
      "func"
     ],
@@ -74910,7 +74910,7 @@
      148,
      "0x006C88A0",
      "names.json",
-     "sub_006C88A0",
+     "GDICORE_CelDrawHilight",
      0,
      "func"
     ],
@@ -75022,7 +75022,7 @@
      204,
      "0x006C8A40",
      "names.json",
-     "sub_006C8A40",
+     "GDICORE_DebugDraw",
      0,
      "func"
     ],
@@ -75038,7 +75038,7 @@
      212,
      "0x006C7AF0",
      "names.json",
-     "sub_006C7AF0_Nop",
+     "GDICORE_ClearCaches",
      0,
      "func"
     ]

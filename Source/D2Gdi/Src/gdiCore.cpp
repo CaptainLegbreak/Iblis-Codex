@@ -110,17 +110,17 @@ extern D2PaletteTableStrc gtPaletteView; // 0x0098A040
 
 void __fastcall GDICORE_SetPaletteView(const D2PaletteTableStrc* source); // 0x006C8000
 
-void __cdecl sub_006C8030_Nop(); // 0x006C8030
+void __cdecl GDICORE_SetGlobalScale(); // 0x006C8030
 
-void __cdecl sub_006C8040_Nop(); // 0x006C8040
+void __cdecl GDICORE_SetGamma(); // 0x006C8040
 
-void __cdecl sub_006C8070_Nop(); // 0x006C8070
+void __cdecl GDICORE_UpdatePerspective(); // 0x006C8070
 
-void __stdcall sub_006C8080_Nop(int unused1, int unused2, int unused3); // 0x006C8080
+void __stdcall GDICORE_PerspectiveTransform(int unused1, int unused2, int unused3); // 0x006C8080
 
-void __stdcall sub_006C8090_Nop(int unused1, int unused2, int unused3, int unused4); // 0x006C8090
+void __stdcall GDICORE_PerspectiveTransformScale(int unused1, int unused2, int unused3, int unused4); // 0x006C8090
 
-void __cdecl sub_006C80A0_Nop(); // 0x006C80A0
+void __cdecl GDICORE_PerspectiveClearScale(); // 0x006C80A0
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -209,28 +209,28 @@ int __fastcall GDICORE_ChangeRes(int nUnused, int nMode); // 0x006C80B0
 void __fastcall GDICORE_GetScreenSize(int* width, int* height); // 0x006C7F90
 void __fastcall GDICORE_SetPalette(D2PaletteEntry006C7C10Strc* pEntries); // 0x006C7FA0
 int __fastcall GDICORE_ForwardDraw(void* context, int second, int third, int fourth, int fifth, int unused, int last); // 0x006C8910
-int __fastcall sub_006C85A0_DrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, int nPalette); // 0x006C85A0
+int __fastcall GDICORE_CelDrawColor(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, int nPalette); // 0x006C85A0
 void __fastcall GDICORE_DrawImageRows(D2CelContextStrc* pContext, int nX, int nY, int nSkipTop, int nDrawHeight, int nDrawMode); // 0x006C86A0
 void __fastcall GDICORE_DrawShadow(void* pData, int nX, int nY); // 0x006C87E0
 void __fastcall GDICORE_DrawCelClipped(D2CelContextStrc* pContext, int nX, int nY, const D2ClipRectStrc* pClip, int nDrawMode); // 0x006C8750
 void __fastcall GDICORE_DrawAlpha(int nArg1, int nArg2, int a, int b, int c, unsigned char nAlpha); // 0x006C8C00
 void __fastcall GDICORE_GdiDebugPrintf(int nX, int nY, const char* szFormat, char* args); // 0x006C8970
 int __fastcall GDICORE_DrawAt(int nX, int nY); // 0x006C88B0
-void __cdecl sub_006C7AF0_Nop(); // 0x006C7AF0
+void __cdecl GDICORE_ClearCaches(); // 0x006C7AF0
 
 extern int gpTileDrawFunctions; // 0x007C914C
-int __cdecl sub_006C7A60(); // 0x006C7A60
-int __cdecl sub_006C7CC0(); // 0x006C7CC0
-void __stdcall sub_006C7CD0(int nUnused1); // 0x006C7CD0
-int __cdecl sub_006C7CE0(); // 0x006C7CE0
-int __cdecl sub_006C8050(); // 0x006C8050
-void __stdcall sub_006C8060(int nUnused1); // 0x006C8060
-int __cdecl sub_006C80F0(); // 0x006C80F0
-int __cdecl sub_006C8100(); // 0x006C8100
-int __cdecl sub_006C8190(); // 0x006C8190
+int __cdecl GDICORE_Detect(); // 0x006C7A60
+int __cdecl GDICORE_PlayCutscene(); // 0x006C7CC0
+void __stdcall GDICORE_OpenSmackCutscene(int nUnused1); // 0x006C7CD0
+int __cdecl GDICORE_CheckCutScene(); // 0x006C7CE0
+int __cdecl GDICORE_GammaCanBeControlled(); // 0x006C8050
+void __stdcall GDICORE_SetAmbientColor(int nUnused1); // 0x006C8060
+int __cdecl GDICORE_ActivateWindow(); // 0x006C80F0
+int __cdecl GDICORE_SetOption(); // 0x006C8100
+int __cdecl GDICORE_GetCacheResults(); // 0x006C8190
 int __cdecl sub_006C8240(); // 0x006C8240
-void __stdcall sub_006C88A0(int nUnused1, int nUnused2); // 0x006C88A0
-void __stdcall sub_006C8A40(int nUnused1, int nUnused2); // 0x006C8A40
+void __stdcall GDICORE_CelDrawHilight(int nUnused1, int nUnused2); // 0x006C88A0
+void __stdcall GDICORE_DebugDraw(int nUnused1, int nUnused2); // 0x006C8A40
 
 
 extern int gnWidth_007C9138; // 0x007C9138
@@ -347,39 +347,39 @@ void __fastcall GDICORE_SetPaletteView(const D2PaletteTableStrc* source)
 }
 
 // 0x006C8030
-void __cdecl sub_006C8030_Nop()
+void __cdecl GDICORE_SetGlobalScale()
 {
 }
 
 // 0x006C8040
-void __cdecl sub_006C8040_Nop()
+void __cdecl GDICORE_SetGamma()
 {
 }
 
 // 0x006C8070
-void __cdecl sub_006C8070_Nop()
+void __cdecl GDICORE_UpdatePerspective()
 {
 }
 
 // 0x006C8080
-void __stdcall sub_006C8080_Nop(int unused1, int unused2, int unused3)
+void __stdcall GDICORE_PerspectiveTransform(int unused1, int unused2, int unused3)
 {
 }
 
 // 0x006C8090
-void __stdcall sub_006C8090_Nop(int unused1, int unused2, int unused3, int unused4)
+void __stdcall GDICORE_PerspectiveTransformScale(int unused1, int unused2, int unused3, int unused4)
 {
 }
 
 // 0x006C80A0
-void __cdecl sub_006C80A0_Nop()
+void __cdecl GDICORE_PerspectiveClearScale()
 {
 }
 
 #include "gen/data/Source/D2Gdi/Src/gdiCore.inc"
 
 // 0x006C7A60
-int __cdecl sub_006C7A60()
+int __cdecl GDICORE_Detect()
 {
     return 1;
 }
@@ -411,7 +411,7 @@ struct D2PaletteEntry006C7C10Strc;
 struct D2LogPalette006C7C10Strc;
 
 // 0x006C7AF0
-void __cdecl sub_006C7AF0_Nop()
+void __cdecl GDICORE_ClearCaches()
 {
 }
 
@@ -484,18 +484,18 @@ void __cdecl sub_006C7C90_Release()
 }
 
 // 0x006C7CC0
-int __cdecl sub_006C7CC0()
+int __cdecl GDICORE_PlayCutscene()
 {
     return 0;
 }
 
 // 0x006C7CD0
-void __stdcall sub_006C7CD0(int nUnused1)
+void __stdcall GDICORE_OpenSmackCutscene(int nUnused1)
 {
 }
 
 // 0x006C7CE0
-int __cdecl sub_006C7CE0()
+int __cdecl GDICORE_CheckCutScene()
 {
     return 0;
 }
@@ -590,13 +590,13 @@ void* __cdecl sub_006C8020()
 }
 
 // 0x006C8050
-int __cdecl sub_006C8050()
+int __cdecl GDICORE_GammaCanBeControlled()
 {
     return 0;
 }
 
 // 0x006C8060
-void __stdcall sub_006C8060(int nUnused1)
+void __stdcall GDICORE_SetAmbientColor(int nUnused1)
 {
 }
 
@@ -612,19 +612,19 @@ int __fastcall GDICORE_ChangeRes(int nUnused, int nMode)
 }
 
 // 0x006C80F0
-int __cdecl sub_006C80F0()
+int __cdecl GDICORE_ActivateWindow()
 {
     return 0;
 }
 
 // 0x006C8100
-int __cdecl sub_006C8100()
+int __cdecl GDICORE_SetOption()
 {
     return 0;
 }
 
 // 0x006C8190
-int __cdecl sub_006C8190()
+int __cdecl GDICORE_GetCacheResults()
 {
     return 0;
 }
@@ -814,7 +814,7 @@ int __fastcall GDICORE_DrawImage(void* pData, int nX, int nY, unsigned int dwGam
 }
 
 // 0x006C85A0
-int __fastcall sub_006C85A0_DrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, int nPalette)
+int __fastcall GDICORE_CelDrawColor(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, int nPalette)
 {
     D2CelContextStrc* pContext = (D2CelContextStrc*)pData;
     if (!sub_006001F0(pContext, 0, 1))
@@ -888,7 +888,7 @@ void __fastcall GDICORE_DrawCelClipped(D2CelContextStrc* pContext, int nX, int n
         (unsigned char*)GDICORE_GetSetting(nDrawMode, (int*)&pClip), tClip.skipRows, tClip.rowCount, 0);
 }
 // 0x006C88A0
-void __stdcall sub_006C88A0(int nUnused1, int nUnused2)
+void __stdcall GDICORE_CelDrawHilight(int nUnused1, int nUnused2)
 {
 }
 
@@ -942,7 +942,7 @@ void __fastcall GDICORE_GdiDebugPrintf(int nX, int nY, const char* szFormat, cha
 }
 
 // 0x006C8A40
-void __stdcall sub_006C8A40(int nUnused1, int nUnused2)
+void __stdcall GDICORE_DebugDraw(int nUnused1, int nUnused2)
 {
 }
 

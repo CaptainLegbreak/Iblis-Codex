@@ -1224,13 +1224,13 @@ void __fastcall D3DCORE_ClearCaches()
 }
 
 // 0x006B1C00
-int __cdecl sub_006B1C00()
+int __cdecl D3DCORE_CheckCutScene()
 {
     return gdwGlobal_00970E50;
 }
 
 // 0x006B1C10
-void __fastcall sub_006B1C10_SetGlobal(int nValue)
+void __fastcall D3DCORE_SetGlobalScale(int nValue)
 {
     gdwGlobal_007B57E4 = nValue;
 }
@@ -1435,7 +1435,7 @@ void* __cdecl QSERVER_GetFloorCacheSize()
 }
 
 // 0x006B20B0
-int __cdecl sub_006B20B0()
+int __cdecl D3DCORE_ActivateWindow()
 {
     return 0;
 }
