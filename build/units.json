@@ -10351,6 +10351,396 @@
      "name": "?0D2StormListAStrc"
     },
     {
+     "va": "0x0044F820",
+     "length": 106,
+     "name": "??1?$TSHashObject@USGAMEDATA@@VHASHKEY_NONE@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0044F890",
+     "length": 72,
+     "name": "?UnlinkNode@?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAEXPAUSGAMEDATA@@@Z"
+    },
+    {
+     "va": "0x0044F8E0",
+     "length": 66,
+     "name": "?UnlinkAll@?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAEXXZ"
+    },
+    {
+     "va": "0x0044F930",
+     "length": 66,
+     "name": "?UnlinkAll@?$TSList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@@@@QAEXXZ"
+    },
+    {
+     "va": "0x0044F980",
+     "length": 37,
+     "name": "?ChangeLinkOffset@?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAEXH@Z"
+    },
+    {
+     "va": "0x0044F9B0",
+     "length": 32,
+     "name": "??0?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0044F9D0",
+     "length": 32,
+     "name": "??0?$TSList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0044F9F0",
+     "length": 5,
+     "name": "??1SGAMEDATA@@QAE@XZ"
+    },
+    {
+     "va": "0x0044FA00",
+     "length": 142,
+     "name": "?InternalClear@?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@QAEXH@Z"
+    },
+    {
+     "va": "0x0044FA90",
+     "length": 60,
+     "name": "??1?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0044FAD0",
+     "length": 60,
+     "name": "??1?$TSList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0044FB10",
+     "length": 32,
+     "name": "??0?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@QAE@XZ"
+    },
+    {
+     "va": "0x0044FB30",
+     "length": 32,
+     "name": "??0?$TSExplicitList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@$0BA@@@QAE@XZ"
+    },
+    {
+     "va": "0x0044FB50",
+     "length": 34,
+     "name": "?Construct@?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@SIXPAV?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@Z"
+    },
+    {
+     "va": "0x0044FB80",
+     "length": 39,
+     "name": "??0?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAE@ABU0@@Z"
+    },
+    {
+     "va": "0x0044FBB0",
+     "length": 43,
+     "name": "??_GSGAMEDATA@@QAEPAXI@Z"
+    },
+    {
+     "va": "0x0044FBE0",
+     "length": 60,
+     "name": "??1?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@QAE@XZ"
+    },
+    {
+     "va": "0x0044FC20",
+     "length": 60,
+     "name": "??1?$TSExplicitList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@$0BA@@@QAE@XZ"
+    },
+    {
+     "va": "0x0044FC60",
+     "length": 135,
+     "name": "?Clear@?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAEXXZ"
+    },
+    {
+     "va": "0x0044FCF0",
+     "length": 96,
+     "name": "??_G?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@QAEPAXI@Z"
+    },
+    {
+     "va": "0x0044FD50",
+     "length": 5,
+     "name": "?Destruct@?$TSCD@USGAMEDATA@@@@SIXPAUSGAMEDATA@@@Z"
+    },
+    {
+     "va": "0x0044FD60",
+     "length": 32,
+     "name": "?CopyConstruct@?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@SIXPAV?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@ABV2@@Z"
+    },
+    {
+     "va": "0x0044FD80",
+     "length": 66,
+     "name": "??1?$TSFixedArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0044FDD0",
+     "length": 60,
+     "name": "?Destruct@?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@SIXPAV?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@Z"
+    },
+    {
+     "va": "0x0044FE10",
+     "length": 325,
+     "name": "?ReallocData@?$TSGrowableArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAEXI@Z"
+    },
+    {
+     "va": "0x0044FF60",
+     "length": 128,
+     "name": "??1?$TSFixedArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0044FFE0",
+     "length": 5,
+     "name": "??1?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAE@XZ"
+    },
+    {
+     "va": "0x0044FFF0",
+     "length": 59,
+     "name": "??1?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@QAE@XZ"
+    },
+    {
+     "va": "0x00450030",
+     "length": 16,
+     "name": "??0?$TSGrowableArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAE@XZ"
+    },
+    {
+     "va": "0x00450040",
+     "length": 70,
+     "name": "?Reserve@?$TSGrowableArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAEXIH@Z"
+    },
+    {
+     "va": "0x00450090",
+     "length": 5,
+     "name": "??1?$TSGrowableArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAE@XZ"
+    },
+    {
+     "va": "0x004500A0",
+     "length": 98,
+     "name": "??_G?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@QAEPAXI@Z"
+    },
+    {
+     "va": "0x00450110",
+     "length": 247,
+     "name": "?SetCount@?$TSGrowableArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAEXI@Z"
+    },
+    {
+     "va": "0x00450210",
+     "length": 135,
+     "name": "??1?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@UAE@XZ"
+    },
+    {
+     "va": "0x004502A0",
+     "length": 171,
+     "name": "?LinkNode@?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAEXPAUSGAMEDATA@@I0@Z"
+    },
+    {
+     "va": "0x00450350",
+     "length": 17,
+     "name": "??0?$TSHashObject@USGAMEDATA@@VHASHKEY_NONE@@@@QAE@XZ"
+    },
+    {
+     "va": "0x00450370",
+     "length": 17,
+     "name": "??0SGAMEDATA@@QAE@XZ"
+    },
+    {
+     "va": "0x00450390",
+     "length": 85,
+     "name": "?NewNode@?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAEPAUSGAMEDATA@@III@Z"
+    },
+    {
+     "va": "0x004503F0",
+     "length": 34,
+     "name": "?InternalDelete@?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@UAEXPAUSGAMEDATA@@@Z"
+    },
+    {
+     "va": "0x00450420",
+     "length": 170,
+     "name": "?InternalNew@?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@UAEPAUSGAMEDATA@@PAV?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@II@Z"
+    },
+    {
+     "va": "0x004504D0",
+     "length": 43,
+     "name": "??_G?$TSFixedArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAEPAXI@Z"
+    },
+    {
+     "va": "0x00450500",
+     "length": 20,
+     "name": "?Clear@?$TSFixedArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAEXXZ"
+    },
+    {
+     "va": "0x00450520",
+     "length": 40,
+     "name": "?Destroy@?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@UAEXXZ"
+    },
+    {
+     "va": "0x00450550",
+     "length": 43,
+     "name": "??_G?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@UAEPAXI@Z"
+    },
+    {
+     "va": "0x00450580",
+     "length": 256,
+     "name": "?Clear@?$TSList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@@@@QAEXXZ"
+    },
+    {
+     "va": "0x00450680",
+     "length": 9,
+     "name": "?sub_00450680_SetCount@D2SGameDataListArrayHolderStrc@@QAEXI@Z"
+    },
+    {
+     "va": "0x00450690",
+     "length": 20,
+     "name": "?DeleteChunksAndReuse@?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@QAEXXZ"
+    },
+    {
+     "va": "0x004506B0",
+     "length": 171,
+     "name": "??0?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@QAE@XZ"
+    },
+    {
+     "va": "0x00450760",
+     "length": 157,
+     "name": "??1?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@UAE@XZ"
+    },
+    {
+     "va": "0x00450800",
+     "length": 6,
+     "name": "?sub_00450800_GetDifference@D2SGameDataPairStrc@@QAEIXZ"
+    },
+    {
+     "va": "0x00450810",
+     "length": 57,
+     "name": "?CalcChunkSize@?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAEII@Z"
+    },
+    {
+     "va": "0x00450850",
+     "length": 31,
+     "name": "?RoundUp@?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@SGIII@Z"
+    },
+    {
+     "va": "0x00450870",
+     "length": 13,
+     "name": "??0?$TSBaseArray@USGAMEDATA@@@@QAE@XZ"
+    },
+    {
+     "va": "0x00450880",
+     "length": 19,
+     "name": "??0D2SGameDataArrayOwnerStrc@@QAE@H@Z"
+    },
+    {
+     "va": "0x004508A0",
+     "length": 171,
+     "name": "?LinkNode@?$TSList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@@@@QAEXPAV?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@I0@Z"
+    },
+    {
+     "va": "0x00450950",
+     "length": 976,
+     "name": "??0SGAMEDATA@@QAE@ABU0@@Z"
+    },
+    {
+     "va": "0x00450D20",
+     "length": 8,
+     "name": "?Clear@?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@QAEXXZ"
+    },
+    {
+     "va": "0x00450D30",
+     "length": 19,
+     "name": "?Construct@?$TSCD@USGAMEDATA@@@@SIXPAUSGAMEDATA@@@Z"
+    },
+    {
+     "va": "0x00450D50",
+     "length": 11,
+     "name": "?CopyConstruct@?$TSCD@USGAMEDATA@@@@SIXPAUSGAMEDATA@@ABU2@@Z"
+    },
+    {
+     "va": "0x00450D60",
+     "length": 34,
+     "name": "?InternalDelete@?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@UAEXPAUSGAMEDATA@@@Z"
+    },
+    {
+     "va": "0x00450D90",
+     "length": 209,
+     "name": "?ReallocData@?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAEXI@Z"
+    },
+    {
+     "va": "0x00450E70",
+     "length": 70,
+     "name": "?Reserve@?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAEXIH@Z"
+    },
+    {
+     "va": "0x00450EC0",
+     "length": 16,
+     "name": "??0?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAE@XZ"
+    },
+    {
+     "va": "0x00450ED0",
+     "length": 120,
+     "name": "?New@?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAEPAUSGAMEDATA@@XZ"
+    },
+    {
+     "va": "0x00450F50",
+     "length": 23,
+     "name": "?sub_00450F50_ReserveExact@D2SGameDataArrayHolderStrc@@QAEXI@Z"
+    },
+    {
+     "va": "0x00450F70",
+     "length": 5,
+     "name": "?sub_00450F70_New@D2SGameDataArrayHolderStrc@@QAEPAUSGAMEDATA@@XZ"
+    },
+    {
+     "va": "0x00450F80",
+     "length": 22,
+     "name": "??0?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@QAE@XZ"
+    },
+    {
+     "va": "0x00450FA0",
+     "length": 87,
+     "name": "?NewNode@?$TSList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@@@@QAEPAV?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@III@Z"
+    },
+    {
+     "va": "0x00451000",
+     "length": 170,
+     "name": "?InternalNew@?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@UAEPAUSGAMEDATA@@PAV?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@II@Z"
+    },
+    {
+     "va": "0x004510B0",
+     "length": 27,
+     "name": "?Destroy@?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@UAEXXZ"
+    },
+    {
+     "va": "0x004510D0",
+     "length": 43,
+     "name": "??_G?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@UAEPAXI@Z"
+    },
+    {
+     "va": "0x00451100",
+     "length": 96,
+     "name": "??0?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@QAE@XZ"
+    },
+    {
+     "va": "0x00451160",
+     "length": 5,
+     "name": "??1?$TSExportTableSimple@USGAMEDATA@@PAUHSGAMEDATA__@@$0A@@@UAE@XZ"
+    },
+    {
+     "va": "0x00451170",
+     "length": 37,
+     "name": "??0?$TSExportTableSimple@USGAMEDATA@@PAUHSGAMEDATA__@@$0A@@@QAE@XZ"
+    },
+    {
+     "va": "0x004511A0",
+     "length": 43,
+     "name": "??_G?$TSExportTableSimple@USGAMEDATA@@PAUHSGAMEDATA__@@$0A@@@UAEPAXI@Z"
+    },
+    {
+     "va": "0x004511D0",
+     "length": 21,
+     "name": "??1?$TSExportTableSync@USGAMEDATA@@PAUHSGAMEDATA__@@PAUHSGAMEDATALOCK__@@VCCritSect@@$0A@@@UAE@XZ"
+    },
+    {
+     "va": "0x004511F0",
+     "length": 47,
+     "name": "??0?$TSExportTableSync@USGAMEDATA@@PAUHSGAMEDATA__@@PAUHSGAMEDATALOCK__@@VCCritSect@@$0A@@@QAE@XZ"
+    },
+    {
+     "va": "0x00451220",
+     "length": 55,
+     "name": "??_G?$TSExportTableSync@USGAMEDATA@@PAUHSGAMEDATA__@@PAUHSGAMEDATALOCK__@@VCCritSect@@$0A@@@UAEPAXI@Z"
+    },
+    {
      "va": "0x00451F10",
      "length": 12,
      "name": "?GAME_PushRegisterState@@YAHXZ"
@@ -10475,6 +10865,7 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
+    "/EHsc",
     "/GS-"
    ]
   },
@@ -14721,417 +15112,6 @@
     "/Oy-",
     "/Ob2",
     "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_0044F9B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0044F820",
-     "length": 106,
-     "name": "??1?$TSHashObject@USGAMEDATA@@VHASHKEY_NONE@@@@QAE@XZ"
-    },
-    {
-     "va": "0x0044F890",
-     "length": 72,
-     "name": "?UnlinkNode@?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAEXPAUSGAMEDATA@@@Z"
-    },
-    {
-     "va": "0x0044F8E0",
-     "length": 66,
-     "name": "?UnlinkAll@?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAEXXZ"
-    },
-    {
-     "va": "0x0044F930",
-     "length": 66,
-     "name": "?UnlinkAll@?$TSList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@@@@QAEXXZ"
-    },
-    {
-     "va": "0x0044F980",
-     "length": 37,
-     "name": "?ChangeLinkOffset@?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAEXH@Z"
-    },
-    {
-     "va": "0x0044F9B0",
-     "length": 32,
-     "name": "??0?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAE@XZ"
-    },
-    {
-     "va": "0x0044F9D0",
-     "length": 32,
-     "name": "??0?$TSList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@@@@QAE@XZ"
-    },
-    {
-     "va": "0x0044F9F0",
-     "length": 5,
-     "name": "??1SGAMEDATA@@QAE@XZ"
-    },
-    {
-     "va": "0x0044FA00",
-     "length": 142,
-     "name": "?InternalClear@?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@QAEXH@Z"
-    },
-    {
-     "va": "0x0044FA90",
-     "length": 60,
-     "name": "??1?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAE@XZ"
-    },
-    {
-     "va": "0x0044FAD0",
-     "length": 60,
-     "name": "??1?$TSList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@@@@QAE@XZ"
-    },
-    {
-     "va": "0x0044FB10",
-     "length": 32,
-     "name": "??0?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@QAE@XZ"
-    },
-    {
-     "va": "0x0044FB30",
-     "length": 32,
-     "name": "??0?$TSExplicitList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@$0BA@@@QAE@XZ"
-    },
-    {
-     "va": "0x0044FB50",
-     "length": 34,
-     "name": "?Construct@?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@SIXPAV?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@Z"
-    },
-    {
-     "va": "0x0044FB80",
-     "length": 39,
-     "name": "??0?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAE@ABU0@@Z"
-    },
-    {
-     "va": "0x0044FBB0",
-     "length": 43,
-     "name": "??_GSGAMEDATA@@QAEPAXI@Z"
-    },
-    {
-     "va": "0x0044FBE0",
-     "length": 60,
-     "name": "??1?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@QAE@XZ"
-    },
-    {
-     "va": "0x0044FC20",
-     "length": 60,
-     "name": "??1?$TSExplicitList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@$0BA@@@QAE@XZ"
-    },
-    {
-     "va": "0x0044FC60",
-     "length": 135,
-     "name": "?Clear@?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAEXXZ"
-    },
-    {
-     "va": "0x0044FCF0",
-     "length": 96,
-     "name": "??_G?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@QAEPAXI@Z"
-    },
-    {
-     "va": "0x0044FD50",
-     "length": 5,
-     "name": "?Destruct@?$TSCD@USGAMEDATA@@@@SIXPAUSGAMEDATA@@@Z"
-    },
-    {
-     "va": "0x0044FD60",
-     "length": 32,
-     "name": "?CopyConstruct@?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@SIXPAV?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@ABV2@@Z"
-    },
-    {
-     "va": "0x0044FD80",
-     "length": 66,
-     "name": "??1?$TSFixedArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAE@XZ"
-    },
-    {
-     "va": "0x0044FDD0",
-     "length": 60,
-     "name": "?Destruct@?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@SIXPAV?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@Z"
-    },
-    {
-     "va": "0x0044FE10",
-     "length": 325,
-     "name": "?ReallocData@?$TSGrowableArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAEXI@Z"
-    },
-    {
-     "va": "0x0044FF60",
-     "length": 128,
-     "name": "??1?$TSFixedArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAE@XZ"
-    },
-    {
-     "va": "0x0044FFE0",
-     "length": 5,
-     "name": "??1?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAE@XZ"
-    },
-    {
-     "va": "0x0044FFF0",
-     "length": 59,
-     "name": "??1?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@QAE@XZ"
-    },
-    {
-     "va": "0x00450030",
-     "length": 16,
-     "name": "??0?$TSGrowableArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAE@XZ"
-    },
-    {
-     "va": "0x00450040",
-     "length": 70,
-     "name": "?Reserve@?$TSGrowableArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAEXIH@Z"
-    },
-    {
-     "va": "0x00450090",
-     "length": 5,
-     "name": "??1?$TSGrowableArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAE@XZ"
-    },
-    {
-     "va": "0x004500A0",
-     "length": 98,
-     "name": "??_G?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@QAEPAXI@Z"
-    },
-    {
-     "va": "0x00450110",
-     "length": 247,
-     "name": "?SetCount@?$TSGrowableArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAEXI@Z"
-    },
-    {
-     "va": "0x00450210",
-     "length": 135,
-     "name": "??1?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@UAE@XZ"
-    },
-    {
-     "va": "0x004502A0",
-     "length": 171,
-     "name": "?LinkNode@?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAEXPAUSGAMEDATA@@I0@Z"
-    },
-    {
-     "va": "0x00450350",
-     "length": 17,
-     "name": "??0?$TSHashObject@USGAMEDATA@@VHASHKEY_NONE@@@@QAE@XZ"
-    },
-    {
-     "va": "0x00450370",
-     "length": 17,
-     "name": "??0SGAMEDATA@@QAE@XZ"
-    },
-    {
-     "va": "0x00450390",
-     "length": 85,
-     "name": "?NewNode@?$TSList@USGAMEDATA@@U?$TSGetExplicitLink@USGAMEDATA@@@@@@QAEPAUSGAMEDATA@@III@Z"
-    },
-    {
-     "va": "0x004503F0",
-     "length": 34,
-     "name": "?InternalDelete@?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@UAEXPAUSGAMEDATA@@@Z"
-    },
-    {
-     "va": "0x00450420",
-     "length": 170,
-     "name": "?InternalNew@?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@UAEPAUSGAMEDATA@@PAV?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@II@Z"
-    },
-    {
-     "va": "0x004504D0",
-     "length": 43,
-     "name": "??_G?$TSFixedArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAEPAXI@Z"
-    },
-    {
-     "va": "0x00450500",
-     "length": 20,
-     "name": "?Clear@?$TSFixedArray@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@U?$TSCD@V?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@@@@@QAEXXZ"
-    },
-    {
-     "va": "0x00450520",
-     "length": 40,
-     "name": "?Destroy@?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@UAEXXZ"
-    },
-    {
-     "va": "0x00450550",
-     "length": 43,
-     "name": "??_G?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@UAEPAXI@Z"
-    },
-    {
-     "va": "0x00450580",
-     "length": 256,
-     "name": "?Clear@?$TSList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@@@@QAEXXZ"
-    },
-    {
-     "va": "0x00450680",
-     "length": 9,
-     "name": "?sub_00450680_SetCount@D2SGameDataListArrayHolderStrc@@QAEXI@Z"
-    },
-    {
-     "va": "0x00450690",
-     "length": 20,
-     "name": "?DeleteChunksAndReuse@?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@QAEXXZ"
-    },
-    {
-     "va": "0x004506B0",
-     "length": 171,
-     "name": "??0?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@QAE@XZ"
-    },
-    {
-     "va": "0x00450760",
-     "length": 157,
-     "name": "??1?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@UAE@XZ"
-    },
-    {
-     "va": "0x00450800",
-     "length": 6,
-     "name": "?sub_00450800_GetDifference@D2SGameDataPairStrc@@QAEIXZ"
-    },
-    {
-     "va": "0x00450810",
-     "length": 57,
-     "name": "?CalcChunkSize@?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAEII@Z"
-    },
-    {
-     "va": "0x00450850",
-     "length": 31,
-     "name": "?RoundUp@?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@SGIII@Z"
-    },
-    {
-     "va": "0x00450870",
-     "length": 13,
-     "name": "??0?$TSBaseArray@USGAMEDATA@@@@QAE@XZ"
-    },
-    {
-     "va": "0x00450880",
-     "length": 19,
-     "name": "??0D2SGameDataArrayOwnerStrc@@QAE@H@Z"
-    },
-    {
-     "va": "0x004508A0",
-     "length": 171,
-     "name": "?LinkNode@?$TSList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@@@@QAEXPAV?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@I0@Z"
-    },
-    {
-     "va": "0x00450950",
-     "length": 976,
-     "name": "??0SGAMEDATA@@QAE@ABU0@@Z"
-    },
-    {
-     "va": "0x00450D20",
-     "length": 8,
-     "name": "?Clear@?$TSHashTable@USGAMEDATA@@VHASHKEY_NONE@@@@QAEXXZ"
-    },
-    {
-     "va": "0x00450D30",
-     "length": 19,
-     "name": "?Construct@?$TSCD@USGAMEDATA@@@@SIXPAUSGAMEDATA@@@Z"
-    },
-    {
-     "va": "0x00450D50",
-     "length": 11,
-     "name": "?CopyConstruct@?$TSCD@USGAMEDATA@@@@SIXPAUSGAMEDATA@@ABU2@@Z"
-    },
-    {
-     "va": "0x00450D60",
-     "length": 34,
-     "name": "?InternalDelete@?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@UAEXPAUSGAMEDATA@@@Z"
-    },
-    {
-     "va": "0x00450D90",
-     "length": 209,
-     "name": "?ReallocData@?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAEXI@Z"
-    },
-    {
-     "va": "0x00450E70",
-     "length": 70,
-     "name": "?Reserve@?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAEXIH@Z"
-    },
-    {
-     "va": "0x00450EC0",
-     "length": 16,
-     "name": "??0?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAE@XZ"
-    },
-    {
-     "va": "0x00450ED0",
-     "length": 120,
-     "name": "?New@?$TSGrowableArray@USGAMEDATA@@U?$TSCD@USGAMEDATA@@@@@@QAEPAUSGAMEDATA@@XZ"
-    },
-    {
-     "va": "0x00450F50",
-     "length": 23,
-     "name": "?sub_00450F50_ReserveExact@D2SGameDataArrayHolderStrc@@QAEXI@Z"
-    },
-    {
-     "va": "0x00450F70",
-     "length": 5,
-     "name": "?sub_00450F70_New@D2SGameDataArrayHolderStrc@@QAEPAUSGAMEDATA@@XZ"
-    },
-    {
-     "va": "0x00450F80",
-     "length": 22,
-     "name": "??0?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@QAE@XZ"
-    },
-    {
-     "va": "0x00450FA0",
-     "length": 87,
-     "name": "?NewNode@?$TSList@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@U?$TSGetExplicitLink@V?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@@@@@QAEPAV?$TSHashObjectChunk@USGAMEDATA@@VHASHKEY_NONE@@@@III@Z"
-    },
-    {
-     "va": "0x00451000",
-     "length": 170,
-     "name": "?InternalNew@?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@UAEPAUSGAMEDATA@@PAV?$TSExplicitList@USGAMEDATA@@$0?CCCCCCCD@@@II@Z"
-    },
-    {
-     "va": "0x004510B0",
-     "length": 27,
-     "name": "?Destroy@?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@UAEXXZ"
-    },
-    {
-     "va": "0x004510D0",
-     "length": 43,
-     "name": "??_G?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@UAEPAXI@Z"
-    },
-    {
-     "va": "0x00451100",
-     "length": 96,
-     "name": "??0?$TSHashTableReuse@USGAMEDATA@@VHASHKEY_NONE@@$0A@@@QAE@XZ"
-    },
-    {
-     "va": "0x00451160",
-     "length": 5,
-     "name": "??1?$TSExportTableSimple@USGAMEDATA@@PAUHSGAMEDATA__@@$0A@@@UAE@XZ"
-    },
-    {
-     "va": "0x00451170",
-     "length": 37,
-     "name": "??0?$TSExportTableSimple@USGAMEDATA@@PAUHSGAMEDATA__@@$0A@@@QAE@XZ"
-    },
-    {
-     "va": "0x004511A0",
-     "length": 43,
-     "name": "??_G?$TSExportTableSimple@USGAMEDATA@@PAUHSGAMEDATA__@@$0A@@@UAEPAXI@Z"
-    },
-    {
-     "va": "0x004511D0",
-     "length": 21,
-     "name": "??1?$TSExportTableSync@USGAMEDATA@@PAUHSGAMEDATA__@@PAUHSGAMEDATALOCK__@@VCCritSect@@$0A@@@UAE@XZ"
-    },
-    {
-     "va": "0x004511F0",
-     "length": 47,
-     "name": "??0?$TSExportTableSync@USGAMEDATA@@PAUHSGAMEDATA__@@PAUHSGAMEDATALOCK__@@VCCritSect@@$0A@@@QAE@XZ"
-    },
-    {
-     "va": "0x00451220",
-     "length": 55,
-     "name": "??_G?$TSExportTableSync@USGAMEDATA@@PAUHSGAMEDATA__@@PAUHSGAMEDATALOCK__@@VCCritSect@@$0A@@@UAEPAXI@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHsc",
     "/GS-"
    ]
   },
