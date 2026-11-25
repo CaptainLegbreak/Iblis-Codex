@@ -433,10 +433,6 @@ static int CHARSEL_IsTestRealm(const Unicode* pName)
     }
     return 0;
 }
-int __stdcall sub_M216_Emit_00437D20(const Unicode* pName, int n)
-{
-    return CHARSEL_IsTestRealm(pName) + n;
-}
 static Unicode* CHARSEL_GetClassName(Unicode* pBuffer, int nClass)
 {
     switch (nClass)
@@ -638,22 +634,7 @@ static int __stdcall CHARSEL_AddCharEntry(const char* szName, const char* szStat
     gdwGlobal_00779DA4 = 1;
     return 1;
 }
-static inline int CharSel_IsValidCharName(const char* szName)
-{
-    const int nLen = strlen(szName);
-    if (nLen < 2 || nLen > 15 || szName[nLen - 1] == '-' || szName[0] == '_')
-        return 0;
-    return 1;
-}
 int __cdecl CHARSEL_ScanCharFiles(); // 0x00438F70
-void __cdecl sub_LEG_Emit_00438F70()
-{
-    CHARSEL_ScanCharFiles();
-}
-void __stdcall sub_LEG_Emit_00438AD0(const char* szName, char* szPath, int nArg3, unsigned int nTimeLow, unsigned int nTimeHigh, int nMode)
-{
-    CHARSEL_AddCharEntry(szName, szPath, nArg3, nTimeLow, nTimeHigh, (const char*)nMode);
-}
 static int CHARSEL_IsNotListedCode(int nValue)
 {
     switch (nValue)

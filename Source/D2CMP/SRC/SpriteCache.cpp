@@ -777,29 +777,6 @@ static int D2CMPSpriteBuildName(D2CmpSpriteContextStrc* pContext, char* szOut)
     return 0;
 }
 
-static inline int SpriteCache_CopyName(char* szDst, const char* szSrc)
-{
-    strcpy(szDst, szSrc);
-    return 1;
-}
-
-static inline int SpriteCache_BuildDccOrDc6Path(char* szOut, const char* szDir, const char* szName, D2CmpSpriteContextStrc* pContext, int bAllowDcc)
-{
-    if (bAllowDcc)
-    {
-        if (gbCmpCompressedDataMode)
-        {
-            wsprintfA(szOut, gszFmtDcc2, szDir, szName);
-            pContext->dwGfxFlags |= 1;
-            return 1;
-        }
-        wsprintfA(szOut, gszFmtDc62, szDir, szName);
-        return 1;
-    }
-    wsprintfA(szOut, gszFmtDc62, szDir, szName);
-    return 1;
-}
-
 // 0x005FEC90
 static void __stdcall D2CMPSpriteInitFrames(D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry)
 {
@@ -1470,11 +1447,6 @@ int __stdcall D2CMPSpriteAsyncLoadCallback(void* hArg, int nArg, D2SpriteLoadReq
         pFile->nFlags |= 1;
     }
     return 1;
-}
-
-int __stdcall sub_R04_Emit_005FFFA0(D2CmpSpriteFileStrc* pFile, int nDirection, int nFrames, const char* szName, D2CmpSpriteContextStrc* pContext)
-{
-    return D2CMPSpriteLoadDc6CacheEntry(pFile, nDirection, nFrames, szName, pContext);
 }
 
 // 0x005FF760
@@ -2182,16 +2154,6 @@ D2TileLibraryHashStrc* __fastcall TileProjectBuildFindTable(D2CmpTileLibraryStrc
     }
 
     return pHash;
-}
-
-void __stdcall sub_M320_Emit_005FEC90(D2CmpSpriteFileStrc* pFile, D2CmpSpriteContextStrc* pContext, D2CmpSpriteEntryStrc* pEntry)
-{
-    D2CMPSpriteInitFrames(pFile, pContext, pEntry);
-}
-
-int __stdcall sub_Emit_005FFE90(D2CmpSpriteFileStrc* pFile, int nArg2, int nArg3, const char* szName, D2CmpSpriteContextStrc* pContext)
-{
-    return D2CMPSpriteLoadDc6Entry(pFile, nArg2, nArg3, szName, pContext);
 }
 
 #include "gen/data/Source/D2CMP/SRC/SpriteCache.inc"

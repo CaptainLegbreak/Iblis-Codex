@@ -372,20 +372,6 @@ static inline int IMAGE_IsInClickRect(const D2WinImageClickRectStrc* pClickRect,
     return 0;
 }
 
-static inline void SUNITDMG_ApplyDamageTargetAc(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
-{
-    const int nValue = STATLIST_UnitGetItemStatOrSkillStatValue(pAttacker, STAT_ITEM_DAMAGETARGETAC, 0);
-    if (nValue)
-    {
-        int nNew = STATLIST_UnitGetStatValue(pDefender, STAT_ARMORCLASS, 0) + nValue;
-        if (nNew < 0)
-        {
-            nNew = 0;
-        }
-        STATLIST_SetUnitStat(pDefender, STAT_ARMORCLASS, nNew, 0);
-    }
-}
-
 int __stdcall sub_M118_Emit_004FD5A0(const D2WinImageClickRectStrc* pClickRect, int nX, int nY)
 {
     while (pClickRect && pClickRect->pCallback)
@@ -397,11 +383,6 @@ int __stdcall sub_M118_Emit_004FD5A0(const D2WinImageClickRectStrc* pClickRect, 
         ++pClickRect;
     }
     return 0;
-}
-
-void __stdcall sub_M118_Emit_0057B7A0(D2UnitStrc* pAttacker, D2UnitStrc* pDefender)
-{
-    SUNITDMG_ApplyDamageTargetAc(pAttacker, pDefender);
 }
 
 tagPOINT gtMousePosition; // 0x007D55A4
