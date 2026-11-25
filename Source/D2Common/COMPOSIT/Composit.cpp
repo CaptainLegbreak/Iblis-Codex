@@ -219,7 +219,7 @@ void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* unit,int cls,int mode,int
 }
 
 // 0x0064FA00
-void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* hUnit, char* szPath, int* pWeaponClassCode, int bAddPathPrefix, int a5, D2InventoryStrc* pInventory, int nAnimMode)
+void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* hUnit, char* szPath, int* pWeaponClassCode, int bAddPathPrefix, int determine, D2InventoryStrc* pInventory, int nAnimMode)
 {
     int nClass;
     int nType;
@@ -238,7 +238,7 @@ void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* hUnit, char* szPath, int*
         nAnimMode = nMode;
     }
 
-    D2Common_10884_COMPOSIT_unk(hUnit, nClass, nAnimMode, nType, pInventory, szPath, pWeaponClassCode, bAddPathPrefix, a5);
+    D2Common_10884_COMPOSIT_unk(hUnit, nClass, nAnimMode, nType, pInventory, szPath, pWeaponClassCode, bAddPathPrefix, determine);
 }
 
 #include "gen/data/Source/D2Common/COMPOSIT/Composit.inc"

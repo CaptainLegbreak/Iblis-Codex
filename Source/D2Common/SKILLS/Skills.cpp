@@ -3011,7 +3011,7 @@ int __fastcall SKILLS_CalcOtherSkillParamCallback(int nSkillId, int nParamId, in
 }
 
 // 0x00646C60
-int __fastcall SKILLS_CalcNestedParamCallback(int nSkillId, int a2, int a3, void* pUserData)
+int __fastcall SKILLS_CalcNestedParamCallback(int nSkillId, int nParamId, int a3, void* pUserData)
 {
     D2SkillCalcStrc* pSkillCalc = (D2SkillCalcStrc*)pUserData;
     if (!pSkillCalc)
@@ -3019,7 +3019,7 @@ int __fastcall SKILLS_CalcNestedParamCallback(int nSkillId, int a2, int a3, void
         return 0;
     }
 
-    return SKILLS_GetSpecialParamValue(pSkillCalc->pUnit, a3, nSkillId, SKILLS_GetSpecialParamValue(pSkillCalc->pUnit, a2, pSkillCalc->nSkillId, pSkillCalc->nSkillLevel));
+    return SKILLS_GetSpecialParamValue(pSkillCalc->pUnit, a3, nSkillId, SKILLS_GetSpecialParamValue(pSkillCalc->pUnit, nParamId, pSkillCalc->nSkillId, pSkillCalc->nSkillLevel));
 }
 
 // 0x00646CA0
@@ -4266,7 +4266,7 @@ int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem,
 }
 
 // 0x00645910
-int __stdcall D2Common_11025(int nX1, int nY1, int nX2, int nY2, D2ActiveRoomStrc* pRoom, int a6)
+int __stdcall D2Common_11025(int nX1, int nY1, int nX2, int nY2, D2ActiveRoomStrc* pRoom, int nCollisionMask)
 {
     D2CoordStrc pCoords1;
     D2CoordStrc pCoords2;
@@ -4276,7 +4276,7 @@ int __stdcall D2Common_11025(int nX1, int nY1, int nX2, int nY2, D2ActiveRoomStr
     pCoords2.nX = nX2;
     pCoords2.nY = nY2;
 
-    return COLLISION_RayTrace(pRoom, &pCoords1, &pCoords2, a6) == 0;
+    return COLLISION_RayTrace(pRoom, &pCoords1, &pCoords2, nCollisionMask) == 0;
 }
 
 // 0x00645950

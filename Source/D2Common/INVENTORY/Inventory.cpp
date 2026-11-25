@@ -3211,7 +3211,7 @@ int __stdcall INVENTORY_GetOwnerId(D2InventoryStrc* pInventory)
 }
 
 // 0x0063D470
-void __stdcall INVENTORY_CreateCorpseForPlayer(D2InventoryStrc* pInventory, int nUnitId, int a3, int a4)
+void __stdcall INVENTORY_CreateCorpseForPlayer(D2InventoryStrc* pInventory, int nUnitId, int a3, int bCounted)
 {
     if (!pInventory)
         return;
@@ -3220,7 +3220,7 @@ void __stdcall INVENTORY_CreateCorpseForPlayer(D2InventoryStrc* pInventory, int 
 
     D2CorpseStrc* pLastCorpse = pInventory->pLastCorpse;
     D2CorpseStrc* pCorpse = (D2CorpseStrc*)FOG_AllocPool(pInventory->pMemPool, sizeof(D2CorpseStrc), gszInventorySourceFile, 0xFEA, 0);
-    pCorpse->bCounted = a4;
+    pCorpse->bCounted = bCounted;
     pCorpse->dwUnitId = nUnitId;
     pCorpse->unk0x08 = a3;
     pCorpse->pNextCorpse = 0;
