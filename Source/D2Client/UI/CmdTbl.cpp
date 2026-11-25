@@ -2076,6 +2076,28 @@ public:
     virtual int IsFiltered(const char* szText);
 };
 
+// 0x00469420
+// Kept out of line: 0x00469C20 calls it with its arguments in eax/edx/ecx, a convention only a static of this unit
+// gets, so it is this unit's function; with /Ob2 it would otherwise be inlined there.
+static __declspec(noinline) int sub_00469420_CheckWheelKey(int nId, unsigned short nKey, unsigned short* pKey)
+{
+    switch (nKey)
+    {
+    case KEY_WHEEL_UP:
+    case KEY_WHEEL_DOWN:
+        if (gaHotkeyCommands[nId].pfnUnk0x04)
+        {
+            if (pKey)
+            {
+                *pKey = 0xF8A;
+            }
+            return 0;
+        }
+        break;
+    }
+    return 1;
+}
+
 // 0x00469450
 int __cdecl SCMD_CompareSortEntries(const void* pA, const void* pB)
 {
@@ -2352,25 +2374,6 @@ int __fastcall CMDTBL_IsValidKey(unsigned short nKey)
         return 1;
     }
     return 0;
-}
-
-static __declspec(noinline) int sub_00469420_CheckWheelKey(int nId, unsigned short nKey, unsigned short* pKey)
-{
-    switch (nKey)
-    {
-    case KEY_WHEEL_UP:
-    case KEY_WHEEL_DOWN:
-        if (gaHotkeyCommands[nId].pfnUnk0x04)
-        {
-            if (pKey)
-            {
-                *pKey = 0xF8A;
-            }
-            return 0;
-        }
-        break;
-    }
-    return 1;
 }
 
 // 0x00469C20

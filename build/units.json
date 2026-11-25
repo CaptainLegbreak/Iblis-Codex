@@ -19112,6 +19112,11 @@
      "name": "?CUNIT_DispatchMouseWheel@@YIXH@Z"
     },
     {
+     "va": "0x00469420",
+     "length": 44,
+     "name": "?sub_00469420_CheckWheelKey@@YAHHGPAG@Z"
+    },
+    {
      "va": "0x00469450",
      "length": 66,
      "name": "SCMD_CompareSortEntries"
@@ -19226,17 +19231,6 @@
     {
      "va": "0x006CAAD0",
      "length": 27
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/Unknown_00469420.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00469420",
-     "length": 44,
-     "name": "?sub_00469420_CheckWheelKey@@YAHHGPAG@Z"
     }
    ]
   },
