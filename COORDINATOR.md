@@ -4,7 +4,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 
 ## Current state
 
-- `main`: #401 (round j155). Game.exe identical; 14,920 / 14,920 placed; **borrowed code 10,018 B in 7 functions**; borrowed data 261 B. Placeholder files 204; shims 38; context copies 3; forcing-construct functions 44. Names carrying a 1.10 address: 408.
+- `main`: #402 (round j156). Game.exe identical; 14,920 / 14,920 placed; **borrowed code 10,018 B in 7 functions**; borrowed data 261 B. Placeholder files 204; shims 38; context copies 3; forcing-construct functions 44. Names carrying a 1.10 address: 408.
 - **Push only `laneN/` branches, never main.** At 22:44 a commit went straight to main ("ErrorManager.cpp: drop a stray 0x00409020 marker...", for the ordinary link). The fix is fine and stays, but a direct push makes the round in progress miss main and need a rebase. Everything reaches main through a round.
 - **New: [audit-379.md](audit-379.md), a source audit on #379** (what in our tree Blizzard's source could not have, by owner, in priority order). Read your rows.
 - **[queues.md](queues.md), what's left per lane** (regenerated on #378): placeholder files, context copies, forcing constructs, shimmed functions, per-file options, with each lane's own list. When your current branch is done, take the next item from your row. The forcing constructs (42) are lane 7's job now: owners, leave them to lane 7 unless you settle it with lane 7 in its file. The context copies outside Storm/Fog/SRP are lane 2's trim first (see Answers), then the owners'. Also regenerated on #380: [borrowed-data.md](borrowed-data.md) (281 B, by current owner) and [language-objects.md](language-objects.md) (12 files still hold more than one copy, each a split to make).
@@ -389,6 +389,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #402 j156: emit-retry (lane 3: three SBMP.CPP emit helpers), audit-fields-d2game-3 (lane 5: one D2AiParamStrc in MonsterMode.cpp). Lane 2's declaration branches still to come.
 - #401 j155: audit-decls-d2client-2 (lane 4: 44 more in D2ClientFuncs.h), comcallback-span (lane 6), lang-copies (lane 1), audit-fields-d2game-2 (lane 5), sweep-small-2 (lane 10, 80 spellings). Lane 2's declaration branches still to come.
 - **#400 j154: 0x4A4AD0 from source (lane 7). Borrowed code 11,250 -> 10,018 B, 8 -> 7 functions.** Also audit-decls-d2client (lane 4: D2ClientFuncs.h), sbig-strays (lane 3), assert-spans-d2cmp-2 (lane 6), unit-views-d2game-2 (lane 5). Placeholders 205 -> 204, noinline 100 -> 94. sweep-small rolled back for rebase.
 - #399 j153: assert-spans-d2cmp (lane 6), scomp-huff (lane 3: SCOMP.CPP's coders), unit-views-d2game (lane 5). Placeholders 208 -> 205. The declaration branches of lanes 2 and 4 rolled back again; SkillDesc joins paused until they land.
