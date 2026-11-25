@@ -19,6 +19,7 @@
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
 #include "D2LanguageNames.h"
+#include "D2MonStatsInit.h"
 
 #define UNITFLAG_TARGETABLE 0x00000002
 
@@ -1524,7 +1525,6 @@ struct D2DifficultyLevelsTxt;
 
 struct D2CurseStrc;
 
-struct D2MonStatsInitStrc;
 
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 
@@ -1535,24 +1535,6 @@ void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
 int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);
 
 D2StatListStrc* __fastcall SKILLS_ApplyStateEffect(D2CurseStrc* pCurse); // 0x0056E970
-
-struct D2MonStatsInitStrc
-{
-    int nMinHP;
-    int nMaxHP;
-    int nAC;
-    int nTH;
-    int nExp;
-    int nA1MinD;
-    int nA1MaxD;
-    int nA2MinD;
-    int nA2MaxD;
-    int nS1MinD;
-    int nS1MaxD;
-    int nElMinD;
-    int nElMaxD;
-    int nElDur;
-};
 
 int __stdcall DATATBLS_CalculateMonsterStatsByLevel(int nMonsterId, int nGameType, int nDifficulty, int nLevel, short nFlags, D2MonStatsInitStrc* pMonStatsInit); // 0x006538A0
 
