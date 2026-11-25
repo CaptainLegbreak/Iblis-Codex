@@ -863,24 +863,6 @@ int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
 
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 
-struct D2ClientServiceStrc
-{
-    char unk0x00[0xC8];
-    void (__fastcall* pfnFree)(void* pData, int nSize);
-    int (__fastcall* pfnFind)(char* szName, int* pArg, void** ppData, int* pSize);
-    void (__fastcall* pfnCall)(const char* szName, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
-};
-
-struct D2ChatMessageStrc
-{
-    unsigned char unk0x00;
-    unsigned char nType;
-    unsigned char unk0x02[6];
-    unsigned char nColor;
-    unsigned char unk0x09[0x11];
-    D2ChatTextStrc tText;
-};
-
 class D2SquelchListStrc
 {
 public:
@@ -1096,18 +1078,6 @@ unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, un
 
     return 0;
 }
-
-struct D2ViewStrc
-{
-    char unk0x00[0x38];
-    int nField0x38;
-    char unk0x3C[0xEA60];
-    int nField0xEA9C;
-    char unk0xEAA0[8];
-    void* pCells;
-    char unk0xEAAC[4];
-    int nField0xEAB0;
-};
 
 // 0x004DC480
 unsigned short __fastcall PLAYERLIST_GetRelationFlagWord(int nUnitId1, int nUnitId2)

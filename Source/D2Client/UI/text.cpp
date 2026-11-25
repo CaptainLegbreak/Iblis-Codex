@@ -638,8 +638,6 @@ struct D2Record42Strc;
 
 struct D2QuestTextLineStrc;
 
-struct D2QuestTextBufferStrc;
-
 struct D2QuestPanelEntryStrc;
 
 struct D2QuestSlotRectStrc;
@@ -703,14 +701,6 @@ struct D2QuestTextLineStrc
 {
     unsigned short wLead[9];
     Unicode wszText[300];
-};
-
-struct D2QuestTextBufferStrc
-{
-    unsigned char pHead[0x106];
-    D2QuestTextLineStrc pLines[6];
-
-    D2QuestTextBufferStrc();
 };
 
 
@@ -921,45 +911,6 @@ static int TEXT_IsBelowThumb(int nX, int nY);
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 
-struct ListBoxView;
-
-#pragma pack(push, 2)
-
-struct ListBoxView
-{
-    void* pVtable;
-    int unk0x04;
-    char aLines[0x180700];
-    int nRectX;
-    int nRectY;
-    int nRectWidth;
-    int nRectHeight;
-    int nLineHeight;
-    int bMouseDown;
-    int bTopPressed;
-    int bBottomPressed;
-    int bRowsPressed;
-    int nPressY;
-    int nTopIndex;
-    int nCallbackRow;
-    int nSelectedIndex;
-    int nTextCount;
-    int nArg14;
-    int nArg18;
-    unsigned short nEntryCount;
-    int pfnCallback;
-    int nVisibleRows;
-    int nThumbStart;
-    int nThumbEnd;
-    int nX;
-    int nY;
-
-    void sub_004BE8D0_Refresh();                                                                            // 0x004BE8D0
-    int ClickScrollTrack(SMSGHANDLER_PARAMS* pMsg);
-};
-
-#pragma pack(pop)
-
 static int TEXT_IsOnKeyConfigButton(int nX, int nY);
 
 static int TEXT_IsOnPressedButton(int nX, int nY);
@@ -1112,18 +1063,9 @@ struct D2ActiveRoomStrc;
 
 struct D2StoredUnitRecordStrc;
 
-struct D2NamePacketStrc;
-
 struct D2GSPacketSrv5A;
 
 struct D2SuperUniquesTxt;
-
-struct D2NamePacketStrc
-{
-    unsigned char nHeader;
-    char szName[16];
-    unsigned char nValue[4];
-};
 
 void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
 

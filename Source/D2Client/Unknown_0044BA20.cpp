@@ -8,8 +8,6 @@
 
 struct D2CmdParamsStrc;
 
-union D2CdKeyWordStrc;
-
 struct D2CmdArgStrc;
 
 struct D2McpPacket02Strc;
@@ -46,12 +44,6 @@ struct D2CmdParamsStrc
 {
     char unk0x00[0x18];
     const char* szValue;
-};
-
-union D2CdKeyWordStrc
-{
-    unsigned int nValue;
-    char szText[4];
 };
 
 struct D2CmdArgStrc
@@ -398,13 +390,6 @@ extern int gnSavedScreenWidth; // 0x00711474
 extern int gnBeltUiRecordRow; // 0x007A5218
 
 extern int gnAutomapWidth; // 0x007A5220
-
-struct D2MonLvlTxt;
-
-struct D2MonLvlTxt
-{
-    char unk0x00[0x78];
-};
 
 // 0x0044BA20
 void __fastcall GAME_SetResolution(int nResolution)

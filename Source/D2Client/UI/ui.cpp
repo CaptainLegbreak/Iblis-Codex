@@ -1451,14 +1451,6 @@ struct D2StatListStrc;
 
 struct D2StatesTxt;
 
-struct D2GridCellStrc;
-
-struct D2GridCellStrc
-{
-    int nFlag;
-    unsigned char nValue[4];
-};
-
 extern "C" D2StatesTxt* __fastcall GAME_GetStatesTxtRecord(int nStateId); // 0x00452040
 
 void __fastcall GFX_DrawProgressiveStateOverlays(D2UnitStrc* pUnit, int nOverlay, int nX, int nY); // 0x0046E1B0
@@ -1480,14 +1472,6 @@ extern void* gpGlobal_007A0634; // 0x007A0634
 int gbOverlaysEnabled; // 0x007A289C
 
 int gnOverlayStep; // 0x007A3138
-
-struct D2ChatMessageStrc
-{
-    char* szText;
-    int nColor;
-    int bClear;
-    D2ChatMessageStrc* pNext;
-};
 
 // 0x00453470
 void __cdecl CHARSEL_DrawProgressiveStates()

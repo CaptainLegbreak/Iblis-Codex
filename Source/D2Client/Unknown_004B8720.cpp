@@ -12,7 +12,6 @@
 
 struct Unicode;
 struct D2HintKeyListStrc;
-struct D2TimedHintEntryStrc;
 struct D2TimedHintNodeStrc;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
@@ -42,27 +41,6 @@ extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __cdecl sub_004B8BA0_OnClose2(); // 0x004B8BA0
 
-
-struct D2TimedHintEntryStrc
-{
-    int unk0x00;
-    int nHintId;
-    int nKey;
-    char unk0x0C[0x10];
-    int nValue;
-    char unk0x20[8];
-    D2HintKeyListStrc* pKeyList;
-    int unk0x2C;
-    int nState;
-    char unk0x34[9];
-    char f_3D[4];
-    char unk0x41[4];
-    char bArmed[4];
-    char nSavedValue[4];
-    char nGroup[4];
-    char nStart[4];
-    char nEnd[4];
-};
 
 int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
 D2SoundsTxt* __fastcall SOUNDHDR_GetSoundRecord(int nId); // 0x00481860

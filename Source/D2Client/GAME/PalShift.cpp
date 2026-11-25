@@ -70,12 +70,6 @@ extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
 
 
-struct D2PaletteShiftRecStrc
-{
-    int nId;
-    D2PalShiftNodeStrc* pShift;
-};
-
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 
 int __fastcall DATATBLS_GetMonStatsTxtRecordCount();                                                        // 0x0045C460
@@ -170,37 +164,7 @@ void __cdecl PALSHIFT_FreePalShifts()
     }
 }
 
-struct D2TimedHintEntryStrc;
 
-
-struct D2CacheStatsStrc;
-
-struct D2TimedHintEntryStrc
-{
-    int unk0x00;
-    int nHintId;
-    int nKey;
-    char unk0x0C[0x24];
-    int nState;
-};
-
-
-struct D2CacheStatsStrc
-{
-    unsigned int nFloorSize;
-    int unk0x04;
-    int nFloorMisses;
-    unsigned int nSubtileSize;
-    int unk0x10;
-    int nSubtileMisses;
-    unsigned int nSpriteSize[3];
-    int unk0x24[3];
-    int nSpriteMisses[3];
-    int unk0x3C[3];
-    int nSpriteAccesses[3];
-    int unk0x54[3];
-    int unk0x60[3];
-};
 
 // 0x00477030
 D2PalShiftNodeStrc* __fastcall VIEW_FindPalShiftNode(int nId)

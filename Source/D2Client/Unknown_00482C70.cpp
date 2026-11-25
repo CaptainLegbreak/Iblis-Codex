@@ -50,15 +50,11 @@ struct D2RosterSubStrc;
 
 struct D2RosterEntryStrc;
 
-struct D2RC4Strc;
-
 struct D2ClientSlotObjStrc;
 
 struct D2ClientSlotHolderStrc;
 
 struct D2ClientRecordStrc;
-
-struct D2ClientStringListStrc;
 
 struct D2ItemStatCostTxt;
 
@@ -78,8 +74,6 @@ union PackedWord;
 struct SMSGHANDLER_PARAMS;
 
 struct D2UnitStrc;
-
-struct D2ClientServiceStrc;
 
 struct D2DataTablesStrc;
 
@@ -124,21 +118,6 @@ struct D2RosterEntryStrc
     D2RosterEntryStrc* pNext;
 };
 
-struct D2RC4Strc
-{
-    unsigned char S[0x100];
-    unsigned char i;
-    unsigned char j;
-
-    void ApplyKeystream(unsigned char* pData, unsigned int nSize);
-};
-
-struct D2ClientServiceStrc
-{
-    char unk0x00[0xD0];
-    int (__fastcall* pfnCall)(int nArg1, int nArg2, int nArg3, _FILETIME* pTime, int nArg5, int nArg6);
-};
-
 struct D2ClientSlotObjStrc
 {
     virtual void Slot0();
@@ -170,14 +149,6 @@ struct D2ClientRecordStrc
     int nUnk0x1C;
     int nUnk0x20;
     int nUnk0x24;
-};
-
-struct D2ClientStringListStrc
-{
-    Unicode* pStrings[6];
-    unsigned short nCount;
-    unsigned char f_1A[4];
-    unsigned char unk0x1E[8];
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -852,8 +823,6 @@ struct D2SetItemsTxt;
 
 struct D2InvCompGridStrc;
 
-struct D2ItemFormulaRecordStrc;
-
 extern const D2CoordStrc gSocketLayouts[][6]; // 0x006D91E8
 
 int __fastcall GFX_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
@@ -899,18 +868,6 @@ extern unsigned char gabColors_007BCAD8[5]; // 0x007BCAD8
 
 extern D2InventoryGridInfoStrc gtNpcInvGrid; // 0x007BCB58
 
-
-struct D2ItemFormulaRecordStrc
-{
-    char unk0x00[0x9E];
-    short nStat;
-    char unk0xA0[0x04];
-    unsigned int nCalc;
-    char unk0xA8[0x0C];
-    unsigned char nDescType;
-    char unk0xB5;
-    unsigned short wStringId;
-};
 
 int __stdcall ITEMMODS_EvaluateItemFormula(D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int nCalc); // 0x00627C20
 
@@ -1364,8 +1321,6 @@ extern unsigned char gabGridColors_007BCAD8[]; // 0x007BCAD8
 
 struct D2CharStatsTxt;
 
-struct D2UnitInvView;
-
 
 
 struct D2DifficultyLevelsTxt;
@@ -1381,12 +1336,6 @@ extern int gbWeaponSwitch; // 0x007BCC4C
 int __stdcall ITEMS_GetAmmoType(D2UnitStrc*); // 0x0062E6F0
 
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc*); // 0x0062E740
-
-struct D2UnitInvView
-{
-    char unk0x00[0x60];
-    D2InventoryStrc* pInventory;
-};
 
 
 
@@ -2147,20 +2096,6 @@ struct D2RareAffixTxt
 };
 
 #pragma intrinsic(memset, strcpy, strcat, strlen)
-
-#pragma pack(push, 1)
-
-struct D2LevelTextStrc
-{
-    char c00;
-    int n01;
-    int n05;
-    int n09;
-    int n0D;
-    char c11;
-};
-
-#pragma pack(pop)
 
 #define WSZ(a) ((Unicode*)(a))
 
