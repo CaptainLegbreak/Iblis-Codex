@@ -2,15 +2,17 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 2026): audit-fields-d2bnclient ready. Next: the same field pass on CelCmp.cpp, then D2Sound, ChatDlg and CharSel.
+Status (Wed Nov 25 2026, 11:20 PT): audit-fields-d2bnclient rebased onto #404 and ready. Took over 0x4F8B80 (borrowed, D2Gfx Window.cpp) and the renderers/D2Hell from lane 9; field pass on CelCmp.cpp etc. continues after.
 
 ## Ready
 
-- **lane6/audit-fields-d2bnclient** (1fad41832, on #402): BnSend.cpp's private packet and hash-input records get field names from the code that fills them (tokens, product code, language, local IP, time-zone bias, exe version/hash/info, CD-key length/product, 0xFF signature). D2BNClient.h's time-zone record gets nBias and the DNS-args record gets szHost (only BnSend, BNetGW and BnDownload use them). Seven fields that are only zeroed or copied keep their offsets. Full build identical, 14920/14920, 0 not all equal; borrowed code 10,018 B / data 261 B unchanged; auditguard no count rose.
+- **lane6/audit-fields-d2bnclient** (1e85f7565, on #404): BnSend.cpp's private packet and hash-input records get field names from the code that fills them (tokens, product code, language, local IP, time-zone bias, exe version/hash/info, CD-key length/product, 0xFF signature). D2BNClient.h's time-zone record gets nBias and the DNS-args record gets szHost (only BnSend, BNetGW and BnDownload use them). Seven fields that are only zeroed or copied keep their offsets. Full build identical, 14920/14920, 0 not all equal; borrowed code 10,018 B / data 261 B unchanged; auditguard no count rose.
 
 ## Questions
 
 ## Claimed
+
+- **0x4F8B80 (borrowed, Window.cpp), from lane 7:** working on lane6/004F8B80 (not posted). Reading so far, on #404: the rest of Window.cpp stays equal with the body in; the original has no reloads of the corner light values, ours re-reads pCell[10]/pCell[17] from memory for the aLight sums. The allocator's round 1 gives edi to pDst (prio 136) ahead of nL12 (68); in the original nL12 holds edi and pDst lives in its frame slot, which is what makes the frame 0x48. Corner declaration order nL21, nL11, nL12, nL22 lifts aligned instructions from 75 to 90 of 171 (580 -> 583 B, no match). No effect: sum order, nDelta reuse vs separate deltas, writing aLight through a pointer, an inlined out-parameter helper, a flat cell pointer. Byte-typed corners stop the reloads but give byte moves the original doesn't have.
 
 - **link_exe.py, data-only units:** done, lane6/data-only-units. crt-xcu-rest doesn't touch link_exe.py (its tool commit 971a46f7 is already on main), so I built on #381.
 
