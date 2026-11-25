@@ -102,7 +102,7 @@ struct D2BnRegistrationPacketStrc
     unsigned long nRegistrationVersion;
     unsigned long nRegistrationAuthority;
     unsigned long nClientId;
-    unsigned long f_10;
+    unsigned long nClientToken;
     char szText[0x400];
 };
 
@@ -134,7 +134,7 @@ struct D2BnLocalePacketStrc
 {
     D2FileTimeStrc tSystemTime;
     D2FileTimeStrc tLocalTime;
-    long f_10;
+    long nTimeZoneBias;
     unsigned long nSystemLcid;
     unsigned long nUserLcid;
     unsigned long nUserLangId;
@@ -315,14 +315,14 @@ struct D2BnGamesListPacketStrc
 
 struct D2BnAuthHashStrc
 {
-    int f_0;
-    int f_4;
+    int nClientToken;
+    int nServerToken;
     unsigned char abPasswordHash[0x14];
 };
 
 struct D2BnLogonRealmPacketStrc
 {
-    int f_0;
+    int nClientToken;
     unsigned char abProof[0x14];
     char szRealmName[0x100];
 };
@@ -461,29 +461,29 @@ struct D2BnReadUserDataPacketStrc;
 
 struct D2BnHashInputStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
+    unsigned int nClientToken;
+    unsigned int nServerToken;
     unsigned char abDigest[20];
 };
 
 struct D2BnLogonResponsePacketStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
+    unsigned int nClientToken;
+    unsigned int nServerToken;
     unsigned char abProof[20];
     char szName[0x100];
 };
 
 struct D2BnCreateAccountPacketStrc
 {
-    unsigned char f_0[20];
+    unsigned char abPasswordHash[20];
     char szName[0x100];
 };
 
 struct D2BnChangePasswordPacketStrc
 {
-    unsigned int f_0;
-    unsigned int f_4;
+    unsigned int nClientToken;
+    unsigned int nServerToken;
     unsigned char abOldProof[20];
     unsigned char abNewHash[20];
     char szName[0x100];
@@ -494,9 +494,9 @@ struct D2BnReportVersionPacketStrc
     unsigned int dwPlatform;
     unsigned int dwProduct;
     unsigned int dwVersion;
-    unsigned int f_C;
-    unsigned int f_10;
-    char f_14[0x100];
+    unsigned int nExeVersion;
+    unsigned int nExeHash;
+    char szExeInfo[0x100];
 };
 
 struct D2BnJoinChannelPacketStrc
@@ -551,11 +551,11 @@ struct D2BnAuthInfoPacketStrc
 {
     unsigned int nProtocol;
     unsigned int nPlatform;
-    unsigned int f_8;
+    unsigned int nProduct;
     unsigned int nVersion;
-    unsigned int f_10;
-    unsigned int f_14;
-    int f_18;
+    unsigned int nLanguage;
+    unsigned int nLocalIp;
+    int nTimeZoneBias;
     unsigned int nLcid;
     unsigned int nLangId;
     unsigned int nCountryAbbrev;
@@ -578,7 +578,7 @@ struct D2BnAuthAccountCreatePacketStrc
 struct D2BnUpgradeInputStrc
 {
     unsigned int nTick;
-    unsigned int f_4;
+    unsigned int nServerToken;
     unsigned char abDigest[0x14];
 };
 
@@ -649,7 +649,7 @@ int __fastcall BNSEND_SendAccountCreate(const char* szName, const char* szPasswo
 
 struct D2BnPacketHeaderStrc
 {
-    unsigned char f_0;
+    unsigned char nSignature;
     unsigned char nId;
     unsigned short nLength;
 };
@@ -762,7 +762,7 @@ int __cdecl BNSEND_SendClientId()
     SRegLoadValue(gszConfiguration, "Registration Version", 2, &tPacket.nRegistrationVersion);
     SRegLoadValue(gszConfiguration, "Registration Authority", 2, &tPacket.nRegistrationAuthority);
     SRegLoadValue(gszConfiguration, "Client ID", 2, &tPacket.nClientId);
-    SRegLoadValue(gszConfiguration, "Client Token", 2, &tPacket.f_10);
+    SRegLoadValue(gszConfiguration, "Client Token", 2, &tPacket.nClientToken);
     tPacket.nLead = 1;
     tPacket.szText[1] = tPacket.szText[0] = 0;
     BNSEND_SendPacket(0x1E, &tPacket, 0x16);
@@ -779,12 +779,12 @@ int __fastcall BNSEND_SendLogonResponse(const char* szName, const char* szPasswo
     SStrCopy(szLower, szPassword, 0x100);
     unsigned int nLength = SStrLen(szLower);
     CharLowerBuffA(szLower, nLength);
-    tInput.f_0 = GetTickCount();
-    tInput.f_4 = gdwGlobal_008818BC;
+    tInput.nClientToken = GetTickCount();
+    tInput.nServerToken = gdwGlobal_008818BC;
 // build: symbol ?BNDOWNLOAD_HashBuffer@* 0x005209D0
     BNDOWNLOAD_HashBuffer(tInput.abDigest, szLower, nLength);
-    tPacket.f_0 = tInput.f_0;
-    tPacket.f_4 = tInput.f_4;
+    tPacket.nClientToken = tInput.nClientToken;
+    tPacket.nServerToken = tInput.nServerToken;
     BNDOWNLOAD_HashBuffer(tPacket.abProof, &tInput, sizeof(tInput));
     BNSEND_SendPacket(0x29, &tPacket, SStrCopy(tPacket.szName, szName, 0x100) + 0x1D);
     return 1;
@@ -800,11 +800,11 @@ int __fastcall BNSEND_SendLogonResponseEx(const char* szName, const char* szPass
     SStrCopy(szLower, szPassword, 0x100);
     unsigned int nLength = SStrLen(szLower);
     CharLowerBuffA(szLower, nLength);
-    tInput.f_0 = GetTickCount();
-    tInput.f_4 = gdwGlobal_008818BC;
+    tInput.nClientToken = GetTickCount();
+    tInput.nServerToken = gdwGlobal_008818BC;
     BNDOWNLOAD_HashBuffer(tInput.abDigest, szLower, nLength);
-    tPacket.f_0 = tInput.f_0;
-    tPacket.f_4 = tInput.f_4;
+    tPacket.nClientToken = tInput.nClientToken;
+    tPacket.nServerToken = tInput.nServerToken;
     BNDOWNLOAD_HashBuffer(tPacket.abProof, &tInput, sizeof(tInput));
     BNSEND_SendPacket(0x3A, &tPacket, SStrCopy(tPacket.szName, szName, 0x100) + 0x1D);
     return 1;
@@ -818,7 +818,7 @@ int __fastcall BNSEND_SendCreateAccountEx(const char* szName, const char* szPass
     SStrCopy(szLower, szPassword, 0x100);
     unsigned int nLength = SStrLen(szLower);
     CharLowerBuffA(szLower, nLength);
-    BNDOWNLOAD_HashBuffer(tPacket.f_0, szLower, nLength);
+    BNDOWNLOAD_HashBuffer(tPacket.abPasswordHash, szLower, nLength);
     BNSEND_SendPacket(0x3D, &tPacket, SStrCopy(tPacket.szName, szName, 0x100) + 0x15);
     return 1;
 }
@@ -832,14 +832,14 @@ int __fastcall BNSEND_SendChangePasswordLegacy(const char* szAccountName, const 
     SStrCopy(szLower, szOldPassword, 0x100);
     unsigned int nLength = SStrLen(szLower);
     CharLowerBuffA(szLower, nLength);
-    tInput.f_0 = GetTickCount();
-    tInput.f_4 = gdwGlobal_008818BC;
+    tInput.nClientToken = GetTickCount();
+    tInput.nServerToken = gdwGlobal_008818BC;
     BNDOWNLOAD_HashBuffer(tInput.abDigest, szLower, nLength);
     SStrCopy(szLower, szNewPassword, 0x100);
     nLength = SStrLen(szLower);
     CharLowerBuffA(szLower, nLength);
-    tPacket.f_0 = tInput.f_0;
-    tPacket.f_4 = tInput.f_4;
+    tPacket.nClientToken = tInput.nClientToken;
+    tPacket.nServerToken = tInput.nServerToken;
     BNDOWNLOAD_HashBuffer(tPacket.abOldProof, &tInput, sizeof(tInput));
     BNDOWNLOAD_HashBuffer(tPacket.abNewHash, szLower, nLength);
     BNSEND_SendPacket(0x31, &tPacket, SStrCopy(tPacket.szName, szAccountName, 0x100) + 0x31);
@@ -854,10 +854,10 @@ int __fastcall BNSEND_SendReportVersion(unsigned int dwExeVersion, unsigned int 
     tPacket.dwPlatform = 0x49583836;
     tPacket.dwProduct = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
     tPacket.dwVersion = 0xE;
-    tPacket.f_C = dwExeVersion;
-    tPacket.f_10 = dwExeHash;
-    SStrCopy(tPacket.f_14, szExeInfo, 0x100);
-    return BNSEND_SendPacket(7, &tPacket, strlen(tPacket.f_14) + 0x15) >= 0;
+    tPacket.nExeVersion = dwExeVersion;
+    tPacket.nExeHash = dwExeHash;
+    SStrCopy(tPacket.szExeInfo, szExeInfo, 0x100);
+    return BNSEND_SendPacket(7, &tPacket, strlen(tPacket.szExeInfo) + 0x15) >= 0;
 }
 
 // 0x0051A9C0
@@ -1240,12 +1240,12 @@ D2BnSizedReplyStrc* __fastcall BNSEND_LogonRealm(const char* szRealmName, const 
 
     D2BnAuthHashStrc tHash;
     gnClientToken += 1;
-    tHash.f_0 = gnClientToken;
-    tHash.f_4 = gdwGlobal_008818BC;
+    tHash.nClientToken = gnClientToken;
+    tHash.nServerToken = gdwGlobal_008818BC;
     BNDOWNLOAD_HashBuffer(tHash.abPasswordHash, szRealmPassword, strlen(szRealmPassword));
 
     D2BnLogonRealmPacketStrc tPacket;
-    tPacket.f_0 = gnClientToken;
+    tPacket.nClientToken = gnClientToken;
     BNDOWNLOAD_HashBuffer(tPacket.abProof, &tHash, 0x1C);
     const int nLength = SStrCopy(tPacket.szRealmName, szRealmName, 0x100) + 1;
 
@@ -1272,7 +1272,7 @@ void __cdecl BNSEND_SendLocaleInfo()
     D2BnLocalePacketStrc tPacket;
     SystemTimeToFileTime(&tSystemTime, &tPacket.tSystemTime);
     SystemTimeToFileTime(&tLocalTime, &tPacket.tLocalTime);
-    tPacket.f_10 = tTimeZone.f_0;
+    tPacket.nTimeZoneBias = tTimeZone.nBias;
     tPacket.nSystemLcid = GetSystemDefaultLCID();
     tPacket.nUserLcid = GetUserDefaultLCID();
     tPacket.nUserLangId = GetUserDefaultLangID();
@@ -1513,7 +1513,7 @@ unsigned long __stdcall BNSEND_ResolveHostThread(void* pArguments)
 {
     D2BnDnsArgsStrc* pArgs = (D2BnDnsArgsStrc*)pArguments;
     char* szOut = pArgs->szResult;
-    const char* szHost = pArgs->f_4;
+    const char* szHost = pArgs->szHost;
     D2HostentStrc* pHost;
     if (isdigit(*szHost))
     {
@@ -1718,7 +1718,7 @@ int __fastcall BNSEND_SendPacket(unsigned char nId, const void* pData, unsigned 
 {
     D2BnPacketHeaderStrc tHeader;
     char aBuffer[0x2000];
-    tHeader.f_0 = 0xFF;
+    tHeader.nSignature = 0xFF;
     tHeader.nId = nId;
     tHeader.nLength = (unsigned short)(nSize + 4);
     FSafeSock* pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected, 0, 0);
@@ -2129,8 +2129,8 @@ extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int
 
 struct D2CDKeyInfoStrc
 {
-    unsigned int f_0;
-    int f_4;
+    unsigned int nKeyLength;
+    int nProduct;
     int nValue1;
     int f_C;
     unsigned char abDigest[20];
@@ -2138,9 +2138,9 @@ struct D2CDKeyInfoStrc
 
 struct D2CDKeyHash16Strc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    int f_8;
+    unsigned int nClientToken;
+    unsigned int nServerToken;
+    int nProduct;
     int nValue1;
     int f_10;
     int nValue3;
@@ -2148,29 +2148,29 @@ struct D2CDKeyHash16Strc
 
 struct D2CDKeyHash26Strc
 {
-    unsigned int f_0;
-    unsigned int f_4;
-    int f_8;
+    unsigned int nClientToken;
+    unsigned int nServerToken;
+    int nProduct;
     int nValue1;
     unsigned char abPrivate[12];
 };
 
 struct D2AuthCheck2Strc
 {
-    unsigned int f_0;
+    unsigned int nClientToken;
     unsigned int nKeys;
-    unsigned int f_8;
+    unsigned int nExeHash;
     D2CDKeyInfoStrc aKeys[2];
-    char f_54[0x100];
+    char szExeInfo[0x100];
 };
 
 struct D2AuthCheck1Strc
 {
-    unsigned int f_0;
+    unsigned int nClientToken;
     unsigned int nKeys;
-    unsigned int f_8;
+    unsigned int nExeHash;
     D2CDKeyInfoStrc aKeys[1];
-    char f_30[0x100];
+    char szExeInfo[0x100];
 };
 
 int __cdecl BNCLIENT_GetServerToken(); // 0x0051A550
@@ -2397,30 +2397,30 @@ static int __stdcall BNSEND_BuildCDKeyInfo(D2CDKeyInfoStrc* pInfo, const char* s
     switch (SStrLen(szKey))
     {
     case 0x10:
-        tHash16.f_0 = dwClientToken;
-        tHash16.f_4 = dwServerToken;
-        if (!BNSEND_DecodeCDKey16(&tHash16.f_8, &nValue1, szKey, &tHash16.nValue3))
+        tHash16.nClientToken = dwClientToken;
+        tHash16.nServerToken = dwServerToken;
+        if (!BNSEND_DecodeCDKey16(&tHash16.nProduct, &nValue1, szKey, &tHash16.nValue3))
             return 0;
 
         tHash16.nValue1 = nValue1;
         tHash16.f_10 = 0;
-        pInfo->f_0 = SStrLen(szKey);
-        pInfo->f_4 = tHash16.f_8;
+        pInfo->nKeyLength = SStrLen(szKey);
+        pInfo->nProduct = tHash16.nProduct;
         pInfo->nValue1 = tHash16.nValue1;
         pInfo->f_C = tHash16.f_10;
         BNDOWNLOAD_HashBuffer(pInfo->abDigest, &tHash16, 0x18);
         return 1;
 
     case 0x1A:
-        tHash26.f_0 = dwClientToken;
-        tHash26.f_4 = dwServerToken;
+        tHash26.nClientToken = dwClientToken;
+        tHash26.nServerToken = dwServerToken;
         if (!szKey)
             return 0;
 
-        BNDOWNLOAD_DecodeCDKey(szKey, &tHash26.f_8, &nValue1, tHash26.abPrivate);
+        BNDOWNLOAD_DecodeCDKey(szKey, &tHash26.nProduct, &nValue1, tHash26.abPrivate);
         tHash26.nValue1 = nValue1;
-        pInfo->f_0 = SStrLen(szKey);
-        pInfo->f_4 = tHash26.f_8;
+        pInfo->nKeyLength = SStrLen(szKey);
+        pInfo->nProduct = tHash26.nProduct;
         pInfo->nValue1 = tHash26.nValue1;
         pInfo->f_C = 0;
         BNSEND_ComputeShaDigest(pInfo->abDigest, (const unsigned char*)&tHash26, 0x1A);
@@ -2447,22 +2447,22 @@ int __stdcall BNSEND_SendAuthCheck()
         if (!BNSEND_BuildCDKeyInfo(&tPacket.aKeys[1], szKey1, gdwClientToken, BNCLIENT_GetServerToken()))
             return 0;
 
-        tPacket.f_0 = gdwClientToken;
+        tPacket.nClientToken = gdwClientToken;
         tPacket.nKeys = 2;
-        tPacket.f_8 = dwExeHash;
-        if (BNSEND_SendPacket(0x42, &tPacket, SStrCopy(tPacket.f_54, szExeInfo, 0x100) + 0x55) < 0)
+        tPacket.nExeHash = dwExeHash;
+        if (BNSEND_SendPacket(0x42, &tPacket, SStrCopy(tPacket.szExeInfo, szExeInfo, 0x100) + 0x55) < 0)
             return 0;
     }
     else
     {
         D2AuthCheck1Strc tPacket;
-        tPacket.f_0 = gdwClientToken;
+        tPacket.nClientToken = gdwClientToken;
         tPacket.nKeys = 1;
-        tPacket.f_8 = dwExeHash;
+        tPacket.nExeHash = dwExeHash;
         if (!BNSEND_BuildCDKeyInfo(&tPacket.aKeys[0], szKey0, gdwClientToken, BNCLIENT_GetServerToken()))
             return 0;
 
-        if (BNSEND_SendPacket(0x42, &tPacket, SStrCopy(tPacket.f_30, szExeInfo, 0x100) + 0x31) < 0)
+        if (BNSEND_SendPacket(0x42, &tPacket, SStrCopy(tPacket.szExeInfo, szExeInfo, 0x100) + 0x31) < 0)
             return 0;
     }
 
@@ -2565,13 +2565,13 @@ int __stdcall BNSEND_SendAuthInfo()
     memset(&tPacket, 0, sizeof(tPacket));
     tPacket.nProtocol = 0;
     tPacket.nPlatform = 0x49583836;
-    tPacket.f_8 = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
+    tPacket.nProduct = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
     tPacket.nVersion = 0xE;
-    STRTABLE_GetLanguageInfoField(&tPacket.f_10, 3);
+    STRTABLE_GetLanguageInfoField(&tPacket.nLanguage, 3);
 
     D2SockAddrInStrc tAddress;
     int nLength = 0x10;
-    tPacket.f_14 = sub_0051C9E0_GetSockName(&tAddress, &nLength) ? tAddress.sin_addr.s_addr : 0;
+    tPacket.nLocalIp = sub_0051C9E0_GetSockName(&tAddress, &nLength) ? tAddress.sin_addr.s_addr : 0;
 
     D2FileTimeStrc tLocalFileTime;
     D2FileTimeStrc tSystemFileTime;
@@ -2581,7 +2581,7 @@ int __stdcall BNSEND_SendAuthInfo()
     GetLocalTime(&tLocalTime);
     SystemTimeToFileTime(&tSystemTime, &tSystemFileTime);
     SystemTimeToFileTime(&tLocalTime, &tLocalFileTime);
-    tPacket.f_18 = (int)((*(__int64*)&tSystemFileTime - *(__int64*)&tLocalFileTime) / 600000000);
+    tPacket.nTimeZoneBias = (int)((*(__int64*)&tSystemFileTime - *(__int64*)&tLocalFileTime) / 600000000);
     tPacket.nLcid = GetUserDefaultLCID();
     tPacket.nLangId = GetUILanguageId();
 
@@ -2694,7 +2694,7 @@ int __fastcall BNSEND_SendAccountUpgradeProof(unsigned int nServerToken)
     D2BnUpgradeInputStrc tInput;
     char szPassword[0x100];
     tInput.nTick = GetTickCount();
-    tInput.f_4 = nServerToken;
+    tInput.nServerToken = nServerToken;
     CharLowerBuffA(szPassword, SStrCopy(szPassword, gtLoginRecord.szPassword, 0x100));
     BNDOWNLOAD_HashBuffer(tInput.abDigest, szPassword, SStrLen(szPassword));
     tPacket.nTick = tInput.nTick;

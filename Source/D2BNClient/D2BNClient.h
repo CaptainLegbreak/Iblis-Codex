@@ -101,7 +101,7 @@ struct D2BigLoginRecordStrc
 struct D2BnDnsArgsStrc
 {
     char* szResult;
-    const char* f_4;
+    const char* szHost;
 };
 
 struct D2BnMessageStrc
@@ -139,7 +139,7 @@ struct D2CacheHashEntryStrc
 
 struct D2TimeZoneInformationStrc
 {
-    long f_0;
+    long nBias;
     unsigned short wszStandardName[32];
     D2SystemTimeStrc tStandardDate;
     long nStandardBias;
