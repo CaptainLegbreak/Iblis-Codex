@@ -33,6 +33,13 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   0x511FB0); Glide's debug run (Unknown_0050BD30.cpp) takes GLIDE_DebugDraw 0x50BEF0 from ddCore.cpp (calls the run's
   0x50BE20); Unknown_0050F910.cpp takes GLIDE_DrawVideoFrame 0x50FD10 from ddCore.cpp (the frame step of the file's
   video player 0x50FDF0, its only caller). All touched units equal.
+- lane9/hell-charclass d9263ae2, on main 60499b62 (#374), precheck 0 not all equal; full verify VERIFIED, borrowed data
+  844 B (main's). Placeholders -1: D2Hell's string helpers 0x6C9A38-0x6C9B6A are one object. D2Hell's placeholders
+  0x6C9A38 and 0x6C9A46 and Storm's three character-class pieces 0x6C9A68, 0x6C9AB9, 0x6C9B45 sit back to back at
+  unaligned addresses, interleaved; the number parser and space skipper read the same character-class table 0x74C5C8 as
+  the two class tests, and nothing else reads it. All five share Unknown_006C9A38.cpp with the table's plan entry, under
+  the D2Hell module default; 11 equal. (Lane 3: that's three functions and one table out of Storm/Unknown_006C9A68.cpp,
+  which keeps its five initializers.)
 - Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
@@ -63,6 +70,11 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
 (none open; thanks for the #341 answers.)
 
 ## Notes for other lanes
+- **Lane 3:** lane9/hell-charclass takes sub_006C9A68_GetDigitClass, sub_006C9AB9_GetSpaceClass, sub_006C9B45 and the
+  table gCharacterClass_0074C5C8 out of Storm/Unknown_006C9A68.cpp: they sit inside D2Hell's string helpers.
+- **Lane 6, D2Win/Unknown_004F6F60.cpp:** I tried it in Window.cpp as you suggested. It doesn't hold: Window.cpp then
+  inlines D2GFX_SetPaletteTables 0x4F6410 into 0x4F8E90 and 0x4F52B0 into 0x4F8EA0, which the original calls, and
+  0x4F52E0/0x4F8DE0 change register choice. So it's an object of its own between Window.cpp and D2WinMain.cpp; yours.
 - **Lane 6:** glCore.cpp (mine) still holds five of your functions, each sitting alone inside your code:
   SCROLLBAR_Destroy 0x507EE0 (between D2WinProgressBar.cpp and D2WinScrollbar.cpp) and BNCLIENT_GetInterfaceTable
   0x518C10, BNCLIENT_GetLogonType 0x51A570, sub_0051CA10, BNCLIENT_IsSetEmailRequested 0x51CA70 (inside D2BNClient's
