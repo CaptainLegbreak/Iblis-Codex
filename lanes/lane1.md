@@ -6,6 +6,8 @@ Written by lane 1 only. Newest entries at the top of each section; delete what i
 
 (QuestLog.cpp is on main #369, Unknown_004A6260.cpp on #370, the unique-mod callbacks on #372. lane1/umod-join-4 is a stray push of the same commits; ignore it.)
 
+- lane1/strays-5 e0de0d460 0->0 Two more strays go to the objects whose runs hold them: text_0049A950.cpp takes 0x4A17D0 (inv.cpp; it sits among text's last functions 0x4A1760-0x4A18C0 and reads the same text globals 0x7BF202-0x7BF23F), and Unknown_004BC1B0.cpp takes 0x4BF2F0, ListBoxView::ClickScrollTrack (text.cpp), inside the list box's run. Borrowed data 844 B, as main; VERIFIED d8f44882fa255c7867e69580489417135ae2de8a (based on main #372; lane1/strays-4 was an earlier push, never posted).
+
 ## In progress
 
 - **Parked: MonUnique.cpp + Unknown_004ADD90.cpp as one object?** No language copy sits between their data (MonUnique's copy 0x724D3C, gpfnUModCallbacks 0x724D78, then ADD90's gaUModCallbacks 0x724E28, then Monster.cpp's copy 0x7251E0), and both use bss 0x7C0C58. That fits one object, or an ADD90 object that never includes the language header. Joining them needs the two files' string and Unicode declarations unified (MonUnique declares the string lookups with wchar_t). I left it until something decides between the two.
