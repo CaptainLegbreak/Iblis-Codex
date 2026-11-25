@@ -1993,7 +1993,7 @@ void __fastcall MONSTER_SpawnBloodMissiles(D2UnitStrc* pUnit, int nDefaultCount,
             nY = gaBloodOffsetY[nDir] + sub_M165_UnitY(pUnit);
             if (!COLLISION_CheckMask(pRoom, nX, nY, 1))
             {
-                goto LABEL_SPAWN;
+                goto SPAWN_BLOOD;
             }
 
             nDir = (nDir + 1) & 7;
@@ -2002,7 +2002,7 @@ void __fastcall MONSTER_SpawnBloodMissiles(D2UnitStrc* pUnit, int nDefaultCount,
 
         return;
 
-LABEL_SPAWN:
+SPAWN_BLOOD:
         MISSILE_SubmitOwnerRequest(pUnit, 0x12 + sub_M165_RollLimited(&pUnit->pSeed, 2 * pMonStats2Txt->nBleed), nX, nY, 0, 1);
     }
 }
@@ -2457,9 +2457,9 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
         {
         case MONSTER_THORNHULK1:
             CUNIT_SetOverlayWithSound(pUnit, 0x4F, 0);
-        LABEL_MODE0:
+        SET_NEUTRAL_MODE:
             UNITMODE_SetUnitMode(pUnit, 0);
-        LABEL_CLEAR:
+        CLEAR_LIGHT:
             pUnit->dwFlags &= ~2;
             CUNIT_FreeLight(pUnit);
             break;
@@ -2482,17 +2482,17 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
 
         case MONSTER_CANTOR1:
             CUNIT_SetOverlayWithSound(pUnit, 0x4E, 0);
-            goto LABEL_MODE0;
+            goto SET_NEUTRAL_MODE;
 
         case MONSTER_FROGDEMON1:
             CUNIT_SetOverlayWithSound(pUnit, 0x52, 0);
-            goto LABEL_MODE0;
+            goto SET_NEUTRAL_MODE;
 
         case MONSTER_VULTURE1:
             CUNIT_SetOverlayWithSound(pUnit, 0x92, 0);
             UNITMODE_SetUnitMode(pUnit, 0);
             if (!ITEM_GetGfxClientZ(pUnit))
-                goto LABEL_CLEAR;
+                goto CLEAR_LIGHT;
 
             GFXUTIL_ReplaceMotionFlag1With8(pUnit);
             MISSILE_SetMotionFlagMask(pUnit, 0);
@@ -2505,18 +2505,18 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
         case MONSTER_TENTACLE1:
         case MONSTER_TENTACLEHEAD1:
             CUNIT_SetOverlayWithSound(pUnit, 0x9D, 0);
-            goto LABEL_MODE0;
+            goto SET_NEUTRAL_MODE;
 
         case MONSTER_DOPPLEZON:
             AUTOMAP_RequestAtTarget(pUnit, 0x148, 0, 1);
-            goto LABEL_MODE0;
+            goto SET_NEUTRAL_MODE;
 
         case MONSTER_HYDRA1:
         case MONSTER_HYDRA2:
         case MONSTER_HYDRA3:
             GFX_RemoveOverlays(pUnit);
             CUNIT_SetOverlayWithSound(pUnit, (!pUnit ? -1 : pUnit->dwClassId) - 0xAD, 0);
-            goto LABEL_MODE0;
+            goto SET_NEUTRAL_MODE;
 
         case MONSTER_MAGGOTQUEEN1:
         {
@@ -2531,28 +2531,28 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
 
         case MONSTER_WILLOWISP1:
             CUNIT_SetOverlayWithSound(pUnit, 0xB8, 0);
-            goto LABEL_MODE0;
+            goto SET_NEUTRAL_MODE;
 
         case MONSTER_DOOMKNIGHT1:
         case MONSTER_DOOMKNIGHT2:
         case MONSTER_DOOMKNIGHT3:
             CUNIT_SetOverlayWithSound(pUnit, 0xBB, 0);
-            goto LABEL_MODE0;
+            goto SET_NEUTRAL_MODE;
 
         case MONSTER_BONEFETISH1:
             CUNIT_SetOverlayWithSound(pUnit, 0xBC, 0);
             CUNIT_SetOverlayWithSound(pUnit, 0xBD, 0);
-            goto LABEL_MODE0;
+            goto SET_NEUTRAL_MODE;
 
         case MONSTER_SHADOWWARRIOR:
         case MONSTER_SHADOWMASTER:
             CUNIT_SetOverlayWithSound(pUnit, 0x10F, 0);
-            goto LABEL_MODE0;
+            goto SET_NEUTRAL_MODE;
 
         case MONSTER_MEGADEMON1:
         case MONSTER_VENOMLORD:
             CUNIT_SetOverlayWithSound(pUnit, 0xB9, 0);
-            goto LABEL_MODE0;
+            goto SET_NEUTRAL_MODE;
 
         case MONSTER_MINION1:
         {
@@ -2581,7 +2581,7 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
         case MONSTER_SUICIDEMINION1:
             CUNIT_SetOverlayWithSound(pUnit, 0xCC, 0);
             sub_004B9A00(0x973, pUnit, 0, 0, 0);
-            goto LABEL_MODE0;
+            goto SET_NEUTRAL_MODE;
 
         case MONSTER_PLAGUEPOPPY:
         case MONSTER_CYCLEOFLIFE:
@@ -2606,22 +2606,22 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
                 nOverlay = 0xE2;
                 break;
             default:
-                goto LABEL_MODE0;
+                goto SET_NEUTRAL_MODE;
             }
             CUNIT_SetOverlayWithSound(pUnit, nOverlay, 0);
-            goto LABEL_MODE0;
+            goto SET_NEUTRAL_MODE;
         }
 
         case MONSTER_SUCCUBUS1:
         case MONSTER_SUCCUBUSWITCH1:
             CUNIT_SetOverlayWithSound(pUnit, 0xE5, 0);
-            goto LABEL_MODE0;
+            goto SET_NEUTRAL_MODE;
 
         case MONSTER_SIEGEBEAST1:
         {
             D2DynamicPathStrc* pDeadPath = pPath;
             D2COMMON_10160_PathUpdateDirection(pDeadPath, (PATH_GetDirection(pDeadPath) + 0x20) % 0x40);
-            goto LABEL_MODE0;
+            goto SET_NEUTRAL_MODE;
         }
 
         case MONSTER_BAALCLONE:
@@ -2635,7 +2635,7 @@ void __fastcall MONSTER_HandleMonsterCommand(int nCommand, D2UnitStrc* pUnit, D2
             break;
 
         default:
-            goto LABEL_MODE0;
+            goto SET_NEUTRAL_MODE;
         }
         break;
     }
