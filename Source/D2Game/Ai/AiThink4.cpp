@@ -5224,7 +5224,7 @@ void __fastcall AITHINK_Fn041_Towner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
 }
 
 // 0x005E8140
-void __fastcall D2GAME_AI_SpecialState11_6FCE7E80(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+void __fastcall D2GAME_AI_SpecialState11(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     D2UnitStrc* pTarget = pAiTickParam->pTarget;
     const int nDistance = pAiTickParam->nTargetDistance;
@@ -5984,7 +5984,7 @@ void __fastcall AITHINK_SpecialState10_17_DimVision(D2GameStrc* pGame, D2UnitStr
 }
 
 // 0x005E80E0
-void __fastcall D2GAME_AI_SpecialState11_6FCE7E20(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
+void __fastcall D2GAME_AI_SpecialState11_SetTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
 {
     D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
     if (!pTarget)

@@ -240,7 +240,7 @@ void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 
 
 void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00557FD0
 
-void __fastcall D2GAME_STORES_CreateVendorCache_6FCCAE20(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, int bGamble); // 0x00578B30
+void __fastcall D2GAME_STORES_FillVendorCache(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, int bGamble); // 0x00578B30
 
 void __fastcall SUNITPROXY_AllocNpcInventory(D2GameStrc* pGame, D2NpcRecordStrc* pNpcRecord, D2UnitStrc* pNpc); // 0x00536D10
 
@@ -474,7 +474,7 @@ void __fastcall D2GAME_NPC_BuildHirelingList_6FCC6FF0(D2GameStrc* pGame, D2Clien
 
 static int __stdcall SUNITNPC_IsCursorItem(unsigned int nItemGUID, D2UnitStrc* pUnit); // 0x00578610
 
-void __fastcall D2GAME_STORES_CreateVendorCache_6FCC74F0(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, int bRefresh, int bGamble); // 0x00579430
+void __fastcall D2GAME_STORES_CreateVendorCache(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, int bRefresh, int bGamble); // 0x00579430
 
 void __fastcall ACT5Q1_SetRewardGranted(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005877C0
 
@@ -591,7 +591,7 @@ int __stdcall ITEMS_HasUsedCharges(D2UnitStrc* pItem, int* pHasChargedSkills); /
 
 void __fastcall D2GAME_UpdateClientItem_6FC3E9D0(D2ClientStrc*,D2UnitStrc*,D2UnitStrc*,unsigned int); // 0x0053D010
 
-void __fastcall D2GAME_RemoveItem_6FC471F0(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x0055DF10
+void __fastcall D2GAME_RemoveItem(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x0055DF10
 
 int __fastcall ITEMMODE_UnequipBodyItem(D2GameStrc*,D2UnitStrc*,unsigned char,int,int*); // 0x00560CD0
 
@@ -2723,7 +2723,7 @@ static inline D2NpcTradeDataStrc* SUNITNPC_GetNpcTrade(D2NpcRecordStrc* pNpcReco
 }
 
 // 0x00579430
-void __fastcall D2GAME_STORES_CreateVendorCache_6FCC74F0(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNPC, int bRefreshInventory, int bGamble)
+void __fastcall D2GAME_STORES_CreateVendorCache(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNPC, int bRefreshInventory, int bGamble)
 {
     if (!pNPC)
     {
@@ -2739,7 +2739,7 @@ void __fastcall D2GAME_STORES_CreateVendorCache_6FCC74F0(D2GameStrc* pGame, D2Un
 
     pNpcRecord->bTrading = 1;
     pNpcRecord->dwNPCGUID = UNITS_GetUnitGUIDInline(pNPC);
-    D2GAME_STORES_CreateVendorCache_6FCCAE20(pGame, pPlayer, pNPC, bGamble);
+    D2GAME_STORES_FillVendorCache(pGame, pPlayer, pNPC, bGamble);
 
     const int nClassId = pNPC->dwClassId;
     if (nClassId == NPC_CLASS_150 || nClassId == NPC_CLASS_515 || nClassId == NPC_CLASS_198)
@@ -2775,7 +2775,7 @@ void __fastcall D2GAME_STORES_CreateVendorCache_6FCC74F0(D2GameStrc* pGame, D2Un
 }
 
 // 0x00578B30
-void __fastcall D2GAME_STORES_CreateVendorCache_6FCCAE20(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, int bGamble)
+void __fastcall D2GAME_STORES_FillVendorCache(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, int bGamble)
 {
     if (!pNpc)
     {
@@ -2980,7 +2980,7 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* pl
         ITEMS_SetOrRemoveFlag(&flags,0x20,1);
         ITEMS_SetItemCell(item,ITEMS_GetInvPage(item));
         D2GAME_UpdateClientItem_6FC3E9D0(client,player,item,flags);
-        D2GAME_RemoveItem_6FC471F0(ptGame,player,item,0);
+        D2GAME_RemoveItem(ptGame,player,item,0);
     }
     else if (itemMode==4) {
         if (!D2GAME_RemoveItemIfOnCursor_6FC49760(ptGame,player,item)) { SEND_ERROR(9,0x59F); return 1; }
@@ -3139,7 +3139,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         case 0x200:
         case 0x201:
             MONSTERAI_SetInteractTrading(pMonster, pPlayer);
-            D2GAME_STORES_CreateVendorCache_6FCC74F0(pGame, pPlayer, pMonster, bRefreshInventory, 0);
+            D2GAME_STORES_CreateVendorCache(pGame, pPlayer, pMonster, bRefreshInventory, 0);
             break;
         }
         return 0;
@@ -3156,7 +3156,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         case 0x200:
         case 0x202:
             MONSTERAI_SetInteractTrading(pMonster, pPlayer);
-            D2GAME_STORES_CreateVendorCache_6FCC74F0(pGame, pPlayer, pMonster, bRefreshInventory, 1);
+            D2GAME_STORES_CreateVendorCache(pGame, pPlayer, pMonster, bRefreshInventory, 1);
             break;
         }
         return 0;
