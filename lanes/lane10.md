@@ -6,6 +6,7 @@ Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named func
 
 ## Ready
 
+- lane10/names-fileprefix-d2common 45e5019: fileprefix-d2common plan, 48 renames applied, none dropped. VERIFIED 5e6110e6 on base 60499b62, Game.exe matches.
 - lane10/names-fileprefix-d2game 3c45a7d: fileprefix-d2game plan, 49 renames applied; dropped 0x005DCF70. VERIFIED 7ae86421 on base 60499b62, Game.exe matches.
 - New naming plans rendslots-<module>.tsv (D2Gdi 28, D2DDraw 12, D2Direct3D 8, D2Glide 3): renderer functions still placeholder-named, named by their slot in the module's 54-entry renderer function table. The slot order matches D2MOO's renderer callback struct in D2Gfx.h (pfDetect, pfInit … pfClearCaches; 1.14d lacks its pfFrame) and the names the other renderers already carry in the same slot (GLCORE_SetGlobalScale, DDCORE_Blit…). Functions used in more than one slot (shared no-ops) are left out. Source d2moo, high. bare-d2common-missile.tsv: 14 D2Common missile accessors named from D2MOO's Units/Missile.h by the field each reads or writes, between the setters main already names (MISSILE_GetFlags before MISSILE_SetFlags…). Applying after the fileprefix branches.
 - lane10/names-fileprefix-d2client 3c33276: fileprefix-d2client plan, 225 renames (sub_<VA>_<Desc> in named D2Client files take the file prefix), none dropped. VERIFIED 18636ded on base 60499b62, Game.exe matches.
