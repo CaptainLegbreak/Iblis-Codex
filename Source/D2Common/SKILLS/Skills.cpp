@@ -1079,7 +1079,7 @@ D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUn
 }
 
 // 0x00643A00
-void* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2)
+void* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* pValue)
 {
     if (!pUnit)
     {
@@ -1093,7 +1093,7 @@ void* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2)
     }
 
     void* pResult = pSkillList->unk0x14;
-    pSkillList->unk0x14 = a2;
+    pSkillList->unk0x14 = pValue;
     return pResult;
 }
 

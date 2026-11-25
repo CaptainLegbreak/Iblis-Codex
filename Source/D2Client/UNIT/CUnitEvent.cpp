@@ -4,7 +4,7 @@
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void* __fastcall sub_004DC0B0_GetUnitMemoryPool(D2UnitStrc* pUnit); // 0x004DC0B0
 
-typedef int (__fastcall* D2CltUnitEventFn)(int nType, D2UnitStrc* pUnit, int a3, int a4, int nParam1, int nParam2);
+typedef int (__fastcall* D2CltUnitEventFn)(int nType, D2UnitStrc* pUnit, int nArg1, int nArg2, int nParam1, int nParam2);
 
 // 0x004DC0C0
 void __fastcall CUNITEVENT_FreeCltUnitEvents(D2UnitStrc* pUnit)
@@ -88,7 +88,7 @@ void __fastcall CUNITEVENT_RemoveCltUnitEvents(D2UnitStrc* pUnit, int nParam4, i
 }
 
 // 0x004DC210
-int __fastcall CUNITEVENT_RunCltUnitEvents(int nType, D2UnitStrc* pUnit, int a3, int a4)
+int __fastcall CUNITEVENT_RunCltUnitEvents(int nType, D2UnitStrc* pUnit, int nArg1, int nArg2)
 {
     if (!pUnit)
     {
@@ -102,7 +102,7 @@ int __fastcall CUNITEVENT_RunCltUnitEvents(int nType, D2UnitStrc* pUnit, int a3,
         D2CltUnitEventStrc* pNext = pEvent->pNext;
         if (pEvent->nType == nType)
         {
-            nResult = ((D2CltUnitEventFn)pEvent->nParam3)(nType, pUnit, a3, a4, pEvent->nParam1, pEvent->nParam2);
+            nResult = ((D2CltUnitEventFn)pEvent->nParam3)(nType, pUnit, nArg1, nArg2, pEvent->nParam1, pEvent->nParam2);
         }
         pEvent = pNext;
     }

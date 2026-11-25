@@ -160,7 +160,7 @@ extern D2DrlgActStrc* gpAct;                                                    
 
 void __fastcall DLIGHTMAP_ReleaseLight(D2GfxLightStrc* pLight);                                   // 0x004743D0
 
-D2GfxLightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2);                                         // 0x00643A00
+D2GfxLightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* pValue);                                         // 0x00643A00
 
 void __stdcall PARTICLE_FreeGfxMotion(D2UnitStrc* pUnit);                                               // 0x004DA080
 

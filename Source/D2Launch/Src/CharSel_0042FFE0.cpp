@@ -67,7 +67,7 @@ void __cdecl MAINMENUS_ShowMainMenu(); // 0x004336C0
 void __cdecl CHARSEL_FreeCharList(); // 0x00438EA0
 int __stdcall CHARSEL_HandleCharList(const char* szName, int pPacket, int bFlag); // 0x0043AAB0
 int __fastcall D2Win_10047(D2WinTextBoxStrc* pTextBox); // 0x004FB6A0
-void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int a3); // 0x004FCFF0
+void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int nColor); // 0x004FCFF0
 void __cdecl CHARSEL_RefreshCharList(); // 0x00438560
 void __cdecl CHARSEL_ShowMessage(); // 0x0043A5D0
 void __cdecl sub_00438F70();

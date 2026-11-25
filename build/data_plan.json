@@ -3661,8 +3661,8 @@
    "state": "included"
   },
   "Source/Storm/Unknown_006C9A68.cpp": {
-   "bytes": 12,
-   "definitions": 2,
+   "bytes": 8,
+   "definitions": 1,
    "externs": [
     "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
    ],
@@ -4710,8 +4710,8 @@
    "state": "included"
   },
   "Source/D2Client/ENGINE/Cursor.cpp": {
-   "bytes": 556,
-   "definitions": 8,
+   "bytes": 560,
+   "definitions": 9,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Client/ENGINE/Cursor.inc",
@@ -144291,7 +144291,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Storm/Unknown_006C9A68.cpp",
+   "file": "Source/D2Client/ENGINE/Cursor.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnDivisor_007121DC = ",

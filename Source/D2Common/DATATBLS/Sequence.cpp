@@ -17,7 +17,7 @@ D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit);                   
 int __fastcall SKILLS_GetSeqNumFromSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                                       // 0x00643D00
 void* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                                           // 0x00451F80
 D2AnimSeqRecordStrc* __stdcall DATATBLS_GetMonSeqTableRecord(int nSequence);                                                // 0x00659E30
-int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClass, int a4, int a5); // 0x0064F380
+int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClass, int nAnimMode, int bUseConvertedMode); // 0x0064F380
 extern "C" const char gszEmptyAssertText;                                                                         // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                              // 0x00408090
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine);                  // 0x00408A60

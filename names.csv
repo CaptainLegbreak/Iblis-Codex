@@ -7113,7 +7113,7 @@ address,name,source,alias
 0x00526700,strcat,d2moo,
 0x00526740,strncat,d2moo,
 0x00526790,strncpy,d2moo,
-0x005267E0,sub_005267E0,placeholder,
+0x005267E0,strcpy,d2moo,
 0x00526800,sub_00526800,placeholder,
 0x00526820,sub_00526820_StrStrI,placeholder,
 0x00526940,sub_00526940_FindSubstring,placeholder,

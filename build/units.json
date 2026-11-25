@@ -12890,6 +12890,14 @@
      "va": "0x0043CAA0",
      "length": 308,
      "name": "?CHATDLG_UpdateSaveFlags@@YIHPBD@Z"
+    },
+    {
+     "va": "0x006CA960",
+     "length": 20
+    },
+    {
+     "va": "0x006CA980",
+     "length": 20
     }
    ],
    "flags": [
@@ -18704,6 +18712,10 @@
      "va": "0x00468840",
      "length": 252,
      "name": "?CURSOR_HandleMouseMotion@@YGXPAUSMSGHANDLER_PARAMS@@@Z"
+    },
+    {
+     "va": "0x006CAAB0",
+     "length": 18
     }
    ]
   },
@@ -40232,7 +40244,7 @@
    ]
   },
   {
-   "file": "Source/D2Lang/Unknown_00525FB0.cpp",
+   "file": "Source/D2Lang/Unknown_005264F0.cpp",
    "rank": 0,
    "functions": [
     {
@@ -40271,6 +40283,11 @@
      "name": "strncpy"
     },
     {
+     "va": "0x005267E0",
+     "length": 27,
+     "name": "?strcpy@Unicode@@SIPAU1@PAU1@PBU1@@Z"
+    },
+    {
      "va": "0x00526800",
      "length": 29,
      "name": "@sub_00526800@4"
@@ -40289,6 +40306,11 @@
      "length": 802
     },
     {
+     "va": "0x00526D00",
+     "length": 36,
+     "name": "?isLeftToRight@Unicode@@QBEHXZ"
+    },
+    {
      "va": "0x00526D30",
      "length": 260
     },
@@ -40305,6 +40327,11 @@
      "va": "0x00526F70",
      "length": 54,
      "name": "?sub_00526F70@@YIPADPADPBUUnicode@@H@Z"
+    },
+    {
+     "va": "0x00526FB0",
+     "length": 211,
+     "name": "?directionality@Unicode@@QAE?AW4Direction@1@XZ"
     }
    ]
   },
@@ -40345,11 +40372,6 @@
      "va": "0x00526430",
      "length": 88,
      "name": "?sub_00526430_UnicodeUtf8Length@@YIHPBUUnicode@@H@Z"
-    },
-    {
-     "va": "0x005267E0",
-     "length": 27,
-     "name": "@sub_005267E0@8"
     }
    ]
   },
@@ -40376,22 +40398,6 @@
      "va": "0x00526610",
      "length": 168,
      "name": "strnicmp"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Lang/Unknown_00526D00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00526D00",
-     "length": 36,
-     "name": "?isLeftToRight@Unicode@@QBEHXZ"
-    },
-    {
-     "va": "0x00526FB0",
-     "length": 211,
-     "name": "?directionality@Unicode@@QAE?AW4Direction@1@XZ"
     }
    ]
   },
@@ -78789,21 +78795,6 @@
    "file": "Source/Storm/Unknown_006C9A68.cpp",
    "rank": 0,
    "functions": [
-    {
-     "va": "0x006CA960",
-     "length": 20,
-     "name": "?sub_006CA960_InitializeHeaderHash@@YAXXZ"
-    },
-    {
-     "va": "0x006CA980",
-     "length": 20,
-     "name": "?sub_006CA980_InitializeGameTimeHash@@YAXXZ"
-    },
-    {
-     "va": "0x006CAAB0",
-     "length": 18,
-     "name": "?sub_006CAAB0_SetPerSecond@@YAXXZ"
-    },
     {
      "va": "0x006CAC10",
      "length": 21

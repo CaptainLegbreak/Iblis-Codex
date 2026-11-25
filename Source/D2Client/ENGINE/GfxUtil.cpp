@@ -386,7 +386,7 @@ unsigned int gaClassTokens[3];                                                  
 
 D2InventoryStrc* __fastcall GFX_GetCompInventory(D2UnitStrc* pUnit, int* pOut);                    // 0x0046DB30
 
-int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
+int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
 
 D2GfxListNodeStrc* __fastcall GFXUTIL_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
 
@@ -754,14 +754,14 @@ void __fastcall SKILLS_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames)
     pBallistic->f_4 = 0;
     pBallistic->f_8 = 0;
     pBallistic->nVelocity = nSpeed;
-    if (!pBallistic->f_24)
+    if (!pBallistic->nAcceleration)
     {
-        pBallistic->f_24 = -0x1000;
+        pBallistic->nAcceleration = -0x1000;
     }
 
     pBallistic->nVelA = 0;
     pBallistic->nVelB = 0;
-    pBallistic->nStartVelocity = (-nSpeed - pBallistic->f_24 * pBallistic->nFrames * pBallistic->nFrames / 2) / pBallistic->nFrames;
+    pBallistic->nStartVelocity = (-nSpeed - pBallistic->nAcceleration * pBallistic->nFrames * pBallistic->nFrames / 2) / pBallistic->nFrames;
 }
 
 

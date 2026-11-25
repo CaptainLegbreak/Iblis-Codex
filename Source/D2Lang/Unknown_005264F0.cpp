@@ -1,5 +1,6 @@
 #include "D2Lang.h"
 #include "D2LangTypes.h"
+#include "D2Unicode.h"
 
 struct D2LangByteRangeStrc;
 struct D2UtfConvertSpecStrc;
@@ -9,25 +10,7 @@ extern "C" unsigned int __cdecl strlen(const char* szString);
 extern "C" char* __cdecl _itoa(int nValue, char* szOut, int nRadix); // 0x00687605
 extern "C" int __cdecl isspace(int c); // 0x00687006
 
-struct Unicode
-{
-    unsigned short wChar;
-    static Unicode* __fastcall strncat(Unicode* dest, const Unicode* src, int count);
-    static int __fastcall strcmp(const Unicode* str1, const Unicode* str2);
-    static Unicode* __fastcall strcat(Unicode* dest, const Unicode* src);
-    static int __fastcall strncmp(const Unicode* str1, const Unicode* str2, unsigned int count);
-    static int __fastcall stricmp(const Unicode* str1, const Unicode* str2);
-    Unicode(unsigned short wValue = 0) : wChar(wValue) {}
-    static Unicode* __fastcall strchr(const Unicode* str, Unicode ch);
-    static Unicode* __fastcall strncpy(Unicode* dest, const Unicode* src, int count);
-    int isWhitespace() const
-    {
-        return wChar < 0x100 && isspace(wChar);
-    }
-    static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);
-};
 Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
-Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 Unicode* __fastcall sub_00526740(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526740
@@ -139,6 +122,17 @@ Unicode* __fastcall Unicode::strncpy(Unicode* dest, const Unicode* src, int coun
         current_dest->wChar = 0;
     }
 
+    return dest;
+}
+
+// 0x005267E0
+Unicode* __fastcall Unicode::strcpy(Unicode* dest, const Unicode* src)
+{
+    Unicode* p = dest;
+    do
+    {
+        *p++ = *src;
+    } while ((src++)->wChar);
     return dest;
 }
 
@@ -384,7 +378,7 @@ void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFor
             break;
 
         case 0:
-            sub_005267E0(pBuffer, szPercent);
+            Unicode::strcpy(pBuffer, szPercent);
             return;
 
         default:
@@ -397,6 +391,14 @@ void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFor
         nArg = *pArgs;
     }
     while (pFormat->wChar);
+}
+
+// 0x00526D00
+int Unicode::isLeftToRight() const
+{
+    if ((wChar >= 0x590 && wChar <= 0x5FF) || (wChar >= 0x600 && wChar <= 0x6FF))
+        return 0;
+    return 1;
 }
 
 // 0x00526D30
@@ -526,4 +528,37 @@ char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount)
     }
     *pCurrentDest = '\0';
     return szDest;
+}
+
+// 0x00526FB0
+Unicode::Direction Unicode::directionality()
+{
+    if (this->wChar >= 0x590 && this->wChar <= 0x8FF)
+        return DIR_RIGHT_TO_LEFT;
+    if (this->wChar >= L'a' && this->wChar <= L'z')
+        return DIR_LEFT_TO_RIGHT;
+    if (this->wChar >= L'@' && this->wChar <= L'Z')
+        return DIR_LEFT_TO_RIGHT;
+    if (this->wChar >= L'0' && this->wChar <= L'9')
+        return DIR_LEFT_TO_RIGHT;
+    if (this->wChar <= L'\?')
+        return (this->wChar == L'&') ? DIR_LEFT_TO_RIGHT : DIR_NEUTRAL;
+    if (this->wChar >= 0x3040 && this->wChar <= 0x8BFF)
+        return DIR_LEFT_TO_RIGHT;
+    if (this->wChar >= 0xC0 && this->wChar <= 0x58F && this->wChar != 0xD7 && this->wChar != 0xF7)
+        return DIR_LEFT_TO_RIGHT;
+    if (this->wChar >= 0x900 && this->wChar <= 0x10FF)
+        return DIR_LEFT_TO_RIGHT;
+    if ((this->wChar & 0xFE00) == 0x2000)
+    {
+        if (this->wChar >= 0x2160 && this->wChar <= 0x2182)
+            return DIR_LEFT_TO_RIGHT;
+        if (this->wChar >= 0x20D0 && this->wChar <= 0x20FF)
+            return DIR_LEFT_TO_RIGHT;
+        if (this->wChar == 0x200E)
+            return DIR_LEFT_TO_RIGHT;
+        if (this->wChar == 0x200F)
+            return DIR_RIGHT_TO_LEFT;
+    }
+    return DIR_NEUTRAL;
 }

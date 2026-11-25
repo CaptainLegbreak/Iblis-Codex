@@ -186,12 +186,3 @@ int __fastcall sub_00526430_UnicodeUtf8Length(const Unicode* pSource, int nCount
 }
 
 #include "gen/data/Source/D2Lang/Unknown_00526100.inc"
-
-// 0x005267E0
-extern "C" __declspec(dllexport) unsigned short* __fastcall sub_005267E0(unsigned short* pDst, const unsigned short* pSrc) {
-    unsigned short* p = pDst;
-    do {
-        *p++ = *pSrc;
-    } while (*pSrc++);
-    return pDst;
-}

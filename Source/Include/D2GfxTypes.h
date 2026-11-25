@@ -109,7 +109,7 @@ struct D2GlideRectViewStrc
 
 struct D2TileDrawFunctionsStrc
 {
-    void (__fastcall* pfFillYBufferTable)(unsigned char* pBits, int nWidth, int nHeight, int a4); // 0x00
+    void (__fastcall* pfFillYBufferTable)(unsigned char* pBits, int nWidth, int nHeight, int); // 0x00
     void (__fastcall* pfDrawWallBlock)(void* pData, int nX, int nY); // 0x04
     void* unk0x08; // 0x08
     int (__fastcall* pfDrawFloorTile)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightExStrc* pLight); // 0x0C

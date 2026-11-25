@@ -659,3 +659,7 @@ void __stdcall CURSOR_HandleMouseMotion(SMSGHANDLER_PARAMS* pMsg)
     pMsg->lResult = 0;
 }
 #include "gen/data/Source/D2Client/ENGINE/Cursor.inc"
+
+extern int gnQuotient_007A6B0C; // 0x007A6B0C
+// build: symbol ??__EgnQuotient_007A6B0C@@YAXXZ 0x006CAAB0
+int gnQuotient_007A6B0C = 1000 / gnDivisor_007121DC;

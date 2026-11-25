@@ -18,17 +18,7 @@
 #include "D2SaveHeader.h"
 #include "D2LanguageNames.h"
 #include "D2BookDataTbl.h"
-
-struct D2ItemDataTbl
-{
-    int nItemsTxtRecordCount;
-    D2ItemsTxt* pItemsTxt;
-    D2ItemsTxt* pWeapons;
-    int nWeaponsTxtRecordCount;
-    D2ItemsTxt* pArmor;
-    int nArmorTxtRecordCount;
-    D2ItemsTxt* pMisc;
-};
+#include "D2ItemDataTbl.h"
 
 struct D2ItemUnkStrc
 {

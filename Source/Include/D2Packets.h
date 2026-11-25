@@ -344,8 +344,8 @@ struct D2GSPacketSrv0EStrc
     unsigned char nHeader; // 0x00
     unsigned char nUnitType; // 0x01
     int nUnitGUID; // 0x02
-    unsigned char a5; // 0x06
-    unsigned char a6; // 0x07
+    unsigned char nEvent; // 0x06
+    unsigned char bTargetable; // 0x07
     int nAnimMode; // 0x08
 };
 
@@ -1318,11 +1318,11 @@ struct D2GameLogonPacketStrc
 {
     unsigned char nHeader;
     unsigned char nServerHash[4];
-    unsigned char f_5[2];
+    unsigned char nServerToken[2];
     unsigned char nClass;
     unsigned char nVersion[4];
     unsigned char nKey1[4];
     unsigned char nKey2[4];
-    unsigned char f_14;
+    unsigned char nLanguage;
     char szName[16];
 };

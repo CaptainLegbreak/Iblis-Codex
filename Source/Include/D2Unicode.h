@@ -19,8 +19,8 @@ struct Unicode
 
     int isWhitespace() const
     {
-        if (wChar < 0x100)
-            return isspace(wChar);
+        if (wChar < 0x100 && isspace(wChar))
+            return 1;
         return 0;
     }
     int isNewline() const { return wChar == '\n'; }

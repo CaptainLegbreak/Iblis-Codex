@@ -13,6 +13,7 @@
 #include "D2MonsterIds.h"
 #include "D2LanguageNames.h"
 #include "D2NpcEvent.h"
+#include "D2ItemDataTbl.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -193,12 +194,6 @@ struct Obj00536B40 {
     unsigned int dwUnknown1D1C;
     unsigned int dwUnknown1D20;
     unsigned int dwValue1D24;
-};
-
-struct D2ItemDataTbl
-{
-    int nItemsTxtRecordCount;
-    D2ItemsTxt* pItemsTxt;
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

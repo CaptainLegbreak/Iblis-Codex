@@ -303,10 +303,10 @@ void ListBoxImplementation::sub_004BE0B0_Clear()
     for (int i = 0; i < nEntryCount; ++i)
     {
         aLines[i].wszText0[0].wChar = 0;
-        aLines[i].f_800[0].wChar = 0;
-        aLines[i].f_1000[0].wChar = 0;
-        aLines[i].f_1800[0].wChar = 0;
-        aLines[i].f_2000[0].wChar = 0;
+        aLines[i].wszText1[0].wChar = 0;
+        aLines[i].wszText2[0].wChar = 0;
+        aLines[i].wszText3[0].wChar = 0;
+        aLines[i].wszText4[0].wChar = 0;
         aLines[i].wszText5[0].wChar = 0;
     }
     nEntryCount = 0;
@@ -326,19 +326,19 @@ void ListBoxImplementation::sub_004BE110_UpdateScrollBar()
         {
             nHeight += nScrollStep;
         }
-        if (aLines[i].f_800[0].wChar)
+        if (aLines[i].wszText1[0].wChar)
         {
             nHeight += nScrollStep;
         }
-        if (aLines[i].f_1000[0].wChar)
+        if (aLines[i].wszText2[0].wChar)
         {
             nHeight += nScrollStep;
         }
-        if (aLines[i].f_1800[0].wChar)
+        if (aLines[i].wszText3[0].wChar)
         {
             nHeight += nScrollStep;
         }
-        if (aLines[i].f_2000[0].wChar)
+        if (aLines[i].wszText4[0].wChar)
         {
             nHeight += nScrollStep;
         }
@@ -475,26 +475,26 @@ void ListBoxImplementation::sub_004BE500_AddLine(const Unicode* wszText0, const 
     }
     if (wszText1)
     {
-        Unicode::strncpy(aLines[nEntryCount].f_800, wszText1, 0x3FF);
-        aLines[nEntryCount].f_800[0x3FF].wChar = 0;
+        Unicode::strncpy(aLines[nEntryCount].wszText1, wszText1, 0x3FF);
+        aLines[nEntryCount].wszText1[0x3FF].wChar = 0;
         ++nTextCount;
     }
     if (wszText2)
     {
-        Unicode::strncpy(aLines[nEntryCount].f_1000, wszText2, 0x3FF);
-        aLines[nEntryCount].f_1000[0x3FF].wChar = 0;
+        Unicode::strncpy(aLines[nEntryCount].wszText2, wszText2, 0x3FF);
+        aLines[nEntryCount].wszText2[0x3FF].wChar = 0;
         ++nTextCount;
     }
     if (wszText3)
     {
-        Unicode::strncpy(aLines[nEntryCount].f_1800, wszText3, 0x3FF);
-        aLines[nEntryCount].f_1800[0x3FF].wChar = 0;
+        Unicode::strncpy(aLines[nEntryCount].wszText3, wszText3, 0x3FF);
+        aLines[nEntryCount].wszText3[0x3FF].wChar = 0;
         ++nTextCount;
     }
     if (wszText4)
     {
-        Unicode::strncpy(aLines[nEntryCount].f_2000, wszText4, 0x3FF);
-        aLines[nEntryCount].f_2000[0x3FF].wChar = 0;
+        Unicode::strncpy(aLines[nEntryCount].wszText4, wszText4, 0x3FF);
+        aLines[nEntryCount].wszText4[0x3FF].wChar = 0;
         ++nTextCount;
     }
     if (wszText5)
@@ -640,19 +640,19 @@ int ListBoxImplementation::sub_004BEA50_HitTestEntry(SMSGHANDLER_PARAMS* pMsg)
             {
                 nOffset += nScrollStep;
             }
-            if (aLines[i].f_800[0].wChar)
+            if (aLines[i].wszText1[0].wChar)
             {
                 nOffset += nScrollStep;
             }
-            if (aLines[i].f_1000[0].wChar)
+            if (aLines[i].wszText2[0].wChar)
             {
                 nOffset += nScrollStep;
             }
-            if (aLines[i].f_1800[0].wChar)
+            if (aLines[i].wszText3[0].wChar)
             {
                 nOffset += nScrollStep;
             }
-            if (aLines[i].f_2000[0].wChar)
+            if (aLines[i].wszText4[0].wChar)
             {
                 nOffset += nScrollStep;
             }
@@ -896,24 +896,24 @@ void ListBoxImplementation::Draw()
             DrawClippedText(aLines[nLine].wszText0, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
             ++nDrawn;
         }
-        if (aLines[nLine].f_800[0].wChar)
+        if (aLines[nLine].wszText1[0].wChar)
         {
-            DrawClippedText(aLines[nLine].f_800, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
+            DrawClippedText(aLines[nLine].wszText1, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
             ++nDrawn;
         }
-        if (aLines[nLine].f_1000[0].wChar)
+        if (aLines[nLine].wszText2[0].wChar)
         {
-            DrawClippedText(aLines[nLine].f_1000, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
+            DrawClippedText(aLines[nLine].wszText2, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
             ++nDrawn;
         }
-        if (aLines[nLine].f_1800[0].wChar)
+        if (aLines[nLine].wszText3[0].wChar)
         {
-            DrawClippedText(aLines[nLine].f_1800, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
+            DrawClippedText(aLines[nLine].wszText3, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
             ++nDrawn;
         }
-        if (aLines[nLine].f_2000[0].wChar)
+        if (aLines[nLine].wszText4[0].wChar)
         {
-            DrawClippedText(aLines[nLine].f_2000, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
+            DrawClippedText(aLines[nLine].wszText4, f_180708 + 0x20, f_18070C + 0x19 + nArg10 * nRow + nScrollStep * nDrawn, nColor);
             ++nDrawn;
         }
         if (aLines[nLine].wszText5[0].wChar)
@@ -1118,10 +1118,10 @@ ListBoxImplementation::ListBoxImplementation(int nX, int nY, int nWidth, int nHe
     for (int n = 0; n < 0x80; n++)
     {
         aLines[n].wszText0[0].wChar = 0;
-        aLines[n].f_800[0].wChar = 0;
-        aLines[n].f_1000[0].wChar = 0;
-        aLines[n].f_1800[0].wChar = 0;
-        aLines[n].f_2000[0].wChar = 0;
+        aLines[n].wszText1[0].wChar = 0;
+        aLines[n].wszText2[0].wChar = 0;
+        aLines[n].wszText3[0].wChar = 0;
+        aLines[n].wszText4[0].wChar = 0;
         aLines[n].wszText5[0].wChar = 0;
         aLines[n].nFlags = 0;
         aLines[n].nData = 0;

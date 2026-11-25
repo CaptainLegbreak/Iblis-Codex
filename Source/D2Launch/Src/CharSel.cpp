@@ -673,7 +673,7 @@ void __cdecl CHARSEL_FreeCharList(); // 0x00438EA0
 
 int __fastcall D2Win_10047(D2WinTextBoxStrc* pTextBox); // 0x004FB6A0
 
-void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int a3); // 0x004FCFF0
+void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int nColor); // 0x004FCFF0
 
 void __cdecl CHARSEL_ShowMessage(); // 0x0043A5D0
 

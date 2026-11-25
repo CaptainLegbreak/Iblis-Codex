@@ -255,7 +255,7 @@ static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg)
     pMsg->wTitle = 0xE8C;
     pMsg->wDesc = 0xE8C;
     pMsg->wszText[0] = 0;
-    pMsg->f_263 = 0;
+    pMsg->bStepChanged = 0;
     pMsg->bValid = 0;
 
     int nIndex = -1;
@@ -345,7 +345,7 @@ static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg)
         const unsigned short* pIds = &pTexts->awIds[nStep * 2];
         sub_00526790(pMsg->wszText, D2LANG_GetStringFromTblIndex(pIds[1]), 300);
         pMsg->wszText[300 - 1] = 0;
-        pMsg->f_263 = nStep != gabQuestFlagsB[nIndex];
+        pMsg->bStepChanged = nStep != gabQuestFlagsB[nIndex];
         const unsigned short wDesc = pIds[2];
         gabQuestFlagsB[nIndex] = nStep;
         pMsg->wDesc = wDesc;
@@ -463,10 +463,10 @@ static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg)
             }
 
             pMsg->wTitle = pTexts->awIds[0];
-            pMsg->f_263 = 0;
+            pMsg->bStepChanged = 0;
             if (nStep != gabQuestFlagsB[nIndex])
             {
-                pMsg->f_263 = 1;
+                pMsg->bStepChanged = 1;
             }
             gabQuestFlagsB[nIndex] = nStep;
             pMsg->wDesc = pTexts->awIds[nStepIndex * 2 + 2];
@@ -511,10 +511,10 @@ static void TEXT_BuildQuestText(D2QuestTextMsgStrc* pMsg)
         }
 
         pMsg->wszText[300 - 1] = 0;
-        pMsg->f_263 = 0;
+        pMsg->bStepChanged = 0;
         if (nStep != gabQuestFlagsB[nIndex] && gaQuestTable[nIndex].pTexts)
         {
-            pMsg->f_263 = 1;
+            pMsg->bStepChanged = 1;
         }
         const unsigned short wDesc = pTexts->awIds[nStep * 2 + 2];
         gabQuestFlagsB[nIndex] = nStep;
@@ -1637,7 +1637,7 @@ void __stdcall TEXT_LoadQuestPage(int nPage, int bReset)
             D2QuestTextMsgStrc tMsg;
             tMsg.nQuestId = pQuest->nQuestId;
             TEXT_BuildQuestText(&tMsg);
-            if (tMsg.f_263 || !tMsg.nState)
+            if (tMsg.bStepChanged || !tMsg.nState)
             {
                 nCount = 41;
                 gnQuestSelectedSlot = tMsg.nCelId;

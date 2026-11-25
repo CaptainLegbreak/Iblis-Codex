@@ -617,14 +617,14 @@ void __fastcall D2GAME_PACKETS_SendPacket0x0C_6FC3C8A0(D2ClientStrc* pClient, un
 }
 
 // 0x0053B470
-void __fastcall D2GAME_PACKETS_SendPacket0x0E_6FC3C8E0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned char a5, unsigned char a6, int nAnimMode)
+void __fastcall D2GAME_PACKETS_SendPacket0x0E_6FC3C8E0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned char nEvent, unsigned char bTargetable, int nAnimMode)
 {
     D2GSPacketSrv0EStrc tPacket;
     tPacket.nHeader = nHeader;
     tPacket.nUnitType = nUnitType;
     tPacket.nUnitGUID = nUnitGUID;
-    tPacket.a5 = a5;
-    tPacket.a6 = a6;
+    tPacket.nEvent = nEvent;
+    tPacket.bTargetable = bTargetable;
     tPacket.nAnimMode = nAnimMode;
     D2GAME_PACKETS_SendPacket_6FC3C710(pClient, &tPacket, sizeof(tPacket));
 }
