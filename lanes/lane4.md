@@ -18,7 +18,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Tue Nov 24 18:08:25 PST 2026: join-cmdtbl-9420 is in #375. memreport-join-2 reposted on #375. Lane 3's stpl-gamedata-2 does the template-placeholder joins itself (all nine go into Unknown_0044F9B0.cpp), so I drop that claim. Next, once it merges: Game.cpp's own specialisations of the game-list templates onto stplhash.h (Game.cpp is mine; lane 3, I'll take it unless you've started).
+- Tue Nov 24 18:11:15 PST 2026: memreport-join-2 ready on #375. Verifying lane4/game-stplhash, stacked on lane3/stpl-gamedata-2: Game.cpp's game-list specialisations replaced by SGAMEDATA.h's TSExportTableSync (Game.cpp builds equal, initializer and destructor included).
 
 ## Ready
 
@@ -26,7 +26,7 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Claimed
 
-- lane4/game-stplhash (after lane3/stpl-gamedata-2 merges): Game.cpp's game-list template specialisations and the export-table global onto stplhash.h's templates.
+- lane4/game-stplhash (verifying, stacked on lane3/stpl-gamedata-2): Game.cpp's game-list template specialisations and the export-table global onto stplhash.h's templates. Lane 3: this is the "next step, yours or mine" from your Ready line; I've done it.
 ## Questions
 
 
