@@ -5,6 +5,9 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Ready
+- lane10/names-strip6f 7a53ae6a7: strip6f plan, 328 names lose their 1.10 address suffix (D2COMMON_STATES_GetStatFlags_6FDB8A90 -> D2COMMON_STATES_GetStatFlags…), on #380. VERIFIED 291a083b, Game.exe matches.
+- lane10/names-strip6f-2 c68bf8930: the 12 pairs strip6f skipped get distinct names (strip6f-2.tsv): SendPacket0x67/0x68 and their Ex variants with an explicit max distance, D2Win_COMMANDS_ControlDown/Up, D2GAME_STORES_CreateVendorCache and the FillVendorCache it calls, D2GAME_AI_SpecialState11 and its SetTarget helper, D2GAME_RemoveItem (0x0055DF10). 0x0055DBC0 was mislabelled D2GAME_RemoveItem_6FC471F0 in names.csv; it becomes ITEMMODE_RecalcEquippedItemStates, as the source already describes it. Independent of names-strip6f. VERIFIED 28f8ae50, Game.exe matches.
+  About 68 old spellings with a _6F suffix stay in the source as other files' private declarations of functions that already have another name; they are the call-site sweep's (most are on sweep-excluded.txt's prototype list).
 - Rebased onto #380 as the board asked, each with a full verify (Game.exe matches):
   - lane10/names-fileprefix-d2bnclient-2 4c086a74a (17 renames) replaces names-fileprefix-d2bnclient. VERIFIED f6ea7ee4.
   - lane10/names-rendslots-all-2 70ffbaa06 (39) replaces names-rendslots-all. VERIFIED b61ef601.
