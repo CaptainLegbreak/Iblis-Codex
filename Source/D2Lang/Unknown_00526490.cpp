@@ -39,6 +39,12 @@ Unicode* __fastcall Unicode::strncat(Unicode* dest, const Unicode* src, int coun
     return dest;
 }
 
+// 0x00526490
+int __fastcall Unicode::compare(Unicode lhs, Unicode rhs)
+{
+    return lhs.toUpper().wChar == rhs.toUpper().wChar;
+}
+
 // 0x005264F0
 int __fastcall Unicode::strcmp(const Unicode* str1, const Unicode* str2)
 {
@@ -96,6 +102,23 @@ int __fastcall Unicode::stricmp(const Unicode* str1, const Unicode* str2)
     if (str1->wChar)
         return 1;
     return str2->wChar ? -1 : 0;
+}
+
+// 0x00526610
+int __fastcall Unicode::strnicmp(const Unicode* str1, const Unicode* str2, size_t count)
+{
+    Unicode ch1 = str1->toUpper();
+    Unicode ch2 = str2->toUpper();
+    while (str1->wChar && str2->wChar && count-- && ch1.wChar == ch2.wChar)
+    {
+        ch1 = (str1++)->toUpper();
+        ch2 = (str2++)->toUpper();
+    }
+    if (ch1.wChar < ch2.wChar)
+    {
+        return -1;
+    }
+    return ch1.wChar > ch2.wChar;
 }
 
 // 0x005266C0
