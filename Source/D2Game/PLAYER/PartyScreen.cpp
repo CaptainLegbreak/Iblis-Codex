@@ -304,9 +304,9 @@ void __fastcall PARTYSCREEN_AcceptInvitation(D2GameStrc* pGame, D2UnitStrc* pPla
 }
 
 // 0x005A5970
-void __fastcall PARTYSCREEN_PlayerIterate_PartyJoined(D2GameStrc* pGame, D2UnitStrc* pLocalPlayer, void* a3)
+void __fastcall PARTYSCREEN_PlayerIterate_PartyJoined(D2GameStrc* pGame, D2UnitStrc* pLocalPlayer, void* pArgs)
 {
-    D2PartyScreenCallbackStrc* pArg = (D2PartyScreenCallbackStrc*)a3;
+    D2PartyScreenCallbackStrc* pArg = (D2PartyScreenCallbackStrc*)pArgs;
 
     const unsigned short nPartyId = SUNIT_GetPartyId(pLocalPlayer);
     PLAYERLIST_AllocPlayerList(pGame, pLocalPlayer, pArg->pPlayer1);

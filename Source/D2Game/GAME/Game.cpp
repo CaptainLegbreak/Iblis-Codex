@@ -1631,16 +1631,16 @@ int __fastcall SrvVerifyCreateNewGame(int nClientId, D2GSPacketClt66* pPacket)
 }
 
 // 0x0052C3E0
-void __stdcall D2Game_10056(int a1)
+void __stdcall D2Game_10056(int nValue)
 {
-    dword_6FD4581C = a1;
+    dword_6FD4581C = nValue;
     dword_6FD45820 = 0;
 }
 
 // 0x0052C400
-void __fastcall GAME_UpdatePing(int nClientId, int a2, int a3, int a4)
+void __fastcall GAME_UpdatePing(int nClientId, int nTick, int nDelay, int a4)
 {
-    CLIENTS_UpdatePing(nClientId, a2, a3, a4);
+    CLIENTS_UpdatePing(nClientId, nTick, nDelay, a4);
 }
 
 // 0x0052C410
@@ -1700,14 +1700,14 @@ int __fastcall GAME_VerifyJoinAct(int nClientId)
 }
 
 // 0x0052C570
-int __fastcall GAME_AbortClient(D2GameStrc* pGame, int nClientId, int a3, int a4)
+int __fastcall GAME_AbortClient(D2GameStrc* pGame, int nClientId, int szFile, int nLine)
 {
     if (pGame && CLIENTS_IsInGame(pGame, nClientId))
     {
         ClientRemoveFromGame(pGame, nClientId, 1);
     }
 
-    return SERVER_HackListClient(nClientId, a3, a4);
+    return SERVER_HackListClient(nClientId, szFile, nLine);
 }
 
 // 0x0052C5B0
@@ -2833,7 +2833,7 @@ void __fastcall SrvJoinGame(int dwClientId, unsigned short nGameId, int nClass, 
 }
 
 // 0x0052FC20
-int __stdcall GAME_UpdateGamesProgress(int a1)
+int __stdcall GAME_UpdateGamesProgress(int bLimitCatchUp)
 {
     D2LargeIntegerUnion aCounter[2];
     int bQueryPerformance = 0;
@@ -2852,7 +2852,7 @@ int __stdcall GAME_UpdateGamesProgress(int a1)
     }
 
     unsigned int nLate = nElapsed - gnTargetMsPerFrame;
-    if (a1 && nLate >= gnTargetMsPerFrame)
+    if (bLimitCatchUp && nLate >= gnTargetMsPerFrame)
     {
         nLate = gnTargetMsPerFrame;
     }
@@ -3265,7 +3265,7 @@ void D2StormHashTableStrc::GrowListArray()
 }
 
 // 0x005300F0
-int __stdcall GAME_AbortClientById(int nClientId, int a2, int a3)
+int __stdcall GAME_AbortClientById(int nClientId, int szFile, int nLine)
 {
     D2GameStrc* pGame = GAME_LockGame(SERVER_GetClientGameGUID(nClientId));
     if (pGame)
@@ -3285,7 +3285,7 @@ int __stdcall GAME_AbortClientById(int nClientId, int a2, int a3)
             LeaveCriticalSection(pGame->lpCriticalSection);
         }
     }
-    return SERVER_HackListClient(nClientId, a2, a3);
+    return SERVER_HackListClient(nClientId, szFile, nLine);
 }
 
 // 0x00530270
@@ -3805,9 +3805,9 @@ static int GAME_CountUnitsInLists(D2UnitStrc** pUnitLists)
 }
 
 // 0x0052DC00
-int __stdcall GAME_ReturnArgument(int a1)
+int __stdcall GAME_ReturnArgument(int nValue)
 {
-    return a1;
+    return nValue;
 }
 
 // 0x0052DC10
@@ -4164,10 +4164,10 @@ void __fastcall GAME_UnlockDebugGame()
 }
 
 // 0x0052DF80
-void __stdcall GAME_SetTargetFrameRate(int a1)
+void __stdcall GAME_SetTargetFrameRate(int nFrameRate)
 {
-    gnTargetFrameRate = a1;
-    gnTargetMsPerFrame = 1000 / a1;
+    gnTargetFrameRate = nFrameRate;
+    gnTargetMsPerFrame = 1000 / nFrameRate;
 }
 
 // 0x0052DFA0
@@ -4661,7 +4661,7 @@ void __stdcall GAME_GetStatistics(D2GameStatisticsStrc* pStats)
 }
 
 // 0x0052F4C0
-void __stdcall GAME_SendMessageToAllClients(int a1, int nPacketParam, const char* szMessage)
+void __stdcall GAME_SendMessageToAllClients(int nMessageType, int nPacketParam, const char* szMessage)
 {
     for (int i = 0; i < 1024; ++i)
     {
@@ -4669,7 +4669,7 @@ void __stdcall GAME_SendMessageToAllClients(int a1, int nPacketParam, const char
         {
             D2GameStrc* ptGame = GAME_LockGame(gnGamesGUIDs[i]);
             D2_ASSERT(ptGame, 0x1063);
-            switch (a1)
+            switch (nMessageType)
             {
             case 1:
             {
@@ -4744,13 +4744,13 @@ unsigned long __stdcall GAME_SendMessageThreadProc(D2MessageThreadArgsStrc* pArg
 }
 
 // 0x0052F740
-void __fastcall GAME_SendMessageToAllClientsAsync(int a1, int nPacketParam, const char* szMessage)
+void __fastcall GAME_SendMessageToAllClientsAsync(int nParam1, int nPacketParam, const char* szMessage)
 {
     unsigned long nThreadId;
     D2MessageThreadArgsStrc* pArgs = (D2MessageThreadArgsStrc*)FOG_AllocPool(0, sizeof(D2MessageThreadArgsStrc), ".\\GAME\\Game.cpp", 5665, 0);
     if (pArgs)
     {
-        pArgs->nParam1 = a1;
+        pArgs->nParam1 = nParam1;
         pArgs->nParam2 = nPacketParam;
         strncpy(pArgs->szMessage, szMessage, 0xFF);
         pArgs->szMessage[0xFF] = 0;

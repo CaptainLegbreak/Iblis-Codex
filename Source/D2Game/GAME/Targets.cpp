@@ -14,7 +14,7 @@ void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, in
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
 // 0x005B1880
-void __fastcall TARGETS_AllocPlayerNode(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3)
+void __fastcall TARGETS_AllocPlayerNode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nNodeData)
 {
     if (!pGame || !pUnit || pUnit->dwUnitType != UNIT_PLAYER || pUnit->dwNodeIndex != 11)
         return;
@@ -32,13 +32,13 @@ void __fastcall TARGETS_AllocPlayerNode(D2GameStrc* pGame, D2UnitStrc* pUnit, in
         return;
     memset(p, 0, sizeof(D2TargetNodeStrc));
     p->hUnit = pUnit;
-    p->nNodeData = a3;
+    p->nNodeData = nNodeData;
     *ppNode = p;
     pUnit->dwNodeIndex = i;
 }
 
 // 0x005B1900
-void __fastcall D2GAME_UpdateSummonAI(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nNodeIndex)
+void __fastcall D2GAME_UpdateSummonAI(D2GameStrc* pGame, D2UnitStrc* pUnit, int nNodeData, int nNodeIndex)
 {
     if (!pGame || !pUnit || pUnit->dwNodeIndex != 11 || nNodeIndex >= 8 || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
         return;
@@ -50,7 +50,7 @@ void __fastcall D2GAME_UpdateSummonAI(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
         return;
     memset(p, 0, sizeof(D2TargetNodeStrc));
     p->hUnit = pUnit;
-    p->nNodeData = a3;
+    p->nNodeData = nNodeData;
     p->pNext = pNode->pNext;
     p->pPrevious = pNode;
     if (pNode->pNext)
@@ -62,7 +62,7 @@ void __fastcall D2GAME_UpdateSummonAI(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
 #include "gen/data/Source/D2Game/GAME/Targets.inc"
 
 // 0x005B1990
-void __fastcall TARGETS_InsertUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nNodeIndex)
+void __fastcall TARGETS_InsertUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nNodeData, int nNodeIndex)
 {
     if (!pGame || !pUnit || pUnit->dwNodeIndex != 11 || nNodeIndex < 8 || nNodeIndex > 9 || (pUnit->dwUnitType != UNIT_PLAYER && pUnit->dwUnitType != UNIT_MONSTER))
         return;
@@ -72,7 +72,7 @@ void __fastcall TARGETS_InsertUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit, int
         return;
     memset(p, 0, sizeof(D2TargetNodeStrc));
     p->hUnit = pUnit;
-    p->nNodeData = a3;
+    p->nNodeData = nNodeData;
     pGame->pTargetNodes[nNodeIndex] = p;
     if (pNode)
     {

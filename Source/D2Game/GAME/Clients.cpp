@@ -1932,7 +1932,7 @@ static int __stdcall PLRSAVE_ReadCorpse(D2UnitStrc* pPlayer, D2GameStrc* pGame, 
 #define CLIENTFLAGEX_HAS_SAVE_CHECKSUM 0x08
 
 // 0x00538CE0
-int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int nSize, int nTotalSize, int bUnlockCharacter, int a6, int a7)
+int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int nSize, int nTotalSize, int bUnlockCharacter, int nUnused1, int nUnused2)
 {
     int nResult = 0;
 

@@ -515,7 +515,7 @@ int __fastcall SKILLS_SrvDo069_FindPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame); // 0x006260B0
 
 // 0x005D8290
-int __fastcall SKILLS_ApplyWarcryStats(D2GameStrc* pGame, D2UnitStrc* a2, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+int __fastcall SKILLS_ApplyWarcryStats(D2GameStrc* pGame, D2UnitStrc* pTarget, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
     if (!pSkillsTxtRecord)
@@ -529,7 +529,7 @@ int __fastcall SKILLS_ApplyWarcryStats(D2GameStrc* pGame, D2UnitStrc* a2, D2Unit
     }
 
     const int nExpireFrame = pGame->dwGameFrame + SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, nSkillId, nSkillLevel);
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(a2, pSkillsTxtRecord->nAuraState);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pTarget, pSkillsTxtRecord->nAuraState);
     if (!pStatList)
     {
         const int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
@@ -542,15 +542,15 @@ int __fastcall SKILLS_ApplyWarcryStats(D2GameStrc* pGame, D2UnitStrc* a2, D2Unit
 
         STATLIST_SetState(pStatList, pSkillsTxtRecord->nAuraState);
         STATLIST_SetStatRemoveCallback(pStatList, (unsigned int)SKILLS_RemoveStateAndRefreshPassives);
-        D2COMMON_10475_PostStatToStatList(a2, pStatList, 1);
-        STATES_ToggleState(a2, pSkillsTxtRecord->nAuraState, 1);
+        D2COMMON_10475_PostStatToStatList(pTarget, pStatList, 1);
+        STATES_ToggleState(pTarget, pSkillsTxtRecord->nAuraState, 1);
     }
 
-    STATES_ToggleGfxStateFlag(a2, pSkillsTxtRecord->nAuraState, 1);
+    STATES_ToggleGfxStateFlag(pTarget, pSkillsTxtRecord->nAuraState, 1);
     D2COMMON_10476(pStatList, nExpireFrame);
-    EVENT_SetEvent(pGame, a2, 12, nExpireFrame, 0, 0);
+    EVENT_SetEvent(pGame, pTarget, 12, nExpireFrame, 0, 0);
     SKILLS_ApplyAuraStatsToStatList(pUnit, pStatList, pSkillsTxtRecord, nSkillId, nSkillLevel);
-    sub_6FD14C30(a2);
+    sub_6FD14C30(pTarget);
     return 1;
 }
 

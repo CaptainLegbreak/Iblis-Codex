@@ -1441,13 +1441,13 @@ void __fastcall SUNIT_ScheduleAnimationEvents(D2GameStrc* pGame, D2UnitStrc* pUn
 }
 
 // 0x00553B10
-void __fastcall SUNIT_RewindAnimationByPercentage(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3)
+void __fastcall SUNIT_RewindAnimationByPercentage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nRewindPercentage)
 {
     D2GAME_EVENTS_Delete(pGame, pUnit, EVENTTYPE_MODECHANGE, 0);
     D2GAME_EVENTS_Delete(pGame, pUnit, EVENTTYPE_ENDANIM, 0);
 
     int nFrame = pGame->dwGameFrame;
-    const int nCalc = (100 - a3) * (nFrame - (pUnit->nSeqCurrentFramePrecise >> 8)) / 100;
+    const int nCalc = (100 - nRewindPercentage) * (nFrame - (pUnit->nSeqCurrentFramePrecise >> 8)) / 100;
     pUnit->nSeqCurrentFramePrecise = (nFrame - nCalc) << 8;
 
     int nAnimSpeed;
@@ -1514,9 +1514,9 @@ void __fastcall SUNIT_RewindAnimationByPercentage(D2GameStrc* pGame, D2UnitStrc*
 }
 
 // 0x00553C70
-void __fastcall SUNIT_RewindAnimationByFrames(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3)
+void __fastcall SUNIT_RewindAnimationByFrames(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFramesToRewind)
 {
-    if (a3 <= 0)
+    if (nFramesToRewind <= 0)
     {
         return;
     }
@@ -1525,7 +1525,7 @@ void __fastcall SUNIT_RewindAnimationByFrames(D2GameStrc* pGame, D2UnitStrc* pUn
     D2GAME_EVENTS_Delete(pGame, pUnit, EVENTTYPE_ENDANIM, 0);
 
     int nFrame = pGame->dwGameFrame;
-    const int nCalc = nFrame - (pUnit->nSeqCurrentFramePrecise >> 8) - a3;
+    const int nCalc = nFrame - (pUnit->nSeqCurrentFramePrecise >> 8) - nFramesToRewind;
     pUnit->nSeqCurrentFramePrecise = (nFrame - nCalc) << 8;
 
     int nAnimSpeed;
@@ -2853,7 +2853,7 @@ int __fastcall SUNIT_AreUnitsAligned(D2GameStrc* pGame, D2UnitStrc* pUnit1, D2Un
 }
 
 // 0x00554EA0
-int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* hUnit, D2ActiveRoomStrc* pInputRoom, int nX, int nY, int a6, int a7)
+int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* hUnit, D2ActiveRoomStrc* pInputRoom, int nX, int nY, int bSkipCollisionSearch, int bSyncOtherPlayersOnly)
 {
     D2_ASSERT(hUnit, 0xC21);
     D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(hUnit);
@@ -2878,7 +2878,7 @@ int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* hUnit, D2Active
         return 0;
     }
 
-    if (!a6)
+    if (!bSkipCollisionSearch)
     {
         pRoom = COLLISION_GetFreeCoordinates(pRoom, &tCoords, UNITS_GetUnitSizeX(hUnit), 0x1C09, 0);
     }
@@ -2901,7 +2901,7 @@ int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* hUnit, D2Active
         D2GAME_PACKETS_SendPacket0x07(pClient, DUNGEON_GetLevelIdFromRoom(pRoom), (unsigned short)tDrlgCoords.nTileXPos, (unsigned short)tDrlgCoords.nTileYPos);
 
         UNITROOM_RefreshUnit(hUnit);
-        if (a7)
+        if (bSyncOtherPlayersOnly)
         {
             hUnit->dwFlagEx |= 0x800;
         }
@@ -2931,7 +2931,7 @@ int __fastcall SUNIT_TeleportUnit(D2GameStrc* pGame, D2UnitStrc* hUnit, D2Active
     else
     {
         UNITROOM_RefreshUnit(hUnit);
-        if (a7)
+        if (bSyncOtherPlayersOnly)
         {
             hUnit->dwFlagEx |= 0x800;
         }
@@ -3111,7 +3111,7 @@ extern "C" D2ItemTypesTxt* __fastcall SUNIT_GetTableRow(int index)
 }
 
 // 0x00554570
-int __fastcall SUNIT_EventClearTeleportCoordinates(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nEventType, int a4, int a5)
+int __fastcall SUNIT_EventClearTeleportCoordinates(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nEventType, int nUnusedParam1, int nUnusedParam2)
 {
     if (!pPlayer || pPlayer->dwUnitType != UNIT_PLAYER)
     {

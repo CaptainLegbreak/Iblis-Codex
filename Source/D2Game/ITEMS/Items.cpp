@@ -2954,7 +2954,7 @@ D2UnitStrc* __fastcall ITEMS_DropGoldAtCoordinates(D2GameStrc* pGame, D2ActiveRo
 }
 
 // 0x005594C0
-D2UnitStrc* __fastcall D2GAME_DropArmor(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int a4, int a5, D2UnitStrc* pUnit)
+D2UnitStrc* __fastcall D2GAME_DropArmor(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int nItemType, int bIgnoreRarity, D2UnitStrc* pUnit)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
     int nItemLevel = DATATBLS_GetMonsterLevelInArea(nLevelId, pGame->nDifficulty, pGame->bExpansion);
@@ -2965,7 +2965,7 @@ D2UnitStrc* __fastcall D2GAME_DropArmor(D2GameStrc* pGame, D2ActiveRoomStrc* pRo
 
     D2SeedStrc* pSeed = pRoom ? &pRoom->pSeed : 0;
 
-    const int nItemId = ITEMMODE_SelectRandomArmorItemId(pGame, pSeed, nItemLevel, a4, a5);
+    const int nItemId = ITEMMODE_SelectRandomArmorItemId(pGame, pSeed, nItemLevel, nItemType, bIgnoreRarity);
     D2CoordStrc coords1;
     D2CoordStrc coords2;
     if (nItemId >= 0)
@@ -3003,7 +3003,7 @@ D2UnitStrc* __fastcall D2GAME_DropArmor(D2GameStrc* pGame, D2ActiveRoomStrc* pRo
 }
 
 // 0x00559630
-D2UnitStrc* __fastcall D2GAME_DropWeapon(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int a4, int a5, D2UnitStrc* pUnit)
+D2UnitStrc* __fastcall D2GAME_DropWeapon(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int nItemType, int bIgnoreRarity, D2UnitStrc* pUnit)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
     int nItemLevel = DATATBLS_GetMonsterLevelInArea(nLevelId, pGame->nDifficulty, pGame->bExpansion);
@@ -3017,7 +3017,7 @@ D2UnitStrc* __fastcall D2GAME_DropWeapon(D2GameStrc* pGame, D2ActiveRoomStrc* pR
     int nItemId = -1;
     for (int i = 0; i < 6; ++i)
     {
-        nItemId = ITEMMODE_SelectRandomWeaponItemId(pGame, pSeed, nItemLevel, a4, a5);
+        nItemId = ITEMMODE_SelectRandomWeaponItemId(pGame, pSeed, nItemLevel, nItemType, bIgnoreRarity);
         if (nItemId >= 0 && ITEMS_IsMetalItem(nItemId))
         {
             break;
@@ -3268,7 +3268,7 @@ D2UnitStrc* __fastcall D2GAME_CreateItemEx(D2GameStrc* pGame, D2ItemDropStrc* pI
 }
 
 // 0x00559830
-D2UnitStrc* __fastcall ITEMS_DropMiscItemAtCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int a4, int a5, D2UnitStrc* pUnit)
+D2UnitStrc* __fastcall ITEMS_DropMiscItemAtCoordinates(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, int nItemType, int bIgnoreRarity, D2UnitStrc* pUnit)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
     int nItemLevel;
@@ -3293,7 +3293,7 @@ D2UnitStrc* __fastcall ITEMS_DropMiscItemAtCoordinates(D2GameStrc* pGame, D2Acti
         bIsMonster = 1;
     }
 
-    const int nItemId = ITEMMODE_SelectRandomMiscItemId(pGame, pSeed, nItemLevel, a4, a5, bIsMonster);
+    const int nItemId = ITEMMODE_SelectRandomMiscItemId(pGame, pSeed, nItemLevel, nItemType, bIgnoreRarity, bIsMonster);
 
     D2CoordStrc coords1;
     D2CoordStrc coords2;

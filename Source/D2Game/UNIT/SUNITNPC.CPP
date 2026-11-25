@@ -1399,11 +1399,11 @@ void __fastcall SUNITNPC_HandleGoldTransaction(D2GameStrc* game,D2UnitStrc* unit
 }
 
 // 0x00576F50
-void __fastcall SUNITNPC_RemovePurchasedItemFromStore(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pItem, D2UnitStrc* pUnit, int a5)
+void __fastcall SUNITNPC_RemovePurchasedItemFromStore(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pItem, D2UnitStrc* pUnit, int nTransactionType)
 {
     int nUnused;
     D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromUnit(pGame, pNpc, &nUnused);
-    if (pNpcRecord->bGambleInit && a5 == 2)
+    if (pNpcRecord->bGambleInit && nTransactionType == 2)
     {
         D2NpcGambleStrc* pNpcGamble = pNpcRecord->pGamble;
         const int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
@@ -1683,9 +1683,9 @@ void __stdcall sub_005776E0(D2UnitStrc* pUnit)
 }
 
 // 0x00577700
-D2UnitStrc* __fastcall SUNITNPC_FindStackForStorePurchase(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int* a4)
+D2UnitStrc* __fastcall SUNITNPC_FindStackForStorePurchase(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pFreeStackCount)
 {
-    *a4 = 1;
+    *pFreeStackCount = 1;
 
     D2InventoryStrc* pInventory = pUnit->pInventory;
     if (!pInventory)
@@ -1714,7 +1714,7 @@ D2UnitStrc* __fastcall SUNITNPC_FindStackForStorePurchase(D2GameStrc* pGame, D2U
             nMaxStack = ITEMS_GetTotalMaxStack(pStackItem);
             if (nQuantity < nMaxStack)
             {
-                *a4 = nMaxStack - nQuantity;
+                *pFreeStackCount = nMaxStack - nQuantity;
                 return pStackItem;
             }
         }
@@ -1735,13 +1735,13 @@ D2UnitStrc* __fastcall SUNITNPC_FindStackForStorePurchase(D2GameStrc* pGame, D2U
             nMaxStack = ITEMS_GetTotalMaxStack(pStackItem);
             if (nQuantity < nMaxStack)
             {
-                *a4 = nMaxStack - nQuantity;
+                *pFreeStackCount = nMaxStack - nQuantity;
                 return pStackItem;
             }
         }
     }
 
-    *a4 = nMaxStack;
+    *pFreeStackCount = nMaxStack;
     return 0;
 }
 
@@ -2009,13 +2009,13 @@ void __fastcall D2GAME_NPC_ResurrectMerc(D2GameStrc* pGame, D2UnitStrc* pPlayer,
 }
 
 // 0x00577FE0
-void __fastcall D2GAME_NPC_HireMerc(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcUnitId, int a4)
+void __fastcall D2GAME_NPC_HireMerc(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcUnitId, int wName)
 {
     D2UnitStrc* pInteractUnit = SUNIT_GetInteractUnit(pGame, pPlayer);
     D2UnitStrc* pNpc = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, nNpcUnitId);
     if (pNpc && pInteractUnit == pNpc)
     {
-        SUNITNPC_HireMercenaryFromRoster(pGame, pPlayer, pNpc, a4);
+        SUNITNPC_HireMercenaryFromRoster(pGame, pPlayer, pNpc, wName);
     }
     else
     {
@@ -2399,19 +2399,19 @@ int __fastcall D2GAME_NPC_RemoveStates(D2UnitStrc* pUnit)
 }
 
 // 0x00578CA0
-void __fastcall SUNITNPC_PetIterate_Heal(D2GameStrc* pGame, D2UnitStrc* a2, D2UnitStrc* pUnit, void* a4)
+void __fastcall SUNITNPC_PetIterate_Heal(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, void* pPlaySoundArg)
 {
     const int nHitpoints = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
     const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pUnit);
     if (nHitpoints < nMaxHp)
     {
         STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, nMaxHp, 0);
-        *(unsigned char*)a4 = 1;
+        *(unsigned char*)pPlaySoundArg = 1;
     }
 
     if (D2GAME_NPC_RemoveStates(pUnit))
     {
-        *(unsigned char*)a4 = 1;
+        *(unsigned char*)pPlaySoundArg = 1;
     }
 
     D2StatListStrc* pStatListPoison = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_POISON);
@@ -2419,7 +2419,7 @@ void __fastcall SUNITNPC_PetIterate_Heal(D2GameStrc* pGame, D2UnitStrc* a2, D2Un
     {
         D2Common_10474(pUnit, pStatListPoison);
         STATLIST_FreeStatList(pStatListPoison);
-        *(unsigned char*)a4 = 1;
+        *(unsigned char*)pPlaySoundArg = 1;
     }
 
     D2StatListStrc* pStatListFreeze = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_FREEZE);
@@ -2427,7 +2427,7 @@ void __fastcall SUNITNPC_PetIterate_Heal(D2GameStrc* pGame, D2UnitStrc* a2, D2Un
     {
         D2Common_10474(pUnit, pStatListFreeze);
         STATLIST_FreeStatList(pStatListFreeze);
-        *(unsigned char*)a4 = 1;
+        *(unsigned char*)pPlaySoundArg = 1;
     }
 }
 

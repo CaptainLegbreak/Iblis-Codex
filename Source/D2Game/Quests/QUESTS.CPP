@@ -2260,9 +2260,9 @@ static inline int QUESTS_GetUnitTypeInline(D2UnitStrc* pUnit)
 }
 
 // 0x00545760
-void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char a2)
+void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char nEvent)
 {
-    pGame->pQuestControl->unk0x20 = a2;
+    pGame->pQuestControl->unk0x20 = nEvent;
     SUNIT_IterateUnitsOfType(pGame, 0, 0, QUESTS_FXIterate);
 }
 

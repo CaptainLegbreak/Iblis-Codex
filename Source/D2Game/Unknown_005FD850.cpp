@@ -308,7 +308,7 @@ struct D2InventoryStrc;
 int __fastcall SKILLITEM_FindTargetPosition(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005FD850
 
 // 0x005FDA80
-int __fastcall SKILLITEM_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int nX, int nY, int* pUnitType, int* pUnitGUID, int* pX, int* pY, int a7)
+int __fastcall SKILLITEM_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int nX, int nY, int* pUnitType, int* pUnitGUID, int* pX, int* pY, int nItemEffectParam)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
     if (!nSkillId) return 0;
@@ -340,7 +340,7 @@ int __fastcall SKILLITEM_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pU
         break;
     }
     if ((pSkillsTxtRecord->nFlags[4] & gdwBitMasks[1]) && !SKILLS_StartSkill(pGame, pUnit, nSkillId, nSkillLevel, 1)) goto restore;
-    nResult = sub_0056F7F0(pGame, pUnit, nSkillId, nSkillLevel, 0, 1, a7);
+    nResult = sub_0056F7F0(pGame, pUnit, nSkillId, nSkillLevel, 0, 1, nItemEffectParam);
 restore:
     if (pOldTarget) UNITS_SetTargetUnitForDynamicUnit(pUnit, pOldTarget);
     else D2COMMON_10170_PathSetTargetPos(pUnit->pDynamicPath, nOldX, nOldY);
@@ -350,7 +350,7 @@ restore:
 }
 
 // 0x005FDCA0
-int __fastcall SKILLITEM_CastSkillOnTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int a5)
+int __fastcall SKILLITEM_CastSkillOnTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int nItemEffectParam)
 {
     if (!pUnit || !pTargetUnit)
     {
@@ -372,7 +372,7 @@ int __fastcall SKILLITEM_CastSkillOnTarget(D2UnitStrc* pUnit, int nSkillId, int 
     int nTargetUnitGUID = -1;
     int nTargetX;
     int nTargetY;
-    if (!SKILLITEM_HandleItemEffectSkill(pGame, pUnit, nSkillId, nSkillLevel, pTargetUnit, 0, 0, &nTargetUnitType, &nTargetUnitGUID, &nTargetX, &nTargetY, a5))
+    if (!SKILLITEM_HandleItemEffectSkill(pGame, pUnit, nSkillId, nSkillLevel, pTargetUnit, 0, 0, &nTargetUnitType, &nTargetUnitGUID, &nTargetX, &nTargetY, nItemEffectParam))
     {
         return 0;
     }
@@ -390,14 +390,14 @@ int __fastcall SKILLITEM_CastSkillOnTarget(D2UnitStrc* pUnit, int nSkillId, int 
         nUnitGUID = nTargetUnitGUID;
     }
 
-    SUNITMSG_QueueItemSkillOnUnit(pUnit, nSkillId, nSkillLevel, nUnitType, nUnitGUID, a5);
+    SUNITMSG_QueueItemSkillOnUnit(pUnit, nSkillId, nSkillLevel, nUnitType, nUnitGUID, nItemEffectParam);
     return 1;
 }
 
 void __fastcall SUNITMSG_QueueItemSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, unsigned char nSkillLevel, short nX, short nY, unsigned char a6); // 0x00571840
 
 // 0x005FDD60
-int __fastcall SKILLITEM_CastSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int a6)
+int __fastcall SKILLITEM_CastSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nItemEffectParam)
 {
     if (!pUnit)
         return 0;
@@ -414,7 +414,7 @@ int __fastcall SKILLITEM_CastSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, in
     int nUnitGUID;
     int nNewX = 0;
     int nNewY = 0;
-    if (!SKILLITEM_HandleItemEffectSkill(pGame, pUnit, nSkillId, nSkillLevel, 0, nX, nY, &nUnitType, &nUnitGUID, &nNewX, &nNewY, a6))
+    if (!SKILLITEM_HandleItemEffectSkill(pGame, pUnit, nSkillId, nSkillLevel, 0, nX, nY, &nUnitType, &nUnitGUID, &nNewX, &nNewY, nItemEffectParam))
         return 0;
     int nFinalX = nNewX;
     int nFinalY;
@@ -427,7 +427,7 @@ int __fastcall SKILLITEM_CastSkillOnPosition(D2UnitStrc* pUnit, int nSkillId, in
     {
         nFinalY = nNewY;
     }
-    SUNITMSG_QueueItemSkillOnPosition(pUnit, nSkillId, nSkillLevel, nFinalX, nFinalY, a6);
+    SUNITMSG_QueueItemSkillOnPosition(pUnit, nSkillId, nSkillLevel, nFinalX, nFinalY, nItemEffectParam);
     return 1;
 }
 
