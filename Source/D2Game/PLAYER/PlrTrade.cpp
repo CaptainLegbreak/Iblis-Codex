@@ -20,6 +20,7 @@
 #include "D2LanguageNames.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi.h"
 // build: symbol _gaszLanguageNames 0x00732048
 
 struct D2ClientStrc;
@@ -68,9 +69,7 @@ D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, 
 
 void __stdcall SUNIT_SetInteractInfo(D2UnitStrc* pUnit, int nInteractUnitType, int nInteractUnitGUID); // 0x00554120
 
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
@@ -142,7 +141,6 @@ int __fastcall ACT4Q2_HasDiabloBeenKilled(D2GameStrc* pGame); // 0x005B5810
 
 void __stdcall UNITS_RefreshInventory(D2UnitStrc* pUnit, int bSetFlag); // 0x00621000
 
-D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
 int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
 
@@ -154,7 +152,6 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLay
 
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 
-void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 
@@ -168,13 +165,9 @@ void __stdcall ITEMS_SetOrRemoveFlag(int* pFlags, int nFlag, int bSet); // 0x006
 
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 
-D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 
-D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 
-D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 
-D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
 static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005665F0
 
@@ -207,7 +200,6 @@ int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
 
 void __fastcall PLRTRADE_SendEventPacketToPlayer(D2UnitStrc* pPlayer, unsigned char nType, char* szSource); // 0x00566D90
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
@@ -252,13 +244,11 @@ unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 
 unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc* pItem); // 0x006299B0
 
-int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 
 unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
 
-D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 int __stdcall FOG_GetLinkIndex(void* pLink, unsigned int dwCode, int bLogError); // 0x006BD130
 
@@ -356,9 +346,7 @@ void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
 int __fastcall ITEMMODE_RemoveStoredItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int* a4, int a5, int bSetQuantityFlag, D2InventoryStrc* pInventoryArg, int a8); // 0x00560420
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath);                                           // 0x006488C0
 
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath);                                           // 0x00648900
 
 int __fastcall ITEMMODE_DuplicateSocketFillers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pSocketable, int bRefresh);
 

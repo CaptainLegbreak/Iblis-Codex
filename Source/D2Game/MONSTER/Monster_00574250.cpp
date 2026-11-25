@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameStrc.h"
+#include "D2CommonApi.h"
 struct D2MonsterInteractStrc;
 struct D2MonsterModeDataStrc;
 
@@ -26,7 +27,6 @@ D2MonsterModeDataStrc* __fastcall MONSTERMODE_AllocParams(D2GameStrc* pGame); //
 D2MonsterInteractStrc* __fastcall MONSTERAI_AllocMonsterInteract(D2GameStrc* pGame); // 0x00572BA0
 D2MonRegDataStrc* __fastcall MONSTERREGION_GetMonsterComponentData(void* pMonReg, D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit); // 0x00547BC0
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nSpecialState); // 0x005B0E00
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 void __fastcall QUESTS_AttachLevelChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int bQuestMonster); // 0x00545CD0
 void __fastcall SUNIT_InitializeAnimation(D2UnitStrc* pUnit); // 0x005533D0
 void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode); // 0x00553570

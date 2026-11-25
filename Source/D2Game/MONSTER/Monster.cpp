@@ -9,6 +9,7 @@
 #include "D2LevelTxt.h"
 #include "D2LanguageNames.h"
 #include "D2StatIds.h"
+#include "D2CommonApi.h"
 // build: symbol _gaszLanguageNames 0x0073288C
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
@@ -21,15 +22,11 @@ void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2Mod
 
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3);       // 0x005A7C20
 
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                            // 0x006427F0
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                         // 0x0061A1B0
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit);                                                             // 0x005541B0
 
-int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit);                                                 // 0x006259B0
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 
 void __fastcall MONSTER_Free(D2GameStrc* pGame, D2UnitStrc* pMonster);                                     // 0x005736A0
 
@@ -281,7 +278,6 @@ D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* pUnit); // 0x00552D
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
 
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
-void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit); // 0x00620C10
 
 #define EVENTTYPE_AITHINK 2
 #define EVENTTYPE_STATREGEN 3
@@ -414,7 +410,6 @@ extern const int gnExperienceBonusTable[9]; // 0x006E15B4
 
 int __fastcall PLAYER_GetPlayerCount(D2GameStrc* pGame);                                                    // 0x00535790
 
-D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty);                    // 0x00611D30
 
 #define UNIT_MONSTER 1
 
@@ -562,7 +557,6 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, in
 
 D2UnitStrc* __fastcall D2GAME_CreateItemUnit_6FC501A0(D2UnitStrc* pPlayer, int nItemId, D2GameStrc* pGame, int nSpawnTarget, int nQuality, int bNoSockets, int bNoEthereal, int nItemLevel, int bUseSeed, int dwSeed, int dwItemSeed); // 0x00559CE0
 
-void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 
 void __stdcall ITEMS_SetBodyLocation(D2UnitStrc* pItem, unsigned char nBodyLoc); // 0x00627D70
 

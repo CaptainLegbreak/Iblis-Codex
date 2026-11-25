@@ -7,6 +7,7 @@
 #include "D2ClientTypes.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi.h"
 struct D2UnitStrc;
 
 #define UNIT_PLAYER 0
@@ -54,7 +55,6 @@ extern "C" D2GfxLayerHeaderStrc* __fastcall GFXUTIL_identity(void* pGfx); // 0x0
 int __fastcall GFXUTIL_InitMonsterCelContext(D2CelContextStrc* pContext, int nA, int nB, unsigned char nLayer, int nMode, unsigned int dwCode, D2HashedFileEntryStrc* pEntry, D2MonCofInfoStrc* pInfo, D2MonStatsTxt* pMonStats, int nIndex); // 0x004DBCF0
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
-D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* pUnit, char* szPath, int* pWeaponClassCode, int bAddPathPrefix, int a5, D2InventoryStrc* pInventory, int nAnimMode); // 0x0064FA00
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190

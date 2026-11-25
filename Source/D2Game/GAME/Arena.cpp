@@ -6,6 +6,7 @@
 #include "D2GameClient.h"
 #include "D2LanguageNames.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 // build: symbol _gaszLanguageNames 0x007313D0
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -34,7 +35,6 @@ void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, in
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
 
-D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
@@ -181,7 +181,6 @@ struct D2ArenaTxt
     int dwScores[7];
 };
 
-void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
 

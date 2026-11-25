@@ -18,6 +18,7 @@
 #include "D2UnitData.h"
 #include "D2LevelTxt.h"
 #include "D2TxtItems.h"
+#include "D2CommonApi.h"
 struct D2UnitStrc;
 
 
@@ -34,12 +35,7 @@ void __fastcall SKILLS_ScaleFramePrecise(D2UnitStrc* pUnit, int nPercent);      
 int __fastcall SKILLS_GetExtendedMeleeRange(D2UnitStrc* pUnit);                                          // 0x004C7BD0
 int __fastcall UNITSND_GetDirectionRate(D2UnitStrc* pUnit, unsigned int nDirection); // 0x004CA4C0
 int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId);                                                   // 0x004EFC20
-D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit);                                               // 0x00620250
-int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus);               // 0x00622C40
 int __fastcall UNITS_GetHitClass(D2UnitStrc* pUnit);                                                        // 0x00623C20
-int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine);               // 0x00643CE0
-void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue);                                           // 0x00644560
-void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue);                                           // 0x006445A0
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue);                                           // 0x006445E0
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int bSetBothDirections);                            // 0x00649EF0
 
@@ -55,13 +51,11 @@ static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 
 D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
-int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
-void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 
 static D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInline_J03(int nMonsterId)
 {

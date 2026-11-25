@@ -9,6 +9,7 @@
 #include "D2Structs.h"
 #include "D2PlayerModes.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #pragma intrinsic(memcpy)
 
@@ -1375,9 +1376,7 @@ void __fastcall MSG_SendWord(unsigned char nCmd, unsigned short nArg); // 0x0047
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 
-int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 void __fastcall GAME_SetRunKeyHeld(int nValue); // 0x0044BE60
 

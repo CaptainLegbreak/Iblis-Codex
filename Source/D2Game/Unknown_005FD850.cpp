@@ -22,6 +22,7 @@
 #include "D2ItemModes.h"
 #include "D2Records.h"
 #include "D2GameAux.h"
+#include "D2CommonApi.h"
 
 struct D2ItemsTxt;
 
@@ -63,15 +64,12 @@ enum D2C_Z09ItemConstants
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 
 int __fastcall SKILLITEM_CastSkillOnTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int a5); // 0x005FDCA0
 
-int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
 
-int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 
 enum D2C_Y09SkillConstants
 {
@@ -86,11 +84,8 @@ int __fastcall sub_0056F7F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 typedef void (__fastcall* RemoveCallback)(D2UnitStrc*,int,D2StatListStrc*);
 
@@ -154,7 +149,6 @@ struct D2StaticPathStrc;
 
 D2UnitStrc* __fastcall SKILLS_FindCorpseNearTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel); // 0x0056E390
 
-void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit); // 0x00620C10
 
 D2UnitStrc* __fastcall SUNIT_GetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553010
 

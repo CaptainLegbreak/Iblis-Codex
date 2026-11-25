@@ -1,6 +1,7 @@
 #include "D2StatIds.h"
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2CommonApi.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
@@ -20,8 +21,6 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLaye
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
 void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, short nPartyId, PARTYCALLBACK pfCallback, void* pArg); // 0x00540510
 void __fastcall PARTYSCREEN_PartyIterate_OpenHostility(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);                             // 0x005A5D50
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
 void __fastcall PLAYERLIST_AllocPlayerList(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2);  // 0x0055B140
 int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags); // 0x0055B300
 void __fastcall PLAYERLIST_BroadcastFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2);                // 0x0055B4C0

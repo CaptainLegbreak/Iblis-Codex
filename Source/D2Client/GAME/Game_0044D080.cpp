@@ -10,6 +10,7 @@
 #include "D2WinSplitText.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi.h"
 
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
@@ -319,7 +320,6 @@ void __stdcall ENVIRONMENT_GetLightColorFromAct(void* pAct, unsigned char* pRed,
 
 void __stdcall D2GFX_SetAmbientColor(int nRed, int nGreen, int nBlue); // 0x004F6430
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 void __cdecl AUTOMAP_UpdateAutomapOrigin(); // 0x0045B440
 

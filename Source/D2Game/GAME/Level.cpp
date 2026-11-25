@@ -10,6 +10,7 @@
 #include "D2DrlgDelete.h"
 #include "D2LanguageNames.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 // build: symbol _gaszLanguageNames 0x0073131C
 struct D2DrlgActStrc;
 
@@ -32,8 +33,6 @@ void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUn
 void __fastcall PLAYER_ClearTargetIfMatch(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00534AB0
 void __fastcall MONSTER_ClearTargetIfMatches(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00573750
 
-void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc*, D2DrlgCoordsStrc*); // 0x00619730
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc*); // 0x0061A1B0
 void __fastcall D2GAME_PACKETS_SendPacket0x07_6FC3D120(D2ClientStrc*, int, int, int); // 0x0053BC50
 void __stdcall DUNGEON_AddClientToRoom(D2ActiveRoomStrc*, D2ClientStrc*); // 0x0061A660
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc*, int); // 0x00537860
@@ -49,20 +48,17 @@ int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char nAct); // 0x0061AB70
 D2DrlgActStrc* __stdcall DUNGEON_AllocAct(unsigned char nAct, unsigned int nInitSeed, int bClient, D2GameStrc* pGame, unsigned char nDifficulty, void* pMemPool, int nTownLevelId, AUTOMAPFN pfAutoMap, TOWNAUTOMAPFN pfTownAutoMap); // 0x006194A0
 void __fastcall ACT2Q3_ApplyPendingDarkness(D2GameStrc* pGame, unsigned char nAct); // 0x0059AC40
 
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 void __fastcall CLIENTS_SetClientState(D2ClientStrc* pClient, int nClientState); // 0x005386D0
 void __fastcall D2GAME_KillPlayerPets(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00575BC0
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* pAct, int nLevelId, int a3, int* pX, int* pY, int nUnitSize); // 0x0061B060
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, int nUnitSize, unsigned int nMask, int nFieldSize); // 0x0064E7E0
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall D2Common_10229(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, unsigned int nX, unsigned int nY); // 0x00650BE0
 void __fastcall SUNIT_SynchronizeRoomClients(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x00554670
 void __fastcall CLIENTS_SetRoomInClient(D2ClientStrc* pClient, D2ActiveRoomStrc* pRoom); // 0x005381F0
 void __fastcall D2GAME_PACKETS_SendHeaderOnlyPacket(D2ClientStrc* pClient, unsigned char nHeader); // 0x0053B320
 void __fastcall CLIENTS_SetActNo(D2ClientStrc* pClient, unsigned char nAct); // 0x005382E0
 void __fastcall LEVEL_SynchronizeDayNightCycleWithClient(D2GameStrc* pGame, D2ClientStrc* pClient); // 0x0053ABE0
-void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 void __fastcall PLAYERPETS_UpdatePetsForOwnerMove(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x005754B0

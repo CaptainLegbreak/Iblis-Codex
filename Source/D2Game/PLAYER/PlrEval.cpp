@@ -12,6 +12,7 @@
 #include "D2Primitives.h"
 #include "D2LevelTxt.h"
 #include "D2Packets.h"
+#include "D2CommonApi.h"
 #define MONTYPEFLAG_UNIQUE 8
 #define EVENTTYPE_REMOVESTATE 0x0C
 
@@ -27,23 +28,18 @@ struct D2GSPacketSrvAA;
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
-int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
 int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMonster); // 0x0063E9F0
-D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
-D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame); // 0x006260B0
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, StatListRemoveCallback pfStatRemove); // 0x00625CE0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
-void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 void __fastcall SKILLS_RemoveStateAndRefreshPassives(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 void __fastcall SKILLS_ApplyAuraStatsToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel); // 0x005C6CC0
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
@@ -61,8 +57,6 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
 unsigned int __stdcall DATATBLS_GetCurrentLevelFromExp(int nClass, unsigned int dwExperience); // 0x00611860
 unsigned int __stdcall DATATBLS_GetLevelThreshold(int nClass, unsigned int dwLevel); // 0x00611800
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, int); // 0x00627260
-void __stdcall STATLIST_AddUnitStat(D2UnitStrc*, int, int, int); // 0x006272B0
-int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc*); // 0x00625D10
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc*); // 0x00625D60
 int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc*); // 0x00625DB0
 void __fastcall sub_00536850_UpdateLevel(D2GameStrc*,D2UnitStrc*,int); // 0x00536850
@@ -70,7 +64,6 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc*,int,D2UnitStrc*); // 0x00553380
 void __fastcall D2GAME_UpdatePlayerVitals(D2GameStrc*,D2UnitStrc*); // 0x0055F500
 void __fastcall D2GAME_UpdatePlayerItems_6FC4BB90(D2GameStrc*,D2UnitStrc*,int); // 0x0055FDE0
 int __stdcall UNITS_GetPlayerName(D2UnitStrc*,int,int); // 0x00622150
-void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 static void sub_00570A50_SpendStatPointsOnStrength(D2UnitStrc* pUnit, int nValue);
 static void sub_00570B30_SpendStatPointsOnDexterity(D2UnitStrc* pUnit, int nValue);
 

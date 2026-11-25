@@ -5,6 +5,7 @@
 #include "D2UnitData.h"
 #include "D2LanguageNames.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 // build: symbol _gaszLanguageNames 0x00731F74
 
 struct D2PlayerListStrc;
@@ -13,9 +14,7 @@ struct D2PlayerDataStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
-int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 

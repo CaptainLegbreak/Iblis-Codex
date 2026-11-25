@@ -18,6 +18,7 @@
 #include "D2MsgRecord.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -203,9 +204,7 @@ void __fastcall SPELLSEL_DrawSkillQuantity(short* pId, int nState, int nQuantity
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 int __stdcall WAYPOINTS_GetLevelIdFromWaypointNo(unsigned short wWaypointNo, int* pLevelId); // 0x00660D90
 
@@ -213,11 +212,9 @@ int __stdcall WAYPOINTS_GetWaypointNoFromLevelId(int nLevelId, unsigned short* p
 
 int __stdcall WAYPOINTS_IsActivated(D2WaypointDataStrc* pData, unsigned short wField); // 0x00660E50
 
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecordFromSkill(D2SkillStrc* pSkill); // 0x00644140
 
-int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 

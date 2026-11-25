@@ -4,6 +4,7 @@
 #include "D2StormTypes.h"
 #include "D2ClientParty.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 struct D2StoredUnitRecordStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -35,8 +36,6 @@ int __fastcall ROSTER_AllowsPlayerLoot(D2StoredUnitRecordStrc* pEntry); // 0x004
 int __fastcall ROSTER_IsMaleClass(D2StoredUnitRecordStrc* pEntry); // 0x0047A670
 int __cdecl WINMAIN_IsHardcore(); // 0x0044B850
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 int __fastcall ROSTER_GetLevel(D2StoredUnitRecordStrc* pEntry); // 0x00479B90
 int __fastcall ROSTER_TestHostileFlag(D2StoredUnitRecordStrc* pEntry); // 0x00479CE0
 int __fastcall ROSTER_TestLootFlag(D2StoredUnitRecordStrc* pEntry); // 0x00479C20

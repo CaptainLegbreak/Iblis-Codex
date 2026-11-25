@@ -6,6 +6,7 @@
 #include "D2ClientUi.h"
 #include "D2StormTypes.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 struct D2StoredUnitRecordStrc;
 
@@ -150,9 +151,7 @@ unsigned int __fastcall GFXUTIL_TestRelationFlags(int nUnitId1, int nUnitId2, un
 
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 
 void* gpPartyBoxesCel; // 0x007BF020
 

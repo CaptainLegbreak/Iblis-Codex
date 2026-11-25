@@ -19,6 +19,7 @@
 #include "D2Txt.h"
 #include "D2QuestLookupEntry.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -211,7 +212,6 @@ void __fastcall ITEM_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsig
 
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
-void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
@@ -219,7 +219,6 @@ int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 
-int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
@@ -231,7 +230,6 @@ unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487
 
 void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x00648820
 
-void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 
@@ -373,7 +371,6 @@ struct D2QuestLookupEntryStrc;
 
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 
-void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 
 int __fastcall SEED_GetRandomValue(int nValue); // 0x00650DE0
 
@@ -457,9 +454,7 @@ int __cdecl sub_0044DB00();                                                     
 
 void __cdecl WALL2_UpdateRoomColor();                                                                 // 0x004DED20
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                           // 0x0061A1B0
 
 void __cdecl VIEW_DrawStarfield();                                                                   // 0x00476290
 
@@ -559,9 +554,7 @@ extern LEVELEVENT_Fn gpfnLevelEvents[];                                         
 
 unsigned int gdwLevelEventBits;                                                                    // 0x007A7458
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
 

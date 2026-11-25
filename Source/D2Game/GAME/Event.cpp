@@ -4,6 +4,7 @@
 #include "D2EventTimer.h"
 #include "D2Structs.h"
 #include "D2LanguageNames.h"
+#include "D2CommonApi.h"
 // build: symbol _gaszLanguageNames 0x00731448
 
 #define EVENTROW_PLAYER 0
@@ -82,7 +83,6 @@ void __fastcall FOG_FreePool(void*,void*,const char*,int,int); // 0x0040B480
 
 static void __stdcall EVENT_InsertInfiniteTimer(EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType);
 
-int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 static void __stdcall EVENT_ScheduleTimer(D2UnitStrc* pUnit, EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, int nEventType, int nExpireFrame);
 

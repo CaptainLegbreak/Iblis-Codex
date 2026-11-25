@@ -14,6 +14,7 @@
 #include "D2ClientParty.h"
 #include "D2ClientTextPanel.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
 
 struct D2ActiveRoomStrc;
 
@@ -69,9 +70,7 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 
-int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 D2OrbSmoothStrc gaOrbSmooth[3]; // 0x007BEF30
 
@@ -140,17 +139,14 @@ extern int gbSkillTabPressed; // 0x007C0C38
 
 int __cdecl ROSTER_IsAnyoneHostile(); // 0x0047A560
 
-D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 
-int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
 
 D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
 extern "C" int gnScreenWidth; // 0x0071146C
 
@@ -172,7 +168,6 @@ void __stdcall DATATBLS_GetBeltsTxtRecord(int nIndex, int nRow, D2UiRecordStrc* 
 
 void __stdcall DATATBLS_GetInvRectFromBeltsTxt(int nIndex, int bHigherRes, D2UiRectStrc* pInvRect, int nBoxId); // 0x00660D10
 
-D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBeltSlot(D2InventoryStrc* pInventory, int nSlotId); // 0x0063C7F0
 
@@ -208,7 +203,6 @@ int __fastcall UI_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 
 void __stdcall sub_0065C1F0(int nId, int nGroup, D2Block1* pBlock); // 0x0065C1F0
 
-D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 void __fastcall sub_0049FF90_Close(D2UnitStrc* pItem, D2ItemsTxt* pState); // 0x0049FF90
 
@@ -301,9 +295,7 @@ unsigned char gnTextColorA; // 0x007BEFBB
 
 unsigned char gnTextColorB; // 0x007BEFE4
 
-int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 
-int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 
 void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643BC0
 
@@ -329,7 +321,6 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 
 int __stdcall ITEMS_CheckIfUseable(D2UnitStrc* pItem);                                                              // 0x00628C20
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 
 extern D2CelFileStrc* gpCellFile_007BEF10;                                                                  // 0x007BEF10
 
@@ -422,11 +413,8 @@ int __stdcall ITEMS_IsMagSetRarUniCrfOrTmp(D2UnitStrc* pItem); // 0x0062A0F0
 
 int __stdcall ITEMS_GetAmmoType(D2UnitStrc* pItem); // 0x0062E6F0
 
-D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 
-D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 
-D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 

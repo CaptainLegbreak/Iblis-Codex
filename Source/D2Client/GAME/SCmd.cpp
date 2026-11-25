@@ -21,6 +21,7 @@
 #include "D2Win32Message.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi.h"
 
 struct D2ActiveRoomStrc;
 
@@ -496,11 +497,8 @@ unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits
 
 D2ActiveRoomStrc* __cdecl CUNIT_GetPlayerRoom(); // 0x004646A0
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 void __cdecl sub_00477DA0(); // 0x00477DA0
 
@@ -845,13 +843,10 @@ void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 
 void __fastcall ITEM_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp); // 0x004C0EC0
 
-D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 
-D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 
 int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem); // 0x0063E020
 
-D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
 void __stdcall INVENTORY_UpdateWeaponGUIDOnRemoval(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D2B0
 
@@ -990,7 +985,6 @@ void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLev
 
 extern "C" void __cdecl INV_ClearSkillPointsHighlight(); // 0x004AA8F0
 
-D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 
 void __stdcall SKILLS_SetQuantity(D2SkillStrc* pSkill, int nQuantity); // 0x00645120
 
@@ -1847,9 +1841,7 @@ void __stdcall DUNGEON_IncreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x
 
 void __stdcall DUNGEON_DecreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619F20
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x00643260
 
@@ -2060,7 +2052,6 @@ D2UnitStrc* __fastcall CUNIT_AddClientMonster(D2UnitSpawnStrc*, unsigned char*, 
 
 void __fastcall PALSHIFT_LoadPalShift(int); // 0x00477170
 
-D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 
 void __stdcall STATLIST_SetState(D2StatListStrc*, int); // 0x006252D0
 
@@ -2068,7 +2059,6 @@ D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateAndFlag(D2UnitStrc*, 
 
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc*, D2StatListStrc*, int); // 0x00626E10
 
-void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc*, int, int, int); // 0x00627150
 
 int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc*); // 0x0063EE90
 
@@ -2077,7 +2067,6 @@ int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc*); // 0x0063EE90
 
 void __fastcall AUTOMAP_RefreshItemStats(D2UnitStrc* pUnit);                                                            // 0x0045D3E0
 
-void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x006272B0
 
 static void SCMD_RefreshUnitItems(D2UnitStrc* pUnit); // 0x0045D3B0
 
