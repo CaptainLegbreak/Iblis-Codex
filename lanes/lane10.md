@@ -5,6 +5,7 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Ready
+- lane10/sweep-d2game-3 2b1eff2ab: the call-site sweep for D2Game, 25 old sub_<VA> spellings take their names.csv names in every file (24 files), on #384. Ones that break a unit are left out (mostly the prototype mismatches already on sweep-excluded.txt), and so are four Game.cpp functions (0x0052C170, 0x0052D720, 0x0052DF40, 0x0052F6E0) whose private declarations disagree with D2Game.h. VERIFIED 77c6a9c7, Game.exe matches. **lane10/sweep-d2game-2 is broken, don't take it**: it renamed Game.cpp's gen include path (Game_0052D720.static), and my push step didn't stop on the failed verify. The push now needs a VERIFIED line.
 - Rebased onto #384 as the board asked (full verify each, Game.exe matches):
   - lane10/names-strip6f-r 2dfbfe575 (328 renames) replaces names-strip6f. VERIFIED 3020d105.
   - lane10/names-prefixfix-d2client-8 c014d2c6e (155; 0x004AA8F0 still left out) replaces names-prefixfix-d2client-7, with the UnitMode.cpp renames where #383 moved them. VERIFIED 9a6c844c.
