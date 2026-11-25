@@ -3196,8 +3196,8 @@
    "state": "included"
   },
   "Source/D2Common/DATATBLS/LvlTbls.cpp": {
-   "bytes": 1000,
-   "definitions": 26,
+   "bytes": 1002,
+   "definitions": 27,
    "externs": [
     "extern \"C\" char gData_0096C8C8[]; // 0x0096C8C8"
    ],
@@ -3207,8 +3207,8 @@
    "state": "included"
   },
   "Source/D2Common/UNITS/Units.cpp": {
-   "bytes": 1620,
-   "definitions": 10,
+   "bytes": 1622,
+   "definitions": 11,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Common/UNITS/Units.inc",
@@ -4950,6 +4950,40 @@
   }
  },
  "definitions": [
+  {
+   "alias": false,
+   "cname": "gData_006E8E22",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/UNITS/Units.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" const struct d2data_006E8E22_t gData_006E8E22; // 0x006E8E22",
+   "head": "extern \"C\" const struct d2data_006E8E22_t gData_006E8E22 = ",
+   "name": "gData_006E8E22",
+   "pointers": [],
+   "region": "rdata",
+   "size": 2,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006E8E22_t\n{\n    unsigned char b0[2];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x006E8E22",
+   "va": "0x006E8E22"
+  },
+  {
+   "alias": false,
+   "cname": "gData_006E867A",
+   "declared": false,
+   "decorated": null,
+   "file": "Source/D2Common/DATATBLS/LvlTbls.cpp",
+   "form": "bytes",
+   "fwd": "extern \"C\" const struct d2data_006E867A_t gData_006E867A; // 0x006E867A",
+   "head": "extern \"C\" const struct d2data_006E867A_t gData_006E867A = ",
+   "name": "gData_006E867A",
+   "pointers": [],
+   "region": "rdata",
+   "size": 2,
+   "struct": "#pragma pack(push, 1)\nstruct d2data_006E867A_t\n{\n    unsigned char b0[2];\n};\n#pragma pack(pop)",
+   "tail": "; // 0x006E867A",
+   "va": "0x006E867A"
+  },
   {
    "alias": false,
    "cname": "gData_006F1500",
