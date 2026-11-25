@@ -113,6 +113,12 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   (glSprite.cpp). **Still needed** (the unit differs without it): gdiCore.cpp's sub_006C8310_EmitCelClip,
   glSprite.cpp's sub_M120_Emit_0050A1E0, d3dTextureCache/d3dSubtileCache's EmitCaller, and the D2Glide cache
   helpers in glTextureCache.cpp and glSubtileCache.cpp/glFloorCache.cpp.
+- lane9/audit-fields-renderers d8d06bf2, on main 7a9094d8 (#386), precheck 0 not all equal, auditguard no count rose;
+  full verify VERIFIED, borrowed data 261 B (= main). Window.cpp: the tile block takes D2GlideTileStrc's layout, the
+  light palettes drop their unk0x00 alias for colors, D2DevModeStrc spells out DEVMODEA's fields (42 unk0x/f_ uses
+  gone); d3dCore's surface lpVtbl, d3dTextureCache's tLink, DDraw clip result's nFirstRow. Left: fields with no
+  evidence in the code (d3dSprite's pool entry words, d3dFloorCache's f_8, the Glide debug vertex's 0x18 float,
+  which the vertex layout doesn't use, D2Hell's record word, D2Glide.h's debug cell bytes).
 - **Handover, initializer slots outside lane 9** (lane 9 stops here; these are the owners'):
   - 0x6CAC10 gnTextLeft = (gnScreenWidth - 325) / 2 (bss 0x7BF278, slot between inv's and QuestLog's): lane 1. In
     UI/text_0049A950.cpp it builds equal but raises borrowed data by 4 B, so that's probably not its object; the
