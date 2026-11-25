@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/storm-array-strays-2 a5f6ad19 213->211 (lane3/storm-array-strays 692b2645 was on #391; -2 is its rebase onto #393, no conflicts) Unknown_00421100.cpp (0x421100) and Unknown_004212C0.cpp (0x4212C0) each held one function inside the run Unknown_00421110.cpp holds (0x420FD0-0x421F60, the big-number object's array members): 0x421100 sits between TSGrowableArray<unsigned int>::RoundUp and TSFixedArray<unsigned int>::ReallocData, 0x4212C0 right after TSCD<unsigned int>::Destruct. Both move into that file unchanged, names kept, and the two placeholders go. VERIFIED a5f6ad19 on base #393 (c349b2cc); borrowed code 11,250 B in 8 functions, borrowed data 261 B (main the same); namesync had nothing to rename.
+(none: storm-array-strays-2 merged in #395)
 
 ## Claimed
 
