@@ -4,6 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
+- lane5/a1q7 1e9709eda 2 placeholders fewer (Unknown_00596C40.cpp, Unknown_0058E990.cpp); the Act 1 quest 7 pieces 0x596BB0/0x596BC0/0x596C40 (between a1q6.cpp and a1q4.cpp's second run; ACT1Q7_ActiveFilterCallback was filed in a2q3.cpp) become one file, Unknown_00596BB0.cpp; the act 5 intro's second run (0x58E990 ScrollMessage, 0x58EA50 InitQuestCallbacks reading gaAct5IntroNpcMessages, after a5q6.cpp) joins the intro's file Unknown_00586B50.cpp, as the a2q2-a2q4 second runs sit in their quest files. VERIFIED 22567f3d8436bec737c840f084d226ff4bc747e0, borrowed data 844 B (= main #372). Based on main 70376fda9 (#372), not stacked; docs/index.html left as main's.
 - lane5/spawn-objmode 9dc139bed 1 placeholder fewer (Unknown_00581250.cpp); two commits: (1) SKILLS_GetMonsterClassFromChain (0x54DA60) leaves Objects.cpp for the monster-spawn object Unknown_0054DAC0.cpp: it sits between PlrMsg.cpp's last function and 0x54DAC0, Objects.cpp starts at 0x54F0D0, and the data runs PlrMsg.cpp, Unknown_0054DAC0.cpp (copy 0x731AF0), Objects.cpp (copy 0x731B40); its caller 0x54E600 is the spawner; (2) ObjMode.cpp takes 0x581250 and 0x581410, reached only through its own gpfnObjectEventFunctions and right before its run, with no copy between PlrModes.cpp's data and ObjMode.cpp's. VERIFIED 463972f6d7f52e42120a52a489ba3018a718dbd1, borrowed data 844 B (= main #371). Based on main 6af4454b9 (#371), not stacked; docs/index.html left as main's.
 
 ## Claimed
