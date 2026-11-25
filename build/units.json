@@ -8319,6 +8319,11 @@
      "length": 453
     },
     {
+     "va": "0x0042B9D0",
+     "length": 1,
+     "name": "?sub_0042B9D0_Nop@@YAXXZ"
+    },
+    {
      "va": "0x006CA900",
      "length": 24
     },
@@ -8334,30 +8339,6 @@
      "va": "0x006CB380",
      "length": 81
     }
-   ]
-  },
-  {
-   "file": "Source/Storm/Unknown_00426900.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0042B9D0",
-     "length": 1,
-     "name": "?sub_0042B9D0_Nop@@YAXXZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd"
    ]
   },
   {
