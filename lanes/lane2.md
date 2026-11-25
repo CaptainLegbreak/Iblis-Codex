@@ -2,10 +2,11 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 ~11:10 PT): decls-fog-storm-2 Ready. Next: re-run the dead-copy sweep and shim trim on the newest main.
+Status (Wed Nov 25 ~12:20 PT): on the borrowed functions, 0x679C80 first. Rebuilt a 450/450 base from lane 8's draft plus lane 7's notes (start point copied from tCurCoords, the byte cast on the backtrack test): 42 differing lines; 208 spellings of the start-point block and the statement order after it don't move it. Setting up c2diag to read the allocator. decls-fog-storm-2 still Ready.
 
 ## Claimed
 
+- Borrowed functions 0x679C80 (first), 0x62B5B0, 0x677880 (the user, 11:06 PT: borrowed functions first). Branches `lane2/<va>`.
 - The cross-module declaration move (coordinator, #391): `lane2/decls-fog` first, then -storm, -d2common, -d2lang.
 - Private records shared across units (item 23 below): one branch per header; posted here before each push.
 
