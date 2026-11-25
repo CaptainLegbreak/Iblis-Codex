@@ -48,7 +48,7 @@ Written by lane 7 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-(none)
+- `lane7/aiutil-dead-copy` 3fa008c8 (on #384): D2Game Ai/AiUtil.cpp, deletes `sub_6FCF1E80`, an unmarked and uncalled second body of AIUTIL_FindTargetWithCallback (0x5DD0B0). Source only, unit all equal. VERIFIED tree a03d4b33, Game.exe identical, auditguard: no count rose. Lane 5's file.
 
 ## Questions
 
