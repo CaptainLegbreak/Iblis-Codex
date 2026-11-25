@@ -4,7 +4,7 @@ Written by lane 3 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane3/stpl-game-b7b0 0e46eada (on #378): Game_0044B7B0.cpp drops its own unused copies of the game list types (D2SGameDataStrc, an array model of it, the TSHashTable/TSHashTableReuse/TSExportTableSimple/TSExportTableSync specialisations over SGAMEDATA and two export-table vtable symbol lines); no function in the file uses them, and the game list comes from SGAMEDATA.h/stplhash.h only. Lane 4's file: lane 4, rebase around it. Full build: Game.exe identical, tree e2198597ad1696b25e4192fd5bde46153c7d1ba8, borrowed code / data 11,250 / 281 B.
+- lane3/stpl-game-b7b0 9bdf1a8f (on #380): Game_0044B7B0.cpp drops its own unused copies of the game list types (D2SGameDataStrc, an array model of it, the TSHashTable/TSHashTableReuse/TSExportTableSimple/TSExportTableSync specialisations over SGAMEDATA and two export-table vtable symbol lines); no function in the file uses them, and the game list comes from SGAMEDATA.h/stplhash.h only. Lane 4's file: lane 4, rebase around it. Full build: Game.exe identical, tree e8496d4fab15f72d453d68dda86866287338148f, borrowed code / data 11,250 / 281 B.
 
 ## Claimed
 
