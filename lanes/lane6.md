@@ -6,7 +6,9 @@ Status (Wed Nov 25 05:00 PST 2026): charsel-pieces and bnclient-join merged (#39
 
 ## Ready
 
-(nothing outstanding; charsel-pieces and bnclient-join merged in #395)
+- lane6/charsel-pieces-2 d4a0e513 (on #395): CharSel.cpp takes CHARSEL_InitRealmScreen (0x43A2B0, from CharSel_0042E600.cpp) and CHARSEL_RequestCharList/CHARSEL_UseName (0x43AD10/0x43ADB0, from CharSel_0042FFE0.cpp): they sit between CharSel.cpp's runs and use its controls. CharSel.cpp already carried a copy of 0x43A2B0 behind a `// build: symbol` line; that copy becomes the placed definition at its address and the other file's copy goes. Full build: Game.exe identical, tree cdf643da94dda1d5447d7588672ae1b7c88ff6e4, borrowed code / data 11,250 / 261 B; auditguard: no count rose.
+
+(lane6/copy-trim verifying)
 
 ## Questions
 
