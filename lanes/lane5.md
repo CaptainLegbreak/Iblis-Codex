@@ -4,7 +4,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Ready
 
-- lane5/audit-fields-d2game-4 5dce7164a (on #402): fields named from their use in D2Game's save, AI-callback and timer records: D2PlrIntroSaveStrc (PlrSave.cpp, PlrSave2.cpp) +0x04/+0x1C nQuestIntroFlags/nNpcIntroFlags (PLRINTRO's quest/NPC intro flag copies); AiUtil.cpp's callback 7/11 records +0x08 pExcludedUnit (the unit they skip), the party record +0x0C pCallbackArg, the target search +0x10 nAreaTile (compared with D2Common_10095's area tile; the caller's local too); Objects.cpp D2TimerArgStrc +0x00 pGUIDList (the list OBJECTS_FreeTimerArg walks), and D2TimerArg2Strc's unused alias of nUnitGUID goes. auditguard: nothing rose. Full build: Game.exe identical, tree e1d4bd96d12789588a869b3c7dff52b78e7b1aae, borrowed code / data 10,018 B / 261 B.
+- lane5/audit-fields-d2game-4 5dce7164a (on #402; applies on #403): fields named from their use in D2Game's save, AI-callback and timer records: D2PlrIntroSaveStrc (PlrSave.cpp, PlrSave2.cpp) +0x04/+0x1C nQuestIntroFlags/nNpcIntroFlags (PLRINTRO's quest/NPC intro flag copies); AiUtil.cpp's callback 7/11 records +0x08 pExcludedUnit (the unit they skip), the party record +0x0C pCallbackArg, the target search +0x10 nAreaTile (compared with D2Common_10095's area tile; the caller's local too); Objects.cpp D2TimerArgStrc +0x00 pGUIDList (the list OBJECTS_FreeTimerArg walks), and D2TimerArg2Strc's unused alias of nUnitGUID goes. auditguard: nothing rose. Full build: Game.exe identical, tree e1d4bd96d12789588a869b3c7dff52b78e7b1aae, borrowed code / data 10,018 B / 261 B.
 
 ## Claimed
 
@@ -45,6 +45,7 @@ Written by lane 5 only. Newest entries at the top of each section; delete what i
 
 ## Left in place (and why)
 
+- D2Game placeholders and file names: none of the 29 D2Game placeholders passes a source path (D2_ASSERT here pushes only a line and takes the file from 0x408090 at run time), so assert paths can't name them. Assert line order agrees with the current split where it can be checked: Unknown_005EFB80.cpp's 0x5F8010 asserts line 5117, below AiThink4.cpp's 5890 at 0x5EF210, so it is not AiThink4.cpp's tail.
 - D2Game's tail 0x5FD350-0x5FDE05 (before D2CMP's CelCmp.cpp at 0x5FDE10): Unknown_005FD850.cpp's six functions (0x5FD850-0x5FDD60) are a closed call group (0x5FDA80 calls 0x5FD850/0x5FD9C0/0x5FDA10; 0x5FDCA0 and 0x5FDD60 call 0x5FDA80) and already sit in one placeholder; their SKILLITEM_ names are d2moo/inferred, which doesn't name a file, so it stays a placeholder. Before it, 0x5FD350 MONSTERSPAWN_CanSpawnAtSpawnerExit (filed in SkillItem.cpp), Unknown_005FD470.cpp and 0x5FD7B0 MONSTERSPAWN_GetResurrectMode (filed in AiUtil.cpp) are called from several files each (0x5B2D90, 0x5E0322, 0x5E62BC; 0x5CCC05; 0x5E0B99, 0x5E8DE5, 0x5E9D15), so nothing ties them to one object either; left.
 - Unknown_0056B180.cpp (PlayerCreate 0x56B180, SKILLS_CheckAuraTarget 0x56B3E0, between PlrSave2.cpp and Skills.cpp): its data starts with its own language copy (0x7320C0), so it is an object of its own; stays a placeholder until something names it.
 - Act units (`#include` of the quest files, one unit per act): tested and stopped; the quest tails are ordinary out-of-line functions with outside callers (answered: keep each act's data block whole, don't model a second unit per act).
