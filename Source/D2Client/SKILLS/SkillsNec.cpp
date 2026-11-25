@@ -1,3 +1,6 @@
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x0072D994
+
 #include "D2CommonApi.h"
 typedef unsigned int DWORD;
 

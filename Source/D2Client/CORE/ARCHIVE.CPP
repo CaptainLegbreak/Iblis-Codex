@@ -1,3 +1,6 @@
+#include "D2LanguageNames.h"
+// build: symbol _gaszLanguageNames 0x00712E0C
+
 #include "D2Client.h"
 #include "FogApi.h"
 #include "gen/data/Source/D2Client/CORE/ARCHIVE.inc"

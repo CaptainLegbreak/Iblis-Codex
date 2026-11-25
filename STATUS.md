@@ -17,8 +17,8 @@ Bytes of the built Game.exe by origin:
 
 | Origin | Bytes |
 |---|---:|
-| game code and data compiled from Source/ | 2,698,919 |
-| initialised data generated from your Game.exe (build/data_plan.json) | 369,852 |
+| game code and data compiled from Source/ | 2,699,939 |
+| initialised data generated from your Game.exe (build/data_plan.json) | 368,832 |
 | C runtime (libcmt.lib, placed by identity) | 239,696 |
 | import thunks and the import address table | 3,782 |
 | headers, import and export tables, relocations, checksum | 163,407 |
@@ -42,10 +42,10 @@ How far the sources are from reading like the original source tree. Byte matchin
 
 | | |
 |---|---|
-| Compilation units | 602 |
+| Compilation units | 603 |
 | … in a file with its original name, whole | 294 |
 | … pieces of an original file still split (in 33 files) | 106 |
-| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 202 |
+| … placeholder files (`Unknown_<address>.cpp`), original file not yet known | 203 |
 | Record definitions private to a source file (`struct`/`union` in a .cpp) | 1904 |
 | Unnamed fields (`unk0x..`) in the shared headers | 647 |
 | Functions with a construct that only forces code generation (volatile tricks, `#pragma optimize`, `__assume`, identical `if`/`else` arms) | 44 |
