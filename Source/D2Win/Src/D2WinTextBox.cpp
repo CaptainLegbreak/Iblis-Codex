@@ -880,13 +880,13 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
     TEXTBOX_SetLineGapForFont(pTextBox->eFont);
     D2Win_10127_SetFont(pTextBox->eFont);
 
-    const int v51 = pTextBox->controlHeader.nImageX + pTextBox->nTextInsetX;
+    const int nTextX = pTextBox->controlHeader.nImageX + pTextBox->nTextInsetX;
     int nY = D2Win_10125() + (pTextBox->controlHeader.nImageY - pTextBox->controlHeader.nHeight) + pTextBox->nTextInsetY;
 
     TEXTBOX_SetLineGapForFont(pTextBox->eFont);
 
-    const int v8 = D2Win_10125() + pTextBox->nLineSpacing;
-    int v49 = pTextBox->controlHeader.nHeight - 2 * pTextBox->nTextInsetY;
+    const int nLineHeight = D2Win_10125() + pTextBox->nLineSpacing;
+    int nHeightLeft = pTextBox->controlHeader.nHeight - 2 * pTextBox->nTextInsetY;
     const int nBoxWidth = pTextBox->controlHeader.nWidth - 2 * pTextBox->nTextInsetX;
 
     if (pTextBox->dwTextBoxFlags & 0x40)
@@ -908,7 +908,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
         if (pCurrentLine)
         {
             pTextBox->nScrollOffset -= 2;
-            if (pTextBox->nScrollOffset < -v8)
+            if (pTextBox->nScrollOffset < -nLineHeight)
             {
                 pTextBox->nScrollOffset = 0;
                 pTextBox->pCurrentLine = pCurrentLine->pNext;
@@ -930,34 +930,30 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
                     break;
                 }
 
-                int v48 = pTextBox->controlHeader.nWidth;
+                int nColumnWidth = pTextBox->controlHeader.nWidth;
                 if (i < pTextBox->nNumColumns - 1)
                 {
-                    v48 = pTextBox->nColumnOffsets[i + 1];
+                    nColumnWidth = pTextBox->nColumnOffsets[i + 1];
                 }
 
-                const int v16 = pTextBox->nColumnOffsets[i];
+                const int nColumnOffset = pTextBox->nColumnOffsets[i];
                 int nX;
-                if (v16)
+                if (nColumnOffset)
                 {
-                    nX = v16 + v51;
+                    nX = nColumnOffset + nTextX;
 
-                    int v18;
                     if (i + 1 < pTextBox->nNumColumns)
                     {
-                        v18 = pTextBox->nColumnOffsets[i + 1] - v16;
-                        v48 = v18;
+                        nColumnWidth = pTextBox->nColumnOffsets[i + 1] - nColumnOffset;
                     }
                     else
                     {
-                        v48 = pTextBox->controlHeader.nWidth - v16;
-                        v18 = v48;
+                        nColumnWidth = pTextBox->controlHeader.nWidth - nColumnOffset;
                     }
 
                     if (pTextBox->nColumnAlignFlags[i] & 2)
                     {
-                        // the original keeps the column pointer in a stack slot and reloads it here; a plain read is taken again from pLine->pColumns[i]
-                        int nOffset = (v18 - D2Win_10121_GetTextWidth(*(const Unicode* volatile*)&wszColumn)) / 2;
+                        int nOffset = (nColumnWidth - D2Win_10121_GetTextWidth(wszColumn)) / 2;
                         if (nOffset < 0)
                         {
                             nOffset = 0;
@@ -971,7 +967,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
                         {
                             nTextWidth = 0;
                         }
-                        nX += v48 - nTextWidth;
+                        nX += nColumnWidth - nTextWidth;
                     }
                 }
                 else if (pTextBox->dwTextBoxFlags & 2)
@@ -994,7 +990,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
                 }
                 else
                 {
-                    nX = v51;
+                    nX = nTextX;
                 }
 
                 Unicode wszText[1024];
@@ -1003,7 +999,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
                     wszText[j].wChar = 0;
                 }
                 sub_005267E0(wszText, pLine->pColumns[i]);
-                TEXTBOX_TruncateTextToWidth(v48, wszText);
+                TEXTBOX_TruncateTextToWidth(nColumnWidth, wszText);
 
                 if (pTextBox->nCurrentLine == nCounter + pTextBox->nLine && (pTextBox->dwTextBoxFlags & 1))
                 {
@@ -1031,13 +1027,13 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
                 }
             }
 
-            const int v34 = (!pLine->bWrappedSegment ? pTextBox->nLineGap : pTextBox->nWrappedLineGap) + v8;
+            const int nAdvance = (!pLine->bWrappedSegment ? pTextBox->nLineGap : pTextBox->nWrappedLineGap) + nLineHeight;
             ++nCounter;
-            nY += v34;
-            v49 -= v34;
+            nY += nAdvance;
+            nHeightLeft -= nAdvance;
             pLine = pLine->pNext;
         }
-        while (pLine && v49 >= (!pLine->bWrappedSegment ? pTextBox->nLineGap : pTextBox->nWrappedLineGap) + v8);
+        while (pLine && nHeightLeft >= (!pLine->bWrappedSegment ? pTextBox->nLineGap : pTextBox->nWrappedLineGap) + nLineHeight);
     }
 
     D2Win_10127_SetFont(1);
