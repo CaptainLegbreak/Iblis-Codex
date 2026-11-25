@@ -17,7 +17,7 @@ struct D2PanelAnimEntryStrc
     char unk0x04[0x18];
 };
 
-struct T0045FED0
+struct D2DialogTimerStrc
 {
     unsigned int dwTick;
     char unk0x04[0x50];
@@ -115,7 +115,7 @@ static int gnInvMouseY;                                                         
 
 static int gbRedraw;                                                                               // 0x007C0280
 
-static T0045FED0* gpTimer_007C0E54;                                                                 // 0x007C0E54
+static D2DialogTimerStrc* gpTimer_007C0E54;                                                                 // 0x007C0E54
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 

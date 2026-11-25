@@ -250,7 +250,7 @@ int gdwGlobal_007C0E5C; // 0x007C0E5C
 
 extern int gdwGlobal_007C0E54; // 0x007C0E54
 
-struct T0045FED0
+struct D2DialogTimerStrc
 {
     unsigned int dwTick;
     char unk0x04[0x50];
@@ -259,7 +259,7 @@ struct T0045FED0
     void (__cdecl* pfnCallback)();
 };
 
-static T0045FED0* gpTimer_007C0E54;                                                                 // 0x007C0E54
+static D2DialogTimerStrc* gpTimer_007C0E54;                                                                 // 0x007C0E54
 
 // 0x004B7150
 static inline void DIALOG_HoverFirstEnabledLine(D2ClientDialogStrc* pDialog)
@@ -522,7 +522,7 @@ extern "C" void __stdcall DIALOG_WheelMsg(Message* message)
 // 0x004B76D0
 void __stdcall ROSTERPETS_HandleDialogEscape(SMSGHANDLER_PARAMS* pMsg)
 {
-    T0045FED0* pTimer = gpTimer_007C0E54;
+    D2DialogTimerStrc* pTimer = gpTimer_007C0E54;
     if (pTimer && pTimer->dwTick + 0x50 > GetTickCount())
     {
         pMsg->bReturn = 1;
