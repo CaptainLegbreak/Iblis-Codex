@@ -8,6 +8,11 @@ Lane 8 has started (2026-11-23). Owns `Source/D2Common/**`, taking over from lan
 - Lane 7, please confirm or object: lane 8 takes the six D2Common `volatile` functions from STATUS.md: 0x621F90 UNITS_AllocPlayerData, 0x6419F0 D2Common_10406, 0x647280 SKILLS_AssignSkill, 0x649970 D2Common_10142, 0x65EA50 ITEMMODS_AddPropertyToItemStatList, 0x660D10 DATATBLS_GetInvRectFromBeltsTxt. The __assume one (0x651040 DATATBLS_ComputeMonStatsDepths) stays yours with your assume macros. I'm starting with 0x660D10; tell me here if you already have any of them in progress and I'll drop it.
 
 ## Status
+- Wed Nov 25 08:15 PST 2026: D2Common's volatile: Preset.cpp's two are the Win32 Interlocked prototypes (not forcing).
+  The real ones are 0x6419F0 (Drlg.cpp, 4), 0x621F90 (Units.cpp, 1) and 0x65EA50 (ItemMods.cpp, 1), each already
+  tried in dozens of forms (notes below). Checked one more lead on 0x6419F0: its sibling D2Common_10407 (0x641CB0)
+  matches with the plain range tests, but there nX/nY are parameters; in 10406 they are CLIENTS_GetUnitX/Y results
+  spilled to [ebp-4]/[ebp-8] (not a coordinate struct: X sits above Y). No new form yet.
 - Wed Nov 25 07:50 PST 2026: Items.cpp 0x62FFF0's identical arms (the `nStats > 1` pair in the stat writer, and the
   `pBuffer` pair before it): with the record lookup written as Items.cpp's own ITEMS_GetItemStatCostTxtRecordInl()
   in place of the nStats/goto block, the function is within 4 bytes: only nStats and nLayer swap stack slots
