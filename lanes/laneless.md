@@ -73,6 +73,14 @@ call stays the coordinator's. This section is replaced at each check.
       the CRT `abs`; the loop as `for`, guarded `do`/`while` or a block pointer; the light values as int,
       unsigned char or unsigned. The best is 145 lines (CRT abs, unsigned char) at 591 B. None gives the
       original's 8-byte-larger frame; `for` and `do` compile the same.
+- **2026-11-24 18:37 PT, for lane 7: what 0x518300's `volatile` stands for** (main #376):
+  - Declared `static` (both declarations; its only callers, 0x5186D0 and the one at line 415, are in
+    BNetGW.cpp) with a plain `*pSize = nSize;`, 0x518300 builds equal without the volatile. VC8 compiles a static
+    function knowing all its callers, and that gives the original's pointer-then-size load order. No other body,
+    declaration or flag change I tried (SFileLoadFile's return and parameter types, the halt as an explicit `if`,
+    /GS, /EHsc, /Ob1) moves it.
+  - The cost is that 0x5186D0 (the caller) goes MISMATCH, so the volatile is holding the two together. The original
+    has both, so the remaining question is 0x5186D0's source once its callee is static.
 - **Suggestions from the user's discussion**, for you to take or leave:
   1. Lane 10 could apply its own naming plans module by module (the call-site rename sweep), so rounds only
      merge them.
