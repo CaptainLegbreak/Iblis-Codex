@@ -111,7 +111,7 @@ int __fastcall sub_0043C8A0_ReadSaveSummary(const char* szName, unsigned char* p
         if (nVersion <= 0x5B)
         {
             if (nRead < 0x82 || nVersion < 0x47)
-                goto LABEL_CLOSE;
+                goto close_dialog;
             pCharName = (const char*)aBuffer + 0x26;
             pTitle = (const char*)aBuffer + 0x36;
             nClass = aBuffer[0x22];
@@ -121,7 +121,7 @@ int __fastcall sub_0043C8A0_ReadSaveSummary(const char* szName, unsigned char* p
         else
         {
             if (nRead < 0x14F || nVersion > 0x60)
-                goto LABEL_CLOSE;
+                goto close_dialog;
             pCharName = (const char*)aBuffer + 0x88;
             pTitle = (const char*)aBuffer + 0x98;
             nClass = aBuffer[0x28];
@@ -156,7 +156,7 @@ int __fastcall sub_0043C8A0_ReadSaveSummary(const char* szName, unsigned char* p
         bResult = 1;
     }
 
-LABEL_CLOSE:
+close_dialog:
     fclose(pFile);
     return bResult;
 }

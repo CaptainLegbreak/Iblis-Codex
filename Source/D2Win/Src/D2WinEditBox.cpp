@@ -658,7 +658,7 @@ int __fastcall EDITBOX_HandleKeyDown(D2WinEditBoxStrc* ptEditData, char nKey)
             }
             else
             {
-                goto LABEL_DONE;
+                goto done;
             }
         }
         break;
@@ -669,7 +669,7 @@ int __fastcall EDITBOX_HandleKeyDown(D2WinEditBoxStrc* ptEditData, char nKey)
             ((D2WinEditBoxEnterFn)ptEditData->pfOnEnter)(0);
             --gnWinCallbackDepth_007D55C4;
         }
-    LABEL_DONE:
+    done:
         return 1;
     case 9:
     {
