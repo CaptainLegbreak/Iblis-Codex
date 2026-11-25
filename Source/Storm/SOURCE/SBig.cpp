@@ -4,7 +4,6 @@
 #include "D2StormBigBuffer.h"
 #include "D2StormArrayC.h"
 
-void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                   // 0x0041D300
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020

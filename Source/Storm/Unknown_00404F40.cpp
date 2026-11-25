@@ -60,11 +60,6 @@ void __stdcall sub_00405450_LoadIniSettings(char* pSettings); // 0x00405450
 void __cdecl IGNORELIST_CreateIgnoreList(); // 0x006114E0
 int __fastcall sub_00405710_ParseCmdArgument(char* szCommandNameTestBuf, const char* pszCommand, char* szCommandValueBuf); // 0x00405710
 
-extern "C" __declspec(dllimport) unsigned long __stdcall GetVersion(); // 0x006CC138
-extern "C" __declspec(dllimport) void* __stdcall OpenSCManagerA(const char* szMachineName, const char* szDatabaseName, unsigned long dwDesiredAccess); // 0x006CC028
-extern "C" __declspec(dllimport) void* __stdcall OpenServiceA(void* hSCManager, const char* szServiceName, unsigned long dwDesiredAccess); // 0x006CC04C
-extern char gszServiceName[]; // 0x007065DC
-
 void __cdecl operator delete(void* pMemory);
 void* __cdecl operator new(size_t nSize);
 

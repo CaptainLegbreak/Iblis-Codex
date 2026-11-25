@@ -5,7 +5,6 @@ inline void* operator new(unsigned int, void* pWhere) throw()
 }
 
 void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                   // 0x0041D300
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
 
 struct D2StormArrayAStrc
 {

@@ -156,33 +156,9 @@ extern "C" __declspec(dllimport) void __stdcall RaiseException(unsigned long dwC
 
 extern "C" __declspec(dllimport) void* __stdcall GetModuleHandleW(const wchar_t* wszModuleName); // 0x006CC2DC
 
-extern "C" __declspec(dllimport) long __stdcall RegOpenKeyA(HKEY hKey, const char* szSubKey, HKEY* phResult); // 0x006CC040
-
-extern "C" __declspec(dllimport) long __stdcall RegCreateKeyA(HKEY hKey, const char* szSubKey, HKEY* phResult); // 0x006CC03C
-
-extern "C" __declspec(dllimport) long __stdcall RegEnumValueA(HKEY hKey, unsigned long dwIndex, char* szValueName, unsigned long* pcchValueName, unsigned long* pReserved, unsigned long* pType, unsigned char* pData, unsigned long* pcbData); // 0x006CC038
-
-extern "C" __declspec(dllimport) long __stdcall RegSetValueExA(HKEY hKey, const char* szValueName, unsigned long dwReserved, unsigned long dwType, const unsigned char* pData, unsigned long cbData); // 0x006CC034
-
-extern "C" __declspec(dllimport) long __stdcall RegCloseKey(HKEY hKey); // 0x006CC030
-
-extern "C" __declspec(dllimport) long __stdcall RegDeleteKeyA(HKEY hKey, const char* szSubKey); // 0x006CC02C
-
-extern "C" __declspec(dllimport) int __stdcall SetCurrentDirectoryA(const char* szPath); // 0x006CC140
-
 extern "C" __declspec(dllimport) void* __stdcall GetCurrentProcess(); // 0x006CC13C
 
 extern "C" __declspec(dllimport) void* __stdcall FreeSid(void* pSid); // 0x006CC044
-
-extern "C" __declspec(dllimport) unsigned long __stdcall GetVersion(); // 0x006CC138
-
-extern "C" __declspec(dllimport) void* __stdcall OpenSCManagerA(const char* szMachineName, const char* szDatabaseName, unsigned long dwDesiredAccess); // 0x006CC028
-
-extern "C" __declspec(dllimport) void* __stdcall OpenServiceA(void* hSCManager, const char* szServiceName, unsigned long dwDesiredAccess); // 0x006CC04C
-
-extern "C" __declspec(dllimport) int __stdcall CloseServiceHandle(void* hSCObject); // 0x006CC01C
-
-extern "C" __declspec(dllimport) int __stdcall StartServiceCtrlDispatcherA(const D2ServiceTableEntryStrc* pServiceTable); // 0x006CC020
 
 extern "C" __declspec(dllimport) void __stdcall CoTaskMemFree(void* pMemory); // 0x006CC5F0
 
@@ -194,15 +170,11 @@ extern "C" int __stdcall Process32First(void* hSnapshot, D2ProcessEntryStrc* pEn
 
 extern "C" int __stdcall Process32Next(void* hSnapshot, D2ProcessEntryStrc* pEntry); // 0x006B143A
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
-
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 
 bool __fastcall ERRORMANAGER_CreateDirectoryWide(wchar_t* wszPath); // 0x00404560
 
 int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406BA0
-
-void __stdcall D2ServerServiceMain(unsigned long dwArgc, char** argv); // 0x004065E0
 
 extern "C" const char gszInternalCheckHost[]; // 0x006FF994
 
@@ -211,14 +183,6 @@ extern "C" const D2GuidStrc gtKnownFolderId; // 0x006CCA6C
 extern const double gdDaysPerYear; // 0x006CCC08
 
 extern const double gdDaysPerMonth; // 0x006CCC10
-
-extern char gszServiceName[]; // 0x007065DC
-
-extern D2ModeEntryStrc gaModeTable[]; // 0x00706554
-
-extern int gnMode_0074C704; // 0x0074C704
-
-extern void* gpModeContext_0074C718; // 0x0074C718
 
 struct D2FileTimeStrc;
 
@@ -229,8 +193,6 @@ struct D2Storm408ElemStrc;
 struct D2StormArray408Strc;
 
 int __stdcall SFileSetBasePath(const char* szPath); // 0x004164B0
-
-extern int gnGenericRle; // 0x008F03C8
 
 int __stdcall SFileOpenFile(const char* szFileName, void** phFile); // 0x00419980
 
@@ -279,10 +241,6 @@ int __fastcall ERRORMANAGER_GetJulianDay(int nYear, int nMonth, int nDay); // 0x
 void __fastcall ERRORMANAGER_JulianDayToDate(long nJulian, int* pYear, int* pMonth, int* pDay); // 0x00407440
 
 int __fastcall EXCEPTIONS_GetAppPath(char* szPath, unsigned int nSize); // 0x0040C220
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
-
-extern "C" const char gszTypeNewsTableItem_0072FF8C[];
 
 const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 
@@ -433,53 +391,13 @@ void __fastcall ERRORMANAGER_ReportPrint(void* pContext, const char* szText);   
 
 bool __fastcall sub_00401790_SubmitReport(const char* szText, D2CrashSubmitInfoStrc* pInfo);                // 0x00401790
 
-extern long volatile gnReportBusy;                                                                 // 0x007076B8
-
-extern "C" const char gszCrashFile[];                                                              // 0x006CD1C0
-
-extern "C" const char gszFmtSummary[];                                                             // 0x006CD1E8
-
-extern "C" const char gszFmtLineNumber[];                                                          // 0x006CD1CC
-
-extern "C" const char gszAssertionBegin[];                                                         // 0x006CD170
-
-extern "C" const char gszAssertionEnd[];                                                           // 0x006CD158
-
-extern "C" const char gszRegisters[];                                                              // 0x006CD14C
-
-extern "C" const char gszThreads[];                                                                // 0x006CD140
-
 struct D2StackFrameStrc;
 
 void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, unsigned int nFrames, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader); // 0x00403100
 
-void __fastcall sub_00402EE0_DumpModules(D2CrashPrintFn pfnPrint,void* pContext); // 0x00402EE0
-
 unsigned long __cdecl ERRORMANAGER_GetCurrentThreadId(); // 0x00401690
 
 void __fastcall ERRORMANAGER_TerminateCurrentProcess(unsigned int nCode); // 0x004013C0
-
-bool __fastcall sub_00402820_WriteMiniDump(const char* szPath,const char* szComment,void* pExceptionPointers,unsigned long dwThreadId); // 0x00402820
-
-extern const char gszCrashSummary[]; // 0x006CD1A8
-
-extern const char gszCrashDetail[]; // 0x006CD1A0
-
-extern const char gszCrashNewline[]; // 0x006CD188
-
-extern const char gszModules[]; // 0x006CD124
-
-extern const char gszMore1[]; // 0x006CD108
-
-extern const char gszMore2[]; // 0x006CD0F0
-
-extern const char gszMore3[]; // 0x006CD0D4
-
-extern const char gszMore4[]; // 0x006CD0C4
-
-extern const char gszMinidump[]; // 0x006CD0B4
-
-extern const char gszMore5[]; // 0x006CD09C
 
 int __stdcall SFileCloseFile(void* pArg);    // 0x004198D0
 
@@ -515,12 +433,6 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 
-extern "C" __declspec(dllimport) void* __stdcall CreateFileW(const wchar_t* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x006CC298
-
-extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent); // 0x006CC130
-
-extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
-
 extern "C" __declspec(dllimport) D2ExceptionFilterFn __stdcall SetUnhandledExceptionFilter(D2ExceptionFilterFn pfnFilter); // 0x006CC2B4
 
 extern "C" __declspec(dllimport) int __stdcall CreateDirectoryW(const wchar_t* szPath, void* pSecurityAttributes); // 0x006CC2C8
@@ -531,21 +443,11 @@ extern "C" wchar_t* __cdecl wcsrchr(const wchar_t* szString, wchar_t nChar); // 
 
 const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
 
-bool __cdecl sub_00401B00_LoadDbgHelp(); // 0x00401B00
-
 long __stdcall sub_00403E90_UnhandledExceptionFilter(void* pExceptionPointers); // 0x00403E90
 
 void __fastcall LOGMANAGER_SetLogPrefix(const char* szName); // 0x0040F5A0
 
-extern bool gbMiniDumpEnabled; // 0x0098A6B1
-
 extern D2CriticalSectionStrc gtSymbolLock; // 0x0098A6F0
-
-extern D2CriticalSectionStrc gtDbgHelpRequestLock; // 0x0098A6C4
-
-extern void* ghDbgHelp; // 0x0098A680
-
-extern D2MiniDumpRequestStrc* gpMiniDumpRequest; // 0x0098A6E4
 
 extern void* gpfnCrashHandler; // 0x00992B10
 
@@ -585,8 +487,6 @@ struct AsyncDataEventSlot
     AsyncData* pAsyncOp;
 };
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-
 int __fastcall FOG_FOpenFile(const char* szFileName, void** phFile); // 0x004068E0
 
 int __fastcall FOG_FCloseFile(void* pArg); // 0x004068F0
@@ -596,10 +496,6 @@ int __fastcall FOG_FReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRea
 int __fastcall FOG_FGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 
 int __fastcall FOG_FSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00406940
-
-AsyncDataEventSlot* __cdecl ASYNCDATA_GetEventSlot(); // 0x0040A550
-
-void __fastcall ASYNCDATA_Finish(AsyncData* pAsyncData); // 0x0040A4C0
 
 extern "C" __declspec(dllimport) void __stdcall GetLocalTime(D2SystemTimeStrc* lpSystemTime); // 0x006CC1D4
 
@@ -632,8 +528,6 @@ extern "C" int __cdecl vsprintf(char* szDest, const char* szFormat, va_list args
 extern "C" void* __cdecl malloc(size_t nSize);                                                              // 0x00683EFD
 
 extern "C" _iobuf* __cdecl _wfopen(const wchar_t* szFileName, const wchar_t* szMode);                       // 0x00685EED
-
-extern "C" __declspec(dllimport) int __stdcall SetServiceStatus(void* hServiceStatus, D2ServiceStatusStrc* pStatus); // 0x006CC048
 
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x006CC19C
 
@@ -669,20 +563,6 @@ extern "C" int __stdcall Thread32Next(void* hSnapshot, D2ThreadEntryStrc* pEntry
 
 extern "C" unsigned long __stdcall GetModuleFileNameExA(void* hProcess, void* hModule, char* szFileName, unsigned long nSize); // 0x006B13C2
 
-extern "C" int __stdcall send(unsigned int nSocket, const char* pBuffer, int nLength, int nFlags);          // 0x006B017A
-
-extern "C" int __stdcall WSAGetLastError();                                                                 // 0x006B0168
-
-extern "C" int __stdcall closesocket(unsigned int nSocket);                                                 // 0x006B012C
-
-extern "C" int __stdcall select(int nCount, D2FdSetStrc* pRead, D2FdSetStrc* pWrite, D2FdSetStrc* pExcept, const D2TimevalStrc* pTimeout); // 0x006B0186
-
-extern "C" int __stdcall __WSAFDIsSet(unsigned int nSocket, D2FdSetStrc* pSet);                            // 0x006B0180
-
-extern "C" int __stdcall getpeername(unsigned int nSocket, void* pAddress, int* pnLength);                 // 0x006B018C
-
-extern "C" int __stdcall ioctlsocket(unsigned int nSocket, long nCommand, unsigned long* pArgument);       // 0x006B015C
-
 void __cdecl ERRORMANAGER_LogPoolError(const char* szFormat, ...);
 
 extern "C" __declspec(dllimport) void __stdcall GlobalMemoryStatus(D2MemoryStatusStrc* pBuffer); // 0x006CC1F4
@@ -697,11 +577,7 @@ extern "C" const char gszNewline[];                                             
 
 extern D2CmdArgStrc gaCmdArguments[58];                                                                     // 0x00705040
 
-extern D2ServiceStatusStrc gD2ServerServiceStatus;                                                          // 0x007065FC
-
 void* ghD2ServerServiceStatus;                                                                              // 0x0074C714
-
-extern int gbD2ServerStopEvent;                                                                             // 0x007065C0
 
 extern unsigned char gabHuffmanCodeLength[256];                                                    // 0x007076C0
 
@@ -710,16 +586,6 @@ unsigned char gabHuffmanCode[256];                                              
 const unsigned char* gapHuffmanDecode[256];                                                        // 0x0075AFA0
 
 extern unsigned int gadwHuffmanMask[32];                                                           // 0x007077C0
-
-extern "C" int __stdcall gethostname(char* szName, int nNameLength);                                        // 0x006B0198
-
-extern char gszResolvedHostIP[];                                                                   // 0x0075D040
-
-extern "C" unsigned short __stdcall htons(unsigned short nValue);                                           // 0x006B0156
-
-extern "C" char* __stdcall inet_ntoa(D2InAddrStrc tAddress);                                                // 0x006B013E
-
-extern "C" unsigned int __stdcall socket(int nFamily, int nType, int nProtocol);                            // 0x006B016E
 
 struct D2CrashInputStrc;
 
@@ -735,8 +601,6 @@ extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 
-extern "C" int __cdecl atexit(void (__cdecl* pfnExit)()); // 0x00683824
-
 void __cdecl ERRORMANAGER_StartDbgHelpThread(); // 0x004016A0
 
 void __fastcall ERRORMANAGER_SetReportText(const char* szText); // 0x00401740
@@ -747,25 +611,7 @@ int __fastcall ERRORMANAGER_GetModuleDirectory(char* szPath, unsigned int nSize)
 
 void __cdecl ERRORMANAGER_LogSystemInfo(); // 0x004076B0
 
-void __cdecl AUTOMAP_CaptureSystemInfo(); // 0x00407DE0
-
 void __cdecl ERRORMANAGER_ExitHandler(); // 0x00407F20
-
-int __fastcall ERRORMANAGER_CrashHandler(D2CrashInputStrc* pInput); // 0x004082E0
-
-int __cdecl EXCEPTIONS_LoadImageHlp(); // 0x0040D5B0
-
-void __cdecl LOGMANAGER_InitLogSystem(); // 0x00410540
-
-int __cdecl SYSTEM_IsPlatformNT(); // 0x00410960
-
-void __cdecl SYSTEM_InitTimeBase(); // 0x004109D0
-
-void __cdecl sub_00411210_InitTimer(); // 0x00411210
-
-void __fastcall SetErrorReportCallback(void* pfnHandler); // 0x0041C0E0
-
-extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 
 extern unsigned int gdwInvBitMasks[]; // 0x006CE2E8
 
@@ -778,10 +624,6 @@ extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, size_
 extern "C" void* __cdecl realloc(void* pMemory, size_t nSize); // 0x00683BA5
 
 extern "C" __declspec(dllimport) void* __stdcall VirtualAlloc(void* pAddress, size_t nSize, unsigned long dwAllocationType, unsigned long dwProtect); // 0x006CC21C
-
-extern "C" unsigned char _BitScanReverse(unsigned long* pIndex, unsigned long nMask);
-
-extern "C" unsigned char _BitScanForward(unsigned long* pIndex, unsigned long nMask);
 
 void* __fastcall ERRORMANAGER_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine); // 0x00409770
 
