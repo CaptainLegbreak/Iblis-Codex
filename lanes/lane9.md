@@ -65,7 +65,23 @@ Lane 9 has started (2026-11-23). Owns the renderers and D2Hell: `Source/D2Gfx/**
   Window.cpp's three window texts (0x6CADF0, 0x6CAE00, 0x6CAE10; their two default strings 0x72DAA0/0x72DB3C move into
   Window.cpp's plan, which also touches lane9/window-data's Window.cpp plan entry: merge one, I'll rebase the other).
   Storm/Unknown_006CAE80.cpp and Bnclient/Unknown_006CB420.cpp end up empty and are removed. The user tells me lanes
-  1-6 are inactive and lane 9 may take their files, so I'm doing the rest of the 16 myself.
+  1-6 are inactive and lane 9 may take their files, so I'm doing the rest of the 16 myself. **Update:** the user has
+  since withdrawn that; lane 9 is back to its own modules. crt-xcu-rest below was already in flight and is the last
+  branch touching other lanes' files.
+- lane9/crt-xcu-rest 7cefb6d0, on main 1beee1c7 (#380), precheck 0 not all equal; full verify VERIFIED,
+  **borrowed data 281 -> 269 B** (main 281 B; Game.exe identical). Three more initializers with their owners: the
+  "Header"/"Game Time" hashes (0x6CA960/0x6CA980, bss 0x77AD64/0x77AD60) in D2Multi/Unknown_0043C8A0.cpp, whose bss and
+  rdata they end; the ms-per-tick quotient (0x6CAAB0, bss 0x7A6B0C) in D2Client/ENGINE/Cursor.cpp, which also takes its
+  divisor's plan entry 0x7121DC (the last of Cursor's data). Files touched: D2Multi/Unknown_0043C8A0.cpp (lane 6),
+  D2Client/ENGINE/Cursor.cpp (lane 1), Storm/Unknown_006C9A68.cpp (lane 3/10). Pitfall: a data marker on the
+  initializer's own line (`T g = f(...); // 0xVA`) is read as f's address; put the marker on a separate extern line.
+- **Handover, initializer slots outside lane 9** (lane 9 stops here; these are the owners'):
+  - 0x6CAC10 gnTextLeft = (gnScreenWidth - 325) / 2 (bss 0x7BF278, slot between inv's and QuestLog's): lane 1. In
+    UI/text_0049A950.cpp it builds equal but raises borrowed data by 4 B, so that's probably not its object; the
+    definition is currently in WARDEN/WardenClient.cpp.
+  - 0x6CADE0 registers the empty destructor 0x6CB400 (a global with a trivial constructor and an empty destructor),
+    in the last D2Client objects before D2Gfx's Window.cpp: lane 1.
+  - 0x6CAFC0 gCelListTable (D2CMP CelCmp.cpp, destructor stand-in D2CMP/Unknown_006CB4C0.cpp): lane 6.
 - Superseded, please drop: lane9/join-ddraw-util, lane9/join-gdi-util.
 
 ## Questions
