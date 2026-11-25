@@ -10604,6 +10604,11 @@
      "name": "?COMCALLBACK_CopyNamePrefix@@YIXPBDPAD@Z"
     },
     {
+     "va": "0x00446880",
+     "length": 5,
+     "name": "?SKILLS_Return0@@YGHH@Z"
+    },
+    {
      "va": "0x004468F0",
      "length": 91,
      "name": "?COMCALLBACK_SendChatLine@@YGHH@Z"
@@ -12895,17 +12900,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Multi/Unknown_00446880.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00446880",
-     "length": 5,
-     "name": "?SKILLS_Return0@@YGHH@Z"
-    }
    ]
   },
   {
