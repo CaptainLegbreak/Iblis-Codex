@@ -99,7 +99,6 @@ void __fastcall AUTOMAP_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, i
 
 void __cdecl INV_SetupPanelButtons(); // 0x00487ED0
 
-int __fastcall NPCMENU_GetInteractNpcId(int* pUnitId); // 0x004B3230
 
 void __fastcall D2Win_10117_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 
@@ -183,7 +182,6 @@ public:
 
 
 
-void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 void __stdcall TEXT_FreeTextList(void* pList); // 0x0049D4D0
 
@@ -699,7 +697,6 @@ extern "C" void __cdecl GAME_UnregisterMouseHandlers(); // 0x0044DCE0
 extern "C" void __cdecl GAME_RegisterMouseHandlers(); // 0x0044DD20
 
 
-void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
 
 void __cdecl TEXT_InitKeyConfigEntries(); // 0x004A43E0
@@ -759,10 +756,8 @@ int gnDragMouseY; // 0x007C02A8
 
 unsigned long gdwKeyConfigRepeatTick; // 0x007C02C0
 
-int __fastcall TEXT_IsInPanelButton(int, int, int); // 0x004A6580
 
 
-void __stdcall CURSOR_HandleButtonDown(SMSGHANDLER_PARAMS*); // 0x00467F20
 
 
 int __fastcall TEXT_IsInRightPanelButton(int, int, int); // 0x004A6630

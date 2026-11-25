@@ -67,7 +67,6 @@ void __fastcall UI_BuildItemHoverName(D2UnitStrc*,Unicode*,int); // 0x004527D0
 
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode*,int*,int*); // 0x00502520
 
-void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc*); // 0x00467A70
 
 void __fastcall D2Win_10129_DrawFramedText(const Unicode*,int,int,int,int); // 0x00502280
 

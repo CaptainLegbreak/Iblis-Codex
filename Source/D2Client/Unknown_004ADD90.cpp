@@ -68,9 +68,7 @@ static unsigned char* MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit)
     return 0;
 }
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 int __fastcall MISSILE_SubmitMissileRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 
@@ -141,7 +139,6 @@ static int GetUnitPathY(D2UnitStrc* pUnit)
 
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
-D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 __forceinline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
 {
@@ -155,7 +152,6 @@ __forceinline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
 
 extern "C" int __fastcall sub_004AC7E0(D2UnitStrc* pUnit, unsigned short wMask); // 0x004AC7E0
 
-D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
 
 
@@ -176,7 +172,6 @@ static D2MonStatsTxt* GetMonStatsTxtRecord(int nMonsterId)
 }
 
 
-void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 

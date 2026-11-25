@@ -212,7 +212,6 @@ extern int gnScreenWidth; // 0x0071146C
 int __fastcall sub_004648F0_GetPathValue(D2UnitStrc* pUnit); // 0x004648F0
 
 
-D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, int nArg3, int nArg4); // 0x004C5420
 
 
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
@@ -231,11 +230,9 @@ void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
 extern int gbCharArchiveLoaded; // 0x007A8928
 
 
-D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 
 D2MonGfxCacheStrc* __fastcall GFX_GetMonGfxCache(int nMonsterId); // 0x0046F9D0
 
-D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
 
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
 
@@ -316,7 +313,6 @@ typedef char check_PartialLookupRecord_second[offsetof(PartialLookupRecord, seco
 
 typedef char check_PartialLookupHeader_records[offsetof(PartialLookupHeader, records) == 0x1C ? 1 : -1];
 
-D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
 int __fastcall GFX_GetConvertedUnitType(D2UnitStrc* pUnit); // 0x0046D9F0
 
@@ -369,7 +365,6 @@ D2InventoryStrc* __fastcall GFX_GetCompInventory(D2UnitStrc* pUnit, int* pOut); 
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
 
 
-void* __fastcall GFX_LoadUnitGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg);                 // 0x0046FA80
 
 D2CompEntryStrc* __fastcall sub_0046E570_GetGfxEntry(D2UnitStrc* pUnit, int nMode);                         // 0x0046E570
 
@@ -377,7 +372,6 @@ int __fastcall GFXUTIL_GetModeArg(D2UnitStrc* pUnit, int nType, int nClass);    
 
 unsigned char __fastcall GFXUTIL_GetMonComponentIndex(D2UnitStrc* pUnit, unsigned char nComponent);    // 0x004DA770
 
-int __fastcall MONSTERREGION_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 
 void __fastcall GFXUTIL_GetArmorComponents(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int bSkip, unsigned char* pComponents); // 0x004DAAB0
 
@@ -392,7 +386,6 @@ int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem);                          
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem);                                                        // 0x00629DA0
 
 
-D2UniqueItemsTxt* __fastcall DATATBLS_GetUniqueItemsTxtRecord(int nIndex);                              // 0x00483470
 
 
 int __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc* pInventory, D2UnitStrc** ppItem);                // 0x0063C8F0
@@ -465,7 +458,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 
 static int GFXUTIL_GetOverlayDirections(int nOverlay); // 0x004DAD50
 
-int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
 
 int __fastcall GFXUTIL_GetComponentsMaxHeight(D2UnitStrc* pUnit, unsigned char* pList, unsigned char* pComponents, int* pMax, int nArg40, int nArg0); // 0x004DBD30
 
@@ -1196,9 +1188,7 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 
 // 0x004E0A40
@@ -1269,9 +1259,7 @@ extern const unsigned char gabFrameDirections[8][9]; // 0x006DBA08
 
 extern const unsigned char gabBaseDirections[8]; // 0x006DBA50
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 
 

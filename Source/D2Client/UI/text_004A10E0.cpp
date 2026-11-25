@@ -14,13 +14,11 @@ void __fastcall GAME_ResetMouseState(); // 0x0044DA40
 D2SoundStrc* __fastcall sub_004B9610(int nSound); // 0x004B9610
 void __fastcall SOUNDINST_ArmHint(D2SoundStrc* pSound, int nZero, int nZero2, int nMode); // 0x004B9EF0
 D2UnitStrc* __fastcall CUNIT_FindClientUnit(unsigned int nId, int nType); // 0x00463990
-void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int nType, unsigned int nId); // 0x004786A0
 extern "C" void __fastcall NPCMENU_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
 void __fastcall SELECT_SetSelectionRect(D2RectStrc* pRect); // 0x00467430
 int __fastcall D2Win_10127_SetFont(int nFont); // 0x00502EF0
 D2TextBlockStrc* __fastcall TEXT_CreateTextBox(const Unicode* pText, int nMode); // 0x004A05E0
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-int __fastcall sub_004E0650_GetStringSound(unsigned short nString); // 0x004E0650
 int __fastcall sub_004B9A00(int nSound, D2UnitStrc* pUnit, int nMode, int nZero, int nZero2); // 0x004B9A00
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 void* __stdcall WINDOW_GetWindow(); // 0x004F59A0

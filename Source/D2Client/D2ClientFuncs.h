@@ -30,6 +30,7 @@ union D2SeedStrc;
 struct D2SkillDescTxt;
 struct D2SoundEnvironTxtStrc;
 struct D2UnitTargetStrc;
+struct D2MissilesTxt;
 struct D2UnitStrc;
 
 void __fastcall GAME_CalcCdKeyChecksum(char* szKey, unsigned int* pChecksum); // 0x00449890
@@ -565,3 +566,27 @@ D2MonTypeTxt* __fastcall SKILLDESC_GetMonTypeTxtRecord(int nMonType); // 0x004E4
 int __fastcall SKILLDESC_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
 int __cdecl SKILLDESC_SumProgressiveBonus(); // 0x004E6FF0
 void __stdcall TEXT_DrawHintText(int nArg1, int nStringIndex); // 0x004ED3F0
+int __fastcall CUNIT_ValidateMonsterId(int nMonsterId); // 0x00463900
+void __fastcall CUNIT_SetPathTargetToTargetUnit(D2UnitStrc* pUnit, int nArg); // 0x00465BF0
+D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
+int __fastcall TEXT_IsInPanelButton(int nMode, int nX, int nY); // 0x004A6580
+void __fastcall MONSTER_UpdateMonsterClient(D2UnitStrc* pUnit); // 0x004B13A0
+int __fastcall NPCMENU_GetInteractNpcId(int* pLow); // 0x004B3230
+int __fastcall OBJECT_UpdateEnvObject(D2UnitStrc* pUnit, int bNoRefresh); // 0x004BC5E0
+void __fastcall OBJECT_UpdateObject(D2UnitStrc* pUnit); // 0x004BDFF0
+D2UnitStrc* __fastcall AUTOMAP_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, int nArg3, int nArg4); // 0x004C5420
+int __fastcall SKILLS_ScanCount(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags); // 0x004C5E30
+int __fastcall SKILLS_CallStartSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nOwnerGUID); // 0x004C6660
+int __fastcall SKILLS_RaiseTargetUnitEvent(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x004C7630
+void __fastcall SKILLS_AttachMoveSkillEndList(D2UnitStrc* pUnit); // 0x004C7950
+int __fastcall SKILLS_GetExtendedMeleeRange(D2UnitStrc* pUnit); // 0x004C7BD0
+void __fastcall MISSILE_AddMissileEffect(D2UnitStrc* pMissile, int nMissile, int nOuterStep, int nInnerStep, int nLoops); // 0x004CEFE0
+void __stdcall GFXUTIL_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
+void __stdcall GFXUTIL_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
+int __fastcall GFXUTIL_InitUnitCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
+int __fastcall sub_004E0650_GetStringSound(unsigned short nStringId); // 0x004E0650
+void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nSeedOffset); // 0x004E2ED0
+unsigned short __fastcall SKILLDESC_GetSkillDescStringId(int skillId, int stringIndex); // 0x004E6CE0
+void __fastcall sub_004EF990_SetSkillPopUpText(D2UnitStrc* pUnit, int nSkillId, int nArg3, int nArg4, int nArg5, int nX, int nY); // 0x004EF990
+int __fastcall SKILLDESC_GetSkillParamTwo(int nSkillId); // 0x004EFC20
+int __fastcall SKILLDESC_GetSkillParamSix(int nSkillId); // 0x004F4110

@@ -80,9 +80,7 @@ struct D2ClientItemSlotStrc
 };
 
 
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 
 
@@ -229,7 +227,6 @@ void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, long* pLeft, long* p
 
 
 
-void __fastcall MSG_SendTwoDwords(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 
 const Unicode* __fastcall TEXT_GetTextString(unsigned short nStringId); // 0x0049F910
@@ -307,7 +304,6 @@ unsigned char g007C0D89; // 0x007C0D89
 
 int __cdecl NPCMENU_ResurrectMercWait(); // 0x004B1DD0
 
-void __fastcall MSG_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 
 extern short gwGlobal_00726E01; // 0x00726E01
 
@@ -492,7 +488,6 @@ struct D2NpcMonListPacketStrc
 
 void __cdecl TEXT_ClearTextPanel();                                                                     // 0x004A1730
 
-void __fastcall UNITMODE_SetUnitMode(D2UnitStrc* pUnit, int nArg);                                         // 0x00480E70
 
 int __cdecl NPCMENU_ShowMainMenu();                                                                         // 0x004B5C60
 
@@ -585,7 +580,6 @@ int __cdecl sub_00489870(); // 0x00489870
 
 void __cdecl INV_EnterNpcMenuState(); // 0x0048A630
 
-void __fastcall MSG_SendFourDwords(char nCommand, int nUnitId, int nArg1, int nArg2, int nArg3); // 0x00478700
 
 
 
@@ -614,7 +608,6 @@ int __stdcall ITEMS_GetAllRepairCosts(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 
-void __fastcall SELECT_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
 #pragma pack(push, 1)
 
@@ -703,11 +696,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 D2UnitStrc* __fastcall MISSILE_CreateClientMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
-void __fastcall SKILLDESC_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
 
-D2UnitStrc* __fastcall CUNIT_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 
-D2UnitStrc* __fastcall CUNIT_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 
 extern "C" int __fastcall sub_004AC7E0(D2UnitStrc* pUnit, unsigned short wMask); // 0x004AC7E0
 
@@ -779,7 +769,6 @@ void __cdecl INV_ResetNpcButtonsFromPending(); // 0x00487C20
 
 void __fastcall USEITEM_OpenNpcItemPanel(int nArg); // 0x004C0620
 
-int __fastcall ROSTERPETS_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 
 int __fastcall ROSTERPETS_CountPets(D2UnitStrc* pOwner, int nPetType); // 0x00478EE0
 

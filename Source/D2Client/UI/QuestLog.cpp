@@ -1437,7 +1437,6 @@ char __cdecl QUESTLOG_IsQuestUnitPresent()
 
 union D2SeedStrc;
 
-D2UnitStrc* __fastcall CUNIT_SpawnPresetUnit(int nIndex, int nX, int nY, int nUnitType, int nMode); // 0x00466730
 
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
