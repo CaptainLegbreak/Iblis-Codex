@@ -2551,15 +2551,6 @@ void __stdcall ITEMS_SetOwnerId(D2UnitStrc* pItem, int nOwnerGUID)
     pItem->pItemData->dwOwnerGUID = nOwnerGUID;
 }
 
-int __stdcall sub_M88_Emit_0062A2F0(D2UnitStrc* pItem1, D2UnitStrc* pItem2)
-{
-    if (!ITEMS_IsPlainQuality(ITEMS_GetItemQuality(pItem1)))
-        return 0;
-    if (!ITEMS_IsPlainQuality(ITEMS_GetItemQuality(pItem2)))
-        return 0;
-    return 1;
-}
-
 inline int ITEMS_CheckIfSocketable_Inl(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
@@ -3260,11 +3251,6 @@ static void __stdcall ITEMS_SetDefenseOrDamage(D2UnitStrc* pItem, int nStat)
     default:
         break;
     }
-}
-
-int __stdcall sub_M231_Emit_00629370(D2UnitStrc* pPlayer, D2UnitStrc* pItem)
-{
-    return ITEMS_GetGambleCost(STATLIST_UnitGetStatValue(pPlayer, 12, 0), pItem);
 }
 
 // 0x0062A310

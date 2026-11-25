@@ -324,11 +324,6 @@ static inline void sub_0067D7B0(D2DrlgCoordStrc* pCoords, int nType)
     }
 }
 
-void __stdcall sub_M129_Emit_0067D7B0(D2DrlgCoordStrc* pCoords, int nType)
-{
-    sub_0067D7B0(pCoords, nType);
-}
-
 static inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;

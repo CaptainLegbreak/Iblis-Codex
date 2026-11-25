@@ -307,14 +307,6 @@ static void UNITFINDS_GrowUnitsArray(D2UnitFindDataStrc* pUnitFindData)
     pUnitFindData->pUnitsArray = pArray;
 }
 
-void __stdcall sub_M404_Emit_0065AC70(D2UnitFindDataStrc* pUnitFindData)
-{
-    if (UNITFINDS_IsAreaNearRoomEdge(pUnitFindData->pRoom, pUnitFindData->nX, pUnitFindData->nY, pUnitFindData->nSize))
-    {
-        UNITFINDS_GrowUnitsArray(pUnitFindData);
-    }
-}
-
 // 0x0065A950
 void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataStrc* pUnitFindData, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize, UNITFINDTEST pfnUnitTest, D2UnitFindArgStrc* pUnitFindArg)
 {

@@ -2232,15 +2232,6 @@ static void __stdcall UNITS_StoreOwnerInfo(D2UnitStrc* pUnit, int nOwnerType, in
     }
 }
 
-int __stdcall sub_O05_Emit_006214A0(D2UnitStrc* pUnit, int nUnitType, int nAnimMode, int nClassId)
-{
-    if (UNITS_CanAnimModeUseVelocityModifier(nUnitType, nAnimMode, pUnit, nClassId))
-    {
-        return nClassId;
-    }
-    return 0;
-}
-
 // 0x00621CC0
 void __stdcall UNITS_StoreOwnerTypeAndGUID(D2UnitStrc* pUnit, int nOwnerType, int nOwnerId)
 {

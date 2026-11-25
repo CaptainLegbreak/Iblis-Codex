@@ -1575,11 +1575,6 @@ BOOL __stdcall INVENTORY_PlaceItemAtFreePosition(D2InventoryStrc* pInventory, D2
     return FALSE;
 }
 
-int __fastcall sub_G08_Emit_0063DBC0(D2UnitStrc* pItem2, D2UnitStrc* pItem1, D2UnitStrc* pUnit)
-{
-    return INVENTORY_CanItemsBeWieldedTogether(pUnit, pItem1, pItem2);
-}
-
 // 0x0063B9C0
 void __cdecl INVENTORY_Nop()
 {
@@ -1744,11 +1739,6 @@ BOOL __stdcall INVENTORY_PlaceItemAtInventoryPage(D2InventoryStrc* pInventory, D
 // 0x0063BCF0
 void __stdcall INVENTORY_Return(const char* szFile, int nLine, D2InventoryStrc* pInventory, int nX, int nY, int nInventoryRecordId, int bClient, unsigned char nPage)
 {
-}
-
-int __stdcall sub_M421_Emit_0063E1C0(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory, D2UnitStrc* pItem)
-{
-    return INVENTORY_CanItemBePlacedInInventory(pPlayer, pItem, pInventory) + 0x2B;
 }
 
 inline D2UnitStrc* INVENTORY_UnitIsItem_Inl(D2UnitStrc* pItem)

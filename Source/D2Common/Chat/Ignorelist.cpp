@@ -2205,16 +2205,6 @@ D2CommonStormZeroBStrc::D2CommonStormZeroBStrc()
     m_value = 0;
 }
 
-void sub_F44_EmitMappingEntryNode(D2CommonMappingEntryNodeStrc* p)
-{
-    delete p;
-}
-
-void sub_F44_EmitStringEntryNode(D2CommonStringEntryNodeStrc* p)
-{
-    delete p;
-}
-
 
 
 // 0x0060FE50
@@ -2758,18 +2748,6 @@ int D2CommonIgnoreListStrc::IGNORELIST_StoreAccountAlias(char* szRaw, int nRawLe
     SStrPack(szMapped, szAccount, sizeof(szMapped));
     pNode->pMapped = SStrDup(szMapped);
     return 1;
-}
-
-void sub_F45_EmitHashTables(void* pTableA, void* pTableB)
-{
-    new (pTableA) D2CommonStormHashTableAStrc(0);
-    new (pTableB) D2CommonStormHashTableBStrc(0);
-}
-
-void sub_F45_EmitSlotArrays(D2CommonStormSlotArrayAStrc* pArrayA, D2CommonStormSlotArrayBStrc* pArrayB)
-{
-    delete pArrayA;
-    delete pArrayB;
 }
 
 #include "gen/data/Source/D2Common/Chat/Ignorelist.inc"

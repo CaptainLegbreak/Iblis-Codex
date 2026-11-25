@@ -364,11 +364,6 @@ void __stdcall DRLGTILESUB_ReplaceSubPreset(int nX, int nY, D2UnkOutdoorStrc* pO
     }
 }
 
-int __stdcall sub_M16_EmitTestReplaceSubPreset(D2UnkOutdoorStrc* pOutdoor, D2LvlSubTxt* pLvlSubTxtRecord, D2DrlgSubstGroupStrc* pSubstGroup, int* pPos)
-{
-    return DRLGTILESUB_TestReplaceSubPreset(pPos[0], pPos[1], pSubstGroup, pLvlSubTxtRecord, pOutdoor);
-}
-
 static inline unsigned int DRLGTILESUB_RollRandomNumberInline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
@@ -812,11 +807,6 @@ void __fastcall DRLGTILESUB_InitializeDrlgFile(void* hArchive, D2LvlSubTxt* pLvl
             DRLGGRID_FillNewCellFlags(0, &pLvlSubTxtRecord->pShadowGrid, (int*)(*ppDrlgFile)->pShadowLayer, &pDrlgCoord, nWidth);
         }
     }
-}
-
-int __stdcall sub_M16_EmitTestSubstGroupTiles(D2DrlgSubstGroupStrc* pSubstGroup, D2UnkOutdoorStrc2* pOutdoor, D2LvlSubTxt* pLvlSubTxtRecord, int nX, int nY)
-{
-    return DRLGTILESUB_TestSubstGroupTiles(nX, nY, pOutdoor, pLvlSubTxtRecord, pSubstGroup);
 }
 
 void __fastcall DRLGGRID_FreeGrid(void* pMemPool, D2DrlgGridStrc* pGrid); // 0x0067CD90

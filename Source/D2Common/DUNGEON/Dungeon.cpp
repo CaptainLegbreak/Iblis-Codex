@@ -507,12 +507,6 @@ static void __stdcall DUNGEON_InitAdjacentRoomList(void* pMemory, D2ActiveRoomSt
     }
 }
 
-D2ActiveRoomStrc* __fastcall sub_Z16_EmitUpdateRoomsNear(sub_Z16_EmitRoomHolder* pOther, D2ActiveRoomStrc* pRoom)
-{
-    DUNGEON_InitAdjacentRoomList(pOther->pMemory, pRoom);
-    return pRoom;
-}
-
 int __fastcall DRLGROOM_GetWarpDestinationLevel(D2DrlgRoomStrc* pDrlgRoom, int nSourceLevel); // 0x0066BAC0
 
 // 0x00619B10

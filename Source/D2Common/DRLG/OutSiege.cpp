@@ -542,11 +542,6 @@ static inline int DRLGOUTSIEGE_PlacePrisonAtCell(D2DrlgLevelStrc* pLevel, int nX
     return 0;
 }
 
-int __fastcall sub_M119_Emit_0067E210(D2DrlgLevelStrc* pLevel, int nX, int nY)
-{
-    return DRLGOUTSIEGE_PlacePrisonAtCell(pLevel, nY, nX);
-}
-
 static inline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
@@ -605,12 +600,6 @@ static void DRLGOUTSIEGE_PlacePrisons(D2DrlgLevelStrc* pLevel)
         FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), 601);
         exit(-1);
     }
-}
-
-void __fastcall sub_Emit_0067E240(D2DrlgLevelStrc* pLevel)
-{
-    DRLGOUTSIEGE_PlacePrisons(pLevel);
-    DRLGOUTSIEGE_PlacePrisons(pLevel);
 }
 
 static int DRLGACT5_ReplaceTransitionPreset(D2DrlgLevelStrc* pLevel, int nX, int nY)
