@@ -37,15 +37,6 @@ void __cdecl sub_006CAE10_InitializeWindowText()
     gszWindowTitle = gszDefaultWindow_0072DB3C;
 }
 
-// 0x006CAE20
-void __cdecl sub_006CAE20_ClearTable()
-{
-    for (int i = 0; i < 0x200; ++i)
-    {
-        gaTable_00841EC8[i] = 0;
-    }
-}
-
 unsigned short gwColorCodeFirst_008426E0; // 0x008426E0
 
 unsigned short gwColorCodeSecond_008426E2; // 0x008426E2

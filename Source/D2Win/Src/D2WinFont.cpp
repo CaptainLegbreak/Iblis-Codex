@@ -84,6 +84,7 @@ unsigned int gdwLastShiftedTickCount;                                           
 
 bool gbKoreanFonts;                                                                                // 0x00841EC6
 
+// build: symbol ??__EgwszFramedText@@YAXXZ 0x006CAE20
 Unicode gwszFramedText[1024];                                                                      // 0x00841EC8
 
 extern wchar_t gwszMonsterCode_008426DC[2];                                                                 // 0x008426DC

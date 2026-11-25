@@ -14,15 +14,6 @@ extern const char gszTypeNewsTableItem_0072FF8C[]; // 0x0072FF8C
 extern unsigned char gCriticalSection_00881F64[24]; // 0x00881F64
 
 
-// 0x006CB450
-void __cdecl sub_006CB450_StaticFiniNewsCache()
-{
-    if (gpNewsCacheItems)
-    {
-        SMemFree(gpNewsCacheItems, gszTypeNewsTableItem_0072FF8C, -2, 0);
-    }
-}
-
 // build: symbol ??1D2BigPairStrc@@QAE@XZ 0x00528530
 
 extern D2BigPairStrc data_0088273C; // 0x0088273C

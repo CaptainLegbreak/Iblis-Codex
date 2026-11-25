@@ -29,12 +29,6 @@ extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2Critical
 
 inline void* __cdecl operator new(unsigned int, void* location);
 
-// 0x006CAEC0
-void __cdecl sub_006CAEC0_RegisterCleanup()
-{
-    sub_00683824_RegisterExit(sub_006CB450_StaticFiniNewsCache);
-}
-
 inline void* __cdecl operator new(unsigned int, void* location) { return location; }
 
 // 0x006CAEF0
