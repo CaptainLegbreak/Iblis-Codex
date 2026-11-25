@@ -21,6 +21,7 @@
 #include "D2LevelIds.h"
 
 #include "D2Unicode.h"
+#include "D2LangApi.h"
 
 #pragma intrinsic(strcpy)
 
@@ -336,7 +337,6 @@ enum
     TXTFIELD_NAMETOWORD = 20,
 };
 
-const wchar_t* __fastcall D2LANG_GetStringByReferenceString(const char* szKey); // 0x00524E20
 
 // 0x0061DB70
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId)

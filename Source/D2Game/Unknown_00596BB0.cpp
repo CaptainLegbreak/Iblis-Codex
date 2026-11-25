@@ -2,6 +2,7 @@
 #include "D2UnitData.h"
 #include "D2GameStrc.h"
 #include "D2MonsterIds.h"
+#include "D2CommonApi.h"
 
 // 0x00596BB0
 bool __fastcall ACT3Q7_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus)
@@ -17,9 +18,7 @@ struct D2PlayerDataStrc;
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 
-int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 
-D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
 enum D2QuestConstants
 {

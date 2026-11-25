@@ -2,6 +2,7 @@
 #include "D2FogTypes.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2LangApi.h"
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -15,7 +16,6 @@ extern "C" __declspec(dllimport) void* __stdcall LoadLibraryA(const char* szLibF
 extern "C" int __cdecl fclose(_iobuf* pFile); // 0x00681FDC
 extern "C" _iobuf* __cdecl fopen(const char* szFileName, const char* szMode); // 0x0068239A
 extern "C" int __cdecl fputc(int nChar, _iobuf* pFile); // 0x00682058
-void __stdcall STRTABLE_GetLanguageInfoField(void* pOut, int nField); // 0x00525260
 int __cdecl FOG_IsExpansion(); // 0x00408F20
 int __fastcall ERRORMANAGER_GetBlizzardDataPath(char* szOutPath, int nSize); // 0x00406C40
 bool __fastcall sub_00516DE1_Verify(void* pContext); // 0x00516DE1
@@ -45,7 +45,6 @@ void __cdecl ARCHIVE_FreeArchives(); // 0x004FAE00
 int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (__cdecl* pfnExpansionDisc)(), int nUnused, D2ConfigStrc* pCfg); // 0x004FAEC0
 void __cdecl D2SOUND_CloseSoundSystem(); // 0x00514060
 void __fastcall sub_00514530_InitSound(int bExpansion, int bSoundBackground); // 0x00514530
-int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 void __cdecl IGNORELIST_FreeIgnoreList(); // 0x0060DDB0
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }

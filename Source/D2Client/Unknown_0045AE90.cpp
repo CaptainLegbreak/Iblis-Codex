@@ -6,6 +6,7 @@
 #include "D2Drlg.h"
 #include "D2WinSplitText.h"
 #include "D2ClientUiRecords.h"
+#include "D2CommonApi.h"
 
 
 extern int gnPanelSlideMode; // 0x007A5210
@@ -27,7 +28,6 @@ int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 extern void* gpGlobal_007A0634; // 0x007A0634
 
@@ -90,7 +90,6 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                             
 
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 
 // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit)
@@ -110,7 +109,6 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit)
     }
 }
 
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 // 0x0045AE20
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit)
@@ -355,7 +353,6 @@ void __stdcall DUNGEON_GameSubtileToClientCoords(int* pX, int* pY); // 0x0064326
 
 
 
-void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
 inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {

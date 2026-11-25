@@ -8,6 +8,7 @@
 #include "D2Records.h"
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
+#include "D2CommonApi.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);
@@ -63,12 +64,7 @@ int __fastcall D2Win_10127_SetFont(int nArg); // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);
-D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);
-int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus);
 int __stdcall SKILLS_GetBonusSkillLevelFromSkillId(D2UnitStrc* pUnit, int nSkillId);
-int __stdcall SKILLS_GetClassSkillId(int nClassId, int nPosition);
-int __stdcall SKILLS_GetPlayerSkillCount(int nClassId);
-int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel);
 
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 

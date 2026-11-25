@@ -8,6 +8,7 @@
 #include "D2ClientParty.h"
 #include "D2WinSplitText.h"
 #include "D2WaypointActRange.h"
+#include "D2CommonApi.h"
 
 struct D2PartyRowStrc;
 struct D2PacketRecord21Strc;
@@ -16,8 +17,6 @@ struct D2WaypointRowRectStrc;
 
 
 
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 extern int gnScreenWidth; // 0x0071146C
 extern int gnPanelOffsetX; // 0x007A2858
@@ -33,9 +32,6 @@ struct D2PacketRecord21Strc
 };
 int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 D2BitBufferStrc* __cdecl MONSTER_GetQuestFlags(); // 0x004B32D0
-int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 void __cdecl WARDENCLIENT_BuildWaypointList(); // 0x0049C7F0
 int __fastcall UI_SetUIVar(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __cdecl GAME_ResetMouseState(); // 0x0044DA40
@@ -233,9 +229,7 @@ extern void* gpWaypointActTabsCel; // 0x007BF075
 
 extern void* gpWaypointIconCel; // 0x007BF079
 
-D2WaypointDataStrc* __stdcall WAYPOINTS_AllocWaypointData(void* pMemPool); // 0x00660F30
 
-void __stdcall WAYPOINTS_FreeWaypointData(void* pMemPool, D2WaypointDataStrc* pData); // 0x00660FD0
 
 extern "C" void __cdecl TEXT_FreeWaypointCels(); // 0x0049C650
 
@@ -350,11 +344,8 @@ struct Unicode;
 struct D2WaypointActRangeStrc;
 
 
-int __stdcall WAYPOINTS_GetLevelIdFromWaypointNo(unsigned short wWaypointNo, int* pLevelId); // 0x00660D90
 
-int __stdcall WAYPOINTS_GetWaypointNoFromLevelId(int nLevelId, unsigned short* pWaypointNo); // 0x00660E00
 
-int __stdcall WAYPOINTS_IsActivated(D2WaypointDataStrc* pData, unsigned short wField); // 0x00660E50
 
 extern D2WaypointActRangeStrc gaWaypointActRanges[]; // 0x007224AC
 

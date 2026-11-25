@@ -10,6 +10,8 @@
 #include "D2MultiTypes.h"
 #include "D2ClientTimer.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -56,11 +58,9 @@ void* __stdcall sub_004FAC80(int nArg); // 0x004FAC80
 
 void __stdcall DATATBLS_LoadAllTxts(void* pArg, int bArg); // 0x00619300
 
-void __stdcall DATATBLS_UnloadAllBins(); // 0x00619140
 
 void __cdecl GAME_FreeLngModule(); // 0x00451290
 
-void __cdecl PROFCORE_WriteProfileCounters(); // 0x006116B0
 
 extern "C" int __cdecl GAME_ShutdownIfActive(); // 0x0044BB80
 
@@ -125,7 +125,6 @@ void __fastcall D2Win_10117_DrawText(const Unicode*,int,int,int,int); // 0x00502
 
 const char* __stdcall D2Win_10161(int nClass, int nLevel, int bExpansion, int bSoftCore); // 0x005068A0
 
-Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
 extern int gnScreenWidth; // 0x0071146C
 
@@ -183,7 +182,6 @@ int __stdcall DATATBLS_CheckActInLevelTypesTxt(int nLevelType, unsigned char nAc
 
 void __stdcall DATATBLS_GetFileNameFromLevelTypeAndFileId(int nLevelType, int nFile, char* szFile); // 0x0061EB40
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
@@ -224,9 +222,7 @@ int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Fi
 void __fastcall MSG_SetProgress(int nValue, int nDivisor); // 0x00478130
 
 
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 int __stdcall INV_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
 

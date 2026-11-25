@@ -10,6 +10,8 @@
 #include "D2ClientUi.h"
 #include "D2StatIds.h"
 #include "FogApi.h"
+#include "D2CommonApi.h"
+#include "D2LangApi.h"
 
 struct Unicode;
 
@@ -60,7 +62,6 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 
 int __fastcall D2Win_10127_SetFont(int nArg);                                                                      // 0x00502EF0
 
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 
 extern int gnScreenWidth;                                                                               // 0x0071146C
 
@@ -496,7 +497,6 @@ void __cdecl GFX_UpdatePetFlags()
 }
 
 
-int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 

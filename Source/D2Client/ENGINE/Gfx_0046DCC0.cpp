@@ -8,6 +8,7 @@
 #include "D2ClientGfxState.h"
 #include "FogApi.h"
 #include "StormApi.h"
+#include "D2CommonApi.h"
 struct D2GfxListNodeStrc;
 struct D2UnitStrc;
 
@@ -30,8 +31,6 @@ extern int gnCofMemoryUsed; // 0x007A8918
 extern D2HashedFileStrc gtGlobalHashedFile;
 void __stdcall sub_M274_EmitBuildPath(char* szPath, int nMode);
 
-int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
-void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 D2StateOwnerStrc* __fastcall CUNIT_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 void __fastcall DLIGHTMAP_ReleaseLight(void* pResource); // 0x004743D0
 static void __stdcall GFX_RemoveStateOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pOverlay); // 0x0046E040
@@ -61,7 +60,6 @@ int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
-D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int bUseConvertedMode); // 0x0064F380
 

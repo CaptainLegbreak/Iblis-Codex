@@ -1,11 +1,11 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2CommonApi.h"
 
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 void __stdcall shim_1(void* p1, void* p2);
 
 // build: symbol ?SKILLSEMON_CreateMissileRequest@* 0x004F0590
