@@ -3336,11 +3336,6 @@ static int ERRORMANAGER_GetPoolIndex(int nSize)
     return Log2Ceil(nSize) - 4;
 }
 
-int __fastcall sub_M289_Emit_004091B0(int nUnused, int nSize)
-{
-    return ERRORMANAGER_GetPoolIndex(nSize);
-}
-
 // 0x00409200
 static int ERRORMANAGER_GetPoolBlockSize(int nIndex)
 {

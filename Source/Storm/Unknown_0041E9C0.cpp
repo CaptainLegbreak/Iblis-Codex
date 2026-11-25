@@ -416,11 +416,6 @@ static inline int MONSTERMODE_IsActionFrame(D2UnitStrc* pUnit)
     return pUnit->nActionFrame == 1;
 }
 
-void __fastcall sub_M111_Emit_005A64F0(D2UnitStrc* pUnit, int* pResult)
-{
-    *pResult = MONSTERMODE_IsActionFrame(pUnit) + 1;
-}
-
 // 0x00420EB0
 static unsigned int __stdcall sub_00420EB0_Accumulate64(unsigned __int64 nValue, unsigned __int64* pAccumulator)
 {
