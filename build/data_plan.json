@@ -3046,13 +3046,12 @@
    "state": "included"
   },
   "Source/D2CMP/SRC/CelCmp.cpp": {
-   "bytes": 3148,
-   "definitions": 14,
+   "bytes": 2984,
+   "definitions": 8,
    "externs": [
     "extern \"C\" void __cdecl CelFileConvertRle24To8(); // 0x00606B50",
     "extern \"C\" void __cdecl sub_00608540(); // 0x00608540",
-    "extern \"C\" void __cdecl CelCompressEncodeRleCels(); // 0x00608EE0",
-    "extern \"C\" char gData_006F28F8[]; // 0x006F28F8"
+    "extern \"C\" void __cdecl CelCompressEncodeRleCels(); // 0x00608EE0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2CMP/SRC/CelCmp.inc",
@@ -105436,7 +105435,7 @@
    "alias": true,
    "cname": "gData_006E3680",
    "declared": true,
-   "decorated": "?gapfnCelFileBuilders@@3PAP6IXPAUD2StormEntry38Strc@@PAUD2CelFileStrc@@@ZA",
+   "decorated": "?gapfnCelFileBuilders@@3PAP6IXPAUCELLIST@@PAUD2CelFileStrc@@@ZA",
    "file": "Source/D2CMP/SRC/CelCmp.cpp",
    "fill": 2,
    "form": "declared",
@@ -105468,7 +105467,7 @@
    "size": 8,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E3680\n#pragma comment(linker, \"/alternatename:?gapfnCelFileBuilders@@3PAP6IXPAUD2StormEntry38Strc@@PAUD2CelFileStrc@@@ZA=_gData_006E3680\")",
+   "tail": "; // 0x006E3680\n#pragma comment(linker, \"/alternatename:?gapfnCelFileBuilders@@3PAP6IXPAUCELLIST@@PAUD2CelFileStrc@@@ZA=_gData_006E3680\")",
    "type": "CelFileBuildFn",
    "va": "0x006E3680"
   },
@@ -105496,32 +105495,6 @@
    "tail": "; // 0x00741EFC",
    "type": "int",
    "va": "0x00741EFC"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00741F0C",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2CMP/SRC/CelCmp.cpp",
-   "form": "bytes",
-   "name": "gData_00741F0C",
-   "pointers": [
-    [
-     0,
-     "0x006F28F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 8,
-   "va": "0x00741F0C",
-   "fwd": "extern \"C\" struct d2data_00741F0C_t gData_00741F0C; // 0x00741F0C",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00741F0C_t\n{\n    const void* p0;\n    unsigned char b1[4];\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_00741F0C_t gData_00741F0C = ",
-   "tail": "; // 0x00741F0C"
   },
   {
    "alias": true,
@@ -105682,152 +105655,6 @@
    "tail": "; // 0x006E5DC0\n#pragma comment(linker, \"/alternatename:?gaDirection16To8Alt@@3QBEB=_gData_006E5DC0\")",
    "type": "unsigned char",
    "va": "0x006E5DC0"
-  },
-  {
-   "alias": true,
-   "cname": "gData_00741F44",
-   "declared": true,
-   "decorated": "_gszTypeNameCelSlotList",
-   "file": "Source/D2CMP/SRC/CelCmp.cpp",
-   "fill": 48,
-   "form": "declared",
-   "fwd": "extern \"C\" const char gData_00741F44[48]; // 0x00741F44",
-   "head": "extern \"C\" const char gData_00741F44[48] = ",
-   "model": {
-    "elem": {
-     "k": "prim",
-     "kind": "c",
-     "name": "char",
-     "size": 1
-    },
-    "k": "arr",
-    "n": 48,
-    "size": 48
-   },
-   "name": "gszTypeNameCelSlotList",
-   "pointers": [],
-   "region": "data",
-   "size": 48,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00741F44\n#pragma comment(linker, \"/alternatename:_gszTypeNameCelSlotList=_gData_00741F44\")",
-   "type": "char",
-   "va": "0x00741F44"
-  },
-  {
-   "alias": true,
-   "cname": "gData_00741F14",
-   "declared": true,
-   "decorated": "_gszTypeNameCelEntry",
-   "file": "Source/D2CMP/SRC/CelCmp.cpp",
-   "fill": 24,
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00741F14_t gData_00741F14; // 0x00741F14",
-   "head": "extern \"C\" struct d2data_00741F14_t gData_00741F14 = ",
-   "name": "gszTypeNameCelEntry",
-   "pointers": [
-    [
-     16,
-     "0x006F28F8",
-     "address",
-     "gData_006F28F8",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 24,
-   "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00741F14_t\n{\n    unsigned char b0[16];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00741F14\n#pragma comment(linker, \"/alternatename:_gszTypeNameCelEntry=_gData_00741F14\")",
-   "type": "char",
-   "va": "0x00741F14"
-  },
-  {
-   "alias": true,
-   "cname": "gData_00741F2C",
-   "declared": true,
-   "decorated": "_gszTypeNameCelList",
-   "file": "Source/D2CMP/SRC/CelCmp.cpp",
-   "fill": 24,
-   "form": "bytes",
-   "fwd": "extern \"C\" struct d2data_00741F2C_t gData_00741F2C; // 0x00741F2C",
-   "head": "extern \"C\" struct d2data_00741F2C_t gData_00741F2C = ",
-   "name": "gszTypeNameCelList",
-   "pointers": [
-    [
-     16,
-     "0x006F28F8",
-     "address",
-     "gData_006F28F8",
-     0,
-     "data"
-    ]
-   ],
-   "region": "data",
-   "size": 24,
-   "stars": 0,
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00741F2C_t\n{\n    unsigned char b0[16];\n    const void* p1;\n    unsigned char b2[4];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x00741F2C\n#pragma comment(linker, \"/alternatename:_gszTypeNameCelList=_gData_00741F2C\")",
-   "type": "char",
-   "va": "0x00741F2C"
-  },
-  {
-   "alias": false,
-   "cname": "gData_00741FAC",
-   "declared": false,
-   "decorated": null,
-   "file": "Source/D2CMP/SRC/CelCmp.cpp",
-   "form": "bytes",
-   "name": "gData_00741FAC",
-   "pointers": [
-    [
-     0,
-     "0x006F28F8",
-     "literal",
-     null,
-     0,
-     "string"
-    ]
-   ],
-   "region": "data",
-   "size": 8,
-   "va": "0x00741FAC",
-   "fwd": "extern \"C\" struct d2data_00741FAC_t gData_00741FAC; // 0x00741FAC",
-   "struct": "#pragma pack(push, 1)\nstruct d2data_00741FAC_t\n{\n    const void* p0;\n    unsigned char b1[4];\n};\n#pragma pack(pop)",
-   "head": "extern \"C\" struct d2data_00741FAC_t gData_00741FAC = ",
-   "tail": "; // 0x00741FAC"
-  },
-  {
-   "alias": true,
-   "cname": "gData_00741FB4",
-   "declared": true,
-   "decorated": "_gszTypeNameCelHashChunk",
-   "file": "Source/D2CMP/SRC/CelCmp.cpp",
-   "fill": 52,
-   "form": "declared",
-   "fwd": "extern \"C\" const char gData_00741FB4[52]; // 0x00741FB4",
-   "head": "extern \"C\" const char gData_00741FB4[52] = ",
-   "model": {
-    "elem": {
-     "k": "prim",
-     "kind": "c",
-     "name": "char",
-     "size": 1
-    },
-    "k": "arr",
-    "n": 52,
-    "size": 52
-   },
-   "name": "gszTypeNameCelHashChunk",
-   "pointers": [],
-   "region": "data",
-   "size": 52,
-   "stars": 0,
-   "struct": null,
-   "tail": "; // 0x00741FB4\n#pragma comment(linker, \"/alternatename:_gszTypeNameCelHashChunk=_gData_00741FB4\")",
-   "type": "char",
-   "va": "0x00741FB4"
   },
   {
    "alias": true,

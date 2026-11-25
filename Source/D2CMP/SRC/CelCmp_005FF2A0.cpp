@@ -4,7 +4,7 @@
 #include "D2GameTypes.h"
 #include "D2CmpTypes.h"
 #include "D2CmpStormList.h"
-#include "D2CmpStormHash.h"
+#include "CELLIST.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { FOG_DisplayHalt(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SpriteCacheNodeStrc;
@@ -40,7 +40,6 @@ struct D2CommonMappingEntryNodeBaseStrc;
 struct D2CommonMappingEntryNodeStrc;
 struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
-struct D2CelEntryStrc;
 extern "C" void __cdecl FOG_DisplayHalt(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -88,18 +87,6 @@ struct D2Storm4168F0Strc
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
-extern "C" const char gszTypeNameCelEntry[]; // 0x00741F14
-
-struct D2CelEntryStrc : D2StormNodeStrc
-{
-    int nArg8;
-    unsigned int nHeight;
-    unsigned int nWidth;
-    unsigned int nSize;
-    int nArg6;
-    int nArg7;
-    void* pData;
-};
 
 D2CmpCacheListEntryStrc* gpCmpCacheEntries; // 0x0089DB7C
 
@@ -344,12 +331,6 @@ char* __fastcall sub_004167F0_LinkNext(D2StormLinkStrc* pLink)
     return (int)pLink->m_next > 0 ? pLink->m_next : 0;
 }
 
-// 0x00601DD0
-char* __fastcall DRLGPRESET_GetLinkRawNext(D2StormLinkStrc* pLink)
-{
-    return pLink->m_next;
-}
-
 char* __fastcall sub_00416820_LinkNext(D2StormLinkStrc* pLink)
 {
     return (int)pLink->m_next > 0 ? pLink->m_next : 0;
@@ -527,12 +508,6 @@ void D2ChatStormListBStrc::IGNORELIST_ResetMappingList()
     InitializeTerminator();
 }
 
-// 0x00601DE0
-char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset)
-{
-    return pNode + nLinkOffset;
-}
-
 char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset)
 {
     return pNode + nLinkOffset;
@@ -583,56 +558,20 @@ void D2CommonStormHashTableAStrc::IGNORELIST_ClearStringTable()
     IGNORELIST_InternalClearStringTable(0);
 }
 
-// 0x006020B0
-char* D2ChatStormListAStrc::IGNORELIST_GetStringListHead()
+inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
 {
-    return m_terminator.MaskNext();
+    return pWhere;
 }
 
-// 0x00602390
-void D2ChatStormListAStrc::IGNORELIST_ResetStringList()
-{
-    m_linkoffset = 0;
-    InitializeTerminator();
-}
+// The cel list table's handle generator. It calls InternalFind out of line and keeps the table in esi across
+// the call, so it was compiled without InternalFind's body in view: it stays in this file, apart from
+// CelCmp.cpp's table members.
+template<>
+CELLIST* TSHashTable<CELLIST, HASHKEY_NONE>::InternalFind(unsigned int hashval, const HASHKEY_NONE& key);   // 0x006030E0
 
-// build: symbol ?UnlinkAll@D2StormNodeListStrc@@QAEXXZ 0x006025E0
-void D2StormNodeListStrc::UnlinkAll()
-{
-    D2StormNodeStrc* pNode;
-    while ((pNode = Head()) != 0)
-        pNode->f_0.Unlink();
-}
-
-// build: symbol ?UnlinkAll@D2StormSlotListStrc@@QAEXXZ 0x00602640
-void D2StormSlotListStrc::UnlinkAll()
-{
-    char* pNode;
-    while ((pNode = Head()) != 0)
-        Link(pNode)->Unlink();
-}
-
-// build: symbol ?UnlinkAll@D2StormListEStrc@@QAEXXZ 0x00602690
-void D2StormListEStrc::UnlinkAll()
-{
-    char* pNode;
-    while ((pNode = Head()) != 0)
-        Link(pNode)->Unlink();
-}
-
-// 0x00602BF0
-void D2StormNodeListStrc::CelEntryListDeleteAll()
-{
-    char* pNode;
-    while ((pNode = m_terminator.Next()) != 0)
-    {
-        ((D2CelEntryStrc*)pNode)->~D2CelEntryStrc();
-        SMemFree(pNode, gszTypeNameCelEntry, -2, 0);
-    }
-}
-
-// 0x00603280
-unsigned int D2GameDataTableStrc::CelListTableGenerateHandle()
+// build: symbol ?GenerateHandle@?$TSExportTableSimple@UCELLIST@@PAUHCELLIST__@@$0A@@@QAEPAUHCELLIST__@@XZ 0x00603280
+template<>
+HCELLIST__* TSExportTableSimple<CELLIST, HCELLIST__*, 0>::GenerateHandle()
 {
     for (;;)
     {
@@ -642,20 +581,8 @@ unsigned int D2GameDataTableStrc::CelListTableGenerateHandle()
             m_wrapped = 1;
             continue;
         }
-
-        if (!m_wrapped || !sub_006030E0_InternalFind(m_sequence, f_44))
-        {
+        if (!m_wrapped || !InternalFind(m_sequence, m_key))
             break;
-        }
     }
-
-    return m_sequence;
-}
-
-// 0x00602730
-D2ChatStormListCStrc::D2ChatStormListCStrc()
-{
-    m_linkoffset = 0;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+    return (HCELLIST__*)m_sequence;
 }

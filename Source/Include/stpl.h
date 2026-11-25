@@ -118,11 +118,11 @@ struct TSLinkedNode
 };
 
 // The link policies: TSGetLink finds a node's link in its m_link member; TSGetExplicitLink uses the list's
-// m_linkoffset.
+// m_linkoffset. Both are __fastcall statics (D2CMP's object emits them out of line: 0x601CF0, 0x601DA0).
 template<class T>
 struct TSGetLink
 {
-    static TSLink<T>* Link(const T* nodeptr, int linkoffset)
+    static TSLink<T>* __fastcall Link(const T* nodeptr, int linkoffset)
     {
         return &((T*)nodeptr)->m_link;
     }
@@ -131,7 +131,7 @@ struct TSGetLink
 template<class T>
 struct TSGetExplicitLink
 {
-    static TSLink<T>* Link(const T* nodeptr, int linkoffset)
+    static TSLink<T>* __fastcall Link(const T* nodeptr, int linkoffset)
     {
         return (TSLink<T>*)((char*)nodeptr + linkoffset);
     }
@@ -402,7 +402,7 @@ struct TSGrowableArray : TSFixedArray<T, TCD>
 template<class T, class TGetLink>
 T* TSList<T, TGetLink>::RawNext(const T* ptr)
 {
-    return ptr ? TGetLink::Link(ptr, m_linkoffset)->m_next : m_terminator.m_next;
+    return Link(ptr)->m_next;
 }
 
 template<class T, class TGetLink>

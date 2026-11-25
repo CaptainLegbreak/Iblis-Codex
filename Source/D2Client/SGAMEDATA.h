@@ -3,26 +3,7 @@
 // hash-table types the client's game list is built from.
 
 #include "stplhash.h"
-#include "D2SysTypes.h"
-
-extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock);    // 0x006CC210
-extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC
-
-// Storm's lock wrapper, the sync export table's TSYNC.
-class CCritSect
-{
-public:
-    D2CriticalSectionStrc m_critsect;
-
-    CCritSect()
-    {
-        InitializeCriticalSection(&m_critsect);
-    }
-    ~CCritSect()
-    {
-        DeleteCriticalSection(&m_critsect);
-    }
-};
+#include "CCritSect.h"
 
 struct HSGAMEDATA__;
 struct HSGAMEDATALOCK__;
