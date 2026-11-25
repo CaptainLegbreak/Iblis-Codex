@@ -486,13 +486,13 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
-extern U8 gColor;
+extern unsigned char gColor;
 
 extern int gScreenHeight;
 
 extern int gScreenWidth;
 
-extern U32 gUiState; // 0x007BCBF0
+extern unsigned int gUiState; // 0x007BCBF0
 
 extern void* gResourceA;
 
@@ -557,23 +557,23 @@ unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
 
 typedef void (__fastcall *UnitCallback)(D2UnitStrc*);
 
-extern U32 gSelectionState; // 0x007BCC50
+extern unsigned int gSelectionState; // 0x007BCC50
 
-extern U8 gPaletteA;
+extern unsigned char gPaletteA;
 
-extern U8 gPaletteB;
+extern unsigned char gPaletteB;
 
-extern U8 gPaletteC;
+extern unsigned char gPaletteC;
 
-extern U8 gPaletteD;
+extern unsigned char gPaletteD;
 
 void __fastcall CUNIT_ForEachObject(UnitCallback callback); // 0x004649D0
 
 void __fastcall sub_00489DA0(D2UnitStrc* unit); // 0x00489DA0
 
-U32 __stdcall PaletteColor(U32 red, U32 green, U32 blue);
+unsigned int __stdcall PaletteColor(unsigned int red, unsigned int green, unsigned int blue);
 
-void __fastcall sub_00478600(U8 command, U16 value, U32 word2, U32 word3); // 0x00478600
+void __fastcall sub_00478600(unsigned char command, unsigned short value, unsigned int word2, unsigned int word3); // 0x00478600
 
 static void INV_DrawUnitEquippedItems(D2UnitStrc* pUnit); // 0x0048B540
 

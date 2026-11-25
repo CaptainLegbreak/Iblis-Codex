@@ -386,13 +386,13 @@ extern unsigned long gdwTickCount_007A048C; // 0x007A048C
 
 extern unsigned int gnTickCounter_007A0498; // 0x007A0498
 
-struct UnitPrefix { U32 prefix0; U32 prefix4; U32 prefix8; U32 identifier; };
+struct UnitPrefix { unsigned int prefix0; unsigned int prefix4; unsigned int prefix8; unsigned int identifier; };
 
 typedef char check_UnitPrefix_identifier[OFFSET(UnitPrefix,identifier)==12?1:-1];
 
 extern "C" UnitPrefix* __cdecl CURSOR_GetCursorItem(); // 0x004680A0
 
-extern "C" void __fastcall MSG_SendTwoDwords(U8 command,U32 first,U32 second); // 0x004786A0
+extern "C" void __fastcall MSG_SendTwoDwords(unsigned char command,unsigned int first,unsigned int second); // 0x004786A0
 
 extern "C" Auxiliary* __cdecl sub_004646A0_GetAuxiliary();
 
@@ -406,9 +406,9 @@ extern "C" int __cdecl GAME_IsExpansion(); // 0x0044DCC0
 
 extern "C" Context* gContext; // 0x007A0634
 
-extern "C" U8 gDeferred; // 0x007A060E
+extern "C" unsigned char gDeferred; // 0x007A060E
 
-extern "C" U32 gCleanupState;
+extern "C" unsigned int gCleanupState;
 
 extern "C" Allocation* gAllocation;
 
@@ -424,11 +424,11 @@ void __fastcall GAME_SetMcpCallbackA(D2McpCallbackFn pfnCallback); // 0x0044B1F0
 
 void __fastcall GAME_SetMcpCallbackB(D2McpCallbackFn pfnCallback); // 0x0044B200
 
-extern "C" { U32 gSlotFirst; } // 0x00799300
+extern "C" { unsigned int gSlotFirst; } // 0x00799300
 
-extern "C" { U32 gSlotSecond; } // 0x00799304
+extern "C" { unsigned int gSlotSecond; } // 0x00799304
 
-extern "C" void __fastcall sub_0044B210_StoreSlots(U32 first, U32 second); // 0x0044B210
+extern "C" void __fastcall sub_0044B210_StoreSlots(unsigned int first, unsigned int second); // 0x0044B210
 
 void __fastcall GAME_SetMcpChatCallback(void (__fastcall* pfnCallback)(void* pArg)); // 0x0044B220
 

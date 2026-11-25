@@ -160,13 +160,13 @@ extern "C" int __cdecl sub_00468730_MouseX();
 
 extern "C" int __cdecl sub_00468740_MouseY();
 
-extern "C" U32 __fastcall sub_004538D0_UIState(U32 index);
+extern "C" unsigned int __fastcall sub_004538D0_UIState(unsigned int index);
 
-extern "C" const U16* __fastcall sub_00524A30_LocalizedText(U16 index);
+extern "C" const unsigned short* __fastcall sub_00524A30_LocalizedText(unsigned short index);
 
-extern "C" void __fastcall sub_00502280_SetTooltip(const U16* text, int x, int y, int color, int mode);
+extern "C" void __fastcall sub_00502280_SetTooltip(const unsigned short* text, int x, int y, int color, int mode);
 
-extern "C" void __stdcall BITMANIP_Write(BitStreamContext* stream, U32 value, int bitCount); // 0x00410EB0
+extern "C" void __stdcall BITMANIP_Write(BitStreamContext* stream, unsigned int value, int bitCount); // 0x00410EB0
 
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0x006CC45C
 
@@ -1538,7 +1538,7 @@ void __cdecl PANEL_DrawBorderFrameRight()
 }
 
 // build: symbol @SCMD_WriteVariableValue@* 0x0053B0E0
-extern "C" void __fastcall SCMD_WriteVariableValue(BitStreamContext* stream, U32 value)
+extern "C" void __fastcall SCMD_WriteVariableValue(BitStreamContext* stream, unsigned int value)
 {
     if (value < 256u)
     {

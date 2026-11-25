@@ -111,7 +111,7 @@ extern int gTextRight;
 
 PlayerListHead* __fastcall ROSTER_GetRosterInfoList(int playerId); // 0x0047A310
 
-void* __fastcall Allocate(U32 bytes, const char* file, int line, U32 flags);
+void* __fastcall Allocate(unsigned int bytes, const char* file, int line, unsigned int flags);
 
 void __fastcall SOUNDHDR_ReleaseCacheEntry(int nIndex); // 0x004823E0
 
@@ -119,11 +119,11 @@ void* __cdecl sub_004646A0();
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(void* room);
 
-const U16* __fastcall UI_GetLevelName(int levelId); // 0x00453E70
+const unsigned short* __fastcall UI_GetLevelName(int levelId); // 0x00453E70
 
-int __fastcall D2Win_10121_GetTextWidth(const U16* text); // 0x00501820
+int __fastcall D2Win_10121_GetTextWidth(const unsigned short* text); // 0x00501820
 
-void __fastcall D2Win_10117_DrawText(const U16* text, int x, int y, int color, int mode); // 0x00502320
+void __fastcall D2Win_10117_DrawText(const unsigned short* text, int x, int y, int color, int mode); // 0x00502320
 
 D2ClientCacheNodeStrc* gpCacheList; // 0x007BC9B8
 

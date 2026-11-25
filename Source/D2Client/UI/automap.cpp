@@ -1016,9 +1016,9 @@ extern int gTextRight; // 0x007A5220
 
 PlayerListHead* __fastcall ROSTER_GetRosterInfoList(int playerId); // 0x0047A310
 
-void* __fastcall Allocate(U32 bytes, const char* file, int line, U32 flags);
+void* __fastcall Allocate(unsigned int bytes, const char* file, int line, unsigned int flags);
 
-int __fastcall Release(void* allocation, const char* file, int line, U32 flags);
+int __fastcall Release(void* allocation, const char* file, int line, unsigned int flags);
 
 void __fastcall SOUNDHDR_ReleaseCacheEntry(int index); // 0x004823E0
 
