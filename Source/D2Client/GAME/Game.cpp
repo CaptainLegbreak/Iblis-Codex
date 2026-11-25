@@ -1779,35 +1779,10 @@ int __cdecl GAME_GetStopMainLoop()
     return gbStopMainLoop;
 }
 
-// 0x00430B40
-int __cdecl GAME_GetSlotNameCount()
-{
-// build: symbol ?gnSlotCount@* 0x0077998C
-    return gnSlotCount;
-}
-
-// 0x00437D00
-void* __cdecl GAME_GetPreferredRealm()
-{
-    return gszPreferredRealm;
-}
-
-// 0x00437D10
-int __cdecl sub_00437D10()
-{
-    return 0;
-}
-
 // 0x0043DB10
 int __cdecl GAME_IsLaunchExpansion()
 {
     return gdwGlobal_0077BBF8;
-}
-
-// 0x0043F840
-int __cdecl sub_0043F840()
-{
-    return 1;
 }
 
 // 0x00446CF0

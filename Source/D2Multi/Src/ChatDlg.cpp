@@ -3100,6 +3100,12 @@ void __cdecl CHATDLG_FreeNameList()
     gpNameList = 0;
 }
 
+// 0x0043F840
+int __cdecl sub_0043F840()
+{
+    return 1;
+}
+
 // 0x0043F850
 __declspec(noinline) int __cdecl CHARSEL_CancelGameCreate()
 {
