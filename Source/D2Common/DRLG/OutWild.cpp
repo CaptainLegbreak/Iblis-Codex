@@ -149,14 +149,6 @@ static void __stdcall DRLGOUTWILD_SpawnCottage(int bExtraCottage, int nLvlPrestI
     }
 }
 
-void __fastcall sub_M90_Emit_006804E0(D2DrlgLevelStrc* pLevel)
-{
-    DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, 0x2E, -1);
-    DRLGOUTWILD_SpawnCottage(0, 0x2F, pLevel);
-    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1D, -1, 0, 15);
-    DRLGOUTWILD_SpawnCottage(1, 0x30, pLevel);
-}
-
 // 0x00680580
 static void DRLGOUTWILD_SpawnSpecialPresets(D2DrlgLevelStrc* pLevel)
 {
@@ -392,12 +384,6 @@ void __fastcall DRLGOUTWILD_InitAct1OutdoorLevel(D2DrlgLevelStrc* pLevel)
         DRLGOUTDOORS_SpawnAct12Shrines(pLevel, 5);
     }
 
-    DRLGOUTWILD_SpawnSpecialPresets(pLevel);
-}
-
-void __fastcall sub_C07_Emit_00680580(D2DrlgLevelStrc* pLevel)
-{
-    DRLGOUTDOORS_SpawnAct12Shrines(pLevel, 5);
     DRLGOUTWILD_SpawnSpecialPresets(pLevel);
 }
 

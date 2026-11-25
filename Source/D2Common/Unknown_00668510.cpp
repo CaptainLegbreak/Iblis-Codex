@@ -115,13 +115,6 @@ static __declspec(noinline) void sub_00668510_MakeCode(const char* szText, char*
     szCode[3] = szText[3];
 }
 
-unsigned int __stdcall sub_M91_Emit_00668510(const char* szText)
-{
-    unsigned int dwCode;
-    sub_00668510_MakeCode(szText, (char*)&dwCode);
-    return dwCode;
-}
-
 // 0x00668560
 static char* DATATBLS_StripQuotes(char* szText)
 {
@@ -196,13 +189,6 @@ static int sub_006685C0_NextSetTokenInt(char** ppString, const char* szSet)
         *ppString = 0;
     }
     return atoi(szToken);
-}
-
-char* __stdcall sub_M133_Emit_006685C0(char* szText, const char* szSet, int* pOut)
-{
-    pOut[0] = sub_006685C0_NextSetTokenInt(&szText, szSet);
-    pOut[1] = sub_006685C0_NextSetTokenInt(&szText, szSet);
-    return szText;
 }
 
 static inline int DATATBLS_StringToCode(const char* szText)
@@ -700,13 +686,6 @@ void __fastcall DATATBLS_CubeMainOutputLinker(char* pSrc, void* pRecord, int nOf
 {
     if (pRecord && pSrc && *pSrc)
         sub_00668A90_ParseCubeInput((D2CubeInputItemStrc*)((char*)pRecord + 0x4C + nOffset * 0x54), pSrc);
-}
-
-char* __stdcall sub_M133_Emit_00668590(char* szText, const char* szSet, char** ppOut)
-{
-    ppOut[0] = sub_00668590_NextSetToken(&szText, szSet);
-    ppOut[1] = sub_00668590_NextSetToken(&szText, szSet);
-    return szText;
 }
 
 // 0x006690E0

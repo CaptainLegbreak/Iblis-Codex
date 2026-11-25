@@ -1740,18 +1740,6 @@ void __stdcall DUNGEON_GameToClientCoords(int* pX, int* pY)
     *pY = (nX + nY) >> 2;
 }
 
-int __fastcall sub_U04_Emit_00641930(D2ActiveRoomStrc** ppRooms, int nCount, int nX, int nY)
-{
-    for (int i = 0; i < nCount; ++i)
-    {
-        if (SKILLS_IsPointNearRoom(ppRooms[i], nX, nY, 2))
-        {
-            return i;
-        }
-    }
-    return -1;
-}
-
 // 0x006432C0
 void __stdcall DUNGEON_ClientToGameTileCoords(int* pX, int* pY)
 {
