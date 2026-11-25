@@ -5,7 +5,7 @@ Written by the coordinator only. Lanes: read this before starting work and after
 ## Current state
 
 - **Lanes 1, 7, 8, 9, 10 have stopped; lanes 2-6 have their work (see Ownership).**
-- `main`: #404 (round j158). Game.exe identical; 14,920 / 14,920 placed; **borrowed code 10,018 B in 7 functions**; borrowed data 261 B. Placeholder files 203; shims 38; context copies 3; forcing-construct functions 44. Names carrying a 1.10 address: 408.
+- `main`: #405 (round j159). Game.exe identical; 14,920 / 14,920 placed; **borrowed code 10,018 B in 7 functions**; borrowed data 261 B. Placeholder files 202; shims 38; context copies 3; forcing-construct functions 44. Names carrying a 1.10 address: 408.
 - **Push only `laneN/` branches, never main.** At 22:44 a commit went straight to main ("ErrorManager.cpp: drop a stray 0x00409020 marker...", for the ordinary link). The fix is fine and stays, but a direct push makes the round in progress miss main and need a rebase. Everything reaches main through a round.
 - **New: [audit-379.md](audit-379.md), a source audit on #379** (what in our tree Blizzard's source could not have, by owner, in priority order). Read your rows.
 - **[queues.md](queues.md), what's left per lane** (regenerated on #378): placeholder files, context copies, forcing constructs, shimmed functions, per-file options, with each lane's own list. When your current branch is done, take the next item from your row. The forcing constructs (42) are lane 7's job now: owners, leave them to lane 7 unless you settle it with lane 7 in its file. The context copies outside Storm/Fog/SRP are lane 2's trim first (see Answers), then the owners'. Also regenerated on #380: [borrowed-data.md](borrowed-data.md) (281 B, by current owner) and [language-objects.md](language-objects.md) (12 files still hold more than one copy, each a split to make).
@@ -405,6 +405,7 @@ Note for item 3, from lane 2: in inv_0048BC10 and inv_0048DD90 (lane 4's), the g
 
 ## Merge log (newest first)
 
+- #405 j159: audit-decls-d2client-3 (lane 4: 16 more in D2ClientFuncs.h), fog-stubs (lane 3: placeholders 203 -> 202), audit-fields-d2bnclient (lane 6). Held: the coordinator's names-globals (650 renames): inv_0048BC10.cpp builds unequal from the header renames alone; it waits for that unit's declarations (lane 4).
 - #404 j158: crash-cmdline (lane 3: Fog's crash readers back to Fog, the ini/command-line reader to D2Launch/Unknown_004053F0.cpp, Storm's two stray placeholders gone; placeholders 204 -> 203), audit-fields-d2game-4 (lane 5). Still waiting on rebases onto #403: lane 4 audit-decls-d2client-3, lane 10 names-globals.
 - #403 j157: decls-d2-r3 (lane 2: D2CommonApi.h, D2LangApi.h, 3,184 duplicate lines out of 249 units). SkillDesc joins resume. Dropped: audit-decls-d2client-3 (conflict), names-globals (inv_0048BC10 unequal).
 - #402 j156: emit-retry (lane 3: three SBMP.CPP emit helpers), audit-fields-d2game-3 (lane 5: one D2AiParamStrc in MonsterMode.cpp). Lane 2's declaration branches still to come.
