@@ -2,7 +2,7 @@
 
 Written by lane 2 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 ~09:45 PT): decls-d2-r3 Ready on #401 (clean on #402). Fog's pool pair waits on the pool field types (see Notes).
+Status (Wed Nov 25 ~10:05 PT): decls-d2-r3 merged (#403). Next: the remaining Fog and Storm exports with 2+ private copies outside their modules (FogApi.h, StormApi.h).
 
 ## Claimed
 
@@ -11,8 +11,6 @@ Status (Wed Nov 25 ~09:45 PT): decls-d2-r3 Ready on #401 (clean on #402). Fog's 
 
 ## Ready
 
-- lane2/decls-d2-r3 312296c3b (on #401, applies cleanly to #402): D2CommonApi.h (366 D2Common exports) and D2LangApi.h (15 D2Lang exports) give each cross-module callee one declaration with the definition's prototype; 215 + 80 units outside D2Common/D2Lang drop their matching private copies and include them (249 files, 3,184 lines out). Nothing in Source/D2Common or Source/D2Lang changes. Rebuilt from scratch on #401. Full build: Game.exe identical, tree 7a37d9725cb3e29d673e01314281de06771462a0, borrowed code / data 10,018 / 261 B.
-- lane2/decls-d2-r2, lane2/decls-d2-r, lane2/decls-d2common-3, lane2/decls-d2lang-2, lane2/decls-d2common-b: SUPERSEDED by decls-d2-r3 (the earlier ready line for r2 had the word in its parenthesis, which may be why the poll skipped it).
 - `lane2/net-packet-buffer`: WITHDRAWN, never posted. It duplicates lane 10's `bn-crypt-records-r`; don't merge it. (The proxy here won't let me delete the remote branch.)
 
 ## Working on
