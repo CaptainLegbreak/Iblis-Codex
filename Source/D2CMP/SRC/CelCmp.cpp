@@ -1681,11 +1681,6 @@ static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContext
 
 static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry); // 0x005FEC50
 
-void __stdcall sub_P04_Emit_005FEC50(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry)
-{
-    pContext->pFrame = sub_005FEC50_GetCachedDC6Frame(pContext, pEntry);
-}
-
 // build: symbol ?sub_005FEC50_GetCachedDC6Frame@* 0x005FEC50
 static void* sub_005FEC50_GetCachedDC6Frame(D2CmpSpriteContextStrc* pContext, D2CmpDC6CacheEntryStrc* pEntry)
 {
@@ -3466,11 +3461,6 @@ void __fastcall D2CMPSpriteCacheResize(D2CmpCacheStrc* pCache, D2CmpCacheNodeStr
     EnterCriticalSection(&pCache->tLock);
     pNode->dwFlags &= ~2;
     LeaveCriticalSection(&pCache->tLock);
-}
-
-void __stdcall sub_F43_EmitPixelDataFreeWriter(PixelDataFreeCallback pfnCallback)
-{
-    gpfnPixelDataFree = pfnCallback;
 }
 
 // 0x005FE120
