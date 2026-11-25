@@ -38,7 +38,7 @@ int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 
 void __fastcall MONSTERUNIQUE_PromoteToChampion(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nUMod); // 0x005A48C0
 D2UnitStrc* __fastcall MONSTERUNIQUE_SpawnUniqueGroup(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nClassId, int bAllowChampion, unsigned short nX, unsigned short nY, int bAvoidWarps); // 0x005A43E0
 int __stdcall QUESTS_CheckNotIntroQuest(D2GameStrc* pGame, int nQuestId); // 0x005444B0
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** ppMonsterRegion, int nLevelId); // 0x00547BB0
 static int MONSTERREGION_CanRetryPresetSpawn(int nMonsterId); // 0x0054E3A0
@@ -239,7 +239,7 @@ int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc* pGame, D2ActiveRoomSt
         }
         else
         {
-            pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nPosX, nPosY, nClassId, 1, -1, 1);
+            pMonster = D2GAME_SpawnMonster(pGame, pRoom, nPosX, nPosY, nClassId, 1, -1, 1);
         }
 
         if (pMonster)
@@ -308,7 +308,7 @@ int __stdcall sub_0054DDC0_FindPosition(D2GameStrc* pGame, D2ActiveRoomStrc* pRo
             }
             else
             {
-                pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, pOffset->nX + nPosX, pOffset->nY + nPosY, nClassId, 1, -1, 1);
+                pMonster = D2GAME_SpawnMonster(pGame, pRoom, pOffset->nX + nPosX, pOffset->nY + nPosY, nClassId, 1, -1, 1);
             }
 
             if (!pMonster)
@@ -490,13 +490,13 @@ static D2UnitStrc* __stdcall sub_0054E490_SpawnRegularPresetMonster(D2GameStrc* 
     if (pMonStatsTxtRecord->nMonStatsFlags[0x12 >> 3] & gdwBitMasks[0x12 & 7])
         nFlags = 8;
 
-    D2UnitStrc* pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nClassId, nMode, -1, nFlags);
+    D2UnitStrc* pMonster = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, nClassId, nMode, -1, nFlags);
     if (!pMonster)
     {
         if (!MONSTERREGION_CanRetryPresetSpawn(nClassId))
             return 0;
 
-        pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nClassId, nMode, 4, nFlags);
+        pMonster = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, nClassId, nMode, 4, nFlags);
         if (!pMonster)
             return 0;
     }
@@ -514,7 +514,7 @@ static D2UnitStrc* __stdcall sub_0054E490_SpawnRegularPresetMonster(D2GameStrc* 
 
 int __fastcall DATATBLS_GetSuperUniquesTxtRecordCount();                                                    // 0x00655710
 
-D2UnitStrc* __fastcall D2GAME_SpawnSuperUnique_6FC6F690(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSuperUniqueId); // 0x005A49B0
+D2UnitStrc* __fastcall D2GAME_SpawnSuperUnique(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSuperUniqueId); // 0x005A49B0
 
 int __fastcall MONSTERCHOOSE_GetPresetMonsterId(D2GameStrc* pGame, D2MonsterRegionStrc* pMonsterRegion, D2ActiveRoomStrc* pRoom, D2MonStatsTxt** ppMonStatsTxtRecord, unsigned char nChance, int bSpawnUMon); // 0x005BDE80
 
@@ -529,7 +529,7 @@ void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventT
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                         // 0x0045C390
 
 // 0x0054E600
-D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode)
+D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode)
 {
     if (nClassId < 0)
         return 0;
@@ -547,7 +547,7 @@ D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2A
         }
         else
         {
-            return D2GAME_SpawnSuperUnique_6FC6F690(pGame, pRoom, nX, nY, nClassId);
+            return D2GAME_SpawnSuperUnique(pGame, pRoom, nX, nY, nClassId);
         }
     }
 
@@ -614,11 +614,11 @@ D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2A
         }
 
         const int nMonsterId = SKILLS_GetMonsterClassFromChain(MONSTERREGION_SanitizeMonsterId_Inline(MONSTER_TENTACLEHEAD1), nChainIncrements);
-        pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nMonsterId, nMode, -1, nFlags);
+        pMonster = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, nMonsterId, nMode, -1, nFlags);
         break;
     }
     case 5:
-        pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTERREGION_SanitizeMonsterId_Inline(MONSTER_BLOODRAVEN), nMode, -1, 0);
+        pMonster = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, MONSTERREGION_SanitizeMonsterId_Inline(MONSTER_BLOODRAVEN), nMode, -1, 0);
         break;
     case 2:
     {
@@ -639,7 +639,7 @@ D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2A
         if (!pMonStatsTxtRecord)
             return 0;
 
-        pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nClassId, nMode, -1, 0);
+        pMonster = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, nClassId, nMode, -1, 0);
         if (!pMonster)
             break;
 
@@ -648,10 +648,10 @@ D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2A
         break;
     }
     case 4:
-        pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_NAVI, nMode, -1, 0);
+        pMonster = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, MONSTER_NAVI, nMode, -1, 0);
         break;
     case 8:
-        pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, MONSTER_MAGGOTQUEEN1, nMode, -1, 8);
+        pMonster = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, MONSTER_MAGGOTQUEEN1, nMode, -1, 8);
         break;
     case 17:
     case 18:
@@ -710,10 +710,10 @@ D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2A
         if (pMonStatsTxtRecord->nMonStatsFlags[0x12 >> 3] & gdwBitMasks[0x12 & 7])
             nFlags = 8;
 
-        pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nMonsterId, nAnimMode, -1, nFlags);
+        pMonster = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, nMonsterId, nAnimMode, -1, nFlags);
         if (!pMonster)
         {
-            pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nMonsterId, nAnimMode, 4, nFlags);
+            pMonster = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, nMonsterId, nAnimMode, 4, nFlags);
             if (!pMonster)
                 break;
         }
@@ -854,7 +854,7 @@ static void __stdcall sub_0054EF50_SpawnWandering(
     int nY;
     if (!MONSTERREGION_FindSpawnLocation(pGame, pRoom, 0, nMonster, &nX, &nY, 0))
         return;
-    D2UnitStrc* pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nMonster, 1, -1, 0);
+    D2UnitStrc* pMonster = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, nMonster, 1, -1, 0);
     if (pMonster)
     {
         TARGETS_InsertUnitNode(pGame, pMonster, 0, 8);

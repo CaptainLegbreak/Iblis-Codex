@@ -199,7 +199,7 @@ void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); 
 
 void __fastcall QUESTS_NPCActivateSpeeches(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTarget); // 0x00545780
 
-int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nDestLevel, D2UnitStrc** ppSourceUnit, int nObjectId, int bPerm); // 0x0056D130
+int __fastcall D2GAME_CreatePortalObject(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nDestLevel, D2UnitStrc** ppSourceUnit, int nObjectId, int bPerm); // 0x0056D130
 
 void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C3A0
 
@@ -227,7 +227,7 @@ extern "C" const char gszA2Q6DebugKilledDuriel[]; // 0x006E209C
 
 int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
 
-void __fastcall D2GAME_SendPacket0x50_6FC3F440(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
+void __fastcall D2GAME_SendPacket0x50(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
 
 void __fastcall D2GAME_SendPacket0x58(D2ClientStrc* pClient, D2GSPacketSrv58* pPacket); // 0x0053D8D0
 
@@ -273,7 +273,7 @@ extern "C" const char gszA2Q6SourceFile[]; // 0x006E2068
 
 static void __stdcall ACT2Q6_SetPrimaryGoalDoneAndLeaveTown(D2GameStrc* pGame, D2UnitStrc* pUnit, D2BitBufferStrc* pQuestFlags); // 0x0059C810
 
-void __fastcall D2GAME_WarpPlayerToTile_6FCA5B20(D2ObjOperateFnStrc* pOp); // 0x0059D9D0
+void __fastcall D2GAME_WarpPlayerToTile(D2ObjOperateFnStrc* pOp); // 0x0059D9D0
 
 void __fastcall ACT2Q6_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059C920
 
@@ -852,7 +852,7 @@ void __fastcall ACT2Q6_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
         {
             pQuestDataEx->bPortalIsOpening = 1;
 
-            if (D2GAME_CreatePortalObject_6FD13DF0(pQuestData->pGame, pQuestArg->pPlayer, UNITS_GetRoom(pQuestArg->pPlayer), CLIENTS_GetUnitX(pQuestArg->pPlayer), CLIENTS_GetUnitY(pQuestArg->pPlayer), 40, 0, 59, 0))
+            if (D2GAME_CreatePortalObject(pQuestData->pGame, pQuestArg->pPlayer, UNITS_GetRoom(pQuestArg->pPlayer), CLIENTS_GetUnitX(pQuestArg->pPlayer), CLIENTS_GetUnitY(pQuestArg->pPlayer), 40, 0, 59, 0))
             {
                 QUESTS_StateDebug(pQuestData, 4, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 577);
                 SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT2Q6_UnitIterate_SetLeaveTownFlag);
@@ -1057,7 +1057,7 @@ void __fastcall ACT2Q6_SendTombIdToClient(D2GameStrc* pGame, D2UnitStrc* pUnit)
         packet50.nParams[0] = nTombStaffLevel - 0x42;
         ((D2Act2Quest6Strc*)pQuestData->pQuestDataEx)->nStaffTombLevelId = nTombStaffLevel;
     }
-    D2GAME_SendPacket0x50_6FC3F440(pClient, &packet50);
+    D2GAME_SendPacket0x50(pClient, &packet50);
 }
 
 extern int gnArcaneThingObjectIds[]; // 0x00738FAC
@@ -1249,7 +1249,7 @@ bool __fastcall ACT2Q6_Timer_UpdateObjects(D2GameStrc* pGame, D2QuestDataStrc* p
 }
 
 // 0x0059D9D0
-void __fastcall D2GAME_WarpPlayerToTile_6FCA5B20(D2ObjOperateFnStrc* pOp)
+void __fastcall D2GAME_WarpPlayerToTile(D2ObjOperateFnStrc* pOp)
 {
     for (D2UnitStrc* i = UNITS_GetRoom(pOp->hObject)->pUnitFirst; i; i = i->ptRoomNext)
     {
@@ -1268,7 +1268,7 @@ int __fastcall ACT2Q6_OperateTombPortal(D2ObjOperateFnStrc* pOp, int nOperate)
     {
         if (pOp->hObject && pOp->hObject->dwAnimMode == OBJMODE_OPENED)
         {
-            D2GAME_WarpPlayerToTile_6FCA5B20(pOp);
+            D2GAME_WarpPlayerToTile(pOp);
         }
     }
     return 0;

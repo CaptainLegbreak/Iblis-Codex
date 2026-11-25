@@ -153,7 +153,7 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int
 
 D2MapAIStrc* __stdcall AIGENERAL_GetMapAiFromUnit(D2UnitStrc* pUnit); // 0x0058F000
 
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 
 D2MapAIStrc* __fastcall DRLGPRESET_ChangeMapAI(D2MapAIStrc** ppMapAI1, D2MapAIStrc* pMapAI2); // 0x00666120
 
@@ -198,7 +198,7 @@ void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char a2); // 0x0054
 
 void __fastcall D2Game_10034_Return(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg, int nValue); // 0x00545990
 
-D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int nItemType, int bIgnoreRarity); // 0x00559A30
+D2UnitStrc* __fastcall D2GAME_DropItemAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int nItemType, int bIgnoreRarity); // 0x00559A30
 
 void __fastcall ACT4Q3_OnSoulstonesDropped(D2GameStrc* pGame, int nSoulStonesDropped); // 0x005B6930
 
@@ -682,7 +682,7 @@ void __fastcall ACT3Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     pQuestArg->pTarget->dwDropItemCode = ' ssm';
     for (int i = 0; i < pQuestDataEx->nSoulstonesToDrop; ++i)
     {
-        if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestArg->pGame, pQuestArg->pTarget, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 0))
+        if (D2GAME_DropItemAtUnit(pQuestArg->pGame, pQuestArg->pTarget, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 0))
         {
             ++pQuestDataEx->nSoulStonesDropped;
             pQuestDataEx->bSoulStoneDropped = 1;
@@ -927,10 +927,10 @@ void __fastcall OBJECTS_InitFunction52_NatalyaStart(D2ObjInitFnStrc* pOp)
         }
     }
 
-    D2UnitStrc* pNatalya = D2GAME_SpawnMonster_6FC69F10(pOp->pGame, pOp->pRoom, pOp->nX, pOp->nY, MONSTER_NATALYA, 1, -1, 0);
+    D2UnitStrc* pNatalya = D2GAME_SpawnMonster(pOp->pGame, pOp->pRoom, pOp->nX, pOp->nY, MONSTER_NATALYA, 1, -1, 0);
     if (!pNatalya)
     {
-        pNatalya = D2GAME_SpawnMonster_6FC69F10(pOp->pGame, pOp->pRoom, pOp->nX, pOp->nY, MONSTER_NATALYA, 1, 3, 0);
+        pNatalya = D2GAME_SpawnMonster(pOp->pGame, pOp->pRoom, pOp->nX, pOp->nY, MONSTER_NATALYA, 1, 3, 0);
     }
 
     if (!pNatalya)

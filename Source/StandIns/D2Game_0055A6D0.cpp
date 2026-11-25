@@ -173,12 +173,12 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall GAME_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
-void __fastcall D2GAME_SetStatOrResetGold_6FC7CA70(D2UnitStrc* pUnit, int nStat, int nValue); // 0x00530EA0
+void __fastcall D2GAME_SetStatOrResetGold(D2UnitStrc* pUnit, int nStat, int nValue); // 0x00530EA0
 int __fastcall PLAYER_GetPlayerCount(D2GameStrc* pGame); // 0x00535790
 int __fastcall PARTY_GetLivingPartyMemberCountInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005408E0
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
-D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx_6FC4BF00(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, unsigned char bAllowNeighborRooms); // 0x00555DA0
-D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int bUseSeed); // 0x00558D90
+D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, unsigned char bAllowNeighborRooms); // 0x00555DA0
+D2UnitStrc* __fastcall D2GAME_CreateItemEx(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int bUseSeed); // 0x00558D90
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 int __stdcall DATATBLS_GetMonsterLevelInArea(int nLevelId, unsigned char nDifficulty, int bExpansion); // 0x0061DCA0
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
@@ -425,7 +425,7 @@ static void ITEMS_ApplyGoldFind(D2UnitStrc* pPlayer, D2UnitStrc* pItem)
         }
 
         const int nGold = STATLIST_UnitGetStatValue(pItem, 0xE, 0);
-        D2GAME_SetStatOrResetGold_6FC7CA70(pItem, 0xE, nGold * nGoldBonus / 100);
+        D2GAME_SetStatOrResetGold(pItem, 0xE, nGold * nGoldBonus / 100);
     }
 }
 
@@ -441,7 +441,7 @@ static D2UnitStrc* __stdcall ITEMS_CreateDropAtUnit(D2UnitStrc* pUnit, int nItem
     UNITS_GetCoords(pUnit, &tCoords);
 
     D2CoordStrc tItemCoords;
-    D2ActiveRoomStrc* pRoom = D2GAME_GetFreeSpaceEx_6FC4BF00(UNITS_GetRoom(pUnit), &tCoords, &tItemCoords, 1, 1);
+    D2ActiveRoomStrc* pRoom = D2GAME_GetFreeSpaceEx(UNITS_GetRoom(pUnit), &tCoords, &tItemCoords, 1, 1);
     if (!pRoom)
     {
         return 0;
@@ -489,7 +489,7 @@ static D2UnitStrc* __stdcall ITEMS_CreateDropAtUnit(D2UnitStrc* pUnit, int nItem
     }
     tItemDrop.dwFlags2 |= nFlags;
 
-    return D2GAME_CreateItemEx_6FC4ED80(pGame, &tItemDrop, 0);
+    return D2GAME_CreateItemEx(pGame, &tItemDrop, 0);
 }
 
 // 0x0055A6D0
@@ -810,7 +810,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
 
             if (ITEMSIsA(pItem, 4) && pTC->pInfo[nIndex].nTxtRow)
             {
-                D2GAME_SetStatOrResetGold_6FC7CA70(pItem, 0xE, STATLIST_UnitGetStatValue(pItem, 0xE, 0) * pTC->pInfo[nIndex].nTxtRow >> 8);
+                D2GAME_SetStatOrResetGold(pItem, 0xE, STATLIST_UnitGetStatValue(pItem, 0xE, 0) * pTC->pInfo[nIndex].nTxtRow >> 8);
             }
 
             if (ppItems)

@@ -56,7 +56,7 @@ extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 
 #pragma pack(push, 1)
 
-void __fastcall D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(D2ClientStrc* pClient, D2GSPacketSrv5A* pPacket); // 0x0053C850
+void __fastcall D2GAME_PACKETS_SendPacket0x5A(D2ClientStrc* pClient, D2GSPacketSrv5A* pPacket); // 0x0053C850
 
 void __fastcall FRIENDLY_OpenHostility(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x005A60E0
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
@@ -227,7 +227,7 @@ void D2ClientStrc::PARTYSCREEN_SendEventUpdateToClient(int nUnitGUID, unsigned c
         packet.nColor = 9;
         break;
     }
-    D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(this, &packet);
+    D2GAME_PACKETS_SendPacket0x5A(this, &packet);
 }
 
 // 0x005A5D20

@@ -41,7 +41,7 @@ void __fastcall sub_005A0200(D2UnitStrc* pUnit, short nBossHcIdx);              
 int __fastcall MONSTERUNIQUE_GetUModCount(unsigned char* pUMods);                                            // 0x005A0260
 void __fastcall MONSTERUNIQUE_UMod30_AuraEnchanted(D2UnitStrc* pUnit, int nUMod, int bUnique);              // 0x005A1650
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nAiSpecialState); // 0x005B0E00
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnitInCoordList(D2GameStrc* pGame, D2RoomCoordListStrc* pRoomCoordList, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a6, short nFlags); // 0x005B2F70
 D2UnitStrc* __fastcall MONSTERSPAWN_SpawnInCoordList(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nX, int nY, int nMonsterId, int nAnimMode, int a8, short nFlags); // 0x005B3040
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0
@@ -576,10 +576,10 @@ static D2UnitStrc* __stdcall MONSTERUNIQUE_SpawnUniqueMonster(D2GameStrc* pGame,
     }
     else if (nUnitGUID == -1)
     {
-        pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nClassId, 1, nUnitGUID, 64);
+        pMonster = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, nClassId, 1, nUnitGUID, 64);
         if (!pMonster)
         {
-            pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, nClassId, 1, 5, 64);
+            pMonster = D2GAME_SpawnMonster(pGame, pRoom, nX, nY, nClassId, 1, 5, 64);
         }
     }
     else
@@ -813,7 +813,8 @@ D2UnitStrc* __fastcall MONSTERUNIQUE_RestoreUniqueMonster(D2GameStrc* pGame, D2A
     return pMonster;
 }
 
-void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+// build: symbol ?D2GAME_BOSSES_AssignUMod@* 0x005A4850
+void __fastcall D2GAME_BOSSES_AssignUMod(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType != 1)
@@ -890,7 +891,8 @@ void __fastcall MONSTERUNIQUE_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUn
     MONSTER_ToggleSummonerFlag(pUnit, 1, 1);
 }
 
-D2UnitStrc* __fastcall D2GAME_SpawnSuperUnique_6FC6F690(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSuperUnique)
+// build: symbol ?D2GAME_SpawnSuperUnique@* 0x005A49B0
+D2UnitStrc* __fastcall D2GAME_SpawnSuperUnique(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSuperUnique)
 {
     unsigned char bUModUsageTable[256];
 
@@ -1075,6 +1077,6 @@ D2UnitStrc* __fastcall D2GAME_SpawnSuperUnique_6FC6F690(D2GameStrc* pGame, D2Act
         break;
     }
 
-    D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pMonster, 22, 1);
+    D2GAME_BOSSES_AssignUMod(pGame, pMonster, 22, 1);
     return pMonster;
 }

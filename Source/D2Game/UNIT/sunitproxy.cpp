@@ -122,7 +122,7 @@ int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
 
 void __fastcall SUNITNPC_RemoveStoreItem(D2UnitStrc*,D2UnitStrc*,D2GameStrc*,int); // 0x005766D0
 
-int __fastcall D2GAME_PlaceItem_6FC44410(const char*,int,D2GameStrc*,D2UnitStrc*,int,int,int,int,int,D2InventoryStrc*); // 0x00560200
+int __fastcall D2GAME_PlaceItem(const char*,int,D2GameStrc*,D2UnitStrc*,int,int,int,int,int,D2InventoryStrc*); // 0x00560200
 
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc*); // 0x00628250
 
@@ -736,14 +736,14 @@ void __fastcall SUNITPROXY_ProcessNpcEvents(D2GameStrc* game,D2UnitStrc* npc)
  D2NpcEventStrc* event=record->pEvent;
  while(event) {
   if(event->field_C==1) {
-   int placed=D2GAME_PlaceItem_6FC44410(".\\UNIT\\sunitproxy.cpp",0x3cb,game,npc,!event->pUnit?-1:event->pUnit->dwUnitId,0,0,1,1,0);
+   int placed=D2GAME_PlaceItem(".\\UNIT\\sunitproxy.cpp",0x3cb,game,npc,!event->pUnit?-1:event->pUnit->dwUnitId,0,0,1,1,0);
    if(!placed) {
     if(ITEMS_GetInvPage(event->pUnit)==1){
      ITEMS_SetInvPage(event->pUnit,2);
-     placed=D2GAME_PlaceItem_6FC44410(".\\UNIT\\sunitproxy.cpp",0x3d1,game,npc,!event->pUnit?-1:event->pUnit->dwUnitId,0,0,1,1,0);
+     placed=D2GAME_PlaceItem(".\\UNIT\\sunitproxy.cpp",0x3d1,game,npc,!event->pUnit?-1:event->pUnit->dwUnitId,0,0,1,1,0);
     }else if(ITEMS_GetInvPage(event->pUnit)==2){
      ITEMS_SetInvPage(event->pUnit,1);
-     placed=D2GAME_PlaceItem_6FC44410(".\\UNIT\\sunitproxy.cpp",0x3d9,game,npc,!event->pUnit?-1:event->pUnit->dwUnitId,0,0,1,1,0);
+     placed=D2GAME_PlaceItem(".\\UNIT\\sunitproxy.cpp",0x3d9,game,npc,!event->pUnit?-1:event->pUnit->dwUnitId,0,0,1,1,0);
     }
    }
    if(!placed){prev=event;event=event->pNext;continue;}
