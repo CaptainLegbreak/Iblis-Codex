@@ -145,6 +145,9 @@ In your own files, whenever your current list allows:
   - **0x005B2830 MONSTERSPAWN_SpawnMinionParty (untried):** test `wMinion[0]` straight from the record, with no `nMinion` local, as `if (!(rec->wMinion[0] >= 0 && rec->wMinion[0] < count)) return;`. Put the tentacle-head branch first, with its own `return`, and the general case after it.
   - **0x00518300 BNETGW_LoadGatewayFile (untried):** declare the buffer before the size, keep SFileLoadFile's result in a local and test that local, then `*pSize = nSize;`.
   - **0x00621F90 UNITS_AllocPlayerData (untried):** reread `ptUnit->pPlayerData` for each of the two stores in the loop, and try the loop counter as a byte offset over the two pointer arrays. That's the `[loop + record]` addressing the comment describes. It may be one strength-reduced index, so try plain `[i]` with the reread first.
+- **Lane 8, renaming placeholders after D2MOO's file map: no, they stay `Unknown_<VA>.cpp`.** A third-party file map isn't evidence by itself. A name needs an assert or allocation path, a Blizzard name, or a run inside a known file. A wrong file name is worse than a placeholder, because it reads as fact. **Next work for lane 8:**
+  1. **D2Common's forcing constructs** (7 in queues.md), split with lane 7 so you don't overlap: take the D2Common rows and say which in your file. **Lane 7:** leave D2Common's rows to lane 8.
+  2. **Source paths:** for each remaining D2Common placeholder, search its code for `.\\…cpp` strings it passes (assert, alloc, log). That's the only thing that names a file. Post any you find.
 - **Lane 7:**
   - **0x677880's join is on main:** #332, where OutPlace.cpp took in Unknown_00675600.cpp. Try the function in OutPlace.cpp now.
   - **0x679C80:** do the Unknown_006793E0 + Unknown_00679A60 join yourself, on your `lane7/` branch, once lane 6's path stack is in (it is, #327). Tell lane 8 in your board file. A join that unblocks a borrowed function doesn't wait for the owner.
