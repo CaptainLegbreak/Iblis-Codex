@@ -143,7 +143,7 @@ int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 
 void __fastcall sub_6FC45930(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x005608C0
 
-void __fastcall D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pTarget, int bUpdateStatList, int bUpdateVitals); // 0x0055C730
+void __fastcall D2GAME_ITEMS_UpdateTransferredProperties(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pTarget, int bUpdateStatList, int bUpdateVitals); // 0x0055C730
 
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 
@@ -159,7 +159,7 @@ void __stdcall UNITS_RefreshInventory(D2UnitStrc* pUnit, int bSetFlag); // 0x006
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 
-void __fastcall D2GAME_PACKETS_SendPacket0x42_6FC3EE40(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053D2E0
+void __fastcall D2GAME_PACKETS_SendPacket0x42(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053D2E0
 
 void __stdcall INVENTORY_SetCursorItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063C180
 
@@ -171,9 +171,9 @@ void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x006
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
-D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx_6FC4BF00(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, unsigned char bAllowNeighborRooms); // 0x00555DA0
+D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, unsigned char bAllowNeighborRooms); // 0x00555DA0
 
-void __fastcall D2GAME_DropItem_6FC52260(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00558AA0
+void __fastcall D2GAME_DropItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00558AA0
 
 unsigned int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
 
@@ -199,7 +199,7 @@ int __fastcall ITEMMODE_RecoverCorpseItems(D2GameStrc* pGame, D2UnitStrc* pPlaye
 
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
 
-void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameStrc* pGame, int nUnitId, int nCorpseId, unsigned char bAssign); // 0x0053DF80
+void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers(D2GameStrc* pGame, int nUnitId, int nCorpseId, unsigned char bAssign); // 0x0053DF80
 
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit); // 0x00623830
 
@@ -251,7 +251,7 @@ int __stdcall SKILLS_GetUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x0
 
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 
-void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags); // 0x005701B0
+void __fastcall D2GAME_AssignSkill(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags); // 0x005701B0
 
 static void __stdcall sRestoreWeapon(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pWeapon); // 0x00580030
 
@@ -259,27 +259,27 @@ typedef void(__fastcall* STATLIST_UpdateFn)(D2UnitStrc* pUnit, int nValue, int n
 
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
 
-void __fastcall D2GAME_SendPacket0x47_6FC3EEE0(D2ClientStrc* pClient, D2UnitStrc* pPlayer); // 0x0053D370
+void __fastcall D2GAME_SendPacket0x47(D2ClientStrc* pClient, D2UnitStrc* pPlayer); // 0x0053D370
 
-void __fastcall D2GAME_SendPacket0x48_6FC3EF40(D2ClientStrc* pClient, D2UnitStrc* pPlayer, int a3); // 0x0053D3C0
+void __fastcall D2GAME_SendPacket0x48(D2ClientStrc* pClient, D2UnitStrc* pPlayer, int a3); // 0x0053D3C0
 
 void __fastcall PLRMSG_SendKnockbackStatus(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00547F70
 
 void __fastcall PLRMSG_SendUnitMode(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005484B0
 
-void __fastcall D2GAME_UpdateAttribute_6FC822D0(D2UnitStrc* pUnit, int nValue, int nStatId, D2UnitStrc* pOther); // 0x00548520
+void __fastcall D2GAME_UpdateAttribute(D2UnitStrc* pUnit, int nValue, int nStatId, D2UnitStrc* pOther); // 0x00548520
 
-void __fastcall D2GAME_STATES_SendStates_6FCC5F00(D2UnitStrc* pUnit, D2ClientStrc* pClient, int bPlayer); // 0x00571580
+void __fastcall D2GAME_STATES_SendStates(D2UnitStrc* pUnit, D2ClientStrc* pClient, int bPlayer); // 0x00571580
 
 void __fastcall SUNITMSG_SendOverlay(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005715A0
 
 void __fastcall SUNITMSG_SendHoverText(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571620
 
-void __fastcall D2GAME_UpdateUnit_6FCC6080(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571740
+void __fastcall D2GAME_UpdateUnit(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571740
 
 void __fastcall SUNITMSG_SendQueuedMessages(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571CD0
 
-void __fastcall D2GAME_INVMODE_First_6FC40FB0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, D2InventoryStrc* pInventoryArg); // 0x00597890
+void __fastcall D2GAME_INVMODE_First(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, D2InventoryStrc* pInventoryArg); // 0x00597890
 
 void __stdcall D2Common_10512(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nStatId, STATLIST_UpdateFn pfCallback); // 0x00625870
 
@@ -363,7 +363,7 @@ void __stdcall ITEMS_SetBodyLocation(D2UnitStrc*,unsigned char); // 0x00627D70
 
 void __fastcall SUNITDMG_DropCorpseGold(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int,int); // 0x0057F390
 
-void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameStrc*,int,int,int); // 0x0053DF80
+void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers(D2GameStrc*,int,int,int); // 0x0053DF80
 
 struct D2CorpsePositionStrc { D2CoordStrc coords; D2ActiveRoomStrc* room; };
 
@@ -401,7 +401,7 @@ void __fastcall SUNIT_ValidateTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); 
 
 void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode); // 0x00553570
 
-void __fastcall D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553990
+void __fastcall D2GAME_DeletePlayerPerFrameEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553990
 
 int __fastcall SUNIT_UpdateUnitPath(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00554CA0
 
@@ -433,9 +433,9 @@ extern "C" void __stdcall PATH_SetPathTarget(D2DynamicPathStrc* pPath, D2UnitStr
 
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable; // 0x00883D50
 
-void __fastcall D2GAME_SetClientDead_6FC33830(D2ClientStrc* ptClient, const int* pDeathInfo); // 0x00538260
+void __fastcall D2GAME_SetClientDead(D2ClientStrc* ptClient, const int* pDeathInfo); // 0x00538260
 
-void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
+void __fastcall D2GAME_EVENTS_Delete(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 
 D2UnitStrc* __fastcall PLRMODE_CreateDeadBody(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, D2ActiveRoomStrc* pRoom); // 0x0057F700
 
@@ -445,13 +445,13 @@ void __fastcall CLIENTS_ToggleFlag(D2ClientStrc* pClient, unsigned short nFlag, 
 
 int __fastcall CLIENTS_CheckFlag(D2ClientStrc* pClient, unsigned short nFlag); // 0x00538670
 
-int __fastcall D2GAME_SAVE_WriteFile_6FC8A500(D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName, unsigned int dwArg); // 0x00532400
+int __fastcall D2GAME_SAVE_WriteFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName, unsigned int dwArg); // 0x00532400
 
 void __fastcall PLAYER_ApplyDeathPenalty(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pAttacker); // 0x00535AB0
 
 void __fastcall ITEMS_DropPlayerEar(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x0055A200
 
-void __fastcall D2GAME_PLRMSG_Last_6FC89450(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0054D8A0
+void __fastcall D2GAME_PLRMSG_Last(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0054D8A0
 
 void __fastcall ARENA_ProcessKillEvent(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0053F720
 
@@ -670,7 +670,7 @@ void __fastcall PLRMODE_StartXY_Neutral(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
         nMode = DUNGEON_IsRoomInTown(pRoom) != 0 ? PLRMODE_TOWNNEUTRAL : PLRMODE_NEUTRAL;
     }
 
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
+    D2GAME_DeletePlayerPerFrameEvents(pGame, pPlayer);
     SUNIT_SetCombatMode(pGame, pPlayer, nMode);
     UNITS_SetUsedSkill(pPlayer, 0);
 }
@@ -816,7 +816,7 @@ static void __stdcall PLRMODE_StartMovement(D2GameStrc* ptGame, D2UnitStrc* pPla
     else
     {
         SUNIT_SetCombatMode(ptGame, pPlayer, nMode);
-        D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(ptGame, pPlayer);
+        D2GAME_DeletePlayerPerFrameEvents(ptGame, pPlayer);
         SUNIT_ResetRecurringModeChangeEvent(ptGame, pPlayer);
     }
 }
@@ -837,11 +837,11 @@ static void PLRMODE_FinalizeDeath(D2GameStrc* pGame, D2UnitStrc* pPlayer)
     D2Common_10469(pPlayer);
     STATES_UpdateStayDeathFlags(pPlayer, 0);
     D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlrModes.cpp", 0x234);
-    D2GAME_SetClientDead_6FC33830(pClient, 0);
+    D2GAME_SetClientDead(pClient, 0);
     PATH_SetUnitDeadCollision(pPlayer, 1);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, 0x08, 0);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, 0x09, 0);
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
+    D2GAME_EVENTS_Delete(pGame, pPlayer, 0x08, 0);
+    D2GAME_EVENTS_Delete(pGame, pPlayer, 0x09, 0);
+    D2GAME_DeletePlayerPerFrameEvents(pGame, pPlayer);
 }
 
 #define GOLD_PILE_COUNT 32
@@ -988,7 +988,7 @@ static void __stdcall PLRMODE_RemoveEquippedItemForCorpse(D2GameStrc* pGame, int
         hItem->dwFlags &= ~0x02;
     }
 
-    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(pGame, hItem, pUnit, 0, 1);
+    D2GAME_ITEMS_UpdateTransferredProperties(pGame, hItem, pUnit, 0, 1);
     ITEMS_SetItemFlag(hItem, 0x20, 1);
     ITEMS_SetItemCMDFlag(hItem, 1, 1);
     ITEMS_SetItemCMDFlag(hItem, 0x10, 1);
@@ -1008,7 +1008,7 @@ static void PLRMODE_RemoveCursorItemForCorpse(D2GameStrc* pGame, D2UnitStrc* pIt
 {
     D2InventoryStrc* pInventory = pPlayer->pInventory;
     D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlrModes.cpp", 0x27D);
-    D2GAME_PACKETS_SendPacket0x42_6FC3EE40(pClient, pPlayer);
+    D2GAME_PACKETS_SendPacket0x42(pClient, pPlayer);
     INVENTORY_SetCursorItem(pInventory, 0);
     ITEMS_SetItemCMDFlag(pItem, 1, 1);
     INVENTORY_AddItemToTradeInventory(pInventory, pItem);
@@ -1062,8 +1062,8 @@ static void __stdcall PLRMODE_DropItemsOnCorpseOverflow(D2GameStrc* pGame, D2Uni
             D2CoordStrc tCoord;
             UNITS_GetCoords(pUnit, &tCoord);
             D2CoordStrc tReturnCoords;
-            D2ActiveRoomStrc* pFreeRoom = D2GAME_GetFreeSpaceEx_6FC4BF00(UNITS_GetRoom(pUnit), &tCoord, &tReturnCoords, 1, 1);
-            D2GAME_DropItem_6FC52260(pGame, pUnit, pDupedItem, pFreeRoom, tReturnCoords.nX, tReturnCoords.nY);
+            D2ActiveRoomStrc* pFreeRoom = D2GAME_GetFreeSpaceEx(UNITS_GetRoom(pUnit), &tCoord, &tReturnCoords, 1, 1);
+            D2GAME_DropItem(pGame, pUnit, pDupedItem, pFreeRoom, tReturnCoords.nX, tReturnCoords.nY);
         }
     }
 
@@ -1198,14 +1198,14 @@ D2UnitStrc* __fastcall PLRMODE_CreateDeadBody(D2GameStrc* pGame,D2UnitStrc* pUni
   }
   D2CoordStrc coords,returned;
   UNITS_GetCoords(pUnit,&coords);
-  D2ActiveRoomStrc* pFreeRoom=D2GAME_GetFreeSpaceEx_6FC4BF00(UNITS_GetRoom(pUnit),&coords,&returned,1,1);
-  D2GAME_DropItem_6FC52260(pGame,pUnit,pDupedItem,pFreeRoom,returned.nX,returned.nY);
+  D2ActiveRoomStrc* pFreeRoom=D2GAME_GetFreeSpaceEx(UNITS_GetRoom(pUnit),&coords,&returned,1,1);
+  D2GAME_DropItem(pGame,pUnit,pDupedItem,pFreeRoom,returned.nX,returned.nY);
  }
  int nGold=STATLIST_UnitGetStatValue(pUnit,STAT_GOLD,0);
  if(pUnit->dwUnitType==UNIT_PLAYER) UNITS_GetInventoryGoldLimit(pUnit);
  STATLIST_SetUnitStat(pUnit,STAT_GOLD,0,0);
  SUNITDMG_DropCorpseGold(pGame,pUnit,pCorpse,nGold,1);
- D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(pGame,!pUnit ? -1 : pUnit->dwUnitId,!pCorpse ? -1 : pCorpse->dwUnitId,1);
+ D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers(pGame,!pUnit ? -1 : pUnit->dwUnitId,!pCorpse ? -1 : pCorpse->dwUnitId,1);
  return pCorpse;
 }
 
@@ -1260,7 +1260,7 @@ void __fastcall PLRMODE_RecoverCorpse(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2
         const int nBodyType = !pDeadBody ? 6 : pDeadBody->dwUnitType;
         DUNGEON_AllocDrlgDelete(UNITS_GetRoom(pDeadBody), nBodyType, nBodyGUID);
         const int nDeadGUID = !pDeadBody ? -1 : pDeadBody->dwUnitId;
-        D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(pGame, pPlayer->dwUnitId, nDeadGUID, 0);
+        D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers(pGame, pPlayer->dwUnitId, nDeadGUID, 0);
         UNITS_FreeCollisionPath(pDeadBody);
         SUNIT_RemoveUnit(pGame, pDeadBody);
         SUNIT_AttachSound(pPlayer, 0x5D, pPlayer);
@@ -1307,13 +1307,13 @@ void __fastcall PLRMODE_StartXY_Dead(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
 
     if (!gpD2EventCallbackTable || CLIENTS_CheckFlag(pClient, 0x04))
     {
-        D2GAME_SAVE_WriteFile_6FC8A500(pGame, pUnit, CLIENTS_GetName(UnitGetClient(pUnit, ".\\PLAYER\\PlrModes.cpp", 0x43A)), 0);
+        D2GAME_SAVE_WriteFile(pGame, pUnit, CLIENTS_GetName(UnitGetClient(pUnit, ".\\PLAYER\\PlrModes.cpp", 0x43A)), 0);
     }
 
     SUNIT_SetCombatMode(pGame, pUnit, 0x11);
     sub_6FCBC4D0(pUnit);
     PLRMODE_FinalizeDeath(pGame, pUnit);
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pUnit);
+    D2GAME_DeletePlayerPerFrameEvents(pGame, pUnit);
 }
 
 // 0x0057FDC0
@@ -1324,7 +1324,7 @@ void __fastcall PLRMODE_StartXY_Block(D2GameStrc* pGame, D2UnitStrc* hPlayer, in
     SUNIT_SetCombatMode(pGame, hPlayer, nMode);
     sub_6FCBC4D0(hPlayer);
     UNITS_SetUsedSkill(hPlayer, 0);
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, hPlayer);
+    D2GAME_DeletePlayerPerFrameEvents(pGame, hPlayer);
     sub_6FCBCE70(pGame, hPlayer);
 }
 
@@ -1342,7 +1342,7 @@ void __fastcall PLRMODE_StartXY_GetHit(D2GameStrc* pGame, D2UnitStrc* hPlayer, i
     SUNIT_SetCombatMode(pGame, hPlayer, nMode);
     sub_6FCBC4D0(hPlayer);
     UNITS_SetUsedSkill(hPlayer, 0);
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, hPlayer);
+    D2GAME_DeletePlayerPerFrameEvents(pGame, hPlayer);
     sub_6FCBCE70(pGame, hPlayer);
 }
 
@@ -1359,7 +1359,7 @@ void __fastcall PLRMODE_StartXY_AttackCastThrowKickSpecialSequence(D2GameStrc* p
     SUNIT_SetCombatMode(pGame, pPlayer, nMode);
     UNITS_SetTargetUnitForDynamicUnit(pPlayer, 0);
     sub_6FCBC4D0(pPlayer);
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
+    D2GAME_DeletePlayerPerFrameEvents(pGame, pPlayer);
     sub_6FCBCE70(pGame, pPlayer);
     pPlayer->dwFlags &= ~UNITFLAG_SKSRVDOFUNC;
     SKILLS_StartUsedSkill(pGame, pPlayer);
@@ -1374,7 +1374,7 @@ void __fastcall PLRMODE_StartID_AttackCastThrowKickSpecialSequence(D2GameStrc* p
 
     UNITS_SetTargetUnitForDynamicUnit(pPlayer, hTarget);
     sub_6FCBC4D0(pPlayer);
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
+    D2GAME_DeletePlayerPerFrameEvents(pGame, pPlayer);
     sub_6FCBCE70(pGame, pPlayer);
 
     if (pPlayer)
@@ -1522,7 +1522,7 @@ static void PLRMODE_RestoreWeaponSkills(D2UnitStrc* pUnit, D2UnkPlrModeStrc2* pS
         D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, pSkills->nLeftSkillId, pSkills->nLeftSkillOwnerGUID);
         if (pSkill && pSkill != UNITS_GetLeftSkill(pUnit) && PLRMODE_IsSkillUsable(pUnit, pSkill))
         {
-            D2GAME_AssignSkill_6FD13800(pUnit, 1, pSkills->nLeftSkillId, pSkills->nLeftSkillOwnerGUID);
+            D2GAME_AssignSkill(pUnit, 1, pSkills->nLeftSkillId, pSkills->nLeftSkillOwnerGUID);
         }
     }
 
@@ -1531,7 +1531,7 @@ static void PLRMODE_RestoreWeaponSkills(D2UnitStrc* pUnit, D2UnkPlrModeStrc2* pS
         D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, pSkills->nRightSkillId, pSkills->nRightSkillOwnerGUID);
         if (pSkill && pSkill != UNITS_GetRightSkill(pUnit) && PLRMODE_IsSkillUsable(pUnit, pSkill))
         {
-            D2GAME_AssignSkill_6FD13800(pUnit, 0, pSkills->nRightSkillId, pSkills->nRightSkillOwnerGUID);
+            D2GAME_AssignSkill(pUnit, 0, pSkills->nRightSkillId, pSkills->nRightSkillOwnerGUID);
         }
     }
 }
@@ -1926,7 +1926,7 @@ void __fastcall MONSTERMODE_EventUpdateStatListExpirations(D2GameStrc* pGame, D2
 }
 
 // 0x00580810
-void __fastcall D2GAME_EVENTS_StatRegen_6FC80F80(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventCustomId, int nEventCustomParam)
+void __fastcall D2GAME_EVENTS_StatRegen(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventCustomId, int nEventCustomParam)
 {
     EVENT_SetEvent(pGame, pUnit, 3, pGame->dwGameFrame + 1, nEventCustomId, nEventCustomParam);
     if (SUNIT_IsDead(pUnit))
@@ -2067,7 +2067,7 @@ void __fastcall PLRMODE_EventModeUpdate(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 }
 
 // 0x00581220
-void __fastcall D2GAME_EVENTS_Callback_6FC81BD0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent, int nCustomId, int nCustomParam)
+void __fastcall D2GAME_EVENTS_Callback(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent, int nCustomId, int nCustomParam)
 {
     if ((unsigned int)nEvent <= 14 && gpfnPlayerEventCallbacks[nEvent])
     {
@@ -2093,9 +2093,9 @@ void __fastcall PLRMODE_SendPlayerUpdates(D2GameStrc* pGame, D2UnitStrc* pPlayer
 
     if (!a4 && pPlayer && UNIT_HasFlagEx(pPlayer, UNITFLAGEX_HASINV))
     {
-        D2GAME_INVMODE_First_6FC40FB0(pGame, pPlayer, pClient, 0);
-        D2GAME_SendPacket0x47_6FC3EEE0(pClient, pPlayer);
-        D2GAME_SendPacket0x48_6FC3EF40(pClient, pPlayer, 0);
+        D2GAME_INVMODE_First(pGame, pPlayer, pClient, 0);
+        D2GAME_SendPacket0x47(pClient, pPlayer);
+        D2GAME_SendPacket0x48(pClient, pPlayer, 0);
     }
 
     if (pPlayer && UNIT_HasFlag(pPlayer, UNITFLAG_DOUPDATE))
@@ -2109,7 +2109,7 @@ void __fastcall PLRMODE_SendPlayerUpdates(D2GameStrc* pGame, D2UnitStrc* pPlayer
     {
         if (UNIT_HasFlag(pPlayer, 0x400))
         {
-            D2GAME_UpdateUnit_6FCC6080(pPlayer, pClient);
+            D2GAME_UpdateUnit(pPlayer, pClient);
         }
 
         if (UNIT_HasFlag(pPlayer, 0x100))
@@ -2125,7 +2125,7 @@ void __fastcall PLRMODE_SendPlayerUpdates(D2GameStrc* pGame, D2UnitStrc* pPlayer
 
     if (STATES_IsAnyGfxStateFlagSet(pPlayer))
     {
-        D2GAME_STATES_SendStates_6FCC5F00(pPlayer, pClient, 0);
+        D2GAME_STATES_SendStates(pPlayer, pClient, 0);
     }
 
     if (D2COMMON_10530_D2CheckStatlistFlagDMGRed(pPlayer))
@@ -2133,11 +2133,11 @@ void __fastcall PLRMODE_SendPlayerUpdates(D2GameStrc* pGame, D2UnitStrc* pPlayer
         SUNITMSG_SendOverlay(pPlayer, pClient);
     }
 
-    D2Common_10512(pPlayer, pOtherPlayer, STAT_VELOCITYPERCENT, D2GAME_UpdateAttribute_6FC822D0);
-    D2Common_10512(pPlayer, pOtherPlayer, STAT_ATTACKRATE, D2GAME_UpdateAttribute_6FC822D0);
-    D2Common_10512(pPlayer, pOtherPlayer, STAT_LEVEL, D2GAME_UpdateAttribute_6FC822D0);
-    D2Common_10512(pPlayer, pOtherPlayer, STAT_STRENGTH, D2GAME_UpdateAttribute_6FC822D0);
-    D2Common_10512(pPlayer, pOtherPlayer, STAT_DEXTERITY, D2GAME_UpdateAttribute_6FC822D0);
+    D2Common_10512(pPlayer, pOtherPlayer, STAT_VELOCITYPERCENT, D2GAME_UpdateAttribute);
+    D2Common_10512(pPlayer, pOtherPlayer, STAT_ATTACKRATE, D2GAME_UpdateAttribute);
+    D2Common_10512(pPlayer, pOtherPlayer, STAT_LEVEL, D2GAME_UpdateAttribute);
+    D2Common_10512(pPlayer, pOtherPlayer, STAT_STRENGTH, D2GAME_UpdateAttribute);
+    D2Common_10512(pPlayer, pOtherPlayer, STAT_DEXTERITY, D2GAME_UpdateAttribute);
 }
 
 // 0x005809D0
@@ -2259,7 +2259,7 @@ void __fastcall PLRMODE_StartID_Death(D2GameStrc* pGame, D2UnitStrc* pDefender, 
     CLIENTS_ToggleFlag(pClient, 0x08, 1);
     sub_6FCBC4D0(pDefender);
     PLRMODE_FinalizeDeath(pGame, pDefender);
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pDefender);
+    D2GAME_DeletePlayerPerFrameEvents(pGame, pDefender);
     sub_6FCBCE70(pGame, pDefender);
 
     if (!STATES_CheckState(pDefender, STATE_PLAYERBODY) && pDefender)
@@ -2279,7 +2279,7 @@ void __fastcall PLRMODE_StartID_Death(D2GameStrc* pGame, D2UnitStrc* pDefender, 
 
     if (pAttacker)
     {
-        D2GAME_PLRMSG_Last_6FC89450(pGame, pAttacker, pDefender);
+        D2GAME_PLRMSG_Last(pGame, pAttacker, pDefender);
         ARENA_ProcessKillEvent(pGame, pAttacker, pDefender);
     }
 

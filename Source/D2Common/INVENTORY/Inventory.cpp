@@ -115,7 +115,7 @@ struct D2BeltsTxt;
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-unsigned int* __stdcall D2COMMON_STATES_GetStatFlags_6FDB8A90(D2UnitStrc* pUnit); // 0x00625BB0
+unsigned int* __stdcall D2COMMON_STATES_GetStatFlags(D2UnitStrc* pUnit); // 0x00625BB0
 
 
 extern "C" int __fastcall sub_0045ADF0_GetX(D2UnitStrc* pItem); // 0x0045ADF0
@@ -459,7 +459,7 @@ void __stdcall INVENTORY_GetItemSaveGfxInfo(D2UnitStrc* unit, u8* firstOutput, u
 // build: symbol ?STATES_CheckStateMaskFlagsOnUnit@* 0x0063A130
 static int STATES_CheckStateMaskFlagsOnUnit(D2UnitStrc* pUnit, const unsigned int* pStateMask)
 {
-    unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags_6FDB8A90(pUnit);
+    unsigned int* pStatFlags = D2COMMON_STATES_GetStatFlags(pUnit);
     if (!pStatFlags)
     {
         return 0;

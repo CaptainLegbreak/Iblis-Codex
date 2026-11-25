@@ -149,7 +149,7 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
 D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomBySubtileCoordinates(void* pAct, int a2, int a3); // 0x00619DA0
 
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 
 bool __fastcall ACT4Q0_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x005B3750
 
@@ -193,7 +193,7 @@ void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
 
 D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwItemCode); // 0x00558110
 
-D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
+D2UnitStrc* __fastcall D2GAME_DropItemAtUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
 
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
 
@@ -211,11 +211,11 @@ void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDest
 
 void __fastcall SCMD_SendPacket0x5D(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
 
-void __fastcall D2GAME_SendPacket0x50_6FC3F440(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
+void __fastcall D2GAME_SendPacket0x50(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
 
 void __fastcall D2GAME_PACKETS_SendPacket0x61(D2ClientStrc* pClient, unsigned char nValue); // 0x0053D940
 
-void __fastcall D2GAME_PlayerChangeAct_6FC867C0(D2GameStrc* pGame, D2UnitStrc* pUnit, int dwDestLvl, int nTileCalc); // 0x0054B830
+void __fastcall D2GAME_PlayerChangeAct(D2GameStrc* pGame, D2UnitStrc* pUnit, int dwDestLvl, int nTileCalc); // 0x0054B830
 
 void __stdcall ACT4Q2_ActivateHarrogathWaypoint(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005B4FF0
 
@@ -327,7 +327,7 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc*,D2UnitStrc*); // 0x00
 
 static void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc*); // 0x005B1C50
 
-void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc*,D2UnitStrc*,int,int); // 0x005A4850
+void __fastcall D2GAME_BOSSES_AssignUMod(D2GameStrc*,D2UnitStrc*,int,int); // 0x005A4850
 
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit);                                            // 0x00554010
 
@@ -482,13 +482,13 @@ static void MONSTERSPAWN_SetupNormalMods(D2UnkMonCreateStrc* pMonCreate, D2UnitS
     switch (MONSTERREGION_SanitizeMonsterId_Inline(nBaseId))
     {
     case 0x5B:
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x14, 0);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x14, 0);
         break;
     case 0x18:
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0xD, 0);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0xD, 0);
         break;
     case 0x60:
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0xA, 0);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0xA, 0);
         break;
     case 0x146:
     case 0x147:
@@ -496,29 +496,29 @@ static void MONSTERSPAWN_SetupNormalMods(D2UnkMonCreateStrc* pMonCreate, D2UnitS
     case 0x149:
     case 0x14A:
     case 0x162:
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0xE, 0);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0xE, 0);
         break;
     case 0x154:
     case 0x155:
     case 0x156:
     case 0x157:
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0xF, 0);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0xF, 0);
         break;
     case 0x1CD:
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x21, 0);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x21, 0);
         break;
     case 0x1B4:
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x22, 0);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x22, 0);
         break;
     case 0x1F5:
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x23, 0);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x23, 0);
         break;
     case 0xD3:
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0xB, 0);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0xB, 0);
     case 0x21C:
     case 0x21D:
     case 0x21E:
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x16, 1);
         break;
     }
 }
@@ -606,8 +606,8 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStr
             QUESTS_CreateChainRecord(pGame, pUnit, 9);
             return;
         }
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 6, 1);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x12, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 6, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x12, 1);
         return;
     case 0xAF:
     {
@@ -623,18 +623,18 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStr
     case 0xF3:
         if (nMonsterId != MONSTER_UBERDIABLO)
         {
-            D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
+            D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x16, 1);
             QUESTS_CreateChainRecord(pGame, pUnit, 0x17);
             return;
         }
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 8, 1);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 6, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x16, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 8, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 6, 1);
         return;
     case 0x16E:
         QUESTS_CreateChainRecord(pGame, pUnit, 0x13);
         MONSTERUNIQUE_ToggleUnitFlag_Inline(pUnit, 0x20000);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x16, 1);
         return;
     case 0x154:
     case 0x155:
@@ -646,25 +646,25 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStr
         if (nMonsterId != MONSTER_UBERMEPHISTO)
         {
             QUESTS_CreateChainRecord(pGame, pUnit, 0x14);
-            D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
+            D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x16, 1);
             return;
         }
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x1E, 1);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x11, 1);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 8, 1);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 6, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x16, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x1E, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x11, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 8, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 6, 1);
         return;
     case 0x9C:
         if (nMonsterId != MONSTER_UBERANDARIEL)
         {
-            D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
+            D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x16, 1);
             QUESTS_CreateChainRecord(pGame, pUnit, 6);
             return;
         }
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x17, 1);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 6, 1);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x1D, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x17, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 6, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x1D, 1);
         return;
     case 0x199:
         QUESTS_CreateChainRecord(pGame, pUnit, 0x18);
@@ -672,12 +672,12 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStr
     case 0x100:
         if (nMonsterId != MONSTER_UBERIZUAL)
         {
-            D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
+            D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x16, 1);
             QUESTS_CreateChainRecord(pGame, pUnit, 0x16);
             return;
         }
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 6, 1);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x12, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 6, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x12, 1);
         return;
     case 0x197:
         QUESTS_CreateChainRecord(pGame, pUnit, 0x11);
@@ -686,27 +686,27 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStr
         QUESTS_CreateChainRecord(pGame, pUnit, 8);
         return;
     case 0x10B:
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0xC, 1);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0xC, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x16, 1);
         QUESTS_CreateChainRecord(pGame, pUnit, 2);
         STATES_ToggleState(pUnit, 0x76, 1);
         return;
     case 0x11C:
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x17, 1);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x17, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x16, 1);
         return;
     case 0x124:
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x1F, 0);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x1F, 0);
         return;
     case 0x192:
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x16, 1);
         return;
     case 0x1B2:
         QUESTS_CreateChainRecord(pGame, pUnit, 0x20);
         return;
     case 0x20E:
         QUESTS_CreateChainRecord(pGame, pUnit, 0x22);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x16, 1);
         return;
     case 0x21C:
         MONSTERSPAWN_EquipAncientBarbarians(pUnit);
@@ -715,13 +715,13 @@ static void MONSTERSPAWN_SetupBossMods(D2UnkMonCreateStrc* pMonCreate, D2UnitStr
         if (nMonsterId != MONSTER_UBERBAAL)
         {
             QUESTS_CreateChainRecord(pGame, pUnit, 0x24);
-            D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
+            D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x16, 1);
             return;
         }
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x16, 1);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 0x12, 1);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 8, 1);
-        D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pUnit, 6, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x16, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 0x12, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 8, 1);
+        D2GAME_BOSSES_AssignUMod(pGame, pUnit, 6, 1);
         return;
     }
 }
@@ -1134,10 +1134,10 @@ bool __fastcall ACT4Q1_SpawnIzualGhost(D2GameStrc* pGame, D2QuestDataStrc* pQues
         D2ActiveRoomStrc* pRoom = DUNGEON_FindRoomBySubtileCoordinates(pGame->pAct[3], pQuestDataEx->pCoords.nX, pQuestDataEx->pCoords.nY);
         if (pRoom)
         {
-            if (!D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, pQuestDataEx->pCoords.nX, pQuestDataEx->pCoords.nY, MONSTER_IZUALGHOST, 8, -1, 0)
-                && !D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, pQuestDataEx->pCoords.nX, pQuestDataEx->pCoords.nY, MONSTER_IZUALGHOST, 8, 3, 0))
+            if (!D2GAME_SpawnMonster(pGame, pRoom, pQuestDataEx->pCoords.nX, pQuestDataEx->pCoords.nY, MONSTER_IZUALGHOST, 8, -1, 0)
+                && !D2GAME_SpawnMonster(pGame, pRoom, pQuestDataEx->pCoords.nX, pQuestDataEx->pCoords.nY, MONSTER_IZUALGHOST, 8, 3, 0))
             {
-                D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, pQuestDataEx->pCoords.nX, pQuestDataEx->pCoords.nY, MONSTER_IZUALGHOST, 8, 5, 0);
+                D2GAME_SpawnMonster(pGame, pRoom, pQuestDataEx->pCoords.nX, pQuestDataEx->pCoords.nY, MONSTER_IZUALGHOST, 8, 5, 0);
             }
         }
     }
@@ -1414,7 +1414,7 @@ int __fastcall OBJECTS_OperateFunction28_LamEsenTome(D2ObjOperateFnStrc* pOp, in
 
         pOp->hObject->dwDropItemCode = ' bbb';
         int nItemLevel;
-        if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, 2, &nItemLevel, 0, -1, 0))
+        if (D2GAME_DropItemAtUnit(pOp->pGame, pOp->hObject, 2, &nItemLevel, 0, -1, 0))
         {
             UNITS_ChangeAnimMode(pOp->hObject, 2);
 

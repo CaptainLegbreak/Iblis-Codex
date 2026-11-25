@@ -20,7 +20,7 @@ struct D2MonsterDataStrc
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
+void __fastcall D2GAME_DeleteTimersOnUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
 D2AiControlStrc* __fastcall AIGENERAL_AllocAiControl(D2GameStrc* pGame); // 0x0058EBC0
 D2MonsterModeDataStrc* __fastcall MONSTERMODE_AllocParams(D2GameStrc* pGame); // 0x005A6490
 D2MonsterInteractStrc* __fastcall MONSTERAI_AllocMonsterInteract(D2GameStrc* pGame); // 0x00572BA0
@@ -77,7 +77,7 @@ void __fastcall MONSTER_Initialize(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D
         pMonster->dwFlags |= 0x0A;
     }
 
-    D2GAME_DeleteTimersOnUnit_6FC34A30(pGame, pMonster);
+    D2GAME_DeleteTimersOnUnit(pGame, pMonster);
 
     D2MonsterDataStrc* pMonsterData = MONSTER_GetMonsterData(pMonster);
     pMonsterData->pAiControl = AIGENERAL_AllocAiControl(pGame);
