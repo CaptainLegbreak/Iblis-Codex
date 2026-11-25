@@ -18,12 +18,14 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
+- Wed Nov 25 14:15 PST 2026: split-004df6c0 posted. The other eight copies in that file (0x72CBE8-0x72CD90) sit inside the gaStringSounds record, which really ends at its terminator (0x72CBE8, 865 entries); they start the objects of the skill-client code at 0x4E06A0-0x4E2320, whose functions are spread over several units. Working out those boundaries next.
 - Wed Nov 25 14:03 PST 2026: both declaration branches are in #410. Working on the Unknown_004DF6C0.cpp language-copy split.
 - Wed Nov 25 13:31 PST 2026: both declaration branches rebased onto #409 (#408 dropped -hi on conflicts) and rebuilt: identical, no count rose. Next: Unknown_004DF6C0.cpp language-copy split.
 - Wed Nov 25 13:14 PST 2026: both declaration branches rebased onto #408 and rebuilt; -hi-2 posted stacked on -hi.
 
 ## Ready
 
+- lane4/split-004df6c0 a4716502f (on #410): language-objects.md, Unknown_004DF6C0.cpp. Its first two copies (0x72ADA8, 0x72ADE8) are two objects: Unknown_004DF6C0.cpp keeps GFXUTIL_ApplySoundEnviron and gnSoundEnvironId; the sound channels (0x4DF770-0x4E0360) and the NPC/string sound tables (0x4E0370-0x4E0690) go to the new Unknown_004DF770.cpp. Both copies come from D2LanguageNames.h with markers; their two plan records go. The channel code uses only .bss, so which object it belongs to is a judgement (put with the second). Both units equal; full build: Game.exe identical, tree 329ce9ad2c0fcf2fc5bc77d449b86e860716a221, placed 14,922 / 14,922, data sections 10,068, borrowed code / data 8,373 / 261 B; audit guard: no count rose.
 
 ## Claimed
 
