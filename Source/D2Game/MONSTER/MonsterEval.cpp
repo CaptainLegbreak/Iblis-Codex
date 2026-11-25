@@ -356,7 +356,7 @@ void __fastcall MONSTERMODE_DistributeExperienceIfEligible(D2UnitStrc* pAttacker
 // 0x005A5470
 unsigned short __fastcall MONSTERMODE_GetAttackResultFlags(Game* game,Unit* attacker,Unit* defender,StatValue stat,int ignoredRange)
 {
-    return sub_0057EC10(game,attacker,defender,stat.value,RANGE_OVERRIDE);
+    return SUNITDMG_GetResultFlags(game,attacker,defender,stat.value,RANGE_OVERRIDE);
 }
 
 // 0x005A5490

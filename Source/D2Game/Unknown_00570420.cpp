@@ -137,7 +137,8 @@ static void __stdcall sub_005706A0_UseActEntry(D2GameStrc* pGame, D2UnitStrc* pU
         nAct = 0;
     }
 // build: symbol ?gnStartingActTargetLevels@* 0x006E1520
-    sub_0057EB10(pGame, pUnit, gnStartingActTargetLevels[nAct]);
+// build: symbol ?SUNITDMG_SetExperienceForTargetLevel@* 0x0057EB10
+    SUNITDMG_SetExperienceForTargetLevel(pGame, pUnit, gnStartingActTargetLevels[nAct]);
 }
 
 void __fastcall sub_K11_Emit005706A0(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nAct)
