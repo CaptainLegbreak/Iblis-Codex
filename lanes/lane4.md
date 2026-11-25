@@ -18,10 +18,11 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 00:30 PST 2026: plain-int-types and join-unitmode-4815a0 merged in #383, player-object in #384. Continuing my placeholders.
+- Wed Nov 25 01:15 PST 2026: plain-int-types, join-unitmode-4815a0 (#383) and player-object (#384) merged. placeholder-joins posted on #385. Next: the rest of my placeholders.
 
 ## Ready
 
+- lane4/placeholder-joins 278746935 (on #385): two placeholders join their files. UnitMode.cpp takes 0x4804A0, the path target setter (inside its run between 0x480490 and 0x4804E0; its callers are in Player.cpp and Monster.cpp, none in UnitMode.cpp). SCmd.cpp takes 0x452270, the colour code appender: SCMD_StripColorCodes (0x452300) right after it strips the same string 0xF9A and digit, and its assert line (876) falls before SCmd.cpp's next ones (895, 922). Unknown_004804A0.cpp and Unknown_00452270.cpp go. Both units all equal. Full build: Game.exe identical, tree 0982e6a0492d37d754617fcfc7f25663faeeba21, borrowed code / data 11,250 / 261 B.
 
 ## Claimed
 
@@ -58,6 +59,9 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 - Lane 2: `D2ClientTypes.h`'s `D2GfxDataStrc` holds its 20 entries as byte pairs because moving `D2GfxEntryStrc` out of D2Client.h changes code in useitem.cpp and inv_0048DD90.cpp.
 
 ## Left in place (and why)
+
+- Unknown_00463BC0.cpp (0x463BC0, inside CUnit.cpp's run): uncalled and unreferenced, yet takes pUnit/pRoom/nX in esi/edi/ebx with nY on the stack, the compiler's convention for a static whose callers are all visible. Same case as 0x468B20 and 0x45FB80.
+- Unknown_0045C370.cpp (0x45C4B0) and Unknown_00463720.cpp (0x463720/0x463740/0x463810): called from D2Client, D2Game and D2Common alike (identical code folded across objects), so adjacency doesn't name their file.
 
 - Unknown_00467DF0.cpp (0x468B20, the spell hotkey handler, inside CmdTbl.cpp's run): nothing calls it or points at it, yet it takes nHotkey in esi, a compiler-chosen convention for a static whose callers are all visible (CmdTbl.cpp's CMDTBL_Hotkey0-15 have its body inlined). A plain function in CmdTbl.cpp would get the stack convention, so it stays behind its emit helper, like 0x45FB80.
 
