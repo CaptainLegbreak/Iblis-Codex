@@ -414,8 +414,8 @@ struct D2PlrIntroSaveStrc
 {
     unsigned short nHeader;
     unsigned short nLength;
-    unsigned char unk0x04[NUM_DIFFICULTIES][8];
-    unsigned char unk0x1C[NUM_DIFFICULTIES][8];
+    unsigned char nQuestIntroFlags[NUM_DIFFICULTIES][8];
+    unsigned char nNpcIntroFlags[NUM_DIFFICULTIES][8];
 };
 
 
@@ -1981,8 +1981,8 @@ int __fastcall PLRSAVE_ReadLegacyPlayerIntro(D2UnitStrc* pUnit, const D2PlrIntro
 
     for (int i = 0; i < NUM_DIFFICULTIES; ++i)
     {
-        PLRINTRO_CopyBufferToQuestIntroFlags(UNITS_GetPlayerData(pUnit)->pPlayerIntro[i], plrIntro.unk0x04[i]);
-        PLRINTRO_CopyBufferToNpcIntroFlags(UNITS_GetPlayerData(pUnit)->pPlayerIntro[i], plrIntro.unk0x1C[i]);
+        PLRINTRO_CopyBufferToQuestIntroFlags(UNITS_GetPlayerData(pUnit)->pPlayerIntro[i], plrIntro.nQuestIntroFlags[i]);
+        PLRINTRO_CopyBufferToNpcIntroFlags(UNITS_GetPlayerData(pUnit)->pPlayerIntro[i], plrIntro.nNpcIntroFlags[i]);
     }
 
     *pSize = sizeof(D2PlrIntroSaveStrc);
