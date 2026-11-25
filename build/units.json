@@ -55178,7 +55178,7 @@
     {
      "va": "0x005A61B0",
      "length": 56,
-     "name": "?MONSTERMODE_TakeVelocityParams@@YGXPAUD2TakeRecordStrc@@PAH1PAE@Z"
+     "name": "?MONSTERMODE_TakeVelocityParams@@YGXPAUD2AiParamStrc@@PAH1PAE@Z"
     },
     {
      "va": "0x005A61F0",
@@ -55207,17 +55207,17 @@
     {
      "va": "0x005A6290",
      "length": 228,
-     "name": "?MONSTERMODE_ComputePath@@YGHHPAUD2MonVelocityParamStrc@@PAUD2UnitStrc@@E@Z"
+     "name": "?MONSTERMODE_ComputePath@@YGHHPAUD2AiParamStrc@@PAUD2UnitStrc@@E@Z"
     },
     {
      "va": "0x005A6380",
      "length": 102,
-     "name": "?MONSTERMODE_SetVelocityPercent@@YAXPAUD2UnitStrc@@PAUD2MonVelocityParamStrc@@@Z"
+     "name": "?MONSTERMODE_SetVelocityPercent@@YAXPAUD2UnitStrc@@PAUD2AiParamStrc@@@Z"
     },
     {
      "va": "0x005A63F0",
      "length": 160,
-     "name": "?MONSTERMODE_UpdateModePath@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@HPAUD2MonVelocityParamStrc@@HE@Z"
+     "name": "?MONSTERMODE_UpdateModePath@@YGXPAUD2GameStrc@@PAUD2UnitStrc@@HPAUD2AiParamStrc@@HE@Z"
     },
     {
      "va": "0x005A6490",
