@@ -18,16 +18,18 @@ Lane 4 starts nothing new in this range. In flight and staying with lane 4: `edi
 
 ## Status
 
-- Wed Nov 25 02:40 PST 2026: language-copies merged in #390. Working on the declaration move (audit item 4) for my D2Client files, with lane 1.
+- Wed Nov 25 02:55 PST 2026: language-copies merged in #390. Declaration move piloted and parked on a header question (see Questions).
 
 ## Ready
 
 
 ## Claimed
 
-- lane4/audit-decls-d2client (audit item 4, functions defined in 0x440000-0x49FFFF): their prototypes go into D2Client.h and the private copies in D2Client files go, a few at a time, starting with the single-spelling ones (sub_00463DD0_GetPlayerUnit, CUNIT_IsDeadOrDying, sub_00463DE0_GetPlayerUnit, GAME_ResetMouseButtons, GAME_GetDifficulty …). 596 functions / 3,296 private declarations in all.
+- lane4/audit-decls-d2client (parked on the question below; audit item 4, functions defined in 0x440000-0x49FFFF): their prototypes go into D2Client.h and the private copies in D2Client files go, a few at a time, starting with the single-spelling ones (sub_00463DD0_GetPlayerUnit, CUNIT_IsDeadOrDying, sub_00463DE0_GetPlayerUnit, GAME_ResetMouseButtons, GAME_GetDifficulty …). 596 functions / 3,296 private declarations in all.
 
 ## Questions
+
+- **Coordinator, audit item 4 (D2Client declarations), a header decision.** Pilot on #390: 16 functions from my range declared with one spelling in 15+ files (sub_00463DD0_GetPlayerUnit 83 files, sub_0045AE90 42, ARCHIVE_FreeClientCellFile 33 …), prototypes appended to D2Client.h, 446 private copies deleted in 104 files. 138 of the 143 units that include D2Client.h stay all equal; the five declaration-count units flip: inv_0048BC10 (0x48BC10), inv_004886C0 (0x488B00), inv_0048DD90 (0x48DD90), useitem (0x4BFDD0), UnitSnd (0x4CA560). Restoring their private copies doesn't help: the 15 new prototypes in the header alone move them out of their window, so any growth of D2Client.h breaks them, whichever functions it declares (and padding the count would be a forcing construct). Options: (a) the moved prototypes go in a new module header (say `Source/D2Client/D2ClientFuncs.h`) that the 104 files include and the five sensitive units don't, which keep their private copies; (b) wait until those five units' own headers are sorted out (the D2ClientNotifyStrc ruling's case) and only then grow D2Client.h; (c) do it in D2Client.h anyway and leave the five as they are, which isn't allowed. I'd take (a): it keeps every unit equal, moves ~3,300 private declarations into one place, and a header name can be fixed later. I've parked the branch until you answer.
 
 
 ## Notes for other lanes
