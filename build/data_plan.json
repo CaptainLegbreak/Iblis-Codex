@@ -1339,8 +1339,8 @@
    "state": "included"
   },
   "Source/D2Glide/Src/glCore.cpp": {
-   "bytes": 424,
-   "definitions": 7,
+   "bytes": 420,
+   "definitions": 6,
    "externs": [
     "extern \"C\" void __cdecl GLDEBUGFONT_DebugPrintf(); // 0x0050BC90",
     "extern \"C\" void __cdecl GLIDE_DebugDraw(); // 0x0050BEF0",
@@ -1376,15 +1376,15 @@
    "state": "included"
   },
   "Source/D2Gfx/SRC/Window.cpp": {
-   "bytes": 300,
-   "definitions": 9,
+   "bytes": 484,
+   "definitions": 13,
    "externs": [
-    "extern \"C\" void __cdecl sub_004F8B80(); // 0x004F8B80",
-    "extern \"C\" void __cdecl sub_004F8DE0(); // 0x004F8DE0",
     "extern \"C\" struct d2data_0072F178_t gData_0072F178; // 0x0072F178",
     "extern \"C\" struct d2data_0072F6D0_t gData_0072F6D0; // 0x0072F6D0",
     "extern \"C\" struct d2data_0074BF28_t gData_0074BF28; // 0x0074BF28",
-    "extern \"C\" struct d2data_0074C4A8_t gData_0074C4A8; // 0x0074C4A8"
+    "extern \"C\" struct d2data_0074C4A8_t gData_0074C4A8; // 0x0074C4A8",
+    "extern \"C\" void __cdecl sub_004F8B80(); // 0x004F8B80",
+    "extern \"C\" void __cdecl sub_004F8DE0(); // 0x004F8DE0"
    ],
    "fn_types": {},
    "include": "gen/data/Source/D2Gfx/SRC/Window.inc",
@@ -3748,8 +3748,8 @@
    "state": "included"
   },
   "Source/D2Glide/Src/glDebugFont.cpp": {
-   "bytes": 204,
-   "definitions": 5,
+   "bytes": 24,
+   "definitions": 2,
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Glide/Src/glDebugFont.inc",
@@ -74809,7 +74809,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Glide/Src/glCore.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gdwGlobal_0072DA7C = ",
@@ -75123,7 +75123,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Glide/Src/glDebugFont.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "fill": 15,
    "form": "declared",
    "fwd": null,
@@ -75154,7 +75154,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Glide/Src/glDebugFont.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "fill": 15,
    "form": "declared",
    "fwd": null,
@@ -75185,7 +75185,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Glide/Src/glDebugFont.cpp",
+   "file": "Source/D2Gfx/SRC/Window.cpp",
    "fill": 15,
    "form": "declared",
    "fwd": null,
