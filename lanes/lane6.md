@@ -2,7 +2,7 @@
 
 Written by lane 6 only. Newest entries at the top of each section; delete what is done.
 
-Status (Wed Nov 25 02:05 PST 2026): ready on #384: emit-trim, data-only-units, lang-copies-2 (on data-only-units), audit-params-d2win. Next: the last decompiler names in D2Win (D2WinList.cpp, Unknown_004F6F60.cpp), the D2Win language-copy runs in language-objects.md, then placeholders by run.
+Status (Wed Nov 25 01:55 PST 2026): data-only-units (#385), lang-copies-2 (#386) and audit-params-d2win (#387) merged. emit-trim rebuilt on #387 without CelCmp.cpp; emit-trim-celcmp and audit-params-d2win-2 (D2WinList.cpp, Unknown_004F6F60.cpp) verifying.
 
 ## Ready
 
@@ -11,13 +11,10 @@ Status (Wed Nov 25 02:05 PST 2026): ready on #384: emit-trim, data-only-units, l
 
 
 
-- lane6/emit-trim af9fc3bf (on #384; replaces 53284e97): audit-379's emit helpers and noinline in my files. 25 emit helpers deleted where their unit stays all equal without them (CelCmp, SpriteCache, SubTile, Unknown_006008D0, CharSel_0042FFE0, CharSel_004378D0, MainMenus, ChatDlg, D2WinImage, D2BNClient Unknown_00518C00/Unknown_0051A470, Bnclient Unknown_00520DC0), with the statics only they called; one `__declspec(noinline)` (ChatDlg's CHATDLG_DestroyProfileControls). The other 16 noinlines are needed (listed under Left in place). It spans modules in one branch per kind, because each module's share is a few lines; say if you want it split. Full build: Game.exe identical, tree 59c19b0c89f8151a43708109e2b96adafc3ece5a, borrowed code / data 11,250 / 265 B; auditguard: emit helpers 547 -> 520, noinline 105 -> 104, no count rose.
+- lane6/emit-trim (rebased onto #387 and re-verifying; CelCmp.cpp's part is split out as lane6/emit-trim-celcmp, so this branch no longer touches that file): 22 emit helpers and one noinline in my other files. Line with SHA and tree follows within minutes of the build.
 
-- lane6/data-only-units ce3a452b (on #384; replaces 6fe6a89b): the coordinator's data-only unit, two commits. (1) 3171b5a2 link_exe.py: a unit with an empty function list is loaded with the others, its plan entries and `// build: symbol` lines anchor its sections, and an object one of whose sections was placed goes to the linker (verified alone on #381 as 2f626f1b: Game.exe identical, borrowed data unchanged at 281 B; no unit on main has an empty function list, so it is a no-op there). (2) ce3a452b the case-table object becomes Unknown_00730538.cpp (copy 0x730538, gawToUpperTable, gaCaseTable; no code), and compare/strnicmp join the Unicode run, renamed Unknown_00526490.cpp; Unknown_00526610.cpp goes. Full build: Game.exe identical, tree c5a7a20f93a31b1e0b03f21c09f3119f9d2bd033, borrowed code / data 11,250 / 265 B (= main). Copied-region check (on #381, against (1) alone): every byte class equal, and the unplaced sections are the same sections at the same addresses, only the object's name changes. auditguard: no count rose.
 
-- lane6/lang-copies-2 f553914a (on lane6/data-only-units, #384; merge after it; replaces f4988e71): D2Lang's language copies follow their objects. Unknown_00526100.cpp's plan held four; 0x730A28 starts the Unicode routines' data and 0x730A64 the text-format object's, so their records move to Unknown_00526490.cpp and Unknown_00527090.cpp (plan entries added). 0x730AA0 is SRP.cpp's (it precedes gpszSrpSeparator) and stays for lane 3. Full build: Game.exe identical, tree b7d8cb364d510a118967f23ebd61561c41d08733, borrowed code / data 11,250 / 265 B; auditguard: no count rose.
 
-- lane6/audit-params-d2win e41d3a66 (on #384): audit-379's decompiler parameter names in my files. D2WinTextBox.cpp's setters and line functions name what they take (nWrappedLineGap/nLineGap, nLineNum, nOffset, nAlignFlags, nColor); SCROLLBAR_Create's last parameter is pfnHandler; D2Comp.cpp's D2Win_10154, D2Win_10158 and D2COMP_IsItemTypeDescendant name theirs (its empty stub leaves them unnamed); 18 prototypes in D2Win, D2Launch, D2Multi, D2Net and Bnclient take the names their definitions use. TEXTBOX_Draw's locals are left to lane 7 (forcing construct). No code changes. Full build: Game.exe identical, tree 1cdd70f50500687535bf2ac2c4783f8a4a310665, borrowed code / data 11,250 / 265 B; auditguard: a1/v12 names 2,789 -> 2,687, no count rose.
 
 ## Questions
 
