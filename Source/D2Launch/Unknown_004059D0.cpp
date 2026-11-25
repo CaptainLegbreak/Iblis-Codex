@@ -136,7 +136,7 @@ void __stdcall sub_00405A70_WriteSurveyLocale()
 // 0x00405C30
 int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
 {
-    if (pCfg->unk0x04 == 1)
+    if (pCfg->bCrashApp == 1)
     {
         ERRORMANAGER_ForceCrash();
     }

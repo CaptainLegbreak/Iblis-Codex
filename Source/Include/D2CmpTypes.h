@@ -102,16 +102,16 @@ struct D2CmpGfxHashEntryStrc
 
 struct D2CmpTileBlockStrc
 {
-    int nValue10; // 0x00
-    short nValue14; // 0x04
-    unsigned short unk0x06; // 0x06
+    int nLightDirection; // 0x00
+    short nRoofHeight; // 0x04
+    unsigned short nMaterialFlags; // 0x06
     int nHeight; // 0x08
     int nWidth; // 0x0C
-    int unk0x10; // 0x10
-    int nValue24; // 0x14
-    int nValue28; // 0x18
-    int nValue2C; // 0x1C
-    int nValue30; // 0x20
+    int nHeightToBottom; // 0x10
+    int nOrientation; // 0x14
+    int nIndex; // 0x18
+    int nSubIndex; // 0x1C
+    int nRarity; // 0x20
     union
     {
         int nOwnerId; // 0x24
@@ -220,14 +220,14 @@ struct D2CmpTileStrc
     int nMaxY; // 0x04
     int nMaxX; // 0x08
     int nMinY; // 0x0C
-    int nValue10; // 0x10
-    short nValue14; // 0x14
-    unsigned short unk0x16; // 0x16
+    int nLightDirection; // 0x10
+    short nRoofHeight; // 0x14
+    unsigned short nMaterialFlags; // 0x16
     int unk0x18[3]; // 0x18
-    int nValue24; // 0x24
-    int nValue28; // 0x28
-    int nValue2C; // 0x2C
-    int nValue30; // 0x30
+    int nOrientation; // 0x24
+    int nIndex; // 0x28
+    int nSubIndex; // 0x2C
+    int nRarity; // 0x30
     union
     {
         int nOwnerId; // 0x34

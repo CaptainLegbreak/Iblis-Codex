@@ -2671,13 +2671,13 @@ void __fastcall CHATDLG_RunCommand(char* szText)
         return;
     }
 
-    if (!gpLaunchFuncs->pfn0x68())
+    if (!gpLaunchFuncs->pfnIsSocketConnected())
     {
         CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
         return;
     }
 
-    gpLaunchFuncs->pfn0x14(szText);
+    gpLaunchFuncs->pfnChatCommand(szText);
 }
 
 // 0x0043ECE0
@@ -2999,8 +2999,8 @@ int __stdcall CHATDLG_GetUserDataReply(int nUnused)
     D2LaunchRecord3Strc tRecord;
     tRecord.nValue0 = 8;
     tRecord.nValue1 = 0x28;
-    tRecord.f_8 = 0xC8;
-    if (gpLaunchFuncs->pfn0x7C(3, 1, &gKey_0077B0A8, &tRecord) || gbFlag_0077ADA4)
+    tRecord.nValue2 = 0xC8;
+    if (gpLaunchFuncs->pfnGetBattleReadUserData(3, 1, &gKey_0077B0A8, &tRecord) || gbFlag_0077ADA4)
         D2Win_StopMessageLoop();
     return 1;
 }
@@ -3011,8 +3011,8 @@ __declspec(noinline) int __fastcall CHATDLG_WriteUserData(int nA, int nB, int nC
     D2LaunchRecord3Strc tRecord;
     tRecord.nValue0 = nB;
     tRecord.nValue1 = nC;
-    tRecord.f_8 = nD;
-    return gpLaunchFuncs->pfn0x74(nA, 3, &gKey_0070CD54, &tRecord);
+    tRecord.nValue2 = nD;
+    return gpLaunchFuncs->pfnBattleWriteUserData(nA, 3, &gKey_0070CD54, &tRecord);
 }
 
 static void PrintTextBox(const Unicode* pText, int nColor)
@@ -3793,9 +3793,9 @@ int __fastcall MAINMENUS_RequestProfile(int nA, int nB, int nC, int nD)
 {
     gtRecord_0077B0A8.nValue0 = nB;
     gtRecord_0077B0A8.nValue1 = nC;
-    gtRecord_0077B0A8.f_8 = nD;
+    gtRecord_0077B0A8.nValue2 = nD;
 // build: symbol ?gpLaunchFuncs@* 0x0077B09C
-    gpLaunchFuncs->pfn0x78(nA, 3, 1, &gKey_0070CD54);
+    gpLaunchFuncs->pfnBattleRequestReadUserData(nA, 3, 1, &gKey_0070CD54);
     gbFlag_0077ADA4 = 0;
     CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), CHATDLG_SetUserDataFlag);
     sub_004FA590_RunLoop(CHATDLG_GetUserDataReply);
@@ -3861,7 +3861,7 @@ int __stdcall CHATDLG_OnQuitMessage(int nArg)
 // 0x00440DE0
 int __stdcall CHATDLG_OpenAdUrl(int nUnused)
 {
-    const char* szURL = gpLaunchFuncs->pfn0xA4(gpLaunchContext);
+    const char* szURL = gpLaunchFuncs->pfnQueryAdUrl(gpLaunchContext);
     if (!szURL)
     {
         return 1;
@@ -3897,7 +3897,7 @@ int __stdcall CHATDLG_OpenAdUrl(int nUnused)
     {
         CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(0x14DC), 0);
     }
-    gpLaunchFuncs->pfn0x6C(gpLaunchContext, bOk == 0);
+    gpLaunchFuncs->pfnOnAdClick(gpLaunchContext, bOk == 0);
     return 1;
 }
 
@@ -3972,7 +3972,7 @@ void __cdecl CHATDLG_CreateGatewayControls()
 
     gpChannelListBox = CONTROL_Create(&gtChannelListInit);
 
-    const char* szList = gpLaunchFuncs->pfn0x20(gpCharInfo->aFlags1EF[0] & 0x20);
+    const char* szList = gpLaunchFuncs->pfnGetChannelList(gpCharInfo->aFlags1EF[0] & 0x20);
 
     if (gpCharInfo->szRealm0x381[0])
     {
@@ -4009,7 +4009,7 @@ void __cdecl CHATDLG_CreateGatewayControls()
 // 0x004411E0
 void __fastcall CHATDLG_JoinChannel(const char* szText)
 {
-    gpLaunchFuncs->pfn0x1C((int)szText, 0, 0);
+    gpLaunchFuncs->pfnJoinChannel((int)szText, 0, 0);
     CHATDLG_ResetLaunchState();
     BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
     BUTTON_SetIsPressed(gpCreateScreenButton, 0);
@@ -4072,13 +4072,13 @@ int __stdcall CHATDLG_UseRegistryChannel(int nArg)
     char szText[0x20];
 
 // build: symbol ?gpLaunchFuncs@* 0x0077B09C
-    if (!gpLaunchFuncs->pfn0x68())
+    if (!gpLaunchFuncs->pfnIsSocketConnected())
     {
         CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
         return 1;
     }
 
-    gpLaunchFuncs->pfn0xAC();
+    gpLaunchFuncs->pfnFreeBNetNews();
     CHATDLG_PostClearMessage();
     CHATDLG_CreateChatScreen();
     CHATDLG_JoinChannel(SRegLoadString("Diablo II", "Default Channel", 0, szText, 0x20) ? szText : &gszEmptyAssertText);
@@ -4269,7 +4269,7 @@ int __stdcall CHATDLG_OnTick(int nUnused)
                         }
                         while (c != 0);
                         gbDone = 1;
-                        gpLaunchFuncs->pfn0x3C(gpCharInfo->szGameName, gpCharInfo->szText0x245);
+                        gpLaunchFuncs->pfnNotifyJoinedGame(gpCharInfo->szGameName, gpCharInfo->szText0x245);
                         sub_004F9160_SetLoopValue(0);
                         D2Win_StopMessageLoop();
                         return 1;
@@ -4347,7 +4347,7 @@ int __stdcall CHATDLG_OnTick(int nUnused)
                         }
                         WINMAIN_SendMcpJoinGame(gpCharInfo->szGameName, gpCharInfo->szText0x245, gwRequestId);
                         gwSavedRequestId = gwRequestId;
-                        gpLaunchFuncs->pfn0x34(gpCharInfo->szGameName, gpCharInfo->szText0x245, &gszEmptyAssertText, 0);
+                        gpLaunchFuncs->pfnRefreshGame(gpCharInfo->szGameName, gpCharInfo->szText0x245, &gszEmptyAssertText, 0);
                         break;
                     case 30:
                         gnChatLaunchMode = 0;
@@ -4377,7 +4377,7 @@ int __stdcall CHATDLG_OnTick(int nUnused)
         {
             s_dwTimer_0077BDC0 += dwElapsed;
             bUpdated = 1;
-            gpLaunchFuncs->pfn0x30();
+            gpLaunchFuncs->pfnCheckAd();
             const unsigned short wFlags = gpCharInfo->wFlags1EF;
             if (!(wFlags & 8) || !(wFlags & 4))
             {
@@ -4420,13 +4420,13 @@ int __cdecl CHATDLG_ConnectRealm()
         return 1;
     if (!gpLaunchFuncs)
         return 0;
-    if (!gpLaunchFuncs->pfn0x68())
+    if (!gpLaunchFuncs->pfnIsSocketConnected())
         return 0;
     if (MCPCONNECT_QueryAddress())
         return 1;
     gnFlag_0077BD60 = 0;
     CHATDLG_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), CHATDLG_OnRealmConnectCancel);
-    D2LaunchPayloadStrc* pPayload = gpLaunchFuncs->pfn0x44(gpCharInfo->szRealm0x22D, gszPassword);
+    D2LaunchPayloadStrc* pPayload = gpLaunchFuncs->pfnLogonRealm(gpCharInfo->szRealm0x22D, gszPassword);
     if (!pPayload)
         return 0;
     if (pPayload->nSize <= 8)
@@ -4463,7 +4463,7 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
     gdwGlobal_0077BBF8 = 1;
     gpLaunchFuncs = *(D2LaunchFuncsStrc**)((char*)pInfo + 0x225);
     D2_ASSERT(gpLaunchFuncs, 3303);
-    if (!gpLaunchFuncs->pfn0x68())
+    if (!gpLaunchFuncs->pfnIsSocketConnected())
         gbDone = 4;
     else
     {
@@ -4546,14 +4546,14 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
             nFlags = 1;
         if (gpCharInfo->szRealm0x361[0])
             nFlags |= 2;
-        gpLaunchFuncs->pfn0x54(pInfo->szCharName, szTitle, 0x25, pInfo->szRealm0x361, nFlags);
+        gpLaunchFuncs->pfnEnterChat(pInfo->szCharName, szTitle, 0x25, pInfo->szRealm0x361, nFlags);
     }
     else
     {
         LOGMANAGER_WriteLogLine("[D2MULTI]  Could not restore MCP connection.");
-        gpLaunchFuncs->pfn0x10();
+        gpLaunchFuncs->pfnCloseBNetConnection();
     }
-    if (gpLaunchFuncs->pfn0x68())
+    if (gpLaunchFuncs->pfnIsSocketConnected())
     {
         sub_00449E50_SetValue(0);
         InitializeCriticalSection(&gtChatLock);
@@ -4568,9 +4568,9 @@ int __fastcall CHATDLG_RunChat(D2ConfigStrc* pInfo)
             sub_00449E50_SetValue(0);
         }
         if (!gpCharInfo->szRealm0x361[0])
-            gpLaunchFuncs->pfn0xAC();
+            gpLaunchFuncs->pfnFreeBNetNews();
         DeleteCriticalSection(&gtChatLock);
-        gpLaunchFuncs->pfn0x58();
+        gpLaunchFuncs->pfnLeaveChat();
         if (gbDone != 4)
             D2MCPClientCloseMCP();
     }
@@ -4677,7 +4677,7 @@ static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand)
                     sub_004FC9B0_SetText(gpChatTextBox, wszMessage, 1, 0, 1);
                 return 1;
             }
-            if (!gpLaunchFuncs->pfn0x68())
+            if (!gpLaunchFuncs->pfnIsSocketConnected())
             {
                 CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
                 return 1;
@@ -4685,7 +4685,7 @@ static int CHATDLG_ReplyCommand(const char* szText, const char* szCommand)
 
 // build: symbol ?gszReplyFormat@* 0x006D55EC
             sprintf(szMessage, gszReplyFormat, gszLastWhisperer, pMessage);
-            gpLaunchFuncs->pfn0x14(szMessage);
+            gpLaunchFuncs->pfnChatCommand(szMessage);
             return 1;
         }
     }
@@ -4722,12 +4722,12 @@ int __cdecl CHATDLG_SendChatBuffer()
     }
     else
     {
-        if (!gpLaunchFuncs->pfn0x68())
+        if (!gpLaunchFuncs->pfnIsSocketConnected())
         {
             CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
             return 1;
         }
-        gpLaunchFuncs->pfn0x14(gszChatBuffer);
+        gpLaunchFuncs->pfnChatCommand(gszChatBuffer);
         COMCALLBACK_PrintOwnLine(gszChatBuffer);
     }
     EDITBOX_SetText(gpChatEdit, 0);
@@ -5418,7 +5418,7 @@ void __cdecl CHATDLG_UpdateJoinButtonState()
 int __stdcall CHATDLG_CheckStartAdvResult(int nUnused)
 {
     int nOut;
-    if (gpLaunchFuncs->pfn0x8C(&nOut))
+    if (gpLaunchFuncs->pfnGetCreateGameResult(&nOut))
         D2Win_StopMessageLoop();
     return 1;
 }

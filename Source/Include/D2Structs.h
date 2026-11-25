@@ -251,7 +251,7 @@ struct D2InventoryNodeStrc
 
 struct D2CorpseStrc
 {
-    unsigned int unk0x00; // 0x00
+    unsigned int bCounted; // 0x00
     unsigned int dwUnitId; // 0x04
     unsigned int unk0x08; // 0x08
     D2CorpseStrc* pNextCorpse; // 0x0C

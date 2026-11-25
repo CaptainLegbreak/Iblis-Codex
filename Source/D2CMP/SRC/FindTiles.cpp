@@ -46,9 +46,9 @@ static void FindTileAddEntry(D2FindTileEntryStrc** ppBucket, D2CmpTileBlockStrc*
     D2FindTileEntryStrc* pEntry = (D2FindTileEntryStrc*)FOG_Alloc(sizeof(D2FindTileEntryStrc), ".\\SRC\\FindTiles.cpp", 0x82, 0);
     D2_ASSERT(pEntry, 0x83);
     memset(pEntry, 0, sizeof(D2FindTileEntryStrc));
-    pEntry->nKey3 = pTile->nValue2C;
-    pEntry->nKey2 = pTile->nValue28;
-    pEntry->nKey1 = pTile->nValue24;
+    pEntry->nKey3 = pTile->nSubIndex;
+    pEntry->nKey2 = pTile->nIndex;
+    pEntry->nKey1 = pTile->nOrientation;
     pEntry->pNext = *ppBucket;
     *ppBucket = pEntry;
     D2FindTileNodeStrc* pNode = (D2FindTileNodeStrc*)FOG_Alloc(sizeof(D2FindTileNodeStrc), ".\\SRC\\FindTiles.cpp", 0x8E, 0);
@@ -100,11 +100,11 @@ void __fastcall FindTileAddTile(D2FindTileEntryStrc** ppTable, D2CmpTileBlockStr
     int bNew = 1;
     D2_ASSERT(ppTable, 0xA5);
     D2_ASSERT(pTile, 0xA6);
-    D2FindTileEntryStrc** ppBucket = &ppTable[FindTileHash(pTile->nValue2C, pTile->nValue28, pTile->nValue24)];
+    D2FindTileEntryStrc** ppBucket = &ppTable[FindTileHash(pTile->nSubIndex, pTile->nIndex, pTile->nOrientation)];
     D2FindTileEntryStrc* pEntry = *ppBucket;
     while (pEntry && bNew)
     {
-        if (pEntry->nKey3 == pTile->nValue2C && pEntry->nKey2 == pTile->nValue28 && pEntry->nKey1 == pTile->nValue24)
+        if (pEntry->nKey3 == pTile->nSubIndex && pEntry->nKey2 == pTile->nIndex && pEntry->nKey1 == pTile->nOrientation)
         {
             bNew = 0;
         }

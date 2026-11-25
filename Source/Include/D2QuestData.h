@@ -525,7 +525,7 @@ struct D2Act4Quest1Strc
 {
     int unk0x00; // 0x00
     D2CoordStrc pCoords; // 0x04
-    unsigned char unk0x0C; // 0x0C
+    unsigned char bPlayerStartedGame; // 0x0C
     unsigned char bIzualGhostIsSpawning; // 0x0D
     unsigned char unk0x0E; // 0x0E
     unsigned char bGhostActivated; // 0x0F

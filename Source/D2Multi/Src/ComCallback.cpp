@@ -1070,12 +1070,12 @@ int __stdcall COMCALLBACK_SendAwayCommand(int nUnused)
     {
         gdwLastCommandTick = dwTick;
         sprintf(szText, "/away Away from the keyboard.");
-        if (!gpLaunchFuncs->pfn0x68())
+        if (!gpLaunchFuncs->pfnIsSocketConnected())
         {
             CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(AWAY_ERROR_STRING), sub_0043E6C0_OnError);
             return 0;
         }
-        gpLaunchFuncs->pfn0x14(szText);
+        gpLaunchFuncs->pfnChatCommand(szText);
         EDITBOX_SetText(gpChatEditBox_0077BD94, 0);
     }
     return 1;
@@ -1640,7 +1640,7 @@ __declspec(noinline) void __cdecl CHATDLG_RefreshChatScreen(); // 0x0043FBD0
 // 0x00447700
 int __fastcall CHATDLG_OnChannelDoesNotExist(int nA, int nB, const char* szText, int nLength)
 {
-    gpLaunchFuncs->pfn0x1C(nLength, 1, 0);
+    gpLaunchFuncs->pfnJoinChannel(nLength, 1, 0);
     CHATDLG_RefreshChatScreen();
     return 1;
 }
@@ -2384,13 +2384,13 @@ int __stdcall COMCALLBACK_SquelchSelectedUser(int nUnused)
     }
     sprintf(szText, "/squelch *%s", pName);
     COMCALLBACK_ClearSelectedUser();
-    if (!gpLaunchFuncs->pfn0x68())
+    if (!gpLaunchFuncs->pfnIsSocketConnected())
     {
         CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
         return 0;
     }
 
-    gpLaunchFuncs->pfn0x14(szText);
+    gpLaunchFuncs->pfnChatCommand(szText);
     EDITBOX_SetText(gpChatEditBox_0077BD94, 0);
     pName = SStrChr(szName, '*');
     if (!pName || !*++pName)
@@ -2429,13 +2429,13 @@ int __stdcall COMCALLBACK_UnsquelchSelectedUser(int nUnused)
     }
     sprintf(szText, "/unsquelch *%s", pName);
     COMCALLBACK_ClearSelectedUser();
-    if (!gpLaunchFuncs->pfn0x68())
+    if (!gpLaunchFuncs->pfnIsSocketConnected())
     {
         CHATDLG_ShowError(D2LANG_GetStringFromTblIndex(0x14E7), sub_0043E6C0_OnError);
         return 0;
     }
 
-    gpLaunchFuncs->pfn0x14(szText);
+    gpLaunchFuncs->pfnChatCommand(szText);
     EDITBOX_SetText(gpChatEditBox_0077BD94, 0);
     sub_00611560_GetSquelchList()->Unsquelch(szName);
     return 1;

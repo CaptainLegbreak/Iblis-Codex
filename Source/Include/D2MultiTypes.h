@@ -24,35 +24,35 @@ struct D2LaunchGameRecStrc;
 struct D2LaunchFuncsStrc
 {
     int unk0x00[4]; // 0x00
-    void (__fastcall* pfn0x10)(void); // 0x10
-    int (__fastcall* pfn0x14)(void*); // 0x14
+    void (__fastcall* pfnCloseBNetConnection)(void); // 0x10
+    int (__fastcall* pfnChatCommand)(void*); // 0x14
     const char* (__cdecl* pfnGetUserName)(void); // 0x18
-    int (__fastcall* pfn0x1C)(int, int, int); // 0x1C
-    const char* (__fastcall* pfn0x20)(int); // 0x20
+    int (__fastcall* pfnJoinChannel)(int, int, int); // 0x1C
+    const char* (__fastcall* pfnGetChannelList)(int); // 0x20
     int (__fastcall* pfnGetMessage)(int*, D2LaunchMsgStrc*); // 0x24
     int unk0x28[2]; // 0x28
-    void (__fastcall* pfn0x30)(void); // 0x30
-    int (__fastcall* pfn0x34)(char*, char*, const char*, int); // 0x34
+    void (__fastcall* pfnCheckAd)(void); // 0x30
+    int (__fastcall* pfnRefreshGame)(char*, char*, const char*, int); // 0x34
     D2LaunchGameListStrc* (__fastcall* pfQueryGames)(const char*, const char*, int, int); // 0x38
-    int (__fastcall* pfn0x3C)(char*, char*); // 0x3C
-    int unk0x40; // 0x40
-    D2LaunchPayloadStrc* (__fastcall* pfn0x44)(char*, const char*); // 0x44
+    int (__fastcall* pfnNotifyJoinedGame)(char*, char*); // 0x3C
+    int pfnSendRealmList; // 0x40
+    D2LaunchPayloadStrc* (__fastcall* pfnLogonRealm)(char*, const char*); // 0x44
     int unk0x48[3]; // 0x48
-    void (__fastcall* pfn0x54)(char*, char*, int, char*, int); // 0x54
-    void (__fastcall* pfn0x58)(void); // 0x58
+    void (__fastcall* pfnEnterChat)(char*, char*, int, char*, int); // 0x54
+    void (__fastcall* pfnLeaveChat)(void); // 0x58
     int unk0x5C[3]; // 0x5C
-    int (__fastcall* pfn0x68)(void); // 0x68
-    void (__fastcall* pfn0x6C)(void*, int); // 0x6C
+    int (__fastcall* pfnIsSocketConnected)(void); // 0x68
+    void (__fastcall* pfnOnAdClick)(void*, int); // 0x6C
     int unk0x70; // 0x70
-    int (__fastcall* pfn0x74)(int, int, void*, D2LaunchRecord3Strc*); // 0x74
-    int (__fastcall* pfn0x78)(int, int, int, void*); // 0x78
-    int (__fastcall* pfn0x7C)(int, int, void*, D2LaunchRecord3Strc*); // 0x7C
+    int (__fastcall* pfnBattleWriteUserData)(int, int, void*, D2LaunchRecord3Strc*); // 0x74
+    int (__fastcall* pfnBattleRequestReadUserData)(int, int, int, void*); // 0x78
+    int (__fastcall* pfnGetBattleReadUserData)(int, int, void*, D2LaunchRecord3Strc*); // 0x7C
     int unk0x80[3]; // 0x80
-    int (__fastcall* pfn0x8C)(int*); // 0x8C
+    int (__fastcall* pfnGetCreateGameResult)(int*); // 0x8C
     int unk0x90[5]; // 0x90
-    const char* (__fastcall* pfn0xA4)(void*); // 0xA4
+    const char* (__fastcall* pfnQueryAdUrl)(void*); // 0xA4
     void (__fastcall* pfn0xA8)(void (__fastcall*)(void*, void*), void (__cdecl*)(void)); // 0xA8
-    void (__fastcall* pfn0xAC)(void); // 0xAC
+    void (__fastcall* pfnFreeBNetNews)(void); // 0xAC
 };
 
 struct D2WinControlInitStrc
@@ -72,7 +72,7 @@ struct D2WinControlInitStrc
 struct D2ConfigStrc
 {
     int bIsExpansion; // 0x00
-    int unk0x04; // 0x04
+    int bCrashApp; // 0x04
     unsigned char bWindow; // 0x08
     unsigned char bNoFixedAspect; // 0x09
     unsigned char b3DFX; // 0x0A
@@ -98,7 +98,7 @@ struct D2ConfigStrc
     unsigned char bBarbarian; // 0x89
     unsigned char bDruid; // 0x8A
     unsigned char bAssassin; // 0x8B
-    unsigned char unk0x8C; // 0x8C
+    unsigned char bInvincible; // 0x8C
     char szAccount[24]; // 0x8D
     union
     {
@@ -137,7 +137,7 @@ struct D2ConfigStrc
         char aFlags1EF[2]; // 0x1EF
         unsigned short wFlags1EF;
     };
-    unsigned char unk0x1F1; // 0x1F1
+    unsigned char bNoMonsters; // 0x1F1
     unsigned short unk0x1F2; // 0x1F2
     unsigned char unk0x1F4[11]; // 0x1F4
     int dwAct; // 0x1FF
@@ -152,7 +152,7 @@ struct D2ConfigStrc
         unsigned int dwFlags209;
         int nValue209;
     };
-    unsigned char unk0x20D; // 0x20D
+    unsigned char nArenaTemplate; // 0x20D
     unsigned char unk0x20E; // 0x20E
     unsigned char unk0x20F; // 0x20F
     char nByte210; // 0x210
@@ -165,7 +165,7 @@ struct D2ConfigStrc
     int dwSeed; // 0x21A
     unsigned char unk0x21E[2]; // 0x21E
     unsigned char bNoSound; // 0x220
-    unsigned char unk0x221; // 0x221
+    unsigned char bQuests; // 0x221
     unsigned char unk0x222; // 0x222
     char bFlag223; // 0x223
     unsigned char bSoundBackground; // 0x224
@@ -267,7 +267,7 @@ struct D2LaunchRecord3Strc
 {
     int nValue0; // 0x00
     int nValue1; // 0x04
-    int f_8; // 0x08
+    int nValue2; // 0x08
 };
 
 struct D2LaunchMsgStrc

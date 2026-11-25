@@ -326,7 +326,7 @@ struct D2MissilesTxt
     unsigned char nToHit; // 0x18B
     unsigned char nAlwaysExplode; // 0x18C
     unsigned char nTrans; // 0x18D
-    unsigned char unk0x18E[0x8]; // 0x18E
+    unsigned char nQty[0x8]; // 0x18E
     unsigned char nHitShift; // 0x196
     unsigned char unk0x197[0x5]; // 0x197
     int nMissileStatValue; // 0x19C
@@ -460,7 +460,7 @@ struct D2MonStats2Txt
     unsigned char nInfernoRollback; // 0x10A
     unsigned char nResurrectMode; // 0x10B
     unsigned short nResurrectSkill; // 0x10C
-    unsigned char unk0x10E[0xA]; // 0x10E
+    unsigned char whtTop[0xA]; // 0x10E
     int dwAutomapCel; // 0x118
     unsigned char nLocalBlood; // 0x11C
     unsigned char nBleed; // 0x11D
@@ -478,7 +478,7 @@ struct D2ObjectsTxt
 {
     char szName[64]; // 0x00
     unsigned short wszName[64]; // 0x40
-    unsigned char unk0xC0[0x4]; // 0xC0
+    unsigned char szToken[0x4]; // 0xC0
     unsigned char nSelectable[8]; // 0xC4
     unsigned char nTrapProb[0x4]; // 0xCC
     unsigned int dwSizeX; // 0xD0
@@ -524,7 +524,7 @@ struct D2ObjectsTxt
     unsigned char nSync; // 0x175
     unsigned char unk0x176[0x2]; // 0x176
     int dwParm[8]; // 0x178
-    unsigned char unk0x198[0x4]; // 0x198
+    unsigned char nTgtFX[0x4]; // 0x198
     unsigned char nDamage; // 0x19C
     unsigned char nSelectBox; // 0x19D
     unsigned char unk0x19E[0x2]; // 0x19E
@@ -585,13 +585,13 @@ struct D2SkillsTxt
     short wAuraTargetState; // 0x82
     short wAuraEvent[3]; // 0x84
     short wAuraEventFunc[3]; // 0x8A
-    unsigned char unk0x90[0x4]; // 0x90
+    unsigned char wAuraTgtEvent[0x4]; // 0x90
     short nPassiveState; // 0x94
     short nPassiveIType; // 0x96
     short nPassiveStat[5]; // 0x98
     unsigned char unk0xA2[0x2]; // 0xA2
     unsigned int dwPassiveCalc[5]; // 0xA4
-    unsigned char unk0xB8[0x4]; // 0xB8
+    unsigned char wPassiveEvent[0x4]; // 0xB8
     short wSummon; // 0xBC
     char nPetType; // 0xBE
     unsigned char nSumMode; // 0xBF

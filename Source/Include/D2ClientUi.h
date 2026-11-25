@@ -117,7 +117,7 @@ struct D2ClientDialogStrc
     int bDrawCel; // 0x0C
     int bActive; // 0x10
     int bCountEnabled; // 0x14
-    int unk0x18; // 0x18
+    int bConsumeKeys; // 0x18
     int bModal; // 0x1C
     int bKeepKeys; // 0x20
     int nCenterX; // 0x24

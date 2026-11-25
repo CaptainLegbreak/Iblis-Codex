@@ -226,7 +226,7 @@ struct D2UnitEventStrc
     unsigned char unk0x01; // 0x01
     unsigned short nFlags; // 0x02
     unsigned int nEventGroup; // 0x04
-    int unk0x08; // 0x08
+    int nEventKey; // 0x08
     int nGUID1; // 0x0C
     int nGUID2; // 0x10
     D2UnitEventCallbackFunction pCallback; // 0x14

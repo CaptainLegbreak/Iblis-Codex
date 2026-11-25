@@ -94,7 +94,7 @@ void __cdecl PALETTE_ApplyPaletteTables()
     tPaletteTable.pDarkenPalette = gabDarkenPalette;
     tPaletteTable.pStandardColorsPalette = gabStandardColorsPalette;
     tPaletteTable.pRemap = gabPaletteRemap;
-    tPaletteTable.unk0x11C = gabRedPaletteMap;
+    tPaletteTable.pRedPaletteMap = gabRedPaletteMap;
     D2GFX_SetPaletteTables(&tPaletteTable);
 }
 

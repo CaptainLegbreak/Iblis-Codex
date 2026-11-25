@@ -1695,7 +1695,7 @@ void __fastcall sub_00477CA0_SendPacket67(const char* szName)
     }
     memcpy(tPacket.aWord, gpClientConfig->aWord207, sizeof(tPacket.aWord));
     memcpy(tPacket.aFlags, gpClientConfig->aState209, sizeof(tPacket.aFlags));
-    tPacket.nByte13 = gpClientConfig->unk0x20D;
+    tPacket.nByte13 = gpClientConfig->nArenaTemplate;
     tPacket.nByte2B = gpClientConfig->unk0x20E;
     tPacket.nByte2C = gpClientConfig->unk0x20F;
     tPacket.nByte14 = gpClientConfig->nByte210;

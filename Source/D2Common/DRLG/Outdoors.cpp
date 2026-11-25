@@ -678,7 +678,7 @@ void __fastcall DRLGOUTDOORS_AddAct124SecondaryBorder(D2DrlgLevelStrc* pLevel, i
     D2UnkOutdoorStrc a1 = {};
 
     a1.pLevel = pLevel;
-    a1.field_4 = &pOutdoors->unk0x54;
+    a1.field_4 = &pOutdoors->nWidth;
     a1.pGrid1 = &pOutdoors->pGrid[0];
     a1.pGrid2 = &pOutdoors->pGrid[2];
     a1.nLevelPrestId = nLevelPrestId;
@@ -706,7 +706,7 @@ void __fastcall DRLGOUTDOORS_GenerateLevel(D2DrlgLevelStrc* pLevel)
     void* pMemPool = pLevel->pDrlg->pMempool;
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
 
-    pOutdoors->unk0x54 = 0;
+    pOutdoors->nWidth = 0;
     pOutdoors->nRoomData = 0;
     pOutdoors->nGridWidth = pLevel->pLevelCoords.nWidth / 8;
     pOutdoors->nGridHeight = pLevel->pLevelCoords.nHeight / 8;

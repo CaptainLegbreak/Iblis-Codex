@@ -7319,7 +7319,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_ShadowMaster(D2GameStrc* pGame, D2
         case MONSTER_BLADECREEPER:
         case MONSTER_INFERNOSENTRY:
         case MONSTER_DEATHSENTRY:
-            ++pArg->unk0x20;
+            ++pArg->nSentryCount;
             return 0;
 
         default:
@@ -7332,41 +7332,41 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_ShadowMaster(D2GameStrc* pGame, D2
         return 0;
     }
 
-    if (pArg->unk0x00)
+    if (pArg->pOwner)
     {
-        const int nDistance = AITHINK_GetSquaredDistance(pArg->unk0x00, pTarget);
+        const int nDistance = AITHINK_GetSquaredDistance(pArg->pOwner, pTarget);
 
         if (nDistance <= 100)
         {
-            ++pArg->unk0x18;
+            ++pArg->nTargetsNearOwner;
         }
 
-        if (nDistance < pArg->unk0x14)
+        if (nDistance < pArg->nClosestToOwnerDistanceSquared)
         {
-            pArg->unk0x10 = pTarget;
-            pArg->unk0x14 = nDistance;
+            pArg->pClosestTargetToOwner = pTarget;
+            pArg->nClosestToOwnerDistanceSquared = nDistance;
         }
     }
 
     const int nDistance = AITHINK_GetSquaredDistance(pUnit, pTarget);
     if (nDistance <= 1024)
     {
-        ++pArg->unk0x1C;
+        ++pArg->nTargetCount;
 
         if (nDistance <= 100)
         {
-            ++pArg->unk0x0C;
+            ++pArg->nCloseTargetCount;
         }
 
-        if (nDistance < pArg->unk0x08)
+        if (nDistance < pArg->nClosestDistanceSquared)
         {
-            pArg->unk0x04 = pTarget;
-            pArg->unk0x08 = nDistance;
+            pArg->pClosestTarget = pTarget;
+            pArg->nClosestDistanceSquared = nDistance;
         }
 
         if (AITHINK_IsTargetKillableByShadowMaster(pUnit, pTarget))
         {
-            pArg->unk0x24 = pTarget;
+            pArg->pKillableTarget = pTarget;
         }
     }
 
@@ -7596,9 +7596,9 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
     {
 
         D2ShadowMasterAiCallbackArgStrc arg = {};
-        arg.unk0x00 = pOwner;
-        arg.unk0x08 = 0x7FFFFFFF;
-        arg.unk0x14 = 0x7FFFFFFF;
+        arg.pOwner = pOwner;
+        arg.nClosestDistanceSquared = 0x7FFFFFFF;
+        arg.nClosestToOwnerDistanceSquared = 0x7FFFFFFF;
         AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_ShadowMaster, 1);
 
         if (!bCombat)
@@ -7607,13 +7607,13 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
             {
                 pTarget = pOwnerTarget;
             }
-            else if (arg.unk0x10)
+            else if (arg.pClosestTargetToOwner)
             {
-                pTarget = arg.unk0x10;
+                pTarget = arg.pClosestTargetToOwner;
             }
-            else if (arg.unk0x24)
+            else if (arg.pKillableTarget)
             {
-                D2UnitStrc* pArg24 = arg.unk0x24;
+                D2UnitStrc* pArg24 = arg.pKillableTarget;
                 if (AITHINK_GetSquaredDistance(pUnit, pArg24) < 1024)
                 {
                     pTarget = pArg24;
@@ -7645,13 +7645,13 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
 
         const int bNotColliding = UNITS_TestCollisionWithUnit(pUnit, pTarget, COLLIDE_MISSILE_BARRIER) == 0;
 
-        D2UnitStrc* pArg10 = arg.unk0x10;
-        const int nArg20 = arg.unk0x20;
-        const int nArg1C = arg.unk0x1C;
+        D2UnitStrc* pArg10 = arg.pClosestTargetToOwner;
+        const int nArg20 = arg.nSentryCount;
+        const int nArg1C = arg.nTargetCount;
 
-        const int nArg0C = *(volatile int*)&arg.unk0x0C; // volatile only fixes where the original loads this field (before 0x08 and 0x18)
-        const int nArg08 = arg.unk0x08;
-        const int nArg18 = arg.unk0x18;
+        const int nArg0C = *(volatile int*)&arg.nCloseTargetCount; // volatile only fixes where the original loads this field (before 0x08 and 0x18)
+        const int nArg08 = arg.nClosestDistanceSquared;
+        const int nArg18 = arg.nTargetsNearOwner;
 
         if (nArg0C > 3)
         {
