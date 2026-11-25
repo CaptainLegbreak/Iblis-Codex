@@ -28838,11 +28838,6 @@
      "name": "ITEM_GetTargetPosition"
     },
     {
-     "va": "0x004DCD40",
-     "length": 200,
-     "name": "ITEM_ShowTimedHint"
-    },
-    {
      "va": "0x004DF630",
      "length": 131,
      "name": "ITEM_QueryCacheAddress"
@@ -30564,16 +30559,6 @@
      "va": "0x004DC710",
      "length": 156,
      "name": "?sub_004DC710_UpdateUnitSightFlag@@YAHPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004DCA30",
-     "length": 109,
-     "name": "?sub_004DCA30_ResetTokenCache@@YAXXZ"
-    },
-    {
-     "va": "0x004DCE10",
-     "length": 70,
-     "name": "?sub_004DCE10_UpdateTimedHint@@YIXHH@Z"
     }
    ]
   },
@@ -30606,9 +30591,24 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x004DCA30",
+     "length": 109,
+     "name": "?sub_004DCA30_ResetTokenCache@@YAXXZ"
+    },
+    {
      "va": "0x004DCAA0",
      "length": 666,
      "name": "?sub_004DCAA0_UpdateLevelSong@@YIXI@Z"
+    },
+    {
+     "va": "0x004DCD40",
+     "length": 200,
+     "name": "ITEM_ShowTimedHint"
+    },
+    {
+     "va": "0x004DCE10",
+     "length": 70,
+     "name": "?sub_004DCE10_UpdateTimedHint@@YIXHH@Z"
     }
    ]
   },

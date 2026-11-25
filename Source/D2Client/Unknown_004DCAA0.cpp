@@ -2,6 +2,7 @@
 #include "D2ClientUi.h"
 #include "D2ClientSound.h"
 #include "D2SoundEnvironTxt.h"
+#include "D2MultiTypes.h"
 
 struct D2TimedHintStrc
 {
@@ -41,6 +42,14 @@ void __fastcall SOUNDINST_LockSoundsById(int nHintId);                          
 void __cdecl MISSILE_CheckLevelSpeech();                                                               // 0x004CC270
 int __cdecl D2SOUND_GetMasterVolumeOption();                                                                                 // 0x00514CC0
 int __cdecl D2SOUND_GetMusicVolumeOption();                                                                                 // 0x00514CF0
+
+int __cdecl DLIGHTMAP_GetSoundTick(); // 0x00481820
+
+extern "C" void* __cdecl sub_00481810_GetTokenData(); // 0x00481810
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
+extern "C" int gnGlobal_007C89E4; // 0x007C89E4
 
 // 0x004DCAA0
 void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
@@ -181,3 +190,69 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
     *(int*)(sub_00481810() + nOffset) = nValue;
     gdwSongPositionTick = dwTick;
 }
+
+// 0x004DCD40
+void __fastcall ITEM_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG)
+{
+    if (gnCurrentSongId)
+    {
+        D2SoundsTxt* pSoundTxt = SOUNDHDR_GetSoundRecord(gnCurrentSongId);
+        void* pEntry = sub_004B9610(gnCurrentSongId);
+        if (pEntry && sub_004B9590(pEntry))
+        {
+            const int nValue = nIndex > 0 ? pSoundTxt->nBlock[nIndex - 1] : 0;
+            const int nOffset = 4 * (gnCurrentSongId - sub_004817F0());
+            *(int*)(sub_00481810() + nOffset) = nValue;
+            gdwSongPositionTick = DLIGHTMAP_GetSoundTick();
+        }
+    }
+
+    sub_004BA8F0();
+    gtTimedHint.bActive = 1;
+    gtTimedHint.pOwner = pOwner;
+    gtTimedHint.nEndTickA = sub_0044DB00() + nDelayA;
+    gtTimedHint.bActive2 = 1;
+    gtTimedHint.nArgE = nArgE;
+    gtTimedHint.nEndTickF = sub_0044DB00() + nDelayF;
+    gtTimedHint.nArgG = nArgG;
+    gtTimedHint.nEndTickC = sub_0044DB00() + nDelayC;
+}
+
+// 0x004DCE10
+void __fastcall sub_004DCE10_UpdateTimedHint(int nDelay, int nArg)
+{
+    if (gtTimedHint.bActive)
+    {
+        if (nArg)
+        {
+            gtTimedHint.nEndTickF = sub_0044DB00() + nDelay;
+        }
+
+        gtTimedHint.nArgG = nArg;
+        gtTimedHint.nEndTickC = gtTimedHint.nEndTickF + 0x32;
+    }
+}
+
+// 0x004DCA30
+void __cdecl sub_004DCA30_ResetTokenCache()
+{
+    if (gpClientConfig->bNoSound)
+        return;
+
+    gdwLevelEnterTick = 0;
+    gdwSongStartTick = 0;
+    gnCurrentSongId = 0;
+    gnSongLevelId = 0;
+    gdwSongPositionTick = 0;
+    gnGlobal_007C89E4 = 0;
+    gnSpeechLevelId = 0;
+
+    void* pTokenData = sub_00481810_GetTokenData();
+    if (pTokenData)
+    {
+        memset(pTokenData, 0, (1 - sub_004817F0() + sub_00481800()) * 4);
+    }
+}
+
+
+
