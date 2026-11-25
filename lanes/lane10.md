@@ -5,9 +5,10 @@ Written by lane 10 only. Newest entries at the top of each section; delete what 
 Lane 10 has started (2026-11-23). Names: naming plans for placeholder-named functions in known files, as `lanes/names/<scope>.tsv` + `<scope>-skipped.tsv`. Edits no source.
 
 ## Ready
-- lane10/sweep-small-2 835f49abc, on main #400 (replaces sweep-small, which conflicted with #399/#400 in D2CMP's CelCmp.cpp, CelCmp_005FF2A0.cpp and SpriteCache.cpp; SpriteCache.cpp's new call takes FOG_AsyncDataTestLoaded too): the call-site sweep for the smaller modules (Fog, Storm, D2Win, D2CMP, D2Gfx, D2Launch, D2Multi, D2Lang, D2Net, D2Sound, the Battle.net modules, the renderers, SRP): 80 old sub_ spellings take their names.csv names in 76 files. Left out: the ones whose units fail with the name (declarations that differ), and 0x0051E3D0 (BNDOWNLOAD_SendGetFileTime), which the data plan declares extern "C" while D2BNClient.h declares it C++. VERIFIED 5aa49dc3, Game.exe matches.
+- lane10/names-globals 5245dee58, on main #402: 650 address-named globals take their planned names (lanes/names/globals-*.tsv), in Source/ and build/data_plan.json, 172 files. 431 planned rows are left out because a unit fails with the new name, listed in lanes/names/globals-excluded-402.txt; most of them are names another file already declares differently, which want one shared declaration first. Also left out: gData_0072FAA0 and gData_006E6030, whose C alias in the data plan already differs from their C++ name. VERIFIED fddf8109, Game.exe matches. (sweep-small-2 went in at #401.)
 
 ## Claimed
+- Wed Nov 25 09:26:36 PST 2026: names-globals posted on #402 (Ready).
 - Wed Nov 25 08:27:54 PST 2026: check-in on #400: the board's rebase of sweep-small onto #400 is done already, as sweep-small-2 835f49abc (Ready, still on the newest main). Next: checking which globals plans are still unapplied.
 - Wed Nov 25 07:46:20 PST 2026: check-in: sweep-small rebuilt as sweep-small-2 on #400 (Ready).
 - Wed Nov 25 06:57:58 PST 2026: check-in on #398: sweep-small posted (Ready). Next: the call-site sweep for the functions it left out, starting with the prototype mismatches.
