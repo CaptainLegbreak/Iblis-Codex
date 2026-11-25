@@ -2723,6 +2723,7 @@ int __fastcall OBJMODE_MainObeliskHandler(D2GameStrc* pGame, int nPlayerGUID, in
         {
         case 2:
 
+            // Both arms do the same thing, but the original still loads hObject->dwAnimMode here for the test.
             if (nAnimMode == 3)
             {
                 packet58.nAction = 1;
