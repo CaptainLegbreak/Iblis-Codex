@@ -2740,7 +2740,6 @@ void __fastcall sub_006B2F60_SaveVideoConfig(int nRender, int nDevice)
 struct D2TileLibraryEntryStrc;
 struct D2ComObjectStrc;
 struct BufferPool;
-struct D2ComVtblStrc;
 struct BufferPool { unsigned int count; char unknown[24]; };
 extern unsigned int gRenderFlags; // 0x0096F3A8
 extern const unsigned int gPrimaryRenderMask; // 0x006CE26C
@@ -2769,14 +2768,6 @@ char* __fastcall sub_006BA420(BufferPool*,char*,char*,unsigned int,unsigned int)
 void __cdecl D3DSPRITE_InitSprites(); // 0x006B7110
 void __fastcall D3DFLOORCACHE_InvalidateTileCaches(D2TileLibraryEntryStrc* pTile); // 0x006BBB90
 void __stdcall TileSetHardwareFreeCallback(void*); // 0x00604A30
-struct D2ComVtblStrc
-{
-    void* pfQueryInterface;
-    void* pfAddRef;
-    unsigned long (__stdcall* pfRelease)(D2ComObjectStrc* pThis);
-    void* pfGetGammaRamp;
-    long (__stdcall* pfSetGammaRamp)(D2ComObjectStrc* pThis, unsigned long dwFlags, void* pRamp);
-};
 extern D2ComObjectStrc* gpInterface_00970E78; // 0x00970E78
 void __cdecl sub_006B9150_ReleaseResource(); // 0x006B9150
 void __cdecl D3DFLOORCACHE_ReleaseTileSurfaces(); // 0x006BB640

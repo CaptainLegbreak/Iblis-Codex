@@ -378,11 +378,6 @@ void __cdecl sub_006C80A0_Nop()
 
 #include "gen/data/Source/D2Gdi/Src/gdiCore.inc"
 
-struct D2RendererCallbacksStrc
-{
-    void (__fastcall* pfnCallback00)(int a, int b, int c, int d);
-};
-
 // 0x006C7A60
 int __cdecl sub_006C7A60()
 {
